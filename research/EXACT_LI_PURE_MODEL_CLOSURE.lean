@@ -1227,14 +1227,15 @@ theorem norm_criticalLiFrequencyWeight_le_one
 /-- The first Li site is exactly null after critical weighting. -/
 theorem criticalLiFrequencyWeight_two_eq_zero :
     criticalLiFrequencyWeight 2 = 0 := by
-  have hLi2 : logarithmicIntegralFromTwo (2 : ℝ) = 0 := by
-    simp [logarithmicIntegralFromTwo]
-  have hdensity : primeSievePNTDensity 2 = 0 := by
-    unfold primeSievePNTDensity
-    rw [show (((2 - 1 : ℕ) : ℝ)) = 1 by norm_num,
-      logarithmicIntegralFromTwo_one, hLi2]
-    simp
-  simp [criticalLiFrequencyWeight, hdensity]
+  have hLi2 :
+      logarithmicIntegralFromTwo (((2 : ℕ) : ℝ)) = 0 := by
+    norm_num [logarithmicIntegralFromTwo]
+  have hLi1 :
+      logarithmicIntegralFromTwo (((2 - 1 : ℕ) : ℝ)) = 0 := by
+    norm_num [logarithmicIntegralFromTwo_one]
+  unfold criticalLiFrequencyWeight primeSievePNTDensity
+  rw [hLi2, hLi1]
+  simp
 
 /-- The only remaining exceptional small site, q=3, is still inside the
 critical unit ball. -/
@@ -1245,10 +1246,15 @@ theorem norm_criticalLiFrequencyWeight_three_le_one :
       (y := 2) (q := 3) (by norm_num) (by norm_num)
   have hlogpos : 0 < Real.log (2 : ℝ) :=
     Real.log_pos (by norm_num)
-  have hinv : (Real.log (2 : ℝ))⁻¹ ≤ (3 / 2 : ℝ) := by
-    rw [inv_le_iff₀ hlogpos]
+  have h23 : (2 / 3 : ℝ) ≤ Real.log (2 : ℝ) := by
     have hl := Real.log_two_gt_d9
     nlinarith
+  have h23pos : (0 : ℝ) < 2 / 3 := by norm_num
+  have hinv0 :
+      (Real.log (2 : ℝ))⁻¹ ≤ ((2 / 3 : ℝ))⁻¹ :=
+    (inv_le_inv₀ hlogpos h23pos).2 h23
+  have hinv : (Real.log (2 : ℝ))⁻¹ ≤ (3 / 2 : ℝ) := by
+    convert hinv0 using 1 <;> norm_num
   have hw15 : ‖primeSievePNTDensity 3‖ ≤ (3 / 2 : ℝ) :=
     hw.trans hinv
   have hsquare := norm_criticalSqrtWeight_sq 3
@@ -2111,6 +2117,7 @@ private theorem norm_hardCorePoissonCorrectionCoeff_eq_variationTerm
           simp [hardCorePoissonCorrectionVariationTerm]
       | succ m =>
           simpa [hardCorePoissonCorrectionVariationTerm,
+            hardCorePoissonCorrectionTailTerm,
             Nat.succ_eq_add_one, Nat.add_assoc] using
             norm_hardCorePoissonCorrectionCoeff_add_two z m
 
@@ -2147,6 +2154,19 @@ private theorem tsum_hardCorePoissonCorrectionVariationTerm_eq
   have hs :=
     hardCorePoissonCorrectionVariationTerm_summable z hz
   have hsplit := hs.sum_add_tsum_nat_add 2
+  have hhead :
+      (∑ m ∈ Finset.range 2,
+        hardCorePoissonCorrectionVariationTerm z m) = 1 := by
+    norm_num [Finset.sum_range_succ,
+      hardCorePoissonCorrectionVariationTerm]
+  have htail :
+      (∑' m : ℕ,
+        hardCorePoissonCorrectionVariationTerm z (m + 2)) =
+      ∑' m : ℕ,
+        hardCorePoissonCorrectionTailTerm ‖z‖ m := by
+    apply tsum_congr
+    intro m
+    simp [hardCorePoissonCorrectionVariationTerm, Nat.add_assoc]
   calc
     (∑' m : ℕ, hardCorePoissonCorrectionVariationTerm z m) =
         (∑ m ∈ Finset.range 2,
@@ -2156,7 +2176,7 @@ private theorem tsum_hardCorePoissonCorrectionVariationTerm_eq
       hsplit.symm
     _ = 1 + ∑' m : ℕ,
           hardCorePoissonCorrectionTailTerm ‖z‖ m := by
-      simp [hardCorePoissonCorrectionVariationTerm]
+      rw [hhead, htail]
 
 /-- **One complete Li correction factor has uniformly bounded critical
 variation.**  This is the local estimate needed by the hyperbola-product
@@ -2338,7 +2358,8 @@ theorem tsum_norm_hardCorePoissonCorrectionCoeff_eq_localVariation
   have hhead :
       (∑ m ∈ Finset.range 2,
         ‖hardCorePoissonCorrectionCoeff z m‖) = 1 := by
-    norm_num
+    norm_num [Finset.sum_range_succ,
+      hardCorePoissonCorrectionCoeff]
   have htail :
       (∑' m : ℕ,
         ‖hardCorePoissonCorrectionCoeff z (m + 2)‖) =
@@ -2692,30 +2713,15 @@ private theorem criticalWeightedVariation_arithmetic_one_le_one
   by_cases hX : 1 ≤ X
   · have hmem : 1 ∈ Finset.Icc 1 X :=
       Finset.mem_Icc.mpr ⟨le_rfl, hX⟩
-    calc
-      (∑ n ∈ Finset.Icc 1 X,
-          ‖(1 : ArithmeticFunction ℂ) n‖ /
-            Real.sqrt (n : ℝ))
-          = ‖(1 : ArithmeticFunction ℂ) 1‖ /
-              Real.sqrt (1 : ℝ) := by
-            rw [Finset.sum_eq_single 1]
-            · intro n hn hn1
-              simp [ArithmeticFunction.one_apply, hn1]
-            · intro hnot
-              exact (hnot hmem).elim
-      _ = 1 := by
-            simp [ArithmeticFunction.one_apply]
-  · have hempty : Finset.Icc 1 X = ∅ := by
-      apply Finset.eq_empty_iff_forall_not_mem.mpr
-      intro n hn
-      rcases Finset.mem_Icc.mp hn with ⟨hn1, hnX⟩
-      exact hX (hn1.trans hnX)
-    rw [hempty]
-    simp
+    simpa [ArithmeticFunction.one_apply, hmem]
+  · have hX0 : X = 0 := by omega
+    subst X
+    simp [ArithmeticFunction.one_apply]
 
 /-- **Finite correction products inherit the product of their local critical
 variations.**  This is exactly the repeated real-hyperbola inequality; no
 extra cross-site loss is introduced. -/
+set_option maxHeartbeats 1000000 in
 theorem criticalWeightedVariation_correctionProduct_le_localProduct
     (k X : ℕ) :
     criticalWeightedVariation
@@ -2760,11 +2766,10 @@ theorem criticalWeightedVariation_correctionProduct_le_localProduct
         _ = ∏ q ∈ Finset.Icc 2 (k + 2),
               criticalLiLocalCorrectionVariation q := by
               rw [Finset.prod_Icc_succ_top (by omega : 2 ≤ k + 2)]
-              ring
+              ac_rfl
         _ = ∏ q ∈ Finset.Icc 2 (Nat.succ k + 1),
               criticalLiLocalCorrectionVariation q := by
-              congr 3
-              omega
+              rfl
 
 /-- **Uniform weighted variation of the complete quadratic correction
 product.**  The bound is independent of both the Euler cutoff and the
@@ -2796,6 +2801,7 @@ theorem criticalWeightedVariation_correctionProduct_le_exp_collisionBudget
 This is the product that occurs in the exact factorization of the original
 Li hard-core state, before any critical transform is inserted into the owner
 weights.  Repeated hyperbola submultiplicativity introduces no collision loss. -/
+set_option maxHeartbeats 1000000 in
 theorem criticalWeightedVariation_liCorrectionProduct_le_localProduct
     (k X : ℕ) :
     criticalWeightedVariation
@@ -2840,11 +2846,10 @@ theorem criticalWeightedVariation_liCorrectionProduct_le_localProduct
         _ = ∏ q ∈ Finset.Icc 2 (k + 2),
               criticalLiLocalCorrectionVariation q := by
               rw [Finset.prod_Icc_succ_top (by omega : 2 ≤ k + 2)]
-              ring
+              ac_rfl
         _ = ∏ q ∈ Finset.Icc 2 (Nat.succ k + 1),
               criticalLiLocalCorrectionVariation q := by
-              congr 3
-              omega
+              rfl
 
 /-- **Uniform weighted variation of the complete raw quadratic correction
 product.**  The bound is independent of both the Li Euler cutoff and the
