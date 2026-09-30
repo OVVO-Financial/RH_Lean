@@ -388,6 +388,144 @@ theorem abs_vfMidLiveQuadratureError_le
     abs_vfMid_partialBandQuadratureError_le (r := R) hR hxl hxu
 
 
+
+/-- At square endpoints, one new tile changes the Li discrepancy by exactly
+that tile's quadrature residual. -/
+theorem vfMidLiError_sq_succ {R : ℕ} (hR : 2 ≤ R) :
+    vfMidLiError ((((R + 1 : ℕ) : ℝ) ^ 2)) =
+      vfMidLiError ((R : ℝ) ^ 2) + vfMidBandQuadratureError R := by
+  have hR1 : 2 ≤ R + 1 := by omega
+  have hR0 : (0 : ℝ) ≤ R := by positivity
+  have hRsq : (2 : ℝ) ≤ (R : ℝ) ^ 2 := by
+    have : (4 : ℝ) ≤ (R : ℝ) ^ 2 := by nlinarith
+    linarith
+  have hnext : (R : ℝ) ^ 2 ≤ (((R + 1 : ℕ) : ℝ) ^ 2) := by
+    norm_num [Nat.cast_add, Nat.cast_one]
+    nlinarith
+  have hI₁ :
+      IntervalIntegrable (fun t : ℝ => (Real.log t)⁻¹) volume
+        2 ((R : ℝ) ^ 2) :=
+    vfMid_invLog_intervalIntegrable (by norm_num) hRsq
+  have hI₂ :
+      IntervalIntegrable (fun t : ℝ => (Real.log t)⁻¹) volume
+        ((R : ℝ) ^ 2) ((((R + 1 : ℕ) : ℝ) ^ 2)) :=
+    vfMid_invLog_intervalIntegrable (by
+      have : (4 : ℝ) ≤ (R : ℝ) ^ 2 := by nlinarith
+      linarith) hnext
+  unfold vfMidLiError vfMidBandQuadratureError vfMidBandIntegral
+  rw [vfMid_sq hR1, vfMid_sq hR, vfMidFinishedMass_succ hR]
+  unfold vfMidLogarithmicIntegralFromTwo
+  rw [intervalIntegral.integral_add_adjacent_intervals hI₁ hI₂]
+  ring
+
+/-- Square-endpoint error grows by at most one fixed tile budget per square
+band.  The intentionally crude R-factor is exactly the root scale needed. -/
+theorem abs_vfMidLiError_sq_le (R : ℕ) (hR : 2 ≤ R) :
+    |vfMidLiError ((R : ℝ) ^ 2)| ≤
+      |vfMidLiError 4| + (R : ℝ) * vfMidTileQuadratureBound := by
+  induction R, hR using Nat.le_induction with
+  | base =>
+      have hQ : 0 ≤ vfMidTileQuadratureBound :=
+        vfMidTileQuadratureBound_nonneg
+      norm_num
+      nlinarith
+  | succ R hR ih =>
+      rw [vfMidLiError_sq_succ hR]
+      calc
+        |vfMidLiError ((R : ℝ) ^ 2) + vfMidBandQuadratureError R|
+            ≤ |vfMidLiError ((R : ℝ) ^ 2)| +
+                |vfMidBandQuadratureError R| := abs_add_le _ _
+        _ ≤ (|vfMidLiError 4| +
+              (R : ℝ) * vfMidTileQuadratureBound) +
+              vfMidTileQuadratureBound :=
+          add_le_add ih (abs_vfMidBandQuadratureError_le hR)
+        _ = |vfMidLiError 4| +
+              ((R + 1 : ℕ) : ℝ) * vfMidTileQuadratureBound := by
+          norm_num [Nat.cast_add, Nat.cast_one]
+          ring
+
+/-- Exact decomposition of the Li discrepancy into the completed-square
+endpoint plus the one live-band midpoint residual. -/
+theorem vfMidLiError_eq_sq_add_live {x : ℝ} (hx : 4 ≤ x) :
+    vfMidLiError x =
+      vfMidLiError ((vfMidSquareRootIndex x : ℝ) ^ 2) +
+        vfMidLiveQuadratureError (vfMidSquareRootIndex x) x := by
+  let R : ℕ := vfMidSquareRootIndex x
+  have hx0 : 0 ≤ x := by linarith
+  have hsqrt2 : (2 : ℝ) ≤ Real.sqrt x := by
+    have hs := Real.sq_sqrt hx0
+    have hs0 := Real.sqrt_nonneg x
+    nlinarith
+  have hR : 2 ≤ R := by
+    dsimp [R, vfMidSquareRootIndex]
+    exact Nat.le_floor hsqrt2
+  have hRle : (R : ℝ) ≤ Real.sqrt x := by
+    dsimp [R, vfMidSquareRootIndex]
+    exact Nat.floor_le (Real.sqrt_nonneg x)
+  have hxl : (R : ℝ) ^ 2 ≤ x := by
+    have hs := Real.sq_sqrt hx0
+    nlinarith [Real.sqrt_nonneg x]
+  have hI₁ :
+      IntervalIntegrable (fun t : ℝ => (Real.log t)⁻¹) volume
+        2 ((R : ℝ) ^ 2) :=
+    vfMid_invLog_intervalIntegrable (by norm_num) (by
+      have : (4 : ℝ) ≤ (R : ℝ) ^ 2 := by
+        have hRreal : (2 : ℝ) ≤ R := by exact_mod_cast hR
+        nlinarith
+      linarith)
+  have hI₂ :
+      IntervalIntegrable (fun t : ℝ => (Real.log t)⁻¹) volume
+        ((R : ℝ) ^ 2) x :=
+    vfMid_invLog_intervalIntegrable (by
+      have hRreal : (2 : ℝ) ≤ R := by exact_mod_cast hR
+      nlinarith) hxl
+  unfold vfMidLiError
+  rw [vfMid_sq hR]
+  unfold vfMid vfMidLiveMass vfMidLiveQuadratureError vfMidLiveIntegral
+  rw [if_neg (not_lt.mpr hx)]
+  change
+    vfMidFinishedMass R +
+        (x - (R : ℝ) ^ 2) / Real.log (((R : ℝ) ^ 2 + x) / 2) -
+          vfMidLogarithmicIntegralFromTwo x =
+      (vfMidFinishedMass R - vfMidLogarithmicIntegralFromTwo ((R : ℝ) ^ 2)) +
+        ((x - (R : ℝ) ^ 2) / Real.log (((R : ℝ) ^ 2 + x) / 2) -
+          ∫ t in ((R : ℝ) ^ 2)..x, (Real.log t)⁻¹)
+  unfold vfMidLogarithmicIntegralFromTwo
+  rw [intervalIntegral.integral_add_adjacent_intervals hI₁ hI₂]
+  ring
+
+/-- Floor-sqrt geometry for the live square band. -/
+theorem vfMidSquareRootIndex_bounds {x : ℝ} (hx : 4 ≤ x) :
+    let R := vfMidSquareRootIndex x
+    2 ≤ R ∧ (R : ℝ) ^ 2 ≤ x ∧
+      x ≤ (((R + 1 : ℕ) : ℝ) ^ 2) ∧
+      (R : ℝ) ≤ Real.sqrt x := by
+  let R : ℕ := vfMidSquareRootIndex x
+  have hx0 : 0 ≤ x := by linarith
+  have hsqrt2 : (2 : ℝ) ≤ Real.sqrt x := by
+    have hs := Real.sq_sqrt hx0
+    have hs0 := Real.sqrt_nonneg x
+    nlinarith
+  have hR : 2 ≤ R := by
+    dsimp [R, vfMidSquareRootIndex]
+    exact Nat.le_floor hsqrt2
+  have hRle : (R : ℝ) ≤ Real.sqrt x := by
+    dsimp [R, vfMidSquareRootIndex]
+    exact Nat.floor_le (Real.sqrt_nonneg x)
+  have hsqrtlt : Real.sqrt x < (R : ℝ) + 1 := by
+    dsimp [R, vfMidSquareRootIndex]
+    simpa [Nat.cast_add, Nat.cast_one] using
+      (Nat.lt_floor_add_one (Real.sqrt x))
+  have hxl : (R : ℝ) ^ 2 ≤ x := by
+    have hs := Real.sq_sqrt hx0
+    nlinarith [Real.sqrt_nonneg x]
+  have hxu : x ≤ (((R + 1 : ℕ) : ℝ) ^ 2) := by
+    have hs := Real.sq_sqrt hx0
+    norm_num [Nat.cast_add, Nat.cast_one]
+    nlinarith [Real.sqrt_nonneg x]
+  exact ⟨hR, hxl, hxu, hRle⟩
+
+
 /-! ## Frozen analytic statements -/
 
 /-- Unconditional midpoint quadrature bridge at the scale actually needed
@@ -397,6 +535,60 @@ def VFMidLiRootBoundedStatement : Prop :=
   ∃ B : ℝ, 0 ≤ B ∧
     ∀ x : ℝ, 4 ≤ x →
       |vfMidLiError x| ≤ B * Real.sqrt x
+
+
+/-- The quadrature bridge is unconditional: the square-tile midpoint path
+differs from Li by at most root scale. -/
+theorem vfMidLiRootBounded :
+    VFMidLiRootBoundedStatement := by
+  let Q : ℝ := vfMidTileQuadratureBound
+  let A : ℝ := |vfMidLiError 4|
+  refine ⟨A + 2 * Q, ?_, ?_⟩
+  · dsimp [A, Q]
+    exact add_nonneg (abs_nonneg _) (mul_nonneg (by norm_num)
+      vfMidTileQuadratureBound_nonneg)
+  · intro x hx
+    let R : ℕ := vfMidSquareRootIndex x
+    have hbounds := vfMidSquareRootIndex_bounds hx
+    change 2 ≤ R ∧ (R : ℝ) ^ 2 ≤ x ∧
+      x ≤ (((R + 1 : ℕ) : ℝ) ^ 2) ∧
+      (R : ℝ) ≤ Real.sqrt x at hbounds
+    rcases hbounds with ⟨hR, hxl, hxu, hRle⟩
+    have hend := abs_vfMidLiError_sq_le R hR
+    have hlive := abs_vfMidLiveQuadratureError_le hR hxl hxu
+    have hdecomp := vfMidLiError_eq_sq_add_live hx
+    change
+      vfMidLiError x =
+        vfMidLiError ((R : ℝ) ^ 2) +
+          vfMidLiveQuadratureError R x at hdecomp
+    have hx0 : 0 ≤ x := by linarith
+    have hsqrt1 : (1 : ℝ) ≤ Real.sqrt x := by
+      have hs := Real.sq_sqrt hx0
+      have hs0 := Real.sqrt_nonneg x
+      nlinarith
+    have hQ0 : 0 ≤ Q := by
+      dsimp [Q]
+      exact vfMidTileQuadratureBound_nonneg
+    have hA0 : 0 ≤ A := by
+      dsimp [A]
+      exact abs_nonneg _
+    have hA : A ≤ A * Real.sqrt x := by
+      simpa using mul_le_mul_of_nonneg_left hsqrt1 hA0
+    have hRQ : (R : ℝ) * Q ≤ Real.sqrt x * Q :=
+      mul_le_mul_of_nonneg_right hRle hQ0
+    have hQ : Q ≤ Q * Real.sqrt x := by
+      simpa [mul_comm] using mul_le_mul_of_nonneg_left hsqrt1 hQ0
+    rw [hdecomp]
+    calc
+      |vfMidLiError ((R : ℝ) ^ 2) + vfMidLiveQuadratureError R x|
+          ≤ |vfMidLiError ((R : ℝ) ^ 2)| +
+              |vfMidLiveQuadratureError R x| := abs_add_le _ _
+      _ ≤ (A + (R : ℝ) * Q) + Q := by
+        exact add_le_add hend hlive
+      _ ≤ A * Real.sqrt x +
+            Q * Real.sqrt x + Q * Real.sqrt x := by
+        linarith
+      _ = (A + 2 * Q) * Real.sqrt x := by ring
 
 /-- The sole arithmetic target.
 
