@@ -1446,11 +1446,22 @@ theorem arithmeticCoefficientCumulative_mul
       ∑ a ∈ Finset.Icc 1 X,
         f a * arithmeticCoefficientCumulative g (X / a) := by
   unfold arithmeticCoefficientCumulative
-  simp_rw [ArithmeticFunction.mul_apply]
-  rw [sum_Icc_divisorsAntidiagonal_eq_sum_div]
-  apply Finset.sum_congr rfl
-  intro a ha
-  rw [← Finset.mul_sum]
+  calc
+    (∑ n ∈ Finset.Icc 1 X, (f * g) n) =
+        ∑ n ∈ Finset.Icc 1 X,
+          ∑ p ∈ n.divisorsAntidiagonal, f p.1 * g p.2 := by
+            apply Finset.sum_congr rfl
+            intro n hn
+            rw [ArithmeticFunction.mul_apply]
+    _ = ∑ a ∈ Finset.Icc 1 X,
+          ∑ b ∈ Finset.Icc 1 (X / a), f a * g b :=
+        sum_Icc_divisorsAntidiagonal_eq_sum_div
+          (fun a b => f a * g b) X
+    _ = ∑ a ∈ Finset.Icc 1 X,
+          f a * ∑ b ∈ Finset.Icc 1 (X / a), g b := by
+            apply Finset.sum_congr rfl
+            intro a ha
+            rw [Finset.mul_sum]
 
 
 
@@ -1468,7 +1479,8 @@ theorem arithmeticCoefficientCumulative_sub
 `q ≠ 0` guard makes this an arithmetic function for all natural `q`; all
 hard-core uses below have `q ≥ 1`. -/
 def arithmeticSiteAtom (q : ℕ) (a : ℂ) : ArithmeticFunction ℂ :=
-  ⟨fun n => if n = q ∧ q ≠ 0 then a else 0, by simp⟩
+  ⟨fun n => if n = q ∧ q ≠ 0 then a else 0, by
+    by_cases hq : q = 0 <;> simp [hq]⟩
 
 @[simp] theorem arithmeticSiteAtom_apply_of_pos
     {q : ℕ} (hq : 1 ≤ q) (a : ℂ) (n : ℕ) :
