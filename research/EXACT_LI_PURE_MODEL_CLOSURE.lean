@@ -1910,21 +1910,12 @@ private def liCorrectionExponentSet (q X : ℕ) : Finset ℕ :=
 private theorem li_exponent_le_endpoint_of_pow_le
     {q m X : ℕ} (hq : 1 < q) (hmX : q ^ m ≤ X) :
     m ≤ X := by
+  have hq1 : 1 ≤ q := by omega
   have hmq : m ≤ q ^ m := by
-    induction m with
-    | zero =>
-        simp
-    | succ m ih =>
-        have hpow1 : 1 ≤ q ^ m :=
-          Nat.one_le_pow m q (by omega)
-        have hq2 : 2 ≤ q := by omega
-        calc
-          m + 1 ≤ q ^ m + q ^ m := by omega
-          _ = 2 * q ^ m := by omega
-          _ ≤ q * q ^ m := Nat.mul_le_mul_right (q ^ m) hq2
-          _ = q ^ (m + 1) := by
-            rw [pow_succ]
-            omega
+    calc
+      m = 1 * m := by simp
+      _ ≤ q * m := Nat.mul_le_mul_right m hq1
+      _ ≤ q ^ m := Nat.mul_le_pow (by omega : q ≠ 1) m
   exact hmq.trans hmX
 
 /-- **Sparse-support reindexing of one correction factor.**
@@ -1965,7 +1956,9 @@ theorem criticalWeightedVariation_hardCorePoissonCorrectionFactor_eq
             have hmle : m ≤ X :=
               li_exponent_le_endpoint_of_pow_le hq hmX
             have hmE : m ∈ E := by
-              simp [E, liCorrectionExponentSet, hmle, hmX]
+              dsimp [E, liCorrectionExponentSet]
+              exact Finset.mem_filter.mpr
+                ⟨Finset.mem_range.mpr (Nat.lt_succ_of_le hmle), hmX⟩
             apply hnNot
             exact Finset.mem_image.mpr ⟨m, hmE, hm⟩
           rw [
@@ -1975,10 +1968,12 @@ theorem criticalWeightedVariation_hardCorePoissonCorrectionFactor_eq
     _ = ∑ m ∈ E,
           ‖hardCorePoissonCorrectionCoeff a m‖ /
             Real.sqrt ((q ^ m : ℕ) : ℝ) := by
-          rw [Finset.sum_image hinj]
-          apply Finset.sum_congr rfl
-          intro m hm
-          rw [arithmeticHardCorePoissonCorrectionFactor_apply_pow]
+          rw [Finset.sum_image]
+          · apply Finset.sum_congr rfl
+            intro m hm
+            rw [arithmeticHardCorePoissonCorrectionFactor_apply_pow]
+          · intro m _hm n _hn hmn
+            exact hinj hmn
     _ = _ := by rfl
 
 /-- Finite product of the quadratic correction factors over sites
