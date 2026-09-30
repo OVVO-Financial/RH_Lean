@@ -1896,6 +1896,13 @@ theorem arithmeticHardCorePoissonCorrectionFactor_apply_eq_zero_of_not_pow
   rw [liArithmeticOfPowerSeries_apply hq,
     Function.extend_apply' _ _ _ hn, Pi.zero_apply]
 
+/-- Critical weighted total variation of a correction kernel up to X. -/
+def criticalWeightedVariation
+    (h : ℕ → ℂ) (X : ℕ) : ℝ :=
+  ∑ n ∈ Finset.Icc 1 X,
+    ‖h n‖ / Real.sqrt (n : ℝ)
+
+
 /-- Exponents whose site powers are visible below a finite endpoint. -/
 private def liCorrectionExponentSet (q X : ℕ) : Finset ℕ :=
   (Finset.range (X + 1)).filter (fun m => q ^ m ≤ X)
@@ -1903,9 +1910,22 @@ private def liCorrectionExponentSet (q X : ℕ) : Finset ℕ :=
 private theorem li_exponent_le_endpoint_of_pow_le
     {q m X : ℕ} (hq : 1 < q) (hmX : q ^ m ≤ X) :
     m ≤ X := by
-  by_cases hm : m = 0
-  · omega
-  · exact (Nat.le_pow (Nat.pos_of_ne_zero hm) (a := q)).trans hmX
+  have hmq : m ≤ q ^ m := by
+    induction m with
+    | zero =>
+        simp
+    | succ m ih =>
+        have hpow1 : 1 ≤ q ^ m :=
+          Nat.one_le_pow m q (by omega)
+        have hq2 : 2 ≤ q := by omega
+        calc
+          m + 1 ≤ q ^ m + q ^ m := by omega
+          _ = 2 * q ^ m := by omega
+          _ ≤ q * q ^ m := Nat.mul_le_mul_right (q ^ m) hq2
+          _ = q ^ (m + 1) := by
+            rw [pow_succ]
+            omega
+  exact hmq.trans hmX
 
 /-- **Sparse-support reindexing of one correction factor.**
 Its critical arithmetic variation is exactly the finite sum of the formal
@@ -2019,13 +2039,6 @@ theorem arithmeticCoefficientCumulative_mul_eq_finiteMultiplicativeConvolution
         (fun n => f n) (arithmeticCoefficientCumulative g) X := by
   rw [arithmeticCoefficientCumulative_mul]
   rfl
-
-/-- Critical weighted total variation of a correction kernel up to X. -/
-def criticalWeightedVariation
-    (h : ℕ → ℂ) (X : ℕ) : ℝ :=
-  ∑ n ∈ Finset.Icc 1 X,
-    ‖h n‖ / Real.sqrt (n : ℝ)
-
 
 private theorem sum_Icc_divisorsAntidiagonal_eq_sum_div_real
     (F : ℕ → ℕ → ℝ) (N : ℕ) :
