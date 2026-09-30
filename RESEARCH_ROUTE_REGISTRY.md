@@ -60,6 +60,31 @@ conditional implications are retained. What is refuted is this uniform prefix
 premise, not the desired bound on the completely recombined endpoint. A prime
 schedule cannot change the exact value of the first prefix.
 
+## Refuted premise: pure discrete-Li square-root / Poisson stability (2026-09-30)
+
+The integer-site Li model (weights `w_q = Li(q) - Li(q-1)`, PRs #812–#817)
+has no square-root bound. It has no power saving at all. The following are
+**false**:
+
+- `AllScaleLiSquareRootBoundedStatement`;
+- the uniform critical-Poisson premise of PR #817;
+- every renewal "Poisson stability" theorem with kernel `(1+eps_q)/sqrt q`
+  and `sum |eps_q|/sqrt q < infinity`.
+
+The generator identity `-G_d' = zeta - 1 - 2^-w + E` shows that ceiling
+transport injects `zeta` into the exponent. Summable `eps` is harmless in
+both directions (an `l^1` convolution factor), so everything reduces to the
+unit kernel. A finite-total-variation comparison with the continuous Dickman
+generator is refuted elementarily. The bound itself is refuted by
+Borel–Carathéodory together with the classical unconditional Omega-theorem
+for `zeta` in the strip.
+
+Finite data through `10^8` look convergent and do not show the failure. See
+[`research/LI_DISCRETE_POISSON_OMEGA_NO_GO.md`](research/LI_DISCRETE_POISSON_OMEGA_NO_GO.md).
+The exact identities of #812–#817 are retained. Do not restart this route by
+proving model bounds, comparing with Dickman in variation, or running larger
+renewal regressions.
+
 ## Closed route: single-prime dyadic Li-residual cancellation
 
 **Status: CLOSED AS AN RH MECHANISM. Recorded by PR #105.**

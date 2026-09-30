@@ -226,6 +226,12 @@ energy estimate is not a proof of RH.
 8. [The compensated interior is not the seam](research/GLOBAL_RETURNED_CORE_OWNER_TWO_CLIPPED_EXIT.lean):
    at owner `2` the clipped exit is exactly `M(X_R)`. A bound on the
    reassembled interior is already unconditional and cannot close CORR-4.
+9. [The pure discrete-Li model is not a square-root model](research/LI_DISCRETE_POISSON_OMEGA_NO_GO.md):
+   `AllScaleLiSquareRootBoundedStatement` and every summable-defect Poisson
+   renewal bound are false. Integer-site rounding puts `zeta` into the
+   generator, and `exp(-int zeta)` has no polynomial bound in the strip. The
+   evidence is an analytic Omega-theorem argument, not Lean. Do not route
+   RH-scale content through a pure-Li bound.
 
 ## Preservation and success conditions
 
