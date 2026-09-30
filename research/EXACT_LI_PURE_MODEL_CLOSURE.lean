@@ -1713,15 +1713,21 @@ private noncomputable def liArithmeticOfPowerSeries
     by_cases hn : ∃ k, q ^ k = n
     · obtain ⟨k, rfl⟩ := hn
       simp [(Nat.pow_right_injective hq).extend_apply]
-    · rw [Function.extend_apply' _ _ _ hn, Pi.zero_apply]
-      simp
+    · change
+        Function.extend (q ^ ·)
+            ((0 : PowerSeries ℂ).coeff ·) 0 n = 0
+      rw [Function.extend_apply' _ _ _ hn, Pi.zero_apply]
   map_one' := by
     ext n
     by_cases hn : ∃ k, q ^ k = n
     · obtain ⟨k, rfl⟩ := hn
       simp [(Nat.pow_right_injective hq).extend_apply,
         ArithmeticFunction.one_apply, hq.ne']
-    · rw [Function.extend_apply' _ _ _ hn, Pi.zero_apply]
+    · change
+        Function.extend (q ^ ·)
+            ((1 : PowerSeries ℂ).coeff ·) 0 n =
+          (1 : ArithmeticFunction ℂ) n
+      rw [Function.extend_apply' _ _ _ hn, Pi.zero_apply]
       have hn1 : n ≠ 1 := by
         intro hn1
         apply hn
@@ -1835,7 +1841,7 @@ theorem arithmeticSiteAtom_eq_liArithmeticOfPowerSeries_C_mul_X
     have hnq : n ≠ q := by
       intro hnq
       apply hn
-      exact ⟨1, by simpa [hnq]⟩
+      exact ⟨1, by simp [hnq]⟩
     simp [hnq]
 
 /-- Arithmetic-function image of the exact quadratic hard-core/Poisson
@@ -1868,7 +1874,7 @@ theorem arithmeticHardCoreLocalFactor_eq_correction_mul_poisson
   rw [map_sub, map_one]
   congr 1
   exact
-    (arithmeticSiteAtom_eq_liArithmeticOfPowerSeries_C_mul_X hq a).symm
+    arithmeticSiteAtom_eq_liArithmeticOfPowerSeries_C_mul_X hq a
 
 /-- Finite product of the quadratic correction factors over sites
 `2,...,k+1`, ordered exactly like `arithmeticHardCoreProduct`. -/
