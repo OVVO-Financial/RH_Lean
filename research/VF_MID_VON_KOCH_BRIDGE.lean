@@ -25,7 +25,7 @@ The intended proof architecture is deliberately minimal:
 
 1. define the real-valued continuous midpoint path vfMid;
 2. prove the unconditional quadrature bridge
-     vfMid(x) = logarithmicIntegralFromTwo(x) + O(1);
+     vfMid(x) = logarithmicIntegralFromTwo(x) + O(sqrt(x));
 3. isolate the single RH-scale arithmetic target
      |pi(x) - vfMid(x)| <= C * sqrt(x) * log(x);
 4. transfer that target to the classical von-Koch prime-count discrepancy.
@@ -600,6 +600,146 @@ def VFMidVonKochBoundedStatement : Prop :=
       |vfMidPrimeError x| ≤
         C * Real.sqrt x * Real.log x
 
+/-! ## The final arithmetic input: square endpoints -/
+
+/-- The direct arithmetic target restricted to square endpoints.  The constant
+is uniform in `R`; this is an open hypothesis, not a proved bound. -/
+def VFMidSquareEndpointVonKochBoundedStatement : Prop :=
+  ∃ C : ℝ, 0 ≤ C ∧
+    ∀ R : ℕ, 2 ≤ R →
+      |vfMidPrimeError ((R : ℝ) ^ 2)| ≤ C * (R : ℝ) * Real.log R
+
+/-- Prime counts can increase by at most the number of intervening sites. -/
+theorem vfMid_primeCounting_add_le (a b : ℕ) :
+    Nat.primeCounting (a + b) ≤ Nat.primeCounting a + b := by
+  unfold Nat.primeCounting Nat.primeCounting'
+  rw [show a + b + 1 = (a + 1) + b by omega, Nat.count_add]
+  exact Nat.add_le_add_left (Nat.count_le _) _
+
+/-- The prime population and the midpoint mass in a live square band each
+have an elementary linear budget.  No estimate on prime distribution is used. -/
+theorem abs_vfMidPrimeError_sub_square_le {x : ℝ} (hx : 4 ≤ x) :
+    |vfMidPrimeError x -
+        vfMidPrimeError ((vfMidSquareRootIndex x : ℝ) ^ 2)| ≤
+      (3 + 3 / Real.log 4) * (vfMidSquareRootIndex x : ℝ) := by
+  let R := vfMidSquareRootIndex x
+  obtain ⟨hR, hxl, hxu, _⟩ := vfMidSquareRootIndex_bounds hx
+  change 2 ≤ R at hR
+  change (R : ℝ) ^ 2 ≤ x at hxl
+  change x ≤ (((R + 1 : ℕ) : ℝ) ^ 2) at hxu
+  have hRreal : (2 : ℝ) ≤ R := by exact_mod_cast hR
+  have hx0 : 0 ≤ x := by linarith
+  have hfloor : R ^ 2 ≤ ⌊x⌋₊ := Nat.le_floor (by simpa using hxl)
+  have hp0 : (Nat.primeCounting (R ^ 2) : ℝ) ≤ Nat.primeCounting ⌊x⌋₊ := by
+    exact_mod_cast Nat.monotone_primeCounting hfloor
+  have hp := vfMid_primeCounting_add_le (R ^ 2) (⌊x⌋₊ - R ^ 2)
+  rw [Nat.add_sub_of_le hfloor] at hp
+  have hpreal :
+      (Nat.primeCounting ⌊x⌋₊ : ℝ) ≤
+        Nat.primeCounting (R ^ 2) + ((⌊x⌋₊ : ℝ) - (R : ℝ) ^ 2) := by
+    exact_mod_cast hp
+  have hwidth : x - (R : ℝ) ^ 2 ≤ 3 * (R : ℝ) := by
+    push_cast at hxu
+    nlinarith
+  have hpupper :
+      (Nat.primeCounting ⌊x⌋₊ : ℝ) - Nat.primeCounting (R ^ 2) ≤
+        3 * (R : ℝ) := by
+    have := Nat.floor_le hx0
+    linarith
+  have hell : 0 < Real.log 4 := Real.log_pos (by norm_num)
+  have hlog : Real.log 4 ≤ Real.log (((R : ℝ) ^ 2 + x) / 2) := by
+    apply Real.log_le_log (by norm_num)
+    nlinarith
+  have hlive0 : 0 ≤ vfMidLiveMass x := by
+    change 0 ≤ (x - (R : ℝ) ^ 2) / Real.log (((R : ℝ) ^ 2 + x) / 2)
+    exact div_nonneg (sub_nonneg.mpr hxl) (hell.le.trans hlog)
+  have hlive : vfMidLiveMass x ≤ (3 / Real.log 4) * (R : ℝ) := by
+    change (x - (R : ℝ) ^ 2) / Real.log (((R : ℝ) ^ 2 + x) / 2) ≤ _
+    calc
+      _ ≤ (x - (R : ℝ) ^ 2) / Real.log 4 :=
+        div_le_div_of_nonneg_left (sub_nonneg.mpr hxl) hell hlog
+      _ ≤ (3 * (R : ℝ)) / Real.log 4 :=
+        div_le_div_of_nonneg_right hwidth hell.le
+      _ = _ := by ring
+  have hdecomp :
+      vfMidPrimeError x - vfMidPrimeError ((R : ℝ) ^ 2) =
+        ((Nat.primeCounting ⌊x⌋₊ : ℝ) - Nat.primeCounting (R ^ 2)) -
+          vfMidLiveMass x := by
+    unfold vfMidPrimeError
+    rw [vfMid_sq hR]
+    have hcount : vfMidPrimeCount ((R : ℝ) ^ 2) =
+        (Nat.primeCounting (R ^ 2) : ℝ) := by
+      simp [vfMidPrimeCount, ← Nat.cast_pow]
+    rw [hcount]
+    simp only [vfMid, if_neg (not_lt.mpr hx), vfMidPrimeCount]
+    change _ - (Nat.primeCounting (R ^ 2) - vfMidFinishedMass R) = _
+    ring
+  change |vfMidPrimeError x - vfMidPrimeError ((R : ℝ) ^ 2)| ≤ _
+  rw [hdecomp]
+  have hbudget0 : 0 ≤ (3 / Real.log 4) * (R : ℝ) := by positivity
+  apply abs_le.mpr
+  constructor <;> nlinarith
+
+/-- A uniform square-endpoint bound supplies the entire real-cutoff bound.
+The live interval is absorbed by a fixed root-scale budget. -/
+theorem vfMidVonKochBounded_of_squareEndpoint
+    (h : VFMidSquareEndpointVonKochBoundedStatement) :
+    VFMidVonKochBoundedStatement := by
+  obtain ⟨C, hC0, hC⟩ := h
+  let A : ℝ := 3 + 3 / Real.log 4
+  have hell : 0 < Real.log 4 := Real.log_pos (by norm_num)
+  have hA0 : 0 ≤ A := by dsimp [A]; positivity
+  refine ⟨C + A / Real.log 4, add_nonneg hC0 (div_nonneg hA0 hell.le), ?_⟩
+  intro x hx
+  let R := vfMidSquareRootIndex x
+  obtain ⟨hR, hxl, _, hRle⟩ := vfMidSquareRootIndex_bounds hx
+  change 2 ≤ R at hR
+  change (R : ℝ) ^ 2 ≤ x at hxl
+  change (R : ℝ) ≤ Real.sqrt x at hRle
+  have hRreal : (2 : ℝ) ≤ R := by exact_mod_cast hR
+  have hlogR0 : 0 ≤ Real.log (R : ℝ) := Real.log_nonneg (by linarith)
+  have hlogRx : Real.log (R : ℝ) ≤ Real.log x :=
+    Real.log_le_log (by linarith) (by nlinarith)
+  have hlogx : Real.log 4 ≤ Real.log x := Real.log_le_log (by norm_num) hx
+  have hendpoint :
+      |vfMidPrimeError ((R : ℝ) ^ 2)| ≤ C * Real.sqrt x * Real.log x :=
+    (hC R hR).trans (mul_le_mul
+      (mul_le_mul_of_nonneg_left hRle hC0) hlogRx hlogR0
+      (mul_nonneg hC0 (Real.sqrt_nonneg x)))
+  have hlive := abs_vfMidPrimeError_sub_square_le hx
+  change |vfMidPrimeError x - vfMidPrimeError ((R : ℝ) ^ 2)| ≤ A * (R : ℝ) at hlive
+  have hroot : A * (R : ℝ) ≤ (A / Real.log 4) * Real.sqrt x * Real.log x := by
+    calc
+      A * (R : ℝ) ≤ A * Real.sqrt x := mul_le_mul_of_nonneg_left hRle hA0
+      _ = (A / Real.log 4) * Real.sqrt x * Real.log 4 := by field_simp
+      _ ≤ _ := mul_le_mul_of_nonneg_left hlogx (by positivity)
+  calc
+    |vfMidPrimeError x| ≤ |vfMidPrimeError ((R : ℝ) ^ 2)| +
+        |vfMidPrimeError x - vfMidPrimeError ((R : ℝ) ^ 2)| := by
+      calc
+        _ = |vfMidPrimeError ((R : ℝ) ^ 2) +
+            (vfMidPrimeError x - vfMidPrimeError ((R : ℝ) ^ 2))| := by
+          congr 1
+          ring
+        _ ≤ _ := abs_add_le _ _
+    _ ≤ C * Real.sqrt x * Real.log x +
+        (A / Real.log 4) * Real.sqrt x * Real.log x :=
+      add_le_add hendpoint (hlive.trans hroot)
+    _ = _ := by ring
+
+/-- Restricting the real bound to squares loses only the factor two from
+`log (R^2) = 2 log R`; the final arithmetic input is equivalent to the original. -/
+theorem vfMidSquareEndpointVonKochBounded_iff :
+    VFMidSquareEndpointVonKochBoundedStatement ↔ VFMidVonKochBoundedStatement := by
+  refine ⟨vfMidVonKochBounded_of_squareEndpoint, ?_⟩
+  rintro ⟨C, hC0, hC⟩
+  refine ⟨2 * C, mul_nonneg (by norm_num) hC0, ?_⟩
+  intro R hR
+  have hRreal : (2 : ℝ) ≤ R := by exact_mod_cast hR
+  have hsq : (4 : ℝ) ≤ (R : ℝ) ^ 2 := by nlinarith
+  have h := hC ((R : ℝ) ^ 2) hsq
+  simpa [Real.log_pow, mul_assoc, mul_left_comm, mul_comm] using h
+
 /-- Classical prime-count form of the von-Koch scale, expressed using the same
 real prime-count staircase and the repository's logarithmicIntegralFromTwo. -/
 def PrimeLiVonKochBoundedStatement : Prop :=
@@ -686,5 +826,23 @@ theorem riemannHypothesis_of_vfMidVonKoch
     VFMidRiemannHypothesisStatement :=
   criterion.iff_riemannHypothesis.mp
     (primeLiVonKochBounded_of_vfMid hquad hvf)
+
+/-- The official square-endpoint arithmetic input directly supplies the
+classical prime-minus-Li bound.  The quadrature estimate is discharged here. -/
+theorem primeLiVonKochBounded_of_vfMidSquareEndpoint
+    (h : VFMidSquareEndpointVonKochBoundedStatement) :
+    PrimeLiVonKochBoundedStatement :=
+  primeLiVonKochBounded_of_vfMid vfMidLiRootBounded
+    (vfMidVonKochBounded_of_squareEndpoint h)
+
+/-- The RH consumer still exposes the classical von-Koch criterion as an
+explicit formal interface.  The square-endpoint estimate is its sole open
+arithmetic input; this theorem does not prove that estimate or the criterion. -/
+theorem riemannHypothesis_of_vfMidSquareEndpoint
+    (criterion : ClassicalVonKochRHCriterion)
+    (h : VFMidSquareEndpointVonKochBoundedStatement) :
+    VFMidRiemannHypothesisStatement :=
+  criterion.iff_riemannHypothesis.mp
+    (primeLiVonKochBounded_of_vfMidSquareEndpoint h)
 
 end RHLean.Analysis

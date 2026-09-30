@@ -136,6 +136,12 @@ jobs:
           #print axioms RHLean.Analysis.exactLiContinuousModel_root_closed
           #print axioms RHLean.Analysis.vfMidPrimeLiError_eq_primeError_add_liError
           #print axioms RHLean.Analysis.vfMidLiRootBounded
+          #print axioms RHLean.Analysis.vfMid_primeCounting_add_le
+          #print axioms RHLean.Analysis.abs_vfMidPrimeError_sub_square_le
+          #print axioms RHLean.Analysis.vfMidVonKochBounded_of_squareEndpoint
+          #print axioms RHLean.Analysis.vfMidSquareEndpointVonKochBounded_iff
+          #print axioms RHLean.Analysis.primeLiVonKochBounded_of_vfMidSquareEndpoint
+          #print axioms RHLean.Analysis.riemannHypothesis_of_vfMidSquareEndpoint
           #print axioms RHLean.Analysis.two_log_four_le_sqrt_mul_log
           #print axioms RHLean.Analysis.primeLiVonKochBounded_of_vfMid
           #print axioms RHLean.Analysis.riemannHypothesis_of_vfMidVonKoch
@@ -147,7 +153,7 @@ jobs:
           from pathlib import Path
           s = Path('prime-flip-pnt-axioms.log').read_text()
           records = re.findall(r"depends on axioms:\s*\[([^\]]*)\]", s, re.S)
-          assert len(records) == 42, records
+          assert len(records) == 48, records
           allowed = {'propext', 'Classical.choice', 'Quot.sound'}
           for record in records:
               actual = {a.strip() for a in record.split(',') if a.strip()}
