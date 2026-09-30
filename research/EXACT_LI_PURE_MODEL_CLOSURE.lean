@@ -1467,7 +1467,7 @@ theorem coeff_hardCorePoissonCorrectionSeries
         Nat.factorial_zero, Nat.cast_one, div_one]
       rw [sub_mul, one_mul]
       simp only [map_sub, PowerSeries.coeff_zero_eq_constantCoeff_apply,
-        map_mul, map_one]
+        map_mul]
       rw [← PowerSeries.coeff_zero_eq_constantCoeff_apply,
         PowerSeries.coeff_rescale, PowerSeries.coeff_exp]
       simp
