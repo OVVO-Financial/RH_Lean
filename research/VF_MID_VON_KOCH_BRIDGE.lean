@@ -114,6 +114,40 @@ theorem vfMidPrimeLiError_eq_primeError_add_liError (x : ℝ) :
   unfold vfMidPrimeLiError vfMidPrimeError vfMidLiError
   ring
 
+/-! ## Midpoint quadrature infrastructure -/
+
+/-- Midpoint-rule error bound derived from Mathlib's C2 trapezoidal-rule
+estimate.  The constant 1/8 is deliberately non-sharp; only summability of the
+square-band errors is needed downstream. -/
+theorem midpoint_rule_error_le_of_c2
+    {f : ℝ → ℝ} {a b : ℝ}
+    (hf : ContDiffOn ℝ 2 f [[a, b]])
+    {ζ : ℝ}
+    (hζ : ∀ x, |iteratedDerivWithin 2 f [[a, b]] x| ≤ ζ) :
+    |(b - a) * f ((a + b) / 2) - ∫ t in a..b, f t| ≤
+      |b - a| ^ 3 * ζ / 8 := by
+  have h1 := trapezoidal_error_le_of_c2 hf hζ (N := 1) (by norm_num)
+  have h2 := trapezoidal_error_le_of_c2 hf hζ (N := 2) (by norm_num)
+  have hζ0 : 0 ≤ ζ := (abs_nonneg _).trans (hζ a)
+  have hident :
+      (b - a) * f ((a + b) / 2) - ∫ t in a..b, f t =
+        2 * trapezoidal_error f 2 a b -
+          trapezoidal_error f 1 a b := by
+    unfold trapezoidal_error trapezoidal_integral
+    simp
+    ring
+  rw [hident, sub_eq_add_neg]
+  calc
+    |2 * trapezoidal_error f 2 a b + -trapezoidal_error f 1 a b|
+        ≤ |2 * trapezoidal_error f 2 a b| +
+            |-trapezoidal_error f 1 a b| := abs_add_le _ _
+    _ = 2 * |trapezoidal_error f 2 a b| +
+          |trapezoidal_error f 1 a b| := by simp
+    _ ≤ 2 * (|b - a| ^ 3 * ζ / (12 * (2 : ℝ) ^ 2)) +
+          (|b - a| ^ 3 * ζ / (12 * (1 : ℝ) ^ 2)) := by
+      gcongr
+    _ = |b - a| ^ 3 * ζ / 8 := by ring
+
 /-! ## Frozen analytic statements -/
 
 /-- Unconditional midpoint quadrature bridge to be proved for the concrete
