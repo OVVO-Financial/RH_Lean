@@ -3106,8 +3106,8 @@ theorem arithmeticPoissonProduct_cumulative_succ_eq_linear_add_tail
   have hX1 : 1 ≤ X := by omega
   have h0E : 0 ∈ E := by
     dsimp [E, liCorrectionExponentSet]
-    exact Finset.mem_filter.mpr
-      ⟨Finset.mem_range.mpr (by omega), by simpa using hX1⟩
+    simp only [Finset.mem_filter, Finset.mem_range, pow_zero]
+    exact ⟨by omega, hX1⟩
   have h1E : 1 ∈ E := by
     dsimp [E, liCorrectionExponentSet]
     exact Finset.mem_filter.mpr
@@ -5674,8 +5674,12 @@ theorem complexArithmeticLogWeight_poissonLocalFactor
           (poissonExponentialSeries a) 1 m
         simp only [pow_one] at hshift
         rw [hshift]
-        simp only [poissonExponentialSeries, PowerSeries.coeff_rescale,
-          PowerSeries.coeff_exp]
+        have hcoeff : (poissonExponentialSeries a).coeff m =
+            (-a) ^ m / (Nat.factorial m : ℂ) := by
+          have h := arithmeticPoissonLocalFactor_apply_pow hq a m
+          simpa only [arithmeticPoissonLocalFactor,
+            liArithmeticOfPowerSeries_apply_pow] using h
+        rw [hcoeff]
         rw [Nat.factorial_succ, Nat.cast_mul, Nat.cast_add, Nat.cast_one,
           pow_succ]
         have hm : (m + 1 : ℂ) ≠ 0 := by exact_mod_cast Nat.succ_ne_zero m
@@ -5828,6 +5832,7 @@ theorem exactLiLogKernelDefect_le {q : ℕ} (hq : 3 ≤ q) :
       (Real.log 2)⁻¹ / ((q - 1 : ℕ) : ℝ) := by
   let p : ℝ := ((q - 1 : ℕ) : ℝ)
   have hp2 : (2 : ℝ) ≤ p := by
+    dsimp [p]
     exact_mod_cast (show 2 ≤ q - 1 by omega)
   have hp : 0 < p := by linarith
   have hqp : (q : ℝ) = p + 1 := by
@@ -5907,5 +5912,72 @@ theorem exactLiCriticalLogKernelDefect_summable :
         2 * C * (1 / (q : ℝ) ^ (3 / 2 : ℝ))
       rw [hrpow]
       ring
+
+/-- Exact split of the transformed logarithmic generator into unit integer
+mass and the critically weighted Li bin defect. -/
+theorem exactLiCriticalLogKernel_eq_unit_add_defect (q : ℕ) :
+    (Real.log (q : ℝ) : ℂ) * criticalLiFrequencyWeight q =
+      criticalSqrtWeight q +
+        (exactLiLogKernelDefect q : ℂ) * criticalSqrtWeight q := by
+  unfold criticalLiFrequencyWeight exactLiLogKernelDefect
+    primeSievePNTDensity densityTightLiWeight
+  push_cast
+  ring
+
+/-- The finite defect operator acts on the actual floor-quotient children
+with a uniform norm budget. The hypothesis bounds those children explicitly;
+this theorem does not assume or claim that the Poisson reference is bounded. -/
+theorem norm_exactLiCriticalLogKernelDefect_children_le
+    (s : Finset ℕ) (A : ℕ → ℂ) (X : ℕ) (B : ℝ) (hB : 0 ≤ B)
+    (hA : ∀ n ∈ s, ‖A (X / (n + 3))‖ ≤ B) :
+    ‖∑ n ∈ s,
+        ((exactLiLogKernelDefect (n + 3) : ℂ) /
+          (Real.sqrt ((n + 3 : ℕ) : ℝ) : ℂ)) * A (X / (n + 3))‖ ≤
+      B * ∑' n : ℕ, exactLiLogKernelDefect (n + 3) /
+        Real.sqrt ((n + 3 : ℕ) : ℝ) := by
+  have hnonneg : ∀ n : ℕ, 0 ≤ exactLiLogKernelDefect (n + 3) /
+      Real.sqrt ((n + 3 : ℕ) : ℝ) := fun n =>
+    div_nonneg (exactLiLogKernelDefect_nonneg (by omega)) (Real.sqrt_nonneg _)
+  calc
+    _ ≤ ∑ n ∈ s,
+        ‖((exactLiLogKernelDefect (n + 3) : ℂ) /
+          (Real.sqrt ((n + 3 : ℕ) : ℝ) : ℂ)) * A (X / (n + 3))‖ :=
+      norm_sum_le _ _
+    _ ≤ ∑ n ∈ s, B * (exactLiLogKernelDefect (n + 3) /
+        Real.sqrt ((n + 3 : ℕ) : ℝ)) := by
+      apply Finset.sum_le_sum
+      intro n hn
+      rw [norm_mul, norm_div, Complex.norm_real, Complex.norm_real,
+        Real.norm_eq_abs, Real.norm_eq_abs,
+        abs_of_nonneg (exactLiLogKernelDefect_nonneg (by omega)),
+        abs_of_nonneg (Real.sqrt_nonneg _)]
+      simpa [mul_comm] using
+        mul_le_mul_of_nonneg_left (hA n hn) (hnonneg n)
+    _ = B * ∑ n ∈ s, exactLiLogKernelDefect (n + 3) /
+        Real.sqrt ((n + 3 : ℕ) : ℝ) := by rw [Finset.mul_sum]
+    _ ≤ _ := mul_le_mul_of_nonneg_left
+      (exactLiCriticalLogKernelDefect_summable.sum_le_tsum s
+        (fun n _ => hnonneg n)) hB
+
+/-- Explicit final consumer for the remaining uniform critical Poisson
+estimate. The unproved estimate is an argument, never an unconditional claim. -/
+theorem allScaleLiSquareRootBounded_of_criticalPoisson_uniform
+    (hP : UniformReferenceDiagonalBounded exactLiCriticalPoissonIntegerReference) :
+    AllScaleLiSquareRootBoundedStatement := by
+  apply allScaleLiSquareRootBounded_of_sqrtReference_convolution
+    exactLiCorrectionKernel exactLiPoissonIntegerReference
+  · apply squareRootReferenceBounded_of_sampledCriticalPrefixBounded
+    rcases hP with ⟨B, hB, hbound⟩
+    refine ⟨B + 1, by positivity, ?_⟩
+    intro N
+    rw [sampledCriticalPrefix_exactLiPoissonIntegerReference_eq_critical]
+    calc
+      ‖exactLiCriticalPoissonIntegerReference N - 1‖ ≤
+          ‖exactLiCriticalPoissonIntegerReference N‖ + ‖(1 : ℂ)‖ :=
+        norm_sub_le _ _
+      _ ≤ B + 1 := by simpa using add_le_add_right (hbound N) 1
+  · exact exactLiCorrectionKernel_uniformVariation
+  · intro L X hX hL
+    exact allScaleLiState_diagonal_eq_poissonConvolution hX hL
 
 end RHLean.Analysis

@@ -1145,3 +1145,15 @@ These are internal Li-model discretization facts only.  By the last identity
 `F_R - M(X)` is exactly the existing `squareRootTransportPNTError`, so a
 root-scale bound for `F_R` is not independent of the actual prime-count
 discrepancy.  No estimate for `F_R` itself is asserted.
+
+## Pure-Li signed Poisson logarithmic renewal (2026-09-30; PR #817)
+
+The successor to green #816 adds the complex logarithmic derivation,
+one-site and global Poisson logarithmic renewal, and the exact stabilized
+critical child equation in `research/EXACT_LI_PURE_MODEL_CLOSURE.lean`.
+Repeated-site channels combine algebraically before norms. For q >= 3,
+the degree-one generator defect epsilon_q = log(q) w_q - 1 satisfies
+0 <= epsilon_q <= 1/((q-1) log 2), with summable critical mass.
+A finite child-operator bound and an explicit conditional consumer are
+included. The uniform critical Poisson estimate is still open; see
+`research/LI_POISSON_LOG_RENEWAL_ATTACK.md`.
