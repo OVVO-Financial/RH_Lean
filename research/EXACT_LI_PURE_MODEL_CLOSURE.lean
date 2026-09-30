@@ -3110,7 +3110,8 @@ theorem arithmeticPoissonProduct_cumulative_succ_eq_linear_add_tail
       ⟨Finset.mem_range.mpr (by omega), by simpa using hX1⟩
   have h1E : 1 ∈ E := by
     dsimp [E, liCorrectionExponentSet]
-    simp [hqX]
+    exact Finset.mem_filter.mpr
+      ⟨Finset.mem_range.mpr (by omega), by simpa using hqX⟩
   have hsplit : E = insert 0 (insert 1 H) := by
     ext m
     constructor
@@ -5593,5 +5594,155 @@ theorem allScaleLiState_sub_reference_eq_propagated_sub_residual
             (L (x / q) (q - 1) - C (x / q) (q - 1))) -
         primeFrequencyReferenceResidual primeSievePNTDensity C x y :=
   primeFrequencyState_sub_reference_eq_propagated_sub_residual hL x y
+
+/-! ## Signed logarithmic renewal for the complete Poisson product -/
+
+/-- Multiplication of an arithmetic coefficient by the real logarithm of its
+site. This is a derivation for Dirichlet convolution. -/
+def arithmeticLogWeight (f : ArithmeticFunction ℂ) : ArithmeticFunction ℂ :=
+  ⟨fun n => (Real.log (n : ℝ) : ℂ) * f n, by simp⟩
+
+@[simp] theorem arithmeticLogWeight_one :
+    arithmeticLogWeight 1 = 0 := by
+  ext n
+  by_cases hn : n = 1
+  · subst n
+    simp [arithmeticLogWeight]
+  · simp [arithmeticLogWeight, ArithmeticFunction.one_apply, hn]
+
+/-- The exact logarithmic Leibniz rule; both signed channels are retained. -/
+theorem arithmeticLogWeight_mul (f g : ArithmeticFunction ℂ) :
+    arithmeticLogWeight (f * g) =
+      arithmeticLogWeight f * g + f * arithmeticLogWeight g := by
+  ext n
+  change (Real.log (n : ℝ) : ℂ) * (f * g) n = _
+  simp only [ArithmeticFunction.mul_apply, ArithmeticFunction.add_apply]
+  rw [Finset.mul_sum, ← Finset.sum_add_distrib]
+  apply Finset.sum_congr rfl
+  intro p hp
+  obtain ⟨hprod, hn⟩ := Nat.mem_divisorsAntidiagonal.mp hp
+  have hleft : p.1 ≠ 0 := by
+    intro h
+    simp [h] at hprod
+    exact hn hprod.symm
+  have hright : p.2 ≠ 0 := by
+    intro h
+    simp [h] at hprod
+    exact hn hprod.symm
+  have hlog : Real.log (n : ℝ) =
+      Real.log (p.1 : ℝ) + Real.log (p.2 : ℝ) := by
+    rw [← hprod, Nat.cast_mul, Real.log_mul
+      (by exact_mod_cast hleft) (by exact_mod_cast hright)]
+  change (Real.log (n : ℝ) : ℂ) * (f p.1 * g p.2) =
+    ((Real.log (p.1 : ℝ) : ℂ) * f p.1) * g p.2 +
+      f p.1 * ((Real.log (p.2 : ℝ) : ℂ) * g p.2)
+  rw [hlog, Complex.ofReal_add]
+  ring
+
+/-- Logarithmic differentiation of a complete one-site exponential collapses
+every repeated-site term to a single signed atom times that same exponential. -/
+theorem arithmeticLogWeight_poissonLocalFactor
+    {q : ℕ} (hq : 1 < q) (a : ℂ) :
+    arithmeticLogWeight (arithmeticPoissonLocalFactor a hq) =
+      arithmeticSiteAtom q (-(Real.log (q : ℝ) : ℂ) * a) *
+        arithmeticPoissonLocalFactor a hq := by
+  rw [arithmeticSiteAtom_eq_liArithmeticOfPowerSeries_C_mul_X hq]
+  change arithmeticLogWeight (arithmeticPoissonLocalFactor a hq) =
+    liArithmeticOfPowerSeries hq
+        (PowerSeries.C (-(Real.log (q : ℝ) : ℂ) * a) * PowerSeries.X) *
+      liArithmeticOfPowerSeries hq (poissonExponentialSeries a)
+  rw [← map_mul]
+  ext n
+  change (Real.log (n : ℝ) : ℂ) *
+      arithmeticPoissonLocalFactor a hq n = _
+  by_cases hn : ∃ m : ℕ, q ^ m = n
+  · obtain ⟨m, rfl⟩ := hn
+    rw [arithmeticPoissonLocalFactor_apply_pow,
+      liArithmeticOfPowerSeries_apply_pow hq]
+    cases m with
+    | zero => simp
+    | succ m =>
+        have hlog :
+            (Real.log ((q ^ (m + 1) : ℕ) : ℝ) : ℂ) =
+              (m + 1 : ℂ) * (Real.log (q : ℝ) : ℂ) := by
+          rw [Nat.cast_pow, Real.log_pow]
+          push_cast
+          rfl
+        rw [hlog]
+        simp only [mul_assoc, PowerSeries.coeff_C_mul]
+        have hshift := PowerSeries.coeff_X_pow_mul
+          (poissonExponentialSeries a) 1 m
+        simp only [pow_one] at hshift
+        rw [hshift]
+        simp only [poissonExponentialSeries, PowerSeries.coeff_rescale,
+          PowerSeries.coeff_exp]
+        rw [Nat.factorial_succ, Nat.cast_mul, Nat.cast_add, Nat.cast_one,
+          pow_succ]
+        have hm : (m + 1 : ℂ) ≠ 0 := by exact_mod_cast Nat.succ_ne_zero m
+        have hf : (Nat.factorial m : ℂ) ≠ 0 := by
+          exact_mod_cast Nat.factorial_ne_zero m
+        field_simp [hm, hf] <;> ring
+  · rw [arithmeticPoissonLocalFactor_apply_eq_zero_of_not_pow hq a hn,
+      liArithmeticOfPowerSeries_apply hq,
+      Function.extend_apply' _ _ _ hn, Pi.zero_apply, mul_zero]
+
+/-- The signed degree-one logarithmic generator through sites 2,...,k+1. -/
+def arithmeticPoissonLogKernel (w : ℕ → ℂ) : ℕ → ArithmeticFunction ℂ
+  | 0 => 0
+  | k + 1 =>
+      arithmeticSiteAtom (k + 2)
+          (-(Real.log ((k + 2 : ℕ) : ℝ) : ℂ) * w (k + 2)) +
+        arithmeticPoissonLogKernel w k
+
+/-- **Exact global logarithmic renewal.** Repeated-site Poisson collisions
+are absorbed algebraically into the complete child product before any norm.
+The remaining generator contains only degree-one sites. -/
+theorem arithmeticLogWeight_poissonProduct (w : ℕ → ℂ) (k : ℕ) :
+    arithmeticLogWeight (arithmeticPoissonProduct w k) =
+      arithmeticPoissonLogKernel w k * arithmeticPoissonProduct w k := by
+  induction k with
+  | zero => simp [arithmeticPoissonProduct, arithmeticPoissonLogKernel]
+  | succ k ih =>
+      rw [arithmeticPoissonProduct, arithmeticLogWeight_mul,
+        arithmeticLogWeight_poissonLocalFactor, ih,
+        arithmeticPoissonLogKernel]
+      ring
+
+private theorem arithmeticCoefficientCumulative_add
+    (f g : ArithmeticFunction ℂ) (X : ℕ) :
+    arithmeticCoefficientCumulative (f + g) X =
+      arithmeticCoefficientCumulative f X + arithmeticCoefficientCumulative g X := by
+  simp [arithmeticCoefficientCumulative, Finset.sum_add_distrib]
+
+theorem arithmeticCoefficientCumulative_poissonLogKernel_mul
+    (w : ℕ → ℂ) (k : ℕ) (f : ArithmeticFunction ℂ) (X : ℕ) :
+    arithmeticCoefficientCumulative (arithmeticPoissonLogKernel w k * f) X =
+      -(∑ j ∈ Finset.range k,
+        (Real.log ((j + 2 : ℕ) : ℝ) : ℂ) * w (j + 2) *
+          arithmeticCoefficientCumulative f (X / (j + 2))) := by
+  induction k with
+  | zero =>
+      simp [arithmeticPoissonLogKernel, arithmeticCoefficientCumulative]
+  | succ k ih =>
+      rw [arithmeticPoissonLogKernel, add_mul,
+        arithmeticCoefficientCumulative_add,
+        arithmeticCoefficientCumulative_siteAtom_mul (by omega), ih,
+        Finset.sum_range_succ]
+      ring
+
+/-- Finite signed renewal on the actual Poisson coefficient carrier, with
+the same cutoff on every child and exact integer floor endpoints. -/
+theorem arithmeticPoissonProduct_logarithmic_renewal
+    (w : ℕ → ℂ) (k X : ℕ) :
+    (∑ n ∈ Finset.Icc 1 X,
+        (Real.log (n : ℝ) : ℂ) * arithmeticPoissonProduct w k n) =
+      -(∑ j ∈ Finset.range k,
+        (Real.log ((j + 2 : ℕ) : ℝ) : ℂ) * w (j + 2) *
+          arithmeticCoefficientCumulative
+            (arithmeticPoissonProduct w k) (X / (j + 2))) := by
+  change arithmeticCoefficientCumulative
+    (arithmeticLogWeight (arithmeticPoissonProduct w k)) X = _
+  rw [arithmeticLogWeight_poissonProduct,
+    arithmeticCoefficientCumulative_poissonLogKernel_mul]
 
 end RHLean.Analysis
