@@ -263,7 +263,7 @@ theorem abs_vfMidDirect_logMidpoint_sub_log_prime_le
       exact hNegWidth.trans hLower
     · have hUpper :
           (p : ℝ) - vfMidBandMidpoint R ≤
-            ((((R + 1 : ℕ) : ℝ) ^ 2) - (R : ℝ) ^ 2 := by
+            ( ((((R + 1 : ℕ) : ℝ) ^ 2) - (R : ℝ) ^ 2) ) := by
         linarith [hpTile.2, hmTile.1]
       exact hUpper.trans hwidth
   have hlogdiff :
@@ -434,7 +434,11 @@ theorem vfMidDirectSquareEndpointError_eq_vfMidPrimeError
   have hcount :
       vfMidPrimeCount ((R : ℝ) ^ 2) =
         (Nat.primeCounting (R ^ 2) : ℝ) := by
-    simp [vfMidPrimeCount, ← Nat.cast_pow]
+    have hsquare :
+        (R : ℝ) ^ 2 = ((R ^ 2 : ℕ) : ℝ) := by
+      norm_num
+    rw [hsquare]
+    simp [vfMidPrimeCount]
   rw [hcount]
 
 /-- Exact recurrence D_(R+1) = D_R + epsilon_R. -/
@@ -448,9 +452,9 @@ theorem vfMidDirectSquareEndpointError_succ
           (Nat.primeCounting (R ^ 2) : ℝ) =
         (Nat.primeCounting ((R + 1) ^ 2) : ℝ) := by
     exact_mod_cast hp
-  rw [vfMidFinishedMass_succ hR]
   unfold vfMidDirectSquareEndpointError vfMidDirectBandError
     vfMidDirectPrimeBandCount
+  rw [vfMidFinishedMass_succ hR]
   linarith
 
 /-- Generic finite-difference telescope on a natural interval. -/
