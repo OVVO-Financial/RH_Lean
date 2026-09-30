@@ -1,6 +1,7 @@
 import Mathlib
 import «research.VF_MID_VON_KOCH_BRIDGE»
 import RHLean.Proof.LowWheelHighPrimeSurvivor
+import RHLean.Analysis.SquareRootPrimeCountGap
 
 /-!
 # VF-mid square-band composite complement
@@ -42,7 +43,7 @@ def vfMidSquareBandComposites (R : ℕ) : Finset ℕ :=
 theorem vfMidSquareBandSites_card (R : ℕ) :
     (vfMidSquareBandSites R).card = 2 * R := by
   unfold vfMidSquareBandSites
-  rw [Finset.card_Ioo]
+  rw [Nat.card_Ioo]
   omega
 
 /-- Prime and composite sites partition the complete square band exactly. -/
@@ -51,7 +52,16 @@ theorem vfMidSquareBand_prime_composite_partition (R : ℕ) :
       vfMidSquareBandSites R := by
   classical
   ext n
-  simp [vfMidSquareBandPrimes, vfMidSquareBandComposites]
+  simp only [vfMidSquareBandPrimes, vfMidSquareBandComposites,
+    Finset.mem_union, Finset.mem_filter]
+  constructor
+  · intro hn
+    by_cases hp : n.Prime
+    · exact Or.inl ⟨hn, hp⟩
+    · exact Or.inr ⟨hn, hp⟩
+  · rintro (h | h)
+    · exact h.1
+    · exact h.1
 
 /-- The prime and composite populations in one complete square band are
 disjoint. -/
@@ -169,8 +179,8 @@ theorem vfMidSquareEndpointError_succ
           (Nat.primeCounting (R ^ 2) : ℝ) =
         (Nat.primeCounting ((R + 1) ^ 2) : ℝ) := by
     exact_mod_cast hp
-  rw [vfMidFinishedMass_succ hR]
   unfold vfMidSquareEndpointError vfMidSquareBandError
+  rw [vfMidFinishedMass_succ hR]
   linarith
 
 /-- The recurrence can be written with no prime indicator at all: the next
