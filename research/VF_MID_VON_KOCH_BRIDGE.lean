@@ -1,4 +1,3 @@
-import Mathlib
 import Mathlib.Analysis.SpecialFunctions.ImproperIntegrals
 import Mathlib.Analysis.SumIntegralComparisons
 import Mathlib.MeasureTheory.Integral.IntervalIntegral.TrapezoidalRule
