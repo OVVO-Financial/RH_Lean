@@ -1,6 +1,7 @@
 import Mathlib.Analysis.SpecialFunctions.ImproperIntegrals
 import Mathlib.Analysis.SumIntegralComparisons
-import Mathlib.MeasureTheory.Integral.IntervalIntegral.TrapezoidalRule
+import Mathlib.Analysis.Calculus.MeanValue
+import Mathlib.MeasureTheory.Integral.IntervalIntegral.FundThmCalculus
 import RHLean.Analysis.PrimeSieveAbelIdentity
 import RHLean.Proof.RiemannHypothesisBridge
 
@@ -216,37 +217,95 @@ theorem summable_nat_inv_div_log_sq :
   simpa [g] using
     (AntitoneOn.summable_of_integrableOn_Ioi hanti hint hnonneg)
 
-/-- Midpoint-rule error bound derived from Mathlib's C2 trapezoidal-rule
-estimate.  The constant 1/8 is deliberately non-sharp; only summability of the
-square-band errors is needed downstream. -/
-theorem midpoint_rule_error_le_of_c2
-    {f : ℝ → ℝ} {a b : ℝ}
-    (hf : ContDiffOn ℝ 2 f [[a, b]])
-    {ζ : ℝ}
-    (hζ : ∀ x, |iteratedDerivWithin 2 f [[a, b]] x| ≤ ζ) :
-    |(b - a) * f ((a + b) / 2) - ∫ t in a..b, f t| ≤
-      |b - a| ^ 3 * ζ / 8 := by
-  have h1 := trapezoidal_error_le_of_c2 hf hζ (N := 1) (by norm_num)
-  have h2 := trapezoidal_error_le_of_c2 hf hζ (N := 2) (by norm_num)
-  have hζ0 : 0 ≤ ζ := (abs_nonneg _).trans (hζ a)
-  have hident :
-      (b - a) * f ((a + b) / 2) - ∫ t in a..b, f t =
-        2 * trapezoidal_error f 2 a b -
-          trapezoidal_error f 1 a b := by
-    unfold trapezoidal_error trapezoidal_integral
-    simp
-    ring
-  rw [hident, sub_eq_add_neg]
-  calc
-    |2 * trapezoidal_error f 2 a b + -trapezoidal_error f 1 a b|
-        ≤ |2 * trapezoidal_error f 2 a b| +
-            |-trapezoidal_error f 1 a b| := abs_add_le _ _
-    _ = 2 * |trapezoidal_error f 2 a b| +
-          |trapezoidal_error f 1 a b| := by simp
-    _ ≤ 2 * (|b - a| ^ 3 * ζ / (12 * (2 : ℝ) ^ 2)) +
-          (|b - a| ^ 3 * ζ / (12 * (1 : ℝ) ^ 2)) := by
-      gcongr
-    _ = |b - a| ^ 3 * ζ / 8 := by ring
+/-- One-trapezoid approximation used internally for the midpoint estimate. -/
+private noncomputable def vfMidTrapIntegral
+    (f : ℝ → ℝ) (a b : ℝ) : ℝ :=
+  (b - a) / 2 * (f a + f b)
+
+/-- Signed one-trapezoid error. -/
+private noncomputable def vfMidTrapError
+    (f : ℝ → ℝ) (a b : ℝ) : ℝ :=
+  vfMidTrapIntegral f a b - ∫ x in a..b, f x
+
+@[simp] private theorem vfMidTrapError_same
+    (f : ℝ → ℝ) (a : ℝ) :
+    vfMidTrapError f a a = 0 := by
+  simp [vfMidTrapError, vfMidTrapIntegral]
+
+/-- C2 one-trapezoid error bound on an ordered nonempty interval.
+This is the only numerical-analysis estimate needed to build the midpoint
+quadrature bridge on the repository's pinned Mathlib 4.24. -/
+private theorem vfMidTrapError_le_of_lt
+    {f : ℝ → ℝ} {ζ a b : ℝ}
+    (hab : a < b)
+    (hdf : DifferentiableOn ℝ f (Icc a b))
+    (hddf : DifferentiableOn ℝ (derivWithin f (Icc a b)) (Icc a b))
+    (hbound : ∀ x, |iteratedDerivWithin 2 f (Icc a b) x| ≤ ζ) :
+    |vfMidTrapError f a b| ≤ (b - a) ^ 3 * ζ / 12 := by
+  let g (t : ℝ) := vfMidTrapError f a t
+  let dg (t : ℝ) :=
+    (1 / 2) * (f a + f t) +
+      ((t - a) / 2) * (derivWithin f (Icc a b) t) - f t
+  let ddg (t : ℝ) :=
+    ((t - a) / 2) * (iteratedDerivWithin 2 f (Icc a b) t)
+  have hdg (y : ℝ) (hy : y ∈ Icc a b) :
+      HasDerivWithinAt g (dg y) (Icc a b) y := by
+    unfold g vfMidTrapError vfMidTrapIntegral
+    refine fun_sub
+      (fun_mul
+        (div_const (sub_const _ (hasDerivWithinAt_id _ _)) _)
+        (const_add _ (hdf y hy).hasDerivWithinAt))
+      ?_
+    have := Fact.mk hy
+    apply integral_hasDerivWithinAt_right
+    · exact
+        (hdf.continuousOn.mono (Icc_subset_Icc le_rfl hy.2)).intervalIntegrable_of_Icc hy.1
+    · exact hdf.continuousOn.stronglyMeasurableAtFilter_nhdsWithin measurableSet_Icc y
+    · exact hdf.continuousOn.continuousWithinAt hy
+  have hddg (y : ℝ) (hy : y ∈ Icc a b) :
+      HasDerivWithinAt dg (ddg y) (Icc a b) y := by
+    let dfy := derivWithin f (Icc a b) y
+    rw [(by ring :
+      ddg y = (1 / 2) * dfy + ((1 / 2) * dfy + ddg y) - dfy)]
+    refine fun_sub
+      (fun_add
+        (const_mul _ (const_add _ (hdf y hy).hasDerivWithinAt))
+        (fun_mul (div_const (sub_const _ (hasDerivWithinAt_id _ _)) _) ?_))
+      (hdf y hy).hasDerivWithinAt
+    rw [iteratedDerivWithin_eq_iterate]
+    exact (hddf y hy).hasDerivWithinAt
+  have hddgBound (x : ℝ) (hx : x ∈ Icc a b) :
+      |ddg x| ≤ (ζ / 2) * (x - a) := by
+    simp_rw [ddg, abs_mul, abs_div, abs_two]
+    grw [hbound x, abs_of_nonneg (sub_nonneg.mpr hx.1), div_mul_comm]
+  have key {φ φ' : ℝ → ℝ}
+      (hderiv : ∀ x ∈ Icc a b,
+        HasDerivWithinAt φ (φ' x) (Icc a b) x)
+      (hzero : φ a = 0)
+      {cc : ℝ} {n : ℕ}
+      (hφ : ∀ t ∈ Icc a b, |φ' t| ≤ cc * (t - a) ^ n) :
+      ∀ t ∈ Icc a b,
+        |φ t| ≤ cc / (n + 1) * (t - a) ^ (n + 1) := by
+    intro t ht
+    have hB (x : ℝ) :
+        HasDerivAt
+          (fun y => cc / (n + 1) * (y - a) ^ (n + 1))
+          (cc * (x - a) ^ n) x := by
+      convert!
+        (hasDerivAt_const x (cc / (n + 1))).mul
+          (((hasDerivAt_id x).sub (hasDerivAt_const x a)).pow (n + 1)) using 1
+      simp [sub_eq_add_neg, field]
+    simpa [Real.norm_eq_abs, hzero] using
+      image_norm_le_of_norm_deriv_right_le_deriv_boundary
+        (fun x hx => (hderiv x hx).continuousWithinAt)
+        (fun x hx => by grind [Icc_mem_nhdsGE_of_mem, mono_of_mem_nhdsWithin])
+        (by simp [hzero]) hB
+        (fun x hx => hφ x (Ico_subset_Icc_self hx)) ht
+  exact
+    (key hdg (vfMidTrapError_same f a)
+      (key hddg (by ring) (fun x hx => by
+        simpa [pow_one] using hddgBound x hx))
+      b ⟨hab.le, le_rfl⟩).trans_eq (by ring_nf)
 
 /-! ## Frozen analytic statements -/
 
