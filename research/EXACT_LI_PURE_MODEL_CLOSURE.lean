@@ -2616,7 +2616,8 @@ private theorem arithmeticCoefficientCumulative_correctionFactor_mul_of_lt
     rw [arithmeticHardCorePoissonCorrectionFactor_apply_of_pos_lt
       hq hnpos hnq a]
     simp [hn1]
-  · exact Finset.mem_Icc.mpr ⟨le_rfl, hY⟩
+  · intro hnot
+    exact (hnot (Finset.mem_Icc.mpr ⟨le_rfl, hY⟩)).elim
 
 private theorem arithmeticCoefficientCumulative_poissonFactor_mul_of_lt
     {q Y : ℕ} (hq : 1 < q) (hY : 1 ≤ Y) (hYq : Y < q)
@@ -2637,7 +2638,8 @@ private theorem arithmeticCoefficientCumulative_poissonFactor_mul_of_lt
     have hnq : n < q := hnY.trans_lt hYq
     rw [arithmeticPoissonLocalFactor_apply_of_pos_lt hq hnpos hnq a]
     simp [hn1]
-  · exact Finset.mem_Icc.mpr ⟨le_rfl, hY⟩
+  · intro hnot
+    exact (hnot (Finset.mem_Icc.mpr ⟨le_rfl, hY⟩)).elim
 
 private theorem
     arithmeticHardCorePoissonCorrectionProduct_cumulative_natAdd_stable
@@ -3317,7 +3319,7 @@ theorem allScaleLiState_diagonal_eq_poissonConvolution
     L X X =
       finiteMultiplicativeConvolution
         exactLiCorrectionKernel exactLiPoissonIntegerReference X := by
-  rw [allScaleLiState_diagonal_eq_hardCoreProductCumulative X hX,
+  rw [allScaleLiState_diagonal_eq_hardCoreProductCumulative X hX hL,
     arithmeticHardCoreProduct_eq_correctionProduct_mul_poissonProduct,
     arithmeticCoefficientCumulative_mul_eq_finiteMultiplicativeConvolution]
   unfold finiteMultiplicativeConvolution
@@ -3339,7 +3341,8 @@ theorem exactLiCorrectionKernel_uniformVariation :
   intro X
   by_cases hX0 : X = 0
   · subst X
-    simp [criticalWeightedVariation]
+    simpa [criticalWeightedVariation] using
+      (Real.exp_pos (3 * criticalLiCollisionBudget)).le
   · have hX : 1 ≤ X := by omega
     calc
       criticalWeightedVariation exactLiCorrectionKernel X =
