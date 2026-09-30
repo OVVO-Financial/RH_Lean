@@ -1896,6 +1896,71 @@ theorem arithmeticHardCorePoissonCorrectionFactor_apply_eq_zero_of_not_pow
   rw [liArithmeticOfPowerSeries_apply hq,
     Function.extend_apply' _ _ _ hn, Pi.zero_apply]
 
+/-- Exponents whose site powers are visible below a finite endpoint. -/
+private def liCorrectionExponentSet (q X : ℕ) : Finset ℕ :=
+  (Finset.range (X + 1)).filter (fun m => q ^ m ≤ X)
+
+private theorem li_exponent_le_endpoint_of_pow_le
+    {q m X : ℕ} (hq : 1 < q) (hmX : q ^ m ≤ X) :
+    m ≤ X := by
+  by_cases hm : m = 0
+  · omega
+  · exact (Nat.le_pow (Nat.pos_of_ne_zero hm) (a := q)).trans hmX
+
+/-- **Sparse-support reindexing of one correction factor.**
+Its critical arithmetic variation is exactly the finite sum of the formal
+correction coefficients over the powers visible at the endpoint. -/
+theorem criticalWeightedVariation_hardCorePoissonCorrectionFactor_eq
+    {q : ℕ} (hq : 1 < q) (a : ℂ) (X : ℕ) :
+    criticalWeightedVariation
+        (fun n => arithmeticHardCorePoissonCorrectionFactor a hq n) X =
+      ∑ m ∈ liCorrectionExponentSet q X,
+        ‖hardCorePoissonCorrectionCoeff a m‖ /
+          Real.sqrt ((q ^ m : ℕ) : ℝ) := by
+  unfold criticalWeightedVariation
+  let E := liCorrectionExponentSet q X
+  have hinj : Function.Injective (fun m : ℕ => q ^ m) :=
+    Nat.pow_right_injective hq
+  have hsub :
+      E.image (fun m : ℕ => q ^ m) ⊆ Finset.Icc 1 X := by
+    intro n hn
+    rcases Finset.mem_image.mp hn with ⟨m, hmE, rfl⟩
+    have hmdata := Finset.mem_filter.mp hmE
+    exact Finset.mem_Icc.mpr
+      ⟨Nat.one_le_pow m q (by omega), hmdata.2⟩
+  calc
+    (∑ n ∈ Finset.Icc 1 X,
+        ‖arithmeticHardCorePoissonCorrectionFactor a hq n‖ /
+          Real.sqrt (n : ℝ))
+        = ∑ n ∈ E.image (fun m : ℕ => q ^ m),
+            ‖arithmeticHardCorePoissonCorrectionFactor a hq n‖ /
+              Real.sqrt (n : ℝ) := by
+          symm
+          apply Finset.sum_subset hsub
+          intro n hnI hnNot
+          have hnNotPow : ¬ ∃ m : ℕ, q ^ m = n := by
+            rintro ⟨m, hm⟩
+            have hnX := (Finset.mem_Icc.mp hnI).2
+            have hmX : q ^ m ≤ X := hm.trans_le hnX
+            have hmle : m ≤ X :=
+              li_exponent_le_endpoint_of_pow_le hq hmX
+            have hmE : m ∈ E := by
+              simp [E, liCorrectionExponentSet, hmle, hmX]
+            apply hnNot
+            exact Finset.mem_image.mpr ⟨m, hmE, hm⟩
+          rw [
+            arithmeticHardCorePoissonCorrectionFactor_apply_eq_zero_of_not_pow
+              hq a hnNotPow,
+            norm_zero, zero_div]
+    _ = ∑ m ∈ E,
+          ‖hardCorePoissonCorrectionCoeff a m‖ /
+            Real.sqrt ((q ^ m : ℕ) : ℝ) := by
+          rw [Finset.sum_image hinj]
+          apply Finset.sum_congr rfl
+          intro m hm
+          rw [arithmeticHardCorePoissonCorrectionFactor_apply_pow]
+    _ = _ := by rfl
+
 /-- Finite product of the quadratic correction factors over sites
 `2,...,k+1`, ordered exactly like `arithmeticHardCoreProduct`. -/
 def arithmeticHardCorePoissonCorrectionProduct
