@@ -2527,6 +2527,774 @@ theorem arithmeticHardCoreProduct_eq_correctionProduct_mul_poissonProduct
       ac_rfl
 
 
+/-! ## Stabilized hard-core/Poisson kernels -/
+
+/-- At a pure power of its site, the arithmetic Poisson factor is the
+corresponding exponential coefficient. -/
+theorem arithmeticPoissonLocalFactor_apply_pow
+    {q : ℕ} (hq : 1 < q) (a : ℂ) (m : ℕ) :
+    arithmeticPoissonLocalFactor a hq (q ^ m) =
+      (-a) ^ m / (Nat.factorial m : ℂ) := by
+  unfold arithmeticPoissonLocalFactor poissonExponentialSeries
+  rw [liArithmeticOfPowerSeries_apply_pow hq,
+    PowerSeries.coeff_rescale, PowerSeries.coeff_exp]
+  simp [div_eq_mul_inv]
+
+/-- Away from powers of its site, one arithmetic Poisson factor vanishes. -/
+theorem arithmeticPoissonLocalFactor_apply_eq_zero_of_not_pow
+    {q n : ℕ} (hq : 1 < q) (a : ℂ)
+    (hn : ¬ ∃ m : ℕ, q ^ m = n) :
+    arithmeticPoissonLocalFactor a hq n = 0 := by
+  unfold arithmeticPoissonLocalFactor
+  rw [liArithmeticOfPowerSeries_apply hq,
+    Function.extend_apply' _ _ _ hn, Pi.zero_apply]
+
+/-- Pointwise critical rescaling of an arithmetic coefficient sequence. -/
+def criticalScaleArithmetic (f : ArithmeticFunction ℂ) :
+    ArithmeticFunction ℂ :=
+  ⟨fun n => criticalSqrtWeight n * f n, by
+    simp [criticalSqrtWeight]⟩
+
+/-- Complete multiplicativity of the critical weight makes pointwise critical
+rescaling a homomorphism for Dirichlet convolution. -/
+theorem criticalScaleArithmetic_mul
+    (f g : ArithmeticFunction ℂ) :
+    criticalScaleArithmetic (f * g) =
+      criticalScaleArithmetic f * criticalScaleArithmetic g := by
+  ext n
+  change criticalSqrtWeight n * (f * g) n =
+    (criticalScaleArithmetic f * criticalScaleArithmetic g) n
+  rw [ArithmeticFunction.mul_apply, ArithmeticFunction.mul_apply]
+  change criticalSqrtWeight n *
+      (∑ p ∈ n.divisorsAntidiagonal, f p.1 * g p.2) =
+    ∑ p ∈ n.divisorsAntidiagonal,
+      (criticalSqrtWeight p.1 * f p.1) *
+        (criticalSqrtWeight p.2 * g p.2)
+  rw [Finset.mul_sum]
+  apply Finset.sum_congr rfl
+  intro p hp
+  rw [Nat.mem_divisorsAntidiagonal] at hp
+  rcases hp with ⟨hprod, _⟩
+  rw [← hprod, criticalSqrtWeight_mul]
+  ring
+
+/-- Critical rescaling of one local Poisson factor simply rescales its owner
+mass by q^(-1/2). -/
+theorem criticalScaleArithmetic_poissonLocalFactor
+    {q : ℕ} (hq : 1 < q) (a : ℂ) :
+    criticalScaleArithmetic (arithmeticPoissonLocalFactor a hq) =
+      arithmeticPoissonLocalFactor
+        (a * criticalSqrtWeight q) hq := by
+  ext n
+  by_cases hp : ∃ m : ℕ, q ^ m = n
+  · rcases hp with ⟨m, rfl⟩
+    change criticalSqrtWeight (q ^ m) *
+        arithmeticPoissonLocalFactor a hq (q ^ m) =
+      arithmeticPoissonLocalFactor
+        (a * criticalSqrtWeight q) hq (q ^ m)
+    rw [arithmeticPoissonLocalFactor_apply_pow,
+      arithmeticPoissonLocalFactor_apply_pow,
+      criticalSqrtWeight_pow]
+    rw [show -(a * criticalSqrtWeight q) =
+      (-a) * criticalSqrtWeight q by ring, mul_pow]
+    ring
+  · change criticalSqrtWeight n *
+        arithmeticPoissonLocalFactor a hq n =
+      arithmeticPoissonLocalFactor
+        (a * criticalSqrtWeight q) hq n
+    rw [arithmeticPoissonLocalFactor_apply_eq_zero_of_not_pow hq a hp,
+      arithmeticPoissonLocalFactor_apply_eq_zero_of_not_pow
+        hq (a * criticalSqrtWeight q) hp]
+    ring
+
+/-- Critical rescaling passes through the complete finite Poisson product and
+replaces each owner w_q by the transformed owner w_q/sqrt(q). -/
+theorem criticalScaleArithmetic_poissonProduct
+    (w : ℕ → ℂ) (k : ℕ) :
+    criticalScaleArithmetic (arithmeticPoissonProduct w k) =
+      arithmeticPoissonProduct
+        (fun q => w q * criticalSqrtWeight q) k := by
+  induction k with
+  | zero =>
+      ext n
+      by_cases hn : n = 1
+      · subst n
+        simp [criticalScaleArithmetic, arithmeticPoissonProduct,
+          criticalSqrtWeight]
+      · simp [criticalScaleArithmetic, arithmeticPoissonProduct,
+          criticalSqrtWeight, hn]
+  | succ k ih =>
+      rw [arithmeticPoissonProduct, criticalScaleArithmetic_mul,
+        criticalScaleArithmetic_poissonLocalFactor, ih]
+      rfl
+
+private theorem pow_site_not_eq_of_pos_lt
+    {q n : ℕ} (hq : 1 < q) (hnq : n < q)
+    (hn1 : n ≠ 1) :
+    ¬ ∃ m : ℕ, q ^ m = n := by
+  rintro ⟨m, hm⟩
+  cases m with
+  | zero =>
+      simp only [pow_zero] at hm
+      exact hn1 hm.symm
+  | succ m =>
+      have hqle : q ≤ q ^ (m + 1) := by
+        calc
+          q = q * 1 := by simp
+          _ ≤ q * q ^ m := by
+            exact Nat.mul_le_mul_left q
+              (Nat.one_le_pow m q (by omega))
+          _ = q ^ (m + 1) := by
+            simp [pow_succ, Nat.mul_comm]
+      rw [hm] at hqle
+      omega
+
+private theorem arithmeticHardCorePoissonCorrectionFactor_apply_of_pos_lt
+    {q n : ℕ} (hq : 1 < q) (hn : 1 ≤ n) (hnq : n < q)
+    (a : ℂ) :
+    arithmeticHardCorePoissonCorrectionFactor a hq n =
+      if n = 1 then 1 else 0 := by
+  by_cases hn1 : n = 1
+  · subst n
+    simpa using
+      (arithmeticHardCorePoissonCorrectionFactor_apply_pow hq a 0)
+  · have hnot := pow_site_not_eq_of_pos_lt hq hnq hn1
+    rw [arithmeticHardCorePoissonCorrectionFactor_apply_eq_zero_of_not_pow
+      hq a hnot]
+    simp [hn1]
+
+private theorem arithmeticPoissonLocalFactor_apply_of_pos_lt
+    {q n : ℕ} (hq : 1 < q) (hn : 1 ≤ n) (hnq : n < q)
+    (a : ℂ) :
+    arithmeticPoissonLocalFactor a hq n =
+      if n = 1 then 1 else 0 := by
+  by_cases hn1 : n = 1
+  · subst n
+    simpa using (arithmeticPoissonLocalFactor_apply_pow hq a 0)
+  · have hnot := pow_site_not_eq_of_pos_lt hq hnq hn1
+    rw [arithmeticPoissonLocalFactor_apply_eq_zero_of_not_pow hq a hnot]
+    simp [hn1]
+
+private theorem arithmeticCoefficientCumulative_correctionFactor_mul_of_lt
+    {q Y : ℕ} (hq : 1 < q) (hY : 1 ≤ Y) (hYq : Y < q)
+    (a : ℂ) (f : ArithmeticFunction ℂ) :
+    arithmeticCoefficientCumulative
+        (arithmeticHardCorePoissonCorrectionFactor a hq * f) Y =
+      arithmeticCoefficientCumulative f Y := by
+  rw [arithmeticCoefficientCumulative_mul]
+  rw [Finset.sum_eq_single 1]
+  · have hone :=
+      arithmeticHardCorePoissonCorrectionFactor_apply_of_pos_lt
+        hq (by omega : (1 : ℕ) ≤ 1) (by omega : (1 : ℕ) < q) a
+    simp at hone
+    rw [hone]
+    simp
+  · intro n hn hn1
+    rcases Finset.mem_Icc.mp hn with ⟨hnpos, hnY⟩
+    have hnq : n < q := hnY.trans_lt hYq
+    rw [arithmeticHardCorePoissonCorrectionFactor_apply_of_pos_lt
+      hq hnpos hnq a]
+    simp [hn1]
+  · intro hnot
+    exact (hnot (Finset.mem_Icc.mpr ⟨le_rfl, hY⟩)).elim
+
+private theorem arithmeticCoefficientCumulative_poissonFactor_mul_of_lt
+    {q Y : ℕ} (hq : 1 < q) (hY : 1 ≤ Y) (hYq : Y < q)
+    (a : ℂ) (f : ArithmeticFunction ℂ) :
+    arithmeticCoefficientCumulative
+        (arithmeticPoissonLocalFactor a hq * f) Y =
+      arithmeticCoefficientCumulative f Y := by
+  rw [arithmeticCoefficientCumulative_mul]
+  rw [Finset.sum_eq_single 1]
+  · have hone :=
+      arithmeticPoissonLocalFactor_apply_of_pos_lt
+        hq (by omega : (1 : ℕ) ≤ 1) (by omega : (1 : ℕ) < q) a
+    simp at hone
+    rw [hone]
+    simp
+  · intro n hn hn1
+    rcases Finset.mem_Icc.mp hn with ⟨hnpos, hnY⟩
+    have hnq : n < q := hnY.trans_lt hYq
+    rw [arithmeticPoissonLocalFactor_apply_of_pos_lt hq hnpos hnq a]
+    simp [hn1]
+  · intro hnot
+    exact (hnot (Finset.mem_Icc.mpr ⟨le_rfl, hY⟩)).elim
+
+private theorem
+    arithmeticHardCorePoissonCorrectionProduct_cumulative_natAdd_stable
+    (w : ℕ → ℂ) (Y g : ℕ) (hY : 1 ≤ Y) :
+    arithmeticCoefficientCumulative
+        (arithmeticHardCorePoissonCorrectionProduct w ((Y - 1) + g)) Y =
+      arithmeticCoefficientCumulative
+        (arithmeticHardCorePoissonCorrectionProduct w (Y - 1)) Y := by
+  induction g with
+  | zero =>
+      simp
+  | succ g ih =>
+      have hq : 1 < (Y - 1) + g + 2 := by omega
+      have hYq : Y < (Y - 1) + g + 2 := by omega
+      rw [show (Y - 1) + (g + 1) = ((Y - 1) + g) + 1 by omega,
+        arithmeticHardCorePoissonCorrectionProduct,
+        arithmeticCoefficientCumulative_correctionFactor_mul_of_lt
+          hq hY hYq]
+      exact ih
+
+private theorem arithmeticPoissonProduct_cumulative_natAdd_stable
+    (w : ℕ → ℂ) (Y g : ℕ) (hY : 1 ≤ Y) :
+    arithmeticCoefficientCumulative
+        (arithmeticPoissonProduct w ((Y - 1) + g)) Y =
+      arithmeticCoefficientCumulative
+        (arithmeticPoissonProduct w (Y - 1)) Y := by
+  induction g with
+  | zero =>
+      simp
+  | succ g ih =>
+      have hq : 1 < (Y - 1) + g + 2 := by omega
+      have hYq : Y < (Y - 1) + g + 2 := by omega
+      rw [show (Y - 1) + (g + 1) = ((Y - 1) + g) + 1 by omega,
+        arithmeticPoissonProduct,
+        arithmeticCoefficientCumulative_poissonFactor_mul_of_lt
+          hq hY hYq]
+      exact ih
+
+private theorem
+    arithmeticHardCorePoissonCorrectionProduct_cumulative_stable
+    (w : ℕ → ℂ) {Y X : ℕ} (hY : 1 ≤ Y) (hYX : Y ≤ X) :
+    arithmeticCoefficientCumulative
+        (arithmeticHardCorePoissonCorrectionProduct w (X - 1)) Y =
+      arithmeticCoefficientCumulative
+        (arithmeticHardCorePoissonCorrectionProduct w (Y - 1)) Y := by
+  have hidx : X - 1 = (Y - 1) + (X - Y) := by omega
+  rw [hidx]
+  exact
+    arithmeticHardCorePoissonCorrectionProduct_cumulative_natAdd_stable
+      w Y (X - Y) hY
+
+private theorem arithmeticPoissonProduct_cumulative_stable
+    (w : ℕ → ℂ) {Y X : ℕ} (hY : 1 ≤ Y) (hYX : Y ≤ X) :
+    arithmeticCoefficientCumulative
+        (arithmeticPoissonProduct w (X - 1)) Y =
+      arithmeticCoefficientCumulative
+        (arithmeticPoissonProduct w (Y - 1)) Y := by
+  have hidx : X - 1 = (Y - 1) + (X - Y) := by omega
+  rw [hidx]
+  exact arithmeticPoissonProduct_cumulative_natAdd_stable
+    w Y (X - Y) hY
+
+private theorem arithmeticFunction_apply_eq_cumulative_sub
+    (f : ArithmeticFunction ℂ) {n : ℕ} (hn : 1 ≤ n) :
+    f n =
+      arithmeticCoefficientCumulative f n -
+        arithmeticCoefficientCumulative f (n - 1) := by
+  have hsum :
+      arithmeticCoefficientCumulative f n =
+        arithmeticCoefficientCumulative f (n - 1) + f n := by
+    unfold arithmeticCoefficientCumulative
+    have hpred : n - 1 + 1 = n := Nat.sub_add_cancel hn
+    calc
+      (∑ i ∈ Finset.Icc 1 n, f i) =
+          ∑ i ∈ Finset.Icc 1 (n - 1 + 1), f i := by
+            rw [hpred]
+      _ = (∑ i ∈ Finset.Icc 1 (n - 1), f i) + f (n - 1 + 1) := by
+            rw [Finset.sum_Icc_succ_top (by omega)]
+      _ = (∑ i ∈ Finset.Icc 1 (n - 1), f i) + f n := by
+            rw [hpred]
+  rw [hsum]
+  ring
+
+private theorem
+    arithmeticHardCorePoissonCorrectionProduct_apply_stable
+    (w : ℕ → ℂ) {n X : ℕ} (hn : 1 ≤ n) (hnX : n ≤ X) :
+    arithmeticHardCorePoissonCorrectionProduct w (X - 1) n =
+      arithmeticHardCorePoissonCorrectionProduct w (n - 1) n := by
+  by_cases hn1 : n = 1
+  · subst n
+    have hcum :=
+      arithmeticHardCorePoissonCorrectionProduct_cumulative_stable
+        w (Y := 1) (X := X) (by omega) hnX
+    simpa [arithmeticCoefficientCumulative] using hcum
+  · have hnm1 : 1 ≤ n - 1 := by omega
+    rw [arithmeticFunction_apply_eq_cumulative_sub _ hn,
+      arithmeticFunction_apply_eq_cumulative_sub _ hn]
+    rw [arithmeticHardCorePoissonCorrectionProduct_cumulative_stable
+      w hn hnX]
+    rw [arithmeticHardCorePoissonCorrectionProduct_cumulative_stable
+      w hnm1 (by omega : n - 1 ≤ X)]
+    rw [arithmeticHardCorePoissonCorrectionProduct_cumulative_stable
+      w hnm1 (by omega : n - 1 ≤ n)]
+
+
+private theorem arithmeticPoissonProduct_apply_stable
+    (w : ℕ → ℂ) {n X : ℕ} (hn : 1 ≤ n) (hnX : n ≤ X) :
+    arithmeticPoissonProduct w (X - 1) n =
+      arithmeticPoissonProduct w (n - 1) n := by
+  by_cases hn1 : n = 1
+  · subst n
+    have hcum :=
+      arithmeticPoissonProduct_cumulative_stable
+        w (Y := 1) (X := X) (by omega) hnX
+    simpa [arithmeticCoefficientCumulative] using hcum
+  · have hnm1 : 1 ≤ n - 1 := by omega
+    rw [arithmeticFunction_apply_eq_cumulative_sub _ hn,
+      arithmeticFunction_apply_eq_cumulative_sub _ hn]
+    rw [arithmeticPoissonProduct_cumulative_stable w hn hnX]
+    rw [arithmeticPoissonProduct_cumulative_stable
+      w hnm1 (by omega : n - 1 ≤ X)]
+    rw [arithmeticPoissonProduct_cumulative_stable
+      w hnm1 (by omega : n - 1 ≤ n)]
+
+
+
+/-- Absolute coefficient of the genuinely quadratic-and-higher part of one
+Poisson exponential, indexed from degree two. -/
+def poissonQuadraticTailTerm (a : ℝ) (m : ℕ) : ℝ :=
+  a ^ (m + 2) / (Nat.factorial (m + 2) : ℝ)
+
+theorem poissonQuadraticTailTerm_nonneg
+    {a : ℝ} (ha : 0 ≤ a) (m : ℕ) :
+    0 ≤ poissonQuadraticTailTerm a m := by
+  unfold poissonQuadraticTailTerm
+  positivity
+
+/-- The pure Poisson degree-two tail is pointwise dominated by the already
+certified hard-core/Poisson correction tail. -/
+theorem poissonQuadraticTailTerm_le_hardCorePoissonCorrectionTailTerm
+    {a : ℝ} (ha : 0 ≤ a) (m : ℕ) :
+    poissonQuadraticTailTerm a m ≤
+      hardCorePoissonCorrectionTailTerm a m := by
+  unfold poissonQuadraticTailTerm hardCorePoissonCorrectionTailTerm
+  have hbase :
+      0 ≤ a ^ (m + 2) / (Nat.factorial (m + 2) : ℝ) := by
+    positivity
+  have hm : (1 : ℝ) ≤ ((m + 1 : ℕ) : ℝ) := by
+    exact_mod_cast (show 1 ≤ m + 1 by omega)
+  calc
+    a ^ (m + 2) / (Nat.factorial (m + 2) : ℝ) =
+        1 * (a ^ (m + 2) / (Nat.factorial (m + 2) : ℝ)) := by ring
+    _ ≤ ((m + 1 : ℕ) : ℝ) *
+        (a ^ (m + 2) / (Nat.factorial (m + 2) : ℝ)) :=
+      mul_le_mul_of_nonneg_right hm hbase
+    _ = ((m + 1 : ℕ) : ℝ) * a ^ (m + 2) /
+        (Nat.factorial (m + 2) : ℝ) := by ring
+
+theorem poissonQuadraticTailTerm_summable
+    {a : ℝ} (ha0 : 0 ≤ a) (ha1 : a ≤ 1) :
+    Summable (poissonQuadraticTailTerm a) := by
+  exact Summable.of_nonneg_of_le
+    (fun m => poissonQuadraticTailTerm_nonneg ha0 m)
+    (fun m => poissonQuadraticTailTerm_le_hardCorePoissonCorrectionTailTerm
+      ha0 m)
+    (hardCorePoissonCorrectionTailTerm_summable ha0 ha1)
+
+/-- The complete absolute Poisson tail beyond degrees zero and one is
+quadratic in the local owner mass.  The constant is deliberately inherited
+from the already-green correction-tail estimate. -/
+theorem tsum_poissonQuadraticTailTerm_le_three_sq
+    {a : ℝ} (ha0 : 0 ≤ a) (ha1 : a ≤ 1) :
+    (∑' m : ℕ, poissonQuadraticTailTerm a m) ≤ 3 * a ^ 2 := by
+  have hs := poissonQuadraticTailTerm_summable ha0 ha1
+  have hc := hardCorePoissonCorrectionTailTerm_summable ha0 ha1
+  calc
+    (∑' m : ℕ, poissonQuadraticTailTerm a m)
+        ≤ ∑' m : ℕ, hardCorePoissonCorrectionTailTerm a m := by
+          exact Summable.tsum_le_tsum
+            (fun m =>
+              poissonQuadraticTailTerm_le_hardCorePoissonCorrectionTailTerm
+                ha0 m)
+            hs hc
+    _ ≤ 3 * a ^ 2 :=
+      tsum_hardCorePoissonCorrectionTailTerm_le_three_sq ha0 ha1
+
+/-- Complex norm form of one Poisson coefficient in degree m+2. -/
+theorem norm_poissonCoeff_add_two_eq_quadraticTail
+    (z : ℂ) (m : ℕ) :
+    ‖(-z) ^ (m + 2) / (Nat.factorial (m + 2) : ℂ)‖ =
+      poissonQuadraticTailTerm ‖z‖ m := by
+  unfold poissonQuadraticTailTerm
+  rw [norm_div, norm_pow, norm_neg, Complex.norm_natCast]
+
+/-- On the unit ball, the full complex Poisson tail from degree two onward
+has absolute mass at most three times the squared owner norm. -/
+theorem tsum_norm_poissonCoeff_add_two_le_three_sq
+    {z : ℂ} (hz : ‖z‖ ≤ 1) :
+    (∑' m : ℕ,
+        ‖(-z) ^ (m + 2) / (Nat.factorial (m + 2) : ℂ)‖) ≤
+      3 * ‖z‖ ^ 2 := by
+  have h0 : 0 ≤ ‖z‖ := norm_nonneg z
+  calc
+    (∑' m : ℕ,
+        ‖(-z) ^ (m + 2) / (Nat.factorial (m + 2) : ℂ)‖) =
+      ∑' m : ℕ, poissonQuadraticTailTerm ‖z‖ m := by
+        apply tsum_congr
+        intro m
+        exact norm_poissonCoeff_add_two_eq_quadraticTail z m
+    _ ≤ 3 * ‖z‖ ^ 2 :=
+      tsum_poissonQuadraticTailTerm_le_three_sq h0 hz
+
+/-- After the critical square-root rescaling at site q, the complete
+quadratic Poisson tail is paid by exactly the local collision currency
+‖w_q‖²/q, up to the universal factor three. -/
+theorem tsum_norm_poissonCoeff_critical_add_two_le_collision
+    {q : ℕ} (hq : 1 ≤ q) (a : ℂ)
+    (hz : ‖a * criticalSqrtWeight q‖ ≤ 1) :
+    (∑' m : ℕ,
+        ‖(-a) ^ (m + 2) / (Nat.factorial (m + 2) : ℂ)‖ /
+          Real.sqrt ((q ^ (m + 2) : ℕ) : ℝ)) ≤
+      3 * (‖a‖ ^ 2 / (q : ℝ)) := by
+  have hterm :
+      ∀ m : ℕ,
+        ‖(-a) ^ (m + 2) / (Nat.factorial (m + 2) : ℂ)‖ /
+            Real.sqrt ((q ^ (m + 2) : ℕ) : ℝ) =
+          ‖(-(a * criticalSqrtWeight q)) ^ (m + 2) /
+            (Nat.factorial (m + 2) : ℂ)‖ := by
+    intro m
+    have hqpow : 1 ≤ q ^ (m + 2) :=
+      Nat.one_le_pow (m + 2) q hq
+    have hweight :
+        (Real.sqrt ((q ^ (m + 2) : ℕ) : ℝ))⁻¹ =
+          ‖criticalSqrtWeight q‖ ^ (m + 2) := by
+      calc
+        (Real.sqrt ((q ^ (m + 2) : ℕ) : ℝ))⁻¹ =
+            ‖criticalSqrtWeight (q ^ (m + 2))‖ := by
+              symm
+              simpa [one_div] using
+                (norm_criticalSqrtWeight_eq_inv_sqrt
+                  (q := q ^ (m + 2)) hqpow)
+        _ = ‖criticalSqrtWeight q ^ (m + 2)‖ := by
+              rw [criticalSqrtWeight_pow]
+        _ = ‖criticalSqrtWeight q‖ ^ (m + 2) := by
+              rw [norm_pow]
+    rw [div_eq_mul_inv, hweight, norm_div, norm_pow, norm_neg,
+      Complex.norm_natCast]
+    rw [norm_div, norm_pow, norm_neg, norm_mul, Complex.norm_natCast]
+    ring
+  calc
+    (∑' m : ℕ,
+        ‖(-a) ^ (m + 2) / (Nat.factorial (m + 2) : ℂ)‖ /
+          Real.sqrt ((q ^ (m + 2) : ℕ) : ℝ)) =
+      ∑' m : ℕ,
+        ‖(-(a * criticalSqrtWeight q)) ^ (m + 2) /
+          (Nat.factorial (m + 2) : ℂ)‖ := by
+        apply tsum_congr
+        exact hterm
+    _ ≤ 3 * ‖a * criticalSqrtWeight q‖ ^ 2 :=
+      tsum_norm_poissonCoeff_add_two_le_three_sq hz
+    _ = 3 * (‖a‖ ^ 2 / (q : ℝ)) := by
+      rw [norm_mul, mul_pow, norm_criticalSqrtWeight_sq]
+      ring
+
+/-- For the exact Li site weight, the local quadratic Poisson tail is paid by
+the already summable transformed collision owner. -/
+theorem tsum_norm_exactLiPoissonCoeff_critical_add_two_le_collision
+    {q : ℕ} (hq : 2 ≤ q) :
+    (∑' m : ℕ,
+        ‖(-primeSievePNTDensity q) ^ (m + 2) /
+            (Nat.factorial (m + 2) : ℂ)‖ /
+          Real.sqrt ((q ^ (m + 2) : ℕ) : ℝ)) ≤
+      3 * ‖criticalLiFrequencyWeight q‖ ^ 2 := by
+  have hz : ‖criticalLiFrequencyWeight q‖ ≤ 1 := by
+    rcases Nat.eq_or_lt_of_le hq with rfl | hqgt
+    · rw [criticalLiFrequencyWeight_two_eq_zero]
+      simp
+    · have hq3 : 3 ≤ q := by omega
+      by_cases h3 : q = 3
+      · subst q
+        exact norm_criticalLiFrequencyWeight_three_le_one
+      · exact norm_criticalLiFrequencyWeight_le_one (by omega)
+  have h :=
+    tsum_norm_poissonCoeff_critical_add_two_le_collision
+      (q := q) (by omega : 1 ≤ q) (primeSievePNTDensity q) hz
+  simpa [norm_criticalLiFrequencyWeight_sq] using h
+
+/-- **Exact one-site Poisson cumulative recurrence.**
+Multiplying a coefficient sequence by the Poisson exponential at site `q`
+produces the finite signed power expansion over exactly those powers `q^m`
+visible below the endpoint. -/
+theorem arithmeticCoefficientCumulative_poissonLocalFactor_mul_eq
+    {q : ℕ} (hq : 1 < q) (a : ℂ)
+    (f : ArithmeticFunction ℂ) (X : ℕ) :
+    arithmeticCoefficientCumulative
+        (arithmeticPoissonLocalFactor a hq * f) X =
+      ∑ m ∈ liCorrectionExponentSet q X,
+        ((-a) ^ m / (Nat.factorial m : ℂ)) *
+          arithmeticCoefficientCumulative f (X / q ^ m) := by
+  rw [arithmeticCoefficientCumulative_mul]
+  let E := liCorrectionExponentSet q X
+  have hinj : Function.Injective (fun m : ℕ => q ^ m) :=
+    Nat.pow_right_injective hq
+  have hsub :
+      E.image (fun m : ℕ => q ^ m) ⊆ Finset.Icc 1 X := by
+    intro n hn
+    rcases Finset.mem_image.mp hn with ⟨m, hmE, rfl⟩
+    have hmdata := Finset.mem_filter.mp hmE
+    exact Finset.mem_Icc.mpr
+      ⟨Nat.one_le_pow m q (by omega), hmdata.2⟩
+  calc
+    (∑ n ∈ Finset.Icc 1 X,
+        arithmeticPoissonLocalFactor a hq n *
+          arithmeticCoefficientCumulative f (X / n))
+        =
+      ∑ n ∈ E.image (fun m : ℕ => q ^ m),
+        arithmeticPoissonLocalFactor a hq n *
+          arithmeticCoefficientCumulative f (X / n) := by
+          symm
+          apply Finset.sum_subset hsub
+          intro n hnI hnNot
+          have hnNotPow : ¬ ∃ m : ℕ, q ^ m = n := by
+            rintro ⟨m, hm⟩
+            have hnX := (Finset.mem_Icc.mp hnI).2
+            have hmX : q ^ m ≤ X := hm.trans_le hnX
+            have hmle : m ≤ X :=
+              li_exponent_le_endpoint_of_pow_le hq hmX
+            have hmE : m ∈ E := by
+              dsimp [E, liCorrectionExponentSet]
+              exact Finset.mem_filter.mpr
+                ⟨Finset.mem_range.mpr (Nat.lt_succ_of_le hmle), hmX⟩
+            apply hnNot
+            exact Finset.mem_image.mpr ⟨m, hmE, hm⟩
+          rw [arithmeticPoissonLocalFactor_apply_eq_zero_of_not_pow
+            hq a hnNotPow, zero_mul]
+    _ = ∑ m ∈ E,
+        ((-a) ^ m / (Nat.factorial m : ℂ)) *
+          arithmeticCoefficientCumulative f (X / q ^ m) := by
+          rw [Finset.sum_image]
+          · apply Finset.sum_congr rfl
+            intro m hm
+            rw [arithmeticPoissonLocalFactor_apply_pow]
+          · intro m _hm n _hn hmn
+            exact hinj hmn
+    _ = _ := by rfl
+
+/-- Successor-cutoff form of the exact Poisson recurrence.  The new site is
+`q = k+2`; the old state is the cumulative of the cutoff-`k` product. -/
+theorem arithmeticPoissonProduct_cumulative_succ_eq
+    (w : ℕ → ℂ) (k X : ℕ) :
+    arithmeticCoefficientCumulative
+        (arithmeticPoissonProduct w (k + 1)) X =
+      ∑ m ∈ liCorrectionExponentSet (k + 2) X,
+        ((-w (k + 2)) ^ m / (Nat.factorial m : ℂ)) *
+          arithmeticCoefficientCumulative
+            (arithmeticPoissonProduct w k) (X / (k + 2) ^ m) := by
+  rw [arithmeticPoissonProduct]
+  exact arithmeticCoefficientCumulative_poissonLocalFactor_mul_eq
+    (q := k + 2) (by omega) (w (k + 2))
+      (arithmeticPoissonProduct w k) X
+
+/-- Exponents at least two that remain visible in one finite Poisson site. -/
+private def liPoissonQuadraticExponentSet (q X : ℕ) : Finset ℕ :=
+  (liCorrectionExponentSet q X).filter (fun m => 2 ≤ m)
+
+/-- **Linear/quadratic split of one Poisson site.**
+Once the new site q=k+2 is visible below X, the exact finite Poisson update is
+its degree-zero state, minus the linear fresh-owner child, plus only the
+degree-two-and-higher collision tail. -/
+theorem arithmeticPoissonProduct_cumulative_succ_eq_linear_add_tail
+    (w : ℕ → ℂ) (k X : ℕ) (hqX : k + 2 ≤ X) :
+    arithmeticCoefficientCumulative
+        (arithmeticPoissonProduct w (k + 1)) X =
+      arithmeticCoefficientCumulative (arithmeticPoissonProduct w k) X -
+        w (k + 2) *
+          arithmeticCoefficientCumulative
+            (arithmeticPoissonProduct w k) (X / (k + 2)) +
+        ∑ m ∈ liPoissonQuadraticExponentSet (k + 2) X,
+          ((-w (k + 2)) ^ m / (Nat.factorial m : ℂ)) *
+            arithmeticCoefficientCumulative
+              (arithmeticPoissonProduct w k) (X / (k + 2) ^ m) := by
+  rw [arithmeticPoissonProduct_cumulative_succ_eq]
+  let E := liCorrectionExponentSet (k + 2) X
+  let H := liPoissonQuadraticExponentSet (k + 2) X
+  have hX1 : 1 ≤ X := by omega
+  have h0E : 0 ∈ E := by
+    dsimp [E, liCorrectionExponentSet]
+    simp only [Finset.mem_filter, Finset.mem_range, pow_zero]
+    exact ⟨by omega, hX1⟩
+  have h1E : 1 ∈ E := by
+    dsimp [E, liCorrectionExponentSet]
+    exact Finset.mem_filter.mpr
+      ⟨Finset.mem_range.mpr (by omega), by simpa using hqX⟩
+  have hsplit : E = insert 0 (insert 1 H) := by
+    ext m
+    constructor
+    · intro hm
+      by_cases hm0 : m = 0
+      · subst m
+        simp
+      by_cases hm1 : m = 1
+      · subst m
+        simp
+      have hm2 : 2 ≤ m := by omega
+      have hmH : m ∈ H := by
+        dsimp [H, liPoissonQuadraticExponentSet]
+        exact Finset.mem_filter.mpr ⟨hm, hm2⟩
+      simp [hmH, hm0, hm1]
+    · intro hm
+      simp only [Finset.mem_insert] at hm
+      rcases hm with rfl | rfl | hmH
+      · exact h0E
+      · exact h1E
+      · exact (Finset.mem_filter.mp hmH).1
+  have h0not : 0 ∉ insert 1 H := by
+    simp [H, liPoissonQuadraticExponentSet]
+  have h1not : 1 ∉ H := by
+    simp [H, liPoissonQuadraticExponentSet]
+  change
+    (∑ m ∈ E,
+        ((-w (k + 2)) ^ m / (Nat.factorial m : ℂ)) *
+          arithmeticCoefficientCumulative
+            (arithmeticPoissonProduct w k) (X / (k + 2) ^ m)) = _
+  rw [hsplit, Finset.sum_insert h0not, Finset.sum_insert h1not]
+  simp
+  ring
+
+/-- The fixed correction kernel obtained by freezing each coefficient at the
+first cutoff at which it can be visible. -/
+def exactLiCorrectionKernel (n : ℕ) : ℂ :=
+  if 1 ≤ n then
+    arithmeticHardCorePoissonCorrectionProduct
+      primeSievePNTDensity (n - 1) n
+  else 0
+
+/-- Stabilized coefficient of the exact Poissonized Li product. -/
+def exactLiPoissonCoefficient (n : ℕ) : ℂ :=
+  if 1 ≤ n then
+    arithmeticPoissonProduct primeSievePNTDensity (n - 1) n
+  else 0
+
+/-- A stabilized Poisson coefficient can be read at any larger visible
+cutoff. -/
+theorem exactLiPoissonCoefficient_eq_cutoff
+    {n X : ℕ} (hn : 1 ≤ n) (hnX : n ≤ X) :
+    exactLiPoissonCoefficient n =
+      arithmeticPoissonProduct primeSievePNTDensity (X - 1) n := by
+  simp only [exactLiPoissonCoefficient, if_pos hn]
+  exact
+    (arithmeticPoissonProduct_apply_stable
+      primeSievePNTDensity hn hnX).symm
+
+/-- The integer cumulative reference of the exact Poissonized Li product. -/
+def exactLiPoissonIntegerReference (X : ℕ) : ℂ :=
+  if 1 ≤ X then
+    arithmeticCoefficientCumulative
+      (arithmeticPoissonProduct primeSievePNTDensity (X - 1)) X
+  else 1
+
+@[simp] theorem exactLiPoissonIntegerReference_zero :
+    exactLiPoissonIntegerReference 0 = 1 := by
+  simp [exactLiPoissonIntegerReference]
+
+
+@[simp] theorem exactLiPoissonIntegerReference_one :
+    exactLiPoissonIntegerReference 1 = 1 := by
+  simp [exactLiPoissonIntegerReference, arithmeticCoefficientCumulative,
+    arithmeticPoissonProduct]
+
+/-- The stabilized coefficient sequence cumulatively reconstructs the exact
+Poisson integer reference. -/
+theorem exactLiPoissonIntegerReference_eq_coefficientCumulative
+    {X : ℕ} (hX : 1 ≤ X) :
+    exactLiPoissonIntegerReference X =
+      ∑ n ∈ Finset.Icc 1 X, exactLiPoissonCoefficient n := by
+  simp only [exactLiPoissonIntegerReference, if_pos hX]
+  unfold arithmeticCoefficientCumulative
+  apply Finset.sum_congr rfl
+  intro n hnmem
+  rcases Finset.mem_Icc.mp hnmem with ⟨hn1, hnX⟩
+  rw [exactLiPoissonCoefficient_eq_cutoff hn1 hnX]
+
+/-- Critical rescaling of a stabilized Poisson coefficient is exactly the
+coefficient of the Poisson product with transformed Li owners. -/
+theorem criticalScale_exactLiPoissonCoefficient
+    {n : ℕ} (hn : 1 ≤ n) :
+    criticalSqrtWeight n * exactLiPoissonCoefficient n =
+      arithmeticPoissonProduct criticalLiFrequencyWeight (n - 1) n := by
+  have h :=
+    congrArg (fun f : ArithmeticFunction ℂ => f n)
+      (criticalScaleArithmetic_poissonProduct
+        primeSievePNTDensity (n - 1))
+  change criticalSqrtWeight n *
+      arithmeticPoissonProduct primeSievePNTDensity (n - 1) n =
+    arithmeticPoissonProduct
+      (fun q => primeSievePNTDensity q * criticalSqrtWeight q)
+      (n - 1) n at h
+  simpa [exactLiPoissonCoefficient, if_pos hn,
+    criticalLiFrequencyWeight] using h
+
+/-- At any larger visible cutoff, the critically rescaled stabilized
+coefficient is read from the transformed-owner Poisson product. -/
+theorem exactLiPoissonCoefficient_div_sqrt_eq_critical_cutoff
+    {n X : ℕ} (hn : 1 ≤ n) (hnX : n ≤ X) :
+    exactLiPoissonCoefficient n / (Real.sqrt (n : ℝ) : ℂ) =
+      arithmeticPoissonProduct criticalLiFrequencyWeight (X - 1) n := by
+  have hscale := criticalScale_exactLiPoissonCoefficient hn
+  have hstable :=
+    arithmeticPoissonProduct_apply_stable
+      criticalLiFrequencyWeight hn hnX
+  rw [hstable]
+  simpa [criticalSqrtWeight, div_eq_mul_inv, mul_comm] using hscale
+
+/-- The cumulative Poisson reference after the exact critical n^(-1/2)
+coefficient transform. -/
+def exactLiCriticalPoissonIntegerReference (X : ℕ) : ℂ :=
+  if 1 ≤ X then
+    arithmeticCoefficientCumulative
+      (arithmeticPoissonProduct criticalLiFrequencyWeight (X - 1)) X
+  else 1
+
+@[simp] theorem exactLiCriticalPoissonIntegerReference_zero :
+    exactLiCriticalPoissonIntegerReference 0 = 1 := by
+  simp [exactLiCriticalPoissonIntegerReference]
+
+/-- Raising the Li cutoff above a visible coefficient does not change that
+coefficient. -/
+theorem exactLiCorrectionKernel_eq_cutoff
+    {n X : ℕ} (hn : 1 ≤ n) (hnX : n ≤ X) :
+    exactLiCorrectionKernel n =
+      arithmeticHardCorePoissonCorrectionProduct
+        primeSievePNTDensity (X - 1) n := by
+  simp only [exactLiCorrectionKernel, if_pos hn]
+  exact
+    (arithmeticHardCorePoissonCorrectionProduct_apply_stable
+      primeSievePNTDensity hn hnX).symm
+
+/-- Raising the Poisson cutoff above a positive child endpoint leaves its
+cumulative reference unchanged. -/
+theorem exactLiPoissonIntegerReference_eq_child
+    {Y X : ℕ} (hY : 1 ≤ Y) (hYX : Y ≤ X) :
+    exactLiPoissonIntegerReference Y =
+      arithmeticCoefficientCumulative
+        (arithmeticPoissonProduct primeSievePNTDensity (X - 1)) Y := by
+  simp only [exactLiPoissonIntegerReference, if_pos hY]
+  exact
+    (arithmeticPoissonProduct_cumulative_stable
+      primeSievePNTDensity hY hYX).symm
+
+
+/-- Above the artificial zero endpoint, one Poisson-reference increment is
+exactly the stabilized Poisson coefficient. -/
+theorem exactLiPoissonIntegerReference_sub_pred_eq_coefficient
+    {n : ℕ} (hn : 2 ≤ n) :
+    exactLiPoissonIntegerReference n -
+        exactLiPoissonIntegerReference (n - 1) =
+      exactLiPoissonCoefficient n := by
+  have hn1 : 1 ≤ n := by omega
+  have hnm1 : 1 ≤ n - 1 := by omega
+  rw [exactLiPoissonIntegerReference, if_pos hn1]
+  rw [exactLiPoissonIntegerReference_eq_child hnm1
+    (by omega : n - 1 ≤ n)]
+  symm
+  simpa [exactLiPoissonCoefficient, if_pos hn1] using
+    (arithmeticFunction_apply_eq_cumulative_sub
+      (arithmeticPoissonProduct primeSievePNTDensity (n - 1)) hn1)
+
+/-- The first sampled Poisson-reference increment vanishes because both the
+zero endpoint and the unit endpoint carry the same unit atom. -/
+@[simp] theorem exactLiPoissonIntegerReference_one_sub_zero :
+    exactLiPoissonIntegerReference 1 -
+        exactLiPoissonIntegerReference 0 = 0 := by
+  simp [exactLiPoissonIntegerReference, arithmeticCoefficientCumulative,
+    arithmeticPoissonProduct]
+
+
 /-! ## Generic critical convolution transfer -/
 
 /-- Finite multiplicative convolution at an integer endpoint. -/
@@ -2917,6 +3685,126 @@ theorem norm_finiteMultiplicativeConvolution_squareRootEndpoint_le
 
 
 
+
+/-- A reference cumulative model is bounded at the exact square-root scale. -/
+def SquareRootReferenceBounded (M : ℕ → ℂ) : Prop :=
+  ∃ B : ℝ, 0 ≤ B ∧
+    ∀ X : ℕ, 1 ≤ X → ‖M X‖ ≤ B * Real.sqrt (X : ℝ)
+
+/-- **Critical convolution transfer with a square-root reference.**
+The floor child loses exactly one square-root divisor weight, so the same
+critical variation controls a square-root-sized reference. -/
+theorem norm_finiteMultiplicativeConvolution_le_sqrt_of_sqrtRef
+    (h M : ℕ → ℂ) (B H : ℝ)
+    (hB : 0 ≤ B)
+    (hM : ∀ m : ℕ, 1 ≤ m → ‖M m‖ ≤ B * Real.sqrt (m : ℝ))
+    (hvar : ∀ X : ℕ, criticalWeightedVariation h X ≤ H)
+    (X : ℕ) (hX : 1 ≤ X) :
+    ‖finiteMultiplicativeConvolution h M X‖ ≤
+      B * Real.sqrt (X : ℝ) * H := by
+  have hH : 0 ≤ H := by
+    have h0 := hvar 0
+    simpa [criticalWeightedVariation] using h0
+  unfold finiteMultiplicativeConvolution
+  calc
+    ‖∑ n ∈ Finset.Icc 1 X, h n * M (X / n)‖
+        ≤ ∑ n ∈ Finset.Icc 1 X, ‖h n * M (X / n)‖ :=
+          norm_sum_le _ _
+    _ = ∑ n ∈ Finset.Icc 1 X, ‖h n‖ * ‖M (X / n)‖ := by
+          apply Finset.sum_congr rfl
+          intro n hn
+          rw [norm_mul]
+    _ ≤ ∑ n ∈ Finset.Icc 1 X,
+          (B * Real.sqrt (X : ℝ)) *
+            (‖h n‖ / Real.sqrt (n : ℝ)) := by
+          apply Finset.sum_le_sum
+          intro n hn
+          rcases Finset.mem_Icc.mp hn with ⟨hn1, hnX⟩
+          have hnposNat : 0 < n := by omega
+          have hchild1 : 1 ≤ X / n :=
+            (Nat.one_le_div_iff hnposNat).2 hnX
+          have hnpos : (0 : ℝ) < (n : ℝ) := by
+            exact_mod_cast hnposNat
+          have hsqrtnpos : 0 < Real.sqrt (n : ℝ) :=
+            Real.sqrt_pos.2 hnpos
+          have hsqrtnne : Real.sqrt (n : ℝ) ≠ 0 :=
+            ne_of_gt hsqrtnpos
+          have hcast :
+              ((X / n : ℕ) : ℝ) ≤ (X : ℝ) / (n : ℝ) :=
+            Nat.cast_div_le
+          have hsqrt := Real.sqrt_le_sqrt hcast
+          have hsqrtDiv :
+              Real.sqrt ((X : ℝ) / (n : ℝ)) =
+                Real.sqrt (X : ℝ) / Real.sqrt (n : ℝ) := by
+            exact Real.sqrt_div
+              (show 0 ≤ (X : ℝ) by positivity) (n : ℝ)
+          have hchild :
+              Real.sqrt ((X / n : ℕ) : ℝ) ≤
+                Real.sqrt (X : ℝ) / Real.sqrt (n : ℝ) := by
+            rw [← hsqrtDiv]
+            exact hsqrt
+          calc
+            ‖h n‖ * ‖M (X / n)‖
+                ≤ ‖h n‖ *
+                    (B * Real.sqrt ((X / n : ℕ) : ℝ)) :=
+              mul_le_mul_of_nonneg_left (hM (X / n) hchild1) (norm_nonneg _)
+            _ ≤ ‖h n‖ *
+                    (B * (Real.sqrt (X : ℝ) / Real.sqrt (n : ℝ))) := by
+              exact mul_le_mul_of_nonneg_left
+                (mul_le_mul_of_nonneg_left hchild hB) (norm_nonneg _)
+            _ = (B * Real.sqrt (X : ℝ)) *
+                  (‖h n‖ / Real.sqrt (n : ℝ)) := by
+              field_simp [hsqrtnne]
+    _ = (B * Real.sqrt (X : ℝ)) *
+          criticalWeightedVariation h X := by
+          unfold criticalWeightedVariation
+          rw [Finset.mul_sum]
+    _ ≤ (B * Real.sqrt (X : ℝ)) * H := by
+          exact mul_le_mul_of_nonneg_left (hvar X)
+            (mul_nonneg hB (Real.sqrt_nonneg _))
+    _ = B * Real.sqrt (X : ℝ) * H := by ring
+
+/-- Square-endpoint form of the critical convolution transfer for a
+square-root-bounded reference. -/
+theorem norm_finiteMultiplicativeConvolution_squareRootEndpoint_of_sqrtRef
+    (h M : ℕ → ℂ) (B H : ℝ)
+    (hB : 0 ≤ B)
+    (hM : ∀ m : ℕ, 1 ≤ m → ‖M m‖ ≤ B * Real.sqrt (m : ℝ))
+    (hvar : ∀ X : ℕ, criticalWeightedVariation h X ≤ H)
+    (R : ℕ) :
+    ‖finiteMultiplicativeConvolution h M (squareRootEndpoint R)‖ ≤
+      B * H * (R : ℝ) := by
+  have hH : 0 ≤ H := by
+    have h0 := hvar 0
+    simpa [criticalWeightedVariation] using h0
+  by_cases hX0 : squareRootEndpoint R = 0
+  · have hnonneg : 0 ≤ B * H * (R : ℝ) := by positivity
+    simpa [hX0, finiteMultiplicativeConvolution] using hnonneg
+  have hX1 : 1 ≤ squareRootEndpoint R := by omega
+  have hRpos : (0 : ℝ) ≤ R := by positivity
+  have hXle :
+      (squareRootEndpoint R : ℝ) ≤ (R : ℝ) ^ 2 := by
+    exact_mod_cast (Nat.sub_le (R ^ 2) 1)
+  have hsqrt :
+      Real.sqrt (squareRootEndpoint R : ℝ) ≤ (R : ℝ) := by
+    calc
+      Real.sqrt (squareRootEndpoint R : ℝ) ≤
+          Real.sqrt ((R : ℝ) ^ 2) := Real.sqrt_le_sqrt hXle
+      _ = (R : ℝ) := by
+        rw [Real.sqrt_sq_eq_abs, abs_of_nonneg hRpos]
+  have hbase :=
+    norm_finiteMultiplicativeConvolution_le_sqrt_of_sqrtRef
+      h M B H hB hM hvar (squareRootEndpoint R) hX1
+  calc
+    ‖finiteMultiplicativeConvolution h M (squareRootEndpoint R)‖
+        ≤ B * Real.sqrt (squareRootEndpoint R : ℝ) * H := hbase
+    _ ≤ B * (R : ℝ) * H := by
+          exact mul_le_mul_of_nonneg_right
+            (mul_le_mul_of_nonneg_left hsqrt hB) hH
+    _ = B * H * (R : ℝ) := by ring
+
+
+
 /-! ## Convolution-reference closure of the pure Li model -/
 
 /-- The formal Dickman construction supplies the concrete uniformly bounded
@@ -2939,6 +3827,92 @@ def AllScaleLiDiagonalConvolutionFactorization
     1 ≤ X →
     IsAllScaleLiState L →
     L X X = finiteMultiplicativeConvolution h M X
+
+/-- Every all-scale exact-Li diagonal factors through the stabilized
+quadratic correction kernel and stabilized Poisson cumulative reference. -/
+theorem allScaleLiState_diagonal_eq_poissonConvolution
+    {L : ℕ → ℕ → ℂ} {X : ℕ} (hX : 1 ≤ X)
+    (hL : IsAllScaleLiState L) :
+    L X X =
+      finiteMultiplicativeConvolution
+        exactLiCorrectionKernel exactLiPoissonIntegerReference X := by
+  rw [allScaleLiState_diagonal_eq_hardCoreProductCumulative X hX hL,
+    arithmeticHardCoreProduct_eq_correctionProduct_mul_poissonProduct,
+    arithmeticCoefficientCumulative_mul_eq_finiteMultiplicativeConvolution]
+  unfold finiteMultiplicativeConvolution
+  apply Finset.sum_congr rfl
+  intro n hn
+  rcases Finset.mem_Icc.mp hn with ⟨hn1, hnX⟩
+  have hnpos : 0 < n := by omega
+  have hchild1 : 1 ≤ X / n :=
+    (Nat.one_le_div_iff hnpos).2 hnX
+  have hchildX : X / n ≤ X := Nat.div_le_self X n
+  change
+    arithmeticHardCorePoissonCorrectionProduct
+        primeSievePNTDensity (X - 1) n *
+      arithmeticCoefficientCumulative
+        (arithmeticPoissonProduct primeSievePNTDensity (X - 1)) (X / n) =
+      exactLiCorrectionKernel n * exactLiPoissonIntegerReference (X / n)
+  rw [← exactLiCorrectionKernel_eq_cutoff hn1 hnX,
+    ← exactLiPoissonIntegerReference_eq_child hchild1 hchildX]
+
+/-- The stabilized exact-Li correction kernel has the same uniform critical
+variation budget as every sufficiently large finite cutoff. -/
+theorem exactLiCorrectionKernel_uniformVariation :
+    UniformCriticalWeightedVariation exactLiCorrectionKernel := by
+  refine ⟨Real.exp (3 * criticalLiCollisionBudget), (Real.exp_pos _).le, ?_⟩
+  intro X
+  by_cases hX0 : X = 0
+  · subst X
+    simpa [criticalWeightedVariation] using
+      (Real.exp_pos (3 * criticalLiCollisionBudget)).le
+  · have hX : 1 ≤ X := by omega
+    calc
+      criticalWeightedVariation exactLiCorrectionKernel X =
+          criticalWeightedVariation
+            (fun n =>
+              arithmeticHardCorePoissonCorrectionProduct
+                primeSievePNTDensity (X - 1) n) X := by
+            unfold criticalWeightedVariation
+            apply Finset.sum_congr rfl
+            intro n hn
+            rcases Finset.mem_Icc.mp hn with ⟨hn1, hnX⟩
+            rw [exactLiCorrectionKernel_eq_cutoff hn1 hnX]
+      _ ≤ Real.exp (3 * criticalLiCollisionBudget) :=
+        criticalWeightedVariation_liCorrectionProduct_le_exp_collisionBudget
+          (X - 1) X
+
+/-- **Square-root-reference correction-kernel closure.**
+A square-root-bounded reference, uniformly bounded critical correction
+variation, and exact diagonal convolution factorization close the intrinsic
+all-scale exact-Li square-root theorem. -/
+theorem allScaleLiSquareRootBounded_of_sqrtReference_convolution
+    (h M : ℕ → ℂ)
+    (hM : SquareRootReferenceBounded M)
+    (hh : UniformCriticalWeightedVariation h)
+    (hfac : AllScaleLiDiagonalConvolutionFactorization h M) :
+    AllScaleLiSquareRootBoundedStatement := by
+  rcases hM with ⟨B, hB, hMb⟩
+  rcases hh with ⟨H, hH, hvar⟩
+  refine ⟨(B * H) ^ 2, sq_nonneg _, ?_⟩
+  intro L R hL _hsat hR
+  have hX1 : 1 ≤ squareRootEndpoint R := by
+    unfold squareRootEndpoint
+    have hR2 : 4 ≤ R ^ 2 := by nlinarith
+    omega
+  have hconv :=
+    norm_finiteMultiplicativeConvolution_squareRootEndpoint_of_sqrtRef
+      h M B H hB hMb hvar R
+  rw [← hfac L (squareRootEndpoint R) hX1 hL] at hconv
+  have hBH : 0 ≤ B * H := mul_nonneg hB hH
+  have hR0 : 0 ≤ (R : ℝ) := by positivity
+  have hright : 0 ≤ (B * H) * (R : ℝ) :=
+    mul_nonneg hBH hR0
+  have hsquare :=
+    mul_self_le_mul_self
+      (norm_nonneg (L (squareRootEndpoint R) (squareRootEndpoint R)))
+      hconv
+  simpa [pow_two, mul_assoc, mul_left_comm, mul_comm] using hsquare
 
 /-- **Correction-kernel pure-model closure.**
 A uniformly bounded reference, a correction kernel with uniformly bounded
@@ -4045,6 +5019,207 @@ This is the same critical coordinate used by the all-scale Li state. -/
 def sampledCriticalPrefix (M : ℕ → ℂ) (N : ℕ) : ℂ :=
   ∑ n ∈ Finset.Icc 1 N,
     (M n - M (n - 1)) / (Real.sqrt (n : ℝ) : ℂ)
+
+/-- The sampled critical prefix of the Poisson reference is exactly the
+critical cumulative of the stabilized Poisson coefficients, with the unit
+atom omitted because the artificial zero endpoint already contains that atom. -/
+theorem sampledCriticalPrefix_exactLiPoissonIntegerReference_eq
+    (N : ℕ) :
+    sampledCriticalPrefix exactLiPoissonIntegerReference N =
+      ∑ n ∈ Finset.Icc 2 N,
+        exactLiPoissonCoefficient n /
+          (Real.sqrt (n : ℝ) : ℂ) := by
+  by_cases hN : N = 0
+  · subst N
+    have hleft :
+        sampledCriticalPrefix exactLiPoissonIntegerReference 0 = 0 := by
+      unfold sampledCriticalPrefix
+      rw [Finset.Icc_eq_empty_of_lt (by decide : (0 : ℕ) < 1)]
+      rfl
+    have hright :
+        (∑ n ∈ Finset.Icc 2 0,
+          exactLiPoissonCoefficient n /
+            (Real.sqrt (n : ℝ) : ℂ)) = 0 := by
+      rw [Finset.Icc_eq_empty_of_lt (by decide : (0 : ℕ) < 2)]
+      rfl
+    rw [hleft, hright]
+  have hN1 : 1 ≤ N := Nat.one_le_iff_ne_zero.mpr hN
+  have hIcc :
+      Finset.Icc 1 N = insert 1 (Finset.Icc 2 N) := by
+    ext n
+    simp only [Finset.mem_Icc, Finset.mem_insert]
+    omega
+  have hnot : 1 ∉ Finset.Icc 2 N := by
+    intro hmem
+    have htwo : 2 ≤ (1 : ℕ) := (Finset.mem_Icc.mp hmem).1
+    omega
+  have hfirst :
+      (exactLiPoissonIntegerReference 1 -
+          exactLiPoissonIntegerReference (1 - 1)) /
+          (Real.sqrt ((1 : ℕ) : ℝ) : ℂ) = 0 := by
+    simp
+  unfold sampledCriticalPrefix
+  rw [hIcc, Finset.sum_insert hnot, hfirst, zero_add]
+  apply Finset.sum_congr rfl
+  intro n hn
+  have hn2 : 2 ≤ n := (Finset.mem_Icc.mp hn).1
+  rw [exactLiPoissonIntegerReference_sub_pred_eq_coefficient hn2]
+
+/-- **Exact critical Poisson reduction.**
+The native sampled critical prefix of the original Poisson reference is
+literally the cumulative transformed-owner Poisson product minus its unit atom.
+No inequality or endpoint approximation occurs here. -/
+theorem sampledCriticalPrefix_exactLiPoissonIntegerReference_eq_critical
+    (N : ℕ) :
+    sampledCriticalPrefix exactLiPoissonIntegerReference N =
+      exactLiCriticalPoissonIntegerReference N - 1 := by
+  by_cases hN0 : N = 0
+  · subst N
+    have hleft :
+        sampledCriticalPrefix exactLiPoissonIntegerReference 0 = 0 := by
+      unfold sampledCriticalPrefix
+      rw [Finset.Icc_eq_empty_of_lt (by decide : (0 : ℕ) < 1)]
+      rfl
+    rw [hleft, exactLiCriticalPoissonIntegerReference_zero]
+    ring
+  have hN : 1 ≤ N := Nat.one_le_iff_ne_zero.mpr hN0
+  rw [sampledCriticalPrefix_exactLiPoissonIntegerReference_eq]
+  have hterms :
+      (∑ n ∈ Finset.Icc 2 N,
+          exactLiPoissonCoefficient n /
+            (Real.sqrt (n : ℝ) : ℂ)) =
+        ∑ n ∈ Finset.Icc 2 N,
+          arithmeticPoissonProduct criticalLiFrequencyWeight (N - 1) n := by
+    apply Finset.sum_congr rfl
+    intro n hnmem
+    rcases Finset.mem_Icc.mp hnmem with ⟨hn2, hnN⟩
+    exact exactLiPoissonCoefficient_div_sqrt_eq_critical_cutoff
+      (by omega) hnN
+  rw [hterms]
+  unfold exactLiCriticalPoissonIntegerReference
+  rw [if_pos hN]
+  unfold arithmeticCoefficientCumulative
+  have hset :
+      Finset.Icc 1 N = insert 1 (Finset.Icc 2 N) := by
+    ext n
+    simp only [Finset.mem_Icc, Finset.mem_insert]
+    omega
+  have hnot : 1 ∉ Finset.Icc 2 N := by
+    intro hmem
+    have : 2 ≤ (1 : ℕ) := (Finset.mem_Icc.mp hmem).1
+    omega
+  have hone :
+      arithmeticPoissonProduct criticalLiFrequencyWeight (N - 1) 1 = 1 := by
+    have hs :=
+      arithmeticPoissonProduct_apply_stable
+        criticalLiFrequencyWeight (n := 1) (X := N) (by omega) hN
+    simpa [arithmeticPoissonProduct] using hs
+  rw [hset, Finset.sum_insert hnot, hone]
+  ring
+
+/-- One-step form of the sampled critical prefix. -/
+theorem sampledCriticalPrefix_succ
+    (M : ℕ → ℂ) (N : ℕ) :
+    sampledCriticalPrefix M (N + 1) =
+      sampledCriticalPrefix M N +
+        (M (N + 1) - M N) /
+          (Real.sqrt ((N + 1 : ℕ) : ℝ) : ℂ) := by
+  unfold sampledCriticalPrefix
+  rw [Finset.sum_Icc_succ_top (by omega : (1 : ℕ) ≤ N + 1)]
+  simp only [Nat.add_sub_cancel]
+
+/-- The square-root Abel increment of a sampled critical prefix recovers the
+original sampled increment exactly. -/
+theorem sqrtAbelIncrement_sampledCriticalPrefix
+    (M : ℕ → ℂ) {n : ℕ} (hn : 1 ≤ n) :
+    sqrtAbelIncrement (sampledCriticalPrefix M) n =
+      M n - M (n - 1) := by
+  have hpred : n - 1 + 1 = n := Nat.sub_add_cancel hn
+  have hs := sampledCriticalPrefix_succ M (n - 1)
+  rw [hpred] at hs
+  unfold sqrtAbelIncrement
+  rw [hs]
+  have hnpos : (0 : ℝ) < (n : ℝ) := by
+    exact_mod_cast (show 0 < n by omega)
+  have hsqrtpos : 0 < Real.sqrt (n : ℝ) := Real.sqrt_pos.2 hnpos
+  have hsqrtne : (Real.sqrt (n : ℝ) : ℂ) ≠ 0 := by
+    exact_mod_cast (ne_of_gt hsqrtpos)
+  field_simp [hsqrtne]
+  ring
+
+private theorem sum_Icc_sampledForwardDiff_complex
+    (M : ℕ → ℂ) (N : ℕ) :
+    (∑ n ∈ Finset.Icc 1 N, (M n - M (n - 1))) =
+      M N - M 0 := by
+  induction N with
+  | zero =>
+      simp
+  | succ N ih =>
+      rw [Finset.sum_Icc_succ_top (by omega : (1 : ℕ) ≤ N + 1), ih]
+      simp only [Nat.add_sub_cancel]
+      ring
+
+/-- Uniform boundedness of the native half-weighted sampled increment prefix. -/
+def SampledCriticalPrefixBounded (M : ℕ → ℂ) : Prop :=
+  ∃ B : ℝ, 0 ≤ B ∧
+    ∀ N : ℕ, ‖sampledCriticalPrefix M N‖ ≤ B
+
+/-- A uniformly bounded sampled critical prefix returns an exact square-root
+bound for the sampled reference.  This is the reverse Abel direction needed
+for the Poisson close. -/
+theorem squareRootReferenceBounded_of_sampledCriticalPrefixBounded
+    (M : ℕ → ℂ)
+    (hcrit : SampledCriticalPrefixBounded M) :
+    SquareRootReferenceBounded M := by
+  rcases hcrit with ⟨B, hB, hcrit⟩
+  refine ⟨2 * B + ‖M 0‖, by positivity, ?_⟩
+  intro N hN
+  have hprefix :
+      ∀ n : ℕ, n ≤ N → ‖sampledCriticalPrefix M n‖ ≤ B := by
+    intro n hn
+    exact hcrit n
+  have habel :=
+    norm_sum_sqrtAbelIncrement_le
+      (sampledCriticalPrefix M) N B hN hB hprefix
+  have hsum :
+      (∑ n ∈ Finset.Icc 1 N,
+          sqrtAbelIncrement (sampledCriticalPrefix M) n) =
+        M N - M 0 := by
+    calc
+      (∑ n ∈ Finset.Icc 1 N,
+          sqrtAbelIncrement (sampledCriticalPrefix M) n) =
+          ∑ n ∈ Finset.Icc 1 N, (M n - M (n - 1)) := by
+            apply Finset.sum_congr rfl
+            intro n hnmem
+            exact sqrtAbelIncrement_sampledCriticalPrefix M
+              (Finset.mem_Icc.mp hnmem).1
+      _ = M N - M 0 :=
+        sum_Icc_sampledForwardDiff_complex M N
+  rw [hsum] at habel
+  have hsqrt1 : (1 : ℝ) ≤ Real.sqrt (N : ℝ) := by
+    rw [← Real.sqrt_one]
+    exact Real.sqrt_le_sqrt (by exact_mod_cast hN)
+  have hM0scale :
+      ‖M 0‖ ≤ ‖M 0‖ * Real.sqrt (N : ℝ) := by
+    calc
+      ‖M 0‖ = ‖M 0‖ * 1 := by ring
+      _ ≤ ‖M 0‖ * Real.sqrt (N : ℝ) :=
+        mul_le_mul_of_nonneg_left hsqrt1 (norm_nonneg _)
+  calc
+    ‖M N‖ = ‖(M N - M 0) + M 0‖ := by
+      congr 1
+      ring
+    _ ≤ ‖M N - M 0‖ + ‖M 0‖ := norm_add_le _ _
+    _ ≤ 2 * Real.sqrt (N : ℝ) * B + ‖M 0‖ :=
+      add_le_add habel le_rfl
+    _ ≤ 2 * B * Real.sqrt (N : ℝ) +
+          ‖M 0‖ * Real.sqrt (N : ℝ) := by
+      have hreorder :
+          2 * Real.sqrt (N : ℝ) * B =
+            2 * B * Real.sqrt (N : ℝ) := by ring
+      rw [hreorder]
+      exact add_le_add le_rfl hM0scale
+    _ = (2 * B + ‖M 0‖) * Real.sqrt (N : ℝ) := by ring
 
 /-- Abel summation for the sampled critical prefix. -/
 theorem sampledCriticalPrefix_eq_abel
