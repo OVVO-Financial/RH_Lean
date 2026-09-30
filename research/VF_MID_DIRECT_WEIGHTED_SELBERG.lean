@@ -179,6 +179,137 @@ theorem vfMidDirectPsiWeightedPrefix_eq_theta_add_primePower (R : ℕ) :
   rw [vfMidDirectPsiBandError_eq_theta_add_primePower]
   ring
 
+/-- Generic finite-difference telescope used by the prime-power
+correction. -/
+private theorem vfMidDirectSelberg_sum_increment_Ico
+    (f : ℕ → ℝ) {a b : ℕ} (hab : a ≤ b) :
+    (∑ k ∈ Finset.Ico a b, (f (k + 1) - f k)) =
+      f b - f a := by
+  rw [Finset.sum_Ico_eq_sub _ hab, Finset.sum_range_sub f b,
+    Finset.sum_range_sub f a]
+  abel
+
+/-- Square-endpoint prime-power correction has the expected R log(R^2)
+bound. -/
+theorem vfMidDirectPrimePowerEndpointCorrection_le_R_log_sq
+    (R : ℕ) (hR : 1 ≤ R) :
+    vfMidDirectPrimePowerEndpointCorrection R ≤
+      (R : ℝ) * Real.log ((R ^ 2 : ℕ) : ℝ) := by
+  have hbase :=
+    vfMidDirectPrimePowerEndpointCorrection_le_sqrt_log R hR
+  have hsqrtSq : (Nat.sqrt (R ^ 2)) ^ 2 ≤ R ^ 2 :=
+    Nat.sqrt_le' (R ^ 2)
+  have hsqrtNat : Nat.sqrt (R ^ 2) ≤ R := by
+    nlinarith
+  have hsqrtReal :
+      (Nat.sqrt (R ^ 2) : ℝ) ≤ (R : ℝ) := by
+    exact_mod_cast hsqrtNat
+  have hsq : 1 ≤ R ^ 2 := by nlinarith
+  have hlog0 : 0 ≤ Real.log ((R ^ 2 : ℕ) : ℝ) :=
+    Real.log_nonneg (by exact_mod_cast hsq)
+  exact hbase.trans
+    (mul_le_mul_of_nonneg_right hsqrtReal hlog0)
+
+/-- The weighted prime-power correction is nonnegative. -/
+theorem vfMidDirectPrimePowerWeightedPrefix_nonneg
+    (R : ℕ) :
+    0 ≤ vfMidDirectPrimePowerWeightedPrefix R := by
+  unfold vfMidDirectPrimePowerWeightedPrefix
+  apply Finset.sum_nonneg
+  intro r hr
+  have hr2 : 2 ≤ r := (Finset.mem_Ico.mp hr).1
+  have hband := vfMidDirectPrimePowerBandCorrection_nonneg r
+  have hm4 : (4 : ℝ) ≤ vfMidBandMidpoint r := by
+    unfold vfMidBandMidpoint
+    have hrReal : (2 : ℝ) ≤ (r : ℝ) := by exact_mod_cast hr2
+    nlinarith
+  have hlog4 : 0 < Real.log 4 := Real.log_pos (by norm_num)
+  have hlogLower :
+      Real.log 4 ≤ Real.log (vfMidBandMidpoint r) :=
+    Real.log_le_log (by norm_num) hm4
+  exact div_nonneg hband (hlog4.trans_le hlogLower).le
+
+/-- **Target-scale theta-to-psi transfer.**
+
+The entire repeated-prime-power correction in the exact VF square weights costs
+at most (2/log 4) R log R.  Thus moving to psi does not hide any stronger
+prime-discrepancy assumption. -/
+theorem abs_vfMidDirectPrimePowerWeightedPrefix_le
+    (R : ℕ) (hR : 2 ≤ R) :
+    |vfMidDirectPrimePowerWeightedPrefix R| ≤
+      (2 / Real.log 4) * ((R : ℝ) * Real.log (R : ℝ)) := by
+  have hlog4 : 0 < Real.log 4 := Real.log_pos (by norm_num)
+  have htel :
+      (∑ r ∈ Finset.Ico 2 R, vfMidDirectPrimePowerBandCorrection r) =
+        vfMidDirectPrimePowerEndpointCorrection R -
+          vfMidDirectPrimePowerEndpointCorrection 2 := by
+    unfold vfMidDirectPrimePowerBandCorrection
+    exact vfMidDirectSelberg_sum_increment_Ico
+      vfMidDirectPrimePowerEndpointCorrection hR
+  have hsum :
+      vfMidDirectPrimePowerWeightedPrefix R ≤
+        (vfMidDirectPrimePowerEndpointCorrection R -
+          vfMidDirectPrimePowerEndpointCorrection 2) / Real.log 4 := by
+    unfold vfMidDirectPrimePowerWeightedPrefix
+    calc
+      (∑ r ∈ Finset.Ico 2 R,
+          vfMidDirectPrimePowerBandCorrection r /
+            Real.log (vfMidBandMidpoint r)) ≤
+        ∑ r ∈ Finset.Ico 2 R,
+          vfMidDirectPrimePowerBandCorrection r / Real.log 4 := by
+          apply Finset.sum_le_sum
+          intro r hr
+          have hr2 : 2 ≤ r := (Finset.mem_Ico.mp hr).1
+          have hband := vfMidDirectPrimePowerBandCorrection_nonneg r
+          have hm4 : (4 : ℝ) ≤ vfMidBandMidpoint r := by
+            unfold vfMidBandMidpoint
+            have hrReal : (2 : ℝ) ≤ (r : ℝ) := by exact_mod_cast hr2
+            nlinarith
+          have hlogLower :
+              Real.log 4 ≤ Real.log (vfMidBandMidpoint r) :=
+            Real.log_le_log (by norm_num) hm4
+          exact div_le_div_of_nonneg_left hband hlog4 hlogLower
+      _ = (∑ r ∈ Finset.Ico 2 R,
+          vfMidDirectPrimePowerBandCorrection r) / Real.log 4 := by
+          rw [Finset.sum_div]
+      _ = (vfMidDirectPrimePowerEndpointCorrection R -
+          vfMidDirectPrimePowerEndpointCorrection 2) / Real.log 4 := by
+          rw [htel]
+  have hdrop :
+      (vfMidDirectPrimePowerEndpointCorrection R -
+          vfMidDirectPrimePowerEndpointCorrection 2) / Real.log 4 ≤
+        vfMidDirectPrimePowerEndpointCorrection R / Real.log 4 := by
+    apply div_le_div_of_nonneg_right _ hlog4.le
+    have htwo := vfMidDirectPrimePowerEndpointCorrection_nonneg 2
+    linarith
+  have hendpoint :=
+    vfMidDirectPrimePowerEndpointCorrection_le_R_log_sq R (by omega)
+  have hscale :
+      vfMidDirectPrimePowerEndpointCorrection R / Real.log 4 ≤
+        ((R : ℝ) * Real.log ((R ^ 2 : ℕ) : ℝ)) / Real.log 4 := by
+    exact div_le_div_of_nonneg_right hendpoint hlog4.le
+  have hlogSq :
+      Real.log ((R ^ 2 : ℕ) : ℝ) =
+        2 * Real.log (R : ℝ) := by
+    rw [Nat.cast_pow, Real.log_pow]
+    norm_num
+  have hupper :
+      vfMidDirectPrimePowerWeightedPrefix R ≤
+        (2 / Real.log 4) * ((R : ℝ) * Real.log (R : ℝ)) := by
+    calc
+      vfMidDirectPrimePowerWeightedPrefix R
+          ≤ (vfMidDirectPrimePowerEndpointCorrection R -
+              vfMidDirectPrimePowerEndpointCorrection 2) /
+                Real.log 4 := hsum
+      _ ≤ vfMidDirectPrimePowerEndpointCorrection R / Real.log 4 := hdrop
+      _ ≤ ((R : ℝ) * Real.log ((R ^ 2 : ℕ) : ℝ)) /
+            Real.log 4 := hscale
+      _ = (2 / Real.log 4) * ((R : ℝ) * Real.log (R : ℝ)) := by
+        rw [hlogSq]
+        ring
+  rw [abs_of_nonneg (vfMidDirectPrimePowerWeightedPrefix_nonneg R)]
+  exact hupper
+
 /-- Exact direct VF-mid endpoint decomposition in psi coordinates.
 
 This is not a new route: it is the #824 endpoint identity with the exact
