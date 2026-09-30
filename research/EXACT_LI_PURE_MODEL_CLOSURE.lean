@@ -3116,7 +3116,7 @@ theorem norm_finiteMultiplicativeConvolution_le_sqrt
             positivity
           calc
             ‖h n‖ * ‖M (X / n)‖ ≤ ‖h n‖ * B :=
-              mul_le_mul_of_nonneg_left (hM (X / n)) (norm_nonneg _)
+              mul_le_mul_of_nonneg_left (hM (X / n) hchild1) (norm_nonneg _)
             _ = B * (Real.sqrt (n : ℝ) *
                   (‖h n‖ / Real.sqrt (n : ℝ))) := by
                 field_simp [hsqrtnne]
@@ -3163,7 +3163,7 @@ theorem norm_finiteMultiplicativeConvolution_squareRootEndpoint_le
           rw [Real.sqrt_sq_eq_abs, abs_of_nonneg hRpos]
     have hbase :=
       norm_finiteMultiplicativeConvolution_le_sqrt
-        h M B H hB hM hvar (squareRootEndpoint R)
+        h M B H hB hM hvar (squareRootEndpoint R) hX1
     calc
       ‖finiteMultiplicativeConvolution h M (squareRootEndpoint R)‖
           ≤ B * Real.sqrt (squareRootEndpoint R : ℝ) * H := hbase
@@ -3178,7 +3178,7 @@ theorem norm_finiteMultiplicativeConvolution_squareRootEndpoint_le
 /-- A reference cumulative model is bounded at the exact square-root scale. -/
 def SquareRootReferenceBounded (M : ℕ → ℂ) : Prop :=
   ∃ B : ℝ, 0 ≤ B ∧
-    ∀ X : ℕ, ‖M X‖ ≤ B * Real.sqrt (X : ℝ)
+    ∀ X : ℕ, 1 ≤ X → ‖M X‖ ≤ B * Real.sqrt (X : ℝ)
 
 /-- **Critical convolution transfer with a square-root reference.**
 The floor child loses exactly one square-root divisor weight, so the same
@@ -3186,9 +3186,9 @@ critical variation controls a square-root-sized reference. -/
 theorem norm_finiteMultiplicativeConvolution_le_sqrt_of_sqrtRef
     (h M : ℕ → ℂ) (B H : ℝ)
     (hB : 0 ≤ B)
-    (hM : ∀ m : ℕ, ‖M m‖ ≤ B * Real.sqrt (m : ℝ))
+    (hM : ∀ m : ℕ, 1 ≤ m → ‖M m‖ ≤ B * Real.sqrt (m : ℝ))
     (hvar : ∀ X : ℕ, criticalWeightedVariation h X ≤ H)
-    (X : ℕ) :
+    (X : ℕ) (hX : 1 ≤ X) :
     ‖finiteMultiplicativeConvolution h M X‖ ≤
       B * Real.sqrt (X : ℝ) * H := by
   have hH : 0 ≤ H := by
@@ -3210,6 +3210,8 @@ theorem norm_finiteMultiplicativeConvolution_le_sqrt_of_sqrtRef
           intro n hn
           rcases Finset.mem_Icc.mp hn with ⟨hn1, hnX⟩
           have hnposNat : 0 < n := by omega
+          have hchild1 : 1 ≤ X / n :=
+            (Nat.one_le_div_iff hnposNat).2 hnX
           have hnpos : (0 : ℝ) < (n : ℝ) := by
             exact_mod_cast hnposNat
           have hsqrtnpos : 0 < Real.sqrt (n : ℝ) :=
@@ -3256,11 +3258,15 @@ square-root-bounded reference. -/
 theorem norm_finiteMultiplicativeConvolution_squareRootEndpoint_of_sqrtRef
     (h M : ℕ → ℂ) (B H : ℝ)
     (hB : 0 ≤ B)
-    (hM : ∀ m : ℕ, ‖M m‖ ≤ B * Real.sqrt (m : ℝ))
+    (hM : ∀ m : ℕ, 1 ≤ m → ‖M m‖ ≤ B * Real.sqrt (m : ℝ))
     (hvar : ∀ X : ℕ, criticalWeightedVariation h X ≤ H)
     (R : ℕ) :
     ‖finiteMultiplicativeConvolution h M (squareRootEndpoint R)‖ ≤
       B * H * (R : ℝ) := by
+  by_cases hX0 : squareRootEndpoint R = 0
+  · rw [hX0]
+    simp [finiteMultiplicativeConvolution]
+  have hX1 : 1 ≤ squareRootEndpoint R := by omega
   have hH : 0 ≤ H := by
     have h0 := hvar 0
     simpa [criticalWeightedVariation] using h0
