@@ -79,6 +79,7 @@ enter with zero correction; only repeated prime powers add positive mass. -/
 private theorem vfMidDirect_nativePrimePowerCorrection_monotone :
     Monotone (fun N : ℕ => nativePsi N - nativeTheta N) := by
   intro A B hAB
+  change nativePsi A - nativeTheta A ≤ nativePsi B - nativeTheta B
   rw [vfMidDirect_nativePrimePowerCorrection_eq_sum,
     vfMidDirect_nativePrimePowerCorrection_eq_sum]
   have hsubset : nativePrimeSet A ⊆ nativePrimeSet B := by
