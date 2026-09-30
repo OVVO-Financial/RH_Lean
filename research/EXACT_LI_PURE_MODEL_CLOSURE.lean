@@ -1,5 +1,4 @@
 import Mathlib
-import Mathlib.NumberTheory.ArithmeticFunction.LFunction
 import RHLean.Analysis.MobiusRenewalTelescope
 import «research.ALL_SCALE_LI_DISPLACEMENT_REDUCTION»
 import «research.PRIME_DENSITY_PNT_LOG_BOUND»
