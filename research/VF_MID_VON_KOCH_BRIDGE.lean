@@ -48,7 +48,7 @@ def vfMidLogarithmicIntegralFromTwo (x : ℝ) : ℝ :=
 
 /-- Mathlib's formal Riemann-hypothesis proposition, exposed locally without
 importing the heavier RHLean bridge module. -/
-def VFMidVFMidRiemannHypothesisStatement : Prop :=
+def VFMidRiemannHypothesisStatement : Prop :=
   RiemannHypothesis
 
 /-! ## The midpoint-tiled logarithmic integral -/
@@ -129,21 +129,6 @@ def vfMidLiError (x : ℝ) : ℝ :=
 /-- Classical prime-count discrepancy in the same real-cutoff coordinates. -/
 def vfMidPrimeLiError (x : ℝ) : ℝ :=
   vfMidPrimeCount x - vfMidLogarithmicIntegralFromTwo x
-
-/-- At integer cutoffs, the real staircase is exactly the real part of the
-repository's existing prefix prime count. -/
-theorem vfMidPrimeCount_nat (N : ℕ) :
-    vfMidPrimeCount (N : ℝ) = (primeSievePrefixPrimeCount N).re := by
-  rw [primeSievePrefixPrimeCount_eq_card]
-  simp [vfMidPrimeCount]
-
-/-- At integer cutoffs, the new real prime-minus-Li field is exactly the real
-part of the repository's existing classical prime discrepancy. -/
-theorem vfMidPrimeLiError_nat (N : ℕ) :
-    vfMidPrimeLiError (N : ℝ) = (primeSievePrimeDiscrepancy N).re := by
-  unfold vfMidPrimeLiError primeSievePrimeDiscrepancy
-  rw [vfMidPrimeCount_nat]
-  simp
 
 /-- The exact algebraic decomposition: prime-minus-Li is
 prime-minus-VF plus VF-minus-Li. -/
