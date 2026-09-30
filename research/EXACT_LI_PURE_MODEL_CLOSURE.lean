@@ -1731,8 +1731,8 @@ private noncomputable def liArithmeticOfPowerSeries
       have hn1 : n ≠ 1 := by
         intro hn1
         apply hn
-        exact ⟨0, by simpa [hn1]⟩
-      simp [ArithmeticFunction.one_apply, hn1]
+        exact ⟨0, by simp [hn1]⟩
+      simp [hn1]
   map_add' F G := by
     ext n
     by_cases hn : ∃ k, q ^ k = n
