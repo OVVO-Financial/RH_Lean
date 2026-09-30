@@ -116,6 +116,28 @@ theorem vfMidPrimeLiError_eq_primeError_add_liError (x : ℝ) :
 
 /-! ## Midpoint quadrature infrastructure -/
 
+/-- Explicit second derivative of the Li density on the positive side of
+the logarithmic singularity. -/
+def vfMidInvLogSecond (x : ℝ) : ℝ :=
+  (Real.log x + 2) / (x ^ 2 * Real.log x ^ 3)
+
+/-- The second iterated derivative of 1/log is the explicit positive density
+used in the midpoint remainder estimate. -/
+theorem iteratedDeriv_inv_log_two {x : ℝ} (hx : 1 < x) :
+    iteratedDeriv 2 (fun t : ℝ => (Real.log t)⁻¹) x =
+      vfMidInvLogSecond x := by
+  have hx0 : x ≠ 0 := by linarith
+  have hlog0 : Real.log x ≠ 0 := ne_of_gt (Real.log_pos hx)
+  rw [show 2 = 1 + 1 by norm_num, iteratedDeriv_succ, iteratedDeriv_one,
+    Real.deriv_inv_log]
+  have hnum := (hasDerivAt_inv hx0).neg
+  have hden := (Real.hasDerivAt_log hx0).pow 2
+  have hd := hnum.div hden (pow_ne_zero 2 hlog0)
+  rw [hd.deriv]
+  unfold vfMidInvLogSecond
+  field_simp
+  ring
+
 /-- Midpoint-rule error bound derived from Mathlib's C2 trapezoidal-rule
 estimate.  The constant 1/8 is deliberately non-sharp; only summability of the
 square-band errors is needed downstream. -/
