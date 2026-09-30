@@ -4746,6 +4746,105 @@ def sampledCriticalPrefix (M : ℕ → ℂ) (N : ℕ) : ℂ :=
   ∑ n ∈ Finset.Icc 1 N,
     (M n - M (n - 1)) / (Real.sqrt (n : ℝ) : ℂ)
 
+/-- One-step form of the sampled critical prefix. -/
+theorem sampledCriticalPrefix_succ
+    (M : ℕ → ℂ) (N : ℕ) :
+    sampledCriticalPrefix M (N + 1) =
+      sampledCriticalPrefix M N +
+        (M (N + 1) - M N) /
+          (Real.sqrt ((N + 1 : ℕ) : ℝ) : ℂ) := by
+  unfold sampledCriticalPrefix
+  rw [Finset.sum_Icc_succ_top (by omega : (1 : ℕ) ≤ N + 1)]
+  simp only [Nat.add_sub_cancel]
+
+/-- The square-root Abel increment of a sampled critical prefix recovers the
+original sampled increment exactly. -/
+theorem sqrtAbelIncrement_sampledCriticalPrefix
+    (M : ℕ → ℂ) {n : ℕ} (hn : 1 ≤ n) :
+    sqrtAbelIncrement (sampledCriticalPrefix M) n =
+      M n - M (n - 1) := by
+  have hpred : n - 1 + 1 = n := Nat.sub_add_cancel hn
+  have hs := sampledCriticalPrefix_succ M (n - 1)
+  rw [hpred] at hs
+  unfold sqrtAbelIncrement
+  rw [hs]
+  have hnpos : (0 : ℝ) < (n : ℝ) := by
+    exact_mod_cast (show 0 < n by omega)
+  have hsqrtpos : 0 < Real.sqrt (n : ℝ) := Real.sqrt_pos.2 hnpos
+  have hsqrtne : (Real.sqrt (n : ℝ) : ℂ) ≠ 0 := by
+    exact_mod_cast (ne_of_gt hsqrtpos)
+  field_simp [hsqrtne]
+  ring
+
+/-- Uniform boundedness of the native half-weighted sampled increment prefix. -/
+def SampledCriticalPrefixBounded (M : ℕ → ℂ) : Prop :=
+  ∃ B : ℝ, 0 ≤ B ∧
+    ∀ N : ℕ, ‖sampledCriticalPrefix M N‖ ≤ B
+
+/-- A uniformly bounded sampled critical prefix returns an exact square-root
+bound for the sampled reference.  This is the reverse Abel direction needed
+for the Poisson close. -/
+theorem squareRootReferenceBounded_of_sampledCriticalPrefixBounded
+    (M : ℕ → ℂ)
+    (hcrit : SampledCriticalPrefixBounded M) :
+    SquareRootReferenceBounded M := by
+  rcases hcrit with ⟨B, hB, hcrit⟩
+  refine ⟨2 * B + ‖M 0‖, by positivity, ?_⟩
+  intro N hN
+  have hprefix :
+      ∀ n : ℕ, n ≤ N → ‖sampledCriticalPrefix M n‖ ≤ B := by
+    intro n hn
+    exact hcrit n
+  have habel :=
+    norm_sum_sqrtAbelIncrement_le
+      (sampledCriticalPrefix M) N B hN hB hprefix
+  have hsum :
+      (∑ n ∈ Finset.Icc 1 N,
+          sqrtAbelIncrement (sampledCriticalPrefix M) n) =
+        M N - M 0 := by
+    calc
+      (∑ n ∈ Finset.Icc 1 N,
+          sqrtAbelIncrement (sampledCriticalPrefix M) n) =
+          ∑ n ∈ Finset.Icc 1 N, (M n - M (n - 1)) := by
+            apply Finset.sum_congr rfl
+            intro n hnmem
+            exact sqrtAbelIncrement_sampledCriticalPrefix M
+              (Finset.mem_Icc.mp hnmem).1
+      _ = M N - M 0 := by
+        induction N with
+        | zero =>
+            simp
+        | succ N ih =>
+            rw [Finset.sum_Icc_succ_top
+              (by omega : (1 : ℕ) ≤ N + 1), ih]
+            simp only [Nat.add_sub_cancel]
+            ring
+  rw [hsum] at habel
+  have hsqrt1 : (1 : ℝ) ≤ Real.sqrt (N : ℝ) := by
+    rw [← Real.sqrt_one]
+    exact Real.sqrt_le_sqrt (by exact_mod_cast hN)
+  have hM0scale :
+      ‖M 0‖ ≤ ‖M 0‖ * Real.sqrt (N : ℝ) := by
+    calc
+      ‖M 0‖ = ‖M 0‖ * 1 := by ring
+      _ ≤ ‖M 0‖ * Real.sqrt (N : ℝ) :=
+        mul_le_mul_of_nonneg_left hsqrt1 (norm_nonneg _)
+  calc
+    ‖M N‖ = ‖(M N - M 0) + M 0‖ := by
+      congr 1
+      ring
+    _ ≤ ‖M N - M 0‖ + ‖M 0‖ := norm_add_le _ _
+    _ ≤ 2 * Real.sqrt (N : ℝ) * B + ‖M 0‖ :=
+      add_le_add habel le_rfl
+    _ ≤ 2 * B * Real.sqrt (N : ℝ) +
+          ‖M 0‖ * Real.sqrt (N : ℝ) := by
+      have hreorder :
+          2 * Real.sqrt (N : ℝ) * B =
+            2 * B * Real.sqrt (N : ℝ) := by ring
+      rw [hreorder]
+      exact add_le_add le_rfl hM0scale
+    _ = (2 * B + ‖M 0‖) * Real.sqrt (N : ℝ) := by ring
+
 /-- Abel summation for the sampled critical prefix. -/
 theorem sampledCriticalPrefix_eq_abel
     (M : ℕ → ℂ) {N : ℕ} (hN : 1 ≤ N) :
