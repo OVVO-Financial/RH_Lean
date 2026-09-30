@@ -5599,21 +5599,21 @@ theorem allScaleLiState_sub_reference_eq_propagated_sub_residual
 
 /-- Multiplication of an arithmetic coefficient by the real logarithm of its
 site. This is a derivation for Dirichlet convolution. -/
-def arithmeticLogWeight (f : ArithmeticFunction ℂ) : ArithmeticFunction ℂ :=
+def complexArithmeticLogWeight (f : ArithmeticFunction ℂ) : ArithmeticFunction ℂ :=
   ⟨fun n => (Real.log (n : ℝ) : ℂ) * f n, by simp⟩
 
-@[simp] theorem arithmeticLogWeight_one :
-    arithmeticLogWeight 1 = 0 := by
+@[simp] theorem complexArithmeticLogWeight_one :
+    complexArithmeticLogWeight 1 = 0 := by
   ext n
   by_cases hn : n = 1
   · subst n
-    simp [arithmeticLogWeight]
-  · simp [arithmeticLogWeight, ArithmeticFunction.one_apply, hn]
+    simp [complexArithmeticLogWeight]
+  · simp [complexArithmeticLogWeight, ArithmeticFunction.one_apply, hn]
 
 /-- The exact logarithmic Leibniz rule; both signed channels are retained. -/
-theorem arithmeticLogWeight_mul (f g : ArithmeticFunction ℂ) :
-    arithmeticLogWeight (f * g) =
-      arithmeticLogWeight f * g + f * arithmeticLogWeight g := by
+theorem complexArithmeticLogWeight_mul (f g : ArithmeticFunction ℂ) :
+    complexArithmeticLogWeight (f * g) =
+      complexArithmeticLogWeight f * g + f * complexArithmeticLogWeight g := by
   ext n
   change (Real.log (n : ℝ) : ℂ) * (f * g) n = _
   simp only [ArithmeticFunction.mul_apply, ArithmeticFunction.add_apply]
@@ -5641,13 +5641,13 @@ theorem arithmeticLogWeight_mul (f g : ArithmeticFunction ℂ) :
 
 /-- Logarithmic differentiation of a complete one-site exponential collapses
 every repeated-site term to a single signed atom times that same exponential. -/
-theorem arithmeticLogWeight_poissonLocalFactor
+theorem complexArithmeticLogWeight_poissonLocalFactor
     {q : ℕ} (hq : 1 < q) (a : ℂ) :
-    arithmeticLogWeight (arithmeticPoissonLocalFactor a hq) =
+    complexArithmeticLogWeight (arithmeticPoissonLocalFactor a hq) =
       arithmeticSiteAtom q (-(Real.log (q : ℝ) : ℂ) * a) *
         arithmeticPoissonLocalFactor a hq := by
   rw [arithmeticSiteAtom_eq_liArithmeticOfPowerSeries_C_mul_X hq]
-  change arithmeticLogWeight (arithmeticPoissonLocalFactor a hq) =
+  change complexArithmeticLogWeight (arithmeticPoissonLocalFactor a hq) =
     liArithmeticOfPowerSeries hq
         (PowerSeries.C (-(Real.log (q : ℝ) : ℂ) * a) * PowerSeries.X) *
       liArithmeticOfPowerSeries hq (poissonExponentialSeries a)
@@ -5697,14 +5697,14 @@ def arithmeticPoissonLogKernel (w : ℕ → ℂ) : ℕ → ArithmeticFunction �
 /-- **Exact global logarithmic renewal.** Repeated-site Poisson collisions
 are absorbed algebraically into the complete child product before any norm.
 The remaining generator contains only degree-one sites. -/
-theorem arithmeticLogWeight_poissonProduct (w : ℕ → ℂ) (k : ℕ) :
-    arithmeticLogWeight (arithmeticPoissonProduct w k) =
+theorem complexArithmeticLogWeight_poissonProduct (w : ℕ → ℂ) (k : ℕ) :
+    complexArithmeticLogWeight (arithmeticPoissonProduct w k) =
       arithmeticPoissonLogKernel w k * arithmeticPoissonProduct w k := by
   induction k with
   | zero => simp [arithmeticPoissonProduct, arithmeticPoissonLogKernel]
   | succ k ih =>
-      rw [arithmeticPoissonProduct, arithmeticLogWeight_mul,
-        arithmeticLogWeight_poissonLocalFactor, ih,
+      rw [arithmeticPoissonProduct, complexArithmeticLogWeight_mul,
+        complexArithmeticLogWeight_poissonLocalFactor, ih,
         arithmeticPoissonLogKernel]
       ring
 
@@ -5741,8 +5741,8 @@ theorem arithmeticPoissonProduct_logarithmic_renewal
           arithmeticCoefficientCumulative
             (arithmeticPoissonProduct w k) (X / (j + 2))) := by
   change arithmeticCoefficientCumulative
-    (arithmeticLogWeight (arithmeticPoissonProduct w k)) X = _
-  rw [arithmeticLogWeight_poissonProduct,
+    (complexArithmeticLogWeight (arithmeticPoissonProduct w k)) X = _
+  rw [complexArithmeticLogWeight_poissonProduct,
     arithmeticCoefficientCumulative_poissonLogKernel_mul]
 
 /-- The critical Poisson child is unchanged when the cutoff is raised above
