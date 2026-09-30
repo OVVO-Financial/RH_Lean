@@ -2562,6 +2562,8 @@ theorem criticalScaleArithmetic_mul
     criticalScaleArithmetic (f * g) =
       criticalScaleArithmetic f * criticalScaleArithmetic g := by
   ext n
+  change criticalSqrtWeight n * (f * g) n =
+    (criticalScaleArithmetic f * criticalScaleArithmetic g) n
   rw [ArithmeticFunction.mul_apply, ArithmeticFunction.mul_apply]
   change criticalSqrtWeight n *
       (∑ p ∈ n.divisorsAntidiagonal, f p.1 * g p.2) =
@@ -2592,7 +2594,9 @@ theorem criticalScaleArithmetic_poissonLocalFactor
         (a * criticalSqrtWeight q) hq (q ^ m)
     rw [arithmeticPoissonLocalFactor_apply_pow,
       arithmeticPoissonLocalFactor_apply_pow,
-      criticalSqrtWeight_pow, mul_pow]
+      criticalSqrtWeight_pow]
+    rw [show -(a * criticalSqrtWeight q) =
+      (-a) * criticalSqrtWeight q by ring, mul_pow]
     ring
   · change criticalSqrtWeight n *
         arithmeticPoissonLocalFactor a hq n =
@@ -4912,7 +4916,10 @@ theorem sampledCriticalPrefix_exactLiPoissonIntegerReference_eq
           (Real.sqrt (n : ℝ) : ℂ) := by
   by_cases hN : N = 0
   · subst N
-    simp [sampledCriticalPrefix]
+    unfold sampledCriticalPrefix
+    rw [Finset.Icc_eq_empty_of_lt (by decide : (0 : ℕ) < 1)]
+    rw [Finset.Icc_eq_empty_of_lt (by decide : (0 : ℕ) < 2)]
+    simp
   have hN1 : 1 ≤ N := Nat.one_le_iff_ne_zero.mpr hN
   have hIcc :
       Finset.Icc 1 N = insert 1 (Finset.Icc 2 N) := by
