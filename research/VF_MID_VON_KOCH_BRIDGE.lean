@@ -1,4 +1,7 @@
 import Mathlib
+import Mathlib.Analysis.SpecialFunctions.ImproperIntegrals
+import Mathlib.Analysis.SumIntegralComparisons
+import Mathlib.MeasureTheory.Integral.IntervalIntegral.TrapezoidalRule
 import RHLean.Analysis.PrimeSieveAbelIdentity
 import RHLean.Proof.RiemannHypothesisBridge
 
@@ -24,7 +27,8 @@ criterion is introduced here.
 
 noncomputable section
 
-open scoped BigOperators
+open Set MeasureTheory intervalIntegral
+open scoped BigOperators Interval
 
 namespace RHLean.Analysis
 
@@ -181,29 +185,37 @@ theorem summable_nat_inv_div_log_sq :
   let g : ℝ → ℝ := fun t => t⁻¹ / Real.log t ^ 2
   have hanti : AntitoneOn g (Set.Ici 2) := by
     intro x hx y hy hxy
-    have hxpos : 0 < x := by linarith
-    have hypos : 0 < y := by linarith
-    have hlogx : 0 < Real.log x := Real.log_pos (by linarith)
-    have hlogy : 0 < Real.log y := Real.log_pos (by linarith)
+    have hx2 : (2 : ℝ) ≤ x := hx
+    have hy2 : (2 : ℝ) ≤ y := hy
+    have hxpos : 0 < x := lt_of_lt_of_le (by norm_num) hx2
+    have hypos : 0 < y := lt_of_lt_of_le (by norm_num) hy2
+    have hx1 : 1 < x := lt_of_lt_of_le (by norm_num) hx2
+    have hy1 : 1 < y := lt_of_lt_of_le (by norm_num) hy2
+    have hlogx : 0 < Real.log x := Real.log_pos hx1
+    have hlogy : 0 < Real.log y := Real.log_pos hy1
     have hinv : y⁻¹ ≤ x⁻¹ := by
-      exact (inv_le_inv₀ hxpos hypos).2 hxy
+      exact (inv_le_inv₀ hypos hxpos).2 hxy
     have hlog : Real.log x ≤ Real.log y :=
       Real.log_le_log hxpos hxy
     have hsquare : Real.log x ^ 2 ≤ Real.log y ^ 2 := by
       nlinarith
     have hinvSquare : (Real.log y ^ 2)⁻¹ ≤ (Real.log x ^ 2)⁻¹ := by
-      exact (inv_le_inv₀ (sq_pos_of_pos hlogx) (sq_pos_of_pos hlogy)).2 hsquare
+      exact (inv_le_inv₀ (sq_pos_of_pos hlogy) (sq_pos_of_pos hlogx)).2 hsquare
     dsimp [g]
     rw [div_eq_mul_inv, div_eq_mul_inv]
     exact mul_le_mul hinv hinvSquare (inv_nonneg.mpr (sq_nonneg _))
-      (inv_nonneg.mpr hypos.le)
+      (inv_nonneg.mpr hxpos.le)
   have hint : IntegrableOn g (Set.Ioi 2) := by
     simpa [g] using (integrableOn_inv_div_log_sq_Ioi (c := (2 : ℝ)) (by norm_num))
   have hnonneg : ∀ t ∈ Set.Ioi (2 : ℝ), 0 ≤ g t := by
     intro t ht
+    have htpos : 0 < t := lt_trans (by norm_num) ht
+    have ht1 : 1 < t := lt_trans (by norm_num) ht
+    have hlog : 0 < Real.log t := Real.log_pos ht1
     dsimp [g]
-    positivity
-  simpa [g] using hanti.summable_of_integrableOn_Ioi hint hnonneg
+    exact div_nonneg (inv_nonneg.mpr htpos.le) (sq_nonneg _)
+  simpa [g] using
+    (AntitoneOn.summable_of_integrableOn_Ioi hanti hint hnonneg)
 
 /-- Midpoint-rule error bound derived from Mathlib's C2 trapezoidal-rule
 estimate.  The constant 1/8 is deliberately non-sharp; only summability of the
