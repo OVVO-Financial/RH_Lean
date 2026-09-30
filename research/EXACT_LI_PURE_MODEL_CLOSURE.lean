@@ -1426,6 +1426,34 @@ theorem criticalLi_prod_one_add_sq_le_exp_budget
 
 
 
+/-! ## Formal power-series one-site hard-core / Poisson factorization -/
+
+/-- Formal correction series at one critical owner.  This is the exact
+coefficient object whose degree-zero coefficient is one, whose degree-one
+coefficient vanishes, and whose higher coefficients are bounded above by
+`hardCorePoissonCorrectionTailTerm`. -/
+def hardCorePoissonCorrectionSeries (z : ℂ) : PowerSeries ℂ :=
+  (1 - PowerSeries.C z * PowerSeries.X) *
+    PowerSeries.rescale z (PowerSeries.exp ℂ)
+
+/-- Formal Poisson exponential carrying the same one-site linear mass with
+opposite sign. -/
+def poissonExponentialSeries (z : ℂ) : PowerSeries ℂ :=
+  PowerSeries.rescale (-z) (PowerSeries.exp ℂ)
+
+/-- **Exact one-site factorization.**
+The full hard-core factor is the bounded quadratic correction series followed
+by the Poisson exponential.  No estimate occurs here: this is an identity of
+formal power series. -/
+theorem hardCorePoissonCorrectionSeries_mul_poissonExponentialSeries
+    (z : ℂ) :
+    hardCorePoissonCorrectionSeries z * poissonExponentialSeries z =
+      1 - PowerSeries.C z * PowerSeries.X := by
+  unfold hardCorePoissonCorrectionSeries poissonExponentialSeries
+  rw [mul_assoc, PowerSeries.exp_mul_exp_eq_exp_add z (-z)]
+  simp
+
+
 
 /-! ## Arithmetic-function coefficient factorization bridge -/
 
