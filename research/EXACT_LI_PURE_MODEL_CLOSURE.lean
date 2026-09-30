@@ -3116,7 +3116,7 @@ theorem norm_finiteMultiplicativeConvolution_le_sqrt
             positivity
           calc
             ‖h n‖ * ‖M (X / n)‖ ≤ ‖h n‖ * B :=
-              mul_le_mul_of_nonneg_left (hM (X / n) hchild1) (norm_nonneg _)
+              mul_le_mul_of_nonneg_left (hM (X / n)) (norm_nonneg _)
             _ = B * (Real.sqrt (n : ℝ) *
                   (‖h n‖ / Real.sqrt (n : ℝ))) := by
                 field_simp [hsqrtnne]
@@ -3163,7 +3163,7 @@ theorem norm_finiteMultiplicativeConvolution_squareRootEndpoint_le
           rw [Real.sqrt_sq_eq_abs, abs_of_nonneg hRpos]
     have hbase :=
       norm_finiteMultiplicativeConvolution_le_sqrt
-        h M B H hB hM hvar (squareRootEndpoint R) hX1
+        h M B H hB hM hvar (squareRootEndpoint R)
     calc
       ‖finiteMultiplicativeConvolution h M (squareRootEndpoint R)‖
           ≤ B * Real.sqrt (squareRootEndpoint R : ℝ) * H := hbase
@@ -3236,7 +3236,7 @@ theorem norm_finiteMultiplicativeConvolution_le_sqrt_of_sqrtRef
             ‖h n‖ * ‖M (X / n)‖
                 ≤ ‖h n‖ *
                     (B * Real.sqrt ((X / n : ℕ) : ℝ)) :=
-              mul_le_mul_of_nonneg_left (hM (X / n)) (norm_nonneg _)
+              mul_le_mul_of_nonneg_left (hM (X / n) hchild1) (norm_nonneg _)
             _ ≤ ‖h n‖ *
                     (B * (Real.sqrt (X : ℝ) / Real.sqrt (n : ℝ))) := by
               exact mul_le_mul_of_nonneg_left
@@ -3263,13 +3263,13 @@ theorem norm_finiteMultiplicativeConvolution_squareRootEndpoint_of_sqrtRef
     (R : ℕ) :
     ‖finiteMultiplicativeConvolution h M (squareRootEndpoint R)‖ ≤
       B * H * (R : ℝ) := by
-  by_cases hX0 : squareRootEndpoint R = 0
-  · rw [hX0]
-    simp [finiteMultiplicativeConvolution]
-  have hX1 : 1 ≤ squareRootEndpoint R := by omega
   have hH : 0 ≤ H := by
     have h0 := hvar 0
     simpa [criticalWeightedVariation] using h0
+  by_cases hX0 : squareRootEndpoint R = 0
+  · have hnonneg : 0 ≤ B * H * (R : ℝ) := by positivity
+    simpa [hX0, finiteMultiplicativeConvolution] using hnonneg
+  have hX1 : 1 ≤ squareRootEndpoint R := by omega
   have hRpos : (0 : ℝ) ≤ R := by positivity
   have hXle :
       (squareRootEndpoint R : ℝ) ≤ (R : ℝ) ^ 2 := by
@@ -3283,7 +3283,7 @@ theorem norm_finiteMultiplicativeConvolution_squareRootEndpoint_of_sqrtRef
         rw [Real.sqrt_sq_eq_abs, abs_of_nonneg hRpos]
   have hbase :=
     norm_finiteMultiplicativeConvolution_le_sqrt_of_sqrtRef
-      h M B H hB hM hvar (squareRootEndpoint R)
+      h M B H hB hM hvar (squareRootEndpoint R) hX1
   calc
     ‖finiteMultiplicativeConvolution h M (squareRootEndpoint R)‖
         ≤ B * Real.sqrt (squareRootEndpoint R : ℝ) * H := hbase
