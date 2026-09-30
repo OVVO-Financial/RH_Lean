@@ -66,7 +66,10 @@ theorem vfMidCompositePsiBandError_eq_siteDefects (R : ℕ) :
   have hcard :
       (vfMidDirectPsiIntegerBand R).card = 2 * R + 1 := by
     unfold vfMidDirectPsiIntegerBand
-    rw [Finset.card_Ioc]
+    rw [Nat.card_Ioc]
+    have hsq : (R + 1) ^ 2 = R ^ 2 + (2 * R + 1) := by
+      ring
+    rw [hsq]
     omega
   have hones :
       (∑ _n ∈ vfMidDirectPsiIntegerBand R, (1 : ℝ)) =
@@ -180,7 +183,7 @@ theorem vfMidSquareBandCompositeOwner_child_prime_of_upperSquare_le_cube
   have hsDvdN : q.minFac ∣ n := dvd_trans hsDvdQ hqDvdN
   have hpLeS : p ≤ q.minFac := by
     have h := Nat.minFac_le_of_dvd hsPrime.two_le hsDvdN
-    simpa using h
+    simpa [hmin] using h
   have hsSq : q.minFac ^ 2 ≤ q :=
     Nat.minFac_sq_le_self hqpos hqPrime
   have hpSq : p ^ 2 ≤ q := by
