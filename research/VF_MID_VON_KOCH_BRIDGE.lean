@@ -131,6 +131,27 @@ theorem vfMidPrimeLiError_eq_primeError_add_liError (x : ℝ) :
 
 /-! ## Midpoint quadrature infrastructure -/
 
+/-- Exact Li mass of a complete square band. -/
+def vfMidBandIntegral (r : ℕ) : ℝ :=
+  ∫ t in ((r : ℝ) ^ 2)..(((r + 1 : ℕ) : ℝ) ^ 2),
+    (Real.log t)⁻¹
+
+/-- Signed midpoint quadrature residual on a complete square band. -/
+def vfMidBandQuadratureError (r : ℕ) : ℝ :=
+  vfMidBandMass r - vfMidBandIntegral r
+
+/-- Exact Li mass on the live portion of square band R. -/
+def vfMidLiveIntegral (R : ℕ) (x : ℝ) : ℝ :=
+  ∫ t in ((R : ℝ) ^ 2)..x, (Real.log t)⁻¹
+
+/-- Signed midpoint quadrature residual on the live portion of square band R. -/
+def vfMidLiveQuadratureError (R : ℕ) (x : ℝ) : ℝ :=
+  (x - (R : ℝ) ^ 2) /
+      Real.log (((R : ℝ) ^ 2 + x) / 2) -
+    vfMidLiveIntegral R x
+
+
+
 /-- Explicit second derivative of the Li density on the positive side of
 the logarithmic singularity. -/
 def vfMidInvLogSecond (x : ℝ) : ℝ :=
