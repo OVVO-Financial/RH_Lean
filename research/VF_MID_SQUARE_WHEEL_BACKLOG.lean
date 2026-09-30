@@ -1,46 +1,40 @@
 import Mathlib
 import «research.VF_MID_INTEGER_BLOCK_CAPTURE»
-import «research.VF_MID_SQUARE_BAND_COMPOSITE_BRIDGE»
 import RHLean.Arithmetic.PrimesUpToFrontier
+import RHLean.Proof.LowWheelHighPrimeSurvivor
 
 /-!
 # VF-mid square-wheel backlog dynamics
-
-This file formalizes the elementary finite mechanism behind the square blocks.
 
 For an interior integer n in the square block
 
   R^2 < n < (R+1)^2,
 
-every composite n has a prime divisor at most R.  Therefore primality on the
-whole block is exactly survival under the same finite divisibility wheel
-consisting of all primes at most R.
+every composite n has a prime divisor at most R.  Thus primality throughout
+the block is exactly survival under one common finite divisibility wheel:
+all primes at most R.
 
-The integer VF-mid level is
+The repository's direct prime block is (R^2,(R+1)^2].  Its upper endpoint is
+a square and hence contributes no prime, so it has exactly the same prime
+population as the open interior carrier used for the common-wheel statement.
 
-  K_R = floor(vfMidFinishedMass R).
+With
 
-We introduce three finite quantities:
+  K_R = floor(vfMidFinishedMass R),
+  B_R = K_R - pi(R^2),
+  Q_R = K_(R+1) - K_R,
+  P_R = exact square-block prime/common-wheel survivor supply,
 
-  B_R = K_R - pi(R^2)                    (signed backlog),
-  Q_R = K_(R+1) - K_R                    (integer VF demand),
-  P_R = number of common-wheel survivors (exact prime supply).
-
-They satisfy the exact conservation law
+the exact conservation law is
 
   B_(R+1) = B_R + Q_R - P_R.
 
-Moreover, capture of K_R by its own square block is exactly
-
-  0 <= B_R <= P_R,
-
-and the integer demand differs from the real midpoint band mass by less than
-one count:
+Capture is exactly 0 <= B_R <= P_R, while the integer demand satisfies
 
   |Q_R - vfMidBandMass R| < 1.
 
-No prime-number theorem rate or probabilistic independence assumption appears.
-The persistence of positive backlog is deliberately left as the next arithmetic target.
+No PNT-rate or probabilistic independence assumption appears.  Persistence of
+positive backlog is deliberately left as the next arithmetic target.
 -/
 
 noncomputable section
@@ -51,14 +45,25 @@ namespace RHLean.Analysis
 
 open RHLean.Arithmetic RHLean.Proof
 
-/-! ## The common finite sieve on one square block -/
+/-! ## One square block has one common factor wheel -/
 
-/-- On the interior of one square block, primality is exactly survival under
-one and the same low-prime wheel through R.  This is the square-root factor
-criterion in finite form. -/
+/-- Interior integer carrier of the R-th square block. -/
+def vfMidSquareWheelSites (R : ℕ) : Finset ℕ :=
+  Finset.Ioo (R ^ 2) ((R + 1) ^ 2)
+
+/-- Prime sites on the interior square carrier. -/
+def vfMidSquareWheelPrimes (R : ℕ) : Finset ℕ :=
+  (vfMidSquareWheelSites R).filter Nat.Prime
+
+/-- Common-wheel survivors on the interior square carrier. -/
+def vfMidSquareWheelSurvivors (R : ℕ) : Finset ℕ :=
+  (vfMidSquareWheelSites R).filter (lowWheelHighSurvivor R)
+
+/-- On one square block, every interior integer is tested against the same
+prime coordinates <= R: survival under that wheel is exactly primality. -/
 theorem vfMidSquareBand_commonWheelSurvivor_iff_prime
     {R n : ℕ} (hR : 2 ≤ R)
-    (hn : n ∈ vfMidSquareBandSites R) :
+    (hn : n ∈ vfMidSquareWheelSites R) :
     lowWheelHighSurvivor R n ↔ n.Prime := by
   have hnI := Finset.mem_Ioo.mp hn
   have hRltSq : R < R ^ 2 := by
@@ -69,11 +74,11 @@ theorem vfMidSquareBand_commonWheelSurvivor_iff_prime
     omega
   exact lowWheelHighSurvivor_iff_prime hR hRn hnX
 
-/-- Every composite interior site is eliminated by at least one prime
-coordinate belonging to the common wheel through R. -/
+/-- Fundamental-factorization form: every composite interior site is killed by
+at least one prime coordinate in the common wheel through R. -/
 theorem vfMidSquareBand_composite_has_commonWheel_divisor
     {R n : ℕ} (hR : 2 ≤ R)
-    (hn : n ∈ vfMidSquareBandSites R)
+    (hn : n ∈ vfMidSquareWheelSites R)
     (hcomp : ¬ n.Prime) :
     ∃ p ∈ primesUpTo R, p ∣ n := by
   by_contra hnone
@@ -84,18 +89,14 @@ theorem vfMidSquareBand_composite_has_commonWheel_divisor
   exact hcomp
     ((vfMidSquareBand_commonWheelSurvivor_iff_prime hR hn).1 hsurv)
 
-/-- The exact common-wheel survivor population in square block R. -/
-def vfMidSquareBandCommonWheelSurvivors (R : ℕ) : Finset ℕ :=
-  (vfMidSquareBandSites R).filter (lowWheelHighSurvivor R)
-
-/-- On a complete square block, the common-wheel survivors are literally the
-prime sites. -/
-theorem vfMidSquareBandCommonWheelSurvivors_eq_primes
+/-- Common-wheel survivors are literally the prime sites of the interior
+square carrier. -/
+theorem vfMidSquareWheelSurvivors_eq_primes
     (R : ℕ) (hR : 2 ≤ R) :
-    vfMidSquareBandCommonWheelSurvivors R = vfMidSquareBandPrimes R := by
+    vfMidSquareWheelSurvivors R = vfMidSquareWheelPrimes R := by
   classical
   ext n
-  simp only [vfMidSquareBandCommonWheelSurvivors, vfMidSquareBandPrimes,
+  simp only [vfMidSquareWheelSurvivors, vfMidSquareWheelPrimes,
     Finset.mem_filter]
   constructor
   · rintro ⟨hn, hsurv⟩
@@ -103,58 +104,82 @@ theorem vfMidSquareBandCommonWheelSurvivors_eq_primes
   · rintro ⟨hn, hp⟩
     exact ⟨hn, (vfMidSquareBand_commonWheelSurvivor_iff_prime hR hn).2 hp⟩
 
-/-! ## Exact prime supply -/
+/-- The repository direct block (R^2,(R+1)^2] has the same prime population
+as the open interior carrier: the only extra site is the composite upper
+square. -/
+theorem vfMidDirectPrimeBand_eq_squareWheelPrimes (R : ℕ) :
+    vfMidDirectPrimeBand R = vfMidSquareWheelPrimes R := by
+  classical
+  ext n
+  simp only [vfMidDirectPrimeBand, vfMidSquareWheelPrimes,
+    vfMidSquareWheelSites, Finset.mem_filter, Finset.mem_Ioc, Finset.mem_Ioo]
+  constructor
+  · rintro ⟨⟨hlow, hhigh⟩, hp⟩
+    have hne : n ≠ (R + 1) ^ 2 := by
+      intro hn
+      subst n
+      have hcomp : ¬ ((R + 1) ^ 2).Prime := by
+        exact Nat.not_prime_pow' (R + 1) 2 (by omega)
+      exact hcomp hp
+    exact ⟨⟨hlow, lt_of_le_of_ne hhigh (Ne.symm hne)⟩, hp⟩
+  · rintro ⟨⟨hlow, hhigh⟩, hp⟩
+    exact ⟨⟨hlow, hhigh.le⟩, hp⟩
 
-/-- Exact prime supply of one square block, expressed as common-wheel
-survivor cardinality. -/
+/-! ## Exact prime/common-wheel supply -/
+
+/-- Exact prime supply in one repository square block. -/
 def vfMidIntegerBlockPrimeSupply (R : ℕ) : ℕ :=
-  (vfMidSquareBandCommonWheelSurvivors R).card
+  (vfMidDirectPrimeBand R).card
 
-/-- The common-wheel supply is the literal prime population of the block. -/
-theorem vfMidIntegerBlockPrimeSupply_eq_primeCard
+/-- The direct prime supply is exactly the common-wheel survivor cardinality. -/
+theorem vfMidIntegerBlockPrimeSupply_eq_commonWheelCard
     (R : ℕ) (hR : 2 ≤ R) :
-    vfMidIntegerBlockPrimeSupply R = (vfMidSquareBandPrimes R).card := by
+    vfMidIntegerBlockPrimeSupply R =
+      (vfMidSquareWheelSurvivors R).card := by
   unfold vfMidIntegerBlockPrimeSupply
-  rw [vfMidSquareBandCommonWheelSurvivors_eq_primes R hR]
+  rw [vfMidDirectPrimeBand_eq_squareWheelPrimes,
+    ← vfMidSquareWheelSurvivors_eq_primes R hR]
 
 /-- Supply plus the old endpoint count is exactly the next endpoint count. -/
 theorem vfMidIntegerBlockPrimeSupply_add_primeCounting
-    (R : ℕ) (hR : 2 ≤ R) :
+    (R : ℕ) :
     vfMidIntegerBlockPrimeSupply R + Nat.primeCounting (R ^ 2) =
       Nat.primeCounting ((R + 1) ^ 2) := by
-  rw [vfMidIntegerBlockPrimeSupply_eq_primeCard R hR]
-  exact vfMidSquareBand_prime_card_add_primeCounting_sq R
+  unfold vfMidIntegerBlockPrimeSupply
+  exact vfMidDirectPrimeBand_card_add_primeCounting_eq R
 
-/-- The exact supply is at most the 2R interior sites. -/
-theorem vfMidIntegerBlockPrimeSupply_le_two_mul
-    (R : ℕ) (hR : 2 ≤ R) :
-    vfMidIntegerBlockPrimeSupply R ≤ 2 * R := by
-  rw [vfMidIntegerBlockPrimeSupply_eq_primeCard R hR]
-  have hpart := vfMidSquareBand_prime_card_add_composite_card R
+/-- The repository block has 2R+1 integer seats, so its prime supply cannot
+exceed that deterministic width. -/
+theorem vfMidIntegerBlockPrimeSupply_le_two_mul_add_one
+    (R : ℕ) :
+    vfMidIntegerBlockPrimeSupply R ≤ 2 * R + 1 := by
+  have hpc := vfMid_primeCounting_add_le (R ^ 2) (2 * R + 1)
+  have hsq : R ^ 2 + (2 * R + 1) = (R + 1) ^ 2 := by
+    ring
+  rw [hsq] at hpc
+  have hband := vfMidIntegerBlockPrimeSupply_add_primeCounting R
   omega
 
 /-! ## Integer backlog and demand -/
 
 /-- Signed number of integer VF-mid counts still above the prime staircase at
-the left endpoint R^2.  Negative values mean the staircase has already passed
-the integer VF-mid level. -/
+the left square endpoint. -/
 def vfMidIntegerBlockBacklog (R : ℕ) : ℤ :=
   (vfMidIntegerBlockLevel R : ℤ) - (Nat.primeCounting (R ^ 2) : ℤ)
 
-/-- Signed integer increment of the VF-mid block level. -/
+/-- Signed integer increment of the VF-mid square-block level. -/
 def vfMidIntegerBlockDemand (R : ℕ) : ℤ :=
   (vfMidIntegerBlockLevel (R + 1) : ℤ) -
     (vfMidIntegerBlockLevel R : ℤ)
 
-/-- Exact conservation law: next backlog = old backlog + new VF demand -
-actual common-wheel prime supply. -/
-theorem vfMidIntegerBlockBacklog_succ
-    (R : ℕ) (hR : 2 ≤ R) :
+/-- Exact conservation law: next backlog equals old backlog plus integer VF
+demand minus exact prime/common-wheel survivor supply. -/
+theorem vfMidIntegerBlockBacklog_succ (R : ℕ) :
     vfMidIntegerBlockBacklog (R + 1) =
       vfMidIntegerBlockBacklog R +
         vfMidIntegerBlockDemand R -
           (vfMidIntegerBlockPrimeSupply R : ℤ) := by
-  have hp := vfMidIntegerBlockPrimeSupply_add_primeCounting R hR
+  have hp := vfMidIntegerBlockPrimeSupply_add_primeCounting R
   have hpZ :
       (vfMidIntegerBlockPrimeSupply R : ℤ) +
           (Nat.primeCounting (R ^ 2) : ℤ) =
@@ -163,15 +188,15 @@ theorem vfMidIntegerBlockBacklog_succ
   unfold vfMidIntegerBlockBacklog vfMidIntegerBlockDemand
   omega
 
-/-- Square-block capture is exactly the statement that the backlog is
-nonnegative and no larger than the exact survivor supply in that block. -/
+/-- Capture is exactly backlog lying between zero and the available prime
+supply in the current square block. -/
 theorem vfMidIntegerBlockCaptured_iff_backlog_le_supply
-    (R : ℕ) (hR : 2 ≤ R) :
+    (R : ℕ) :
     VFMidIntegerBlockCaptured R ↔
       0 ≤ vfMidIntegerBlockBacklog R ∧
         vfMidIntegerBlockBacklog R ≤
           (vfMidIntegerBlockPrimeSupply R : ℤ) := by
-  have hp := vfMidIntegerBlockPrimeSupply_add_primeCounting R hR
+  have hp := vfMidIntegerBlockPrimeSupply_add_primeCounting R
   have hpZ :
       (vfMidIntegerBlockPrimeSupply R : ℤ) +
           (Nat.primeCounting (R ^ 2) : ℤ) =
@@ -180,10 +205,10 @@ theorem vfMidIntegerBlockCaptured_iff_backlog_le_supply
   unfold VFMidIntegerBlockCaptured vfMidIntegerBlockBacklog
   omega
 
-/-! ## Flooring costs less than one count -/
+/-! ## Real/integer agreement up to the floor error -/
 
-/-- Integer VF demand differs from the real midpoint mass assigned to the same
-square band by strictly less than one count. -/
+/-- Integer VF demand differs from the real midpoint band mass by less than
+one count. -/
 theorem abs_vfMidIntegerBlockDemand_sub_bandMass_lt_one
     (R : ℕ) (hR : 2 ≤ R) :
     |((vfMidIntegerBlockDemand R : ℤ) : ℝ) - vfMidBandMass R| < 1 := by
@@ -198,8 +223,8 @@ theorem abs_vfMidIntegerBlockDemand_sub_bandMass_lt_one
   rw [hcast, abs_lt]
   constructor <;> linarith
 
-/-- The signed integer backlog is the negative real VF-mid endpoint discrepancy
-up to the same sub-unit flooring error. -/
+/-- Integer backlog is the negative real VF-mid endpoint discrepancy up to
+strictly less than one count of flooring. -/
 theorem abs_vfMidIntegerBlockBacklog_add_directError_lt_one
     (R : ℕ) :
     |((vfMidIntegerBlockBacklog R : ℤ) : ℝ) +
@@ -215,17 +240,15 @@ theorem abs_vfMidIntegerBlockBacklog_add_directError_lt_one
   rw [abs_lt]
   constructor <;> linarith
 
-/-- The backlog increment is the negative real square-band prime excess, up to
-less than one count.  Thus the finite backlog dynamics and the existing real
-VF-mid dynamics are the same mechanism modulo flooring. -/
+/-- The integer backlog increment is the negative real direct band error up to
+strictly less than one count. -/
 theorem abs_vfMidIntegerBlockBacklog_increment_add_bandError_lt_one
     (R : ℕ) (hR : 2 ≤ R) :
     |((((vfMidIntegerBlockBacklog (R + 1) -
           vfMidIntegerBlockBacklog R : ℤ)) : ℝ) +
-        vfMidSquareBandError R)| < 1 := by
-  have hrec := vfMidIntegerBlockBacklog_succ R hR
+        vfMidDirectBandError R)| < 1 := by
+  have hrec := vfMidIntegerBlockBacklog_succ R
   have hdemand := abs_vfMidIntegerBlockDemand_sub_bandMass_lt_one R hR
-  have hsupply := vfMidIntegerBlockPrimeSupply_eq_primeCard R hR
   have hcast :
       (((vfMidIntegerBlockBacklog (R + 1) -
           vfMidIntegerBlockBacklog R : ℤ)) : ℝ) =
@@ -241,39 +264,37 @@ theorem abs_vfMidIntegerBlockBacklog_increment_add_bandError_lt_one
     push_cast
     rfl
   rw [hcast]
-  unfold vfMidSquareBandError
-  have hsupplyCast :
-      (vfMidIntegerBlockPrimeSupply R : ℝ) =
-        ((vfMidSquareBandPrimes R).card : ℝ) := by
-    exact_mod_cast hsupply
-  rw [hsupplyCast]
+  unfold vfMidDirectBandError vfMidDirectPrimeBandCount
+    vfMidIntegerBlockPrimeSupply
   simpa only [sub_add_sub_cancel] using hdemand
 
-/-- Immediate capture gives the sharper 2R+1 real endpoint bound because the
-upper square is composite and the actual prime supply lives on only 2R
-interior sites. -/
-theorem vfMidIntegerBlockCaptured_abs_directError_lt_two_mul_add_one
-    (R : ℕ) (hR : 2 ≤ R)
-    (hcap : VFMidIntegerBlockCaptured R) :
-    |vfMidDirectSquareEndpointError R| < 2 * (R : ℝ) + 1 := by
+/-- Immediate capture yields the deterministic one-block real discrepancy
+bound, with one additional count for flooring. -/
+theorem vfMidIntegerBlockCaptured_abs_directError_lt_supplyWidth
+    (R : ℕ) (hcap : VFMidIntegerBlockCaptured R) :
+    |vfMidDirectSquareEndpointError R| < 2 * (R : ℝ) + 2 := by
   have hcap' :=
-    (vfMidIntegerBlockCaptured_iff_backlog_le_supply R hR).1 hcap
+    (vfMidIntegerBlockCaptured_iff_backlog_le_supply R).1 hcap
   have hclose := abs_vfMidIntegerBlockBacklog_add_directError_lt_one R
-  have hsupply := vfMidIntegerBlockPrimeSupply_le_two_mul R hR
+  have hsupply := vfMidIntegerBlockPrimeSupply_le_two_mul_add_one R
   have hB0 : (0 : ℝ) ≤ (vfMidIntegerBlockBacklog R : ℝ) := by
     exact_mod_cast hcap'.1
   have hBle :
-      (vfMidIntegerBlockBacklog R : ℝ) ≤ 2 * (R : ℝ) := by
+      (vfMidIntegerBlockBacklog R : ℝ) ≤ 2 * (R : ℝ) + 1 := by
     have h1 :
-        vfMidIntegerBlockBacklog R ≤ (2 * R : ℕ) := by
-      exact hcap'.2.trans (by exact_mod_cast hsupply)
+        vfMidIntegerBlockBacklog R ≤ (2 * R + 1 : ℕ) := by
+      have hsupplyZ :
+          (vfMidIntegerBlockPrimeSupply R : ℤ) ≤
+            (2 * R + 1 : ℕ) := by
+        exact_mod_cast hsupply
+      exact hcap'.2.trans hsupplyZ
     exact_mod_cast h1
   rw [abs_lt] at hclose ⊢
   constructor <;> linarith
 
-/-! ## The wheel changes only at a newly admitted prime -/
+/-! ## Exact Euler renewal of the common wheel -/
 
-/-- If R+1 is composite, advancing the square clock adds no divisibility
+/-- If R+1 is composite, advancing the square clock adds no new prime
 coordinate to the common wheel. -/
 theorem vfMidPrimesUpTo_succ_eq_of_not_prime
     (R : ℕ) (hnot : ¬ (R + 1).Prime) :
@@ -291,7 +312,7 @@ theorem vfMidPrimesUpTo_succ_eq_of_not_prime
   · rintro ⟨hpPrime, hpLe⟩
     exact ⟨hpPrime, by omega⟩
 
-/-- If R+1 is prime, advancing the square clock adds exactly that one fresh
+/-- If R+1 is prime, advancing the square clock inserts exactly that one new
 prime coordinate and no other coordinate. -/
 theorem vfMidPrimesUpTo_succ_eq_insert_of_prime
     (R : ℕ) (hprime : (R + 1).Prime) :
@@ -309,9 +330,9 @@ theorem vfMidPrimesUpTo_succ_eq_insert_of_prime
       exact ⟨hprime, le_rfl⟩
     · exact ⟨hpOld.1, by omega⟩
 
-/-- Exact Euler renewal law for the common square-block wheel. -/
-theorem vfMidPrimesUpTo_succ
-    (R : ℕ) :
+/-- Exact renewal law: the square-block wheel is unchanged at a composite
+clock tick and gains exactly the fresh prime coordinate at a prime clock tick. -/
+theorem vfMidPrimesUpTo_succ (R : ℕ) :
     primesUpTo (R + 1) =
       if (R + 1).Prime then insert (R + 1) (primesUpTo R)
       else primesUpTo R := by
