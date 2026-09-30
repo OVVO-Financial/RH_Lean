@@ -253,12 +253,12 @@ theorem abs_vfMidDirect_logMidpoint_sub_log_prime_le
     rw [abs_le]
     constructor
     · have hLower :
-          -(((((R + 1 : ℕ) : ℝ) ^ 2) - (R : ℝ) ^ 2) ≤
+          -( ((((R + 1 : ℕ) : ℝ) ^ 2) - (R : ℝ) ^ 2) ) ≤
             (p : ℝ) - vfMidBandMidpoint R := by
         linarith [hpTile.1, hmTile.2]
       have hNegWidth :
           -(3 * (R : ℝ)) ≤
-            -(((((R + 1 : ℕ) : ℝ) ^ 2) - (R : ℝ) ^ 2) :=
+            -( ((((R + 1 : ℕ) : ℝ) ^ 2) - (R : ℝ) ^ 2) ) :=
         neg_le_neg hwidth
       exact hNegWidth.trans hLower
     · have hUpper :
@@ -384,6 +384,7 @@ theorem abs_vfMidDirectLogPositionError_le
       have hlog4 : Real.log 4 ≠ 0 :=
         (Real.log_pos (by norm_num)).ne'
       field_simp [hR0.ne', hlog4]
+      norm_num
 
 /-- Cumulative within-band location correction through the square endpoint R. -/
 def vfMidDirectLogPositionPrefix (R : ℕ) : ℝ :=
