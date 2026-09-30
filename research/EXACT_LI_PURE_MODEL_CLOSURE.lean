@@ -1697,125 +1697,116 @@ private theorem li_antidiagonal_map_subset_divisorsAntidiagonal_pow
   simp [Nat.mem_divisorsAntidiagonal,
     ← Finset.mem_antidiagonal.mp hi, pow_add, ne_zero_of_lt hq]
 
-/-- Local backport of the newer Mathlib map
-`liArithmeticOfPowerSeries q`.  It sends the coefficient of `T^k`
-to the arithmetic site `q^k`.  We keep it private to this closure file so the
-repository remains pinned to its existing Mathlib revision. -/
-private noncomputable def liArithmeticOfPowerSeries (q : ℕ) :
-    PowerSeries ℂ →ₐ[ℂ] ArithmeticFunction ℂ where
+/-- Local ring-hom backport of the newer Mathlib power-series embedding.
+For a fixed genuine site `q > 1`, it sends the coefficient of `T^k` to the
+arithmetic site `q^k`.  A ring hom is sufficient here; the newer Mathlib
+`Algebra` instance for arithmetic functions is not available at the revision
+pinned by this repository. -/
+private noncomputable def liArithmeticOfPowerSeries
+    {q : ℕ} (hq : 1 < q) :
+    PowerSeries ℂ →+* ArithmeticFunction ℂ where
   toFun F :=
-    if hq : 1 < q then
-      ⟨Function.extend (q ^ ·) (F.coeff ·) 0,
-        by simp [Nat.ne_zero_of_lt hq]⟩
-    else
-      algebraMap ℂ (ArithmeticFunction ℂ) F.constantCoeff
+    ⟨Function.extend (q ^ ·) (F.coeff ·) 0,
+      by simp [Nat.ne_zero_of_lt hq]⟩
   map_zero' := by
     ext n
-    split_ifs <;> simp [Function.extend]
+    by_cases hn : ∃ k, q ^ k = n
+    · obtain ⟨k, rfl⟩ := hn
+      simp [(Nat.pow_right_injective hq).extend_apply]
+    · rw [Function.extend_apply' _ _ _ hn, Pi.zero_apply]
+      simp
   map_one' := by
     ext n
-    split_ifs with hq
-    · by_cases hn : ∃ k, q ^ k = n
-      · obtain ⟨k, rfl⟩ := hn
-        simp [(Nat.pow_right_injective hq).extend_apply,
-          ArithmeticFunction.one_apply, hq.ne']
-      · simp [hn, ArithmeticFunction.one_apply_ne
-          (fun H ↦ hn ⟨0, H.symm⟩)]
-    · simp
+    by_cases hn : ∃ k, q ^ k = n
+    · obtain ⟨k, rfl⟩ := hn
+      simp [(Nat.pow_right_injective hq).extend_apply,
+        ArithmeticFunction.one_apply, hq.ne']
+    · rw [Function.extend_apply' _ _ _ hn, Pi.zero_apply]
+      have hn1 : n ≠ 1 := by
+        intro hn1
+        apply hn
+        exact ⟨0, by simpa [hn1]⟩
+      simp [ArithmeticFunction.one_apply, hn1]
   map_add' F G := by
     ext n
-    split_ifs with hq
-    · by_cases h : ∃ k, q ^ k = n
-      · obtain ⟨k, rfl⟩ := h
-        simp [(Nat.pow_right_injective hq).extend_apply]
-      · simp [h]
-    · by_cases hn : n = 1 <;> simp [hn]
+    by_cases hn : ∃ k, q ^ k = n
+    · obtain ⟨k, rfl⟩ := hn
+      simp [(Nat.pow_right_injective hq).extend_apply]
+    · simp [Function.extend_apply' _ _ _ hn]
   map_mul' F G := by
     ext n
-    split_ifs with hq
-    · simp_rw [ArithmeticFunction.mul_apply, ArithmeticFunction.coe_mk]
-      by_cases hn : ∃ k, q ^ k = n
-      · obtain ⟨k, rfl⟩ := hn
-        rw [(Nat.pow_right_injective hq).extend_apply]
-        have hs :
-            (Finset.antidiagonal k).map
-                (.prodMap
-                  ⟨fun j ↦ q ^ j, Nat.pow_right_injective hq⟩
-                  ⟨fun j ↦ q ^ j, Nat.pow_right_injective hq⟩) ⊆
-              (q ^ k).divisorsAntidiagonal :=
-          li_antidiagonal_map_subset_divisorsAntidiagonal_pow hq k
-        rw [PowerSeries.coeff_mul k F G, ← Finset.sum_subset hs]
-        · simp [(Nat.pow_right_injective hq).extend_apply]
-        · intro p hp hnot
-          rcases p with ⟨a, b⟩
-          obtain ⟨hab, -⟩ := Nat.mem_divisorsAntidiagonal.mp hp
-          by_cases ha : ∃ i, q ^ i = a
-          · by_cases hb : ∃ j, q ^ j = b
-            · obtain ⟨i, rfl⟩ := ha
-              obtain ⟨j, rfl⟩ := hb
-              have hij : i + j = k := by
-                apply Nat.pow_right_injective hq
-                simpa [pow_add] using hab
-              exfalso
-              apply hnot
-              apply Finset.mem_map.mpr
-              refine ⟨(i, j), ?_, ?_⟩
-              · simpa [Finset.mem_antidiagonal] using hij
-              · rfl
-            · rw [Function.extend_apply' _ _ _ hb, Pi.zero_apply, mul_zero]
-          · rw [Function.extend_apply' _ _ _ ha, Pi.zero_apply, zero_mul]
-      · rw [Function.extend_apply' _ _ _ hn, Pi.zero_apply,
-          Finset.sum_eq_zero]
-        intro p hp
+    rw [ArithmeticFunction.mul_apply]
+    change
+      Function.extend (q ^ ·) ((F * G).coeff ·) 0 n =
+        ∑ p ∈ n.divisorsAntidiagonal,
+          Function.extend (q ^ ·) (F.coeff ·) 0 p.1 *
+            Function.extend (q ^ ·) (G.coeff ·) 0 p.2
+    by_cases hn : ∃ k, q ^ k = n
+    · obtain ⟨k, rfl⟩ := hn
+      rw [(Nat.pow_right_injective hq).extend_apply]
+      have hs :
+          (Finset.antidiagonal k).map
+              (.prodMap
+                ⟨fun j ↦ q ^ j, Nat.pow_right_injective hq⟩
+                ⟨fun j ↦ q ^ j, Nat.pow_right_injective hq⟩) ⊆
+            (q ^ k).divisorsAntidiagonal :=
+        li_antidiagonal_map_subset_divisorsAntidiagonal_pow hq k
+      rw [PowerSeries.coeff_mul k F G, ← Finset.sum_subset hs]
+      · simp [(Nat.pow_right_injective hq).extend_apply]
+      · intro p hp hnot
         rcases p with ⟨a, b⟩
         obtain ⟨hab, -⟩ := Nat.mem_divisorsAntidiagonal.mp hp
         by_cases ha : ∃ i, q ^ i = a
         · by_cases hb : ∃ j, q ^ j = b
           · obtain ⟨i, rfl⟩ := ha
             obtain ⟨j, rfl⟩ := hb
+            have hij : i + j = k := by
+              apply Nat.pow_right_injective hq
+              simpa [pow_add] using hab
             exfalso
-            apply hn
-            refine ⟨i + j, ?_⟩
-            simpa [pow_add] using hab
+            apply hnot
+            apply Finset.mem_map.mpr
+            refine ⟨(i, j), ?_, ?_⟩
+            · simpa [Finset.mem_antidiagonal] using hij
+            · rfl
           · rw [Function.extend_apply' _ _ _ hb, Pi.zero_apply, mul_zero]
         · rw [Function.extend_apply' _ _ _ ha, Pi.zero_apply, zero_mul]
-    · simp
-  commutes' a := by
-    ext n
-    split_ifs with hq
-    · simp only [Algebra.algebraMap_eq_smul_one,
-        ArithmeticFunction.coe_mk]
-      by_cases hn : ∃ k, q ^ k = n
-      · obtain ⟨k, rfl⟩ := hn
-        simp [(Nat.pow_right_injective hq).extend_apply,
-          ArithmeticFunction.one_apply, hq.ne']
-      · rw [Function.extend_apply' _ _ _ hn, Pi.zero_apply,
-          smul_map, ArithmeticFunction.one_apply_ne, smul_zero]
-        contrapose hn
-        exact ⟨0, by simpa using hn.symm⟩
-    · simp
+    · rw [Function.extend_apply' _ _ _ hn, Pi.zero_apply,
+        Finset.sum_eq_zero]
+      intro p hp
+      rcases p with ⟨a, b⟩
+      obtain ⟨hab, -⟩ := Nat.mem_divisorsAntidiagonal.mp hp
+      by_cases ha : ∃ i, q ^ i = a
+      · by_cases hb : ∃ j, q ^ j = b
+        · obtain ⟨i, rfl⟩ := ha
+          obtain ⟨j, rfl⟩ := hb
+          exfalso
+          apply hn
+          refine ⟨i + j, ?_⟩
+          simpa [pow_add] using hab
+        · rw [Function.extend_apply' _ _ _ hb, Pi.zero_apply, mul_zero]
+      · rw [Function.extend_apply' _ _ _ ha, Pi.zero_apply, zero_mul]
 
 private theorem liArithmeticOfPowerSeries_apply
     {q : ℕ} (hq : 1 < q) (F : PowerSeries ℂ) (n : ℕ) :
-    liArithmeticOfPowerSeries q F n =
+    liArithmeticOfPowerSeries hq F n =
       Function.extend (q ^ ·) (F.coeff ·) 0 n := by
-  simp [liArithmeticOfPowerSeries, hq]
+  rfl
 
 private theorem liArithmeticOfPowerSeries_apply_pow
     {q : ℕ} (hq : 1 < q) (F : PowerSeries ℂ) (k : ℕ) :
-    liArithmeticOfPowerSeries q F (q ^ k) = F.coeff k := by
+    liArithmeticOfPowerSeries hq F (q ^ k) = F.coeff k := by
   rw [liArithmeticOfPowerSeries_apply hq,
     (Nat.pow_right_injective hq).extend_apply]
 
 /-! ## Transport the formal local factorization to Dirichlet convolution -/
 
 /-- A single positive-site arithmetic atom is exactly the image of the
-one-variable monomial `a*T` under Mathlib's formal L-function map
-`liArithmeticOfPowerSeries q`. -/
-theorem arithmeticSiteAtom_eq_ofPowerSeries_C_mul_X
+one-variable monomial `a*T` under the local formal power-series embedding. -/
+theorem arithmeticSiteAtom_eq_liArithmeticOfPowerSeries_C_mul_X
     {q : ℕ} (hq : 1 < q) (a : ℂ) :
     arithmeticSiteAtom q a =
-      liArithmeticOfPowerSeries q
+      liArithmeticOfPowerSeries hq
         (PowerSeries.C a * PowerSeries.X) := by
   ext n
   rw [liArithmeticOfPowerSeries_apply hq]
@@ -1848,16 +1839,16 @@ theorem arithmeticSiteAtom_eq_ofPowerSeries_C_mul_X
     simp [hnq]
 
 /-- Arithmetic-function image of the exact quadratic hard-core/Poisson
-correction factor at one site. -/
+correction factor at one genuine site. -/
 def arithmeticHardCorePoissonCorrectionFactor
-    (a : ℂ) (q : ℕ) : ArithmeticFunction ℂ :=
-  liArithmeticOfPowerSeries q
+    (a : ℂ) {q : ℕ} (hq : 1 < q) : ArithmeticFunction ℂ :=
+  liArithmeticOfPowerSeries hq
     (hardCorePoissonCorrectionSeries a)
 
 /-- Arithmetic-function image of the one-site Poisson exponential. -/
 def arithmeticPoissonLocalFactor
-    (a : ℂ) (q : ℕ) : ArithmeticFunction ℂ :=
-  liArithmeticOfPowerSeries q
+    (a : ℂ) {q : ℕ} (hq : 1 < q) : ArithmeticFunction ℂ :=
+  liArithmeticOfPowerSeries hq
     (poissonExponentialSeries a)
 
 /-- **Exact one-site Dirichlet factorization.**
@@ -1867,8 +1858,8 @@ and the Poisson factor. -/
 theorem arithmeticHardCoreLocalFactor_eq_correction_mul_poisson
     {q : ℕ} (hq : 1 < q) (a : ℂ) :
     arithmeticHardCoreLocalFactor a q =
-      arithmeticHardCorePoissonCorrectionFactor a q *
-        arithmeticPoissonLocalFactor a q := by
+      arithmeticHardCorePoissonCorrectionFactor a hq *
+        arithmeticPoissonLocalFactor a hq := by
   unfold arithmeticHardCorePoissonCorrectionFactor
     arithmeticPoissonLocalFactor
   rw [← map_mul,
@@ -1876,7 +1867,8 @@ theorem arithmeticHardCoreLocalFactor_eq_correction_mul_poisson
   unfold arithmeticHardCoreLocalFactor
   rw [map_sub, map_one]
   congr 1
-  exact (arithmeticSiteAtom_eq_ofPowerSeries_C_mul_X hq a).symm
+  exact
+    (arithmeticSiteAtom_eq_liArithmeticOfPowerSeries_C_mul_X hq a).symm
 
 /-- Finite product of the quadratic correction factors over sites
 `2,...,k+1`, ordered exactly like `arithmeticHardCoreProduct`. -/
@@ -1884,7 +1876,8 @@ def arithmeticHardCorePoissonCorrectionProduct
     (w : ℕ → ℂ) : ℕ → ArithmeticFunction ℂ
   | 0 => 1
   | k + 1 =>
-      arithmeticHardCorePoissonCorrectionFactor (w (k + 2)) (k + 2) *
+      arithmeticHardCorePoissonCorrectionFactor
+          (w (k + 2)) (q := k + 2) (by omega) *
         arithmeticHardCorePoissonCorrectionProduct w k
 
 /-- Finite product of the corresponding Poisson factors. -/
@@ -1892,7 +1885,8 @@ def arithmeticPoissonProduct
     (w : ℕ → ℂ) : ℕ → ArithmeticFunction ℂ
   | 0 => 1
   | k + 1 =>
-      arithmeticPoissonLocalFactor (w (k + 2)) (k + 2) *
+      arithmeticPoissonLocalFactor
+          (w (k + 2)) (q := k + 2) (by omega) *
         arithmeticPoissonProduct w k
 
 /-- **Exact finite global hard-core/Poisson factorization.**
@@ -1916,7 +1910,6 @@ theorem arithmeticHardCoreProduct_eq_correctionProduct_mul_poissonProduct
           (q := k + 2) (by omega : 1 < k + 2),
         ih]
       ac_rfl
-
 
 
 /-! ## Generic critical convolution transfer -/
