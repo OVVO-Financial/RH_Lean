@@ -716,8 +716,12 @@ theorem vfMidVonKochBounded_of_squareEndpoint
   calc
     |vfMidPrimeError x| ≤ |vfMidPrimeError ((R : ℝ) ^ 2)| +
         |vfMidPrimeError x - vfMidPrimeError ((R : ℝ) ^ 2)| := by
-      simpa using abs_add_le (vfMidPrimeError ((R : ℝ) ^ 2))
-        (vfMidPrimeError x - vfMidPrimeError ((R : ℝ) ^ 2))
+      calc
+        _ = |vfMidPrimeError ((R : ℝ) ^ 2) +
+            (vfMidPrimeError x - vfMidPrimeError ((R : ℝ) ^ 2))| := by
+          congr 1
+          ring
+        _ ≤ _ := abs_add_le _ _
     _ ≤ C * Real.sqrt x * Real.log x +
         (A / Real.log 4) * Real.sqrt x * Real.log x :=
       add_le_add hendpoint (hlive.trans hroot)
