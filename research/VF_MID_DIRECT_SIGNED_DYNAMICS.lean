@@ -434,11 +434,11 @@ theorem vfMidDirectSquareEndpointError_eq_vfMidPrimeError
   have hcount :
       vfMidPrimeCount ((R : ℝ) ^ 2) =
         (Nat.primeCounting (R ^ 2) : ℝ) := by
-    have hsquare :
-        (R : ℝ) ^ 2 = ((R ^ 2 : ℕ) : ℝ) := by
-      norm_num
-    rw [hsquare]
-    simp [vfMidPrimeCount]
+    have hfloor : ⌊(R : ℝ) ^ 2⌋₊ = R ^ 2 := by
+      rw [show (R : ℝ) ^ 2 = ((R ^ 2 : ℕ) : ℝ) by norm_num]
+      exact Nat.floor_natCast (R ^ 2)
+    unfold vfMidPrimeCount
+    rw [hfloor]
   rw [hcount]
 
 /-- Exact recurrence D_(R+1) = D_R + epsilon_R. -/
