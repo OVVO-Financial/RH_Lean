@@ -3129,6 +3129,49 @@ theorem exactLiPoissonIntegerReference_eq_coefficientCumulative
   rcases Finset.mem_Icc.mp hnmem with ⟨hn1, hnX⟩
   rw [exactLiPoissonCoefficient_eq_cutoff hn1 hnX]
 
+/-- Critical rescaling of a stabilized Poisson coefficient is exactly the
+coefficient of the Poisson product with transformed Li owners. -/
+theorem criticalScale_exactLiPoissonCoefficient
+    {n : ℕ} (hn : 1 ≤ n) :
+    criticalSqrtWeight n * exactLiPoissonCoefficient n =
+      arithmeticPoissonProduct criticalLiFrequencyWeight (n - 1) n := by
+  have h :=
+    congrArg (fun f : ArithmeticFunction ℂ => f n)
+      (criticalScaleArithmetic_poissonProduct
+        primeSievePNTDensity (n - 1))
+  change criticalSqrtWeight n *
+      arithmeticPoissonProduct primeSievePNTDensity (n - 1) n =
+    arithmeticPoissonProduct
+      (fun q => primeSievePNTDensity q * criticalSqrtWeight q)
+      (n - 1) n at h
+  simpa [exactLiPoissonCoefficient, if_pos hn,
+    criticalLiFrequencyWeight] using h
+
+/-- At any larger visible cutoff, the critically rescaled stabilized
+coefficient is read from the transformed-owner Poisson product. -/
+theorem exactLiPoissonCoefficient_div_sqrt_eq_critical_cutoff
+    {n X : ℕ} (hn : 1 ≤ n) (hnX : n ≤ X) :
+    exactLiPoissonCoefficient n / (Real.sqrt (n : ℝ) : ℂ) =
+      arithmeticPoissonProduct criticalLiFrequencyWeight (X - 1) n := by
+  have hscale := criticalScale_exactLiPoissonCoefficient hn
+  have hstable :=
+    arithmeticPoissonProduct_apply_stable
+      criticalLiFrequencyWeight hn hnX
+  rw [hstable]
+  simpa [criticalSqrtWeight, div_eq_mul_inv, mul_comm] using hscale
+
+/-- The cumulative Poisson reference after the exact critical n^(-1/2)
+coefficient transform. -/
+def exactLiCriticalPoissonIntegerReference (X : ℕ) : ℂ :=
+  if 1 ≤ X then
+    arithmeticCoefficientCumulative
+      (arithmeticPoissonProduct criticalLiFrequencyWeight (X - 1)) X
+  else 1
+
+@[simp] theorem exactLiCriticalPoissonIntegerReference_zero :
+    exactLiCriticalPoissonIntegerReference 0 = 1 := by
+  simp [exactLiCriticalPoissonIntegerReference]
+
 /-- Raising the Li cutoff above a visible coefficient does not change that
 coefficient. -/
 theorem exactLiCorrectionKernel_eq_cutoff
@@ -4945,6 +4988,58 @@ theorem sampledCriticalPrefix_exactLiPoissonIntegerReference_eq
   · intro hmem
     have htwo : 2 ≤ (1 : ℕ) := (Finset.mem_Icc.mp hmem).1
     omega
+
+/-- **Exact critical Poisson reduction.**
+The native sampled critical prefix of the original Poisson reference is
+literally the cumulative transformed-owner Poisson product minus its unit atom.
+No inequality or endpoint approximation occurs here. -/
+theorem sampledCriticalPrefix_exactLiPoissonIntegerReference_eq_critical
+    (N : ℕ) :
+    sampledCriticalPrefix exactLiPoissonIntegerReference N =
+      exactLiCriticalPoissonIntegerReference N - 1 := by
+  by_cases hN0 : N = 0
+  · subst N
+    have hleft :
+        sampledCriticalPrefix exactLiPoissonIntegerReference 0 = 0 := by
+      unfold sampledCriticalPrefix
+      rw [Finset.Icc_eq_empty_of_lt (by decide : (0 : ℕ) < 1)]
+      rfl
+    rw [hleft, exactLiCriticalPoissonIntegerReference_zero]
+    ring
+  have hN : 1 ≤ N := Nat.one_le_iff_ne_zero.mpr hN0
+  rw [sampledCriticalPrefix_exactLiPoissonIntegerReference_eq]
+  have hterms :
+      (∑ n ∈ Finset.Icc 2 N,
+          exactLiPoissonCoefficient n /
+            (Real.sqrt (n : ℝ) : ℂ)) =
+        ∑ n ∈ Finset.Icc 2 N,
+          arithmeticPoissonProduct criticalLiFrequencyWeight (N - 1) n := by
+    apply Finset.sum_congr rfl
+    intro n hnmem
+    rcases Finset.mem_Icc.mp hnmem with ⟨hn2, hnN⟩
+    exact exactLiPoissonCoefficient_div_sqrt_eq_critical_cutoff
+      (by omega) hnN
+  rw [hterms]
+  unfold exactLiCriticalPoissonIntegerReference
+  rw [if_pos hN]
+  unfold arithmeticCoefficientCumulative
+  have hset :
+      Finset.Icc 1 N = insert 1 (Finset.Icc 2 N) := by
+    ext n
+    simp only [Finset.mem_Icc, Finset.mem_insert]
+    omega
+  have hnot : 1 ∉ Finset.Icc 2 N := by
+    intro hmem
+    have : 2 ≤ (1 : ℕ) := (Finset.mem_Icc.mp hmem).1
+    omega
+  have hone :
+      arithmeticPoissonProduct criticalLiFrequencyWeight (N - 1) 1 = 1 := by
+    have hs :=
+      arithmeticPoissonProduct_apply_stable
+        criticalLiFrequencyWeight (n := 1) (X := N) (by omega) hN
+    simpa [arithmeticPoissonProduct] using hs
+  rw [hset, Finset.sum_insert hnot, hone]
+  ring
 
 /-- One-step form of the sampled critical prefix. -/
 theorem sampledCriticalPrefix_succ
