@@ -3116,6 +3116,12 @@ def exactLiPoissonIntegerReference (X : ℕ) : ℂ :=
     exactLiPoissonIntegerReference 0 = 1 := by
   simp [exactLiPoissonIntegerReference]
 
+
+@[simp] theorem exactLiPoissonIntegerReference_one :
+    exactLiPoissonIntegerReference 1 = 1 := by
+  simp [exactLiPoissonIntegerReference, arithmeticCoefficientCumulative,
+    arithmeticPoissonProduct]
+
 /-- The stabilized coefficient sequence cumulatively reconstructs the exact
 Poisson integer reference. -/
 theorem exactLiPoissonIntegerReference_eq_coefficientCumulative
@@ -4985,7 +4991,7 @@ theorem sampledCriticalPrefix_exactLiPoissonIntegerReference_eq
       (exactLiPoissonIntegerReference 1 -
           exactLiPoissonIntegerReference (1 - 1)) /
           (Real.sqrt ((1 : ℕ) : ℝ) : ℂ) = 0 := by
-    norm_num
+    simp
   unfold sampledCriticalPrefix
   rw [hIcc, Finset.sum_insert hnot, hfirst, zero_add]
   apply Finset.sum_congr rfl
