@@ -190,6 +190,8 @@ theorem iteratedDeriv_inv_log_two {x : ℝ} (hx : 1 < x) :
   have hnum := (hasDerivAt_inv hx0).neg
   have hden := (Real.hasDerivAt_log hx0).pow 2
   have hd := hnum.div hden (pow_ne_zero 2 hlog0)
+  change deriv ((-fun y : ℝ => y⁻¹) / (Real.log ^ 2)) x =
+    vfMidInvLogSecond x
   rw [hd.deriv]
   unfold vfMidInvLogSecond
   field_simp [hx0, hlog0]
@@ -273,10 +275,7 @@ theorem summable_nat_inv_div_log_sq :
     refine hs.congr ?_
     intro k
     have hpow : (2 : ℕ) ^ (k + 1) ≠ 1 := by
-      have hkpos : 0 < k + 1 := by omega
-      have hge : 2 ≤ (2 : ℕ) ^ (k + 1) := by
-        exact Nat.le_pow hkpos (by norm_num)
-      omega
+      exact (one_lt_pow₀ (by norm_num : (1 : ℕ) < 2) (by omega : k + 1 ≠ 0)).ne'
     simp [F, f, g, hpow, Nat.cast_pow, Real.log_pow]
     field_simp [hlog2]
     ring
@@ -331,8 +330,8 @@ private theorem vfMidTrapError_le_of_lt
       HasDerivWithinAt g (dg y) (Icc a b) y := by
     unfold g vfMidTrapError vfMidTrapIntegral
     refine
-      ((div_const (sub_const _ (hasDerivWithinAt_id _ _)) _).mul
-        (const_add _ (hdf y hy).hasDerivWithinAt)).sub ?_
+      ((((hasDerivWithinAt_id y (Icc a b)).sub_const a).div_const 2).mul
+        ((hdf y hy).hasDerivWithinAt.const_add (f a))).sub ?_
     have := Fact.mk hy
     apply integral_hasDerivWithinAt_right
     · exact
@@ -345,8 +344,8 @@ private theorem vfMidTrapError_le_of_lt
     rw [(by ring :
       ddg y = (1 / 2) * dfy + ((1 / 2) * dfy + ddg y) - dfy)]
     refine
-      ((const_mul _ (const_add _ (hdf y hy).hasDerivWithinAt)).add
-        ((div_const (sub_const _ (hasDerivWithinAt_id _ _)) _).mul ?_)).sub
+      ((((hdf y hy).hasDerivWithinAt.const_add (f a)).const_mul (1 / 2)).add
+        ((((hasDerivWithinAt_id y (Icc a b)).sub_const a).div_const 2).mul ?_)).sub
           (hdf y hy).hasDerivWithinAt
     rw [iteratedDerivWithin_eq_iterate]
     exact (hddf y hy).hasDerivWithinAt
@@ -367,10 +366,10 @@ private theorem vfMidTrapError_le_of_lt
         HasDerivAt
           (fun y => cc / (n + 1) * (y - a) ^ (n + 1))
           (cc * (x - a) ^ n) x := by
-      convert!
+      convert
         (hasDerivAt_const x (cc / (n + 1))).mul
-          (((hasDerivAt_id x).sub (hasDerivAt_const x a)).pow (n + 1)) using 1
-      simp [sub_eq_add_neg, field]
+          (((hasDerivAt_id x).sub (hasDerivAt_const x a)).pow (n + 1)) using 1 <;>
+        simp [sub_eq_add_neg, field]
     simpa [Real.norm_eq_abs, hzero] using
       image_norm_le_of_norm_deriv_right_le_deriv_boundary
         (fun x hx => (hderiv x hx).continuousWithinAt)
