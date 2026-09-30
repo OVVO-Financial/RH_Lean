@@ -169,7 +169,7 @@ theorem primeLiVonKochBounded_of_vfMid
     |vfMidPrimeLiError x|
         = |vfMidPrimeError x + vfMidLiError x| := by
             rw [vfMidPrimeLiError_eq_primeError_add_liError]
-    _ ≤ |vfMidPrimeError x| + |vfMidLiError x| := abs_add _ _
+    _ ≤ |vfMidPrimeError x| + |vfMidLiError x| := abs_add_le _ _
     _ ≤ C * Real.sqrt x * Real.log x + B :=
       add_le_add (hC x hx) (hB x hx)
     _ ≤ (C + B / c) * Real.sqrt x * Real.log x := by
