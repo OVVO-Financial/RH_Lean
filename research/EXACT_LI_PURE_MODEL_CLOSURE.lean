@@ -2745,6 +2745,26 @@ private theorem
       w hnm1 (by omega : n - 1 ≤ n)]
 
 
+private theorem arithmeticPoissonProduct_apply_stable
+    (w : ℕ → ℂ) {n X : ℕ} (hn : 1 ≤ n) (hnX : n ≤ X) :
+    arithmeticPoissonProduct w (X - 1) n =
+      arithmeticPoissonProduct w (n - 1) n := by
+  by_cases hn1 : n = 1
+  · subst n
+    have hcum :=
+      arithmeticPoissonProduct_cumulative_stable
+        w (Y := 1) (X := X) (by omega) hnX
+    simpa [arithmeticCoefficientCumulative] using hcum
+  · have hnm1 : 1 ≤ n - 1 := by omega
+    rw [arithmeticFunction_apply_eq_cumulative_sub _ hn,
+      arithmeticFunction_apply_eq_cumulative_sub _ hn]
+    rw [arithmeticPoissonProduct_cumulative_stable w hn hnX]
+    rw [arithmeticPoissonProduct_cumulative_stable
+      w hnm1 (by omega : n - 1 ≤ X)]
+    rw [arithmeticPoissonProduct_cumulative_stable
+      w hnm1 (by omega : n - 1 ≤ n)]
+
+
 
 /-- Absolute coefficient of the genuinely quadratic-and-higher part of one
 Poisson exponential, indexed from degree two. -/
@@ -2989,12 +3009,46 @@ def exactLiCorrectionKernel (n : ℕ) : ℂ :=
       primeSievePNTDensity (n - 1) n
   else 0
 
+/-- Stabilized coefficient of the exact Poissonized Li product. -/
+def exactLiPoissonCoefficient (n : ℕ) : ℂ :=
+  if 1 ≤ n then
+    arithmeticPoissonProduct primeSievePNTDensity (n - 1) n
+  else 0
+
+/-- A stabilized Poisson coefficient can be read at any larger visible
+cutoff. -/
+theorem exactLiPoissonCoefficient_eq_cutoff
+    {n X : ℕ} (hn : 1 ≤ n) (hnX : n ≤ X) :
+    exactLiPoissonCoefficient n =
+      arithmeticPoissonProduct primeSievePNTDensity (X - 1) n := by
+  simp only [exactLiPoissonCoefficient, if_pos hn]
+  exact
+    (arithmeticPoissonProduct_apply_stable
+      primeSievePNTDensity hn hnX).symm
+
 /-- The integer cumulative reference of the exact Poissonized Li product. -/
 def exactLiPoissonIntegerReference (X : ℕ) : ℂ :=
   if 1 ≤ X then
     arithmeticCoefficientCumulative
       (arithmeticPoissonProduct primeSievePNTDensity (X - 1)) X
   else 1
+
+@[simp] theorem exactLiPoissonIntegerReference_zero :
+    exactLiPoissonIntegerReference 0 = 1 := by
+  simp [exactLiPoissonIntegerReference]
+
+/-- The stabilized coefficient sequence cumulatively reconstructs the exact
+Poisson integer reference. -/
+theorem exactLiPoissonIntegerReference_eq_coefficientCumulative
+    {X : ℕ} (hX : 1 ≤ X) :
+    exactLiPoissonIntegerReference X =
+      ∑ n ∈ Finset.Icc 1 X, exactLiPoissonCoefficient n := by
+  simp only [exactLiPoissonIntegerReference, if_pos hX]
+  unfold arithmeticCoefficientCumulative
+  apply Finset.sum_congr rfl
+  intro n hnmem
+  rcases Finset.mem_Icc.mp hnmem with ⟨hn1, hnX⟩
+  rw [exactLiPoissonCoefficient_eq_cutoff hn1 hnX]
 
 /-- Raising the Li cutoff above a visible coefficient does not change that
 coefficient. -/
