@@ -165,7 +165,6 @@ theorem vfMidSquareEndpointVonKochBounded_of_integerBlockCapture
           nlinarith
       _ = (3 / Real.log 2) * (R : ℝ) * Real.log (R : ℝ) := by
           field_simp [hlog2.ne']
-          ring
   rw [← hEq]
   exact le_trans (le_of_lt herr) hscale
 
@@ -197,8 +196,9 @@ theorem vfMid_primeCounting_lag_window_le
     Nat.primeCounting ((R + L + 1) ^ 2) ≤
       Nat.primeCounting (R ^ 2) +
         ((R + L + 1) ^ 2 - R ^ 2) := by
-  have hsq : R ^ 2 ≤ (R + L + 1) ^ 2 := by
-    nlinarith
+  have hbase : R ≤ R + L + 1 := by omega
+  have hsq : R ^ 2 ≤ (R + L + 1) ^ 2 :=
+    Nat.pow_le_pow_left hbase 2
   have h :=
     vfMid_primeCounting_add_le
       (R ^ 2) ((R + L + 1) ^ 2 - R ^ 2)
@@ -247,17 +247,17 @@ theorem vfMidIntegerBlockCapturedByOneLag_abs_squareEndpointError_lt
     |vfMidDirectSquareEndpointError R| < 4 * (R : ℝ) + 5 := by
   have h :=
     vfMidIntegerBlockCapturedByLag_abs_squareEndpointError_lt R 1 hcap
-  have hsq : R ^ 2 ≤ (R + 2) ^ 2 := by nlinarith
+  have hbase : R ≤ R + 2 := by omega
+  have hsq : R ^ 2 ≤ (R + 2) ^ 2 :=
+    Nat.pow_le_pow_left hbase 2
   have hcast :
       ((((R + 2) ^ 2 - R ^ 2 : ℕ) : ℝ) + 1) =
         4 * (R : ℝ) + 5 := by
     rw [Nat.cast_sub hsq]
     push_cast
     ring
-  have hrewrite :
-      ((R + 1 + 1) ^ 2 - R ^ 2 : ℕ) = (R + 2) ^ 2 - R ^ 2 := by
-    omega
-  rw [hrewrite, hcast] at h
+  have hadd : R + 1 + 1 = R + 2 := by omega
+  rw [hadd, hcast] at h
   exact h
 
 end RHLean.Analysis
