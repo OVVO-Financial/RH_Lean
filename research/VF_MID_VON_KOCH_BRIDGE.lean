@@ -395,9 +395,11 @@ theorem vfMidLiError_sq_succ {R : ℕ} (hR : 2 ≤ R) :
     vfMidLiError ((((R + 1 : ℕ) : ℝ) ^ 2)) =
       vfMidLiError ((R : ℝ) ^ 2) + vfMidBandQuadratureError R := by
   have hR1 : 2 ≤ R + 1 := by omega
+  have hRreal : (2 : ℝ) ≤ R := by exact_mod_cast hR
   have hR0 : (0 : ℝ) ≤ R := by positivity
+  have hR4 : (4 : ℝ) ≤ (R : ℝ) ^ 2 := by
+    nlinarith
   have hRsq : (2 : ℝ) ≤ (R : ℝ) ^ 2 := by
-    have : (4 : ℝ) ≤ (R : ℝ) ^ 2 := by nlinarith
     linarith
   have hnext : (R : ℝ) ^ 2 ≤ (((R + 1 : ℕ) : ℝ) ^ 2) := by
     norm_num [Nat.cast_add, Nat.cast_one]
@@ -409,13 +411,11 @@ theorem vfMidLiError_sq_succ {R : ℕ} (hR : 2 ≤ R) :
   have hI₂ :
       IntervalIntegrable (fun t : ℝ => (Real.log t)⁻¹) volume
         ((R : ℝ) ^ 2) ((((R + 1 : ℕ) : ℝ) ^ 2)) :=
-    vfMid_invLog_intervalIntegrable (by
-      have : (4 : ℝ) ≤ (R : ℝ) ^ 2 := by nlinarith
-      linarith) hnext
+    vfMid_invLog_intervalIntegrable (by linarith [hR4]) hnext
   unfold vfMidLiError vfMidBandQuadratureError vfMidBandIntegral
   rw [vfMid_sq hR1, vfMid_sq hR, vfMidFinishedMass_succ hR]
   unfold vfMidLogarithmicIntegralFromTwo
-  rw [intervalIntegral.integral_add_adjacent_intervals hI₁ hI₂]
+  rw [← intervalIntegral.integral_add_adjacent_intervals hI₁ hI₂]
   ring
 
 /-- Square-endpoint error grows by at most one fixed tile budget per square
@@ -491,7 +491,7 @@ theorem vfMidLiError_eq_sq_add_live {x : ℝ} (hx : 4 ≤ x) :
         ((x - (R : ℝ) ^ 2) / Real.log (((R : ℝ) ^ 2 + x) / 2) -
           ∫ t in ((R : ℝ) ^ 2)..x, (Real.log t)⁻¹)
   unfold vfMidLogarithmicIntegralFromTwo
-  rw [intervalIntegral.integral_add_adjacent_intervals hI₁ hI₂]
+  rw [← intervalIntegral.integral_add_adjacent_intervals hI₁ hI₂]
   ring
 
 /-- Floor-sqrt geometry for the live square band. -/
