@@ -4824,6 +4824,34 @@ def sampledCriticalPrefix (M : ℕ → ℂ) (N : ℕ) : ℂ :=
   ∑ n ∈ Finset.Icc 1 N,
     (M n - M (n - 1)) / (Real.sqrt (n : ℝ) : ℂ)
 
+/-- The sampled critical prefix of the Poisson reference is exactly the
+critical cumulative of the stabilized Poisson coefficients, with the unit
+atom omitted because the artificial zero endpoint already contains that atom. -/
+theorem sampledCriticalPrefix_exactLiPoissonIntegerReference_eq
+    (N : ℕ) :
+    sampledCriticalPrefix exactLiPoissonIntegerReference N =
+      ∑ n ∈ Finset.Icc 2 N,
+        exactLiPoissonCoefficient n /
+          (Real.sqrt (n : ℝ) : ℂ) := by
+  by_cases hN : N = 0
+  · subst N
+    simp [sampledCriticalPrefix]
+  have hN1 : 1 ≤ N := Nat.one_le_iff_ne_zero.mpr hN
+  have hIcc :
+      Finset.Icc 1 N = insert 1 (Finset.Icc 2 N) := by
+    ext n
+    simp only [Finset.mem_Icc, Finset.mem_insert]
+    omega
+  unfold sampledCriticalPrefix
+  rw [hIcc, Finset.sum_insert]
+  · simp only [exactLiPoissonIntegerReference_one_sub_zero, zero_div,
+      zero_add]
+    apply Finset.sum_congr rfl
+    intro n hn
+    have hn2 : 2 ≤ n := (Finset.mem_Icc.mp hn).1
+    rw [exactLiPoissonIntegerReference_sub_pred_eq_coefficient hn2]
+  · simp
+
 /-- One-step form of the sampled critical prefix. -/
 theorem sampledCriticalPrefix_succ
     (M : ℕ → ℂ) (N : ℕ) :
