@@ -143,7 +143,8 @@ theorem vfMidSquareEndpointVonKochBounded_of_integerBlockCapture
   intro R hR
   have herr :=
     vfMidIntegerBlockCaptured_abs_squareEndpointError_lt R (hcap R hR)
-  have hEq := vfMidDirectSquareEndpointError_eq_primeError R hR
+  have hEq :=
+    vfMidDirectSquareEndpointError_eq_vfMidPrimeError (R := R) hR
   have hRreal : (2 : ℝ) ≤ (R : ℝ) := by
     exact_mod_cast hR
   have hlogR : Real.log 2 ≤ Real.log (R : ℝ) := by
