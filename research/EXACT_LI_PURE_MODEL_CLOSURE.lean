@@ -5745,4 +5745,167 @@ theorem arithmeticPoissonProduct_logarithmic_renewal
   rw [arithmeticLogWeight_poissonProduct,
     arithmeticCoefficientCumulative_poissonLogKernel_mul]
 
+/-- The critical Poisson child is unchanged when the cutoff is raised above
+its positive endpoint. The artificial value at zero is deliberately excluded. -/
+theorem exactLiCriticalPoissonIntegerReference_eq_child
+    {Y X : ℕ} (hY : 1 ≤ Y) (hYX : Y ≤ X) :
+    exactLiCriticalPoissonIntegerReference Y =
+      arithmeticCoefficientCumulative
+        (arithmeticPoissonProduct criticalLiFrequencyWeight (X - 1)) Y := by
+  simp only [exactLiCriticalPoissonIntegerReference, if_pos hY]
+  exact (arithmeticPoissonProduct_cumulative_stable
+    criticalLiFrequencyWeight hY hYX).symm
+
+/-- The logarithmic renewal specialized to the exact stabilized critical Li
+reference. All children are positive, so the zero-endpoint convention cannot
+introduce an extra unit atom. -/
+theorem exactLiCriticalPoissonIntegerReference_logarithmic_renewal (X : ℕ) :
+    (∑ n ∈ Finset.Icc 1 X,
+        (Real.log (n : ℝ) : ℂ) *
+          (exactLiPoissonCoefficient n / (Real.sqrt (n : ℝ) : ℂ))) =
+      -(∑ j ∈ Finset.range (X - 1),
+        (Real.log ((j + 2 : ℕ) : ℝ) : ℂ) * criticalLiFrequencyWeight (j + 2) *
+          exactLiCriticalPoissonIntegerReference (X / (j + 2))) := by
+  have h := arithmeticPoissonProduct_logarithmic_renewal
+    criticalLiFrequencyWeight (X - 1) X
+  calc
+    _ = ∑ n ∈ Finset.Icc 1 X,
+        (Real.log (n : ℝ) : ℂ) *
+          arithmeticPoissonProduct criticalLiFrequencyWeight (X - 1) n := by
+      apply Finset.sum_congr rfl
+      intro n hn
+      rw [exactLiPoissonCoefficient_div_sqrt_eq_critical_cutoff
+        (Finset.mem_Icc.mp hn).1 (Finset.mem_Icc.mp hn).2]
+    _ = _ := h.trans (by
+      congr 1
+      apply Finset.sum_congr rfl
+      intro j hj
+      have hjX : j + 2 ≤ X := by
+        have := Finset.mem_range.mp hj
+        omega
+      rw [exactLiCriticalPoissonIntegerReference_eq_child
+        ((Nat.one_le_div_iff (by omega : 0 < j + 2)).2 hjX)
+        (Nat.div_le_self X (j + 2))])
+
+/-- The logarithmic Li generator differs from unit integer mass by this
+explicit real unit-bin defect. -/
+def exactLiLogKernelDefect (q : ℕ) : ℝ :=
+  Real.log (q : ℝ) * densityTightLiWeight q - 1
+
+/-- Right-endpoint placement makes the logarithmic generator at least one. -/
+theorem exactLiLogKernelDefect_nonneg {q : ℕ} (hq : 3 ≤ q) :
+    0 ≤ exactLiLogKernelDefect q := by
+  have ha : (2 : ℝ) ≤ ((q - 1 : ℕ) : ℝ) := by
+    exact_mod_cast (show 2 ≤ q - 1 by omega)
+  have hb : (2 : ℝ) ≤ (q : ℝ) := by exact_mod_cast (show 2 ≤ q by omega)
+  have hab : ((q - 1 : ℕ) : ℝ) ≤ (q : ℝ) := by
+    exact_mod_cast Nat.sub_le q 1
+  have hlen : (q : ℝ) - ((q - 1 : ℕ) : ℝ) = 1 := by
+    have h : ((q - 1 : ℕ) : ℝ) + 1 = (q : ℝ) := by
+      exact_mod_cast (show q - 1 + 1 = q by omega)
+    linarith
+  have hl : 0 < Real.log (q : ℝ) := Real.log_pos (by linarith)
+  have hlow : (Real.log (q : ℝ))⁻¹ ≤ densityTightLiWeight q := by
+    rw [densityTightLiWeight_eq_integral hq]
+    have hmono := intervalIntegral.integral_mono_on hab
+      (intervalIntegrable_const : IntervalIntegrable
+        (fun _ : ℝ => (Real.log (q : ℝ))⁻¹) MeasureTheory.volume
+        ((q - 1 : ℕ) : ℝ) (q : ℝ))
+      (exactLi_invLog_intervalIntegrable ha hb) (fun t ht => by
+        have ht2 : (2 : ℝ) ≤ t := ha.trans ht.1
+        have hlt : 0 < Real.log t := Real.log_pos (by linarith)
+        exact (inv_le_inv₀ hl hlt).2
+          (Real.log_le_log (by linarith) ht.2))
+    simpa [intervalIntegral.integral_const, hlen] using hmono
+  have hmul := mul_le_mul_of_nonneg_left hlow hl.le
+  rw [mul_inv_cancel₀ (ne_of_gt hl)] at hmul
+  exact sub_nonneg.mpr hmul
+
+/-- A quantitative degree-one gain after logarithmic differentiation:
+the Li generator defect is O(1/q), with an explicit universal constant. -/
+theorem exactLiLogKernelDefect_le {q : ℕ} (hq : 3 ≤ q) :
+    exactLiLogKernelDefect q ≤
+      (Real.log 2)⁻¹ / ((q - 1 : ℕ) : ℝ) := by
+  let p : ℝ := ((q - 1 : ℕ) : ℝ)
+  have hp2 : (2 : ℝ) ≤ p := by
+    exact_mod_cast (show 2 ≤ q - 1 by omega)
+  have hp : 0 < p := by linarith
+  have hqp : (q : ℝ) = p + 1 := by
+    dsimp [p]
+    exact_mod_cast (show q = q - 1 + 1 by omega)
+  have hqpos : (0 : ℝ) < q := by linarith
+  have hlp : 0 < Real.log p := Real.log_pos (by linarith)
+  have hw := exactLi_norm_pntDensity_le_inv_log
+    (y := q - 1) (q := q) (by omega) (by omega)
+  rw [norm_primeSievePNTDensity_eq_densityTightLiWeight hq] at hw
+  have hw2 := exactLi_norm_pntDensity_le_inv_log
+    (y := 2) (q := q) (by omega) (by omega)
+  rw [norm_primeSievePNTDensity_eq_densityTightLiWeight hq] at hw2
+  have hwp : Real.log p * densityTightLiWeight q ≤ 1 := by
+    have h := mul_le_mul_of_nonneg_left hw hlp.le
+    simpa [p, mul_inv_cancel₀ (ne_of_gt hlp)] using h
+  have hlog : Real.log (q : ℝ) - Real.log p ≤ 1 / p := by
+    have h := Real.log_le_sub_one_of_pos (div_pos hqpos hp)
+    rw [Real.log_div (ne_of_gt hqpos) (ne_of_gt hp)] at h
+    have hdiv : (q : ℝ) / p - 1 = 1 / p := by
+      rw [hqp]
+      field_simp
+      <;> ring
+    rwa [hdiv] at h
+  calc
+    exactLiLogKernelDefect q ≤
+        (Real.log (q : ℝ) - Real.log p) * densityTightLiWeight q := by
+      unfold exactLiLogKernelDefect
+      nlinarith
+    _ ≤ (1 / p) * densityTightLiWeight q :=
+      mul_le_mul_of_nonneg_right hlog (densityTightLiWeight_nonneg hq)
+    _ ≤ (1 / p) * (Real.log 2)⁻¹ :=
+      mul_le_mul_of_nonneg_left hw2 (by positivity)
+    _ = _ := by dsimp [p]; ring
+
+/-- The error in the degree-one logarithmic generator has a finite total
+critical budget. This controls the Li-density part of the perturbation, while
+retaining the signed unit-kernel renewal as the remaining stability problem. -/
+theorem exactLiCriticalLogKernelDefect_summable :
+    Summable (fun n : ℕ => exactLiLogKernelDefect (n + 3) /
+      Real.sqrt ((n + 3 : ℕ) : ℝ)) := by
+  let C : ℝ := (Real.log 2)⁻¹
+  have hC : 0 ≤ C := inv_nonneg.mpr (Real.log_nonneg (by norm_num))
+  have hpseries : Summable (fun n : ℕ => 1 / (n : ℝ) ^ (3 / 2 : ℝ)) :=
+    Real.summable_one_div_nat_rpow.mpr (by norm_num)
+  have hshift : Summable (fun n : ℕ =>
+      1 / ((n + 3 : ℕ) : ℝ) ^ (3 / 2 : ℝ)) :=
+    (summable_nat_add_iff 3 (G := ℝ)).2 hpseries
+  have hmajor := hshift.mul_left (2 * C)
+  apply Summable.of_nonneg_of_le
+    (fun n => div_nonneg (exactLiLogKernelDefect_nonneg (by omega))
+      (Real.sqrt_nonneg _)) ?_ hmajor
+  intro n
+  let q : ℕ := n + 3
+  have hq : 3 ≤ q := by dsimp [q]; omega
+  have hqpos : (0 : ℝ) < q := by exact_mod_cast (show 0 < q by omega)
+  have hppos : (0 : ℝ) < ((q - 1 : ℕ) : ℝ) := by
+    exact_mod_cast (show 0 < q - 1 by omega)
+  have hqle : (q : ℝ) ≤ 2 * ((q - 1 : ℕ) : ℝ) := by
+    exact_mod_cast (show q ≤ 2 * (q - 1) by omega)
+  have hdef : exactLiLogKernelDefect q ≤ 2 * C / (q : ℝ) := by
+    calc
+      exactLiLogKernelDefect q ≤ C / ((q - 1 : ℕ) : ℝ) :=
+        exactLiLogKernelDefect_le hq
+      _ ≤ 2 * C / (q : ℝ) := by
+        apply (div_le_div_iff₀ hppos hqpos).2
+        nlinarith [mul_le_mul_of_nonneg_left hqle hC]
+  have hrpow : (q : ℝ) ^ (3 / 2 : ℝ) = (q : ℝ) * Real.sqrt (q : ℝ) := by
+    rw [show (3 / 2 : ℝ) = 1 + 1 / 2 by norm_num,
+      Real.rpow_add hqpos, Real.rpow_one, ← Real.sqrt_eq_rpow]
+  calc
+    exactLiLogKernelDefect (n + 3) / Real.sqrt ((n + 3 : ℕ) : ℝ) ≤
+        (2 * C / (q : ℝ)) / Real.sqrt (q : ℝ) :=
+      div_le_div_of_nonneg_right hdef (Real.sqrt_nonneg _)
+    _ = 2 * C * (1 / ((n + 3 : ℕ) : ℝ) ^ (3 / 2 : ℝ)) := by
+      change (2 * C / (q : ℝ)) / Real.sqrt (q : ℝ) =
+        2 * C * (1 / (q : ℝ) ^ (3 / 2 : ℝ))
+      rw [hrpow]
+      ring
+
 end RHLean.Analysis
