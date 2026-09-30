@@ -40,7 +40,9 @@ def vfMidCompositePsiBandError (R : ℕ) : ℝ :=
 theorem vfMidDirectPsiBandMass_eq_siteSum (R : ℕ) :
     nativePsi ((R + 1) ^ 2) - nativePsi (R ^ 2) =
       ∑ n ∈ vfMidDirectPsiIntegerBand R, Λ n := by
-  have hsq : R ^ 2 ≤ (R + 1) ^ 2 := by nlinarith
+  have hRle : R ≤ R + 1 := by omega
+  have hsq : R ^ 2 ≤ (R + 1) ^ 2 :=
+    Nat.pow_le_pow_left hRle 2
   have hsub :
       Finset.Icc 1 (R ^ 2) ⊆ Finset.Icc 1 ((R + 1) ^ 2) := by
     intro n hn
