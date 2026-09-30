@@ -128,16 +128,22 @@ theorem vfMidSquareBand_lowWheelSurvivor_iff_prime
   exact lowWheelHighSurvivor_iff_prime (R := R + 1) (q := n)
     (by omega) hlow hhigh
 
+/-- Survivor set for the completed low wheel used by the legacy
+square-band bridge. -/
+def vfMidSquareBandLowWheelSurvivors (R : ℕ) : Finset ℕ := by
+  classical
+  exact (vfMidSquareBandSites R).filter (lowWheelHighSurvivor (R + 1))
+
 /-- The prime population of a square band is exactly the survivor population
 of the completed low wheel.  This is the finite sieve form of the
 prime/composite complement. -/
 theorem vfMidSquareBandPrimes_eq_lowWheelSurvivors
     (R : ℕ) (hR : 2 ≤ R) :
-    vfMidSquareBandPrimes R =
-      (vfMidSquareBandSites R).filter (lowWheelHighSurvivor (R + 1)) := by
+    vfMidSquareBandPrimes R = vfMidSquareBandLowWheelSurvivors R := by
   classical
   ext n
-  simp only [vfMidSquareBandPrimes, Finset.mem_filter]
+  simp only [vfMidSquareBandPrimes, vfMidSquareBandLowWheelSurvivors,
+    Finset.mem_filter]
   constructor
   · rintro ⟨hn, hp⟩
     exact ⟨hn, (vfMidSquareBand_lowWheelSurvivor_iff_prime hR hn).2 hp⟩
