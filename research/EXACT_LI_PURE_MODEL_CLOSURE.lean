@@ -3050,30 +3050,6 @@ theorem exactLiPoissonIntegerReference_eq_coefficientCumulative
   rcases Finset.mem_Icc.mp hnmem with ⟨hn1, hnX⟩
   rw [exactLiPoissonCoefficient_eq_cutoff hn1 hnX]
 
-/-- Above the artificial zero endpoint, one Poisson-reference increment is
-exactly the stabilized Poisson coefficient. -/
-theorem exactLiPoissonIntegerReference_sub_pred_eq_coefficient
-    {n : ℕ} (hn : 2 ≤ n) :
-    exactLiPoissonIntegerReference n -
-        exactLiPoissonIntegerReference (n - 1) =
-      exactLiPoissonCoefficient n := by
-  have hn1 : 1 ≤ n := by omega
-  have hnm1 : 1 ≤ n - 1 := by omega
-  rw [exactLiPoissonIntegerReference,
-    if_pos hn1,
-    exactLiPoissonIntegerReference_eq_child hnm1 (by omega : n - 1 ≤ n)]
-  symm
-  simpa [exactLiPoissonCoefficient, if_pos hn1] using
-    (arithmeticFunction_apply_eq_cumulative_sub
-      (arithmeticPoissonProduct primeSievePNTDensity (n - 1)) hn1)
-
-/-- The first sampled Poisson-reference increment vanishes because both the
-zero endpoint and the unit endpoint carry the same unit atom. -/
-@[simp] theorem exactLiPoissonIntegerReference_one_sub_zero :
-    exactLiPoissonIntegerReference 1 -
-        exactLiPoissonIntegerReference 0 = 0 := by
-  simp [exactLiPoissonIntegerReference]
-
 /-- Raising the Li cutoff above a visible coefficient does not change that
 coefficient. -/
 theorem exactLiCorrectionKernel_eq_cutoff
@@ -3097,6 +3073,32 @@ theorem exactLiPoissonIntegerReference_eq_child
   exact
     (arithmeticPoissonProduct_cumulative_stable
       primeSievePNTDensity hY hYX).symm
+
+
+/-- Above the artificial zero endpoint, one Poisson-reference increment is
+exactly the stabilized Poisson coefficient. -/
+theorem exactLiPoissonIntegerReference_sub_pred_eq_coefficient
+    {n : ℕ} (hn : 2 ≤ n) :
+    exactLiPoissonIntegerReference n -
+        exactLiPoissonIntegerReference (n - 1) =
+      exactLiPoissonCoefficient n := by
+  have hn1 : 1 ≤ n := by omega
+  have hnm1 : 1 ≤ n - 1 := by omega
+  rw [exactLiPoissonIntegerReference, if_pos hn1]
+  rw [exactLiPoissonIntegerReference_eq_child hnm1
+    (by omega : n - 1 ≤ n)]
+  symm
+  simpa [exactLiPoissonCoefficient, if_pos hn1] using
+    (arithmeticFunction_apply_eq_cumulative_sub
+      (arithmeticPoissonProduct primeSievePNTDensity (n - 1)) hn1)
+
+/-- The first sampled Poisson-reference increment vanishes because both the
+zero endpoint and the unit endpoint carry the same unit atom. -/
+@[simp] theorem exactLiPoissonIntegerReference_one_sub_zero :
+    exactLiPoissonIntegerReference 1 -
+        exactLiPoissonIntegerReference 0 = 0 := by
+  simp [exactLiPoissonIntegerReference, arithmeticCoefficientCumulative,
+    arithmeticPoissonProduct]
 
 
 /-! ## Generic critical convolution transfer -/
@@ -4850,7 +4852,9 @@ theorem sampledCriticalPrefix_exactLiPoissonIntegerReference_eq
     intro n hn
     have hn2 : 2 ≤ n := (Finset.mem_Icc.mp hn).1
     rw [exactLiPoissonIntegerReference_sub_pred_eq_coefficient hn2]
-  · simp
+  · intro hmem
+    have htwo : 2 ≤ (1 : ℕ) := (Finset.mem_Icc.mp hmem).1
+    omega
 
 /-- One-step form of the sampled critical prefix. -/
 theorem sampledCriticalPrefix_succ
