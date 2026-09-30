@@ -67,7 +67,7 @@ def vfMid (x : ℝ) : ℝ :=
 /-- The square-root index is exact at square endpoints. -/
 @[simp] theorem vfMidSquareRootIndex_sq (R : ℕ) :
     vfMidSquareRootIndex ((R : ℝ) ^ 2) = R := by
-  simp [vfMidSquareRootIndex, Real.sqrt_sq_eq_abs, abs_of_nonneg]
+  simp [vfMidSquareRootIndex]
 
 /-- The live contribution vanishes when the live band is empty. -/
 @[simp] theorem vfMidLiveMass_sq (R : ℕ) :
@@ -85,9 +85,9 @@ theorem vfMidFinishedMass_succ {R : ℕ} (hR : 2 ≤ R) :
 the completed bands before R; there is no live-band correction. -/
 theorem vfMid_sq {R : ℕ} (hR : 2 ≤ R) :
     vfMid ((R : ℝ) ^ 2) = vfMidFinishedMass R := by
+  have h4nat : 4 ≤ R ^ 2 := by nlinarith
   have h4 : (4 : ℝ) ≤ (R : ℝ) ^ 2 := by
-    norm_num at *
-    nlinarith
+    exact_mod_cast h4nat
   simp [vfMid, not_lt.mpr h4]
 
 /-- Exact prime-counting staircase on the reals, constant between integers.
