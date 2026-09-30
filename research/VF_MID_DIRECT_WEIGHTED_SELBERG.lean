@@ -21,7 +21,7 @@ to stay uniformly below one is treated as a kill condition for this lane.
 
 noncomputable section
 
-open scoped BigOperators
+open scoped ArithmeticFunction.vonMangoldt BigOperators
 
 namespace RHLean.Analysis
 
@@ -55,7 +55,7 @@ theorem vfMidDirectPrimePowerEndpointCorrection_le_sqrt_log
     (R : ℕ) (hR : 1 ≤ R) :
     vfMidDirectPrimePowerEndpointCorrection R ≤
       (Nat.sqrt (R ^ 2) : ℝ) * Real.log ((R ^ 2 : ℕ) : ℝ) := by
-  have hsq : 1 ≤ R ^ 2 := by positivity
+  have hsq : 1 ≤ R ^ 2 := by nlinarith
   have h := nativePsi_le_theta_add_sqrt_log (R ^ 2) hsq
   unfold vfMidDirectPrimePowerEndpointCorrection
   linarith
