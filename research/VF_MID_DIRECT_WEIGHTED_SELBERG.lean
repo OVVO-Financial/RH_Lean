@@ -61,6 +61,80 @@ theorem vfMidDirectPrimePowerEndpointCorrection_le_sqrt_log
   unfold vfMidDirectPrimePowerEndpointCorrection
   linarith
 
+/-- Prime-power correction at a general endpoint as an explicit
+nonnegative prime sum. -/
+private theorem vfMidDirect_nativePrimePowerCorrection_eq_sum (N : ℕ) :
+    nativePsi N - nativeTheta N =
+      ∑ p ∈ nativePrimeSet N,
+        ((((p.log N : ℕ) : ℝ) - 1) * Real.log (p : ℝ)) := by
+  rw [nativePsi_eq_sum_mul_log_prime]
+  unfold nativeTheta
+  rw [← Finset.sum_sub_distrib]
+  apply Finset.sum_congr rfl
+  intro p _hp
+  ring
+
+/-- The prime-power correction psi - theta is monotone.  New primes themselves
+enter with zero correction; only repeated prime powers add positive mass. -/
+private theorem vfMidDirect_nativePrimePowerCorrection_monotone :
+    Monotone (fun N : ℕ => nativePsi N - nativeTheta N) := by
+  intro A B hAB
+  rw [vfMidDirect_nativePrimePowerCorrection_eq_sum,
+    vfMidDirect_nativePrimePowerCorrection_eq_sum]
+  have hsubset : nativePrimeSet A ⊆ nativePrimeSet B := by
+    intro p hp
+    rcases Finset.mem_filter.mp hp with ⟨hpIcc, hpPrime⟩
+    refine Finset.mem_filter.mpr ⟨?_, hpPrime⟩
+    exact Finset.mem_Icc.mpr
+      ⟨(Finset.mem_Icc.mp hpIcc).1, (Finset.mem_Icc.mp hpIcc).2.trans hAB⟩
+  calc
+    (∑ p ∈ nativePrimeSet A,
+        ((((p.log A : ℕ) : ℝ) - 1) * Real.log (p : ℝ))) ≤
+      ∑ p ∈ nativePrimeSet A,
+        ((((p.log B : ℕ) : ℝ) - 1) * Real.log (p : ℝ)) := by
+      apply Finset.sum_le_sum
+      intro p hp
+      have hpPrime : p.Prime := (Finset.mem_filter.mp hp).2
+      have hlogp : 0 ≤ Real.log (p : ℝ) :=
+        Real.log_nonneg (by exact_mod_cast hpPrime.one_le)
+      have hlogNat : p.log A ≤ p.log B := Nat.log_mono_right hAB
+      have hlogReal :
+          ((p.log A : ℕ) : ℝ) ≤ ((p.log B : ℕ) : ℝ) := by
+        exact_mod_cast hlogNat
+      exact mul_le_mul_of_nonneg_right
+        (sub_le_sub_right hlogReal 1) hlogp
+    _ ≤ ∑ p ∈ nativePrimeSet B,
+        ((((p.log B : ℕ) : ℝ) - 1) * Real.log (p : ℝ)) := by
+      refine Finset.sum_le_sum_of_subset_of_nonneg hsubset ?_
+      intro p hp _hpOld
+      have hpPrime : p.Prime := (Finset.mem_filter.mp hp).2
+      have hpB : p ≤ B :=
+        (Finset.mem_Icc.mp (Finset.mem_filter.mp hp).1).2
+      have hlogPos : 0 < p.log B :=
+        Nat.log_pos hpPrime.one_lt hpB
+      have hcoefNat : 1 ≤ p.log B := by omega
+      have hcoefReal : (1 : ℝ) ≤ ((p.log B : ℕ) : ℝ) := by
+        exact_mod_cast hcoefNat
+      have hlogp : 0 ≤ Real.log (p : ℝ) :=
+        Real.log_nonneg (by exact_mod_cast hpPrime.one_le)
+      exact mul_nonneg (sub_nonneg.mpr hcoefReal) hlogp
+
+/-- Square-endpoint prime-power correction is monotone in the square index. -/
+theorem vfMidDirectPrimePowerEndpointCorrection_mono
+    {R S : ℕ} (hRS : R ≤ S) :
+    vfMidDirectPrimePowerEndpointCorrection R ≤
+      vfMidDirectPrimePowerEndpointCorrection S := by
+  unfold vfMidDirectPrimePowerEndpointCorrection
+  exact vfMidDirect_nativePrimePowerCorrection_monotone
+    (Nat.pow_le_pow_left hRS 2)
+
+/-- Every square-band prime-power increment is nonnegative. -/
+theorem vfMidDirectPrimePowerBandCorrection_nonneg (R : ℕ) :
+    0 ≤ vfMidDirectPrimePowerBandCorrection R := by
+  unfold vfMidDirectPrimePowerBandCorrection
+  exact sub_nonneg.mpr
+    (vfMidDirectPrimePowerEndpointCorrection_mono (Nat.le_succ R))
+
 /-- Centered psi mass entering one square band. -/
 def vfMidDirectPsiBandError (R : ℕ) : ℝ :=
   vfMidDirectPsiEndpointError (R + 1) - vfMidDirectPsiEndpointError R
