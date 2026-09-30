@@ -991,4 +991,144 @@ theorem exactLiDickmanIntegerReference_uniformly_bounded :
   · intro x
     exact norm_exactLiDickmanIntegerReference_le x
 
+
+/-! ## Fully continuous exact-Li endpoint closure
+
+The results above are intrinsically continuous: the Dickman coordinate is
+real and the final segment is integrated only up to that real endpoint. The
+older integer reference is merely a sampling convenience.
+
+The definitions below expose the same object directly at an arbitrary real
+endpoint x. No integer bin, ceiling map, discrete Li weight, or actual-prime
+location enters these statements.
+-/
+
+/-- Real logarithmic Dickman coordinate for a fully continuous endpoint:
+x = 2^(u+1). -/
+def exactLiContinuousLogCoordinate (x : ℝ) : ℝ :=
+  Real.log x / Real.log 2 - 1
+
+/-- Native method-of-steps segment containing a real continuous endpoint. -/
+def exactLiContinuousLogSegment (x : ℝ) : ℕ :=
+  ⌊exactLiContinuousLogCoordinate x⌋₊
+
+/-- For every real endpoint at least two, the continuous Dickman coordinate is
+nonnegative. -/
+theorem exactLiContinuousLogCoordinate_nonneg
+    {x : ℝ} (hx : 2 ≤ x) :
+    0 ≤ exactLiContinuousLogCoordinate x := by
+  have hlog2 : 0 < Real.log 2 := Real.log_pos (by norm_num)
+  have hlogle : Real.log 2 ≤ Real.log x :=
+    Real.log_le_log (by norm_num) hx
+  have hdiv : (1 : ℝ) ≤ Real.log x / Real.log 2 := by
+    rw [le_div_iff₀ hlog2]
+    simpa using hlogle
+  unfold exactLiContinuousLogCoordinate
+  linarith
+
+/-- The floor-selected method-of-steps segment contains the real logarithmic
+coordinate. -/
+theorem exactLiContinuousLogCoordinate_mem_native
+    {x : ℝ} (hx : 2 ≤ x) :
+    exactLiContinuousLogCoordinate x ∈
+      Icc ((exactLiContinuousLogSegment x : ℕ) : ℝ)
+        (((exactLiContinuousLogSegment x + 1 : ℕ) : ℝ)) := by
+  let u : ℝ := exactLiContinuousLogCoordinate x
+  let N : ℕ := exactLiContinuousLogSegment x
+  have hu0 : 0 ≤ u := by
+    dsimp [u]
+    exact exactLiContinuousLogCoordinate_nonneg hx
+  have hlow : (N : ℝ) ≤ u := by
+    dsimp [N, exactLiContinuousLogSegment]
+    exact Nat.floor_le hu0
+  have hhigh : u < (N : ℝ) + 1 := by
+    dsimp [N, exactLiContinuousLogSegment]
+    exact Nat.lt_floor_add_one u
+  constructor
+  · exact hlow
+  · have : u ≤ (N : ℝ) + 1 := hhigh.le
+    simpa [Nat.cast_add, Nat.cast_one] using this
+
+/-- Fully continuous exact-Li cumulative model. For x >= 2 this is the
+continuous Li/Dickman cumulative state evaluated at the real logarithmic
+coordinate of x. Below the support threshold the unit atom is the whole state.
+-/
+def exactLiContinuousCumulative (x : ℝ) : ℝ :=
+  if 2 ≤ x then
+    exactLiDickmanCumulativeReference
+      (exactLiContinuousLogSegment x)
+      (exactLiContinuousLogCoordinate x)
+  else 1
+
+/-- Uniform fully continuous exact-Li bound. At every real endpoint, the
+continuous exact-Li cumulative state is bounded by 2 * exp 2 - 1. No
+integer-site discretization is present. -/
+theorem abs_exactLiContinuousCumulative_le (x : ℝ) :
+    |exactLiContinuousCumulative x| ≤
+      2 * Real.exp 2 - 1 := by
+  by_cases hx : 2 ≤ x
+  · rw [exactLiContinuousCumulative, if_pos hx]
+    exact abs_exactLiDickmanCumulativeReference_le
+      (exactLiContinuousLogSegment x)
+      (exactLiContinuousLogCoordinate_mem_native hx)
+  · rw [exactLiContinuousCumulative, if_neg hx, abs_one]
+    have hexp : (1 : ℝ) ≤ Real.exp 2 :=
+      Real.one_le_exp_iff.mpr (by norm_num)
+    nlinarith
+
+/-- Existential uniform-boundedness form of the fully continuous exact-Li
+model. -/
+theorem exactLiContinuousCumulative_uniformly_bounded :
+    ∃ B : ℝ, 0 ≤ B ∧
+      ∀ x : ℝ, |exactLiContinuousCumulative x| ≤ B := by
+  refine ⟨2 * Real.exp 2 - 1, ?_, ?_⟩
+  · have hexp : (1 : ℝ) ≤ Real.exp 2 :=
+      Real.one_le_exp_iff.mpr (by norm_num)
+    nlinarith
+  · intro x
+    exact abs_exactLiContinuousCumulative_le x
+
+/-- Root-scale energy bound for the fully continuous exact-Li model. The
+uniform bound is stronger than root scale: for every real x >= 1,
+M_Li(x)^2 <= (2 e^2 - 1)^2 x. -/
+theorem exactLiContinuousCumulative_sq_le_rootScale
+    {x : ℝ} (hx : 1 ≤ x) :
+    exactLiContinuousCumulative x ^ 2 ≤
+      (2 * Real.exp 2 - 1) ^ 2 * x := by
+  let B : ℝ := 2 * Real.exp 2 - 1
+  have hB0 : 0 ≤ B := by
+    dsimp [B]
+    have hexp : (1 : ℝ) ≤ Real.exp 2 :=
+      Real.one_le_exp_iff.mpr (by norm_num)
+    nlinarith
+  have habs :
+      |exactLiContinuousCumulative x| ≤ B := by
+    simpa [B] using abs_exactLiContinuousCumulative_le x
+  have hsqAbs :
+      |exactLiContinuousCumulative x| ^ 2 ≤ B ^ 2 :=
+    pow_le_pow_left₀ (abs_nonneg _) habs 2
+  have hsq :
+      exactLiContinuousCumulative x ^ 2 ≤ B ^ 2 := by
+    simpa only [sq_abs] using hsqAbs
+  have hscale : B ^ 2 ≤ B ^ 2 * x := by
+    nlinarith [sq_nonneg B]
+  calc
+    exactLiContinuousCumulative x ^ 2
+        ≤ B ^ 2 := hsq
+    _ ≤ B ^ 2 * x := hscale
+    _ = (2 * Real.exp 2 - 1) ^ 2 * x := by rfl
+
+/-- Closed continuous exact-Li root theorem. There is one universal
+nonnegative constant controlling the square of the fully continuous exact-Li
+cumulative state by the endpoint itself. This is the model theorem obtained
+when prime mass is taken to be exactly continuous Li mass before any integer
+allocation is reintroduced. -/
+theorem exactLiContinuousModel_root_closed :
+    ∃ C : ℝ, 0 ≤ C ∧
+      ∀ x : ℝ, 1 ≤ x →
+        exactLiContinuousCumulative x ^ 2 ≤ C * x := by
+  refine ⟨(2 * Real.exp 2 - 1) ^ 2, sq_nonneg _, ?_⟩
+  intro x hx
+  exact exactLiContinuousCumulative_sq_le_rootScale hx
+
 end RHLean.Analysis
