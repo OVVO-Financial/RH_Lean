@@ -4916,10 +4916,18 @@ theorem sampledCriticalPrefix_exactLiPoissonIntegerReference_eq
           (Real.sqrt (n : ℝ) : ℂ) := by
   by_cases hN : N = 0
   · subst N
-    unfold sampledCriticalPrefix
-    rw [Finset.Icc_eq_empty_of_lt (by decide : (0 : ℕ) < 1)]
-    rw [Finset.Icc_eq_empty_of_lt (by decide : (0 : ℕ) < 2)]
-    simp
+    have hleft :
+        sampledCriticalPrefix exactLiPoissonIntegerReference 0 = 0 := by
+      unfold sampledCriticalPrefix
+      rw [Finset.Icc_eq_empty_of_lt (by decide : (0 : ℕ) < 1)]
+      rfl
+    have hright :
+        (∑ n ∈ Finset.Icc 2 0,
+          exactLiPoissonCoefficient n /
+            (Real.sqrt (n : ℝ) : ℂ)) = 0 := by
+      rw [Finset.Icc_eq_empty_of_lt (by decide : (0 : ℕ) < 2)]
+      rfl
+    rw [hleft, hright]
   have hN1 : 1 ≤ N := Nat.one_le_iff_ne_zero.mpr hN
   have hIcc :
       Finset.Icc 1 N = insert 1 (Finset.Icc 2 N) := by
