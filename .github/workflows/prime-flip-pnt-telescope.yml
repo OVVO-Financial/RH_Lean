@@ -10,6 +10,7 @@ on:
       - research/EXACT_LI_DICKMAN_FORMAL.lean
       - research/EXACT_LI_PURE_MODEL_CLOSURE.lean
       - research/VF_MID_VON_KOCH_BRIDGE.lean
+      - research/VF_MID_DIRECT_SIGNED_DYNAMICS.lean
       - FORMALIZATION_SEQUENCE.md
       - FORMALIZATION_CHECKLIST.md
       - .github/workflows/prime-flip-pnt-telescope.yml
@@ -90,6 +91,7 @@ jobs:
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.EXACT_LI_DICKMAN_FORMAL.olean research/EXACT_LI_DICKMAN_FORMAL.lean 2>&1 | tee exact-li-dickman-formal.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.EXACT_LI_PURE_MODEL_CLOSURE.olean research/EXACT_LI_PURE_MODEL_CLOSURE.lean 2>&1 | tee exact-li-pure-model-closure.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_VON_KOCH_BRIDGE.olean research/VF_MID_VON_KOCH_BRIDGE.lean 2>&1 | tee vf-mid-von-koch.log
+          lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_DIRECT_SIGNED_DYNAMICS.olean research/VF_MID_DIRECT_SIGNED_DYNAMICS.lean 2>&1 | tee vf-mid-direct-signed-dynamics.log
       - name: Audit named theorem axioms
         run: |
           cat > /tmp/PrimeFlipPNTAxioms.lean <<'LEAN'
@@ -173,4 +175,5 @@ jobs:
             all-scale-li-displacement.log
             exact-li-pure-model-closure.log
             vf-mid-von-koch.log
+            vf-mid-direct-signed-dynamics.log
           if-no-files-found: ignore
