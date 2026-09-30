@@ -40,6 +40,7 @@ one count:
   |Q_R - vfMidBandMass R| < 1.
 
 No prime-number theorem rate or probabilistic independence assumption appears.
+The persistence of positive backlog is deliberately left as the next arithmetic target.
 -/
 
 noncomputable section
