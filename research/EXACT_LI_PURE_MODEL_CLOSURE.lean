@@ -5685,7 +5685,7 @@ theorem complexArithmeticLogWeight_poissonLocalFactor
         have hm : (m + 1 : ℂ) ≠ 0 := by exact_mod_cast Nat.succ_ne_zero m
         have hf : (Nat.factorial m : ℂ) ≠ 0 := by
           exact_mod_cast Nat.factorial_ne_zero m
-        field_simp [hm, hf] <;> ring
+        field_simp [hm, hf]
   · rw [arithmeticPoissonLocalFactor_apply_eq_zero_of_not_pow hq a hn,
       liArithmeticOfPowerSeries_apply hq,
       Function.extend_apply' _ _ _ hn, Pi.zero_apply, mul_zero]
@@ -5855,7 +5855,7 @@ theorem exactLiLogKernelDefect_le {q : ℕ} (hq : 3 ≤ q) :
     have hdiv : (q : ℝ) / p - 1 = 1 / p := by
       rw [hqp]
       field_simp
-      <;> ring
+      ring
     rwa [hdiv] at h
   calc
     exactLiLogKernelDefect q ≤

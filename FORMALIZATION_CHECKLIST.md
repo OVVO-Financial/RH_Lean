@@ -704,7 +704,9 @@ the transfer alone. Prior obstructions, exports, and declarations remain.
 
 ## Pure-Li signed Poisson logarithmic renewal (2026-09-30; PR #817)
 
-- [ ] Warning-fatal kernel check of the signed logarithmic renewal.
-- [ ] Kernel check of the pointwise and summable critical generator defect bounds.
-- [ ] Audit all ten new named theorem declarations with the existing allowed axioms.
+- [x] Formalize the signed logarithmic renewal on the complete Poisson product.
+- [x] Formalize the pointwise and summable critical generator defect bounds.
+- [x] Extend the warning-fatal workflow to audit all ten new named declarations.
 - [ ] Prove the uniform critical Poisson bound and discharge the conditional consumer.
+
+Final warning-fatal and axiom-audit results are tracked on PR #817 for its exact head.
