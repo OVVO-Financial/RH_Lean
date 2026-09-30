@@ -3080,6 +3080,70 @@ theorem arithmeticPoissonProduct_cumulative_succ_eq
     (q := k + 2) (by omega) (w (k + 2))
       (arithmeticPoissonProduct w k) X
 
+/-- Exponents at least two that remain visible in one finite Poisson site. -/
+private def liPoissonQuadraticExponentSet (q X : ℕ) : Finset ℕ :=
+  (liCorrectionExponentSet q X).filter (fun m => 2 ≤ m)
+
+/-- **Linear/quadratic split of one Poisson site.**
+Once the new site q=k+2 is visible below X, the exact finite Poisson update is
+its degree-zero state, minus the linear fresh-owner child, plus only the
+degree-two-and-higher collision tail. -/
+theorem arithmeticPoissonProduct_cumulative_succ_eq_linear_add_tail
+    (w : ℕ → ℂ) (k X : ℕ) (hqX : k + 2 ≤ X) :
+    arithmeticCoefficientCumulative
+        (arithmeticPoissonProduct w (k + 1)) X =
+      arithmeticCoefficientCumulative (arithmeticPoissonProduct w k) X -
+        w (k + 2) *
+          arithmeticCoefficientCumulative
+            (arithmeticPoissonProduct w k) (X / (k + 2)) +
+        ∑ m ∈ liPoissonQuadraticExponentSet (k + 2) X,
+          ((-w (k + 2)) ^ m / (Nat.factorial m : ℂ)) *
+            arithmeticCoefficientCumulative
+              (arithmeticPoissonProduct w k) (X / (k + 2) ^ m) := by
+  rw [arithmeticPoissonProduct_cumulative_succ_eq]
+  let E := liCorrectionExponentSet (k + 2) X
+  let H := liPoissonQuadraticExponentSet (k + 2) X
+  have hX1 : 1 ≤ X := by omega
+  have h0E : 0 ∈ E := by
+    dsimp [E, liCorrectionExponentSet]
+    simp [hX1]
+  have h1E : 1 ∈ E := by
+    dsimp [E, liCorrectionExponentSet]
+    simp [hqX]
+  have hsplit : E = insert 0 (insert 1 H) := by
+    ext m
+    constructor
+    · intro hm
+      by_cases hm0 : m = 0
+      · subst m
+        simp
+      by_cases hm1 : m = 1
+      · subst m
+        simp
+      have hm2 : 2 ≤ m := by omega
+      have hmH : m ∈ H := by
+        dsimp [H, liPoissonQuadraticExponentSet]
+        exact Finset.mem_filter.mpr ⟨hm, hm2⟩
+      simp [hmH, hm0, hm1]
+    · intro hm
+      simp only [Finset.mem_insert] at hm
+      rcases hm with rfl | rfl | hmH
+      · exact h0E
+      · exact h1E
+      · exact (Finset.mem_filter.mp hmH).1
+  have h0not : 0 ∉ insert 1 H := by
+    simp [H, liPoissonQuadraticExponentSet]
+  have h1not : 1 ∉ H := by
+    simp [H, liPoissonQuadraticExponentSet]
+  change
+    (∑ m ∈ E,
+        ((-w (k + 2)) ^ m / (Nat.factorial m : ℂ)) *
+          arithmeticCoefficientCumulative
+            (arithmeticPoissonProduct w k) (X / (k + 2) ^ m)) = _
+  rw [hsplit, Finset.sum_insert h0not, Finset.sum_insert h1not]
+  simp
+  ring
+
 /-- The fixed correction kernel obtained by freezing each coefficient at the
 first cutoff at which it can be visible. -/
 def exactLiCorrectionKernel (n : ℕ) : ℂ :=
