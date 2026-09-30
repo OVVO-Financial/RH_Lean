@@ -64,6 +64,32 @@ def vfMid (x : ℝ) : ℝ :=
   if x < 4 then 0
   else vfMidFinishedMass (vfMidSquareRootIndex x) + vfMidLiveMass x
 
+/-- The square-root index is exact at square endpoints. -/
+@[simp] theorem vfMidSquareRootIndex_sq (R : ℕ) :
+    vfMidSquareRootIndex ((R : ℝ) ^ 2) = R := by
+  simp [vfMidSquareRootIndex, Real.sqrt_sq_eq_abs, abs_of_nonneg]
+
+/-- The live contribution vanishes when the live band is empty. -/
+@[simp] theorem vfMidLiveMass_sq (R : ℕ) :
+    vfMidLiveMass ((R : ℝ) ^ 2) = 0 := by
+  simp [vfMidLiveMass]
+
+/-- Completing one additional square band appends exactly its midpoint mass. -/
+theorem vfMidFinishedMass_succ {R : ℕ} (hR : 2 ≤ R) :
+    vfMidFinishedMass (R + 1) =
+      vfMidFinishedMass R + vfMidBandMass R := by
+  unfold vfMidFinishedMass
+  rw [Finset.sum_Ico_succ_top hR]
+
+/-- At every square endpoint R^2 with R >= 2, the path is exactly the sum of
+the completed bands before R; there is no live-band correction. -/
+theorem vfMid_sq {R : ℕ} (hR : 2 ≤ R) :
+    vfMid ((R : ℝ) ^ 2) = vfMidFinishedMass R := by
+  have h4 : (4 : ℝ) ≤ (R : ℝ) ^ 2 := by
+    norm_num at *
+    nlinarith
+  simp [vfMid, not_lt.mpr h4]
+
 /-- Exact prime-counting staircase on the reals, constant between integers.
 Only x >= 4 is used by the von-Koch target. -/
 def vfMidPrimeCount (x : ℝ) : ℝ :=
