@@ -90,9 +90,12 @@ prime population of the intervening square band. -/
 theorem vfMidSquareBand_prime_card_add_primeCounting_sq (R : ℕ) :
     (vfMidSquareBandPrimes R).card + Nat.primeCounting (R ^ 2) =
       Nat.primeCounting ((R + 1) ^ 2) := by
+  have hRle : R ≤ R + 1 := by omega
+  have hsq : R ^ 2 ≤ (R + 1) ^ 2 :=
+    Nat.pow_le_pow_left hRle 2
   have h :=
     RHLean.Proof.primeCard_Ioc_add_primeCounting_eq
-      (a := R ^ 2) (b := (R + 1) ^ 2) (by nlinarith : R ^ 2 ≤ (R + 1) ^ 2)
+      (a := R ^ 2) (b := (R + 1) ^ 2) hsq
   have hset :
       ((Finset.Ioc (R ^ 2) ((R + 1) ^ 2)).filter Nat.Prime) =
         vfMidSquareBandPrimes R := by
