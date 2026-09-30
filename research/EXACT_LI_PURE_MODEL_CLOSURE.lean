@@ -2235,6 +2235,176 @@ theorem criticalWeightedVariation_hardCorePoissonCorrectionFactor_le_local
             (criticalLiFrequencyWeight q) hz]
           rfl
 
+/-- Exact norm of the critical square-root weight away from zero. -/
+theorem norm_criticalSqrtWeight_eq_inv_sqrt
+    {q : ℕ} (hq : 1 ≤ q) :
+    ‖criticalSqrtWeight q‖ = 1 / Real.sqrt (q : ℝ) := by
+  have hqpos : (0 : ℝ) < (q : ℝ) := by
+    exact_mod_cast (show 0 < q by omega)
+  have hsqrtpos : 0 < Real.sqrt (q : ℝ) :=
+    Real.sqrt_pos.2 hqpos
+  unfold criticalSqrtWeight
+  rw [norm_inv, Complex.norm_real, Real.norm_eq_abs,
+    abs_of_pos hsqrtpos]
+  simp [one_div]
+
+/-- The exact critical weight respects natural powers. -/
+theorem criticalSqrtWeight_pow (q m : ℕ) :
+    criticalSqrtWeight (q ^ m) =
+      criticalSqrtWeight q ^ m := by
+  induction m with
+  | zero =>
+      simp [criticalSqrtWeight]
+  | succ m ih =>
+      rw [pow_succ, criticalSqrtWeight_mul, ih, pow_succ]
+
+/-- Scaling the local owner mass scales its degree-m correction coefficient by
+the m-th power of the same scalar. -/
+theorem hardCorePoissonCorrectionCoeff_mul_scale
+    (a r : ℂ) (m : ℕ) :
+    hardCorePoissonCorrectionCoeff (a * r) m =
+      hardCorePoissonCorrectionCoeff a m * r ^ m := by
+  unfold hardCorePoissonCorrectionCoeff
+  rw [mul_pow]
+  ring
+
+/-- The arithmetic critical weight q^(-m/2) converts the raw Li correction
+coefficient at q^m exactly into the correction coefficient of the transformed
+owner z_q = w_q / sqrt(q). -/
+theorem norm_hardCorePoissonCorrectionCoeff_div_sqrt_pow_eq
+    {q : ℕ} (hq : 1 ≤ q) (a : ℂ) (m : ℕ) :
+    ‖hardCorePoissonCorrectionCoeff a m‖ /
+        Real.sqrt ((q ^ m : ℕ) : ℝ) =
+      ‖hardCorePoissonCorrectionCoeff
+          (a * criticalSqrtWeight q) m‖ := by
+  have hqpow : 1 ≤ q ^ m :=
+    Nat.one_le_pow m q hq
+  have hweight :
+      (Real.sqrt ((q ^ m : ℕ) : ℝ))⁻¹ =
+        ‖criticalSqrtWeight q‖ ^ m := by
+    calc
+      (Real.sqrt ((q ^ m : ℕ) : ℝ))⁻¹ =
+          ‖criticalSqrtWeight (q ^ m)‖ := by
+            symm
+            simpa [one_div] using
+              (norm_criticalSqrtWeight_eq_inv_sqrt (q := q ^ m) hqpow)
+      _ = ‖criticalSqrtWeight q ^ m‖ := by
+            rw [criticalSqrtWeight_pow]
+      _ = ‖criticalSqrtWeight q‖ ^ m := by
+            rw [norm_pow]
+  rw [div_eq_mul_inv, hweight]
+  calc
+    ‖hardCorePoissonCorrectionCoeff a m‖ *
+          ‖criticalSqrtWeight q‖ ^ m =
+        ‖hardCorePoissonCorrectionCoeff a m *
+          criticalSqrtWeight q ^ m‖ := by
+            rw [norm_mul, norm_pow]
+    _ = ‖hardCorePoissonCorrectionCoeff
+          (a * criticalSqrtWeight q) m‖ := by
+            rw [hardCorePoissonCorrectionCoeff_mul_scale]
+
+/-- On the unit ball, the complete absolute coefficient sequence of the local
+hard-core/Poisson correction is summable. -/
+theorem norm_hardCorePoissonCorrectionCoeff_summable_of_norm_le_one
+    {z : ℂ} (hz : ‖z‖ ≤ 1) :
+    Summable (fun m : ℕ => ‖hardCorePoissonCorrectionCoeff z m‖) := by
+  have htail :=
+    hardCorePoissonCorrectionTailTerm_summable
+      (norm_nonneg z) hz
+  have hshift :
+      Summable
+        (fun m : ℕ =>
+          ‖hardCorePoissonCorrectionCoeff z (m + 2)‖) := by
+    simpa only [hardCorePoissonCorrectionTailTerm,
+      norm_hardCorePoissonCorrectionCoeff_add_two] using htail
+  exact (summable_nat_add_iff 2).mp hshift
+
+/-- The total absolute coefficient variation is exactly the already-defined
+local correction variation. -/
+theorem tsum_norm_hardCorePoissonCorrectionCoeff_eq_localVariation
+    {q : ℕ} (hq : 4 ≤ q) :
+    (∑' m : ℕ,
+      ‖hardCorePoissonCorrectionCoeff
+        (criticalLiFrequencyWeight q) m‖) =
+      criticalLiLocalCorrectionVariation q := by
+  let z := criticalLiFrequencyWeight q
+  have hz : ‖z‖ ≤ 1 := by
+    dsimp [z]
+    exact norm_criticalLiFrequencyWeight_le_one hq
+  have hs :
+      Summable (fun m : ℕ =>
+        ‖hardCorePoissonCorrectionCoeff z m‖) :=
+    norm_hardCorePoissonCorrectionCoeff_summable_of_norm_le_one hz
+  have hhead :
+      (∑ m ∈ Finset.range 2,
+        ‖hardCorePoissonCorrectionCoeff z m‖) = 1 := by
+    norm_num
+  have htail :
+      (∑' m : ℕ,
+        ‖hardCorePoissonCorrectionCoeff z (m + 2)‖) =
+      ∑' m : ℕ,
+        hardCorePoissonCorrectionTailTerm ‖z‖ m := by
+    apply tsum_congr
+    intro m
+    simpa [hardCorePoissonCorrectionTailTerm] using
+      (norm_hardCorePoissonCorrectionCoeff_add_two z m)
+  calc
+    (∑' m : ℕ, ‖hardCorePoissonCorrectionCoeff z m‖) =
+        (∑ m ∈ Finset.range 2,
+          ‖hardCorePoissonCorrectionCoeff z m‖) +
+          ∑' m : ℕ,
+            ‖hardCorePoissonCorrectionCoeff z (m + 2)‖ :=
+      (hs.sum_add_tsum_nat_add 2).symm
+    _ = 1 + ∑' m : ℕ,
+          hardCorePoissonCorrectionTailTerm ‖z‖ m := by
+          rw [hhead, htail]
+    _ = criticalLiLocalCorrectionVariation q := by
+          rfl
+
+/-- **Arithmetic local correction variation bound.**
+After the exact sparse-power reindexing, the n^(-1/2)-weighted arithmetic
+variation of one Li hard-core/Poisson correction factor is bounded by the
+same local coefficient variation already controlled quadratically above. -/
+theorem criticalWeightedVariation_liCorrectionFactor_le_localVariation
+    {q : ℕ} (hq : 4 ≤ q) (X : ℕ) :
+    criticalWeightedVariation
+        (fun n =>
+          arithmeticHardCorePoissonCorrectionFactor
+            (primeSievePNTDensity q) (by omega : 1 < q) n) X ≤
+      criticalLiLocalCorrectionVariation q := by
+  have hq1 : 1 ≤ q := by omega
+  have hz :
+      ‖criticalLiFrequencyWeight q‖ ≤ 1 :=
+    norm_criticalLiFrequencyWeight_le_one hq
+  have hs :
+      Summable (fun m : ℕ =>
+        ‖hardCorePoissonCorrectionCoeff
+          (criticalLiFrequencyWeight q) m‖) :=
+    norm_hardCorePoissonCorrectionCoeff_summable_of_norm_le_one hz
+  rw [criticalWeightedVariation_hardCorePoissonCorrectionFactor_eq
+    (q := q) (by omega : 1 < q)]
+  calc
+    (∑ m ∈ liCorrectionExponentSet q X,
+        ‖hardCorePoissonCorrectionCoeff
+            (primeSievePNTDensity q) m‖ /
+          Real.sqrt ((q ^ m : ℕ) : ℝ))
+        =
+      ∑ m ∈ liCorrectionExponentSet q X,
+        ‖hardCorePoissonCorrectionCoeff
+          (criticalLiFrequencyWeight q) m‖ := by
+          apply Finset.sum_congr rfl
+          intro m hm
+          simpa [criticalLiFrequencyWeight] using
+            (norm_hardCorePoissonCorrectionCoeff_div_sqrt_pow_eq
+              (q := q) hq1 (primeSievePNTDensity q) m)
+    _ ≤ ∑' m : ℕ,
+        ‖hardCorePoissonCorrectionCoeff
+          (criticalLiFrequencyWeight q) m‖ :=
+      hs.sum_le_tsum (liCorrectionExponentSet q X)
+        (fun m hm => norm_nonneg _)
+    _ = criticalLiLocalCorrectionVariation q :=
+      tsum_norm_hardCorePoissonCorrectionCoeff_eq_localVariation hq
+
 /-- Finite product of the quadratic correction factors over sites
 `2,...,k+1`, ordered exactly like `arithmeticHardCoreProduct`. -/
 def arithmeticHardCorePoissonCorrectionProduct
