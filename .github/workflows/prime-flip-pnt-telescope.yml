@@ -36,8 +36,6 @@ jobs:
         with:
           path: .lake/packages
           key: lake-packages-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
-      - name: Discard stale restored Mathlib build products
-        run: rm -rf .lake/packages/mathlib/.lake/build
       - uses: leanprover/lean-action@v1
         with:
           use-github-cache: false
