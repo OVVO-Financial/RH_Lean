@@ -4830,6 +4830,18 @@ theorem sqrtAbelIncrement_sampledCriticalPrefix
   field_simp [hsqrtne]
   ring
 
+private theorem sum_Icc_sampledForwardDiff_complex
+    (M : ℕ → ℂ) (N : ℕ) :
+    (∑ n ∈ Finset.Icc 1 N, (M n - M (n - 1))) =
+      M N - M 0 := by
+  induction N with
+  | zero =>
+      simp
+  | succ N ih =>
+      rw [Finset.sum_Icc_succ_top (by omega : (1 : ℕ) ≤ N + 1), ih]
+      simp only [Nat.add_sub_cancel]
+      ring
+
 /-- Uniform boundedness of the native half-weighted sampled increment prefix. -/
 def SampledCriticalPrefixBounded (M : ℕ → ℂ) : Prop :=
   ∃ B : ℝ, 0 ≤ B ∧
@@ -4864,15 +4876,8 @@ theorem squareRootReferenceBounded_of_sampledCriticalPrefixBounded
             intro n hnmem
             exact sqrtAbelIncrement_sampledCriticalPrefix M
               (Finset.mem_Icc.mp hnmem).1
-      _ = M N - M 0 := by
-        induction N with
-        | zero =>
-            simp
-        | succ N ih =>
-            rw [Finset.sum_Icc_succ_top
-              (by omega : (1 : ℕ) ≤ N + 1), ih]
-            simp only [Nat.add_sub_cancel]
-            ring
+      _ = M N - M 0 :=
+        sum_Icc_sampledForwardDiff_complex M N
   rw [hsum] at habel
   have hsqrt1 : (1 : ℝ) ≤ Real.sqrt (N : ℝ) := by
     rw [← Real.sqrt_one]
