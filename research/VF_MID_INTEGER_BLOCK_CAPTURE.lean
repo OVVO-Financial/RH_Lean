@@ -1,6 +1,6 @@
 import Mathlib
 import «research.VF_MID_VON_KOCH_BRIDGE»
-import «research.VF_MID_SQUARE_BAND_COMPOSITE_BRIDGE»
+import «research.VF_MID_DIRECT_SIGNED_DYNAMICS»
 
 /-!
 # Integer VF-mid square-block capture
@@ -84,20 +84,23 @@ def VFMidIntegerBlockCaptured (R : ℕ) : Prop :=
 def VFMidIntegerBlockCaptureStatement : Prop :=
   ∀ R : ℕ, 2 ≤ R → VFMidIntegerBlockCaptured R
 
-/-- The prime-count increment across one square block is at most the number of
-interior sites, namely 2R. -/
-theorem vfMidSquareBand_primeCounting_increment_le_two_mul (R : ℕ) :
+/-- Across the repository block (R^2,(R+1)^2], prime counting can
+increase by at most its deterministic integer width 2R+1.  This intentionally
+uses only the already-kernel-checked generic counting bound. -/
+theorem vfMidSquareBand_primeCounting_increment_le_two_mul_add_one (R : ℕ) :
     Nat.primeCounting ((R + 1) ^ 2) ≤
-      Nat.primeCounting (R ^ 2) + 2 * R := by
-  have hp := vfMidSquareBand_prime_card_add_primeCounting_sq R
-  have hsites := vfMidSquareBand_prime_card_add_composite_card R
-  omega
+      Nat.primeCounting (R ^ 2) + (2 * R + 1) := by
+  have h := vfMid_primeCounting_add_le (R ^ 2) (2 * R + 1)
+  have hsq : R ^ 2 + (2 * R + 1) = (R + 1) ^ 2 := by
+    ring
+  rw [hsq] at h
+  exact h
 
 /-- Immediate integer-block capture traps the real VF-mid square-endpoint
 discrepancy inside one square-block width, plus the sub-unit flooring error. -/
 theorem vfMidIntegerBlockCaptured_abs_squareEndpointError_lt
     (R : ℕ) (hcap : VFMidIntegerBlockCaptured R) :
-    |vfMidSquareEndpointError R| < 2 * (R : ℝ) + 1 := by
+    |vfMidDirectSquareEndpointError R| < 2 * (R : ℝ) + 2 := by
   rcases hcap with ⟨hlow, hupp⟩
   have hKleF := vfMidIntegerBlockLevel_cast_le R
   have hFlt := vfMidFinishedMass_lt_integerBlockLevel_add_one R
@@ -110,35 +113,21 @@ theorem vfMidIntegerBlockCaptured_abs_squareEndpointError_lt
         (Nat.primeCounting ((R + 1) ^ 2) : ℝ) := by
     exact_mod_cast hupp
   have hprime :=
-    vfMidSquareBand_primeCounting_increment_le_two_mul R
+    vfMidSquareBand_primeCounting_increment_le_two_mul_add_one R
   have hprimeR :
       (Nat.primeCounting ((R + 1) ^ 2) : ℝ) ≤
-        (Nat.primeCounting (R ^ 2) : ℝ) + 2 * (R : ℝ) := by
+        (Nat.primeCounting (R ^ 2) : ℝ) + (2 * (R : ℝ) + 1) := by
     exact_mod_cast hprime
   have hnonpos :
-      vfMidSquareEndpointError R ≤ 0 := by
-    unfold vfMidSquareEndpointError
+      vfMidDirectSquareEndpointError R ≤ 0 := by
+    unfold vfMidDirectSquareEndpointError
     linarith
   have hlower :
-      -(2 * (R : ℝ) + 1) < vfMidSquareEndpointError R := by
-    unfold vfMidSquareEndpointError
+      -(2 * (R : ℝ) + 2) < vfMidDirectSquareEndpointError R := by
+    unfold vfMidDirectSquareEndpointError
     linarith
   rw [abs_of_nonpos hnonpos]
   linarith
-
-/-- The square-endpoint coordinate in the composite bridge is exactly the
-existing VF-mid prime error at the same square. -/
-theorem vfMidSquareEndpointError_eq_primeError
-    (R : ℕ) (hR : 2 ≤ R) :
-    vfMidSquareEndpointError R =
-      vfMidPrimeError ((R : ℝ) ^ 2) := by
-  unfold vfMidSquareEndpointError vfMidPrimeError
-  rw [vfMid_sq hR]
-  have hfloor : ⌊(R : ℝ) ^ 2⌋₊ = R ^ 2 := by
-    rw [show (R : ℝ) ^ 2 = ((R ^ 2 : ℕ) : ℝ) by norm_num]
-    exact Nat.floor_natCast (R ^ 2)
-  unfold vfMidPrimeCount
-  rw [hfloor]
 
 /-- If every integer VF-mid level is captured in its own square block, then the
 open VF-mid square-endpoint von-Koch target follows with an explicit constant. -/
@@ -154,14 +143,14 @@ theorem vfMidSquareEndpointVonKochBounded_of_integerBlockCapture
   intro R hR
   have herr :=
     vfMidIntegerBlockCaptured_abs_squareEndpointError_lt R (hcap R hR)
-  have hEq := vfMidSquareEndpointError_eq_primeError R hR
+  have hEq := vfMidDirectSquareEndpointError_eq_primeError R hR
   have hRreal : (2 : ℝ) ≤ (R : ℝ) := by
     exact_mod_cast hR
   have hlogR : Real.log 2 ≤ Real.log (R : ℝ) := by
     exact Real.log_le_log (by norm_num) hRreal
   have hscale :
-      2 * (R : ℝ) + 1 ≤ C * (R : ℝ) * Real.log (R : ℝ) := by
-    have hthree : 2 * (R : ℝ) + 1 ≤ 3 * (R : ℝ) := by
+      2 * (R : ℝ) + 2 ≤ C * (R : ℝ) * Real.log (R : ℝ) := by
+    have hthree : 2 * (R : ℝ) + 2 ≤ 3 * (R : ℝ) := by
       linarith
     have hratio : 1 ≤ Real.log (R : ℝ) / Real.log 2 := by
       rw [le_div_iff₀ hlog2]
@@ -169,7 +158,7 @@ theorem vfMidSquareEndpointVonKochBounded_of_integerBlockCapture
     dsimp [C]
     have hR0 : 0 ≤ (R : ℝ) := by positivity
     calc
-      2 * (R : ℝ) + 1 ≤ 3 * (R : ℝ) := hthree
+      2 * (R : ℝ) + 2 ≤ 3 * (R : ℝ) := hthree
       _ ≤ 3 * (R : ℝ) *
             (Real.log (R : ℝ) / Real.log 2) := by
           nlinarith
@@ -219,7 +208,7 @@ theorem vfMid_primeCounting_lag_window_le
 of integer sites traversed, plus the sub-unit flooring error. -/
 theorem vfMidIntegerBlockCapturedByLag_abs_squareEndpointError_lt
     (R L : ℕ) (hcap : VFMidIntegerBlockCapturedByLag R L) :
-    |vfMidSquareEndpointError R| <
+    |vfMidDirectSquareEndpointError R| <
       (((R + L + 1) ^ 2 - R ^ 2 : ℕ) : ℝ) + 1 := by
   rcases hcap with ⟨hlow, hupp⟩
   have hKleF := vfMidIntegerBlockLevel_cast_le R
@@ -239,13 +228,13 @@ theorem vfMidIntegerBlockCapturedByLag_abs_squareEndpointError_lt
           (((R + L + 1) ^ 2 - R ^ 2 : ℕ) : ℝ) := by
     exact_mod_cast hprime
   have hnonpos :
-      vfMidSquareEndpointError R ≤ 0 := by
-    unfold vfMidSquareEndpointError
+      vfMidDirectSquareEndpointError R ≤ 0 := by
+    unfold vfMidDirectSquareEndpointError
     linarith
   have hlower :
       -((((R + L + 1) ^ 2 - R ^ 2 : ℕ) : ℝ) + 1) <
-        vfMidSquareEndpointError R := by
-    unfold vfMidSquareEndpointError
+        vfMidDirectSquareEndpointError R := by
+    unfold vfMidDirectSquareEndpointError
     linarith
   rw [abs_of_nonpos hnonpos]
   linarith
@@ -254,7 +243,7 @@ theorem vfMidIntegerBlockCapturedByLag_abs_squareEndpointError_lt
 deterministic consequence. -/
 theorem vfMidIntegerBlockCapturedByOneLag_abs_squareEndpointError_lt
     (R : ℕ) (hcap : VFMidIntegerBlockCapturedByLag R 1) :
-    |vfMidSquareEndpointError R| < 4 * (R : ℝ) + 5 := by
+    |vfMidDirectSquareEndpointError R| < 4 * (R : ℝ) + 5 := by
   have h :=
     vfMidIntegerBlockCapturedByLag_abs_squareEndpointError_lt R 1 hcap
   have hsq : R ^ 2 ≤ (R + 2) ^ 2 := by nlinarith
