@@ -1,5 +1,4 @@
 import Mathlib.Analysis.SpecialFunctions.ImproperIntegrals
-import Mathlib.Analysis.SpecialFunctions.Log.InvLog
 import Mathlib.Analysis.SumIntegralComparisons
 import Mathlib.Analysis.PSeries
 import Mathlib.Analysis.Calculus.MeanValue
@@ -192,9 +191,11 @@ theorem vfMid_invLog_intervalIntegrable {a b : ℝ}
     (ha : 1 < a) (hab : a ≤ b) :
     IntervalIntegrable (fun t : ℝ => (Real.log t)⁻¹) volume a b := by
   apply ContinuousOn.intervalIntegrable_of_Icc hab
-  exact Real.differentiableOn_inv_log.continuousOn.mono <| by
-    intro t ht
-    exact mem_Ioi.2 (ha.trans_le ht.1)
+  intro t ht
+  have ht1 : 1 < t := ha.trans_le ht.1
+  have ht0 : t ≠ 0 := by linarith
+  have hlog0 : Real.log t ≠ 0 := ne_of_gt (Real.log_pos ht1)
+  exact (((Real.hasDerivAt_log ht0).inv hlog0).continuousAt).continuousWithinAt
 
 /-- On square tile r, the derivative of 1/log is bounded by the left endpoint
 and the fixed log(4) denominator. -/
@@ -220,7 +221,7 @@ theorem abs_deriv_inv_log_le_squareTile
         t * Real.log t ^ 2 := by
     exact mul_le_mul ht.1 hlogsq (sq_nonneg _) (by positivity)
   have hden0 : 0 < ((r : ℝ) ^ 2) * Real.log 4 ^ 2 := by positivity
-  rw [Real.deriv_inv_log_apply]
+  rw [deriv_inv_log_formula (by linarith : 1 < t)]
   have hneg : -t⁻¹ / Real.log t ^ 2 ≤ 0 := by
     exact div_nonpos_of_nonpos_of_nonneg
       (neg_nonpos.mpr (inv_nonneg.mpr ht0.le)) (sq_nonneg _)
@@ -278,15 +279,16 @@ theorem abs_vfMid_partialBandQuadratureError_le
         (s := Icc ((r : ℝ) ^ 2) ((((r + 1 : ℕ) : ℝ) ^ 2)))
         (f := fun u : ℝ => (Real.log u)⁻¹)
         (x := m) (y := t)
-        (fun u hu =>
-          Real.differentiableOn_inv_log.differentiableAt
-            (Ioi_mem_nhds (by
-              have hu4 : (4 : ℝ) ≤ u := by
-                have hr4 : (4 : ℝ) ≤ (r : ℝ) ^ 2 := by
-                  have : (4 : ℕ) ≤ r ^ 2 := by nlinarith
-                  exact_mod_cast this
-                exact hr4.trans hu.1
-              linarith)))
+        (fun u hu => by
+          have hu4 : (4 : ℝ) ≤ u := by
+            have hr4 : (4 : ℝ) ≤ (r : ℝ) ^ 2 := by
+              have : (4 : ℕ) ≤ r ^ 2 := by nlinarith
+              exact_mod_cast this
+            exact hr4.trans hu.1
+          have hu1 : 1 < u := by linarith
+          have hu0 : u ≠ 0 := by linarith
+          have hlog0 : Real.log u ≠ 0 := ne_of_gt (Real.log_pos hu1)
+          exact ((Real.hasDerivAt_log hu0).inv hlog0).differentiableAt)
         (fun u hu => by
           simpa [K, a, Real.norm_eq_abs] using
             abs_deriv_inv_log_le_squareTile hr hu)
