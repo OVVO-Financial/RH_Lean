@@ -15,7 +15,8 @@ Here we transfer that *same weighted square-band object* from theta to psi,
 where the repository's exact signed Selberg recurrences are available.
 
 No PNT-rate hypothesis, zero-free hypothesis, RH-equivalent estimate, sieve
-model, or Mertens estimate is introduced.
+model, or Mertens estimate is introduced. A contraction coefficient that fails
+to stay uniformly below one is treated as a kill condition for this lane.
 -/
 
 noncomputable section
