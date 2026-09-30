@@ -1415,6 +1415,52 @@ theorem prod_criticalLiLocalCorrectionVariation_le_exp_collisionBudget
               mul_le_mul_of_nonneg_left
                 (criticalLiFrequencyWeight_sq_finset_sum_le s) (by norm_num)
 
+/-- **Uniform product bound including the initial Li sites.**
+The exact q=2 cancellation and the direct q=3 unit-ball estimate remove the
+last exceptional-site qualification from the coefficient variation product. -/
+theorem prod_criticalLiLocalCorrectionVariation_le_exp_collisionBudget_of_two_le
+    (s : Finset ℕ) (hs : ∀ q ∈ s, 2 ≤ q) :
+    (∏ q ∈ s, criticalLiLocalCorrectionVariation q) ≤
+      Real.exp (3 * criticalLiCollisionBudget) := by
+  have hprod :
+      (∏ q ∈ s, criticalLiLocalCorrectionVariation q) ≤
+        ∏ q ∈ s, (1 + 3 * ‖criticalLiFrequencyWeight q‖ ^ 2) := by
+    classical
+    revert hs
+    induction s using Finset.induction_on with
+    | empty =>
+        intro hs
+        simp
+    | @insert q s hq ih =>
+        intro hs
+        rw [Finset.prod_insert hq, Finset.prod_insert hq]
+        have hq2 : 2 ≤ q := hs q (Finset.mem_insert_self q s)
+        have hs2 : ∀ r ∈ s, 2 ≤ r := by
+          intro r hr
+          exact hs r (Finset.mem_insert_of_mem hr)
+        exact mul_le_mul
+          (criticalLiLocalCorrectionVariation_le_of_two_le hq2)
+          (ih hs2)
+          (Finset.prod_nonneg fun r hr =>
+            criticalLiLocalCorrectionVariation_nonneg r)
+          (by positivity)
+  calc
+    (∏ q ∈ s, criticalLiLocalCorrectionVariation q)
+        ≤ ∏ q ∈ s,
+            (1 + 3 * ‖criticalLiFrequencyWeight q‖ ^ 2) := hprod
+    _ ≤ Real.exp
+          (∑ q ∈ s, 3 * ‖criticalLiFrequencyWeight q‖ ^ 2) :=
+          criticalLi_prod_one_add_three_sq_le_exp_sum s
+    _ ≤ Real.exp (3 * criticalLiCollisionBudget) := by
+          apply Real.exp_le_exp.mpr
+          calc
+            (∑ q ∈ s, 3 * ‖criticalLiFrequencyWeight q‖ ^ 2)
+                = 3 * (∑ q ∈ s, ‖criticalLiFrequencyWeight q‖ ^ 2) := by
+                    rw [Finset.mul_sum]
+            _ ≤ 3 * criticalLiCollisionBudget :=
+              mul_le_mul_of_nonneg_left
+                (criticalLiFrequencyWeight_sq_finset_sum_le s) (by norm_num)
+
 /-- **Uniform finite hard-core/Poisson correction product.**
 For any finite collection of Li sites beyond the finitely many initial ones,
 the full scalar correction is bounded by a single universal constant depending
@@ -2401,6 +2447,122 @@ theorem criticalWeightedVariation_arithmetic_mul_le
           (∑ b ∈ Finset.Icc 1 X,
             ‖g b‖ / Real.sqrt (b : ℝ)) := by
           rw [Finset.sum_mul]
+
+/-- Critical weighted variation is nonnegative. -/
+theorem criticalWeightedVariation_nonneg
+    (h : ℕ → ℂ) (X : ℕ) :
+    0 ≤ criticalWeightedVariation h X := by
+  unfold criticalWeightedVariation
+  exact Finset.sum_nonneg fun n hn =>
+    div_nonneg (norm_nonneg _) (Real.sqrt_nonneg _)
+
+private theorem criticalWeightedVariation_arithmetic_one_le_one
+    (X : ℕ) :
+    criticalWeightedVariation
+        (fun n => (1 : ArithmeticFunction ℂ) n) X ≤ 1 := by
+  unfold criticalWeightedVariation
+  by_cases hX : 1 ≤ X
+  · have hmem : 1 ∈ Finset.Icc 1 X :=
+      Finset.mem_Icc.mpr ⟨le_rfl, hX⟩
+    calc
+      (∑ n ∈ Finset.Icc 1 X,
+          ‖(1 : ArithmeticFunction ℂ) n‖ /
+            Real.sqrt (n : ℝ))
+          = ‖(1 : ArithmeticFunction ℂ) 1‖ /
+              Real.sqrt (1 : ℝ) := by
+            rw [Finset.sum_eq_single 1]
+            · intro n hn hn1
+              simp [ArithmeticFunction.one_apply, hn1]
+            · intro hnot
+              exact (hnot hmem).elim
+      _ = 1 := by
+            simp [ArithmeticFunction.one_apply]
+  · have hempty : Finset.Icc 1 X = ∅ := by
+      apply Finset.eq_empty_iff_forall_not_mem.mpr
+      intro n hn
+      rcases Finset.mem_Icc.mp hn with ⟨hn1, hnX⟩
+      exact hX (hn1.trans hnX)
+    rw [hempty]
+    simp
+
+/-- **Finite correction products inherit the product of their local critical
+variations.**  This is exactly the repeated real-hyperbola inequality; no
+extra cross-site loss is introduced. -/
+theorem criticalWeightedVariation_correctionProduct_le_localProduct
+    (k X : ℕ) :
+    criticalWeightedVariation
+        (fun n =>
+          arithmeticHardCorePoissonCorrectionProduct
+            criticalLiFrequencyWeight k n) X ≤
+      ∏ q ∈ Finset.Icc 2 (k + 1),
+        criticalLiLocalCorrectionVariation q := by
+  induction k with
+  | zero =>
+      simpa [arithmeticHardCorePoissonCorrectionProduct] using
+        criticalWeightedVariation_arithmetic_one_le_one X
+  | succ k ih =>
+      rw [arithmeticHardCorePoissonCorrectionProduct]
+      calc
+        criticalWeightedVariation
+            (fun n =>
+              (arithmeticHardCorePoissonCorrectionFactor
+                  (criticalLiFrequencyWeight (k + 2))
+                  (q := k + 2) (by omega) *
+                arithmeticHardCorePoissonCorrectionProduct
+                  criticalLiFrequencyWeight k) n) X
+            ≤ criticalWeightedVariation
+                (fun n =>
+                  arithmeticHardCorePoissonCorrectionFactor
+                    (criticalLiFrequencyWeight (k + 2))
+                    (q := k + 2) (by omega) n) X *
+              criticalWeightedVariation
+                (fun n =>
+                  arithmeticHardCorePoissonCorrectionProduct
+                    criticalLiFrequencyWeight k n) X :=
+          criticalWeightedVariation_arithmetic_mul_le _ _ X
+        _ ≤ criticalLiLocalCorrectionVariation (k + 2) *
+              (∏ q ∈ Finset.Icc 2 (k + 1),
+                criticalLiLocalCorrectionVariation q) := by
+              exact mul_le_mul
+                (criticalWeightedVariation_hardCorePoissonCorrectionFactor_le_local
+                  (q := k + 2) (by omega) X)
+                ih
+                (criticalWeightedVariation_nonneg _ X)
+                (criticalLiLocalCorrectionVariation_nonneg (k + 2))
+        _ = ∏ q ∈ Finset.Icc 2 (k + 2),
+              criticalLiLocalCorrectionVariation q := by
+              rw [Finset.prod_Icc_succ_top (by omega : 2 ≤ k + 2)]
+              ring
+        _ = ∏ q ∈ Finset.Icc 2 (Nat.succ k + 1),
+              criticalLiLocalCorrectionVariation q := by
+              congr 3
+              omega
+
+/-- **Uniform weighted variation of the complete quadratic correction
+product.**  The bound is independent of both the Euler cutoff and the
+arithmetic endpoint. -/
+theorem criticalWeightedVariation_correctionProduct_le_exp_collisionBudget
+    (k X : ℕ) :
+    criticalWeightedVariation
+        (fun n =>
+          arithmeticHardCorePoissonCorrectionProduct
+            criticalLiFrequencyWeight k n) X ≤
+      Real.exp (3 * criticalLiCollisionBudget) := by
+  calc
+    criticalWeightedVariation
+        (fun n =>
+          arithmeticHardCorePoissonCorrectionProduct
+            criticalLiFrequencyWeight k n) X
+        ≤ ∏ q ∈ Finset.Icc 2 (k + 1),
+            criticalLiLocalCorrectionVariation q :=
+      criticalWeightedVariation_correctionProduct_le_localProduct k X
+    _ ≤ Real.exp (3 * criticalLiCollisionBudget) := by
+      exact
+        prod_criticalLiLocalCorrectionVariation_le_exp_collisionBudget_of_two_le
+          (Finset.Icc 2 (k + 1))
+          (by
+            intro q hq
+            exact (Finset.mem_Icc.mp hq).1)
 
 /-- **Critical convolution transfer.**
 If the reference cumulative state is uniformly bounded by B and the correction
