@@ -9,7 +9,6 @@ import Mathlib.NumberTheory.LSeries.RiemannZeta
 import Mathlib.NumberTheory.PrimeCounting
 import Mathlib.Tactic.Convert
 import Mathlib.Tactic.FieldSimp
-import Mathlib.Tactic.Grind
 import Mathlib.Tactic.Linarith
 import Mathlib.Tactic.NormNum
 import Mathlib.Tactic.Positivity
@@ -375,7 +374,9 @@ private theorem vfMidTrapError_le_of_lt
     simpa [Real.norm_eq_abs, hzero] using
       image_norm_le_of_norm_deriv_right_le_deriv_boundary
         (fun x hx => (hderiv x hx).continuousWithinAt)
-        (fun x hx => by grind [Icc_mem_nhdsGE_of_mem, mono_of_mem_nhdsWithin])
+        (fun x hx =>
+          exact (hderiv x (Ico_subset_Icc_self hx)).mono_of_mem_nhdsWithin
+            (Icc_mem_nhdsGE_of_mem hx))
         (by simp [hzero]) hB
         (fun x hx => hφ x (Ico_subset_Icc_self hx)) ht
   exact
