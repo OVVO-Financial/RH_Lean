@@ -1,11 +1,44 @@
 # RH_Lean current proof contract
 
-Status date: 2026-09-27. This contract incorporates the #796–#800 closeout
-and the three-quarter coefficient sharpening documented below.
+Status date: 2026-09-30. The canonical direct VF-mid target is recorded first;
+the earlier CORR-4 route and its closeout remain preserved below.
 Compiled Lean source and successful checks of the relevant commit are
 authoritative. Historical handoffs and plans do not override this contract.
 
-**RH is not proved. One quantitative top-scale estimate remains.** The forward
+## Canonical direct VF-mid target (after #820–#821)
+
+**RH is not proved.** The active arithmetic target is
+
+```text
+exists C >= 0, for every natural R >= 2,
+  |pi(R^2) - VF_mid(R^2)| <= C R log R.
+```
+
+In [`VF_MID_VON_KOCH_BRIDGE.lean`](research/VF_MID_VON_KOCH_BRIDGE.lean),
+this is `VFMidSquareEndpointVonKochBoundedStatement`.
+`vfMidVonKochBounded_of_squareEndpoint` extends it to every real `x >= 4`;
+`vfMidSquareEndpointVonKochBounded_iff` proves equivalence with the original
+`VFMidVonKochBoundedStatement`. The extension uses the unconditional estimate
+
+```text
+|primeError(x) - primeError(R^2)| <= (3 + 3/log 4) R,
+  R = floor(sqrt x).
+```
+
+`primeLiVonKochBounded_of_vfMidSquareEndpoint` discharges the quadrature input
+using the proved `vfMidLiRootBounded`. The prime-discrepancy estimate itself
+remains unproved. The final RH wrapper still takes `ClassicalVonKochRHCriterion`
+as an explicit interface; this module does not construct that classical
+analytic equivalence internally.
+
+The composite realization from #821 is optional, frozen infrastructure. The
+canonical direct consumer does not import it or the Li/Poisson model. Naming
+the endpoint input and extending it to real cutoffs is a reduction, not a
+proof of the uniform arithmetic bound. Further attacks must prove that bound.
+
+## Preserved alternative: CORR-4
+
+**The CORR-4 quantitative estimate remains open.** The forward
 Mertens-to-RH implication, signed reassembly, and conditional terminal induction
 are available. Repeating the existing coordinate changes does not supply the
 missing estimate. The pause on repeating tested internal identity searches is
