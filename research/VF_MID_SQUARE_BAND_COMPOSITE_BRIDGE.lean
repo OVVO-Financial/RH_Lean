@@ -103,9 +103,11 @@ theorem vfMidSquareBand_prime_card_add_primeCounting_sq (R : ℕ) :
         intro hn
         subst n
         have hcomp : ¬ ((R + 1) ^ 2).Prime := by
-          exact Nat.not_prime_pow' (R + 1) 2 (by omega)
+          intro hsqPrime
+          have hexp := hsqPrime.eq_one_of_pow
+          omega
         exact hcomp hp
-      exact ⟨⟨hlow, lt_of_le_of_ne hhigh (Ne.symm hne)⟩, hp⟩
+      exact ⟨⟨hlow, lt_of_le_of_ne hhigh hne⟩, hp⟩
     · rintro ⟨⟨hlow, hhigh⟩, hp⟩
       exact ⟨⟨hlow, hhigh.le⟩, hp⟩
   rw [hset] at h
