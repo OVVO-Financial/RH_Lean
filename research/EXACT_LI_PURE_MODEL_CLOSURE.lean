@@ -1,5 +1,6 @@
 import Mathlib
 import RHLean.Analysis.MobiusRenewalTelescope
+import RHLean.Analysis.PrimeSieveFiniteDifferenceModulus
 import «research.ALL_SCALE_LI_DISPLACEMENT_REDUCTION»
 import «research.PRIME_DENSITY_PNT_LOG_BOUND»
 import RHLean.Proof.FinitePartialMoments
@@ -1223,6 +1224,59 @@ theorem norm_criticalLiFrequencyWeight_le_one
     (norm_criticalSqrtWeight_le_one (by omega : 1 ≤ q))
     (norm_nonneg _) zero_le_one).trans_eq (mul_one 1)
 
+/-- The first Li site is exactly null after critical weighting. -/
+theorem criticalLiFrequencyWeight_two_eq_zero :
+    criticalLiFrequencyWeight 2 = 0 := by
+  have hLi2 : logarithmicIntegralFromTwo (2 : ℝ) = 0 := by
+    simp [logarithmicIntegralFromTwo]
+  have hdensity : primeSievePNTDensity 2 = 0 := by
+    unfold primeSievePNTDensity
+    rw [show (((2 - 1 : ℕ) : ℝ)) = 1 by norm_num,
+      logarithmicIntegralFromTwo_one, hLi2]
+    simp
+  simp [criticalLiFrequencyWeight, hdensity]
+
+/-- The only remaining exceptional small site, q=3, is still inside the
+critical unit ball. -/
+theorem norm_criticalLiFrequencyWeight_three_le_one :
+    ‖criticalLiFrequencyWeight 3‖ ≤ 1 := by
+  have hw :=
+    exactLi_norm_pntDensity_le_inv_log
+      (y := 2) (q := 3) (by norm_num) (by norm_num)
+  have hlogpos : 0 < Real.log (2 : ℝ) :=
+    Real.log_pos (by norm_num)
+  have hinv : (Real.log (2 : ℝ))⁻¹ ≤ (3 / 2 : ℝ) := by
+    rw [inv_le_iff₀ hlogpos]
+    have hl := Real.log_two_gt_d9
+    nlinarith
+  have hw15 : ‖primeSievePNTDensity 3‖ ≤ (3 / 2 : ℝ) :=
+    hw.trans hinv
+  have hsquare := norm_criticalSqrtWeight_sq 3
+  have hs0 : 0 ≤ ‖criticalSqrtWeight 3‖ := norm_nonneg _
+  have hs23 : ‖criticalSqrtWeight 3‖ ≤ (2 / 3 : ℝ) := by
+    nlinarith
+  unfold criticalLiFrequencyWeight
+  rw [norm_mul]
+  calc
+    ‖primeSievePNTDensity 3‖ * ‖criticalSqrtWeight 3‖
+        ≤ (3 / 2 : ℝ) * (2 / 3 : ℝ) :=
+      mul_le_mul hw15 hs23 hs0 (by norm_num)
+    _ = 1 := by norm_num
+
+/-- Every Li site occurring in the hard-core product is inside the critical
+unit ball, including the two initial sites. -/
+theorem norm_criticalLiFrequencyWeight_le_one_of_two_le
+    {q : ℕ} (hq : 2 ≤ q) :
+    ‖criticalLiFrequencyWeight q‖ ≤ 1 := by
+  by_cases h2 : q = 2
+  · subst q
+    rw [criticalLiFrequencyWeight_two_eq_zero]
+    simp
+  by_cases h3 : q = 3
+  · subst q
+    exact norm_criticalLiFrequencyWeight_three_le_one
+  exact norm_criticalLiFrequencyWeight_le_one (by omega)
+
 /-- Absolute coefficient variation of one local hard-core/Poisson
 correction factor at the critical coordinate.  Degree zero contributes one,
 degree one vanishes, and the remaining degrees are indexed by the quadratic
@@ -1242,6 +1296,19 @@ theorem criticalLiLocalCorrectionVariation_le
   have hz0 : 0 ≤ ‖criticalLiFrequencyWeight q‖ := norm_nonneg _
   have hz1 : ‖criticalLiFrequencyWeight q‖ ≤ 1 :=
     norm_criticalLiFrequencyWeight_le_one hq
+  exact add_le_add_left
+    (tsum_hardCorePoissonCorrectionTailTerm_le_three_sq hz0 hz1) 1
+
+/-- The quadratic coefficient-variation estimate in fact holds at every site
+used by the Li Euler product. -/
+theorem criticalLiLocalCorrectionVariation_le_of_two_le
+    {q : ℕ} (hq : 2 ≤ q) :
+    criticalLiLocalCorrectionVariation q ≤
+      1 + 3 * ‖criticalLiFrequencyWeight q‖ ^ 2 := by
+  unfold criticalLiLocalCorrectionVariation
+  have hz0 : 0 ≤ ‖criticalLiFrequencyWeight q‖ := norm_nonneg _
+  have hz1 : ‖criticalLiFrequencyWeight q‖ ≤ 1 :=
+    norm_criticalLiFrequencyWeight_le_one_of_two_le hq
   exact add_le_add_left
     (tsum_hardCorePoissonCorrectionTailTerm_le_three_sq hz0 hz1) 1
 
@@ -1975,6 +2042,152 @@ theorem criticalWeightedVariation_hardCorePoissonCorrectionFactor_eq
           · intro m _hm n _hn hmn
             exact hinj hmn
     _ = _ := by rfl
+
+/-- Nonnegative absolute coefficient majorant for one complete local
+hard-core/Poisson correction series. -/
+private def hardCorePoissonCorrectionVariationTerm
+    (z : ℂ) : ℕ → ℝ
+  | 0 => 1
+  | Nat.succ 0 => 0
+  | Nat.succ (Nat.succ m) =>
+      hardCorePoissonCorrectionTailTerm ‖z‖ m
+
+private theorem norm_hardCorePoissonCorrectionCoeff_eq_variationTerm
+    (z : ℂ) (m : ℕ) :
+    ‖hardCorePoissonCorrectionCoeff z m‖ =
+      hardCorePoissonCorrectionVariationTerm z m := by
+  cases m with
+  | zero =>
+      simp [hardCorePoissonCorrectionVariationTerm]
+  | succ m =>
+      cases m with
+      | zero =>
+          simp [hardCorePoissonCorrectionVariationTerm]
+      | succ m =>
+          simpa [hardCorePoissonCorrectionVariationTerm,
+            Nat.succ_eq_add_one, Nat.add_assoc] using
+            norm_hardCorePoissonCorrectionCoeff_add_two z m
+
+private theorem hardCorePoissonCorrectionVariationTerm_nonneg
+    (z : ℂ) (m : ℕ) :
+    0 ≤ hardCorePoissonCorrectionVariationTerm z m := by
+  cases m with
+  | zero =>
+      simp [hardCorePoissonCorrectionVariationTerm]
+  | succ m =>
+      cases m with
+      | zero =>
+          simp [hardCorePoissonCorrectionVariationTerm]
+      | succ m =>
+          simpa [hardCorePoissonCorrectionVariationTerm,
+            Nat.succ_eq_add_one, Nat.add_assoc] using
+            hardCorePoissonCorrectionTailTerm_nonneg
+              (a := ‖z‖) (norm_nonneg z) m
+
+private theorem hardCorePoissonCorrectionVariationTerm_summable
+    (z : ℂ) (hz : ‖z‖ ≤ 1) :
+    Summable (hardCorePoissonCorrectionVariationTerm z) := by
+  rw [← summable_nat_add_iff 2 (G := ℝ)]
+  simpa [hardCorePoissonCorrectionVariationTerm,
+    Nat.add_assoc] using
+    hardCorePoissonCorrectionTailTerm_summable
+      (a := ‖z‖) (norm_nonneg z) hz
+
+private theorem tsum_hardCorePoissonCorrectionVariationTerm_eq
+    (z : ℂ) (hz : ‖z‖ ≤ 1) :
+    (∑' m : ℕ, hardCorePoissonCorrectionVariationTerm z m) =
+      1 + ∑' m : ℕ,
+        hardCorePoissonCorrectionTailTerm ‖z‖ m := by
+  have hs :=
+    hardCorePoissonCorrectionVariationTerm_summable z hz
+  have hsplit := hs.sum_add_tsum_nat_add 2
+  calc
+    (∑' m : ℕ, hardCorePoissonCorrectionVariationTerm z m) =
+        (∑ m ∈ Finset.range 2,
+            hardCorePoissonCorrectionVariationTerm z m) +
+          ∑' m : ℕ,
+            hardCorePoissonCorrectionVariationTerm z (m + 2) :=
+      hsplit.symm
+    _ = 1 + ∑' m : ℕ,
+          hardCorePoissonCorrectionTailTerm ‖z‖ m := by
+      simp [hardCorePoissonCorrectionVariationTerm]
+
+/-- **One complete Li correction factor has uniformly bounded critical
+variation.**  This is the local estimate needed by the hyperbola-product
+induction; the denominator n^(1/2) only improves the coefficient variation. -/
+theorem criticalWeightedVariation_hardCorePoissonCorrectionFactor_le_local
+    {q : ℕ} (hq : 2 ≤ q) (X : ℕ) :
+    criticalWeightedVariation
+        (fun n =>
+          arithmeticHardCorePoissonCorrectionFactor
+            (criticalLiFrequencyWeight q) (q := q) (by omega) n) X ≤
+      criticalLiLocalCorrectionVariation q := by
+  have hqgt : 1 < q := by omega
+  have hz : ‖criticalLiFrequencyWeight q‖ ≤ 1 :=
+    norm_criticalLiFrequencyWeight_le_one_of_two_le hq
+  rw [criticalWeightedVariation_hardCorePoissonCorrectionFactor_eq
+    hqgt (criticalLiFrequencyWeight q) X]
+  have hs :=
+    hardCorePoissonCorrectionVariationTerm_summable
+      (criticalLiFrequencyWeight q) hz
+  calc
+    (∑ m ∈ liCorrectionExponentSet q X,
+        ‖hardCorePoissonCorrectionCoeff
+            (criticalLiFrequencyWeight q) m‖ /
+          Real.sqrt ((q ^ m : ℕ) : ℝ))
+        ≤ ∑ m ∈ liCorrectionExponentSet q X,
+            hardCorePoissonCorrectionVariationTerm
+              (criticalLiFrequencyWeight q) m := by
+          apply Finset.sum_le_sum
+          intro m hm
+          have hpowNat : 1 ≤ q ^ m :=
+            Nat.one_le_pow m q (by omega)
+          have hpowReal : (1 : ℝ) ≤ ((q ^ m : ℕ) : ℝ) := by
+            exact_mod_cast hpowNat
+          have hsqrt :
+              (1 : ℝ) ≤ Real.sqrt ((q ^ m : ℕ) : ℝ) :=
+            (Real.one_le_sqrt).2 hpowReal
+          have hsqrtpos :
+              0 < Real.sqrt ((q ^ m : ℕ) : ℝ) :=
+            lt_of_lt_of_le zero_lt_one hsqrt
+          have hn0 :
+              0 ≤ ‖hardCorePoissonCorrectionCoeff
+                (criticalLiFrequencyWeight q) m‖ :=
+            norm_nonneg _
+          have hmul :
+              0 ≤ ‖hardCorePoissonCorrectionCoeff
+                    (criticalLiFrequencyWeight q) m‖ *
+                  (Real.sqrt ((q ^ m : ℕ) : ℝ) - 1) :=
+            mul_nonneg hn0 (sub_nonneg.mpr hsqrt)
+          have hdiv :
+              ‖hardCorePoissonCorrectionCoeff
+                    (criticalLiFrequencyWeight q) m‖ /
+                  Real.sqrt ((q ^ m : ℕ) : ℝ) ≤
+                ‖hardCorePoissonCorrectionCoeff
+                    (criticalLiFrequencyWeight q) m‖ := by
+            apply (div_le_iff₀ hsqrtpos).2
+            nlinarith
+          calc
+            ‖hardCorePoissonCorrectionCoeff
+                  (criticalLiFrequencyWeight q) m‖ /
+                Real.sqrt ((q ^ m : ℕ) : ℝ)
+                ≤ ‖hardCorePoissonCorrectionCoeff
+                    (criticalLiFrequencyWeight q) m‖ := hdiv
+            _ = hardCorePoissonCorrectionVariationTerm
+                  (criticalLiFrequencyWeight q) m :=
+              norm_hardCorePoissonCorrectionCoeff_eq_variationTerm _ _
+    _ ≤ ∑' m : ℕ,
+          hardCorePoissonCorrectionVariationTerm
+            (criticalLiFrequencyWeight q) m := by
+          exact hs.sum_le_tsum
+            (liCorrectionExponentSet q X)
+            (fun m hm =>
+              hardCorePoissonCorrectionVariationTerm_nonneg
+                (criticalLiFrequencyWeight q) m)
+    _ = criticalLiLocalCorrectionVariation q := by
+          rw [tsum_hardCorePoissonCorrectionVariationTerm_eq
+            (criticalLiFrequencyWeight q) hz]
+          rfl
 
 /-- Finite product of the quadratic correction factors over sites
 `2,...,k+1`, ordered exactly like `arithmeticHardCoreProduct`. -/
