@@ -1,5 +1,6 @@
 import Mathlib
 import «research.ALL_SCALE_LI_DISPLACEMENT_REDUCTION»
+import «research.PRIME_DENSITY_PNT_LOG_BOUND»
 import RHLean.Proof.FinitePartialMoments
 import «research.EXACT_LI_DICKMAN_FORMAL»
 
@@ -1951,6 +1952,176 @@ theorem criticalLiEndpointBinGap_sum_le
           nlinarith
     _ = (Real.log 2)⁻¹ * (Real.sqrt 2)⁻¹ := by
           rfl
+
+
+/-! ## Exact continuous-vs-discrete degree-one Li bin sandwich -/
+
+/-- Continuous critical Li mass in the unit bin `(n,n+1]`.
+This keeps the Li density and the critical `t^(-1/2)` weight at their
+continuous locations. -/
+def exactLiContinuousCriticalBinMass (n : ℕ) : ℝ :=
+  ∫ t in (n : ℝ)..((n + 1 : ℕ) : ℝ),
+    (Real.log t)⁻¹ / Real.sqrt t
+
+/-- Discrete critical Li mass after moving the entire unit-bin Li mass to the
+right integer endpoint. -/
+def exactLiDiscreteCriticalBinMass (n : ℕ) : ℝ :=
+  densityTightLiWeight (n + 1) /
+    Real.sqrt ((n + 1 : ℕ) : ℝ)
+
+/-- Conservative left-endpoint envelope for the same unit-bin Li mass. -/
+def exactLiLeftCriticalBinEnvelope (n : ℕ) : ℝ :=
+  densityTightLiWeight (n + 1) / Real.sqrt (n : ℝ)
+
+private theorem exactLi_criticalBinDensity_intervalIntegrable
+    {a b : ℝ} (ha : 2 ≤ a) (hb : 2 ≤ b) :
+    IntervalIntegrable
+      (fun t : ℝ => (Real.log t)⁻¹ / Real.sqrt t)
+      MeasureTheory.volume a b := by
+  apply ContinuousOn.intervalIntegrable
+  intro t ht
+  have ht2 : (2 : ℝ) ≤ t := (le_min ha hb).trans ht.1
+  have ht0 : t ≠ 0 := by linarith
+  have hlog0 : Real.log t ≠ 0 :=
+    ne_of_gt (Real.log_pos (by linarith))
+  have hsqrt0 : Real.sqrt t ≠ 0 :=
+    ne_of_gt (Real.sqrt_pos.2 (by linarith))
+  have hnum : ContinuousAt (fun s : ℝ => (Real.log s)⁻¹) t :=
+    (Real.continuousAt_log ht0).inv₀ hlog0
+  have hden : ContinuousAt (fun s : ℝ => Real.sqrt s) t :=
+    Real.continuous_sqrt.continuousAt
+  exact (hnum.div hden hsqrt0).continuousWithinAt
+
+/-- The complex singleton Li weight has norm equal to its underlying positive
+real unit-bin mass. -/
+theorem norm_primeSievePNTDensity_eq_densityTightLiWeight
+    {q : ℕ} (hq : 3 ≤ q) :
+    ‖primeSievePNTDensity q‖ = densityTightLiWeight q := by
+  unfold primeSievePNTDensity
+  rw [Complex.norm_real, Real.norm_eq_abs]
+  change |densityTightLiWeight q| = densityTightLiWeight q
+  exact abs_of_nonneg (densityTightLiWeight_nonneg hq)
+
+/-- **Right-endpoint discretization is degree-one optimistic.**
+For every Li unit bin from `n >= 2`, placing the entire mass at the right
+integer endpoint can only decrease its critical degree-one mass. -/
+theorem exactLiDiscreteCriticalBinMass_le_continuous
+    {n : ℕ} (hn : 2 ≤ n) :
+    exactLiDiscreteCriticalBinMass n ≤
+      exactLiContinuousCriticalBinMass n := by
+  have hq : 3 ≤ n + 1 := by omega
+  have ha : (2 : ℝ) ≤ (n : ℝ) := by exact_mod_cast hn
+  have hb : (2 : ℝ) ≤ ((n + 1 : ℕ) : ℝ) := by
+    exact_mod_cast (show 2 ≤ n + 1 by omega)
+  have hab : (n : ℝ) ≤ ((n + 1 : ℕ) : ℝ) := by norm_num
+  unfold exactLiDiscreteCriticalBinMass exactLiContinuousCriticalBinMass
+  rw [densityTightLiWeight_eq_integral hq,
+    ← intervalIntegral.integral_div]
+  apply intervalIntegral.integral_mono_on hab
+    ((exactLi_invLog_intervalIntegrable ha hb).div_const
+      (Real.sqrt ((n + 1 : ℕ) : ℝ)))
+    (exactLi_criticalBinDensity_intervalIntegrable ha hb)
+  intro t ht
+  have ht2 : (2 : ℝ) ≤ t := ha.trans ht.1
+  have hlog :
+      0 ≤ (Real.log t)⁻¹ :=
+    inv_nonneg.mpr (Real.log_nonneg (by linarith))
+  have hsqrtt : 0 < Real.sqrt t :=
+    Real.sqrt_pos.2 (by linarith)
+  have hsqrtle :
+      Real.sqrt t ≤ Real.sqrt ((n + 1 : ℕ) : ℝ) :=
+    Real.sqrt_le_sqrt ht.2
+  exact div_le_div_of_nonneg_left hlog hsqrtt hsqrtle
+
+/-- The continuous critical Li mass is itself bounded by placing the same mass
+at the left endpoint of its unit bin. -/
+theorem exactLiContinuousCriticalBinMass_le_leftEnvelope
+    {n : ℕ} (hn : 2 ≤ n) :
+    exactLiContinuousCriticalBinMass n ≤
+      exactLiLeftCriticalBinEnvelope n := by
+  have hq : 3 ≤ n + 1 := by omega
+  have ha : (2 : ℝ) ≤ (n : ℝ) := by exact_mod_cast hn
+  have hb : (2 : ℝ) ≤ ((n + 1 : ℕ) : ℝ) := by
+    exact_mod_cast (show 2 ≤ n + 1 by omega)
+  have hab : (n : ℝ) ≤ ((n + 1 : ℕ) : ℝ) := by norm_num
+  unfold exactLiContinuousCriticalBinMass exactLiLeftCriticalBinEnvelope
+  rw [densityTightLiWeight_eq_integral hq,
+    ← intervalIntegral.integral_div]
+  apply intervalIntegral.integral_mono_on hab
+    (exactLi_criticalBinDensity_intervalIntegrable ha hb)
+    ((exactLi_invLog_intervalIntegrable ha hb).div_const
+      (Real.sqrt (n : ℝ)))
+  intro t ht
+  have ht2 : (2 : ℝ) ≤ t := ha.trans ht.1
+  have hlog :
+      0 ≤ (Real.log t)⁻¹ :=
+    inv_nonneg.mpr (Real.log_nonneg (by linarith))
+  have hsqrtn : 0 < Real.sqrt (n : ℝ) :=
+    Real.sqrt_pos.2 (by exact_mod_cast (show 0 < n by omega))
+  have hsqrtle : Real.sqrt (n : ℝ) ≤ Real.sqrt t :=
+    Real.sqrt_le_sqrt ht.1
+  exact div_le_div_of_nonneg_left hlog hsqrtn hsqrtle
+
+/-- The full left-minus-right endpoint width is exactly the already-certified
+critical Li bin gap. -/
+theorem exactLiLeftEnvelope_sub_discrete_eq_endpointBinGap
+    {n : ℕ} (hn : 2 ≤ n) :
+    exactLiLeftCriticalBinEnvelope n -
+        exactLiDiscreteCriticalBinMass n =
+      criticalLiEndpointBinGap n := by
+  unfold exactLiLeftCriticalBinEnvelope exactLiDiscreteCriticalBinMass
+    criticalLiEndpointBinGap
+  rw [norm_primeSievePNTDensity_eq_densityTightLiWeight
+    (q := n + 1) (by omega : 3 ≤ n + 1)]
+  simp only [div_eq_mul_inv]
+  ring
+
+/-- Exact continuous-minus-discrete first-order transport error in one Li bin. -/
+def exactLiCriticalBinTransportError (n : ℕ) : ℝ :=
+  exactLiContinuousCriticalBinMass n -
+    exactLiDiscreteCriticalBinMass n
+
+/-- The continuous placement is conservative: the degree-one transport error
+is nonnegative. -/
+theorem exactLiCriticalBinTransportError_nonneg
+    {n : ℕ} (hn : 2 ≤ n) :
+    0 ≤ exactLiCriticalBinTransportError n := by
+  unfold exactLiCriticalBinTransportError
+  exact sub_nonneg.mpr (exactLiDiscreteCriticalBinMass_le_continuous hn)
+
+/-- The continuous-vs-discrete degree-one error is no larger than the
+left-to-right endpoint gap already used by the critical transport budget. -/
+theorem exactLiCriticalBinTransportError_le_endpointBinGap
+    {n : ℕ} (hn : 2 ≤ n) :
+    exactLiCriticalBinTransportError n ≤ criticalLiEndpointBinGap n := by
+  unfold exactLiCriticalBinTransportError
+  calc
+    exactLiContinuousCriticalBinMass n -
+          exactLiDiscreteCriticalBinMass n
+        ≤ exactLiLeftCriticalBinEnvelope n -
+          exactLiDiscreteCriticalBinMass n :=
+      sub_le_sub_right
+        (exactLiContinuousCriticalBinMass_le_leftEnvelope hn) _
+    _ = criticalLiEndpointBinGap n :=
+      exactLiLeftEnvelope_sub_discrete_eq_endpointBinGap hn
+
+/-- **Uniform degree-one continuous-to-discrete Li transfer.**
+The complete first-order critical error through any finite endpoint is bounded
+by the same absolute telescoping constant. -/
+theorem sum_exactLiCriticalBinTransportError_le
+    {N : ℕ} (hN : 2 ≤ N) :
+    (∑ n ∈ Finset.Ico 2 N, exactLiCriticalBinTransportError n) ≤
+      (Real.log 2)⁻¹ * (Real.sqrt 2)⁻¹ := by
+  calc
+    (∑ n ∈ Finset.Ico 2 N, exactLiCriticalBinTransportError n)
+        ≤ ∑ n ∈ Finset.Ico 2 N, criticalLiEndpointBinGap n := by
+          apply Finset.sum_le_sum
+          intro n hn
+          exact exactLiCriticalBinTransportError_le_endpointBinGap
+            (Finset.mem_Ico.mp hn).1
+    _ ≤ (Real.log 2)⁻¹ * (Real.sqrt 2)⁻¹ :=
+      criticalLiEndpointBinGap_sum_le hN
+
 
 /-- Exact finite Abel identity at square-root weight.
 The boundary formula is valid from the first nonzero index onward. -/
