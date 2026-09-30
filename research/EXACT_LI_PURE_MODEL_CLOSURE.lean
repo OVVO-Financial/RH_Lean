@@ -1452,16 +1452,6 @@ theorem arithmeticCoefficientCumulative_mul
   intro a ha
   rw [← Finset.mul_sum]
 
-/-- The same exact identity in the generic finite multiplicative-convolution
-notation already consumed by the pure-Li root-bound theorem. -/
-theorem arithmeticCoefficientCumulative_mul_eq_finiteMultiplicativeConvolution
-    (f g : ArithmeticFunction ℂ) (X : ℕ) :
-    arithmeticCoefficientCumulative (f * g) X =
-      finiteMultiplicativeConvolution
-        (fun n => f n) (arithmeticCoefficientCumulative g) X := by
-  rw [arithmeticCoefficientCumulative_mul]
-  rfl
-
 
 /-! ## Generic critical convolution transfer -/
 
@@ -1469,6 +1459,16 @@ theorem arithmeticCoefficientCumulative_mul_eq_finiteMultiplicativeConvolution
 def finiteMultiplicativeConvolution
     (h M : ℕ → ℂ) (X : ℕ) : ℂ :=
   ∑ n ∈ Finset.Icc 1 X, h n * M (X / n)
+
+/-- The cumulative Dirichlet-convolution identity in the generic finite
+multiplicative-convolution notation consumed by the pure-Li closure. -/
+theorem arithmeticCoefficientCumulative_mul_eq_finiteMultiplicativeConvolution
+    (f g : ArithmeticFunction ℂ) (X : ℕ) :
+    arithmeticCoefficientCumulative (f * g) X =
+      finiteMultiplicativeConvolution
+        (fun n => f n) (arithmeticCoefficientCumulative g) X := by
+  rw [arithmeticCoefficientCumulative_mul]
+  rfl
 
 /-- Critical weighted total variation of a correction kernel up to X. -/
 def criticalWeightedVariation
