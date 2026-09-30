@@ -2717,7 +2717,7 @@ private theorem criticalWeightedVariation_arithmetic_one_le_one
     rw [Finset.sum_eq_single 1]
     · simp [ArithmeticFunction.one_apply]
     · intro n hn hn1
-      simp [ArithmeticFunction.one_apply, hn1]
+      simp [hn1]
     · intro hnot
       exact (hnot hmem).elim
   · have hX0 : X = 0 := by omega
