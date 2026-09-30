@@ -3,8 +3,15 @@ import Mathlib.Analysis.SumIntegralComparisons
 import Mathlib.Analysis.PSeries
 import Mathlib.Analysis.Calculus.MeanValue
 import Mathlib.MeasureTheory.Integral.IntervalIntegral.FundThmCalculus
-import RHLean.Analysis.PrimeSieveAbelIdentity
-import RHLean.Proof.RiemannHypothesisBridge
+import Mathlib.Analysis.SpecialFunctions.Pow.Real
+import Mathlib.MeasureTheory.Integral.IntervalIntegral.Basic
+import Mathlib.NumberTheory.LSeries.RiemannZeta
+import Mathlib.NumberTheory.PrimeCounting
+import Mathlib.Tactic.FieldSimp
+import Mathlib.Tactic.Linarith
+import Mathlib.Tactic.NormNum
+import Mathlib.Tactic.Positivity
+import Mathlib.Tactic.Ring
 
 /-!
 # Square-tile midpoint prime-count bridge
@@ -32,6 +39,17 @@ open Set MeasureTheory intervalIntegral
 open scoped BigOperators Interval
 
 namespace RHLean.Analysis
+
+/-- The repository normalization of the logarithmic integral, reproduced here
+with narrow dependencies so this research file does not depend on the umbrella
+`Mathlib` import used by older RHLean modules. -/
+def vfMidLogarithmicIntegralFromTwo (x : ℝ) : ℝ :=
+  ∫ u in (2 : ℝ)..x, (Real.log u)⁻¹
+
+/-- Mathlib's formal Riemann-hypothesis proposition, exposed locally without
+importing the heavier RHLean bridge module. -/
+def VFMidVFMidRiemannHypothesisStatement : Prop :=
+  RiemannHypothesis
 
 /-! ## The midpoint-tiled logarithmic integral -/
 
@@ -98,7 +116,7 @@ theorem vfMid_sq {R : ℕ} (hR : 2 ≤ R) :
 /-- Exact prime-counting staircase on the reals, constant between integers.
 Only x >= 4 is used by the von-Koch target. -/
 def vfMidPrimeCount (x : ℝ) : ℝ :=
-  (((Finset.Ioc 0 ⌊x⌋₊).filter Nat.Prime).card : ℝ)
+  (Nat.primeCounting ⌊x⌋₊ : ℝ)
 
 /-- Running midpoint prime-count error. -/
 def vfMidPrimeError (x : ℝ) : ℝ :=
@@ -106,11 +124,11 @@ def vfMidPrimeError (x : ℝ) : ℝ :=
 
 /-- Midpoint quadrature error relative to the repository's Li normalization. -/
 def vfMidLiError (x : ℝ) : ℝ :=
-  vfMid x - logarithmicIntegralFromTwo x
+  vfMid x - vfMidLogarithmicIntegralFromTwo x
 
 /-- Classical prime-count discrepancy in the same real-cutoff coordinates. -/
 def vfMidPrimeLiError (x : ℝ) : ℝ :=
-  vfMidPrimeCount x - logarithmicIntegralFromTwo x
+  vfMidPrimeCount x - vfMidLogarithmicIntegralFromTwo x
 
 /-- At integer cutoffs, the real staircase is exactly the real part of the
 repository's existing prefix prime count. -/
@@ -410,7 +428,7 @@ this normalization.  As elsewhere in this repository for the classical Mertens
 criterion, package that standard analytic theorem as an explicit interface. -/
 structure ClassicalVonKochRHCriterion where
   iff_riemannHypothesis :
-    PrimeLiVonKochBoundedStatement ↔ RiemannHypothesisStatement
+    PrimeLiVonKochBoundedStatement ↔ VFMidRiemannHypothesisStatement
 
 /-! ## Deterministic transfer from VF_mid to the classical discrepancy -/
 
@@ -471,7 +489,7 @@ theorem riemannHypothesis_of_vfMidVonKoch
     (criterion : ClassicalVonKochRHCriterion)
     (hquad : VFMidLiBoundedStatement)
     (hvf : VFMidVonKochBoundedStatement) :
-    RiemannHypothesisStatement :=
+    VFMidRiemannHypothesisStatement :=
   criterion.iff_riemannHypothesis.mp
     (primeLiVonKochBounded_of_vfMid hquad hvf)
 
