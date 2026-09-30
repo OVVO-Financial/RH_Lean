@@ -15,7 +15,7 @@ Two exact coordinates are exposed:
    Stripping that owner sends the site to a strictly smaller reciprocal child.
    Once p^3 reaches the upper square, that child is forced to be prime.
 
-No asymptotic prime-distribution estimate is used here.
+No asymptotic prime-distribution estimate is used here.  The owner strip is the proposed restoring mechanism.
 -/
 
 noncomputable section
