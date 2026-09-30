@@ -2744,6 +2744,81 @@ private theorem
     rw [arithmeticHardCorePoissonCorrectionProduct_cumulative_stable
       w hnm1 (by omega : n - 1 ≤ n)]
 
+
+/-- **Exact one-site Poisson cumulative recurrence.**
+Multiplying a coefficient sequence by the Poisson exponential at site `q`
+produces the finite signed power expansion over exactly those powers `q^m`
+visible below the endpoint. -/
+theorem arithmeticCoefficientCumulative_poissonLocalFactor_mul_eq
+    {q : ℕ} (hq : 1 < q) (a : ℂ)
+    (f : ArithmeticFunction ℂ) (X : ℕ) :
+    arithmeticCoefficientCumulative
+        (arithmeticPoissonLocalFactor a hq * f) X =
+      ∑ m ∈ liCorrectionExponentSet q X,
+        ((-a) ^ m / (Nat.factorial m : ℂ)) *
+          arithmeticCoefficientCumulative f (X / q ^ m) := by
+  rw [arithmeticCoefficientCumulative_mul]
+  let E := liCorrectionExponentSet q X
+  have hinj : Function.Injective (fun m : ℕ => q ^ m) :=
+    Nat.pow_right_injective hq
+  have hsub :
+      E.image (fun m : ℕ => q ^ m) ⊆ Finset.Icc 1 X := by
+    intro n hn
+    rcases Finset.mem_image.mp hn with ⟨m, hmE, rfl⟩
+    have hmdata := Finset.mem_filter.mp hmE
+    exact Finset.mem_Icc.mpr
+      ⟨Nat.one_le_pow m q (by omega), hmdata.2⟩
+  calc
+    (∑ n ∈ Finset.Icc 1 X,
+        arithmeticPoissonLocalFactor a hq n *
+          arithmeticCoefficientCumulative f (X / n))
+        =
+      ∑ n ∈ E.image (fun m : ℕ => q ^ m),
+        arithmeticPoissonLocalFactor a hq n *
+          arithmeticCoefficientCumulative f (X / n) := by
+          symm
+          apply Finset.sum_subset hsub
+          intro n hnI hnNot
+          have hnNotPow : ¬ ∃ m : ℕ, q ^ m = n := by
+            rintro ⟨m, hm⟩
+            have hnX := (Finset.mem_Icc.mp hnI).2
+            have hmX : q ^ m ≤ X := hm.trans_le hnX
+            have hmle : m ≤ X :=
+              li_exponent_le_endpoint_of_pow_le hq hmX
+            have hmE : m ∈ E := by
+              dsimp [E, liCorrectionExponentSet]
+              exact Finset.mem_filter.mpr
+                ⟨Finset.mem_range.mpr (Nat.lt_succ_of_le hmle), hmX⟩
+            apply hnNot
+            exact Finset.mem_image.mpr ⟨m, hmE, hm⟩
+          rw [arithmeticPoissonLocalFactor_apply_eq_zero_of_not_pow
+            hq a hnNotPow, zero_mul]
+    _ = ∑ m ∈ E,
+        ((-a) ^ m / (Nat.factorial m : ℂ)) *
+          arithmeticCoefficientCumulative f (X / q ^ m) := by
+          rw [Finset.sum_image]
+          · apply Finset.sum_congr rfl
+            intro m hm
+            rw [arithmeticPoissonLocalFactor_apply_pow]
+          · intro m _hm n _hn hmn
+            exact hinj hmn
+    _ = _ := by rfl
+
+/-- Successor-cutoff form of the exact Poisson recurrence.  The new site is
+`q = k+2`; the old state is the cumulative of the cutoff-`k` product. -/
+theorem arithmeticPoissonProduct_cumulative_succ_eq
+    (w : ℕ → ℂ) (k X : ℕ) :
+    arithmeticCoefficientCumulative
+        (arithmeticPoissonProduct w (k + 1)) X =
+      ∑ m ∈ liCorrectionExponentSet (k + 2) X,
+        ((-w (k + 2)) ^ m / (Nat.factorial m : ℂ)) *
+          arithmeticCoefficientCumulative
+            (arithmeticPoissonProduct w k) (X / (k + 2) ^ m) := by
+  rw [arithmeticPoissonProduct]
+  exact arithmeticCoefficientCumulative_poissonLocalFactor_mul_eq
+    (q := k + 2) (by omega) (w (k + 2))
+      (arithmeticPoissonProduct w k) X
+
 /-- The fixed correction kernel obtained by freezing each coefficient at the
 first cutoff at which it can be visible. -/
 def exactLiCorrectionKernel (n : ℕ) : ℂ :=
