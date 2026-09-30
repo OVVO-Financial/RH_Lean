@@ -2549,6 +2549,81 @@ theorem arithmeticPoissonLocalFactor_apply_eq_zero_of_not_pow
   rw [liArithmeticOfPowerSeries_apply hq,
     Function.extend_apply' _ _ _ hn, Pi.zero_apply]
 
+/-- Pointwise critical rescaling of an arithmetic coefficient sequence. -/
+def criticalScaleArithmetic (f : ArithmeticFunction ℂ) :
+    ArithmeticFunction ℂ :=
+  ⟨fun n => criticalSqrtWeight n * f n, by
+    simp [criticalSqrtWeight]⟩
+
+/-- Complete multiplicativity of the critical weight makes pointwise critical
+rescaling a homomorphism for Dirichlet convolution. -/
+theorem criticalScaleArithmetic_mul
+    (f g : ArithmeticFunction ℂ) :
+    criticalScaleArithmetic (f * g) =
+      criticalScaleArithmetic f * criticalScaleArithmetic g := by
+  ext n
+  rw [ArithmeticFunction.mul_apply, ArithmeticFunction.mul_apply]
+  change criticalSqrtWeight n *
+      (∑ p ∈ n.divisorsAntidiagonal, f p.1 * g p.2) =
+    ∑ p ∈ n.divisorsAntidiagonal,
+      (criticalSqrtWeight p.1 * f p.1) *
+        (criticalSqrtWeight p.2 * g p.2)
+  rw [Finset.mul_sum]
+  apply Finset.sum_congr rfl
+  intro p hp
+  rw [Nat.mem_divisorsAntidiagonal] at hp
+  rcases hp with ⟨hprod, _⟩
+  rw [← hprod, criticalSqrtWeight_mul]
+  ring
+
+/-- Critical rescaling of one local Poisson factor simply rescales its owner
+mass by q^(-1/2). -/
+theorem criticalScaleArithmetic_poissonLocalFactor
+    {q : ℕ} (hq : 1 < q) (a : ℂ) :
+    criticalScaleArithmetic (arithmeticPoissonLocalFactor a hq) =
+      arithmeticPoissonLocalFactor
+        (a * criticalSqrtWeight q) hq := by
+  ext n
+  by_cases hp : ∃ m : ℕ, q ^ m = n
+  · rcases hp with ⟨m, rfl⟩
+    change criticalSqrtWeight (q ^ m) *
+        arithmeticPoissonLocalFactor a hq (q ^ m) =
+      arithmeticPoissonLocalFactor
+        (a * criticalSqrtWeight q) hq (q ^ m)
+    rw [arithmeticPoissonLocalFactor_apply_pow,
+      arithmeticPoissonLocalFactor_apply_pow,
+      criticalSqrtWeight_pow, mul_pow]
+    ring
+  · change criticalSqrtWeight n *
+        arithmeticPoissonLocalFactor a hq n =
+      arithmeticPoissonLocalFactor
+        (a * criticalSqrtWeight q) hq n
+    rw [arithmeticPoissonLocalFactor_apply_eq_zero_of_not_pow hq a hp,
+      arithmeticPoissonLocalFactor_apply_eq_zero_of_not_pow
+        hq (a * criticalSqrtWeight q) hp]
+    ring
+
+/-- Critical rescaling passes through the complete finite Poisson product and
+replaces each owner w_q by the transformed owner w_q/sqrt(q). -/
+theorem criticalScaleArithmetic_poissonProduct
+    (w : ℕ → ℂ) (k : ℕ) :
+    criticalScaleArithmetic (arithmeticPoissonProduct w k) =
+      arithmeticPoissonProduct
+        (fun q => w q * criticalSqrtWeight q) k := by
+  induction k with
+  | zero =>
+      ext n
+      by_cases hn : n = 1
+      · subst n
+        simp [criticalScaleArithmetic, arithmeticPoissonProduct,
+          criticalSqrtWeight]
+      · simp [criticalScaleArithmetic, arithmeticPoissonProduct,
+          criticalSqrtWeight, hn]
+  | succ k ih =>
+      rw [arithmeticPoissonProduct, criticalScaleArithmetic_mul,
+        criticalScaleArithmetic_poissonLocalFactor, ih]
+      rfl
+
 private theorem pow_site_not_eq_of_pos_lt
     {q n : ℕ} (hq : 1 < q) (hnq : n < q)
     (hn1 : n ≠ 1) :
