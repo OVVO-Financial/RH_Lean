@@ -55,6 +55,28 @@ def vfMidSquareWheelSites (R : ℕ) : Finset ℕ :=
 def vfMidSquareWheelPrimes (R : ℕ) : Finset ℕ :=
   (vfMidSquareWheelSites R).filter Nat.Prime
 
+/-- Every interior integer in the R-th square block has the same
+floor-square-root index R. -/
+theorem vfMidSquareWheel_squareRootIndex_eq
+    {R n : ℕ} (hn : n ∈ vfMidSquareWheelSites R) :
+    vfMidSquareRootIndex (n : ℝ) = R := by
+  have hnI := Finset.mem_Ioo.mp hn
+  unfold vfMidSquareRootIndex
+  rw [Real.nat_floor_real_sqrt_eq_nat_sqrt]
+  symm
+  exact (Nat.eq_sqrt').2 ⟨hnI.1.le, hnI.2⟩
+
+/-- The open square carrier has exactly 2R integer sites. -/
+theorem vfMidSquareWheelSites_card (R : ℕ) :
+    (vfMidSquareWheelSites R).card = 2 * R := by
+  unfold vfMidSquareWheelSites
+  rw [Nat.card_Ioo]
+  have hsq : (R + 1) ^ 2 = R ^ 2 + (2 * R + 1) := by
+    ring
+  rw [hsq]
+  omega
+
+
 /-- Common-wheel survivors on the interior square carrier. -/
 def vfMidSquareWheelSurvivors (R : ℕ) : Finset ℕ := by
   classical
@@ -184,6 +206,22 @@ theorem vfMidIntegerBlockPrimeSupply_le_two_mul_add_one
   have hband := vfMidIntegerBlockPrimeSupply_add_primeCounting R
   omega
 
+/-- Using the actual interior carrier, the exact prime/common-wheel supply
+is bounded by the sharper 2R sites. -/
+theorem vfMidIntegerBlockPrimeSupply_le_two_mul
+    (R : ℕ) :
+    vfMidIntegerBlockPrimeSupply R ≤ 2 * R := by
+  unfold vfMidIntegerBlockPrimeSupply
+  rw [vfMidDirectPrimeBand_eq_squareWheelPrimes]
+  have hsub :
+      vfMidSquareWheelPrimes R ⊆ vfMidSquareWheelSites R := by
+    intro n hn
+    exact (Finset.mem_filter.mp hn).1
+  have hcard := Finset.card_le_card hsub
+  rw [vfMidSquareWheelSites_card] at hcard
+  exact hcard
+
+
 /-! ## Integer backlog and demand -/
 
 /-- Signed number of integer VF-mid counts still above the prime staircase at
@@ -312,6 +350,30 @@ theorem vfMidIntegerBlockCaptured_abs_directError_lt_supplyWidth
             (2 * R + 1 : ℕ) := by
         exact_mod_cast hsupply
       exact hcap'.2.trans hsupplyZ
+    exact_mod_cast h1
+  rw [abs_lt] at hclose ⊢
+  constructor <;> linarith
+
+/-- Sharper capture consequence using the exact 2R interior survivor supply:
+the real VF-mid endpoint discrepancy is less than one interior block width plus
+the sub-unit floor error. -/
+theorem vfMidIntegerBlockCaptured_abs_directError_lt_two_mul_add_one
+    (R : ℕ) (hcap : VFMidIntegerBlockCaptured R) :
+    |vfMidDirectSquareEndpointError R| < 2 * (R : ℝ) + 1 := by
+  have hcap' :=
+    (vfMidIntegerBlockCaptured_iff_backlog_le_supply R).1 hcap
+  have hclose := abs_vfMidIntegerBlockBacklog_add_directError_lt_one R
+  have hsupply := vfMidIntegerBlockPrimeSupply_le_two_mul R
+  have hB0 : (0 : ℝ) ≤ (vfMidIntegerBlockBacklog R : ℝ) := by
+    exact_mod_cast hcap'.1
+  have hBle :
+      (vfMidIntegerBlockBacklog R : ℝ) ≤ 2 * (R : ℝ) := by
+    have hsupplyZ :
+        (vfMidIntegerBlockPrimeSupply R : ℤ) ≤ (2 * R : ℕ) := by
+      exact_mod_cast hsupply
+    have h1 :
+        vfMidIntegerBlockBacklog R ≤ (2 * R : ℕ) :=
+      hcap'.2.trans hsupplyZ
     exact_mod_cast h1
   rw [abs_lt] at hclose ⊢
   constructor <;> linarith
