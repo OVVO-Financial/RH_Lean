@@ -1480,9 +1480,11 @@ theorem arithmeticCoefficientCumulative_sub
 hard-core uses below have `q ≥ 1`. -/
 def arithmeticSiteAtom (q : ℕ) (a : ℂ) : ArithmeticFunction ℂ :=
   ⟨fun n => if n = q ∧ q ≠ 0 then a else 0, by
-    by_cases h : (0 : ℕ) = q ∧ q ≠ 0
-    · exact (h.2 h.1.symm).elim
-    · rw [if_neg h]⟩
+    change (if (0 : ℕ) = q ∧ q ≠ 0 then a else 0) = 0
+    have hfalse : ¬((0 : ℕ) = q ∧ q ≠ 0) := by
+      rintro ⟨h0q, hq0⟩
+      exact hq0 h0q.symm
+    rw [if_neg hfalse]⟩
 
 @[simp] theorem arithmeticSiteAtom_apply_of_pos
     {q : ℕ} (hq : 1 ≤ q) (a : ℂ) (n : ℕ) :
