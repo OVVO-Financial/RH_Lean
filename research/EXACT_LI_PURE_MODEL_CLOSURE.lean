@@ -125,6 +125,56 @@ theorem abs_weightedDegreeOneLowerMass_sub_le_transport
           simpa [sub_sub_sub_cancel_right] using h
 
 
+
+/-! ## One-sided degree-one conservatism -/
+
+/-- Moving a support point to the right can only reduce its lower partial
+mass.  This is the pointwise order statement behind the continuous-vs-discrete
+degree-one comparison. -/
+theorem negativePart_antitone {a b : ℝ} (hab : a ≤ b) :
+    negativePart b ≤ negativePart a := by
+  unfold negativePart
+  exact max_le_max (neg_le_neg hab) le_rfl
+
+/-- **Degree-zero/CDF support dominance.**
+For common nonnegative weights, moving every support point to the right can
+only decrease the lower cumulative mass. -/
+theorem degreeZeroLowerMass_anti_support
+    {ι : Type*} [DecidableEq ι]
+    (s : Finset ι) (w x y : ι → ℝ) (t : ℝ)
+    (hw : ∀ i ∈ s, 0 ≤ w i)
+    (hxy : ∀ i ∈ s, x i ≤ y i) :
+    degreeZeroLowerMass s w y t ≤ degreeZeroLowerMass s w x t := by
+  unfold degreeZeroLowerMass
+  apply Finset.sum_le_sum
+  intro i hi
+  by_cases hy : y i ≤ t
+  · have hx : x i ≤ t := (hxy i hi).trans hy
+    simp [hy, hx]
+  · by_cases hx : x i ≤ t
+    · simp [hy, hx, hw i hi]
+    · simp [hy, hx]
+
+/-- **Degree-one continuous-conservative support dominance.**
+For common nonnegative weights, moving every support point to the right can
+only decrease the lower degree-one partial mass.  Equivalently, a left-shifted
+continuous allocation is conservative relative to its right-endpoint discrete
+allocation in LPM_1. -/
+theorem weightedDegreeOneLowerMass_anti_support
+    {ι : Type*} [DecidableEq ι]
+    (s : Finset ι) (w x y : ι → ℝ) (t : ℝ)
+    (hw : ∀ i ∈ s, 0 ≤ w i)
+    (hxy : ∀ i ∈ s, x i ≤ y i) :
+    weightedDegreeOneLowerMass s w y t ≤
+      weightedDegreeOneLowerMass s w x t := by
+  unfold weightedDegreeOneLowerMass
+  apply Finset.sum_le_sum
+  intro i hi
+  apply mul_le_mul_of_nonneg_left _ (hw i hi)
+  apply negativePart_antitone
+  exact sub_le_sub_right (hxy i hi) t
+
+
 /-! ## Zero-target partial-moment error control -/
 
 /-- Degree-one total partial-moment mass about target zero.
