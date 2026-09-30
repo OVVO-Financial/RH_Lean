@@ -3,6 +3,7 @@ import «research.VF_MID_DIRECT_SIGNED_DYNAMICS»
 import RHLean.Analysis.NativePNTTransfer
 import RHLean.Analysis.NativePNTNormalizedSignedRecurrence
 import RHLean.Analysis.NativePNTSignedSecondSelberg
+import RHLean.Analysis.NativePNTSignedSecondSelbergFactorFourBridge
 
 /-!
 # Direct weighted Selberg attack on the VF-mid endpoint discrepancy
@@ -104,6 +105,22 @@ theorem vfMidDirectPsiWeightedPrefix_eq_theta_add_primePower (R : ℕ) :
   rw [vfMidDirectPsiBandError_eq_theta_add_primePower]
   ring
 
+/-- Exact direct VF-mid endpoint decomposition in psi coordinates.
+
+This is not a new route: it is the #824 endpoint identity with the exact
+theta-to-psi transfer substituted in place. -/
+theorem vfMidDirectSquareEndpointError_eq_base_add_psi_sub_primePower_add_position
+    (R : ℕ) (hR : 2 ≤ R) :
+    vfMidDirectSquareEndpointError R =
+      vfMidDirectSquareEndpointError 2 +
+        vfMidDirectPsiWeightedPrefix R -
+        vfMidDirectPrimePowerWeightedPrefix R +
+        vfMidDirectLogPositionPrefix R := by
+  have hD :=
+    vfMidDirectSquareEndpointError_eq_base_add_theta_add_position R hR
+  have hpsi := vfMidDirectPsiWeightedPrefix_eq_theta_add_primePower R
+  linarith
+
 /-- The square-endpoint psi error is literally the repository's native PNT
 error at the square endpoint. -/
 theorem vfMidDirectPsiEndpointError_eq_nativePNTError (R : ℕ) :
@@ -134,6 +151,23 @@ theorem vfMidDirectPsiSquare_normalizedSignedSelberg
   exact nativePNTNormalized_signed_first_recurrence_average_abs_le
     (R ^ 2) (by nlinarith)
 
+/-- The total normalized first-Selberg feedback mass is already almost the
+full endpoint logarithm.  At N = R^2 it differs from
+log N - 1 + 1/N by at most log N / N.
+
+Consequently, dividing the recurrence by log N cannot produce a uniform
+mass-based contraction coefficient c < 1: the available coefficient tends
+to one with the scale. -/
+theorem vfMidDirectPsiSquare_normalizedWeightMass_near_full
+    (R : ℕ) (hR : 1 ≤ R) :
+    |(∑ d ∈ Finset.Icc 1 (R ^ 2),
+        nativePNTNormalizedFloorWeight (R ^ 2) d) -
+        (Real.log (((R ^ 2 : ℕ) : ℝ)) - 1 +
+          1 / (((R ^ 2 : ℕ) : ℝ)))| ≤
+      Real.log (((R ^ 2 : ℕ) : ℝ)) / (((R ^ 2 : ℕ) : ℝ)) := by
+  exact nativePNTNormalizedFloorWeight_sum_sub_main_abs_le
+    (R ^ 2) (by nlinarith)
+
 /-- Signed second-Selberg identity specialized to square endpoints.  This is
 recorded here so the direct weighted attack can test whether the second kernel
 gives genuine strict contraction instead of merely another equivalent
@@ -147,5 +181,19 @@ theorem vfMidDirectPsiSquare_signedSecondSelberg (R : ℕ) :
         nativePNTSignedSecondSelbergKernelErrorMass (R ^ 2) -
         nativePNTLambdaFloorLogSignedDefectMass (R ^ 2) := by
   exact nativePNTError_mul_log_sq_eq_signedSecondSelberg (R ^ 2)
+
+/-- The true signed K2 summatory mode tracks the same square-endpoint psi error
+with a log weight, up to a merely linear-in-N remainder.  Thus the existing
+second-Selberg kernel does not by itself supply an independent strict
+contraction of the coherent endpoint error. -/
+theorem vfMidDirectPsiSquare_signedK2_tracks_endpoint
+    (R : ℕ) (hR : 2 ≤ R) :
+    |nativePNTSignedK2Summatory (R ^ 2) +
+        2 * vfMidDirectPsiEndpointError R *
+          Real.log (((R ^ 2 : ℕ) : ℝ))| ≤
+      (4 * (Real.log 4 + 2) + 172) * (((R ^ 2 : ℕ) : ℝ)) := by
+  rw [vfMidDirectPsiEndpointError_eq_nativePNTError]
+  exact nativePNTSignedK2Summatory_add_two_error_log_abs_le
+    (R ^ 2) (by nlinarith)
 
 end RHLean.Analysis
