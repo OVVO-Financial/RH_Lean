@@ -144,6 +144,9 @@ jobs:
           #print axioms RHLean.Analysis.riemannHypothesis_of_vfMidSquareEndpoint
           #print axioms RHLean.Analysis.two_log_four_le_sqrt_mul_log
           #print axioms RHLean.Analysis.primeLiVonKochBounded_of_vfMid
+          #print axioms RHLean.Analysis.vfMidVonKochBounded_of_primeLi
+          #print axioms RHLean.Analysis.vfMidVonKochBounded_iff_primeLiVonKochBounded
+          #print axioms RHLean.Analysis.vfMidSquareEndpointVonKochBounded_iff_primeLiVonKochBounded
           #print axioms RHLean.Analysis.riemannHypothesis_of_vfMidVonKoch
           LEAN
           set -o pipefail
@@ -153,7 +156,7 @@ jobs:
           from pathlib import Path
           s = Path('prime-flip-pnt-axioms.log').read_text()
           records = re.findall(r"depends on axioms:\s*\[([^\]]*)\]", s, re.S)
-          assert len(records) == 48, records
+          assert len(records) == 51, records
           allowed = {'propext', 'Classical.choice', 'Quot.sound'}
           for record in records:
               actual = {a.strip() for a in record.split(',') if a.strip()}
