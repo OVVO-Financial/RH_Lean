@@ -3109,7 +3109,8 @@ theorem arithmeticPoissonProduct_cumulative_succ_eq_linear_add_tail
     simp [hX1]
   have h1E : 1 ∈ E := by
     dsimp [E, liCorrectionExponentSet]
-    simp [hqX]
+    exact Finset.mem_filter.mpr
+      ⟨Finset.mem_range.mpr (by omega), by simpa using hqX⟩
   have hsplit : E = insert 0 (insert 1 H) := by
     ext m
     constructor
