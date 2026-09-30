@@ -252,11 +252,11 @@ theorem abs_vfMidDirect_logMidpoint_sub_log_prime_le
       |(p : ℝ) - vfMidBandMidpoint R| ≤ 3 * (R : ℝ) := by
     rw [abs_le]
     constructor
-    · have hmLow := hmTile.1
-      have hpUp := hpTile.2
-      nlinarith
     · have hpLo := hpTile.1
       have hmUp := hmTile.2
+      nlinarith
+    · have hmLow := hmTile.1
+      have hpUp := hpTile.2
       nlinarith
   have hlogdiff :
       |Real.log (p : ℝ) - Real.log (vfMidBandMidpoint R)| ≤
@@ -272,8 +272,7 @@ theorem abs_vfMidDirect_logMidpoint_sub_log_prime_le
       apply mul_le_mul_of_nonneg_left hdist
       positivity
     _ = 3 / (R : ℝ) := by
-      field_simp [hR0.ne']
-      ring
+      field_simp [hR0.ne'] <;> ring
 
 /-- One prime's normalized log-position correction is O(1/(R log 4)). -/
 theorem abs_vfMidDirect_primeLogPositionTerm_le
@@ -300,8 +299,7 @@ theorem abs_vfMidDirect_primeLogPositionTerm_le
       1 - Real.log (p : ℝ) / Real.log (vfMidBandMidpoint R) =
         (Real.log (vfMidBandMidpoint R) - Real.log (p : ℝ)) /
           Real.log (vfMidBandMidpoint R) := by
-    field_simp [hlogMid.ne']
-    ring
+    field_simp [hlogMid.ne'] <;> ring
   rw [hfrac, abs_div, abs_of_pos hlogMid]
   calc
     |Real.log (vfMidBandMidpoint R) - Real.log (p : ℝ)| /
@@ -311,8 +309,7 @@ theorem abs_vfMidDirect_primeLogPositionTerm_le
     _ ≤ (3 / (R : ℝ)) / Real.log 4 :=
       div_le_div_of_nonneg_left hnum0 hlog4 hlogLower
     _ = 3 / ((R : ℝ) * Real.log 4) := by
-      field_simp [hR0.ne', hlog4.ne']
-      ring
+      field_simp [hR0.ne', hlog4.ne'] <;> ring
 
 /-- The direct prime population in one square band has the elementary linear
 budget at most 3R. No prime-distribution estimate is used. -/
@@ -378,8 +375,7 @@ theorem abs_vfMidDirectLogPositionError_le
         exact_mod_cast (lt_of_lt_of_le (by norm_num : 0 < 2) hR)
       have hlog4 : Real.log 4 ≠ 0 :=
         (Real.log_pos (by norm_num)).ne'
-      field_simp [hR0.ne', hlog4]
-      ring
+      field_simp [hR0.ne', hlog4] <;> ring
 
 /-- Cumulative within-band location correction through the square endpoint R. -/
 def vfMidDirectLogPositionPrefix (R : ℕ) : ℝ :=
