@@ -118,6 +118,16 @@ jobs:
           #print axioms RHLean.Analysis.allScaleLiState_squareRoot_assembled_norm_sq_eq_diagonal
           #print axioms RHLean.Analysis.degreeZeroLowerMass_add_upperMass
           #print axioms RHLean.Analysis.allScaleLiSquareRootBounded_of_uniformReference_linearTransfer
+          #print axioms RHLean.Analysis.complexArithmeticLogWeight_poissonLocalFactor
+          #print axioms RHLean.Analysis.complexArithmeticLogWeight_poissonProduct
+          #print axioms RHLean.Analysis.arithmeticPoissonProduct_logarithmic_renewal
+          #print axioms RHLean.Analysis.exactLiCriticalPoissonIntegerReference_logarithmic_renewal
+          #print axioms RHLean.Analysis.exactLiLogKernelDefect_nonneg
+          #print axioms RHLean.Analysis.exactLiLogKernelDefect_le
+          #print axioms RHLean.Analysis.exactLiCriticalLogKernelDefect_summable
+          #print axioms RHLean.Analysis.exactLiCriticalLogKernel_eq_unit_add_defect
+          #print axioms RHLean.Analysis.norm_exactLiCriticalLogKernelDefect_children_le
+          #print axioms RHLean.Analysis.allScaleLiSquareRootBounded_of_criticalPoisson_uniform
           LEAN
           set -o pipefail
           lake env lean -DwarningAsError=true /tmp/PrimeFlipPNTAxioms.lean 2>&1 | tee prime-flip-pnt-axioms.log
@@ -126,7 +136,7 @@ jobs:
           from pathlib import Path
           s = Path('prime-flip-pnt-axioms.log').read_text()
           records = re.findall(r"depends on axioms:\s*\[([^\]]*)\]", s, re.S)
-          assert len(records) == 25, records
+          assert len(records) == 35, records
           allowed = {'propext', 'Classical.choice', 'Quot.sound'}
           for record in records:
               actual = {a.strip() for a in record.split(',') if a.strip()}

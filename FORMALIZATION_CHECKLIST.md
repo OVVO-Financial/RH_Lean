@@ -701,3 +701,12 @@ the transfer alone. Prior obstructions, exports, and declarations remain.
 - [ ] Warning-fatal compiler pass for `research/LI_MODEL_DISCRETIZATION.lean`.
 - [ ] Named theorem axiom audit reports only the repository-allowed logical axioms.
 - [ ] No root-scale bound for `F_R` is claimed; it carries the actual prime-count discrepancy.
+
+## Pure-Li signed Poisson logarithmic renewal (2026-09-30; PR #817)
+
+- [x] Formalize the signed logarithmic renewal on the complete Poisson product.
+- [x] Formalize the pointwise and summable critical generator defect bounds.
+- [x] Extend the warning-fatal workflow to audit all ten new named declarations.
+- [ ] Prove the uniform critical Poisson bound and discharge the conditional consumer.
+
+Final warning-fatal and axiom-audit results are tracked on PR #817 for its exact head.

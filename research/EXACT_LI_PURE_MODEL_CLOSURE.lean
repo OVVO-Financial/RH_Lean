@@ -5595,4 +5595,389 @@ theorem allScaleLiState_sub_reference_eq_propagated_sub_residual
         primeFrequencyReferenceResidual primeSievePNTDensity C x y :=
   primeFrequencyState_sub_reference_eq_propagated_sub_residual hL x y
 
+/-! ## Signed logarithmic renewal for the complete Poisson product -/
+
+/-- Multiplication of an arithmetic coefficient by the real logarithm of its
+site. This is a derivation for Dirichlet convolution. -/
+def complexArithmeticLogWeight (f : ArithmeticFunction ℂ) : ArithmeticFunction ℂ :=
+  ⟨fun n => (Real.log (n : ℝ) : ℂ) * f n, by simp⟩
+
+@[simp] theorem complexArithmeticLogWeight_one :
+    complexArithmeticLogWeight 1 = 0 := by
+  ext n
+  by_cases hn : n = 1
+  · subst n
+    simp [complexArithmeticLogWeight]
+  · simp [complexArithmeticLogWeight, ArithmeticFunction.one_apply, hn]
+
+/-- The exact logarithmic Leibniz rule; both signed channels are retained. -/
+theorem complexArithmeticLogWeight_mul (f g : ArithmeticFunction ℂ) :
+    complexArithmeticLogWeight (f * g) =
+      complexArithmeticLogWeight f * g + f * complexArithmeticLogWeight g := by
+  ext n
+  change (Real.log (n : ℝ) : ℂ) * (f * g) n = _
+  simp only [ArithmeticFunction.mul_apply, ArithmeticFunction.add_apply]
+  rw [Finset.mul_sum, ← Finset.sum_add_distrib]
+  apply Finset.sum_congr rfl
+  intro p hp
+  obtain ⟨hprod, hn⟩ := Nat.mem_divisorsAntidiagonal.mp hp
+  have hleft : p.1 ≠ 0 := by
+    intro h
+    simp [h] at hprod
+    exact hn hprod.symm
+  have hright : p.2 ≠ 0 := by
+    intro h
+    simp [h] at hprod
+    exact hn hprod.symm
+  have hlog : Real.log (n : ℝ) =
+      Real.log (p.1 : ℝ) + Real.log (p.2 : ℝ) := by
+    rw [← hprod, Nat.cast_mul, Real.log_mul
+      (by exact_mod_cast hleft) (by exact_mod_cast hright)]
+  change (Real.log (n : ℝ) : ℂ) * (f p.1 * g p.2) =
+    ((Real.log (p.1 : ℝ) : ℂ) * f p.1) * g p.2 +
+      f p.1 * ((Real.log (p.2 : ℝ) : ℂ) * g p.2)
+  rw [hlog, Complex.ofReal_add]
+  ring
+
+/-- Logarithmic differentiation of a complete one-site exponential collapses
+every repeated-site term to a single signed atom times that same exponential. -/
+theorem complexArithmeticLogWeight_poissonLocalFactor
+    {q : ℕ} (hq : 1 < q) (a : ℂ) :
+    complexArithmeticLogWeight (arithmeticPoissonLocalFactor a hq) =
+      arithmeticSiteAtom q (-(Real.log (q : ℝ) : ℂ) * a) *
+        arithmeticPoissonLocalFactor a hq := by
+  rw [arithmeticSiteAtom_eq_liArithmeticOfPowerSeries_C_mul_X hq]
+  change complexArithmeticLogWeight (arithmeticPoissonLocalFactor a hq) =
+    liArithmeticOfPowerSeries hq
+        (PowerSeries.C (-(Real.log (q : ℝ) : ℂ) * a) * PowerSeries.X) *
+      liArithmeticOfPowerSeries hq (poissonExponentialSeries a)
+  rw [← map_mul]
+  ext n
+  change (Real.log (n : ℝ) : ℂ) *
+      arithmeticPoissonLocalFactor a hq n = _
+  by_cases hn : ∃ m : ℕ, q ^ m = n
+  · obtain ⟨m, rfl⟩ := hn
+    rw [arithmeticPoissonLocalFactor_apply_pow,
+      liArithmeticOfPowerSeries_apply_pow hq]
+    cases m with
+    | zero => simp
+    | succ m =>
+        have hlog :
+            (Real.log ((q ^ (m + 1) : ℕ) : ℝ) : ℂ) =
+              (m + 1 : ℂ) * (Real.log (q : ℝ) : ℂ) := by
+          rw [Nat.cast_pow, Real.log_pow]
+          push_cast
+          rfl
+        rw [hlog]
+        simp only [mul_assoc, PowerSeries.coeff_C_mul]
+        have hshift := PowerSeries.coeff_X_pow_mul
+          (poissonExponentialSeries a) 1 m
+        simp only [pow_one] at hshift
+        rw [hshift]
+        have hcoeff : (poissonExponentialSeries a).coeff m =
+            (-a) ^ m / (Nat.factorial m : ℂ) := by
+          have h := arithmeticPoissonLocalFactor_apply_pow hq a m
+          simpa only [arithmeticPoissonLocalFactor,
+            liArithmeticOfPowerSeries_apply_pow] using h
+        rw [hcoeff]
+        rw [Nat.factorial_succ, Nat.cast_mul, Nat.cast_add, Nat.cast_one,
+          pow_succ]
+        have hm : (m + 1 : ℂ) ≠ 0 := by exact_mod_cast Nat.succ_ne_zero m
+        have hf : (Nat.factorial m : ℂ) ≠ 0 := by
+          exact_mod_cast Nat.factorial_ne_zero m
+        field_simp [hm, hf]
+  · rw [arithmeticPoissonLocalFactor_apply_eq_zero_of_not_pow hq a hn,
+      liArithmeticOfPowerSeries_apply hq,
+      Function.extend_apply' _ _ _ hn, Pi.zero_apply, mul_zero]
+
+/-- The signed degree-one logarithmic generator through sites 2,...,k+1. -/
+def arithmeticPoissonLogKernel (w : ℕ → ℂ) : ℕ → ArithmeticFunction ℂ
+  | 0 => 0
+  | k + 1 =>
+      arithmeticSiteAtom (k + 2)
+          (-(Real.log ((k + 2 : ℕ) : ℝ) : ℂ) * w (k + 2)) +
+        arithmeticPoissonLogKernel w k
+
+/-- **Exact global logarithmic renewal.** Repeated-site Poisson collisions
+are absorbed algebraically into the complete child product before any norm.
+The remaining generator contains only degree-one sites. -/
+theorem complexArithmeticLogWeight_poissonProduct (w : ℕ → ℂ) (k : ℕ) :
+    complexArithmeticLogWeight (arithmeticPoissonProduct w k) =
+      arithmeticPoissonLogKernel w k * arithmeticPoissonProduct w k := by
+  induction k with
+  | zero => simp [arithmeticPoissonProduct, arithmeticPoissonLogKernel]
+  | succ k ih =>
+      rw [arithmeticPoissonProduct, complexArithmeticLogWeight_mul,
+        complexArithmeticLogWeight_poissonLocalFactor, ih,
+        arithmeticPoissonLogKernel]
+      ring
+
+private theorem arithmeticCoefficientCumulative_add
+    (f g : ArithmeticFunction ℂ) (X : ℕ) :
+    arithmeticCoefficientCumulative (f + g) X =
+      arithmeticCoefficientCumulative f X + arithmeticCoefficientCumulative g X := by
+  simp [arithmeticCoefficientCumulative, Finset.sum_add_distrib]
+
+theorem arithmeticCoefficientCumulative_poissonLogKernel_mul
+    (w : ℕ → ℂ) (k : ℕ) (f : ArithmeticFunction ℂ) (X : ℕ) :
+    arithmeticCoefficientCumulative (arithmeticPoissonLogKernel w k * f) X =
+      -(∑ j ∈ Finset.range k,
+        (Real.log ((j + 2 : ℕ) : ℝ) : ℂ) * w (j + 2) *
+          arithmeticCoefficientCumulative f (X / (j + 2))) := by
+  induction k with
+  | zero =>
+      simp [arithmeticPoissonLogKernel, arithmeticCoefficientCumulative]
+  | succ k ih =>
+      rw [arithmeticPoissonLogKernel, add_mul,
+        arithmeticCoefficientCumulative_add,
+        arithmeticCoefficientCumulative_siteAtom_mul (by omega), ih,
+        Finset.sum_range_succ]
+      ring
+
+/-- Finite signed renewal on the actual Poisson coefficient carrier, with
+the same cutoff on every child and exact integer floor endpoints. -/
+theorem arithmeticPoissonProduct_logarithmic_renewal
+    (w : ℕ → ℂ) (k X : ℕ) :
+    (∑ n ∈ Finset.Icc 1 X,
+        (Real.log (n : ℝ) : ℂ) * arithmeticPoissonProduct w k n) =
+      -(∑ j ∈ Finset.range k,
+        (Real.log ((j + 2 : ℕ) : ℝ) : ℂ) * w (j + 2) *
+          arithmeticCoefficientCumulative
+            (arithmeticPoissonProduct w k) (X / (j + 2))) := by
+  change arithmeticCoefficientCumulative
+    (complexArithmeticLogWeight (arithmeticPoissonProduct w k)) X = _
+  rw [complexArithmeticLogWeight_poissonProduct,
+    arithmeticCoefficientCumulative_poissonLogKernel_mul]
+
+/-- The critical Poisson child is unchanged when the cutoff is raised above
+its positive endpoint. The artificial value at zero is deliberately excluded. -/
+theorem exactLiCriticalPoissonIntegerReference_eq_child
+    {Y X : ℕ} (hY : 1 ≤ Y) (hYX : Y ≤ X) :
+    exactLiCriticalPoissonIntegerReference Y =
+      arithmeticCoefficientCumulative
+        (arithmeticPoissonProduct criticalLiFrequencyWeight (X - 1)) Y := by
+  simp only [exactLiCriticalPoissonIntegerReference, if_pos hY]
+  exact (arithmeticPoissonProduct_cumulative_stable
+    criticalLiFrequencyWeight hY hYX).symm
+
+/-- The logarithmic renewal specialized to the exact stabilized critical Li
+reference. All children are positive, so the zero-endpoint convention cannot
+introduce an extra unit atom. -/
+theorem exactLiCriticalPoissonIntegerReference_logarithmic_renewal (X : ℕ) :
+    (∑ n ∈ Finset.Icc 1 X,
+        (Real.log (n : ℝ) : ℂ) *
+          (exactLiPoissonCoefficient n / (Real.sqrt (n : ℝ) : ℂ))) =
+      -(∑ j ∈ Finset.range (X - 1),
+        (Real.log ((j + 2 : ℕ) : ℝ) : ℂ) * criticalLiFrequencyWeight (j + 2) *
+          exactLiCriticalPoissonIntegerReference (X / (j + 2))) := by
+  have h := arithmeticPoissonProduct_logarithmic_renewal
+    criticalLiFrequencyWeight (X - 1) X
+  calc
+    _ = ∑ n ∈ Finset.Icc 1 X,
+        (Real.log (n : ℝ) : ℂ) *
+          arithmeticPoissonProduct criticalLiFrequencyWeight (X - 1) n := by
+      apply Finset.sum_congr rfl
+      intro n hn
+      rw [exactLiPoissonCoefficient_div_sqrt_eq_critical_cutoff
+        (Finset.mem_Icc.mp hn).1 (Finset.mem_Icc.mp hn).2]
+    _ = _ := h.trans (by
+      congr 1
+      apply Finset.sum_congr rfl
+      intro j hj
+      have hjX : j + 2 ≤ X := by
+        have := Finset.mem_range.mp hj
+        omega
+      rw [exactLiCriticalPoissonIntegerReference_eq_child
+        ((Nat.one_le_div_iff (by omega : 0 < j + 2)).2 hjX)
+        (Nat.div_le_self X (j + 2))])
+
+/-- The logarithmic Li generator differs from unit integer mass by this
+explicit real unit-bin defect. -/
+def exactLiLogKernelDefect (q : ℕ) : ℝ :=
+  Real.log (q : ℝ) * densityTightLiWeight q - 1
+
+/-- Right-endpoint placement makes the logarithmic generator at least one. -/
+theorem exactLiLogKernelDefect_nonneg {q : ℕ} (hq : 3 ≤ q) :
+    0 ≤ exactLiLogKernelDefect q := by
+  have ha : (2 : ℝ) ≤ ((q - 1 : ℕ) : ℝ) := by
+    exact_mod_cast (show 2 ≤ q - 1 by omega)
+  have hb : (2 : ℝ) ≤ (q : ℝ) := by exact_mod_cast (show 2 ≤ q by omega)
+  have hab : ((q - 1 : ℕ) : ℝ) ≤ (q : ℝ) := by
+    exact_mod_cast Nat.sub_le q 1
+  have hlen : (q : ℝ) - ((q - 1 : ℕ) : ℝ) = 1 := by
+    have h : ((q - 1 : ℕ) : ℝ) + 1 = (q : ℝ) := by
+      exact_mod_cast (show q - 1 + 1 = q by omega)
+    linarith
+  have hl : 0 < Real.log (q : ℝ) := Real.log_pos (by linarith)
+  have hlow : (Real.log (q : ℝ))⁻¹ ≤ densityTightLiWeight q := by
+    rw [densityTightLiWeight_eq_integral hq]
+    have hmono := intervalIntegral.integral_mono_on hab
+      (intervalIntegrable_const : IntervalIntegrable
+        (fun _ : ℝ => (Real.log (q : ℝ))⁻¹) MeasureTheory.volume
+        ((q - 1 : ℕ) : ℝ) (q : ℝ))
+      (exactLi_invLog_intervalIntegrable ha hb) (fun t ht => by
+        have ht2 : (2 : ℝ) ≤ t := ha.trans ht.1
+        have hlt : 0 < Real.log t := Real.log_pos (by linarith)
+        exact (inv_le_inv₀ hl hlt).2
+          (Real.log_le_log (by linarith) ht.2))
+    simpa [intervalIntegral.integral_const, hlen] using hmono
+  have hmul := mul_le_mul_of_nonneg_left hlow hl.le
+  rw [mul_inv_cancel₀ (ne_of_gt hl)] at hmul
+  exact sub_nonneg.mpr hmul
+
+/-- A quantitative degree-one gain after logarithmic differentiation:
+the Li generator defect is O(1/q), with an explicit universal constant. -/
+theorem exactLiLogKernelDefect_le {q : ℕ} (hq : 3 ≤ q) :
+    exactLiLogKernelDefect q ≤
+      (Real.log 2)⁻¹ / ((q - 1 : ℕ) : ℝ) := by
+  let p : ℝ := ((q - 1 : ℕ) : ℝ)
+  have hp2 : (2 : ℝ) ≤ p := by
+    dsimp [p]
+    exact_mod_cast (show 2 ≤ q - 1 by omega)
+  have hp : 0 < p := by linarith
+  have hqp : (q : ℝ) = p + 1 := by
+    dsimp [p]
+    exact_mod_cast (show q = q - 1 + 1 by omega)
+  have hqpos : (0 : ℝ) < q := by linarith
+  have hlp : 0 < Real.log p := Real.log_pos (by linarith)
+  have hw := exactLi_norm_pntDensity_le_inv_log
+    (y := q - 1) (q := q) (by omega) (by omega)
+  rw [norm_primeSievePNTDensity_eq_densityTightLiWeight hq] at hw
+  have hw2 := exactLi_norm_pntDensity_le_inv_log
+    (y := 2) (q := q) (by omega) (by omega)
+  rw [norm_primeSievePNTDensity_eq_densityTightLiWeight hq] at hw2
+  have hwp : Real.log p * densityTightLiWeight q ≤ 1 := by
+    have h := mul_le_mul_of_nonneg_left hw hlp.le
+    simpa [p, mul_inv_cancel₀ (ne_of_gt hlp)] using h
+  have hlog : Real.log (q : ℝ) - Real.log p ≤ 1 / p := by
+    have h := Real.log_le_sub_one_of_pos (div_pos hqpos hp)
+    rw [Real.log_div (ne_of_gt hqpos) (ne_of_gt hp)] at h
+    have hdiv : (q : ℝ) / p - 1 = 1 / p := by
+      rw [hqp]
+      field_simp
+      ring
+    rwa [hdiv] at h
+  calc
+    exactLiLogKernelDefect q ≤
+        (Real.log (q : ℝ) - Real.log p) * densityTightLiWeight q := by
+      unfold exactLiLogKernelDefect
+      nlinarith
+    _ ≤ (1 / p) * densityTightLiWeight q :=
+      mul_le_mul_of_nonneg_right hlog (densityTightLiWeight_nonneg hq)
+    _ ≤ (1 / p) * (Real.log 2)⁻¹ :=
+      mul_le_mul_of_nonneg_left hw2 (by positivity)
+    _ = _ := by dsimp [p]; ring
+
+/-- The error in the degree-one logarithmic generator has a finite total
+critical budget. This controls the Li-density part of the perturbation, while
+retaining the signed unit-kernel renewal as the remaining stability problem. -/
+theorem exactLiCriticalLogKernelDefect_summable :
+    Summable (fun n : ℕ => exactLiLogKernelDefect (n + 3) /
+      Real.sqrt ((n + 3 : ℕ) : ℝ)) := by
+  let C : ℝ := (Real.log 2)⁻¹
+  have hC : 0 ≤ C := inv_nonneg.mpr (Real.log_nonneg (by norm_num))
+  have hpseries : Summable (fun n : ℕ => 1 / (n : ℝ) ^ (3 / 2 : ℝ)) :=
+    Real.summable_one_div_nat_rpow.mpr (by norm_num)
+  have hshift : Summable (fun n : ℕ =>
+      1 / ((n + 3 : ℕ) : ℝ) ^ (3 / 2 : ℝ)) :=
+    (summable_nat_add_iff 3 (G := ℝ)).2 hpseries
+  have hmajor := hshift.mul_left (2 * C)
+  apply Summable.of_nonneg_of_le
+    (fun n => div_nonneg (exactLiLogKernelDefect_nonneg (by omega))
+      (Real.sqrt_nonneg _)) ?_ hmajor
+  intro n
+  let q : ℕ := n + 3
+  have hq : 3 ≤ q := by dsimp [q]; omega
+  have hqpos : (0 : ℝ) < q := by exact_mod_cast (show 0 < q by omega)
+  have hppos : (0 : ℝ) < ((q - 1 : ℕ) : ℝ) := by
+    exact_mod_cast (show 0 < q - 1 by omega)
+  have hqle : (q : ℝ) ≤ 2 * ((q - 1 : ℕ) : ℝ) := by
+    exact_mod_cast (show q ≤ 2 * (q - 1) by omega)
+  have hdef : exactLiLogKernelDefect q ≤ 2 * C / (q : ℝ) := by
+    calc
+      exactLiLogKernelDefect q ≤ C / ((q - 1 : ℕ) : ℝ) :=
+        exactLiLogKernelDefect_le hq
+      _ ≤ 2 * C / (q : ℝ) := by
+        apply (div_le_div_iff₀ hppos hqpos).2
+        nlinarith [mul_le_mul_of_nonneg_left hqle hC]
+  have hrpow : (q : ℝ) ^ (3 / 2 : ℝ) = (q : ℝ) * Real.sqrt (q : ℝ) := by
+    rw [show (3 / 2 : ℝ) = 1 + 1 / 2 by norm_num,
+      Real.rpow_add hqpos, Real.rpow_one, ← Real.sqrt_eq_rpow]
+  calc
+    exactLiLogKernelDefect (n + 3) / Real.sqrt ((n + 3 : ℕ) : ℝ) ≤
+        (2 * C / (q : ℝ)) / Real.sqrt (q : ℝ) :=
+      div_le_div_of_nonneg_right hdef (Real.sqrt_nonneg _)
+    _ = 2 * C * (1 / ((n + 3 : ℕ) : ℝ) ^ (3 / 2 : ℝ)) := by
+      change (2 * C / (q : ℝ)) / Real.sqrt (q : ℝ) =
+        2 * C * (1 / (q : ℝ) ^ (3 / 2 : ℝ))
+      rw [hrpow]
+      ring
+
+/-- Exact split of the transformed logarithmic generator into unit integer
+mass and the critically weighted Li bin defect. -/
+theorem exactLiCriticalLogKernel_eq_unit_add_defect (q : ℕ) :
+    (Real.log (q : ℝ) : ℂ) * criticalLiFrequencyWeight q =
+      criticalSqrtWeight q +
+        (exactLiLogKernelDefect q : ℂ) * criticalSqrtWeight q := by
+  unfold criticalLiFrequencyWeight exactLiLogKernelDefect
+    primeSievePNTDensity densityTightLiWeight
+  push_cast
+  ring
+
+/-- The finite defect operator acts on the actual floor-quotient children
+with a uniform norm budget. The hypothesis bounds those children explicitly;
+this theorem does not assume or claim that the Poisson reference is bounded. -/
+theorem norm_exactLiCriticalLogKernelDefect_children_le
+    (s : Finset ℕ) (A : ℕ → ℂ) (X : ℕ) (B : ℝ) (hB : 0 ≤ B)
+    (hA : ∀ n ∈ s, ‖A (X / (n + 3))‖ ≤ B) :
+    ‖∑ n ∈ s,
+        ((exactLiLogKernelDefect (n + 3) : ℂ) /
+          (Real.sqrt ((n + 3 : ℕ) : ℝ) : ℂ)) * A (X / (n + 3))‖ ≤
+      B * ∑' n : ℕ, exactLiLogKernelDefect (n + 3) /
+        Real.sqrt ((n + 3 : ℕ) : ℝ) := by
+  have hnonneg : ∀ n : ℕ, 0 ≤ exactLiLogKernelDefect (n + 3) /
+      Real.sqrt ((n + 3 : ℕ) : ℝ) := fun n =>
+    div_nonneg (exactLiLogKernelDefect_nonneg (by omega)) (Real.sqrt_nonneg _)
+  calc
+    _ ≤ ∑ n ∈ s,
+        ‖((exactLiLogKernelDefect (n + 3) : ℂ) /
+          (Real.sqrt ((n + 3 : ℕ) : ℝ) : ℂ)) * A (X / (n + 3))‖ :=
+      norm_sum_le _ _
+    _ ≤ ∑ n ∈ s, B * (exactLiLogKernelDefect (n + 3) /
+        Real.sqrt ((n + 3 : ℕ) : ℝ)) := by
+      apply Finset.sum_le_sum
+      intro n hn
+      rw [norm_mul, norm_div, Complex.norm_real, Complex.norm_real,
+        Real.norm_eq_abs, Real.norm_eq_abs,
+        abs_of_nonneg (exactLiLogKernelDefect_nonneg (by omega)),
+        abs_of_nonneg (Real.sqrt_nonneg _)]
+      simpa [mul_comm] using
+        mul_le_mul_of_nonneg_left (hA n hn) (hnonneg n)
+    _ = B * ∑ n ∈ s, exactLiLogKernelDefect (n + 3) /
+        Real.sqrt ((n + 3 : ℕ) : ℝ) := by rw [Finset.mul_sum]
+    _ ≤ _ := mul_le_mul_of_nonneg_left
+      (exactLiCriticalLogKernelDefect_summable.sum_le_tsum s
+        (fun n _ => hnonneg n)) hB
+
+/-- Explicit final consumer for the remaining uniform critical Poisson
+estimate. The unproved estimate is an argument, never an unconditional claim. -/
+theorem allScaleLiSquareRootBounded_of_criticalPoisson_uniform
+    (hP : UniformReferenceDiagonalBounded exactLiCriticalPoissonIntegerReference) :
+    AllScaleLiSquareRootBoundedStatement := by
+  apply allScaleLiSquareRootBounded_of_sqrtReference_convolution
+    exactLiCorrectionKernel exactLiPoissonIntegerReference
+  · apply squareRootReferenceBounded_of_sampledCriticalPrefixBounded
+    rcases hP with ⟨B, hB, hbound⟩
+    refine ⟨B + 1, by positivity, ?_⟩
+    intro N
+    rw [sampledCriticalPrefix_exactLiPoissonIntegerReference_eq_critical]
+    calc
+      ‖exactLiCriticalPoissonIntegerReference N - 1‖ ≤
+          ‖exactLiCriticalPoissonIntegerReference N‖ + ‖(1 : ℂ)‖ :=
+        norm_sub_le _ _
+      _ ≤ B + 1 := by simpa using add_le_add_right (hbound N) 1
+  · exact exactLiCorrectionKernel_uniformVariation
+  · intro L X hX hL
+    exact allScaleLiState_diagonal_eq_poissonConvolution hX hL
+
 end RHLean.Analysis
