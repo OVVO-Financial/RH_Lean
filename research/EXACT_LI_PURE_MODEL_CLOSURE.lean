@@ -2745,6 +2745,169 @@ private theorem
       w hnm1 (by omega : n - 1 ≤ n)]
 
 
+
+/-- Absolute coefficient of the genuinely quadratic-and-higher part of one
+Poisson exponential, indexed from degree two. -/
+def poissonQuadraticTailTerm (a : ℝ) (m : ℕ) : ℝ :=
+  a ^ (m + 2) / (Nat.factorial (m + 2) : ℝ)
+
+theorem poissonQuadraticTailTerm_nonneg
+    {a : ℝ} (ha : 0 ≤ a) (m : ℕ) :
+    0 ≤ poissonQuadraticTailTerm a m := by
+  unfold poissonQuadraticTailTerm
+  positivity
+
+/-- The pure Poisson degree-two tail is pointwise dominated by the already
+certified hard-core/Poisson correction tail. -/
+theorem poissonQuadraticTailTerm_le_hardCorePoissonCorrectionTailTerm
+    {a : ℝ} (ha : 0 ≤ a) (m : ℕ) :
+    poissonQuadraticTailTerm a m ≤
+      hardCorePoissonCorrectionTailTerm a m := by
+  unfold poissonQuadraticTailTerm hardCorePoissonCorrectionTailTerm
+  have hbase :
+      0 ≤ a ^ (m + 2) / (Nat.factorial (m + 2) : ℝ) := by
+    positivity
+  have hm : (1 : ℝ) ≤ ((m + 1 : ℕ) : ℝ) := by
+    exact_mod_cast (show 1 ≤ m + 1 by omega)
+  calc
+    a ^ (m + 2) / (Nat.factorial (m + 2) : ℝ) =
+        1 * (a ^ (m + 2) / (Nat.factorial (m + 2) : ℝ)) := by ring
+    _ ≤ ((m + 1 : ℕ) : ℝ) *
+        (a ^ (m + 2) / (Nat.factorial (m + 2) : ℝ)) :=
+      mul_le_mul_of_nonneg_right hm hbase
+    _ = ((m + 1 : ℕ) : ℝ) * a ^ (m + 2) /
+        (Nat.factorial (m + 2) : ℝ) := by ring
+
+theorem poissonQuadraticTailTerm_summable
+    {a : ℝ} (ha0 : 0 ≤ a) (ha1 : a ≤ 1) :
+    Summable (poissonQuadraticTailTerm a) := by
+  exact Summable.of_nonneg_of_le
+    (fun m => poissonQuadraticTailTerm_nonneg ha0 m)
+    (fun m => poissonQuadraticTailTerm_le_hardCorePoissonCorrectionTailTerm
+      ha0 m)
+    (hardCorePoissonCorrectionTailTerm_summable ha0 ha1)
+
+/-- The complete absolute Poisson tail beyond degrees zero and one is
+quadratic in the local owner mass.  The constant is deliberately inherited
+from the already-green correction-tail estimate. -/
+theorem tsum_poissonQuadraticTailTerm_le_three_sq
+    {a : ℝ} (ha0 : 0 ≤ a) (ha1 : a ≤ 1) :
+    (∑' m : ℕ, poissonQuadraticTailTerm a m) ≤ 3 * a ^ 2 := by
+  have hs := poissonQuadraticTailTerm_summable ha0 ha1
+  have hc := hardCorePoissonCorrectionTailTerm_summable ha0 ha1
+  calc
+    (∑' m : ℕ, poissonQuadraticTailTerm a m)
+        ≤ ∑' m : ℕ, hardCorePoissonCorrectionTailTerm a m := by
+          exact Summable.tsum_le_tsum
+            (fun m =>
+              poissonQuadraticTailTerm_le_hardCorePoissonCorrectionTailTerm
+                ha0 m)
+            hs hc
+    _ ≤ 3 * a ^ 2 :=
+      tsum_hardCorePoissonCorrectionTailTerm_le_three_sq ha0 ha1
+
+/-- Complex norm form of one Poisson coefficient in degree m+2. -/
+theorem norm_poissonCoeff_add_two_eq_quadraticTail
+    (z : ℂ) (m : ℕ) :
+    ‖(-z) ^ (m + 2) / (Nat.factorial (m + 2) : ℂ)‖ =
+      poissonQuadraticTailTerm ‖z‖ m := by
+  unfold poissonQuadraticTailTerm
+  rw [norm_div, norm_pow, norm_neg, Complex.norm_natCast]
+
+/-- On the unit ball, the full complex Poisson tail from degree two onward
+has absolute mass at most three times the squared owner norm. -/
+theorem tsum_norm_poissonCoeff_add_two_le_three_sq
+    {z : ℂ} (hz : ‖z‖ ≤ 1) :
+    (∑' m : ℕ,
+        ‖(-z) ^ (m + 2) / (Nat.factorial (m + 2) : ℂ)‖) ≤
+      3 * ‖z‖ ^ 2 := by
+  have h0 : 0 ≤ ‖z‖ := norm_nonneg z
+  calc
+    (∑' m : ℕ,
+        ‖(-z) ^ (m + 2) / (Nat.factorial (m + 2) : ℂ)‖) =
+      ∑' m : ℕ, poissonQuadraticTailTerm ‖z‖ m := by
+        apply tsum_congr
+        intro m
+        exact norm_poissonCoeff_add_two_eq_quadraticTail z m
+    _ ≤ 3 * ‖z‖ ^ 2 :=
+      tsum_poissonQuadraticTailTerm_le_three_sq h0 hz
+
+/-- After the critical square-root rescaling at site q, the complete
+quadratic Poisson tail is paid by exactly the local collision currency
+‖w_q‖²/q, up to the universal factor three. -/
+theorem tsum_norm_poissonCoeff_critical_add_two_le_collision
+    {q : ℕ} (hq : 1 ≤ q) (a : ℂ)
+    (hz : ‖a * criticalSqrtWeight q‖ ≤ 1) :
+    (∑' m : ℕ,
+        ‖(-a) ^ (m + 2) / (Nat.factorial (m + 2) : ℂ)‖ /
+          Real.sqrt ((q ^ (m + 2) : ℕ) : ℝ)) ≤
+      3 * (‖a‖ ^ 2 / (q : ℝ)) := by
+  have hterm :
+      ∀ m : ℕ,
+        ‖(-a) ^ (m + 2) / (Nat.factorial (m + 2) : ℂ)‖ /
+            Real.sqrt ((q ^ (m + 2) : ℕ) : ℝ) =
+          ‖(-(a * criticalSqrtWeight q)) ^ (m + 2) /
+            (Nat.factorial (m + 2) : ℂ)‖ := by
+    intro m
+    have hqpow : 1 ≤ q ^ (m + 2) :=
+      Nat.one_le_pow (m + 2) q hq
+    have hweight :
+        (Real.sqrt ((q ^ (m + 2) : ℕ) : ℝ))⁻¹ =
+          ‖criticalSqrtWeight q‖ ^ (m + 2) := by
+      calc
+        (Real.sqrt ((q ^ (m + 2) : ℕ) : ℝ))⁻¹ =
+            ‖criticalSqrtWeight (q ^ (m + 2))‖ := by
+              symm
+              simpa [one_div] using
+                (norm_criticalSqrtWeight_eq_inv_sqrt
+                  (q := q ^ (m + 2)) hqpow)
+        _ = ‖criticalSqrtWeight q ^ (m + 2)‖ := by
+              rw [criticalSqrtWeight_pow]
+        _ = ‖criticalSqrtWeight q‖ ^ (m + 2) := by
+              rw [norm_pow]
+    rw [div_eq_mul_inv, hweight, norm_div, norm_pow, norm_neg,
+      Complex.norm_natCast]
+    rw [norm_div, norm_pow, norm_neg, norm_mul, Complex.norm_natCast]
+    ring
+  calc
+    (∑' m : ℕ,
+        ‖(-a) ^ (m + 2) / (Nat.factorial (m + 2) : ℂ)‖ /
+          Real.sqrt ((q ^ (m + 2) : ℕ) : ℝ)) =
+      ∑' m : ℕ,
+        ‖(-(a * criticalSqrtWeight q)) ^ (m + 2) /
+          (Nat.factorial (m + 2) : ℂ)‖ := by
+        apply tsum_congr
+        exact hterm
+    _ ≤ 3 * ‖a * criticalSqrtWeight q‖ ^ 2 :=
+      tsum_norm_poissonCoeff_add_two_le_three_sq hz
+    _ = 3 * (‖a‖ ^ 2 / (q : ℝ)) := by
+      rw [norm_mul, mul_pow, norm_criticalSqrtWeight_sq]
+      ring
+
+/-- For the exact Li site weight, the local quadratic Poisson tail is paid by
+the already summable transformed collision owner. -/
+theorem tsum_norm_exactLiPoissonCoeff_critical_add_two_le_collision
+    {q : ℕ} (hq : 2 ≤ q) :
+    (∑' m : ℕ,
+        ‖(-primeSievePNTDensity q) ^ (m + 2) /
+            (Nat.factorial (m + 2) : ℂ)‖ /
+          Real.sqrt ((q ^ (m + 2) : ℕ) : ℝ)) ≤
+      3 * ‖criticalLiFrequencyWeight q‖ ^ 2 := by
+  have hz : ‖criticalLiFrequencyWeight q‖ ≤ 1 := by
+    rcases Nat.eq_or_lt_of_le hq with rfl | hqgt
+    · rw [criticalLiFrequencyWeight_two_eq_zero]
+      simp
+    · have hq3 : 3 ≤ q := by omega
+      by_cases h3 : q = 3
+      · subst q
+        exact norm_criticalLiFrequencyWeight_three_le_one
+      · exact norm_criticalLiFrequencyWeight_le_one (by omega)
+  have h :=
+    tsum_norm_poissonCoeff_critical_add_two_le_collision
+      (q := q) (by omega : 1 ≤ q) (primeSievePNTDensity q) hz
+  rw [norm_criticalLiFrequencyWeight_sq] at h
+  simpa using h
+
 /-- **Exact one-site Poisson cumulative recurrence.**
 Multiplying a coefficient sequence by the Poisson exponential at site `q`
 produces the finite signed power expansion over exactly those powers `q^m`
