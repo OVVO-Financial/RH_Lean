@@ -1497,6 +1497,118 @@ theorem coeff_hardCorePoissonCorrectionSeries
 
 
 
+/-! ## Transport the formal local factorization to Dirichlet convolution -/
+
+/-- A single positive-site arithmetic atom is exactly the image of the
+one-variable monomial `a*T` under Mathlib's formal L-function map
+`ArithmeticFunction.ofPowerSeries q`. -/
+theorem arithmeticSiteAtom_eq_ofPowerSeries_C_mul_X
+    {q : ℕ} (hq : 1 < q) (a : ℂ) :
+    arithmeticSiteAtom q a =
+      ArithmeticFunction.ofPowerSeries q
+        (PowerSeries.C a * PowerSeries.X) := by
+  ext n
+  rw [ArithmeticFunction.ofPowerSeries_apply hq]
+  by_cases hn : ∃ k : ℕ, q ^ k = n
+  · obtain ⟨k, rfl⟩ := hn
+    rw [(Nat.pow_right_injective hq).extend_apply]
+    rw [arithmeticSiteAtom_apply_of_pos (by omega : 1 ≤ q)]
+    have hcoeff :
+        PowerSeries.coeff k
+            (PowerSeries.C a * PowerSeries.X : PowerSeries ℂ) =
+          if k = 1 then a else 0 := by
+      simpa using (PowerSeries.coeff_C_mul_X_pow a 1 k)
+    rw [hcoeff]
+    by_cases hk : k = 1
+    · subst k
+      simp
+    · have hpow : q ^ k ≠ q := by
+        intro h
+        have : k = 1 := by
+          apply Nat.pow_right_injective hq
+          simpa using h
+        exact hk this
+      simp [hk, hpow]
+  · rw [Function.extend_apply' _ _ _ hn, Pi.zero_apply]
+    rw [arithmeticSiteAtom_apply_of_pos (by omega : 1 ≤ q)]
+    have hnq : n ≠ q := by
+      intro hnq
+      apply hn
+      exact ⟨1, by simpa [hnq]⟩
+    simp [hnq]
+
+/-- Arithmetic-function image of the exact quadratic hard-core/Poisson
+correction factor at one site. -/
+def arithmeticHardCorePoissonCorrectionFactor
+    (a : ℂ) (q : ℕ) : ArithmeticFunction ℂ :=
+  ArithmeticFunction.ofPowerSeries q
+    (hardCorePoissonCorrectionSeries a)
+
+/-- Arithmetic-function image of the one-site Poisson exponential. -/
+def arithmeticPoissonLocalFactor
+    (a : ℂ) (q : ℕ) : ArithmeticFunction ℂ :=
+  ArithmeticFunction.ofPowerSeries q
+    (poissonExponentialSeries a)
+
+/-- **Exact one-site Dirichlet factorization.**
+For every genuine multiplicative site `q > 1`, the hard-core coefficient
+factor is exactly the Dirichlet convolution of the quadratic correction factor
+and the Poisson factor. -/
+theorem arithmeticHardCoreLocalFactor_eq_correction_mul_poisson
+    {q : ℕ} (hq : 1 < q) (a : ℂ) :
+    arithmeticHardCoreLocalFactor a q =
+      arithmeticHardCorePoissonCorrectionFactor a q *
+        arithmeticPoissonLocalFactor a q := by
+  unfold arithmeticHardCorePoissonCorrectionFactor
+    arithmeticPoissonLocalFactor
+  rw [← map_mul,
+    hardCorePoissonCorrectionSeries_mul_poissonExponentialSeries]
+  unfold arithmeticHardCoreLocalFactor
+  rw [map_sub, map_one]
+  congr 1
+  exact (arithmeticSiteAtom_eq_ofPowerSeries_C_mul_X hq a).symm
+
+/-- Finite product of the quadratic correction factors over sites
+`2,...,k+1`, ordered exactly like `arithmeticHardCoreProduct`. -/
+def arithmeticHardCorePoissonCorrectionProduct
+    (w : ℕ → ℂ) : ℕ → ArithmeticFunction ℂ
+  | 0 => 1
+  | k + 1 =>
+      arithmeticHardCorePoissonCorrectionFactor (w (k + 2)) (k + 2) *
+        arithmeticHardCorePoissonCorrectionProduct w k
+
+/-- Finite product of the corresponding Poisson factors. -/
+def arithmeticPoissonProduct
+    (w : ℕ → ℂ) : ℕ → ArithmeticFunction ℂ
+  | 0 => 1
+  | k + 1 =>
+      arithmeticPoissonLocalFactor (w (k + 2)) (k + 2) *
+        arithmeticPoissonProduct w k
+
+/-- **Exact finite global hard-core/Poisson factorization.**
+The complete finite hard-core Euler coefficient product is literally the
+quadratic correction product convolved with the Poisson product. -/
+theorem arithmeticHardCoreProduct_eq_correctionProduct_mul_poissonProduct
+    (w : ℕ → ℂ) (k : ℕ) :
+    arithmeticHardCoreProduct w k =
+      arithmeticHardCorePoissonCorrectionProduct w k *
+        arithmeticPoissonProduct w k := by
+  induction k with
+  | zero =>
+      simp [arithmeticHardCoreProduct,
+        arithmeticHardCorePoissonCorrectionProduct,
+        arithmeticPoissonProduct]
+  | succ k ih =>
+      rw [arithmeticHardCoreProduct,
+        arithmeticHardCorePoissonCorrectionProduct,
+        arithmeticPoissonProduct,
+        arithmeticHardCoreLocalFactor_eq_correction_mul_poisson
+          (q := k + 2) (by omega : 1 < k + 2),
+        ih]
+      ac_rfl
+
+
+
 /-! ## Arithmetic-function coefficient factorization bridge -/
 
 /-- Cumulative mass of an arithmetic coefficient sequence through an integer
