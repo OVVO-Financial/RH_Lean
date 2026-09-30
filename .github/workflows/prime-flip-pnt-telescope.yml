@@ -7,6 +7,7 @@ on:
       - research/PRIME_FLIP_PNT_TELESCOPE.lean
       - research/PRIME_FLIP_STATIC_CHRONOLOGY.lean
       - research/ALL_SCALE_LI_DISPLACEMENT_REDUCTION.lean
+      - research/EXACT_LI_DICKMAN_FORMAL.lean
       - research/EXACT_LI_PURE_MODEL_CLOSURE.lean
       - FORMALIZATION_SEQUENCE.md
       - FORMALIZATION_CHECKLIST.md
@@ -128,6 +129,8 @@ jobs:
           #print axioms RHLean.Analysis.exactLiCriticalLogKernel_eq_unit_add_defect
           #print axioms RHLean.Analysis.norm_exactLiCriticalLogKernelDefect_children_le
           #print axioms RHLean.Analysis.allScaleLiSquareRootBounded_of_criticalPoisson_uniform
+          #print axioms RHLean.Analysis.abs_exactLiContinuousCumulative_le
+          #print axioms RHLean.Analysis.exactLiContinuousModel_root_closed
           LEAN
           set -o pipefail
           lake env lean -DwarningAsError=true /tmp/PrimeFlipPNTAxioms.lean 2>&1 | tee prime-flip-pnt-axioms.log
@@ -136,7 +139,7 @@ jobs:
           from pathlib import Path
           s = Path('prime-flip-pnt-axioms.log').read_text()
           records = re.findall(r"depends on axioms:\s*\[([^\]]*)\]", s, re.S)
-          assert len(records) == 35, records
+          assert len(records) == 37, records
           allowed = {'propext', 'Classical.choice', 'Quot.sound'}
           for record in records:
               actual = {a.strip() for a in record.split(',') if a.strip()}
