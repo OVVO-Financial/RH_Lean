@@ -44,6 +44,9 @@ theorem vfMidSquareBandSites_card (R : ℕ) :
     (vfMidSquareBandSites R).card = 2 * R := by
   unfold vfMidSquareBandSites
   rw [Nat.card_Ioo]
+  have hsq : (R + 1) ^ 2 = R ^ 2 + (2 * R + 1) := by
+    ring
+  rw [hsq]
   omega
 
 /-- Prime and composite sites partition the complete square band exactly. -/
@@ -55,13 +58,13 @@ theorem vfMidSquareBand_prime_composite_partition (R : ℕ) :
   simp only [vfMidSquareBandPrimes, vfMidSquareBandComposites,
     Finset.mem_union, Finset.mem_filter]
   constructor
+  · rintro (h | h)
+    · exact h.1
+    · exact h.1
   · intro hn
     by_cases hp : n.Prime
     · exact Or.inl ⟨hn, hp⟩
     · exact Or.inr ⟨hn, hp⟩
-  · rintro (h | h)
-    · exact h.1
-    · exact h.1
 
 /-- The prime and composite populations in one complete square band are
 disjoint. -/
