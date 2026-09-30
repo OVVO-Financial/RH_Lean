@@ -1876,6 +1876,26 @@ theorem arithmeticHardCoreLocalFactor_eq_correction_mul_poisson
   exact
     arithmeticSiteAtom_eq_liArithmeticOfPowerSeries_C_mul_X hq a
 
+/-- At a pure power of its site, the arithmetic correction factor is exactly
+the corresponding formal correction coefficient. -/
+theorem arithmeticHardCorePoissonCorrectionFactor_apply_pow
+    {q : ℕ} (hq : 1 < q) (a : ℂ) (m : ℕ) :
+    arithmeticHardCorePoissonCorrectionFactor a hq (q ^ m) =
+      hardCorePoissonCorrectionCoeff a m := by
+  unfold arithmeticHardCorePoissonCorrectionFactor
+  rw [liArithmeticOfPowerSeries_apply_pow hq,
+    coeff_hardCorePoissonCorrectionSeries]
+
+/-- Away from the powers of its site, the arithmetic correction factor
+vanishes identically. -/
+theorem arithmeticHardCorePoissonCorrectionFactor_apply_eq_zero_of_not_pow
+    {q n : ℕ} (hq : 1 < q) (a : ℂ)
+    (hn : ¬ ∃ m : ℕ, q ^ m = n) :
+    arithmeticHardCorePoissonCorrectionFactor a hq n = 0 := by
+  unfold arithmeticHardCorePoissonCorrectionFactor
+  rw [liArithmeticOfPowerSeries_apply hq,
+    Function.extend_apply' _ _ _ hn, Pi.zero_apply]
+
 /-- Finite product of the quadratic correction factors over sites
 `2,...,k+1`, ordered exactly like `arithmeticHardCoreProduct`. -/
 def arithmeticHardCorePoissonCorrectionProduct
