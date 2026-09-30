@@ -1941,6 +1941,76 @@ def criticalWeightedVariation
   ∑ n ∈ Finset.Icc 1 X,
     ‖h n‖ / Real.sqrt (n : ℝ)
 
+
+/-- **Critical weighted variation is submultiplicative for Dirichlet
+convolution.**  The weight `n^(-1/2)` is exactly multiplicative, so after
+the divisor-pair Fubini swap all multiplicative collisions are harmless. -/
+theorem criticalWeightedVariation_arithmetic_mul_le
+    (f g : ArithmeticFunction ℂ) (X : ℕ) :
+    criticalWeightedVariation (fun n => (f * g) n) X ≤
+      criticalWeightedVariation (fun n => f n) X *
+        criticalWeightedVariation (fun n => g n) X := by
+  unfold criticalWeightedVariation
+  calc
+    (∑ n ∈ Finset.Icc 1 X,
+        ‖(f * g) n‖ / Real.sqrt (n : ℝ))
+        ≤ ∑ n ∈ Finset.Icc 1 X,
+            ∑ p ∈ n.divisorsAntidiagonal,
+              (‖f p.1‖ / Real.sqrt (p.1 : ℝ)) *
+                (‖g p.2‖ / Real.sqrt (p.2 : ℝ)) := by
+          apply Finset.sum_le_sum
+          intro n hn
+          rw [ArithmeticFunction.mul_apply]
+          calc
+            ‖∑ p ∈ n.divisorsAntidiagonal, f p.1 * g p.2‖ /
+                  Real.sqrt (n : ℝ)
+                ≤ (∑ p ∈ n.divisorsAntidiagonal,
+                    ‖f p.1 * g p.2‖) / Real.sqrt (n : ℝ) := by
+                  exact div_le_div_of_nonneg_right
+                    (norm_sum_le _ _) (Real.sqrt_nonneg _)
+            _ = ∑ p ∈ n.divisorsAntidiagonal,
+                  (‖f p.1‖ / Real.sqrt (p.1 : ℝ)) *
+                    (‖g p.2‖ / Real.sqrt (p.2 : ℝ)) := by
+                  rw [Finset.sum_div]
+                  apply Finset.sum_congr rfl
+                  intro p hp
+                  have hab := (Nat.mem_divisorsAntidiagonal.mp hp).1
+                  have habR :
+                      (n : ℝ) = (p.1 : ℝ) * (p.2 : ℝ) := by
+                    exact_mod_cast hab.symm
+                  rw [norm_mul, habR,
+                    Real.sqrt_mul' _ (by positivity : 0 ≤ (p.2 : ℝ))]
+                  ring
+    _ = ∑ a ∈ Finset.Icc 1 X,
+          ∑ b ∈ Finset.Icc 1 (X / a),
+            (‖f a‖ / Real.sqrt (a : ℝ)) *
+              (‖g b‖ / Real.sqrt (b : ℝ)) :=
+        sum_Icc_divisorsAntidiagonal_eq_sum_div
+          (fun a b =>
+            (‖f a‖ / Real.sqrt (a : ℝ)) *
+              (‖g b‖ / Real.sqrt (b : ℝ))) X
+    _ ≤ ∑ a ∈ Finset.Icc 1 X,
+          (‖f a‖ / Real.sqrt (a : ℝ)) *
+            (∑ b ∈ Finset.Icc 1 X,
+              ‖g b‖ / Real.sqrt (b : ℝ)) := by
+          apply Finset.sum_le_sum
+          intro a ha
+          rw [← Finset.mul_sum]
+          apply mul_le_mul_of_nonneg_left
+          · apply Finset.sum_le_sum_of_subset_of_nonneg
+            · intro b hb
+              rcases Finset.mem_Icc.mp hb with ⟨hb1, hbXa⟩
+              exact Finset.mem_Icc.mpr
+                ⟨hb1, hbXa.trans (Nat.div_le_self X a)⟩
+            · intro b hb hnot
+              positivity
+          · positivity
+    _ = (∑ a ∈ Finset.Icc 1 X,
+            ‖f a‖ / Real.sqrt (a : ℝ)) *
+          (∑ b ∈ Finset.Icc 1 X,
+            ‖g b‖ / Real.sqrt (b : ℝ)) := by
+          rw [Finset.sum_mul]
+
 /-- **Critical convolution transfer.**
 If the reference cumulative state is uniformly bounded by B and the correction
 kernel has uniformly bounded n^(-1/2)-weighted total variation H, then their
