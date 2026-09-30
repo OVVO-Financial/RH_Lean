@@ -318,7 +318,7 @@ theorem abs_vfMid_partialBandQuadratureError_le
   have hErrEq :
       h * (Real.log m)⁻¹ - ∫ t in a..y, (Real.log t)⁻¹ =
         ∫ t in a..y, ((Real.log m)⁻¹ - (Real.log t)⁻¹) := by
-    rw [intervalIntegral.integral_sub intervalIntegrable_const hI, hIntConst]
+    rw [intervalIntegral.integral_sub _root_.intervalIntegrable_const hI, hIntConst]
   have hIntBound :
       |h * (Real.log m)⁻¹ - ∫ t in a..y, (Real.log t)⁻¹| ≤
         (K * h) * h := by
@@ -375,8 +375,6 @@ theorem abs_vfMidBandQuadratureError_le
     le_rfl
   unfold vfMidBandQuadratureError vfMidBandMass vfMidBandIntegral vfMidBandMidpoint
   convert h using 1
-  · norm_num [Nat.cast_add, Nat.cast_one]
-    ring
   · norm_num [Nat.cast_add, Nat.cast_one]
     ring
 
