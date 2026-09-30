@@ -128,13 +128,6 @@ theorem vfMidDirectPrimePowerEndpointCorrection_mono
   exact vfMidDirect_nativePrimePowerCorrection_monotone
     (Nat.pow_le_pow_left hRS 2)
 
-/-- Every square-band prime-power increment is nonnegative. -/
-theorem vfMidDirectPrimePowerBandCorrection_nonneg (R : ℕ) :
-    0 ≤ vfMidDirectPrimePowerBandCorrection R := by
-  unfold vfMidDirectPrimePowerBandCorrection
-  exact sub_nonneg.mpr
-    (vfMidDirectPrimePowerEndpointCorrection_mono (Nat.le_succ R))
-
 /-- Centered psi mass entering one square band. -/
 def vfMidDirectPsiBandError (R : ℕ) : ℝ :=
   vfMidDirectPsiEndpointError (R + 1) - vfMidDirectPsiEndpointError R
@@ -143,6 +136,13 @@ def vfMidDirectPsiBandError (R : ℕ) : ℝ :=
 def vfMidDirectPrimePowerBandCorrection (R : ℕ) : ℝ :=
   vfMidDirectPrimePowerEndpointCorrection (R + 1) -
     vfMidDirectPrimePowerEndpointCorrection R
+
+/-- Every square-band prime-power increment is nonnegative. -/
+theorem vfMidDirectPrimePowerBandCorrection_nonneg (R : ℕ) :
+    0 ≤ vfMidDirectPrimePowerBandCorrection R := by
+  unfold vfMidDirectPrimePowerBandCorrection
+  exact sub_nonneg.mpr
+    (vfMidDirectPrimePowerEndpointCorrection_mono (Nat.le_succ R))
 
 /-- Exact per-band transfer from theta to psi. -/
 theorem vfMidDirectPsiBandError_eq_theta_add_primePower (R : ℕ) :
