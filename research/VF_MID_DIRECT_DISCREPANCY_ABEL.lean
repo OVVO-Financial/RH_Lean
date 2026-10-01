@@ -91,7 +91,7 @@ theorem vfMidDirectThetaAbelWeight_succ_le
         Real.log (vfMidBandMidpoint (r + 1)) :=
     Real.log_le_log hm0 hmle
   unfold vfMidDirectThetaAbelWeight
-  exact (inv_le_inv₀ hl0 hl1).2 hlog
+  exact (inv_le_inv₀ hl1 hl0).2 hlog
 
 /-- Every interior Abel coefficient is nonnegative. -/
 theorem vfMidDirectThetaAbelWeight_drop_nonneg
@@ -187,7 +187,7 @@ theorem abs_vfMidDirectThetaWeightedPrefix_add_base_le
         vfMidDirectThetaAbelTail R|
         ≤ |vfMidDirectThetaEndpointError R *
               vfMidDirectThetaAbelWeight (R - 1)| +
-            |vfMidDirectThetaAbelTail R| := abs_add _ _
+            |vfMidDirectThetaAbelTail R| := abs_add_le _ _
     _ ≤ M * vfMidDirectThetaAbelWeight (R - 1) +
           ∑ r ∈ Finset.Ico 3 R,
             M * (vfMidDirectThetaAbelWeight (r - 1) -
@@ -222,8 +222,7 @@ theorem abs_vfMidDirectThetaWeightedPrefix_add_base_le
           ∑ r ∈ Finset.Ico 3 R,
             (vfMidDirectThetaAbelWeight (r - 1) -
               vfMidDirectThetaAbelWeight r)) := by
-      rw [Finset.mul_sum]
-      ring
+      rw [mul_add, Finset.mul_sum]
     _ = M * vfMidDirectThetaAbelWeight 2 := by
       rw [vfMidDirectThetaAbelKernel_mass R hR]
 
