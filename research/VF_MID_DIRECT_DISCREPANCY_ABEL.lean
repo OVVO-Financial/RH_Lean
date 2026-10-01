@@ -352,7 +352,6 @@ theorem vfMidDirectThetaAbelWeight_drop_le
             Real.log (vfMidBandMidpoint r)) := by
     unfold vfMidDirectThetaAbelWeight
     field_simp [hlogA.ne', hlogB.ne']
-    ring
   have hden :
       (Real.log (r : ℝ)) ^ 2 ≤
         Real.log (vfMidBandMidpoint (r - 1)) *
