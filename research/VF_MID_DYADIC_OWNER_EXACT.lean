@@ -516,7 +516,16 @@ theorem vfMidPrefixWheelCounting_two_cast (N : ℕ) :
       ({2} : Finset ℕ).powerset = {∅, {2}} := by
     native_decide
   rw [hpowerset]
-  norm_num [Finset.sum_insert, booleanCubeSign, primeFaceProduct]
+  change
+    (∑ x in ({∅, {2}} : Finset (Finset ℕ)),
+      (booleanCubeSign x : ℝ) *
+        ((N / primeFaceProduct x : ℕ) : ℝ)) =
+      (N : ℝ) - ((N / 2 : ℕ) : ℝ)
+  have hempty :
+      (∅ : Finset ℕ) ∉ ({{2}} : Finset (Finset ℕ)) := by
+    simp
+  rw [Finset.sum_insert hempty, Finset.sum_singleton]
+  norm_num [booleanCubeSign, primeFaceProduct]
 
 /-- The parity correction in floor(N/2) is unchanged by squaring N. -/
 theorem cast_sq_div_two_sub_div_two (N : ℕ) :
