@@ -105,10 +105,10 @@ jobs:
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_DIRECT_COMPOSITE_DESCENT.olean research/VF_MID_DIRECT_COMPOSITE_DESCENT.lean 2>&1 | tee vf-mid-direct-composite-descent.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_DIRECT_OWNER_DESCENT.olean research/VF_MID_DIRECT_OWNER_DESCENT.lean 2>&1 | tee vf-mid-direct-owner-descent.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_DIRECT_ROUGH_CHILD.olean research/VF_MID_DIRECT_ROUGH_CHILD.lean 2>&1 | tee vf-mid-direct-rough-child.log
-          lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_DYADIC_PREFIX_OWNER.olean research/VF_MID_DYADIC_PREFIX_OWNER.lean 2>&1 | tee vf-mid-dyadic-prefix-owner.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_INTEGER_BLOCK_CAPTURE.olean research/VF_MID_INTEGER_BLOCK_CAPTURE.lean 2>&1 | tee vf-mid-integer-block-capture.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_LITERAL_BLOCK_CROSSING.olean research/VF_MID_LITERAL_BLOCK_CROSSING.lean 2>&1 | tee vf-mid-literal-block-crossing.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_SQUARE_WHEEL_BACKLOG.olean research/VF_MID_SQUARE_WHEEL_BACKLOG.lean 2>&1 | tee vf-mid-square-wheel-backlog.log
+          lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_DYADIC_PREFIX_OWNER.olean research/VF_MID_DYADIC_PREFIX_OWNER.lean 2>&1 | tee vf-mid-dyadic-prefix-owner.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_ALIGNED_STEP_GRAPH.olean research/VF_MID_ALIGNED_STEP_GRAPH.lean 2>&1 | tee vf-mid-aligned-step-graph.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_STEP_GRAPH_BRACKETING.olean research/VF_MID_STEP_GRAPH_BRACKETING.lean 2>&1 | tee vf-mid-step-graph-bracketing.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_MIDPOINT_COMPLEMENT_DISPERSION.olean research/VF_MID_MIDPOINT_COMPLEMENT_DISPERSION.lean 2>&1 | tee vf-mid-midpoint-complement-dispersion.log
