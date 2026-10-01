@@ -1,5 +1,6 @@
 import Mathlib
 import «research.VF_MID_SQUARE_BAND_COMPOSITE_BRIDGE»
+import «research.VF_MID_DYADIC_SUMMATION_TRANSFER»
 
 /-!
 # VF-mid as a fractional prime cluster on the integer square lattice
@@ -116,6 +117,66 @@ theorem vfMidFractionalPrimeClusterDiscrepancy_eq_endpointError_sub
           linarith
     _ = vfMidSquareEndpointError B - vfMidSquareEndpointError A := by
           exact Finset.sum_Ico_sub vfMidSquareEndpointError hAB
+
+/-- The cumulative fractional-cluster discrepancy is exactly the existing
+square-endpoint prime-minus-VF increment. -/
+theorem vfMidFractionalPrimeClusterDiscrepancy_eq_primeError_increment
+    {A B : ℕ} (hA : 2 ≤ A) (hB : 2 ≤ B) (hAB : A ≤ B) :
+    vfMidFractionalPrimeClusterDiscrepancy A B =
+      vfMidPrimeError ((B : ℝ) ^ 2) -
+        vfMidPrimeError ((A : ℝ) ^ 2) := by
+  rw [vfMidFractionalPrimeClusterDiscrepancy_eq_endpointError_sub
+    A B hA hAB]
+  change
+    vfMidDirectSquareEndpointError B -
+        vfMidDirectSquareEndpointError A =
+      vfMidPrimeError ((B : ℝ) ^ 2) -
+        vfMidPrimeError ((A : ℝ) ^ 2)
+  rw [vfMidDirectSquareEndpointError_eq_vfMidPrimeError hB,
+    vfMidDirectSquareEndpointError_eq_vfMidPrimeError hA]
+
+/-- The sole dyadic arithmetic statement for the fractional-cluster route. -/
+def VFMidFractionalPrimeClusterDyadicBoundedStatement : Prop :=
+  ∃ C : ℝ, 0 ≤ C ∧
+    ∀ A B : ℕ, 2 ≤ A → A < B → B ≤ 2 * A →
+      |vfMidFractionalPrimeClusterDiscrepancy A B| ≤
+        C * (A : ℝ) * Real.log A
+
+/-- A root-log discrepancy bound for the 0/1 realization of the VF cluster
+supplies the existing local dyadic increment consumer directly. -/
+theorem vfMidDyadicIncrementBounded_of_fractionalPrimeCluster
+    (hcluster : VFMidFractionalPrimeClusterDyadicBoundedStatement) :
+    VFMidDyadicIncrementBoundedStatement := by
+  rcases hcluster with ⟨C, hC0, hC⟩
+  refine ⟨C, hC0, ?_⟩
+  intro A B hA hAB hBA
+  have hB2 : 2 ≤ B := hA.trans hAB.le
+  have hbound := hC A B hA hAB hBA
+  rw [vfMidFractionalPrimeClusterDiscrepancy_eq_primeError_increment
+    hA hB2 hAB.le] at hbound
+  have hfour : 0 ≤ 4 * (A : ℝ) := by positivity
+  linarith
+
+/-- **Fractional-cluster square-endpoint closure.**
+Once the integral 0/1 prime realization tracks the VF fractional cluster on
+every dyadic square run, the full VF square-endpoint von-Koch estimate follows
+from the already-compiled dyadic summation theorem. -/
+theorem vfMidSquareEndpointVonKochBounded_of_fractionalPrimeCluster
+    (hcluster : VFMidFractionalPrimeClusterDyadicBoundedStatement) :
+    VFMidSquareEndpointVonKochBoundedStatement :=
+  vfMidSquareEndpointVonKochBounded_of_dyadicIncrement
+    (vfMidDyadicIncrementBounded_of_fractionalPrimeCluster hcluster)
+
+/-- **End-to-end VF fractional-cluster consumer.**
+The continuous Li -> VF quadrature error is discharged unconditionally by the
+existing midpoint theorem.  The only arithmetic input here is the dyadic
+integral-realization discrepancy of actual primes against the VF cluster. -/
+theorem riemannHypothesis_of_vfMidFractionalPrimeCluster
+    (criterion : ClassicalVonKochRHCriterion)
+    (hcluster : VFMidFractionalPrimeClusterDyadicBoundedStatement) :
+    VFMidRiemannHypothesisStatement :=
+  riemannHypothesis_of_vfMidSquareEndpoint criterion
+    (vfMidSquareEndpointVonKochBounded_of_fractionalPrimeCluster hcluster)
 
 /-- Cumulative fractional-prime mass through all complete square blocks below
 the square endpoint R^2. -/
