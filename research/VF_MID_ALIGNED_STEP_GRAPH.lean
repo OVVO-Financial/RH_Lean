@@ -55,6 +55,43 @@ def vfMidAlignedIntegerBlockLevel (c : ℝ) (R : ℕ) : ℕ :=
 def vfMidInitialAnchor : ℝ :=
   4 - vfMidFinishedMass 3
 
+
+/-- The first-square alignment phase is positive.  This is an elementary
+finite estimate, not part of the open arithmetic target. -/
+theorem vfMidInitialAnchor_nonneg :
+    0 ≤ vfMidInitialAnchor := by
+  have hmass :
+      vfMidFinishedMass 3 =
+        5 / Real.log (13 / 2 : ℝ) := by
+    norm_num [vfMidFinishedMass, vfMidBandMass, vfMidBandMidpoint]
+  have hlog4 :
+      (5 / 4 : ℝ) < Real.log 4 := by
+    have h2 := Real.log_two_gt_d9
+    have hpow :
+        Real.log (4 : ℝ) = 2 * Real.log 2 := by
+      calc
+        Real.log (4 : ℝ) = Real.log ((2 : ℝ) ^ 2) := by norm_num
+        _ = (2 : ℕ) * Real.log 2 := by rw [Real.log_pow]
+        _ = 2 * Real.log 2 := by norm_num
+    rw [hpow]
+    nlinarith
+  have hlogmono :
+      Real.log 4 ≤ Real.log (13 / 2 : ℝ) := by
+    exact Real.log_le_log (by norm_num) (by norm_num)
+  have hden :
+      (5 / 4 : ℝ) < Real.log (13 / 2 : ℝ) :=
+    hlog4.trans_le hlogmono
+  have hdenpos :
+      0 < Real.log (13 / 2 : ℝ) := by
+    linarith
+  have hfrac :
+      5 / Real.log (13 / 2 : ℝ) < 4 := by
+    rw [div_lt_iff₀ hdenpos]
+    nlinarith
+  unfold vfMidInitialAnchor
+  rw [hmass]
+  linarith
+
 /-- The anchor aligns the real VF level exactly at the first nontrivial square
 endpoint. -/
 @[simp] theorem vfMidAlignedMass_initialAnchor_three :
@@ -408,7 +445,12 @@ theorem vfMidBandMass_le_three_mul_div_log_four
 noninitial square onward.  The finitely many earlier squares are irrelevant to
 the asymptotic von-Koch consumer and can be absorbed into its constant. -/
 def VFMidAlignedStepGraphBracketingStatement (c : ℝ) : Prop :=
-  ∀ R : ℕ, 3 ≤ R → VFMidAlignedStepGraphCrossed c R
+  ∀ R : ℕ, 2 ≤ R → VFMidAlignedStepGraphCrossed c R
+
+/-- **Canonical arithmetic target.**  The final direct VF-mid target is the
+full step-graph bracketing statement at the fixed initial phase c0. -/
+def VFMidCanonicalAlignedStepGraphBracketingStatement : Prop :=
+  VFMidAlignedStepGraphBracketingStatement vfMidInitialAnchor
 
 
 /-! ## Aligned graph bracketing closes the existing von-Koch consumer -/
@@ -478,7 +520,7 @@ theorem vfMidSquareEndpointVonKochBounded_of_alignedStepGraph
     · have hR3 : 3 ≤ R := by omega
       have hlocal :=
         vfMidDirectSquareEndpointError_abs_lt_of_alignedStepGraphCrossed
-          c hc R hR3 (hgraph R hR3)
+          c hc R hR3 (hgraph R (by omega))
       have hmassR :=
         vfMidBandMass_le_three_mul_div_log_four R (by omega : 2 ≤ R)
       have hmassPred :=
@@ -553,6 +595,25 @@ theorem vfMidSquareEndpointVonKochBounded_of_alignedStepGraph
 
 /-- Therefore the aligned full-step-graph criterion plugs directly into the
 repository's already-compiled classical von-Koch/RH bridge. -/
+
+
+/-- The canonical anchored aligned graph target implies the repository's
+square-endpoint von-Koch consumer with no additional open premise. -/
+theorem vfMidSquareEndpointVonKochBounded_of_canonicalAlignedStepGraph
+    (hgraph : VFMidCanonicalAlignedStepGraphBracketingStatement) :
+    VFMidSquareEndpointVonKochBoundedStatement :=
+  vfMidSquareEndpointVonKochBounded_of_alignedStepGraph
+    vfMidInitialAnchor vfMidInitialAnchor_nonneg hgraph
+
+/-- The canonical anchored aligned graph target is the direct final input to
+the existing classical von-Koch/RH bridge. -/
+theorem riemannHypothesis_of_vfMidCanonicalAlignedStepGraph
+    (criterion : ClassicalVonKochRHCriterion)
+    (hgraph : VFMidCanonicalAlignedStepGraphBracketingStatement) :
+    VFMidRiemannHypothesisStatement :=
+  riemannHypothesis_of_vfMidSquareEndpoint criterion
+    (vfMidSquareEndpointVonKochBounded_of_canonicalAlignedStepGraph hgraph)
+
 theorem riemannHypothesis_of_vfMidAlignedStepGraph
     (criterion : ClassicalVonKochRHCriterion)
     (c : ℝ) (hc : 0 ≤ c)
