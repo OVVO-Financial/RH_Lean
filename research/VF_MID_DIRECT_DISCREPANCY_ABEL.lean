@@ -223,8 +223,9 @@ theorem abs_vfMidDirectThetaWeightedPrefix_add_base_le
             (vfMidDirectThetaAbelWeight (r - 1) -
               vfMidDirectThetaAbelWeight r)) := by
       rw [mul_add, Finset.mul_sum]
-    _ = M * vfMidDirectThetaAbelWeight 2 := by
+    _ = vfMidDirectThetaAbelWeight 2 * M := by
       rw [vfMidDirectThetaAbelKernel_mass R hR]
+      ring
 
 /-! ## Quantitative decay of the Abel kernel -/
 
