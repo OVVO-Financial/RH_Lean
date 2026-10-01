@@ -222,6 +222,199 @@ theorem vfMidIntegerBlockPrimeSupply_le_two_mul
   exact hcard
 
 
+/-! ## Complete prefix-wheel hierarchy
+
+For every cutoff S <= R, form the product of every prime coordinate already
+known through S.  The corresponding survivor set on the R-th square block is
+a deterministic superset of the actual primes.  These survivor sets decrease
+monotonically as S grows, and at the full FTA cutoff S = R they are exactly the
+prime set.
+
+This records the entire finite square-block sieve, not just the special
+2-3 or 2-5 wheels.
+-/
+
+/-- Product of all prime coordinates through the prefix cutoff S. -/
+def vfMidPrefixWheelModulus (S : ℕ) : ℕ :=
+  ∏ p in primesUpTo S, p
+
+/-- The prefix wheel modulus is always nonzero. -/
+theorem vfMidPrefixWheelModulus_ne_zero (S : ℕ) :
+    vfMidPrefixWheelModulus S ≠ 0 := by
+  unfold vfMidPrefixWheelModulus
+  exact Finset.prod_ne_zero_iff.mpr fun p hp =>
+    (prime_of_mem_primesUpTo hp).ne_zero
+
+/-- A prime divides the prefix wheel exactly when it is already present in the
+prefix prime set. -/
+theorem vfMidPrime_dvd_prefixWheelModulus_iff
+    {q S : ℕ} (hq : q.Prime) :
+    q ∣ vfMidPrefixWheelModulus S ↔ q ≤ S := by
+  constructor
+  · intro hdiv
+    unfold vfMidPrefixWheelModulus at hdiv
+    rcases (hq.prime.dvd_finsetProd_iff id).mp hdiv with
+      ⟨p, hpMem, hqp⟩
+    have hpPrime := prime_of_mem_primesUpTo hpMem
+    have hEq : q = p :=
+      (Nat.prime_dvd_prime_iff_eq hq hpPrime).mp hqp
+    subst p
+    exact (mem_primesUpTo.mp hpMem).2
+  · intro hqS
+    unfold vfMidPrefixWheelModulus
+    exact Finset.dvd_prod_of_mem id
+      (mem_primesUpTo_of_prime_le hq hqS)
+
+/-- Survival under the explicit low-prime wheel is exactly coprimality to the
+corresponding prefix prime product. -/
+theorem lowWheelHighSurvivor_iff_coprime_prefixWheel
+    (S n : ℕ) :
+    lowWheelHighSurvivor S n ↔
+      (vfMidPrefixWheelModulus S).Coprime n := by
+  unfold lowWheelHighSurvivor vfMidPrefixWheelModulus
+  constructor
+  · intro hsurv
+    rw [Nat.coprime_prod_left_iff]
+    intro p hpMem
+    have hpPrime := prime_of_mem_primesUpTo hpMem
+    exact (hpPrime.coprime_iff_not_dvd).2 (hsurv p hpMem)
+  · intro hcop p hpMem
+    rw [Nat.coprime_prod_left_iff] at hcop
+    have hpPrime := prime_of_mem_primesUpTo hpMem
+    exact (hpPrime.coprime_iff_not_dvd).1 (hcop p hpMem)
+
+/-- Survivors of only the prefix wheel through S, measured on the R-th square
+block. -/
+def vfMidSquarePrefixWheelSurvivors (S R : ℕ) : Finset ℕ := by
+  classical
+  exact (vfMidSquareWheelSites R).filter (lowWheelHighSurvivor S)
+
+/-- Enlarging the prefix wheel can only remove survivors. -/
+theorem vfMidSquarePrefixWheelSurvivors_mono
+    {S T R : ℕ} (hST : S ≤ T) :
+    vfMidSquarePrefixWheelSurvivors T R ⊆
+      vfMidSquarePrefixWheelSurvivors S R := by
+  intro n hn
+  rcases Finset.mem_filter.mp hn with ⟨hnSite, hnSurv⟩
+  apply Finset.mem_filter.mpr
+  refine ⟨hnSite, ?_⟩
+  intro p hpS hpd
+  have hpData := mem_primesUpTo.mp hpS
+  have hpT : p ∈ primesUpTo T :=
+    mem_primesUpTo.mpr ⟨hpData.1, hpData.2.trans hST⟩
+  exact hnSurv p hpT hpd
+
+/-- Every actual prime in block R survives every prefix wheel S <= R. -/
+theorem vfMidSquareWheelPrimes_subset_prefixWheelSurvivors
+    {S R : ℕ} (hR : 2 ≤ R) (hSR : S ≤ R) :
+    vfMidSquareWheelPrimes R ⊆
+      vfMidSquarePrefixWheelSurvivors S R := by
+  intro n hn
+  rcases Finset.mem_filter.mp hn with ⟨hnSite, hnPrime⟩
+  apply Finset.mem_filter.mpr
+  refine ⟨hnSite, ?_⟩
+  intro p hpMem hpDvd
+  have hpPrime := prime_of_mem_primesUpTo hpMem
+  have hpS := (mem_primesUpTo.mp hpMem).2
+  have hpn : p = n :=
+    (Nat.prime_dvd_prime_iff_eq hpPrime hnPrime).mp hpDvd
+  have hnI := Finset.mem_Ioo.mp hnSite
+  subst p
+  have hRltSq : R < R ^ 2 := by
+    nlinarith
+  omega
+
+/-- The full prefix wheel S = R is definitionally the existing common wheel. -/
+theorem vfMidSquarePrefixWheelSurvivors_full
+    (R : ℕ) :
+    vfMidSquarePrefixWheelSurvivors R R =
+      vfMidSquareWheelSurvivors R := by
+  rfl
+
+/-- At the FTA cutoff S = R the prefix survivor population is exactly the
+prime population in the square block. -/
+theorem vfMidIntegerBlockPrimeSupply_eq_fullPrefixWheelCard
+    (R : ℕ) (hR : 2 ≤ R) :
+    vfMidIntegerBlockPrimeSupply R =
+      (vfMidSquarePrefixWheelSurvivors R R).card := by
+  rw [vfMidSquarePrefixWheelSurvivors_full]
+  exact vfMidIntegerBlockPrimeSupply_eq_commonWheelCard R hR
+
+/-- Every partial prefix wheel gives a rigorous upper bound on exact prime
+supply. -/
+theorem vfMidIntegerBlockPrimeSupply_le_prefixWheelCard
+    (S R : ℕ) (hR : 2 ≤ R) (hSR : S ≤ R) :
+    vfMidIntegerBlockPrimeSupply R ≤
+      (vfMidSquarePrefixWheelSurvivors S R).card := by
+  unfold vfMidIntegerBlockPrimeSupply
+  rw [vfMidDirectPrimeBand_eq_squareWheelPrimes]
+  exact Finset.card_le_card
+    (vfMidSquareWheelPrimes_subset_prefixWheelSurvivors hR hSR)
+
+/-- A generic finite wheel theorem: if every prime divisor of a nonzero modulus
+a is already at most R, then every prime in the R-th square block is coprime to
+a, so the block prime supply is bounded by the number of coprime residue
+classes in an interval of length 2R. -/
+theorem vfMidIntegerBlockPrimeSupply_le_coprimeWheel
+    (R a : ℕ) (hR : 2 ≤ R) (ha0 : a ≠ 0)
+    (hfac : ∀ q : ℕ, q.Prime → q ∣ a → q ≤ R) :
+    vfMidIntegerBlockPrimeSupply R ≤
+      Nat.totient a * ((2 * R) / a + 1) := by
+  have hsub :
+      vfMidSquareWheelPrimes R ⊆
+        (Finset.Ico (R ^ 2 + 1) ((R + 1) ^ 2)).filter
+          (fun n => a.Coprime n) := by
+    intro n hn
+    rcases Finset.mem_filter.mp hn with ⟨hnSite, hnPrime⟩
+    have hnI := Finset.mem_Ioo.mp hnSite
+    apply Finset.mem_filter.mpr
+    constructor
+    · exact Finset.mem_Ico.mpr ⟨by omega, hnI.2⟩
+    · have hnot : ¬ n ∣ a := by
+        intro hna
+        have hnR := hfac n hnPrime hna
+        have hRltSq : R < R ^ 2 := by
+          nlinarith
+        omega
+      exact ((hnPrime.coprime_iff_not_dvd).2 hnot).symm
+  have hcard := Finset.card_le_card hsub
+  have hperiod :=
+    Nat.Ico_filter_coprime_le (R ^ 2 + 1) (2 * R) ha0
+  have hspan : R ^ 2 + 1 + 2 * R = (R + 1) ^ 2 := by
+    ring
+  rw [hspan] at hperiod
+  unfold vfMidIntegerBlockPrimeSupply
+  rw [vfMidDirectPrimeBand_eq_squareWheelPrimes]
+  exact hcard.trans hperiod
+
+/-- Canonical totient envelope furnished by the prefix prime product through S. -/
+def vfMidPrefixWheelEnvelope (S R : ℕ) : ℕ :=
+  Nat.totient (vfMidPrefixWheelModulus S) *
+    ((2 * R) / vfMidPrefixWheelModulus S + 1)
+
+/-- Every prefix cutoff S <= R gives a valid deterministic prime-supply
+envelope on block R. -/
+theorem vfMidIntegerBlockPrimeSupply_le_prefixWheelEnvelope
+    (S R : ℕ) (hR : 2 ≤ R) (hSR : S ≤ R) :
+    vfMidIntegerBlockPrimeSupply R ≤
+      vfMidPrefixWheelEnvelope S R := by
+  unfold vfMidPrefixWheelEnvelope
+  apply vfMidIntegerBlockPrimeSupply_le_coprimeWheel R
+    (vfMidPrefixWheelModulus S) hR
+    (vfMidPrefixWheelModulus_ne_zero S)
+  intro q hq hdiv
+  exact ((vfMidPrime_dvd_prefixWheelModulus_iff hq).1 hdiv).trans hSR
+
+/-- The exact supply lies below every member of the entire prefix-wheel family.
+This is the formal "choose the strongest available prefix" API. -/
+theorem vfMidIntegerBlockPrimeSupply_le_every_prefixWheelEnvelope
+    (R : ℕ) (hR : 2 ≤ R) :
+    ∀ S : ℕ, S ≤ R →
+      vfMidIntegerBlockPrimeSupply R ≤
+        vfMidPrefixWheelEnvelope S R := by
+  intro S hSR
+  exact vfMidIntegerBlockPrimeSupply_le_prefixWheelEnvelope S R hR hSR
+
 /-! ## Elementary 2-5 and 2-3 wheel bounds
 
 Mathlib's `Nat.primeCounting_add_le` is the exact finite sieve estimate needed
