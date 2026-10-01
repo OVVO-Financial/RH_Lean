@@ -1,48 +1,129 @@
 # RH_Lean current proof contract
 
-Status date: 2026-09-30. The canonical direct VF-mid target is recorded first;
-the earlier CORR-4 route and its closeout remain preserved below.
+Status date: 2026-10-01. The direct VF-mid route is the canonical proof program.
 Compiled Lean source and successful checks of the relevant commit are
-authoritative. Historical handoffs and plans do not override this contract.
+authoritative. Historical handoffs, attractive finite plots, and stronger
+sufficient criteria do not override this contract.
 
-## Canonical direct VF-mid target (after #820–#821)
+## Motto and guiding light
 
-**RH is not proved.** The active arithmetic target is
+> **Close RH through VF.  Preserve the RH-scale target; do not replace it with
+> a stronger block-by-block statement merely because that stronger statement
+> fits finite data.**
+
+The VF construction can remain an excellent RH-scale approximation to the
+prime-counting staircase even though no fixed vertical alignment intersects
+that staircase in every square block forever.  Those are different claims.
+
+The canonical arithmetic target is therefore the cumulative square-endpoint
+bound
 
 ```text
 exists C >= 0, for every natural R >= 2,
   |pi(R^2) - VF_mid(R^2)| <= C R log R.
 ```
 
-In [`VF_MID_VON_KOCH_BRIDGE.lean`](research/VF_MID_VON_KOCH_BRIDGE.lean),
-this is `VFMidSquareEndpointVonKochBoundedStatement`.
-`vfMidVonKochBounded_of_squareEndpoint` extends it to every real `x >= 4`;
-`vfMidSquareEndpointVonKochBounded_iff` proves equivalence with the original
-`VFMidVonKochBoundedStatement`. The extension uses the unconditional estimate
+In Lean this is
+
+`VFMidSquareEndpointVonKochBoundedStatement`
+
+from
+[`VF_MID_VON_KOCH_BRIDGE.lean`](research/VF_MID_VON_KOCH_BRIDGE.lean).
+
+The already-compiled bridge
+`vfMidVonKochBounded_of_squareEndpoint` extends that estimate to every real
+cutoff `x >= 4`; `primeLiVonKochBounded_of_vfMidSquareEndpoint` combines it
+with the unconditional VF/Li quadrature estimate; and
+`riemannHypothesis_of_vfMidSquareEndpoint` feeds it into the repository's
+explicit classical von-Koch/RH criterion.
+
+The remaining work is therefore arithmetic control of the cumulative signed
+VF error itself.  Write
 
 ```text
-|primeError(x) - primeError(R^2)| <= (3 + 3/log 4) R,
-  R = floor(sqrt x).
+D_R = pi(R^2) - vfMidFinishedMass R
+P_R = pi((R+1)^2) - pi(R^2)
+m_R = vfMidBandMass R.
 ```
 
-`primeLiVonKochBounded_of_vfMidSquareEndpoint` discharges the quadrature input
-using the proved `vfMidLiRootBounded`. Conversely,
-`vfMidVonKochBounded_of_primeLi` uses that same unconditional quadrature bound
-to recover the VF-mid estimate from the classical prime-minus-Li estimate.
-Consequently
-`vfMidSquareEndpointVonKochBounded_iff_primeLiVonKochBounded` proves that the
-square-endpoint target is quantitatively equivalent to
-`PrimeLiVonKochBoundedStatement`; the direct midpoint route has isolated the
-classical von-Koch-strength cancellation rather than weakened it.
+Then the exact recurrence is
 
-The prime-discrepancy estimate itself remains unproved. The final RH wrapper
-still takes `ClassicalVonKochRHCriterion` as an explicit interface; this module
-does not construct that classical analytic equivalence internally.
+```text
+D_(R+1) = D_R + (P_R - m_R).
+```
 
-The composite realization from #821 is optional, frozen infrastructure. The
-canonical direct consumer does not import it or the Li/Poisson model. Naming
-the endpoint input and extending it to real cutoffs is a reduction, not a
-proof of the uniform arithmetic bound. Further attacks must prove that bound.
+The square-wheel/FTA modules identify `P_R` exactly as the survivors of the
+common finite prime wheel for that square block.  Thus the central research
+question is signed cumulative control of
+
+```text
+sum_{r<R} (P_r - m_r),
+```
+
+at the `R log R` scale.  Local prime/composite dispersion, finite wheel
+exactness, least-prime ownership, and square-root dependency are useful only
+insofar as they help prove this cumulative estimate without introducing a
+stronger false premise.
+
+## Fixed-alignment step-graph criterion: conditional only
+
+PR #842 formalizes a useful sufficient implication for a fixed additive phase
+
+```text
+c0 = 4 - vfMidFinishedMass 3.
+```
+
+The corresponding statement is now named
+
+`VFMidInitialAnchorAlignedStepGraphBracketingStatement`.
+
+If that full step graph intersected the prime staircase in every square block,
+the compiled theorem
+
+`vfMidSquareEndpointVonKochBounded_of_initialAnchorAlignedStepGraph`
+
+would imply the canonical square-endpoint VF bound.
+
+However, universal fixed-phase block-by-block intersection is **not** the final
+target and should not be pursued as such.  The reason is structural: because
+the midpoint VF construction lies on the lower side of the corresponding Li
+integral up to a fixed normalization, universal one-block crossing would force
+a one-sided upper bound of order `sqrt(x)/log(x)` on `pi(x)-Li(x)`.
+Classical Littlewood oscillation gives positive excursions larger than every
+fixed multiple of that scale by an additional unbounded
+`log log log x` factor.  Hence a fixed alignment must eventually miss some
+blocks, even if it succeeds over every computationally accessible range.
+
+This does **not** refute VF.  The legitimate RH-scale target allows
+
+```text
+|pi(R^2) - VF_mid(R^2)| = O(R log R),
+```
+
+which is vastly larger than one local block height
+`m_R ~ R/log R`.  A fixed alignment can therefore fail block intersection
+while VF still satisfies exactly the estimate needed for RH.
+
+Finite aligned-intersection experiments remain valuable diagnostics of local
+geometry.  They are never evidence that the universal fixed-phase statement
+should replace the cumulative VF target.
+
+## Research discipline for the VF route
+
+1. **Keep the exact VF object.**  Do not rescale the midpoint construction to
+   force a visual crossing phenomenon.
+2. **Exploit FTA/square-wheel exactness.**  Prime supply in block `R` is the
+   exact survivor count after sieving by the required prefix primes.
+3. **Separate spatial dispersion from total supply.**  Left/right
+   equidistribution controls placement inside a block; it does not by itself
+   control `P_R-m_R`.
+4. **Control signed accumulation.**  The target is the partial sum of
+   `P_R-m_R`, not an unsigned per-block envelope and not perpetual
+   block-by-block capture.
+5. **Respect the target scale.**  Stronger-than-RH statements may be useful as
+   diagnostics or conditional lemmas, but they are not proof obligations.
+6. **Finite computation is diagnostic only.**  Numerical persistence, however
+   striking, cannot replace a uniform all-scale theorem.
 
 ## Preserved alternative: CORR-4
 

@@ -10,6 +10,17 @@ analytic obligations, and preserves corrections explicitly.
 
 The governing invariants are:
 
+- **close RH through VF:** the canonical direct target is the cumulative
+  `|pi(R^2)-VF_mid(R^2)| <= C R log R` estimate; no stronger per-block
+  capture/intersection statement may silently replace it;
+- fixed-phase VF step-graph intersection is conditional/diagnostic only:
+  finite persistence does not promote it to a universal target, and the
+  classical Littlewood oscillation obstruction must be preserved;
+- distinguish within-block spatial dispersion from total block supply:
+  equidistribution of prime/composite placement does not by itself control the
+  signed increment `P_R - vfMidBandMass R`;
+- the FTA/common-wheel identity is exact and should be exploited to control the
+  **signed cumulative survivor error** rather than an unsigned local envelope;
 - no `sorry`, `admit`, new axioms, opaque theorem substitutes, weakened statements, changed indexing, or circular RH assumptions;
 - modulus `2r`, not `r`, is the canonical quadratic-phase modulus;
 - the prime-3 cell-mask energy and prime-3 quadratic phase remain type-separated;

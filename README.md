@@ -1,44 +1,64 @@
 # RH_Lean
 
-Lean 4 formalization of the square-prefix Möbius program.
+Lean 4 formalization of the square-prefix and direct VF-mid programs.
 
-**Status (2026-09-26): no unconditional proof of the Riemann hypothesis is
-claimed.** The repository proves exact arithmetic identities, obstruction
-results, and implications from explicit quantitative estimates to Mathlib's
-`RiemannHypothesis`. The remaining task is to prove the required estimate.
+> **Guiding light: close RH through VF.  Prove the RH-scale cumulative
+> `pi - VF_mid` bound; do not replace it with a stronger block-by-block
+> crossing statement merely because that stronger statement fits finite data.**
+
+**Status (2026-10-01): no unconditional proof of the Riemann hypothesis is
+claimed.** The repository proves the exact VF square-block construction, its
+unconditional Li quadrature bridge, exact prime/common-wheel survivor
+identities, and conditional implications from a direct VF discrepancy bound to
+Mathlib's `RiemannHypothesis`. The remaining task is the arithmetic bound
+itself.
 
 Start with [`CURRENT_PROOF_CONTRACT.md`](CURRENT_PROOF_CONTRACT.md) for the
-current target and its exact Lean interfaces. The
+current target and exact Lean interfaces. The
 [documentation index](docs/DOCUMENTATION_INDEX.md) distinguishes current
 instructions, append-only research history, numerical diagnostics, and exports.
 
-## The remaining estimate
+## Canonical VF target
 
-At the square endpoint `X = R² − 1`, write
-
-```text
-G_R = M(R² − 1) − M(R − 1),
-E_R = sum over odd primes q with q² < R of M(floor((R² − 1)/q²))².
-```
-
-The compiled CORR-4 consumer accepts a fixed `C >= 0` such that, for every
-`R >= 56` and every admissible lower Mertens envelope `K`,
+At square endpoints define
 
 ```text
-G_R² <= 4 E_R + C R² K.
+D_R = pi(R^2) - vfMidFinishedMass R.
 ```
 
-The contract gives the precise envelope, quantifiers, equivalent full/low
-owner formulations, and sufficient Stokes/remainder coefficient thresholds.
-This inequality is **open**. Exact reassembly and a small reciprocal-square
-budget do not establish it.
+The live target is
 
-The forward analytic bridge is already internal:
-[`riemannHypothesis_of_mertensEnergy`](RHLean/Analysis/MertensEnergyRHForward.lean)
-and the [square-prefix terminal theorem](RHLean/Proof/TerminalMertensForward.lean)
-need the energy estimate, without a separate `ClassicalMertensRHCriterion`
-argument. Historical two-way equivalences that take that argument remain
-conditional as written; the reverse direction is unnecessary for this route.
+```text
+exists C >= 0, for every natural R >= 2,
+  |D_R| <= C R log R.
+```
+
+In Lean this is `VFMidSquareEndpointVonKochBoundedStatement`. The compiled
+VF/Li bridge extends it to real cutoffs and transfers it to the classical
+von-Koch prime-counting scale; the existing RH consumer then closes the route.
+
+The exact square-block recurrence is
+
+```text
+D_(R+1) = D_R + P_R - m_R,
+```
+
+where `P_R` is the exact prime/common-wheel survivor population of block
+`R`, and `m_R = vfMidBandMass R` is the deterministic VF midpoint mass.
+The central problem is therefore signed cumulative control of the survivor
+error `P_R - m_R`.
+
+A fixed aligned VF step graph can intersect `pi` over very long finite
+ranges and is useful diagnostic geometry.  Universal fixed-phase
+block-by-block intersection is nevertheless too strong: it would impose a
+one-sided `O(sqrt(x)/log(x))` upper bound on positive `pi-Li` excursions,
+incompatible with classical Littlewood oscillation.  The fixed-alignment
+results are retained only as conditional sufficient lemmas.  Their failure as
+a universal target does **not** weaken the legitimate
+`O(R log R)` VF program.
+
+The older CORR-4/Mertens route remains preserved as alternative infrastructure;
+it is not the canonical research target.
 
 ## What the recent closeout establishes
 
