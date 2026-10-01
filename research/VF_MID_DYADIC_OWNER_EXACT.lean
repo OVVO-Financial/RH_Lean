@@ -525,7 +525,9 @@ theorem vfMidPrefixWheelCounting_two_cast (N : ℕ) :
   have hempty :
       (∅ : Finset ℕ) ∉ ({{2}} : Finset (Finset ℕ)) := by
     intro h
-    have hcard := congrArg Finset.card h
+    have heq : (∅ : Finset ℕ) = {2} := by
+      simpa using h
+    have hcard := congrArg Finset.card heq
     norm_num at hcard
   rw [Finset.sum_insert hempty, Finset.sum_singleton]
   norm_num [booleanCubeSign, primeFaceProduct]
