@@ -439,8 +439,7 @@ theorem abs_vfMidPrimeError_sq_sub_sq_le_of_signedLateCorrection
         exact ⟨Nat.prime_two, le_rfl⟩
     rw [hset]
     norm_num
-    norm_num
-    omega
+    exact hA
   have hlate := hC A B hA hAB hBA
   calc
     |(vfMidDyadicPrefixSupply 2 A B -
