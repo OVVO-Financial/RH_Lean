@@ -209,6 +209,10 @@ jobs:
           #print axioms RHLean.Analysis.vfMidDirectTheta_log_index_le_log_pred_midpoint
           #print axioms RHLean.Analysis.vfMidDirectThetaAbelWeight_drop_le
           #print axioms RHLean.Analysis.vfMidDirectThetaAbelWeight_pred_le_recip_log
+          #print axioms RHLean.Analysis.abs_vfMidDirectThetaAbelTail_le_four_mul
+          #print axioms RHLean.Analysis.abs_vfMidDirectThetaEndpoint_mul_terminalWeight_le
+          #print axioms RHLean.Analysis.abs_vfMidDirectThetaWeightedPrefix_add_base_le_Rlog
+          #print axioms RHLean.Analysis.abs_vfMidDirectSquareEndpointError_le_of_thetaEnvelope
           LEAN
           set -o pipefail
           lake env lean -DwarningAsError=true /tmp/PrimeFlipPNTAxioms.lean 2>&1 | tee prime-flip-pnt-axioms.log
@@ -217,7 +221,7 @@ jobs:
           from pathlib import Path
           s = Path('prime-flip-pnt-axioms.log').read_text()
           records = re.findall(r"depends on axioms:\s*\[([^\]]*)\]", s, re.S)
-          assert len(records) == 90, records
+          assert len(records) == 94, records
           allowed = {'propext', 'Classical.choice', 'Quot.sound'}
           for record in records:
               actual = {a.strip() for a in record.split(',') if a.strip()}
