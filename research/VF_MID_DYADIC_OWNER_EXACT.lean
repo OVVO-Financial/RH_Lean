@@ -95,10 +95,14 @@ theorem vfMidPrefixWheelIntervalCounting_square_eq_block_add_root
       (vfMidSquarePrefixWheelSurvivors z R).card +
         vfMidPrefixWheelIntervalCounting z R (R + 1) := by
   classical
+  have hsquareExpand :
+      (R + 1) ^ 2 = R ^ 2 + 2 * R + 1 := by
+    ring
   have hsqIoc :
       Finset.Ioc (R ^ 2) ((R + 1) ^ 2) =
         insert ((R + 1) ^ 2)
           (Finset.Ioo (R ^ 2) ((R + 1) ^ 2)) := by
+    rw [hsquareExpand]
     ext n
     simp
     omega
@@ -109,16 +113,37 @@ theorem vfMidPrefixWheelIntervalCounting_square_eq_block_add_root
   unfold vfMidPrefixWheelIntervalCounting
     vfMidSquarePrefixWheelSurvivors vfMidSquareWheelSites
   rw [hsqIoc, hrootIoc]
+  have hupperNot :
+      (R + 1) ^ 2 ∉
+        (Finset.Ioo (R ^ 2) ((R + 1) ^ 2)).filter
+          (lowWheelHighSurvivor z) := by
+    simp
   by_cases hroot : lowWheelHighSurvivor z (R + 1)
   · have hsquare :
         lowWheelHighSurvivor z ((R + 1) ^ 2) :=
       (lowWheelHighSurvivor_sq_iff z (R + 1)).2 hroot
-    simpa [Finset.filter_insert, hroot, hsquare]
+    have hrootFilter :
+        ({R + 1} : Finset ℕ).filter (lowWheelHighSurvivor z) =
+          {R + 1} := by
+      ext n
+      simp [hroot]
+    rw [Finset.filter_insert]
+    simp only [hsquare, if_true]
+    rw [Finset.card_insert_of_notMem hupperNot, hrootFilter]
+    simp
   · have hsquare :
         ¬ lowWheelHighSurvivor z ((R + 1) ^ 2) := by
       intro h
       exact hroot ((lowWheelHighSurvivor_sq_iff z (R + 1)).1 h)
-    simp [hroot, hsquare]
+    have hrootFilter :
+        ({R + 1} : Finset ℕ).filter (lowWheelHighSurvivor z) =
+          ∅ := by
+      ext n
+      simp [hroot]
+    rw [Finset.filter_insert]
+    simp only [hsquare, if_false]
+    rw [hrootFilter]
+    simp
 
 /-- One physical square-block prefix survivor count is exactly the four
 endpoint difference F_z((R+1)^2)-F_z(R^2)-F_z(R+1)+F_z(R). -/
