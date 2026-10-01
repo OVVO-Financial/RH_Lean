@@ -2,6 +2,7 @@ import Mathlib
 import RHLean.Analysis.GrowingParentPhaseUniformity
 import «research.VF_MID_UNIFORMITY_BIAS_CORRELATION»
 import «research.VF_MID_DIRECT_SIGNED_DYNAMICS»
+import «research.VF_MID_GLOBAL_PHASE_UNIFORMITY_BRIDGE»
 
 /-!
 # Harman/Vinogradov square-root phase bridge to VF-mid block bias
@@ -47,19 +48,6 @@ open scoped BigOperators
 namespace RHLean.Analysis
 
 /-! ## 1. The half-phase cutoff is exactly the integer midpoint -/
-
-/-- The square-root fractional phase is always nonnegative. -/
-theorem squareRootPrimePhase_nonneg (n : ℕ) :
-    0 <= squareRootPrimePhase n := by
-  have hnat : (Nat.sqrt n) ^ 2 <= n := Nat.sqrt_le' n
-  have hnatR : ((Nat.sqrt n : ℕ) : ℝ) ^ 2 <= (n : ℝ) := by
-    exact_mod_cast hnat
-  have hsqrtSq : (Real.sqrt (n : ℝ)) ^ 2 = (n : ℝ) := by
-    exact Real.sq_sqrt (by positivity)
-  have hsqrt0 : 0 <= Real.sqrt (n : ℝ) := Real.sqrt_nonneg _
-  have hnat0 : 0 <= (Nat.sqrt n : ℝ) := by positivity
-  unfold squareRootPrimePhase
-  nlinarith
 
 /-- On one open square carrier, phase < 1/2 is exactly the left integer half
 through R^2+R.  There is no asymptotic approximation here. -/
@@ -136,30 +124,6 @@ theorem vfMidGlobalHalfPhasePrimeSet_card_eq_phaseWindowCount (X : ℕ) :
     exact ⟨hpI, hpPrime, squareRootPrimePhase_nonneg p, hhalf⟩
   · rintro ⟨hpI, hpPrime, _hzero, hhalf⟩
     exact ⟨hpI, hpPrime, hhalf⟩
-
-/-- The repository's closed prime count agrees with Mathlib's pi. -/
-theorem primeCountUpTo_eq_primeCounting (X : ℕ) :
-    primeCountUpTo X = Nat.primeCounting X := by
-  unfold primeCountUpTo
-  have hset :
-      (Finset.Icc 2 X).filter Nat.Prime =
-        (Finset.range (X + 1)).filter Nat.Prime := by
-    ext p
-    simp only [Finset.mem_filter, Finset.mem_Icc, Finset.mem_range,
-      Nat.lt_succ_iff]
-    constructor
-    · rintro ⟨⟨_hp2, hpX⟩, hpPrime⟩
-      exact ⟨hpX, hpPrime⟩
-    · rintro ⟨hpX, hpPrime⟩
-      exact ⟨⟨hpPrime.two_le, hpX⟩, hpPrime⟩
-  unfold Nat.primeCounting Nat.primeCounting'
-  rw [Nat.count_eq_card_filter_range]
-  exact congrArg Finset.card hset
-
-/-- Global centered half-phase discrepancy evaluated at the square endpoint R^2. -/
-def vfMidGlobalHalfPhaseDiscrepancy (R : ℕ) : ℝ :=
-  (squareRootPrimePhaseWindowCount (R ^ 2) 0 (1 / 2 : ℝ) : ℝ) -
-    (1 / 2 : ℝ) * (primeCountUpTo (R ^ 2) : ℝ)
 
 /-- The global half-phase set splits exactly at consecutive square endpoints. -/
 theorem vfMidGlobalHalfPhasePrimeSet_split (R : ℕ) :
@@ -265,7 +229,7 @@ theorem vfMidGlobalHalfPhaseDiscrepancy_succ_sub
   ring
 
 /-- Equivalent successor form. -/
-theorem vfMidGlobalHalfPhaseDiscrepancy_succ
+theorem vfMidGlobalHalfPhaseDiscrepancy_succ_add
     (R : ℕ) :
     vfMidGlobalHalfPhaseDiscrepancy (R + 1) =
       vfMidGlobalHalfPhaseDiscrepancy R +
@@ -284,7 +248,7 @@ theorem sum_vfMidSquareBlockMidpointBias_eq_globalHalfPhaseDifference
       simp
   | succ n ih =>
       rw [Finset.sum_range_succ, ih]
-      have hs := vfMidGlobalHalfPhaseDiscrepancy_succ (R + n)
+      have hs := vfMidGlobalHalfPhaseDiscrepancy_succ_add (R + n)
       rw [Nat.add_succ]
       nlinarith
 
