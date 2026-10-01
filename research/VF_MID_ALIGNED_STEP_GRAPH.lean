@@ -1,5 +1,6 @@
 import Mathlib
 import «research.VF_MID_LITERAL_BLOCK_CROSSING»
+import «research.VF_MID_SQUARE_WHEEL_BACKLOG»
 
 /-!
 # Aligned VF-mid step-graph crossing
@@ -212,6 +213,128 @@ theorem vfMidAlignedIntegerBlock_rounding_error
   constructor
   · linarith [vfMidAlignedIntegerBlockLevel_cast_le c hc R]
   · linarith [vfMidAlignedMass_lt_integerBlockLevel_add_one c R]
+
+/-! ## Prefix-wheel support for aligned vertical faces
+
+The exact square-block supply identity rewrites a vertical graph face into a
+finite common-wheel statement.  Any prefix wheel gives a rigorous upper
+envelope for that supply, and the full cutoff S = R is exact by the fundamental
+factorization theorem already formalized in the square-wheel file.
+-/
+
+/-- Exact supply form of the right vertical face. -/
+theorem vfMidAlignedRightVerticalCrossed_iff_primeSupply
+    (c : ℝ) (R : ℕ) :
+    VFMidAlignedRightVerticalCrossed c R ↔
+      vfMidAlignedIntegerBlockLevel c R ≤
+        Nat.primeCounting (R ^ 2) +
+          vfMidIntegerBlockPrimeSupply R ∧
+      Nat.primeCounting (R ^ 2) +
+          vfMidIntegerBlockPrimeSupply R ≤
+        vfMidAlignedIntegerBlockLevel c (R + 1) := by
+  have hp := vfMidIntegerBlockPrimeSupply_add_primeCounting R
+  unfold VFMidAlignedRightVerticalCrossed
+  omega
+
+/-- Exact FTA form: at the full cutoff S = R the survivor cardinality is the
+actual prime supply in the block. -/
+theorem vfMidAlignedRightVerticalCrossed_iff_fullPrefixWheelCard
+    (c : ℝ) (R : ℕ) (hR : 2 ≤ R) :
+    VFMidAlignedRightVerticalCrossed c R ↔
+      vfMidAlignedIntegerBlockLevel c R ≤
+        Nat.primeCounting (R ^ 2) +
+          (vfMidSquarePrefixWheelSurvivors R R).card ∧
+      Nat.primeCounting (R ^ 2) +
+          (vfMidSquarePrefixWheelSurvivors R R).card ≤
+        vfMidAlignedIntegerBlockLevel c (R + 1) := by
+  rw [vfMidAlignedRightVerticalCrossed_iff_primeSupply,
+    vfMidIntegerBlockPrimeSupply_eq_fullPrefixWheelCard R hR]
+
+/-- A partial prefix-wheel survivor count can certify the right vertical face. -/
+theorem vfMidAlignedRightVerticalCrossed_of_prefixWheelCard
+    (c : ℝ) (S R : ℕ) (hR : 2 ≤ R) (hSR : S ≤ R)
+    (hlow :
+      vfMidAlignedIntegerBlockLevel c R ≤
+        Nat.primeCounting (R ^ 2))
+    (hroom :
+      Nat.primeCounting (R ^ 2) +
+          (vfMidSquarePrefixWheelSurvivors S R).card ≤
+        vfMidAlignedIntegerBlockLevel c (R + 1)) :
+    VFMidAlignedRightVerticalCrossed c R := by
+  rw [vfMidAlignedRightVerticalCrossed_iff_primeSupply]
+  have hsupply :=
+    vfMidIntegerBlockPrimeSupply_le_prefixWheelCard S R hR hSR
+  constructor <;> omega
+
+/-- A prefix-wheel totient envelope can certify the same right vertical face. -/
+theorem vfMidAlignedRightVerticalCrossed_of_prefixWheelEnvelope
+    (c : ℝ) (S R : ℕ) (hR : 2 ≤ R) (hSR : S ≤ R)
+    (hlow :
+      vfMidAlignedIntegerBlockLevel c R ≤
+        Nat.primeCounting (R ^ 2))
+    (hroom :
+      Nat.primeCounting (R ^ 2) +
+          vfMidPrefixWheelEnvelope S R ≤
+        vfMidAlignedIntegerBlockLevel c (R + 1)) :
+    VFMidAlignedRightVerticalCrossed c R := by
+  rw [vfMidAlignedRightVerticalCrossed_iff_primeSupply]
+  have hsupply :=
+    vfMidIntegerBlockPrimeSupply_le_prefixWheelEnvelope S R hR hSR
+  constructor <;> omega
+
+/-- Existential API: it is enough that one prefix cutoff fit the available
+headroom to the next aligned VF level. -/
+theorem vfMidAlignedRightVerticalCrossed_of_exists_prefixWheel
+    (c : ℝ) (R : ℕ) (hR : 2 ≤ R)
+    (hlow :
+      vfMidAlignedIntegerBlockLevel c R ≤
+        Nat.primeCounting (R ^ 2))
+    (hex :
+      ∃ S : ℕ, S ≤ R ∧
+        Nat.primeCounting (R ^ 2) +
+            vfMidPrefixWheelEnvelope S R ≤
+          vfMidAlignedIntegerBlockLevel c (R + 1)) :
+    VFMidAlignedRightVerticalCrossed c R := by
+  rcases hex with ⟨S, hSR, hroom⟩
+  exact vfMidAlignedRightVerticalCrossed_of_prefixWheelEnvelope
+    c S R hR hSR hlow hroom
+
+/-- Applying a prefix-wheel certificate to the preceding square block gives a
+left vertical crossing at x = R^2. -/
+theorem vfMidAlignedLeftVerticalCrossed_of_prefixWheelEnvelope
+    (c : ℝ) (S R : ℕ) (hR : 3 ≤ R) (hS : S ≤ R - 1)
+    (hlow :
+      vfMidAlignedIntegerBlockLevel c (R - 1) ≤
+        Nat.primeCounting ((R - 1) ^ 2))
+    (hroom :
+      Nat.primeCounting ((R - 1) ^ 2) +
+          vfMidPrefixWheelEnvelope S (R - 1) ≤
+        vfMidAlignedIntegerBlockLevel c R) :
+    VFMidAlignedLeftVerticalCrossed c R := by
+  have hpred : 2 ≤ R - 1 := by omega
+  have hright :=
+    vfMidAlignedRightVerticalCrossed_of_prefixWheelEnvelope
+      c S (R - 1) hpred hS hlow hroom
+  rcases hright with ⟨hlo, hup⟩
+  have hsucc : R - 1 + 1 = R := by omega
+  constructor
+  · simpa [hsucc] using hlo
+  · simpa [hsucc] using hup
+
+/-- The universal half-width theorem yields a simple right-face certificate:
+R counts of VF headroom above the current prime endpoint are enough. -/
+theorem vfMidAlignedRightVerticalCrossed_of_R_headroom
+    (c : ℝ) (R : ℕ) (hR : 2 ≤ R)
+    (hlow :
+      vfMidAlignedIntegerBlockLevel c R ≤
+        Nat.primeCounting (R ^ 2))
+    (hroom :
+      Nat.primeCounting (R ^ 2) + R ≤
+        vfMidAlignedIntegerBlockLevel c (R + 1)) :
+    VFMidAlignedRightVerticalCrossed c R := by
+  rw [vfMidAlignedRightVerticalCrossed_iff_primeSupply]
+  have hsupply := vfMidIntegerBlockPrimeSupply_le_R R hR
+  constructor <;> omega
 
 /-! ## Local endpoint bounds from the three graph-intersection modes -/
 
