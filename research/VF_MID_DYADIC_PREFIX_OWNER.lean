@@ -92,7 +92,8 @@ theorem vfMidPrefixWheelCounting_cast_real_eq_faceFloorSum
         (booleanCubeSign t : ℝ) *
           ((N / primeFaceProduct t : ℕ) : ℝ) := by
   have h := vfMidPrefixWheelCounting_cast_int_eq_faceFloorSum z N
-  exact_mod_cast h
+  have hR := congrArg (fun x : ℤ => (x : ℝ)) h
+  simpa using hR
 
 /-- Natural Euler density of the fixed prefix wheel. -/
 def vfMidPrefixWheelDensity (z : ℕ) : ℝ :=
@@ -213,7 +214,6 @@ theorem vfMidDyadicPrefixSupply_sub_density_eq_four_endpoint_errors
       ((vfMidPrefixWheelCounting z A : ℝ) -
           vfMidPrefixWheelDensity z * (A : ℝ)) := by
   unfold vfMidDyadicPrefixSupply vfMidDyadicInteriorLength
-  push_cast
   ring
 
 /-- The cumulative small-wheel error over any adjacent square range has only
@@ -239,11 +239,11 @@ theorem abs_vfMidDyadicPrefixSupply_sub_density_le_four_pow
       vfMidPrefixWheelDensity z * (A : ℝ)
   have hB2 : |eB2| ≤ M := by
     dsimp [eB2, M]
-    simpa using
+    simpa only [Nat.cast_pow] using
       abs_vfMidPrefixWheelCounting_sub_density_mul_le z (B ^ 2)
   have hA2 : |eA2| ≤ M := by
     dsimp [eA2, M]
-    simpa using
+    simpa only [Nat.cast_pow] using
       abs_vfMidPrefixWheelCounting_sub_density_mul_le z (A ^ 2)
   have hB : |eB| ≤ M := by
     dsimp [eB, M]
@@ -309,8 +309,8 @@ theorem vfMidDyadicPrimeVFError_eq_prefixError_sub_lateCorrection
         vfMidPrefixWheelDensity z * vfMidDyadicInteriorLength A B) -
       (vfMidDyadicLateRemoval z A B -
         vfMidDyadicLateReference z A B) := by
-  unfold vfMidDyadicPrimeSupply vfMidDyadicVFMass
-    vfMidDyadicLateRemoval vfMidDyadicLateReference
+  simp only [vfMidDyadicLateRemoval, vfMidDyadicLateReference,
+    vfMidDyadicPrimeSupply, vfMidDyadicVFMass]
   ring
 
 /-- At square endpoints, the native VF error increment is exactly the dyadic
@@ -320,10 +320,10 @@ theorem vfMidPrimeError_sq_sub_sq_eq_dyadicPrimeVFError
     vfMidPrimeError ((B : ℝ) ^ 2) -
         vfMidPrimeError ((A : ℝ) ^ 2) =
       vfMidDyadicPrimeSupply A B - vfMidDyadicVFMass A B := by
-  unfold vfMidPrimeError vfMidPrimeCount vfMidDyadicPrimeSupply
+  rw [← vfMidDirectSquareEndpointError_eq_vfMidPrimeError hB,
+    ← vfMidDirectSquareEndpointError_eq_vfMidPrimeError hA]
+  unfold vfMidDirectSquareEndpointError vfMidDyadicPrimeSupply
     vfMidDyadicVFMass
-  rw [vfMid_sq hA, vfMid_sq hB]
-  simp only [Real.natFloor_natCast, Nat.cast_pow]
   ring
 
 /-- The exact dyadic VF endpoint increment split into the four-endpoint prefix
@@ -345,10 +345,13 @@ theorem vfMidPrimeError_sq_sub_sq_eq_prefixError_sub_lateCorrection
 block r in [A,B): the existing owner child is then prime. -/
 theorem vfMidDyadicTerminalOwner_child_prime
     {A B r p n : ℕ}
+    (hA : 2 ≤ A)
     (hr : r ∈ Finset.Ico A B)
     (hn : n ∈ vfMidSquareBandCompositeOwner r p)
     (hterminal : B ^ 2 ≤ p ^ 3) :
     (n / p).Prime := by
+  have hrA : A ≤ r := (Finset.mem_Ico.mp hr).1
+  have hr2 : 2 ≤ r := hA.trans hrA
   have hrB : r + 1 ≤ B := by
     have := (Finset.mem_Ico.mp hr).2
     omega
@@ -356,28 +359,32 @@ theorem vfMidDyadicTerminalOwner_child_prime
     Nat.pow_le_pow_left hrB 2
   exact
     vfMidSquareBandCompositeOwner_child_prime_of_upperSquare_le_cube
-      hn (hsquares.trans hterminal)
+      hr2 hn (hsquares.trans hterminal)
 
 /-- In that terminal range the chronological owner decomposition is literally
 a product of two distinct primes: p is the least prime factor and n/p is a
 strictly larger prime. -/
 theorem vfMidDyadicTerminalOwner_eq_distinctPrimePair
     {A B r p n : ℕ}
+    (hA : 2 ≤ A)
     (hr : r ∈ Finset.Ico A B)
     (hn : n ∈ vfMidSquareBandCompositeOwner r p)
     (hterminal : B ^ 2 ≤ p ^ 3) :
     p.Prime ∧ (n / p).Prime ∧ p < n / p ∧ p * (n / p) = n := by
-  have hp := vfMidSquareBandCompositeOwner_owner_prime hn
+  have hr2 : 2 ≤ r :=
+    hA.trans (Finset.mem_Ico.mp hr).1
+  have hpData :=
+    vfMidSquareBandCompositeOwner_prime_le_root hr2 hn
+  have hp := hpData.1
+  have hpLeR := hpData.2
   have hchildPrime :=
-    vfMidDyadicTerminalOwner_child_prime hr hn hterminal
+    vfMidDyadicTerminalOwner_child_prime hA hr hn hterminal
   have hreconstruct :=
-    vfMidSquareBandCompositeOwner_reconstruct hn
+    vfMidSquareBandCompositeOwner_mul_div hn
   have hchildGe :=
-    vfMidSquareBandCompositeOwner_child_ge_owner hn
-  have hpLeR :=
-    vfMidSquareBandCompositeOwner_owner_le_r hn
-  have hnSite :=
-    (Finset.mem_filter.mp hn).1
+    vfMidSquareBandCompositeOwner_le_child hr2 hn
+  have hnComp := (vfMidSquareBandCompositeOwner_mem hn).1
+  have hnSite := (Finset.mem_filter.mp hnComp).1
   have hnI := Finset.mem_Ioo.mp hnSite
   have hne : p ≠ n / p := by
     intro heq
@@ -435,12 +442,13 @@ theorem abs_vfMidPrimeError_sq_sub_sq_le_of_signedLateCorrection
           vfMidPrefixWheelDensity 2 * vfMidDyadicInteriorLength A B| +
       |vfMidDyadicLateRemoval 2 A B -
           vfMidDyadicLateReference 2 A B| := by
-        simpa [sub_eq_add_neg] using
+        have htri :=
           abs_add_le
             (vfMidDyadicPrefixSupply 2 A B -
               vfMidPrefixWheelDensity 2 * vfMidDyadicInteriorLength A B)
             (-(vfMidDyadicLateRemoval 2 A B -
               vfMidDyadicLateReference 2 A B))
+        simpa only [sub_eq_add_neg, abs_neg] using htri
     _ ≤ 4 * (A : ℝ) + C * (A : ℝ) * Real.log A :=
       add_le_add hprefix hlate
 
