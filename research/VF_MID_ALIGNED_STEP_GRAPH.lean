@@ -439,7 +439,8 @@ theorem vfMidSquareEndpointVonKochBounded_of_alignedStepGraph
       B * (R : ℝ)
           ≤ B * (R : ℝ) *
               (Real.log (R : ℝ) / Real.log 2) := by
-            nlinarith [mul_nonneg hB hRnonneg]
+            exact mul_le_mul_of_nonneg_left hratio
+              (mul_nonneg hB hRnonneg)
       _ = (B / Real.log 2) * (R : ℝ) * Real.log (R : ℝ) := by
             field_simp [hlog2.ne']
   have hDB : |vfMidDirectSquareEndpointError R| ≤ B * (R : ℝ) := by
@@ -462,12 +463,14 @@ theorem vfMidSquareEndpointVonKochBounded_of_alignedStepGraph
       have hmassPred :=
         vfMidBandMass_le_three_mul_div_log_four (R - 1)
           (by omega : 2 ≤ R - 1)
+      have hpredCast :
+          (((R - 1 : ℕ) : ℝ)) ≤ (R : ℝ) := by
+        exact_mod_cast Nat.sub_le R 1
       have hpredR :
           3 * ((R - 1 : ℕ) : ℝ) / Real.log 4 ≤
             3 * (R : ℝ) / Real.log 4 := by
         apply div_le_div_of_nonneg_right
-        · push_cast
-          nlinarith
+        · nlinarith
         · exact hlog4.le
       have hmassPredR :
           vfMidBandMass (R - 1) ≤
