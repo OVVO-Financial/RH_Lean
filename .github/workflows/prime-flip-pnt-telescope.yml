@@ -225,8 +225,8 @@ jobs:
           #print axioms RHLean.Analysis.vfMidDirectSquareEndpointError_abs_lt_of_alignedStepGraphCrossed
           #print axioms RHLean.Analysis.vfMidBandMass_le_three_mul_div_log_four
           #print axioms RHLean.Analysis.vfMidSquareEndpointVonKochBounded_of_alignedStepGraph
-          #print axioms RHLean.Analysis.vfMidSquareEndpointVonKochBounded_of_canonicalAlignedStepGraph
-          #print axioms RHLean.Analysis.riemannHypothesis_of_vfMidCanonicalAlignedStepGraph
+          #print axioms RHLean.Analysis.vfMidSquareEndpointVonKochBounded_of_initialAnchorAlignedStepGraph
+          #print axioms RHLean.Analysis.riemannHypothesis_of_vfMidInitialAnchorAlignedStepGraph
           #print axioms RHLean.Analysis.riemannHypothesis_of_vfMidAlignedStepGraph
           #print axioms RHLean.Analysis.vfMidIntegerVerticalStepCrossed_abs_squareEndpointError_le_bandMass
           #print axioms RHLean.Analysis.vfMidIntegerStepGraphBracketed_abs_squareEndpointError_lt
