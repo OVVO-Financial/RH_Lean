@@ -180,7 +180,6 @@ magnitude. -/
 theorem abs_vfMidSquareBlock_rightVFError_sub_half_eq_abs_bias (R : ℕ) :
     |vfMidSquareBlockRightVFError R - vfMidSquareBandError R / 2| =
       |vfMidSquareBlockMidpointBias R| := by
-  rw [vfMidSquareBlock_rightVFError_eq_half_band_sub_bias]
   have h :
       vfMidSquareBlockRightVFError R - vfMidSquareBandError R / 2 =
         -vfMidSquareBlockMidpointBias R := by
@@ -192,7 +191,7 @@ theorem abs_vfMidSquareBlock_rightVFError_sub_half_eq_abs_bias (R : ℕ) :
 
 /-- Finite lag-h autocorrelation sum of the midpoint spatial-bias coordinate. -/
 def vfMidSquareBlockBiasLagCorrelation (R h n : ℕ) : ℝ :=
-  ∑ k in Finset.range n,
+  ∑ k ∈ Finset.range n,
     vfMidSquareBlockMidpointBias (R + k) *
       vfMidSquareBlockMidpointBias (R + k + h)
 
@@ -220,12 +219,12 @@ def vfMidSquareEndpointAccumulationCorrelation (R : ℕ) : ℝ :=
 
 /-- Cumulative coherent-correlation term over n consecutive square blocks. -/
 def vfMidSquareEndpointAccumulationCorrelationSum (R n : ℕ) : ℝ :=
-  ∑ k in Finset.range n,
+  ∑ k ∈ Finset.range n,
     vfMidSquareEndpointAccumulationCorrelation (R + k)
 
 /-- Cumulative quadratic energy of the raw band errors over the same window. -/
 def vfMidSquareBandErrorEnergySum (R n : ℕ) : ℝ :=
-  ∑ k in Finset.range n, vfMidSquareBandError (R + k) ^ 2
+  ∑ k ∈ Finset.range n, vfMidSquareBandError (R + k) ^ 2
 
 /-- Exact one-block energy update in correlation coordinates. -/
 theorem vfMidSquareEndpointError_sq_succ_eq_correlation
@@ -234,8 +233,9 @@ theorem vfMidSquareEndpointError_sq_succ_eq_correlation
         vfMidSquareEndpointError R ^ 2 =
       2 * vfMidSquareEndpointAccumulationCorrelation R +
         vfMidSquareBandError R ^ 2 := by
-  simpa [vfMidSquareEndpointAccumulationCorrelation] using
-    vfMidSquareEndpointError_sq_succ R hR
+  rw [vfMidSquareEndpointError_sq_succ R hR]
+  unfold vfMidSquareEndpointAccumulationCorrelation
+  ring
 
 /-- **Exact finite coherent-accumulation telescope.**
 
@@ -272,7 +272,7 @@ theorem vfMidSquareEndpointError_energy_telescope
             2 * vfMidSquareEndpointAccumulationCorrelationSum R (n + 1) +
               vfMidSquareBandErrorEnergySum R (n + 1) := by
           simp [vfMidSquareEndpointAccumulationCorrelationSum,
-            vfMidSquareBandErrorEnergySum, Finset.sum_range_succ]
+            vfMidSquareBandErrorEnergySum]
           ring
 
 /-- With exactly zero cumulative D_R*e_R correlation, there is no coherent
