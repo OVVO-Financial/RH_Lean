@@ -76,6 +76,48 @@ theorem vfMidSquareBandError_eq_fractionalPrimeClusterDiscrepancy
     vfMidActualPrimeSeatMass_sum_squareBand,
     vfMidFractionalPrimeSeatWeight_sum_squareBand R hR]
 
+/-- Signed actual-minus-fractional VF discrepancy across a run of complete
+square blocks.  This is the realization error of the 0/1 prime configuration
+against the indeterminate VF cluster on exactly the same integer seats. -/
+def vfMidFractionalPrimeClusterDiscrepancy (A B : ℕ) : ℝ :=
+  ∑ r ∈ Finset.Ico A B,
+    ∑ n ∈ vfMidSquareBandSites r,
+      (vfMidActualPrimeSeatMass n -
+        vfMidFractionalPrimeSeatWeight r)
+
+/-- The cluster discrepancy is exactly the sum of the direct VF band errors. -/
+theorem vfMidFractionalPrimeClusterDiscrepancy_eq_sum_bandError
+    (A B : ℕ) (hA : 2 ≤ A) :
+    vfMidFractionalPrimeClusterDiscrepancy A B =
+      ∑ r ∈ Finset.Ico A B, vfMidSquareBandError r := by
+  unfold vfMidFractionalPrimeClusterDiscrepancy
+  apply Finset.sum_congr rfl
+  intro r hr
+  have hr2 : 2 ≤ r := hA.trans (Finset.mem_Ico.mp hr).1
+  symm
+  exact vfMidSquareBandError_eq_fractionalPrimeClusterDiscrepancy r hr2
+
+/-- **Exact cumulative realization identity.**
+Across any square-block run starting at A >= 2, the integral-minus-fractional
+seat discrepancy telescopes to the square-endpoint VF error increment. -/
+theorem vfMidFractionalPrimeClusterDiscrepancy_eq_endpointError_sub
+    (A B : ℕ) (hA : 2 ≤ A) (hAB : A ≤ B) :
+    vfMidFractionalPrimeClusterDiscrepancy A B =
+      vfMidSquareEndpointError B - vfMidSquareEndpointError A := by
+  rw [vfMidFractionalPrimeClusterDiscrepancy_eq_sum_bandError A B hA]
+  calc
+    (∑ r ∈ Finset.Ico A B, vfMidSquareBandError r) =
+        ∑ r ∈ Finset.Ico A B,
+          (vfMidSquareEndpointError (r + 1) -
+            vfMidSquareEndpointError r) := by
+          apply Finset.sum_congr rfl
+          intro r hr
+          have hr2 : 2 ≤ r := hA.trans (Finset.mem_Ico.mp hr).1
+          have hstep := vfMidSquareEndpointError_succ r hr2
+          linarith
+    _ = vfMidSquareEndpointError B - vfMidSquareEndpointError A := by
+          exact Finset.sum_Ico_sub vfMidSquareEndpointError hAB
+
 /-- Cumulative fractional-prime mass through all complete square blocks below
 the square endpoint R^2. -/
 def vfMidFractionalPrimeClusterMass (R : ℕ) : ℝ :=
