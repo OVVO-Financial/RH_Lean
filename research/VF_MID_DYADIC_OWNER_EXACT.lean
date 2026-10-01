@@ -95,8 +95,6 @@ theorem vfMidPrefixWheelIntervalCounting_square_eq_block_add_root
       (vfMidSquarePrefixWheelSurvivors z R).card +
         vfMidPrefixWheelIntervalCounting z R (R + 1) := by
   classical
-  have hsq : R ^ 2 < (R + 1) ^ 2 := by
-    nlinarith
   have hsqIoc :
       Finset.Ioc (R ^ 2) ((R + 1) ^ 2) =
         insert ((R + 1) ^ 2)
@@ -108,7 +106,6 @@ theorem vfMidPrefixWheelIntervalCounting_square_eq_block_add_root
       Finset.Ioc R (R + 1) = {R + 1} := by
     ext n
     simp
-    omega
   unfold vfMidPrefixWheelIntervalCounting
     vfMidSquarePrefixWheelSurvivors vfMidSquareWheelSites
   rw [hsqIoc, hrootIoc]
@@ -116,7 +113,7 @@ theorem vfMidPrefixWheelIntervalCounting_square_eq_block_add_root
   · have hsquare :
         lowWheelHighSurvivor z ((R + 1) ^ 2) :=
       (lowWheelHighSurvivor_sq_iff z (R + 1)).2 hroot
-    simp [hroot, hsquare]
+    simpa [Finset.filter_insert, hroot, hsquare]
   · have hsquare :
         ¬ lowWheelHighSurvivor z ((R + 1) ^ 2) := by
       intro h
@@ -134,7 +131,8 @@ theorem vfMidSquarePrefixWheelSurvivors_card_eq_fourEndpoints
       (vfMidPrefixWheelCounting z R : ℝ) := by
   have hsq :=
     vfMidPrefixWheelCounting_add_intervalCounting
-      z (R ^ 2) ((R + 1) ^ 2) (by nlinarith)
+      z (R ^ 2) ((R + 1) ^ 2)
+        (Nat.pow_le_pow_left (by omega : R ≤ R + 1) 2)
   have hroot :=
     vfMidPrefixWheelCounting_add_intervalCounting
       z R (R + 1) (by omega)
