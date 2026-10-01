@@ -14,6 +14,7 @@ on:
       - research/VF_MID_DIRECT_SIGNED_DYNAMICS.lean
       - research/VF_MID_SQUARE_BAND_COMPOSITE_BRIDGE.lean
       - research/VF_MID_DIRECT_COMPOSITE_DESCENT.lean
+      - research/VF_MID_DIRECT_OWNER_DESCENT.lean
       - research/VF_MID_INTEGER_BLOCK_CAPTURE.lean
       - research/VF_MID_SQUARE_WHEEL_BACKLOG.lean
       - research/VF_MID_MIDPOINT_COMPLEMENT_DISPERSION.lean
@@ -93,6 +94,7 @@ jobs:
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_DIRECT_SIGNED_DYNAMICS.olean research/VF_MID_DIRECT_SIGNED_DYNAMICS.lean 2>&1 | tee vf-mid-direct-signed-dynamics.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_SQUARE_BAND_COMPOSITE_BRIDGE.olean research/VF_MID_SQUARE_BAND_COMPOSITE_BRIDGE.lean 2>&1 | tee vf-mid-square-band-composite-bridge.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_DIRECT_COMPOSITE_DESCENT.olean research/VF_MID_DIRECT_COMPOSITE_DESCENT.lean 2>&1 | tee vf-mid-direct-composite-descent.log
+          lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_DIRECT_OWNER_DESCENT.olean research/VF_MID_DIRECT_OWNER_DESCENT.lean 2>&1 | tee vf-mid-direct-owner-descent.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_INTEGER_BLOCK_CAPTURE.olean research/VF_MID_INTEGER_BLOCK_CAPTURE.lean 2>&1 | tee vf-mid-integer-block-capture.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_SQUARE_WHEEL_BACKLOG.olean research/VF_MID_SQUARE_WHEEL_BACKLOG.lean 2>&1 | tee vf-mid-square-wheel-backlog.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_MIDPOINT_COMPLEMENT_DISPERSION.olean research/VF_MID_MIDPOINT_COMPLEMENT_DISPERSION.lean 2>&1 | tee vf-mid-midpoint-complement-dispersion.log
@@ -118,6 +120,7 @@ jobs:
           import «research.VF_MID_SQUARE_WHEEL_BACKLOG»
           import «research.VF_MID_MIDPOINT_COMPLEMENT_DISPERSION»
           import «research.VF_MID_COMPOSITE_FLOOR»
+          import «research.VF_MID_DIRECT_OWNER_DESCENT»
           import «research.VF_MID_DIRECT_DISCREPANCY_ABEL»
           #print axioms RHLean.Analysis.primeFlipExactResponse_eq_pnt_add_error
           #print axioms RHLean.Analysis.primeFlipExactResponse_eq_reciprocalPrimeCounts
@@ -213,6 +216,13 @@ jobs:
           #print axioms RHLean.Analysis.abs_vfMidDirectThetaEndpoint_mul_terminalWeight_le
           #print axioms RHLean.Analysis.abs_vfMidDirectThetaWeightedPrefix_add_base_le_Rlog
           #print axioms RHLean.Analysis.abs_vfMidDirectSquareEndpointError_le_of_thetaEnvelope
+          #print axioms RHLean.Analysis.vfMidSquareBandComposite_card_eq_sum_ownerCards
+          #print axioms RHLean.Analysis.vfMidSquareBandError_eq_ownerCards
+          #print axioms RHLean.Analysis.vfMidSquareBandCompositeOwnerChildren_card
+          #print axioms RHLean.Analysis.vfMidSquareBandCompositeOwnerChildren_lt_square
+          #print axioms RHLean.Analysis.vfMidSquareBand_terminalOwner_child_prime
+          #print axioms RHLean.Analysis.vfMidSquareBandError_eq_terminal_add_recursive
+          #print axioms RHLean.Analysis.vfMidSquareEndpointError_succ_eq_ownerDescent
           LEAN
           set -o pipefail
           lake env lean -DwarningAsError=true /tmp/PrimeFlipPNTAxioms.lean 2>&1 | tee prime-flip-pnt-axioms.log
@@ -221,7 +231,7 @@ jobs:
           from pathlib import Path
           s = Path('prime-flip-pnt-axioms.log').read_text()
           records = re.findall(r"depends on axioms:\s*\[([^\]]*)\]", s, re.S)
-          assert len(records) == 94, records
+          assert len(records) == 101, records
           allowed = {'propext', 'Classical.choice', 'Quot.sound'}
           for record in records:
               actual = {a.strip() for a in record.split(',') if a.strip()}
@@ -241,6 +251,7 @@ jobs:
             vf-mid-direct-signed-dynamics.log
             vf-mid-square-band-composite-bridge.log
             vf-mid-direct-composite-descent.log
+            vf-mid-direct-owner-descent.log
             vf-mid-integer-block-capture.log
             vf-mid-square-wheel-backlog.log
             vf-mid-midpoint-complement-dispersion.log
