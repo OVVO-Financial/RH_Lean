@@ -72,7 +72,13 @@ theorem vfMidSquareWheel_compositeFloor_iff_directBandError_le
       R (vfMidBandMass R) E
   rw [vfMidDirectBandError, vfMidDirectPrimeBandCount,
     vfMidDirectPrimeBand_eq_squareWheelPrimes]
-  exact hiff
+  constructor
+  · intro h
+    have hp := hiff.mp h
+    linarith
+  · intro h
+    apply hiff.mpr
+    linarith
 
 /-! ## Generic fixed-wheel upper bound on prime survivors -/
 
@@ -217,7 +223,7 @@ theorem vfMidSquareWheelComposite_card_ge_six
   have hc :=
     (vfMidSquareWheel_composite_floor_iff_prime_ceiling
       R ((2 / 3 : ℝ) * R + 4)).2 hp
-  convert hc using 1 <;> ring
+  linarith
 
 /-- The 30-wheel leaves at most 8R/15 + 16 possible prime sites. -/
 theorem vfMidSquareWheelPrime_card_le_thirty
