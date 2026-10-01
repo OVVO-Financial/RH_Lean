@@ -186,6 +186,7 @@ jobs:
           #print axioms RHLean.Analysis.vfMidSquareWheel_midpoint_prime_composite_discrepancy
           #print axioms RHLean.Analysis.vfMidSquareWheel_midpoint_survivor_composite_discrepancy
           #print axioms RHLean.Analysis.vfMidSquareWheel_composite_floor_iff_prime_ceiling
+          #print axioms RHLean.Analysis.vfMidSquareWheel_compositeFloor_iff_directBandError_le
           #print axioms RHLean.Analysis.vfMidSquareWheelPrime_card_le_roughWheel
           #print axioms RHLean.Analysis.vfMidSquareWheelComposite_card_ge_six
           #print axioms RHLean.Analysis.vfMidSquareWheelComposite_card_ge_thirty
@@ -200,7 +201,7 @@ jobs:
           from pathlib import Path
           s = Path('prime-flip-pnt-axioms.log').read_text()
           records = re.findall(r"depends on axioms:\s*\[([^\]]*)\]", s, re.S)
-          assert len(records) == 80, records
+          assert len(records) == 81, records
           allowed = {'propext', 'Classical.choice', 'Quot.sound'}
           for record in records:
               actual = {a.strip() for a in record.split(',') if a.strip()}
