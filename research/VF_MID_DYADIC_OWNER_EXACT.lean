@@ -512,7 +512,11 @@ theorem vfMidPrefixWheelCounting_two_cast (N : ℕ) :
       (N : ℝ) - ((N / 2 : ℕ) : ℝ) := by
   rw [vfMidPrefixWheelCounting_cast_real_eq_faceFloorSum,
     primesUpTo_two_eq_singleton]
-  simp [booleanCubeSign, primeFaceProduct]
+  have hpowerset :
+      ({2} : Finset ℕ).powerset = {∅, {2}} := by
+    native_decide
+  rw [hpowerset]
+  norm_num [booleanCubeSign, primeFaceProduct]
 
 /-- The parity correction in floor(N/2) is unchanged by squaring N. -/
 theorem cast_sq_div_two_sub_div_two (N : ℕ) :
@@ -525,8 +529,14 @@ theorem cast_sq_div_two_sub_div_two (N : ℕ) :
     have hN : N = 2 * q := by
       dsimp [q]
       omega
-    rw [hN]
-    norm_num [pow_two]
+    have hsq : N ^ 2 / 2 = 2 * q ^ 2 := by
+      rw [hN]
+      have hpoly : (2 * q) ^ 2 = 2 * (2 * q ^ 2) := by ring
+      rw [hpoly]
+      omega
+    have hhalf : N / 2 = q := by rfl
+    rw [hsq, hhalf, hN]
+    push_cast
     ring
   · rw [Nat.odd_iff] at hOdd
     let q : ℕ := N / 2
@@ -534,8 +544,16 @@ theorem cast_sq_div_two_sub_div_two (N : ℕ) :
     have hN : N = 2 * q + 1 := by
       dsimp [q]
       omega
-    rw [hN]
-    norm_num [pow_two]
+    have hsq : N ^ 2 / 2 = 2 * q ^ 2 + 2 * q := by
+      rw [hN]
+      have hpoly :
+          (2 * q + 1) ^ 2 =
+            2 * (2 * q ^ 2 + 2 * q) + 1 := by ring
+      rw [hpoly]
+      omega
+    have hhalf : N / 2 = q := by rfl
+    rw [hsq, hhalf, hN]
+    push_cast
     ring
 
 /-- **Exact parity-prefix identity.**
