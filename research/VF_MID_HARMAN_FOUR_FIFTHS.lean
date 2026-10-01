@@ -132,7 +132,7 @@ theorem vfMidSquareBlockMidpointBias_sum_fourFifths
         vfMidGlobalHalfPhaseDiscrepancy R|
         ≤ |vfMidGlobalHalfPhaseDiscrepancy (R + n)| +
             |vfMidGlobalHalfPhaseDiscrepancy R| := abs_sub _ _
-    _ ≤ C * Real.rpow (R + n : ℝ) ((8 : ℝ) / 5 + 2 * ε) +
+    _ ≤ C * Real.rpow (((R + n : ℕ) : ℝ)) ((8 : ℝ) / 5 + 2 * ε) +
           C * Real.rpow (R : ℝ) ((8 : ℝ) / 5 + 2 * ε) :=
       add_le_add hend hstart
 
