@@ -60,8 +60,17 @@ theorem vfMid_rpow_square (R : ℕ) (α : ℝ) :
   have hcast : (((R ^ 2 : ℕ) : ℝ)) = (R : ℝ) ^ (2 : ℕ) := by
     push_cast
     ring
-  have hexp : ((2 : ℕ) : ℝ) * α = 2 * α := by norm_num
-  rw [hcast, ← Real.rpow_natCast (R : ℝ) 2, ← Real.rpow_mul hR, hexp]
+  have htwo : Real.rpow (R : ℝ) (2 : ℝ) = (R : ℝ) ^ (2 : ℕ) :=
+    Real.rpow_natCast (R : ℝ) 2
+  calc
+    Real.rpow (((R ^ 2 : ℕ) : ℝ)) α =
+        Real.rpow ((R : ℝ) ^ (2 : ℕ)) α := by rw [hcast]
+    _ = Real.rpow (Real.rpow (R : ℝ) (2 : ℝ)) α := by
+      congr 1
+      exact htwo.symm
+    _ = Real.rpow (R : ℝ) ((2 : ℝ) * α) :=
+      (Real.rpow_mul hR (2 : ℝ) α).symm
+    _ = Real.rpow (R : ℝ) (2 * α) := by ring_nf
 
 /-- Exact exponent conversion for the classical 4/5+epsilon scale at a square
 endpoint. -/
@@ -106,7 +115,7 @@ theorem vfMidSquareBlockMidpointBias_sum_fourFifths
       ∃ R0 : ℕ, ∀ R n : ℕ, R0 ≤ R →
         |∑ k ∈ Finset.range n,
             vfMidSquareBlockMidpointBias (R + k)| ≤
-          C * Real.rpow (R + n : ℝ) ((8 : ℝ) / 5 + 2 * ε) +
+          C * Real.rpow (((R + n : ℕ) : ℝ)) ((8 : ℝ) / 5 + 2 * ε) +
             C * Real.rpow (R : ℝ) ((8 : ℝ) / 5 + 2 * ε) := by
   rcases vfMidGlobalHalfPhaseDiscrepancy_fourFifths h45 hε with
     ⟨C, hC, R0, hG⟩
