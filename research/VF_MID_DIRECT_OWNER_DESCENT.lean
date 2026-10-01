@@ -44,7 +44,12 @@ def vfMidSquareBandOwnerPrimes (R : ℕ) : Finset ℕ :=
 
 @[simp] theorem mem_vfMidSquareBandOwnerPrimes {R p : ℕ} :
     p ∈ vfMidSquareBandOwnerPrimes R ↔ p.Prime ∧ p ≤ R := by
-  simp [vfMidSquareBandOwnerPrimes, Nat.Prime.two_le]
+  rw [vfMidSquareBandOwnerPrimes, Finset.mem_filter, Finset.mem_Icc]
+  constructor
+  · rintro ⟨⟨_hp2, hpR⟩, hp⟩
+    exact ⟨hp, hpR⟩
+  · rintro ⟨hp, hpR⟩
+    exact ⟨⟨hp.two_le, hpR⟩, hp⟩
 
 /-- Every composite in the square band maps to one of the sub-root owner
 primes by its least prime factor. -/
@@ -81,7 +86,6 @@ theorem vfMidSquareBandComposite_card_eq_sum_ownerCards
     (vfMidSquareBandComposites R).card =
         ∑ n ∈ S, (1 : ℕ) := by
           rw [Finset.card_eq_sum_ones]
-          rfl
     _ = ∑ p ∈ O, ∑ n ∈ S with owner n = p, (1 : ℕ) := hraw
     _ = ∑ p ∈ vfMidSquareBandOwnerPrimes R,
           (vfMidSquareBandCompositeOwner R p).card := by
@@ -123,6 +127,7 @@ theorem vfMidSquareBandCompositeOwner_child_injOn
   intro a ha b hb hab
   have hma := vfMidSquareBandCompositeOwner_mul_div ha
   have hmb := vfMidSquareBandCompositeOwner_mul_div hb
+  change a / p = b / p at hab
   rw [hab] at hma
   exact hma.symm.trans hmb
 
