@@ -21,6 +21,7 @@ on:
       - research/VF_MID_MIDPOINT_COMPLEMENT_DISPERSION.lean
       - research/VF_MID_UNIFORMITY_BIAS_CORRELATION.lean
       - research/VF_MID_GLOBAL_PHASE_UNIFORMITY_BRIDGE.lean
+      - research/VF_MID_HARMAN_FOUR_FIFTHS.lean
       - research/VF_MID_COMPOSITE_FLOOR.lean
       - research/VF_MID_DIRECT_DISCREPANCY_ABEL.lean
       - FORMALIZATION_SEQUENCE.md
@@ -104,6 +105,7 @@ jobs:
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_MIDPOINT_COMPLEMENT_DISPERSION.olean research/VF_MID_MIDPOINT_COMPLEMENT_DISPERSION.lean 2>&1 | tee vf-mid-midpoint-complement-dispersion.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_UNIFORMITY_BIAS_CORRELATION.olean research/VF_MID_UNIFORMITY_BIAS_CORRELATION.lean 2>&1 | tee vf-mid-uniformity-bias-correlation.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_GLOBAL_PHASE_UNIFORMITY_BRIDGE.olean research/VF_MID_GLOBAL_PHASE_UNIFORMITY_BRIDGE.lean 2>&1 | tee vf-mid-global-phase-uniformity-bridge.log
+          lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_HARMAN_FOUR_FIFTHS.olean research/VF_MID_HARMAN_FOUR_FIFTHS.lean 2>&1 | tee vf-mid-harman-four-fifths.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_COMPOSITE_FLOOR.olean research/VF_MID_COMPOSITE_FLOOR.lean 2>&1 | tee vf-mid-composite-floor.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_DIRECT_DISCREPANCY_ABEL.olean research/VF_MID_DIRECT_DISCREPANCY_ABEL.lean 2>&1 | tee vf-mid-direct-discrepancy-abel.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.PRIME_FLIP_PNT_TELESCOPE.olean research/PRIME_FLIP_PNT_TELESCOPE.lean 2>&1 | tee prime-flip-pnt.log
@@ -127,6 +129,7 @@ jobs:
           import «research.VF_MID_MIDPOINT_COMPLEMENT_DISPERSION»
           import «research.VF_MID_UNIFORMITY_BIAS_CORRELATION»
           import «research.VF_MID_GLOBAL_PHASE_UNIFORMITY_BRIDGE»
+          import «research.VF_MID_HARMAN_FOUR_FIFTHS»
           import «research.VF_MID_COMPOSITE_FLOOR»
           import «research.VF_MID_DIRECT_OWNER_DESCENT»
           import «research.VF_MID_DIRECT_ROUGH_CHILD»
@@ -227,6 +230,11 @@ jobs:
           #print axioms RHLean.Analysis.vfMidSquareBlockMidpointBias_sum_eq_globalPhaseDifference
           #print axioms RHLean.Analysis.vfMidGlobalHalfPhaseDiscrepancy_eventually_relative
           #print axioms RHLean.Analysis.abs_vfMidSquareBlockMidpointBias_sum_le_globalPhaseEndpoints
+          #print axioms RHLean.Analysis.vfMid_rpow_square
+          #print axioms RHLean.Analysis.vfMid_rpow_square_fourFifths
+          #print axioms RHLean.Analysis.vfMidGlobalHalfPhaseDiscrepancy_fourFifths
+          #print axioms RHLean.Analysis.vfMidSquareBlockMidpointBias_sum_fourFifths
+          #print axioms RHLean.Analysis.vfMid_fourFifths_square_exponent_gt_one
           #print axioms RHLean.Analysis.vfMidSquareWheel_composite_floor_iff_prime_ceiling
           #print axioms RHLean.Analysis.vfMidSquareWheel_compositeFloor_iff_directBandError_le
           #print axioms RHLean.Analysis.vfMidSquareWheelPrime_card_le_roughWheel
@@ -269,7 +277,7 @@ jobs:
           from pathlib import Path
           s = Path('prime-flip-pnt-axioms.log').read_text()
           records = re.findall(r"depends on axioms:\s*\[([^\]]*)\]", s, re.S)
-          assert len(records) == 130, records
+          assert len(records) == 135, records
           allowed = {'propext', 'Classical.choice', 'Quot.sound'}
           for record in records:
               actual = {a.strip() for a in record.split(',') if a.strip()}
@@ -296,6 +304,7 @@ jobs:
             vf-mid-midpoint-complement-dispersion.log
             vf-mid-uniformity-bias-correlation.log
             vf-mid-global-phase-uniformity-bridge.log
+            vf-mid-harman-four-fifths.log
             vf-mid-composite-floor.log
             vf-mid-direct-discrepancy-abel.log
           if-no-files-found: ignore
