@@ -115,7 +115,7 @@ theorem vfMidSquareBandCompositeOwnerChildren_subset_rough
 /-- Conversely every explicit rough child reconstructs a unique composite site
 owned by p. -/
 theorem vfMidSquareBandOwnerRoughChildren_subset_children
-    {R p : ℕ} (hR : 3 ≤ R)
+    {R p : ℕ} (_hR : 3 ≤ R)
     (hp : p ∈ vfMidSquareBandOwnerPrimes R) :
     vfMidSquareBandOwnerRoughChildren R p ⊆
       vfMidSquareBandCompositeOwnerChildren R p := by
@@ -196,7 +196,7 @@ its first owner. -/
 theorem vfMidSquareBandOwnerRoughChild_le_minFac
     {R p m : ℕ}
     (hm : m ∈ vfMidSquareBandOwnerRoughChildren R p)
-    (hmComp : ¬ m.Prime) :
+    (_hmComp : ¬ m.Prime) :
     p ≤ m.minFac := by
   have hp2 := vfMidSquareBandOwnerRoughChild_two_le_owner hm
   rcases Finset.mem_filter.mp hm with ⟨hmIcc, hdata⟩
