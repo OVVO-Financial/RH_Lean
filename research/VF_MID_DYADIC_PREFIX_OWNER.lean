@@ -239,12 +239,12 @@ theorem abs_vfMidDyadicPrefixSupply_sub_density_le_four_pow
       vfMidPrefixWheelDensity z * (A : ℝ)
   have hB2 : |eB2| ≤ M := by
     dsimp [eB2, M]
-    simpa only [Nat.cast_pow] using
-      abs_vfMidPrefixWheelCounting_sub_density_mul_le z (B ^ 2)
+    convert abs_vfMidPrefixWheelCounting_sub_density_mul_le z (B ^ 2) using 1 <;>
+      norm_num
   have hA2 : |eA2| ≤ M := by
     dsimp [eA2, M]
-    simpa only [Nat.cast_pow] using
-      abs_vfMidPrefixWheelCounting_sub_density_mul_le z (A ^ 2)
+    convert abs_vfMidPrefixWheelCounting_sub_density_mul_le z (A ^ 2) using 1 <;>
+      norm_num
   have hB : |eB| ≤ M := by
     dsimp [eB, M]
     simpa using abs_vfMidPrefixWheelCounting_sub_density_mul_le z B
@@ -388,16 +388,18 @@ theorem vfMidDyadicTerminalOwner_eq_distinctPrimePair
   have hnI := Finset.mem_Ioo.mp hnSite
   have hne : p ≠ n / p := by
     intro heq
+    have hmulEq : p * p = p * (n / p) :=
+      congrArg (fun x : ℕ => p * x) heq
     have hsq : p ^ 2 = n := by
       calc
         p ^ 2 = p * p := by ring
-        _ = p * (n / p) := by rw [heq]
+        _ = p * (n / p) := hmulEq
         _ = n := hreconstruct
     have hpSqLe : p ^ 2 ≤ r ^ 2 :=
       Nat.pow_le_pow_left hpLeR 2
     omega
   refine ⟨hp, hchildPrime, ?_, hreconstruct⟩
-  exact lt_of_le_of_ne hchildGe (Ne.symm hne)
+  exact lt_of_le_of_ne hchildGe (fun hback => hne hback.symm)
 
 /-- The single arithmetic theorem left by the dyadic reduction: the signed
 late-removal total must track its exact native VF reference before absolute
