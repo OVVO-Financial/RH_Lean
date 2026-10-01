@@ -236,7 +236,7 @@ This records the entire finite square-block sieve, not just the special
 
 /-- Product of all prime coordinates through the prefix cutoff S. -/
 def vfMidPrefixWheelModulus (S : ℕ) : ℕ :=
-  ∏ p in primesUpTo S, p
+  ∏ p ∈ primesUpTo S, p
 
 /-- The prefix wheel modulus is always nonzero. -/
 theorem vfMidPrefixWheelModulus_ne_zero (S : ℕ) :
@@ -253,7 +253,7 @@ theorem vfMidPrime_dvd_prefixWheelModulus_iff
   constructor
   · intro hdiv
     unfold vfMidPrefixWheelModulus at hdiv
-    rcases (hq.prime.dvd_finsetProd_iff id).mp hdiv with
+    rcases hq.prime.exists_mem_finset_dvd hdiv with
       ⟨p, hpMem, hqp⟩
     have hpPrime := prime_of_mem_primesUpTo hpMem
     have hEq : q = p :=
@@ -294,6 +294,7 @@ theorem vfMidSquarePrefixWheelSurvivors_mono
     {S T R : ℕ} (hST : S ≤ T) :
     vfMidSquarePrefixWheelSurvivors T R ⊆
       vfMidSquarePrefixWheelSurvivors S R := by
+  classical
   intro n hn
   rcases Finset.mem_filter.mp hn with ⟨hnSite, hnSurv⟩
   apply Finset.mem_filter.mpr
@@ -309,6 +310,7 @@ theorem vfMidSquareWheelPrimes_subset_prefixWheelSurvivors
     {S R : ℕ} (hR : 2 ≤ R) (hSR : S ≤ R) :
     vfMidSquareWheelPrimes R ⊆
       vfMidSquarePrefixWheelSurvivors S R := by
+  classical
   intro n hn
   rcases Finset.mem_filter.mp hn with ⟨hnSite, hnPrime⟩
   apply Finset.mem_filter.mpr
