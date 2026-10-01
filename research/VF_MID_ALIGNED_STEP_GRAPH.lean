@@ -1,6 +1,5 @@
 import Mathlib
 import «research.VF_MID_LITERAL_BLOCK_CROSSING»
-import «research.VF_MID_SQUARE_WHEEL_BACKLOG»
 
 /-!
 # Aligned VF-mid step-graph crossing
@@ -213,101 +212,6 @@ theorem vfMidAlignedIntegerBlock_rounding_error
   constructor
   · linarith [vfMidAlignedIntegerBlockLevel_cast_le c hc R]
   · linarith [vfMidAlignedMass_lt_integerBlockLevel_add_one c R]
-
-/-! ## Prefix-wheel support for the vertical faces
-
-The exact prime-supply conservation law turns a vertical graph crossing into a
-finite square-wheel statement.  Prefix-wheel envelopes can therefore certify
-the upper side of a vertical face using only arithmetic already visible below
-the square root cutoff.
--/
-
-/-- Exact supply form of the right vertical face. -/
-theorem vfMidAlignedRightVerticalCrossed_iff_primeSupply
-    (c : ℝ) (R : ℕ) :
-    VFMidAlignedRightVerticalCrossed c R ↔
-      vfMidAlignedIntegerBlockLevel c R ≤
-        Nat.primeCounting (R ^ 2) +
-          vfMidIntegerBlockPrimeSupply R ∧
-      Nat.primeCounting (R ^ 2) +
-          vfMidIntegerBlockPrimeSupply R ≤
-        vfMidAlignedIntegerBlockLevel c (R + 1) := by
-  have hp := vfMidIntegerBlockPrimeSupply_add_primeCounting R
-  unfold VFMidAlignedRightVerticalCrossed
-  omega
-
-/-- If pi is already at or above the current aligned VF level and one chosen
-prefix-wheel envelope fits inside the headroom to the next aligned level, then
-the red staircase must intersect the right vertical VF face. -/
-theorem vfMidAlignedRightVerticalCrossed_of_prefixWheelEnvelope
-    (c : ℝ) (S R : ℕ) (hR : 2 ≤ R) (hSR : S ≤ R)
-    (hlow :
-      vfMidAlignedIntegerBlockLevel c R ≤
-        Nat.primeCounting (R ^ 2))
-    (hroom :
-      Nat.primeCounting (R ^ 2) +
-          vfMidPrefixWheelEnvelope S R ≤
-        vfMidAlignedIntegerBlockLevel c (R + 1)) :
-    VFMidAlignedRightVerticalCrossed c R := by
-  rw [vfMidAlignedRightVerticalCrossed_iff_primeSupply]
-  have hsupply :=
-    vfMidIntegerBlockPrimeSupply_le_prefixWheelEnvelope S R hR hSR
-  constructor <;> omega
-
-/-- Equivalent existential API: any prefix cutoff whose deterministic envelope
-fits the available VF headroom certifies a right-vertical crossing. -/
-theorem vfMidAlignedRightVerticalCrossed_of_exists_prefixWheel
-    (c : ℝ) (R : ℕ) (hR : 2 ≤ R)
-    (hlow :
-      vfMidAlignedIntegerBlockLevel c R ≤
-        Nat.primeCounting (R ^ 2))
-    (hex :
-      ∃ S : ℕ, S ≤ R ∧
-        Nat.primeCounting (R ^ 2) +
-            vfMidPrefixWheelEnvelope S R ≤
-          vfMidAlignedIntegerBlockLevel c (R + 1)) :
-    VFMidAlignedRightVerticalCrossed c R := by
-  rcases hex with ⟨S, hSR, hroom⟩
-  exact vfMidAlignedRightVerticalCrossed_of_prefixWheelEnvelope
-    c S R hR hSR hlow hroom
-
-/-- The already-proved universal half-width estimate gives a particularly
-simple sufficient condition for a right vertical face: R counts of headroom
-above the current prime endpoint are enough. -/
-theorem vfMidAlignedRightVerticalCrossed_of_R_headroom
-    (c : ℝ) (R : ℕ) (hR : 2 ≤ R)
-    (hlow :
-      vfMidAlignedIntegerBlockLevel c R ≤
-        Nat.primeCounting (R ^ 2))
-    (hroom :
-      Nat.primeCounting (R ^ 2) + R ≤
-        vfMidAlignedIntegerBlockLevel c (R + 1)) :
-    VFMidAlignedRightVerticalCrossed c R := by
-  rw [vfMidAlignedRightVerticalCrossed_iff_primeSupply]
-  have hsupply := vfMidIntegerBlockPrimeSupply_le_R R hR
-  constructor <;> omega
-
-/-- Applying the same prefix-wheel certificate to the preceding block gives a
-left-vertical crossing at x = R^2. -/
-theorem vfMidAlignedLeftVerticalCrossed_of_prefixWheelEnvelope
-    (c : ℝ) (S R : ℕ) (hR : 3 ≤ R) (hS : S ≤ R - 1)
-    (hlow :
-      vfMidAlignedIntegerBlockLevel c (R - 1) ≤
-        Nat.primeCounting ((R - 1) ^ 2))
-    (hroom :
-      Nat.primeCounting ((R - 1) ^ 2) +
-          vfMidPrefixWheelEnvelope S (R - 1) ≤
-        vfMidAlignedIntegerBlockLevel c R) :
-    VFMidAlignedLeftVerticalCrossed c R := by
-  have hpred : 2 ≤ R - 1 := by omega
-  have hright :=
-    vfMidAlignedRightVerticalCrossed_of_prefixWheelEnvelope
-      c S (R - 1) hpred hS hlow hroom
-  rcases hright with ⟨hlo, hup⟩
-  have hsucc : R - 1 + 1 = R := by omega
-  constructor
-  · simpa [hsucc] using hlo
-  · simpa [hsucc] using hup
 
 /-! ## Local endpoint bounds from the three graph-intersection modes -/
 
