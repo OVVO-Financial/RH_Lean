@@ -608,7 +608,7 @@ theorem vfMidIntegerBlockPrimeSupply_le_R
   · have hwheel :=
       vfMidIntegerBlockPrimeSupply_le_two_three_wheel R (by omega)
     omega
-  · interval_cases R <;> native_decide
+  · interval_cases R <;> decide
 
 /-- Therefore the exact number of primes in every nontrivial square block is
 strictly less than half of the repository block width 2R+1. -/
