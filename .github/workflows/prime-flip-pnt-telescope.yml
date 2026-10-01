@@ -18,6 +18,7 @@ on:
       - research/VF_MID_DIRECT_ROUGH_CHILD.lean
       - research/VF_MID_INTEGER_BLOCK_CAPTURE.lean
       - research/VF_MID_LITERAL_BLOCK_CROSSING.lean
+      - research/VF_MID_ALIGNED_STEP_GRAPH.lean
       - research/VF_MID_STEP_GRAPH_BRACKETING.lean
       - research/VF_MID_SQUARE_WHEEL_BACKLOG.lean
       - research/VF_MID_MIDPOINT_COMPLEMENT_DISPERSION.lean
@@ -104,6 +105,7 @@ jobs:
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_DIRECT_ROUGH_CHILD.olean research/VF_MID_DIRECT_ROUGH_CHILD.lean 2>&1 | tee vf-mid-direct-rough-child.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_INTEGER_BLOCK_CAPTURE.olean research/VF_MID_INTEGER_BLOCK_CAPTURE.lean 2>&1 | tee vf-mid-integer-block-capture.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_LITERAL_BLOCK_CROSSING.olean research/VF_MID_LITERAL_BLOCK_CROSSING.lean 2>&1 | tee vf-mid-literal-block-crossing.log
+          lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_ALIGNED_STEP_GRAPH.olean research/VF_MID_ALIGNED_STEP_GRAPH.lean 2>&1 | tee vf-mid-aligned-step-graph.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_STEP_GRAPH_BRACKETING.olean research/VF_MID_STEP_GRAPH_BRACKETING.lean 2>&1 | tee vf-mid-step-graph-bracketing.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_SQUARE_WHEEL_BACKLOG.olean research/VF_MID_SQUARE_WHEEL_BACKLOG.lean 2>&1 | tee vf-mid-square-wheel-backlog.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_MIDPOINT_COMPLEMENT_DISPERSION.olean research/VF_MID_MIDPOINT_COMPLEMENT_DISPERSION.lean 2>&1 | tee vf-mid-midpoint-complement-dispersion.log
@@ -130,6 +132,7 @@ jobs:
           import «research.VF_MID_VON_KOCH_BRIDGE»
           import «research.VF_MID_INTEGER_BLOCK_CAPTURE»
           import «research.VF_MID_LITERAL_BLOCK_CROSSING»
+          import «research.VF_MID_ALIGNED_STEP_GRAPH»
           import «research.VF_MID_STEP_GRAPH_BRACKETING»
           import «research.VF_MID_SQUARE_WHEEL_BACKLOG»
           import «research.VF_MID_MIDPOINT_COMPLEMENT_DISPERSION»
@@ -200,6 +203,13 @@ jobs:
           #print axioms RHLean.Analysis.vfMidIntegerBlockCrossed_iff_captured
           #print axioms RHLean.Analysis.vfMidIntegerBlockCrossingStatement_iff_captureStatement
           #print axioms RHLean.Analysis.riemannHypothesis_of_vfMidIntegerBlockCrossing
+          #print axioms RHLean.Analysis.vfMidAlignedMass_initialAnchor_three
+          #print axioms RHLean.Analysis.vfMidAlignedIntegerBlockLevel_initialAnchor_three
+          #print axioms RHLean.Analysis.vfMidAlignedIntegerBlockLevel_zero
+          #print axioms RHLean.Analysis.vfMidAlignedMass_succ
+          #print axioms RHLean.Analysis.vfMidAlignedHorizontalCrossed_zero_iff_captured
+          #print axioms RHLean.Analysis.vfMidAlignedStepGraphCrossed_zero_of_captured
+          #print axioms RHLean.Analysis.vfMidAlignedSquareEndpointError_eq_direct_sub
           #print axioms RHLean.Analysis.vfMidIntegerVerticalStepCrossed_abs_squareEndpointError_le_bandMass
           #print axioms RHLean.Analysis.vfMidIntegerStepGraphBracketed_abs_squareEndpointError_lt
           #print axioms RHLean.Analysis.vfMidIntegerBlockCapturedByLag_abs_squareEndpointError_lt
@@ -290,7 +300,7 @@ jobs:
           from pathlib import Path
           s = Path('prime-flip-pnt-axioms.log').read_text()
           records = re.findall(r"depends on axioms:\s*\[([^\]]*)\]", s, re.S)
-          assert len(records) == 142, records
+          assert len(records) == 149, records
           allowed = {'propext', 'Classical.choice', 'Quot.sound'}
           for record in records:
               actual = {a.strip() for a in record.split(',') if a.strip()}
@@ -314,6 +324,7 @@ jobs:
             vf-mid-direct-rough-child.log
             vf-mid-integer-block-capture.log
             vf-mid-literal-block-crossing.log
+            vf-mid-aligned-step-graph.log
             vf-mid-step-graph-bracketing.log
             vf-mid-square-wheel-backlog.log
             vf-mid-midpoint-complement-dispersion.log
