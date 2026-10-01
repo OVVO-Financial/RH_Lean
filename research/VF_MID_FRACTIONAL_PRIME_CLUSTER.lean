@@ -50,7 +50,6 @@ theorem vfMidFractionalPrimeSeatWeight_sum_squareBand
   push_cast
   have hR0 : (R : ℝ) ≠ 0 := by positivity
   field_simp
-  ring
 
 /-- Summing the 0/1 seat masses is exactly the physical prime cardinality. -/
 theorem vfMidActualPrimeSeatMass_sum_squareBand
