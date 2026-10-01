@@ -11,6 +11,8 @@ on:
       - research/EXACT_LI_PURE_MODEL_CLOSURE.lean
       - research/VF_MID_VON_KOCH_BRIDGE.lean
       - research/VF_MID_DIRECT_SIGNED_DYNAMICS.lean
+      - research/VF_MID_SQUARE_BAND_COMPOSITE_BRIDGE.lean
+      - research/VF_MID_DIRECT_COMPOSITE_DESCENT.lean
       - FORMALIZATION_SEQUENCE.md
       - FORMALIZATION_CHECKLIST.md
       - .github/workflows/prime-flip-pnt-telescope.yml
@@ -83,6 +85,8 @@ jobs:
           set -o pipefail
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_VON_KOCH_BRIDGE.olean research/VF_MID_VON_KOCH_BRIDGE.lean 2>&1 | tee vf-mid-von-koch.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_DIRECT_SIGNED_DYNAMICS.olean research/VF_MID_DIRECT_SIGNED_DYNAMICS.lean 2>&1 | tee vf-mid-direct-signed-dynamics.log
+          lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_SQUARE_BAND_COMPOSITE_BRIDGE.olean research/VF_MID_SQUARE_BAND_COMPOSITE_BRIDGE.lean 2>&1 | tee vf-mid-square-band-composite-bridge.log
+          lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_DIRECT_COMPOSITE_DESCENT.olean research/VF_MID_DIRECT_COMPOSITE_DESCENT.lean 2>&1 | tee vf-mid-direct-composite-descent.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.PRIME_FLIP_PNT_TELESCOPE.olean research/PRIME_FLIP_PNT_TELESCOPE.lean 2>&1 | tee prime-flip-pnt.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.PRIME_FLIP_STATIC_CHRONOLOGY.olean research/PRIME_FLIP_STATIC_CHRONOLOGY.lean 2>&1 | tee prime-flip-static-chronology.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.ALL_SCALE_LI_DISPLACEMENT_REDUCTION.olean research/ALL_SCALE_LI_DISPLACEMENT_REDUCTION.lean 2>&1 | tee all-scale-li-displacement.log
@@ -176,4 +180,6 @@ jobs:
             exact-li-pure-model-closure.log
             vf-mid-von-koch.log
             vf-mid-direct-signed-dynamics.log
+            vf-mid-square-band-composite-bridge.log
+            vf-mid-direct-composite-descent.log
           if-no-files-found: ignore
