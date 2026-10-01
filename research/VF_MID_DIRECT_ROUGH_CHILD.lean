@@ -49,8 +49,9 @@ theorem vfMidSquareBandCompositeOwner_child_roughAbove
     rw [← hmul]
     exact dvd_mul_of_dvd_right hqDvdChild p
   have hle := Nat.minFac_le_of_dvd hqPrime.two_le hqDvdN
-  have howner := (Finset.mem_filter.mp hn).2
+  have howner : n.minFac = p := (vfMidSquareBandCompositeOwner_mem hn).2
   rw [howner] at hle
+  have hq2 := hqPrime.two_le
   omega
 
 /-- If p is prime and m is rough above p-1, then p is the least prime factor
@@ -125,7 +126,8 @@ theorem vfMidSquareBandOwnerRoughChildren_subset_children
   rcases Finset.mem_Icc.mp hmIcc with ⟨hpm, _hmTop⟩
   rcases hdata with ⟨hlo, hhi, hrough⟩
   have hm1 : 1 ≤ m := by
-    exact hpPrime.two_le.trans hpm
+    have hp2 := hpPrime.two_le
+    omega
   have hnSite : p * m ∈ vfMidSquareBandSites R := by
     simp [vfMidSquareBandSites, hlo, hhi]
   have hnNotPrime : ¬ (p * m).Prime := by
@@ -174,6 +176,21 @@ theorem vfMidSquareBandError_eq_roughOwnerChildren
   intro p hp
   rw [vfMidSquareBandCompositeOwnerChildren_eq_rough hR hp]
 
+/-- Any owner with a nonempty rough-child carrier is at least two: the carrier
+forces `R^2 < p*m` while `m <= R^2 - 1`. -/
+theorem vfMidSquareBandOwnerRoughChild_two_le_owner
+    {R p m : ℕ}
+    (hm : m ∈ vfMidSquareBandOwnerRoughChildren R p) :
+    2 ≤ p := by
+  rcases Finset.mem_filter.mp hm with ⟨hmIcc, hdata⟩
+  have hmTop := (Finset.mem_Icc.mp hmIcc).2
+  have hlo := hdata.1
+  by_contra h
+  have hle : p * m ≤ m := by
+    calc p * m ≤ 1 * m := Nat.mul_le_mul_right m (by omega)
+      _ = m := one_mul m
+  omega
+
 /-- A composite rough child has a second least-prime owner at least as large as
 its first owner. -/
 theorem vfMidSquareBandOwnerRoughChild_le_minFac
@@ -181,9 +198,10 @@ theorem vfMidSquareBandOwnerRoughChild_le_minFac
     (hm : m ∈ vfMidSquareBandOwnerRoughChildren R p)
     (hmComp : ¬ m.Prime) :
     p ≤ m.minFac := by
+  have hp2 := vfMidSquareBandOwnerRoughChild_two_le_owner hm
   rcases Finset.mem_filter.mp hm with ⟨hmIcc, hdata⟩
-  have hm1 : 1 ≤ m := by
-    exact (Finset.mem_Icc.mp hmIcc).1.trans' (by omega : 1 ≤ p)
+  have hpm := (Finset.mem_Icc.mp hmIcc).1
+  have hm1 : 2 ≤ m := by omega
   have hm0 : 0 < m := by omega
   have hminPrime : m.minFac.Prime := Nat.minFac_prime (by omega)
   have hminDvd : m.minFac ∣ m := Nat.minFac_dvd m
@@ -205,6 +223,7 @@ theorem vfMidSquareBandOwnerRoughChild_secondOwner_geometry
     vfMidSquareBandOwnerRoughChild_le_minFac hm hmComp
   rcases Finset.mem_filter.mp hm with ⟨hmIcc, hdata⟩
   have hmpos : 0 < m := by
+    have hp2 := vfMidSquareBandOwnerRoughChild_two_le_owner hm
     have hpm := (Finset.mem_Icc.mp hmIcc).1
     omega
   have hsq : m.minFac ^ 2 ≤ m :=
