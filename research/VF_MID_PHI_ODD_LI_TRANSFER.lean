@@ -274,7 +274,7 @@ theorem vfMidSquareBandLateOwnerCards_cast_eq_oddLiRemoval_sub_displacement
       vfMidOddLiWeightedCutoffRemoval L R 2 R -
         vfMidOddLiSquareDisplacementInterval Actual L R R := by
   rw [vfMidSquareBandLateOwnerCards_cast_eq_actualWeightedPhiRemoval
-      hActual (by norm_num) hR]
+      hActual hR]
   have hActualTel :=
     vfMidPhiWeightedCutoffRemoval_eq_interval_sub
       (w := primeSievePrimeIndicator)
