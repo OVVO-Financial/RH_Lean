@@ -593,10 +593,6 @@ theorem vfMidSquareEndpointVonKochBounded_of_alignedStepGraph
           (mul_le_mul_of_nonneg_right hAleB hRnonneg)
   exact hDB.trans hBR_to_vK
 
-/-- Therefore the aligned full-step-graph criterion plugs directly into the
-repository's already-compiled classical von-Koch/RH bridge. -/
-
-
 /-- The canonical anchored aligned graph target implies the repository's
 square-endpoint von-Koch consumer with no additional open premise. -/
 theorem vfMidSquareEndpointVonKochBounded_of_canonicalAlignedStepGraph
@@ -614,6 +610,8 @@ theorem riemannHypothesis_of_vfMidCanonicalAlignedStepGraph
   riemannHypothesis_of_vfMidSquareEndpoint criterion
     (vfMidSquareEndpointVonKochBounded_of_canonicalAlignedStepGraph hgraph)
 
+/-- A generic fixed nonnegative alignment satisfying universal full-step-graph
+bracketing also plugs directly into the existing classical von-Koch/RH bridge. -/
 theorem riemannHypothesis_of_vfMidAlignedStepGraph
     (criterion : ClassicalVonKochRHCriterion)
     (c : ℝ) (hc : 0 ≤ c)
