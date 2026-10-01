@@ -19,6 +19,7 @@ on:
       - research/VF_MID_INTEGER_BLOCK_CAPTURE.lean
       - research/VF_MID_SQUARE_WHEEL_BACKLOG.lean
       - research/VF_MID_MIDPOINT_COMPLEMENT_DISPERSION.lean
+      - research/VF_MID_UNIFORMITY_BIAS_CORRELATION.lean
       - research/VF_MID_COMPOSITE_FLOOR.lean
       - research/VF_MID_DIRECT_DISCREPANCY_ABEL.lean
       - FORMALIZATION_SEQUENCE.md
@@ -100,6 +101,7 @@ jobs:
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_INTEGER_BLOCK_CAPTURE.olean research/VF_MID_INTEGER_BLOCK_CAPTURE.lean 2>&1 | tee vf-mid-integer-block-capture.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_SQUARE_WHEEL_BACKLOG.olean research/VF_MID_SQUARE_WHEEL_BACKLOG.lean 2>&1 | tee vf-mid-square-wheel-backlog.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_MIDPOINT_COMPLEMENT_DISPERSION.olean research/VF_MID_MIDPOINT_COMPLEMENT_DISPERSION.lean 2>&1 | tee vf-mid-midpoint-complement-dispersion.log
+          lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_UNIFORMITY_BIAS_CORRELATION.olean research/VF_MID_UNIFORMITY_BIAS_CORRELATION.lean 2>&1 | tee vf-mid-uniformity-bias-correlation.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_COMPOSITE_FLOOR.olean research/VF_MID_COMPOSITE_FLOOR.lean 2>&1 | tee vf-mid-composite-floor.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_DIRECT_DISCREPANCY_ABEL.olean research/VF_MID_DIRECT_DISCREPANCY_ABEL.lean 2>&1 | tee vf-mid-direct-discrepancy-abel.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.PRIME_FLIP_PNT_TELESCOPE.olean research/PRIME_FLIP_PNT_TELESCOPE.lean 2>&1 | tee prime-flip-pnt.log
@@ -121,6 +123,7 @@ jobs:
           import «research.VF_MID_INTEGER_BLOCK_CAPTURE»
           import «research.VF_MID_SQUARE_WHEEL_BACKLOG»
           import «research.VF_MID_MIDPOINT_COMPLEMENT_DISPERSION»
+          import «research.VF_MID_UNIFORMITY_BIAS_CORRELATION»
           import «research.VF_MID_COMPOSITE_FLOOR»
           import «research.VF_MID_DIRECT_OWNER_DESCENT»
           import «research.VF_MID_DIRECT_ROUGH_CHILD»
@@ -198,6 +201,20 @@ jobs:
           #print axioms RHLean.Analysis.vfMidSquareWheel_midpointPrefix_card
           #print axioms RHLean.Analysis.vfMidSquareWheel_midpoint_prime_composite_discrepancy
           #print axioms RHLean.Analysis.vfMidSquareWheel_midpoint_survivor_composite_discrepancy
+          #print axioms RHLean.Analysis.vfMidSquareBlockMidpointBias_eq_neg_composite
+          #print axioms RHLean.Analysis.vfMidSquareBlockPrimeLeft_sub_right_eq_two_mul_bias
+          #print axioms RHLean.Analysis.vfMidSquareBlock_left_add_right_error_eq_bandError
+          #print axioms RHLean.Analysis.vfMidSquareBlock_left_sub_right_error_eq_two_mul_bias
+          #print axioms RHLean.Analysis.vfMidSquareBlock_leftVFError_eq_half_band_add_bias
+          #print axioms RHLean.Analysis.vfMidSquareBlock_rightVFError_eq_half_band_sub_bias
+          #print axioms RHLean.Analysis.vfMidSquareBlockBiasLagCorrelation_eq_composite
+          #print axioms RHLean.Analysis.vfMidSquareBlockBiasLagCorrelation_eq_zero_of_composite
+          #print axioms RHLean.Analysis.abs_vfMidSquareBlockBiasLagCorrelation_le_of_composite
+          #print axioms RHLean.Analysis.vfMidSquareBlockBiasLagCorrelation_eq_zero_of_unbiased
+          #print axioms RHLean.Analysis.vfMidSquareEndpointError_sq_succ_eq_correlation
+          #print axioms RHLean.Analysis.vfMidSquareEndpointError_energy_telescope
+          #print axioms RHLean.Analysis.vfMidSquareEndpointError_energy_telescope_of_zero_correlation
+          #print axioms RHLean.Analysis.vfMidSquareEndpointError_sq_le_of_nonpos_correlation
           #print axioms RHLean.Analysis.vfMidSquareWheel_composite_floor_iff_prime_ceiling
           #print axioms RHLean.Analysis.vfMidSquareWheel_compositeFloor_iff_directBandError_le
           #print axioms RHLean.Analysis.vfMidSquareWheelPrime_card_le_roughWheel
@@ -240,7 +257,7 @@ jobs:
           from pathlib import Path
           s = Path('prime-flip-pnt-axioms.log').read_text()
           records = re.findall(r"depends on axioms:\s*\[([^\]]*)\]", s, re.S)
-          assert len(records) == 107, records
+          assert len(records) == 121, records
           allowed = {'propext', 'Classical.choice', 'Quot.sound'}
           for record in records:
               actual = {a.strip() for a in record.split(',') if a.strip()}
@@ -265,6 +282,7 @@ jobs:
             vf-mid-integer-block-capture.log
             vf-mid-square-wheel-backlog.log
             vf-mid-midpoint-complement-dispersion.log
+            vf-mid-uniformity-bias-correlation.log
             vf-mid-composite-floor.log
             vf-mid-direct-discrepancy-abel.log
           if-no-files-found: ignore
