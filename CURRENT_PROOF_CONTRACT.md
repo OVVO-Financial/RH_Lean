@@ -1,120 +1,129 @@
 # RH_Lean current proof contract
 
-Status date: 2026-10-01. The canonical aligned VF-mid step-graph target is
-recorded first; the earlier unaligned horizontal-capture formulation and the
-CORR-4 route remain preserved as supporting/alternative infrastructure.
+Status date: 2026-10-01. The direct VF-mid route is the canonical proof program.
 Compiled Lean source and successful checks of the relevant commit are
-authoritative. Historical handoffs and plans do not override this contract.
+authoritative. Historical handoffs, attractive finite plots, and stronger
+sufficient criteria do not override this contract.
 
-## Canonical aligned VF-mid target
+## Motto and guiding light
 
-**RH is not proved.** The active arithmetic target is the anchored aligned
-full step-graph bracketing statement.
+> **Close RH through VF.  Preserve the RH-scale target; do not replace it with
+> a stronger block-by-block statement merely because that stronger statement
+> fits finite data.**
 
-Write
+The VF construction can remain an excellent RH-scale approximation to the
+prime-counting staircase even though no fixed vertical alignment intersects
+that staircase in every square block forever.  Those are different claims.
 
-```text
-F_R = vfMidFinishedMass R
-c0  = 4 - F_3
-    = 4 - 5/log(13/2)
-K_R = floor(F_R + c0).
-```
-
-The continuous aligned path is
-
-```text
-vfMidAligned c0 x = vfMid x + c0.
-```
-
-The phase is a fixed additive translation, not a multiplicative rescaling.
-Consequently every square-band increment is unchanged:
-
-```text
-vfMidAlignedMass c (R+1) - vfMidAlignedMass c R
-  = vfMidBandMass R.
-```
-
-For each natural `R >= 2`, the canonical block is bracketed when the prime
-staircase intersects either the aligned horizontal plateau or one of its two
-vertical faces:
-
-```text
-horizontal:
-  pi(R^2) <= K_R <= pi((R+1)^2)
-
-left vertical:
-  K_(R-1) <= pi(R^2) <= K_R
-
-right vertical:
-  K_R <= pi((R+1)^2) <= K_(R+1).
-```
-
-In
-[`VF_MID_ALIGNED_STEP_GRAPH.lean`](research/VF_MID_ALIGNED_STEP_GRAPH.lean),
-the generic statement is `VFMidAlignedStepGraphBracketingStatement c`; the
-canonical fixed-phase target is
-`VFMidCanonicalAlignedStepGraphBracketingStatement`, i.e.
-
-```text
-for every natural R >= 2,
-  VFMidAlignedStepGraphCrossed vfMidInitialAnchor R.
-```
-
-The finite anchor is elementary and compiled:
-`vfMidInitialAnchor_nonneg` proves `0 <= c0`, and the anchor satisfies
-`vfMidAlignedMass c0 3 = 4`.
-
-The local graph geometry is also compiled. Horizontal, left-vertical, and
-right-vertical intersections each give explicit square-endpoint discrepancy
-bounds, and one midpoint band satisfies the deterministic estimate
-
-```text
-vfMidBandMass R <= 3 R / log 4.
-```
-
-Therefore the canonical aligned graph target implies the existing
-square-endpoint von-Koch statement through
-
-`vfMidSquareEndpointVonKochBounded_of_canonicalAlignedStepGraph`.
-
-The existing
-
-`VFMidSquareEndpointVonKochBoundedStatement`
-
-is now a **downstream consumer**, not the canonical arithmetic target. It still
-states
+The canonical arithmetic target is therefore the cumulative square-endpoint
+bound
 
 ```text
 exists C >= 0, for every natural R >= 2,
-  |pi(R^2) - VF_mid(R^2)| <= C R log R,
+  |pi(R^2) - VF_mid(R^2)| <= C R log R.
 ```
 
-and
-[`VF_MID_VON_KOCH_BRIDGE.lean`](research/VF_MID_VON_KOCH_BRIDGE.lean)
-continues to extend it to every real `x >= 4`, compare it with the classical
-prime-minus-Li von-Koch estimate, and feed the explicit
-`ClassicalVonKochRHCriterion` interface.
+In Lean this is
 
-The canonical aligned route reaches that consumer through
+`VFMidSquareEndpointVonKochBoundedStatement`
 
-`riemannHypothesis_of_vfMidCanonicalAlignedStepGraph`.
+from
+[`VF_MID_VON_KOCH_BRIDGE.lean`](research/VF_MID_VON_KOCH_BRIDGE.lean).
 
-Thus the direct proof obligation is no longer described as "prove the
-unaligned VF square-endpoint bound" or "prove zero-phase horizontal capture."
-The intended final arithmetic theorem is exactly the universal anchored
-aligned full-step-graph bracketing statement above.
+The already-compiled bridge
+`vfMidVonKochBounded_of_squareEndpoint` extends that estimate to every real
+cutoff `x >= 4`; `primeLiVonKochBounded_of_vfMidSquareEndpoint` combines it
+with the unconditional VF/Li quadrature estimate; and
+`riemannHypothesis_of_vfMidSquareEndpoint` feeds it into the repository's
+explicit classical von-Koch/RH criterion.
 
-The older
-`VFMidIntegerBlockCaptureStatement`,
-`VFMidIntegerBlockCrossingStatement`, and related #840 results remain valid
-as the **zero-phase horizontal specialization**. They are useful lemmas and
-regression infrastructure, but they are not the final target. In particular,
-the aligned formulation deliberately includes the vertical VF faces visible
-in the prime/VF plot.
+The remaining work is therefore arithmetic control of the cumulative signed
+VF error itself.  Write
 
-The composite realization from #821 and the phase/uniformity modules remain
-optional infrastructure. None of them replaces the open universal aligned
-graph-bracketing theorem.
+```text
+D_R = pi(R^2) - vfMidFinishedMass R
+P_R = pi((R+1)^2) - pi(R^2)
+m_R = vfMidBandMass R.
+```
+
+Then the exact recurrence is
+
+```text
+D_(R+1) = D_R + (P_R - m_R).
+```
+
+The square-wheel/FTA modules identify `P_R` exactly as the survivors of the
+common finite prime wheel for that square block.  Thus the central research
+question is signed cumulative control of
+
+```text
+sum_{r<R} (P_r - m_r),
+```
+
+at the `R log R` scale.  Local prime/composite dispersion, finite wheel
+exactness, least-prime ownership, and square-root dependency are useful only
+insofar as they help prove this cumulative estimate without introducing a
+stronger false premise.
+
+## Fixed-alignment step-graph criterion: conditional only
+
+PR #842 formalizes a useful sufficient implication for a fixed additive phase
+
+```text
+c0 = 4 - vfMidFinishedMass 3.
+```
+
+The corresponding statement is now named
+
+`VFMidInitialAnchorAlignedStepGraphBracketingStatement`.
+
+If that full step graph intersected the prime staircase in every square block,
+the compiled theorem
+
+`vfMidSquareEndpointVonKochBounded_of_initialAnchorAlignedStepGraph`
+
+would imply the canonical square-endpoint VF bound.
+
+However, universal fixed-phase block-by-block intersection is **not** the final
+target and should not be pursued as such.  The reason is structural: because
+the midpoint VF construction lies on the lower side of the corresponding Li
+integral up to a fixed normalization, universal one-block crossing would force
+a one-sided upper bound of order `sqrt(x)/log(x)` on `pi(x)-Li(x)`.
+Classical Littlewood oscillation gives positive excursions larger than every
+fixed multiple of that scale by an additional unbounded
+`log log log x` factor.  Hence a fixed alignment must eventually miss some
+blocks, even if it succeeds over every computationally accessible range.
+
+This does **not** refute VF.  The legitimate RH-scale target allows
+
+```text
+|pi(R^2) - VF_mid(R^2)| = O(R log R),
+```
+
+which is vastly larger than one local block height
+`m_R ~ R/log R`.  A fixed alignment can therefore fail block intersection
+while VF still satisfies exactly the estimate needed for RH.
+
+Finite aligned-intersection experiments remain valuable diagnostics of local
+geometry.  They are never evidence that the universal fixed-phase statement
+should replace the cumulative VF target.
+
+## Research discipline for the VF route
+
+1. **Keep the exact VF object.**  Do not rescale the midpoint construction to
+   force a visual crossing phenomenon.
+2. **Exploit FTA/square-wheel exactness.**  Prime supply in block `R` is the
+   exact survivor count after sieving by the required prefix primes.
+3. **Separate spatial dispersion from total supply.**  Left/right
+   equidistribution controls placement inside a block; it does not by itself
+   control `P_R-m_R`.
+4. **Control signed accumulation.**  The target is the partial sum of
+   `P_R-m_R`, not an unsigned per-block envelope and not perpetual
+   block-by-block capture.
+5. **Respect the target scale.**  Stronger-than-RH statements may be useful as
+   diagnostics or conditional lemmas, but they are not proof obligations.
+6. **Finite computation is diagnostic only.**  Numerical persistence, however
+   striking, cannot replace a uniform all-scale theorem.
 
 ## Preserved alternative: CORR-4
 
