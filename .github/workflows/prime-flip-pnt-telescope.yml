@@ -20,6 +20,7 @@ on:
       - research/VF_MID_DYADIC_OWNER_EXACT.lean
       - research/VF_MID_PHI_OWNER_BRIDGE.lean
       - research/VF_MID_DYADIC_SUMMATION_TRANSFER.lean
+      - research/VF_MID_PHI_CUTOFF_TELESCOPE.lean
       - research/VF_MID_INTEGER_BLOCK_CAPTURE.lean
       - research/VF_MID_LITERAL_BLOCK_CROSSING.lean
       - research/VF_MID_ALIGNED_STEP_GRAPH.lean
@@ -133,6 +134,7 @@ jobs:
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.EXACT_LI_PURE_MODEL_CLOSURE.olean research/EXACT_LI_PURE_MODEL_CLOSURE.lean 2>&1 | tee exact-li-pure-model-closure.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_PHI_OWNER_BRIDGE.olean research/VF_MID_PHI_OWNER_BRIDGE.lean 2>&1 | tee vf-mid-phi-owner-bridge.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_DYADIC_SUMMATION_TRANSFER.olean research/VF_MID_DYADIC_SUMMATION_TRANSFER.lean 2>&1 | tee vf-mid-dyadic-summation-transfer.log
+          lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_PHI_CUTOFF_TELESCOPE.olean research/VF_MID_PHI_CUTOFF_TELESCOPE.lean 2>&1 | tee vf-mid-phi-cutoff-telescope.log
       - name: Audit named theorem axioms
         run: |
           cat > /tmp/PrimeFlipPNTAxioms.lean <<'LEAN'
@@ -156,6 +158,7 @@ jobs:
           import «research.VF_MID_DIRECT_DISCREPANCY_ABEL»
           import «research.VF_MID_PHI_OWNER_BRIDGE»
           import «research.VF_MID_DYADIC_SUMMATION_TRANSFER»
+          import «research.VF_MID_PHI_CUTOFF_TELESCOPE»
           #print axioms RHLean.Analysis.primeFlipExactResponse_eq_pnt_add_error
           #print axioms RHLean.Analysis.primeFlipExactResponse_eq_reciprocalPrimeCounts
           #print axioms RHLean.Analysis.primeFlipPNTError_eq_reciprocalDiscrepancy
@@ -365,6 +368,11 @@ jobs:
           #print axioms RHLean.Analysis.vfMidSquareEndpointVonKochBounded_of_signedLateCorrection
           #print axioms RHLean.Analysis.vfMidDyadicOwnerLateRemoval_cast_eq_liPhi_add_displacement
           #print axioms RHLean.Analysis.vfMidDyadicLateCorrection_cast_eq_liPhiCorrection_add_displacement
+          #print axioms RHLean.Analysis.vfMidPhiSquareInterval_cutoff_step
+          #print axioms RHLean.Analysis.vfMidPhiWeightedCutoffRemoval_eq_interval_sub
+          #print axioms RHLean.Analysis.vfMidPhiActual_sub_liWeightedRemoval_eq_displacementBoundaries
+          #print axioms RHLean.Analysis.vfMidSquareBandLateOwnerCards_cast_eq_actualWeightedPhiRemoval
+          #print axioms RHLean.Analysis.vfMidSquareBandLateOwnerCards_cast_eq_liRemoval_add_displacementBoundary
           LEAN
           set -o pipefail
           lake env lean -DwarningAsError=true /tmp/PrimeFlipPNTAxioms.lean 2>&1 | tee prime-flip-pnt-axioms.log
@@ -373,7 +381,7 @@ jobs:
           from pathlib import Path
           s = Path('prime-flip-pnt-axioms.log').read_text()
           records = re.findall(r"depends on axioms:\s*\[([^\]]*)\]", s, re.S)
-          assert len(records) == 209, records
+          assert len(records) == 214, records
           allowed = {'propext', 'Classical.choice', 'Quot.sound'}
           for record in records:
               actual = {a.strip() for a in record.split(',') if a.strip()}
@@ -404,6 +412,7 @@ jobs:
             vf-mid-dyadic-owner-exact.log
             vf-mid-phi-owner-bridge.log
             vf-mid-dyadic-summation-transfer.log
+            vf-mid-phi-cutoff-telescope.log
             vf-mid-midpoint-complement-dispersion.log
             vf-mid-uniformity-bias-correlation.log
             vf-mid-global-phase-uniformity-bridge.log
