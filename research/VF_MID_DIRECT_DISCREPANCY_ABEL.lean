@@ -441,7 +441,6 @@ theorem abs_vfMidDirectThetaAbelTail_le_four_mul
             (hE r hrange.1 hrange.2.le) hdrop hdrop0 hupper0
         _ = 4 * C := by
           field_simp [hrpos.ne', hlog.ne']
-          ring
     _ = ((Finset.Ico 3 R).card : ℝ) * (4 * C) := by
       rw [Finset.sum_const, nsmul_eq_mul]
     _ ≤ (R : ℝ) * (4 * C) := by
@@ -485,7 +484,6 @@ theorem abs_vfMidDirectThetaEndpoint_mul_terminalWeight_le
       mul_le_mul_of_nonneg_left hw hupper0
     _ = C * (R : ℝ) * Real.log (R : ℝ) := by
       field_simp [hlog.ne']
-      ring
 
 /-- **No-accumulation theorem at the exact RH theta scale.**
 
