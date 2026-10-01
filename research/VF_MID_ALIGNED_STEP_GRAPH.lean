@@ -447,9 +447,13 @@ the asymptotic von-Koch consumer and can be absorbed into its constant. -/
 def VFMidAlignedStepGraphBracketingStatement (c : ℝ) : Prop :=
   ∀ R : ℕ, 2 ≤ R → VFMidAlignedStepGraphCrossed c R
 
-/-- **Canonical arithmetic target.**  The final direct VF-mid target is the
-full step-graph bracketing statement at the fixed initial phase c0. -/
-def VFMidCanonicalAlignedStepGraphBracketingStatement : Prop :=
+/-- Fixed-initial-anchor full step-graph bracketing statement.
+
+This is a useful conditional geometric criterion and finite diagnostic.  It is
+not the canonical RH target: universal block-by-block intersection at one fixed
+phase is stronger than the required VF von-Koch bound and is asymptotically
+incompatible with the classical Littlewood oscillation of pi - Li. -/
+def VFMidInitialAnchorAlignedStepGraphBracketingStatement : Prop :=
   VFMidAlignedStepGraphBracketingStatement vfMidInitialAnchor
 
 
@@ -593,22 +597,23 @@ theorem vfMidSquareEndpointVonKochBounded_of_alignedStepGraph
           (mul_le_mul_of_nonneg_right hAleB hRnonneg)
   exact hDB.trans hBR_to_vK
 
-/-- The canonical anchored aligned graph target implies the repository's
-square-endpoint von-Koch consumer with no additional open premise. -/
-theorem vfMidSquareEndpointVonKochBounded_of_canonicalAlignedStepGraph
-    (hgraph : VFMidCanonicalAlignedStepGraphBracketingStatement) :
+/-- Conditional fixed-anchor graph bracketing implies the repository's
+square-endpoint von-Koch consumer.  The bracketing premise itself is not a
+viable universal final target. -/
+theorem vfMidSquareEndpointVonKochBounded_of_initialAnchorAlignedStepGraph
+    (hgraph : VFMidInitialAnchorAlignedStepGraphBracketingStatement) :
     VFMidSquareEndpointVonKochBoundedStatement :=
   vfMidSquareEndpointVonKochBounded_of_alignedStepGraph
     vfMidInitialAnchor vfMidInitialAnchor_nonneg hgraph
 
-/-- The canonical anchored aligned graph target is the direct final input to
-the existing classical von-Koch/RH bridge. -/
-theorem riemannHypothesis_of_vfMidCanonicalAlignedStepGraph
+/-- Conditional fixed-anchor graph bracketing feeds the existing classical
+von-Koch/RH bridge.  This theorem records a sufficient implication only. -/
+theorem riemannHypothesis_of_vfMidInitialAnchorAlignedStepGraph
     (criterion : ClassicalVonKochRHCriterion)
-    (hgraph : VFMidCanonicalAlignedStepGraphBracketingStatement) :
+    (hgraph : VFMidInitialAnchorAlignedStepGraphBracketingStatement) :
     VFMidRiemannHypothesisStatement :=
   riemannHypothesis_of_vfMidSquareEndpoint criterion
-    (vfMidSquareEndpointVonKochBounded_of_canonicalAlignedStepGraph hgraph)
+    (vfMidSquareEndpointVonKochBounded_of_initialAnchorAlignedStepGraph hgraph)
 
 /-- A generic fixed nonnegative alignment satisfying universal full-step-graph
 bracketing also plugs directly into the existing classical von-Koch/RH bridge. -/
