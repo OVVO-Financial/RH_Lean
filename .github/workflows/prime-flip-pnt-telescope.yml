@@ -234,6 +234,26 @@ jobs:
           #print axioms RHLean.Analysis.vfMidSquareWheel_squareRootIndex_eq
           #print axioms RHLean.Analysis.vfMidSquareBand_commonWheelSurvivor_iff_prime
           #print axioms RHLean.Analysis.vfMidSquareBand_composite_has_commonWheel_divisor
+          #print axioms RHLean.Analysis.vfMidPrefixWheelModulus_ne_zero
+          #print axioms RHLean.Analysis.vfMidPrime_dvd_prefixWheelModulus_iff
+          #print axioms RHLean.Analysis.lowWheelHighSurvivor_iff_coprime_prefixWheel
+          #print axioms RHLean.Analysis.vfMidSquarePrefixWheelSurvivors_mono
+          #print axioms RHLean.Analysis.vfMidSquareWheelPrimes_subset_prefixWheelSurvivors
+          #print axioms RHLean.Analysis.vfMidIntegerBlockPrimeSupply_eq_fullPrefixWheelCard
+          #print axioms RHLean.Analysis.vfMidIntegerBlockPrimeSupply_le_prefixWheelCard
+          #print axioms RHLean.Analysis.vfMidIntegerBlockPrimeSupply_le_coprimeWheel
+          #print axioms RHLean.Analysis.vfMidIntegerBlockPrimeSupply_le_prefixWheelEnvelope
+          #print axioms RHLean.Analysis.vfMidIntegerBlockPrimeSupply_le_every_prefixWheelEnvelope
+          #print axioms RHLean.Analysis.vfMidAlignedRightVerticalCrossed_iff_primeSupply
+          #print axioms RHLean.Analysis.vfMidAlignedRightVerticalCrossed_iff_fullPrefixWheelCard
+          #print axioms RHLean.Analysis.vfMidAlignedRightVerticalCrossed_of_prefixWheelCard
+          #print axioms RHLean.Analysis.vfMidAlignedRightVerticalCrossed_of_prefixWheelEnvelope
+          #print axioms RHLean.Analysis.vfMidAlignedRightVerticalCrossed_of_exists_prefixWheel
+          #print axioms RHLean.Analysis.vfMidAlignedLeftVerticalCrossed_of_prefixWheelEnvelope
+          #print axioms RHLean.Analysis.vfMidIntegerBlockPrimeSupply_le_R
+          #print axioms RHLean.Analysis.vfMidIntegerBlockPrimeSupply_two_mul_lt_width
+          #print axioms RHLean.Analysis.vfMidIntegerBlockPrimeSupply_lt_half_width
+          #print axioms RHLean.Analysis.vfMidAlignedRightVerticalCrossed_of_R_headroom
           #print axioms RHLean.Analysis.vfMidIntegerBlockBacklog_succ
           #print axioms RHLean.Analysis.vfMidIntegerBlockCaptured_iff_backlog_le_supply
           #print axioms RHLean.Analysis.vfMidIntegerBlockCaptured_abs_directError_lt_two_mul_add_one
