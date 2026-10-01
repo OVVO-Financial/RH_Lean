@@ -19,6 +19,7 @@ on:
       - research/VF_MID_DIRECT_ROUGH_CHILD.lean
       - research/VF_MID_DYADIC_PREFIX_OWNER.lean
       - research/VF_MID_DYADIC_OWNER_EXACT.lean
+      - research/VF_MID_ODD_FRACTIONAL_CLUSTER.lean
       - research/VF_MID_PHI_OWNER_BRIDGE.lean
       - research/VF_MID_DYADIC_SUMMATION_TRANSFER.lean
       - research/VF_MID_PHI_CUTOFF_TELESCOPE.lean
@@ -117,6 +118,7 @@ jobs:
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_SQUARE_WHEEL_BACKLOG.olean research/VF_MID_SQUARE_WHEEL_BACKLOG.lean 2>&1 | tee vf-mid-square-wheel-backlog.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_DYADIC_PREFIX_OWNER.olean research/VF_MID_DYADIC_PREFIX_OWNER.lean 2>&1 | tee vf-mid-dyadic-prefix-owner.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_DYADIC_OWNER_EXACT.olean research/VF_MID_DYADIC_OWNER_EXACT.lean 2>&1 | tee vf-mid-dyadic-owner-exact.log
+          lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_ODD_FRACTIONAL_CLUSTER.olean research/VF_MID_ODD_FRACTIONAL_CLUSTER.lean 2>&1 | tee vf-mid-odd-fractional-cluster.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_ALIGNED_STEP_GRAPH.olean research/VF_MID_ALIGNED_STEP_GRAPH.lean 2>&1 | tee vf-mid-aligned-step-graph.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_STEP_GRAPH_BRACKETING.olean research/VF_MID_STEP_GRAPH_BRACKETING.lean 2>&1 | tee vf-mid-step-graph-bracketing.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_MIDPOINT_COMPLEMENT_DISPERSION.olean research/VF_MID_MIDPOINT_COMPLEMENT_DISPERSION.lean 2>&1 | tee vf-mid-midpoint-complement-dispersion.log
@@ -149,6 +151,7 @@ jobs:
           import «research.EXACT_LI_PURE_MODEL_CLOSURE»
           import «research.VF_MID_VON_KOCH_BRIDGE»
           import «research.VF_MID_FRACTIONAL_PRIME_CLUSTER»
+          import «research.VF_MID_ODD_FRACTIONAL_CLUSTER»
           import «research.VF_MID_INTEGER_BLOCK_CAPTURE»
           import «research.VF_MID_LITERAL_BLOCK_CROSSING»
           import «research.VF_MID_ALIGNED_STEP_GRAPH»
@@ -398,6 +401,14 @@ jobs:
           #print axioms RHLean.Analysis.vfMidOddLiCumulativeDisplacement_two_eq_zero
           #print axioms RHLean.Analysis.vfMidSquareBandLateOwnerCards_cast_eq_oddLiRemoval_sub_displacement
           #print axioms RHLean.Analysis.vfMidDyadicLateCorrection_cast_eq_oddLiCorrection_sub_displacement
+          #print axioms RHLean.Analysis.vfMidOddCandidateSeats_card
+          #print axioms RHLean.Analysis.vfMidOddFractionalPrimeSeatWeight_sum
+          #print axioms RHLean.Analysis.vfMidOddCompositeTrackingDefect_eq_neg_bandError
+          #print axioms RHLean.Analysis.vfMidOddDyadicCompositeTrackingDefect_eq_vfTrackingDefect
+          #print axioms RHLean.Analysis.vfMidOddCompositeTrackingDefect_eq_ownerCensus_sub_reference
+          #print axioms RHLean.Analysis.vfMidOddCompositeTrackingDefect_eq_terminal_add_recursive_sub_reference
+          #print axioms RHLean.Analysis.vfMidLateTerminalOwner_child_prime
+          #print axioms RHLean.Analysis.vfMidLateRecursiveOwner_secondOwner_geometry
           #print axioms RHLean.Analysis.vfMidOddLiSquareInterval_two_eq_prefixWheelCard
           #print axioms RHLean.Analysis.vfMidDyadicOddLiWeightedRemoval_eq_prefixSupply_sub_diagonal
           #print axioms RHLean.Analysis.vfMidPrimeError_sq_sub_sq_cast_eq_oddLiDiagonalError_add_displacement
@@ -409,7 +420,7 @@ jobs:
           from pathlib import Path
           s = Path('prime-flip-pnt-axioms.log').read_text()
           records = re.findall(r"depends on axioms:\s*\[([^\]]*)\]", s, re.S)
-          assert len(records) == 233, records
+          assert len(records) == 241, records
           allowed = {'propext', 'Classical.choice', 'Quot.sound'}
           for record in records:
               actual = {a.strip() for a in record.split(',') if a.strip()}
@@ -438,6 +449,7 @@ jobs:
             vf-mid-square-wheel-backlog.log
             vf-mid-dyadic-prefix-owner.log
             vf-mid-dyadic-owner-exact.log
+            vf-mid-odd-fractional-cluster.log
             vf-mid-phi-owner-bridge.log
             vf-mid-dyadic-summation-transfer.log
             vf-mid-phi-cutoff-telescope.log

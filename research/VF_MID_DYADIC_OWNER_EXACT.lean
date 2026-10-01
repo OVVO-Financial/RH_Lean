@@ -514,7 +514,8 @@ theorem vfMidPrefixWheelCounting_two_cast (N : ℕ) :
     primesUpTo_two_eq_singleton]
   have hpowerset :
       ({2} : Finset ℕ).powerset = {∅, {2}} := by
-    native_decide
+    ext s
+    simp [Finset.subset_singleton_iff]
   rw [hpowerset]
   change
     (∑ x ∈ ({∅, {2}} : Finset (Finset ℕ)),
@@ -523,7 +524,11 @@ theorem vfMidPrefixWheelCounting_two_cast (N : ℕ) :
       (N : ℝ) - ((N / 2 : ℕ) : ℝ)
   have hempty :
       (∅ : Finset ℕ) ∉ ({{2}} : Finset (Finset ℕ)) := by
-    native_decide
+    intro h
+    have heq : (∅ : Finset ℕ) = {2} := by
+      simpa using h
+    have hcard := congrArg Finset.card heq
+    norm_num at hcard
   rw [Finset.sum_insert hempty, Finset.sum_singleton]
   norm_num [booleanCubeSign, primeFaceProduct]
   ring
