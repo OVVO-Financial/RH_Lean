@@ -239,12 +239,10 @@ theorem abs_vfMidDyadicPrefixSupply_sub_density_le_four_pow
       vfMidPrefixWheelDensity z * (A : ℝ)
   have hB2 : |eB2| ≤ M := by
     dsimp [eB2, M]
-    convert abs_vfMidPrefixWheelCounting_sub_density_mul_le z (B ^ 2) using 1 <;>
-      norm_num
+    convert abs_vfMidPrefixWheelCounting_sub_density_mul_le z (B ^ 2) using 1; norm_num
   have hA2 : |eA2| ≤ M := by
     dsimp [eA2, M]
-    convert abs_vfMidPrefixWheelCounting_sub_density_mul_le z (A ^ 2) using 1 <;>
-      norm_num
+    convert abs_vfMidPrefixWheelCounting_sub_density_mul_le z (A ^ 2) using 1; norm_num
   have hB : |eB| ≤ M := by
     dsimp [eB, M]
     simpa using abs_vfMidPrefixWheelCounting_sub_density_mul_le z B
@@ -399,7 +397,7 @@ theorem vfMidDyadicTerminalOwner_eq_distinctPrimePair
       Nat.pow_le_pow_left hpLeR 2
     omega
   refine ⟨hp, hchildPrime, ?_, hreconstruct⟩
-  exact lt_of_le_of_ne hchildGe (fun hback => hne hback.symm)
+  exact lt_of_le_of_ne hchildGe (fun hback => hne hback)
 
 /-- The single arithmetic theorem left by the dyadic reduction: the signed
 late-removal total must track its exact native VF reference before absolute
