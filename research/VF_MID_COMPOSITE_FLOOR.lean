@@ -199,9 +199,10 @@ theorem vfMidSquareWheelComposite_card_ge_six
     (4 / 3 : ℝ) * R - 4 ≤
       ((vfMidSquareWheelComposites R).card : ℝ) := by
   have hp := vfMidSquareWheelPrime_card_le_six R hR
-  exact
+  have hc :=
     (vfMidSquareWheel_composite_floor_iff_prime_ceiling
       R ((2 / 3 : ℝ) * R + 4)).2 hp
+  convert hc using 1 <;> ring
 
 /-- The 30-wheel leaves at most 8R/15 + 16 possible prime sites. -/
 theorem vfMidSquareWheelPrime_card_le_thirty
@@ -221,9 +222,10 @@ theorem vfMidSquareWheelComposite_card_ge_thirty
     (22 / 15 : ℝ) * R - 16 ≤
       ((vfMidSquareWheelComposites R).card : ℝ) := by
   have hp := vfMidSquareWheelPrime_card_le_thirty R hR
-  exact
+  have hc :=
     (vfMidSquareWheel_composite_floor_iff_prime_ceiling
       R ((8 / 15 : ℝ) * R + 16)).2 hp
+  convert hc using 1 <;> ring
 
 /-- The 210-wheel leaves at most 16R/35 + 96 possible prime sites. -/
 theorem vfMidSquareWheelPrime_card_le_twoTen
@@ -244,9 +246,10 @@ theorem vfMidSquareWheelComposite_card_ge_twoTen
     (54 / 35 : ℝ) * R - 96 ≤
       ((vfMidSquareWheelComposites R).card : ℝ) := by
   have hp := vfMidSquareWheelPrime_card_le_twoTen R hR
-  exact
+  have hc :=
     (vfMidSquareWheel_composite_floor_iff_prime_ceiling
       R ((16 / 35 : ℝ) * R + 96)).2 hp
+  convert hc using 1 <;> ring
 
 /-- The same 210-wheel ceiling written on the exact #828 prime supply. -/
 theorem vfMidIntegerBlockPrimeSupply_le_twoTen
