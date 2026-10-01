@@ -195,6 +195,45 @@ def vfMidSquareBlockBiasLagCorrelation (R h n : ℕ) : ℝ :=
     vfMidSquareBlockMidpointBias (R + k) *
       vfMidSquareBlockMidpointBias (R + k + h)
 
+/-- Finite lag-h autocorrelation sum of the composite midpoint-bias coordinate. -/
+def vfMidSquareBlockCompositeBiasLagCorrelation (R h n : ℕ) : ℝ :=
+  ∑ k ∈ Finset.range n,
+    vfMidSquareBlockCompositeMidpointBias (R + k) *
+      vfMidSquareBlockCompositeMidpointBias (R + k + h)
+
+/-- **Prime/composite correlation transfer.**  Because the midpoint biases are
+exact negatives block by block, their finite lag correlations are exactly
+equal.  Hence proving decorrelation on the dense composite population is
+literally sufficient for the prime population. -/
+theorem vfMidSquareBlockBiasLagCorrelation_eq_composite
+    (R h n : ℕ) :
+    vfMidSquareBlockBiasLagCorrelation R h n =
+      vfMidSquareBlockCompositeBiasLagCorrelation R h n := by
+  unfold vfMidSquareBlockBiasLagCorrelation
+    vfMidSquareBlockCompositeBiasLagCorrelation
+  apply Finset.sum_congr rfl
+  intro k hk
+  rw [vfMidSquareBlockMidpointBias_eq_neg_composite,
+    vfMidSquareBlockMidpointBias_eq_neg_composite]
+  ring
+
+/-- Any exact zero-correlation theorem for composite midpoint bias transfers
+unchanged to prime midpoint bias. -/
+theorem vfMidSquareBlockBiasLagCorrelation_eq_zero_of_composite
+    {R h n : ℕ}
+    (hC : vfMidSquareBlockCompositeBiasLagCorrelation R h n = 0) :
+    vfMidSquareBlockBiasLagCorrelation R h n = 0 := by
+  rw [vfMidSquareBlockBiasLagCorrelation_eq_composite]
+  exact hC
+
+/-- Any absolute composite-correlation bound transfers with the same constant. -/
+theorem abs_vfMidSquareBlockBiasLagCorrelation_le_of_composite
+    {R h n : ℕ} {B : ℝ}
+    (hC : |vfMidSquareBlockCompositeBiasLagCorrelation R h n| ≤ B) :
+    |vfMidSquareBlockBiasLagCorrelation R h n| ≤ B := by
+  rw [vfMidSquareBlockBiasLagCorrelation_eq_composite]
+  exact hC
+
 /-- If every source block in a finite window is exactly midpoint-unbiased, every
 finite lag correlation sourced from that window is exactly zero. -/
 theorem vfMidSquareBlockBiasLagCorrelation_eq_zero_of_unbiased
