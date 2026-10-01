@@ -310,8 +310,9 @@ theorem vfMidSquareEndpointError_energy_telescope
         _ =
             2 * vfMidSquareEndpointAccumulationCorrelationSum R (n + 1) +
               vfMidSquareBandErrorEnergySum R (n + 1) := by
-          simp [vfMidSquareEndpointAccumulationCorrelationSum,
-            vfMidSquareBandErrorEnergySum]
+          rw [vfMidSquareEndpointAccumulationCorrelationSum,
+            vfMidSquareBandErrorEnergySum,
+            Finset.sum_range_succ, Finset.sum_range_succ]
           ring
 
 /-- With exactly zero cumulative D_R*e_R correlation, there is no coherent
