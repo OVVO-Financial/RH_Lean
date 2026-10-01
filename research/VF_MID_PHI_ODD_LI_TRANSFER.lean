@@ -110,7 +110,7 @@ theorem vfMidOddLiCumulativeTransform_two_eq_prefixWheelCounting
     vfMidPrefixWheelCounting_cast_complex_step
       N 2 (by norm_num)
   rw [vfMidPrefixWheelCounting_one] at hpref
-  simp [primeSievePrimeIndicator] at hpref
+  norm_num [primeSievePrimeIndicator] at hpref
   unfold vfMidOddLiCumulativeTransform
   rw [hN, hN2]
   exact hpref.symm
@@ -287,9 +287,10 @@ theorem vfMidSquareBandLateOwnerCards_cast_eq_oddLiRemoval_sub_displacement
     vfMidOddLiSquareDisplacementInterval_two_eq_zero
       hActual hL R
   unfold vfMidOddLiSquareDisplacementInterval
-    vfMidPhiSquareInterval
+    vfMidOddLiCumulativeDisplacement at hzero
+  unfold vfMidPhiSquareInterval
     vfMidOddLiSquareInterval
-    vfMidOddLiCumulativeDisplacement at hzero ⊢
+    vfMidOddLiCumulativeDisplacement
   ring_nf at hzero ⊢
   exact hzero
 
@@ -324,9 +325,11 @@ theorem vfMidDyadicOwnerLateRemoval_cast_eq_oddLiRemoval_sub_displacement
   intro r hr
   have hr3 : 3 ≤ r :=
     hA.trans (Finset.mem_Ico.mp hr).1
-  exact
+  have hblock :=
     vfMidSquareBandLateOwnerCards_cast_eq_oddLiRemoval_sub_displacement
       hActual hL hr3
+  push_cast at hblock
+  exact hblock
 
 /-- **Exact parity-aligned dyadic transfer identity.**
 The target T-H is now split without the deterministic q=2 mismatch:
@@ -347,7 +350,7 @@ theorem vfMidDyadicLateCorrection_cast_eq_oddLiCorrection_sub_displacement
       2 A B (by omega : 2 ≤ A) (by omega : 2 ≤ A) hAB
   have hOwner :=
     vfMidDyadicOwnerLateRemoval_cast_eq_oddLiRemoval_sub_displacement
-      hActual hL hA
+      (A := A) (B := B) hActual hL hA
   rw [hT]
   push_cast
   rw [hOwner]
