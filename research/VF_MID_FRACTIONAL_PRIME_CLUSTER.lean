@@ -157,6 +157,68 @@ theorem vfMidDyadicIncrementBounded_of_fractionalPrimeCluster
   have hfour : 0 ≤ 4 * (A : ℝ) := by positivity
   linarith
 
+/-- Conversely, the square-endpoint von-Koch bound controls every dyadic
+fractional-cluster realization increment.  Thus the cluster formulation loses
+no arithmetic information. -/
+theorem vfMidFractionalPrimeClusterDyadicBounded_of_squareEndpoint
+    (hsq : VFMidSquareEndpointVonKochBoundedStatement) :
+    VFMidFractionalPrimeClusterDyadicBoundedStatement := by
+  rcases hsq with ⟨K, hK0, hK⟩
+  refine ⟨5 * K, mul_nonneg (by norm_num) hK0, ?_⟩
+  intro A B hA hAB hBA
+  have hB2 : 2 ≤ B := hA.trans hAB.le
+  rw [vfMidFractionalPrimeClusterDiscrepancy_eq_primeError_increment
+    hA hB2 hAB.le]
+  have hEA := hK A hA
+  have hEB := hK B hB2
+  have hApos : (0 : ℝ) < A := by exact_mod_cast (show 0 < A by omega)
+  have hBpos : (0 : ℝ) < B := by exact_mod_cast (show 0 < B by omega)
+  have hlogA0 : 0 ≤ Real.log (A : ℝ) :=
+    Real.log_nonneg (by exact_mod_cast (show 1 ≤ A by omega))
+  have hlogB0 : 0 ≤ Real.log (B : ℝ) :=
+    Real.log_nonneg (by exact_mod_cast (show 1 ≤ B by omega))
+  have hBAreal : (B : ℝ) ≤ 2 * (A : ℝ) := by
+    exact_mod_cast hBA
+  have hlogB_le_log2A :
+      Real.log (B : ℝ) ≤ Real.log (2 * (A : ℝ)) :=
+    Real.log_le_log hBpos hBAreal
+  have hlog2A :
+      Real.log (2 * (A : ℝ)) =
+        Real.log 2 + Real.log (A : ℝ) := by
+    rw [Real.log_mul (by norm_num : (2 : ℝ) ≠ 0) hApos.ne']
+  have hlog2_le_logA :
+      Real.log 2 ≤ Real.log (A : ℝ) :=
+    Real.log_le_log (by norm_num) (by exact_mod_cast hA)
+  have hlogB_le_two_logA :
+      Real.log (B : ℝ) ≤ 2 * Real.log (A : ℝ) := by
+    rw [hlog2A] at hlogB_le_log2A
+    linarith
+  have hBscale :
+      (B : ℝ) * Real.log (B : ℝ) ≤
+        4 * (A : ℝ) * Real.log (A : ℝ) := by
+    calc
+      (B : ℝ) * Real.log (B : ℝ) ≤
+          (2 * (A : ℝ)) * Real.log (B : ℝ) :=
+        mul_le_mul_of_nonneg_right hBAreal hlogB0
+      _ ≤ (2 * (A : ℝ)) * (2 * Real.log (A : ℝ)) :=
+        mul_le_mul_of_nonneg_left hlogB_le_two_logA (by positivity)
+      _ = 4 * (A : ℝ) * Real.log (A : ℝ) := by ring
+  have hKBscale :
+      K * (B : ℝ) * Real.log (B : ℝ) ≤
+        4 * K * (A : ℝ) * Real.log (A : ℝ) := by
+    have hmul := mul_le_mul_of_nonneg_left hBscale hK0
+    nlinarith
+  calc
+    |vfMidPrimeError ((B : ℝ) ^ 2) -
+        vfMidPrimeError ((A : ℝ) ^ 2)|
+        ≤ |vfMidPrimeError ((B : ℝ) ^ 2)| +
+            |vfMidPrimeError ((A : ℝ) ^ 2)| := abs_sub _ _
+    _ ≤ K * (B : ℝ) * Real.log B +
+          K * (A : ℝ) * Real.log A :=
+      add_le_add hEB hEA
+    _ ≤ 5 * K * (A : ℝ) * Real.log A := by
+      nlinarith [hKBscale]
+
 /-- **Fractional-cluster square-endpoint closure.**
 Once the integral 0/1 prime realization tracks the VF fractional cluster on
 every dyadic square run, the full VF square-endpoint von-Koch estimate follows
@@ -166,6 +228,26 @@ theorem vfMidSquareEndpointVonKochBounded_of_fractionalPrimeCluster
     VFMidSquareEndpointVonKochBoundedStatement :=
   vfMidSquareEndpointVonKochBounded_of_dyadicIncrement
     (vfMidDyadicIncrementBounded_of_fractionalPrimeCluster hcluster)
+
+/-- **Exact arithmetic equivalence.**
+The dyadic 0/1-versus-fractional VF realization bound is equivalent to the
+official square-endpoint von-Koch target. -/
+theorem vfMidFractionalPrimeClusterDyadicBounded_iff_squareEndpoint :
+    VFMidFractionalPrimeClusterDyadicBoundedStatement ↔
+      VFMidSquareEndpointVonKochBoundedStatement := by
+  constructor
+  · exact vfMidSquareEndpointVonKochBounded_of_fractionalPrimeCluster
+  · exact vfMidFractionalPrimeClusterDyadicBounded_of_squareEndpoint
+
+/-- With the standard classical von-Koch criterion supplied, the VF
+fractional-cluster realization statement is exactly equivalent to RH. -/
+theorem vfMidFractionalPrimeClusterDyadicBounded_iff_riemannHypothesis
+    (criterion : ClassicalVonKochRHCriterion) :
+    VFMidFractionalPrimeClusterDyadicBoundedStatement ↔
+      VFMidRiemannHypothesisStatement := by
+  rw [vfMidFractionalPrimeClusterDyadicBounded_iff_squareEndpoint,
+    vfMidSquareEndpointVonKochBounded_iff_primeLiVonKochBounded,
+    criterion.iff_riemannHypothesis]
 
 /-- **End-to-end VF fractional-cluster consumer.**
 The continuous Li -> VF quadrature error is discharged unconditionally by the
