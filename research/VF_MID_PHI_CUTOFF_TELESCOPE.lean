@@ -169,7 +169,7 @@ prime-indicator weighted Phi child-removal sum. -/
 theorem vfMidSquareBandLateOwnerCards_cast_eq_actualWeightedPhiRemoval
     {Actual : ℕ → ℕ → ℂ}
     (hActual : IsAllScaleActualPrimeState Actual)
-    {z R : ℕ} (hz : 2 ≤ z) (hR : 3 ≤ R) :
+    {z R : ℕ} (hR : 3 ≤ R) :
     ((∑ p ∈ vfMidSquareBandLateOwnerPrimes z R,
         (vfMidSquareBandCompositeOwner R p).card : ℕ) : ℂ) =
       vfMidPhiWeightedCutoffRemoval
@@ -207,7 +207,7 @@ theorem vfMidSquareBandLateOwnerCards_cast_eq_liRemoval_add_displacementBoundary
         (vfMidPhiSquareDisplacementInterval Actual L R z -
           vfMidPhiSquareDisplacementInterval Actual L R R) := by
   rw [vfMidSquareBandLateOwnerCards_cast_eq_actualWeightedPhiRemoval
-      hActual hz hR]
+      hActual hR]
   have hdisp :=
     vfMidPhiActual_sub_liWeightedRemoval_eq_displacementBoundaries
       hActual hL R z R (by omega) hzR
