@@ -428,10 +428,18 @@ theorem abs_vfMidPrimeError_sq_sub_sq_le_of_signedLateCorrection
           vfMidPrefixWheelDensity 2 * vfMidDyadicInteriorLength A B| ≤
         4 * (A : ℝ) := by
     apply abs_vfMidDyadicPrefixSupply_sub_density_le_four_mul_A
-    have hcard : (primesUpTo 2).card = 1 := by native_decide
-    rw [hcard]
+    have hset : primesUpTo 2 = {2} := by
+      ext p
+      simp only [mem_primesUpTo, Finset.mem_singleton]
+      constructor
+      · rintro ⟨hp, hp2⟩
+        have hpLower := hp.two_le
+        omega
+      · rintro rfl
+        exact ⟨Nat.prime_two, le_rfl⟩
+    rw [hset]
     norm_num
-    omega
+    exact hA
   have hlate := hC A B hA hAB hBA
   calc
     |(vfMidDyadicPrefixSupply 2 A B -
