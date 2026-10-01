@@ -517,7 +517,7 @@ theorem vfMidPrefixWheelCounting_two_cast (N : ℕ) :
     native_decide
   rw [hpowerset]
   change
-    (∑ x in ({∅, {2}} : Finset (Finset ℕ)),
+    (∑ x ∈ ({∅, {2}} : Finset (Finset ℕ)),
       (booleanCubeSign x : ℝ) *
         ((N / primeFaceProduct x : ℕ) : ℝ)) =
       (N : ℝ) - ((N / 2 : ℕ) : ℝ)
