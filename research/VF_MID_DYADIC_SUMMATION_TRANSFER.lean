@@ -84,6 +84,8 @@ theorem vfMidSquareEndpointVonKochBounded_of_dyadicIncrement
       by_cases hRtwo : R = 2
       · subst R
         change E2 ≤ K * 2 * ell
+        have h8ell0 : 0 ≤ 8 / ell :=
+          div_nonneg (by norm_num) hell.le
         have hcoef : E2 / (2 * ell) ≤ K := by
           dsimp [K]
           linarith
@@ -154,7 +156,6 @@ theorem vfMidSquareEndpointVonKochBounded_of_dyadicIncrement
           have hrewrite :
               (8 / ell) * (R : ℝ) * ell = 8 * (R : ℝ) := by
             field_simp [hell.ne']
-            ring
           rw [hrewrite] at hlogmul
           exact hleft.trans hlogmul
         have hInd := ih A hAlt hA2
