@@ -459,8 +459,9 @@ theorem vfMidSquareEndpointVonKochBounded_of_alignedStepGraph
       B * (R : ℝ)
           ≤ B * (R : ℝ) *
               (Real.log (R : ℝ) / Real.log 2) := by
-            exact mul_le_mul_of_nonneg_left hratio
-              (mul_nonneg hB hRnonneg)
+            simpa only [mul_one] using
+              (mul_le_mul_of_nonneg_left hratio
+                (mul_nonneg hB hRnonneg))
       _ = (B / Real.log 2) * (R : ℝ) * Real.log (R : ℝ) := by
             field_simp [hlog2.ne']
   have hDB : |vfMidDirectSquareEndpointError R| ≤ B * (R : ℝ) := by
@@ -505,13 +506,34 @@ theorem vfMidSquareEndpointVonKochBounded_of_alignedStepGraph
         nlinarith [abs_nonneg c]
       have hlin :
           |vfMidDirectSquareEndpointError R| < A * (R : ℝ) := by
+        have hmassSum :
+            vfMidBandMass R + vfMidBandMass (R - 1) ≤
+              6 * (R : ℝ) / Real.log 4 := by
+          calc
+            vfMidBandMass R + vfMidBandMass (R - 1)
+                ≤ 3 * (R : ℝ) / Real.log 4 +
+                    3 * (R : ℝ) / Real.log 4 :=
+              add_le_add hmassR hmassPredR
+            _ = 6 * (R : ℝ) / Real.log 4 := by ring
         have hsum :
             2 * (R : ℝ) + 3 +
                 vfMidBandMass R + vfMidBandMass (R - 1) + |c| ≤
               3 * (R : ℝ) +
                 6 * (R : ℝ) / Real.log 4 +
                 |c| * (R : ℝ) := by
-          linarith
+          calc
+            2 * (R : ℝ) + 3 +
+                  vfMidBandMass R + vfMidBandMass (R - 1) + |c|
+                = (2 * (R : ℝ) + 3) +
+                    (vfMidBandMass R + vfMidBandMass (R - 1)) + |c| := by
+                    ring
+            _ ≤ 3 * (R : ℝ) +
+                    (6 * (R : ℝ) / Real.log 4) +
+                    (|c| * (R : ℝ)) :=
+              add_le_add (add_le_add hbase hmassSum) hcR
+            _ = 3 * (R : ℝ) +
+                    6 * (R : ℝ) / Real.log 4 +
+                    |c| * (R : ℝ) := by ring
         have hAform :
             3 * (R : ℝ) +
                 6 * (R : ℝ) / Real.log 4 +
