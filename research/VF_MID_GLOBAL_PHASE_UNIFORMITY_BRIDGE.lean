@@ -169,7 +169,7 @@ theorem vfMidHalfPhasePrimeSet_split (R : ℕ) (hR : 2 ≤ R) :
     · exact Or.inr ⟨⟨lt_of_not_ge hpL, hpU⟩, hgood⟩
   · rintro (h | h)
     · exact ⟨⟨h.1.1, h.1.2.trans (Nat.pow_le_pow_left (by omega) 2)⟩, h.2⟩
-    · exact ⟨⟨by omega, h.1.2⟩, h.2⟩
+    · exact ⟨⟨by nlinarith, h.1.2⟩, h.2⟩
 
 /-- The old half-phase prefix and the new half-phase square block are disjoint. -/
 theorem vfMidHalfPhasePrimeSet_disjoint_band (R : ℕ) :
@@ -240,12 +240,21 @@ theorem vfMidGlobalHalfPhaseDiscrepancy_succ
       primeCountUpTo_eq_primeCounting]
     rw [← vfMidDirectPrimeBand_eq_squareWheelPrimes]
     simpa [vfMidIntegerBlockPrimeSupply, Nat.add_comm] using hprime.symm
+  have hphaseR :
+      (squareRootPrimePhaseWindowCount ((R + 1) ^ 2) 0 (1 / 2 : ℝ) : ℝ) =
+        (squareRootPrimePhaseWindowCount (R ^ 2) 0 (1 / 2 : ℝ) : ℝ) +
+          ((vfMidSquareWheelPrimePrefix R (R ^ 2 + R)).card : ℝ) := by
+    exact_mod_cast hphase
+  have hprimeR :
+      (primeCountUpTo ((R + 1) ^ 2) : ℝ) =
+        (primeCountUpTo (R ^ 2) : ℝ) +
+          ((vfMidSquareWheelPrimes R).card : ℝ) := by
+    exact_mod_cast hprimeLocal
   unfold vfMidGlobalHalfPhaseDiscrepancy
     vfMidSquareBlockMidpointBias
     vfMidSquareBlockPrimeLeft
     vfMidSquareBlockPrimeTotal
-  push_cast at hphase hprimeLocal
-  rw [hphase, hprimeLocal]
+  rw [hphaseR, hprimeR]
   ring
 
 /-- Exact global-to-local telescope.  The accumulated midpoint biases are
