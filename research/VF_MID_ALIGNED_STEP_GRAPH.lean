@@ -27,6 +27,26 @@ namespace RHLean.Analysis
 def vfMidAlignedMass (c : ℝ) (R : ℕ) : ℝ :=
   vfMidFinishedMass R + c
 
+
+/-- Continuous aligned VF path: a pure vertical translation of vfMid. -/
+def vfMidAligned (c x : ℝ) : ℝ :=
+  vfMid x + c
+
+/-- At every square endpoint the continuous aligned path is exactly the aligned
+cumulative square mass. -/
+theorem vfMidAligned_sq
+    (c : ℝ) {R : ℕ} (hR : 2 ≤ R) :
+    vfMidAligned c ((R : ℝ) ^ 2) = vfMidAlignedMass c R := by
+  unfold vfMidAligned vfMidAlignedMass
+  rw [vfMid_sq hR]
+
+/-- Alignment changes the running prime/VF discrepancy by exactly -c. -/
+theorem vfMidPrimeError_aligned_eq_sub
+    (c x : ℝ) :
+    vfMidPrimeCount x - vfMidAligned c x = vfMidPrimeError x - c := by
+  unfold vfMidAligned vfMidPrimeError
+  ring
+
 /-- Integer step level of an additively aligned VF-mid path. -/
 def vfMidAlignedIntegerBlockLevel (c : ℝ) (R : ℕ) : ℕ :=
   ⌊vfMidAlignedMass c R⌋₊
