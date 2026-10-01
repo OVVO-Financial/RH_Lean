@@ -226,4 +226,171 @@ theorem abs_vfMidDirectThetaWeightedPrefix_add_base_le
     _ = M * vfMidDirectThetaAbelWeight 2 := by
       rw [vfMidDirectThetaAbelKernel_mass R hR]
 
+/-! ## Quantitative decay of the Abel kernel -/
+
+private theorem vfMidBandMidpoint_pred_formula
+    (r : ℕ) (hr : 1 ≤ r) :
+    vfMidBandMidpoint (r - 1) =
+      (r : ℝ) ^ 2 - (r : ℝ) + (1 / 2 : ℝ) := by
+  unfold vfMidBandMidpoint
+  push_cast [Nat.cast_sub hr]
+  ring
+
+/-- The previous square midpoint stays above half the current square. -/
+theorem vfMidBandMidpoint_pred_ge_half_sq
+    {r : ℕ} (hr : 3 ≤ r) :
+    (r : ℝ) ^ 2 / 2 ≤ vfMidBandMidpoint (r - 1) := by
+  rw [vfMidBandMidpoint_pred_formula r (by omega)]
+  nlinarith [sq_nonneg ((r : ℝ) - 1)]
+
+/-- The previous square midpoint is already at least the current square index. -/
+theorem vfMidBandMidpoint_pred_ge_index
+    {r : ℕ} (hr : 3 ≤ r) :
+    (r : ℝ) ≤ vfMidBandMidpoint (r - 1) := by
+  have hrR : (3 : ℝ) ≤ (r : ℝ) := by exact_mod_cast hr
+  rw [vfMidBandMidpoint_pred_formula r (by omega)]
+  nlinarith [sq_nonneg ((r : ℝ) - 2)]
+
+/-- Consecutive square midpoints differ by exactly 2r. -/
+theorem vfMidBandMidpoint_sub_pred
+    {r : ℕ} (hr : 1 ≤ r) :
+    vfMidBandMidpoint r - vfMidBandMidpoint (r - 1) =
+      2 * (r : ℝ) := by
+  rw [vfMidBandMidpoint_pred_formula r hr]
+  unfold vfMidBandMidpoint
+  ring
+
+/-- The logarithmic midpoint step is O(1/r), with an explicit constant. -/
+theorem vfMidDirectThetaMidpoint_log_step_le_four_div
+    {r : ℕ} (hr : 3 ≤ r) :
+    Real.log (vfMidBandMidpoint r) -
+        Real.log (vfMidBandMidpoint (r - 1)) ≤
+      4 / (r : ℝ) := by
+  have hrpos : (0 : ℝ) < (r : ℝ) := by
+    exact_mod_cast (show 0 < r by omega)
+  have hAhalf := vfMidBandMidpoint_pred_ge_half_sq (r := r) hr
+  have hApos : 0 < vfMidBandMidpoint (r - 1) := by
+    have hrsq : 0 < (r : ℝ) ^ 2 := sq_pos_of_pos hrpos
+    nlinarith
+  have hBpos : 0 < vfMidBandMidpoint r := by
+    unfold vfMidBandMidpoint
+    nlinarith [sq_pos_of_pos hrpos]
+  have hlogRatio :=
+    Real.log_le_sub_one_of_pos (div_pos hBpos hApos)
+  rw [Real.log_div hBpos.ne' hApos.ne'] at hlogRatio
+  have hratio :
+      vfMidBandMidpoint r / vfMidBandMidpoint (r - 1) - 1 =
+        (2 * (r : ℝ)) / vfMidBandMidpoint (r - 1) := by
+    have hdiff := vfMidBandMidpoint_sub_pred (r := r) (by omega)
+    field_simp [hApos.ne']
+    nlinarith
+  have hfrac :
+      (2 * (r : ℝ)) / vfMidBandMidpoint (r - 1) ≤
+        4 / (r : ℝ) := by
+    rw [div_le_div_iff₀ hApos hrpos]
+    nlinarith
+  calc
+    Real.log (vfMidBandMidpoint r) -
+          Real.log (vfMidBandMidpoint (r - 1))
+        ≤ vfMidBandMidpoint r / vfMidBandMidpoint (r - 1) - 1 :=
+      hlogRatio
+    _ = (2 * (r : ℝ)) / vfMidBandMidpoint (r - 1) := hratio
+    _ ≤ 4 / (r : ℝ) := hfrac
+
+/-- Both midpoint logs dominate log r on the square scale. -/
+theorem vfMidDirectTheta_log_index_le_log_pred_midpoint
+    {r : ℕ} (hr : 3 ≤ r) :
+    Real.log (r : ℝ) ≤
+      Real.log (vfMidBandMidpoint (r - 1)) := by
+  have hrpos : (0 : ℝ) < (r : ℝ) := by
+    exact_mod_cast (show 0 < r by omega)
+  exact Real.log_le_log hrpos
+    (vfMidBandMidpoint_pred_ge_index (r := r) hr)
+
+/-- The current midpoint log also dominates log r. -/
+theorem vfMidDirectTheta_log_index_le_log_midpoint
+    {r : ℕ} (hr : 3 ≤ r) :
+    Real.log (r : ℝ) ≤
+      Real.log (vfMidBandMidpoint r) := by
+  have hrpos : (0 : ℝ) < (r : ℝ) := by
+    exact_mod_cast (show 0 < r by omega)
+  have hle : (r : ℝ) ≤ vfMidBandMidpoint r := by
+    have hrR : (3 : ℝ) ≤ (r : ℝ) := by exact_mod_cast hr
+    unfold vfMidBandMidpoint
+    nlinarith [sq_nonneg ((r : ℝ) - 1)]
+  exact Real.log_le_log hrpos hle
+
+/-- **Quantitative Abel-kernel decay.**
+
+The positive reciprocal-log drop is at most
+  (4/r) / log(r)^2.
+This is the scale that prevents historical square-band errors from
+accumulating another logarithmic or linear loss. -/
+theorem vfMidDirectThetaAbelWeight_drop_le
+    {r : ℕ} (hr : 3 ≤ r) :
+    vfMidDirectThetaAbelWeight (r - 1) -
+        vfMidDirectThetaAbelWeight r ≤
+      (4 / (r : ℝ)) / (Real.log (r : ℝ)) ^ 2 := by
+  have hrpos : (0 : ℝ) < (r : ℝ) := by
+    exact_mod_cast (show 0 < r by omega)
+  have hlogr : 0 < Real.log (r : ℝ) := by
+    apply Real.log_pos
+    exact_mod_cast (show 1 < r by omega)
+  have hlogA : 0 < Real.log (vfMidBandMidpoint (r - 1)) := by
+    exact lt_of_lt_of_le hlogr
+      (vfMidDirectTheta_log_index_le_log_pred_midpoint (r := r) hr)
+  have hlogB : 0 < Real.log (vfMidBandMidpoint r) := by
+    exact lt_of_lt_of_le hlogr
+      (vfMidDirectTheta_log_index_le_log_midpoint (r := r) hr)
+  have hrewrite :
+      vfMidDirectThetaAbelWeight (r - 1) -
+          vfMidDirectThetaAbelWeight r =
+        (Real.log (vfMidBandMidpoint r) -
+            Real.log (vfMidBandMidpoint (r - 1))) /
+          (Real.log (vfMidBandMidpoint (r - 1)) *
+            Real.log (vfMidBandMidpoint r)) := by
+    unfold vfMidDirectThetaAbelWeight
+    field_simp [hlogA.ne', hlogB.ne']
+    ring
+  have hden :
+      (Real.log (r : ℝ)) ^ 2 ≤
+        Real.log (vfMidBandMidpoint (r - 1)) *
+          Real.log (vfMidBandMidpoint r) := by
+    rw [pow_two]
+    exact mul_le_mul
+      (vfMidDirectTheta_log_index_le_log_pred_midpoint (r := r) hr)
+      (vfMidDirectTheta_log_index_le_log_midpoint (r := r) hr)
+      hlogr.le hlogA.le
+  have hnum0 : 0 ≤ 4 / (r : ℝ) := by positivity
+  rw [hrewrite]
+  calc
+    (Real.log (vfMidBandMidpoint r) -
+          Real.log (vfMidBandMidpoint (r - 1))) /
+        (Real.log (vfMidBandMidpoint (r - 1)) *
+          Real.log (vfMidBandMidpoint r))
+        ≤ (4 / (r : ℝ)) /
+            (Real.log (vfMidBandMidpoint (r - 1)) *
+              Real.log (vfMidBandMidpoint r)) :=
+      div_le_div_of_nonneg_right
+        (vfMidDirectThetaMidpoint_log_step_le_four_div (r := r) hr)
+        (mul_nonneg hlogA.le hlogB.le)
+    _ ≤ (4 / (r : ℝ)) / (Real.log (r : ℝ)) ^ 2 :=
+      div_le_div_of_nonneg_left hnum0 (sq_pos_of_pos hlogr) hden
+
+/-- The terminal Abel weight loses at least one logarithm. -/
+theorem vfMidDirectThetaAbelWeight_pred_le_recip_log
+    {r : ℕ} (hr : 3 ≤ r) :
+    vfMidDirectThetaAbelWeight (r - 1) ≤
+      (Real.log (r : ℝ))⁻¹ := by
+  have hlogr : 0 < Real.log (r : ℝ) := by
+    apply Real.log_pos
+    exact_mod_cast (show 1 < r by omega)
+  have hlogA : 0 < Real.log (vfMidBandMidpoint (r - 1)) := by
+    exact lt_of_lt_of_le hlogr
+      (vfMidDirectTheta_log_index_le_log_pred_midpoint (r := r) hr)
+  unfold vfMidDirectThetaAbelWeight
+  exact (inv_le_inv₀ hlogA hlogr).2
+    (vfMidDirectTheta_log_index_le_log_pred_midpoint (r := r) hr)
+
+
 end RHLean.Analysis
