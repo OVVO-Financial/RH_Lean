@@ -212,6 +212,9 @@ jobs:
           #print axioms RHLean.Analysis.vfMidFractionalPrimeClusterDiscrepancy_eq_endpointError_sub
           #print axioms RHLean.Analysis.vfMidFractionalPrimeClusterDiscrepancy_eq_primeError_increment
           #print axioms RHLean.Analysis.vfMidSquareEndpointVonKochBounded_of_fractionalPrimeCluster
+          #print axioms RHLean.Analysis.vfMidFractionalPrimeClusterDyadicBounded_of_squareEndpoint
+          #print axioms RHLean.Analysis.vfMidFractionalPrimeClusterDyadicBounded_iff_squareEndpoint
+          #print axioms RHLean.Analysis.vfMidFractionalPrimeClusterDyadicBounded_iff_riemannHypothesis
           #print axioms RHLean.Analysis.riemannHypothesis_of_vfMidFractionalPrimeCluster
           #print axioms RHLean.Analysis.vfMidFractionalPrimeClusterMass_eq_finishedMass
           #print axioms RHLean.Analysis.vfMidFractionalPrimeCluster_li_root_bounded
