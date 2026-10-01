@@ -17,6 +17,7 @@ on:
       - research/VF_MID_DIRECT_OWNER_DESCENT.lean
       - research/VF_MID_DIRECT_ROUGH_CHILD.lean
       - research/VF_MID_INTEGER_BLOCK_CAPTURE.lean
+      - research/VF_MID_LITERAL_BLOCK_CROSSING.lean
       - research/VF_MID_SQUARE_WHEEL_BACKLOG.lean
       - research/VF_MID_MIDPOINT_COMPLEMENT_DISPERSION.lean
       - research/VF_MID_UNIFORMITY_BIAS_CORRELATION.lean
@@ -101,6 +102,7 @@ jobs:
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_DIRECT_OWNER_DESCENT.olean research/VF_MID_DIRECT_OWNER_DESCENT.lean 2>&1 | tee vf-mid-direct-owner-descent.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_DIRECT_ROUGH_CHILD.olean research/VF_MID_DIRECT_ROUGH_CHILD.lean 2>&1 | tee vf-mid-direct-rough-child.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_INTEGER_BLOCK_CAPTURE.olean research/VF_MID_INTEGER_BLOCK_CAPTURE.lean 2>&1 | tee vf-mid-integer-block-capture.log
+          lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_LITERAL_BLOCK_CROSSING.olean research/VF_MID_LITERAL_BLOCK_CROSSING.lean 2>&1 | tee vf-mid-literal-block-crossing.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_SQUARE_WHEEL_BACKLOG.olean research/VF_MID_SQUARE_WHEEL_BACKLOG.lean 2>&1 | tee vf-mid-square-wheel-backlog.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_MIDPOINT_COMPLEMENT_DISPERSION.olean research/VF_MID_MIDPOINT_COMPLEMENT_DISPERSION.lean 2>&1 | tee vf-mid-midpoint-complement-dispersion.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_UNIFORMITY_BIAS_CORRELATION.olean research/VF_MID_UNIFORMITY_BIAS_CORRELATION.lean 2>&1 | tee vf-mid-uniformity-bias-correlation.log
@@ -125,6 +127,7 @@ jobs:
           import «research.EXACT_LI_PURE_MODEL_CLOSURE»
           import «research.VF_MID_VON_KOCH_BRIDGE»
           import «research.VF_MID_INTEGER_BLOCK_CAPTURE»
+          import «research.VF_MID_LITERAL_BLOCK_CROSSING»
           import «research.VF_MID_SQUARE_WHEEL_BACKLOG»
           import «research.VF_MID_MIDPOINT_COMPLEMENT_DISPERSION»
           import «research.VF_MID_UNIFORMITY_BIAS_CORRELATION»
@@ -189,6 +192,11 @@ jobs:
           #print axioms RHLean.Analysis.vfMidIntegerBlockCaptured_abs_squareEndpointError_lt
           #print axioms RHLean.Analysis.vfMidSquareEndpointVonKochBounded_of_integerBlockCapture
           #print axioms RHLean.Analysis.riemannHypothesis_of_vfMidIntegerBlockCapture
+          #print axioms RHLean.Analysis.vfMidIntegerBlockCrossed_of_captured
+          #print axioms RHLean.Analysis.vfMidIntegerBlockCaptured_of_crossed
+          #print axioms RHLean.Analysis.vfMidIntegerBlockCrossed_iff_captured
+          #print axioms RHLean.Analysis.vfMidIntegerBlockCrossingStatement_iff_captureStatement
+          #print axioms RHLean.Analysis.riemannHypothesis_of_vfMidIntegerBlockCrossing
           #print axioms RHLean.Analysis.vfMidIntegerBlockCapturedByLag_abs_squareEndpointError_lt
           #print axioms RHLean.Analysis.vfMidSquareWheel_squareRootIndex_eq
           #print axioms RHLean.Analysis.vfMidSquareBand_commonWheelSurvivor_iff_prime
@@ -277,7 +285,7 @@ jobs:
           from pathlib import Path
           s = Path('prime-flip-pnt-axioms.log').read_text()
           records = re.findall(r"depends on axioms:\s*\[([^\]]*)\]", s, re.S)
-          assert len(records) == 135, records
+          assert len(records) == 140, records
           allowed = {'propext', 'Classical.choice', 'Quot.sound'}
           for record in records:
               actual = {a.strip() for a in record.split(',') if a.strip()}
@@ -300,6 +308,7 @@ jobs:
             vf-mid-direct-owner-descent.log
             vf-mid-direct-rough-child.log
             vf-mid-integer-block-capture.log
+            vf-mid-literal-block-crossing.log
             vf-mid-square-wheel-backlog.log
             vf-mid-midpoint-complement-dispersion.log
             vf-mid-uniformity-bias-correlation.log
