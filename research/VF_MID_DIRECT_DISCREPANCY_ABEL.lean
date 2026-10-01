@@ -170,7 +170,7 @@ entire weighted theta contribution, after restoring its fixed base term, is
 bounded by M times one fixed reciprocal-log weight.  In particular there is
 no extra factor R coming from summing the square bands. -/
 theorem abs_vfMidDirectThetaWeightedPrefix_add_base_le
-    (R : ℕ) (hR : 3 ≤ R) (M : ℝ) (hM : 0 ≤ M)
+    (R : ℕ) (hR : 3 ≤ R) (M : ℝ)
     (hE : ∀ r : ℕ, 3 ≤ r → r ≤ R →
       |vfMidDirectThetaEndpointError r| ≤ M) :
     |vfMidDirectThetaWeightedPrefix R +
