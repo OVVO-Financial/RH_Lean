@@ -202,6 +202,7 @@ theorem vfMidPrefixWheelCounting_cast_int_prime_step
   have hpnot : p ∉ primesUpTo (p - 1) := by
     intro hmem
     have hpLe := (mem_primesUpTo.mp hmem).2
+    have hp2 := hp.two_le
     omega
   rw [vfMidPrefixWheelCounting_cast_int_eq_faceFloorSum,
     vfMidPrefixWheelCounting_cast_int_eq_faceFloorSum,
@@ -372,7 +373,9 @@ theorem vfMidSquareBandCompositeOwnerChildren_eq_prefixChildren
   · intro hm
     rcases Finset.mem_filter.mp hm with ⟨hmIoc, hsurv⟩
     rcases Finset.mem_Ioc.mp hmIoc with ⟨hlower, hupper⟩
-    have hm0 : m ≠ 0 := by omega
+    have hmpos : 0 < m :=
+      lt_of_le_of_lt (Nat.zero_le (R ^ 2 / p)) hlower
+    have hm0 : m ≠ 0 := Nat.ne_of_gt hmpos
     have hrough :=
       (roughAbove_pred_iff_lowWheelHighSurvivor hm0).2 hsurv
     have hloMul : R ^ 2 < m * p :=
