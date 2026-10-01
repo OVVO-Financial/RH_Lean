@@ -12,6 +12,8 @@ on:
       - research/EXACT_LI_PURE_MODEL_CLOSURE.lean
       - research/VF_MID_VON_KOCH_BRIDGE.lean
       - research/VF_MID_DIRECT_SIGNED_DYNAMICS.lean
+      - research/VF_MID_SQUARE_BAND_COMPOSITE_BRIDGE.lean
+      - research/VF_MID_DIRECT_COMPOSITE_DESCENT.lean
       - research/VF_MID_INTEGER_BLOCK_CAPTURE.lean
       - research/VF_MID_SQUARE_WHEEL_BACKLOG.lean
       - research/VF_MID_MIDPOINT_COMPLEMENT_DISPERSION.lean
@@ -88,6 +90,8 @@ jobs:
           set -o pipefail
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_VON_KOCH_BRIDGE.olean research/VF_MID_VON_KOCH_BRIDGE.lean 2>&1 | tee vf-mid-von-koch.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_DIRECT_SIGNED_DYNAMICS.olean research/VF_MID_DIRECT_SIGNED_DYNAMICS.lean 2>&1 | tee vf-mid-direct-signed-dynamics.log
+          lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_SQUARE_BAND_COMPOSITE_BRIDGE.olean research/VF_MID_SQUARE_BAND_COMPOSITE_BRIDGE.lean 2>&1 | tee vf-mid-square-band-composite-bridge.log
+          lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_DIRECT_COMPOSITE_DESCENT.olean research/VF_MID_DIRECT_COMPOSITE_DESCENT.lean 2>&1 | tee vf-mid-direct-composite-descent.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_INTEGER_BLOCK_CAPTURE.olean research/VF_MID_INTEGER_BLOCK_CAPTURE.lean 2>&1 | tee vf-mid-integer-block-capture.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_SQUARE_WHEEL_BACKLOG.olean research/VF_MID_SQUARE_WHEEL_BACKLOG.lean 2>&1 | tee vf-mid-square-wheel-backlog.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_MIDPOINT_COMPLEMENT_DISPERSION.olean research/VF_MID_MIDPOINT_COMPLEMENT_DISPERSION.lean 2>&1 | tee vf-mid-midpoint-complement-dispersion.log
@@ -219,6 +223,8 @@ jobs:
             exact-li-pure-model-closure.log
             vf-mid-von-koch.log
             vf-mid-direct-signed-dynamics.log
+            vf-mid-square-band-composite-bridge.log
+            vf-mid-direct-composite-descent.log
             vf-mid-integer-block-capture.log
             vf-mid-square-wheel-backlog.log
             vf-mid-midpoint-complement-dispersion.log
