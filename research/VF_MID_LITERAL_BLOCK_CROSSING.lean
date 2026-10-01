@@ -133,4 +133,50 @@ theorem riemannHypothesis_of_vfMidIntegerBlockCrossing
   exact
     vfMidIntegerBlockCrossingStatement_iff_captureStatement.mp hcross
 
+
+/-! ## Explicit prime-count envelope reduction
+
+A convenient sufficient condition for literal block crossing is to sandwich the
+true prime-counting staircase between deterministic integer-valued envelopes
+`L` and `U`, then place the VF level between the two envelopes at the square
+endpoints. This is exactly the rigorous
+`U(R^2) <= K_R <= L((R+1)^2)` attack.
+-/
+
+/-- A pointwise deterministic lower envelope for the prime-counting function. -/
+def PrimeCountingLowerEnvelope (L : ℕ → ℕ) : Prop :=
+  ∀ x : ℕ, L x ≤ Nat.primeCounting x
+
+/-- A pointwise deterministic upper envelope for the prime-counting function. -/
+def PrimeCountingUpperEnvelope (U : ℕ → ℕ) : Prop :=
+  ∀ x : ℕ, Nat.primeCounting x ≤ U x
+
+/-- Valid endpoint envelopes plus the two VF comparisons force square-block
+capture. -/
+theorem vfMidIntegerBlockCaptured_of_primeCount_envelopes
+    (L U : ℕ → ℕ)
+    (hL : PrimeCountingLowerEnvelope L)
+    (hU : PrimeCountingUpperEnvelope U)
+    (R : ℕ)
+    (hleft : U (R ^ 2) ≤ vfMidIntegerBlockLevel R)
+    (hright : vfMidIntegerBlockLevel R ≤ L ((R + 1) ^ 2)) :
+    VFMidIntegerBlockCaptured R := by
+  constructor
+  · exact le_trans (hU (R ^ 2)) hleft
+  · exact le_trans hright (hL ((R + 1) ^ 2))
+
+/-- The same endpoint-envelope certificate forces a literal crossing of the
+prime-counting staircase inside the square block. -/
+theorem vfMidIntegerBlockCrossed_of_primeCount_envelopes
+    (L U : ℕ → ℕ)
+    (hL : PrimeCountingLowerEnvelope L)
+    (hU : PrimeCountingUpperEnvelope U)
+    (R : ℕ)
+    (hleft : U (R ^ 2) ≤ vfMidIntegerBlockLevel R)
+    (hright : vfMidIntegerBlockLevel R ≤ L ((R + 1) ^ 2)) :
+    VFMidIntegerBlockCrossed R :=
+  vfMidIntegerBlockCrossed_of_captured R
+    (vfMidIntegerBlockCaptured_of_primeCount_envelopes
+      L U hL hU R hleft hright)
+
 end RHLean.Analysis
