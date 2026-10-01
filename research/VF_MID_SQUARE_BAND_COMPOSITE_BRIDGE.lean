@@ -62,7 +62,9 @@ theorem vfMidSquareBand_prime_composite_partition (R : ℕ) :
     vfMidSquareBandPrimes R ∪ vfMidSquareBandComposites R =
       vfMidSquareBandSites R := by
   ext n
-  simp [vfMidSquareBandPrimes, vfMidSquareBandComposites]
+  simp only [vfMidSquareBandPrimes, vfMidSquareBandComposites,
+    Finset.mem_union, Finset.mem_filter]
+  tauto
 
 /-- The prime and composite populations in one complete square band are
 disjoint. -/
