@@ -114,7 +114,7 @@ odd-Li square-interval aggregate. -/
 theorem vfMidDyadicOddLiWeightedRemoval_eq_prefixSupply_sub_diagonal
     {L : ℕ → ℕ → ℂ}
     (hL : IsAllScaleLiState L)
-    (A B : ℕ) (hAB : A ≤ B) :
+    (A B : ℕ) (hA : 2 ≤ A) (hAB : A ≤ B) :
     vfMidDyadicOddLiWeightedRemoval L A B =
       (vfMidDyadicPrefixSupply 2 A B : ℂ) -
         vfMidDyadicOddLiDiagonalAggregate L A B := by
@@ -129,20 +129,7 @@ theorem vfMidDyadicOddLiWeightedRemoval_eq_prefixSupply_sub_diagonal
             apply Finset.sum_congr rfl
             intro r hr
             have hAr : A ≤ r := (Finset.mem_Ico.mp hr).1
-            have hr2 : 2 ≤ r := by
-              by_cases hA2 : 2 ≤ A
-              · exact hA2.trans hAr
-              · have hsmall : A ≤ 1 := by omega
-                have : r < B := (Finset.mem_Ico.mp hr).2
-                -- The theorem is used below only from A>=3.  In the formally
-                -- more general statement, handle r<2 directly by the same
-                -- finite cutoff sum.
-                rcases r with _ | _ | r
-                · simp [vfMidOddLiWeightedCutoffRemoval,
-                    vfMidOddLiSquareInterval]
-                · simp [vfMidOddLiWeightedCutoffRemoval,
-                    vfMidOddLiSquareInterval]
-                · omega
+            have hr2 : 2 ≤ r := hA.trans hAr
             exact
               vfMidOddLiWeightedCutoffRemoval_eq_interval_sub
                 hL r 2 r (by norm_num) hr2
@@ -183,7 +170,7 @@ theorem vfMidPrimeError_sq_sub_sq_cast_eq_oddLiDiagonalError_add_displacement
       hActual hL hA hAB
   have hodd :=
     vfMidDyadicOddLiWeightedRemoval_eq_prefixSupply_sub_diagonal
-      hL A B hAB
+      hL A B hA2 hAB
   push_cast at herrC
   rw [hlate, hodd] at herrC
   unfold vfMidDyadicLateReference at herrC
