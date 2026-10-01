@@ -490,4 +490,146 @@ theorem vfMidDyadicLateRemoval_eq_ownerCensus
   exact vfMidSquarePrefixWheelExcess_eq_sum_lateOwnerCards
     z r hr2 hzr
 
+
+/-! ## Canonical z=2 VF tracking defect -/
+
+/-- At cutoff two the fixed prefix consists of the single prime coordinate 2. -/
+theorem primesUpTo_two_eq_singleton :
+    primesUpTo 2 = {2} := by
+  ext p
+  simp only [mem_primesUpTo, Finset.mem_singleton]
+  constructor
+  · rintro ⟨hp, hp2⟩
+    have hpLower := hp.two_le
+    omega
+  · rintro rfl
+    exact ⟨Nat.prime_two, le_rfl⟩
+
+/-- The cutoff-two prefix counting function is exactly the count of odd
+positive integers up to N.  This is the one-face inclusion-exclusion formula. -/
+theorem vfMidPrefixWheelCounting_two_cast (N : ℕ) :
+    (vfMidPrefixWheelCounting 2 N : ℝ) =
+      (N : ℝ) - ((N / 2 : ℕ) : ℝ) := by
+  rw [vfMidPrefixWheelCounting_cast_real_eq_faceFloorSum,
+    primesUpTo_two_eq_singleton]
+  simp [booleanCubeSign, primeFaceProduct]
+
+/-- The parity correction in floor(N/2) is unchanged by squaring N. -/
+theorem cast_sq_div_two_sub_div_two (N : ℕ) :
+    (((N ^ 2) / 2 : ℕ) : ℝ) - ((N / 2 : ℕ) : ℝ) =
+      (((N : ℝ) ^ 2 - (N : ℝ)) / 2) := by
+  rcases Nat.even_or_odd N with hEven | hOdd
+  · rw [Nat.even_iff] at hEven
+    let q : ℕ := N / 2
+    have hdiv := Nat.mod_add_div N 2
+    have hN : N = 2 * q := by
+      dsimp [q]
+      omega
+    rw [hN]
+    norm_num [pow_two]
+    ring
+  · rw [Nat.odd_iff] at hOdd
+    let q : ℕ := N / 2
+    have hdiv := Nat.mod_add_div N 2
+    have hN : N = 2 * q + 1 := by
+      dsimp [q]
+      omega
+    rw [hN]
+    norm_num [pow_two]
+    ring
+
+/-- **Exact parity-prefix identity.**
+Over any adjacent square range, the z=2 prefix supply is exactly one half of
+the square-interior population.  Equivalently it is the sum of r over
+A <= r < B.  Hence the generic four-endpoint prefix remainder vanishes
+identically at the canonical parity cutoff. -/
+theorem vfMidDyadicPrefixSupply_two_eq_half_interior
+    (A B : ℕ) :
+    vfMidDyadicPrefixSupply 2 A B =
+      (1 / 2 : ℝ) * vfMidDyadicInteriorLength A B := by
+  unfold vfMidDyadicPrefixSupply
+  rw [vfMidPrefixWheelCounting_two_cast,
+    vfMidPrefixWheelCounting_two_cast,
+    vfMidPrefixWheelCounting_two_cast,
+    vfMidPrefixWheelCounting_two_cast]
+  have hB := cast_sq_div_two_sub_div_two B
+  have hA := cast_sq_div_two_sub_div_two A
+  unfold vfMidDyadicInteriorLength
+  push_cast
+  linarith
+
+/-- The natural z=2 Euler prefix density is exactly 1/2. -/
+theorem vfMidPrefixWheelDensity_two_eq_half :
+    vfMidPrefixWheelDensity 2 = (1 / 2 : ℝ) := by
+  unfold vfMidPrefixWheelDensity
+  rw [primesUpTo_two_eq_singleton]
+  norm_num
+
+/-- At z=2 the native late-removal reference has no prefix approximation:
+it is exactly the odd-composite reference 1/2 L - VF. -/
+theorem vfMidDyadicLateReference_two_eq_half_interior_sub_vf
+    (A B : ℕ) :
+    vfMidDyadicLateReference 2 A B =
+      (1 / 2 : ℝ) * vfMidDyadicInteriorLength A B -
+        vfMidDyadicVFMass A B := by
+  unfold vfMidDyadicLateReference
+  rw [vfMidPrefixWheelDensity_two_eq_half]
+
+/-- Canonical VF-native tracking defect: physical chronological owner removals
+minus the VF-implied odd-composite population. -/
+def vfMidDyadicVFTrackingDefect (A B : ℕ) : ℝ :=
+  vfMidDyadicOwnerLateRemoval 2 A B -
+    ((1 / 2 : ℝ) * vfMidDyadicInteriorLength A B -
+      vfMidDyadicVFMass A B)
+
+/-- The canonical tracking defect is exactly VF mass minus actual prime mass.
+No Li state and no prefix remainder occurs. -/
+theorem vfMidDyadicVFTrackingDefect_eq_vfMass_sub_primeSupply
+    (A B : ℕ) (hA : 2 ≤ A) (hAB : A ≤ B) :
+    vfMidDyadicVFTrackingDefect A B =
+      vfMidDyadicVFMass A B - vfMidDyadicPrimeSupply A B := by
+  unfold vfMidDyadicVFTrackingDefect
+  rw [← vfMidDyadicLateRemoval_eq_ownerCensus
+      2 A B hA (by omega) hAB]
+  unfold vfMidDyadicLateRemoval
+  rw [vfMidDyadicPrefixSupply_two_eq_half_interior]
+  ring
+
+/-- **Central VF identity.**
+The owner tracking defect over [A,B) is literally the negative square-endpoint
+VF error increment.  This is the quantity to recurse on from now on. -/
+theorem vfMidDyadicVFTrackingDefect_eq_neg_primeError_increment
+    {A B : ℕ} (hA : 2 ≤ A) (hB : 2 ≤ B) (hAB : A ≤ B) :
+    vfMidDyadicVFTrackingDefect A B =
+      -(vfMidPrimeError ((B : ℝ) ^ 2) -
+        vfMidPrimeError ((A : ℝ) ^ 2)) := by
+  rw [vfMidDyadicVFTrackingDefect_eq_vfMass_sub_primeSupply A B hA hAB]
+  rw [vfMidPrimeError_sq_sub_sq_eq_dyadicPrimeVFError hA hB]
+  ring
+
+/-- The RH-scale arithmetic target can now be stated entirely on the native
+VF owner census, with no Li object in its type. -/
+def VFMidDyadicVFTrackingBoundedStatement : Prop :=
+  ∃ C : ℝ, 0 ≤ C ∧
+    ∀ A B : ℕ, 2 ≤ A → A < B → B ≤ 2 * A →
+      |vfMidDyadicVFTrackingDefect A B| ≤
+        C * (A : ℝ) * Real.log A
+
+/-- A bound on the native VF tracking defect is exactly enough to supply the
+existing signed late-correction consumer. -/
+theorem vfMidDyadicSignedLateCorrection_of_vfTracking
+    (htrack : VFMidDyadicVFTrackingBoundedStatement) :
+    VFMidDyadicSignedLateCorrectionStatement := by
+  rcases htrack with ⟨C, hC0, hC⟩
+  refine ⟨C, hC0, ?_⟩
+  intro A B hA hAB hBA
+  have hABle : A ≤ B := hAB.le
+  have hT :=
+    vfMidDyadicLateRemoval_eq_ownerCensus
+      2 A B hA (by omega) hABle
+  have hRef :=
+    vfMidDyadicLateReference_two_eq_half_interior_sub_vf A B
+  rw [hT, hRef]
+  exact hC A B hA hAB hBA
+
 end RHLean.Analysis
