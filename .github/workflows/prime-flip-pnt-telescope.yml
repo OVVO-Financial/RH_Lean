@@ -112,7 +112,6 @@ jobs:
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_SQUARE_WHEEL_BACKLOG.olean research/VF_MID_SQUARE_WHEEL_BACKLOG.lean 2>&1 | tee vf-mid-square-wheel-backlog.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_DYADIC_PREFIX_OWNER.olean research/VF_MID_DYADIC_PREFIX_OWNER.lean 2>&1 | tee vf-mid-dyadic-prefix-owner.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_DYADIC_OWNER_EXACT.olean research/VF_MID_DYADIC_OWNER_EXACT.lean 2>&1 | tee vf-mid-dyadic-owner-exact.log
-          lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_PHI_OWNER_BRIDGE.olean research/VF_MID_PHI_OWNER_BRIDGE.lean 2>&1 | tee vf-mid-phi-owner-bridge.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_ALIGNED_STEP_GRAPH.olean research/VF_MID_ALIGNED_STEP_GRAPH.lean 2>&1 | tee vf-mid-aligned-step-graph.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_STEP_GRAPH_BRACKETING.olean research/VF_MID_STEP_GRAPH_BRACKETING.lean 2>&1 | tee vf-mid-step-graph-bracketing.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_MIDPOINT_COMPLEMENT_DISPERSION.olean research/VF_MID_MIDPOINT_COMPLEMENT_DISPERSION.lean 2>&1 | tee vf-mid-midpoint-complement-dispersion.log
@@ -131,6 +130,7 @@ jobs:
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.PRIME_DENSITY_INTEGRAL_TIGHTENING.olean research/PRIME_DENSITY_INTEGRAL_TIGHTENING.lean 2>&1 | tee prime-density-integral-tightening.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.EXACT_LI_DICKMAN_FORMAL.olean research/EXACT_LI_DICKMAN_FORMAL.lean 2>&1 | tee exact-li-dickman-formal.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.EXACT_LI_PURE_MODEL_CLOSURE.olean research/EXACT_LI_PURE_MODEL_CLOSURE.lean 2>&1 | tee exact-li-pure-model-closure.log
+          lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_PHI_OWNER_BRIDGE.olean research/VF_MID_PHI_OWNER_BRIDGE.lean 2>&1 | tee vf-mid-phi-owner-bridge.log
       - name: Audit named theorem axioms
         run: |
           cat > /tmp/PrimeFlipPNTAxioms.lean <<'LEAN'
@@ -393,6 +393,9 @@ jobs:
             vf-mid-aligned-step-graph.log
             vf-mid-step-graph-bracketing.log
             vf-mid-square-wheel-backlog.log
+            vf-mid-dyadic-prefix-owner.log
+            vf-mid-dyadic-owner-exact.log
+            vf-mid-phi-owner-bridge.log
             vf-mid-midpoint-complement-dispersion.log
             vf-mid-uniformity-bias-correlation.log
             vf-mid-global-phase-uniformity-bridge.log
