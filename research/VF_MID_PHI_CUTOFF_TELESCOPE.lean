@@ -151,7 +151,7 @@ theorem vfMidPhiActual_sub_liWeightedRemoval_eq_displacementBoundaries
 /-- For z >= 2, the late-owner carrier is exactly the prime-filtered integer
 cutoff interval (z,R]. -/
 theorem vfMidSquareBandLateOwnerPrimes_eq_Ioc_filter_prime
-    {z R : ℕ} (hz : 2 ≤ z) :
+    (z R : ℕ) :
     vfMidSquareBandLateOwnerPrimes z R =
       (Finset.Ioc z R).filter Nat.Prime := by
   ext p
@@ -174,7 +174,7 @@ theorem vfMidSquareBandLateOwnerCards_cast_eq_actualWeightedPhiRemoval
         (vfMidSquareBandCompositeOwner R p).card : ℕ) : ℂ) =
       vfMidPhiWeightedCutoffRemoval
         primeSievePrimeIndicator Actual R z R := by
-  rw [vfMidSquareBandLateOwnerPrimes_eq_Ioc_filter_prime hz]
+  rw [vfMidSquareBandLateOwnerPrimes_eq_Ioc_filter_prime z R]
   unfold vfMidPhiWeightedCutoffRemoval
   rw [Finset.sum_filter]
   push_cast
