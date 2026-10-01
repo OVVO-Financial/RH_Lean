@@ -151,6 +151,17 @@ def PrimeCountingLowerEnvelope (L : ℕ → ℕ) : Prop :=
 def PrimeCountingUpperEnvelope (U : ℕ → ℕ) : Prop :=
   ∀ x : ℕ, Nat.primeCounting x ≤ U x
 
+/-- Any endpoint-envelope certificate for one-block VF capture must at least
+have overlapping endpoint bounds: the left upper envelope cannot exceed the
+right lower envelope.  This is a cheap necessary test for proposed explicit
+prime-count envelopes before comparing either one to VF. -/
+theorem vfMid_primeCountEnvelope_overlap_of_certificate
+    (L U : ℕ → ℕ) (R : ℕ)
+    (hleft : U (R ^ 2) ≤ vfMidIntegerBlockLevel R)
+    (hright : vfMidIntegerBlockLevel R ≤ L ((R + 1) ^ 2)) :
+    U (R ^ 2) ≤ L ((R + 1) ^ 2) :=
+  le_trans hleft hright
+
 /-- Valid endpoint envelopes plus the two VF comparisons force square-block
 capture. -/
 theorem vfMidIntegerBlockCaptured_of_primeCount_envelopes
