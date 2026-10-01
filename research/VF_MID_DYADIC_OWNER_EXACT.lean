@@ -126,7 +126,14 @@ theorem vfMidPrefixWheelIntervalCounting_square_eq_block_add_root
         ({R + 1} : Finset ℕ).filter (lowWheelHighSurvivor z) =
           {R + 1} := by
       ext n
-      simp [hroot]
+      constructor
+      · intro hn
+        exact (Finset.mem_filter.mp hn).1
+      · intro hn
+        have hnEq : n = R + 1 := by
+          simpa using hn
+        subst n
+        exact Finset.mem_filter.mpr ⟨by simp, hroot⟩
     rw [Finset.filter_insert]
     simp only [hsquare, if_true]
     rw [Finset.card_insert_of_notMem hupperNot, hrootFilter]
@@ -139,7 +146,15 @@ theorem vfMidPrefixWheelIntervalCounting_square_eq_block_add_root
         ({R + 1} : Finset ℕ).filter (lowWheelHighSurvivor z) =
           ∅ := by
       ext n
-      simp [hroot]
+      constructor
+      · intro hn
+        have hnData := Finset.mem_filter.mp hn
+        have hnEq : n = R + 1 := by
+          simpa using hnData.1
+        subst n
+        exact (hroot hnData.2).elim
+      · intro hn
+        simp at hn
     rw [Finset.filter_insert]
     simp only [hsquare, if_false]
     rw [hrootFilter]
