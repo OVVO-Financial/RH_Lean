@@ -197,6 +197,8 @@ jobs:
           #print axioms RHLean.Analysis.vfMidIntegerBlockCrossed_iff_captured
           #print axioms RHLean.Analysis.vfMidIntegerBlockCrossingStatement_iff_captureStatement
           #print axioms RHLean.Analysis.riemannHypothesis_of_vfMidIntegerBlockCrossing
+          #print axioms RHLean.Analysis.vfMidIntegerBlockCaptured_of_primeCount_envelopes
+          #print axioms RHLean.Analysis.vfMidIntegerBlockCrossed_of_primeCount_envelopes
           #print axioms RHLean.Analysis.vfMidIntegerBlockCapturedByLag_abs_squareEndpointError_lt
           #print axioms RHLean.Analysis.vfMidSquareWheel_squareRootIndex_eq
           #print axioms RHLean.Analysis.vfMidSquareBand_commonWheelSurvivor_iff_prime
@@ -285,7 +287,7 @@ jobs:
           from pathlib import Path
           s = Path('prime-flip-pnt-axioms.log').read_text()
           records = re.findall(r"depends on axioms:\s*\[([^\]]*)\]", s, re.S)
-          assert len(records) == 140, records
+          assert len(records) == 142, records
           allowed = {'propext', 'Classical.choice', 'Quot.sound'}
           for record in records:
               actual = {a.strip() for a in record.split(',') if a.strip()}
