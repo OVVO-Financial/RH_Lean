@@ -1,48 +1,120 @@
 # RH_Lean current proof contract
 
-Status date: 2026-09-30. The canonical direct VF-mid target is recorded first;
-the earlier CORR-4 route and its closeout remain preserved below.
+Status date: 2026-10-01. The canonical aligned VF-mid step-graph target is
+recorded first; the earlier unaligned horizontal-capture formulation and the
+CORR-4 route remain preserved as supporting/alternative infrastructure.
 Compiled Lean source and successful checks of the relevant commit are
 authoritative. Historical handoffs and plans do not override this contract.
 
-## Canonical direct VF-mid target (after #820–#821)
+## Canonical aligned VF-mid target
 
-**RH is not proved.** The active arithmetic target is
+**RH is not proved.** The active arithmetic target is the anchored aligned
+full step-graph bracketing statement.
+
+Write
+
+```text
+F_R = vfMidFinishedMass R
+c0  = 4 - F_3
+    = 4 - 5/log(13/2)
+K_R = floor(F_R + c0).
+```
+
+The continuous aligned path is
+
+```text
+vfMidAligned c0 x = vfMid x + c0.
+```
+
+The phase is a fixed additive translation, not a multiplicative rescaling.
+Consequently every square-band increment is unchanged:
+
+```text
+vfMidAlignedMass c (R+1) - vfMidAlignedMass c R
+  = vfMidBandMass R.
+```
+
+For each natural `R >= 2`, the canonical block is bracketed when the prime
+staircase intersects either the aligned horizontal plateau or one of its two
+vertical faces:
+
+```text
+horizontal:
+  pi(R^2) <= K_R <= pi((R+1)^2)
+
+left vertical:
+  K_(R-1) <= pi(R^2) <= K_R
+
+right vertical:
+  K_R <= pi((R+1)^2) <= K_(R+1).
+```
+
+In
+[`VF_MID_ALIGNED_STEP_GRAPH.lean`](research/VF_MID_ALIGNED_STEP_GRAPH.lean),
+the generic statement is `VFMidAlignedStepGraphBracketingStatement c`; the
+canonical fixed-phase target is
+`VFMidCanonicalAlignedStepGraphBracketingStatement`, i.e.
+
+```text
+for every natural R >= 2,
+  VFMidAlignedStepGraphCrossed vfMidInitialAnchor R.
+```
+
+The finite anchor is elementary and compiled:
+`vfMidInitialAnchor_nonneg` proves `0 <= c0`, and the anchor satisfies
+`vfMidAlignedMass c0 3 = 4`.
+
+The local graph geometry is also compiled. Horizontal, left-vertical, and
+right-vertical intersections each give explicit square-endpoint discrepancy
+bounds, and one midpoint band satisfies the deterministic estimate
+
+```text
+vfMidBandMass R <= 3 R / log 4.
+```
+
+Therefore the canonical aligned graph target implies the existing
+square-endpoint von-Koch statement through
+
+`vfMidSquareEndpointVonKochBounded_of_canonicalAlignedStepGraph`.
+
+The existing
+
+`VFMidSquareEndpointVonKochBoundedStatement`
+
+is now a **downstream consumer**, not the canonical arithmetic target. It still
+states
 
 ```text
 exists C >= 0, for every natural R >= 2,
-  |pi(R^2) - VF_mid(R^2)| <= C R log R.
+  |pi(R^2) - VF_mid(R^2)| <= C R log R,
 ```
 
-In [`VF_MID_VON_KOCH_BRIDGE.lean`](research/VF_MID_VON_KOCH_BRIDGE.lean),
-this is `VFMidSquareEndpointVonKochBoundedStatement`.
-`vfMidVonKochBounded_of_squareEndpoint` extends it to every real `x >= 4`;
-`vfMidSquareEndpointVonKochBounded_iff` proves equivalence with the original
-`VFMidVonKochBoundedStatement`. The extension uses the unconditional estimate
+and
+[`VF_MID_VON_KOCH_BRIDGE.lean`](research/VF_MID_VON_KOCH_BRIDGE.lean)
+continues to extend it to every real `x >= 4`, compare it with the classical
+prime-minus-Li von-Koch estimate, and feed the explicit
+`ClassicalVonKochRHCriterion` interface.
 
-```text
-|primeError(x) - primeError(R^2)| <= (3 + 3/log 4) R,
-  R = floor(sqrt x).
-```
+The canonical aligned route reaches that consumer through
 
-`primeLiVonKochBounded_of_vfMidSquareEndpoint` discharges the quadrature input
-using the proved `vfMidLiRootBounded`. Conversely,
-`vfMidVonKochBounded_of_primeLi` uses that same unconditional quadrature bound
-to recover the VF-mid estimate from the classical prime-minus-Li estimate.
-Consequently
-`vfMidSquareEndpointVonKochBounded_iff_primeLiVonKochBounded` proves that the
-square-endpoint target is quantitatively equivalent to
-`PrimeLiVonKochBoundedStatement`; the direct midpoint route has isolated the
-classical von-Koch-strength cancellation rather than weakened it.
+`riemannHypothesis_of_vfMidCanonicalAlignedStepGraph`.
 
-The prime-discrepancy estimate itself remains unproved. The final RH wrapper
-still takes `ClassicalVonKochRHCriterion` as an explicit interface; this module
-does not construct that classical analytic equivalence internally.
+Thus the direct proof obligation is no longer described as "prove the
+unaligned VF square-endpoint bound" or "prove zero-phase horizontal capture."
+The intended final arithmetic theorem is exactly the universal anchored
+aligned full-step-graph bracketing statement above.
 
-The composite realization from #821 is optional, frozen infrastructure. The
-canonical direct consumer does not import it or the Li/Poisson model. Naming
-the endpoint input and extending it to real cutoffs is a reduction, not a
-proof of the uniform arithmetic bound. Further attacks must prove that bound.
+The older
+`VFMidIntegerBlockCaptureStatement`,
+`VFMidIntegerBlockCrossingStatement`, and related #840 results remain valid
+as the **zero-phase horizontal specialization**. They are useful lemmas and
+regression infrastructure, but they are not the final target. In particular,
+the aligned formulation deliberately includes the vertical VF faces visible
+in the prime/VF plot.
+
+The composite realization from #821 and the phase/uniformity modules remain
+optional infrastructure. None of them replaces the open universal aligned
+graph-bracketing theorem.
 
 ## Preserved alternative: CORR-4
 
