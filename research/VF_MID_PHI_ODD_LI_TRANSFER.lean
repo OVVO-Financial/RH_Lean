@@ -109,7 +109,7 @@ theorem vfMidOddLiCumulativeTransform_two_eq_prefixWheelCounting
   have hpref :=
     vfMidPrefixWheelCounting_cast_complex_step
       N 2 (by norm_num)
-  rw [vfMidPrefixWheelCounting_one] at hpref
+  simp only [vfMidPrefixWheelCounting_one] at hpref
   norm_num [primeSievePrimeIndicator] at hpref
   unfold vfMidOddLiCumulativeTransform
   rw [hN, hN2]
@@ -290,6 +290,7 @@ theorem vfMidSquareBandLateOwnerCards_cast_eq_oddLiRemoval_sub_displacement
     vfMidOddLiCumulativeDisplacement at hzero
   unfold vfMidPhiSquareInterval
     vfMidOddLiSquareInterval
+    vfMidOddLiSquareDisplacementInterval
     vfMidOddLiCumulativeDisplacement
   ring_nf at hzero ⊢
   exact hzero
