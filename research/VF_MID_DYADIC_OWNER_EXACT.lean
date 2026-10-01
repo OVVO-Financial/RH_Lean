@@ -516,7 +516,7 @@ theorem vfMidPrefixWheelCounting_two_cast (N : ℕ) :
       ({2} : Finset ℕ).powerset = {∅, {2}} := by
     native_decide
   rw [hpowerset]
-  norm_num [booleanCubeSign, primeFaceProduct]
+  norm_num [Finset.sum_insert, booleanCubeSign, primeFaceProduct]
 
 /-- The parity correction in floor(N/2) is unchanged by squaring N. -/
 theorem cast_sq_div_two_sub_div_two (N : ℕ) :
