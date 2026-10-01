@@ -233,6 +233,18 @@ The +1 below is only the incomplete final residue period.  It is the finite
 endpoint correction behind the informal density statements 0.4 and 1/3.
 -/
 
+/-- Prime-counting version of Mathlib 4.24's `primeCounting'_add_le`.
+This is the non-strict endpoint wrapper later Mathlib versions expose directly. -/
+theorem vfMid_primeCounting_totient_add_le
+    {a k : ℕ} (h0 : a ≠ 0) (h1 : a ≤ k) (n : ℕ) :
+    Nat.primeCounting (k + n) ≤
+      Nat.primeCounting k + Nat.totient a * (n / a + 1) := by
+  have h :=
+    Nat.primeCounting'_add_le
+      (a := a) (k := k + 1) h0 (by omega) n
+  unfold Nat.primeCounting
+  convert h using 1 <;> omega
+
 /-- Exact finite 2-5 wheel bound for one square block.  Asymptotically this is
 0.4 times the block width, with one incomplete period of length ten allowed. -/
 theorem vfMidIntegerBlockPrimeSupply_le_two_five_wheel
@@ -242,7 +254,7 @@ theorem vfMidIntegerBlockPrimeSupply_le_two_five_wheel
   have h10 : 10 ≤ R ^ 2 := by
     nlinarith
   have hpc :=
-    Nat.primeCounting_add_le
+    vfMid_primeCounting_totient_add_le
       (a := 10) (k := R ^ 2) (by norm_num) h10 (2 * R + 1)
   have hsq : R ^ 2 + (2 * R + 1) = (R + 1) ^ 2 := by
     ring
@@ -269,7 +281,7 @@ theorem vfMidIntegerBlockPrimeSupply_le_two_three_wheel
   have h6 : 6 ≤ R ^ 2 := by
     nlinarith
   have hpc :=
-    Nat.primeCounting_add_le
+    vfMid_primeCounting_totient_add_le
       (a := 6) (k := R ^ 2) (by norm_num) h6 (2 * R + 1)
   have hsq : R ^ 2 + (2 * R + 1) = (R + 1) ^ 2 := by
     ring
