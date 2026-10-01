@@ -242,8 +242,10 @@ theorem vfMid_primeCounting_totient_add_le
   have h :=
     Nat.primeCounting'_add_le
       (a := a) (k := k + 1) h0 (by omega) n
-  unfold Nat.primeCounting
-  convert h using 1 <;> omega
+  have harg : k + 1 + n = k + n + 1 := by
+    omega
+  rw [harg] at h
+  exact h
 
 /-- Exact finite 2-5 wheel bound for one square block.  Asymptotically this is
 0.4 times the block width, with one incomplete period of length ten allowed. -/
