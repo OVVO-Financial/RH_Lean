@@ -523,9 +523,10 @@ theorem vfMidPrefixWheelCounting_two_cast (N : ℕ) :
       (N : ℝ) - ((N / 2 : ℕ) : ℝ)
   have hempty :
       (∅ : Finset ℕ) ∉ ({{2}} : Finset (Finset ℕ)) := by
-    simp
+    native_decide
   rw [Finset.sum_insert hempty, Finset.sum_singleton]
   norm_num [booleanCubeSign, primeFaceProduct]
+  ring
 
 /-- The parity correction in floor(N/2) is unchanged by squaring N. -/
 theorem cast_sq_div_two_sub_div_two (N : ℕ) :
