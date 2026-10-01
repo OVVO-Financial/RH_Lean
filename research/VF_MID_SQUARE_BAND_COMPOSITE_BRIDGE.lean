@@ -23,6 +23,8 @@ namespace RHLean.Analysis
 
 open RHLean.Proof
 
+attribute [local instance] Classical.propDecidable
+
 /-- Interior integer sites in the square band `(R^2,(R+1)^2)`.
 The upper square is deliberately excluded; for `R >= 2` both endpoints are
 composite, so this contains every prime contributing between the two square
@@ -43,7 +45,13 @@ def vfMidSquareBandComposites (R : ℕ) : Finset ℕ :=
 theorem vfMidSquareBandSites_card (R : ℕ) :
     (vfMidSquareBandSites R).card = 2 * R := by
   unfold vfMidSquareBandSites
-  rw [Nat.card_Ioo]
+  have hset :
+      Finset.Ioo (R ^ 2) ((R + 1) ^ 2) =
+        Finset.Ioc (R ^ 2) ((R + 1) ^ 2 - 1) := by
+    ext n
+    simp
+    omega
+  rw [hset, Nat.card_Ioc]
   have hsq : (R + 1) ^ 2 = R ^ 2 + (2 * R + 1) := by
     ring
   rw [hsq]
@@ -53,18 +61,10 @@ theorem vfMidSquareBandSites_card (R : ℕ) :
 theorem vfMidSquareBand_prime_composite_partition (R : ℕ) :
     vfMidSquareBandPrimes R ∪ vfMidSquareBandComposites R =
       vfMidSquareBandSites R := by
-  classical
   ext n
   simp only [vfMidSquareBandPrimes, vfMidSquareBandComposites,
     Finset.mem_union, Finset.mem_filter]
-  constructor
-  · rintro (h | h)
-    · exact h.1
-    · exact h.1
-  · intro hn
-    by_cases hp : n.Prime
-    · exact Or.inl ⟨hn, hp⟩
-    · exact Or.inr ⟨hn, hp⟩
+  tauto
 
 /-- The prime and composite populations in one complete square band are
 disjoint. -/
@@ -94,7 +94,7 @@ theorem vfMidSquareBand_prime_card_add_primeCounting_sq (R : ℕ) :
   have hsq : R ^ 2 ≤ (R + 1) ^ 2 :=
     Nat.pow_le_pow_left hRle 2
   have h :=
-    RHLean.Proof.primeCard_Ioc_add_primeCounting_eq
+    primeCard_Ioc_add_primeCounting_eq
       (a := R ^ 2) (b := (R + 1) ^ 2) hsq
   have hset :
       ((Finset.Ioc (R ^ 2) ((R + 1) ^ 2)).filter Nat.Prime) =
@@ -138,9 +138,9 @@ theorem vfMidSquareBand_lowWheelSurvivor_iff_prime
 
 /-- Survivor set for the completed low wheel used by the legacy
 square-band bridge. -/
-def vfMidSquareBandLowWheelSurvivors (R : ℕ) : Finset ℕ := by
-  classical
-  exact (vfMidSquareBandSites R).filter (lowWheelHighSurvivor (R + 1))
+def vfMidSquareBandLowWheelSurvivors (R : ℕ) : Finset ℕ :=
+  (vfMidSquareBandSites R).filter fun n =>
+    lowWheelHighSurvivor (R + 1) n
 
 /-- The prime population of a square band is exactly the survivor population
 of the completed low wheel.  This is the finite sieve form of the
@@ -193,7 +193,10 @@ theorem vfMidSquareEndpointError_succ
           (Nat.primeCounting (R ^ 2) : ℝ) =
         (Nat.primeCounting ((R + 1) ^ 2) : ℝ) := by
     exact_mod_cast hp
-  unfold vfMidSquareEndpointError vfMidSquareBandError
+  change
+    (Nat.primeCounting ((R + 1) ^ 2) : ℝ) - vfMidFinishedMass (R + 1) =
+      ((Nat.primeCounting (R ^ 2) : ℝ) - vfMidFinishedMass R) +
+        (((vfMidSquareBandPrimes R).card : ℝ) - vfMidBandMass R)
   rw [vfMidFinishedMass_succ hR]
   linarith
 
