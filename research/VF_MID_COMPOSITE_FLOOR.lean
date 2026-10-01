@@ -59,6 +59,21 @@ theorem vfMidSquareWheel_composite_floor_centered_iff
   simpa [sub_sub] using
     (vfMidSquareWheel_composite_floor_iff_prime_ceiling R (Q + E))
 
+/-- **Real VF-mid reverse bridge.**  A composite floor at the midpoint-demand
+level is exactly a one-sided upper bound on the signed real band error.  This
+is the direct analytic interface for the backwards attack. -/
+theorem vfMidSquareWheel_compositeFloor_iff_directBandError_le
+    (R : ℕ) (E : ℝ) :
+    (2 * (R : ℝ) - vfMidBandMass R - E ≤
+        ((vfMidSquareWheelComposites R).card : ℝ)) ↔
+      vfMidDirectBandError R ≤ E := by
+  have hiff :=
+    vfMidSquareWheel_composite_floor_centered_iff
+      R (vfMidBandMass R) E
+  rw [vfMidDirectBandError, vfMidDirectPrimeBandCount,
+    vfMidDirectPrimeBand_eq_squareWheelPrimes]
+  exact hiff
+
 /-! ## Generic fixed-wheel upper bound on prime survivors -/
 
 /-- The last integer strictly below the upper square. -/
