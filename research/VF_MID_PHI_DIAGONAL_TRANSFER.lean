@@ -183,8 +183,8 @@ theorem vfMidPrimeError_sq_sub_sq_cast_eq_oddLiDiagonalError_add_displacement
   rw [hlate', hodd] at herrC
   unfold vfMidDyadicLateReference at herrC
   push_cast at herrC
-  unfold vfMidDyadicVFMass
-  push_cast
+  unfold vfMidDyadicVFMass at herrC ⊢
+  push_cast at herrC ⊢
   ring_nf at herrC ⊢
   exact herrC
 
