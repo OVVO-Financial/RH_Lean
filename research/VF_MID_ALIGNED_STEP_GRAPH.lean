@@ -390,4 +390,130 @@ the asymptotic von-Koch consumer and can be absorbed into its constant. -/
 def VFMidAlignedStepGraphBracketingStatement (c : ℝ) : Prop :=
   ∀ R : ℕ, 3 ≤ R → VFMidAlignedStepGraphCrossed c R
 
+
+/-! ## Aligned graph bracketing closes the existing von-Koch consumer -/
+
+/-- A fixed nonnegative alignment is analytically harmless: universal aligned
+step-graph bracketing from R >= 3 gives the original unaligned VF square-
+endpoint von-Koch bound.  The single earlier endpoint R = 2 is absorbed into
+the uniform constant. -/
+theorem vfMidSquareEndpointVonKochBounded_of_alignedStepGraph
+    (c : ℝ) (hc : 0 ≤ c)
+    (hgraph : VFMidAlignedStepGraphBracketingStatement c) :
+    VFMidSquareEndpointVonKochBoundedStatement := by
+  let A : ℝ := 3 + 6 / Real.log 4 + |c|
+  let E : ℝ := |vfMidDirectSquareEndpointError 2|
+  let B : ℝ := A + E
+  let C : ℝ := B / Real.log 2
+  have hlog2 : 0 < Real.log 2 := Real.log_pos (by norm_num)
+  have hlog4 : 0 < Real.log 4 := Real.log_pos (by norm_num)
+  have hA : 0 ≤ A := by
+    dsimp [A]
+    positivity
+  have hE : 0 ≤ E := by
+    dsimp [E]
+    exact abs_nonneg _
+  have hB : 0 ≤ B := by
+    dsimp [B]
+    exact add_nonneg hA hE
+  have hC : 0 ≤ C := by
+    dsimp [C]
+    exact div_nonneg hB hlog2.le
+  refine ⟨C, hC, ?_⟩
+  intro R hR
+  have hEq :=
+    vfMidDirectSquareEndpointError_eq_vfMidPrimeError (R := R) hR
+  rw [← hEq]
+  have hRreal : (2 : ℝ) ≤ (R : ℝ) := by
+    exact_mod_cast hR
+  have hRnonneg : 0 ≤ (R : ℝ) := by positivity
+  have hlogR : Real.log 2 ≤ Real.log (R : ℝ) := by
+    exact Real.log_le_log (by norm_num) hRreal
+  have hratio : 1 ≤ Real.log (R : ℝ) / Real.log 2 := by
+    rw [le_div_iff₀ hlog2]
+    simpa using hlogR
+  have hBR_to_vK :
+      B * (R : ℝ) ≤ C * (R : ℝ) * Real.log (R : ℝ) := by
+    dsimp [C]
+    calc
+      B * (R : ℝ)
+          ≤ B * (R : ℝ) *
+              (Real.log (R : ℝ) / Real.log 2) := by
+            nlinarith [mul_nonneg hB hRnonneg]
+      _ = (B / Real.log 2) * (R : ℝ) * Real.log (R : ℝ) := by
+            field_simp [hlog2.ne']
+  have hDB : |vfMidDirectSquareEndpointError R| ≤ B * (R : ℝ) := by
+    by_cases htwo : R = 2
+    · subst R
+      have hEleB : E ≤ B := by
+        dsimp [B]
+        linarith
+      have hBleTwoB : B ≤ B * (2 : ℝ) := by
+        nlinarith
+      dsimp [E] at hEleB
+      norm_num
+      exact hEleB.trans hBleTwoB
+    · have hR3 : 3 ≤ R := by omega
+      have hlocal :=
+        vfMidDirectSquareEndpointError_abs_lt_of_alignedStepGraphCrossed
+          c hc R hR3 (hgraph R hR3)
+      have hmassR :=
+        vfMidBandMass_le_three_mul_div_log_four R (by omega : 2 ≤ R)
+      have hmassPred :=
+        vfMidBandMass_le_three_mul_div_log_four (R - 1)
+          (by omega : 2 ≤ R - 1)
+      have hpredR :
+          3 * ((R - 1 : ℕ) : ℝ) / Real.log 4 ≤
+            3 * (R : ℝ) / Real.log 4 := by
+        apply div_le_div_of_nonneg_right
+        · push_cast
+          nlinarith
+        · exact hlog4.le
+      have hmassPredR :
+          vfMidBandMass (R - 1) ≤
+            3 * (R : ℝ) / Real.log 4 :=
+        hmassPred.trans hpredR
+      have hbase :
+          2 * (R : ℝ) + 3 ≤ 3 * (R : ℝ) := by
+        have hR3real : (3 : ℝ) ≤ (R : ℝ) := by exact_mod_cast hR3
+        linarith
+      have hcR : |c| ≤ |c| * (R : ℝ) := by
+        have hR1 : (1 : ℝ) ≤ (R : ℝ) := by linarith
+        nlinarith [abs_nonneg c]
+      have hlin :
+          |vfMidDirectSquareEndpointError R| < A * (R : ℝ) := by
+        have hsum :
+            2 * (R : ℝ) + 3 +
+                vfMidBandMass R + vfMidBandMass (R - 1) + |c| ≤
+              3 * (R : ℝ) +
+                6 * (R : ℝ) / Real.log 4 +
+                |c| * (R : ℝ) := by
+          linarith
+        have hAform :
+            3 * (R : ℝ) +
+                6 * (R : ℝ) / Real.log 4 +
+                |c| * (R : ℝ) =
+              A * (R : ℝ) := by
+          dsimp [A]
+          ring
+        rw [← hAform]
+        exact hlocal.trans_le hsum
+      have hAleB : A ≤ B := by
+        dsimp [B]
+        linarith
+      exact
+        (le_of_lt hlin).trans
+          (mul_le_mul_of_nonneg_right hAleB hRnonneg)
+  exact hDB.trans hBR_to_vK
+
+/-- Therefore the aligned full-step-graph criterion plugs directly into the
+repository's already-compiled classical von-Koch/RH bridge. -/
+theorem riemannHypothesis_of_vfMidAlignedStepGraph
+    (criterion : ClassicalVonKochRHCriterion)
+    (c : ℝ) (hc : 0 ≤ c)
+    (hgraph : VFMidAlignedStepGraphBracketingStatement c) :
+    VFMidRiemannHypothesisStatement :=
+  riemannHypothesis_of_vfMidSquareEndpoint criterion
+    (vfMidSquareEndpointVonKochBounded_of_alignedStepGraph c hc hgraph)
+
 end RHLean.Analysis
