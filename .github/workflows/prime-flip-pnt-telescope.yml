@@ -13,6 +13,7 @@ on:
       - research/VF_MID_VON_KOCH_BRIDGE.lean
       - research/VF_MID_DIRECT_SIGNED_DYNAMICS.lean
       - research/VF_MID_SQUARE_BAND_COMPOSITE_BRIDGE.lean
+      - research/VF_MID_FRACTIONAL_PRIME_CLUSTER.lean
       - research/VF_MID_DIRECT_COMPOSITE_DESCENT.lean
       - research/VF_MID_DIRECT_OWNER_DESCENT.lean
       - research/VF_MID_DIRECT_ROUGH_CHILD.lean
@@ -136,6 +137,7 @@ jobs:
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.EXACT_LI_PURE_MODEL_CLOSURE.olean research/EXACT_LI_PURE_MODEL_CLOSURE.lean 2>&1 | tee exact-li-pure-model-closure.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_PHI_OWNER_BRIDGE.olean research/VF_MID_PHI_OWNER_BRIDGE.lean 2>&1 | tee vf-mid-phi-owner-bridge.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_DYADIC_SUMMATION_TRANSFER.olean research/VF_MID_DYADIC_SUMMATION_TRANSFER.lean 2>&1 | tee vf-mid-dyadic-summation-transfer.log
+          lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_FRACTIONAL_PRIME_CLUSTER.olean research/VF_MID_FRACTIONAL_PRIME_CLUSTER.lean 2>&1 | tee vf-mid-fractional-prime-cluster.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_PHI_CUTOFF_TELESCOPE.olean research/VF_MID_PHI_CUTOFF_TELESCOPE.lean 2>&1 | tee vf-mid-phi-cutoff-telescope.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_PHI_ODD_LI_TRANSFER.olean research/VF_MID_PHI_ODD_LI_TRANSFER.lean 2>&1 | tee vf-mid-phi-odd-li-transfer.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_PHI_DIAGONAL_TRANSFER.olean research/VF_MID_PHI_DIAGONAL_TRANSFER.lean 2>&1 | tee vf-mid-phi-diagonal-transfer.log
@@ -146,6 +148,7 @@ jobs:
           import «research.ALL_SCALE_LI_DISPLACEMENT_REDUCTION»
           import «research.EXACT_LI_PURE_MODEL_CLOSURE»
           import «research.VF_MID_VON_KOCH_BRIDGE»
+          import «research.VF_MID_FRACTIONAL_PRIME_CLUSTER»
           import «research.VF_MID_INTEGER_BLOCK_CAPTURE»
           import «research.VF_MID_LITERAL_BLOCK_CROSSING»
           import «research.VF_MID_ALIGNED_STEP_GRAPH»
@@ -204,6 +207,17 @@ jobs:
           #print axioms RHLean.Analysis.exactLiContinuousModel_root_closed
           #print axioms RHLean.Analysis.vfMidPrimeLiError_eq_primeError_add_liError
           #print axioms RHLean.Analysis.vfMidLiRootBounded
+          #print axioms RHLean.Analysis.vfMidFractionalPrimeSeatWeight_sum_squareBand
+          #print axioms RHLean.Analysis.vfMidSquareBandError_eq_fractionalPrimeClusterDiscrepancy
+          #print axioms RHLean.Analysis.vfMidFractionalPrimeClusterDiscrepancy_eq_endpointError_sub
+          #print axioms RHLean.Analysis.vfMidFractionalPrimeClusterDiscrepancy_eq_primeError_increment
+          #print axioms RHLean.Analysis.vfMidSquareEndpointVonKochBounded_of_fractionalPrimeCluster
+          #print axioms RHLean.Analysis.vfMidFractionalPrimeClusterDyadicBounded_of_squareEndpoint
+          #print axioms RHLean.Analysis.vfMidFractionalPrimeClusterDyadicBounded_iff_squareEndpoint
+          #print axioms RHLean.Analysis.vfMidFractionalPrimeClusterDyadicBounded_iff_riemannHypothesis
+          #print axioms RHLean.Analysis.riemannHypothesis_of_vfMidFractionalPrimeCluster
+          #print axioms RHLean.Analysis.vfMidFractionalPrimeClusterMass_eq_finishedMass
+          #print axioms RHLean.Analysis.vfMidFractionalPrimeCluster_li_root_bounded
           #print axioms RHLean.Analysis.vfMid_primeCounting_add_le
           #print axioms RHLean.Analysis.abs_vfMidPrimeError_sub_square_le
           #print axioms RHLean.Analysis.vfMidVonKochBounded_of_squareEndpoint
@@ -395,7 +409,7 @@ jobs:
           from pathlib import Path
           s = Path('prime-flip-pnt-axioms.log').read_text()
           records = re.findall(r"depends on axioms:\s*\[([^\]]*)\]", s, re.S)
-          assert len(records) == 222, records
+          assert len(records) == 233, records
           allowed = {'propext', 'Classical.choice', 'Quot.sound'}
           for record in records:
               actual = {a.strip() for a in record.split(',') if a.strip()}
