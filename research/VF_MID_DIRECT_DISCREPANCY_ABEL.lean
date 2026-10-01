@@ -394,4 +394,209 @@ theorem vfMidDirectThetaAbelWeight_pred_le_recip_log
     (vfMidDirectTheta_log_index_le_log_pred_midpoint (r := r) hr)
 
 
+/-! ## Direct consumer at the RH square-theta scale -/
+
+/-- Under the square-theta envelope C r log(r)^2, the entire historical Abel
+tail is only linear in R. -/
+theorem abs_vfMidDirectThetaAbelTail_le_four_mul
+    (R : ℕ) (hR : 3 ≤ R) (C : ℝ) (hC : 0 ≤ C)
+    (hE : ∀ r : ℕ, 3 ≤ r → r ≤ R →
+      |vfMidDirectThetaEndpointError r| ≤
+        C * (r : ℝ) * (Real.log (r : ℝ)) ^ 2) :
+    |vfMidDirectThetaAbelTail R| ≤ 4 * C * (R : ℝ) := by
+  unfold vfMidDirectThetaAbelTail
+  calc
+    |∑ r ∈ Finset.Ico 3 R,
+        vfMidDirectThetaEndpointError r *
+          (vfMidDirectThetaAbelWeight (r - 1) -
+            vfMidDirectThetaAbelWeight r)|
+        ≤ ∑ r ∈ Finset.Ico 3 R,
+            |vfMidDirectThetaEndpointError r *
+              (vfMidDirectThetaAbelWeight (r - 1) -
+                vfMidDirectThetaAbelWeight r)| :=
+      Finset.abs_sum_le_sum_abs _ _
+    _ ≤ ∑ _r ∈ Finset.Ico 3 R, 4 * C := by
+      apply Finset.sum_le_sum
+      intro r hr
+      have hrange := Finset.mem_Ico.mp hr
+      have hrpos : (0 : ℝ) < (r : ℝ) := by
+        exact_mod_cast (show 0 < r by omega)
+      have hlog : 0 < Real.log (r : ℝ) := by
+        apply Real.log_pos
+        exact_mod_cast (show 1 < r by omega)
+      have hdrop0 :=
+        vfMidDirectThetaAbelWeight_drop_nonneg (r := r) hrange.1
+      have hdrop :=
+        vfMidDirectThetaAbelWeight_drop_le (r := r) hrange.1
+      have hupper0 :
+          0 ≤ C * (r : ℝ) * (Real.log (r : ℝ)) ^ 2 := by
+        positivity
+      rw [abs_mul, abs_of_nonneg hdrop0]
+      calc
+        |vfMidDirectThetaEndpointError r| *
+              (vfMidDirectThetaAbelWeight (r - 1) -
+                vfMidDirectThetaAbelWeight r)
+            ≤ (C * (r : ℝ) * (Real.log (r : ℝ)) ^ 2) *
+                ((4 / (r : ℝ)) / (Real.log (r : ℝ)) ^ 2) :=
+          mul_le_mul
+            (hE r hrange.1 hrange.2.le) hdrop hdrop0 hupper0
+        _ = 4 * C := by
+          field_simp [hrpos.ne', hlog.ne']
+          ring
+    _ = ((Finset.Ico 3 R).card : ℝ) * (4 * C) := by
+      rw [Finset.sum_const, nsmul_eq_mul]
+    _ ≤ (R : ℝ) * (4 * C) := by
+      have hcard : (Finset.Ico 3 R).card ≤ R := by
+        rw [Nat.card_Ico]
+        omega
+      have hcardR : ((Finset.Ico 3 R).card : ℝ) ≤ (R : ℝ) := by
+        exact_mod_cast hcard
+      exact mul_le_mul_of_nonneg_right hcardR (by positivity)
+    _ = 4 * C * (R : ℝ) := by ring
+
+/-- The terminal Abel atom costs exactly one logarithm under the square-theta
+RH-scale envelope. -/
+theorem abs_vfMidDirectThetaEndpoint_mul_terminalWeight_le
+    (R : ℕ) (hR : 3 ≤ R) (C : ℝ) (hC : 0 ≤ C)
+    (hE :
+      |vfMidDirectThetaEndpointError R| ≤
+        C * (R : ℝ) * (Real.log (R : ℝ)) ^ 2) :
+    |vfMidDirectThetaEndpointError R *
+        vfMidDirectThetaAbelWeight (R - 1)| ≤
+      C * (R : ℝ) * Real.log (R : ℝ) := by
+  have hlog : 0 < Real.log (R : ℝ) := by
+    apply Real.log_pos
+    exact_mod_cast (show 1 < R by omega)
+  have hw0 : 0 ≤ vfMidDirectThetaAbelWeight (R - 1) :=
+    (vfMidDirectThetaAbelWeight_pos (r := R - 1) (by omega)).le
+  have hw :=
+    vfMidDirectThetaAbelWeight_pred_le_recip_log (r := R) hR
+  have hupper0 :
+      0 ≤ C * (R : ℝ) * (Real.log (R : ℝ)) ^ 2 := by
+    positivity
+  rw [abs_mul, abs_of_nonneg hw0]
+  calc
+    |vfMidDirectThetaEndpointError R| *
+          vfMidDirectThetaAbelWeight (R - 1)
+        ≤ (C * (R : ℝ) * (Real.log (R : ℝ)) ^ 2) *
+            vfMidDirectThetaAbelWeight (R - 1) :=
+      mul_le_mul_of_nonneg_right hE hw0
+    _ ≤ (C * (R : ℝ) * (Real.log (R : ℝ)) ^ 2) *
+          (Real.log (R : ℝ))⁻¹ :=
+      mul_le_mul_of_nonneg_left hw hupper0
+    _ = C * (R : ℝ) * Real.log (R : ℝ) := by
+      field_simp [hlog.ne']
+      ring
+
+/-- **No-accumulation theorem at the exact RH theta scale.**
+
+A square-endpoint theta envelope C r log(r)^2 gives the required
+C R log R terminal scale plus only a linear historical tail. -/
+theorem abs_vfMidDirectThetaWeightedPrefix_add_base_le_Rlog
+    (R : ℕ) (hR : 3 ≤ R) (C : ℝ) (hC : 0 ≤ C)
+    (hE : ∀ r : ℕ, 3 ≤ r → r ≤ R →
+      |vfMidDirectThetaEndpointError r| ≤
+        C * (r : ℝ) * (Real.log (r : ℝ)) ^ 2) :
+    |vfMidDirectThetaWeightedPrefix R +
+        vfMidDirectThetaEndpointError 2 *
+          vfMidDirectThetaAbelWeight 2| ≤
+      C * (R : ℝ) * Real.log (R : ℝ) +
+        4 * C * (R : ℝ) := by
+  have hrearr :
+      vfMidDirectThetaWeightedPrefix R +
+          vfMidDirectThetaEndpointError 2 *
+            vfMidDirectThetaAbelWeight 2 =
+        vfMidDirectThetaEndpointError R *
+            vfMidDirectThetaAbelWeight (R - 1) +
+          vfMidDirectThetaAbelTail R := by
+    rw [vfMidDirectThetaWeightedPrefix_abel R hR]
+    ring
+  rw [hrearr]
+  calc
+    |vfMidDirectThetaEndpointError R *
+          vfMidDirectThetaAbelWeight (R - 1) +
+        vfMidDirectThetaAbelTail R|
+        ≤ |vfMidDirectThetaEndpointError R *
+              vfMidDirectThetaAbelWeight (R - 1)| +
+            |vfMidDirectThetaAbelTail R| := abs_add_le _ _
+    _ ≤ C * (R : ℝ) * Real.log (R : ℝ) +
+          4 * C * (R : ℝ) :=
+      add_le_add
+        (abs_vfMidDirectThetaEndpoint_mul_terminalWeight_le
+          R hR C hC (hE R hR le_rfl))
+        (abs_vfMidDirectThetaAbelTail_le_four_mul R hR C hC hE)
+
+/-- **Direct VF-mid endpoint consumer.**
+
+Once the square theta endpoint error has the RH-scale envelope
+  |theta(r^2)-r^2| <= C r log(r)^2,
+the actual VF-mid square endpoint discrepancy is already at R log R scale,
+up to an explicit fixed base atom and explicit linear terms. -/
+theorem abs_vfMidDirectSquareEndpointError_le_of_thetaEnvelope
+    (R : ℕ) (hR : 3 ≤ R) (C : ℝ) (hC : 0 ≤ C)
+    (hE : ∀ r : ℕ, 3 ≤ r → r ≤ R →
+      |vfMidDirectThetaEndpointError r| ≤
+        C * (r : ℝ) * (Real.log (r : ℝ)) ^ 2) :
+    |vfMidDirectSquareEndpointError R| ≤
+      C * (R : ℝ) * Real.log (R : ℝ) +
+        (4 * C + 9 / Real.log 4) * (R : ℝ) +
+        |vfMidDirectSquareEndpointError 2 -
+          vfMidDirectThetaEndpointError 2 *
+            vfMidDirectThetaAbelWeight 2| := by
+  have hrem :=
+    abs_vfMidDirectSquareEndpointError_sub_thetaWeighted_le
+      R (by omega)
+  have htheta :=
+    abs_vfMidDirectThetaWeightedPrefix_add_base_le_Rlog
+      R hR C hC hE
+  have hrearr :
+      vfMidDirectSquareEndpointError R =
+        (vfMidDirectSquareEndpointError R -
+          vfMidDirectSquareEndpointError 2 -
+          vfMidDirectThetaWeightedPrefix R) +
+        (vfMidDirectThetaWeightedPrefix R +
+          vfMidDirectThetaEndpointError 2 *
+            vfMidDirectThetaAbelWeight 2) +
+        (vfMidDirectSquareEndpointError 2 -
+          vfMidDirectThetaEndpointError 2 *
+            vfMidDirectThetaAbelWeight 2) := by
+    ring
+  rw [hrearr]
+  calc
+    |(vfMidDirectSquareEndpointError R -
+          vfMidDirectSquareEndpointError 2 -
+          vfMidDirectThetaWeightedPrefix R) +
+        (vfMidDirectThetaWeightedPrefix R +
+          vfMidDirectThetaEndpointError 2 *
+            vfMidDirectThetaAbelWeight 2) +
+        (vfMidDirectSquareEndpointError 2 -
+          vfMidDirectThetaEndpointError 2 *
+            vfMidDirectThetaAbelWeight 2)|
+        ≤ (|(vfMidDirectSquareEndpointError R -
+              vfMidDirectSquareEndpointError 2 -
+              vfMidDirectThetaWeightedPrefix R)| +
+            |vfMidDirectThetaWeightedPrefix R +
+              vfMidDirectThetaEndpointError 2 *
+                vfMidDirectThetaAbelWeight 2|) +
+            |vfMidDirectSquareEndpointError 2 -
+              vfMidDirectThetaEndpointError 2 *
+                vfMidDirectThetaAbelWeight 2| := by
+          exact (abs_add_le _ _).trans
+            (add_le_add_right (abs_add_le _ _) _)
+    _ ≤ (9 / Real.log 4) * (R : ℝ) +
+          (C * (R : ℝ) * Real.log (R : ℝ) +
+            4 * C * (R : ℝ)) +
+          |vfMidDirectSquareEndpointError 2 -
+            vfMidDirectThetaEndpointError 2 *
+              vfMidDirectThetaAbelWeight 2| := by
+          exact add_le_add
+            (add_le_add hrem htheta) le_rfl
+    _ = C * (R : ℝ) * Real.log (R : ℝ) +
+          (4 * C + 9 / Real.log 4) * (R : ℝ) +
+          |vfMidDirectSquareEndpointError 2 -
+            vfMidDirectThetaEndpointError 2 *
+              vfMidDirectThetaAbelWeight 2| := by
+          ring
+
+
 end RHLean.Analysis
