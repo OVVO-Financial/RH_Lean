@@ -14,6 +14,7 @@ on:
       - research/VF_MID_INTEGER_BLOCK_CAPTURE.lean
       - research/VF_MID_SQUARE_WHEEL_BACKLOG.lean
       - research/VF_MID_MIDPOINT_COMPLEMENT_DISPERSION.lean
+      - research/VF_MID_COMPOSITE_FLOOR.lean
       - FORMALIZATION_SEQUENCE.md
       - FORMALIZATION_CHECKLIST.md
       - .github/workflows/prime-flip-pnt-telescope.yml
@@ -89,6 +90,7 @@ jobs:
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_INTEGER_BLOCK_CAPTURE.olean research/VF_MID_INTEGER_BLOCK_CAPTURE.lean 2>&1 | tee vf-mid-integer-block-capture.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_SQUARE_WHEEL_BACKLOG.olean research/VF_MID_SQUARE_WHEEL_BACKLOG.lean 2>&1 | tee vf-mid-square-wheel-backlog.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_MIDPOINT_COMPLEMENT_DISPERSION.olean research/VF_MID_MIDPOINT_COMPLEMENT_DISPERSION.lean 2>&1 | tee vf-mid-midpoint-complement-dispersion.log
+          lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_COMPOSITE_FLOOR.olean research/VF_MID_COMPOSITE_FLOOR.lean 2>&1 | tee vf-mid-composite-floor.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.PRIME_FLIP_PNT_TELESCOPE.olean research/PRIME_FLIP_PNT_TELESCOPE.lean 2>&1 | tee prime-flip-pnt.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.PRIME_FLIP_STATIC_CHRONOLOGY.olean research/PRIME_FLIP_STATIC_CHRONOLOGY.lean 2>&1 | tee prime-flip-static-chronology.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.ALL_SCALE_LI_DISPLACEMENT_REDUCTION.olean research/ALL_SCALE_LI_DISPLACEMENT_REDUCTION.lean 2>&1 | tee all-scale-li-displacement.log
@@ -108,6 +110,7 @@ jobs:
           import «research.VF_MID_INTEGER_BLOCK_CAPTURE»
           import «research.VF_MID_SQUARE_WHEEL_BACKLOG»
           import «research.VF_MID_MIDPOINT_COMPLEMENT_DISPERSION»
+          import «research.VF_MID_COMPOSITE_FLOOR»
           #print axioms RHLean.Analysis.primeFlipExactResponse_eq_pnt_add_error
           #print axioms RHLean.Analysis.primeFlipExactResponse_eq_reciprocalPrimeCounts
           #print axioms RHLean.Analysis.primeFlipPNTError_eq_reciprocalDiscrepancy
@@ -181,6 +184,13 @@ jobs:
           #print axioms RHLean.Analysis.vfMidSquareWheel_midpointPrefix_card
           #print axioms RHLean.Analysis.vfMidSquareWheel_midpoint_prime_composite_discrepancy
           #print axioms RHLean.Analysis.vfMidSquareWheel_midpoint_survivor_composite_discrepancy
+          #print axioms RHLean.Analysis.vfMidSquareWheel_composite_floor_iff_prime_ceiling
+          #print axioms RHLean.Analysis.vfMidSquareWheelPrime_card_le_roughWheel
+          #print axioms RHLean.Analysis.vfMidSquareWheelComposite_card_ge_six
+          #print axioms RHLean.Analysis.vfMidSquareWheelComposite_card_ge_thirty
+          #print axioms RHLean.Analysis.vfMidSquareWheelComposite_card_ge_twoTen
+          #print axioms RHLean.Analysis.vfMidIntegerBlockPrimeSupply_le_twoTen
+          #print axioms RHLean.Analysis.vfMidIntegerBlockBacklog_increment_ge_twoTen
           LEAN
           set -o pipefail
           lake env lean -DwarningAsError=true /tmp/PrimeFlipPNTAxioms.lean 2>&1 | tee prime-flip-pnt-axioms.log
@@ -189,7 +199,7 @@ jobs:
           from pathlib import Path
           s = Path('prime-flip-pnt-axioms.log').read_text()
           records = re.findall(r"depends on axioms:\s*\[([^\]]*)\]", s, re.S)
-          assert len(records) == 73, records
+          assert len(records) == 80, records
           allowed = {'propext', 'Classical.choice', 'Quot.sound'}
           for record in records:
               actual = {a.strip() for a in record.split(',') if a.strip()}
@@ -210,4 +220,5 @@ jobs:
             vf-mid-integer-block-capture.log
             vf-mid-square-wheel-backlog.log
             vf-mid-midpoint-complement-dispersion.log
+            vf-mid-composite-floor.log
           if-no-files-found: ignore
