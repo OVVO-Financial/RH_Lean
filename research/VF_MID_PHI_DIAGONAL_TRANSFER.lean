@@ -178,7 +178,7 @@ theorem vfMidPrimeError_sq_sub_sq_cast_eq_oddLiDiagonalError_add_displacement
         (vfMidDyadicOddLiWeightedRemoval L A B -
           (vfMidDyadicLateReference 2 A B : ℂ)) -
         vfMidDyadicOddLiDisplacementBoundary Actual L A B := by
-    simpa only [map_sub] using hlate
+    simpa only [Complex.ofReal_sub] using hlate
   push_cast at herrC
   rw [hlate', hodd] at herrC
   unfold vfMidDyadicLateReference at herrC
