@@ -222,6 +222,93 @@ theorem vfMidIntegerBlockPrimeSupply_le_two_mul
   exact hcard
 
 
+/-! ## Elementary 2-5 and 2-3 wheel bounds
+
+Mathlib's `Nat.primeCounting_add_le` is the exact finite sieve estimate needed
+here: after a fixed cutoff k >= a, primes in the next n sites inject into the
+residue classes coprime to a.  Taking a = 10 leaves four residue classes out of
+ten (the 2-5 wheel), while a = 6 leaves two classes out of six (the 2-3 wheel).
+
+The +1 below is only the incomplete final residue period.  It is the finite
+endpoint correction behind the informal density statements 0.4 and 1/3.
+-/
+
+/-- Exact finite 2-5 wheel bound for one square block.  Asymptotically this is
+0.4 times the block width, with one incomplete period of length ten allowed. -/
+theorem vfMidIntegerBlockPrimeSupply_le_two_five_wheel
+    (R : ℕ) (hR : 4 ≤ R) :
+    vfMidIntegerBlockPrimeSupply R ≤
+      4 * ((2 * R + 1) / 10 + 1) := by
+  have h10 : 10 ≤ R ^ 2 := by
+    nlinarith
+  have hpc :=
+    Nat.primeCounting_add_le
+      (a := 10) (k := R ^ 2) (by norm_num) h10 (2 * R + 1)
+  have hsq : R ^ 2 + (2 * R + 1) = (R + 1) ^ 2 := by
+    ring
+  rw [hsq, show Nat.totient 10 = 4 from rfl] at hpc
+  have hband := vfMidIntegerBlockPrimeSupply_add_primeCounting R
+  omega
+
+/-- Cross-multiplied 0.4-density form of the 2-5 wheel estimate.  The additive
+20 is exactly four possible survivors from the incomplete final ten-period:
+5 P_R <= 2(2R+1) + 20. -/
+theorem vfMidIntegerBlockPrimeSupply_five_mul_le_two_width_add_twenty
+    (R : ℕ) (hR : 4 ≤ R) :
+    5 * vfMidIntegerBlockPrimeSupply R ≤
+      2 * (2 * R + 1) + 20 := by
+  have hwheel := vfMidIntegerBlockPrimeSupply_le_two_five_wheel R hR
+  omega
+
+/-- The still smaller 2-3 wheel already gives a one-third-density finite
+estimate once R^2 is beyond the modulus 6. -/
+theorem vfMidIntegerBlockPrimeSupply_le_two_three_wheel
+    (R : ℕ) (hR : 3 ≤ R) :
+    vfMidIntegerBlockPrimeSupply R ≤
+      2 * ((2 * R + 1) / 6 + 1) := by
+  have h6 : 6 ≤ R ^ 2 := by
+    nlinarith
+  have hpc :=
+    Nat.primeCounting_add_le
+      (a := 6) (k := R ^ 2) (by norm_num) h6 (2 * R + 1)
+  have hsq : R ^ 2 + (2 * R + 1) = (R + 1) ^ 2 := by
+    ring
+  rw [hsq, show Nat.totient 6 = 2 from rfl] at hpc
+  have hband := vfMidIntegerBlockPrimeSupply_add_primeCounting R
+  omega
+
+/-- Global elementary half-width bound.  For R >= 4 the 2-3 wheel is already
+strong enough to force P_R <= R; the two initial square blocks are finite
+kernel computations. -/
+theorem vfMidIntegerBlockPrimeSupply_le_R
+    (R : ℕ) (hR : 2 ≤ R) :
+    vfMidIntegerBlockPrimeSupply R ≤ R := by
+  by_cases hlarge : 4 ≤ R
+  · have hwheel :=
+      vfMidIntegerBlockPrimeSupply_le_two_three_wheel R (by omega)
+    omega
+  · interval_cases R <;> native_decide
+
+/-- Therefore the exact number of primes in every nontrivial square block is
+strictly less than half of the repository block width 2R+1. -/
+theorem vfMidIntegerBlockPrimeSupply_two_mul_lt_width
+    (R : ℕ) (hR : 2 ≤ R) :
+    2 * vfMidIntegerBlockPrimeSupply R < 2 * R + 1 := by
+  have h := vfMidIntegerBlockPrimeSupply_le_R R hR
+  omega
+
+/-- Real-valued form of the strict half-width theorem. -/
+theorem vfMidIntegerBlockPrimeSupply_lt_half_width
+    (R : ℕ) (hR : 2 ≤ R) :
+    (vfMidIntegerBlockPrimeSupply R : ℝ) <
+      (2 * (R : ℝ) + 1) / 2 := by
+  have hnat := vfMidIntegerBlockPrimeSupply_two_mul_lt_width R hR
+  have hreal :
+      2 * (vfMidIntegerBlockPrimeSupply R : ℝ) <
+        2 * (R : ℝ) + 1 := by
+    exact_mod_cast hnat
+  linarith
+
 /-! ## Integer backlog and demand -/
 
 /-- Signed number of integer VF-mid counts still above the prime staircase at
