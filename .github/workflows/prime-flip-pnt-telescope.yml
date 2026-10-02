@@ -481,6 +481,8 @@ jobs:
           #print axioms RHLean.Analysis.not_vfMidRecursiveScaleChain_infinite
           #print axioms RHLean.Analysis.vfMidRecursiveScalePersistent_impossible
           #print axioms RHLean.Analysis.vfMidOddCompositeTrackingDefect_eq_signed_child_tree_with_strict_descent
+          #print axioms RHLean.Analysis.vfMidRecursiveOwner_mixed_child_sign_witness
+          #print axioms RHLean.Analysis.vfMidRecursiveOwner_mixed_child_charge_formulas
           #print axioms RHLean.Analysis.vfMidOddLiSquareInterval_two_eq_prefixWheelCard
           #print axioms RHLean.Analysis.vfMidDyadicOddLiWeightedRemoval_eq_prefixSupply_sub_diagonal
           #print axioms RHLean.Analysis.vfMidPrimeError_sq_sub_sq_cast_eq_oddLiDiagonalError_add_displacement
@@ -492,7 +494,7 @@ jobs:
           from pathlib import Path
           s = Path('prime-flip-pnt-axioms.log').read_text()
           records = re.findall(r"depends on axioms:\s*\[([^\]]*)\]", s, re.S)
-          assert len(records) == 295, records
+          assert len(records) == 297, records
           allowed = {'propext', 'Classical.choice', 'Quot.sound'}
           for record in records:
               actual = {a.strip() for a in record.split(',') if a.strip()}
