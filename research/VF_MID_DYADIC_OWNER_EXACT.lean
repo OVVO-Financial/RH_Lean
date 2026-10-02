@@ -292,6 +292,101 @@ theorem vfMidDyadicLateRemoval_eq_sum_blockExcess
     vfMidDyadicPrimeSupply_eq_sum_blockPrimeSupply A B hAB,
     ← Finset.sum_sub_distrib]
 
+/-! ## One terminal wheel resolves an entire short square run -/
+
+/-- If the terminal root B still lies below the first square A^2, then on
+every block r in [A,B) the single wheel through B has exactly the actual
+prime survivors. Composites were already killed by the smaller wheel through
+r, while every prime site lies above r^2 >= A^2 > B and therefore cannot
+equal any prime coordinate of the terminal wheel. -/
+theorem vfMidSquarePrefixWheelSurvivors_terminal_eq_primes
+    {A B r : ℕ} (hA : 2 ≤ A)
+    (hr : r ∈ Finset.Ico A B)
+    (hterminal : B < A ^ 2) :
+    vfMidSquarePrefixWheelSurvivors B r =
+      vfMidSquareWheelPrimes r := by
+  classical
+  have hAr : A ≤ r := (Finset.mem_Ico.mp hr).1
+  have hrB : r < B := (Finset.mem_Ico.mp hr).2
+  have hr2 : 2 ≤ r := hA.trans hAr
+  have hAsqRsq : A ^ 2 ≤ r ^ 2 :=
+    Nat.pow_le_pow_left hAr 2
+  have hBltRsq : B < r ^ 2 :=
+    hterminal.trans_le hAsqRsq
+  ext n
+  simp only [vfMidSquarePrefixWheelSurvivors,
+    vfMidSquareWheelPrimes, Finset.mem_filter]
+  constructor
+  · rintro ⟨hnSite, hsurvB⟩
+    refine ⟨hnSite, ?_⟩
+    apply (vfMidSquareBand_commonWheelSurvivor_iff_prime hr2 hnSite).1
+    intro p hpR hpd
+    have hpData := mem_primesUpTo.mp hpR
+    have hpB : p ∈ primesUpTo B :=
+      mem_primesUpTo.mpr
+        ⟨hpData.1, hpData.2.trans hrB.le⟩
+    exact hsurvB p hpB hpd
+  · rintro ⟨hnSite, hnPrime⟩
+    refine ⟨hnSite, ?_⟩
+    intro p hpB hpd
+    have hpPrime : p.Prime :=
+      prime_of_mem_primesUpTo hpB
+    have hpLeB : p ≤ B :=
+      (mem_primesUpTo.mp hpB).2
+    have hpn : p = n :=
+      (Nat.prime_dvd_prime_iff_eq hpPrime hnPrime).mp hpd
+    have hnI := Finset.mem_Ioo.mp hnSite
+    subst p
+    omega
+
+/-- Terminal-wheel square-run identity.
+
+On any short square run with A <= B < A^2, the whole cumulative actual prime
+population is already the four-endpoint survivor supply of the single wheel
+through the terminal root B. The changing per-block wheels disappear. -/
+theorem vfMidDyadicPrefixSupply_terminal_eq_primeSupply
+    {A B : ℕ} (hA : 2 ≤ A) (hAB : A ≤ B)
+    (hterminal : B < A ^ 2) :
+    vfMidDyadicPrefixSupply B A B =
+      vfMidDyadicPrimeSupply A B := by
+  rw [vfMidDyadicPrefixSupply_eq_sum_prefixWheelCards B A B hAB,
+    vfMidDyadicPrimeSupply_eq_sum_blockPrimeSupply A B hAB]
+  apply Finset.sum_congr rfl
+  intro r hr
+  have hset :=
+    vfMidSquarePrefixWheelSurvivors_terminal_eq_primes
+      hA hr hterminal
+  have hcard :
+      (vfMidSquarePrefixWheelSurvivors B r).card =
+        vfMidIntegerBlockPrimeSupply r := by
+    unfold vfMidIntegerBlockPrimeSupply
+    rw [vfMidDirectPrimeBand_eq_squareWheelPrimes]
+    exact congrArg Finset.card hset
+  exact_mod_cast hcard
+
+/-- Consequently the cumulative prime supply over the entire square run has an
+exact terminal-wheel density-plus-four-endpoint-error formula. This is the
+direct carrier for a run-level lower-bound attack: the block count has vanished
+before any absolute value is taken. -/
+theorem vfMidDyadicPrimeSupply_sub_terminalDensity_eq_fourEndpointErrors
+    {A B : ℕ} (hA : 2 ≤ A) (hAB : A ≤ B)
+    (hterminal : B < A ^ 2) :
+    vfMidDyadicPrimeSupply A B -
+        vfMidPrefixWheelDensity B * vfMidDyadicInteriorLength A B =
+      ((vfMidPrefixWheelCounting B (B ^ 2) : ℝ) -
+          vfMidPrefixWheelDensity B * ((B : ℝ) ^ 2)) -
+      ((vfMidPrefixWheelCounting B (A ^ 2) : ℝ) -
+          vfMidPrefixWheelDensity B * ((A : ℝ) ^ 2)) -
+      ((vfMidPrefixWheelCounting B B : ℝ) -
+          vfMidPrefixWheelDensity B * (B : ℝ)) +
+      ((vfMidPrefixWheelCounting B A : ℝ) -
+          vfMidPrefixWheelDensity B * (A : ℝ)) := by
+  rw [← vfMidDyadicPrefixSupply_terminal_eq_primeSupply
+    hA hAB hterminal]
+  exact
+    vfMidDyadicPrefixSupply_sub_density_eq_four_endpoint_errors
+      B A B
+
 /-! ## Exact least-prime-factor ownership of the remaining removals -/
 
 /-- Composite prefix survivors in one physical square block. -/
