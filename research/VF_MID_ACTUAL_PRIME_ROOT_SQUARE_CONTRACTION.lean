@@ -321,6 +321,131 @@ theorem vfMidActualHighPrimeProtectedPairedReciprocalMass_eq_euler_add_defect
       ((R + 1) ^ 2) (R ^ 2) ((R + 1) ^ 2)
       hmpos hq hcop
 
+/-! ## High-owner star compression -/
+
+/-- High owner primes whose child of one fixed positive parent still fits below
+the pre-square endpoint.  Since every owner is above the root, no product of
+two distinct owners can occur below `R^2-1`. -/
+def vfMidActualHighPrimeStarSet (R m : ℕ) : Finset ℕ :=
+  (vfMidActualPreSquarePrimeCarrier R).filter fun q =>
+    m * q ≤ squareRootEndpoint R
+
+/-- Reciprocal owner mass of one completed high-prime star. -/
+def vfMidActualHighPrimeStarReciprocalMass (R m : ℕ) : ℝ :=
+  ∑ q ∈ vfMidActualHighPrimeStarSet R m, 1 / (q : ℝ)
+
+/-- The direct protected-correlation mass of one parent together with all of
+its completed actual high-prime children. -/
+def vfMidActualHighPrimeProtectedStarMass (R m : ℕ) : ℝ :=
+  nativePNTSignedSquareBlockCorrelationReciprocalSummand
+      ((R + 1) ^ 2) (R ^ 2) ((R + 1) ^ 2) m +
+    ∑ q ∈ vfMidActualHighPrimeStarSet R m,
+      nativePNTSignedSquareBlockCorrelationReciprocalSummand
+        ((R + 1) ^ 2) (R ^ 2) ((R + 1) ^ 2) (m * q)
+
+/-- Total signed response-difference defect carried by one high-owner star. -/
+def vfMidActualHighPrimeProtectedStarDefectMass (R m : ℕ) : ℝ :=
+  ∑ q ∈ vfMidActualHighPrimeStarSet R m,
+    nativePNTSignedSquareBlockFreshPrimePhysicalDefect
+      ((R + 1) ^ 2) (R ^ 2) ((R + 1) ^ 2) m q
+
+/-- A legal high-owner child forces its fixed parent strictly below the root. -/
+theorem vfMidActualHighPrimeStar_parent_lt_root
+    {R m q : ℕ} (hR : 2 ≤ R) (hm : 1 ≤ m)
+    (hq : q ∈ vfMidActualHighPrimeStarSet R m) :
+    m < R := by
+  have hqData := Finset.mem_filter.mp hq
+  have hcarrier :=
+    Finset.mem_filter.mp hqData.1
+  have hRq : R < q := (Finset.mem_Ioc.mp hcarrier.1).1
+  have hmq : m * q ≤ squareRootEndpoint R := hqData.2
+  unfold squareRootEndpoint at hmq
+  nlinarith
+
+/-- Hence every owner in one legal star is fresh for the fixed parent. -/
+theorem vfMidActualHighPrimeStar_parent_coprime
+    {R m q : ℕ} (hR : 2 ≤ R) (hm : 1 ≤ m)
+    (hq : q ∈ vfMidActualHighPrimeStarSet R m) :
+    Nat.Coprime m q := by
+  have hqData := Finset.mem_filter.mp hq
+  have hcarrier := Finset.mem_filter.mp hqData.1
+  have hqPrime : q.Prime := hcarrier.2
+  have hRq : R < q := (Finset.mem_Ioc.mp hcarrier.1).1
+  have hmR := vfMidActualHighPrimeStar_parent_lt_root hR hm hq
+  have hmq : m < q := hmR.trans hRq
+  exact (Nat.coprime_of_lt_prime (by omega : m ≠ 0) hmq hqPrime).symm
+
+/-- **Exact actual-prime star compression on the direct protected
+correlation.**  Because two high owners cannot form a mixed child below the
+square, every child attaches directly to the same low parent.  Summing the
+one-prime reciprocal Euler laws therefore leaves exactly the coefficient
+
+  `1 - sum_{q in star} 1/q`
+
+on the parent, plus the complete signed physical-defect star.  No norm or
+prime-density replacement has been taken. -/
+theorem vfMidActualHighPrimeProtectedStarMass_eq
+    (R m : ℕ) (hR : 2 ≤ R) (hm : 1 ≤ m) :
+    vfMidActualHighPrimeProtectedStarMass R m =
+      (1 - vfMidActualHighPrimeStarReciprocalMass R m) *
+          nativePNTSignedSquareBlockCorrelationReciprocalSummand
+            ((R + 1) ^ 2) (R ^ 2) ((R + 1) ^ 2) m +
+        vfMidActualHighPrimeProtectedStarDefectMass R m := by
+  let v : ℕ → ℝ := fun n =>
+    nativePNTSignedSquareBlockCorrelationReciprocalSummand
+      ((R + 1) ^ 2) (R ^ 2) ((R + 1) ^ 2) n
+  let D : ℕ → ℝ := fun q =>
+    nativePNTSignedSquareBlockFreshPrimePhysicalDefect
+      ((R + 1) ^ 2) (R ^ 2) ((R + 1) ^ 2) m q
+  let S : Finset ℕ := vfMidActualHighPrimeStarSet R m
+  have hchild :
+      (∑ q ∈ S, v (m * q)) =
+        ∑ q ∈ S, (-(1 / (q : ℝ)) * v m + D q) := by
+    apply Finset.sum_congr rfl
+    intro q hq
+    have hqData := Finset.mem_filter.mp hq
+    have hcarrier := Finset.mem_filter.mp hqData.1
+    have hqPrime : q.Prime := hcarrier.2
+    have hcop := vfMidActualHighPrimeStar_parent_coprime hR hm hq
+    have hpair :=
+      nativePNTSignedSquareBlockCorrelationReciprocalSummand_add_mul_freshPrime
+        ((R + 1) ^ 2) (R ^ 2) ((R + 1) ^ 2)
+        (by omega : 0 < m) hqPrime hcop
+    change v m + v (m * q) =
+      (1 - 1 / (q : ℝ)) * v m + D q at hpair
+    linarith
+  unfold vfMidActualHighPrimeProtectedStarMass
+    vfMidActualHighPrimeStarReciprocalMass
+    vfMidActualHighPrimeProtectedStarDefectMass
+  change v m + ∑ q ∈ S, v (m * q) =
+    (1 - ∑ q ∈ S, 1 / (q : ℝ)) * v m + ∑ q ∈ S, D q
+  rw [hchild, Finset.sum_add_distrib]
+  have hscale :
+      (∑ q ∈ S, -(1 / (q : ℝ)) * v m) =
+        -(∑ q ∈ S, 1 / (q : ℝ)) * v m := by
+    rw [← Finset.sum_mul]
+    congr 1
+    rw [← Finset.sum_neg_distrib]
+  rw [hscale]
+  ring
+
+/-- Distinct high owners cannot coexist in a pre-square child product.  This is
+the geometric reason the completed post-root family is a star at fixed parent,
+not a two-high-prime Boolean face. -/
+theorem vfMidActualHighPrimeStar_no_two_owner_child
+    {R m q r : ℕ} (hm : 1 ≤ m)
+    (hq : q ∈ vfMidActualPreSquarePrimeCarrier R)
+    (hr : r ∈ vfMidActualPreSquarePrimeCarrier R)
+    (hqr : q ≠ r) :
+    ¬ m * q * r ≤ squareRootEndpoint R := by
+  intro hfit
+  have hqData := Finset.mem_filter.mp hq
+  have hrData := Finset.mem_filter.mp hr
+  have hRq : R < q := (Finset.mem_Ioc.mp hqData.1).1
+  have hRr : R < r := (Finset.mem_Ioc.mp hrData.1).1
+  unfold squareRootEndpoint at hfit
+  nlinarith
+
 /-- The fixed VF alignment phase never changes square-block increments.  This is
 restated here only to keep the endpoint conclusion adjacent to the actual-prime
 carrier lemmas above. -/
