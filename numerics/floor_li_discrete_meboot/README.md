@@ -140,3 +140,5 @@ python numerics/floor_li_discrete_meboot/run_floor_li_discrete_meboot.py \
 ```
 
 The script uses fixed seeds and regenerates the CSV/JSON/PNG outputs.  `results_sha256.txt` records the hashes from the run summarized here.
+
+The strict repository workflow kernel-checks `VF_MID_FLOOR_LI_DISCRETE_BACKLOG.lean` after its owner dependencies.
