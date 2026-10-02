@@ -4,6 +4,7 @@ import «research.PRIME_WHEEL_ROUGH_SEAT_SQRT_SPECIALIZATION»
 import RHLean.Proof.PostRootPartnerLogAlignment
 import RHLean.Analysis.NativePNTSquarePrefixContraction
 import RHLean.Analysis.DynamicVioleBaseline
+import RHLean.Analysis.NativePNTSignedSecondSelbergFrontierCharge
 
 /-!
 # Actual-prime root-to-square contraction attack
@@ -320,6 +321,144 @@ theorem vfMidActualHighPrimeProtectedPairedReciprocalMass_eq_euler_add_defect
     nativePNTSignedSquareBlockCorrelationReciprocalSummand_add_mul_freshPrime
       ((R + 1) ^ 2) (R ^ 2) ((R + 1) ^ 2)
       hmpos hq hcop
+
+/-! ## Adjacent-square response sign and monotonicity -/
+
+/-- Positive logarithmic response mass of one cofactor on the literal adjacent
+square block.  At the right endpoint the native PNT error on every divisor in
+the block is exactly `-1`, so the signed cofactor response is the negative of
+this quantity. -/
+def vfMidSquareProtectedResponseLogMass (R m : ℕ) : ℝ :=
+  ∑ d ∈ (Finset.Ioc (R ^ 2) ((R + 1) ^ 2)).filter (fun d => m ∣ d),
+    Real.log ((d / m : ℕ) : ℝ)
+
+/-- Every divisor in an adjacent square block has right-endpoint quotient one. -/
+theorem vfMidSquareBlock_rightEndpoint_div_eq_one
+    {R d : ℕ} (hR : 3 ≤ R)
+    (hd : d ∈ Finset.Ioc (R ^ 2) ((R + 1) ^ 2)) :
+    (R + 1) ^ 2 / d = 1 := by
+  rcases Finset.mem_Ioc.mp hd with ⟨hdlo, hdhi⟩
+  have hlo : 1 * d ≤ (R + 1) ^ 2 := by simpa using hdhi
+  have hsub : (R + 1) ^ 2 < 2 * R ^ 2 := by
+    nlinarith
+  have hhi : (R + 1) ^ 2 < (1 + 1) * d := by
+    nlinarith
+  exact Nat.div_eq_of_lt_le hlo hhi
+
+/-- **At the literal right square endpoint every protected cofactor response is
+a negative log mass.** -/
+theorem vfMidSquareProtectedCofactorResponse_eq_neg_logMass
+    (R m : ℕ) (hR : 3 ≤ R) :
+    nativePNTSignedSquareBlockCofactorResponse
+        ((R + 1) ^ 2) (R ^ 2) ((R + 1) ^ 2) m =
+      -vfMidSquareProtectedResponseLogMass R m := by
+  unfold nativePNTSignedSquareBlockCofactorResponse
+    vfMidSquareProtectedResponseLogMass
+  rw [← Finset.sum_neg_distrib]
+  apply Finset.sum_congr rfl
+  intro d hd
+  have hdI := (Finset.mem_filter.mp hd).1
+  rw [vfMidSquareBlock_rightEndpoint_div_eq_one hR hdI,
+    nativePNTError_one]
+  ring
+
+/-- The logarithmic response mass is nonnegative on every positive cofactor. -/
+theorem vfMidSquareProtectedResponseLogMass_nonneg
+    (R m : ℕ) (hm : 1 ≤ m) :
+    0 ≤ vfMidSquareProtectedResponseLogMass R m := by
+  unfold vfMidSquareProtectedResponseLogMass
+  apply Finset.sum_nonneg
+  intro d hd
+  rcases Finset.mem_filter.mp hd with ⟨hdI, hmd⟩
+  have hdpos : 0 < d := by
+    have := (Finset.mem_Ioc.mp hdI).1
+    positivity
+  have hmle : m ≤ d := Nat.le_of_dvd hdpos hmd
+  have hquot : 1 ≤ d / m :=
+    (Nat.one_le_div_iff (by omega : 0 < m)).2 hmle
+  exact Real.log_nonneg (by exact_mod_cast hquot)
+
+/-- Hence the direct adjacent-square protected response is always nonpositive
+before the Möbius sign is applied. -/
+theorem vfMidSquareProtectedCofactorResponse_nonpos
+    (R m : ℕ) (hR : 3 ≤ R) (hm : 1 ≤ m) :
+    nativePNTSignedSquareBlockCofactorResponse
+        ((R + 1) ^ 2) (R ^ 2) ((R + 1) ^ 2) m ≤ 0 := by
+  rw [vfMidSquareProtectedCofactorResponse_eq_neg_logMass R m hR]
+  exact neg_nonpos.mpr (vfMidSquareProtectedResponseLogMass_nonneg R m hm)
+
+/-- Multiplying a positive cofactor by a genuine prime can only decrease its
+positive adjacent-square log response mass. -/
+theorem vfMidSquareProtectedResponseLogMass_mul_prime_le
+    (R m q : ℕ) (hm : 1 ≤ m) (hq : q.Prime) :
+    vfMidSquareProtectedResponseLogMass R (m * q) ≤
+      vfMidSquareProtectedResponseLogMass R m := by
+  let child : Finset ℕ :=
+    (Finset.Ioc (R ^ 2) ((R + 1) ^ 2)).filter (fun d => m * q ∣ d)
+  let parent : Finset ℕ :=
+    (Finset.Ioc (R ^ 2) ((R + 1) ^ 2)).filter (fun d => m ∣ d)
+  have hsub : child ⊆ parent := by
+    intro d hd
+    rcases Finset.mem_filter.mp hd with ⟨hdI, hmq⟩
+    apply Finset.mem_filter.mpr
+    refine ⟨hdI, ?_⟩
+    exact dvd_trans (by exact ⟨q, by ring⟩) hmq
+  have hpoint :
+      ∀ d ∈ child,
+        Real.log ((d / (m * q) : ℕ) : ℝ) ≤
+          Real.log ((d / m : ℕ) : ℝ) := by
+    intro d hd
+    rcases Finset.mem_filter.mp hd with ⟨hdI, hmq⟩
+    have hdpos : 0 < d := by
+      have := (Finset.mem_Ioc.mp hdI).1
+      positivity
+    have hmqpos : 0 < m * q := Nat.mul_pos (by omega) hq.pos
+    have hmqle : m * q ≤ d := Nat.le_of_dvd hdpos hmq
+    have hchild1 : 1 ≤ d / (m * q) :=
+      (Nat.one_le_div_iff hmqpos).2 hmqle
+    have hmMq : m ≤ m * q := by
+      nlinarith [hq.two_le]
+    have hdiv :
+        d / (m * q) ≤ d / m :=
+      Nat.div_le_div_left hmMq (by omega : 0 < m)
+    have hchildPos : (0 : ℝ) < ((d / (m * q) : ℕ) : ℝ) := by
+      exact_mod_cast (show 0 < d / (m * q) by omega)
+    exact Real.log_le_log hchildPos (by exact_mod_cast hdiv)
+  unfold vfMidSquareProtectedResponseLogMass
+  change (∑ d ∈ child, Real.log ((d / (m * q) : ℕ) : ℝ)) ≤
+    ∑ d ∈ parent, Real.log ((d / m : ℕ) : ℝ)
+  calc
+    (∑ d ∈ child, Real.log ((d / (m * q) : ℕ) : ℝ))
+        ≤ ∑ d ∈ child, Real.log ((d / m : ℕ) : ℝ) := by
+          exact Finset.sum_le_sum hpoint
+    _ ≤ ∑ d ∈ parent, Real.log ((d / m : ℕ) : ℝ) := by
+      refine Finset.sum_le_sum_of_subset_of_nonneg hsub ?_
+      intro d hdParent _hdChild
+      rcases Finset.mem_filter.mp hdParent with ⟨hdI, hmd⟩
+      have hdpos : 0 < d := by
+        have := (Finset.mem_Ioc.mp hdI).1
+        positivity
+      have hmle : m ≤ d := Nat.le_of_dvd hdpos hmd
+      have hquot : 1 ≤ d / m :=
+        (Nat.one_le_div_iff (by omega : 0 < m)).2 hmle
+      exact Real.log_nonneg (by exact_mod_cast hquot)
+
+/-- The child protected response has no larger absolute magnitude than its
+parent response. -/
+theorem abs_vfMidSquareProtectedCofactorResponse_mul_prime_le
+    (R m q : ℕ) (hR : 3 ≤ R) (hm : 1 ≤ m) (hq : q.Prime) :
+    |nativePNTSignedSquareBlockCofactorResponse
+        ((R + 1) ^ 2) (R ^ 2) ((R + 1) ^ 2) (m * q)| ≤
+      |nativePNTSignedSquareBlockCofactorResponse
+        ((R + 1) ^ 2) (R ^ 2) ((R + 1) ^ 2) m| := by
+  rw [vfMidSquareProtectedCofactorResponse_eq_neg_logMass R (m * q) hR,
+    vfMidSquareProtectedCofactorResponse_eq_neg_logMass R m hR]
+  have hchild0 :=
+    vfMidSquareProtectedResponseLogMass_nonneg R (m * q)
+      (Nat.one_le_iff_ne_zero.mpr (Nat.mul_ne_zero (by omega) hq.ne_zero))
+  have hparent0 := vfMidSquareProtectedResponseLogMass_nonneg R m hm
+  rw [abs_neg, abs_of_nonneg hchild0, abs_neg, abs_of_nonneg hparent0]
+  exact vfMidSquareProtectedResponseLogMass_mul_prime_le R m q hm hq
 
 /-! ## High-owner star compression -/
 
