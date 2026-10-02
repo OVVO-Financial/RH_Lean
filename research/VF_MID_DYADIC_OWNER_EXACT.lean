@@ -24,6 +24,58 @@ open RHLean.Arithmetic RHLean.Proof
 
 attribute [local instance] Classical.propDecidable
 
+/-! ## Square blocks are multiplicatively truncated Boolean-cube boundaries -/
+
+/-- **Square-block divisibility antichain.**
+For R >= 3, two integers lying strictly between consecutive squares cannot
+stand in a nontrivial divisibility relation. Equivalently, once a Boolean
+prime face lands in one physical square block, adjoining any fresh prime
+coordinate sends its product beyond that same block.
+
+This is the precise reason Boolean cancellation for a square block is a
+boundary phenomenon: there are no parent/child cube edges wholly contained
+inside one block. -/
+theorem vfMidSquareBandSites_dvd_iff_eq
+    {R m n : ℕ} (hR : 3 ≤ R)
+    (hm : m ∈ vfMidSquareBandSites R)
+    (hn : n ∈ vfMidSquareBandSites R) :
+    m ∣ n ↔ m = n := by
+  constructor
+  · intro hdiv
+    rcases hdiv with ⟨k, rfl⟩
+    have hmBand : R ^ 2 < m ∧ m < (R + 1) ^ 2 := by
+      simpa [vfMidSquareBandSites] using hm
+    have hmkBand : R ^ 2 < m * k ∧ m * k < (R + 1) ^ 2 := by
+      simpa [vfMidSquareBandSites] using hn
+    have hmPos : 0 < m := by omega
+    have hkPos : 0 < k := by
+      by_contra hk
+      have hk0 : k = 0 := Nat.eq_zero_of_not_pos hk
+      subst k
+      simp at hmkBand
+    by_cases hk1 : k = 1
+    · subst k
+      simp
+    · have hk2 : 2 ≤ k := by omega
+      have htwo : 2 * m ≤ m * k := by
+        have h := Nat.mul_le_mul_left m hk2
+        simpa [Nat.mul_comm] using h
+      have hthin : (R + 1) ^ 2 < 2 * m := by
+        nlinarith [hmBand.1]
+      omega
+  · intro h
+    simpa [h]
+
+/-- Strict form: distinct sites of one square block never divide one another. -/
+theorem vfMidSquareBandSites_not_dvd_of_ne
+    {R m n : ℕ} (hR : 3 ≤ R)
+    (hm : m ∈ vfMidSquareBandSites R)
+    (hn : n ∈ vfMidSquareBandSites R)
+    (hmn : m ≠ n) :
+    ¬ m ∣ n := by
+  intro hdiv
+  exact hmn ((vfMidSquareBandSites_dvd_iff_eq hR hm hn).1 hdiv)
+
 /-! ## Endpoint counting really is the sum of physical square-block survivors -/
 
 /-- Prefix-wheel survivors in an arbitrary natural interval (A,B]. -/
