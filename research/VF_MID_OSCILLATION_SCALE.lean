@@ -78,8 +78,6 @@ def VFMidOscillationScaleStatement : Prop :=
 which is at most half the excursion amplitude. -/
 theorem vfMidPrimeError_ge_half_of_primeLi_ge
     {c x : ℝ}
-    (hc : 0 < c)
-    (hscale : 0 < vfMidOscillationScale x)
     (hprime :
       c * vfMidOscillationScale x ≤ vfMidPrimeLiError x)
     (hquad :
@@ -96,8 +94,6 @@ theorem vfMidPrimeError_ge_half_of_primeLi_ge
 which is at most half the excursion amplitude. -/
 theorem vfMidPrimeError_le_neg_half_of_primeLi_le
     {c x : ℝ}
-    (hc : 0 < c)
-    (hscale : 0 < vfMidOscillationScale x)
     (hprime :
       vfMidPrimeLiError x ≤ -(c * vfMidOscillationScale x))
     (hquad :
@@ -137,14 +133,14 @@ theorem vfMidOscillationScale_of_primeLi_of_quadrature
     have hxq : Xq ≤ x := (le_max_right X Xq).trans hx
     refine ⟨x, hxX, hscale, ?_⟩
     exact vfMidPrimeError_ge_half_of_primeLi_ge
-      hc hscale hprime (hXq x hxq)
+      hprime (hXq x hxq)
   · intro X
     rcases hneg (max X Xq) with ⟨x, hx, hscale, hprime⟩
     have hxX : X ≤ x := (le_max_left X Xq).trans hx
     have hxq : Xq ≤ x := (le_max_right X Xq).trans hx
     refine ⟨x, hxX, hscale, ?_⟩
     exact vfMidPrimeError_le_neg_half_of_primeLi_le
-      hc hscale hprime (hXq x hxq)
+      hprime (hXq x hxq)
 
 /-- Positive one-sided extraction from the scale-transfer theorem. -/
 theorem exists_vfMid_positiveOscillationScaleExcursion_above
