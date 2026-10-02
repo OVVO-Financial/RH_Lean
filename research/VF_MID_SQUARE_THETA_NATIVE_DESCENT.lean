@@ -2,6 +2,7 @@ import Mathlib
 import «research.VF_MID_RECURSIVE_REMAINDER_BOUND»
 import «research.VF_MID_DIRECT_DISCREPANCY_ABEL»
 import RHLean.Analysis.NativePNTTransfer
+import RHLean.Analysis.VioleSequentialEulerClosure
 
 /-!
 # Native VF descent written in Chebyshev theta coordinates
@@ -196,6 +197,103 @@ def VFMidThetaNativeDescentBoundedStatement : Prop :=
     ∀ R : ℕ, 7 ≤ R →
       |vfMidDirectThetaEndpointError R| ≤
         C * (R : ℝ) * (Real.log (R : ℝ)) ^ 2
+
+/-! ## Exact square-psi protected-pull dynamics -/
+
+/-- The protected Selberg/Euler pull on the literal adjacent square step
+`R^2 -> (R+1)^2`. -/
+def vfMidSquarePsiProtectedPull (R : ℕ) : ℝ :=
+  nativePNTSequentialProtectedBlockPull (R ^ 2) ((R + 1) ^ 2)
+
+/-- Prime-power correction separating psi from theta at a square endpoint. -/
+def vfMidSquarePrimePowerCorrection (R : ℕ) : ℝ :=
+  nativePsi (R ^ 2) - nativeTheta (R ^ 2)
+
+/-- Adjacent squares are subdoubling from R >= 3. -/
+theorem vfMidSquare_succ_sq_lt_two_mul_sq
+    (R : ℕ) (hR : 3 ≤ R) :
+    (R + 1) ^ 2 < 2 * R ^ 2 := by
+  nlinarith
+
+/-- **Exact square-psi endpoint update.**
+
+The native Selberg machinery already packages the complete physical response of
+one adjacent square block as a single protected pull:
+
+    E_psi((R+1)^2) = E_psi(R^2) - P_R.
+
+No remainder or asymptotic estimate is used. -/
+theorem nativePNTError_square_succ_eq_old_sub_vfMidSquarePsiProtectedPull
+    (R : ℕ) (hR : 3 ≤ R) :
+    nativePNTError ((R + 1) ^ 2) =
+      nativePNTError (R ^ 2) - vfMidSquarePsiProtectedPull R := by
+  unfold vfMidSquarePsiProtectedPull
+  exact nativePNTError_eq_old_sub_protectedBlockPull
+    (R ^ 2) ((R + 1) ^ 2)
+    (by nlinarith : 1 ≤ R ^ 2)
+    (by nlinarith : R ^ 2 ≤ (R + 1) ^ 2)
+    (vfMidSquare_succ_sq_lt_two_mul_sq R hR)
+
+/-- The complete square-step Chebyshev energy change is therefore the one
+quadratic expression P_R^2 - 2 E_R P_R. -/
+theorem nativePNTError_square_succ_sq_sub_sq_eq_protectedPull
+    (R : ℕ) (hR : 3 ≤ R) :
+    nativePNTError ((R + 1) ^ 2) ^ 2 -
+        nativePNTError (R ^ 2) ^ 2 =
+      vfMidSquarePsiProtectedPull R ^ 2 -
+        2 * nativePNTError (R ^ 2) *
+          vfMidSquarePsiProtectedPull R := by
+  unfold vfMidSquarePsiProtectedPull
+  exact
+    nativePNTError_sq_sub_sq_eq_protectedBlockPull_sq_sub_two_mul_error
+      (R ^ 2) ((R + 1) ^ 2)
+      (by nlinarith : 1 ≤ R ^ 2)
+      (by nlinarith : R ^ 2 ≤ (R + 1) ^ 2)
+      (vfMidSquare_succ_sq_lt_two_mul_sq R hR)
+
+/-- The psi square-block discrepancy differs from the theta block discrepancy
+only by the discrete derivative of the prime-power correction. -/
+theorem nativePNTError_square_diff_eq_thetaBand_add_primePowerDiff
+    (R : ℕ) :
+    nativePNTError ((R + 1) ^ 2) - nativePNTError (R ^ 2) =
+      vfMidDirectThetaBandError R +
+        (vfMidSquarePrimePowerCorrection (R + 1) -
+          vfMidSquarePrimePowerCorrection R) := by
+  unfold nativePNTError vfMidDirectThetaBandError
+    vfMidDirectThetaEndpointError vfMidSquarePrimePowerCorrection
+  push_cast
+  ring
+
+/-- **#855 translated all the way into the protected Chebyshev pull.**
+
+The exact protected pull driving the square-psi endpoint update is the
+log-weighted native VF descent packet, minus only the discrete prime-power
+correction:
+
+    P_R
+      = log(m_R) * (native_R + Rem_R + position_R)
+        - (Q_{R+1} - Q_R).
+
+Thus the Chebyshev attack and the VF owner descent are now literally the same
+one-step arithmetic object in two coordinate systems. -/
+theorem vfMidSquarePsiProtectedPull_eq_nativeVFDescent
+    (R : ℕ) (hR : 7 ≤ R) :
+    vfMidSquarePsiProtectedPull R =
+      Real.log (vfMidBandMidpoint R) *
+        (vfMidRecursiveAggregateNativeCharge R +
+          vfMidNativeDescentRemainder R +
+          vfMidDirectLogPositionError R) -
+        (vfMidSquarePrimePowerCorrection (R + 1) -
+          vfMidSquarePrimePowerCorrection R) := by
+  have hupdate :=
+    nativePNTError_square_succ_eq_old_sub_vfMidSquarePsiProtectedPull
+      R (by omega : 3 ≤ R)
+  have hdiff :=
+    nativePNTError_square_diff_eq_thetaBand_add_primePowerDiff R
+  have htheta :=
+    vfMidDirectThetaBandError_eq_nativeVFDescent R hR
+  rw [htheta] at hdiff
+  linarith
 
 /-! ## Square-psi reduction
 
