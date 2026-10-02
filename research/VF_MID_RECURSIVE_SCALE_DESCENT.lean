@@ -188,7 +188,10 @@ theorem vfMidRecursiveOwner_mixed_child_sign_witness :
       21 ∈ vfMidSquareBandCompositeOwnerChildren 7 3 ∧
       ¬ Nat.Prime 21 ∧
       Nat.sqrt 17 = 4 ∧ Nat.sqrt 19 = 4 ∧ Nat.sqrt 21 = 4 := by
-  native_decide
+  norm_num [vfMidSquareBandLateRecursiveOwners,
+    vfMidSquareBandLateOwnerPrimes, vfMidSquareBandOwnerPrimes,
+    vfMidSquareBandCompositeOwnerChildren, vfMidSquareBandCompositeOwner,
+    vfMidSquareBandComposites, vfMidSquareBandSites]
 
 /-- The mixed arithmetic child types become opposite VF seat-charge formulas at
 that common lower scale. -/
@@ -198,7 +201,7 @@ theorem vfMidRecursiveOwner_mixed_child_charge_formulas :
       vfMidOddSignedSeatCharge 4 21 =
         vfMidOddFractionalPrimeSeatWeight 4 := by
   constructor
-  · exact vfMidOddSignedSeatCharge_of_prime 4 17 (by native_decide)
-  · exact vfMidOddSignedSeatCharge_of_not_prime 4 21 (by native_decide)
+  · exact vfMidOddSignedSeatCharge_of_prime 4 17 (by norm_num)
+  · exact vfMidOddSignedSeatCharge_of_not_prime 4 21 (by norm_num)
 
 end RHLean.Analysis
