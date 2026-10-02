@@ -1,5 +1,6 @@
 import Mathlib
 import «research.VF_MID_VON_KOCH_BRIDGE»
+import RHLean.Analysis.PrimeSieveLipschitzExcursion
 
 /-!
 # Floored-Li fantasy prime-count closure
@@ -108,5 +109,83 @@ theorem riemannHypothesis_of_liFloorPrimeCountIdentification
     VFMidRiemannHypothesisStatement :=
   criterion.iff_riemannHypothesis.mp
     (primeLiVonKochBounded_of_liFloorPrimeCountIdentification hident)
+
+/-! ## Integer-cutoff staircase version
+
+The direct floor above is integer-valued but can jump at noninteger real
+locations.  For a literal prime-count-style staircase, first freeze the input
+at its integer cutoff and then floor the Li value.
+-/
+
+/-- Genuine integer-cutoff floored-Li staircase:
+    floor(Li(floor x)). -/
+def liIntegerCutoffFloorPrimeCountProxy (x : ℝ) : ℝ :=
+  liFloorPrimeCountProxy ((⌊x⌋₊ : ℕ) : ℝ)
+
+/-- On x >= 4, freezing Li at floor(x) costs at most 1/log 4. -/
+theorem abs_li_at_floor_sub_li_le_inv_log_four
+    {x : ℝ} (hx : 4 ≤ x) :
+    |vfMidLogarithmicIntegralFromTwo ((⌊x⌋₊ : ℕ) : ℝ) -
+        vfMidLogarithmicIntegralFromTwo x| ≤
+      1 / Real.log 4 := by
+  let n : ℕ := ⌊x⌋₊
+  have hx0 : 0 ≤ x := by linarith
+  have hnx : (n : ℝ) ≤ x := by
+    dsimp [n]
+    exact Nat.floor_le hx0
+  have hn4 : 4 ≤ n := by
+    dsimp [n]
+    exact Nat.le_floor (by simpa using hx)
+  have hn4r : (4 : ℝ) ≤ (n : ℝ) := by
+    exact_mod_cast hn4
+  have hxlt : x < (n : ℝ) + 1 := by
+    dsimp [n]
+    simpa using Nat.lt_floor_add_one x
+  have hwidth : x - (n : ℝ) ≤ 1 := by
+    linarith
+  have hraw :=
+    abs_logarithmicIntegralFromTwo_sub_le_log_succ
+      (y := 3) (a := (n : ℝ)) (b := x)
+      (by norm_num) (by norm_num at hn4r ⊢; exact hn4r) hnx
+  have hraw' :
+      |vfMidLogarithmicIntegralFromTwo x -
+          vfMidLogarithmicIntegralFromTwo (n : ℝ)| ≤
+        (x - (n : ℝ)) / Real.log 4 := by
+    simpa [vfMidLogarithmicIntegralFromTwo,
+      logarithmicIntegralFromTwo] using hraw
+  have hlog4 : 0 ≤ Real.log 4 :=
+    (Real.log_pos (by norm_num)).le
+  calc
+    |vfMidLogarithmicIntegralFromTwo (n : ℝ) -
+        vfMidLogarithmicIntegralFromTwo x|
+        = |vfMidLogarithmicIntegralFromTwo x -
+            vfMidLogarithmicIntegralFromTwo (n : ℝ)| := abs_sub_comm _ _
+    _ ≤ (x - (n : ℝ)) / Real.log 4 := hraw'
+    _ ≤ 1 / Real.log 4 :=
+      div_le_div_of_nonneg_right hwidth hlog4
+
+/-- The literal integer-cutoff floored-Li staircase stays uniformly O(1) from
+continuous Li.  The explicit constant is 1 + 1/log 4. -/
+theorem abs_liIntegerCutoffFloorPrimeCountProxy_sub_li_le
+    {x : ℝ} (hx : 4 ≤ x) :
+    |liIntegerCutoffFloorPrimeCountProxy x -
+        vfMidLogarithmicIntegralFromTwo x| ≤
+      1 + 1 / Real.log 4 := by
+  let n : ℕ := ⌊x⌋₊
+  have hround :=
+    liFloorPrimeCountProxy_uniformBounded ((n : ℝ))
+  have hgrid :=
+    abs_li_at_floor_sub_li_le_inv_log_four hx
+  have hdecomp :
+      liIntegerCutoffFloorPrimeCountProxy x -
+          vfMidLogarithmicIntegralFromTwo x =
+        (liFloorPrimeCountProxy (n : ℝ) -
+            vfMidLogarithmicIntegralFromTwo (n : ℝ)) +
+          (vfMidLogarithmicIntegralFromTwo (n : ℝ) -
+            vfMidLogarithmicIntegralFromTwo x) := by
+    dsimp [liIntegerCutoffFloorPrimeCountProxy, n]
+    ring
+  rw [hdecomp]
+  exact (abs_add_le _ _).trans (add_le_add hround hgrid)
 
 end RHLean.Analysis
