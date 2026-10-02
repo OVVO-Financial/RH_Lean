@@ -64,7 +64,8 @@ def vfMidLinearMidpointInterpolant (x : ℝ) : ℝ :=
       vfMidLinearMidpointSegment R x
 
 /-- Segment estimate used by the global interpolation theorem. -/
-set_option maxHeartbeats 1000000 in
+set_option maxHeartbeats 1000000
+
 private theorem abs_vfMidLinearMidpointSegment_sub_li_le
     (B : ℝ) (hB0 : 0 ≤ B)
     (hB : ∀ y : ℝ, 4 ≤ y →
@@ -301,6 +302,8 @@ private theorem abs_vfMidLinearMidpointSegment_sub_li_le
         (add_le_add_left hwidthDiv _)
         (add_le_add_left hwidthDiv _)
     _ = (3 * B + 6 / Real.log 4) * Real.sqrt x := by ring
+
+set_option maxHeartbeats 200000
 
 /-- Root-scale deterministic comparison of the literal midpoint interpolant to
 Li on every real cutoff x >= 4. -/
