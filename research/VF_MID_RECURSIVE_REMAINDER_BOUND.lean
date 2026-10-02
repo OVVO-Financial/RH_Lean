@@ -293,4 +293,104 @@ theorem abs_vfMidRecursiveRemainderInBlock_le_S
               vfMidOddFractionalPrimeSeatWeight S| := by
           linarith
 
+/-! ## Aggregate descended remainder -/
+
+/-- Sum of the transfer remainders over every nontrivial child block below R. -/
+def vfMidRecursiveAggregateRemainder (R : ℕ) : ℝ :=
+  ∑ S ∈ Finset.Ico 2 R, vfMidRecursiveRemainderInBlock R S
+
+/-- Aggregate native lower-scale charge over the same descended square blocks. -/
+def vfMidRecursiveAggregateNativeCharge (R : ℕ) : ℝ :=
+  ∑ S ∈ Finset.Ico 2 R, vfMidRecursiveNativeChargeInBlock R S
+
+/-- Parent weight carried by the descended populations, grouped by child block. -/
+def vfMidRecursiveAggregateParentCharge (R : ℕ) : ℝ :=
+  ∑ S ∈ Finset.Ico 2 R,
+    vfMidOddFractionalPrimeSeatWeight R *
+      ((vfMidRecursiveChildrenInBlock R S).card : ℝ)
+
+/-- Summing the exact local transfer identities gives an exact aggregate
+parent/native/remainder ledger before any absolute value is taken. -/
+theorem vfMidRecursiveAggregateParentCharge_eq_native_add_remainder
+    (R : ℕ) :
+    vfMidRecursiveAggregateParentCharge R =
+      vfMidRecursiveAggregateNativeCharge R +
+        vfMidRecursiveAggregateRemainder R := by
+  unfold vfMidRecursiveAggregateParentCharge
+    vfMidRecursiveAggregateNativeCharge
+    vfMidRecursiveAggregateRemainder
+  rw [← Finset.sum_add_distrib]
+  apply Finset.sum_congr rfl
+  intro S _hS
+  exact vfMidRecursiveParentCharge_eq_native_add_remainder R S
+
+/-- The aggregate deterministic budget obtained by choosing a possibly
+different prefix-wheel cutoff T(S) at each child scale. -/
+def vfMidRecursiveAggregatePrefixWheelBudget
+    (R : ℕ) (T : ℕ → ℕ) : ℝ :=
+  ∑ S ∈ Finset.Ico 2 R,
+    ((vfMidPrefixWheelEnvelope (T S) S : ℕ) : ℝ) +
+      ((vfMidRecursiveChildrenInBlock R S).card : ℝ) *
+        |vfMidOddFractionalPrimeSeatWeight R -
+          vfMidOddFractionalPrimeSeatWeight S|
+
+/-- **Aggregate prefix-wheel remainder bound.**
+
+For any scale-dependent choice of admissible prefix cutoffs T(S) <= S,
+
+    |sum_{2 <= S < R} Rem_{R,S}|
+      <= sum_{2 <= S < R}
+           (E_{T(S)}(S) + N_{R,S}|w_R-w_S|).
+
+This is the exact deterministic remainder estimate needed before the
+Cauchy--Schwarz budget-contraction step. -/
+theorem abs_vfMidRecursiveAggregateRemainder_le_prefixWheelBudget
+    (R : ℕ) (T : ℕ → ℕ)
+    (hT : ∀ S ∈ Finset.Ico 2 R, T S ≤ S) :
+    |vfMidRecursiveAggregateRemainder R| ≤
+      vfMidRecursiveAggregatePrefixWheelBudget R T := by
+  unfold vfMidRecursiveAggregateRemainder
+    vfMidRecursiveAggregatePrefixWheelBudget
+  calc
+    |∑ S ∈ Finset.Ico 2 R, vfMidRecursiveRemainderInBlock R S|
+        ≤ ∑ S ∈ Finset.Ico 2 R,
+            |vfMidRecursiveRemainderInBlock R S| := by
+          exact Finset.abs_sum_le_sum_abs _ _
+    _ ≤ ∑ S ∈ Finset.Ico 2 R,
+          ((vfMidPrefixWheelEnvelope (T S) S : ℕ) : ℝ) +
+            ((vfMidRecursiveChildrenInBlock R S).card : ℝ) *
+              |vfMidOddFractionalPrimeSeatWeight R -
+                vfMidOddFractionalPrimeSeatWeight S| := by
+          apply Finset.sum_le_sum
+          intro S hS
+          have hS2 : 2 ≤ S := (Finset.mem_Ico.mp hS).1
+          exact
+            abs_vfMidRecursiveRemainderInBlock_le_prefixWheel
+              R S (T S) hS2 (hT S hS)
+
+/-- Aggregate fallback using only the universal P_S <= S ceiling. -/
+theorem abs_vfMidRecursiveAggregateRemainder_le_halfWidthBudget
+    (R : ℕ) :
+    |vfMidRecursiveAggregateRemainder R| ≤
+      ∑ S ∈ Finset.Ico 2 R,
+        (S : ℝ) +
+          ((vfMidRecursiveChildrenInBlock R S).card : ℝ) *
+            |vfMidOddFractionalPrimeSeatWeight R -
+              vfMidOddFractionalPrimeSeatWeight S| := by
+  unfold vfMidRecursiveAggregateRemainder
+  calc
+    |∑ S ∈ Finset.Ico 2 R, vfMidRecursiveRemainderInBlock R S|
+        ≤ ∑ S ∈ Finset.Ico 2 R,
+            |vfMidRecursiveRemainderInBlock R S| := by
+          exact Finset.abs_sum_le_sum_abs _ _
+    _ ≤ ∑ S ∈ Finset.Ico 2 R,
+          (S : ℝ) +
+            ((vfMidRecursiveChildrenInBlock R S).card : ℝ) *
+              |vfMidOddFractionalPrimeSeatWeight R -
+                vfMidOddFractionalPrimeSeatWeight S| := by
+          apply Finset.sum_le_sum
+          intro S hS
+          exact abs_vfMidRecursiveRemainderInBlock_le_S
+            R S (Finset.mem_Ico.mp hS).1
+
 end RHLean.Analysis
