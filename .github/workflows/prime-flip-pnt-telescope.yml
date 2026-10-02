@@ -11,6 +11,7 @@ on:
       - research/EXACT_LI_DICKMAN_FORMAL.lean
       - research/EXACT_LI_PURE_MODEL_CLOSURE.lean
       - research/VF_MID_VON_KOCH_BRIDGE.lean
+      - research/VF_MID_MIDPOINT_LINEAR_ALL_X.lean
       - research/VF_MID_DIRECT_SIGNED_DYNAMICS.lean
       - research/VF_MID_SQUARE_BAND_COMPOSITE_BRIDGE.lean
       - research/VF_MID_FRACTIONAL_PRIME_CLUSTER.lean
@@ -108,6 +109,7 @@ jobs:
           mkdir -p .lake/build/lib/lean
           set -o pipefail
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_VON_KOCH_BRIDGE.olean research/VF_MID_VON_KOCH_BRIDGE.lean 2>&1 | tee vf-mid-von-koch.log
+          lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_MIDPOINT_LINEAR_ALL_X.olean research/VF_MID_MIDPOINT_LINEAR_ALL_X.lean 2>&1 | tee vf-mid-midpoint-linear-all-x.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_DIRECT_SIGNED_DYNAMICS.olean research/VF_MID_DIRECT_SIGNED_DYNAMICS.lean 2>&1 | tee vf-mid-direct-signed-dynamics.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_SQUARE_BAND_COMPOSITE_BRIDGE.olean research/VF_MID_SQUARE_BAND_COMPOSITE_BRIDGE.lean 2>&1 | tee vf-mid-square-band-composite-bridge.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_DIRECT_COMPOSITE_DESCENT.olean research/VF_MID_DIRECT_COMPOSITE_DESCENT.lean 2>&1 | tee vf-mid-direct-composite-descent.log
@@ -150,6 +152,7 @@ jobs:
           import «research.ALL_SCALE_LI_DISPLACEMENT_REDUCTION»
           import «research.EXACT_LI_PURE_MODEL_CLOSURE»
           import «research.VF_MID_VON_KOCH_BRIDGE»
+          import «research.VF_MID_MIDPOINT_LINEAR_ALL_X»
           import «research.VF_MID_FRACTIONAL_PRIME_CLUSTER»
           import «research.VF_MID_ODD_FRACTIONAL_CLUSTER»
           import «research.VF_MID_INTEGER_BLOCK_CAPTURE»
@@ -210,6 +213,13 @@ jobs:
           #print axioms RHLean.Analysis.exactLiContinuousModel_root_closed
           #print axioms RHLean.Analysis.vfMidPrimeLiError_eq_primeError_add_liError
           #print axioms RHLean.Analysis.vfMidLiRootBounded
+          #print axioms RHLean.Analysis.vfMidBandMidpoint_succ_sub
+          #print axioms RHLean.Analysis.vfMidBandMidpoint_succ_sub_pos
+          #print axioms RHLean.Analysis.vfMidMidpointAnchor_succ
+          #print axioms RHLean.Analysis.vfMidMidpointLinearSegment_left
+          #print axioms RHLean.Analysis.vfMidMidpointLinearSegment_right
+          #print axioms RHLean.Analysis.vfMidMidpointLinearSegment_glue
+          #print axioms RHLean.Analysis.vfMidMidpointLinear_eq_rightSegment
           #print axioms RHLean.Analysis.vfMidFractionalPrimeSeatWeight_sum_squareBand
           #print axioms RHLean.Analysis.vfMidSquareBandError_eq_fractionalPrimeClusterDiscrepancy
           #print axioms RHLean.Analysis.vfMidFractionalPrimeClusterDiscrepancy_eq_endpointError_sub
@@ -420,7 +430,7 @@ jobs:
           from pathlib import Path
           s = Path('prime-flip-pnt-axioms.log').read_text()
           records = re.findall(r"depends on axioms:\s*\[([^\]]*)\]", s, re.S)
-          assert len(records) == 241, records
+          assert len(records) == 248, records
           allowed = {'propext', 'Classical.choice', 'Quot.sound'}
           for record in records:
               actual = {a.strip() for a in record.split(',') if a.strip()}
@@ -437,6 +447,7 @@ jobs:
             all-scale-li-displacement.log
             exact-li-pure-model-closure.log
             vf-mid-von-koch.log
+            vf-mid-midpoint-linear-all-x.log
             vf-mid-direct-signed-dynamics.log
             vf-mid-square-band-composite-bridge.log
             vf-mid-direct-composite-descent.log
