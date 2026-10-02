@@ -1108,6 +1108,52 @@ theorem abs_sum_vfMidActualHighPrimeProtectedChildren_le
       rw [Finset.sum_mul]
 
 
+/-- **Global actual-prime high-tail bound on one protected parent.**
+Every legal fixed-parent star is dominated by the single complete
+root-to-square reciprocal-prime mass. -/
+theorem abs_sum_vfMidActualHighPrimeProtectedChildren_le_rootSquareMass
+    (R m : ℕ) (hR : 3 ≤ R) (hm : 1 ≤ m) :
+    |∑ q ∈ vfMidActualHighPrimeStarSet R m,
+        nativePNTSignedSquareBlockCorrelationReciprocalSummand
+          ((R + 1) ^ 2) (R ^ 2) ((R + 1) ^ 2) (m * q)| ≤
+      vfMidActualRootSquareReciprocalPrimeMass R *
+        |nativePNTSignedSquareBlockCorrelationReciprocalSummand
+          ((R + 1) ^ 2) (R ^ 2) ((R + 1) ^ 2) m| := by
+  have htail :=
+    abs_sum_vfMidActualHighPrimeProtectedChildren_le R m hR hm
+  have hmass :=
+    vfMidActualHighPrimeStarReciprocalMass_le_rootSquare R m
+  exact htail.trans
+    (mul_le_mul_of_nonneg_right hmass (abs_nonneg _))
+
+/-- **Strict high-tail contraction once the actual root-to-square owner mass
+is subunit.**  This is the direct protected-VF analogue of the exact-Li
+high-tail contraction. -/
+theorem abs_sum_vfMidActualHighPrimeProtectedChildren_lt_parent
+    (R m : ℕ) (hR : 3 ≤ R) (hm : 1 ≤ m)
+    (hmass : vfMidActualRootSquareReciprocalPrimeMass R < 1)
+    (hparent :
+      0 <
+        |nativePNTSignedSquareBlockCorrelationReciprocalSummand
+          ((R + 1) ^ 2) (R ^ 2) ((R + 1) ^ 2) m|) :
+    |∑ q ∈ vfMidActualHighPrimeStarSet R m,
+        nativePNTSignedSquareBlockCorrelationReciprocalSummand
+          ((R + 1) ^ 2) (R ^ 2) ((R + 1) ^ 2) (m * q)| <
+      |nativePNTSignedSquareBlockCorrelationReciprocalSummand
+          ((R + 1) ^ 2) (R ^ 2) ((R + 1) ^ 2) m| := by
+  have htail :=
+    abs_sum_vfMidActualHighPrimeProtectedChildren_le_rootSquareMass
+      R m hR hm
+  have hstrict :
+      vfMidActualRootSquareReciprocalPrimeMass R *
+          |nativePNTSignedSquareBlockCorrelationReciprocalSummand
+            ((R + 1) ^ 2) (R ^ 2) ((R + 1) ^ 2) m| <
+        1 *
+          |nativePNTSignedSquareBlockCorrelationReciprocalSummand
+            ((R + 1) ^ 2) (R ^ 2) ((R + 1) ^ 2) m| :=
+    mul_lt_mul_of_pos_right hmass hparent
+  exact htail.trans_lt (by simpa using hstrict)
+
 /-- The fixed VF alignment phase never changes square-block increments.  This is
 restated here only to keep the endpoint conclusion adjacent to the actual-prime
 carrier lemmas above. -/
