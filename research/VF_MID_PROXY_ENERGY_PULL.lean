@@ -952,4 +952,159 @@ theorem abs_vfMidDirectSquareEndpointError_le_of_boundaryDescent
   abs_vfMidDirectSquareEndpointError_le_of_squareThetaEnvelope
     (vfMidSquareThetaEnvelope_of_boundaryDescent h) R hR
 
+
+/-! ## Weaker minimal-counterexample forcing socket -/
+
+/-- Every recursive child scale used by #854 is still at least 3.  This is the
+lower-range fact needed to feed a child violation back into the finite
+initialization / strong-induction envelope argument. -/
+theorem vfMidRecursiveScaleStep_three_le
+    {R S : ℕ} (hstep : VFMidRecursiveScaleStep R S) :
+    3 ≤ S := by
+  rcases hstep with ⟨hR, p, m, hp, hm, rfl⟩
+  have hmGt :=
+    vfMidLateRecursiveOwner_child_gt_two_mul hR hp hm
+  apply (Nat.le_sqrt).2
+  norm_num
+  omega
+
+/-- An endpoint, rather than a block transition, is outside the target theta
+envelope. -/
+def VFMidThetaEndpointOutsideAt (C : ℝ) (R : ℕ) : Prop :=
+  ¬ (-vfMidThetaBarrierRadius C R ≤
+        vfMidDirectThetaEndpointError R ∧
+      vfMidDirectThetaEndpointError R ≤
+        vfMidThetaBarrierRadius C R)
+
+/-- **Logically minimal boundary forcing statement.**
+
+To close the envelope by minimal counterexample, a first one-step escape at
+scale R only has to force some already-earlier endpoint T ≤ R outside the
+envelope.  The lower endpoint need not itself be the first escape of a new
+recursive lineage.  This is strictly weaker than the escape-to-escape forcing
+statement above. -/
+def VFMidThetaBoundaryEscapeForcesEarlierViolationStatement
+    (C : ℝ) : Prop :=
+  ∀ R : ℕ, VFMidThetaBoundaryEscapeAt C R →
+    ∃ T : ℕ,
+      3 ≤ T ∧ T ≤ R ∧ VFMidThetaEndpointOutsideAt C T
+
+/-- Owner-tree shaped version of the same target.  It is enough to force the
+lower violation at either endpoint S or S+1 of one genuine recursive child
+square block. -/
+def VFMidThetaBoundaryEscapeForcesRecursiveViolationStatement
+    (C : ℝ) : Prop :=
+  ∀ R : ℕ, VFMidThetaBoundaryEscapeAt C R →
+    ∃ S T : ℕ,
+      VFMidRecursiveScaleStep R S ∧
+      (T = S ∨ T = S + 1) ∧
+      VFMidThetaEndpointOutsideAt C T
+
+/-- The recursive-child formulation implies the logically minimal earlier
+violation formulation, using only #854 strict descent and the child lower
+range. -/
+theorem vfMidThetaEarlierViolation_of_recursiveViolation
+    (C : ℝ)
+    (hrec :
+      VFMidThetaBoundaryEscapeForcesRecursiveViolationStatement C) :
+    VFMidThetaBoundaryEscapeForcesEarlierViolationStatement C := by
+  intro R hescape
+  obtain ⟨S, T, hstep, hT, houtside⟩ := hrec R hescape
+  have hSlt : S < R := vfMidRecursiveScaleStep_lt hstep
+  have hS3 : 3 ≤ S := vfMidRecursiveScaleStep_three_le hstep
+  refine ⟨T, ?_, ?_, houtside⟩
+  · rcases hT with rfl | rfl <;> omega
+  · rcases hT with rfl | rfl <;> omega
+
+/-- Finite initialization plus the genuinely minimal earlier-violation forcing
+statement. -/
+def VFMidThetaBoundaryMinimalDescentStatement : Prop :=
+  ∃ C : ℝ, 0 ≤ C ∧
+    (∀ R : ℕ, 3 ≤ R → R ≤ 7 →
+      -vfMidThetaBarrierRadius C R ≤
+          vfMidDirectThetaEndpointError R ∧
+        vfMidDirectThetaEndpointError R ≤
+          vfMidThetaBarrierRadius C R) ∧
+    VFMidThetaBoundaryEscapeForcesEarlierViolationStatement C
+
+/-- **Minimal-counterexample closure.**
+
+If a first outward escape forces any earlier endpoint outside, strong induction
+contradicts firstness.  This is weaker than requiring escape-to-escape
+persistence and is therefore the sharp logical consumer for the remaining
+arithmetic forcing theorem. -/
+theorem vfMidSquareThetaEnvelope_of_minimalBoundaryDescent
+    (h : VFMidThetaBoundaryMinimalDescentStatement) :
+    VFMidSquareThetaEnvelopeStatement := by
+  rcases h with ⟨C, hC0, hsmall, hforce⟩
+  have hinsideLarge :
+      ∀ N : ℕ, 7 ≤ N →
+        (-vfMidThetaBarrierRadius C N ≤
+              vfMidDirectThetaEndpointError N ∧
+          vfMidDirectThetaEndpointError N ≤
+              vfMidThetaBarrierRadius C N) := by
+    intro N
+    induction N using Nat.strong_induction_on with
+    | h N ih =>
+        intro hN7
+        by_cases hN : N = 7
+        · subst N
+          exact hsmall 7 (by omega) le_rfl
+        · have hN8 : 8 ≤ N := by omega
+          obtain ⟨R, rfl⟩ := Nat.exists_eq_succ_of_ne_zero (by omega : N ≠ 0)
+          have hR7 : 7 ≤ R := by omega
+          have hcurrent :
+              -vfMidThetaBarrierRadius C R ≤
+                    vfMidDirectThetaEndpointError R ∧
+                vfMidDirectThetaEndpointError R ≤
+                    vfMidThetaBarrierRadius C R :=
+            ih R (by omega) hR7
+          by_contra hnext
+          have hescape :
+              VFMidThetaBoundaryEscapeAt C R :=
+            ⟨hR7, hcurrent, hnext⟩
+          obtain ⟨T, hT3, hTR, hTout⟩ := hforce R hescape
+          have hTlt : T < R + 1 := by omega
+          have hTin :
+              -vfMidThetaBarrierRadius C T ≤
+                    vfMidDirectThetaEndpointError T ∧
+                vfMidDirectThetaEndpointError T ≤
+                    vfMidThetaBarrierRadius C T := by
+            by_cases hT7 : T ≤ 7
+            · exact hsmall T hT3 hT7
+            · exact ih T hTlt (by omega)
+          exact hTout hTin
+  refine ⟨C, hC0, ?_⟩
+  intro R hR3
+  have hinside :
+      -vfMidThetaBarrierRadius C R ≤
+            vfMidDirectThetaEndpointError R ∧
+        vfMidDirectThetaEndpointError R ≤
+            vfMidThetaBarrierRadius C R := by
+    by_cases hR7 : R ≤ 7
+    · exact hsmall R hR3 hR7
+    · exact hinsideLarge R (by omega)
+  have habs :
+      |vfMidDirectThetaEndpointError R| ≤
+        vfMidThetaBarrierRadius C R :=
+    (abs_le).2 hinside
+  simpa [vfMidThetaBarrierRadius] using habs
+
+/-- A recursive-child lower violation is therefore already sufficient for the
+full theta envelope. -/
+theorem vfMidSquareThetaEnvelope_of_recursiveBoundaryViolation
+    (C : ℝ) (hC0 : 0 ≤ C)
+    (hsmall :
+      ∀ R : ℕ, 3 ≤ R → R ≤ 7 →
+        -vfMidThetaBarrierRadius C R ≤
+            vfMidDirectThetaEndpointError R ∧
+          vfMidDirectThetaEndpointError R ≤
+            vfMidThetaBarrierRadius C R)
+    (hrec :
+      VFMidThetaBoundaryEscapeForcesRecursiveViolationStatement C) :
+    VFMidSquareThetaEnvelopeStatement := by
+  apply vfMidSquareThetaEnvelope_of_minimalBoundaryDescent
+  refine ⟨C, hC0, hsmall, ?_⟩
+  exact vfMidThetaEarlierViolation_of_recursiveViolation C hrec
+
 end RHLean.Analysis
