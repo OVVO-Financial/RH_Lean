@@ -174,3 +174,89 @@ The attack is successful only if the boundary charge in (2) can be identified
 with the actual signed VF/prime child correction from (1)/(4) without an
 uncontrolled factor of (q), multiplicity inflation, or an absolute value
 taken before the chronological telescope.
+
+
+## Attack update: the correct contraction is a high-owner star
+
+The old canonical-rough post-root Euler ledger is **not** the direct closure.
+`CanonicalRoughCriticalDefectWindows.lean` proves that for a fresh prime
+(p>R), the scaled defect is exactly the parent reciprocal correlation.  Thus
+post-root contraction on that carrier simply recycles the quantity being
+bounded.  Do not use that route for the VF proof.
+
+The native PNT / protected-block carrier is different and is now the focus.
+
+For a high owner (q>R), set
+
+[
+B_q=leftlfloorrac{R^2-1}{q}ightfloor.
+]
+
+Then (B_q<R<q).  Hence every (1le mle B_q) is automatically coprime to
+(q), and the compiled native reciprocal-Mobius law applies on the whole
+completed child:
+
+[
+sum_{mle B_q}
+left(v(m)+v(mq)ight)
+=
+left(1-rac1qight)
+sum_{mle B_q}v(m)
++
+sum_{mle B_q}D(m,q).
+]
+
+The new Lean theorem
+`vfMidActualHighPrimeChildReciprocalFiber_adjoin_eq_euler` certifies the pure
+fibre form, while
+`vfMidActualHighPrimeProtectedPairedReciprocalMass_eq_euler_add_defect`
+certifies it on the **direct adjacent-square protected correlation** used by the
+VF/(psi) consumer.
+
+The next algebraic simplification is more important.  Below the pre-square
+endpoint two distinct high primes cannot coexist in one product.  Therefore,
+for one fixed low parent (m), its completed post-root descendants form a star.
+Writing
+
+[
+Q_{R,m}=
+{q	ext{ prime}:R<qle R^2-1,;mqle R^2-1},
+]
+
+summing the one-prime laws gives
+
+[
+oxed{
+v(m)+sum_{qin Q_{R,m}}v(mq)
+=
+left(1-sum_{qin Q_{R,m}}rac1qight)v(m)
++
+sum_{qin Q_{R,m}}D(m,q).
+}
+]
+
+This is the exact location where a uniform root-to-square actual-prime
+reciprocal bound plugs in.  It is **a sum coefficient**, not the Euler-product
+hazard coefficient.  In particular, if the already-available root-to-square
+prime reciprocal estimate gives
+
+[
+sum_{R<qle R^2}rac1q<1,
+]
+
+then every star has a nonnegative strictly subunit retained-parent coefficient,
+since (Q_{R,m}) is a subset of that owner interval.
+
+The remaining mathematical content is then sharply localized:
+
+1. compile the star identity on the direct protected correlation;
+2. identify/bound the summed signed physical defects (D(m,q)) before norms;
+3. Abel-return the resulting reciprocal-prefix control to
+   `nativePNTSignedSquareBlockMobiusCorrelation`;
+4. feed that directly into `vfMidSquarePsiProtectedPull` and its exact energy
+   update.
+
+The repo already proves the Abel return and even the contrapositive fact that a
+large protected block forces a large reciprocal-prefix excursion.  Thus step
+(2), not endpoint convention or existence of the Euler factor, is now the
+critical arithmetic seam.
