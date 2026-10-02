@@ -125,6 +125,30 @@ theorem vfMidRecursivePrimeChildrenInBlock_card_le_prefixWheelEnvelope
     (vfMidRecursivePrimeChildrenInBlock_card_le_primeSupply R S).trans
       (vfMidIntegerBlockPrimeSupply_le_prefixWheelEnvelope T S hS hTS)
 
+/-- Prime children are also bounded by the actual descended population in
+their child block. -/
+theorem vfMidRecursivePrimeChildrenInBlock_card_le_population
+    (R S : ℕ) :
+    (vfMidRecursivePrimeChildrenInBlock R S).card ≤
+      (vfMidRecursiveChildrenInBlock R S).card := by
+  unfold vfMidRecursivePrimeChildrenInBlock
+  exact Finset.card_filter_le _ _
+
+/-- **Population-clipped dynamic wheel cap.**  The prime-correction channel is
+bounded simultaneously by the actual child population and by every admissible
+prefix-wheel envelope.  This is the useful form for descent because empty or
+sparse child blocks pay no artificial wheel cost. -/
+theorem vfMidRecursivePrimeChildrenInBlock_card_le_min_population_prefixWheel
+    (R S T : ℕ) (hS : 2 ≤ S) (hTS : T ≤ S) :
+    (vfMidRecursivePrimeChildrenInBlock R S).card ≤
+      min (vfMidRecursiveChildrenInBlock R S).card
+        (vfMidPrefixWheelEnvelope T S) := by
+  apply le_min
+  · exact vfMidRecursivePrimeChildrenInBlock_card_le_population R S
+  · exact
+      vfMidRecursivePrimeChildrenInBlock_card_le_prefixWheelEnvelope
+        R S T hS hTS
+
 /-- Crude but universal fallback: the prime correction on child block S is at
 most S. -/
 theorem vfMidRecursivePrimeChildrenInBlock_card_le_S
@@ -251,6 +275,61 @@ theorem abs_vfMidRecursiveRemainderInBlock_le_prefixWheel
               vfMidOddFractionalPrimeSeatWeight S| := by
           linarith
 
+/-- **Population-clipped prefix-wheel remainder bound.**
+
+This sharpens the raw wheel estimate by charging the prime-correction channel
+only for seats which actually occur in the descended child population:
+
+    |Rem_{R,S}| <= min(N_{R,S}, E_T(S)) + N_{R,S}|w_R-w_S|.
+
+It is therefore zero in the prime-correction channel whenever the child block
+is empty, which is the form required for a global budget contraction. -/
+theorem abs_vfMidRecursiveRemainderInBlock_le_minPopulationPrefixWheel
+    (R S T : ℕ) (hS : 2 ≤ S) (hTS : T ≤ S) :
+    |vfMidRecursiveRemainderInBlock R S| ≤
+      ((min (vfMidRecursiveChildrenInBlock R S).card
+        (vfMidPrefixWheelEnvelope T S) : ℕ) : ℝ) +
+        ((vfMidRecursiveChildrenInBlock R S).card : ℝ) *
+          |vfMidOddFractionalPrimeSeatWeight R -
+            vfMidOddFractionalPrimeSeatWeight S| := by
+  have hcapNat :=
+    vfMidRecursivePrimeChildrenInBlock_card_le_min_population_prefixWheel
+      R S T hS hTS
+  have hcap :
+      vfMidRecursivePrimeCorrectionInBlock R S ≤
+        ((min (vfMidRecursiveChildrenInBlock R S).card
+          (vfMidPrefixWheelEnvelope T S) : ℕ) : ℝ) := by
+    unfold vfMidRecursivePrimeCorrectionInBlock
+    exact_mod_cast hcapNat
+  have hprime0 :
+      0 ≤ vfMidRecursivePrimeCorrectionInBlock R S := by
+    unfold vfMidRecursivePrimeCorrectionInBlock
+    positivity
+  unfold vfMidRecursiveRemainderInBlock
+    vfMidRecursiveWeightTransferInBlock
+  calc
+    |vfMidRecursivePrimeCorrectionInBlock R S +
+        ((vfMidRecursiveChildrenInBlock R S).card : ℝ) *
+          (vfMidOddFractionalPrimeSeatWeight R -
+            vfMidOddFractionalPrimeSeatWeight S)|
+        ≤ |vfMidRecursivePrimeCorrectionInBlock R S| +
+            |((vfMidRecursiveChildrenInBlock R S).card : ℝ) *
+              (vfMidOddFractionalPrimeSeatWeight R -
+                vfMidOddFractionalPrimeSeatWeight S)| := abs_add _ _
+    _ = vfMidRecursivePrimeCorrectionInBlock R S +
+          ((vfMidRecursiveChildrenInBlock R S).card : ℝ) *
+            |vfMidOddFractionalPrimeSeatWeight R -
+              vfMidOddFractionalPrimeSeatWeight S| := by
+          rw [abs_of_nonneg hprime0, abs_mul,
+            abs_of_nonneg (by positivity :
+              0 ≤ ((vfMidRecursiveChildrenInBlock R S).card : ℝ))]
+    _ ≤ ((min (vfMidRecursiveChildrenInBlock R S).card
+          (vfMidPrefixWheelEnvelope T S) : ℕ) : ℝ) +
+          ((vfMidRecursiveChildrenInBlock R S).card : ℝ) *
+            |vfMidOddFractionalPrimeSeatWeight R -
+              vfMidOddFractionalPrimeSeatWeight S| := by
+          linarith
+
 /-- Universal half-width fallback for the same remainder. -/
 theorem abs_vfMidRecursiveRemainderInBlock_le_S
     (R S : ℕ) (hS : 2 ≤ S) :
@@ -366,6 +445,53 @@ theorem abs_vfMidRecursiveAggregateRemainder_le_prefixWheelBudget
           have hS2 : 2 ≤ S := (Finset.mem_Ico.mp hS).1
           exact
             abs_vfMidRecursiveRemainderInBlock_le_prefixWheel
+              R S (T S) hS2 (hT S hS)
+
+/-- Population-clipped aggregate budget.  This is strictly the relevant
+multi-scale quantity for Cauchy--Schwarz: a child scale contributes at most its
+actual population, and the expanding prefix wheel can only lower that charge. -/
+def vfMidRecursiveAggregateClippedPrefixWheelBudget
+    (R : ℕ) (T : ℕ → ℕ) : ℝ :=
+  ∑ S ∈ Finset.Ico 2 R,
+    ((min (vfMidRecursiveChildrenInBlock R S).card
+      (vfMidPrefixWheelEnvelope (T S) S) : ℕ) : ℝ) +
+      ((vfMidRecursiveChildrenInBlock R S).card : ℝ) *
+        |vfMidOddFractionalPrimeSeatWeight R -
+          vfMidOddFractionalPrimeSeatWeight S|
+
+/-- **Tight aggregate deterministic remainder bound.**
+
+For arbitrary admissible scale-dependent wheel cutoffs T(S) <= S,
+
+    |sum Rem_{R,S}|
+      <= sum [ min(N_{R,S}, E_{T(S)}(S))
+               + N_{R,S}|w_R-w_S| ].
+
+This removes the spurious cost of prefix-wheel residue classes on child blocks
+which are not actually populated by the recursive descent. -/
+theorem abs_vfMidRecursiveAggregateRemainder_le_clippedPrefixWheelBudget
+    (R : ℕ) (T : ℕ → ℕ)
+    (hT : ∀ S ∈ Finset.Ico 2 R, T S ≤ S) :
+    |vfMidRecursiveAggregateRemainder R| ≤
+      vfMidRecursiveAggregateClippedPrefixWheelBudget R T := by
+  unfold vfMidRecursiveAggregateRemainder
+    vfMidRecursiveAggregateClippedPrefixWheelBudget
+  calc
+    |∑ S ∈ Finset.Ico 2 R, vfMidRecursiveRemainderInBlock R S|
+        ≤ ∑ S ∈ Finset.Ico 2 R,
+            |vfMidRecursiveRemainderInBlock R S| := by
+          exact Finset.abs_sum_le_sum_abs _ _
+    _ ≤ ∑ S ∈ Finset.Ico 2 R,
+          ((min (vfMidRecursiveChildrenInBlock R S).card
+            (vfMidPrefixWheelEnvelope (T S) S) : ℕ) : ℝ) +
+            ((vfMidRecursiveChildrenInBlock R S).card : ℝ) *
+              |vfMidOddFractionalPrimeSeatWeight R -
+                vfMidOddFractionalPrimeSeatWeight S| := by
+          apply Finset.sum_le_sum
+          intro S hS
+          have hS2 : 2 ≤ S := (Finset.mem_Ico.mp hS).1
+          exact
+            abs_vfMidRecursiveRemainderInBlock_le_minPopulationPrefixWheel
               R S (T S) hS2 (hT S hS)
 
 /-- Aggregate fallback using only the universal P_S <= S ceiling. -/
