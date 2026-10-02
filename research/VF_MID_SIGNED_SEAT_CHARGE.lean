@@ -46,7 +46,6 @@ theorem vfMidOddSignedSeatCharge_of_prime
     vfMidOddSignedSeatCharge R n =
       -(1 - vfMidOddFractionalPrimeSeatWeight R) := by
   simp [vfMidOddSignedSeatCharge, vfMidActualPrimeSeatMass, hn]
-  ring
 
 /-- A composite/nonprime candidate seat carries the positive VF charge. -/
 theorem vfMidOddSignedSeatCharge_of_not_prime
@@ -88,7 +87,12 @@ theorem vfMidActualPrimeSeatMass_sum_oddCandidates
   rw [← Finset.sum_filter]
   rw [vfMidOddCandidateSeats_filter_prime R hR]
   rw [Finset.sum_const, nsmul_eq_mul]
-  simp [vfMidSquareBandPrimes_card_eq_integerBlockPrimeSupply]
+  have hcard :
+      (vfMidSquareWheelPrimes R).card =
+        vfMidIntegerBlockPrimeSupply R := by
+    unfold vfMidIntegerBlockPrimeSupply
+    rw [vfMidDirectPrimeBand_eq_squareWheelPrimes]
+  exact_mod_cast hcard
 
 /-- **Exact signed-seat identity.**
 The sum of the VF-minus-actual charges on the parity carrier is precisely the
@@ -180,7 +184,6 @@ theorem vfMidOddCompositeTrackingDefect_eq_terminal_recursive_charges
     vfMidSquareBandLateOwnerPrimes_eq_terminal_union_recursive,
     Finset.sum_union
       (vfMidSquareBandLateTerminal_recursive_disjoint R)]
-  ring
 
 /-- Weighted terminal-owner charge is unchanged when the owner is stripped:
 the child map preserves cardinality exactly. -/
