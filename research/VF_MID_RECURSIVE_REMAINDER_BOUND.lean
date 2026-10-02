@@ -90,6 +90,58 @@ theorem vfMidRecursiveChild_block_lt
   have hSq : R ^ 2 ≤ S ^ 2 := Nat.pow_le_pow_left hRS 2
   omega
 
+/-- Distinct native child square blocks are disjoint.  This is the physical
+population separation behind the later budget contraction. -/
+theorem vfMidRecursiveChildrenInBlock_pairwiseDisjoint
+    (R : ℕ) :
+    Set.PairwiseDisjoint (↑(Finset.Ico 2 R))
+      (vfMidRecursiveChildrenInBlock R) := by
+  intro S hS T hT hST
+  rw [Finset.disjoint_left]
+  intro m hmS hmT
+  rcases Finset.mem_inter.mp hmS with ⟨_hmCarS, hmBlockS⟩
+  rcases Finset.mem_inter.mp hmT with ⟨_hmCarT, hmBlockT⟩
+  rcases Finset.mem_Ioc.mp hmBlockS with ⟨hmSLow, hmSHigh⟩
+  rcases Finset.mem_Ioc.mp hmBlockT with ⟨hmTLow, hmTHigh⟩
+  rcases lt_or_gt_of_ne hST with hSLT | hTLS
+  · have hSucc : S + 1 ≤ T := by omega
+    have hSq : (S + 1) ^ 2 ≤ T ^ 2 :=
+      Nat.pow_le_pow_left hSucc 2
+    omega
+  · have hSucc : T + 1 ≤ S := by omega
+    have hSq : (T + 1) ^ 2 ≤ S ^ 2 :=
+      Nat.pow_le_pow_left hSucc 2
+    omega
+
+/-- Descended child populations in distinct native square blocks cannot
+double-count.  Hence the sum of all child-block populations below R is bounded
+by the flattened #850 recursive child population. -/
+theorem vfMidRecursiveChildrenInBlock_sum_card_le_carrier
+    (R : ℕ) :
+    (∑ S ∈ Finset.Ico 2 R,
+      (vfMidRecursiveChildrenInBlock R S).card) ≤
+        (vfMidRecursiveChildCarrier R).card := by
+  let I : Finset ℕ := Finset.Ico 2 R
+  let F : ℕ → Finset ℕ := vfMidRecursiveChildrenInBlock R
+  have hpair : Set.PairwiseDisjoint (↑I) F := by
+    simpa [I, F] using vfMidRecursiveChildrenInBlock_pairwiseDisjoint R
+  have hunion :
+      (I.biUnion F).card = ∑ S ∈ I, (F S).card := by
+    have h := Finset.sum_biUnion hpair (f := fun _ : ℕ => (1 : ℕ))
+    simpa using h
+  have hsubset : I.biUnion F ⊆ vfMidRecursiveChildCarrier R := by
+    intro m hm
+    rcases Finset.mem_biUnion.mp hm with ⟨S, _hS, hmF⟩
+    exact (Finset.mem_inter.mp hmF).1
+  calc
+    (∑ S ∈ Finset.Ico 2 R,
+      (vfMidRecursiveChildrenInBlock R S).card) =
+        (I.biUnion F).card := by
+          rw [hunion]
+          rfl
+    _ ≤ (vfMidRecursiveChildCarrier R).card :=
+      Finset.card_le_card hsubset
+
 /-- Prime children in one descended square block. -/
 def vfMidRecursivePrimeChildrenInBlock (R S : ℕ) : Finset ℕ :=
   (vfMidRecursiveChildrenInBlock R S).filter Nat.Prime
@@ -493,6 +545,54 @@ theorem abs_vfMidRecursiveAggregateRemainder_le_clippedPrefixWheelBudget
           exact
             abs_vfMidRecursiveRemainderInBlock_le_minPopulationPrefixWheel
               R S (T S) hS2 (hT S hS)
+
+/-- The total population-clipped prime-correction budget can never exceed
+the entire recursive child population, independently of how the wheel cutoff is
+chosen at each scale.  Prefix wheels may only improve this bound. -/
+theorem vfMidRecursiveAggregateClippedPrimeBudget_le_childCarrier
+    (R : ℕ) (T : ℕ → ℕ) :
+    (∑ S ∈ Finset.Ico 2 R,
+      min (vfMidRecursiveChildrenInBlock R S).card
+        (vfMidPrefixWheelEnvelope (T S) S)) ≤
+      (vfMidRecursiveChildCarrier R).card := by
+  calc
+    (∑ S ∈ Finset.Ico 2 R,
+      min (vfMidRecursiveChildrenInBlock R S).card
+        (vfMidPrefixWheelEnvelope (T S) S))
+        ≤ ∑ S ∈ Finset.Ico 2 R,
+            (vfMidRecursiveChildrenInBlock R S).card := by
+          apply Finset.sum_le_sum
+          intro S _hS
+          exact min_le_left _ _
+    _ ≤ (vfMidRecursiveChildCarrier R).card :=
+      vfMidRecursiveChildrenInBlock_sum_card_le_carrier R
+
+/-- Real-valued version of the preceding population budget. -/
+theorem vfMidRecursiveAggregateClippedPrimeBudget_cast_le_childCarrier
+    (R : ℕ) (T : ℕ → ℕ) :
+    (∑ S ∈ Finset.Ico 2 R,
+      (((min (vfMidRecursiveChildrenInBlock R S).card
+        (vfMidPrefixWheelEnvelope (T S) S) : ℕ) : ℝ))) ≤
+      ((vfMidRecursiveChildCarrier R).card : ℝ) := by
+  have h :=
+    vfMidRecursiveAggregateClippedPrimeBudget_le_childCarrier R T
+  exact_mod_cast h
+
+/-- Consequently the tight aggregate remainder budget is at most one total
+child-population unit plus the explicit VF weight-transfer budget. -/
+theorem vfMidRecursiveAggregateClippedPrefixWheelBudget_le_population_add_weight
+    (R : ℕ) (T : ℕ → ℕ) :
+    vfMidRecursiveAggregateClippedPrefixWheelBudget R T ≤
+      ((vfMidRecursiveChildCarrier R).card : ℝ) +
+        ∑ S ∈ Finset.Ico 2 R,
+          ((vfMidRecursiveChildrenInBlock R S).card : ℝ) *
+            |vfMidOddFractionalPrimeSeatWeight R -
+              vfMidOddFractionalPrimeSeatWeight S| := by
+  unfold vfMidRecursiveAggregateClippedPrefixWheelBudget
+  rw [Finset.sum_add_distrib]
+  have hprime :=
+    vfMidRecursiveAggregateClippedPrimeBudget_cast_le_childCarrier R T
+  linarith
 
 /-- Aggregate fallback using only the universal P_S <= S ceiling. -/
 theorem abs_vfMidRecursiveAggregateRemainder_le_halfWidthBudget
