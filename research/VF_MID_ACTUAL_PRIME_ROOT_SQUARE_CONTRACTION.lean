@@ -5,6 +5,7 @@ import RHLean.Proof.PostRootPartnerLogAlignment
 import RHLean.Analysis.NativePNTSquarePrefixContraction
 import RHLean.Analysis.DynamicVioleBaseline
 import RHLean.Analysis.NativePNTSignedSecondSelbergFrontierCharge
+import RHLean.Proof.NearOrthogonality
 
 /-!
 # Actual-prime root-to-square contraction attack
@@ -44,6 +45,7 @@ assumed or asserted here.
 noncomputable section
 
 open scoped BigOperators
+open Filter MeasureTheory Set
 
 namespace RHLean.Proof
 
@@ -228,6 +230,401 @@ theorem vfMidActualRootSquarePrimeSchedule_hazard_nonneg_lt_one
 /-- Actual-prime reciprocal owner mass on the complete root-to-square packet. -/
 def vfMidActualRootSquareReciprocalPrimeMass (R : ℕ) : ℝ :=
   ∑ q ∈ vfMidActualRootSquarePrimeCarrier R, 1 / (q : ℝ)
+
+/-! ## Actual-prime reciprocal mass from the compiled native PNT -/
+
+/-- Real indicator of an actual prime site. -/
+def vfMidActualPrimeIndicatorReal (n : ℕ) : ℝ :=
+  if n.Prime then 1 else 0
+
+/-- Reciprocal actual-prime prefix through an integer endpoint.  Writing it on
+the full integer range makes finite Abel summation definitionally exact. -/
+def vfMidActualPrimeReciprocalPrefix (N : ℕ) : ℝ :=
+  ∑ n ∈ Finset.range (N + 1),
+    vfMidActualPrimeIndicatorReal n * ((n : ℝ)⁻¹)
+
+/-- The inclusive prefix of the real prime indicator is exactly `pi(N)`. -/
+theorem inclusivePrefix_vfMidActualPrimeIndicatorReal_eq
+    (N : ℕ) :
+    inclusivePrefix vfMidActualPrimeIndicatorReal N =
+      (Nat.primeCounting N : ℝ) := by
+  unfold inclusivePrefix vfMidActualPrimeIndicatorReal
+  have hset :
+      (Finset.range (N + 1)).filter Nat.Prime = nativePrimeSet N := by
+    ext p
+    simp only [Finset.mem_filter, Finset.mem_range, nativePrimeSet,
+      Finset.mem_Icc, Nat.lt_succ_iff]
+    constructor
+    · rintro ⟨hpN, hp⟩
+      exact ⟨⟨hp.one_le, hpN⟩, hp⟩
+    · rintro ⟨⟨_hp1, hpN⟩, hp⟩
+      exact ⟨hpN, hp⟩
+  calc
+    (∑ k ∈ Finset.range (N + 1), if k.Prime then (1 : ℝ) else 0)
+        = ∑ k ∈ (Finset.range (N + 1)).filter Nat.Prime, (1 : ℝ) := by
+            rw [Finset.sum_filter]
+    _ = (((Finset.range (N + 1)).filter Nat.Prime).card : ℝ) := by simp
+    _ = ((nativePrimeSet N).card : ℝ) := by rw [hset]
+    _ = (Nat.primeCounting N : ℝ) := by
+          rw [nativePrimeSet_card_eq_primeCounting]
+
+/-- Exact prime-count Abel formula for the reciprocal prime prefix. -/
+theorem vfMidActualPrimeReciprocalPrefix_eq_abel
+    (N : ℕ) :
+    vfMidActualPrimeReciprocalPrefix N =
+      (Nat.primeCounting N : ℝ) * ((N : ℝ)⁻¹) +
+        ∑ k ∈ Finset.range N,
+          (Nat.primeCounting k : ℝ) *
+            (((k : ℝ)⁻¹) - (((k + 1 : ℕ) : ℝ)⁻¹)) := by
+  have habel :=
+    finite_abel_identity vfMidActualPrimeIndicatorReal
+      (fun k : ℕ => ((k : ℝ)⁻¹)) N
+  unfold vfMidActualPrimeReciprocalPrefix
+  rw [habel, inclusivePrefix_vfMidActualPrimeIndicatorReal_eq]
+  apply congrArg (fun z : ℝ =>
+    (Nat.primeCounting N : ℝ) * ((N : ℝ)⁻¹) + z)
+  apply Finset.sum_congr rfl
+  intro k hk
+  rw [inclusivePrefix_vfMidActualPrimeIndicatorReal_eq]
+
+/-- The root-to-square reciprocal packet is exactly the difference of two
+ordinary reciprocal-prime prefixes. -/
+theorem vfMidActualRootSquareReciprocalPrimeMass_eq_prefix_sub
+    (R : ℕ) (hR : 2 ≤ R) :
+    vfMidActualRootSquareReciprocalPrimeMass R =
+      vfMidActualPrimeReciprocalPrefix (R ^ 2) -
+        vfMidActualPrimeReciprocalPrefix R := by
+  let f : ℕ → ℝ := fun n =>
+    vfMidActualPrimeIndicatorReal n * ((n : ℝ)⁻¹)
+  have hRX : R + 1 ≤ R ^ 2 + 1 := by
+    have : R ≤ R ^ 2 := by nlinarith
+    omega
+  have hdiff :
+      (∑ n ∈ Finset.Ico (R + 1) (R ^ 2 + 1), f n) =
+        vfMidActualPrimeReciprocalPrefix (R ^ 2) -
+          vfMidActualPrimeReciprocalPrefix R := by
+    unfold vfMidActualPrimeReciprocalPrefix
+    exact Finset.sum_Ico_eq_sub f hRX
+  have hset :
+      Finset.Ico (R + 1) (R ^ 2 + 1) = Finset.Ioc R (R ^ 2) := by
+    ext n
+    simp only [Finset.mem_Ico, Finset.mem_Ioc]
+    omega
+  rw [hset] at hdiff
+  unfold vfMidActualRootSquareReciprocalPrimeMass
+    vfMidActualRootSquarePrimeCarrier
+  calc
+    (∑ q ∈ (Finset.Ioc R (R ^ 2)).filter Nat.Prime, 1 / (q : ℝ))
+        = ∑ q ∈ Finset.Ioc R (R ^ 2), f q := by
+          rw [Finset.sum_filter]
+          apply Finset.sum_congr rfl
+          intro q hq
+          unfold f vfMidActualPrimeIndicatorReal
+          by_cases hp : q.Prime
+          · simp [hp, one_div]
+          · simp [hp]
+    _ = _ := hdiff
+
+/-- Exact Abel formula on the complete actual root-to-square packet. -/
+theorem vfMidActualRootSquareReciprocalPrimeMass_eq_abel
+    (R : ℕ) (hR : 2 ≤ R) :
+    vfMidActualRootSquareReciprocalPrimeMass R =
+      (Nat.primeCounting (R ^ 2) : ℝ) * (((R ^ 2 : ℕ) : ℝ)⁻¹) -
+        (Nat.primeCounting R : ℝ) * ((R : ℝ)⁻¹) +
+        ∑ k ∈ Finset.Ico R (R ^ 2),
+          (Nat.primeCounting k : ℝ) *
+            (((k : ℝ)⁻¹) - (((k + 1 : ℕ) : ℝ)⁻¹)) := by
+  rw [vfMidActualRootSquareReciprocalPrimeMass_eq_prefix_sub R hR,
+    vfMidActualPrimeReciprocalPrefix_eq_abel,
+    vfMidActualPrimeReciprocalPrefix_eq_abel]
+  have hRR : R ≤ R ^ 2 := by nlinarith
+  have hsum :=
+    Finset.sum_Ico_eq_sub
+      (fun k : ℕ =>
+        (Nat.primeCounting k : ℝ) *
+          (((k : ℝ)⁻¹) - (((k + 1 : ℕ) : ℝ)⁻¹))) hRR
+  rw [hsum]
+  ring
+
+/-- The logarithmic kernel used in the reciprocal-prime Abel return. -/
+def vfMidReciprocalLogKernel (t : ℝ) : ℝ :=
+  1 / (t * Real.log t)
+
+/-- On positive logarithmic scales the reciprocal-log kernel is antitone. -/
+theorem vfMidReciprocalLogKernel_antitoneOn
+    {a b : ℝ} (ha : 2 ≤ a) :
+    AntitoneOn vfMidReciprocalLogKernel (Set.Icc a b) := by
+  intro x hx y hy hxy
+  have hx2 : (2 : ℝ) ≤ x := ha.trans hx.1
+  have hy2 : (2 : ℝ) ≤ y := hx2.trans hxy
+  have hx0 : 0 < x := by linarith
+  have hy0 : 0 < y := by linarith
+  have hlx0 : 0 < Real.log x := Real.log_pos (by linarith)
+  have hly0 : 0 < Real.log y := Real.log_pos (by linarith)
+  have hlog : Real.log x ≤ Real.log y :=
+    Real.log_le_log hx0 hxy
+  have hprod : x * Real.log x ≤ y * Real.log y := by
+    calc
+      x * Real.log x ≤ y * Real.log x :=
+        mul_le_mul_of_nonneg_right hxy hlx0.le
+      _ ≤ y * Real.log y :=
+        mul_le_mul_of_nonneg_left hlog hy0.le
+  unfold vfMidReciprocalLogKernel
+  exact one_div_le_one_div_of_le (mul_pos hx0 hlx0) hprod
+
+/-- Primitive of the reciprocal-log kernel on positive logarithmic scales. -/
+theorem integral_vfMidReciprocalLogKernel
+    {a b : ℝ} (ha : 2 ≤ a) (hb : 2 ≤ b) :
+    (∫ t in a..b, vfMidReciprocalLogKernel t) =
+      Real.log (Real.log b) - Real.log (Real.log a) := by
+  have hint :
+      IntervalIntegrable vfMidReciprocalLogKernel MeasureTheory.volume a b := by
+    apply ContinuousOn.intervalIntegrable
+    intro t ht
+    have ht2 : (2 : ℝ) ≤ t := (le_min ha hb).trans ht.1
+    have ht0 : t ≠ 0 := by linarith
+    have hl0 : Real.log t ≠ 0 :=
+      ne_of_gt (Real.log_pos (by linarith))
+    unfold vfMidReciprocalLogKernel
+    exact (continuousAt_const.div
+      (continuousAt_id.mul (Real.continuousAt_log ht0))
+      (mul_ne_zero ht0 hl0)).continuousWithinAt
+  apply intervalIntegral.integral_eq_sub_of_hasDerivAt
+    (f := fun t : ℝ => Real.log (Real.log t)) _ hint
+  intro t ht
+  have ht2 : (2 : ℝ) ≤ t := (le_min ha hb).trans ht.1
+  have ht0 : t ≠ 0 := by linarith
+  have hl0 : Real.log t ≠ 0 :=
+    ne_of_gt (Real.log_pos (by linarith))
+  convert (Real.hasDerivAt_log ht0).log hl0 using 1
+  unfold vfMidReciprocalLogKernel
+  simp only [div_eq_mul_inv, mul_inv_rev]
+  ring
+
+/-- For sufficiently large integer sites, moving the logarithm from `k` to
+`k+1` costs at most one percent. -/
+theorem inv_log_natCast_le_one01_mul_inv_log_succ
+    {k : ℕ} (hk : 100 ≤ k) :
+    (Real.log (k : ℝ))⁻¹ ≤
+      (101 / 100 : ℝ) * (Real.log ((k + 1 : ℕ) : ℝ))⁻¹ := by
+  have hk0 : (0 : ℝ) < k := by exact_mod_cast (show 0 < k by omega)
+  have hk1 : (1 : ℝ) < k := by exact_mod_cast (show 1 < k by omega)
+  have hkp0 : (0 : ℝ) < ((k + 1 : ℕ) : ℝ) := by positivity
+  have hlk0 : 0 < Real.log (k : ℝ) := Real.log_pos hk1
+  have hlkp0 : 0 < Real.log ((k + 1 : ℕ) : ℝ) :=
+    Real.log_pos (by exact_mod_cast (show 1 < k + 1 by omega))
+  have hratioPos :
+      0 < (((k + 1 : ℕ) : ℝ) / (k : ℝ)) := div_pos hkp0 hk0
+  have hlogstep :=
+    Real.log_le_sub_one_of_pos hratioPos
+  rw [Real.log_div hkp0.ne' hk0.ne'] at hlogstep
+  have hratio :
+      (((k + 1 : ℕ) : ℝ) / (k : ℝ)) - 1 = 1 / (k : ℝ) := by
+    push_cast
+    field_simp
+    ring
+  rw [hratio] at hlogstep
+  have hkinv : 1 / (k : ℝ) ≤ (1 / 100 : ℝ) := by
+    rw [one_div_le_one_div (by norm_num : (0 : ℝ) < 100) hk0]
+    exact_mod_cast hk
+  have hlog4 :
+      (1 : ℝ) < Real.log (k : ℝ) := by
+    have h2 := Real.log_two_gt_d9
+    have hlog4eq : Real.log (4 : ℝ) = 2 * Real.log 2 := by
+      calc
+        Real.log (4 : ℝ) = Real.log ((2 : ℝ) ^ 2) := by norm_num
+        _ = 2 * Real.log 2 := by rw [Real.log_pow]; norm_num
+    have h4k : (4 : ℝ) ≤ (k : ℝ) := by exact_mod_cast (show 4 ≤ k by omega)
+    have hmono := Real.log_le_log (by norm_num : (0 : ℝ) < 4) h4k
+    rw [hlog4eq] at hmono
+    nlinarith
+  have hstep :
+      Real.log ((k + 1 : ℕ) : ℝ) ≤
+        (101 / 100 : ℝ) * Real.log (k : ℝ) := by
+    have : Real.log ((k + 1 : ℕ) : ℝ) - Real.log (k : ℝ) ≤
+        (1 / 100 : ℝ) := hlogstep.trans hkinv
+    nlinarith
+  rw [inv_le_iff₀ hlk0, mul_inv, inv_mul_eq_div,
+    div_le_iff₀ hlkp0]
+  nlinarith
+
+/-- The proved native PNT supplies an eventual 1.01 upper envelope for the
+prime-counting function. -/
+theorem eventually_nativePrimeCounting_le_one01_mul_div_log :
+    ∀ᶠ N : ℕ in atTop,
+      (Nat.primeCounting N : ℝ) ≤
+        (101 / 100 : ℝ) * (N : ℝ) / Real.log (N : ℝ) := by
+  have hpnt : ∀ᶠ N : ℕ in atTop,
+      ((Nat.primeCounting N : ℝ) * Real.log (N : ℝ) / (N : ℝ)) <
+        (101 / 100 : ℝ) :=
+    (tendsto_order.1 nativePrimeNumberTheorem).2
+      (101 / 100 : ℝ) (by norm_num)
+  filter_upwards [eventually_ge_atTop 2, hpnt] with N hN hp
+  have hN0 : (0 : ℝ) < (N : ℝ) := by exact_mod_cast (show 0 < N by omega)
+  have hl0 : 0 < Real.log (N : ℝ) :=
+    Real.log_pos (by exact_mod_cast (show 1 < N by omega))
+  have hmul :
+      (Nat.primeCounting N : ℝ) * Real.log (N : ℝ) <
+        (101 / 100 : ℝ) * (N : ℝ) := by
+    exact (div_lt_iff₀ hN0).mp hp
+  exact ((le_div_iff₀ hl0).2 hmul.le)
+
+/-- **Actual-prime root-to-square reciprocal contraction, eventually.**
+This is the missing scalar analogue of the exact-Li `log 2` bound.  It uses
+only the already-compiled native PNT, finite Abel summation, and the elementary
+integral of `1/(t log t)`.  No RH-rate input enters.
+
+The constants are intentionally loose: PNT gives a 1.01 density envelope,
+moving `log k` to `log(k+1)` costs another 1.01, and
+`log 2 < 0.9`; the resulting bulk constant is below 0.919.  The remaining
+endpoint term tends to zero. -/
+theorem eventually_vfMidActualRootSquareReciprocalPrimeMass_lt_one :
+    ∀ᶠ R : ℕ in atTop,
+      vfMidActualRootSquareReciprocalPrimeMass R < 1 := by
+  rcases (eventually_atTop.1
+    eventually_nativePrimeCounting_le_one01_mul_div_log) with
+      ⟨Y, hY⟩
+  have hlogTop :
+      Tendsto (fun R : ℕ => Real.log (R : ℝ)) atTop atTop :=
+    Real.tendsto_log_atTop.comp tendsto_natCast_atTop_atTop
+  have hlogLarge : ∀ᶠ R : ℕ in atTop,
+      (20 : ℝ) < Real.log (R : ℝ) :=
+    hlogTop.eventually (eventually_gt_atTop 20)
+  filter_upwards [eventually_ge_atTop (max 100 Y), hlogLarge]
+      with R hRbig hlogR20
+  have hR100 : 100 ≤ R := (le_max_left 100 Y).trans hRbig
+  have hYR : Y ≤ R := (le_max_right 100 Y).trans hRbig
+  have hR2 : 2 ≤ R := by omega
+  have hRpos : (0 : ℝ) < (R : ℝ) := by exact_mod_cast (show 0 < R by omega)
+  have hlogRpos : 0 < Real.log (R : ℝ) := by linarith
+  have hRsq : R ≤ R ^ 2 := by nlinarith
+  let X : ℕ := R ^ 2
+  have hYX : Y ≤ X := hYR.trans hRsq
+  have hpi :
+      ∀ n : ℕ, R ≤ n →
+        (Nat.primeCounting n : ℝ) ≤
+          (101 / 100 : ℝ) * (n : ℝ) / Real.log (n : ℝ) := by
+    intro n hRn
+    exact hY n (hYR.trans hRn)
+  have hlogX :
+      Real.log (X : ℝ) = 2 * Real.log (R : ℝ) := by
+    dsimp [X]
+    rw [Nat.cast_pow, Real.log_pow]
+    norm_num
+  have hboundary :
+      (Nat.primeCounting X : ℝ) * ((X : ℝ)⁻¹) < (1 / 20 : ℝ) := by
+    have hpiX := hpi X hRsq
+    have hXpos : (0 : ℝ) < (X : ℝ) := by
+      dsimp [X]
+      positivity
+    calc
+      (Nat.primeCounting X : ℝ) * ((X : ℝ)⁻¹)
+          ≤ ((101 / 100 : ℝ) * (X : ℝ) / Real.log (X : ℝ)) *
+              ((X : ℝ)⁻¹) := by
+            exact mul_le_mul_of_nonneg_right hpiX (inv_nonneg.mpr hXpos.le)
+      _ = (101 / 100 : ℝ) / Real.log (X : ℝ) := by
+            field_simp
+      _ < (1 / 20 : ℝ) := by
+            rw [hlogX]
+            have : (101 / 100 : ℝ) < (1 / 20 : ℝ) *
+                (2 * Real.log (R : ℝ)) := by
+              nlinarith
+            exact (div_lt_iff₀ (by positivity : 0 < 2 * Real.log (R : ℝ))).2 this
+  have hkernel :
+      (∑ k ∈ Finset.Ico R X,
+          (Nat.primeCounting k : ℝ) *
+            (((k : ℝ)⁻¹) - (((k + 1 : ℕ) : ℝ)⁻¹))) ≤
+        ((101 / 100 : ℝ) * (101 / 100 : ℝ)) *
+          Real.log 2 := by
+    have hpoint :
+        ∀ k ∈ Finset.Ico R X,
+          (Nat.primeCounting k : ℝ) *
+              (((k : ℝ)⁻¹) - (((k + 1 : ℕ) : ℝ)⁻¹)) ≤
+            ((101 / 100 : ℝ) * (101 / 100 : ℝ)) *
+              vfMidReciprocalLogKernel ((k + 1 : ℕ) : ℝ) := by
+      intro k hk
+      have hkI := Finset.mem_Ico.mp hk
+      have hkR : R ≤ k := hkI.1
+      have hk100 : 100 ≤ k := hR100.trans hkR
+      have hk0 : (0 : ℝ) < (k : ℝ) := by
+        exact_mod_cast (show 0 < k by omega)
+      have hkp0 : (0 : ℝ) < ((k + 1 : ℕ) : ℝ) := by positivity
+      have hlogk0 : 0 < Real.log (k : ℝ) :=
+        Real.log_pos (by exact_mod_cast (show 1 < k by omega))
+      have hdiff :
+          ((k : ℝ)⁻¹) - (((k + 1 : ℕ) : ℝ)⁻¹) =
+            1 / ((k : ℝ) * ((k + 1 : ℕ) : ℝ)) := by
+        push_cast
+        field_simp
+        ring
+      have hpiK := hpi k hkR
+      have hinvlog :=
+        inv_log_natCast_le_one01_mul_inv_log_succ (k := k) hk100
+      rw [hdiff]
+      calc
+        (Nat.primeCounting k : ℝ) /
+              ((k : ℝ) * ((k + 1 : ℕ) : ℝ))
+            ≤ ((101 / 100 : ℝ) * (k : ℝ) / Real.log (k : ℝ)) /
+                ((k : ℝ) * ((k + 1 : ℕ) : ℝ)) := by
+              exact div_le_div_of_nonneg_right hpiK (by positivity)
+        _ = (101 / 100 : ℝ) *
+              (Real.log (k : ℝ))⁻¹ *
+              (((k + 1 : ℕ) : ℝ)⁻¹) := by
+              field_simp
+              ring
+        _ ≤ (101 / 100 : ℝ) *
+              ((101 / 100 : ℝ) *
+                (Real.log ((k + 1 : ℕ) : ℝ))⁻¹) *
+              (((k + 1 : ℕ) : ℝ)⁻¹) := by
+              gcongr
+        _ = ((101 / 100 : ℝ) * (101 / 100 : ℝ)) *
+              vfMidReciprocalLogKernel ((k + 1 : ℕ) : ℝ) := by
+              unfold vfMidReciprocalLogKernel
+              field_simp
+              ring
+    calc
+      (∑ k ∈ Finset.Ico R X,
+          (Nat.primeCounting k : ℝ) *
+            (((k : ℝ)⁻¹) - (((k + 1 : ℕ) : ℝ)⁻¹)))
+          ≤ ∑ k ∈ Finset.Ico R X,
+              ((101 / 100 : ℝ) * (101 / 100 : ℝ)) *
+                vfMidReciprocalLogKernel ((k + 1 : ℕ) : ℝ) := by
+            exact Finset.sum_le_sum hpoint
+      _ = ((101 / 100 : ℝ) * (101 / 100 : ℝ)) *
+            ∑ k ∈ Finset.Ico R X,
+              vfMidReciprocalLogKernel ((k + 1 : ℕ) : ℝ) := by
+            rw [Finset.mul_sum]
+      _ ≤ ((101 / 100 : ℝ) * (101 / 100 : ℝ)) *
+            (∫ t in (R : ℝ)..(X : ℝ), vfMidReciprocalLogKernel t) := by
+            apply mul_le_mul_of_nonneg_left
+            · exact
+                (vfMidReciprocalLogKernel_antitoneOn
+                  (a := (R : ℝ)) (b := (X : ℝ))
+                  (by exact_mod_cast (show 2 ≤ R by omega))).sum_le_integral_Ico
+                  hRsq
+            · norm_num
+      _ = ((101 / 100 : ℝ) * (101 / 100 : ℝ)) *
+            (Real.log (Real.log (X : ℝ)) -
+              Real.log (Real.log (R : ℝ))) := by
+            rw [integral_vfMidReciprocalLogKernel
+              (by exact_mod_cast (show 2 ≤ R by omega))
+              (by
+                dsimp [X]
+                exact_mod_cast (show 2 ≤ R ^ 2 by nlinarith))]
+      _ = ((101 / 100 : ℝ) * (101 / 100 : ℝ)) *
+            Real.log 2 := by
+            rw [hlogX, Real.log_mul (by norm_num)
+              (ne_of_gt hlogRpos)]
+            ring
+  have hbulk :
+      ((101 / 100 : ℝ) * (101 / 100 : ℝ)) * Real.log 2 <
+        (919 / 1000 : ℝ) := by
+    have hlog2 := Real.log_two_lt_d9
+    nlinarith
+  rw [vfMidActualRootSquareReciprocalPrimeMass_eq_abel R hR2]
+  have hleftNonneg :
+      0 ≤ (Nat.primeCounting R : ℝ) * ((R : ℝ)⁻¹) := by positivity
+  nlinarith
 
 /-- Every fixed-parent legal star is a subset of the complete root-to-square
 actual-prime carrier, so its reciprocal mass is bounded by the global packet
