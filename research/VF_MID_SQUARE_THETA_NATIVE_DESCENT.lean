@@ -262,6 +262,7 @@ theorem nativePNTError_square_diff_eq_thetaBand_add_primePowerDiff
           vfMidSquarePrimePowerCorrection R) := by
   unfold nativePNTError vfMidDirectThetaBandError
     vfMidSquarePrimePowerCorrection
+  rw [vfMidDirectThetaBandMass_eq_theta_sub]
   push_cast
   ring
 
