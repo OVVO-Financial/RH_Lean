@@ -35,10 +35,41 @@
   },
   "crossing": {
     "tested_R_max": 10000,
-    "unaligned_full_graph_failures": [2, 3, 4],
+    "unaligned_full_graph_failures": [
+      2,
+      3,
+      4
+    ],
     "anchored_c0": 1.3287775483429884,
     "anchored_full_graph_failures": [],
-    "anchored_horizontal_failures": [2, 119, 178, 547, 549],
-    "anchored_vertical_rescues": [[2, "R"], [119, "L"], [178, "L"], [547, "L"], [549, "L"]]
+    "anchored_horizontal_failures": [
+      2,
+      119,
+      178,
+      547,
+      549
+    ],
+    "anchored_vertical_rescues": [
+      [
+        2,
+        "R"
+      ],
+      [
+        119,
+        "L"
+      ],
+      [
+        178,
+        "L"
+      ],
+      [
+        547,
+        "L"
+      ],
+      [
+        549,
+        "L"
+      ]
+    ]
   }
 }
