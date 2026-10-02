@@ -313,7 +313,7 @@ theorem abs_vfMidRecursiveRemainderInBlock_le_prefixWheel
         ≤ |vfMidRecursivePrimeCorrectionInBlock R S| +
             |((vfMidRecursiveChildrenInBlock R S).card : ℝ) *
               (vfMidOddFractionalPrimeSeatWeight R -
-                vfMidOddFractionalPrimeSeatWeight S)| := abs_add _ _
+                vfMidOddFractionalPrimeSeatWeight S)| := abs_add_le _ _
     _ = vfMidRecursivePrimeCorrectionInBlock R S +
           ((vfMidRecursiveChildrenInBlock R S).card : ℝ) *
             |vfMidOddFractionalPrimeSeatWeight R -
@@ -367,7 +367,7 @@ theorem abs_vfMidRecursiveRemainderInBlock_le_minPopulationPrefixWheel
         ≤ |vfMidRecursivePrimeCorrectionInBlock R S| +
             |((vfMidRecursiveChildrenInBlock R S).card : ℝ) *
               (vfMidOddFractionalPrimeSeatWeight R -
-                vfMidOddFractionalPrimeSeatWeight S)| := abs_add _ _
+                vfMidOddFractionalPrimeSeatWeight S)| := abs_add_le _ _
     _ = vfMidRecursivePrimeCorrectionInBlock R S +
           ((vfMidRecursiveChildrenInBlock R S).card : ℝ) *
             |vfMidOddFractionalPrimeSeatWeight R -
@@ -410,7 +410,7 @@ theorem abs_vfMidRecursiveRemainderInBlock_le_S
         ≤ |vfMidRecursivePrimeCorrectionInBlock R S| +
             |((vfMidRecursiveChildrenInBlock R S).card : ℝ) *
               (vfMidOddFractionalPrimeSeatWeight R -
-                vfMidOddFractionalPrimeSeatWeight S)| := abs_add _ _
+                vfMidOddFractionalPrimeSeatWeight S)| := abs_add_le _ _
     _ = vfMidRecursivePrimeCorrectionInBlock R S +
           ((vfMidRecursiveChildrenInBlock R S).card : ℝ) *
             |vfMidOddFractionalPrimeSeatWeight R -
