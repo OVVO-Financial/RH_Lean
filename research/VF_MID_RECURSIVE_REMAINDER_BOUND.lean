@@ -675,7 +675,12 @@ theorem vfMidRecursiveAggregateParentCharge_eq_fullRecursiveCharge
   rw [← Finset.mul_sum]
   have hcard :=
     vfMidRecursiveChildrenInBlock_sum_card_eq_carrier R hR
-  exact_mod_cast congrArg (fun n : ℕ => n) hcard
+  have hcardR :
+      (∑ S ∈ Finset.Ico 2 R,
+        ((vfMidRecursiveChildrenInBlock R S).card : ℝ)) =
+          ((vfMidRecursiveChildCarrier R).card : ℝ) := by
+    exact_mod_cast hcard
+  rw [hcardR]
 
 /-- Hence the aggregate transfer ledger covers the entire recursive child
 sector, not merely a selected subfamily of child scales. -/
