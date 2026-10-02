@@ -243,19 +243,27 @@ theorem riemannHypothesis_of_vfMidLinearProxyTracking
 /-! ### Scenario 4: floored Li -/
 
 def LiFloorProxyTrackingStatement : Prop :=
-  PrimeProxyVonKochTrackingStatement liFloorPrimeCountProxy
+  PrimeProxyVonKochTrackingStatement liIntegerCutoffFloorPrimeCountProxy
 
 theorem liFloorProxy_li_root_bounded :
-    PrimeProxyLiRootBoundedStatement liFloorPrimeCountProxy := by
-  refine ⟨1, by norm_num, ?_⟩
+    PrimeProxyLiRootBoundedStatement liIntegerCutoffFloorPrimeCountProxy := by
+  let K : ℝ := 1 + 1 / Real.log 4
+  have hlog4 : 0 < Real.log 4 := Real.log_pos (by norm_num)
+  have hK0 : 0 ≤ K := by
+    dsimp [K]
+    positivity
+  refine ⟨K, hK0, ?_⟩
   intro x hx
-  have hround := liFloorPrimeCountProxy_uniformBounded x
+  have hround :=
+    abs_liIntegerCutoffFloorPrimeCountProxy_sub_li_le hx
   have hx0 : 0 ≤ x := by linarith
   have hs := Real.sq_sqrt hx0
   have hs0 := Real.sqrt_nonneg x
   have hsqrt : (1 : ℝ) ≤ Real.sqrt x := by
     nlinarith
-  exact hround.trans (by simpa using hsqrt)
+  have hscale : K ≤ K * Real.sqrt x := by
+    simpa using mul_le_mul_of_nonneg_left hsqrt hK0
+  exact hround.trans hscale
 
 theorem riemannHypothesis_of_liFloorProxyTracking
     (criterion : ClassicalVonKochRHCriterion)
