@@ -1,0 +1,14 @@
+{
+  "main_paths": 3582,
+  "serial_paths": 1029,
+  "total_paths": 4611,
+  "main_pooled_q99_RH1000": 0.4128823162971486,
+  "main_pooled_max_RH1000": 0.5550283478723559,
+  "serial_pooled_q99_RH1000": 0.2795783498396072,
+  "serial_pooled_max_RH1000": 0.3355437805567699,
+  "serial_max_realized_lag1": 0.9386647315618587,
+  "serial_phi_099_median_lag1": 0.9011309435605689,
+  "serial_phi_099_max_lag1": 0.9386647315618587,
+  "all_paths_RH1000_lt_1": true,
+  "classification_projection": "rank-map each continuous NNS.meboot replicate onto exact observed integer block-error multiset"
+}
