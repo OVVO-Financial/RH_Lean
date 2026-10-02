@@ -505,6 +505,11 @@ jobs:
           #print axioms RHLean.Analysis.vfMidRecursiveAggregateWeightTransferBudget_le
           #print axioms RHLean.Analysis.abs_vfMidRecursiveAggregateRemainder_le_linear
           #print axioms RHLean.Analysis.abs_vfMidRecursiveAggregateRemainder_le_four_mul
+          #print axioms RHLean.Analysis.vfMidOddCompositeTrackingDefect_eq_nativeCharge_add_descentRemainder
+          #print axioms RHLean.Analysis.abs_vfMidTerminalParentCharge_le
+          #print axioms RHLean.Analysis.abs_vfMidOriginalPrimeCharge_le
+          #print axioms RHLean.Analysis.abs_vfMidNativeDescentRemainder_le_linear
+          #print axioms RHLean.Analysis.abs_vfMidNativeDescentRemainder_le_nine_mul
           #print axioms RHLean.Analysis.vfMidOddCompositeTrackingDefect_eq_signed_child_tree_with_strict_descent
           #print axioms RHLean.Analysis.vfMidRecursiveOwner_mixed_child_sign_witness
           #print axioms RHLean.Analysis.vfMidRecursiveOwner_mixed_child_charge_formulas
