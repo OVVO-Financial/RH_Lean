@@ -1,6 +1,5 @@
 import Mathlib
 import «research.VF_MID_SQUARE_THETA_NATIVE_DESCENT»
-import «research.FOUR_FANTASY_PROXY_RH_CLOSURES»
 
 /-!
 # Proxy-renormalized square-theta energy pull
@@ -214,6 +213,112 @@ theorem vfMidSquareThetaEnvelope_of_protectedPullBarrier
     simpa [sq_abs, vfMidThetaEnvelopeEnergy] using hsq
   exact
     (sq_le_sq₀ (abs_nonneg _) hbar0).1 habsSq
+
+/-! ## Exact invariant formulation (not stronger than the target) -/
+
+/-- Barrier invariance for the renormalized actual-minus-VF theta pull.
+
+Unlike the uniform barrier-increment condition above, this uses the actual
+slack at the current endpoint.  It asks only that an endpoint already inside
+the desired envelope cannot be pushed outside it by the next exact pull. -/
+def VFMidThetaProtectedPullInvariantStatement : Prop :=
+  ∃ C : ℝ, 0 ≤ C ∧
+    (∀ R : ℕ, 3 ≤ R → R ≤ 7 →
+      vfMidDirectThetaEndpointError R ^ 2 ≤
+        vfMidThetaEnvelopeEnergy C R) ∧
+    ∀ R : ℕ, 7 ≤ R →
+      vfMidDirectThetaEndpointError R ^ 2 ≤
+        vfMidThetaEnvelopeEnergy C R →
+      vfMidSquareThetaProtectedPull R ^ 2 -
+          2 * vfMidDirectThetaEndpointError R *
+            vfMidSquareThetaProtectedPull R ≤
+        vfMidThetaEnvelopeEnergy C (R + 1) -
+          vfMidDirectThetaEndpointError R ^ 2
+
+/-- Exact invariance implies the full square-theta envelope. -/
+theorem vfMidSquareThetaEnvelope_of_protectedPullInvariant
+    (h : VFMidThetaProtectedPullInvariantStatement) :
+    VFMidSquareThetaEnvelopeStatement := by
+  rcases h with ⟨C, hC0, hsmall, hinv⟩
+  have hsq_large :
+      ∀ R : ℕ, 7 ≤ R →
+        vfMidDirectThetaEndpointError R ^ 2 ≤
+          vfMidThetaEnvelopeEnergy C R := by
+    intro R hR
+    induction R, hR using Nat.le_induction with
+    | base =>
+        exact hsmall 7 (by omega) le_rfl
+    | succ R hR ih =>
+        have hinc := vfMidDirectThetaEndpointError_energy_step R
+        have hs := hinv R hR ih
+        linarith
+  refine ⟨C, hC0, ?_⟩
+  intro R hR
+  have hsq :
+      vfMidDirectThetaEndpointError R ^ 2 ≤
+        vfMidThetaEnvelopeEnergy C R := by
+    by_cases hR7 : R ≤ 7
+    · exact hsmall R hR hR7
+    · exact hsq_large R (by omega)
+  have hlog0 : 0 ≤ Real.log (R : ℝ) := by
+    apply Real.log_nonneg
+    exact_mod_cast (show 1 ≤ R by omega)
+  have hbar0 :
+      0 ≤ C * (R : ℝ) * (Real.log (R : ℝ)) ^ 2 := by
+    positivity
+  have habsSq :
+      |vfMidDirectThetaEndpointError R| ^ 2 ≤
+        (C * (R : ℝ) * (Real.log (R : ℝ)) ^ 2) ^ 2 := by
+    simpa [sq_abs, vfMidThetaEnvelopeEnergy] using hsq
+  exact (sq_le_sq₀ (abs_nonneg _) hbar0).1 habsSq
+
+/-- Conversely, a proved square-theta envelope automatically satisfies the
+renormalized pull invariance condition.  Hence this is an exact reformulation
+of the unresolved endpoint target, not a stronger local hypothesis. -/
+theorem protectedPullInvariant_of_vfMidSquareThetaEnvelope
+    (h : VFMidSquareThetaEnvelopeStatement) :
+    VFMidThetaProtectedPullInvariantStatement := by
+  rcases h with ⟨C, hC0, hC⟩
+  refine ⟨C, hC0, ?_, ?_⟩
+  · intro R hR _hR7
+    have habs := hC R hR
+    have hlog0 : 0 ≤ Real.log (R : ℝ) := by
+      apply Real.log_nonneg
+      exact_mod_cast (show 1 ≤ R by omega)
+    have hbar0 :
+        0 ≤ C * (R : ℝ) * (Real.log (R : ℝ)) ^ 2 := by
+      positivity
+    have hsq :=
+      (sq_le_sq₀ (abs_nonneg _) hbar0).2 habs
+    simpa [sq_abs, vfMidThetaEnvelopeEnergy] using hsq
+  · intro R hR _hcurrent
+    have habs := hC (R + 1) (by omega)
+    have hlog0 : 0 ≤ Real.log ((R + 1 : ℕ) : ℝ) := by
+      apply Real.log_nonneg
+      exact_mod_cast (show 1 ≤ R + 1 by omega)
+    have hbar0 :
+        0 ≤ C * ((R + 1 : ℕ) : ℝ) *
+          (Real.log ((R + 1 : ℕ) : ℝ)) ^ 2 := by
+      positivity
+    have hnextSqRaw :=
+      (sq_le_sq₀ (abs_nonneg _) hbar0).2 habs
+    have hnextSq :
+        vfMidDirectThetaEndpointError (R + 1) ^ 2 ≤
+          vfMidThetaEnvelopeEnergy C (R + 1) := by
+      simpa [sq_abs, vfMidThetaEnvelopeEnergy] using hnextSqRaw
+    have hinc := vfMidDirectThetaEndpointError_energy_step R
+    linarith
+
+/-- **Exact proxy-energy reduction.**
+
+The unresolved square-theta envelope is equivalent to invariance of the
+renormalized actual-minus-VF pull.  This is the precise form in which the
+already-solved proxy closure can be used without assuming the conclusion. -/
+theorem vfMidThetaProtectedPullInvariant_iff_squareThetaEnvelope :
+    VFMidThetaProtectedPullInvariantStatement ↔
+      VFMidSquareThetaEnvelopeStatement :=
+  ⟨vfMidSquareThetaEnvelope_of_protectedPullInvariant,
+    protectedPullInvariant_of_vfMidSquareThetaEnvelope⟩
 
 /-- Therefore the one-step proxy-renormalized barrier feeds the existing direct
 VF endpoint consumer with no additional cancellation hypothesis. -/
