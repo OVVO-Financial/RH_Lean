@@ -215,7 +215,7 @@ theorem vfMidPrimeError_sq_eq_floorLiBacklog_add_bridge
   have hcount :
       vfMidPrimeCount ((R : ℝ) ^ 2) =
         (Nat.primeCounting (R ^ 2) : ℝ) := by
-    simp [vfMidPrimeCount, ← Nat.cast_pow]
+    simp [vfMidPrimeCount]
   unfold vfMidPrimeError vfMidPrimeFloorLiBacklog
     vfMidFloorLiVFBridge vfMidFloorLiSquarePotential
     liFloorPrimeCountProxy
@@ -293,7 +293,8 @@ theorem vfMidDyadicVFTrackingDefect_eq_floorLiDefect_sub_bridgeIncrement
   have hfloorR :=
     congrArg (fun z : ℤ => (z : ℝ)) hfloor
   push_cast at hfloorR
-  linear_combination hfloorR
+  rw [hfloorR]
+  ring
 
 /-- Consequently the entire difference between native VF tracking and the
 integer floor-Li defect is bounded by the two deterministic endpoint bridges. -/
