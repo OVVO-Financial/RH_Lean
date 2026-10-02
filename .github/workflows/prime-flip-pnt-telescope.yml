@@ -25,6 +25,7 @@ on:
       - research/VF_MID_ODD_FRACTIONAL_CLUSTER.lean
       - research/VF_MID_SIGNED_SEAT_CHARGE.lean
       - research/VF_MID_RECURSIVE_CHILD_INJECTIVE.lean
+      - research/VF_MID_RECURSIVE_SCALE_DESCENT.lean
       - research/VF_MID_PHI_OWNER_BRIDGE.lean
       - research/VF_MID_DYADIC_SUMMATION_TRANSFER.lean
       - research/VF_MID_PHI_CUTOFF_TELESCOPE.lean
@@ -149,6 +150,7 @@ jobs:
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_DYADIC_SUMMATION_TRANSFER.olean research/VF_MID_DYADIC_SUMMATION_TRANSFER.lean 2>&1 | tee vf-mid-dyadic-summation-transfer.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_FRACTIONAL_PRIME_CLUSTER.olean research/VF_MID_FRACTIONAL_PRIME_CLUSTER.lean 2>&1 | tee vf-mid-fractional-prime-cluster.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_SIGNED_SEAT_CHARGE.olean research/VF_MID_SIGNED_SEAT_CHARGE.lean 2>&1 | tee vf-mid-signed-seat-charge.log
+          lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_RECURSIVE_SCALE_DESCENT.olean research/VF_MID_RECURSIVE_SCALE_DESCENT.lean 2>&1 | tee vf-mid-recursive-scale-descent.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.FOUR_FANTASY_PROXY_RH_CLOSURES.olean research/FOUR_FANTASY_PROXY_RH_CLOSURES.lean 2>&1 | tee four-fantasy-proxy-rh-closures.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_PHI_CUTOFF_TELESCOPE.olean research/VF_MID_PHI_CUTOFF_TELESCOPE.lean 2>&1 | tee vf-mid-phi-cutoff-telescope.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_PHI_ODD_LI_TRANSFER.olean research/VF_MID_PHI_ODD_LI_TRANSFER.lean 2>&1 | tee vf-mid-phi-odd-li-transfer.log
@@ -167,6 +169,7 @@ jobs:
           import «research.VF_MID_ODD_FRACTIONAL_CLUSTER»
           import «research.VF_MID_SIGNED_SEAT_CHARGE»
           import «research.VF_MID_RECURSIVE_CHILD_INJECTIVE»
+          import «research.VF_MID_RECURSIVE_SCALE_DESCENT»
           import «research.VF_MID_INTEGER_BLOCK_CAPTURE»
           import «research.VF_MID_LITERAL_BLOCK_CROSSING»
           import «research.VF_MID_ALIGNED_STEP_GRAPH»
@@ -470,6 +473,16 @@ jobs:
           #print axioms RHLean.Analysis.vfMidLateRecursiveOwner_child_lt_square
           #print axioms RHLean.Analysis.vfMidLateRecursiveOwner_child_owner_unique
           #print axioms RHLean.Analysis.vfMidLateRecursiveOwner_children_disjoint
+          #print axioms RHLean.Analysis.vfMidLateRecursiveOwner_child_sqrt_lt
+          #print axioms RHLean.Analysis.vfMidRecursiveScaleStep_lt
+          #print axioms RHLean.Analysis.vfMidRecursiveScaleStep_irrefl
+          #print axioms RHLean.Analysis.vfMidRecursiveScaleChain_add_le
+          #print axioms RHLean.Analysis.not_vfMidRecursiveScaleChain_beyond_start
+          #print axioms RHLean.Analysis.not_vfMidRecursiveScaleChain_infinite
+          #print axioms RHLean.Analysis.vfMidRecursiveScalePersistent_impossible
+          #print axioms RHLean.Analysis.vfMidOddCompositeTrackingDefect_eq_signed_child_tree_with_strict_descent
+          #print axioms RHLean.Analysis.vfMidRecursiveOwner_mixed_child_sign_witness
+          #print axioms RHLean.Analysis.vfMidRecursiveOwner_mixed_child_charge_formulas
           #print axioms RHLean.Analysis.vfMidOddLiSquareInterval_two_eq_prefixWheelCard
           #print axioms RHLean.Analysis.vfMidDyadicOddLiWeightedRemoval_eq_prefixSupply_sub_diagonal
           #print axioms RHLean.Analysis.vfMidPrimeError_sq_sub_sq_cast_eq_oddLiDiagonalError_add_displacement
@@ -481,7 +494,7 @@ jobs:
           from pathlib import Path
           s = Path('prime-flip-pnt-axioms.log').read_text()
           records = re.findall(r"depends on axioms:\s*\[([^\]]*)\]", s, re.S)
-          assert len(records) == 287, records
+          assert len(records) == 297, records
           allowed = {'propext', 'Classical.choice', 'Quot.sound'}
           for record in records:
               actual = {a.strip() for a in record.split(',') if a.strip()}
@@ -513,6 +526,7 @@ jobs:
             vf-mid-odd-fractional-cluster.log
             vf-mid-signed-seat-charge.log
             vf-mid-recursive-child-injective.log
+            vf-mid-recursive-scale-descent.log
             vf-mid-phi-owner-bridge.log
             vf-mid-dyadic-summation-transfer.log
             vf-mid-phi-cutoff-telescope.log
