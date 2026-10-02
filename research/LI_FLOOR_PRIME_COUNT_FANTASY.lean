@@ -38,7 +38,6 @@ theorem liFloorPrimeCountProxy_le_li (x : ℝ) :
 theorem li_lt_liFloorPrimeCountProxy_add_one (x : ℝ) :
     vfMidLogarithmicIntegralFromTwo x < liFloorPrimeCountProxy x + 1 := by
   unfold liFloorPrimeCountProxy
-  simp only
   exact Int.lt_floor_add_one (vfMidLogarithmicIntegralFromTwo x)
 
 /-- Flooring Li costs strictly less than one count, uniformly in x. -/
