@@ -220,6 +220,8 @@ jobs:
           #print axioms RHLean.Analysis.vfMidPrimeLiError_eq_primeError_add_liError
           #print axioms RHLean.Analysis.vfMidLiRootBounded
           #print axioms RHLean.Analysis.abs_liFloorPrimeCountProxy_sub_li_lt_one
+          #print axioms RHLean.Analysis.abs_li_at_floor_sub_li_le_inv_log_four
+          #print axioms RHLean.Analysis.abs_liIntegerCutoffFloorPrimeCountProxy_sub_li_le
           #print axioms RHLean.Analysis.primeLiVonKochBounded_of_liFloorPrimeCountIdentification
           #print axioms RHLean.Analysis.riemannHypothesis_of_liFloorPrimeCountIdentification
           #print axioms RHLean.Analysis.vfMidLinearMidpoint_li_root_bounded
