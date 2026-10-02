@@ -261,7 +261,7 @@ theorem nativePNTError_square_diff_eq_thetaBand_add_primePowerDiff
         (vfMidSquarePrimePowerCorrection (R + 1) -
           vfMidSquarePrimePowerCorrection R) := by
   unfold nativePNTError vfMidDirectThetaBandError
-    vfMidDirectThetaEndpointError vfMidSquarePrimePowerCorrection
+    vfMidSquarePrimePowerCorrection
   push_cast
   ring
 
@@ -334,8 +334,9 @@ theorem vfMidAdjacentSquareSecondSelbergFrontierCharge_nonpos
       have hstrict :
           (R + 1) ^ 2 < (R + 1) * (R + 2) := by
         have hpos : 0 < R + 1 := by omega
-        simpa [pow_two] using
-          Nat.mul_lt_mul_of_pos_left (by omega : R + 1 < R + 2) hpos
+        rw [pow_two]
+        exact Nat.mul_lt_mul_of_pos_left
+          (by omega : R + 1 < R + 2) hpos
       omega
     · have hrLower : R + 1 ≤ r := by omega
       have hqLower : R + 2 ≤ q := by omega
@@ -345,8 +346,9 @@ theorem vfMidAdjacentSquareSecondSelbergFrontierCharge_nonpos
       have hstrict :
           (R + 1) ^ 2 < (R + 2) * (R + 1) := by
         have hpos : 0 < R + 1 := by omega
-        simpa [pow_two, Nat.mul_comm] using
-          Nat.mul_lt_mul_of_pos_right (by omega : R + 1 < R + 2) hpos
+        rw [pow_two]
+        exact Nat.mul_lt_mul_of_pos_right
+          (by omega : R + 1 < R + 2) hpos
       omega
 
 /-- Consequently the frontier error mass has the favorable nonnegative sign on
