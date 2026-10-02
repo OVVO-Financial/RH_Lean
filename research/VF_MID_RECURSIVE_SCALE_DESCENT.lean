@@ -192,6 +192,14 @@ theorem vfMidRecursiveOwner_mixed_child_sign_witness :
     vfMidSquareBandLateOwnerPrimes, vfMidSquareBandOwnerPrimes,
     vfMidSquareBandCompositeOwnerChildren, vfMidSquareBandCompositeOwner,
     vfMidSquareBandComposites, vfMidSquareBandSites]
+  constructor
+  · refine ⟨51, ?_, by norm_num⟩
+    norm_num
+  · constructor
+    · refine ⟨57, ?_, by norm_num⟩
+      norm_num
+    · refine ⟨63, ?_, by norm_num⟩
+      norm_num
 
 /-- The mixed arithmetic child types become opposite VF seat-charge formulas at
 that common lower scale. -/
