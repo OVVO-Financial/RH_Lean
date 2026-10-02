@@ -1,5 +1,5 @@
 name: Prime flip PNT telescope
-# Composite-floor attack strict check.
+# Composite-floor and square-theta attack strict check.
 
 on:
   pull_request:
@@ -27,6 +27,7 @@ on:
       - research/VF_MID_RECURSIVE_CHILD_INJECTIVE.lean
       - research/VF_MID_RECURSIVE_SCALE_DESCENT.lean
       - research/VF_MID_RECURSIVE_REMAINDER_BOUND.lean
+      - research/VF_MID_SQUARE_THETA_NATIVE_DESCENT.lean
       - research/VF_MID_PHI_OWNER_BRIDGE.lean
       - research/VF_MID_DYADIC_SUMMATION_TRANSFER.lean
       - research/VF_MID_PHI_CUTOFF_TELESCOPE.lean
@@ -153,6 +154,7 @@ jobs:
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_SIGNED_SEAT_CHARGE.olean research/VF_MID_SIGNED_SEAT_CHARGE.lean 2>&1 | tee vf-mid-signed-seat-charge.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_RECURSIVE_SCALE_DESCENT.olean research/VF_MID_RECURSIVE_SCALE_DESCENT.lean 2>&1 | tee vf-mid-recursive-scale-descent.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_RECURSIVE_REMAINDER_BOUND.olean research/VF_MID_RECURSIVE_REMAINDER_BOUND.lean 2>&1 | tee vf-mid-recursive-remainder-bound.log
+          lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_SQUARE_THETA_NATIVE_DESCENT.olean research/VF_MID_SQUARE_THETA_NATIVE_DESCENT.lean 2>&1 | tee vf-mid-square-theta-native-descent.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.FOUR_FANTASY_PROXY_RH_CLOSURES.olean research/FOUR_FANTASY_PROXY_RH_CLOSURES.lean 2>&1 | tee four-fantasy-proxy-rh-closures.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_PHI_CUTOFF_TELESCOPE.olean research/VF_MID_PHI_CUTOFF_TELESCOPE.lean 2>&1 | tee vf-mid-phi-cutoff-telescope.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_PHI_ODD_LI_TRANSFER.olean research/VF_MID_PHI_ODD_LI_TRANSFER.lean 2>&1 | tee vf-mid-phi-odd-li-transfer.log
@@ -173,6 +175,7 @@ jobs:
           import «research.VF_MID_RECURSIVE_CHILD_INJECTIVE»
           import «research.VF_MID_RECURSIVE_SCALE_DESCENT»
           import «research.VF_MID_RECURSIVE_REMAINDER_BOUND»
+          import «research.VF_MID_SQUARE_THETA_NATIVE_DESCENT»
           import «research.VF_MID_INTEGER_BLOCK_CAPTURE»
           import «research.VF_MID_LITERAL_BLOCK_CROSSING»
           import «research.VF_MID_ALIGNED_STEP_GRAPH»
@@ -510,6 +513,17 @@ jobs:
           #print axioms RHLean.Analysis.abs_vfMidOriginalPrimeCharge_le
           #print axioms RHLean.Analysis.abs_vfMidNativeDescentRemainder_le_linear
           #print axioms RHLean.Analysis.abs_vfMidNativeDescentRemainder_le_nine_mul
+          #print axioms RHLean.Analysis.vfMidDirectBandError_eq_neg_native_add_remainder
+          #print axioms RHLean.Analysis.vfMidDirectThetaBandError_eq_nativeVFDescent
+          #print axioms RHLean.Analysis.vfMidDirectThetaEndpointError_sub_eq_nativeVFDescent_sum
+          #print axioms RHLean.Analysis.abs_vfMidDirectSquareEndpointError_le_of_squareThetaEnvelope
+          #print axioms RHLean.Analysis.nativePNTError_square_succ_eq_old_sub_vfMidSquarePsiProtectedPull
+          #print axioms RHLean.Analysis.nativePNTError_square_succ_sq_sub_sq_eq_protectedPull
+          #print axioms RHLean.Analysis.vfMidSquarePsiProtectedPull_eq_nativeVFDescent
+          #print axioms RHLean.Analysis.vfMidAdjacentSquareSecondSelbergFrontierCharge_nonpos
+          #print axioms RHLean.Analysis.vfMidAdjacentSquareSecondSelbergFrontierErrorMass_nonneg
+          #print axioms RHLean.Analysis.vfMidSquareThetaEnvelope_of_psiEnvelope
+          #print axioms RHLean.Analysis.abs_vfMidDirectSquareEndpointError_le_of_squarePsiEnvelope
           #print axioms RHLean.Analysis.vfMidOddCompositeTrackingDefect_eq_signed_child_tree_with_strict_descent
           #print axioms RHLean.Analysis.vfMidRecursiveOwner_mixed_child_sign_witness
           #print axioms RHLean.Analysis.vfMidRecursiveOwner_mixed_child_charge_formulas
