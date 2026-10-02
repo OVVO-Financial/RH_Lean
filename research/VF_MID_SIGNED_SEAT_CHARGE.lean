@@ -92,7 +92,11 @@ theorem vfMidActualPrimeSeatMass_sum_oddCandidates
         vfMidIntegerBlockPrimeSupply R := by
     unfold vfMidIntegerBlockPrimeSupply
     rw [vfMidDirectPrimeBand_eq_squareWheelPrimes]
-  exact_mod_cast hcard
+  have hcardR :
+      ((vfMidSquareWheelPrimes R).card : ℝ) =
+        (vfMidIntegerBlockPrimeSupply R : ℝ) := by
+    exact_mod_cast hcard
+  simpa using hcardR
 
 /-- **Exact signed-seat identity.**
 The sum of the VF-minus-actual charges on the parity carrier is precisely the
