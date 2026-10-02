@@ -515,4 +515,210 @@ theorem vfMidThetaLowerBarrier_noEscape_iff_coupledPacket
       simpa [mul_comm] using h'
     linarith
 
+
+/-! ## Physical theta-supply form of the same boundary condition -/
+
+/-- **Upper barrier row of the boundary table, exactly.**
+
+If the current theta endpoint is on the positive barrier, then the next
+endpoint stays below the enlarged barrier if and only if the actual theta
+mass in the square block is at most
+
+  (2R+1) + delta_R.
+
+No owner decomposition or estimate appears in this equivalence. -/
+theorem vfMidThetaUpperBarrier_noEscape_iff_thetaSupply
+    (C : ℝ) (R : ℕ)
+    (hbar :
+      vfMidDirectThetaEndpointError R = vfMidThetaBarrierRadius C R) :
+    vfMidDirectThetaEndpointError (R + 1) ≤
+        vfMidThetaBarrierRadius C (R + 1) ↔
+      vfMidDirectThetaBandMass R ≤
+        (2 * (R : ℝ) + 1) + vfMidThetaBarrierIncrement C R := by
+  have hstep := vfMidDirectThetaBandError_eq_endpoint_diff R
+  unfold vfMidDirectThetaBandError at hstep
+  rw [hbar] at hstep
+  unfold vfMidThetaBarrierIncrement
+  constructor <;> intro h <;> linarith
+
+/-- **Lower barrier row of the boundary table, exactly.**
+
+If the current theta endpoint is on the negative barrier, then the next
+endpoint stays above the enlarged negative barrier if and only if the actual
+theta mass in the square block is at least
+
+  (2R+1) - delta_R. -/
+theorem vfMidThetaLowerBarrier_noEscape_iff_thetaSupply
+    (C : ℝ) (R : ℕ)
+    (hbar :
+      vfMidDirectThetaEndpointError R = -vfMidThetaBarrierRadius C R) :
+    -vfMidThetaBarrierRadius C (R + 1) ≤
+        vfMidDirectThetaEndpointError (R + 1) ↔
+      (2 * (R : ℝ) + 1) - vfMidThetaBarrierIncrement C R ≤
+        vfMidDirectThetaBandMass R := by
+  have hstep := vfMidDirectThetaBandError_eq_endpoint_diff R
+  unfold vfMidDirectThetaBandError at hstep
+  rw [hbar] at hstep
+  unfold vfMidThetaBarrierIncrement
+  constructor <;> intro h <;> linarith
+
+/-- Every prime in the R-th square block has log-weight at most
+2 log(R+1).  Summing gives the deterministic conversion from a prime-population
+ceiling to a theta-mass ceiling. -/
+theorem vfMidDirectThetaBandMass_le_primeSupply_upperLog
+    (R : ℕ) (hR : 2 ≤ R) :
+    vfMidDirectThetaBandMass R ≤
+      (vfMidIntegerBlockPrimeSupply R : ℝ) *
+        (2 * Real.log ((R + 1 : ℕ) : ℝ)) := by
+  unfold vfMidDirectThetaBandMass
+  calc
+    (∑ p ∈ vfMidDirectPrimeBand R, Real.log (p : ℝ))
+        ≤ ∑ _p ∈ vfMidDirectPrimeBand R,
+            2 * Real.log ((R + 1 : ℕ) : ℝ) := by
+          apply Finset.sum_le_sum
+          intro p hp
+          rcases Finset.mem_filter.mp hp with ⟨hpIoc, hpPrime⟩
+          have hpHighNat : p ≤ (R + 1) ^ 2 :=
+            (Finset.mem_Ioc.mp hpIoc).2
+          have hpHigh :
+              (p : ℝ) ≤ (((R + 1 : ℕ) : ℝ) ^ 2) := by
+            exact_mod_cast hpHighNat
+          have hpPos : 0 < (p : ℝ) := by
+            exact_mod_cast hpPrime.pos
+          calc
+            Real.log (p : ℝ)
+                ≤ Real.log ((((R + 1 : ℕ) : ℝ) ^ 2)) :=
+              Real.log_le_log hpPos hpHigh
+            _ = 2 * Real.log ((R + 1 : ℕ) : ℝ) := by
+              rw [Real.log_pow]
+              norm_num
+    _ = ((vfMidDirectPrimeBand R).card : ℝ) *
+          (2 * Real.log ((R + 1 : ℕ) : ℝ)) := by
+          rw [Finset.sum_const, nsmul_eq_mul]
+    _ = (vfMidIntegerBlockPrimeSupply R : ℝ) *
+          (2 * Real.log ((R + 1 : ℕ) : ℝ)) := by
+          rfl
+
+/-- Every prime in the R-th square block has log-weight at least 2 log R.
+Thus any prime-population floor automatically gives a theta-mass floor. -/
+theorem primeSupply_mul_lowerLog_le_vfMidDirectThetaBandMass
+    (R : ℕ) (hR : 2 ≤ R) :
+    (vfMidIntegerBlockPrimeSupply R : ℝ) *
+        (2 * Real.log (R : ℝ)) ≤
+      vfMidDirectThetaBandMass R := by
+  have hR0 : 0 < (R : ℝ) := by
+    exact_mod_cast (show 0 < R by omega)
+  unfold vfMidDirectThetaBandMass
+  calc
+    (vfMidIntegerBlockPrimeSupply R : ℝ) *
+          (2 * Real.log (R : ℝ))
+        = ∑ _p ∈ vfMidDirectPrimeBand R,
+            2 * Real.log (R : ℝ) := by
+          unfold vfMidIntegerBlockPrimeSupply
+          rw [Finset.sum_const, nsmul_eq_mul]
+    _ ≤ ∑ p ∈ vfMidDirectPrimeBand R, Real.log (p : ℝ) := by
+          apply Finset.sum_le_sum
+          intro p hp
+          rcases Finset.mem_filter.mp hp with ⟨hpIoc, _hpPrime⟩
+          have hpLowNat : R ^ 2 < p :=
+            (Finset.mem_Ioc.mp hpIoc).1
+          have hpLow :
+              ((R : ℝ) ^ 2) ≤ (p : ℝ) := by
+            exact_mod_cast hpLowNat.le
+          calc
+            2 * Real.log (R : ℝ)
+                = Real.log ((R : ℝ) ^ 2) := by
+                    rw [Real.log_pow]
+                    norm_num
+            _ ≤ Real.log (p : ℝ) :=
+              Real.log_le_log (sq_pos_of_pos hR0) hpLow
+
+/-- Any deterministic prime-supply ceiling W_R yields the corresponding
+theta-supply ceiling used in the upper boundary strip. -/
+theorem vfMidDirectThetaBandMass_le_of_primeSupply_le
+    (R W : ℕ) (hR : 2 ≤ R)
+    (hPW : vfMidIntegerBlockPrimeSupply R ≤ W) :
+    vfMidDirectThetaBandMass R ≤
+      (W : ℝ) * (2 * Real.log ((R + 1 : ℕ) : ℝ)) := by
+  have htheta :=
+    vfMidDirectThetaBandMass_le_primeSupply_upperLog R hR
+  have hcast :
+      (vfMidIntegerBlockPrimeSupply R : ℝ) ≤ (W : ℝ) := by
+    exact_mod_cast hPW
+  have hlog0 :
+      0 ≤ 2 * Real.log ((R + 1 : ℕ) : ℝ) := by
+    have hone : (1 : ℝ) ≤ ((R + 1 : ℕ) : ℝ) := by
+      exact_mod_cast (show 1 ≤ R + 1 by omega)
+    have := Real.log_nonneg hone
+    positivity
+  exact htheta.trans
+    (mul_le_mul_of_nonneg_right hcast hlog0)
+
+/-- Every admissible prefix wheel therefore gives a deterministic theta-mass
+ceiling for the upper barrier. -/
+theorem vfMidDirectThetaBandMass_le_prefixWheel_upperLog
+    (T R : ℕ) (hR : 2 ≤ R) (hTR : T ≤ R) :
+    vfMidDirectThetaBandMass R ≤
+      (vfMidPrefixWheelEnvelope T R : ℝ) *
+        (2 * Real.log ((R + 1 : ℕ) : ℝ)) := by
+  exact
+    vfMidDirectThetaBandMass_le_of_primeSupply_le
+      R (vfMidPrefixWheelEnvelope T R) hR
+      (vfMidIntegerBlockPrimeSupply_le_prefixWheelEnvelope T R hR hTR)
+
+/-- **Prefix-wheel sufficient condition for the upper barrier.**
+
+This is the unconditional side of the boundary attack: once a chosen prefix
+wheel has a theta ceiling below L_R + delta_R, outward escape through the
+positive barrier is impossible. -/
+theorem vfMidThetaUpperBarrier_noEscape_of_prefixWheel
+    (C : ℝ) (T R : ℕ) (hR : 2 ≤ R) (hTR : T ≤ R)
+    (hbar :
+      vfMidDirectThetaEndpointError R = vfMidThetaBarrierRadius C R)
+    (hbudget :
+      (vfMidPrefixWheelEnvelope T R : ℝ) *
+          (2 * Real.log ((R + 1 : ℕ) : ℝ)) ≤
+        (2 * (R : ℝ) + 1) + vfMidThetaBarrierIncrement C R) :
+    vfMidDirectThetaEndpointError (R + 1) ≤
+      vfMidThetaBarrierRadius C (R + 1) := by
+  apply
+    (vfMidThetaUpperBarrier_noEscape_iff_thetaSupply C R hbar).2
+  exact
+    (vfMidDirectThetaBandMass_le_prefixWheel_upperLog
+      T R hR hTR).trans hbudget
+
+/-- **Conditional prime-supply floor sufficient for the lower barrier.**
+
+The lower wall has the opposite character.  Any proved floor K <= P_R is
+enough provided its forced theta mass 2 K log R reaches L_R - delta_R.
+This exposes exactly the arithmetic input still missing from the descent. -/
+theorem vfMidThetaLowerBarrier_noEscape_of_primeSupplyFloor
+    (C : ℝ) (K R : ℕ) (hR : 2 ≤ R)
+    (hbar :
+      vfMidDirectThetaEndpointError R = -vfMidThetaBarrierRadius C R)
+    (hKP : K ≤ vfMidIntegerBlockPrimeSupply R)
+    (hbudget :
+      (2 * (R : ℝ) + 1) - vfMidThetaBarrierIncrement C R ≤
+        (K : ℝ) * (2 * Real.log (R : ℝ))) :
+    -vfMidThetaBarrierRadius C (R + 1) ≤
+      vfMidDirectThetaEndpointError (R + 1) := by
+  apply
+    (vfMidThetaLowerBarrier_noEscape_iff_thetaSupply C R hbar).2
+  have hcast :
+      (K : ℝ) ≤ (vfMidIntegerBlockPrimeSupply R : ℝ) := by
+    exact_mod_cast hKP
+  have hlog0 : 0 ≤ 2 * Real.log (R : ℝ) := by
+    have hone : (1 : ℝ) ≤ (R : ℝ) := by
+      exact_mod_cast (show 1 ≤ R by omega)
+    have := Real.log_nonneg hone
+    positivity
+  have hfloor :
+      (K : ℝ) * (2 * Real.log (R : ℝ)) ≤
+        (vfMidIntegerBlockPrimeSupply R : ℝ) *
+          (2 * Real.log (R : ℝ)) :=
+    mul_le_mul_of_nonneg_right hcast hlog0
+  exact hbudget.trans
+    (hfloor.trans
+      (primeSupply_mul_lowerLog_le_vfMidDirectThetaBandMass R hR))
+
 end RHLean.Analysis
