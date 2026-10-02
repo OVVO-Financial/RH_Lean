@@ -685,6 +685,77 @@ theorem vfMidSquareBandPrefixComposite_start_card_le_four_mul_gap
     _ ≤ 4 * (R - A) := Nat.mul_le_mul_left 4 hownerCard
 
 
+/-- Summing the starting-wheel survivor excess over a subdoubling square run
+costs only quadratically in the number of blocks.  In particular, the loss
+does not scale like the physical length of the run. -/
+theorem vfMidDyadicLateRemoval_start_le_four_mul_gap_sq
+    {A B : ℕ} (hA : 3 ≤ A) (hAB : A ≤ B) (hBA : B ≤ 2 * A) :
+    vfMidDyadicLateRemoval A A B ≤
+      4 * (((B - A : ℕ) : ℝ) ^ 2) := by
+  rw [vfMidDyadicLateRemoval_eq_ownerCensus A A B
+    (by omega) le_rfl hAB]
+  unfold vfMidDyadicOwnerLateRemoval
+  calc
+    (∑ r ∈ Finset.Ico A B,
+        ∑ p ∈ vfMidSquareBandLateOwnerPrimes A r,
+          ((vfMidSquareBandCompositeOwner r p).card : ℝ))
+        =
+      ∑ r ∈ Finset.Ico A B,
+        ((vfMidSquareBandPrefixCompositeSurvivors A r).card : ℝ) := by
+          apply Finset.sum_congr rfl
+          intro r hr
+          have howners :=
+            vfMidSquareBandPrefixComposite_card_eq_sum_lateOwnerCards
+              A r (hA.trans (Finset.mem_Ico.mp hr).1)
+          exact_mod_cast howners.symm
+    _ ≤ ∑ r ∈ Finset.Ico A B,
+          (4 * (((r - A : ℕ) : ℝ))) := by
+          apply Finset.sum_le_sum
+          intro r hr
+          have hAr : A ≤ r := (Finset.mem_Ico.mp hr).1
+          have hrB : r < B := (Finset.mem_Ico.mp hr).2
+          have hr2A : r < 2 * A := hrB.trans_le hBA
+          have hcard :=
+            vfMidSquareBandPrefixComposite_start_card_le_four_mul_gap
+              hA hAr hr2A
+          exact_mod_cast hcard
+    _ ≤ ∑ _r ∈ Finset.Ico A B,
+          (4 * (((B - A : ℕ) : ℝ))) := by
+          apply Finset.sum_le_sum
+          intro r hr
+          have hAr : A ≤ r := (Finset.mem_Ico.mp hr).1
+          have hrB : r < B := (Finset.mem_Ico.mp hr).2
+          have hgap : r - A ≤ B - A := by omega
+          have hgapR :
+              (((r - A : ℕ) : ℝ)) ≤ (((B - A : ℕ) : ℝ)) := by
+            exact_mod_cast hgap
+          nlinarith
+    _ = ((Finset.Ico A B).card : ℝ) *
+          (4 * (((B - A : ℕ) : ℝ))) := by
+          rw [Finset.sum_const, nsmul_eq_mul]
+    _ = 4 * (((B - A : ℕ) : ℝ) ^ 2) := by
+          rw [Nat.card_Ico]
+          have hcast :
+              (((B - A : ℕ) : ℝ)) = (B : ℝ) - (A : ℝ) := by
+            exact_mod_cast Nat.cast_sub hAB
+          rw [hcast]
+          ring
+
+/-- **Run-level lower prime-supply bound from one frozen starting wheel.**
+On a subdoubling run, actual prime supply is at least the survivor supply of
+the starting wheel minus the explicit quadratic late-composite budget. -/
+theorem vfMidDyadicPrimeSupply_ge_startPrefix_sub_four_mul_gap_sq
+    {A B : ℕ} (hA : 3 ≤ A) (hAB : A ≤ B) (hBA : B ≤ 2 * A) :
+    vfMidDyadicPrefixSupply A A B -
+        4 * (((B - A : ℕ) : ℝ) ^ 2) ≤
+      vfMidDyadicPrimeSupply A B := by
+  have hlate :=
+    vfMidDyadicLateRemoval_start_le_four_mul_gap_sq
+      hA hAB hBA
+  unfold vfMidDyadicLateRemoval at hlate
+  linarith
+
+
 /-! ## Canonical z=2 VF tracking defect -/
 
 /-- At cutoff two the fixed prefix consists of the single prime coordinate 2. -/
