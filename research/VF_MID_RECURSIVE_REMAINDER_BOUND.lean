@@ -832,6 +832,240 @@ theorem vfMidRecursiveAggregateClippedPrefixWheelBudget_le_population_add_weight
     vfMidRecursiveAggregateClippedPrimeBudget_cast_le_childCarrier R T
   linarith
 
+
+/-! ## Full block descent remainder -/
+
+/-- Positive terminal-owner charge left outside the recursive child descent. -/
+def vfMidTerminalParentCharge (R : ℕ) : ℝ :=
+  ∑ p ∈ vfMidSquareBandLateTerminalOwners R,
+    vfMidOddFractionalPrimeSeatWeight R *
+      ((vfMidSquareBandCompositeOwner R p).card : ℝ)
+
+/-- Negative actual-prime channel appearing in the #849 signed child tree. -/
+def vfMidOriginalPrimeCharge (R : ℕ) : ℝ :=
+  (1 - vfMidOddFractionalPrimeSeatWeight R) *
+    (vfMidIntegerBlockPrimeSupply R : ℝ)
+
+/-- Everything in one parent block which is not represented by the native
+lower-scale recursive signed charge. -/
+def vfMidNativeDescentRemainder (R : ℕ) : ℝ :=
+  vfMidTerminalParentCharge R +
+    vfMidRecursiveAggregateRemainder R -
+      vfMidOriginalPrimeCharge R
+
+/-- The recursive owner charge is exactly the parent weight times the complete
+recursive child population. -/
+theorem vfMidRecursiveOwnerParentCharge_eq_fullRecursiveCharge
+    (R : ℕ) (hR : 7 ≤ R) :
+    (∑ p ∈ vfMidSquareBandLateRecursiveOwners R,
+      vfMidOddFractionalPrimeSeatWeight R *
+        ((vfMidSquareBandCompositeOwner R p).card : ℝ)) =
+      vfMidOddFractionalPrimeSeatWeight R *
+        ((vfMidRecursiveChildCarrier R).card : ℝ) := by
+  have hcardNat := vfMidRecursiveChildCarrier_card_eq_sum R hR
+  have hcardR :
+      ((vfMidRecursiveChildCarrier R).card : ℝ) =
+        ∑ p ∈ vfMidSquareBandLateRecursiveOwners R,
+          ((vfMidSquareBandCompositeOwnerChildren R p).card : ℝ) := by
+    exact_mod_cast hcardNat
+  rw [hcardR, Finset.mul_sum]
+  apply Finset.sum_congr rfl
+  intro p _hp
+  rw [vfMidSquareBandCompositeOwnerChildren_card]
+
+/-- **Exact native VF descent identity for one square block.**
+
+The full signed block defect V_R-P_R is the native lower-scale recursive charge
+plus a remainder containing only the terminal channel, the explicit recursive
+scale-transfer remainder, and the original negative prime channel. -/
+theorem vfMidOddCompositeTrackingDefect_eq_nativeCharge_add_descentRemainder
+    (R : ℕ) (hR : 7 ≤ R) :
+    vfMidOddCompositeTrackingDefect R =
+      vfMidRecursiveAggregateNativeCharge R +
+        vfMidNativeDescentRemainder R := by
+  have htree :=
+    vfMidOddCompositeTrackingDefect_eq_terminal_recursive_charges
+      R (by omega : 2 ≤ R)
+  have hrecOwner :=
+    vfMidRecursiveOwnerParentCharge_eq_fullRecursiveCharge R hR
+  have hrecLedger :=
+    vfMidFullRecursiveParentCharge_eq_native_add_remainder R hR
+  rw [htree, hrecOwner, hrecLedger]
+  unfold vfMidTerminalParentCharge
+    vfMidOriginalPrimeCharge
+    vfMidNativeDescentRemainder
+  ring
+
+/-- The terminal-owner population is at most the R parity candidate seats. -/
+theorem vfMidTerminalOwnerPopulation_le_R
+    (R : ℕ) (hR : 7 ≤ R) :
+    (∑ p ∈ vfMidSquareBandLateTerminalOwners R,
+      (vfMidSquareBandCompositeOwner R p).card) ≤ R := by
+  have howners :=
+    vfMidSquareBandPrefixComposite_card_eq_sum_lateOwnerCards
+      2 R (by omega : 2 ≤ R)
+  have hsplit :
+      (∑ p ∈ vfMidSquareBandLateOwnerPrimes 2 R,
+        (vfMidSquareBandCompositeOwner R p).card) =
+      (∑ p ∈ vfMidSquareBandLateTerminalOwners R,
+        (vfMidSquareBandCompositeOwner R p).card) +
+      (∑ p ∈ vfMidSquareBandLateRecursiveOwners R,
+        (vfMidSquareBandCompositeOwner R p).card) := by
+    rw [vfMidSquareBandLateOwnerPrimes_eq_terminal_union_recursive,
+      Finset.sum_union (vfMidSquareBandLateTerminal_recursive_disjoint R)]
+  have hpart :=
+    vfMidOddActualComposite_card_add_primeSupply R (by omega : 2 ≤ R)
+  rw [← howners] at hsplit
+  omega
+
+/-- The terminal positive charge costs at most (3/log 4)R. -/
+theorem abs_vfMidTerminalParentCharge_le
+    (R : ℕ) (hR : 7 ≤ R) :
+    |vfMidTerminalParentCharge R| ≤
+      (3 / Real.log 4) * (R : ℝ) := by
+  have hw0 :=
+    vfMidOddFractionalPrimeSeatWeight_nonneg R (by omega : 2 ≤ R)
+  have hwu :=
+    vfMidOddFractionalPrimeSeatWeight_le_three_div_log_four
+      R (by omega : 2 ≤ R)
+  have hC0 : 0 ≤ 3 / Real.log 4 := by
+    have hlog : 0 < Real.log 4 := Real.log_pos (by norm_num)
+    positivity
+  have hpopNat := vfMidTerminalOwnerPopulation_le_R R hR
+  have hpop :
+      ((∑ p ∈ vfMidSquareBandLateTerminalOwners R,
+        (vfMidSquareBandCompositeOwner R p).card : ℕ) : ℝ) ≤
+        (R : ℝ) := by
+    exact_mod_cast hpopNat
+  unfold vfMidTerminalParentCharge
+  rw [← Finset.mul_sum]
+  have hnonneg :
+      0 ≤ vfMidOddFractionalPrimeSeatWeight R *
+        ((∑ p ∈ vfMidSquareBandLateTerminalOwners R,
+          (vfMidSquareBandCompositeOwner R p).card : ℕ) : ℝ) := by
+    positivity
+  rw [abs_of_nonneg hnonneg]
+  calc
+    vfMidOddFractionalPrimeSeatWeight R *
+        ((∑ p ∈ vfMidSquareBandLateTerminalOwners R,
+          (vfMidSquareBandCompositeOwner R p).card : ℕ) : ℝ)
+        ≤ (3 / Real.log 4) *
+            ((∑ p ∈ vfMidSquareBandLateTerminalOwners R,
+              (vfMidSquareBandCompositeOwner R p).card : ℕ) : ℝ) := by
+          exact mul_le_mul_of_nonneg_right hwu (by positivity)
+    _ ≤ (3 / Real.log 4) * (R : ℝ) := by
+          exact mul_le_mul_of_nonneg_left hpop hC0
+
+/-- The complementary coefficient |1-w_R| is bounded by the same elementary
+3/log(4) ceiling for R >= 2. -/
+theorem abs_one_sub_vfMidOddFractionalPrimeSeatWeight_le_three_div_log_four
+    (R : ℕ) (hR : 2 ≤ R) :
+    |1 - vfMidOddFractionalPrimeSeatWeight R| ≤
+      3 / Real.log 4 := by
+  have hw0 := vfMidOddFractionalPrimeSeatWeight_nonneg R hR
+  have hwu :=
+    vfMidOddFractionalPrimeSeatWeight_le_three_div_log_four R hR
+  have hlogPos : 0 < Real.log 4 := Real.log_pos (by norm_num)
+  have hlogUpper : Real.log 4 ≤ (3 : ℝ) := by
+    have h :=
+      Real.log_le_sub_one_of_pos (show (0 : ℝ) < (4 : ℝ) by norm_num)
+    norm_num at h ⊢
+    exact h
+  have hC1 : (1 : ℝ) ≤ 3 / Real.log 4 := by
+    rw [le_div_iff₀ hlogPos]
+    linarith
+  rw [abs_le]
+  constructor <;> linarith
+
+/-- The original negative prime channel also costs at most (3/log 4)R. -/
+theorem abs_vfMidOriginalPrimeCharge_le
+    (R : ℕ) (hR : 7 ≤ R) :
+    |vfMidOriginalPrimeCharge R| ≤
+      (3 / Real.log 4) * (R : ℝ) := by
+  have hcoef :=
+    abs_one_sub_vfMidOddFractionalPrimeSeatWeight_le_three_div_log_four
+      R (by omega : 2 ≤ R)
+  have hprimeNat :=
+    vfMidIntegerBlockPrimeSupply_le_R R (by omega : 2 ≤ R)
+  have hprime :
+      (vfMidIntegerBlockPrimeSupply R : ℝ) ≤ (R : ℝ) := by
+    exact_mod_cast hprimeNat
+  have hC0 : 0 ≤ 3 / Real.log 4 := by
+    have hlog : 0 < Real.log 4 := Real.log_pos (by norm_num)
+    positivity
+  unfold vfMidOriginalPrimeCharge
+  rw [abs_mul, abs_of_nonneg (by positivity :
+    0 ≤ (vfMidIntegerBlockPrimeSupply R : ℝ))]
+  calc
+    |1 - vfMidOddFractionalPrimeSeatWeight R| *
+        (vfMidIntegerBlockPrimeSupply R : ℝ)
+        ≤ (3 / Real.log 4) *
+            (vfMidIntegerBlockPrimeSupply R : ℝ) := by
+          exact mul_le_mul_of_nonneg_right hcoef (by positivity)
+    _ ≤ (3 / Real.log 4) * (R : ℝ) := by
+          exact mul_le_mul_of_nonneg_left hprime hC0
+
+/-- **Full one-block native-descent remainder is linear.**
+
+After the recursive transfer, terminal owners and the original prime channel
+also cost only O(R).  Thus the entire non-native remainder in the exact block
+identity is bounded explicitly by (1 + 9/log 4)R. -/
+theorem abs_vfMidNativeDescentRemainder_le_linear
+    (R : ℕ) (hR : 7 ≤ R) :
+    |vfMidNativeDescentRemainder R| ≤
+      (1 + 9 / Real.log 4) * (R : ℝ) := by
+  have hterm := abs_vfMidTerminalParentCharge_le R hR
+  have hrec := abs_vfMidRecursiveAggregateRemainder_le_linear R hR
+  have hprime := abs_vfMidOriginalPrimeCharge_le R hR
+  unfold vfMidNativeDescentRemainder
+  calc
+    |vfMidTerminalParentCharge R +
+        vfMidRecursiveAggregateRemainder R -
+          vfMidOriginalPrimeCharge R|
+        = |(vfMidTerminalParentCharge R +
+              vfMidRecursiveAggregateRemainder R) +
+            (-vfMidOriginalPrimeCharge R)| := by ring
+    _ ≤ |vfMidTerminalParentCharge R +
+            vfMidRecursiveAggregateRemainder R| +
+          |-vfMidOriginalPrimeCharge R| := abs_add_le _ _
+    _ ≤ (|vfMidTerminalParentCharge R| +
+            |vfMidRecursiveAggregateRemainder R|) +
+          |vfMidOriginalPrimeCharge R| := by
+          rw [abs_neg]
+          exact add_le_add_right (abs_add_le _ _) _
+    _ ≤ (3 / Real.log 4) * (R : ℝ) +
+          (1 + 3 / Real.log 4) * (R : ℝ) +
+          (3 / Real.log 4) * (R : ℝ) := by
+          exact add_le_add (add_le_add hterm hrec) hprime
+    _ = (1 + 9 / Real.log 4) * (R : ℝ) := by ring
+
+/-- Integer-constant facade for downstream descent budgets. -/
+theorem abs_vfMidNativeDescentRemainder_le_nine_mul
+    (R : ℕ) (hR : 7 ≤ R) :
+    |vfMidNativeDescentRemainder R| ≤ 9 * (R : ℝ) := by
+  have h :=
+    abs_vfMidNativeDescentRemainder_le_linear R hR
+  have hlog4 : (5 / 4 : ℝ) < Real.log 4 := by
+    have h2 := Real.log_two_gt_d9
+    have hpow : Real.log (4 : ℝ) = 2 * Real.log 2 := by
+      calc
+        Real.log (4 : ℝ) = Real.log ((2 : ℝ) ^ 2) := by norm_num
+        _ = (2 : ℕ) * Real.log 2 := by rw [Real.log_pow]
+        _ = 2 * Real.log 2 := by norm_num
+    rw [hpow]
+    nlinarith
+  have hlogPos : 0 < Real.log 4 := by linarith
+  have hdiv : 9 / Real.log 4 ≤ (36 / 5 : ℝ) := by
+    rw [div_le_iff₀ hlogPos]
+    nlinarith
+  have hC : 1 + 9 / Real.log 4 ≤ (9 : ℝ) := by
+    linarith
+  calc
+    |vfMidNativeDescentRemainder R|
+        ≤ (1 + 9 / Real.log 4) * (R : ℝ) := h
+    _ ≤ 9 * (R : ℝ) := by
+          exact mul_le_mul_of_nonneg_right hC (by positivity)
+
 /-- Aggregate fallback using only the universal P_S <= S ceiling. -/
 theorem abs_vfMidRecursiveAggregateRemainder_le_halfWidthBudget
     (R : ℕ) :
