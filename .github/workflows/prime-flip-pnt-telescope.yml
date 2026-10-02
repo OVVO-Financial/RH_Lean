@@ -229,6 +229,17 @@ jobs:
           #print axioms RHLean.Analysis.riemannHypothesis_of_continuousLiIdentification
           #print axioms RHLean.Analysis.vfMidSquareEndpointVonKochBounded_of_fractionalClusterIdentification
           #print axioms RHLean.Analysis.riemannHypothesis_of_vfMidFractionalClusterIdentification
+          #print axioms RHLean.Analysis.primeLiVonKochBounded_of_proxyTracking
+          #print axioms RHLean.Analysis.riemannHypothesis_of_proxyTracking
+          #print axioms RHLean.Analysis.continuousLiProxy_li_root_bounded
+          #print axioms RHLean.Analysis.riemannHypothesis_of_continuousLiProxyTracking
+          #print axioms RHLean.Analysis.vfMidSquareEndpointVonKochBounded_of_fractionalClusterTracking
+          #print axioms RHLean.Analysis.riemannHypothesis_of_vfMidFractionalClusterTracking
+          #print axioms RHLean.Analysis.vfMidLinearProxy_li_root_bounded
+          #print axioms RHLean.Analysis.riemannHypothesis_of_vfMidLinearProxyTracking
+          #print axioms RHLean.Analysis.liFloorProxy_li_root_bounded
+          #print axioms RHLean.Analysis.riemannHypothesis_of_liFloorProxyTracking
+          #print axioms RHLean.Analysis.fourFantasyProxyTrackingBounds_close_RH
           #print axioms RHLean.Analysis.vfMidFractionalPrimeSeatWeight_sum_squareBand
           #print axioms RHLean.Analysis.vfMidSquareBandError_eq_fractionalPrimeClusterDiscrepancy
           #print axioms RHLean.Analysis.vfMidFractionalPrimeClusterDiscrepancy_eq_endpointError_sub
