@@ -533,6 +533,9 @@ jobs:
           #print axioms RHLean.Analysis.vfMidSquareThetaProtectedPull_eq_nativeVFDescent
           #print axioms RHLean.Analysis.vfMidSquarePsiEnergy_renormalizes_to_thetaEnergy
           #print axioms RHLean.Analysis.vfMidSquareThetaEnvelope_of_protectedPullBarrier
+          #print axioms RHLean.Analysis.vfMidSquareThetaEnvelope_of_protectedPullInvariant
+          #print axioms RHLean.Analysis.protectedPullInvariant_of_vfMidSquareThetaEnvelope
+          #print axioms RHLean.Analysis.vfMidThetaProtectedPullInvariant_iff_squareThetaEnvelope
           #print axioms RHLean.Analysis.vfMidOddCompositeTrackingDefect_eq_signed_child_tree_with_strict_descent
           #print axioms RHLean.Analysis.vfMidRecursiveOwner_mixed_child_sign_witness
           #print axioms RHLean.Analysis.vfMidRecursiveOwner_mixed_child_charge_formulas
