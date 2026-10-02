@@ -11,6 +11,9 @@ on:
       - research/EXACT_LI_DICKMAN_FORMAL.lean
       - research/EXACT_LI_PURE_MODEL_CLOSURE.lean
       - research/VF_MID_VON_KOCH_BRIDGE.lean
+      - research/LI_FLOOR_PRIME_COUNT_FANTASY.lean
+      - research/VF_MID_LINEAR_INTERPOLATION_FANTASY.lean
+      - research/FOUR_FANTASY_PROXY_RH_CLOSURES.lean
       - research/VF_MID_DIRECT_SIGNED_DYNAMICS.lean
       - research/VF_MID_SQUARE_BAND_COMPOSITE_BRIDGE.lean
       - research/VF_MID_FRACTIONAL_PRIME_CLUSTER.lean
@@ -110,6 +113,8 @@ jobs:
           mkdir -p .lake/build/lib/lean
           set -o pipefail
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_VON_KOCH_BRIDGE.olean research/VF_MID_VON_KOCH_BRIDGE.lean 2>&1 | tee vf-mid-von-koch.log
+          lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.LI_FLOOR_PRIME_COUNT_FANTASY.olean research/LI_FLOOR_PRIME_COUNT_FANTASY.lean 2>&1 | tee li-floor-prime-count-fantasy.log
+          lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_LINEAR_INTERPOLATION_FANTASY.olean research/VF_MID_LINEAR_INTERPOLATION_FANTASY.lean 2>&1 | tee vf-mid-linear-interpolation-fantasy.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_DIRECT_SIGNED_DYNAMICS.olean research/VF_MID_DIRECT_SIGNED_DYNAMICS.lean 2>&1 | tee vf-mid-direct-signed-dynamics.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_SQUARE_BAND_COMPOSITE_BRIDGE.olean research/VF_MID_SQUARE_BAND_COMPOSITE_BRIDGE.lean 2>&1 | tee vf-mid-square-band-composite-bridge.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_DIRECT_COMPOSITE_DESCENT.olean research/VF_MID_DIRECT_COMPOSITE_DESCENT.lean 2>&1 | tee vf-mid-direct-composite-descent.log
@@ -144,6 +149,7 @@ jobs:
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_DYADIC_SUMMATION_TRANSFER.olean research/VF_MID_DYADIC_SUMMATION_TRANSFER.lean 2>&1 | tee vf-mid-dyadic-summation-transfer.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_FRACTIONAL_PRIME_CLUSTER.olean research/VF_MID_FRACTIONAL_PRIME_CLUSTER.lean 2>&1 | tee vf-mid-fractional-prime-cluster.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_SIGNED_SEAT_CHARGE.olean research/VF_MID_SIGNED_SEAT_CHARGE.lean 2>&1 | tee vf-mid-signed-seat-charge.log
+          lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.FOUR_FANTASY_PROXY_RH_CLOSURES.olean research/FOUR_FANTASY_PROXY_RH_CLOSURES.lean 2>&1 | tee four-fantasy-proxy-rh-closures.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_PHI_CUTOFF_TELESCOPE.olean research/VF_MID_PHI_CUTOFF_TELESCOPE.lean 2>&1 | tee vf-mid-phi-cutoff-telescope.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_PHI_ODD_LI_TRANSFER.olean research/VF_MID_PHI_ODD_LI_TRANSFER.lean 2>&1 | tee vf-mid-phi-odd-li-transfer.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_PHI_DIAGONAL_TRANSFER.olean research/VF_MID_PHI_DIAGONAL_TRANSFER.lean 2>&1 | tee vf-mid-phi-diagonal-transfer.log
@@ -154,6 +160,9 @@ jobs:
           import «research.ALL_SCALE_LI_DISPLACEMENT_REDUCTION»
           import «research.EXACT_LI_PURE_MODEL_CLOSURE»
           import «research.VF_MID_VON_KOCH_BRIDGE»
+          import «research.LI_FLOOR_PRIME_COUNT_FANTASY»
+          import «research.VF_MID_LINEAR_INTERPOLATION_FANTASY»
+          import «research.FOUR_FANTASY_PROXY_RH_CLOSURES»
           import «research.VF_MID_FRACTIONAL_PRIME_CLUSTER»
           import «research.VF_MID_ODD_FRACTIONAL_CLUSTER»
           import «research.VF_MID_SIGNED_SEAT_CHARGE»
@@ -216,6 +225,39 @@ jobs:
           #print axioms RHLean.Analysis.exactLiContinuousModel_root_closed
           #print axioms RHLean.Analysis.vfMidPrimeLiError_eq_primeError_add_liError
           #print axioms RHLean.Analysis.vfMidLiRootBounded
+          #print axioms RHLean.Analysis.abs_liFloorPrimeCountProxy_sub_li_lt_one
+          #print axioms RHLean.Analysis.abs_li_at_floor_sub_li_le_inv_log_four
+          #print axioms RHLean.Analysis.abs_liIntegerCutoffFloorPrimeCountProxy_sub_li_le
+          #print axioms RHLean.Analysis.primeLiVonKochBounded_of_liFloorPrimeCountIdentification
+          #print axioms RHLean.Analysis.riemannHypothesis_of_liFloorPrimeCountIdentification
+          #print axioms RHLean.Analysis.vfMidLinearMidpoint_li_root_bounded
+          #print axioms RHLean.Analysis.primeLiVonKochBounded_of_vfMidLinearMidpointIdentification
+          #print axioms RHLean.Analysis.riemannHypothesis_of_vfMidLinearMidpointIdentification
+          #print axioms RHLean.Analysis.primeLiVonKochBounded_of_continuousLiIdentification
+          #print axioms RHLean.Analysis.riemannHypothesis_of_continuousLiIdentification
+          #print axioms RHLean.Analysis.vfMidSquareEndpointVonKochBounded_of_fractionalClusterIdentification
+          #print axioms RHLean.Analysis.riemannHypothesis_of_vfMidFractionalClusterIdentification
+          #print axioms RHLean.Analysis.primeLiVonKochBounded_of_proxyTracking
+          #print axioms RHLean.Analysis.riemannHypothesis_of_proxyTracking
+          #print axioms RHLean.Analysis.continuousLiProxy_li_root_bounded
+          #print axioms RHLean.Analysis.riemannHypothesis_of_continuousLiProxyTracking
+          #print axioms RHLean.Analysis.vfMidSquareEndpointVonKochBounded_of_fractionalClusterTracking
+          #print axioms RHLean.Analysis.riemannHypothesis_of_vfMidFractionalClusterTracking
+          #print axioms RHLean.Analysis.vfMidLinearProxy_li_root_bounded
+          #print axioms RHLean.Analysis.riemannHypothesis_of_vfMidLinearProxyTracking
+          #print axioms RHLean.Analysis.liFloorProxy_li_root_bounded
+          #print axioms RHLean.Analysis.riemannHypothesis_of_liFloorProxyTracking
+          #print axioms RHLean.Analysis.fourFantasyProxyTrackingBounds_close_RH
+          #print axioms RHLean.Analysis.proxyTracking_of_primeLiVonKochBounded
+          #print axioms RHLean.Analysis.proxyTracking_iff_primeLiVonKochBounded
+          #print axioms RHLean.Analysis.proxyTracking_iff_riemannHypothesis
+          #print axioms RHLean.Analysis.continuousLiProxyTracking_iff_riemannHypothesis
+          #print axioms RHLean.Analysis.fractionalClusterTracking_of_vfMidSquareEndpointVonKochBounded
+          #print axioms RHLean.Analysis.vfMidFractionalClusterSquareTracking_iff_squareEndpoint
+          #print axioms RHLean.Analysis.vfMidFractionalClusterSquareTracking_iff_riemannHypothesis
+          #print axioms RHLean.Analysis.vfMidLinearProxyTracking_iff_riemannHypothesis
+          #print axioms RHLean.Analysis.liFloorProxyTracking_iff_riemannHypothesis
+          #print axioms RHLean.Analysis.fourFantasyProxyTrackingBounds_iff_RH
           #print axioms RHLean.Analysis.vfMidFractionalPrimeSeatWeight_sum_squareBand
           #print axioms RHLean.Analysis.vfMidSquareBandError_eq_fractionalPrimeClusterDiscrepancy
           #print axioms RHLean.Analysis.vfMidFractionalPrimeClusterDiscrepancy_eq_endpointError_sub
@@ -439,7 +481,7 @@ jobs:
           from pathlib import Path
           s = Path('prime-flip-pnt-axioms.log').read_text()
           records = re.findall(r"depends on axioms:\s*\[([^\]]*)\]", s, re.S)
-          assert len(records) == 254, records
+          assert len(records) == 287, records
           allowed = {'propext', 'Classical.choice', 'Quot.sound'}
           for record in records:
               actual = {a.strip() for a in record.split(',') if a.strip()}
