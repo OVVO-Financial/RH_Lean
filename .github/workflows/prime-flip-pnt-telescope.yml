@@ -517,6 +517,11 @@ jobs:
           #print axioms RHLean.Analysis.vfMidDirectThetaBandError_eq_nativeVFDescent
           #print axioms RHLean.Analysis.vfMidDirectThetaEndpointError_sub_eq_nativeVFDescent_sum
           #print axioms RHLean.Analysis.abs_vfMidDirectSquareEndpointError_le_of_squareThetaEnvelope
+          #print axioms RHLean.Analysis.nativePNTError_square_succ_eq_old_sub_vfMidSquarePsiProtectedPull
+          #print axioms RHLean.Analysis.nativePNTError_square_succ_sq_sub_sq_eq_protectedPull
+          #print axioms RHLean.Analysis.vfMidSquarePsiProtectedPull_eq_nativeVFDescent
+          #print axioms RHLean.Analysis.vfMidSquareThetaEnvelope_of_psiEnvelope
+          #print axioms RHLean.Analysis.abs_vfMidDirectSquareEndpointError_le_of_squarePsiEnvelope
           #print axioms RHLean.Analysis.vfMidOddCompositeTrackingDefect_eq_signed_child_tree_with_strict_descent
           #print axioms RHLean.Analysis.vfMidRecursiveOwner_mixed_child_sign_witness
           #print axioms RHLean.Analysis.vfMidRecursiveOwner_mixed_child_charge_formulas
