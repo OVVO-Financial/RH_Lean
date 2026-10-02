@@ -13,6 +13,7 @@ on:
       - research/VF_MID_VON_KOCH_BRIDGE.lean
       - research/VF_MID_OSCILLATION_SCALE.lean
       - research/LI_FLOOR_PRIME_COUNT_FANTASY.lean
+      - research/VF_MID_FLOOR_LI_DISCRETE_BACKLOG.lean
       - research/VF_MID_LINEAR_INTERPOLATION_FANTASY.lean
       - research/FOUR_FANTASY_PROXY_RH_CLOSURES.lean
       - research/VF_MID_DIRECT_SIGNED_DYNAMICS.lean
@@ -120,6 +121,7 @@ jobs:
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_VON_KOCH_BRIDGE.olean research/VF_MID_VON_KOCH_BRIDGE.lean 2>&1 | tee vf-mid-von-koch.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_OSCILLATION_SCALE.olean research/VF_MID_OSCILLATION_SCALE.lean 2>&1 | tee vf-mid-oscillation-scale.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.LI_FLOOR_PRIME_COUNT_FANTASY.olean research/LI_FLOOR_PRIME_COUNT_FANTASY.lean 2>&1 | tee li-floor-prime-count-fantasy.log
+          lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_FLOOR_LI_DISCRETE_BACKLOG.olean research/VF_MID_FLOOR_LI_DISCRETE_BACKLOG.lean 2>&1 | tee vf-mid-floor-li-discrete-backlog.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_LINEAR_INTERPOLATION_FANTASY.olean research/VF_MID_LINEAR_INTERPOLATION_FANTASY.lean 2>&1 | tee vf-mid-linear-interpolation-fantasy.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_DIRECT_SIGNED_DYNAMICS.olean research/VF_MID_DIRECT_SIGNED_DYNAMICS.lean 2>&1 | tee vf-mid-direct-signed-dynamics.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_SQUARE_BAND_COMPOSITE_BRIDGE.olean research/VF_MID_SQUARE_BAND_COMPOSITE_BRIDGE.lean 2>&1 | tee vf-mid-square-band-composite-bridge.log
@@ -172,6 +174,7 @@ jobs:
           import «research.VF_MID_VON_KOCH_BRIDGE»
           import «research.VF_MID_OSCILLATION_SCALE»
           import «research.LI_FLOOR_PRIME_COUNT_FANTASY»
+          import «research.VF_MID_FLOOR_LI_DISCRETE_BACKLOG»
           import «research.VF_MID_LINEAR_INTERPOLATION_FANTASY»
           import «research.FOUR_FANTASY_PROXY_RH_CLOSURES»
           import «research.VF_MID_FRACTIONAL_PRIME_CLUSTER»
@@ -246,6 +249,10 @@ jobs:
           #print axioms RHLean.Analysis.abs_liIntegerCutoffFloorPrimeCountProxy_sub_li_le
           #print axioms RHLean.Analysis.primeLiVonKochBounded_of_liFloorPrimeCountIdentification
           #print axioms RHLean.Analysis.riemannHypothesis_of_liFloorPrimeCountIdentification
+          #print axioms RHLean.Analysis.vfMidPrimeFloorLiBacklog_succ
+          #print axioms RHLean.Analysis.vfMidOddFloorLiCompositeDefect_eq_ownerCensus_sub_reference
+          #print axioms RHLean.Analysis.vfMidDyadicVFTrackingDefect_eq_floorLiDefect_sub_bridgeIncrement
+          #print axioms RHLean.Analysis.vfMidFloorLiVFTrackingCoordinate_root_bridge
           #print axioms RHLean.Analysis.vfMidLinearMidpoint_li_root_bounded
           #print axioms RHLean.Analysis.primeLiVonKochBounded_of_vfMidLinearMidpointIdentification
           #print axioms RHLean.Analysis.riemannHypothesis_of_vfMidLinearMidpointIdentification
