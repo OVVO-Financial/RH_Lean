@@ -163,4 +163,42 @@ theorem vfMidOddCompositeTrackingDefect_eq_signed_child_tree_with_strict_descent
   · intro p hp m hm
     exact vfMidLateRecursiveOwner_child_sqrt_lt hR hp hm
 
+
+/-! ## Exact audit of the missing sign-isometry -/
+
+/-- **Concrete mixed-sign recursive-child witness.**
+
+At the first #850 scale `R = 7`, the recursive owner `p = 3` produces both
+prime and composite stripped children on the *same* lower square scale:
+
+* `51 = 3 * 17` and `57 = 3 * 19` give prime children;
+* `63 = 3 * 21` gives a composite child;
+* all three children have square index `4`.
+
+Thus recursive owner stripping is a strict scale descent but, unlike Möbius
+fresh-prime transport, it does not carry a uniform sign reversal on the VF
+prime/composite seat charge.  Any aggregate-coherence descent theorem must use
+more than child injectivity plus well-foundedness. -/
+theorem vfMidRecursiveOwner_mixed_child_sign_witness :
+    3 ∈ vfMidSquareBandLateRecursiveOwners 7 ∧
+      17 ∈ vfMidSquareBandCompositeOwnerChildren 7 3 ∧
+      Nat.Prime 17 ∧
+      19 ∈ vfMidSquareBandCompositeOwnerChildren 7 3 ∧
+      Nat.Prime 19 ∧
+      21 ∈ vfMidSquareBandCompositeOwnerChildren 7 3 ∧
+      ¬ Nat.Prime 21 ∧
+      Nat.sqrt 17 = 4 ∧ Nat.sqrt 19 = 4 ∧ Nat.sqrt 21 = 4 := by
+  native_decide
+
+/-- The mixed arithmetic child types become opposite VF seat-charge formulas at
+that common lower scale. -/
+theorem vfMidRecursiveOwner_mixed_child_charge_formulas :
+    vfMidOddSignedSeatCharge 4 17 =
+        -(1 - vfMidOddFractionalPrimeSeatWeight 4) ∧
+      vfMidOddSignedSeatCharge 4 21 =
+        vfMidOddFractionalPrimeSeatWeight 4 := by
+  constructor
+  · exact vfMidOddSignedSeatCharge_of_prime 4 17 (by native_decide)
+  · exact vfMidOddSignedSeatCharge_of_not_prime 4 21 (by native_decide)
+
 end RHLean.Analysis
