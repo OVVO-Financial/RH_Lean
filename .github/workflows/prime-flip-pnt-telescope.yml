@@ -1,5 +1,5 @@
 name: Prime flip PNT telescope
-# Composite-floor attack strict check.
+# Composite-floor and square-theta attack strict check.
 
 on:
   pull_request:
