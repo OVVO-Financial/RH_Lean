@@ -1,6 +1,7 @@
 import Mathlib
 import «research.VF_MID_RECURSIVE_REMAINDER_BOUND»
 import «research.VF_MID_DIRECT_DISCREPANCY_ABEL»
+import RHLean.Analysis.NativePNTTransfer
 
 /-!
 # Native VF descent written in Chebyshev theta coordinates
@@ -195,5 +196,131 @@ def VFMidThetaNativeDescentBoundedStatement : Prop :=
     ∀ R : ℕ, 7 ≤ R →
       |vfMidDirectThetaEndpointError R| ≤
         C * (R : ℝ) * (Real.log (R : ℝ)) ^ 2
+
+/-! ## Square-psi reduction
+
+The Selberg engine in RHLean is written for the second Chebyshev function
+psi.  At square endpoints, repeated prime powers cost only R log(R^2), which
+is one logarithm below the R log(R)^2 envelope needed by the existing theta
+consumer.  Thus it is enough to tighten the already-native psi error on
+squares; no separate theta cancellation theorem is required.
+-/
+
+/-- The prime-power correction at a square endpoint is nonnegative and bounded
+by R log(R^2). -/
+theorem vfMidSquarePsi_sub_theta_le
+    (R : ℕ) (hR : 1 ≤ R) :
+    0 ≤ nativePsi (R ^ 2) - nativeTheta (R ^ 2) ∧
+      nativePsi (R ^ 2) - nativeTheta (R ^ 2) ≤
+        (R : ℝ) * Real.log ((R ^ 2 : ℕ) : ℝ) := by
+  constructor
+  · exact sub_nonneg.mpr (nativeTheta_le_psi (R ^ 2))
+  · have h :=
+      nativePsi_le_theta_add_sqrt_log (R ^ 2)
+        (by nlinarith : 1 ≤ R ^ 2)
+    rw [Nat.sqrt_eq'] at h
+    linarith
+
+/-- Theta error is the native psi error minus only the square-root-supported
+prime-power correction. -/
+theorem abs_vfMidDirectThetaEndpointError_le_psi_add_primePower
+    (R : ℕ) (hR : 1 ≤ R) :
+    |vfMidDirectThetaEndpointError R| ≤
+      |nativePNTError (R ^ 2)| +
+        (R : ℝ) * Real.log ((R ^ 2 : ℕ) : ℝ) := by
+  rcases vfMidSquarePsi_sub_theta_le R hR with ⟨hq0, hq⟩
+  have hid :
+      vfMidDirectThetaEndpointError R =
+        nativePNTError (R ^ 2) -
+          (nativePsi (R ^ 2) - nativeTheta (R ^ 2)) := by
+    unfold vfMidDirectThetaEndpointError nativePNTError
+    push_cast
+    ring
+  rw [hid]
+  calc
+    |nativePNTError (R ^ 2) -
+        (nativePsi (R ^ 2) - nativeTheta (R ^ 2))|
+        ≤ |nativePNTError (R ^ 2)| +
+            |nativePsi (R ^ 2) - nativeTheta (R ^ 2)| := abs_sub _ _
+    _ = |nativePNTError (R ^ 2)| +
+          (nativePsi (R ^ 2) - nativeTheta (R ^ 2)) := by
+          rw [abs_of_nonneg hq0]
+    _ ≤ |nativePNTError (R ^ 2)| +
+          (R : ℝ) * Real.log ((R ^ 2 : ℕ) : ℝ) := by
+          exact add_le_add_left hq _
+
+/-- Square-endpoint psi envelope in the exact scale needed for the VF Abel
+consumer after the lower-order prime-power correction is removed. -/
+def VFMidSquarePsiEnvelopeStatement : Prop :=
+  ∃ C : ℝ, 0 ≤ C ∧
+    ∀ R : ℕ, 3 ≤ R →
+      |nativePNTError (R ^ 2)| ≤
+        C * (R : ℝ) * (Real.log (R : ℝ)) ^ 2
+
+private lemma vfMid_log_three_gt_one :
+    (1 : ℝ) < Real.log 3 := by
+  rw [show (1 : ℝ) = Real.log (Real.exp 1) by rw [Real.log_exp]]
+  apply Real.log_lt_log (Real.exp_pos 1)
+  exact Real.exp_one_lt_d9.trans (by norm_num)
+
+/-- **Psi on squares is sufficient for theta on squares.**
+
+The conversion loses only the harmless additive constant 2 in the envelope:
+the prime-power correction is at most 2 R log R, and log R >= 1 for R >= 3. -/
+theorem vfMidSquareThetaEnvelope_of_psiEnvelope
+    (hpsi : VFMidSquarePsiEnvelopeStatement) :
+    VFMidSquareThetaEnvelopeStatement := by
+  rcases hpsi with ⟨C, hC0, hC⟩
+  refine ⟨C + 2, by positivity, ?_⟩
+  intro R hR
+  have hbridge :=
+    abs_vfMidDirectThetaEndpointError_le_psi_add_primePower
+      R (by omega : 1 ≤ R)
+  have hpsiR := hC R hR
+  have hRpos : (0 : ℝ) < (R : ℝ) := by positivity
+  have hlog1 : (1 : ℝ) ≤ Real.log (R : ℝ) := by
+    have hlog3 : (1 : ℝ) < Real.log 3 := vfMid_log_three_gt_one
+    have h3R : (3 : ℝ) ≤ (R : ℝ) := by exact_mod_cast hR
+    have hlog3R :
+        Real.log 3 ≤ Real.log (R : ℝ) :=
+      Real.log_le_log (by norm_num) h3R
+    linarith
+  have hlog0 : 0 ≤ Real.log (R : ℝ) := by linarith
+  have hlogSq :
+      Real.log (R : ℝ) ≤ (Real.log (R : ℝ)) ^ 2 := by
+    nlinarith
+  have hsqlog :
+      Real.log ((R ^ 2 : ℕ) : ℝ) =
+        2 * Real.log (R : ℝ) := by
+    rw [Nat.cast_pow, Real.log_pow]
+    norm_num
+  have hprimePower :
+      (R : ℝ) * Real.log ((R ^ 2 : ℕ) : ℝ) ≤
+        2 * (R : ℝ) * (Real.log (R : ℝ)) ^ 2 := by
+    rw [hsqlog]
+    nlinarith
+  calc
+    |vfMidDirectThetaEndpointError R|
+        ≤ |nativePNTError (R ^ 2)| +
+            (R : ℝ) * Real.log ((R ^ 2 : ℕ) : ℝ) := hbridge
+    _ ≤ C * (R : ℝ) * (Real.log (R : ℝ)) ^ 2 +
+          2 * (R : ℝ) * (Real.log (R : ℝ)) ^ 2 :=
+      add_le_add hpsiR hprimePower
+    _ = (C + 2) * (R : ℝ) * (Real.log (R : ℝ)) ^ 2 := by ring
+
+/-- Therefore the existing direct Abel theorem consumes a square-psi envelope
+without any additional cancellation hypothesis. -/
+theorem abs_vfMidDirectSquareEndpointError_le_of_squarePsiEnvelope
+    (h : VFMidSquarePsiEnvelopeStatement)
+    (R : ℕ) (hR : 3 ≤ R) :
+    ∃ C : ℝ, 0 ≤ C ∧
+      |vfMidDirectSquareEndpointError R| ≤
+        C * (R : ℝ) * Real.log (R : ℝ) +
+          (4 * C + 9 / Real.log 4) * (R : ℝ) +
+          |vfMidDirectSquareEndpointError 2 -
+            vfMidDirectThetaEndpointError 2 *
+              vfMidDirectThetaAbelWeight 2| :=
+  abs_vfMidDirectSquareEndpointError_le_of_squareThetaEnvelope
+    (vfMidSquareThetaEnvelope_of_psiEnvelope h) R hR
 
 end RHLean.Analysis
