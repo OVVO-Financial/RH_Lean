@@ -1,0 +1,14 @@
+{
+  "main_paths": 3582,
+  "serial_paths": 1029,
+  "total_paths": 4611,
+  "main_pooled_max_RH1000": 0.2165516598137298,
+  "main_pooled_q99_RH1000": 0.18427328851928043,
+  "serial_pooled_max_RH1000": 0.4777508946801366,
+  "serial_pooled_q99_RH1000": 0.39975812019336415,
+  "serial_pooled_max_K": 1.0786950870658183,
+  "serial_pooled_q99_K": 0.8497143382020348,
+  "serial_fraction_K_le_1": 0.9961127308066083,
+  "all_paths_RH1000_lt_1": true,
+  "phi_099_fraction_K_le_1": 0.9727891156462585
+}
