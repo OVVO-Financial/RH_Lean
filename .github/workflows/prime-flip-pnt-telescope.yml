@@ -520,6 +520,8 @@ jobs:
           #print axioms RHLean.Analysis.nativePNTError_square_succ_eq_old_sub_vfMidSquarePsiProtectedPull
           #print axioms RHLean.Analysis.nativePNTError_square_succ_sq_sub_sq_eq_protectedPull
           #print axioms RHLean.Analysis.vfMidSquarePsiProtectedPull_eq_nativeVFDescent
+          #print axioms RHLean.Analysis.vfMidAdjacentSquareSecondSelbergFrontierCharge_nonpos
+          #print axioms RHLean.Analysis.vfMidAdjacentSquareSecondSelbergFrontierErrorMass_nonneg
           #print axioms RHLean.Analysis.vfMidSquareThetaEnvelope_of_psiEnvelope
           #print axioms RHLean.Analysis.abs_vfMidDirectSquareEndpointError_le_of_squarePsiEnvelope
           #print axioms RHLean.Analysis.vfMidOddCompositeTrackingDefect_eq_signed_child_tree_with_strict_descent
