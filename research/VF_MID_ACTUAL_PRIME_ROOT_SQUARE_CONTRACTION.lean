@@ -460,6 +460,108 @@ theorem abs_vfMidSquareProtectedCofactorResponse_mul_prime_le
   rw [abs_neg, abs_of_nonneg hchild0, abs_neg, abs_of_nonneg hparent0]
   exact vfMidSquareProtectedResponseLogMass_mul_prime_le R m q hm hq
 
+/-- **Pointwise actual-prime high-owner tail contraction.**
+On the literal adjacent-square protected correlation, a fresh high-prime child
+has opposite Möbius sign and no larger physical response mass.  Its reciprocal
+summand therefore costs at most `1/q` times the parent summand. -/
+theorem abs_vfMidActualHighPrimeProtectedChild_le_inv_mul_parent
+    (R m q : ℕ) (hR : 3 ≤ R) (hm : 1 ≤ m)
+    (hq : q.Prime) (hcop : Nat.Coprime m q) :
+    |nativePNTSignedSquareBlockCorrelationReciprocalSummand
+        ((R + 1) ^ 2) (R ^ 2) ((R + 1) ^ 2) (m * q)| ≤
+      (1 / (q : ℝ)) *
+        |nativePNTSignedSquareBlockCorrelationReciprocalSummand
+          ((R + 1) ^ 2) (R ^ 2) ((R + 1) ^ 2) m| := by
+  have hmpos : 0 < m := by omega
+  have hqpos : (0 : ℝ) < (q : ℝ) := by exact_mod_cast hq.pos
+  have hmRpos : (0 : ℝ) < (m : ℝ) := by exact_mod_cast hmpos
+  have hresp :=
+    abs_vfMidSquareProtectedCofactorResponse_mul_prime_le
+      R m q hR hm hq
+  unfold nativePNTSignedSquareBlockCorrelationReciprocalSummand
+  change
+    |(((μ (m * q) : ℤ) : ℝ) *
+        nativePNTSignedSquareBlockCofactorResponse
+          ((R + 1) ^ 2) (R ^ 2) ((R + 1) ^ 2) (m * q)) /
+          ((m * q : ℕ) : ℝ)| ≤
+      (1 / (q : ℝ)) *
+        |(((μ m : ℤ) : ℝ) *
+          nativePNTSignedSquareBlockCofactorResponse
+            ((R + 1) ^ 2) (R ^ 2) ((R + 1) ^ 2) m) / (m : ℝ)|
+  rw [nativeMobius_adjoin_prime m q hq hcop]
+  push_cast
+  rw [abs_div, abs_mul, abs_neg, abs_div, abs_mul]
+  have hmqcast : (((m * q : ℕ) : ℝ)) = (m : ℝ) * (q : ℝ) := by norm_num
+  rw [hmqcast, abs_mul, abs_of_pos hmRpos, abs_of_pos hqpos,
+    abs_of_pos hmRpos]
+  have hmu : 0 ≤ |(((μ m : ℤ) : ℝ))| := abs_nonneg _
+  have hden : 0 ≤ (1 / (q : ℝ)) * (|(((μ m : ℤ) : ℝ))| / (m : ℝ)) := by
+    positivity
+  calc
+    |(((μ m : ℤ) : ℝ))| *
+          |nativePNTSignedSquareBlockCofactorResponse
+            ((R + 1) ^ 2) (R ^ 2) ((R + 1) ^ 2) (m * q)| /
+        ((m : ℝ) * (q : ℝ))
+        =
+      (1 / (q : ℝ)) *
+        ((|(((μ m : ℤ) : ℝ))| / (m : ℝ)) *
+          |nativePNTSignedSquareBlockCofactorResponse
+            ((R + 1) ^ 2) (R ^ 2) ((R + 1) ^ 2) (m * q)|) := by
+          field_simp
+          ring
+    _ ≤ (1 / (q : ℝ)) *
+        ((|(((μ m : ℤ) : ℝ))| / (m : ℝ)) *
+          |nativePNTSignedSquareBlockCofactorResponse
+            ((R + 1) ^ 2) (R ^ 2) ((R + 1) ^ 2) m|) := by
+          apply mul_le_mul_of_nonneg_left
+          · exact mul_le_mul_of_nonneg_left hresp (by positivity)
+          · positivity
+    _ = (1 / (q : ℝ)) *
+        (|(((μ m : ℤ) : ℝ))| *
+          |nativePNTSignedSquareBlockCofactorResponse
+            ((R + 1) ^ 2) (R ^ 2) ((R + 1) ^ 2) m| / (m : ℝ)) := by
+          field_simp
+          ring
+
+/-- **Fixed-parent actual high-tail bound.**
+The complete post-root child tail of one low parent is controlled by the actual
+reciprocal-prime mass of its legal star.  This is the direct protected-VF
+counterpart of the continuous-Li root-to-square high-tail estimate. -/
+theorem abs_sum_vfMidActualHighPrimeProtectedChildren_le
+    (R m : ℕ) (hR : 3 ≤ R) (hm : 1 ≤ m) :
+    |∑ q ∈ vfMidActualHighPrimeStarSet R m,
+        nativePNTSignedSquareBlockCorrelationReciprocalSummand
+          ((R + 1) ^ 2) (R ^ 2) ((R + 1) ^ 2) (m * q)| ≤
+      vfMidActualHighPrimeStarReciprocalMass R m *
+        |nativePNTSignedSquareBlockCorrelationReciprocalSummand
+          ((R + 1) ^ 2) (R ^ 2) ((R + 1) ^ 2) m| := by
+  calc
+    |∑ q ∈ vfMidActualHighPrimeStarSet R m,
+        nativePNTSignedSquareBlockCorrelationReciprocalSummand
+          ((R + 1) ^ 2) (R ^ 2) ((R + 1) ^ 2) (m * q)|
+        ≤ ∑ q ∈ vfMidActualHighPrimeStarSet R m,
+            |nativePNTSignedSquareBlockCorrelationReciprocalSummand
+              ((R + 1) ^ 2) (R ^ 2) ((R + 1) ^ 2) (m * q)| :=
+      Finset.abs_sum_le_sum_abs _ _
+    _ ≤ ∑ q ∈ vfMidActualHighPrimeStarSet R m,
+          (1 / (q : ℝ)) *
+            |nativePNTSignedSquareBlockCorrelationReciprocalSummand
+              ((R + 1) ^ 2) (R ^ 2) ((R + 1) ^ 2) m| := by
+      apply Finset.sum_le_sum
+      intro q hqStar
+      have hqData := Finset.mem_filter.mp hqStar
+      have hcarrier := Finset.mem_filter.mp hqData.1
+      have hqPrime : q.Prime := hcarrier.2
+      have hcop :=
+        vfMidActualHighPrimeStar_parent_coprime (by omega : 2 ≤ R) hm hqStar
+      exact abs_vfMidActualHighPrimeProtectedChild_le_inv_mul_parent
+        R m q hR hm hqPrime hcop
+    _ = vfMidActualHighPrimeStarReciprocalMass R m *
+        |nativePNTSignedSquareBlockCorrelationReciprocalSummand
+          ((R + 1) ^ 2) (R ^ 2) ((R + 1) ^ 2) m| := by
+      unfold vfMidActualHighPrimeStarReciprocalMass
+      rw [Finset.sum_mul]
+
 /-! ## High-owner star compression -/
 
 /-- High owner primes whose child of one fixed positive parent still fits below
