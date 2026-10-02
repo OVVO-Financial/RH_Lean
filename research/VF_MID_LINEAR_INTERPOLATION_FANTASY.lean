@@ -147,9 +147,17 @@ private theorem abs_vfMidLinearMidpointSegment_sub_li_le
           ≤ B * Real.sqrt b := hEb
       _ ≤ B * (2 * Real.sqrt x) := hs
       _ = 2 * B * Real.sqrt x := by ring
-  have hLax0 :=
-    abs_logarithmicIntegralFromTwo_sub_le_log_succ
-      (y := 3) (a := a) (b := x) (by norm_num) ha4 hxl
+  have haSucc : (((3 : ℕ) : ℝ) + 1) ≤ a := by
+    norm_num
+    exact ha4
+  have hLax0 :
+      |logarithmicIntegralFromTwo x - logarithmicIntegralFromTwo a| ≤
+        (x - a) / Real.log 4 := by
+    have hraw :=
+      abs_logarithmicIntegralFromTwo_sub_le_log_succ
+        (y := 3) (a := a) (b := x) (by norm_num) haSucc hxl
+    norm_num at hraw ⊢
+    exact hraw
   have hLax :
       |vfMidLogarithmicIntegralFromTwo a -
           vfMidLogarithmicIntegralFromTwo x| ≤
@@ -165,9 +173,17 @@ private theorem abs_vfMidLinearMidpointSegment_sub_li_le
     apply div_le_div_of_nonneg_right _ hlog4.le
     rw [← hwidth]
     linarith
-  have hLbx0 :=
-    abs_logarithmicIntegralFromTwo_sub_le_log_succ
-      (y := 3) (a := x) (b := b) (by norm_num) hx4 hxu
+  have hxSucc : (((3 : ℕ) : ℝ) + 1) ≤ x := by
+    norm_num
+    exact hx4
+  have hLbx0 :
+      |logarithmicIntegralFromTwo b - logarithmicIntegralFromTwo x| ≤
+        (b - x) / Real.log 4 := by
+    have hraw :=
+      abs_logarithmicIntegralFromTwo_sub_le_log_succ
+        (y := 3) (a := x) (b := b) (by norm_num) hxSucc hxu
+    norm_num at hraw ⊢
+    exact hraw
   have hLbx :
       |vfMidLogarithmicIntegralFromTwo b -
           vfMidLogarithmicIntegralFromTwo x| ≤
@@ -322,17 +338,20 @@ theorem vfMidLinearMidpoint_li_root_bounded :
     change (R : ℝ) ^ 2 ≤ x at hsqL
     change x ≤ (((R + 1 : ℕ) : ℝ) ^ 2) at hsqU
     by_cases hleft : x < vfMidBandMidpoint R
-    · have hR3 : 3 ≤ R := by
-        by_contra hnot
-        have hR2 : R = 2 := by omega
-        subst R
-        exact hleft.not_le hm2x
+    · have hRne : R ≠ 2 := by
+        intro hR2
+        have hge : vfMidBandMidpoint R ≤ x := by
+          simpa [hR2] using hm2x
+        exact (not_lt_of_ge hge) hleft
+      have hR3 : 3 ≤ R := by omega
       have hr : 2 ≤ R - 1 := by omega
       have hmidL : vfMidBandMidpoint (R - 1) ≤ x := by
         have hprev : vfMidBandMidpoint (R - 1) ≤ (R : ℝ) ^ 2 := by
+          have hcast : ((R - 1 : ℕ) : ℝ) = (R : ℝ) - 1 := by
+            rw [Nat.cast_sub (by omega : 1 ≤ R)]
+            norm_num
           unfold vfMidBandMidpoint
-          rw [Nat.cast_sub (by omega : 1 ≤ R)]
-          norm_num
+          rw [hcast]
           nlinarith
         exact hprev.trans hsqL
       have hmidU : x ≤ vfMidBandMidpoint ((R - 1) + 1) := by
@@ -354,7 +373,8 @@ theorem vfMidLinearMidpoint_li_root_bounded :
             (((R + 1 : ℕ) : ℝ) ^ 2) ≤
               vfMidBandMidpoint (R + 1) := by
           unfold vfMidBandMidpoint
-          positivity
+          have hnonneg : 0 ≤ ((R + 1 : ℕ) : ℝ) := by positivity
+          nlinarith
         exact hsqU.trans hsquareMid
       have hseg :=
         abs_vfMidLinearMidpointSegment_sub_li_le
