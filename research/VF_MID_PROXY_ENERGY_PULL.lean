@@ -27,7 +27,7 @@ square-theta envelope follows.
 
 noncomputable section
 
-open scoped BigOperators
+open scoped BigOperators ArithmeticFunction.Moebius
 
 namespace RHLean.Analysis
 
@@ -566,7 +566,7 @@ theorem vfMidThetaLowerBarrier_noEscape_iff_thetaSupply
 2 log(R+1).  Summing gives the deterministic conversion from a prime-population
 ceiling to a theta-mass ceiling. -/
 theorem vfMidDirectThetaBandMass_le_primeSupply_upperLog
-    (R : ℕ) (hR : 2 ≤ R) :
+    (R : ℕ) (_hR : 2 ≤ R) :
     vfMidDirectThetaBandMass R ≤
       (vfMidIntegerBlockPrimeSupply R : ℝ) *
         (2 * Real.log ((R + 1 : ℕ) : ℝ)) := by
