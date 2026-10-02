@@ -287,7 +287,8 @@ theorem abs_vfMidMidpointLinear_sq_sub_vfMid_le
     have hsquare : (((2 : ℕ) : ℝ) ^ 2) = 4 := by
       norm_num
     rw [hsquare, vfMidMidpointLinear_eq_vfMid_of_lt_firstMidpoint hlt]
-    positivity
+    have hlog4 : 0 < Real.log 4 := Real.log_pos (by norm_num)
+    exact mul_nonneg (div_nonneg (by norm_num) hlog4.le) (by norm_num)
   · have hR3 : 3 ≤ R := by omega
     have hfirst :
         vfMidBandMidpoint 2 ≤ (R : ℝ) ^ 2 := by
