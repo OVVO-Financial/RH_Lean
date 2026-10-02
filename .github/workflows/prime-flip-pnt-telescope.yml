@@ -11,6 +11,7 @@ on:
       - research/EXACT_LI_DICKMAN_FORMAL.lean
       - research/EXACT_LI_PURE_MODEL_CLOSURE.lean
       - research/VF_MID_VON_KOCH_BRIDGE.lean
+      - research/VF_MID_OSCILLATION_SCALE.lean
       - research/LI_FLOOR_PRIME_COUNT_FANTASY.lean
       - research/VF_MID_LINEAR_INTERPOLATION_FANTASY.lean
       - research/FOUR_FANTASY_PROXY_RH_CLOSURES.lean
@@ -117,6 +118,7 @@ jobs:
           mkdir -p .lake/build/lib/lean
           set -o pipefail
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_VON_KOCH_BRIDGE.olean research/VF_MID_VON_KOCH_BRIDGE.lean 2>&1 | tee vf-mid-von-koch.log
+          lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_OSCILLATION_SCALE.olean research/VF_MID_OSCILLATION_SCALE.lean 2>&1 | tee vf-mid-oscillation-scale.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.LI_FLOOR_PRIME_COUNT_FANTASY.olean research/LI_FLOOR_PRIME_COUNT_FANTASY.lean 2>&1 | tee li-floor-prime-count-fantasy.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_LINEAR_INTERPOLATION_FANTASY.olean research/VF_MID_LINEAR_INTERPOLATION_FANTASY.lean 2>&1 | tee vf-mid-linear-interpolation-fantasy.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_DIRECT_SIGNED_DYNAMICS.olean research/VF_MID_DIRECT_SIGNED_DYNAMICS.lean 2>&1 | tee vf-mid-direct-signed-dynamics.log
@@ -168,6 +170,7 @@ jobs:
           import «research.ALL_SCALE_LI_DISPLACEMENT_REDUCTION»
           import «research.EXACT_LI_PURE_MODEL_CLOSURE»
           import «research.VF_MID_VON_KOCH_BRIDGE»
+          import «research.VF_MID_OSCILLATION_SCALE»
           import «research.LI_FLOOR_PRIME_COUNT_FANTASY»
           import «research.VF_MID_LINEAR_INTERPOLATION_FANTASY»
           import «research.FOUR_FANTASY_PROXY_RH_CLOSURES»
@@ -237,6 +240,7 @@ jobs:
           #print axioms RHLean.Analysis.exactLiContinuousModel_root_closed
           #print axioms RHLean.Analysis.vfMidPrimeLiError_eq_primeError_add_liError
           #print axioms RHLean.Analysis.vfMidLiRootBounded
+          #print axioms RHLean.Analysis.vfMidOscillationScale_of_primeLi_of_quadrature
           #print axioms RHLean.Analysis.abs_liFloorPrimeCountProxy_sub_li_lt_one
           #print axioms RHLean.Analysis.abs_li_at_floor_sub_li_le_inv_log_four
           #print axioms RHLean.Analysis.abs_liIntegerCutoffFloorPrimeCountProxy_sub_li_le
@@ -569,6 +573,7 @@ jobs:
             all-scale-li-displacement.log
             exact-li-pure-model-closure.log
             vf-mid-von-koch.log
+            vf-mid-oscillation-scale.log
             vf-mid-direct-signed-dynamics.log
             vf-mid-square-band-composite-bridge.log
             vf-mid-direct-composite-descent.log
