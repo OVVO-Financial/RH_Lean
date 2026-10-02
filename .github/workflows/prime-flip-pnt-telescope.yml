@@ -493,6 +493,9 @@ jobs:
           #print axioms RHLean.Analysis.vfMidRecursivePrimeChildrenInBlock_card_le_min_population_prefixWheel
           #print axioms RHLean.Analysis.abs_vfMidRecursiveRemainderInBlock_le_minPopulationPrefixWheel
           #print axioms RHLean.Analysis.abs_vfMidRecursiveAggregateRemainder_le_clippedPrefixWheelBudget
+          #print axioms RHLean.Analysis.vfMidRecursiveChildrenInBlock_sum_card_le_carrier
+          #print axioms RHLean.Analysis.vfMidRecursiveAggregateClippedPrimeBudget_le_childCarrier
+          #print axioms RHLean.Analysis.vfMidRecursiveAggregateClippedPrefixWheelBudget_le_population_add_weight
           #print axioms RHLean.Analysis.vfMidOddCompositeTrackingDefect_eq_signed_child_tree_with_strict_descent
           #print axioms RHLean.Analysis.vfMidRecursiveOwner_mixed_child_sign_witness
           #print axioms RHLean.Analysis.vfMidRecursiveOwner_mixed_child_charge_formulas
