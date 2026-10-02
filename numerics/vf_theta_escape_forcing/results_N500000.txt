@@ -1,0 +1,50 @@
+N = 500000  (largest square endpoint x = 2.500e+11)
+
+1. Envelope ratio |E(R)|/(R log^2 R)
+   initialization max over 3<=R<=7: 1.0089 at R=3
+   R in [      3,     10): max 1.0089 at R=3   max|E|/R 1.663
+   R in [     10,    100): max 0.3069 at R=10   max|E|/R 1.744
+   R in [    100,   1000): max 0.0760 at R=108   max|E|/R 1.783
+   R in [   1000,  10000): max 0.0348 at R=1031   max|E|/R 1.770
+   R in [  10000, 100000): max 0.0185 at R=11071   max|E|/R 1.709
+   R in [ 100000, 500000): max 0.0130 at R=107088   max|E|/R 1.745
+   overall max over R>=8: 0.3145
+
+2. Barrier route: C^2 needed at step R = (U^2 - 2EU)/(G(R+1)-G(R)), G=R^2 log^4 R
+   R in [      7,     10): max    0.1615 (R=     9)  median   0.1088  p99   0.1605  frac>0 0.667  sqrt(R)/log^3.5 R ~ 0.222
+   R in [     10,    100): max    0.1291 (R=    14)  median   0.0031  p99   0.0956  frac>0 0.544  sqrt(R)/log^3.5 R ~ 0.068
+   R in [    100,   1000): max    0.1401 (R=   696)  median   0.0011  p99   0.0895  frac>0 0.511  sqrt(R)/log^3.5 R ~ 0.038
+   R in [   1000,  10000): max    0.1712 (R=  2456)  median   0.0004  p99   0.1056  frac>0 0.504  sqrt(R)/log^3.5 R ~ 0.039
+   R in [  10000, 100000): max    0.3673 (R= 87816)  median   0.0001  p99   0.1479  frac>0 0.501  sqrt(R)/log^3.5 R ~ 0.054
+   R in [ 100000, 500000): max    0.5545 (R=331722)  median   0.0001  p99   0.2149  frac>0 0.500  sqrt(R)/log^3.5 R ~ 0.076
+   ratio (p99.9 of need) / (sqrt(R)/log^3.5 R) per window:
+     [1000,10000): 3.665
+     [10000,100000): 3.935
+     [100000,500000): 4.026
+
+3. #858 forcing statements, F_R = C R log^2 R
+   C= 0.0040 init_ok=False  escapes R>=7:    496  (R>=1000:    496)  child-witness at escapes 1.000 vs R-matched background 1.000  | escapes w/o witness 0  | frac endpoints outside 0.966
+   C= 0.0080 init_ok=False  escapes R>=7:   2673  (R>=1000:   2673)  child-witness at escapes 1.000 vs R-matched background 1.000  | escapes w/o witness 0  | frac endpoints outside 0.256
+   C= 0.0150 init_ok=False  escapes R>=7:    365  (R>=1000:    362)  child-witness at escapes 1.000 vs R-matched background 1.000  | escapes w/o witness 0  | frac endpoints outside 0.010
+   C= 0.0200 init_ok=False  escapes R>=7:    164  (R>=1000:    134)  child-witness at escapes 1.000 vs R-matched background 1.000  | escapes w/o witness 0  | frac endpoints outside 0.002
+   C= 0.0250 init_ok=False  escapes R>=7:     94  (R>=1000:     49)  child-witness at escapes 1.000 vs R-matched background 1.000  | escapes w/o witness 0  | frac endpoints outside 0.000
+   C= 0.0300 init_ok=False  escapes R>=7:     52  (R>=1000:      3)  child-witness at escapes 1.000 vs R-matched background 1.000  | escapes w/o witness 0  | frac endpoints outside 0.000
+   C= 0.0600 init_ok=False  escapes R>=7:     13  (R>=1000:      0)
+   C= 0.1200 init_ok=False  escapes R>=7:      3  (R>=1000:      0)
+   C= 0.2500 init_ok=False  escapes R>=7:      1  (R>=1000:      0)
+   C= 0.5000 init_ok=False  escapes R>=7:      0  (R>=1000:      0)
+   C= 1.0000 init_ok=False  escapes R>=7:      0  (R>=1000:      0)
+   C= 1.0089 init_ok=True   escapes R>=7:      0  (R>=1000:      0)
+   C= 1.0593 init_ok=True   escapes R>=7:      0  (R>=1000:      0)
+
+3b. Witness location for #858 shape (F = C R log^2 R), C = 0.03:
+   escape R=1029: 54 child endpoints, outside ones: [102, 103, 104, 105, 109, 110]...  (max witness T / R = 0.2779)
+   escape R=1041: 54 child endpoints, outside ones: [103, 104, 105, 106, 110, 111]...  (max witness T / R = 0.4476)
+   escape R=1327: 59 child endpoints, outside ones: [124, 125, 127, 128, 129, 130]...  (max witness T / R = 0.2781)
+
+3c. Shape-neutral control, F_R = c R (removes the log^2 normalization bias):
+   c=0.6: escapes(R>=1000)    594  witness at escapes 1.000  vs R-matched background 1.000  | escapes w/o witness 0  | frac outside 0.969
+   c=0.9: escapes(R>=1000)   3482  witness at escapes 1.000  vs R-matched background 1.000  | escapes w/o witness 0  | frac outside 0.706
+   c=1.2: escapes(R>=1000)   2811  witness at escapes 1.000  vs R-matched background 1.000  | escapes w/o witness 0  | frac outside 0.185
+   c=1.4: escapes(R>=1000)    950  witness at escapes 1.000  vs R-matched background 1.000  | escapes w/o witness 0  | frac outside 0.041
+   c=1.6: escapes(R>=1000)    163  witness at escapes 0.804  vs R-matched background 0.849  | escapes w/o witness 32  | frac outside 0.005
