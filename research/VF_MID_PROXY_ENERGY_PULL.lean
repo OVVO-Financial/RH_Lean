@@ -337,4 +337,182 @@ theorem abs_vfMidDirectSquareEndpointError_le_of_protectedPullBarrier
   abs_vfMidDirectSquareEndpointError_le_of_squareThetaEnvelope
     (vfMidSquareThetaEnvelope_of_protectedPullBarrier h) R hR
 
+
+/-! ## Coupled owner packet and signed boundary strip -/
+
+/-- The exact owner packet which drives the proxy-renormalized theta pull.
+The native lower-scale charge is deliberately kept coupled to its signed
+descent remainder; no absolute value is taken between them. -/
+def vfMidCoupledOwnerPacket (R : ℕ) : ℝ :=
+  vfMidRecursiveAggregateNativeCharge R +
+    vfMidNativeDescentRemainder R +
+    vfMidDirectLogPositionError R
+
+/-- **The lower-scale prime correction cancels before any estimate is taken.**
+
+The native recursive charge plus its complete descent remainder is exactly the
+parent-level signed supply: positive parent VF weight on actual composites
+minus the complementary parent prime channel.  In particular, no child-prime
+population survives in this coupled expression. -/
+theorem vfMidCoupledNativeDescent_eq_parentSignedSupply
+    (R : ℕ) (hR : 7 ≤ R) :
+    vfMidRecursiveAggregateNativeCharge R +
+        vfMidNativeDescentRemainder R =
+      vfMidOddFractionalPrimeSeatWeight R *
+          ((vfMidSquareBandPrefixCompositeSurvivors 2 R).card : ℝ) -
+        (1 - vfMidOddFractionalPrimeSeatWeight R) *
+          (vfMidIntegerBlockPrimeSupply R : ℝ) := by
+  rw [←
+    vfMidOddCompositeTrackingDefect_eq_nativeCharge_add_descentRemainder
+      R hR]
+  exact
+    vfMidOddCompositeTrackingDefect_eq_compositeCharge_sub_primeCharge
+      R (by omega)
+
+/-- The protected pull is the positive midpoint logarithm times the complete
+coupled owner packet. -/
+theorem vfMidSquareThetaProtectedPull_eq_coupledOwnerPacket
+    (R : ℕ) (hR : 7 ≤ R) :
+    vfMidSquareThetaProtectedPull R =
+      Real.log (vfMidBandMidpoint R) * vfMidCoupledOwnerPacket R := by
+  simpa [vfMidCoupledOwnerPacket] using
+    vfMidSquareThetaProtectedPull_eq_nativeVFDescent R hR
+
+/-- Unsquared RH-scale theta barrier. -/
+def vfMidThetaBarrierRadius (C : ℝ) (R : ℕ) : ℝ :=
+  C * (R : ℝ) * (Real.log (R : ℝ)) ^ 2
+
+/-- One-step growth of the unsquared theta barrier. -/
+def vfMidThetaBarrierIncrement (C : ℝ) (R : ℕ) : ℝ :=
+  vfMidThetaBarrierRadius C (R + 1) - vfMidThetaBarrierRadius C R
+
+/-- **Exact signed invariant for the coupled packet.**
+
+The next theta endpoint lies inside the radius at R+1 if and only if the
+log-weighted coupled owner packet lies between the two current-slack
+thresholds.  This is the linear, sign-preserving form of the #857 invariant:
+there is no separate remainder budget to absorb.
+
+The lower threshold protects the upper endpoint barrier; the upper threshold
+protects the lower endpoint barrier. -/
+theorem vfMidThetaNextInside_iff_coupledPacketWindow
+    (C : ℝ) (R : ℕ) (hR : 7 ≤ R) :
+    (-vfMidThetaBarrierRadius C (R + 1) ≤
+          vfMidDirectThetaEndpointError (R + 1) ∧
+        vfMidDirectThetaEndpointError (R + 1) ≤
+          vfMidThetaBarrierRadius C (R + 1)) ↔
+      (-(vfMidThetaBarrierRadius C (R + 1) -
+            vfMidDirectThetaEndpointError R) ≤
+          Real.log (vfMidBandMidpoint R) * vfMidCoupledOwnerPacket R ∧
+        Real.log (vfMidBandMidpoint R) * vfMidCoupledOwnerPacket R ≤
+          vfMidThetaBarrierRadius C (R + 1) +
+            vfMidDirectThetaEndpointError R) := by
+  rw [vfMidDirectThetaEndpointError_succ_eq_old_sub_protectedPull,
+    vfMidSquareThetaProtectedPull_eq_coupledOwnerPacket R hR]
+  constructor
+  · rintro ⟨hlo, hhi⟩
+    constructor <;> linarith
+  · rintro ⟨hlo, hhi⟩
+    constructor <;> linarith
+
+/-- The same exact invariant normalized into native owner-packet currency.
+The width is divided by log(m_R), which is positive for R >= 7. -/
+theorem vfMidThetaNextInside_iff_coupledPacketWindow_normalized
+    (C : ℝ) (R : ℕ) (hR : 7 ≤ R) :
+    (-vfMidThetaBarrierRadius C (R + 1) ≤
+          vfMidDirectThetaEndpointError (R + 1) ∧
+        vfMidDirectThetaEndpointError (R + 1) ≤
+          vfMidThetaBarrierRadius C (R + 1)) ↔
+      (-(vfMidThetaBarrierRadius C (R + 1) -
+            vfMidDirectThetaEndpointError R) /
+            Real.log (vfMidBandMidpoint R) ≤
+          vfMidCoupledOwnerPacket R ∧
+        vfMidCoupledOwnerPacket R ≤
+          (vfMidThetaBarrierRadius C (R + 1) +
+            vfMidDirectThetaEndpointError R) /
+              Real.log (vfMidBandMidpoint R)) := by
+  have hlog := vfMidBandMidpoint_log_pos_of_seven_le hR
+  rw [vfMidThetaNextInside_iff_coupledPacketWindow C R hR]
+  constructor
+  · rintro ⟨hlo, hhi⟩
+    constructor
+    · apply (div_le_iff₀ hlog).2
+      simpa [mul_comm] using hlo
+    · apply (le_div_iff₀ hlog).2
+      simpa [mul_comm] using hhi
+  · rintro ⟨hlo, hhi⟩
+    constructor
+    · have h := (div_le_iff₀ hlog).1 hlo
+      simpa [mul_comm] using h
+    · have h := (le_div_iff₀ hlog).1 hhi
+      simpa [mul_comm] using h
+
+/-- At the exact upper barrier, preventing outward escape is equivalent to the
+one-sided coupled-packet threshold -delta_R/log(m_R). -/
+theorem vfMidThetaUpperBarrier_noEscape_iff_coupledPacket
+    (C : ℝ) (R : ℕ) (hR : 7 ≤ R)
+    (hbar :
+      vfMidDirectThetaEndpointError R = vfMidThetaBarrierRadius C R) :
+    vfMidDirectThetaEndpointError (R + 1) ≤
+        vfMidThetaBarrierRadius C (R + 1) ↔
+      -(vfMidThetaBarrierIncrement C R) /
+          Real.log (vfMidBandMidpoint R) ≤
+        vfMidCoupledOwnerPacket R := by
+  have hlog := vfMidBandMidpoint_log_pos_of_seven_le hR
+  rw [vfMidDirectThetaEndpointError_succ_eq_old_sub_protectedPull,
+    vfMidSquareThetaProtectedPull_eq_coupledOwnerPacket R hR, hbar]
+  constructor
+  · intro h
+    apply (div_le_iff₀ hlog).2
+    unfold vfMidThetaBarrierIncrement
+    have :
+        -(vfMidThetaBarrierRadius C (R + 1) -
+            vfMidThetaBarrierRadius C R) ≤
+          Real.log (vfMidBandMidpoint R) * vfMidCoupledOwnerPacket R := by
+      linarith
+    simpa [mul_comm] using this
+  · intro h
+    have h' := (div_le_iff₀ hlog).1 h
+    unfold vfMidThetaBarrierIncrement at h'
+    have :
+        -(vfMidThetaBarrierRadius C (R + 1) -
+            vfMidThetaBarrierRadius C R) ≤
+          Real.log (vfMidBandMidpoint R) * vfMidCoupledOwnerPacket R := by
+      simpa [mul_comm] using h'
+    linarith
+
+/-- At the exact lower barrier, preventing outward escape is equivalent to the
+opposite one-sided coupled-packet threshold +delta_R/log(m_R). -/
+theorem vfMidThetaLowerBarrier_noEscape_iff_coupledPacket
+    (C : ℝ) (R : ℕ) (hR : 7 ≤ R)
+    (hbar :
+      vfMidDirectThetaEndpointError R = -vfMidThetaBarrierRadius C R) :
+    -vfMidThetaBarrierRadius C (R + 1) ≤
+        vfMidDirectThetaEndpointError (R + 1) ↔
+      vfMidCoupledOwnerPacket R ≤
+        vfMidThetaBarrierIncrement C R /
+          Real.log (vfMidBandMidpoint R) := by
+  have hlog := vfMidBandMidpoint_log_pos_of_seven_le hR
+  rw [vfMidDirectThetaEndpointError_succ_eq_old_sub_protectedPull,
+    vfMidSquareThetaProtectedPull_eq_coupledOwnerPacket R hR, hbar]
+  constructor
+  · intro h
+    apply (le_div_iff₀ hlog).2
+    unfold vfMidThetaBarrierIncrement
+    have :
+        Real.log (vfMidBandMidpoint R) * vfMidCoupledOwnerPacket R ≤
+          vfMidThetaBarrierRadius C (R + 1) -
+            vfMidThetaBarrierRadius C R := by
+      linarith
+    simpa [mul_comm] using this
+  · intro h
+    have h' := (le_div_iff₀ hlog).1 h
+    unfold vfMidThetaBarrierIncrement at h'
+    have :
+        Real.log (vfMidBandMidpoint R) * vfMidCoupledOwnerPacket R ≤
+          vfMidThetaBarrierRadius C (R + 1) -
+            vfMidThetaBarrierRadius C R := by
+      simpa [mul_comm] using h'
+    linarith
+
 end RHLean.Analysis
