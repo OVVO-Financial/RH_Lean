@@ -67,6 +67,7 @@ theorem vfMidThetaVFReferenceBandError_eq_zero
   have hlog := vfMidBandMidpoint_log_pos_of_seven_le hR
   unfold vfMidThetaVFReferenceBandError vfMidBandMass
   field_simp [hlog.ne']
+  ring
 
 /-- The actual-minus-VF protected pull in theta currency.  Because the VF
 reference pull is zero, this is just the negative centered actual theta
@@ -132,13 +133,14 @@ theorem nativePNTError_sub_primePowerCorrection_eq_thetaEndpointError
       vfMidDirectThetaEndpointError R := by
   unfold nativePNTError vfMidSquarePrimePowerCorrection
     vfMidDirectThetaEndpointError
+  push_cast
   ring
 
 /-- Instantiation of the generic solved-reference energy identity: subtracting
 the prime-power reference from the psi evolution gives exactly the theta
 protected-pull energy step. -/
 theorem vfMidSquarePsiEnergy_renormalizes_to_thetaEnergy
-    (R : ℕ) (hR : 7 ≤ R) :
+    (R : ℕ) :
     (nativePNTError ((R + 1) ^ 2) -
         vfMidSquarePrimePowerCorrection (R + 1)) ^ 2 -
       (nativePNTError (R ^ 2) -
