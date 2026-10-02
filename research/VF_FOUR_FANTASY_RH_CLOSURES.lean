@@ -70,13 +70,17 @@ theorem abs_flooredLiFantasyPrimeCount_sub_li_lt_one (x : ℝ) :
     |flooredLiFantasyPrimeCount x - vfMidLogarithmicIntegralFromTwo x| < 1 := by
   have hfloor :
       flooredLiFantasyPrimeCount x ≤ vfMidLogarithmicIntegralFromTwo x := by
-    simpa [flooredLiFantasyPrimeCount] using
-      (floor_le (vfMidLogarithmicIntegralFromTwo x))
+    change
+      (((⌊vfMidLogarithmicIntegralFromTwo x⌋ : ℤ) : ℝ)) ≤
+        vfMidLogarithmicIntegralFromTwo x
+    exact Int.floor_le _
   have hnext :
       vfMidLogarithmicIntegralFromTwo x <
         flooredLiFantasyPrimeCount x + 1 := by
-    simpa [flooredLiFantasyPrimeCount] using
-      (lt_floor_add_one (vfMidLogarithmicIntegralFromTwo x))
+    change
+      vfMidLogarithmicIntegralFromTwo x <
+        (((⌊vfMidLogarithmicIntegralFromTwo x⌋ : ℤ) : ℝ)) + 1
+    exact Int.lt_floor_add_one _
   rw [abs_lt]
   constructor <;> linarith
 
@@ -227,6 +231,19 @@ theorem abs_vfMidMidpointLinearSegment_nextSquare_sub_finishedMass_le
   have hhalfSum :
       0 ≤ (vfMidBandMass S + vfMidBandMass (S + 1)) / 2 := by
     positivity
+  have hnegHalfS : -vfMidBandMass S / 2 ≤ 0 := by
+    nlinarith
+  have habsHalfS :
+      |-vfMidBandMass S / 2| = vfMidBandMass S / 2 := by
+    rw [abs_of_nonpos hnegHalfS]
+    ring
+  have hprod0 :
+      0 ≤ t * ((vfMidBandMass S + vfMidBandMass (S + 1)) / 2) :=
+    mul_nonneg ht0 hhalfSum
+  have habsProd :
+      |t * ((vfMidBandMass S + vfMidBandMass (S + 1)) / 2)| =
+        t * ((vfMidBandMass S + vfMidBandMass (S + 1)) / 2) :=
+    abs_of_nonneg hprod0
   have hVS := vfMidBandMass_le_logFour hS
   have hVN := vfMidBandMass_le_logFour (R := S + 1) (by omega)
   change
@@ -240,12 +257,12 @@ theorem abs_vfMidMidpointLinearSegment_nextSquare_sub_finishedMass_le
       abs_add_le _ _
     _ = vfMidBandMass S / 2 +
           t * ((vfMidBandMass S + vfMidBandMass (S + 1)) / 2) := by
-      rw [abs_neg, abs_of_nonneg hhalfS, abs_mul,
-        abs_of_nonneg ht0, abs_of_nonneg hhalfSum]
+      rw [habsHalfS, habsProd]
     _ ≤ vfMidBandMass S / 2 +
           ((vfMidBandMass S + vfMidBandMass (S + 1)) / 2) := by
-      exact add_le_add_left
-        (mul_le_mul_of_nonneg_right ht1 hhalfSum) _
+      have hm :=
+        mul_le_mul_of_nonneg_right ht1 hhalfSum
+      nlinarith
     _ = vfMidBandMass S + vfMidBandMass (S + 1) / 2 := by ring
     _ ≤ vfMidBandMass S + vfMidBandMass (S + 1) := by
       linarith
@@ -267,8 +284,10 @@ theorem abs_vfMidMidpointLinear_sq_sub_vfMid_le
   · subst R
     have hlt : (4 : ℝ) < vfMidBandMidpoint 2 := by
       norm_num [vfMidBandMidpoint]
+    change
+      |vfMidMidpointLinear 4 - vfMid 4| ≤
+        (4 / Real.log 4) * 2
     rw [vfMidMidpointLinear_eq_vfMid_of_lt_firstMidpoint hlt]
-    simp
     positivity
   · have hR3 : 3 ≤ R := by omega
     have hfirst :
@@ -282,7 +301,8 @@ theorem abs_vfMidMidpointLinear_sq_sub_vfMid_le
           vfMidBandMidpoint (vfMidSquareRootIndex ((R : ℝ) ^ 2)) := by
       rw [vfMidSquareRootIndex_sq]
       unfold vfMidBandMidpoint
-      positivity
+      have hRnonneg : (0 : ℝ) ≤ R := by positivity
+      nlinarith
     rw [vfMidMidpointLinear_eq_leftSegment hfirst hbefore,
       vfMidSquareRootIndex_sq, vfMid_sq hR]
     have hS : 2 ≤ R - 1 := by omega
@@ -328,7 +348,6 @@ theorem vfMidSquareEndpointVonKochBounded_of_midpointLinearFantasy
     _ = C * (R : ℝ) * Real.log 2 := by
       dsimp [C]
       field_simp [hlog2.ne']
-      ring
     _ ≤ C * (R : ℝ) * Real.log R := by
       exact mul_le_mul_of_nonneg_left hlogR (by
         dsimp [C]
