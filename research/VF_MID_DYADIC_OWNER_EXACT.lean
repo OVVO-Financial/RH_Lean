@@ -64,7 +64,7 @@ theorem vfMidSquareBandSites_dvd_iff_eq
         nlinarith [hmBand.1]
       omega
   · intro h
-    simpa [h]
+    simp [h]
 
 /-- Strict form: distinct sites of one square block never divide one another. -/
 theorem vfMidSquareBandSites_not_dvd_of_ne
@@ -700,6 +700,95 @@ theorem vfMidSquareBandLateOwner_card_le_four_of_subdoubling
     _ ≤ (Finset.Ioc (R ^ 2 / p) (R ^ 2 / p + 4)).card :=
           Finset.card_le_card hsub
     _ = 4 := by simp
+
+/-- **Late truncated-cube contamination has Boolean depth two.**
+If the starting wheel has processed every prime through `A`, and the current
+square wall still lies below `(A+1)^3`, then a late owner's rough child cannot
+remain composite. Thus every unresolved composite face has exactly one fresh
+owner coordinate and one prime child coordinate. -/
+theorem vfMidSquareBandLateOwnerRoughChild_prime_of_cube
+    {A R p m : ℕ}
+    (hp : p ∈ vfMidSquareBandLateOwnerPrimes A R)
+    (hm : m ∈ vfMidSquareBandOwnerRoughChildren R p)
+    (hcube : (R + 1) ^ 2 ≤ (A + 1) ^ 3) :
+    m.Prime := by
+  by_contra hmComp
+  have hgeo :=
+    vfMidSquareBandOwnerRoughChild_secondOwner_geometry hm hmComp
+  have hpGtA : A < p :=
+    (mem_vfMidSquareBandLateOwnerPrimes.mp hp).2
+  have hA1p : A + 1 ≤ p := by omega
+  have hA1q : A + 1 ≤ m.minFac := hA1p.trans hgeo.1
+  have hlower : (A + 1) ^ 3 ≤ p * (m.minFac ^ 2) := by
+    have hmul :
+        (A + 1) * ((A + 1) ^ 2) ≤ p * (m.minFac ^ 2) :=
+      Nat.mul_le_mul hA1p (Nat.pow_le_pow_left hA1q 2)
+    simpa [pow_succ, Nat.mul_comm, Nat.mul_left_comm, Nat.mul_assoc] using hmul
+  have hupper : (R + 1) ^ 2 ≤ p * (m.minFac ^ 2) :=
+    hcube.trans hlower
+  omega
+
+/-- On a subdoubling root run the cubic condition above is automatic. -/
+theorem vfMidSquareBandLateOwnerRoughChild_prime_of_subdoubling
+    {A R p m : ℕ} (hA : 3 ≤ A) (hRlt : R < 2 * A)
+    (hp : p ∈ vfMidSquareBandLateOwnerPrimes A R)
+    (hm : m ∈ vfMidSquareBandOwnerRoughChildren R p) :
+    m.Prime := by
+  have hR1 : R + 1 ≤ 2 * A := by omega
+  have hsquare : (R + 1) ^ 2 ≤ (2 * A) ^ 2 :=
+    Nat.pow_le_pow_left hR1 2
+  have hfour : 4 ≤ A + 1 := by omega
+  have hpow : A ^ 2 ≤ (A + 1) ^ 2 :=
+    Nat.pow_le_pow_left (by omega : A ≤ A + 1) 2
+  have hcube : (R + 1) ^ 2 ≤ (A + 1) ^ 3 := by
+    calc
+      (R + 1) ^ 2 ≤ (2 * A) ^ 2 := hsquare
+      _ = 4 * A ^ 2 := by ring
+      _ ≤ (A + 1) * A ^ 2 := Nat.mul_le_mul_right (A ^ 2) hfour
+      _ ≤ (A + 1) * (A + 1) ^ 2 :=
+        Nat.mul_le_mul_left (A + 1) hpow
+      _ = (A + 1) ^ 3 := by ring
+  exact vfMidSquareBandLateOwnerRoughChild_prime_of_cube hp hm hcube
+
+/-- **Rank-two form of every late composite survivor.**
+On a subdoubling run, every composite that survives the starting wheel through
+`A` is exactly a product `p*q` of two primes strictly above `A`, ordered
+`p ≤ q`. In truncated-Boolean-cube language there are no unresolved faces of
+degree three or higher. -/
+theorem vfMidSquareBandPrefixComposite_survivor_eq_two_primes_of_subdoubling
+    {A R n : ℕ} (hA : 3 ≤ A) (hAR : A ≤ R) (hRlt : R < 2 * A)
+    (hn : n ∈ vfMidSquareBandPrefixCompositeSurvivors A R) :
+    ∃ p q : ℕ,
+      p.Prime ∧ q.Prime ∧ A < p ∧ p ≤ q ∧ n = p * q := by
+  have hR3 : 3 ≤ R := hA.trans hAR
+  rcases Finset.mem_filter.mp hn with ⟨hnComp, hnSurv⟩
+  let p := n.minFac
+  have hpOwner : p ∈ vfMidSquareBandOwnerPrimes R :=
+    vfMidSquareBandComposite_minFac_mem_ownerPrimes (by omega) hnComp
+  have hpGtA : A < p :=
+    (vfMidSquareBandComposite_survives_prefix_iff_minFac_gt
+      (by omega) hnComp).1 hnSurv
+  have hpLate : p ∈ vfMidSquareBandLateOwnerPrimes A R :=
+    mem_vfMidSquareBandLateOwnerPrimes.mpr ⟨hpOwner, hpGtA⟩
+  have hnOwner : n ∈ vfMidSquareBandCompositeOwner R p :=
+    Finset.mem_filter.mpr ⟨hnComp, rfl⟩
+  have hchild : n / p ∈ vfMidSquareBandCompositeOwnerChildren R p := by
+    unfold vfMidSquareBandCompositeOwnerChildren
+    exact Finset.mem_image.mpr ⟨n, hnOwner, rfl⟩
+  have hrough : n / p ∈ vfMidSquareBandOwnerRoughChildren R p := by
+    rw [← vfMidSquareBandCompositeOwnerChildren_eq_rough hR3 hpOwner]
+    exact hchild
+  have hqPrime : (n / p).Prime :=
+    vfMidSquareBandLateOwnerRoughChild_prime_of_subdoubling
+      hA hRlt hpLate hrough
+  have hpPrime : p.Prime :=
+    (mem_vfMidSquareBandOwnerPrimes.mp hpOwner).1
+  have hpLeQ : p ≤ n / p := by
+    have hmIcc := (Finset.mem_filter.mp hrough).1
+    exact (Finset.mem_Icc.mp hmIcc).1
+  have hmul := vfMidSquareBandCompositeOwner_mul_div hnOwner
+  refine ⟨p, n / p, hpPrime, hqPrime, hpGtA, hpLeQ, ?_⟩
+  exact hmul.symm
 
 /-- Hence after sieving a square block by every prime through the starting
 root A, the surviving composites in a subdoubling later block R are at most
