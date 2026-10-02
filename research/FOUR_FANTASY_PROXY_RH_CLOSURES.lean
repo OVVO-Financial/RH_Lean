@@ -265,6 +265,13 @@ theorem riemannHypothesis_of_continuousLiProxyTracking
   riemannHypothesis_of_proxyTracking criterion htrack
     continuousLiProxy_li_root_bounded
 
+theorem continuousLiProxyTracking_iff_riemannHypothesis
+    (criterion : ClassicalVonKochRHCriterion) :
+    ContinuousLiProxyTrackingStatement ↔
+      VFMidRiemannHypothesisStatement :=
+  proxyTracking_iff_riemannHypothesis criterion
+    continuousLiProxy_li_root_bounded
+
 /-! ### Scenario 2: discrete VF-mid fractional cluster -/
 
 /-- Square-endpoint actual-to-proxy tracking for the exact cumulative
@@ -287,12 +294,36 @@ theorem vfMidSquareEndpointVonKochBounded_of_fractionalClusterTracking
   rw [vfMidFractionalPrimeClusterMass_eq_vfMid_sq R hR] at hbound
   simpa [vfMidPrimeError] using hbound
 
+theorem fractionalClusterTracking_of_vfMidSquareEndpointVonKochBounded
+    (h : VFMidSquareEndpointVonKochBoundedStatement) :
+    VFMidFractionalClusterSquareTrackingStatement := by
+  rcases h with ⟨C, hC0, hC⟩
+  refine ⟨C, hC0, ?_⟩
+  intro R hR
+  have hbound := hC R hR
+  rw [vfMidFractionalPrimeClusterMass_eq_vfMid_sq R hR]
+  simpa [vfMidPrimeError] using hbound
+
+theorem vfMidFractionalClusterSquareTracking_iff_squareEndpoint :
+    VFMidFractionalClusterSquareTrackingStatement ↔
+      VFMidSquareEndpointVonKochBoundedStatement :=
+  ⟨vfMidSquareEndpointVonKochBounded_of_fractionalClusterTracking,
+    fractionalClusterTracking_of_vfMidSquareEndpointVonKochBounded⟩
+
 theorem riemannHypothesis_of_vfMidFractionalClusterTracking
     (criterion : ClassicalVonKochRHCriterion)
     (htrack : VFMidFractionalClusterSquareTrackingStatement) :
     VFMidRiemannHypothesisStatement :=
   riemannHypothesis_of_vfMidSquareEndpoint criterion
     (vfMidSquareEndpointVonKochBounded_of_fractionalClusterTracking htrack)
+
+theorem vfMidFractionalClusterSquareTracking_iff_riemannHypothesis
+    (criterion : ClassicalVonKochRHCriterion) :
+    VFMidFractionalClusterSquareTrackingStatement ↔
+      VFMidRiemannHypothesisStatement := by
+  rw [vfMidFractionalClusterSquareTracking_iff_squareEndpoint,
+    vfMidSquareEndpointVonKochBounded_iff_primeLiVonKochBounded,
+    criterion.iff_riemannHypothesis]
 
 /-! ### Scenario 3: all-real literal VF midpoint interpolation -/
 
@@ -310,6 +341,13 @@ theorem riemannHypothesis_of_vfMidLinearProxyTracking
     (htrack : VFMidLinearProxyTrackingStatement) :
     VFMidRiemannHypothesisStatement :=
   riemannHypothesis_of_proxyTracking criterion htrack
+    vfMidLinearProxy_li_root_bounded
+
+theorem vfMidLinearProxyTracking_iff_riemannHypothesis
+    (criterion : ClassicalVonKochRHCriterion) :
+    VFMidLinearProxyTrackingStatement ↔
+      VFMidRiemannHypothesisStatement :=
+  proxyTracking_iff_riemannHypothesis criterion
     vfMidLinearProxy_li_root_bounded
 
 /-! ### Scenario 4: floored Li -/
@@ -344,6 +382,13 @@ theorem riemannHypothesis_of_liFloorProxyTracking
   riemannHypothesis_of_proxyTracking criterion htrack
     liFloorProxy_li_root_bounded
 
+theorem liFloorProxyTracking_iff_riemannHypothesis
+    (criterion : ClassicalVonKochRHCriterion) :
+    LiFloorProxyTrackingStatement ↔
+      VFMidRiemannHypothesisStatement :=
+  proxyTracking_iff_riemannHypothesis criterion
+    liFloorProxy_li_root_bounded
+
 /-- The four proxy routes have now been reduced to one explicit arithmetic
 input each: an RH-scale bound between actual prime count and that proxy. -/
 theorem fourFantasyProxyTrackingBounds_close_RH
@@ -360,5 +405,23 @@ theorem fourFantasyProxyTrackingBounds_close_RH
     riemannHypothesis_of_vfMidFractionalClusterTracking criterion,
     riemannHypothesis_of_vfMidLinearProxyTracking criterion,
     riemannHypothesis_of_liFloorProxyTracking criterion⟩
+
+/-- Strong final audit statement: each of the four actual-to-proxy tracking
+bounds is individually equivalent to RH, once the standard classical
+von-Koch criterion is supplied. -/
+theorem fourFantasyProxyTrackingBounds_iff_RH
+    (criterion : ClassicalVonKochRHCriterion) :
+    (ContinuousLiProxyTrackingStatement ↔
+      VFMidRiemannHypothesisStatement) ∧
+    (VFMidFractionalClusterSquareTrackingStatement ↔
+      VFMidRiemannHypothesisStatement) ∧
+    (VFMidLinearProxyTrackingStatement ↔
+      VFMidRiemannHypothesisStatement) ∧
+    (LiFloorProxyTrackingStatement ↔
+      VFMidRiemannHypothesisStatement) := by
+  exact ⟨continuousLiProxyTracking_iff_riemannHypothesis criterion,
+    vfMidFractionalClusterSquareTracking_iff_riemannHypothesis criterion,
+    vfMidLinearProxyTracking_iff_riemannHypothesis criterion,
+    liFloorProxyTracking_iff_riemannHypothesis criterion⟩
 
 end RHLean.Analysis
