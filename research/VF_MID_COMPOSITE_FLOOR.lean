@@ -302,4 +302,109 @@ theorem vfMidIntegerBlockBacklog_increment_ge_twoTen
   push_cast
   linarith
 
+
+/-! ## Backward transport of a future prime-count floor
+
+A lower bound for the prime count at a later square endpoint can be transported
+backward exactly once an upper envelope for every intervening square-block
+prime supply is supplied.  This is the precise interface for testing whether a
+global PNT floor plus the already-proved wheel ceilings can control the
+one-sided VF deficit.
+-/
+
+/-- Exact cumulative prime supply between square endpoints. -/
+def vfMidIntegerPrimeSupplyWindow (R T : ℕ) : ℝ :=
+  ∑ r ∈ Finset.Ico R T, (vfMidIntegerBlockPrimeSupply r : ℝ)
+
+/-- Generic finite-difference telescope, kept local to the backward-floor
+attack so it has no dependency on the direct signed-dynamics file. -/
+private theorem vfMidCompositeFloor_sum_increment_Ico
+    (f : ℕ → ℝ) {a b : ℕ} (hab : a ≤ b) :
+    (∑ k ∈ Finset.Ico a b, (f (k + 1) - f k)) =
+      f b - f a := by
+  rw [Finset.sum_Ico_eq_sub _ hab, Finset.sum_range_sub f b,
+    Finset.sum_range_sub f a]
+  abel
+
+/-- The cumulative exact square-block supply is literally the difference of
+prime counts at the two square endpoints. -/
+theorem vfMidIntegerPrimeSupplyWindow_eq_primeCounting_sub
+    {R T : ℕ} (hRT : R ≤ T) :
+    vfMidIntegerPrimeSupplyWindow R T =
+      (Nat.primeCounting (T ^ 2) : ℝ) -
+        (Nat.primeCounting (R ^ 2) : ℝ) := by
+  unfold vfMidIntegerPrimeSupplyWindow
+  calc
+    (∑ r ∈ Finset.Ico R T, (vfMidIntegerBlockPrimeSupply r : ℝ)) =
+        ∑ r ∈ Finset.Ico R T,
+          ((Nat.primeCounting ((r + 1) ^ 2) : ℝ) -
+            (Nat.primeCounting (r ^ 2) : ℝ)) := by
+      apply Finset.sum_congr rfl
+      intro r _hr
+      have h :=
+        vfMidIntegerBlockPrimeSupply_add_primeCounting r
+      have hreal :
+          (vfMidIntegerBlockPrimeSupply r : ℝ) +
+              (Nat.primeCounting (r ^ 2) : ℝ) =
+            (Nat.primeCounting ((r + 1) ^ 2) : ℝ) := by
+        exact_mod_cast h
+      linarith
+    _ = (Nat.primeCounting (T ^ 2) : ℝ) -
+          (Nat.primeCounting (R ^ 2) : ℝ) := by
+      exact vfMidCompositeFloor_sum_increment_Ico
+        (fun r => (Nat.primeCounting (r ^ 2) : ℝ)) hRT
+
+/-- **Backward floor transport.**  If a later square endpoint has prime count
+at least L, and every intervening square block has supply at most U(r), then
+the earlier square endpoint has prime count at least L minus the total allowed
+intervening supply.  No asymptotic input occurs in this theorem. -/
+theorem vfMidPrimeCounting_sq_ge_of_future_floor_and_supply_ceiling
+    {R T : ℕ} (hRT : R ≤ T) (L : ℝ) (U : ℕ → ℝ)
+    (hfuture : L ≤ (Nat.primeCounting (T ^ 2) : ℝ))
+    (hupper :
+      ∀ r ∈ Finset.Ico R T,
+        (vfMidIntegerBlockPrimeSupply r : ℝ) ≤ U r) :
+    L - ∑ r ∈ Finset.Ico R T, U r ≤
+      (Nat.primeCounting (R ^ 2) : ℝ) := by
+  have hsum :
+      vfMidIntegerPrimeSupplyWindow R T ≤
+        ∑ r ∈ Finset.Ico R T, U r := by
+    unfold vfMidIntegerPrimeSupplyWindow
+    apply Finset.sum_le_sum
+    intro r hr
+    exact hupper r hr
+  have htel :=
+    vfMidIntegerPrimeSupplyWindow_eq_primeCounting_sub hRT
+  linarith
+
+/-- Specialization of backward floor transport to the compiled 210-wheel
+ceiling P_r <= 16 r / 35 + 96. -/
+theorem vfMidPrimeCounting_sq_ge_of_future_floor_twoTen
+    {R T : ℕ} (hR : 7 ≤ R) (hRT : R ≤ T) (L : ℝ)
+    (hfuture : L ≤ (Nat.primeCounting (T ^ 2) : ℝ)) :
+    L -
+        ∑ r ∈ Finset.Ico R T,
+          ((16 / 35 : ℝ) * (r : ℝ) + 96) ≤
+      (Nat.primeCounting (R ^ 2) : ℝ) := by
+  apply vfMidPrimeCounting_sq_ge_of_future_floor_and_supply_ceiling
+    hRT L (fun r => (16 / 35 : ℝ) * (r : ℝ) + 96) hfuture
+  intro r hr
+  have hrR : R ≤ r := (Finset.mem_Ico.mp hr).1
+  exact vfMidIntegerBlockPrimeSupply_le_twoTen r (hR.trans hrR)
+
+/-- The same 210-wheel transport written directly as a one-sided VF-mid
+endpoint deficit bound.  This theorem makes the cost of the proposed
+"PNT floor + block ceiling" strategy explicit. -/
+theorem vfMidSquareEndpointDeficit_le_of_future_floor_twoTen
+    {R T : ℕ} (hR : 7 ≤ R) (hRT : R ≤ T) (L : ℝ)
+    (hfuture : L ≤ (Nat.primeCounting (T ^ 2) : ℝ)) :
+    vfMidFinishedMass R - (Nat.primeCounting (R ^ 2) : ℝ) ≤
+      vfMidFinishedMass R - L +
+        ∑ r ∈ Finset.Ico R T,
+          ((16 / 35 : ℝ) * (r : ℝ) + 96) := by
+  have hback :=
+    vfMidPrimeCounting_sq_ge_of_future_floor_twoTen
+      hR hRT L hfuture
+  linarith
+
 end RHLean.Analysis
