@@ -225,6 +225,28 @@ theorem vfMidActualRootSquarePrimeSchedule_hazard_nonneg_lt_one
   intro p hp
   exact (Finset.mem_filter.mp (hmem p hp)).2
 
+/-- Actual-prime reciprocal owner mass on the complete root-to-square packet. -/
+def vfMidActualRootSquareReciprocalPrimeMass (R : ℕ) : ℝ :=
+  ∑ q ∈ vfMidActualRootSquarePrimeCarrier R, 1 / (q : ℝ)
+
+/-- Every fixed-parent legal star is a subset of the complete root-to-square
+actual-prime carrier, so its reciprocal mass is bounded by the global packet
+mass. -/
+theorem vfMidActualHighPrimeStarReciprocalMass_le_rootSquare
+    (R m : ℕ) :
+    vfMidActualHighPrimeStarReciprocalMass R m ≤
+      vfMidActualRootSquareReciprocalPrimeMass R := by
+  unfold vfMidActualHighPrimeStarReciprocalMass
+    vfMidActualRootSquareReciprocalPrimeMass
+    vfMidActualHighPrimeStarSet
+  apply Finset.sum_le_sum_of_subset_of_nonneg
+  · intro q hq
+    exact (Finset.mem_filter.mp hq).1
+  · intro q hq _hnot
+    have hqPrime := (Finset.mem_filter.mp hq).2
+    have hqpos : (0 : ℝ) < (q : ℝ) := by exact_mod_cast hqPrime.pos
+    positivity
+
 /-! ## Native PNT / direct protected-block high-owner contraction -/
 
 /-- Every positive cofactor in an actual high owner's reciprocal child is
