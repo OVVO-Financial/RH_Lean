@@ -98,6 +98,8 @@ theorem vfMidRecursiveChildrenInBlock_pairwiseDisjoint
     Set.PairwiseDisjoint (↑(Finset.Ico 2 R))
       (vfMidRecursiveChildrenInBlock R) := by
   intro S hS T hT hST
+  change Disjoint (vfMidRecursiveChildrenInBlock R S)
+    (vfMidRecursiveChildrenInBlock R T)
   rw [Finset.disjoint_left]
   intro m hmS hmT
   rcases Finset.mem_inter.mp hmS with ⟨_hmCarS, hmBlockS⟩
@@ -137,9 +139,7 @@ theorem vfMidRecursiveChildrenInBlock_sum_card_le_carrier
   calc
     (∑ S ∈ Finset.Ico 2 R,
       (vfMidRecursiveChildrenInBlock R S).card) =
-        (I.biUnion F).card := by
-          rw [hunion]
-          rfl
+        (I.biUnion F).card := hunion.symm
     _ ≤ (vfMidRecursiveChildCarrier R).card :=
       Finset.card_le_card hsubset
 
@@ -219,9 +219,7 @@ theorem vfMidRecursiveChildrenInBlock_sum_card_eq_carrier
   calc
     (∑ S ∈ Finset.Ico 2 R,
       (vfMidRecursiveChildrenInBlock R S).card) =
-        (I.biUnion F).card := by
-          rw [hunion]
-          rfl
+        (I.biUnion F).card := hunion.symm
     _ = (vfMidRecursiveChildCarrier R).card := by rw [heq]
 
 /-- Prime children in one descended square block. -/
@@ -698,10 +696,10 @@ different prefix-wheel cutoff T(S) at each child scale. -/
 def vfMidRecursiveAggregatePrefixWheelBudget
     (R : ℕ) (T : ℕ → ℕ) : ℝ :=
   ∑ S ∈ Finset.Ico 2 R,
-    ((vfMidPrefixWheelEnvelope (T S) S : ℕ) : ℝ) +
+    (((vfMidPrefixWheelEnvelope (T S) S : ℕ) : ℝ) +
       ((vfMidRecursiveChildrenInBlock R S).card : ℝ) *
         |vfMidOddFractionalPrimeSeatWeight R -
-          vfMidOddFractionalPrimeSeatWeight S|
+          vfMidOddFractionalPrimeSeatWeight S|)
 
 /-- **Aggregate prefix-wheel remainder bound.**
 
@@ -726,10 +724,10 @@ theorem abs_vfMidRecursiveAggregateRemainder_le_prefixWheelBudget
             |vfMidRecursiveRemainderInBlock R S| := by
           exact Finset.abs_sum_le_sum_abs _ _
     _ ≤ ∑ S ∈ Finset.Ico 2 R,
-          ((vfMidPrefixWheelEnvelope (T S) S : ℕ) : ℝ) +
+          (((vfMidPrefixWheelEnvelope (T S) S : ℕ) : ℝ) +
             ((vfMidRecursiveChildrenInBlock R S).card : ℝ) *
               |vfMidOddFractionalPrimeSeatWeight R -
-                vfMidOddFractionalPrimeSeatWeight S| := by
+                vfMidOddFractionalPrimeSeatWeight S|) := by
           apply Finset.sum_le_sum
           intro S hS
           have hS2 : 2 ≤ S := (Finset.mem_Ico.mp hS).1
@@ -743,11 +741,11 @@ actual population, and the expanding prefix wheel can only lower that charge. -/
 def vfMidRecursiveAggregateClippedPrefixWheelBudget
     (R : ℕ) (T : ℕ → ℕ) : ℝ :=
   ∑ S ∈ Finset.Ico 2 R,
-    ((min (vfMidRecursiveChildrenInBlock R S).card
+    (((min (vfMidRecursiveChildrenInBlock R S).card
       (vfMidPrefixWheelEnvelope (T S) S) : ℕ) : ℝ) +
       ((vfMidRecursiveChildrenInBlock R S).card : ℝ) *
         |vfMidOddFractionalPrimeSeatWeight R -
-          vfMidOddFractionalPrimeSeatWeight S|
+          vfMidOddFractionalPrimeSeatWeight S|)
 
 /-- **Tight aggregate deterministic remainder bound.**
 
@@ -772,11 +770,11 @@ theorem abs_vfMidRecursiveAggregateRemainder_le_clippedPrefixWheelBudget
             |vfMidRecursiveRemainderInBlock R S| := by
           exact Finset.abs_sum_le_sum_abs _ _
     _ ≤ ∑ S ∈ Finset.Ico 2 R,
-          ((min (vfMidRecursiveChildrenInBlock R S).card
+          (((min (vfMidRecursiveChildrenInBlock R S).card
             (vfMidPrefixWheelEnvelope (T S) S) : ℕ) : ℝ) +
             ((vfMidRecursiveChildrenInBlock R S).card : ℝ) *
               |vfMidOddFractionalPrimeSeatWeight R -
-                vfMidOddFractionalPrimeSeatWeight S| := by
+                vfMidOddFractionalPrimeSeatWeight S|) := by
           apply Finset.sum_le_sum
           intro S hS
           have hS2 : 2 ≤ S := (Finset.mem_Ico.mp hS).1
@@ -832,6 +830,77 @@ theorem vfMidRecursiveAggregateClippedPrefixWheelBudget_le_population_add_weight
     vfMidRecursiveAggregateClippedPrimeBudget_cast_le_childCarrier R T
   linarith
 
+
+/-- **Explicit linear recursive-transfer remainder bound.**
+
+Choosing the fixed admissible 2-wheel cutoff inside the already proved clipped
+multi-resolution estimate and then using population conservation gives
+
+    |Rem_R| <= (1 + 3/log 4) R.
+
+The prefix-wheel family can only improve the prime-correction part of this
+universal bound. -/
+theorem abs_vfMidRecursiveAggregateRemainder_le_linear
+    (R : ℕ) (hR : 7 ≤ R) :
+    |vfMidRecursiveAggregateRemainder R| ≤
+      (1 + 3 / Real.log 4) * (R : ℝ) := by
+  let T : ℕ → ℕ := fun _ => 2
+  have hT : ∀ S ∈ Finset.Ico 2 R, T S ≤ S := by
+    intro S hS
+    dsimp [T]
+    exact (Finset.mem_Ico.mp hS).1
+  have hrem :=
+    abs_vfMidRecursiveAggregateRemainder_le_clippedPrefixWheelBudget
+      R T hT
+  have hbudget :=
+    vfMidRecursiveAggregateClippedPrefixWheelBudget_le_population_add_weight
+      R T
+  have hcarrierNat := vfMidRecursiveChildCarrier_card_le_R R hR
+  have hcarrier :
+      ((vfMidRecursiveChildCarrier R).card : ℝ) ≤ (R : ℝ) := by
+    exact_mod_cast hcarrierNat
+  have hweight :=
+    vfMidRecursiveAggregateWeightTransferBudget_le R hR
+  calc
+    |vfMidRecursiveAggregateRemainder R|
+        ≤ vfMidRecursiveAggregateClippedPrefixWheelBudget R T := hrem
+    _ ≤ ((vfMidRecursiveChildCarrier R).card : ℝ) +
+          ∑ S ∈ Finset.Ico 2 R,
+            ((vfMidRecursiveChildrenInBlock R S).card : ℝ) *
+              |vfMidOddFractionalPrimeSeatWeight R -
+                vfMidOddFractionalPrimeSeatWeight S| := hbudget
+    _ ≤ (R : ℝ) + (3 / Real.log 4) * (R : ℝ) := by
+          exact add_le_add hcarrier hweight
+    _ = (1 + 3 / Real.log 4) * (R : ℝ) := by ring
+
+/-- A simpler integer-constant version: the recursive transfer remainder is at
+most 4R.  This avoids carrying logarithmic constants into downstream Gram
+budgets. -/
+theorem abs_vfMidRecursiveAggregateRemainder_le_four_mul
+    (R : ℕ) (hR : 7 ≤ R) :
+    |vfMidRecursiveAggregateRemainder R| ≤ 4 * (R : ℝ) := by
+  have h :=
+    abs_vfMidRecursiveAggregateRemainder_le_linear R hR
+  have hlog4 : (5 / 4 : ℝ) < Real.log 4 := by
+    have h2 := Real.log_two_gt_d9
+    have hpow : Real.log (4 : ℝ) = 2 * Real.log 2 := by
+      calc
+        Real.log (4 : ℝ) = Real.log ((2 : ℝ) ^ 2) := by norm_num
+        _ = (2 : ℕ) * Real.log 2 := by rw [Real.log_pow]
+        _ = 2 * Real.log 2 := by norm_num
+    rw [hpow]
+    nlinarith
+  have hlogPos : 0 < Real.log 4 := by linarith
+  have hdiv : 3 / Real.log 4 ≤ (3 : ℝ) := by
+    rw [div_le_iff₀ hlogPos]
+    nlinarith
+  have hC : 1 + 3 / Real.log 4 ≤ (4 : ℝ) := by
+    linarith
+  calc
+    |vfMidRecursiveAggregateRemainder R|
+        ≤ (1 + 3 / Real.log 4) * (R : ℝ) := h
+    _ ≤ 4 * (R : ℝ) := by
+          exact mul_le_mul_of_nonneg_right hC (by positivity)
 
 /-! ## Full block descent remainder -/
 
@@ -891,9 +960,9 @@ theorem vfMidOddCompositeTrackingDefect_eq_nativeCharge_add_descentRemainder
   have hrecLedger :=
     vfMidFullRecursiveParentCharge_eq_native_add_remainder R hR
   rw [htree, hrecOwner, hrecLedger]
-  unfold vfMidTerminalParentCharge
+  unfold vfMidNativeDescentRemainder
+    vfMidTerminalParentCharge
     vfMidOriginalPrimeCharge
-    vfMidNativeDescentRemainder
   ring
 
 /-- The terminal-owner population is at most the R parity candidate seats. -/
@@ -933,26 +1002,25 @@ theorem abs_vfMidTerminalParentCharge_le
     positivity
   have hpopNat := vfMidTerminalOwnerPopulation_le_R R hR
   have hpop :
-      ((∑ p ∈ vfMidSquareBandLateTerminalOwners R,
-        (vfMidSquareBandCompositeOwner R p).card : ℕ) : ℝ) ≤
+      (∑ p ∈ vfMidSquareBandLateTerminalOwners R,
+        ((vfMidSquareBandCompositeOwner R p).card : ℝ)) ≤
         (R : ℝ) := by
     exact_mod_cast hpopNat
   unfold vfMidTerminalParentCharge
   rw [← Finset.mul_sum]
-  have hnonneg :
-      0 ≤ vfMidOddFractionalPrimeSeatWeight R *
-        ((∑ p ∈ vfMidSquareBandLateTerminalOwners R,
-          (vfMidSquareBandCompositeOwner R p).card : ℕ) : ℝ) := by
+  have hsum0 :
+      0 ≤ ∑ p ∈ vfMidSquareBandLateTerminalOwners R,
+        ((vfMidSquareBandCompositeOwner R p).card : ℝ) := by
     positivity
-  rw [abs_of_nonneg hnonneg]
+  rw [abs_mul, abs_of_nonneg hw0, abs_of_nonneg hsum0]
   calc
     vfMidOddFractionalPrimeSeatWeight R *
-        ((∑ p ∈ vfMidSquareBandLateTerminalOwners R,
-          (vfMidSquareBandCompositeOwner R p).card : ℕ) : ℝ)
+        (∑ p ∈ vfMidSquareBandLateTerminalOwners R,
+          ((vfMidSquareBandCompositeOwner R p).card : ℝ))
         ≤ (3 / Real.log 4) *
-            ((∑ p ∈ vfMidSquareBandLateTerminalOwners R,
-              (vfMidSquareBandCompositeOwner R p).card : ℕ) : ℝ) := by
-          exact mul_le_mul_of_nonneg_right hwu (by positivity)
+            (∑ p ∈ vfMidSquareBandLateTerminalOwners R,
+              ((vfMidSquareBandCompositeOwner R p).card : ℝ)) := by
+          exact mul_le_mul_of_nonneg_right hwu hsum0
     _ ≤ (3 / Real.log 4) * (R : ℝ) := by
           exact mul_le_mul_of_nonneg_left hpop hC0
 
@@ -1071,10 +1139,10 @@ theorem abs_vfMidRecursiveAggregateRemainder_le_halfWidthBudget
     (R : ℕ) :
     |vfMidRecursiveAggregateRemainder R| ≤
       ∑ S ∈ Finset.Ico 2 R,
-        (S : ℝ) +
+        ((S : ℝ) +
           ((vfMidRecursiveChildrenInBlock R S).card : ℝ) *
             |vfMidOddFractionalPrimeSeatWeight R -
-              vfMidOddFractionalPrimeSeatWeight S| := by
+              vfMidOddFractionalPrimeSeatWeight S|) := by
   unfold vfMidRecursiveAggregateRemainder
   calc
     |∑ S ∈ Finset.Ico 2 R, vfMidRecursiveRemainderInBlock R S|
@@ -1082,85 +1150,15 @@ theorem abs_vfMidRecursiveAggregateRemainder_le_halfWidthBudget
             |vfMidRecursiveRemainderInBlock R S| := by
           exact Finset.abs_sum_le_sum_abs _ _
     _ ≤ ∑ S ∈ Finset.Ico 2 R,
-          (S : ℝ) +
+          ((S : ℝ) +
             ((vfMidRecursiveChildrenInBlock R S).card : ℝ) *
               |vfMidOddFractionalPrimeSeatWeight R -
-                vfMidOddFractionalPrimeSeatWeight S| := by
+                vfMidOddFractionalPrimeSeatWeight S|) := by
           apply Finset.sum_le_sum
           intro S hS
           exact abs_vfMidRecursiveRemainderInBlock_le_S
             R S (Finset.mem_Ico.mp hS).1
 
-/-- **Explicit linear recursive-transfer remainder bound.**
-
-Choosing the fixed admissible 2-wheel cutoff inside the already proved clipped
-multi-resolution estimate and then using population conservation gives
-
-    |Rem_R| <= (1 + 3/log 4) R.
-
-The prefix-wheel family can only improve the prime-correction part of this
-universal bound. -/
-theorem abs_vfMidRecursiveAggregateRemainder_le_linear
-    (R : ℕ) (hR : 7 ≤ R) :
-    |vfMidRecursiveAggregateRemainder R| ≤
-      (1 + 3 / Real.log 4) * (R : ℝ) := by
-  let T : ℕ → ℕ := fun _ => 2
-  have hT : ∀ S ∈ Finset.Ico 2 R, T S ≤ S := by
-    intro S hS
-    dsimp [T]
-    exact (Finset.mem_Ico.mp hS).1
-  have hrem :=
-    abs_vfMidRecursiveAggregateRemainder_le_clippedPrefixWheelBudget
-      R T hT
-  have hbudget :=
-    vfMidRecursiveAggregateClippedPrefixWheelBudget_le_population_add_weight
-      R T
-  have hcarrierNat := vfMidRecursiveChildCarrier_card_le_R R hR
-  have hcarrier :
-      ((vfMidRecursiveChildCarrier R).card : ℝ) ≤ (R : ℝ) := by
-    exact_mod_cast hcarrierNat
-  have hweight :=
-    vfMidRecursiveAggregateWeightTransferBudget_le R hR
-  calc
-    |vfMidRecursiveAggregateRemainder R|
-        ≤ vfMidRecursiveAggregateClippedPrefixWheelBudget R T := hrem
-    _ ≤ ((vfMidRecursiveChildCarrier R).card : ℝ) +
-          ∑ S ∈ Finset.Ico 2 R,
-            ((vfMidRecursiveChildrenInBlock R S).card : ℝ) *
-              |vfMidOddFractionalPrimeSeatWeight R -
-                vfMidOddFractionalPrimeSeatWeight S| := hbudget
-    _ ≤ (R : ℝ) + (3 / Real.log 4) * (R : ℝ) := by
-          exact add_le_add hcarrier hweight
-    _ = (1 + 3 / Real.log 4) * (R : ℝ) := by ring
-
-/-- A simpler integer-constant version: the recursive transfer remainder is at
-most 4R.  This avoids carrying logarithmic constants into downstream Gram
-budgets. -/
-theorem abs_vfMidRecursiveAggregateRemainder_le_four_mul
-    (R : ℕ) (hR : 7 ≤ R) :
-    |vfMidRecursiveAggregateRemainder R| ≤ 4 * (R : ℝ) := by
-  have h :=
-    abs_vfMidRecursiveAggregateRemainder_le_linear R hR
-  have hlog4 : (5 / 4 : ℝ) < Real.log 4 := by
-    have h2 := Real.log_two_gt_d9
-    have hpow : Real.log (4 : ℝ) = 2 * Real.log 2 := by
-      calc
-        Real.log (4 : ℝ) = Real.log ((2 : ℝ) ^ 2) := by norm_num
-        _ = (2 : ℕ) * Real.log 2 := by rw [Real.log_pow]
-        _ = 2 * Real.log 2 := by norm_num
-    rw [hpow]
-    nlinarith
-  have hlogPos : 0 < Real.log 4 := by linarith
-  have hdiv : 3 / Real.log 4 ≤ (3 : ℝ) := by
-    rw [div_le_iff₀ hlogPos]
-    nlinarith
-  have hC : 1 + 3 / Real.log 4 ≤ (4 : ℝ) := by
-    linarith
-  calc
-    |vfMidRecursiveAggregateRemainder R|
-        ≤ (1 + 3 / Real.log 4) * (R : ℝ) := h
-    _ ≤ 4 * (R : ℝ) := by
-          exact mul_le_mul_of_nonneg_right hC (by positivity)
 
 
 end RHLean.Analysis
