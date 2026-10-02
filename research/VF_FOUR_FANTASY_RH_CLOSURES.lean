@@ -284,10 +284,9 @@ theorem abs_vfMidMidpointLinear_sq_sub_vfMid_le
   · subst R
     have hlt : (4 : ℝ) < vfMidBandMidpoint 2 := by
       norm_num [vfMidBandMidpoint]
-    change
-      |vfMidMidpointLinear 4 - vfMid 4| ≤
-        (4 / Real.log 4) * 2
-    rw [vfMidMidpointLinear_eq_vfMid_of_lt_firstMidpoint hlt]
+    have hsquare : (((2 : ℕ) : ℝ) ^ 2) = 4 := by
+      norm_num
+    rw [hsquare, vfMidMidpointLinear_eq_vfMid_of_lt_firstMidpoint hlt]
     positivity
   · have hR3 : 3 ≤ R := by omega
     have hfirst :
