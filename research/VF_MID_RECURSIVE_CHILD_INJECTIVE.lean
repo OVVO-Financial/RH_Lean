@@ -168,4 +168,114 @@ theorem vfMidLateRecursiveOwner_children_disjoint
     (vfMidLateRecursiveOwner_child_owner_unique
       hR hp hq hmP hmQ)
 
+
+/-! ## Multiplicity-one descent for the full parity-late owner carrier -/
+
+/-- Every stripped child of an owned square-band composite lies strictly above
+the parent square-root index.  This elementary lower bound does not require the
+recursive cubic condition. -/
+theorem vfMidSquareBandCompositeOwnerChildren_gt_root
+    {R p m : ℕ} (hR : 2 ≤ R)
+    (hm : m ∈ vfMidSquareBandCompositeOwnerChildren R p) :
+    R < m := by
+  rcases Finset.mem_image.mp hm with ⟨n, hn, hdiv⟩
+  have hpR :=
+    (vfMidSquareBandCompositeOwner_prime_le_root hR hn).2
+  have hmul := vfMidSquareBandCompositeOwner_mul_div hn
+  rw [hdiv] at hmul
+  rcases vfMidSquareBandCompositeOwner_mem hn with ⟨hnComp, _hmin⟩
+  rcases Finset.mem_filter.mp hnComp with ⟨hnBand, _hnNotPrime⟩
+  have hnLow : R ^ 2 < n := (Finset.mem_Ioo.mp hnBand).1
+  by_contra hnot
+  have hmR : m ≤ R := by omega
+  have hprod : p * m ≤ R * R :=
+    Nat.mul_le_mul hpR hmR
+  have hnLe : n ≤ R * R := by
+    rw [← hmul]
+    exact hprod
+  have hnGt : R * R < n := by
+    simpa [pow_two] using hnLow
+  omega
+
+/-- **Cross-owner uniqueness for every parity-late owner.**
+
+The recursive-only theorem above used the stronger bound m > 2R.  For the
+actual odd-owner schedule that strength is unnecessary: distinct late owners
+are distinct odd primes, hence separated by at least two.  Since every child
+already satisfies m > R, two parents p*m and q*m would then be separated by
+more than the entire square-band width 2R.  Therefore terminal and recursive
+owner fibres are simultaneously multiplicity-free. -/
+theorem vfMidLateOwner_child_owner_unique
+    {R p q m : ℕ} (hR : 2 ≤ R)
+    (hp : p ∈ vfMidSquareBandLateOwnerPrimes 2 R)
+    (hq : q ∈ vfMidSquareBandLateOwnerPrimes 2 R)
+    (hmP : m ∈ vfMidSquareBandCompositeOwnerChildren R p)
+    (hmQ : m ∈ vfMidSquareBandCompositeOwnerChildren R q) :
+    p = q := by
+  have hpOwner :
+      p ∈ vfMidSquareBandOwnerPrimes R :=
+    (mem_vfMidSquareBandLateOwnerPrimes.mp hp).1
+  have hqOwner :
+      q ∈ vfMidSquareBandOwnerPrimes R :=
+    (mem_vfMidSquareBandLateOwnerPrimes.mp hq).1
+  have hpPrime := (mem_vfMidSquareBandOwnerPrimes.mp hpOwner).1
+  have hqPrime := (mem_vfMidSquareBandOwnerPrimes.mp hqOwner).1
+  have hpGt2 := (mem_vfMidSquareBandLateOwnerPrimes.mp hp).2
+  have hqGt2 := (mem_vfMidSquareBandLateOwnerPrimes.mp hq).2
+  have hmGt :
+      R < m :=
+    vfMidSquareBandCompositeOwnerChildren_gt_root hR hmP
+  rcases Finset.mem_image.mp hmP with ⟨nP, hnP, hdivP⟩
+  rcases Finset.mem_image.mp hmQ with ⟨nQ, hnQ, hdivQ⟩
+  have hmulP := vfMidSquareBandCompositeOwner_mul_div hnP
+  have hmulQ := vfMidSquareBandCompositeOwner_mul_div hnQ
+  rw [hdivP] at hmulP
+  rw [hdivQ] at hmulQ
+  rcases vfMidSquareBandCompositeOwner_mem hnP with ⟨hnPComp, _hminP⟩
+  rcases vfMidSquareBandCompositeOwner_mem hnQ with ⟨hnQComp, _hminQ⟩
+  rcases Finset.mem_filter.mp hnPComp with ⟨hnPBand, _hnPNotPrime⟩
+  rcases Finset.mem_filter.mp hnQComp with ⟨hnQBand, _hnQNotPrime⟩
+  have hPI := Finset.mem_Ioo.mp hnPBand
+  have hQI := Finset.mem_Ioo.mp hnQBand
+  have hpOdd : Odd p :=
+    hpPrime.odd_of_ne_two (by omega)
+  have hqOdd : Odd q :=
+    hqPrime.odd_of_ne_two (by omega)
+  rcases hpOdd with ⟨a, ha⟩
+  rcases hqOdd with ⟨b, hb⟩
+  have hwidth :
+      (R + 1) ^ 2 = R ^ 2 + 2 * R + 1 := by
+    ring
+  by_contra hne
+  rcases lt_or_gt_of_ne hne with hpq | hqp
+  · have hgap : p + 2 ≤ q := by omega
+    have hstep : (p + 2) * m ≤ q * m :=
+      Nat.mul_le_mul_right m hgap
+    have hadd : p * m + 2 * m ≤ q * m := by
+      simpa [Nat.add_mul] using hstep
+    rw [hmulP, hmulQ] at hadd
+    omega
+  · have hgap : q + 2 ≤ p := by omega
+    have hstep : (q + 2) * m ≤ p * m :=
+      Nat.mul_le_mul_right m hgap
+    have hadd : q * m + 2 * m ≤ p * m := by
+      simpa [Nat.add_mul] using hstep
+    rw [hmulQ, hmulP] at hadd
+    omega
+
+/-- **Pairwise disjoint full late-child carriers.**  This includes the
+terminal-prime sector and the recursive sector at once. -/
+theorem vfMidLateOwner_children_disjoint
+    {R p q : ℕ} (hR : 2 ≤ R)
+    (hp : p ∈ vfMidSquareBandLateOwnerPrimes 2 R)
+    (hq : q ∈ vfMidSquareBandLateOwnerPrimes 2 R)
+    (hpq : p ≠ q) :
+    Disjoint
+      (vfMidSquareBandCompositeOwnerChildren R p)
+      (vfMidSquareBandCompositeOwnerChildren R q) := by
+  rw [Finset.disjoint_left]
+  intro m hmP hmQ
+  exact hpq
+    (vfMidLateOwner_child_owner_unique hR hp hq hmP hmQ)
+
 end RHLean.Analysis
