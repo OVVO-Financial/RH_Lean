@@ -2,6 +2,8 @@ import Mathlib
 import «research.VF_MID_ALIGNED_STEP_GRAPH»
 import «research.PRIME_WHEEL_ROUGH_SEAT_SQRT_SPECIALIZATION»
 import RHLean.Proof.PostRootPartnerLogAlignment
+import RHLean.Analysis.NativePNTSquarePrefixContraction
+import RHLean.Analysis.DynamicVioleBaseline
 
 /-!
 # Actual-prime root-to-square contraction attack
@@ -23,14 +25,19 @@ There are three points.
 
 3. The chronological Euler-hazard normalization already present in the repo is
    strictly subunit on every finite list of genuine primes:
-   `0 <= hazard < 1`.
-   The unresolved direct-VF attack is therefore not endpoint geometry.  It is
-   the exact bridge from the raw actual-prime transport (whose displayed
-   coefficient is one) to the already-compiled hazard-normalized signed ledger,
-   where each new boundary enters with `1/q` and previous memory is multiplied
-   by `1 - 1/q`.
+   `0 <= hazard < 1`.  This scalar fact alone is not a closure: on the older
+   canonical-rough covariance carrier the repository proves a post-root
+   no-contraction law, so that route is deliberately not used here.
 
-No RH-scale estimate is assumed or asserted here.
+4. On the *native PNT / protected-VF carrier*, every actual high owner `q > R`
+   sees a child cutoff `B = floor((R^2-1)/q) < R < q`.  Hence `q` is fresh
+   for every positive cofactor `m <= B`.  The already-compiled reciprocal
+   Möbius law therefore contracts every completed child fibre by exactly
+   `1 - 1/q`, and the direct protected square-block correlation has the same
+   Euler factor with one explicit response-difference defect.
+
+This is the correct socket for the direct VF attack.  No RH-scale estimate is
+assumed or asserted here.
 -/
 
 noncomputable section
@@ -216,6 +223,103 @@ theorem vfMidActualRootSquarePrimeSchedule_hazard_nonneg_lt_one
   apply postRootEulerHazardMass_nonneg_lt_one_of_prime_list
   intro p hp
   exact (Finset.mem_filter.mp (hmem p hp)).2
+
+/-! ## Native PNT / direct protected-block high-owner contraction -/
+
+/-- Every positive cofactor in an actual high owner's reciprocal child is
+strictly smaller than that owner.  Thus the owner prime is automatically fresh
+throughout the complete child fibre. -/
+theorem vfMidActualHighPrimeChild_lt_owner
+    {R q m : ℕ} (hR : 2 ≤ R) (hq : q.Prime) (hRq : R < q)
+    (hm : m ∈ Finset.Icc 1 (squareRootEndpoint R / q)) :
+    m < q := by
+  have hchild :
+      squareRootEndpoint R / q < R :=
+    squareRootEndpoint_div_lt_root_of_root_lt hR hRq
+  exact (Finset.mem_Icc.mp hm).2.trans_lt (hchild.trans hRq)
+
+/-- Hence every positive cofactor in that child is coprime to the actual
+high-owner prime. -/
+theorem vfMidActualHighPrimeChild_coprime
+    {R q m : ℕ} (hR : 2 ≤ R) (hq : q.Prime) (hRq : R < q)
+    (hm : m ∈ Finset.Icc 1 (squareRootEndpoint R / q)) :
+    Nat.Coprime m q := by
+  have hmpos : 0 < m := by
+    exact Nat.lt_of_lt_of_le (by omega)
+      (Finset.mem_Icc.mp hm).2
+  have hmq := vfMidActualHighPrimeChild_lt_owner hR hq hRq hm
+  exact (Nat.coprime_of_lt_prime (Nat.ne_of_gt hmpos) hmq hq).symm
+
+/-- **Exact actual-prime contraction on the completed lower child.**
+For every high owner `q > R`, adjoining `q` to the complete reciprocal
+Möbius child through `floor((R^2-1)/q)` multiplies that child by exactly
+`1 - 1/q`.  No Li replacement, density estimate, norm, or asymptotic input
+appears. -/
+theorem vfMidActualHighPrimeChildReciprocalFiber_adjoin_eq_euler
+    (R q : ℕ) (F : ℕ → ℝ)
+    (hR : 2 ≤ R) (hq : q.Prime) (hRq : R < q) :
+    nativeMobiusAdjoinedPrimeReciprocalFiber
+        (Finset.Icc 1 (squareRootEndpoint R / q)) q F =
+      (1 - 1 / (q : ℝ)) *
+        nativeMobiusReciprocalFiber
+          (Finset.Icc 1 (squareRootEndpoint R / q)) F := by
+  apply nativeMobiusAdjoinedPrimeReciprocalFiber_eq
+  · exact hq
+  · intro m hm
+    exact (Finset.mem_Icc.mp hm).1
+  · intro m hm
+    exact vfMidActualHighPrimeChild_coprime hR hq hRq hm
+
+/-- Reciprocal parent mass of the direct adjacent-square protected correlation
+restricted to the completed child of one actual high owner. -/
+def vfMidActualHighPrimeProtectedParentReciprocalMass
+    (R q : ℕ) : ℝ :=
+  ∑ m ∈ Finset.Icc 1 (squareRootEndpoint R / q),
+    nativePNTSignedSquareBlockCorrelationReciprocalSummand
+      ((R + 1) ^ 2) (R ^ 2) ((R + 1) ^ 2) m
+
+/-- Parent-plus-child mass on the same completed high-owner fibre. -/
+def vfMidActualHighPrimeProtectedPairedReciprocalMass
+    (R q : ℕ) : ℝ :=
+  ∑ m ∈ Finset.Icc 1 (squareRootEndpoint R / q),
+    (nativePNTSignedSquareBlockCorrelationReciprocalSummand
+        ((R + 1) ^ 2) (R ^ 2) ((R + 1) ^ 2) m +
+      nativePNTSignedSquareBlockCorrelationReciprocalSummand
+        ((R + 1) ^ 2) (R ^ 2) ((R + 1) ^ 2) (m * q))
+
+/-- Exact response-difference leakage left by the direct protected-block Euler
+pairing on one actual high-owner child. -/
+def vfMidActualHighPrimeProtectedDefectMass
+    (R q : ℕ) : ℝ :=
+  ∑ m ∈ Finset.Icc 1 (squareRootEndpoint R / q),
+    nativePNTSignedSquareBlockFreshPrimePhysicalDefect
+      ((R + 1) ^ 2) (R ^ 2) ((R + 1) ^ 2) m q
+
+/-- **Direct protected-block Euler step on every completed actual high-owner
+child.**  This is on the same reciprocal correlation whose Abel return gives
+the protected block used by the square-psi / VF descent.  All loss from pure
+`1 - 1/q` contraction is isolated in one signed response-difference defect
+mass, with no absolute value taken. -/
+theorem vfMidActualHighPrimeProtectedPairedReciprocalMass_eq_euler_add_defect
+    (R q : ℕ) (hR : 2 ≤ R) (hq : q.Prime) (hRq : R < q) :
+    vfMidActualHighPrimeProtectedPairedReciprocalMass R q =
+      (1 - 1 / (q : ℝ)) *
+          vfMidActualHighPrimeProtectedParentReciprocalMass R q +
+        vfMidActualHighPrimeProtectedDefectMass R q := by
+  unfold vfMidActualHighPrimeProtectedPairedReciprocalMass
+    vfMidActualHighPrimeProtectedParentReciprocalMass
+    vfMidActualHighPrimeProtectedDefectMass
+  rw [← Finset.mul_sum, ← Finset.sum_add_distrib]
+  apply Finset.sum_congr rfl
+  intro m hm
+  have hmpos : 0 < m := by
+    exact Nat.lt_of_lt_of_le (by omega)
+      (Finset.mem_Icc.mp hm).2
+  have hcop := vfMidActualHighPrimeChild_coprime hR hq hRq hm
+  exact
+    nativePNTSignedSquareBlockCorrelationReciprocalSummand_add_mul_freshPrime
+      ((R + 1) ^ 2) (R ^ 2) ((R + 1) ^ 2)
+      hmpos hq hcop
 
 /-- The fixed VF alignment phase never changes square-block increments.  This is
 restated here only to keep the endpoint conclusion adjacent to the actual-prime
