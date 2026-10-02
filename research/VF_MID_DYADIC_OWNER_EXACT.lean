@@ -659,7 +659,7 @@ theorem vfMidSquareBandPrefixComposite_start_card_le_four_mul_gap
       4 * (R - A) := by
   have howners :=
     vfMidSquareBandPrefixComposite_card_eq_sum_lateOwnerCards
-      A R (hA.trans hAR)
+      A R (by omega : 2 ≤ R)
   have hownerSub :
       vfMidSquareBandLateOwnerPrimes A R ⊆ Finset.Ioc A R := by
     intro p hp
@@ -706,7 +706,9 @@ theorem vfMidDyadicLateRemoval_start_le_four_mul_gap_sq
           intro r hr
           have howners :=
             vfMidSquareBandPrefixComposite_card_eq_sum_lateOwnerCards
-              A r (hA.trans (Finset.mem_Ico.mp hr).1)
+              A r (by
+                have hAr : A ≤ r := (Finset.mem_Ico.mp hr).1
+                omega : 2 ≤ r)
           exact_mod_cast howners.symm
     _ ≤ ∑ r ∈ Finset.Ico A B,
           (4 * (((r - A : ℕ) : ℝ))) := by
@@ -735,10 +737,6 @@ theorem vfMidDyadicLateRemoval_start_le_four_mul_gap_sq
           rw [Finset.sum_const, nsmul_eq_mul]
     _ = 4 * (((B - A : ℕ) : ℝ) ^ 2) := by
           rw [Nat.card_Ico]
-          have hcast :
-              (((B - A : ℕ) : ℝ)) = (B : ℝ) - (A : ℝ) := by
-            exact_mod_cast Nat.cast_sub hAB
-          rw [hcast]
           ring
 
 /-- **Run-level lower prime-supply bound from one frozen starting wheel.**
