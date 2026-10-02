@@ -626,24 +626,6 @@ theorem eventually_vfMidActualRootSquareReciprocalPrimeMass_lt_one :
       0 ≤ (Nat.primeCounting R : ℝ) * ((R : ℝ)⁻¹) := by positivity
   nlinarith
 
-/-- Every fixed-parent legal star is a subset of the complete root-to-square
-actual-prime carrier, so its reciprocal mass is bounded by the global packet
-mass. -/
-theorem vfMidActualHighPrimeStarReciprocalMass_le_rootSquare
-    (R m : ℕ) :
-    vfMidActualHighPrimeStarReciprocalMass R m ≤
-      vfMidActualRootSquareReciprocalPrimeMass R := by
-  unfold vfMidActualHighPrimeStarReciprocalMass
-    vfMidActualRootSquareReciprocalPrimeMass
-    vfMidActualHighPrimeStarSet
-  apply Finset.sum_le_sum_of_subset_of_nonneg
-  · intro q hq
-    exact (Finset.mem_filter.mp hq).1
-  · intro q hq _hnot
-    have hqPrime := (Finset.mem_filter.mp hq).2
-    have hqpos : (0 : ℝ) < (q : ℝ) := by exact_mod_cast hqPrime.pos
-    positivity
-
 /-! ## Native PNT / direct protected-block high-owner contraction -/
 
 /-- Every positive cofactor in an actual high owner's reciprocal child is
@@ -942,45 +924,6 @@ theorem abs_vfMidActualHighPrimeProtectedChild_le_inv_mul_parent
           field_simp
           ring
 
-/-- **Fixed-parent actual high-tail bound.**
-The complete post-root child tail of one low parent is controlled by the actual
-reciprocal-prime mass of its legal star.  This is the direct protected-VF
-counterpart of the continuous-Li root-to-square high-tail estimate. -/
-theorem abs_sum_vfMidActualHighPrimeProtectedChildren_le
-    (R m : ℕ) (hR : 3 ≤ R) (hm : 1 ≤ m) :
-    |∑ q ∈ vfMidActualHighPrimeStarSet R m,
-        nativePNTSignedSquareBlockCorrelationReciprocalSummand
-          ((R + 1) ^ 2) (R ^ 2) ((R + 1) ^ 2) (m * q)| ≤
-      vfMidActualHighPrimeStarReciprocalMass R m *
-        |nativePNTSignedSquareBlockCorrelationReciprocalSummand
-          ((R + 1) ^ 2) (R ^ 2) ((R + 1) ^ 2) m| := by
-  calc
-    |∑ q ∈ vfMidActualHighPrimeStarSet R m,
-        nativePNTSignedSquareBlockCorrelationReciprocalSummand
-          ((R + 1) ^ 2) (R ^ 2) ((R + 1) ^ 2) (m * q)|
-        ≤ ∑ q ∈ vfMidActualHighPrimeStarSet R m,
-            |nativePNTSignedSquareBlockCorrelationReciprocalSummand
-              ((R + 1) ^ 2) (R ^ 2) ((R + 1) ^ 2) (m * q)| :=
-      Finset.abs_sum_le_sum_abs _ _
-    _ ≤ ∑ q ∈ vfMidActualHighPrimeStarSet R m,
-          (1 / (q : ℝ)) *
-            |nativePNTSignedSquareBlockCorrelationReciprocalSummand
-              ((R + 1) ^ 2) (R ^ 2) ((R + 1) ^ 2) m| := by
-      apply Finset.sum_le_sum
-      intro q hqStar
-      have hqData := Finset.mem_filter.mp hqStar
-      have hcarrier := Finset.mem_filter.mp hqData.1
-      have hqPrime : q.Prime := hcarrier.2
-      have hcop :=
-        vfMidActualHighPrimeStar_parent_coprime (by omega : 2 ≤ R) hm hqStar
-      exact abs_vfMidActualHighPrimeProtectedChild_le_inv_mul_parent
-        R m q hR hm hqPrime hcop
-    _ = vfMidActualHighPrimeStarReciprocalMass R m *
-        |nativePNTSignedSquareBlockCorrelationReciprocalSummand
-          ((R + 1) ^ 2) (R ^ 2) ((R + 1) ^ 2) m| := by
-      unfold vfMidActualHighPrimeStarReciprocalMass
-      rw [Finset.sum_mul]
-
 /-! ## High-owner star compression -/
 
 /-- High owner primes whose child of one fixed positive parent still fits below
@@ -1105,6 +1048,65 @@ theorem vfMidActualHighPrimeStar_no_two_owner_child
   have hRr : R < r := (Finset.mem_Ioc.mp hrData.1).1
   unfold squareRootEndpoint at hfit
   nlinarith
+
+/-- Every fixed-parent legal star is a subset of the complete root-to-square
+actual-prime carrier, so its reciprocal mass is bounded by the global packet
+mass. -/
+theorem vfMidActualHighPrimeStarReciprocalMass_le_rootSquare
+    (R m : ℕ) :
+    vfMidActualHighPrimeStarReciprocalMass R m ≤
+      vfMidActualRootSquareReciprocalPrimeMass R := by
+  unfold vfMidActualHighPrimeStarReciprocalMass
+    vfMidActualRootSquareReciprocalPrimeMass
+    vfMidActualHighPrimeStarSet
+  apply Finset.sum_le_sum_of_subset_of_nonneg
+  · intro q hq
+    exact (Finset.mem_filter.mp hq).1
+  · intro q hq _hnot
+    have hqPrime := (Finset.mem_filter.mp hq).2
+    have hqpos : (0 : ℝ) < (q : ℝ) := by exact_mod_cast hqPrime.pos
+    positivity
+
+
+/-- **Fixed-parent actual high-tail bound.**
+The complete post-root child tail of one low parent is controlled by the actual
+reciprocal-prime mass of its legal star.  This is the direct protected-VF
+counterpart of the continuous-Li root-to-square high-tail estimate. -/
+theorem abs_sum_vfMidActualHighPrimeProtectedChildren_le
+    (R m : ℕ) (hR : 3 ≤ R) (hm : 1 ≤ m) :
+    |∑ q ∈ vfMidActualHighPrimeStarSet R m,
+        nativePNTSignedSquareBlockCorrelationReciprocalSummand
+          ((R + 1) ^ 2) (R ^ 2) ((R + 1) ^ 2) (m * q)| ≤
+      vfMidActualHighPrimeStarReciprocalMass R m *
+        |nativePNTSignedSquareBlockCorrelationReciprocalSummand
+          ((R + 1) ^ 2) (R ^ 2) ((R + 1) ^ 2) m| := by
+  calc
+    |∑ q ∈ vfMidActualHighPrimeStarSet R m,
+        nativePNTSignedSquareBlockCorrelationReciprocalSummand
+          ((R + 1) ^ 2) (R ^ 2) ((R + 1) ^ 2) (m * q)|
+        ≤ ∑ q ∈ vfMidActualHighPrimeStarSet R m,
+            |nativePNTSignedSquareBlockCorrelationReciprocalSummand
+              ((R + 1) ^ 2) (R ^ 2) ((R + 1) ^ 2) (m * q)| :=
+      Finset.abs_sum_le_sum_abs _ _
+    _ ≤ ∑ q ∈ vfMidActualHighPrimeStarSet R m,
+          (1 / (q : ℝ)) *
+            |nativePNTSignedSquareBlockCorrelationReciprocalSummand
+              ((R + 1) ^ 2) (R ^ 2) ((R + 1) ^ 2) m| := by
+      apply Finset.sum_le_sum
+      intro q hqStar
+      have hqData := Finset.mem_filter.mp hqStar
+      have hcarrier := Finset.mem_filter.mp hqData.1
+      have hqPrime : q.Prime := hcarrier.2
+      have hcop :=
+        vfMidActualHighPrimeStar_parent_coprime (by omega : 2 ≤ R) hm hqStar
+      exact abs_vfMidActualHighPrimeProtectedChild_le_inv_mul_parent
+        R m q hR hm hqPrime hcop
+    _ = vfMidActualHighPrimeStarReciprocalMass R m *
+        |nativePNTSignedSquareBlockCorrelationReciprocalSummand
+          ((R + 1) ^ 2) (R ^ 2) ((R + 1) ^ 2) m| := by
+      unfold vfMidActualHighPrimeStarReciprocalMass
+      rw [Finset.sum_mul]
+
 
 /-- The fixed VF alignment phase never changes square-block increments.  This is
 restated here only to keep the endpoint conclusion adjacent to the actual-prime
