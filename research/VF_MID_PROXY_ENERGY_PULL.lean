@@ -721,4 +721,124 @@ theorem vfMidThetaLowerBarrier_noEscape_of_primeSupplyFloor
     (hfloor.trans
       (primeSupply_mul_lowerLog_le_vfMidDirectThetaBandMass R hR))
 
+
+/-! ## Safe interior and forced boundary strips -/
+
+/-- **Safe-interior theorem with an arbitrary proved prime-supply ceiling.**
+
+Let W bound the actual prime population in the R-th square block.  The crude
+log bounds alone give
+
+  0 <= Theta_R <= 2 W log(R+1).
+
+Consequently, if the current endpoint lies in the interval
+
+  -F_{R+1} + (2R+1)
+    <= E_R
+    <= F_{R+1} + (2R+1) - 2 W log(R+1),
+
+then the next endpoint is guaranteed to lie inside the target envelope.  This
+is exactly the unconditional interior region; no cancellation or descent is
+used. -/
+theorem vfMidThetaNextInside_of_primeSupplyCeiling
+    (C : ℝ) (R W : ℕ) (hR : 2 ≤ R)
+    (hPW : vfMidIntegerBlockPrimeSupply R ≤ W)
+    (hlower :
+      -vfMidThetaBarrierRadius C (R + 1) +
+          (2 * (R : ℝ) + 1) ≤
+        vfMidDirectThetaEndpointError R)
+    (hupper :
+      vfMidDirectThetaEndpointError R ≤
+        vfMidThetaBarrierRadius C (R + 1) +
+          (2 * (R : ℝ) + 1) -
+            (W : ℝ) * (2 * Real.log ((R + 1 : ℕ) : ℝ))) :
+    -vfMidThetaBarrierRadius C (R + 1) ≤
+        vfMidDirectThetaEndpointError (R + 1) ∧
+      vfMidDirectThetaEndpointError (R + 1) ≤
+        vfMidThetaBarrierRadius C (R + 1) := by
+  have hthetaUpper :=
+    vfMidDirectThetaBandMass_le_of_primeSupply_le R W hR hPW
+  have hlogR0 : 0 ≤ Real.log (R : ℝ) := by
+    apply Real.log_nonneg
+    exact_mod_cast (show 1 ≤ R by omega)
+  have hbase0 :
+      0 ≤ (vfMidIntegerBlockPrimeSupply R : ℝ) *
+        (2 * Real.log (R : ℝ)) := by
+    positivity
+  have hthetaLower :=
+    primeSupply_mul_lowerLog_le_vfMidDirectThetaBandMass R hR
+  have htheta0 : 0 ≤ vfMidDirectThetaBandMass R :=
+    hbase0.trans hthetaLower
+  have hstep := vfMidDirectThetaBandError_eq_endpoint_diff R
+  unfold vfMidDirectThetaBandError at hstep
+  constructor <;> linarith
+
+/-- Contrapositive form: under a proved supply ceiling, any one-step envelope
+escape forces the current endpoint into one of the two boundary strips omitted
+by the safe-interior interval. -/
+theorem vfMidThetaNextEscape_forces_currentBoundaryStrip
+    (C : ℝ) (R W : ℕ) (hR : 2 ≤ R)
+    (hPW : vfMidIntegerBlockPrimeSupply R ≤ W)
+    (hescape :
+      ¬ (-vfMidThetaBarrierRadius C (R + 1) ≤
+            vfMidDirectThetaEndpointError (R + 1) ∧
+          vfMidDirectThetaEndpointError (R + 1) ≤
+            vfMidThetaBarrierRadius C (R + 1))) :
+    vfMidDirectThetaEndpointError R <
+        -vfMidThetaBarrierRadius C (R + 1) +
+          (2 * (R : ℝ) + 1) ∨
+      vfMidThetaBarrierRadius C (R + 1) +
+          (2 * (R : ℝ) + 1) -
+            (W : ℝ) * (2 * Real.log ((R + 1 : ℕ) : ℝ)) <
+        vfMidDirectThetaEndpointError R := by
+  by_contra hstrip
+  have hnotLower :
+      ¬ vfMidDirectThetaEndpointError R <
+        -vfMidThetaBarrierRadius C (R + 1) +
+          (2 * (R : ℝ) + 1) := by
+    intro h
+    exact hstrip (Or.inl h)
+  have hnotUpper :
+      ¬ vfMidThetaBarrierRadius C (R + 1) +
+          (2 * (R : ℝ) + 1) -
+            (W : ℝ) * (2 * Real.log ((R + 1 : ℕ) : ℝ)) <
+        vfMidDirectThetaEndpointError R := by
+    intro h
+    exact hstrip (Or.inr h)
+  have hlower :
+      -vfMidThetaBarrierRadius C (R + 1) +
+          (2 * (R : ℝ) + 1) ≤
+        vfMidDirectThetaEndpointError R :=
+    le_of_not_gt hnotLower
+  have hupper :
+      vfMidDirectThetaEndpointError R ≤
+        vfMidThetaBarrierRadius C (R + 1) +
+          (2 * (R : ℝ) + 1) -
+            (W : ℝ) * (2 * Real.log ((R + 1 : ℕ) : ℝ)) :=
+    le_of_not_gt hnotUpper
+  exact hescape
+    (vfMidThetaNextInside_of_primeSupplyCeiling
+      C R W hR hPW hlower hupper)
+
+/-- Universal specialization using the already-proved parity ceiling P_R <= R.
+Thus every possible one-step escape is confined to the explicit lower
+O(R)-scale strip or upper O(R log R)-scale strip obtained from W_R = R. -/
+theorem vfMidThetaNextEscape_forces_currentBoundaryStrip_universal
+    (C : ℝ) (R : ℕ) (hR : 2 ≤ R)
+    (hescape :
+      ¬ (-vfMidThetaBarrierRadius C (R + 1) ≤
+            vfMidDirectThetaEndpointError (R + 1) ∧
+          vfMidDirectThetaEndpointError (R + 1) ≤
+            vfMidThetaBarrierRadius C (R + 1))) :
+    vfMidDirectThetaEndpointError R <
+        -vfMidThetaBarrierRadius C (R + 1) +
+          (2 * (R : ℝ) + 1) ∨
+      vfMidThetaBarrierRadius C (R + 1) +
+          (2 * (R : ℝ) + 1) -
+            (R : ℝ) * (2 * Real.log ((R + 1 : ℕ) : ℝ)) <
+        vfMidDirectThetaEndpointError R := by
+  exact
+    vfMidThetaNextEscape_forces_currentBoundaryStrip
+      C R R hR (vfMidIntegerBlockPrimeSupply_le_R R hR) hescape
+
 end RHLean.Analysis
