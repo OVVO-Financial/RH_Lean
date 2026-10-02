@@ -63,9 +63,9 @@ def vfMidLinearMidpointInterpolant (x : ℝ) : ℝ :=
     else
       vfMidLinearMidpointSegment R x
 
-/-- Segment estimate used by the global interpolation theorem. -/
 set_option maxHeartbeats 1000000
 
+/-- Segment estimate used by the global interpolation theorem. -/
 private theorem abs_vfMidLinearMidpointSegment_sub_li_le
     (B : ℝ) (hB0 : 0 ≤ B)
     (hB : ∀ y : ℝ, 4 ≤ y →
