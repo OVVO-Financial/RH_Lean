@@ -38,7 +38,8 @@ theorem liFloorPrimeCountProxy_le_li (x : ℝ) :
 theorem li_lt_liFloorPrimeCountProxy_add_one (x : ℝ) :
     vfMidLogarithmicIntegralFromTwo x < liFloorPrimeCountProxy x + 1 := by
   unfold liFloorPrimeCountProxy
-  simpa using (Int.lt_floor_add_one (vfMidLogarithmicIntegralFromTwo x))
+  simp only
+  exact Int.lt_floor_add_one (vfMidLogarithmicIntegralFromTwo x)
 
 /-- Flooring Li costs strictly less than one count, uniformly in x. -/
 theorem abs_liFloorPrimeCountProxy_sub_li_lt_one (x : ℝ) :
@@ -76,7 +77,7 @@ theorem primeLiVonKochBounded_of_liFloorPrimeCountIdentification
   have hlog4 : 0 < Real.log 4 := Real.log_pos (by norm_num)
   have hd : 0 < d := by
     dsimp [d]
-    positivity
+    exact mul_pos (by norm_num) hlog4
   have hC : 0 ≤ C := by
     dsimp [C]
     positivity
@@ -92,7 +93,7 @@ theorem primeLiVonKochBounded_of_liFloorPrimeCountIdentification
         dsimp [C]
         field_simp [hd.ne']
       _ ≤ C * (Real.sqrt x * Real.log x) := by
-        dsimp [d] at hscale0
+        change d ≤ Real.sqrt x * Real.log x at hscale0
         exact mul_le_mul_of_nonneg_left hscale0 hC
       _ = C * Real.sqrt x * Real.log x := by ring
   unfold vfMidPrimeLiError
