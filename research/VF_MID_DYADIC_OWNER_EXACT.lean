@@ -16,7 +16,7 @@ No Li/PNT approximation or asymptotic input is used.
 
 noncomputable section
 
-open scoped BigOperators
+open scoped ArithmeticFunction.Moebius BigOperators
 
 namespace RHLean.Analysis
 
@@ -789,6 +789,147 @@ theorem vfMidSquareBandPrefixComposite_survivor_eq_two_primes_of_subdoubling
   have hmul := vfMidSquareBandCompositeOwner_mul_div hnOwner
   refine ⟨p, n / p, hpPrime, hqPrime, hpGtA, hpLeQ, ?_⟩
   exact hmul.symm
+
+/-- Every late rank-two composite in an open square block has positive Mobius
+sign. The two fresh prime coordinates must be distinct because no perfect
+square lies strictly between consecutive squares. -/
+theorem vfMidSquareBandPrefixComposite_moebius_eq_one_of_subdoubling
+    {A R n : ℕ} (hA : 3 ≤ A) (hAR : A ≤ R) (hRlt : R < 2 * A)
+    (hn : n ∈ vfMidSquareBandPrefixCompositeSurvivors A R) :
+    μ n = 1 := by
+  rcases vfMidSquareBandPrefixComposite_survivor_eq_two_primes_of_subdoubling
+      hA hAR hRlt hn with ⟨p, q, hp, hq, _hAp, _hpq, hnEq⟩
+  have hnComp := (Finset.mem_filter.mp hn).1
+  have hnSite := (Finset.mem_filter.mp hnComp).1
+  have hband : R ^ 2 < n ∧ n < (R + 1) ^ 2 := by
+    simpa [vfMidSquareBandSites] using hnSite
+  have hpqNe : p ≠ q := by
+    intro hpqEq
+    subst q
+    rw [hnEq] at hband
+    have hRp : R < p := by
+      by_contra hnot
+      have hpR : p ≤ R := Nat.le_of_not_gt hnot
+      have hsquare : p ^ 2 ≤ R ^ 2 :=
+        Nat.pow_le_pow_left hpR 2
+      nlinarith
+    have hR1p : R + 1 ≤ p := by omega
+    have hsquare : (R + 1) ^ 2 ≤ p ^ 2 :=
+      Nat.pow_le_pow_left hR1p 2
+    nlinarith
+  have hcop : Nat.Coprime p q :=
+    (Nat.coprime_primes hp hq).2 hpqNe
+  rw [hnEq, ArithmeticFunction.isMultiplicative_moebius.map_mul_of_coprime hcop,
+    ArithmeticFunction.moebius_apply_prime hp,
+    ArithmeticFunction.moebius_apply_prime hq]
+  norm_num
+
+/-- Signed Mobius mass of the starting-wheel survivors in one square block. -/
+def vfMidSquareBandPrefixSurvivorMobiusMass (A R : ℕ) : ℤ :=
+  ∑ n ∈ vfMidSquarePrefixWheelSurvivors A R, μ n
+
+/-- The starting-wheel survivor set is exactly the disjoint union of actual
+primes and late composite survivors. -/
+theorem vfMidSquarePrefixWheelSurvivors_eq_prime_union_prefixComposite
+    {A R : ℕ} (hR : 2 ≤ R) (hAR : A ≤ R) :
+    vfMidSquarePrefixWheelSurvivors A R =
+      vfMidSquareWheelPrimes R ∪
+        vfMidSquareBandPrefixCompositeSurvivors A R := by
+  ext n
+  simp only [vfMidSquareWheelPrimes,
+    vfMidSquareBandPrefixCompositeSurvivors,
+    vfMidSquareBandComposites, vfMidSquarePrefixWheelSurvivors,
+    Finset.mem_union, Finset.mem_filter]
+  constructor
+  · rintro ⟨hnSite, hnSurv⟩
+    by_cases hnPrime : n.Prime
+    · exact Or.inl ⟨hnSite, hnPrime⟩
+    · exact Or.inr ⟨⟨hnSite, hnPrime⟩, hnSurv⟩
+  · rintro (⟨hnSite, hnPrime⟩ | ⟨⟨hnSite, _hnPrime⟩, hnSurv⟩)
+    · have hnPrimeMem : n ∈ vfMidSquareWheelPrimes R :=
+        Finset.mem_filter.mpr ⟨hnSite, hnPrime⟩
+      exact Finset.mem_filter.mp
+        (vfMidSquareWheelPrimes_subset_prefixWheelSurvivors
+          hR hAR hnPrimeMem)
+    · exact ⟨hnSite, hnSurv⟩
+
+/-- Prime and late-composite pieces of the survivor shell are disjoint. -/
+theorem vfMidSquareWheelPrimes_disjoint_prefixComposite
+    (A R : ℕ) :
+    Disjoint (vfMidSquareWheelPrimes R)
+      (vfMidSquareBandPrefixCompositeSurvivors A R) := by
+  rw [Finset.disjoint_left]
+  intro n hnP hnC
+  have hnPrime := (Finset.mem_filter.mp hnP).2
+  have hnComp0 := (Finset.mem_filter.mp hnC).1
+  have hnNotPrime := (Finset.mem_filter.mp hnComp0).2
+  exact hnNotPrime hnPrime
+
+/-- **Prime-count decoder on a truncated Boolean square shell.**
+On a subdoubling run, the signed survivor mass is
+
+`late semiprimes - actual primes`.
+
+Thus unsigned survivor population and signed Mobius mass recover actual prime
+supply exactly. -/
+theorem vfMidSquareBandPrefixSurvivorMobiusMass_eq_composite_sub_prime
+    {A R : ℕ} (hA : 3 ≤ A) (hAR : A ≤ R) (hRlt : R < 2 * A) :
+    vfMidSquareBandPrefixSurvivorMobiusMass A R =
+      ((vfMidSquareBandPrefixCompositeSurvivors A R).card : ℤ) -
+        (vfMidIntegerBlockPrimeSupply R : ℤ) := by
+  have hR2 : 2 ≤ R := by omega
+  rw [vfMidSquareBandPrefixSurvivorMobiusMass,
+    vfMidSquarePrefixWheelSurvivors_eq_prime_union_prefixComposite hR2 hAR,
+    Finset.sum_union
+      (vfMidSquareWheelPrimes_disjoint_prefixComposite A R)]
+  have hprime :
+      (∑ n ∈ vfMidSquareWheelPrimes R, μ n) =
+        -(vfMidIntegerBlockPrimeSupply R : ℤ) := by
+    calc
+      (∑ n ∈ vfMidSquareWheelPrimes R, μ n) =
+          ∑ _n ∈ vfMidSquareWheelPrimes R, (-1 : ℤ) := by
+            apply Finset.sum_congr rfl
+            intro n hn
+            have hnPrime : n.Prime := (Finset.mem_filter.mp hn).2
+            rw [ArithmeticFunction.moebius_apply_prime hnPrime]
+      _ = -((vfMidSquareWheelPrimes R).card : ℤ) := by simp
+      _ = -(vfMidIntegerBlockPrimeSupply R : ℤ) := by
+            unfold vfMidIntegerBlockPrimeSupply
+            rw [vfMidDirectPrimeBand_eq_squareWheelPrimes]
+  have hcomp :
+      (∑ n ∈ vfMidSquareBandPrefixCompositeSurvivors A R, μ n) =
+        ((vfMidSquareBandPrefixCompositeSurvivors A R).card : ℤ) := by
+    calc
+      (∑ n ∈ vfMidSquareBandPrefixCompositeSurvivors A R, μ n) =
+          ∑ _n ∈ vfMidSquareBandPrefixCompositeSurvivors A R, (1 : ℤ) := by
+            apply Finset.sum_congr rfl
+            intro n hn
+            exact vfMidSquareBandPrefixComposite_moebius_eq_one_of_subdoubling
+              hA hAR hRlt hn
+      _ = ((vfMidSquareBandPrefixCompositeSurvivors A R).card : ℤ) := by simp
+  rw [hprime, hcomp]
+  ring
+
+/-- Equivalent decoder form: twice the actual prime supply equals unsigned
+starting-wheel survivors minus their signed Mobius mass. -/
+theorem two_mul_vfMidIntegerBlockPrimeSupply_eq_prefixSurvivors_sub_mobiusMass
+    {A R : ℕ} (hA : 3 ≤ A) (hAR : A ≤ R) (hRlt : R < 2 * A) :
+    2 * (vfMidIntegerBlockPrimeSupply R : ℤ) =
+      ((vfMidSquarePrefixWheelSurvivors A R).card : ℤ) -
+        vfMidSquareBandPrefixSurvivorMobiusMass A R := by
+  have hpart :=
+    vfMidSquarePrefixWheelSurvivors_card_eq_prime_add_prefixComposite
+      A R (by omega) hAR
+  have hmass :=
+    vfMidSquareBandPrefixSurvivorMobiusMass_eq_composite_sub_prime
+      hA hAR hRlt
+  have hpartZ :
+      ((vfMidSquarePrefixWheelSurvivors A R).card : ℤ) =
+        (vfMidIntegerBlockPrimeSupply R : ℤ) +
+          ((vfMidSquareBandPrefixCompositeSurvivors A R).card : ℤ) := by
+    exact_mod_cast hpart
+  rw [hmass, hpartZ]
+  ring
 
 /-- Hence after sieving a square block by every prime through the starting
 root A, the surviving composites in a subdoubling later block R are at most
