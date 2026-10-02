@@ -113,7 +113,6 @@ jobs:
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_VON_KOCH_BRIDGE.olean research/VF_MID_VON_KOCH_BRIDGE.lean 2>&1 | tee vf-mid-von-koch.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.LI_FLOOR_PRIME_COUNT_FANTASY.olean research/LI_FLOOR_PRIME_COUNT_FANTASY.lean 2>&1 | tee li-floor-prime-count-fantasy.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_LINEAR_INTERPOLATION_FANTASY.olean research/VF_MID_LINEAR_INTERPOLATION_FANTASY.lean 2>&1 | tee vf-mid-linear-interpolation-fantasy.log
-          lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.FOUR_FANTASY_PROXY_RH_CLOSURES.olean research/FOUR_FANTASY_PROXY_RH_CLOSURES.lean 2>&1 | tee four-fantasy-proxy-rh-closures.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_DIRECT_SIGNED_DYNAMICS.olean research/VF_MID_DIRECT_SIGNED_DYNAMICS.lean 2>&1 | tee vf-mid-direct-signed-dynamics.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_SQUARE_BAND_COMPOSITE_BRIDGE.olean research/VF_MID_SQUARE_BAND_COMPOSITE_BRIDGE.lean 2>&1 | tee vf-mid-square-band-composite-bridge.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_DIRECT_COMPOSITE_DESCENT.olean research/VF_MID_DIRECT_COMPOSITE_DESCENT.lean 2>&1 | tee vf-mid-direct-composite-descent.log
@@ -146,6 +145,7 @@ jobs:
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_PHI_OWNER_BRIDGE.olean research/VF_MID_PHI_OWNER_BRIDGE.lean 2>&1 | tee vf-mid-phi-owner-bridge.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_DYADIC_SUMMATION_TRANSFER.olean research/VF_MID_DYADIC_SUMMATION_TRANSFER.lean 2>&1 | tee vf-mid-dyadic-summation-transfer.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_FRACTIONAL_PRIME_CLUSTER.olean research/VF_MID_FRACTIONAL_PRIME_CLUSTER.lean 2>&1 | tee vf-mid-fractional-prime-cluster.log
+          lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.FOUR_FANTASY_PROXY_RH_CLOSURES.olean research/FOUR_FANTASY_PROXY_RH_CLOSURES.lean 2>&1 | tee four-fantasy-proxy-rh-closures.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_PHI_CUTOFF_TELESCOPE.olean research/VF_MID_PHI_CUTOFF_TELESCOPE.lean 2>&1 | tee vf-mid-phi-cutoff-telescope.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_PHI_ODD_LI_TRANSFER.olean research/VF_MID_PHI_ODD_LI_TRANSFER.lean 2>&1 | tee vf-mid-phi-odd-li-transfer.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_PHI_DIAGONAL_TRANSFER.olean research/VF_MID_PHI_DIAGONAL_TRANSFER.lean 2>&1 | tee vf-mid-phi-diagonal-transfer.log
