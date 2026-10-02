@@ -585,6 +585,105 @@ theorem vfMidDyadicLateRemoval_eq_ownerCensus
   exact vfMidSquarePrefixWheelExcess_eq_sum_lateOwnerCards
     z r hr2 hzr
 
+/-! ## Starting-wheel late composites are quadratically sparse on short runs -/
+
+/-- On a subdoubling run, one least-prime owner above the starting root can
+occupy at most four sites of any later square block. The proof uses only the
+spacing p between consecutive multiples of p and the block width 2R. -/
+theorem vfMidSquareBandLateOwner_card_le_four_of_subdoubling
+    {A R p : ℕ} (hA : 3 ≤ A) (hAR : A ≤ R)
+    (hRlt : R < 2 * A)
+    (hp : p ∈ vfMidSquareBandLateOwnerPrimes A R) :
+    (vfMidSquareBandCompositeOwner R p).card ≤ 4 := by
+  have hpData := mem_vfMidSquareBandLateOwnerPrimes.mp hp
+  have hpOwner : p ∈ vfMidSquareBandOwnerPrimes R := hpData.1
+  have hpGtA : A < p := hpData.2
+  have hR3 : 3 ≤ R := hA.trans hAR
+  have hpPrime : p.Prime :=
+    (mem_vfMidSquareBandOwnerPrimes.mp hpOwner).1
+  have hpPos : 0 < p := hpPrime.pos
+  have hRlt2p : R < 2 * p := by omega
+  have hroughEq :
+      vfMidSquareBandCompositeOwnerChildren R p =
+        vfMidSquareBandOwnerRoughChildren R p :=
+    vfMidSquareBandCompositeOwnerChildren_eq_rough hR3 hpOwner
+  have hsub :
+      vfMidSquareBandOwnerRoughChildren R p ⊆
+        Finset.Ioc (R ^ 2 / p) (R ^ 2 / p + 4) := by
+    intro m hm
+    rcases Finset.mem_filter.mp hm with ⟨_hmIcc, hdata⟩
+    have hlo : R ^ 2 < p * m := hdata.1
+    have hhi : p * m < (R + 1) ^ 2 := hdata.2.1
+    have hmLower : R ^ 2 / p < m := by
+      apply (Nat.div_lt_iff_lt_mul hpPos).2
+      simpa [Nat.mul_comm] using hlo
+    have hfloor : R ^ 2 < (R ^ 2 / p + 1) * p := by
+      apply (Nat.div_lt_iff_lt_mul hpPos).1
+      omega
+    have hgap : 2 * R + 1 ≤ 4 * p := by omega
+    have hexp : (R + 1) ^ 2 = R ^ 2 + 2 * R + 1 := by ring
+    have hmUpper : m ≤ R ^ 2 / p + 4 := by
+      by_contra hnot
+      have hmGe : R ^ 2 / p + 5 ≤ m := by omega
+      have hmulGe :
+          (R ^ 2 / p + 5) * p ≤ m * p :=
+        Nat.mul_le_mul_right p hmGe
+      have hq5 :
+          (R ^ 2 / p + 5) * p =
+            (R ^ 2 / p + 1) * p + 4 * p := by ring
+      have hblockLt : (R + 1) ^ 2 < (R ^ 2 / p + 5) * p := by
+        rw [hexp, hq5]
+        omega
+      have hprodHi : m * p < (R + 1) ^ 2 := by
+        simpa [Nat.mul_comm] using hhi
+      omega
+    exact Finset.mem_Ioc.mpr ⟨hmLower, hmUpper⟩
+  calc
+    (vfMidSquareBandCompositeOwner R p).card =
+        (vfMidSquareBandCompositeOwnerChildren R p).card := by
+          symm
+          exact vfMidSquareBandCompositeOwnerChildren_card R p
+    _ = (vfMidSquareBandOwnerRoughChildren R p).card := by
+          exact congrArg Finset.card hroughEq
+    _ ≤ (Finset.Ioc (R ^ 2 / p) (R ^ 2 / p + 4)).card :=
+          Finset.card_le_card hsub
+    _ = 4 := by simp
+
+/-- Hence after sieving a square block by every prime through the starting
+root A, the surviving composites in a subdoubling later block R are at most
+four times the root displacement R-A. -/
+theorem vfMidSquareBandPrefixComposite_start_card_le_four_mul_gap
+    {A R : ℕ} (hA : 3 ≤ A) (hAR : A ≤ R)
+    (hRlt : R < 2 * A) :
+    (vfMidSquareBandPrefixCompositeSurvivors A R).card ≤
+      4 * (R - A) := by
+  have howners :=
+    vfMidSquareBandPrefixComposite_card_eq_sum_lateOwnerCards
+      A R (hA.trans hAR)
+  have hownerSub :
+      vfMidSquareBandLateOwnerPrimes A R ⊆ Finset.Ioc A R := by
+    intro p hp
+    have hpData := mem_vfMidSquareBandLateOwnerPrimes.mp hp
+    have hpRoot : p ≤ R :=
+      (mem_vfMidSquareBandOwnerPrimes.mp hpData.1).2
+    exact Finset.mem_Ioc.mpr ⟨hpData.2, hpRoot⟩
+  have hownerCard :
+      (vfMidSquareBandLateOwnerPrimes A R).card ≤ R - A := by
+    have hcard := Finset.card_le_card hownerSub
+    simpa using hcard
+  rw [howners]
+  calc
+    (∑ p ∈ vfMidSquareBandLateOwnerPrimes A R,
+        (vfMidSquareBandCompositeOwner R p).card) ≤
+        ∑ _p ∈ vfMidSquareBandLateOwnerPrimes A R, 4 := by
+          apply Finset.sum_le_sum
+          intro p hp
+          exact vfMidSquareBandLateOwner_card_le_four_of_subdoubling
+            hA hAR hRlt hp
+    _ = 4 * (vfMidSquareBandLateOwnerPrimes A R).card := by
+          simp [Nat.mul_comm]
+    _ ≤ 4 * (R - A) := Nat.mul_le_mul_left 4 hownerCard
+
 
 /-! ## Canonical z=2 VF tracking defect -/
 
