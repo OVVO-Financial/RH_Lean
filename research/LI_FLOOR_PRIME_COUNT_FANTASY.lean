@@ -151,6 +151,7 @@ theorem abs_li_at_floor_sub_li_le_inv_log_four
       |vfMidLogarithmicIntegralFromTwo x -
           vfMidLogarithmicIntegralFromTwo (n : ℝ)| ≤
         (x - (n : ℝ)) / Real.log 4 := by
+    norm_num at hraw
     simpa [vfMidLogarithmicIntegralFromTwo,
       logarithmicIntegralFromTwo] using hraw
   have hlog4 : 0 ≤ Real.log 4 :=
