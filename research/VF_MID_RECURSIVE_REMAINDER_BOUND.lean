@@ -143,6 +143,87 @@ theorem vfMidRecursiveChildrenInBlock_sum_card_le_carrier
     _ ≤ (vfMidRecursiveChildCarrier R).card :=
       Finset.card_le_card hsubset
 
+/-- For R >= 7 every recursive child belongs to one of the native direct
+square blocks indexed by 2 <= S < R.  The right-closed block convention is
+handled canonically by S = floor(sqrt(m-1)). -/
+theorem vfMidRecursiveChildCarrier_subset_childBlocks
+    (R : ℕ) (hR : 7 ≤ R) :
+    vfMidRecursiveChildCarrier R ⊆
+      (Finset.Ico 2 R).biUnion (vfMidRecursiveChildrenInBlock R) := by
+  intro m hm
+  rcases Finset.mem_biUnion.mp hm with ⟨p, hp, hmChild⟩
+  have hmGt : 2 * R < m :=
+    vfMidLateRecursiveOwner_child_gt_two_mul hR hp hmChild
+  have hmLt : m < R ^ 2 :=
+    vfMidLateRecursiveOwner_child_lt_square hR hp hmChild
+  let S : ℕ := Nat.sqrt (m - 1)
+  have hSsq : S ^ 2 ≤ m - 1 := by
+    dsimp [S]
+    exact Nat.sqrt_le' (m - 1)
+  have hmNext : m - 1 < (S + 1) ^ 2 := by
+    dsimp [S]
+    exact Nat.lt_succ_sqrt' (m - 1)
+  have hS2 : 2 ≤ S := by
+    dsimp [S]
+    apply (Nat.le_sqrt).2
+    omega
+  have hSR : S < R := by
+    by_contra hnot
+    have hRS : R ≤ S := Nat.le_of_not_gt hnot
+    have hpow : R ^ 2 ≤ S ^ 2 := Nat.pow_le_pow_left hRS 2
+    omega
+  apply Finset.mem_biUnion.mpr
+  refine ⟨S, Finset.mem_Ico.mpr ⟨hS2, hSR⟩, ?_⟩
+  apply Finset.mem_inter.mpr
+  constructor
+  · exact hm
+  · apply Finset.mem_Ioc.mpr
+    constructor <;> omega
+
+/-- Conversely every indexed child block is a subset of the flattened
+recursive child carrier. -/
+theorem vfMidRecursiveChildBlocks_subset_carrier
+    (R : ℕ) :
+    (Finset.Ico 2 R).biUnion (vfMidRecursiveChildrenInBlock R) ⊆
+      vfMidRecursiveChildCarrier R := by
+  intro m hm
+  rcases Finset.mem_biUnion.mp hm with ⟨S, _hS, hmBlock⟩
+  exact (Finset.mem_inter.mp hmBlock).1
+
+/-- **Exact child-scale partition.**  For R >= 7 the native direct square
+blocks 2 <= S < R partition the entire recursive child carrier. -/
+theorem vfMidRecursiveChildBlocks_biUnion_eq_carrier
+    (R : ℕ) (hR : 7 ≤ R) :
+    (Finset.Ico 2 R).biUnion (vfMidRecursiveChildrenInBlock R) =
+      vfMidRecursiveChildCarrier R := by
+  apply Finset.Subset.antisymm
+  · exact vfMidRecursiveChildBlocks_subset_carrier R
+  · exact vfMidRecursiveChildCarrier_subset_childBlocks R hR
+
+/-- Exact population conservation across native child square scales. -/
+theorem vfMidRecursiveChildrenInBlock_sum_card_eq_carrier
+    (R : ℕ) (hR : 7 ≤ R) :
+    (∑ S ∈ Finset.Ico 2 R,
+      (vfMidRecursiveChildrenInBlock R S).card) =
+        (vfMidRecursiveChildCarrier R).card := by
+  let I : Finset ℕ := Finset.Ico 2 R
+  let F : ℕ → Finset ℕ := vfMidRecursiveChildrenInBlock R
+  have hpair : Set.PairwiseDisjoint (↑I) F := by
+    simpa [I, F] using vfMidRecursiveChildrenInBlock_pairwiseDisjoint R
+  have hunion :
+      (I.biUnion F).card = ∑ S ∈ I, (F S).card := by
+    have h := Finset.sum_biUnion hpair (f := fun _ : ℕ => (1 : ℕ))
+    simpa using h
+  have heq : I.biUnion F = vfMidRecursiveChildCarrier R := by
+    simpa [I, F] using vfMidRecursiveChildBlocks_biUnion_eq_carrier R hR
+  calc
+    (∑ S ∈ Finset.Ico 2 R,
+      (vfMidRecursiveChildrenInBlock R S).card) =
+        (I.biUnion F).card := by
+          rw [hunion]
+          rfl
+    _ = (vfMidRecursiveChildCarrier R).card := by rw [heq]
+
 /-- Prime children in one descended square block. -/
 def vfMidRecursivePrimeChildrenInBlock (R S : ℕ) : Finset ℕ :=
   (vfMidRecursiveChildrenInBlock R S).filter Nat.Prime
@@ -582,6 +663,30 @@ theorem vfMidRecursiveAggregateParentCharge_eq_native_add_remainder
   apply Finset.sum_congr rfl
   intro S _hS
   exact vfMidRecursiveParentCharge_eq_native_add_remainder R S
+
+/-- The aggregate parent charge is exactly the uniform parent weight times
+the complete recursive child population. -/
+theorem vfMidRecursiveAggregateParentCharge_eq_fullRecursiveCharge
+    (R : ℕ) (hR : 7 ≤ R) :
+    vfMidRecursiveAggregateParentCharge R =
+      vfMidOddFractionalPrimeSeatWeight R *
+        ((vfMidRecursiveChildCarrier R).card : ℝ) := by
+  unfold vfMidRecursiveAggregateParentCharge
+  rw [← Finset.mul_sum]
+  have hcard :=
+    vfMidRecursiveChildrenInBlock_sum_card_eq_carrier R hR
+  exact_mod_cast congrArg (fun n : ℕ => n) hcard
+
+/-- Hence the aggregate transfer ledger covers the entire recursive child
+sector, not merely a selected subfamily of child scales. -/
+theorem vfMidFullRecursiveParentCharge_eq_native_add_remainder
+    (R : ℕ) (hR : 7 ≤ R) :
+    vfMidOddFractionalPrimeSeatWeight R *
+        ((vfMidRecursiveChildCarrier R).card : ℝ) =
+      vfMidRecursiveAggregateNativeCharge R +
+        vfMidRecursiveAggregateRemainder R := by
+  rw [← vfMidRecursiveAggregateParentCharge_eq_fullRecursiveCharge R hR]
+  exact vfMidRecursiveAggregateParentCharge_eq_native_add_remainder R
 
 /-- The aggregate deterministic budget obtained by choosing a possibly
 different prefix-wheel cutoff T(S) at each child scale. -/
