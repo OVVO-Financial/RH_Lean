@@ -1107,4 +1107,246 @@ theorem vfMidSquareThetaEnvelope_of_recursiveBoundaryViolation
   refine ⟨C, hC0, hsmall, ?_⟩
   exact vfMidThetaEarlierViolation_of_recursiveViolation C hrec
 
+
+/-! ## Direct fresh-prime contraction on the actual square protected pull -/
+
+/-- At a subdoubling endpoint, every divisor in the new physical block has
+reciprocal quotient one.  Hence one cofactor response is exactly the negative
+sum of its logarithmic multiplier weights. -/
+theorem vfMidProtectedBlockCofactorResponse_endpoint_eq_neg_logSum
+    (M L m : ℕ) (hsub : L < 2 * M) :
+    nativePNTSignedSquareBlockCofactorResponse L M L m =
+      -(∑ d ∈ (Finset.Ioc M L).filter (fun d => m ∣ d),
+          Real.log ((d / m : ℕ) : ℝ)) := by
+  unfold nativePNTSignedSquareBlockCofactorResponse
+  calc
+    (∑ d ∈ (Finset.Ioc M L).filter (fun d => m ∣ d),
+        Real.log ((d / m : ℕ) : ℝ) * nativePNTError (L / d)) =
+      ∑ d ∈ (Finset.Ioc M L).filter (fun d => m ∣ d),
+        -(Real.log ((d / m : ℕ) : ℝ)) := by
+          apply Finset.sum_congr rfl
+          intro d hd
+          have hdI := Finset.mem_Ioc.mp (Finset.mem_filter.mp hd).1
+          have hlo : 1 * d ≤ L := by simpa using hdI.2
+          have hhi : L < (1 + 1) * d := by
+            have htwo : 2 * M < 2 * d := by omega
+            omega
+          have hdiv : L / d = 1 := Nat.div_eq_of_lt_le hlo hhi
+          rw [hdiv, nativePNTError_one]
+          ring
+    _ = -(∑ d ∈ (Finset.Ioc M L).filter (fun d => m ∣ d),
+          Real.log ((d / m : ℕ) : ℝ)) := by
+      rw [Finset.sum_neg_distrib]
+
+/-- The logarithmic multiplier mass attached to a positive cofactor is
+nonnegative. -/
+theorem vfMidProtectedBlockCofactorLogSum_nonneg
+    (M L m : ℕ) (hm : 0 < m) :
+    0 ≤ ∑ d ∈ (Finset.Ioc M L).filter (fun d => m ∣ d),
+      Real.log ((d / m : ℕ) : ℝ) := by
+  apply Finset.sum_nonneg
+  intro d hd
+  rcases Finset.mem_filter.mp hd with ⟨hdBand, hmd⟩
+  have hdI := Finset.mem_Ioc.mp hdBand
+  have hdpos : 0 < d := by omega
+  have hmle : m ≤ d := Nat.le_of_dvd hdpos hmd
+  have hq1 : 1 ≤ d / m := (Nat.one_le_div_iff hm).2 hmle
+  exact Real.log_nonneg (by exact_mod_cast hq1)
+
+/-- Adjoining a fresh prime can only decrease the nonnegative endpoint
+logarithmic multiplier mass.  This is a literal carrier inclusion plus
+monotonicity of the quotient logarithm. -/
+theorem vfMidProtectedBlockCofactorLogSum_freshPrime_le
+    (M L m p : ℕ) (hm : 0 < m) (hp : p.Prime) :
+    (∑ d ∈ (Finset.Ioc M L).filter (fun d => m * p ∣ d),
+        Real.log ((d / (m * p) : ℕ) : ℝ)) ≤
+      ∑ d ∈ (Finset.Ioc M L).filter (fun d => m ∣ d),
+        Real.log ((d / m : ℕ) : ℝ) := by
+  have hmp : 0 < m * p := Nat.mul_pos hm hp.pos
+  have hden : m ≤ m * p := by
+    simpa using Nat.mul_le_mul_left m hp.one_le
+  have hsubset :
+      (Finset.Ioc M L).filter (fun d => m * p ∣ d) ⊆
+        (Finset.Ioc M L).filter (fun d => m ∣ d) := by
+    intro d hd
+    rcases Finset.mem_filter.mp hd with ⟨hdBand, hmpd⟩
+    refine Finset.mem_filter.mpr ⟨hdBand, ?_⟩
+    exact dvd_trans (dvd_mul_right m p) hmpd
+  calc
+    (∑ d ∈ (Finset.Ioc M L).filter (fun d => m * p ∣ d),
+        Real.log ((d / (m * p) : ℕ) : ℝ)) ≤
+      ∑ d ∈ (Finset.Ioc M L).filter (fun d => m * p ∣ d),
+        Real.log ((d / m : ℕ) : ℝ) := by
+          apply Finset.sum_le_sum
+          intro d hd
+          rcases Finset.mem_filter.mp hd with ⟨hdBand, hmpd⟩
+          have hdI := Finset.mem_Ioc.mp hdBand
+          have hdpos : 0 < d := by omega
+          have hmple : m * p ≤ d := Nat.le_of_dvd hdpos hmpd
+          have hq1 : 1 ≤ d / (m * p) :=
+            (Nat.one_le_div_iff hmp).2 hmple
+          have hdiv : d / (m * p) ≤ d / m :=
+            Nat.div_le_div_left hden hm
+          apply Real.log_le_log
+          · exact_mod_cast hq1
+          · exact_mod_cast hdiv
+    _ ≤ ∑ d ∈ (Finset.Ioc M L).filter (fun d => m ∣ d),
+        Real.log ((d / m : ℕ) : ℝ) := by
+          refine Finset.sum_le_sum_of_subset_of_nonneg hsubset ?_
+          intro d hd _hdold
+          rcases Finset.mem_filter.mp hd with ⟨hdBand, hmd⟩
+          have hdI := Finset.mem_Ioc.mp hdBand
+          have hdpos : 0 < d := by omega
+          have hmle : m ≤ d := Nat.le_of_dvd hdpos hmd
+          have hq1 : 1 ≤ d / m := (Nat.one_le_div_iff hm).2 hmle
+          exact Real.log_nonneg (by exact_mod_cast hq1)
+
+/-- On the literal subdoubling endpoint, the child cofactor response lies
+between its parent response and zero. -/
+theorem vfMidProtectedBlockCofactorResponse_freshPrime_interval
+    (M L m p : ℕ) (hsub : L < 2 * M)
+    (hm : 0 < m) (hp : p.Prime) :
+    nativePNTSignedSquareBlockCofactorResponse L M L m ≤
+        nativePNTSignedSquareBlockCofactorResponse L M L (m * p) ∧
+      nativePNTSignedSquareBlockCofactorResponse L M L (m * p) ≤ 0 := by
+  have hsum :=
+    vfMidProtectedBlockCofactorLogSum_freshPrime_le M L m p hm hp
+  have hparent :=
+    vfMidProtectedBlockCofactorLogSum_nonneg M L m hm
+  have hchild :=
+    vfMidProtectedBlockCofactorLogSum_nonneg M L (m * p)
+      (Nat.mul_pos hm hp.pos)
+  rw [vfMidProtectedBlockCofactorResponse_endpoint_eq_neg_logSum M L m hsub,
+    vfMidProtectedBlockCofactorResponse_endpoint_eq_neg_logSum M L (m * p) hsub]
+  constructor <;> linarith
+
+/-- Therefore the fresh-prime response defect is no larger in absolute value
+than the parent response itself. -/
+theorem vfMidProtectedBlockCofactorResponse_freshPrime_diff_abs_le
+    (M L m p : ℕ) (hsub : L < 2 * M)
+    (hm : 0 < m) (hp : p.Prime) :
+    |nativePNTSignedSquareBlockCofactorResponse L M L m -
+        nativePNTSignedSquareBlockCofactorResponse L M L (m * p)| ≤
+      |nativePNTSignedSquareBlockCofactorResponse L M L m| := by
+  have h :=
+    vfMidProtectedBlockCofactorResponse_freshPrime_interval
+      M L m p hsub hm hp
+  have hparent : nativePNTSignedSquareBlockCofactorResponse L M L m ≤ 0 :=
+    h.1.trans h.2
+  have hdiff :
+      nativePNTSignedSquareBlockCofactorResponse L M L m -
+          nativePNTSignedSquareBlockCofactorResponse L M L (m * p) ≤ 0 :=
+    sub_nonpos.mpr h.1
+  rw [abs_of_nonpos hdiff, abs_of_nonpos hparent]
+  linarith [h.2]
+
+/-- The actual physical defect in the reciprocal protected-pull Euler law costs
+at most the lost reciprocal factor 1/p of its parent summand. -/
+theorem vfMidProtectedBlockFreshPrimePhysicalDefect_abs_le_inv_mul_parent
+    (M L m p : ℕ) (hsub : L < 2 * M)
+    (hm : 0 < m) (hp : p.Prime) :
+    |nativePNTSignedSquareBlockFreshPrimePhysicalDefect L M L m p| ≤
+      (1 / (p : ℝ)) *
+        |nativePNTSignedSquareBlockCorrelationReciprocalSummand L M L m| := by
+  have hresp :=
+    vfMidProtectedBlockCofactorResponse_freshPrime_diff_abs_le
+      M L m p hsub hm hp
+  have hmR : 0 < (m : ℝ) := by exact_mod_cast hm
+  have hpR : 0 < (p : ℝ) := by exact_mod_cast hp.pos
+  have hmpR : 0 < (m : ℝ) * (p : ℝ) := mul_pos hmR hpR
+  have hcalc :
+      |((μ m : ℤ) : ℝ)| *
+            |nativePNTSignedSquareBlockCofactorResponse L M L m -
+              nativePNTSignedSquareBlockCofactorResponse L M L (m * p)| /
+          ((m : ℝ) * (p : ℝ)) ≤
+        (1 / (p : ℝ)) *
+          (|((μ m : ℤ) : ℝ)| *
+            |nativePNTSignedSquareBlockCofactorResponse L M L m| /
+            (m : ℝ)) := by
+    have hmul :
+        |((μ m : ℤ) : ℝ)| *
+            |nativePNTSignedSquareBlockCofactorResponse L M L m -
+              nativePNTSignedSquareBlockCofactorResponse L M L (m * p)| ≤
+          |((μ m : ℤ) : ℝ)| *
+            |nativePNTSignedSquareBlockCofactorResponse L M L m| :=
+      mul_le_mul_of_nonneg_left hresp (abs_nonneg _)
+    calc
+      |((μ m : ℤ) : ℝ)| *
+              |nativePNTSignedSquareBlockCofactorResponse L M L m -
+                nativePNTSignedSquareBlockCofactorResponse L M L (m * p)| /
+            ((m : ℝ) * (p : ℝ)) ≤
+          |((μ m : ℤ) : ℝ)| *
+              |nativePNTSignedSquareBlockCofactorResponse L M L m| /
+            ((m : ℝ) * (p : ℝ)) := by
+              exact (div_le_div_iff_of_pos_right hmpR).2 hmul
+      _ = (1 / (p : ℝ)) *
+          (|((μ m : ℤ) : ℝ)| *
+            |nativePNTSignedSquareBlockCofactorResponse L M L m| /
+            (m : ℝ)) := by
+              field_simp [hmR.ne', hpR.ne']
+              ring
+  unfold nativePNTSignedSquareBlockFreshPrimePhysicalDefect
+    nativePNTSignedSquareBlockCorrelationReciprocalSummand
+  rw [abs_div, abs_mul, abs_div, abs_mul]
+  push_cast
+  simpa [abs_of_pos hmR, abs_of_pos hpR, abs_of_pos hmpR] using hcalc
+
+/-- Direct protected-pull fresh-prime contraction.
+At a subdoubling endpoint, pairing one reciprocal parent with a fresh-prime
+child cannot increase absolute protected-block mass.  This is an unconditional
+inequality on the actual PNT/VF protected-pull carrier. -/
+theorem vfMidProtectedBlockReciprocalPair_abs_le_parent
+    (M L m p : ℕ) (hsub : L < 2 * M)
+    (hm : 0 < m) (hp : p.Prime) (hcop : Nat.Coprime m p) :
+    |nativePNTSignedSquareBlockCorrelationReciprocalSummand L M L m +
+        nativePNTSignedSquareBlockCorrelationReciprocalSummand L M L (m * p)| ≤
+      |nativePNTSignedSquareBlockCorrelationReciprocalSummand L M L m| := by
+  rw [nativePNTSignedSquareBlockCorrelationReciprocalSummand_add_mul_freshPrime
+    L M L hm hp hcop]
+  have hdef :=
+    vfMidProtectedBlockFreshPrimePhysicalDefect_abs_le_inv_mul_parent
+      M L m p hsub hm hp
+  have hpR : 0 < (p : ℝ) := by exact_mod_cast hp.pos
+  have hp1R : (1 : ℝ) ≤ (p : ℝ) := by exact_mod_cast hp.one_le
+  have hinv0 : 0 ≤ (1 / (p : ℝ)) := by positivity
+  have hinv1 : (1 / (p : ℝ)) ≤ 1 := by
+    exact (div_le_iff₀ hpR).2 (by simpa using hp1R)
+  have hfactor : 0 ≤ 1 - 1 / (p : ℝ) := sub_nonneg.mpr hinv1
+  calc
+    |(1 - 1 / (p : ℝ)) *
+          nativePNTSignedSquareBlockCorrelationReciprocalSummand L M L m +
+        nativePNTSignedSquareBlockFreshPrimePhysicalDefect L M L m p| ≤
+      |(1 - 1 / (p : ℝ)) *
+          nativePNTSignedSquareBlockCorrelationReciprocalSummand L M L m| +
+        |nativePNTSignedSquareBlockFreshPrimePhysicalDefect L M L m p| :=
+          abs_add_le _ _
+    _ = (1 - 1 / (p : ℝ)) *
+          |nativePNTSignedSquareBlockCorrelationReciprocalSummand L M L m| +
+        |nativePNTSignedSquareBlockFreshPrimePhysicalDefect L M L m p| := by
+          rw [abs_mul, abs_of_nonneg hfactor]
+    _ ≤ (1 - 1 / (p : ℝ)) *
+          |nativePNTSignedSquareBlockCorrelationReciprocalSummand L M L m| +
+        (1 / (p : ℝ)) *
+          |nativePNTSignedSquareBlockCorrelationReciprocalSummand L M L m| :=
+            add_le_add_left hdef _
+    _ = |nativePNTSignedSquareBlockCorrelationReciprocalSummand L M L m| := by
+          ring
+
+/-- Literal consecutive-square specialization of the direct fresh-prime
+protected-pull contraction. -/
+theorem vfMidSquareProtectedBlockReciprocalPair_abs_le_parent
+    (R m p : ℕ) (hR : 3 ≤ R)
+    (hm : 0 < m) (hp : p.Prime) (hcop : Nat.Coprime m p) :
+    |nativePNTSignedSquareBlockCorrelationReciprocalSummand
+          ((R + 1) ^ 2) (R ^ 2) ((R + 1) ^ 2) m +
+        nativePNTSignedSquareBlockCorrelationReciprocalSummand
+          ((R + 1) ^ 2) (R ^ 2) ((R + 1) ^ 2) (m * p)| ≤
+      |nativePNTSignedSquareBlockCorrelationReciprocalSummand
+          ((R + 1) ^ 2) (R ^ 2) ((R + 1) ^ 2) m| := by
+  apply vfMidProtectedBlockReciprocalPair_abs_le_parent
+  · nlinarith
+  · exact hm
+  · exact hp
+  · exact hcop
+
 end RHLean.Analysis
