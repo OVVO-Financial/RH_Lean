@@ -3,6 +3,7 @@ import «research.VF_MID_RECURSIVE_REMAINDER_BOUND»
 import «research.VF_MID_DIRECT_DISCREPANCY_ABEL»
 import RHLean.Analysis.NativePNTTransfer
 import RHLean.Analysis.VioleSequentialEulerClosure
+import RHLean.Analysis.NativePNTSignedSecondSelbergFrontierCharge
 
 /-!
 # Native VF descent written in Chebyshev theta coordinates
@@ -294,6 +295,71 @@ theorem vfMidSquarePsiProtectedPull_eq_nativeVFDescent
     vfMidDirectThetaBandError_eq_nativeVFDescent R hR
   rw [htheta] at hdiff
   linarith
+
+/-! ## Adjacent-square second-Selberg frontier sign -/
+
+/-- On the exact adjacent-square frontier with cutoff `R` and endpoint
+`(R+1)^2`, the positive mixed two-prime face is impossible.  Two distinct
+primes both larger than `R` already have product strictly larger than the
+endpoint.  Therefore every surviving second-Selberg frontier atom is a
+negative prime-square diagonal. -/
+theorem vfMidAdjacentSquareSecondSelbergFrontierCharge_nonpos
+    (R : ℕ) (hR : 3 ≤ R) :
+    nativePNTSignedSecondSelbergWheelFrontierCharge
+        R ((R + 1) ^ 2) ≤ 0 := by
+  unfold nativePNTSignedSecondSelbergWheelFrontierCharge
+  apply Finset.sum_nonpos
+  intro n hn
+  have hscale : (R + 1) ^ 2 < 2 * R ^ 2 :=
+    vfMidSquare_succ_sq_lt_two_mul_sq R hR
+  rcases
+      nativePNTSignedSecondSelbergWheelFrontierSite_classification
+        hscale hn with hsq | hmix
+  · rcases hsq with ⟨q, _hqPrime, _hRq, _hnq, _herr, hkernel⟩
+    rw [hkernel]
+    exact neg_nonpos.mpr (sq_nonneg _)
+  · rcases hmix with
+      ⟨q, r, _hqPrime, _hrPrime, hqr, hRq, hRr, hnqr, _herr, _hkernel⟩
+    have hnData :=
+      mem_nativePNTSignedSecondSelbergWheelFrontierSites.mp hn
+    have hnle : n ≤ (R + 1) ^ 2 :=
+      (Finset.mem_Icc.mp hnData.1).2
+    rw [hnqr] at hnle
+    rcases lt_or_gt_of_ne hqr with hqrLt | hrqLt
+    · have hqLower : R + 1 ≤ q := by omega
+      have hrLower : R + 2 ≤ r := by omega
+      have hprod :
+          (R + 1) * (R + 2) ≤ q * r :=
+        Nat.mul_le_mul hqLower hrLower
+      have hstrict :
+          (R + 1) ^ 2 < (R + 1) * (R + 2) := by
+        have hpos : 0 < R + 1 := by omega
+        simpa [pow_two] using
+          Nat.mul_lt_mul_of_pos_left (by omega : R + 1 < R + 2) hpos
+      omega
+    · have hrLower : R + 1 ≤ r := by omega
+      have hqLower : R + 2 ≤ q := by omega
+      have hprod :
+          (R + 2) * (R + 1) ≤ q * r :=
+        Nat.mul_le_mul hqLower hrLower
+      have hstrict :
+          (R + 1) ^ 2 < (R + 2) * (R + 1) := by
+        have hpos : 0 < R + 1 := by omega
+        simpa [pow_two, Nat.mul_comm] using
+          Nat.mul_lt_mul_of_pos_right (by omega : R + 1 < R + 2) hpos
+      omega
+
+/-- Consequently the frontier error mass has the favorable nonnegative sign on
+every adjacent square endpoint. -/
+theorem vfMidAdjacentSquareSecondSelbergFrontierErrorMass_nonneg
+    (R : ℕ) (hR : 3 ≤ R) :
+    0 ≤ nativePNTSignedSecondSelbergWheelFrontierErrorMass
+      R ((R + 1) ^ 2) := by
+  have hscale : (R + 1) ^ 2 < 2 * R ^ 2 :=
+    vfMidSquare_succ_sq_lt_two_mul_sq R hR
+  rw [nativePNTSignedSecondSelbergWheelFrontierErrorMass_eq_neg_charge hscale]
+  exact neg_nonneg.mpr
+    (vfMidAdjacentSquareSecondSelbergFrontierCharge_nonpos R hR)
 
 /-! ## Square-psi reduction
 
