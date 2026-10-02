@@ -841,4 +841,115 @@ theorem vfMidThetaNextEscape_forces_currentBoundaryStrip_universal
     vfMidThetaNextEscape_forces_currentBoundaryStrip
       C R R hR (vfMidIntegerBlockPrimeSupply_le_R R hR) hescape
 
+
+/-! ## Exact well-founded forcing seam -/
+
+/-- A genuine one-step boundary escape: the current endpoint is inside the
+RH-scale theta envelope at a recursive scale R >= 7, but the next endpoint is
+outside the enlarged envelope. -/
+def VFMidThetaBoundaryEscapeAt (C : ℝ) (R : ℕ) : Prop :=
+  7 ≤ R ∧
+    (-vfMidThetaBarrierRadius C R ≤
+          vfMidDirectThetaEndpointError R ∧
+      vfMidDirectThetaEndpointError R ≤
+          vfMidThetaBarrierRadius C R) ∧
+    ¬ (-vfMidThetaBarrierRadius C (R + 1) ≤
+          vfMidDirectThetaEndpointError (R + 1) ∧
+        vfMidDirectThetaEndpointError (R + 1) ≤
+          vfMidThetaBarrierRadius C (R + 1))
+
+/-- **The remaining arithmetic forcing statement.**
+
+Every outward escape at a recursive scale must reproduce an outward escape on
+some actual recursive child scale.  Since #854 proves every such child scale is
+strictly smaller, this statement cannot hold along an infinite lineage.
+
+This definition intentionally contains no estimate: #858 has already reduced
+any escape to the explicit signed boundary strips and coupled-packet
+inequalities above.  The only missing arithmetic is the implication from a
+parent escape to an appropriate child escape. -/
+def VFMidThetaBoundaryEscapeForcingStatement (C : ℝ) : Prop :=
+  ∀ R : ℕ, VFMidThetaBoundaryEscapeAt C R →
+    ∃ S : ℕ,
+      VFMidRecursiveScaleStep R S ∧
+        VFMidThetaBoundaryEscapeAt C S
+
+/-- Well-founded recursive descent from #854 rules out every boundary escape
+as soon as the aggregate parent-to-child forcing implication is proved. -/
+theorem not_vfMidThetaBoundaryEscapeAt_of_forcing
+    (C : ℝ) (hforce : VFMidThetaBoundaryEscapeForcingStatement C) :
+    ∀ R : ℕ, ¬ VFMidThetaBoundaryEscapeAt C R := by
+  apply vfMidRecursiveScalePersistent_impossible
+  intro R hbad
+  exact hforce R hbad
+
+/-- Complete boundary-descent formulation: finite initialization through scale
+7 plus the single aggregate forcing statement. -/
+def VFMidThetaBoundaryDescentStatement : Prop :=
+  ∃ C : ℝ, 0 ≤ C ∧
+    (∀ R : ℕ, 3 ≤ R → R ≤ 7 →
+      -vfMidThetaBarrierRadius C R ≤
+          vfMidDirectThetaEndpointError R ∧
+        vfMidDirectThetaEndpointError R ≤
+          vfMidThetaBarrierRadius C R) ∧
+    VFMidThetaBoundaryEscapeForcingStatement C
+
+/-- **If the signed boundary escape really descends, the theta envelope
+closes.**
+
+This is the exact minimal-counterexample engine anticipated in #854.  No
+uniform local supply theorem is assumed: the only arithmetic hypothesis is
+that an actual outward boundary violation selects a strictly lower recursive
+scale carrying the same violation. -/
+theorem vfMidSquareThetaEnvelope_of_boundaryDescent
+    (h : VFMidThetaBoundaryDescentStatement) :
+    VFMidSquareThetaEnvelopeStatement := by
+  rcases h with ⟨C, hC0, hsmall, hforce⟩
+  have hno :
+      ∀ R : ℕ, ¬ VFMidThetaBoundaryEscapeAt C R :=
+    not_vfMidThetaBoundaryEscapeAt_of_forcing C hforce
+  have hinsideLarge :
+      ∀ R : ℕ, 7 ≤ R →
+        (-vfMidThetaBarrierRadius C R ≤
+              vfMidDirectThetaEndpointError R ∧
+          vfMidDirectThetaEndpointError R ≤
+              vfMidThetaBarrierRadius C R) := by
+    intro R hR
+    induction R, hR using Nat.le_induction with
+    | base =>
+        exact hsmall 7 (by omega) le_rfl
+    | succ R hR ih =>
+        by_contra hnext
+        exact (hno R) ⟨hR, ih, hnext⟩
+  refine ⟨C, hC0, ?_⟩
+  intro R hR
+  have hinside :
+      -vfMidThetaBarrierRadius C R ≤
+            vfMidDirectThetaEndpointError R ∧
+        vfMidDirectThetaEndpointError R ≤
+            vfMidThetaBarrierRadius C R := by
+    by_cases hR7 : R ≤ 7
+    · exact hsmall R hR hR7
+    · exact hinsideLarge R (by omega)
+  have habs :
+      |vfMidDirectThetaEndpointError R| ≤
+        vfMidThetaBarrierRadius C R :=
+    (abs_le).2 hinside
+  simpa [vfMidThetaBarrierRadius] using habs
+
+/-- The same single forcing statement therefore feeds the already-compiled
+direct VF endpoint consumer. -/
+theorem abs_vfMidDirectSquareEndpointError_le_of_boundaryDescent
+    (h : VFMidThetaBoundaryDescentStatement)
+    (R : ℕ) (hR : 3 ≤ R) :
+    ∃ C : ℝ, 0 ≤ C ∧
+      |vfMidDirectSquareEndpointError R| ≤
+        C * (R : ℝ) * Real.log (R : ℝ) +
+          (4 * C + 9 / Real.log 4) * (R : ℝ) +
+          |vfMidDirectSquareEndpointError 2 -
+            vfMidDirectThetaEndpointError 2 *
+              vfMidDirectThetaAbelWeight 2| :=
+  abs_vfMidDirectSquareEndpointError_le_of_squareThetaEnvelope
+    (vfMidSquareThetaEnvelope_of_boundaryDescent h) R hR
+
 end RHLean.Analysis
