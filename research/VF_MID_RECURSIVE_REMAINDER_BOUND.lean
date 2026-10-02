@@ -550,7 +550,7 @@ theorem vfMidRecursiveChildCarrier_card_le_R
   have hpart :=
     vfMidOddActualComposite_card_add_primeSupply R (by omega : 2 ≤ R)
   rw [hrec]
-  rw [howners] at hsplit
+  rw [← howners] at hsplit
   omega
 
 /-- The odd VF seat weight is nonnegative on every nontrivial square block. -/
