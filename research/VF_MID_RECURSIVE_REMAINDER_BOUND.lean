@@ -797,17 +797,21 @@ theorem abs_vfMidRecursiveAggregateRemainder_le_four_mul
     |vfMidRecursiveAggregateRemainder R| ≤ 4 * (R : ℝ) := by
   have h :=
     abs_vfMidRecursiveAggregateRemainder_le_linear R hR
-  have hlogLower : (1 : ℝ) ≤ Real.log 4 := by
-    have hlog2 : Real.log 2 ≥ (1 : ℝ) / 2 := by
-      have hx := Real.log_le_sub_one_of_pos (show (0 : ℝ) < (2 : ℝ) by norm_num)
-      have hpos := Real.log_pos (show (1 : ℝ) < 2 by norm_num)
-      nlinarith
-    rw [show (4 : ℝ) = 2 * 2 by norm_num, Real.log_mul (by norm_num) (by norm_num)]
-    linarith
-  have hC : 1 + 3 / Real.log 4 ≤ (4 : ℝ) := by
-    have hlogPos : 0 < Real.log 4 := Real.log_pos (by norm_num)
-    apply (le_div_iff₀ hlogPos).2
+  have hlog4 : (5 / 4 : ℝ) < Real.log 4 := by
+    have h2 := Real.log_two_gt_d9
+    have hpow : Real.log (4 : ℝ) = 2 * Real.log 2 := by
+      calc
+        Real.log (4 : ℝ) = Real.log ((2 : ℝ) ^ 2) := by norm_num
+        _ = (2 : ℕ) * Real.log 2 := by rw [Real.log_pow]
+        _ = 2 * Real.log 2 := by norm_num
+    rw [hpow]
     nlinarith
+  have hlogPos : 0 < Real.log 4 := by linarith
+  have hdiv : 3 / Real.log 4 ≤ (3 : ℝ) := by
+    rw [div_le_iff₀ hlogPos]
+    nlinarith
+  have hC : 1 + 3 / Real.log 4 ≤ (4 : ℝ) := by
+    linarith
   calc
     |vfMidRecursiveAggregateRemainder R|
         ≤ (1 + 3 / Real.log 4) * (R : ℝ) := h
