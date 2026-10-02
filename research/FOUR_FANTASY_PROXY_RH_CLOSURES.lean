@@ -164,6 +164,78 @@ theorem primeLiVonKochBounded_of_proxyTracking
       add_le_add_left hrootScale _
     _ = (A + B / ell) * Real.sqrt x * Real.log x := by ring
 
+/-- Converse generic transfer: the classical prime-minus-Li von-Koch
+bound plus root-scale proxy-to-Li control yields an RH-scale actual-to-proxy
+bound. -/
+theorem proxyTracking_of_primeLiVonKochBounded
+    {proxy : ℝ → ℝ}
+    (hprime : PrimeLiVonKochBoundedStatement)
+    (hroot : PrimeProxyLiRootBoundedStatement proxy) :
+    PrimeProxyVonKochTrackingStatement proxy := by
+  rcases hprime with ⟨A, hA0, hA⟩
+  rcases hroot with ⟨B, hB0, hB⟩
+  let ell : ℝ := Real.log 4
+  have hell : 0 < ell := by
+    dsimp [ell]
+    exact Real.log_pos (by norm_num)
+  refine ⟨A + B / ell, add_nonneg hA0 (div_nonneg hB0 hell.le), ?_⟩
+  intro x hx
+  have hlog : ell ≤ Real.log x := by
+    dsimp [ell]
+    exact Real.log_le_log (by norm_num) hx
+  have hsqrt0 : 0 ≤ Real.sqrt x := Real.sqrt_nonneg x
+  have hcoef0 : 0 ≤ (B / ell) * Real.sqrt x :=
+    mul_nonneg (div_nonneg hB0 hell.le) hsqrt0
+  have hrootScale :
+      B * Real.sqrt x ≤
+        (B / ell) * Real.sqrt x * Real.log x := by
+    have hm := mul_le_mul_of_nonneg_left hlog hcoef0
+    have heq :
+        (B / ell) * Real.sqrt x * ell = B * Real.sqrt x := by
+      field_simp [hell.ne']
+    linarith
+  have hdecomp :
+      vfMidPrimeCount x - proxy x =
+        vfMidPrimeLiError x -
+          (proxy x - vfMidLogarithmicIntegralFromTwo x) := by
+    unfold vfMidPrimeLiError
+    ring
+  rw [hdecomp]
+  calc
+    |vfMidPrimeLiError x -
+        (proxy x - vfMidLogarithmicIntegralFromTwo x)|
+        ≤ |vfMidPrimeLiError x| +
+            |proxy x - vfMidLogarithmicIntegralFromTwo x| :=
+      abs_sub _ _
+    _ ≤ A * Real.sqrt x * Real.log x + B * Real.sqrt x :=
+      add_le_add (hA x hx) (hB x hx)
+    _ ≤ A * Real.sqrt x * Real.log x +
+        (B / ell) * Real.sqrt x * Real.log x :=
+      add_le_add_left hrootScale _
+    _ = (A + B / ell) * Real.sqrt x * Real.log x := by ring
+
+/-- For every root-close deterministic proxy, actual-to-proxy tracking at
+von-Koch scale is exactly equivalent to the classical prime-minus-Li bound. -/
+theorem proxyTracking_iff_primeLiVonKochBounded
+    {proxy : ℝ → ℝ}
+    (hroot : PrimeProxyLiRootBoundedStatement proxy) :
+    PrimeProxyVonKochTrackingStatement proxy ↔
+      PrimeLiVonKochBoundedStatement :=
+  ⟨fun h => primeLiVonKochBounded_of_proxyTracking h hroot,
+    fun h => proxyTracking_of_primeLiVonKochBounded h hroot⟩
+
+/-- Therefore, relative only to the repository's classical von-Koch interface,
+an RH-scale actual-to-proxy bound is equivalent to RH for every root-close
+proxy. -/
+theorem proxyTracking_iff_riemannHypothesis
+    (criterion : ClassicalVonKochRHCriterion)
+    {proxy : ℝ → ℝ}
+    (hroot : PrimeProxyLiRootBoundedStatement proxy) :
+    PrimeProxyVonKochTrackingStatement proxy ↔
+      VFMidRiemannHypothesisStatement := by
+  rw [proxyTracking_iff_primeLiVonKochBounded hroot,
+    criterion.iff_riemannHypothesis]
+
 /-- Generic RH consumer for any proxy whose deterministic Li error is root
 scale and whose actual-prime tracking error is von-Koch scale. -/
 theorem riemannHypothesis_of_proxyTracking
