@@ -299,6 +299,112 @@ theorem nnsOneBlockUpdateMass_cast_eq_update (R : ℕ) :
   rw [realCanonicalTotalIncrement_cast]
   rfl
 
+/-! ## Same-parent sector: exact divergent feedback -/
+
+/-- A current square-block child carries the positive sign of its canonical old
+parent after the #877 update sign is applied. -/
+theorem nnsOneBlockSquareUpdateEvent_eq_parent
+    {R c m : ℕ} (hR : 3 ≤ R)
+    (hm : m ∈ canonicalParentFiber R c) :
+    nnsOneBlockSquareUpdateEvent m = realMoebiusStep c := by
+  rw [canonicalParentFiber, Finset.mem_filter] at hm
+  have hmBlock := hm.1
+  have hsq := hm.2.1
+  have hparent := hm.2.2
+  have hmBounds : R ^ 2 ≤ m ∧ m < (R + 1) ^ 2 := by
+    simpa [squareBlockInterval, Finset.mem_Ico] using hmBlock
+  have hm1 : 1 < m := by
+    have h9 : 9 ≤ R ^ 2 := by nlinarith
+    omega
+  have hmu := canonicalSignedParent_moebius hsq hm1
+  unfold nnsOneBlockSquareUpdateEvent realCanonicalMoebiusWeight
+    realMoebiusStep
+  rw [hmu, hparent]
+  push_cast
+  ring
+
+/-- **Same-parent co-partial mass vanishes exactly.**
+
+The old-tail event at parent c is -mu(c), while every current-block child in
+that fibre has update event +mu(c). -/
+theorem nnsOneBlockSameParentCo_eq_zero
+    {R c m : ℕ} (hR : 3 ≤ R)
+    (hm : m ∈ canonicalParentFiber R c) :
+    zeroTargetCoPartialPair
+        (nnsOneBlockOldTailEvent c)
+        (nnsOneBlockSquareUpdateEvent m) = 0 := by
+  rw [nnsOneBlockSquareUpdateEvent_eq_parent hR hm]
+  unfold nnsOneBlockOldTailEvent
+  simp
+
+/-- **Same-parent divergent mass is exactly the parent square.** -/
+theorem nnsOneBlockSameParentDiv_eq_sq
+    {R c m : ℕ} (hR : 3 ≤ R)
+    (hm : m ∈ canonicalParentFiber R c) :
+    zeroTargetDivergentPair
+        (nnsOneBlockOldTailEvent c)
+        (nnsOneBlockSquareUpdateEvent m) =
+      (realMoebiusStep c) ^ 2 := by
+  rw [nnsOneBlockSquareUpdateEvent_eq_parent hR hm]
+  unfold nnsOneBlockOldTailEvent
+  simp
+
+/-- Parents that are themselves visible on the old-tail clock. -/
+def nnsOneBlockMatchedParentSet (R : ℕ) : Finset ℕ :=
+  Finset.Icc R (oldParentCutoff R)
+
+/-- Same-parent target-zero excess after summing every visible canonical
+parent fibre. -/
+def nnsOneBlockSameParentExcess (R : ℕ) : ℝ :=
+  ∑ c ∈ nnsOneBlockMatchedParentSet R,
+    ∑ m ∈ canonicalParentFiber R c,
+      zeroTargetPairExcess
+        (nnsOneBlockOldTailEvent c)
+        (nnsOneBlockSquareUpdateEvent m)
+
+/-- **The matched parent diagonal is a negative squarefree energy.**
+
+This is the first genuinely dissipative component of the normalized one-block
+covariance: every visible parent-child fibre contributes only divergent mass. -/
+theorem nnsOneBlockSameParentExcess_eq_neg_diagonal
+    (R : ℕ) (hR : 3 ≤ R) :
+    nnsOneBlockSameParentExcess R =
+      - ∑ c ∈ nnsOneBlockMatchedParentSet R,
+          ((canonicalParentFiber R c).card : ℝ) *
+            (realMoebiusStep c) ^ 2 := by
+  unfold nnsOneBlockSameParentExcess
+  calc
+    (∑ c ∈ nnsOneBlockMatchedParentSet R,
+      ∑ m ∈ canonicalParentFiber R c,
+        zeroTargetPairExcess
+          (nnsOneBlockOldTailEvent c)
+          (nnsOneBlockSquareUpdateEvent m)) =
+      ∑ c ∈ nnsOneBlockMatchedParentSet R,
+        ∑ _m ∈ canonicalParentFiber R c,
+          -(realMoebiusStep c) ^ 2 := by
+            apply Finset.sum_congr rfl
+            intro c _hc
+            apply Finset.sum_congr rfl
+            intro m hm
+            unfold zeroTargetPairExcess
+            rw [nnsOneBlockSameParentCo_eq_zero hR hm,
+              nnsOneBlockSameParentDiv_eq_sq hR hm]
+            ring
+    _ = - ∑ c ∈ nnsOneBlockMatchedParentSet R,
+          ((canonicalParentFiber R c).card : ℝ) *
+            (realMoebiusStep c) ^ 2 := by
+            simp [mul_comm]
+            ring
+
+theorem nnsOneBlockSameParentExcess_nonpos
+    (R : ℕ) (hR : 3 ≤ R) :
+    nnsOneBlockSameParentExcess R ≤ 0 := by
+  rw [nnsOneBlockSameParentExcess_eq_neg_diagonal R hR]
+  apply neg_nonpos.mpr
+  apply Finset.sum_nonneg
+  intro c _hc
+  exact mul_nonneg (Nat.cast_nonneg _) (sq_nonneg _)
+
 /-- **The actual #877 cross term is exactly the NNS target-zero excess.** -/
 theorem oneBlockCorrelationInner_eq_nnsCrossExcess
     (R : ℕ) (hR : 2 ≤ R) :
