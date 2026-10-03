@@ -102,7 +102,7 @@ theorem real_pred_sub_telescope
       rw [hset, Finset.sum_insert hnotmem, ih]
       have hpred : K + n + 1 - 1 = K + n := by omega
       rw [hpred]
-      ring
+      ring_nf
 
 /-- Interval form of the generic arithmetic telescope. -/
 theorem real_pred_sub_telescope_Ioc

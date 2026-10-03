@@ -267,7 +267,7 @@ theorem vfMidFloorLiVFBridge_root_bounded :
         = |(liFloorPrimeCountProxy ((R : ℝ) ^ 2) -
             vfMidLogarithmicIntegralFromTwo ((R : ℝ) ^ 2)) +
           -(vfMid ((R : ℝ) ^ 2) -
-            vfMidLogarithmicIntegralFromTwo ((R : ℝ) ^ 2))| := by ring
+            vfMidLogarithmicIntegralFromTwo ((R : ℝ) ^ 2))| := by rw [sub_eq_add_neg]
     _ ≤ |liFloorPrimeCountProxy ((R : ℝ) ^ 2) -
             vfMidLogarithmicIntegralFromTwo ((R : ℝ) ^ 2)| +
           |-(vfMid ((R : ℝ) ^ 2) -
@@ -319,7 +319,7 @@ theorem abs_vfMidDyadicVFTrackingDefect_sub_floorLiDefect_le
   calc
     |vfMidFloorLiVFBridge A - vfMidFloorLiVFBridge B|
         = |vfMidFloorLiVFBridge A +
-            (-vfMidFloorLiVFBridge B)| := by ring
+            (-vfMidFloorLiVFBridge B)| := by rw [sub_eq_add_neg]
     _ ≤ |vfMidFloorLiVFBridge A| +
           |-vfMidFloorLiVFBridge B| := abs_add_le _ _
     _ = |vfMidFloorLiVFBridge A| +

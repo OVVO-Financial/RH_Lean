@@ -4299,7 +4299,7 @@ theorem criticalLiEndpointBinGap_sum_le
                     apply Finset.sum_congr rfl
                     intro n hn
                     ring
-              _ = _ := by rw [hforward]; ring
+              _ = _ := by rw [hforward]; ring_nf
           rw [hback]
     _ ≤ C * (Real.sqrt 2)⁻¹ := by
           have hNinv : 0 ≤ (Real.sqrt (N : ℝ))⁻¹ := by positivity
@@ -5250,7 +5250,7 @@ theorem sampledCriticalPrefix_eq_abel
           rw [hstep, ih hN1, Finset.sum_Ico_succ_top hN1]
           simp only [div_eq_mul_inv]
           push_cast
-          ring
+          ring_nf
 
 /-- A uniformly bounded sampled reference has a uniformly bounded critical
 prefix.  This is the correct Abel normalization: no unweighted increment

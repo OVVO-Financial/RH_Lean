@@ -1092,7 +1092,7 @@ theorem abs_vfMidNativeDescentRemainder_le_linear
           vfMidOriginalPrimeCharge R|
         = |(vfMidTerminalParentCharge R +
               vfMidRecursiveAggregateRemainder R) +
-            (-vfMidOriginalPrimeCharge R)| := by ring
+            (-vfMidOriginalPrimeCharge R)| := by rw [sub_eq_add_neg]
     _ ≤ |vfMidTerminalParentCharge R +
             vfMidRecursiveAggregateRemainder R| +
           |-vfMidOriginalPrimeCharge R| := abs_add_le _ _
