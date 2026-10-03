@@ -49,6 +49,7 @@ on:
       - research/VF_MID_LITERAL_BLOCK_CROSSING.lean
       - research/VF_MID_ALIGNED_STEP_GRAPH.lean
       - research/VF_MID_STEP_GRAPH_BRACKETING.lean
+      - research/VF_MID_CORNER_CHANNEL.lean
       - research/VF_MID_SQUARE_WHEEL_BACKLOG.lean
       - research/VF_MID_MIDPOINT_COMPLEMENT_DISPERSION.lean
       - research/VF_MID_UNIFORMITY_BIAS_CORRELATION.lean
@@ -146,6 +147,7 @@ jobs:
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_RECURSIVE_CHILD_INJECTIVE.olean research/VF_MID_RECURSIVE_CHILD_INJECTIVE.lean 2>&1 | tee vf-mid-recursive-child-injective.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_ALIGNED_STEP_GRAPH.olean research/VF_MID_ALIGNED_STEP_GRAPH.lean 2>&1 | tee vf-mid-aligned-step-graph.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_STEP_GRAPH_BRACKETING.olean research/VF_MID_STEP_GRAPH_BRACKETING.lean 2>&1 | tee vf-mid-step-graph-bracketing.log
+          lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_CORNER_CHANNEL.olean research/VF_MID_CORNER_CHANNEL.lean 2>&1 | tee vf-mid-corner-channel.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_MIDPOINT_COMPLEMENT_DISPERSION.olean research/VF_MID_MIDPOINT_COMPLEMENT_DISPERSION.lean 2>&1 | tee vf-mid-midpoint-complement-dispersion.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_UNIFORMITY_BIAS_CORRELATION.olean research/VF_MID_UNIFORMITY_BIAS_CORRELATION.lean 2>&1 | tee vf-mid-uniformity-bias-correlation.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_GLOBAL_PHASE_UNIFORMITY_BRIDGE.olean research/VF_MID_GLOBAL_PHASE_UNIFORMITY_BRIDGE.lean 2>&1 | tee vf-mid-global-phase-uniformity-bridge.log
@@ -210,6 +212,7 @@ jobs:
           import «research.VF_MID_LITERAL_BLOCK_CROSSING»
           import «research.VF_MID_ALIGNED_STEP_GRAPH»
           import «research.VF_MID_STEP_GRAPH_BRACKETING»
+          import «research.VF_MID_CORNER_CHANNEL»
           import «research.VF_MID_SQUARE_WHEEL_BACKLOG»
           import «research.VF_MID_MIDPOINT_COMPLEMENT_DISPERSION»
           import «research.VF_MID_UNIFORMITY_BIAS_CORRELATION»
@@ -360,6 +363,41 @@ jobs:
           #print axioms RHLean.Analysis.vfMid_primeCountEnvelope_overlap_of_certificate
           #print axioms RHLean.Analysis.vfMidIntegerBlockCaptured_of_primeCount_envelopes
           #print axioms RHLean.Analysis.vfMidIntegerBlockCrossed_of_primeCount_envelopes
+          #print axioms RHLean.Analysis.vfMidCornerChannel_width
+          #print axioms RHLean.Analysis.vfMidUpperLeftPhase_forwardShift_telescope
+          #print axioms RHLean.Analysis.vfMidUpperLeftPhase_backwardShift_telescope
+          #print axioms RHLean.Analysis.vfMidForwardShiftedCornerChannel_sub_upper
+          #print axioms RHLean.Analysis.vfMidUpper_sub_backwardShiftedCornerChannel
+          #print axioms RHLean.Analysis.vfMidShiftedCornerChannel_exact_width
+          #print axioms RHLean.Analysis.vfMidBackwardForwardCornerEndpointBracket_of_shiftedChannel
+          #print axioms RHLean.Analysis.vfMidBackwardForwardCornerEndpointBracket_of_realPrimeCount_envelopes
+          #print axioms RHLean.Analysis.vfMidSquareEndpointVonKochBounded_of_backwardForward_realPrimeCount_envelopes
+          #print axioms RHLean.Analysis.vfMidSquareEndpointVonKochBounded_of_backwardForwardShiftedChannel
+          #print axioms RHLean.Analysis.riemannHypothesis_of_backwardForwardShiftedChannel
+          #print axioms RHLean.Analysis.vfMidLowerRightPhase_eq_upperLeftPhase_pred
+          #print axioms RHLean.Analysis.vfMidUpperCornerChannel_eq_upperLeftPhase
+          #print axioms RHLean.Analysis.vfMidLowerCornerChannel_eq_lowerRightPhase
+          #print axioms RHLean.Analysis.vfMidLowerCornerChannel_eq_pred_upperLeftPhase
+          #print axioms RHLean.Analysis.vfMidUpperLeftPhase_sub_pred
+          #print axioms RHLean.Analysis.vfMidIntegerBlockCaptured_of_cornerChannel
+          #print axioms RHLean.Analysis.vfMidBandMass_le_five_mul_base_div_log
+          #print axioms RHLean.Analysis.vfMidFinishedMass_offset_excursions_le_rhScale
+          #print axioms RHLean.Analysis.vfMidCanonicalOuterCorners_rhSafe
+          #print axioms RHLean.Analysis.vfMidSquareEndpointVonKochBoundedFromFour_of_symmetricCornerBracket
+          #print axioms RHLean.Analysis.vfMidBackwardForwardCornerEndpointBracket_of_symmetric
+          #print axioms RHLean.Analysis.vfMidSquareEndpointVonKochBoundedFromFour_of_backwardForwardCornerBracket
+          #print axioms RHLean.Analysis.vfMidSquareEndpointVonKochBounded_of_backwardForwardCornerBracket
+          #print axioms RHLean.Analysis.riemannHypothesis_of_backwardForwardCornerBracket
+          #print axioms RHLean.Analysis.vfMidSquareEndpointVonKochBounded_of_symmetricCornerBracket
+          #print axioms RHLean.Analysis.riemannHypothesis_of_symmetricCornerBracket
+          #print axioms RHLean.Analysis.vfMidSquareEndpointVonKochBounded_of_outerCornerBracket
+          #print axioms RHLean.Analysis.vfMidOuterCornerEndpointBracket_of_primeCount_envelopes
+          #print axioms RHLean.Analysis.primeCountingRealLowerEnvelope_max
+          #print axioms RHLean.Analysis.primeCountingRealUpperEnvelope_min
+          #print axioms RHLean.Analysis.vfMidOuterCornerEndpointBracket_of_realPrimeCount_envelopes
+          #print axioms RHLean.Analysis.vfMidOuterCornerEndpointBracket_of_intersected_real_envelopes
+          #print axioms RHLean.Analysis.vfMidSquareEndpointVonKochBounded_of_primeCount_outerEnvelopes
+          #print axioms RHLean.Analysis.riemannHypothesis_of_outerCornerBracket
           #print axioms RHLean.Analysis.vfMidAligned_sq
           #print axioms RHLean.Analysis.vfMidPrimeError_aligned_eq_sub
           #print axioms RHLean.Analysis.vfMidInitialAnchor_nonneg

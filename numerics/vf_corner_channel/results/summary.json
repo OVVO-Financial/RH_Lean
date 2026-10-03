@@ -1,0 +1,23 @@
+{
+  "status": "finite diagnostic only; not a proof premise",
+  "r_start": 56,
+  "r_max": 10000,
+  "x_max": 100000000,
+  "A": 0.125,
+  "canonical_offset_formula": "min(R//2, floor(A*log(R)^2))",
+  "literal_channel": {
+    "failure_count": 20,
+    "failure_R": [56, 57, 73, 86, 92, 108, 119, 120, 138, 139, 178, 179, 264, 419, 546, 547, 548, 549, 550, 680]
+  },
+  "widened_channel": {
+    "failure_count": 0,
+    "failure_R": []
+  },
+  "endpoint_minimum_offset": {
+    "max_required_L_over_logR_squared": 0.07432465414373864,
+    "argmax_R": 179,
+    "required_offset": 2,
+    "required_backward_offset": 2,
+    "required_forward_offset": 0
+  }
+}
