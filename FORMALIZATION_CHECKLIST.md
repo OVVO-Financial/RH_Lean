@@ -710,3 +710,41 @@ the transfer alone. Prior obstructions, exports, and declarations remain.
 - [ ] Prove the uniform critical Poisson bound and discharge the conditional consumer.
 
 Final warning-fatal and axiom-audit results are tracked on PR #817 for its exact head.
+
+
+## Floor-Li transport cancellation and relocation control (2026-10-03; PR #880)
+
+- [x] Define the exact actual-minus-floor-Li square-block correction
+  \(\delta_R=P_R-F_R\).
+- [x] Prove \(\delta_R=E_{R+1}-E_R\) for
+  \(E_R=\pi(R^2)-\lfloor Li_2(R^2)\rfloor\).
+- [x] Prove \(\delta_R\) equals the primitive signed floor-Li mismatch mass on
+  the corresponding square block.
+- [x] Prove \(\delta_R\) is the negative native floor-Li block prime defect.
+- [x] Reexpress \(\delta_R\) exactly as floor-Li composite reference minus the
+  chronological least-prime owner census.
+- [x] Specialize the existing floor-Li/Möbius-Abel theorem to obtain a strict
+  sub-one endpoint-rounding discrepancy from the exact Möbius/Abel carrier.
+- [x] Prove the exact backlog energy step
+  \(E_{R+1}^2-E_R^2=\delta_R^2+2E_R\delta_R\).
+- [x] Prove the generic commutative-ring perturbation identity: arbitrary
+  frequency/phase/spacing displacement changes the quadratic continuation only
+  by a boundary-energy increment after signed summation.
+- [x] Formalize signed transport intervals as birth-step minus death-step.
+- [x] Prove the global chamber form
+  \(\sum_j\sigma_j1_{a_j\le n<b_j}\) and its exact endpoint derivative.
+- [x] Add the reproducible \(10^8\) primitive transport miner and committed
+  result summary.
+- [x] Record that only 5.78860304% of actual-prime events coincide with
+  floor-Li jumps and 97.01962897% of the union of event sites is relocated.
+- [x] Record 5,427,515 monotone/FIFO relocations; in the miner's
+  \(\lfloor\sqrt n\rfloor\) binning, 99.99642562% close within one bin and the
+  finite observed maximum gap is 2.
+- [x] Record square-block energy/correlation and fixed-scale restoring-feedback
+  diagnostics with explicit finite-only scope.
+- [x] State explicitly that the observed short relocation lifetime is **not**
+  an asymptotic theorem or hidden proof assumption.
+- [x] Register the new Lean module in the warning-fatal prime-flip workflow and
+  named theorem axiom audit.
+- [ ] Final PR-head workflow suite is fully green.
+- [ ] Merge explicitly authorized.
