@@ -495,15 +495,23 @@ theorem integral_vfLogHarmonicKernel
       simpa [vfInvLogDeriv] using
         (Real.hasDerivAt_log hx0).inv hlog0
     have hneg := hinv.neg
-    simpa [vfLogHarmonicKernel, vfInvLogDeriv] using hneg
+    convert hneg using 1
+    unfold vfLogHarmonicKernel vfInvLogDeriv
+    ring
   have hcont :
       ContinuousOn vfLogHarmonicKernel (Set.uIcc a b) := by
     intro x hx
     rw [Set.uIcc_of_le hab] at hx
     have hx1 : (1 : ℝ) < x := ha.trans_le hx.1
     have hc := (hasDerivAt_vfInvLogDeriv hx1).continuousAt.neg
-    simpa [vfLogHarmonicKernel, vfInvLogDeriv] using
-      hc.continuousWithinAt
+    have heq :
+        (fun y : ℝ => -vfInvLogDeriv y) =
+          vfLogHarmonicKernel := by
+      funext y
+      unfold vfLogHarmonicKernel vfInvLogDeriv
+      ring
+    rw [← heq]
+    exact hc.continuousWithinAt
   have h :=
     intervalIntegral.integral_eq_sub_of_hasDerivAt
       hderiv hcont.intervalIntegrable
@@ -553,10 +561,12 @@ theorem sum_vfLogHarmonicKernel_Ico_le
   by_cases hR2 : R = 2
   · subst R
     simp
+    have hk : 0 ≤ vfLogHarmonicKernel 2 :=
+      vfLogHarmonicKernel_nonneg (by norm_num)
     have hlog2 : 0 ≤ (Real.log (2 : ℝ))⁻¹ := by
       exact inv_nonneg.mpr
         (Real.log_nonneg (by norm_num))
-    linarith
+    exact add_nonneg hk hlog2
   have h2R : 2 < R := by omega
   have hRm1 : 2 ≤ R - 1 := by omega
   have hRm1one : 1 < R - 1 := by omega
