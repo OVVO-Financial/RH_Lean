@@ -132,7 +132,6 @@ jobs:
           set -o pipefail
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_VON_KOCH_BRIDGE.olean research/VF_MID_VON_KOCH_BRIDGE.lean 2>&1 | tee vf-mid-von-koch.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_LI_UNIFORM_QUADRATURE.olean research/VF_MID_LI_UNIFORM_QUADRATURE.lean 2>&1 | tee vf-mid-li-uniform-quadrature.log
-          lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_LI_PHASE_FAN.olean research/VF_MID_LI_PHASE_FAN.lean 2>&1 | tee vf-mid-li-phase-fan.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_OSCILLATION_SCALE.olean research/VF_MID_OSCILLATION_SCALE.lean 2>&1 | tee vf-mid-oscillation-scale.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.LI_FLOOR_PRIME_COUNT_FANTASY.olean research/LI_FLOOR_PRIME_COUNT_FANTASY.lean 2>&1 | tee li-floor-prime-count-fantasy.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_LINEAR_INTERPOLATION_FANTASY.olean research/VF_MID_LINEAR_INTERPOLATION_FANTASY.lean 2>&1 | tee vf-mid-linear-interpolation-fantasy.log
@@ -152,6 +151,7 @@ jobs:
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_ALIGNED_STEP_GRAPH.olean research/VF_MID_ALIGNED_STEP_GRAPH.lean 2>&1 | tee vf-mid-aligned-step-graph.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_STEP_GRAPH_BRACKETING.olean research/VF_MID_STEP_GRAPH_BRACKETING.lean 2>&1 | tee vf-mid-step-graph-bracketing.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_CORNER_CHANNEL.olean research/VF_MID_CORNER_CHANNEL.lean 2>&1 | tee vf-mid-corner-channel.log
+          lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_LI_PHASE_FAN.olean research/VF_MID_LI_PHASE_FAN.lean 2>&1 | tee vf-mid-li-phase-fan.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_MIDPOINT_COMPLEMENT_DISPERSION.olean research/VF_MID_MIDPOINT_COMPLEMENT_DISPERSION.lean 2>&1 | tee vf-mid-midpoint-complement-dispersion.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_UNIFORMITY_BIAS_CORRELATION.olean research/VF_MID_UNIFORMITY_BIAS_CORRELATION.lean 2>&1 | tee vf-mid-uniformity-bias-correlation.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_GLOBAL_PHASE_UNIFORMITY_BRIDGE.olean research/VF_MID_GLOBAL_PHASE_UNIFORMITY_BRIDGE.lean 2>&1 | tee vf-mid-global-phase-uniformity-bridge.log
