@@ -1,10 +1,20 @@
 name: Stokes terminal frame closure check
 
 on:
+  pull_request:
+    branches: [main, openai/one-block-terminal-budget]
+    paths:
+      - research/NNS_ZERO_TARGET_NORMALIZED_STOKES.lean
+      - research/NNS_ZERO_TARGET_ONE_BLOCK_ENERGY.lean
+      - research/NNS_ZERO_TARGET_PARTNER_TIME_DERIVATIVE.lean
+      - .github/workflows/stokes-terminal-frame-closure.yml
   push:
     branches: [agent/post-774-stokes-terminal-frame-closure]
     paths:
       - research/GLOBAL_RETURNED_CORE_STOKES_TERMINAL_FRAME_API.lean
+      - research/NNS_ZERO_TARGET_NORMALIZED_STOKES.lean
+      - research/NNS_ZERO_TARGET_ONE_BLOCK_ENERGY.lean
+      - research/NNS_ZERO_TARGET_PARTNER_TIME_DERIVATIVE.lean
       - .github/workflows/stokes-terminal-frame-closure.yml
   workflow_dispatch:
 
@@ -64,6 +74,8 @@ jobs:
           lake build RHLean.Analysis.PrimeWheelRawConductorCoefficient
           lake build RHLean.Analysis.PrimeWheelRawConductorWeight
           lake build RHLean.Analysis.CorrectedConductorBoundaryDefectGeneral
+          lake build RHLean.Proof.SquareRootLowPrimeOneBlockTerminalBudget
+          lake build RHLean.Proof.RealSquareBlockIncrements
       - name: Emit returned-core dependency foundation through owner cube
         run: |
           mkdir -p .lake/build/lib/lean
@@ -143,10 +155,14 @@ jobs:
           emit research/GLOBAL_RETURNED_CORE_STOKES_TWO_STEP_BOUNDARY_NORMAL_FORM.lean
           emit research/GLOBAL_RETURNED_CORE_STOKES_CROSS_AMPLITUDE_NORMAL_FORM.lean
           emit research/GLOBAL_RETURNED_CORE_STOKES_GLOBAL_IDENTIFICATION.lean
-          emit research/GLOBAL_RETURNED_CORE_STOKES_CORRECTED_WHEEL_IDENTIFICATION.lean
           emit research/GLOBAL_RETURNED_CORE_FIRST_OWNER_CELL_SUM.lean
           emit research/GLOBAL_RETURNED_CORE_FIRST_OWNER_GRAM_TO_CELLS.lean
           emit research/GLOBAL_RETURNED_CORE_SIGNED_OWNER_TELESCOPE.lean
+          emit research/GLOBAL_RETURNED_CORE_STOKES_ZERO_TARGET_COVARIANCE.lean
+          emit research/NNS_ZERO_TARGET_NORMALIZED_STOKES.lean
+          emit research/NNS_ZERO_TARGET_ONE_BLOCK_ENERGY.lean
+          emit research/NNS_ZERO_TARGET_PARTNER_TIME_DERIVATIVE.lean
+          emit research/GLOBAL_RETURNED_CORE_STOKES_CORRECTED_WHEEL_IDENTIFICATION.lean
           emit research/GLOBAL_RETURNED_CORE_STOKES_ENDPOINT_AMPLITUDE_IDENTIFICATION.lean
           emit research/GLOBAL_RETURNED_CORE_STOKES_ALL_ENDPOINT_MERTENS_LEDGER.lean
           emit research/GLOBAL_RETURNED_CORE_STOKES_NEAREST_SQUARE_ENDPOINT_LEDGER.lean
@@ -155,6 +171,33 @@ jobs:
           emit research/GLOBAL_RETURNED_CORE_STOKES_NATURAL_PERIODIC_RAW_REALIZATION.lean
           emit research/GLOBAL_RETURNED_CORE_STOKES_NATURAL_CORRECTED_CONDUCTOR_PACKET.lean
           emit research/GLOBAL_RETURNED_CORE_STOKES_NATURAL_COMMON_SPECTRUM_LEDGER.lean
+      - name: Axiom-check normalized NNS zero-target Stokes bridge
+        run: |
+          cat > /tmp/NNSZeroTargetAxioms.lean <<'LEAN'
+          import «research.NNS_ZERO_TARGET_NORMALIZED_STOKES»
+          import «research.NNS_ZERO_TARGET_ONE_BLOCK_ENERGY»
+          import «research.NNS_ZERO_TARGET_PARTNER_TIME_DERIVATIVE»
+          #print axioms RHLean.Proof.lowOwnerCanonicalSignedStokesFinalBoundary_eq_two_nnsNormalized_mul_total
+          #print axioms RHLean.Proof.zeroTargetMellinCompletePostRootNNSNormalized_nonpos
+          #print axioms RHLean.Proof.nnsComplete_nonpos_and_clippedEnergy_contracts
+          #print axioms RHLean.Proof.zeroTargetCoPartial_add_divergent_eq_abs_mul_abs
+          #print axioms RHLean.Proof.nnsOneBlockTotalPairMass_eq_squarefreeMass_mul
+          #print axioms RHLean.Proof.nnsOneBlockNormalizedCovariance_eq_alpha_mul_beta
+          #print axioms RHLean.Proof.nnsOneBlockSameParentExcess_eq_neg_diagonal
+          #print axioms RHLean.Proof.nnsOneBlockSameParentExcess_nonpos
+          #print axioms RHLean.Proof.nnsOneBlockIdentifiedDiagonalExcess_eq_neg_energy
+          #print axioms RHLean.Proof.nnsOneBlockIdentifiedDiagonalExcess_nonpos
+          #print axioms RHLean.Proof.squareRootCanonicalRoughCorrelation_energy_step_oneBlock_diagonal_remainder
+          #print axioms RHLean.Proof.squareRootCanonicalRoughCorrelation_energy_step_le_unresolved
+          #print axioms RHLean.Proof.squareRootCanonicalRoughPrimePartnerCount_succ_sub_eq_timeBirth_sub_death
+          #print axioms RHLean.Proof.squareRootCanonicalRoughTimeDeath_identifies_root
+          #print axioms RHLean.Proof.squareRootCanonicalRoughTimeDeath_signedLoss_eq_rootUpdate
+          #print axioms RHLean.Proof.squareRootCanonicalRoughTimeBirth_product_mem_parentFiber
+          #print axioms RHLean.Proof.oneBlockCorrelationInner_eq_nnsCrossExcess
+          #print axioms RHLean.Proof.squareRootCanonicalRoughCorrelation_energy_step_oneBlock_nns
+          #print axioms RHLean.Proof.squareRootCanonicalRoughCorrelation_energy_step_oneBlock_alpha_beta
+          LEAN
+          lake env lean -DwarningAsError=true /tmp/NNSZeroTargetAxioms.lean
       - name: Kernel-check clean terminal frame API
         run: |
           emit() { f="$1"; b="$(basename "$f" .lean)"; lake env lean -DwarningAsError=true -o ".lake/build/lib/lean/research.${b}.olean" "$f"; }
