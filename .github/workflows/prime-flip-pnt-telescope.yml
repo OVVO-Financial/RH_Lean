@@ -213,6 +213,7 @@ jobs:
           import «research.VF_MID_RECURSIVE_CHILD_INJECTIVE»
           import «research.VF_MID_RECURSIVE_SCALE_DESCENT»
           import «research.VF_MID_RECURSIVE_REMAINDER_BOUND»
+          import «research.VF_MID_AGGREGATE_CHILD_FORCING»
           import «research.VF_MID_SQUARE_THETA_NATIVE_DESCENT»
           import «research.VF_MID_ACTUAL_PRIME_ROOT_SQUARE_CONTRACTION»
           import «research.VF_MID_PROXY_ENERGY_PULL»
