@@ -647,6 +647,8 @@ jobs:
           #print axioms RHLean.Analysis.vfMidActualLiCenteredForcing_mul_freshPrime_eq_neg
           #print axioms RHLean.Analysis.criticalCenteredPrimeFrequencyWeight_mul_freshPrime
           #print axioms RHLean.Analysis.reciprocalCenteredPrimeFrequencyWeight_mul_freshPrime
+          #print axioms RHLean.Analysis.vfMidPrimeCube_le_iff_owner_le_squareDaughter
+          #print axioms RHLean.Analysis.vfMidSquareDaughter_lt_owner_iff_endpoint_lt_primeCube
           #print axioms RHLean.Analysis.supercriticalParent_forces_supercriticalChildPacket
           #print axioms RHLean.Analysis.vfMidSupercriticalParent_forces_nativeChildPacket
           #print axioms RHLean.Analysis.vfMidNoSupercriticalScale_of_aggregateChildForcing
