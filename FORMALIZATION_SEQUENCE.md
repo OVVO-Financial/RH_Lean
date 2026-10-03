@@ -1168,3 +1168,66 @@ the degree-one generator defect epsilon_q = log(q) w_q - 1 satisfies
 A finite child-operator bound and an explicit conditional consumer are
 included. The uniform critical Poisson estimate is still open; see
 `research/LI_POISSON_LOG_RENEWAL_ATTACK.md`.
+
+
+## Floor-Li transport cancellation and relocation control (2026-10-03; PR #880)
+
+This stage promotes floor-Li from a visualization/control proxy to an exact
+integer transport coordinate for the direct VF route.
+
+The theorem module is
+\`research/VF_MID_FLOOR_LI_TRANSPORT_CANCELLATION.lean\`.  It proves that the
+one-square-block correction
+\[
+\delta_R=P_R-F_R
+\]
+is simultaneously:
+
+- the discrete derivative of the square-endpoint backlog
+  \(E_R=\pi(R^2)-\lfloor Li_2(R^2)\rfloor\);
+- the signed mass of the primitive ternary mismatch stream;
+- the negative of the native floor-Li block prime defect;
+- floor-Li composite reference minus the exact chronological owner census;
+- within strictly less than one count of the existing Möbius/Abel carrier,
+  with the difference consisting only of endpoint floor rounding.
+
+The same module proves the exact quadratic energy step
+\[
+E_{R+1}^2-E_R^2=\delta_R^2+2E_R\delta_R
+\]
+and the generic perturbation identity showing that arbitrary changes of local
+frequency, phase, spacing, sign pattern, or correlation alter the summed
+quadratic continuation only by boundary energy.
+
+The module also formalizes the global signed relocation chamber
+\[
+H(n)=\sum_j \sigma_j\,1_{a_j\le n<b_j},
+\]
+whose first difference is exactly the signed birth/death endpoint stream.
+This is the closed-form activation representation suggested by the finite
+floor-Li mining and by the global-chamber analogy.
+
+The finite companion
+\`numerics/floor_li_transport/run_transport_miner.py\` exhausts the primitive
+event comparison through \(10^8\).  The committed finite results record:
+
+- only 5.78860304% of actual-prime events coincide with floor-Li jumps;
+- 97.01962897% of the union of event locations is mismatched/relocated;
+- 5,427,515 monotone/FIFO relocations after the inherited initial deficit;
+- in the script's \(\lfloor\sqrt n\rfloor\) binning, 99.99642562% close in
+  the same or immediately following bin and the observed maximum gap is 2;
+- square-block lag-1 correction correlation -0.09914217;
+- the signed cross term cancels 74.01582961% of the positive diagonal total;
+- every fixed 1000-block window from \(R=1000\) to \(10000\) has the same
+  restoring orientation when deep and shallow backlog quartiles are compared.
+
+Those locality and feedback statistics are finite diagnostics only.  No
+asymptotic short-lifetime theorem, no prime-gap theorem, and no RH-scale bound
+is inferred from them.
+
+The proof-search consequence is structural: local event matching is not the
+invariant.  The direct object is the active signed transport population /
+Möbius-Abel carrier after global reassembly.  A future deterministic lifetime
+or active-population envelope strong enough to give \(O(R\log R)\) crossing
+population would feed the already-proved floor-Li/VF root-scale bridge and
+therefore the direct square-endpoint von-Koch consumer.
