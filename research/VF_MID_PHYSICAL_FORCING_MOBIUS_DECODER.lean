@@ -64,7 +64,7 @@ theorem vfMidActualPrimeIndicatorInt_eq_moebiusSq_mul_roughConvolution
       have hqn : q = n :=
         (Nat.prime_dvd_prime_iff_eq hqData.1 hnPrime).mp hqData.2.1
       subst q
-      simpa [hpn]
+      simp [hpn]
     rw [if_pos hsub, ArithmeticFunction.moebius_apply_prime hnPrime]
     simp [hnPrime]
   · by_cases hsq : Squarefree n
@@ -111,7 +111,7 @@ theorem vfMidActualPrimeIndicatorInt_eq_negativeMobius_sub_composite
   · by_cases hmu : μ n = -1
     · simp [hp, hmu]
     · rcases ArithmeticFunction.moebius_eq_or n with h | h | h <;>
-        simp [hp, hmu, h]
+        simp [hp, h]
 
 /-- Equivalent pointwise squarefree/parity decomposition:
 two times the prime indicator is squarefree mass minus Mobius mass, minus the
@@ -140,7 +140,8 @@ theorem primeSievePrimeIndicator_eq_half_mobiusSq_sub_half_mobius_sub_defect
     simp [hp]
     norm_num
   · rcases ArithmeticFunction.moebius_eq_or n with h | h | h <;>
-      simp [hp, h] <;> norm_num
+      simp [hp, h]
+    norm_num
 
 /-- Actual-minus-Li forcing at one integer site, before any critical or
 reciprocal weighting. -/
@@ -160,7 +161,6 @@ theorem vfMidActualLiForcingAtom_eq_squarefree_sub_mobius_sub_oddComposite_sub_l
         primeSievePNTDensity n := by
   unfold vfMidActualLiForcingAtom
   rw [primeSievePrimeIndicator_eq_half_mobiusSq_sub_half_mobius_sub_defect]
-  ring
 
 /-- Deterministic affine center of the physical forcing. -/
 def vfMidActualLiAffineTarget (n : ℕ) : ℂ :=
