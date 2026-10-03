@@ -1,4 +1,6 @@
 import Mathlib
+import Mathlib.MeasureTheory.Integral.IntervalIntegral.TrapezoidalRule
+import Mathlib.Analysis.SpecialFunctions.Log.InvLog
 import «research.VF_MID_VON_KOCH_BRIDGE»
 
 /-!
@@ -109,7 +111,7 @@ theorem iteratedDeriv_two_invLog_formula
     ne_of_gt (Real.log_pos hx)
   rw [show (2 : ℕ) = 1 + 1 by norm_num,
     iteratedDeriv_succ, iteratedDeriv_one,
-    Real.deriv_inv_log]
+    Real.deriv_inv_log_apply]
   have hnum :
       HasDerivAt (fun t : ℝ => -(t⁻¹)) ((x ^ 2)⁻¹) x := by
     convert (hasDerivAt_inv hx0).neg using 1 <;> ring
