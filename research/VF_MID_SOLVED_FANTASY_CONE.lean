@@ -63,7 +63,7 @@ This records the role of a finite `c_0`-type vertical allowance without
 requiring one fixed aligned graph to intersect the prime staircase forever. -/
 theorem vfMidAligned_sq_mem_solvedFantasyCone
     {c C0 : ℝ} (hc : |c| ≤ C0)
-    {R : ℕ} (hR : 2 ≤ R) :
+    {R : ℕ} (_hR : 2 ≤ R) :
     VFMidSolvedFantasyConeAt 0 C0 R
       (vfMidAligned c ((R : ℝ) ^ 2)) := by
   unfold VFMidSolvedFantasyConeAt vfMidAligned
