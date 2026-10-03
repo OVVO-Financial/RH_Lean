@@ -61,6 +61,24 @@ def vfMidLowerCornerChannel (R : ℕ) (x : ℝ) : ℝ :=
   field_simp [hden]
   ring
 
+/-- Cast-normalized form used after Lean pushes the successor cast through
+arithmetic expressions. -/
+@[simp] theorem vfMidCornerParameter_right_cast (R : ℕ) :
+    vfMidCornerParameter R (((R : ℝ) + 1) ^ 2) = 1 := by
+  simpa only [Nat.cast_add, Nat.cast_one] using
+    (vfMidCornerParameter_right R)
+
+/-- Prime count at a real square endpoint is exactly the natural prime count
+at the corresponding integer square. -/
+@[simp] theorem vfMidPrimeCount_sq_exact (R : ℕ) :
+    vfMidPrimeCount ((R : ℝ) ^ 2) =
+      (Nat.primeCounting (R ^ 2) : ℝ) := by
+  have hfloor : ⌊(R : ℝ) ^ 2⌋₊ = R ^ 2 := by
+    rw [show (R : ℝ) ^ 2 = ((R ^ 2 : ℕ) : ℝ) by norm_num]
+    exact Nat.floor_natCast (R ^ 2)
+  unfold vfMidPrimeCount
+  rw [hfloor]
+
 theorem vfMidCornerParameter_mem_unit
     {R : ℕ} {x : ℝ}
     (hxl : (R : ℝ) ^ 2 ≤ x)
@@ -84,7 +102,9 @@ theorem vfMidCornerParameter_mem_unit
 @[simp] theorem vfMidUpperCornerChannel_right (R : ℕ) :
     vfMidUpperCornerChannel R (((R + 1 : ℕ) : ℝ) ^ 2) =
       vfMidFinishedMass (R + 1) := by
-  simp [vfMidUpperCornerChannel]
+  simp only [vfMidUpperCornerChannel, Nat.cast_add, Nat.cast_one]
+  rw [vfMidCornerParameter_right_cast]
+  ring
 
 @[simp] theorem vfMidLowerCornerChannel_left (R : ℕ) :
     vfMidLowerCornerChannel R ((R : ℝ) ^ 2) =
@@ -94,7 +114,9 @@ theorem vfMidCornerParameter_mem_unit
 @[simp] theorem vfMidLowerCornerChannel_right (R : ℕ) :
     vfMidLowerCornerChannel R (((R + 1 : ℕ) : ℝ) ^ 2) =
       vfMidFinishedMass R := by
-  simp [vfMidLowerCornerChannel]
+  simp only [vfMidLowerCornerChannel, Nat.cast_add, Nat.cast_one]
+  rw [vfMidCornerParameter_right_cast]
+  ring
 
 /-- Exact black-channel width: a convex combination of the two neighboring
 VF band masses. -/
@@ -108,10 +130,30 @@ theorem vfMidCornerChannel_width
   have hpredSucc : R - 1 + 1 = R := by omega
   rw [hpredSucc] at hsPred
   have hs := vfMidFinishedMass_succ (R := R) (by omega : 2 ≤ R)
+  have hdiffPred :
+      vfMidFinishedMass R - vfMidFinishedMass (R - 1) =
+        vfMidBandMass (R - 1) := by
+    linarith
+  have hdiff :
+      vfMidFinishedMass (R + 1) - vfMidFinishedMass R =
+        vfMidBandMass R := by
+    linarith
   unfold vfMidUpperCornerChannel vfMidLowerCornerChannel
   dsimp
-  rw [hsPred, hs]
-  ring
+  calc
+    (1 - vfMidCornerParameter R x) * vfMidFinishedMass R +
+          vfMidCornerParameter R x * vfMidFinishedMass (R + 1) -
+        ((1 - vfMidCornerParameter R x) * vfMidFinishedMass (R - 1) +
+          vfMidCornerParameter R x * vfMidFinishedMass R)
+        =
+      (1 - vfMidCornerParameter R x) *
+          (vfMidFinishedMass R - vfMidFinishedMass (R - 1)) +
+        vfMidCornerParameter R x *
+          (vfMidFinishedMass (R + 1) - vfMidFinishedMass R) := by
+            ring
+    _ = (1 - vfMidCornerParameter R x) * vfMidBandMass (R - 1) +
+          vfMidCornerParameter R x * vfMidBandMass R := by
+            rw [hdiffPred, hdiff]
 
 /-- Pathwise inclusion of the prime staircase in the literal black channel
 on one square block. -/
@@ -128,17 +170,18 @@ theorem vfMidIntegerBlockCaptured_of_cornerChannel
     (R : ℕ) (hR : 2 ≤ R)
     (hchan : VFMidCornerChannelContainsPrime R) :
     VFMidIntegerBlockCaptured R := by
+  have hsqNat : R ^ 2 ≤ (R + 1) ^ 2 :=
+    Nat.pow_le_pow_left (by omega) 2
   have hsq :
       (R : ℝ) ^ 2 ≤ (((R + 1 : ℕ) : ℝ) ^ 2) := by
-    push_cast
-    nlinarith
+    exact_mod_cast hsqNat
   have hleft :=
     hchan ((R : ℝ) ^ 2) le_rfl hsq
   have hright :=
     hchan (((R + 1 : ℕ) : ℝ) ^ 2) hsq le_rfl
   have hpiF :
       (Nat.primeCounting (R ^ 2) : ℝ) ≤ vfMidFinishedMass R := by
-    simpa [vfMidPrimeCount] using hleft.2
+    simpa using hleft.2
   have hlow :
       Nat.primeCounting (R ^ 2) ≤ vfMidIntegerBlockLevel R := by
     unfold vfMidIntegerBlockLevel
@@ -146,7 +189,7 @@ theorem vfMidIntegerBlockCaptured_of_cornerChannel
   have hFpi :
       vfMidFinishedMass R ≤
         (Nat.primeCounting ((R + 1) ^ 2) : ℝ) := by
-    simpa [vfMidPrimeCount] using hright.1
+    simpa using hright.1
   have hKpi :
       (vfMidIntegerBlockLevel R : ℝ) ≤
         (Nat.primeCounting ((R + 1) ^ 2) : ℝ) :=
@@ -210,12 +253,16 @@ def vfMidOuterUpperChannel (A : ℝ) (R : ℕ) (x : ℝ) : ℝ :=
 @[simp] theorem vfMidOuterLowerChannel_right (A : ℝ) (R : ℕ) :
     vfMidOuterLowerChannel A R (((R + 1 : ℕ) : ℝ) ^ 2) =
       vfMidOuterLowerCorner A (R + 1) := by
-  simp [vfMidOuterLowerChannel]
+  simp only [vfMidOuterLowerChannel, Nat.cast_add, Nat.cast_one]
+  rw [vfMidCornerParameter_right_cast]
+  ring
 
 @[simp] theorem vfMidOuterUpperChannel_right (A : ℝ) (R : ℕ) :
     vfMidOuterUpperChannel A R (((R + 1 : ℕ) : ℝ) ^ 2) =
       vfMidOuterUpperCorner A (R + 1) := by
-  simp [vfMidOuterUpperChannel]
+  simp only [vfMidOuterUpperChannel, Nat.cast_add, Nat.cast_one]
+  rw [vfMidCornerParameter_right_cast]
+  ring
 
 /-- Full pathwise outer-channel inclusion.  This is stronger than the endpoint
 statement needed by the RH consumer and is kept as the direct formal analogue
@@ -240,11 +287,14 @@ theorem vfMidOuterCornerEndpointBracket_of_channel
     {A : ℝ} (hchan : VFMidOuterCornerChannelContainsPrime A) :
     VFMidOuterCornerEndpointBracket A := by
   intro R hR
+  have hsqNat : R ^ 2 ≤ (R + 1) ^ 2 :=
+    Nat.pow_le_pow_left (by omega) 2
+  have hsq :
+      (R : ℝ) ^ 2 ≤ (((R + 1 : ℕ) : ℝ) ^ 2) := by
+    exact_mod_cast hsqNat
   have h :=
-    hchan R hR ((R : ℝ) ^ 2) le_rfl (by
-      push_cast
-      nlinarith)
-  simpa [vfMidPrimeCount] using h
+    hchan R hR ((R : ℝ) ^ 2) le_rfl hsq
+  simpa using h
 
 /-! ## Intrinsic VF width estimates -/
 
@@ -266,7 +316,7 @@ theorem vfMidBandMass_le_five_mul_base_div_log
   have hmid :
       (R : ℝ) ≤ vfMidBandMidpoint r := by
     unfold vfMidBandMidpoint
-    nlinarith
+    nlinarith [hsq]
   have hlogmid :
       Real.log (R : ℝ) ≤ Real.log (vfMidBandMidpoint r) :=
     Real.log_le_log hRpos hmid
@@ -355,7 +405,7 @@ theorem vfMidFinishedMass_sub_sub_le_local
 direction costs at most 5 A R log R.  This is the formal scale identity behind
 the widened-channel construction. -/
 theorem vfMidFinishedMass_lag_excursions_le_rhScale
-    {A : ℝ} (hA : 0 ≤ A)
+    {A : ℝ}
     (R L : ℕ) (hR : 4 ≤ R)
     (hhalf : 2 * L ≤ R)
     (hlag : (L : ℝ) ≤ A * Real.log (R : ℝ) ^ 2) :
@@ -397,17 +447,20 @@ theorem vfMidCanonicalCornerLag_cast_le
     {A : ℝ} (hA : 0 ≤ A) (R : ℕ) :
     (vfMidCanonicalCornerLag A R : ℝ) ≤
       A * Real.log (R : ℝ) ^ 2 := by
+  let n : ℕ := ⌊A * Real.log (R : ℝ) ^ 2⌋₊
   have harg : 0 ≤ A * Real.log (R : ℝ) ^ 2 := by positivity
-  unfold vfMidCanonicalCornerLag
-  have hmin :
-      min (R / 2) ⌊A * Real.log (R : ℝ) ^ 2⌋₊ ≤
-        ⌊A * Real.log (R : ℝ) ^ 2⌋₊ :=
-    min_le_right _ _
+  have hmin : vfMidCanonicalCornerLag A R ≤ n := by
+    unfold vfMidCanonicalCornerLag
+    dsimp [n]
+    exact min_le_right _ _
   have hcast :
-      (min (R / 2) ⌊A * Real.log (R : ℝ) ^ 2⌋₊ : ℝ) ≤
-        (⌊A * Real.log (R : ℝ) ^ 2⌋₊ : ℝ) := by
+      (vfMidCanonicalCornerLag A R : ℝ) ≤ (n : ℝ) := by
     exact_mod_cast hmin
-  exact hcast.trans (Nat.floor_le harg)
+  have hfloor :
+      (n : ℝ) ≤ A * Real.log (R : ℝ) ^ 2 := by
+    dsimp [n]
+    exact Nat.floor_le harg
+  exact hcast.trans hfloor
 
 /-- The two canonical outer corners are automatically within the full
 5 A R log R allowance from the central VF square endpoint. -/
@@ -426,7 +479,7 @@ theorem vfMidCanonicalOuterCorners_rhSafe
     dsimp [L]
     exact vfMidCanonicalCornerLag_cast_le hA R
   have h :=
-    vfMidFinishedMass_lag_excursions_le_rhScale hA R L hR hhalf hlag
+    vfMidFinishedMass_lag_excursions_le_rhScale R L hR hhalf hlag
   simpa [vfMidOuterLowerCorner, vfMidOuterUpperCorner, L] using h
 
 /-! ## Endpoint inclusion closes the RH-scale target -/
@@ -452,9 +505,8 @@ theorem vfMidSquareEndpointVonKochBoundedFromFour_of_outerCornerBracket
   have herr :
       vfMidPrimeError ((R : ℝ) ^ 2) =
         (Nat.primeCounting (R ^ 2) : ℝ) - vfMidFinishedMass R := by
-    unfold vfMidPrimeError vfMidPrimeCount
-    rw [vfMid_sq (by omega : 2 ≤ R)]
-    simp
+    unfold vfMidPrimeError
+    rw [vfMidPrimeCount_sq_exact R, vfMid_sq (by omega : 2 ≤ R)]
   rw [herr]
   apply abs_le.mpr
   constructor <;> linarith
@@ -467,28 +519,38 @@ theorem vfMidSquareEndpointVonKochBounded_of_fromFour
   rcases h with ⟨C, hC, htail⟩
   let e2 : ℝ := |vfMidPrimeError 4|
   let e3 : ℝ := |vfMidPrimeError 9|
-  let ell : ℝ := Real.log 2
-  let D : ℝ := C + e2 / ell + e3 / ell
-  have hell : 0 < ell := by
-    dsimp [ell]
-    exact Real.log_pos (by norm_num)
-  have he20 : 0 ≤ e2 := by dsimp [e2]; positivity
-  have he30 : 0 ≤ e3 := by dsimp [e3]; positivity
+  let w2 : ℝ := 2 * Real.log 2
+  let w3 : ℝ := 3 * Real.log 3
+  let D : ℝ := C + e2 / w2 + e3 / w3
+  have hw2 : 0 < w2 := by
+    dsimp [w2]
+    positivity
+  have hw3 : 0 < w3 := by
+    dsimp [w3]
+    positivity
+  have he20 : 0 ≤ e2 := by
+    dsimp [e2]
+    positivity
+  have he30 : 0 ≤ e3 := by
+    dsimp [e3]
+    positivity
+  have he2div0 : 0 ≤ e2 / w2 := div_nonneg he20 hw2.le
+  have he3div0 : 0 ≤ e3 / w3 := div_nonneg he30 hw3.le
   have hD : 0 ≤ D := by
     dsimp [D]
-    positivity
+    linarith
+  have hCD : C ≤ D := by
+    dsimp [D]
+    linarith
   refine ⟨D, hD, ?_⟩
   intro R hR
   by_cases h4 : 4 ≤ R
   · have ht := htail R h4
+    have hRgt1 : (1 : ℝ) < (R : ℝ) := by
+      exact_mod_cast (show 1 < R by omega)
     have hscale0 :
-        0 ≤ (R : ℝ) * Real.log (R : ℝ) := by
-      have hRgt1 : (1 : ℝ) < (R : ℝ) := by
-        exact_mod_cast (show 1 < R by omega)
-      exact mul_nonneg (by positivity) (Real.log_pos hRgt1).le
-    have hCD : C ≤ D := by
-      dsimp [D]
-      positivity
+        0 ≤ (R : ℝ) * Real.log (R : ℝ) :=
+      mul_nonneg (by positivity) (Real.log_pos hRgt1).le
     have hm :=
       mul_le_mul_of_nonneg_right hCD hscale0
     calc
@@ -499,44 +561,26 @@ theorem vfMidSquareEndpointVonKochBounded_of_fromFour
       _ = D * (R : ℝ) * Real.log (R : ℝ) := by ring
   · have hsmall : R = 2 ∨ R = 3 := by omega
     rcases hsmall with rfl | rfl
-    · change e2 ≤ D * 2 * Real.log 2
-      have hcoef : e2 / ell ≤ D := by
+    · have hcoef : e2 / w2 ≤ D := by
         dsimp [D]
-        positivity
-      have heq : e2 = (e2 / ell) * ell := by
-        field_simp [hell.ne']
-      have hmin : ell ≤ 2 * Real.log 2 := by
-        dsimp [ell]
-        nlinarith
-      calc
-        e2 = (e2 / ell) * ell := heq
-        _ ≤ (e2 / ell) * (2 * Real.log 2) :=
-          mul_le_mul_of_nonneg_left hmin (div_nonneg he20 hell.le)
-        _ ≤ D * (2 * Real.log 2) :=
-          mul_le_mul_of_nonneg_right hcoef (by positivity)
-        _ = D * 2 * Real.log 2 := by ring
-    · change e3 ≤ D * 3 * Real.log 3
-      have hcoef : e3 / ell ≤ D := by
-        dsimp [D]
-        positivity
-      have heq : e3 = (e3 / ell) * ell := by
-        field_simp [hell.ne']
-      have hlog23 : ell ≤ Real.log 3 := by
-        dsimp [ell]
-        exact Real.log_le_log (by norm_num) (by norm_num)
-      have hmin : ell ≤ 3 * Real.log 3 := by
-        have hlog30 : 0 ≤ Real.log 3 :=
-          (Real.log_pos (by norm_num)).le
+        linarith
+      have heq : (e2 / w2) * w2 = e2 :=
+        div_mul_cancel₀ _ hw2.ne'
+      have hsmall2 : e2 ≤ D * w2 := by
         calc
-          ell ≤ Real.log 3 := hlog23
-          _ ≤ 3 * Real.log 3 := by nlinarith
-      calc
-        e3 = (e3 / ell) * ell := heq
-        _ ≤ (e3 / ell) * (3 * Real.log 3) :=
-          mul_le_mul_of_nonneg_left hmin (div_nonneg he30 hell.le)
-        _ ≤ D * (3 * Real.log 3) :=
-          mul_le_mul_of_nonneg_right hcoef (by positivity)
-        _ = D * 3 * Real.log 3 := by ring
+          e2 = (e2 / w2) * w2 := heq.symm
+          _ ≤ D * w2 := mul_le_mul_of_nonneg_right hcoef hw2.le
+      simpa [e2, w2] using hsmall2
+    · have hcoef : e3 / w3 ≤ D := by
+        dsimp [D]
+        linarith
+      have heq : (e3 / w3) * w3 = e3 :=
+        div_mul_cancel₀ _ hw3.ne'
+      have hsmall3 : e3 ≤ D * w3 := by
+        calc
+          e3 = (e3 / w3) * w3 := heq.symm
+          _ ≤ D * w3 := mul_le_mul_of_nonneg_right hcoef hw3.le
+      simpa [e3, w3] using hsmall3
 
 /-- The widened VF-corner inclusion is a sufficient condition for the direct
 square-endpoint von-Koch target. -/
