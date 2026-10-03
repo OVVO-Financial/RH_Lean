@@ -11,6 +11,7 @@ on:
       - research/EXACT_LI_DICKMAN_FORMAL.lean
       - research/EXACT_LI_PURE_MODEL_CLOSURE.lean
       - research/VF_MID_VON_KOCH_BRIDGE.lean
+      - research/VF_MID_LI_UNIFORM_QUADRATURE.lean
       - research/VF_MID_OSCILLATION_SCALE.lean
       - research/LI_FLOOR_PRIME_COUNT_FANTASY.lean
       - research/VF_MID_FLOOR_LI_DISCRETE_BACKLOG.lean
@@ -129,6 +130,7 @@ jobs:
           mkdir -p .lake/build/lib/lean
           set -o pipefail
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_VON_KOCH_BRIDGE.olean research/VF_MID_VON_KOCH_BRIDGE.lean 2>&1 | tee vf-mid-von-koch.log
+          lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_LI_UNIFORM_QUADRATURE.olean research/VF_MID_LI_UNIFORM_QUADRATURE.lean 2>&1 | tee vf-mid-li-uniform-quadrature.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_OSCILLATION_SCALE.olean research/VF_MID_OSCILLATION_SCALE.lean 2>&1 | tee vf-mid-oscillation-scale.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.LI_FLOOR_PRIME_COUNT_FANTASY.olean research/LI_FLOOR_PRIME_COUNT_FANTASY.lean 2>&1 | tee li-floor-prime-count-fantasy.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_LINEAR_INTERPOLATION_FANTASY.olean research/VF_MID_LINEAR_INTERPOLATION_FANTASY.lean 2>&1 | tee vf-mid-linear-interpolation-fantasy.log
@@ -189,6 +191,7 @@ jobs:
           import «research.ALL_SCALE_LI_DISPLACEMENT_REDUCTION»
           import «research.EXACT_LI_PURE_MODEL_CLOSURE»
           import «research.VF_MID_VON_KOCH_BRIDGE»
+          import «research.VF_MID_LI_UNIFORM_QUADRATURE»
           import «research.VF_MID_OSCILLATION_SCALE»
           import «research.LI_FLOOR_PRIME_COUNT_FANTASY»
           import «research.VF_MID_FLOOR_LI_DISCRETE_BACKLOG»
@@ -363,6 +366,11 @@ jobs:
           #print axioms RHLean.Analysis.vfMid_primeCountEnvelope_overlap_of_certificate
           #print axioms RHLean.Analysis.vfMidIntegerBlockCaptured_of_primeCount_envelopes
           #print axioms RHLean.Analysis.vfMidIntegerBlockCrossed_of_primeCount_envelopes
+          #print axioms RHLean.Analysis.hasDerivAt_vfInvLogDeriv
+          #print axioms RHLean.Analysis.abs_deriv_vfInvLogDeriv_le_squareTile
+          #print axioms RHLean.Analysis.abs_vfMidBandQuadratureError_le_logHarmonic
+          #print axioms RHLean.Analysis.vfMidLiSquareEndpointUniformBounded
+          #print axioms RHLean.Analysis.abs_vfMidLiError_sq_le_uniform
           #print axioms RHLean.Analysis.vfMidCornerChannel_width
           #print axioms RHLean.Analysis.vfMidUpperLeftPhase_forwardShift_telescope
           #print axioms RHLean.Analysis.vfMidUpperLeftPhase_backwardShift_telescope
