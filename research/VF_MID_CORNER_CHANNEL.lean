@@ -1181,6 +1181,55 @@ theorem primeCountingRealUpperEnvelope_min
   intro x
   exact le_min (h₁ x) (h₂ x)
 
+
+/-- Real theoretical lower/upper prime-count series trapped inside an
+asymmetric multi-shift VF fan force the generic backward/forward endpoint
+bracket. -/
+theorem vfMidBackwardForwardCornerEndpointBracket_of_realPrimeCount_envelopes
+    (Lminus Lplus : ℕ → ℕ)
+    (L U : ℕ → ℝ)
+    (hL : PrimeCountingRealLowerEnvelope L)
+    (hU : PrimeCountingRealUpperEnvelope U)
+    (hLower :
+      ∀ R : ℕ, 4 ≤ R →
+        vfMidFinishedMass (R - Lminus R) ≤ L (R ^ 2))
+    (hUpper :
+      ∀ R : ℕ, 4 ≤ R →
+        U (R ^ 2) ≤ vfMidFinishedMass (R + Lplus R)) :
+    VFMidBackwardForwardCornerEndpointBracket Lminus Lplus := by
+  intro R hR
+  exact ⟨(hLower R hR).trans (hL (R ^ 2)),
+    (hU (R ^ 2)).trans (hUpper R hR)⟩
+
+/-- Direct inclusion consumer: rigorous theoretical series inside an
+O(log(R)^2)-shift VF fan imply the square-endpoint von-Koch bound. -/
+theorem vfMidSquareEndpointVonKochBounded_of_backwardForward_realPrimeCount_envelopes
+    {Aminus Aplus : ℝ}
+    (hAminus : 0 ≤ Aminus) (hAplus : 0 ≤ Aplus)
+    (Lminus Lplus : ℕ → ℕ)
+    (hhalfMinus : ∀ R : ℕ, 4 ≤ R → 2 * Lminus R ≤ R)
+    (hhalfPlus : ∀ R : ℕ, 4 ≤ R → 2 * Lplus R ≤ R)
+    (hlagMinus : ∀ R : ℕ, 4 ≤ R →
+      (Lminus R : ℝ) ≤ Aminus * Real.log (R : ℝ) ^ 2)
+    (hlagPlus : ∀ R : ℕ, 4 ≤ R →
+      (Lplus R : ℝ) ≤ Aplus * Real.log (R : ℝ) ^ 2)
+    (L U : ℕ → ℝ)
+    (hL : PrimeCountingRealLowerEnvelope L)
+    (hU : PrimeCountingRealUpperEnvelope U)
+    (hLower :
+      ∀ R : ℕ, 4 ≤ R →
+        vfMidFinishedMass (R - Lminus R) ≤ L (R ^ 2))
+    (hUpper :
+      ∀ R : ℕ, 4 ≤ R →
+        U (R ^ 2) ≤ vfMidFinishedMass (R + Lplus R)) :
+    VFMidSquareEndpointVonKochBoundedStatement := by
+  apply vfMidSquareEndpointVonKochBounded_of_backwardForwardCornerBracket
+    hAminus hAplus Lminus Lplus hhalfMinus hhalfPlus
+      hlagMinus hlagPlus
+  exact
+    vfMidBackwardForwardCornerEndpointBracket_of_realPrimeCount_envelopes
+      Lminus Lplus L U hL hU hLower hUpper
+
 /-- Real theoretical series trapped inside the canonical outer VF corners
 force the endpoint bracket directly.  This is the continuous-series version
 of the inclusion proof architecture. -/
