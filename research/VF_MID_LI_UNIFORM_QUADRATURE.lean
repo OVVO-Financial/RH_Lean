@@ -150,4 +150,276 @@ theorem abs_deriv_vfInvLogDeriv_le_squareTile
       exact div_le_div_of_nonneg_right
         (by norm_num) hdensmall.le
 
+
+/-! ## Summable midpoint error on one square band -/
+
+/-- The inverse-log first derivative is Lipschitz on one square band at the
+second-derivative scale. -/
+theorem vfInvLogDeriv_lipschitzOn_squareTile
+    {r : ℕ} (hr : 2 ≤ r) {u v : ℝ}
+    (hu : u ∈ Icc ((r : ℝ) ^ 2)
+      ((((r + 1 : ℕ) : ℝ) ^ 2)))
+    (hv : v ∈ Icc ((r : ℝ) ^ 2)
+      ((((r + 1 : ℕ) : ℝ) ^ 2))) :
+    |vfInvLogDeriv u - vfInvLogDeriv v| ≤
+      (4 / ((r : ℝ) ^ 4 * Real.log (r : ℝ) ^ 2)) *
+        |u - v| := by
+  have hdiff :
+      ∀ z ∈ Icc ((r : ℝ) ^ 2)
+          ((((r + 1 : ℕ) : ℝ) ^ 2)),
+        DifferentiableAt ℝ vfInvLogDeriv z := by
+    intro z hz
+    have hrR : (2 : ℝ) ≤ (r : ℝ) := by exact_mod_cast hr
+    have hz1 : (1 : ℝ) < z := by
+      have hz4 : (4 : ℝ) ≤ z := by
+        have hr4 : (4 : ℝ) ≤ (r : ℝ) ^ 2 := by nlinarith
+        exact hr4.trans hz.1
+      linarith
+    exact (hasDerivAt_vfInvLogDeriv hz1).differentiableAt
+  have hder :
+      ∀ z ∈ Icc ((r : ℝ) ^ 2)
+          ((((r + 1 : ℕ) : ℝ) ^ 2)),
+        ‖deriv vfInvLogDeriv z‖ ≤
+          4 / ((r : ℝ) ^ 4 * Real.log (r : ℝ) ^ 2) := by
+    intro z hz
+    simpa [Real.norm_eq_abs] using
+      (abs_deriv_vfInvLogDeriv_le_squareTile hr hz)
+  have h :=
+    Convex.norm_image_sub_le_of_norm_deriv_le
+      (s := Icc ((r : ℝ) ^ 2)
+        ((((r + 1 : ℕ) : ℝ) ^ 2)))
+      (f := vfInvLogDeriv)
+      (x := u) (y := v)
+      hdiff hder (convex_Icc _ _) hu hv
+  simpa [Real.norm_eq_abs] using h
+
+/-- Detrending the inverse-log density by its midpoint tangent leaves a
+function whose derivative is O(width * sup |f''|) on the whole square band. -/
+theorem abs_deriv_invLog_detrended_le_squareTile
+    {r : ℕ} (hr : 2 ≤ r) {u : ℝ}
+    (hu : u ∈ Icc ((r : ℝ) ^ 2)
+      ((((r + 1 : ℕ) : ℝ) ^ 2))) :
+    |deriv
+        (fun z : ℝ =>
+          (Real.log z)⁻¹ -
+            vfInvLogDeriv (vfMidBandMidpoint r) *
+              (z - vfMidBandMidpoint r)) u| ≤
+      (4 / ((r : ℝ) ^ 4 * Real.log (r : ℝ) ^ 2)) *
+        ((((r + 1 : ℕ) : ℝ) ^ 2) - (r : ℝ) ^ 2) := by
+  let m := vfMidBandMidpoint r
+  let d := vfInvLogDeriv m
+  let width :=
+    (((r + 1 : ℕ) : ℝ) ^ 2) - (r : ℝ) ^ 2
+  have hm :
+      m ∈ Icc ((r : ℝ) ^ 2)
+        ((((r + 1 : ℕ) : ℝ) ^ 2)) := by
+    simpa [m] using vfMidBandMidpoint_mem_squareTile r
+  have hu1 : (1 : ℝ) < u := by
+    have hrR : (2 : ℝ) ≤ (r : ℝ) := by exact_mod_cast hr
+    have hu4 : (4 : ℝ) ≤ u := by
+      have hr4 : (4 : ℝ) ≤ (r : ℝ) ^ 2 := by nlinarith
+      exact hr4.trans hu.1
+    linarith
+  have hfdiff :
+      DifferentiableAt ℝ (fun z : ℝ => (Real.log z)⁻¹) u := by
+    have hu0 : u ≠ 0 := by linarith
+    have hlog0 : Real.log u ≠ 0 :=
+      ne_of_gt (Real.log_pos hu1)
+    exact ((Real.hasDerivAt_log hu0).inv hlog0).differentiableAt
+  have hlin :
+      HasDerivAt (fun z : ℝ => d * (z - m)) d u := by
+    simpa using ((hasDerivAt_id u).sub_const m).const_mul d
+  have hderiv :
+      deriv
+        (fun z : ℝ => (Real.log z)⁻¹ - d * (z - m)) u =
+          vfInvLogDeriv u - d := by
+    rw [deriv_sub hfdiff hlin.differentiableAt,
+      deriv_invLog_eq_vfInvLogDeriv hu1, hlin.deriv]
+  have hlip :=
+    vfInvLogDeriv_lipschitzOn_squareTile hr hu hm
+  have hwidth :
+      0 ≤ width := by
+    dsimp [width]
+    push_cast
+    positivity
+  have hdist : |u - m| ≤ width := by
+    rw [abs_le]
+    constructor <;> linarith [hu.1, hu.2, hm.1, hm.2]
+  have hM :
+      0 ≤ 4 / ((r : ℝ) ^ 4 *
+        Real.log (r : ℝ) ^ 2) := by positivity
+  change
+    |deriv
+        (fun z : ℝ => (Real.log z)⁻¹ - d * (z - m)) u| ≤
+      (4 / ((r : ℝ) ^ 4 * Real.log (r : ℝ) ^ 2)) * width
+  rw [hderiv]
+  exact hlip.trans
+    (mul_le_mul_of_nonneg_left hdist hM)
+
+/-- Midpoint symmetry improves the crude first-derivative tile estimate by one
+full factor of the square-root index.  The constant 108 is deliberately loose;
+the decisive result is the summable 1/(r log(r)^2) scale. -/
+theorem abs_vfMidBandQuadratureError_le_logHarmonic
+    {r : ℕ} (hr : 2 ≤ r) :
+    |vfMidBandQuadratureError r| ≤
+      108 / ((r : ℝ) * Real.log (r : ℝ) ^ 2) := by
+  let a : ℝ := (r : ℝ) ^ 2
+  let b : ℝ := (((r + 1 : ℕ) : ℝ) ^ 2)
+  let m : ℝ := vfMidBandMidpoint r
+  let width : ℝ := b - a
+  let M : ℝ :=
+    4 / ((r : ℝ) ^ 4 * Real.log (r : ℝ) ^ 2)
+  let d : ℝ := vfInvLogDeriv m
+  let g : ℝ → ℝ :=
+    fun z => (Real.log z)⁻¹ - d * (z - m)
+  have hm : m ∈ Icc a b := by
+    simpa [a, b, m] using vfMidBandMidpoint_mem_squareTile r
+  have hab : a ≤ b := hm.1.trans hm.2
+  have hwidth : 0 ≤ width := sub_nonneg.mpr hab
+  have hM : 0 ≤ M := by
+    dsimp [M]
+    positivity
+  have hdist :
+      ∀ {z : ℝ}, z ∈ Icc a b → |z - m| ≤ width := by
+    intro z hz
+    rw [abs_le]
+    constructor <;> linarith [hz.1, hz.2, hm.1, hm.2]
+  have hgdiff :
+      ∀ z ∈ Icc a b, DifferentiableAt ℝ g z := by
+    intro z hz
+    have hz1 : (1 : ℝ) < z := by
+      have hrR : (2 : ℝ) ≤ (r : ℝ) := by exact_mod_cast hr
+      have hz4 : (4 : ℝ) ≤ z := by
+        have hr4 : (4 : ℝ) ≤ (r : ℝ) ^ 2 := by nlinarith
+        exact hr4.trans (by simpa [a] using hz.1)
+      linarith
+    have hz0 : z ≠ 0 := by linarith
+    have hlog0 : Real.log z ≠ 0 :=
+      ne_of_gt (Real.log_pos hz1)
+    have hf :
+        DifferentiableAt ℝ (fun u : ℝ => (Real.log u)⁻¹) z :=
+      ((Real.hasDerivAt_log hz0).inv hlog0).differentiableAt
+    have hl :
+        DifferentiableAt ℝ (fun u : ℝ => d * (u - m)) z := by
+      fun_prop
+    exact hf.sub hl
+  have hgder :
+      ∀ z ∈ Icc a b, |deriv g z| ≤ M * width := by
+    intro z hz
+    simpa [a, b, m, width, M, d, g] using
+      (abs_deriv_invLog_detrended_le_squareTile hr
+        (by simpa [a, b] using hz))
+  have hgpoint :
+      ∀ z ∈ Icc a b,
+        |g m - g z| ≤ M * width ^ 2 := by
+    intro z hz
+    have hlip :=
+      Convex.norm_image_sub_le_of_norm_deriv_le
+        (s := Icc a b) (f := g) (x := m) (y := z)
+        hgdiff
+        (fun u hu => by
+          simpa [Real.norm_eq_abs] using hgder u hu)
+        (convex_Icc _ _) hm hz
+    have hdist' := hdist hz
+    calc
+      |g m - g z|
+          ≤ (M * width) * |m - z| := by
+            simpa [Real.norm_eq_abs, abs_sub_comm] using hlip
+      _ ≤ (M * width) * width := by
+            exact mul_le_mul_of_nonneg_left hdist'
+              (mul_nonneg hM hwidth)
+      _ = M * width ^ 2 := by ring
+  have hlinInt :
+      (∫ z in a..b, d * (z - m)) = 0 := by
+    rw [intervalIntegral.integral_const_mul]
+    rw [intervalIntegral.integral_sub
+      intervalIntegrable_id intervalIntegrable_const]
+    rw [intervalIntegral.integral_id,
+      intervalIntegral.integral_const]
+    simp only [smul_eq_mul]
+    dsimp [a, b, m]
+    push_cast
+    ring
+  have hfInt :
+      IntervalIntegrable (fun z : ℝ => (Real.log z)⁻¹)
+        MeasureTheory.volume a b := by
+    simpa [a, b] using vfMid_invLog_intervalIntegrable r hr
+  have hlinI :
+      IntervalIntegrable (fun z : ℝ => d * (z - m))
+        MeasureTheory.volume a b :=
+    (continuous_const.mul
+      (continuous_id.sub continuous_const)).intervalIntegrable _ _
+  have hgI :
+      IntervalIntegrable g MeasureTheory.volume a b := by
+    exact hfInt.sub hlinI
+  have hgInt :
+      (∫ z in a..b, g z) =
+        ∫ z in a..b, (Real.log z)⁻¹ := by
+    dsimp [g]
+    rw [intervalIntegral.integral_sub hfInt hlinI,
+      hlinInt, sub_zero]
+  have hgm :
+      g m = (Real.log m)⁻¹ := by
+    simp [g]
+  have hconst :
+      (∫ _z in a..b, g m) = width * g m := by
+    simp [width, smul_eq_mul]
+  have herrInt :
+      width * (Real.log m)⁻¹ -
+          (∫ z in a..b, (Real.log z)⁻¹) =
+        ∫ z in a..b, (g m - g z) := by
+    rw [intervalIntegral.integral_sub intervalIntegrable_const hgI,
+      hconst, hgInt, hgm]
+  have hnorm :=
+    intervalIntegral.norm_integral_le_of_norm_le_const
+      (a := a) (b := b) (C := M * width ^ 2)
+      (f := fun z : ℝ => g m - g z)
+      (fun z hz => by
+        simpa [Real.norm_eq_abs] using hgpoint z hz)
+  have herr :
+      |width * (Real.log m)⁻¹ -
+          (∫ z in a..b, (Real.log z)⁻¹)| ≤
+        M * width ^ 3 := by
+    rw [herrInt, ← Real.norm_eq_abs]
+    calc
+      ‖∫ z in a..b, (g m - g z)‖
+          ≤ (M * width ^ 2) * |b - a| := hnorm
+      _ = M * width ^ 3 := by
+        rw [abs_of_nonneg hwidth]
+        dsimp [width]
+        ring
+  have herrBand :
+      |vfMidBandQuadratureError r| ≤ M * width ^ 3 := by
+    have heq :
+        vfMidBandQuadratureError r =
+          width * (Real.log m)⁻¹ -
+            (∫ z in a..b, (Real.log z)⁻¹) := by
+      unfold vfMidBandQuadratureError vfMidBandMass vfMidBandIntegral
+      dsimp [a, b, m, width]
+      push_cast
+      simp [div_eq_mul_inv]
+      ring
+    rw [heq]
+    exact herr
+  have hrR : (2 : ℝ) ≤ (r : ℝ) := by exact_mod_cast hr
+  have hrpos : (0 : ℝ) < (r : ℝ) := by linarith
+  have hr1 : (1 : ℝ) < (r : ℝ) := by linarith
+  have hlogr : 0 < Real.log (r : ℝ) := Real.log_pos hr1
+  have hwidth3 : width ≤ 3 * (r : ℝ) := by
+    dsimp [width, a, b]
+    push_cast
+    nlinarith
+  have hcube : width ^ 3 ≤ (3 * (r : ℝ)) ^ 3 :=
+    pow_le_pow_left₀ hwidth hwidth3 3
+  calc
+    |vfMidBandQuadratureError r|
+        ≤ M * width ^ 3 := herrBand
+    _ ≤ M * (3 * (r : ℝ)) ^ 3 := by
+      exact mul_le_mul_of_nonneg_left hcube hM
+    _ = 108 / ((r : ℝ) * Real.log (r : ℝ) ^ 2) := by
+      dsimp [M]
+      field_simp [hrpos.ne', hlogr.ne']
+      ring
+
+
 end RHLean.Analysis
