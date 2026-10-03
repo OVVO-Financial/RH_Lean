@@ -476,7 +476,7 @@ theorem vfLogHarmonicKernel_nonneg
   positivity
 
 theorem integral_vfLogHarmonicKernel
-    {a b : ℝ} (ha : 1 < a) (hb : 1 < b) (hab : a ≤ b) :
+    {a b : ℝ} (ha : 1 < a) (hab : a ≤ b) :
     (∫ x in a..b, vfLogHarmonicKernel x) =
       (Real.log a)⁻¹ - (Real.log b)⁻¹ := by
   have hderiv :
@@ -601,7 +601,7 @@ theorem sum_vfLogHarmonicKernel_Ico_le
     integral_vfLogHarmonicKernel
       (a := (2 : ℝ))
       (b := ((R - 1 : ℕ) : ℝ))
-      (by norm_num) hb1
+      (by norm_num)
       (by exact_mod_cast hRm1)
   have hlogRm1 :
       0 < Real.log (((R - 1 : ℕ) : ℝ)) :=
