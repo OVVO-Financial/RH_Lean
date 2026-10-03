@@ -196,3 +196,45 @@ The first term is the squarefree diagonal already present throughout the
 repository, the second is the signed Mobius eigenmode, and the third is the
 new factor-depth frontier to attack by the existing full-factorization and
 truncated-cube cancellation laws.
+
+## Global cancellation law for the Boolean prime process
+
+A stronger law is already implicit in
+`RHLean/Analysis/FiniteWheelRestrictedFloor.lean`.  For any prime `p`,
+the exact rough Möbius convolution
+
+[
+mathcal C_p(n)
+=
+operatorname{roughGEMobiusGTConvolution}(p,n)
+]
+
+is the indicator of the pure `p`-power channel.  Combining that theorem with
+the squarefree gate gives, for every `n>1` and every prime divisor `p|n`,
+
+[
+oxed{
+1_{mathbb P}(n)
+=
+mu(n)^2,mathcal C_p(n).
+}
+]
+
+This is now formalized in
+`vfMidActualPrimeIndicatorInt_eq_moebiusSq_mul_roughConvolution`.
+
+The interpretation is exact:
+
+- if `n` has a second distinct prime coordinate, the complete Möbius
+  convolution annihilates it;
+- if `n=p^k` with `k>=2`, the convolution keeps the pure-power channel but
+  the squarefree gate `mu(n)^2` kills it;
+- only `n=p` survives.
+
+Thus the actual Boolean prime process itself is recovered as a signed
+cancellation law.  It is not obtained here from a density approximation.
+Moreover the formula is independent of which prime divisor of `n` is chosen
+as the exposed coordinate.
+
+This is the best current candidate for the universal law to insert into the
+already-solved exact-Li critical/reciprocal propagators.
