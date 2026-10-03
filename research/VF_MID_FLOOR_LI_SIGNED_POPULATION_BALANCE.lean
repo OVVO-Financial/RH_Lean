@@ -84,7 +84,9 @@ theorem vfMidFloorLiSignedMismatchMass_eq_backlog_increment
 theorem vfMidPrimeFloorLiIntegerBacklog_sq (R : ℕ) :
     vfMidPrimeFloorLiIntegerBacklog (R ^ 2) =
       vfMidPrimeFloorLiBacklog R := by
-  rfl
+  unfold vfMidPrimeFloorLiIntegerBacklog vfMidPrimeFloorLiBacklog
+    vfMidFloorLiIntegerPotential vfMidFloorLiSquarePotential
+  norm_num [Nat.cast_pow]
 
 theorem vfMidFloorLiSignedMismatchMass_sq_eq_neg_dyadicPrimeDefect
     {A B : ℕ} (hAB : A ≤ B) :
@@ -195,6 +197,7 @@ theorem vfMidFloorLiIntegerPotential_step_zero_or_one
         (((⌊a⌋ + 2 : ℤ) : ℝ)) ≤ ((⌊b⌋ : ℤ) : ℝ) := by
       exact_mod_cast hbad
     have hble : ((⌊b⌋ : ℤ) : ℝ) ≤ b := Int.floor_le b
+    push_cast at hcast
     linarith
   have hupper : ⌊b⌋ ≤ ⌊a⌋ + 1 := by omega
   change ⌊b⌋ - ⌊a⌋ = 0 ∨ ⌊b⌋ - ⌊a⌋ = 1
@@ -294,6 +297,16 @@ theorem vfMidPrimeLiIntegerDiscrepancyReal_eq (n : ℕ) :
   rw [primeSievePrefixPrimeCount_eq_primeCounting]
   simp [vfMidLogarithmicIntegralFromTwo, logarithmicIntegralFromTwo]
 
+/-- The classical prime discrepancy is a genuinely real-valued complex
+coordinate, so its real presentation can be cast back without loss. -/
+theorem primeSievePrimeDiscrepancy_eq_vfMidPrimeLiIntegerDiscrepancyReal
+    (n : ℕ) :
+    primeSievePrimeDiscrepancy n =
+      (vfMidPrimeLiIntegerDiscrepancyReal n : ℂ) := by
+  unfold vfMidPrimeLiIntegerDiscrepancyReal primeSievePrimeDiscrepancy
+  rw [primeSievePrefixPrimeCount_eq_primeCounting]
+  simp
+
 theorem vfMidPrimeFloorLiIntegerBacklog_cast_eq_primeLi_add_rounding
     (n : ℕ) :
     ((vfMidPrimeFloorLiIntegerBacklog n : ℤ) : ℝ) =
@@ -347,8 +360,11 @@ theorem vfMidFloorLiSignedMismatchMass_cast_eq_moebiusAbel_add_rounding
     vfMidFloorLiMoebiusAbelCarrier_eq_primeLi_increment hAB
   have hBcomplex := congrArg (fun x : ℝ => (x : ℂ)) hB
   have hAcomplex := congrArg (fun x : ℝ => (x : ℂ)) hA
-  unfold vfMidPrimeLiIntegerDiscrepancyReal at hBcomplex hAcomplex
-  push_cast at hBcomplex hAcomplex
+  rw [← primeSievePrimeDiscrepancy_eq_vfMidPrimeLiIntegerDiscrepancyReal B]
+    at hBcomplex
+  rw [← primeSievePrimeDiscrepancy_eq_vfMidPrimeLiIntegerDiscrepancyReal A]
+    at hAcomplex
+  push_cast at hBcomplex hAcomplex ⊢
   rw [hcarrier]
   linear_combination hBcomplex - hAcomplex
 
@@ -386,6 +402,13 @@ theorem norm_vfMidFloorLiDyadicPrimeDefect_add_moebiusAbel_lt_one
   have hmain :=
     norm_vfMidFloorLiSignedMismatchMass_sub_moebiusAbel_lt_one hsq
   rw [vfMidFloorLiSignedMismatchMass_sq_eq_neg_dyadicPrimeDefect hAB] at hmain
-  simpa [sub_eq_add_neg, add_comm, add_left_comm, add_assoc] using hmain
+  have hsign :
+      -(((vfMidFloorLiDyadicPrimeDefect A B : ℤ) : ℂ)) -
+          vfMidFloorLiMoebiusAbelCarrier (A ^ 2) (B ^ 2) =
+        -((((vfMidFloorLiDyadicPrimeDefect A B : ℤ) : ℂ) +
+          vfMidFloorLiMoebiusAbelCarrier (A ^ 2) (B ^ 2))) := by
+    ring
+  rw [hsign, norm_neg] at hmain
+  exact hmain
 
 end RHLean.Analysis
