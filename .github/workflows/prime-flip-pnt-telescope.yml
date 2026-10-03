@@ -14,6 +14,7 @@ on:
       - research/VF_MID_OSCILLATION_SCALE.lean
       - research/LI_FLOOR_PRIME_COUNT_FANTASY.lean
       - research/VF_MID_FLOOR_LI_DISCRETE_BACKLOG.lean
+      - research/VF_MID_FLOOR_LI_SIGNED_POPULATION_BALANCE.lean
       - research/VF_MID_FLOOR_LI_MEBOOT_MONTE_CARLO.md
       - numerics/floor_li_discrete_meboot/**
       - research/VF_MID_FLOOR_LI_DISCRETE_BACKLOG.lean
@@ -137,6 +138,7 @@ jobs:
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_DYADIC_OWNER_EXACT.olean research/VF_MID_DYADIC_OWNER_EXACT.lean 2>&1 | tee vf-mid-dyadic-owner-exact.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_ODD_FRACTIONAL_CLUSTER.olean research/VF_MID_ODD_FRACTIONAL_CLUSTER.lean 2>&1 | tee vf-mid-odd-fractional-cluster.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_FLOOR_LI_DISCRETE_BACKLOG.olean research/VF_MID_FLOOR_LI_DISCRETE_BACKLOG.lean 2>&1 | tee vf-mid-floor-li-discrete-backlog.log
+          lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_FLOOR_LI_SIGNED_POPULATION_BALANCE.olean research/VF_MID_FLOOR_LI_SIGNED_POPULATION_BALANCE.lean 2>&1 | tee vf-mid-floor-li-signed-population-balance.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_RECURSIVE_CHILD_INJECTIVE.olean research/VF_MID_RECURSIVE_CHILD_INJECTIVE.lean 2>&1 | tee vf-mid-recursive-child-injective.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_ALIGNED_STEP_GRAPH.olean research/VF_MID_ALIGNED_STEP_GRAPH.lean 2>&1 | tee vf-mid-aligned-step-graph.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_STEP_GRAPH_BRACKETING.olean research/VF_MID_STEP_GRAPH_BRACKETING.lean 2>&1 | tee vf-mid-step-graph-bracketing.log
@@ -178,6 +180,7 @@ jobs:
           import «research.VF_MID_OSCILLATION_SCALE»
           import «research.LI_FLOOR_PRIME_COUNT_FANTASY»
           import «research.VF_MID_FLOOR_LI_DISCRETE_BACKLOG»
+          import «research.VF_MID_FLOOR_LI_SIGNED_POPULATION_BALANCE»
           import «research.VF_MID_FLOOR_LI_DISCRETE_BACKLOG»
           import «research.VF_MID_LINEAR_INTERPOLATION_FANTASY»
           import «research.FOUR_FANTASY_PROXY_RH_CLOSURES»
@@ -209,6 +212,9 @@ jobs:
           import «research.VF_MID_PHI_ODD_LI_TRANSFER»
           import «research.VF_MID_PHI_DIAGONAL_TRANSFER»
           #print axioms RHLean.Analysis.vfMidPrimeFloorLiBacklog_succ
+          #print axioms RHLean.Analysis.vfMidFloorLiSignedMismatchMass_sq_eq_neg_dyadicPrimeDefect
+          #print axioms RHLean.Analysis.norm_vfMidFloorLiSignedMismatchMass_sub_moebiusAbel_lt_one
+          #print axioms RHLean.Analysis.norm_vfMidFloorLiSignedPopulationBalance_sub_moebiusAbel_lt_one
           #print axioms RHLean.Analysis.vfMidOddFloorLiCompositeDefect_eq_ownerCensus_sub_reference
           #print axioms RHLean.Analysis.vfMidDyadicVFTrackingDefect_eq_floorLiDefect_sub_bridgeIncrement
           #print axioms RHLean.Analysis.primeFlipExactResponse_eq_pnt_add_error
