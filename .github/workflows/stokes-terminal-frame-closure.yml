@@ -1,10 +1,16 @@
 name: Stokes terminal frame closure check
 
 on:
+  pull_request:
+    branches: [main, openai/one-block-terminal-budget]
+    paths:
+      - research/NNS_ZERO_TARGET_NORMALIZED_STOKES.lean
+      - .github/workflows/stokes-terminal-frame-closure.yml
   push:
     branches: [agent/post-774-stokes-terminal-frame-closure]
     paths:
       - research/GLOBAL_RETURNED_CORE_STOKES_TERMINAL_FRAME_API.lean
+      - research/NNS_ZERO_TARGET_NORMALIZED_STOKES.lean
       - .github/workflows/stokes-terminal-frame-closure.yml
   workflow_dispatch:
 
@@ -143,6 +149,8 @@ jobs:
           emit research/GLOBAL_RETURNED_CORE_STOKES_TWO_STEP_BOUNDARY_NORMAL_FORM.lean
           emit research/GLOBAL_RETURNED_CORE_STOKES_CROSS_AMPLITUDE_NORMAL_FORM.lean
           emit research/GLOBAL_RETURNED_CORE_STOKES_GLOBAL_IDENTIFICATION.lean
+          emit research/GLOBAL_RETURNED_CORE_STOKES_ZERO_TARGET_COVARIANCE.lean
+          emit research/NNS_ZERO_TARGET_NORMALIZED_STOKES.lean
           emit research/GLOBAL_RETURNED_CORE_STOKES_CORRECTED_WHEEL_IDENTIFICATION.lean
           emit research/GLOBAL_RETURNED_CORE_FIRST_OWNER_CELL_SUM.lean
           emit research/GLOBAL_RETURNED_CORE_FIRST_OWNER_GRAM_TO_CELLS.lean
@@ -155,6 +163,15 @@ jobs:
           emit research/GLOBAL_RETURNED_CORE_STOKES_NATURAL_PERIODIC_RAW_REALIZATION.lean
           emit research/GLOBAL_RETURNED_CORE_STOKES_NATURAL_CORRECTED_CONDUCTOR_PACKET.lean
           emit research/GLOBAL_RETURNED_CORE_STOKES_NATURAL_COMMON_SPECTRUM_LEDGER.lean
+      - name: Axiom-check normalized NNS zero-target Stokes bridge
+        run: |
+          cat > /tmp/NNSZeroTargetAxioms.lean <<'LEAN'
+          import «research.NNS_ZERO_TARGET_NORMALIZED_STOKES»
+          #print axioms RHLean.Proof.lowOwnerCanonicalSignedStokesFinalBoundary_eq_two_nnsNormalized_mul_total
+          #print axioms RHLean.Proof.zeroTargetMellinCompletePostRootNNSNormalized_nonpos
+          #print axioms RHLean.Proof.nnsComplete_nonpos_and_clippedEnergy_contracts
+          LEAN
+          lake env lean -DwarningAsError=true /tmp/NNSZeroTargetAxioms.lean
       - name: Kernel-check clean terminal frame API
         run: |
           emit() { f="$1"; b="$(basename "$f" .lean)"; lake env lean -DwarningAsError=true -o ".lake/build/lib/lean/research.${b}.olean" "$f"; }
