@@ -44,7 +44,7 @@ assumed or asserted here.
 
 noncomputable section
 
-open scoped BigOperators
+open scoped BigOperators ArithmeticFunction.Moebius
 open Filter MeasureTheory Set
 
 namespace RHLean.Proof
@@ -99,9 +99,10 @@ theorem vfMidActualPreSquarePrimeCarrier_eq_rootSquare
       omega
     exact ⟨⟨hRq, hqPre⟩, hqPrime⟩
 
-/-- A prime strictly above `R` cannot divide `R^2`. -/
+/-- A prime strictly above a positive root `R` cannot divide `R^2`.
+The positivity hypothesis is necessary: at `R = 0` every prime divides `0^2`. -/
 theorem not_dvd_square_of_root_lt_prime
-    {R q : ℕ} (hqPrime : q.Prime) (hRq : R < q) :
+    {R q : ℕ} (hR : 0 < R) (hqPrime : q.Prime) (hRq : R < q) :
     ¬ q ∣ R ^ 2 := by
   intro hdiv
   have hdiv' : q ∣ R * R := by
@@ -109,7 +110,7 @@ theorem not_dvd_square_of_root_lt_prime
   have hqR : q ∣ R :=
     (hqPrime.dvd_mul.mp hdiv').elim id id
   have hqLe : q ≤ R :=
-    Nat.le_of_dvd (by omega : 0 < R) hqR
+    Nat.le_of_dvd hR hqR
   omega
 
 /-- **The reciprocal child is also endpoint-invariant.**
@@ -118,11 +119,15 @@ square changes neither the owner set nor its quotient child. -/
 theorem squareRootEndpoint_div_eq_square_div_of_root_lt_prime
     {R q : ℕ} (hqPrime : q.Prime) (hRq : R < q) :
     squareRootEndpoint R / q = R ^ 2 / q := by
+  rcases Nat.eq_zero_or_pos R with hR0 | hRpos
+  · subst hR0
+    simp [squareRootEndpoint]
   let k : ℕ := R ^ 2 / q
   have hqPos : 0 < q := hqPrime.pos
   have hupper0 : R ^ 2 < q * (k + 1) := by
     dsimp [k]
-    exact (Nat.div_lt_iff_lt_mul hqPos).1 (Nat.lt_succ_self _)
+    rw [Nat.mul_comm q]
+    exact (Nat.div_lt_iff_lt_mul hqPos).1 (Nat.lt_add_one _)
   have hlower0 : q * k ≤ R ^ 2 := by
     dsimp [k]
     simpa [Nat.mul_comm] using Nat.div_mul_le_self (R ^ 2) q
@@ -131,14 +136,14 @@ theorem squareRootEndpoint_div_eq_square_div_of_root_lt_prime
     have hdvd : q ∣ R ^ 2 := by
       refine ⟨k, ?_⟩
       simpa [Nat.mul_comm] using heq.symm
-    exact not_dvd_square_of_root_lt_prime hqPrime hRq hdvd
+    exact not_dvd_square_of_root_lt_prime hRpos hqPrime hRq hdvd
   have hlower : q * k ≤ squareRootEndpoint R := by
     unfold squareRootEndpoint
     omega
   have hupper : squareRootEndpoint R < (k + 1) * q := by
     unfold squareRootEndpoint
     have hs : R ^ 2 - 1 < R ^ 2 := by
-      have : 0 < R ^ 2 := by positivity
+      have : 0 < R ^ 2 := pow_pos hRpos 2
       omega
     calc
       R ^ 2 - 1 < R ^ 2 := hs
@@ -146,8 +151,9 @@ theorem squareRootEndpoint_div_eq_square_div_of_root_lt_prime
       _ = (k + 1) * q := by ring
   have hdiv : squareRootEndpoint R / q = k := by
     apply Nat.div_eq_of_lt_le
+    · rw [Nat.mul_comm]
+      exact hlower
     · exact hupper
-    · simpa [Nat.mul_comm] using hlower
   simpa [k] using hdiv
 
 /-- Prime-list Euler products are strictly positive. -/
@@ -425,7 +431,7 @@ theorem inv_log_natCast_le_one01_mul_inv_log_succ
     ring
   rw [hratio] at hlogstep
   have hkinv : 1 / (k : ℝ) ≤ (1 / 100 : ℝ) := by
-    rw [one_div_le_one_div (by norm_num : (0 : ℝ) < 100) hk0]
+    rw [one_div_le_one_div hk0 (by norm_num : (0 : ℝ) < 100)]
     exact_mod_cast hk
   have hlog4 :
       (1 : ℝ) < Real.log (k : ℝ) := by
@@ -444,9 +450,9 @@ theorem inv_log_natCast_le_one01_mul_inv_log_succ
     have : Real.log ((k + 1 : ℕ) : ℝ) - Real.log (k : ℝ) ≤
         (1 / 100 : ℝ) := hlogstep.trans hkinv
     nlinarith
-  rw [inv_le_iff₀ hlk0, mul_inv, inv_mul_eq_div,
-    div_le_iff₀ hlkp0]
-  nlinarith
+  rw [← div_eq_mul_inv, le_div_iff₀ hlkp0, inv_mul_eq_div,
+    div_le_iff₀ hlk0]
+  linarith
 
 /-- The proved native PNT supplies an eventual 1.01 upper envelope for the
 prime-counting function. -/
@@ -560,7 +566,7 @@ theorem eventually_vfMidActualRootSquareReciprocalPrimeMass_lt_one :
       have hpiK := hpi k hkR
       have hinvlog :=
         inv_log_natCast_le_one01_mul_inv_log_succ (k := k) hk100
-      rw [hdiff]
+      rw [hdiff, mul_one_div]
       calc
         (Nat.primeCounting k : ℝ) /
               ((k : ℝ) * ((k + 1 : ℕ) : ℝ))
@@ -571,7 +577,6 @@ theorem eventually_vfMidActualRootSquareReciprocalPrimeMass_lt_one :
               (Real.log (k : ℝ))⁻¹ *
               (((k + 1 : ℕ) : ℝ)⁻¹) := by
               field_simp
-              ring
         _ ≤ (101 / 100 : ℝ) *
               ((101 / 100 : ℝ) *
                 (Real.log ((k + 1 : ℕ) : ℝ))⁻¹) *
@@ -581,7 +586,6 @@ theorem eventually_vfMidActualRootSquareReciprocalPrimeMass_lt_one :
               vfMidReciprocalLogKernel ((k + 1 : ℕ) : ℝ) := by
               unfold vfMidReciprocalLogKernel
               field_simp
-              ring
     calc
       (∑ k ∈ Finset.Ico R X,
           (Nat.primeCounting k : ℝ) *
@@ -632,7 +636,7 @@ theorem eventually_vfMidActualRootSquareReciprocalPrimeMass_lt_one :
 strictly smaller than that owner.  Thus the owner prime is automatically fresh
 throughout the complete child fibre. -/
 theorem vfMidActualHighPrimeChild_lt_owner
-    {R q m : ℕ} (hR : 2 ≤ R) (hq : q.Prime) (hRq : R < q)
+    {R q m : ℕ} (hR : 2 ≤ R) (_hq : q.Prime) (hRq : R < q)
     (hm : m ∈ Finset.Icc 1 (squareRootEndpoint R / q)) :
     m < q := by
   have hchild :
@@ -647,8 +651,8 @@ theorem vfMidActualHighPrimeChild_coprime
     (hm : m ∈ Finset.Icc 1 (squareRootEndpoint R / q)) :
     Nat.Coprime m q := by
   have hmpos : 0 < m := by
-    exact Nat.lt_of_lt_of_le (by omega)
-      (Finset.mem_Icc.mp hm).2
+    have := (Finset.mem_Icc.mp hm).1
+    omega
   have hmq := vfMidActualHighPrimeChild_lt_owner hR hq hRq hm
   exact (Nat.coprime_of_lt_prime (Nat.ne_of_gt hmpos) hmq hq).symm
 
@@ -711,12 +715,12 @@ theorem vfMidActualHighPrimeProtectedPairedReciprocalMass_eq_euler_add_defect
   unfold vfMidActualHighPrimeProtectedPairedReciprocalMass
     vfMidActualHighPrimeProtectedParentReciprocalMass
     vfMidActualHighPrimeProtectedDefectMass
-  rw [← Finset.mul_sum, ← Finset.sum_add_distrib]
+  rw [Finset.mul_sum, ← Finset.sum_add_distrib]
   apply Finset.sum_congr rfl
   intro m hm
   have hmpos : 0 < m := by
-    exact Nat.lt_of_lt_of_le (by omega)
-      (Finset.mem_Icc.mp hm).2
+    have := (Finset.mem_Icc.mp hm).1
+    omega
   have hcop := vfMidActualHighPrimeChild_coprime hR hq hRq hm
   exact
     nativePNTSignedSquareBlockCorrelationReciprocalSummand_add_mul_freshPrime
@@ -773,7 +777,7 @@ theorem vfMidSquareProtectedResponseLogMass_nonneg
   rcases Finset.mem_filter.mp hd with ⟨hdI, hmd⟩
   have hdpos : 0 < d := by
     have := (Finset.mem_Ioc.mp hdI).1
-    positivity
+    exact lt_of_le_of_lt (Nat.zero_le _) this
   have hmle : m ≤ d := Nat.le_of_dvd hdpos hmd
   have hquot : 1 ≤ d / m :=
     (Nat.one_le_div_iff (by omega : 0 < m)).2 hmle
@@ -812,7 +816,7 @@ theorem vfMidSquareProtectedResponseLogMass_mul_prime_le
     rcases Finset.mem_filter.mp hd with ⟨hdI, hmq⟩
     have hdpos : 0 < d := by
       have := (Finset.mem_Ioc.mp hdI).1
-      positivity
+      exact lt_of_le_of_lt (Nat.zero_le _) this
     have hmqpos : 0 < m * q := Nat.mul_pos (by omega) hq.pos
     have hmqle : m * q ≤ d := Nat.le_of_dvd hdpos hmq
     have hchild1 : 1 ≤ d / (m * q) :=
@@ -838,7 +842,7 @@ theorem vfMidSquareProtectedResponseLogMass_mul_prime_le
       rcases Finset.mem_filter.mp hdParent with ⟨hdI, hmd⟩
       have hdpos : 0 < d := by
         have := (Finset.mem_Ioc.mp hdI).1
-        positivity
+        exact lt_of_le_of_lt (Nat.zero_le _) this
       have hmle : m ≤ d := Nat.le_of_dvd hdpos hmd
       have hquot : 1 ≤ d / m :=
         (Nat.one_le_div_iff (by omega : 0 < m)).2 hmle
@@ -873,56 +877,29 @@ theorem abs_vfMidActualHighPrimeProtectedChild_le_inv_mul_parent
       (1 / (q : ℝ)) *
         |nativePNTSignedSquareBlockCorrelationReciprocalSummand
           ((R + 1) ^ 2) (R ^ 2) ((R + 1) ^ 2) m| := by
-  have hmpos : 0 < m := by omega
   have hqpos : (0 : ℝ) < (q : ℝ) := by exact_mod_cast hq.pos
-  have hmRpos : (0 : ℝ) < (m : ℝ) := by exact_mod_cast hmpos
   have hresp :=
     abs_vfMidSquareProtectedCofactorResponse_mul_prime_le
       R m q hR hm hq
+  have hqinv : (0 : ℝ) < 1 / (q : ℝ) := one_div_pos.mpr hqpos
+  have hchild :
+      nativePNTSignedSquareBlockCorrelationReciprocalSummand
+          ((R + 1) ^ 2) (R ^ 2) ((R + 1) ^ 2) (m * q) =
+        -((1 / (q : ℝ)) *
+          ((((μ m : ℤ) : ℝ) *
+              nativePNTSignedSquareBlockCofactorResponse
+                ((R + 1) ^ 2) (R ^ 2) ((R + 1) ^ 2) (m * q)) /
+            (m : ℝ))) := by
+    unfold nativePNTSignedSquareBlockCorrelationReciprocalSummand
+    rw [nativeMobius_adjoin_prime m q hq hcop]
+    push_cast
+    ring
+  rw [hchild, abs_neg, abs_mul, abs_of_pos hqinv]
+  refine mul_le_mul_of_nonneg_left ?_ hqinv.le
   unfold nativePNTSignedSquareBlockCorrelationReciprocalSummand
-  change
-    |(((μ (m * q) : ℤ) : ℝ) *
-        nativePNTSignedSquareBlockCofactorResponse
-          ((R + 1) ^ 2) (R ^ 2) ((R + 1) ^ 2) (m * q)) /
-          ((m * q : ℕ) : ℝ)| ≤
-      (1 / (q : ℝ)) *
-        |(((μ m : ℤ) : ℝ) *
-          nativePNTSignedSquareBlockCofactorResponse
-            ((R + 1) ^ 2) (R ^ 2) ((R + 1) ^ 2) m) / (m : ℝ)|
-  rw [nativeMobius_adjoin_prime m q hq hcop]
-  push_cast
-  rw [abs_div, abs_mul, abs_neg, abs_div, abs_mul]
-  have hmqcast : (((m * q : ℕ) : ℝ)) = (m : ℝ) * (q : ℝ) := by norm_num
-  rw [hmqcast, abs_mul, abs_of_pos hmRpos, abs_of_pos hqpos,
-    abs_of_pos hmRpos]
-  have hmu : 0 ≤ |(((μ m : ℤ) : ℝ))| := abs_nonneg _
-  have hden : 0 ≤ (1 / (q : ℝ)) * (|(((μ m : ℤ) : ℝ))| / (m : ℝ)) := by
-    positivity
-  calc
-    |(((μ m : ℤ) : ℝ))| *
-          |nativePNTSignedSquareBlockCofactorResponse
-            ((R + 1) ^ 2) (R ^ 2) ((R + 1) ^ 2) (m * q)| /
-        ((m : ℝ) * (q : ℝ))
-        =
-      (1 / (q : ℝ)) *
-        ((|(((μ m : ℤ) : ℝ))| / (m : ℝ)) *
-          |nativePNTSignedSquareBlockCofactorResponse
-            ((R + 1) ^ 2) (R ^ 2) ((R + 1) ^ 2) (m * q)|) := by
-          field_simp
-          ring
-    _ ≤ (1 / (q : ℝ)) *
-        ((|(((μ m : ℤ) : ℝ))| / (m : ℝ)) *
-          |nativePNTSignedSquareBlockCofactorResponse
-            ((R + 1) ^ 2) (R ^ 2) ((R + 1) ^ 2) m|) := by
-          apply mul_le_mul_of_nonneg_left
-          · exact mul_le_mul_of_nonneg_left hresp (by positivity)
-          · positivity
-    _ = (1 / (q : ℝ)) *
-        (|(((μ m : ℤ) : ℝ))| *
-          |nativePNTSignedSquareBlockCofactorResponse
-            ((R + 1) ^ 2) (R ^ 2) ((R + 1) ^ 2) m| / (m : ℝ)) := by
-          field_simp
-          ring
+  rw [abs_div, abs_div, abs_mul, abs_mul]
+  refine div_le_div_of_nonneg_right ?_ (abs_nonneg _)
+  exact mul_le_mul_of_nonneg_left hresp (abs_nonneg _)
 
 /-! ## High-owner star compression -/
 
@@ -954,7 +931,7 @@ def vfMidActualHighPrimeProtectedStarDefectMass (R m : ℕ) : ℝ :=
 
 /-- A legal high-owner child forces its fixed parent strictly below the root. -/
 theorem vfMidActualHighPrimeStar_parent_lt_root
-    {R m q : ℕ} (hR : 2 ≤ R) (hm : 1 ≤ m)
+    {R m q : ℕ} (hR : 2 ≤ R) (_hm : 1 ≤ m)
     (hq : q ∈ vfMidActualHighPrimeStarSet R m) :
     m < R := by
   have hqData := Finset.mem_filter.mp hq
@@ -963,7 +940,13 @@ theorem vfMidActualHighPrimeStar_parent_lt_root
   have hRq : R < q := (Finset.mem_Ioc.mp hcarrier.1).1
   have hmq : m * q ≤ squareRootEndpoint R := hqData.2
   unfold squareRootEndpoint at hmq
-  nlinarith
+  have hRsq : 0 < R ^ 2 := pow_pos (by omega) 2
+  by_contra hmR
+  have hRm : R ≤ m := Nat.le_of_not_lt hmR
+  have hprod : R * (R + 1) ≤ m * q :=
+    Nat.mul_le_mul hRm (Nat.lt_iff_add_one_le.mp hRq)
+  have hexpand : R * (R + 1) = R ^ 2 + R := by ring
+  omega
 
 /-- Hence every owner in one legal star is fresh for the fixed parent. -/
 theorem vfMidActualHighPrimeStar_parent_coprime
@@ -1039,7 +1022,7 @@ theorem vfMidActualHighPrimeStar_no_two_owner_child
     {R m q r : ℕ} (hm : 1 ≤ m)
     (hq : q ∈ vfMidActualPreSquarePrimeCarrier R)
     (hr : r ∈ vfMidActualPreSquarePrimeCarrier R)
-    (hqr : q ≠ r) :
+    (_hqr : q ≠ r) :
     ¬ m * q * r ≤ squareRootEndpoint R := by
   intro hfit
   have hqData := Finset.mem_filter.mp hq
@@ -1047,7 +1030,13 @@ theorem vfMidActualHighPrimeStar_no_two_owner_child
   have hRq : R < q := (Finset.mem_Ioc.mp hqData.1).1
   have hRr : R < r := (Finset.mem_Ioc.mp hrData.1).1
   unfold squareRootEndpoint at hfit
-  nlinarith
+  have hqrProd : (R + 1) * (R + 1) ≤ q * r :=
+    Nat.mul_le_mul (Nat.lt_iff_add_one_le.mp hRq)
+      (Nat.lt_iff_add_one_le.mp hRr)
+  have hmqr : 1 * (q * r) ≤ m * (q * r) := Nat.mul_le_mul hm le_rfl
+  have hassoc : m * (q * r) = m * q * r := (Nat.mul_assoc m q r).symm
+  have hexpand : (R + 1) * (R + 1) = R ^ 2 + 2 * R + 1 := by ring
+  omega
 
 /-- Every fixed-parent legal star is a subset of the complete root-to-square
 actual-prime carrier, so its reciprocal mass is bounded by the global packet
@@ -1061,7 +1050,10 @@ theorem vfMidActualHighPrimeStarReciprocalMass_le_rootSquare
     vfMidActualHighPrimeStarSet
   apply Finset.sum_le_sum_of_subset_of_nonneg
   · intro q hq
-    exact (Finset.mem_filter.mp hq).1
+    rcases Finset.mem_filter.mp (Finset.mem_filter.mp hq).1 with ⟨hqI, hqPrime⟩
+    rcases Finset.mem_Ioc.mp hqI with ⟨hRq, hqX⟩
+    unfold squareRootEndpoint at hqX
+    exact Finset.mem_filter.mpr ⟨Finset.mem_Ioc.mpr ⟨hRq, by omega⟩, hqPrime⟩
   · intro q hq _hnot
     have hqPrime := (Finset.mem_filter.mp hq).2
     have hqpos : (0 : ℝ) < (q : ℝ) := by exact_mod_cast hqPrime.pos
