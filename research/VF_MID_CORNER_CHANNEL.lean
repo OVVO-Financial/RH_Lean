@@ -80,6 +80,53 @@ theorem vfMidLowerCornerChannel_eq_lowerRightPhase
       vfMidLowerRightPhase R (vfMidCornerParameter R x) := by
   rfl
 
+/-- In block R the advanced lower-right boundary is the preceding lagged
+upper-left phase trajectory, evaluated at the same normalized within-block
+phase. -/
+theorem vfMidLowerCornerChannel_eq_pred_upperLeftPhase
+    (R : ℕ) (hR : 1 ≤ R) (x : ℝ) :
+    vfMidLowerCornerChannel R x =
+      vfMidUpperLeftPhase (R - 1) (vfMidCornerParameter R x) := by
+  rw [vfMidLowerCornerChannel_eq_lowerRightPhase,
+    vfMidLowerRightPhase_eq_upperLeftPhase_pred R hR]
+
+/-- The normalized gap between consecutive lagged upper-left phase
+trajectories is exactly the convex interpolation of the two neighboring VF
+band masses.  Thus vertical channel width is the discrete derivative in phase
+index. -/
+theorem vfMidUpperLeftPhase_sub_pred
+    (R : ℕ) (hR : 3 ≤ R) (t : ℝ) :
+    vfMidUpperLeftPhase R t - vfMidUpperLeftPhase (R - 1) t =
+      (1 - t) * vfMidBandMass (R - 1) +
+        t * vfMidBandMass R := by
+  have hpred : 2 ≤ R - 1 := by omega
+  have hsPred := vfMidFinishedMass_succ (R := R - 1) hpred
+  have hpredSucc : R - 1 + 1 = R := by omega
+  rw [hpredSucc] at hsPred
+  have hs := vfMidFinishedMass_succ (R := R) (by omega : 2 ≤ R)
+  have hdiffPred :
+      vfMidFinishedMass R - vfMidFinishedMass (R - 1) =
+        vfMidBandMass (R - 1) := by
+    linarith
+  have hdiff :
+      vfMidFinishedMass (R + 1) - vfMidFinishedMass R =
+        vfMidBandMass R := by
+    linarith
+  unfold vfMidUpperLeftPhase
+  calc
+    ((1 - t) * vfMidFinishedMass R +
+          t * vfMidFinishedMass (R + 1)) -
+        ((1 - t) * vfMidFinishedMass (R - 1) +
+          t * vfMidFinishedMass (R - 1 + 1))
+        =
+      (1 - t) * (vfMidFinishedMass R - vfMidFinishedMass (R - 1)) +
+        t * (vfMidFinishedMass (R + 1) - vfMidFinishedMass R) := by
+          rw [hpredSucc]
+          ring
+    _ = (1 - t) * vfMidBandMass (R - 1) +
+          t * vfMidBandMass R := by
+            rw [hdiffPred, hdiff]
+
 /-- Geometric phase alias: connecting upper-left VF corners is the lag
 structure.  The terminology refers to the corner geometry, not the sign of an
 index shift. -/
