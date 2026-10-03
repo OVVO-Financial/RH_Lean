@@ -226,6 +226,7 @@ jobs:
           import «research.VF_MID_SIGNED_SEAT_CHARGE»
           import «research.VF_MID_RECURSIVE_CHILD_INJECTIVE»
           import «research.VF_MID_RECURSIVE_SCALE_DESCENT»
+          import «research.VF_MID_ADVERSARIAL_PROOF_FUZZER»
           import «research.VF_MID_RECURSIVE_REMAINDER_BOUND»
           import «research.VF_MID_AGGREGATE_CHILD_FORCING»
           import «research.VF_MID_ENDPOINT_TRIGGER_DICTIONARY»
