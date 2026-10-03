@@ -92,7 +92,7 @@ theorem realPart_realPairToComplex_sq_neg_both (x y : ℝ) :
     ((stableFarRealPairToComplex (-x, -y)) ^ 2).re =
       ((stableFarRealPairToComplex (x, y)) ^ 2).re := by
   rw [stableFarRealPairToComplex_neg_both]
-  ring
+  rw [neg_sq]
 
 /-! ## Nonnegative Mellin amplitude scaling of zero-target sectors -/
 
