@@ -95,6 +95,28 @@ def nnsOneBlockCrossExcess (R : ℕ) : ℝ :=
 def nnsOneBlockTotalPairMass (R : ℕ) : ℝ :=
   nnsOneBlockCoMass R + nnsOneBlockDivergentMass R
 
+/-- Squarefree mass of the historical tail.  Since Mobius is in {-1,0,1},
+this is exactly Fred's `Q_R^-`. -/
+def nnsOneBlockOldSquarefreeMass (R : ℕ) : ℝ :=
+  ∑ n ∈ nnsOneBlockOldTailCarrier R, (realMoebiusStep n) ^ 2
+
+/-- Squarefree mass of the root atom plus the new square block.  This is
+exactly Fred's `Q_R^+`. -/
+def nnsOneBlockUpdateSquarefreeMass (R : ℕ) : ℝ :=
+  (realMoebiusStep R) ^ 2 +
+    ∑ m ∈ canonicalSquareBlock R, (realCanonicalMoebiusWeight m) ^ 2
+
+/-- Dimensionless historical signed bias `alpha_R = C_R / Q_R^-`, with the
+same zero-denominator convention as the NNS normalization. -/
+def nnsOneBlockAlpha (R : ℕ) : ℝ :=
+  if nnsOneBlockOldSquarefreeMass R = 0 then 0
+  else nnsOneBlockOldTailMass R / nnsOneBlockOldSquarefreeMass R
+
+/-- Dimensionless inherited-block signed bias `beta_R = U_R / Q_R^+`. -/
+def nnsOneBlockBeta (R : ℕ) : ℝ :=
+  if nnsOneBlockUpdateSquarefreeMass R = 0 then 0
+  else nnsOneBlockUpdateMass R / nnsOneBlockUpdateSquarefreeMass R
+
 def nnsOneBlockNormalizedCovariance (R : ℕ) : ℝ :=
   nnsZeroTargetNormalizedCovariance
     (nnsOneBlockCoMass R) (nnsOneBlockDivergentMass R)
@@ -269,6 +291,194 @@ theorem nnsOneBlockNormalizedCovariance_mul_total (R : ℕ) :
   rw [nnsZeroTargetNormalizedCovariance_mul_total
     (nnsOneBlockCoMass_nonneg R) (nnsOneBlockDivergentMass_nonneg R)]
   exact nnsOneBlockCo_sub_div_eq_crossExcess R
+
+private theorem abs_realMoebiusStep_eq_sq_nnsOneBlock (n : ℕ) :
+    |realMoebiusStep n| = (realMoebiusStep n) ^ 2 := by
+  rcases ArithmeticFunction.moebius_eq_or n with h | h | h <;>
+    simp [realMoebiusStep, h]
+
+private theorem abs_nnsOneBlockOldTailEvent_eq_sq (n : ℕ) :
+    |nnsOneBlockOldTailEvent n| = (realMoebiusStep n) ^ 2 := by
+  unfold nnsOneBlockOldTailEvent
+  rw [abs_neg, abs_realMoebiusStep_eq_sq_nnsOneBlock]
+
+private theorem abs_nnsOneBlockRootUpdateEvent_eq_sq (R : ℕ) :
+    |nnsOneBlockRootUpdateEvent R| = (realMoebiusStep R) ^ 2 := by
+  unfold nnsOneBlockRootUpdateEvent
+  exact abs_realMoebiusStep_eq_sq_nnsOneBlock R
+
+private theorem abs_nnsOneBlockSquareUpdateEvent_eq_sq (m : ℕ) :
+    |nnsOneBlockSquareUpdateEvent m| =
+      (realCanonicalMoebiusWeight m) ^ 2 := by
+  unfold nnsOneBlockSquareUpdateEvent
+  rw [abs_neg]
+  simpa [realCanonicalMoebiusWeight, realMoebiusStep] using
+    abs_realMoebiusStep_eq_sq_nnsOneBlock m
+
+/-- **Closed denominator formula.**  The total target-zero NNS mass of the
+literal old-tail x current-update rectangle factors exactly as
+`Q_R^- * Q_R^+`. -/
+theorem nnsOneBlockTotalPairMass_eq_squarefreeMass_mul (R : ℕ) :
+    nnsOneBlockTotalPairMass R =
+      nnsOneBlockOldSquarefreeMass R *
+        nnsOneBlockUpdateSquarefreeMass R := by
+  have hroot :
+      (∑ n ∈ nnsOneBlockOldTailCarrier R,
+          zeroTargetCoPartialPair
+            (nnsOneBlockOldTailEvent n)
+            (nnsOneBlockRootUpdateEvent R)) +
+        (∑ n ∈ nnsOneBlockOldTailCarrier R,
+          zeroTargetDivergentPair
+            (nnsOneBlockOldTailEvent n)
+            (nnsOneBlockRootUpdateEvent R)) =
+      nnsOneBlockOldSquarefreeMass R * (realMoebiusStep R) ^ 2 := by
+    rw [← Finset.sum_add_distrib]
+    calc
+      (∑ n ∈ nnsOneBlockOldTailCarrier R,
+          (zeroTargetCoPartialPair
+              (nnsOneBlockOldTailEvent n)
+              (nnsOneBlockRootUpdateEvent R) +
+            zeroTargetDivergentPair
+              (nnsOneBlockOldTailEvent n)
+              (nnsOneBlockRootUpdateEvent R))) =
+        ∑ n ∈ nnsOneBlockOldTailCarrier R,
+          |nnsOneBlockOldTailEvent n| *
+            |nnsOneBlockRootUpdateEvent R| := by
+              apply Finset.sum_congr rfl
+              intro n _hn
+              exact zeroTargetCoPartial_add_divergent_eq_abs_mul_abs _ _
+      _ = ∑ n ∈ nnsOneBlockOldTailCarrier R,
+          (realMoebiusStep n) ^ 2 * (realMoebiusStep R) ^ 2 := by
+              apply Finset.sum_congr rfl
+              intro n _hn
+              rw [abs_nnsOneBlockOldTailEvent_eq_sq,
+                abs_nnsOneBlockRootUpdateEvent_eq_sq]
+      _ = nnsOneBlockOldSquarefreeMass R *
+          (realMoebiusStep R) ^ 2 := by
+              unfold nnsOneBlockOldSquarefreeMass
+              rw [Finset.sum_mul]
+  have hblock :
+      (∑ n ∈ nnsOneBlockOldTailCarrier R,
+          ∑ m ∈ canonicalSquareBlock R,
+            zeroTargetCoPartialPair
+              (nnsOneBlockOldTailEvent n)
+              (nnsOneBlockSquareUpdateEvent m)) +
+        (∑ n ∈ nnsOneBlockOldTailCarrier R,
+          ∑ m ∈ canonicalSquareBlock R,
+            zeroTargetDivergentPair
+              (nnsOneBlockOldTailEvent n)
+              (nnsOneBlockSquareUpdateEvent m)) =
+      nnsOneBlockOldSquarefreeMass R *
+        (∑ m ∈ canonicalSquareBlock R,
+          (realCanonicalMoebiusWeight m) ^ 2) := by
+    rw [← Finset.sum_add_distrib]
+    calc
+      (∑ n ∈ nnsOneBlockOldTailCarrier R,
+          ((∑ m ∈ canonicalSquareBlock R,
+              zeroTargetCoPartialPair
+                (nnsOneBlockOldTailEvent n)
+                (nnsOneBlockSquareUpdateEvent m)) +
+            ∑ m ∈ canonicalSquareBlock R,
+              zeroTargetDivergentPair
+                (nnsOneBlockOldTailEvent n)
+                (nnsOneBlockSquareUpdateEvent m))) =
+        ∑ n ∈ nnsOneBlockOldTailCarrier R,
+          ∑ m ∈ canonicalSquareBlock R,
+            (zeroTargetCoPartialPair
+                (nnsOneBlockOldTailEvent n)
+                (nnsOneBlockSquareUpdateEvent m) +
+              zeroTargetDivergentPair
+                (nnsOneBlockOldTailEvent n)
+                (nnsOneBlockSquareUpdateEvent m)) := by
+              apply Finset.sum_congr rfl
+              intro n _hn
+              rw [Finset.sum_add_distrib]
+      _ = ∑ n ∈ nnsOneBlockOldTailCarrier R,
+          ∑ m ∈ canonicalSquareBlock R,
+            |nnsOneBlockOldTailEvent n| *
+              |nnsOneBlockSquareUpdateEvent m| := by
+              apply Finset.sum_congr rfl
+              intro n _hn
+              apply Finset.sum_congr rfl
+              intro m _hm
+              exact zeroTargetCoPartial_add_divergent_eq_abs_mul_abs _ _
+      _ = ∑ n ∈ nnsOneBlockOldTailCarrier R,
+          ∑ m ∈ canonicalSquareBlock R,
+            (realMoebiusStep n) ^ 2 *
+              (realCanonicalMoebiusWeight m) ^ 2 := by
+              apply Finset.sum_congr rfl
+              intro n _hn
+              apply Finset.sum_congr rfl
+              intro m _hm
+              rw [abs_nnsOneBlockOldTailEvent_eq_sq,
+                abs_nnsOneBlockSquareUpdateEvent_eq_sq]
+      _ = ∑ n ∈ nnsOneBlockOldTailCarrier R,
+          (realMoebiusStep n) ^ 2 *
+            (∑ m ∈ canonicalSquareBlock R,
+              (realCanonicalMoebiusWeight m) ^ 2) := by
+              apply Finset.sum_congr rfl
+              intro n _hn
+              rw [Finset.mul_sum]
+      _ = nnsOneBlockOldSquarefreeMass R *
+          (∑ m ∈ canonicalSquareBlock R,
+            (realCanonicalMoebiusWeight m) ^ 2) := by
+              unfold nnsOneBlockOldSquarefreeMass
+              rw [Finset.sum_mul]
+  unfold nnsOneBlockTotalPairMass nnsOneBlockCoMass
+    nnsOneBlockDivergentMass nnsOneBlockUpdateSquarefreeMass
+  calc
+    _ =
+      ((∑ n ∈ nnsOneBlockOldTailCarrier R,
+          zeroTargetCoPartialPair
+            (nnsOneBlockOldTailEvent n)
+            (nnsOneBlockRootUpdateEvent R)) +
+        (∑ n ∈ nnsOneBlockOldTailCarrier R,
+          zeroTargetDivergentPair
+            (nnsOneBlockOldTailEvent n)
+            (nnsOneBlockRootUpdateEvent R))) +
+      ((∑ n ∈ nnsOneBlockOldTailCarrier R,
+          ∑ m ∈ canonicalSquareBlock R,
+            zeroTargetCoPartialPair
+              (nnsOneBlockOldTailEvent n)
+              (nnsOneBlockSquareUpdateEvent m)) +
+        (∑ n ∈ nnsOneBlockOldTailCarrier R,
+          ∑ m ∈ canonicalSquareBlock R,
+            zeroTargetDivergentPair
+              (nnsOneBlockOldTailEvent n)
+              (nnsOneBlockSquareUpdateEvent m))) := by ring
+    _ = nnsOneBlockOldSquarefreeMass R * (realMoebiusStep R) ^ 2 +
+        nnsOneBlockOldSquarefreeMass R *
+          (∑ m ∈ canonicalSquareBlock R,
+            (realCanonicalMoebiusWeight m) ^ 2) := by
+          rw [hroot, hblock]
+    _ = nnsOneBlockOldSquarefreeMass R *
+        ((realMoebiusStep R) ^ 2 +
+          ∑ m ∈ canonicalSquareBlock R,
+            (realCanonicalMoebiusWeight m) ^ 2) := by ring
+
+/-- **The global closed form.**  The literal target-zero NNS covariance is
+exactly the product of the normalized historical and inherited-block biases:
+`rho_R = alpha_R * beta_R`.  No statistical or asymptotic assumption enters. -/
+theorem nnsOneBlockNormalizedCovariance_eq_alpha_mul_beta (R : ℕ) :
+    nnsOneBlockNormalizedCovariance R =
+      nnsOneBlockAlpha R * nnsOneBlockBeta R := by
+  unfold nnsOneBlockNormalizedCovariance nnsZeroTargetNormalizedCovariance
+  rw [show nnsOneBlockCoMass R + nnsOneBlockDivergentMass R =
+      nnsOneBlockTotalPairMass R by rfl,
+    nnsOneBlockTotalPairMass_eq_squarefreeMass_mul,
+    nnsOneBlockCo_sub_div_eq_crossExcess,
+    nnsOneBlockCrossExcess_eq_tail_mul_update]
+  by_cases hOld : nnsOneBlockOldSquarefreeMass R = 0
+  · simp [nnsOneBlockAlpha, nnsOneBlockBeta, hOld]
+  · by_cases hNew : nnsOneBlockUpdateSquarefreeMass R = 0
+    · simp [nnsOneBlockAlpha, nnsOneBlockBeta, hNew]
+    · have hprod :
+          nnsOneBlockOldSquarefreeMass R *
+              nnsOneBlockUpdateSquarefreeMass R ≠ 0 :=
+        mul_ne_zero hOld hNew
+      rw [if_neg hprod]
+      simp only [nnsOneBlockAlpha, nnsOneBlockBeta, hOld, hNew, if_false]
+      field_simp
 
 /-- The oriented real old-tail sum casts exactly to the repository's hard
 rough correlation. -/
@@ -467,14 +677,6 @@ is the only cross term left in the literal #877 one-block NNS carrier. -/
 def nnsOneBlockUnresolvedCrossParentRemainder (R : ℕ) : ℝ :=
   nnsOneBlockCrossExcess R - nnsOneBlockIdentifiedDiagonalExcess R
 
-theorem nnsOneBlockCrossExcess_eq_diagonal_add_unresolved
-    (R : ℕ) :
-    nnsOneBlockCrossExcess R =
-      nnsOneBlockIdentifiedDiagonalExcess R +
-        nnsOneBlockUnresolvedCrossParentRemainder R := by
-  unfold nnsOneBlockUnresolvedCrossParentRemainder
-  ring
-
 /-- **Exact one-block cross-parent zero-target dictionary.**
 
 After the literal #877 cross term is grouped by the canonical parent of each
@@ -525,6 +727,27 @@ theorem nnsOneBlockUnresolvedCrossParentRemainder_eq_zeroTargetParentLedger
         -(∑ n ∈ nnsOneBlockOldTailCarrier R, realMoebiusStep n) := by
     unfold nnsOneBlockOldTailMass nnsOneBlockOldTailEvent
     rw [Finset.sum_neg_distrib]
+  have hneg :
+      (∑ c ∈ Finset.Icc 1 (oldParentCutoff R),
+        -realMoebiusStep c *
+          ((canonicalParentFiber R c).card : ℝ)) =
+        -(∑ c ∈ Finset.Icc 1 (oldParentCutoff R),
+          ((canonicalParentFiber R c).card : ℝ) *
+            realMoebiusStep c) := by
+    calc
+      (∑ c ∈ Finset.Icc 1 (oldParentCutoff R),
+        -realMoebiusStep c *
+          ((canonicalParentFiber R c).card : ℝ)) =
+        ∑ c ∈ Finset.Icc 1 (oldParentCutoff R),
+          -(((canonicalParentFiber R c).card : ℝ) *
+            realMoebiusStep c) := by
+              apply Finset.sum_congr rfl
+              intro c _hc
+              ring
+      _ = -(∑ c ∈ Finset.Icc 1 (oldParentCutoff R),
+          ((canonicalParentFiber R c).card : ℝ) *
+            realMoebiusStep c) := by
+              rw [Finset.sum_neg_distrib]
   have hupdate :
       nnsOneBlockUpdateMass R =
         realMoebiusStep R +
@@ -532,10 +755,7 @@ theorem nnsOneBlockUnresolvedCrossParentRemainder_eq_zeroTargetParentLedger
             ((canonicalParentFiber R c).card : ℝ) *
               realMoebiusStep c := by
     unfold nnsOneBlockUpdateMass nnsOneBlockRootUpdateEvent
-    rw [hblock, sub_eq_add_neg, ← Finset.sum_neg_distrib]
-    congr 1
-    apply Finset.sum_congr rfl
-    intro c _hc
+    rw [hblock, hneg]
     ring
   have hroot :
       (∑ n ∈ nnsOneBlockOldTailCarrier R,
@@ -571,6 +791,14 @@ theorem nnsOneBlockUnresolvedCrossParentRemainder_eq_zeroTargetParentLedger
     htail, hupdate,
     nnsOneBlockIdentifiedDiagonalExcess_eq_neg_energy R hR,
     hroot, hparents]
+  ring
+
+theorem nnsOneBlockCrossExcess_eq_diagonal_add_unresolved
+    (R : ℕ) :
+    nnsOneBlockCrossExcess R =
+      nnsOneBlockIdentifiedDiagonalExcess R +
+        nnsOneBlockUnresolvedCrossParentRemainder R := by
+  unfold nnsOneBlockUnresolvedCrossParentRemainder
   ring
 
 private theorem abs_realMoebiusStep_le_one_nnsOneBlock (n : ℕ) :
@@ -620,23 +848,6 @@ theorem oneBlockCorrelationInner_eq_nnsCrossExcess
     ← Complex.ofReal_mul, Complex.ofReal_re]
   exact (nnsOneBlockCrossExcess_eq_tail_mul_update R).symm
 
-/-- **Normalized NNS form of the exact #877 one-block energy step.**
-
-This is the target requested by the covariance-normalization attack: the only
-off-diagonal term is the dimensionless target-zero NNS coefficient multiplied
-by the total physical co/divergent pair mass. -/
-theorem squareRootCanonicalRoughCorrelation_energy_step_oneBlock_nns
-    (R : ℕ) (hR : 2 ≤ R) :
-    ‖squareRootCanonicalRoughCorrelation (R + 1)‖ ^ 2 -
-        ‖squareRootCanonicalRoughCorrelation R‖ ^ 2 =
-      ‖canonicalMoebiusWeight R - canonicalTotalIncrement R‖ ^ 2 +
-        2 * nnsOneBlockNormalizedCovariance R *
-          nnsOneBlockTotalPairMass R := by
-  rw [squareRootCanonicalRoughCorrelation_energy_step_oneBlock R hR,
-    oneBlockCorrelationInner_eq_nnsCrossExcess R hR,
-    ← nnsOneBlockNormalizedCovariance_mul_total R]
-  ring
-
 /-- **Exact #877 energy step after extracting the physical dissipative
 diagonal.**  The only unsolved signed object is now the cross-parent remainder. -/
 theorem squareRootCanonicalRoughCorrelation_energy_step_oneBlock_diagonal_remainder
@@ -646,11 +857,11 @@ theorem squareRootCanonicalRoughCorrelation_energy_step_oneBlock_diagonal_remain
       ‖canonicalMoebiusWeight R - canonicalTotalIncrement R‖ ^ 2 +
         2 * nnsOneBlockIdentifiedDiagonalExcess R +
         2 * nnsOneBlockUnresolvedCrossParentRemainder R := by
-  rw [squareRootCanonicalRoughCorrelation_energy_step_oneBlock_nns
-      R (by omega)]
-  linear_combination
-    2 * nnsOneBlockNormalizedCovariance_mul_total R +
-      2 * nnsOneBlockCrossExcess_eq_diagonal_add_unresolved R
+  rw [squareRootCanonicalRoughCorrelation_energy_step_oneBlock
+      R (by omega),
+    oneBlockCorrelationInner_eq_nnsCrossExcess R (by omega),
+    nnsOneBlockCrossExcess_eq_diagonal_add_unresolved]
+  ring
 
 /-- **All non-RH-strength pieces removed.**  The negative identified diagonal
 can be dropped and the current-block self energy costs at most 9 R^2.  Any
@@ -668,5 +879,42 @@ theorem squareRootCanonicalRoughCorrelation_energy_step_le_unresolved
   have hdiag := nnsOneBlockIdentifiedDiagonalExcess_nonpos R hR
   have hupd := norm_sq_oneBlockUpdate_le_nine_root_sq R (by omega)
   linarith
+
+
+/-- **Normalized NNS form of the exact #877 one-block energy step.**
+
+This is the target requested by the covariance-normalization attack: the only
+off-diagonal term is the dimensionless target-zero NNS coefficient multiplied
+by the total physical co/divergent pair mass. -/
+theorem squareRootCanonicalRoughCorrelation_energy_step_oneBlock_nns
+    (R : ℕ) (hR : 2 ≤ R) :
+    ‖squareRootCanonicalRoughCorrelation (R + 1)‖ ^ 2 -
+        ‖squareRootCanonicalRoughCorrelation R‖ ^ 2 =
+      ‖canonicalMoebiusWeight R - canonicalTotalIncrement R‖ ^ 2 +
+        2 * nnsOneBlockNormalizedCovariance R *
+          nnsOneBlockTotalPairMass R := by
+  rw [squareRootCanonicalRoughCorrelation_energy_step_oneBlock R hR,
+    oneBlockCorrelationInner_eq_nnsCrossExcess R hR,
+    ← nnsOneBlockNormalizedCovariance_mul_total R]
+  ring
+
+/-- **Fred's closed-form one-block energy identity.**
+
+After the exact denominator factorization and `rho_R = alpha_R * beta_R`,
+the #877 recurrence is literally
+`U_R^2 + 2 alpha_R beta_R Q_R^- Q_R^+`.
+This theorem is an identity, not a contraction assumption. -/
+theorem squareRootCanonicalRoughCorrelation_energy_step_oneBlock_alpha_beta
+    (R : ℕ) (hR : 2 ≤ R) :
+    ‖squareRootCanonicalRoughCorrelation (R + 1)‖ ^ 2 -
+        ‖squareRootCanonicalRoughCorrelation R‖ ^ 2 =
+      ‖canonicalMoebiusWeight R - canonicalTotalIncrement R‖ ^ 2 +
+        2 * nnsOneBlockAlpha R * nnsOneBlockBeta R *
+          nnsOneBlockOldSquarefreeMass R *
+          nnsOneBlockUpdateSquarefreeMass R := by
+  rw [squareRootCanonicalRoughCorrelation_energy_step_oneBlock_nns R hR,
+    nnsOneBlockNormalizedCovariance_eq_alpha_mul_beta,
+    nnsOneBlockTotalPairMass_eq_squarefreeMass_mul]
+  ring
 
 end RHLean.Proof
