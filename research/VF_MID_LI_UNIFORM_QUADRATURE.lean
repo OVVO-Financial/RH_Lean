@@ -1,5 +1,4 @@
 import Mathlib
-import Mathlib.MeasureTheory.Integral.IntervalIntegral.TrapezoidalRule
 import «research.VF_MID_VON_KOCH_BRIDGE»
 
 /-!
