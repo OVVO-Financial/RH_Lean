@@ -17,6 +17,9 @@ on:
       - research/LI_FLOOR_PRIME_COUNT_FANTASY.lean
       - research/VF_MID_FLOOR_LI_DISCRETE_BACKLOG.lean
       - research/VF_MID_FLOOR_LI_SIGNED_POPULATION_BALANCE.lean
+      - research/VF_MID_FLOOR_LI_TRANSPORT_CANCELLATION.lean
+      - research/VF_MID_FLOOR_LI_TRANSPORT_MINING.md
+      - numerics/floor_li_transport/**
       - research/VF_MID_FLOOR_LI_CRITICAL_BALANCE.lean
       - research/VF_MID_ACTUAL_CRITICAL_OWNER_RECURSION.lean
       - research/VF_MID_FLOOR_LI_MEBOOT_MONTE_CARLO.md
@@ -174,6 +177,7 @@ jobs:
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.PRIME_DENSITY_LOG_TIGHTENING.olean research/PRIME_DENSITY_LOG_TIGHTENING.lean 2>&1 | tee prime-density-log-tightening.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.PRIME_DENSITY_PNT_LOG_BOUND.olean research/PRIME_DENSITY_PNT_LOG_BOUND.lean 2>&1 | tee prime-density-pnt-log-bound.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_FLOOR_LI_SIGNED_POPULATION_BALANCE.olean research/VF_MID_FLOOR_LI_SIGNED_POPULATION_BALANCE.lean 2>&1 | tee vf-mid-floor-li-signed-population-balance.log
+          lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_FLOOR_LI_TRANSPORT_CANCELLATION.olean research/VF_MID_FLOOR_LI_TRANSPORT_CANCELLATION.lean 2>&1 | tee vf-mid-floor-li-transport-cancellation.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.PRIME_DENSITY_INTEGRAL_TIGHTENING.olean research/PRIME_DENSITY_INTEGRAL_TIGHTENING.lean 2>&1 | tee prime-density-integral-tightening.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.EXACT_LI_DICKMAN_FORMAL.olean research/EXACT_LI_DICKMAN_FORMAL.lean 2>&1 | tee exact-li-dickman-formal.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.EXACT_LI_PURE_MODEL_CLOSURE.olean research/EXACT_LI_PURE_MODEL_CLOSURE.lean 2>&1 | tee exact-li-pure-model-closure.log
@@ -215,6 +219,7 @@ jobs:
           import «research.LI_FLOOR_PRIME_COUNT_FANTASY»
           import «research.VF_MID_FLOOR_LI_DISCRETE_BACKLOG»
           import «research.VF_MID_FLOOR_LI_SIGNED_POPULATION_BALANCE»
+          import «research.VF_MID_FLOOR_LI_TRANSPORT_CANCELLATION»
           import «research.VF_MID_FLOOR_LI_CRITICAL_BALANCE»
           import «research.VF_MID_ACTUAL_CRITICAL_OWNER_RECURSION»
           import «research.VF_MID_FLOOR_LI_DISCRETE_BACKLOG»
@@ -258,6 +263,9 @@ jobs:
           import «research.VF_MID_PHI_DIAGONAL_TRANSFER»
           #print axioms RHLean.Analysis.vfMidPrimeFloorLiBacklog_succ
           #print axioms RHLean.Analysis.vfMidFloorLiSignedMismatchMass_sq_eq_neg_dyadicPrimeDefect
+          #print axioms RHLean.Analysis.vfMidFloorLiActualBlockCorrection_eq_reference_sub_ownerCensus
+          #print axioms RHLean.Analysis.quadraticPerturbationStep_eq_boundaryIncrement
+          #print axioms RHLean.Analysis.vfMidSignedTransportPotential_diff
           #print axioms RHLean.Analysis.norm_vfMidFloorLiSignedMismatchMass_sub_moebiusAbel_lt_one
           #print axioms RHLean.Analysis.norm_vfMidFloorLiSignedPopulationBalance_sub_moebiusAbel_lt_one
           #print axioms RHLean.Analysis.primeSievePrimeIndicator_sub_pntDensity_eq_floorLi_forcing
