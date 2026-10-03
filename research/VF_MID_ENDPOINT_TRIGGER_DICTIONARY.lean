@@ -117,6 +117,68 @@ theorem vfMidSquareBandPrefixComposite_moebius_eq_one_of_cube
     ArithmeticFunction.moebius_apply_prime hq]
   norm_num
 
+/-- Cubic-depth prime-count decoder in signed Mobius currency. -/
+theorem vfMidSquareBandPrefixSurvivorMobiusMass_eq_composite_sub_prime_of_cube
+    {A R : ℕ} (hA : 3 ≤ A) (hAR : A ≤ R)
+    (hcube : (R + 1) ^ 2 ≤ (A + 1) ^ 3) :
+    vfMidSquareBandPrefixSurvivorMobiusMass A R =
+      ((vfMidSquareBandPrefixCompositeSurvivors A R).card : ℤ) -
+        (vfMidIntegerBlockPrimeSupply R : ℤ) := by
+  have hR2 : 2 ≤ R := by omega
+  rw [vfMidSquareBandPrefixSurvivorMobiusMass,
+    vfMidSquarePrefixWheelSurvivors_eq_prime_union_prefixComposite hR2 hAR,
+    Finset.sum_union
+      (vfMidSquareWheelPrimes_disjoint_prefixComposite A R)]
+  have hprime :
+      (∑ n ∈ vfMidSquareWheelPrimes R, μ n) =
+        -(vfMidIntegerBlockPrimeSupply R : ℤ) := by
+    calc
+      (∑ n ∈ vfMidSquareWheelPrimes R, μ n) =
+          ∑ _n ∈ vfMidSquareWheelPrimes R, (-1 : ℤ) := by
+            apply Finset.sum_congr rfl
+            intro n hn
+            have hnPrime : n.Prime := (Finset.mem_filter.mp hn).2
+            rw [ArithmeticFunction.moebius_apply_prime hnPrime]
+      _ = -((vfMidSquareWheelPrimes R).card : ℤ) := by simp
+      _ = -(vfMidIntegerBlockPrimeSupply R : ℤ) := by
+            unfold vfMidIntegerBlockPrimeSupply
+            rw [vfMidDirectPrimeBand_eq_squareWheelPrimes]
+  have hcomp :
+      (∑ n ∈ vfMidSquareBandPrefixCompositeSurvivors A R, μ n) =
+        ((vfMidSquareBandPrefixCompositeSurvivors A R).card : ℤ) := by
+    calc
+      (∑ n ∈ vfMidSquareBandPrefixCompositeSurvivors A R, μ n) =
+          ∑ _n ∈ vfMidSquareBandPrefixCompositeSurvivors A R, (1 : ℤ) := by
+            apply Finset.sum_congr rfl
+            intro n hn
+            exact vfMidSquareBandPrefixComposite_moebius_eq_one_of_cube
+              hA hAR hcube hn
+      _ = ((vfMidSquareBandPrefixCompositeSurvivors A R).card : ℤ) := by simp
+  rw [hprime, hcomp]
+  ring
+
+/-- Under the cubic depth-two condition, unsigned survivor population and
+signed survivor Mobius mass recover the exact block prime supply. -/
+theorem two_mul_vfMidIntegerBlockPrimeSupply_eq_prefixSurvivors_sub_mobiusMass_of_cube
+    {A R : ℕ} (hA : 3 ≤ A) (hAR : A ≤ R)
+    (hcube : (R + 1) ^ 2 ≤ (A + 1) ^ 3) :
+    2 * (vfMidIntegerBlockPrimeSupply R : ℤ) =
+      ((vfMidSquarePrefixWheelSurvivors A R).card : ℤ) -
+        vfMidSquareBandPrefixSurvivorMobiusMass A R := by
+  have hpart :=
+    vfMidSquarePrefixWheelSurvivors_card_eq_prime_add_prefixComposite
+      A R (by omega) hAR
+  have hmass :=
+    vfMidSquareBandPrefixSurvivorMobiusMass_eq_composite_sub_prime_of_cube
+      hA hAR hcube
+  have hpartZ :
+      ((vfMidSquarePrefixWheelSurvivors A R).card : ℤ) =
+        (vfMidIntegerBlockPrimeSupply R : ℤ) +
+          ((vfMidSquareBandPrefixCompositeSurvivors A R).card : ℤ) := by
+    exact_mod_cast hpart
+  rw [hmass, hpartZ]
+  ring
+
 /-- Pointwise affine VF/Mobius dictionary under the full cubic depth-two
 condition. This is the form that allows the frozen prefix to be much smaller
 than the physical square root. -/
@@ -245,6 +307,31 @@ theorem vfMidOddCompositeTrackingDefect_eq_frozenWheel_add_half_moebius
   rw [vfMidSquareBandPrimes_card_eq_integerBlockPrimeSupply R] at hdef
   linarith
 
+/-- Direct VF tracking defect on the cubic frozen-wheel carrier. -/
+theorem vfMidOddCompositeTrackingDefect_eq_frozenWheel_add_half_moebius_of_cube
+    {A R : ℕ}
+    (hA : 3 ≤ A) (hAR : A ≤ R)
+    (hcube : (R + 1) ^ 2 ≤ (A + 1) ^ 3) :
+    vfMidOddCompositeTrackingDefect R =
+      vfMidBandMass R -
+        (1 / 2 : ℝ) * ((vfMidSquarePrefixWheelSurvivors A R).card : ℝ) +
+        (1 / 2 : ℝ) * vfMidSquareBandPrefixSurvivorMobiusMassReal A R := by
+  have hdecodeZ :=
+    two_mul_vfMidIntegerBlockPrimeSupply_eq_prefixSurvivors_sub_mobiusMass_of_cube
+      hA hAR hcube
+  have hdecode :
+      2 * (vfMidIntegerBlockPrimeSupply R : ℝ) =
+        ((vfMidSquarePrefixWheelSurvivors A R).card : ℝ) -
+          vfMidSquareBandPrefixSurvivorMobiusMassReal A R := by
+    rw [vfMidSquareBandPrefixSurvivorMobiusMassReal_eq_cast]
+    exact_mod_cast hdecodeZ
+  have hdef :=
+    vfMidOddCompositeTrackingDefect_eq_neg_bandError
+      R (by omega : 2 ≤ R)
+  unfold vfMidSquareBandError at hdef
+  rw [vfMidSquareBandPrimes_card_eq_integerBlockPrimeSupply R] at hdef
+  linarith
+
 private theorem sum_vfMidBandMass_Ico_eq_dyadicVFMass
     {A B : ℕ} (hA : 2 ≤ A) (hAB : A ≤ B) :
     (∑ r ∈ Finset.Ico A B, vfMidBandMass r) =
@@ -291,6 +378,64 @@ theorem vfMidDyadicVFTrackingDefect_eq_frozenWheel_add_half_moebius
           exact
             vfMidOddCompositeTrackingDefect_eq_frozenWheel_add_half_moebius
               hA hAr (hrB.trans_le hBA)
+    _ =
+        (∑ r ∈ Finset.Ico A B, vfMidBandMass r) -
+          (1 / 2 : ℝ) *
+            (∑ r ∈ Finset.Ico A B,
+              ((vfMidSquarePrefixWheelSurvivors A r).card : ℝ)) +
+          (1 / 2 : ℝ) *
+            vfMidDyadicPrefixSurvivorMobiusMassReal A B := by
+          unfold vfMidDyadicPrefixSurvivorMobiusMassReal
+          rw [Finset.sum_add_distrib, Finset.sum_sub_distrib,
+            ← Finset.mul_sum, ← Finset.mul_sum]
+          ring
+    _ = vfMidDyadicVFMass A B -
+          (1 / 2 : ℝ) * vfMidDyadicPrefixSupply A A B +
+          (1 / 2 : ℝ) * vfMidDyadicPrefixSurvivorMobiusMassReal A B := by
+          rw [sum_vfMidBandMass_Ico_eq_dyadicVFMass (by omega) hAB,
+            vfMidDyadicPrefixSupply_eq_sum_prefixWheelCards A A B hAB]
+
+/-- Cubic-run frozen-wheel/Mobius dictionary.
+
+The single condition B^2 <= (A+1)^3 makes every block A <= r < B
+depth two relative to the same frozen A-prefix. This can cover a run much
+longer than a subdoubling interval while keeping the unresolved arithmetic
+on the signed prime/semiprime carrier. -/
+theorem vfMidDyadicVFTrackingDefect_eq_frozenWheel_add_half_moebius_of_cubeRun
+    {A B : ℕ}
+    (hA : 3 ≤ A) (hAB : A ≤ B)
+    (hBcube : B ^ 2 ≤ (A + 1) ^ 3) :
+    vfMidDyadicVFTrackingDefect A B =
+      vfMidDyadicVFMass A B -
+        (1 / 2 : ℝ) * vfMidDyadicPrefixSupply A A B +
+        (1 / 2 : ℝ) * vfMidDyadicPrefixSurvivorMobiusMassReal A B := by
+  have htrack :=
+    vfMidOddDyadicCompositeTrackingDefect_eq_vfTrackingDefect
+      (A := A) (B := B) (by omega : 2 ≤ A)
+      (by omega : 2 ≤ B) hAB
+  calc
+    vfMidDyadicVFTrackingDefect A B =
+        ∑ r ∈ Finset.Ico A B, vfMidOddCompositeTrackingDefect r := by
+          symm
+          simpa [vfMidOddDyadicCompositeTrackingDefect] using htrack
+    _ = ∑ r ∈ Finset.Ico A B,
+          (vfMidBandMass r -
+            (1 / 2 : ℝ) *
+              ((vfMidSquarePrefixWheelSurvivors A r).card : ℝ) +
+            (1 / 2 : ℝ) *
+              vfMidSquareBandPrefixSurvivorMobiusMassReal A r) := by
+          apply Finset.sum_congr rfl
+          intro r hr
+          have hAr : A ≤ r := (Finset.mem_Ico.mp hr).1
+          have hrB : r < B := (Finset.mem_Ico.mp hr).2
+          have hr1B : r + 1 ≤ B := by omega
+          have hsquares : (r + 1) ^ 2 ≤ B ^ 2 :=
+            Nat.pow_le_pow_left hr1B 2
+          have hcube : (r + 1) ^ 2 ≤ (A + 1) ^ 3 :=
+            hsquares.trans hBcube
+          exact
+            vfMidOddCompositeTrackingDefect_eq_frozenWheel_add_half_moebius_of_cube
+              hA hAr hcube
     _ =
         (∑ r ∈ Finset.Ico A B, vfMidBandMass r) -
           (1 / 2 : ℝ) *
