@@ -495,19 +495,22 @@ theorem integral_vfLogHarmonicKernel
       simpa [vfInvLogDeriv] using
         (Real.hasDerivAt_log hx0).inv hlog0
     have hneg := hinv.neg
-    convert hneg using 1
-    · rfl
-    · unfold vfLogHarmonicKernel vfInvLogDeriv
-      field_simp [hx0, hlog0]
-      ring
+    simpa [vfLogHarmonicKernel, vfInvLogDeriv] using hneg
   have hcont :
       ContinuousOn vfLogHarmonicKernel (Set.uIcc a b) := by
     intro x hx
-    exact (hderiv x hx).continuousAt.continuousWithinAt
+    rw [Set.uIcc_of_le hab] at hx
+    have hx1 : (1 : ℝ) < x := ha.trans_le hx.1
+    have hc := (hasDerivAt_vfInvLogDeriv hx1).continuousAt.neg
+    simpa [vfLogHarmonicKernel, vfInvLogDeriv] using
+      hc.continuousWithinAt
   have h :=
     intervalIntegral.integral_eq_sub_of_hasDerivAt
       hderiv hcont.intervalIntegrable
-  simpa using h
+  calc
+    (∫ x in a..b, vfLogHarmonicKernel x) =
+        -(Real.log b)⁻¹ - (-(Real.log a)⁻¹) := h
+    _ = (Real.log a)⁻¹ - (Real.log b)⁻¹ := by ring
 
 theorem vfLogHarmonicKernel_antitoneOn_two :
     AntitoneOn vfLogHarmonicKernel (Ici (2 : ℝ)) := by
@@ -599,7 +602,7 @@ theorem sum_vfLogHarmonicKernel_Ico_le
         (Real.log 2)⁻¹ := by
     rw [hint]
     have hinv :
-        0 ≤ (Real.log (((R - 1 : ℕ) : ℝ))⁻¹ :=
+        0 ≤ (Real.log (((R - 1 : ℕ) : ℝ)))⁻¹ :=
       inv_nonneg.mpr hlogRm1.le
     linarith
   rw [Finset.sum_eq_sum_Ico_succ_bot h2R]
@@ -642,7 +645,6 @@ theorem sum_abs_vfMidBandQuadratureError_le_uniform
       _ = 108 * vfLogHarmonicKernel (r : ℝ) := by
         unfold vfLogHarmonicKernel
         field_simp [hrpos.ne', hlogr.ne']
-        ring
   calc
     (∑ r ∈ Finset.Ico 2 R,
         |vfMidBandQuadratureError r|)
@@ -700,7 +702,7 @@ theorem abs_vfMidLiError_sq_le_uniform
         ≤ |vfMidLiError 4| +
             |∑ r ∈ Finset.Ico 2 R,
               vfMidBandQuadratureError r| :=
-      abs_add _ _
+      abs_add_le _ _
     _ ≤ |vfMidLiError 4| +
           ∑ r ∈ Finset.Ico 2 R,
             |vfMidBandQuadratureError r| := by
