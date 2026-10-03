@@ -268,6 +268,51 @@ theorem vfMidUpper_sub_backwardShiftedCornerChannel
   exact vfMidUpperLeftPhase_backwardShift_telescope
     R k hR hk (vfMidCornerParameter R x)
 
+
+/-- Exact total width of a multi-shift VF fan.  The full distance from the
+backward wall to the forward wall is the sum of the genuine backward and
+forward VF phase telescopes. -/
+theorem vfMidShiftedCornerChannel_exact_width
+    (R kminus kplus : ℕ) (hR : 2 ≤ R)
+    (hkminus : kminus ≤ R - 2) (x : ℝ) :
+    vfMidForwardShiftedCornerChannel kplus R x -
+        vfMidBackwardShiftedCornerChannel kminus R x =
+      (∑ j ∈ Finset.range kminus,
+        ((1 - vfMidCornerParameter R x) *
+            vfMidBandMass (R - kminus + j) +
+          vfMidCornerParameter R x *
+            vfMidBandMass (R - kminus + j + 1))) +
+      (∑ j ∈ Finset.range kplus,
+        ((1 - vfMidCornerParameter R x) *
+            vfMidBandMass (R + j) +
+          vfMidCornerParameter R x *
+            vfMidBandMass (R + j + 1))) := by
+  have hback :=
+    vfMidUpper_sub_backwardShiftedCornerChannel
+      R kminus hR hkminus x
+  have hfwd :=
+    vfMidForwardShiftedCornerChannel_sub_upper
+      R kplus hR x
+  calc
+    vfMidForwardShiftedCornerChannel kplus R x -
+          vfMidBackwardShiftedCornerChannel kminus R x =
+        (vfMidUpperCornerChannel R x -
+          vfMidBackwardShiftedCornerChannel kminus R x) +
+        (vfMidForwardShiftedCornerChannel kplus R x -
+          vfMidUpperCornerChannel R x) := by ring
+    _ =
+      (∑ j ∈ Finset.range kminus,
+        ((1 - vfMidCornerParameter R x) *
+            vfMidBandMass (R - kminus + j) +
+          vfMidCornerParameter R x *
+            vfMidBandMass (R - kminus + j + 1))) +
+      (∑ j ∈ Finset.range kplus,
+        ((1 - vfMidCornerParameter R x) *
+            vfMidBandMass (R + j) +
+          vfMidCornerParameter R x *
+            vfMidBandMass (R + j + 1))) := by
+        rw [hback, hfwd]
+
 /-- Geometric phase alias: connecting upper-left VF corners is the lag
 structure.  The terminology refers to the corner geometry, not the sign of an
 index shift. -/
