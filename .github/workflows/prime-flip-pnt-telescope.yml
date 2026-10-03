@@ -317,6 +317,9 @@ jobs:
           #print axioms RHLean.Analysis.vfMidBandMass_le_five_mul_base_div_log
           #print axioms RHLean.Analysis.vfMidFinishedMass_lag_excursions_le_rhScale
           #print axioms RHLean.Analysis.vfMidCanonicalOuterCorners_rhSafe
+          #print axioms RHLean.Analysis.vfMidSquareEndpointVonKochBoundedFromFour_of_laggedCornerBracket
+          #print axioms RHLean.Analysis.vfMidSquareEndpointVonKochBounded_of_laggedCornerBracket
+          #print axioms RHLean.Analysis.riemannHypothesis_of_laggedCornerBracket
           #print axioms RHLean.Analysis.vfMidSquareEndpointVonKochBounded_of_outerCornerBracket
           #print axioms RHLean.Analysis.vfMidOuterCornerEndpointBracket_of_primeCount_envelopes
           #print axioms RHLean.Analysis.primeCountingRealLowerEnvelope_max
