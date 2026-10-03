@@ -41,6 +41,7 @@ on:
       - research/VF_MID_AGGREGATE_CHILD_FORCING.lean
       - research/VF_MID_ENDPOINT_TRIGGER_DICTIONARY.lean
       - research/VF_MID_PHYSICAL_FORCING_MOBIUS_DECODER.lean
+      - research/VF_MID_PHYSICAL_Q2_CUBIC_PHASE.lean
       - research/ZERO_TARGET_PARTIAL_MOMENT_COVARIANCE.lean
       - research/ZERO_TARGET_COVARIANCE_OWNER_DESCENT.lean
       - research/VF_MID_SQUARE_THETA_NATIVE_DESCENT.lean
@@ -187,6 +188,7 @@ jobs:
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.ZERO_TARGET_PARTIAL_MOMENT_COVARIANCE.olean research/ZERO_TARGET_PARTIAL_MOMENT_COVARIANCE.lean 2>&1 | tee vf-mid-zero-target-partial-moment-covariance.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.ZERO_TARGET_COVARIANCE_OWNER_DESCENT.olean research/ZERO_TARGET_COVARIANCE_OWNER_DESCENT.lean 2>&1 | tee vf-mid-zero-target-covariance-owner-descent.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_PHYSICAL_FORCING_MOBIUS_DECODER.olean research/VF_MID_PHYSICAL_FORCING_MOBIUS_DECODER.lean 2>&1 | tee vf-mid-physical-forcing-mobius-decoder.log
+          lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_PHYSICAL_Q2_CUBIC_PHASE.olean research/VF_MID_PHYSICAL_Q2_CUBIC_PHASE.lean 2>&1 | tee vf-mid-physical-q2-cubic-phase.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_SQUARE_THETA_NATIVE_DESCENT.olean research/VF_MID_SQUARE_THETA_NATIVE_DESCENT.lean 2>&1 | tee vf-mid-square-theta-native-descent.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.PRIME_WHEEL_ROUGH_SEAT_SQRT_SPECIALIZATION.olean research/PRIME_WHEEL_ROUGH_SEAT_SQRT_SPECIALIZATION.lean 2>&1 | tee prime-wheel-rough-seat-sqrt-specialization.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_ACTUAL_PRIME_ROOT_SQUARE_CONTRACTION.olean research/VF_MID_ACTUAL_PRIME_ROOT_SQUARE_CONTRACTION.lean 2>&1 | tee vf-mid-actual-prime-root-square-contraction.log
@@ -224,6 +226,7 @@ jobs:
           import «research.VF_MID_AGGREGATE_CHILD_FORCING»
           import «research.VF_MID_ENDPOINT_TRIGGER_DICTIONARY»
           import «research.VF_MID_PHYSICAL_FORCING_MOBIUS_DECODER»
+          import «research.VF_MID_PHYSICAL_Q2_CUBIC_PHASE»
           import «research.VF_MID_SQUARE_THETA_NATIVE_DESCENT»
           import «research.VF_MID_ACTUAL_PRIME_ROOT_SQUARE_CONTRACTION»
           import «research.VF_MID_PROXY_ENERGY_PULL»
@@ -659,6 +662,12 @@ jobs:
           #print axioms RHLean.Analysis.reciprocalCenteredPrimeFrequencyWeight_mul_freshPrime
           #print axioms RHLean.Analysis.vfMidPrimeCube_le_iff_owner_le_squareDaughter
           #print axioms RHLean.Analysis.vfMidSquareDaughter_lt_owner_iff_endpoint_lt_primeCube
+          #print axioms RHLean.Analysis.vfMidQ2Daughter_eq_mertens_of_endpoint_lt_primeCube
+          #print axioms RHLean.Analysis.vfMidQ2HighTransport_eq_go_sub_mertens_of_primeCube_le
+          #print axioms RHLean.Analysis.vfMidQ2Daughter_eq_mertens_add_highTransport_of_primeCube_le
+          #print axioms RHLean.Analysis.vfMidQ2Daughter_cubicPhaseDichotomy
+          #print axioms RHLean.Analysis.vfMidCriticalQ2HighTransport_eq_weightedCoboundary_of_primeCube_le
+          #print axioms RHLean.Analysis.vfMidReciprocalQ2HighTransport_eq_weightedCoboundary_of_primeCube_le
           #print axioms RHLean.Analysis.supercriticalParent_forces_supercriticalChildPacket
           #print axioms RHLean.Analysis.vfMidSupercriticalParent_forces_nativeChildPacket
           #print axioms RHLean.Analysis.vfMidNoSupercriticalScale_of_aggregateChildForcing
