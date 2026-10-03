@@ -214,6 +214,92 @@ theorem vfMidCubePrefixSurvivorSeatCharge_eq_affineMoebius
     norm_num
     ring
 
+/-- Deterministic affine target which removes the prime/composite offset from
+the VF seat charge on a depth-two frozen carrier. -/
+def vfMidCubeAffineMobiusTarget (R : ℕ) : ℝ :=
+  vfMidOddFractionalPrimeSeatWeight R - (1 / 2 : ℝ)
+
+/-- After subtracting the deterministic affine target, one cubic-depth VF
+seat is exactly one half of the physical Mobius sign. -/
+theorem vfMidCubePrefixSurvivorSeatCharge_sub_target_eq_half_moebius
+    {A R n : ℕ}
+    (hA : 3 ≤ A) (hAR : A ≤ R)
+    (hcube : (R + 1) ^ 2 ≤ (A + 1) ^ 3)
+    (hn : n ∈ vfMidSquarePrefixWheelSurvivors A R) :
+    vfMidOddSignedSeatCharge R n - vfMidCubeAffineMobiusTarget R =
+      (1 / 2 : ℝ) * (((μ n : ℤ) : ℝ)) := by
+  rw [vfMidCubePrefixSurvivorSeatCharge_eq_affineMoebius
+    hA hAR hcube hn]
+  unfold vfMidCubeAffineMobiusTarget
+  ring
+
+/-- The centered pair product is exactly one quarter of the physical Mobius
+pair product. This is the pointwise covariance dictionary. -/
+theorem vfMidCubeCenteredPair_eq_quarter_moebiusPair
+    {A R S n m : ℕ}
+    (hA : 3 ≤ A) (hAR : A ≤ R) (hAS : A ≤ S)
+    (hcubeR : (R + 1) ^ 2 ≤ (A + 1) ^ 3)
+    (hcubeS : (S + 1) ^ 2 ≤ (A + 1) ^ 3)
+    (hn : n ∈ vfMidSquarePrefixWheelSurvivors A R)
+    (hm : m ∈ vfMidSquarePrefixWheelSurvivors A S) :
+    (vfMidOddSignedSeatCharge R n - vfMidCubeAffineMobiusTarget R) *
+        (vfMidOddSignedSeatCharge S m - vfMidCubeAffineMobiusTarget S) =
+      (1 / 4 : ℝ) * (((μ n : ℤ) : ℝ)) * (((μ m : ℤ) : ℝ)) := by
+  rw [vfMidCubePrefixSurvivorSeatCharge_sub_target_eq_half_moebius
+      hA hAR hcubeR hn,
+    vfMidCubePrefixSurvivorSeatCharge_sub_target_eq_half_moebius
+      hA hAS hcubeS hm]
+  ring
+
+/-- Centered VF cross-Gram between two blocks on one frozen cubic-depth wheel. -/
+def vfMidCubeCenteredCrossGram (A R S : ℕ) : ℝ :=
+  ∑ n ∈ vfMidSquarePrefixWheelSurvivors A R,
+    ∑ m ∈ vfMidSquarePrefixWheelSurvivors A S,
+      (vfMidOddSignedSeatCharge R n - vfMidCubeAffineMobiusTarget R) *
+        (vfMidOddSignedSeatCharge S m - vfMidCubeAffineMobiusTarget S)
+
+/-- Exact carrier-level covariance dictionary.
+
+After deterministic target removal, the full VF cross-Gram is one quarter of
+the product of the two signed physical Mobius masses. No triangle inequality,
+unsigned support bound, or probabilistic decorrelation enters. -/
+theorem vfMidCubeCenteredCrossGram_eq_quarter_moebiusMass_mul
+    {A R S : ℕ}
+    (hA : 3 ≤ A) (hAR : A ≤ R) (hAS : A ≤ S)
+    (hcubeR : (R + 1) ^ 2 ≤ (A + 1) ^ 3)
+    (hcubeS : (S + 1) ^ 2 ≤ (A + 1) ^ 3) :
+    vfMidCubeCenteredCrossGram A R S =
+      (1 / 4 : ℝ) * vfMidSquareBandPrefixSurvivorMobiusMassReal A R *
+        vfMidSquareBandPrefixSurvivorMobiusMassReal A S := by
+  unfold vfMidCubeCenteredCrossGram
+  calc
+    (∑ n ∈ vfMidSquarePrefixWheelSurvivors A R,
+      ∑ m ∈ vfMidSquarePrefixWheelSurvivors A S,
+        (vfMidOddSignedSeatCharge R n - vfMidCubeAffineMobiusTarget R) *
+          (vfMidOddSignedSeatCharge S m - vfMidCubeAffineMobiusTarget S)) =
+      ∑ n ∈ vfMidSquarePrefixWheelSurvivors A R,
+        ∑ m ∈ vfMidSquarePrefixWheelSurvivors A S,
+          (1 / 4 : ℝ) * (((μ n : ℤ) : ℝ)) * (((μ m : ℤ) : ℝ)) := by
+            apply Finset.sum_congr rfl
+            intro n hn
+            apply Finset.sum_congr rfl
+            intro m hm
+            exact vfMidCubeCenteredPair_eq_quarter_moebiusPair
+              hA hAR hAS hcubeR hcubeS hn hm
+    _ =
+      (1 / 4 : ℝ) *
+        (∑ n ∈ vfMidSquarePrefixWheelSurvivors A R, (((μ n : ℤ) : ℝ))) *
+        (∑ m ∈ vfMidSquarePrefixWheelSurvivors A S, (((μ m : ℤ) : ℝ))) := by
+          rw [Finset.mul_sum]
+          apply Finset.sum_congr rfl
+          intro n _hn
+          rw [Finset.mul_sum]
+          ring
+    _ =
+      (1 / 4 : ℝ) * vfMidSquareBandPrefixSurvivorMobiusMassReal A R *
+        vfMidSquareBandPrefixSurvivorMobiusMassReal A S := by
+          rfl
+
 theorem vfMidSubdoublingPrefixSurvivorSeatCharge_eq_affineMoebius
     {A R n : ℕ}
     (hA : 3 ≤ A) (hAR : A ≤ R) (hRlt : R < 2 * A)
