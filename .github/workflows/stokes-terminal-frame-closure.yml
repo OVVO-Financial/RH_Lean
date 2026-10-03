@@ -179,6 +179,8 @@ jobs:
           #print axioms RHLean.Proof.nnsOneBlockSameParentExcess_nonpos
           #print axioms RHLean.Proof.nnsOneBlockIdentifiedDiagonalExcess_eq_neg_energy
           #print axioms RHLean.Proof.nnsOneBlockIdentifiedDiagonalExcess_nonpos
+          #print axioms RHLean.Proof.squareRootCanonicalRoughCorrelation_energy_step_oneBlock_diagonal_remainder
+          #print axioms RHLean.Proof.squareRootCanonicalRoughCorrelation_energy_step_le_unresolved
           #print axioms RHLean.Proof.oneBlockCorrelationInner_eq_nnsCrossExcess
           #print axioms RHLean.Proof.squareRootCanonicalRoughCorrelation_energy_step_oneBlock_nns
           LEAN
