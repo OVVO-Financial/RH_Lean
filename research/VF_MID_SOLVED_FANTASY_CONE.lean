@@ -14,13 +14,14 @@ root scale from the same Li/VF center:
 * integer-cutoff floor(Li).
 
 This file packages those solved directions into a single admissible cone at
-square endpoints.  The cone has a finite coefficient budget `A` and a finite
-vertical phase budget `C0`.  Coefficients may vary with the square scale; no
-fixed phase or fixed trajectory is imposed.
+square endpoints.  The cone uses the full RH-safe freedom: a fixed budget `K`
+multiplies `log R`, while `C0` supplies a bounded vertical phase allowance.
+Thus the admissible fantasy coefficients may grow logarithmically with scale;
+no fixed phase or fixed trajectory is imposed.
 
-The analytic part is unconditional: every point in this cone is root-scale
-from `VF_mid`, hence automatically inside the weaker `R log R` von-Koch
-envelope.
+The analytic part is unconditional: the fantasy radius itself is root-scale,
+so a `K * log R` coefficient budget puts every cone point directly inside the
+`R log R` von-Koch envelope.
 
 The sole arithmetic input is stated separately:
 
@@ -51,12 +52,14 @@ theorem vfMidSolvedFantasyConeRadius_nonneg (R : ℕ) :
   positivity
 
 /-- A scalar endpoint lies in the solved fantasy cone when its displacement
-from VF is no larger than an `A`-multiple of the total solved fantasy radius,
-plus a bounded vertical phase allowance `C0`. -/
+from VF is no larger than a `K * log R` multiple of the total solved fantasy
+radius, plus a bounded vertical phase allowance `C0`.  The logarithmic growth
+uses the full scale allowed by the square-endpoint von-Koch target instead of
+artificially restricting the cone to a fixed root-scale coefficient. -/
 def VFMidSolvedFantasyConeAt
-    (A C0 : ℝ) (R : ℕ) (y : ℝ) : Prop :=
+    (K C0 : ℝ) (R : ℕ) (y : ℝ) : Prop :=
   |y - vfMid ((R : ℝ) ^ 2)| ≤
-    A * vfMidSolvedFantasyConeRadius R + C0
+    (K * Real.log (R : ℝ)) * vfMidSolvedFantasyConeRadius R + C0
 
 /-- The canonical aligned VF path is a pure phase direction of the cone.
 This records the role of a finite `c_0`-type vertical allowance without
@@ -175,81 +178,101 @@ theorem vfMidSolvedFantasyConeRadius_le_root :
     simpa [x] using hfloor
   nlinarith
 
-/-- The entire solved fantasy cone is uniformly root-safe.  This is the
-compiled analytic half of the cone strategy. -/
-theorem vfMidSolvedFantasyCone_root_safe
-    {A C0 : ℝ} (hA : 0 ≤ A) (hC0 : 0 ≤ C0) :
+/-- The expanded solved fantasy cone is uniformly von-Koch safe.  The fantasy
+radius is only root-scale, so allowing its coefficient budget to grow like
+`K * log R` uses the full `R log R` room without exceeding the target. -/
+theorem vfMidSolvedFantasyCone_vonKoch_safe
+    {K C0 : ℝ} (hK : 0 ≤ K) (hC0 : 0 ≤ C0) :
     ∃ C : ℝ, 0 ≤ C ∧
       ∀ R : ℕ, 2 ≤ R →
-      ∀ y : ℝ, VFMidSolvedFantasyConeAt A C0 R y →
-        |y - vfMid ((R : ℝ) ^ 2)| ≤ C * (R : ℝ) := by
-  rcases vfMidSolvedFantasyConeRadius_le_root with ⟨K, hK0, hK⟩
-  let C : ℝ := A * K + C0
+      ∀ y : ℝ, VFMidSolvedFantasyConeAt K C0 R y →
+        |y - vfMid ((R : ℝ) ^ 2)| ≤
+          C * (R : ℝ) * Real.log (R : ℝ) := by
+  rcases vfMidSolvedFantasyConeRadius_le_root with ⟨B, hB0, hB⟩
+  have hlog2 : 0 < Real.log 2 := Real.log_pos (by norm_num)
+  let C : ℝ := K * B + C0 / Real.log 2
   have hC : 0 ≤ C := by
     dsimp [C]
-    positivity
+    exact add_nonneg (mul_nonneg hK hB0) (div_nonneg hC0 hlog2.le)
   refine ⟨C, hC, ?_⟩
   intro R hR y hy
-  have hradius := hK R hR
+  have hradius := hB R hR
   have hR1 : (1 : ℝ) ≤ (R : ℝ) := by
     exact_mod_cast (show 1 ≤ R by omega)
-  have hphase : C0 ≤ C0 * (R : ℝ) := by
-    simpa using mul_le_mul_of_nonneg_left hR1 hC0
+  have hlogR : Real.log 2 ≤ Real.log (R : ℝ) := by
+    exact Real.log_le_log (by norm_num) (by exact_mod_cast hR)
+  have hlogR0 : 0 ≤ Real.log (R : ℝ) :=
+    le_trans hlog2.le hlogR
+  have hweight0 :
+      0 ≤ K * Real.log (R : ℝ) :=
+    mul_nonneg hK hlogR0
+  have hmul :
+      (K * Real.log (R : ℝ)) * vfMidSolvedFantasyConeRadius R ≤
+        (K * Real.log (R : ℝ)) * (B * (R : ℝ)) :=
+    mul_le_mul_of_nonneg_left hradius hweight0
+  have hphaseLog :
+      C0 ≤ (C0 / Real.log 2) * Real.log (R : ℝ) := by
+    have hcoef0 : 0 ≤ C0 / Real.log 2 :=
+      div_nonneg hC0 hlog2.le
+    have hm := mul_le_mul_of_nonneg_left hlogR hcoef0
+    have heq :
+        (C0 / Real.log 2) * Real.log 2 = C0 := by
+      field_simp [hlog2.ne']
+    linarith
+  have hphase :
+      C0 ≤ (C0 / Real.log 2) * (R : ℝ) * Real.log (R : ℝ) := by
+    have hnonneg :
+        0 ≤ (C0 / Real.log 2) * Real.log (R : ℝ) :=
+      mul_nonneg (div_nonneg hC0 hlog2.le) hlogR0
+    have hgrow :
+        (C0 / Real.log 2) * Real.log (R : ℝ) ≤
+          (C0 / Real.log 2) * (R : ℝ) * Real.log (R : ℝ) := by
+      calc
+        (C0 / Real.log 2) * Real.log (R : ℝ)
+            = ((C0 / Real.log 2) * Real.log (R : ℝ)) * 1 := by ring
+        _ ≤ ((C0 / Real.log 2) * Real.log (R : ℝ)) * (R : ℝ) :=
+          mul_le_mul_of_nonneg_left hR1 hnonneg
+        _ = (C0 / Real.log 2) * (R : ℝ) * Real.log (R : ℝ) := by ring
+    exact hphaseLog.trans hgrow
   have hscaled :
-      A * vfMidSolvedFantasyConeRadius R + C0 ≤
-        C * (R : ℝ) := by
-    have hmul :=
-      mul_le_mul_of_nonneg_left hradius hA
-    dsimp [C]
+      (K * Real.log (R : ℝ)) * vfMidSolvedFantasyConeRadius R + C0 ≤
+        C * (R : ℝ) * Real.log (R : ℝ) := by
     calc
-      A * vfMidSolvedFantasyConeRadius R + C0
-          ≤ A * (K * (R : ℝ)) + C0 := add_le_add_right hmul C0
-      _ ≤ A * (K * (R : ℝ)) + C0 * (R : ℝ) :=
+      (K * Real.log (R : ℝ)) * vfMidSolvedFantasyConeRadius R + C0
+          ≤ (K * Real.log (R : ℝ)) * (B * (R : ℝ)) + C0 :=
+            add_le_add_right hmul C0
+      _ ≤ (K * Real.log (R : ℝ)) * (B * (R : ℝ)) +
+            (C0 / Real.log 2) * (R : ℝ) * Real.log (R : ℝ) :=
           add_le_add_left hphase _
-      _ = (A * K + C0) * (R : ℝ) := by ring
+      _ = C * (R : ℝ) * Real.log (R : ℝ) := by
+          dsimp [C]
+          ring
   exact hy.trans hscaled
 
 /-- The single open arithmetic statement of the cone route:
-the honest prime-count endpoint belongs to one fixed finite-budget solved
-fantasy cone at every square scale. -/
+the honest prime-count endpoint belongs to one fixed logarithmic-budget solved
+fantasy cone at every square scale.  The coefficient available at scale `R`
+is `K * log R`, not a fixed `K`; this is the deliberately enlarged admissible
+region. -/
 def ActualPrimeContainedInSolvedFantasyConeStatement : Prop :=
-  ∃ A C0 : ℝ, 0 ≤ A ∧ 0 ≤ C0 ∧
+  ∃ K C0 : ℝ, 0 ≤ K ∧ 0 ≤ C0 ∧
     ∀ R : ℕ, 2 ≤ R →
-      VFMidSolvedFantasyConeAt A C0 R
+      VFMidSolvedFantasyConeAt K C0 R
         (vfMidPrimeCount ((R : ℝ) ^ 2))
 
 /-- Cone inclusion alone closes the direct square-endpoint VF target. -/
 theorem vfMidSquareEndpointVonKochBounded_of_actualPrimeContainedInSolvedFantasyCone
     (hcone : ActualPrimeContainedInSolvedFantasyConeStatement) :
     VFMidSquareEndpointVonKochBoundedStatement := by
-  rcases hcone with ⟨A, C0, hA, hC0, hcontain⟩
-  rcases vfMidSolvedFantasyCone_root_safe hA hC0 with
-    ⟨B, hB0, hB⟩
-  let C : ℝ := B / Real.log 2
-  have hlog2 : 0 < Real.log 2 := Real.log_pos (by norm_num)
-  have hC : 0 ≤ C := by
-    dsimp [C]
-    exact div_nonneg hB0 hlog2.le
-  refine ⟨C, hC, ?_⟩
+  rcases hcone with ⟨K, C0, hK, hC0, hcontain⟩
+  rcases vfMidSolvedFantasyCone_vonKoch_safe hK hC0 with
+    ⟨C, hC0', hC⟩
+  refine ⟨C, hC0', ?_⟩
   intro R hR
-  have hroot :=
-    hB R hR (vfMidPrimeCount ((R : ℝ) ^ 2)) (hcontain R hR)
-  have hR0 : (0 : ℝ) ≤ (R : ℝ) := by positivity
-  have hlogR : Real.log 2 ≤ Real.log (R : ℝ) := by
-    exact Real.log_le_log (by norm_num) (by exact_mod_cast hR)
-  have hcoef0 : 0 ≤ (B / Real.log 2) * (R : ℝ) :=
-    mul_nonneg (div_nonneg hB0 hlog2.le) hR0
-  have hscale :
-      B * (R : ℝ) ≤
-        (B / Real.log 2) * (R : ℝ) * Real.log (R : ℝ) := by
-    have hm := mul_le_mul_of_nonneg_left hlogR hcoef0
-    have heq :
-        (B / Real.log 2) * (R : ℝ) * Real.log 2 =
-          B * (R : ℝ) := by
-      field_simp [hlog2.ne']
-    linarith
+  have hsafe :=
+    hC R hR (vfMidPrimeCount ((R : ℝ) ^ 2)) (hcontain R hR)
   unfold vfMidPrimeError
-  exact hroot.trans (by simpa [C] using hscale)
+  simpa using hsafe
 
 /-- Existing downstream plumbing: once actual prime count is in the solved
 fantasy cone, the already-compiled square-endpoint consumer closes RH. -/
