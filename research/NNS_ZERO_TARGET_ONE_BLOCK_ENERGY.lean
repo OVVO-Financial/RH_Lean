@@ -901,4 +901,23 @@ theorem squareRootCanonicalRoughCorrelation_energy_step_oneBlock_nns
     ← nnsOneBlockNormalizedCovariance_mul_total R]
   ring
 
+/-- **Fred's closed-form one-block energy identity.**
+
+After the exact denominator factorization and `rho_R = alpha_R * beta_R`,
+the #877 recurrence is literally
+`U_R^2 + 2 alpha_R beta_R Q_R^- Q_R^+`.
+This theorem is an identity, not a contraction assumption. -/
+theorem squareRootCanonicalRoughCorrelation_energy_step_oneBlock_alpha_beta
+    (R : ℕ) (hR : 2 ≤ R) :
+    ‖squareRootCanonicalRoughCorrelation (R + 1)‖ ^ 2 -
+        ‖squareRootCanonicalRoughCorrelation R‖ ^ 2 =
+      ‖canonicalMoebiusWeight R - canonicalTotalIncrement R‖ ^ 2 +
+        2 * nnsOneBlockAlpha R * nnsOneBlockBeta R *
+          nnsOneBlockOldSquarefreeMass R *
+          nnsOneBlockUpdateSquarefreeMass R := by
+  rw [squareRootCanonicalRoughCorrelation_energy_step_oneBlock_nns R hR,
+    nnsOneBlockNormalizedCovariance_eq_alpha_mul_beta,
+    nnsOneBlockTotalPairMass_eq_squarefreeMass_mul]
+  ring
+
 end RHLean.Proof
