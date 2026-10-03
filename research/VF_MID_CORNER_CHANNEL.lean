@@ -998,6 +998,48 @@ theorem vfMidSquareEndpointVonKochBounded_of_backwardForwardCornerBracket
       hAminus hAplus Lminus Lplus hhalfMinus hhalfPlus
       hlagMinus hlagPlus hbr)
 
+
+/-- The full pathwise multi-shift VF fan closes the square-endpoint target
+whenever the backward and forward shift schedules remain within independent
+O(log(R)^2) budgets. -/
+theorem vfMidSquareEndpointVonKochBounded_of_backwardForwardShiftedChannel
+    {Aminus Aplus : ℝ}
+    (hAminus : 0 ≤ Aminus) (hAplus : 0 ≤ Aplus)
+    (Lminus Lplus : ℕ → ℕ)
+    (hhalfMinus : ∀ R : ℕ, 4 ≤ R → 2 * Lminus R ≤ R)
+    (hhalfPlus : ∀ R : ℕ, 4 ≤ R → 2 * Lplus R ≤ R)
+    (hlagMinus : ∀ R : ℕ, 4 ≤ R →
+      (Lminus R : ℝ) ≤ Aminus * Real.log (R : ℝ) ^ 2)
+    (hlagPlus : ∀ R : ℕ, 4 ≤ R →
+      (Lplus R : ℝ) ≤ Aplus * Real.log (R : ℝ) ^ 2)
+    (hchan :
+      VFMidBackwardForwardShiftedChannelContainsPrime Lminus Lplus) :
+    VFMidSquareEndpointVonKochBoundedStatement := by
+  apply vfMidSquareEndpointVonKochBounded_of_backwardForwardCornerBracket
+    hAminus hAplus Lminus Lplus hhalfMinus hhalfPlus
+      hlagMinus hlagPlus
+  exact vfMidBackwardForwardCornerEndpointBracket_of_shiftedChannel hchan
+
+/-- Downstream RH consumer for the full pathwise multi-shift VF fan. -/
+theorem riemannHypothesis_of_backwardForwardShiftedChannel
+    (criterion : ClassicalVonKochRHCriterion)
+    {Aminus Aplus : ℝ}
+    (hAminus : 0 ≤ Aminus) (hAplus : 0 ≤ Aplus)
+    (Lminus Lplus : ℕ → ℕ)
+    (hhalfMinus : ∀ R : ℕ, 4 ≤ R → 2 * Lminus R ≤ R)
+    (hhalfPlus : ∀ R : ℕ, 4 ≤ R → 2 * Lplus R ≤ R)
+    (hlagMinus : ∀ R : ℕ, 4 ≤ R →
+      (Lminus R : ℝ) ≤ Aminus * Real.log (R : ℝ) ^ 2)
+    (hlagPlus : ∀ R : ℕ, 4 ≤ R →
+      (Lplus R : ℝ) ≤ Aplus * Real.log (R : ℝ) ^ 2)
+    (hchan :
+      VFMidBackwardForwardShiftedChannelContainsPrime Lminus Lplus) :
+    VFMidRiemannHypothesisStatement :=
+  riemannHypothesis_of_vfMidSquareEndpoint criterion
+    (vfMidSquareEndpointVonKochBounded_of_backwardForwardShiftedChannel
+      hAminus hAplus Lminus Lplus hhalfMinus hhalfPlus
+      hlagMinus hlagPlus hchan)
+
 /-- Downstream RH consumer for independently budgeted backward and forward
 VF-corner excursions. -/
 theorem riemannHypothesis_of_backwardForwardCornerBracket
