@@ -8,7 +8,7 @@ For each square block [R^2,(R+1)^2], it checks:
   * the literal adjacent-corner channel;
   * the canonical widened channel with
         L_R = min(R//2, floor(A * log(R)^2));
-  * the minimal endpoint lag needed to bracket pi(R^2).
+  * the minimal endpoint index offset needed to bracket pi(R^2).
 
 The pathwise check is exact for the real-x staircase convention
 pi_floor(x) = pi(floor x):
@@ -66,21 +66,21 @@ def prime_counts_at_squares(rmax: int, sieve: bytearray) -> np.ndarray:
     return out
 
 
-def canonical_lag(a: float, r: int) -> int:
+def canonical_offset(a: float, r: int) -> int:
     return min(r // 2, max(0, math.floor(a * math.log(r) ** 2)))
 
 
-def endpoint_required_lag(
+def endpoint_required_offset(
     r: int, pi_sq: np.ndarray, finished: np.ndarray
 ) -> tuple[int, int, int]:
     y = float(pi_sq[r])
-    lower_lag = 0
-    while r - lower_lag >= 2 and finished[r - lower_lag] > y:
-        lower_lag += 1
-    upper_lag = 0
-    while r + upper_lag < len(finished) and finished[r + upper_lag] < y:
-        upper_lag += 1
-    return max(lower_lag, upper_lag), lower_lag, upper_lag
+    backward_offset = 0
+    while r - backward_offset >= 2 and finished[r - backward_offset] > y:
+        backward_offset += 1
+    forward_offset = 0
+    while r + forward_offset < len(finished) and finished[r + forward_offset] < y:
+        forward_offset += 1
+    return max(backward_offset, forward_offset), backward_offset, forward_offset
 
 
 def block_path_defects(
@@ -179,8 +179,8 @@ def widened_failures(
 ) -> list[dict]:
     out = []
     for r in range(rstart, rmax + 1):
-        l0 = canonical_lag(acoef, r)
-        l1 = canonical_lag(acoef, r + 1)
+        l0 = canonical_offset(acoef, r)
+        l1 = canonical_offset(acoef, r + 1)
         dlow, dupp, xlow, xupp = block_path_defects(
             r,
             finished[r - l0],
@@ -193,8 +193,8 @@ def widened_failures(
             out.append(
                 {
                     "R": r,
-                    "lag_R": l0,
-                    "lag_R_plus_1": l1,
+                    "offset_R": l0,
+                    "offset_R_plus_1": l1,
                     "max_lower_minus_pi": dlow,
                     "max_pi_minus_upper": dupp,
                     "lower_location_or_left_limit": xlow,
@@ -221,8 +221,8 @@ def main() -> None:
     if args.A < 0:
         raise SystemExit("A must be nonnegative")
 
-    max_lag = max(canonical_lag(args.A, r) for r in range(args.r_start, args.r_max + 2))
-    table_max = args.r_max + max(max_lag + 8, 1024)
+    max_offset = max(canonical_offset(args.A, r) for r in range(args.r_start, args.r_max + 2))
+    table_max = args.r_max + max(max_offset + 8, 1024)
     finished = finished_mass_table(table_max)
 
     nmax = (args.r_max + 1) ** 2
@@ -235,12 +235,12 @@ def main() -> None:
 
     endpoint_rows = []
     for r in range(args.r_start, args.r_max + 1):
-        lag, lower_lag, upper_lag = endpoint_required_lag(r, pi_sq, finished)
-        norm_a = lag / (math.log(r) ** 2)
-        endpoint_rows.append((norm_a, r, lag, lower_lag, upper_lag))
+        offset, backward_offset, forward_offset = endpoint_required_offset(r, pi_sq, finished)
+        norm_a = offset / (math.log(r) ** 2)
+        endpoint_rows.append((norm_a, r, offset, backward_offset, forward_offset))
 
     endpoint_rows.sort(reverse=True)
-    max_a, argmax_r, lag, lower_lag, upper_lag = endpoint_rows[0]
+    max_a, argmax_r, offset, backward_offset, forward_offset = endpoint_rows[0]
 
     summary = {
         "status": "finite diagnostic only; not a proof premise",
@@ -248,7 +248,7 @@ def main() -> None:
         "r_max": args.r_max,
         "x_max": args.r_max**2,
         "A": args.A,
-        "canonical_lag_formula": "min(R//2, floor(A*log(R)^2))",
+        "canonical_offset_formula": "min(R//2, floor(A*log(R)^2))",
         "literal_channel": {
             "failure_count": len(literal),
             "failure_R": [row["R"] for row in literal],
@@ -259,12 +259,12 @@ def main() -> None:
             "failure_R": [row["R"] for row in widened],
             "failures": widened,
         },
-        "endpoint_minimum_lag": {
+        "endpoint_minimum_offset": {
             "max_required_L_over_logR_squared": max_a,
             "argmax_R": argmax_r,
-            "required_lag": lag,
-            "required_lower_lag": lower_lag,
-            "required_upper_lag": upper_lag,
+            "required_offset": offset,
+            "required_backward_offset": backward_offset,
+            "required_forward_offset": forward_offset,
         },
     }
 
