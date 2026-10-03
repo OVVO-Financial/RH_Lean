@@ -38,6 +38,7 @@ on:
       - research/VF_MID_RECURSIVE_CHILD_INJECTIVE.lean
       - research/VF_MID_RECURSIVE_SCALE_DESCENT.lean
       - research/VF_MID_RECURSIVE_REMAINDER_BOUND.lean
+      - research/VF_MID_AGGREGATE_CHILD_FORCING.lean
       - research/VF_MID_SQUARE_THETA_NATIVE_DESCENT.lean
       - research/VF_MID_ACTUAL_PRIME_ROOT_SQUARE_CONTRACTION.lean
       - research/PRIME_WHEEL_ROUGH_SEAT_SQRT_SPECIALIZATION.lean
@@ -177,6 +178,7 @@ jobs:
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_SIGNED_SEAT_CHARGE.olean research/VF_MID_SIGNED_SEAT_CHARGE.lean 2>&1 | tee vf-mid-signed-seat-charge.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_RECURSIVE_SCALE_DESCENT.olean research/VF_MID_RECURSIVE_SCALE_DESCENT.lean 2>&1 | tee vf-mid-recursive-scale-descent.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_RECURSIVE_REMAINDER_BOUND.olean research/VF_MID_RECURSIVE_REMAINDER_BOUND.lean 2>&1 | tee vf-mid-recursive-remainder-bound.log
+          lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_AGGREGATE_CHILD_FORCING.olean research/VF_MID_AGGREGATE_CHILD_FORCING.lean 2>&1 | tee vf-mid-aggregate-child-forcing.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_SQUARE_THETA_NATIVE_DESCENT.olean research/VF_MID_SQUARE_THETA_NATIVE_DESCENT.lean 2>&1 | tee vf-mid-square-theta-native-descent.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.PRIME_WHEEL_ROUGH_SEAT_SQRT_SPECIALIZATION.olean research/PRIME_WHEEL_ROUGH_SEAT_SQRT_SPECIALIZATION.lean 2>&1 | tee prime-wheel-rough-seat-sqrt-specialization.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_ACTUAL_PRIME_ROOT_SQUARE_CONTRACTION.olean research/VF_MID_ACTUAL_PRIME_ROOT_SQUARE_CONTRACTION.lean 2>&1 | tee vf-mid-actual-prime-root-square-contraction.log
@@ -211,6 +213,7 @@ jobs:
           import «research.VF_MID_RECURSIVE_CHILD_INJECTIVE»
           import «research.VF_MID_RECURSIVE_SCALE_DESCENT»
           import «research.VF_MID_RECURSIVE_REMAINDER_BOUND»
+          import «research.VF_MID_AGGREGATE_CHILD_FORCING»
           import «research.VF_MID_SQUARE_THETA_NATIVE_DESCENT»
           import «research.VF_MID_ACTUAL_PRIME_ROOT_SQUARE_CONTRACTION»
           import «research.VF_MID_PROXY_ENERGY_PULL»
@@ -623,6 +626,11 @@ jobs:
           #print axioms RHLean.Analysis.abs_vfMidOriginalPrimeCharge_le
           #print axioms RHLean.Analysis.abs_vfMidNativeDescentRemainder_le_linear
           #print axioms RHLean.Analysis.abs_vfMidNativeDescentRemainder_le_nine_mul
+          #print axioms RHLean.Analysis.vfMidRecursiveAggregateNativeCharge_sq_eq_childEnergy_add_crossGram
+          #print axioms RHLean.Analysis.vfMidOddCompositeTrackingDefect_sq_eq_childEnergy_add_gramRemainder
+          #print axioms RHLean.Analysis.supercriticalParent_forces_supercriticalChildPacket
+          #print axioms RHLean.Analysis.vfMidSupercriticalParent_forces_nativeChildPacket
+          #print axioms RHLean.Analysis.vfMidNoSupercriticalScale_of_aggregateChildForcing
           #print axioms RHLean.Analysis.vfMidDirectBandError_eq_neg_native_add_remainder
           #print axioms RHLean.Analysis.vfMidDirectThetaBandError_eq_nativeVFDescent
           #print axioms RHLean.Analysis.vfMidDirectThetaEndpointError_sub_eq_nativeVFDescent_sum
