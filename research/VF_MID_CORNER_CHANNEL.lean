@@ -37,6 +37,25 @@ namespace RHLean.Analysis
 def vfMidCornerParameter (R : ℕ) (x : ℝ) : ℝ :=
   (x - (R : ℝ) ^ 2) / (2 * (R : ℝ) + 1)
 
+/-- Normalized upper-left corner trajectory at within-block phase t. -/
+def vfMidUpperLeftPhase (R : ℕ) (t : ℝ) : ℝ :=
+  (1 - t) * vfMidFinishedMass R +
+    t * vfMidFinishedMass (R + 1)
+
+/-- Normalized lower-right corner trajectory at within-block phase t. -/
+def vfMidLowerRightPhase (R : ℕ) (t : ℝ) : ℝ :=
+  (1 - t) * vfMidFinishedMass (R - 1) +
+    t * vfMidFinishedMass R
+
+/-- The lower-right advanced trajectory is exactly the same normalized corner
+trajectory one block out of phase with the upper-left lag trajectory. -/
+theorem vfMidLowerRightPhase_eq_upperLeftPhase_pred
+    (R : ℕ) (hR : 1 ≤ R) (t : ℝ) :
+    vfMidLowerRightPhase R t = vfMidUpperLeftPhase (R - 1) t := by
+  unfold vfMidLowerRightPhase vfMidUpperLeftPhase
+  have hsucc : R - 1 + 1 = R := by omega
+  rw [hsucc]
+
 /-- Upper black line: join the upper VF corners F_R and F_(R+1). -/
 def vfMidUpperCornerChannel (R : ℕ) (x : ℝ) : ℝ :=
   let t := vfMidCornerParameter R x
@@ -48,6 +67,18 @@ def vfMidLowerCornerChannel (R : ℕ) (x : ℝ) : ℝ :=
   let t := vfMidCornerParameter R x
   (1 - t) * vfMidFinishedMass (R - 1) +
     t * vfMidFinishedMass R
+
+theorem vfMidUpperCornerChannel_eq_upperLeftPhase
+    (R : ℕ) (x : ℝ) :
+    vfMidUpperCornerChannel R x =
+      vfMidUpperLeftPhase R (vfMidCornerParameter R x) := by
+  rfl
+
+theorem vfMidLowerCornerChannel_eq_lowerRightPhase
+    (R : ℕ) (x : ℝ) :
+    vfMidLowerCornerChannel R x =
+      vfMidLowerRightPhase R (vfMidCornerParameter R x) := by
+  rfl
 
 /-- Geometric phase alias: connecting upper-left VF corners is the lag
 structure.  The terminology refers to the corner geometry, not the sign of an
