@@ -12,6 +12,7 @@ on:
       - research/EXACT_LI_PURE_MODEL_CLOSURE.lean
       - research/VF_MID_VON_KOCH_BRIDGE.lean
       - research/VF_MID_LI_UNIFORM_QUADRATURE.lean
+      - research/VF_MID_LI_PHASE_FAN.lean
       - research/VF_MID_OSCILLATION_SCALE.lean
       - research/LI_FLOOR_PRIME_COUNT_FANTASY.lean
       - research/VF_MID_FLOOR_LI_DISCRETE_BACKLOG.lean
@@ -131,6 +132,7 @@ jobs:
           set -o pipefail
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_VON_KOCH_BRIDGE.olean research/VF_MID_VON_KOCH_BRIDGE.lean 2>&1 | tee vf-mid-von-koch.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_LI_UNIFORM_QUADRATURE.olean research/VF_MID_LI_UNIFORM_QUADRATURE.lean 2>&1 | tee vf-mid-li-uniform-quadrature.log
+          lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_LI_PHASE_FAN.olean research/VF_MID_LI_PHASE_FAN.lean 2>&1 | tee vf-mid-li-phase-fan.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_OSCILLATION_SCALE.olean research/VF_MID_OSCILLATION_SCALE.lean 2>&1 | tee vf-mid-oscillation-scale.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.LI_FLOOR_PRIME_COUNT_FANTASY.olean research/LI_FLOOR_PRIME_COUNT_FANTASY.lean 2>&1 | tee li-floor-prime-count-fantasy.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_LINEAR_INTERPOLATION_FANTASY.olean research/VF_MID_LINEAR_INTERPOLATION_FANTASY.lean 2>&1 | tee vf-mid-linear-interpolation-fantasy.log
@@ -192,6 +194,7 @@ jobs:
           import «research.EXACT_LI_PURE_MODEL_CLOSURE»
           import «research.VF_MID_VON_KOCH_BRIDGE»
           import «research.VF_MID_LI_UNIFORM_QUADRATURE»
+          import «research.VF_MID_LI_PHASE_FAN»
           import «research.VF_MID_OSCILLATION_SCALE»
           import «research.LI_FLOOR_PRIME_COUNT_FANTASY»
           import «research.VF_MID_FLOOR_LI_DISCRETE_BACKLOG»
@@ -371,6 +374,8 @@ jobs:
           #print axioms RHLean.Analysis.abs_vfMidBandQuadratureError_le_logHarmonic
           #print axioms RHLean.Analysis.vfMidLiSquareEndpointUniformBounded
           #print axioms RHLean.Analysis.abs_vfMidLiError_sq_le_uniform
+          #print axioms RHLean.Analysis.vfMidLiCanonicalPhaseFanUniformCorrespondence
+          #print axioms RHLean.Analysis.abs_vfMidCanonicalPhaseFanWidth_sub_li_le_two_uniform
           #print axioms RHLean.Analysis.vfMidCornerChannel_width
           #print axioms RHLean.Analysis.vfMidUpperLeftPhase_forwardShift_telescope
           #print axioms RHLean.Analysis.vfMidUpperLeftPhase_backwardShift_telescope
