@@ -3,6 +3,7 @@ import «research.VF_MID_ENDPOINT_TRIGGER_DICTIONARY»
 import «research.VF_MID_ACTUAL_CRITICAL_OWNER_RECURSION»
 import RHLean.Proof.SquareRootLowPrimeGoWallQuantitative
 import «research.ZERO_TARGET_COVARIANCE_OWNER_DESCENT»
+import RHLean.Arithmetic.PrimeWheelMobiusDensity
 
 /-!
 # Physical actual-minus-Li forcing is an affine Mobius field
@@ -37,6 +38,79 @@ open scoped ArithmeticFunction.Moebius BigOperators
 namespace RHLean.Analysis
 
 attribute [local instance] Classical.propDecidable
+
+/-- Integer Boolean prime indicator used for exact population algebra. -/
+def vfMidActualPrimeIndicatorInt (n : ℕ) : ℤ :=
+  if n.Prime then 1 else 0
+
+/-- The precise defect between prime sites and the full negative-Mobius
+population: composite sites with Mobius sign -1.  These are necessarily
+squarefree odd-factor-depth composites. -/
+def vfMidNegativeMobiusCompositeIndicator (n : ℕ) : ℤ :=
+  if ¬ n.Prime ∧ μ n = -1 then 1 else 0
+
+/-- **Global second decoder.**
+Actual primes are exactly the negative-Mobius population after deleting the
+negative-Mobius composites. -/
+theorem vfMidActualPrimeIndicatorInt_eq_negativeMobius_sub_composite
+    (n : ℕ) :
+    vfMidActualPrimeIndicatorInt n =
+      RHLean.Arithmetic.PrimeWheelFiniteSystem.moebiusNegativeIndicator n -
+        vfMidNegativeMobiusCompositeIndicator n := by
+  unfold vfMidActualPrimeIndicatorInt
+    RHLean.Arithmetic.PrimeWheelFiniteSystem.moebiusNegativeIndicator
+    vfMidNegativeMobiusCompositeIndicator
+  by_cases hp : n.Prime
+  · rw [ArithmeticFunction.moebius_apply_prime hp]
+    simp [hp]
+  · by_cases hmu : μ n = -1
+    · simp [hp, hmu]
+    · rcases ArithmeticFunction.moebius_eq_or n with h | h | h <;>
+        simp [hp, hmu, h]
+
+/-- Equivalent pointwise squarefree/parity decomposition:
+two times the prime indicator is squarefree mass minus Mobius mass, minus the
+odd-depth composite defect.  Unlike the depth-two affine decoder, this identity
+is global and automatically absorbs every prime-power/squareful state. -/
+theorem two_mul_vfMidActualPrimeIndicatorInt_eq_squarefree_sub_mobius_sub_defect
+    (n : ℕ) :
+    2 * vfMidActualPrimeIndicatorInt n =
+      (μ n) ^ 2 - μ n -
+        2 * vfMidNegativeMobiusCompositeIndicator n := by
+  rw [vfMidActualPrimeIndicatorInt_eq_negativeMobius_sub_composite]
+  have h :=
+    RHLean.Arithmetic.PrimeWheelFiniteSystem.two_mul_moebiusNegativeIndicator_eq n
+  linear_combination h
+
+/-- Complex form of the global second decoder. -/
+theorem primeSievePrimeIndicator_eq_half_mobiusSq_sub_half_mobius_sub_defect
+    (n : ℕ) :
+    primeSievePrimeIndicator n =
+      (1 / 2 : ℂ) * (((((μ n) ^ 2 : ℤ)) : ℂ)) -
+        (1 / 2 : ℂ) * (((μ n : ℤ) : ℂ)) -
+        ((vfMidNegativeMobiusCompositeIndicator n : ℤ) : ℂ) := by
+  unfold primeSievePrimeIndicator vfMidNegativeMobiusCompositeIndicator
+  by_cases hp : n.Prime
+  · rw [ArithmeticFunction.moebius_apply_prime hp]
+    simp [hp]
+    norm_num
+  · rcases ArithmeticFunction.moebius_eq_or n with h | h | h <;>
+      simp [hp, h] <;> norm_num
+
+/-- **Global actual-minus-Li forcing decomposition.**
+The physical forcing is a squarefree diagonal term, minus one-half of the
+signed Mobius field, minus only the negative-Mobius composite defect, and minus
+the deterministic Li singleton mass. -/
+theorem vfMidActualLiForcingAtom_eq_squarefree_sub_mobius_sub_oddComposite_sub_li
+    (n : ℕ) :
+    vfMidActualLiForcingAtom n =
+      (1 / 2 : ℂ) * (((((μ n) ^ 2 : ℤ)) : ℂ)) -
+        (1 / 2 : ℂ) * (((μ n : ℤ) : ℂ)) -
+        ((vfMidNegativeMobiusCompositeIndicator n : ℤ) : ℂ) -
+        primeSievePNTDensity n := by
+  unfold vfMidActualLiForcingAtom
+  rw [primeSievePrimeIndicator_eq_half_mobiusSq_sub_half_mobius_sub_defect]
+  ring
 
 /-- Actual-minus-Li forcing at one integer site, before any critical or
 reciprocal weighting. -/
