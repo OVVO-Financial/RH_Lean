@@ -143,7 +143,7 @@ theorem vfMidRecursiveNativeCrossGram_eq_zeroTargetCoPartial_sub_divergent
             ∑ i ∈ Finset.Ico 2 j,
               vfMidZeroTargetDivergentPair
                 (vfMidRecursiveNativeChargeInBlock R i)
-                (vfMidRecursiveNativeChargeInBlock R j)) := by
+                (vfMidRecursiveNativeChargeInBlock R j) := by
       rw [Finset.sum_sub_distrib]
 
 /-- Scalar specialization of the finite signed Gram expansion on an interval. -/
@@ -160,9 +160,8 @@ private theorem sum_Ico_sq_eq_diagonal_add_two_cross
       rw [Finset.sum_Ico_succ_top hab]
       rw [Finset.sum_Ico_succ_top hab]
       rw [Finset.sum_Ico_succ_top hab]
-      rw [ih]
       rw [← Finset.sum_mul]
-      ring
+      nlinarith [ih]
 
 /-- Exact native-child Gram identity.
 
