@@ -169,7 +169,7 @@ theorem actualPrimeCriticalState_sub_allScaleLiCriticalState_floorLi_forcing_spl
     rw [criticalCenteredPrimeFrequencyWeight_eq_floorLi_forcings q]
     ring
   rw [hforce] at h
-  exact h
+  linear_combination h
 
 /-! ## Reciprocal fantasy coordinate -/
 
@@ -301,7 +301,7 @@ theorem actualPrimeReciprocalState_sub_allScaleLiReciprocalState_floorLi_forcing
     rw [reciprocalCenteredPrimeFrequencyWeight_eq_floorLi_forcings q]
     ring
   rw [hforce] at h
-  exact h
+  linear_combination h
 
 theorem floorLiFantasyReciprocalPropagation_norm_sum_rootSquare_le_log_two
     {y x : ℕ} (hy : 2 ≤ y) (hxy : x ≤ y ^ 2) :
