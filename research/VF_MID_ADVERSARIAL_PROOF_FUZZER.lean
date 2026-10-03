@@ -64,7 +64,15 @@ theorem vfMidActualRadialBounded_iff_squareEndpoint :
     VFMidSyntheticRadialBounded
         (fun R => vfMidPrimeError ((R : ℝ) ^ 2)) ↔
       VFMidSquareEndpointVonKochBoundedStatement := by
-  rfl
+  constructor
+  · rintro ⟨K, hK0, hK⟩
+    refine ⟨K, hK0, ?_⟩
+    intro R hR
+    simpa [vfMidSyntheticRadialScale] using hK R hR
+  · rintro ⟨K, hK0, hK⟩
+    refine ⟨K, hK0, ?_⟩
+    intro R hR
+    simpa [vfMidSyntheticRadialScale] using hK R hR
 
 /-! ## 2. Amplified radial countermodels -/
 
@@ -97,8 +105,8 @@ theorem not_vfMidSyntheticRadialBounded_of_unboundedAmplifier
   have habs :
       |vfMidAmplifiedSyntheticDefect a R| =
         a R * vfMidSyntheticRadialScale R := by
-    rw [abs_of_nonneg]
-    exact mul_nonneg haR0 hscale.le
+    rw [vfMidAmplifiedSyntheticDefect,
+      abs_of_nonneg (mul_nonneg haR0 hscale.le)]
   have hupper := hK R hR
   rw [habs] at hupper
   linarith
@@ -173,7 +181,7 @@ theorem vfMidSynthetic_energy_step
     D (R + 1) ^ 2 - D R ^ 2 =
       2 * D R * vfMidSyntheticBandError D R +
         vfMidSyntheticBandError D R ^ 2 := by
-  rw [vfMidSyntheticEndpoint_recurrence]
+  rw [vfMidSyntheticEndpoint_recurrence D R]
   ring
 
 theorem vfMidLogicAdversary_passes_balance_but_escapes :
