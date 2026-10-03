@@ -212,7 +212,6 @@ theorem vfMidCubePrefixSurvivorSeatCharge_eq_affineMoebius
         hA hAR hcube hnComp
     rw [vfMidOddSignedSeatCharge_of_not_prime R n hp, hmu]
     norm_num
-    ring
 
 /-- Deterministic affine target which removes the prime/composite offset from
 the VF seat charge on a depth-two frozen carrier. -/
@@ -290,12 +289,7 @@ theorem vfMidCubeCenteredCrossGram_eq_quarter_moebiusMass_mul
       (1 / 4 : ℝ) *
         (∑ n ∈ vfMidSquarePrefixWheelSurvivors A R, (((μ n : ℤ) : ℝ))) *
         (∑ m ∈ vfMidSquarePrefixWheelSurvivors A S, (((μ m : ℤ) : ℝ))) := by
-          rw [Finset.mul_sum, Finset.sum_mul_sum]
-          apply Finset.sum_congr rfl
-          intro n _hn
-          apply Finset.sum_congr rfl
-          intro m _hm
-          ring
+          rw [← Finset.sum_mul_sum, ← Finset.mul_sum]
     _ =
       (1 / 4 : ℝ) * vfMidSquareBandPrefixSurvivorMobiusMassReal A R *
         vfMidSquareBandPrefixSurvivorMobiusMassReal A S := by
@@ -331,7 +325,6 @@ theorem vfMidSubdoublingPrefixSurvivorSeatCharge_eq_affineMoebius
         hA hAR hRlt hnComp
     rw [vfMidOddSignedSeatCharge_of_not_prime R n hp, hmu]
     norm_num
-    ring
 
 def vfMidSubdoublingPrefixSurvivorChargeSum (A R : ℕ) : ℝ :=
   ∑ n ∈ vfMidSquarePrefixWheelSurvivors A R,
@@ -369,7 +362,6 @@ theorem vfMidSubdoublingPrefixSurvivorChargeSum_eq_affineMoebius
           (vfMidOddFractionalPrimeSeatWeight R - (1 / 2 : ℝ)) := by
             unfold vfMidSquareBandPrefixSurvivorMobiusMassReal
             rw [Finset.sum_const, nsmul_eq_mul]
-            ring
 
 theorem vfMidOddCompositeTrackingDefect_eq_frozenWheel_add_half_moebius
     {A R : ℕ}
@@ -475,7 +467,6 @@ theorem vfMidDyadicVFTrackingDefect_eq_frozenWheel_add_half_moebius
           unfold vfMidDyadicPrefixSurvivorMobiusMassReal
           rw [Finset.sum_add_distrib, Finset.sum_sub_distrib,
             ← Finset.mul_sum, ← Finset.mul_sum]
-          ring
     _ = vfMidDyadicVFMass A B -
           (1 / 2 : ℝ) * vfMidDyadicPrefixSupply A A B +
           (1 / 2 : ℝ) * vfMidDyadicPrefixSurvivorMobiusMassReal A B := by
