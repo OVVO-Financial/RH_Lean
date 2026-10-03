@@ -1,6 +1,7 @@
 import Mathlib
 import «research.VF_MID_FLOOR_LI_DISCRETE_BACKLOG»
 import «research.PRIME_FLIP_PNT_TELESCOPE»
+import «research.PRIME_DENSITY_PNT_LOG_BOUND»
 import RHLean.Analysis.PrimeSievePNTResidualEnvelope
 
 /-!
@@ -116,6 +117,121 @@ def vfMidFloorLiNegativeMismatchPopulation (A B : ℕ) : ℤ :=
 def vfMidFloorLiSignedPopulationBalance (A B : ℕ) : ℤ :=
   vfMidFloorLiPositiveMismatchPopulation A B -
     vfMidFloorLiNegativeMismatchPopulation A B
+
+/-! ## Ternary support is automatic above 4 -/
+
+theorem vfMidFloorLiOneStepMass_nonneg_lt_one
+    {n : ℕ} (hn : 4 ≤ n) :
+    0 ≤ vfMidLogarithmicIntegralFromTwo ((n + 1 : ℕ) : ℝ) -
+          vfMidLogarithmicIntegralFromTwo (n : ℝ) ∧
+      vfMidLogarithmicIntegralFromTwo ((n + 1 : ℕ) : ℝ) -
+          vfMidLogarithmicIntegralFromTwo (n : ℝ) < 1 := by
+  have hnon0 :=
+    densityTightLiWeight_nonneg (q := n + 1) (by omega : 3 ≤ n + 1)
+  have hnon :
+      0 ≤ vfMidLogarithmicIntegralFromTwo ((n + 1 : ℕ) : ℝ) -
+        vfMidLogarithmicIntegralFromTwo (n : ℝ) := by
+    simpa [densityTightLiWeight, vfMidLogarithmicIntegralFromTwo,
+      logarithmicIntegralFromTwo] using hnon0
+  have hn2 : (2 : ℝ) ≤ (n : ℝ) := by
+    exact_mod_cast (show 2 ≤ n by omega)
+  have hstep0 :=
+    abs_logarithmicIntegralFromTwo_sub_le
+      (a := (n : ℝ)) (b := ((n + 1 : ℕ) : ℝ))
+      hn2 (by exact_mod_cast (show n ≤ n + 1 by omega))
+  have hstep :
+      |vfMidLogarithmicIntegralFromTwo ((n + 1 : ℕ) : ℝ) -
+        vfMidLogarithmicIntegralFromTwo (n : ℝ)| ≤
+          1 / Real.log (n : ℝ) := by
+    have hone :
+        (((n + 1 : ℕ) : ℝ) - (n : ℝ)) = 1 := by
+      push_cast
+      ring
+    simpa [vfMidLogarithmicIntegralFromTwo,
+      logarithmicIntegralFromTwo, hone] using hstep0
+  have hlog4eq : Real.log (4 : ℝ) = 2 * Real.log 2 := by
+    calc
+      Real.log (4 : ℝ) = Real.log ((2 : ℝ) ^ 2) := by norm_num
+      _ = 2 * Real.log 2 := by rw [Real.log_pow]; norm_num
+  have hlog4 : (1 : ℝ) < Real.log 4 := by
+    have h2 := Real.log_two_gt_d9
+    rw [hlog4eq]
+    nlinarith
+  have h4n : (4 : ℝ) ≤ (n : ℝ) := by exact_mod_cast hn
+  have hlogn : (1 : ℝ) < Real.log (n : ℝ) := by
+    have hmono :=
+      Real.log_le_log (by norm_num : (0 : ℝ) < 4) h4n
+    exact hlog4.trans_le hmono
+  have hinv : 1 / Real.log (n : ℝ) < 1 := by
+    have hlogpos : 0 < Real.log (n : ℝ) := by linarith
+    exact (div_lt_one hlogpos).2 hlogn
+  constructor
+  · exact hnon
+  · exact lt_of_le_of_lt (le_abs_self _) (hstep.trans_lt hinv)
+
+theorem vfMidFloorLiIntegerPotential_step_zero_or_one
+    {n : ℕ} (hn : 4 ≤ n) :
+    vfMidFloorLiIntegerPotential (n + 1) -
+        vfMidFloorLiIntegerPotential n = 0 ∨
+      vfMidFloorLiIntegerPotential (n + 1) -
+        vfMidFloorLiIntegerPotential n = 1 := by
+  let a : ℝ := vfMidLogarithmicIntegralFromTwo (n : ℝ)
+  let b : ℝ := vfMidLogarithmicIntegralFromTwo ((n + 1 : ℕ) : ℝ)
+  have hmass := vfMidFloorLiOneStepMass_nonneg_lt_one hn
+  have hab : a ≤ b := by
+    dsimp [a, b]
+    linarith [hmass.1]
+  have hba : b < a + 1 := by
+    dsimp [a, b]
+    linarith [hmass.2]
+  have hfloor : ⌊a⌋ ≤ ⌊b⌋ := Int.floor_mono hab
+  have hafloor : a < ((⌊a⌋ : ℤ) : ℝ) + 1 :=
+    Int.lt_floor_add_one a
+  have hbupper : b < ((⌊a⌋ : ℤ) : ℝ) + 2 := by
+    linarith
+  have hnot : ¬ (⌊a⌋ + 2 ≤ ⌊b⌋) := by
+    intro hbad
+    have hcast :
+        (((⌊a⌋ + 2 : ℤ) : ℝ)) ≤ ((⌊b⌋ : ℤ) : ℝ) := by
+      exact_mod_cast hbad
+    have hble : ((⌊b⌋ : ℤ) : ℝ) ≤ b := Int.floor_le b
+    linarith
+  have hupper : ⌊b⌋ ≤ ⌊a⌋ + 1 := by omega
+  change ⌊b⌋ - ⌊a⌋ = 0 ∨ ⌊b⌋ - ⌊a⌋ = 1
+  omega
+
+theorem vfMidPrimeCountingInteger_step_zero_or_one
+    (n : ℕ) :
+    (Nat.primeCounting (n + 1) : ℤ) -
+        (Nat.primeCounting n : ℤ) = 0 ∨
+      (Nat.primeCounting (n + 1) : ℤ) -
+        (Nat.primeCounting n : ℤ) = 1 := by
+  have hlo :
+      Nat.primeCounting n ≤ Nat.primeCounting (n + 1) :=
+    Nat.monotone_primeCounting (by omega)
+  have hup0 := vfMid_primeCounting_add_le n 1
+  have hup :
+      Nat.primeCounting (n + 1) ≤ Nat.primeCounting n + 1 := by
+    simpa using hup0
+  omega
+
+theorem vfMidFloorLiPrimitiveMismatch_ternary
+    {n : ℕ} (hn : 4 ≤ n) :
+    vfMidFloorLiPrimitiveMismatch n = -1 ∨
+      vfMidFloorLiPrimitiveMismatch n = 0 ∨
+        vfMidFloorLiPrimitiveMismatch n = 1 := by
+  have hp := vfMidPrimeCountingInteger_step_zero_or_one n
+  have hf := vfMidFloorLiIntegerPotential_step_zero_or_one hn
+  unfold vfMidFloorLiPrimitiveMismatch
+    vfMidPrimeFloorLiIntegerBacklog
+  rcases hp with hp | hp <;> rcases hf with hf | hf <;> omega
+
+theorem vfMidFloorLiPrimitiveTernaryOn_of_four_le
+    {A B : ℕ} (hA : 4 ≤ A) :
+    VFMidFloorLiPrimitiveTernaryOn A B := by
+  intro n hn
+  have hnA := (Finset.mem_Ico.mp hn).1
+  exact vfMidFloorLiPrimitiveMismatch_ternary (hA.trans hnA)
 
 theorem vfMidFloorLiSignedPopulationBalance_eq_mismatchMass
     {A B : ℕ}
