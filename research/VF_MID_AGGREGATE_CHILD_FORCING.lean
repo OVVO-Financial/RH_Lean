@@ -1,6 +1,6 @@
 import Mathlib
 import «research.VF_MID_RECURSIVE_REMAINDER_BOUND»
-import «research.ZERO_TARGET_PARTIAL_MOMENT_COVARIANCE»
+import RHLean.Analysis.PartialMomentSchurTarget
 
 /-!
 # Aggregate-to-child forcing for the native VF recursive descent
@@ -46,6 +46,27 @@ def vfMidRecursiveNativeCrossGram (R : ℕ) : ℝ :=
       vfMidRecursiveNativeChargeInBlock R i *
         vfMidRecursiveNativeChargeInBlock R j
 
+/-- Same-sign zero-target pair product in the stable NNS arbitrary-target
+partial-moment API. -/
+def vfMidZeroTargetCoPartialPair (x y : ℝ) : ℝ :=
+  partialLower x 0 * partialLower y 0 +
+    partialUpper x 0 * partialUpper y 0
+
+/-- Opposite-sign zero-target pair product in the same API. -/
+def vfMidZeroTargetDivergentPair (x y : ℝ) : ℝ :=
+  partialLower x 0 * partialUpper y 0 +
+    partialUpper x 0 * partialLower y 0
+
+/-- At target zero the NNS four-sector decomposition is exactly the raw scalar
+cross product. -/
+theorem vfMidZeroTargetCoPartial_sub_divergent_eq_mul (x y : ℝ) :
+    vfMidZeroTargetCoPartialPair x y -
+        vfMidZeroTargetDivergentPair x y = x * y := by
+  have h := deviation_product_eq_partial_reassembly x y 0 0
+  norm_num at h
+  unfold vfMidZeroTargetCoPartialPair vfMidZeroTargetDivergentPair
+  linarith
+
 /-- Same-sign zero-target partial-moment mass on the exact off-diagonal
 lower-scale pair carrier used by `vfMidRecursiveNativeCrossGram`.
 
@@ -54,7 +75,7 @@ literal NNS co-partial sector on the native child packet amplitudes. -/
 def vfMidRecursiveNativeZeroTargetCoPartialCross (R : ℕ) : ℝ :=
   ∑ j ∈ Finset.Ico 2 R,
     ∑ i ∈ Finset.Ico 2 j,
-      RHLean.Proof.zeroTargetCoPartialPair
+      vfMidZeroTargetCoPartialPair
         (vfMidRecursiveNativeChargeInBlock R i)
         (vfMidRecursiveNativeChargeInBlock R j)
 
@@ -63,7 +84,7 @@ lower-scale pair carrier. -/
 def vfMidRecursiveNativeZeroTargetDivergentCross (R : ℕ) : ℝ :=
   ∑ j ∈ Finset.Ico 2 R,
     ∑ i ∈ Finset.Ico 2 j,
-      RHLean.Proof.zeroTargetDivergentPair
+      vfMidZeroTargetDivergentPair
         (vfMidRecursiveNativeChargeInBlock R i)
         (vfMidRecursiveNativeChargeInBlock R j)
 
@@ -87,10 +108,10 @@ theorem vfMidRecursiveNativeCrossGram_eq_zeroTargetCoPartial_sub_divergent
           vfMidRecursiveNativeChargeInBlock R j) =
         ∑ j ∈ Finset.Ico 2 R,
           ∑ i ∈ Finset.Ico 2 j,
-            (RHLean.Proof.zeroTargetCoPartialPair
+            (vfMidZeroTargetCoPartialPair
                 (vfMidRecursiveNativeChargeInBlock R i)
                 (vfMidRecursiveNativeChargeInBlock R j) -
-              RHLean.Proof.zeroTargetDivergentPair
+              vfMidZeroTargetDivergentPair
                 (vfMidRecursiveNativeChargeInBlock R i)
                 (vfMidRecursiveNativeChargeInBlock R j)) := by
       apply Finset.sum_congr rfl
@@ -98,16 +119,16 @@ theorem vfMidRecursiveNativeCrossGram_eq_zeroTargetCoPartial_sub_divergent
       apply Finset.sum_congr rfl
       intro i _hi
       exact
-        (RHLean.Proof.zeroTargetCoPartial_sub_divergent_eq_mul
+        (vfMidZeroTargetCoPartial_sub_divergent_eq_mul
           (vfMidRecursiveNativeChargeInBlock R i)
           (vfMidRecursiveNativeChargeInBlock R j)).symm
     _ = ∑ j ∈ Finset.Ico 2 R,
           ((∑ i ∈ Finset.Ico 2 j,
-              RHLean.Proof.zeroTargetCoPartialPair
+              vfMidZeroTargetCoPartialPair
                 (vfMidRecursiveNativeChargeInBlock R i)
                 (vfMidRecursiveNativeChargeInBlock R j)) -
             ∑ i ∈ Finset.Ico 2 j,
-              RHLean.Proof.zeroTargetDivergentPair
+              vfMidZeroTargetDivergentPair
                 (vfMidRecursiveNativeChargeInBlock R i)
                 (vfMidRecursiveNativeChargeInBlock R j)) := by
       apply Finset.sum_congr rfl
@@ -115,12 +136,12 @@ theorem vfMidRecursiveNativeCrossGram_eq_zeroTargetCoPartial_sub_divergent
       rw [Finset.sum_sub_distrib]
     _ = (∑ j ∈ Finset.Ico 2 R,
             ∑ i ∈ Finset.Ico 2 j,
-              RHLean.Proof.zeroTargetCoPartialPair
+              vfMidZeroTargetCoPartialPair
                 (vfMidRecursiveNativeChargeInBlock R i)
                 (vfMidRecursiveNativeChargeInBlock R j)) -
           ∑ j ∈ Finset.Ico 2 R,
             ∑ i ∈ Finset.Ico 2 j,
-              RHLean.Proof.zeroTargetDivergentPair
+              vfMidZeroTargetDivergentPair
                 (vfMidRecursiveNativeChargeInBlock R i)
                 (vfMidRecursiveNativeChargeInBlock R j)) := by
       rw [Finset.sum_sub_distrib]
