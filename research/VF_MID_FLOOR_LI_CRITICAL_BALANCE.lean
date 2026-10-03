@@ -253,4 +253,81 @@ theorem norm_vfMidFloorLiCriticalRoundingTail_le
   rw [htail, norm_neg]
   simpa [d, vfMidCriticalRealWeight] using hS
 
+/-! ## Exact discrete-to-continuous critical transfer -/
+
+/-- Direct critical tail of the integer prime-minus-floor-Li backlog. -/
+def vfMidFloorLiDirectCriticalMismatchTail (A X : ℕ) : ℂ :=
+  ∑ q ∈ Finset.Ioc A X,
+    criticalSqrtWeight q *
+      (((vfMidPrimeFloorLiIntegerBacklog q -
+        vfMidPrimeFloorLiIntegerBacklog (q - 1) : ℤ) : ℂ))
+
+/-- Direct critical tail of the classical prime-minus-Li discrepancy. -/
+def vfMidPrimeLiCriticalMismatchTail (A X : ℕ) : ℂ :=
+  ∑ q ∈ Finset.Ioc A X,
+    criticalSqrtWeight q *
+      ((vfMidPrimeLiIntegerDiscrepancyReal q -
+        vfMidPrimeLiIntegerDiscrepancyReal (q - 1) : ℝ) : ℂ)
+
+private theorem criticalSqrtWeight_eq_realWeight_cast (q : ℕ) :
+    criticalSqrtWeight q = (vfMidCriticalRealWeight q : ℂ) := by
+  unfold criticalSqrtWeight vfMidCriticalRealWeight
+  push_cast
+  rfl
+
+/-- **Exact critical split.**
+The discrete prime-minus-floor-Li critical tail is the continuous
+prime-minus-Li critical tail plus only the endpoint-rounding difference tail. -/
+theorem vfMidFloorLiDirectCriticalMismatchTail_eq_primeLi_add_rounding
+    (A X : ℕ) :
+    vfMidFloorLiDirectCriticalMismatchTail A X =
+      vfMidPrimeLiCriticalMismatchTail A X +
+        vfMidFloorLiCriticalRoundingTail A X := by
+  unfold vfMidFloorLiDirectCriticalMismatchTail
+    vfMidPrimeLiCriticalMismatchTail
+    vfMidFloorLiCriticalRoundingTail
+  rw [← Finset.sum_add_distrib]
+  apply Finset.sum_congr rfl
+  intro q hq
+  have hqBack :=
+    vfMidPrimeFloorLiIntegerBacklog_cast_eq_primeLi_add_rounding q
+  have hpredBack :=
+    vfMidPrimeFloorLiIntegerBacklog_cast_eq_primeLi_add_rounding (q - 1)
+  have hqComplex := congrArg (fun x : ℝ => (x : ℂ)) hqBack
+  have hpredComplex := congrArg (fun x : ℝ => (x : ℂ)) hpredBack
+  push_cast at hqComplex hpredComplex
+  rw [criticalSqrtWeight_eq_realWeight_cast]
+  linear_combination
+    (vfMidCriticalRealWeight q : ℂ) * hqComplex -
+      (vfMidCriticalRealWeight q : ℂ) * hpredComplex
+
+/-- The exact transfer costs at most the already-proved vanishing rounding
+budget. -/
+theorem norm_vfMidFloorLiDirectCriticalMismatchTail_sub_primeLi_le
+    {A X : ℕ} (hAX : A < X) :
+    ‖vfMidFloorLiDirectCriticalMismatchTail A X -
+        vfMidPrimeLiCriticalMismatchTail A X‖ ≤
+      2 * (Real.sqrt ((A + 1 : ℕ) : ℝ))⁻¹ := by
+  rw [vfMidFloorLiDirectCriticalMismatchTail_eq_primeLi_add_rounding,
+    add_sub_cancel_left]
+  exact norm_vfMidFloorLiCriticalRoundingTail_le hAX
+
+/-- Consequently any logarithmic envelope for the continuous critical tail
+transfers to the discrete floor-Li mismatch with only a vanishing additive
+term. -/
+theorem norm_vfMidFloorLiDirectCriticalMismatchTail_le_of_primeLi
+    {A X : ℕ} (hAX : A < X) {B : ℝ}
+    (hB : ‖vfMidPrimeLiCriticalMismatchTail A X‖ ≤ B) :
+    ‖vfMidFloorLiDirectCriticalMismatchTail A X‖ ≤
+      B + 2 * (Real.sqrt ((A + 1 : ℕ) : ℝ))⁻¹ := by
+  rw [vfMidFloorLiDirectCriticalMismatchTail_eq_primeLi_add_rounding]
+  calc
+    ‖vfMidPrimeLiCriticalMismatchTail A X +
+        vfMidFloorLiCriticalRoundingTail A X‖
+        ≤ ‖vfMidPrimeLiCriticalMismatchTail A X‖ +
+            ‖vfMidFloorLiCriticalRoundingTail A X‖ := norm_add_le _ _
+    _ ≤ B + 2 * (Real.sqrt ((A + 1 : ℕ) : ℝ))⁻¹ :=
+      add_le_add hB (norm_vfMidFloorLiCriticalRoundingTail_le hAX)
+
+
 end RHLean.Analysis
