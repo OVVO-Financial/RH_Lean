@@ -72,7 +72,8 @@ theorem vfMidFloorLiActualBlockCorrection_eq_signedMismatchMass
     (R : ℕ) :
     vfMidFloorLiActualBlockCorrection R =
       vfMidFloorLiSignedMismatchMass (R ^ 2) ((R + 1) ^ 2) := by
-  have hsq : R ^ 2 ≤ (R + 1) ^ 2 := by nlinarith
+  have hsq : R ^ 2 ≤ (R + 1) ^ 2 :=
+    Nat.pow_le_pow_left (Nat.le_succ R) 2
   have hmass :=
     vfMidFloorLiSignedMismatchMass_eq_backlog_increment hsq
   rw [vfMidPrimeFloorLiIntegerBacklog_sq,
@@ -115,7 +116,8 @@ theorem norm_vfMidFloorLiActualBlockCorrection_sub_moebiusAbel_lt_one
     (R : ℕ) :
     ‖(vfMidFloorLiActualBlockCorrection R : ℂ) -
         vfMidFloorLiMoebiusAbelCarrier (R ^ 2) ((R + 1) ^ 2)‖ < 1 := by
-  have hsq : R ^ 2 ≤ (R + 1) ^ 2 := by nlinarith
+  have hsq : R ^ 2 ≤ (R + 1) ^ 2 :=
+    Nat.pow_le_pow_left (Nat.le_succ R) 2
   rw [vfMidFloorLiActualBlockCorrection_eq_signedMismatchMass]
   exact norm_vfMidFloorLiSignedMismatchMass_sub_moebiusAbel_lt_one hsq
 
@@ -175,7 +177,9 @@ theorem vfMidSignedTransportStep_diff
     · have hqa : q ≠ a := by omega
       simp [haq, hap, hqa]
     · have hqa : q = a := by omega
-      simp [haq, hap, hqa]
+      subst a
+      have hprev : ¬ q ≤ q - 1 := by omega
+      simp [hprev]
   · have hap : ¬ a ≤ q - 1 := by omega
     have hqa : q ≠ a := by omega
     simp [haq, hap, hqa]
@@ -212,13 +216,10 @@ theorem vfMidSignedTransportInterval_eq_chamber
   unfold vfMidSignedTransportInterval vfMidSignedTransportStep
   by_cases han : a ≤ n
   · by_cases hbn : b ≤ n
-    · have hnot : ¬ (a ≤ n ∧ n < b) := by omega
-      simp [han, hbn, hnot]
-    · have hlt : n < b := by omega
-      simp [han, hbn, hlt]
+    · simp [han, hbn]
+    · simp [han, hbn]
   · have hbn : ¬ b ≤ n := by omega
-    have hnot : ¬ (a ≤ n ∧ n < b) := by simp [han]
-    simp [han, hbn, hnot]
+    simp [han, hbn]
 
 /-- Finite superposition of signed relocation intervals. -/
 def vfMidSignedTransportPotential
