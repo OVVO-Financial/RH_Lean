@@ -40,6 +40,7 @@ on:
       - research/VF_MID_RECURSIVE_REMAINDER_BOUND.lean
       - research/VF_MID_AGGREGATE_CHILD_FORCING.lean
       - research/VF_MID_ENDPOINT_TRIGGER_DICTIONARY.lean
+      - research/VF_MID_PHYSICAL_FORCING_MOBIUS_DECODER.lean
       - research/VF_MID_SQUARE_THETA_NATIVE_DESCENT.lean
       - research/VF_MID_ACTUAL_PRIME_ROOT_SQUARE_CONTRACTION.lean
       - research/PRIME_WHEEL_ROUGH_SEAT_SQRT_SPECIALIZATION.lean
@@ -181,6 +182,7 @@ jobs:
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_RECURSIVE_REMAINDER_BOUND.olean research/VF_MID_RECURSIVE_REMAINDER_BOUND.lean 2>&1 | tee vf-mid-recursive-remainder-bound.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_AGGREGATE_CHILD_FORCING.olean research/VF_MID_AGGREGATE_CHILD_FORCING.lean 2>&1 | tee vf-mid-aggregate-child-forcing.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_ENDPOINT_TRIGGER_DICTIONARY.olean research/VF_MID_ENDPOINT_TRIGGER_DICTIONARY.lean 2>&1 | tee vf-mid-endpoint-trigger-dictionary.log
+          lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_PHYSICAL_FORCING_MOBIUS_DECODER.olean research/VF_MID_PHYSICAL_FORCING_MOBIUS_DECODER.lean 2>&1 | tee vf-mid-physical-forcing-mobius-decoder.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_SQUARE_THETA_NATIVE_DESCENT.olean research/VF_MID_SQUARE_THETA_NATIVE_DESCENT.lean 2>&1 | tee vf-mid-square-theta-native-descent.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.PRIME_WHEEL_ROUGH_SEAT_SQRT_SPECIALIZATION.olean research/PRIME_WHEEL_ROUGH_SEAT_SQRT_SPECIALIZATION.lean 2>&1 | tee prime-wheel-rough-seat-sqrt-specialization.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_ACTUAL_PRIME_ROOT_SQUARE_CONTRACTION.olean research/VF_MID_ACTUAL_PRIME_ROOT_SQUARE_CONTRACTION.lean 2>&1 | tee vf-mid-actual-prime-root-square-contraction.log
@@ -217,6 +219,7 @@ jobs:
           import «research.VF_MID_RECURSIVE_REMAINDER_BOUND»
           import «research.VF_MID_AGGREGATE_CHILD_FORCING»
           import «research.VF_MID_ENDPOINT_TRIGGER_DICTIONARY»
+          import «research.VF_MID_PHYSICAL_FORCING_MOBIUS_DECODER»
           import «research.VF_MID_SQUARE_THETA_NATIVE_DESCENT»
           import «research.VF_MID_ACTUAL_PRIME_ROOT_SQUARE_CONTRACTION»
           import «research.VF_MID_PROXY_ENERGY_PULL»
@@ -635,6 +638,12 @@ jobs:
           #print axioms RHLean.Analysis.vfMidSubdoublingPrefixSurvivorChargeSum_eq_affineMoebius
           #print axioms RHLean.Analysis.vfMidOddCompositeTrackingDefect_eq_frozenWheel_add_half_moebius
           #print axioms RHLean.Analysis.vfMidDyadicVFTrackingDefect_eq_frozenWheel_add_half_moebius
+          #print axioms RHLean.Analysis.primeSievePrimeIndicator_eq_half_sub_half_moebius_of_cube
+          #print axioms RHLean.Analysis.vfMidActualLiForcingAtom_sub_target_eq_neg_half_moebius_of_cube
+          #print axioms RHLean.Analysis.vfMidActualLiCenteredPair_eq_quarter_moebiusPair_of_cube
+          #print axioms RHLean.Analysis.criticalCenteredPrimeFrequencyWeight_eq_target_sub_half_moebius_of_cube
+          #print axioms RHLean.Analysis.reciprocalCenteredPrimeFrequencyWeight_eq_target_sub_half_moebius_of_cube
+          #print axioms RHLean.Analysis.vfMidCubeActualLiForcingMass_eq_target_sub_half_moebius
           #print axioms RHLean.Analysis.supercriticalParent_forces_supercriticalChildPacket
           #print axioms RHLean.Analysis.vfMidSupercriticalParent_forces_nativeChildPacket
           #print axioms RHLean.Analysis.vfMidNoSupercriticalScale_of_aggregateChildForcing
