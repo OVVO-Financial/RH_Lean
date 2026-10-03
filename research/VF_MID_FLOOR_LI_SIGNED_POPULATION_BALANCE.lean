@@ -358,8 +358,18 @@ theorem vfMidFloorLiSignedMismatchMass_cast_eq_moebiusAbel_add_rounding
     vfMidPrimeFloorLiIntegerBacklog_cast_eq_primeLi_add_rounding A
   have hcarrier :=
     vfMidFloorLiMoebiusAbelCarrier_eq_primeLi_increment hAB
-  have hBcomplex := congrArg (fun x : ℝ => (x : ℂ)) hB
-  have hAcomplex := congrArg (fun x : ℝ => (x : ℂ)) hA
+  have hBcomplex0 := congrArg (fun x : ℝ => (x : ℂ)) hB
+  have hAcomplex0 := congrArg (fun x : ℝ => (x : ℂ)) hA
+  have hBcomplex :
+      (((vfMidPrimeFloorLiIntegerBacklog B : ℤ) : ℂ)) =
+        (vfMidPrimeLiIntegerDiscrepancyReal B : ℂ) +
+          (vfMidFloorLiEndpointRounding B : ℂ) := by
+    simpa using hBcomplex0
+  have hAcomplex :
+      (((vfMidPrimeFloorLiIntegerBacklog A : ℤ) : ℂ)) =
+        (vfMidPrimeLiIntegerDiscrepancyReal A : ℂ) +
+          (vfMidFloorLiEndpointRounding A : ℂ) := by
+    simpa using hAcomplex0
   rw [← primeSievePrimeDiscrepancy_eq_vfMidPrimeLiIntegerDiscrepancyReal B]
     at hBcomplex
   rw [← primeSievePrimeDiscrepancy_eq_vfMidPrimeLiIntegerDiscrepancyReal A]
@@ -402,6 +412,7 @@ theorem norm_vfMidFloorLiDyadicPrimeDefect_add_moebiusAbel_lt_one
   have hmain :=
     norm_vfMidFloorLiSignedMismatchMass_sub_moebiusAbel_lt_one hsq
   rw [vfMidFloorLiSignedMismatchMass_sq_eq_neg_dyadicPrimeDefect hAB] at hmain
+  push_cast at hmain
   have hsign :
       -(((vfMidFloorLiDyadicPrimeDefect A B : ℤ) : ℂ)) -
           vfMidFloorLiMoebiusAbelCarrier (A ^ 2) (B ^ 2) =
