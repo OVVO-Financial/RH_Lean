@@ -70,7 +70,11 @@ theorem vfMidAligned_sq_mem_solvedFantasyCone
     VFMidSolvedFantasyConeAt 0 C0 R
       (vfMidAligned c ((R : ℝ) ^ 2)) := by
   unfold VFMidSolvedFantasyConeAt vfMidAligned
-  simpa only [zero_mul, zero_add, add_sub_cancel_left] using hc
+  have hleft :
+      vfMid ((R : ℝ) ^ 2) + c - vfMid ((R : ℝ) ^ 2) = c := by
+    ring
+  rw [hleft]
+  simpa using hc
 
 /-- All four solved fantasy directions together have only root-scale radius. -/
 theorem vfMidSolvedFantasyConeRadius_le_root :
