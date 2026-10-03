@@ -1253,3 +1253,47 @@ The terminal forward theorem is guarded in `RHLean/Proof/TerminalAxiomAudit.lean
 8. Only after a structural theorem is kernel-checked should a quantitative estimate be attempted on the reduced signed defect.
 
 The present goal is not another representation. It is a sign-preserving Euler contraction of the one already-identified boundary process.
+
+
+## 2026-10-03 continuation: floor-Li as the primary discrete control
+
+PR #880 adds the exact floor-Li transport coordinate and its finite \(10^8\)
+diagnostics.
+
+The key exact block variable is
+\[
+\delta_R
+=
+\bigl[\pi((R+1)^2)-\pi(R^2)\bigr]
+-
+\bigl[\lfloor Li_2((R+1)^2)\rfloor-\lfloor Li_2(R^2)\rfloor\bigr].
+\]
+The new theorem file
+\`research/VF_MID_FLOOR_LI_TRANSPORT_CANCELLATION.lean\` proves that
+\(\delta_R\) is the square-backlog derivative, the primitive ternary mismatch
+mass, the negative native floor-Li prime defect, the owner-census correction,
+and—up to strictly less than one count of endpoint rounding—the existing
+Möbius/Abel carrier.
+
+The same file proves the generic quadratic perturbation identity: changing the
+local event frequency, phase, spacing, or sign pattern changes the summed
+quadratic continuation only by a boundary-energy increment. It also packages
+finite event relocation as the single global chamber
+\[
+H(n)=\sum_j\sigma_j1_{a_j\le n<b_j},
+\]
+whose derivative is exactly its birth/death endpoint stream.
+
+The finite miner through \(10^8\) shows that floor Li is a useful control
+despite almost total pointwise relocation: only 5.7886% of actual-prime events
+coincide with floor-Li jumps, while 97.0196% of the union of event sites is
+mismatched. In the miner's \(\lfloor\sqrt n\rfloor\) bins, 99.9964% of
+5,427,515 monotone/FIFO relocations close in the same or next bin and the
+observed maximum gap is 2. These are finite diagnostics only, not asymptotic
+lemmas.
+
+Proof-search rule from this stage: do not demand local prime/fantasy event
+alignment. Reassemble the signed relocation / Möbius-Abel carrier globally
+and control the active crossing population. The already-proved floor-Li/VF
+bridge is only root scale, so an \(O(R\log R)\) active-transport envelope at
+square endpoints is sufficient for the direct VF von-Koch consumer.
