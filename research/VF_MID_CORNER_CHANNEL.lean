@@ -602,6 +602,79 @@ theorem riemannHypothesis_of_outerCornerBracket
 
 /-! ## Theoretical prime-envelope inclusion API -/
 
+/-- Real-valued theoretical lower envelope for ordinary prime count. -/
+def PrimeCountingRealLowerEnvelope (L : ℕ → ℝ) : Prop :=
+  ∀ x : ℕ, L x ≤ (Nat.primeCounting x : ℝ)
+
+/-- Real-valued theoretical upper envelope for ordinary prime count. -/
+def PrimeCountingRealUpperEnvelope (U : ℕ → ℝ) : Prop :=
+  ∀ x : ℕ, (Nat.primeCounting x : ℝ) ≤ U x
+
+/-- Intersecting two rigorous lower series by pointwise maximum preserves a
+valid lower prime-count envelope. -/
+theorem primeCountingRealLowerEnvelope_max
+    {L₁ L₂ : ℕ → ℝ}
+    (h₁ : PrimeCountingRealLowerEnvelope L₁)
+    (h₂ : PrimeCountingRealLowerEnvelope L₂) :
+    PrimeCountingRealLowerEnvelope (fun x => max (L₁ x) (L₂ x)) := by
+  intro x
+  exact max_le (h₁ x) (h₂ x)
+
+/-- Intersecting two rigorous upper series by pointwise minimum preserves a
+valid upper prime-count envelope. -/
+theorem primeCountingRealUpperEnvelope_min
+    {U₁ U₂ : ℕ → ℝ}
+    (h₁ : PrimeCountingRealUpperEnvelope U₁)
+    (h₂ : PrimeCountingRealUpperEnvelope U₂) :
+    PrimeCountingRealUpperEnvelope (fun x => min (U₁ x) (U₂ x)) := by
+  intro x
+  exact le_min (h₁ x) (h₂ x)
+
+/-- Real theoretical series trapped inside the canonical outer VF corners
+force the endpoint bracket directly.  This is the continuous-series version
+of the inclusion proof architecture. -/
+theorem vfMidOuterCornerEndpointBracket_of_realPrimeCount_envelopes
+    {A : ℝ}
+    (L U : ℕ → ℝ)
+    (hL : PrimeCountingRealLowerEnvelope L)
+    (hU : PrimeCountingRealUpperEnvelope U)
+    (hLower :
+      ∀ R : ℕ, 4 ≤ R →
+        vfMidOuterLowerCorner A R ≤ L (R ^ 2))
+    (hUpper :
+      ∀ R : ℕ, 4 ≤ R →
+        U (R ^ 2) ≤ vfMidOuterUpperCorner A R) :
+    VFMidOuterCornerEndpointBracket A := by
+  intro R hR
+  exact ⟨(hLower R hR).trans (hL (R ^ 2)),
+    (hU (R ^ 2)).trans (hUpper R hR)⟩
+
+/-- Intersect two lower and two upper theoretical series and consume the
+resulting tight bracket in one step.  Repeated application gives the same API
+for any finite family of proved envelopes. -/
+theorem vfMidOuterCornerEndpointBracket_of_intersected_real_envelopes
+    {A : ℝ}
+    (L₁ L₂ U₁ U₂ : ℕ → ℝ)
+    (hL₁ : PrimeCountingRealLowerEnvelope L₁)
+    (hL₂ : PrimeCountingRealLowerEnvelope L₂)
+    (hU₁ : PrimeCountingRealUpperEnvelope U₁)
+    (hU₂ : PrimeCountingRealUpperEnvelope U₂)
+    (hLower :
+      ∀ R : ℕ, 4 ≤ R →
+        vfMidOuterLowerCorner A R ≤ max (L₁ (R ^ 2)) (L₂ (R ^ 2)))
+    (hUpper :
+      ∀ R : ℕ, 4 ≤ R →
+        min (U₁ (R ^ 2)) (U₂ (R ^ 2)) ≤ vfMidOuterUpperCorner A R) :
+    VFMidOuterCornerEndpointBracket A := by
+  apply vfMidOuterCornerEndpointBracket_of_realPrimeCount_envelopes
+    (fun x => max (L₁ x) (L₂ x))
+    (fun x => min (U₁ x) (U₂ x))
+  · exact primeCountingRealLowerEnvelope_max hL₁ hL₂
+  · exact primeCountingRealUpperEnvelope_min hU₁ hU₂
+  · exact hLower
+  · exact hUpper
+
+
 /-- Any rigorous lower/upper prime-count envelopes that fit inside the two
 outer VF corners force the required endpoint bracket.  This is the formal
 "prove pi by inclusion between theoretical series" interface. -/
