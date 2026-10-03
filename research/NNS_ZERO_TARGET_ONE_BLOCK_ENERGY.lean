@@ -349,6 +349,31 @@ theorem nnsOneBlockSameParentDiv_eq_sq
   unfold nnsOneBlockOldTailEvent
   simp
 
+/-- The root atom is itself a same-coordinate opposite-sign update. -/
+@[simp] theorem nnsOneBlockRootSelfCo_eq_zero (R : ℕ) :
+    zeroTargetCoPartialPair
+        (nnsOneBlockOldTailEvent R)
+        (nnsOneBlockRootUpdateEvent R) = 0 := by
+  unfold nnsOneBlockOldTailEvent nnsOneBlockRootUpdateEvent
+  simp
+
+@[simp] theorem nnsOneBlockRootSelfDiv_eq_sq (R : ℕ) :
+    zeroTargetDivergentPair
+        (nnsOneBlockOldTailEvent R)
+        (nnsOneBlockRootUpdateEvent R) =
+      (realMoebiusStep R) ^ 2 := by
+  unfold nnsOneBlockOldTailEvent nnsOneBlockRootUpdateEvent
+  simp
+
+theorem nnsOneBlockRootSelfExcess_eq_neg_sq (R : ℕ) :
+    zeroTargetPairExcess
+        (nnsOneBlockOldTailEvent R)
+        (nnsOneBlockRootUpdateEvent R) =
+      -(realMoebiusStep R) ^ 2 := by
+  unfold zeroTargetPairExcess
+  rw [nnsOneBlockRootSelfCo_eq_zero, nnsOneBlockRootSelfDiv_eq_sq]
+  ring
+
 /-- Parents that are themselves visible on the old-tail clock. -/
 def nnsOneBlockMatchedParentSet (R : ℕ) : Finset ℕ :=
   Finset.Icc R (oldParentCutoff R)
@@ -395,6 +420,37 @@ theorem nnsOneBlockSameParentExcess_eq_neg_diagonal
             (realMoebiusStep c) ^ 2 := by
             simp [mul_comm]
             ring
+
+/-- Root self-pair plus all visible canonical parent diagonals: the complete
+identified diagonal sector is purely dissipative. -/
+def nnsOneBlockIdentifiedDiagonalExcess (R : ℕ) : ℝ :=
+  zeroTargetPairExcess
+      (nnsOneBlockOldTailEvent R)
+      (nnsOneBlockRootUpdateEvent R) +
+    nnsOneBlockSameParentExcess R
+
+theorem nnsOneBlockIdentifiedDiagonalExcess_eq_neg_energy
+    (R : ℕ) (hR : 3 ≤ R) :
+    nnsOneBlockIdentifiedDiagonalExcess R =
+      -((realMoebiusStep R) ^ 2 +
+        ∑ c ∈ nnsOneBlockMatchedParentSet R,
+          ((canonicalParentFiber R c).card : ℝ) *
+            (realMoebiusStep c) ^ 2) := by
+  unfold nnsOneBlockIdentifiedDiagonalExcess
+  rw [nnsOneBlockRootSelfExcess_eq_neg_sq,
+    nnsOneBlockSameParentExcess_eq_neg_diagonal R hR]
+  ring
+
+theorem nnsOneBlockIdentifiedDiagonalExcess_nonpos
+    (R : ℕ) (hR : 3 ≤ R) :
+    nnsOneBlockIdentifiedDiagonalExcess R ≤ 0 := by
+  rw [nnsOneBlockIdentifiedDiagonalExcess_eq_neg_energy R hR]
+  apply neg_nonpos.mpr
+  apply add_nonneg
+  · exact sq_nonneg _
+  · apply Finset.sum_nonneg
+    intro c _hc
+    exact mul_nonneg (Nat.cast_nonneg _) (sq_nonneg _)
 
 theorem nnsOneBlockSameParentExcess_nonpos
     (R : ℕ) (hR : 3 ≤ R) :
