@@ -126,13 +126,13 @@ def EulerLiPhysicalBoundaryStatement : Prop :=
     ∀ R : ℕ, ∀ K : ℝ,
       56 ≤ R →
       LowerMertensCriticalEnvelope R K →
-      ‖
+      norm (
           squareRootCanonicalRoughAdaptiveRawLedger R
               (eulerLiDescendingPrimeSchedule R)
               (Finset.Icc 1 (squareRootEndpoint R))
               (fun _ => (1 : ℂ)) +
             frozenTopFarRoughRootCorrection R
-        ‖ ^ 2 ≤
+        ) ^ 2 ≤
         4 * farFourOddQ2DaughterEnergy R +
           C * (R : ℝ) ^ 2 * K
 
