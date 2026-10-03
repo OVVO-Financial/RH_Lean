@@ -36,6 +36,7 @@ theorem deriv_invLog_eq_vfInvLogDeriv
   simpa [vfInvLogDeriv] using deriv_inv_log_formula hx
 
 /-- Exact derivative of the first derivative of the inverse-log density. -/
+set_option linter.unnecessarySeqFocus false in
 theorem hasDerivAt_vfInvLogDeriv
     {x : ℝ} (hx : 1 < x) :
     HasDerivAt vfInvLogDeriv
