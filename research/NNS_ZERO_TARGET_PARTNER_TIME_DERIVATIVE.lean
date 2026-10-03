@@ -66,6 +66,7 @@ theorem mem_squareRootCanonicalRoughTimeBirthBoundary_iff
     · omega
     · omega
   · rintro ⟨hq, hrough, hloBlock, hhiBlock⟩
+    have hRsq : R + 1 ≤ R ^ 2 := by nlinarith
     constructor
     · refine ⟨hq, hrough, ?_, ?_⟩ <;> omega
     · intro hold
@@ -86,7 +87,7 @@ theorem mem_squareRootCanonicalRoughTimeDeathBoundary_iff
   constructor
   · rintro ⟨⟨hq, hrough, hloOld, hhiOld⟩, hnotNew⟩
     have hupperNew : c * q ≤ (R + 1) ^ 2 - 1 := by
-      have : R ^ 2 - 1 ≤ (R + 1) ^ 2 - 1 := by nlinarith
+      have hsq : R ^ 2 ≤ (R + 1) ^ 2 := Nat.pow_le_pow_left (by omega) 2
       omega
     have hltNew : c * q < R + 1 := by
       by_contra h
@@ -94,6 +95,7 @@ theorem mem_squareRootCanonicalRoughTimeDeathBoundary_iff
       exact ⟨hq, hrough, Nat.le_of_not_gt h, hupperNew⟩
     exact ⟨hq, hrough, by omega⟩
   · rintro ⟨hq, hrough, hroot⟩
+    have hRsq : R + 1 ≤ R ^ 2 := by nlinarith
     constructor
     · refine ⟨hq, hrough, ?_, ?_⟩ <;> omega
     · intro hnew
@@ -136,7 +138,7 @@ theorem squareRootCanonicalRoughTimeDeath_rootWeight_eq_neg_parent
     have hmem : q ∈ c.primeFactors :=
       Nat.mem_primeFactors.mpr ⟨hqPrime, hdvd, by omega⟩
     have hle :=
-      primeFactor_le_canonicalLargestPrimeFactor' hc1 hmem
+      primeFactor_le_canonicalLargestPrimeFactor hc1 hmem
     omega
   have hflip :=
     realMoebiusStep_mul_prime_eq_neg hqPrime hnotdvd
@@ -203,23 +205,16 @@ theorem squareRootCanonicalRoughTimeBirth_product_mem_parentFiber
   have hqNotDvd : ¬ q ∣ c := by
     intro hdiv
     have hqmem : q ∈ c.primeFactors :=
-      (Nat.mem_primeFactors.mpr ⟨hqPrime, hdiv, by
-        intro hc1
-        subst c
-        norm_num at hrough⟩)
+      Nat.mem_primeFactors.mpr ⟨hqPrime, hdiv, by omega⟩
     have hqle : q ≤ canonicalLargestPrimeFactor c :=
       primeFactor_le_canonicalLargestPrimeFactor
-        (by
-          have hc1 : 1 ≤ c := hc
-          by_contra hnot
-          have : c = 1 := by omega
-          subst c
-          norm_num at hrough)
+        (lt_of_lt_of_le hqPrime.one_lt (Nat.le_of_dvd hc hdiv))
         hqmem
     omega
-  have hprodSq : Squarefree (c * q) := by
-    exact hcsq.mul (hqPrime.squarefree) (Nat.Coprime.symm
-      (hqPrime.coprime_iff_not_dvd.mpr hqNotDvd))
+  have hprodSq : Squarefree (c * q) :=
+    (Nat.squarefree_mul
+      (hqPrime.coprime_iff_not_dvd.mpr hqNotDvd).symm).2
+      ⟨hcsq, hqPrime.prime.squarefree⟩
   have hcq1 : 1 < c * q := by
     have hq2 := hqPrime.two_le
     nlinarith
@@ -232,7 +227,7 @@ theorem squareRootCanonicalRoughTimeBirth_product_mem_parentFiber
     have hqpos := hqPrime.pos
     nlinarith
   unfold canonicalParentFiber
-  simp only [Finset.mem_filter, Finset.mem_Ico]
+  simp only [Finset.mem_filter, squareBlockInterval, Finset.mem_Ico]
   exact ⟨⟨hlo, hhi⟩, hprodSq, hparent⟩
 
 /-- Every canonical parent-fibre child recovers a unique upper-wall birth
@@ -249,7 +244,12 @@ theorem canonicalParentFiber_largestPrimeFactor_mem_timeBirth
   have hm1 : 1 < m := by
     have h9 : 9 ≤ R ^ 2 := by nlinarith
     omega
-  have hcpos0 : 0 < canonicalCofactor m := canonicalCofactor_pos hm1
+  have hcpos0 : 0 < canonicalCofactor m := by
+    have hmul := canonicalCofactor_mul_largestPrimeFactor hm1
+    rcases Nat.eq_zero_or_pos (canonicalCofactor m) with h0 | h0
+    · rw [h0, zero_mul] at hmul
+      omega
+    · exact h0
   have hcpos : 0 < c := by simpa [hparent] using hcpos0
   have hqPrime : (canonicalLargestPrimeFactor m).Prime :=
     canonicalLargestPrimeFactor_prime hm1
@@ -273,7 +273,7 @@ theorem canonicalParentFiber_largestPrimeFactor_mem_timeBirth
 squarefree parent fibre. -/
 theorem canonicalLargestPrimeFactor_mul_timeBirth
     {R c q : ℕ} (hR : 3 ≤ R) (hc : 0 < c)
-    (hcsq : Squarefree c)
+    (_hcsq : Squarefree c)
     (hq : q ∈ squareRootCanonicalRoughTimeBirthBoundary R c) :
     canonicalLargestPrimeFactor (c * q) = q := by
   have hdata :=
@@ -304,7 +304,7 @@ theorem card_timeBirthBoundary_eq_parentFiber
       dsimp [q]
       exact canonicalParentFiber_largestPrimeFactor_mem_timeBirth hR hm
     refine ⟨q, hq, ?_⟩
-    rw [show q = canonicalLargestPrimeFactor m by rfl]
+    show c * canonicalLargestPrimeFactor m = m
     rw [canonicalParentFiber, Finset.mem_filter] at hm
     have hm1 : 1 < m := by
       have hmBlock := hm.1
