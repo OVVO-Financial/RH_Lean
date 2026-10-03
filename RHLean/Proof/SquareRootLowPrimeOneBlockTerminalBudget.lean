@@ -88,9 +88,15 @@ theorem canonicalPrefixPopulationMass_eq_sum_parentFiberMass
     have hx1 : 1 < x := by
       have h9 : 9 ≤ R ^ 2 := by nlinarith
       omega
+    have hcPos : 1 ≤ canonicalCofactor x := by
+      have hprod := canonicalCofactor_mul_largestPrimeFactor hx1
+      by_contra hnot
+      have hc0 : canonicalCofactor x = 0 := by omega
+      rw [hc0] at hprod
+      simp at hprod
+      omega
     exact Finset.mem_Icc.mpr
-      ⟨canonicalCofactor_pos hx1,
-        canonicalCofactor_le_oldParentCutoff hR hxBlock hsq hx1⟩
+      ⟨hcPos, canonicalCofactor_le_oldParentCutoff hR hxBlock hsq hx1⟩
   have hfiber := Finset.sum_fiberwise_of_maps_to
     (s := S) (t := T) (g := canonicalCofactor) hmaps
     (fun x => μ x)
@@ -121,7 +127,7 @@ theorem canonicalPrefixPopulationMass_eq_sum_parentFiberMass
           apply Finset.sum_congr rfl
           intro c hc
           simp [canonicalParentFiberMass, canonicalParentFiber, S,
-            Finset.filter_filter, and_assoc]
+            Finset.filter_filter]
 
 /-- The same one-block Fubini in the explicit weighted-multiplicity form. -/
 theorem canonicalPrefixPopulationMass_eq_sum_neg_mobius_mul_parentFiberCard
