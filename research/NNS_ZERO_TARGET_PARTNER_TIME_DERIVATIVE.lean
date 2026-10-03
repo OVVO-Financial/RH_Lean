@@ -1,5 +1,6 @@
 import Mathlib
 import RHLean.Proof.TerminalMertensReduction
+import RHLean.Proof.ReplacementFibreCofactorWindows
 import «research.NNS_ZERO_TARGET_ONE_BLOCK_ENERGY»
 
 /-!
@@ -182,5 +183,86 @@ theorem squareRootCanonicalRoughTimeBirth_product_mem_parentFiber
   unfold canonicalParentFiber
   simp only [Finset.mem_filter, Finset.mem_Ico]
   exact ⟨⟨hlo, hhi⟩, hprodSq, hparent⟩
+
+/-- Every canonical parent-fibre child recovers a unique upper-wall birth
+prime, namely its largest prime factor. -/
+theorem canonicalParentFiber_largestPrimeFactor_mem_timeBirth
+    {R c m : ℕ} (hR : 3 ≤ R)
+    (hm : m ∈ canonicalParentFiber R c) :
+    canonicalLargestPrimeFactor m ∈
+      squareRootCanonicalRoughTimeBirthBoundary R c := by
+  rw [canonicalParentFiber, Finset.mem_filter] at hm
+  rcases hm with ⟨hmBlock, hmsq, hparent⟩
+  have hmBounds : R ^ 2 ≤ m ∧ m < (R + 1) ^ 2 := by
+    simpa [squareBlockInterval, Finset.mem_Ico] using hmBlock
+  have hm1 : 1 < m := by
+    have h9 : 9 ≤ R ^ 2 := by nlinarith
+    omega
+  have hcpos0 : 0 < canonicalCofactor m := canonicalCofactor_pos hm1
+  have hcpos : 0 < c := by simpa [hparent] using hcpos0
+  have hqPrime : (canonicalLargestPrimeFactor m).Prime :=
+    canonicalLargestPrimeFactor_prime hm1
+  have hrough0 :
+      canonicalLargestPrimeFactor (canonicalCofactor m) <
+        canonicalLargestPrimeFactor m :=
+    canonicalLargestPrimeFactor_canonicalCofactor_lt_of_squarefree hm1 hmsq
+  have hrough :
+      canonicalLargestPrimeFactor c < canonicalLargestPrimeFactor m := by
+    simpa [hparent] using hrough0
+  have hprod0 := canonicalCofactor_mul_largestPrimeFactor hm1
+  have hprod :
+      c * canonicalLargestPrimeFactor m = m := by
+    simpa [hparent] using hprod0
+  apply (mem_squareRootCanonicalRoughTimeBirthBoundary_iff
+    (by omega : 2 ≤ R) hcpos).2
+  exact ⟨hqPrime, hrough, by simpa [hprod] using hmBounds.1,
+    by simpa [hprod] using hmBounds.2⟩
+
+/-- Birth-prime multiplication and largest-prime extraction are inverse on the
+squarefree parent fibre. -/
+theorem canonicalLargestPrimeFactor_mul_timeBirth
+    {R c q : ℕ} (hR : 3 ≤ R) (hc : 0 < c)
+    (hcsq : Squarefree c)
+    (hq : q ∈ squareRootCanonicalRoughTimeBirthBoundary R c) :
+    canonicalLargestPrimeFactor (c * q) = q := by
+  have hdata :=
+    (mem_squareRootCanonicalRoughTimeBirthBoundary_iff
+      (by omega : 2 ≤ R) hc).1 hq
+  exact canonicalLargestPrimeFactor_mul_prime_eq_of_rough
+    hc hdata.1 hdata.2.1
+
+/-- **Current-block parent fibres are exactly square-time response births.**
+
+For a squarefree old parent c, multiplication q -> c*q is a bijection from the
+new partner primes to the canonical children in the new square block. -/
+theorem card_timeBirthBoundary_eq_parentFiber
+    {R c : ℕ} (hR : 3 ≤ R) (hc : 0 < c) (hcsq : Squarefree c) :
+    (squareRootCanonicalRoughTimeBirthBoundary R c).card =
+      (canonicalParentFiber R c).card := by
+  classical
+  refine Finset.card_bij (fun q _hq => c * q) ?_ ?_ ?_
+  · intro q hq
+    exact squareRootCanonicalRoughTimeBirth_product_mem_parentFiber
+      hR hc hcsq hq
+  · intro q₁ hq₁ q₂ hq₂ heq
+    have hc0 : c ≠ 0 := Nat.ne_of_gt hc
+    exact Nat.eq_of_mul_eq_mul_left hc0 heq
+  · intro m hm
+    let q := canonicalLargestPrimeFactor m
+    have hq :
+        q ∈ squareRootCanonicalRoughTimeBirthBoundary R c := by
+      dsimp [q]
+      exact canonicalParentFiber_largestPrimeFactor_mem_timeBirth hR hm
+    refine ⟨q, hq, ?_⟩
+    rw [show q = canonicalLargestPrimeFactor m by rfl]
+    rw [canonicalParentFiber, Finset.mem_filter] at hm
+    have hm1 : 1 < m := by
+      have hmBlock := hm.1
+      have hmLow : R ^ 2 ≤ m := by
+        simpa [squareBlockInterval, Finset.mem_Ico] using hmBlock
+      have h9 : 9 ≤ R ^ 2 := by nlinarith
+      omega
+    have hprod := canonicalCofactor_mul_largestPrimeFactor hm1
+    simpa [hm.2.2] using hprod
 
 end RHLean.Proof
