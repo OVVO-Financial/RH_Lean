@@ -1,5 +1,6 @@
 import Mathlib
 import «research.VF_MID_RECURSIVE_REMAINDER_BOUND»
+import «research.ZERO_TARGET_PARTIAL_MOMENT_COVARIANCE»
 
 /-!
 # Aggregate-to-child forcing for the native VF recursive descent
@@ -45,6 +46,85 @@ def vfMidRecursiveNativeCrossGram (R : ℕ) : ℝ :=
       vfMidRecursiveNativeChargeInBlock R i *
         vfMidRecursiveNativeChargeInBlock R j
 
+/-- Same-sign zero-target partial-moment mass on the exact off-diagonal
+lower-scale pair carrier used by `vfMidRecursiveNativeCrossGram`.
+
+At target zero no centering/rank-one correction is introduced: this is the
+literal NNS co-partial sector on the native child packet amplitudes. -/
+def vfMidRecursiveNativeZeroTargetCoPartialCross (R : ℕ) : ℝ :=
+  ∑ j ∈ Finset.Ico 2 R,
+    ∑ i ∈ Finset.Ico 2 j,
+      RHLean.Proof.zeroTargetCoPartialPair
+        (vfMidRecursiveNativeChargeInBlock R i)
+        (vfMidRecursiveNativeChargeInBlock R j)
+
+/-- Opposite-sign zero-target partial-moment mass on the same off-diagonal
+lower-scale pair carrier. -/
+def vfMidRecursiveNativeZeroTargetDivergentCross (R : ℕ) : ℝ :=
+  ∑ j ∈ Finset.Ico 2 R,
+    ∑ i ∈ Finset.Ico 2 j,
+      RHLean.Proof.zeroTargetDivergentPair
+        (vfMidRecursiveNativeChargeInBlock R i)
+        (vfMidRecursiveNativeChargeInBlock R j)
+
+/-- **NNS zero-target decomposition of the remaining off-diagonal VF Gram.**
+
+The scalar cross Gram is exactly same-sign co-partial mass minus opposite-sign
+divergent mass on the native lower-scale packets.  Thus target zero isolates
+the sign-coherence problem without a mean-centering or rank-one correction. -/
+theorem vfMidRecursiveNativeCrossGram_eq_zeroTargetCoPartial_sub_divergent
+    (R : ℕ) :
+    vfMidRecursiveNativeCrossGram R =
+      vfMidRecursiveNativeZeroTargetCoPartialCross R -
+        vfMidRecursiveNativeZeroTargetDivergentCross R := by
+  unfold vfMidRecursiveNativeCrossGram
+    vfMidRecursiveNativeZeroTargetCoPartialCross
+    vfMidRecursiveNativeZeroTargetDivergentCross
+  calc
+    (∑ j ∈ Finset.Ico 2 R,
+      ∑ i ∈ Finset.Ico 2 j,
+        vfMidRecursiveNativeChargeInBlock R i *
+          vfMidRecursiveNativeChargeInBlock R j) =
+        ∑ j ∈ Finset.Ico 2 R,
+          ∑ i ∈ Finset.Ico 2 j,
+            (RHLean.Proof.zeroTargetCoPartialPair
+                (vfMidRecursiveNativeChargeInBlock R i)
+                (vfMidRecursiveNativeChargeInBlock R j) -
+              RHLean.Proof.zeroTargetDivergentPair
+                (vfMidRecursiveNativeChargeInBlock R i)
+                (vfMidRecursiveNativeChargeInBlock R j)) := by
+      apply Finset.sum_congr rfl
+      intro j _hj
+      apply Finset.sum_congr rfl
+      intro i _hi
+      exact
+        (RHLean.Proof.zeroTargetCoPartial_sub_divergent_eq_mul
+          (vfMidRecursiveNativeChargeInBlock R i)
+          (vfMidRecursiveNativeChargeInBlock R j)).symm
+    _ = ∑ j ∈ Finset.Ico 2 R,
+          ((∑ i ∈ Finset.Ico 2 j,
+              RHLean.Proof.zeroTargetCoPartialPair
+                (vfMidRecursiveNativeChargeInBlock R i)
+                (vfMidRecursiveNativeChargeInBlock R j)) -
+            ∑ i ∈ Finset.Ico 2 j,
+              RHLean.Proof.zeroTargetDivergentPair
+                (vfMidRecursiveNativeChargeInBlock R i)
+                (vfMidRecursiveNativeChargeInBlock R j)) := by
+      apply Finset.sum_congr rfl
+      intro j _hj
+      rw [Finset.sum_sub_distrib]
+    _ = (∑ j ∈ Finset.Ico 2 R,
+            ∑ i ∈ Finset.Ico 2 j,
+              RHLean.Proof.zeroTargetCoPartialPair
+                (vfMidRecursiveNativeChargeInBlock R i)
+                (vfMidRecursiveNativeChargeInBlock R j)) -
+          ∑ j ∈ Finset.Ico 2 R,
+            ∑ i ∈ Finset.Ico 2 j,
+              RHLean.Proof.zeroTargetDivergentPair
+                (vfMidRecursiveNativeChargeInBlock R i)
+                (vfMidRecursiveNativeChargeInBlock R j) := by
+      rw [Finset.sum_sub_distrib]
+
 /-- Scalar specialization of the finite signed Gram expansion on an interval. -/
 private theorem sum_Ico_sq_eq_diagonal_add_two_cross
     (f : ℕ → ℝ) {a b : ℕ} (hab : a ≤ b) :
@@ -79,6 +159,20 @@ theorem vfMidRecursiveAggregateNativeCharge_sq_eq_childEnergy_add_crossGram
   exact
     sum_Ico_sq_eq_diagonal_add_two_cross
       (fun S => vfMidRecursiveNativeChargeInBlock R S) hR
+
+/-- Zero-target NNS form of the aggregate native-child square.
+
+The diagonal child energy is kept separate; every genuine off-diagonal pair is
+then classified exactly as co-partial (same sign) or divergent (opposite sign).
+This is the target-zero form suggested by the NNS covariance decomposition. -/
+theorem vfMidRecursiveAggregateNativeCharge_sq_eq_childEnergy_add_zeroTargetCross
+    (R : ℕ) (hR : 2 ≤ R) :
+    (vfMidRecursiveAggregateNativeCharge R) ^ 2 =
+      vfMidRecursiveNativeChildEnergy R +
+        2 * (vfMidRecursiveNativeZeroTargetCoPartialCross R -
+          vfMidRecursiveNativeZeroTargetDivergentCross R) := by
+  rw [vfMidRecursiveAggregateNativeCharge_sq_eq_childEnergy_add_crossGram R hR]
+  rw [vfMidRecursiveNativeCrossGram_eq_zeroTargetCoPartial_sub_divergent R]
 
 /-- Full signed Gram/remainder correction between the #855 parent defect square
 and the diagonal native-child energy.
