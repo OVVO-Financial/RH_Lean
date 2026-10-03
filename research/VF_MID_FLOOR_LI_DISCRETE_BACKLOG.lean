@@ -215,11 +215,11 @@ theorem vfMidPrimeError_sq_eq_floorLiBacklog_add_bridge
   have hcount :
       vfMidPrimeCount ((R : ℝ) ^ 2) =
         (Nat.primeCounting (R ^ 2) : ℝ) := by
-    have hsq : (R : ℝ) ^ 2 = ((R ^ 2 : ℕ) : ℝ) := by
-      norm_num
+    have hfloor : ⌊(R : ℝ) ^ 2⌋₊ = R ^ 2 := by
+      rw [show (R : ℝ) ^ 2 = ((R ^ 2 : ℕ) : ℝ) by norm_num]
+      exact Nat.floor_natCast (R ^ 2)
     unfold vfMidPrimeCount
-    rw [hsq]
-    simp
+    rw [hfloor]
   unfold vfMidPrimeError vfMidPrimeFloorLiBacklog
     vfMidFloorLiVFBridge vfMidFloorLiSquarePotential
     liFloorPrimeCountProxy
