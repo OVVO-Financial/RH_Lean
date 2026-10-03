@@ -1,6 +1,7 @@
 import Mathlib
 import RHLean.Analysis.SquareRootCanonicalRoughCovariance
 import RHLean.Analysis.SquareWheelNesting
+import RHLean.Proof.ExactPrefixPopulationIdentity
 import RHLean.Proof.SquareRootLowPrimeSmoothTransportRecoupling
 
 /-!
@@ -52,6 +53,18 @@ theorem squareRootCanonicalRoughSquareBlockMobiusMass_eq_canonicalTotalIncrement
   have hpred : R - 1 + 1 = R := Nat.sub_add_cancel hR
   rw [hpred]
 
+/-- The native complex square-block increment is exactly the cast of the
+frozen-prefix assigned population mass.  Thus every nonzero site of the block
+carries the sign-reversed Möbius weight of its canonical old parent. -/
+theorem canonicalTotalIncrement_eq_prefixPopulationMass_cast
+    (R : ℕ) (hR : 3 ≤ R) :
+    canonicalTotalIncrement R = ((canonicalPrefixPopulationMass R : ℤ) : ℂ) := by
+  rw [canonicalPrefixPopulationMass_eq_squareBlockMoebius hR]
+  unfold canonicalTotalIncrement canonicalSquareBlock canonicalMoebiusWeight
+    squareBlockMoebius squareBlockInterval
+  push_cast
+  rfl
+
 /-- **The hard rough correlation moves by one square block.**
 
 Because `Corr_R = M(R-1) - M(R^2-1)`, advancing the root by one changes the
@@ -85,6 +98,16 @@ theorem squareRootCanonicalRoughCorrelation_succ_sub_eq_rootAtom_sub_totalIncrem
       R hR,
     squareRootCanonicalRoughSquareBlockMobiusMass_eq_canonicalTotalIncrement
       R (by omega)]
+
+/-- **Frozen-parent one-block form of the hard correlation increment.** -/
+theorem squareRootCanonicalRoughCorrelation_succ_sub_eq_rootAtom_sub_parentPopulation
+    (R : ℕ) (hR : 3 ≤ R) :
+    squareRootCanonicalRoughCorrelation (R + 1) -
+        squareRootCanonicalRoughCorrelation R =
+      canonicalMoebiusWeight R - ((canonicalPrefixPopulationMass R : ℤ) : ℂ) := by
+  rw [squareRootCanonicalRoughCorrelation_succ_sub_eq_rootAtom_sub_totalIncrement
+      R (by omega),
+    canonicalTotalIncrement_eq_prefixPopulationMass_cast R hR]
 
 private theorem root_add_depth_sq_le_four_root_sq_depth
     (R K : ℕ) (hK : 1 ≤ K) (hKR : K < R) :
