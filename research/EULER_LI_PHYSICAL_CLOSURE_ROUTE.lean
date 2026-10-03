@@ -1,5 +1,4 @@
 import Mathlib
-import «research.CANONICAL_DESCENDING_PRIME_CHRONOLOGY»
 import RHLean.Proof.FarSurvivorRenewal_is_LowerMertens
 import RHLean.Proof.PhysicalQ2ExceptionalTerminalSynthesis
 
@@ -34,6 +33,83 @@ namespace RHLean.Proof
 
 open RHLean.Analysis RHLean.Arithmetic
 
+
+attribute [local instance] Classical.propDecidable
+
+/-- Local canonical schedule used only by this closure route: every prime up to
+the square endpoint, sorted in descending order.  Keeping this construction
+local avoids importing unrelated research-layer packet machinery. -/
+def eulerLiDescendingPrimeSchedule (R : ℕ) : List ℕ :=
+  (primesUpTo (squareRootEndpoint R)).sort (fun a b : ℕ => a ≥ b)
+
+private theorem eulerLi_exists_split_of_mem
+    {a : ℕ} {l : List ℕ} (ha : a ∈ l) :
+    ∃ pre post : List ℕ, l = pre ++ a :: post := by
+  induction l with
+  | nil => simp at ha
+  | cons b l ih =>
+      simp only [List.mem_cons] at ha
+      rcases ha with rfl | ha
+      · exact ⟨[], l, rfl⟩
+      · rcases ih ha with ⟨pre, post, hsplit⟩
+        refine ⟨b :: pre, post, ?_⟩
+        simp [hsplit]
+
+private theorem eulerLi_sorted_ge_nodup_prefix_before_current
+    {pre post : List ℕ} {q : ℕ}
+    (hsorted : List.Sorted (fun a b : ℕ => a ≥ b) (pre ++ q :: post))
+    (hnodup : (pre ++ q :: post).Nodup) :
+    ∀ r ∈ pre, q < r := by
+  have hge := (List.pairwise_append.mp hsorted).2.2
+  have hne := (List.pairwise_append.mp hnodup).2.2
+  intro r hr
+  have hqr : q ≤ r := hge r hr q (by simp)
+  have hrq : r ≠ q := hne r hr q (by simp)
+  omega
+
+/-- The local sorted-prime list is a complete descending schedule. -/
+theorem eulerLiDescendingPrimeSchedule_complete
+    (R : ℕ) :
+    SquareRootCanonicalRoughCompleteDescendingSchedule R
+      (eulerLiDescendingPrimeSchedule R) := by
+  let S := primesUpTo (squareRootEndpoint R)
+  let ps := S.sort (fun a b : ℕ => a ≥ b)
+  change SquareRootCanonicalRoughCompleteDescendingSchedule R ps
+  have hsorted : List.Sorted (fun a b : ℕ => a ≥ b) ps := by
+    dsimp [ps]
+    exact Finset.sort_sorted (· ≥ ·) _
+  have hnodup : ps.Nodup := by
+    dsimp [ps]
+    exact Finset.sort_nodup _ _
+  constructor
+  · intro p hp
+    have hpS : p ∈ S := by
+      dsimp [ps] at hp
+      exact (Finset.mem_sort (fun a b : ℕ => a ≥ b)).mp hp
+    dsimp [S] at hpS
+    exact prime_of_mem_primesUpTo hpS
+  · intro q hq hqUpper
+    have hqS : q ∈ S := by
+      dsimp [S]
+      exact mem_primesUpTo_of_prime_le hq hqUpper
+    have hqps : q ∈ ps := by
+      dsimp [ps]
+      exact (Finset.mem_sort (fun a b : ℕ => a ≥ b)).2 hqS
+    rcases eulerLi_exists_split_of_mem hqps with ⟨pre, post, hsplit⟩
+    refine ⟨pre, post, hsplit, ?_, ?_⟩
+    · intro r hr
+      apply prime_of_mem_primesUpTo
+      have hrps : r ∈ ps := by
+        rw [hsplit]
+        simp [hr]
+      have hrS : r ∈ S := by
+        dsimp [ps] at hrps
+        exact (Finset.mem_sort (fun a b : ℕ => a ≥ b)).mp hrps
+      simpa [S] using hrS
+    · intro r hr
+      rw [hsplit] at hsorted hnodup
+      exact eulerLi_sorted_ge_nodup_prefix_before_current hsorted hnodup r hr
+
 /-- **Euler/Li physical boundary statement.**
 
 The canonical raw Euler chronology is kept signed all the way through the root
@@ -52,7 +128,7 @@ def EulerLiPhysicalBoundaryStatement : Prop :=
       LowerMertensCriticalEnvelope R K →
       ‖
           squareRootCanonicalRoughAdaptiveRawLedger R
-              (squareRootCanonicalRoughDescendingPrimeSchedule R)
+              (eulerLiDescendingPrimeSchedule R)
               (Finset.Icc 1 (squareRootEndpoint R))
               (fun _ => (1 : ℂ)) +
             frozenTopFarRoughRootCorrection R
@@ -73,8 +149,8 @@ theorem eulerLiPhysicalBoundary_iff_farFourOwnerwiseSignedSynthesis :
     have hbound := hEuler R K hR hK
     have hbridge :=
       adaptiveRawLedger_add_rootCorrection_eq_oddMertensColumn_add_ownerwiseError_of_completeSchedule
-        R hR (squareRootCanonicalRoughDescendingPrimeSchedule R)
-        (squareRootCanonicalRoughDescendingPrimeSchedule_complete R)
+        R hR (eulerLiDescendingPrimeSchedule R)
+        (eulerLiDescendingPrimeSchedule_complete R)
     rw [hbridge] at hbound
     exact hbound
   · rintro ⟨C, hC, hOwner⟩
@@ -83,8 +159,8 @@ theorem eulerLiPhysicalBoundary_iff_farFourOwnerwiseSignedSynthesis :
     have hbound := hOwner R K hR hK
     have hbridge :=
       adaptiveRawLedger_add_rootCorrection_eq_oddMertensColumn_add_ownerwiseError_of_completeSchedule
-        R hR (squareRootCanonicalRoughDescendingPrimeSchedule R)
-        (squareRootCanonicalRoughDescendingPrimeSchedule_complete R)
+        R hR (eulerLiDescendingPrimeSchedule R)
+        (eulerLiDescendingPrimeSchedule_complete R)
     rw [hbridge]
     exact hbound
 
