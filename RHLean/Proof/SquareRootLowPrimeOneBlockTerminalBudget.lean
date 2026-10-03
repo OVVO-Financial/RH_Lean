@@ -65,6 +65,75 @@ theorem canonicalTotalIncrement_eq_prefixPopulationMass_cast
   push_cast
   rfl
 
+/-- **Exact frozen-parent Fubini for one square block.**
+
+Every nonzero site in the current square block belongs to exactly one canonical
+old-parent fibre, and every such parent lies in the frozen cutoff.  Thus the
+whole signed block mass is the sum of its parent-fibre masses, with no
+ancestral-block multiplicity. -/
+theorem canonicalPrefixPopulationMass_eq_sum_parentFiberMass
+    (R : ℕ) (hR : 3 ≤ R) :
+    canonicalPrefixPopulationMass R =
+      ∑ c ∈ Finset.Icc 1 (oldParentCutoff R),
+        canonicalParentFiberMass R c := by
+  let S : Finset ℕ := (squareBlockInterval R).filter Squarefree
+  let T : Finset ℕ := Finset.Icc 1 (oldParentCutoff R)
+  have hmaps : ∀ x ∈ S, canonicalCofactor x ∈ T := by
+    intro x hx
+    have hxdata := Finset.mem_filter.mp hx
+    have hxBlock := hxdata.1
+    have hsq := hxdata.2
+    have hxBounds : R ^ 2 ≤ x ∧ x < (R + 1) ^ 2 := by
+      simpa [squareBlockInterval, Finset.mem_Ico] using hxBlock
+    have hx1 : 1 < x := by
+      have h9 : 9 ≤ R ^ 2 := by nlinarith
+      omega
+    exact Finset.mem_Icc.mpr
+      ⟨canonicalCofactor_pos hx1,
+        canonicalCofactor_le_oldParentCutoff hR hxBlock hsq hx1⟩
+  have hfiber := Finset.sum_fiberwise_of_maps_to
+    (s := S) (t := T) (g := canonicalCofactor) hmaps
+    (fun x => μ x)
+  have hraw :
+      (∑ x ∈ S, μ x) =
+        ∑ c ∈ T, ∑ x ∈ S with canonicalCofactor x = c, μ x :=
+    hfiber.symm
+  rw [canonicalPrefixPopulationMass_eq_squareBlockMoebius hR]
+  unfold squareBlockMoebius
+  calc
+    (∑ x ∈ squareBlockInterval R, μ x) =
+        ∑ x ∈ S, μ x := by
+          dsimp [S]
+          rw [Finset.sum_filter]
+          apply Finset.sum_congr rfl
+          intro x hx
+          by_cases hsq : Squarefree x
+          · simp [hsq]
+          · have hzero : μ x = 0 := by
+              by_contra hne
+              exact hsq
+                (ArithmeticFunction.moebius_ne_zero_iff_squarefree.mp hne)
+            simp [hsq, hzero]
+    _ = ∑ c ∈ T, ∑ x ∈ S with canonicalCofactor x = c, μ x := hraw
+    _ = ∑ c ∈ Finset.Icc 1 (oldParentCutoff R),
+          canonicalParentFiberMass R c := by
+          dsimp [T]
+          apply Finset.sum_congr rfl
+          intro c hc
+          simp [canonicalParentFiberMass, canonicalParentFiber, S,
+            Finset.filter_filter, and_assoc]
+
+/-- The same one-block Fubini in the explicit weighted-multiplicity form. -/
+theorem canonicalPrefixPopulationMass_eq_sum_neg_mobius_mul_parentFiberCard
+    (R : ℕ) (hR : 3 ≤ R) :
+    canonicalPrefixPopulationMass R =
+      ∑ c ∈ Finset.Icc 1 (oldParentCutoff R),
+        -μ c * ((canonicalParentFiber R c).card : ℤ) := by
+  rw [canonicalPrefixPopulationMass_eq_sum_parentFiberMass R hR]
+  apply Finset.sum_congr rfl
+  intro c hc
+  exact canonicalParentFiberMass_eq hR
+
 /-- **The hard rough correlation moves by one square block.**
 
 Because `Corr_R = M(R-1) - M(R^2-1)`, advancing the root by one changes the
