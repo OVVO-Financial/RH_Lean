@@ -583,10 +583,10 @@ theorem vfMidOuterCornerEndpointBracket_of_primeCount_envelopes
   exact ⟨(hLower R hR).trans hLreal,
     hUreal.trans (hUpper R hR)⟩
 
-/-- Pathwise theoretical-envelope inclusion implies the endpoint target after
-evaluating at square nodes. -/
-theorem vfMidOuterCornerEndpointBracket_of_primeCount_channel_envelopes
-    {A : ℝ}
+/-- A theoretical prime-envelope bracket inside the canonical outer VF
+corners closes the direct square-endpoint target. -/
+theorem vfMidSquareEndpointVonKochBounded_of_primeCount_outerEnvelopes
+    {A : ℝ} (hA : 0 ≤ A)
     (L U : ℕ → ℕ)
     (hL : PrimeCountingLowerEnvelope L)
     (hU : PrimeCountingUpperEnvelope U)
@@ -597,30 +597,8 @@ theorem vfMidOuterCornerEndpointBracket_of_primeCount_channel_envelopes
       ∀ R : ℕ, 4 ≤ R →
         (U (R ^ 2) : ℝ) ≤ vfMidOuterUpperCorner A R) :
     VFMidSquareEndpointVonKochBoundedStatement := by
-  have hbr :=
-    vfMidOuterCornerEndpointBracket_of_primeCount_envelopes
-      L U hL hU hLower hUpper
-  have hA : 0 ≤ A := by
-    by_contra hneg
-    have hR : (4 : ℕ) ≤ 4 := le_rfl
-    have hlow := hLower 4 hR
-    have hupp := hUpper 4 hR
-    have hLR := hL (4 ^ 2)
-    have hUR := hU (4 ^ 2)
-    have hLU : L (4 ^ 2) ≤ U (4 ^ 2) :=
-      le_trans hLR hUR
-    have hcast :
-        (L (4 ^ 2) : ℝ) ≤ (U (4 ^ 2) : ℝ) := by exact_mod_cast hLU
-    have hlag0 :
-        vfMidCanonicalCornerLag A 4 = 0 := by
-      unfold vfMidCanonicalCornerLag
-      have hprod : A * Real.log (4 : ℝ) ^ 2 < 0 := by
-        have hlog : 0 < Real.log (4 : ℝ) := Real.log_pos (by norm_num)
-        nlinarith
-      rw [Nat.floor_eq_zero.mpr hprod.le]
-      simp
-    simp [vfMidOuterLowerCorner, vfMidOuterUpperCorner, hlag0] at hlow hupp
-    nlinarith
-  exact vfMidSquareEndpointVonKochBounded_of_outerCornerBracket hA hbr
+  apply vfMidSquareEndpointVonKochBounded_of_outerCornerBracket hA
+  exact vfMidOuterCornerEndpointBracket_of_primeCount_envelopes
+    L U hL hU hLower hUpper
 
 end RHLean.Analysis
