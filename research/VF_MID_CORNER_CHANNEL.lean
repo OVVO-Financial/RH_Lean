@@ -127,6 +127,147 @@ theorem vfMidUpperLeftPhase_sub_pred
           t * vfMidBandMass R := by
             rw [hdiffPred, hdiff]
 
+
+/-! ### Arbitrary multi-block phase shifts -/
+
+/-- Forward shift by k square blocks of the same normalized VF corner
+trajectory. -/
+def vfMidForwardShiftedUpperLeftPhase (R k : ℕ) (t : ℝ) : ℝ :=
+  vfMidUpperLeftPhase (R + k) t
+
+/-- Backward shift by k square blocks of the same normalized VF corner
+trajectory. -/
+def vfMidBackwardShiftedUpperLeftPhase (R k : ℕ) (t : ℝ) : ℝ :=
+  vfMidUpperLeftPhase (R - k) t
+
+@[simp] theorem vfMidForwardShiftedUpperLeftPhase_zero
+    (R : ℕ) (t : ℝ) :
+    vfMidForwardShiftedUpperLeftPhase R 0 t =
+      vfMidUpperLeftPhase R t := by
+  simp [vfMidForwardShiftedUpperLeftPhase]
+
+@[simp] theorem vfMidBackwardShiftedUpperLeftPhase_zero
+    (R : ℕ) (t : ℝ) :
+    vfMidBackwardShiftedUpperLeftPhase R 0 t =
+      vfMidUpperLeftPhase R t := by
+  simp [vfMidBackwardShiftedUpperLeftPhase]
+
+/-- Exact k-block forward phase telescope.  Every extra square-block shift
+buys exactly one additional convexly weighted pair of genuine VF band
+masses. -/
+theorem vfMidUpperLeftPhase_forwardShift_telescope
+    (R k : ℕ) (hR : 2 ≤ R) (t : ℝ) :
+    vfMidUpperLeftPhase (R + k) t - vfMidUpperLeftPhase R t =
+      ∑ j ∈ Finset.range k,
+        ((1 - t) * vfMidBandMass (R + j) +
+          t * vfMidBandMass (R + j + 1)) := by
+  induction k with
+  | zero =>
+      simp
+  | succ k ih =>
+      have hidx : 3 ≤ R + k + 1 := by omega
+      have hstep :=
+        vfMidUpperLeftPhase_sub_pred (R + k + 1) hidx t
+      have hpred : R + k + 1 - 1 = R + k := by omega
+      rw [hpred] at hstep
+      have hsucc : R + Nat.succ k = R + k + 1 := by omega
+      rw [hsucc, Finset.sum_range_succ]
+      calc
+        vfMidUpperLeftPhase (R + k + 1) t -
+              vfMidUpperLeftPhase R t =
+            (vfMidUpperLeftPhase (R + k + 1) t -
+              vfMidUpperLeftPhase (R + k) t) +
+            (vfMidUpperLeftPhase (R + k) t -
+              vfMidUpperLeftPhase R t) := by ring
+        _ =
+            ((1 - t) * vfMidBandMass (R + k) +
+              t * vfMidBandMass (R + k + 1)) +
+            (∑ j ∈ Finset.range k,
+              ((1 - t) * vfMidBandMass (R + j) +
+                t * vfMidBandMass (R + j + 1))) := by
+              rw [hstep, ih]
+        _ =
+            (∑ j ∈ Finset.range k,
+              ((1 - t) * vfMidBandMass (R + j) +
+                t * vfMidBandMass (R + j + 1))) +
+            ((1 - t) * vfMidBandMass (R + k) +
+              t * vfMidBandMass (R + k + 1)) := by ring
+
+/-- Exact k-block backward phase telescope, obtained by applying the forward
+telescope from the shifted base index. -/
+theorem vfMidUpperLeftPhase_backwardShift_telescope
+    (R k : ℕ) (hR : 2 ≤ R) (hk : k ≤ R - 2) (t : ℝ) :
+    vfMidUpperLeftPhase R t - vfMidUpperLeftPhase (R - k) t =
+      ∑ j ∈ Finset.range k,
+        ((1 - t) * vfMidBandMass (R - k + j) +
+          t * vfMidBandMass (R - k + j + 1)) := by
+  have hbase : 2 ≤ R - k := by omega
+  have h :=
+    vfMidUpperLeftPhase_forwardShift_telescope (R - k) k hbase t
+  have hadd : R - k + k = R := by omega
+  rw [hadd] at h
+  exact h
+
+/-- Forward-shifted corner line on the physical square block R. -/
+def vfMidForwardShiftedCornerChannel
+    (k R : ℕ) (x : ℝ) : ℝ :=
+  vfMidForwardShiftedUpperLeftPhase R k
+    (vfMidCornerParameter R x)
+
+/-- Backward-shifted corner line on the physical square block R. -/
+def vfMidBackwardShiftedCornerChannel
+    (k R : ℕ) (x : ℝ) : ℝ :=
+  vfMidBackwardShiftedUpperLeftPhase R k
+    (vfMidCornerParameter R x)
+
+@[simp] theorem vfMidForwardShiftedCornerChannel_left
+    (k R : ℕ) :
+    vfMidForwardShiftedCornerChannel k R ((R : ℝ) ^ 2) =
+      vfMidFinishedMass (R + k) := by
+  simp [vfMidForwardShiftedCornerChannel,
+    vfMidForwardShiftedUpperLeftPhase, vfMidUpperLeftPhase]
+
+@[simp] theorem vfMidBackwardShiftedCornerChannel_left
+    (k R : ℕ) :
+    vfMidBackwardShiftedCornerChannel k R ((R : ℝ) ^ 2) =
+      vfMidFinishedMass (R - k) := by
+  simp [vfMidBackwardShiftedCornerChannel,
+    vfMidBackwardShiftedUpperLeftPhase, vfMidUpperLeftPhase]
+
+/-- Exact forward physical-channel displacement from the unshifted VF corner
+line. -/
+theorem vfMidForwardShiftedCornerChannel_sub_upper
+    (R k : ℕ) (hR : 2 ≤ R) (x : ℝ) :
+    vfMidForwardShiftedCornerChannel k R x -
+        vfMidUpperCornerChannel R x =
+      ∑ j ∈ Finset.range k,
+        ((1 - vfMidCornerParameter R x) *
+            vfMidBandMass (R + j) +
+          vfMidCornerParameter R x *
+            vfMidBandMass (R + j + 1)) := by
+  rw [vfMidUpperCornerChannel_eq_upperLeftPhase]
+  unfold vfMidForwardShiftedCornerChannel
+    vfMidForwardShiftedUpperLeftPhase
+  exact vfMidUpperLeftPhase_forwardShift_telescope
+    R k hR (vfMidCornerParameter R x)
+
+/-- Exact backward physical-channel displacement from the unshifted VF corner
+line. -/
+theorem vfMidUpper_sub_backwardShiftedCornerChannel
+    (R k : ℕ) (hR : 2 ≤ R) (hk : k ≤ R - 2) (x : ℝ) :
+    vfMidUpperCornerChannel R x -
+        vfMidBackwardShiftedCornerChannel k R x =
+      ∑ j ∈ Finset.range k,
+        ((1 - vfMidCornerParameter R x) *
+            vfMidBandMass (R - k + j) +
+          vfMidCornerParameter R x *
+            vfMidBandMass (R - k + j + 1)) := by
+  rw [vfMidUpperCornerChannel_eq_upperLeftPhase]
+  unfold vfMidBackwardShiftedCornerChannel
+    vfMidBackwardShiftedUpperLeftPhase
+  exact vfMidUpperLeftPhase_backwardShift_telescope
+    R k hR hk (vfMidCornerParameter R x)
+
 /-- Geometric phase alias: connecting upper-left VF corners is the lag
 structure.  The terminology refers to the corner geometry, not the sign of an
 index shift. -/
