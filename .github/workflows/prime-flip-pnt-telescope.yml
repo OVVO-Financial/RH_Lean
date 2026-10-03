@@ -16,6 +16,7 @@ on:
       - research/VF_MID_FLOOR_LI_DISCRETE_BACKLOG.lean
       - research/VF_MID_FLOOR_LI_SIGNED_POPULATION_BALANCE.lean
       - research/VF_MID_FLOOR_LI_CRITICAL_BALANCE.lean
+      - research/VF_MID_ACTUAL_CRITICAL_OWNER_RECURSION.lean
       - research/VF_MID_FLOOR_LI_MEBOOT_MONTE_CARLO.md
       - numerics/floor_li_discrete_meboot/**
       - research/VF_MID_FLOOR_LI_DISCRETE_BACKLOG.lean
@@ -160,6 +161,7 @@ jobs:
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.EXACT_LI_DICKMAN_FORMAL.olean research/EXACT_LI_DICKMAN_FORMAL.lean 2>&1 | tee exact-li-dickman-formal.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.EXACT_LI_PURE_MODEL_CLOSURE.olean research/EXACT_LI_PURE_MODEL_CLOSURE.lean 2>&1 | tee exact-li-pure-model-closure.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_FLOOR_LI_CRITICAL_BALANCE.olean research/VF_MID_FLOOR_LI_CRITICAL_BALANCE.lean 2>&1 | tee vf-mid-floor-li-critical-balance.log
+          lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_ACTUAL_CRITICAL_OWNER_RECURSION.olean research/VF_MID_ACTUAL_CRITICAL_OWNER_RECURSION.lean 2>&1 | tee vf-mid-actual-critical-owner-recursion.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_PHI_OWNER_BRIDGE.olean research/VF_MID_PHI_OWNER_BRIDGE.lean 2>&1 | tee vf-mid-phi-owner-bridge.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_DYADIC_SUMMATION_TRANSFER.olean research/VF_MID_DYADIC_SUMMATION_TRANSFER.lean 2>&1 | tee vf-mid-dyadic-summation-transfer.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_FRACTIONAL_PRIME_CLUSTER.olean research/VF_MID_FRACTIONAL_PRIME_CLUSTER.lean 2>&1 | tee vf-mid-fractional-prime-cluster.log
@@ -184,6 +186,7 @@ jobs:
           import «research.VF_MID_FLOOR_LI_DISCRETE_BACKLOG»
           import «research.VF_MID_FLOOR_LI_SIGNED_POPULATION_BALANCE»
           import «research.VF_MID_FLOOR_LI_CRITICAL_BALANCE»
+          import «research.VF_MID_ACTUAL_CRITICAL_OWNER_RECURSION»
           import «research.VF_MID_FLOOR_LI_DISCRETE_BACKLOG»
           import «research.VF_MID_LINEAR_INTERPOLATION_FANTASY»
           import «research.FOUR_FANTASY_PROXY_RH_CLOSURES»
@@ -220,6 +223,9 @@ jobs:
           #print axioms RHLean.Analysis.norm_vfMidFloorLiSignedPopulationBalance_sub_moebiusAbel_lt_one
           #print axioms RHLean.Analysis.norm_vfMidPrimeFloorLi_rootSquare_increment_le_of_criticalPrefix
           #print axioms RHLean.Analysis.norm_vfMidFloorLiCriticalRoundingTail_le
+          #print axioms RHLean.Analysis.norm_vfMidPrimeFloorLi_rootSquare_increment_le_of_primeLiCritical
+          #print axioms RHLean.Analysis.actualPrimeCriticalState_sub_allScaleLiCriticalState
+          #print axioms RHLean.Analysis.criticalCenteredPrimeSource_eq_state_add_child_add_propagated
           #print axioms RHLean.Analysis.vfMidOddFloorLiCompositeDefect_eq_ownerCensus_sub_reference
           #print axioms RHLean.Analysis.vfMidDyadicVFTrackingDefect_eq_floorLiDefect_sub_bridgeIncrement
           #print axioms RHLean.Analysis.primeFlipExactResponse_eq_pnt_add_error
