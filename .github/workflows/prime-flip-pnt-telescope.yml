@@ -37,6 +37,7 @@ on:
       - research/VF_MID_SIGNED_SEAT_CHARGE.lean
       - research/VF_MID_RECURSIVE_CHILD_INJECTIVE.lean
       - research/VF_MID_RECURSIVE_SCALE_DESCENT.lean
+      - research/VF_MID_ADVERSARIAL_PROOF_FUZZER.lean
       - research/VF_MID_RECURSIVE_REMAINDER_BOUND.lean
       - research/VF_MID_AGGREGATE_CHILD_FORCING.lean
       - research/VF_MID_ENDPOINT_TRIGGER_DICTIONARY.lean
@@ -183,6 +184,7 @@ jobs:
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_FRACTIONAL_PRIME_CLUSTER.olean research/VF_MID_FRACTIONAL_PRIME_CLUSTER.lean 2>&1 | tee vf-mid-fractional-prime-cluster.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_SIGNED_SEAT_CHARGE.olean research/VF_MID_SIGNED_SEAT_CHARGE.lean 2>&1 | tee vf-mid-signed-seat-charge.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_RECURSIVE_SCALE_DESCENT.olean research/VF_MID_RECURSIVE_SCALE_DESCENT.lean 2>&1 | tee vf-mid-recursive-scale-descent.log
+          lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_ADVERSARIAL_PROOF_FUZZER.olean research/VF_MID_ADVERSARIAL_PROOF_FUZZER.lean 2>&1 | tee vf-mid-adversarial-proof-fuzzer.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_RECURSIVE_REMAINDER_BOUND.olean research/VF_MID_RECURSIVE_REMAINDER_BOUND.lean 2>&1 | tee vf-mid-recursive-remainder-bound.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_AGGREGATE_CHILD_FORCING.olean research/VF_MID_AGGREGATE_CHILD_FORCING.lean 2>&1 | tee vf-mid-aggregate-child-forcing.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_ENDPOINT_TRIGGER_DICTIONARY.olean research/VF_MID_ENDPOINT_TRIGGER_DICTIONARY.lean 2>&1 | tee vf-mid-endpoint-trigger-dictionary.log
@@ -224,6 +226,7 @@ jobs:
           import «research.VF_MID_SIGNED_SEAT_CHARGE»
           import «research.VF_MID_RECURSIVE_CHILD_INJECTIVE»
           import «research.VF_MID_RECURSIVE_SCALE_DESCENT»
+          import «research.VF_MID_ADVERSARIAL_PROOF_FUZZER»
           import «research.VF_MID_RECURSIVE_REMAINDER_BOUND»
           import «research.VF_MID_AGGREGATE_CHILD_FORCING»
           import «research.VF_MID_ENDPOINT_TRIGGER_DICTIONARY»
@@ -615,6 +618,11 @@ jobs:
           #print axioms RHLean.Analysis.not_vfMidRecursiveScaleChain_beyond_start
           #print axioms RHLean.Analysis.not_vfMidRecursiveScaleChain_infinite
           #print axioms RHLean.Analysis.vfMidRecursiveScalePersistent_impossible
+          #print axioms RHLean.Analysis.vfMidLogicAdversary_not_radialBounded
+          #print axioms RHLean.Analysis.vfMidLogicAdversary_passes_balance_but_escapes
+          #print axioms RHLean.Analysis.vfMidNoSyntheticBadScale_of_recursiveReproduction
+          #print axioms RHLean.Analysis.vfMidSquareEndpointVonKochBounded_of_recursiveEscapeReproduction
+          #print axioms RHLean.Analysis.vfMidLogicAdversary_reproduction_must_fail
           #print axioms RHLean.Analysis.vfMidRecursiveChildCarrier_card_eq_sum
           #print axioms RHLean.Analysis.vfMidRecursiveChild_block_lt
           #print axioms RHLean.Analysis.vfMidRecursivePrimeChildrenInBlock_card_le_prefixWheelEnvelope
