@@ -175,6 +175,8 @@ jobs:
         run: |
           cat > /tmp/NNSZeroTargetAxioms.lean <<'LEAN'
           import «research.NNS_ZERO_TARGET_NORMALIZED_STOKES»
+          import «research.NNS_ZERO_TARGET_ONE_BLOCK_ENERGY»
+          import «research.NNS_ZERO_TARGET_PARTNER_TIME_DERIVATIVE»
           #print axioms RHLean.Proof.lowOwnerCanonicalSignedStokesFinalBoundary_eq_two_nnsNormalized_mul_total
           #print axioms RHLean.Proof.zeroTargetMellinCompletePostRootNNSNormalized_nonpos
           #print axioms RHLean.Proof.nnsComplete_nonpos_and_clippedEnergy_contracts
