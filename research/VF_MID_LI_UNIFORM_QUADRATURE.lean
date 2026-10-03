@@ -251,7 +251,8 @@ theorem abs_deriv_invLog_detrended_le_squareTile
       0 ≤ width := by
     dsimp [width]
     push_cast
-    positivity
+    have hr0 : (0 : ℝ) ≤ (r : ℝ) := by positivity
+    nlinarith
   have hdist : |u - m| ≤ width := by
     rw [abs_le]
     constructor <;> linarith [hu.1, hu.2, hm.1, hm.2]
@@ -348,13 +349,24 @@ theorem abs_vfMidBandQuadratureError_le_logHarmonic
       _ = M * width ^ 2 := by ring
   have hlinInt :
       (∫ z in a..b, d * (z - m)) = 0 := by
-    rw [intervalIntegral.integral_const_mul]
-    rw [intervalIntegral.integral_sub
-      intervalIntegrable_id _root_.intervalIntegrable_const]
-    rw [intervalIntegral.integral_id,
-      intervalIntegral.integral_const]
-    simp only [smul_eq_mul]
-    dsimp [a, b, m]
+    let H : ℝ → ℝ := fun z => d * (z - m) ^ 2 / 2
+    have hH :
+        ∀ z : ℝ, HasDerivAt H (d * (z - m)) z := by
+      intro z
+      dsimp [H]
+      convert
+        (((hasDerivAt_id z).sub_const m).pow 2).const_mul d |>.div_const 2
+        using 1 <;> ring_nf
+    have hlinI' :
+        IntervalIntegrable (fun z : ℝ => d * (z - m))
+          MeasureTheory.volume a b :=
+      (continuous_const.mul
+        (continuous_id.sub continuous_const)).intervalIntegrable _ _
+    have hFTC :=
+      intervalIntegral.integral_eq_sub_of_hasDerivAt
+        (fun z _hz => hH z) hlinI'
+    rw [hFTC]
+    dsimp [H, a, b, m, vfMidBandMidpoint]
     push_cast
     ring
   have ha1 : (1 : ℝ) < a := by
@@ -396,8 +408,8 @@ theorem abs_vfMidBandQuadratureError_le_logHarmonic
       (a := a) (b := b) (C := M * width ^ 2)
       (f := fun z : ℝ => g m - g z)
       (fun z hz => by
-        have hz' : z ∈ Icc a b := by
-          simpa [Set.uIcc_of_le hab] using hz
+        rw [Set.uIoc_of_le hab] at hz
+        have hz' : z ∈ Icc a b := Ioc_subset_Icc_self hz
         simpa [Real.norm_eq_abs] using hgpoint z hz')
   have herr :
       |width * (Real.log m)⁻¹ -
