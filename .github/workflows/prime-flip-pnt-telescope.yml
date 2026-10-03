@@ -13,8 +13,16 @@ on:
       - research/VF_MID_VON_KOCH_BRIDGE.lean
       - research/VF_MID_OSCILLATION_SCALE.lean
       - research/LI_FLOOR_PRIME_COUNT_FANTASY.lean
+      - research/VF_MID_FLOOR_LI_DISCRETE_BACKLOG.lean
+      - research/VF_MID_FLOOR_LI_SIGNED_POPULATION_BALANCE.lean
+      - research/VF_MID_FLOOR_LI_CRITICAL_BALANCE.lean
+      - research/VF_MID_ACTUAL_CRITICAL_OWNER_RECURSION.lean
+      - research/VF_MID_FLOOR_LI_MEBOOT_MONTE_CARLO.md
+      - numerics/floor_li_discrete_meboot/**
+      - research/VF_MID_FLOOR_LI_DISCRETE_BACKLOG.lean
       - research/VF_MID_LINEAR_INTERPOLATION_FANTASY.lean
       - research/FOUR_FANTASY_PROXY_RH_CLOSURES.lean
+      - research/VF_MID_SOLVED_FANTASY_CONE.lean
       - research/VF_MID_DIRECT_SIGNED_DYNAMICS.lean
       - research/VF_MID_SQUARE_BAND_COMPOSITE_BRIDGE.lean
       - research/VF_MID_FRACTIONAL_PRIME_CLUSTER.lean
@@ -134,6 +142,7 @@ jobs:
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_DYADIC_PREFIX_OWNER.olean research/VF_MID_DYADIC_PREFIX_OWNER.lean 2>&1 | tee vf-mid-dyadic-prefix-owner.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_DYADIC_OWNER_EXACT.olean research/VF_MID_DYADIC_OWNER_EXACT.lean 2>&1 | tee vf-mid-dyadic-owner-exact.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_ODD_FRACTIONAL_CLUSTER.olean research/VF_MID_ODD_FRACTIONAL_CLUSTER.lean 2>&1 | tee vf-mid-odd-fractional-cluster.log
+          lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_FLOOR_LI_DISCRETE_BACKLOG.olean research/VF_MID_FLOOR_LI_DISCRETE_BACKLOG.lean 2>&1 | tee vf-mid-floor-li-discrete-backlog.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_RECURSIVE_CHILD_INJECTIVE.olean research/VF_MID_RECURSIVE_CHILD_INJECTIVE.lean 2>&1 | tee vf-mid-recursive-child-injective.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_ALIGNED_STEP_GRAPH.olean research/VF_MID_ALIGNED_STEP_GRAPH.lean 2>&1 | tee vf-mid-aligned-step-graph.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_STEP_GRAPH_BRACKETING.olean research/VF_MID_STEP_GRAPH_BRACKETING.lean 2>&1 | tee vf-mid-step-graph-bracketing.log
@@ -150,9 +159,12 @@ jobs:
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.PRIME_DENSITY_UNIVERSAL_BASELINE.olean research/PRIME_DENSITY_UNIVERSAL_BASELINE.lean 2>&1 | tee prime-density-universal-baseline.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.PRIME_DENSITY_LOG_TIGHTENING.olean research/PRIME_DENSITY_LOG_TIGHTENING.lean 2>&1 | tee prime-density-log-tightening.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.PRIME_DENSITY_PNT_LOG_BOUND.olean research/PRIME_DENSITY_PNT_LOG_BOUND.lean 2>&1 | tee prime-density-pnt-log-bound.log
+          lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_FLOOR_LI_SIGNED_POPULATION_BALANCE.olean research/VF_MID_FLOOR_LI_SIGNED_POPULATION_BALANCE.lean 2>&1 | tee vf-mid-floor-li-signed-population-balance.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.PRIME_DENSITY_INTEGRAL_TIGHTENING.olean research/PRIME_DENSITY_INTEGRAL_TIGHTENING.lean 2>&1 | tee prime-density-integral-tightening.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.EXACT_LI_DICKMAN_FORMAL.olean research/EXACT_LI_DICKMAN_FORMAL.lean 2>&1 | tee exact-li-dickman-formal.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.EXACT_LI_PURE_MODEL_CLOSURE.olean research/EXACT_LI_PURE_MODEL_CLOSURE.lean 2>&1 | tee exact-li-pure-model-closure.log
+          lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_FLOOR_LI_CRITICAL_BALANCE.olean research/VF_MID_FLOOR_LI_CRITICAL_BALANCE.lean 2>&1 | tee vf-mid-floor-li-critical-balance.log
+          lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_ACTUAL_CRITICAL_OWNER_RECURSION.olean research/VF_MID_ACTUAL_CRITICAL_OWNER_RECURSION.lean 2>&1 | tee vf-mid-actual-critical-owner-recursion.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_PHI_OWNER_BRIDGE.olean research/VF_MID_PHI_OWNER_BRIDGE.lean 2>&1 | tee vf-mid-phi-owner-bridge.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_DYADIC_SUMMATION_TRANSFER.olean research/VF_MID_DYADIC_SUMMATION_TRANSFER.lean 2>&1 | tee vf-mid-dyadic-summation-transfer.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_FRACTIONAL_PRIME_CLUSTER.olean research/VF_MID_FRACTIONAL_PRIME_CLUSTER.lean 2>&1 | tee vf-mid-fractional-prime-cluster.log
@@ -164,6 +176,7 @@ jobs:
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_ACTUAL_PRIME_ROOT_SQUARE_CONTRACTION.olean research/VF_MID_ACTUAL_PRIME_ROOT_SQUARE_CONTRACTION.lean 2>&1 | tee vf-mid-actual-prime-root-square-contraction.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_PROXY_ENERGY_PULL.olean research/VF_MID_PROXY_ENERGY_PULL.lean 2>&1 | tee vf-mid-proxy-energy-pull.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.FOUR_FANTASY_PROXY_RH_CLOSURES.olean research/FOUR_FANTASY_PROXY_RH_CLOSURES.lean 2>&1 | tee four-fantasy-proxy-rh-closures.log
+          lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_SOLVED_FANTASY_CONE.olean research/VF_MID_SOLVED_FANTASY_CONE.lean 2>&1 | tee vf-mid-solved-fantasy-cone.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_PHI_CUTOFF_TELESCOPE.olean research/VF_MID_PHI_CUTOFF_TELESCOPE.lean 2>&1 | tee vf-mid-phi-cutoff-telescope.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_PHI_ODD_LI_TRANSFER.olean research/VF_MID_PHI_ODD_LI_TRANSFER.lean 2>&1 | tee vf-mid-phi-odd-li-transfer.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_PHI_DIAGONAL_TRANSFER.olean research/VF_MID_PHI_DIAGONAL_TRANSFER.lean 2>&1 | tee vf-mid-phi-diagonal-transfer.log
@@ -176,8 +189,14 @@ jobs:
           import «research.VF_MID_VON_KOCH_BRIDGE»
           import «research.VF_MID_OSCILLATION_SCALE»
           import «research.LI_FLOOR_PRIME_COUNT_FANTASY»
+          import «research.VF_MID_FLOOR_LI_DISCRETE_BACKLOG»
+          import «research.VF_MID_FLOOR_LI_SIGNED_POPULATION_BALANCE»
+          import «research.VF_MID_FLOOR_LI_CRITICAL_BALANCE»
+          import «research.VF_MID_ACTUAL_CRITICAL_OWNER_RECURSION»
+          import «research.VF_MID_FLOOR_LI_DISCRETE_BACKLOG»
           import «research.VF_MID_LINEAR_INTERPOLATION_FANTASY»
           import «research.FOUR_FANTASY_PROXY_RH_CLOSURES»
+          import «research.VF_MID_SOLVED_FANTASY_CONE»
           import «research.VF_MID_FRACTIONAL_PRIME_CLUSTER»
           import «research.VF_MID_ODD_FRACTIONAL_CLUSTER»
           import «research.VF_MID_SIGNED_SEAT_CHARGE»
@@ -206,6 +225,20 @@ jobs:
           import «research.VF_MID_PHI_CUTOFF_TELESCOPE»
           import «research.VF_MID_PHI_ODD_LI_TRANSFER»
           import «research.VF_MID_PHI_DIAGONAL_TRANSFER»
+          #print axioms RHLean.Analysis.vfMidPrimeFloorLiBacklog_succ
+          #print axioms RHLean.Analysis.vfMidFloorLiSignedMismatchMass_sq_eq_neg_dyadicPrimeDefect
+          #print axioms RHLean.Analysis.norm_vfMidFloorLiSignedMismatchMass_sub_moebiusAbel_lt_one
+          #print axioms RHLean.Analysis.norm_vfMidFloorLiSignedPopulationBalance_sub_moebiusAbel_lt_one
+          #print axioms RHLean.Analysis.primeSievePrimeIndicator_sub_pntDensity_eq_floorLi_forcing
+          #print axioms RHLean.Analysis.actualPrimeState_sub_allScaleLiState_floorLi_forcing_split
+          #print axioms RHLean.Analysis.actualPrimeCriticalState_sub_allScaleLiCriticalState
+          #print axioms RHLean.Analysis.criticalCenteredPrimeFrequencyWeight_eq_floorLi_forcings
+          #print axioms RHLean.Analysis.actualPrimeCriticalState_sub_allScaleLiCriticalState_floorLi_forcing_split
+          #print axioms RHLean.Analysis.actualPrimeReciprocalState_sub_allScaleLiReciprocalState_floorLi_forcing_split
+          #print axioms RHLean.Analysis.floorLiFantasyReciprocalPropagation_norm_sum_rootSquare_le_log_two
+          #print axioms RHLean.Analysis.criticalCenteredPrimeSource_eq_state_add_child_add_propagated
+          #print axioms RHLean.Analysis.vfMidOddFloorLiCompositeDefect_eq_ownerCensus_sub_reference
+          #print axioms RHLean.Analysis.vfMidDyadicVFTrackingDefect_eq_floorLiDefect_sub_bridgeIncrement
           #print axioms RHLean.Analysis.primeFlipExactResponse_eq_pnt_add_error
           #print axioms RHLean.Analysis.primeFlipExactResponse_eq_reciprocalPrimeCounts
           #print axioms RHLean.Analysis.primeFlipPNTError_eq_reciprocalDiscrepancy
@@ -251,6 +284,10 @@ jobs:
           #print axioms RHLean.Analysis.abs_liIntegerCutoffFloorPrimeCountProxy_sub_li_le
           #print axioms RHLean.Analysis.primeLiVonKochBounded_of_liFloorPrimeCountIdentification
           #print axioms RHLean.Analysis.riemannHypothesis_of_liFloorPrimeCountIdentification
+          #print axioms RHLean.Analysis.vfMidPrimeFloorLiBacklog_succ
+          #print axioms RHLean.Analysis.vfMidOddFloorLiCompositeDefect_eq_ownerCensus_sub_reference
+          #print axioms RHLean.Analysis.vfMidDyadicVFTrackingDefect_eq_floorLiDefect_sub_bridgeIncrement
+          #print axioms RHLean.Analysis.vfMidFloorLiVFTrackingCoordinate_root_bridge
           #print axioms RHLean.Analysis.vfMidLinearMidpoint_li_root_bounded
           #print axioms RHLean.Analysis.primeLiVonKochBounded_of_vfMidLinearMidpointIdentification
           #print axioms RHLean.Analysis.riemannHypothesis_of_vfMidLinearMidpointIdentification
@@ -279,6 +316,15 @@ jobs:
           #print axioms RHLean.Analysis.vfMidLinearProxyTracking_iff_riemannHypothesis
           #print axioms RHLean.Analysis.liFloorProxyTracking_iff_riemannHypothesis
           #print axioms RHLean.Analysis.fourFantasyProxyTrackingBounds_iff_RH
+          #print axioms RHLean.Analysis.vfMidSolvedFantasyConeRadius_le_root
+          #print axioms RHLean.Analysis.vfMidSolvedFantasyCone_vonKoch_safe
+          #print axioms RHLean.Analysis.vfMidSquareEndpointVonKochBounded_of_actualPrimeContainedInSolvedFantasyCone
+          #print axioms RHLean.Analysis.riemannHypothesis_of_actualPrimeContainedInSolvedFantasyCone
+          #print axioms RHLean.Analysis.abs_vfMidSolvedFantasyRadialDirection
+          #print axioms RHLean.Analysis.abs_vfMidSolvedFantasyRadialPoint_sub_vfMid
+          #print axioms RHLean.Analysis.vfMidSolvedFantasyRadialConeAt_iff
+          #print axioms RHLean.Analysis.actualPrimeContainedInSolvedFantasyRadialCone_iff
+          #print axioms RHLean.Analysis.riemannHypothesis_of_actualPrimeContainedInSolvedFantasyRadialCone
           #print axioms RHLean.Analysis.vfMidFractionalPrimeSeatWeight_sum_squareBand
           #print axioms RHLean.Analysis.vfMidSquareBandError_eq_fractionalPrimeClusterDiscrepancy
           #print axioms RHLean.Analysis.vfMidFractionalPrimeClusterDiscrepancy_eq_endpointError_sub
@@ -468,6 +514,7 @@ jobs:
           #print axioms RHLean.Analysis.primeSievePNTDensity_two_eq_zero
           #print axioms RHLean.Analysis.vfMidOddLiCumulativeTransform_two_eq_prefixWheelCounting
           #print axioms RHLean.Analysis.vfMidOddLiCumulativeDisplacement_two_eq_zero
+          #print axioms RHLean.Analysis.vfMidOddLiCumulativeDisplacement_cutoff_step_floorLi_forcing_split
           #print axioms RHLean.Analysis.vfMidSquareBandLateOwnerCards_cast_eq_oddLiRemoval_sub_displacement
           #print axioms RHLean.Analysis.vfMidDyadicLateCorrection_cast_eq_oddLiCorrection_sub_displacement
           #print axioms RHLean.Analysis.vfMidOddCandidateSeats_card

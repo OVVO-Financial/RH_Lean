@@ -1,0 +1,19 @@
+{
+  "R0": 56,
+  "Rmax": 3162,
+  "n_blocks": 3106,
+  "xmax": 9998244,
+  "D0": -13,
+  "block_error_min": -47,
+  "block_error_max": 42,
+  "block_error_mean": -0.10238248551191242,
+  "block_error_sd": 8.618734833787334,
+  "lag1": -0.13687459697582277,
+  "lag2": -0.07762663415864393,
+  "max_rh_ratio_all": 0.06508893340790825,
+  "max_rh_ratio_R_ge_500": 0.025933198564713544,
+  "max_rh_ratio_R_ge_1000": 0.019990574226113323,
+  "final_rh_ratio": 0.012989341264799727,
+  "final_backlog": -331,
+  "endpoint_identity_check": 0
+}
