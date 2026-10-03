@@ -224,15 +224,23 @@ def vfMidBackwardShiftedCornerChannel
     (k R : ℕ) :
     vfMidForwardShiftedCornerChannel k R ((R : ℝ) ^ 2) =
       vfMidFinishedMass (R + k) := by
-  simp [vfMidForwardShiftedCornerChannel,
-    vfMidForwardShiftedUpperLeftPhase, vfMidUpperLeftPhase]
+  have ht : vfMidCornerParameter R ((R : ℝ) ^ 2) = 0 := by
+    simp [vfMidCornerParameter]
+  unfold vfMidForwardShiftedCornerChannel
+    vfMidForwardShiftedUpperLeftPhase vfMidUpperLeftPhase
+  rw [ht]
+  ring
 
 @[simp] theorem vfMidBackwardShiftedCornerChannel_left
     (k R : ℕ) :
     vfMidBackwardShiftedCornerChannel k R ((R : ℝ) ^ 2) =
       vfMidFinishedMass (R - k) := by
-  simp [vfMidBackwardShiftedCornerChannel,
-    vfMidBackwardShiftedUpperLeftPhase, vfMidUpperLeftPhase]
+  have ht : vfMidCornerParameter R ((R : ℝ) ^ 2) = 0 := by
+    simp [vfMidCornerParameter]
+  unfold vfMidBackwardShiftedCornerChannel
+    vfMidBackwardShiftedUpperLeftPhase vfMidUpperLeftPhase
+  rw [ht]
+  ring
 
 /-- Exact forward physical-channel displacement from the unshifted VF corner
 line. -/
