@@ -139,3 +139,60 @@ before promotion to a Lean theorem.
 ## CI scope
 
 PR #874 is checked against the repository's strict prime-flip kernel workflow; the temporary full-stack diff disappears when dependency PR #873 merges.
+
+## Second learned decoder: squarefree parity
+
+The first affine decoder uses only `mu` and therefore stops at the prime-cube
+activation.  The next observable already exists in the repository:
+`moebiusNegativeIndicator`, with the exact pointwise law
+
+\[
+2\,1_{\{\mu=-1\}}=\mu^2-\mu.
+\]
+
+The new PR proves the global refinement
+
+\[
+2\,1_{\mathbb P}(n)
+=
+\mu(n)^2-\mu(n)
+-2D_{\mathrm{odd\,comp}}(n),
+\]
+
+where `D_oddcomp(n)=1` exactly when `n` is composite and `mu(n)=-1`.
+Thus every squareful state, including the observed prime cube `q^3`, is
+absorbed automatically by the squarefree diagonal `mu^2`.  The only new
+forcing is the squarefree odd-depth composite population.
+
+A second finite falsification scan confirms the conceptual transition.  For
+the sample frozen wheels below, the first failure of the simpler
+`(mu^2-mu)/2` prime decoder is the product of the first three distinct
+unsieved primes:
+
+| A | first failing block R | first failing n |
+|---:|---:|---:|
+| 3 | 19 | 5*7*11 = 385 |
+| 5 | 31 | 7*11*13 = 1001 |
+| 10 | 49 | 11*13*17 = 2431 |
+| 16 | 86 | 17*19*23 = 7429 |
+| 22 | 143 | 23*29*31 = 20677 |
+| 50 | 436 | 53*59*61 = 190747 |
+
+This is diagnostic rather than proof, but it cleanly distinguishes the
+repeated-prime q^3 activation from the genuine three-coordinate Boolean
+frontier.
+
+The corresponding exact forcing decomposition is now
+
+\[
+1_{\mathbb P}-w_{\mathrm{Li}}
+=
+\frac12\mu^2-\frac12\mu
+-D_{\mathrm{odd\,comp}}
+-w_{\mathrm{Li}}.
+\]
+
+The first term is the squarefree diagonal already present throughout the
+repository, the second is the signed Mobius eigenmode, and the third is the
+new factor-depth frontier to attack by the existing full-factorization and
+truncated-cube cancellation laws.
