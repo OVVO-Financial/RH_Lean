@@ -362,6 +362,8 @@ jobs:
           #print axioms RHLean.Analysis.vfMidLowerRightPhase_eq_upperLeftPhase_pred
           #print axioms RHLean.Analysis.vfMidUpperCornerChannel_eq_upperLeftPhase
           #print axioms RHLean.Analysis.vfMidLowerCornerChannel_eq_lowerRightPhase
+          #print axioms RHLean.Analysis.vfMidLowerCornerChannel_eq_pred_upperLeftPhase
+          #print axioms RHLean.Analysis.vfMidUpperLeftPhase_sub_pred
           #print axioms RHLean.Analysis.vfMidIntegerBlockCaptured_of_cornerChannel
           #print axioms RHLean.Analysis.vfMidBandMass_le_five_mul_base_div_log
           #print axioms RHLean.Analysis.vfMidFinishedMass_offset_excursions_le_rhScale
