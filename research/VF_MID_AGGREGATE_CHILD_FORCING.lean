@@ -122,7 +122,7 @@ theorem vfMidRecursiveNativeCrossGram_eq_zeroTargetCoPartial_sub_divergent
             ∑ i ∈ Finset.Ico 2 j,
               RHLean.Proof.zeroTargetDivergentPair
                 (vfMidRecursiveNativeChargeInBlock R i)
-                (vfMidRecursiveNativeChargeInBlock R j) := by
+                (vfMidRecursiveNativeChargeInBlock R j)) := by
       rw [Finset.sum_sub_distrib]
 
 /-- Scalar specialization of the finite signed Gram expansion on an interval. -/
