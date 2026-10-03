@@ -4,6 +4,8 @@ import «research.VF_MID_ACTUAL_CRITICAL_OWNER_RECURSION»
 import RHLean.Proof.SquareRootLowPrimeGoWallQuantitative
 import «research.ZERO_TARGET_COVARIANCE_OWNER_DESCENT»
 import RHLean.Arithmetic.PrimeWheelMobiusDensity
+import RHLean.Analysis.FiniteWheelRestrictedFloor
+import RHLean.Arithmetic.LeastPrimeDepthHierarchy
 
 /-!
 # Physical actual-minus-Li forcing is an affine Mobius field
@@ -38,6 +40,49 @@ open scoped ArithmeticFunction.Moebius BigOperators
 namespace RHLean.Analysis
 
 attribute [local instance] Classical.propDecidable
+
+/-- **Global cancellation prime detector.**
+For any nontrivial integer and any prime divisor p, the local rough Mobius
+convolution annihilates every multi-prime Boolean cube and leaves only the
+pure p-power channel.  Multiplication by mu(n)^2 then kills repeated p-powers.
+What survives is exactly the Boolean prime indicator.
+
+The formula is independent of which prime divisor p is exposed. -/
+theorem vfMidActualPrimeIndicatorInt_eq_moebiusSq_mul_roughConvolution
+    {p n : ℕ} (hp : p.Prime) (hn1 : 1 < n) (hpd : p ∣ n) :
+    (if n.Prime then (1 : ℤ) else 0) =
+      (μ n) ^ 2 * roughGEMobiusGTConvolution p n := by
+  rw [roughGE_convolution_roughGT_moebius_eq_primePowers hp n]
+  have hn0 : n ≠ 0 := by omega
+  rw [if_neg hn0]
+  by_cases hnPrime : n.Prime
+  · have hpn : p = n :=
+      (Nat.prime_dvd_prime_iff_eq hp hnPrime).mp hpd
+    have hsub : n.primeFactors ⊆ ({p} : Finset ℕ) := by
+      intro q hq
+      have hqData := Nat.mem_primeFactors.mp hq
+      have hqn : q = n :=
+        (Nat.prime_dvd_prime_iff_eq hqData.1 hnPrime).mp hqData.2.1
+      subst q
+      simpa [hpn]
+    rw [if_pos hsub, ArithmeticFunction.moebius_apply_prime hnPrime]
+    simp [hnPrime]
+  · by_cases hsq : Squarefree n
+    · have hcard :
+          2 ≤ n.primeFactors.card :=
+        RHLean.Arithmetic.two_le_card_primeFactors_of_not_prime
+          hsq hn1 hnPrime
+      have hnot : ¬ n.primeFactors ⊆ ({p} : Finset ℕ) := by
+        intro hsub
+        have hle := Finset.card_le_card hsub
+        simp at hle
+        omega
+      rw [if_neg hnot]
+      simp [hnPrime]
+    · have hmu :
+          μ n = 0 :=
+        ArithmeticFunction.moebius_eq_zero_of_not_squarefree hsq
+      simp [hnPrime, hmu]
 
 /-- Integer Boolean prime indicator used for exact population algebra. -/
 def vfMidActualPrimeIndicatorInt (n : ℕ) : ℤ :=
