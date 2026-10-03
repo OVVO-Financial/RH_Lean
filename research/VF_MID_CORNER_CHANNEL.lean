@@ -510,6 +510,41 @@ def VFMidSquareEndpointVonKochBoundedFromFourStatement : Prop :=
       |vfMidPrimeError ((R : ℝ) ^ 2)| ≤
         C * (R : ℝ) * Real.log (R : ℝ)
 
+/-- Generic widened-corner bracket for an arbitrary lag schedule.  The
+schedule is separated from its growth hypotheses so the geometry does not
+privilege one fitted trajectory. -/
+def VFMidLaggedCornerEndpointBracket (L : ℕ → ℕ) : Prop :=
+  ∀ R : ℕ, 4 ≤ R →
+    vfMidFinishedMass (R - L R) ≤
+        (Nat.primeCounting (R ^ 2) : ℝ) ∧
+      (Nat.primeCounting (R ^ 2) : ℝ) ≤
+        vfMidFinishedMass (R + L R)
+
+/-- Any O(log(R)^2) genuine-VF lag schedule gives an O(R log R) endpoint
+bound once the actual prime endpoint is bracketed by its outer VF corners. -/
+theorem vfMidSquareEndpointVonKochBoundedFromFour_of_laggedCornerBracket
+    {A : ℝ} (hA : 0 ≤ A)
+    (L : ℕ → ℕ)
+    (hhalf : ∀ R : ℕ, 4 ≤ R → 2 * L R ≤ R)
+    (hlag : ∀ R : ℕ, 4 ≤ R →
+      (L R : ℝ) ≤ A * Real.log (R : ℝ) ^ 2)
+    (hbr : VFMidLaggedCornerEndpointBracket L) :
+    VFMidSquareEndpointVonKochBoundedFromFourStatement := by
+  refine ⟨5 * A, mul_nonneg (by norm_num) hA, ?_⟩
+  intro R hR
+  have hcorners :=
+    vfMidFinishedMass_lag_excursions_le_rhScale
+      R (L R) hR (hhalf R hR) (hlag R hR)
+  have hb := hbr R hR
+  have herr :
+      vfMidPrimeError ((R : ℝ) ^ 2) =
+        (Nat.primeCounting (R ^ 2) : ℝ) - vfMidFinishedMass R := by
+    unfold vfMidPrimeError
+    rw [vfMidPrimeCount_sq_exact R, vfMid_sq (by omega : 2 ≤ R)]
+  rw [herr]
+  apply abs_le.mpr
+  constructor <;> linarith
+
 /-- Canonical outer-corner endpoint inclusion directly supplies the RH-scale
 bound for every R >= 4. -/
 theorem vfMidSquareEndpointVonKochBoundedFromFour_of_outerCornerBracket
@@ -601,6 +636,34 @@ theorem vfMidSquareEndpointVonKochBounded_of_fromFour
           _ ≤ D * w3 := mul_le_mul_of_nonneg_right hcoef hw3.le
       norm_num [e3, w3] at hsmall3 ⊢
       exact hsmall3
+
+/-- The generic lag-budget formulation is itself sufficient for the full
+square-endpoint target after the finite initial scales are absorbed. -/
+theorem vfMidSquareEndpointVonKochBounded_of_laggedCornerBracket
+    {A : ℝ} (hA : 0 ≤ A)
+    (L : ℕ → ℕ)
+    (hhalf : ∀ R : ℕ, 4 ≤ R → 2 * L R ≤ R)
+    (hlag : ∀ R : ℕ, 4 ≤ R →
+      (L R : ℝ) ≤ A * Real.log (R : ℝ) ^ 2)
+    (hbr : VFMidLaggedCornerEndpointBracket L) :
+    VFMidSquareEndpointVonKochBoundedStatement :=
+  vfMidSquareEndpointVonKochBounded_of_fromFour
+    (vfMidSquareEndpointVonKochBoundedFromFour_of_laggedCornerBracket
+      hA L hhalf hlag hbr)
+
+/-- Downstream RH consumer for the generic O(log(R)^2) VF-corner budget. -/
+theorem riemannHypothesis_of_laggedCornerBracket
+    (criterion : ClassicalVonKochRHCriterion)
+    {A : ℝ} (hA : 0 ≤ A)
+    (L : ℕ → ℕ)
+    (hhalf : ∀ R : ℕ, 4 ≤ R → 2 * L R ≤ R)
+    (hlag : ∀ R : ℕ, 4 ≤ R →
+      (L R : ℝ) ≤ A * Real.log (R : ℝ) ^ 2)
+    (hbr : VFMidLaggedCornerEndpointBracket L) :
+    VFMidRiemannHypothesisStatement :=
+  riemannHypothesis_of_vfMidSquareEndpoint criterion
+    (vfMidSquareEndpointVonKochBounded_of_laggedCornerBracket
+      hA L hhalf hlag hbr)
 
 /-- The widened VF-corner inclusion is a sufficient condition for the direct
 square-endpoint von-Koch target. -/
