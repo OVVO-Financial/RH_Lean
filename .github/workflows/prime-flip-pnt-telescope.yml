@@ -319,6 +319,10 @@ jobs:
           #print axioms RHLean.Analysis.vfMidCanonicalOuterCorners_rhSafe
           #print axioms RHLean.Analysis.vfMidSquareEndpointVonKochBounded_of_outerCornerBracket
           #print axioms RHLean.Analysis.vfMidOuterCornerEndpointBracket_of_primeCount_envelopes
+          #print axioms RHLean.Analysis.primeCountingRealLowerEnvelope_max
+          #print axioms RHLean.Analysis.primeCountingRealUpperEnvelope_min
+          #print axioms RHLean.Analysis.vfMidOuterCornerEndpointBracket_of_realPrimeCount_envelopes
+          #print axioms RHLean.Analysis.vfMidOuterCornerEndpointBracket_of_intersected_real_envelopes
           #print axioms RHLean.Analysis.vfMidSquareEndpointVonKochBounded_of_primeCount_outerEnvelopes
           #print axioms RHLean.Analysis.riemannHypothesis_of_outerCornerBracket
           #print axioms RHLean.Analysis.vfMidAligned_sq
