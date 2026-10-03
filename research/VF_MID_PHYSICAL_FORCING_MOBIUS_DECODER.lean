@@ -208,6 +208,118 @@ theorem reciprocalCenteredPrimeFrequencyWeight_eq_target_sub_half_moebius_of_cub
     hA hAR hcube hn]
   ring
 
+/-- Fresh-prime Mobius sign reversal with no size hypothesis. -/
+theorem moebius_mul_fresh_prime_eq_neg
+    {p n : ℕ} (hp : p.Prime) (hpn : ¬ p ∣ n) :
+    μ (p * n) = -μ n := by
+  have hcop : Nat.Coprime p n :=
+    (hp.coprime_iff_not_dvd).2 hpn
+  rw [ArithmeticFunction.isMultiplicative_moebius.map_mul_of_coprime hcop,
+    ArithmeticFunction.moebius_apply_prime hp]
+  ring
+
+/-- **Fresh-prime transport law for the physical forcing.**
+Whenever a fresh-prime child and its parent both lie on valid cubic-depth
+physical carriers, the centered actual-minus-Li forcing reverses sign exactly.
+This is the requested law F(T_p x) = -F(x), with no estimate. -/
+theorem vfMidActualLiCenteredForcing_mul_freshPrime_eq_neg
+    {A R S p n : ℕ}
+    (hA : 3 ≤ A) (hAR : A ≤ R) (hAS : A ≤ S)
+    (hcubeR : (R + 1) ^ 2 ≤ (A + 1) ^ 3)
+    (hcubeS : (S + 1) ^ 2 ≤ (A + 1) ^ 3)
+    (hp : p.Prime) (hpn : ¬ p ∣ n)
+    (hn : n ∈ vfMidSquarePrefixWheelSurvivors A R)
+    (hchild : p * n ∈ vfMidSquarePrefixWheelSurvivors A S) :
+    vfMidActualLiForcingAtom (p * n) -
+        vfMidActualLiAffineTarget (p * n) =
+      -(vfMidActualLiForcingAtom n -
+        vfMidActualLiAffineTarget n) := by
+  rw [vfMidActualLiForcingAtom_sub_target_eq_neg_half_moebius_of_cube
+      hA hAS hcubeS hchild,
+    vfMidActualLiForcingAtom_sub_target_eq_neg_half_moebius_of_cube
+      hA hAR hcubeR hn,
+    moebius_mul_fresh_prime_eq_neg hp hpn]
+  push_cast
+  ring
+
+/-- The critical centered source is exactly the Mobius source atom. -/
+theorem criticalCenteredPrimeFrequencyWeight_sub_target_eq_neg_half_moebius_of_cube
+    {A R n : ℕ}
+    (hA : 3 ≤ A) (hAR : A ≤ R)
+    (hcube : (R + 1) ^ 2 ≤ (A + 1) ^ 3)
+    (hn : n ∈ vfMidSquarePrefixWheelSurvivors A R) :
+    criticalCenteredPrimeFrequencyWeight n -
+        vfMidActualLiCriticalAffineTarget n =
+      -(1 / 2 : ℂ) * vfMidCriticalMobiusSourceAtom n := by
+  rw [criticalCenteredPrimeFrequencyWeight_eq_target_sub_half_moebius_of_cube
+    hA hAR hcube hn]
+  ring
+
+/-- **Critical fresh-prime transport.**
+The already-solved critical coordinate sees a fresh prime as the exact
+multiplier -criticalSqrtWeight(p). -/
+theorem criticalCenteredPrimeFrequencyWeight_mul_freshPrime
+    {A R S p n : ℕ}
+    (hA : 3 ≤ A) (hAR : A ≤ R) (hAS : A ≤ S)
+    (hcubeR : (R + 1) ^ 2 ≤ (A + 1) ^ 3)
+    (hcubeS : (S + 1) ^ 2 ≤ (A + 1) ^ 3)
+    (hp : p.Prime) (hpn : ¬ p ∣ n)
+    (hn : n ∈ vfMidSquarePrefixWheelSurvivors A R)
+    (hchild : p * n ∈ vfMidSquarePrefixWheelSurvivors A S) :
+    criticalCenteredPrimeFrequencyWeight (p * n) -
+        vfMidActualLiCriticalAffineTarget (p * n) =
+      -criticalSqrtWeight p *
+        (criticalCenteredPrimeFrequencyWeight n -
+          vfMidActualLiCriticalAffineTarget n) := by
+  rw [criticalCenteredPrimeFrequencyWeight_sub_target_eq_neg_half_moebius_of_cube
+      hA hAS hcubeS hchild,
+    criticalCenteredPrimeFrequencyWeight_sub_target_eq_neg_half_moebius_of_cube
+      hA hAR hcubeR hn]
+  unfold vfMidCriticalMobiusSourceAtom
+  rw [moebius_mul_fresh_prime_eq_neg hp hpn,
+    criticalSqrtWeight_mul]
+  push_cast
+  ring
+
+/-- The reciprocal centered source is exactly the Mobius source atom. -/
+theorem reciprocalCenteredPrimeFrequencyWeight_sub_target_eq_neg_half_moebius_of_cube
+    {A R n : ℕ}
+    (hA : 3 ≤ A) (hAR : A ≤ R)
+    (hcube : (R + 1) ^ 2 ≤ (A + 1) ^ 3)
+    (hn : n ∈ vfMidSquarePrefixWheelSurvivors A R) :
+    reciprocalCenteredPrimeFrequencyWeight n -
+        vfMidActualLiReciprocalAffineTarget n =
+      -(1 / 2 : ℂ) * vfMidReciprocalMobiusSourceAtom n := by
+  rw [reciprocalCenteredPrimeFrequencyWeight_eq_target_sub_half_moebius_of_cube
+    hA hAR hcube hn]
+  ring
+
+/-- **Reciprocal fresh-prime transport.**
+The solved reciprocal coordinate sees the same physical source with exact
+multiplier -reciprocalWeight(p). -/
+theorem reciprocalCenteredPrimeFrequencyWeight_mul_freshPrime
+    {A R S p n : ℕ}
+    (hA : 3 ≤ A) (hAR : A ≤ R) (hAS : A ≤ S)
+    (hcubeR : (R + 1) ^ 2 ≤ (A + 1) ^ 3)
+    (hcubeS : (S + 1) ^ 2 ≤ (A + 1) ^ 3)
+    (hp : p.Prime) (hpn : ¬ p ∣ n)
+    (hn : n ∈ vfMidSquarePrefixWheelSurvivors A R)
+    (hchild : p * n ∈ vfMidSquarePrefixWheelSurvivors A S) :
+    reciprocalCenteredPrimeFrequencyWeight (p * n) -
+        vfMidActualLiReciprocalAffineTarget (p * n) =
+      -reciprocalWeight p *
+        (reciprocalCenteredPrimeFrequencyWeight n -
+          vfMidActualLiReciprocalAffineTarget n) := by
+  rw [reciprocalCenteredPrimeFrequencyWeight_sub_target_eq_neg_half_moebius_of_cube
+      hA hAS hcubeS hchild,
+    reciprocalCenteredPrimeFrequencyWeight_sub_target_eq_neg_half_moebius_of_cube
+      hA hAR hcubeR hn]
+  unfold vfMidReciprocalMobiusSourceAtom
+  rw [moebius_mul_fresh_prime_eq_neg hp hpn,
+    reciprocalWeight_mul]
+  push_cast
+  ring
+
 /-- Unweighted actual-minus-Li forcing over one frozen survivor block. -/
 def vfMidCubeActualLiForcingMass (A R : ℕ) : ℂ :=
   ∑ n ∈ vfMidSquarePrefixWheelSurvivors A R,
