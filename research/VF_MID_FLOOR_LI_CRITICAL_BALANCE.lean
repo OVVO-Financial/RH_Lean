@@ -95,6 +95,6 @@ theorem actualPrimeState_sub_allScaleLiState_floorLi_forcing_split
     rw [primeSievePrimeIndicator_sub_pntDensity_eq_floorLi_forcing q]
     ring
   rw [hforce] at h
-  exact h
+  linear_combination h
 
 end RHLean.Analysis
