@@ -5,12 +5,14 @@ on:
     branches: [main, openai/one-block-terminal-budget]
     paths:
       - research/NNS_ZERO_TARGET_NORMALIZED_STOKES.lean
+      - research/NNS_ZERO_TARGET_ONE_BLOCK_ENERGY.lean
       - .github/workflows/stokes-terminal-frame-closure.yml
   push:
     branches: [agent/post-774-stokes-terminal-frame-closure]
     paths:
       - research/GLOBAL_RETURNED_CORE_STOKES_TERMINAL_FRAME_API.lean
       - research/NNS_ZERO_TARGET_NORMALIZED_STOKES.lean
+      - research/NNS_ZERO_TARGET_ONE_BLOCK_ENERGY.lean
       - .github/workflows/stokes-terminal-frame-closure.yml
   workflow_dispatch:
 
@@ -70,6 +72,8 @@ jobs:
           lake build RHLean.Analysis.PrimeWheelRawConductorCoefficient
           lake build RHLean.Analysis.PrimeWheelRawConductorWeight
           lake build RHLean.Analysis.CorrectedConductorBoundaryDefectGeneral
+          lake build RHLean.Proof.SquareRootLowPrimeOneBlockTerminalBudget
+          lake build RHLean.Proof.RealSquareBlockIncrements
       - name: Emit returned-core dependency foundation through owner cube
         run: |
           mkdir -p .lake/build/lib/lean
@@ -151,6 +155,7 @@ jobs:
           emit research/GLOBAL_RETURNED_CORE_STOKES_GLOBAL_IDENTIFICATION.lean
           emit research/GLOBAL_RETURNED_CORE_STOKES_ZERO_TARGET_COVARIANCE.lean
           emit research/NNS_ZERO_TARGET_NORMALIZED_STOKES.lean
+          emit research/NNS_ZERO_TARGET_ONE_BLOCK_ENERGY.lean
           emit research/GLOBAL_RETURNED_CORE_STOKES_CORRECTED_WHEEL_IDENTIFICATION.lean
           emit research/GLOBAL_RETURNED_CORE_FIRST_OWNER_CELL_SUM.lean
           emit research/GLOBAL_RETURNED_CORE_FIRST_OWNER_GRAM_TO_CELLS.lean
@@ -170,6 +175,8 @@ jobs:
           #print axioms RHLean.Proof.lowOwnerCanonicalSignedStokesFinalBoundary_eq_two_nnsNormalized_mul_total
           #print axioms RHLean.Proof.zeroTargetMellinCompletePostRootNNSNormalized_nonpos
           #print axioms RHLean.Proof.nnsComplete_nonpos_and_clippedEnergy_contracts
+          #print axioms RHLean.Proof.oneBlockCorrelationInner_eq_nnsCrossExcess
+          #print axioms RHLean.Proof.squareRootCanonicalRoughCorrelation_energy_step_oneBlock_nns
           LEAN
           lake env lean -DwarningAsError=true /tmp/NNSZeroTargetAxioms.lean
       - name: Kernel-check clean terminal frame API
