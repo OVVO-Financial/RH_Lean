@@ -663,9 +663,11 @@ jobs:
           #print axioms RHLean.Analysis.vfMidPrimeCube_le_iff_owner_le_squareDaughter
           #print axioms RHLean.Analysis.vfMidSquareDaughter_lt_owner_iff_endpoint_lt_primeCube
           #print axioms RHLean.Analysis.vfMidQ2Daughter_eq_mertens_of_endpoint_lt_primeCube
+          #print axioms RHLean.Analysis.vfMidQ2HighTransport_eq_zero_of_endpoint_lt_primeCube
           #print axioms RHLean.Analysis.vfMidQ2HighTransport_eq_go_sub_mertens_of_primeCube_le
           #print axioms RHLean.Analysis.vfMidQ2Daughter_eq_mertens_add_highTransport_of_primeCube_le
           #print axioms RHLean.Analysis.vfMidQ2Daughter_cubicPhaseDichotomy
+          #print axioms RHLean.Analysis.squareEndpointQ2HighTransportColumn_eq_cubicActive
           #print axioms RHLean.Analysis.vfMidCriticalQ2HighTransport_eq_weightedCoboundary_of_primeCube_le
           #print axioms RHLean.Analysis.vfMidReciprocalQ2HighTransport_eq_weightedCoboundary_of_primeCube_le
           #print axioms RHLean.Analysis.supercriticalParent_forces_supercriticalChildPacket
