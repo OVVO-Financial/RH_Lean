@@ -495,7 +495,8 @@ theorem nnsOneBlockOldTailMass_cast_eq_correlation
         -realMoebiusStep n : ℝ) : ℂ) =
       -((∑ n ∈ Finset.Icc R (squareRootEndpoint R),
           realMoebiusStep n : ℝ) : ℂ) := by
-            rw [Finset.sum_neg_distrib, Complex.ofReal_neg]
+            push_cast
+            rw [Finset.sum_neg_distrib]
     _ = -(lowOwnerFarTailAmplitudeReal R : ℂ) := by rw [htail]
     _ = squareRootCanonicalRoughCorrelation R := by rw [hcorr]; ring
 
@@ -704,7 +705,7 @@ theorem nnsOneBlockUnresolvedCrossParentRemainder_eq_zeroTargetParentLedger
         (((canonicalPrefixPopulationMass R : ℤ) : ℝ) : ℂ) := by
     rw [realCanonicalTotalIncrement_cast,
       canonicalTotalIncrement_eq_prefixPopulationMass_cast R hR]
-    exact (Complex.ofReal_intCast _).symm
+    norm_cast
   have hprefReal :
       realCanonicalTotalIncrement R =
         ((canonicalPrefixPopulationMass R : ℤ) : ℝ) := by
@@ -844,9 +845,8 @@ theorem oneBlockCorrelationInner_eq_nnsCrossExcess
       nnsOneBlockCrossExcess R := by
   rw [← nnsOneBlockOldTailMass_cast_eq_correlation R hR,
     ← nnsOneBlockUpdateMass_cast_eq_update R]
-  rw [RCLike.inner_apply', Complex.conj_ofReal, RCLike.re_to_complex,
-    ← Complex.ofReal_mul, Complex.ofReal_re]
-  exact (nnsOneBlockCrossExcess_eq_tail_mul_update R).symm
+  rw [RCLike.inner_apply']
+  simpa using (nnsOneBlockCrossExcess_eq_tail_mul_update R).symm
 
 /-- **Exact #877 energy step after extracting the physical dissipative
 diagonal.**  The only unsolved signed object is now the cross-parent remainder. -/
