@@ -1,5 +1,6 @@
 import Mathlib
 import RHLean.Analysis.SquareRootCanonicalRoughCovariance
+import RHLean.Analysis.SquareWheelNesting
 import RHLean.Proof.SquareRootLowPrimeSmoothTransportRecoupling
 
 /-!
@@ -38,6 +39,19 @@ def squareRootCanonicalRoughSquareBlockMobiusMass (R : ℕ) : ℂ :=
   mertensSummatory (squareRootEndpoint (R + 1)) -
     mertensSummatory (squareRootEndpoint R)
 
+/-- The endpoint-difference block mass is literally the repository's native
+complete square-block increment. -/
+theorem squareRootCanonicalRoughSquareBlockMobiusMass_eq_canonicalTotalIncrement
+    (R : ℕ) (hR : 1 ≤ R) :
+    squareRootCanonicalRoughSquareBlockMobiusMass R =
+      canonicalTotalIncrement R := by
+  rw [canonicalTotalIncrement_eq_squarePrefix_sub R hR]
+  unfold squareRootCanonicalRoughSquareBlockMobiusMass
+    RHLean.Analysis.squarePrefixMertens RHLean.Analysis.squarePrefixEndpoint
+    squareRootEndpoint
+  have hpred : R - 1 + 1 = R := Nat.sub_add_cancel hR
+  rw [hpred]
+
 /-- **The hard rough correlation moves by one square block.**
 
 Because `Corr_R = M(R-1) - M(R^2-1)`, advancing the root by one changes the
@@ -60,6 +74,17 @@ theorem squareRootCanonicalRoughCorrelation_succ_sub_eq_rootAtom_sub_squareBlock
   unfold squareRootCanonicalRoughSquareBlockMobiusMass canonicalMoebiusWeight
   rw [hsucc]
   ring
+
+/-- **Native one-block form of the hard correlation increment.** -/
+theorem squareRootCanonicalRoughCorrelation_succ_sub_eq_rootAtom_sub_totalIncrement
+    (R : ℕ) (hR : 2 ≤ R) :
+    squareRootCanonicalRoughCorrelation (R + 1) -
+        squareRootCanonicalRoughCorrelation R =
+      canonicalMoebiusWeight R - canonicalTotalIncrement R := by
+  rw [squareRootCanonicalRoughCorrelation_succ_sub_eq_rootAtom_sub_squareBlock
+      R hR,
+    squareRootCanonicalRoughSquareBlockMobiusMass_eq_canonicalTotalIncrement
+      R (by omega)]
 
 private theorem root_add_depth_sq_le_four_root_sq_depth
     (R K : ℕ) (hK : 1 ≤ K) (hKR : K < R) :
