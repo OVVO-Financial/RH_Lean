@@ -41,6 +41,117 @@ theorem vfMidSquareBandPrefixSurvivorMobiusMassReal_eq_cast
   push_cast
   rfl
 
+/-- Cubic-depth rank-two form of every frozen-wheel composite survivor.
+
+The existing owner theorem already proves that when the square wall lies below
+the cubic completion threshold, the stripped rough child of every late owner
+is prime. Thus every unresolved composite is a product of exactly two primes
+above the frozen cutoff. -/
+theorem vfMidSquareBandPrefixComposite_survivor_eq_two_primes_of_cube
+    {A R n : ℕ} (hA : 3 ≤ A) (hAR : A ≤ R)
+    (hcube : (R + 1) ^ 2 ≤ (A + 1) ^ 3)
+    (hn : n ∈ vfMidSquareBandPrefixCompositeSurvivors A R) :
+    ∃ p q : ℕ,
+      p.Prime ∧ q.Prime ∧ A < p ∧ p ≤ q ∧ n = p * q := by
+  have hR3 : 3 ≤ R := hA.trans hAR
+  rcases Finset.mem_filter.mp hn with ⟨hnComp, hnSurv⟩
+  let p := n.minFac
+  have hpOwner : p ∈ vfMidSquareBandOwnerPrimes R :=
+    vfMidSquareBandComposite_minFac_mem_ownerPrimes (by omega) hnComp
+  have hpGtA : A < p :=
+    (vfMidSquareBandComposite_survives_prefix_iff_minFac_gt
+      (by omega) hnComp).1 hnSurv
+  have hpLate : p ∈ vfMidSquareBandLateOwnerPrimes A R :=
+    mem_vfMidSquareBandLateOwnerPrimes.mpr ⟨hpOwner, hpGtA⟩
+  have hnOwner : n ∈ vfMidSquareBandCompositeOwner R p :=
+    Finset.mem_filter.mpr ⟨hnComp, rfl⟩
+  have hchild : n / p ∈ vfMidSquareBandCompositeOwnerChildren R p := by
+    unfold vfMidSquareBandCompositeOwnerChildren
+    exact Finset.mem_image.mpr ⟨n, hnOwner, rfl⟩
+  have hrough : n / p ∈ vfMidSquareBandOwnerRoughChildren R p := by
+    rw [← vfMidSquareBandCompositeOwnerChildren_eq_rough hR3 hpOwner]
+    exact hchild
+  have hqPrime : (n / p).Prime :=
+    vfMidSquareBandLateOwnerRoughChild_prime_of_cube hpLate hrough hcube
+  have hpPrime : p.Prime :=
+    (mem_vfMidSquareBandOwnerPrimes.mp hpOwner).1
+  have hpLeQ : p ≤ n / p := by
+    have hmIcc := (Finset.mem_filter.mp hrough).1
+    exact (Finset.mem_Icc.mp hmIcc).1
+  have hmul := vfMidSquareBandCompositeOwner_mul_div hnOwner
+  refine ⟨p, n / p, hpPrime, hqPrime, hpGtA, hpLeQ, ?_⟩
+  exact hmul.symm
+
+/-- On the same cubic-depth carrier every unresolved composite has positive
+Mobius sign. The two prime factors are distinct because no nontrivial square
+lies strictly between consecutive squares. -/
+theorem vfMidSquareBandPrefixComposite_moebius_eq_one_of_cube
+    {A R n : ℕ} (hA : 3 ≤ A) (hAR : A ≤ R)
+    (hcube : (R + 1) ^ 2 ≤ (A + 1) ^ 3)
+    (hn : n ∈ vfMidSquareBandPrefixCompositeSurvivors A R) :
+    μ n = 1 := by
+  rcases vfMidSquareBandPrefixComposite_survivor_eq_two_primes_of_cube
+      hA hAR hcube hn with ⟨p, q, hp, hq, _hAp, _hpq, hnEq⟩
+  have hnComp := (Finset.mem_filter.mp hn).1
+  have hnSite := (Finset.mem_filter.mp hnComp).1
+  have hband : R ^ 2 < n ∧ n < (R + 1) ^ 2 := by
+    simpa [vfMidSquareBandSites] using hnSite
+  have hpqNe : p ≠ q := by
+    intro hpqEq
+    subst q
+    rw [hnEq] at hband
+    have hRp : R < p := by
+      by_contra hnot
+      have hpR : p ≤ R := Nat.le_of_not_gt hnot
+      have hsquare : p ^ 2 ≤ R ^ 2 :=
+        Nat.pow_le_pow_left hpR 2
+      nlinarith
+    have hR1p : R + 1 ≤ p := by omega
+    have hsquare : (R + 1) ^ 2 ≤ p ^ 2 :=
+      Nat.pow_le_pow_left hR1p 2
+    nlinarith
+  have hcop : Nat.Coprime p q :=
+    (Nat.coprime_primes hp hq).2 hpqNe
+  rw [hnEq, ArithmeticFunction.isMultiplicative_moebius.map_mul_of_coprime hcop,
+    ArithmeticFunction.moebius_apply_prime hp,
+    ArithmeticFunction.moebius_apply_prime hq]
+  norm_num
+
+/-- Pointwise affine VF/Mobius dictionary under the full cubic depth-two
+condition. This is the form that allows the frozen prefix to be much smaller
+than the physical square root. -/
+theorem vfMidCubePrefixSurvivorSeatCharge_eq_affineMoebius
+    {A R n : ℕ}
+    (hA : 3 ≤ A) (hAR : A ≤ R)
+    (hcube : (R + 1) ^ 2 ≤ (A + 1) ^ 3)
+    (hn : n ∈ vfMidSquarePrefixWheelSurvivors A R) :
+    vfMidOddSignedSeatCharge R n =
+      (1 / 2 : ℝ) * (((μ n : ℤ) : ℝ)) +
+        (vfMidOddFractionalPrimeSeatWeight R - (1 / 2 : ℝ)) := by
+  by_cases hp : n.Prime
+  · rw [vfMidOddSignedSeatCharge_of_prime R n hp,
+      ArithmeticFunction.moebius_apply_prime hp]
+    norm_num
+    ring
+  · have hsplit :=
+      vfMidSquarePrefixWheelSurvivors_eq_prime_union_prefixComposite
+        (A := A) (R := R) (by omega : 2 ≤ R) hAR
+    have hmem :
+        n ∈ vfMidSquareWheelPrimes R ∪
+          vfMidSquareBandPrefixCompositeSurvivors A R := by
+      rw [← hsplit]
+      exact hn
+    have hnComp : n ∈ vfMidSquareBandPrefixCompositeSurvivors A R := by
+      rcases Finset.mem_union.mp hmem with hnPrime | hnComp
+      · exact (hp (Finset.mem_filter.mp hnPrime).2).elim
+      · exact hnComp
+    have hmu :=
+      vfMidSquareBandPrefixComposite_moebius_eq_one_of_cube
+        hA hAR hcube hnComp
+    rw [vfMidOddSignedSeatCharge_of_not_prime R n hp, hmu]
+    norm_num
+    ring
+
 theorem vfMidSubdoublingPrefixSurvivorSeatCharge_eq_affineMoebius
     {A R n : ℕ}
     (hA : 3 ≤ A) (hAR : A ≤ R) (hRlt : R < 2 * A)
