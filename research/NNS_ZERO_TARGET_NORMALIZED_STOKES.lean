@@ -103,7 +103,7 @@ theorem nnsZeroTargetNormalizedCovariance_nonpos_iff
   by_cases hzero : co + div = 0
   · have hco0 : co = 0 := by nlinarith
     have hdiv0 : div = 0 := by nlinarith
-    simp [nnsZeroTargetNormalizedCovariance, hzero, hco0, hdiv0]
+    simp [nnsZeroTargetNormalizedCovariance, hco0, hdiv0]
   · have hden : 0 < co + div :=
       lt_of_le_of_ne (add_nonneg hco hdiv) (Ne.symm hzero)
     rw [nnsZeroTargetNormalizedCovariance, if_neg hzero]
