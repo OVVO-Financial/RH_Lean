@@ -761,6 +761,39 @@ def VFMidBackwardForwardCornerEndpointBracket
       (Nat.primeCounting (R ^ 2) : ℝ) ≤
         vfMidFinishedMass (R + Lplus R)
 
+
+/-- Full pathwise fan of shifted VF corner trajectories.  The lower wall uses
+a backward shift Lminus(R); the upper wall uses an independent forward shift
+Lplus(R). -/
+def VFMidBackwardForwardShiftedChannelContainsPrime
+    (Lminus Lplus : ℕ → ℕ) : Prop :=
+  ∀ R : ℕ, 4 ≤ R →
+    ∀ x : ℝ,
+      (R : ℝ) ^ 2 ≤ x →
+      x ≤ (((R + 1 : ℕ) : ℝ) ^ 2) →
+        vfMidBackwardShiftedCornerChannel (Lminus R) R x ≤
+            vfMidPrimeCount x ∧
+          vfMidPrimeCount x ≤
+            vfMidForwardShiftedCornerChannel (Lplus R) R x
+
+/-- The pathwise multi-shift fan immediately yields the minimal square-node
+backward/forward endpoint bracket by evaluating at the left endpoint of each
+physical square block. -/
+theorem vfMidBackwardForwardCornerEndpointBracket_of_shiftedChannel
+    {Lminus Lplus : ℕ → ℕ}
+    (hchan :
+      VFMidBackwardForwardShiftedChannelContainsPrime Lminus Lplus) :
+    VFMidBackwardForwardCornerEndpointBracket Lminus Lplus := by
+  intro R hR
+  have hsqNat : R ^ 2 ≤ (R + 1) ^ 2 :=
+    Nat.pow_le_pow_left (by omega) 2
+  have hsq :
+      (R : ℝ) ^ 2 ≤ (((R + 1 : ℕ) : ℝ) ^ 2) := by
+    exact_mod_cast hsqNat
+  have h :=
+    hchan R hR ((R : ℝ) ^ 2) le_rfl hsq
+  simpa using h
+
 /-- The symmetric index-offset bracket is the diagonal special case of the
 asymmetric backward/forward bracket. -/
 theorem vfMidBackwardForwardCornerEndpointBracket_of_symmetric
