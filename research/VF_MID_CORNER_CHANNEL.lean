@@ -228,7 +228,7 @@ theorem vfMidCornerParameter_mem_unit
 /-- Exact black-channel width: a convex combination of the two neighboring
 VF band masses. -/
 theorem vfMidCornerChannel_width
-    (R : ℕ) (hR : 3 ≤ R) (x : ℝ) :
+    (R : ℕ) (_hR : 3 ≤ R) (x : ℝ) :
     vfMidUpperCornerChannel R x - vfMidLowerCornerChannel R x =
       (1 - vfMidCornerParameter R x) * vfMidBandMass (R - 1) +
         vfMidCornerParameter R x * vfMidBandMass R := by
@@ -792,7 +792,7 @@ theorem vfMidSquareEndpointVonKochBounded_of_fromFour
           e2 = (e2 / w2) * w2 := heq.symm
           _ ≤ D * w2 := mul_le_mul_of_nonneg_right hcoef hw2.le
       norm_num [e2, w2] at hsmall2 ⊢
-      exact hsmall2
+      simpa [mul_assoc] using hsmall2
     · have hcoef : e3 / w3 ≤ D := by
         dsimp [D]
         linarith
@@ -803,7 +803,7 @@ theorem vfMidSquareEndpointVonKochBounded_of_fromFour
           e3 = (e3 / w3) * w3 := heq.symm
           _ ≤ D * w3 := mul_le_mul_of_nonneg_right hcoef hw3.le
       norm_num [e3, w3] at hsmall3 ⊢
-      exact hsmall3
+      simpa [mul_assoc] using hsmall3
 
 /-- The asymmetric backward/forward VF-block formulation is sufficient for
 the full square-endpoint target after absorbing the finite initial scales. -/
