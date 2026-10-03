@@ -461,6 +461,102 @@ theorem nnsOneBlockSameParentExcess_nonpos
   intro c _hc
   exact mul_nonneg (Nat.cast_nonneg _) (sq_nonneg _)
 
+
+/-- **Exact one-block cross-parent zero-target dictionary.**
+
+After the literal #877 cross term is grouped by the canonical parent of each
+new square-block atom, the unresolved sector is exactly the negative
+zero-target pairing of the old tail with the root parent and every frozen
+canonical parent, plus the two diagonal terms already extracted above.
+
+This is an equality of the actual one-block carrier.  No absolute value,
+reciprocal reweighting, or new analytic estimate is introduced. -/
+theorem nnsOneBlockUnresolvedCrossParentRemainder_eq_zeroTargetParentLedger
+    (R : ℕ) (hR : 3 ≤ R) :
+    nnsOneBlockUnresolvedCrossParentRemainder R =
+      -(∑ n ∈ nnsOneBlockOldTailCarrier R,
+          postRootZeroTargetPairExcess (n, R)) -
+        ∑ c ∈ Finset.Icc 1 (oldParentCutoff R),
+          ((canonicalParentFiber R c).card : ℝ) *
+            (∑ n ∈ nnsOneBlockOldTailCarrier R,
+              postRootZeroTargetPairExcess (n, c)) +
+        (realMoebiusStep R) ^ 2 +
+        ∑ c ∈ nnsOneBlockMatchedParentSet R,
+          ((canonicalParentFiber R c).card : ℝ) *
+            (realMoebiusStep c) ^ 2 := by
+  have hprefComplex :
+      ((realCanonicalTotalIncrement R : ℝ) : ℂ) =
+        (((canonicalPrefixPopulationMass R : ℤ) : ℝ) : ℂ) := by
+    rw [realCanonicalTotalIncrement_cast,
+      canonicalTotalIncrement_eq_prefixPopulationMass_cast R hR]
+  have hprefReal :
+      realCanonicalTotalIncrement R =
+        ((canonicalPrefixPopulationMass R : ℤ) : ℝ) := by
+    have h := congrArg Complex.re hprefComplex
+    simpa using h
+  have hparentInt :=
+    canonicalPrefixPopulationMass_eq_sum_neg_mobius_mul_parentFiberCard R hR
+  have hparentReal :=
+    congrArg (fun z : ℤ => (z : ℝ)) hparentInt
+  push_cast at hparentReal
+  have hblock :
+      realCanonicalTotalIncrement R =
+        ∑ c ∈ Finset.Icc 1 (oldParentCutoff R),
+          -realMoebiusStep c *
+            ((canonicalParentFiber R c).card : ℝ) := by
+    rw [hprefReal]
+    simpa [realMoebiusStep] using hparentReal
+  have htail :
+      nnsOneBlockOldTailMass R =
+        -(∑ n ∈ nnsOneBlockOldTailCarrier R, realMoebiusStep n) := by
+    unfold nnsOneBlockOldTailMass nnsOneBlockOldTailEvent
+    rw [Finset.sum_neg_distrib]
+  have hupdate :
+      nnsOneBlockUpdateMass R =
+        realMoebiusStep R +
+          ∑ c ∈ Finset.Icc 1 (oldParentCutoff R),
+            ((canonicalParentFiber R c).card : ℝ) *
+              realMoebiusStep c := by
+    unfold nnsOneBlockUpdateMass nnsOneBlockRootUpdateEvent
+    rw [hblock]
+    rw [Finset.sum_congr rfl (fun c _hc => by ring)]
+    ring
+  have hroot :
+      (∑ n ∈ nnsOneBlockOldTailCarrier R,
+        postRootZeroTargetPairExcess (n, R)) =
+        (∑ n ∈ nnsOneBlockOldTailCarrier R, realMoebiusStep n) *
+          realMoebiusStep R := by
+    simp_rw [postRootZeroTargetPairExcess_eq_weight]
+    rw [Finset.sum_mul]
+  have hparent : ∀ c : ℕ,
+      (∑ n ∈ nnsOneBlockOldTailCarrier R,
+        postRootZeroTargetPairExcess (n, c)) =
+        (∑ n ∈ nnsOneBlockOldTailCarrier R, realMoebiusStep n) *
+          realMoebiusStep c := by
+    intro c
+    simp_rw [postRootZeroTargetPairExcess_eq_weight]
+    rw [Finset.sum_mul]
+  have hparents :
+      (∑ c ∈ Finset.Icc 1 (oldParentCutoff R),
+        ((canonicalParentFiber R c).card : ℝ) *
+          (∑ n ∈ nnsOneBlockOldTailCarrier R,
+            postRootZeroTargetPairExcess (n, c))) =
+        (∑ n ∈ nnsOneBlockOldTailCarrier R, realMoebiusStep n) *
+          (∑ c ∈ Finset.Icc 1 (oldParentCutoff R),
+            ((canonicalParentFiber R c).card : ℝ) *
+              realMoebiusStep c) := by
+    rw [Finset.mul_sum]
+    apply Finset.sum_congr rfl
+    intro c _hc
+    rw [hparent c]
+    ring
+  rw [nnsOneBlockUnresolvedCrossParentRemainder,
+    nnsOneBlockCrossExcess_eq_tail_mul_update,
+    htail, hupdate,
+    nnsOneBlockIdentifiedDiagonalExcess_eq_neg_energy R hR,
+    hroot, hparents]
+  ring
+
 /-! ## Exact unresolved cross-parent remainder -/
 
 /-- After removing the root self-pair and every visible same-parent fibre, this
