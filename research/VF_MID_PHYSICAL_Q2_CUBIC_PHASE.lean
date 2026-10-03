@@ -87,7 +87,7 @@ theorem vfMidQ2Daughter_eq_mertens_add_highTransport_of_primeCube_le
         q2DaughterHighTransport q X := by
   have h :=
     vfMidQ2HighTransport_eq_go_sub_mertens_of_primeCube_le hq hX
-  linear_combination h
+  omega
 
 /-- **Exact cubic phase dichotomy.**
 There is no third local behavior at one prime coordinate:
@@ -151,6 +151,7 @@ theorem vfMidCriticalQ2HighTransport_eq_weightedCoboundary_of_primeCube_le
           ((mertensSummatoryInt (X / (q * q)) : ℤ) : ℂ))) := by
   rw [vfMidQ2HighTransport_eq_go_sub_mertens_of_primeCube_le hq hX]
   push_cast
+  rfl
 
 /-- Reciprocal-coordinate image of the activated coboundary.  The same
 physical frontier enters with the exact q^(-1) multiplier used by the solved
@@ -164,5 +165,6 @@ theorem vfMidReciprocalQ2HighTransport_eq_weightedCoboundary_of_primeCube_le
           ((mertensSummatoryInt (X / (q * q)) : ℤ) : ℂ))) := by
   rw [vfMidQ2HighTransport_eq_go_sub_mertens_of_primeCube_le hq hX]
   push_cast
+  rfl
 
 end RHLean.Analysis
