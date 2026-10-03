@@ -287,4 +287,194 @@ theorem riemannHypothesis_of_actualPrimeContainedInSolvedFantasyCone
     (vfMidSquareEndpointVonKochBounded_of_actualPrimeContainedInSolvedFantasyCone
       hcone)
 
+/-! ## Genuine normalized radial freedom
+
+The first cone above scales the *realized size* of the four fantasy
+displacements.  That is useful for safety, but an upper bound
+\`fantasyRadius R ≤ B * R\` does not say that the realized radius is itself
+of order \`R\`.
+
+The normalized radial construction below separates direction from magnitude.
+The midpoint of the four solved fantasy coordinates selects only a sign
+\`u_R ∈ {-1,+1}\`.  The radial magnitude is supplied independently by the
+full square-endpoint von-Koch budget \`R * log R\`.
+
+Thus the point
+
+    VF_mid(R^2) + a * R * log R * u_R
+
+has *exactly* radial displacement \`|a| * R * log R\`.  No lower bound on the
+raw fantasy displacement is needed, and there is no hidden collapse to
+\`O(log R)\`.
+-/
+
+/-- Arithmetic midpoint of the four already-solved fantasy coordinates at the
+square endpoint \`R^2\`. -/
+def vfMidSolvedFantasyMidpoint (R : ℕ) : ℝ :=
+  let x : ℝ := (R : ℝ) ^ 2
+  (vfMidLogarithmicIntegralFromTwo x +
+      vfMidFractionalPrimeClusterMass R +
+      vfMidLinearMidpointInterpolant x +
+      liIntegerCutoffFloorPrimeCountProxy x) / 4
+
+/-- The four-fantasy midpoint chooses only the radial orientation.  A
+degenerate exact hit with VF uses the harmless positive orientation. -/
+def vfMidSolvedFantasyRadialDirection (R : ℕ) : ℝ :=
+  if vfMidSolvedFantasyMidpoint R < vfMid ((R : ℝ) ^ 2)
+  then -1
+  else 1
+
+@[simp] theorem abs_vfMidSolvedFantasyRadialDirection (R : ℕ) :
+    |vfMidSolvedFantasyRadialDirection R| = 1 := by
+  unfold vfMidSolvedFantasyRadialDirection
+  split <;> norm_num
+
+@[simp] theorem vfMidSolvedFantasyRadialDirection_sq (R : ℕ) :
+    vfMidSolvedFantasyRadialDirection R *
+        vfMidSolvedFantasyRadialDirection R = 1 := by
+  unfold vfMidSolvedFantasyRadialDirection
+  split <;> norm_num
+
+/-- Radial rescaling of the solved-fantasy midpoint direction.  The fantasy
+system supplies the sign; \`a * R * log R\` supplies the physical magnitude. -/
+def vfMidSolvedFantasyRadialPoint (a : ℝ) (R : ℕ) : ℝ :=
+  vfMid ((R : ℝ) ^ 2) +
+    a * (((R : ℝ) * Real.log (R : ℝ)) *
+      vfMidSolvedFantasyRadialDirection R)
+
+/-- The genuine full-width radial cone: all scalar rescalings of the fantasy
+midpoint direction with coefficient \`|a| ≤ K\`. -/
+def VFMidSolvedFantasyRadialConeAt
+    (K : ℝ) (R : ℕ) (y : ℝ) : Prop :=
+  ∃ a : ℝ, |a| ≤ K ∧ y = vfMidSolvedFantasyRadialPoint a R
+
+/-- A radial coefficient \`a\` produces exactly \`|a| R log R\` displacement
+from VF at square scale. -/
+theorem abs_vfMidSolvedFantasyRadialPoint_sub_vfMid
+    (a : ℝ) {R : ℕ} (hR : 2 ≤ R) :
+    |vfMidSolvedFantasyRadialPoint a R - vfMid ((R : ℝ) ^ 2)| =
+      |a| * (R : ℝ) * Real.log (R : ℝ) := by
+  have hR0 : (0 : ℝ) ≤ (R : ℝ) := by positivity
+  have hR1 : (1 : ℝ) ≤ (R : ℝ) := by
+    exact_mod_cast (show 1 ≤ R by omega)
+  have hlogR0 : 0 ≤ Real.log (R : ℝ) := Real.log_nonneg hR1
+  unfold vfMidSolvedFantasyRadialPoint
+  rw [add_sub_cancel_left]
+  simp [abs_mul, abs_vfMidSolvedFantasyRadialDirection,
+    abs_of_nonneg hR0, abs_of_nonneg hlogR0, mul_assoc]
+
+/-- The two boundary coefficients really sit at the full \`K R log R\`
+distance.  This is the explicit no-collapse certificate missing from the
+unnormalized cone. -/
+theorem vfMidSolvedFantasyRadialPoint_boundary_distance
+    {K : ℝ} (hK : 0 ≤ K) {R : ℕ} (hR : 2 ≤ R) :
+    |vfMidSolvedFantasyRadialPoint K R - vfMid ((R : ℝ) ^ 2)| =
+      K * (R : ℝ) * Real.log (R : ℝ) := by
+  rw [abs_vfMidSolvedFantasyRadialPoint_sub_vfMid K hR, abs_of_nonneg hK]
+
+theorem vfMidSolvedFantasyRadialPoint_neg_boundary_distance
+    {K : ℝ} (hK : 0 ≤ K) {R : ℕ} (hR : 2 ≤ R) :
+    |vfMidSolvedFantasyRadialPoint (-K) R - vfMid ((R : ℝ) ^ 2)| =
+      K * (R : ℝ) * Real.log (R : ℝ) := by
+  rw [abs_vfMidSolvedFantasyRadialPoint_sub_vfMid (-K) hR, abs_neg,
+    abs_of_nonneg hK]
+
+/-- The normalized fantasy parameterization is not merely safe: at every
+square scale it is exactly the whole symmetric \`K R log R\` interval around
+VF. -/
+theorem vfMidSolvedFantasyRadialConeAt_iff
+    {K : ℝ} {R : ℕ} (hR : 2 ≤ R) {y : ℝ} :
+    VFMidSolvedFantasyRadialConeAt K R y ↔
+      |y - vfMid ((R : ℝ) ^ 2)| ≤
+        K * (R : ℝ) * Real.log (R : ℝ) := by
+  have hRpos : (0 : ℝ) < (R : ℝ) := by positivity
+  have hRgt1 : (1 : ℝ) < (R : ℝ) := by
+    exact_mod_cast (show 1 < R by omega)
+  have hlogRpos : 0 < Real.log (R : ℝ) := Real.log_pos hRgt1
+  let s : ℝ := (R : ℝ) * Real.log (R : ℝ)
+  have hspos : 0 < s := by
+    dsimp [s]
+    exact mul_pos hRpos hlogRpos
+  constructor
+  · rintro ⟨a, ha, rfl⟩
+    rw [abs_vfMidSolvedFantasyRadialPoint_sub_vfMid a hR]
+    have hs0 : 0 ≤ s := hspos.le
+    have hm := mul_le_mul_of_nonneg_right ha hs0
+    simpa [s, mul_assoc] using hm
+  · intro hy
+    let d : ℝ := vfMidSolvedFantasyRadialDirection R
+    have hdabs : |d| = 1 := by
+      dsimp [d]
+      exact abs_vfMidSolvedFantasyRadialDirection R
+    have hdne : d ≠ 0 := by
+      intro hd0
+      rw [hd0, abs_zero] at hdabs
+      norm_num at hdabs
+    have hsdne : s * d ≠ 0 := mul_ne_zero hspos.ne' hdne
+    let a : ℝ :=
+      (y - vfMid ((R : ℝ) ^ 2)) / (s * d)
+    have haabs :
+        |a| = |y - vfMid ((R : ℝ) ^ 2)| / s := by
+      dsimp [a]
+      rw [abs_div, abs_mul, hdabs, mul_one, abs_of_pos hspos]
+    have ha : |a| ≤ K := by
+      rw [haabs, div_le_iff₀ hspos]
+      simpa [s, mul_assoc] using hy
+    refine ⟨a, ha, ?_⟩
+    unfold vfMidSolvedFantasyRadialPoint
+    change y =
+      vfMid ((R : ℝ) ^ 2) +
+        a * (s * d)
+    dsimp [a]
+    rw [div_mul_cancel₀ _ hsdne]
+    ring
+
+/-- Every point in the normalized radial cone is immediately RH-scale safe,
+with exactly the same coefficient \`K\`. -/
+theorem vfMidSolvedFantasyRadialCone_vonKoch_safe
+    {K : ℝ} {R : ℕ} (hR : 2 ≤ R) {y : ℝ}
+    (hy : VFMidSolvedFantasyRadialConeAt K R y) :
+    |y - vfMid ((R : ℝ) ^ 2)| ≤
+      K * (R : ℝ) * Real.log (R : ℝ) :=
+  (vfMidSolvedFantasyRadialConeAt_iff hR).mp hy
+
+/-- The honest-prime containment statement for the normalized radial cone. -/
+def ActualPrimeContainedInSolvedFantasyRadialConeStatement : Prop :=
+  ∃ K : ℝ, 0 ≤ K ∧
+    ∀ R : ℕ, 2 ≤ R →
+      VFMidSolvedFantasyRadialConeAt K R
+        (vfMidPrimeCount ((R : ℝ) ^ 2))
+
+/-- The normalized radial containment statement is *exactly* the direct
+square-endpoint von-Koch target.  This theorem records both the genuine
+\`R log R\` radial freedom and the fact that radial normalization itself does
+not discharge the remaining arithmetic estimate. -/
+theorem actualPrimeContainedInSolvedFantasyRadialCone_iff :
+    ActualPrimeContainedInSolvedFantasyRadialConeStatement ↔
+      VFMidSquareEndpointVonKochBoundedStatement := by
+  constructor
+  · rintro ⟨K, hK, hcontain⟩
+    refine ⟨K, hK, ?_⟩
+    intro R hR
+    have h :=
+      (vfMidSolvedFantasyRadialConeAt_iff hR).mp (hcontain R hR)
+    unfold vfMidPrimeError
+    simpa using h
+  · rintro ⟨K, hK, hbound⟩
+    refine ⟨K, hK, ?_⟩
+    intro R hR
+    apply (vfMidSolvedFantasyRadialConeAt_iff hR).mpr
+    have h := hbound R hR
+    unfold vfMidPrimeError at h
+    simpa using h
+
+/-- Existing downstream consumer for the normalized radial formulation. -/
+theorem riemannHypothesis_of_actualPrimeContainedInSolvedFantasyRadialCone
+    (criterion : ClassicalVonKochRHCriterion)
+    (hcone : ActualPrimeContainedInSolvedFantasyRadialConeStatement) :
+    VFMidRiemannHypothesisStatement :=
+  riemannHypothesis_of_vfMidSquareEndpoint criterion
+    (actualPrimeContainedInSolvedFantasyRadialCone_iff.mp hcone)
+
+
 end RHLean.Analysis
