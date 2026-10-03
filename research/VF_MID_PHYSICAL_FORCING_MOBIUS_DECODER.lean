@@ -2,6 +2,7 @@ import Mathlib
 import «research.VF_MID_ENDPOINT_TRIGGER_DICTIONARY»
 import «research.VF_MID_ACTUAL_CRITICAL_OWNER_RECURSION»
 import RHLean.Proof.SquareRootLowPrimeGoWallQuantitative
+import «research.ZERO_TARGET_COVARIANCE_OWNER_DESCENT»
 
 /-!
 # Physical actual-minus-Li forcing is an affine Mobius field
@@ -155,6 +156,29 @@ theorem vfMidActualLiCenteredPair_eq_quarter_moebiusPair_of_cube
       hA hAR hcubeR hn,
     vfMidActualLiForcingAtom_sub_target_eq_neg_half_moebius_of_cube
       hA hAS hcubeS hm]
+  ring
+
+/-- **Physical forcing / zero-target covariance dictionary.**
+The centered actual-minus-Li forcing pair is exactly one quarter of the
+already-formalized target-zero co-partial-minus-divergent Mobius excess.
+Thus the physical forcing Gram and the owner-descending zero-target Gram are
+the same signed observable up to the fixed scalar 1/4. -/
+theorem vfMidActualLiCenteredPair_eq_quarter_zeroTargetExcess_of_cube
+    {A R S n m : ℕ}
+    (hA : 3 ≤ A) (hAR : A ≤ R) (hAS : A ≤ S)
+    (hcubeR : (R + 1) ^ 2 ≤ (A + 1) ^ 3)
+    (hcubeS : (S + 1) ^ 2 ≤ (A + 1) ^ 3)
+    (hn : n ∈ vfMidSquarePrefixWheelSurvivors A R)
+    (hm : m ∈ vfMidSquarePrefixWheelSurvivors A S) :
+    (vfMidActualLiForcingAtom n - vfMidActualLiAffineTarget n) *
+        (vfMidActualLiForcingAtom m - vfMidActualLiAffineTarget m) =
+      (((1 / 4 : ℝ) *
+        RHLean.Proof.postRootZeroTargetPairExcess (n, m) : ℝ) : ℂ) := by
+  rw [vfMidActualLiCenteredPair_eq_quarter_moebiusPair_of_cube
+      hA hAR hAS hcubeR hcubeS hn hm,
+    RHLean.Proof.postRootZeroTargetPairExcess_eq_weight]
+  unfold realMoebiusStep
+  push_cast
   ring
 
 /-- Critical-coordinate deterministic target. -/
