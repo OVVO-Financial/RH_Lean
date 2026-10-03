@@ -120,13 +120,18 @@ theorem actualPrimeCriticalState_sub_allScaleLiCriticalState
   have h :=
     primeFrequencyState_sub_eq_signedDisplacement
       hAc hLc x y
-  rw [show
-      (fun q =>
-        criticalActualPrimeFrequencyWeight q -
-          criticalLiFrequencyWeight q) =
-        criticalCenteredPrimeFrequencyWeight by
-      funext q
-      exact criticalActualPrimeFrequencyWeight_sub_li q] at h
+  have hsum :
+      (∑ q ∈ Finset.Ioc 1 (min x y),
+          (criticalActualPrimeFrequencyWeight q -
+            criticalLiFrequencyWeight q) *
+              allScaleActualPrimeCriticalState A (x / q) (q - 1)) =
+        ∑ q ∈ Finset.Ioc 1 (min x y),
+          criticalCenteredPrimeFrequencyWeight q *
+            allScaleActualPrimeCriticalState A (x / q) (q - 1) := by
+    apply Finset.sum_congr rfl
+    intro q _hq
+    rw [criticalActualPrimeFrequencyWeight_sub_li q]
+  rw [hsum] at h
   exact h
 
 /-- Critical fantasy propagation with only the forcing split changed.
@@ -253,13 +258,18 @@ theorem actualPrimeReciprocalState_sub_allScaleLiReciprocalState
   have h :=
     primeFrequencyState_sub_eq_signedDisplacement
       hAr hLr x y
-  rw [show
-      (fun q =>
-        reciprocalActualPrimeFrequencyWeight q -
-          reciprocalLiFrequencyWeight q) =
-        reciprocalCenteredPrimeFrequencyWeight by
-      funext q
-      exact reciprocalActualPrimeFrequencyWeight_sub_li q] at h
+  have hsum :
+      (∑ q ∈ Finset.Ioc 1 (min x y),
+          (reciprocalActualPrimeFrequencyWeight q -
+            reciprocalLiFrequencyWeight q) *
+              allScaleActualPrimeReciprocalState A (x / q) (q - 1)) =
+        ∑ q ∈ Finset.Ioc 1 (min x y),
+          reciprocalCenteredPrimeFrequencyWeight q *
+            allScaleActualPrimeReciprocalState A (x / q) (q - 1) := by
+    apply Finset.sum_congr rfl
+    intro q _hq
+    rw [reciprocalActualPrimeFrequencyWeight_sub_li q]
+  rw [hsum] at h
   exact h
 
 /-- Reciprocal fantasy propagation with floor-Li forcing exposed.
@@ -362,7 +372,7 @@ theorem criticalCenteredPrimeSource_eq_state_add_child_add_propagated
     intro q hq
     ring
   rw [hsplit] at hduhamel
-  linear_combination -hduhamel
+  linear_combination hduhamel
 
 /-! ## Root-to-square source tail -/
 
@@ -371,7 +381,7 @@ def criticalCenteredPrimeSourceTail (A X : ℕ) : ℂ :=
     criticalCenteredPrimeFrequencyWeight q
 
 theorem criticalCenteredPrimeSourceTail_eq_prefix_sub
-    {A X : ℕ} (hAX : A ≤ X) :
+    {A X : ℕ} (hA : 1 ≤ A) (hAX : A ≤ X) :
     criticalCenteredPrimeSourceTail A X =
       criticalCenteredPrimeSource X X -
         criticalCenteredPrimeSource A A := by
@@ -380,7 +390,7 @@ theorem criticalCenteredPrimeSourceTail_eq_prefix_sub
   have hsplit :=
     Finset.sum_Ioc_consecutive
       (f := criticalCenteredPrimeFrequencyWeight)
-      (Nat.zero_le A) hAX
+      hA hAX
   linear_combination hsplit
 
 end RHLean.Analysis
