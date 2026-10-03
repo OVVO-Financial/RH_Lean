@@ -15,6 +15,7 @@ on:
       - research/LI_FLOOR_PRIME_COUNT_FANTASY.lean
       - research/VF_MID_LINEAR_INTERPOLATION_FANTASY.lean
       - research/FOUR_FANTASY_PROXY_RH_CLOSURES.lean
+      - research/VF_MID_SOLVED_FANTASY_CONE.lean
       - research/VF_MID_DIRECT_SIGNED_DYNAMICS.lean
       - research/VF_MID_SQUARE_BAND_COMPOSITE_BRIDGE.lean
       - research/VF_MID_FRACTIONAL_PRIME_CLUSTER.lean
@@ -160,6 +161,7 @@ jobs:
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_SQUARE_THETA_NATIVE_DESCENT.olean research/VF_MID_SQUARE_THETA_NATIVE_DESCENT.lean 2>&1 | tee vf-mid-square-theta-native-descent.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_PROXY_ENERGY_PULL.olean research/VF_MID_PROXY_ENERGY_PULL.lean 2>&1 | tee vf-mid-proxy-energy-pull.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.FOUR_FANTASY_PROXY_RH_CLOSURES.olean research/FOUR_FANTASY_PROXY_RH_CLOSURES.lean 2>&1 | tee four-fantasy-proxy-rh-closures.log
+          lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_SOLVED_FANTASY_CONE.olean research/VF_MID_SOLVED_FANTASY_CONE.lean 2>&1 | tee vf-mid-solved-fantasy-cone.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_PHI_CUTOFF_TELESCOPE.olean research/VF_MID_PHI_CUTOFF_TELESCOPE.lean 2>&1 | tee vf-mid-phi-cutoff-telescope.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_PHI_ODD_LI_TRANSFER.olean research/VF_MID_PHI_ODD_LI_TRANSFER.lean 2>&1 | tee vf-mid-phi-odd-li-transfer.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_PHI_DIAGONAL_TRANSFER.olean research/VF_MID_PHI_DIAGONAL_TRANSFER.lean 2>&1 | tee vf-mid-phi-diagonal-transfer.log
@@ -174,6 +176,7 @@ jobs:
           import «research.LI_FLOOR_PRIME_COUNT_FANTASY»
           import «research.VF_MID_LINEAR_INTERPOLATION_FANTASY»
           import «research.FOUR_FANTASY_PROXY_RH_CLOSURES»
+          import «research.VF_MID_SOLVED_FANTASY_CONE»
           import «research.VF_MID_FRACTIONAL_PRIME_CLUSTER»
           import «research.VF_MID_ODD_FRACTIONAL_CLUSTER»
           import «research.VF_MID_SIGNED_SEAT_CHARGE»
@@ -274,6 +277,15 @@ jobs:
           #print axioms RHLean.Analysis.vfMidLinearProxyTracking_iff_riemannHypothesis
           #print axioms RHLean.Analysis.liFloorProxyTracking_iff_riemannHypothesis
           #print axioms RHLean.Analysis.fourFantasyProxyTrackingBounds_iff_RH
+          #print axioms RHLean.Analysis.vfMidSolvedFantasyConeRadius_le_root
+          #print axioms RHLean.Analysis.vfMidSolvedFantasyCone_vonKoch_safe
+          #print axioms RHLean.Analysis.vfMidSquareEndpointVonKochBounded_of_actualPrimeContainedInSolvedFantasyCone
+          #print axioms RHLean.Analysis.riemannHypothesis_of_actualPrimeContainedInSolvedFantasyCone
+          #print axioms RHLean.Analysis.abs_vfMidSolvedFantasyRadialDirection
+          #print axioms RHLean.Analysis.abs_vfMidSolvedFantasyRadialPoint_sub_vfMid
+          #print axioms RHLean.Analysis.vfMidSolvedFantasyRadialConeAt_iff
+          #print axioms RHLean.Analysis.actualPrimeContainedInSolvedFantasyRadialCone_iff
+          #print axioms RHLean.Analysis.riemannHypothesis_of_actualPrimeContainedInSolvedFantasyRadialCone
           #print axioms RHLean.Analysis.vfMidFractionalPrimeSeatWeight_sum_squareBand
           #print axioms RHLean.Analysis.vfMidSquareBandError_eq_fractionalPrimeClusterDiscrepancy
           #print axioms RHLean.Analysis.vfMidFractionalPrimeClusterDiscrepancy_eq_endpointError_sub
