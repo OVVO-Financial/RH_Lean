@@ -644,6 +644,9 @@ jobs:
           #print axioms RHLean.Analysis.criticalCenteredPrimeFrequencyWeight_eq_target_sub_half_moebius_of_cube
           #print axioms RHLean.Analysis.reciprocalCenteredPrimeFrequencyWeight_eq_target_sub_half_moebius_of_cube
           #print axioms RHLean.Analysis.vfMidCubeActualLiForcingMass_eq_target_sub_half_moebius
+          #print axioms RHLean.Analysis.vfMidActualLiCenteredForcing_mul_freshPrime_eq_neg
+          #print axioms RHLean.Analysis.criticalCenteredPrimeFrequencyWeight_mul_freshPrime
+          #print axioms RHLean.Analysis.reciprocalCenteredPrimeFrequencyWeight_mul_freshPrime
           #print axioms RHLean.Analysis.supercriticalParent_forces_supercriticalChildPacket
           #print axioms RHLean.Analysis.vfMidSupercriticalParent_forces_nativeChildPacket
           #print axioms RHLean.Analysis.vfMidNoSupercriticalScale_of_aggregateChildForcing
