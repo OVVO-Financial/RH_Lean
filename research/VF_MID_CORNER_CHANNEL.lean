@@ -262,10 +262,10 @@ theorem vfMidBandMass_le_five_mul_base_div_log
   have hlogR : 0 < Real.log (R : ℝ) := Real.log_pos hRgt1
   have hsq : (R : ℝ) ≤ (r : ℝ) ^ 2 := by
     nlinarith
+  have hr0 : 0 ≤ (r : ℝ) := by positivity
   have hmid :
       (R : ℝ) ≤ vfMidBandMidpoint r := by
     unfold vfMidBandMidpoint
-    positivity
     nlinarith
   have hlogmid :
       Real.log (R : ℝ) ≤ Real.log (vfMidBandMidpoint r) :=
@@ -576,10 +576,10 @@ theorem vfMidOuterCornerEndpointBracket_of_primeCount_envelopes
   intro R hR
   have hLreal :
       (L (R ^ 2) : ℝ) ≤ (Nat.primeCounting (R ^ 2) : ℝ) := by
-    exact_mod_cast hL (R ^ 2)
+    exact_mod_cast (hL (R ^ 2))
   have hUreal :
       (Nat.primeCounting (R ^ 2) : ℝ) ≤ (U (R ^ 2) : ℝ) := by
-    exact_mod_cast hU (R ^ 2)
+    exact_mod_cast (hU (R ^ 2))
   exact ⟨(hLower R hR).trans hLreal,
     hUreal.trans (hUpper R hR)⟩
 
