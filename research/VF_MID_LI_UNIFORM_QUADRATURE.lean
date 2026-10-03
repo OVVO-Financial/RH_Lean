@@ -461,4 +461,270 @@ theorem abs_vfMidBandQuadratureError_le_logHarmonic
       ring
 
 
+
+/-! ## Uniform O(1) square-endpoint discrepancy -/
+
+def vfLogHarmonicKernel (x : ℝ) : ℝ :=
+  x⁻¹ / Real.log x ^ 2
+
+theorem vfLogHarmonicKernel_nonneg
+    {x : ℝ} (hx : 1 < x) :
+    0 ≤ vfLogHarmonicKernel x := by
+  unfold vfLogHarmonicKernel
+  have hx0 : 0 < x := by linarith
+  have hlog : 0 < Real.log x := Real.log_pos hx
+  positivity
+
+theorem integral_vfLogHarmonicKernel
+    {a b : ℝ} (ha : 1 < a) (hb : 1 < b) (hab : a ≤ b) :
+    (∫ x in a..b, vfLogHarmonicKernel x) =
+      (Real.log a)⁻¹ - (Real.log b)⁻¹ := by
+  have hderiv :
+      ∀ x ∈ Set.uIcc a b,
+        HasDerivAt (fun y : ℝ => -(Real.log y)⁻¹)
+          (vfLogHarmonicKernel x) x := by
+    intro x hx
+    rw [Set.uIcc_of_le hab] at hx
+    have hx1 : (1 : ℝ) < x := ha.trans_le hx.1
+    have hx0 : x ≠ 0 := by linarith
+    have hlog0 : Real.log x ≠ 0 :=
+      ne_of_gt (Real.log_pos hx1)
+    have hinv :
+        HasDerivAt (fun y : ℝ => (Real.log y)⁻¹)
+          (vfInvLogDeriv x) x := by
+      simpa [vfInvLogDeriv] using
+        (Real.hasDerivAt_log hx0).inv hlog0
+    have hneg := hinv.neg
+    convert hneg using 1
+    · rfl
+    · unfold vfLogHarmonicKernel vfInvLogDeriv
+      field_simp [hx0, hlog0]
+      ring
+  have hcont :
+      ContinuousOn vfLogHarmonicKernel (Set.uIcc a b) := by
+    intro x hx
+    exact (hderiv x hx).continuousAt.continuousWithinAt
+  have h :=
+    intervalIntegral.integral_eq_sub_of_hasDerivAt
+      hderiv hcont.intervalIntegrable
+  simpa using h
+
+theorem vfLogHarmonicKernel_antitoneOn_two :
+    AntitoneOn vfLogHarmonicKernel (Ici (2 : ℝ)) := by
+  intro x hx y hy hxy
+  have hx2 : (2 : ℝ) ≤ x := hx
+  have hy2 : (2 : ℝ) ≤ y := hy
+  have hxpos : (0 : ℝ) < x := by linarith
+  have hypos : (0 : ℝ) < y := by linarith
+  have hx1 : (1 : ℝ) < x := by linarith
+  have hy1 : (1 : ℝ) < y := by linarith
+  have hlogx : 0 < Real.log x := Real.log_pos hx1
+  have hlogy : 0 < Real.log y := Real.log_pos hy1
+  have hlogxy : Real.log x ≤ Real.log y :=
+    Real.log_le_log hxpos hxy
+  have hlogsq : Real.log x ^ 2 ≤ Real.log y ^ 2 := by
+    nlinarith
+  have hden :
+      x * Real.log x ^ 2 ≤ y * Real.log y ^ 2 := by
+    exact mul_le_mul hxy hlogsq (sq_nonneg _) hypos.le
+  have hdenx :
+      0 < x * Real.log x ^ 2 := by positivity
+  have hxform :
+      vfLogHarmonicKernel x =
+        1 / (x * Real.log x ^ 2) := by
+    unfold vfLogHarmonicKernel
+    field_simp [hxpos.ne', hlogx.ne']
+  have hyform :
+      vfLogHarmonicKernel y =
+        1 / (y * Real.log y ^ 2) := by
+    unfold vfLogHarmonicKernel
+    field_simp [hypos.ne', hlogy.ne']
+  rw [hxform, hyform]
+  exact one_div_le_one_div_of_le hdenx hden
+
+theorem sum_vfLogHarmonicKernel_Ico_le
+    (R : ℕ) (hR : 2 ≤ R) :
+    (∑ r ∈ Finset.Ico 2 R,
+        vfLogHarmonicKernel (r : ℝ)) ≤
+      vfLogHarmonicKernel 2 + (Real.log 2)⁻¹ := by
+  by_cases hR2 : R = 2
+  · subst R
+    simp
+    have hlog2 : 0 ≤ (Real.log (2 : ℝ))⁻¹ := by
+      exact inv_nonneg.mpr
+        (Real.log_nonneg (by norm_num))
+    linarith
+  have h2R : 2 < R := by omega
+  have hRm1 : 2 ≤ R - 1 := by omega
+  have hRm1one : 1 < R - 1 := by omega
+  have hb1 : (1 : ℝ) < ((R - 1 : ℕ) : ℝ) := by
+    exact_mod_cast hRm1one
+  have hanti :
+      AntitoneOn vfLogHarmonicKernel
+        (Icc (2 : ℝ) ((R - 1 : ℕ) : ℝ)) :=
+    vfLogHarmonicKernel_antitoneOn_two.mono Icc_subset_Ici_self
+  have htail0 :=
+    AntitoneOn.sum_le_integral_Ico
+      (f := vfLogHarmonicKernel)
+      hRm1 hanti
+  have hshift :
+      (∑ r ∈ Finset.Ico 3 R,
+          vfLogHarmonicKernel (r : ℝ)) =
+        ∑ i ∈ Finset.Ico 2 (R - 1),
+          vfLogHarmonicKernel ((i + 1 : ℕ) : ℝ) := by
+    symm
+    rw [Finset.sum_Ico_add'
+      (fun n : ℕ => vfLogHarmonicKernel (n : ℝ))
+      2 (R - 1) 1]
+    simp [Nat.sub_add_cancel (by omega : 1 ≤ R)]
+  have htail :
+      (∑ r ∈ Finset.Ico 3 R,
+          vfLogHarmonicKernel (r : ℝ)) ≤
+        ∫ x in (2 : ℝ)..((R - 1 : ℕ) : ℝ),
+          vfLogHarmonicKernel x := by
+    rw [hshift]
+    simpa using htail0
+  have hint :=
+    integral_vfLogHarmonicKernel
+      (a := (2 : ℝ))
+      (b := ((R - 1 : ℕ) : ℝ))
+      (by norm_num) hb1
+      (by exact_mod_cast hRm1)
+  have hlogRm1 :
+      0 < Real.log (((R - 1 : ℕ) : ℝ)) :=
+    Real.log_pos hb1
+  have hintle :
+      (∫ x in (2 : ℝ)..((R - 1 : ℕ) : ℝ),
+          vfLogHarmonicKernel x) ≤
+        (Real.log 2)⁻¹ := by
+    rw [hint]
+    have hinv :
+        0 ≤ (Real.log (((R - 1 : ℕ) : ℝ))⁻¹ :=
+      inv_nonneg.mpr hlogRm1.le
+    linarith
+  rw [Finset.sum_eq_sum_Ico_succ_bot h2R]
+  calc
+    vfLogHarmonicKernel 2 +
+          ∑ r ∈ Finset.Ico 3 R,
+            vfLogHarmonicKernel (r : ℝ)
+        ≤ vfLogHarmonicKernel 2 +
+            (∫ x in (2 : ℝ)..((R - 1 : ℕ) : ℝ),
+              vfLogHarmonicKernel x) :=
+      add_le_add_left htail _
+    _ ≤ vfLogHarmonicKernel 2 + (Real.log 2)⁻¹ :=
+      add_le_add_left hintle _
+
+theorem sum_abs_vfMidBandQuadratureError_le_uniform
+    (R : ℕ) (hR : 2 ≤ R) :
+    (∑ r ∈ Finset.Ico 2 R,
+        |vfMidBandQuadratureError r|) ≤
+      108 *
+        (vfLogHarmonicKernel 2 + (Real.log 2)⁻¹) := by
+  have hterm :
+      ∀ r ∈ Finset.Ico 2 R,
+        |vfMidBandQuadratureError r| ≤
+          108 * vfLogHarmonicKernel (r : ℝ) := by
+    intro r hrmem
+    have hr2 : 2 ≤ r := (Finset.mem_Ico.mp hrmem).1
+    have h :=
+      abs_vfMidBandQuadratureError_le_logHarmonic
+        (r := r) hr2
+    have hrpos : (0 : ℝ) < (r : ℝ) := by
+      exact_mod_cast (show 0 < r by omega)
+    have hr1 : (1 : ℝ) < (r : ℝ) := by
+      exact_mod_cast (show 1 < r by omega)
+    have hlogr : 0 < Real.log (r : ℝ) :=
+      Real.log_pos hr1
+    calc
+      |vfMidBandQuadratureError r|
+          ≤ 108 / ((r : ℝ) *
+              Real.log (r : ℝ) ^ 2) := h
+      _ = 108 * vfLogHarmonicKernel (r : ℝ) := by
+        unfold vfLogHarmonicKernel
+        field_simp [hrpos.ne', hlogr.ne']
+        ring
+  calc
+    (∑ r ∈ Finset.Ico 2 R,
+        |vfMidBandQuadratureError r|)
+        ≤ ∑ r ∈ Finset.Ico 2 R,
+            108 * vfLogHarmonicKernel (r : ℝ) :=
+      Finset.sum_le_sum hterm
+    _ = 108 *
+          (∑ r ∈ Finset.Ico 2 R,
+            vfLogHarmonicKernel (r : ℝ)) := by
+      rw [Finset.mul_sum]
+    _ ≤ 108 *
+          (vfLogHarmonicKernel 2 + (Real.log 2)⁻¹) := by
+      exact mul_le_mul_of_nonneg_left
+        (sum_vfLogHarmonicKernel_Ico_le R hR)
+        (by norm_num)
+
+theorem vfMidLiError_sq_eq_base_add_sum
+    (R : ℕ) (hR : 2 ≤ R) :
+    vfMidLiError ((R : ℝ) ^ 2) =
+      vfMidLiError 4 +
+        ∑ r ∈ Finset.Ico 2 R,
+          vfMidBandQuadratureError r := by
+  induction R, hR using Nat.le_induction with
+  | base =>
+      norm_num
+  | succ R hR ih =>
+      rw [vfMidLiError_sq_succ hR, ih,
+        Finset.sum_Ico_succ_top hR]
+      ring
+
+def vfMidLiSquareEndpointUniformConstant : ℝ :=
+  |vfMidLiError 4| +
+    108 * (vfLogHarmonicKernel 2 + (Real.log 2)⁻¹)
+
+theorem vfMidLiSquareEndpointUniformConstant_nonneg :
+    0 ≤ vfMidLiSquareEndpointUniformConstant := by
+  unfold vfMidLiSquareEndpointUniformConstant
+  have hk :
+      0 ≤ vfLogHarmonicKernel 2 :=
+    vfLogHarmonicKernel_nonneg (by norm_num)
+  have hlog :
+      0 ≤ (Real.log (2 : ℝ))⁻¹ :=
+    inv_nonneg.mpr (Real.log_nonneg (by norm_num))
+  positivity
+
+theorem abs_vfMidLiError_sq_le_uniform
+    {R : ℕ} (hR : 2 ≤ R) :
+    |vfMidLiError ((R : ℝ) ^ 2)| ≤
+      vfMidLiSquareEndpointUniformConstant := by
+  rw [vfMidLiError_sq_eq_base_add_sum R hR]
+  calc
+    |vfMidLiError 4 +
+        ∑ r ∈ Finset.Ico 2 R,
+          vfMidBandQuadratureError r|
+        ≤ |vfMidLiError 4| +
+            |∑ r ∈ Finset.Ico 2 R,
+              vfMidBandQuadratureError r| :=
+      abs_add _ _
+    _ ≤ |vfMidLiError 4| +
+          ∑ r ∈ Finset.Ico 2 R,
+            |vfMidBandQuadratureError r| := by
+      gcongr
+      exact Finset.abs_sum_le_sum_abs _ _
+    _ ≤ |vfMidLiError 4| +
+          108 *
+            (vfLogHarmonicKernel 2 +
+              (Real.log 2)⁻¹) := by
+      exact add_le_add_left
+        (sum_abs_vfMidBandQuadratureError_le_uniform R hR) _
+    _ = vfMidLiSquareEndpointUniformConstant := rfl
+
+def VFMidLiSquareEndpointUniformBoundedStatement : Prop :=
+  ∃ C : ℝ, 0 ≤ C ∧
+    ∀ R : ℕ, 2 ≤ R →
+      |vfMidLiError ((R : ℝ) ^ 2)| ≤ C
+
+theorem vfMidLiSquareEndpointUniformBounded :
+    VFMidLiSquareEndpointUniformBoundedStatement := by
+  refine ⟨vfMidLiSquareEndpointUniformConstant,
+    vfMidLiSquareEndpointUniformConstant_nonneg, ?_⟩
+  intro R hR
+  exact abs_vfMidLiError_sq_le_uniform hR
+
+
 end RHLean.Analysis
