@@ -461,6 +461,87 @@ theorem nnsOneBlockSameParentExcess_nonpos
   intro c _hc
   exact mul_nonneg (Nat.cast_nonneg _) (sq_nonneg _)
 
+/-! ## Exact unresolved cross-parent remainder -/
+
+/-- After removing the root self-pair and every visible same-parent fibre, this
+is the only cross term left in the literal #877 one-block NNS carrier. -/
+def nnsOneBlockUnresolvedCrossParentRemainder (R : ℕ) : ℝ :=
+  nnsOneBlockCrossExcess R - nnsOneBlockIdentifiedDiagonalExcess R
+
+theorem nnsOneBlockCrossExcess_eq_diagonal_add_unresolved
+    (R : ℕ) :
+    nnsOneBlockCrossExcess R =
+      nnsOneBlockIdentifiedDiagonalExcess R +
+        nnsOneBlockUnresolvedCrossParentRemainder R := by
+  unfold nnsOneBlockUnresolvedCrossParentRemainder
+  ring
+
+private theorem abs_realMoebiusStep_le_one_nnsOneBlock (n : ℕ) :
+    |realMoebiusStep n| ≤ 1 := by
+  rcases ArithmeticFunction.moebius_eq_or n with h | h | h <;>
+    simp [realMoebiusStep, h]
+
+/-- The literal root-plus-current-block update is elementary root scale. -/
+theorem abs_nnsOneBlockUpdateMass_le_three_root
+    (R : ℕ) (hR : 2 ≤ R) :
+    |nnsOneBlockUpdateMass R| ≤ 3 * (R : ℝ) := by
+  unfold nnsOneBlockUpdateMass nnsOneBlockRootUpdateEvent
+  have hmu := abs_realMoebiusStep_le_one_nnsOneBlock R
+  have hblock := abs_realCanonicalTotalIncrement_le R
+  have htri :
+      |realMoebiusStep R - realCanonicalTotalIncrement R| ≤
+        |realMoebiusStep R| + |realCanonicalTotalIncrement R| :=
+    abs_sub _ _
+  have hRreal : (2 : ℝ) ≤ (R : ℝ) := by exact_mod_cast hR
+  have hblock' :
+      |realCanonicalTotalIncrement R| ≤ 2 * (R : ℝ) + 1 := by
+    simpa [Nat.cast_add, Nat.cast_mul] using hblock
+  linarith
+
+/-- Hence the positive diagonal update energy in #877 costs only 9 R^2. -/
+theorem norm_sq_oneBlockUpdate_le_nine_root_sq
+    (R : ℕ) (hR : 2 ≤ R) :
+    ‖canonicalMoebiusWeight R - canonicalTotalIncrement R‖ ^ 2 ≤
+      9 * (R : ℝ) ^ 2 := by
+  rw [← nnsOneBlockUpdateMass_cast_eq_update R,
+    Complex.norm_real, Real.norm_eq_abs]
+  have habs := abs_nnsOneBlockUpdateMass_le_three_root R hR
+  have habs0 : 0 ≤ |nnsOneBlockUpdateMass R| := abs_nonneg _
+  have hR0 : 0 ≤ (R : ℝ) := by positivity
+  nlinarith
+
+/-- **Exact #877 energy step after extracting the physical dissipative
+diagonal.**  The only unsolved signed object is now the cross-parent remainder. -/
+theorem squareRootCanonicalRoughCorrelation_energy_step_oneBlock_diagonal_remainder
+    (R : ℕ) (hR : 3 ≤ R) :
+    ‖squareRootCanonicalRoughCorrelation (R + 1)‖ ^ 2 -
+        ‖squareRootCanonicalRoughCorrelation R‖ ^ 2 =
+      ‖canonicalMoebiusWeight R - canonicalTotalIncrement R‖ ^ 2 +
+        2 * nnsOneBlockIdentifiedDiagonalExcess R +
+        2 * nnsOneBlockUnresolvedCrossParentRemainder R := by
+  rw [squareRootCanonicalRoughCorrelation_energy_step_oneBlock_nns
+      R (by omega),
+    nnsOneBlockNormalizedCovariance_mul_total,
+    nnsOneBlockCrossExcess_eq_diagonal_add_unresolved]
+  ring
+
+/-- **All non-RH-strength pieces removed.**  The negative identified diagonal
+can be dropped and the current-block self energy costs at most 9 R^2.  Any
+remaining positive energy growth is therefore carried by the unresolved
+cross-parent NNS remainder. -/
+theorem squareRootCanonicalRoughCorrelation_energy_step_le_unresolved
+    (R : ℕ) (hR : 3 ≤ R) :
+    ‖squareRootCanonicalRoughCorrelation (R + 1)‖ ^ 2 -
+        ‖squareRootCanonicalRoughCorrelation R‖ ^ 2 ≤
+      9 * (R : ℝ) ^ 2 +
+        2 * nnsOneBlockUnresolvedCrossParentRemainder R := by
+  have hexact :=
+    squareRootCanonicalRoughCorrelation_energy_step_oneBlock_diagonal_remainder
+      R hR
+  have hdiag := nnsOneBlockIdentifiedDiagonalExcess_nonpos R hR
+  have hupd := norm_sq_oneBlockUpdate_le_nine_root_sq R (by omega)
+  linarith
+
 /-- **The actual #877 cross term is exactly the NNS target-zero excess.** -/
 theorem oneBlockCorrelationInner_eq_nnsCrossExcess
     (R : ℕ) (hR : 2 ≤ R) :
