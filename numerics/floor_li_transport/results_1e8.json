@@ -1,0 +1,250 @@
+{
+  "transport": {
+    "range": {
+      "n0": 3136,
+      "N": 100000000
+    },
+    "start_backlog": -13,
+    "final_backlog": -753,
+    "min_backlog": -895,
+    "max_backlog": -9,
+    "near_integer_rechecks": 30,
+    "counts": {
+      "minus_floor_only": 5428268,
+      "plus_prime_only": 5427528,
+      "overlap": 333482
+    },
+    "overlap_frac_prime": 0.05788603040091928,
+    "mismatch_frac_union": 0.9701962896980484,
+    "pairing": {
+      "pairs": 5427515,
+      "unmatched_minus_end": 753,
+      "delay_quantiles": {
+        "0": 87.0,
+        "0.01": 1218.0,
+        "0.05": 2677.0,
+        "0.25": 5977.0,
+        "0.5": 8781.0,
+        "0.75": 11105.0,
+        "0.95": 14215.0,
+        "0.99": 15852.0,
+        "1": 17325.0
+      },
+      "mean_delay": 8608.119435137443,
+      "max_delay": 17325,
+      "same_bin_frac": 0.33776433598064676,
+      "within1_bin_frac": 0.9999642562019635,
+      "within2_bin_frac": 1.0,
+      "max_bin_gap": 2,
+      "bin_gap_counts": {
+        "0": 1833221,
+        "1": 3594100,
+        "2": 194
+      }
+    },
+    "event_runs": {
+      "minus_max": 13,
+      "plus_max": 8,
+      "minus_p99": 4.0,
+      "plus_p99": 4.0
+    }
+  },
+  "square_blocks": {
+    "global": {
+      "E0": -13,
+      "E_final": -753,
+      "E_min": -885,
+      "E_max": -11,
+      "delta_min": -66,
+      "delta_max": 84,
+      "corr_E_delta": -0.03701379360574837,
+      "lag1_delta": -0.09914216576041027,
+      "sum_diag": 2181482.0,
+      "sum_cross": -1614642.0,
+      "sum_step": 566840.0,
+      "cross_cancel_diag": 0.7401582960574509,
+      "net_over_gross_step": 0.006007156277669067,
+      "max_RH_ratio": 0.06508893340790825,
+      "final_RH_ratio": 0.008175593621828715
+    },
+    "ranges": [
+      {
+        "Rlo": 56,
+        "Rhi": 100,
+        "n": 44,
+        "E_min": -20,
+        "E_max": -11,
+        "mean_delta": -0.06818181818181818,
+        "lag1_delta": -0.4084255230130276,
+        "corr_E_delta": -0.47888040755053585,
+        "sum_diag": 201.0,
+        "sum_cross": -114.0,
+        "sum_step": 87.0,
+        "cross_cancel_diag": 0.5671641791044776,
+        "net_over_gross_step": 0.041927710843373496
+      },
+      {
+        "Rlo": 100,
+        "Rhi": 200,
+        "n": 100,
+        "E_min": -37,
+        "E_max": -14,
+        "mean_delta": -0.12,
+        "lag1_delta": -0.20529324536330618,
+        "corr_E_delta": -0.3520822785276559,
+        "sum_diag": 946.0,
+        "sum_cross": -418.0,
+        "sum_step": 528.0,
+        "cross_cancel_diag": 0.4418604651162791,
+        "net_over_gross_step": 0.043817427385892116
+      },
+      {
+        "Rlo": 200,
+        "Rhi": 500,
+        "n": 300,
+        "E_min": -69,
+        "E_max": -19,
+        "mean_delta": -0.06666666666666667,
+        "lag1_delta": -0.18192194196438738,
+        "corr_E_delta": -0.21992022197329722,
+        "sum_diag": 5406.0,
+        "sum_cross": -3886.0,
+        "sum_step": 1520.0,
+        "cross_cancel_diag": 0.7188309285978542,
+        "net_over_gross_step": 0.01664950599163143
+      },
+      {
+        "Rlo": 500,
+        "Rhi": 1000,
+        "n": 500,
+        "E_min": -132,
+        "E_max": -36,
+        "mean_delta": -0.16,
+        "lag1_delta": -0.13560643291469224,
+        "corr_E_delta": -0.18147248956009396,
+        "sum_diag": 20390.0,
+        "sum_cross": -6310.0,
+        "sum_step": 14080.0,
+        "cross_cancel_diag": 0.3094654242275625,
+        "net_over_gross_step": 0.03529618209621218
+      },
+      {
+        "Rlo": 1000,
+        "Rhi": 2000,
+        "n": 1000,
+        "E_min": -234,
+        "E_max": -62,
+        "mean_delta": -0.077,
+        "lag1_delta": -0.09070685441255508,
+        "corr_E_delta": -0.13241293516792368,
+        "sum_diag": 75729.0,
+        "sum_cross": -50088.0,
+        "sum_step": 25641.0,
+        "cross_cancel_diag": 0.6614110842609833,
+        "net_over_gross_step": 0.013372036324210213
+      },
+      {
+        "Rlo": 2000,
+        "Rhi": 5000,
+        "n": 3000,
+        "E_min": -457,
+        "E_max": -111,
+        "mean_delta": -0.05433333333333333,
+        "lag1_delta": -0.1337023487115035,
+        "corr_E_delta": -0.08965509479912044,
+        "sum_diag": 462875.0,
+        "sum_cross": -369476.0,
+        "sum_step": 93399.0,
+        "cross_cancel_diag": 0.7982198217661356,
+        "net_over_gross_step": 0.0057739610977987806
+      },
+      {
+        "Rlo": 5000,
+        "Rhi": 10000,
+        "n": 5000,
+        "E_min": -885,
+        "E_max": -184,
+        "mean_delta": -0.077,
+        "lag1_delta": -0.08852037249247854,
+        "corr_E_delta": -0.06802438691876829,
+        "sum_diag": 1615935.0,
+        "sum_cross": -1184350.0,
+        "sum_step": 431585.0,
+        "cross_cancel_diag": 0.7329193315325183,
+        "net_over_gross_step": 0.00569651014459515
+      }
+    ],
+    "feedback_regression_E_R": {
+      "intercept": -1.083941672497799,
+      "beta_E": -0.023949309182562807,
+      "beta_R": -0.0015284335422267655,
+      "r2": 0.011948132972215975
+    },
+    "fixed_scale_quartile_feedback": [
+      {
+        "Rlo": 1000,
+        "Rhi": 2000,
+        "deep_mean_delta": 1.4291338582677164,
+        "shallow_mean_delta": -1.7433962264150944,
+        "difference": 3.172530084682811
+      },
+      {
+        "Rlo": 2000,
+        "Rhi": 3000,
+        "deep_mean_delta": 2.059288537549407,
+        "shallow_mean_delta": -1.7035573122529644,
+        "difference": 3.7628458498023716
+      },
+      {
+        "Rlo": 3000,
+        "Rhi": 4000,
+        "deep_mean_delta": 1.7322834645669292,
+        "shallow_mean_delta": -2.671814671814672,
+        "difference": 4.4040981363816005
+      },
+      {
+        "Rlo": 4000,
+        "Rhi": 5000,
+        "deep_mean_delta": 3.562992125984252,
+        "shallow_mean_delta": -1.62015503875969,
+        "difference": 5.183147164743942
+      },
+      {
+        "Rlo": 5000,
+        "Rhi": 6000,
+        "deep_mean_delta": 0.5219123505976095,
+        "shallow_mean_delta": -2.2213438735177866,
+        "difference": 2.743256224115396
+      },
+      {
+        "Rlo": 6000,
+        "Rhi": 7000,
+        "deep_mean_delta": 2.628,
+        "shallow_mean_delta": -1.383399209486166,
+        "difference": 4.011399209486166
+      },
+      {
+        "Rlo": 7000,
+        "Rhi": 8000,
+        "deep_mean_delta": 3.108,
+        "shallow_mean_delta": -3.231075697211155,
+        "difference": 6.339075697211156
+      },
+      {
+        "Rlo": 8000,
+        "Rhi": 9000,
+        "deep_mean_delta": 0.94,
+        "shallow_mean_delta": -2.6095617529880477,
+        "difference": 3.5495617529880477
+      },
+      {
+        "Rlo": 9000,
+        "Rhi": 10000,
+        "deep_mean_delta": 2.996,
+        "shallow_mean_delta": -1.75,
+        "difference": 4.746
+      }
+    ]
+  },
+  "scope_warning": "All relocation lifetimes and feedback statistics are finite diagnostics. The square-root-bin gap uses floor(sqrt(n)); exact half-open square blocks differ at perfect-square event sites."
+}
