@@ -135,3 +135,7 @@ proper-subwheel boundary ledgers.
 
 Any candidate must survive the finite cube scan and the 210/317 hand carriers
 before promotion to a Lean theorem.
+
+## CI scope
+
+PR #874 is checked against the repository's strict prime-flip kernel workflow; the temporary full-stack diff disappears when dependency PR #873 merges.
