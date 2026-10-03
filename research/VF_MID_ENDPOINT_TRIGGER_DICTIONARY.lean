@@ -524,7 +524,6 @@ theorem vfMidDyadicVFTrackingDefect_eq_frozenWheel_add_half_moebius_of_cubeRun
           unfold vfMidDyadicPrefixSurvivorMobiusMassReal
           rw [Finset.sum_add_distrib, Finset.sum_sub_distrib,
             ← Finset.mul_sum, ← Finset.mul_sum]
-          ring
     _ = vfMidDyadicVFMass A B -
           (1 / 2 : ℝ) * vfMidDyadicPrefixSupply A A B +
           (1 / 2 : ℝ) * vfMidDyadicPrefixSurvivorMobiusMassReal A B := by
