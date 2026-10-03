@@ -118,6 +118,25 @@ theorem vfMidCornerParameter_mem_unit
   rw [vfMidCornerParameter_right_cast]
   ring
 
+/-- Cast-normalized successor-square forms used after simplification. -/
+@[simp] theorem vfMidUpperCornerChannel_right_cast (R : ℕ) :
+    vfMidUpperCornerChannel R (((R : ℝ) + 1) ^ 2) =
+      vfMidFinishedMass (R + 1) := by
+  simpa only [Nat.cast_add, Nat.cast_one] using
+    (vfMidUpperCornerChannel_right R)
+
+@[simp] theorem vfMidLowerCornerChannel_right_cast (R : ℕ) :
+    vfMidLowerCornerChannel R (((R : ℝ) + 1) ^ 2) =
+      vfMidFinishedMass R := by
+  simpa only [Nat.cast_add, Nat.cast_one] using
+    (vfMidLowerCornerChannel_right R)
+
+@[simp] theorem vfMidPrimeCount_succ_sq_exact (R : ℕ) :
+    vfMidPrimeCount (((R : ℝ) + 1) ^ 2) =
+      (Nat.primeCounting ((R + 1) ^ 2) : ℝ) := by
+  simpa only [Nat.cast_add, Nat.cast_one] using
+    (vfMidPrimeCount_sq_exact (R + 1))
+
 /-- Exact black-channel width: a convex combination of the two neighboring
 VF band masses. -/
 theorem vfMidCornerChannel_width
@@ -428,7 +447,6 @@ theorem vfMidFinishedMass_lag_excursions_le_rhScale
         mul_le_mul_of_nonneg_right hlag hfactor
       _ = 5 * A * (R : ℝ) * Real.log (R : ℝ) := by
         field_simp [hlog.ne']
-        <;> ring
   constructor
   · exact (vfMidFinishedMass_sub_sub_le_local R L hR hhalf).trans hscale
   · exact (vfMidFinishedMass_add_sub_le_local R L hR hhalf).trans hscale
@@ -570,7 +588,8 @@ theorem vfMidSquareEndpointVonKochBounded_of_fromFour
         calc
           e2 = (e2 / w2) * w2 := heq.symm
           _ ≤ D * w2 := mul_le_mul_of_nonneg_right hcoef hw2.le
-      simpa [e2, w2] using hsmall2
+      norm_num [e2, w2] at hsmall2 ⊢
+      exact hsmall2
     · have hcoef : e3 / w3 ≤ D := by
         dsimp [D]
         linarith
@@ -580,7 +599,8 @@ theorem vfMidSquareEndpointVonKochBounded_of_fromFour
         calc
           e3 = (e3 / w3) * w3 := heq.symm
           _ ≤ D * w3 := mul_le_mul_of_nonneg_right hcoef hw3.le
-      simpa [e3, w3] using hsmall3
+      norm_num [e3, w3] at hsmall3 ⊢
+      exact hsmall3
 
 /-- The widened VF-corner inclusion is a sufficient condition for the direct
 square-endpoint von-Koch target. -/
