@@ -479,7 +479,6 @@ theorem nnsOneBlockNormalizedCovariance_eq_alpha_mul_beta (R : ℕ) :
       rw [if_neg hprod]
       simp only [nnsOneBlockAlpha, nnsOneBlockBeta, hOld, hNew, if_false]
       field_simp
-      ring
 
 /-- The oriented real old-tail sum casts exactly to the repository's hard
 rough correlation. -/
@@ -497,7 +496,7 @@ theorem nnsOneBlockOldTailMass_cast_eq_correlation
       -((∑ n ∈ Finset.Icc R (squareRootEndpoint R),
           realMoebiusStep n : ℝ) : ℂ) := by
             push_cast
-            ring
+            rw [Finset.sum_neg_distrib]
     _ = -(lowOwnerFarTailAmplitudeReal R : ℂ) := by rw [htail]
     _ = squareRootCanonicalRoughCorrelation R := by rw [hcorr]; ring
 
@@ -630,7 +629,6 @@ theorem nnsOneBlockSameParentExcess_eq_neg_diagonal
           ((canonicalParentFiber R c).card : ℝ) *
             (realMoebiusStep c) ^ 2 := by
             simp [mul_comm]
-            ring
 
 /-- Root self-pair plus all visible canonical parent diagonals: the complete
 identified diagonal sector is purely dissipative. -/
@@ -707,6 +705,7 @@ theorem nnsOneBlockUnresolvedCrossParentRemainder_eq_zeroTargetParentLedger
         (((canonicalPrefixPopulationMass R : ℤ) : ℝ) : ℂ) := by
     rw [realCanonicalTotalIncrement_cast,
       canonicalTotalIncrement_eq_prefixPopulationMass_cast R hR]
+    norm_cast
   have hprefReal :
       realCanonicalTotalIncrement R =
         ((canonicalPrefixPopulationMass R : ℤ) : ℝ) := by
@@ -847,9 +846,7 @@ theorem oneBlockCorrelationInner_eq_nnsCrossExcess
   rw [← nnsOneBlockOldTailMass_cast_eq_correlation R hR,
     ← nnsOneBlockUpdateMass_cast_eq_update R]
   rw [RCLike.inner_apply']
-  change nnsOneBlockOldTailMass R * nnsOneBlockUpdateMass R =
-    nnsOneBlockCrossExcess R
-  exact (nnsOneBlockCrossExcess_eq_tail_mul_update R).symm
+  simpa using (nnsOneBlockCrossExcess_eq_tail_mul_update R).symm
 
 /-- **Exact #877 energy step after extracting the physical dissipative
 diagonal.**  The only unsolved signed object is now the cross-parent remainder. -/
