@@ -1284,7 +1284,6 @@ theorem vfMidProtectedBlockFreshPrimePhysicalDefect_abs_le_inv_mul_parent
             |nativePNTSignedSquareBlockCofactorResponse L M L m| /
             (m : ℝ)) := by
               field_simp [hmR.ne', hpR.ne']
-              ring
   unfold nativePNTSignedSquareBlockFreshPrimePhysicalDefect
     nativePNTSignedSquareBlockCorrelationReciprocalSummand
   rw [abs_div, abs_mul, abs_div, abs_mul]
