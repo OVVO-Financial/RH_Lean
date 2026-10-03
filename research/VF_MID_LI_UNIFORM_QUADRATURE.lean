@@ -13,7 +13,7 @@ hence varies on the r-th square band at scale
 O(r^-4 log(r)^-2).  Midpoint symmetry will turn that into a summable
 O(1/(r log(r)^2)) local quadrature error.
 
-No prime-distribution input occurs here.
+No prime-distribution input occurs here.  All constants are deterministic.
 -/
 
 noncomputable section
