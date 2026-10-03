@@ -221,10 +221,13 @@ jobs:
           #print axioms RHLean.Analysis.vfMidFloorLiSignedMismatchMass_sq_eq_neg_dyadicPrimeDefect
           #print axioms RHLean.Analysis.norm_vfMidFloorLiSignedMismatchMass_sub_moebiusAbel_lt_one
           #print axioms RHLean.Analysis.norm_vfMidFloorLiSignedPopulationBalance_sub_moebiusAbel_lt_one
-          #print axioms RHLean.Analysis.norm_vfMidPrimeFloorLi_rootSquare_increment_le_of_criticalPrefix
-          #print axioms RHLean.Analysis.norm_vfMidFloorLiCriticalRoundingTail_le
-          #print axioms RHLean.Analysis.norm_vfMidPrimeFloorLi_rootSquare_increment_le_of_primeLiCritical
+          #print axioms RHLean.Analysis.primeSievePrimeIndicator_sub_pntDensity_eq_floorLi_forcing
+          #print axioms RHLean.Analysis.actualPrimeState_sub_allScaleLiState_floorLi_forcing_split
           #print axioms RHLean.Analysis.actualPrimeCriticalState_sub_allScaleLiCriticalState
+          #print axioms RHLean.Analysis.criticalCenteredPrimeFrequencyWeight_eq_floorLi_forcings
+          #print axioms RHLean.Analysis.actualPrimeCriticalState_sub_allScaleLiCriticalState_floorLi_forcing_split
+          #print axioms RHLean.Analysis.actualPrimeReciprocalState_sub_allScaleLiReciprocalState_floorLi_forcing_split
+          #print axioms RHLean.Analysis.floorLiFantasyReciprocalPropagation_norm_sum_rootSquare_le_log_two
           #print axioms RHLean.Analysis.criticalCenteredPrimeSource_eq_state_add_child_add_propagated
           #print axioms RHLean.Analysis.vfMidOddFloorLiCompositeDefect_eq_ownerCensus_sub_reference
           #print axioms RHLean.Analysis.vfMidDyadicVFTrackingDefect_eq_floorLiDefect_sub_bridgeIncrement
