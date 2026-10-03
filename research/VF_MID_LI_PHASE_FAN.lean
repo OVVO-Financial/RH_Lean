@@ -259,7 +259,7 @@ theorem vfMidCanonicalPhaseFan_li_uniform
     (A : ℝ) (R kminus kplus : ℕ) (hR : 4 ≤ R)
     (hkminus :
       kminus ≤ vfMidCanonicalCornerOffset A R)
-    (hkplus :
+    (_hkplus :
       kplus ≤ vfMidCanonicalCornerOffset A R)
     (t : ℝ) (ht0 : 0 ≤ t) (ht1 : t ≤ 1) :
     |vfMidBackwardShiftedUpperLeftPhase R kminus t -
@@ -287,7 +287,7 @@ theorem abs_vfMidCanonicalPhaseFanWidth_sub_li_le_two_uniform
     (A : ℝ) (R kminus kplus : ℕ) (hR : 4 ≤ R)
     (hkminus :
       kminus ≤ vfMidCanonicalCornerOffset A R)
-    (hkplus :
+    (_hkplus :
       kplus ≤ vfMidCanonicalCornerOffset A R)
     (t : ℝ) (ht0 : 0 ≤ t) (ht1 : t ≤ 1) :
     |vfMidShiftedPhaseFanWidth R kminus kplus t -
@@ -306,7 +306,7 @@ theorem vfMidCanonicalCornerFan_li_uniform
     (A : ℝ) (R kminus kplus : ℕ) (hR : 4 ≤ R)
     (hkminus :
       kminus ≤ vfMidCanonicalCornerOffset A R)
-    (hkplus :
+    (_hkplus :
       kplus ≤ vfMidCanonicalCornerOffset A R)
     {x : ℝ}
     (hxl : (R : ℝ) ^ 2 ≤ x)
