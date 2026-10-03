@@ -363,6 +363,7 @@ jobs:
           #print axioms RHLean.Analysis.vfMidUpperLeftPhase_backwardShift_telescope
           #print axioms RHLean.Analysis.vfMidForwardShiftedCornerChannel_sub_upper
           #print axioms RHLean.Analysis.vfMidUpper_sub_backwardShiftedCornerChannel
+          #print axioms RHLean.Analysis.vfMidShiftedCornerChannel_exact_width
           #print axioms RHLean.Analysis.vfMidBackwardForwardCornerEndpointBracket_of_shiftedChannel
           #print axioms RHLean.Analysis.vfMidSquareEndpointVonKochBounded_of_backwardForwardShiftedChannel
           #print axioms RHLean.Analysis.riemannHypothesis_of_backwardForwardShiftedChannel
