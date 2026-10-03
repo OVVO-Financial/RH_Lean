@@ -1,4 +1,5 @@
 import Mathlib
+import RHLean.Analysis.SquareRootCanonicalRoughCovariance
 import RHLean.Proof.SquareRootLowPrimeSmoothTransportRecoupling
 
 /-!
@@ -27,6 +28,38 @@ noncomputable section
 open scoped ArithmeticFunction.Moebius BigOperators
 
 namespace RHLean.Proof
+
+open RHLean.Analysis
+
+/-- Möbius mass added when the completed square endpoint advances from `R^2-1`
+to `(R+1)^2-1`.  This is exactly the signed mass of the single square block
+`[R^2,(R+1)^2)`. -/
+def squareRootCanonicalRoughSquareBlockMobiusMass (R : ℕ) : ℂ :=
+  mertensSummatory (squareRootEndpoint (R + 1)) -
+    mertensSummatory (squareRootEndpoint R)
+
+/-- **The hard rough correlation moves by one square block.**
+
+Because `Corr_R = M(R-1) - M(R^2-1)`, advancing the root by one changes the
+correlation by the single root Möbius atom minus the Möbius mass of the new
+square block.  No ancestral-block sum remains in the increment. -/
+theorem squareRootCanonicalRoughCorrelation_succ_sub_eq_rootAtom_sub_squareBlock
+    (R : ℕ) (hR : 2 ≤ R) :
+    squareRootCanonicalRoughCorrelation (R + 1) -
+        squareRootCanonicalRoughCorrelation R =
+      canonicalMoebiusWeight R -
+        squareRootCanonicalRoughSquareBlockMobiusMass R := by
+  rw [squareRootCanonicalRoughCorrelation_eq_mertens_pred_sub_endpoint
+      (R + 1) (by omega),
+    squareRootCanonicalRoughCorrelation_eq_mertens_pred_sub_endpoint R hR]
+  have hpredSucc : R + 1 - 1 = R := by omega
+  rw [hpredSucc]
+  have hsucc := RHLean.Analysis.mertensSummatory_succ (R - 1)
+  have hpred : R - 1 + 1 = R := by omega
+  rw [hpred] at hsucc
+  unfold squareRootCanonicalRoughSquareBlockMobiusMass canonicalMoebiusWeight
+  rw [hsucc]
+  ring
 
 private theorem root_add_depth_sq_le_four_root_sq_depth
     (R K : ℕ) (hK : 1 ≤ K) (hKR : K < R) :
