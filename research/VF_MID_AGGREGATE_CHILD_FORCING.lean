@@ -1,0 +1,287 @@
+import Mathlib
+import «research.VF_MID_RECURSIVE_REMAINDER_BOUND»
+
+/-!
+# Aggregate-to-child forcing for the native VF recursive descent
+
+PR #854 proves that recursive VF scale transport is well founded, but explicitly
+does not prove that a large aggregate parent excursion selects a lower-scale
+child. PR #855 supplies the exact signed child packets, their disjoint physical
+partition, and the O(R) transfer remainder.
+
+This file isolates the remaining logical/arithmetic seam without assuming it:
+
+* keep the signed native child packets scalar until after reassembly;
+* expose their full off-diagonal Gram term exactly;
+* fold the #855 full descent remainder into one exact Gram remainder;
+* prove the abstract aggregate-to-child forcing implication once a true energy
+  budget is supplied;
+* record separately the still-missing packet-to-full-scale inheritance step.
+
+No independence, PNT-rate estimate, Li approximation, or RH input is used.
+-/
+
+noncomputable section
+
+open scoped BigOperators
+
+namespace RHLean.Analysis
+
+attribute [local instance] Classical.propDecidable
+
+/-- Squared scalar energy of the actual signed native child packets from #855. -/
+def vfMidRecursiveNativeChildEnergy (R : ℕ) : ℝ :=
+  ∑ S ∈ Finset.Ico 2 R,
+    (vfMidRecursiveNativeChargeInBlock R S) ^ 2
+
+/-- The exact off-diagonal scalar Gram term between distinct native child scales.
+
+Disjoint physical child carriers do not make these scalar amplitudes
+orthogonal. This is the cross term which must be controlled rather than
+silently discarded. -/
+def vfMidRecursiveNativeCrossGram (R : ℕ) : ℝ :=
+  ∑ j ∈ Finset.Ico 2 R,
+    ∑ i ∈ Finset.Ico 2 j,
+      vfMidRecursiveNativeChargeInBlock R i *
+        vfMidRecursiveNativeChargeInBlock R j
+
+/-- Scalar specialization of the finite signed Gram expansion on an interval. -/
+private theorem sum_Ico_sq_eq_diagonal_add_two_cross
+    (f : ℕ → ℝ) {a b : ℕ} (hab : a ≤ b) :
+    (∑ i ∈ Finset.Ico a b, f i) ^ 2 =
+      (∑ i ∈ Finset.Ico a b, (f i) ^ 2) +
+        2 * ∑ j ∈ Finset.Ico a b,
+          ∑ i ∈ Finset.Ico a j, f i * f j := by
+  induction b, hab using Nat.le_induction with
+  | base =>
+      simp
+  | succ b hab ih =>
+      rw [Finset.sum_Ico_succ_top hab]
+      rw [Finset.sum_Ico_succ_top hab]
+      rw [Finset.sum_Ico_succ_top hab]
+      rw [ih]
+      rw [← Finset.sum_mul]
+      ring
+
+/-- Exact native-child Gram identity.
+
+The square of the signed aggregate is the diagonal child energy plus every
+off-diagonal scalar cross term. #850/#855 disjointness is already built into
+which seats belong to each packet; it does not remove this cross term. -/
+theorem vfMidRecursiveAggregateNativeCharge_sq_eq_childEnergy_add_crossGram
+    (R : ℕ) (hR : 2 ≤ R) :
+    (vfMidRecursiveAggregateNativeCharge R) ^ 2 =
+      vfMidRecursiveNativeChildEnergy R +
+        2 * vfMidRecursiveNativeCrossGram R := by
+  unfold vfMidRecursiveAggregateNativeCharge
+    vfMidRecursiveNativeChildEnergy
+    vfMidRecursiveNativeCrossGram
+  exact
+    sum_Ico_sq_eq_diagonal_add_two_cross
+      (fun S => vfMidRecursiveNativeChargeInBlock R S) hR
+
+/-- Full signed Gram/remainder correction between the #855 parent defect square
+and the diagonal native-child energy.
+
+The first term is genuine cross-scale scalar coherence. The last two terms
+are the exact interaction with the already-reassembled #855 descent remainder;
+no absolute value is taken before this identity. -/
+def vfMidNativeDescentGramRemainder (R : ℕ) : ℝ :=
+  2 * vfMidRecursiveNativeCrossGram R +
+    2 * vfMidRecursiveAggregateNativeCharge R *
+      vfMidNativeDescentRemainder R +
+    (vfMidNativeDescentRemainder R) ^ 2
+
+/-- Exact parent-square decomposition on the real signed packets.
+
+This is the precise energy seam after #855:
+
+G_R^2 = sum_S V_{R,S}^2 + GramRem_R.
+
+Thus a Bessel/Gram contraction is exactly an upper bound for
+vfMidNativeDescentGramRemainder; population disjointness alone is not such a
+bound. -/
+theorem vfMidOddCompositeTrackingDefect_sq_eq_childEnergy_add_gramRemainder
+    (R : ℕ) (hR : 7 ≤ R) :
+    (vfMidOddCompositeTrackingDefect R) ^ 2 =
+      vfMidRecursiveNativeChildEnergy R +
+        vfMidNativeDescentGramRemainder R := by
+  have hdesc :=
+    vfMidOddCompositeTrackingDefect_eq_nativeCharge_add_descentRemainder
+      R hR
+  have hgram :=
+    vfMidRecursiveAggregateNativeCharge_sq_eq_childEnergy_add_crossGram
+      R (by omega)
+  rw [hdesc]
+  calc
+    (vfMidRecursiveAggregateNativeCharge R +
+        vfMidNativeDescentRemainder R) ^ 2 =
+      (vfMidRecursiveAggregateNativeCharge R) ^ 2 +
+        2 * vfMidRecursiveAggregateNativeCharge R *
+          vfMidNativeDescentRemainder R +
+        (vfMidNativeDescentRemainder R) ^ 2 := by ring
+    _ =
+      (vfMidRecursiveNativeChildEnergy R +
+          2 * vfMidRecursiveNativeCrossGram R) +
+        2 * vfMidRecursiveAggregateNativeCharge R *
+          vfMidNativeDescentRemainder R +
+        (vfMidNativeDescentRemainder R) ^ 2 := by rw [hgram]
+    _ =
+      vfMidRecursiveNativeChildEnergy R +
+        vfMidNativeDescentGramRemainder R := by
+          unfold vfMidNativeDescentGramRemainder
+          ring
+
+/-- Abstract aggregate-to-child kill switch.
+
+If the parent square is bounded by diagonal child energy plus an allowance, and
+the sum of all child thresholds plus that allowance fits under the parent
+threshold, then a supercritical parent forces a supercritical child packet.
+
+This is the exact pigeonhole/Bessel implication needed before well-founded
+descent can be used. -/
+theorem supercriticalParent_forces_supercriticalChildPacket
+    (I : Finset ℕ) (V threshold : ℕ → ℝ)
+    (parentThreshold allowance parent : ℝ)
+    (hbudget :
+      (∑ i ∈ I, threshold i) + allowance ≤ parentThreshold)
+    (henergy :
+      parent ^ 2 ≤ (∑ i ∈ I, (V i) ^ 2) + allowance)
+    (hsuper : parentThreshold < parent ^ 2) :
+    ∃ i ∈ I, threshold i < (V i) ^ 2 := by
+  by_contra hchild
+  have hterm :
+      ∀ i ∈ I, (V i) ^ 2 ≤ threshold i := by
+    intro i hi
+    exact le_of_not_gt (fun hgt => hchild ⟨i, hi, hgt⟩)
+  have hsum :
+      (∑ i ∈ I, (V i) ^ 2) ≤ ∑ i ∈ I, threshold i := by
+    exact Finset.sum_le_sum hterm
+  linarith
+
+/-- The same forcing statement in the common K * B budget currency.
+
+A positive remainder allowance must be paid by actual slack in the parent
+budget; sum B_S ≤ B_R with equality is not by itself enough to absorb it. -/
+theorem supercriticalParent_forces_supercriticalChildPacket_of_K_budget
+    (I : Finset ℕ) (V B : ℕ → ℝ)
+    (K parentBudget allowance parent : ℝ)
+    (hK : 0 ≤ K)
+    (hbudget :
+      (∑ i ∈ I, B i) ≤ parentBudget)
+    (hallowance :
+      K * (∑ i ∈ I, B i) + allowance ≤ K * parentBudget)
+    (henergy :
+      parent ^ 2 ≤ (∑ i ∈ I, (V i) ^ 2) + allowance)
+    (hsuper : K * parentBudget < parent ^ 2) :
+    ∃ i ∈ I, K * B i < (V i) ^ 2 := by
+  have _hscaled :
+      K * (∑ i ∈ I, B i) ≤ K * parentBudget :=
+    mul_le_mul_of_nonneg_left hbudget hK
+  apply
+    supercriticalParent_forces_supercriticalChildPacket
+      I V (fun i => K * B i)
+      (K * parentBudget) allowance parent
+  · rw [← Finset.mul_sum]
+    exact hallowance
+  · exact henergy
+  · exact hsuper
+
+/-- #855 instantiated into the abstract kill switch.
+
+Once the exact signed Gram remainder is bounded by allowance, any parent
+threshold which dominates the summed child thresholds plus that allowance
+forces one actual native child packet above its threshold. -/
+theorem vfMidSupercriticalParent_forces_nativeChildPacket
+    (R : ℕ) (hR : 7 ≤ R)
+    (threshold : ℕ → ℝ) (parentThreshold allowance : ℝ)
+    (hgram :
+      vfMidNativeDescentGramRemainder R ≤ allowance)
+    (hbudget :
+      (∑ S ∈ Finset.Ico 2 R, threshold S) + allowance ≤
+        parentThreshold)
+    (hsuper :
+      parentThreshold < (vfMidOddCompositeTrackingDefect R) ^ 2) :
+    ∃ S ∈ Finset.Ico 2 R,
+      threshold S <
+        (vfMidRecursiveNativeChargeInBlock R S) ^ 2 := by
+  have hexact :=
+    vfMidOddCompositeTrackingDefect_sq_eq_childEnergy_add_gramRemainder
+      R hR
+  have henergy :
+      (vfMidOddCompositeTrackingDefect R) ^ 2 ≤
+        (∑ S ∈ Finset.Ico 2 R,
+          (vfMidRecursiveNativeChargeInBlock R S) ^ 2) +
+        allowance := by
+    unfold vfMidRecursiveNativeChildEnergy at hexact
+    linarith
+  exact
+    supercriticalParent_forces_supercriticalChildPacket
+      (Finset.Ico 2 R)
+      (fun S => vfMidRecursiveNativeChargeInBlock R S)
+      threshold parentThreshold allowance
+      (vfMidOddCompositeTrackingDefect R)
+      hbudget henergy hsuper
+
+/-- The second inheritance seam must be stated separately: a large subset
+packet V_{R,S} is not definitionally the full signed block discrepancy G_S.
+
+This proposition is deliberately not asserted as a theorem. It names exactly
+the additional arithmetic statement needed to turn packet selection into a
+well-founded scale contradiction. -/
+def VFMidNativePacketToScaleInheritanceStatement
+    (threshold : ℕ → ℝ) : Prop :=
+  ∀ R S : ℕ, 7 ≤ R → S ∈ Finset.Ico 2 R →
+    threshold S <
+        (vfMidRecursiveNativeChargeInBlock R S) ^ 2 →
+      threshold S < (vfMidOddCompositeTrackingDefect S) ^ 2
+
+/-- Conditional complete descent logic.
+
+Given:
+1. an upper bound for the exact signed Gram remainder;
+2. enough threshold-budget slack to absorb that allowance;
+3. packet-to-full-scale inheritance; and
+4. the finite base range,
+
+no supercritical scale can exist. The only unproved content in this theorem is
+present explicitly as hypotheses; the descent contradiction itself is now
+kernel-checkable. -/
+theorem vfMidNoSupercriticalScale_of_aggregateChildForcing
+    (threshold allowance : ℕ → ℝ)
+    (hsmall :
+      ∀ R : ℕ, R < 7 →
+        (vfMidOddCompositeTrackingDefect R) ^ 2 ≤ threshold R)
+    (hgram :
+      ∀ R : ℕ, 7 ≤ R →
+        vfMidNativeDescentGramRemainder R ≤ allowance R)
+    (hbudget :
+      ∀ R : ℕ, 7 ≤ R →
+        (∑ S ∈ Finset.Ico 2 R, threshold S) + allowance R ≤
+          threshold R)
+    (hinherit :
+      VFMidNativePacketToScaleInheritanceStatement threshold) :
+    ∀ R : ℕ,
+      (vfMidOddCompositeTrackingDefect R) ^ 2 ≤ threshold R := by
+  intro R
+  induction R using Nat.strong_induction_on with
+  | h R ih =>
+      by_cases hR7 : R < 7
+      · exact hsmall R hR7
+      · have hR : 7 ≤ R := by omega
+        by_contra hsuperNot
+        have hsuper :
+            threshold R < (vfMidOddCompositeTrackingDefect R) ^ 2 :=
+          lt_of_not_ge hsuperNot
+        obtain ⟨S, hS, hpacket⟩ :=
+          vfMidSupercriticalParent_forces_nativeChildPacket
+            R hR threshold (threshold R) (allowance R)
+            (hgram R hR) (hbudget R hR) hsuper
+        have hSlt : S < R := (Finset.mem_Ico.mp hS).2
+        have hscale :
+            threshold S < (vfMidOddCompositeTrackingDefect S) ^ 2 :=
+          hinherit R S hR hS hpacket
+        have hih := ih S hSlt
+        linarith
+
+end RHLean.Analysis
