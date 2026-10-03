@@ -16,13 +16,65 @@ No Li/PNT approximation or asymptotic input is used.
 
 noncomputable section
 
-open scoped BigOperators
+open scoped ArithmeticFunction.Moebius BigOperators
 
 namespace RHLean.Analysis
 
 open RHLean.Arithmetic RHLean.Proof
 
 attribute [local instance] Classical.propDecidable
+
+/-! ## Square blocks are multiplicatively truncated Boolean-cube boundaries -/
+
+/-- **Square-block divisibility antichain.**
+Two integers lying strictly between consecutive squares cannot
+stand in a nontrivial divisibility relation. Equivalently, once a Boolean
+prime face lands in one physical square block, adjoining any fresh prime
+coordinate sends its product beyond that same block.
+
+This is the precise reason Boolean cancellation for a square block is a
+boundary phenomenon: there are no parent/child cube edges wholly contained
+inside one block. -/
+theorem vfMidSquareBandSites_dvd_iff_eq
+    {R m n : ℕ}
+    (hm : m ∈ vfMidSquareBandSites R)
+    (hn : n ∈ vfMidSquareBandSites R) :
+    m ∣ n ↔ m = n := by
+  constructor
+  · intro hdiv
+    rcases hdiv with ⟨k, rfl⟩
+    have hmBand : R ^ 2 < m ∧ m < (R + 1) ^ 2 := by
+      simpa [vfMidSquareBandSites] using hm
+    have hmkBand : R ^ 2 < m * k ∧ m * k < (R + 1) ^ 2 := by
+      simpa [vfMidSquareBandSites] using hn
+    have hmPos : 0 < m := by omega
+    have hkPos : 0 < k := by
+      by_contra hk
+      have hk0 : k = 0 := Nat.eq_zero_of_not_pos hk
+      subst k
+      simp at hmkBand
+    by_cases hk1 : k = 1
+    · subst k
+      simp
+    · have hk2 : 2 ≤ k := by omega
+      have htwo : 2 * m ≤ m * k := by
+        have h := Nat.mul_le_mul_left m hk2
+        simpa [Nat.mul_comm] using h
+      have hthin : (R + 1) ^ 2 < 2 * m := by
+        nlinarith [hmBand.1]
+      omega
+  · intro h
+    simp [h]
+
+/-- Strict form: distinct sites of one square block never divide one another. -/
+theorem vfMidSquareBandSites_not_dvd_of_ne
+    {R m n : ℕ}
+    (hm : m ∈ vfMidSquareBandSites R)
+    (hn : n ∈ vfMidSquareBandSites R)
+    (hmn : m ≠ n) :
+    ¬ m ∣ n := by
+  intro hdiv
+  exact hmn ((vfMidSquareBandSites_dvd_iff_eq hm hn).1 hdiv)
 
 /-! ## Endpoint counting really is the sum of physical square-block survivors -/
 
@@ -292,6 +344,101 @@ theorem vfMidDyadicLateRemoval_eq_sum_blockExcess
     vfMidDyadicPrimeSupply_eq_sum_blockPrimeSupply A B hAB,
     ← Finset.sum_sub_distrib]
 
+/-! ## One terminal wheel resolves an entire short square run -/
+
+/-- If the terminal root B still lies below the first square A^2, then on
+every block r in [A,B) the single wheel through B has exactly the actual
+prime survivors. Composites were already killed by the smaller wheel through
+r, while every prime site lies above r^2 >= A^2 > B and therefore cannot
+equal any prime coordinate of the terminal wheel. -/
+theorem vfMidSquarePrefixWheelSurvivors_terminal_eq_primes
+    {A B r : ℕ} (hA : 2 ≤ A)
+    (hr : r ∈ Finset.Ico A B)
+    (hterminal : B < A ^ 2) :
+    vfMidSquarePrefixWheelSurvivors B r =
+      vfMidSquareWheelPrimes r := by
+  classical
+  have hAr : A ≤ r := (Finset.mem_Ico.mp hr).1
+  have hrB : r < B := (Finset.mem_Ico.mp hr).2
+  have hr2 : 2 ≤ r := hA.trans hAr
+  have hAsqRsq : A ^ 2 ≤ r ^ 2 :=
+    Nat.pow_le_pow_left hAr 2
+  have hBltRsq : B < r ^ 2 :=
+    hterminal.trans_le hAsqRsq
+  ext n
+  simp only [vfMidSquarePrefixWheelSurvivors,
+    vfMidSquareWheelPrimes, Finset.mem_filter]
+  constructor
+  · rintro ⟨hnSite, hsurvB⟩
+    refine ⟨hnSite, ?_⟩
+    apply (vfMidSquareBand_commonWheelSurvivor_iff_prime hr2 hnSite).1
+    intro p hpR hpd
+    have hpData := mem_primesUpTo.mp hpR
+    have hpB : p ∈ primesUpTo B :=
+      mem_primesUpTo.mpr
+        ⟨hpData.1, hpData.2.trans hrB.le⟩
+    exact hsurvB p hpB hpd
+  · rintro ⟨hnSite, hnPrime⟩
+    refine ⟨hnSite, ?_⟩
+    intro p hpB hpd
+    have hpPrime : p.Prime :=
+      prime_of_mem_primesUpTo hpB
+    have hpLeB : p ≤ B :=
+      (mem_primesUpTo.mp hpB).2
+    have hpn : p = n :=
+      (Nat.prime_dvd_prime_iff_eq hpPrime hnPrime).mp hpd
+    have hnI := Finset.mem_Ioo.mp hnSite
+    subst p
+    omega
+
+/-- Terminal-wheel square-run identity.
+
+On any short square run with A <= B < A^2, the whole cumulative actual prime
+population is already the four-endpoint survivor supply of the single wheel
+through the terminal root B. The changing per-block wheels disappear. -/
+theorem vfMidDyadicPrefixSupply_terminal_eq_primeSupply
+    {A B : ℕ} (hA : 2 ≤ A) (hAB : A ≤ B)
+    (hterminal : B < A ^ 2) :
+    vfMidDyadicPrefixSupply B A B =
+      vfMidDyadicPrimeSupply A B := by
+  rw [vfMidDyadicPrefixSupply_eq_sum_prefixWheelCards B A B hAB,
+    vfMidDyadicPrimeSupply_eq_sum_blockPrimeSupply A B hAB]
+  apply Finset.sum_congr rfl
+  intro r hr
+  have hset :=
+    vfMidSquarePrefixWheelSurvivors_terminal_eq_primes
+      hA hr hterminal
+  have hcard :
+      (vfMidSquarePrefixWheelSurvivors B r).card =
+        vfMidIntegerBlockPrimeSupply r := by
+    unfold vfMidIntegerBlockPrimeSupply
+    rw [vfMidDirectPrimeBand_eq_squareWheelPrimes]
+    exact congrArg Finset.card hset
+  exact_mod_cast hcard
+
+/-- Consequently the cumulative prime supply over the entire square run has an
+exact terminal-wheel density-plus-four-endpoint-error formula. This is the
+direct carrier for a run-level lower-bound attack: the block count has vanished
+before any absolute value is taken. -/
+theorem vfMidDyadicPrimeSupply_sub_terminalDensity_eq_fourEndpointErrors
+    {A B : ℕ} (hA : 2 ≤ A) (hAB : A ≤ B)
+    (hterminal : B < A ^ 2) :
+    vfMidDyadicPrimeSupply A B -
+        vfMidPrefixWheelDensity B * vfMidDyadicInteriorLength A B =
+      ((vfMidPrefixWheelCounting B (B ^ 2) : ℝ) -
+          vfMidPrefixWheelDensity B * ((B : ℝ) ^ 2)) -
+      ((vfMidPrefixWheelCounting B (A ^ 2) : ℝ) -
+          vfMidPrefixWheelDensity B * ((A : ℝ) ^ 2)) -
+      ((vfMidPrefixWheelCounting B B : ℝ) -
+          vfMidPrefixWheelDensity B * (B : ℝ)) +
+      ((vfMidPrefixWheelCounting B A : ℝ) -
+          vfMidPrefixWheelDensity B * (A : ℝ)) := by
+  rw [← vfMidDyadicPrefixSupply_terminal_eq_primeSupply
+    hA hAB hterminal]
+  exact
+    vfMidDyadicPrefixSupply_sub_density_eq_four_endpoint_errors
+      B A B
+
 /-! ## Exact least-prime-factor ownership of the remaining removals -/
 
 /-- Composite prefix survivors in one physical square block. -/
@@ -489,6 +636,404 @@ theorem vfMidDyadicLateRemoval_eq_ownerCensus
   have hzr : z ≤ r := hzA.trans hAr
   exact vfMidSquarePrefixWheelExcess_eq_sum_lateOwnerCards
     z r hr2 hzr
+
+/-! ## Starting-wheel late composites are quadratically sparse on short runs -/
+
+/-- On a subdoubling run, one least-prime owner above the starting root can
+occupy at most four sites of any later square block. The proof uses only the
+spacing p between consecutive multiples of p and the block width 2R. -/
+theorem vfMidSquareBandLateOwner_card_le_four_of_subdoubling
+    {A R p : ℕ} (hA : 3 ≤ A) (hAR : A ≤ R)
+    (hRlt : R < 2 * A)
+    (hp : p ∈ vfMidSquareBandLateOwnerPrimes A R) :
+    (vfMidSquareBandCompositeOwner R p).card ≤ 4 := by
+  have hpData := mem_vfMidSquareBandLateOwnerPrimes.mp hp
+  have hpOwner : p ∈ vfMidSquareBandOwnerPrimes R := hpData.1
+  have hpGtA : A < p := hpData.2
+  have hR3 : 3 ≤ R := hA.trans hAR
+  have hpPrime : p.Prime :=
+    (mem_vfMidSquareBandOwnerPrimes.mp hpOwner).1
+  have hpPos : 0 < p := hpPrime.pos
+  have hRlt2p : R < 2 * p := by omega
+  have hroughEq :
+      vfMidSquareBandCompositeOwnerChildren R p =
+        vfMidSquareBandOwnerRoughChildren R p :=
+    vfMidSquareBandCompositeOwnerChildren_eq_rough hR3 hpOwner
+  have hsub :
+      vfMidSquareBandOwnerRoughChildren R p ⊆
+        Finset.Ioc (R ^ 2 / p) (R ^ 2 / p + 4) := by
+    intro m hm
+    rcases Finset.mem_filter.mp hm with ⟨_hmIcc, hdata⟩
+    have hlo : R ^ 2 < p * m := hdata.1
+    have hhi : p * m < (R + 1) ^ 2 := hdata.2.1
+    have hmLower : R ^ 2 / p < m := by
+      apply (Nat.div_lt_iff_lt_mul hpPos).2
+      simpa [Nat.mul_comm] using hlo
+    have hfloor : R ^ 2 < (R ^ 2 / p + 1) * p := by
+      apply (Nat.div_lt_iff_lt_mul hpPos).1
+      omega
+    have hgap : 2 * R + 1 ≤ 4 * p := by omega
+    have hexp : (R + 1) ^ 2 = R ^ 2 + 2 * R + 1 := by ring
+    have hmUpper : m ≤ R ^ 2 / p + 4 := by
+      by_contra hnot
+      have hmGe : R ^ 2 / p + 5 ≤ m := by omega
+      have hmulGe :
+          (R ^ 2 / p + 5) * p ≤ m * p :=
+        Nat.mul_le_mul_right p hmGe
+      have hq5 :
+          (R ^ 2 / p + 5) * p =
+            (R ^ 2 / p + 1) * p + 4 * p := by ring
+      have hblockLt : (R + 1) ^ 2 < (R ^ 2 / p + 5) * p := by
+        rw [hexp, hq5]
+        omega
+      have hprodHi : m * p < (R + 1) ^ 2 := by
+        simpa [Nat.mul_comm] using hhi
+      omega
+    exact Finset.mem_Ioc.mpr ⟨hmLower, hmUpper⟩
+  calc
+    (vfMidSquareBandCompositeOwner R p).card =
+        (vfMidSquareBandCompositeOwnerChildren R p).card := by
+          symm
+          exact vfMidSquareBandCompositeOwnerChildren_card R p
+    _ = (vfMidSquareBandOwnerRoughChildren R p).card := by
+          exact congrArg Finset.card hroughEq
+    _ ≤ (Finset.Ioc (R ^ 2 / p) (R ^ 2 / p + 4)).card :=
+          Finset.card_le_card hsub
+    _ = 4 := by simp
+
+/-- **Late truncated-cube contamination has Boolean depth two.**
+If the starting wheel has processed every prime through `A`, and the current
+square wall still lies below `(A+1)^3`, then a late owner's rough child cannot
+remain composite. Thus every unresolved composite face has exactly one fresh
+owner coordinate and one prime child coordinate. -/
+theorem vfMidSquareBandLateOwnerRoughChild_prime_of_cube
+    {A R p m : ℕ}
+    (hp : p ∈ vfMidSquareBandLateOwnerPrimes A R)
+    (hm : m ∈ vfMidSquareBandOwnerRoughChildren R p)
+    (hcube : (R + 1) ^ 2 ≤ (A + 1) ^ 3) :
+    m.Prime := by
+  by_contra hmComp
+  have hgeo :=
+    vfMidSquareBandOwnerRoughChild_secondOwner_geometry hm hmComp
+  have hpGtA : A < p :=
+    (mem_vfMidSquareBandLateOwnerPrimes.mp hp).2
+  have hA1p : A + 1 ≤ p := by omega
+  have hA1q : A + 1 ≤ m.minFac := hA1p.trans hgeo.1
+  have hlower : (A + 1) ^ 3 ≤ p * (m.minFac ^ 2) := by
+    have hmul :
+        (A + 1) * ((A + 1) ^ 2) ≤ p * (m.minFac ^ 2) :=
+      Nat.mul_le_mul hA1p (Nat.pow_le_pow_left hA1q 2)
+    simpa [pow_succ, Nat.mul_comm, Nat.mul_left_comm, Nat.mul_assoc] using hmul
+  have hupper : (R + 1) ^ 2 ≤ p * (m.minFac ^ 2) :=
+    hcube.trans hlower
+  omega
+
+/-- On a subdoubling root run the cubic condition above is automatic. -/
+theorem vfMidSquareBandLateOwnerRoughChild_prime_of_subdoubling
+    {A R p m : ℕ} (hA : 3 ≤ A) (hRlt : R < 2 * A)
+    (hp : p ∈ vfMidSquareBandLateOwnerPrimes A R)
+    (hm : m ∈ vfMidSquareBandOwnerRoughChildren R p) :
+    m.Prime := by
+  have hR1 : R + 1 ≤ 2 * A := by omega
+  have hsquare : (R + 1) ^ 2 ≤ (2 * A) ^ 2 :=
+    Nat.pow_le_pow_left hR1 2
+  have hfour : 4 ≤ A + 1 := by omega
+  have hpow : A ^ 2 ≤ (A + 1) ^ 2 :=
+    Nat.pow_le_pow_left (by omega : A ≤ A + 1) 2
+  have hcube : (R + 1) ^ 2 ≤ (A + 1) ^ 3 := by
+    calc
+      (R + 1) ^ 2 ≤ (2 * A) ^ 2 := hsquare
+      _ = 4 * A ^ 2 := by ring
+      _ ≤ (A + 1) * A ^ 2 := Nat.mul_le_mul_right (A ^ 2) hfour
+      _ ≤ (A + 1) * (A + 1) ^ 2 :=
+        Nat.mul_le_mul_left (A + 1) hpow
+      _ = (A + 1) ^ 3 := by ring
+  exact vfMidSquareBandLateOwnerRoughChild_prime_of_cube hp hm hcube
+
+/-- **Rank-two form of every late composite survivor.**
+On a subdoubling run, every composite that survives the starting wheel through
+`A` is exactly a product `p*q` of two primes strictly above `A`, ordered
+`p ≤ q`. In truncated-Boolean-cube language there are no unresolved faces of
+degree three or higher. -/
+theorem vfMidSquareBandPrefixComposite_survivor_eq_two_primes_of_subdoubling
+    {A R n : ℕ} (hA : 3 ≤ A) (hAR : A ≤ R) (hRlt : R < 2 * A)
+    (hn : n ∈ vfMidSquareBandPrefixCompositeSurvivors A R) :
+    ∃ p q : ℕ,
+      p.Prime ∧ q.Prime ∧ A < p ∧ p ≤ q ∧ n = p * q := by
+  have hR3 : 3 ≤ R := hA.trans hAR
+  rcases Finset.mem_filter.mp hn with ⟨hnComp, hnSurv⟩
+  let p := n.minFac
+  have hpOwner : p ∈ vfMidSquareBandOwnerPrimes R :=
+    vfMidSquareBandComposite_minFac_mem_ownerPrimes (by omega) hnComp
+  have hpGtA : A < p :=
+    (vfMidSquareBandComposite_survives_prefix_iff_minFac_gt
+      (by omega) hnComp).1 hnSurv
+  have hpLate : p ∈ vfMidSquareBandLateOwnerPrimes A R :=
+    mem_vfMidSquareBandLateOwnerPrimes.mpr ⟨hpOwner, hpGtA⟩
+  have hnOwner : n ∈ vfMidSquareBandCompositeOwner R p :=
+    Finset.mem_filter.mpr ⟨hnComp, rfl⟩
+  have hchild : n / p ∈ vfMidSquareBandCompositeOwnerChildren R p := by
+    unfold vfMidSquareBandCompositeOwnerChildren
+    exact Finset.mem_image.mpr ⟨n, hnOwner, rfl⟩
+  have hrough : n / p ∈ vfMidSquareBandOwnerRoughChildren R p := by
+    rw [← vfMidSquareBandCompositeOwnerChildren_eq_rough hR3 hpOwner]
+    exact hchild
+  have hqPrime : (n / p).Prime :=
+    vfMidSquareBandLateOwnerRoughChild_prime_of_subdoubling
+      hA hRlt hpLate hrough
+  have hpPrime : p.Prime :=
+    (mem_vfMidSquareBandOwnerPrimes.mp hpOwner).1
+  have hpLeQ : p ≤ n / p := by
+    have hmIcc := (Finset.mem_filter.mp hrough).1
+    exact (Finset.mem_Icc.mp hmIcc).1
+  have hmul := vfMidSquareBandCompositeOwner_mul_div hnOwner
+  refine ⟨p, n / p, hpPrime, hqPrime, hpGtA, hpLeQ, ?_⟩
+  exact hmul.symm
+
+/-- Every late rank-two composite in an open square block has positive Mobius
+sign. The two fresh prime coordinates must be distinct because no perfect
+square lies strictly between consecutive squares. -/
+theorem vfMidSquareBandPrefixComposite_moebius_eq_one_of_subdoubling
+    {A R n : ℕ} (hA : 3 ≤ A) (hAR : A ≤ R) (hRlt : R < 2 * A)
+    (hn : n ∈ vfMidSquareBandPrefixCompositeSurvivors A R) :
+    μ n = 1 := by
+  rcases vfMidSquareBandPrefixComposite_survivor_eq_two_primes_of_subdoubling
+      hA hAR hRlt hn with ⟨p, q, hp, hq, _hAp, _hpq, hnEq⟩
+  have hnComp := (Finset.mem_filter.mp hn).1
+  have hnSite := (Finset.mem_filter.mp hnComp).1
+  have hband : R ^ 2 < n ∧ n < (R + 1) ^ 2 := by
+    simpa [vfMidSquareBandSites] using hnSite
+  have hpqNe : p ≠ q := by
+    intro hpqEq
+    subst q
+    rw [hnEq] at hband
+    have hRp : R < p := by
+      by_contra hnot
+      have hpR : p ≤ R := Nat.le_of_not_gt hnot
+      have hsquare : p ^ 2 ≤ R ^ 2 :=
+        Nat.pow_le_pow_left hpR 2
+      nlinarith
+    have hR1p : R + 1 ≤ p := by omega
+    have hsquare : (R + 1) ^ 2 ≤ p ^ 2 :=
+      Nat.pow_le_pow_left hR1p 2
+    nlinarith
+  have hcop : Nat.Coprime p q :=
+    (Nat.coprime_primes hp hq).2 hpqNe
+  rw [hnEq, ArithmeticFunction.isMultiplicative_moebius.map_mul_of_coprime hcop,
+    ArithmeticFunction.moebius_apply_prime hp,
+    ArithmeticFunction.moebius_apply_prime hq]
+  norm_num
+
+/-- Signed Mobius mass of the starting-wheel survivors in one square block. -/
+def vfMidSquareBandPrefixSurvivorMobiusMass (A R : ℕ) : ℤ :=
+  ∑ n ∈ vfMidSquarePrefixWheelSurvivors A R, μ n
+
+/-- The starting-wheel survivor set is exactly the disjoint union of actual
+primes and late composite survivors. -/
+theorem vfMidSquarePrefixWheelSurvivors_eq_prime_union_prefixComposite
+    {A R : ℕ} (hR : 2 ≤ R) (hAR : A ≤ R) :
+    vfMidSquarePrefixWheelSurvivors A R =
+      vfMidSquareWheelPrimes R ∪
+        vfMidSquareBandPrefixCompositeSurvivors A R := by
+  ext n
+  simp only [vfMidSquareWheelPrimes,
+    vfMidSquareBandPrefixCompositeSurvivors,
+    vfMidSquareBandComposites, vfMidSquarePrefixWheelSurvivors,
+    Finset.mem_union, Finset.mem_filter]
+  constructor
+  · rintro ⟨hnSite, hnSurv⟩
+    by_cases hnPrime : n.Prime
+    · exact Or.inl ⟨hnSite, hnPrime⟩
+    · exact Or.inr ⟨⟨hnSite, hnPrime⟩, hnSurv⟩
+  · rintro (⟨hnSite, hnPrime⟩ | ⟨⟨hnSite, _hnPrime⟩, hnSurv⟩)
+    · have hnPrimeMem : n ∈ vfMidSquareWheelPrimes R :=
+        Finset.mem_filter.mpr ⟨hnSite, hnPrime⟩
+      exact Finset.mem_filter.mp
+        (vfMidSquareWheelPrimes_subset_prefixWheelSurvivors
+          hR hAR hnPrimeMem)
+    · exact ⟨hnSite, hnSurv⟩
+
+/-- Prime and late-composite pieces of the survivor shell are disjoint. -/
+theorem vfMidSquareWheelPrimes_disjoint_prefixComposite
+    (A R : ℕ) :
+    Disjoint (vfMidSquareWheelPrimes R)
+      (vfMidSquareBandPrefixCompositeSurvivors A R) := by
+  rw [Finset.disjoint_left]
+  intro n hnP hnC
+  have hnPrime := (Finset.mem_filter.mp hnP).2
+  have hnComp0 := (Finset.mem_filter.mp hnC).1
+  have hnNotPrime := (Finset.mem_filter.mp hnComp0).2
+  exact hnNotPrime hnPrime
+
+/-- **Prime-count decoder on a truncated Boolean square shell.**
+On a subdoubling run, the signed survivor mass is
+
+`late semiprimes - actual primes`.
+
+Thus unsigned survivor population and signed Mobius mass recover actual prime
+supply exactly. -/
+theorem vfMidSquareBandPrefixSurvivorMobiusMass_eq_composite_sub_prime
+    {A R : ℕ} (hA : 3 ≤ A) (hAR : A ≤ R) (hRlt : R < 2 * A) :
+    vfMidSquareBandPrefixSurvivorMobiusMass A R =
+      ((vfMidSquareBandPrefixCompositeSurvivors A R).card : ℤ) -
+        (vfMidIntegerBlockPrimeSupply R : ℤ) := by
+  have hR2 : 2 ≤ R := by omega
+  rw [vfMidSquareBandPrefixSurvivorMobiusMass,
+    vfMidSquarePrefixWheelSurvivors_eq_prime_union_prefixComposite hR2 hAR,
+    Finset.sum_union
+      (vfMidSquareWheelPrimes_disjoint_prefixComposite A R)]
+  have hprime :
+      (∑ n ∈ vfMidSquareWheelPrimes R, μ n) =
+        -(vfMidIntegerBlockPrimeSupply R : ℤ) := by
+    calc
+      (∑ n ∈ vfMidSquareWheelPrimes R, μ n) =
+          ∑ _n ∈ vfMidSquareWheelPrimes R, (-1 : ℤ) := by
+            apply Finset.sum_congr rfl
+            intro n hn
+            have hnPrime : n.Prime := (Finset.mem_filter.mp hn).2
+            rw [ArithmeticFunction.moebius_apply_prime hnPrime]
+      _ = -((vfMidSquareWheelPrimes R).card : ℤ) := by simp
+      _ = -(vfMidIntegerBlockPrimeSupply R : ℤ) := by
+            unfold vfMidIntegerBlockPrimeSupply
+            rw [vfMidDirectPrimeBand_eq_squareWheelPrimes]
+  have hcomp :
+      (∑ n ∈ vfMidSquareBandPrefixCompositeSurvivors A R, μ n) =
+        ((vfMidSquareBandPrefixCompositeSurvivors A R).card : ℤ) := by
+    calc
+      (∑ n ∈ vfMidSquareBandPrefixCompositeSurvivors A R, μ n) =
+          ∑ _n ∈ vfMidSquareBandPrefixCompositeSurvivors A R, (1 : ℤ) := by
+            apply Finset.sum_congr rfl
+            intro n hn
+            exact vfMidSquareBandPrefixComposite_moebius_eq_one_of_subdoubling
+              hA hAR hRlt hn
+      _ = ((vfMidSquareBandPrefixCompositeSurvivors A R).card : ℤ) := by simp
+  rw [hprime, hcomp]
+  ring
+
+/-- Equivalent decoder form: twice the actual prime supply equals unsigned
+starting-wheel survivors minus their signed Mobius mass. -/
+theorem two_mul_vfMidIntegerBlockPrimeSupply_eq_prefixSurvivors_sub_mobiusMass
+    {A R : ℕ} (hA : 3 ≤ A) (hAR : A ≤ R) (hRlt : R < 2 * A) :
+    2 * (vfMidIntegerBlockPrimeSupply R : ℤ) =
+      ((vfMidSquarePrefixWheelSurvivors A R).card : ℤ) -
+        vfMidSquareBandPrefixSurvivorMobiusMass A R := by
+  have hpart :=
+    vfMidSquarePrefixWheelSurvivors_card_eq_prime_add_prefixComposite
+      A R (by omega) hAR
+  have hmass :=
+    vfMidSquareBandPrefixSurvivorMobiusMass_eq_composite_sub_prime
+      hA hAR hRlt
+  have hpartZ :
+      ((vfMidSquarePrefixWheelSurvivors A R).card : ℤ) =
+        (vfMidIntegerBlockPrimeSupply R : ℤ) +
+          ((vfMidSquareBandPrefixCompositeSurvivors A R).card : ℤ) := by
+    exact_mod_cast hpart
+  rw [hmass, hpartZ]
+  ring
+
+/-- Hence after sieving a square block by every prime through the starting
+root A, the surviving composites in a subdoubling later block R are at most
+four times the root displacement R-A. -/
+theorem vfMidSquareBandPrefixComposite_start_card_le_four_mul_gap
+    {A R : ℕ} (hA : 3 ≤ A) (hAR : A ≤ R)
+    (hRlt : R < 2 * A) :
+    (vfMidSquareBandPrefixCompositeSurvivors A R).card ≤
+      4 * (R - A) := by
+  have howners :=
+    vfMidSquareBandPrefixComposite_card_eq_sum_lateOwnerCards
+      A R (by omega : 2 ≤ R)
+  have hownerSub :
+      vfMidSquareBandLateOwnerPrimes A R ⊆ Finset.Ioc A R := by
+    intro p hp
+    have hpData := mem_vfMidSquareBandLateOwnerPrimes.mp hp
+    have hpRoot : p ≤ R :=
+      (mem_vfMidSquareBandOwnerPrimes.mp hpData.1).2
+    exact Finset.mem_Ioc.mpr ⟨hpData.2, hpRoot⟩
+  have hownerCard :
+      (vfMidSquareBandLateOwnerPrimes A R).card ≤ R - A := by
+    have hcard := Finset.card_le_card hownerSub
+    simpa using hcard
+  rw [howners]
+  calc
+    (∑ p ∈ vfMidSquareBandLateOwnerPrimes A R,
+        (vfMidSquareBandCompositeOwner R p).card) ≤
+        ∑ _p ∈ vfMidSquareBandLateOwnerPrimes A R, 4 := by
+          apply Finset.sum_le_sum
+          intro p hp
+          exact vfMidSquareBandLateOwner_card_le_four_of_subdoubling
+            hA hAR hRlt hp
+    _ = 4 * (vfMidSquareBandLateOwnerPrimes A R).card := by
+          simp [Nat.mul_comm]
+    _ ≤ 4 * (R - A) := Nat.mul_le_mul_left 4 hownerCard
+
+
+/-- Summing the starting-wheel survivor excess over a subdoubling square run
+costs only quadratically in the number of blocks.  In particular, the loss
+does not scale like the physical length of the run. -/
+theorem vfMidDyadicLateRemoval_start_le_four_mul_gap_sq
+    {A B : ℕ} (hA : 3 ≤ A) (hAB : A ≤ B) (hBA : B ≤ 2 * A) :
+    vfMidDyadicLateRemoval A A B ≤
+      4 * (((B - A : ℕ) : ℝ) ^ 2) := by
+  rw [vfMidDyadicLateRemoval_eq_ownerCensus A A B
+    (by omega) le_rfl hAB]
+  unfold vfMidDyadicOwnerLateRemoval
+  calc
+    (∑ r ∈ Finset.Ico A B,
+        ∑ p ∈ vfMidSquareBandLateOwnerPrimes A r,
+          ((vfMidSquareBandCompositeOwner r p).card : ℝ))
+        =
+      ∑ r ∈ Finset.Ico A B,
+        ((vfMidSquareBandPrefixCompositeSurvivors A r).card : ℝ) := by
+          apply Finset.sum_congr rfl
+          intro r hr
+          have howners :=
+            vfMidSquareBandPrefixComposite_card_eq_sum_lateOwnerCards
+              A r (by
+                have hAr : A ≤ r := (Finset.mem_Ico.mp hr).1
+                omega : 2 ≤ r)
+          exact_mod_cast howners.symm
+    _ ≤ ∑ r ∈ Finset.Ico A B,
+          (4 * (((r - A : ℕ) : ℝ))) := by
+          apply Finset.sum_le_sum
+          intro r hr
+          have hAr : A ≤ r := (Finset.mem_Ico.mp hr).1
+          have hrB : r < B := (Finset.mem_Ico.mp hr).2
+          have hr2A : r < 2 * A := hrB.trans_le hBA
+          have hcard :=
+            vfMidSquareBandPrefixComposite_start_card_le_four_mul_gap
+              hA hAr hr2A
+          exact_mod_cast hcard
+    _ ≤ ∑ _r ∈ Finset.Ico A B,
+          (4 * (((B - A : ℕ) : ℝ))) := by
+          apply Finset.sum_le_sum
+          intro r hr
+          have hAr : A ≤ r := (Finset.mem_Ico.mp hr).1
+          have hrB : r < B := (Finset.mem_Ico.mp hr).2
+          have hgap : r - A ≤ B - A := by omega
+          have hgapR :
+              (((r - A : ℕ) : ℝ)) ≤ (((B - A : ℕ) : ℝ)) := by
+            exact_mod_cast hgap
+          nlinarith
+    _ = ((Finset.Ico A B).card : ℝ) *
+          (4 * (((B - A : ℕ) : ℝ))) := by
+          rw [Finset.sum_const, nsmul_eq_mul]
+    _ = 4 * (((B - A : ℕ) : ℝ) ^ 2) := by
+          rw [Nat.card_Ico]
+          ring
+
+/-- **Run-level lower prime-supply bound from one frozen starting wheel.**
+On a subdoubling run, actual prime supply is at least the survivor supply of
+the starting wheel minus the explicit quadratic late-composite budget. -/
+theorem vfMidDyadicPrimeSupply_ge_startPrefix_sub_four_mul_gap_sq
+    {A B : ℕ} (hA : 3 ≤ A) (hAB : A ≤ B) (hBA : B ≤ 2 * A) :
+    vfMidDyadicPrefixSupply A A B -
+        4 * (((B - A : ℕ) : ℝ) ^ 2) ≤
+      vfMidDyadicPrimeSupply A B := by
+  have hlate :=
+    vfMidDyadicLateRemoval_start_le_four_mul_gap_sq
+      hA hAB hBA
+  unfold vfMidDyadicLateRemoval at hlate
+  linarith
 
 
 /-! ## Canonical z=2 VF tracking defect -/
