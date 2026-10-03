@@ -110,11 +110,12 @@ theorem nnsZeroTargetNormalizedCovariance_nonpos_iff
     constructor
     · intro h
       have hnum : co - div ≤ 0 := by
-        have := (div_nonpos_iff_of_pos hden).mp h
-        exact this
+        have h' := (div_le_iff₀ hden).mp h
+        simpa using h'
       linarith
     · intro h
-      apply (div_nonpos_iff_of_pos hden).2
+      apply (div_le_iff₀ hden).2
+      simp
       linarith
 
 /-! ## Exact normalization of the actual FinalStokes carrier -/
@@ -200,8 +201,11 @@ theorem lowOwnerStokesNNSNormalizedCovariance_nonpos_iff (R : ℕ) :
 
 private theorem physicalSuperLcmIndicator_nonneg_local (W a b : ℕ) :
     0 ≤ physicalSuperLcmIndicator W a b := by
-  unfold physicalSuperLcmIndicator superLcmIndicator
-  split <;> split <;> norm_num
+  by_cases hab : a ≤ W ∧ b ≤ W
+  · by_cases hL : W < Nat.lcm a b
+    · simp [physicalSuperLcmIndicator, superLcmIndicator, hab, hL]
+    · simp [physicalSuperLcmIndicator, superLcmIndicator, hab, hL]
+  · simp [physicalSuperLcmIndicator, hab]
 
 def zeroTargetMellinPhysicalSuperLcmFourCornerCo
     (W p : ℕ) (r : ℝ) (a b : ℕ) : ℝ :=
@@ -231,19 +235,37 @@ theorem zeroTargetMellinPhysicalSuperLcmFourCornerCo_nonneg
     (W p : ℕ) (r : ℝ) (a b : ℕ) :
     0 ≤ zeroTargetMellinPhysicalSuperLcmFourCornerCo W p r a b := by
   unfold zeroTargetMellinPhysicalSuperLcmFourCornerCo
-  repeat' apply add_nonneg
-  all_goals
-    exact mul_nonneg (zeroTargetCoPartialPair_nonneg _ _)
-      (physicalSuperLcmIndicator_nonneg_local _ _ _)
+  have h00 := mul_nonneg (zeroTargetCoPartialPair_nonneg
+      (realMoebiusStep a) (realMoebiusStep b))
+    (physicalSuperLcmIndicator_nonneg_local W a b)
+  have h10 := mul_nonneg (zeroTargetCoPartialPair_nonneg
+      (r * realMoebiusStep (p * a)) (realMoebiusStep b))
+    (physicalSuperLcmIndicator_nonneg_local W (p * a) b)
+  have h01 := mul_nonneg (zeroTargetCoPartialPair_nonneg
+      (realMoebiusStep a) (r * realMoebiusStep (p * b)))
+    (physicalSuperLcmIndicator_nonneg_local W a (p * b))
+  have h11 := mul_nonneg (zeroTargetCoPartialPair_nonneg
+      (r * realMoebiusStep (p * a)) (r * realMoebiusStep (p * b)))
+    (physicalSuperLcmIndicator_nonneg_local W (p * a) (p * b))
+  linarith
 
 theorem zeroTargetMellinPhysicalSuperLcmFourCornerDiv_nonneg
     (W p : ℕ) (r : ℝ) (a b : ℕ) :
     0 ≤ zeroTargetMellinPhysicalSuperLcmFourCornerDiv W p r a b := by
   unfold zeroTargetMellinPhysicalSuperLcmFourCornerDiv
-  repeat' apply add_nonneg
-  all_goals
-    exact mul_nonneg (zeroTargetDivergentPair_nonneg _ _)
-      (physicalSuperLcmIndicator_nonneg_local _ _ _)
+  have h00 := mul_nonneg (zeroTargetDivergentPair_nonneg
+      (realMoebiusStep a) (realMoebiusStep b))
+    (physicalSuperLcmIndicator_nonneg_local W a b)
+  have h10 := mul_nonneg (zeroTargetDivergentPair_nonneg
+      (r * realMoebiusStep (p * a)) (realMoebiusStep b))
+    (physicalSuperLcmIndicator_nonneg_local W (p * a) b)
+  have h01 := mul_nonneg (zeroTargetDivergentPair_nonneg
+      (realMoebiusStep a) (r * realMoebiusStep (p * b)))
+    (physicalSuperLcmIndicator_nonneg_local W a (p * b))
+  have h11 := mul_nonneg (zeroTargetDivergentPair_nonneg
+      (r * realMoebiusStep (p * a)) (r * realMoebiusStep (p * b)))
+    (physicalSuperLcmIndicator_nonneg_local W (p * a) (p * b))
+  linarith
 
 theorem zeroTargetMellinPhysicalSuperLcmFourCorner_eq_co_sub_div
     {W p a b : ℕ} {r : ℝ} (hr : 0 ≤ r)
