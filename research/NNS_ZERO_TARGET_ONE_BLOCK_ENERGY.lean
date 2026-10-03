@@ -309,8 +309,7 @@ theorem oneBlockCorrelationInner_eq_nnsCrossExcess
   rw [← nnsOneBlockOldTailMass_cast_eq_correlation R hR,
     ← nnsOneBlockUpdateMass_cast_eq_update R]
   rw [RCLike.inner_apply']
-  simp only [map_real_smul, starRingEnd_apply, Complex.star_def,
-    Complex.conj_ofReal, Complex.mul_re, Complex.ofReal_re, Complex.ofReal_im,
+  simp only [map_real, Complex.mul_re, Complex.ofReal_re, Complex.ofReal_im,
     mul_zero, zero_mul, sub_zero]
   exact (nnsOneBlockCrossExcess_eq_tail_mul_update R).symm
 
