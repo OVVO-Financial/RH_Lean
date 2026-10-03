@@ -308,8 +308,9 @@ theorem card_timeBirthBoundary_eq_parentFiber
     rw [canonicalParentFiber, Finset.mem_filter] at hm
     have hm1 : 1 < m := by
       have hmBlock := hm.1
-      have hmLow : R ^ 2 ≤ m := by
+      have hmBounds : R ^ 2 ≤ m ∧ m < (R + 1) ^ 2 := by
         simpa [squareBlockInterval, Finset.mem_Ico] using hmBlock
+      have hmLow : R ^ 2 ≤ m := hmBounds.1
       have h9 : 9 ≤ R ^ 2 := by nlinarith
       omega
     have hprod := canonicalCofactor_mul_largestPrimeFactor hm1
