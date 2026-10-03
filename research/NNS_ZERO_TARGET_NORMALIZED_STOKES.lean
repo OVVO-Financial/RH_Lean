@@ -71,6 +71,17 @@ theorem zeroTargetDivergentPair_nonneg (x y : ℝ) :
     (mul_nonneg (zeroTargetUpperPart_nonneg_local x)
       (zeroTargetLowerPart_nonneg_local y))
 
+/-- At target zero the total NNS pair mass is exactly the product of absolute
+event magnitudes.  This is the normalization identity behind
+`Co_0 + Div_0 = |x| |y|`. -/
+theorem zeroTargetCoPartial_add_divergent_eq_abs_mul_abs (x y : ℝ) :
+    zeroTargetCoPartialPair x y + zeroTargetDivergentPair x y =
+      |x| * |y| := by
+  unfold zeroTargetCoPartialPair zeroTargetDivergentPair
+    zeroTargetCLPM zeroTargetCUPM zeroTargetDLPM zeroTargetDUPM
+    zeroTargetUpperPart zeroTargetLowerPart
+  ring
+
 theorem nnsZeroTargetNormalizedCovariance_bounds
     {co div : ℝ} (hco : 0 ≤ co) (hdiv : 0 ≤ div) :
     -1 ≤ nnsZeroTargetNormalizedCovariance co div ∧
