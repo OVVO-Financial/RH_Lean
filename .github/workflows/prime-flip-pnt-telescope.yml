@@ -278,7 +278,7 @@ jobs:
           #print axioms RHLean.Analysis.liFloorProxyTracking_iff_riemannHypothesis
           #print axioms RHLean.Analysis.fourFantasyProxyTrackingBounds_iff_RH
           #print axioms RHLean.Analysis.vfMidSolvedFantasyConeRadius_le_root
-          #print axioms RHLean.Analysis.vfMidSolvedFantasyCone_root_safe
+          #print axioms RHLean.Analysis.vfMidSolvedFantasyCone_vonKoch_safe
           #print axioms RHLean.Analysis.vfMidSquareEndpointVonKochBounded_of_actualPrimeContainedInSolvedFantasyCone
           #print axioms RHLean.Analysis.riemannHypothesis_of_actualPrimeContainedInSolvedFantasyCone
           #print axioms RHLean.Analysis.vfMidFractionalPrimeSeatWeight_sum_squareBand
