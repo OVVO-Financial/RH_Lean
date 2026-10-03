@@ -6,6 +6,7 @@ on:
     paths:
       - research/NNS_ZERO_TARGET_NORMALIZED_STOKES.lean
       - research/NNS_ZERO_TARGET_ONE_BLOCK_ENERGY.lean
+      - research/NNS_ZERO_TARGET_PARTNER_TIME_DERIVATIVE.lean
       - .github/workflows/stokes-terminal-frame-closure.yml
   push:
     branches: [agent/post-774-stokes-terminal-frame-closure]
@@ -13,6 +14,7 @@ on:
       - research/GLOBAL_RETURNED_CORE_STOKES_TERMINAL_FRAME_API.lean
       - research/NNS_ZERO_TARGET_NORMALIZED_STOKES.lean
       - research/NNS_ZERO_TARGET_ONE_BLOCK_ENERGY.lean
+      - research/NNS_ZERO_TARGET_PARTNER_TIME_DERIVATIVE.lean
       - .github/workflows/stokes-terminal-frame-closure.yml
   workflow_dispatch:
 
@@ -156,6 +158,7 @@ jobs:
           emit research/GLOBAL_RETURNED_CORE_STOKES_ZERO_TARGET_COVARIANCE.lean
           emit research/NNS_ZERO_TARGET_NORMALIZED_STOKES.lean
           emit research/NNS_ZERO_TARGET_ONE_BLOCK_ENERGY.lean
+          emit research/NNS_ZERO_TARGET_PARTNER_TIME_DERIVATIVE.lean
           emit research/GLOBAL_RETURNED_CORE_STOKES_CORRECTED_WHEEL_IDENTIFICATION.lean
           emit research/GLOBAL_RETURNED_CORE_FIRST_OWNER_CELL_SUM.lean
           emit research/GLOBAL_RETURNED_CORE_FIRST_OWNER_GRAM_TO_CELLS.lean
@@ -181,6 +184,8 @@ jobs:
           #print axioms RHLean.Proof.nnsOneBlockIdentifiedDiagonalExcess_nonpos
           #print axioms RHLean.Proof.squareRootCanonicalRoughCorrelation_energy_step_oneBlock_diagonal_remainder
           #print axioms RHLean.Proof.squareRootCanonicalRoughCorrelation_energy_step_le_unresolved
+          #print axioms RHLean.Proof.squareRootCanonicalRoughPrimePartnerCount_succ_sub_eq_timeBirth_sub_death
+          #print axioms RHLean.Proof.squareRootCanonicalRoughTimeBirth_product_mem_parentFiber
           #print axioms RHLean.Proof.oneBlockCorrelationInner_eq_nnsCrossExcess
           #print axioms RHLean.Proof.squareRootCanonicalRoughCorrelation_energy_step_oneBlock_nns
           LEAN
