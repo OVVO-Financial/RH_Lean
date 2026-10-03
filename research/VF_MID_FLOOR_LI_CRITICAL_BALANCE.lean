@@ -253,6 +253,49 @@ theorem norm_vfMidFloorLiCriticalRoundingTail_le
   rw [htail, norm_neg]
   simpa [d, vfMidCriticalRealWeight] using hS
 
+/-! ## Exact direct-tail identification -/
+
+
+/-- The frozen weighted prefix is exactly the direct critical mismatch tail.
+Terms at or below the anchor vanish identically. -/
+theorem vfMidFloorLiCriticalMismatchPrefix_eq_direct
+    (A X : ℕ) :
+    vfMidFloorLiCriticalMismatchPrefix A X =
+      vfMidFloorLiDirectCriticalMismatchTail A X := by
+  by_cases hAX : A < X
+  · unfold vfMidFloorLiCriticalMismatchPrefix
+      weightedForwardDifferencePrefix
+      vfMidFloorLiDirectCriticalMismatchTail
+    symm
+    refine Finset.sum_subset ?_ ?_
+    · intro q hq
+      rcases Finset.mem_Ioc.mp hq with ⟨hAq, hqX⟩
+      exact Finset.mem_Icc.mpr ⟨by omega, hqX⟩
+    · intro q hqBig hqNot
+      rcases Finset.mem_Icc.mp hqBig with ⟨_hq1, hqX⟩
+      have hqA : q ≤ A := by
+        by_contra hnot
+        have hAq : A < q := Nat.lt_of_not_ge hnot
+        exact hqNot (Finset.mem_Ioc.mpr ⟨hAq, hqX⟩)
+      have hpredA : q - 1 ≤ A := (Nat.sub_le q 1).trans hqA
+      unfold vfMidFloorLiBacklogTailState
+      rw [max_eq_left hqA, max_eq_left hpredA]
+      simp
+  · have hXA : X ≤ A := Nat.le_of_not_gt hAX
+    unfold vfMidFloorLiCriticalMismatchPrefix
+      weightedForwardDifferencePrefix
+      vfMidFloorLiDirectCriticalMismatchTail
+    rw [Finset.Ioc_eq_empty_of_le hXA, Finset.sum_empty]
+    apply Finset.sum_eq_zero
+    intro q hq
+    have hqX := (Finset.mem_Icc.mp hq).2
+    have hqA : q ≤ A := hqX.trans hXA
+    have hpredA : q - 1 ≤ A := (Nat.sub_le q 1).trans hqA
+    unfold vfMidFloorLiBacklogTailState
+    rw [max_eq_left hqA, max_eq_left hpredA]
+    simp
+
+
 /-! ## Exact discrete-to-continuous critical transfer -/
 
 /-- Direct critical tail of the integer prime-minus-floor-Li backlog. -/
@@ -328,6 +371,59 @@ theorem norm_vfMidFloorLiDirectCriticalMismatchTail_le_of_primeLi
             ‖vfMidFloorLiCriticalRoundingTail A X‖ := norm_add_le _ _
     _ ≤ B + 2 * (Real.sqrt ((A + 1 : ℕ) : ℝ))⁻¹ :=
       add_le_add hB (norm_vfMidFloorLiCriticalRoundingTail_le hAX)
+
+
+/-- The frozen prefix itself therefore differs from the continuous
+prime-minus-Li critical tail only by the vanishing rounding correction. -/
+theorem vfMidFloorLiCriticalMismatchPrefix_eq_primeLi_add_rounding
+    (A X : ℕ) :
+    vfMidFloorLiCriticalMismatchPrefix A X =
+      vfMidPrimeLiCriticalMismatchTail A X +
+        vfMidFloorLiCriticalRoundingTail A X := by
+  rw [vfMidFloorLiCriticalMismatchPrefix_eq_direct,
+    vfMidFloorLiDirectCriticalMismatchTail_eq_primeLi_add_rounding]
+
+/-- **Complete critical reduction.**
+If the continuous prime-minus-Li critical tail is uniformly bounded by B on
+the root-to-square window, the integer floor-Li backlog moves by at most
+2 R times B plus the vanishing floor-rounding budget. -/
+theorem norm_vfMidPrimeFloorLi_rootSquare_increment_le_of_primeLiCritical
+    {R : ℕ} (hR : 2 ≤ R) {B : ℝ} (hB : 0 ≤ B)
+    (hcrit : ∀ n : ℕ, n ≤ R ^ 2 → R < n →
+      ‖vfMidPrimeLiCriticalMismatchTail R n‖ ≤ B) :
+    ‖((vfMidPrimeFloorLiIntegerBacklog (R ^ 2) -
+        vfMidPrimeFloorLiIntegerBacklog R : ℤ) : ℂ)‖ ≤
+      2 * (R : ℝ) *
+        (B + 2 * (Real.sqrt ((R + 1 : ℕ) : ℝ))⁻¹) := by
+  let E : ℝ :=
+    B + 2 * (Real.sqrt ((R + 1 : ℕ) : ℝ))⁻¹
+  have hE : 0 ≤ E := by
+    dsimp [E]
+    positivity
+  have hprefix : ∀ n : ℕ, n ≤ R ^ 2 →
+      ‖vfMidFloorLiCriticalMismatchPrefix R n‖ ≤ E := by
+    intro n hn
+    by_cases hRn : R < n
+    · rw [vfMidFloorLiCriticalMismatchPrefix_eq_primeLi_add_rounding]
+      calc
+        ‖vfMidPrimeLiCriticalMismatchTail R n +
+            vfMidFloorLiCriticalRoundingTail R n‖
+            ≤ ‖vfMidPrimeLiCriticalMismatchTail R n‖ +
+                ‖vfMidFloorLiCriticalRoundingTail R n‖ :=
+              norm_add_le _ _
+        _ ≤ B + 2 * (Real.sqrt ((R + 1 : ℕ) : ℝ))⁻¹ :=
+          add_le_add (hcrit n hn hRn)
+            (norm_vfMidFloorLiCriticalRoundingTail_le hRn)
+        _ = E := rfl
+    · have hnR : n ≤ R := Nat.le_of_not_gt hRn
+      rw [vfMidFloorLiCriticalMismatchPrefix_eq_direct]
+      unfold vfMidFloorLiDirectCriticalMismatchTail
+      rw [Finset.Ioc_eq_empty_of_le hnR, Finset.sum_empty, norm_zero]
+      exact hE
+  have hmain :=
+    norm_vfMidPrimeFloorLi_rootSquare_increment_le_of_criticalPrefix
+      hR hE hprefix
+  simpa [E] using hmain
 
 
 end RHLean.Analysis
