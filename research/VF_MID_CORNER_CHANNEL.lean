@@ -49,13 +49,15 @@ def vfMidLowerCornerChannel (R : ℕ) (x : ℝ) : ℝ :=
   (1 - t) * vfMidFinishedMass (R - 1) +
     t * vfMidFinishedMass R
 
-/-- Phase-language alias: the lower black line is the one-block lagged VF
-corner chain F_(R-1) -> F_R. -/
-abbrev vfMidLaggedCornerChannel := vfMidLowerCornerChannel
+/-- Geometric phase alias: connecting upper-left VF corners is the lag
+structure.  The terminology refers to the corner geometry, not the sign of an
+index shift. -/
+abbrev vfMidLaggedUpperLeftCornerChannel := vfMidUpperCornerChannel
 
-/-- Phase-language alias: the upper black line is the one-block advanced VF
-corner chain F_R -> F_(R+1). -/
-abbrev vfMidAdvancedCornerChannel := vfMidUpperCornerChannel
+/-- Geometric phase alias: connecting lower-right VF corners is the advanced
+structure.  The terminology refers to the corner geometry, not the sign of an
+index shift. -/
+abbrev vfMidAdvancedLowerRightCornerChannel := vfMidLowerCornerChannel
 
 @[simp] theorem vfMidCornerParameter_left (R : ℕ) :
     vfMidCornerParameter R ((R : ℝ) ^ 2) = 0 := by
@@ -528,10 +530,11 @@ def VFMidLaggedCornerEndpointBracket (L : ℕ → ℕ) : Prop :=
       (Nat.primeCounting (R ^ 2) : ℝ) ≤
         vfMidFinishedMass (R + L R)
 
-/-- Asymmetric phase bracket.  The left/lower VF control may lag by Lminus
-blocks while the right/upper VF control may advance by Lplus blocks.  This is
-the intrinsic lead/lag form of the corner geometry. -/
-def VFMidLeadLagCornerEndpointBracket
+/-- Asymmetric backward/forward corner bracket.  These schedules control the
+number of genuine VF blocks available on each side of the square endpoint.
+They are index-direction budgets; they are deliberately kept distinct from
+the geometric terminology "upper-left lag" and "lower-right advanced". -/
+def VFMidBackwardForwardCornerEndpointBracket
     (Lminus Lplus : ℕ → ℕ) : Prop :=
   ∀ R : ℕ, 4 ≤ R →
     vfMidFinishedMass (R - Lminus R) ≤
@@ -541,16 +544,16 @@ def VFMidLeadLagCornerEndpointBracket
 
 /-- The symmetric lag bracket is the diagonal special case of the asymmetric
 lead/lag bracket. -/
-theorem vfMidLeadLagCornerEndpointBracket_of_symmetric
+theorem vfMidBackwardForwardCornerEndpointBracket_of_symmetric
     {L : ℕ → ℕ}
     (h : VFMidLaggedCornerEndpointBracket L) :
-    VFMidLeadLagCornerEndpointBracket L L := by
+    VFMidBackwardForwardCornerEndpointBracket L L := by
   exact h
 
-/-- Independent O(log(R)^2) lag and advance budgets still give the required
-O(R log R) square-endpoint bound.  The two sides are allowed to use different
-constants and different block counts. -/
-theorem vfMidSquareEndpointVonKochBoundedFromFour_of_leadLagCornerBracket
+/-- Independent O(log(R)^2) backward and forward VF-block budgets still give
+the required O(R log R) square-endpoint bound.  The two sides may use
+different constants and different block counts. -/
+theorem vfMidSquareEndpointVonKochBoundedFromFour_of_backwardForwardCornerBracket
     {Aminus Aplus : ℝ}
     (hAminus : 0 ≤ Aminus) (hAplus : 0 ≤ Aplus)
     (Lminus Lplus : ℕ → ℕ)
@@ -560,7 +563,7 @@ theorem vfMidSquareEndpointVonKochBoundedFromFour_of_leadLagCornerBracket
       (Lminus R : ℝ) ≤ Aminus * Real.log (R : ℝ) ^ 2)
     (hlagPlus : ∀ R : ℕ, 4 ≤ R →
       (Lplus R : ℝ) ≤ Aplus * Real.log (R : ℝ) ^ 2)
-    (hbr : VFMidLeadLagCornerEndpointBracket Lminus Lplus) :
+    (hbr : VFMidBackwardForwardCornerEndpointBracket Lminus Lplus) :
     VFMidSquareEndpointVonKochBoundedFromFourStatement := by
   refine ⟨5 * (Aminus + Aplus),
     mul_nonneg (by norm_num) (add_nonneg hAminus hAplus), ?_⟩
@@ -723,9 +726,9 @@ theorem vfMidSquareEndpointVonKochBounded_of_fromFour
       norm_num [e3, w3] at hsmall3 ⊢
       exact hsmall3
 
-/-- The asymmetric lag/advance formulation is sufficient for the full
-square-endpoint target after absorbing the finite initial scales. -/
-theorem vfMidSquareEndpointVonKochBounded_of_leadLagCornerBracket
+/-- The asymmetric backward/forward VF-block formulation is sufficient for
+the full square-endpoint target after absorbing the finite initial scales. -/
+theorem vfMidSquareEndpointVonKochBounded_of_backwardForwardCornerBracket
     {Aminus Aplus : ℝ}
     (hAminus : 0 ≤ Aminus) (hAplus : 0 ≤ Aplus)
     (Lminus Lplus : ℕ → ℕ)
@@ -735,16 +738,16 @@ theorem vfMidSquareEndpointVonKochBounded_of_leadLagCornerBracket
       (Lminus R : ℝ) ≤ Aminus * Real.log (R : ℝ) ^ 2)
     (hlagPlus : ∀ R : ℕ, 4 ≤ R →
       (Lplus R : ℝ) ≤ Aplus * Real.log (R : ℝ) ^ 2)
-    (hbr : VFMidLeadLagCornerEndpointBracket Lminus Lplus) :
+    (hbr : VFMidBackwardForwardCornerEndpointBracket Lminus Lplus) :
     VFMidSquareEndpointVonKochBoundedStatement :=
   vfMidSquareEndpointVonKochBounded_of_fromFour
-    (vfMidSquareEndpointVonKochBoundedFromFour_of_leadLagCornerBracket
+    (vfMidSquareEndpointVonKochBoundedFromFour_of_backwardForwardCornerBracket
       hAminus hAplus Lminus Lplus hhalfMinus hhalfPlus
       hlagMinus hlagPlus hbr)
 
-/-- Downstream RH consumer for independently budgeted lagged and advanced
-VF-corner chains. -/
-theorem riemannHypothesis_of_leadLagCornerBracket
+/-- Downstream RH consumer for independently budgeted backward and forward
+VF-corner excursions. -/
+theorem riemannHypothesis_of_backwardForwardCornerBracket
     (criterion : ClassicalVonKochRHCriterion)
     {Aminus Aplus : ℝ}
     (hAminus : 0 ≤ Aminus) (hAplus : 0 ≤ Aplus)
@@ -755,10 +758,10 @@ theorem riemannHypothesis_of_leadLagCornerBracket
       (Lminus R : ℝ) ≤ Aminus * Real.log (R : ℝ) ^ 2)
     (hlagPlus : ∀ R : ℕ, 4 ≤ R →
       (Lplus R : ℝ) ≤ Aplus * Real.log (R : ℝ) ^ 2)
-    (hbr : VFMidLeadLagCornerEndpointBracket Lminus Lplus) :
+    (hbr : VFMidBackwardForwardCornerEndpointBracket Lminus Lplus) :
     VFMidRiemannHypothesisStatement :=
   riemannHypothesis_of_vfMidSquareEndpoint criterion
-    (vfMidSquareEndpointVonKochBounded_of_leadLagCornerBracket
+    (vfMidSquareEndpointVonKochBounded_of_backwardForwardCornerBracket
       hAminus hAplus Lminus Lplus hhalfMinus hhalfPlus
       hlagMinus hlagPlus hbr)
 
