@@ -120,6 +120,8 @@ jobs:
         run: bash scripts/audit_assumptions.sh
       - name: Build exact dependencies
         run: |
+          lake build Mathlib.MeasureTheory.Integral.IntervalIntegral.TrapezoidalRule
+          lake build Mathlib.Analysis.SpecialFunctions.Log.InvLog
           lake build RHLean.Analysis.PrimeSieveAbelIdentity
           lake build RHLean.Analysis.SquareRootMiddleSequentialCoherence
           lake build RHLean.Proof.LargePrimeTerminalFlipLayers
