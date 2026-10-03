@@ -281,6 +281,11 @@ jobs:
           #print axioms RHLean.Analysis.vfMidSolvedFantasyCone_vonKoch_safe
           #print axioms RHLean.Analysis.vfMidSquareEndpointVonKochBounded_of_actualPrimeContainedInSolvedFantasyCone
           #print axioms RHLean.Analysis.riemannHypothesis_of_actualPrimeContainedInSolvedFantasyCone
+          #print axioms RHLean.Analysis.abs_vfMidSolvedFantasyRadialDirection
+          #print axioms RHLean.Analysis.abs_vfMidSolvedFantasyRadialPoint_sub_vfMid
+          #print axioms RHLean.Analysis.vfMidSolvedFantasyRadialConeAt_iff
+          #print axioms RHLean.Analysis.actualPrimeContainedInSolvedFantasyRadialCone_iff
+          #print axioms RHLean.Analysis.riemannHypothesis_of_actualPrimeContainedInSolvedFantasyRadialCone
           #print axioms RHLean.Analysis.vfMidFractionalPrimeSeatWeight_sum_squareBand
           #print axioms RHLean.Analysis.vfMidSquareBandError_eq_fractionalPrimeClusterDiscrepancy
           #print axioms RHLean.Analysis.vfMidFractionalPrimeClusterDiscrepancy_eq_endpointError_sub
