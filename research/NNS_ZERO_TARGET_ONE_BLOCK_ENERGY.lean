@@ -462,6 +462,13 @@ theorem nnsOneBlockSameParentExcess_nonpos
   exact mul_nonneg (Nat.cast_nonneg _) (sq_nonneg _)
 
 
+/-! ## Exact unresolved cross-parent remainder -/
+
+/-- After removing the root self-pair and every visible same-parent fibre, this
+is the only cross term left in the literal #877 one-block NNS carrier. -/
+def nnsOneBlockUnresolvedCrossParentRemainder (R : ℕ) : ℝ :=
+  nnsOneBlockCrossExcess R - nnsOneBlockIdentifiedDiagonalExcess R
+
 /-- **Exact one-block cross-parent zero-target dictionary.**
 
 After the literal #877 cross term is grouped by the canonical parent of each
@@ -511,6 +518,27 @@ theorem nnsOneBlockUnresolvedCrossParentRemainder_eq_zeroTargetParentLedger
         -(∑ n ∈ nnsOneBlockOldTailCarrier R, realMoebiusStep n) := by
     unfold nnsOneBlockOldTailMass nnsOneBlockOldTailEvent
     rw [Finset.sum_neg_distrib]
+  have hneg :
+      (∑ c ∈ Finset.Icc 1 (oldParentCutoff R),
+        -realMoebiusStep c *
+          ((canonicalParentFiber R c).card : ℝ)) =
+        -(∑ c ∈ Finset.Icc 1 (oldParentCutoff R),
+          ((canonicalParentFiber R c).card : ℝ) *
+            realMoebiusStep c) := by
+    calc
+      (∑ c ∈ Finset.Icc 1 (oldParentCutoff R),
+        -realMoebiusStep c *
+          ((canonicalParentFiber R c).card : ℝ)) =
+        ∑ c ∈ Finset.Icc 1 (oldParentCutoff R),
+          -(((canonicalParentFiber R c).card : ℝ) *
+            realMoebiusStep c) := by
+              apply Finset.sum_congr rfl
+              intro c _hc
+              ring
+      _ = -(∑ c ∈ Finset.Icc 1 (oldParentCutoff R),
+          ((canonicalParentFiber R c).card : ℝ) *
+            realMoebiusStep c) := by
+              rw [Finset.sum_neg_distrib]
   have hupdate :
       nnsOneBlockUpdateMass R =
         realMoebiusStep R +
@@ -518,8 +546,7 @@ theorem nnsOneBlockUnresolvedCrossParentRemainder_eq_zeroTargetParentLedger
             ((canonicalParentFiber R c).card : ℝ) *
               realMoebiusStep c := by
     unfold nnsOneBlockUpdateMass nnsOneBlockRootUpdateEvent
-    rw [hblock]
-    rw [Finset.sum_congr rfl (fun c _hc => by ring)]
+    rw [hblock, hneg]
     ring
   have hroot :
       (∑ n ∈ nnsOneBlockOldTailCarrier R,
@@ -556,13 +583,6 @@ theorem nnsOneBlockUnresolvedCrossParentRemainder_eq_zeroTargetParentLedger
     nnsOneBlockIdentifiedDiagonalExcess_eq_neg_energy R hR,
     hroot, hparents]
   ring
-
-/-! ## Exact unresolved cross-parent remainder -/
-
-/-- After removing the root self-pair and every visible same-parent fibre, this
-is the only cross term left in the literal #877 one-block NNS carrier. -/
-def nnsOneBlockUnresolvedCrossParentRemainder (R : ℕ) : ℝ :=
-  nnsOneBlockCrossExcess R - nnsOneBlockIdentifiedDiagonalExcess R
 
 theorem nnsOneBlockCrossExcess_eq_diagonal_add_unresolved
     (R : ℕ) :
@@ -606,6 +626,20 @@ theorem norm_sq_oneBlockUpdate_le_nine_root_sq
   have hR0 : 0 ≤ (R : ℝ) := by positivity
   nlinarith
 
+/-- **The actual #877 cross term is exactly the NNS target-zero excess.** -/
+theorem oneBlockCorrelationInner_eq_nnsCrossExcess
+    (R : ℕ) (hR : 2 ≤ R) :
+    RCLike.re
+        (inner ℂ (squareRootCanonicalRoughCorrelation R)
+          (canonicalMoebiusWeight R - canonicalTotalIncrement R)) =
+      nnsOneBlockCrossExcess R := by
+  rw [← nnsOneBlockOldTailMass_cast_eq_correlation R hR,
+    ← nnsOneBlockUpdateMass_cast_eq_update R]
+  rw [RCLike.inner_apply']
+  change nnsOneBlockOldTailMass R * nnsOneBlockUpdateMass R =
+    nnsOneBlockCrossExcess R
+  exact (nnsOneBlockCrossExcess_eq_tail_mul_update R).symm
+
 /-- **Exact #877 energy step after extracting the physical dissipative
 diagonal.**  The only unsolved signed object is now the cross-parent remainder. -/
 theorem squareRootCanonicalRoughCorrelation_energy_step_oneBlock_diagonal_remainder
@@ -615,9 +649,9 @@ theorem squareRootCanonicalRoughCorrelation_energy_step_oneBlock_diagonal_remain
       ‖canonicalMoebiusWeight R - canonicalTotalIncrement R‖ ^ 2 +
         2 * nnsOneBlockIdentifiedDiagonalExcess R +
         2 * nnsOneBlockUnresolvedCrossParentRemainder R := by
-  rw [squareRootCanonicalRoughCorrelation_energy_step_oneBlock_nns
+  rw [squareRootCanonicalRoughCorrelation_energy_step_oneBlock
       R (by omega),
-    nnsOneBlockNormalizedCovariance_mul_total,
+    oneBlockCorrelationInner_eq_nnsCrossExcess R (by omega),
     nnsOneBlockCrossExcess_eq_diagonal_add_unresolved]
   ring
 
@@ -638,19 +672,6 @@ theorem squareRootCanonicalRoughCorrelation_energy_step_le_unresolved
   have hupd := norm_sq_oneBlockUpdate_le_nine_root_sq R (by omega)
   linarith
 
-/-- **The actual #877 cross term is exactly the NNS target-zero excess.** -/
-theorem oneBlockCorrelationInner_eq_nnsCrossExcess
-    (R : ℕ) (hR : 2 ≤ R) :
-    RCLike.re
-        (inner ℂ (squareRootCanonicalRoughCorrelation R)
-          (canonicalMoebiusWeight R - canonicalTotalIncrement R)) =
-      nnsOneBlockCrossExcess R := by
-  rw [← nnsOneBlockOldTailMass_cast_eq_correlation R hR,
-    ← nnsOneBlockUpdateMass_cast_eq_update R]
-  rw [RCLike.inner_apply']
-  simp only [Complex.star_def, Complex.conj_ofReal, Complex.mul_re,
-    Complex.ofReal_re, Complex.ofReal_im, mul_zero, zero_mul, sub_zero]
-  exact (nnsOneBlockCrossExcess_eq_tail_mul_update R).symm
 
 /-- **Normalized NNS form of the exact #877 one-block energy step.**
 
