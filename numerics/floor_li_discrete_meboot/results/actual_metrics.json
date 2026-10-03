@@ -1,0 +1,21 @@
+{
+  "R0": 56,
+  "Rmax": 3162,
+  "n_blocks": 3106,
+  "D0": -13,
+  "lag1_block_z": -0.1408353595620542,
+  "lag2_block_z": -0.09409387475125096,
+  "lag1_block_error": -0.13687459697582277,
+  "lag2_block_error": -0.07762663415864393,
+  "max_rh_ratio_all": 0.06508893340790825,
+  "max_rh_ratio_R_ge_500": 0.025933198564713544,
+  "max_rh_ratio_R_ge_1000": 0.019990574226113323,
+  "final_rh_ratio": 0.012989341264799727,
+  "max_centered_z": 0.6172133998483676,
+  "max_K_log3B": 0.00576425184124033,
+  "F_R_min": 14,
+  "F_R_max": 393,
+  "error_min": -47,
+  "error_max": 42,
+  "near_integer_square_li_values_rechecked": 0
+}

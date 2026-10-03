@@ -1,0 +1,19 @@
+{
+  "run_date": "2026-10-02",
+  "nns_python_commit": "55d15c9d6412a68942af467e9129551f4801f325",
+  "r0": 56,
+  "rmax": 3162,
+  "xmax": 9998244,
+  "dependence_methods": ["pearson", "spearman"],
+  "rho_grid": [-0.95, -0.75, -0.50, -0.25, 0.0, 0.25, 0.50, 0.75, 0.95],
+  "main_reps_per_cell": 199,
+  "serial_phi_grid": [-0.90, -0.50, 0.0, 0.50, 0.90, 0.97, 0.99],
+  "serial_templates_per_phi": 3,
+  "serial_reps_per_template": 49,
+  "main_paths": 3582,
+  "serial_paths": 1029,
+  "total_paths": 4611,
+  "projection": "rank classification onto exact observed integer block-error multiset",
+  "primitive_support": [-1, 0, 1],
+  "endpoint_identity_check": 0
+}

@@ -1,0 +1,32 @@
+{
+  "base_nns_paths": 4611,
+  "reported_paths_including_integerized_companion": 9222,
+  "continuous": {
+    "main_paths": 3582,
+    "serial_paths": 1029,
+    "total_paths": 4611,
+    "main_pooled_q99_RH1000": 0.18772905514645807,
+    "main_pooled_max_RH1000": 0.223526369173058,
+    "serial_pooled_q99_RH1000": 0.40332553048128433,
+    "serial_pooled_max_RH1000": 0.48038104913089086,
+    "serial_pooled_q99_K": 0.854645672119812,
+    "serial_pooled_max_K": 1.0568193832609507,
+    "serial_fraction_K_le_1": 0.9951409135082604,
+    "all_paths_RH1000_lt_1": true,
+    "total_physical_clip_count": 0
+  },
+  "integerized": {
+    "main_paths": 3582,
+    "serial_paths": 1029,
+    "total_paths": 4611,
+    "main_pooled_q99_RH1000": 0.1885396578757494,
+    "main_pooled_max_RH1000": 0.22391916905633114,
+    "serial_pooled_q99_RH1000": 0.40219163081890313,
+    "serial_pooled_max_RH1000": 0.4795642966383706,
+    "serial_pooled_q99_K": 0.8485645241429869,
+    "serial_pooled_max_K": 1.0640015078752068,
+    "serial_fraction_K_le_1": 0.9951409135082604,
+    "all_paths_RH1000_lt_1": true,
+    "total_physical_clip_count": 445
+  }
+}

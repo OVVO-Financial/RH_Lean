@@ -1,4 +1,5 @@
 import Mathlib
+import «research.VF_MID_FLOOR_LI_CRITICAL_BALANCE»
 import «research.VF_MID_PHI_CUTOFF_TELESCOPE»
 
 /-!
@@ -180,6 +181,30 @@ theorem vfMidOddLiCumulativeDisplacement_cutoff_step
   unfold vfMidOddLiCumulativeDisplacement
   rw [hAstep, hLstep]
   ring
+
+/-- **Odd-Li fantasy recurrence with floor-Li forcing exposed.**
+
+The first two terms are exactly the already-proved odd-Li homogeneous
+propagation.  Actual arithmetic enters only through the integer mismatch
+forcing and the deterministic floor-rounding forcing. -/
+theorem vfMidOddLiCumulativeDisplacement_cutoff_step_floorLi_forcing_split
+    {Actual L : ℕ → ℕ → ℂ}
+    (hActual : IsAllScaleActualPrimeState Actual)
+    (hL : IsAllScaleLiState L)
+    (N q : ℕ) (hq : 3 ≤ q) :
+    vfMidOddLiCumulativeDisplacement Actual L N q =
+      vfMidOddLiCumulativeDisplacement Actual L N (q - 1) -
+        primeSievePNTDensity q *
+          vfMidOddLiCumulativeDisplacement Actual L (N / q) (q - 1) -
+        vfMidFloorLiMismatchFrequencyWeight q *
+          primeFrequencyCumulativeTransform Actual (N / q) (q - 1) -
+        vfMidFloorLiRoundingFrequencyWeight q *
+          primeFrequencyCumulativeTransform Actual (N / q) (q - 1) := by
+  have h :=
+    vfMidOddLiCumulativeDisplacement_cutoff_step
+      hActual hL N q hq
+  rw [primeSievePrimeIndicator_sub_pntDensity_eq_floorLi_forcing q] at h
+  linear_combination h
 
 /-! ## Square-interval coordinates -/
 
