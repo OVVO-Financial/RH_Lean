@@ -68,11 +68,11 @@ theorem vfMidActualRadialBounded_iff_squareEndpoint :
   · rintro ⟨K, hK0, hK⟩
     refine ⟨K, hK0, ?_⟩
     intro R hR
-    simpa [vfMidSyntheticRadialScale] using hK R hR
+    simpa [vfMidSyntheticRadialScale, mul_assoc] using hK R hR
   · rintro ⟨K, hK0, hK⟩
     refine ⟨K, hK0, ?_⟩
     intro R hR
-    simpa [vfMidSyntheticRadialScale] using hK R hR
+    simpa [vfMidSyntheticRadialScale, mul_assoc] using hK R hR
 
 /-! ## 2. Amplified radial countermodels -/
 
