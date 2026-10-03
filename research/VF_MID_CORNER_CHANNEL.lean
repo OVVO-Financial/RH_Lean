@@ -14,7 +14,7 @@ There are two layers.
    line joins F_(R-1) to F_R, where F_R = vfMidFinishedMass R.
 
 2. A widened outer-corner channel uses genuine VF corners displaced by L_R
-   blocks on each side.  The canonical lag is
+   blocks on each side.  The canonical offset is
 
        L_R = min (R/2) floor(A * log(R)^2).
 
@@ -246,16 +246,16 @@ theorem vfMidSquareEndpointVonKochBounded_of_cornerChannel
 /-- Canonical RH-safe number of neighboring VF blocks.  The min keeps the
 lower corner inside a local [R/2,2R] window at every scale; asymptotically the
 other argument is the intended A log(R)^2 lag. -/
-def vfMidCanonicalCornerLag (A : ℝ) (R : ℕ) : ℕ :=
+def vfMidCanonicalCornerOffset (A : ℝ) (R : ℕ) : ℕ :=
   min (R / 2) ⌊A * Real.log (R : ℝ) ^ 2⌋₊
 
 /-- Lower outer VF corner at square node R. -/
 def vfMidOuterLowerCorner (A : ℝ) (R : ℕ) : ℝ :=
-  vfMidFinishedMass (R - vfMidCanonicalCornerLag A R)
+  vfMidFinishedMass (R - vfMidCanonicalCornerOffset A R)
 
 /-- Upper outer VF corner at square node R. -/
 def vfMidOuterUpperCorner (A : ℝ) (R : ℕ) : ℝ :=
-  vfMidFinishedMass (R + vfMidCanonicalCornerLag A R)
+  vfMidFinishedMass (R + vfMidCanonicalCornerOffset A R)
 
 /-- Piecewise-linear lower outer channel through the lower outer VF corners. -/
 def vfMidOuterLowerChannel (A : ℝ) (R : ℕ) (x : ℝ) : ℝ :=
@@ -433,7 +433,7 @@ theorem vfMidFinishedMass_sub_sub_le_local
 /-- If L <= A log(R)^2 and L <= R/2, moving L genuine VF corners in either
 direction costs at most 5 A R log R.  This is the formal scale identity behind
 the widened-channel construction. -/
-theorem vfMidFinishedMass_lag_excursions_le_rhScale
+theorem vfMidFinishedMass_offset_excursions_le_rhScale
     {A : ℝ}
     (R L : ℕ) (hR : 4 ≤ R)
     (hhalf : 2 * L ≤ R)
@@ -461,28 +461,28 @@ theorem vfMidFinishedMass_lag_excursions_le_rhScale
   · exact (vfMidFinishedMass_sub_sub_le_local R L hR hhalf).trans hscale
   · exact (vfMidFinishedMass_add_sub_le_local R L hR hhalf).trans hscale
 
-/-- The canonical lag never exceeds half the square-root index. -/
-theorem vfMidCanonicalCornerLag_two_mul_le
+/-- The canonical offset never exceeds half the square-root index. -/
+theorem vfMidCanonicalCornerOffset_two_mul_le
     {A : ℝ} (R : ℕ) :
-    2 * vfMidCanonicalCornerLag A R ≤ R := by
-  unfold vfMidCanonicalCornerLag
+    2 * vfMidCanonicalCornerOffset A R ≤ R := by
+  unfold vfMidCanonicalCornerOffset
   have hmin : min (R / 2) ⌊A * Real.log (R : ℝ) ^ 2⌋₊ ≤ R / 2 :=
     min_le_left _ _
   omega
 
-/-- For nonnegative A, the canonical lag is at most A log(R)^2. -/
-theorem vfMidCanonicalCornerLag_cast_le
+/-- For nonnegative A, the canonical offset is at most A log(R)^2. -/
+theorem vfMidCanonicalCornerOffset_cast_le
     {A : ℝ} (hA : 0 ≤ A) (R : ℕ) :
-    (vfMidCanonicalCornerLag A R : ℝ) ≤
+    (vfMidCanonicalCornerOffset A R : ℝ) ≤
       A * Real.log (R : ℝ) ^ 2 := by
   let n : ℕ := ⌊A * Real.log (R : ℝ) ^ 2⌋₊
   have harg : 0 ≤ A * Real.log (R : ℝ) ^ 2 := by positivity
-  have hmin : vfMidCanonicalCornerLag A R ≤ n := by
-    unfold vfMidCanonicalCornerLag
+  have hmin : vfMidCanonicalCornerOffset A R ≤ n := by
+    unfold vfMidCanonicalCornerOffset
     dsimp [n]
     exact min_le_right _ _
   have hcast :
-      (vfMidCanonicalCornerLag A R : ℝ) ≤ (n : ℝ) := by
+      (vfMidCanonicalCornerOffset A R : ℝ) ≤ (n : ℝ) := by
     exact_mod_cast hmin
   have hfloor :
       (n : ℝ) ≤ A * Real.log (R : ℝ) ^ 2 := by
@@ -499,15 +499,15 @@ theorem vfMidCanonicalOuterCorners_rhSafe
         5 * A * (R : ℝ) * Real.log (R : ℝ) ∧
       vfMidOuterUpperCorner A R - vfMidFinishedMass R ≤
         5 * A * (R : ℝ) * Real.log (R : ℝ) := by
-  let L := vfMidCanonicalCornerLag A R
+  let L := vfMidCanonicalCornerOffset A R
   have hhalf : 2 * L ≤ R :=
-    vfMidCanonicalCornerLag_two_mul_le (A := A) R
+    vfMidCanonicalCornerOffset_two_mul_le (A := A) R
   have hlag :
       (L : ℝ) ≤ A * Real.log (R : ℝ) ^ 2 := by
     dsimp [L]
-    exact vfMidCanonicalCornerLag_cast_le hA R
+    exact vfMidCanonicalCornerOffset_cast_le hA R
   have h :=
-    vfMidFinishedMass_lag_excursions_le_rhScale R L hR hhalf hlag
+    vfMidFinishedMass_offset_excursions_le_rhScale R L hR hhalf hlag
   simpa [vfMidOuterLowerCorner, vfMidOuterUpperCorner, L] using h
 
 /-! ## Endpoint inclusion closes the RH-scale target -/
@@ -520,10 +520,10 @@ def VFMidSquareEndpointVonKochBoundedFromFourStatement : Prop :=
       |vfMidPrimeError ((R : ℝ) ^ 2)| ≤
         C * (R : ℝ) * Real.log (R : ℝ)
 
-/-- Generic widened-corner bracket for an arbitrary lag schedule.  The
-schedule is separated from its growth hypotheses so the geometry does not
-privilege one fitted trajectory. -/
-def VFMidLaggedCornerEndpointBracket (L : ℕ → ℕ) : Prop :=
+/-- Generic widened-corner bracket for an arbitrary symmetric index-offset
+schedule.  The offset is separated from its growth hypotheses so the geometry
+does not privilege one fitted trajectory. -/
+def VFMidSymmetricCornerEndpointBracket (L : ℕ → ℕ) : Prop :=
   ∀ R : ℕ, 4 ≤ R →
     vfMidFinishedMass (R - L R) ≤
         (Nat.primeCounting (R ^ 2) : ℝ) ∧
@@ -542,11 +542,11 @@ def VFMidBackwardForwardCornerEndpointBracket
       (Nat.primeCounting (R ^ 2) : ℝ) ≤
         vfMidFinishedMass (R + Lplus R)
 
-/-- The symmetric lag bracket is the diagonal special case of the asymmetric
-lead/lag bracket. -/
+/-- The symmetric index-offset bracket is the diagonal special case of the
+asymmetric backward/forward bracket. -/
 theorem vfMidBackwardForwardCornerEndpointBracket_of_symmetric
     {L : ℕ → ℕ}
-    (h : VFMidLaggedCornerEndpointBracket L) :
+    (h : VFMidSymmetricCornerEndpointBracket L) :
     VFMidBackwardForwardCornerEndpointBracket L L := by
   exact h
 
@@ -569,10 +569,10 @@ theorem vfMidSquareEndpointVonKochBoundedFromFour_of_backwardForwardCornerBracke
     mul_nonneg (by norm_num) (add_nonneg hAminus hAplus), ?_⟩
   intro R hR
   have hminus :=
-    vfMidFinishedMass_lag_excursions_le_rhScale
+    vfMidFinishedMass_offset_excursions_le_rhScale
       R (Lminus R) hR (hhalfMinus R hR) (hlagMinus R hR)
   have hplus :=
-    vfMidFinishedMass_lag_excursions_le_rhScale
+    vfMidFinishedMass_offset_excursions_le_rhScale
       R (Lplus R) hR (hhalfPlus R hR) (hlagPlus R hR)
   have hb := hbr R hR
   have hRgt1 : (1 : ℝ) < (R : ℝ) := by
@@ -609,20 +609,21 @@ theorem vfMidSquareEndpointVonKochBoundedFromFour_of_backwardForwardCornerBracke
     have hbUpper := hb.2
     linarith
 
-/-- Any O(log(R)^2) genuine-VF lag schedule gives an O(R log R) endpoint
-bound once the actual prime endpoint is bracketed by its outer VF corners. -/
-theorem vfMidSquareEndpointVonKochBoundedFromFour_of_laggedCornerBracket
+/-- Any O(log(R)^2) genuine-VF symmetric offset schedule gives an
+O(R log R) endpoint bound once the actual prime endpoint is bracketed by its
+outer VF corners. -/
+theorem vfMidSquareEndpointVonKochBoundedFromFour_of_symmetricCornerBracket
     {A : ℝ} (hA : 0 ≤ A)
     (L : ℕ → ℕ)
     (hhalf : ∀ R : ℕ, 4 ≤ R → 2 * L R ≤ R)
     (hlag : ∀ R : ℕ, 4 ≤ R →
       (L R : ℝ) ≤ A * Real.log (R : ℝ) ^ 2)
-    (hbr : VFMidLaggedCornerEndpointBracket L) :
+    (hbr : VFMidSymmetricCornerEndpointBracket L) :
     VFMidSquareEndpointVonKochBoundedFromFourStatement := by
   refine ⟨5 * A, mul_nonneg (by norm_num) hA, ?_⟩
   intro R hR
   have hcorners :=
-    vfMidFinishedMass_lag_excursions_le_rhScale
+    vfMidFinishedMass_offset_excursions_le_rhScale
       R (L R) hR (hhalf R hR) (hlag R hR)
   have hb := hbr R hR
   have herr :
@@ -767,30 +768,30 @@ theorem riemannHypothesis_of_backwardForwardCornerBracket
 
 /-- The generic lag-budget formulation is itself sufficient for the full
 square-endpoint target after the finite initial scales are absorbed. -/
-theorem vfMidSquareEndpointVonKochBounded_of_laggedCornerBracket
+theorem vfMidSquareEndpointVonKochBounded_of_symmetricCornerBracket
     {A : ℝ} (hA : 0 ≤ A)
     (L : ℕ → ℕ)
     (hhalf : ∀ R : ℕ, 4 ≤ R → 2 * L R ≤ R)
     (hlag : ∀ R : ℕ, 4 ≤ R →
       (L R : ℝ) ≤ A * Real.log (R : ℝ) ^ 2)
-    (hbr : VFMidLaggedCornerEndpointBracket L) :
+    (hbr : VFMidSymmetricCornerEndpointBracket L) :
     VFMidSquareEndpointVonKochBoundedStatement :=
   vfMidSquareEndpointVonKochBounded_of_fromFour
-    (vfMidSquareEndpointVonKochBoundedFromFour_of_laggedCornerBracket
+    (vfMidSquareEndpointVonKochBoundedFromFour_of_symmetricCornerBracket
       hA L hhalf hlag hbr)
 
 /-- Downstream RH consumer for the generic O(log(R)^2) VF-corner budget. -/
-theorem riemannHypothesis_of_laggedCornerBracket
+theorem riemannHypothesis_of_symmetricCornerBracket
     (criterion : ClassicalVonKochRHCriterion)
     {A : ℝ} (hA : 0 ≤ A)
     (L : ℕ → ℕ)
     (hhalf : ∀ R : ℕ, 4 ≤ R → 2 * L R ≤ R)
     (hlag : ∀ R : ℕ, 4 ≤ R →
       (L R : ℝ) ≤ A * Real.log (R : ℝ) ^ 2)
-    (hbr : VFMidLaggedCornerEndpointBracket L) :
+    (hbr : VFMidSymmetricCornerEndpointBracket L) :
     VFMidRiemannHypothesisStatement :=
   riemannHypothesis_of_vfMidSquareEndpoint criterion
-    (vfMidSquareEndpointVonKochBounded_of_laggedCornerBracket
+    (vfMidSquareEndpointVonKochBounded_of_symmetricCornerBracket
       hA L hhalf hlag hbr)
 
 /-- The widened VF-corner inclusion is a sufficient condition for the direct
