@@ -290,10 +290,11 @@ theorem vfMidCubeCenteredCrossGram_eq_quarter_moebiusMass_mul
       (1 / 4 : ℝ) *
         (∑ n ∈ vfMidSquarePrefixWheelSurvivors A R, (((μ n : ℤ) : ℝ))) *
         (∑ m ∈ vfMidSquarePrefixWheelSurvivors A S, (((μ m : ℤ) : ℝ))) := by
-          rw [Finset.mul_sum]
+          rw [Finset.mul_sum, Finset.sum_mul_sum]
           apply Finset.sum_congr rfl
           intro n _hn
-          rw [Finset.mul_sum]
+          apply Finset.sum_congr rfl
+          intro m _hm
           ring
     _ =
       (1 / 4 : ℝ) * vfMidSquareBandPrefixSurvivorMobiusMassReal A R *
