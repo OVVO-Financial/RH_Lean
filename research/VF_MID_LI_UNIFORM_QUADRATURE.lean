@@ -46,11 +46,11 @@ theorem hasDerivAt_vfInvLogDeriv
     ne_of_gt (Real.log_pos hx)
   have hnum :
       HasDerivAt (fun t : ℝ => -(t⁻¹)) ((x ^ 2)⁻¹) x := by
-    convert (hasDerivAt_inv hx0).neg using 1 <;> ring
+    convert (hasDerivAt_inv hx0).neg using 1 <;> ring_nf
   have hden :
       HasDerivAt (fun t : ℝ => Real.log t ^ 2)
         (2 * Real.log x * x⁻¹) x := by
-    convert (Real.hasDerivAt_log hx0).pow 2 using 1 <;> ring
+    convert (Real.hasDerivAt_log hx0).pow 2 using 1 <;> ring_nf
   have hquot :=
     hnum.div hden (pow_ne_zero 2 hlog0)
   change HasDerivAt
@@ -140,7 +140,6 @@ theorem abs_deriv_vfInvLogDeriv_le_squareTile
       div_le_div_of_nonneg_right hnum hden3.le
     _ = 3 / (t ^ 2 * Real.log t ^ 2) := by
       field_simp [hlogt.ne']
-      ring
     _ ≤ 3 / ((r : ℝ) ^ 4 *
           Real.log (r : ℝ) ^ 2) := by
       exact div_le_div_of_nonneg_left
