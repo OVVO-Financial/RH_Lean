@@ -274,7 +274,7 @@ def VFMidCornerChannelContainsPrime (R : ℕ) : Prop :=
 /-- Literal channel inclusion forces the existing integer VF level to be
 captured in the same square block. -/
 theorem vfMidIntegerBlockCaptured_of_cornerChannel
-    (R : ℕ) (hR : 2 ≤ R)
+    (R : ℕ) (_hR : 2 ≤ R)
     (hchan : VFMidCornerChannelContainsPrime R) :
     VFMidIntegerBlockCaptured R := by
   have hsqNat : R ^ 2 ≤ (R + 1) ^ 2 :=
