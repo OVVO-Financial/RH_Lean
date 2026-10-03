@@ -1,6 +1,7 @@
 import Mathlib
 import «research.VF_MID_PHYSICAL_FORCING_MOBIUS_DECODER»
 import RHLean.Proof.ExceptionalTransportCoboundary
+import RHLean.Proof.FinalCompensatedParentReduction
 import RHLean.Proof.SquareRootLowPrimeGoWallStripTelescope
 
 /-!
@@ -49,6 +50,16 @@ theorem vfMidQ2Daughter_eq_mertens_of_endpoint_lt_primeCube
   exact
     squareRootLowPrimeGoWallSquareResidual_eq_mertensSummatoryInt
       hq hcomplete
+
+/-- **Inactive owners carry no high transport.**
+The all-cutoff coboundary theorem plus completion below q^3 makes the
+high-prime transport column identically zero, not merely small. -/
+theorem vfMidQ2HighTransport_eq_zero_of_endpoint_lt_primeCube
+    {X q : ℕ} (hq : q.Prime) (hX : X < q ^ 3) :
+    q2DaughterHighTransport q X = 0 := by
+  rw [q2DaughterHighTransport_eq_go_sub_mertens_all hq,
+    vfMidQ2Daughter_eq_mertens_of_endpoint_lt_primeCube hq hX,
+    sub_self]
 
 /-- **Activated cubic phase.**
 As soon as q^3 lies in the endpoint, the q^2 daughter has reached the owner.
@@ -105,6 +116,28 @@ theorem vfMidQ2Daughter_cubicPhaseDichotomy
       ⟨hcube,
         vfMidQ2Daughter_eq_mertens_add_highTransport_of_primeCube_le
           hq hcube⟩
+
+/-- The full square-endpoint high-transport column may be restricted
+pointwise to the cubic-active owner gate.  Owners with q^3 above the endpoint
+contribute exactly zero. -/
+theorem squareEndpointQ2HighTransportColumn_eq_cubicActive
+    (R : ℕ) :
+    squareEndpointQ2HighTransportColumn R =
+      ∑ q ∈ primesUpTo (R - 1),
+        if q ^ 3 ≤ squareRootEndpoint R then
+          q2DaughterHighTransport q (squareRootEndpoint R)
+        else 0 := by
+  unfold squareEndpointQ2HighTransportColumn
+  apply Finset.sum_congr rfl
+  intro q hq
+  by_cases hactive : q ^ 3 ≤ squareRootEndpoint R
+  · simp [hactive]
+  · have hqPrime : q.Prime := (mem_primesUpTo.mp hq).1
+    have hinactive : squareRootEndpoint R < q ^ 3 := by omega
+    have hz :=
+      vfMidQ2HighTransport_eq_zero_of_endpoint_lt_primeCube
+        hqPrime hinactive
+    simp [hactive, hz]
 
 /-- Critical-coordinate image of the activated coboundary.  The physical
 frontier is transported with exactly the already-solved critical multiplier
