@@ -109,6 +109,31 @@ theorem squareRootCanonicalRoughCorrelation_succ_sub_eq_rootAtom_sub_parentPopul
       R (by omega),
     canonicalTotalIncrement_eq_prefixPopulationMass_cast R hR]
 
+/-- **Exact one-block energy increment for the hard rough correlation.**
+
+All geometry outside the current block has disappeared.  The only off-diagonal
+term is the real inner product of the previous correlation with the signed
+current-block update. -/
+theorem squareRootCanonicalRoughCorrelation_energy_step_oneBlock
+    (R : ℕ) (hR : 2 ≤ R) :
+    ‖squareRootCanonicalRoughCorrelation (R + 1)‖ ^ 2 -
+        ‖squareRootCanonicalRoughCorrelation R‖ ^ 2 =
+      ‖canonicalMoebiusWeight R - canonicalTotalIncrement R‖ ^ 2 +
+        2 * RCLike.re
+          (inner ℂ (squareRootCanonicalRoughCorrelation R)
+            (canonicalMoebiusWeight R - canonicalTotalIncrement R)) := by
+  have hdiff :=
+    squareRootCanonicalRoughCorrelation_succ_sub_eq_rootAtom_sub_totalIncrement
+      R hR
+  have hstep :
+      squareRootCanonicalRoughCorrelation (R + 1) =
+        squareRootCanonicalRoughCorrelation R +
+          (canonicalMoebiusWeight R - canonicalTotalIncrement R) := by
+    rw [← sub_eq_iff_eq_add]
+    exact hdiff
+  rw [hstep, norm_add_sq (𝕜 := ℂ)]
+  ring
+
 private theorem root_add_depth_sq_le_four_root_sq_depth
     (R K : ℕ) (hK : 1 ≤ K) (hKR : K < R) :
     ((R : ℝ) + (K : ℝ)) ^ 2 ≤
