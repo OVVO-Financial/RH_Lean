@@ -356,7 +356,8 @@ theorem abs_vfMidBandQuadratureError_le_logHarmonic
       dsimp [H]
       convert
         (((hasDerivAt_id z).sub_const m).pow 2).const_mul d |>.div_const 2
-        using 1 <;> ring_nf
+        using 1
+      all_goals (simp [id_eq] <;> ring_nf)
     have hlinI' :
         IntervalIntegrable (fun z : ℝ => d * (z - m))
           MeasureTheory.volume a b :=
