@@ -253,6 +253,22 @@ theorem norm_vfMidFloorLiCriticalRoundingTail_le
   rw [htail, norm_neg]
   simpa [d, vfMidCriticalRealWeight] using hS
 
+/-! ## Exact discrete-to-continuous critical transfer -/
+
+/-- Direct critical tail of the integer prime-minus-floor-Li backlog. -/
+def vfMidFloorLiDirectCriticalMismatchTail (A X : ℕ) : ℂ :=
+  ∑ q ∈ Finset.Ioc A X,
+    criticalSqrtWeight q *
+      (((vfMidPrimeFloorLiIntegerBacklog q -
+        vfMidPrimeFloorLiIntegerBacklog (q - 1) : ℤ) : ℂ))
+
+/-- Direct critical tail of the classical prime-minus-Li discrepancy. -/
+def vfMidPrimeLiCriticalMismatchTail (A X : ℕ) : ℂ :=
+  ∑ q ∈ Finset.Ioc A X,
+    criticalSqrtWeight q *
+      ((vfMidPrimeLiIntegerDiscrepancyReal q -
+        vfMidPrimeLiIntegerDiscrepancyReal (q - 1) : ℝ) : ℂ)
+
 /-! ## Exact direct-tail identification -/
 
 
@@ -295,22 +311,6 @@ theorem vfMidFloorLiCriticalMismatchPrefix_eq_direct
     rw [max_eq_left hqA, max_eq_left hpredA]
     simp
 
-
-/-! ## Exact discrete-to-continuous critical transfer -/
-
-/-- Direct critical tail of the integer prime-minus-floor-Li backlog. -/
-def vfMidFloorLiDirectCriticalMismatchTail (A X : ℕ) : ℂ :=
-  ∑ q ∈ Finset.Ioc A X,
-    criticalSqrtWeight q *
-      (((vfMidPrimeFloorLiIntegerBacklog q -
-        vfMidPrimeFloorLiIntegerBacklog (q - 1) : ℤ) : ℂ))
-
-/-- Direct critical tail of the classical prime-minus-Li discrepancy. -/
-def vfMidPrimeLiCriticalMismatchTail (A X : ℕ) : ℂ :=
-  ∑ q ∈ Finset.Ioc A X,
-    criticalSqrtWeight q *
-      ((vfMidPrimeLiIntegerDiscrepancyReal q -
-        vfMidPrimeLiIntegerDiscrepancyReal (q - 1) : ℝ) : ℂ)
 
 private theorem criticalSqrtWeight_eq_realWeight_cast (q : ℕ) :
     criticalSqrtWeight q = (vfMidCriticalRealWeight q : ℂ) := by
