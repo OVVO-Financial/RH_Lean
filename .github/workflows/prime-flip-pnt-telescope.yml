@@ -369,6 +369,8 @@ jobs:
           #print axioms RHLean.Analysis.hasDerivAt_vfInvLogDeriv
           #print axioms RHLean.Analysis.abs_deriv_vfInvLogDeriv_le_squareTile
           #print axioms RHLean.Analysis.abs_vfMidBandQuadratureError_le_logHarmonic
+          #print axioms RHLean.Analysis.vfMidLiSquareEndpointUniformBounded
+          #print axioms RHLean.Analysis.abs_vfMidLiError_sq_le_uniform
           #print axioms RHLean.Analysis.vfMidCornerChannel_width
           #print axioms RHLean.Analysis.vfMidUpperLeftPhase_forwardShift_telescope
           #print axioms RHLean.Analysis.vfMidUpperLeftPhase_backwardShift_telescope
