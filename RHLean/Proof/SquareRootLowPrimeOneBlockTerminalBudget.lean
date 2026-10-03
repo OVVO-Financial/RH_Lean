@@ -31,7 +31,7 @@ open scoped ArithmeticFunction.Moebius BigOperators
 
 namespace RHLean.Proof
 
-open RHLean.Analysis
+open RHLean.Analysis RHLean.Arithmetic
 
 /-- Möbius mass added when the completed square endpoint advances from `R^2-1`
 to `(R+1)^2-1`.  This is exactly the signed mass of the single square block
@@ -129,8 +129,9 @@ theorem squareRootCanonicalRoughCorrelation_energy_step_oneBlock
       squareRootCanonicalRoughCorrelation (R + 1) =
         squareRootCanonicalRoughCorrelation R +
           (canonicalMoebiusWeight R - canonicalTotalIncrement R) := by
-    rw [← sub_eq_iff_eq_add]
-    exact hdiff
+    have h :=
+      (sub_eq_iff_eq_add.mp hdiff)
+    simpa [add_comm] using h
   rw [hstep, norm_add_sq (𝕜 := ℂ)]
   ring
 
