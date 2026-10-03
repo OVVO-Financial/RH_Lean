@@ -49,6 +49,14 @@ def vfMidLowerCornerChannel (R : ℕ) (x : ℝ) : ℝ :=
   (1 - t) * vfMidFinishedMass (R - 1) +
     t * vfMidFinishedMass R
 
+/-- Phase-language alias: the lower black line is the one-block lagged VF
+corner chain F_(R-1) -> F_R. -/
+abbrev vfMidLaggedCornerChannel := vfMidLowerCornerChannel
+
+/-- Phase-language alias: the upper black line is the one-block advanced VF
+corner chain F_R -> F_(R+1). -/
+abbrev vfMidAdvancedCornerChannel := vfMidUpperCornerChannel
+
 @[simp] theorem vfMidCornerParameter_left (R : ℕ) :
     vfMidCornerParameter R ((R : ℝ) ^ 2) = 0 := by
   simp [vfMidCornerParameter]
@@ -520,6 +528,84 @@ def VFMidLaggedCornerEndpointBracket (L : ℕ → ℕ) : Prop :=
       (Nat.primeCounting (R ^ 2) : ℝ) ≤
         vfMidFinishedMass (R + L R)
 
+/-- Asymmetric phase bracket.  The left/lower VF control may lag by Lminus
+blocks while the right/upper VF control may advance by Lplus blocks.  This is
+the intrinsic lead/lag form of the corner geometry. -/
+def VFMidLeadLagCornerEndpointBracket
+    (Lminus Lplus : ℕ → ℕ) : Prop :=
+  ∀ R : ℕ, 4 ≤ R →
+    vfMidFinishedMass (R - Lminus R) ≤
+        (Nat.primeCounting (R ^ 2) : ℝ) ∧
+      (Nat.primeCounting (R ^ 2) : ℝ) ≤
+        vfMidFinishedMass (R + Lplus R)
+
+/-- The symmetric lag bracket is the diagonal special case of the asymmetric
+lead/lag bracket. -/
+theorem vfMidLeadLagCornerEndpointBracket_of_symmetric
+    {L : ℕ → ℕ}
+    (h : VFMidLaggedCornerEndpointBracket L) :
+    VFMidLeadLagCornerEndpointBracket L L := by
+  exact h
+
+/-- Independent O(log(R)^2) lag and advance budgets still give the required
+O(R log R) square-endpoint bound.  The two sides are allowed to use different
+constants and different block counts. -/
+theorem vfMidSquareEndpointVonKochBoundedFromFour_of_leadLagCornerBracket
+    {Aminus Aplus : ℝ}
+    (hAminus : 0 ≤ Aminus) (hAplus : 0 ≤ Aplus)
+    (Lminus Lplus : ℕ → ℕ)
+    (hhalfMinus : ∀ R : ℕ, 4 ≤ R → 2 * Lminus R ≤ R)
+    (hhalfPlus : ∀ R : ℕ, 4 ≤ R → 2 * Lplus R ≤ R)
+    (hlagMinus : ∀ R : ℕ, 4 ≤ R →
+      (Lminus R : ℝ) ≤ Aminus * Real.log (R : ℝ) ^ 2)
+    (hlagPlus : ∀ R : ℕ, 4 ≤ R →
+      (Lplus R : ℝ) ≤ Aplus * Real.log (R : ℝ) ^ 2)
+    (hbr : VFMidLeadLagCornerEndpointBracket Lminus Lplus) :
+    VFMidSquareEndpointVonKochBoundedFromFourStatement := by
+  refine ⟨5 * (Aminus + Aplus),
+    mul_nonneg (by norm_num) (add_nonneg hAminus hAplus), ?_⟩
+  intro R hR
+  have hminus :=
+    vfMidFinishedMass_lag_excursions_le_rhScale
+      R (Lminus R) hR (hhalfMinus R hR) (hlagMinus R hR)
+  have hplus :=
+    vfMidFinishedMass_lag_excursions_le_rhScale
+      R (Lplus R) hR (hhalfPlus R hR) (hlagPlus R hR)
+  have hb := hbr R hR
+  have hRgt1 : (1 : ℝ) < (R : ℝ) := by
+    exact_mod_cast (show 1 < R by omega)
+  have hscale0 :
+      0 ≤ (R : ℝ) * Real.log (R : ℝ) :=
+    mul_nonneg (by positivity) (Real.log_pos hRgt1).le
+  have hminusC :
+      5 * Aminus * (R : ℝ) * Real.log (R : ℝ) ≤
+        5 * (Aminus + Aplus) * (R : ℝ) * Real.log (R : ℝ) := by
+    have hcoef : 5 * Aminus ≤ 5 * (Aminus + Aplus) := by
+      nlinarith
+    have hm := mul_le_mul_of_nonneg_right hcoef hscale0
+    simpa [mul_assoc] using hm
+  have hplusC :
+      5 * Aplus * (R : ℝ) * Real.log (R : ℝ) ≤
+        5 * (Aminus + Aplus) * (R : ℝ) * Real.log (R : ℝ) := by
+    have hcoef : 5 * Aplus ≤ 5 * (Aminus + Aplus) := by
+      nlinarith
+    have hm := mul_le_mul_of_nonneg_right hcoef hscale0
+    simpa [mul_assoc] using hm
+  have herr :
+      vfMidPrimeError ((R : ℝ) ^ 2) =
+        (Nat.primeCounting (R ^ 2) : ℝ) - vfMidFinishedMass R := by
+    unfold vfMidPrimeError
+    rw [vfMidPrimeCount_sq_exact R, vfMid_sq (by omega : 2 ≤ R)]
+  rw [herr]
+  apply abs_le.mpr
+  constructor
+  · have hlow := hminus.1
+    have hbLower := hb.1
+    linarith
+  · have hupp := hplus.2
+    have hbUpper := hb.2
+    linarith
+
 /-- Any O(log(R)^2) genuine-VF lag schedule gives an O(R log R) endpoint
 bound once the actual prime endpoint is bracketed by its outer VF corners. -/
 theorem vfMidSquareEndpointVonKochBoundedFromFour_of_laggedCornerBracket
@@ -636,6 +722,45 @@ theorem vfMidSquareEndpointVonKochBounded_of_fromFour
           _ ≤ D * w3 := mul_le_mul_of_nonneg_right hcoef hw3.le
       norm_num [e3, w3] at hsmall3 ⊢
       exact hsmall3
+
+/-- The asymmetric lag/advance formulation is sufficient for the full
+square-endpoint target after absorbing the finite initial scales. -/
+theorem vfMidSquareEndpointVonKochBounded_of_leadLagCornerBracket
+    {Aminus Aplus : ℝ}
+    (hAminus : 0 ≤ Aminus) (hAplus : 0 ≤ Aplus)
+    (Lminus Lplus : ℕ → ℕ)
+    (hhalfMinus : ∀ R : ℕ, 4 ≤ R → 2 * Lminus R ≤ R)
+    (hhalfPlus : ∀ R : ℕ, 4 ≤ R → 2 * Lplus R ≤ R)
+    (hlagMinus : ∀ R : ℕ, 4 ≤ R →
+      (Lminus R : ℝ) ≤ Aminus * Real.log (R : ℝ) ^ 2)
+    (hlagPlus : ∀ R : ℕ, 4 ≤ R →
+      (Lplus R : ℝ) ≤ Aplus * Real.log (R : ℝ) ^ 2)
+    (hbr : VFMidLeadLagCornerEndpointBracket Lminus Lplus) :
+    VFMidSquareEndpointVonKochBoundedStatement :=
+  vfMidSquareEndpointVonKochBounded_of_fromFour
+    (vfMidSquareEndpointVonKochBoundedFromFour_of_leadLagCornerBracket
+      hAminus hAplus Lminus Lplus hhalfMinus hhalfPlus
+      hlagMinus hlagPlus hbr)
+
+/-- Downstream RH consumer for independently budgeted lagged and advanced
+VF-corner chains. -/
+theorem riemannHypothesis_of_leadLagCornerBracket
+    (criterion : ClassicalVonKochRHCriterion)
+    {Aminus Aplus : ℝ}
+    (hAminus : 0 ≤ Aminus) (hAplus : 0 ≤ Aplus)
+    (Lminus Lplus : ℕ → ℕ)
+    (hhalfMinus : ∀ R : ℕ, 4 ≤ R → 2 * Lminus R ≤ R)
+    (hhalfPlus : ∀ R : ℕ, 4 ≤ R → 2 * Lplus R ≤ R)
+    (hlagMinus : ∀ R : ℕ, 4 ≤ R →
+      (Lminus R : ℝ) ≤ Aminus * Real.log (R : ℝ) ^ 2)
+    (hlagPlus : ∀ R : ℕ, 4 ≤ R →
+      (Lplus R : ℝ) ≤ Aplus * Real.log (R : ℝ) ^ 2)
+    (hbr : VFMidLeadLagCornerEndpointBracket Lminus Lplus) :
+    VFMidRiemannHypothesisStatement :=
+  riemannHypothesis_of_vfMidSquareEndpoint criterion
+    (vfMidSquareEndpointVonKochBounded_of_leadLagCornerBracket
+      hAminus hAplus Lminus Lplus hhalfMinus hhalfPlus
+      hlagMinus hlagPlus hbr)
 
 /-- The generic lag-budget formulation is itself sufficient for the full
 square-endpoint target after the finite initial scales are absorbed. -/
