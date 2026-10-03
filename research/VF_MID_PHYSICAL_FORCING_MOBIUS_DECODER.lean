@@ -1,6 +1,7 @@
 import Mathlib
 import «research.VF_MID_ENDPOINT_TRIGGER_DICTIONARY»
 import «research.VF_MID_ACTUAL_CRITICAL_OWNER_RECURSION»
+import RHLean.Proof.SquareRootLowPrimeGoWallQuantitative
 
 /-!
 # Physical actual-minus-Li forcing is an affine Mobius field
@@ -319,6 +320,39 @@ theorem reciprocalCenteredPrimeFrequencyWeight_mul_freshPrime
     reciprocalWeight_mul]
   push_cast
   ring
+
+/-- Once the prime cube enters the endpoint, the q^2 daughter has reached
+the owner and is no longer a completed lower state. -/
+theorem vfMidPrimeCube_le_iff_owner_le_squareDaughter
+    {X q : ℕ} (hq : q.Prime) :
+    q ^ 3 ≤ X ↔ q ≤ X / (q * q) := by
+  constructor
+  · intro hcube
+    apply (Nat.le_div_iff_mul_le (Nat.mul_pos hq.pos hq.pos)).2
+    simpa [pow_succ, Nat.mul_assoc, Nat.mul_comm, Nat.mul_left_comm] using hcube
+  · intro hchild
+    have hmul :
+        q * (q * q) ≤ X :=
+      (Nat.le_div_iff_mul_le (Nat.mul_pos hq.pos hq.pos)).1 hchild
+    simpa [pow_succ, Nat.mul_assoc, Nat.mul_comm, Nat.mul_left_comm] using hmul
+
+/-- **Exact cubic frontier activation.**
+The depth-two completion condition is equivalent to the q^2 daughter still
+lying strictly below its owner.  Crossing q^3 is exactly the instant that the
+square daughter becomes recursive. -/
+theorem vfMidSquareDaughter_lt_owner_iff_endpoint_lt_primeCube
+    {X q : ℕ} (hq : q.Prime) :
+    X / (q * q) < q ↔ X < q ^ 3 := by
+  constructor
+  · intro hchild
+    by_contra hnot
+    have hcube : q ^ 3 ≤ X := by omega
+    have hactive :=
+      (vfMidPrimeCube_le_iff_owner_le_squareDaughter hq).1 hcube
+    omega
+  · intro hcube
+    exact RHLean.Proof.squareRootLowPrimeGo_squareCutoff_lt_owner_of_lt_cube
+      hq hcube
 
 /-- Unweighted actual-minus-Li forcing over one frozen survivor block. -/
 def vfMidCubeActualLiForcingMass (A R : ℕ) : ℂ :=
