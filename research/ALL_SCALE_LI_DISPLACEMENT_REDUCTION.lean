@@ -1,5 +1,6 @@
 import Mathlib
 import RHLean.Proof.SquareRootLegalAncestryGramReduction
+import RHLean.Analysis.PrimeSieveDyadicCoherentAbel
 import «research.PRIME_FLIP_PNT_TELESCOPE»
 
 /-!
@@ -186,6 +187,126 @@ def squareRootCenteredPrimeDisplacement (R : ℕ) : ℂ :=
   ∑ d ∈ Finset.Icc 1 (R - 1),
     primeSieveReciprocalPrimeDiscrepancy R (squareRootEndpoint R) d *
       (mertensSummatory d - 1)
+
+/-! ## Dyadic coordinate split of the actual-minus-Li displacement
+
+This is a coordinate change on the *actual* displacement above, not a new
+analytic hypothesis.  The dyadic reciprocal decomposition already available
+for the PNT error separates each reciprocal discrepancy into a block mean and
+a mean-zero wavelet.  Because the displacement is weighted by `M(d)-1`, the
+mean-zero wavelet loses the constant `-1` identically.  Hence its complete
+contribution is exactly the repository's existing boundary-free Abel wavelet
+channel. -/
+
+/-- The complete mean-zero dyadic wavelet has zero mass on reciprocal support. -/
+theorem sum_primeSieveDyadicWavelet_support_eq_zero
+    (y x : ℕ) :
+    (∑ d ∈ primeSieveQuotientSupport y x,
+      primeSieveDyadicWavelet y x d) = 0 := by
+  classical
+  calc
+    (∑ d ∈ primeSieveQuotientSupport y x,
+        primeSieveDyadicWavelet y x d) =
+      ∑ d ∈ primeSieveQuotientSupport y x,
+        ∑ j ∈ primeSieveDyadicBlockIndices y x,
+          primeSieveDyadicBlockWaveletMask y x j d := by
+            apply Finset.sum_congr rfl
+            intro d hd
+            symm
+            exact sum_primeSieveDyadicBlockWaveletMask_eq_wavelet hd
+    _ = ∑ j ∈ primeSieveDyadicBlockIndices y x,
+          ∑ d ∈ primeSieveQuotientSupport y x,
+            primeSieveDyadicBlockWaveletMask y x j d := by
+            rw [Finset.sum_comm]
+    _ = 0 := by
+          apply Finset.sum_eq_zero
+          intro j hj
+          exact sum_primeSieveDyadicBlockWaveletMask_eq_zero hj
+
+/-- The block-mean part of the centered actual-minus-Li displacement. -/
+def squareRootCenteredDyadicCoherentDisplacement (R : ℕ) : ℂ :=
+  ∑ d ∈ primeSieveQuotientSupport R (squareRootEndpoint R),
+    primeSieveDyadicBlockMean R (squareRootEndpoint R)
+        (primeSieveDyadicIndex d) *
+      (mertensSummatory d - 1)
+
+/-- The mean-zero part of the centered actual-minus-Li displacement. -/
+def squareRootCenteredDyadicWaveletDisplacement (R : ℕ) : ℂ :=
+  ∑ d ∈ primeSieveQuotientSupport R (squareRootEndpoint R),
+    primeSieveDyadicWavelet R (squareRootEndpoint R) d *
+      (mertensSummatory d - 1)
+
+/-- Exact coherent/wavelet split of the physical actual-minus-Li displacement. -/
+theorem squareRootCenteredPrimeDisplacement_eq_dyadicCentered
+    (R : ℕ) (hR : 2 ≤ R) :
+    squareRootCenteredPrimeDisplacement R =
+      squareRootCenteredDyadicCoherentDisplacement R +
+        squareRootCenteredDyadicWaveletDisplacement R := by
+  unfold squareRootCenteredPrimeDisplacement
+    squareRootCenteredDyadicCoherentDisplacement
+    squareRootCenteredDyadicWaveletDisplacement
+    primeSieveQuotientSupport
+  have htop :
+      squareRootEndpoint R / (R + 1) = R - 1 :=
+    squareRootQuotientSupportTop_eq_pred R (by omega)
+  rw [htop, ← Finset.sum_add_distrib]
+  apply Finset.sum_congr rfl
+  intro d _hd
+  rw [primeSieveReciprocalPrimeDiscrepancy_eq_dyadicMean_add_wavelet]
+  ring
+
+/-- **The constant coordinate disappears from the mean-zero channel.**
+
+Since the wavelet has zero total mass, weighting it by `M(d)-1` is exactly
+the same as weighting it by `M(d)`.  Thus this part of the actual transfer is
+already the existing dyadic wavelet PNT error. -/
+theorem squareRootCenteredDyadicWaveletDisplacement_eq_waveletPNTError
+    (R : ℕ) :
+    squareRootCenteredDyadicWaveletDisplacement R =
+      primeSieveDyadicWaveletPNTError R (squareRootEndpoint R) := by
+  have hzero :=
+    sum_primeSieveDyadicWavelet_support_eq_zero R (squareRootEndpoint R)
+  unfold squareRootCenteredDyadicWaveletDisplacement
+    primeSieveDyadicWaveletPNTError
+  calc
+    (∑ d ∈ primeSieveQuotientSupport R (squareRootEndpoint R),
+        primeSieveDyadicWavelet R (squareRootEndpoint R) d *
+          (mertensSummatory d - 1)) =
+      ∑ d ∈ primeSieveQuotientSupport R (squareRootEndpoint R),
+        (primeSieveDyadicWavelet R (squareRootEndpoint R) d *
+            mertensSummatory d -
+          primeSieveDyadicWavelet R (squareRootEndpoint R) d) := by
+            apply Finset.sum_congr rfl
+            intro d _hd
+            ring
+    _ = (∑ d ∈ primeSieveQuotientSupport R (squareRootEndpoint R),
+          primeSieveDyadicWavelet R (squareRootEndpoint R) d *
+            mertensSummatory d) -
+        ∑ d ∈ primeSieveQuotientSupport R (squareRootEndpoint R),
+          primeSieveDyadicWavelet R (squareRootEndpoint R) d := by
+            rw [Finset.sum_sub_distrib]
+    _ = ∑ d ∈ primeSieveQuotientSupport R (squareRootEndpoint R),
+          primeSieveDyadicWavelet R (squareRootEndpoint R) d *
+            mertensSummatory d := by
+            rw [hzero]
+            ring
+
+/-- **Actual-to-Li transfer with the wavelet already in a boundary-free Abel
+coordinate.**  No endpoint Mertens term survives in the mean-zero channel.
+The only part not absorbed by the existing Abel identity is the signed
+block-mean coherent displacement. -/
+theorem squareRootCenteredPrimeDisplacement_eq_coherent_add_boundaryFreeWavelet
+    (R : ℕ) (hR : 2 ≤ R) :
+    squareRootCenteredPrimeDisplacement R =
+      squareRootCenteredDyadicCoherentDisplacement R +
+        ∑ j ∈ primeSieveDyadicBlockIndices R (squareRootEndpoint R),
+          ∑ d ∈ primeSieveQuotientSupport R (squareRootEndpoint R),
+            (((μ d : ℤ) : ℂ)) *
+              primeSieveDyadicBlockAbelPotential
+                R (squareRootEndpoint R) j d := by
+  rw [squareRootCenteredPrimeDisplacement_eq_dyadicCentered R hR,
+    squareRootCenteredDyadicWaveletDisplacement_eq_waveletPNTError,
+    primeSieveDyadicWaveletPNTError_eq_boundaryFreeAbel]
 
 /-- The chronological prime-flip replacement error is the negative centered
 band sum.  In particular, the dangerous unweighted discrepancy mode is absent. -/
