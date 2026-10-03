@@ -99,6 +99,57 @@ theorem mem_squareRootCanonicalRoughTimeDeathBoundary_iff
     · intro hnew
       omega
 
+/-- **A lower-wall death is the canonical factorization of the root.**
+
+The dying partner satisfies `c*q = R`; roughness makes `q` the canonical
+largest prime factor and `c` the canonical cofactor of `R`. -/
+theorem squareRootCanonicalRoughTimeDeath_identifies_root
+    {R c q : ℕ} (hR : 2 ≤ R) (hc : 0 < c)
+    (hq : q ∈ squareRootCanonicalRoughTimeDeathBoundary R c) :
+    canonicalLargestPrimeFactor R = q ∧ canonicalCofactor R = c := by
+  have hdata :=
+    (mem_squareRootCanonicalRoughTimeDeathBoundary_iff hR hc).1 hq
+  rcases hdata with ⟨hqPrime, hrough, hroot⟩
+  have hlpf :=
+    canonicalLargestPrimeFactor_mul_prime_eq_of_rough hc hqPrime hrough
+  have hcof :=
+    canonicalCofactor_mul_prime_eq_of_rough hc hqPrime hrough
+  constructor
+  · simpa [hroot] using hlpf
+  · simpa [hroot] using hcof
+
+/-- **The lower-wall death has exactly the opposite Möbius sign of the root.**
+
+Equivalently, the signed death contribution `-mu(c)` is the root atom
+`+mu(R)` appearing in the #877 one-block update. -/
+theorem squareRootCanonicalRoughTimeDeath_rootWeight_eq_neg_parent
+    {R c q : ℕ} (hR : 2 ≤ R) (hc : 0 < c)
+    (hq : q ∈ squareRootCanonicalRoughTimeDeathBoundary R c) :
+    realMoebiusStep R = -realMoebiusStep c := by
+  have hdata :=
+    (mem_squareRootCanonicalRoughTimeDeathBoundary_iff hR hc).1 hq
+  rcases hdata with ⟨hqPrime, hrough, hroot⟩
+  have hnotdvd : ¬ q ∣ c := by
+    intro hdvd
+    have hc1 : 1 < c :=
+      lt_of_lt_of_le hqPrime.one_lt (Nat.le_of_dvd hc hdvd)
+    have hmem : q ∈ c.primeFactors :=
+      Nat.mem_primeFactors.mpr ⟨hqPrime, hdvd, by omega⟩
+    have hle :=
+      primeFactor_le_canonicalLargestPrimeFactor' hc1 hmem
+    omega
+  have hflip :=
+    realMoebiusStep_mul_prime_eq_neg hqPrime hnotdvd
+  simpa [Nat.mul_comm, hroot] using hflip
+
+/-- The signed lower-wall loss `-mu(c)` is literally the #877 root update. -/
+theorem squareRootCanonicalRoughTimeDeath_signedLoss_eq_rootUpdate
+    {R c q : ℕ} (hR : 2 ≤ R) (hc : 0 < c)
+    (hq : q ∈ squareRootCanonicalRoughTimeDeathBoundary R c) :
+    -realMoebiusStep c = nnsOneBlockRootUpdateEvent R := by
+  unfold nnsOneBlockRootUpdateEvent
+  rw [squareRootCanonicalRoughTimeDeath_rootWeight_eq_neg_parent hR hc hq]
+
 /-- The response finite difference is exactly births minus deaths. -/
 theorem squareRootCanonicalRoughPrimePartnerCount_succ_sub_eq_timeBirth_sub_death
     (R c : ℕ) :
