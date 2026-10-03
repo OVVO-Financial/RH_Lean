@@ -93,7 +93,7 @@ theorem nnsZeroTargetNormalizedCovariance_mul_total
   by_cases hzero : co + div = 0
   · have hco0 : co = 0 := by nlinarith
     have hdiv0 : div = 0 := by nlinarith
-    simp [nnsZeroTargetNormalizedCovariance, hzero, hco0, hdiv0]
+    simp [nnsZeroTargetNormalizedCovariance, hco0, hdiv0]
   · rw [nnsZeroTargetNormalizedCovariance, if_neg hzero]
     field_simp
 
@@ -183,11 +183,13 @@ theorem lowOwnerCanonicalSignedStokesFinalBoundary_eq_two_nnsNormalized_mul_tota
       2 * lowOwnerStokesNNSNormalizedCovariance R *
         lowOwnerStokesZeroTargetTotalMass R := by
   rw [lowOwnerCanonicalSignedStokesFinalBoundary_eq_two_zeroTargetCrossExcess hR]
-  have hnorm := lowOwnerStokesNNSNormalizedCovariance_mul_total R
-  unfold lowOwnerStokesZeroTargetCoMass
-    lowOwnerStokesZeroTargetDivergentMass
-    lowOwnerStokesZeroTargetTotalMass at hnorm ⊢
-  nlinarith
+  change
+    2 * (lowOwnerStokesZeroTargetCoMass R -
+      lowOwnerStokesZeroTargetDivergentMass R) =
+      2 * lowOwnerStokesNNSNormalizedCovariance R *
+        lowOwnerStokesZeroTargetTotalMass R
+  rw [← lowOwnerStokesNNSNormalizedCovariance_mul_total R]
+  ring
 
 theorem lowOwnerStokesNNSNormalizedCovariance_nonpos_iff (R : ℕ) :
     lowOwnerStokesNNSNormalizedCovariance R ≤ 0 ↔
