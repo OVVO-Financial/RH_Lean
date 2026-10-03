@@ -97,6 +97,11 @@ theorem primeSievePrimeIndicator_eq_half_mobiusSq_sub_half_mobius_sub_defect
   · rcases ArithmeticFunction.moebius_eq_or n with h | h | h <;>
       simp [hp, h] <;> norm_num
 
+/-- Actual-minus-Li forcing at one integer site, before any critical or
+reciprocal weighting. -/
+def vfMidActualLiForcingAtom (n : ℕ) : ℂ :=
+  primeSievePrimeIndicator n - primeSievePNTDensity n
+
 /-- **Global actual-minus-Li forcing decomposition.**
 The physical forcing is a squarefree diagonal term, minus one-half of the
 signed Mobius field, minus only the negative-Mobius composite defect, and minus
@@ -111,11 +116,6 @@ theorem vfMidActualLiForcingAtom_eq_squarefree_sub_mobius_sub_oddComposite_sub_l
   unfold vfMidActualLiForcingAtom
   rw [primeSievePrimeIndicator_eq_half_mobiusSq_sub_half_mobius_sub_defect]
   ring
-
-/-- Actual-minus-Li forcing at one integer site, before any critical or
-reciprocal weighting. -/
-def vfMidActualLiForcingAtom (n : ℕ) : ℂ :=
-  primeSievePrimeIndicator n - primeSievePNTDensity n
 
 /-- Deterministic affine center of the physical forcing. -/
 def vfMidActualLiAffineTarget (n : ℕ) : ℂ :=
