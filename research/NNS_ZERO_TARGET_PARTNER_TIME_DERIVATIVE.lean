@@ -245,8 +245,7 @@ theorem card_timeBirthBoundary_eq_parentFiber
     exact squareRootCanonicalRoughTimeBirth_product_mem_parentFiber
       hR hc hcsq hq
   · intro q₁ hq₁ q₂ hq₂ heq
-    have hc0 : c ≠ 0 := Nat.ne_of_gt hc
-    exact Nat.eq_of_mul_eq_mul_left hc0 heq
+    exact Nat.eq_of_mul_eq_mul_left hc heq
   · intro m hm
     let q := canonicalLargestPrimeFactor m
     have hq :
