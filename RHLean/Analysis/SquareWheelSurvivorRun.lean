@@ -522,7 +522,7 @@ theorem primorialResidualBounded_of_squareRunEnergyBounded
           RHLean.Proof.primorialWheel_residual_cast_eq_mertens_sub_le
             k hsampleLower hsampleUpper] at hrightEdge
         convert hrightEdge using 1
-        ring
+        ring_nf
       have hsplit :
           mertensSummatory x - mertensSummatory (primorialBlockLower k) =
             (mertensSummatory (squarePrefixEndpoint (m + 1)) -
@@ -580,7 +580,7 @@ theorem primorialResidualBounded_of_squareRunEnergyBounded
           RHLean.Proof.primorialWheel_residual_cast_eq_mertens_sub_le
             k hsampleLower hsampleUpper] at hrightEdge
         convert hrightEdge using 1
-        ring
+        ring_nf
       rw [RHLean.Proof.primorialWheel_residual_cast_eq_mertens_sub_le
         k hlower.le hupper]
       have hsplit :

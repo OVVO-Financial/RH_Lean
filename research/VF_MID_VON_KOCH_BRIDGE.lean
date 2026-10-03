@@ -376,7 +376,7 @@ theorem abs_vfMidBandQuadratureError_le
   unfold vfMidBandQuadratureError vfMidBandMass vfMidBandIntegral vfMidBandMidpoint
   convert h using 1
   · norm_num [Nat.cast_add, Nat.cast_one]
-    ring
+    ring_nf
 
 /-- The live band obeys the same absolute quadrature budget. -/
 theorem abs_vfMidLiveQuadratureError_le
