@@ -499,4 +499,77 @@ theorem vfMidDyadicPrefixSurvivorMobiusMass_sq_eq_diagonal_add_firstOwnerCells
         (mem_primesUpTo.mp hp).1
         (vfMidDyadicPrefixSurvivorSignedSite A B)
 
+
+/-! ## Remove the frozen first-owner range exactly -/
+
+/-- First-owner primes which can actually carry a nonzero pair from the #885
+frozen survivor packet.  The lower frozen wheel has already acted, so only
+strictly later coordinates are retained. -/
+def vfMidDyadicPrefixSurvivorLiveFirstOwners (A B : ℕ) : Finset ℕ :=
+  (primesUpTo (squareRootEndpoint B)).filter fun p => A < p
+
+/-- **No hidden low-owner mass.**
+
+The complete least-owner sum of the #885 restricted site is exactly the sum
+over owners strictly above the frozen cutoff.  This is the formal all-scale
+version of the x=317 hand ledger: every p <= A fibre is identically zero before
+any estimate or square is taken. -/
+theorem sum_lowOwnerGlobalFirstOwnerPairMassWith_vfMidSurvivor_eq_liveOwners
+    (A B : ℕ) :
+    (∑ p ∈ primesUpTo (squareRootEndpoint B),
+      lowOwnerGlobalFirstOwnerPairMassWith B p
+        (vfMidDyadicPrefixSurvivorSignedSite A B)) =
+      ∑ p ∈ vfMidDyadicPrefixSurvivorLiveFirstOwners A B,
+        lowOwnerGlobalFirstOwnerPairMassWith B p
+          (vfMidDyadicPrefixSurvivorSignedSite A B) := by
+  calc
+    (∑ p ∈ primesUpTo (squareRootEndpoint B),
+      lowOwnerGlobalFirstOwnerPairMassWith B p
+        (vfMidDyadicPrefixSurvivorSignedSite A B)) =
+      ∑ p ∈ primesUpTo (squareRootEndpoint B),
+        if A < p then
+          lowOwnerGlobalFirstOwnerPairMassWith B p
+            (vfMidDyadicPrefixSurvivorSignedSite A B)
+        else 0 := by
+          apply Finset.sum_congr rfl
+          intro p hp
+          by_cases hAp : A < p
+          · simp [hAp]
+          · have hpA : p ≤ A := Nat.le_of_not_gt hAp
+            rw [
+              lowOwnerGlobalFirstOwnerPairMassWith_vfMidSurvivor_eq_zero_of_le_frozen
+                (A := A) (B := B) (p := p) hpA]
+            simp [hAp]
+    _ =
+      ∑ p ∈ vfMidDyadicPrefixSurvivorLiveFirstOwners A B,
+        lowOwnerGlobalFirstOwnerPairMassWith B p
+          (vfMidDyadicPrefixSurvivorSignedSite A B) := by
+        unfold vfMidDyadicPrefixSurvivorLiveFirstOwners
+        rw [Finset.sum_filter]
+
+/-- **Owner-only form of the quadratic entrance.**
+
+After the diagonal is separated, every off-diagonal #885 survivor pair is
+owned by a genuinely later prime p > A.  There is no residual first-owner
+sector on the already-frozen wheel. -/
+theorem vfMidDyadicPrefixSurvivorMobiusMass_sq_eq_diagonal_add_liveFirstOwners
+    {A B : ℕ} (hA : 3 ≤ A) (hAB : A ≤ B) (hBA : B ≤ 2 * A) :
+    vfMidDyadicPrefixSurvivorMobiusMassReal A B ^ 2 =
+      lowOwnerGlobalDiagonalPairMassWith B
+          (vfMidDyadicPrefixSurvivorSignedSite A B) +
+        ∑ p ∈ vfMidDyadicPrefixSurvivorLiveFirstOwners A B,
+          lowOwnerGlobalFirstOwnerPairMassWith B p
+            (vfMidDyadicPrefixSurvivorSignedSite A B) := by
+  have hempty :=
+    lowOwnerRevealedPairMassWith_empty_eq_diagonal_add_firstOwners
+      B (vfMidDyadicPrefixSurvivorSignedSite A B)
+  have hsquare :=
+    lowOwnerRevealedPairMassWith_empty_eq_vfMidSurvivor_sq
+      hA hAB hBA
+  rw [hsquare] at hempty
+  rw [
+    sum_lowOwnerGlobalFirstOwnerPairMassWith_vfMidSurvivor_eq_liveOwners
+      A B] at hempty
+  exact hempty
+
 end RHLean.Analysis
