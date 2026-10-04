@@ -341,4 +341,44 @@ theorem vfMidActualPrimeFirstBadAt_forces_twoSectorOwnerTrigger
     hA hABlt.le hBA] at htrigger
   exact htrigger
 
+
+/-! ## Processed-owner children land below a fixed prior anchor -/
+
+/-- **Processed-owner reciprocal children are prior-anchor states.**
+
+Fix a run ending before \`B\` and an anchor \`A\` with \`B^2 <= 3*A^2\`.
+Every owner in the already-processed sector satisfies \`3 <= p\`.  Hence
+stripping that owner from any composite in any block \`R < B\` sends the child
+strictly below \`A^2\`.
+
+This is the low-owner companion to #887's post-frozen theorem that every live
+survivor child has square-root scale below \`A\`. -/
+theorem vfMidProcessedOwnerChild_lt_anchorSquare
+    {A B R p m : ℕ}
+    (hRB : R < B)
+    (hBsq : B ^ 2 ≤ 3 * A ^ 2)
+    (hp : p ∈ vfMidFrozenProcessedOwnerPrimes A R)
+    (hm : m ∈ vfMidSquareBandCompositeOwnerChildren R p) :
+    m < A ^ 2 := by
+  rcases Finset.mem_filter.mp hp with ⟨hpLate, _hpA⟩
+  have hpGt2 : 2 < p :=
+    (mem_vfMidSquareBandLateOwnerPrimes.mp hpLate).2
+  have hp3 : 3 ≤ p := by omega
+  rcases Finset.mem_image.mp hm with ⟨n, hn, rfl⟩
+  rcases vfMidSquareBandCompositeOwner_mem hn with ⟨hnComp, _hmin⟩
+  rcases Finset.mem_filter.mp hnComp with ⟨hnBand, _hnNotPrime⟩
+  have hnHigh : n < (R + 1) ^ 2 :=
+    (Finset.mem_Ioo.mp hnBand).2
+  have hRB' : R + 1 ≤ B := by omega
+  have hsq : (R + 1) ^ 2 ≤ B ^ 2 :=
+    Nat.pow_le_pow_left hRB' 2
+  have hmul : p * (n / p) = n :=
+    vfMidSquareBandCompositeOwner_mul_div hn
+  have h3m : 3 * (n / p) ≤ n := by
+    calc
+      3 * (n / p) ≤ p * (n / p) :=
+        Nat.mul_le_mul_right (n / p) hp3
+      _ = n := hmul
+  omega
+
 end RHLean.Analysis
