@@ -124,40 +124,119 @@ theorem vfMidFrozenOwnerPrimeChild_prior_inside
   have hsB : Nat.sqrt q < B := hsA.trans hABlt
   exact vfMidActualPrimeFirstBadAt_prior_inside hfirst hs2 hsB
 
-/-- Direct terminal composition attempt.
+/-- Exact reassembly of the #888 two-sector charge in endpoint-depth
+currency.  This is the identity that must remain visible in the terminal
+first-bad argument:
+`T(A,B) = D_A - D_B`. -/
+theorem vfMidTwoSectorOwnerCharge_eq_endpointDefect_sub
+    {A B : ℕ}
+    (hA : 3 ≤ A)
+    (hAB : A ≤ B)
+    (hBA : B ≤ 2 * A) :
+    vfMidDyadicFrozenSurvivorSeatCharge A B +
+        vfMidDyadicProcessedOwnerSeatCharge A B =
+      vfMidActualPrimeEndpointDefect A -
+        vfMidActualPrimeEndpointDefect B := by
+  rw [← vfMidOddRunSeatMass_eq_frozenSurvivor_add_processedOwnerCharge
+    hA hBA]
+  rw [← vfMidDyadicVFTrackingDefect_eq_oddRunSeatMass
+    (by omega : 2 ≤ A) hAB]
+  rw [vfMidDyadicVFTrackingDefect_eq_neg_primeError_increment
+    (by omega : 2 ≤ A) (by omega : 2 ≤ B) hAB]
+  unfold vfMidActualPrimeEndpointDefect
+  ring
 
-No extra domination or packet-inheritance hypothesis is admitted here.
-The proof deliberately instantiates exactly the three claimed inputs and asks
-Lean to close the arithmetic contradiction. -/
-theorem vfMidActualPrimeFirstBadAt_impossible_terminal
-    {K : ℝ} {A B first : ℕ}
-    (hfirstBad : VFMidActualPrimeFirstBadAt K B)
-    (hA : 4 ≤ A)
+/-- A first-bad scale forces the exact two-sector charge to exceed the
+**remaining global radial slack**, not merely the local radial gradient.
+
+Equivalently:
+`|T(A,B)| > K*rho(B) - |D_A|`.
+The right side is
+`K*(rho(B)-rho(A)) + (K*rho(A)-|D_A|)`, i.e. local gradient plus the
+accumulated slack of the prior-good anchor. -/
+theorem vfMidActualPrimeFirstBadAt_forces_depthAwareTwoSectorAbsTrigger
+    {K : ℝ} {A B : ℕ}
+    (hfirst : VFMidActualPrimeFirstBadAt K B)
+    (hA : 3 ≤ A)
+    (hABlt : A < B)
+    (hBA : B ≤ 2 * A) :
+    K * vfMidSyntheticRadialScale B -
+        |vfMidActualPrimeEndpointDefect A| <
+      |vfMidDyadicFrozenSurvivorSeatCharge A B +
+        vfMidDyadicProcessedOwnerSeatCharge A B| := by
+  have hbad := hfirst.1
+  unfold VFMidSyntheticBadAt at hbad
+  have hT :=
+    vfMidTwoSectorOwnerCharge_eq_endpointDefect_sub
+      hA hABlt.le hBA
+  have hDB :
+      vfMidActualPrimeEndpointDefect B =
+        vfMidActualPrimeEndpointDefect A -
+          (vfMidDyadicFrozenSurvivorSeatCharge A B +
+            vfMidDyadicProcessedOwnerSeatCharge A B) := by
+    linarith
+  have htri :
+      |vfMidActualPrimeEndpointDefect B| ≤
+        |vfMidActualPrimeEndpointDefect A| +
+          |vfMidDyadicFrozenSurvivorSeatCharge A B +
+            vfMidDyadicProcessedOwnerSeatCharge A B| := by
+    rw [hDB]
+    simpa [sub_eq_add_neg] using
+      (abs_add_le
+        (vfMidActualPrimeEndpointDefect A)
+        (-(vfMidDyadicFrozenSurvivorSeatCharge A B +
+          vfMidDyadicProcessedOwnerSeatCharge A B)))
+  linarith
+
+/-- The anchor part of the depth-aware threshold is genuine nonnegative slack,
+because every earlier scale of a first-bad trajectory is prior-good. -/
+theorem vfMidActualPrimeFirstBadAt_anchorSlack_nonneg
+    {K : ℝ} {A B : ℕ}
+    (hfirst : VFMidActualPrimeFirstBadAt K B)
+    (hA : 3 ≤ A)
+    (hABlt : A < B) :
+    0 ≤
+      K * vfMidSyntheticRadialScale A -
+        |vfMidActualPrimeEndpointDefect A| := by
+  have hprior :=
+    vfMidActualPrimeFirstBadAt_prior_inside
+      hfirst (by omega : 2 ≤ A) hABlt
+  linarith
+
+/-- Pure algebra: the depth-aware threshold is exactly local radial growth plus
+the accumulated slack at the anchor. -/
+theorem vfMid_depthAwareThreshold_eq_gradient_add_anchorSlack
+    (K : ℝ) (A B : ℕ) :
+    K * vfMidSyntheticRadialScale B -
+        |vfMidActualPrimeEndpointDefect A| =
+      K * (vfMidSyntheticRadialScale B -
+        vfMidSyntheticRadialScale A) +
+      (K * vfMidSyntheticRadialScale A -
+        |vfMidActualPrimeEndpointDefect A|) := by
+  ring
+
+/-- Algebraic terminal adapter only.
+
+This theorem is intentionally **not** counted as the missing arithmetic result:
+its `hceiling` hypothesis is exactly the depth-aware structural ceiling that
+must be derived from the #887/#888 restricted reciprocal ledger and prior-good
+children.  Once that ceiling is proved, the first-bad contradiction is
+immediate. -/
+theorem vfMidActualPrimeFirstBadAt_impossible_of_depthAwareCeiling
+    {K : ℝ} {A B : ℕ}
+    (hfirst : VFMidActualPrimeFirstBadAt K B)
+    (hA : 3 ≤ A)
     (hABlt : A < B)
     (hBA : B ≤ 2 * A)
-    (hBsq : B ^ 2 ≤ 3 * A ^ 2)
-    (hfirstPrime : first.Prime)
-    (parents : Finset (ℕ × ℕ))
-    (coefficient : (ℕ × ℕ) → ℝ) :
+    (hceiling :
+      |vfMidDyadicFrozenSurvivorSeatCharge A B +
+        vfMidDyadicProcessedOwnerSeatCharge A B| ≤
+        K * vfMidSyntheticRadialScale B -
+          |vfMidActualPrimeEndpointDefect A|) :
     False := by
   have hbreach :=
-    vfMidActualPrimeFirstBadAt_forces_twoSectorOwnerTrigger
-      hfirstBad (by omega : 3 ≤ A) hABlt hBA
-  have hprocessedPrior :
-      ∀ R ∈ Finset.Ico A B,
-        ∀ p ∈ vfMidFrozenProcessedOwnerPrimes A R,
-          ∀ m ∈ vfMidSquareBandCompositeOwnerChildren R p,
-            |vfMidActualPrimeEndpointDefect (Nat.sqrt m)| ≤
-              K * vfMidSyntheticRadialScale (Nat.sqrt m) := by
-    intro R hR p hp m hm
-    exact
-      vfMidProcessedOwnerChild_prior_inside
-        hfirstBad hA hABlt hR hBsq hp hm
-  have hquarter :=
-    vfMidSelectedClippedOutgoingEnergy_le_quarter
-      (R := B) hfirstPrime parents coefficient
-  rcases hbreach with hpos | hneg
-  · linarith
-  · linarith
+    vfMidActualPrimeFirstBadAt_forces_depthAwareTwoSectorAbsTrigger
+      hfirst hA hABlt hBA
+  linarith
 
 end RHLean.Analysis
