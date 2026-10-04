@@ -380,3 +380,105 @@ using the continuous repository `vfMid(x)` and normalizing by
 
 These floating-point values are diagnostics only. Section 8 still requires the
 finite-base witness itself to be kernel-checked in Lean.
+
+
+## 11. Numerical falsification of the proposed Input-2 + Input-3 wall
+
+The proposed terminal splice
+
+[
+	ext{prior-good descended children}
++
+	ext{selected reciprocal quarter contraction}
+Longrightarrow
+|T(A,B)|le K(ho_B-ho_A)
+]
+
+is **not valid as a standalone implication**.
+
+By the exact compiled identities
+`vfMidOddRunSeatMass_eq_neg_endpointError_increment` and
+`vfMidOddRunSeatMass_eq_frozenSurvivor_add_processedOwnerCharge`,
+
+[
+T(A,B)=D_A-D_B,
+qquad
+D_R=pi(R^2)-VF_{mid}(R^2).
+]
+
+A direct scan of all square scales through (R=6400) gives, for (K=2),
+
+[
+max_{2le Sle 5266}rac{|D_S|}{Slog S}
+=
+rac1{log 2}
+approx1.442695040889<2.
+]
+
+Thus the prior-good wall holds at **every** smaller scale required by Input 2.
+
+Nevertheless at
+
+[
+(A,B)=(5266,5267)
+]
+
+the exact two-sector charge is
+
+[
+T(5266,5267)
+=
+D_{5266}-D_{5267}
+approx -60.4095627174,
+]
+
+so
+
+[
+|T(5266,5267)|approx60.4095627174.
+]
+
+But
+
+[
+2(ho_{5267}-ho_{5266})
+approx19.1382425655.
+]
+
+Hence
+
+[
+oxed{
+|T(5266,5267)|
+>
+2(ho_{5267}-ho_{5266})
+}
+]
+
+by a factor of approximately (3.15648).
+
+The first such failure in the scan occurs already at ((A,B)=(425,426)):
+
+[
+|T(425,426)|approx14.2926363084
+>
+14.1065294357
+=
+2(ho_{426}-ho_{425}).
+]
+
+There are 1034 valid ((A,B)) pairs with
+(3le A<Ble6400), (Ble2A), and (B^2le3A^2)
+for which the (K=2) wall fails numerically.
+
+This does **not** contradict the actual first-bad theorem, because for (K=2)
+no first-bad scale occurs in this range: the global maximum normalized endpoint
+defect remains the finite-base value at (R=2).
+
+It does prove something decisive for the proof architecture: Input 2
+(prior-good children) and Input 3 (the universal quarter contraction) cannot,
+by themselves, imply the boxed two-sector wall. Any valid terminal contradiction
+must use additional information specific to the first-bad breach or a sharper
+signed identity coupling (T(A,B)) to the selected reciprocal ledger. Per the
+failure rule above, this is a failure of the proposed splice, not authorization
+to introduce a new unproved hypothesis.
