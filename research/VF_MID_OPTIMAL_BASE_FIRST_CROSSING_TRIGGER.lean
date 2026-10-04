@@ -3,7 +3,6 @@ import «research.VF_MID_EXISTING_BOUNDARY_OPTIMAL_BASE»
 import «research.VF_MID_UNIFORMITY_BIAS_CORRELATION»
 import «research.VF_MID_ENDPOINT_TRIGGER_DICTIONARY»
 import «research.VF_MID_PHYSICAL_FORCING_MOBIUS_DECODER»
-import «research.NNS_ZERO_TARGET_ONE_BLOCK_ENERGY»
 
 /-!
 # Optimal-base first-crossing Lyapunov trigger
@@ -317,32 +316,5 @@ theorem vfMidActualLiCenteredCrossGram_eq_quarter_zeroTarget
       apply Finset.sum_congr rfl
       intro n _hn
       rw [Finset.mul_sum]
-
-/-! ## #878 dissipative handoff -/
-
-/-- The #878 literal one-block cross excess splits exactly into the
-nonpositive identified diagonal plus the unresolved cross-parent remainder. -/
-theorem nnsOneBlockCrossExcess_eq_identifiedDiagonal_add_crossParent
-    (R : ℕ) :
-    nnsOneBlockCrossExcess R =
-      nnsOneBlockIdentifiedDiagonalExcess R +
-        nnsOneBlockUnresolvedCrossParentRemainder R := by
-  unfold nnsOneBlockUnresolvedCrossParentRemainder
-  ring
-
-/-- **Cross-parent capacity trigger.**
-
-Because the identified same-parent sector is nonpositive, any positive energy
-bill already known to be smaller than the literal NNS cross excess must be paid
-entirely by the unresolved cross-parent sector, with no loss in the threshold.
--/
-theorem nnsOneBlockUnresolvedCrossParentRemainder_gt_of_crossExcess_gt
-    {T : ℝ} (R : ℕ) (hR : 3 ≤ R)
-    (hbill : T < nnsOneBlockCrossExcess R) :
-    T < nnsOneBlockUnresolvedCrossParentRemainder R := by
-  have hdiag :=
-    nnsOneBlockIdentifiedDiagonalExcess_nonpos R hR
-  rw [nnsOneBlockCrossExcess_eq_identifiedDiagonal_add_crossParent] at hbill
-  linarith
 
 end RHLean.Analysis
