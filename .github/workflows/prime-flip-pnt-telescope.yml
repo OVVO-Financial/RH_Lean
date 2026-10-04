@@ -694,6 +694,11 @@ jobs:
           #print axioms RHLean.Analysis.vfMidSurvivor_liveClippedCells_le_half_restrictedIncidenceEnergy
           #print axioms RHLean.Analysis.vfMidDyadicPrefixSurvivorMobiusMass_sq_le_diagonal_add_half_restrictedIncidence
           #print axioms RHLean.Analysis.vfMidSelectedClippedOutgoingEnergy_le_quarter
+          #print axioms RHLean.Analysis.vfMidLateOwnerCards_two_eq_processed_add_live
+          #print axioms RHLean.Analysis.vfMidSquarePrefixWheelSurvivors_card_add_processedOwnerCards_eq_root
+          #print axioms RHLean.Analysis.vfMidPrefixRemovedSeatMass_eq_processedOwnerCharges
+          #print axioms RHLean.Analysis.vfMidOddRunSeatMass_eq_frozenSurvivor_add_processedOwnerCharge
+          #print axioms RHLean.Analysis.vfMidActualPrimeFirstBadAt_forces_twoSectorOwnerTrigger
           #print axioms RHLean.Analysis.vfMidDyadicPrefixSurvivorMobiusMass_sq_eq_diagonal_add_firstOwnerCells
           #print axioms RHLean.Analysis.vfMidRecursiveChildCarrier_card_eq_sum
           #print axioms RHLean.Analysis.vfMidRecursiveChild_block_lt
