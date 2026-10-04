@@ -1,5 +1,6 @@
 import Mathlib
 import «research.VF_MID_SUBDOUBLING_SURVIVOR_TO_OWNER_GATE»
+import «research.VF_MID_PHI_OWNER_BRIDGE»
 import «research.GLOBAL_RETURNED_CORE_DIRICHLET_PAIR_POLARIZATION»
 
 /-!
@@ -656,6 +657,106 @@ theorem vfMidDyadicFrozenCompositeOwnerChild_prime_below_frozenSquare
     rw [← hnEq] at hprod
     omega
   exact ⟨hqPrime, hqA2, (Nat.sqrt_lt').2 hqA2⟩
+
+/-- Actual-prime reciprocal interval attached to one square-block owner. -/
+def vfMidFrozenOwnerPrimeChildInterval (R p : ℕ) : Finset ℕ :=
+  (Finset.Ioc (R ^ 2 / p) (((R + 1) ^ 2 - 1) / p)).filter Nat.Prime
+
+/-- **On a frozen subdoubling run the owner child fibre is literally a prime
+interval.**
+
+The generic owner-prefix theorem gives a rough survivor interval.  In the
+depth-two subdoubling geometry every such child is prime; conversely a prime in
+the same interval is automatically rough above `p-1`. -/
+theorem vfMidSquareBandCompositeOwnerChildren_eq_primeInterval_of_frozen
+    {A R p : ℕ}
+    (hA : 3 ≤ A) (hAR : A ≤ R) (hRlt : R < 2 * A)
+    (hp : p ∈ vfMidSquareBandLateOwnerPrimes A R) :
+    vfMidSquareBandCompositeOwnerChildren R p =
+      vfMidFrozenOwnerPrimeChildInterval R p := by
+  have hpOwner : p ∈ vfMidSquareBandOwnerPrimes R :=
+    (mem_vfMidSquareBandLateOwnerPrimes.mp hp).1
+  have hpPrime : p.Prime :=
+    (mem_vfMidSquareBandOwnerPrimes.mp hpOwner).1
+  have hpLeR : p ≤ R :=
+    (mem_vfMidSquareBandOwnerPrimes.mp hpOwner).2
+  have hR3 : 3 ≤ R := by omega
+  rw [vfMidSquareBandCompositeOwnerChildren_eq_prefixChildren hR3 hpOwner]
+  unfold vfMidSquareBandOwnerPrefixChildren
+    vfMidFrozenOwnerPrimeChildInterval
+  ext q
+  simp only [Finset.mem_filter, Finset.mem_Ioc]
+  constructor
+  · rintro ⟨hqI, hsurv⟩
+    have hqChild :
+        q ∈ vfMidSquareBandCompositeOwnerChildren R p := by
+      rw [vfMidSquareBandCompositeOwnerChildren_eq_prefixChildren hR3 hpOwner]
+      exact Finset.mem_filter.mpr ⟨Finset.mem_Ioc.mpr hqI, hsurv⟩
+    have hrough :
+        q ∈ vfMidSquareBandOwnerRoughChildren R p := by
+      rw [← vfMidSquareBandCompositeOwnerChildren_eq_rough hR3 hpOwner]
+      exact hqChild
+    have hqPrime :=
+      vfMidSquareBandLateOwnerRoughChild_prime_of_subdoubling
+        hA hRlt hp hrough
+    exact ⟨hqI, hqPrime⟩
+  · rintro ⟨hqI, hqPrime⟩
+    refine ⟨hqI, ?_⟩
+    intro s hs hsd
+    have hsPrime : s.Prime := prime_of_mem_primesUpTo hs
+    have hsLe : s ≤ p - 1 := (mem_primesUpTo.mp hs).2
+    have hsq : s = q :=
+      (Nat.prime_dvd_prime_iff_eq hsPrime hqPrime).mp hsd
+    have hpSqLe : p * p ≤ R * R :=
+      Nat.mul_le_mul hpLeR hpLeR
+    have hpLeFloor : p ≤ R ^ 2 / p := by
+      apply (Nat.le_div_iff_mul_le hpPrime.pos).2
+      simpa [pow_two] using hpSqLe
+    have hpLtQ : p < q := hpLeFloor.trans_lt hqI.1
+    omega
+
+/-- Hence every frozen owner fibre cardinality is an exact reciprocal
+prime-window cardinality. -/
+theorem vfMidSquareBandCompositeOwner_card_eq_primeIntervalCard_of_frozen
+    {A R p : ℕ}
+    (hA : 3 ≤ A) (hAR : A ≤ R) (hRlt : R < 2 * A)
+    (hp : p ∈ vfMidSquareBandLateOwnerPrimes A R) :
+    (vfMidSquareBandCompositeOwner R p).card =
+      (vfMidFrozenOwnerPrimeChildInterval R p).card := by
+  rw [← vfMidSquareBandCompositeOwnerChildren_card R p,
+    vfMidSquareBandCompositeOwnerChildren_eq_primeInterval_of_frozen
+      hA hAR hRlt hp]
+
+/-- **Exact reciprocal-prime-window form of the positive frozen correction.**
+
+The rank-two correction is the nested sum of literal prime-window populations,
+one for each late least-prime owner in each square block. -/
+theorem vfMidDyadicPrefixCompositeSupply_eq_sum_primeIntervalCards
+    {A B : ℕ}
+    (hA : 3 ≤ A) (hAB : A ≤ B) (hBA : B ≤ 2 * A) :
+    vfMidDyadicPrefixCompositeSupply A B =
+      ∑ R ∈ Finset.Ico A B,
+        ∑ p ∈ vfMidSquareBandLateOwnerPrimes A R,
+          ((vfMidFrozenOwnerPrimeChildInterval R p).card : ℝ) := by
+  unfold vfMidDyadicPrefixCompositeSupply
+  apply Finset.sum_congr rfl
+  intro R hR
+  have hAR : A ≤ R := (Finset.mem_Ico.mp hR).1
+  have hRB : R < B := (Finset.mem_Ico.mp hR).2
+  have hRlt : R < 2 * A := hRB.trans_le hBA
+  have howners :=
+    vfMidSquareBandPrefixComposite_card_eq_sum_lateOwnerCards
+      A R (by omega : 2 ≤ R)
+  have hownersR :
+      ((vfMidSquareBandPrefixCompositeSurvivors A R).card : ℝ) =
+        ∑ p ∈ vfMidSquareBandLateOwnerPrimes A R,
+          ((vfMidSquareBandCompositeOwner R p).card : ℝ) := by
+    exact_mod_cast howners
+  rw [hownersR]
+  apply Finset.sum_congr rfl
+  intro p hp
+  rw [vfMidSquareBandCompositeOwner_card_eq_primeIntervalCard_of_frozen
+    hA hAR hRlt hp]
 
 /-- **Linear frozen-run VF identity.**
 
