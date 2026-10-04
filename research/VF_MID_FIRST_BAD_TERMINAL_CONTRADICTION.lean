@@ -290,6 +290,26 @@ theorem vfMidTwoSectorOwnerCharge_energyStep_succ_eq_correlation
       R (by omega : 2 ≤ R)
   exact henergy.symm.trans hcorr
 
+/-- **Direct first-bad energy trigger on one square block.**
+
+This is the terminal lower bound with every bookkeeping coordinate eliminated:
+a first bad endpoint at `R+1` forces the actual VF accumulation correlation
+plus the current self-energy above the remaining squared radial budget. -/
+theorem vfMidActualPrimeFirstBadAt_succ_forces_correlationEnergyTrigger
+    {K : ℝ} {R : ℕ}
+    (hK : 0 ≤ K)
+    (hR : 3 ≤ R)
+    (hfirst : VFMidActualPrimeFirstBadAt K (R + 1)) :
+    (K * vfMidSyntheticRadialScale (R + 1)) ^ 2 -
+        vfMidActualPrimeEndpointDefect R ^ 2 <
+      2 * vfMidSquareEndpointAccumulationCorrelation R +
+        vfMidSquareBandError R ^ 2 := by
+  have h :=
+    vfMidActualPrimeFirstBadAt_forces_depthAwareEnergyTrigger
+      hK hfirst hR (by omega : R < R + 1) (by omega : R + 1 ≤ 2 * R)
+  rw [vfMidTwoSectorOwnerCharge_energyStep_succ_eq_correlation hR] at h
+  exact h
+
 /-- A first-bad scale forces the exact two-sector charge to exceed the
 **remaining global radial slack**, not merely the local radial gradient.
 
