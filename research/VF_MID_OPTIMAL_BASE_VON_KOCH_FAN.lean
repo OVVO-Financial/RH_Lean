@@ -1,318 +1,289 @@
 import Mathlib
 import RHLean.Analysis.OptimalLogBase
-import «research.VF_MID_VON_KOCH_BRIDGE»
+import «research.VF_MID_SOLVED_FANTASY_CONE»
+import «research.VF_MID_CORNER_CHANNEL»
 
 /-!
-# Optimal-base von-Koch fantasy fan
+# Optimal-base image of the already-solved VF fantasy boundaries
 
-The exact optimal-base coordinate of a counting function P is
+For fixed x > 1, send any count value y to its exact optimal logarithmic base
 
-  s_P(x) = P(x) * log(x) / x,
-  b_P(x) = exp(s_P(x)).
+  B_x(y) = exp (y * log x / x).
 
-For the deterministic VF midpoint reference, define the von-Koch-radius in
-this logarithmic-base coordinate by
+This map is strictly order preserving and reconstructs y exactly through
+x / log_b x.  Therefore every count-space fantasy boundary already proved
+RH-safe has an exact optimal-base image, and containment between the base
+images is equivalent to containment between the original count boundaries.
 
-  rho_C(x) = C * sqrt(x) * log(x)^2 / x.
+The two main instantiations here are:
 
-The full one-parameter fantasy fan is
+* the normalized solved-fantasy radial cone, whose count-space walls are
+  VF(R^2) +/- K R log R;
+* the genuine widened VF outer-corner walls already formalized in
+  VF_MID_CORNER_CHANNEL.
 
-  s_theta(x) = s_VF(x) + theta * rho_C(x),   -1 <= theta <= 1,
-  b_theta(x) = exp(s_theta(x)).
-
-Reconstruction by x / log_b(x) gives the exact count
-
-  VF(x) + theta * C * sqrt(x) * log(x).
-
-Thus every member of the fan is automatically inside the VF von-Koch tube.
-
-The second half packages the actual-prime containment statement in the same
-coordinate.  If the exact optimal base of the real prime-count staircase lies
-between the two fan walls for every x >= 4, then the native VF von-Koch bound
-follows immediately.  The existing unconditional VF/Li quadrature theorem then
-transfers this to the classical prime-minus-Li von-Koch statement and the
-repository's RH consumer.
-
-No assertion that the actual prime optimal base is contained in the fan is
-made here.  That containment is isolated as the sole arithmetic hypothesis.
+No new prime-distribution hypothesis is introduced.  The actual prime optimal
+base is simply the image of the exact prime-count endpoint.
 -/
 
 noncomputable section
 
 namespace RHLean.Analysis
 
-/-- VF in the exact logarithmic optimal-base coordinate. -/
-def vfMidOptimalLogCoordinate (x : ℝ) : ℝ :=
-  normalizedCountingRatio vfMid x
+/-- Scalar optimal-base image of one count value at cutoff x. -/
+def optimalBaseImage (x y : ℝ) : ℝ :=
+  Real.exp (y * Real.log x / x)
 
-/-- The von-Koch radius after moving the count-space width
-C * sqrt(x) * log(x) into the normalized logarithmic-base coordinate. -/
-def vfMidOptimalBaseVonKochRadius (C x : ℝ) : ℝ :=
-  C * Real.sqrt x * (Real.log x) ^ 2 / x
+/-- The function-valued optimal base already in the repository is exactly the
+scalar image of its value at x. -/
+@[simp] theorem optimalLogBase_eq_optimalBaseImage
+    (P : ℝ → ℝ) (x : ℝ) :
+    optimalLogBase P x = optimalBaseImage x (P x) := by
+  rfl
 
-/-- Logarithmic coordinate of one member of the continuous fantasy fan. -/
-def vfMidOptimalBaseFanLogCoordinate (theta C x : ℝ) : ℝ :=
-  vfMidOptimalLogCoordinate x +
-    theta * vfMidOptimalBaseVonKochRadius C x
+/-- Exact inverse reconstruction from the scalar optimal-base image. -/
+theorem optimalBaseImage_reconstructs
+    {x y : ℝ} (hx : x ≠ 0) (hlogx : Real.log x ≠ 0) :
+    x * Real.log (optimalBaseImage x y) / Real.log x = y := by
+  simp [optimalBaseImage]
+  field_simp [hx, hlogx]
 
-/-- Actual logarithmic base corresponding to one member of the fan. -/
-def vfMidOptimalBaseFanBase (theta C x : ℝ) : ℝ :=
-  Real.exp (vfMidOptimalBaseFanLogCoordinate theta C x)
+/-- At fixed x > 1, optimal-base coordinates preserve and reflect order. -/
+theorem optimalBaseImage_le_iff
+    {x a b : ℝ} (hx : 1 < x) :
+    optimalBaseImage x a ≤ optimalBaseImage x b ↔ a ≤ b := by
+  have hx0 : 0 < x := lt_trans (by norm_num) hx
+  have hlog : 0 < Real.log x := Real.log_pos hx
+  unfold optimalBaseImage
+  rw [Real.exp_le_exp]
+  constructor
+  · intro h
+    have hmul : a * Real.log x ≤ b * Real.log x :=
+      (div_le_div_iff_of_pos_right hx0).mp h
+    exact (mul_le_mul_right hlog).mp hmul
+  · intro h
+    have hmul : a * Real.log x ≤ b * Real.log x :=
+      (mul_le_mul_right hlog).mpr h
+    exact (div_le_div_iff_of_pos_right hx0).mpr hmul
 
-/-- Reconstructed counting curve of one member of the fan. -/
-def vfMidOptimalBaseFanCount (theta C x : ℝ) : ℝ :=
-  x * Real.log (vfMidOptimalBaseFanBase theta C x) / Real.log x
+/-- A two-sided count bracket is exactly the same two-sided optimal-base
+bracket. -/
+theorem optimalBaseImage_bracket_iff
+    {x lower y upper : ℝ} (hx : 1 < x) :
+    (optimalBaseImage x lower ≤ optimalBaseImage x y ∧
+        optimalBaseImage x y ≤ optimalBaseImage x upper) ↔
+      (lower ≤ y ∧ y ≤ upper) := by
+  constructor
+  · rintro ⟨hl, hu⟩
+    exact ⟨(optimalBaseImage_le_iff hx).mp hl,
+      (optimalBaseImage_le_iff hx).mp hu⟩
+  · rintro ⟨hl, hu⟩
+    exact ⟨(optimalBaseImage_le_iff hx).mpr hl,
+      (optimalBaseImage_le_iff hx).mpr hu⟩
 
-/-- Lower optimal-base wall of the fan. -/
-def vfMidOptimalBaseLowerWall (C x : ℝ) : ℝ :=
-  Real.exp
-    (vfMidOptimalLogCoordinate x -
-      vfMidOptimalBaseVonKochRadius C x)
+/-- Exact optimal base of the honest prime-count staircase. -/
+def vfMidActualPrimeOptimalBase (x : ℝ) : ℝ :=
+  optimalBaseImage x (vfMidPrimeCount x)
 
-/-- Upper optimal-base wall of the fan. -/
-def vfMidOptimalBaseUpperWall (C x : ℝ) : ℝ :=
-  Real.exp
-    (vfMidOptimalLogCoordinate x +
-      vfMidOptimalBaseVonKochRadius C x)
+@[simp] theorem vfMidActualPrimeOptimalBase_eq_optimalLogBase
+    (x : ℝ) :
+    vfMidActualPrimeOptimalBase x =
+      optimalLogBase vfMidPrimeCount x := by
+  rfl
 
-@[simp] theorem log_vfMidOptimalBaseFanBase
-    (theta C x : ℝ) :
-    Real.log (vfMidOptimalBaseFanBase theta C x) =
-      vfMidOptimalBaseFanLogCoordinate theta C x := by
-  simp [vfMidOptimalBaseFanBase]
+/-! ## Existing solved radial cone in optimal-base coordinates -/
 
-/-- The fan count really is the change-of-base reconstruction from its base. -/
-theorem vfMidOptimalBaseFanCount_eq_logCoordinate
-    (theta C x : ℝ) :
-    vfMidOptimalBaseFanCount theta C x =
-      x * vfMidOptimalBaseFanLogCoordinate theta C x / Real.log x := by
-  simp [vfMidOptimalBaseFanCount]
+/-- Lower count-space wall of the already-solved normalized radial cone. -/
+def vfMidSolvedFantasyRadialLowerCount (K : ℝ) (R : ℕ) : ℝ :=
+  vfMid ((R : ℝ) ^ 2) -
+    K * (R : ℝ) * Real.log (R : ℝ)
 
-/-- Exact count-space form of the fan.
+/-- Upper count-space wall of the already-solved normalized radial cone. -/
+def vfMidSolvedFantasyRadialUpperCount (K : ℝ) (R : ℕ) : ℝ :=
+  vfMid ((R : ℝ) ^ 2) +
+    K * (R : ℝ) * Real.log (R : ℝ)
 
-The chosen radius is calibrated so that a displacement of one unit in theta
-is exactly one von-Koch-width displacement in the count coordinate. -/
-theorem vfMidOptimalBaseFanCount_eq_vfMid_add
-    (theta C : ℝ) {x : ℝ} (hx : 4 ≤ x) :
-    vfMidOptimalBaseFanCount theta C x =
-      vfMid x + theta * C * Real.sqrt x * Real.log x := by
-  have hxne : x ≠ 0 := by linarith
-  have hlogne : Real.log x ≠ 0 := by
-    exact ne_of_gt (Real.log_pos (by linarith))
-  rw [vfMidOptimalBaseFanCount_eq_logCoordinate]
-  unfold vfMidOptimalBaseFanLogCoordinate
-    vfMidOptimalLogCoordinate
-    vfMidOptimalBaseVonKochRadius
-    normalizedCountingRatio
-  field_simp [hxne, hlogne]
-  ring
+/-- Optimal-base image of the lower solved radial wall. -/
+def vfMidSolvedFantasyRadialLowerOptimalBase
+    (K : ℝ) (R : ℕ) : ℝ :=
+  optimalBaseImage ((R : ℝ) ^ 2)
+    (vfMidSolvedFantasyRadialLowerCount K R)
 
-/-- Every theta in [-1,1] reconstructs to a count inside the VF von-Koch tube. -/
-theorem abs_vfMidOptimalBaseFanCount_sub_vfMid_le
-    {theta C x : ℝ} (hC : 0 ≤ C)
-    (htheta : -1 ≤ theta ∧ theta ≤ 1)
-    (hx : 4 ≤ x) :
-    |vfMidOptimalBaseFanCount theta C x - vfMid x| ≤
-      C * Real.sqrt x * Real.log x := by
-  have hlog0 : 0 ≤ Real.log x :=
-    (Real.log_pos (by linarith : 1 < x)).le
-  have habstheta : |theta| ≤ 1 := by
-    rw [abs_le]
-    exact htheta
-  rw [vfMidOptimalBaseFanCount_eq_vfMid_add theta C hx]
-  have hnonneg :
-      0 ≤ C * Real.sqrt x * Real.log x := by positivity
-  calc
-    |vfMid x + theta * C * Real.sqrt x * Real.log x - vfMid x|
-        = |theta| * (C * Real.sqrt x * Real.log x) := by
-            rw [show
-              vfMid x + theta * C * Real.sqrt x * Real.log x - vfMid x =
-                theta * (C * Real.sqrt x * Real.log x) by ring,
-              abs_mul, abs_of_nonneg hnonneg]
-    _ ≤ 1 * (C * Real.sqrt x * Real.log x) :=
-      mul_le_mul_of_nonneg_right habstheta hnonneg
-    _ = C * Real.sqrt x * Real.log x := by ring
+/-- Optimal-base image of the upper solved radial wall. -/
+def vfMidSolvedFantasyRadialUpperOptimalBase
+    (K : ℝ) (R : ℕ) : ℝ :=
+  optimalBaseImage ((R : ℝ) ^ 2)
+    (vfMidSolvedFantasyRadialUpperCount K R)
 
-/-- The two explicit wall bases are exactly the theta=-1 and theta=+1 fan
-members. -/
-theorem vfMidOptimalBaseFanBase_neg_one
-    (C x : ℝ) :
-    vfMidOptimalBaseFanBase (-1) C x =
-      vfMidOptimalBaseLowerWall C x := by
-  unfold vfMidOptimalBaseFanBase vfMidOptimalBaseFanLogCoordinate
-    vfMidOptimalBaseLowerWall
-  congr 1
-  ring
+/-- The optimal-base walls reconstruct exactly to the existing count-space
+radial walls. -/
+theorem vfMidSolvedFantasyRadialLowerOptimalBase_reconstructs
+    (K : ℝ) {R : ℕ} (hR : 2 ≤ R) :
+    ((R : ℝ) ^ 2) *
+        Real.log (vfMidSolvedFantasyRadialLowerOptimalBase K R) /
+          Real.log ((R : ℝ) ^ 2) =
+      vfMidSolvedFantasyRadialLowerCount K R := by
+  have hx : ((R : ℝ) ^ 2) ≠ 0 := by positivity
+  have hlog : Real.log ((R : ℝ) ^ 2) ≠ 0 := by
+    apply ne_of_gt
+    apply Real.log_pos
+    have hRreal : (2 : ℝ) ≤ (R : ℝ) := by exact_mod_cast hR
+    nlinarith
+  exact optimalBaseImage_reconstructs hx hlog
 
-theorem vfMidOptimalBaseFanBase_one
-    (C x : ℝ) :
-    vfMidOptimalBaseFanBase 1 C x =
-      vfMidOptimalBaseUpperWall C x := by
-  unfold vfMidOptimalBaseFanBase vfMidOptimalBaseFanLogCoordinate
-    vfMidOptimalBaseUpperWall
-  congr 1
-  ring
+theorem vfMidSolvedFantasyRadialUpperOptimalBase_reconstructs
+    (K : ℝ) {R : ℕ} (hR : 2 ≤ R) :
+    ((R : ℝ) ^ 2) *
+        Real.log (vfMidSolvedFantasyRadialUpperOptimalBase K R) /
+          Real.log ((R : ℝ) ^ 2) =
+      vfMidSolvedFantasyRadialUpperCount K R := by
+  have hx : ((R : ℝ) ^ 2) ≠ 0 := by positivity
+  have hlog : Real.log ((R : ℝ) ^ 2) ≠ 0 := by
+    apply ne_of_gt
+    apply Real.log_pos
+    have hRreal : (2 : ℝ) ≤ (R : ℝ) := by exact_mod_cast hR
+    nlinarith
+  exact optimalBaseImage_reconstructs hx hlog
 
-/-- Every fantasy base with theta in [-1,1] lies between the two wall bases. -/
-theorem vfMidOptimalBaseFanBase_between_walls
-    {theta C x : ℝ} (hC : 0 ≤ C)
-    (htheta : -1 ≤ theta ∧ theta ≤ 1)
-    (hx : 0 ≤ x) :
-    vfMidOptimalBaseLowerWall C x ≤
-        vfMidOptimalBaseFanBase theta C x ∧
-      vfMidOptimalBaseFanBase theta C x ≤
-        vfMidOptimalBaseUpperWall C x := by
-  have hrho0 :
-      0 ≤ vfMidOptimalBaseVonKochRadius C x := by
-    unfold vfMidOptimalBaseVonKochRadius
-    positivity
-  unfold vfMidOptimalBaseLowerWall vfMidOptimalBaseUpperWall
-    vfMidOptimalBaseFanBase vfMidOptimalBaseFanLogCoordinate
-  simp only [Real.exp_le_exp]
-  constructor <;> nlinarith
+/-- At every square endpoint, actual optimal-base containment between the two
+radial-wall bases is exactly membership of the already-solved radial cone. -/
+theorem vfMidActualPrimeOptimalBase_radialBracket_iff
+    {K : ℝ} {R : ℕ} (hR : 2 ≤ R) :
+    (vfMidSolvedFantasyRadialLowerOptimalBase K R ≤
+          vfMidActualPrimeOptimalBase ((R : ℝ) ^ 2) ∧
+        vfMidActualPrimeOptimalBase ((R : ℝ) ^ 2) ≤
+          vfMidSolvedFantasyRadialUpperOptimalBase K R) ↔
+      VFMidSolvedFantasyRadialConeAt K R
+        (vfMidPrimeCount ((R : ℝ) ^ 2)) := by
+  have hRreal : (2 : ℝ) ≤ (R : ℝ) := by exact_mod_cast hR
+  have hx1 : (1 : ℝ) < (R : ℝ) ^ 2 := by nlinarith
+  rw [vfMidSolvedFantasyRadialConeAt_iff hR]
+  unfold vfMidSolvedFantasyRadialLowerOptimalBase
+    vfMidSolvedFantasyRadialUpperOptimalBase
+    vfMidActualPrimeOptimalBase
+  rw [optimalBaseImage_bracket_iff hx1]
+  unfold vfMidSolvedFantasyRadialLowerCount
+    vfMidSolvedFantasyRadialUpperCount
+  rw [abs_le]
+  constructor <;> rintro ⟨h1, h2⟩ <;> constructor <;> linarith
 
-/-- Exact actual-prime optimal base lies inside the moving von-Koch fan.
+/-- Uniform optimal-base containment in the images of the solved radial walls. -/
+def ActualPrimeOptimalBaseContainedInSolvedFantasyRadialConeStatement : Prop :=
+  ∃ K : ℝ, 0 ≤ K ∧
+    ∀ R : ℕ, 2 ≤ R →
+      vfMidSolvedFantasyRadialLowerOptimalBase K R ≤
+          vfMidActualPrimeOptimalBase ((R : ℝ) ^ 2) ∧
+        vfMidActualPrimeOptimalBase ((R : ℝ) ^ 2) ≤
+          vfMidSolvedFantasyRadialUpperOptimalBase K R
 
-This is the arithmetic containment statement.  It is deliberately not proved
-in this file. -/
-def VFMidActualPrimeOptimalBaseContainedInVonKochFan (C : ℝ) : Prop :=
-  0 ≤ C ∧
-    ∀ x : ℝ, 4 ≤ x →
-      vfMidOptimalBaseLowerWall C x ≤
-          optimalLogBase vfMidPrimeCount x ∧
-        optimalLogBase vfMidPrimeCount x ≤
-          vfMidOptimalBaseUpperWall C x
+/-- The optimal-base formulation is exactly the existing solved radial-cone
+containment statement. -/
+theorem actualPrimeOptimalBaseContainedInSolvedFantasyRadialCone_iff :
+    ActualPrimeOptimalBaseContainedInSolvedFantasyRadialConeStatement ↔
+      ActualPrimeContainedInSolvedFantasyRadialConeStatement := by
+  constructor
+  · rintro ⟨K, hK, hbase⟩
+    refine ⟨K, hK, ?_⟩
+    intro R hR
+    exact (vfMidActualPrimeOptimalBase_radialBracket_iff hR).mp
+      (hbase R hR)
+  · rintro ⟨K, hK, hcone⟩
+    refine ⟨K, hK, ?_⟩
+    intro R hR
+    exact (vfMidActualPrimeOptimalBase_radialBracket_iff hR).mpr
+      (hcone R hR)
 
-/-- Multiplying the normalized-coordinate displacement by x/log(x) recovers
-the native prime-minus-VF discrepancy exactly. -/
-theorem vfMidOptimalCoordinateDifference_scaled_eq_primeError
-    {x : ℝ} (hx : 4 ≤ x) :
-    (x / Real.log x) *
-        (normalizedCountingRatio vfMidPrimeCount x -
-          vfMidOptimalLogCoordinate x) =
-      vfMidPrimeError x := by
-  have hxne : x ≠ 0 := by linarith
-  have hlogne : Real.log x ≠ 0 := by
-    exact ne_of_gt (Real.log_pos (by linarith))
-  unfold normalizedCountingRatio vfMidOptimalLogCoordinate vfMidPrimeError
-  field_simp [hxne, hlogne]
-  ring
+/-- Therefore the optimal-base radial statement is exactly the direct
+square-endpoint von-Koch target. -/
+theorem actualPrimeOptimalBaseContainedInSolvedFantasyRadialCone_iff_vonKoch :
+    ActualPrimeOptimalBaseContainedInSolvedFantasyRadialConeStatement ↔
+      VFMidSquareEndpointVonKochBoundedStatement := by
+  rw [actualPrimeOptimalBaseContainedInSolvedFantasyRadialCone_iff,
+    actualPrimeContainedInSolvedFantasyRadialCone_iff]
 
-/-- The same scaling sends the base-coordinate fan radius exactly to the
-von-Koch count-space radius. -/
-theorem vfMidOptimalBaseVonKochRadius_scaled
-    (C : ℝ) {x : ℝ} (hx : 4 ≤ x) :
-    (x / Real.log x) *
-        vfMidOptimalBaseVonKochRadius C x =
-      C * Real.sqrt x * Real.log x := by
-  have hxne : x ≠ 0 := by linarith
-  have hlogne : Real.log x ≠ 0 := by
-    exact ne_of_gt (Real.log_pos (by linarith))
-  unfold vfMidOptimalBaseVonKochRadius
-  field_simp [hxne, hlogne]
-  ring
-
-/-- Base containment is already the native VF von-Koch estimate.
-
-There is no cancellation or Mertens estimate after this point: the exponential
-order converts the two base walls to a normalized-coordinate bracket, and the
-preceding exact scaling identities convert that bracket to count space. -/
-theorem vfMidPrimeError_le_of_optimalBaseFanContainment
-    {C x : ℝ} (hC : 0 ≤ C) (hx : 4 ≤ x)
-    (hbase :
-      vfMidOptimalBaseLowerWall C x ≤
-          optimalLogBase vfMidPrimeCount x ∧
-        optimalLogBase vfMidPrimeCount x ≤
-          vfMidOptimalBaseUpperWall C x) :
-    |vfMidPrimeError x| ≤
-      C * Real.sqrt x * Real.log x := by
-  have hcoord :
-      vfMidOptimalLogCoordinate x -
-          vfMidOptimalBaseVonKochRadius C x ≤
-        normalizedCountingRatio vfMidPrimeCount x ∧
-      normalizedCountingRatio vfMidPrimeCount x ≤
-        vfMidOptimalLogCoordinate x +
-          vfMidOptimalBaseVonKochRadius C x := by
-    simpa [vfMidOptimalBaseLowerWall, vfMidOptimalBaseUpperWall,
-      optimalLogBase, vfMidOptimalLogCoordinate,
-      normalizedCountingRatio] using hbase
-  let scale : ℝ := x / Real.log x
-  have hscale0 : 0 ≤ scale := by
-    dsimp [scale]
-    positivity
-  have hdiff :
-      -vfMidOptimalBaseVonKochRadius C x ≤
-          normalizedCountingRatio vfMidPrimeCount x -
-            vfMidOptimalLogCoordinate x ∧
-        normalizedCountingRatio vfMidPrimeCount x -
-            vfMidOptimalLogCoordinate x ≤
-          vfMidOptimalBaseVonKochRadius C x := by
-    constructor <;> linarith
-  have hlo := mul_le_mul_of_nonneg_left hdiff.1 hscale0
-  have hup := mul_le_mul_of_nonneg_left hdiff.2 hscale0
-  have hprime :=
-    vfMidOptimalCoordinateDifference_scaled_eq_primeError hx
-  have hradius :=
-    vfMidOptimalBaseVonKochRadius_scaled C hx
-  change
-    scale *
-        (normalizedCountingRatio vfMidPrimeCount x -
-          vfMidOptimalLogCoordinate x) =
-      vfMidPrimeError x at hprime
-  change
-    scale * vfMidOptimalBaseVonKochRadius C x =
-      C * Real.sqrt x * Real.log x at hradius
-  have hlow :
-      -(C * Real.sqrt x * Real.log x) ≤ vfMidPrimeError x := by
-    calc
-      -(C * Real.sqrt x * Real.log x) =
-          scale * (-vfMidOptimalBaseVonKochRadius C x) := by
-            rw [mul_neg, hradius]
-      _ ≤ scale *
-          (normalizedCountingRatio vfMidPrimeCount x -
-            vfMidOptimalLogCoordinate x) := hlo
-      _ = vfMidPrimeError x := hprime
-  have hupp :
-      vfMidPrimeError x ≤ C * Real.sqrt x * Real.log x := by
-    calc
-      vfMidPrimeError x =
-          scale *
-            (normalizedCountingRatio vfMidPrimeCount x -
-              vfMidOptimalLogCoordinate x) := hprime.symm
-      _ ≤ scale * vfMidOptimalBaseVonKochRadius C x := hup
-      _ = C * Real.sqrt x * Real.log x := hradius
-  exact (abs_le).2 ⟨hlow, hupp⟩
-
-/-- Uniform optimal-base containment supplies the repository's sole native VF
-von-Koch arithmetic target. -/
-theorem vfMidVonKochBounded_of_actualPrimeOptimalBaseContained
-    {C : ℝ}
-    (hcontain : VFMidActualPrimeOptimalBaseContainedInVonKochFan C) :
-    VFMidVonKochBoundedStatement := by
-  rcases hcontain with ⟨hC, hfan⟩
-  refine ⟨C, hC, ?_⟩
-  intro x hx
-  exact
-    vfMidPrimeError_le_of_optimalBaseFanContainment
-      hC hx (hfan x hx)
-
-/-- The same containment therefore gives the classical prime-minus-Li
-von-Koch bound through the already-proved deterministic VF/Li bridge. -/
-theorem primeLiVonKochBounded_of_actualPrimeOptimalBaseContained
-    {C : ℝ}
-    (hcontain : VFMidActualPrimeOptimalBaseContainedInVonKochFan C) :
-    PrimeLiVonKochBoundedStatement :=
-  primeLiVonKochBounded_of_vfMid vfMidLiRootBounded
-    (vfMidVonKochBounded_of_actualPrimeOptimalBaseContained hcontain)
-
-/-- Final consumer: once the actual optimal base is trapped inside the moving
-fan, the existing classical von-Koch interface closes RH. -/
-theorem riemannHypothesis_of_actualPrimeOptimalBaseContained
+/-- Existing RH consumer, now fed by the exact optimal-base image of the
+already-solved radial fantasy boundaries. -/
+theorem riemannHypothesis_of_actualPrimeOptimalBaseContainedInSolvedFantasyRadialCone
     (criterion : ClassicalVonKochRHCriterion)
-    {C : ℝ}
-    (hcontain : VFMidActualPrimeOptimalBaseContainedInVonKochFan C) :
+    (hbase :
+      ActualPrimeOptimalBaseContainedInSolvedFantasyRadialConeStatement) :
     VFMidRiemannHypothesisStatement :=
-  criterion.iff_riemannHypothesis.mp
-    (primeLiVonKochBounded_of_actualPrimeOptimalBaseContained hcontain)
+  riemannHypothesis_of_vfMidSquareEndpoint criterion
+    (actualPrimeOptimalBaseContainedInSolvedFantasyRadialCone_iff_vonKoch.mp
+      hbase)
+
+/-! ## Existing genuine VF outer-corner walls in optimal-base coordinates -/
+
+/-- Optimal-base image of the already-formalized lower outer VF corner. -/
+def vfMidOuterLowerCornerOptimalBase (A : ℝ) (R : ℕ) : ℝ :=
+  optimalBaseImage ((R : ℝ) ^ 2) (vfMidOuterLowerCorner A R)
+
+/-- Optimal-base image of the already-formalized upper outer VF corner. -/
+def vfMidOuterUpperCornerOptimalBase (A : ℝ) (R : ℕ) : ℝ :=
+  optimalBaseImage ((R : ℝ) ^ 2) (vfMidOuterUpperCorner A R)
+
+/-- Pointwise optimal-base bracketing by the genuine outer VF corners is
+exactly the existing count-space outer-corner bracket. -/
+theorem vfMidActualPrimeOptimalBase_outerCornerBracket_iff
+    {A : ℝ} {R : ℕ} (hR : 4 ≤ R) :
+    (vfMidOuterLowerCornerOptimalBase A R ≤
+          vfMidActualPrimeOptimalBase ((R : ℝ) ^ 2) ∧
+        vfMidActualPrimeOptimalBase ((R : ℝ) ^ 2) ≤
+          vfMidOuterUpperCornerOptimalBase A R) ↔
+      (vfMidOuterLowerCorner A R ≤
+          (Nat.primeCounting (R ^ 2) : ℝ) ∧
+        (Nat.primeCounting (R ^ 2) : ℝ) ≤
+          vfMidOuterUpperCorner A R) := by
+  have hRreal : (4 : ℝ) ≤ (R : ℝ) := by exact_mod_cast hR
+  have hx1 : (1 : ℝ) < (R : ℝ) ^ 2 := by nlinarith
+  unfold vfMidOuterLowerCornerOptimalBase
+    vfMidOuterUpperCornerOptimalBase
+    vfMidActualPrimeOptimalBase
+  rw [optimalBaseImage_bracket_iff hx1]
+  rw [vfMidPrimeCount_sq_exact R]
+
+/-- Uniform optimal-base version of the existing outer-corner endpoint
+bracket. -/
+def ActualPrimeOptimalBaseContainedInOuterCornerStatement (A : ℝ) : Prop :=
+  ∀ R : ℕ, 4 ≤ R →
+    vfMidOuterLowerCornerOptimalBase A R ≤
+        vfMidActualPrimeOptimalBase ((R : ℝ) ^ 2) ∧
+      vfMidActualPrimeOptimalBase ((R : ℝ) ^ 2) ≤
+        vfMidOuterUpperCornerOptimalBase A R
+
+/-- The optimal-base outer-corner statement is exactly the already-existing
+count-space outer-corner statement. -/
+theorem actualPrimeOptimalBaseContainedInOuterCorner_iff
+    (A : ℝ) :
+    ActualPrimeOptimalBaseContainedInOuterCornerStatement A ↔
+      VFMidOuterCornerEndpointBracket A := by
+  constructor
+  · intro h R hR
+    exact (vfMidActualPrimeOptimalBase_outerCornerBracket_iff hR).mp
+      (h R hR)
+  · intro h R hR
+    exact (vfMidActualPrimeOptimalBase_outerCornerBracket_iff hR).mpr
+      (h R hR)
+
+/-- Any nonnegative canonical outer-corner schedule that traps the actual
+optimal base inherits the already-proved square-endpoint von-Koch bound. -/
+theorem vfMidSquareEndpointVonKochBounded_of_actualPrimeOptimalBaseOuterCorners
+    {A : ℝ} (hA : 0 ≤ A)
+    (hbase : ActualPrimeOptimalBaseContainedInOuterCornerStatement A) :
+    VFMidSquareEndpointVonKochBoundedStatement := by
+  apply vfMidSquareEndpointVonKochBounded_of_fromFour
+  apply vfMidSquareEndpointVonKochBoundedFromFour_of_outerCornerBracket hA
+  exact (actualPrimeOptimalBaseContainedInOuterCorner_iff A).mp hbase
+
+/-- And therefore the existing RH consumer closes directly from optimal-base
+containment between the genuine outer-corner fantasy boundaries. -/
+theorem riemannHypothesis_of_actualPrimeOptimalBaseOuterCorners
+    (criterion : ClassicalVonKochRHCriterion)
+    {A : ℝ} (hA : 0 ≤ A)
+    (hbase : ActualPrimeOptimalBaseContainedInOuterCornerStatement A) :
+    VFMidRiemannHypothesisStatement :=
+  riemannHypothesis_of_vfMidSquareEndpoint criterion
+    (vfMidSquareEndpointVonKochBounded_of_actualPrimeOptimalBaseOuterCorners
+      hA hbase)
 
 end RHLean.Analysis
