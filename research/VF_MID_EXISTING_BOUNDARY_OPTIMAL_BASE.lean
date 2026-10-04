@@ -16,7 +16,7 @@ count space.
 Two instantiations are recorded.
 
 1. The normalized solved-fantasy radial interval
-     VF(R^2) +/- K R log R.
+     VF(R^2) ± K R log R.
    Its optimal-base image is exactly equivalent to the existing radial cone,
    hence exactly equivalent to the square-endpoint von-Koch target.
 
