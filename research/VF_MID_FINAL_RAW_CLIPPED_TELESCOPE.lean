@@ -502,6 +502,150 @@ theorem vfMidDyadicPrefixSurvivorMobiusMass_sq_sub_population_eq_pcOffDiagonal
       hA hAB hBA
   linarith
 
+/-! ## Linear owner-tagged child form of the VF tracking packet -/
+
+/-- Exact multiplicity-preserving population of stripped frozen-composite
+children across a run.  The owner label is retained; no two owner fibres are
+identified merely because they return the same prime child. -/
+def vfMidDyadicFrozenCompositeOwnerChildSupply (A B : ℕ) : ℝ :=
+  ∑ R ∈ Finset.Ico A B,
+    ∑ p ∈ vfMidSquareBandLateOwnerPrimes A R,
+      ((vfMidSquareBandCompositeOwnerChildren R p).card : ℝ)
+
+/-- **Frozen composite population = owner-tagged stripped-child population.**
+
+Stripping the least prime owner is injective inside each owner fibre and the
+late-owner fibres partition the frozen composite survivors. -/
+theorem vfMidDyadicPrefixCompositeSupply_eq_ownerChildSupply
+    {A B : ℕ} (hA : 3 ≤ A) (hAB : A ≤ B) :
+    vfMidDyadicPrefixCompositeSupply A B =
+      vfMidDyadicFrozenCompositeOwnerChildSupply A B := by
+  unfold vfMidDyadicPrefixCompositeSupply
+    vfMidDyadicFrozenCompositeOwnerChildSupply
+  apply Finset.sum_congr rfl
+  intro R hR
+  have hAR : A ≤ R := (Finset.mem_Ico.mp hR).1
+  have hR2 : 2 ≤ R := by omega
+  have howners :=
+    vfMidSquareBandPrefixComposite_card_eq_sum_lateOwnerCards A R hR2
+  have hownersR :
+      ((vfMidSquareBandPrefixCompositeSurvivors A R).card : ℝ) =
+        ∑ p ∈ vfMidSquareBandLateOwnerPrimes A R,
+          ((vfMidSquareBandCompositeOwner R p).card : ℝ) := by
+    exact_mod_cast howners
+  rw [hownersR]
+  apply Finset.sum_congr rfl
+  intro p _hp
+  rw [vfMidSquareBandCompositeOwnerChildren_card]
+
+/-- Every tagged child in the frozen subdoubling correction is an actual prime
+strictly below the starting square `A^2`.
+
+This is the general one-step version of `323 = 17*19 -> 19` in the 317
+ledger.  The owner tag is retained, so this theorem makes no injectivity claim
+between distinct owner fibres. -/
+theorem vfMidDyadicFrozenCompositeOwnerChild_prime_below_frozenSquare
+    {A B R p q : ℕ}
+    (hA : 4 ≤ A) (hAB : A ≤ B) (hBA : B ≤ 2 * A)
+    (hR : R ∈ Finset.Ico A B)
+    (hp : p ∈ vfMidSquareBandLateOwnerPrimes A R)
+    (hq : q ∈ vfMidSquareBandCompositeOwnerChildren R p) :
+    q.Prime ∧ q < A ^ 2 ∧ Nat.sqrt q < A := by
+  have hAR : A ≤ R := (Finset.mem_Ico.mp hR).1
+  have hRB : R < B := (Finset.mem_Ico.mp hR).2
+  have hRlt : R < 2 * A := hRB.trans_le hBA
+  have hR3 : 3 ≤ R := by omega
+  have hpOwner : p ∈ vfMidSquareBandOwnerPrimes R :=
+    (mem_vfMidSquareBandLateOwnerPrimes.mp hp).1
+  have hrough :
+      q ∈ vfMidSquareBandOwnerRoughChildren R p := by
+    rw [← vfMidSquareBandCompositeOwnerChildren_eq_rough hR3 hpOwner]
+    exact hq
+  have hqPrime :
+      q.Prime :=
+    vfMidSquareBandLateOwnerRoughChild_prime_of_subdoubling
+      (by omega : 3 ≤ A) hRlt hp hrough
+  rcases Finset.mem_image.mp hq with ⟨n, hnOwner, hqEq⟩
+  have hpPrime : p.Prime :=
+    (mem_vfMidSquareBandOwnerPrimes.mp hpOwner).1
+  have hpA : A < p :=
+    (mem_vfMidSquareBandLateOwnerPrimes.mp hp).2
+  have hmul := vfMidSquareBandCompositeOwner_mul_div hnOwner
+  have hnComp := vfMidSquareBandCompositeOwner_mem hnOwner
+  have hnSite := (Finset.mem_filter.mp hnComp).1
+  have hnUpper : n < (R + 1) ^ 2 := by
+    simpa [vfMidSquareBandSites] using (Finset.mem_Ioo.mp hnSite).2
+  have hR1B : R + 1 ≤ B := by omega
+  have hR2B2 : (R + 1) ^ 2 ≤ B ^ 2 :=
+    Nat.pow_le_pow_left hR1B 2
+  have hB2 : B ^ 2 ≤ (2 * A) ^ 2 :=
+    Nat.pow_le_pow_left hBA 2
+  have hn4A2 : n < 4 * A ^ 2 := by
+    calc
+      n < (R + 1) ^ 2 := hnUpper
+      _ ≤ B ^ 2 := hR2B2
+      _ ≤ (2 * A) ^ 2 := hB2
+      _ = 4 * A ^ 2 := by ring
+  have hpLower : A + 1 ≤ p := by omega
+  have hqA2 : q < A ^ 2 := by
+    by_contra hnot
+    have hA2q : A ^ 2 ≤ q := Nat.le_of_not_gt hnot
+    have hprod :
+        (A + 1) * A ^ 2 ≤ p * q :=
+      Nat.mul_le_mul hpLower hA2q
+    have hpoly : 4 * A ^ 2 < (A + 1) * A ^ 2 := by
+      nlinarith
+    have hnEq : n = p * q := by
+      rw [← hqEq] at hmul
+      exact hmul.symm
+    rw [← hnEq] at hprod
+    omega
+  exact ⟨hqPrime, hqA2, (Nat.sqrt_lt').2 hqA2⟩
+
+/-- **Linear frozen-run VF identity.**
+
+The affine Mobius decoder collapses exactly to
+
+`Tracking = VFMass - frozen survivor population + surviving composite population`.
+
+Equivalently, the only arithmetic correction to the deterministic
+`VFMass - frozenSupply` baseline is the rank-two composite population. -/
+theorem vfMidDyadicVFTrackingDefect_eq_vfMass_sub_prefix_add_composite
+    {A B : ℕ}
+    (hA : 3 ≤ A) (hAB : A ≤ B) (hBA : B ≤ 2 * A) :
+    vfMidDyadicVFTrackingDefect A B =
+      vfMidDyadicVFMass A B -
+        vfMidDyadicPrefixSupply A A B +
+        vfMidDyadicPrefixCompositeSupply A B := by
+  have htrack :=
+    vfMidDyadicVFTrackingDefect_eq_frozenWheel_add_half_moebius
+      hA hAB hBA
+  have hpop :=
+    vfMidDyadicPrefixSupply_eq_prime_add_composite hA hAB
+  have hmass :=
+    vfMidDyadicPrefixSurvivorMobiusMassReal_eq_composite_sub_prime
+      hA hAB hBA
+  rw [htrack, hpop, hmass]
+  ring
+
+/-- **Owner-tagged prime-child normal form of the actual VF tracking defect.**
+
+On a subdoubling frozen run the correction is not an opaque Mobius remainder:
+it is exactly the multiplicity-preserving population of prime children obtained
+by stripping the late semiprime owners.  Every such child is one prime below
+the starting square by
+`vfMidDyadicFrozenCompositeOwnerChild_prime_below_frozenSquare`. -/
+theorem vfMidDyadicVFTrackingDefect_eq_vfMass_sub_prefix_add_ownerPrimeChildren
+    {A B : ℕ}
+    (hA : 3 ≤ A) (hAB : A ≤ B) (hBA : B ≤ 2 * A) :
+    vfMidDyadicVFTrackingDefect A B =
+      vfMidDyadicVFMass A B -
+        vfMidDyadicPrefixSupply A A B +
+        vfMidDyadicFrozenCompositeOwnerChildSupply A B := by
+  rw [vfMidDyadicVFTrackingDefect_eq_vfMass_sub_prefix_add_composite
+      hA hAB hBA,
+    vfMidDyadicPrefixCompositeSupply_eq_ownerChildSupply hA hAB]
+
 /-- Restricted #886 signed mass on the clipped p-free base side of one
 first-owner/signature cell. -/
 def vfMidSurvivorClippedBaseAmplitude
