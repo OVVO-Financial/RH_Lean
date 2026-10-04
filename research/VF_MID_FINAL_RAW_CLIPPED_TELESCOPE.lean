@@ -1020,7 +1020,7 @@ four times the frozen root.  Hence its square-root scale is strictly below
 the frozen root once A is at least four. -/
 theorem vfMidFrozenOwnerPrimeIntervalUpper_lt_four_mul
     {A B R p : ℕ}
-    (hA : 4 ≤ A) (_hAB : A ≤ B) (hBA : B ≤ 2 * A)
+    (hA : 4 ≤ A) (hAB : A ≤ B) (hBA : B ≤ 2 * A)
     (hR : R ∈ Finset.Ico A B)
     (hp : p ∈ vfMidSquareBandLateOwnerPrimes A R) :
     ((R + 1) ^ 2 - 1) / p < 4 * A := by
@@ -1108,7 +1108,7 @@ ledger.  The owner tag is retained, so this theorem makes no injectivity claim
 between distinct owner fibres. -/
 theorem vfMidDyadicFrozenCompositeOwnerChild_prime_below_frozenSquare
     {A B R p q : ℕ}
-    (hA : 4 ≤ A) (hAB : A ≤ B) (hBA : B ≤ 2 * A)
+    (hA : 4 ≤ A) (_hAB : A ≤ B) (hBA : B ≤ 2 * A)
     (hR : R ∈ Finset.Ico A B)
     (hp : p ∈ vfMidSquareBandLateOwnerPrimes A R)
     (hq : q ∈ vfMidSquareBandCompositeOwnerChildren R p) :
@@ -1454,7 +1454,7 @@ rows.  This is only a reindexing of the finite triangular carrier
 
 No estimate or multiplicity collapse occurs. -/
 theorem vfMidDyadicFrozenCompositePrimeIntervalSupply_eq_sum_fixedOwner
-    {A B : ℕ} (hAB : A ≤ B) :
+    {A B : ℕ} (_hAB : A ≤ B) :
     vfMidDyadicFrozenCompositePrimeIntervalSupply A B =
       ∑ p ∈ vfMidFrozenRunOwnerPrimes A B,
         vfMidFrozenFixedOwnerPrimeIntervalSupply p B := by
