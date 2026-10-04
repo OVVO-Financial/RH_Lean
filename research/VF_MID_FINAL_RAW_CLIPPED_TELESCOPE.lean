@@ -284,6 +284,123 @@ theorem vfMidDyadicPrefixSurvivor_primeDivisor_dichotomy
       exact False.elim (hnPrime (hnEqP.symm ▸ hp))
     · exact ⟨hnPrime, hpLow, hquotPrime⟩
 
+/-- **High first-owner fibres are pure prime-prime fibres.**
+
+If the least fresh owner of two frozen survivors lies at or above `A^2`, then
+neither endpoint can be a rank-two survivor.  Otherwise one of the endpoint's
+prime factors, all of which lie below `A^2`, would already be a smaller fresh
+coordinate.  Thus the high part of the first-owner ledger is exactly the
+prime-prime sector seen at owners 197,199,... in the 317 computation. -/
+theorem vfMidDyadicPrefixSurvivor_highFirstOwner_forces_prime_pair
+    {A B p m n : ℕ}
+    (hA : 4 ≤ A) (hAB : A ≤ B) (hBA : B ≤ 2 * A)
+    (hp : p.Prime) (hpHigh : A ^ 2 ≤ p)
+    (hm : m ∈ vfMidDyadicPrefixSurvivorCarrier A B)
+    (hn : n ∈ vfMidDyadicPrefixSurvivorCarrier A B)
+    (howner : IsSquarefreePairFreshPrimeOwner p m n) :
+    m.Prime ∧ n.Prime := by
+  have hmClock :=
+    vfMidDyadicPrefixSurvivorCarrier_subset_lowOwnerNonzero
+      (by omega : 3 ≤ A) hAB hBA hm
+  have hnClock :=
+    vfMidDyadicPrefixSurvivorCarrier_subset_lowOwnerNonzero
+      (by omega : 3 ≤ A) hAB hBA hn
+  have hmPos := (lowOwnerNonzeroMobiusCarrier_squarefree_pos hmClock).2
+  have hnPos := (lowOwnerNonzeroMobiusCarrier_squarefree_pos hnClock).2
+  have hpXor :=
+    (mem_squarefreePairFreshPrimeSet_iff_prime_dvd_xor
+      hp hmPos hnPos).1 howner.1
+  have hmPrime : m.Prime := by
+    by_contra hmNotPrime
+    have hpNotM : ¬ p ∣ m := by
+      intro hpm
+      have hpLow :=
+        vfMidDyadicPrefixSurvivor_primeDivisor_lt_frozenSquare_of_composite
+          hA hAB hBA hp hm hmNotPrime hpm
+      omega
+    have hpn : p ∣ n := by
+      rcases hpXor with hleft | hright
+      · exact False.elim (hpNotM hleft.1)
+      · exact hright.1
+    have hnPrime :=
+      vfMidDyadicPrefixSurvivor_highOwner_divisible_endpoint_prime
+        hA hAB hBA hp hpHigh hn hpn
+    have hpEqN : p = n :=
+      ((Nat.dvd_prime hnPrime).mp hpn).resolve_left hp.ne_one
+    rcases
+        vfMidDyadicPrefixSurvivor_composite_descends_to_prime_below_frozen
+          hA hAB hBA hm hmNotPrime with
+      ⟨q, r, hq, _hr, _hAq, hqr, hmEq, hrA2, _hsqrt⟩
+    have hqLtP : q < p := by omega
+    have hqm : q ∣ m := by
+      rw [hmEq]
+      exact dvd_mul_right q r
+    have hqn : ¬ q ∣ n := by
+      rw [← hpEqN]
+      intro hqp
+      have hqEqP :=
+        ((Nat.dvd_prime hp).mp hqp).resolve_left hq.ne_one
+      omega
+    have hqFresh : q ∈ squarefreePairFreshPrimeSet m n :=
+      (mem_squarefreePairFreshPrimeSet_iff_prime_dvd_xor
+        hq hmPos hnPos).2 (Or.inl ⟨hqm, hqn⟩)
+    have hpLeQ := howner.2 q hqFresh
+    omega
+  have hnPrime : n.Prime := by
+    by_contra hnNotPrime
+    have hpNotN : ¬ p ∣ n := by
+      intro hpn
+      have hpLow :=
+        vfMidDyadicPrefixSurvivor_primeDivisor_lt_frozenSquare_of_composite
+          hA hAB hBA hp hn hnNotPrime hpn
+      omega
+    have hpm : p ∣ m := by
+      rcases hpXor with hleft | hright
+      · exact hleft.1
+      · exact False.elim (hpNotN hright.1)
+    have hmPrimeHigh :=
+      vfMidDyadicPrefixSurvivor_highOwner_divisible_endpoint_prime
+        hA hAB hBA hp hpHigh hm hpm
+    have hpEqM : p = m :=
+      ((Nat.dvd_prime hmPrimeHigh).mp hpm).resolve_left hp.ne_one
+    rcases
+        vfMidDyadicPrefixSurvivor_composite_descends_to_prime_below_frozen
+          hA hAB hBA hn hnNotPrime with
+      ⟨q, r, hq, _hr, _hAq, hqr, hnEq, hrA2, _hsqrt⟩
+    have hqLtP : q < p := by omega
+    have hqn : q ∣ n := by
+      rw [hnEq]
+      exact dvd_mul_right q r
+    have hqmNot : ¬ q ∣ m := by
+      rw [← hpEqM]
+      intro hqp
+      have hqEqP :=
+        ((Nat.dvd_prime hp).mp hqp).resolve_left hq.ne_one
+      omega
+    have hqFresh : q ∈ squarefreePairFreshPrimeSet m n :=
+      (mem_squarefreePairFreshPrimeSet_iff_prime_dvd_xor
+        hq hmPos hnPos).2 (Or.inr ⟨hqn, hqmNot⟩)
+    have hpLeQ := howner.2 q hqFresh
+    omega
+  exact ⟨hmPrime, hnPrime⟩
+
+/-- High first-owner pair weights are therefore exactly `+1`. -/
+theorem vfMidDyadicPrefixSurvivor_highFirstOwner_pairWeight_eq_one
+    {A B p m n : ℕ}
+    (hA : 4 ≤ A) (hAB : A ≤ B) (hBA : B ≤ 2 * A)
+    (hp : p.Prime) (hpHigh : A ^ 2 ≤ p)
+    (hm : m ∈ vfMidDyadicPrefixSurvivorCarrier A B)
+    (hn : n ∈ vfMidDyadicPrefixSurvivorCarrier A B)
+    (howner : IsSquarefreePairFreshPrimeOwner p m n) :
+    realMoebiusStep m * realMoebiusStep n = 1 := by
+  rcases
+      vfMidDyadicPrefixSurvivor_highFirstOwner_forces_prime_pair
+        hA hAB hBA hp hpHigh hm hn howner with ⟨hmPrime, hnPrime⟩
+  rw [realMoebiusStep, realMoebiusStep,
+    ArithmeticFunction.moebius_apply_prime hmPrime,
+    ArithmeticFunction.moebius_apply_prime hnPrime]
+  norm_num
+
 /-- Restricted #886 signed mass on the clipped p-free base side of one
 first-owner/signature cell. -/
 def vfMidSurvivorClippedBaseAmplitude
