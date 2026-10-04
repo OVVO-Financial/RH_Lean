@@ -120,6 +120,60 @@ theorem vfMidActualPrimeFirstBadAt_forces_signedSeatRunTrigger
   · exact Or.inl (by simpa only [hpacket] using hlow)
   · exact Or.inr (by simpa only [hpacket] using hupp)
 
+/-! ## Exact affine split on the frozen survivor carrier -/
+
+/-- **The full VF tracking packet is survivor charge plus removed-seat mass.**
+
+The first term keeps the signed prime/composite information on the frozen
+survivor carrier.  The second is purely deterministic: the common VF seat
+weight times the odd parity seats removed by the stronger frozen wheel. -/
+theorem vfMidOddCompositeTrackingDefect_eq_prefixSurvivorCharge_add_removedSeats
+    {A R : ℕ}
+    (hA : 3 ≤ A) (hAR : A ≤ R) (hRlt : R < 2 * A) :
+    vfMidOddCompositeTrackingDefect R =
+      vfMidSubdoublingPrefixSurvivorChargeSum A R +
+        vfMidOddFractionalPrimeSeatWeight R *
+          ((R : ℝ) - ((vfMidSquarePrefixWheelSurvivors A R).card : ℝ)) := by
+  rw [vfMidOddCompositeTrackingDefect_eq_frozenWheel_add_half_moebius
+      hA hAR hRlt,
+    vfMidSubdoublingPrefixSurvivorChargeSum_eq_affineMoebius
+      hA hAR hRlt]
+  have hmass :=
+    vfMidOddFractionalPrimeSeatWeight_sum R (by omega : 2 ≤ R)
+  rw [Finset.sum_const, nsmul_eq_mul, vfMidOddCandidateSeats_card] at hmass
+  have hmass' :
+      vfMidBandMass R =
+        vfMidOddFractionalPrimeSeatWeight R * (R : ℝ) := by
+    simpa [mul_comm] using hmass.symm
+  rw [hmass']
+  ring
+
+/-- The frozen survivor population is no larger than the parity carrier. -/
+theorem vfMidSquarePrefixWheelSurvivors_card_le_root
+    {A R : ℕ} (hA : 2 ≤ A) :
+    (vfMidSquarePrefixWheelSurvivors A R).card ≤ R := by
+  have hsub :
+      vfMidSquarePrefixWheelSurvivors A R ⊆
+        vfMidSquarePrefixWheelSurvivors 2 R :=
+    vfMidSquarePrefixWheelSurvivors_mono hA
+  have hcard := Finset.card_le_card hsub
+  simpa [← vfMidOddCandidateSeats, vfMidOddCandidateSeats_card] using hcard
+
+/-- The removed-seat affine correction has a fixed favorable sign. -/
+theorem vfMidPrefixRemovedSeatMass_nonneg
+    {A R : ℕ} (hA : 2 ≤ A) (hR : 2 ≤ R) :
+    0 ≤ vfMidOddFractionalPrimeSeatWeight R *
+      ((R : ℝ) - ((vfMidSquarePrefixWheelSurvivors A R).card : ℝ)) := by
+  have hw : 0 ≤ vfMidOddFractionalPrimeSeatWeight R := by
+    unfold vfMidOddFractionalPrimeSeatWeight
+    exact div_nonneg (vfMidBandMass_nonneg_of_two_le R hR) (by positivity)
+  have hcard := vfMidSquarePrefixWheelSurvivors_card_le_root
+    (A := A) (R := R) hA
+  have hdiff :
+      0 ≤ (R : ℝ) - ((vfMidSquarePrefixWheelSurvivors A R).card : ℝ) := by
+    exact_mod_cast hcard
+  exact mul_nonneg hw hdiff
+
 /-! ## Literal restricted carrier and exact first-owner reindex -/
 
 open RHLean.Arithmetic RHLean.Proof
