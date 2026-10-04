@@ -409,7 +409,7 @@ theorem vfMidDyadicPrefixSurvivor_highFirstOwner_pairWeight_eq_one
 Boolean-face version of the rank-two normal form. -/
 theorem vfMidDyadicPrefixSurvivor_primeFace_card_le_two
     {A B n : ℕ}
-    (hA : 3 ≤ A) (_hAB : A ≤ B) (hBA : B ≤ 2 * A)
+    (hA : 3 ≤ A) (hAB : A ≤ B) (hBA : B ≤ 2 * A)
     (hn : n ∈ vfMidDyadicPrefixSurvivorCarrier A B) :
     (squarefreePrimeFace n).card ≤ 2 := by
   rcases
@@ -750,7 +750,7 @@ theorem vfMidFrozenOwnerRunChildren_eq_primeHyperbolaInterval
       dsimp [n]
       simpa [Nat.mul_comm] using hmul
     have hnBsq : n < B ^ 2 := by
-      have hBpos : 0 < B := hp.pos.trans_lt hpB
+      have hBpos : 0 < B := by omega
       have hBsqPos : 0 < B ^ 2 := pow_pos hBpos 2
       omega
     have hRB : R < B := by
@@ -965,7 +965,7 @@ theorem vfMidFrozenOwnerHyperbolaCard_add_primeCounting
   have hpSqLt : p ^ 2 < B ^ 2 :=
     Nat.pow_lt_pow_left hpB (by omega)
   have hpSqLeSub : p * p ≤ B ^ 2 - 1 := by
-    have hBpos : 0 < B := hpPrime.pos.trans_lt hpB
+    have hBpos : 0 < B := by omega
     have hBsqPos : 0 < B ^ 2 := pow_pos hBpos 2
     have hpSqLt' : p * p < B ^ 2 := by
       simpa [pow_two] using hpSqLt
@@ -995,25 +995,6 @@ theorem vfMidDyadicFrozenCompositeOwnerChildSupply_eq_semiprimeHyperbolaPrimeCou
         (Nat.primeCounting ((B ^ 2 - 1) / p) : ℝ) := by
     exact_mod_cast hcount
   linarith
-
-/-- **Actual VF tracking defect in owner-first semiprime-hyperbola form.**
-
-This is the exact general theorem encoded by the hand examples: freeze through
-A, count the frozen survivor population deterministically, and add back exactly
-the rank-two semiprimes by their unique least-prime owner. -/
-theorem vfMidDyadicVFTrackingDefect_eq_vfMass_sub_prefix_add_semiprimeHyperbola
-    {A B : ℕ}
-    (hA : 3 ≤ A) (hAB : A ≤ B) (hBA : B ≤ 2 * A) :
-    vfMidDyadicVFTrackingDefect A B =
-      vfMidDyadicVFMass A B -
-        vfMidDyadicPrefixSupply A A B +
-        ∑ p ∈ vfMidFrozenRunOwnerPrimes A B,
-          ((Nat.primeCounting ((B ^ 2 - 1) / p) : ℝ) -
-            (Nat.primeCounting p : ℝ)) := by
-  rw [vfMidDyadicVFTrackingDefect_eq_vfMass_sub_prefix_add_ownerPrimeChildren
-      hA hAB hBA,
-    vfMidDyadicFrozenCompositeOwnerChildSupply_eq_semiprimeHyperbolaPrimeCounting
-      hA hAB hBA]
 
 /-- Cardinal form of the quotient-prime identity. -/
 theorem vfMidSquareBandCompositeOwnerChildren_card_add_primeCounting_lower_eq_upper
@@ -1177,8 +1158,9 @@ theorem vfMidDyadicFrozenCompositeOwnerChild_prime_below_frozenSquare
     have hpoly : 4 * A ^ 2 < (A + 1) * A ^ 2 := by
       nlinarith
     have hnEq : n = p * q := by
-      rw [← hqEq] at hmul
-      exact hmul.symm
+      calc
+        n = p * (n / p) := hmul.symm
+        _ = p * q := by rw [hqEq]
     rw [← hnEq] at hprod
     omega
   exact ⟨hqPrime, hqA2, (Nat.sqrt_lt').2 hqA2⟩
@@ -1326,6 +1308,25 @@ theorem vfMidDyadicVFTrackingDefect_eq_vfMass_sub_prefix_add_ownerPrimeChildren
   rw [vfMidDyadicVFTrackingDefect_eq_vfMass_sub_prefix_add_composite
       hA hAB hBA,
     vfMidDyadicPrefixCompositeSupply_eq_ownerChildSupply hA hAB]
+
+/-- **Actual VF tracking defect in owner-first semiprime-hyperbola form.**
+
+This is the exact general theorem encoded by the hand examples: freeze through
+A, count the frozen survivor population deterministically, and add back exactly
+the rank-two semiprimes by their unique least-prime owner. -/
+theorem vfMidDyadicVFTrackingDefect_eq_vfMass_sub_prefix_add_semiprimeHyperbola
+    {A B : ℕ}
+    (hA : 3 ≤ A) (hAB : A ≤ B) (hBA : B ≤ 2 * A) :
+    vfMidDyadicVFTrackingDefect A B =
+      vfMidDyadicVFMass A B -
+        vfMidDyadicPrefixSupply A A B +
+        ∑ p ∈ vfMidFrozenRunOwnerPrimes A B,
+          ((Nat.primeCounting ((B ^ 2 - 1) / p) : ℝ) -
+            (Nat.primeCounting p : ℝ)) := by
+  rw [vfMidDyadicVFTrackingDefect_eq_vfMass_sub_prefix_add_ownerPrimeChildren
+      hA hAB hBA,
+    vfMidDyadicFrozenCompositeOwnerChildSupply_eq_semiprimeHyperbolaPrimeCounting
+      hA hAB hBA]
 
 /-! ## Fixed-owner reciprocal telescope -/
 
