@@ -146,6 +146,77 @@ theorem vfMidTwoSectorOwnerCharge_eq_endpointDefect_sub
   unfold vfMidActualPrimeEndpointDefect
   ring
 
+/-- Exact accumulated-depth energy identity for the #888 two-sector step.
+
+This is the non-Lipschitz terminal currency:
+`D_B^2 - D_A^2 = T(A,B)^2 - 2*D_A*T(A,B)`.
+The cross term retains the entire accumulated depth at the anchor. -/
+theorem vfMidTwoSectorOwnerCharge_energyStep_eq
+    {A B : ℕ}
+    (hA : 3 ≤ A)
+    (hAB : A ≤ B)
+    (hBA : B ≤ 2 * A) :
+    vfMidActualPrimeEndpointDefect B ^ 2 -
+        vfMidActualPrimeEndpointDefect A ^ 2 =
+      (vfMidDyadicFrozenSurvivorSeatCharge A B +
+          vfMidDyadicProcessedOwnerSeatCharge A B) ^ 2 -
+        2 * vfMidActualPrimeEndpointDefect A *
+          (vfMidDyadicFrozenSurvivorSeatCharge A B +
+            vfMidDyadicProcessedOwnerSeatCharge A B) := by
+  have hT :=
+    vfMidTwoSectorOwnerCharge_eq_endpointDefect_sub
+      hA hAB hBA
+  nlinarith
+
+/-- A first-bad endpoint forces the exact accumulated-depth quadratic bill
+above the squared radial wall at B.  This is the energy form that the #888
+quarter-contraction must defeat; no local-gradient bound is used. -/
+theorem vfMidActualPrimeFirstBadAt_forces_depthAwareEnergyTrigger
+    {K : ℝ} {A B : ℕ}
+    (hK : 0 ≤ K)
+    (hfirst : VFMidActualPrimeFirstBadAt K B)
+    (hA : 3 ≤ A)
+    (hABlt : A < B)
+    (hBA : B ≤ 2 * A) :
+    (K * vfMidSyntheticRadialScale B) ^ 2 -
+        vfMidActualPrimeEndpointDefect A ^ 2 <
+      (vfMidDyadicFrozenSurvivorSeatCharge A B +
+          vfMidDyadicProcessedOwnerSeatCharge A B) ^ 2 -
+        2 * vfMidActualPrimeEndpointDefect A *
+          (vfMidDyadicFrozenSurvivorSeatCharge A B +
+            vfMidDyadicProcessedOwnerSeatCharge A B) := by
+  have hbad := hfirst.1
+  unfold VFMidSyntheticBadAt at hbad
+  have hB2 : 2 ≤ B := by omega
+  have hscale : 0 < vfMidSyntheticRadialScale B :=
+    vfMidSyntheticRadialScale_pos hB2
+  have hwall0 : 0 ≤ K * vfMidSyntheticRadialScale B :=
+    mul_nonneg hK hscale.le
+  have habs0 : 0 ≤ |vfMidActualPrimeEndpointDefect B| := abs_nonneg _
+  have habsPos : 0 < |vfMidActualPrimeEndpointDefect B| := by
+    linarith
+  have hsumPos :
+      0 <
+        |vfMidActualPrimeEndpointDefect B| +
+          K * vfMidSyntheticRadialScale B :=
+    add_pos_of_pos_of_nonneg habsPos hwall0
+  have hprodPos :
+      0 <
+        (|vfMidActualPrimeEndpointDefect B| -
+          K * vfMidSyntheticRadialScale B) *
+        (|vfMidActualPrimeEndpointDefect B| +
+          K * vfMidSyntheticRadialScale B) :=
+    mul_pos (sub_pos.mpr hbad) hsumPos
+  have hsq :
+      (K * vfMidSyntheticRadialScale B) ^ 2 <
+        vfMidActualPrimeEndpointDefect B ^ 2 := by
+    rw [← sq_abs (vfMidActualPrimeEndpointDefect B)]
+    nlinarith
+  have henergy :=
+    vfMidTwoSectorOwnerCharge_energyStep_eq
+      hA hABlt.le hBA
+  nlinarith
+
 /-- A first-bad scale forces the exact two-sector charge to exceed the
 **remaining global radial slack**, not merely the local radial gradient.
 
