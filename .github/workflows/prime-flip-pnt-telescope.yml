@@ -318,11 +318,16 @@ jobs:
           #print axioms RHLean.Analysis.allScaleLiSquareRootBounded_of_criticalPoisson_uniform
           #print axioms RHLean.Analysis.abs_exactLiContinuousCumulative_le
           #print axioms RHLean.Analysis.exactLiContinuousModel_root_closed
-          #print axioms RHLean.Analysis.vfMidOptimalBaseFanCount_eq_vfMid_add
-          #print axioms RHLean.Analysis.abs_vfMidOptimalBaseFanCount_sub_vfMid_le
-          #print axioms RHLean.Analysis.vfMidPrimeError_le_of_optimalBaseFanContainment
-          #print axioms RHLean.Analysis.vfMidVonKochBounded_of_actualPrimeOptimalBaseContained
-          #print axioms RHLean.Analysis.riemannHypothesis_of_actualPrimeOptimalBaseContained
+          #print axioms RHLean.Analysis.optimalBaseImage_reconstructs
+          #print axioms RHLean.Analysis.optimalBaseImage_le_iff
+          #print axioms RHLean.Analysis.optimalBaseImage_bracket_iff
+          #print axioms RHLean.Analysis.vfMidActualPrimeOptimalBase_radialBracket_iff
+          #print axioms RHLean.Analysis.actualPrimeOptimalBaseContainedInSolvedFantasyRadialCone_iff
+          #print axioms RHLean.Analysis.actualPrimeOptimalBaseContainedInSolvedFantasyRadialCone_iff_vonKoch
+          #print axioms RHLean.Analysis.vfMidActualPrimeOptimalBase_outerCornerBracket_iff
+          #print axioms RHLean.Analysis.actualPrimeOptimalBaseContainedInOuterCorner_iff
+          #print axioms RHLean.Analysis.vfMidSquareEndpointVonKochBounded_of_actualPrimeOptimalBaseOuterCorners
+          #print axioms RHLean.Analysis.riemannHypothesis_of_actualPrimeOptimalBaseOuterCorners
           #print axioms RHLean.Analysis.vfMidPrimeLiError_eq_primeError_add_liError
           #print axioms RHLean.Analysis.vfMidLiRootBounded
           #print axioms RHLean.Analysis.vfMidOscillationScale_of_primeLi_of_quadrature
