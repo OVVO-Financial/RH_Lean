@@ -103,23 +103,26 @@ theorem lowOwnerFirstOwnerCellGramWith_vfMidSurvivor_eq_clipped_mul_child
         (lowOwnerFirstOwnerChildFiber B p sig),
       vfMidDyadicPrefixSurvivorSignedSite A B ab.1 *
         vfMidDyadicPrefixSurvivorSignedSite A B ab.2) =
-      (∑ a ∈ lowOwnerFirstOwnerBaseFiber B p sig,
-        vfMidDyadicPrefixSurvivorSignedSite A B a) *
-      (∑ b ∈ lowOwnerFirstOwnerChildFiber B p sig,
-        vfMidDyadicPrefixSurvivorSignedSite A B b) := by
-          symm
-          rw [Finset.sum_mul]
-          apply Finset.sum_congr rfl
-          intro a _ha
-          rw [Finset.mul_sum]
-          symm
+      ∑ a ∈ lowOwnerFirstOwnerBaseFiber B p sig,
+        ∑ b ∈ lowOwnerFirstOwnerChildFiber B p sig,
+          vfMidDyadicPrefixSurvivorSignedSite A B a *
+            vfMidDyadicPrefixSurvivorSignedSite A B b := by
           simpa only using
             (Finset.sum_product
-              (s := ({a} : Finset ℕ))
+              (s := lowOwnerFirstOwnerBaseFiber B p sig)
               (t := lowOwnerFirstOwnerChildFiber B p sig)
               (f := fun ab : ℕ × ℕ =>
                 vfMidDyadicPrefixSurvivorSignedSite A B ab.1 *
                   vfMidDyadicPrefixSurvivorSignedSite A B ab.2))
+    _ =
+      (∑ a ∈ lowOwnerFirstOwnerBaseFiber B p sig,
+        vfMidDyadicPrefixSurvivorSignedSite A B a) *
+      (∑ b ∈ lowOwnerFirstOwnerChildFiber B p sig,
+        vfMidDyadicPrefixSurvivorSignedSite A B b) := by
+          rw [Finset.sum_mul]
+          apply Finset.sum_congr rfl
+          intro a _ha
+          rw [Finset.mul_sum]
     _ =
       vfMidSurvivorClippedBaseAmplitude A B p sig *
         vfMidSurvivorChildAmplitude A B p sig := by
