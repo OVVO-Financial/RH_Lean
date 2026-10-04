@@ -237,6 +237,53 @@ theorem vfMidDyadicPrefixSurvivor_highOwner_divisible_endpoint_prime
       hA hAB hBA hp hn hnPrime hpn
   omega
 
+/-- **Exact low-owner / high-prime dichotomy for one survivor site.**
+
+A prime divisor of a frozen survivor has exactly the two forms visible in the
+317 ledger:
+
+* high prime site: the survivor itself is prime, the divisor equals that site,
+  and the site lies above `A^2`;
+* low semiprime owner: the survivor is nonprime, the divisor lies below
+  `A^2`, and stripping it leaves another prime.
+
+There is no third owner type on a subdoubling frozen run. -/
+theorem vfMidDyadicPrefixSurvivor_primeDivisor_dichotomy
+    {A B p n : ℕ}
+    (hA : 4 ≤ A) (hAB : A ≤ B) (hBA : B ≤ 2 * A)
+    (hp : p.Prime)
+    (hn : n ∈ vfMidDyadicPrefixSurvivorCarrier A B)
+    (hpn : p ∣ n) :
+    (n.Prime ∧ p = n ∧ A ^ 2 < n) ∨
+      (¬ n.Prime ∧ p < A ^ 2 ∧ (n / p).Prime) := by
+  have hnAbove : A ^ 2 < n := by
+    rcases Finset.mem_biUnion.mp hn with ⟨R, hR, hnSurv⟩
+    have hAR : A ≤ R := (Finset.mem_Ico.mp hR).1
+    have hnSite := (Finset.mem_filter.mp hnSurv).1
+    unfold vfMidSquareWheelSites at hnSite
+    have hR2n : R ^ 2 < n := (Finset.mem_Ioo.mp hnSite).1
+    have hA2R2 : A ^ 2 ≤ R ^ 2 :=
+      Nat.pow_le_pow_left hAR 2
+    exact hA2R2.trans_lt hR2n
+  by_cases hnPrime : n.Prime
+  · left
+    have hpEq : p = n :=
+      ((Nat.dvd_prime hnPrime).mp hpn).resolve_left hp.ne_one
+    exact ⟨hnPrime, hpEq, hnAbove⟩
+  · right
+    have hpLow :=
+      vfMidDyadicPrefixSurvivor_primeDivisor_lt_frozenSquare_of_composite
+        hA hAB hBA hp hn hnPrime hpn
+    have hquot :=
+      vfMidDyadicPrefixSurvivor_div_prime_eq_one_or_prime
+        (by omega : 3 ≤ A) hAB hBA hp hn hpn
+    rcases hquot with hquotOne | hquotPrime
+    · have hmul : p * (n / p) = n := Nat.mul_div_cancel' hpn
+      rw [hquotOne, mul_one] at hmul
+      have hnEqP : n = p := hmul.symm
+      exact False.elim (hnPrime (hnEqP.symm ▸ hp))
+    · exact ⟨hnPrime, hpLow, hquotPrime⟩
+
 /-- Restricted #886 signed mass on the clipped p-free base side of one
 first-owner/signature cell. -/
 def vfMidSurvivorClippedBaseAmplitude
