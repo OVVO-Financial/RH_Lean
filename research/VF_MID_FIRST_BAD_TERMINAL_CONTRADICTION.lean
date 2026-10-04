@@ -217,6 +217,79 @@ theorem vfMidActualPrimeFirstBadAt_forces_depthAwareEnergyTrigger
       hA hABlt.le hBA
   nlinarith
 
+/-- The actual-prime endpoint defect is the repository square-endpoint error. -/
+theorem vfMidActualPrimeEndpointDefect_eq_squareEndpointError
+    {R : ℕ} (hR : 2 ≤ R) :
+    vfMidActualPrimeEndpointDefect R = vfMidSquareEndpointError R := by
+  unfold vfMidActualPrimeEndpointDefect
+  rw [← vfMidDirectSquareEndpointError_eq_vfMidPrimeError hR]
+  rfl
+
+/-- On the literal one-block choice `B = R+1`, the complete #888 two-sector
+charge is exactly the negative direct square-band error. -/
+theorem vfMidTwoSectorOwnerCharge_succ_eq_neg_bandError
+    {R : ℕ} (hR : 3 ≤ R) :
+    vfMidDyadicFrozenSurvivorSeatCharge R (R + 1) +
+        vfMidDyadicProcessedOwnerSeatCharge R (R + 1) =
+      -vfMidSquareBandError R := by
+  have hT :=
+    vfMidTwoSectorOwnerCharge_eq_endpointDefect_sub
+      (A := R) (B := R + 1) hR (by omega) (by omega)
+  rw [vfMidActualPrimeEndpointDefect_eq_squareEndpointError (by omega : 2 ≤ R),
+    vfMidActualPrimeEndpointDefect_eq_squareEndpointError
+      (by omega : 2 ≤ R + 1)] at hT
+  have hstep := vfMidSquareEndpointError_succ R (by omega : 2 ≤ R)
+  linarith
+
+/-- **Direct accumulated-depth weld.**
+
+For the one-block anchor `A=R, B=R+1`, the #888 quadratic bill is literally
+the already-compiled VF-native Lyapunov seat-Gram bill.  There is no remaining
+translation between the first-bad endpoint energy and the physical seat Gram. -/
+theorem vfMidTwoSectorOwnerCharge_energyStep_succ_eq_lyapunov
+    {R : ℕ} (hR : 3 ≤ R) :
+    (vfMidDyadicFrozenSurvivorSeatCharge R (R + 1) +
+        vfMidDyadicProcessedOwnerSeatCharge R (R + 1)) ^ 2 -
+      2 * vfMidActualPrimeEndpointDefect R *
+        (vfMidDyadicFrozenSurvivorSeatCharge R (R + 1) +
+          vfMidDyadicProcessedOwnerSeatCharge R (R + 1)) =
+      vfMidOddLyapunovSeatGramBill R R := by
+  have henergy :=
+    vfMidTwoSectorOwnerCharge_energyStep_eq
+      (A := R) (B := R + 1) hR (by omega) (by omega)
+  rw [vfMidActualPrimeEndpointDefect_eq_squareEndpointError
+        (by omega : 2 ≤ R),
+      vfMidActualPrimeEndpointDefect_eq_squareEndpointError
+        (by omega : 2 ≤ R + 1)] at henergy
+  have hseat :=
+    vfMidSquareEndpointError_energy_step_eq_oddLyapunovSeatGramBill
+      (A := R) (R := R) (by omega : 2 ≤ R) (by omega)
+  exact henergy.symm.trans hseat
+
+/-- The same direct weld in the repository correlation coordinate.  This makes
+the only possible remaining positive first-bad energy explicit:
+`e_R^2 + 2 D_R e_R`. -/
+theorem vfMidTwoSectorOwnerCharge_energyStep_succ_eq_correlation
+    {R : ℕ} (hR : 3 ≤ R) :
+    (vfMidDyadicFrozenSurvivorSeatCharge R (R + 1) +
+        vfMidDyadicProcessedOwnerSeatCharge R (R + 1)) ^ 2 -
+      2 * vfMidActualPrimeEndpointDefect R *
+        (vfMidDyadicFrozenSurvivorSeatCharge R (R + 1) +
+          vfMidDyadicProcessedOwnerSeatCharge R (R + 1)) =
+      2 * vfMidSquareEndpointAccumulationCorrelation R +
+        vfMidSquareBandError R ^ 2 := by
+  have henergy :=
+    vfMidTwoSectorOwnerCharge_energyStep_eq
+      (A := R) (B := R + 1) hR (by omega) (by omega)
+  rw [vfMidActualPrimeEndpointDefect_eq_squareEndpointError
+        (by omega : 2 ≤ R),
+      vfMidActualPrimeEndpointDefect_eq_squareEndpointError
+        (by omega : 2 ≤ R + 1)] at henergy
+  have hcorr :=
+    vfMidSquareEndpointError_sq_succ_eq_correlation
+      R (by omega : 2 ≤ R)
+  exact henergy.symm.trans hcorr
+
 /-- A first-bad scale forces the exact two-sector charge to exceed the
 **remaining global radial slack**, not merely the local radial gradient.
 
