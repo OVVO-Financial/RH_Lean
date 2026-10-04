@@ -2,6 +2,7 @@ import Mathlib
 import «research.VF_MID_SUBDOUBLING_SURVIVOR_TO_OWNER_GATE»
 import «research.VF_MID_PHI_OWNER_BRIDGE»
 import «research.GLOBAL_RETURNED_CORE_DIRICHLET_PAIR_POLARIZATION»
+import RHLean.Analysis.SquareRootPrimeCountGap
 
 /-!
 # VF final raw clipped telescope entry
@@ -557,6 +558,139 @@ theorem vfMidDyadicPrefixSurvivorMobiusMass_sq_sub_population_eq_pcOffDiagonal
     vfMidDyadicPrefixSurvivorMobiusMass_sq_eq_population_add_pcLedger
       hA hAB hBA
   linarith
+
+/-! ## Exact quotient-prime intervals for late semiprime owners -/
+
+/-- On a frozen subdoubling block, one late-owner child fibre is exactly the
+ordinary prime set in its quotient interval.  The roughness filter disappears:
+every child is prime, and every prime in the interval is automatically rough
+below the least owner. -/
+theorem vfMidSquareBandCompositeOwnerChildren_eq_primeInterval_of_subdoubling
+    {A R p : ℕ}
+    (hA : 3 ≤ A) (hAR : A ≤ R) (hRlt : R < 2 * A)
+    (hp : p ∈ vfMidSquareBandLateOwnerPrimes A R) :
+    vfMidSquareBandCompositeOwnerChildren R p =
+      (Finset.Ioc (R ^ 2 / p) (((R + 1) ^ 2 - 1) / p)).filter Nat.Prime := by
+  have hR3 : 3 ≤ R := hA.trans hAR
+  have hpOwner : p ∈ vfMidSquareBandOwnerPrimes R :=
+    (mem_vfMidSquareBandLateOwnerPrimes.mp hp).1
+  have hpData := mem_vfMidSquareBandOwnerPrimes.mp hpOwner
+  have hpPrime : p.Prime := hpData.1
+  have hpLeR : p ≤ R := hpData.2
+  have hpSqLe : p * p ≤ R * R :=
+    Nat.mul_le_mul hpLeR hpLeR
+  have hpLeLower : p ≤ R ^ 2 / p := by
+    apply (Nat.le_div_iff_mul_le hpPrime.pos).2
+    simpa [pow_two] using hpSqLe
+  ext q
+  constructor
+  · intro hq
+    have hqPrime : q.Prime := by
+      have hrough : q ∈ vfMidSquareBandOwnerRoughChildren R p := by
+        rw [← vfMidSquareBandCompositeOwnerChildren_eq_rough hR3 hpOwner]
+        exact hq
+      exact
+        vfMidSquareBandLateOwnerRoughChild_prime_of_subdoubling
+          hA hRlt hp hrough
+    have hprefix : q ∈ vfMidSquareBandOwnerPrefixChildren R p := by
+      rw [← vfMidSquareBandCompositeOwnerChildren_eq_prefixChildren hR3 hpOwner]
+      exact hq
+    exact Finset.mem_filter.mpr
+      ⟨(Finset.mem_filter.mp hprefix).1, hqPrime⟩
+  · intro hq
+    rcases Finset.mem_filter.mp hq with ⟨hqIoc, hqPrime⟩
+    rcases Finset.mem_Ioc.mp hqIoc with ⟨hlower, _hupper⟩
+    have hpLtQ : p < q := hpLeLower.trans_lt hlower
+    have hsurv : lowWheelHighSurvivor (p - 1) q := by
+      intro r hr hrDiv
+      have hrData := mem_primesUpTo.mp hr
+      have hrPrime : r.Prime := hrData.1
+      have hrLtP : r < p := by
+        have hrLe : r ≤ p - 1 := hrData.2
+        omega
+      have hrEqQ : r = q :=
+        ((Nat.dvd_prime hqPrime).mp hrDiv).resolve_left hrPrime.ne_one
+      omega
+    have hprefix : q ∈ vfMidSquareBandOwnerPrefixChildren R p :=
+      Finset.mem_filter.mpr ⟨hqIoc, hsurv⟩
+    rw [vfMidSquareBandCompositeOwnerChildren_eq_prefixChildren hR3 hpOwner]
+    exact hprefix
+
+/-- Cardinal form of the quotient-prime identity. -/
+theorem vfMidSquareBandCompositeOwnerChildren_card_add_primeCounting_lower_eq_upper
+    {A R p : ℕ}
+    (hA : 3 ≤ A) (hAR : A ≤ R) (hRlt : R < 2 * A)
+    (hp : p ∈ vfMidSquareBandLateOwnerPrimes A R) :
+    (vfMidSquareBandCompositeOwnerChildren R p).card +
+        Nat.primeCounting (R ^ 2 / p) =
+      Nat.primeCounting (((R + 1) ^ 2 - 1) / p) := by
+  rw [vfMidSquareBandCompositeOwnerChildren_eq_primeInterval_of_subdoubling
+      hA hAR hRlt hp]
+  have hnum : R ^ 2 ≤ (R + 1) ^ 2 - 1 := by
+    have hexp : (R + 1) ^ 2 = R ^ 2 + 2 * R + 1 := by ring
+    rw [hexp]
+    omega
+  have hle :
+      R ^ 2 / p ≤ ((R + 1) ^ 2 - 1) / p :=
+    Nat.div_le_div_right hnum
+  exact primeCard_Ioc_add_primeCounting_eq hle
+
+/-- Every upper quotient endpoint occurring in the frozen correction is below
+four times the frozen root.  Hence its square-root scale is strictly below
+the frozen root once A is at least four. -/
+theorem vfMidFrozenOwnerPrimeIntervalUpper_lt_four_mul
+    {A B R p : ℕ}
+    (hA : 4 ≤ A) (hAB : A ≤ B) (hBA : B ≤ 2 * A)
+    (hR : R ∈ Finset.Ico A B)
+    (hp : p ∈ vfMidSquareBandLateOwnerPrimes A R) :
+    ((R + 1) ^ 2 - 1) / p < 4 * A := by
+  have hpOwner : p ∈ vfMidSquareBandOwnerPrimes R :=
+    (mem_vfMidSquareBandLateOwnerPrimes.mp hp).1
+  have hpPrime : p.Prime :=
+    (mem_vfMidSquareBandOwnerPrimes.mp hpOwner).1
+  have hpA : A < p :=
+    (mem_vfMidSquareBandLateOwnerPrimes.mp hp).2
+  have hR1B : R + 1 ≤ B := by
+    have hRB : R < B := (Finset.mem_Ico.mp hR).2
+    omega
+  have hnumB :
+      (R + 1) ^ 2 - 1 < B ^ 2 := by
+    have hsq : (R + 1) ^ 2 ≤ B ^ 2 :=
+      Nat.pow_le_pow_left hR1B 2
+    have hBpos : 0 < B ^ 2 := by
+      have hB4 : 4 ≤ B := hA.trans hAB
+      positivity
+    omega
+  have hB4A : B ^ 2 ≤ 4 * A ^ 2 := by
+    calc
+      B ^ 2 ≤ (2 * A) ^ 2 := Nat.pow_le_pow_left hBA 2
+      _ = 4 * A ^ 2 := by ring
+  have hnum4A2 :
+      (R + 1) ^ 2 - 1 < 4 * A ^ 2 :=
+    hnumB.trans_le hB4A
+  apply (Nat.div_lt_iff_lt_mul hpPrime.pos).2
+  have hpLower : A + 1 ≤ p := by omega
+  have hpoly : 4 * A ^ 2 < (4 * A) * (A + 1) := by
+    nlinarith
+  have hmul :
+      (4 * A) * (A + 1) ≤ (4 * A) * p :=
+    Nat.mul_le_mul_left (4 * A) hpLower
+  exact hnum4A2.trans (hpoly.trans_le hmul)
+
+/-- Therefore every quotient-prime endpoint used by the frozen semiprime
+correction lies at a strictly smaller square-root scale. -/
+theorem vfMidFrozenOwnerPrimeIntervalUpper_sqrt_lt_frozen
+    {A B R p : ℕ}
+    (hA : 4 ≤ A) (hAB : A ≤ B) (hBA : B ≤ 2 * A)
+    (hR : R ∈ Finset.Ico A B)
+    (hp : p ∈ vfMidSquareBandLateOwnerPrimes A R) :
+    Nat.sqrt (((R + 1) ^ 2 - 1) / p) < A := by
+  have hupper :=
+    vfMidFrozenOwnerPrimeIntervalUpper_lt_four_mul
+      hA hAB hBA hR hp
+  have hfour : 4 * A ≤ A ^ 2 := by
+    nlinarith
+  exact (Nat.sqrt_lt').2 (hupper.trans_le hfour)
 
 /-! ## Linear owner-tagged child form of the VF tracking packet -/
 
