@@ -397,6 +397,26 @@ def vfMidDyadicPrefixSurvivorSignedSite (A B n : ℕ) : ℝ :=
   then realMoebiusStep n
   else 0
 
+/-- First-owner fibres at or below the frozen wheel carry no #885 restricted
+mass. Any nonzero pair contribution has both endpoints on the survivor carrier,
+and its least fresh owner is therefore strictly larger than A. -/
+theorem lowOwnerGlobalFirstOwnerPairMassWith_vfMidSurvivor_eq_zero_of_le_frozen
+    {A B p : ℕ} (hpA : p ≤ A) :
+    lowOwnerGlobalFirstOwnerPairMassWith B p
+        (vfMidDyadicPrefixSurvivorSignedSite A B) = 0 := by
+  unfold lowOwnerGlobalFirstOwnerPairMassWith
+  apply Finset.sum_eq_zero
+  intro mn hmn
+  by_cases hm : mn.1 ∈ vfMidDyadicPrefixSurvivorCarrier A B
+  · by_cases hn : mn.2 ∈ vfMidDyadicPrefixSurvivorCarrier A B
+    · have howner : IsSquarefreePairFreshPrimeOwner p mn.1 mn.2 :=
+        (Finset.mem_filter.mp hmn).2
+      have hgt :=
+        vfMidDyadicPrefixSurvivor_firstOwner_gt_frozen hm hn howner
+      exact False.elim ((Nat.not_lt_of_ge hpA) hgt)
+    · simp [vfMidDyadicPrefixSurvivorSignedSite, hm, hn]
+  · simp [vfMidDyadicPrefixSurvivorSignedSite, hm]
+
 /-- Restricting the common returned-core clock by the #885 indicator recovers
 exactly the #885 signed survivor packet. -/
 theorem sum_lowOwnerNonzero_vfMidDyadicPrefixSurvivorSignedSite
