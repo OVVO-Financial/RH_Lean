@@ -696,7 +696,7 @@ the single interval p < q <= (B^2-1)/p.  This is the all-scale statement
 behind the explicit semiprime lists in the hand checks. -/
 theorem vfMidFrozenOwnerRunChildren_eq_primeHyperbolaInterval
     {A B p : ℕ}
-    (hA : 3 ≤ A) (hAB : A ≤ B) (hBA : B ≤ 2 * A)
+    (hA : 3 ≤ A) (_hAB : A ≤ B) (hBA : B ≤ 2 * A)
     (hp : p.Prime) (hAp : A < p) (hpB : p < B) :
     vfMidFrozenOwnerRunChildren A B p =
       (Finset.Ioc p ((B ^ 2 - 1) / p)).filter Nat.Prime := by
@@ -1020,7 +1020,7 @@ four times the frozen root.  Hence its square-root scale is strictly below
 the frozen root once A is at least four. -/
 theorem vfMidFrozenOwnerPrimeIntervalUpper_lt_four_mul
     {A B R p : ℕ}
-    (hA : 4 ≤ A) (hAB : A ≤ B) (hBA : B ≤ 2 * A)
+    (hA : 4 ≤ A) (_hAB : A ≤ B) (hBA : B ≤ 2 * A)
     (hR : R ∈ Finset.Ico A B)
     (hp : p ∈ vfMidSquareBandLateOwnerPrimes A R) :
     ((R + 1) ^ 2 - 1) / p < 4 * A := by
@@ -1471,7 +1471,19 @@ theorem vfMidDyadicFrozenCompositePrimeIntervalSupply_eq_sum_fixedOwner
             if p ≤ R then atom R p else 0 := by
     intro R hR
     have hRB : R < B := (Finset.mem_Ico.mp hR).2
-    rw [vfMidSquareBandLateOwnerPrimes_eq_Ioc_filter_prime A R]
+    have hlate :
+        vfMidSquareBandLateOwnerPrimes A R =
+          (Finset.Ioc A R).filter Nat.Prime := by
+      ext q
+      simp only [mem_vfMidSquareBandLateOwnerPrimes,
+        mem_vfMidSquareBandOwnerPrimes,
+        Finset.mem_filter, Finset.mem_Ioc]
+      constructor
+      · rintro ⟨⟨hqPrime, hqR⟩, hAq⟩
+        exact ⟨⟨hAq, hqR⟩, hqPrime⟩
+      · rintro ⟨⟨hAq, hqR⟩, hqPrime⟩
+        exact ⟨⟨hqPrime, hqR⟩, hAq⟩
+    rw [hlate]
     have hset :
         (Finset.Ioc A R).filter Nat.Prime =
           ((Finset.Ioo A B).filter Nat.Prime).filter (fun p => p ≤ R) := by
