@@ -300,7 +300,7 @@ run is *not* survivor charge plus an opaque positive correction: it is the
 signed post-A survivor sector plus the literal least-owner sector \`2 < p <= A\`.
 No estimate, norm, or triangle inequality occurs. -/
 theorem vfMidOddRunSeatMass_eq_frozenSurvivor_add_processedOwnerCharge
-    {A B : ℕ} (hA : 3 ≤ A) (hAB : A ≤ B) (hBA : B ≤ 2 * A) :
+    {A B : ℕ} (hA : 3 ≤ A) (hBA : B ≤ 2 * A) :
     vfMidOddRunSeatMass A B =
       vfMidDyadicFrozenSurvivorSeatCharge A B +
         vfMidDyadicProcessedOwnerSeatCharge A B := by
@@ -338,7 +338,7 @@ theorem vfMidActualPrimeFirstBadAt_forces_twoSectorOwnerTrigger
     vfMidActualPrimeFirstBadAt_forces_signedSeatRunTrigger
       hfirst hA hABlt hBA
   rw [vfMidOddRunSeatMass_eq_frozenSurvivor_add_processedOwnerCharge
-    hA hABlt.le hBA] at htrigger
+    hA hBA] at htrigger
   exact htrigger
 
 
