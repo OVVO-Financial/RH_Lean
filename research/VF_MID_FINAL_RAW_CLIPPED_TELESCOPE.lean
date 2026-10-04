@@ -46,7 +46,7 @@ two types seen in the hand computations:
 There are no degree-three-or-higher survivor faces. -/
 theorem vfMidDyadicPrefixSurvivor_prime_or_two_primes_of_subdoubling
     {A B n : ℕ}
-    (hA : 3 ≤ A) (hAB : A ≤ B) (hBA : B ≤ 2 * A)
+    (hA : 3 ≤ A) (_hAB : A ≤ B) (hBA : B ≤ 2 * A)
     (hn : n ∈ vfMidDyadicPrefixSurvivorCarrier A B) :
     n.Prime ∨
       ∃ q r : ℕ,
@@ -73,7 +73,7 @@ theorem vfMidDyadicPrefixSurvivor_prime_or_two_primes_of_subdoubling
 hand ledgers: prime survivors are `-1`, nonprime survivors are `+1`. -/
 theorem vfMidDyadicPrefixSurvivor_realMoebiusStep_eq
     {A B n : ℕ}
-    (hA : 3 ≤ A) (hAB : A ≤ B) (hBA : B ≤ 2 * A)
+    (hA : 3 ≤ A) (_hAB : A ≤ B) (hBA : B ≤ 2 * A)
     (hn : n ∈ vfMidDyadicPrefixSurvivorCarrier A B) :
     realMoebiusStep n = if n.Prime then -1 else 1 := by
   by_cases hnPrime : n.Prime
@@ -126,7 +126,7 @@ theorem vfMidDyadicPrefixSurvivor_div_prime_eq_one_or_prime
       · exact hpnEq
     left
     subst p
-    exact Nat.div_self hnPrime.ne_zero
+    exact Nat.div_self hnPrime.pos
   · have hpqr : p ∣ q ∨ p ∣ r := hp.dvd_mul.mp hpn
     rcases hpqr with hpq | hpr
     · have hpEqQ : p = q := by
@@ -409,7 +409,7 @@ theorem vfMidDyadicPrefixSurvivor_highFirstOwner_pairWeight_eq_one
 Boolean-face version of the rank-two normal form. -/
 theorem vfMidDyadicPrefixSurvivor_primeFace_card_le_two
     {A B n : ℕ}
-    (hA : 3 ≤ A) (hAB : A ≤ B) (hBA : B ≤ 2 * A)
+    (hA : 3 ≤ A) (_hAB : A ≤ B) (hBA : B ≤ 2 * A)
     (hn : n ∈ vfMidDyadicPrefixSurvivorCarrier A B) :
     (squarefreePrimeFace n).card ≤ 2 := by
   rcases
@@ -464,6 +464,21 @@ theorem vfMidDyadicPrefixSurvivor_freshPrimeSet_card_le_four
 def vfMidDyadicPrefixCompositeSupply (A B : ℕ) : ℝ :=
   ∑ R ∈ Finset.Ico A B,
     ((vfMidSquareBandPrefixCompositeSurvivors A R).card : ℝ)
+
+/-- Exact multiplicity-preserving population of stripped frozen-composite
+children across a run. -/
+def vfMidDyadicFrozenCompositeOwnerChildSupply (A B : ℕ) : ℝ :=
+  ∑ R ∈ Finset.Ico A B,
+    ∑ p ∈ vfMidSquareBandLateOwnerPrimes A R,
+      ((vfMidSquareBandCompositeOwnerChildren R p).card : ℝ)
+
+/-- The same rank-two correction written as ordinary prime-count increments
+on the reciprocal owner intervals. -/
+def vfMidDyadicFrozenCompositePrimeIntervalSupply (A B : ℕ) : ℝ :=
+  ∑ R ∈ Finset.Ico A B,
+    ∑ p ∈ vfMidSquareBandLateOwnerPrimes A R,
+      ((Nat.primeCounting (((R + 1) ^ 2 - 1) / p) : ℝ) -
+        (Nat.primeCounting (R ^ 2 / p) : ℝ))
 
 /-- **Run survivor population = primes + surviving semiprimes.**
 
@@ -607,6 +622,7 @@ theorem vfMidSquareBandCompositeOwnerChildren_eq_primeInterval_of_subdoubling
       have hrPrime : r.Prime := hrData.1
       have hrLtP : r < p := by
         have hrLe : r ≤ p - 1 := hrData.2
+        have hpPos : 0 < p := hpPrime.pos
         omega
       have hrEqQ : r = q :=
         ((Nat.dvd_prime hqPrime).mp hrDiv).resolve_left hrPrime.ne_one
@@ -656,8 +672,8 @@ theorem vfMidFrozenOwnerRunChildren_pairwiseDisjoint
   have hsame : nR = nS := hnREq.trans hnSEq.symm
   have hcompR := vfMidSquareBandCompositeOwner_mem hnROwner
   have hcompS := vfMidSquareBandCompositeOwner_mem hnSOwner
-  have hsiteR := (Finset.mem_filter.mp hcompR).1
-  have hsiteS := (Finset.mem_filter.mp hcompS).1
+  have hsiteR := (Finset.mem_filter.mp hcompR.1).1
+  have hsiteS := (Finset.mem_filter.mp hcompS.1).1
   unfold vfMidSquareBandSites at hsiteR hsiteS
   rcases Finset.mem_Ioo.mp hsiteR with ⟨hRlo, hRhi⟩
   rcases Finset.mem_Ioo.mp hsiteS with ⟨hSlo, hShi⟩
@@ -734,7 +750,8 @@ theorem vfMidFrozenOwnerRunChildren_eq_primeHyperbolaInterval
       dsimp [n]
       simpa [Nat.mul_comm] using hmul
     have hnBsq : n < B ^ 2 := by
-      have hBpos : 0 < B ^ 2 := by positivity
+      have hBpos : 0 < B := hp.pos.trans_lt hpB
+      have hBsqPos : 0 < B ^ 2 := pow_pos hBpos 2
       omega
     have hRB : R < B := by
       dsimp [R]
@@ -803,13 +820,19 @@ theorem vfMidFrozenOwnerRunChildren_eq_primeHyperbolaInterval
 
 /-- Least-prime owners which can occur anywhere in the frozen run. -/
 def vfMidFrozenRunOwnerPrimes (A B : ℕ) : Finset ℕ :=
-  (Finset.Ioc A (B - 1)).filter Nat.Prime
+  (Finset.Ioo A B).filter Nat.Prime
 
 @[simp] theorem mem_vfMidFrozenRunOwnerPrimes {A B p : ℕ} :
     p ∈ vfMidFrozenRunOwnerPrimes A B ↔
       p.Prime ∧ A < p ∧ p < B := by
-  simp [vfMidFrozenRunOwnerPrimes]
-  omega
+  constructor
+  · intro hp
+    rcases Finset.mem_filter.mp hp with ⟨hpIoo, hpPrime⟩
+    rcases Finset.mem_Ioo.mp hpIoo with ⟨hAp, hpB⟩
+    exact ⟨hpPrime, hAp, hpB⟩
+  · rintro ⟨hpPrime, hAp, hpB⟩
+    exact Finset.mem_filter.mpr
+      ⟨Finset.mem_Ioo.mpr ⟨hAp, hpB⟩, hpPrime⟩
 
 /-- On one block of the run, the late-owner set is the fixed run-owner set
 filtered by the condition p <= R. -/
@@ -942,8 +965,11 @@ theorem vfMidFrozenOwnerHyperbolaCard_add_primeCounting
   have hpSqLt : p ^ 2 < B ^ 2 :=
     Nat.pow_lt_pow_left hpB (by omega)
   have hpSqLeSub : p * p ≤ B ^ 2 - 1 := by
-    have hBpos : 0 < B ^ 2 := by positivity
-    nlinarith
+    have hBpos : 0 < B := hpPrime.pos.trans_lt hpB
+    have hBsqPos : 0 < B ^ 2 := pow_pos hBpos 2
+    have hpSqLt' : p * p < B ^ 2 := by
+      simpa [pow_two] using hpSqLt
+    omega
   have hpLe : p ≤ (B ^ 2 - 1) / p := by
     apply (Nat.le_div_iff_mul_le hpPrime.pos).2
     exact hpSqLeSub
@@ -1067,14 +1093,6 @@ theorem vfMidFrozenOwnerPrimeIntervalUpper_sqrt_lt_frozen
 
 /-! ## Linear owner-tagged child form of the VF tracking packet -/
 
-/-- Exact multiplicity-preserving population of stripped frozen-composite
-children across a run.  The owner label is retained; no two owner fibres are
-identified merely because they return the same prime child. -/
-def vfMidDyadicFrozenCompositeOwnerChildSupply (A B : ℕ) : ℝ :=
-  ∑ R ∈ Finset.Ico A B,
-    ∑ p ∈ vfMidSquareBandLateOwnerPrimes A R,
-      ((vfMidSquareBandCompositeOwnerChildren R p).card : ℝ)
-
 /-- **Frozen composite population = owner-tagged stripped-child population.**
 
 Stripping the least prime owner is injective inside each owner fibre and the
@@ -1135,7 +1153,7 @@ theorem vfMidDyadicFrozenCompositeOwnerChild_prime_below_frozenSquare
     (mem_vfMidSquareBandLateOwnerPrimes.mp hp).2
   have hmul := vfMidSquareBandCompositeOwner_mul_div hnOwner
   have hnComp := vfMidSquareBandCompositeOwner_mem hnOwner
-  have hnSite := (Finset.mem_filter.mp hnComp).1
+  have hnSite := (Finset.mem_filter.mp hnComp.1).1
   have hnUpper : n < (R + 1) ^ 2 := by
     simpa [vfMidSquareBandSites] using (Finset.mem_Ioo.mp hnSite).2
   have hR1B : R + 1 ≤ B := by omega
@@ -1240,7 +1258,7 @@ The rank-two correction is the nested sum of literal prime-window populations,
 one for each late least-prime owner in each square block. -/
 theorem vfMidDyadicPrefixCompositeSupply_eq_sum_primeIntervalCards
     {A B : ℕ}
-    (hA : 3 ≤ A) (hAB : A ≤ B) (hBA : B ≤ 2 * A) :
+    (hA : 3 ≤ A) (_hAB : A ≤ B) (hBA : B ≤ 2 * A) :
     vfMidDyadicPrefixCompositeSupply A B =
       ∑ R ∈ Finset.Ico A B,
         ∑ p ∈ vfMidSquareBandLateOwnerPrimes A R,
@@ -1327,7 +1345,7 @@ theorem vfMidFrozenOwner_adjacentQuotientEndpoint_eq
     rcases hdiv with ⟨k, hk⟩
     have hk2 : 2 ≤ k := by
       by_contra hnot
-      have hkLe : k ≤ 1 := Nat.le_of_not_ge hnot
+      have hkLe : k ≤ 1 := by omega
       rcases Nat.eq_zero_or_pos k with hk0 | hkpos
       · subst k
         simp at hk
@@ -1356,6 +1374,7 @@ theorem vfMidFrozenOwner_adjacentQuotientEndpoint_eq
   apply le_antisymm
   · exact Nat.div_le_div_right (Nat.sub_le N 1)
   · apply (Nat.le_div_iff_mul_le hp.pos).2
+    change (N / p) * p ≤ N - 1
     rw [Nat.mul_comm]
     omega
 
@@ -1387,7 +1406,7 @@ This is the whole-run version of the single `17 -> 19` row in the 317
 example. -/
 theorem vfMidFrozenFixedOwnerPrimeIntervalSupply_eq_endpointGap
     {A B p : ℕ}
-    (hA : 3 ≤ A) (hp : p.Prime) (hAp : A < p)
+    (_hA : 3 ≤ A) (hp : p.Prime) (hAp : A < p)
     (hpB : p < B) (hBA : B ≤ 2 * A) :
     vfMidFrozenFixedOwnerPrimeIntervalSupply p B =
       (Nat.primeCounting (B ^ 2 / p) : ℝ) -
@@ -1424,10 +1443,6 @@ theorem vfMidFrozenFixedOwnerPrimeIntervalSupply_eq_endpointGap
         (Nat.primeCounting p : ℝ) := by
           have hp0 : p ≠ 0 := hp.ne_zero
           simp [pow_two, hp0]
-
-/-- Prime owners which can appear anywhere on the frozen run. -/
-def vfMidFrozenRunOwnerPrimes (A B : ℕ) : Finset ℕ :=
-  (Finset.Ioo A B).filter Nat.Prime
 
 /-- **Triangular finite Fubini for the frozen prime intervals.**
 
@@ -1531,21 +1546,13 @@ theorem vfMidDyadicFrozenCompositePrimeIntervalSupply_eq_sum_endpointGaps
 
 /-! ## Run-level lower-prime-count normal form -/
 
-/-- The complete frozen composite correction written only with ordinary prime
-counts on the quotient intervals exposed above. -/
-def vfMidDyadicFrozenCompositePrimeIntervalSupply (A B : ℕ) : ℝ :=
-  ∑ R ∈ Finset.Ico A B,
-    ∑ p ∈ vfMidSquareBandLateOwnerPrimes A R,
-      ((Nat.primeCounting (((R + 1) ^ 2 - 1) / p) : ℝ) -
-        (Nat.primeCounting (R ^ 2 / p) : ℝ))
-
 /-- **Owner-child supply = lower prime-count interval supply.**
 
 Every rank-two frozen composite is therefore represented by one ordinary
 prime-count increment at a strictly smaller square-root scale. -/
 theorem vfMidDyadicFrozenCompositeOwnerChildSupply_eq_primeIntervalSupply
     {A B : ℕ}
-    (hA : 4 ≤ A) (hAB : A ≤ B) (hBA : B ≤ 2 * A) :
+    (hA : 4 ≤ A) (_hAB : A ≤ B) (hBA : B ≤ 2 * A) :
     vfMidDyadicFrozenCompositeOwnerChildSupply A B =
       vfMidDyadicFrozenCompositePrimeIntervalSupply A B := by
   unfold vfMidDyadicFrozenCompositeOwnerChildSupply
@@ -1641,6 +1648,7 @@ theorem vfMidSurvivorChildAmplitude_eq_neg_returnedParents
       (Finset.mem_filter.mp hbChild).2.2
     have hdDvd : p ∣ d :=
       (Finset.mem_filter.mp hdChild).2.2
+    change b / p = d / p at heq
     calc
       b = p * (b / p) := (Nat.mul_div_cancel' hbDvd).symm
       _ = p * (d / p) := by rw [heq]
