@@ -49,6 +49,7 @@ on:
       - research/VF_MID_ACTUAL_PRIME_FIRST_BAD_MOBIUS_TRIGGER.lean
       - research/VF_MID_SUBDOUBLING_SURVIVOR_TO_OWNER_GATE.lean
       - research/VF_MID_FINAL_RAW_CLIPPED_TELESCOPE.lean
+      - research/VF_MID_FIRST_BAD_AFFINE_OWNER_SPLICE.lean
       - research/VF_MID_RECURSIVE_REMAINDER_BOUND.lean
       - research/VF_MID_AGGREGATE_CHILD_FORCING.lean
       - research/VF_MID_ENDPOINT_TRIGGER_DICTIONARY.lean
@@ -225,6 +226,7 @@ jobs:
           lake build RHLean
           python3 scripts/compile_research_import_closure.py research/VF_MID_SUBDOUBLING_SURVIVOR_TO_OWNER_GATE.lean
           python3 scripts/compile_research_import_closure.py research/VF_MID_FINAL_RAW_CLIPPED_TELESCOPE.lean
+          python3 scripts/compile_research_import_closure.py research/VF_MID_FIRST_BAD_AFFINE_OWNER_SPLICE.lean
       - name: Audit named theorem axioms
         run: |
           cat > /tmp/PrimeFlipPNTAxioms.lean <<'LEAN'
@@ -259,6 +261,7 @@ jobs:
           import «research.VF_MID_ACTUAL_PRIME_FIRST_BAD_MOBIUS_TRIGGER»
           import «research.VF_MID_SUBDOUBLING_SURVIVOR_TO_OWNER_GATE»
           import «research.VF_MID_FINAL_RAW_CLIPPED_TELESCOPE»
+          import «research.VF_MID_FIRST_BAD_AFFINE_OWNER_SPLICE»
           import «research.VF_MID_RECURSIVE_REMAINDER_BOUND»
           import «research.VF_MID_AGGREGATE_CHILD_FORCING»
           import «research.VF_MID_ENDPOINT_TRIGGER_DICTIONARY»
@@ -687,6 +690,16 @@ jobs:
           #print axioms RHLean.Analysis.vfMidDyadicPrefixZeroTargetGram_eq_survivorMobiusMass_sq
           #print axioms RHLean.Analysis.vfMidDyadicVFTrackingDefect_eq_oddRunSeatMass
           #print axioms RHLean.Analysis.vfMidActualPrimeFirstBadAt_forces_signedSeatRunTrigger
+          #print axioms RHLean.Analysis.vfMidSurvivor_liveClippedCell_le_half_restrictedIncidenceSq
+          #print axioms RHLean.Analysis.vfMidSurvivor_liveClippedCells_le_half_restrictedIncidenceEnergy
+          #print axioms RHLean.Analysis.vfMidDyadicPrefixSurvivorMobiusMass_sq_le_diagonal_add_half_restrictedIncidence
+          #print axioms RHLean.Analysis.vfMidSelectedClippedOutgoingEnergy_le_quarter
+          #print axioms RHLean.Analysis.vfMidLateOwnerCards_two_eq_processed_add_live
+          #print axioms RHLean.Analysis.vfMidSquarePrefixWheelSurvivors_card_add_processedOwnerCards_eq_root
+          #print axioms RHLean.Analysis.vfMidPrefixRemovedSeatMass_eq_processedOwnerCharges
+          #print axioms RHLean.Analysis.vfMidOddRunSeatMass_eq_frozenSurvivor_add_processedOwnerCharge
+          #print axioms RHLean.Analysis.vfMidActualPrimeFirstBadAt_forces_twoSectorOwnerTrigger
+          #print axioms RHLean.Analysis.vfMidProcessedOwnerChild_lt_anchorSquare
           #print axioms RHLean.Analysis.vfMidDyadicPrefixSurvivorMobiusMass_sq_eq_diagonal_add_firstOwnerCells
           #print axioms RHLean.Analysis.vfMidRecursiveChildCarrier_card_eq_sum
           #print axioms RHLean.Analysis.vfMidRecursiveChild_block_lt
