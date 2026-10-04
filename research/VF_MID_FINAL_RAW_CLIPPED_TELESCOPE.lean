@@ -156,6 +156,77 @@ def vfMidSurvivorChildAmplitude
   ∑ b ∈ lowOwnerFirstOwnerChildFiber B p sig,
     vfMidDyadicPrefixSurvivorSignedSite A B b
 
+/-- Returned admitted parents whose p-child is still on the frozen #886
+survivor carrier.  This is the exact lower-coordinate image of the restricted
+child fibre under b |-> b / p. -/
+def vfMidSurvivorReturnedParentFiber
+    (A B p : ℕ) (sig : Finset ℕ) : Finset ℕ :=
+  (lowOwnerFirstOwnerAdmittedBaseFiber B p sig).filter fun c =>
+    p * c ∈ vfMidDyadicPrefixSurvivorCarrier A B
+
+/-- **Exact child-to-returned-parent reindexing on the frozen carrier.**
+
+A restricted p-child returns uniquely to an admitted p-free parent.  Fresh
+prime multiplication reverses the Mobius sign, so the whole restricted child
+amplitude is the negative signed mass of this literal returned-parent fibre. -/
+theorem vfMidSurvivorChildAmplitude_eq_neg_returnedParents
+    {A B p : ℕ} {sig : Finset ℕ}
+    (hp : p.Prime) :
+    vfMidSurvivorChildAmplitude A B p sig =
+      ∑ c ∈ vfMidSurvivorReturnedParentFiber A B p sig,
+        -realMoebiusStep c := by
+  unfold vfMidSurvivorChildAmplitude
+    vfMidDyadicPrefixSurvivorSignedSite
+  rw [← Finset.sum_filter]
+  refine Finset.sum_bij
+    (fun b _hb => b / p)
+    ?_ ?_ ?_ ?_
+  · intro b hb
+    rcases Finset.mem_filter.mp hb with ⟨hbChild, hbCar⟩
+    have hcAdm :=
+      lowOwnerFirstOwner_div_mem_admitted_of_child hp hbChild
+    have hbDvd : p ∣ b :=
+      (Finset.mem_filter.mp hbChild).2.2
+    have hcancel : p * (b / p) = b :=
+      Nat.mul_div_cancel' hbDvd
+    unfold vfMidSurvivorReturnedParentFiber
+    exact Finset.mem_filter.mpr
+      ⟨hcAdm, by simpa [hcancel] using hbCar⟩
+  · intro b hb d hd heq
+    have hbChild := (Finset.mem_filter.mp hb).1
+    have hdChild := (Finset.mem_filter.mp hd).1
+    have hbDvd : p ∣ b :=
+      (Finset.mem_filter.mp hbChild).2.2
+    have hdDvd : p ∣ d :=
+      (Finset.mem_filter.mp hdChild).2.2
+    calc
+      b = p * (b / p) := (Nat.mul_div_cancel' hbDvd).symm
+      _ = p * (d / p) := by rw [heq]
+      _ = d := Nat.mul_div_cancel' hdDvd
+  · intro c hc
+    have hcData := Finset.mem_filter.mp hc
+    have hcAdm := hcData.1
+    have hpcCar := hcData.2
+    have hpcChild :=
+      lowOwnerFirstOwner_mul_mem_child_of_admitted hp hcAdm
+    refine ⟨p * c, Finset.mem_filter.mpr ⟨hpcChild, hpcCar⟩, ?_⟩
+    simpa [Nat.mul_comm] using Nat.mul_div_left c hp.pos
+  · intro b hb
+    have hbChild := (Finset.mem_filter.mp hb).1
+    have hcBase :=
+      lowOwnerFirstOwner_div_mem_base_of_child hp hbChild
+    have hnot : ¬ p ∣ b / p :=
+      (Finset.mem_filter.mp hcBase).2.2
+    have hbDvd : p ∣ b :=
+      (Finset.mem_filter.mp hbChild).2.2
+    have hcancel : p * (b / p) = b :=
+      Nat.mul_div_cancel' hbDvd
+    calc
+      realMoebiusStep b =
+          realMoebiusStep (p * (b / p)) := by rw [hcancel]
+      _ = -realMoebiusStep (b / p) :=
+        realMoebiusStep_mul_prime_eq_neg hp hnot
+
 /-- Every live post-frozen owner has zero restricted survivor mass on the
 admitted p-free base fibre. -/
 theorem sum_admitted_vfMidSurvivorSignedSite_eq_zero
