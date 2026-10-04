@@ -143,7 +143,6 @@ jobs:
           mkdir -p .lake/build/lib/lean
           set -o pipefail
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_VON_KOCH_BRIDGE.olean research/VF_MID_VON_KOCH_BRIDGE.lean 2>&1 | tee vf-mid-von-koch.log
-          lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_OPTIMAL_BASE_VON_KOCH_FAN.olean research/VF_MID_OPTIMAL_BASE_VON_KOCH_FAN.lean 2>&1 | tee vf-mid-optimal-base-von-koch-fan.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_LI_UNIFORM_QUADRATURE.olean research/VF_MID_LI_UNIFORM_QUADRATURE.lean 2>&1 | tee vf-mid-li-uniform-quadrature.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_OSCILLATION_SCALE.olean research/VF_MID_OSCILLATION_SCALE.lean 2>&1 | tee vf-mid-oscillation-scale.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.LI_FLOOR_PRIME_COUNT_FANTASY.olean research/LI_FLOOR_PRIME_COUNT_FANTASY.lean 2>&1 | tee li-floor-prime-count-fantasy.log
@@ -205,6 +204,7 @@ jobs:
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_PROXY_ENERGY_PULL.olean research/VF_MID_PROXY_ENERGY_PULL.lean 2>&1 | tee vf-mid-proxy-energy-pull.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.FOUR_FANTASY_PROXY_RH_CLOSURES.olean research/FOUR_FANTASY_PROXY_RH_CLOSURES.lean 2>&1 | tee four-fantasy-proxy-rh-closures.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_SOLVED_FANTASY_CONE.olean research/VF_MID_SOLVED_FANTASY_CONE.lean 2>&1 | tee vf-mid-solved-fantasy-cone.log
+          lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_OPTIMAL_BASE_VON_KOCH_FAN.olean research/VF_MID_OPTIMAL_BASE_VON_KOCH_FAN.lean 2>&1 | tee vf-mid-optimal-base-von-koch-fan.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_PHI_CUTOFF_TELESCOPE.olean research/VF_MID_PHI_CUTOFF_TELESCOPE.lean 2>&1 | tee vf-mid-phi-cutoff-telescope.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_PHI_ODD_LI_TRANSFER.olean research/VF_MID_PHI_ODD_LI_TRANSFER.lean 2>&1 | tee vf-mid-phi-odd-li-transfer.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_PHI_DIAGONAL_TRANSFER.olean research/VF_MID_PHI_DIAGONAL_TRANSFER.lean 2>&1 | tee vf-mid-phi-diagonal-transfer.log
