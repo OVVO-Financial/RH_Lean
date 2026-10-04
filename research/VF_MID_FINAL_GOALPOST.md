@@ -314,3 +314,69 @@ descent, and selection-stable quarter contraction.
 PR #889 is the terminal splice branch. All work on #889 is to be judged only
 against Sections 1--8 above. No additional research route is authorized by this
 contract.
+
+
+## 10. Numerical finite-base audit (diagnostic, not proof)
+
+Using the repository definitions
+`vfMidBandMass r = (2r+1)/log(r^2+r+1/2)`,
+`vfMidFinishedMass R = sum_{r=2}^{R-1} vfMidBandMass r`, and
+`vfMidActualPrimeEndpointDefect R = pi(R^2)-vfMidFinishedMass R`,
+define the diagnostic ratio
+
+[
+K_R^{\rm req}
+=
+\frac{|\texttt{vfMidActualPrimeEndpointDefect}(R)|}
+     {R\log R}.
+]
+
+For the entire finite base (2\le R<7):
+
+| R | R^2 | pi(R^2) | VF_mid(R^2) | D_R | R log R | required K_R |
+|---:|---:|---:|---:|---:|---:|---:|
+| 2 | 4 | 2 | 0.000000000 | +2.000000000 | 1.386294361 | 1.442695041 |
+| 3 | 9 | 4 | 2.671222452 | +1.328777548 | 3.295836866 | 0.403168483 |
+| 4 | 16 | 6 | 5.442699909 | +0.557300091 | 5.545177444 | 0.100501760 |
+| 5 | 25 | 9 | 8.422413141 | +0.577586859 | 8.047189562 | 0.071774979 |
+| 6 | 36 | 11 | 11.640926796 | -0.640926796 | 10.750556815 | 0.059618009 |
+
+Hence the exact numerical maximum is attained at (R=2):
+
+[
+K_{\rm base}^{\rm num}
+=
+\frac{1}{\log 2}
+\approx 1.442695040889.
+]
+
+Therefore (K=3/2) numerically covers the complete finite base, while (K=2)
+is the preferred formal witness because it leaves a larger elementary margin
+for a Lean proof of the logarithmic inequalities.
+
+Named production-square diagnostics from the repository remain far below the
+same constant:
+
+| R | R^2 | D_R | required K_R |
+|---:|---:|---:|---:|
+| 14 | 196 | -2.315234621 | 0.062664005 |
+| 15 | 225 | -3.736316549 | 0.091980485 |
+| 17 | 289 | -2.275274344 | 0.047239530 |
+| 18 | 324 | -3.388578937 | 0.065131547 |
+| 56 | 3136 | -11.563662755 | 0.051298369 |
+| 60 | 3600 | -10.698435339 | 0.043549646 |
+| 66 | 4356 | -10.928820579 | 0.039523111 |
+| 72 | 5184 | -12.701897994 | 0.041250648 |
+
+The structural hand examples (x=210) and (x=317) are **not square endpoints**
+and are not part of the finite-base theorem. As an independent sanity check,
+using the continuous repository `vfMid(x)` and normalizing by
+(sqrt{x}\log\sqrt{x}):
+
+| x | floor sqrt(x) | pi(x) | VF_mid(x) | pi(x)-VF_mid(x) | normalized ratio |
+|---:|---:|---:|---:|---:|---:|
+| 210 | 14 | 46 | 48.950178580 | -2.950178580 | 0.076146463 |
+| 317 | 17 | 66 | 68.175748510 | -2.175748510 | 0.042439415 |
+
+These floating-point values are diagnostics only. Section 8 still requires the
+finite-base witness itself to be kernel-checked in Lean.
