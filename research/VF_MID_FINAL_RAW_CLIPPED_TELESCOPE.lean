@@ -970,6 +970,25 @@ theorem vfMidDyadicFrozenCompositeOwnerChildSupply_eq_semiprimeHyperbolaPrimeCou
     exact_mod_cast hcount
   linarith
 
+/-- **Actual VF tracking defect in owner-first semiprime-hyperbola form.**
+
+This is the exact general theorem encoded by the hand examples: freeze through
+A, count the frozen survivor population deterministically, and add back exactly
+the rank-two semiprimes by their unique least-prime owner. -/
+theorem vfMidDyadicVFTrackingDefect_eq_vfMass_sub_prefix_add_semiprimeHyperbola
+    {A B : ℕ}
+    (hA : 3 ≤ A) (hAB : A ≤ B) (hBA : B ≤ 2 * A) :
+    vfMidDyadicVFTrackingDefect A B =
+      vfMidDyadicVFMass A B -
+        vfMidDyadicPrefixSupply A A B +
+        ∑ p ∈ vfMidFrozenRunOwnerPrimes A B,
+          ((Nat.primeCounting ((B ^ 2 - 1) / p) : ℝ) -
+            (Nat.primeCounting p : ℝ)) := by
+  rw [vfMidDyadicVFTrackingDefect_eq_vfMass_sub_prefix_add_ownerPrimeChildren
+      hA hAB hBA,
+    vfMidDyadicFrozenCompositeOwnerChildSupply_eq_semiprimeHyperbolaPrimeCounting
+      hA hAB hBA]
+
 /-- Cardinal form of the quotient-prime identity. -/
 theorem vfMidSquareBandCompositeOwnerChildren_card_add_primeCounting_lower_eq_upper
     {A R p : ℕ}
