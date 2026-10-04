@@ -93,9 +93,12 @@ theorem vfMidSquareEndpointVonKochBounded_of_actualPrimeOwnerEscapeAdmissible
   have hbounded :
       VFMidSyntheticRadialBounded vfMidActualPrimeEndpointDefect :=
     vfMidSyntheticRadialBounded_of_ownerEscapeAdmissible h
-  rw [vfMidActualPrimeEndpointDefect] at hbounded
+  have hbounded' :
+      VFMidSyntheticRadialBounded
+        (fun R => vfMidPrimeError ((R : ℝ) ^ 2)) := by
+    simpa [vfMidActualPrimeEndpointDefect] using hbounded
   exact
-    vfMidActualRadialBounded_iff_squareEndpoint.mp hbounded
+    vfMidActualRadialBounded_iff_squareEndpoint.mp hbounded'
 
 /-- Expanded witness form of the actual-prime admissibility statement. This is
 the exact interface which the physical owner tree must discharge. -/
