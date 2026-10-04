@@ -401,6 +401,61 @@ theorem vfMidDyadicPrefixSurvivor_highFirstOwner_pairWeight_eq_one
     ArithmeticFunction.moebius_apply_prime hnPrime]
   norm_num
 
+/-! ## Uniform finite owner rank of the frozen packet -/
+
+/-- Every frozen survivor has at most two prime coordinates.  This is the
+Boolean-face version of the rank-two normal form. -/
+theorem vfMidDyadicPrefixSurvivor_primeFace_card_le_two
+    {A B n : ℕ}
+    (hA : 3 ≤ A) (hAB : A ≤ B) (hBA : B ≤ 2 * A)
+    (hn : n ∈ vfMidDyadicPrefixSurvivorCarrier A B) :
+    (squarefreePrimeFace n).card ≤ 2 := by
+  rcases
+      vfMidDyadicPrefixSurvivor_prime_or_two_primes_of_subdoubling
+        hA hAB hBA hn with hnPrime | ⟨q, r, hq, hr, _hAq, _hqr, hnEq⟩
+  · simp [squarefreePrimeFace, hnPrime.primeFactors]
+  · rw [hnEq]
+    unfold squarefreePrimeFace
+    rw [Nat.primeFactors_mul hq.ne_zero hr.ne_zero]
+    calc
+      (q.primeFactors ∪ r.primeFactors).card ≤
+          q.primeFactors.card + r.primeFactors.card :=
+        Finset.card_union_le _ _
+      _ = 2 := by simp [hq.primeFactors, hr.primeFactors]
+
+/-- **Uniform fresh-owner rank bound.**
+
+Any pair of frozen survivors differs in at most four prime coordinates.
+Consequently every owner-stripping chain on the #885/#886 frozen packet has
+depth at most four.  This is the all-scale formal version of the finite owner
+ledgers seen in the 317 and 1027 calculations. -/
+theorem vfMidDyadicPrefixSurvivor_freshPrimeSet_card_le_four
+    {A B m n : ℕ}
+    (hA : 3 ≤ A) (hAB : A ≤ B) (hBA : B ≤ 2 * A)
+    (hm : m ∈ vfMidDyadicPrefixSurvivorCarrier A B)
+    (hn : n ∈ vfMidDyadicPrefixSurvivorCarrier A B) :
+    (squarefreePairFreshPrimeSet m n).card ≤ 4 := by
+  have hmCard :=
+    vfMidDyadicPrefixSurvivor_primeFace_card_le_two
+      hA hAB hBA hm
+  have hnCard :=
+    vfMidDyadicPrefixSurvivor_primeFace_card_le_two
+      hA hAB hBA hn
+  unfold squarefreePairFreshPrimeSet
+  calc
+    ((squarefreePrimeFace m \ squarefreePrimeFace n) ∪
+        (squarefreePrimeFace n \ squarefreePrimeFace m)).card ≤
+      (squarefreePrimeFace m \ squarefreePrimeFace n).card +
+        (squarefreePrimeFace n \ squarefreePrimeFace m).card :=
+      Finset.card_union_le _ _
+    _ ≤ (squarefreePrimeFace m).card +
+        (squarefreePrimeFace n).card := by
+      exact Nat.add_le_add
+        (Finset.card_le_card Finset.sdiff_subset)
+        (Finset.card_le_card Finset.sdiff_subset)
+    _ ≤ 2 + 2 := Nat.add_le_add hmCard hnCard
+    _ = 4 := by omega
+
 /-! ## Exact run-level prime / semiprime ledger -/
 
 /-- Total population of frozen-wheel composite survivors across one run. -/
