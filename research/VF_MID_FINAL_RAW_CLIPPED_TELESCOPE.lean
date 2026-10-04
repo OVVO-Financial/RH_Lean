@@ -142,6 +142,60 @@ theorem vfMidDyadicPrefixSurvivor_div_prime_eq_one_or_prime
       subst p
       simpa [hr.ne_zero] using hq
 
+/-- **Every composite survivor descends in one strip to a prime below the
+frozen square scale.**
+
+For `A >= 4`, a nonprime survivor in the subdoubling run is `p*q` with
+`A < p <= q`.  Because the whole run lies below `B^2 <= 4 A^2`, the returned
+prime `q` satisfies `q < A^2`, hence `sqrt q < A`.
+
+Thus the positive composite part of the 210/317-type ledger has no recursive
+composite child at all: one least-owner strip lands on an actual prime at a
+strictly smaller square scale. -/
+theorem vfMidDyadicPrefixSurvivor_composite_descends_to_prime_below_frozen
+    {A B n : ℕ}
+    (hA : 4 ≤ A) (hAB : A ≤ B) (hBA : B ≤ 2 * A)
+    (hn : n ∈ vfMidDyadicPrefixSurvivorCarrier A B)
+    (hnPrime : ¬ n.Prime) :
+    ∃ p q : ℕ,
+      p.Prime ∧ q.Prime ∧ A < p ∧ p ≤ q ∧
+        n = p * q ∧ Nat.sqrt q < A := by
+  rcases
+      vfMidDyadicPrefixSurvivor_prime_or_two_primes_of_subdoubling
+        (by omega : 3 ≤ A) hAB hBA hn with hprime | hcomp
+  · exact False.elim (hnPrime hprime)
+  · rcases hcomp with ⟨p, q, hp, hq, hAp, hpq, hnEq⟩
+    rcases Finset.mem_biUnion.mp hn with ⟨R, hR, hnSurv⟩
+    have hnSite := (Finset.mem_filter.mp hnSurv).1
+    unfold vfMidSquareWheelSites at hnSite
+    have hnUpper : n < (R + 1) ^ 2 :=
+      (Finset.mem_Ioo.mp hnSite).2
+    have hRB : R < B := (Finset.mem_Ico.mp hR).2
+    have hR1B : R + 1 ≤ B := by omega
+    have hR2B2 : (R + 1) ^ 2 ≤ B ^ 2 :=
+      Nat.pow_le_pow_left hR1B 2
+    have hnB2 : n < B ^ 2 := hnUpper.trans_le hR2B2
+    have hB2 : B ^ 2 ≤ (2 * A) ^ 2 :=
+      Nat.pow_le_pow_left hBA 2
+    have hn4A2 : n < 4 * A ^ 2 := by
+      calc
+        n < B ^ 2 := hnB2
+        _ ≤ (2 * A) ^ 2 := hB2
+        _ = 4 * A ^ 2 := by ring
+    have hpLower : A + 1 ≤ p := by omega
+    have hqA2 : q < A ^ 2 := by
+      by_contra hnot
+      have hA2q : A ^ 2 ≤ q := Nat.le_of_not_gt hnot
+      have hmul :
+          (A + 1) * (A ^ 2) ≤ p * q :=
+        Nat.mul_le_mul hpLower hA2q
+      have hpoly : 4 * A ^ 2 < (A + 1) * (A ^ 2) := by
+        nlinarith
+      rw [← hnEq] at hmul
+      omega
+    refine ⟨p, q, hp, hq, hAp, hpq, hnEq, ?_⟩
+    exact (Nat.sqrt_lt').2 hqA2
+
 /-- Restricted #886 signed mass on the clipped p-free base side of one
 first-owner/signature cell. -/
 def vfMidSurvivorClippedBaseAmplitude
