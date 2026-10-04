@@ -3,6 +3,7 @@ import «research.VF_MID_OPTIMAL_BASE_FIRST_CROSSING_TRIGGER»
 import «research.VF_MID_ACTUAL_PRIME_FIRST_BAD_MOBIUS_TRIGGER»
 import «research.VF_MID_NATIVE_LYAPUNOV_SEAT_GRAM»
 import «research.GLOBAL_RETURNED_CORE_FIRST_OWNER_ARBITRARY_SITE_CELLS»
+import «research.GLOBAL_RETURNED_CORE_COMPENSATED_OWNER_BLOCK»
 
 /-!
 # VF subdoubling survivor packet to returned-core owner gate
@@ -499,6 +500,70 @@ theorem vfMidDyadicPrefixSurvivorMobiusMass_sq_eq_diagonal_add_firstOwnerCells
         (mem_primesUpTo.mp hp).1
         (vfMidDyadicPrefixSurvivorSignedSite A B)
 
+
+/-! ## The live survivor packet is a clipped boundary, not an admitted interior -/
+
+/-- **Subdoubling clipping law for the frozen survivor packet.**
+
+If p lies strictly beyond the frozen wheel through A, then multiplying any
+#885 survivor by p leaves the terminal B^2-1 clock.  This is just the
+geometry a > A^2, p > A, B <= 2A.
+
+This theorem is intentionally stated before the owner-energy machinery: it
+prevents the post-frozen packet from being fed into an interior reciprocal
+contraction that does not actually contain it. -/
+theorem vfMidDyadicPrefixSurvivor_liveOwner_is_clipped
+    {A B p a : ℕ}
+    (hA : 3 ≤ A) (hAB : A ≤ B) (hBA : B ≤ 2 * A)
+    (hpA : A < p)
+    (ha : a ∈ vfMidDyadicPrefixSurvivorCarrier A B) :
+    squareRootEndpoint B < p * a := by
+  rcases Finset.mem_biUnion.mp ha with ⟨R, hR, haSurv⟩
+  have hAR : A ≤ R := (Finset.mem_Ico.mp hR).1
+  have haSite := (Finset.mem_filter.mp haSurv).1
+  unfold vfMidSquareWheelSites at haSite
+  have haLow : R ^ 2 < a := (Finset.mem_Ioo.mp haSite).1
+  have hA2R2 : A ^ 2 ≤ R ^ 2 :=
+    Nat.pow_le_pow_left hAR 2
+  have hA2a : A ^ 2 < a := hA2R2.trans_lt haLow
+  have hpLower : A + 1 ≤ p := by omega
+  have haLower : A ^ 2 + 1 ≤ a := by omega
+  have hB2 : B ^ 2 ≤ (2 * A) ^ 2 :=
+    Nat.pow_le_pow_left hBA 2
+  have hprodLower :
+      (A + 1) * (A ^ 2 + 1) ≤ p * a :=
+    Nat.mul_le_mul hpLower haLower
+  have hpoly :
+      (2 * A) ^ 2 < (A + 1) * (A ^ 2 + 1) := by
+    nlinarith [hA]
+  have hBpos : 0 < B ^ 2 := by
+    have hB3 : 3 ≤ B := hA.trans hAB
+    nlinarith
+  unfold squareRootEndpoint
+  calc
+    B ^ 2 - 1 < B ^ 2 := by omega
+    _ ≤ (2 * A) ^ 2 := hB2
+    _ < (A + 1) * (A ^ 2 + 1) := hpoly
+    _ ≤ p * a := hprodLower
+
+/-- The restricted #885 site vanishes on every admitted parent at a live
+post-frozen owner.  Equivalently, all nonzero post-frozen first-owner mass is
+forced onto the literal clipped-base sector. -/
+theorem vfMidDyadicPrefixSurvivorSignedSite_eq_zero_on_admitted_liveOwner
+    {A B p a : ℕ} {sig : Finset ℕ}
+    (hA : 3 ≤ A) (hAB : A ≤ B) (hBA : B ≤ 2 * A)
+    (hpA : A < p)
+    (haAd :
+      a ∈ lowOwnerFirstOwnerAdmittedBaseFiber B p sig) :
+    vfMidDyadicPrefixSurvivorSignedSite A B a = 0 := by
+  by_cases ha : a ∈ vfMidDyadicPrefixSurvivorCarrier A B
+  · have hclip :=
+      vfMidDyadicPrefixSurvivor_liveOwner_is_clipped
+        hA hAB hBA hpA ha
+    have hinside : p * a ≤ squareRootEndpoint B :=
+      (Finset.mem_filter.mp haAd).2
+    exact False.elim ((Nat.not_lt_of_ge hinside) hclip)
+  · simp [vfMidDyadicPrefixSurvivorSignedSite, ha]
 
 /-! ## Remove the frozen first-owner range exactly -/
 
