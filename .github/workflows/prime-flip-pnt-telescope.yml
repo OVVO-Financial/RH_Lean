@@ -13,6 +13,7 @@ on:
       - research/VF_MID_VON_KOCH_BRIDGE.lean
       - research/VF_MID_OPTIMAL_BASE_VON_KOCH_FAN.lean
       - research/VF_MID_EXISTING_BOUNDARY_OPTIMAL_BASE.lean
+      - research/VF_MID_OPTIMAL_BASE_FIRST_CROSSING_TRIGGER.lean
       - research/VF_MID_LI_UNIFORM_QUADRATURE.lean
       - research/VF_MID_LI_PHASE_FAN.lean
       - research/VF_MID_OSCILLATION_SCALE.lean
@@ -207,6 +208,7 @@ jobs:
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_SOLVED_FANTASY_CONE.olean research/VF_MID_SOLVED_FANTASY_CONE.lean 2>&1 | tee vf-mid-solved-fantasy-cone.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_OPTIMAL_BASE_VON_KOCH_FAN.olean research/VF_MID_OPTIMAL_BASE_VON_KOCH_FAN.lean 2>&1 | tee vf-mid-optimal-base-von-koch-fan.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_EXISTING_BOUNDARY_OPTIMAL_BASE.olean research/VF_MID_EXISTING_BOUNDARY_OPTIMAL_BASE.lean 2>&1 | tee vf-mid-existing-boundary-optimal-base.log
+          lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_OPTIMAL_BASE_FIRST_CROSSING_TRIGGER.olean research/VF_MID_OPTIMAL_BASE_FIRST_CROSSING_TRIGGER.lean 2>&1 | tee vf-mid-optimal-base-first-crossing-trigger.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_PHI_CUTOFF_TELESCOPE.olean research/VF_MID_PHI_CUTOFF_TELESCOPE.lean 2>&1 | tee vf-mid-phi-cutoff-telescope.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_PHI_ODD_LI_TRANSFER.olean research/VF_MID_PHI_ODD_LI_TRANSFER.lean 2>&1 | tee vf-mid-phi-odd-li-transfer.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_PHI_DIAGONAL_TRANSFER.olean research/VF_MID_PHI_DIAGONAL_TRANSFER.lean 2>&1 | tee vf-mid-phi-diagonal-transfer.log
@@ -232,6 +234,7 @@ jobs:
           import «research.FOUR_FANTASY_PROXY_RH_CLOSURES»
           import «research.VF_MID_SOLVED_FANTASY_CONE»
           import «research.VF_MID_EXISTING_BOUNDARY_OPTIMAL_BASE»
+          import «research.VF_MID_OPTIMAL_BASE_FIRST_CROSSING_TRIGGER»
           import «research.VF_MID_FRACTIONAL_PRIME_CLUSTER»
           import «research.VF_MID_ODD_FRACTIONAL_CLUSTER»
           import «research.VF_MID_SIGNED_SEAT_CHARGE»
@@ -367,6 +370,11 @@ jobs:
           #print axioms RHLean.Analysis.fourFantasyProxyTrackingBounds_iff_RH
           #print axioms RHLean.Analysis.actualPrimeOptimalBase_between_solvedRadialWalls_iff
           #print axioms RHLean.Analysis.actualPrimeOptimalBaseContainedInSolvedFantasyRadialWalls_iff_vonKoch
+          #print axioms RHLean.Analysis.vfMidOptimalBase_upperFirstEscape_forces_bandError
+          #print axioms RHLean.Analysis.vfMidOptimalBase_upperFirstEscape_forces_trackingDefect
+          #print axioms RHLean.Analysis.vfMidOptimalBase_upperFirstEscape_forces_energy
+          #print axioms RHLean.Analysis.vfMidActualLiCenteredCrossGram_eq_quarter_zeroTarget
+          #print axioms RHLean.Analysis.nnsOneBlockUnresolvedCrossParentRemainder_gt_of_crossExcess_gt
           #print axioms RHLean.Analysis.actualPrimeOptimalBase_between_outerCorners_iff
           #print axioms RHLean.Analysis.actualPrimeOptimalBaseOuterCornerBracket_iff
           #print axioms RHLean.Analysis.riemannHypothesis_of_actualPrimeOptimalBaseOuterCornerBracket
