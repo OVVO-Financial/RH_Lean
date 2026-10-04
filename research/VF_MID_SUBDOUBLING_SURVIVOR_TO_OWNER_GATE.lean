@@ -363,7 +363,11 @@ theorem lowOwnerZeroFrequencyMobiusWeight_eq_one_on_vfMidSurvivor
           A ^ 2 * 9 ≤ A ^ 2 * (q * q) :=
         Nat.mul_le_mul_left (A ^ 2) hqSq
       unfold squareRootEndpoint
-      exact hsub.trans_le hB2 |>.trans hfourNine |>.trans_le hnine
+      calc
+        B ^ 2 - 1 < B ^ 2 := hsub
+        _ ≤ (2 * A) ^ 2 := hB2
+        _ < A ^ 2 * 9 := hfourNine
+        _ ≤ A ^ 2 * (q * q) := hnine
     have hcut :
         rawQ2ChildCutoff B q < A ^ 2 := by
       unfold rawQ2ChildCutoff
