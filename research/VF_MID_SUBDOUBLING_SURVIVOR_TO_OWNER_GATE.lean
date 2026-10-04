@@ -304,6 +304,70 @@ theorem vfMidDyadicPrefixSurvivorCarrier_subset_lowOwnerNonzero
   exact Finset.mem_filter.mpr
     ⟨Finset.mem_Icc.mpr ⟨hnPos, hnX⟩, hstep⟩
 
+/-- **On the frozen subdoubling carrier the returned-core AMP coefficient is exactly one.**
+
+Every genuine low-q^2 daughter cutoff at terminal root `B` lies below
+`A^2`: its owner is an odd prime, hence at least three, while `B <= 2A`.
+Every #885 survivor lies strictly above `A^2`.  Thus no reciprocal daughter
+indicator is active, while the far-tail indicator is one. -/
+theorem lowOwnerZeroFrequencyMobiusWeight_eq_one_on_vfMidSurvivor
+    {A B n : ℕ}
+    (hA : 3 ≤ A) (hAB : A ≤ B) (hBA : B ≤ 2 * A)
+    (hn : n ∈ vfMidDyadicPrefixSurvivorCarrier A B) :
+    lowOwnerZeroFrequencyMobiusWeight B n = 1 := by
+  rcases Finset.mem_biUnion.mp hn with ⟨R, hR, hnSurv⟩
+  rcases Finset.mem_Ico.mp hR with ⟨hAR, _hRB⟩
+  have hnSite := (Finset.mem_filter.mp hnSurv).1
+  unfold vfMidSquareWheelSites at hnSite
+  have hnLow : R ^ 2 < n := (Finset.mem_Ioo.mp hnSite).1
+  have hA2R2 : A ^ 2 ≤ R ^ 2 := Nat.pow_le_pow_left hAR 2
+  have hA2n : A ^ 2 < n := hA2R2.trans_lt hnLow
+  have hBn : B ≤ n := by
+    have htwoA_le_A2 : 2 * A ≤ A ^ 2 := by nlinarith
+    exact hBA.trans (htwoA_le_A2.trans (Nat.le_of_lt hA2n))
+  have hrec : lowOwnerReciprocalDaughterWeight B n = 0 := by
+    unfold lowOwnerReciprocalDaughterWeight
+    apply Finset.sum_eq_zero
+    intro q hq
+    have hqBase :
+        q ∈ (primesUpTo (B - 1)).erase 2 :=
+      (Finset.mem_sdiff.mp hq).1
+    have hqData := Finset.mem_erase.mp hqBase
+    have hqPrime : q.Prime := (mem_primesUpTo.mp hqData.2).1
+    have hq3 : 3 ≤ q := by
+      have hq2 : 2 ≤ q := hqPrime.two_le
+      omega
+    have hdenPos : 0 < q * q := Nat.mul_pos hqPrime.pos hqPrime.pos
+    have hXlt :
+        squareRootEndpoint B < A ^ 2 * (q * q) := by
+      have hB2 : B ^ 2 ≤ (2 * A) ^ 2 :=
+        Nat.pow_le_pow_left hBA 2
+      have hqSq : 9 ≤ q * q := by nlinarith
+      unfold squareRootEndpoint
+      nlinarith
+    have hcut :
+        rawQ2ChildCutoff B q < A ^ 2 := by
+      unfold rawQ2ChildCutoff
+      exact (Nat.div_lt_iff_lt_mul hdenPos).2 hXlt
+    have hnNot : ¬ n ≤ rawQ2ChildCutoff B q :=
+      Nat.not_le_of_gt (hcut.trans hA2n)
+    simp [hnNot]
+  unfold lowOwnerZeroFrequencyMobiusWeight lowOwnerFarTailWeight
+  rw [hrec]
+  simp [hBn]
+
+/-- Consequently the centered #885 Mobius site is literally the standard
+returned-core AMP site on every frozen survivor. -/
+theorem lowOwnerZeroFrequencyMobiusSite_eq_realMoebius_on_vfMidSurvivor
+    {A B n : ℕ}
+    (hA : 3 ≤ A) (hAB : A ≤ B) (hBA : B ≤ 2 * A)
+    (hn : n ∈ vfMidDyadicPrefixSurvivorCarrier A B) :
+    lowOwnerZeroFrequencyMobiusSite B n = realMoebiusStep n := by
+  unfold lowOwnerZeroFrequencyMobiusSite
+  rw [lowOwnerZeroFrequencyMobiusWeight_eq_one_on_vfMidSurvivor
+    hA hAB hBA hn]
+  ring
+
 /-- The #885 packet as an arbitrary signed site on the returned-core clock. -/
 def vfMidDyadicPrefixSurvivorSignedSite (A B n : ℕ) : ℝ :=
   if n ∈ vfMidDyadicPrefixSurvivorCarrier A B
