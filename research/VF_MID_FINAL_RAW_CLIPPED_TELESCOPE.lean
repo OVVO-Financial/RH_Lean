@@ -1,5 +1,6 @@
 import Mathlib
 import «research.VF_MID_SUBDOUBLING_SURVIVOR_TO_OWNER_GATE»
+import «research.GLOBAL_RETURNED_CORE_DIRICHLET_PAIR_POLARIZATION»
 
 /-!
 # VF final raw clipped telescope entry
@@ -129,6 +130,81 @@ theorem lowOwnerFirstOwnerCellGramWith_vfMidSurvivor_eq_clipped_mul_child
           rw [sum_base_vfMidSurvivorSignedSite_eq_clipped
             hA hAB hBA hpA]
           rfl
+
+/-- **Pointwise raw-survivor to Dirichlet-polarization weld.**
+
+Let `a` be a clipped p-free survivor and `b` a p-divisible survivor in the
+same first-owner/signature cell.  Returning `b` to the admitted parent
+`b / p`, the raw #886 pair product is exactly the repository's signed
+Dirichlet mixed-polarization atom.
+
+This is the weight-preserving bridge into the existing signed owner telescope:
+no norm, reciprocal factor, or ownerwise estimate is introduced. -/
+theorem vfMidSurvivorPair_eq_dirichletPolarizationAtom
+    {A B p a b : ℕ} {sig : Finset ℕ}
+    (hA : 3 ≤ A) (hAB : A ≤ B) (hBA : B ≤ 2 * A)
+    (hp : p.Prime)
+    (haCar : a ∈ vfMidDyadicPrefixSurvivorCarrier A B)
+    (hbCar : b ∈ vfMidDyadicPrefixSurvivorCarrier A B)
+    (haClip : a ∈ lowOwnerFirstOwnerClippedBaseFiber B p sig)
+    (hbChild : b ∈ lowOwnerFirstOwnerChildFiber B p sig) :
+    vfMidDyadicPrefixSurvivorSignedSite A B a *
+        vfMidDyadicPrefixSurvivorSignedSite A B b =
+      lowOwnerFirstOwnerDirichletPolarizationAtom B p (a, b / p) := by
+  have hcAdm :
+      b / p ∈ lowOwnerFirstOwnerAdmittedBaseFiber B p sig :=
+    lowOwnerFirstOwner_div_mem_admitted_of_child hp hbChild
+  have haBase := (Finset.mem_filter.mp haClip).1
+  have haClock := (Finset.mem_filter.mp haBase).1
+  have haIcc := (Finset.mem_filter.mp haClock).1
+  have haX : a ≤ squareRootEndpoint B :=
+    (Finset.mem_Icc.mp haIcc).2
+  have hbaseSite :
+      lowOwnerFirstOwnerDirichletBaseSite B a =
+        realMoebiusStep a := by
+    unfold lowOwnerFirstOwnerDirichletBaseSite
+    rw [lowOwnerPhysicalDirichletWeight_eq_weight_of_le haX]
+    rw [lowOwnerZeroFrequencyMobiusWeight_eq_one_on_vfMidSurvivor
+      hA hAB hBA haCar]
+    ring
+  have hbDvd : p ∣ b :=
+    (Finset.mem_filter.mp hbChild).2.2
+  have hcancel : p * (b / p) = b :=
+    Nat.mul_div_cancel' hbDvd
+  have hretSite :
+      lowOwnerFirstOwnerDirichletReturnedChildSite B p (b / p) =
+        realMoebiusStep (b / p) := by
+    rw [lowOwnerFirstOwnerDirichletReturnedChildSite_eq_returned_of_admitted
+      hcAdm]
+    rw [hcancel]
+    rw [lowOwnerZeroFrequencyMobiusWeight_eq_one_on_vfMidSurvivor
+      hA hAB hBA hbCar]
+    ring
+  have hcBase := (Finset.mem_filter.mp hcAdm).1
+  have hpc : ¬ p ∣ b / p :=
+    (Finset.mem_filter.mp hcBase).2.2
+  have hmu :
+      realMoebiusStep b = -realMoebiusStep (b / p) := by
+    calc
+      realMoebiusStep b =
+          realMoebiusStep (p * (b / p)) := by rw [hcancel]
+      _ = -realMoebiusStep (b / p) :=
+        realMoebiusStep_mul_prime_eq_neg hp hpc
+  have hatom :=
+    lowOwnerFirstOwnerDirichletPolarizationAtom_eq_clipped_left
+      haClip hcAdm
+  calc
+    vfMidDyadicPrefixSurvivorSignedSite A B a *
+        vfMidDyadicPrefixSurvivorSignedSite A B b =
+      realMoebiusStep a * realMoebiusStep b := by
+        simp [vfMidDyadicPrefixSurvivorSignedSite, haCar, hbCar]
+    _ = -(realMoebiusStep a * realMoebiusStep (b / p)) := by
+        rw [hmu]
+        ring
+    _ = lowOwnerFirstOwnerDirichletPolarizationAtom B p (a, b / p) := by
+        rw [hatom, hbaseSite, hretSite]
+        ring
+
 
 /-- **Global raw clipped entrance.**
 
