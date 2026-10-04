@@ -201,7 +201,6 @@ jobs:
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_AGGREGATE_CHILD_FORCING.olean research/VF_MID_AGGREGATE_CHILD_FORCING.lean 2>&1 | tee vf-mid-aggregate-child-forcing.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_ENDPOINT_TRIGGER_DICTIONARY.olean research/VF_MID_ENDPOINT_TRIGGER_DICTIONARY.lean 2>&1 | tee vf-mid-endpoint-trigger-dictionary.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_ACTUAL_PRIME_FIRST_BAD_MOBIUS_TRIGGER.olean research/VF_MID_ACTUAL_PRIME_FIRST_BAD_MOBIUS_TRIGGER.lean 2>&1 | tee vf-mid-actual-prime-first-bad-mobius-trigger.log
-          lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_SUBDOUBLING_SURVIVOR_TO_OWNER_GATE.olean research/VF_MID_SUBDOUBLING_SURVIVOR_TO_OWNER_GATE.lean 2>&1 | tee vf-mid-subdoubling-survivor-to-owner-gate.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.ZERO_TARGET_PARTIAL_MOMENT_COVARIANCE.olean research/ZERO_TARGET_PARTIAL_MOMENT_COVARIANCE.lean 2>&1 | tee vf-mid-zero-target-partial-moment-covariance.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.ZERO_TARGET_COVARIANCE_OWNER_DESCENT.olean research/ZERO_TARGET_COVARIANCE_OWNER_DESCENT.lean 2>&1 | tee vf-mid-zero-target-covariance-owner-descent.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_PHYSICAL_FORCING_MOBIUS_DECODER.olean research/VF_MID_PHYSICAL_FORCING_MOBIUS_DECODER.lean 2>&1 | tee vf-mid-physical-forcing-mobius-decoder.log
@@ -217,6 +216,7 @@ jobs:
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_EXISTING_BOUNDARY_OPTIMAL_BASE.olean research/VF_MID_EXISTING_BOUNDARY_OPTIMAL_BASE.lean 2>&1 | tee vf-mid-existing-boundary-optimal-base.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_OPTIMAL_BASE_FIRST_CROSSING_TRIGGER.olean research/VF_MID_OPTIMAL_BASE_FIRST_CROSSING_TRIGGER.lean 2>&1 | tee vf-mid-optimal-base-first-crossing-trigger.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_NATIVE_LYAPUNOV_SEAT_GRAM.olean research/VF_MID_NATIVE_LYAPUNOV_SEAT_GRAM.lean 2>&1 | tee vf-mid-native-lyapunov-seat-gram.log
+          lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_SUBDOUBLING_SURVIVOR_TO_OWNER_GATE.olean research/VF_MID_SUBDOUBLING_SURVIVOR_TO_OWNER_GATE.lean 2>&1 | tee vf-mid-subdoubling-survivor-to-owner-gate.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_PHI_CUTOFF_TELESCOPE.olean research/VF_MID_PHI_CUTOFF_TELESCOPE.lean 2>&1 | tee vf-mid-phi-cutoff-telescope.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_PHI_ODD_LI_TRANSFER.olean research/VF_MID_PHI_ODD_LI_TRANSFER.lean 2>&1 | tee vf-mid-phi-odd-li-transfer.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_PHI_DIAGONAL_TRANSFER.olean research/VF_MID_PHI_DIAGONAL_TRANSFER.lean 2>&1 | tee vf-mid-phi-diagonal-transfer.log
