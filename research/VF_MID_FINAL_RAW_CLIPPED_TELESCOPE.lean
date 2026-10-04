@@ -936,6 +936,122 @@ theorem vfMidDyadicVFTrackingDefect_eq_vfMass_sub_prefix_add_ownerPrimeChildren
       hA hAB hBA,
     vfMidDyadicPrefixCompositeSupply_eq_ownerChildSupply hA hAB]
 
+/-! ## Fixed-owner reciprocal telescope -/
+
+/-- The upper quotient of one square block matches the lower quotient of the
+next block.  The only possible obstruction would be `p | (R+1)^2`, but on a
+frozen subdoubling row we have `p < R+1 < 2p`, so that cannot occur. -/
+theorem vfMidFrozenOwner_adjacentQuotientEndpoint_eq
+    {A R p : ℕ}
+    (hp : p.Prime) (hAp : A < p) (hpR : p ≤ R) (hRlt : R < 2 * A) :
+    (((R + 1) ^ 2 - 1) / p) = ((R + 1) ^ 2 / p) := by
+  have hR1lt2p : R + 1 < 2 * p := by
+    have hR1le : R + 1 ≤ 2 * A := by omega
+    have h2Alt : 2 * A < 2 * p := by omega
+    omega
+  have hpNotSucc : ¬ p ∣ R + 1 := by
+    intro hdiv
+    rcases hdiv with ⟨k, hk⟩
+    have hk2 : 2 ≤ k := by
+      by_contra hnot
+      have hkLe : k ≤ 1 := Nat.le_of_not_ge hnot
+      rcases Nat.eq_zero_or_pos k with hk0 | hkpos
+      · subst k
+        simp at hk
+      · have hk1 : k = 1 := by omega
+        subst k
+        simp at hk
+        omega
+    have h2p : 2 * p ≤ R + 1 := by
+      calc
+        2 * p ≤ k * p := Nat.mul_le_mul_right p hk2
+        _ = p * k := by ring
+        _ = R + 1 := hk.symm
+    omega
+  have hpNotSq : ¬ p ∣ (R + 1) ^ 2 := by
+    intro hsq
+    exact hpNotSucc (hp.dvd_of_dvd_pow hsq)
+  let N : ℕ := (R + 1) ^ 2
+  have hmodNe : N % p ≠ 0 := by
+    intro hz
+    apply hpNotSq
+    exact Nat.dvd_iff_mod_eq_zero.mpr hz
+  have hmodPos : 1 ≤ N % p :=
+    Nat.one_le_iff_ne_zero.mpr hmodNe
+  have hdecomp : p * (N / p) + N % p = N :=
+    Nat.div_add_mod N p
+  apply le_antisymm
+  · exact Nat.div_le_div_right (Nat.sub_le N 1)
+  · apply (Nat.le_div_iff_mul_le hp.pos).2
+    rw [Nat.mul_comm]
+    omega
+
+/-- Generic real finite-difference telescope on a natural interval. -/
+private theorem vfMidFrozen_sum_increment_Ico
+    (f : ℕ → ℝ) {a b : ℕ} (hab : a ≤ b) :
+    (∑ k ∈ Finset.Ico a b, (f (k + 1) - f k)) =
+      f b - f a := by
+  rw [Finset.sum_Ico_eq_sub _ hab, Finset.sum_range_sub f b,
+    Finset.sum_range_sub f a]
+  abel
+
+/-- Prime-count contribution of one fixed frozen owner across all square
+blocks in which it can occur. -/
+def vfMidFrozenFixedOwnerPrimeIntervalSupply (p B : ℕ) : ℝ :=
+  ∑ R ∈ Finset.Ico p B,
+    ((Nat.primeCounting (((R + 1) ^ 2 - 1) / p) : ℝ) -
+      (Nat.primeCounting (R ^ 2 / p) : ℝ))
+
+/-- **Fixed-owner block telescope.**
+
+For one prime owner `A < p < B <= 2A`, all of its adjacent reciprocal
+prime-count intervals telescope exactly:
+
+`sum_{p <= R < B} [pi(((R+1)^2-1)/p)-pi(R^2/p)]
+    = pi(B^2/p)-pi(p)`.
+
+This is the whole-run version of the single `17 -> 19` row in the 317
+example. -/
+theorem vfMidFrozenFixedOwnerPrimeIntervalSupply_eq_endpointGap
+    {A B p : ℕ}
+    (hA : 3 ≤ A) (hp : p.Prime) (hAp : A < p)
+    (hpB : p < B) (hBA : B ≤ 2 * A) :
+    vfMidFrozenFixedOwnerPrimeIntervalSupply p B =
+      (Nat.primeCounting (B ^ 2 / p) : ℝ) -
+        (Nat.primeCounting p : ℝ) := by
+  unfold vfMidFrozenFixedOwnerPrimeIntervalSupply
+  have hterm :
+      ∀ R ∈ Finset.Ico p B,
+        ((Nat.primeCounting (((R + 1) ^ 2 - 1) / p) : ℝ) -
+          (Nat.primeCounting (R ^ 2 / p) : ℝ)) =
+        ((Nat.primeCounting ((R + 1) ^ 2 / p) : ℝ) -
+          (Nat.primeCounting (R ^ 2 / p) : ℝ)) := by
+    intro R hR
+    have hpR : p ≤ R := (Finset.mem_Ico.mp hR).1
+    have hRB : R < B := (Finset.mem_Ico.mp hR).2
+    have hRlt : R < 2 * A := hRB.trans_le hBA
+    rw [vfMidFrozenOwner_adjacentQuotientEndpoint_eq
+      hp hAp hpR hRlt]
+  calc
+    (∑ R ∈ Finset.Ico p B,
+      ((Nat.primeCounting (((R + 1) ^ 2 - 1) / p) : ℝ) -
+        (Nat.primeCounting (R ^ 2 / p) : ℝ))) =
+      ∑ R ∈ Finset.Ico p B,
+        ((Nat.primeCounting ((R + 1) ^ 2 / p) : ℝ) -
+          (Nat.primeCounting (R ^ 2 / p) : ℝ)) := by
+            apply Finset.sum_congr rfl
+            intro R hR
+            exact hterm R hR
+    _ = (Nat.primeCounting (B ^ 2 / p) : ℝ) -
+        (Nat.primeCounting (p ^ 2 / p) : ℝ) := by
+          exact vfMidFrozen_sum_increment_Ico
+            (fun R => (Nat.primeCounting (R ^ 2 / p) : ℝ))
+            (by omega : p ≤ B)
+    _ = (Nat.primeCounting (B ^ 2 / p) : ℝ) -
+        (Nat.primeCounting p : ℝ) := by
+          have hp0 : p ≠ 0 := hp.ne_zero
+          simp [pow_two, hp0]
+
 /-! ## Run-level lower-prime-count normal form -/
 
 /-- The complete frozen composite correction written only with ordinary prime
