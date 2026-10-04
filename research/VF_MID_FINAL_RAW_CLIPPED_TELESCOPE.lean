@@ -692,6 +692,61 @@ theorem vfMidFrozenOwnerPrimeIntervalUpper_sqrt_lt_frozen
     nlinarith
   exact (Nat.sqrt_lt').2 (hupper.trans_le hfour)
 
+/-! ## Run-level lower-prime-count normal form -/
+
+/-- The complete frozen composite correction written only with ordinary prime
+counts on the quotient intervals exposed above. -/
+def vfMidDyadicFrozenCompositePrimeIntervalSupply (A B : ℕ) : ℝ :=
+  ∑ R ∈ Finset.Ico A B,
+    ∑ p ∈ vfMidSquareBandLateOwnerPrimes A R,
+      ((Nat.primeCounting (((R + 1) ^ 2 - 1) / p) : ℝ) -
+        (Nat.primeCounting (R ^ 2 / p) : ℝ))
+
+/-- **Owner-child supply = lower prime-count interval supply.**
+
+Every rank-two frozen composite is therefore represented by one ordinary
+prime-count increment at a strictly smaller square-root scale. -/
+theorem vfMidDyadicFrozenCompositeOwnerChildSupply_eq_primeIntervalSupply
+    {A B : ℕ}
+    (hA : 4 ≤ A) (hAB : A ≤ B) (hBA : B ≤ 2 * A) :
+    vfMidDyadicFrozenCompositeOwnerChildSupply A B =
+      vfMidDyadicFrozenCompositePrimeIntervalSupply A B := by
+  unfold vfMidDyadicFrozenCompositeOwnerChildSupply
+    vfMidDyadicFrozenCompositePrimeIntervalSupply
+  apply Finset.sum_congr rfl
+  intro R hR
+  have hAR : A ≤ R := (Finset.mem_Ico.mp hR).1
+  have hRB : R < B := (Finset.mem_Ico.mp hR).2
+  have hRlt : R < 2 * A := hRB.trans_le hBA
+  apply Finset.sum_congr rfl
+  intro p hp
+  have hcount :=
+    vfMidSquareBandCompositeOwnerChildren_card_add_primeCounting_lower_eq_upper
+      (by omega : 3 ≤ A) hAR hRlt hp
+  have hcountR :
+      ((vfMidSquareBandCompositeOwnerChildren R p).card : ℝ) +
+          (Nat.primeCounting (R ^ 2 / p) : ℝ) =
+        (Nat.primeCounting (((R + 1) ^ 2 - 1) / p) : ℝ) := by
+    exact_mod_cast hcount
+  linarith
+
+/-- **Actual VF tracking defect in lower-prime-count coordinates.**
+
+This is the literal all-scale generalization of the hand ledgers: deterministic
+VF mass minus the frozen survivor supply, plus a finite sum of actual prime
+count increments whose square-root scales are all below the frozen root. -/
+theorem vfMidDyadicVFTrackingDefect_eq_vfMass_sub_prefix_add_lowerPrimeIntervals
+    {A B : ℕ}
+    (hA : 4 ≤ A) (hAB : A ≤ B) (hBA : B ≤ 2 * A) :
+    vfMidDyadicVFTrackingDefect A B =
+      vfMidDyadicVFMass A B -
+        vfMidDyadicPrefixSupply A A B +
+        vfMidDyadicFrozenCompositePrimeIntervalSupply A B := by
+  rw [vfMidDyadicVFTrackingDefect_eq_vfMass_sub_prefix_add_ownerPrimeChildren
+      (by omega : 3 ≤ A) hAB hBA,
+    vfMidDyadicFrozenCompositeOwnerChildSupply_eq_primeIntervalSupply
+      hA hAB hBA]
+
 /-! ## Linear owner-tagged child form of the VF tracking packet -/
 
 /-- Exact multiplicity-preserving population of stripped frozen-composite
