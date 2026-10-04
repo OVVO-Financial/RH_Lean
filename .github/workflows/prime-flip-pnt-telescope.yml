@@ -205,8 +205,8 @@ jobs:
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_PROXY_ENERGY_PULL.olean research/VF_MID_PROXY_ENERGY_PULL.lean 2>&1 | tee vf-mid-proxy-energy-pull.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.FOUR_FANTASY_PROXY_RH_CLOSURES.olean research/FOUR_FANTASY_PROXY_RH_CLOSURES.lean 2>&1 | tee four-fantasy-proxy-rh-closures.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_SOLVED_FANTASY_CONE.olean research/VF_MID_SOLVED_FANTASY_CONE.lean 2>&1 | tee vf-mid-solved-fantasy-cone.log
-          lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_EXISTING_BOUNDARY_OPTIMAL_BASE.olean research/VF_MID_EXISTING_BOUNDARY_OPTIMAL_BASE.lean 2>&1 | tee vf-mid-existing-boundary-optimal-base.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_OPTIMAL_BASE_VON_KOCH_FAN.olean research/VF_MID_OPTIMAL_BASE_VON_KOCH_FAN.lean 2>&1 | tee vf-mid-optimal-base-von-koch-fan.log
+          lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_EXISTING_BOUNDARY_OPTIMAL_BASE.olean research/VF_MID_EXISTING_BOUNDARY_OPTIMAL_BASE.lean 2>&1 | tee vf-mid-existing-boundary-optimal-base.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_PHI_CUTOFF_TELESCOPE.olean research/VF_MID_PHI_CUTOFF_TELESCOPE.lean 2>&1 | tee vf-mid-phi-cutoff-telescope.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_PHI_ODD_LI_TRANSFER.olean research/VF_MID_PHI_ODD_LI_TRANSFER.lean 2>&1 | tee vf-mid-phi-odd-li-transfer.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_PHI_DIAGONAL_TRANSFER.olean research/VF_MID_PHI_DIAGONAL_TRANSFER.lean 2>&1 | tee vf-mid-phi-diagonal-transfer.log
@@ -321,16 +321,10 @@ jobs:
           #print axioms RHLean.Analysis.allScaleLiSquareRootBounded_of_criticalPoisson_uniform
           #print axioms RHLean.Analysis.abs_exactLiContinuousCumulative_le
           #print axioms RHLean.Analysis.exactLiContinuousModel_root_closed
-          #print axioms RHLean.Analysis.optimalBaseImage_reconstructs
-          #print axioms RHLean.Analysis.optimalBaseImage_le_iff
-          #print axioms RHLean.Analysis.optimalBaseImage_bracket_iff
-          #print axioms RHLean.Analysis.vfMidActualPrimeOptimalBase_radialBracket_iff
-          #print axioms RHLean.Analysis.actualPrimeOptimalBaseContainedInSolvedFantasyRadialCone_iff
-          #print axioms RHLean.Analysis.actualPrimeOptimalBaseContainedInSolvedFantasyRadialCone_iff_vonKoch
-          #print axioms RHLean.Analysis.vfMidActualPrimeOptimalBase_outerCornerBracket_iff
-          #print axioms RHLean.Analysis.actualPrimeOptimalBaseContainedInOuterCorner_iff
-          #print axioms RHLean.Analysis.vfMidSquareEndpointVonKochBounded_of_actualPrimeOptimalBaseOuterCorners
-          #print axioms RHLean.Analysis.riemannHypothesis_of_actualPrimeOptimalBaseOuterCorners
+          #print axioms RHLean.Analysis.optimalLogBaseValue_reconstructs
+          #print axioms RHLean.Analysis.optimalLogBaseValue_le_iff
+          #print axioms RHLean.Analysis.optimalLogBaseValue_between_iff
+          #print axioms RHLean.Analysis.actualPrimeOptimalBase_mem_fixed_outer_cage
           #print axioms RHLean.Analysis.vfMidPrimeLiError_eq_primeError_add_liError
           #print axioms RHLean.Analysis.vfMidLiRootBounded
           #print axioms RHLean.Analysis.vfMidOscillationScale_of_primeLi_of_quadrature
