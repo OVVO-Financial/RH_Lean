@@ -128,6 +128,42 @@ open RHLean.Arithmetic RHLean.Proof
 def vfMidDyadicPrefixSurvivorCarrier (A B : ℕ) : Finset ℕ :=
   (Finset.Ico A B).biUnion (vfMidSquarePrefixWheelSurvivors A)
 
+/-- **Every first fresh owner of two frozen-wheel survivors lies above the frozen wheel.**
+
+This is purely the definition of survival: no prime coordinate at most `A`
+divides either endpoint.  Since a first fresh owner divides exactly one endpoint,
+it cannot lie at or below `A`.  No subdoubling or endpoint-size hypothesis is
+needed. -/
+theorem vfMidDyadicPrefixSurvivor_firstOwner_gt_frozen
+    {A B p m n : ℕ}
+    (hm : m ∈ vfMidDyadicPrefixSurvivorCarrier A B)
+    (hn : n ∈ vfMidDyadicPrefixSurvivorCarrier A B)
+    (howner : IsSquarefreePairFreshPrimeOwner p m n) :
+    A < p := by
+  rcases Finset.mem_biUnion.mp hm with ⟨R, _hR, hmSurv⟩
+  rcases Finset.mem_biUnion.mp hn with ⟨S, _hS, hnSurv⟩
+  have hmAvoid : lowWheelHighSurvivor A m :=
+    (Finset.mem_filter.mp hmSurv).2
+  have hnAvoid : lowWheelHighSurvivor A n :=
+    (Finset.mem_filter.mp hnSurv).2
+  rcases Finset.mem_union.mp howner.1 with hleft | hright
+  · rcases Finset.mem_sdiff.mp hleft with ⟨hpFace, _hpNot⟩
+    have hpData : p.Prime ∧ p ∣ m ∧ m ≠ 0 := by
+      simpa [squarefreePrimeFace] using (Nat.mem_primeFactors.mp hpFace)
+    by_contra hnot
+    have hpLe : p ≤ A := Nat.le_of_not_gt hnot
+    have hpMem : p ∈ primesUpTo A :=
+      mem_primesUpTo.mpr ⟨hpData.1, hpLe⟩
+    exact hmAvoid p hpMem hpData.2.1
+  · rcases Finset.mem_sdiff.mp hright with ⟨hpFace, _hpNot⟩
+    have hpData : p.Prime ∧ p ∣ n ∧ n ≠ 0 := by
+      simpa [squarefreePrimeFace] using (Nat.mem_primeFactors.mp hpFace)
+    by_contra hnot
+    have hpLe : p ≤ A := Nat.le_of_not_gt hnot
+    have hpMem : p ∈ primesUpTo A :=
+      mem_primesUpTo.mpr ⟨hpData.1, hpLe⟩
+    exact hnAvoid p hpMem hpData.2.1
+
 /-- Distinct square blocks contribute disjoint frozen-wheel survivor sets. -/
 theorem vfMidSquarePrefixWheelSurvivors_pairwiseDisjoint
     (A B : ℕ) :
