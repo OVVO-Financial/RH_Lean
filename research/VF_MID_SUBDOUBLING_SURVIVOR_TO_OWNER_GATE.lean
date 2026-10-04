@@ -44,7 +44,7 @@ theorem vfMidZeroTargetCubeCrossGram_eq_survivorMobiusMass_mul
   simp_rw [RHLean.Proof.postRootZeroTargetPairExcess_eq_weight]
   unfold realMoebiusStep
   push_cast
-  rw [Finset.sum_mul_sum]
+  rw [← Finset.sum_mul_sum]
 
 /-- Zero-target Gram accumulated over every ordered pair of square blocks in
 one frozen-wheel dyadic run. -/
