@@ -1052,6 +1052,110 @@ theorem vfMidFrozenFixedOwnerPrimeIntervalSupply_eq_endpointGap
           have hp0 : p ≠ 0 := hp.ne_zero
           simp [pow_two, hp0]
 
+/-- Prime owners which can appear anywhere on the frozen run. -/
+def vfMidFrozenRunOwnerPrimes (A B : ℕ) : Finset ℕ :=
+  (Finset.Ioo A B).filter Nat.Prime
+
+/-- **Triangular finite Fubini for the frozen prime intervals.**
+
+The block-first owner sum is exactly the owner-first sum of the fixed-owner
+rows.  This is only a reindexing of the finite triangular carrier
+
+`A <= R < B,quad A < p <= R,quad p prime`.
+
+No estimate or multiplicity collapse occurs. -/
+theorem vfMidDyadicFrozenCompositePrimeIntervalSupply_eq_sum_fixedOwner
+    {A B : ℕ} (hAB : A ≤ B) :
+    vfMidDyadicFrozenCompositePrimeIntervalSupply A B =
+      ∑ p ∈ vfMidFrozenRunOwnerPrimes A B,
+        vfMidFrozenFixedOwnerPrimeIntervalSupply p B := by
+  unfold vfMidDyadicFrozenCompositePrimeIntervalSupply
+    vfMidFrozenRunOwnerPrimes
+    vfMidFrozenFixedOwnerPrimeIntervalSupply
+  let atom : ℕ → ℕ → ℝ := fun R p =>
+    (Nat.primeCounting (((R + 1) ^ 2 - 1) / p) : ℝ) -
+      (Nat.primeCounting (R ^ 2 / p) : ℝ)
+  have hblock :
+      ∀ R ∈ Finset.Ico A B,
+        (∑ p ∈ vfMidSquareBandLateOwnerPrimes A R, atom R p) =
+          ∑ p ∈ (Finset.Ioo A B).filter Nat.Prime,
+            if p ≤ R then atom R p else 0 := by
+    intro R hR
+    have hRB : R < B := (Finset.mem_Ico.mp hR).2
+    rw [vfMidSquareBandLateOwnerPrimes_eq_Ioc_filter_prime A R]
+    have hset :
+        (Finset.Ioc A R).filter Nat.Prime =
+          ((Finset.Ioo A B).filter Nat.Prime).filter (fun p => p ≤ R) := by
+      ext p
+      simp only [Finset.mem_filter, Finset.mem_Ioc, Finset.mem_Ioo]
+      constructor
+      · rintro ⟨⟨hAp, hpR⟩, hpPrime⟩
+        exact ⟨⟨⟨hAp, hpR.trans_lt hRB⟩, hpPrime⟩, hpR⟩
+      · rintro ⟨⟨⟨hAp, _hpB⟩, hpPrime⟩, hpR⟩
+        exact ⟨⟨hAp, hpR⟩, hpPrime⟩
+    rw [hset, Finset.sum_filter]
+  calc
+    (∑ R ∈ Finset.Ico A B,
+      ∑ p ∈ vfMidSquareBandLateOwnerPrimes A R,
+        ((Nat.primeCounting (((R + 1) ^ 2 - 1) / p) : ℝ) -
+          (Nat.primeCounting (R ^ 2 / p) : ℝ))) =
+      ∑ R ∈ Finset.Ico A B,
+        ∑ p ∈ (Finset.Ioo A B).filter Nat.Prime,
+          if p ≤ R then atom R p else 0 := by
+            apply Finset.sum_congr rfl
+            intro R hR
+            simpa [atom] using hblock R hR
+    _ = ∑ p ∈ (Finset.Ioo A B).filter Nat.Prime,
+        ∑ R ∈ Finset.Ico A B,
+          if p ≤ R then atom R p else 0 := by
+            rw [Finset.sum_comm]
+    _ = ∑ p ∈ (Finset.Ioo A B).filter Nat.Prime,
+        ∑ R ∈ Finset.Ico p B, atom R p := by
+          apply Finset.sum_congr rfl
+          intro p hpMem
+          rcases Finset.mem_filter.mp hpMem with ⟨hpIoo, _hpPrime⟩
+          rcases Finset.mem_Ioo.mp hpIoo with ⟨hAp, hpB⟩
+          have hsetR :
+              (Finset.Ico A B).filter (fun R => p ≤ R) =
+                Finset.Ico p B := by
+            ext R
+            simp only [Finset.mem_filter, Finset.mem_Ico]
+            constructor
+            · rintro ⟨⟨hAR, hRB⟩, hpR⟩
+              exact ⟨hpR, hRB⟩
+            · rintro ⟨hpR, hRB⟩
+              exact ⟨⟨hAp.le.trans hpR, hRB⟩, hpR⟩
+          rw [← Finset.sum_filter, hsetR]
+    _ = ∑ p ∈ (Finset.Ioo A B).filter Nat.Prime,
+        ∑ R ∈ Finset.Ico p B,
+          ((Nat.primeCounting (((R + 1) ^ 2 - 1) / p) : ℝ) -
+            (Nat.primeCounting (R ^ 2 / p) : ℝ)) := by
+          rfl
+
+/-- **Whole-run owner collapse.**
+
+After the triangular Fubini, every fixed owner row telescopes.  Hence the
+entire rank-two composite correction is
+
+`sum_{A < p < B, p prime} [pi(B^2/p) - pi(p)]`.
+
+For the 317 run `A=14, B=18`, the owner set is `{17}` and this is exactly
+`pi(324/17)-pi(17)=pi(19)-pi(17)=1`. -/
+theorem vfMidDyadicFrozenCompositePrimeIntervalSupply_eq_sum_endpointGaps
+    {A B : ℕ}
+    (hA : 3 ≤ A) (hAB : A ≤ B) (hBA : B ≤ 2 * A) :
+    vfMidDyadicFrozenCompositePrimeIntervalSupply A B =
+      ∑ p ∈ vfMidFrozenRunOwnerPrimes A B,
+        ((Nat.primeCounting (B ^ 2 / p) : ℝ) -
+          (Nat.primeCounting p : ℝ)) := by
+  rw [vfMidDyadicFrozenCompositePrimeIntervalSupply_eq_sum_fixedOwner hAB]
+  apply Finset.sum_congr rfl
+  intro p hpMem
+  rcases Finset.mem_filter.mp hpMem with ⟨hpIoo, hpPrime⟩
+  rcases Finset.mem_Ioo.mp hpIoo with ⟨hAp, hpB⟩
+  exact vfMidFrozenFixedOwnerPrimeIntervalSupply_eq_endpointGap
+    hA hpPrime hAp hpB hBA
+
 /-! ## Run-level lower-prime-count normal form -/
 
 /-- The complete frozen composite correction written only with ordinary prime
