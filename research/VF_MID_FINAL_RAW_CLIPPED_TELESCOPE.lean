@@ -159,7 +159,7 @@ theorem vfMidDyadicPrefixSurvivor_composite_descends_to_prime_below_frozen
     (hnPrime : ¬ n.Prime) :
     ∃ p q : ℕ,
       p.Prime ∧ q.Prime ∧ A < p ∧ p ≤ q ∧
-        n = p * q ∧ Nat.sqrt q < A := by
+        n = p * q ∧ q < A ^ 2 ∧ Nat.sqrt q < A := by
   rcases
       vfMidDyadicPrefixSurvivor_prime_or_two_primes_of_subdoubling
         (by omega : 3 ≤ A) hAB hBA hn with hprime | hcomp
@@ -193,8 +193,49 @@ theorem vfMidDyadicPrefixSurvivor_composite_descends_to_prime_below_frozen
         nlinarith
       rw [← hnEq] at hmul
       omega
-    refine ⟨p, q, hp, hq, hAp, hpq, hnEq, ?_⟩
+    refine ⟨p, q, hp, hq, hAp, hpq, hnEq, hqA2, ?_⟩
     exact (Nat.sqrt_lt').2 hqA2
+
+/-- Every prime divisor of a nonprime frozen survivor lies below the frozen
+square endpoint `A^2`.  Thus no high first owner can hide inside the
+semiprime sector. -/
+theorem vfMidDyadicPrefixSurvivor_primeDivisor_lt_frozenSquare_of_composite
+    {A B p n : ℕ}
+    (hA : 4 ≤ A) (hAB : A ≤ B) (hBA : B ≤ 2 * A)
+    (hp : p.Prime)
+    (hn : n ∈ vfMidDyadicPrefixSurvivorCarrier A B)
+    (hnPrime : ¬ n.Prime)
+    (hpn : p ∣ n) :
+    p < A ^ 2 := by
+  rcases
+      vfMidDyadicPrefixSurvivor_composite_descends_to_prime_below_frozen
+        hA hAB hBA hn hnPrime with
+    ⟨q, r, hq, hr, _hAq, hqr, hnEq, hrA2, _hsqrt⟩
+  rw [hnEq] at hpn
+  rcases hp.dvd_mul.mp hpn with hpq | hpr
+  · have hpEqQ : p = q :=
+      ((Nat.dvd_prime hq).mp hpq).resolve_left hp.ne_one
+    subst p
+    exact hqr.trans_lt hrA2
+  · have hpEqR : p = r :=
+      ((Nat.dvd_prime hr).mp hpr).resolve_left hp.ne_one
+    subst p
+    exact hrA2
+
+/-- Consequently a first-owner coordinate at or above `A^2` can divide only
+a prime survivor endpoint. -/
+theorem vfMidDyadicPrefixSurvivor_highOwner_divisible_endpoint_prime
+    {A B p n : ℕ}
+    (hA : 4 ≤ A) (hAB : A ≤ B) (hBA : B ≤ 2 * A)
+    (hp : p.Prime) (hpHigh : A ^ 2 ≤ p)
+    (hn : n ∈ vfMidDyadicPrefixSurvivorCarrier A B)
+    (hpn : p ∣ n) :
+    n.Prime := by
+  by_contra hnPrime
+  have hpLow :=
+    vfMidDyadicPrefixSurvivor_primeDivisor_lt_frozenSquare_of_composite
+      hA hAB hBA hp hn hnPrime hpn
+  omega
 
 /-- Restricted #886 signed mass on the clipped p-free base side of one
 first-owner/signature cell. -/
