@@ -255,6 +255,7 @@ jobs:
           import «research.VF_MID_ADVERSARIAL_PROOF_FUZZER»
           import «research.VF_MID_OWNER_ADMISSIBLE_ESCAPE_CLASS»
           import «research.VF_MID_ACTUAL_PRIME_FIRST_BAD_MOBIUS_TRIGGER»
+          import «research.VF_MID_SUBDOUBLING_SURVIVOR_TO_OWNER_GATE»
           import «research.VF_MID_RECURSIVE_REMAINDER_BOUND»
           import «research.VF_MID_AGGREGATE_CHILD_FORCING»
           import «research.VF_MID_ENDPOINT_TRIGGER_DICTIONARY»
