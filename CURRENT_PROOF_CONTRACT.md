@@ -65,6 +65,57 @@ exactness, least-prime ownership, and square-root dependency are useful only
 insofar as they help prove this cumulative estimate without introducing a
 stronger false premise.
 
+
+## Canonical closure route: structural admissibility, not realized cancellation
+
+The final direct-VF closure is now stated as an admissible-class theorem rather
+than as a request for a separate global cancellation estimate for the realized
+prime sequence.
+
+The class is formalized in
+[`VF_MID_OWNER_ADMISSIBLE_ESCAPE_CLASS.lean`](research/VF_MID_OWNER_ADMISSIBLE_ESCAPE_CLASS.lean)
+as
+
+`VFMidOwnerEscapeAdmissible D`.
+
+Its defining law is deliberately structural:
+
+- finitely many base scales are not channel-threatening;
+- every channel-threatening bad scale reproduces on an actual strict recursive
+  VF child scale.
+
+It does **not** assume `|D_R| <= K R log R`, a covariance estimate, a
+prime-error cancellation rate, or membership in the solved fantasy cone.
+
+The adversarial fuzzer already proves that exact recurrence, perfect midpoint
+balance, and the quadratic energy identity are insufficient: an explicit
+synthetic defect satisfies them and still escapes every radial channel. The
+same file proves that strict-child reproduction kills every escaping trajectory
+by strong induction.
+
+The honest-prime obligation is therefore named explicitly:
+
+`VFMidActualPrimeOwnerEscapeAdmissibleStatement`.
+
+Once it is proved, the compiled theorem
+
+`vfMidSquareEndpointVonKochBounded_of_actualPrimeOwnerEscapeAdmissible`
+
+closes `VFMidSquareEndpointVonKochBoundedStatement` immediately.
+
+The intended proof of actual-prime admissibility must use the exact arithmetic
+mechanics already present in the repository: the VF-native seat carrier, exact
+affine/Mobius decoder, first-separation owner, critical owner trichotomy,
+strict continuation to a smaller state, and clipped outgoing contraction.
+Those mechanisms may contain exact sign cancellation internally; no separate
+long-range statement that the realized prime errors "cancel enough" is an
+admissibility hypothesis.
+
+Accordingly, `ActualPrimeContainedInSolvedFantasyConeStatement` is retained
+as a valid metric sufficient condition and visualization, but it is **not** the
+canonical remaining arithmetic obligation. Proving that cone membership
+directly would be essentially the target bound in different coordinates.
+
 ## Fixed-alignment step-graph criterion: conditional only
 
 PR #842 formalizes a useful sufficient implication for a fixed additive phase
