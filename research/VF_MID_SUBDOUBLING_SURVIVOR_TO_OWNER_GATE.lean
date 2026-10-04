@@ -69,4 +69,184 @@ theorem vfMidDyadicPrefixZeroTargetGram_eq_survivorMobiusMass_sq
   push_cast
   ring
 
+
+/-! ## Literal restricted carrier and exact first-owner reindex -/
+
+open RHLean.Arithmetic RHLean.Proof
+
+/-- The physical integer carrier underlying the whole #885 subdoubling packet. -/
+def vfMidDyadicPrefixSurvivorCarrier (A B : ℕ) : Finset ℕ :=
+  (Finset.Ico A B).biUnion (vfMidSquarePrefixWheelSurvivors A)
+
+/-- Distinct square blocks contribute disjoint frozen-wheel survivor sets. -/
+theorem vfMidSquarePrefixWheelSurvivors_pairwiseDisjoint
+    (A B : ℕ) :
+    Set.PairwiseDisjoint (↑(Finset.Ico A B))
+      (vfMidSquarePrefixWheelSurvivors A) := by
+  intro R hR S hS hRS
+  change Disjoint (vfMidSquarePrefixWheelSurvivors A R)
+    (vfMidSquarePrefixWheelSurvivors A S)
+  rw [Finset.disjoint_left]
+  intro n hnR hnS
+  have hnRI := (Finset.mem_filter.mp hnR).1
+  have hnSI := (Finset.mem_filter.mp hnS).1
+  unfold vfMidSquareWheelSites at hnRI hnSI
+  rcases Finset.mem_Ioo.mp hnRI with ⟨hnRlow, hnRhigh⟩
+  rcases Finset.mem_Ioo.mp hnSI with ⟨hnSlow, hnShigh⟩
+  rcases lt_or_gt_of_ne hRS with hRltS | hSltR
+  · have hsucc : R + 1 ≤ S := by omega
+    have hsq : (R + 1) ^ 2 ≤ S ^ 2 :=
+      Nat.pow_le_pow_left hsucc 2
+    omega
+  · have hsucc : S + 1 ≤ R := by omega
+    have hsq : (S + 1) ^ 2 ≤ R ^ 2 :=
+      Nat.pow_le_pow_left hsucc 2
+    omega
+
+/-- Flattening the disjoint square blocks does not change their signed mass. -/
+theorem sum_vfMidDyadicPrefixSurvivorCarrier_eq_mobiusMass
+    (A B : ℕ) :
+    (∑ n ∈ vfMidDyadicPrefixSurvivorCarrier A B, realMoebiusStep n) =
+      vfMidDyadicPrefixSurvivorMobiusMassReal A B := by
+  unfold vfMidDyadicPrefixSurvivorCarrier
+    vfMidDyadicPrefixSurvivorMobiusMassReal
+  rw [Finset.sum_biUnion
+    (vfMidSquarePrefixWheelSurvivors_pairwiseDisjoint A B)]
+  apply Finset.sum_congr rfl
+  intro R _hR
+  unfold vfMidSquareBandPrefixSurvivorMobiusMassReal realMoebiusStep
+  rfl
+
+/-- On a genuine subdoubling run every #885 survivor is a nonzero-Mobius site
+on the returned-core physical clock at the terminal root B. -/
+theorem vfMidDyadicPrefixSurvivorCarrier_subset_lowOwnerNonzero
+    {A B : ℕ} (hA : 3 ≤ A) (hAB : A ≤ B) (hBA : B ≤ 2 * A) :
+    vfMidDyadicPrefixSurvivorCarrier A B ⊆
+      lowOwnerNonzeroMobiusCarrier B := by
+  intro n hn
+  rcases Finset.mem_biUnion.mp hn with ⟨R, hR, hnSurv⟩
+  rcases Finset.mem_Ico.mp hR with ⟨hAR, hRB⟩
+  have hR2 : 2 ≤ R := by omega
+  have hRlt : R < 2 * A := hRB.trans_le hBA
+  have hnSite := (Finset.mem_filter.mp hnSurv).1
+  unfold vfMidSquareWheelSites at hnSite
+  rcases Finset.mem_Ioo.mp hnSite with ⟨hnLow, hnHigh⟩
+  have hR1B : R + 1 ≤ B := by omega
+  have hsq : (R + 1) ^ 2 ≤ B ^ 2 :=
+    Nat.pow_le_pow_left hR1B 2
+  have hnLtBsq : n < B ^ 2 := hnHigh.trans_le hsq
+  have hBpos : 0 < B ^ 2 := by positivity
+  have hnX : n ≤ squareRootEndpoint B := by
+    unfold squareRootEndpoint
+    omega
+  have hnPos : 1 ≤ n := by
+    have hRpos : 0 < R ^ 2 := by positivity
+    omega
+  have hsplit :=
+    vfMidSquarePrefixWheelSurvivors_eq_prime_union_prefixComposite
+      (A := A) (R := R) hR2 hAR
+  have hmem :
+      n ∈ vfMidSquareWheelPrimes R ∪
+        vfMidSquareBandPrefixCompositeSurvivors A R := by
+    rw [← hsplit]
+    exact hnSurv
+  have hstep : realMoebiusStep n ≠ 0 := by
+    rcases Finset.mem_union.mp hmem with hnPrime | hnComp
+    · have hp : n.Prime := (Finset.mem_filter.mp hnPrime).2
+      rw [realMoebiusStep, ArithmeticFunction.moebius_apply_prime hp]
+      norm_num
+    · have hmu :=
+        vfMidSquareBandPrefixComposite_moebius_eq_one_of_subdoubling
+          hA hAR hRlt hnComp
+      rw [realMoebiusStep, hmu]
+      norm_num
+  unfold lowOwnerNonzeroMobiusCarrier
+  exact Finset.mem_filter.mpr
+    ⟨Finset.mem_Icc.mpr ⟨hnPos, hnX⟩, hstep⟩
+
+/-- The #885 packet as an arbitrary signed site on the returned-core clock. -/
+def vfMidDyadicPrefixSurvivorSignedSite (A B n : ℕ) : ℝ :=
+  if n ∈ vfMidDyadicPrefixSurvivorCarrier A B
+  then realMoebiusStep n
+  else 0
+
+/-- Restricting the common returned-core clock by the #885 indicator recovers
+exactly the #885 signed survivor packet. -/
+theorem sum_lowOwnerNonzero_vfMidDyadicPrefixSurvivorSignedSite
+    {A B : ℕ} (hA : 3 ≤ A) (hAB : A ≤ B) (hBA : B ≤ 2 * A) :
+    (∑ n ∈ lowOwnerNonzeroMobiusCarrier B,
+      vfMidDyadicPrefixSurvivorSignedSite A B n) =
+        vfMidDyadicPrefixSurvivorMobiusMassReal A B := by
+  have hsub :=
+    vfMidDyadicPrefixSurvivorCarrier_subset_lowOwnerNonzero
+      hA hAB hBA
+  have hfilter :
+      (lowOwnerNonzeroMobiusCarrier B).filter
+          (fun n => n ∈ vfMidDyadicPrefixSurvivorCarrier A B) =
+        vfMidDyadicPrefixSurvivorCarrier A B := by
+    ext n
+    simp only [Finset.mem_filter]
+    constructor
+    · rintro ⟨_hnClock, hnCar⟩
+      exact hnCar
+    · intro hnCar
+      exact ⟨hsub hnCar, hnCar⟩
+  unfold vfMidDyadicPrefixSurvivorSignedSite
+  rw [← Finset.sum_filter, hfilter]
+  exact sum_vfMidDyadicPrefixSurvivorCarrier_eq_mobiusMass A B
+
+/-- The returned-core empty-state arbitrary-site Gram is exactly the square of
+the #885 survivor mass. -/
+theorem lowOwnerRevealedPairMassWith_empty_eq_vfMidSurvivor_sq
+    {A B : ℕ} (hA : 3 ≤ A) (hAB : A ≤ B) (hBA : B ≤ 2 * A) :
+    lowOwnerRevealedPairMassWith B ∅
+        (vfMidDyadicPrefixSurvivorSignedSite A B) =
+      vfMidDyadicPrefixSurvivorMobiusMassReal A B ^ 2 := by
+  rw [lowOwnerRevealedPairMassWith_empty_eq_sum_sq]
+  rw [sum_lowOwnerNonzero_vfMidDyadicPrefixSurvivorSignedSite
+    hA hAB hBA]
+
+/-- **Exact first-owner carrier weld.**
+
+The quadratic #885 packet is now literally diagonal plus the repository's
+existing least-owner/lower-signature cell carrier, with the survivor indicator
+kept as an arbitrary signed site.  No owner multiplicity or boundary term is
+discarded. -/
+theorem vfMidDyadicPrefixSurvivorMobiusMass_sq_eq_diagonal_add_firstOwnerCells
+    {A B : ℕ} (hA : 3 ≤ A) (hAB : A ≤ B) (hBA : B ≤ 2 * A) :
+    vfMidDyadicPrefixSurvivorMobiusMassReal A B ^ 2 =
+      lowOwnerGlobalDiagonalPairMassWith B
+          (vfMidDyadicPrefixSurvivorSignedSite A B) +
+        ∑ p ∈ primesUpTo (squareRootEndpoint B),
+          2 * ∑ sig ∈ lowOwnerFirstOwnerSignatureSet B p,
+            lowOwnerFirstOwnerCellGramWith B p sig
+              (vfMidDyadicPrefixSurvivorSignedSite A B) := by
+  have hempty :=
+    lowOwnerRevealedPairMassWith_empty_eq_diagonal_add_firstOwners
+      B (vfMidDyadicPrefixSurvivorSignedSite A B)
+  have hsquare :=
+    lowOwnerRevealedPairMassWith_empty_eq_vfMidSurvivor_sq
+      hA hAB hBA
+  rw [hsquare] at hempty
+  calc
+    vfMidDyadicPrefixSurvivorMobiusMassReal A B ^ 2 =
+        lowOwnerGlobalDiagonalPairMassWith B
+            (vfMidDyadicPrefixSurvivorSignedSite A B) +
+          ∑ p ∈ primesUpTo (squareRootEndpoint B),
+            lowOwnerGlobalFirstOwnerPairMassWith B p
+              (vfMidDyadicPrefixSurvivorSignedSite A B) := hempty
+    _ =
+        lowOwnerGlobalDiagonalPairMassWith B
+            (vfMidDyadicPrefixSurvivorSignedSite A B) +
+          ∑ p ∈ primesUpTo (squareRootEndpoint B),
+            2 * ∑ sig ∈ lowOwnerFirstOwnerSignatureSet B p,
+              lowOwnerFirstOwnerCellGramWith B p sig
+                (vfMidDyadicPrefixSurvivorSignedSite A B) := by
+      apply add_congr rfl
+      apply Finset.sum_congr rfl
+      intro p hp
+      exact lowOwnerGlobalFirstOwnerPairMassWith_eq_two_sum_cells
+        (mem_primesUpTo.mp hp).1
+        (vfMidDyadicPrefixSurvivorSignedSite A B)
+
 end RHLean.Analysis
