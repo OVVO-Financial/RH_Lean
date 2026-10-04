@@ -482,3 +482,113 @@ must use additional information specific to the first-bad breach or a sharper
 signed identity coupling (T(A,B)) to the selected reciprocal ledger. Per the
 failure rule above, this is a failure of the proposed splice, not authorization
 to introduce a new unproved hypothesis.
+
+
+## 12. Correct terminal wall: accumulated depth must remain in the inequality
+
+The failed local-gradient target from Section 11 is permanently retired.
+
+Write
+
+[
+D_R:=	exttt{vfMidActualPrimeEndpointDefect}(R),
+qquad
+T(A,B):=
+	exttt{vfMidDyadicFrozenSurvivorSeatCharge}(A,B)
++
+	exttt{vfMidDyadicProcessedOwnerSeatCharge}(A,B).
+]
+
+The exact compiled reassembly gives
+
+[
+oxed{T(A,B)=D_A-D_B},
+qquad
+D_B=D_A-T(A,B).
+]
+
+Therefore a first-bad scale at (B) does **not** merely force
+(|T|>K(ho_B-ho_A)).  It forces the strictly stronger, depth-aware
+necessary condition
+
+[
+oxed{
+Kho_B-|D_A|<|T(A,B)|
+}
+]
+
+because
+
+[
+Kho_B<|D_B|
+=
+|D_A-T|
+le |D_A|+|T|.
+]
+
+The right side of the threshold decomposes exactly as
+
+[
+oxed{
+Kho_B-|D_A|
+=
+K(ho_B-ho_A)
++
+left(Kho_A-|D_A|ight).
+}
+]
+
+The second term is the accumulated prior-good slack and is nonnegative under
+the first-bad hypothesis.
+
+For sign-sensitive use, if (D_B>Kho_B) then necessarily
+
+[
+T(A,B)<D_A-Kho_B,
+]
+
+while if (D_B<-Kho_B) then necessarily
+
+[
+D_A+Kho_B<T(A,B).
+]
+
+Thus the true structural ceiling to be proved from the #887/#888 restricted
+reciprocal ledger and prior-good children is
+
+[
+oxed{
+|T(A,B)|
+le
+Kho_B-|D_A|
+}
+]
+
+or a sharper sign-specific equivalent.  The old local Lipschitz ceiling
+(|T|le K(ho_B-ho_A)) must not be used again.
+
+At the recorded ((A,B)=(5266,5267)), (K=2):
+
+[
+2ho_{5266}approx 90248.9854,qquad
+D_{5266}approx-385.1594,
+]
+
+so the two sign-specific distances from (D_A) to the (B)-walls are
+
+[
+2ho_{5267}-D_Aapprox90653.2831
+]
+
+for an upper-wall crossing and
+
+[
+2ho_{5267}+D_Aapprox89882.9642
+]
+
+for a lower-wall crossing.  The actual local charge magnitude
+(|T|approx60.4096) is microscopic relative to either.
+
+This is now the binding terminal interface.  The proof is complete only when
+the depth-aware structural ceiling is derived from the existing #887/#888
+carrier, not assumed.
