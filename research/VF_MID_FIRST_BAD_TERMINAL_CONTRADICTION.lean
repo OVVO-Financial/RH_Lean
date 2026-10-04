@@ -82,9 +82,9 @@ theorem vfMidProcessedOwnerChild_prior_inside
   have hAR : A ≤ R := (Finset.mem_Ico.mp hR).1
   have hRB : R < B := (Finset.mem_Ico.mp hR).2
   have hAm := vfMidProcessedOwnerChild_anchor_lt (A := A) hAR hp hm
+  have hm4 : 4 ≤ m := by omega
   have hs2 : 2 ≤ Nat.sqrt m := by
-    apply (Nat.le_sqrt).2
-    nlinarith
+    exact (Nat.le_sqrt).2 hm4
   have hsA :=
     vfMidProcessedOwnerChild_sqrt_lt_anchor hRB hBsq hp hm
   have hsB : Nat.sqrt m < B := hsA.trans hABlt
@@ -120,8 +120,7 @@ theorem vfMidFrozenOwnerPrimeChild_prior_inside
     (Finset.mem_Icc.mp (Finset.mem_filter.mp hrough).1).1
   have hq4 : 4 ≤ q := by omega
   have hs2 : 2 ≤ Nat.sqrt q := by
-    apply (Nat.le_sqrt).2
-    nlinarith
+    exact (Nat.le_sqrt).2 hq4
   have hsB : Nat.sqrt q < B := hsA.trans hABlt
   exact vfMidActualPrimeFirstBadAt_prior_inside hfirst hs2 hsB
 
