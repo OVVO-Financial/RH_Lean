@@ -216,10 +216,13 @@ jobs:
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_EXISTING_BOUNDARY_OPTIMAL_BASE.olean research/VF_MID_EXISTING_BOUNDARY_OPTIMAL_BASE.lean 2>&1 | tee vf-mid-existing-boundary-optimal-base.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_OPTIMAL_BASE_FIRST_CROSSING_TRIGGER.olean research/VF_MID_OPTIMAL_BASE_FIRST_CROSSING_TRIGGER.lean 2>&1 | tee vf-mid-optimal-base-first-crossing-trigger.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_NATIVE_LYAPUNOV_SEAT_GRAM.olean research/VF_MID_NATIVE_LYAPUNOV_SEAT_GRAM.lean 2>&1 | tee vf-mid-native-lyapunov-seat-gram.log
-          lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_SUBDOUBLING_SURVIVOR_TO_OWNER_GATE.olean research/VF_MID_SUBDOUBLING_SURVIVOR_TO_OWNER_GATE.lean 2>&1 | tee vf-mid-subdoubling-survivor-to-owner-gate.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_PHI_CUTOFF_TELESCOPE.olean research/VF_MID_PHI_CUTOFF_TELESCOPE.lean 2>&1 | tee vf-mid-phi-cutoff-telescope.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_PHI_ODD_LI_TRANSFER.olean research/VF_MID_PHI_ODD_LI_TRANSFER.lean 2>&1 | tee vf-mid-phi-odd-li-transfer.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_PHI_DIAGONAL_TRANSFER.olean research/VF_MID_PHI_DIAGONAL_TRANSFER.lean 2>&1 | tee vf-mid-phi-diagonal-transfer.log
+      - name: Kernel-check survivor-owner gate import closure
+        run: |
+          lake build RHLean
+          python3 scripts/compile_research_import_closure.py research/VF_MID_SUBDOUBLING_SURVIVOR_TO_OWNER_GATE.lean
       - name: Audit named theorem axioms
         run: |
           cat > /tmp/PrimeFlipPNTAxioms.lean <<'LEAN'
