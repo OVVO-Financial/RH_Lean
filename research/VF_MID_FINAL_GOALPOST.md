@@ -592,3 +592,76 @@ for a lower-wall crossing.  The actual local charge magnitude
 This is now the binding terminal interface.  The proof is complete only when
 the depth-aware structural ceiling is derived from the existing #887/#888
 carrier, not assumed.
+
+
+## 13. Direct quadratic wiring audit
+
+The terminal first-bad lower bound is now wired directly, with no local
+Lipschitz wall and no two-sector bookkeeping left on the conclusion side.
+
+For a one-block anchor `A=R`, `B=R+1`, the branch proves
+
+[
+T(R,R+1)=-e_R
+]
+
+and
+
+[
+oxed{
+T(R,R+1)^2-2D_R T(R,R+1)
+=
+2D_Re_R+e_R^2
+=
+D_{R+1}^2-D_R^2 .
+}
+]
+
+Consequently
+
+`vfMidActualPrimeFirstBadAt_succ_forces_correlationEnergyTrigger`
+
+states directly that a first-bad endpoint at (R+1) forces
+
+[
+oxed{
+(Kho_{R+1})^2-D_R^2
+<
+2D_Re_R+e_R^2.
+}
+]
+
+This is the binding first-bad energy bill.
+
+### What #888's quarter theorem does and does not bound
+
+The imported theorem
+`vfMidSelectedClippedOutgoingEnergy_le_quarter`
+is a theorem about the **reciprocal-weighted clipped outgoing energy**.  The
+underlying history-safe contraction file explicitly states that this closes the
+positive clipped-exit channel but does **not** estimate the raw signed quadratic
+continuation: that continuation has no reciprocal (1/r^2) factor and must
+remain signed through rank descent.
+
+Therefore the following promotion is forbidden unless an exact theorem is
+proved:
+
+[
+	ext{clipped reciprocal exit}le	frac14	ext{ parent reciprocal energy}
+quad
+otRightarrowquad
+2D_Re_R+e_R^2le	ext{ radial budget}.
+]
+
+Likewise, first-bad prior-goodness bounds the full lower-scale endpoint defects
+(D_S).  The native VF descent carrier
+`vfMidRecursiveNativeChargeInBlock R S` is a restricted signed subset packet.
+`VF_MID_AGGREGATE_CHILD_FORCING.lean` explicitly records packet-to-full-scale
+inheritance as `VFMidNativePacketToScaleInheritanceStatement`, a proposition
+which is deliberately **not proved**.
+
+Hence a terminal `False` may not be obtained by substituting either of those
+two missing identifications.  The direct proof must control the exact signed
+quadratic continuation/correlation on its physical carrier.  This is not a new
+goalpost: it is the result of substituting #887/#888 literally into the
+depth-aware first-bad energy identity.
