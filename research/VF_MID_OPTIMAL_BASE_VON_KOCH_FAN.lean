@@ -18,7 +18,7 @@ images is equivalent to containment between the original count boundaries.
 The two main instantiations here are:
 
 * the normalized solved-fantasy radial cone, whose count-space walls are
-  VF(R^2) +/- K R log R;
+  VF(R^2) ± K R log R;
 * the genuine widened VF outer-corner walls already formalized in
   VF_MID_CORNER_CHANNEL.
 
