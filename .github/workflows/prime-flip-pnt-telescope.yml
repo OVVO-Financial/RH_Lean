@@ -678,6 +678,9 @@ jobs:
           #print axioms RHLean.Analysis.vfMidActualPrimeFirstBadAt_forces_subdoublingMobiusTrigger
           #print axioms RHLean.Analysis.vfMidZeroTargetCubeCrossGram_eq_survivorMobiusMass_mul
           #print axioms RHLean.Analysis.vfMidDyadicPrefixZeroTargetGram_eq_survivorMobiusMass_sq
+          #print axioms RHLean.Analysis.vfMidDyadicVFTrackingDefect_eq_oddRunSeatMass
+          #print axioms RHLean.Analysis.vfMidActualPrimeFirstBadAt_forces_signedSeatRunTrigger
+          #print axioms RHLean.Analysis.vfMidDyadicPrefixSurvivorMobiusMass_sq_eq_diagonal_add_firstOwnerCells
           #print axioms RHLean.Analysis.vfMidRecursiveChildCarrier_card_eq_sum
           #print axioms RHLean.Analysis.vfMidRecursiveChild_block_lt
           #print axioms RHLean.Analysis.vfMidRecursivePrimeChildrenInBlock_card_le_prefixWheelEnvelope
