@@ -1,5 +1,7 @@
 import Mathlib
 import «research.VF_MID_OPTIMAL_BASE_FIRST_CROSSING_TRIGGER»
+import «research.VF_MID_ACTUAL_PRIME_FIRST_BAD_MOBIUS_TRIGGER»
+import «research.VF_MID_NATIVE_LYAPUNOV_SEAT_GRAM»
 import «research.GLOBAL_RETURNED_CORE_FIRST_OWNER_ARBITRARY_SITE_CELLS»
 import «research.GLOBAL_RETURNED_CORE_SIGNED_INCIDENCE_ENERGY_GATE»
 import «research.GLOBAL_RETURNED_CORE_ZERO_TARGET_GEOMETRIC_TREE_BUDGET»
@@ -69,6 +71,56 @@ theorem vfMidDyadicPrefixZeroTargetGram_eq_survivorMobiusMass_sq
   push_cast
   ring
 
+
+
+/-! ## Preserve the full #885 affine cancellation before owner energy -/
+
+/-- The exact #885 tracking packet is the literal VF-minus-actual signed-seat
+mass over the same run.  This is the correct uncentered object to propagate:
+the deterministic affine part and the Mobius part remain coupled. -/
+theorem vfMidDyadicVFTrackingDefect_eq_oddRunSeatMass
+    {A B : ℕ} (hA : 2 ≤ A) (hAB : A ≤ B) :
+    vfMidDyadicVFTrackingDefect A B =
+      vfMidOddRunSeatMass A B := by
+  have htrack :=
+    vfMidOddDyadicCompositeTrackingDefect_eq_vfTrackingDefect
+      (A := A) (B := B) hA (hA.trans hAB) hAB
+  have hrun := vfMidOddRunSeatMass_eq_dyadicTracking A B hA
+  exact htrack.symm.trans hrun.symm
+
+/-- **Minimal first escape in the literal VF signed-seat currency.**
+
+This is #885 with no part of the affine cancellation discarded.  The complete
+signed seat run, rather than the raw survivor Mobius mass by itself, carries
+the strict first-escape debt. -/
+theorem vfMidActualPrimeFirstBadAt_forces_signedSeatRunTrigger
+    {K : ℝ} {A B : ℕ}
+    (hfirst : VFMidActualPrimeFirstBadAt K B)
+    (hA : 3 ≤ A) (hABlt : A < B) (hBA : B ≤ 2 * A) :
+    (K * vfMidSyntheticRadialScale B -
+          K * vfMidSyntheticRadialScale A <
+        vfMidOddRunSeatMass A B) ∨
+    (vfMidOddRunSeatMass A B <
+        K * vfMidSyntheticRadialScale A -
+          K * vfMidSyntheticRadialScale B) := by
+  have htrigger :=
+    vfMidActualPrimeFirstBadAt_forces_subdoublingMobiusTrigger
+      hfirst hA hABlt hBA
+  have hdict :=
+    vfMidDyadicVFTrackingDefect_eq_frozenWheel_add_half_moebius
+      hA hABlt.le hBA
+  have hrun :=
+    vfMidDyadicVFTrackingDefect_eq_oddRunSeatMass
+      (A := A) (B := B) (by omega : 2 ≤ A) hABlt.le
+  have hpacket :
+      vfMidDyadicVFMass A B -
+          (1 / 2 : ℝ) * vfMidDyadicPrefixSupply A A B +
+          (1 / 2 : ℝ) * vfMidDyadicPrefixSurvivorMobiusMassReal A B =
+        vfMidOddRunSeatMass A B :=
+    hdict.symm.trans hrun
+  rcases htrigger with hlow | hupp
+  · exact Or.inl (by simpa only [hpacket] using hlow)
+  · exact Or.inr (by simpa only [hpacket] using hupp)
 
 /-! ## Literal restricted carrier and exact first-owner reindex -/
 
