@@ -170,4 +170,175 @@ theorem vfMidSelectedClippedOutgoingEnergy_le_quarter
     mul_le_mul_of_nonneg_left hquarter hcoeff
   simpa [mul_assoc, mul_left_comm, mul_comm] using hscaled
 
+
+/-! ## Exact affine seat mass = already-processed least-owner sector -/
+
+/-- Least-prime owners which have already acted when the square run is frozen
+through \`A\`.  The fixed parity owner 2 is excluded by the ambient late-owner
+set; the additional filter keeps exactly \`2 < p <= A\`. -/
+def vfMidFrozenProcessedOwnerPrimes (A R : ℕ) : Finset ℕ :=
+  (vfMidSquareBandLateOwnerPrimes 2 R).filter fun p => p ≤ A
+
+/-- The complement of the already-processed owners inside the full odd-owner
+set is exactly the live owner set strictly above the frozen cutoff. -/
+theorem vfMidLateOwnerPrimes_two_filter_not_processed_eq_live
+    {A R : ℕ} (hA : 2 ≤ A) :
+    (vfMidSquareBandLateOwnerPrimes 2 R).filter (fun p => ¬ p ≤ A) =
+      vfMidSquareBandLateOwnerPrimes A R := by
+  ext p
+  simp only [Finset.mem_filter, mem_vfMidSquareBandLateOwnerPrimes]
+  constructor
+  · rintro ⟨⟨hpOwner, h2p⟩, hpNot⟩
+    exact ⟨hpOwner, lt_of_not_ge hpNot⟩
+  · rintro ⟨hpOwner, hAp⟩
+    refine ⟨⟨hpOwner, ?_⟩, Nat.not_le_of_gt hAp⟩
+    omega
+
+/-- **Owner partition at the frozen cutoff.**
+
+The complete odd least-owner census is the disjoint sum of the owners already
+processed by the frozen wheel and the owners which remain live above it. -/
+theorem vfMidLateOwnerCards_two_eq_processed_add_live
+    {A R : ℕ} (hA : 2 ≤ A) :
+    (∑ p ∈ vfMidSquareBandLateOwnerPrimes 2 R,
+        (vfMidSquareBandCompositeOwner R p).card) =
+      (∑ p ∈ vfMidFrozenProcessedOwnerPrimes A R,
+        (vfMidSquareBandCompositeOwner R p).card) +
+      ∑ p ∈ vfMidSquareBandLateOwnerPrimes A R,
+        (vfMidSquareBandCompositeOwner R p).card := by
+  have hsplit :=
+    (Finset.sum_filter_add_sum_filter_not
+      (s := vfMidSquareBandLateOwnerPrimes 2 R)
+      (p := fun p : ℕ => p ≤ A)
+      (f := fun p => (vfMidSquareBandCompositeOwner R p).card)).symm
+  have hcomp :=
+    vfMidLateOwnerPrimes_two_filter_not_processed_eq_live
+      (A := A) (R := R) hA
+  unfold vfMidFrozenProcessedOwnerPrimes
+  rw [hcomp] at hsplit
+  exact hsplit
+
+/-- **The apparent removed-seat population is exactly the processed-owner
+population.**
+
+Prime seats survive every prefix.  Thus the seats lost when the parity wheel
+is refined from owner 2 through owner A are precisely the composite seats whose
+unique least-prime owner lies in \`2 < p <= A\`. -/
+theorem vfMidSquarePrefixWheelSurvivors_card_add_processedOwnerCards_eq_root
+    {A R : ℕ} (hA : 3 ≤ A) (hAR : A ≤ R) :
+    (vfMidSquarePrefixWheelSurvivors A R).card +
+        (∑ p ∈ vfMidFrozenProcessedOwnerPrimes A R,
+          (vfMidSquareBandCompositeOwner R p).card) =
+      R := by
+  have hR : 2 ≤ R := by omega
+  have hparity :=
+    vfMidOddActualComposite_card_add_primeSupply R hR
+  have hfrozen :=
+    vfMidSquarePrefixWheelSurvivors_card_eq_prime_add_prefixComposite
+      A R hR hAR
+  have hall :=
+    vfMidSquareBandPrefixComposite_card_eq_sum_lateOwnerCards
+      2 R hR
+  have hlive :=
+    vfMidSquareBandPrefixComposite_card_eq_sum_lateOwnerCards
+      A R hR
+  have hsplit :=
+    vfMidLateOwnerCards_two_eq_processed_add_live
+      (A := A) (R := R) (by omega : 2 ≤ A)
+  omega
+
+/-- Real-valued form of the processed-owner population identity. -/
+theorem vfMid_root_sub_prefixSurvivorCard_eq_processedOwnerCards
+    {A R : ℕ} (hA : 3 ≤ A) (hAR : A ≤ R) :
+    (R : ℝ) - ((vfMidSquarePrefixWheelSurvivors A R).card : ℝ) =
+      ∑ p ∈ vfMidFrozenProcessedOwnerPrimes A R,
+        ((vfMidSquareBandCompositeOwner R p).card : ℝ) := by
+  have hcount :=
+    vfMidSquarePrefixWheelSurvivors_card_add_processedOwnerCards_eq_root
+      hA hAR
+  have hcountR :
+      ((vfMidSquarePrefixWheelSurvivors A R).card : ℝ) +
+          (∑ p ∈ vfMidFrozenProcessedOwnerPrimes A R,
+            ((vfMidSquareBandCompositeOwner R p).card : ℝ)) =
+        (R : ℝ) := by
+    exact_mod_cast hcount
+  linarith
+
+/-- **Affine-to-owner weld for one square block.**
+
+The nonnegative "removed-seat" term from the #885 packet is not an external
+deterministic remainder.  It is exactly the VF seat weight carried by the
+least-prime owner fibres which have already been processed before the frozen
+post-A survivor sector begins. -/
+theorem vfMidPrefixRemovedSeatMass_eq_processedOwnerCharges
+    {A R : ℕ} (hA : 3 ≤ A) (hAR : A ≤ R) :
+    vfMidOddFractionalPrimeSeatWeight R *
+        ((R : ℝ) - ((vfMidSquarePrefixWheelSurvivors A R).card : ℝ)) =
+      ∑ p ∈ vfMidFrozenProcessedOwnerPrimes A R,
+        vfMidOddFractionalPrimeSeatWeight R *
+          ((vfMidSquareBandCompositeOwner R p).card : ℝ) := by
+  rw [← Finset.mul_sum]
+  rw [vfMid_root_sub_prefixSurvivorCard_eq_processedOwnerCards hA hAR]
+
+/-- Signed survivor part of the frozen run, still before any absolute value. -/
+def vfMidDyadicFrozenSurvivorSeatCharge (A B : ℕ) : ℝ :=
+  ∑ R ∈ Finset.Ico A B,
+    vfMidSubdoublingPrefixSurvivorChargeSum A R
+
+/-- The affine seat population which was removed by freezing the wheel through
+A, now written on its exact already-processed least-owner fibres. -/
+def vfMidDyadicProcessedOwnerSeatCharge (A B : ℕ) : ℝ :=
+  ∑ R ∈ Finset.Ico A B,
+    ∑ p ∈ vfMidFrozenProcessedOwnerPrimes A R,
+      vfMidOddFractionalPrimeSeatWeight R *
+        ((vfMidSquareBandCompositeOwner R p).card : ℝ)
+
+/-- **Exact two-sector affine/owner reassembly of the full VF seat run.**
+
+This is the missing affine bookkeeping identity.  The complete #885 signed
+run is *not* survivor charge plus an opaque positive correction: it is the
+signed post-A survivor sector plus the literal least-owner sector \`2 < p <= A\`.
+No estimate, norm, or triangle inequality occurs. -/
+theorem vfMidOddRunSeatMass_eq_frozenSurvivor_add_processedOwnerCharge
+    {A B : ℕ} (hA : 3 ≤ A) (hAB : A ≤ B) (hBA : B ≤ 2 * A) :
+    vfMidOddRunSeatMass A B =
+      vfMidDyadicFrozenSurvivorSeatCharge A B +
+        vfMidDyadicProcessedOwnerSeatCharge A B := by
+  unfold vfMidOddRunSeatMass
+    vfMidDyadicFrozenSurvivorSeatCharge
+    vfMidDyadicProcessedOwnerSeatCharge
+  rw [← Finset.sum_add_distrib]
+  apply Finset.sum_congr rfl
+  intro R hR
+  have hAR : A ≤ R := (Finset.mem_Ico.mp hR).1
+  have hRB : R < B := (Finset.mem_Ico.mp hR).2
+  have hRlt : R < 2 * A := hRB.trans_le hBA
+  rw [vfMidOddBlockSeatMass_eq_trackingDefect R (by omega : 2 ≤ R)]
+  rw [vfMidOddCompositeTrackingDefect_eq_prefixSurvivorCharge_add_removedSeats
+    hA hAR hRlt]
+  rw [vfMidPrefixRemovedSeatMass_eq_processedOwnerCharges hA hAR]
+
+/-- **First-bad trigger in exact low-owner + high-survivor currency.**
+
+Both signs of a first escape now enter one literal owner decomposition.  The
+positive affine contribution is no longer external to the owner graph. -/
+theorem vfMidActualPrimeFirstBadAt_forces_twoSectorOwnerTrigger
+    {K : ℝ} {A B : ℕ}
+    (hfirst : VFMidActualPrimeFirstBadAt K B)
+    (hA : 3 ≤ A) (hABlt : A < B) (hBA : B ≤ 2 * A) :
+    (K * vfMidSyntheticRadialScale B -
+          K * vfMidSyntheticRadialScale A <
+        vfMidDyadicFrozenSurvivorSeatCharge A B +
+          vfMidDyadicProcessedOwnerSeatCharge A B) ∨
+    (vfMidDyadicFrozenSurvivorSeatCharge A B +
+          vfMidDyadicProcessedOwnerSeatCharge A B <
+        K * vfMidSyntheticRadialScale A -
+          K * vfMidSyntheticRadialScale B) := by
+  have htrigger :=
+    vfMidActualPrimeFirstBadAt_forces_signedSeatRunTrigger
+      hfirst hA hABlt hBA
+  rw [vfMidOddRunSeatMass_eq_frozenSurvivor_add_processedOwnerCharge
+    hA hABlt.le hBA] at htrigger
+  exact htrigger
+
 end RHLean.Analysis
