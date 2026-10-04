@@ -81,7 +81,6 @@ theorem actualPrimeOptimalBase_between_solvedRadialWalls_iff
   rw [optimalLogBaseValue_between_iff hx]
   unfold vfMidSolvedFantasyRadialLowerCount
     vfMidSolvedFantasyRadialUpperCount
-    vfMidPrimeError
   rw [abs_le]
   constructor
   · rintro ⟨hlo, hup⟩
