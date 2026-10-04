@@ -166,7 +166,8 @@ theorem vfMidTwoSectorOwnerCharge_energyStep_eq
   have hT :=
     vfMidTwoSectorOwnerCharge_eq_endpointDefect_sub
       hA hAB hBA
-  nlinarith
+  rw [hT]
+  ring
 
 /-- A first-bad endpoint forces the exact accumulated-depth quadratic bill
 above the squared radial wall at B.  This is the energy form that the #888
@@ -345,11 +346,21 @@ theorem vfMidActualPrimeFirstBadAt_forces_depthAwareTwoSectorAbsTrigger
           |vfMidDyadicFrozenSurvivorSeatCharge A B +
             vfMidDyadicProcessedOwnerSeatCharge A B| := by
     rw [hDB]
-    simpa [sub_eq_add_neg] using
-      (abs_add_le
-        (vfMidActualPrimeEndpointDefect A)
-        (-(vfMidDyadicFrozenSurvivorSeatCharge A B +
-          vfMidDyadicProcessedOwnerSeatCharge A B)))
+    calc
+      |vfMidActualPrimeEndpointDefect A -
+          (vfMidDyadicFrozenSurvivorSeatCharge A B +
+            vfMidDyadicProcessedOwnerSeatCharge A B)| =
+        |vfMidActualPrimeEndpointDefect A +
+          (-(vfMidDyadicFrozenSurvivorSeatCharge A B +
+            vfMidDyadicProcessedOwnerSeatCharge A B))| := by ring_nf
+      _ ≤ |vfMidActualPrimeEndpointDefect A| +
+          |-(vfMidDyadicFrozenSurvivorSeatCharge A B +
+            vfMidDyadicProcessedOwnerSeatCharge A B)| :=
+        abs_add_le _ _
+      _ = |vfMidActualPrimeEndpointDefect A| +
+          |vfMidDyadicFrozenSurvivorSeatCharge A B +
+            vfMidDyadicProcessedOwnerSeatCharge A B| := by
+        rw [abs_neg]
   linarith
 
 /-- The anchor part of the depth-aware threshold is genuine nonnegative slack,
