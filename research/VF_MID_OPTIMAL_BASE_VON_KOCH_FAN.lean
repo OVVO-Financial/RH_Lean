@@ -54,10 +54,10 @@ theorem optimalLogBaseValue_le_iff
     have hmul :
         a * Real.log x ≤ b * Real.log x :=
       (div_le_div_iff_of_pos_right hxpos).1 h
-    exact (mul_le_mul_right hlogpos).1 hmul
+    exact (mul_le_mul_iff_right₀ hlogpos).1 hmul
   · intro h
     apply (div_le_div_iff_of_pos_right hxpos).2
-    exact (mul_le_mul_right hlogpos).2 h
+    exact (mul_le_mul_iff_right₀ hlogpos).2 h
 
 /-- Every two-sided count-space bracket transports losslessly to optimal-base
 coordinates. -/
