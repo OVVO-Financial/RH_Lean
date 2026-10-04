@@ -641,21 +641,21 @@ theorem vfMidFrozenOwnerRunChildren_pairwiseDisjoint
     (vfMidSquareBandCompositeOwnerChildren S p)
   rw [Finset.disjoint_left]
   intro q hqR hqS
-  rcases Finset.mem_image.mp hqR with ⟨nR, hnR, hRq⟩
-  rcases Finset.mem_image.mp hqS with ⟨nS, hnS, hSq⟩
-  have hmulR := vfMidSquareBandCompositeOwner_mul_div hnR
-  have hmulS := vfMidSquareBandCompositeOwner_mul_div hnS
-  have hnR : nR = p * q := by
+  rcases Finset.mem_image.mp hqR with ⟨nR, hnROwner, hRq⟩
+  rcases Finset.mem_image.mp hqS with ⟨nS, hnSOwner, hSq⟩
+  have hmulR := vfMidSquareBandCompositeOwner_mul_div hnROwner
+  have hmulS := vfMidSquareBandCompositeOwner_mul_div hnSOwner
+  have hnREq : nR = p * q := by
     calc
       nR = p * (nR / p) := hmulR.symm
       _ = p * q := by rw [hRq]
-  have hnS : nS = p * q := by
+  have hnSEq : nS = p * q := by
     calc
       nS = p * (nS / p) := hmulS.symm
       _ = p * q := by rw [hSq]
-  have hsame : nR = nS := hnR.trans hnS.symm
-  have hcompR := vfMidSquareBandCompositeOwner_mem hnR
-  have hcompS := vfMidSquareBandCompositeOwner_mem hnS
+  have hsame : nR = nS := hnREq.trans hnSEq.symm
+  have hcompR := vfMidSquareBandCompositeOwner_mem hnROwner
+  have hcompS := vfMidSquareBandCompositeOwner_mem hnSOwner
   have hsiteR := (Finset.mem_filter.mp hcompR).1
   have hsiteS := (Finset.mem_filter.mp hcompS).1
   unfold vfMidSquareBandSites at hsiteR hsiteS
@@ -750,7 +750,8 @@ theorem vfMidFrozenOwnerRunChildren_eq_primeHyperbolaInterval
       exact Nat.sqrt_le' n
     have hRsqLt : R ^ 2 < n := by
       by_contra hnot
-      have heq : R ^ 2 = n := Nat.le_antisymm (Nat.le_of_not_gt hnot) hRsqLe
+      have heq : R ^ 2 = n :=
+        Nat.le_antisymm hRsqLe (Nat.le_of_not_gt hnot)
       have hpDvdR2 : p ∣ R ^ 2 := by
         rw [heq]
         dsimp [n]
@@ -797,6 +798,177 @@ theorem vfMidFrozenOwnerRunChildren_eq_primeHyperbolaInterval
     unfold vfMidFrozenOwnerRunChildren
     exact Finset.mem_biUnion.mpr
       ⟨R, Finset.mem_filter.mpr ⟨hRmem, hpLate⟩, hqChild⟩
+
+/-! ## Run-level least-owner hyperbola collapse -/
+
+/-- Least-prime owners which can occur anywhere in the frozen run. -/
+def vfMidFrozenRunOwnerPrimes (A B : ℕ) : Finset ℕ :=
+  (Finset.Ioc A (B - 1)).filter Nat.Prime
+
+@[simp] theorem mem_vfMidFrozenRunOwnerPrimes {A B p : ℕ} :
+    p ∈ vfMidFrozenRunOwnerPrimes A B ↔
+      p.Prime ∧ A < p ∧ p < B := by
+  simp [vfMidFrozenRunOwnerPrimes]
+  omega
+
+/-- On one block of the run, the late-owner set is the fixed run-owner set
+filtered by the condition p <= R. -/
+theorem vfMidSquareBandLateOwnerPrimes_eq_runOwners_filter
+    {A B R : ℕ} (hR : R ∈ Finset.Ico A B) :
+    vfMidSquareBandLateOwnerPrimes A R =
+      (vfMidFrozenRunOwnerPrimes A B).filter fun p => p ≤ R := by
+  ext p
+  rcases Finset.mem_Ico.mp hR with ⟨_hAR, hRB⟩
+  constructor
+  · intro hp
+    rcases mem_vfMidSquareBandLateOwnerPrimes.mp hp with ⟨hpOwner, hAp⟩
+    rcases mem_vfMidSquareBandOwnerPrimes.mp hpOwner with ⟨hpPrime, hpR⟩
+    exact Finset.mem_filter.mpr
+      ⟨mem_vfMidFrozenRunOwnerPrimes.mpr
+        ⟨hpPrime, hAp, hpR.trans_lt hRB⟩, hpR⟩
+  · intro hp
+    rcases Finset.mem_filter.mp hp with ⟨hpRun, hpR⟩
+    rcases mem_vfMidFrozenRunOwnerPrimes.mp hpRun with
+      ⟨hpPrime, hAp, _hpB⟩
+    exact mem_vfMidSquareBandLateOwnerPrimes.mpr
+      ⟨mem_vfMidSquareBandOwnerPrimes.mpr ⟨hpPrime, hpR⟩, hAp⟩
+
+/-- For a fixed run owner, its active square roots are simply the run roots
+at or above that owner. -/
+theorem vfMidFrozenOwnerRunRoots_eq_filter_ge
+    {A B p : ℕ} (hpRun : p ∈ vfMidFrozenRunOwnerPrimes A B) :
+    vfMidFrozenOwnerRunRoots A B p =
+      (Finset.Ico A B).filter fun R => p ≤ R := by
+  ext R
+  constructor
+  · intro hR
+    rcases Finset.mem_filter.mp hR with ⟨hRIco, hpLate⟩
+    have hpOwner := (mem_vfMidSquareBandLateOwnerPrimes.mp hpLate).1
+    have hpR := (mem_vfMidSquareBandOwnerPrimes.mp hpOwner).2
+    exact Finset.mem_filter.mpr ⟨hRIco, hpR⟩
+  · intro hR
+    rcases Finset.mem_filter.mp hR with ⟨hRIco, hpR⟩
+    rcases mem_vfMidFrozenRunOwnerPrimes.mp hpRun with
+      ⟨hpPrime, hAp, _hpB⟩
+    have hpLate : p ∈ vfMidSquareBandLateOwnerPrimes A R :=
+      mem_vfMidSquareBandLateOwnerPrimes.mpr
+        ⟨mem_vfMidSquareBandOwnerPrimes.mpr ⟨hpPrime, hpR⟩, hAp⟩
+    exact Finset.mem_filter.mpr ⟨hRIco, hpLate⟩
+
+/-- Because the fixed-owner child fibres are disjoint across square blocks,
+the cardinality of their union is the sum of their cardinalities. -/
+theorem vfMidFrozenOwnerRunChildren_card_eq_sum
+    (A B p : ℕ) :
+    (vfMidFrozenOwnerRunChildren A B p).card =
+      ∑ R ∈ vfMidFrozenOwnerRunRoots A B p,
+        (vfMidSquareBandCompositeOwnerChildren R p).card := by
+  unfold vfMidFrozenOwnerRunChildren
+  calc
+    ((vfMidFrozenOwnerRunRoots A B p).biUnion
+        (fun R => vfMidSquareBandCompositeOwnerChildren R p)).card =
+      ∑ q ∈ (vfMidFrozenOwnerRunRoots A B p).biUnion
+        (fun R => vfMidSquareBandCompositeOwnerChildren R p), 1 := by simp
+    _ = ∑ R ∈ vfMidFrozenOwnerRunRoots A B p,
+        ∑ _q ∈ vfMidSquareBandCompositeOwnerChildren R p, 1 := by
+      rw [Finset.sum_biUnion
+        (vfMidFrozenOwnerRunChildren_pairwiseDisjoint A B p)]
+    _ = ∑ R ∈ vfMidFrozenOwnerRunRoots A B p,
+        (vfMidSquareBandCompositeOwnerChildren R p).card := by simp
+
+/-- Reindex the full triangular block/owner census owner-first. -/
+theorem vfMidDyadicFrozenCompositeOwnerChildSupply_eq_sum_runOwnerChildren
+    (A B : ℕ) :
+    vfMidDyadicFrozenCompositeOwnerChildSupply A B =
+      ∑ p ∈ vfMidFrozenRunOwnerPrimes A B,
+        ((vfMidFrozenOwnerRunChildren A B p).card : ℝ) := by
+  unfold vfMidDyadicFrozenCompositeOwnerChildSupply
+  calc
+    (∑ R ∈ Finset.Ico A B,
+      ∑ p ∈ vfMidSquareBandLateOwnerPrimes A R,
+        ((vfMidSquareBandCompositeOwnerChildren R p).card : ℝ)) =
+      ∑ R ∈ Finset.Ico A B,
+        ∑ p ∈ vfMidFrozenRunOwnerPrimes A B,
+          if p ≤ R then
+            ((vfMidSquareBandCompositeOwnerChildren R p).card : ℝ)
+          else 0 := by
+            apply Finset.sum_congr rfl
+            intro R hR
+            rw [vfMidSquareBandLateOwnerPrimes_eq_runOwners_filter hR,
+              Finset.sum_filter]
+    _ = ∑ p ∈ vfMidFrozenRunOwnerPrimes A B,
+        ∑ R ∈ Finset.Ico A B,
+          if p ≤ R then
+            ((vfMidSquareBandCompositeOwnerChildren R p).card : ℝ)
+          else 0 := by
+            rw [Finset.sum_comm]
+    _ = ∑ p ∈ vfMidFrozenRunOwnerPrimes A B,
+        ∑ R ∈ vfMidFrozenOwnerRunRoots A B p,
+          ((vfMidSquareBandCompositeOwnerChildren R p).card : ℝ) := by
+            apply Finset.sum_congr rfl
+            intro p hpRun
+            rw [vfMidFrozenOwnerRunRoots_eq_filter_ge hpRun,
+              Finset.sum_filter]
+    _ = ∑ p ∈ vfMidFrozenRunOwnerPrimes A B,
+        ((vfMidFrozenOwnerRunChildren A B p).card : ℝ) := by
+            apply Finset.sum_congr rfl
+            intro p _hpRun
+            have hcard := vfMidFrozenOwnerRunChildren_card_eq_sum A B p
+            exact_mod_cast hcard.symm
+
+/-- The entire frozen composite correction is exactly the sum, over least
+owners A < p < B, of the prime population p < q <= (B^2-1)/p. -/
+theorem vfMidDyadicFrozenCompositeOwnerChildSupply_eq_semiprimeHyperbolaCards
+    {A B : ℕ}
+    (hA : 3 ≤ A) (hAB : A ≤ B) (hBA : B ≤ 2 * A) :
+    vfMidDyadicFrozenCompositeOwnerChildSupply A B =
+      ∑ p ∈ vfMidFrozenRunOwnerPrimes A B,
+        (((Finset.Ioc p ((B ^ 2 - 1) / p)).filter Nat.Prime).card : ℝ) := by
+  rw [vfMidDyadicFrozenCompositeOwnerChildSupply_eq_sum_runOwnerChildren]
+  apply Finset.sum_congr rfl
+  intro p hpRun
+  rcases mem_vfMidFrozenRunOwnerPrimes.mp hpRun with
+    ⟨hpPrime, hAp, hpB⟩
+  rw [vfMidFrozenOwnerRunChildren_eq_primeHyperbolaInterval
+    hA hAB hBA hpPrime hAp hpB]
+
+/-- Prime-count form of one fixed-owner hyperbola interval. -/
+theorem vfMidFrozenOwnerHyperbolaCard_add_primeCounting
+    {A B p : ℕ} (hpRun : p ∈ vfMidFrozenRunOwnerPrimes A B) :
+    ((Finset.Ioc p ((B ^ 2 - 1) / p)).filter Nat.Prime).card +
+        Nat.primeCounting p =
+      Nat.primeCounting ((B ^ 2 - 1) / p) := by
+  rcases mem_vfMidFrozenRunOwnerPrimes.mp hpRun with
+    ⟨hpPrime, _hAp, hpB⟩
+  have hpSqLt : p ^ 2 < B ^ 2 :=
+    Nat.pow_lt_pow_left hpB (by omega)
+  have hpSqLeSub : p * p ≤ B ^ 2 - 1 := by
+    have hBpos : 0 < B ^ 2 := by positivity
+    nlinarith
+  have hpLe : p ≤ (B ^ 2 - 1) / p := by
+    apply (Nat.le_div_iff_mul_le hpPrime.pos).2
+    exact hpSqLeSub
+  exact primeCard_Ioc_add_primeCounting_eq hpLe
+
+/-- Same hyperbola with interval cardinalities replaced by ordinary
+prime-count differences. -/
+theorem vfMidDyadicFrozenCompositeOwnerChildSupply_eq_semiprimeHyperbolaPrimeCounting
+    {A B : ℕ}
+    (hA : 3 ≤ A) (hAB : A ≤ B) (hBA : B ≤ 2 * A) :
+    vfMidDyadicFrozenCompositeOwnerChildSupply A B =
+      ∑ p ∈ vfMidFrozenRunOwnerPrimes A B,
+        ((Nat.primeCounting ((B ^ 2 - 1) / p) : ℝ) -
+          (Nat.primeCounting p : ℝ)) := by
+  rw [vfMidDyadicFrozenCompositeOwnerChildSupply_eq_semiprimeHyperbolaCards
+    hA hAB hBA]
+  apply Finset.sum_congr rfl
+  intro p hpRun
+  have hcount := vfMidFrozenOwnerHyperbolaCard_add_primeCounting hpRun
+  have hcountR :
+      ((((Finset.Ioc p ((B ^ 2 - 1) / p)).filter Nat.Prime).card : ℝ) +
+          (Nat.primeCounting p : ℝ)) =
+        (Nat.primeCounting ((B ^ 2 - 1) / p) : ℝ) := by
+    exact_mod_cast hcount
+  linarith
 
 /-- Cardinal form of the quotient-prime identity. -/
 theorem vfMidSquareBandCompositeOwnerChildren_card_add_primeCounting_lower_eq_upper
