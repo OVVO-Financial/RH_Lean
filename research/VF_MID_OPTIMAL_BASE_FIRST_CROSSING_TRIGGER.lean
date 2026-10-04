@@ -304,9 +304,9 @@ theorem vfMidActualLiCenteredCrossGram_eq_quarter_zeroTarget
       intro n hn
       apply Finset.sum_congr rfl
       intro m hm
-      exact
-        vfMidActualLiCenteredPair_eq_quarter_zeroTargetExcess_of_cube
-          hA hAR hAS hcubeR hcubeS hn hm
+      simpa using
+        (vfMidActualLiCenteredPair_eq_quarter_zeroTargetExcess_of_cube
+          hA hAR hAS hcubeR hcubeS hn hm)
     _ =
       (1 / 4 : ℂ) *
         (∑ n ∈ vfMidSquarePrefixWheelSurvivors A R,
