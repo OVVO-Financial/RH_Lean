@@ -616,6 +616,188 @@ theorem vfMidSquareBandCompositeOwnerChildren_eq_primeInterval_of_subdoubling
     rw [vfMidSquareBandCompositeOwnerChildren_eq_prefixChildren hR3 hpOwner]
     exact hprefix
 
+/-! ## Owner-first collapse of the square-block semiprime list -/
+
+/-- Roots in the frozen run on which p is a live least-prime owner. -/
+def vfMidFrozenOwnerRunRoots (A B p : ℕ) : Finset ℕ :=
+  (Finset.Ico A B).filter fun R =>
+    p ∈ vfMidSquareBandLateOwnerPrimes A R
+
+/-- All stripped children of one fixed least-prime owner across the run. -/
+def vfMidFrozenOwnerRunChildren (A B p : ℕ) : Finset ℕ :=
+  (vfMidFrozenOwnerRunRoots A B p).biUnion fun R =>
+    vfMidSquareBandCompositeOwnerChildren R p
+
+/-- Distinct square blocks give disjoint child fibres for one fixed owner.
+Multiplying a common child back by p would otherwise put the same integer in
+two disjoint open square blocks. -/
+theorem vfMidFrozenOwnerRunChildren_pairwiseDisjoint
+    (A B p : ℕ) :
+    Set.PairwiseDisjoint (↑(vfMidFrozenOwnerRunRoots A B p))
+      (fun R => vfMidSquareBandCompositeOwnerChildren R p) := by
+  intro R _hR S _hS hRS
+  change Disjoint
+    (vfMidSquareBandCompositeOwnerChildren R p)
+    (vfMidSquareBandCompositeOwnerChildren S p)
+  rw [Finset.disjoint_left]
+  intro q hqR hqS
+  rcases Finset.mem_image.mp hqR with ⟨nR, hnR, hRq⟩
+  rcases Finset.mem_image.mp hqS with ⟨nS, hnS, hSq⟩
+  have hmulR := vfMidSquareBandCompositeOwner_mul_div hnR
+  have hmulS := vfMidSquareBandCompositeOwner_mul_div hnS
+  have hnR : nR = p * q := by
+    calc
+      nR = p * (nR / p) := hmulR.symm
+      _ = p * q := by rw [hRq]
+  have hnS : nS = p * q := by
+    calc
+      nS = p * (nS / p) := hmulS.symm
+      _ = p * q := by rw [hSq]
+  have hsame : nR = nS := hnR.trans hnS.symm
+  have hcompR := vfMidSquareBandCompositeOwner_mem hnR
+  have hcompS := vfMidSquareBandCompositeOwner_mem hnS
+  have hsiteR := (Finset.mem_filter.mp hcompR).1
+  have hsiteS := (Finset.mem_filter.mp hcompS).1
+  unfold vfMidSquareBandSites at hsiteR hsiteS
+  rcases Finset.mem_Ioo.mp hsiteR with ⟨hRlo, hRhi⟩
+  rcases Finset.mem_Ioo.mp hsiteS with ⟨hSlo, hShi⟩
+  rw [hsame] at hRlo hRhi
+  rcases lt_or_gt_of_ne hRS with hRltS | hSltR
+  · have hsucc : R + 1 ≤ S := by omega
+    have hsq : (R + 1) ^ 2 ≤ S ^ 2 :=
+      Nat.pow_le_pow_left hsucc 2
+    omega
+  · have hsucc : S + 1 ≤ R := by omega
+    have hsq : (S + 1) ^ 2 ≤ R ^ 2 :=
+      Nat.pow_le_pow_left hsucc 2
+    omega
+
+/-- **Fixed-owner hyperbola identity.**
+
+Across a whole frozen subdoubling run, the square-block labels disappear:
+the stripped children of one least owner p are exactly the actual primes q in
+the single interval p < q <= (B^2-1)/p.  This is the all-scale statement
+behind the explicit semiprime lists in the hand checks. -/
+theorem vfMidFrozenOwnerRunChildren_eq_primeHyperbolaInterval
+    {A B p : ℕ}
+    (hA : 3 ≤ A) (hAB : A ≤ B) (hBA : B ≤ 2 * A)
+    (hp : p.Prime) (hAp : A < p) (hpB : p < B) :
+    vfMidFrozenOwnerRunChildren A B p =
+      (Finset.Ioc p ((B ^ 2 - 1) / p)).filter Nat.Prime := by
+  ext q
+  constructor
+  · intro hq
+    rcases Finset.mem_biUnion.mp hq with ⟨R, hRroot, hqChild⟩
+    rcases Finset.mem_filter.mp hRroot with ⟨hR, hpLate⟩
+    rcases Finset.mem_Ico.mp hR with ⟨hAR, hRB⟩
+    have hRlt : R < 2 * A := hRB.trans_le hBA
+    have hchildEq :=
+      vfMidSquareBandCompositeOwnerChildren_eq_primeInterval_of_subdoubling
+        hA hAR hRlt hpLate
+    rw [hchildEq] at hqChild
+    rcases Finset.mem_filter.mp hqChild with ⟨hqI, hqPrime⟩
+    rcases Finset.mem_Ioc.mp hqI with ⟨hqLower, hqUpper⟩
+    have hpOwner : p ∈ vfMidSquareBandOwnerPrimes R :=
+      (mem_vfMidSquareBandLateOwnerPrimes.mp hpLate).1
+    have hpLeR : p ≤ R :=
+      (mem_vfMidSquareBandOwnerPrimes.mp hpOwner).2
+    have hpSqLe : p * p ≤ R * R :=
+      Nat.mul_le_mul hpLeR hpLeR
+    have hpLeFloor : p ≤ R ^ 2 / p := by
+      apply (Nat.le_div_iff_mul_le hp.pos).2
+      simpa [pow_two] using hpSqLe
+    have hpLtQ : p < q := hpLeFloor.trans_lt hqLower
+    have hR1B : R + 1 ≤ B := by omega
+    have hsq : (R + 1) ^ 2 ≤ B ^ 2 :=
+      Nat.pow_le_pow_left hR1B 2
+    have hnum : (R + 1) ^ 2 - 1 ≤ B ^ 2 - 1 :=
+      Nat.sub_le_sub_right hsq 1
+    have hdiv : ((R + 1) ^ 2 - 1) / p ≤ (B ^ 2 - 1) / p :=
+      Nat.div_le_div_right hnum
+    exact Finset.mem_filter.mpr
+      ⟨Finset.mem_Ioc.mpr ⟨hpLtQ, hqUpper.trans hdiv⟩, hqPrime⟩
+  · intro hq
+    rcases Finset.mem_filter.mp hq with ⟨hqI, hqPrime⟩
+    rcases Finset.mem_Ioc.mp hqI with ⟨hpq, hqB⟩
+    let n : ℕ := p * q
+    let R : ℕ := Nat.sqrt n
+    have hpSqLtN : p * p < n := by
+      dsimp [n]
+      exact (Nat.mul_lt_mul_left hp.pos).2 hpq
+    have hpR : p ≤ R := by
+      dsimp [R]
+      apply (Nat.le_sqrt).2
+      exact hpSqLtN.le
+    have hAR : A ≤ R := hAp.le.trans hpR
+    have hnB : n ≤ B ^ 2 - 1 := by
+      have hmul := (Nat.le_div_iff_mul_le hp.pos).1 hqB
+      dsimp [n]
+      simpa [Nat.mul_comm] using hmul
+    have hnBsq : n < B ^ 2 := by
+      have hBpos : 0 < B ^ 2 := by positivity
+      omega
+    have hRB : R < B := by
+      dsimp [R]
+      exact (Nat.sqrt_lt').2 hnBsq
+    have hRmem : R ∈ Finset.Ico A B :=
+      Finset.mem_Ico.mpr ⟨hAR, hRB⟩
+    have hpOwner : p ∈ vfMidSquareBandOwnerPrimes R :=
+      mem_vfMidSquareBandOwnerPrimes.mpr ⟨hp, hpR⟩
+    have hpLate : p ∈ vfMidSquareBandLateOwnerPrimes A R :=
+      mem_vfMidSquareBandLateOwnerPrimes.mpr ⟨hpOwner, hAp⟩
+    have hRsqLe : R ^ 2 ≤ n := by
+      dsimp [R]
+      exact Nat.sqrt_le' n
+    have hRsqLt : R ^ 2 < n := by
+      by_contra hnot
+      have heq : R ^ 2 = n := Nat.le_antisymm (Nat.le_of_not_gt hnot) hRsqLe
+      have hpDvdR2 : p ∣ R ^ 2 := by
+        rw [heq]
+        dsimp [n]
+        exact dvd_mul_right p q
+      have hqDvdR2 : q ∣ R ^ 2 := by
+        rw [heq]
+        dsimp [n]
+        exact dvd_mul_left q p
+      have hpDvdR : p ∣ R := hp.dvd_of_dvd_pow hpDvdR2
+      have hqDvdR : q ∣ R := hqPrime.dvd_of_dvd_pow hqDvdR2
+      have hpne : p ≠ q := ne_of_lt hpq
+      have hcop : Nat.Coprime p q :=
+        (Nat.coprime_primes hp hqPrime).2 hpne
+      have hpqDvdR : p * q ∣ R :=
+        hcop.mul_dvd_of_dvd_of_dvd hpDvdR hqDvdR
+      have hRpos : 0 < R := hp.pos.trans_le hpR
+      have hnLeR : n ≤ R := by
+        dsimp [n]
+        exact Nat.le_of_dvd hRpos hpqDvdR
+      have hR2 : 2 ≤ R := hp.two_le.trans hpR
+      rw [← heq] at hnLeR
+      nlinarith
+    have hnNext : n < (R + 1) ^ 2 := by
+      dsimp [R]
+      exact Nat.lt_succ_sqrt' n
+    have hqLower : R ^ 2 / p < q := by
+      apply (Nat.div_lt_iff_lt_mul hp.pos).2
+      dsimp [n] at hRsqLt
+      simpa [Nat.mul_comm] using hRsqLt
+    have hqUpper : q ≤ ((R + 1) ^ 2 - 1) / p := by
+      apply (Nat.le_div_iff_mul_le hp.pos).2
+      have hmul : p * q ≤ (R + 1) ^ 2 - 1 := by
+        dsimp [n] at hnNext
+        omega
+      simpa [Nat.mul_comm] using hmul
+    have hRlt : R < 2 * A := hRB.trans_le hBA
+    have hchildEq :=
+      vfMidSquareBandCompositeOwnerChildren_eq_primeInterval_of_subdoubling
+        hA hAR hRlt hpLate
+    have hqChild : q ∈ vfMidSquareBandCompositeOwnerChildren R p := by
+      rw [hchildEq]
+      exact Finset.mem_filter.mpr
+        ⟨Finset.mem_Ioc.mpr ⟨hqLower, hqUpper⟩, hqPrime⟩
+    unfold vfMidFrozenOwnerRunChildren
+    exact Finset.mem_biUnion.mpr
+      ⟨R, Finset.mem_filter.mpr ⟨hRmem, hpLate⟩, hqChild⟩
+
 /-- Cardinal form of the quotient-prime identity. -/
 theorem vfMidSquareBandCompositeOwnerChildren_card_add_primeCounting_lower_eq_upper
     {A R p : ℕ}
