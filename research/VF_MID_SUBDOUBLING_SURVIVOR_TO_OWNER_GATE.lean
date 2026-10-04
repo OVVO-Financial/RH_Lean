@@ -157,7 +157,12 @@ theorem vfMidSquarePrefixWheelSurvivors_card_le_root
         vfMidSquarePrefixWheelSurvivors 2 R :=
     vfMidSquarePrefixWheelSurvivors_mono hA
   have hcard := Finset.card_le_card hsub
-  simpa [← vfMidOddCandidateSeats, vfMidOddCandidateSeats_card] using hcard
+  have hcard' :
+      (vfMidSquarePrefixWheelSurvivors A R).card ≤
+        (vfMidOddCandidateSeats R).card := by
+    simpa [vfMidOddCandidateSeats] using hcard
+  rw [vfMidOddCandidateSeats_card] at hcard'
+  exact hcard'
 
 /-- The removed-seat affine correction has a fixed favorable sign. -/
 theorem vfMidPrefixRemovedSeatMass_nonneg
@@ -169,9 +174,12 @@ theorem vfMidPrefixRemovedSeatMass_nonneg
     exact div_nonneg (vfMidBandMass_nonneg_of_two_le R hR) (by positivity)
   have hcard := vfMidSquarePrefixWheelSurvivors_card_le_root
     (A := A) (R := R) hA
+  have hcardR :
+      ((vfMidSquarePrefixWheelSurvivors A R).card : ℝ) ≤ (R : ℝ) := by
+    exact_mod_cast hcard
   have hdiff :
       0 ≤ (R : ℝ) - ((vfMidSquarePrefixWheelSurvivors A R).card : ℝ) := by
-    exact_mod_cast hcard
+    linarith
   exact mul_nonneg hw hdiff
 
 /-! ## Literal restricted carrier and exact first-owner reindex -/
@@ -275,7 +283,9 @@ theorem vfMidDyadicPrefixSurvivorCarrier_subset_lowOwnerNonzero
   have hsq : (R + 1) ^ 2 ≤ B ^ 2 :=
     Nat.pow_le_pow_left hR1B 2
   have hnLtBsq : n < B ^ 2 := hnHigh.trans_le hsq
-  have hBpos : 0 < B ^ 2 := by positivity
+  have hBpos : 0 < B ^ 2 := by
+    have hB3 : 3 ≤ B := hA.trans hAB
+    nlinarith
   have hnX : n ≤ squareRootEndpoint B := by
     unfold squareRootEndpoint
     omega
@@ -342,9 +352,18 @@ theorem lowOwnerZeroFrequencyMobiusWeight_eq_one_on_vfMidSurvivor
         squareRootEndpoint B < A ^ 2 * (q * q) := by
       have hB2 : B ^ 2 ≤ (2 * A) ^ 2 :=
         Nat.pow_le_pow_left hBA 2
+      have hBsqPos : 0 < B ^ 2 := by
+        have hB3 : 3 ≤ B := hA.trans hAB
+        nlinarith
+      have hsub : B ^ 2 - 1 < B ^ 2 := by omega
+      have hfourNine : (2 * A) ^ 2 < A ^ 2 * 9 := by
+        nlinarith [hA]
       have hqSq : 9 ≤ q * q := by nlinarith
+      have hnine :
+          A ^ 2 * 9 ≤ A ^ 2 * (q * q) :=
+        Nat.mul_le_mul_left (A ^ 2) hqSq
       unfold squareRootEndpoint
-      nlinarith
+      exact hsub.trans_le hB2 |>.trans hfourNine |>.trans_le hnine
     have hcut :
         rawQ2ChildCutoff B q < A ^ 2 := by
       unfold rawQ2ChildCutoff
@@ -446,7 +465,10 @@ theorem vfMidDyadicPrefixSurvivorMobiusMass_sq_eq_diagonal_add_firstOwnerCells
             2 * ∑ sig ∈ lowOwnerFirstOwnerSignatureSet B p,
               lowOwnerFirstOwnerCellGramWith B p sig
                 (vfMidDyadicPrefixSurvivorSignedSite A B) := by
-      apply add_congr rfl
+      apply congrArg
+        (fun x : ℝ =>
+          lowOwnerGlobalDiagonalPairMassWith B
+              (vfMidDyadicPrefixSurvivorSignedSite A B) + x)
       apply Finset.sum_congr rfl
       intro p hp
       exact lowOwnerGlobalFirstOwnerPairMassWith_eq_two_sum_cells
