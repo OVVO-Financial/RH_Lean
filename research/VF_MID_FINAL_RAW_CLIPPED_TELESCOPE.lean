@@ -1098,7 +1098,7 @@ theorem vfMidFrozenOwnerPrimeIntervalUpper_sqrt_lt_frozen
 Stripping the least prime owner is injective inside each owner fibre and the
 late-owner fibres partition the frozen composite survivors. -/
 theorem vfMidDyadicPrefixCompositeSupply_eq_ownerChildSupply
-    {A B : ℕ} (hA : 3 ≤ A) (hAB : A ≤ B) :
+    {A B : ℕ} (hA : 3 ≤ A) (_hAB : A ≤ B) :
     vfMidDyadicPrefixCompositeSupply A B =
       vfMidDyadicFrozenCompositeOwnerChildSupply A B := by
   unfold vfMidDyadicPrefixCompositeSupply
