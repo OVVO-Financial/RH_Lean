@@ -47,6 +47,7 @@ on:
       - research/VF_MID_ADVERSARIAL_PROOF_FUZZER.lean
       - research/VF_MID_OWNER_ADMISSIBLE_ESCAPE_CLASS.lean
       - research/VF_MID_ACTUAL_PRIME_FIRST_BAD_MOBIUS_TRIGGER.lean
+      - research/VF_MID_SUBDOUBLING_SURVIVOR_TO_OWNER_GATE.lean
       - research/VF_MID_RECURSIVE_REMAINDER_BOUND.lean
       - research/VF_MID_AGGREGATE_CHILD_FORCING.lean
       - research/VF_MID_ENDPOINT_TRIGGER_DICTIONARY.lean
@@ -218,6 +219,10 @@ jobs:
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_PHI_CUTOFF_TELESCOPE.olean research/VF_MID_PHI_CUTOFF_TELESCOPE.lean 2>&1 | tee vf-mid-phi-cutoff-telescope.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_PHI_ODD_LI_TRANSFER.olean research/VF_MID_PHI_ODD_LI_TRANSFER.lean 2>&1 | tee vf-mid-phi-odd-li-transfer.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_PHI_DIAGONAL_TRANSFER.olean research/VF_MID_PHI_DIAGONAL_TRANSFER.lean 2>&1 | tee vf-mid-phi-diagonal-transfer.log
+      - name: Kernel-check survivor-owner gate import closure
+        run: |
+          lake build RHLean
+          python3 scripts/compile_research_import_closure.py research/VF_MID_SUBDOUBLING_SURVIVOR_TO_OWNER_GATE.lean
       - name: Audit named theorem axioms
         run: |
           cat > /tmp/PrimeFlipPNTAxioms.lean <<'LEAN'
@@ -250,6 +255,7 @@ jobs:
           import «research.VF_MID_ADVERSARIAL_PROOF_FUZZER»
           import «research.VF_MID_OWNER_ADMISSIBLE_ESCAPE_CLASS»
           import «research.VF_MID_ACTUAL_PRIME_FIRST_BAD_MOBIUS_TRIGGER»
+          import «research.VF_MID_SUBDOUBLING_SURVIVOR_TO_OWNER_GATE»
           import «research.VF_MID_RECURSIVE_REMAINDER_BOUND»
           import «research.VF_MID_AGGREGATE_CHILD_FORCING»
           import «research.VF_MID_ENDPOINT_TRIGGER_DICTIONARY»
@@ -674,6 +680,11 @@ jobs:
           #print axioms RHLean.Analysis.vfMidActualPrimeUpperEscape_forces_subdoublingMobiusTrigger
           #print axioms RHLean.Analysis.vfMidActualPrimeLowerEscape_forces_subdoublingMobiusTrigger
           #print axioms RHLean.Analysis.vfMidActualPrimeFirstBadAt_forces_subdoublingMobiusTrigger
+          #print axioms RHLean.Analysis.vfMidZeroTargetCubeCrossGram_eq_survivorMobiusMass_mul
+          #print axioms RHLean.Analysis.vfMidDyadicPrefixZeroTargetGram_eq_survivorMobiusMass_sq
+          #print axioms RHLean.Analysis.vfMidDyadicVFTrackingDefect_eq_oddRunSeatMass
+          #print axioms RHLean.Analysis.vfMidActualPrimeFirstBadAt_forces_signedSeatRunTrigger
+          #print axioms RHLean.Analysis.vfMidDyadicPrefixSurvivorMobiusMass_sq_eq_diagonal_add_firstOwnerCells
           #print axioms RHLean.Analysis.vfMidRecursiveChildCarrier_card_eq_sum
           #print axioms RHLean.Analysis.vfMidRecursiveChild_block_lt
           #print axioms RHLean.Analysis.vfMidRecursivePrimeChildrenInBlock_card_le_prefixWheelEnvelope
