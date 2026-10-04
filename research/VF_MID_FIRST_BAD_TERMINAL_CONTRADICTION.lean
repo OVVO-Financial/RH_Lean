@@ -40,7 +40,7 @@ theorem vfMidProcessedOwnerChild_sqrt_lt_anchor
 /-- A processed-owner child is not a tiny exceptional scale: it is strictly
 above the frozen anchor itself. -/
 theorem vfMidProcessedOwnerChild_anchor_lt
-    {A B R p m : ℕ}
+    {A R p m : ℕ}
     (hAR : A ≤ R)
     (hp : p ∈ vfMidFrozenProcessedOwnerPrimes A R)
     (hm : m ∈ vfMidSquareBandCompositeOwnerChildren R p) :
@@ -81,7 +81,7 @@ theorem vfMidProcessedOwnerChild_prior_inside
       K * vfMidSyntheticRadialScale (Nat.sqrt m) := by
   have hAR : A ≤ R := (Finset.mem_Ico.mp hR).1
   have hRB : R < B := (Finset.mem_Ico.mp hR).2
-  have hAm := vfMidProcessedOwnerChild_anchor_lt hAR hp hm
+  have hAm := vfMidProcessedOwnerChild_anchor_lt (A := A) hAR hp hm
   have hs2 : 2 ≤ Nat.sqrt m := by
     apply (Nat.le_sqrt).2
     nlinarith
@@ -111,6 +111,7 @@ theorem vfMidFrozenOwnerPrimeChild_prior_inside
     (mem_vfMidSquareBandLateOwnerPrimes.mp hp).1
   have hpA : A < p :=
     (mem_vfMidSquareBandLateOwnerPrimes.mp hp).2
+  have hAR : A ≤ R := (Finset.mem_Ico.mp hR).1
   have hR3 : 3 ≤ R := by omega
   have hrough : q ∈ vfMidSquareBandOwnerRoughChildren R p := by
     rw [← vfMidSquareBandCompositeOwnerChildren_eq_rough hR3 hpOwner]
@@ -155,7 +156,7 @@ theorem vfMidActualPrimeFirstBadAt_impossible_terminal
         hfirstBad hA hABlt hR hBsq hp hm
   have hquarter :=
     vfMidSelectedClippedOutgoingEnergy_le_quarter
-      hfirstPrime parents coefficient
+      (R := B) hfirstPrime parents coefficient
   rcases hbreach with hpos | hneg
   · linarith
   · linarith
