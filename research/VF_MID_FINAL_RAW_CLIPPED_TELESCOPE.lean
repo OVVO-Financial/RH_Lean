@@ -401,6 +401,107 @@ theorem vfMidDyadicPrefixSurvivor_highFirstOwner_pairWeight_eq_one
     ArithmeticFunction.moebius_apply_prime hnPrime]
   norm_num
 
+/-! ## Exact run-level prime / semiprime ledger -/
+
+/-- Total population of frozen-wheel composite survivors across one run. -/
+def vfMidDyadicPrefixCompositeSupply (A B : ℕ) : ℝ :=
+  ∑ R ∈ Finset.Ico A B,
+    ((vfMidSquareBandPrefixCompositeSurvivors A R).card : ℝ)
+
+/-- **Run survivor population = primes + surviving semiprimes.**
+
+This is the all-scale version of the 317 count `23 = 22 + 1`. -/
+theorem vfMidDyadicPrefixSupply_eq_prime_add_composite
+    {A B : ℕ} (hA : 3 ≤ A) (hAB : A ≤ B) :
+    vfMidDyadicPrefixSupply A A B =
+      vfMidDyadicPrimeSupply A B +
+        vfMidDyadicPrefixCompositeSupply A B := by
+  rw [vfMidDyadicPrefixSupply_eq_sum_prefixWheelCards A A B hAB,
+    vfMidDyadicPrimeSupply_eq_sum_blockPrimeSupply A B hAB]
+  unfold vfMidDyadicPrefixCompositeSupply
+  rw [← Finset.sum_add_distrib]
+  apply Finset.sum_congr rfl
+  intro R hR
+  have hAR : A ≤ R := (Finset.mem_Ico.mp hR).1
+  have hpart :=
+    vfMidSquarePrefixWheelSurvivors_card_eq_prime_add_prefixComposite
+      A R (by omega : 2 ≤ R) hAR
+  exact_mod_cast hpart
+
+/-- **Run survivor signed mass = semiprimes - primes.**
+
+This is the exact all-scale version of the 317 mass `-21 = 1 - 22`. -/
+theorem vfMidDyadicPrefixSurvivorMobiusMassReal_eq_composite_sub_prime
+    {A B : ℕ}
+    (hA : 3 ≤ A) (hAB : A ≤ B) (hBA : B ≤ 2 * A) :
+    vfMidDyadicPrefixSurvivorMobiusMassReal A B =
+      vfMidDyadicPrefixCompositeSupply A B -
+        vfMidDyadicPrimeSupply A B := by
+  unfold vfMidDyadicPrefixSurvivorMobiusMassReal
+    vfMidDyadicPrefixCompositeSupply
+  rw [vfMidDyadicPrimeSupply_eq_sum_blockPrimeSupply A B hAB,
+    ← Finset.sum_sub_distrib]
+  apply Finset.sum_congr rfl
+  intro R hR
+  have hAR : A ≤ R := (Finset.mem_Ico.mp hR).1
+  have hRB : R < B := (Finset.mem_Ico.mp hR).2
+  have hRlt : R < 2 * A := hRB.trans_le hBA
+  rw [vfMidSquareBandPrefixSurvivorMobiusMassReal_eq_cast]
+  have hmass :=
+    vfMidSquareBandPrefixSurvivorMobiusMass_eq_composite_sub_prime
+      hA hAR hRlt
+  exact_mod_cast hmass
+
+/-- **The complete 317 ordered-pair ledger, at every subdoubling scale.**
+
+Write `P` for the number of prime survivors and `C` for the number of
+rank-two composite survivors.  Then
+
+`M^2 = (P+C) + P(P-1) + C(C-1) - 2 P C`.
+
+The first term is the diagonal population.  The three remaining terms are,
+respectively, ordered prime-prime pairs, ordered composite-composite pairs,
+and the two orientations of prime-composite pairs.
+
+For `A=14, B=18`, this specializes to
+`441 = 23 + 462 + 0 - 44`. -/
+theorem vfMidDyadicPrefixSurvivorMobiusMass_sq_eq_population_add_pcLedger
+    {A B : ℕ}
+    (hA : 3 ≤ A) (hAB : A ≤ B) (hBA : B ≤ 2 * A) :
+    vfMidDyadicPrefixSurvivorMobiusMassReal A B ^ 2 =
+      vfMidDyadicPrefixSupply A A B +
+        vfMidDyadicPrimeSupply A B *
+          (vfMidDyadicPrimeSupply A B - 1) +
+        vfMidDyadicPrefixCompositeSupply A B *
+          (vfMidDyadicPrefixCompositeSupply A B - 1) -
+        2 * vfMidDyadicPrimeSupply A B *
+          vfMidDyadicPrefixCompositeSupply A B := by
+  have hpop :=
+    vfMidDyadicPrefixSupply_eq_prime_add_composite hA hAB
+  have hmass :=
+    vfMidDyadicPrefixSurvivorMobiusMassReal_eq_composite_sub_prime
+      hA hAB hBA
+  rw [hmass, hpop]
+  ring
+
+/-- The off-diagonal signed survivor ledger is therefore exactly the three
+explicit population sectors from the preceding theorem. -/
+theorem vfMidDyadicPrefixSurvivorMobiusMass_sq_sub_population_eq_pcOffDiagonal
+    {A B : ℕ}
+    (hA : 3 ≤ A) (hAB : A ≤ B) (hBA : B ≤ 2 * A) :
+    vfMidDyadicPrefixSurvivorMobiusMassReal A B ^ 2 -
+        vfMidDyadicPrefixSupply A A B =
+      vfMidDyadicPrimeSupply A B *
+          (vfMidDyadicPrimeSupply A B - 1) +
+        vfMidDyadicPrefixCompositeSupply A B *
+          (vfMidDyadicPrefixCompositeSupply A B - 1) -
+        2 * vfMidDyadicPrimeSupply A B *
+          vfMidDyadicPrefixCompositeSupply A B := by
+  have h :=
+    vfMidDyadicPrefixSurvivorMobiusMass_sq_eq_population_add_pcLedger
+      hA hAB hBA
+  linarith
+
 /-- Restricted #886 signed mass on the clipped p-free base side of one
 first-owner/signature cell. -/
 def vfMidSurvivorClippedBaseAmplitude
