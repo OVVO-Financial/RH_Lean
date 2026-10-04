@@ -30,6 +30,118 @@ open RHLean.Arithmetic RHLean.Proof
 
 attribute [local instance] Classical.propDecidable
 
+/-! ## Subdoubling rank-two normal form: the 317 pattern at every scale -/
+
+/-- **Global rank-two survivor classification.**
+
+On an entire frozen subdoubling run, every surviving site is exactly one of the
+two types seen in the hand computations:
+
+* an actual prime, carrying Mobius sign `-1`;
+* a product `q*r` of two primes strictly above the frozen cutoff `A`,
+  carrying Mobius sign `+1`.
+
+There are no degree-three-or-higher survivor faces. -/
+theorem vfMidDyadicPrefixSurvivor_prime_or_two_primes_of_subdoubling
+    {A B n : ℕ}
+    (hA : 3 ≤ A) (hAB : A ≤ B) (hBA : B ≤ 2 * A)
+    (hn : n ∈ vfMidDyadicPrefixSurvivorCarrier A B) :
+    n.Prime ∨
+      ∃ q r : ℕ,
+        q.Prime ∧ r.Prime ∧ A < q ∧ q ≤ r ∧ n = q * r := by
+  rcases Finset.mem_biUnion.mp hn with ⟨R, hR, hnSurv⟩
+  rcases Finset.mem_Ico.mp hR with ⟨hAR, hRB⟩
+  have hR2 : 2 ≤ R := by omega
+  have hRlt : R < 2 * A := hRB.trans_le hBA
+  have hsplit :=
+    vfMidSquarePrefixWheelSurvivors_eq_prime_union_prefixComposite
+      (A := A) (R := R) hR2 hAR
+  have hmem :
+      n ∈ vfMidSquareWheelPrimes R ∪
+        vfMidSquareBandPrefixCompositeSurvivors A R := by
+    rw [← hsplit]
+    exact hnSurv
+  rcases Finset.mem_union.mp hmem with hnPrime | hnComp
+  · exact Or.inl (Finset.mem_filter.mp hnPrime).2
+  · exact Or.inr
+      (vfMidSquareBandPrefixComposite_survivor_eq_two_primes_of_subdoubling
+        hA hAR hRlt hnComp)
+
+/-- The rank-two classification carries the exact signs used in the 210/317
+hand ledgers: prime survivors are `-1`, nonprime survivors are `+1`. -/
+theorem vfMidDyadicPrefixSurvivor_realMoebiusStep_eq
+    {A B n : ℕ}
+    (hA : 3 ≤ A) (hAB : A ≤ B) (hBA : B ≤ 2 * A)
+    (hn : n ∈ vfMidDyadicPrefixSurvivorCarrier A B) :
+    realMoebiusStep n = if n.Prime then -1 else 1 := by
+  by_cases hnPrime : n.Prime
+  · rw [if_pos hnPrime, realMoebiusStep,
+      ArithmeticFunction.moebius_apply_prime hnPrime]
+    norm_num
+  · rw [if_neg hnPrime]
+    rcases Finset.mem_biUnion.mp hn with ⟨R, hR, hnSurv⟩
+    rcases Finset.mem_Ico.mp hR with ⟨hAR, hRB⟩
+    have hR2 : 2 ≤ R := by omega
+    have hRlt : R < 2 * A := hRB.trans_le hBA
+    have hsplit :=
+      vfMidSquarePrefixWheelSurvivors_eq_prime_union_prefixComposite
+        (A := A) (R := R) hR2 hAR
+    have hmem :
+        n ∈ vfMidSquareWheelPrimes R ∪
+          vfMidSquareBandPrefixCompositeSurvivors A R := by
+      rw [← hsplit]
+      exact hnSurv
+    have hnComp :
+        n ∈ vfMidSquareBandPrefixCompositeSurvivors A R := by
+      rcases Finset.mem_union.mp hmem with hp | hc
+      · exact False.elim (hnPrime (Finset.mem_filter.mp hp).2)
+      · exact hc
+    have hmu :=
+      vfMidSquareBandPrefixComposite_moebius_eq_one_of_subdoubling
+        hA hAR hRlt hnComp
+    rw [realMoebiusStep, hmu]
+    norm_num
+
+/-- **A live owner strips every survivor to degree at most one.**
+
+If a prime owner `p` divides a frozen-run survivor `n`, the returned parent
+`n/p` is either `1` (when `n` itself is prime) or another prime.  This is
+the exact general form of the 317 computation `323 = 17*19 -> 19`; after the
+first live owner there is no hidden composite returned parent. -/
+theorem vfMidDyadicPrefixSurvivor_div_prime_eq_one_or_prime
+    {A B p n : ℕ}
+    (hA : 3 ≤ A) (hAB : A ≤ B) (hBA : B ≤ 2 * A)
+    (hp : p.Prime)
+    (hn : n ∈ vfMidDyadicPrefixSurvivorCarrier A B)
+    (hpn : p ∣ n) :
+    n / p = 1 ∨ (n / p).Prime := by
+  rcases
+      vfMidDyadicPrefixSurvivor_prime_or_two_primes_of_subdoubling
+        hA hAB hBA hn with hnPrime | ⟨q, r, hq, hr, _hAq, _hqr, rfl⟩
+  · have hpeq : p = n := by
+      rcases (Nat.dvd_prime hnPrime).mp hpn with hp1 | hpnEq
+      · exact False.elim (hp.ne_one hp1)
+      · exact hpnEq
+    left
+    subst p
+    exact Nat.div_self hnPrime.ne_zero
+  · have hpqr : p ∣ q ∨ p ∣ r := hp.dvd_mul.mp hpn
+    rcases hpqr with hpq | hpr
+    · have hpEqQ : p = q := by
+        rcases (Nat.dvd_prime hq).mp hpq with hp1 | hpqEq
+        · exact False.elim (hp.ne_one hp1)
+        · exact hpqEq
+      right
+      subst p
+      simpa [hq.ne_zero] using hr
+    · have hpEqR : p = r := by
+        rcases (Nat.dvd_prime hr).mp hpr with hp1 | hprEq
+        · exact False.elim (hp.ne_one hp1)
+        · exact hprEq
+      right
+      subst p
+      simpa [hr.ne_zero] using hq
+
 /-- Restricted #886 signed mass on the clipped p-free base side of one
 first-owner/signature cell. -/
 def vfMidSurvivorClippedBaseAmplitude
