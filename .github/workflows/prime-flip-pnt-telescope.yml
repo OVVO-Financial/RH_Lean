@@ -47,6 +47,7 @@ on:
       - research/VF_MID_ADVERSARIAL_PROOF_FUZZER.lean
       - research/VF_MID_OWNER_ADMISSIBLE_ESCAPE_CLASS.lean
       - research/VF_MID_ACTUAL_PRIME_FIRST_BAD_MOBIUS_TRIGGER.lean
+      - research/VF_MID_SUBDOUBLING_SURVIVOR_TO_OWNER_GATE.lean
       - research/VF_MID_RECURSIVE_REMAINDER_BOUND.lean
       - research/VF_MID_AGGREGATE_CHILD_FORCING.lean
       - research/VF_MID_ENDPOINT_TRIGGER_DICTIONARY.lean
@@ -200,6 +201,7 @@ jobs:
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_AGGREGATE_CHILD_FORCING.olean research/VF_MID_AGGREGATE_CHILD_FORCING.lean 2>&1 | tee vf-mid-aggregate-child-forcing.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_ENDPOINT_TRIGGER_DICTIONARY.olean research/VF_MID_ENDPOINT_TRIGGER_DICTIONARY.lean 2>&1 | tee vf-mid-endpoint-trigger-dictionary.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_ACTUAL_PRIME_FIRST_BAD_MOBIUS_TRIGGER.olean research/VF_MID_ACTUAL_PRIME_FIRST_BAD_MOBIUS_TRIGGER.lean 2>&1 | tee vf-mid-actual-prime-first-bad-mobius-trigger.log
+          lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_SUBDOUBLING_SURVIVOR_TO_OWNER_GATE.olean research/VF_MID_SUBDOUBLING_SURVIVOR_TO_OWNER_GATE.lean 2>&1 | tee vf-mid-subdoubling-survivor-to-owner-gate.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.ZERO_TARGET_PARTIAL_MOMENT_COVARIANCE.olean research/ZERO_TARGET_PARTIAL_MOMENT_COVARIANCE.lean 2>&1 | tee vf-mid-zero-target-partial-moment-covariance.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.ZERO_TARGET_COVARIANCE_OWNER_DESCENT.olean research/ZERO_TARGET_COVARIANCE_OWNER_DESCENT.lean 2>&1 | tee vf-mid-zero-target-covariance-owner-descent.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_PHYSICAL_FORCING_MOBIUS_DECODER.olean research/VF_MID_PHYSICAL_FORCING_MOBIUS_DECODER.lean 2>&1 | tee vf-mid-physical-forcing-mobius-decoder.log
@@ -674,6 +676,8 @@ jobs:
           #print axioms RHLean.Analysis.vfMidActualPrimeUpperEscape_forces_subdoublingMobiusTrigger
           #print axioms RHLean.Analysis.vfMidActualPrimeLowerEscape_forces_subdoublingMobiusTrigger
           #print axioms RHLean.Analysis.vfMidActualPrimeFirstBadAt_forces_subdoublingMobiusTrigger
+          #print axioms RHLean.Analysis.vfMidZeroTargetCubeCrossGram_eq_survivorMobiusMass_mul
+          #print axioms RHLean.Analysis.vfMidDyadicPrefixZeroTargetGram_eq_survivorMobiusMass_sq
           #print axioms RHLean.Analysis.vfMidRecursiveChildCarrier_card_eq_sum
           #print axioms RHLean.Analysis.vfMidRecursiveChild_block_lt
           #print axioms RHLean.Analysis.vfMidRecursivePrimeChildrenInBlock_card_le_prefixWheelEnvelope
