@@ -110,6 +110,95 @@ theorem vfMidTwoSectorOwnerCharge_succ_eq_oneBlock_sum
   rw [vfMidDyadicFrozenSurvivorSeatCharge_succ_eq_oneBlock,
     vfMidDyadicProcessedOwnerSeatCharge_succ_eq_oneBlock]
 
+/-- Literal processed-owner physical charge in one block at an arbitrary
+frozen cutoff `A`.  The least-prime owner remains the outer index. -/
+def vfMidFrozenProcessedOwnerPhysicalCharge (A R : ℕ) : ℝ :=
+  ∑ p ∈ vfMidFrozenProcessedOwnerPrimes A R,
+    ∑ n ∈ vfMidSquareBandCompositeOwner R p,
+      vfMidOddSignedSeatCharge R n
+
+theorem vfMidFrozenProcessedOwnerPhysicalCharge_eq_ownerCharges
+    (A R : ℕ) :
+    vfMidFrozenProcessedOwnerPhysicalCharge A R =
+      ∑ p ∈ vfMidFrozenProcessedOwnerPrimes A R,
+        vfMidOddFractionalPrimeSeatWeight R *
+          ((vfMidSquareBandCompositeOwner R p).card : ℝ) := by
+  unfold vfMidFrozenProcessedOwnerPhysicalCharge
+  apply Finset.sum_congr rfl
+  intro p _hp
+  exact (vfMidOneBlockProcessedOwnerAtom_eq_siteSum R p).symm
+
+/-- The processed physical sites are exactly the affine mass removed by freezing
+the wheel through `A`. -/
+theorem vfMidFrozenProcessedOwnerPhysicalCharge_eq_removedSeatMass
+    {A R : ℕ} (hA : 3 ≤ A) (hAR : A ≤ R) :
+    vfMidFrozenProcessedOwnerPhysicalCharge A R =
+      vfMidOddFractionalPrimeSeatWeight R *
+        ((R : ℝ) - ((vfMidSquarePrefixWheelSurvivors A R).card : ℝ)) := by
+  rw [vfMidFrozenProcessedOwnerPhysicalCharge_eq_ownerCharges]
+  exact (vfMidPrefixRemovedSeatMass_eq_processedOwnerCharges hA hAR).symm
+
+/-- Full literal physical charge of one square block on a common frozen wheel. -/
+def vfMidFrozenAffineBlockPhysicalCharge (A R : ℕ) : ℝ :=
+  vfMidSubdoublingPrefixSurvivorChargeSum A R +
+    vfMidFrozenProcessedOwnerPhysicalCharge A R
+
+/-- **One-block full affine physical reassembly at a frozen cutoff.**
+
+Survivor sites plus already-processed least-owner sites recover the complete
+odd-block VF charge before any square or inequality. -/
+theorem vfMidFrozenAffineBlockPhysicalCharge_eq_blockSeatMass
+    {A R : ℕ}
+    (hA : 3 ≤ A) (hAR : A ≤ R) (hRlt : R < 2 * A) :
+    vfMidFrozenAffineBlockPhysicalCharge A R =
+      vfMidOddBlockSeatMass R := by
+  unfold vfMidFrozenAffineBlockPhysicalCharge
+  rw [vfMidFrozenProcessedOwnerPhysicalCharge_eq_removedSeatMass hA hAR]
+  have h :=
+    vfMidOddCompositeTrackingDefect_eq_prefixSurvivorCharge_add_removedSeats
+      hA hAR hRlt
+  rw [vfMidOddBlockSeatMass_eq_trackingDefect R (by omega : 2 ≤ R)]
+  exact h.symm
+
+/-- Full physical charge of a frozen subdoubling run. -/
+def vfMidFrozenAffineRunPhysicalCharge (A B : ℕ) : ℝ :=
+  ∑ R ∈ Finset.Ico A B, vfMidFrozenAffineBlockPhysicalCharge A R
+
+/-- The common-frozen physical run is exactly the native odd seat run. -/
+theorem vfMidFrozenAffineRunPhysicalCharge_eq_oddRunSeatMass
+    {A B : ℕ}
+    (hA : 3 ≤ A) (hAB : A ≤ B) (hBA : B ≤ 2 * A) :
+    vfMidFrozenAffineRunPhysicalCharge A B =
+      vfMidOddRunSeatMass A B := by
+  unfold vfMidFrozenAffineRunPhysicalCharge vfMidOddRunSeatMass
+  apply Finset.sum_congr rfl
+  intro R hR
+  have hAR : A ≤ R := (Finset.mem_Ico.mp hR).1
+  have hRB : R < B := (Finset.mem_Ico.mp hR).2
+  exact vfMidFrozenAffineBlockPhysicalCharge_eq_blockSeatMass
+    hA hAR (hRB.trans_le hBA)
+
+/-- Historical-current physical rectangle written on one common frozen wheel. -/
+def vfMidFrozenAffineHistoricalCurrentPhysicalPairMass
+    (A R : ℕ) : ℝ :=
+  vfMidFrozenAffineRunPhysicalCharge A R *
+    vfMidFrozenAffineBlockPhysicalCharge A R
+
+/-- **Common-anchor historical-current reassembly.**
+
+The literal survivor/processed-owner run crossed with the similarly decomposed
+current block is exactly the native historical-current seat Gram. -/
+theorem vfMidFrozenAffineHistoricalCurrentPhysicalPairMass_eq
+    {A R : ℕ}
+    (hA : 3 ≤ A) (hAR : A ≤ R) (hRlt : R < 2 * A) :
+    vfMidFrozenAffineHistoricalCurrentPhysicalPairMass A R =
+      vfMidOddHistoricalCurrentSeatGram A R := by
+  unfold vfMidFrozenAffineHistoricalCurrentPhysicalPairMass
+  rw [vfMidFrozenAffineRunPhysicalCharge_eq_oddRunSeatMass
+      hA hAR (by omega : R ≤ 2 * A),
+    vfMidFrozenAffineBlockPhysicalCharge_eq_blockSeatMass hA hAR hRlt]
+  exact (vfMidOddHistoricalCurrentSeatGram_eq_run_mul_block A R).symm
+
 /-- Survivor x survivor sector. -/
 def vfMidOneBlockSurvivorSurvivorPairMass (R : ℕ) : ℝ :=
   ∑ n ∈ vfMidSquarePrefixWheelSurvivors R R,
