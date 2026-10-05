@@ -167,7 +167,7 @@ def vfMidFrozenAffineRunPhysicalCharge (A B : ℕ) : ℝ :=
 /-- The common-frozen physical run is exactly the native odd seat run. -/
 theorem vfMidFrozenAffineRunPhysicalCharge_eq_oddRunSeatMass
     {A B : ℕ}
-    (hA : 3 ≤ A) (hAB : A ≤ B) (hBA : B ≤ 2 * A) :
+    (hA : 3 ≤ A) (_hAB : A ≤ B) (hBA : B ≤ 2 * A) :
     vfMidFrozenAffineRunPhysicalCharge A B =
       vfMidOddRunSeatMass A B := by
   unfold vfMidFrozenAffineRunPhysicalCharge vfMidOddRunSeatMass
@@ -215,7 +215,7 @@ of the complete common-frozen survivor/processed run.  This is pure algebra on
 the already reassembled physical carrier. -/
 theorem vfMidFrozenAffineRunPhysicalCharge_energyStep_eq
     {A R : ℕ}
-    (hA : 3 ≤ A) (hAR : A ≤ R) (hRlt : R < 2 * A) :
+    (_hA : 3 ≤ A) (hAR : A ≤ R) (_hRlt : R < 2 * A) :
     vfMidFrozenAffineRunPhysicalCharge A (R + 1) ^ 2 -
         vfMidFrozenAffineRunPhysicalCharge A R ^ 2 =
       vfMidFrozenAffineBlockPhysicalCharge A R ^ 2 +
@@ -307,10 +307,25 @@ theorem vfMidOneBlockProcessedSurvivorPairMass_eq_physical
     vfMidOneBlockProcessedSurvivorPhysicalPairMass
   apply Finset.sum_congr rfl
   intro p _hp
-  rw [vfMidOneBlockProcessedOwnerAtom_eq_siteSum, Finset.sum_mul]
-  apply Finset.sum_congr rfl
-  intro n _hn
-  rfl
+  rw [vfMidOneBlockProcessedOwnerAtom_eq_siteSum]
+  calc
+    (∑ m ∈ vfMidSquarePrefixWheelSurvivors R R,
+        (∑ n ∈ vfMidSquareBandCompositeOwner R p,
+          vfMidOddSignedSeatCharge R n) *
+          vfMidOddSignedSeatCharge R m) =
+      ∑ m ∈ vfMidSquarePrefixWheelSurvivors R R,
+        ∑ n ∈ vfMidSquareBandCompositeOwner R p,
+          vfMidOddSignedSeatCharge R n *
+            vfMidOddSignedSeatCharge R m := by
+              apply Finset.sum_congr rfl
+              intro m _hm
+              rw [Finset.sum_mul]
+    _ =
+      ∑ n ∈ vfMidSquareBandCompositeOwner R p,
+        ∑ m ∈ vfMidSquarePrefixWheelSurvivors R R,
+          vfMidOddSignedSeatCharge R n *
+            vfMidOddSignedSeatCharge R m := by
+              rw [Finset.sum_comm]
 
 theorem vfMidOneBlockProcessedProcessedPairMass_eq_physical
     (R : ℕ) :
@@ -320,12 +335,31 @@ theorem vfMidOneBlockProcessedProcessedPairMass_eq_physical
     vfMidOneBlockProcessedProcessedPhysicalPairMass
   apply Finset.sum_congr rfl
   intro p _hp
-  rw [vfMidOneBlockProcessedOwnerAtom_eq_siteSum, Finset.sum_mul]
-  apply Finset.sum_congr rfl
-  intro n _hn
-  apply Finset.sum_congr rfl
-  intro q _hq
-  rw [vfMidOneBlockProcessedOwnerAtom_eq_siteSum, Finset.mul_sum]
+  rw [vfMidOneBlockProcessedOwnerAtom_eq_siteSum]
+  calc
+    (∑ q ∈ vfMidFrozenProcessedOwnerPrimes R R,
+        (∑ n ∈ vfMidSquareBandCompositeOwner R p,
+          vfMidOddSignedSeatCharge R n) *
+          vfMidOneBlockProcessedOwnerAtom R q) =
+      ∑ q ∈ vfMidFrozenProcessedOwnerPrimes R R,
+        ∑ n ∈ vfMidSquareBandCompositeOwner R p,
+          ∑ m ∈ vfMidSquareBandCompositeOwner R q,
+            vfMidOddSignedSeatCharge R n *
+              vfMidOddSignedSeatCharge R m := by
+                apply Finset.sum_congr rfl
+                intro q _hq
+                rw [vfMidOneBlockProcessedOwnerAtom_eq_siteSum]
+                rw [Finset.sum_mul]
+                apply Finset.sum_congr rfl
+                intro n _hn
+                rw [Finset.mul_sum]
+    _ =
+      ∑ n ∈ vfMidSquareBandCompositeOwner R p,
+        ∑ q ∈ vfMidFrozenProcessedOwnerPrimes R R,
+          ∑ m ∈ vfMidSquareBandCompositeOwner R q,
+            vfMidOddSignedSeatCharge R n *
+              vfMidOddSignedSeatCharge R m := by
+                rw [Finset.sum_comm]
 
 /-- **Full physical-site decompression of the four-sector affine classifier.**
 
