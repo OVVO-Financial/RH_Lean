@@ -1328,6 +1328,33 @@ theorem vfMidOneBlockHistoricalProcessedChildPhysical_eq_endpoint_mul_childCharg
               rw [Finset.mul_sum]
 
 
+
+/-- Complete processed-child charge whose stripped child is squarefree and
+therefore lies on the common nonzero-Möbius clock. -/
+def vfMidOneBlockProcessedActiveChildCharge (R : ℕ) : ℝ :=
+  ∑ p ∈ vfMidFrozenProcessedOwnerPrimes R R,
+    ∑ _m ∈ vfMidSquarefreeProcessedOwnerChildren R p,
+      vfMidOddFractionalPrimeSeatWeight R
+
+/-- Complete processed-child charge whose stripped child is still squareful.
+This sector is retained as a strict-descendant contribution; it is never
+silently inserted into the Möbius gate. -/
+def vfMidOneBlockProcessedSquarefulChildCharge (R : ℕ) : ℝ :=
+  ∑ p ∈ vfMidFrozenProcessedOwnerPrimes R R,
+    ∑ _m ∈ vfMidSquarefulProcessedOwnerChildrenAfterStrip R p,
+      vfMidOddFractionalPrimeSeatWeight R
+
+/-- Exact post-strip active/squareful partition of the processed child charge. -/
+theorem vfMidOneBlockProcessedOwnerChildCharge_eq_active_add_squareful
+    (R : ℕ) :
+    vfMidOneBlockProcessedOwnerChildCharge R =
+      vfMidOneBlockProcessedActiveChildCharge R +
+        vfMidOneBlockProcessedSquarefulChildCharge R := by
+  simpa [vfMidOneBlockProcessedActiveChildCharge,
+    vfMidOneBlockProcessedSquarefulChildCharge] using
+      vfMidOneBlockProcessedOwnerChildCharge_eq_active_add_dead R
+
+
 /-- Complete adjacent-block quadratic bill after every processed current
 coordinate has been stripped to its tagged strict lower child.  The historical
 endpoint defect remains a rigid scalar; no inequality or reciprocal-energy
@@ -1374,5 +1401,74 @@ theorem vfMidCorrelationEnergy_eq_unifiedChildDecompressedLedger
           vfMidOneBlockHistoricalProcessedChildPhysical R) := by
             rw [hhist]
             ring
+
+
+/-- Canonical affine form of the exact child-decompressed full bill. -/
+theorem vfMidOneBlockUnifiedChildDecompressedLedger_eq_prime_processed_affine
+    {R : ℕ} (hR : 3 ≤ R) :
+    vfMidOneBlockUnifiedChildDecompressedLedger R =
+      (vfMidOneBlockPrimeSeatCharge R +
+        vfMidOneBlockProcessedOwnerChildCharge R) ^ 2 -
+      2 * vfMidActualPrimeEndpointDefect R *
+        (vfMidOneBlockPrimeSeatCharge R +
+          vfMidOneBlockProcessedOwnerChildCharge R) := by
+  have hpair :=
+    vfMidOneBlockChildDecompressedAffinePairLedger_eq_prime_add_processed_sq hR
+  have hprime :
+      (∑ n ∈ vfMidSquareWheelPrimes R,
+        vfMidActualPrimeEndpointDefect R *
+          vfMidOddSignedSeatCharge R n) =
+        vfMidActualPrimeEndpointDefect R *
+          vfMidOneBlockPrimeSeatCharge R := by
+    unfold vfMidOneBlockPrimeSeatCharge
+    rw [Finset.mul_sum]
+  rw [show
+      ((∑ n ∈ vfMidSquareWheelPrimes R,
+          vfMidOddSignedSeatCharge R n) +
+        vfMidOneBlockProcessedOwnerChildCharge R) =
+      (vfMidOneBlockPrimeSeatCharge R +
+        vfMidOneBlockProcessedOwnerChildCharge R) by
+        rfl] at hpair
+  unfold vfMidOneBlockUnifiedChildDecompressedLedger
+  rw [hpair,
+    vfMidOneBlockHistoricalProcessedChildPhysical_eq_endpoint_mul_childCharge,
+    hprime]
+
+/-- Active squarefree child contribution to the exact quadratic bill. -/
+def vfMidOneBlockActiveChildAffineBill (R : ℕ) : ℝ :=
+  (vfMidOneBlockPrimeSeatCharge R +
+    vfMidOneBlockProcessedActiveChildCharge R) ^ 2 -
+  2 * vfMidActualPrimeEndpointDefect R *
+    (vfMidOneBlockPrimeSeatCharge R +
+      vfMidOneBlockProcessedActiveChildCharge R)
+
+/-- The complete signed cross/self contribution of post-strip squareful
+children.  This is the strict-descendant bucket before lower-state reassembly;
+all cross-interactions with the active source are retained. -/
+def vfMidOneBlockSquarefulChildDescendantCross (R : ℕ) : ℝ :=
+  2 * (vfMidOneBlockPrimeSeatCharge R +
+      vfMidOneBlockProcessedActiveChildCharge R) *
+      vfMidOneBlockProcessedSquarefulChildCharge R +
+    vfMidOneBlockProcessedSquarefulChildCharge R ^ 2 -
+    2 * vfMidActualPrimeEndpointDefect R *
+      vfMidOneBlockProcessedSquarefulChildCharge R
+
+/-- **Exact first authorized-bucket split.**
+
+The complete child-decompressed #889 bill is the Möbius-active affine bill plus
+the full squareful strict-descendant cross packet.  This is pure algebra after
+the post-strip carrier partition: no sign is discarded and no inequality is
+used. -/
+theorem vfMidOneBlockUnifiedChildDecompressedLedger_eq_active_add_squarefulDescendant
+    {R : ℕ} (hR : 3 ≤ R) :
+    vfMidOneBlockUnifiedChildDecompressedLedger R =
+      vfMidOneBlockActiveChildAffineBill R +
+        vfMidOneBlockSquarefulChildDescendantCross R := by
+  rw [vfMidOneBlockUnifiedChildDecompressedLedger_eq_prime_processed_affine hR,
+    vfMidOneBlockProcessedOwnerChildCharge_eq_active_add_squareful]
+  unfold vfMidOneBlockActiveChildAffineBill
+    vfMidOneBlockSquarefulChildDescendantCross
+  ring
+
 
 end RHLean.Analysis
