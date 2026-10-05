@@ -507,7 +507,7 @@ def vfMidOneBlockPrimeSeatCharge (R : ℕ) : ℝ :=
 
 /-- The prime stream is nonpositive. -/
 theorem vfMidOneBlockPrimeSeatCharge_nonpos
-    (R : ℕ) :
+    (R : ℕ) (hR : 3 ≤ R) :
     vfMidOneBlockPrimeSeatCharge R ≤ 0 := by
   unfold vfMidOneBlockPrimeSeatCharge
   apply Finset.sum_nonpos
@@ -515,7 +515,7 @@ theorem vfMidOneBlockPrimeSeatCharge_nonpos
   have hp : n.Prime := (Finset.mem_filter.mp hn).2
   rw [vfMidOddSignedSeatCharge_of_prime R n hp]
   have hw :=
-    vfMidOddFractionalPrimeSeatWeight_le_one_of_three_le R (by omega)
+    vfMidOddFractionalPrimeSeatWeight_le_one_of_three_le R hR
   linarith
 
 /-- The squareful processed stream is nonnegative. -/
@@ -657,7 +657,7 @@ theorem vfMidCorrelationEnergy_le_lowerComposite_of_endpoint_nonpos
           (vfMidOneBlockProcessedSquarefreeCharge R +
             vfMidOneBlockProcessedSquarefulCharge R) := by
   rw [vfMidCorrelationEnergy_eq_lowerActive_add_primeRestoring hR]
-  have hP := vfMidOneBlockPrimeSeatCharge_nonpos R
+  have hP := vfMidOneBlockPrimeSeatCharge_nonpos R hR
   nlinarith
 
 
@@ -691,7 +691,7 @@ theorem vfMidOneBlockProcessedOwnerCharge_eq_native_add_terminal_add_transfer
       vfMidOriginalPrimeCharge R =
         (1 - vfMidOddFractionalPrimeSeatWeight R) *
           (vfMidIntegerBlockPrimeSupply R : ℝ) := rfl
-  rw [hprocessed] at howners
+  rw [← hprocessed] at howners
   unfold vfMidNativeDescentRemainder at hdef
   rw [hprime] at hdef
   linarith
