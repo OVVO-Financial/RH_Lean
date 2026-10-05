@@ -438,6 +438,49 @@ theorem vfMidCorrelationEnergy_eq_oddLyapunovSeatGramBill
   rw [vfMidCorrelationEnergy_eq_unifiedPhysicalSeatGramBill hR,
     vfMidUnifiedPhysicalSeatGramBill_eq_oddLyapunovSeatGramBill hR]
 
+/-- **Common-frozen raw terminal normal form.**
+
+For any frozen anchor `A <= R` inside the subdoubling geometry, the complete
+one-step correlation bill is the square increment of the literal
+survivor+processed physical run, plus only the accumulated anchor polarization.
+No inequality or reciprocal currency appears. -/
+theorem vfMidCorrelationEnergy_eq_frozenAffineRunStep_add_anchor
+    {A R : ℕ}
+    (hA : 3 ≤ A) (hAR : A ≤ R) (hRlt : R < 2 * A) :
+    2 * vfMidSquareEndpointAccumulationCorrelation R +
+        vfMidSquareBandError R ^ 2 =
+      (vfMidFrozenAffineRunPhysicalCharge A (R + 1) ^ 2 -
+        vfMidFrozenAffineRunPhysicalCharge A R ^ 2) +
+        2 * vfMidActualPrimeEndpointDefect A *
+          vfMidSquareBandError R := by
+  have hcorr :=
+    vfMidSquareEndpointError_sq_succ_eq_correlation
+      R (by omega : 2 ≤ R)
+  have hnative :=
+    vfMidSquareEndpointError_energy_step_eq_oddLyapunovSeatGramBill
+      (A := A) (R := R) (by omega : 2 ≤ A) hAR
+  have hbill :
+      2 * vfMidSquareEndpointAccumulationCorrelation R +
+          vfMidSquareBandError R ^ 2 =
+        vfMidOddLyapunovSeatGramBill A R := by
+    exact hcorr.symm.trans hnative
+  rw [hbill]
+  unfold vfMidOddLyapunovSeatGramBill
+  rw [vfMidActualPrimeEndpointDefect_eq_squareEndpointError
+      (R := A) (by omega : 2 ≤ A)]
+  have hstep :=
+    vfMidFrozenAffineRunPhysicalCharge_energyStep_eq
+      hA hAR hRlt
+  rw [hstep]
+  rw [vfMidFrozenAffineBlockPhysicalCharge_eq_blockSeatMass
+      hA hAR hRlt,
+    vfMidOddBlockSeatMass_eq_neg_bandError R (by omega : 2 ≤ R),
+    vfMidFrozenAffineHistoricalCurrentPhysicalPairMass_eq
+      hA hAR hRlt,
+    vfMidOddCurrentSeatSelfGram_eq_bandError_sq
+      R (by omega : 2 ≤ R)]
+  ring
+
 /-- Exact adjacent-square Fubini transport of the #889 two-sector charge.
 
 The resolved Euler forcing is not the raw two-sector charge itself: logarithmic
