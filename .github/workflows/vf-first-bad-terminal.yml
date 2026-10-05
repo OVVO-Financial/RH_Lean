@@ -11,6 +11,7 @@ on:
       - research/VF_MID_ADJACENT_SQUARE_SELBERG_BOUNDARY.lean
       - research/VF_MID_ONE_BLOCK_SOURCE_TO_RANK_INLET.lean
       - research/VF_MID_GLOBAL_FIRST_BAD_RADIAL_BUDGET.lean
+      - research/VF_MID_FIRST_BAD_PARTIAL_MOMENT_SYNTHESIS.lean
       - .github/workflows/vf-first-bad-terminal.yml
   workflow_dispatch:
 
@@ -68,3 +69,4 @@ jobs:
         run: |
           python3 scripts/compile_research_import_closure.py research/VF_MID_FIRST_BAD_TERMINAL_CONTRADICTION.lean
           python3 scripts/compile_research_import_closure.py research/VF_MID_GLOBAL_FIRST_BAD_RADIAL_BUDGET.lean
+          python3 scripts/compile_research_import_closure.py research/VF_MID_FIRST_BAD_PARTIAL_MOMENT_SYNTHESIS.lean
