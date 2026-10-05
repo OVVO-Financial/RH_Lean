@@ -41,6 +41,48 @@ def vfMidOneBlockProcessedOwnerCharge (R : ℕ) : ℝ :=
   ∑ p ∈ vfMidFrozenProcessedOwnerPrimes R R,
     vfMidOneBlockProcessedOwnerAtom R p
 
+/-- A processed-owner atom is literally the signed VF seat mass on its physical
+least-prime fibre.  The owner label is retained; this only decompresses the
+cardinality notation. -/
+theorem vfMidOneBlockProcessedOwnerAtom_eq_siteSum
+    (R p : ℕ) :
+    vfMidOneBlockProcessedOwnerAtom R p =
+      ∑ n ∈ vfMidSquareBandCompositeOwner R p,
+        vfMidOddSignedSeatCharge R n := by
+  unfold vfMidOneBlockProcessedOwnerAtom
+  calc
+    vfMidOddFractionalPrimeSeatWeight R *
+        ((vfMidSquareBandCompositeOwner R p).card : ℝ) =
+      ∑ _n ∈ vfMidSquareBandCompositeOwner R p,
+        vfMidOddFractionalPrimeSeatWeight R := by
+          rw [Finset.sum_const, nsmul_eq_mul]
+          ring
+    _ = ∑ n ∈ vfMidSquareBandCompositeOwner R p,
+        vfMidOddSignedSeatCharge R n := by
+          apply Finset.sum_congr rfl
+          intro n hn
+          have hnComp : n ∈ vfMidSquareBandComposites R :=
+            (Finset.mem_filter.mp hn).1
+          have hnNotPrime : ¬ n.Prime :=
+            (Finset.mem_filter.mp hnComp).2
+          exact
+            (vfMidOddSignedSeatCharge_of_not_prime R n hnNotPrime).symm
+
+/-- **Processed sector decompression.**
+
+The #888 processed-owner scalar is the literal nested physical-site sum with
+the least-prime owner label still present.  No owner fibres are merged. -/
+theorem vfMidOneBlockProcessedOwnerCharge_eq_siteSum
+    (R : ℕ) :
+    vfMidOneBlockProcessedOwnerCharge R =
+      ∑ p ∈ vfMidFrozenProcessedOwnerPrimes R R,
+        ∑ n ∈ vfMidSquareBandCompositeOwner R p,
+          vfMidOddSignedSeatCharge R n := by
+  unfold vfMidOneBlockProcessedOwnerCharge
+  apply Finset.sum_congr rfl
+  intro p _hp
+  exact vfMidOneBlockProcessedOwnerAtom_eq_siteSum R p
+
 /-- The dyadic frozen charge specializes exactly to the one-block charge. -/
 theorem vfMidDyadicFrozenSurvivorSeatCharge_succ_eq_oneBlock
     (R : ℕ) :
