@@ -127,6 +127,19 @@ theorem vfMidOneBlockProcessedOwnerCharge_eq_squarefree_add_squareful
       (p := Squarefree)
       (f := vfMidOddSignedSeatCharge R)).symm
 
+/-- Every physical site in a processed least-owner fibre is composite, hence
+carries the raw positive VF affine charge. -/
+theorem vfMidOddSignedSeatCharge_eq_weight_on_processed_owner
+    {R p n : ℕ}
+    (hn : n ∈ vfMidSquareBandCompositeOwner R p) :
+    vfMidOddSignedSeatCharge R n =
+      vfMidOddFractionalPrimeSeatWeight R := by
+  have hnComp : n ∈ vfMidSquareBandComposites R :=
+    (Finset.mem_filter.mp hn).1
+  have hnNotPrime : ¬ n.Prime :=
+    (Finset.mem_filter.mp hnComp).2
+  exact vfMidOddSignedSeatCharge_of_not_prime R n hnNotPrime
+
 /-- Every squareful processed site carries the raw positive VF affine charge;
 there is no intrinsic Möbius rectifier in `vfMidOddSignedSeatCharge`. -/
 theorem vfMidOddSignedSeatCharge_eq_weight_on_squareful_processed
@@ -134,11 +147,9 @@ theorem vfMidOddSignedSeatCharge_eq_weight_on_squareful_processed
     (hn : n ∈ vfMidSquarefulProcessedOwnerSites R p) :
     vfMidOddSignedSeatCharge R n =
       vfMidOddFractionalPrimeSeatWeight R := by
-  have hnOwner :
-      n ∈ vfMidSquareBandCompositeOwner R p :=
-    (Finset.mem_filter.mp hn).1
-  have hnComp := vfMidSquareBandCompositeOwner_mem hnOwner
-  exact vfMidOddSignedSeatCharge_of_not_prime R n hnComp.2
+  exact
+    vfMidOddSignedSeatCharge_eq_weight_on_processed_owner
+      (Finset.mem_filter.mp hn).1
 
 
 /-- Squareful processed children obtained by stripping the retained least-prime
@@ -262,7 +273,6 @@ theorem vfMidOneBlockProcessedSquarefulCharge_le_three_div_log_four_mul
               _ = vfMidOddFractionalPrimeSeatWeight R *
                   ((vfMidSquarefulProcessedOwnerSites R p).card : ℝ) := by
                     rw [Finset.sum_const, nsmul_eq_mul]
-                    push_cast
                     ring
     _ ≤ (3 / Real.log 4) *
         (∑ p ∈ vfMidFrozenProcessedOwnerPrimes R R,
@@ -274,6 +284,15 @@ theorem vfMidOneBlockProcessedSquarefulCharge_le_three_div_log_four_mul
         positivity
       exact mul_le_mul_of_nonneg_left hpop hC0
 
+
+/-- Processed affine mass written directly on stripped owner children.
+
+The coefficient remains the parent block's exact VF fractional seat weight;
+the child is only a lossless reindexing coordinate at this stage. -/
+def vfMidOneBlockProcessedOwnerChildCharge (R : ℕ) : ℝ :=
+  ∑ p ∈ vfMidFrozenProcessedOwnerPrimes R R,
+    ∑ _m ∈ vfMidSquareBandCompositeOwnerChildren R p,
+      vfMidOddFractionalPrimeSeatWeight R
 
 /-- Möbius-active processed children.  The rectifier is applied *after* the
 least-owner strip, which is the coordinate actually used by the rank tree. -/
@@ -349,20 +368,14 @@ theorem vfMidSquarefreeProcessedOwnerChild_mem_lowOwnerCarrier_succ
     · exact Nat.one_le_iff_ne_zero.mpr hsq.ne_zero
     · have hlt :=
         vfMidSquareBandCompositeOwnerChildren_lt_square hR hmChild
+      have hnext : R ^ 2 < (R + 1) ^ 2 := by
+        nlinarith
+      have hmnext : m < (R + 1) ^ 2 := hlt.trans hnext
       unfold squareRootEndpoint
-      nlinarith
+      omega
   · unfold realMoebiusStep
     exact_mod_cast
       (ArithmeticFunction.moebius_ne_zero_iff_squarefree.mpr hsq)
-
-/-- Processed affine mass written directly on stripped owner children.
-
-The coefficient remains the parent block's exact VF fractional seat weight;
-the child is only a lossless reindexing coordinate at this stage. -/
-def vfMidOneBlockProcessedOwnerChildCharge (R : ℕ) : ℝ :=
-  ∑ p ∈ vfMidFrozenProcessedOwnerPrimes R R,
-    ∑ _m ∈ vfMidSquareBandCompositeOwnerChildren R p,
-      vfMidOddFractionalPrimeSeatWeight R
 
 /-- **Lossless processed-site to child reindexing.**
 
@@ -442,6 +455,37 @@ theorem vfMidTwoSectorOwnerCharge_succ_eq_primeSurvivor_add_processedChildren
 
 
 
+private theorem vfMidActualPrimeEndpointDefect_eq_squareEndpointError_inlet
+    {R : ℕ} (hR : 2 ≤ R) :
+    vfMidActualPrimeEndpointDefect R = vfMidSquareEndpointError R := by
+  unfold vfMidActualPrimeEndpointDefect
+  rw [← vfMidDirectSquareEndpointError_eq_vfMidPrimeError hR]
+  rfl
+
+private theorem vfMidTwoSectorOwnerCharge_eq_endpointDefect_sub_inlet
+    {A B : ℕ}
+    (hA : 3 ≤ A) (hAB : A ≤ B) (hBA : B ≤ 2 * A) :
+    vfMidDyadicFrozenSurvivorSeatCharge A B +
+        vfMidDyadicProcessedOwnerSeatCharge A B =
+      vfMidActualPrimeEndpointDefect A -
+        vfMidActualPrimeEndpointDefect B := by
+  calc
+    vfMidDyadicFrozenSurvivorSeatCharge A B +
+        vfMidDyadicProcessedOwnerSeatCharge A B =
+      vfMidOddRunSeatMass A B :=
+        (vfMidOddRunSeatMass_eq_frozenSurvivor_add_processedOwnerCharge
+          hA hBA).symm
+    _ = -(vfMidSquareEndpointError B - vfMidSquareEndpointError A) :=
+      vfMidOddRunSeatMass_eq_neg_endpointError_increment
+        A B (by omega : 2 ≤ A) hAB
+    _ = vfMidActualPrimeEndpointDefect A -
+        vfMidActualPrimeEndpointDefect B := by
+      rw [vfMidActualPrimeEndpointDefect_eq_squareEndpointError_inlet
+            (R := A) (by omega : 2 ≤ A),
+          vfMidActualPrimeEndpointDefect_eq_squareEndpointError_inlet
+            (R := B) (by omega : 2 ≤ B)]
+      ring
+
 /-- **Exact three-stream quadratic snap-back.**
 
 The terminal correlation bill is the quadratic energy of the rectified physical
@@ -460,12 +504,31 @@ theorem vfMidCorrelationEnergy_eq_rectifiedThreeStream
             vfMidOddSignedSeatCharge R n) +
           vfMidOneBlockProcessedSquarefreeCharge R +
           vfMidOneBlockProcessedSquarefulCharge R) := by
-  have henergy :=
-    vfMidTwoSectorOwnerCharge_energyStep_succ_eq_correlation hR
+  have hcorr :=
+    vfMidSquareEndpointError_sq_succ_eq_correlation
+      R (by omega : 2 ≤ R)
+  have hD0 :=
+    vfMidActualPrimeEndpointDefect_eq_squareEndpointError_inlet
+      (R := R) (by omega : 2 ≤ R)
+  have hD1 :=
+    vfMidActualPrimeEndpointDefect_eq_squareEndpointError_inlet
+      (R := R + 1) (by omega : 2 ≤ R + 1)
+  have hT :=
+    vfMidTwoSectorOwnerCharge_eq_endpointDefect_sub_inlet
+      (A := R) (B := R + 1) hR (by omega) (by omega)
   have hsplit :=
     vfMidTwoSectorOwnerCharge_succ_eq_prime_add_squarefree_add_squareful hR
-  rw [hsplit] at henergy
-  exact henergy.symm
+  have hsource :
+      (∑ n ∈ vfMidSquareWheelPrimes R,
+          vfMidOddSignedSeatCharge R n) +
+          vfMidOneBlockProcessedSquarefreeCharge R +
+          vfMidOneBlockProcessedSquarefulCharge R =
+        vfMidActualPrimeEndpointDefect R -
+          vfMidActualPrimeEndpointDefect (R + 1) := by
+    exact hsplit.symm.trans hT
+  rw [← hD0, ← hD1] at hcorr
+  rw [hsource]
+  nlinarith
 
 
 
@@ -475,35 +538,59 @@ weight is at most one.  This uses only the midpoint formula and
 theorem vfMidOddFractionalPrimeSeatWeight_le_one_of_three_le
     (R : ℕ) (hR : 3 ≤ R) :
     vfMidOddFractionalPrimeSeatWeight R ≤ 1 := by
-  have hRpos : (0 : ℝ) < (R : ℝ) := by exact_mod_cast (by omega : 0 < R)
-  have hR3 : (3 : ℝ) ≤ (R : ℝ) := by exact_mod_cast hR
-  have hm8 : (8 : ℝ) ≤ vfMidBandMidpoint R := by
+  have hRpos : (0 : ℝ) < (R : ℝ) := by
+    exact_mod_cast (by omega : 0 < R)
+  have hR3 : (3 : ℝ) ≤ (R : ℝ) := by
+    exact_mod_cast hR
+  have hm12 : (12 : ℝ) ≤ vfMidBandMidpoint R := by
     unfold vfMidBandMidpoint
-    nlinarith [sq_nonneg ((R : ℝ) - 3)]
-  have hlog8 :
-      Real.log (8 : ℝ) = 3 * Real.log 2 := by
+    nlinarith
+  have hlog3 : (1 : ℝ) < Real.log 3 := by
+    rw [show (1 : ℝ) = Real.log (Real.exp 1) by rw [Real.log_exp]]
+    apply Real.log_lt_log (Real.exp_pos 1)
+    exact Real.exp_one_lt_d9.trans (by norm_num)
+  have hlog4eq : Real.log (4 : ℝ) = 2 * Real.log 2 := by
     calc
-      Real.log (8 : ℝ) = Real.log ((2 : ℝ) ^ 3) := by norm_num
-      _ = (3 : ℕ) * Real.log 2 := by rw [Real.log_pow]
-      _ = 3 * Real.log 2 := by norm_num
-  have hlog8lower : (27 / 10 : ℝ) < Real.log (8 : ℝ) := by
-    rw [hlog8]
+      Real.log (4 : ℝ) = Real.log ((2 : ℝ) ^ 2) := by norm_num
+      _ = (2 : ℕ) * Real.log 2 := by rw [Real.log_pow]
+      _ = 2 * Real.log 2 := by norm_num
+  have hlog4 : (4 / 3 : ℝ) < Real.log 4 := by
+    rw [hlog4eq]
     have h2 := Real.log_two_gt_d9
     nlinarith
+  have hlog12eq :
+      Real.log (12 : ℝ) = Real.log 3 + Real.log 4 := by
+    calc
+      Real.log (12 : ℝ) = Real.log ((3 : ℝ) * 4) := by norm_num
+      _ = Real.log 3 + Real.log 4 := by
+        rw [Real.log_mul (by norm_num : (3 : ℝ) ≠ 0)
+          (by norm_num : (4 : ℝ) ≠ 0)]
+  have hlog12 : (7 / 3 : ℝ) < Real.log 12 := by
+    rw [hlog12eq]
+    nlinarith
   have hlogmono :
-      Real.log (8 : ℝ) ≤ Real.log (vfMidBandMidpoint R) :=
-    Real.log_le_log (by norm_num) hm8
-  have hlog : (27 / 10 : ℝ) < Real.log (vfMidBandMidpoint R) :=
-    hlog8lower.trans_le hlogmono
-  have hlogpos : 0 < Real.log (vfMidBandMidpoint R) := by linarith
+      Real.log (12 : ℝ) ≤ Real.log (vfMidBandMidpoint R) :=
+    Real.log_le_log (by norm_num) hm12
+  have hlog : (7 / 3 : ℝ) < Real.log (vfMidBandMidpoint R) :=
+    hlog12.trans_le hlogmono
+  have hlogpos : 0 < Real.log (vfMidBandMidpoint R) := by
+    linarith
+  have hnum :
+      2 * (R : ℝ) + 1 ≤ (R : ℝ) * (7 / 3 : ℝ) := by
+    nlinarith
   have hmul :
-      (27 / 10 : ℝ) * (R : ℝ) <
-        (R : ℝ) * Real.log (vfMidBandMidpoint R) := by
-    exact mul_lt_mul_of_pos_left hlog hRpos
+      (R : ℝ) * (7 / 3 : ℝ) <
+        (R : ℝ) * Real.log (vfMidBandMidpoint R) :=
+    mul_lt_mul_of_pos_left hlog hRpos
+  have hnumlog :
+      2 * (R : ℝ) + 1 <
+        (R : ℝ) * Real.log (vfMidBandMidpoint R) :=
+    hnum.trans_lt hmul
   unfold vfMidOddFractionalPrimeSeatWeight vfMidBandMass
   rw [div_le_iff₀ hRpos]
+  simp only [one_mul]
   rw [div_le_iff₀ hlogpos]
-  nlinarith
+  exact le_of_lt hnumlog
 
 /-- Prime stream of the adjacent one-block physical source. -/
 def vfMidOneBlockPrimeSeatCharge (R : ℕ) : ℝ :=
@@ -553,7 +640,7 @@ theorem vfMidCorrelationEnergy_eq_upperActive_sub_squarefulRestoring
             vfMidOneBlockProcessedSquarefulCharge R) := by
   have henergy := vfMidCorrelationEnergy_eq_rectifiedThreeStream hR
   have hT :=
-    vfMidTwoSectorOwnerCharge_eq_endpointDefect_sub
+    vfMidTwoSectorOwnerCharge_eq_endpointDefect_sub_inlet
       (A := R) (B := R + 1) hR (by omega) (by omega)
   have hsplit :=
     vfMidTwoSectorOwnerCharge_succ_eq_prime_add_squarefree_add_squareful hR
@@ -618,7 +705,7 @@ theorem vfMidCorrelationEnergy_eq_lowerActive_add_primeRestoring
             vfMidOneBlockPrimeSeatCharge R) := by
   have henergy := vfMidCorrelationEnergy_eq_rectifiedThreeStream hR
   have hT :=
-    vfMidTwoSectorOwnerCharge_eq_endpointDefect_sub
+    vfMidTwoSectorOwnerCharge_eq_endpointDefect_sub_inlet
       (A := R) (B := R + 1) hR (by omega) (by omega)
   have hsplit :=
     vfMidTwoSectorOwnerCharge_succ_eq_prime_add_squarefree_add_squareful hR
@@ -790,8 +877,20 @@ theorem vfMidOneBlockSurvivorProcessedPhysicalPairMass_eq_child
   intro n _hn
   apply Finset.sum_congr rfl
   intro p _hp
-  rw [Finset.sum_const, Finset.sum_const, nsmul_eq_mul, nsmul_eq_mul,
-    vfMidSquareBandCompositeOwnerChildren_card]
+  calc
+    (∑ m ∈ vfMidSquareBandCompositeOwner R p,
+      vfMidOddSignedSeatCharge R n * vfMidOddSignedSeatCharge R m) =
+      ∑ _m ∈ vfMidSquareBandCompositeOwner R p,
+        vfMidOddSignedSeatCharge R n *
+          vfMidOddFractionalPrimeSeatWeight R := by
+            apply Finset.sum_congr rfl
+            intro m hm
+            rw [vfMidOddSignedSeatCharge_eq_weight_on_processed_owner hm]
+    _ = ∑ _m ∈ vfMidSquareBandCompositeOwnerChildren R p,
+        vfMidOddSignedSeatCharge R n *
+          vfMidOddFractionalPrimeSeatWeight R := by
+            rw [Finset.sum_const, Finset.sum_const, nsmul_eq_mul,
+              nsmul_eq_mul, vfMidSquareBandCompositeOwnerChildren_card]
 
 /-- Exact processed child x survivor reindexing. -/
 theorem vfMidOneBlockProcessedSurvivorPhysicalPairMass_eq_child
@@ -803,12 +902,25 @@ theorem vfMidOneBlockProcessedSurvivorPhysicalPairMass_eq_child
   rw [vfMidSquarePrefixWheelSurvivors_self_eq_primes hR]
   apply Finset.sum_congr rfl
   intro p _hp
-  rw [Finset.sum_comm]
-  apply Finset.sum_congr rfl
-  intro m _hm
-  rw [Finset.sum_const, Finset.sum_const, nsmul_eq_mul, nsmul_eq_mul,
-    vfMidSquareBandCompositeOwnerChildren_card]
-  ring
+  calc
+    (∑ n ∈ vfMidSquareBandCompositeOwner R p,
+      ∑ m ∈ vfMidSquareWheelPrimes R,
+        vfMidOddSignedSeatCharge R n * vfMidOddSignedSeatCharge R m) =
+      ∑ _n ∈ vfMidSquareBandCompositeOwner R p,
+        ∑ m ∈ vfMidSquareWheelPrimes R,
+          vfMidOddFractionalPrimeSeatWeight R *
+            vfMidOddSignedSeatCharge R m := by
+              apply Finset.sum_congr rfl
+              intro n hn
+              apply Finset.sum_congr rfl
+              intro m _hm
+              rw [vfMidOddSignedSeatCharge_eq_weight_on_processed_owner hn]
+    _ = ∑ _n ∈ vfMidSquareBandCompositeOwnerChildren R p,
+        ∑ m ∈ vfMidSquareWheelPrimes R,
+          vfMidOddFractionalPrimeSeatWeight R *
+            vfMidOddSignedSeatCharge R m := by
+              rw [Finset.sum_const, Finset.sum_const, nsmul_eq_mul,
+                nsmul_eq_mul, vfMidSquareBandCompositeOwnerChildren_card]
 
 /-- Exact processed x processed double child reindexing. -/
 theorem vfMidOneBlockProcessedProcessedPhysicalPairMass_eq_child
@@ -819,14 +931,42 @@ theorem vfMidOneBlockProcessedProcessedPhysicalPairMass_eq_child
     vfMidOneBlockProcessedChildProcessedChildPairMass
   apply Finset.sum_congr rfl
   intro p _hp
-  rw [Finset.sum_comm]
-  apply Finset.sum_congr rfl
-  intro q _hq
-  rw [Finset.sum_comm, Finset.sum_comm]
-  rw [Finset.sum_const, Finset.sum_const, Finset.sum_const, Finset.sum_const,
-    nsmul_eq_mul, nsmul_eq_mul, nsmul_eq_mul, nsmul_eq_mul,
-    vfMidSquareBandCompositeOwnerChildren_card]
-  ring
+  calc
+    (∑ n ∈ vfMidSquareBandCompositeOwner R p,
+      ∑ q ∈ vfMidFrozenProcessedOwnerPrimes R R,
+        ∑ m ∈ vfMidSquareBandCompositeOwner R q,
+          vfMidOddSignedSeatCharge R n * vfMidOddSignedSeatCharge R m) =
+      ∑ _n ∈ vfMidSquareBandCompositeOwner R p,
+        ∑ q ∈ vfMidFrozenProcessedOwnerPrimes R R,
+          ∑ _m ∈ vfMidSquareBandCompositeOwner R q,
+            vfMidOddFractionalPrimeSeatWeight R *
+              vfMidOddFractionalPrimeSeatWeight R := by
+                apply Finset.sum_congr rfl
+                intro n hn
+                apply Finset.sum_congr rfl
+                intro q _hq
+                apply Finset.sum_congr rfl
+                intro m hm
+                rw [vfMidOddSignedSeatCharge_eq_weight_on_processed_owner hn,
+                  vfMidOddSignedSeatCharge_eq_weight_on_processed_owner hm]
+    _ = ∑ _n ∈ vfMidSquareBandCompositeOwner R p,
+        ∑ q ∈ vfMidFrozenProcessedOwnerPrimes R R,
+          ∑ _m ∈ vfMidSquareBandCompositeOwnerChildren R q,
+            vfMidOddFractionalPrimeSeatWeight R *
+              vfMidOddFractionalPrimeSeatWeight R := by
+                apply Finset.sum_congr rfl
+                intro _n _hn
+                apply Finset.sum_congr rfl
+                intro q _hq
+                rw [Finset.sum_const, Finset.sum_const, nsmul_eq_mul,
+                  nsmul_eq_mul, vfMidSquareBandCompositeOwnerChildren_card]
+    _ = ∑ _n ∈ vfMidSquareBandCompositeOwnerChildren R p,
+        ∑ q ∈ vfMidFrozenProcessedOwnerPrimes R R,
+          ∑ _m ∈ vfMidSquareBandCompositeOwnerChildren R q,
+            vfMidOddFractionalPrimeSeatWeight R *
+              vfMidOddFractionalPrimeSeatWeight R := by
+                rw [Finset.sum_const, Finset.sum_const, nsmul_eq_mul,
+                  nsmul_eq_mul, vfMidSquareBandCompositeOwnerChildren_card]
 
 /-- **Complete current-current source-to-child equality.**
 
