@@ -193,6 +193,29 @@ theorem vfMidAdjacentSquareSecondSelbergFrontierCharge_eq
   · simp [hp, nativePNTSignedSecondSelbergKernel_prime_sq]
   · simp [hp]
 
+/-- The square-root-wheel Fubini residual vanishes identically at the adjacent
+square endpoint.  This is the exact specialization of the repository's
+cofactor-first reciprocal Fubini split: every unresolved divisor has quotient
+one, hence logarithmic fibre weight zero. -/
+theorem vfMidAdjacentSquareWheelFubiniResidual_eq_zero
+    (R : ℕ) (hR : 3 ≤ R) :
+    nativePNTWheelResidualSignedMass R ((R + 1) ^ 2) = 0 := by
+  exact nativePNTWheelResidualSignedMass_eq_zero_of_lt_two_mul_sq
+    R ((R + 1) ^ 2)
+      (vfMidSquare_succ_sq_lt_two_mul_sq R hR)
+
+/-- Consequently the exact first signed Selberg recurrence at the adjacent
+square endpoint contains only the resolved partial-wheel mass. -/
+theorem vfMidAdjacentSquareWheelFubini_eq_resolved
+    (R : ℕ) (hR : 3 ≤ R) :
+    nativePNTError ((R + 1) ^ 2) *
+          Real.log (((R + 1) ^ 2 : ℕ) : ℝ) +
+        nativePNTWheelResolvedSignedMass R ((R + 1) ^ 2) =
+      nativePNTSignedSelbergRemainder ((R + 1) ^ 2) := by
+  exact nativePNTError_mul_log_add_squareRootWheel_eq_remainder
+    R ((R + 1) ^ 2)
+      (vfMidSquare_succ_sq_lt_two_mul_sq R hR)
+
 /-- Boundary-error form after the reciprocal quotient has collapsed to one. -/
 theorem vfMidAdjacentSquareSecondSelbergFrontierErrorMass_eq
     (R : ℕ) (hR : 3 ≤ R) :
