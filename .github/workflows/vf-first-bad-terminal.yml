@@ -7,6 +7,7 @@ on:
       - research/VF_MID_FIRST_BAD_TERMINAL_CONTRADICTION.lean
       - research/VF_MID_FIRST_BAD_AFFINE_OWNER_SPLICE.lean
       - research/VF_MID_FULL_AFFINE_PAIR_CLASSIFIER.lean
+      - research/VF_MID_ADJACENT_SQUARE_SELBERG_BOUNDARY.lean
       - .github/workflows/vf-first-bad-terminal.yml
   workflow_dispatch:
 
