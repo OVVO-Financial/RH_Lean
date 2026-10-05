@@ -719,6 +719,46 @@ theorem vfMidActualPrimeFirstBadAt_impossible_of_depthAwareCeiling
   linarith
 
 
+
+/-- **Full #889 Lyapunov source in native descended VF currency.**
+
+For R >= 7 the complete affine/historical first-bad bill is exactly the square
+of the native lower-scale aggregate plus its already-proved descent remainder,
+with the accumulated endpoint defect retained as the historical scalar.
+
+This is an equality, not an estimate:
+  corrBill = (G_native + Rem)^2 - 2 D_R (G_native + Rem).
+No packet inheritance or reciprocal-energy promotion is used. -/
+theorem vfMidCorrelationEnergy_eq_nativeDescentAffineBill
+    {R : ℕ} (hR : 7 ≤ R) :
+    2 * vfMidSquareEndpointAccumulationCorrelation R +
+        vfMidSquareBandError R ^ 2 =
+      (vfMidRecursiveAggregateNativeCharge R +
+          vfMidNativeDescentRemainder R) ^ 2 -
+        2 * vfMidActualPrimeEndpointDefect R *
+          (vfMidRecursiveAggregateNativeCharge R +
+            vfMidNativeDescentRemainder R) := by
+  have hdesc :=
+    vfMidOddCompositeTrackingDefect_eq_nativeCharge_add_descentRemainder
+      R hR
+  have hseat :=
+    vfMidOddBlockSeatMass_eq_trackingDefect R (by omega : 2 ≤ R)
+  have hneg :=
+    vfMidOddBlockSeatMass_eq_neg_bandError R (by omega : 2 ≤ R)
+  have hband :
+      vfMidSquareBandError R =
+        -(vfMidRecursiveAggregateNativeCharge R +
+          vfMidNativeDescentRemainder R) := by
+    rw [hseat] at hneg
+    rw [hdesc] at hneg
+    linarith
+  rw [vfMidCorrelationEnergy_eq_completeAffinePairLedger_add_anchorBand
+      (by omega : 3 ≤ R),
+    vfMidOneBlockCompleteAffinePairLedger_eq_bandError_sq
+      (by omega : 3 ≤ R),
+    hband]
+  ring
+
 /-- **Terminal first-bad contradiction in the native quadratic currency.**
 
 This is the literal final `linarith` gate.  The lower inequality is already
