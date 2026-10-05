@@ -246,6 +246,45 @@ theorem vfMidAdjacentSquareWheelFubini_eq_resolved
     R ((R + 1) ^ 2)
       (vfMidSquare_succ_sq_lt_two_mul_sq R hR)
 
+/-- **Adjacent-square sequential Fubini closure.**
+
+After the square-root wheel residual has vanished, the complete physical
+PNT-error increment is the repository's resolved Euler forcing.  This is the
+literal one-block cofactor/quotient Fubini map; no unresolved boundary term is
+discarded. -/
+theorem vfMidAdjacentSquareSequentialDiscrepancy_eq_resolvedEulerForcing
+    (R : ℕ) (hR : 3 ≤ R) :
+    nativePNTSequentialSquareBlockDiscrepancy
+        (R ^ 2) ((R + 1) ^ 2) =
+      nativePNTSequentialEulerForcing
+        R (R ^ 2) ((R + 1) ^ 2) := by
+  exact nativePNTSequentialSquareBlockDiscrepancy_eq_eulerForcing
+    R (R ^ 2) ((R + 1) ^ 2)
+    (by nlinarith : 1 ≤ R ^ 2)
+    (by nlinarith : R ^ 2 ≤ (R + 1) ^ 2)
+    (vfMidSquare_succ_sq_lt_two_mul_sq R hR)
+    (by nlinarith : R ^ 2 < 2 * R ^ 2)
+    (vfMidSquare_succ_sq_lt_two_mul_sq R hR)
+
+/-- The corresponding adjacent-square PNT energy change remains entirely on
+that resolved Euler forcing. -/
+theorem vfMidAdjacentSquarePNTErrorEnergy_eq_resolvedEulerForcing
+    (R : ℕ) (hR : 3 ≤ R) :
+    nativePNTError ((R + 1) ^ 2) ^ 2 -
+        nativePNTError (R ^ 2) ^ 2 =
+      2 * nativePNTError (R ^ 2) *
+          nativePNTSequentialEulerForcing
+            R (R ^ 2) ((R + 1) ^ 2) +
+        nativePNTSequentialEulerForcing
+          R (R ^ 2) ((R + 1) ^ 2) ^ 2 := by
+  exact nativePNTError_sq_sub_sq_eq_two_mul_error_mul_eulerForcing_add_sq
+    R (R ^ 2) ((R + 1) ^ 2)
+    (by nlinarith : 1 ≤ R ^ 2)
+    (by nlinarith : R ^ 2 ≤ (R + 1) ^ 2)
+    (vfMidSquare_succ_sq_lt_two_mul_sq R hR)
+    (by nlinarith : R ^ 2 < 2 * R ^ 2)
+    (vfMidSquare_succ_sq_lt_two_mul_sq R hR)
+
 /-- The resolved interior of the second-Selberg product carrier after removing
 the exact adjacent-square wheel frontier. -/
 def vfMidAdjacentSquareSecondSelbergResolvedSites (R : ℕ) : Finset ℕ :=
