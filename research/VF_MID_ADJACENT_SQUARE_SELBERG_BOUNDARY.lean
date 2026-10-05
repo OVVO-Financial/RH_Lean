@@ -266,6 +266,45 @@ theorem vfMidAdjacentSquareSequentialDiscrepancy_eq_resolvedEulerForcing
     (by nlinarith : R ^ 2 < 2 * R ^ 2)
     (vfMidSquare_succ_sq_lt_two_mul_sq R hR)
 
+/-- Exact conversion of the resolved Euler forcing back to the unweighted
+VF square-band error.
+
+The conversion is not the identity: it retains the within-band logarithmic
+position correction and the discrete prime-power correction. -/
+theorem vfMidAdjacentSquareResolvedEulerForcing_eq_vfBandError
+    (R : ℕ) (hR : 7 ≤ R) :
+    nativePNTSequentialEulerForcing
+        R (R ^ 2) ((R + 1) ^ 2) =
+      Real.log (vfMidBandMidpoint R) *
+          (vfMidSquareBandError R -
+            vfMidDirectLogPositionError R) +
+        (vfMidSquarePrimePowerCorrection (R + 1) -
+          vfMidSquarePrimePowerCorrection R) := by
+  have hband :=
+    vfMidDirectBandError_eq_neg_native_add_remainder R hR
+  rw [vfMidDirectBandError_eq_squareBandError] at hband
+  have hnr :
+      vfMidRecursiveAggregateNativeCharge R +
+          vfMidNativeDescentRemainder R =
+        -vfMidSquareBandError R := by
+    linarith
+  have hpull :=
+    vfMidSquarePsiProtectedPull_eq_nativeVFDescent R hR
+  rw [hnr] at hpull
+  have heuler :=
+    nativePNTSequentialEulerForcing_eq_neg_protectedBlockPull
+      R (R ^ 2) ((R + 1) ^ 2)
+      (by nlinarith : 1 ≤ R ^ 2)
+      (by nlinarith : R ^ 2 ≤ (R + 1) ^ 2)
+      (vfMidSquare_succ_sq_lt_two_mul_sq R (by omega : 3 ≤ R))
+      (by nlinarith : R ^ 2 < 2 * R ^ 2)
+      (vfMidSquare_succ_sq_lt_two_mul_sq R (by omega : 3 ≤ R))
+  change
+    nativePNTSequentialEulerForcing R (R ^ 2) ((R + 1) ^ 2) =
+      -vfMidSquarePsiProtectedPull R at heuler
+  rw [heuler, hpull]
+  ring
+
 /-- The corresponding adjacent-square PNT energy change remains entirely on
 that resolved Euler forcing. -/
 theorem vfMidAdjacentSquarePNTErrorEnergy_eq_resolvedEulerForcing
