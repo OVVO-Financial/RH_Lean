@@ -26,9 +26,11 @@ weight, RH hypothesis, or lower-scale VF identification is introduced.
 -/
 
 noncomputable section
-open scoped BigOperators
+open scoped ArithmeticFunction.Moebius BigOperators
 
 namespace RHLean.Analysis
+
+open RHLean.Arithmetic RHLean.Proof
 
 attribute [local instance] Classical.propDecidable
 
@@ -271,6 +273,87 @@ theorem vfMidOneBlockProcessedSquarefulCharge_le_three_div_log_four_mul
         have hlog : 0 < Real.log 4 := Real.log_pos (by norm_num)
         positivity
       exact mul_le_mul_of_nonneg_left hpop hC0
+
+
+/-- Möbius-active processed children.  The rectifier is applied *after* the
+least-owner strip, which is the coordinate actually used by the rank tree. -/
+def vfMidSquarefreeProcessedOwnerChildren (R p : ℕ) : Finset ℕ :=
+  (vfMidSquareBandCompositeOwnerChildren R p).filter Squarefree
+
+/-- Processed children still carrying a repeated-prime collision after the
+least-owner strip.  These remain outside the nonzero-Möbius clock. -/
+def vfMidSquarefulProcessedOwnerChildrenAfterStrip (R p : ℕ) : Finset ℕ :=
+  (vfMidSquareBandCompositeOwnerChildren R p).filter (fun m => ¬ Squarefree m)
+
+/-- Exact post-strip rectifier partition of the processed physical charge. -/
+theorem vfMidOneBlockProcessedOwnerChildCharge_eq_active_add_dead
+    (R : ℕ) :
+    vfMidOneBlockProcessedOwnerChildCharge R =
+      (∑ p ∈ vfMidFrozenProcessedOwnerPrimes R R,
+        ∑ _m ∈ vfMidSquarefreeProcessedOwnerChildren R p,
+          vfMidOddFractionalPrimeSeatWeight R) +
+      (∑ p ∈ vfMidFrozenProcessedOwnerPrimes R R,
+        ∑ _m ∈ vfMidSquarefulProcessedOwnerChildrenAfterStrip R p,
+          vfMidOddFractionalPrimeSeatWeight R) := by
+  unfold vfMidOneBlockProcessedOwnerChildCharge
+    vfMidSquarefreeProcessedOwnerChildren
+    vfMidSquarefulProcessedOwnerChildrenAfterStrip
+  rw [← Finset.sum_add_distrib]
+  apply Finset.sum_congr rfl
+  intro p _hp
+  simpa only using
+    (Finset.sum_filter_add_sum_filter_not
+      (s := vfMidSquareBandCompositeOwnerChildren R p)
+      (p := Squarefree)
+      (f := fun _m => vfMidOddFractionalPrimeSeatWeight R)).symm
+
+/-- Site coefficient which turns the squarefree stripped child back into the
+literal positive VF processed charge. -/
+def vfMidProcessedActiveChildRetainedCoefficient (R m : ℕ) : ℝ :=
+  vfMidOddFractionalPrimeSeatWeight R * realMoebiusStep m
+
+/-- **Exact active-child weight preservation.**
+
+On a squarefree stripped child, the retained coefficient times the Möbius sign
+is exactly the original physical +w_R processed-seat charge. -/
+theorem vfMidProcessedActiveChildRetainedCoefficient_mul_moebius
+    {R p m : ℕ}
+    (hm : m ∈ vfMidSquarefreeProcessedOwnerChildren R p) :
+    vfMidProcessedActiveChildRetainedCoefficient R m *
+        realMoebiusStep m =
+      vfMidOddFractionalPrimeSeatWeight R := by
+  have hsq : Squarefree m := (Finset.mem_filter.mp hm).2
+  have hmu0 : μ m ≠ 0 :=
+    ArithmeticFunction.moebius_ne_zero_iff_squarefree.mpr hsq
+  rcases ArithmeticFunction.moebius_eq_or m with h0 | h1 | hm1
+  · exact (hmu0 h0).elim
+  · unfold vfMidProcessedActiveChildRetainedCoefficient realMoebiusStep
+    rw [h1]
+    norm_num
+  · unfold vfMidProcessedActiveChildRetainedCoefficient realMoebiusStep
+    rw [hm1]
+    norm_num
+
+/-- Every active stripped processed child lies on the exact nonzero-Möbius
+common clock at the adjacent endpoint R+1. -/
+theorem vfMidSquarefreeProcessedOwnerChild_mem_lowOwnerCarrier_succ
+    {R p m : ℕ} (hR : 3 ≤ R)
+    (hm : m ∈ vfMidSquarefreeProcessedOwnerChildren R p) :
+    m ∈ lowOwnerNonzeroMobiusCarrier (R + 1) := by
+  rcases Finset.mem_filter.mp hm with ⟨hmChild, hsq⟩
+  unfold lowOwnerNonzeroMobiusCarrier
+  apply Finset.mem_filter.mpr
+  constructor
+  · apply Finset.mem_Icc.mpr
+    constructor
+    · exact Nat.one_le_iff_ne_zero.mpr hsq.ne_zero
+    · have hlt :=
+        vfMidSquareBandCompositeOwnerChildren_lt_square hR hmChild
+      unfold squareRootEndpoint
+      nlinarith
+  · unfold realMoebiusStep
+    exact_mod_cast
+      (ArithmeticFunction.moebius_ne_zero_iff_squarefree.mpr hsq)
 
 /-- Processed affine mass written directly on stripped owner children.
 
