@@ -1472,4 +1472,7 @@ theorem vfMidOneBlockUnifiedChildDecompressedLedger_eq_active_add_squarefulDesce
   ring
 
 
+/- The exact first-bad quadratic budget consuming this source split is
+formalized in `VF_MID_GLOBAL_FIRST_BAD_RADIAL_BUDGET`. -/
+
 end RHLean.Analysis

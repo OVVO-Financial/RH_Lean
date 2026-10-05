@@ -10,6 +10,7 @@ on:
       - research/VF_MID_FRACTIONAL_INCIDENCE_CAPACITY.lean
       - research/VF_MID_ADJACENT_SQUARE_SELBERG_BOUNDARY.lean
       - research/VF_MID_ONE_BLOCK_SOURCE_TO_RANK_INLET.lean
+      - research/VF_MID_GLOBAL_FIRST_BAD_RADIAL_BUDGET.lean
       - .github/workflows/vf-first-bad-terminal.yml
   workflow_dispatch:
 
@@ -66,3 +67,4 @@ jobs:
       - name: Compile terminal contradiction import closure
         run: |
           python3 scripts/compile_research_import_closure.py research/VF_MID_FIRST_BAD_TERMINAL_CONTRADICTION.lean
+          python3 scripts/compile_research_import_closure.py research/VF_MID_GLOBAL_FIRST_BAD_RADIAL_BUDGET.lean
