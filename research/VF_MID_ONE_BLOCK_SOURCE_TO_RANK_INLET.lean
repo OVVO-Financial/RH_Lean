@@ -181,6 +181,30 @@ theorem vfMidProcessedOwner_retainedCoefficient_reindex
   rw [Finset.sum_const, Finset.sum_const, nsmul_eq_mul, nsmul_eq_mul,
     vfMidSquareBandCompositeOwnerChildren_card]
 
+
+/-- **Rectified adjacent one-block source.**
+
+The complete physical source is now visibly split into three disjoint regimes:
+actual prime survivors, squarefree processed composites (active Möbius regime),
+and squareful processed composites (dead Möbius regime).  The last sector is
+retained explicitly rather than silently sent through the zero-target tree. -/
+theorem vfMidTwoSectorOwnerCharge_succ_eq_prime_add_squarefree_add_squareful
+    {R : ℕ} (hR : 3 ≤ R) :
+    vfMidDyadicFrozenSurvivorSeatCharge R (R + 1) +
+        vfMidDyadicProcessedOwnerSeatCharge R (R + 1) =
+      (∑ n ∈ vfMidSquareWheelPrimes R,
+        vfMidOddSignedSeatCharge R n) +
+        vfMidOneBlockProcessedSquarefreeCharge R +
+        vfMidOneBlockProcessedSquarefulCharge R := by
+  rw [vfMidDyadicFrozenSurvivorSeatCharge_succ_eq_oneBlock,
+    vfMidDyadicProcessedOwnerSeatCharge_succ_eq_oneBlock,
+    vfMidOneBlockProcessedOwnerCharge_eq_squarefree_add_squareful]
+  unfold vfMidOneBlockFrozenSurvivorCharge
+    vfMidSubdoublingPrefixSurvivorChargeSum
+  rw [vfMidSquarePrefixWheelSurvivors_self_eq_primes
+    (by omega : 2 ≤ R)]
+  ring
+
 /-- One-block two-sector charge with the processed sector already placed on
 strict lower owner children. -/
 theorem vfMidTwoSectorOwnerCharge_succ_eq_primeSurvivor_add_processedChildren
