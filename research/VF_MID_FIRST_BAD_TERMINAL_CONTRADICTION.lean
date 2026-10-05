@@ -1,5 +1,6 @@
 import Mathlib
 import «research.VF_MID_FULL_AFFINE_PAIR_CLASSIFIER»
+import «research.VF_MID_FRACTIONAL_INCIDENCE_CAPACITY»
 import «research.VF_MID_ADJACENT_SQUARE_SELBERG_BOUNDARY»
 
 /-!
@@ -124,6 +125,54 @@ theorem vfMidFrozenOwnerPrimeChild_prior_inside
     exact (Nat.le_sqrt).2 hq4
   have hsB : Nat.sqrt q < B := hsA.trans hABlt
   exact vfMidActualPrimeFirstBadAt_prior_inside hfirst hs2 hsB
+
+/-- Prior-goodness may be squared only after the processed descendant has been
+identified with its complete lower square scale.  This is deliberately a bound
+on the full endpoint defect, not on the originating owner sub-packet. -/
+theorem vfMidProcessedOwnerChild_prior_energy_inside
+    {K : ℝ} {A B R p m : ℕ}
+    (hfirst : VFMidActualPrimeFirstBadAt K B)
+    (hA : 4 ≤ A)
+    (hABlt : A < B)
+    (hR : R ∈ Finset.Ico A B)
+    (hBsq : B ^ 2 ≤ 3 * A ^ 2)
+    (hp : p ∈ vfMidFrozenProcessedOwnerPrimes A R)
+    (hm : m ∈ vfMidSquareBandCompositeOwnerChildren R p) :
+    vfMidActualPrimeEndpointDefect (Nat.sqrt m) ^ 2 ≤
+      (K * vfMidSyntheticRadialScale (Nat.sqrt m)) ^ 2 := by
+  have hprior :=
+    vfMidProcessedOwnerChild_prior_inside
+      hfirst hA hABlt hR hBsq hp hm
+  have hwall0 :
+      0 ≤ K * vfMidSyntheticRadialScale (Nat.sqrt m) :=
+    (abs_nonneg _).trans hprior
+  have hsquare :=
+    (sq_le_sq₀ (abs_nonneg _) hwall0).2 hprior
+  simpa [sq_abs] using hsquare
+
+/-- The same legal square-energy conversion for a live post-frozen #887 child.
+Again the bound is applied only to the complete endpoint defect at the child's
+native square-root scale. -/
+theorem vfMidFrozenOwnerPrimeChild_prior_energy_inside
+    {K : ℝ} {A B R p q : ℕ}
+    (hfirst : VFMidActualPrimeFirstBadAt K B)
+    (hA : 4 ≤ A)
+    (hABlt : A < B)
+    (hBA : B ≤ 2 * A)
+    (hR : R ∈ Finset.Ico A B)
+    (hp : p ∈ vfMidSquareBandLateOwnerPrimes A R)
+    (hq : q ∈ vfMidSquareBandCompositeOwnerChildren R p) :
+    vfMidActualPrimeEndpointDefect (Nat.sqrt q) ^ 2 ≤
+      (K * vfMidSyntheticRadialScale (Nat.sqrt q)) ^ 2 := by
+  have hprior :=
+    vfMidFrozenOwnerPrimeChild_prior_inside
+      hfirst hA hABlt hBA hR hp hq
+  have hwall0 :
+      0 ≤ K * vfMidSyntheticRadialScale (Nat.sqrt q) :=
+    (abs_nonneg _).trans hprior
+  have hsquare :=
+    (sq_le_sq₀ (abs_nonneg _) hwall0).2 hprior
+  simpa [sq_abs] using hsquare
 
 /-- Exact reassembly of the #888 two-sector charge in endpoint-depth
 currency.  This is the identity that must remain visible in the terminal
