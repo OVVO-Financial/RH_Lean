@@ -668,7 +668,26 @@ theorem vfMidCorrelationEnergy_eq_upperActive_sub_squarefulRestoring
           (vfMidOneBlockPrimeSeatCharge R +
             vfMidOneBlockProcessedSquarefreeCharge R +
             vfMidOneBlockProcessedSquarefulCharge R) at henergy
-  nlinarith
+  calc
+    2 * vfMidSquareEndpointAccumulationCorrelation R +
+        vfMidSquareBandError R ^ 2 =
+      (vfMidOneBlockPrimeSeatCharge R +
+          vfMidOneBlockProcessedSquarefreeCharge R +
+          vfMidOneBlockProcessedSquarefulCharge R) ^ 2 -
+        2 * vfMidActualPrimeEndpointDefect R *
+          (vfMidOneBlockPrimeSeatCharge R +
+            vfMidOneBlockProcessedSquarefreeCharge R +
+            vfMidOneBlockProcessedSquarefulCharge R) := henergy
+    _ = (vfMidOneBlockPrimeSeatCharge R +
+          vfMidOneBlockProcessedSquarefreeCharge R) ^ 2 -
+        2 * vfMidActualPrimeEndpointDefect R *
+          (vfMidOneBlockPrimeSeatCharge R +
+            vfMidOneBlockProcessedSquarefreeCharge R) -
+        vfMidOneBlockProcessedSquarefulCharge R *
+          (2 * vfMidActualPrimeEndpointDefect (R + 1) +
+            vfMidOneBlockProcessedSquarefulCharge R) := by
+      linear_combination
+        2 * vfMidOneBlockProcessedSquarefulCharge R * hsource
 
 /-- At an upper endpoint the squareful branch can only lower the terminal
 quadratic bill. -/
@@ -733,7 +752,26 @@ theorem vfMidCorrelationEnergy_eq_lowerActive_add_primeRestoring
           (vfMidOneBlockPrimeSeatCharge R +
             vfMidOneBlockProcessedSquarefreeCharge R +
             vfMidOneBlockProcessedSquarefulCharge R) at henergy
-  nlinarith
+  calc
+    2 * vfMidSquareEndpointAccumulationCorrelation R +
+        vfMidSquareBandError R ^ 2 =
+      (vfMidOneBlockPrimeSeatCharge R +
+          vfMidOneBlockProcessedSquarefreeCharge R +
+          vfMidOneBlockProcessedSquarefulCharge R) ^ 2 -
+        2 * vfMidActualPrimeEndpointDefect R *
+          (vfMidOneBlockPrimeSeatCharge R +
+            vfMidOneBlockProcessedSquarefreeCharge R +
+            vfMidOneBlockProcessedSquarefulCharge R) := henergy
+    _ = (vfMidOneBlockProcessedSquarefreeCharge R +
+          vfMidOneBlockProcessedSquarefulCharge R) ^ 2 -
+        2 * vfMidActualPrimeEndpointDefect R *
+          (vfMidOneBlockProcessedSquarefreeCharge R +
+            vfMidOneBlockProcessedSquarefulCharge R) +
+        vfMidOneBlockPrimeSeatCharge R *
+          (-2 * vfMidActualPrimeEndpointDefect (R + 1) -
+            vfMidOneBlockPrimeSeatCharge R) := by
+      linear_combination
+        2 * vfMidOneBlockPrimeSeatCharge R * hsource
 
 /-- At a lower endpoint the negative prime stream can only lower the terminal
 quadratic bill. -/
@@ -874,7 +912,7 @@ theorem vfMidSyntheticRadialScale_sq_increment_gt_25_div_3_mul
     linarith
   have hhalfRatio :
       (1 / 2 : ℝ) ≤ (R : ℝ) / ((R + 1 : ℕ) : ℝ) := by
-    rw [div_le_iff₀ hRp0]
+    apply (div_le_iff₀ hRp0).2
     push_cast
     nlinarith
   have hstepMul :
@@ -907,7 +945,8 @@ theorem vfMidSyntheticRadialScale_sq_increment_gt_25_div_3_mul
       (5 / 3 : ℝ) * (R : ℝ) <
         vfMidSyntheticRadialScale R := by
     unfold vfMidSyntheticRadialScale
-    exact mul_lt_mul_of_pos_left hlogR hR0
+    simpa [mul_comm] using
+      (mul_lt_mul_of_pos_left hlogR hR0)
   have hrhoRp :
       (5 / 3 : ℝ) * (R : ℝ) <
         vfMidSyntheticRadialScale (R + 1) := by
