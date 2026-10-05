@@ -912,7 +912,7 @@ theorem vfMidSyntheticRadialScale_sq_increment_gt_25_div_3_mul
     linarith
   have hhalfRatio :
       (1 / 2 : ℝ) ≤ (R : ℝ) / ((R + 1 : ℕ) : ℝ) := by
-    apply (div_le_iff₀ hRp0).2
+    apply (le_div_iff₀ hRp0).2
     push_cast
     nlinarith
   have hstepMul :
