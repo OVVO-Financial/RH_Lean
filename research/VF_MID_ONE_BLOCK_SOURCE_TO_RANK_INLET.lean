@@ -479,7 +479,7 @@ theorem vfMidOddFractionalPrimeSeatWeight_le_one_of_three_le
   have hR3 : (3 : ℝ) ≤ (R : ℝ) := by exact_mod_cast hR
   have hm8 : (8 : ℝ) ≤ vfMidBandMidpoint R := by
     unfold vfMidBandMidpoint
-    positivity
+    nlinarith [sq_nonneg ((R : ℝ) - 3)]
   have hlog8 :
       Real.log (8 : ℝ) = 3 * Real.log 2 := by
     calc
