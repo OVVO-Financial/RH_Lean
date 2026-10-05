@@ -799,6 +799,202 @@ theorem vfMidLowerCompositeCharge_eq_nativeDescent
   rw [← vfMidOneBlockProcessedOwnerCharge_eq_squarefree_add_squareful]
   exact vfMidOneBlockProcessedOwnerCharge_eq_native_add_terminal_add_transfer R hR
 
+
+/-! ## Radial-square slack absorbs the explicit native descent remainder -/
+
+private lemma vfMid_inlet_log_three_gt_one :
+    (1 : ℝ) < Real.log 3 := by
+  rw [show (1 : ℝ) = Real.log (Real.exp 1) by rw [Real.log_exp]]
+  apply Real.log_lt_log (Real.exp_pos 1)
+  exact Real.exp_one_lt_d9.trans (by norm_num)
+
+/-- From R >= 7, one radial-square step has a completely elementary linear
+lower bound.  No PNT or prime-distribution estimate enters. -/
+theorem vfMidSyntheticRadialScale_sq_increment_gt_25_div_3_mul
+    (R : ℕ) (hR : 7 ≤ R) :
+    (25 / 3 : ℝ) * (R : ℝ) <
+      vfMidSyntheticRadialScale (R + 1) ^ 2 -
+        vfMidSyntheticRadialScale R ^ 2 := by
+  have hR0 : (0 : ℝ) < (R : ℝ) := by
+    exact_mod_cast (by omega : 0 < R)
+  have hRp0 : (0 : ℝ) < ((R + 1 : ℕ) : ℝ) := by positivity
+  have hlog2 : (2 / 3 : ℝ) < Real.log 2 := by
+    have h := Real.log_two_gt_d9
+    nlinarith
+  have hlog3 : (1 : ℝ) < Real.log 3 :=
+    vfMid_inlet_log_three_gt_one
+  have hlog6eq :
+      Real.log (6 : ℝ) = Real.log 2 + Real.log 3 := by
+    calc
+      Real.log (6 : ℝ) = Real.log ((2 : ℝ) * 3) := by norm_num
+      _ = Real.log 2 + Real.log 3 := by
+        rw [Real.log_mul (by norm_num : (2 : ℝ) ≠ 0)
+          (by norm_num : (3 : ℝ) ≠ 0)]
+  have hlog6 : (5 / 3 : ℝ) < Real.log 6 := by
+    rw [hlog6eq]
+    nlinarith
+  have h6R : (6 : ℝ) ≤ (R : ℝ) := by
+    exact_mod_cast (by omega : 6 ≤ R)
+  have hlog6R : Real.log (6 : ℝ) ≤ Real.log (R : ℝ) :=
+    Real.log_le_log (by norm_num) h6R
+  have hlogR : (5 / 3 : ℝ) < Real.log (R : ℝ) :=
+    hlog6.trans_le hlog6R
+  have hlog8eq :
+      Real.log (8 : ℝ) = 3 * Real.log 2 := by
+    calc
+      Real.log (8 : ℝ) = Real.log ((2 : ℝ) ^ 3) := by norm_num
+      _ = (3 : ℕ) * Real.log 2 := by rw [Real.log_pow]
+      _ = 3 * Real.log 2 := by norm_num
+  have hlog8 : (2 : ℝ) < Real.log 8 := by
+    rw [hlog8eq]
+    nlinarith
+  have h8Rp : (8 : ℝ) ≤ ((R + 1 : ℕ) : ℝ) := by
+    exact_mod_cast (by omega : 8 ≤ R + 1)
+  have hlog8Rp :
+      Real.log (8 : ℝ) ≤ Real.log ((R + 1 : ℕ) : ℝ) :=
+    Real.log_le_log (by norm_num) h8Rp
+  have hlogRp : (2 : ℝ) < Real.log ((R + 1 : ℕ) : ℝ) :=
+    hlog8.trans_le hlog8Rp
+  have hratioPos :
+      0 < (R : ℝ) / ((R + 1 : ℕ) : ℝ) :=
+    div_pos hR0 hRp0
+  have hrecip :=
+    Real.log_le_sub_one_of_pos hratioPos
+  rw [Real.log_div hR0.ne' hRp0.ne'] at hrecip
+  have hratioId :
+      (R : ℝ) / ((R + 1 : ℕ) : ℝ) - 1 =
+        -(1 / ((R + 1 : ℕ) : ℝ)) := by
+    push_cast
+    field_simp [hR0.ne', hRp0.ne']
+    ring
+  rw [hratioId] at hrecip
+  have hstep :
+      1 / ((R + 1 : ℕ) : ℝ) ≤
+        Real.log ((R + 1 : ℕ) : ℝ) - Real.log (R : ℝ) := by
+    linarith
+  have hhalfRatio :
+      (1 / 2 : ℝ) ≤ (R : ℝ) / ((R + 1 : ℕ) : ℝ) := by
+    rw [div_le_iff₀ hRp0]
+    push_cast
+    nlinarith
+  have hstepMul :
+      (1 / 2 : ℝ) ≤
+        (R : ℝ) *
+          (Real.log ((R + 1 : ℕ) : ℝ) - Real.log (R : ℝ)) := by
+    calc
+      (1 / 2 : ℝ) ≤ (R : ℝ) / ((R + 1 : ℕ) : ℝ) := hhalfRatio
+      _ = (R : ℝ) * (1 / ((R + 1 : ℕ) : ℝ)) := by ring
+      _ ≤ (R : ℝ) *
+          (Real.log ((R + 1 : ℕ) : ℝ) - Real.log (R : ℝ)) :=
+        mul_le_mul_of_nonneg_left hstep hR0.le
+  have hdiff :
+      (5 / 2 : ℝ) <
+        vfMidSyntheticRadialScale (R + 1) -
+          vfMidSyntheticRadialScale R := by
+    unfold vfMidSyntheticRadialScale
+    have hid :
+        (((R + 1 : ℕ) : ℝ) *
+              Real.log ((R + 1 : ℕ) : ℝ) -
+            (R : ℝ) * Real.log (R : ℝ)) =
+          Real.log ((R + 1 : ℕ) : ℝ) +
+            (R : ℝ) *
+              (Real.log ((R + 1 : ℕ) : ℝ) - Real.log (R : ℝ)) := by
+      push_cast
+      ring
+    rw [hid]
+    linarith
+  have hrhoR :
+      (5 / 3 : ℝ) * (R : ℝ) <
+        vfMidSyntheticRadialScale R := by
+    unfold vfMidSyntheticRadialScale
+    exact mul_lt_mul_of_pos_left hlogR hR0
+  have hrhoRp :
+      (5 / 3 : ℝ) * (R : ℝ) <
+        vfMidSyntheticRadialScale (R + 1) := by
+    unfold vfMidSyntheticRadialScale
+    have h53Rp :
+        (5 / 3 : ℝ) * (R : ℝ) <
+          (5 / 3 : ℝ) * ((R + 1 : ℕ) : ℝ) := by
+      push_cast
+      nlinarith
+    have h53log :
+        (5 / 3 : ℝ) < Real.log ((R + 1 : ℕ) : ℝ) := by
+      linarith
+    have hmul :
+        (5 / 3 : ℝ) * ((R + 1 : ℕ) : ℝ) <
+          ((R + 1 : ℕ) : ℝ) *
+            Real.log ((R + 1 : ℕ) : ℝ) := by
+      have := mul_lt_mul_of_pos_left h53log hRp0
+      nlinarith
+    exact h53Rp.trans hmul
+  have hsum :
+      (10 / 3 : ℝ) * (R : ℝ) <
+        vfMidSyntheticRadialScale (R + 1) +
+          vfMidSyntheticRadialScale R := by
+    linarith
+  have htenPos : (0 : ℝ) < (10 / 3) * (R : ℝ) := by positivity
+  have hdiffPos :
+      0 < vfMidSyntheticRadialScale (R + 1) -
+        vfMidSyntheticRadialScale R := by
+    linarith
+  calc
+    (25 / 3 : ℝ) * (R : ℝ) =
+        (5 / 2 : ℝ) * ((10 / 3 : ℝ) * (R : ℝ)) := by ring
+    _ < (vfMidSyntheticRadialScale (R + 1) -
+          vfMidSyntheticRadialScale R) *
+        ((10 / 3 : ℝ) * (R : ℝ)) :=
+      mul_lt_mul_of_pos_right hdiff htenPos
+    _ < (vfMidSyntheticRadialScale (R + 1) -
+          vfMidSyntheticRadialScale R) *
+        (vfMidSyntheticRadialScale (R + 1) +
+          vfMidSyntheticRadialScale R) :=
+      mul_lt_mul_of_pos_left hsum hdiffPos
+    _ = vfMidSyntheticRadialScale (R + 1) ^ 2 -
+        vfMidSyntheticRadialScale R ^ 2 := by ring
+
+/-- The explicit native-descent remainder is strictly smaller than one
+radial-square increment.  Hence it is not the RH-strength seam. -/
+theorem abs_vfMidNativeDescentRemainder_lt_radial_sq_increment
+    (R : ℕ) (hR : 7 ≤ R) :
+    |vfMidNativeDescentRemainder R| <
+      vfMidSyntheticRadialScale (R + 1) ^ 2 -
+        vfMidSyntheticRadialScale R ^ 2 := by
+  have hrem :=
+    abs_vfMidNativeDescentRemainder_le_linear R hR
+  have hlog4 : (5 / 4 : ℝ) < Real.log 4 := by
+    have h2 := Real.log_two_gt_d9
+    have hpow : Real.log (4 : ℝ) = 2 * Real.log 2 := by
+      calc
+        Real.log (4 : ℝ) = Real.log ((2 : ℝ) ^ 2) := by norm_num
+        _ = (2 : ℕ) * Real.log 2 := by rw [Real.log_pow]
+        _ = 2 * Real.log 2 := by norm_num
+    rw [hpow]
+    nlinarith
+  have hlogPos : 0 < Real.log 4 := by linarith
+  have hdiv : 9 / Real.log 4 < (36 / 5 : ℝ) := by
+    rw [div_lt_iff₀ hlogPos]
+    nlinarith
+  have hC : 1 + 9 / Real.log 4 < (41 / 5 : ℝ) := by
+    linarith
+  have hR0 : (0 : ℝ) < (R : ℝ) := by
+    exact_mod_cast (by omega : 0 < R)
+  have hrem41 :
+      |vfMidNativeDescentRemainder R| <
+        (41 / 5 : ℝ) * (R : ℝ) := by
+    calc
+      |vfMidNativeDescentRemainder R| ≤
+          (1 + 9 / Real.log 4) * (R : ℝ) := hrem
+      _ < (41 / 5 : ℝ) * (R : ℝ) :=
+        mul_lt_mul_of_pos_right hC hR0
+  have hconst :
+      (41 / 5 : ℝ) * (R : ℝ) <
+        (25 / 3 : ℝ) * (R : ℝ) := by
+    have : (41 / 5 : ℝ) < 25 / 3 := by norm_num
+    exact mul_lt_mul_of_pos_right this hR0
+  have hrad :=
+    vfMidSyntheticRadialScale_sq_increment_gt_25_div_3_mul R hR
+  exact hrem41.trans (hconst.trans hrad)
+
 /-! ## Quadratic child-level decompression -/
 
 /-- One processed owner atom written on its stripped child fibre, retaining the
