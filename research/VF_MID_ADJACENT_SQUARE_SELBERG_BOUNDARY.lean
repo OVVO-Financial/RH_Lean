@@ -49,6 +49,34 @@ theorem vfMidOpenSquare_partialPrimeWheel_exact
   rw [hnqr] at hnI
   omega
 
+/-- The physical open square block and the unresolved adjacent-square
+second-Selberg frontier are disjoint.  Every VF seat in the block is therefore
+on the resolved side of the wheel split. -/
+theorem vfMidSquareWheelSites_disjoint_adjacentSecondSelbergFrontier
+    (R : ℕ) (hR : 3 ≤ R) :
+    Disjoint (vfMidSquareWheelSites R)
+      (nativePNTSignedSecondSelbergWheelFrontierSites
+        R ((R + 1) ^ 2)) := by
+  rw [Finset.disjoint_left]
+  intro n hnBlock hnFront
+  have hnI := Finset.mem_Ioo.mp hnBlock
+  have hnData :=
+    mem_nativePNTSignedSecondSelbergWheelFrontierSites.mp hnFront
+  have hscale : (R + 1) ^ 2 < 2 * R ^ 2 :=
+    vfMidSquare_succ_sq_lt_two_mul_sq R hR
+  rcases
+      partialPrimeWheel_nonzero_error_factorization_of_two_mul_sq
+        R ((R + 1) ^ 2) hscale (by omega : 0 < n)
+        (Finset.mem_Icc.mp hnData.1).2 hnData.2 with
+    ⟨q, r, _hqPrime, _hrPrime, hRq, hRr, _hresolved, hnqr⟩
+  have hqLower : R + 1 ≤ q := by omega
+  have hrLower : R + 1 ≤ r := by omega
+  have hprod :
+      (R + 1) ^ 2 ≤ q * r := by
+    simpa [pow_two] using Nat.mul_le_mul hqLower hrLower
+  rw [hnqr] at hnI
+  omega
+
 /-- Exact adjacent-square frontier membership.  There is no mixed two-prime
 face at this scale; the only possible unresolved site is the endpoint square,
 and it occurs exactly when `R+1` itself is prime. -/
