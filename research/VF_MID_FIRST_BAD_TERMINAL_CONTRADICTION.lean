@@ -1,5 +1,6 @@
 import Mathlib
 import «research.VF_MID_FULL_AFFINE_PAIR_CLASSIFIER»
+import «research.VF_MID_ADJACENT_SQUARE_SELBERG_BOUNDARY»
 
 /-!
 # Terminal first-bad contradiction splice
