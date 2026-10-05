@@ -718,4 +718,30 @@ theorem vfMidActualPrimeFirstBadAt_impossible_of_depthAwareCeiling
       hfirst hA hABlt hBA
   linarith
 
+
+/-- **Terminal first-bad contradiction in the native quadratic currency.**
+
+This is the literal final `linarith` gate.  The lower inequality is already
+forced by a first-bad endpoint; the upper inequality is exactly what the signed
+rank-exhaustion splice must now deliver from the merged #887--#891 carrier.
+
+No absolute-value wall, packet inheritance, or change of currency occurs here.
+-/
+theorem vfMidActualPrimeFirstBadAt_succ_finalContraction
+    {K : ℝ} {R : ℕ}
+    (hK : 0 ≤ K)
+    (hR : 3 ≤ R)
+    (hfirst : VFMidActualPrimeFirstBadAt K (R + 1))
+    (hrank :
+      2 * vfMidSquareEndpointAccumulationCorrelation R +
+          vfMidSquareBandError R ^ 2 ≤
+        (K * vfMidSyntheticRadialScale (R + 1)) ^ 2 -
+          vfMidActualPrimeEndpointDefect R ^ 2) :
+    False := by
+  have hbreach :=
+    vfMidActualPrimeFirstBadAt_succ_forces_correlationEnergyTrigger
+      hK hR hfirst
+  linarith
+
+
 end RHLean.Analysis
