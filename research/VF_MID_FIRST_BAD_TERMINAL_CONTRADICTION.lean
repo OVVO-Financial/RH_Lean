@@ -352,6 +352,28 @@ theorem vfMidCorrelationEnergy_eq_completeAffinePairLedger_add_anchorBand
       rw [vfMidTwoSectorOwnerCharge_succ_eq_neg_bandError hR]
       ring
 
+
+/-- **Terminal full-carrier zip.**
+
+The entire one-step first-bad correlation energy is now one literal signed field
+on the current odd square-block seats.  The current-current affine classifier and
+the historical-current polarization have been joined before any reciprocal
+energy or inequality gate is introduced. -/
+theorem vfMidCorrelationEnergy_eq_unifiedCurrentPhysicalSeatLedger
+    {R : ℕ} (hR : 3 ≤ R) :
+    2 * vfMidSquareEndpointAccumulationCorrelation R +
+        vfMidSquareBandError R ^ 2 =
+      vfMidOneBlockUnifiedPhysicalSeatLedger R := by
+  calc
+    2 * vfMidSquareEndpointAccumulationCorrelation R +
+        vfMidSquareBandError R ^ 2 =
+      vfMidOneBlockCompleteAffinePairLedger R +
+        2 * vfMidActualPrimeEndpointDefect R *
+          vfMidSquareBandError R :=
+      vfMidCorrelationEnergy_eq_completeAffinePairLedger_add_anchorBand hR
+    _ = vfMidOneBlockUnifiedPhysicalSeatLedger R :=
+      vfMidOneBlockAffinePair_add_historical_eq_unifiedPhysicalSeatLedger hR
+
 /-- Unified physical carrier for the complete one-step VF Lyapunov bill.
 
 This keeps the current-current affine pair ledger, the literal historical-current
