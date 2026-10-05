@@ -496,6 +496,10 @@ theorem vfMidOddFractionalPrimeSeatWeight_le_one_of_three_le
   have hlog : (27 / 10 : ℝ) < Real.log (vfMidBandMidpoint R) :=
     hlog8lower.trans_le hlogmono
   have hlogpos : 0 < Real.log (vfMidBandMidpoint R) := by linarith
+  have hmul :
+      (27 / 10 : ℝ) * (R : ℝ) <
+        (R : ℝ) * Real.log (vfMidBandMidpoint R) := by
+    exact mul_lt_mul_of_pos_left hlog hRpos
   unfold vfMidOddFractionalPrimeSeatWeight vfMidBandMass
   rw [div_le_iff₀ hRpos]
   rw [div_le_iff₀ hlogpos]
