@@ -38,9 +38,8 @@ hence it cannot survive the prefix wheel through R itself. -/
 theorem vfMidSquareBandPrefixCompositeSurvivors_self_eq_empty
     {R : ℕ} (hR : 2 ≤ R) :
     vfMidSquareBandPrefixCompositeSurvivors R R = ∅ := by
-  ext n
-  simp only [Finset.mem_empty, iff_false]
-  intro hn
+  apply Finset.eq_empty_iff_forall_notMem.mpr
+  intro n hn
   rcases Finset.mem_filter.mp hn with ⟨hnComp, hnSurv⟩
   have hgt :
       R < n.minFac :=
@@ -68,9 +67,15 @@ theorem vfMidFrozenProcessedOwnerPrimes_self_eq_allOddOwners
     vfMidFrozenProcessedOwnerPrimes R R =
       vfMidSquareBandLateOwnerPrimes 2 R := by
   ext p
-  simp [vfMidFrozenProcessedOwnerPrimes,
-    mem_vfMidSquareBandLateOwnerPrimes,
-    mem_vfMidSquareBandOwnerPrimes]
+  simp only [vfMidFrozenProcessedOwnerPrimes, Finset.mem_filter]
+  constructor
+  · intro hp
+    exact hp.1
+  · intro hp
+    refine ⟨hp, ?_⟩
+    have hpOwner :=
+      (mem_vfMidSquareBandLateOwnerPrimes.mp hp).1
+    exact (mem_vfMidSquareBandOwnerPrimes.mp hpOwner).2
 
 /-- Processed affine mass written directly on stripped owner children.
 
