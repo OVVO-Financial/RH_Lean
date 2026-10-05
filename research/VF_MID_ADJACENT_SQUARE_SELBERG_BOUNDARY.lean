@@ -221,7 +221,7 @@ theorem vfMidAdjacentSquareWheelFubini_eq_resolved
 /-- The resolved interior of the second-Selberg product carrier after removing
 the exact adjacent-square wheel frontier. -/
 def vfMidAdjacentSquareSecondSelbergResolvedSites (R : ℕ) : Finset ℕ :=
-  Finset.Icc 1 ((R + 1) ^ 2) \\
+  (Finset.Icc 1 ((R + 1) ^ 2)).sdiff
     nativePNTSignedSecondSelbergWheelFrontierSites R ((R + 1) ^ 2)
 
 /-- Signed second-Selberg error mass on the resolved interior. -/
