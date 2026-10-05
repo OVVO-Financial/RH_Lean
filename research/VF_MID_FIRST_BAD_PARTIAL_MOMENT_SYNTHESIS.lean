@@ -76,4 +76,74 @@ theorem vfMid_sourceAffineBill_le_radialBudget_iff_anchoredPartialExcess
   rw [vfMid_sourceAffineBill_eq_anchoredPartialExcess_sub_anchorSq]
   constructor <;> intro h <;> linarith
 
+
+/-- The complete unsplit #889 first-bad bill is already an anchored
+zero-target partial-moment excess on the literal odd-seat carrier. -/
+theorem vfMidCorrelationEnergy_eq_anchoredPartialExcess_sub_anchorSq
+    {R : ℕ} (hR : 3 ≤ R) :
+    2 * vfMidSquareEndpointAccumulationCorrelation R +
+        vfMidSquareBandError R ^ 2 =
+      (vfMidAnchoredZeroTargetCoPartialGram
+          (vfMidOddCandidateSeats R)
+          (vfMidOddSignedSeatCharge R)
+          (vfMidActualPrimeEndpointDefect R) -
+        vfMidAnchoredZeroTargetDivergentGram
+          (vfMidOddCandidateSeats R)
+          (vfMidOddSignedSeatCharge R)
+          (vfMidActualPrimeEndpointDefect R)) -
+        vfMidActualPrimeEndpointDefect R ^ 2 := by
+  have hsrc :=
+    vfMid_sourceAffineBill_eq_anchoredPartialExcess_sub_anchorSq
+      (vfMidOddCandidateSeats R)
+      (vfMidOddSignedSeatCharge R)
+      (vfMidActualPrimeEndpointDefect R)
+  have hsum :
+      (∑ n ∈ vfMidOddCandidateSeats R,
+        vfMidOddSignedSeatCharge R n) =
+      -vfMidSquareBandError R := by
+    change vfMidOddBlockSeatMass R = -vfMidSquareBandError R
+    exact vfMidOddBlockSeatMass_eq_neg_bandError R (by omega : 2 ≤ R)
+  rw [hsum] at hsrc
+  have hcorr :=
+    vfMidCorrelationEnergy_eq_completeAffinePairLedger_add_anchorBand hR
+  rw [vfMidOneBlockCompleteAffinePairLedger_eq_bandError_sq hR] at hcorr
+  calc
+    2 * vfMidSquareEndpointAccumulationCorrelation R +
+        vfMidSquareBandError R ^ 2 =
+      (-vfMidSquareBandError R) ^ 2 -
+        2 * vfMidActualPrimeEndpointDefect R *
+          (-vfMidSquareBandError R) := by
+            nlinarith [hcorr]
+    _ =
+      (vfMidAnchoredZeroTargetCoPartialGram
+          (vfMidOddCandidateSeats R)
+          (vfMidOddSignedSeatCharge R)
+          (vfMidActualPrimeEndpointDefect R) -
+        vfMidAnchoredZeroTargetDivergentGram
+          (vfMidOddCandidateSeats R)
+          (vfMidOddSignedSeatCharge R)
+          (vfMidActualPrimeEndpointDefect R)) -
+        vfMidActualPrimeEndpointDefect R ^ 2 := hsrc
+
+/-- Thus the terminal `hrank` inequality is exactly a target-zero
+co-minus-divergent partial-moment ceiling on the full physical odd-seat
+carrier. -/
+theorem vfMidCorrelationEnergy_le_radialBudget_iff_anchoredPartialExcess
+    {K : ℝ} {R : ℕ} (hR : 3 ≤ R) :
+    (2 * vfMidSquareEndpointAccumulationCorrelation R +
+        vfMidSquareBandError R ^ 2 ≤
+      (K * vfMidSyntheticRadialScale (R + 1)) ^ 2 -
+        vfMidActualPrimeEndpointDefect R ^ 2) ↔
+    (vfMidAnchoredZeroTargetCoPartialGram
+        (vfMidOddCandidateSeats R)
+        (vfMidOddSignedSeatCharge R)
+        (vfMidActualPrimeEndpointDefect R) -
+      vfMidAnchoredZeroTargetDivergentGram
+        (vfMidOddCandidateSeats R)
+        (vfMidOddSignedSeatCharge R)
+        (vfMidActualPrimeEndpointDefect R) ≤
+      (K * vfMidSyntheticRadialScale (R + 1)) ^ 2) := by
+  rw [vfMidCorrelationEnergy_eq_anchoredPartialExcess_sub_anchorSq hR]
+  constructor <;> intro h <;> linarith
+
 end RHLean.Analysis
