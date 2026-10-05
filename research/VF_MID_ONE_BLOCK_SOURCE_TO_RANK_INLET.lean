@@ -1,5 +1,6 @@
 import Mathlib
 import «research.VF_MID_FULL_AFFINE_PAIR_CLASSIFIER»
+import «research.VF_MID_RECURSIVE_REMAINDER_BOUND»
 
 /-!
 # Adjacent-block VF source-to-rank inlet
@@ -136,6 +137,140 @@ theorem vfMidOddSignedSeatCharge_eq_weight_on_squareful_processed
     (Finset.mem_filter.mp hn).1
   have hnComp := vfMidSquareBandCompositeOwner_mem hnOwner
   exact vfMidOddSignedSeatCharge_of_not_prime R n hnComp.2
+
+
+/-- Squareful processed children obtained by stripping the retained least-prime
+owner.  Owner labels remain outside, so repeated children across owners are not
+identified. -/
+def vfMidSquarefulProcessedOwnerChildren (R p : ℕ) : Finset ℕ :=
+  (vfMidSquarefulProcessedOwnerSites R p).image (fun n => n / p)
+
+/-- Stripping preserves the squareful sub-fibre cardinality. -/
+theorem vfMidSquarefulProcessedOwnerChildren_card
+    (R p : ℕ) :
+    (vfMidSquarefulProcessedOwnerChildren R p).card =
+      (vfMidSquarefulProcessedOwnerSites R p).card := by
+  unfold vfMidSquarefulProcessedOwnerChildren
+  apply Finset.card_image_iff.mpr
+  intro a ha b hb hab
+  apply vfMidSquareBandCompositeOwner_child_injOn R p
+  · exact (Finset.mem_filter.mp ha).1
+  · exact (Finset.mem_filter.mp hb).1
+  · exact hab
+
+/-- Every squareful processed child is a strict prior square-scale state. -/
+theorem vfMidSquarefulProcessedOwnerChild_lt_square
+    {R p m : ℕ} (hR : 3 ≤ R)
+    (hm : m ∈ vfMidSquarefulProcessedOwnerChildren R p) :
+    m < R ^ 2 := by
+  rcases Finset.mem_image.mp hm with ⟨n, hn, rfl⟩
+  exact
+    vfMidSquareBandCompositeOwner_child_lt_square hR
+      (Finset.mem_filter.mp hn).1
+
+/-- The squareful physical charge can be reindexed exactly onto strict owner
+children while retaining the VF coefficient. -/
+theorem vfMidOneBlockProcessedSquarefulCharge_eq_childCharge
+    (R : ℕ) :
+    vfMidOneBlockProcessedSquarefulCharge R =
+      ∑ p ∈ vfMidFrozenProcessedOwnerPrimes R R,
+        ∑ _m ∈ vfMidSquarefulProcessedOwnerChildren R p,
+          vfMidOddFractionalPrimeSeatWeight R := by
+  unfold vfMidOneBlockProcessedSquarefulCharge
+  apply Finset.sum_congr rfl
+  intro p _hp
+  calc
+    (∑ n ∈ vfMidSquarefulProcessedOwnerSites R p,
+      vfMidOddSignedSeatCharge R n) =
+      ∑ _n ∈ vfMidSquarefulProcessedOwnerSites R p,
+        vfMidOddFractionalPrimeSeatWeight R := by
+          apply Finset.sum_congr rfl
+          intro n hn
+          exact vfMidOddSignedSeatCharge_eq_weight_on_squareful_processed hn
+    _ =
+      ∑ _m ∈ vfMidSquarefulProcessedOwnerChildren R p,
+        vfMidOddFractionalPrimeSeatWeight R := by
+          rw [Finset.sum_const, Finset.sum_const, nsmul_eq_mul, nsmul_eq_mul,
+            vfMidSquarefulProcessedOwnerChildren_card]
+
+/-- Total squareful processed population is bounded by the full processed owner
+population, hence by the R odd candidate seats. -/
+theorem vfMidSquarefulProcessedOwnerPopulation_le_R
+    (R : ℕ) (hR : 3 ≤ R) :
+    (∑ p ∈ vfMidFrozenProcessedOwnerPrimes R R,
+      (vfMidSquarefulProcessedOwnerSites R p).card) ≤ R := by
+  have hsub :
+      (∑ p ∈ vfMidFrozenProcessedOwnerPrimes R R,
+        (vfMidSquarefulProcessedOwnerSites R p).card) ≤
+      ∑ p ∈ vfMidFrozenProcessedOwnerPrimes R R,
+        (vfMidSquareBandCompositeOwner R p).card := by
+    apply Finset.sum_le_sum
+    intro p _hp
+    unfold vfMidSquarefulProcessedOwnerSites
+    exact Finset.card_filter_le _ _
+  have hcount :=
+    vfMidSquarePrefixWheelSurvivors_card_add_processedOwnerCards_eq_root
+      (A := R) (R := R) hR le_rfl
+  omega
+
+/-- **Squareful dead-regime charge bound.**
+
+This is deliberately kept outside #891.  It is a direct affine owner-child
+residual with an explicit linear bound. -/
+theorem vfMidOneBlockProcessedSquarefulCharge_le_three_div_log_four_mul
+    (R : ℕ) (hR : 3 ≤ R) :
+    vfMidOneBlockProcessedSquarefulCharge R ≤
+      (3 / Real.log 4) * (R : ℝ) := by
+  have hw0 :=
+    vfMidOddFractionalPrimeSeatWeight_nonneg R (by omega : 2 ≤ R)
+  have hwu :=
+    vfMidOddFractionalPrimeSeatWeight_le_three_div_log_four
+      R (by omega : 2 ≤ R)
+  have hpopNat := vfMidSquarefulProcessedOwnerPopulation_le_R R hR
+  have hpop :
+      (∑ p ∈ vfMidFrozenProcessedOwnerPrimes R R,
+        ((vfMidSquarefulProcessedOwnerSites R p).card : ℝ)) ≤
+        (R : ℝ) := by
+    exact_mod_cast hpopNat
+  have hpop0 :
+      0 ≤
+        ∑ p ∈ vfMidFrozenProcessedOwnerPrimes R R,
+          ((vfMidSquarefulProcessedOwnerSites R p).card : ℝ) := by
+    positivity
+  unfold vfMidOneBlockProcessedSquarefulCharge
+  calc
+    (∑ p ∈ vfMidFrozenProcessedOwnerPrimes R R,
+      ∑ n ∈ vfMidSquarefulProcessedOwnerSites R p,
+        vfMidOddSignedSeatCharge R n) =
+      vfMidOddFractionalPrimeSeatWeight R *
+        (∑ p ∈ vfMidFrozenProcessedOwnerPrimes R R,
+          ((vfMidSquarefulProcessedOwnerSites R p).card : ℝ)) := by
+            rw [Finset.mul_sum]
+            apply Finset.sum_congr rfl
+            intro p _hp
+            calc
+              (∑ n ∈ vfMidSquarefulProcessedOwnerSites R p,
+                vfMidOddSignedSeatCharge R n) =
+                ∑ _n ∈ vfMidSquarefulProcessedOwnerSites R p,
+                  vfMidOddFractionalPrimeSeatWeight R := by
+                    apply Finset.sum_congr rfl
+                    intro n hn
+                    exact
+                      vfMidOddSignedSeatCharge_eq_weight_on_squareful_processed hn
+              _ = vfMidOddFractionalPrimeSeatWeight R *
+                  ((vfMidSquarefulProcessedOwnerSites R p).card : ℝ) := by
+                    rw [Finset.sum_const, nsmul_eq_mul]
+                    push_cast
+                    ring
+    _ ≤ (3 / Real.log 4) *
+        (∑ p ∈ vfMidFrozenProcessedOwnerPrimes R R,
+          ((vfMidSquarefulProcessedOwnerSites R p).card : ℝ)) :=
+      mul_le_mul_of_nonneg_right hwu hpop0
+    _ ≤ (3 / Real.log 4) * (R : ℝ) := by
+      have hC0 : (0 : ℝ) ≤ 3 / Real.log 4 := by
+        have hlog : 0 < Real.log 4 := Real.log_pos (by norm_num)
+        positivity
+      exact mul_le_mul_of_nonneg_left hpop hC0
 
 /-- Processed affine mass written directly on stripped owner children.
 
