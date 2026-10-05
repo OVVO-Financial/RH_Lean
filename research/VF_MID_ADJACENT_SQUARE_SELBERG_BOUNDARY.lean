@@ -146,7 +146,7 @@ theorem vfMidAdjacentSquareSecondSelbergFrontierSite_iff
   · rintro ⟨rfl, hPrime⟩
     apply mem_nativePNTSignedSecondSelbergWheelFrontierSites.mpr
     constructor
-    · exact Finset.mem_Icc.mpr ⟨by positivity, le_rfl⟩
+    · exact Finset.mem_Icc.mpr ⟨by omega, le_rfl⟩
     · have ha :
           primeWheelResolvedPart R ((R + 1) ^ 2) = 1 := by
         have ha0 :
@@ -193,10 +193,11 @@ theorem vfMidAdjacentSquareSecondSelbergFrontierSite_iff
           R ((R + 1) ^ 2)
           (n := (R + 1) ^ 2)
           (by positivity) le_rfl
-      rw [hb, if_neg hb1, ha, hb, hmu0] at herr
+      rw [hb, if_neg hb1, ha, hmu0] at herr
       norm_num at herr
       intro hzero
       rw [hmu0] at hzero
+      norm_num at hzero
       omega
 
 /-- Finset form of the exact adjacent-square frontier collapse. -/
@@ -327,8 +328,7 @@ theorem vfMidAdjacentSquarePNTErrorEnergy_eq_resolvedEulerForcing
 /-- The resolved interior of the second-Selberg product carrier after removing
 the exact adjacent-square wheel frontier. -/
 def vfMidAdjacentSquareSecondSelbergResolvedSites (R : ℕ) : Finset ℕ :=
-  (Finset.Icc 1 ((R + 1) ^ 2)).sdiff
-    nativePNTSignedSecondSelbergWheelFrontierSites R ((R + 1) ^ 2)
+  Finset.Icc 1 ((R + 1) ^ 2) \ nativePNTSignedSecondSelbergWheelFrontierSites R ((R + 1) ^ 2)
 
 /-- Signed second-Selberg error mass on the resolved interior. -/
 def vfMidAdjacentSquareSecondSelbergResolvedErrorMass (R : ℕ) : ℝ :=
