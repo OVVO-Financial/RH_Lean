@@ -392,6 +392,30 @@ theorem vfMidCorrelationEnergy_eq_unifiedPhysicalSeatGramBill
           (A := 2) (R := R) (by omega : 2 ≤ 2) (by omega : 2 ≤ R)]
       ring
 
+/-- Unified physical carrier with the current-current affine ledger fully
+decompressed back to literal least-prime-owned sites. -/
+def vfMidUnifiedDecompressedPhysicalSeatGramBill (R : ℕ) : ℝ :=
+  vfMidOneBlockDecompressedAffinePairLedger R +
+    2 * vfMidOddHistoricalCurrentSeatGram 2 R +
+    2 * vfMidActualPrimeEndpointDefect 2 *
+      vfMidSquareBandError R
+
+/-- **Complete site-level terminal reassembly.**
+
+The first-bad correlation bill is exactly the sum of the literal current-current
+physical site ledger, twice the literal historical-current site rectangle, and
+the fixed base-anchor polarization.  No processed-owner cardinality atom remains
+in the current-current term. -/
+theorem vfMidCorrelationEnergy_eq_unifiedDecompressedPhysicalSeatGramBill
+    {R : ℕ} (hR : 3 ≤ R) :
+    2 * vfMidSquareEndpointAccumulationCorrelation R +
+        vfMidSquareBandError R ^ 2 =
+      vfMidUnifiedDecompressedPhysicalSeatGramBill R := by
+  rw [vfMidCorrelationEnergy_eq_unifiedPhysicalSeatGramBill hR]
+  unfold vfMidUnifiedPhysicalSeatGramBill
+    vfMidUnifiedDecompressedPhysicalSeatGramBill
+  rw [vfMidOneBlockCompleteAffinePairLedger_eq_decompressedPhysical]
+
 /-- The unified #889 physical carrier is literally the pre-existing native
 Lyapunov seat-Gram bill anchored at the first square scale. -/
 theorem vfMidUnifiedPhysicalSeatGramBill_eq_oddLyapunovSeatGramBill
