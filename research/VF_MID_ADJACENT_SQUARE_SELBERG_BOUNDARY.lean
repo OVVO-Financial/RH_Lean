@@ -146,7 +146,7 @@ theorem vfMidAdjacentSquareSecondSelbergFrontierSite_iff
   · rintro ⟨rfl, hPrime⟩
     apply mem_nativePNTSignedSecondSelbergWheelFrontierSites.mpr
     constructor
-    · exact Finset.mem_Icc.mpr ⟨by omega, le_rfl⟩
+    · exact Finset.mem_Icc.mpr ⟨by nlinarith, le_rfl⟩
     · have ha :
           primeWheelResolvedPart R ((R + 1) ^ 2) = 1 := by
         have ha0 :
