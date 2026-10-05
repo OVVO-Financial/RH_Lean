@@ -627,6 +627,54 @@ theorem vfMidCorrelationEnergy_le_lowerComposite_of_endpoint_nonpos
   have hP := vfMidOneBlockPrimeSeatCharge_nonpos R
   nlinarith
 
+
+/-- **Exact lower-escape composite descent.**
+
+At the adjacent cutoff every odd composite owner is already processed.  The
+entire positive composite stream is therefore the native recursive lower-scale
+charge plus only the terminal-owner and scale-transfer remainders.  The
+restoring prime channel has disappeared before this identity is used. -/
+theorem vfMidOneBlockProcessedOwnerCharge_eq_native_add_terminal_add_transfer
+    (R : ℕ) (hR : 7 ≤ R) :
+    vfMidOneBlockProcessedOwnerCharge R =
+      vfMidRecursiveAggregateNativeCharge R +
+        vfMidTerminalParentCharge R +
+        vfMidRecursiveAggregateRemainder R := by
+  have hdef :=
+    vfMidOddCompositeTrackingDefect_eq_nativeCharge_add_descentRemainder R hR
+  have howners :=
+    vfMidOddCompositeTrackingDefect_eq_ownerCharges_sub_primeCharge
+      R (by omega : 2 ≤ R)
+  have hself :=
+    vfMidFrozenProcessedOwnerPrimes_self_eq_allOddOwners R
+  have hprocessed :
+      vfMidOneBlockProcessedOwnerCharge R =
+        ∑ p ∈ vfMidSquareBandLateOwnerPrimes 2 R,
+          vfMidOddFractionalPrimeSeatWeight R *
+            ((vfMidSquareBandCompositeOwner R p).card : ℝ) := by
+    unfold vfMidOneBlockProcessedOwnerCharge vfMidOneBlockProcessedOwnerAtom
+    rw [hself]
+  have hprime :
+      vfMidOriginalPrimeCharge R =
+        (1 - vfMidOddFractionalPrimeSeatWeight R) *
+          (vfMidIntegerBlockPrimeSupply R : ℝ) := rfl
+  rw [hprocessed] at howners
+  unfold vfMidNativeDescentRemainder at hdef
+  rw [hprime] at hdef
+  linarith
+
+/-- The lower-active branch in the terminal energy may therefore be rewritten
+entirely in native descendant plus explicit terminal/transfer currency. -/
+theorem vfMidLowerCompositeCharge_eq_nativeDescent
+    (R : ℕ) (hR : 7 ≤ R) :
+    vfMidOneBlockProcessedSquarefreeCharge R +
+        vfMidOneBlockProcessedSquarefulCharge R =
+      vfMidRecursiveAggregateNativeCharge R +
+        vfMidTerminalParentCharge R +
+        vfMidRecursiveAggregateRemainder R := by
+  rw [← vfMidOneBlockProcessedOwnerCharge_eq_squarefree_add_squareful]
+  exact vfMidOneBlockProcessedOwnerCharge_eq_native_add_terminal_add_transfer R hR
+
 /-! ## Quadratic child-level decompression -/
 
 /-- One processed owner atom written on its stripped child fibre, retaining the
