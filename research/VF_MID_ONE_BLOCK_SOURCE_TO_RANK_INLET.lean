@@ -77,6 +77,66 @@ theorem vfMidFrozenProcessedOwnerPrimes_self_eq_allOddOwners
       (mem_vfMidSquareBandLateOwnerPrimes.mp hp).1
     exact (mem_vfMidSquareBandOwnerPrimes.mp hpOwner).2
 
+
+/-- Squarefree-active part of one processed least-owner fibre.  This is the
+only part allowed to enter the Möbius/zero-target rank machinery. -/
+def vfMidSquarefreeProcessedOwnerSites (R p : ℕ) : Finset ℕ :=
+  (vfMidSquareBandCompositeOwner R p).filter Squarefree
+
+/-- Squareful-dead part of one processed least-owner fibre.  These sites remain
+physical VF seats but are explicitly kept outside the Möbius rank tree. -/
+def vfMidSquarefulProcessedOwnerSites (R p : ℕ) : Finset ℕ :=
+  (vfMidSquareBandCompositeOwner R p).filter (fun n => ¬ Squarefree n)
+
+/-- Active processed affine charge, restricted to squarefree physical sites. -/
+def vfMidOneBlockProcessedSquarefreeCharge (R : ℕ) : ℝ :=
+  ∑ p ∈ vfMidFrozenProcessedOwnerPrimes R R,
+    ∑ n ∈ vfMidSquarefreeProcessedOwnerSites R p,
+      vfMidOddSignedSeatCharge R n
+
+/-- Dead processed affine charge on repeated-prime/squareful physical sites. -/
+def vfMidOneBlockProcessedSquarefulCharge (R : ℕ) : ℝ :=
+  ∑ p ∈ vfMidFrozenProcessedOwnerPrimes R R,
+    ∑ n ∈ vfMidSquarefulProcessedOwnerSites R p,
+      vfMidOddSignedSeatCharge R n
+
+/-- **Exact squarefree/squareful rectifier split.**
+
+The physical processed source is partitioned before any zero-target or
+reciprocal gate is opened.  No squareful site is sent into the Möbius tree. -/
+theorem vfMidOneBlockProcessedOwnerCharge_eq_squarefree_add_squareful
+    (R : ℕ) :
+    vfMidOneBlockProcessedOwnerCharge R =
+      vfMidOneBlockProcessedSquarefreeCharge R +
+        vfMidOneBlockProcessedSquarefulCharge R := by
+  unfold vfMidOneBlockProcessedOwnerCharge
+    vfMidOneBlockProcessedSquarefreeCharge
+    vfMidOneBlockProcessedSquarefulCharge
+  rw [← Finset.sum_add_distrib]
+  apply Finset.sum_congr rfl
+  intro p _hp
+  rw [vfMidOneBlockProcessedOwnerAtom_eq_siteSum]
+  unfold vfMidSquarefreeProcessedOwnerSites
+    vfMidSquarefulProcessedOwnerSites
+  simpa only using
+    (Finset.sum_filter_add_sum_filter_not
+      (s := vfMidSquareBandCompositeOwner R p)
+      (p := Squarefree)
+      (f := vfMidOddSignedSeatCharge R)).symm
+
+/-- Every squareful processed site carries the raw positive VF affine charge;
+there is no intrinsic Möbius rectifier in `vfMidOddSignedSeatCharge`. -/
+theorem vfMidOddSignedSeatCharge_eq_weight_on_squareful_processed
+    {R p n : ℕ}
+    (hn : n ∈ vfMidSquarefulProcessedOwnerSites R p) :
+    vfMidOddSignedSeatCharge R n =
+      vfMidOddFractionalPrimeSeatWeight R := by
+  have hnOwner :
+      n ∈ vfMidSquareBandCompositeOwner R p :=
+    (Finset.mem_filter.mp hn).1
+  have hnComp := vfMidSquareBandCompositeOwner_mem hnOwner
+  exact vfMidOddSignedSeatCharge_of_not_prime R n hnComp.2
+
 /-- Processed affine mass written directly on stripped owner children.
 
 The coefficient remains the parent block's exact VF fractional seat weight;
