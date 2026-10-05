@@ -459,4 +459,123 @@ theorem vfMidOneBlockCompleteAffinePairLedger_eq_bandError_sq
   rw [vfMidOneBlockCompleteAffinePairLedger_eq_twoSector_sq, hcharge]
   ring
 
+
+/-- Historical-current polarization with the accumulated endpoint defect kept as
+a rigid scalar and pushed only across the current block's two physical sectors.
+
+The sign is deliberate: the literal VF-minus-actual seat mass of block `R` is
+`-vfMidSquareBandError R`.  Therefore `D_R * e_R` is the negative of the
+scalar-weighted physical seat mass. -/
+def vfMidOneBlockHistoricalCurrentTwoSectorPhysical (R : ℕ) : ℝ :=
+  (∑ n ∈ vfMidSquarePrefixWheelSurvivors R R,
+      vfMidActualPrimeEndpointDefect R * vfMidOddSignedSeatCharge R n) +
+    ∑ p ∈ vfMidFrozenProcessedOwnerPrimes R R,
+      ∑ n ∈ vfMidSquareBandCompositeOwner R p,
+        vfMidActualPrimeEndpointDefect R * vfMidOddSignedSeatCharge R n
+
+/-- **Two-sector historical-current physical weld.**
+
+No historical owner rank is decompressed.  The accumulated endpoint defect is a
+scalar; only the current block is opened into frozen-survivor and processed-owner
+physical seats. -/
+theorem vfMidHistoricalCurrent_eq_twoSectorPhysical
+    {R : ℕ} (hR : 3 ≤ R) :
+    vfMidActualPrimeEndpointDefect R * vfMidSquareBandError R =
+      -vfMidOneBlockHistoricalCurrentTwoSectorPhysical R := by
+  have hblock :
+      vfMidFrozenAffineBlockPhysicalCharge R R =
+        -vfMidSquareBandError R := by
+    rw [vfMidFrozenAffineBlockPhysicalCharge_eq_blockSeatMass
+        hR le_rfl (by omega : R < 2 * R),
+      vfMidOddBlockSeatMass_eq_neg_bandError R (by omega : 2 ≤ R)]
+  have hsector :
+      vfMidOneBlockHistoricalCurrentTwoSectorPhysical R =
+        vfMidActualPrimeEndpointDefect R *
+          vfMidFrozenAffineBlockPhysicalCharge R R := by
+    unfold vfMidOneBlockHistoricalCurrentTwoSectorPhysical
+      vfMidFrozenAffineBlockPhysicalCharge
+      vfMidFrozenProcessedOwnerPhysicalCharge
+    rw [mul_add]
+    congr 1
+    · rw [Finset.mul_sum]
+    · rw [Finset.mul_sum]
+      apply Finset.sum_congr rfl
+      intro p _hp
+      rw [Finset.mul_sum]
+  rw [hsector, hblock]
+  ring
+
+/-- One current physical seat's complete contribution to the terminal quadratic
+bill.  The first summand is the current-current row; the second is the
+historical-current scalar polarization. -/
+def vfMidOneBlockUnifiedPhysicalSeatIntegrand (R n : ℕ) : ℝ :=
+  (∑ m ∈ vfMidOddCandidateSeats R,
+      vfMidOddSignedSeatCharge R n * vfMidOddSignedSeatCharge R m) +
+    (-(2 * vfMidActualPrimeEndpointDefect R *
+      vfMidOddSignedSeatCharge R n))
+
+/-- The complete one-block quadratic bill on one literal current-seat carrier. -/
+def vfMidOneBlockUnifiedPhysicalSeatLedger (R : ℕ) : ℝ :=
+  ∑ n ∈ vfMidOddCandidateSeats R,
+    vfMidOneBlockUnifiedPhysicalSeatIntegrand R n
+
+/-- The four-sector affine classifier is exactly the pre-existing literal
+current-seat self Gram. -/
+theorem vfMidOneBlockCompleteAffinePairLedger_eq_currentSeatSelfGram
+    {R : ℕ} (hR : 3 ≤ R) :
+    vfMidOneBlockCompleteAffinePairLedger R =
+      vfMidOddCurrentSeatSelfGram R := by
+  calc
+    vfMidOneBlockCompleteAffinePairLedger R =
+        vfMidSquareBandError R ^ 2 :=
+      vfMidOneBlockCompleteAffinePairLedger_eq_bandError_sq hR
+    _ = vfMidOddCurrentSeatSelfGram R :=
+      (vfMidOddCurrentSeatSelfGram_eq_bandError_sq
+        R (by omega : 2 ≤ R)).symm
+
+/-- The doubled historical polarization is a single current-seat sum. -/
+theorem vfMidTwoHistoricalCurrent_eq_currentSeatSum
+    {R : ℕ} (hR : 3 ≤ R) :
+    2 * vfMidActualPrimeEndpointDefect R * vfMidSquareBandError R =
+      ∑ n ∈ vfMidOddCandidateSeats R,
+        (-(2 * vfMidActualPrimeEndpointDefect R *
+          vfMidOddSignedSeatCharge R n)) := by
+  calc
+    2 * vfMidActualPrimeEndpointDefect R * vfMidSquareBandError R =
+        (-2 * vfMidActualPrimeEndpointDefect R) *
+          vfMidOddBlockSeatMass R := by
+      rw [vfMidOddBlockSeatMass_eq_neg_bandError R (by omega : 2 ≤ R)]
+      ring
+    _ =
+        ∑ n ∈ vfMidOddCandidateSeats R,
+          (-2 * vfMidActualPrimeEndpointDefect R) *
+            vfMidOddSignedSeatCharge R n := by
+      unfold vfMidOddBlockSeatMass
+      rw [Finset.mul_sum]
+    _ =
+        ∑ n ∈ vfMidOddCandidateSeats R,
+          (-(2 * vfMidActualPrimeEndpointDefect R *
+            vfMidOddSignedSeatCharge R n)) := by
+      apply Finset.sum_congr rfl
+      intro n _hn
+      ring
+
+/-- **Unified weight-preserving current-seat ledger.**
+
+This is the requested zip.  The already-decompressed current-current classifier
+and the historical-current scalar field are first placed on the identical
+literal current-seat carrier and then joined with reverse
+`Finset.sum_add_distrib`.  No inequality or reciprocal gate has opened. -/
+theorem vfMidOneBlockAffinePair_add_historical_eq_unifiedPhysicalSeatLedger
+    {R : ℕ} (hR : 3 ≤ R) :
+    vfMidOneBlockCompleteAffinePairLedger R +
+        2 * vfMidActualPrimeEndpointDefect R * vfMidSquareBandError R =
+      vfMidOneBlockUnifiedPhysicalSeatLedger R := by
+  rw [vfMidOneBlockCompleteAffinePairLedger_eq_currentSeatSelfGram hR,
+    vfMidTwoHistoricalCurrent_eq_currentSeatSum hR]
+  unfold vfMidOddCurrentSeatSelfGram
+    vfMidOneBlockUnifiedPhysicalSeatLedger
+    vfMidOneBlockUnifiedPhysicalSeatIntegrand
+  rw [← Finset.sum_add_distrib]
+
 end RHLean.Analysis
