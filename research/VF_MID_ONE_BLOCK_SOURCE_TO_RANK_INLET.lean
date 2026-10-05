@@ -467,6 +467,166 @@ theorem vfMidCorrelationEnergy_eq_rectifiedThreeStream
   rw [hsplit] at henergy
   exact henergy.symm
 
+
+/-- Prime stream of the adjacent one-block physical source. -/
+def vfMidOneBlockPrimeSeatCharge (R : ℕ) : ℝ :=
+  ∑ n ∈ vfMidSquareWheelPrimes R, vfMidOddSignedSeatCharge R n
+
+/-- The prime stream is nonpositive. -/
+theorem vfMidOneBlockPrimeSeatCharge_nonpos
+    (R : ℕ) :
+    vfMidOneBlockPrimeSeatCharge R ≤ 0 := by
+  unfold vfMidOneBlockPrimeSeatCharge
+  apply Finset.sum_nonpos
+  intro n hn
+  have hp : n.Prime := (Finset.mem_filter.mp hn).2
+  rw [vfMidOddSignedSeatCharge_of_prime R n hp]
+  have hw :=
+    vfMidOddFractionalPrimeSeatWeight_le_one R
+  linarith
+
+/-- The squareful processed stream is nonnegative. -/
+theorem vfMidOneBlockProcessedSquarefulCharge_nonneg
+    (R : ℕ) (hR : 2 ≤ R) :
+    0 ≤ vfMidOneBlockProcessedSquarefulCharge R := by
+  unfold vfMidOneBlockProcessedSquarefulCharge
+  apply Finset.sum_nonneg
+  intro p _hp
+  apply Finset.sum_nonneg
+  intro n hn
+  rw [vfMidOddSignedSeatCharge_eq_weight_on_squareful_processed hn]
+  exact vfMidOddFractionalPrimeSeatWeight_nonneg R hR
+
+/-- Upper-escape rectifier identity.
+
+Writing the full one-step source as active plus squareful-dead, the exact
+quadratic bill differs from the active bill by the restoring term
+minus Q times (2 D_(R+1) plus Q). -/
+theorem vfMidCorrelationEnergy_eq_upperActive_sub_squarefulRestoring
+    {R : ℕ} (hR : 3 ≤ R) :
+    2 * vfMidSquareEndpointAccumulationCorrelation R +
+        vfMidSquareBandError R ^ 2 =
+      (vfMidOneBlockPrimeSeatCharge R +
+          vfMidOneBlockProcessedSquarefreeCharge R) ^ 2 -
+        2 * vfMidActualPrimeEndpointDefect R *
+          (vfMidOneBlockPrimeSeatCharge R +
+            vfMidOneBlockProcessedSquarefreeCharge R) -
+        vfMidOneBlockProcessedSquarefulCharge R *
+          (2 * vfMidActualPrimeEndpointDefect (R + 1) +
+            vfMidOneBlockProcessedSquarefulCharge R) := by
+  have henergy := vfMidCorrelationEnergy_eq_rectifiedThreeStream hR
+  have hT :=
+    vfMidTwoSectorOwnerCharge_eq_endpointDefect_sub
+      (A := R) (B := R + 1) hR (by omega) (by omega)
+  have hsplit :=
+    vfMidTwoSectorOwnerCharge_succ_eq_prime_add_squarefree_add_squareful hR
+  have hsource :
+      vfMidOneBlockPrimeSeatCharge R +
+          vfMidOneBlockProcessedSquarefreeCharge R +
+          vfMidOneBlockProcessedSquarefulCharge R =
+        vfMidActualPrimeEndpointDefect R -
+          vfMidActualPrimeEndpointDefect (R + 1) := by
+    change
+      (∑ n ∈ vfMidSquareWheelPrimes R,
+          vfMidOddSignedSeatCharge R n) +
+          vfMidOneBlockProcessedSquarefreeCharge R +
+          vfMidOneBlockProcessedSquarefulCharge R =
+        vfMidActualPrimeEndpointDefect R -
+          vfMidActualPrimeEndpointDefect (R + 1)
+    exact hsplit.symm.trans hT
+  change
+    2 * vfMidSquareEndpointAccumulationCorrelation R +
+        vfMidSquareBandError R ^ 2 =
+      (vfMidOneBlockPrimeSeatCharge R +
+          vfMidOneBlockProcessedSquarefreeCharge R +
+          vfMidOneBlockProcessedSquarefulCharge R) ^ 2 -
+        2 * vfMidActualPrimeEndpointDefect R *
+          (vfMidOneBlockPrimeSeatCharge R +
+            vfMidOneBlockProcessedSquarefreeCharge R +
+            vfMidOneBlockProcessedSquarefulCharge R) at henergy
+  nlinarith
+
+/-- At an upper endpoint the squareful branch can only lower the terminal
+quadratic bill. -/
+theorem vfMidCorrelationEnergy_le_upperActive_of_endpoint_nonneg
+    {R : ℕ} (hR : 3 ≤ R)
+    (hB : 0 ≤ vfMidActualPrimeEndpointDefect (R + 1)) :
+    2 * vfMidSquareEndpointAccumulationCorrelation R +
+        vfMidSquareBandError R ^ 2 ≤
+      (vfMidOneBlockPrimeSeatCharge R +
+          vfMidOneBlockProcessedSquarefreeCharge R) ^ 2 -
+        2 * vfMidActualPrimeEndpointDefect R *
+          (vfMidOneBlockPrimeSeatCharge R +
+            vfMidOneBlockProcessedSquarefreeCharge R) := by
+  rw [vfMidCorrelationEnergy_eq_upperActive_sub_squarefulRestoring hR]
+  have hQ :=
+    vfMidOneBlockProcessedSquarefulCharge_nonneg R (by omega : 2 ≤ R)
+  nlinarith
+
+/-- Lower-escape rectifier identity.
+
+Writing the full source as composite plus prime, the exact correction from the
+prime stream is P times (-2 D_(R+1) minus P). -/
+theorem vfMidCorrelationEnergy_eq_lowerActive_add_primeRestoring
+    {R : ℕ} (hR : 3 ≤ R) :
+    2 * vfMidSquareEndpointAccumulationCorrelation R +
+        vfMidSquareBandError R ^ 2 =
+      (vfMidOneBlockProcessedSquarefreeCharge R +
+          vfMidOneBlockProcessedSquarefulCharge R) ^ 2 -
+        2 * vfMidActualPrimeEndpointDefect R *
+          (vfMidOneBlockProcessedSquarefreeCharge R +
+            vfMidOneBlockProcessedSquarefulCharge R) +
+        vfMidOneBlockPrimeSeatCharge R *
+          (-2 * vfMidActualPrimeEndpointDefect (R + 1) -
+            vfMidOneBlockPrimeSeatCharge R) := by
+  have henergy := vfMidCorrelationEnergy_eq_rectifiedThreeStream hR
+  have hT :=
+    vfMidTwoSectorOwnerCharge_eq_endpointDefect_sub
+      (A := R) (B := R + 1) hR (by omega) (by omega)
+  have hsplit :=
+    vfMidTwoSectorOwnerCharge_succ_eq_prime_add_squarefree_add_squareful hR
+  have hsource :
+      vfMidOneBlockPrimeSeatCharge R +
+          vfMidOneBlockProcessedSquarefreeCharge R +
+          vfMidOneBlockProcessedSquarefulCharge R =
+        vfMidActualPrimeEndpointDefect R -
+          vfMidActualPrimeEndpointDefect (R + 1) := by
+    change
+      (∑ n ∈ vfMidSquareWheelPrimes R,
+          vfMidOddSignedSeatCharge R n) +
+          vfMidOneBlockProcessedSquarefreeCharge R +
+          vfMidOneBlockProcessedSquarefulCharge R =
+        vfMidActualPrimeEndpointDefect R -
+          vfMidActualPrimeEndpointDefect (R + 1)
+    exact hsplit.symm.trans hT
+  change
+    2 * vfMidSquareEndpointAccumulationCorrelation R +
+        vfMidSquareBandError R ^ 2 =
+      (vfMidOneBlockPrimeSeatCharge R +
+          vfMidOneBlockProcessedSquarefreeCharge R +
+          vfMidOneBlockProcessedSquarefulCharge R) ^ 2 -
+        2 * vfMidActualPrimeEndpointDefect R *
+          (vfMidOneBlockPrimeSeatCharge R +
+            vfMidOneBlockProcessedSquarefreeCharge R +
+            vfMidOneBlockProcessedSquarefulCharge R) at henergy
+  nlinarith
+
+/-- At a lower endpoint the negative prime stream can only lower the terminal
+quadratic bill. -/
+theorem vfMidCorrelationEnergy_le_lowerComposite_of_endpoint_nonpos
+    {R : ℕ} (hR : 3 ≤ R)
+    (hB : vfMidActualPrimeEndpointDefect (R + 1) ≤ 0) :
+    2 * vfMidSquareEndpointAccumulationCorrelation R +
+        vfMidSquareBandError R ^ 2 ≤
+      (vfMidOneBlockProcessedSquarefreeCharge R +
+          vfMidOneBlockProcessedSquarefulCharge R) ^ 2 -
+        2 * vfMidActualPrimeEndpointDefect R *
+          (vfMidOneBlockProcessedSquarefreeCharge R +
+            vfMidOneBlockProcessedSquarefulCharge R) := by
+  rw [vfMidCorrelationEnergy_eq_lowerActive_add_primeRestoring hR]
+  have hP := vfMidOneBlockPrimeSeatCharge_nonpos R
+  nlinarith
+
 /-! ## Quadratic child-level decompression -/
 
 /-- One processed owner atom written on its stripped child fibre, retaining the
