@@ -706,7 +706,9 @@ jobs:
           #print axioms RHLean.Analysis.vfMidProcessedOwnerChild_sqrt_lt_anchor
           #print axioms RHLean.Analysis.vfMidProcessedOwnerChild_prior_inside
           #print axioms RHLean.Analysis.vfMidFrozenOwnerPrimeChild_prior_inside
-          #print axioms RHLean.Analysis.vfMidActualPrimeFirstBadAt_impossible_terminal
+          #print axioms RHLean.Analysis.vfMidCorrelationEnergy_eq_completeAffinePairLedger_sub_anchor
+          #print axioms RHLean.Analysis.vfMidActualPrimeFirstBadAt_succ_forces_correlationEnergyTrigger
+          #print axioms RHLean.Analysis.vfMidActualPrimeFirstBadAt_impossible_of_depthAwareCeiling
           #print axioms RHLean.Analysis.vfMidDyadicPrefixSurvivorMobiusMass_sq_eq_diagonal_add_firstOwnerCells
           #print axioms RHLean.Analysis.vfMidRecursiveChildCarrier_card_eq_sum
           #print axioms RHLean.Analysis.vfMidRecursiveChild_block_lt
