@@ -468,6 +468,39 @@ theorem vfMidCorrelationEnergy_eq_rectifiedThreeStream
   exact henergy.symm
 
 
+
+/-- Elementary one-seat ceiling: from R=3 onward the VF fractional odd-seat
+weight is at most one.  This uses only the midpoint formula and
+`log 2 > 0.9`. -/
+theorem vfMidOddFractionalPrimeSeatWeight_le_one_of_three_le
+    (R : ℕ) (hR : 3 ≤ R) :
+    vfMidOddFractionalPrimeSeatWeight R ≤ 1 := by
+  have hRpos : (0 : ℝ) < (R : ℝ) := by exact_mod_cast (by omega : 0 < R)
+  have hR3 : (3 : ℝ) ≤ (R : ℝ) := by exact_mod_cast hR
+  have hm8 : (8 : ℝ) ≤ vfMidBandMidpoint R := by
+    unfold vfMidBandMidpoint
+    positivity
+  have hlog8 :
+      Real.log (8 : ℝ) = 3 * Real.log 2 := by
+    calc
+      Real.log (8 : ℝ) = Real.log ((2 : ℝ) ^ 3) := by norm_num
+      _ = (3 : ℕ) * Real.log 2 := by rw [Real.log_pow]
+      _ = 3 * Real.log 2 := by norm_num
+  have hlog8lower : (27 / 10 : ℝ) < Real.log (8 : ℝ) := by
+    rw [hlog8]
+    have h2 := Real.log_two_gt_d9
+    nlinarith
+  have hlogmono :
+      Real.log (8 : ℝ) ≤ Real.log (vfMidBandMidpoint R) :=
+    Real.log_le_log (by norm_num) hm8
+  have hlog : (27 / 10 : ℝ) < Real.log (vfMidBandMidpoint R) :=
+    hlog8lower.trans_le hlogmono
+  have hlogpos : 0 < Real.log (vfMidBandMidpoint R) := by linarith
+  unfold vfMidOddFractionalPrimeSeatWeight vfMidBandMass
+  rw [div_le_iff₀ hRpos]
+  rw [div_le_iff₀ hlogpos]
+  nlinarith
+
 /-- Prime stream of the adjacent one-block physical source. -/
 def vfMidOneBlockPrimeSeatCharge (R : ℕ) : ℝ :=
   ∑ n ∈ vfMidSquareWheelPrimes R, vfMidOddSignedSeatCharge R n
@@ -482,7 +515,7 @@ theorem vfMidOneBlockPrimeSeatCharge_nonpos
   have hp : n.Prime := (Finset.mem_filter.mp hn).2
   rw [vfMidOddSignedSeatCharge_of_prime R n hp]
   have hw :=
-    vfMidOddFractionalPrimeSeatWeight_le_one R
+    vfMidOddFractionalPrimeSeatWeight_le_one_of_three_le R (by omega)
   linarith
 
 /-- The squareful processed stream is nonnegative. -/
