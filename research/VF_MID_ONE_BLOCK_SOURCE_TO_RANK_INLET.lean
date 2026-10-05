@@ -1285,6 +1285,49 @@ theorem vfMidOneBlockHistoricalCurrentTwoSectorPhysical_eq_prime_child
 
 /-! ## Complete quadratic source after exact child decompression -/
 
+
+/-- The child-decompressed current-current ledger is exactly the square of the
+prime-survivor charge plus the complete tagged processed-child charge.  This is
+only the already-proved four-sector square identity transported through the
+lossless child reindexing. -/
+theorem vfMidOneBlockChildDecompressedAffinePairLedger_eq_prime_add_processed_sq
+    {R : ℕ} (hR : 3 ≤ R) :
+    vfMidOneBlockChildDecompressedAffinePairLedger R =
+      ((∑ n ∈ vfMidSquareWheelPrimes R,
+          vfMidOddSignedSeatCharge R n) +
+        vfMidOneBlockProcessedOwnerChildCharge R) ^ 2 := by
+  rw [← vfMidOneBlockCompleteAffinePairLedger_eq_childDecompressed hR]
+  rw [vfMidOneBlockCompleteAffinePairLedger_eq_twoSector_sq]
+  rw [vfMidTwoSectorOwnerCharge_succ_eq_primeSurvivor_add_processedChildren hR]
+
+/-- The historical processed rectangle factors as the rigid endpoint defect
+times the complete processed-child charge. -/
+theorem vfMidOneBlockHistoricalProcessedChildPhysical_eq_endpoint_mul_childCharge
+    (R : ℕ) :
+    vfMidOneBlockHistoricalProcessedChildPhysical R =
+      vfMidActualPrimeEndpointDefect R *
+        vfMidOneBlockProcessedOwnerChildCharge R := by
+  unfold vfMidOneBlockHistoricalProcessedChildPhysical
+    vfMidOneBlockProcessedOwnerChildCharge
+  calc
+    (∑ p ∈ vfMidFrozenProcessedOwnerPrimes R R,
+      ∑ _m ∈ vfMidSquareBandCompositeOwnerChildren R p,
+        vfMidActualPrimeEndpointDefect R *
+          vfMidOddFractionalPrimeSeatWeight R) =
+      ∑ p ∈ vfMidFrozenProcessedOwnerPrimes R R,
+        vfMidActualPrimeEndpointDefect R *
+          (∑ _m ∈ vfMidSquareBandCompositeOwnerChildren R p,
+            vfMidOddFractionalPrimeSeatWeight R) := by
+              apply Finset.sum_congr rfl
+              intro p _hp
+              rw [Finset.mul_sum]
+    _ = vfMidActualPrimeEndpointDefect R *
+        (∑ p ∈ vfMidFrozenProcessedOwnerPrimes R R,
+          ∑ _m ∈ vfMidSquareBandCompositeOwnerChildren R p,
+            vfMidOddFractionalPrimeSeatWeight R) := by
+              rw [Finset.mul_sum]
+
+
 /-- Complete adjacent-block quadratic bill after every processed current
 coordinate has been stripped to its tagged strict lower child.  The historical
 endpoint defect remains a rigid scalar; no inequality or reciprocal-energy
