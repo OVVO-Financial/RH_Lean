@@ -368,8 +368,8 @@ theorem vfMidSquarefreeProcessedOwnerChild_mem_lowOwnerCarrier_succ
     · exact Nat.one_le_iff_ne_zero.mpr hsq.ne_zero
     · have hlt :=
         vfMidSquareBandCompositeOwnerChildren_lt_square hR hmChild
-      have hnext : R ^ 2 < (R + 1) ^ 2 := by
-        nlinarith
+      have hnext : R ^ 2 < (R + 1) ^ 2 :=
+        Nat.pow_lt_pow_left (by omega : R < R + 1) (by omega)
       have hmnext : m < (R + 1) ^ 2 := hlt.trans hnext
       unfold squareRootEndpoint
       omega
