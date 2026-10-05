@@ -497,7 +497,8 @@ theorem vfMidHistoricalCurrent_eq_twoSectorPhysical
       vfMidFrozenProcessedOwnerPhysicalCharge
     rw [mul_add]
     congr 1
-    · rw [Finset.mul_sum]
+    · unfold vfMidSubdoublingPrefixSurvivorChargeSum
+      rw [Finset.mul_sum]
     · rw [Finset.mul_sum]
       apply Finset.sum_congr rfl
       intro p _hp
