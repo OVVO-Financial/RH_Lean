@@ -2,7 +2,10 @@ import Mathlib
 import «research.VF_MID_FULL_AFFINE_PAIR_CLASSIFIER»
 import «research.VF_MID_FRACTIONAL_INCIDENCE_CAPACITY»
 import «research.VF_MID_FINAL_SIGNED_RANK_CONTRACTION»
+import «research.VF_MID_ONE_BLOCK_SOURCE_TO_RANK_INLET»
+import «research.VF_MID_FIRST_BAD_SLACK_SCALE_AUDIT»
 import «research.VF_MID_ADJACENT_SQUARE_SELBERG_BOUNDARY»
+import «research.VF_MID_ACTUAL_PRIME_STAR_DEFECT_CONTRACTION»
 
 /-!
 # Terminal first-bad contradiction splice
@@ -718,6 +721,46 @@ theorem vfMidActualPrimeFirstBadAt_impossible_of_depthAwareCeiling
       hfirst hA hABlt hBA
   linarith
 
+
+
+/-- **Full #889 Lyapunov source in native descended VF currency.**
+
+For R >= 7 the complete affine/historical first-bad bill is exactly the square
+of the native lower-scale aggregate plus its already-proved descent remainder,
+with the accumulated endpoint defect retained as the historical scalar.
+
+This is an equality, not an estimate:
+  corrBill = (G_native + Rem)^2 - 2 D_R (G_native + Rem).
+No packet inheritance or reciprocal-energy promotion is used. -/
+theorem vfMidCorrelationEnergy_eq_nativeDescentAffineBill
+    {R : ℕ} (hR : 7 ≤ R) :
+    2 * vfMidSquareEndpointAccumulationCorrelation R +
+        vfMidSquareBandError R ^ 2 =
+      (vfMidRecursiveAggregateNativeCharge R +
+          vfMidNativeDescentRemainder R) ^ 2 -
+        2 * vfMidActualPrimeEndpointDefect R *
+          (vfMidRecursiveAggregateNativeCharge R +
+            vfMidNativeDescentRemainder R) := by
+  have hdesc :=
+    vfMidOddCompositeTrackingDefect_eq_nativeCharge_add_descentRemainder
+      R hR
+  have hseat :=
+    vfMidOddBlockSeatMass_eq_trackingDefect R (by omega : 2 ≤ R)
+  have hneg :=
+    vfMidOddBlockSeatMass_eq_neg_bandError R (by omega : 2 ≤ R)
+  have hband :
+      vfMidSquareBandError R =
+        -(vfMidRecursiveAggregateNativeCharge R +
+          vfMidNativeDescentRemainder R) := by
+    rw [hseat] at hneg
+    rw [hdesc] at hneg
+    linarith
+  rw [vfMidCorrelationEnergy_eq_completeAffinePairLedger_add_anchorBand
+      (by omega : 3 ≤ R),
+    vfMidOneBlockCompleteAffinePairLedger_eq_bandError_sq
+      (by omega : 3 ≤ R),
+    hband]
+  ring
 
 /-- **Terminal first-bad contradiction in the native quadratic currency.**
 
