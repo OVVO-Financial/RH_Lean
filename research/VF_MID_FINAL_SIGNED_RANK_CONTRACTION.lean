@@ -123,7 +123,7 @@ theorem vfMidRetainedAboveFirstClippedExitTreeEnergy_le_quarter_tree
   | succ d ih =>
       have hroot :=
         vfMidRetainedAboveFirstClippedOutgoingEnergy_le_quarter
-          hfirst parent coefficient
+          (R := R) hfirst parent coefficient
       have hchildren :
           (∑ r ∈ lowOwnerRevealedPrimesAbove R first,
             ∑ child ∈ lowOwnerGreatestOwnerFixedParentChildFiber R parent r,
@@ -180,7 +180,7 @@ theorem vfMidRetainedAboveFirstClippedExitTreeEnergy_le_half_parent
         lowOwnerRetainedCoefficientParentEnergy coefficient parent := by
   have hexit :=
     vfMidRetainedAboveFirstClippedExitTreeEnergy_le_quarter_tree
-      hfirst depth parent coefficient
+      (R := R) hfirst depth parent coefficient
   have htree :=
     lowOwnerRetainedCoefficientAboveFirstTreeEnergy_le_two
       hfirst depth parent coefficient
@@ -246,7 +246,7 @@ theorem vfMidCompletedGateSelectedClippedExitTreeEnergy_le_half_fractionalGate
 
 /-- Critical owner ratios are nonnegative on genuine prime owners. -/
 theorem zeroTargetCriticalOwnerRatio_nonneg_of_prime
-    {p : ℕ} (hp : p.Prime) :
+    {p : ℕ} (_hp : p.Prime) :
     0 ≤ zeroTargetCriticalOwnerRatio p := by
   unfold zeroTargetCriticalOwnerRatio
   positivity
