@@ -324,6 +324,34 @@ theorem vfMidCorrelationEnergy_eq_completeAffinePairLedger_sub_anchor
             vfMidDyadicProcessedOwnerSeatCharge R (R + 1)) := by
       rw [← vfMidOneBlockCompleteAffinePairLedger_eq_twoSector_sq R]
 
+/-- Exact sign-normalized form of the terminal correlation bill.
+
+The two-sector owner charge is `-e_R`, so the anchor polarization contributes
+`+ 2 D_R e_R`.  Keeping this sign explicit prevents an invalid terminal
+contraction from being obtained by replacing the owner charge with the band
+error without negating it. -/
+theorem vfMidCorrelationEnergy_eq_completeAffinePairLedger_add_anchorBand
+    {R : ℕ} (hR : 3 ≤ R) :
+    2 * vfMidSquareEndpointAccumulationCorrelation R +
+        vfMidSquareBandError R ^ 2 =
+      vfMidOneBlockCompleteAffinePairLedger R +
+        2 * vfMidActualPrimeEndpointDefect R *
+          vfMidSquareBandError R := by
+  calc
+    2 * vfMidSquareEndpointAccumulationCorrelation R +
+        vfMidSquareBandError R ^ 2 =
+      vfMidOneBlockCompleteAffinePairLedger R -
+        2 * vfMidActualPrimeEndpointDefect R *
+          (vfMidDyadicFrozenSurvivorSeatCharge R (R + 1) +
+            vfMidDyadicProcessedOwnerSeatCharge R (R + 1)) :=
+      vfMidCorrelationEnergy_eq_completeAffinePairLedger_sub_anchor hR
+    _ =
+      vfMidOneBlockCompleteAffinePairLedger R +
+        2 * vfMidActualPrimeEndpointDefect R *
+          vfMidSquareBandError R := by
+      rw [vfMidTwoSectorOwnerCharge_succ_eq_neg_bandError hR]
+      ring
+
 /-- Exact adjacent-square Fubini transport of the #889 two-sector charge.
 
 The resolved Euler forcing is not the raw two-sector charge itself: logarithmic
