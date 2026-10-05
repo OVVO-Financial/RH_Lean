@@ -6,6 +6,7 @@ on:
     paths:
       - research/VF_MID_FIRST_BAD_TERMINAL_CONTRADICTION.lean
       - research/VF_MID_FIRST_BAD_AFFINE_OWNER_SPLICE.lean
+      - research/VF_MID_FULL_AFFINE_PAIR_CLASSIFIER.lean
       - .github/workflows/vf-first-bad-terminal.yml
   workflow_dispatch:
 
