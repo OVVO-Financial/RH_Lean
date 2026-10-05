@@ -166,8 +166,22 @@ theorem vfMidOneBlockCompleteAffinePairLedger_eq_bandError_sq
     {R : ℕ} (hR : 3 ≤ R) :
     vfMidOneBlockCompleteAffinePairLedger R =
       vfMidSquareBandError R ^ 2 := by
-  rw [vfMidOneBlockCompleteAffinePairLedger_eq_twoSector_sq,
-    vfMidTwoSectorOwnerCharge_succ_eq_neg_bandError hR]
+  have hrun :=
+    vfMidOddRunSeatMass_eq_frozenSurvivor_add_processedOwnerCharge
+      (A := R) (B := R + 1) hR (by omega : R + 1 ≤ 2 * R)
+  have hcharge :
+      vfMidDyadicFrozenSurvivorSeatCharge R (R + 1) +
+          vfMidDyadicProcessedOwnerSeatCharge R (R + 1) =
+        -vfMidSquareBandError R := by
+    calc
+      vfMidDyadicFrozenSurvivorSeatCharge R (R + 1) +
+          vfMidDyadicProcessedOwnerSeatCharge R (R + 1) =
+        vfMidOddRunSeatMass R (R + 1) := hrun.symm
+      _ = vfMidOddBlockSeatMass R := by
+        simp [vfMidOddRunSeatMass]
+      _ = -vfMidSquareBandError R :=
+        vfMidOddBlockSeatMass_eq_neg_bandError R (by omega : 2 ≤ R)
+  rw [vfMidOneBlockCompleteAffinePairLedger_eq_twoSector_sq, hcharge]
   ring
 
 end RHLean.Analysis
