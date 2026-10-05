@@ -1388,7 +1388,7 @@ theorem vfMidCorrelationEnergy_eq_unifiedChildDecompressedLedger
   rw [vfMidOneBlockCompleteAffinePairLedger_eq_childDecompressed hR]
   unfold vfMidOneBlockUnifiedChildDecompressedLedger
   calc
-    2 * vfMidActualPrimeEndpointDefect R * vfMidSquareBandError R +
+    2 * (vfMidActualPrimeEndpointDefect R * vfMidSquareBandError R) +
         vfMidOneBlockChildDecompressedAffinePairLedger R =
       vfMidOneBlockChildDecompressedAffinePairLedger R +
         2 * (vfMidActualPrimeEndpointDefect R *
@@ -1433,6 +1433,7 @@ theorem vfMidOneBlockUnifiedChildDecompressedLedger_eq_prime_processed_affine
   rw [hpair,
     vfMidOneBlockHistoricalProcessedChildPhysical_eq_endpoint_mul_childCharge,
     hprime]
+  ring
 
 /-- Active squarefree child contribution to the exact quadratic bill. -/
 def vfMidOneBlockActiveChildAffineBill (R : ℕ) : ℝ :=
