@@ -199,6 +199,31 @@ theorem vfMidFrozenAffineHistoricalCurrentPhysicalPairMass_eq
     vfMidFrozenAffineBlockPhysicalCharge_eq_blockSeatMass hA hAR hRlt]
   exact (vfMidOddHistoricalCurrentSeatGram_eq_run_mul_block A R).symm
 
+/-- One-step extension of the common-frozen physical run. -/
+theorem vfMidFrozenAffineRunPhysicalCharge_succ
+    {A R : ℕ} (hAR : A ≤ R) :
+    vfMidFrozenAffineRunPhysicalCharge A (R + 1) =
+      vfMidFrozenAffineRunPhysicalCharge A R +
+        vfMidFrozenAffineBlockPhysicalCharge A R := by
+  unfold vfMidFrozenAffineRunPhysicalCharge
+  rw [Finset.sum_Ico_succ_top hAR]
+
+/-- **Raw physical run energy step.**
+
+Current-current plus twice historical-current is exactly the square increment
+of the complete common-frozen survivor/processed run.  This is pure algebra on
+the already reassembled physical carrier. -/
+theorem vfMidFrozenAffineRunPhysicalCharge_energyStep_eq
+    {A R : ℕ}
+    (hA : 3 ≤ A) (hAR : A ≤ R) (hRlt : R < 2 * A) :
+    vfMidFrozenAffineRunPhysicalCharge A (R + 1) ^ 2 -
+        vfMidFrozenAffineRunPhysicalCharge A R ^ 2 =
+      vfMidFrozenAffineBlockPhysicalCharge A R ^ 2 +
+        2 * vfMidFrozenAffineHistoricalCurrentPhysicalPairMass A R := by
+  rw [vfMidFrozenAffineRunPhysicalCharge_succ hAR]
+  unfold vfMidFrozenAffineHistoricalCurrentPhysicalPairMass
+  ring
+
 /-- Survivor x survivor sector. -/
 def vfMidOneBlockSurvivorSurvivorPairMass (R : ℕ) : ℝ :=
   ∑ n ∈ vfMidSquarePrefixWheelSurvivors R R,
