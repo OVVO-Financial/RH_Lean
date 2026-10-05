@@ -1,6 +1,7 @@
 import Mathlib
 import «research.VF_MID_FULL_AFFINE_PAIR_CLASSIFIER»
 import «research.VF_MID_FRACTIONAL_INCIDENCE_CAPACITY»
+import «research.VF_MID_FINAL_SIGNED_RANK_CONTRACTION»
 import «research.VF_MID_ADJACENT_SQUARE_SELBERG_BOUNDARY»
 
 /-!
