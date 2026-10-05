@@ -1282,4 +1282,54 @@ theorem vfMidOneBlockHistoricalCurrentTwoSectorPhysical_eq_prime_child
       (by omega : 2 ≤ R),
     vfMidOneBlockHistoricalProcessed_eq_child]
 
+
+/-! ## Complete quadratic source after exact child decompression -/
+
+/-- Complete adjacent-block quadratic bill after every processed current
+coordinate has been stripped to its tagged strict lower child.  The historical
+endpoint defect remains a rigid scalar; no inequality or reciprocal-energy
+conversion has occurred. -/
+def vfMidOneBlockUnifiedChildDecompressedLedger (R : ℕ) : ℝ :=
+  vfMidOneBlockChildDecompressedAffinePairLedger R -
+    2 * ((∑ n ∈ vfMidSquareWheelPrimes R,
+      vfMidActualPrimeEndpointDefect R * vfMidOddSignedSeatCharge R n) +
+      vfMidOneBlockHistoricalProcessedChildPhysical R)
+
+/-- **Exact full-bill source-to-child weld.**
+
+The complete first-bad quadratic bill `e_R^2 + 2 D_R e_R` is exactly the
+child-decompressed current-current ledger plus the child-decompressed
+historical-current polarization.  All processed owner tags and coefficients
+are retained.  No absolute value, reciprocal weight, or remainder split is
+introduced. -/
+theorem vfMidCorrelationEnergy_eq_unifiedChildDecompressedLedger
+    {R : ℕ} (hR : 3 ≤ R) :
+    2 * vfMidSquareEndpointAccumulationCorrelation R +
+        vfMidSquareBandError R ^ 2 =
+      vfMidOneBlockUnifiedChildDecompressedLedger R := by
+  have hhist := vfMidHistoricalCurrent_eq_twoSectorPhysical hR
+  have hhistChild :=
+    vfMidOneBlockHistoricalCurrentTwoSectorPhysical_eq_prime_child hR
+  rw [hhistChild] at hhist
+  unfold vfMidSquareEndpointAccumulationCorrelation
+  rw [← vfMidActualPrimeEndpointDefect_eq_squareEndpointError_inlet
+      (R := R) (by omega : 2 ≤ R)]
+  rw [← vfMidOneBlockCompleteAffinePairLedger_eq_bandError_sq hR]
+  rw [vfMidOneBlockCompleteAffinePairLedger_eq_childDecompressed hR]
+  unfold vfMidOneBlockUnifiedChildDecompressedLedger
+  calc
+    2 * vfMidActualPrimeEndpointDefect R * vfMidSquareBandError R +
+        vfMidOneBlockChildDecompressedAffinePairLedger R =
+      vfMidOneBlockChildDecompressedAffinePairLedger R +
+        2 * (vfMidActualPrimeEndpointDefect R *
+          vfMidSquareBandError R) := by
+            ring
+    _ = vfMidOneBlockChildDecompressedAffinePairLedger R -
+        2 * ((∑ n ∈ vfMidSquareWheelPrimes R,
+          vfMidActualPrimeEndpointDefect R *
+            vfMidOddSignedSeatCharge R n) +
+          vfMidOneBlockHistoricalProcessedChildPhysical R) := by
+            rw [hhist]
+            ring
+
 end RHLean.Analysis
