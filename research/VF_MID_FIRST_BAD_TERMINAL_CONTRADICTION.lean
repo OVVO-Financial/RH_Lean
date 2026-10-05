@@ -324,6 +324,48 @@ theorem vfMidCorrelationEnergy_eq_completeAffinePairLedger_sub_anchor
             vfMidDyadicProcessedOwnerSeatCharge R (R + 1)) := by
       rw [← vfMidOneBlockCompleteAffinePairLedger_eq_twoSector_sq R]
 
+/-- Exact adjacent-square Fubini transport of the #889 two-sector charge.
+
+The resolved Euler forcing is not the raw two-sector charge itself: logarithmic
+position and prime-power endpoint corrections remain explicit. -/
+theorem vfMidAdjacentSquareResolvedEulerForcing_eq_twoSectorOwnerCharge
+    {R : ℕ} (hR : 7 ≤ R) :
+    nativePNTSequentialEulerForcing
+        R (R ^ 2) ((R + 1) ^ 2) =
+      -Real.log (vfMidBandMidpoint R) *
+          (vfMidDyadicFrozenSurvivorSeatCharge R (R + 1) +
+            vfMidDyadicProcessedOwnerSeatCharge R (R + 1) +
+            vfMidDirectLogPositionError R) +
+        (vfMidSquarePrimePowerCorrection (R + 1) -
+          vfMidSquarePrimePowerCorrection R) := by
+  have heuler :=
+    vfMidAdjacentSquareResolvedEulerForcing_eq_vfBandError R hR
+  have hcharge :=
+    vfMidTwoSectorOwnerCharge_succ_eq_neg_bandError
+      (by omega : 3 ≤ R)
+  calc
+    nativePNTSequentialEulerForcing
+        R (R ^ 2) ((R + 1) ^ 2) =
+      Real.log (vfMidBandMidpoint R) *
+          (vfMidSquareBandError R -
+            vfMidDirectLogPositionError R) +
+        (vfMidSquarePrimePowerCorrection (R + 1) -
+          vfMidSquarePrimePowerCorrection R) := heuler
+    _ =
+      -Real.log (vfMidBandMidpoint R) *
+          (vfMidDyadicFrozenSurvivorSeatCharge R (R + 1) +
+            vfMidDyadicProcessedOwnerSeatCharge R (R + 1) +
+            vfMidDirectLogPositionError R) +
+        (vfMidSquarePrimePowerCorrection (R + 1) -
+          vfMidSquarePrimePowerCorrection R) := by
+      have he :
+          vfMidSquareBandError R =
+            -(vfMidDyadicFrozenSurvivorSeatCharge R (R + 1) +
+              vfMidDyadicProcessedOwnerSeatCharge R (R + 1)) := by
+        linarith
+      rw [he]
+      ring
+
 /-- **Direct first-bad energy trigger on one square block.**
 
 This is the terminal lower bound with every bookkeeping coordinate eliminated:
