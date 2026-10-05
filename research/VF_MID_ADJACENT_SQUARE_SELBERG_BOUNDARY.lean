@@ -218,6 +218,44 @@ theorem vfMidAdjacentSquareWheelFubini_eq_resolved
     R ((R + 1) ^ 2)
       (vfMidSquare_succ_sq_lt_two_mul_sq R hR)
 
+/-- The resolved interior of the second-Selberg product carrier after removing
+the exact adjacent-square wheel frontier. -/
+def vfMidAdjacentSquareSecondSelbergResolvedSites (R : ℕ) : Finset ℕ :=
+  Finset.Icc 1 ((R + 1) ^ 2) \\
+    nativePNTSignedSecondSelbergWheelFrontierSites R ((R + 1) ^ 2)
+
+/-- Signed second-Selberg error mass on the resolved interior. -/
+def vfMidAdjacentSquareSecondSelbergResolvedErrorMass (R : ℕ) : ℝ :=
+  ∑ n ∈ vfMidAdjacentSquareSecondSelbergResolvedSites R,
+    nativePNTSignedSecondSelbergKernel n *
+      nativePNTError (((R + 1) ^ 2) / n)
+
+/-- **Exact second-Selberg boundary split.**
+
+The full signed second-Selberg product carrier is the resolved interior plus
+the literal wheel frontier.  No sign or absolute-value estimate occurs here. -/
+theorem vfMidAdjacentSquareSecondSelbergKernelErrorMass_eq_resolved_add_frontier
+    (R : ℕ) :
+    nativePNTSignedSecondSelbergKernelErrorMass ((R + 1) ^ 2) =
+      vfMidAdjacentSquareSecondSelbergResolvedErrorMass R +
+        nativePNTSignedSecondSelbergWheelFrontierErrorMass
+          R ((R + 1) ^ 2) := by
+  have hsub :
+      nativePNTSignedSecondSelbergWheelFrontierSites R ((R + 1) ^ 2) ⊆
+        Finset.Icc 1 ((R + 1) ^ 2) := by
+    intro n hn
+    exact
+      (mem_nativePNTSignedSecondSelbergWheelFrontierSites.mp hn).1
+  have hs := Finset.sum_sdiff hsub
+    (f := fun n =>
+      nativePNTSignedSecondSelbergKernel n *
+        nativePNTError (((R + 1) ^ 2) / n))
+  unfold nativePNTSignedSecondSelbergKernelErrorMass
+    vfMidAdjacentSquareSecondSelbergResolvedErrorMass
+    vfMidAdjacentSquareSecondSelbergResolvedSites
+    nativePNTSignedSecondSelbergWheelFrontierErrorMass
+  exact hs.symm
+
 /-- Boundary-error form after the reciprocal quotient has collapsed to one. -/
 theorem vfMidAdjacentSquareSecondSelbergFrontierErrorMass_eq
     (R : ℕ) (hR : 3 ≤ R) :
