@@ -358,6 +358,32 @@ theorem vfMidTwoSectorOwnerCharge_succ_eq_primeSurvivor_add_processedChildren
     (by omega : 2 ≤ R)]
 
 
+
+/-- **Exact three-stream quadratic snap-back.**
+
+The terminal correlation bill is the quadratic energy of the rectified physical
+source with all prime/squarefree/squareful cross terms intact.  No branch is
+bounded separately here. -/
+theorem vfMidCorrelationEnergy_eq_rectifiedThreeStream
+    {R : ℕ} (hR : 3 ≤ R) :
+    2 * vfMidSquareEndpointAccumulationCorrelation R +
+        vfMidSquareBandError R ^ 2 =
+      ((∑ n ∈ vfMidSquareWheelPrimes R,
+          vfMidOddSignedSeatCharge R n) +
+        vfMidOneBlockProcessedSquarefreeCharge R +
+        vfMidOneBlockProcessedSquarefulCharge R) ^ 2 -
+      2 * vfMidActualPrimeEndpointDefect R *
+        ((∑ n ∈ vfMidSquareWheelPrimes R,
+            vfMidOddSignedSeatCharge R n) +
+          vfMidOneBlockProcessedSquarefreeCharge R +
+          vfMidOneBlockProcessedSquarefulCharge R) := by
+  have henergy :=
+    vfMidTwoSectorOwnerCharge_energyStep_succ_eq_correlation hR
+  have hsplit :=
+    vfMidTwoSectorOwnerCharge_succ_eq_prime_add_squarefree_add_squareful hR
+  rw [hsplit] at henergy
+  exact henergy.symm
+
 /-! ## Quadratic child-level decompression -/
 
 /-- One processed owner atom written on its stripped child fibre, retaining the
