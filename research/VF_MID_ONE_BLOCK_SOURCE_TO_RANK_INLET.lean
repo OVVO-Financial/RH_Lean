@@ -953,7 +953,13 @@ theorem vfMidSyntheticRadialScale_sq_increment_gt_25_div_3_mul
         vfMidSyntheticRadialScale R ^ 2 := by ring
 
 /-- The explicit native-descent remainder is strictly smaller than one
-radial-square increment.  Hence it is not the RH-strength seam. -/
+radial-square increment **as a linear scalar**.
+
+This theorem is diagnostic only.  The terminal bill contains
+`(G_native + Rem)^2 - 2 D_R (G_native + Rem)`, so this estimate does not
+license squaring `Rem` separately or charging it independently to the same
+radial-square increment.  The signed `G_native + Rem` coupling must be
+preserved. -/
 theorem abs_vfMidNativeDescentRemainder_lt_radial_sq_increment
     (R : ℕ) (hR : 7 ≤ R) :
     |vfMidNativeDescentRemainder R| <
