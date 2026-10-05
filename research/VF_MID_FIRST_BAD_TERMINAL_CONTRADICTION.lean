@@ -265,6 +265,8 @@ theorem vfMidTwoSectorOwnerCharge_energyStep_succ_eq_lyapunov
   have hseat :=
     vfMidSquareEndpointError_energy_step_eq_oddLyapunovSeatGramBill
       (A := R) (R := R) (by omega : 2 ≤ R) (by omega)
+  rw [vfMidActualPrimeEndpointDefect_eq_squareEndpointError
+    (by omega : 2 ≤ R)]
   exact henergy.symm.trans hseat
 
 /-- The same direct weld in the repository correlation coordinate.  This makes
@@ -289,6 +291,8 @@ theorem vfMidTwoSectorOwnerCharge_energyStep_succ_eq_correlation
   have hcorr :=
     vfMidSquareEndpointError_sq_succ_eq_correlation
       R (by omega : 2 ≤ R)
+  rw [vfMidActualPrimeEndpointDefect_eq_squareEndpointError
+    (by omega : 2 ≤ R)]
   exact henergy.symm.trans hcorr
 
 /-- **Direct first-bad energy trigger on one square block.**
