@@ -138,4 +138,194 @@ theorem vfMidTwoSectorOwnerCharge_succ_eq_primeSurvivor_add_processedChildren
   rw [vfMidSquarePrefixWheelSurvivors_self_eq_primes
     (by omega : 2 ≤ R)]
 
+
+/-! ## Quadratic child-level decompression -/
+
+/-- One processed owner atom written on its stripped child fibre, retaining the
+literal current-block VF coefficient. -/
+def vfMidOneBlockProcessedOwnerChildAtom (R p : ℕ) : ℝ :=
+  ∑ _m ∈ vfMidSquareBandCompositeOwnerChildren R p,
+    vfMidOddFractionalPrimeSeatWeight R
+
+theorem vfMidOneBlockProcessedOwnerAtom_eq_childAtom
+    (R p : ℕ) :
+    vfMidOneBlockProcessedOwnerAtom R p =
+      vfMidOneBlockProcessedOwnerChildAtom R p := by
+  unfold vfMidOneBlockProcessedOwnerAtom
+    vfMidOneBlockProcessedOwnerChildAtom
+  rw [Finset.sum_const, nsmul_eq_mul,
+    vfMidSquareBandCompositeOwnerChildren_card]
+  ring
+
+/-- Survivor x processed sector after the processed coordinate is stripped to
+its tagged lower child. -/
+def vfMidOneBlockSurvivorProcessedChildPairMass (R : ℕ) : ℝ :=
+  ∑ n ∈ vfMidSquareWheelPrimes R,
+    ∑ p ∈ vfMidFrozenProcessedOwnerPrimes R R,
+      ∑ _m ∈ vfMidSquareBandCompositeOwnerChildren R p,
+        vfMidOddSignedSeatCharge R n *
+          vfMidOddFractionalPrimeSeatWeight R
+
+/-- Processed x survivor sector on tagged lower children. -/
+def vfMidOneBlockProcessedChildSurvivorPairMass (R : ℕ) : ℝ :=
+  ∑ p ∈ vfMidFrozenProcessedOwnerPrimes R R,
+    ∑ _n ∈ vfMidSquareBandCompositeOwnerChildren R p,
+      ∑ m ∈ vfMidSquareWheelPrimes R,
+        vfMidOddFractionalPrimeSeatWeight R *
+          vfMidOddSignedSeatCharge R m
+
+/-- Processed x processed sector with both owner tags retained and both physical
+composites stripped to lower children. -/
+def vfMidOneBlockProcessedChildProcessedChildPairMass (R : ℕ) : ℝ :=
+  ∑ p ∈ vfMidFrozenProcessedOwnerPrimes R R,
+    ∑ _n ∈ vfMidSquareBandCompositeOwnerChildren R p,
+      ∑ q ∈ vfMidFrozenProcessedOwnerPrimes R R,
+        ∑ _m ∈ vfMidSquareBandCompositeOwnerChildren R q,
+          vfMidOddFractionalPrimeSeatWeight R *
+            vfMidOddFractionalPrimeSeatWeight R
+
+/-- Complete adjacent-block current-current affine bill after lossless owner
+stripping of every processed composite coordinate. -/
+def vfMidOneBlockChildDecompressedAffinePairLedger (R : ℕ) : ℝ :=
+  (∑ n ∈ vfMidSquareWheelPrimes R,
+    ∑ m ∈ vfMidSquareWheelPrimes R,
+      vfMidOddSignedSeatCharge R n * vfMidOddSignedSeatCharge R m) +
+    vfMidOneBlockSurvivorProcessedChildPairMass R +
+    vfMidOneBlockProcessedChildSurvivorPairMass R +
+    vfMidOneBlockProcessedChildProcessedChildPairMass R
+
+/-- The survivor-survivor physical sector is already the prime-prime sector in
+an adjacent block. -/
+theorem vfMidOneBlockSurvivorSurvivorPairMass_eq_primePrime
+    {R : ℕ} (hR : 2 ≤ R) :
+    vfMidOneBlockSurvivorSurvivorPairMass R =
+      ∑ n ∈ vfMidSquareWheelPrimes R,
+        ∑ m ∈ vfMidSquareWheelPrimes R,
+          vfMidOddSignedSeatCharge R n * vfMidOddSignedSeatCharge R m := by
+  unfold vfMidOneBlockSurvivorSurvivorPairMass
+  rw [vfMidSquarePrefixWheelSurvivors_self_eq_primes hR]
+
+/-- Exact survivor x processed child reindexing. -/
+theorem vfMidOneBlockSurvivorProcessedPhysicalPairMass_eq_child
+    {R : ℕ} (hR : 2 ≤ R) :
+    vfMidOneBlockSurvivorProcessedPhysicalPairMass R =
+      vfMidOneBlockSurvivorProcessedChildPairMass R := by
+  unfold vfMidOneBlockSurvivorProcessedPhysicalPairMass
+    vfMidOneBlockSurvivorProcessedChildPairMass
+  rw [vfMidSquarePrefixWheelSurvivors_self_eq_primes hR]
+  apply Finset.sum_congr rfl
+  intro n _hn
+  apply Finset.sum_congr rfl
+  intro p _hp
+  rw [Finset.sum_const, Finset.sum_const, nsmul_eq_mul, nsmul_eq_mul,
+    vfMidSquareBandCompositeOwnerChildren_card]
+
+/-- Exact processed child x survivor reindexing. -/
+theorem vfMidOneBlockProcessedSurvivorPhysicalPairMass_eq_child
+    {R : ℕ} (hR : 2 ≤ R) :
+    vfMidOneBlockProcessedSurvivorPhysicalPairMass R =
+      vfMidOneBlockProcessedChildSurvivorPairMass R := by
+  unfold vfMidOneBlockProcessedSurvivorPhysicalPairMass
+    vfMidOneBlockProcessedChildSurvivorPairMass
+  rw [vfMidSquarePrefixWheelSurvivors_self_eq_primes hR]
+  apply Finset.sum_congr rfl
+  intro p _hp
+  rw [Finset.sum_comm]
+  apply Finset.sum_congr rfl
+  intro m _hm
+  rw [Finset.sum_const, Finset.sum_const, nsmul_eq_mul, nsmul_eq_mul,
+    vfMidSquareBandCompositeOwnerChildren_card]
+  ring
+
+/-- Exact processed x processed double child reindexing. -/
+theorem vfMidOneBlockProcessedProcessedPhysicalPairMass_eq_child
+    (R : ℕ) :
+    vfMidOneBlockProcessedProcessedPhysicalPairMass R =
+      vfMidOneBlockProcessedChildProcessedChildPairMass R := by
+  unfold vfMidOneBlockProcessedProcessedPhysicalPairMass
+    vfMidOneBlockProcessedChildProcessedChildPairMass
+  apply Finset.sum_congr rfl
+  intro p _hp
+  rw [Finset.sum_comm]
+  apply Finset.sum_congr rfl
+  intro q _hq
+  rw [Finset.sum_comm, Finset.sum_comm]
+  rw [Finset.sum_const, Finset.sum_const, Finset.sum_const, Finset.sum_const,
+    nsmul_eq_mul, nsmul_eq_mul, nsmul_eq_mul, nsmul_eq_mul,
+    vfMidSquareBandCompositeOwnerChildren_card]
+  ring
+
+/-- **Complete current-current source-to-child equality.**
+
+Every physical composite coordinate in the #889 current-current bill has been
+stripped to a strict lower child while retaining its least-owner tag and exact
+VF coefficient.  Prime coordinates are untouched. -/
+theorem vfMidOneBlockCompleteAffinePairLedger_eq_childDecompressed
+    {R : ℕ} (hR : 3 ≤ R) :
+    vfMidOneBlockCompleteAffinePairLedger R =
+      vfMidOneBlockChildDecompressedAffinePairLedger R := by
+  rw [vfMidOneBlockCompleteAffinePairLedger_eq_decompressedPhysical]
+  unfold vfMidOneBlockDecompressedAffinePairLedger
+    vfMidOneBlockChildDecompressedAffinePairLedger
+  rw [vfMidOneBlockSurvivorSurvivorPairMass_eq_primePrime
+      (by omega : 2 ≤ R),
+    vfMidOneBlockSurvivorProcessedPhysicalPairMass_eq_child
+      (by omega : 2 ≤ R),
+    vfMidOneBlockProcessedSurvivorPhysicalPairMass_eq_child
+      (by omega : 2 ≤ R),
+    vfMidOneBlockProcessedProcessedPhysicalPairMass_eq_child]
+
+/-- Historical-current processed sector after the same exact child reindexing. -/
+def vfMidOneBlockHistoricalProcessedChildPhysical (R : ℕ) : ℝ :=
+  ∑ p ∈ vfMidFrozenProcessedOwnerPrimes R R,
+    ∑ _m ∈ vfMidSquareBandCompositeOwnerChildren R p,
+      vfMidActualPrimeEndpointDefect R *
+        vfMidOddFractionalPrimeSeatWeight R
+
+/-- The historical-current processed physical sector is unchanged by stripping
+its least owner. -/
+theorem vfMidOneBlockHistoricalProcessed_eq_child
+    (R : ℕ) :
+    (∑ p ∈ vfMidFrozenProcessedOwnerPrimes R R,
+      ∑ n ∈ vfMidSquareBandCompositeOwner R p,
+        vfMidActualPrimeEndpointDefect R * vfMidOddSignedSeatCharge R n) =
+      vfMidOneBlockHistoricalProcessedChildPhysical R := by
+  unfold vfMidOneBlockHistoricalProcessedChildPhysical
+  apply Finset.sum_congr rfl
+  intro p _hp
+  calc
+    (∑ n ∈ vfMidSquareBandCompositeOwner R p,
+      vfMidActualPrimeEndpointDefect R * vfMidOddSignedSeatCharge R n) =
+        ∑ _n ∈ vfMidSquareBandCompositeOwner R p,
+          vfMidActualPrimeEndpointDefect R *
+            vfMidOddFractionalPrimeSeatWeight R := by
+          apply Finset.sum_congr rfl
+          intro n hn
+          have hnComp : n ∈ vfMidSquareBandComposites R :=
+            (Finset.mem_filter.mp hn).1
+          have hnNotPrime : ¬ n.Prime :=
+            (Finset.mem_filter.mp hnComp).2
+          rw [vfMidOddSignedSeatCharge_of_not_prime R n hnNotPrime]
+    _ = ∑ _m ∈ vfMidSquareBandCompositeOwnerChildren R p,
+          vfMidActualPrimeEndpointDefect R *
+            vfMidOddFractionalPrimeSeatWeight R := by
+          rw [Finset.sum_const, Finset.sum_const, nsmul_eq_mul,
+            nsmul_eq_mul, vfMidSquareBandCompositeOwnerChildren_card]
+
+/-- **Historical-current source-to-child equality.**
+
+The accumulated endpoint defect remains one rigid scalar; only the current
+processed composite coordinate is stripped to its strict lower child. -/
+theorem vfMidOneBlockHistoricalCurrentTwoSectorPhysical_eq_prime_child
+    {R : ℕ} (hR : 3 ≤ R) :
+    vfMidOneBlockHistoricalCurrentTwoSectorPhysical R =
+      (∑ n ∈ vfMidSquareWheelPrimes R,
+        vfMidActualPrimeEndpointDefect R *
+          vfMidOddSignedSeatCharge R n) +
+        vfMidOneBlockHistoricalProcessedChildPhysical R := by
+  unfold vfMidOneBlockHistoricalCurrentTwoSectorPhysical
+  rw [vfMidSquarePrefixWheelSurvivors_self_eq_primes
+      (by omega : 2 ≤ R),
+    vfMidOneBlockHistoricalProcessed_eq_child]
+
 end RHLean.Analysis
