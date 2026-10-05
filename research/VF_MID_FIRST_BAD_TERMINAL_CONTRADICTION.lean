@@ -352,6 +352,69 @@ theorem vfMidCorrelationEnergy_eq_completeAffinePairLedger_add_anchorBand
       rw [vfMidTwoSectorOwnerCharge_succ_eq_neg_bandError hR]
       ring
 
+/-- Unified physical carrier for the complete one-step VF Lyapunov bill.
+
+This keeps the current-current affine pair ledger, the literal historical-current
+seat rectangle, and the fixed base-anchor polarization in one signed object.
+No inequality, absolute value, reciprocal weight, or carrier enlargement occurs
+in this definition. -/
+def vfMidUnifiedPhysicalSeatGramBill (R : ℕ) : ℝ :=
+  vfMidOneBlockCompleteAffinePairLedger R +
+    2 * vfMidOddHistoricalCurrentSeatGram 2 R +
+    2 * vfMidActualPrimeEndpointDefect 2 *
+      vfMidSquareBandError R
+
+/-- **Exact affine-to-physical full-carrier reassembly.**
+
+The sign-normalized affine bill `e_R^2 + 2 D_R e_R` is exactly the complete
+current-current pair ledger plus twice the historical-current physical seat
+rectangle plus the fixed base anchor.  This is the equality that must precede
+every inequality gate. -/
+theorem vfMidCorrelationEnergy_eq_unifiedPhysicalSeatGramBill
+    {R : ℕ} (hR : 3 ≤ R) :
+    2 * vfMidSquareEndpointAccumulationCorrelation R +
+        vfMidSquareBandError R ^ 2 =
+      vfMidUnifiedPhysicalSeatGramBill R := by
+  calc
+    2 * vfMidSquareEndpointAccumulationCorrelation R +
+        vfMidSquareBandError R ^ 2 =
+      vfMidOneBlockCompleteAffinePairLedger R +
+        2 * vfMidActualPrimeEndpointDefect R *
+          vfMidSquareBandError R :=
+      vfMidCorrelationEnergy_eq_completeAffinePairLedger_add_anchorBand hR
+    _ = vfMidUnifiedPhysicalSeatGramBill R := by
+      unfold vfMidUnifiedPhysicalSeatGramBill
+      rw [vfMidActualPrimeEndpointDefect_eq_squareEndpointError
+          (R := R) (by omega : 2 ≤ R),
+        vfMidActualPrimeEndpointDefect_eq_squareEndpointError
+          (R := 2) (by omega : 2 ≤ 2),
+        vfMidOddHistoricalCurrentSeatGram_eq_endpointPolarization
+          (A := 2) (R := R) (by omega : 2 ≤ 2) (by omega : 2 ≤ R)]
+      ring
+
+/-- The unified #889 physical carrier is literally the pre-existing native
+Lyapunov seat-Gram bill anchored at the first square scale. -/
+theorem vfMidUnifiedPhysicalSeatGramBill_eq_oddLyapunovSeatGramBill
+    {R : ℕ} (hR : 3 ≤ R) :
+    vfMidUnifiedPhysicalSeatGramBill R =
+      vfMidOddLyapunovSeatGramBill 2 R := by
+  unfold vfMidUnifiedPhysicalSeatGramBill vfMidOddLyapunovSeatGramBill
+  rw [vfMidOneBlockCompleteAffinePairLedger_eq_bandError_sq hR,
+    vfMidOddCurrentSeatSelfGram_eq_bandError_sq R (by omega : 2 ≤ R),
+    vfMidActualPrimeEndpointDefect_eq_squareEndpointError
+      (R := 2) (by omega : 2 ≤ 2)]
+  ring
+
+/-- Direct combined form: the terminal correlation bill is exactly the literal
+native physical Lyapunov seat Gram before any contraction is applied. -/
+theorem vfMidCorrelationEnergy_eq_oddLyapunovSeatGramBill
+    {R : ℕ} (hR : 3 ≤ R) :
+    2 * vfMidSquareEndpointAccumulationCorrelation R +
+        vfMidSquareBandError R ^ 2 =
+      vfMidOddLyapunovSeatGramBill 2 R := by
+  rw [vfMidCorrelationEnergy_eq_unifiedPhysicalSeatGramBill hR,
+    vfMidUnifiedPhysicalSeatGramBill_eq_oddLyapunovSeatGramBill hR]
+
 /-- Exact adjacent-square Fubini transport of the #889 two-sector charge.
 
 The resolved Euler forcing is not the raw two-sector charge itself: logarithmic
