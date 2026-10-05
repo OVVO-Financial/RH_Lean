@@ -221,4 +221,63 @@ theorem vfMidCompletedGateSelectedClippedOutgoingEnergy_le_fractionalBudget
   exact hfrac.trans
     (mul_le_mul_of_nonneg_left hscaled (by norm_num : (0 : ℝ) ≤ 1 / 4))
 
+
+/-- Literal reciprocal capacity of the selected clipped exits, before the
+reciprocal-square budget is collapsed.  Each later owner `q` retains its exact
+physical child multiplicity divided by `q^2`. -/
+def vfMidCompletedGateSelectedClippedReciprocalCapacity
+    (R p : ℕ) (sig : Finset ℕ) (r : ℕ) : ℝ :=
+  ∑ parent ∈
+      lowOwnerFirstOwnerActiveCompletedPolarizationRawParentSet R p sig r,
+    lowOwnerThresholdEulerPairCoefficient R p r parent ^ 2 *
+      ∑ q ∈ lowOwnerRevealedPrimesAbove R r,
+        if squareRootEndpoint R < q * parent.2 then
+          (lowOwnerGreatestOwnerFixedParentChildMultiplicity
+              R parent q : ℝ) / (q : ℝ) ^ 2 *
+            postRootCovarianceReciprocalPairEnergy parent
+        else 0
+
+/-- **Exact multiplicity-over-owner-square form of the selected clipped
+capacity.**
+
+This is the numerical 317/1027 lesson in literal Lean currency: capacity is
+determined by the actual incidence fibres and reciprocal owner weights, not by
+the number of selected physical seats. -/
+theorem vfMidCompletedGateSelectedClippedOutgoingEnergy_eq_reciprocalCapacity
+    (R p : ℕ) (sig : Finset ℕ) (r : ℕ) :
+    vfMidCompletedGateSelectedClippedOutgoingEnergy R p sig r =
+      vfMidCompletedGateSelectedClippedReciprocalCapacity R p sig r := by
+  unfold vfMidCompletedGateSelectedClippedOutgoingEnergy
+    vfMidSelectedClippedOutgoingEnergy
+    lowOwnerGreatestOwnerAboveFirstClippedOutgoingEnergy
+    vfMidCompletedGateSelectedClippedReciprocalCapacity
+  apply Finset.sum_congr rfl
+  intro parent _hparent
+  apply congrArg
+    (fun x : ℝ =>
+      lowOwnerThresholdEulerPairCoefficient R p r parent ^ 2 * x)
+  apply Finset.sum_congr rfl
+  intro q hq
+  have hqPrime : q.Prime :=
+    (mem_primesUpTo.mp (Finset.mem_filter.mp hq).1).1
+  by_cases hclip : squareRootEndpoint R < q * parent.2
+  · simp only [hclip, if_true]
+    exact sum_lowOwnerGreatestOwnerFixedParentChild_energy_eq
+      hqPrime parent
+  · simp [hclip]
+
+/-- The exact multiplicity/`q^2` capacity itself contracts by one quarter of
+the selected reciprocal parent energy. -/
+theorem vfMidCompletedGateSelectedClippedReciprocalCapacity_le_quarter
+    {R p r : ℕ} {sig : Finset ℕ}
+    (hr : r.Prime) :
+    vfMidCompletedGateSelectedClippedReciprocalCapacity R p sig r ≤
+      (1 / 4 : ℝ) *
+        vfMidCompletedGateSelectedParentEnergy R p sig r := by
+  rw [← vfMidCompletedGateSelectedClippedOutgoingEnergy_eq_reciprocalCapacity]
+  exact vfMidSelectedClippedOutgoingEnergy_le_quarter
+    (R := R) (first := r) hr
+    (lowOwnerFirstOwnerActiveCompletedPolarizationRawParentSet R p sig r)
+    (lowOwnerThresholdEulerPairCoefficient R p r)
+
 end RHLean.Analysis
