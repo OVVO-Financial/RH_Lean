@@ -143,6 +143,91 @@ def vfMidOneBlockCompleteAffinePairLedger (R : ℕ) : ℝ :=
     vfMidOneBlockProcessedSurvivorPairMass R +
     vfMidOneBlockProcessedProcessedPairMass R
 
+/-- Survivor x processed-owner sector after literal processed-site decompression. -/
+def vfMidOneBlockSurvivorProcessedPhysicalPairMass (R : ℕ) : ℝ :=
+  ∑ n ∈ vfMidSquarePrefixWheelSurvivors R R,
+    ∑ p ∈ vfMidFrozenProcessedOwnerPrimes R R,
+      ∑ m ∈ vfMidSquareBandCompositeOwner R p,
+        vfMidOddSignedSeatCharge R n * vfMidOddSignedSeatCharge R m
+
+/-- Processed-owner x survivor sector after literal processed-site decompression. -/
+def vfMidOneBlockProcessedSurvivorPhysicalPairMass (R : ℕ) : ℝ :=
+  ∑ p ∈ vfMidFrozenProcessedOwnerPrimes R R,
+    ∑ n ∈ vfMidSquareBandCompositeOwner R p,
+      ∑ m ∈ vfMidSquarePrefixWheelSurvivors R R,
+        vfMidOddSignedSeatCharge R n * vfMidOddSignedSeatCharge R m
+
+/-- Processed-owner x processed-owner sector with both physical site and owner
+labels retained. -/
+def vfMidOneBlockProcessedProcessedPhysicalPairMass (R : ℕ) : ℝ :=
+  ∑ p ∈ vfMidFrozenProcessedOwnerPrimes R R,
+    ∑ n ∈ vfMidSquareBandCompositeOwner R p,
+      ∑ q ∈ vfMidFrozenProcessedOwnerPrimes R R,
+        ∑ m ∈ vfMidSquareBandCompositeOwner R q,
+          vfMidOddSignedSeatCharge R n * vfMidOddSignedSeatCharge R m
+
+/-- Fully decompressed current-current physical pair ledger. -/
+def vfMidOneBlockDecompressedAffinePairLedger (R : ℕ) : ℝ :=
+  vfMidOneBlockSurvivorSurvivorPairMass R +
+    vfMidOneBlockSurvivorProcessedPhysicalPairMass R +
+    vfMidOneBlockProcessedSurvivorPhysicalPairMass R +
+    vfMidOneBlockProcessedProcessedPhysicalPairMass R
+
+theorem vfMidOneBlockSurvivorProcessedPairMass_eq_physical
+    (R : ℕ) :
+    vfMidOneBlockSurvivorProcessedPairMass R =
+      vfMidOneBlockSurvivorProcessedPhysicalPairMass R := by
+  unfold vfMidOneBlockSurvivorProcessedPairMass
+    vfMidOneBlockSurvivorProcessedPhysicalPairMass
+  apply Finset.sum_congr rfl
+  intro n _hn
+  apply Finset.sum_congr rfl
+  intro p _hp
+  rw [vfMidOneBlockProcessedOwnerAtom_eq_siteSum, Finset.mul_sum]
+
+theorem vfMidOneBlockProcessedSurvivorPairMass_eq_physical
+    (R : ℕ) :
+    vfMidOneBlockProcessedSurvivorPairMass R =
+      vfMidOneBlockProcessedSurvivorPhysicalPairMass R := by
+  unfold vfMidOneBlockProcessedSurvivorPairMass
+    vfMidOneBlockProcessedSurvivorPhysicalPairMass
+  apply Finset.sum_congr rfl
+  intro p _hp
+  rw [vfMidOneBlockProcessedOwnerAtom_eq_siteSum, Finset.sum_mul]
+  apply Finset.sum_congr rfl
+  intro n _hn
+  rfl
+
+theorem vfMidOneBlockProcessedProcessedPairMass_eq_physical
+    (R : ℕ) :
+    vfMidOneBlockProcessedProcessedPairMass R =
+      vfMidOneBlockProcessedProcessedPhysicalPairMass R := by
+  unfold vfMidOneBlockProcessedProcessedPairMass
+    vfMidOneBlockProcessedProcessedPhysicalPairMass
+  apply Finset.sum_congr rfl
+  intro p _hp
+  rw [vfMidOneBlockProcessedOwnerAtom_eq_siteSum, Finset.sum_mul]
+  apply Finset.sum_congr rfl
+  intro n _hn
+  apply Finset.sum_congr rfl
+  intro q _hq
+  rw [vfMidOneBlockProcessedOwnerAtom_eq_siteSum, Finset.mul_sum]
+
+/-- **Full physical-site decompression of the four-sector affine classifier.**
+
+Every processed cardinality atom has been expanded back to its literal
+least-prime-owned composite sites.  The equality is exact and precedes every
+inequality gate. -/
+theorem vfMidOneBlockCompleteAffinePairLedger_eq_decompressedPhysical
+    (R : ℕ) :
+    vfMidOneBlockCompleteAffinePairLedger R =
+      vfMidOneBlockDecompressedAffinePairLedger R := by
+  unfold vfMidOneBlockCompleteAffinePairLedger
+    vfMidOneBlockDecompressedAffinePairLedger
+  rw [vfMidOneBlockSurvivorProcessedPairMass_eq_physical,
+    vfMidOneBlockProcessedSurvivorPairMass_eq_physical,
+    vfMidOneBlockProcessedProcessedPairMass_eq_physical]
+
 theorem vfMidOneBlockSurvivorSurvivorPairMass_eq_sq
     (R : ℕ) :
     vfMidOneBlockSurvivorSurvivorPairMass R =
