@@ -403,7 +403,6 @@ theorem vfMidUnifiedPhysicalSeatGramBill_eq_oddLyapunovSeatGramBill
     vfMidOddCurrentSeatSelfGram_eq_bandError_sq R (by omega : 2 ≤ R),
     vfMidActualPrimeEndpointDefect_eq_squareEndpointError
       (R := 2) (by omega : 2 ≤ 2)]
-  ring
 
 /-- Direct combined form: the terminal correlation bill is exactly the literal
 native physical Lyapunov seat Gram before any contraction is applied. -/
