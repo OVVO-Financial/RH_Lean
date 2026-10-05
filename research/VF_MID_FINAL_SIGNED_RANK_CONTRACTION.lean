@@ -183,7 +183,7 @@ theorem vfMidRetainedAboveFirstClippedExitTreeEnergy_le_half_parent
       (R := R) hfirst depth parent coefficient
   have htree :=
     lowOwnerRetainedCoefficientAboveFirstTreeEnergy_le_two
-      hfirst depth parent coefficient
+      (R := R) hfirst depth parent coefficient
   have hscale : (0 : ℝ) ≤ 1 / 4 := by norm_num
   calc
     vfMidRetainedAboveFirstClippedExitTreeEnergy
