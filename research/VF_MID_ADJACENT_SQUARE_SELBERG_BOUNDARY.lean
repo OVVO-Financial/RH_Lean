@@ -166,7 +166,9 @@ theorem vfMidAdjacentSquareSecondSelbergFrontierSite_iff
           (n := (R + 1) ^ 2)
           (by positivity) le_rfl
       rw [hb, if_neg hb1, ha, hb, hmu0] at herr
-      norm_num at herr ⊢
+      norm_num at herr
+      intro hzero
+      rw [hmu0] at hzero
       omega
 
 /-- Finset form of the exact adjacent-square frontier collapse. -/
