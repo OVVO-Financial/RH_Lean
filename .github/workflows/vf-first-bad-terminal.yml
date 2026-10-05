@@ -9,6 +9,7 @@ on:
       - research/VF_MID_FULL_AFFINE_PAIR_CLASSIFIER.lean
       - research/VF_MID_FRACTIONAL_INCIDENCE_CAPACITY.lean
       - research/VF_MID_ADJACENT_SQUARE_SELBERG_BOUNDARY.lean
+      - research/VF_MID_ONE_BLOCK_SOURCE_TO_RANK_INLET.lean
       - .github/workflows/vf-first-bad-terminal.yml
   workflow_dispatch:
 
