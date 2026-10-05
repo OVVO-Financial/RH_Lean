@@ -295,6 +295,34 @@ theorem vfMidTwoSectorOwnerCharge_energyStep_succ_eq_correlation
     (by omega : 2 ≤ R)]
   exact henergy.symm.trans hcorr
 
+/-- **Unified pre-inequality affine pair transport.**
+
+The complete first-bad quadratic bill is now written on the four-sector #888
+pair ledger before any inequality is introduced.  In particular the
+survivor/processed cross terms are not discarded or bounded separately. -/
+theorem vfMidCorrelationEnergy_eq_completeAffinePairLedger_sub_anchor
+    {R : ℕ} (hR : 3 ≤ R) :
+    2 * vfMidSquareEndpointAccumulationCorrelation R +
+        vfMidSquareBandError R ^ 2 =
+      vfMidOneBlockCompleteAffinePairLedger R -
+        2 * vfMidActualPrimeEndpointDefect R *
+          (vfMidDyadicFrozenSurvivorSeatCharge R (R + 1) +
+            vfMidDyadicProcessedOwnerSeatCharge R (R + 1)) := by
+  calc
+    2 * vfMidSquareEndpointAccumulationCorrelation R +
+        vfMidSquareBandError R ^ 2 =
+      (vfMidDyadicFrozenSurvivorSeatCharge R (R + 1) +
+          vfMidDyadicProcessedOwnerSeatCharge R (R + 1)) ^ 2 -
+        2 * vfMidActualPrimeEndpointDefect R *
+          (vfMidDyadicFrozenSurvivorSeatCharge R (R + 1) +
+            vfMidDyadicProcessedOwnerSeatCharge R (R + 1)) :=
+      (vfMidTwoSectorOwnerCharge_energyStep_succ_eq_correlation hR).symm
+    _ = vfMidOneBlockCompleteAffinePairLedger R -
+        2 * vfMidActualPrimeEndpointDefect R *
+          (vfMidDyadicFrozenSurvivorSeatCharge R (R + 1) +
+            vfMidDyadicProcessedOwnerSeatCharge R (R + 1)) := by
+      rw [← vfMidOneBlockCompleteAffinePairLedger_eq_twoSector_sq R]
+
 /-- **Direct first-bad energy trigger on one square block.**
 
 This is the terminal lower bound with every bookkeeping coordinate eliminated:
