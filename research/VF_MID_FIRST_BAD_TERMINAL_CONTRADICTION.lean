@@ -1,5 +1,5 @@
 import Mathlib
-import «research.VF_MID_FIRST_BAD_AFFINE_OWNER_SPLICE»
+import «research.VF_MID_FULL_AFFINE_PAIR_CLASSIFIER»
 
 /-!
 # Terminal first-bad contradiction splice
