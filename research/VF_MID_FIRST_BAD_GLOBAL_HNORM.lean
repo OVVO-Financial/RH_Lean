@@ -4,6 +4,7 @@ import «research.VF_MID_GLOBAL_FIRST_BAD_RADIAL_BUDGET»
 import «research.GLOBAL_RETURNED_CORE_GLOBAL_DESCENDING_SITE_FUBINI»
 import «research.GLOBAL_RETURNED_CORE_FIRST_OWNER_ARBITRARY_SITE_CELLS»
 import «research.GLOBAL_RETURNED_CORE_OWNER_TWO_CLIPPED_EXIT»
+import «research.GLOBAL_RETURNED_CORE_VIRTUAL_OWNER_HALF_GATE»
 
 /-!
 # Final first-bad global hnorm splice
@@ -813,6 +814,36 @@ theorem vfMidScaledCompletedGateClippedExitTreeEnergy_le_half_pmDegreeTwo
       hr depth parent
         (scale parent *
           lowOwnerThresholdEulerPairCoefficient R p r parent)
+
+
+/-- **Affine-scale stable whole-cell half gate.**
+
+The signed first-owner telescope may be multiplied by an arbitrary retained
+affine scalar before the half-square inequality is fired.  The scalar is
+quarantined outside the unscaled Dirichlet cell, so the compiled virtual-owner
+half gate applies without identifying the affine coefficient with any native
+Dirichlet weight. -/
+theorem vfMidScaledFirstOwnerSignedCellTelescope_le_half_dirichletIncidence_sq
+    {R p : ℕ} {sig : Finset ℕ}
+    (hp : p.Prime) (scale : ℝ) :
+    scale ^ 2 * lowOwnerFirstOwnerSignedCellTelescope R p sig ≤
+      (1 / 2 : ℝ) *
+        (scale * lowOwnerFirstOwnerDirichletIncidenceAmplitude R p sig) ^ 2 := by
+  have hcore :=
+    lowOwnerFirstOwnerSignedCellTelescope_le_half_dirichletIncidence_sq
+      (R := R) (p := p) (sig := sig) hp
+  have hscale : 0 ≤ scale ^ 2 := sq_nonneg scale
+  have hscaled :=
+    mul_le_mul_of_nonneg_left hcore hscale
+  calc
+    scale ^ 2 * lowOwnerFirstOwnerSignedCellTelescope R p sig ≤
+        scale ^ 2 *
+          ((1 / 2 : ℝ) *
+            lowOwnerFirstOwnerDirichletIncidenceAmplitude R p sig ^ 2) :=
+      hscaled
+    _ = (1 / 2 : ℝ) *
+        (scale * lowOwnerFirstOwnerDirichletIncidenceAmplitude R p sig) ^ 2 := by
+      ring
 
 
 /-! ## Upper active denominator is a literal submass of #897 -/
