@@ -543,4 +543,112 @@ theorem vfMidScaledCompletedGateClippedExitTreeEnergy_le_half_pmDegreeTwo
           lowOwnerThresholdEulerPairCoefficient R p r parent)
 
 
+/-! ## Upper active denominator is a literal submass of #897 -/
+
+/-- Every upper-branch active physical site is one of the original odd
+candidate seats.  Prime sites are the prime filter of that carrier; processed
+squarefree composites have least owner strictly above the parity owner 2 and
+therefore survive the parity prefix. -/
+theorem vfMidOneBlockActivePhysicalCarrier_subset_oddCandidates
+    {R : ℕ} (hR : 3 ≤ R) :
+    vfMidOneBlockActivePhysicalCarrier R ⊆ vfMidOddCandidateSeats R := by
+  intro n hn
+  unfold vfMidOneBlockActivePhysicalCarrier at hn
+  rcases Finset.mem_union.mp hn with hnPrime | hnProcessed
+  · have hfilter :
+        n ∈ (vfMidOddCandidateSeats R).filter Nat.Prime := by
+      rw [vfMidOddCandidateSeats_filter_prime R (by omega : 2 ≤ R)]
+      exact hnPrime
+    exact (Finset.mem_filter.mp hfilter).1
+  · rcases Finset.mem_biUnion.mp hnProcessed with ⟨p, hp, hnSq⟩
+    have hnOwner : n ∈ vfMidSquareBandCompositeOwner R p :=
+      (Finset.mem_filter.mp hnSq).1
+    have hnComp : n ∈ vfMidSquareBandComposites R :=
+      (Finset.mem_filter.mp hnOwner).1
+    have hmin : n.minFac = p :=
+      (Finset.mem_filter.mp hnOwner).2
+    have hpLate : p ∈ vfMidSquareBandLateOwnerPrimes 2 R := by
+      rw [← vfMidFrozenProcessedOwnerPrimes_self_eq_allOddOwners R]
+      exact hp
+    have hpGt : 2 < p :=
+      (mem_vfMidSquareBandLateOwnerPrimes.mp hpLate).2
+    have hsurv : lowWheelHighSurvivor 2 n := by
+      apply (vfMidSquareBandComposite_survives_prefix_iff_minFac_gt
+        (z := 2) (R := R) (n := n) (by omega : 2 ≤ R) hnComp).2
+      simpa [hmin] using hpGt
+    unfold vfMidOddCandidateSeats vfMidSquarePrefixWheelSurvivors
+    apply Finset.mem_filter.mpr
+    constructor
+    · have hsite : n ∈ vfMidSquareBandSites R :=
+        (Finset.mem_filter.mp hnComp).1
+      simpa [vfMidSquareBandSites, vfMidSquareWheelSites] using hsite
+    · exact hsurv
+
+/-- Absolute mass carried by the upper active squarefree source. -/
+def vfMidOneBlockUpperActiveAbsMass (R : ℕ) : ℝ :=
+  ∑ n ∈ vfMidOneBlockActivePhysicalCarrier R,
+    |vfMidOddSignedSeatCharge R n|
+
+@[simp] theorem vfMidOneBlockUpperActiveAbsMass_nonneg
+    (R : ℕ) :
+    0 ≤ vfMidOneBlockUpperActiveAbsMass R := by
+  unfold vfMidOneBlockUpperActiveAbsMass
+  positivity
+
+/-- The upper active absolute mass is bounded by the complete #897 odd-seat
+absolute mass simply because its carrier is a subset. -/
+theorem vfMidOneBlockUpperActiveAbsMass_le_full
+    {R : ℕ} (hR : 3 ≤ R) :
+    vfMidOneBlockUpperActiveAbsMass R ≤
+      ∑ n ∈ vfMidOddCandidateSeats R,
+        |vfMidOddSignedSeatCharge R n| := by
+  unfold vfMidOneBlockUpperActiveAbsMass
+  exact Finset.sum_le_sum_of_subset_of_nonneg
+    (vfMidOneBlockActivePhysicalCarrier_subset_oddCandidates hR)
+    (fun _n _hn _hnot => abs_nonneg _)
+
+/-- The anchored upper active denominator is a literal sub-denominator of the
+full #897 anchored PM denominator. -/
+theorem vfMidUpperActiveAnchoredAbsMass_sq_le_firstBadTotalMass
+    {R : ℕ} (hR : 3 ≤ R) :
+    (|vfMidActualPrimeEndpointDefect R| +
+        vfMidOneBlockUpperActiveAbsMass R) ^ 2 ≤
+      vfMidFirstBadZeroTargetTotalMass R := by
+  rw [vfMidFirstBadZeroTargetTotalMass_eq]
+  have hactive := vfMidOneBlockUpperActiveAbsMass_le_full hR
+  have hleft0 :
+      0 ≤ |vfMidActualPrimeEndpointDefect R| +
+        vfMidOneBlockUpperActiveAbsMass R := by positivity
+  have hright0 :
+      0 ≤ |vfMidActualPrimeEndpointDefect R| +
+        ∑ n ∈ vfMidOddCandidateSeats R,
+          |vfMidOddSignedSeatCharge R n| := by positivity
+  nlinarith
+
+/-- **Upper-branch reduction to one normalized owner-tree inequality.**
+
+If the complete anchored upper square is at most one half of its own literal
+absolute-mass square, then the actual #897 normalized numerator is at most one
+half of the full #897 denominator.  The omitted squareful absolute mass can
+only enlarge that denominator. -/
+theorem vfMidFirstBadNormalizedProduct_le_half_total_of_upperActiveHalf
+    {R : ℕ} (hR : 3 ≤ R)
+    (hB : 0 ≤ vfMidActualPrimeEndpointDefect (R + 1))
+    (hhalf :
+      vfMidUpperFirstBadSourceBill R +
+          vfMidActualPrimeEndpointDefect R ^ 2 ≤
+        (1 / 2 : ℝ) *
+          (|vfMidActualPrimeEndpointDefect R| +
+            vfMidOneBlockUpperActiveAbsMass R) ^ 2) :
+    vfMidFirstBadNNSNormalizedCovariance R *
+        vfMidFirstBadZeroTargetTotalMass R ≤
+      (1 / 2 : ℝ) * vfMidFirstBadZeroTargetTotalMass R := by
+  have hsource :=
+    vfMidFirstBadNormalizedProduct_le_upperActive_add_anchorSq_of_endpoint_nonneg
+      hR hB
+  have hden :=
+    vfMidUpperActiveAnchoredAbsMass_sq_le_firstBadTotalMass hR
+  nlinarith
+
+
 end RHLean.Analysis
