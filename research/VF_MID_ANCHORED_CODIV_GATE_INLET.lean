@@ -72,7 +72,6 @@ theorem vfMidFirstBadAnchoredPartialExcess_eq_active_add_squareful_add_anchorSq
         vfMidActualPrimeEndpointDefect R ^ 2 := by
   rw [vfMidFirstBadAnchoredPartialExcess_eq_childDecompressed_add_anchorSq hR]
   rw [vfMidOneBlockUnifiedChildDecompressedLedger_eq_active_add_squarefulDescendant hR]
-  ring
 
 /-- **Normalized global anchored numerator in the same inlet currency.**
 
