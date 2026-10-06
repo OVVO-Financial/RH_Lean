@@ -56,7 +56,6 @@ theorem sum_lowOwnerGlobalOffDiagonal_eq_firstOwnerFibersWith
   rw [← lowOwnerGlobalFirstOwnerPairFiber_biUnion R]
   rw [Finset.sum_biUnion
     (lowOwnerGlobalFirstOwnerPairFiber_pairwiseDisjoint R)]
-  rfl
 
 /-- Off-diagonal co-partial mass is exactly the disjoint sum of its least-owner
 fibres. -/
@@ -205,7 +204,7 @@ theorem zeroTargetTotalGram_lowOwner_eq_diagonal_add_firstOwners
             lowOwnerGlobalFirstOwnerDivergentMassWith R p v) := by
   rw [zeroTargetCoPartialGram_lowOwner_eq_diagonal_add_firstOwners,
     zeroTargetDivergentGram_lowOwner_eq_sum_firstOwners,
-    ← Finset.sum_add_distrib]
+    Finset.sum_add_distrib]
   ring
 
 end RHLean.Proof
