@@ -57,7 +57,6 @@ theorem zeroTargetNormalizedDegreeOne_eq_degreeTwo_of_eqAbs
       rw [hfzero x hx]
       norm_num
     rw [hsumF, hsumAbs, hsumSignedSq, hsumSq]
-    norm_num
   · have hcardNat : s.card ≠ 0 := Finset.card_ne_zero.mpr hsne
     have hcard : (s.card : ℝ) ≠ 0 := by
       exact_mod_cast hcardNat
@@ -93,8 +92,7 @@ theorem zeroTargetNormalizedDegreeOne_eq_degreeTwo_of_eqAbs
               rw [habs x hx]
         _ = (s.card : ℝ) * c ^ 2 := by
               rw [Finset.sum_const, nsmul_eq_mul]
-  rw [hsumAbs, hsumSignedSq, hsumSq]
-  field_simp [hc, hcard]
-  ring
+    rw [hsumAbs, hsumSignedSq, hsumSq]
+    field_simp [hc, hcard] <;> ring
 
 end RHLean.Analysis
