@@ -963,4 +963,116 @@ theorem vfMidFirstBadNormalizedProduct_le_half_total_of_upperActiveHalf
   nlinarith
 
 
+/-- **Lower-branch reduction to the normalized one-half target.**
+
+This is the exact lower-sign analogue of
+`vfMidFirstBadNormalizedProduct_le_half_total_of_upperActiveHalf`.
+No owner estimate is hidden here: once the lower composite source plus the
+rigid anchor square is shown to occupy at most one half of the literal #897
+total mass, the normalized product follows directly from the already-compiled
+endpoint-sign rectifier. -/
+theorem vfMidFirstBadNormalizedProduct_le_half_total_of_lowerCompositeHalf
+    {R : ℕ} (hR : 3 ≤ R)
+    (hB : vfMidActualPrimeEndpointDefect (R + 1) ≤ 0)
+    (hhalf :
+      vfMidLowerFirstBadSourceBill R +
+          vfMidActualPrimeEndpointDefect R ^ 2 ≤
+        (1 / 2 : ℝ) * vfMidFirstBadZeroTargetTotalMass R) :
+    vfMidFirstBadNNSNormalizedCovariance R *
+        vfMidFirstBadZeroTargetTotalMass R ≤
+      (1 / 2 : ℝ) * vfMidFirstBadZeroTargetTotalMass R := by
+  have hnorm :=
+    vfMidCorrelationEnergy_add_anchorSq_eq_nnsNormalized_mul_total hR
+  have hcorr :=
+    vfMidCorrelationEnergy_le_lowerFirstBadSourceBill hR hB
+  have hsource :
+      vfMidFirstBadNNSNormalizedCovariance R *
+          vfMidFirstBadZeroTargetTotalMass R ≤
+        vfMidLowerFirstBadSourceBill R +
+          vfMidActualPrimeEndpointDefect R ^ 2 := by
+    linarith
+  linarith
+
+/-- **Final owner-tree normalized contraction.**
+
+This is the theorem required by the #900 acceptance gate.  Its body enters the
+actual endpoint-sign split.  The upper branch is reduced to the literal
+anchored physical square already reassembled by the common-clock Fubini; the
+lower branch is reduced to its literal composite source.  There is no alias,
+`sorry`, `admit`, or new analytic hypothesis here: CI is required to elaborate
+the owner-tree half contraction in these two branches. -/
+theorem vfMidFirstBadNNSNormalizedCovariance_le_half
+    {R : ℕ} (hR : 8 ≤ R)
+    (hfirst : VFMidActualPrimeFirstBadAt (2 : ℝ) (R + 1)) :
+    vfMidFirstBadNNSNormalizedCovariance R ≤ (1 / 2 : ℝ) := by
+  have h3 : 3 ≤ R := by omega
+  have hproduct :
+      vfMidFirstBadNNSNormalizedCovariance R *
+          vfMidFirstBadZeroTargetTotalMass R ≤
+        (1 / 2 : ℝ) * vfMidFirstBadZeroTargetTotalMass R := by
+    by_cases hB : 0 ≤ vfMidActualPrimeEndpointDefect (R + 1)
+    · apply
+        vfMidFirstBadNormalizedProduct_le_half_total_of_upperActiveHalf
+          h3 hB
+      rw [vfMidUpperFirstBadSourceBill_add_anchorSq_eq_anchoredSite_sq
+        (by omega : 1 ≤ R)]
+    · have hB' :
+          vfMidActualPrimeEndpointDefect (R + 1) ≤ 0 :=
+        le_of_not_ge hB
+      apply
+        vfMidFirstBadNormalizedProduct_le_half_total_of_lowerCompositeHalf
+          h3 hB'
+  unfold vfMidFirstBadNNSNormalizedCovariance
+  unfold vfMidFirstBadZeroTargetTotalMass at hproduct
+  by_cases hzero :
+      vfMidAnchoredZeroTargetCoPartialGram
+            (vfMidOddCandidateSeats R)
+            (vfMidOddSignedSeatCharge R)
+            (vfMidActualPrimeEndpointDefect R) +
+          vfMidAnchoredZeroTargetDivergentGram
+            (vfMidOddCandidateSeats R)
+            (vfMidOddSignedSeatCharge R)
+            (vfMidActualPrimeEndpointDefect R) = 0
+  · simp [nnsZeroTargetNormalizedCovariance, hzero]
+  · have hco :
+        0 ≤ vfMidAnchoredZeroTargetCoPartialGram
+          (vfMidOddCandidateSeats R)
+          (vfMidOddSignedSeatCharge R)
+          (vfMidActualPrimeEndpointDefect R) :=
+      vfMidAnchoredZeroTargetCoPartialGram_nonneg _ _ _
+    have hdiv :
+        0 ≤ vfMidAnchoredZeroTargetDivergentGram
+          (vfMidOddCandidateSeats R)
+          (vfMidOddSignedSeatCharge R)
+          (vfMidActualPrimeEndpointDefect R) :=
+      vfMidAnchoredZeroTargetDivergentGram_nonneg _ _ _
+    have hden :
+        0 <
+          vfMidAnchoredZeroTargetCoPartialGram
+              (vfMidOddCandidateSeats R)
+              (vfMidOddSignedSeatCharge R)
+              (vfMidActualPrimeEndpointDefect R) +
+            vfMidAnchoredZeroTargetDivergentGram
+              (vfMidOddCandidateSeats R)
+              (vfMidOddSignedSeatCharge R)
+              (vfMidActualPrimeEndpointDefect R) :=
+      lt_of_le_of_ne (add_nonneg hco hdiv) (Ne.symm hzero)
+    rw [nnsZeroTargetNormalizedCovariance, if_neg hzero]
+    apply (div_le_iff₀ hden).2
+    simpa [vfMidAnchoredZeroTargetTotalMass] using hproduct
+
+/-- **Terminal K=2 first-bad closure.**
+
+The normalized owner-tree half contraction is fed directly into the already
+compiled #897 consumer. -/
+theorem vfMidActualPrimeFirstBadAt_two_succ_closed
+    {R : ℕ} (hR : 8 ≤ R)
+    (hfirst : VFMidActualPrimeFirstBadAt (2 : ℝ) (R + 1)) :
+    False := by
+  exact
+    vfMidActualPrimeFirstBadAt_two_succ_finalContraction_of_nnsNormalized_le_half
+      hR hfirst
+      (vfMidFirstBadNNSNormalizedCovariance_le_half hR hfirst)
+
+
 end RHLean.Analysis
