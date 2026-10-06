@@ -86,3 +86,13 @@ jobs:
           python3 scripts/compile_research_import_closure.py research/VF_MID_GLOBAL_COMPLETED_GATE_PM_BUDGET.lean
           python3 scripts/compile_research_import_closure.py research/VF_MID_ANCHORED_CODIV_GATE_INLET.lean
           python3 scripts/compile_research_import_closure.py research/VF_MID_FIRST_BAD_GLOBAL_HNORM.lean
+      - name: Require final hnorm and contradiction theorems
+        run: |
+          cat > /tmp/VF_MID_FIRST_BAD_GLOBAL_HNORM_ACCEPTANCE.lean <<'EOF'
+          import «research.VF_MID_FIRST_BAD_GLOBAL_HNORM»
+          #check RHLean.Analysis.vfMidFirstBadNNSNormalizedCovariance_le_half
+          #check RHLean.Analysis.vfMidActualPrimeFirstBadAt_two_succ_closed
+          #print axioms RHLean.Analysis.vfMidFirstBadNNSNormalizedCovariance_le_half
+          #print axioms RHLean.Analysis.vfMidActualPrimeFirstBadAt_two_succ_closed
+          EOF
+          lake env lean -DwarningAsError=true /tmp/VF_MID_FIRST_BAD_GLOBAL_HNORM_ACCEPTANCE.lean
