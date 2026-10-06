@@ -808,7 +808,7 @@ theorem vfMidFirstOwnerCellGramWith_eq_base_mul_child
   unfold lowOwnerFirstOwnerCellGramWith
     vfMidFirstOwnerCellBaseAmplitudeWith
     vfMidFirstOwnerCellChildAmplitudeWith
-  rw [Finset.sum_product, Finset.sum_mul]
+  rw [Finset.product_eq_sprod, Finset.sum_product, Finset.sum_mul]
   apply Finset.sum_congr rfl
   intro a _ha
   rw [Finset.mul_sum]

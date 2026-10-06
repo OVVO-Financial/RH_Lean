@@ -94,7 +94,7 @@ theorem vfMidActualPrimeFirstBadAt_two_succ_nnsNormalized_gt_half
     norm_num at hprod
   · have htotalPos : 0 < vfMidFirstBadZeroTargetTotalMass R :=
       lt_of_le_of_ne htotal0 (Ne.symm htotalZero)
-    exact (mul_lt_mul_right htotalPos).mp (by
+    exact (mul_lt_mul_iff_left₀ htotalPos).mp (by
       simpa [mul_assoc] using hprod)
 
 /-- Deterministic affine center of one VF odd-seat field. -/
@@ -139,7 +139,6 @@ theorem vfMidOddSignedSeatCharge_eq_affineCenter_add_half_moebius_of_cube
       realMoebiusStep, hmu]
     unfold vfMidCubeSeatAffineCenter
     norm_num
-    ring
 
 /-- The centered VF seat field is literally one half of the physical Mobius
 field on the same cubic-depth survivor carrier. -/
@@ -247,7 +246,7 @@ half-excess must occur in the designated recursive subcarrier. -/
 theorem exists_recursive_half_excess_of_sum_gt_half
     {ι : Type*} [DecidableEq ι]
     (s recursive : Finset ι) (num den : ι → ℝ)
-    (hrecursive : recursive ⊆ s)
+    (_hrecursive : recursive ⊆ s)
     (hstopped :
       ∀ i ∈ s, i ∉ recursive →
         num i ≤ (1 / 2 : ℝ) * den i)
