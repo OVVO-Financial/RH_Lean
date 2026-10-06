@@ -846,6 +846,56 @@ theorem vfMidScaledFirstOwnerSignedCellTelescope_le_half_dirichletIncidence_sq
       ring
 
 
+
+
+/-! ## Arbitrary-site first-owner half gate -/
+
+/-- p-free branch amplitude of an arbitrary signed site on one first-owner
+signature cell.  Keeping the actual site here avoids any assumption that an
+affine VF coefficient is constant across the cell. -/
+def vfMidFirstOwnerCellBaseAmplitudeWith
+    (R p : ℕ) (sig : Finset ℕ) (v : ℕ → ℝ) : ℝ :=
+  ∑ a ∈ lowOwnerFirstOwnerBaseFiber R p sig, v a
+
+/-- p-divisible branch amplitude of the same arbitrary signed site. -/
+def vfMidFirstOwnerCellChildAmplitudeWith
+    (R p : ℕ) (sig : Finset ℕ) (v : ℕ → ℝ) : ℝ :=
+  ∑ b ∈ lowOwnerFirstOwnerChildFiber R p sig, v b
+
+/-- Exact factorization of the arbitrary-site oriented cell Gram. -/
+theorem vfMidFirstOwnerCellGramWith_eq_base_mul_child
+    (R p : ℕ) (sig : Finset ℕ) (v : ℕ → ℝ) :
+    lowOwnerFirstOwnerCellGramWith R p sig v =
+      vfMidFirstOwnerCellBaseAmplitudeWith R p sig v *
+        vfMidFirstOwnerCellChildAmplitudeWith R p sig v := by
+  unfold lowOwnerFirstOwnerCellGramWith
+    vfMidFirstOwnerCellBaseAmplitudeWith
+    vfMidFirstOwnerCellChildAmplitudeWith
+  simpa only using
+    (Finset.sum_product
+      (s := lowOwnerFirstOwnerBaseFiber R p sig)
+      (t := lowOwnerFirstOwnerChildFiber R p sig)
+      (f := fun ab : ℕ × ℕ => v ab.1 * v ab.2))
+
+/-- **Weight-preserving arbitrary-site half gate.**
+
+No native Dirichlet weight and no common affine scalar is required.  The
+actual weighted p-free and p-divisible branch amplitudes are inserted directly
+into the elementary polarization identity
+  2 B J <= 1/2 (B + J)^2.
+Hence every site-dependent VF coefficient remains inside its physical branch
+sum until after the inequality fires. -/
+theorem vfMidFirstOwnerCellGramWith_le_half_branchSum_sq
+    (R p : ℕ) (sig : Finset ℕ) (v : ℕ → ℝ) :
+    2 * lowOwnerFirstOwnerCellGramWith R p sig v ≤
+      (1 / 2 : ℝ) *
+        (vfMidFirstOwnerCellBaseAmplitudeWith R p sig v +
+          vfMidFirstOwnerCellChildAmplitudeWith R p sig v) ^ 2 := by
+  rw [vfMidFirstOwnerCellGramWith_eq_base_mul_child]
+  nlinarith [sq_nonneg
+    (vfMidFirstOwnerCellBaseAmplitudeWith R p sig v -
+      vfMidFirstOwnerCellChildAmplitudeWith R p sig v)]
+
 /-! ## Upper active denominator is a literal submass of #897 -/
 
 /-- Every upper-branch active physical site is one of the original odd
@@ -1023,6 +1073,7 @@ theorem vfMidFirstBadNNSNormalizedCovariance_le_half
         vfMidFirstBadNormalizedProduct_le_half_total_of_lowerCompositeHalf
           h3 hB'
   unfold vfMidFirstBadNNSNormalizedCovariance
+  unfold vfMidAnchoredZeroTargetNNSNormalizedCovariance
   unfold vfMidFirstBadZeroTargetTotalMass at hproduct
   by_cases hzero :
       vfMidAnchoredZeroTargetCoPartialGram
@@ -1033,7 +1084,9 @@ theorem vfMidFirstBadNNSNormalizedCovariance_le_half
             (vfMidOddCandidateSeats R)
             (vfMidOddSignedSeatCharge R)
             (vfMidActualPrimeEndpointDefect R) = 0
-  · simp [nnsZeroTargetNormalizedCovariance, hzero]
+  · unfold nnsZeroTargetNormalizedCovariance
+    rw [if_pos hzero]
+    norm_num
   · have hco :
         0 ≤ vfMidAnchoredZeroTargetCoPartialGram
           (vfMidOddCandidateSeats R)
@@ -1057,7 +1110,8 @@ theorem vfMidFirstBadNNSNormalizedCovariance_le_half
               (vfMidOddSignedSeatCharge R)
               (vfMidActualPrimeEndpointDefect R) :=
       lt_of_le_of_ne (add_nonneg hco hdiv) (Ne.symm hzero)
-    rw [nnsZeroTargetNormalizedCovariance, if_neg hzero]
+    unfold nnsZeroTargetNormalizedCovariance
+    rw [if_neg hzero]
     apply (div_le_iff₀ hden).2
     simpa [vfMidAnchoredZeroTargetTotalMass] using hproduct
 
