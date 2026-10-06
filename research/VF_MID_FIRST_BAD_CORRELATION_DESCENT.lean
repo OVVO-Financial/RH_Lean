@@ -179,6 +179,46 @@ theorem exists_half_excess_of_sum_gt_half
   rw [hfactor] at hle
   linarith
 
+/-- If every stopped component is already below the half gate, a global strict
+half-excess must occur in the designated recursive subcarrier. -/
+theorem exists_recursive_half_excess_of_sum_gt_half
+    {ι : Type*} [DecidableEq ι]
+    (s recursive : Finset ι) (num den : ι → ℝ)
+    (hrecursive : recursive ⊆ s)
+    (hstopped :
+      ∀ i ∈ s, i ∉ recursive →
+        num i ≤ (1 / 2 : ℝ) * den i)
+    (h :
+      (1 / 2 : ℝ) * (∑ i ∈ s, den i) <
+        ∑ i ∈ s, num i) :
+    ∃ i ∈ recursive, (1 / 2 : ℝ) * den i < num i := by
+  obtain ⟨i, hi, hihalf⟩ :=
+    exists_half_excess_of_sum_gt_half s num den h
+  by_cases hir : i ∈ recursive
+  · exact ⟨i, hir, hihalf⟩
+  · have hstop := hstopped i hi hir
+    linarith
+
+/-- **Well-founded half-excess kill switch.**
+
+A bad state cannot exist if every bad state selects another bad state of
+strictly smaller natural-number rank.  This is the pure logical endgame of the
+owner descent; all arithmetic content belongs in the selector theorem. -/
+theorem no_bad_of_strict_rank_descent
+    {ι : Type*}
+    (rank : ι → ℕ) (bad : ι → Prop)
+    (hdesc :
+      ∀ x : ι, bad x →
+        ∃ y : ι, rank y < rank x ∧ bad y) :
+    ∀ x : ι, ¬ bad x := by
+  intro x
+  induction hx : rank x using Nat.strong_induction_on generalizing x with
+  | h k ih =>
+      intro hbad
+      obtain ⟨y, hyrank, hybad⟩ := hdesc x hbad
+      have hylt : rank y < k := by simpa [hx] using hyrank
+      exact (ih (rank y) hylt y rfl) hybad
+
 /-- A nonpositive stopped sector with nonnegative denominator cannot be the
 strict half-excess selector. -/
 theorem not_half_excess_of_nonpos_of_den_nonneg
