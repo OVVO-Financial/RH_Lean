@@ -75,6 +75,10 @@ jobs:
             rhlean-build-${{ runner.os }}-
       - name: Compile affine-scaled first-owner half gate
         run: |
+          mkdir -p .lake/build/lib/lean
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.VF_MID_FIRST_BAD_GLOBAL_HNORM.olean \
+            research/VF_MID_FIRST_BAD_GLOBAL_HNORM.lean
           cat > /tmp/VF_MID_AFFINE_SCALE_HALF_GATE_ACCEPTANCE.lean <<'EOF'
           import «research.VF_MID_FIRST_BAD_GLOBAL_HNORM»
           #check RHLean.Analysis.vfMidScaledFirstOwnerSignedCellTelescope_le_half_dirichletIncidence_sq
