@@ -2,6 +2,7 @@ import Mathlib
 import «research.VF_MID_ANCHORED_CODIV_GATE_INLET»
 import «research.VF_MID_GLOBAL_FIRST_BAD_RADIAL_BUDGET»
 import «research.GLOBAL_RETURNED_CORE_GLOBAL_DESCENDING_SITE_FUBINI»
+import «research.GLOBAL_RETURNED_CORE_FIRST_OWNER_ARBITRARY_SITE_CELLS»
 
 /-!
 # Final first-bad global hnorm splice
@@ -388,6 +389,56 @@ theorem vfMidUpperFirstBadSourceBill_add_anchorSq_eq_diagonal_add_descendingCros
             (vfMidOneBlockAnchoredUpperPhysicalSite R) :=
           lowOwnerRevealedPairMassWith_empty_eq_diagonal_add_descendingCross
             (R + 1) (vfMidOneBlockAnchoredUpperPhysicalSite R)
+
+
+/-- **Anchored upper square in the exact raw-parent outer coordinates.**
+
+First split by the unique least fresh owner, then by the existing lower-prime
+signature cells.  The factor two is the two physical orientations of each
+p-free x p-divisible cell.  No child quotient, norm, or estimate appears. -/
+theorem vfMidUpperFirstBadSourceBill_add_anchorSq_eq_diagonal_add_firstOwnerCells
+    (R : ℕ) :
+    vfMidUpperFirstBadSourceBill R +
+        vfMidActualPrimeEndpointDefect R ^ 2 =
+      lowOwnerGlobalDiagonalPairMassWith (R + 1)
+          (vfMidOneBlockAnchoredUpperPhysicalSite R) +
+        ∑ p ∈ primesUpTo (squareRootEndpoint (R + 1)),
+          2 * ∑ sig ∈ lowOwnerFirstOwnerSignatureSet (R + 1) p,
+            lowOwnerFirstOwnerCellGramWith (R + 1) p sig
+              (vfMidOneBlockAnchoredUpperPhysicalSite R) := by
+  calc
+    vfMidUpperFirstBadSourceBill R +
+        vfMidActualPrimeEndpointDefect R ^ 2 =
+      (∑ n ∈ lowOwnerNonzeroMobiusCarrier (R + 1),
+        vfMidOneBlockAnchoredUpperPhysicalSite R n) ^ 2 :=
+          vfMidUpperFirstBadSourceBill_add_anchorSq_eq_anchoredSite_sq R
+    _ = lowOwnerRevealedPairMassWith (R + 1) ∅
+        (vfMidOneBlockAnchoredUpperPhysicalSite R) := by
+          symm
+          exact lowOwnerRevealedPairMassWith_empty_eq_sum_sq
+            (R + 1) (vfMidOneBlockAnchoredUpperPhysicalSite R)
+    _ = lowOwnerGlobalDiagonalPairMassWith (R + 1)
+          (vfMidOneBlockAnchoredUpperPhysicalSite R) +
+        ∑ p ∈ primesUpTo (squareRootEndpoint (R + 1)),
+          lowOwnerGlobalFirstOwnerPairMassWith (R + 1) p
+            (vfMidOneBlockAnchoredUpperPhysicalSite R) :=
+          lowOwnerRevealedPairMassWith_empty_eq_diagonal_add_firstOwners
+            (R + 1) (vfMidOneBlockAnchoredUpperPhysicalSite R)
+    _ = lowOwnerGlobalDiagonalPairMassWith (R + 1)
+          (vfMidOneBlockAnchoredUpperPhysicalSite R) +
+        ∑ p ∈ primesUpTo (squareRootEndpoint (R + 1)),
+          2 * ∑ sig ∈ lowOwnerFirstOwnerSignatureSet (R + 1) p,
+            lowOwnerFirstOwnerCellGramWith (R + 1) p sig
+              (vfMidOneBlockAnchoredUpperPhysicalSite R) := by
+          apply congrArg
+            (fun x : ℝ =>
+              lowOwnerGlobalDiagonalPairMassWith (R + 1)
+                (vfMidOneBlockAnchoredUpperPhysicalSite R) + x)
+          apply Finset.sum_congr rfl
+          intro p hpMem
+          exact lowOwnerGlobalFirstOwnerPairMassWith_eq_two_sum_cells
+            (mem_primesUpTo.mp hpMem).1
+            (vfMidOneBlockAnchoredUpperPhysicalSite R)
 
 
 end RHLean.Analysis
