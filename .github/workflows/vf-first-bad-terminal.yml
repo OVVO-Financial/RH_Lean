@@ -20,6 +20,7 @@ on:
       - research/VF_MID_GLOBAL_COMPLETED_GATE_PM_BUDGET.lean
       - research/VF_MID_ANCHORED_CODIV_GATE_INLET.lean
       - research/VF_MID_FIRST_BAD_RESTORING_DECOMPOSITION.lean
+      - research/VF_MID_FIRST_BAD_CORRELATION_DESCENT.lean
       - research/VF_MID_FIRST_BAD_GLOBAL_HNORM.lean
       - .github/workflows/vf-first-bad-terminal.yml
   workflow_dispatch:
@@ -85,6 +86,19 @@ jobs:
           #print axioms RHLean.Analysis.vfMidFirstBadLowerRestoringAnchorSlack_nonpos
           EOF
           lake env lean -DwarningAsError=true /tmp/VF_MID_FIRST_BAD_RESTORING_ACCEPTANCE.lean
+      - name: Compile finite first-bad correlation descent
+        run: |
+          python3 scripts/compile_research_import_closure.py research/VF_MID_FIRST_BAD_CORRELATION_DESCENT.lean
+          cat > /tmp/VF_MID_FIRST_BAD_CORRELATION_DESCENT_ACCEPTANCE.lean <<'EOF'
+          import «research.VF_MID_FIRST_BAD_CORRELATION_DESCENT»
+          #check RHLean.Analysis.vfMidCenteredSeatPair_eq_quarter_zeroTargetExcess_of_cube
+          #check RHLean.Analysis.descendingGreatestOwner_retained_zeroTargetExcess_flip
+          #check RHLean.Analysis.exists_recursive_half_excess_of_sum_gt_half
+          #check RHLean.Analysis.no_bad_of_strict_rank_descent
+          #print axioms RHLean.Analysis.vfMidCenteredSeatPair_eq_quarter_zeroTargetExcess_of_cube
+          #print axioms RHLean.Analysis.no_bad_of_strict_rank_descent
+          EOF
+          lake env lean -DwarningAsError=true /tmp/VF_MID_FIRST_BAD_CORRELATION_DESCENT_ACCEPTANCE.lean
       - name: Compile affine-scaled first-owner half gate
         run: |
           python3 scripts/compile_research_import_closure.py research/GLOBAL_RETURNED_CORE_VIRTUAL_OWNER_HALF_GATE.lean
