@@ -17,6 +17,7 @@ on:
       - research/VF_MID_OWNER_FIBER_DEGREE_NORMALIZATION.lean
       - research/NNS_ZERO_TARGET_FIRST_OWNER_CODIV_FUBINI.lean
       - research/VF_MID_COMPLETED_GATE_PM_DENOMINATOR.lean
+      - research/VF_MID_GLOBAL_COMPLETED_GATE_PM_BUDGET.lean
       - .github/workflows/vf-first-bad-terminal.yml
   workflow_dispatch:
 
@@ -80,3 +81,4 @@ jobs:
           python3 scripts/compile_research_import_closure.py research/VF_MID_OWNER_FIBER_DEGREE_NORMALIZATION.lean
           python3 scripts/compile_research_import_closure.py research/NNS_ZERO_TARGET_FIRST_OWNER_CODIV_FUBINI.lean
           python3 scripts/compile_research_import_closure.py research/VF_MID_COMPLETED_GATE_PM_DENOMINATOR.lean
+          python3 scripts/compile_research_import_closure.py research/VF_MID_GLOBAL_COMPLETED_GATE_PM_BUDGET.lean
