@@ -414,7 +414,7 @@ theorem vfMidOneBlockActiveSource_sq_eq_diagonal_add_descendingCross
 clock.  It is therefore a legal physical location for the rigid historical
 anchor; no new owner or synthetic carrier is introduced. -/
 theorem one_mem_lowOwnerNonzeroMobiusCarrier_succ
-    (R : ℕ) :
+    {R : ℕ} (hR : 1 ≤ R) :
     1 ∈ lowOwnerNonzeroMobiusCarrier (R + 1) := by
   unfold lowOwnerNonzeroMobiusCarrier
   apply Finset.mem_filter.mpr
@@ -423,7 +423,9 @@ theorem one_mem_lowOwnerNonzeroMobiusCarrier_succ
     constructor
     · norm_num
     · unfold squareRootEndpoint
-      omega
+      have hsq : 1 + 1 ≤ (R + 1) ^ 2 := by
+        nlinarith
+      exact Nat.le_sub_of_add_le hsq
   · unfold realMoebiusStep
     norm_num
 
@@ -564,7 +566,7 @@ theorem vfMidAnchoredUpperActivePair_eq_scaledDirichletPolarizationAtom
 
 /-- Anchor injection preserves the full affine amplitude exactly. -/
 theorem vfMidOneBlockAnchoredUpperPhysicalSite_sum_eq
-    (R : ℕ) :
+    {R : ℕ} (hR : 1 ≤ R) :
     (∑ n ∈ lowOwnerNonzeroMobiusCarrier (R + 1),
       vfMidOneBlockAnchoredUpperPhysicalSite R n) =
       vfMidOneBlockPrimeSeatCharge R +
@@ -573,7 +575,7 @@ theorem vfMidOneBlockAnchoredUpperPhysicalSite_sum_eq
   unfold vfMidOneBlockAnchoredUpperPhysicalSite
   rw [Finset.sum_add_distrib]
   rw [vfMidOneBlockActivePhysicalSite_sum_eq_activeSource (R := R)]
-  have h1 := one_mem_lowOwnerNonzeroMobiusCarrier_succ R
+  have h1 := one_mem_lowOwnerNonzeroMobiusCarrier_succ hR
   have hanchor :
       (∑ n ∈ lowOwnerNonzeroMobiusCarrier (R + 1),
         if n = 1 then -vfMidActualPrimeEndpointDefect R else 0) =
@@ -586,12 +588,12 @@ theorem vfMidOneBlockAnchoredUpperPhysicalSite_sum_eq
 /-- The upper one-sided bill plus the anchor square is literally the square of
 one signed site amplitude on the common clock. -/
 theorem vfMidUpperFirstBadSourceBill_add_anchorSq_eq_anchoredSite_sq
-    (R : ℕ) :
+    {R : ℕ} (hR : 1 ≤ R) :
     vfMidUpperFirstBadSourceBill R +
         vfMidActualPrimeEndpointDefect R ^ 2 =
       (∑ n ∈ lowOwnerNonzeroMobiusCarrier (R + 1),
         vfMidOneBlockAnchoredUpperPhysicalSite R n) ^ 2 := by
-  rw [vfMidOneBlockAnchoredUpperPhysicalSite_sum_eq]
+  rw [vfMidOneBlockAnchoredUpperPhysicalSite_sum_eq hR]
   unfold vfMidUpperFirstBadSourceBill
   ring
 
@@ -601,7 +603,7 @@ The complete upper active bill, including the rigid anchor square and all
 anchor-current cross terms, is partitioned on the literal common clock before
 any quotient child is formed. -/
 theorem vfMidUpperFirstBadSourceBill_add_anchorSq_eq_diagonal_add_descendingCross
-    (R : ℕ) :
+    {R : ℕ} (hR : 1 ≤ R) :
     vfMidUpperFirstBadSourceBill R +
         vfMidActualPrimeEndpointDefect R ^ 2 =
       lowOwnerGlobalDiagonalPairMassWith (R + 1)
@@ -615,7 +617,7 @@ theorem vfMidUpperFirstBadSourceBill_add_anchorSq_eq_diagonal_add_descendingCros
         vfMidActualPrimeEndpointDefect R ^ 2 =
       (∑ n ∈ lowOwnerNonzeroMobiusCarrier (R + 1),
         vfMidOneBlockAnchoredUpperPhysicalSite R n) ^ 2 :=
-          vfMidUpperFirstBadSourceBill_add_anchorSq_eq_anchoredSite_sq R
+          vfMidUpperFirstBadSourceBill_add_anchorSq_eq_anchoredSite_sq hR
     _ = lowOwnerRevealedPairMassWith (R + 1) ∅
         (vfMidOneBlockAnchoredUpperPhysicalSite R) := by
           symm
@@ -637,7 +639,7 @@ First split by the unique least fresh owner, then by the existing lower-prime
 signature cells.  The factor two is the two physical orientations of each
 p-free x p-divisible cell.  No child quotient, norm, or estimate appears. -/
 theorem vfMidUpperFirstBadSourceBill_add_anchorSq_eq_diagonal_add_firstOwnerCells
-    (R : ℕ) :
+    {R : ℕ} (hR : 1 ≤ R) :
     vfMidUpperFirstBadSourceBill R +
         vfMidActualPrimeEndpointDefect R ^ 2 =
       lowOwnerGlobalDiagonalPairMassWith (R + 1)
@@ -651,7 +653,7 @@ theorem vfMidUpperFirstBadSourceBill_add_anchorSq_eq_diagonal_add_firstOwnerCell
         vfMidActualPrimeEndpointDefect R ^ 2 =
       (∑ n ∈ lowOwnerNonzeroMobiusCarrier (R + 1),
         vfMidOneBlockAnchoredUpperPhysicalSite R n) ^ 2 :=
-          vfMidUpperFirstBadSourceBill_add_anchorSq_eq_anchoredSite_sq R
+          vfMidUpperFirstBadSourceBill_add_anchorSq_eq_anchoredSite_sq hR
     _ = lowOwnerRevealedPairMassWith (R + 1) ∅
         (vfMidOneBlockAnchoredUpperPhysicalSite R) := by
           symm
@@ -858,7 +860,9 @@ theorem vfMidUpperActiveAnchoredAbsMass_sq_le_firstBadTotalMass
   have hactive := vfMidOneBlockUpperActiveAbsMass_le_full hR
   have hleft0 :
       0 ≤ |vfMidActualPrimeEndpointDefect R| +
-        vfMidOneBlockUpperActiveAbsMass R := by positivity
+        vfMidOneBlockUpperActiveAbsMass R := by
+    exact add_nonneg (abs_nonneg _)
+      (vfMidOneBlockUpperActiveAbsMass_nonneg R)
   have hright0 :
       0 ≤ |vfMidActualPrimeEndpointDefect R| +
         ∑ n ∈ vfMidOddCandidateSeats R,
@@ -883,9 +887,16 @@ theorem vfMidFirstBadNormalizedProduct_le_half_total_of_upperActiveHalf
     vfMidFirstBadNNSNormalizedCovariance R *
         vfMidFirstBadZeroTargetTotalMass R ≤
       (1 / 2 : ℝ) * vfMidFirstBadZeroTargetTotalMass R := by
-  have hsource :=
-    vfMidFirstBadNormalizedProduct_le_upperActive_add_anchorSq_of_endpoint_nonneg
-      hR hB
+  have hnorm :=
+    vfMidCorrelationEnergy_add_anchorSq_eq_nnsNormalized_mul_total hR
+  have hcorr :=
+    vfMidCorrelationEnergy_le_upperFirstBadSourceBill hR hB
+  have hsource :
+      vfMidFirstBadNNSNormalizedCovariance R *
+          vfMidFirstBadZeroTargetTotalMass R ≤
+        vfMidUpperFirstBadSourceBill R +
+          vfMidActualPrimeEndpointDefect R ^ 2 := by
+    linarith
   have hden :=
     vfMidUpperActiveAnchoredAbsMass_sq_le_firstBadTotalMass hR
   nlinarith
