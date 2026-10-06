@@ -53,20 +53,33 @@ theorem vfMidActualPrimeFirstBadAt_two_succ_nnsNormalized_gt_half
   have hbad :
       ((2 : ℝ) * vfMidSyntheticRadialScale (R + 1)) ^ 2 <
         vfMidActualPrimeEndpointDefect (R + 1) ^ 2 := by
-    have hbreach := hfirst.2
+    have hbreach := hfirst.1
     unfold VFMidSyntheticBadAt at hbreach
+    have hscale :
+        0 < vfMidSyntheticRadialScale (R + 1) :=
+      vfMidSyntheticRadialScale_pos (by omega : 2 ≤ R + 1)
     have hwall0 :
-        0 ≤ (2 : ℝ) * vfMidSyntheticRadialScale (R + 1) := by
-      have hrho :
-          0 ≤ vfMidSyntheticRadialScale (R + 1) := by
-        unfold vfMidSyntheticRadialScale
-        positivity
-      positivity
-    have habs :
-        (2 : ℝ) * vfMidSyntheticRadialScale (R + 1) <
-          |vfMidActualPrimeEndpointDefect (R + 1)| := by
-      simpa [abs_of_nonneg hwall0] using hbreach
-    nlinarith [sq_abs (vfMidActualPrimeEndpointDefect (R + 1))]
+        0 ≤ (2 : ℝ) * vfMidSyntheticRadialScale (R + 1) :=
+      mul_nonneg (by norm_num) hscale.le
+    have habs0 :
+        0 ≤ |vfMidActualPrimeEndpointDefect (R + 1)| := abs_nonneg _
+    have habsPos :
+        0 < |vfMidActualPrimeEndpointDefect (R + 1)| := by
+      linarith
+    have hsumPos :
+        0 <
+          |vfMidActualPrimeEndpointDefect (R + 1)| +
+            (2 : ℝ) * vfMidSyntheticRadialScale (R + 1) :=
+      add_pos_of_pos_of_nonneg habsPos hwall0
+    have hprodPos :
+        0 <
+          (|vfMidActualPrimeEndpointDefect (R + 1)| -
+            (2 : ℝ) * vfMidSyntheticRadialScale (R + 1)) *
+          (|vfMidActualPrimeEndpointDefect (R + 1)| +
+            (2 : ℝ) * vfMidSyntheticRadialScale (R + 1)) :=
+      mul_pos (sub_pos.mpr hbreach) hsumPos
+    rw [← sq_abs (vfMidActualPrimeEndpointDefect (R + 1))]
+    nlinarith
   have hprod :
       (1 / 2 : ℝ) * vfMidFirstBadZeroTargetTotalMass R <
         vfMidFirstBadNNSNormalizedCovariance R *
