@@ -15,6 +15,7 @@ on:
       - research/VF_MID_FIRST_BAD_NORMALIZED_PARTIAL_MOMENT.lean
       - research/NNS_EQUAL_ABS_DEGREE_NORMALIZATION.lean
       - research/VF_MID_OWNER_FIBER_DEGREE_NORMALIZATION.lean
+      - research/NNS_ZERO_TARGET_FIRST_OWNER_CODIV_FUBINI.lean
       - .github/workflows/vf-first-bad-terminal.yml
   workflow_dispatch:
 
@@ -76,3 +77,4 @@ jobs:
           python3 scripts/compile_research_import_closure.py research/VF_MID_FIRST_BAD_NORMALIZED_PARTIAL_MOMENT.lean
           python3 scripts/compile_research_import_closure.py research/NNS_EQUAL_ABS_DEGREE_NORMALIZATION.lean
           python3 scripts/compile_research_import_closure.py research/VF_MID_OWNER_FIBER_DEGREE_NORMALIZATION.lean
+          python3 scripts/compile_research_import_closure.py research/NNS_ZERO_TARGET_FIRST_OWNER_CODIV_FUBINI.lean
