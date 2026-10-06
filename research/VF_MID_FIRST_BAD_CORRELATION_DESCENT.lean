@@ -5,6 +5,8 @@ import «research.GLOBAL_RETURNED_CORE_GREATEST_OWNER_CONTINUATION»
 import «research.VF_MID_FINAL_SIGNED_RANK_CONTRACTION»
 import «research.ZERO_TARGET_MELLIN_COMPLETE_POST_ROOT_CUBES»
 import «research.VF_MID_PHYSICAL_FORCING_MOBIUS_DECODER»
+import «research.VF_MID_LI_UNIFORM_QUADRATURE»
+import «research.VF_MID_FULL_AFFINE_PAIR_CLASSIFIER»
 
 /-!
 # First-bad correlation descent
@@ -33,6 +35,66 @@ namespace RHLean.Analysis
 open RHLean.Arithmetic RHLean.Proof
 
 attribute [local instance] Classical.propDecidable
+
+/-- **Uniform square-endpoint VF/Li alignment in the actual-defect currency.**
+
+At every square endpoint the actual VF defect differs from the literal
+prime-minus-Li discrepancy by the already-compiled uniform midpoint quadrature
+constant.  This is O(1), not merely root scale. -/
+theorem abs_vfMidActualPrimeEndpointDefect_sub_primeLi_le_uniform
+    {R : ℕ} (hR : 2 ≤ R) :
+    |vfMidActualPrimeEndpointDefect R -
+        vfMidPrimeLiError ((R : ℝ) ^ 2)| ≤
+      vfMidLiSquareEndpointUniformConstant := by
+  unfold vfMidActualPrimeEndpointDefect
+  rw [vfMidPrimeLiError_eq_primeError_add_liError]
+  have hq := abs_vfMidLiError_sq_le_uniform (R := R) hR
+  simpa [abs_neg] using hq
+
+/-- **Exact historical-anchor decompression.**
+
+On every subdoubling frozen run, the accumulated endpoint defect at B is the
+earlier anchor defect at A minus the complete literal survivor-plus-processed
+physical run.  This is an identity; it is not packet-to-full-scale
+inheritance. -/
+theorem vfMidActualPrimeEndpointDefect_eq_anchor_sub_frozenAffineRun
+    {A B : ℕ}
+    (hA : 3 ≤ A) (hAB : A ≤ B) (hBA : B ≤ 2 * A) :
+    vfMidActualPrimeEndpointDefect B =
+      vfMidActualPrimeEndpointDefect A -
+        vfMidFrozenAffineRunPhysicalCharge A B := by
+  rw [vfMidFrozenAffineRunPhysicalCharge_eq_oddRunSeatMass hA hAB hBA]
+  have hrun :=
+    vfMidOddRunSeatMass_eq_neg_endpointError_increment
+      A B (by omega : 2 ≤ A) hAB
+  rw [vfMidActualPrimeEndpointDefect_eq_squareEndpointError
+      (R := A) (by omega : 2 ≤ A),
+    vfMidActualPrimeEndpointDefect_eq_squareEndpointError
+      (R := B) (by omega : 2 ≤ B)]
+  linarith
+
+/-- First badness written directly on the decompressed historical physical run.
+The residual anchor is a genuine earlier endpoint and is therefore controlled
+by the first-bad prior-good wall. -/
+theorem vfMidActualPrimeFirstBadAt_forces_frozenAffineRun_depthAware
+    {K : ℝ} {A B : ℕ}
+    (hfirst : VFMidActualPrimeFirstBadAt K B)
+    (hA : 3 ≤ A) (hABlt : A < B) (hBA : B ≤ 2 * A) :
+    K * vfMidSyntheticRadialScale B -
+        |vfMidActualPrimeEndpointDefect A| <
+      |vfMidFrozenAffineRunPhysicalCharge A B| := by
+  have htrigger :=
+    vfMidActualPrimeFirstBadAt_forces_depthAwareTwoSectorAbsTrigger
+      hfirst hA hABlt hBA
+  have hrun :=
+    vfMidFrozenAffineRunPhysicalCharge_eq_oddRunSeatMass
+      hA hABlt.le hBA
+  have htwo :=
+    vfMidOddRunSeatMass_eq_frozenSurvivor_add_processedOwnerCharge
+      hA hBA
+  rw [hrun]
+  rw [htwo]
+  exact htrigger
 
 /-- **A first-bad successor forces normalized correlation above one half.**
 
