@@ -93,6 +93,6 @@ theorem zeroTargetNormalizedDegreeOne_eq_degreeTwo_of_eqAbs
         _ = (s.card : ℝ) * c ^ 2 := by
               rw [Finset.sum_const, nsmul_eq_mul]
     rw [hsumAbs, hsumSignedSq, hsumSq]
-    field_simp [hc, hcard] <;> ring
+    field_simp [hc, hcard]
 
 end RHLean.Analysis
