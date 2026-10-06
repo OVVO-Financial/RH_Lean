@@ -73,6 +73,14 @@ jobs:
           restore-keys: |
             rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py') }}-
             rhlean-build-${{ runner.os }}-
+      - name: Compile affine-scaled first-owner half gate
+        run: |
+          cat > /tmp/VF_MID_AFFINE_SCALE_HALF_GATE_ACCEPTANCE.lean <<'EOF'
+          import «research.VF_MID_FIRST_BAD_GLOBAL_HNORM»
+          #check RHLean.Analysis.vfMidScaledFirstOwnerSignedCellTelescope_le_half_dirichletIncidence_sq
+          #print axioms RHLean.Analysis.vfMidScaledFirstOwnerSignedCellTelescope_le_half_dirichletIncidence_sq
+          EOF
+          lake env lean -DwarningAsError=true /tmp/VF_MID_AFFINE_SCALE_HALF_GATE_ACCEPTANCE.lean
       - name: Compile terminal contradiction import closure
         run: |
           python3 scripts/compile_research_import_closure.py research/VF_MID_FIRST_BAD_TERMINAL_CONTRADICTION.lean
