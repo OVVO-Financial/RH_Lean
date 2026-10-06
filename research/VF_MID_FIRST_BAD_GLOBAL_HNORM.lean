@@ -188,7 +188,7 @@ theorem vfMidOneBlockActivePhysicalCarrier_sum_eq_activeSource
 adjacent endpoint.  Crucially this statement is about the unstripped physical
 integer, not its child. -/
 theorem vfMidOneBlockActivePhysicalCarrier_subset_lowOwner_succ
-    {R : ℕ} (hR : 3 ≤ R) :
+    {R : ℕ} :
     vfMidOneBlockActivePhysicalCarrier R ⊆
       lowOwnerNonzeroMobiusCarrier (R + 1) := by
   intro n hn
@@ -235,13 +235,13 @@ def vfMidOneBlockActivePhysicalSite (R n : ℕ) : ℝ :=
 
 /-- Zero-extension preserves the exact one-dimensional active source mass. -/
 theorem vfMidOneBlockActivePhysicalSite_sum_eq_activeSource
-    {R : ℕ} (hR : 3 ≤ R) :
+    {R : ℕ} :
     (∑ n ∈ lowOwnerNonzeroMobiusCarrier (R + 1),
       vfMidOneBlockActivePhysicalSite R n) =
       vfMidOneBlockPrimeSeatCharge R +
         vfMidOneBlockProcessedSquarefreeCharge R := by
   have hsub :=
-    vfMidOneBlockActivePhysicalCarrier_subset_lowOwner_succ hR
+    vfMidOneBlockActivePhysicalCarrier_subset_lowOwner_succ (R := R)
   have hzero :
       ∀ n ∈ lowOwnerNonzeroMobiusCarrier (R + 1),
         n ∉ vfMidOneBlockActivePhysicalCarrier R →
@@ -276,7 +276,7 @@ greatest-owner crossing fibres *before* any quotient child is formed.  Hence no
 two distinct physical seats can become an accidental common child during this
 Fubini swap.  This is an equality; no estimate has been introduced. -/
 theorem vfMidOneBlockActiveSource_sq_eq_diagonal_add_descendingCross
-    {R : ℕ} (hR : 3 ≤ R) :
+    {R : ℕ} :
     (vfMidOneBlockPrimeSeatCharge R +
         vfMidOneBlockProcessedSquarefreeCharge R) ^ 2 =
       lowOwnerGlobalDiagonalPairMassWith (R + 1)
@@ -292,7 +292,7 @@ theorem vfMidOneBlockActiveSource_sq_eq_diagonal_add_descendingCross
     lowOwnerRevealedPairMassWith_empty_eq_sum_sq
       (R + 1) (vfMidOneBlockActivePhysicalSite R)
   rw [hsquare] at hpair
-  rw [vfMidOneBlockActivePhysicalSite_sum_eq_activeSource hR] at hpair
+  rw [vfMidOneBlockActivePhysicalSite_sum_eq_activeSource (R := R)] at hpair
   exact hpair
 
 
