@@ -113,6 +113,8 @@ jobs:
           #check RHLean.Analysis.abs_vfMidActualPrimeEndpointDefect_le_anchor_add_historyAbs
           #check RHLean.Analysis.vfMidActualPrimeFirstBadAt_two_succ_priorAnchor_inside
           #check RHLean.Analysis.vfMidLi_squareEndpoint_O_one
+          #check RHLean.Analysis.vfMidActualPrimeEndpointDefect_eq_primeLi_sub_liError
+          #check RHLean.Analysis.abs_vfMidActualPrimeEndpointDefect_sub_primeLi_le_uniform
           #print axioms RHLean.Analysis.vfMidActualPrimeEndpointDefect_eq_anchor_sub_oddRunSeatMass
           #print axioms RHLean.Analysis.vfMidLi_squareEndpoint_O_one
           EOF
