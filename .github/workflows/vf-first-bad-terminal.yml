@@ -13,6 +13,10 @@ on:
       - research/VF_MID_GLOBAL_FIRST_BAD_RADIAL_BUDGET.lean
       - research/VF_MID_FIRST_BAD_PARTIAL_MOMENT_SYNTHESIS.lean
       - research/VF_MID_FIRST_BAD_NORMALIZED_PARTIAL_MOMENT.lean
+      - research/NNS_EQUAL_ABS_DEGREE_NORMALIZATION.lean
+      - research/VF_MID_OWNER_FIBER_DEGREE_NORMALIZATION.lean
+      - research/NNS_ZERO_TARGET_FIRST_OWNER_CODIV_FUBINI.lean
+      - research/VF_MID_COMPLETED_GATE_PM_DENOMINATOR.lean
       - .github/workflows/vf-first-bad-terminal.yml
   workflow_dispatch:
 
@@ -72,3 +76,7 @@ jobs:
           python3 scripts/compile_research_import_closure.py research/VF_MID_GLOBAL_FIRST_BAD_RADIAL_BUDGET.lean
           python3 scripts/compile_research_import_closure.py research/VF_MID_FIRST_BAD_PARTIAL_MOMENT_SYNTHESIS.lean
           python3 scripts/compile_research_import_closure.py research/VF_MID_FIRST_BAD_NORMALIZED_PARTIAL_MOMENT.lean
+          python3 scripts/compile_research_import_closure.py research/NNS_EQUAL_ABS_DEGREE_NORMALIZATION.lean
+          python3 scripts/compile_research_import_closure.py research/VF_MID_OWNER_FIBER_DEGREE_NORMALIZATION.lean
+          python3 scripts/compile_research_import_closure.py research/NNS_ZERO_TARGET_FIRST_OWNER_CODIV_FUBINI.lean
+          python3 scripts/compile_research_import_closure.py research/VF_MID_COMPLETED_GATE_PM_DENOMINATOR.lean
