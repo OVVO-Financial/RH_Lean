@@ -14,31 +14,23 @@ import «research.NNS_ZERO_TARGET_FIRST_OWNER_CODIV_FUBINI»
 
 This file is the equality-first terminal wiring layer above #899.
 
-The compressed one-block anchor is not treated as owner-visible.  Its historical
-content is opened only through the exact identities in
-`VF_MID_FIRST_BAD_HISTORY_COMPRESSION`; normalized-covariance arguments must
-account for the resulting absolute-mass compression explicitly.
+The terminal proof does not use the compressed one-block UpperBill/LowerBill
+source as its boundary.  Before the first inequality, the historical endpoint
+defect is opened at the canonical subdoubling anchor A = floor(R/2)+1:
 
-The first operation is to quarantine the restoring sectors *before* any owner
-Fubini or reciprocal estimate is introduced.  The normalized anchored numerator
-is kept as the exact product
+  D_R = D_A - Run(A,R),
 
-  rho_R * T_R,
+and the current block is appended exactly, so
 
-and rewritten in the two endpoint-sign branches as
+  D_(R+1) = D_A - Run(A,R) - Block(A,R).
 
-  upper active source - squareful restoring + D_R^2,
+This decompression is numerator-only.  The original #897 total mass T_R is
+never replaced by the larger historical L1 mass obtained from triangle
+inequality.  Owner/signature Fubini and rank descent must therefore act on the
+literal decompressed quadratic source while the #897 denominator stays fixed.
 
-or
-
-  lower composite source + prime restoring + D_R^2.
-
-Thus the anchor remains coupled to the complete one-block source while the
-squareful/prime restoring packet is still explicit.  The terminal target below
-retains that packet and the prior-good anchor slack through the sign split.
-
-No new analytic hypothesis, carrier enlargement, or packet-to-scale
-inheritance is introduced here.
+No new analytic hypothesis, carrier enlargement, packet-to-scale inheritance,
+or compressed source bill is permitted in the terminal route.
 -/
 
 noncomputable section
@@ -1192,29 +1184,85 @@ theorem vfMidFirstBadNormalizedProduct_le_half_total_of_lowerCompositeHalf
     linarith
   linarith
 
+/-! ## Decompressed historical terminal source -/
+
+/-- **Canonical subdoubling historical decompression at the next endpoint.**
+
+For R >= 8 the anchor A = floor(R/2)+1 is a genuine prior endpoint and
+R+1 <= 2A.  The next defect is therefore the prior defect minus the complete
+literal frozen run through R, with the current block kept explicit.  This is an
+identity and introduces no inequality or norm. -/
+theorem vfMidActualPrimeEndpointDefect_succ_eq_decompressedHistory
+    {R : ℕ} (hR : 8 ≤ R) :
+    vfMidActualPrimeEndpointDefect (R + 1) =
+      vfMidActualPrimeEndpointDefect (R / 2 + 1) -
+        vfMidFrozenAffineRunPhysicalCharge (R / 2 + 1) R -
+        vfMidFrozenAffineBlockPhysicalCharge (R / 2 + 1) R := by
+  let A : ℕ := R / 2 + 1
+  have hA : 3 ≤ A := by
+    dsimp [A]
+    omega
+  have hAR : A ≤ R := by
+    dsimp [A]
+    omega
+  have hAB : A ≤ R + 1 := by omega
+  have hBA : R + 1 ≤ 2 * A := by
+    dsimp [A]
+    omega
+  have hdecomp :=
+    vfMidActualPrimeEndpointDefect_eq_anchor_sub_frozenAffineRun
+      (A := A) (B := R + 1) hA hAB hBA
+  have hrun :=
+    vfMidFrozenAffineRunPhysicalCharge_succ
+      (A := A) (R := R) hAR
+  rw [hrun] at hdecomp
+  dsimp [A] at hdecomp ⊢
+  linarith
+
+/-- **Exact Co/Div excess in decompressed historical currency.**
+
+The #897 denominator is deliberately left untouched.  Only the normalized
+numerator is opened into the prior anchor, literal historical run, and current
+block. -/
+theorem vfMidFirstBadAnchoredCoDivExcess_eq_decompressedHistory
+    {R : ℕ} (hR : 8 ≤ R) :
+    vfMidFirstBadAnchoredCoDivExcess R =
+      2 *
+          (vfMidActualPrimeEndpointDefect (R / 2 + 1) -
+            vfMidFrozenAffineRunPhysicalCharge (R / 2 + 1) R -
+            vfMidFrozenAffineBlockPhysicalCharge (R / 2 + 1) R) ^ 2 -
+        vfMidFirstBadZeroTargetTotalMass R := by
+  rw [vfMidFirstBadAnchoredCoDivExcess_eq_two_product_sub_total,
+    vfMidFirstBadNormalizedProduct_eq_nextEndpointDefect_sq
+      (by omega : 3 ≤ R),
+    vfMidActualPrimeEndpointDefect_succ_eq_decompressedHistory hR]
+
+/-- The terminal half bound is exactly the decompressed historical source
+control inequality, with no denominator enlargement. -/
+theorem vfMidFirstBadAnchoredCoDivExcess_nonpos_iff_decompressedHistory
+    {R : ℕ} (hR : 8 ≤ R) :
+    vfMidFirstBadAnchoredCoDivExcess R ≤ 0 ↔
+      2 *
+          (vfMidActualPrimeEndpointDefect (R / 2 + 1) -
+            vfMidFrozenAffineRunPhysicalCharge (R / 2 + 1) R -
+            vfMidFrozenAffineBlockPhysicalCharge (R / 2 + 1) R) ^ 2 ≤
+        vfMidFirstBadZeroTargetTotalMass R := by
+  rw [vfMidFirstBadAnchoredCoDivExcess_eq_decompressedHistory hR]
+  constructor <;> intro h <;> linarith
+
 /-- **Final owner-tree normalized contraction.**
 
-This is the unchanged theorem required by the #900 acceptance gate.  Both
-branches now target the full anchored Co minus three Div, with the restoring
-packet and prior-good anchor slack retained.  The two source comparisons remain
-open: the completed-gate budget has not yet been identified with these literal
-VF expressions.  No additional hypothesis is added to the theorem. -/
+The legacy UpperBill/LowerBill branches are retired here.  The only remaining
+source-control goal is the literal decompressed historical quadratic source
+against the unchanged #897 total mass.  All owner/rank work must discharge that
+goal directly. -/
 theorem vfMidFirstBadNNSNormalizedCovariance_le_half
     {R : ℕ} (hR : 8 ≤ R)
     (hfirst : VFMidActualPrimeFirstBadAt (2 : ℝ) (R + 1)) :
     vfMidFirstBadNNSNormalizedCovariance R ≤ (1 / 2 : ℝ) := by
-  have h3 : 3 ≤ R := by omega
   have hcodiv : vfMidFirstBadAnchoredCoDivExcess R ≤ 0 := by
-    by_cases hB : 0 ≤ vfMidActualPrimeEndpointDefect (R + 1)
-    · have hrestoring :=
-        vfMidFirstBadUpperRestoringAnchorSlack_nonpos h3 hfirst hB
-      rw [vfMidFirstBadAnchoredCoDivExcess_eq_upper_restoring_slack h3]
-    · have hB' :
-          vfMidActualPrimeEndpointDefect (R + 1) ≤ 0 :=
-        le_of_not_ge hB
-      have hrestoring :=
-        vfMidFirstBadLowerRestoringAnchorSlack_nonpos h3 hfirst hB'
-      rw [vfMidFirstBadAnchoredCoDivExcess_eq_lower_restoring_slack h3]
+    rw [vfMidFirstBadAnchoredCoDivExcess_eq_decompressedHistory hR]
+    apply sub_nonpos.mpr
   unfold vfMidFirstBadAnchoredCoDivExcess at hcodiv
   unfold vfMidFirstBadNNSNormalizedCovariance
   unfold vfMidAnchoredZeroTargetNNSNormalizedCovariance
