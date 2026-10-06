@@ -1,5 +1,5 @@
 import Mathlib
-import «research.VF_MID_ANCHORED_CODIV_GATE_INLET»
+import «research.VF_MID_FIRST_BAD_RESTORING_DECOMPOSITION»
 import «research.VF_MID_GLOBAL_FIRST_BAD_RADIAL_BUDGET»
 import «research.GLOBAL_RETURNED_CORE_GLOBAL_DESCENDING_SITE_FUBINI»
 import «research.GLOBAL_RETURNED_CORE_FIRST_OWNER_ARBITRARY_SITE_CELLS»
@@ -27,8 +27,8 @@ or
   lower composite source + prime restoring + D_R^2.
 
 Thus the anchor remains coupled to the complete one-block source while the
-squareful/prime restoring packet is still explicit.  Only after these exact
-normal forms are established is the favorable restoring sign dropped.
+squareful/prime restoring packet is still explicit.  The terminal target below
+retains that packet and the prior-good anchor slack through the sign split.
 
 No new analytic hypothesis, carrier enlargement, or packet-to-scale
 inheritance is introduced here.
@@ -43,41 +43,6 @@ namespace RHLean.Analysis
 open RHLean.Arithmetic RHLean.Proof
 
 attribute [local instance] Classical.propDecidable
-
-/-- **Exact upper-sign anchored normal form.**
-
-The rigid anchor square is retained and the squareful strict-descendant packet
-is isolated as the exact restoring term.  This is an equality. -/
-theorem vfMidFirstBadNormalizedProduct_eq_upperActive_sub_squarefulRestoring
-    {R : ℕ} (hR : 3 ≤ R) :
-    vfMidFirstBadNNSNormalizedCovariance R *
-        vfMidFirstBadZeroTargetTotalMass R =
-      vfMidUpperFirstBadSourceBill R -
-        vfMidOneBlockProcessedSquarefulCharge R *
-          (2 * vfMidActualPrimeEndpointDefect (R + 1) +
-            vfMidOneBlockProcessedSquarefulCharge R) +
-        vfMidActualPrimeEndpointDefect R ^ 2 := by
-  rw [← vfMidCorrelationEnergy_add_anchorSq_eq_nnsNormalized_mul_total hR]
-  rw [vfMidCorrelationEnergy_eq_upperActive_sub_squarefulRestoring hR]
-  rfl
-
-/-- **Exact lower-sign anchored normal form.**
-
-The negative prime stream is retained as the exact restoring term and the
-anchor square stays coupled to the remaining composite source.  This is an
-equality. -/
-theorem vfMidFirstBadNormalizedProduct_eq_lowerComposite_add_primeRestoring
-    {R : ℕ} (hR : 3 ≤ R) :
-    vfMidFirstBadNNSNormalizedCovariance R *
-        vfMidFirstBadZeroTargetTotalMass R =
-      vfMidLowerFirstBadSourceBill R +
-        vfMidOneBlockPrimeSeatCharge R *
-          (-2 * vfMidActualPrimeEndpointDefect (R + 1) -
-            vfMidOneBlockPrimeSeatCharge R) +
-        vfMidActualPrimeEndpointDefect R ^ 2 := by
-  rw [← vfMidCorrelationEnergy_add_anchorSq_eq_nnsNormalized_mul_total hR]
-  rw [vfMidCorrelationEnergy_eq_lowerActive_add_primeRestoring hR]
-  rfl
 
 /-- Once the endpoint is on the upper side, the exact squareful restoring
 packet is nonpositive and may be dropped.  This is the first inequality in the
@@ -107,36 +72,6 @@ theorem vfMidFirstBadNormalizedProduct_le_lowerComposite_add_anchorSq
   rw [vfMidFirstBadNormalizedProduct_eq_lowerComposite_add_primeRestoring hR]
   have hP := vfMidOneBlockPrimeSeatCharge_nonpos R hR
   nlinarith
-
-/-- **Exact normalized endpoint-energy identity.**
-
-The complete anchored NNS numerator is not an additional energy packet: after
-the exact endpoint weld it is literally the next endpoint defect squared.
-Naming this identity prevents the rigid anchor square from being charged a
-second time or assigned a fictitious fresh owner. -/
-theorem vfMidFirstBadNormalizedProduct_eq_nextEndpointDefect_sq
-    {R : ℕ} (hR : 3 ≤ R) :
-    vfMidFirstBadNNSNormalizedCovariance R *
-        vfMidFirstBadZeroTargetTotalMass R =
-      vfMidActualPrimeEndpointDefect (R + 1) ^ 2 := by
-  have hnorm :=
-    vfMidCorrelationEnergy_add_anchorSq_eq_nnsNormalized_mul_total hR
-  have hcorr :=
-    vfMidSquareEndpointError_sq_succ_eq_correlation
-      R (by omega : 2 ≤ R)
-  calc
-    vfMidFirstBadNNSNormalizedCovariance R *
-        vfMidFirstBadZeroTargetTotalMass R =
-      2 * vfMidSquareEndpointAccumulationCorrelation R +
-        vfMidSquareBandError R ^ 2 +
-        vfMidActualPrimeEndpointDefect R ^ 2 := hnorm.symm
-    _ = vfMidActualPrimeEndpointDefect (R + 1) ^ 2 := by
-      rw [vfMidActualPrimeEndpointDefect_eq_squareEndpointError
-          (R := R) (by omega : 2 ≤ R),
-        vfMidActualPrimeEndpointDefect_eq_squareEndpointError
-          (R := R + 1) (by omega : 2 ≤ R + 1)]
-      nlinarith [hcorr]
-
 
 /-! ## Physical active source before any child stripping -/
 
@@ -872,11 +807,10 @@ theorem vfMidFirstOwnerCellGramWith_eq_base_mul_child
   unfold lowOwnerFirstOwnerCellGramWith
     vfMidFirstOwnerCellBaseAmplitudeWith
     vfMidFirstOwnerCellChildAmplitudeWith
-  simpa only using
-    (Finset.sum_product
-      (s := lowOwnerFirstOwnerBaseFiber R p sig)
-      (t := lowOwnerFirstOwnerChildFiber R p sig)
-      (f := fun ab : ℕ × ℕ => v ab.1 * v ab.2))
+  rw [Finset.sum_product, Finset.sum_mul]
+  apply Finset.sum_congr rfl
+  intro a _ha
+  rw [Finset.mul_sum]
 
 /-- **Weight-preserving arbitrary-site half gate.**
 
@@ -897,6 +831,18 @@ theorem vfMidFirstOwnerCellGramWith_le_half_branchSum_sq
     (vfMidFirstOwnerCellBaseAmplitudeWith R p sig v -
       vfMidFirstOwnerCellChildAmplitudeWith R p sig v)]
 
+
+
+/-- Absolute mass carried by the upper active squarefree source. -/
+def vfMidOneBlockUpperActiveAbsMass (R : ℕ) : ℝ :=
+  ∑ n ∈ vfMidOneBlockActivePhysicalCarrier R,
+    |vfMidOddSignedSeatCharge R n|
+
+@[simp] theorem vfMidOneBlockUpperActiveAbsMass_nonneg
+    (R : ℕ) :
+    0 ≤ vfMidOneBlockUpperActiveAbsMass R := by
+  unfold vfMidOneBlockUpperActiveAbsMass
+  positivity
 
 
 /-! ## Finite owner/rank routing in denominator-safe currency -/
@@ -1103,60 +1049,6 @@ theorem vfMidAnchoredUpperPhysicalSite_sq_le_half_absMass_of_co_le_three_div
   rw [vfMidAnchoredUpperPhysicalSite_absSum_eq hR] at htotal
   nlinarith
 
-/-- **Finite owner/rank routing target for the upper sign.**
-
-The proof deliberately enters denominator-safe Co/Div Fubini first.  Complete
-fresh-prime sectors are to be discharged by the compiled nonpositive NNS cube
-theorem; the only positive residue is the clipped-exit ledger, which is then
-fed to the globally scaled #891 half gate above.  No prime-distribution bound is
-introduced.
-
-This declaration is intentionally written as the actual theorem required by
-the terminal branch, so CI reports only missing carrier identifications rather
-than another conditional interface. -/
-theorem vfMidAnchoredUpperCoPartial_le_threeDivergent_ownerRouting
-    {R : ℕ} (hR : 8 ≤ R)
-    (hfirst : VFMidActualPrimeFirstBadAt (2 : ℝ) (R + 1))
-    (hB : 0 ≤ vfMidActualPrimeEndpointDefect (R + 1)) :
-    zeroTargetCoPartialGram
-        (lowOwnerNonzeroMobiusCarrier (R + 1))
-        (vfMidOneBlockAnchoredUpperPhysicalSite R) ≤
-      3 *
-        zeroTargetDivergentGram
-          (lowOwnerNonzeroMobiusCarrier (R + 1))
-          (vfMidOneBlockAnchoredUpperPhysicalSite R) := by
-  rw [zeroTargetCoPartialGram_lowOwner_eq_diagonal_add_firstOwners,
-    zeroTargetDivergentGram_lowOwner_eq_sum_firstOwners]
-  have hscaled :=
-    vfMidGlobalScaledCompletedGateClippedExitTreeEnergy_le_half_pmDegreeTwo
-      (R + 1) (R + 1)
-      (fun p _sig _r parent =>
-        vfMidAnchoredUpperMobiusScale R parent.1 *
-          vfMidAnchoredUpperMobiusScale R (p * parent.2))
-  have hprior :=
-    vfMidActualPrimeFirstBadAt_prior_inside
-      hfirst (by omega : 2 ≤ R) (by omega : R < R + 1)
-  nlinarith
-
-/-- The complete upper branch is now routed through the denominator-safe owner
-tree rather than assumed as an external half-square hypothesis. -/
-theorem vfMidUpperFirstBadSourceBill_add_anchorSq_le_half_activeAbs_ownerRouting
-    {R : ℕ} (hR : 8 ≤ R)
-    (hfirst : VFMidActualPrimeFirstBadAt (2 : ℝ) (R + 1))
-    (hB : 0 ≤ vfMidActualPrimeEndpointDefect (R + 1)) :
-    vfMidUpperFirstBadSourceBill R +
-        vfMidActualPrimeEndpointDefect R ^ 2 ≤
-      (1 / 2 : ℝ) *
-        (|vfMidActualPrimeEndpointDefect R| +
-          vfMidOneBlockUpperActiveAbsMass R) ^ 2 := by
-  rw [vfMidUpperFirstBadSourceBill_add_anchorSq_eq_anchoredSite_sq
-    (by omega : 1 ≤ R)]
-  exact
-    vfMidAnchoredUpperPhysicalSite_sq_le_half_absMass_of_co_le_three_div
-      (by omega : 3 ≤ R)
-      (vfMidAnchoredUpperCoPartial_le_threeDivergent_ownerRouting
-        hR hfirst hB)
-
 /-! ## Upper active denominator is a literal submass of #897 -/
 
 /-- Every upper-branch active physical site is one of the original odd
@@ -1197,17 +1089,6 @@ theorem vfMidOneBlockActivePhysicalCarrier_subset_oddCandidates
         (Finset.mem_filter.mp hnComp).1
       simpa [vfMidSquareBandSites, vfMidSquareWheelSites] using hsite
     · exact hsurv
-
-/-- Absolute mass carried by the upper active squarefree source. -/
-def vfMidOneBlockUpperActiveAbsMass (R : ℕ) : ℝ :=
-  ∑ n ∈ vfMidOneBlockActivePhysicalCarrier R,
-    |vfMidOddSignedSeatCharge R n|
-
-@[simp] theorem vfMidOneBlockUpperActiveAbsMass_nonneg
-    (R : ℕ) :
-    0 ≤ vfMidOneBlockUpperActiveAbsMass R := by
-  unfold vfMidOneBlockUpperActiveAbsMass
-  positivity
 
 /-- The upper active absolute mass is bounded by the complete #897 odd-seat
 absolute mass simply because its carrier is a subset. -/
@@ -1306,37 +1187,30 @@ theorem vfMidFirstBadNormalizedProduct_le_half_total_of_lowerCompositeHalf
 
 /-- **Final owner-tree normalized contraction.**
 
-This is the theorem required by the #900 acceptance gate.  Its body enters the
-actual endpoint-sign split.  The upper branch is reduced to the literal
-anchored physical square already reassembled by the common-clock Fubini; the
-lower branch is reduced to its literal composite source.  There is no alias,
-`sorry`, `admit`, or new analytic hypothesis here: CI is required to elaborate
-the owner-tree half contraction in these two branches. -/
+This is the unchanged theorem required by the #900 acceptance gate.  Both
+branches now target the full anchored Co minus three Div, with the restoring
+packet and prior-good anchor slack retained.  The two source comparisons remain
+open: the completed-gate budget has not yet been identified with these literal
+VF expressions.  No additional hypothesis is added to the theorem. -/
 theorem vfMidFirstBadNNSNormalizedCovariance_le_half
     {R : ℕ} (hR : 8 ≤ R)
     (hfirst : VFMidActualPrimeFirstBadAt (2 : ℝ) (R + 1)) :
     vfMidFirstBadNNSNormalizedCovariance R ≤ (1 / 2 : ℝ) := by
   have h3 : 3 ≤ R := by omega
-  have hproduct :
-      vfMidFirstBadNNSNormalizedCovariance R *
-          vfMidFirstBadZeroTargetTotalMass R ≤
-        (1 / 2 : ℝ) * vfMidFirstBadZeroTargetTotalMass R := by
+  have hcodiv : vfMidFirstBadAnchoredCoDivExcess R ≤ 0 := by
     by_cases hB : 0 ≤ vfMidActualPrimeEndpointDefect (R + 1)
-    · apply
-        vfMidFirstBadNormalizedProduct_le_half_total_of_upperActiveHalf
-          h3 hB
-      exact
-        vfMidUpperFirstBadSourceBill_add_anchorSq_le_half_activeAbs_ownerRouting
-          hR hfirst hB
+    · have hrestoring :=
+        vfMidFirstBadUpperRestoringAnchorSlack_nonpos h3 hfirst hB
+      rw [vfMidFirstBadAnchoredCoDivExcess_eq_upper_restoring_slack h3]
     · have hB' :
           vfMidActualPrimeEndpointDefect (R + 1) ≤ 0 :=
         le_of_not_ge hB
-      apply
-        vfMidFirstBadNormalizedProduct_le_half_total_of_lowerCompositeHalf
-          h3 hB'
+      have hrestoring :=
+        vfMidFirstBadLowerRestoringAnchorSlack_nonpos h3 hfirst hB'
+      rw [vfMidFirstBadAnchoredCoDivExcess_eq_lower_restoring_slack h3]
+  unfold vfMidFirstBadAnchoredCoDivExcess at hcodiv
   unfold vfMidFirstBadNNSNormalizedCovariance
   unfold vfMidAnchoredZeroTargetNNSNormalizedCovariance
-  unfold vfMidFirstBadZeroTargetTotalMass at hproduct
   by_cases hzero :
       vfMidAnchoredZeroTargetCoPartialGram
             (vfMidOddCandidateSeats R)
@@ -1375,7 +1249,7 @@ theorem vfMidFirstBadNNSNormalizedCovariance_le_half
     unfold nnsZeroTargetNormalizedCovariance
     rw [if_neg hzero]
     apply (div_le_iff₀ hden).2
-    simpa [vfMidAnchoredZeroTargetTotalMass] using hproduct
+    linarith only [hcodiv]
 
 /-- **Terminal K=2 first-bad closure.**
 

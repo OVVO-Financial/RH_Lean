@@ -19,6 +19,7 @@ on:
       - research/VF_MID_COMPLETED_GATE_PM_DENOMINATOR.lean
       - research/VF_MID_GLOBAL_COMPLETED_GATE_PM_BUDGET.lean
       - research/VF_MID_ANCHORED_CODIV_GATE_INLET.lean
+      - research/VF_MID_FIRST_BAD_RESTORING_DECOMPOSITION.lean
       - research/VF_MID_FIRST_BAD_GLOBAL_HNORM.lean
       - .github/workflows/vf-first-bad-terminal.yml
   workflow_dispatch:
@@ -73,6 +74,17 @@ jobs:
           restore-keys: |
             rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py') }}-
             rhlean-build-${{ runner.os }}-
+      - name: Compile exact first-bad restoring decomposition
+        run: |
+          python3 scripts/compile_research_import_closure.py research/VF_MID_FIRST_BAD_RESTORING_DECOMPOSITION.lean
+          cat > /tmp/VF_MID_FIRST_BAD_RESTORING_ACCEPTANCE.lean <<'EOF'
+          import «research.VF_MID_FIRST_BAD_RESTORING_DECOMPOSITION»
+          #check RHLean.Analysis.vfMidFirstBadAnchoredCoDivExcess_eq_upper_restoring_slack
+          #check RHLean.Analysis.vfMidFirstBadAnchoredCoDivExcess_eq_lower_restoring_slack
+          #print axioms RHLean.Analysis.vfMidFirstBadUpperRestoringAnchorSlack_nonpos
+          #print axioms RHLean.Analysis.vfMidFirstBadLowerRestoringAnchorSlack_nonpos
+          EOF
+          lake env lean -DwarningAsError=true /tmp/VF_MID_FIRST_BAD_RESTORING_ACCEPTANCE.lean
       - name: Compile affine-scaled first-owner half gate
         run: |
           python3 scripts/compile_research_import_closure.py research/GLOBAL_RETURNED_CORE_VIRTUAL_OWNER_HALF_GATE.lean
