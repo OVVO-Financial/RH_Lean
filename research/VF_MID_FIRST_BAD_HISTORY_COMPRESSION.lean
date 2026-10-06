@@ -29,10 +29,14 @@ theorem vfMidActualPrimeEndpointDefect_eq_anchor_sub_oddRunSeatMass
     {A R : ℕ} (hA : 2 ≤ A) (hAR : A ≤ R) :
     vfMidActualPrimeEndpointDefect R =
       vfMidActualPrimeEndpointDefect A - vfMidOddRunSeatMass A R := by
-  rw [vfMidActualPrimeEndpointDefect_eq_squareEndpointError
+  unfold vfMidActualPrimeEndpointDefect
+  rw [← vfMidDirectSquareEndpointError_eq_vfMidPrimeError
       (R := R) (hA.trans hAR),
-    vfMidActualPrimeEndpointDefect_eq_squareEndpointError
+    ← vfMidDirectSquareEndpointError_eq_vfMidPrimeError
       (R := A) hA]
+  change
+    vfMidSquareEndpointError R =
+      vfMidSquareEndpointError A - vfMidOddRunSeatMass A R
   have hrun :=
     vfMidOddRunSeatMass_eq_neg_endpointError_increment A R hA hAR
   linarith
