@@ -2,6 +2,7 @@ import Mathlib
 import «research.VF_MID_NATIVE_LYAPUNOV_SEAT_GRAM»
 import «research.VF_MID_ACTUAL_PRIME_FIRST_BAD_MOBIUS_TRIGGER»
 import «research.VF_MID_LI_UNIFORM_QUADRATURE»
+import «research.VF_MID_FIRST_BAD_TERMINAL_CONTRADICTION»
 
 /-!
 # First-bad historical-anchor decompression
