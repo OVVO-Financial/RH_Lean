@@ -34,6 +34,56 @@ open RHLean.Arithmetic RHLean.Proof
 
 attribute [local instance] Classical.propDecidable
 
+/-- **A first-bad successor forces normalized correlation above one half.**
+
+This is the exact "correlation explosion" direction.  The first-bad endpoint
+lies strictly outside the next K=2 radial wall, while one half of the complete
+anchored Co+Div mass already fits inside that same wall.  Since the normalized
+numerator times total mass is exactly the next endpoint defect squared, the
+normalized coefficient must be strictly larger than one half. -/
+theorem vfMidActualPrimeFirstBadAt_two_succ_nnsNormalized_gt_half
+    {R : ℕ} (hR : 8 ≤ R)
+    (hfirst : VFMidActualPrimeFirstBadAt (2 : ℝ) (R + 1)) :
+    (1 / 2 : ℝ) < vfMidFirstBadNNSNormalizedCovariance R := by
+  have hhalfRad :=
+    vfMidActualPrimeFirstBadAt_two_succ_half_totalMass_le_radial hR hfirst
+  have hendpoint :=
+    vfMidFirstBadNormalizedProduct_eq_nextEndpointDefect_sq
+      (by omega : 3 ≤ R)
+  have hbad :
+      ((2 : ℝ) * vfMidSyntheticRadialScale (R + 1)) ^ 2 <
+        vfMidActualPrimeEndpointDefect (R + 1) ^ 2 := by
+    have hbreach := hfirst.2
+    unfold VFMidSyntheticBadAt at hbreach
+    have hwall0 :
+        0 ≤ (2 : ℝ) * vfMidSyntheticRadialScale (R + 1) := by
+      have hrho :
+          0 ≤ vfMidSyntheticRadialScale (R + 1) := by
+        unfold vfMidSyntheticRadialScale
+        positivity
+      positivity
+    have habs :
+        (2 : ℝ) * vfMidSyntheticRadialScale (R + 1) <
+          |vfMidActualPrimeEndpointDefect (R + 1)| := by
+      simpa [abs_of_nonneg hwall0] using hbreach
+    nlinarith [sq_abs (vfMidActualPrimeEndpointDefect (R + 1))]
+  have hprod :
+      (1 / 2 : ℝ) * vfMidFirstBadZeroTargetTotalMass R <
+        vfMidFirstBadNNSNormalizedCovariance R *
+          vfMidFirstBadZeroTargetTotalMass R := by
+    rw [hendpoint]
+    exact hhalfRad.trans_lt hbad
+  have htotal0 : 0 ≤ vfMidFirstBadZeroTargetTotalMass R := by
+    rw [vfMidFirstBadZeroTargetTotalMass_eq]
+    positivity
+  by_cases htotalZero : vfMidFirstBadZeroTargetTotalMass R = 0
+  · rw [htotalZero] at hprod
+    norm_num at hprod
+  · have htotalPos : 0 < vfMidFirstBadZeroTargetTotalMass R :=
+      lt_of_le_of_ne htotal0 (Ne.symm htotalZero)
+    exact (mul_lt_mul_right htotalPos).mp (by
+      simpa [mul_assoc] using hprod)
+
 /-- Deterministic affine center of one VF odd-seat field. -/
 def vfMidCubeSeatAffineCenter (R : ℕ) : ℝ :=
   vfMidOddFractionalPrimeSeatWeight R - (1 / 2 : ℝ)
