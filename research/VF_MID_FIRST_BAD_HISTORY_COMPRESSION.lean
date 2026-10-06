@@ -129,7 +129,9 @@ theorem vfMidActualPrimeEndpointDefect_eq_primeLi_sub_liError
     vfMidDirectSquareEndpointError_eq_vfMidPrimeError hR
   have hsplit :=
     vfMidPrimeLiError_eq_primeError_add_liError ((R : ℝ) ^ 2)
-  rw [hD, hprime]
+  rw [hD]
+  change vfMidDirectSquareEndpointError R = _
+  rw [hprime]
   linarith
 
 /-- Consequently the VF endpoint defect and the classical prime-minus-Li

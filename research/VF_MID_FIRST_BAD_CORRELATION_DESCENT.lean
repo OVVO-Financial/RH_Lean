@@ -7,6 +7,7 @@ import «research.ZERO_TARGET_MELLIN_COMPLETE_POST_ROOT_CUBES»
 import «research.VF_MID_PHYSICAL_FORCING_MOBIUS_DECODER»
 import «research.VF_MID_LI_UNIFORM_QUADRATURE»
 import «research.VF_MID_FULL_AFFINE_PAIR_CLASSIFIER»
+import «research.VF_MID_FIRST_BAD_HISTORY_COMPRESSION»
 
 /-!
 # First-bad correlation descent
@@ -35,21 +36,6 @@ namespace RHLean.Analysis
 open RHLean.Arithmetic RHLean.Proof
 
 attribute [local instance] Classical.propDecidable
-
-/-- **Uniform square-endpoint VF/Li alignment in the actual-defect currency.**
-
-At every square endpoint the actual VF defect differs from the literal
-prime-minus-Li discrepancy by the already-compiled uniform midpoint quadrature
-constant.  This is O(1), not merely root scale. -/
-theorem abs_vfMidActualPrimeEndpointDefect_sub_primeLi_le_uniform
-    {R : ℕ} (hR : 2 ≤ R) :
-    |vfMidActualPrimeEndpointDefect R -
-        vfMidPrimeLiError ((R : ℝ) ^ 2)| ≤
-      vfMidLiSquareEndpointUniformConstant := by
-  unfold vfMidActualPrimeEndpointDefect
-  rw [vfMidPrimeLiError_eq_primeError_add_liError]
-  have hq := abs_vfMidLiError_sq_le_uniform (R := R) hR
-  simpa [abs_neg] using hq
 
 /-- **Exact historical-anchor decompression.**
 
