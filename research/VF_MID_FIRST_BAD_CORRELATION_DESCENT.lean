@@ -4,6 +4,7 @@ import «research.VF_MID_OWNER_FIBER_DEGREE_NORMALIZATION»
 import «research.GLOBAL_RETURNED_CORE_GREATEST_OWNER_CONTINUATION»
 import «research.VF_MID_FINAL_SIGNED_RANK_CONTRACTION»
 import «research.ZERO_TARGET_MELLIN_COMPLETE_POST_ROOT_CUBES»
+import «research.VF_MID_PHYSICAL_FORCING_MOBIUS_DECODER»
 
 /-!
 # First-bad correlation descent
@@ -32,6 +33,84 @@ namespace RHLean.Analysis
 open RHLean.Arithmetic RHLean.Proof
 
 attribute [local instance] Classical.propDecidable
+
+/-- Deterministic affine center of one VF odd-seat field. -/
+def vfMidCubeSeatAffineCenter (R : ℕ) : ℝ :=
+  vfMidOddFractionalPrimeSeatWeight R - (1 / 2 : ℝ)
+
+/-- On a frozen cubic-depth survivor carrier, the literal VF-minus-prime seat
+charge is its deterministic affine center plus exactly one half of the physical
+Mobius sign. -/
+theorem vfMidOddSignedSeatCharge_eq_affineCenter_add_half_moebius_of_cube
+    {A R n : ℕ}
+    (hA : 3 ≤ A) (hAR : A ≤ R)
+    (hcube : (R + 1) ^ 2 ≤ (A + 1) ^ 3)
+    (hn : n ∈ vfMidSquarePrefixWheelSurvivors A R) :
+    vfMidOddSignedSeatCharge R n =
+      vfMidCubeSeatAffineCenter R +
+        (1 / 2 : ℝ) * realMoebiusStep n := by
+  by_cases hp : n.Prime
+  · rw [vfMidOddSignedSeatCharge_of_prime R n hp,
+      realMoebiusStep]
+    rw [ArithmeticFunction.moebius_apply_prime hp]
+    unfold vfMidCubeSeatAffineCenter
+    norm_num
+    ring
+  · have hsplit :=
+      vfMidSquarePrefixWheelSurvivors_eq_prime_union_prefixComposite
+        (A := A) (R := R) (by omega : 2 ≤ R) hAR
+    have hmem :
+        n ∈ vfMidSquareWheelPrimes R ∪
+          vfMidSquareBandPrefixCompositeSurvivors A R := by
+      rw [← hsplit]
+      exact hn
+    have hnComp :
+        n ∈ vfMidSquareBandPrefixCompositeSurvivors A R := by
+      rcases Finset.mem_union.mp hmem with hnPrime | hnComp
+      · exact (hp (Finset.mem_filter.mp hnPrime).2).elim
+      · exact hnComp
+    have hmu :=
+      vfMidSquareBandPrefixComposite_moebius_eq_one_of_cube
+        hA hAR hcube hnComp
+    rw [vfMidOddSignedSeatCharge_of_not_prime R n hp,
+      realMoebiusStep, hmu]
+    unfold vfMidCubeSeatAffineCenter
+    norm_num
+    ring
+
+/-- The centered VF seat field is literally one half of the physical Mobius
+field on the same cubic-depth survivor carrier. -/
+theorem vfMidOddSignedSeatCharge_sub_affineCenter_eq_half_moebius_of_cube
+    {A R n : ℕ}
+    (hA : 3 ≤ A) (hAR : A ≤ R)
+    (hcube : (R + 1) ^ 2 ≤ (A + 1) ^ 3)
+    (hn : n ∈ vfMidSquarePrefixWheelSurvivors A R) :
+    vfMidOddSignedSeatCharge R n - vfMidCubeSeatAffineCenter R =
+      (1 / 2 : ℝ) * realMoebiusStep n := by
+  rw [vfMidOddSignedSeatCharge_eq_affineCenter_add_half_moebius_of_cube
+    hA hAR hcube hn]
+  ring
+
+/-- **Actual VF / zero-target covariance dictionary in real currency.**
+
+After removing only the deterministic VF affine center, one literal VF pair is
+exactly one quarter of the owner-descending zero-target excess. -/
+theorem vfMidCenteredSeatPair_eq_quarter_zeroTargetExcess_of_cube
+    {A R S n m : ℕ}
+    (hA : 3 ≤ A) (hAR : A ≤ R) (hAS : A ≤ S)
+    (hcubeR : (R + 1) ^ 2 ≤ (A + 1) ^ 3)
+    (hcubeS : (S + 1) ^ 2 ≤ (A + 1) ^ 3)
+    (hn : n ∈ vfMidSquarePrefixWheelSurvivors A R)
+    (hm : m ∈ vfMidSquarePrefixWheelSurvivors A S) :
+    (vfMidOddSignedSeatCharge R n - vfMidCubeSeatAffineCenter R) *
+        (vfMidOddSignedSeatCharge S m - vfMidCubeSeatAffineCenter S) =
+      (1 / 4 : ℝ) * postRootZeroTargetPairExcess (n, m) := by
+  rw [vfMidOddSignedSeatCharge_sub_affineCenter_eq_half_moebius_of_cube
+      hA hAR hcubeR hn,
+    vfMidOddSignedSeatCharge_sub_affineCenter_eq_half_moebius_of_cube
+      hA hAS hcubeS hm,
+    postRootZeroTargetPairExcess_eq_weight]
+  ring
 
 /-- Retained scaling preserves the exact greatest-owner zero-target sign
 reversal. -/
