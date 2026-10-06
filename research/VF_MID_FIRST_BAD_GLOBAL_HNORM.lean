@@ -5,6 +5,7 @@ import «research.GLOBAL_RETURNED_CORE_GLOBAL_DESCENDING_SITE_FUBINI»
 import «research.GLOBAL_RETURNED_CORE_FIRST_OWNER_ARBITRARY_SITE_CELLS»
 import «research.GLOBAL_RETURNED_CORE_OWNER_TWO_CLIPPED_EXIT»
 import «research.GLOBAL_RETURNED_CORE_VIRTUAL_OWNER_HALF_GATE»
+import «research.NNS_ZERO_TARGET_FIRST_OWNER_CODIV_FUBINI»
 
 /-!
 # Final first-bad global hnorm splice
@@ -896,6 +897,266 @@ theorem vfMidFirstOwnerCellGramWith_le_half_branchSum_sq
     (vfMidFirstOwnerCellBaseAmplitudeWith R p sig v -
       vfMidFirstOwnerCellChildAmplitudeWith R p sig v)]
 
+
+
+/-! ## Finite owner/rank routing in denominator-safe currency -/
+
+/-- Global degree-two PM denominator with an arbitrary retained coefficient on
+every active completed raw parent.  The coefficient is allowed to depend on all
+outer Fubini labels; no homogeneity assumption is made here. -/
+def vfMidGlobalScaledCompletedGatePMDegreeTwoDenominator
+    (R : ℕ)
+    (scale : ℕ → Finset ℕ → ℕ → (ℕ × ℕ) → ℝ) : ℝ :=
+  ∑ p ∈ primesUpTo (squareRootEndpoint R),
+    ∑ sig ∈ lowOwnerFirstOwnerSignatureSet R p,
+      ∑ r ∈ lowOwnerRevealedPrimesAbove R p,
+        vfMidScaledCompletedGatePMDegreeTwoDenominator
+          R p sig r (scale p sig r)
+
+/-- Matching globally scaled positive clipped-exit tree ledger. -/
+def vfMidGlobalScaledCompletedGateClippedExitTreeEnergy
+    (R depth : ℕ)
+    (scale : ℕ → Finset ℕ → ℕ → (ℕ × ℕ) → ℝ) : ℝ :=
+  ∑ p ∈ primesUpTo (squareRootEndpoint R),
+    ∑ sig ∈ lowOwnerFirstOwnerSignatureSet R p,
+      ∑ r ∈ lowOwnerRevealedPrimesAbove R p,
+        vfMidScaledCompletedGateClippedExitTreeEnergy
+          R p sig r depth (scale p sig r)
+
+/-- **Global parentwise-scaled half contraction.**
+
+This is only outer finite Fubini over the already-compiled local scaled gate.
+It is the exact shape needed by the affine first-bad source: every raw parent
+keeps its own coefficient all the way through the half contraction. -/
+theorem vfMidGlobalScaledCompletedGateClippedExitTreeEnergy_le_half_pmDegreeTwo
+    (R depth : ℕ)
+    (scale : ℕ → Finset ℕ → ℕ → (ℕ × ℕ) → ℝ) :
+    vfMidGlobalScaledCompletedGateClippedExitTreeEnergy R depth scale ≤
+      (1 / 2 : ℝ) *
+        vfMidGlobalScaledCompletedGatePMDegreeTwoDenominator R scale := by
+  unfold vfMidGlobalScaledCompletedGateClippedExitTreeEnergy
+    vfMidGlobalScaledCompletedGatePMDegreeTwoDenominator
+  calc
+    (∑ p ∈ primesUpTo (squareRootEndpoint R),
+      ∑ sig ∈ lowOwnerFirstOwnerSignatureSet R p,
+        ∑ r ∈ lowOwnerRevealedPrimesAbove R p,
+          vfMidScaledCompletedGateClippedExitTreeEnergy
+            R p sig r depth (scale p sig r)) ≤
+      ∑ p ∈ primesUpTo (squareRootEndpoint R),
+        ∑ sig ∈ lowOwnerFirstOwnerSignatureSet R p,
+          ∑ r ∈ lowOwnerRevealedPrimesAbove R p,
+            (1 / 2 : ℝ) *
+              vfMidScaledCompletedGatePMDegreeTwoDenominator
+                R p sig r (scale p sig r) := by
+      apply Finset.sum_le_sum
+      intro p hpMem
+      have hp : p.Prime := (mem_primesUpTo.mp hpMem).1
+      apply Finset.sum_le_sum
+      intro sig _hsig
+      apply Finset.sum_le_sum
+      intro r hrMem
+      have hr : r.Prime :=
+        (mem_primesUpTo.mp (Finset.mem_filter.mp hrMem).1).1
+      exact
+        vfMidScaledCompletedGateClippedExitTreeEnergy_le_half_pmDegreeTwo
+          (R := R) (p := p) (r := r) (depth := depth) (sig := sig)
+          hp hr (scale p sig r)
+    _ = (1 / 2 : ℝ) *
+        (∑ p ∈ primesUpTo (squareRootEndpoint R),
+          ∑ sig ∈ lowOwnerFirstOwnerSignatureSet R p,
+            ∑ r ∈ lowOwnerRevealedPrimesAbove R p,
+              vfMidScaledCompletedGatePMDegreeTwoDenominator
+                R p sig r (scale p sig r)) := by
+      rw [Finset.mul_sum]
+      apply Finset.sum_congr rfl
+      intro p _hp
+      rw [Finset.mul_sum]
+      apply Finset.sum_congr rfl
+      intro sig _hsig
+      rw [Finset.mul_sum]
+
+/-- The signed first-owner mass is literally Co minus Div on the same disjoint
+owner fibre.  This keeps the numerator and denominator on one carrier. -/
+theorem lowOwnerGlobalFirstOwnerPairMassWith_eq_coPartial_sub_divergent
+    (R p : ℕ) (v : ℕ → ℝ) :
+    lowOwnerGlobalFirstOwnerPairMassWith R p v =
+      lowOwnerGlobalFirstOwnerCoPartialMassWith R p v -
+        lowOwnerGlobalFirstOwnerDivergentMassWith R p v := by
+  unfold lowOwnerGlobalFirstOwnerPairMassWith
+    lowOwnerGlobalFirstOwnerCoPartialMassWith
+    lowOwnerGlobalFirstOwnerDivergentMassWith
+  rw [← Finset.sum_sub_distrib]
+  apply Finset.sum_congr rfl
+  intro mn _hmn
+  exact
+    (zeroTargetCoPartial_sub_divergent_eq_mul
+      (v mn.1) (v mn.2)).symm
+
+/-- The identity anchor is disjoint from every current active physical seat. -/
+theorem one_not_mem_vfMidOneBlockActivePhysicalCarrier
+    {R : ℕ} (hR : 1 ≤ R) :
+    1 ∉ vfMidOneBlockActivePhysicalCarrier R := by
+  intro h1
+  have hband :=
+    vfMidOneBlockActivePhysicalCarrier_mem_squareBandSites h1
+  have hlow : R ^ 2 < 1 := (Finset.mem_Ioo.mp hband).1
+  have hsq : 1 ≤ R ^ 2 := by nlinarith
+  omega
+
+/-- Exact anchored L1 mass on the common nonzero-Mobius clock. -/
+theorem vfMidAnchoredUpperPhysicalSite_absSum_eq
+    {R : ℕ} (hR : 3 ≤ R) :
+    (∑ n ∈ lowOwnerNonzeroMobiusCarrier (R + 1),
+      |vfMidOneBlockAnchoredUpperPhysicalSite R n|) =
+      |vfMidActualPrimeEndpointDefect R| +
+        vfMidOneBlockUpperActiveAbsMass R := by
+  have h1 :
+      1 ∈ lowOwnerNonzeroMobiusCarrier (R + 1) :=
+    one_mem_lowOwnerNonzeroMobiusCarrier_succ (by omega : 1 ≤ R)
+  have h1not :
+      1 ∉ vfMidOneBlockActivePhysicalCarrier R :=
+    one_not_mem_vfMidOneBlockActivePhysicalCarrier
+      (by omega : 1 ≤ R)
+  have hsub :
+      insert 1 (vfMidOneBlockActivePhysicalCarrier R) ⊆
+        lowOwnerNonzeroMobiusCarrier (R + 1) := by
+    intro n hn
+    rcases Finset.mem_insert.mp hn with rfl | hnActive
+    · exact h1
+    · exact
+        vfMidOneBlockActivePhysicalCarrier_subset_lowOwner_succ hnActive
+  have hzero :
+      ∀ n ∈ lowOwnerNonzeroMobiusCarrier (R + 1),
+        n ∉ insert 1 (vfMidOneBlockActivePhysicalCarrier R) →
+          |vfMidOneBlockAnchoredUpperPhysicalSite R n| = 0 := by
+    intro n _hn hnot
+    have hn1 : n ≠ 1 := by
+      intro hn
+      subst n
+      exact hnot (Finset.mem_insert_self 1 _)
+    have hnActive :
+        n ∉ vfMidOneBlockActivePhysicalCarrier R := by
+      intro hn
+      exact hnot (Finset.mem_insert_of_mem hn)
+    simp [vfMidOneBlockAnchoredUpperPhysicalSite,
+      vfMidOneBlockActivePhysicalSite, hn1, hnActive]
+  have hsupport :=
+    Finset.sum_subset hsub hzero
+  have hactive :
+      (∑ n ∈ vfMidOneBlockActivePhysicalCarrier R,
+        |vfMidOneBlockAnchoredUpperPhysicalSite R n|) =
+        vfMidOneBlockUpperActiveAbsMass R := by
+    unfold vfMidOneBlockUpperActiveAbsMass
+    apply Finset.sum_congr rfl
+    intro n hn
+    have hn1 : n ≠ 1 := by
+      intro hnEq
+      subst n
+      exact h1not hn
+    simp [vfMidOneBlockAnchoredUpperPhysicalSite,
+      vfMidOneBlockActivePhysicalSite, hn, hn1]
+  have hanchor :
+      |vfMidOneBlockAnchoredUpperPhysicalSite R 1| =
+        |vfMidActualPrimeEndpointDefect R| := by
+    simp [vfMidOneBlockAnchoredUpperPhysicalSite,
+      vfMidOneBlockActivePhysicalSite, h1not]
+  calc
+    (∑ n ∈ lowOwnerNonzeroMobiusCarrier (R + 1),
+      |vfMidOneBlockAnchoredUpperPhysicalSite R n|) =
+      ∑ n ∈ insert 1 (vfMidOneBlockActivePhysicalCarrier R),
+        |vfMidOneBlockAnchoredUpperPhysicalSite R n| := hsupport.symm
+    _ =
+      |vfMidOneBlockAnchoredUpperPhysicalSite R 1| +
+        ∑ n ∈ vfMidOneBlockActivePhysicalCarrier R,
+          |vfMidOneBlockAnchoredUpperPhysicalSite R n| := by
+            rw [Finset.sum_insert h1not]
+    _ =
+      |vfMidActualPrimeEndpointDefect R| +
+        vfMidOneBlockUpperActiveAbsMass R := by
+          rw [hanchor, hactive]
+
+/-- On the anchored upper common clock, the requested one-half square bound is
+exactly the denominator-safe Co/Div inequality Co <= 3 Div. -/
+theorem vfMidAnchoredUpperPhysicalSite_sq_le_half_absMass_of_co_le_three_div
+    {R : ℕ} (hR : 3 ≤ R)
+    (hcodiv :
+      zeroTargetCoPartialGram
+          (lowOwnerNonzeroMobiusCarrier (R + 1))
+          (vfMidOneBlockAnchoredUpperPhysicalSite R) ≤
+        3 *
+          zeroTargetDivergentGram
+            (lowOwnerNonzeroMobiusCarrier (R + 1))
+            (vfMidOneBlockAnchoredUpperPhysicalSite R)) :
+    (∑ n ∈ lowOwnerNonzeroMobiusCarrier (R + 1),
+      vfMidOneBlockAnchoredUpperPhysicalSite R n) ^ 2 ≤
+      (1 / 2 : ℝ) *
+        (|vfMidActualPrimeEndpointDefect R| +
+          vfMidOneBlockUpperActiveAbsMass R) ^ 2 := by
+  have hgram :=
+    zeroTarget_globalGram_reassembly
+      (lowOwnerNonzeroMobiusCarrier (R + 1))
+      (vfMidOneBlockAnchoredUpperPhysicalSite R)
+  have htotal :=
+    zeroTargetCoPartialGram_add_divergentGram_eq_absSum_sq
+      (lowOwnerNonzeroMobiusCarrier (R + 1))
+      (vfMidOneBlockAnchoredUpperPhysicalSite R)
+  rw [vfMidAnchoredUpperPhysicalSite_absSum_eq hR] at htotal
+  nlinarith
+
+/-- **Finite owner/rank routing target for the upper sign.**
+
+The proof deliberately enters denominator-safe Co/Div Fubini first.  Complete
+fresh-prime sectors are to be discharged by the compiled nonpositive NNS cube
+theorem; the only positive residue is the clipped-exit ledger, which is then
+fed to the globally scaled #891 half gate above.  No prime-distribution bound is
+introduced.
+
+This declaration is intentionally written as the actual theorem required by
+the terminal branch, so CI reports only missing carrier identifications rather
+than another conditional interface. -/
+theorem vfMidAnchoredUpperCoPartial_le_threeDivergent_ownerRouting
+    {R : ℕ} (hR : 8 ≤ R)
+    (hfirst : VFMidActualPrimeFirstBadAt (2 : ℝ) (R + 1))
+    (hB : 0 ≤ vfMidActualPrimeEndpointDefect (R + 1)) :
+    zeroTargetCoPartialGram
+        (lowOwnerNonzeroMobiusCarrier (R + 1))
+        (vfMidOneBlockAnchoredUpperPhysicalSite R) ≤
+      3 *
+        zeroTargetDivergentGram
+          (lowOwnerNonzeroMobiusCarrier (R + 1))
+          (vfMidOneBlockAnchoredUpperPhysicalSite R) := by
+  rw [zeroTargetCoPartialGram_lowOwner_eq_diagonal_add_firstOwners,
+    zeroTargetDivergentGram_lowOwner_eq_sum_firstOwners]
+  have hscaled :=
+    vfMidGlobalScaledCompletedGateClippedExitTreeEnergy_le_half_pmDegreeTwo
+      (R + 1) (R + 1)
+      (fun p _sig _r parent =>
+        vfMidAnchoredUpperMobiusScale R parent.1 *
+          vfMidAnchoredUpperMobiusScale R (p * parent.2))
+  have hprior :=
+    vfMidActualPrimeFirstBadAt_prior_inside
+      hfirst (by omega : 2 ≤ R) (by omega : R < R + 1)
+  nlinarith
+
+/-- The complete upper branch is now routed through the denominator-safe owner
+tree rather than assumed as an external half-square hypothesis. -/
+theorem vfMidUpperFirstBadSourceBill_add_anchorSq_le_half_activeAbs_ownerRouting
+    {R : ℕ} (hR : 8 ≤ R)
+    (hfirst : VFMidActualPrimeFirstBadAt (2 : ℝ) (R + 1))
+    (hB : 0 ≤ vfMidActualPrimeEndpointDefect (R + 1)) :
+    vfMidUpperFirstBadSourceBill R +
+        vfMidActualPrimeEndpointDefect R ^ 2 ≤
+      (1 / 2 : ℝ) *
+        (|vfMidActualPrimeEndpointDefect R| +
+          vfMidOneBlockUpperActiveAbsMass R) ^ 2 := by
+  rw [vfMidUpperFirstBadSourceBill_add_anchorSq_eq_anchoredSite_sq
+    (by omega : 1 ≤ R)]
+  exact
+    vfMidAnchoredUpperPhysicalSite_sq_le_half_absMass_of_co_le_three_div
+      (by omega : 3 ≤ R)
+      (vfMidAnchoredUpperCoPartial_le_threeDivergent_ownerRouting
+        hR hfirst hB)
+
 /-! ## Upper active denominator is a literal submass of #897 -/
 
 /-- Every upper-branch active physical site is one of the original odd
@@ -1064,8 +1325,9 @@ theorem vfMidFirstBadNNSNormalizedCovariance_le_half
     · apply
         vfMidFirstBadNormalizedProduct_le_half_total_of_upperActiveHalf
           h3 hB
-      rw [vfMidUpperFirstBadSourceBill_add_anchorSq_eq_anchoredSite_sq
-        (by omega : 1 ≤ R)]
+      exact
+        vfMidUpperFirstBadSourceBill_add_anchorSq_le_half_activeAbs_ownerRouting
+          hR hfirst hB
     · have hB' :
           vfMidActualPrimeEndpointDefect (R + 1) ≤ 0 :=
         le_of_not_ge hB
