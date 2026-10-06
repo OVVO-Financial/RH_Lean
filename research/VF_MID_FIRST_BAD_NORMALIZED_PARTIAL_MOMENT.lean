@@ -170,7 +170,7 @@ theorem vfMidAnchoredZeroTargetTotalMass_eq_absSum_sq
   unfold vfMidAnchoredZeroTargetTotalMass
     vfMidAnchoredZeroTargetCoPartialGram
     vfMidAnchoredZeroTargetDivergentGram
-  rw [show D ^ 2 = |D| ^ 2 by simpa [sq_abs]]
+  rw [show D ^ 2 = |D| ^ 2 by simp [sq_abs]]
   calc
     zeroTargetCoPartialGram s a +
           2 * (∑ i ∈ s, zeroTargetCoPartialPair (-D) (a i)) +
@@ -347,7 +347,12 @@ theorem vfMidOddSignedSeatCharge_absSum_le_root
 private theorem vfMidSyntheticRadialScale_ge_two_mul_root
     {R : ℕ} (hR : 8 ≤ R) :
     2 * (R : ℝ) ≤ vfMidSyntheticRadialScale R := by
-  have hlog2 : (9 / 10 : ℝ) < Real.log 2 := Real.log_two_gt_d9
+  have hlog2d : (0.6931471803 : ℝ) < Real.log 2 :=
+    Real.log_two_gt_d9
+  have htwoThirds : (2 / 3 : ℝ) < (0.6931471803 : ℝ) := by
+    norm_num
+  have hlog2 : (2 / 3 : ℝ) < Real.log 2 :=
+    htwoThirds.trans hlog2d
   have hlog8eq : Real.log (8 : ℝ) = 3 * Real.log 2 := by
     calc
       Real.log (8 : ℝ) = Real.log ((2 : ℝ) ^ 3) := by norm_num
