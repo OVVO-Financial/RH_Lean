@@ -110,4 +110,37 @@ theorem vfMidLi_squareEndpoint_O_one
       vfMidLiSquareEndpointUniformConstant :=
   abs_vfMidLiError_sq_le_uniform hR
 
+
+
+/-- **Square-endpoint actual-prime/VF defect is a bounded perturbation of the
+classical prime-minus-Li discrepancy.**
+
+This is the exact sign convention used by the direct VF route:
+`prime-Li = prime-VF + (VF-Li)`. -/
+theorem vfMidActualPrimeEndpointDefect_eq_primeLi_sub_liError
+    {R : ℕ} (hR : 2 ≤ R) :
+    vfMidActualPrimeEndpointDefect R =
+      vfMidPrimeLiError ((R : ℝ) ^ 2) -
+        vfMidLiError ((R : ℝ) ^ 2) := by
+  have hD :=
+    vfMidActualPrimeEndpointDefect_eq_squareEndpointError
+      (R := R) hR
+  have hprime :=
+    vfMidDirectSquareEndpointError_eq_vfMidPrimeError hR
+  have hsplit :=
+    vfMidPrimeLiError_eq_primeError_add_liError ((R : ℝ) ^ 2)
+  rw [hD, hprime]
+  linarith
+
+/-- Consequently the VF endpoint defect and the classical prime-minus-Li
+discrepancy differ by the same fixed square-endpoint quadrature constant. -/
+theorem abs_vfMidActualPrimeEndpointDefect_sub_primeLi_le_uniform
+    {R : ℕ} (hR : 2 ≤ R) :
+    |vfMidActualPrimeEndpointDefect R -
+        vfMidPrimeLiError ((R : ℝ) ^ 2)| ≤
+      vfMidLiSquareEndpointUniformConstant := by
+  rw [vfMidActualPrimeEndpointDefect_eq_primeLi_sub_liError hR]
+  have hquad := abs_vfMidLiError_sq_le_uniform (R := R) hR
+  simpa [sub_sub, abs_neg] using hquad
+
 end RHLean.Analysis
