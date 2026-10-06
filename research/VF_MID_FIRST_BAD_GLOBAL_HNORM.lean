@@ -3,6 +3,7 @@ import «research.VF_MID_ANCHORED_CODIV_GATE_INLET»
 import «research.VF_MID_GLOBAL_FIRST_BAD_RADIAL_BUDGET»
 import «research.GLOBAL_RETURNED_CORE_GLOBAL_DESCENDING_SITE_FUBINI»
 import «research.GLOBAL_RETURNED_CORE_FIRST_OWNER_ARBITRARY_SITE_CELLS»
+import «research.GLOBAL_RETURNED_CORE_OWNER_TWO_CLIPPED_EXIT»
 
 /-!
 # Final first-bad global hnorm splice
@@ -225,6 +226,116 @@ theorem vfMidOneBlockActivePhysicalCarrier_subset_lowOwner_succ
     · unfold realMoebiusStep
       exact_mod_cast
         (ArithmeticFunction.moebius_ne_zero_iff_squarefree.mpr hnSq)
+
+/-- Every active physical seat lies in the literal current square band. -/
+theorem vfMidOneBlockActivePhysicalCarrier_mem_squareBandSites
+    {R n : ℕ}
+    (hn : n ∈ vfMidOneBlockActivePhysicalCarrier R) :
+    n ∈ vfMidSquareBandSites R := by
+  unfold vfMidOneBlockActivePhysicalCarrier at hn
+  rcases Finset.mem_union.mp hn with hnPrime | hnProcessed
+  · have hnSite : n ∈ vfMidSquareWheelSites R :=
+      (Finset.mem_filter.mp hnPrime).1
+    simpa [vfMidSquareWheelSites, vfMidSquareBandSites] using hnSite
+  · rcases Finset.mem_biUnion.mp hnProcessed with ⟨p, _hp, hnp⟩
+    have hnOwner : n ∈ vfMidSquareBandCompositeOwner R p :=
+      (Finset.mem_filter.mp hnp).1
+    have hnComp : n ∈ vfMidSquareBandComposites R :=
+      (Finset.mem_filter.mp hnOwner).1
+    exact (Finset.mem_filter.mp hnComp).1
+
+/-- From R >= 3, a current-block active seat lies beyond the owner-two clip on
+the adjacent common clock.  This is the geometric reason every non-anchor
+active base row is already a first-owner clipped row. -/
+theorem vfMidOneBlockActivePhysical_two_mul_gt_endpoint
+    {R n : ℕ} (hR : 3 ≤ R)
+    (hn : n ∈ vfMidOneBlockActivePhysicalCarrier R) :
+    squareRootEndpoint (R + 1) < 2 * n := by
+  have hnBand :=
+    vfMidOneBlockActivePhysicalCarrier_mem_squareBandSites hn
+  have hnLow : R ^ 2 < n := by
+    exact (Finset.mem_Ioo.mp hnBand).1
+  have h2R : 2 * R ≤ R ^ 2 := by
+    calc
+      2 * R ≤ R * R := Nat.mul_le_mul_right R (by omega : 2 ≤ R)
+      _ = R ^ 2 := by ring
+  have hend :
+      squareRootEndpoint (R + 1) = R ^ 2 + 2 * R := by
+    unfold squareRootEndpoint
+    have hexpand :
+        (R + 1) ^ 2 = R ^ 2 + 2 * R + 1 := by ring
+    rw [hexpand]
+    omega
+  rw [hend]
+  omega
+
+/-- The native low-owner AMP weight is exactly one on every active physical
+seat of the current square band at the adjacent clock. -/
+theorem lowOwnerZeroFrequencyMobiusWeight_eq_one_on_vfMidActivePhysical
+    {R n : ℕ} (hR : 3 ≤ R)
+    (hn : n ∈ vfMidOneBlockActivePhysicalCarrier R) :
+    lowOwnerZeroFrequencyMobiusWeight (R + 1) n = 1 := by
+  exact
+    lowOwnerZeroFrequencyMobiusWeight_eq_one_of_ownerTwo_clipped
+      (R := R + 1) (a := n) (by omega : 2 ≤ R + 1)
+      (vfMidOneBlockActivePhysical_two_mul_gt_endpoint hR hn)
+
+/-- On an active physical seat, the Dirichlet base site at the adjacent clock
+is therefore the bare Möbius sign. -/
+theorem lowOwnerFirstOwnerDirichletBaseSite_eq_moebius_on_vfMidActivePhysical
+    {R n : ℕ} (hR : 3 ≤ R)
+    (hn : n ∈ vfMidOneBlockActivePhysicalCarrier R) :
+    lowOwnerFirstOwnerDirichletBaseSite (R + 1) n =
+      realMoebiusStep n := by
+  have hnCar :
+      n ∈ lowOwnerNonzeroMobiusCarrier (R + 1) :=
+    vfMidOneBlockActivePhysicalCarrier_subset_lowOwner_succ hn
+  have hnX :
+      n ≤ squareRootEndpoint (R + 1) :=
+    (Finset.mem_Icc.mp (Finset.mem_filter.mp hnCar).1).2
+  unfold lowOwnerFirstOwnerDirichletBaseSite
+  rw [lowOwnerPhysicalDirichletWeight_eq_weight_of_le hnX,
+    lowOwnerZeroFrequencyMobiusWeight_eq_one_on_vfMidActivePhysical hR hn]
+  ring
+
+/-- An active p-divisible physical child returns to an admitted parent whose
+Dirichlet returned-child site is again the bare Möbius sign. -/
+theorem lowOwnerFirstOwnerDirichletReturnedChildSite_div_eq_moebius_on_vfMidActivePhysical
+    {R p b : ℕ} {sig : Finset ℕ}
+    (hR : 3 ≤ R) (hp : p.Prime)
+    (hbActive : b ∈ vfMidOneBlockActivePhysicalCarrier R)
+    (hbChild : b ∈ lowOwnerFirstOwnerChildFiber (R + 1) p sig) :
+    lowOwnerFirstOwnerDirichletReturnedChildSite
+        (R + 1) p (b / p) =
+      realMoebiusStep (b / p) := by
+  have hcAdm :
+      b / p ∈ lowOwnerFirstOwnerAdmittedBaseFiber (R + 1) p sig :=
+    lowOwnerFirstOwner_div_mem_admitted_of_child hp hbChild
+  have hbDvd : p ∣ b :=
+    (Finset.mem_filter.mp hbChild).2.2
+  have hcancel : p * (b / p) = b :=
+    Nat.mul_div_cancel' hbDvd
+  rw [lowOwnerFirstOwnerDirichletReturnedChildSite_eq_returned_of_admitted hcAdm]
+  rw [hcancel,
+    lowOwnerZeroFrequencyMobiusWeight_eq_one_on_vfMidActivePhysical hR hbActive]
+  ring
+
+/-- A non-anchor active base seat is literally in the clipped side of every
+first-owner cell containing it. -/
+theorem vfMidOneBlockActivePhysical_mem_clippedBase
+    {R p a : ℕ} {sig : Finset ℕ}
+    (hR : 3 ≤ R) (hp : p.Prime)
+    (haActive : a ∈ vfMidOneBlockActivePhysicalCarrier R)
+    (haBase : a ∈ lowOwnerFirstOwnerBaseFiber (R + 1) p sig) :
+    a ∈ lowOwnerFirstOwnerClippedBaseFiber (R + 1) p sig := by
+  unfold lowOwnerFirstOwnerClippedBaseFiber
+  apply Finset.mem_filter.mpr
+  refine ⟨haBase, ?_⟩
+  have htwo :=
+    vfMidOneBlockActivePhysical_two_mul_gt_endpoint hR haActive
+  have h2p : 2 * a ≤ p * a :=
+    Nat.mul_le_mul_right a hp.two_le
+  exact htwo.trans_le h2p
 
 /-- Zero-extension of the literal physical active source to the common clock.
 The support test is deliberately the physical carrier membership, so all owner
