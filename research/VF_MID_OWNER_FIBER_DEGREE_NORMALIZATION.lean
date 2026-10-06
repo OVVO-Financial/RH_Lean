@@ -114,4 +114,83 @@ theorem postRootCovarianceFixedOwner_degreeTwoDenominator_eq
   rw [postRootCovarianceFixedOwner_degreeTwoDenominator_eq_energy]
   exact sum_postRootCovarianceFixedOwnerChild_energy_eq W parent p
 
+
+/-- Multiplying a homogeneous owner fibre by one retained scalar preserves the
+common-absolute-value hypothesis needed by the degree converter. -/
+theorem postRootCovarianceFixedOwnerChild_abs_retainedAmplitude_eq
+    {W p : ℕ} {parent mn : ℕ × ℕ} (coefficient : ℝ)
+    (hmn : mn ∈ postRootCovarianceFixedOwnerChildFiber W parent p) :
+    |coefficient * postRootCovarianceReciprocalPairAmplitude mn| =
+      |coefficient *
+        ((1 / (p : ℝ)) *
+          postRootCovarianceReciprocalPairAmplitude parent)| := by
+  rw [abs_mul, abs_mul]
+  rw [postRootCovarianceFixedOwnerChild_abs_amplitude_eq hmn]
+
+/-- **Retained-coefficient degree invariance.**
+
+This is the form consumed by the #888/#891 API: on a fixed owner/fixed parent
+fibre, any one scalar retained on all children has the same normalized degree-1
+and degree-2 signed ratio. -/
+theorem postRootCovarianceFixedOwner_retained_normalizedDegreeOne_eq_degreeTwo
+    (W : ℕ) (parent : ℕ × ℕ) (p : ℕ) (coefficient : ℝ) :
+    (∑ mn ∈ postRootCovarianceFixedOwnerChildFiber W parent p,
+        coefficient * postRootCovarianceReciprocalPairAmplitude mn) /
+      (∑ mn ∈ postRootCovarianceFixedOwnerChildFiber W parent p,
+        |coefficient * postRootCovarianceReciprocalPairAmplitude mn|) =
+    (∑ mn ∈ postRootCovarianceFixedOwnerChildFiber W parent p,
+        (coefficient * postRootCovarianceReciprocalPairAmplitude mn) *
+          |coefficient * postRootCovarianceReciprocalPairAmplitude mn|) /
+      (∑ mn ∈ postRootCovarianceFixedOwnerChildFiber W parent p,
+        |coefficient * postRootCovarianceReciprocalPairAmplitude mn| ^ 2) := by
+  apply zeroTargetNormalizedDegreeOne_eq_degreeTwo_of_eqAbs
+    (s := postRootCovarianceFixedOwnerChildFiber W parent p)
+    (f := fun mn =>
+      coefficient * postRootCovarianceReciprocalPairAmplitude mn)
+    (c :=
+      |coefficient *
+        ((1 / (p : ℝ)) *
+          postRootCovarianceReciprocalPairAmplitude parent)|)
+  intro mn hmn
+  exact
+    postRootCovarianceFixedOwnerChild_abs_retainedAmplitude_eq
+      coefficient hmn
+
+/-- The retained-coefficient degree-two denominator is exactly the retained
+scalar square times the literal reciprocal child-energy sum. -/
+theorem postRootCovarianceFixedOwner_retained_degreeTwoDenominator_eq_energy
+    (W : ℕ) (parent : ℕ × ℕ) (p : ℕ) (coefficient : ℝ) :
+    (∑ mn ∈ postRootCovarianceFixedOwnerChildFiber W parent p,
+        |coefficient * postRootCovarianceReciprocalPairAmplitude mn| ^ 2) =
+      coefficient ^ 2 *
+        (∑ mn ∈ postRootCovarianceFixedOwnerChildFiber W parent p,
+          postRootCovarianceReciprocalPairEnergy mn) := by
+  calc
+    (∑ mn ∈ postRootCovarianceFixedOwnerChildFiber W parent p,
+        |coefficient * postRootCovarianceReciprocalPairAmplitude mn| ^ 2) =
+      ∑ mn ∈ postRootCovarianceFixedOwnerChildFiber W parent p,
+        coefficient ^ 2 * postRootCovarianceReciprocalPairEnergy mn := by
+          apply Finset.sum_congr rfl
+          intro mn _hmn
+          unfold postRootCovarianceReciprocalPairEnergy
+          rw [sq_abs]
+          ring
+    _ = coefficient ^ 2 *
+        (∑ mn ∈ postRootCovarianceFixedOwnerChildFiber W parent p,
+          postRootCovarianceReciprocalPairEnergy mn) := by
+          rw [Finset.mul_sum]
+
+/-- Therefore the retained degree-two PM denominator is already in the exact
+multiplicity/p^2 parent-energy currency of the owner contraction. -/
+theorem postRootCovarianceFixedOwner_retained_degreeTwoDenominator_eq
+    (W : ℕ) (parent : ℕ × ℕ) (p : ℕ) (coefficient : ℝ) :
+    (∑ mn ∈ postRootCovarianceFixedOwnerChildFiber W parent p,
+        |coefficient * postRootCovarianceReciprocalPairAmplitude mn| ^ 2) =
+      coefficient ^ 2 *
+        ((postRootCovarianceFixedOwnerChildMultiplicity W parent p : ℝ) /
+          (p : ℝ) ^ 2 *
+          postRootCovarianceReciprocalPairEnergy parent) := by
+  rw [postRootCovarianceFixedOwner_retained_degreeTwoDenominator_eq_energy]
+  rw [sum_postRootCovarianceFixedOwnerChild_energy_eq]
+
 end RHLean.Proof
