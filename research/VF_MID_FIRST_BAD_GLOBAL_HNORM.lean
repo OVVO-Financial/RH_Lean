@@ -106,6 +106,36 @@ theorem vfMidFirstBadNormalizedProduct_le_lowerComposite_add_anchorSq
   have hP := vfMidOneBlockPrimeSeatCharge_nonpos R hR
   nlinarith
 
+/-- **Exact normalized endpoint-energy identity.**
+
+The complete anchored NNS numerator is not an additional energy packet: after
+the exact endpoint weld it is literally the next endpoint defect squared.
+Naming this identity prevents the rigid anchor square from being charged a
+second time or assigned a fictitious fresh owner. -/
+theorem vfMidFirstBadNormalizedProduct_eq_nextEndpointDefect_sq
+    {R : ℕ} (hR : 3 ≤ R) :
+    vfMidFirstBadNNSNormalizedCovariance R *
+        vfMidFirstBadZeroTargetTotalMass R =
+      vfMidActualPrimeEndpointDefect (R + 1) ^ 2 := by
+  have hnorm :=
+    vfMidCorrelationEnergy_add_anchorSq_eq_nnsNormalized_mul_total hR
+  have hcorr :=
+    vfMidSquareEndpointError_sq_succ_eq_correlation
+      R (by omega : 2 ≤ R)
+  calc
+    vfMidFirstBadNNSNormalizedCovariance R *
+        vfMidFirstBadZeroTargetTotalMass R =
+      2 * vfMidSquareEndpointAccumulationCorrelation R +
+        vfMidSquareBandError R ^ 2 +
+        vfMidActualPrimeEndpointDefect R ^ 2 := hnorm.symm
+    _ = vfMidActualPrimeEndpointDefect (R + 1) ^ 2 := by
+      rw [vfMidActualPrimeEndpointDefect_eq_squareEndpointError
+          (R := R) (by omega : 2 ≤ R),
+        vfMidActualPrimeEndpointDefect_eq_squareEndpointError
+          (R := R + 1) (by omega : 2 ≤ R + 1)]
+      nlinarith [hcorr]
+
+
 /-! ## Physical active source before any child stripping -/
 
 /-- Squarefree processed physical owner fibres are disjoint because the least
