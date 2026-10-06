@@ -482,6 +482,86 @@ theorem vfMidAnchoredUpperPhysicalPair_eq_scale_mul_moebiusPair
     ← vfMidAnchoredUpperMobiusScale_mul_moebius hb]
   ring
 
+/-- **Affine pointwise physical-to-Dirichlet weld on an ordinary active row.**
+
+For two active physical seats in one first-owner cell, the p-divisible seat is
+returned to b/p.  The p-free active seat is already clipped, the returned
+parent is admitted, and the native Dirichlet atom is the bare Möbius pair
+product.  The complete VF affine weight is retained as a parentwise scalar. -/
+theorem vfMidAnchoredUpperActivePair_eq_scaledDirichletPolarizationAtom
+    {R p a b : ℕ} {sig : Finset ℕ}
+    (hR : 3 ≤ R) (hp : p.Prime)
+    (haActive : a ∈ vfMidOneBlockActivePhysicalCarrier R)
+    (hbActive : b ∈ vfMidOneBlockActivePhysicalCarrier R)
+    (haBase : a ∈ lowOwnerFirstOwnerBaseFiber (R + 1) p sig)
+    (hbChild : b ∈ lowOwnerFirstOwnerChildFiber (R + 1) p sig) :
+    vfMidOneBlockAnchoredUpperPhysicalSite R a *
+        vfMidOneBlockAnchoredUpperPhysicalSite R b =
+      (vfMidAnchoredUpperMobiusScale R a *
+        vfMidAnchoredUpperMobiusScale R b) *
+        lowOwnerFirstOwnerDirichletPolarizationAtom
+          (R + 1) p (a, b / p) := by
+  have haCar :
+      a ∈ lowOwnerNonzeroMobiusCarrier (R + 1) :=
+    vfMidOneBlockActivePhysicalCarrier_subset_lowOwner_succ haActive
+  have hbCar :
+      b ∈ lowOwnerNonzeroMobiusCarrier (R + 1) :=
+    vfMidOneBlockActivePhysicalCarrier_subset_lowOwner_succ hbActive
+  have haClip :
+      a ∈ lowOwnerFirstOwnerClippedBaseFiber (R + 1) p sig :=
+    vfMidOneBlockActivePhysical_mem_clippedBase hR hp haActive haBase
+  have hcAdm :
+      b / p ∈ lowOwnerFirstOwnerAdmittedBaseFiber (R + 1) p sig :=
+    lowOwnerFirstOwner_div_mem_admitted_of_child hp hbChild
+  have hbDvd : p ∣ b :=
+    (Finset.mem_filter.mp hbChild).2.2
+  have hcancel : p * (b / p) = b :=
+    Nat.mul_div_cancel' hbDvd
+  have hcBase := (Finset.mem_filter.mp hcAdm).1
+  have hpc : ¬ p ∣ b / p :=
+    (Finset.mem_filter.mp hcBase).2.2
+  have hmu :
+      realMoebiusStep b = -realMoebiusStep (b / p) := by
+    calc
+      realMoebiusStep b =
+          realMoebiusStep (p * (b / p)) := by rw [hcancel]
+      _ = -realMoebiusStep (b / p) :=
+        realMoebiusStep_mul_prime_eq_neg hp hpc
+  have hbase :
+      lowOwnerFirstOwnerDirichletBaseSite (R + 1) a =
+        realMoebiusStep a :=
+    lowOwnerFirstOwnerDirichletBaseSite_eq_moebius_on_vfMidActivePhysical
+      hR haActive
+  have hret :
+      lowOwnerFirstOwnerDirichletReturnedChildSite
+          (R + 1) p (b / p) =
+        realMoebiusStep (b / p) :=
+    lowOwnerFirstOwnerDirichletReturnedChildSite_div_eq_moebius_on_vfMidActivePhysical
+      hR hp hbActive hbChild
+  have hatom :=
+    lowOwnerFirstOwnerDirichletPolarizationAtom_eq_clipped_left
+      haClip hcAdm
+  calc
+    vfMidOneBlockAnchoredUpperPhysicalSite R a *
+        vfMidOneBlockAnchoredUpperPhysicalSite R b =
+      (vfMidAnchoredUpperMobiusScale R a *
+        vfMidAnchoredUpperMobiusScale R b) *
+        (realMoebiusStep a * realMoebiusStep b) :=
+          vfMidAnchoredUpperPhysicalPair_eq_scale_mul_moebiusPair haCar hbCar
+    _ =
+      (vfMidAnchoredUpperMobiusScale R a *
+        vfMidAnchoredUpperMobiusScale R b) *
+        (-(realMoebiusStep a * realMoebiusStep (b / p))) := by
+          rw [hmu]
+          ring
+    _ =
+      (vfMidAnchoredUpperMobiusScale R a *
+        vfMidAnchoredUpperMobiusScale R b) *
+        lowOwnerFirstOwnerDirichletPolarizationAtom
+          (R + 1) p (a, b / p) := by
+          rw [hatom, hbase, hret]
+          ring
+
 /-- Anchor injection preserves the full affine amplitude exactly. -/
 theorem vfMidOneBlockAnchoredUpperPhysicalSite_sum_eq
     (R : ℕ) :
