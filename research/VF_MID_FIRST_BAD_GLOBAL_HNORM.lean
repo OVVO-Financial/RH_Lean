@@ -296,4 +296,98 @@ theorem vfMidOneBlockActiveSource_sq_eq_diagonal_add_descendingCross
   exact hpair
 
 
+/-! ## Anchor injection on the common clock -/
+
+/-- The multiplicative identity is always present on the adjacent nonzero-Möbius
+clock.  It is therefore a legal physical location for the rigid historical
+anchor; no new owner or synthetic carrier is introduced. -/
+theorem one_mem_lowOwnerNonzeroMobiusCarrier_succ
+    (R : ℕ) :
+    1 ∈ lowOwnerNonzeroMobiusCarrier (R + 1) := by
+  unfold lowOwnerNonzeroMobiusCarrier
+  apply Finset.mem_filter.mpr
+  constructor
+  · apply Finset.mem_Icc.mpr
+    constructor
+    · norm_num
+    · unfold squareRootEndpoint
+      omega
+  · unfold realMoebiusStep
+    norm_num
+
+/-- Upper-branch active physical site with the rigid anchor inserted at the
+identity site of the same common clock. -/
+def vfMidOneBlockAnchoredUpperPhysicalSite (R n : ℕ) : ℝ :=
+  vfMidOneBlockActivePhysicalSite R n +
+    if n = 1 then -vfMidActualPrimeEndpointDefect R else 0
+
+/-- Anchor injection preserves the full affine amplitude exactly. -/
+theorem vfMidOneBlockAnchoredUpperPhysicalSite_sum_eq
+    (R : ℕ) :
+    (∑ n ∈ lowOwnerNonzeroMobiusCarrier (R + 1),
+      vfMidOneBlockAnchoredUpperPhysicalSite R n) =
+      vfMidOneBlockPrimeSeatCharge R +
+        vfMidOneBlockProcessedSquarefreeCharge R -
+          vfMidActualPrimeEndpointDefect R := by
+  unfold vfMidOneBlockAnchoredUpperPhysicalSite
+  rw [Finset.sum_add_distrib]
+  rw [vfMidOneBlockActivePhysicalSite_sum_eq_activeSource (R := R)]
+  have h1 := one_mem_lowOwnerNonzeroMobiusCarrier_succ R
+  have hanchor :
+      (∑ n ∈ lowOwnerNonzeroMobiusCarrier (R + 1),
+        if n = 1 then -vfMidActualPrimeEndpointDefect R else 0) =
+        -vfMidActualPrimeEndpointDefect R := by
+    rw [Finset.sum_ite_eq']
+    simp [h1]
+  rw [hanchor]
+  ring
+
+/-- The upper one-sided bill plus the anchor square is literally the square of
+one signed site amplitude on the common clock. -/
+theorem vfMidUpperFirstBadSourceBill_add_anchorSq_eq_anchoredSite_sq
+    (R : ℕ) :
+    vfMidUpperFirstBadSourceBill R +
+        vfMidActualPrimeEndpointDefect R ^ 2 =
+      (∑ n ∈ lowOwnerNonzeroMobiusCarrier (R + 1),
+        vfMidOneBlockAnchoredUpperPhysicalSite R n) ^ 2 := by
+  rw [vfMidOneBlockAnchoredUpperPhysicalSite_sum_eq]
+  unfold vfMidUpperFirstBadSourceBill
+  ring
+
+/-- **Anchored global greatest-owner Fubini.**
+
+The complete upper active bill, including the rigid anchor square and all
+anchor-current cross terms, is partitioned on the literal common clock before
+any quotient child is formed. -/
+theorem vfMidUpperFirstBadSourceBill_add_anchorSq_eq_diagonal_add_descendingCross
+    (R : ℕ) :
+    vfMidUpperFirstBadSourceBill R +
+        vfMidActualPrimeEndpointDefect R ^ 2 =
+      lowOwnerGlobalDiagonalPairMassWith (R + 1)
+        (vfMidOneBlockAnchoredUpperPhysicalSite R) +
+      ∑ r ∈ primesUpTo (squareRootEndpoint (R + 1)),
+        lowOwnerRevealedCrossPairMassWith (R + 1)
+          (lowOwnerRevealedPrimesAbove (R + 1) r) r
+          (vfMidOneBlockAnchoredUpperPhysicalSite R) := by
+  calc
+    vfMidUpperFirstBadSourceBill R +
+        vfMidActualPrimeEndpointDefect R ^ 2 =
+      (∑ n ∈ lowOwnerNonzeroMobiusCarrier (R + 1),
+        vfMidOneBlockAnchoredUpperPhysicalSite R n) ^ 2 :=
+          vfMidUpperFirstBadSourceBill_add_anchorSq_eq_anchoredSite_sq R
+    _ = lowOwnerRevealedPairMassWith (R + 1) ∅
+        (vfMidOneBlockAnchoredUpperPhysicalSite R) := by
+          symm
+          exact lowOwnerRevealedPairMassWith_empty_eq_sum_sq
+            (R + 1) (vfMidOneBlockAnchoredUpperPhysicalSite R)
+    _ = lowOwnerGlobalDiagonalPairMassWith (R + 1)
+          (vfMidOneBlockAnchoredUpperPhysicalSite R) +
+        ∑ r ∈ primesUpTo (squareRootEndpoint (R + 1)),
+          lowOwnerRevealedCrossPairMassWith (R + 1)
+            (lowOwnerRevealedPrimesAbove (R + 1) r) r
+            (vfMidOneBlockAnchoredUpperPhysicalSite R) :=
+          lowOwnerRevealedPairMassWith_empty_eq_diagonal_add_descendingCross
+            (R + 1) (vfMidOneBlockAnchoredUpperPhysicalSite R)
+
+
 end RHLean.Analysis
