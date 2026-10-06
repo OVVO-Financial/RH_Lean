@@ -322,6 +322,55 @@ def vfMidOneBlockAnchoredUpperPhysicalSite (R n : ℕ) : ℝ :=
   vfMidOneBlockActivePhysicalSite R n +
     if n = 1 then -vfMidActualPrimeEndpointDefect R else 0
 
+/-- Retained scalar that represents the complete anchored upper physical site
+as a scalar multiple of the physical Möbius sign on the common clock.  Defining
+it this way removes all prime/composite casework from the subsequent pair
+transport. -/
+def vfMidAnchoredUpperMobiusScale (R n : ℕ) : ℝ :=
+  vfMidOneBlockAnchoredUpperPhysicalSite R n * realMoebiusStep n
+
+/-- On the nonzero-Möbius clock, the retained scalar times the Möbius sign is
+exactly the anchored physical site. -/
+theorem vfMidAnchoredUpperMobiusScale_mul_moebius
+    {R n : ℕ}
+    (hn : n ∈ lowOwnerNonzeroMobiusCarrier (R + 1)) :
+    vfMidAnchoredUpperMobiusScale R n * realMoebiusStep n =
+      vfMidOneBlockAnchoredUpperPhysicalSite R n := by
+  have hmu : realMoebiusStep n ≠ 0 :=
+    (Finset.mem_filter.mp hn).2
+  have hsq : realMoebiusStep n ^ 2 = 1 := by
+    rcases ArithmeticFunction.moebius_eq_or n with h0 | h1 | hm1
+    · exfalso
+      apply hmu
+      simp [realMoebiusStep, h0]
+    · simp [realMoebiusStep, h1]
+    · simp [realMoebiusStep, hm1]
+  unfold vfMidAnchoredUpperMobiusScale
+  calc
+    (vfMidOneBlockAnchoredUpperPhysicalSite R n * realMoebiusStep n) *
+        realMoebiusStep n =
+      vfMidOneBlockAnchoredUpperPhysicalSite R n *
+        realMoebiusStep n ^ 2 := by ring
+    _ = vfMidOneBlockAnchoredUpperPhysicalSite R n := by
+      rw [hsq]
+      ring
+
+/-- Pairwise anchored physical products are therefore literal retained-scalar
+multiples of the ordinary Möbius pair product.  This is the affine currency
+used by the raw-parent projection. -/
+theorem vfMidAnchoredUpperPhysicalPair_eq_scale_mul_moebiusPair
+    {R a b : ℕ}
+    (ha : a ∈ lowOwnerNonzeroMobiusCarrier (R + 1))
+    (hb : b ∈ lowOwnerNonzeroMobiusCarrier (R + 1)) :
+    vfMidOneBlockAnchoredUpperPhysicalSite R a *
+        vfMidOneBlockAnchoredUpperPhysicalSite R b =
+      (vfMidAnchoredUpperMobiusScale R a *
+        vfMidAnchoredUpperMobiusScale R b) *
+        (realMoebiusStep a * realMoebiusStep b) := by
+  rw [← vfMidAnchoredUpperMobiusScale_mul_moebius ha,
+    ← vfMidAnchoredUpperMobiusScale_mul_moebius hb]
+  ring
+
 /-- Anchor injection preserves the full affine amplitude exactly. -/
 theorem vfMidOneBlockAnchoredUpperPhysicalSite_sum_eq
     (R : ℕ) :
