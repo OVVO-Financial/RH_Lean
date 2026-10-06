@@ -1322,7 +1322,7 @@ theorem vfMidRecursiveInterior_card_add_rightSquareAtom
   unfold vfMidRecursiveInteriorChildren vfMidRecursiveRightSquareAtom
   split_ifs with hmem
   · exact_mod_cast Finset.card_erase_add_one hmem
-  · rw [Finset.erase_eq_of_not_mem hmem]
+  · rw [Finset.erase_eq_of_notMem hmem]
     simp
 
 /-- Strict-interior charge in population-minus-filtered-prime normal form.
