@@ -1,6 +1,7 @@
 import Mathlib
 import «research.VF_MID_FIRST_BAD_RESTORING_DECOMPOSITION»
 import «research.VF_MID_FIRST_BAD_CORRELATION_DESCENT»
+import «research.VF_MID_FIRST_BAD_HISTORY_COMPRESSION»
 import «research.VF_MID_GLOBAL_FIRST_BAD_RADIAL_BUDGET»
 import «research.GLOBAL_RETURNED_CORE_GLOBAL_DESCENDING_SITE_FUBINI»
 import «research.GLOBAL_RETURNED_CORE_FIRST_OWNER_ARBITRARY_SITE_CELLS»
@@ -12,6 +13,11 @@ import «research.NNS_ZERO_TARGET_FIRST_OWNER_CODIV_FUBINI»
 # Final first-bad global hnorm splice
 
 This file is the equality-first terminal wiring layer above #899.
+
+The compressed one-block anchor is not treated as owner-visible.  Its historical
+content is opened only through the exact identities in
+`VF_MID_FIRST_BAD_HISTORY_COMPRESSION`; normalized-covariance arguments must
+account for the resulting absolute-mass compression explicitly.
 
 The first operation is to quarantine the restoring sectors *before* any owner
 Fubini or reciprocal estimate is introduced.  The normalized anchored numerator
