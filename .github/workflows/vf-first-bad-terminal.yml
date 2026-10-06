@@ -75,11 +75,37 @@ jobs:
             rhlean-build-${{ runner.os }}-
       - name: Compile affine-scaled first-owner half gate
         run: |
-          python3 scripts/compile_research_import_closure.py research/VF_MID_FIRST_BAD_GLOBAL_HNORM.lean
+          python3 scripts/compile_research_import_closure.py research/GLOBAL_RETURNED_CORE_VIRTUAL_OWNER_HALF_GATE.lean
           cat > /tmp/VF_MID_AFFINE_SCALE_HALF_GATE_ACCEPTANCE.lean <<'EOF'
-          import «research.VF_MID_FIRST_BAD_GLOBAL_HNORM»
-          #check RHLean.Analysis.vfMidScaledFirstOwnerSignedCellTelescope_le_half_dirichletIncidence_sq
-          #print axioms RHLean.Analysis.vfMidScaledFirstOwnerSignedCellTelescope_le_half_dirichletIncidence_sq
+          import «research.GLOBAL_RETURNED_CORE_VIRTUAL_OWNER_HALF_GATE»
+          noncomputable section
+          open scoped BigOperators
+          namespace RHLean.Analysis
+          open RHLean.Arithmetic RHLean.Proof
+          theorem vfMidScaledFirstOwnerSignedCellTelescope_le_half_dirichletIncidence_sq_acceptance
+              {R p : ℕ} {sig : Finset ℕ}
+              (hp : p.Prime) (scale : ℝ) :
+              scale ^ 2 * lowOwnerFirstOwnerSignedCellTelescope R p sig ≤
+                (1 / 2 : ℝ) *
+                  (scale * lowOwnerFirstOwnerDirichletIncidenceAmplitude R p sig) ^ 2 := by
+            have hcore :=
+              lowOwnerFirstOwnerSignedCellTelescope_le_half_dirichletIncidence_sq
+                (R := R) (p := p) (sig := sig) hp
+            have hscale : 0 ≤ scale ^ 2 := sq_nonneg scale
+            have hscaled :=
+              mul_le_mul_of_nonneg_left hcore hscale
+            calc
+              scale ^ 2 * lowOwnerFirstOwnerSignedCellTelescope R p sig ≤
+                  scale ^ 2 *
+                    ((1 / 2 : ℝ) *
+                      lowOwnerFirstOwnerDirichletIncidenceAmplitude R p sig ^ 2) :=
+                hscaled
+              _ = (1 / 2 : ℝ) *
+                  (scale * lowOwnerFirstOwnerDirichletIncidenceAmplitude R p sig) ^ 2 := by
+                ring
+          #check vfMidScaledFirstOwnerSignedCellTelescope_le_half_dirichletIncidence_sq_acceptance
+          #print axioms vfMidScaledFirstOwnerSignedCellTelescope_le_half_dirichletIncidence_sq_acceptance
+          end RHLean.Analysis
           EOF
           lake env lean -DwarningAsError=true /tmp/VF_MID_AFFINE_SCALE_HALF_GATE_ACCEPTANCE.lean
       - name: Compile terminal contradiction import closure
