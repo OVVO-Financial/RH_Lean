@@ -97,6 +97,9 @@ jobs:
           #print axioms RHLean.Analysis.vfMidActualPrimeFirstBadAt_two_succ_activeExcess_nonpos_of_threeBoundaryBudget
           #print axioms RHLean.Analysis.vfMidFirstBadSourceToSectorSixInlet_of_threeBoundaryBudget
           #print axioms RHLean.Analysis.vfMidActualPrimeFirstBadAt_two_succ_closed_of_threeBoundaryBudget
+          #print axioms RHLean.Analysis.vfMidActiveSourceSq_eq_diagonal_add_two_threeBoundary
+          #print axioms RHLean.Analysis.vfMidFirstBadThreeBoundaryBudgetLHS_eq_physicalNormalForm
+          #print axioms RHLean.Analysis.vfMidFirstBadThreeBoundaryBudgetLHS_eq_squarefulNormalForm
           EOF
           lake env lean -DwarningAsError=true /tmp/VF_FINAL_AGGREGATE_AUDIT.lean | tee final-aggregate-axioms.log
           if grep -q 'sorryAx' final-aggregate-axioms.log; then exit 1; fi
