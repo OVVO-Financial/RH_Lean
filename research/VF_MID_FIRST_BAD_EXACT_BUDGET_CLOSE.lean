@@ -331,6 +331,158 @@ theorem vfMidActualPrimeFirstBadAt_two_succ_activeExcess_nonpos_of_transport
   have hheat := vfMidActiveThreeBoundaryExcess_add_transported_nonpos R
   linarith
 
+
+/-- On the nonzero-Mobius clock the physical sign has unit square. -/
+private theorem realMoebiusStep_sq_eq_one_of_mem_nonzeroCarrier_exactBudget
+    {R n : ℕ} (hn : n ∈ lowOwnerNonzeroMobiusCarrier R) :
+    realMoebiusStep n ^ 2 = 1 := by
+  have hne : realMoebiusStep n ≠ 0 :=
+    (Finset.mem_filter.mp hn).2
+  rcases ArithmeticFunction.moebius_eq_or n with h0 | h1 | hm1
+  · exfalso
+    apply hne
+    simp [realMoebiusStep, h0]
+  · simp [realMoebiusStep, h1]
+  · simp [realMoebiusStep, hm1]
+
+/-- Every legal descending-cross pair has zero-target sign exactly plus or
+minus one; in particular its square is one. -/
+theorem postRootZeroTargetPairExcess_sq_eq_one_of_descendingCross
+    {R p m n : ℕ}
+    (hcross : (m, n) ∈ lowOwnerRevealedCrossPairCarrier R
+      (lowOwnerRevealedPrimesAbove R p) p) :
+    postRootZeroTargetPairExcess (m, n) ^ 2 = 1 := by
+  have hprod := (Finset.mem_filter.mp hcross).1
+  rcases Finset.mem_product.mp hprod with ⟨hmCar, hnCar⟩
+  have hmSq :=
+    realMoebiusStep_sq_eq_one_of_mem_nonzeroCarrier_exactBudget hmCar
+  have hnSq :=
+    realMoebiusStep_sq_eq_one_of_mem_nonzeroCarrier_exactBudget hnCar
+  rw [postRootZeroTargetPairExcess_eq_weight, mul_pow, hmSq, hnSq]
+  ring
+
+/-- Every child in the actual #914 fixed raw-parent fibre is a legal
+greatest-owner descending crossing for the same owner. -/
+theorem vfMidActiveFixedRawParentChild_mem_descendingCross
+    {R p r : ℕ} {sig : Finset ℕ}
+    {parent child : ℕ × ℕ}
+    (hr : r.Prime)
+    (hchild :
+      child ∈ lowOwnerFirstOwnerPolarizationFixedRawParentFiber
+        (R + 1) p sig r parent) :
+    child ∈ lowOwnerRevealedCrossPairCarrier (R + 1)
+      (lowOwnerRevealedPrimesAbove (R + 1) r) r := by
+  have howner :
+      child ∈ lowOwnerFirstOwnerPolarizationGreatestOwnerPairFiber
+        (R + 1) p sig r :=
+    (Finset.mem_filter.mp hchild).1
+  rw [←
+    lowOwnerFirstOwnerCellRevealedCrossCarrier_above_eq_polarizationGreatestOwner
+      (R := R + 1) (p := p) (r := r) (sig := sig) hr] at howner
+  exact (Finset.mem_filter.mp howner).1
+
+/-- The arbitrary-scalar sign reversal can be specialized to an actual
+occurrence weight, without assuming that the VF scale itself is owner-invariant.
+Multiplying by the child zero-target sign absorbs the entire site-dependent VF
+coefficient, and the stripped-parent occurrence is exactly the negative
+weight. -/
+theorem descendingGreatestOwner_actualWeight_pointwiseCoDivExcess_pair_eq_heat
+    {R p m n : ℕ} (hp : p.Prime)
+    (hcross : (m, n) ∈ lowOwnerRevealedCrossPairCarrier R
+      (lowOwnerRevealedPrimesAbove R p) p)
+    (weight : ℝ) :
+    let um := squarefreePrimeFamilyParent p m
+    let un := squarefreePrimeFamilyParent p n
+    vfMidPointwiseCoDivExcess weight +
+      vfMidPointwiseCoDivExcess
+        ((weight * postRootZeroTargetPairExcess (m, n)) *
+          postRootZeroTargetPairExcess (um, un)) =
+      -4 * |weight| := by
+  have hsquare :=
+    postRootZeroTargetPairExcess_sq_eq_one_of_descendingCross hcross
+  have hflip :=
+    descendingGreatestOwner_retainedScalar_zeroTargetExcess_flip
+      hp hcross (weight * postRootZeroTargetPairExcess (m, n))
+  dsimp only at hflip ⊢
+  have hchild :
+      (weight * postRootZeroTargetPairExcess (m, n)) *
+          postRootZeroTargetPairExcess (m, n) =
+        weight := by
+    calc
+      (weight * postRootZeroTargetPairExcess (m, n)) *
+          postRootZeroTargetPairExcess (m, n) =
+        weight * postRootZeroTargetPairExcess (m, n) ^ 2 := by ring
+      _ = weight := by rw [hsquare]; ring
+  have hparent :
+      (weight * postRootZeroTargetPairExcess (m, n)) *
+          postRootZeroTargetPairExcess
+            (squarefreePrimeFamilyParent p m,
+              squarefreePrimeFamilyParent p n) =
+        -weight := by
+    linarith only [hflip, hchild]
+  rw [hparent]
+  exact vfMidPointwiseCoDivExcess_add_neg weight
+
+/-- Summed on one actual #914 raw-parent fibre, the child occurrence together
+with its multiplicity-preserving stripped-parent continuation is exactly
+negative heat. The retained scalar is occurrence-dependent; no parentwise
+constant-weight assumption is made. -/
+theorem sum_vfMidActiveRawParentChild_parentHeat_eq
+    {R p r : ℕ} {sig : Finset ℕ} {parent : ℕ × ℕ}
+    (hr : r.Prime) :
+    (∑ child ∈
+      lowOwnerFirstOwnerPolarizationFixedRawParentFiber
+        (R + 1) p sig r parent,
+      (vfMidPointwiseCoDivExcess
+          (vfMidActiveReturnedPairWeight R p sig child) +
+        vfMidPointwiseCoDivExcess
+          ((vfMidActiveReturnedPairWeight R p sig child *
+              postRootZeroTargetPairExcess child) *
+            postRootZeroTargetPairExcess
+              (squarefreePrimeFamilyParent r child.1,
+                squarefreePrimeFamilyParent r child.2)))) =
+      -4 *
+        ∑ child ∈
+          lowOwnerFirstOwnerPolarizationFixedRawParentFiber
+            (R + 1) p sig r parent,
+          |vfMidActiveReturnedPairWeight R p sig child| := by
+  rw [Finset.mul_sum]
+  apply Finset.sum_congr rfl
+  intro child hchild
+  have hcross :=
+    vfMidActiveFixedRawParentChild_mem_descendingCross hr hchild
+  have hheat :=
+    descendingGreatestOwner_actualWeight_pointwiseCoDivExcess_pair_eq_heat
+      hr hcross (vfMidActiveReturnedPairWeight R p sig child)
+  dsimp only at hheat
+  exact hheat
+
+/-- The complete occurrence-tagged child/parent heat on one actual raw-parent
+fibre is nonpositive. -/
+theorem sum_vfMidActiveRawParentChild_parentHeat_nonpos
+    {R p r : ℕ} {sig : Finset ℕ} {parent : ℕ × ℕ}
+    (hr : r.Prime) :
+    (∑ child ∈
+      lowOwnerFirstOwnerPolarizationFixedRawParentFiber
+        (R + 1) p sig r parent,
+      (vfMidPointwiseCoDivExcess
+          (vfMidActiveReturnedPairWeight R p sig child) +
+        vfMidPointwiseCoDivExcess
+          ((vfMidActiveReturnedPairWeight R p sig child *
+              postRootZeroTargetPairExcess child) *
+            postRootZeroTargetPairExcess
+              (squarefreePrimeFamilyParent r child.1,
+                squarefreePrimeFamilyParent r child.2)))) ≤ 0 := by
+  rw [sum_vfMidActiveRawParentChild_parentHeat_eq hr]
+  have hnonneg :
+      0 ≤
+        ∑ child ∈
+          lowOwnerFirstOwnerPolarizationFixedRawParentFiber
+            (R + 1) p sig r parent,
+          |vfMidActiveReturnedPairWeight R p sig child| := by
+    positivity
+  nlinarith
+
 /-- Production target: unconditional exact first-bad budget close.
 
 The proof starts from the endpoint-sign restoring decomposition while retaining
