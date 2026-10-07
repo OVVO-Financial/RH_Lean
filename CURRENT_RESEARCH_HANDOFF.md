@@ -4,53 +4,50 @@ This file preserves the research history. The current mathematical frontier is
 specified by [`CURRENT_PROOF_CONTRACT.md`](CURRENT_PROOF_CONTRACT.md), which
 overrides older instructions and open/closed labels below.
 
-## Current handoff — 2026-10-06: do not re-prove the cancellation
+## Current handoff — 2026-10-06: cumulative child runs, not one bad child
 
-The active direct-VF frontier is now the structural owner-admissibility theorem
+The active correction is that a channel-threatening parent need not select one
+already-bad child endpoint.  A sequence of individually admissible child
+blocks can carry a coherent signed drift.
 
-`VFMidActualPrimeOwnerEscapeAdmissibleStatement`.
-
-The solved fantasy series / admissible channel already provide the cancellation
-geometry and RH-safe reference room.  The remaining job is **not** to derive a
-new global covariance, Gram, H-norm, or "actual primes cancel enough" estimate.
-It is to prove the physical escape law:
+The proof must therefore work on a contiguous child run.  The repository
+already has the decisive exact identity:
 
 ```text
-actual bad R
-  -> exact owner classification of the escape debt
-  -> a strict recursive VF child S is bad
-  -> S < R.
+D_B - D_A
+  = prefixError(2,A,B)
+    - (lateRemoval(2,A,B) - lateReference(2,A,B)),
 ```
 
-The terminal strong-induction consumer is already compiled.  The open
-arithmetic content is the classifier/selector showing that the safe,
-terminal/favorable, and already-contracted clipped sectors cannot absorb a
-genuine parent escape, leaving a strict recursive child carrying the breach.
+and the common parity-wheel contribution satisfies
 
-This is now the route-selection rule for all new work:
+```text
+|prefixError(2,A,B)| <= 4*A
+```
 
-1. preserve the literal VF/prime signed source until the exact owner
-   classification is complete;
-2. use the already-solved fantasy/admissible cancellation laws as the safe
-   reference geometry rather than attempting to prove cancellation again;
-3. prove exact source-to-sector and sector-to-child identities before any
-   inequality;
-4. end in `VFMidRecursiveScaleStep R S` plus the actual badness of `S`;
-5. reject any intermediate program that does not materially advance that
-   strict-child reproduction theorem.
+for every adjacent square run `A <= B`, independent of the number of blocks.
+This is the first rigorous form of composite equidistribution needed here:
+small-wheel placement errors telescope to four endpoints instead of accumulating
+block by block.
 
-PR #900's normalized-covariance/H-norm closure is an **alternative sufficient
-route**, not a dependency of this canonical program.  Its exact identities may
-remain useful as lemmas, but no future agent should interpret
-`vfMidFirstBadNNSNormalizedCovariance_le_half` as the required final theorem.
+Moreover `VF_MID_DYADIC_OWNER_EXACT.lean` identifies `lateRemoval` exactly
+with the cumulative least-prime-factor owner census across all
+`r in [A,B)`.  The remaining arithmetic problem is to center and control
+that entire owner census against `lateReference`, using terminal-owner
+equidistribution and recursive descent of the unresolved late owners.
 
-PR #903 is the current structural bookkeeping branch.  Its role is limited to
-the exact greatest-owner continuation/classifier Fubini needed by the
-escape-reproduction proof; it is not authorization to restart a standalone
-rank-energy or Gram route.
+The correct descent object is therefore a **bad run**.  Any unresolved
+supercritical remainder must descend to one or more lower child blocks whose
+aggregate, on their contiguous lower-scale run, remains supercritical.  Only
+after ruling out coherent accumulation over such runs may the pointwise
+owner-admissibility statement be consumed.
 
-The older handoff entries below are historical context and do not override this
-2026-10-06 route lock or `CURRENT_PROOF_CONTRACT.md`.
+The existing named quantitative interface is
+`VFMidDyadicSignedLateCorrectionStatement`; proving it, or a weaker
+first-bad run-level estimate sufficient for the same dyadic consumer, is the
+current quantitative seam.
+
+Do not replace this by a packet-to-single-child theorem.
 
 ## Current handoff — 2026-09-26
 
