@@ -291,6 +291,7 @@ theorem vfMid_globalDemand_eq_activeResidual_add_cells
   have hsource :=
     vfMidFirstBadNormalizedProduct_eq_upperActive_sub_squarefulRestoring hR
   rw [vfMidFirstBadNormalizedProduct_eq_nextEndpointDefect_sq hR] at hsource
+  unfold vfMidUpperFirstBadSourceBill at hsource
   have hfubini :=
     vfMidWeightedSiteSquare_eq_diagonal_add_firstOwnerCells
       (R + 1) (vfMidOneBlockActivePhysicalSite R)
@@ -311,7 +312,7 @@ theorem vfMid_globalDemand_eq_activeResidual_add_cells
     ring
   rw [hcells]
   unfold vfMidActiveDemandResidual vfMidActiveIdentityAnchorGate
-    vfMidActivePhysicalDiagonalMass vfMidUpperFirstBadSourceBill
+    vfMidActivePhysicalDiagonalMass
   nlinarith only [hsource, hfubini]
 
 /-- Exact unchanged `T_R` denominator decomposition with the identity root and
