@@ -1216,6 +1216,94 @@ theorem vfMidFirstBadAnchoredCoDivExcess_eq_activeResidual_add_threeBoundaryExce
   rw [vfMidFirstBadAnchoredCoDivExcess_eq_activeResidual_add_weightedCells hR,
     sum_vfMidActiveWeightedCellExcess_eq_threeBoundaryExcess hR]
 
+/-- Literal absolute pair mass on one returned raw-parent fibre. -/
+def vfMidActiveReturnedRawParentFiberAbsMass
+    (R p : ℕ) (sig : Finset ℕ) (r : ℕ) (parent : ℕ × ℕ) : ℝ :=
+  ∑ child ∈
+    lowOwnerFirstOwnerPolarizationFixedRawParentFiber
+      (R + 1) p sig r parent,
+    |vfMidActiveReturnedPairWeight R p sig child|
+
+/-- Exact local Co/Div normal form: signed mass carries coefficient four and
+the literal absolute heat is subtracted with coefficient two. -/
+theorem vfMidActiveReturnedRawParentFiberExcess_eq_fourMass_sub_twoAbs
+    (R p : ℕ) (sig : Finset ℕ) (r : ℕ) (parent : ℕ × ℕ) :
+    vfMidActiveReturnedRawParentFiberExcess R p sig r parent =
+      4 * vfMidActiveReturnedRawParentFiberMass R p sig r parent -
+        2 * vfMidActiveReturnedRawParentFiberAbsMass R p sig r parent := by
+  unfold vfMidActiveReturnedRawParentFiberExcess
+    vfMidActiveReturnedRawParentFiberMass
+    vfMidActiveReturnedRawParentFiberAbsMass
+    vfMidActiveReturnedPairCoDivExcess
+    vfMidPointwiseCoDivExcess
+  rw [Finset.mul_sum, Finset.mul_sum, ← Finset.sum_sub_distrib]
+  apply Finset.sum_congr rfl
+  intro child _hchild
+  ring
+
+/-- Absolute heat carried by exactly the three physical boundary sectors which
+survive the #914 support classification. -/
+def vfMidActiveThreeBoundaryAbsMass (R : ℕ) : ℝ :=
+  ∑ p ∈ primesUpTo (squareRootEndpoint (R + 1)),
+    ∑ sig ∈ lowOwnerFirstOwnerSignatureSet (R + 1) p,
+      ∑ r ∈ lowOwnerRevealedPrimesAbove (R + 1) p,
+        ((∑ parent ∈
+            lowOwnerFirstOwnerIncompleteFirstClipLeftSet
+              (R + 1) p sig r,
+            vfMidActiveReturnedRawParentFiberAbsMass R p sig r parent) +
+          (∑ parent ∈
+            lowOwnerFirstOwnerIncompleteNextClipRightSet
+              (R + 1) p sig r,
+            vfMidActiveReturnedRawParentFiberAbsMass R p sig r parent) +
+          ∑ parent ∈
+            lowOwnerFirstOwnerIncompleteReturnedClipLeftSet
+              (R + 1) p sig r,
+            vfMidActiveReturnedRawParentFiberAbsMass R p sig r parent)
+
+@[simp] theorem vfMidActiveThreeBoundaryAbsMass_nonneg (R : ℕ) :
+    0 ≤ vfMidActiveThreeBoundaryAbsMass R := by
+  unfold vfMidActiveThreeBoundaryAbsMass
+  positivity
+
+/-- **Exact 317/1027 production normal form.**
+
+The three-boundary Co/Div excess is not a positive boundary majorant.  It is
+literally four times the signed physical boundary mass minus twice its retained
+absolute heat.  This is the equality the finite 317/1027 ledgers were
+diagnosing. -/
+theorem vfMidActiveThreeBoundaryExcess_eq_fourMass_sub_twoAbs
+    (R : ℕ) :
+    vfMidActiveThreeBoundaryExcess R =
+      4 * vfMidActiveThreeBoundaryMass R -
+        2 * vfMidActiveThreeBoundaryAbsMass R := by
+  unfold vfMidActiveThreeBoundaryExcess
+    vfMidActiveThreeBoundaryMass
+    vfMidActiveThreeBoundaryAbsMass
+  rw [Finset.mul_sum, Finset.mul_sum]
+  apply Finset.sum_congr rfl
+  intro p _hp
+  rw [Finset.mul_sum, Finset.mul_sum]
+  apply Finset.sum_congr rfl
+  intro sig _hsig
+  rw [Finset.mul_sum, Finset.mul_sum]
+  apply Finset.sum_congr rfl
+  intro r _hr
+  repeat' rw [Finset.mul_sum]
+  simp_rw [vfMidActiveReturnedRawParentFiberExcess_eq_fourMass_sub_twoAbs]
+  ring
+
+/-- The complete anchored excess in the exact signed-boundary/heat currency.
+No boundary absolute value has been introduced around the signed sum. -/
+theorem vfMidFirstBadAnchoredCoDivExcess_eq_activeResidual_add_fourBoundary_sub_heat
+    {R : ℕ} (hR : 3 ≤ R) :
+    vfMidFirstBadAnchoredCoDivExcess R =
+      vfMidActiveGlobalResidualExcess R +
+        4 * vfMidActiveThreeBoundaryMass R -
+        2 * vfMidActiveThreeBoundaryAbsMass R := by
+  rw [vfMidFirstBadAnchoredCoDivExcess_eq_activeResidual_add_threeBoundaryExcess hR,
+    vfMidActiveThreeBoundaryExcess_eq_fourMass_sub_twoAbs]
+  ring
+
 /-- The actual final budget statement.  This supersedes the stronger
 `VFMidFirstBadThreeBoundaryBudgetStatement`, which was obtained only after
 dropping the negative local Co/Div heat sink. -/
