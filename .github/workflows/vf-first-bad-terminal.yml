@@ -22,6 +22,7 @@ on:
       - research/VF_MID_CENTERED_GREATEST_OWNER_RANK_TELESCOPE.lean
       - research/VF_MID_FAN_ESCAPE_CAPACITY_BILLS.lean
       - research/VF_MID_FIRST_BAD_LOWER_RUN_CAPACITOR.lean
+      - research/VF_MID_FAN_ESCAPE_RUN_CAPACITY.lean
       - .github/workflows/vf-first-bad-terminal.yml
   workflow_dispatch:
 
@@ -90,3 +91,4 @@ jobs:
           python3 scripts/compile_research_import_closure.py research/VF_MID_CENTERED_GREATEST_OWNER_RANK_TELESCOPE.lean
           python3 scripts/compile_research_import_closure.py research/VF_MID_FAN_ESCAPE_CAPACITY_BILLS.lean
           python3 scripts/compile_research_import_closure.py research/VF_MID_FIRST_BAD_LOWER_RUN_CAPACITOR.lean
+          python3 scripts/compile_research_import_closure.py research/VF_MID_FAN_ESCAPE_RUN_CAPACITY.lean
