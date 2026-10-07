@@ -247,9 +247,56 @@ sites.
 
 This is deliberately a **necessary escape-cost layer**, not an assumption that
 actual primes already lie in the fantasy cone and not an all-scale theorem
-excluding the required prime-free run or prime cluster.  The remaining
-arithmetic job is to compare these exact bills with the exact
-composite-wheel/survivor capacities across the relevant multi-block run.
+excluding the required prime-free run or prime cluster.
+
+The upper side is now wired directly to the repository's already-compiled
+actual-prime block bounds.  Define
+
+```text
+RunPrimeSupply(A,s)
+  = sum_{R in [A,A+s)} vfMidIntegerBlockPrimeSupply(R),
+```
+
+and, for any blockwise choice of prefix cutoff `S(R) <= R`,
+
+```text
+RunWheelCapacity(S,A,s)
+  = sum_{R in [A,A+s)} vfMidPrefixWheelEnvelope(S(R),R).
+```
+
+The theorem
+`vfMidSquareRunPrimeSupply_le_prefixWheelCapacity` proves exactly
+
+```text
+RunPrimeSupply(A,s) <= RunWheelCapacity(S,A,s).
+```
+
+No probabilistic prime-cluster estimate enters.  The cutoff may vary by block,
+so the strongest convenient finite prefix wheel may be chosen independently at
+each scale.
+
+The theorem
+`vfMidRadialUpper_noBreak_of_runPrefixWheelCapacity_lt_bill` then consumes the
+new exact prime-jump bill:
+
+```text
+RunWheelCapacity(S,A,s) < radialUpperPrimeJumpBill(K,A,s)
+  ->
+actual RunPrimeSupply(A,s) cannot cross the upper radial wall
+from the starting center.
+```
+
+The one-block specialization
+`vfMidRadialUpper_noBreak_oneBlock_of_prefixWheelEnvelope_lt_bill` gives the
+same statement directly from
+`vfMidIntegerBlockPrimeSupply_le_prefixWheelEnvelope`.  A coarse fallback
+`vfMidSquareRunPrimeSupply_le_sum_roots` also packages the compiled global
+`P_R <= R` bound.
+
+Thus the upper-wall branch is a finite wheel-capacity comparison already in
+actual-prime count currency.  The remaining arithmetic work is concentrated on
+the lower/composite side and on the exact source/reassembly splice that sends
+any unfunded signed excess into the recursive sixth sector.
 
 The exact scalar capacity-bounce algebra is also encoded in the same module.
 After a run-level Fubini reassembly has the form
