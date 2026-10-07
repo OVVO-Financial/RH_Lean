@@ -312,4 +312,180 @@ theorem vfMidActiveCellGram_eq_scaledReturnedClippedCellMass
     vfMidActiveScaledClippedBaseCellMass_eq_returned hp]
 
 
+
+/-! ## Exact Co/Div excess on the clipped physical carrier -/
+
+/-- Signed active pair mass on the literal clipped-base x child support. -/
+def vfMidActiveClippedPhysicalPairMass
+    (R p : ℕ) (sig : Finset ℕ) : ℝ :=
+  ∑ ab ∈
+      (lowOwnerFirstOwnerClippedBaseFiber (R + 1) p sig).product
+        (lowOwnerFirstOwnerChildFiber (R + 1) p sig),
+    vfMidOneBlockActivePhysicalSite R ab.1 *
+      vfMidOneBlockActivePhysicalSite R ab.2
+
+/-- Absolute active pair mass on exactly the same clipped support. -/
+def vfMidActiveClippedAbsolutePairMass
+    (R p : ℕ) (sig : Finset ℕ) : ℝ :=
+  ∑ ab ∈
+      (lowOwnerFirstOwnerClippedBaseFiber (R + 1) p sig).product
+        (lowOwnerFirstOwnerChildFiber (R + 1) p sig),
+    |vfMidOneBlockActivePhysicalSite R ab.1 *
+      vfMidOneBlockActivePhysicalSite R ab.2|
+
+/-- The arbitrary-site cell Gram has no admitted-base contribution. -/
+theorem vfMidActiveCellGram_eq_clippedPhysicalPairMass
+    {R p : ℕ} {sig : Finset ℕ}
+    (hR : 3 ≤ R) (hp : p.Prime) :
+    lowOwnerFirstOwnerCellGramWith
+        (R + 1) p sig (vfMidOneBlockActivePhysicalSite R) =
+      vfMidActiveClippedPhysicalPairMass R p sig := by
+  unfold lowOwnerFirstOwnerCellGramWith
+    vfMidActiveClippedPhysicalPairMass
+  rw [Finset.product_eq_sprod, Finset.sum_product,
+    Finset.product_eq_sprod, Finset.sum_product]
+  let F : ℕ → ℝ := fun a =>
+    ∑ b ∈ lowOwnerFirstOwnerChildFiber (R + 1) p sig,
+      vfMidOneBlockActivePhysicalSite R a *
+        vfMidOneBlockActivePhysicalSite R b
+  have hsplit :
+      (∑ a ∈ lowOwnerFirstOwnerBaseFiber (R + 1) p sig, F a) =
+        (∑ a ∈ lowOwnerFirstOwnerAdmittedBaseFiber (R + 1) p sig, F a) +
+          ∑ a ∈ lowOwnerFirstOwnerClippedBaseFiber (R + 1) p sig, F a := by
+    unfold lowOwnerFirstOwnerAdmittedBaseFiber
+      lowOwnerFirstOwnerClippedBaseFiber
+    simpa only [not_le] using
+      (Finset.sum_filter_add_sum_filter_not
+        (s := lowOwnerFirstOwnerBaseFiber (R + 1) p sig)
+        (p := fun a => p * a ≤ squareRootEndpoint (R + 1))
+        (f := F)).symm
+  have hadm :
+      (∑ a ∈ lowOwnerFirstOwnerAdmittedBaseFiber (R + 1) p sig, F a) = 0 := by
+    apply Finset.sum_eq_zero
+    intro a ha
+    unfold F
+    rw [vfMidOneBlockActivePhysicalSite_eq_zero_of_admittedBase hR hp ha]
+    simp
+  change (∑ a ∈ lowOwnerFirstOwnerBaseFiber (R + 1) p sig, F a) =
+    ∑ a ∈ lowOwnerFirstOwnerClippedBaseFiber (R + 1) p sig, F a
+  rw [hsplit, hadm, zero_add]
+
+/-- The absolute cell Gram has the same clipped support. -/
+theorem vfMidActiveAbsCellGram_eq_clippedAbsolutePairMass
+    {R p : ℕ} {sig : Finset ℕ}
+    (hR : 3 ≤ R) (hp : p.Prime) :
+    lowOwnerFirstOwnerCellGramWith
+        (R + 1) p sig
+        (fun n => |vfMidOneBlockActivePhysicalSite R n|) =
+      vfMidActiveClippedAbsolutePairMass R p sig := by
+  unfold lowOwnerFirstOwnerCellGramWith
+    vfMidActiveClippedAbsolutePairMass
+  rw [Finset.product_eq_sprod, Finset.sum_product,
+    Finset.product_eq_sprod, Finset.sum_product]
+  let F : ℕ → ℝ := fun a =>
+    ∑ b ∈ lowOwnerFirstOwnerChildFiber (R + 1) p sig,
+      |vfMidOneBlockActivePhysicalSite R a| *
+        |vfMidOneBlockActivePhysicalSite R b|
+  have hsplit :
+      (∑ a ∈ lowOwnerFirstOwnerBaseFiber (R + 1) p sig, F a) =
+        (∑ a ∈ lowOwnerFirstOwnerAdmittedBaseFiber (R + 1) p sig, F a) +
+          ∑ a ∈ lowOwnerFirstOwnerClippedBaseFiber (R + 1) p sig, F a := by
+    unfold lowOwnerFirstOwnerAdmittedBaseFiber
+      lowOwnerFirstOwnerClippedBaseFiber
+    simpa only [not_le] using
+      (Finset.sum_filter_add_sum_filter_not
+        (s := lowOwnerFirstOwnerBaseFiber (R + 1) p sig)
+        (p := fun a => p * a ≤ squareRootEndpoint (R + 1))
+        (f := F)).symm
+  have hadm :
+      (∑ a ∈ lowOwnerFirstOwnerAdmittedBaseFiber (R + 1) p sig, F a) = 0 := by
+    apply Finset.sum_eq_zero
+    intro a ha
+    unfold F
+    rw [vfMidOneBlockActivePhysicalSite_eq_zero_of_admittedBase hR hp ha]
+    simp
+  change (∑ a ∈ lowOwnerFirstOwnerBaseFiber (R + 1) p sig, F a) =
+    ∑ a ∈ lowOwnerFirstOwnerClippedBaseFiber (R + 1) p sig,
+      ∑ b ∈ lowOwnerFirstOwnerChildFiber (R + 1) p sig,
+        |vfMidOneBlockActivePhysicalSite R a *
+          vfMidOneBlockActivePhysicalSite R b|
+  rw [hsplit, hadm, zero_add]
+  apply Finset.sum_congr rfl
+  intro a _ha
+  apply Finset.sum_congr rfl
+  intro b _hb
+  rw [abs_mul]
+
+/-- Literal pointwise Co-minus-three-Div excess on one active clipped cell. -/
+def vfMidActiveClippedPhysicalCellExcess
+    (R p : ℕ) (sig : Finset ℕ) : ℝ :=
+  ∑ ab ∈
+      (lowOwnerFirstOwnerClippedBaseFiber (R + 1) p sig).product
+        (lowOwnerFirstOwnerChildFiber (R + 1) p sig),
+    (4 *
+        (vfMidOneBlockActivePhysicalSite R ab.1 *
+          vfMidOneBlockActivePhysicalSite R ab.2) -
+      2 *
+        |vfMidOneBlockActivePhysicalSite R ab.1 *
+          vfMidOneBlockActivePhysicalSite R ab.2|)
+
+/-- #911's weighted cell excess is exactly the clipped physical pointwise
+Co/Div excess. -/
+theorem vfMidActiveWeightedCellExcess_eq_clippedPhysical
+    {R p : ℕ} {sig : Finset ℕ}
+    (hR : 3 ≤ R) (hp : p.Prime) :
+    vfMidActiveWeightedCellExcess R p sig =
+      vfMidActiveClippedPhysicalCellExcess R p sig := by
+  unfold vfMidActiveWeightedCellExcess
+    vfMidActiveWeightedCellDemand
+    vfMidActiveWeightedCellCapacity
+    vfMidActiveClippedPhysicalCellExcess
+  rw [vfMidActiveCellGram_eq_clippedPhysicalPairMass hR hp,
+    vfMidActiveAbsCellGram_eq_clippedAbsolutePairMass hR hp]
+  unfold vfMidActiveClippedPhysicalPairMass
+    vfMidActiveClippedAbsolutePairMass
+  rw [Finset.mul_sum, Finset.mul_sum, ← Finset.sum_sub_distrib]
+
+/-- Positive part of the clipped physical pair mass. -/
+def vfMidActiveClippedPositivePairMass
+    (R p : ℕ) (sig : Finset ℕ) : ℝ :=
+  ∑ ab ∈
+      (lowOwnerFirstOwnerClippedBaseFiber (R + 1) p sig).product
+        (lowOwnerFirstOwnerChildFiber (R + 1) p sig),
+    max
+      (vfMidOneBlockActivePhysicalSite R ab.1 *
+        vfMidOneBlockActivePhysicalSite R ab.2) 0
+
+/-- Pointwise sign reduction: negative clipped products cool the Co/Div excess;
+only positive clipped products can contribute positively. -/
+theorem vfMidActiveClippedPhysicalCellExcess_le_two_positive
+    (R p : ℕ) (sig : Finset ℕ) :
+    vfMidActiveClippedPhysicalCellExcess R p sig ≤
+      2 * vfMidActiveClippedPositivePairMass R p sig := by
+  unfold vfMidActiveClippedPhysicalCellExcess
+    vfMidActiveClippedPositivePairMass
+  rw [Finset.mul_sum]
+  apply Finset.sum_le_sum
+  intro ab _hab
+  let z : ℝ :=
+    vfMidOneBlockActivePhysicalSite R ab.1 *
+      vfMidOneBlockActivePhysicalSite R ab.2
+  by_cases hz : 0 ≤ z
+  · rw [abs_of_nonneg hz, max_eq_left hz]
+    linarith
+  · have hle : z ≤ 0 := le_of_not_ge hz
+    rw [abs_of_nonpos hle, max_eq_right hle]
+    linarith
+
+/-- Immediate #911 cell consequence: its entire possible positive excess is
+carried by positive clipped-boundary physical pairs. -/
+theorem vfMidActiveWeightedCellExcess_le_two_clippedPositive
+    {R p : ℕ} {sig : Finset ℕ}
+    (hR : 3 ≤ R) (hp : p.Prime) :
+    vfMidActiveWeightedCellExcess R p sig ≤
+      2 * vfMidActiveClippedPositivePairMass R p sig := by
+  rw [vfMidActiveWeightedCellExcess_eq_clippedPhysical hR hp]
+  exact vfMidActiveClippedPhysicalCellExcess_le_two_positive R p sig
+
+
 end RHLean.Analysis
