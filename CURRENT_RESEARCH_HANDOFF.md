@@ -4,6 +4,54 @@ This file preserves the research history. The current mathematical frontier is
 specified by [`CURRENT_PROOF_CONTRACT.md`](CURRENT_PROOF_CONTRACT.md), which
 overrides older instructions and open/closed labels below.
 
+## Current handoff — 2026-10-06: do not re-prove the cancellation
+
+The active direct-VF frontier is now the structural owner-admissibility theorem
+
+`VFMidActualPrimeOwnerEscapeAdmissibleStatement`.
+
+The solved fantasy series / admissible channel already provide the cancellation
+geometry and RH-safe reference room.  The remaining job is **not** to derive a
+new global covariance, Gram, H-norm, or "actual primes cancel enough" estimate.
+It is to prove the physical escape law:
+
+```text
+actual bad R
+  -> exact owner classification of the escape debt
+  -> a strict recursive VF child S is bad
+  -> S < R.
+```
+
+The terminal strong-induction consumer is already compiled.  The open
+arithmetic content is the classifier/selector showing that the safe,
+terminal/favorable, and already-contracted clipped sectors cannot absorb a
+genuine parent escape, leaving a strict recursive child carrying the breach.
+
+This is now the route-selection rule for all new work:
+
+1. preserve the literal VF/prime signed source until the exact owner
+   classification is complete;
+2. use the already-solved fantasy/admissible cancellation laws as the safe
+   reference geometry rather than attempting to prove cancellation again;
+3. prove exact source-to-sector and sector-to-child identities before any
+   inequality;
+4. end in `VFMidRecursiveScaleStep R S` plus the actual badness of `S`;
+5. reject any intermediate program that does not materially advance that
+   strict-child reproduction theorem.
+
+PR #900's normalized-covariance/H-norm closure is an **alternative sufficient
+route**, not a dependency of this canonical program.  Its exact identities may
+remain useful as lemmas, but no future agent should interpret
+`vfMidFirstBadNNSNormalizedCovariance_le_half` as the required final theorem.
+
+PR #903 is the current structural bookkeeping branch.  Its role is limited to
+the exact greatest-owner continuation/classifier Fubini needed by the
+escape-reproduction proof; it is not authorization to restart a standalone
+rank-energy or Gram route.
+
+The older handoff entries below are historical context and do not override this
+2026-10-06 route lock or `CURRENT_PROOF_CONTRACT.md`.
+
 ## Current handoff — 2026-09-26
 
 The #797–#800 closeout leaves one quantitative input: CORR-4, or a signed
