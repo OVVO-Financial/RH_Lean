@@ -247,6 +247,7 @@ theorem vfMidActiveCellGram_eq_scaledClippedBaseCellMass
     rw [vfMidActiveMobiusScale_eq_zero_of_admittedBase hR hp ha]
     simp
   rw [Finset.product_eq_sprod, Finset.sum_product]
+  rw [Finset.product_eq_sprod, Finset.sum_product]
   change (∑ a ∈ lowOwnerFirstOwnerBaseFiber (R + 1) p sig, F a) =
     ∑ a ∈ lowOwnerFirstOwnerClippedBaseFiber (R + 1) p sig, F a
   rw [hsplit, hadm, zero_add]
