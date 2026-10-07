@@ -1,10 +1,11 @@
-name: VF recursive child population
+name: VF recursive child population and complement capacity
 
 on:
   pull_request:
-    branches: [main]
+    branches: [main, vf-recursive-child-population]
     paths:
       - research/VF_MID_RECURSIVE_REMAINDER_BOUND.lean
+      - research/VF_MID_PROXY_ENERGY_PULL.lean
       - .github/workflows/vf-recursive-child-population.yml
   workflow_dispatch:
 
@@ -70,16 +71,19 @@ jobs:
             RHLean.Arithmetic.PrimesUpToFrontier \
             RHLean.Analysis.NativePNTErrorMass \
             RHLean.Arithmetic.SignedBuchstabRecursion \
-            RHLean.Proof.LowWheelSurvivorFloorExpansion
-      - name: Compile recursive child decomposition import closure
+            RHLean.Proof.LowWheelSurvivorFloorExpansion \
+            RHLean.Analysis.NativePNTTransfer \
+            RHLean.Analysis.VioleSequentialEulerClosure \
+            RHLean.Analysis.NativePNTSignedSecondSelbergFrontierCharge
+      - name: Compile child capacity and theta consumer import closure
         run: |
-          python3 scripts/compile_research_import_closure.py research/VF_MID_RECURSIVE_REMAINDER_BOUND.lean
-      - name: Check exact decomposition declarations and axioms
+          python3 scripts/compile_research_import_closure.py research/VF_MID_PROXY_ENERGY_PULL.lean
+      - name: Check decomposition, capacity, endpoint consumers, and axioms
         shell: bash
         run: |
           set -o pipefail
           cat > /tmp/VF_MID_CHILD_POPULATION_ACCEPTANCE.lean <<'EOF'
-          import «research.VF_MID_RECURSIVE_REMAINDER_BOUND»
+          import «research.VF_MID_PROXY_ENERGY_PULL»
           #check RHLean.Analysis.vfMidRecursiveNativeChargeInBlock_eq_population_sub_prime
           #check RHLean.Analysis.vfMidRecursiveInteriorChildren_subset_oddCandidateSeats
           #check RHLean.Analysis.vfMidRecursiveInterior_card_add_complement_card
@@ -91,11 +95,32 @@ jobs:
           #check RHLean.Analysis.vfMidRecursiveNativeChargeInBlock_eq_interior_add_rightSquareAtom
           #check RHLean.Analysis.vfMidOddCompositeTrackingDefect_eq_recursiveInterior_add_complement
           #check RHLean.Analysis.vfMidOddCompositeTrackingDefect_eq_recursiveNative_add_complement_sub_rightSquareAtom
+          #check RHLean.Analysis.vfMidRecursiveComplement_primeCard_le_min_population_remainingPrefixWheel
+          #check RHLean.Analysis.vfMidRecursiveComplement_sub_rightSquareAtom_bounds
+          #check RHLean.Analysis.vfMidOddCompositeTrackingDefect_recursiveComplement_bounds
+          #check RHLean.Analysis.vfMidNativePacket_forces_fullScaleViolation_of_complement_margin
+          #check RHLean.Analysis.vfMidRecursiveChildrenInBlock_seven_four
+          #check RHLean.Analysis.vfMidOddCandidateSeats_four
+          #check RHLean.Analysis.vfMidRecursiveComplementCarrier_seven_four
+          #check RHLean.Analysis.vfMidRecursivePacket_complement_cancellation_witness
+          #check RHLean.Analysis.vfMidFullScaleViolation_forces_thetaEndpointViolation
+          #check RHLean.Analysis.vfMidThetaLocalBlockEscapeThreshold
+          #check RHLean.Analysis.vfMidThetaLocalBlockEscapeEnergyThreshold
+          #check RHLean.Analysis.vfMidThetaLocalBlockEscapeThreshold_nonneg
+          #check RHLean.Analysis.vfMidThetaEndpointOutside_of_localBlockDefect
+          #check RHLean.Analysis.vfMidThetaEndpointOutside_of_localBlockDefect_sq
+          #check RHLean.Analysis.vfMidNativePacket_forces_recursiveViolation_of_complement_margin
           #print axioms RHLean.Analysis.vfMidRecursiveNativeChargeInBlock_eq_population_sub_prime
           #print axioms RHLean.Analysis.vfMidRecursiveInteriorChildren_subset_oddCandidateSeats
           #print axioms RHLean.Analysis.vfMidRecursiveInterior_primeCard_add_complement_primeCard
           #print axioms RHLean.Analysis.vfMidRecursiveNativeChargeInBlock_eq_interior_add_rightSquareAtom
           #print axioms RHLean.Analysis.vfMidOddCompositeTrackingDefect_eq_recursiveNative_add_complement_sub_rightSquareAtom
+          #print axioms RHLean.Analysis.vfMidRecursiveComplement_primeCard_le_min_population_remainingPrefixWheel
+          #print axioms RHLean.Analysis.vfMidNativePacket_forces_fullScaleViolation_of_complement_margin
+          #print axioms RHLean.Analysis.vfMidRecursivePacket_complement_cancellation_witness
+          #print axioms RHLean.Analysis.vfMidThetaEndpointOutside_of_localBlockDefect
+          #print axioms RHLean.Analysis.vfMidThetaEndpointOutside_of_localBlockDefect_sq
+          #print axioms RHLean.Analysis.vfMidNativePacket_forces_recursiveViolation_of_complement_margin
           EOF
           lake env lean -DwarningAsError=true /tmp/VF_MID_CHILD_POPULATION_ACCEPTANCE.lean | tee child-population-acceptance.log
           python3 - <<'PY'
@@ -104,12 +129,12 @@ jobs:
 
           log = Path('child-population-acceptance.log').read_text()
           audited = re.findall(r"depends on axioms:\s*\[([^\]]*)\]", log)
-          if len(audited) != 5:
-              raise SystemExit(f'Expected five axiom audits, found {len(audited)}')
+          if len(audited) != 11:
+              raise SystemExit(f'Expected eleven axiom audits, found {len(audited)}')
           allowed = {'propext', 'Classical.choice', 'Quot.sound'}
           for entry in audited:
               unexpected = {name.strip() for name in entry.split(',') if name.strip()} - allowed
               if unexpected:
                   raise SystemExit(f'Unexpected axioms: {sorted(unexpected)}')
-          print('All decomposition axiom audits use only standard logical axioms.')
+          print('All decomposition, capacity, and endpoint axiom audits use only standard logical axioms.')
           PY
