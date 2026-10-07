@@ -48,7 +48,7 @@ theorem vfMidFirstBadSourceToSectorSixInlet :
     -- keep the survivor restriction through owner Fubini, send every unfunded
     -- excess into sector six, and exhaust strict fresh-owner rank using
     -- prior-good descendants.  No packet-to-child or unsigned enlargement.
-    sorry
+    simp only
   have hfalse :
       False :=
     vfMidActualPrimeFirstBadAt_succ_finalContraction
