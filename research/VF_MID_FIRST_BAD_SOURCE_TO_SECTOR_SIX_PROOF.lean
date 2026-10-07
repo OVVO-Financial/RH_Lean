@@ -3,6 +3,7 @@ import «research.VF_MID_FIRST_BAD_SOURCE_TO_SECTOR_SIX_INLET»
 import «research.VF_MID_FIRST_BAD_LOWER_RUN_CAPACITOR»
 import «research.VF_MID_CENTERED_GREATEST_OWNER_RANK_TELESCOPE»
 import «research.VF_MID_ONE_BLOCK_SOURCE_TO_RANK_INLET»
+import «research.VF_MID_FIRST_BAD_WEIGHTED_OWNER_FUBINI»
 
 /-!
 # Production proof attempt: actual first-bad source -> sector six
@@ -84,8 +85,14 @@ theorem vfMidFirstBadSourceToSectorSixInlet :
         ∃ sig ∈ lowOwnerFirstOwnerSignatureSet R p,
           lowOwnerFirstOwnerNoPersistenceSafeDirichletMass R p sig <
             lowOwnerFirstOwnerSignedCellTelescope R p sig := by
-    -- Exact source/reassembly splice.  This is now the single red seam.
-    simp only
+    -- Exact weighted reassembly is now available, at the adjacent clock R+1.
+    -- Its diagonal/squareful residual is explicit and cannot be silently
+    -- assigned a first owner.  A weighted cell excess is also not the bare
+    -- Dirichlet excess in this goal.  The remaining splice must legally
+    -- resolve both alternatives before invoking the #903 capacitor at R.
+    have hweighted := vfMidFirstBadWeightedExcess_forces_residual_or_cell
+      (R := R) (by omega : 3 ≤ R) h_excess
+    simp only at hweighted ⊢
 
   rcases htripwire with ⟨p, hpMem, sig, hsig, hcell⟩
   have hp : p.Prime := (mem_primesUpTo.mp hpMem).1
