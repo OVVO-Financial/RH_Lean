@@ -83,9 +83,12 @@ jobs:
           python3 scripts/compile_research_import_closure.py research/VF_MID_FIRST_BAD_ACTIVE_EXCESS_LEDGER.lean
           cat > /tmp/VF_ACTIVE_EXCESS_LEDGER_AUDIT.lean <<'EOF'
           import «research.VF_MID_FIRST_BAD_ACTIVE_EXCESS_LEDGER»
+          #print axioms RHLean.Analysis.vfMidOddCandidates_sdiff_active_eq_squarefulProcessedCarrier
+          #print axioms RHLean.Analysis.vfMidWeightedOmittedSeatAbsMass_eq_squarefulCharge
           #print axioms RHLean.Analysis.vfMid_globalDemand_eq_activeResidual_add_cells
           #print axioms RHLean.Analysis.vfMid_globalCapacity_eq_activeResidual_add_cells
           #print axioms RHLean.Analysis.vfMidFirstBadCoDivExcess_eq_activeResidual_add_weightedCells
+          #print axioms RHLean.Analysis.vfMidFirstBadAnchoredCoDivExcess_eq_activeResidual_add_weightedCells
           #print axioms RHLean.Analysis.vfMidOmittedSeatCapacityCooling_nonpos
           #print axioms RHLean.Analysis.vfMidSquarefulRestoringCooling_nonpos
           EOF
