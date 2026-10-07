@@ -640,7 +640,8 @@ theorem vfMidPointwiseCoDivExcess_add_neg_nonpos (z : ℝ) :
     vfMidPointwiseCoDivExcess z +
       vfMidPointwiseCoDivExcess (-z) ≤ 0 := by
   rw [vfMidPointwiseCoDivExcess_add_neg]
-  positivity
+  have hz : 0 ≤ |z| := abs_nonneg z
+  nlinarith
 
 /-- The literal returned-pair Co/Div excess.  Outside the #913 returned
 carrier the signed weight is already zero, so this also zero-extends
@@ -715,9 +716,10 @@ theorem vfMidActiveWeightedCellExcess_eq_returnedCoDivExcess
       lowOwnerFirstOwner_div_mem_admitted_of_child hp hb
     have hcancel : p * (b / p) = b :=
       Nat.mul_div_cancel' (Finset.mem_filter.mp hb).2.2
+    unfold vfMidActiveReturnedPairCoDivExcess
+      vfMidPointwiseCoDivExcess
     rw [vfMidActiveReturnedPairWeight_eq_physical
       hR hp haClip hcAdm, hcancel]
-    rfl
 
 /-- Zero extension of the literal Co/Div excess to the full off-diagonal base
 carrier. -/
