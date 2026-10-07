@@ -286,6 +286,19 @@ actual RunPrimeSupply(A,s) cannot cross the upper radial wall
 from the starting center.
 ```
 
+The exact telescope
+`vfMidSquareRunPrimeSupply_cast_eq_dyadicPrimeSupply` identifies that run
+population with
+
+```text
+pi((A+s)^2) - pi(A^2).
+```
+
+Accordingly,
+`vfMidRadialUpper_noBreak_of_runPrefixWheelCapacity_lt_bill_primeCounting`
+states the same no-crossing result directly in the repository's actual
+square-endpoint prime-count increment currency.
+
 The one-block specialization
 `vfMidRadialUpper_noBreak_oneBlock_of_prefixWheelEnvelope_lt_bill` gives the
 same statement directly from
