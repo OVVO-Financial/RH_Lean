@@ -78,6 +78,24 @@ jobs:
           visit('research.VF_MID_FIRST_BAD_EXACT_BUDGET_CLOSE')
           subprocess.run(['lake', 'build', *sorted(roots)], check=True)
           PY
-      - name: Compile exact budget close
+      - name: Restore stable #914 research closure
+        id: research-cache
+        uses: actions/cache/restore@v5
+        with:
+          path: .lake/build/lib/lean/research.*
+          key: vf915-research-base-${{ runner.os }}-${{ runner.arch }}-${{ github.event.pull_request.base.sha || github.sha }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
+      - name: Compile stable #914 research closure
+        if: steps.research-cache.outputs.cache-hit != 'true'
         run: |
-          python3 scripts/compile_research_import_closure.py research/VF_MID_FIRST_BAD_EXACT_BUDGET_CLOSE.lean
+          python3 scripts/compile_research_import_closure.py research/VF_MID_FIRST_BAD_FINAL_AGGREGATE_CONTRACTION.lean
+      - name: Save stable #914 research closure
+        if: steps.research-cache.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v5
+        with:
+          path: .lake/build/lib/lean/research.*
+          key: vf915-research-base-${{ runner.os }}-${{ runner.arch }}-${{ github.event.pull_request.base.sha || github.sha }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
+      - name: Compile exact budget close only
+        run: |
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.VF_MID_FIRST_BAD_EXACT_BUDGET_CLOSE.olean \
+            research/VF_MID_FIRST_BAD_EXACT_BUDGET_CLOSE.lean
