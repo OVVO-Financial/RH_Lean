@@ -39,7 +39,6 @@ The source is the returned clipped pair carrier.  A completed p/r cube cannot
 contain a source-supported mixed corner with its retained VF coefficient. -/
 theorem vfMidActiveReturnedRawParentFiberMass_eq_zero_of_completed
     {R p r : ℕ} {sig : Finset ℕ} {parent : ℕ × ℕ}
-    (hp : p.Prime)
     (hcompleted :
       parent ∈ lowOwnerFirstOwnerCompletedPolarizationRawParentSet
         (R + 1) p sig r) :
@@ -100,7 +99,7 @@ theorem vfMidActiveScaledReturnedClippedCellMass_eq_incompleteRawParents
     intro parent hparent
     exact
       vfMidActiveReturnedRawParentFiberMass_eq_zero_of_completed
-        hp hparent
+        hparent
   rw [hzero, zero_add]
 
 /-- Exact six-sector split of the retained-weight active boundary on one
