@@ -251,4 +251,65 @@ theorem vfMidActiveCellGram_eq_scaledClippedBaseCellMass
     ∑ a ∈ lowOwnerFirstOwnerClippedBaseFiber (R + 1) p sig, F a
   rw [hsplit, hadm, zero_add]
 
+
+/-! ## Return the child coordinate to the admitted parent -/
+
+/-- The same clipped physical mass after returning every p-divisible child
+`b` to its unique admitted parent `c = b / p`.  The physical VF scale stays
+attached to the actual child site `p*c`. -/
+def vfMidActiveScaledReturnedClippedCellMass
+    (R p : ℕ) (sig : Finset ℕ) : ℝ :=
+  ∑ ac ∈
+      (lowOwnerFirstOwnerClippedBaseFiber (R + 1) p sig).product
+        (lowOwnerFirstOwnerAdmittedBaseFiber (R + 1) p sig),
+    (vfMidActiveMobiusScale R ac.1 *
+      vfMidActiveMobiusScale R (p * ac.2)) *
+      lowOwnerFirstOwnerDirichletPolarizationAtom
+        (R + 1) p ac
+
+/-- Exact child-to-returned-parent reindexing.  No multiplicity is discarded:
+multiplication by p and division by p are inverse on the actual child fibre. -/
+theorem vfMidActiveScaledClippedBaseCellMass_eq_returned
+    {R p : ℕ} {sig : Finset ℕ}
+    (hp : p.Prime) :
+    vfMidActiveScaledClippedBaseCellMass R p sig =
+      vfMidActiveScaledReturnedClippedCellMass R p sig := by
+  unfold vfMidActiveScaledClippedBaseCellMass
+    vfMidActiveScaledReturnedClippedCellMass
+  rw [Finset.product_eq_sprod, Finset.sum_product,
+    Finset.product_eq_sprod, Finset.sum_product]
+  apply Finset.sum_congr rfl
+  intro a _ha
+  refine Finset.sum_bij
+    (fun b _hb => b / p)
+    (fun b hb => lowOwnerFirstOwner_div_mem_admitted_of_child hp hb)
+    ?_ ?_ ?_
+  · intro b hb d hd heq
+    have hbDvd := (Finset.mem_filter.mp hb).2.2
+    have hdDvd := (Finset.mem_filter.mp hd).2.2
+    change b / p = d / p at heq
+    calc
+      b = p * (b / p) := (Nat.mul_div_cancel' hbDvd).symm
+      _ = p * (d / p) := by rw [heq]
+      _ = d := Nat.mul_div_cancel' hdDvd
+  · intro d hd
+    refine ⟨p * d, lowOwnerFirstOwner_mul_mem_child_of_admitted hp hd, ?_⟩
+    change (p * d) / p = d
+    simpa [Nat.mul_comm] using Nat.mul_div_left d hp.pos
+  · intro b hb
+    have hbDvd := (Finset.mem_filter.mp hb).2.2
+    have hcancel : p * (b / p) = b := Nat.mul_div_cancel' hbDvd
+    rw [hcancel]
+
+/-- Returned-coordinate version of the exact active cell support theorem. -/
+theorem vfMidActiveCellGram_eq_scaledReturnedClippedCellMass
+    {R p : ℕ} {sig : Finset ℕ}
+    (hR : 3 ≤ R) (hp : p.Prime) :
+    lowOwnerFirstOwnerCellGramWith
+        (R + 1) p sig (vfMidOneBlockActivePhysicalSite R) =
+      vfMidActiveScaledReturnedClippedCellMass R p sig := by
+  rw [vfMidActiveCellGram_eq_scaledClippedBaseCellMass hR hp,
+    vfMidActiveScaledClippedBaseCellMass_eq_returned hp]
+
+
 end RHLean.Analysis
