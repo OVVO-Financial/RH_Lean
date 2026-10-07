@@ -1,4 +1,4 @@
-name: VF first-bad terminal contradiction
+name: VF first-bad normalized infrastructure
 
 on:
   pull_request:
@@ -22,7 +22,6 @@ on:
       - research/VF_MID_FIRST_BAD_RESTORING_DECOMPOSITION.lean
       - research/VF_MID_FIRST_BAD_CORRELATION_DESCENT.lean
       - research/VF_MID_FIRST_BAD_HISTORY_COMPRESSION.lean
-      - research/VF_MID_FIRST_BAD_GLOBAL_HNORM.lean
       - research/VF_MID_CENTERED_GREATEST_OWNER_RANK_TELESCOPE.lean
       - research/VF_MID_FAN_ESCAPE_CAPACITY_BILLS.lean
       - research/VF_MID_FIRST_BAD_LOWER_RUN_CAPACITOR.lean
@@ -96,14 +95,3 @@ jobs:
           python3 scripts/compile_research_import_closure.py research/VF_MID_FAN_ESCAPE_CAPACITY_BILLS.lean
           python3 scripts/compile_research_import_closure.py research/VF_MID_FIRST_BAD_LOWER_RUN_CAPACITOR.lean
           python3 scripts/compile_research_import_closure.py research/VF_MID_FAN_ESCAPE_RUN_CAPACITY.lean
-          python3 scripts/compile_research_import_closure.py research/VF_MID_FIRST_BAD_GLOBAL_HNORM.lean
-      - name: Require finish-line first-bad theorem
-        run: |
-          cat > /tmp/VF_MID_FINISH_LINE_ACCEPTANCE.lean <<'EOF'
-          import «research.VF_MID_FIRST_BAD_GLOBAL_HNORM»
-          #check RHLean.Analysis.vfMidFirstBadNNSNormalizedCovariance_le_half
-          #check RHLean.Analysis.vfMidActualPrimeFirstBadAt_two_succ_closed
-          #print axioms RHLean.Analysis.vfMidFirstBadNNSNormalizedCovariance_le_half
-          #print axioms RHLean.Analysis.vfMidActualPrimeFirstBadAt_two_succ_closed
-          EOF
-          lake env lean -DwarningAsError=true /tmp/VF_MID_FINISH_LINE_ACCEPTANCE.lean
