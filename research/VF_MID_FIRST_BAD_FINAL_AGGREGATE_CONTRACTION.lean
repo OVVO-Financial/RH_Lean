@@ -610,4 +610,563 @@ theorem vfMidFirstBadThreeBoundaryBudgetLHS_eq_squarefulNormalForm
   rw [vfMidFirstBadThreeBoundaryBudgetLHS_eq_physicalNormalForm hR,
     vfMidWeightedOmittedSeatAbsMass_eq_squarefulCharge hR]
 
+
+/-! ## Production correction: retain the literal Co/Div heat sink
+
+The 317/1027 ledgers show that the sufficient bound
+`cellExcess ≤ 2 * signedBoundaryMass` throws away exactly the negative
+prime/composite cross terms which provide the needed cooling.  The production
+route therefore carries the pointwise quantity
+
+  4 z - 2 |z|
+
+itself through the already-compiled returned/raw-parent Fubini.
+-/
+
+/-- One literal zero-target Co-minus-three-Div point excess. -/
+def vfMidPointwiseCoDivExcess (z : ℝ) : ℝ :=
+  4 * z - 2 * |z|
+
+/-- Exact dissipation when an owner step reverses the signed pair weight. -/
+theorem vfMidPointwiseCoDivExcess_add_neg (z : ℝ) :
+    vfMidPointwiseCoDivExcess z +
+      vfMidPointwiseCoDivExcess (-z) =
+        -4 * |z| := by
+  unfold vfMidPointwiseCoDivExcess
+  rw [abs_neg]
+  ring
+
+theorem vfMidPointwiseCoDivExcess_add_neg_nonpos (z : ℝ) :
+    vfMidPointwiseCoDivExcess z +
+      vfMidPointwiseCoDivExcess (-z) ≤ 0 := by
+  rw [vfMidPointwiseCoDivExcess_add_neg]
+  positivity
+
+/-- The literal returned-pair Co/Div excess.  Outside the #913 returned
+carrier the signed weight is already zero, so this also zero-extends
+automatically to the whole off-diagonal base square. -/
+def vfMidActiveReturnedPairCoDivExcess
+    (R p : ℕ) (sig : Finset ℕ) (ab : ℕ × ℕ) : ℝ :=
+  vfMidPointwiseCoDivExcess
+    (vfMidActiveReturnedPairWeight R p sig ab)
+
+/-- On the physical returned carrier, #913's retained-weight atom is exactly
+the original active physical pair product. -/
+theorem vfMidActiveReturnedPairWeight_eq_physical
+    {R p a c : ℕ} {sig : Finset ℕ}
+    (hR : 3 ≤ R) (hp : p.Prime)
+    (haClip : a ∈ lowOwnerFirstOwnerClippedBaseFiber (R + 1) p sig)
+    (hcAdm : c ∈ lowOwnerFirstOwnerAdmittedBaseFiber (R + 1) p sig) :
+    vfMidActiveReturnedPairWeight R p sig (a, c) =
+      vfMidOneBlockActivePhysicalSite R a *
+        vfMidOneBlockActivePhysicalSite R (p * c) := by
+  have haBase :
+      a ∈ lowOwnerFirstOwnerBaseFiber (R + 1) p sig :=
+    (Finset.mem_filter.mp haClip).1
+  have hbChild :
+      p * c ∈ lowOwnerFirstOwnerChildFiber (R + 1) p sig :=
+    lowOwnerFirstOwner_mul_mem_child_of_admitted hp hcAdm
+  have hphys :=
+    vfMidActivePhysicalPair_eq_scaledDirichletPolarizationAtom
+      hR hp haBase hbChild
+  have hdiv : (p * c) / p = c := by
+    simpa [Nat.mul_comm] using Nat.mul_div_left c hp.pos
+  rw [hdiv] at hphys
+  have hmem :
+      (a, c) ∈ vfMidActiveReturnedPairCarrier R p sig := by
+    exact Finset.mem_product.mpr ⟨haClip, hcAdm⟩
+  unfold vfMidActiveReturnedPairWeight
+  rw [if_pos hmem]
+  exact hphys.symm
+
+/-- Exact child-to-returned-parent reindexing for the full pointwise Co/Div
+excess, not merely for its signed part. -/
+theorem vfMidActiveWeightedCellExcess_eq_returnedCoDivExcess
+    {R p : ℕ} {sig : Finset ℕ}
+    (hR : 3 ≤ R) (hp : p.Prime) :
+    vfMidActiveWeightedCellExcess R p sig =
+      ∑ ac ∈ vfMidActiveReturnedPairCarrier R p sig,
+        vfMidActiveReturnedPairCoDivExcess R p sig ac := by
+  rw [vfMidActiveWeightedCellExcess_eq_clippedPhysical hR hp]
+  unfold vfMidActiveClippedPhysicalCellExcess
+    vfMidActiveReturnedPairCarrier
+  rw [Finset.product_eq_sprod, Finset.sum_product,
+    Finset.product_eq_sprod, Finset.sum_product]
+  apply Finset.sum_congr rfl
+  intro a haClip
+  refine Finset.sum_bij
+    (fun b _hb => b / p)
+    (fun b hb => lowOwnerFirstOwner_div_mem_admitted_of_child hp hb)
+    ?_ ?_ ?_
+  · intro b hb d hd heq
+    have hbDvd := (Finset.mem_filter.mp hb).2.2
+    have hdDvd := (Finset.mem_filter.mp hd).2.2
+    change b / p = d / p at heq
+    calc
+      b = p * (b / p) := (Nat.mul_div_cancel' hbDvd).symm
+      _ = p * (d / p) := by rw [heq]
+      _ = d := Nat.mul_div_cancel' hdDvd
+  · intro d hd
+    refine ⟨p * d, lowOwnerFirstOwner_mul_mem_child_of_admitted hp hd, ?_⟩
+    change (p * d) / p = d
+    simpa [Nat.mul_comm] using Nat.mul_div_left d hp.pos
+  · intro b hb
+    have hcAdm :=
+      lowOwnerFirstOwner_div_mem_admitted_of_child hp hb
+    have hcancel : p * (b / p) = b :=
+      Nat.mul_div_cancel' (Finset.mem_filter.mp hb).2.2
+    rw [vfMidActiveReturnedPairWeight_eq_physical
+      hR hp haClip hcAdm, hcancel]
+    rfl
+
+/-- Zero extension of the literal Co/Div excess to the full off-diagonal base
+carrier. -/
+theorem vfMidActiveWeightedCellExcess_eq_offDiagonalReturnedCoDiv
+    {R p : ℕ} {sig : Finset ℕ}
+    (hR : 3 ≤ R) (hp : p.Prime) :
+    vfMidActiveWeightedCellExcess R p sig =
+      ∑ ab ∈ lowOwnerFirstOwnerBaseOffDiagonalPairCarrier (R + 1) p sig,
+        vfMidActiveReturnedPairCoDivExcess R p sig ab := by
+  rw [vfMidActiveWeightedCellExcess_eq_returnedCoDivExcess hR hp]
+  have hsub :=
+    vfMidActiveReturnedPairCarrier_subset_offDiagonal R p sig
+  apply Finset.sum_subset hsub
+  intro ab _hab hnot
+  have hw :
+      vfMidActiveReturnedPairWeight R p sig ab = 0 := by
+    simp [vfMidActiveReturnedPairWeight, hnot]
+  simp [vfMidActiveReturnedPairCoDivExcess,
+    vfMidPointwiseCoDivExcess, hw]
+
+/-- Exact greatest-owner Fubini of the literal active Co/Div excess. -/
+theorem vfMidActiveWeightedCellExcess_eq_ownerFibers
+    {R p : ℕ} {sig : Finset ℕ}
+    (hR : 3 ≤ R) (hp : p.Prime) :
+    vfMidActiveWeightedCellExcess R p sig =
+      ∑ r ∈ lowOwnerRevealedPrimesAbove (R + 1) p,
+        ∑ ab ∈
+          lowOwnerFirstOwnerPolarizationGreatestOwnerPairFiber
+            (R + 1) p sig r,
+          vfMidActiveReturnedPairCoDivExcess R p sig ab := by
+  rw [vfMidActiveWeightedCellExcess_eq_offDiagonalReturnedCoDiv hR hp]
+  exact
+    sum_lowOwnerFirstOwnerBaseOffDiagonal_eq_sum_polarizationOwnerFibers
+      hp (vfMidActiveReturnedPairCoDivExcess R p sig)
+
+/-- Literal Co/Div excess assigned to one orientation-preserving raw parent. -/
+def vfMidActiveReturnedRawParentFiberExcess
+    (R p : ℕ) (sig : Finset ℕ) (r : ℕ)
+    (parent : ℕ × ℕ) : ℝ :=
+  ∑ ab ∈
+      lowOwnerFirstOwnerPolarizationFixedRawParentFiber
+        (R + 1) p sig r parent,
+    vfMidActiveReturnedPairCoDivExcess R p sig ab
+
+/-- Exact raw-parent reindex of the literal active Co/Div excess. -/
+theorem vfMidActiveWeightedCellExcess_eq_rawParents
+    {R p : ℕ} {sig : Finset ℕ}
+    (hR : 3 ≤ R) (hp : p.Prime) :
+    vfMidActiveWeightedCellExcess R p sig =
+      ∑ r ∈ lowOwnerRevealedPrimesAbove (R + 1) p,
+        ∑ parent ∈
+          lowOwnerFirstOwnerPolarizationRawParentSet (R + 1) p sig r,
+          vfMidActiveReturnedRawParentFiberExcess R p sig r parent := by
+  rw [vfMidActiveWeightedCellExcess_eq_ownerFibers hR hp]
+  apply Finset.sum_congr rfl
+  intro r _hr
+  rw [sum_lowOwnerFirstOwnerPolarizationGreatestOwnerPairFiber_eq_rawParents]
+  rfl
+
+private theorem vfMidActiveReturnedPairCoDivExcess_eq_zero_of_weight_zero
+    {R p : ℕ} {sig : Finset ℕ} {ab : ℕ × ℕ}
+    (hzero : vfMidActiveReturnedPairWeight R p sig ab = 0) :
+    vfMidActiveReturnedPairCoDivExcess R p sig ab = 0 := by
+  simp [vfMidActiveReturnedPairCoDivExcess,
+    vfMidPointwiseCoDivExcess, hzero]
+
+/-- Completed raw parents also carry zero literal Co/Div excess, not merely
+zero signed mass. -/
+theorem vfMidActiveReturnedRawParentFiberExcess_eq_zero_of_completed
+    {R p r : ℕ} {sig : Finset ℕ} {parent : ℕ × ℕ}
+    (hcompleted :
+      parent ∈ lowOwnerFirstOwnerCompletedPolarizationRawParentSet
+        (R + 1) p sig r) :
+    vfMidActiveReturnedRawParentFiberExcess R p sig r parent = 0 := by
+  unfold vfMidActiveReturnedRawParentFiberExcess
+  apply Finset.sum_eq_zero
+  intro child hchild
+  rcases
+      lowOwnerFirstOwnerPolarizationFixedRawParentFiber_child_mixed hchild with
+    hleft | hright
+  · rw [hleft]
+    apply vfMidActiveReturnedPairCoDivExcess_eq_zero_of_weight_zero
+    have hblock :
+        LowOwnerCompletedPolarizationBlock (R + 1) p (r, parent) :=
+      (Finset.mem_filter.mp hcompleted).2
+    have hpra :
+        p * (r * parent.1) ≤ squareRootEndpoint (R + 1) := by
+      rcases hblock with
+        ⟨_hr, _hra, _hrb, _ha, _hpa, _hraX, hpra,
+          _hb, _hpb, _hrbX, _hprb⟩
+      exact hpra
+    have hnot :
+        (r * parent.1, parent.2) ∉
+          vfMidActiveReturnedPairCarrier R p sig := by
+      intro hmem
+      have hclip :
+          r * parent.1 ∈
+            lowOwnerFirstOwnerClippedBaseFiber (R + 1) p sig :=
+        (Finset.mem_product.mp hmem).1
+      have hgt :
+          squareRootEndpoint (R + 1) < p * (r * parent.1) :=
+        (Finset.mem_filter.mp hclip).2
+      omega
+    simp [vfMidActiveReturnedPairWeight, hnot]
+  · rw [hright]
+    apply vfMidActiveReturnedPairCoDivExcess_eq_zero_of_weight_zero
+    exact
+      vfMidActiveReturnedPairWeight_secondMixed_eq_zero_of_completed
+        hcompleted
+
+/-- The full literal cell excess lives only on incomplete raw parents. -/
+theorem vfMidActiveWeightedCellExcess_eq_incompleteRawParents
+    {R p : ℕ} {sig : Finset ℕ}
+    (hR : 3 ≤ R) (hp : p.Prime) :
+    vfMidActiveWeightedCellExcess R p sig =
+      ∑ r ∈ lowOwnerRevealedPrimesAbove (R + 1) p,
+        ∑ parent ∈
+          lowOwnerFirstOwnerIncompletePolarizationRawParentSet
+            (R + 1) p sig r,
+          vfMidActiveReturnedRawParentFiberExcess R p sig r parent := by
+  rw [vfMidActiveWeightedCellExcess_eq_rawParents hR hp]
+  apply Finset.sum_congr rfl
+  intro r _hr
+  have hsplit :=
+    sum_vfMidRawParents_eq_completed_add_incomplete
+      (R + 1) p sig r
+      (vfMidActiveReturnedRawParentFiberExcess R p sig r)
+  rw [hsplit]
+  have hzero :
+      (∑ parent ∈
+        lowOwnerFirstOwnerCompletedPolarizationRawParentSet
+          (R + 1) p sig r,
+        vfMidActiveReturnedRawParentFiberExcess R p sig r parent) = 0 := by
+    apply Finset.sum_eq_zero
+    intro parent hparent
+    exact
+      vfMidActiveReturnedRawParentFiberExcess_eq_zero_of_completed hparent
+  rw [hzero, zero_add]
+
+/-- Six-sector split of the literal Co/Div excess. -/
+theorem sum_vfMidActiveReturnedIncompleteExcess_eq_sixOrientedSectors
+    {R p r : ℕ} {sig : Finset ℕ} (hp : p.Prime) :
+    (∑ parent ∈
+      lowOwnerFirstOwnerIncompletePolarizationRawParentSet
+        (R + 1) p sig r,
+      vfMidActiveReturnedRawParentFiberExcess R p sig r parent) =
+      (∑ parent ∈
+        lowOwnerFirstOwnerIncompleteFirstClipLeftSet
+          (R + 1) p sig r,
+        vfMidActiveReturnedRawParentFiberExcess R p sig r parent) +
+      (∑ parent ∈
+        lowOwnerFirstOwnerIncompleteFirstClipRightSet
+          (R + 1) p sig r,
+        vfMidActiveReturnedRawParentFiberExcess R p sig r parent) +
+      (∑ parent ∈
+        lowOwnerFirstOwnerIncompleteNextClipLeftSet
+          (R + 1) p sig r,
+        vfMidActiveReturnedRawParentFiberExcess R p sig r parent) +
+      (∑ parent ∈
+        lowOwnerFirstOwnerIncompleteNextClipRightSet
+          (R + 1) p sig r,
+        vfMidActiveReturnedRawParentFiberExcess R p sig r parent) +
+      (∑ parent ∈
+        lowOwnerFirstOwnerIncompleteReturnedClipLeftSet
+          (R + 1) p sig r,
+        vfMidActiveReturnedRawParentFiberExcess R p sig r parent) +
+      ∑ parent ∈
+        lowOwnerFirstOwnerIncompleteReturnedClipRightSet
+          (R + 1) p sig r,
+        vfMidActiveReturnedRawParentFiberExcess R p sig r parent := by
+  exact
+    sum_lowOwnerFirstOwnerIncompleteRawParents_eq_sixOrientedSectors
+      (R := R + 1) (p := p) (r := r) (sig := sig) hp
+      (vfMidActiveReturnedRawParentFiberExcess R p sig r)
+
+/-- A first-right sector has zero literal Co/Div excess because every one of
+its returned-pair weights is zero. -/
+theorem vfMidActiveReturnedRawParentFiberExcess_eq_zero_of_firstClipRight
+    {R p r : ℕ} {sig : Finset ℕ} {parent : ℕ × ℕ}
+    (hparent :
+      parent ∈ lowOwnerFirstOwnerIncompleteFirstClipRightSet
+        (R + 1) p sig r) :
+    vfMidActiveReturnedRawParentFiberExcess R p sig r parent = 0 := by
+  unfold vfMidActiveReturnedRawParentFiberExcess
+  apply Finset.sum_eq_zero
+  intro child hchild
+  apply vfMidActiveReturnedPairCoDivExcess_eq_zero_of_weight_zero
+  rcases
+      lowOwnerFirstOwnerPolarizationFixedRawParentFiber_child_mixed hchild with
+    hleft | hrightMixed
+  · rw [hleft]
+    have hright :
+        squareRootEndpoint (R + 1) < p * parent.2 :=
+      lowOwnerFirstOwnerIncompleteFirstClipRight_mem_implies_rightClip hparent
+    have hnot :
+        (r * parent.1, parent.2) ∉
+          vfMidActiveReturnedPairCarrier R p sig := by
+      intro hmem
+      have hadm :
+          parent.2 ∈ lowOwnerFirstOwnerAdmittedBaseFiber (R + 1) p sig :=
+        (Finset.mem_product.mp hmem).2
+      have hle :
+          p * parent.2 ≤ squareRootEndpoint (R + 1) :=
+        (Finset.mem_filter.mp hadm).2
+      omega
+    simp [vfMidActiveReturnedPairWeight, hnot]
+  · rw [hrightMixed]
+    have hnotLeft :
+        ¬ squareRootEndpoint (R + 1) < p * parent.1 :=
+      (Finset.mem_filter.mp hparent).2
+    have hnot :
+        (parent.1, r * parent.2) ∉
+          vfMidActiveReturnedPairCarrier R p sig := by
+      intro hmem
+      have hclip :
+          parent.1 ∈ lowOwnerFirstOwnerClippedBaseFiber (R + 1) p sig :=
+        (Finset.mem_product.mp hmem).1
+      exact hnotLeft (Finset.mem_filter.mp hclip).2
+    simp [vfMidActiveReturnedPairWeight, hnot]
+
+/-- A next-left sector has zero literal Co/Div excess. -/
+theorem vfMidActiveReturnedRawParentFiberExcess_eq_zero_of_nextClipLeft
+    {R p r : ℕ} {sig : Finset ℕ} {parent : ℕ × ℕ}
+    (hparent :
+      parent ∈ lowOwnerFirstOwnerIncompleteNextClipLeftSet
+        (R + 1) p sig r) :
+    vfMidActiveReturnedRawParentFiberExcess R p sig r parent = 0 := by
+  unfold vfMidActiveReturnedRawParentFiberExcess
+  apply Finset.sum_eq_zero
+  intro child hchild
+  apply vfMidActiveReturnedPairCoDivExcess_eq_zero_of_weight_zero
+  have hnext :
+      parent ∈ lowOwnerFirstOwnerIncompleteNextClipSet
+        (R + 1) p sig r :=
+    (Finset.mem_filter.mp hparent).1
+  have hleft :
+      squareRootEndpoint (R + 1) < r * parent.1 :=
+    (Finset.mem_filter.mp hparent).2
+  have hclass :
+      LowOwnerRawParentNextOwnerClipped (R + 1) p r parent :=
+    (Finset.mem_filter.mp hnext).2
+  rcases
+      lowOwnerFirstOwnerPolarizationFixedRawParentFiber_child_mixed hchild with
+    hleftMixed | hrightMixed
+  · rw [hleftMixed]
+    have hgreatest :
+        child ∈ lowOwnerFirstOwnerPolarizationGreatestOwnerPairFiber
+          (R + 1) p sig r :=
+      (Finset.mem_filter.mp hchild).1
+    have hoff :
+        child ∈ lowOwnerFirstOwnerBaseOffDiagonalPairCarrier
+          (R + 1) p sig :=
+      (Finset.mem_filter.mp hgreatest).1
+    have hprod :
+        child ∈
+          (lowOwnerFirstOwnerBaseFiber (R + 1) p sig).product
+            (lowOwnerFirstOwnerBaseFiber (R + 1) p sig) :=
+      (Finset.mem_filter.mp hoff).1
+    have hbase :
+        child.1 ∈ lowOwnerFirstOwnerBaseFiber (R + 1) p sig :=
+      (Finset.mem_product.mp hprod).1
+    have hcar := (Finset.mem_filter.mp hbase).1
+    have hicc := (Finset.mem_filter.mp hcar).1
+    have hle : child.1 ≤ squareRootEndpoint (R + 1) :=
+      (Finset.mem_Icc.mp hicc).2
+    rw [hleftMixed] at hle
+    omega
+  · rw [hrightMixed]
+    have hnot :
+        (parent.1, r * parent.2) ∉
+          vfMidActiveReturnedPairCarrier R p sig := by
+      intro hmem
+      have hclip :
+          parent.1 ∈ lowOwnerFirstOwnerClippedBaseFiber (R + 1) p sig :=
+        (Finset.mem_product.mp hmem).1
+      have hgt :
+          squareRootEndpoint (R + 1) < p * parent.1 :=
+        (Finset.mem_filter.mp hclip).2
+      exact (Nat.not_lt_of_ge hclass.1) hgt
+    simp [vfMidActiveReturnedPairWeight, hnot]
+
+/-- A returned-right sector has zero literal Co/Div excess. -/
+theorem vfMidActiveReturnedRawParentFiberExcess_eq_zero_of_returnedClipRight
+    {R p r : ℕ} {sig : Finset ℕ} {parent : ℕ × ℕ}
+    (hparent :
+      parent ∈ lowOwnerFirstOwnerIncompleteReturnedClipRightSet
+        (R + 1) p sig r) :
+    vfMidActiveReturnedRawParentFiberExcess R p sig r parent = 0 := by
+  unfold vfMidActiveReturnedRawParentFiberExcess
+  apply Finset.sum_eq_zero
+  intro child hchild
+  apply vfMidActiveReturnedPairCoDivExcess_eq_zero_of_weight_zero
+  have hret :
+      parent ∈ lowOwnerFirstOwnerIncompleteReturnedClipSet
+        (R + 1) p sig r :=
+    (Finset.mem_filter.mp hparent).1
+  have hnotLeft :
+      ¬ squareRootEndpoint (R + 1) < p * (r * parent.1) :=
+    (Finset.mem_filter.mp hparent).2
+  have hclass :
+      LowOwnerRawParentReturnedNextClipped (R + 1) p r parent :=
+    (Finset.mem_filter.mp hret).2
+  rcases
+      lowOwnerFirstOwnerPolarizationFixedRawParentFiber_child_mixed hchild with
+    hleftMixed | hrightMixed
+  · rw [hleftMixed]
+    have hnot :
+        (r * parent.1, parent.2) ∉
+          vfMidActiveReturnedPairCarrier R p sig := by
+      intro hmem
+      have hclip :
+          r * parent.1 ∈
+            lowOwnerFirstOwnerClippedBaseFiber (R + 1) p sig :=
+        (Finset.mem_product.mp hmem).1
+      exact hnotLeft (Finset.mem_filter.mp hclip).2
+    simp [vfMidActiveReturnedPairWeight, hnot]
+  · rw [hrightMixed]
+    have hnot :
+        (parent.1, r * parent.2) ∉
+          vfMidActiveReturnedPairCarrier R p sig := by
+      intro hmem
+      have hclip :
+          parent.1 ∈ lowOwnerFirstOwnerClippedBaseFiber (R + 1) p sig :=
+        (Finset.mem_product.mp hmem).1
+      have hgt :
+          squareRootEndpoint (R + 1) < p * parent.1 :=
+        (Finset.mem_filter.mp hclip).2
+      exact (Nat.not_lt_of_ge hclass.1) hgt
+    simp [vfMidActiveReturnedPairWeight, hnot]
+
+/-- The exact literal Co/Div excess occupies only first-left, next-right, and
+returned-left, with all negative pair heat retained. -/
+theorem vfMidActiveWeightedCellExcess_eq_threeBoundaryExcess
+    {R p : ℕ} {sig : Finset ℕ}
+    (hR : 3 ≤ R) (hp : p.Prime) :
+    vfMidActiveWeightedCellExcess R p sig =
+      ∑ r ∈ lowOwnerRevealedPrimesAbove (R + 1) p,
+        ((∑ parent ∈
+            lowOwnerFirstOwnerIncompleteFirstClipLeftSet
+              (R + 1) p sig r,
+            vfMidActiveReturnedRawParentFiberExcess R p sig r parent) +
+          (∑ parent ∈
+            lowOwnerFirstOwnerIncompleteNextClipRightSet
+              (R + 1) p sig r,
+            vfMidActiveReturnedRawParentFiberExcess R p sig r parent) +
+          ∑ parent ∈
+            lowOwnerFirstOwnerIncompleteReturnedClipLeftSet
+              (R + 1) p sig r,
+            vfMidActiveReturnedRawParentFiberExcess R p sig r parent) := by
+  rw [vfMidActiveWeightedCellExcess_eq_incompleteRawParents hR hp]
+  apply Finset.sum_congr rfl
+  intro r _hr
+  rw [sum_vfMidActiveReturnedIncompleteExcess_eq_sixOrientedSectors hp]
+  have hfr :
+      (∑ parent ∈
+        lowOwnerFirstOwnerIncompleteFirstClipRightSet
+          (R + 1) p sig r,
+        vfMidActiveReturnedRawParentFiberExcess R p sig r parent) = 0 := by
+    apply Finset.sum_eq_zero
+    intro parent hparent
+    exact
+      vfMidActiveReturnedRawParentFiberExcess_eq_zero_of_firstClipRight hparent
+  have hnl :
+      (∑ parent ∈
+        lowOwnerFirstOwnerIncompleteNextClipLeftSet
+          (R + 1) p sig r,
+        vfMidActiveReturnedRawParentFiberExcess R p sig r parent) = 0 := by
+    apply Finset.sum_eq_zero
+    intro parent hparent
+    exact
+      vfMidActiveReturnedRawParentFiberExcess_eq_zero_of_nextClipLeft hparent
+  have hrr :
+      (∑ parent ∈
+        lowOwnerFirstOwnerIncompleteReturnedClipRightSet
+          (R + 1) p sig r,
+        vfMidActiveReturnedRawParentFiberExcess R p sig r parent) = 0 := by
+    apply Finset.sum_eq_zero
+    intro parent hparent
+    exact
+      vfMidActiveReturnedRawParentFiberExcess_eq_zero_of_returnedClipRight hparent
+  rw [hfr, hnl, hrr]
+  ring
+
+/-- Global literal three-boundary Co/Div excess.  Unlike
+`vfMidActiveThreeBoundaryMass`, this retains every negative physical pair
+contribution. -/
+def vfMidActiveThreeBoundaryExcess (R : ℕ) : ℝ :=
+  ∑ p ∈ primesUpTo (squareRootEndpoint (R + 1)),
+    ∑ sig ∈ lowOwnerFirstOwnerSignatureSet (R + 1) p,
+      ∑ r ∈ lowOwnerRevealedPrimesAbove (R + 1) p,
+        ((∑ parent ∈
+            lowOwnerFirstOwnerIncompleteFirstClipLeftSet
+              (R + 1) p sig r,
+            vfMidActiveReturnedRawParentFiberExcess R p sig r parent) +
+          (∑ parent ∈
+            lowOwnerFirstOwnerIncompleteNextClipRightSet
+              (R + 1) p sig r,
+            vfMidActiveReturnedRawParentFiberExcess R p sig r parent) +
+          ∑ parent ∈
+            lowOwnerFirstOwnerIncompleteReturnedClipLeftSet
+              (R + 1) p sig r,
+            vfMidActiveReturnedRawParentFiberExcess R p sig r parent)
+
+/-- Global exact Fubini for the active Co/Div cell excess. -/
+theorem sum_vfMidActiveWeightedCellExcess_eq_threeBoundaryExcess
+    {R : ℕ} (hR : 3 ≤ R) :
+    (∑ p ∈ primesUpTo (squareRootEndpoint (R + 1)),
+      ∑ sig ∈ lowOwnerFirstOwnerSignatureSet (R + 1) p,
+        vfMidActiveWeightedCellExcess R p sig) =
+      vfMidActiveThreeBoundaryExcess R := by
+  unfold vfMidActiveThreeBoundaryExcess
+  apply Finset.sum_congr rfl
+  intro p hpMem
+  have hp : p.Prime := (mem_primesUpTo.mp hpMem).1
+  apply Finset.sum_congr rfl
+  intro sig _hsig
+  exact vfMidActiveWeightedCellExcess_eq_threeBoundaryExcess hR hp
+
+/-- **Correct production budget identity.**
+
+No local absolute capacity has been discarded: the full anchored excess is
+exactly the quarantined global residual plus the literal three-boundary Co/Div
+excess. -/
+theorem vfMidFirstBadAnchoredCoDivExcess_eq_activeResidual_add_threeBoundaryExcess
+    {R : ℕ} (hR : 3 ≤ R) :
+    vfMidFirstBadAnchoredCoDivExcess R =
+      vfMidActiveGlobalResidualExcess R +
+        vfMidActiveThreeBoundaryExcess R := by
+  rw [vfMidFirstBadAnchoredCoDivExcess_eq_activeResidual_add_weightedCells hR,
+    sum_vfMidActiveWeightedCellExcess_eq_threeBoundaryExcess hR]
+
+/-- The actual final budget statement.  This supersedes the stronger
+`VFMidFirstBadThreeBoundaryBudgetStatement`, which was obtained only after
+dropping the negative local Co/Div heat sink. -/
+def VFMidFirstBadExactThreeBoundaryExcessBudgetStatement : Prop :=
+  ∀ {R : ℕ}, 8 ≤ R →
+    VFMidActualPrimeFirstBadAt (2 : ℝ) (R + 1) →
+      vfMidActiveGlobalResidualExcess R +
+        vfMidActiveThreeBoundaryExcess R ≤ 0
+
+/-- The exact budget closes the anchored Co/Div excess without any intermediate
+boundary majorant. -/
+theorem vfMidActualPrimeFirstBadAt_two_succ_activeExcess_nonpos_of_exactBudget
+    (hbudget : VFMidFirstBadExactThreeBoundaryExcessBudgetStatement)
+    {R : ℕ} (hR : 8 ≤ R)
+    (hfirst : VFMidActualPrimeFirstBadAt (2 : ℝ) (R + 1)) :
+    vfMidFirstBadAnchoredCoDivExcess R ≤ 0 := by
+  rw [vfMidFirstBadAnchoredCoDivExcess_eq_activeResidual_add_threeBoundaryExcess
+    (by omega : 3 ≤ R)]
+  exact hbudget hR hfirst
+
 end RHLean.Analysis
