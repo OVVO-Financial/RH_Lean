@@ -251,6 +251,46 @@ excluding the required prime-free run or prime cluster.  The remaining
 arithmetic job is to compare these exact bills with the exact
 composite-wheel/survivor capacities across the relevant multi-block run.
 
+The exact scalar capacity-bounce algebra is also encoded in the same module.
+After a run-level Fubini reassembly has the form
+
+```text
+parentDemand = safeSectors + recursiveSector,
+```
+
+the following directions are binding:
+
+- if `safeSectors <= cap` and `cap + H < parentDemand`, then
+  `recursiveSector > H`;
+- if `floorMass <= safeSectors` and
+  `parentDemand + H < floorMass`, then
+  `recursiveSector < -H`;
+- consequently, if `|recursiveSector| <= H`, exact reassembly forces
+  `safeSectors` into the rigid interval
+  `[parentDemand-H, parentDemand+H]`.
+
+This corrects an easy quotient-direction mistake.  An **upper** per-block safe
+capacity `cMax` gives a **minimum number of safe blocks required** to absorb
+the parent demand without descent.  It does not by itself give a maximum
+vacuum-run length.  The literal finite "`M+1` vacuum blocks force a bounce"
+statement uses a positive **lower** charge per vacuum block (or, preferably,
+the exact cumulative zero-prime charge).  Once that cumulative charge exceeds
+`parentDemand+H`, the recursive sixth sector is forced supercritical with the
+opposite sign.
+
+On the stacked #901/#902 population/complement branch, the exact complement
+currency is
+
+```text
+C_eff = (N_C - epsilon) * w_S - P_C,
+```
+
+where `epsilon` is the possible right-square atom.  Thus `P_C = 0` gives
+the maximum positive VF-minus-actual complement charge
+`(N_C-epsilon) w_S` (equivalently the most negative contribution in the
+prime-minus-VF convention).  Any future instantiation on #903 must preserve
+this sign convention and must first have #901/#902 in its import ancestry.
+
 ### Intended run-level owner mechanism
 
 For a threatening run, classify the exact chronological owner census before
