@@ -489,4 +489,99 @@ theorem vfMidActiveWeightedCellExcess_le_two_clippedPositive
   exact vfMidActiveClippedPhysicalCellExcess_le_two_positive R p sig
 
 
+/-! ## Positive restricted-incidence gate for the #911 cell excess -/
+
+/-- The absolute clipped pair mass dominates the signed clipped pair mass.
+Consequently the Co-minus-three-Div cell excess is bounded by twice the
+oriented active cell Gram.  This is pointwise `z ≤ |z|`; no carrier
+enlargement occurs. -/
+theorem vfMidActiveWeightedCellExcess_le_two_cellGram
+    {R p : ℕ} {sig : Finset ℕ}
+    (hR : 3 ≤ R) (hp : p.Prime) :
+    vfMidActiveWeightedCellExcess R p sig ≤
+      2 * lowOwnerFirstOwnerCellGramWith
+        (R + 1) p sig (vfMidOneBlockActivePhysicalSite R) := by
+  rw [vfMidActiveWeightedCellExcess_eq_clippedPhysical hR hp,
+    vfMidActiveCellGram_eq_clippedPhysicalPairMass hR hp]
+  unfold vfMidActiveClippedPhysicalCellExcess
+    vfMidActiveClippedPhysicalPairMass
+  rw [Finset.mul_sum]
+  apply Finset.sum_le_sum
+  intro ab _hab
+  have hz :
+      vfMidOneBlockActivePhysicalSite R ab.1 *
+          vfMidOneBlockActivePhysicalSite R ab.2 ≤
+        |vfMidOneBlockActivePhysicalSite R ab.1 *
+          vfMidOneBlockActivePhysicalSite R ab.2| :=
+    le_abs_self _
+  linarith
+
+/-- **Active restricted half-square gate.**
+
+After the exact clipped-support theorem, every #911 cell excess is bounded by
+one half of the square of its literal active p-free plus p-divisible branch
+amplitude.  All site-dependent VF coefficients remain inside those two branch
+sums until after the inequality fires. -/
+theorem vfMidActiveWeightedCellExcess_le_half_branchSum_sq
+    {R p : ℕ} {sig : Finset ℕ}
+    (hR : 3 ≤ R) (hp : p.Prime) :
+    vfMidActiveWeightedCellExcess R p sig ≤
+      (1 / 2 : ℝ) *
+        (vfMidFirstOwnerCellBaseAmplitudeWith
+            (R + 1) p sig (vfMidOneBlockActivePhysicalSite R) +
+          vfMidFirstOwnerCellChildAmplitudeWith
+            (R + 1) p sig (vfMidOneBlockActivePhysicalSite R)) ^ 2 := by
+  exact le_trans
+    (vfMidActiveWeightedCellExcess_le_two_cellGram hR hp)
+    (vfMidFirstOwnerCellGramWith_le_half_branchSum_sq
+      (R + 1) p sig (vfMidOneBlockActivePhysicalSite R))
+
+/-- Global positive restricted-incidence energy produced by the active physical
+first-owner cells. -/
+def vfMidActiveRestrictedIncidenceEnergy (R : ℕ) : ℝ :=
+  ∑ p ∈ primesUpTo (squareRootEndpoint (R + 1)),
+    ∑ sig ∈ lowOwnerFirstOwnerSignatureSet (R + 1) p,
+      (vfMidFirstOwnerCellBaseAmplitudeWith
+          (R + 1) p sig (vfMidOneBlockActivePhysicalSite R) +
+        vfMidFirstOwnerCellChildAmplitudeWith
+          (R + 1) p sig (vfMidOneBlockActivePhysicalSite R)) ^ 2
+
+/-- Global finite Fubini of the active restricted half-square gate. -/
+theorem sum_vfMidActiveWeightedCellExcess_le_half_restrictedIncidenceEnergy
+    {R : ℕ} (hR : 3 ≤ R) :
+    (∑ p ∈ primesUpTo (squareRootEndpoint (R + 1)),
+      ∑ sig ∈ lowOwnerFirstOwnerSignatureSet (R + 1) p,
+        vfMidActiveWeightedCellExcess R p sig) ≤
+      (1 / 2 : ℝ) * vfMidActiveRestrictedIncidenceEnergy R := by
+  unfold vfMidActiveRestrictedIncidenceEnergy
+  calc
+    (∑ p ∈ primesUpTo (squareRootEndpoint (R + 1)),
+      ∑ sig ∈ lowOwnerFirstOwnerSignatureSet (R + 1) p,
+        vfMidActiveWeightedCellExcess R p sig) ≤
+      ∑ p ∈ primesUpTo (squareRootEndpoint (R + 1)),
+        ∑ sig ∈ lowOwnerFirstOwnerSignatureSet (R + 1) p,
+          (1 / 2 : ℝ) *
+            (vfMidFirstOwnerCellBaseAmplitudeWith
+                (R + 1) p sig (vfMidOneBlockActivePhysicalSite R) +
+              vfMidFirstOwnerCellChildAmplitudeWith
+                (R + 1) p sig (vfMidOneBlockActivePhysicalSite R)) ^ 2 := by
+      apply Finset.sum_le_sum
+      intro p hpMem
+      have hp : p.Prime := (mem_primesUpTo.mp hpMem).1
+      apply Finset.sum_le_sum
+      intro sig _hsig
+      exact vfMidActiveWeightedCellExcess_le_half_branchSum_sq hR hp
+    _ = (1 / 2 : ℝ) *
+        (∑ p ∈ primesUpTo (squareRootEndpoint (R + 1)),
+          ∑ sig ∈ lowOwnerFirstOwnerSignatureSet (R + 1) p,
+            (vfMidFirstOwnerCellBaseAmplitudeWith
+                (R + 1) p sig (vfMidOneBlockActivePhysicalSite R) +
+              vfMidFirstOwnerCellChildAmplitudeWith
+                (R + 1) p sig (vfMidOneBlockActivePhysicalSite R)) ^ 2) := by
+      rw [Finset.mul_sum]
+      apply Finset.sum_congr rfl
+      intro p _hp
+      rw [Finset.mul_sum]
+
+
 end RHLean.Analysis
