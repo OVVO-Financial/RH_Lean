@@ -643,6 +643,71 @@ theorem vfMidPointwiseCoDivExcess_add_neg_nonpos (z : ℝ) :
   have hz : 0 ≤ |z| := abs_nonneg z
   nlinarith
 
+/-- Exact finite-orbit heat identity.  Once a signed packet has been paired
+with its owner-reversed mate before any norm is taken, the complete orbit
+contributes the literal negative heat `-4 * sum |z|`. -/
+theorem sum_vfMidPointwiseCoDivExcess_add_neg
+    {ι : Type*} [DecidableEq ι]
+    (s : Finset ι) (z : ι → ℝ) :
+    (∑ i ∈ s,
+      (vfMidPointwiseCoDivExcess (z i) +
+        vfMidPointwiseCoDivExcess (-(z i)))) =
+      -4 * ∑ i ∈ s, |z i| := by
+  rw [Finset.mul_sum]
+  apply Finset.sum_congr rfl
+  intro i _hi
+  exact vfMidPointwiseCoDivExcess_add_neg (z i)
+
+/-- The already-compiled greatest-owner retained sign reversal is exactly a
+Co/Div heat sink when the same retained scalar is kept on the stripped parent.
+This is the local algebra required by the production owner-orbit pairing; no
+absolute-value majorant or reciprocal estimate is used. -/
+theorem descendingGreatestOwner_retained_pointwiseCoDivExcess_pair_eq_heat
+    {R p m n : ℕ} (hp : p.Prime)
+    (hcross : (m, n) ∈ lowOwnerRevealedCrossPairCarrier R
+      (lowOwnerRevealedPrimesAbove R p) p)
+    (coefficient : ℝ) :
+    let um := squarefreePrimeFamilyParent p m
+    let un := squarefreePrimeFamilyParent p n
+    vfMidPointwiseCoDivExcess
+        (coefficient ^ 2 * postRootZeroTargetPairExcess (m, n)) +
+      vfMidPointwiseCoDivExcess
+        (coefficient ^ 2 * postRootZeroTargetPairExcess (um, un)) =
+      -4 *
+        |coefficient ^ 2 * postRootZeroTargetPairExcess (m, n)| := by
+  have hflip :=
+    descendingGreatestOwner_retained_zeroTargetExcess_flip
+      hp hcross coefficient
+  dsimp only at hflip ⊢
+  rw [hflip]
+  simpa [add_comm] using
+    (vfMidPointwiseCoDivExcess_add_neg
+      (coefficient ^ 2 *
+        postRootZeroTargetPairExcess
+          (squarefreePrimeFamilyParent p m,
+            squarefreePrimeFamilyParent p n)))
+
+/-- In particular, every legally retained owner-reversal pair is
+nonpositive in the exact Co/Div currency. -/
+theorem descendingGreatestOwner_retained_pointwiseCoDivExcess_pair_nonpos
+    {R p m n : ℕ} (hp : p.Prime)
+    (hcross : (m, n) ∈ lowOwnerRevealedCrossPairCarrier R
+      (lowOwnerRevealedPrimesAbove R p) p)
+    (coefficient : ℝ) :
+    let um := squarefreePrimeFamilyParent p m
+    let un := squarefreePrimeFamilyParent p n
+    vfMidPointwiseCoDivExcess
+        (coefficient ^ 2 * postRootZeroTargetPairExcess (m, n)) +
+      vfMidPointwiseCoDivExcess
+        (coefficient ^ 2 * postRootZeroTargetPairExcess (um, un)) ≤ 0 := by
+  rw [descendingGreatestOwner_retained_pointwiseCoDivExcess_pair_eq_heat
+    hp hcross coefficient]
+  have hnonneg :
+      0 ≤
+        |coefficient ^ 2 * postRootZeroTargetPairExcess (m, n)| :=
+    abs_nonneg _
+  nlinarith
+
 /-- The literal returned-pair Co/Div excess.  Outside the #913 returned
 carrier the signed weight is already zero, so this also zero-extends
 automatically to the whole off-diagonal base square. -/
