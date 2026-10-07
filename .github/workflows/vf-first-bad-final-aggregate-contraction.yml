@@ -101,6 +101,9 @@ jobs:
           #print axioms RHLean.Analysis.vfMidFirstBadThreeBoundaryBudgetLHS_eq_physicalNormalForm
           #print axioms RHLean.Analysis.vfMidFirstBadThreeBoundaryBudgetLHS_eq_squarefulNormalForm
           #print axioms RHLean.Analysis.vfMidPointwiseCoDivExcess_add_neg
+          #print axioms RHLean.Analysis.sum_vfMidPointwiseCoDivExcess_add_neg
+          #print axioms RHLean.Analysis.descendingGreatestOwner_retained_pointwiseCoDivExcess_pair_eq_heat
+          #print axioms RHLean.Analysis.descendingGreatestOwner_retained_pointwiseCoDivExcess_pair_nonpos
           #print axioms RHLean.Analysis.vfMidActiveReturnedPairWeight_eq_physical
           #print axioms RHLean.Analysis.vfMidActiveWeightedCellExcess_eq_returnedCoDivExcess
           #print axioms RHLean.Analysis.vfMidActiveWeightedCellExcess_eq_threeBoundaryExcess
