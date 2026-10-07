@@ -278,4 +278,96 @@ theorem vfMidRadialUpper_noBreak_of_squareSiteCapacity_lt_bill
     A (vfMidRadialCenterCount A) s
     (vfMidSquareSpan A s) q hcap hq
 
+/-! ## Exact algebraic capacity bounce
+
+These lemmas are deliberately carrier-agnostic.  They are the scalar algebra
+needed after a run-level Fubini theorem has rewritten a threatening parent
+charge as
+
+  parentDemand = safeSectors + recursiveSector.
+
+The first five sectors of the #903 continuation partition are intended to
+instantiate `safeSectors`; the sixth recursive continuation sector is intended
+to instantiate `recursiveSector`.
+
+The direction of the quotient matters.  An *upper* per-block safe capacity
+gives a lower bound on how many safe blocks would be required to absorb the
+parent demand.  Conversely, on an actual vacuum block the zero-prime charge is
+known from below (indeed exactly once the carrier is fixed); enough consecutive
+vacuum blocks can overshoot the parent demand, forcing an opposite-sign
+recursive remainder. -/
+
+/-- If a parent demand is exactly safe mass plus recursive mass and the safe
+mass is bounded above by `cap`, then any demand exceeding `cap + H` forces
+the recursive sector above `H`. -/
+theorem vfMidRecursiveResidual_gt_of_safeCapacity
+    {parentDemand safeMass recursiveMass cap H : ℝ}
+    (hledger : parentDemand = safeMass + recursiveMass)
+    (hsafe : safeMass ≤ cap)
+    (hexcess : cap + H < parentDemand) :
+    H < recursiveMass := by
+  linarith
+
+/-- Dual capacity bounce.  If the safe mass is bounded below by `floorMass`
+and already exceeds the parent demand by more than `H`, then the recursive
+sector is forced below `-H`.  This is the algebraic form used when a
+zero-prime run overshoots the amount that can remain local. -/
+theorem vfMidRecursiveResidual_lt_neg_of_safeFloor
+    {parentDemand safeMass recursiveMass floorMass H : ℝ}
+    (hledger : parentDemand = safeMass + recursiveMass)
+    (hsafe : floorMass ≤ safeMass)
+    (hover : parentDemand + H < floorMass) :
+    recursiveMass < -H := by
+  linarith
+
+/-- No-supercritical-recursion window.
+
+If the recursive continuation remains inside `[-H,H]`, exact reassembly
+forces the entire safe-sector mass into the rigid interval
+`[parentDemand-H, parentDemand+H]`. -/
+theorem vfMidSafeMass_mem_parentWindow_of_recursive_abs_le
+    {parentDemand safeMass recursiveMass H : ℝ}
+    (hledger : parentDemand = safeMass + recursiveMass)
+    (hrec : |recursiveMass| ≤ H) :
+    parentDemand - H ≤ safeMass ∧
+      safeMass ≤ parentDemand + H := by
+  have hlo : -H ≤ recursiveMass := neg_le_of_abs_le hrec
+  have hhi : recursiveMass ≤ H := le_of_abs_le hrec
+  constructor <;> linarith
+
+/-- Uniform upper block capacity version.
+
+If `n` safe blocks each contribute at most the common capacity `cMax`,
+then `n*cMax + H < parentDemand` forces a positive supercritical recursive
+remainder.  Equivalently, avoiding descent requires enough safe blocks to make
+`n*cMax` reach the parent demand up to the allowed recursive slack. -/
+theorem vfMidRecursiveResidual_gt_of_uniformBlockCapacity
+    {parentDemand safeMass recursiveMass cMax H : ℝ} {n : ℕ}
+    (hledger : parentDemand = safeMass + recursiveMass)
+    (hsafe : safeMass ≤ (n : ℝ) * cMax)
+    (hexcess : (n : ℝ) * cMax + H < parentDemand) :
+    H < recursiveMass := by
+  exact vfMidRecursiveResidual_gt_of_safeCapacity
+    hledger hsafe hexcess
+
+/-- Uniform vacuum-floor version.
+
+If `n` vacuum blocks each contribute at least `cMin > 0` to the safe
+tracking charge, then once `n*cMin` exceeds the parent demand by more than
+the recursive slack `H`, the sixth sector must carry an opposite-sign
+supercritical remainder.
+
+This is the correct finite "M+1 blocks force a bounce" inequality: the
+denominator is a positive *lower* charge per vacuum block (or, better, the
+exact block-specific cumulative vacuum charge), not an upper capacity. -/
+theorem vfMidRecursiveResidual_lt_neg_of_uniformVacuumFloor
+    {parentDemand safeMass recursiveMass cMin H : ℝ} {n : ℕ}
+    (hledger : parentDemand = safeMass + recursiveMass)
+    (hsafe : (n : ℝ) * cMin ≤ safeMass)
+    (hover : parentDemand + H < (n : ℝ) * cMin) :
+    recursiveMass < -H := by
+  exact vfMidRecursiveResidual_lt_neg_of_safeFloor
+    hledger hsafe hover
+
+
 end RHLean.Analysis
