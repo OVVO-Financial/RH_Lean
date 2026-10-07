@@ -96,23 +96,19 @@ theorem vfMidActiveScaledReturnedClippedCellMass_eq_offDiagonal
           vfMidActiveReturnedPairWeight R p sig ab = 0 := by
     intro ab _hab hnot
     simp [vfMidActiveReturnedPairWeight, hnot]
-  have hs :=
-    Finset.sum_subset hsub hzero
-  unfold vfMidActiveScaledReturnedClippedCellMass
-    vfMidActiveReturnedPairCarrier at hs ⊢
-  have hleft :
-      (∑ ab ∈
-          (lowOwnerFirstOwnerClippedBaseFiber (R + 1) p sig).product
-            (lowOwnerFirstOwnerAdmittedBaseFiber (R + 1) p sig),
-        vfMidActiveReturnedPairWeight R p sig ab) =
-      vfMidActiveScaledReturnedClippedCellMass R p sig := by
-    unfold vfMidActiveScaledReturnedClippedCellMass
-      vfMidActiveReturnedPairWeight vfMidActiveReturnedPairCarrier
-    apply Finset.sum_congr rfl
-    intro ab hab
-    simp [hab]
-  rw [hleft] at hs
-  exact hs
+  calc
+    vfMidActiveScaledReturnedClippedCellMass R p sig =
+        ∑ ab ∈ vfMidActiveReturnedPairCarrier R p sig,
+          vfMidActiveReturnedPairWeight R p sig ab := by
+      unfold vfMidActiveScaledReturnedClippedCellMass
+        vfMidActiveReturnedPairCarrier
+      apply Finset.sum_congr rfl
+      intro ab hab
+      simp [vfMidActiveReturnedPairWeight,
+        vfMidActiveReturnedPairCarrier, hab]
+    _ = ∑ ab ∈ lowOwnerFirstOwnerBaseOffDiagonalPairCarrier (R + 1) p sig,
+          vfMidActiveReturnedPairWeight R p sig ab :=
+      Finset.sum_subset hsub hzero
 
 /-- Exact greatest-owner Fubini of the returned active source, with the VF
 weight still attached to each physical pair. -/
