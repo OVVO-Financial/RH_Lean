@@ -518,4 +518,96 @@ theorem vfMidActualPrimeFirstBadAt_two_succ_closed_of_threeBoundaryBudget
     vfMidActualPrimeFirstBadAt_two_succ_nnsNormalized_gt_half hR hfirst
   linarith
 
+
+/-! ## Start the actual budget calc block: exact algebraic normal form -/
+
+/-- The active signed source square is exactly its physical diagonal plus twice
+the three surviving boundary mass.  This is the #914 support/Fubini result
+written in the scalar currency needed by the final budget algebra. -/
+theorem vfMidActiveSourceSq_eq_diagonal_add_two_threeBoundary
+    {R : ℕ} (hR : 3 ≤ R) :
+    (vfMidOneBlockPrimeSeatCharge R +
+        vfMidOneBlockProcessedSquarefreeCharge R) ^ 2 =
+      vfMidActivePhysicalDiagonalMass R +
+        2 * vfMidActiveThreeBoundaryMass R := by
+  have hfubini :=
+    vfMidWeightedSiteSquare_eq_diagonal_add_firstOwnerCells
+      (R + 1) (vfMidOneBlockActivePhysicalSite R)
+  rw [vfMidOneBlockActivePhysicalSite_sum_eq_activeSource] at hfubini
+  have htwo :
+      (∑ p ∈ primesUpTo (squareRootEndpoint (R + 1)),
+        ∑ sig ∈ lowOwnerFirstOwnerSignatureSet (R + 1) p,
+          2 * lowOwnerFirstOwnerCellGramWith
+            (R + 1) p sig (vfMidOneBlockActivePhysicalSite R)) =
+        2 * (∑ p ∈ primesUpTo (squareRootEndpoint (R + 1)),
+          ∑ sig ∈ lowOwnerFirstOwnerSignatureSet (R + 1) p,
+            lowOwnerFirstOwnerCellGramWith
+              (R + 1) p sig (vfMidOneBlockActivePhysicalSite R)) := by
+    rw [Finset.mul_sum]
+    apply Finset.sum_congr rfl
+    intro p _hp
+    rw [Finset.mul_sum]
+  rw [htwo, sum_vfMidActiveCellGram_eq_threeBoundaryMass hR] at hfubini
+  unfold vfMidActivePhysicalDiagonalMass
+  exact hfubini
+
+/-- **Exact left-hand side of the real three-boundary budget.**
+
+This is not conditional plumbing.  It expands the quantity that still must be
+proved nonpositive and removes the cell/Fubini layer completely.  The only
+remaining objects are the prior endpoint defect, the active signed/absolute
+one-block masses, the squareful restoring charge, the omitted-seat mass, and
+the next endpoint defect. -/
+theorem vfMidFirstBadThreeBoundaryBudgetLHS_eq_physicalNormalForm
+    {R : ℕ} (hR : 3 ≤ R) :
+    vfMidActiveGlobalResidualExcess R +
+        2 * vfMidActiveThreeBoundaryMass R =
+      vfMidActualPrimeEndpointDefect R ^ 2 -
+        4 * vfMidActualPrimeEndpointDefect R *
+          (vfMidOneBlockPrimeSeatCharge R +
+            vfMidOneBlockProcessedSquarefreeCharge R) +
+        (vfMidOneBlockPrimeSeatCharge R +
+          vfMidOneBlockProcessedSquarefreeCharge R) ^ 2 -
+        2 * vfMidOneBlockProcessedSquarefulCharge R *
+          (2 * vfMidActualPrimeEndpointDefect (R + 1) +
+            vfMidOneBlockProcessedSquarefulCharge R) -
+        2 * |vfMidActualPrimeEndpointDefect R| *
+          vfMidOneBlockUpperActiveAbsMass R -
+        vfMidWeightedOmittedSeatAbsMass R *
+          (2 * (|vfMidActualPrimeEndpointDefect R| +
+            vfMidOneBlockUpperActiveAbsMass R) +
+            vfMidWeightedOmittedSeatAbsMass R) := by
+  have hsquare :=
+    vfMidActiveSourceSq_eq_diagonal_add_two_threeBoundary hR
+  unfold vfMidActiveGlobalResidualExcess
+    vfMidActiveDemandResidual vfMidActiveCapacityResidual
+    vfMidActiveIdentityAnchorGate
+  nlinarith only [hsquare]
+
+/-- Same exact budget normal form with the omitted-seat mass replaced by the
+literal squareful processed charge.  This is the form on which the endpoint
+sign cooling lemmas and the first-bad prior-good descendant estimates must now
+be applied term by term. -/
+theorem vfMidFirstBadThreeBoundaryBudgetLHS_eq_squarefulNormalForm
+    {R : ℕ} (hR : 3 ≤ R) :
+    vfMidActiveGlobalResidualExcess R +
+        2 * vfMidActiveThreeBoundaryMass R =
+      vfMidActualPrimeEndpointDefect R ^ 2 -
+        4 * vfMidActualPrimeEndpointDefect R *
+          (vfMidOneBlockPrimeSeatCharge R +
+            vfMidOneBlockProcessedSquarefreeCharge R) +
+        (vfMidOneBlockPrimeSeatCharge R +
+          vfMidOneBlockProcessedSquarefreeCharge R) ^ 2 -
+        2 * vfMidOneBlockProcessedSquarefulCharge R *
+          (2 * vfMidActualPrimeEndpointDefect (R + 1) +
+            vfMidOneBlockProcessedSquarefulCharge R) -
+        2 * |vfMidActualPrimeEndpointDefect R| *
+          vfMidOneBlockUpperActiveAbsMass R -
+        vfMidOneBlockProcessedSquarefulCharge R *
+          (2 * (|vfMidActualPrimeEndpointDefect R| +
+            vfMidOneBlockUpperActiveAbsMass R) +
+            vfMidOneBlockProcessedSquarefulCharge R) := by
+  rw [vfMidFirstBadThreeBoundaryBudgetLHS_eq_physicalNormalForm hR,
+    vfMidWeightedOmittedSeatAbsMass_eq_squarefulCharge hR]
+
 end RHLean.Analysis
