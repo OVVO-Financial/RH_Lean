@@ -336,6 +336,19 @@ theorem vfMidActualPrimeSeatMass_sum_recursiveChildrenInBlock
     vfMidActualPrimeSeatMass
   simp
 
+/-- Exact combinatorial normal form on the complete right-closed child packet.
+The right square, when present, contributes population but no prime correction. -/
+theorem vfMidRecursiveNativeChargeInBlock_eq_population_sub_prime
+    (R S : ℕ) :
+    vfMidRecursiveNativeChargeInBlock R S =
+      ((vfMidRecursiveChildrenInBlock R S).card : ℝ) *
+          vfMidOddFractionalPrimeSeatWeight S -
+        vfMidRecursivePrimeCorrectionInBlock R S := by
+  unfold vfMidRecursiveNativeChargeInBlock vfMidOddSignedSeatCharge
+  rw [Finset.sum_sub_distrib,
+    vfMidActualPrimeSeatMass_sum_recursiveChildrenInBlock]
+  simp
+
 /-- Exact blockwise parent-to-native-child transfer:
 
     w_R N_{R,S} = G^native_{R,S} + Rem_{R,S}.
@@ -1159,6 +1172,221 @@ theorem abs_vfMidRecursiveAggregateRemainder_le_halfWidthBudget
           exact abs_vfMidRecursiveRemainderInBlock_le_S
             R S (Finset.mem_Ico.mp hS).1
 
+/-! ## Exact interior/complement population and prime decomposition
+
+The recursive child blocks are right-closed, whereas the parity carrier is
+strictly interior.  Erase only the right square before taking the complement.
+All equalities below retain its possible positive VF seat charge explicitly.
+-/
+
+/-- The inherited packet on the strict interior of child square block S. -/
+def vfMidRecursiveInteriorChildren (R S : ℕ) : Finset ℕ :=
+  (vfMidRecursiveChildrenInBlock R S).erase ((S + 1) ^ 2)
+
+/-- The odd seats in block S omitted by the inherited interior packet. -/
+def vfMidRecursiveComplementCarrier (R S : ℕ) : Finset ℕ :=
+  vfMidOddCandidateSeats S \ vfMidRecursiveInteriorChildren R S
+
+/-- The coefficient of the possible right-square charge: exactly zero or one. -/
+def vfMidRecursiveRightSquareAtom (R S : ℕ) : ℝ :=
+  if (S + 1) ^ 2 ∈ vfMidRecursiveChildrenInBlock R S then 1 else 0
+
+/-- Native signed charge of the inherited strict-interior packet. -/
+def vfMidRecursiveInteriorNativeChargeInBlock (R S : ℕ) : ℝ :=
+  ∑ m ∈ vfMidRecursiveInteriorChildren R S, vfMidOddSignedSeatCharge S m
+
+/-- Native signed charge of the complementary odd-seat carrier. -/
+def vfMidRecursiveComplementNativeChargeInBlock (R S : ℕ) : ℝ :=
+  ∑ m ∈ vfMidRecursiveComplementCarrier R S, vfMidOddSignedSeatCharge S m
+
+theorem vfMidRecursiveRightSquareAtom_eq_zero_or_one
+    (R S : ℕ) :
+    vfMidRecursiveRightSquareAtom R S = 0 ∨
+      vfMidRecursiveRightSquareAtom R S = 1 := by
+  unfold vfMidRecursiveRightSquareAtom
+  split_ifs <;> simp
+
+/-- A right square is never prime, including the small endpoint S = 0. -/
+theorem vfMidActualPrimeSeatMass_rightSquare (S : ℕ) :
+    vfMidActualPrimeSeatMass ((S + 1) ^ 2) = 0 := by
+  have hnot : ¬ ((S + 1) ^ 2).Prime :=
+    Nat.Prime.not_prime_pow' (by omega : (2 : ℕ) ≠ 1)
+  simp [vfMidActualPrimeSeatMass, hnot]
+
+/-- The endpoint square contributes exactly the uniform VF weight. -/
+theorem vfMidOddSignedSeatCharge_rightSquare (S : ℕ) :
+    vfMidOddSignedSeatCharge S ((S + 1) ^ 2) =
+      vfMidOddFractionalPrimeSeatWeight S := by
+  simp [vfMidOddSignedSeatCharge, vfMidActualPrimeSeatMass_rightSquare]
+
+/-- Least-owner roughness makes every recursive child survive the parity
+prefix.  Erasing the right square supplies the strict upper endpoint. -/
+theorem vfMidRecursiveInteriorChildren_subset_oddCandidateSeats
+    (R S : ℕ) :
+    vfMidRecursiveInteriorChildren R S ⊆ vfMidOddCandidateSeats S := by
+  intro m hm
+  rcases Finset.mem_erase.mp hm with ⟨hmNe, hmChild⟩
+  rcases Finset.mem_inter.mp hmChild with ⟨hmCarrier, hmBlock⟩
+  rcases Finset.mem_Ioc.mp hmBlock with ⟨hmLow, hmHigh⟩
+  rcases Finset.mem_biUnion.mp hmCarrier with ⟨p, hp, hmOwnerChild⟩
+  have hpLate : p ∈ vfMidSquareBandLateOwnerPrimes 2 R :=
+    (Finset.mem_filter.mp hp).1
+  have hpGt : 2 < p := (mem_vfMidSquareBandLateOwnerPrimes.mp hpLate).2
+  have hrough : RHLean.Arithmetic.RoughAbove (p - 1) m := by
+    rcases Finset.mem_image.mp hmOwnerChild with ⟨n, hn, hnm⟩
+    rw [← hnm]
+    exact vfMidSquareBandCompositeOwner_child_roughAbove hn
+  change m ∈ (vfMidSquareWheelSites S).filter (RHLean.Proof.lowWheelHighSurvivor 2)
+  apply Finset.mem_filter.mpr
+  constructor
+  · change m ∈ Finset.Ioo (S ^ 2) ((S + 1) ^ 2)
+    exact Finset.mem_Ioo.mpr ⟨hmLow, by omega⟩
+  · intro q hq hqDvd
+    have hqData := RHLean.Arithmetic.mem_primesUpTo.mp hq
+    have hm0 : m ≠ 0 := by omega
+    have hqFactor : q ∈ m.primeFactors :=
+      Nat.mem_primeFactors.mpr ⟨hqData.1, hqDvd, hm0⟩
+    have hqGt := hrough q hqFactor
+    omega
+
+/-- Exact disjoint carrier reassembly, on the same strict-interior convention. -/
+theorem vfMidRecursiveInterior_union_complement
+    (R S : ℕ) :
+    vfMidRecursiveInteriorChildren R S ∪ vfMidRecursiveComplementCarrier R S =
+      vfMidOddCandidateSeats S := by
+  exact Finset.union_sdiff_of_subset
+    (vfMidRecursiveInteriorChildren_subset_oddCandidateSeats R S)
+
+/-- Population of the inherited interior plus population of its complement is
+the exact S-seat parity population. -/
+theorem vfMidRecursiveInterior_card_add_complement_card
+    (R S : ℕ) :
+    (vfMidRecursiveInteriorChildren R S).card +
+        (vfMidRecursiveComplementCarrier R S).card = S := by
+  have h := Finset.card_sdiff_add_card_eq_card
+    (vfMidRecursiveInteriorChildren_subset_oddCandidateSeats R S)
+  rw [vfMidOddCandidateSeats_card] at h
+  change (vfMidRecursiveComplementCarrier R S).card +
+    (vfMidRecursiveInteriorChildren R S).card = S at h
+  omega
+
+/-- Erasing a composite square leaves the inherited filtered-prime carrier
+literally unchanged. -/
+theorem vfMidRecursiveInteriorChildren_filter_prime
+    (R S : ℕ) :
+    (vfMidRecursiveInteriorChildren R S).filter Nat.Prime =
+      vfMidRecursivePrimeChildrenInBlock R S := by
+  have hnot : ¬ ((S + 1) ^ 2).Prime :=
+    Nat.Prime.not_prime_pow' (by omega : (2 : ℕ) ≠ 1)
+  ext m
+  simp only [vfMidRecursiveInteriorChildren, vfMidRecursivePrimeChildrenInBlock,
+    Finset.mem_filter, Finset.mem_erase]
+  constructor
+  · rintro ⟨⟨_, hm⟩, hp⟩
+    exact ⟨hm, hp⟩
+  · rintro ⟨hm, hp⟩
+    refine ⟨⟨?_, hm⟩, hp⟩
+    intro heq
+    exact hnot (heq ▸ hp)
+
+/-- Prime counts split exactly on the interior/complement partition. -/
+theorem vfMidRecursiveInterior_primeCard_add_complement_primeCard
+    (R S : ℕ) (hS : 2 ≤ S) :
+    (vfMidRecursivePrimeChildrenInBlock R S).card +
+        ((vfMidRecursiveComplementCarrier R S).filter Nat.Prime).card =
+      vfMidIntegerBlockPrimeSupply S := by
+  have hsubset := Finset.filter_subset_filter Nat.Prime
+    (vfMidRecursiveInteriorChildren_subset_oddCandidateSeats R S)
+  have h := Finset.card_sdiff_add_card_eq_card hsubset
+  have hdiff :
+      (vfMidOddCandidateSeats S).filter Nat.Prime \
+          (vfMidRecursiveInteriorChildren R S).filter Nat.Prime =
+        (vfMidRecursiveComplementCarrier R S).filter Nat.Prime := by
+    ext m
+    simp only [vfMidRecursiveComplementCarrier, Finset.mem_sdiff, Finset.mem_filter]
+    tauto
+  rw [hdiff, vfMidRecursiveInteriorChildren_filter_prime,
+    vfMidOddCandidateSeats_filter_prime S hS] at h
+  have hcard : (vfMidSquareWheelPrimes S).card = vfMidIntegerBlockPrimeSupply S := by
+    unfold vfMidIntegerBlockPrimeSupply
+    rw [vfMidDirectPrimeBand_eq_squareWheelPrimes]
+  rw [hcard] at h
+  omega
+
+/-- Exact population peel; the only removed population is the right-square atom. -/
+theorem vfMidRecursiveInterior_card_add_rightSquareAtom
+    (R S : ℕ) :
+    ((vfMidRecursiveInteriorChildren R S).card : ℝ) +
+        vfMidRecursiveRightSquareAtom R S =
+      ((vfMidRecursiveChildrenInBlock R S).card : ℝ) := by
+  unfold vfMidRecursiveInteriorChildren vfMidRecursiveRightSquareAtom
+  split_ifs with hmem
+  · exact_mod_cast Finset.card_erase_add_one hmem
+  · rw [Finset.erase_eq_of_notMem hmem]
+    simp
+
+/-- Strict-interior charge in population-minus-filtered-prime normal form.
+The prime count is exactly the existing right-closed packet correction. -/
+theorem vfMidRecursiveInteriorNativeChargeInBlock_eq_population_sub_prime
+    (R S : ℕ) :
+    vfMidRecursiveInteriorNativeChargeInBlock R S =
+      ((vfMidRecursiveInteriorChildren R S).card : ℝ) *
+          vfMidOddFractionalPrimeSeatWeight S -
+        vfMidRecursivePrimeCorrectionInBlock R S := by
+  unfold vfMidRecursiveInteriorNativeChargeInBlock vfMidOddSignedSeatCharge
+  rw [Finset.sum_sub_distrib]
+  simp [vfMidActualPrimeSeatMass, vfMidRecursiveInteriorChildren_filter_prime,
+    vfMidRecursivePrimeCorrectionInBlock]
+
+/-- Complement charge uses cardinality, not the absolute value of its charge. -/
+theorem vfMidRecursiveComplementNativeChargeInBlock_eq_population_sub_prime
+    (R S : ℕ) :
+    vfMidRecursiveComplementNativeChargeInBlock R S =
+      ((vfMidRecursiveComplementCarrier R S).card : ℝ) *
+          vfMidOddFractionalPrimeSeatWeight S -
+        (((vfMidRecursiveComplementCarrier R S).filter Nat.Prime).card : ℝ) := by
+  unfold vfMidRecursiveComplementNativeChargeInBlock vfMidOddSignedSeatCharge
+  rw [Finset.sum_sub_distrib]
+  simp [vfMidActualPrimeSeatMass]
+
+/-- Complete inherited charge equals interior charge plus the possible positive
+right-square charge. -/
+theorem vfMidRecursiveNativeChargeInBlock_eq_interior_add_rightSquareAtom
+    (R S : ℕ) :
+    vfMidRecursiveNativeChargeInBlock R S =
+      vfMidRecursiveInteriorNativeChargeInBlock R S +
+        vfMidRecursiveRightSquareAtom R S * vfMidOddFractionalPrimeSeatWeight S := by
+  rw [vfMidRecursiveNativeChargeInBlock_eq_population_sub_prime,
+    vfMidRecursiveInteriorNativeChargeInBlock_eq_population_sub_prime,
+    ← vfMidRecursiveInterior_card_add_rightSquareAtom R S]
+  ring
+
+/-- The full native child-scale defect is the signed interior/complement sum. -/
+theorem vfMidOddCompositeTrackingDefect_eq_recursiveInterior_add_complement
+    (R S : ℕ) (hS : 2 ≤ S) :
+    vfMidOddCompositeTrackingDefect S =
+      vfMidRecursiveInteriorNativeChargeInBlock R S +
+        vfMidRecursiveComplementNativeChargeInBlock R S := by
+  have h := Finset.sum_sdiff
+    (f := vfMidOddSignedSeatCharge S)
+    (vfMidRecursiveInteriorChildren_subset_oddCandidateSeats R S)
+  rw [vfMidOddSignedSeatCharge_sum S hS] at h
+  change vfMidRecursiveComplementNativeChargeInBlock R S +
+    vfMidRecursiveInteriorNativeChargeInBlock R S =
+      vfMidOddCompositeTrackingDefect S at h
+  linarith
+
+/-- Final carrier-complement identity on the original right-closed packet,
+with the possible square-boundary atom retained explicitly. -/
+theorem vfMidOddCompositeTrackingDefect_eq_recursiveNative_add_complement_sub_rightSquareAtom
+    (R S : ℕ) (hS : 2 ≤ S) :
+    vfMidOddCompositeTrackingDefect S =
+      vfMidRecursiveNativeChargeInBlock R S +
+        vfMidRecursiveComplementNativeChargeInBlock R S -
+        vfMidRecursiveRightSquareAtom R S * vfMidOddFractionalPrimeSeatWeight S := by
+  rw [vfMidOddCompositeTrackingDefect_eq_recursiveInterior_add_complement R S hS,
+    vfMidRecursiveNativeChargeInBlock_eq_interior_add_rightSquareAtom]
+  ring
 
 
 end RHLean.Analysis
