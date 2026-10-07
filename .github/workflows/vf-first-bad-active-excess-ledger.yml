@@ -1,0 +1,93 @@
+name: VF first-bad active excess ledger
+
+on:
+  pull_request:
+    branches: [vf-first-bad-source-sector-six-proof]
+    paths:
+      - research/VF_MID_FIRST_BAD_ACTIVE_EXCESS_LEDGER.lean
+      - .github/workflows/vf-first-bad-active-excess-ledger.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Restore Lake packages
+        uses: actions/cache/restore@v5
+        with:
+          path: .lake/packages
+          key: lake-packages-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
+      - uses: leanprover/lean-action@v1
+        with:
+          use-github-cache: false
+          use-mathlib-cache: true
+          build: false
+          test: false
+          lint: false
+      - name: Apply StrongPNT compatibility patch
+        run: |
+          python3 scripts/strongpnt_424/apply.py
+          python3 scripts/strongpnt_424/apply_post.py
+          python3 scripts/strongpnt_424/apply_pnt5_mid.py
+          python3 scripts/strongpnt_424/apply_pnt5_strong.py
+          python3 scripts/strongpnt_424/apply_lint.py
+      - name: Restore StrongPNT port build cache
+        uses: actions/cache/restore@v5
+        with:
+          path: |
+            .lake/packages/PrimeNumberTheoremAnd/.lake/build
+            .lake/packages/StrongPNT/.lake/build
+          key: strongpnt-port-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-${{ hashFiles('scripts/strongpnt_424/*.py') }}
+          restore-keys: |
+            strongpnt-port-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-
+      - name: Prebuild StrongPNT dependency
+        run: lake build StrongPNT.PNT5_Strong
+      - name: Restore RHLean build cache
+        uses: actions/cache/restore@v5
+        with:
+          path: .lake/build
+          key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py', 'RHLean.lean', 'RHLean/**/*.lean') }}
+          restore-keys: |
+            rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py') }}-
+            rhlean-build-${{ runner.os }}-
+      - name: Build library imports of active excess ledger
+        run: |
+          python3 - <<'PY'
+          import subprocess
+          import sys
+          sys.path.insert(0, 'scripts')
+          import compile_research_import_closure as closure
+          seen, roots = set(), set()
+          def visit(module):
+              if module in seen:
+                  return
+              seen.add(module)
+              source = closure.source_for(module)
+              for dependency in closure.research_imports(source):
+                  visit(dependency)
+              for line in source.read_text().splitlines():
+                  if line.startswith('import RHLean'):
+                      roots.add(line.removeprefix('import ').strip())
+          visit('research.VF_MID_FIRST_BAD_ACTIVE_EXCESS_LEDGER')
+          subprocess.run(['lake', 'build', *sorted(roots)], check=True)
+          PY
+      - name: Compile and audit active excess ledger
+        run: |
+          python3 scripts/compile_research_import_closure.py research/VF_MID_FIRST_BAD_ACTIVE_EXCESS_LEDGER.lean
+          cat > /tmp/VF_ACTIVE_EXCESS_LEDGER_AUDIT.lean <<'EOF'
+          import «research.VF_MID_FIRST_BAD_ACTIVE_EXCESS_LEDGER»
+          #print axioms RHLean.Analysis.vfMid_globalDemand_eq_activeResidual_add_cells
+          #print axioms RHLean.Analysis.vfMid_globalCapacity_eq_activeResidual_add_cells
+          #print axioms RHLean.Analysis.vfMidFirstBadCoDivExcess_eq_activeResidual_add_weightedCells
+          #print axioms RHLean.Analysis.vfMidOmittedSeatCapacityCooling_nonpos
+          #print axioms RHLean.Analysis.vfMidSquarefulRestoringCooling_nonpos
+          EOF
+          lake env lean -DwarningAsError=true /tmp/VF_ACTIVE_EXCESS_LEDGER_AUDIT.lean | tee active-excess-ledger-axioms.log
+          if grep -q 'sorryAx' active-excess-ledger-axioms.log; then exit 1; fi
