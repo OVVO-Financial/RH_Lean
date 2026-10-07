@@ -170,6 +170,87 @@ run-level accumulation is controlled, one may either close the square-endpoint
 bound directly through the already-compiled dyadic consumer or derive the
 owner-admissible strict-child law as a corollary.
 
+### Exact fan-escape capacity bills
+
+The count-space geometry is now encoded explicitly in
+[`VF_MID_FAN_ESCAPE_CAPACITY_BILLS.lean`](research/VF_MID_FAN_ESCAPE_CAPACITY_BILLS.lean).
+
+For an arbitrary lower wall `L`, starting abscissa `x0`, and frozen count
+height `y0`, `vfMidLowerWallCompositeRunBill` is the least natural
+horizontal displacement `h` for which
+
+```text
+y0 < L(x0 + h).
+```
+
+Thus a completely prime-free horizontal segment must last at least this long
+before the lower wall can overtake the frozen prime count.  The compiled
+minimality theorem proves that every shorter horizontal run fails to hit the
+wall.
+
+For an arbitrary upper wall `U`,
+`vfMidUpperPrimeJumpBill U x0 y0 h` is the least natural number `q` of
+unit prime-count jumps for which
+
+```text
+U(x0 + h) < y0 + q.
+```
+
+Equivalently, when the wall gap is nonnegative, this is the order-free version
+of
+
+```text
+floor(U(x0+h) - y0) + 1.
+```
+
+The generic theorem
+`vfMidUpperWall_noBreak_of_capacity_lt_bill` is the exact capacity
+contradiction interface: any rigorous prime-survivor capacity `cap` with
+
+```text
+cap < upperPrimeJumpBill
+```
+
+makes upper-wall escape impossible for every cluster whose size is at most
+`cap`.
+
+These definitions are specialized to the repository's normalized radial fan
+
+```text
+lower_R = VF_mid(R^2) - K R log R
+upper_R = VF_mid(R^2) + K R log R.
+```
+
+The center-to-wall distance is kernel-proved exactly on both sides as
+
+```text
+H_R = K R log R.
+```
+
+The square-sampled lower specialization records the first later square endpoint
+whose lower wall overtakes a count frozen at the center of `A^2`, and converts
+that block offset to the literal integer span
+`(A+s)^2 - A^2`.  The upper specialization records the exact number of prime
+jumps required to rise from the center at `A^2` above the upper wall at
+`(A+s)^2`.  A second compiled theorem consumes the trivial integer-site
+capacity, and the same interface is intended to consume the much sharper exact
+wheel-survivor capacities already present in the repository.
+
+Reference diagnostic, not a kernel numerical certificate: for `K=2`,
+`R=5266`, the half-width is approximately `90248.9854`.  Using the exact VF
+band-mass formulas, the first later square endpoint whose lower wall overtakes
+the frozen center is at offset `150`, a horizontal span of `1,602,300`
+integer sites.  At the immediately following square endpoint, the upper wall
+requires about `90,882.714` units above the starting center, hence `90,883`
+prime jumps, while that whole square block contains only `10,533` integer
+sites.
+
+This is deliberately a **necessary escape-cost layer**, not an assumption that
+actual primes already lie in the fantasy cone and not an all-scale theorem
+excluding the required prime-free run or prime cluster.  The remaining
+arithmetic job is to compare these exact bills with the exact
+composite-wheel/survivor capacities across the relevant multi-block run.
+
 ### Intended run-level owner mechanism
 
 For a threatening run, classify the exact chronological owner census before
