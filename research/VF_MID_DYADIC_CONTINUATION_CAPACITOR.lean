@@ -230,4 +230,215 @@ theorem vfMidDyadicGreatestOwnerPositiveDirichletRunMass_eq_safe_add_recursive
   exact lowOwnerDyadicGreatestOwnerPositiveRunMass_eq_safe_add_recursive
     A B vfMidContinuationDirichletPairWeight
 
+
+/-! ## Native sector-six parent reassembly
+
+The sixth sector is pair-valued, so it is reassembled first in its own native
+Möbius-pair currency.  This avoids an invalid identification with the scalar
+VF child carrier.  Every recursive child is mapped to its stripped ordered
+greatest-owner parent, exact sign reversal is retained, and duplicate parents
+are counted with their literal multiplicity. -/
+
+/-- Raw Möbius pair weight lifted to the run index type. -/
+def vfMidContinuationMoebiusPairWeight :
+    VFMidContinuationRunPairWeight :=
+  fun _R _p _sig _r mn =>
+    realMoebiusStep mn.1 * realMoebiusStep mn.2
+
+/-- Every sector-six child is still a member of the original positive
+greatest-owner fibre. -/
+theorem lowOwnerFirstOwnerGreatestOwnerRecursiveContinuationPairFiber_mem_positive
+    {R p r m n : ℕ} {sig : Finset ℕ}
+    (hmn : (m, n) ∈
+      lowOwnerFirstOwnerGreatestOwnerRecursiveContinuationPairFiber
+        R p sig r) :
+    (m, n) ∈
+      lowOwnerFirstOwnerGreatestOwnerPositivePairFiber R p sig r := by
+  have h5 := Finset.mem_filter.mp hmn
+  have h4rest := Finset.mem_filter.mp h5.1
+  have h3rest := Finset.mem_filter.mp h4rest.1
+  have h2rest := Finset.mem_filter.mp h3rest.1
+  have h1rest := Finset.mem_filter.mp h2rest.1
+  exact h1rest.1
+
+/-- Exact greatest-owner Möbius sign reversal on one sector-six child. -/
+theorem lowOwnerFirstOwnerGreatestOwnerRecursiveContinuation_moebiusWeight_eq_neg_parent
+    {R p r m n : ℕ} {sig : Finset ℕ}
+    (hp : p.Prime)
+    (hmn : (m, n) ∈
+      lowOwnerFirstOwnerGreatestOwnerRecursiveContinuationPairFiber
+        R p sig r) :
+    realMoebiusStep m * realMoebiusStep n =
+      -(realMoebiusStep
+          (squarefreePairPrimeOrderedParent r m n).1 *
+        realMoebiusStep
+          (squarefreePairPrimeOrderedParent r m n).2) := by
+  have hpos :=
+    lowOwnerFirstOwnerGreatestOwnerRecursiveContinuationPairFiber_mem_positive
+      hmn
+  have hrData :=
+    lowOwnerFirstOwnerGreatestOwnerPositivePair_owner_data hp hpos
+  have hcross :=
+    lowOwnerFirstOwnerGreatestOwnerPositivePair_mem_descendingCross hp hpos
+  have hdesc :=
+    descendingGreatestOwner_reciprocal_descent hrData.1 hcross
+  dsimp only at hdesc
+  have hsign := hdesc.2.1
+  unfold squarefreePairPrimeOrderedParent
+  dsimp only
+  split_ifs <;> simpa [mul_comm] using hsign
+
+/-- Stripped ordered parents actually reached by sector six in one fibre. -/
+def lowOwnerFirstOwnerGreatestOwnerRecursiveContinuationParentSet
+    (R p : ℕ) (sig : Finset ℕ) (r : ℕ) : Finset (ℕ × ℕ) :=
+  (lowOwnerFirstOwnerGreatestOwnerRecursiveContinuationPairFiber
+    R p sig r).image
+      (fun mn => squarefreePairPrimeOrderedParent r mn.1 mn.2)
+
+/-- Exact multiplicity of sector-six children which strip to one ordered
+parent. -/
+def lowOwnerFirstOwnerGreatestOwnerRecursiveContinuationParentMultiplicity
+    (R p : ℕ) (sig : Finset ℕ) (r : ℕ)
+    (parent : ℕ × ℕ) : ℕ :=
+  ((lowOwnerFirstOwnerGreatestOwnerRecursiveContinuationPairFiber
+      R p sig r).filter
+    (fun mn =>
+      squarefreePairPrimeOrderedParent r mn.1 mn.2 = parent)).card
+
+/-- Every reached parent is literally in the lower recursive pair carrier
+already identified by #903. -/
+theorem lowOwnerFirstOwnerGreatestOwnerRecursiveContinuationParentSet_data
+    {R p r : ℕ} {sig : Finset ℕ} {parent : ℕ × ℕ}
+    (hp : p.Prime)
+    (hparent : parent ∈
+      lowOwnerFirstOwnerGreatestOwnerRecursiveContinuationParentSet
+        R p sig r) :
+    parent ∈ postRootCovarianceRemainderRecursivePairCarrier
+      (squareRootEndpoint R / r) := by
+  rcases Finset.mem_image.mp hparent with
+    ⟨mn, hmn, hmap⟩
+  rcases mn with ⟨m, n⟩
+  have hdata :=
+    lowOwnerFirstOwnerGreatestOwnerRecursiveContinuationPairFiber_data
+      hp hmn
+  dsimp only at hdata
+  rw [← hmap]
+  exact hdata.1
+
+/-- **Exact sector-six parent Fubini with multiplicity.**
+
+The unresolved recursive mass is the negative of the stripped-parent mass,
+with every duplicate parent retained through its exact child multiplicity. -/
+theorem sum_lowOwnerFirstOwnerGreatestOwnerRecursiveContinuation_moebius_eq_neg_parentMultiplicity
+    {R p r : ℕ} {sig : Finset ℕ}
+    (hp : p.Prime) :
+    (∑ mn ∈
+      lowOwnerFirstOwnerGreatestOwnerRecursiveContinuationPairFiber
+        R p sig r,
+      realMoebiusStep mn.1 * realMoebiusStep mn.2) =
+      -∑ parent ∈
+        lowOwnerFirstOwnerGreatestOwnerRecursiveContinuationParentSet
+          R p sig r,
+        (lowOwnerFirstOwnerGreatestOwnerRecursiveContinuationParentMultiplicity
+          R p sig r parent : ℝ) *
+          (realMoebiusStep parent.1 * realMoebiusStep parent.2) := by
+  let S :=
+    lowOwnerFirstOwnerGreatestOwnerRecursiveContinuationPairFiber
+      R p sig r
+  let P : ℕ × ℕ → ℕ × ℕ :=
+    fun mn => squarefreePairPrimeOrderedParent r mn.1 mn.2
+  let w : ℕ × ℕ → ℝ :=
+    fun mn => realMoebiusStep mn.1 * realMoebiusStep mn.2
+  have hsign :
+      (∑ mn ∈ S, w mn) =
+        -(∑ mn ∈ S, w (P mn)) := by
+    rw [← Finset.sum_neg_distrib]
+    apply Finset.sum_congr rfl
+    intro mn hmn
+    rcases mn with ⟨m, n⟩
+    exact
+      lowOwnerFirstOwnerGreatestOwnerRecursiveContinuation_moebiusWeight_eq_neg_parent
+        hp hmn
+  have hmaps : ∀ mn ∈ S,
+      P mn ∈
+        lowOwnerFirstOwnerGreatestOwnerRecursiveContinuationParentSet
+          R p sig r := by
+    intro mn hmn
+    exact Finset.mem_image.mpr ⟨mn, hmn, rfl⟩
+  have hfiber :
+      (∑ parent ∈
+        lowOwnerFirstOwnerGreatestOwnerRecursiveContinuationParentSet
+          R p sig r,
+        (lowOwnerFirstOwnerGreatestOwnerRecursiveContinuationParentMultiplicity
+          R p sig r parent : ℝ) * w parent) =
+        ∑ mn ∈ S, w (P mn) := by
+    calc
+      (∑ parent ∈
+          lowOwnerFirstOwnerGreatestOwnerRecursiveContinuationParentSet
+            R p sig r,
+          (lowOwnerFirstOwnerGreatestOwnerRecursiveContinuationParentMultiplicity
+            R p sig r parent : ℝ) * w parent) =
+        ∑ parent ∈
+          lowOwnerFirstOwnerGreatestOwnerRecursiveContinuationParentSet
+            R p sig r,
+          ∑ _mn ∈ S with P _mn = parent, w parent := by
+            apply Finset.sum_congr rfl
+            intro parent _hparent
+            simp [lowOwnerFirstOwnerGreatestOwnerRecursiveContinuationParentMultiplicity,
+              S, P, nsmul_eq_mul]
+      _ = ∑ mn ∈ S, w (P mn) :=
+        Finset.sum_fiberwise_of_maps_to'
+          (s := S)
+          (t :=
+            lowOwnerFirstOwnerGreatestOwnerRecursiveContinuationParentSet
+              R p sig r)
+          (g := P) hmaps w
+  change (∑ mn ∈ S, w mn) =
+    -∑ parent ∈
+      lowOwnerFirstOwnerGreatestOwnerRecursiveContinuationParentSet
+        R p sig r,
+      (lowOwnerFirstOwnerGreatestOwnerRecursiveContinuationParentMultiplicity
+        R p sig r parent : ℝ) * w parent
+  rw [hsign, hfiber]
+
+/-- Run-level stripped-parent mass with exact sector-six multiplicities. -/
+def vfMidDyadicGreatestOwnerRecursiveMoebiusParentRunMass
+    (A B : ℕ) : ℝ :=
+  ∑ R ∈ Finset.Ico A B,
+    ∑ p ∈ primesUpTo (squareRootEndpoint R),
+      ∑ sig ∈ lowOwnerFirstOwnerSignatureSet R p,
+        ∑ r ∈ lowOwnerRevealedPrimesAbove R p,
+          ∑ parent ∈
+            lowOwnerFirstOwnerGreatestOwnerRecursiveContinuationParentSet
+              R p sig r,
+            (lowOwnerFirstOwnerGreatestOwnerRecursiveContinuationParentMultiplicity
+              R p sig r parent : ℝ) *
+              (realMoebiusStep parent.1 * realMoebiusStep parent.2)
+
+/-- Run-level sector six is exactly the negative stripped-parent ledger.
+This is the first genuine reassembly of the recursive remainder before child
+blocks are regrouped. -/
+theorem vfMidDyadicGreatestOwnerRecursiveMoebiusRunMass_eq_neg_parentRunMass
+    (A B : ℕ) :
+    lowOwnerDyadicGreatestOwnerRecursiveContinuationRunMass
+        A B vfMidContinuationMoebiusPairWeight =
+      -vfMidDyadicGreatestOwnerRecursiveMoebiusParentRunMass A B := by
+  unfold lowOwnerDyadicGreatestOwnerRecursiveContinuationRunMass
+    lowOwnerFirstOwnerGreatestOwnerRecursiveContinuationFiberMass
+    vfMidContinuationMoebiusPairWeight
+    vfMidDyadicGreatestOwnerRecursiveMoebiusParentRunMass
+  apply Finset.sum_congr rfl
+  intro R _hR
+  apply Finset.sum_congr rfl
+  intro p hpMem
+  have hpPrime : p.Prime := (mem_primesUpTo.mp hpMem).1
+  apply Finset.sum_congr rfl
+  intro sig _hsig
+  apply Finset.sum_congr rfl
+  intro r _hr
+  exact
+    sum_lowOwnerFirstOwnerGreatestOwnerRecursiveContinuation_moebius_eq_neg_parentMultiplicity
+      hpPrime
+
+
 end RHLean.Proof
