@@ -104,8 +104,11 @@ theorem vfMidActiveScaledReturnedClippedCellMass_eq_offDiagonal
         vfMidActiveReturnedPairCarrier
       apply Finset.sum_congr rfl
       intro ab hab
-      simp [vfMidActiveReturnedPairWeight,
-        vfMidActiveReturnedPairCarrier, hab]
+      have hmem :
+          ab ∈ vfMidActiveReturnedPairCarrier R p sig := by
+        simpa only [vfMidActiveReturnedPairCarrier] using hab
+      unfold vfMidActiveReturnedPairWeight
+      rw [if_pos hmem]
     _ = ∑ ab ∈ lowOwnerFirstOwnerBaseOffDiagonalPairCarrier (R + 1) p sig,
           vfMidActiveReturnedPairWeight R p sig ab :=
       Finset.sum_subset hsub hzero
