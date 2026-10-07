@@ -116,79 +116,100 @@ as a valid metric sufficient condition and visualization, but it is **not** the
 canonical remaining arithmetic obligation. Proving that cone membership
 directly would be essentially the target bound in different coordinates.
 
-## Route lock — 2026-10-06: solved cancellation geometry, open escape reproduction
+## Route lock — 2026-10-06: multi-block escape control before pointwise reproduction
 
-This section is binding for the direct VF route and is intended to prevent a
-repeat of the recent drift into parallel covariance/H-norm closure programs.
+This section is binding for the direct VF route.
 
-The four fantasy/proxy constructions and the solved fantasy cone already encode
-the cancellation geometry that motivated the admissible channel. Their proved
-role is to certify safe reference directions and the available RH-scale room.
-They are **not** a premise that actual primes already lie in that cone, and the
-canonical proof must not replace the remaining arithmetic step by a new global
-claim that realized prime errors "cancel enough."
+The solved fantasy/proxy constructions provide the cancellation geometry and
+RH-safe reference channel.  They do not prove that the actual prime trajectory
+already lies in that channel.
 
-The sole canonical arithmetic theorem to prove is still
+A crucial correction is that a parent escape need **not** force one child
+endpoint to be bad immediately.  Several recursive child blocks can remain
+individually inside the endpoint envelope while their signed increments lean in
+one direction and accumulate.  Therefore a pointwise packet-to-bad-child
+selector is not the canonical immediate theorem.
 
-`VFMidActualPrimeOwnerEscapeAdmissibleStatement`.
-
-Equivalently, after finite base control, the exact obligation is
-
-```text
-actual channel-threatening bad scale R
-  -> exists S,
-       VFMidRecursiveScaleStep R S
-       and actual bad scale S.
-```
-
-Since `vfMidRecursiveScaleStep_lt` gives `S < R`, this strict-child
-reproduction is killed by the already-compiled strong-induction consumer.
-
-The intended arithmetic proof is therefore an **escape classifier**, not a new
-cancellation estimate:
+The first missing arithmetic step is **run-level no-coherent-drift** on a
+contiguous square range `[A,B)`, naturally with `A < B <= 2*A`.  The native
+dyadic identity already proves
 
 ```text
-actual first escape
-  -> exact VF seat / affine-Mobius trigger
-  -> exact first-owner / greatest-owner classification
-  -> one of:
-       (a) already-solved admissible/fantasy-safe cancellation geometry,
-       (b) terminal or favorable sector,
-       (c) clipped sector already covered by the existing contraction,
-       (d) strict recursive child.
+D_B - D_A
+  = prefixWheelError(z,A,B)
+    - (lateRemoval(z,A,B) - lateReference(z,A,B)).
 ```
 
-The proof must show that a genuine parent escape cannot be exhausted by
-(a)–(c), so a bad state survives in (d).  Cancellation internal to the exact
-fantasy/owner coordinates may be used, but it is not to be re-proved as an
-independent all-scale covariance, Gram, H-norm, or realized-prime cancellation
-theorem.
+For the parity prefix `z=2`, the entire common-wheel contribution over
+arbitrarily many adjacent square blocks has only four endpoint errors:
+
+```text
+|prefixWheelError(2,A,B)| <= 4*A.
+```
+
+Thus per-block composite-placement errors do not accumulate independently.
+All possible coherent multi-block drift is isolated in the centered
+chronological late-owner census
+
+```text
+lateRemoval(2,A,B) - lateReference(2,A,B).
+```
+
+The exact owner modules identify `lateRemoval` with the sum, over every block
+`r in [A,B)`, of the least-prime-factor owner fibres that survive the frozen
+prefix.  This is the correct object on which composite equidistribution and
+recursive owner descent must act.
+
+The canonical quantitative target is therefore the existing statement
+
+`VFMidDyadicSignedLateCorrectionStatement`
+
+or an equivalent first-bad/run-level theorem strong enough to show that an
+escape-sized cumulative bias cannot persist across a dyadic run.  Once that
+run-level accumulation is controlled, one may either close the square-endpoint
+bound directly through the already-compiled dyadic consumer or derive the
+owner-admissible strict-child law as a corollary.
+
+### Intended run-level owner mechanism
+
+For a threatening run, classify the exact chronological owner census before
+taking absolute values.
+
+- Fixed/small owner coordinates are periodic composite wheels.  Across many
+  adjacent child blocks their discrepancy is an endpoint phenomenon, not one
+  independent error per block.
+- Terminal owners satisfy the existing run-uniform terminal condition; their
+  stripped child is prime and belongs to the explicit stopped sector.
+- Nonterminal late owners descend to lower square scales.  Their children must
+  be grouped by **child runs**, not selected one block at a time.
+- If a supercritical signed remainder survives after the equidistributed and
+  terminal sectors are removed, it must reproduce as a supercritical
+  lower-scale **run**.  The top child scale is strictly lower, giving the
+  well-founded descent.
+
+Only after this run-level theorem is proved is it legitimate to state
+pointwise `VFMidActualPrimeOwnerEscapeAdmissibleStatement` as closed.
 
 ### Mandatory no-drift rule
 
-Every new theorem proposed as part of the canonical closure must answer:
+Every new theorem proposed for the canonical closure must answer:
 
-> Does this theorem directly help prove that an actual bad scale reproduces on
-> a strict recursive VF child?
+> Does this theorem control the cumulative signed defect across a run of child
+> blocks, or legally descend any unresolved run-level defect to a strictly
+> lower run?
 
-If the answer is no, it is diagnostic, historical, or an alternative route,
-not part of the canonical closeout.
+If not, it is diagnostic or an alternative route.
 
 In particular:
 
-- `ActualPrimeContainedInSolvedFantasyConeStatement` remains a noncanonical
-  sufficient condition; proving it directly is essentially the target in
-  another metric coordinate.
-- A new global Gram/covariance/H-norm half-bound is **not required** by the
-  owner-admissible route.
-- PR #900 (`vf-final-global-hnorm`) is therefore not a dependency of the
-  canonical proof.  Exact identities developed there may be reused only when
-  they directly support actual-prime escape reproduction; its terminal target
-  `vfMidFirstBadNNSNormalizedCovariance_le_half` is an alternative sufficient
-  route, not the required theorem.
-- PR #903 is restricted to exact classifier/Fubini bookkeeping needed for the
-  escape-reproduction proof.  It must not evolve into another standalone
-  energy/cancellation program.
+- do not assume actual membership in the solved fantasy cone;
+- do not replace run-level accumulation by an unjustified
+  packet-to-single-child implication;
+- do not start a new global Gram/covariance/H-norm program when the missing
+  quantity is the centered multi-block chronological owner census;
+- PR #900 remains an alternative sufficient route, not a dependency;
+- PR #903 is restricted to exact classifier/Fubini bookkeeping that supports
+  the run-level owner decomposition and lower-run descent.
 
 ## Fixed-alignment step-graph criterion: conditional only
 
