@@ -1,6 +1,6 @@
 # RH_Lean current proof contract
 
-Status date: 2026-10-01. The direct VF-mid route is the canonical proof program.
+Status date: 2026-10-06. The direct VF-mid route is the canonical proof program.
 Compiled Lean source and successful checks of the relevant commit are
 authoritative. Historical handoffs, attractive finite plots, and stronger
 sufficient criteria do not override this contract.
@@ -115,6 +115,295 @@ Accordingly, `ActualPrimeContainedInSolvedFantasyConeStatement` is retained
 as a valid metric sufficient condition and visualization, but it is **not** the
 canonical remaining arithmetic obligation. Proving that cone membership
 directly would be essentially the target bound in different coordinates.
+
+## Route lock — 2026-10-06: multi-block escape control before pointwise reproduction
+
+This section is binding for the direct VF route.
+
+The solved fantasy/proxy constructions provide the cancellation geometry and
+RH-safe reference channel.  They do not prove that the actual prime trajectory
+already lies in that channel.
+
+A crucial correction is that a parent escape need **not** force one child
+endpoint to be bad immediately.  Several recursive child blocks can remain
+individually inside the endpoint envelope while their signed increments lean in
+one direction and accumulate.  Therefore a pointwise packet-to-bad-child
+selector is not the canonical immediate theorem.
+
+The repository has already proved the required **no independent
+persistence** mechanism.  It must not be reintroduced as a new arithmetic
+obligation.
+
+At the scalar run level, the native dyadic identity isolates the chronological
+owner census, while fixed-prefix/common-wheel placement contributes only
+endpoint terms.  At the trajectory level, interior lifetimes telescope to
+zero.  At the returned-core pair level, admitted/interior survivor mass is
+eliminated before the recursive continuation is exposed: the signed cell
+polarization separates rank-zero diagonal, mixed clipped boundary mass, and
+the admitted positive-lag carrier.
+
+PR #903 now packages the latter exact reduction as
+
+`lowOwnerFirstOwnerSignedCellTelescope_eq_noPersistenceSafe_add_sectorSix`,
+
+whose right side is literally
+
+```text
+(rank-zero diagonal
+ + mixed clipped boundary
+ + 2 * continuation sectors 1..5)
++
+(2 * continuation sector 6).
+```
+
+No norm or estimate occurs in that equality.  The generic capacitor is then
+instantiated directly by
+
+`vfMidNoPersistenceCapacitor_forces_sectorSixDirichletMass`.
+
+If the already-terminal/boundary side cannot absorb the signed cell demand,
+sector six alone is forced above the residual threshold.  The theorem
+
+`vfMidNoPersistenceCapacitor_forces_sectorSixDescent`
+
+then extracts a literal sector-six pair and applies the existing continuation
+classifier: its stripped ordered parent lies in
+`postRootCovarianceRemainderRecursivePairCarrier (squareRootEndpoint R / r)`,
+its fresh-owner rank drops by one, and all remaining fresh owners are smaller
+than `r`.
+
+Therefore **"prove that bias cannot persist" is closed infrastructure, not
+the current seam.**  The remaining arithmetic inlet is narrower: the exact
+first-bad actual-VF source/budget must be placed onto this already-cancelled
+cell ledger with the survivor restriction retained, or bounded there by an
+already-proved signed identity.  No new decorrelation, equidistribution, or
+persistence hypothesis is authorized.
+
+### Exact fan-escape capacity bills
+
+The count-space geometry is now encoded explicitly in
+[`VF_MID_FAN_ESCAPE_CAPACITY_BILLS.lean`](research/VF_MID_FAN_ESCAPE_CAPACITY_BILLS.lean).
+
+For an arbitrary lower wall `L`, starting abscissa `x0`, and frozen count
+height `y0`, `vfMidLowerWallCompositeRunBill` is the least natural
+horizontal displacement `h` for which
+
+```text
+y0 < L(x0 + h).
+```
+
+Thus a completely prime-free horizontal segment must last at least this long
+before the lower wall can overtake the frozen prime count.  The compiled
+minimality theorem proves that every shorter horizontal run fails to hit the
+wall.
+
+For an arbitrary upper wall `U`,
+`vfMidUpperPrimeJumpBill U x0 y0 h` is the least natural number `q` of
+unit prime-count jumps for which
+
+```text
+U(x0 + h) < y0 + q.
+```
+
+Equivalently, when the wall gap is nonnegative, this is the order-free version
+of
+
+```text
+floor(U(x0+h) - y0) + 1.
+```
+
+The generic theorem
+`vfMidUpperWall_noBreak_of_capacity_lt_bill` is the exact capacity
+contradiction interface: any rigorous prime-survivor capacity `cap` with
+
+```text
+cap < upperPrimeJumpBill
+```
+
+makes upper-wall escape impossible for every cluster whose size is at most
+`cap`.
+
+These definitions are specialized to the repository's normalized radial fan
+
+```text
+lower_R = VF_mid(R^2) - K R log R
+upper_R = VF_mid(R^2) + K R log R.
+```
+
+The center-to-wall distance is kernel-proved exactly on both sides as
+
+```text
+H_R = K R log R.
+```
+
+The square-sampled lower specialization records the first later square endpoint
+whose lower wall overtakes a count frozen at the center of `A^2`, and converts
+that block offset to the literal integer span
+`(A+s)^2 - A^2`.  The upper specialization records the exact number of prime
+jumps required to rise from the center at `A^2` above the upper wall at
+`(A+s)^2`.  A second compiled theorem consumes the trivial integer-site
+capacity, and the same interface is intended to consume the much sharper exact
+wheel-survivor capacities already present in the repository.
+
+Reference diagnostic, not a kernel numerical certificate: for `K=2`,
+`R=5266`, the half-width is approximately `90248.9854`.  Using the exact VF
+band-mass formulas, the first later square endpoint whose lower wall overtakes
+the frozen center is at offset `150`, a horizontal span of `1,602,300`
+integer sites.  At the immediately following square endpoint, the upper wall
+requires about `90,882.714` units above the starting center, hence `90,883`
+prime jumps, while that whole square block contains only `10,533` integer
+sites.
+
+This is deliberately a **necessary escape-cost layer**, not an assumption that
+actual primes already lie in the fantasy cone and not an all-scale theorem
+excluding the required prime-free run or prime cluster.
+
+The upper side is now wired directly to the repository's already-compiled
+actual-prime block bounds.  Define
+
+```text
+RunPrimeSupply(A,s)
+  = sum_{R in [A,A+s)} vfMidIntegerBlockPrimeSupply(R),
+```
+
+and, for any blockwise choice of prefix cutoff `S(R) <= R`,
+
+```text
+RunWheelCapacity(S,A,s)
+  = sum_{R in [A,A+s)} vfMidPrefixWheelEnvelope(S(R),R).
+```
+
+The theorem
+`vfMidSquareRunPrimeSupply_le_prefixWheelCapacity` proves exactly
+
+```text
+RunPrimeSupply(A,s) <= RunWheelCapacity(S,A,s).
+```
+
+No probabilistic prime-cluster estimate enters.  The cutoff may vary by block,
+so the strongest convenient finite prefix wheel may be chosen independently at
+each scale.
+
+The theorem
+`vfMidRadialUpper_noBreak_of_runPrefixWheelCapacity_lt_bill` then consumes the
+new exact prime-jump bill:
+
+```text
+RunWheelCapacity(S,A,s) < radialUpperPrimeJumpBill(K,A,s)
+  ->
+actual RunPrimeSupply(A,s) cannot cross the upper radial wall
+from the starting center.
+```
+
+The exact telescope
+`vfMidSquareRunPrimeSupply_cast_eq_dyadicPrimeSupply` identifies that run
+population with
+
+```text
+pi((A+s)^2) - pi(A^2).
+```
+
+Accordingly,
+`vfMidRadialUpper_noBreak_of_runPrefixWheelCapacity_lt_bill_primeCounting`
+states the same no-crossing result directly in the repository's actual
+square-endpoint prime-count increment currency.
+
+The one-block specialization
+`vfMidRadialUpper_noBreak_oneBlock_of_prefixWheelEnvelope_lt_bill` gives the
+same statement directly from
+`vfMidIntegerBlockPrimeSupply_le_prefixWheelEnvelope`.  A coarse fallback
+`vfMidSquareRunPrimeSupply_le_sum_roots` also packages the compiled global
+`P_R <= R` bound.
+
+Thus the upper-wall branch is a finite wheel-capacity comparison already in
+actual-prime count currency.  The remaining arithmetic work is concentrated on
+the lower/composite side and on the exact source/reassembly splice that sends
+any unfunded signed excess into the recursive sixth sector.
+
+The exact scalar capacity-bounce algebra is also encoded in the same module.
+After a run-level Fubini reassembly has the form
+
+```text
+parentDemand = safeSectors + recursiveSector,
+```
+
+the following directions are binding:
+
+- if `safeSectors <= cap` and `cap + H < parentDemand`, then
+  `recursiveSector > H`;
+- if `floorMass <= safeSectors` and
+  `parentDemand + H < floorMass`, then
+  `recursiveSector < -H`;
+- consequently, if `|recursiveSector| <= H`, exact reassembly forces
+  `safeSectors` into the rigid interval
+  `[parentDemand-H, parentDemand+H]`.
+
+This corrects an easy quotient-direction mistake.  An **upper** per-block safe
+capacity `cMax` gives a **minimum number of safe blocks required** to absorb
+the parent demand without descent.  It does not by itself give a maximum
+vacuum-run length.  The literal finite "`M+1` vacuum blocks force a bounce"
+statement uses a positive **lower** charge per vacuum block (or, preferably,
+the exact cumulative zero-prime charge).  Once that cumulative charge exceeds
+`parentDemand+H`, the recursive sixth sector is forced supercritical with the
+opposite sign.
+
+On the stacked #901/#902 population/complement branch, the exact complement
+currency is
+
+```text
+C_eff = (N_C - epsilon) * w_S - P_C,
+```
+
+where `epsilon` is the possible right-square atom.  Thus `P_C = 0` gives
+the maximum positive VF-minus-actual complement charge
+`(N_C-epsilon) w_S` (equivalently the most negative contribution in the
+prime-minus-VF convention).  Any future instantiation on #903 must preserve
+this sign convention and must first have #901/#902 in its import ancestry.
+
+### Intended run-level owner mechanism
+
+For a threatening run, classify the exact chronological owner census before
+taking absolute values.
+
+- Fixed/small owner coordinates are periodic composite wheels.  Across many
+  adjacent child blocks their discrepancy is an endpoint phenomenon, not one
+  independent error per block.
+- Terminal owners satisfy the existing run-uniform terminal condition; their
+  stripped child is prime and belongs to the explicit stopped sector.
+- Nonterminal late owners descend to lower square scales.  Their children must
+  be grouped by **child runs**, not selected one block at a time.
+- If a supercritical signed remainder survives after the equidistributed and
+  terminal sectors are removed, it must reproduce as a supercritical
+  lower-scale **run**.  The top child scale is strictly lower, giving the
+  well-founded descent.
+
+Only after this run-level theorem is proved is it legitimate to state
+pointwise `VFMidActualPrimeOwnerEscapeAdmissibleStatement` as closed.
+
+### Mandatory descent rule
+
+No new "no coherent drift" theorem is to be introduced unless an exact
+uncovered carrier is first exhibited.  The existing persistence cancellations
+are to be consumed directly.
+
+Every new theorem proposed for the canonical closure must instead answer:
+
+> Does it place the actual first-bad source onto the already-cancelled
+> terminal/sector-six ledger, or does it legally descend the resulting
+> sector-six remainder to a strictly lower recursive state?
+
+If not, it is diagnostic or an alternative route.
+
+In particular:
+
+- do not assume actual membership in the solved fantasy cone;
+- do not replace run-level accumulation by an unjustified
+  packet-to-single-child implication;
+- do not start a new global Gram/covariance/H-norm program when the missing
+  quantity is the centered multi-block chronological owner census;
+- PR #900 remains an alternative sufficient route, not a dependency;
+- PR #903 is restricted to exact classifier/Fubini bookkeeping that supports
+  the run-level owner decomposition and lower-run descent.
 
 ## Fixed-alignment step-graph criterion: conditional only
 

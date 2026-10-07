@@ -19,6 +19,10 @@ on:
       - research/VF_MID_COMPLETED_GATE_PM_DENOMINATOR.lean
       - research/VF_MID_GLOBAL_COMPLETED_GATE_PM_BUDGET.lean
       - research/VF_MID_ANCHORED_CODIV_GATE_INLET.lean
+      - research/VF_MID_CENTERED_GREATEST_OWNER_RANK_TELESCOPE.lean
+      - research/VF_MID_FAN_ESCAPE_CAPACITY_BILLS.lean
+      - research/VF_MID_FIRST_BAD_LOWER_RUN_CAPACITOR.lean
+      - research/VF_MID_FAN_ESCAPE_RUN_CAPACITY.lean
       - .github/workflows/vf-first-bad-terminal.yml
   workflow_dispatch:
 
@@ -84,3 +88,7 @@ jobs:
           python3 scripts/compile_research_import_closure.py research/VF_MID_COMPLETED_GATE_PM_DENOMINATOR.lean
           python3 scripts/compile_research_import_closure.py research/VF_MID_GLOBAL_COMPLETED_GATE_PM_BUDGET.lean
           python3 scripts/compile_research_import_closure.py research/VF_MID_ANCHORED_CODIV_GATE_INLET.lean
+          python3 scripts/compile_research_import_closure.py research/VF_MID_CENTERED_GREATEST_OWNER_RANK_TELESCOPE.lean
+          python3 scripts/compile_research_import_closure.py research/VF_MID_FAN_ESCAPE_CAPACITY_BILLS.lean
+          python3 scripts/compile_research_import_closure.py research/VF_MID_FIRST_BAD_LOWER_RUN_CAPACITOR.lean
+          python3 scripts/compile_research_import_closure.py research/VF_MID_FAN_ESCAPE_RUN_CAPACITY.lean

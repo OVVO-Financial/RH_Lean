@@ -5,6 +5,36 @@ square-prefix Mertens program. It records which mechanisms are exact, which
 finite experiments have been run, which mechanisms have failed their declared
 tests, and which routes remain materially distinct.
 
+## Current canonical route lock — 2026-10-06
+
+**Correction:** strict-child endpoint reproduction is not the immediate
+arithmetic target.  Several individually good child blocks may accumulate a
+signed bias while remaining inside the channel.
+
+The active target is run-level control of the native dyadic defect:
+
+```text
+D_B - D_A
+  = prefixError(2,A,B)
+    - centeredLateOwnerCorrection(2,A,B).
+```
+
+The prefix term is already kernel-bounded by `4*A` independently of the
+number of adjacent square blocks.  The open quantitative seam is the centered
+chronological late-owner census, exposed by
+`VFMidDyadicSignedLateCorrectionStatement`.
+
+| Route / PR | Canonical status |
+| --- | --- |
+| Multi-block centered late-owner correction / lower-run descent | **ACTIVE / REQUIRED** |
+| Pointwise owner-admissible strict-child reproduction | **DOWNSTREAM CONSUMER**, only after run accumulation is ruled out |
+| #903 greatest-owner continuation partition | **ACTIVE STRUCTURAL SUPPORT** for exact run-level owner classification |
+| #900 normalized covariance / global H-norm | **ALTERNATIVE, NOT REQUIRED** |
+| Direct actual-prime membership in solved fantasy cone | **NONCANONICAL SUFFICIENT CONDITION** |
+
+No-drift test: a new theorem must either control cumulative signed drift across
+a child run or descend an unresolved run-level defect to strictly lower scales.
+
 ## Current closeout — 2026-09-26
 
 [`CURRENT_PROOF_CONTRACT.md`](CURRENT_PROOF_CONTRACT.md) gives the exact

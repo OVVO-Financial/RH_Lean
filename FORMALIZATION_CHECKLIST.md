@@ -79,6 +79,35 @@ Each PR description and checklist update must identify:
 - CI commands that gate merge;
 - remaining analytic or realization obligations.
 
+## Active PR record
+
+### PR #903 — actual-prime escape classifier / greatest-owner continuation partition
+
+- [x] Correct route lock: several individually good child blocks may accumulate a signed bias; do not infer one bad child directly.
+
+- [x] Branch from current `main`; do not mutate #900.
+- [x] Add an exact priority partition/Fubini for the greatest-owner continuation
+  carrier, with no new analytic hypothesis or norm estimate.
+- [x] Record the 2026-10-06 route lock in the authoritative proof contract,
+  current handoff, and route registry.
+- [x] Restrict the role of #903 to structural classifier bookkeeping needed for
+  `VFMidActualPrimeOwnerEscapeAdmissibleStatement`.
+- [x] Mark #900's H-norm/covariance closure as an alternative, nondependency
+  route for the canonical owner-admissible proof.
+- [x] Encode the exact count-space fan escape bills:
+  lower horizontal/composite first-hit and upper prime-jump first-break,
+  together with generic and square-site capacity contradiction interfaces.
+  These are necessary escape costs only; they do not assume actual cone
+  membership or prove the required all-scale prime-gap/cluster exclusion.
+- [ ] Hosted warning-fatal Lean CI must compile the new continuation and fan-capacity modules.
+- [ ] Before merge, verify that any further theorem on #903 directly advances
+  run-level escape control / lower-run descent and then the downstream
+  actual-parent-escape -> strict-recursive-bad-child reproduction.
+- [ ] No global Gram/covariance/H-norm or realized-prime cancellation theorem
+  may be added merely to replace the already-solved fantasy/admissible
+  cancellation geometry.
+- Corrected remaining mathematical obligation: first rule out coherent accumulation across several individually good child blocks by proving the run-level centered late-owner estimate (`VFMidDyadicSignedLateCorrectionStatement`) or an equivalent first-bad dyadic-run bound. Then consume the owner classifier to descend any unresolved supercritical run to strictly lower scales; pointwise `VFMidActualPrimeOwnerEscapeAdmissibleStatement` is downstream, not the immediate selector.
+
 ## 4. Successful PR ledger
 
 ### Repository cleanup — 2026-09-26 (integrated with #798)

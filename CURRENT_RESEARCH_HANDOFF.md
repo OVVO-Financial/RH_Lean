@@ -4,6 +4,51 @@ This file preserves the research history. The current mathematical frontier is
 specified by [`CURRENT_PROOF_CONTRACT.md`](CURRENT_PROOF_CONTRACT.md), which
 overrides older instructions and open/closed labels below.
 
+## Current handoff — 2026-10-06: cumulative child runs, not one bad child
+
+The active correction is that a channel-threatening parent need not select one
+already-bad child endpoint.  A sequence of individually admissible child
+blocks can carry a coherent signed drift.
+
+The proof must therefore work on a contiguous child run.  The repository
+already has the decisive exact identity:
+
+```text
+D_B - D_A
+  = prefixError(2,A,B)
+    - (lateRemoval(2,A,B) - lateReference(2,A,B)),
+```
+
+and the common parity-wheel contribution satisfies
+
+```text
+|prefixError(2,A,B)| <= 4*A
+```
+
+for every adjacent square run `A <= B`, independent of the number of blocks.
+This is the first rigorous form of composite equidistribution needed here:
+small-wheel placement errors telescope to four endpoints instead of accumulating
+block by block.
+
+Moreover `VF_MID_DYADIC_OWNER_EXACT.lean` identifies `lateRemoval` exactly
+with the cumulative least-prime-factor owner census across all
+`r in [A,B)`.  The remaining arithmetic problem is to center and control
+that entire owner census against `lateReference`, using terminal-owner
+equidistribution and recursive descent of the unresolved late owners.
+
+The correct descent object is therefore a **bad run**.  Any unresolved
+supercritical remainder must descend to one or more lower child blocks whose
+aggregate, on their contiguous lower-scale run, remains supercritical.  Only
+after ruling out coherent accumulation over such runs may the pointwise
+owner-admissibility statement be consumed.
+
+The existing named quantitative interface is
+`VFMidDyadicSignedLateCorrectionStatement`; proving it, or a weaker
+first-bad run-level estimate sufficient for the same dyadic consumer, is the
+current quantitative seam.
+
+Do not replace this by a packet-to-single-child theorem.
+
 ## Current handoff — 2026-09-26
 
 The #797–#800 closeout leaves one quantitative input: CORR-4, or a signed
