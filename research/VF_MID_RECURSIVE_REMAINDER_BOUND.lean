@@ -1388,5 +1388,240 @@ theorem vfMidOddCompositeTrackingDefect_eq_recursiveNative_add_complement_sub_ri
     vfMidRecursiveNativeChargeInBlock_eq_interior_add_rightSquareAtom]
   ring
 
+/-! ## Explicit complement capacity and the required packet margin
+
+The wheel cap applies to the total prime count, so the complement can spend
+only the wheel capacity left after the inherited primes.  This gives signed
+lower and upper bounds, with the right-square atom still subtracted.  A packet
+forces a full-block violation only when it clears the corresponding bound;
+the existing decomposition does not itself prove that margin from escape.
+-/
+
+/-- Complement primes are bounded both by its own population and by the
+prefix-wheel capacity left after the inherited prime count. -/
+theorem vfMidRecursiveComplement_primeCard_le_min_population_remainingPrefixWheel
+    (R S T : ℕ) (hS : 2 ≤ S) (hTS : T ≤ S) :
+    ((vfMidRecursiveComplementCarrier R S).filter Nat.Prime).card ≤
+      min (vfMidRecursiveComplementCarrier R S).card
+        (vfMidPrefixWheelEnvelope T S -
+          (vfMidRecursivePrimeChildrenInBlock R S).card) := by
+  apply le_min
+  · exact Finset.card_filter_le _ _
+  · have hsplit :=
+      vfMidRecursiveInterior_primeCard_add_complement_primeCard R S hS
+    have hwheel :=
+      vfMidIntegerBlockPrimeSupply_le_prefixWheelEnvelope T S hS hTS
+    omega
+
+/-- The complete signed correction from packet to full block lies between
+the maximum permitted prime payment and the zero-prime payment. -/
+theorem vfMidRecursiveComplement_sub_rightSquareAtom_bounds
+    (R S T : ℕ) (hS : 2 ≤ S) (hTS : T ≤ S) :
+    (((vfMidRecursiveComplementCarrier R S).card : ℝ) -
+        vfMidRecursiveRightSquareAtom R S) *
+        vfMidOddFractionalPrimeSeatWeight S -
+        ((min (vfMidRecursiveComplementCarrier R S).card
+          (vfMidPrefixWheelEnvelope T S -
+            (vfMidRecursivePrimeChildrenInBlock R S).card) : ℕ) : ℝ) ≤
+      vfMidRecursiveComplementNativeChargeInBlock R S -
+        vfMidRecursiveRightSquareAtom R S * vfMidOddFractionalPrimeSeatWeight S ∧
+    vfMidRecursiveComplementNativeChargeInBlock R S -
+        vfMidRecursiveRightSquareAtom R S * vfMidOddFractionalPrimeSeatWeight S ≤
+      (((vfMidRecursiveComplementCarrier R S).card : ℝ) -
+        vfMidRecursiveRightSquareAtom R S) *
+        vfMidOddFractionalPrimeSeatWeight S := by
+  have hcapNat :=
+    vfMidRecursiveComplement_primeCard_le_min_population_remainingPrefixWheel
+      R S T hS hTS
+  have hcap :
+      (((vfMidRecursiveComplementCarrier R S).filter Nat.Prime).card : ℝ) ≤
+        ((min (vfMidRecursiveComplementCarrier R S).card
+          (vfMidPrefixWheelEnvelope T S -
+            (vfMidRecursivePrimeChildrenInBlock R S).card) : ℕ) : ℝ) := by
+    exact_mod_cast hcapNat
+  have hprime0 :
+      0 ≤ (((vfMidRecursiveComplementCarrier R S).filter Nat.Prime).card : ℝ) :=
+    Nat.cast_nonneg _
+  rw [vfMidRecursiveComplementNativeChargeInBlock_eq_population_sub_prime]
+  constructor <;> nlinarith
+
+/-- Signed bounds for the full child-scale defect obtained by substituting
+the exact carrier-complement identity into the remaining wheel capacity. -/
+theorem vfMidOddCompositeTrackingDefect_recursiveComplement_bounds
+    (R S T : ℕ) (hS : 2 ≤ S) (hTS : T ≤ S) :
+    vfMidRecursiveNativeChargeInBlock R S +
+        (((vfMidRecursiveComplementCarrier R S).card : ℝ) -
+          vfMidRecursiveRightSquareAtom R S) *
+          vfMidOddFractionalPrimeSeatWeight S -
+        ((min (vfMidRecursiveComplementCarrier R S).card
+          (vfMidPrefixWheelEnvelope T S -
+            (vfMidRecursivePrimeChildrenInBlock R S).card) : ℕ) : ℝ) ≤
+      vfMidOddCompositeTrackingDefect S ∧
+    vfMidOddCompositeTrackingDefect S ≤
+      vfMidRecursiveNativeChargeInBlock R S +
+        (((vfMidRecursiveComplementCarrier R S).card : ℝ) -
+          vfMidRecursiveRightSquareAtom R S) *
+          vfMidOddFractionalPrimeSeatWeight S := by
+  have hcorrection :=
+    vfMidRecursiveComplement_sub_rightSquareAtom_bounds R S T hS hTS
+  have hsplit :=
+    vfMidOddCompositeTrackingDefect_eq_recursiveNative_add_complement_sub_rightSquareAtom
+      R S hS
+  constructor <;> linarith [hcorrection.1, hcorrection.2]
+
+/-- A direct packet-to-full-scale consumer with the quantitative margin
+shown explicitly.  The positive direction pays for every complement prime
+permitted by the population-clipped residual wheel cap; the negative
+direction pays for its entire possible VF mass. -/
+theorem vfMidNativePacket_forces_fullScaleViolation_of_complement_margin
+    (R S T : ℕ) (hS : 2 ≤ S) (hTS : T ≤ S) (H : ℝ)
+    (hmargin :
+      H < vfMidRecursiveNativeChargeInBlock R S +
+          (((vfMidRecursiveComplementCarrier R S).card : ℝ) -
+            vfMidRecursiveRightSquareAtom R S) *
+            vfMidOddFractionalPrimeSeatWeight S -
+          ((min (vfMidRecursiveComplementCarrier R S).card
+            (vfMidPrefixWheelEnvelope T S -
+              (vfMidRecursivePrimeChildrenInBlock R S).card) : ℕ) : ℝ) ∨
+      vfMidRecursiveNativeChargeInBlock R S +
+          (((vfMidRecursiveComplementCarrier R S).card : ℝ) -
+            vfMidRecursiveRightSquareAtom R S) *
+            vfMidOddFractionalPrimeSeatWeight S < -H) :
+    H < |vfMidOddCompositeTrackingDefect S| := by
+  have hbounds :=
+    vfMidOddCompositeTrackingDefect_recursiveComplement_bounds R S T hS hTS
+  rcases hmargin with hpositive | hnegative
+  · exact (hpositive.trans_le hbounds.1).trans_le (le_abs_self _)
+  · have hfull : vfMidOddCompositeTrackingDefect S < -H :=
+      hbounds.2.trans_lt hnegative
+    linarith [neg_le_abs (vfMidOddCompositeTrackingDefect S)]
+
+
+/-! ## Actual-prime cancellation diagnostic
+
+The exact decomposition does not imply blanket same-threshold packet
+inheritance.  The following finite witness uses the actual recursive owner
+and actual primes, rather than an abstract signed subset.  Escape must supply
+an additional quantitative margin before the consumers above apply.
+-/
+
+private theorem vfMidRecursiveOwners_seven : vfMidSquareBandLateRecursiveOwners 7 = {3} := by
+  ext p
+  simp only [vfMidSquareBandLateRecursiveOwners, vfMidSquareBandLateOwnerPrimes,
+    vfMidSquareBandOwnerPrimes, Finset.mem_filter, Finset.mem_Icc,
+    Finset.mem_singleton]
+  constructor
+  · rintro ⟨⟨⟨⟨hp2, hp7⟩, hprime⟩, hpgt⟩, hp3⟩
+    interval_cases p <;> norm_num at *
+  · rintro rfl
+    norm_num
+
+private theorem vfMidRecursiveOwnerFibre_seven_three : vfMidSquareBandCompositeOwner 7 3 = {51, 57, 63} := by
+  ext n
+  simp only [vfMidSquareBandCompositeOwner, vfMidSquareBandComposites,
+    vfMidSquareBandSites, Finset.mem_filter, Finset.mem_Ioo,
+    Finset.mem_insert, Finset.mem_singleton]
+  constructor
+  · rintro ⟨⟨⟨hnlow, hnhigh⟩, hcomposite⟩, howner⟩
+    interval_cases n <;> norm_num at *
+  · rintro (rfl | rfl | rfl) <;> norm_num
+
+private theorem vfMidOddFractionalPrimeSeatWeight_four_bounds : (11 / 15 : ℝ) < vfMidOddFractionalPrimeSeatWeight 4 ∧
+    vfMidOddFractionalPrimeSeatWeight 4 < (4 / 5 : ℝ) := by
+  have hsplit : Real.log (41 / 2 : ℝ) =
+      4 * Real.log 2 + Real.log (41 / 32 : ℝ) := by
+    have hproduct : (41 / 2 : ℝ) = (2 : ℝ) ^ 4 * (41 / 32 : ℝ) := by norm_num
+    rw [hproduct, Real.log_mul (by norm_num) (by norm_num), Real.log_pow]
+    norm_num
+  have hupper := Real.log_le_sub_one_of_pos (show (0 : ℝ) < 41 / 32 by norm_num)
+  have hlower := Real.log_le_sub_one_of_pos (show (0 : ℝ) < 32 / 41 by norm_num)
+  have hinv : Real.log (32 / 41 : ℝ) = -Real.log (41 / 32 : ℝ) := by
+    have hratio : (32 / 41 : ℝ) = (41 / 32 : ℝ)⁻¹ := by norm_num
+    rw [hratio, Real.log_inv]
+  rw [hinv] at hlower
+  have hlo : (45 / 16 : ℝ) < Real.log (41 / 2 : ℝ) := by
+    linarith [Real.log_two_gt_d9]
+  have hhi : Real.log (41 / 2 : ℝ) < (135 / 44 : ℝ) := by
+    linarith [Real.log_two_lt_d9]
+  have hpos : 0 < Real.log (41 / 2 : ℝ) := by linarith
+  have hw : vfMidOddFractionalPrimeSeatWeight 4 =
+      (9 / 4 : ℝ) / Real.log (41 / 2 : ℝ) := by
+    unfold vfMidOddFractionalPrimeSeatWeight vfMidBandMass vfMidBandMidpoint
+    norm_num
+    ring
+  rw [hw]
+  constructor
+  · rw [lt_div_iff₀ hpos]
+    linarith
+  · rw [div_lt_iff₀ hpos]
+    linarith
+/-- Exact recursive packet at the first live parent scale. -/
+theorem vfMidRecursiveChildrenInBlock_seven_four : vfMidRecursiveChildrenInBlock 7 4 = {17, 19, 21} := by
+  have hflat : vfMidRecursiveChildCarrier 7 = {17, 19, 21} := by
+    norm_num [vfMidRecursiveChildCarrier, vfMidRecursiveOwners_seven,
+      vfMidSquareBandCompositeOwnerChildren, vfMidRecursiveOwnerFibre_seven_three]
+  ext n
+  simp only [vfMidRecursiveChildrenInBlock, hflat, Finset.mem_inter,
+    Finset.mem_Ioc, Finset.mem_insert, Finset.mem_singleton]
+  norm_num
+  omega
+
+/-- Exact odd carrier of the diagnostic child square block. -/
+theorem vfMidOddCandidateSeats_four : vfMidOddCandidateSeats 4 = {17, 19, 21, 23} := by
+  have htwo : RHLean.Arithmetic.primesUpTo 2 = {2} := by decide
+  ext n
+  simp only [vfMidOddCandidateSeats, vfMidSquarePrefixWheelSurvivors,
+    vfMidSquareWheelSites, Finset.mem_filter, Finset.mem_Ioo,
+    Finset.mem_insert, Finset.mem_singleton]
+  constructor
+  · rintro ⟨⟨hnlow, hnhigh⟩, hsurvivor⟩
+    have hnot : ¬ 2 ∣ n := hsurvivor 2 (by decide)
+    interval_cases n <;> norm_num at *
+  · rintro (rfl | rfl | rfl | rfl) <;>
+      norm_num [RHLean.Proof.lowWheelHighSurvivor,
+        htwo]
+
+/-- The omitted seat in this diagnostic packet is the prime 23. -/
+theorem vfMidRecursiveComplementCarrier_seven_four : vfMidRecursiveComplementCarrier 7 4 = {23} := by
+  ext n
+  simp only [vfMidRecursiveComplementCarrier, vfMidRecursiveInteriorChildren,
+    vfMidRecursiveChildrenInBlock_seven_four, vfMidOddCandidateSeats_four, Finset.mem_sdiff, Finset.mem_erase,
+    Finset.mem_insert, Finset.mem_singleton]
+  norm_num
+  omega
+
+
+/-- A genuine recursive packet exceeds 1/5 while its full-block defect is
+strictly below 1/5 in magnitude. This witnesses real complement cancellation;
+no parent-escape condition is asserted. -/
+theorem vfMidRecursivePacket_complement_cancellation_witness : VFMidRecursiveScaleStep 7 4 ∧
+    (1 / 5 : ℝ) < vfMidRecursiveNativeChargeInBlock 7 4 ∧
+    |vfMidOddCompositeTrackingDefect 4| < (1 / 5 : ℝ) := by
+  have hweight := vfMidOddFractionalPrimeSeatWeight_four_bounds
+  have hV : vfMidRecursiveNativeChargeInBlock 7 4 =
+      3 * vfMidOddFractionalPrimeSeatWeight 4 - 2 := by
+    rw [vfMidRecursiveNativeChargeInBlock_eq_population_sub_prime]
+    norm_num [vfMidRecursivePrimeCorrectionInBlock,
+      vfMidRecursivePrimeChildrenInBlock, vfMidRecursiveChildrenInBlock_seven_four,
+      Finset.filter_insert, Finset.filter_singleton]
+  have hC : vfMidRecursiveComplementNativeChargeInBlock 7 4 =
+      vfMidOddFractionalPrimeSeatWeight 4 - 1 := by
+    rw [vfMidRecursiveComplementNativeChargeInBlock_eq_population_sub_prime,
+      vfMidRecursiveComplementCarrier_seven_four]
+    norm_num [Finset.filter_insert, Finset.filter_singleton]
+  have heps : vfMidRecursiveRightSquareAtom 7 4 = 0 := by
+    norm_num [vfMidRecursiveRightSquareAtom, vfMidRecursiveChildrenInBlock_seven_four]
+  have hG : vfMidOddCompositeTrackingDefect 4 =
+      4 * vfMidOddFractionalPrimeSeatWeight 4 - 3 := by
+    rw [vfMidOddCompositeTrackingDefect_eq_recursiveNative_add_complement_sub_rightSquareAtom
+      7 4 (by omega), hV, hC, heps]
+    ring
+  refine ⟨?_, ?_, ?_⟩
+  · have hwitness := vfMidRecursiveOwner_mixed_child_sign_witness
+    exact ⟨by omega, 3, 17, hwitness.1, hwitness.2.1, by norm_num⟩
+  · rw [hV]
+    linarith [hweight.1]
+  · rw [hG, abs_lt]
+    constructor <;> linarith [hweight.1, hweight.2]
 
 end RHLean.Analysis
