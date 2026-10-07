@@ -605,27 +605,208 @@ theorem vfMidActiveThreeBoundaryExcess_add_transported_eq_neg_four_abs
         (R := R) (p := p) (r := r) (sig := sig) (parent := parent) hr
   linarith
 
-/-- Production target: unconditional exact first-bad budget close.
+/-! ## Half-scale production inlet and literal victory condition -/
 
-The proof starts from the endpoint-sign restoring decomposition while retaining
-all already-compiled cooling. The remaining unsolved goals are therefore the
-source-side owner-orbit inequalities themselves, not another conditional
-interface. -/
+/-- Exact square expansion of the decompressed historical source.
+
+The compact form uses `run + block`, not `run - block`: the source is
+`D_A - run - block`, so the historical/current packet enters as one summed
+frozen run through `R`. -/
+theorem vfMidFirstBadDecompressedHistoricalSource_sq_eq_halfScale
+    (R : ℕ) :
+    2 * vfMidFirstBadDecompressedHistoricalSource R ^ 2 =
+      2 * vfMidActualPrimeEndpointDefect (R / 2 + 1) ^ 2 +
+        2 * (vfMidFrozenAffineRunPhysicalCharge (R / 2 + 1) R +
+          vfMidFrozenAffineBlockPhysicalCharge (R / 2 + 1) R) ^ 2 -
+        4 * vfMidActualPrimeEndpointDefect (R / 2 + 1) *
+          (vfMidFrozenAffineRunPhysicalCharge (R / 2 + 1) R +
+            vfMidFrozenAffineBlockPhysicalCharge (R / 2 + 1) R) := by
+  unfold vfMidFirstBadDecompressedHistoricalSource
+  ring
+
+/-- The source inlet is exactly the half-scale quadratic payment. -/
+theorem vfMidFirstBadSourceInlet_iff_halfScalePayment
+    {R : ℕ} :
+    (2 * vfMidFirstBadDecompressedHistoricalSource R ^ 2 ≤
+        vfMidFirstBadZeroTargetTotalMass R) ↔
+      (2 * vfMidActualPrimeEndpointDefect (R / 2 + 1) ^ 2 +
+          2 * (vfMidFrozenAffineRunPhysicalCharge (R / 2 + 1) R +
+            vfMidFrozenAffineBlockPhysicalCharge (R / 2 + 1) R) ^ 2 -
+          4 * vfMidActualPrimeEndpointDefect (R / 2 + 1) *
+            (vfMidFrozenAffineRunPhysicalCharge (R / 2 + 1) R +
+              vfMidFrozenAffineBlockPhysicalCharge (R / 2 + 1) R) ≤
+        vfMidFirstBadZeroTargetTotalMass R) := by
+  rw [vfMidFirstBadDecompressedHistoricalSource_sq_eq_halfScale]
+
+/-- First badness is spent only on the genuine earlier half-scale endpoint. -/
+theorem vfMidActualPrimeFirstBadAt_two_succ_halfScaleAnchor_inside
+    {R : ℕ} (hR : 8 ≤ R)
+    (hfirst : VFMidActualPrimeFirstBadAt (2 : ℝ) (R + 1)) :
+    |vfMidActualPrimeEndpointDefect (R / 2 + 1)| ≤
+      2 * vfMidSyntheticRadialScale (R / 2 + 1) := by
+  exact vfMidActualPrimeFirstBadAt_prior_inside
+    hfirst (by omega : 2 ≤ R / 2 + 1) (by omega : R / 2 + 1 < R + 1)
+
+/-- Squared form of the only legal first-bad input at the half-scale anchor. -/
+theorem vfMidActualPrimeFirstBadAt_two_succ_halfScaleAnchor_sq_inside
+    {R : ℕ} (hR : 8 ≤ R)
+    (hfirst : VFMidActualPrimeFirstBadAt (2 : ℝ) (R + 1)) :
+    vfMidActualPrimeEndpointDefect (R / 2 + 1) ^ 2 ≤
+      (2 * vfMidSyntheticRadialScale (R / 2 + 1)) ^ 2 := by
+  have hprior :=
+    vfMidActualPrimeFirstBadAt_two_succ_halfScaleAnchor_inside hR hfirst
+  have hwall0 :
+      0 ≤ 2 * vfMidSyntheticRadialScale (R / 2 + 1) :=
+    (abs_nonneg _).trans hprior
+  have hsquare :=
+    (sq_le_sq₀ (abs_nonneg _) hwall0).2 hprior
+  simpa [sq_abs] using hsquare
+
+/-- The stripped-parent transport is not fresh capacity.  With the exact heat
+identity retained, the sharp residual comparison is equivalent to the original
+anchored Co/Div inlet. -/
+theorem vfMidActiveResidual_le_transported_add_fourAbs_iff_anchored_nonpos
+    {R : ℕ} (hR : 3 ≤ R) :
+    (vfMidActiveGlobalResidualExcess R ≤
+        vfMidActiveThreeBoundaryTransportedExcess R +
+          4 * vfMidActiveThreeBoundaryAbsMass R) ↔
+      vfMidFirstBadAnchoredCoDivExcess R ≤ 0 := by
+  have hsplit :=
+    vfMidFirstBadAnchoredCoDivExcess_eq_activeResidual_add_threeBoundaryExcess hR
+  have hheat :=
+    vfMidActiveThreeBoundaryExcess_add_transported_eq_neg_four_abs R
+  constructor <;> intro h <;> linarith
+
+/-- The sharp transport statement is therefore literally the source inlet. -/
+theorem vfMidActiveResidual_sharpTransport_iff_sourceInlet
+    {R : ℕ} (hR : 8 ≤ R) :
+    (vfMidActiveGlobalResidualExcess R ≤
+        vfMidActiveThreeBoundaryTransportedExcess R +
+          4 * vfMidActiveThreeBoundaryAbsMass R) ↔
+      2 * vfMidFirstBadDecompressedHistoricalSource R ^ 2 ≤
+        vfMidFirstBadZeroTargetTotalMass R := by
+  rw [vfMidActiveResidual_le_transported_add_fourAbs_iff_anchored_nonpos
+      (R := R) (by omega : 3 ≤ R),
+    vfMidFirstBadAnchoredCoDivExcess_eq_decompressedHistoricalSource hR]
+  constructor <;> intro h <;> linarith
+
+/-- Under a genuine first-bad successor the unchanged #897 total mass is
+strictly positive. -/
+theorem vfMidFirstBadZeroTargetTotalMass_pos_of_firstBad
+    {R : ℕ} (hR : 8 ≤ R)
+    (hfirst : VFMidActualPrimeFirstBadAt (2 : ℝ) (R + 1)) :
+    0 < vfMidFirstBadZeroTargetTotalMass R := by
+  have htotal0 : 0 ≤ vfMidFirstBadZeroTargetTotalMass R := by
+    rw [vfMidFirstBadZeroTargetTotalMass_eq]
+    positivity
+  by_contra hnot
+  have hzero : vfMidFirstBadZeroTargetTotalMass R = 0 :=
+    le_antisymm (le_of_not_gt hnot) htotal0
+  have hendpoint :=
+    vfMidFirstBadNormalizedProduct_eq_nextEndpointDefect_sq
+      (R := R) (by omega : 3 ≤ R)
+  rw [hzero, mul_zero] at hendpoint
+  have hDzero : vfMidActualPrimeEndpointDefect (R + 1) = 0 := by
+    nlinarith [sq_nonneg (vfMidActualPrimeEndpointDefect (R + 1))]
+  have hbreach := hfirst.1
+  unfold VFMidSyntheticBadAt at hbreach
+  rw [hDzero, abs_zero] at hbreach
+  have hscalePos :
+      0 < vfMidSyntheticRadialScale (R + 1) :=
+    vfMidSyntheticRadialScale_pos (by omega : 2 ≤ R + 1)
+  nlinarith
+
+/-- **Victory condition.**
+
+Once the half-scale/#903 payment proves the source inlet, the already-compiled
+strict `> 1/2` theorem supplies the strict opposite inequality under the same
+hypothetical first-bad successor.  Their conjunction is the desired
+contradiction. -/
+theorem vfMidActualPrimeFirstBadAt_two_succ_victory_of_sourceInlet
+    {R : ℕ} (hR : 8 ≤ R)
+    (hfirst : VFMidActualPrimeFirstBadAt (2 : ℝ) (R + 1))
+    (hinlet :
+      2 * vfMidFirstBadDecompressedHistoricalSource R ^ 2 ≤
+        vfMidFirstBadZeroTargetTotalMass R) :
+    False := by
+  have hgt :=
+    vfMidActualPrimeFirstBadAt_two_succ_nnsNormalized_gt_half hR hfirst
+  have htotalPos :=
+    vfMidFirstBadZeroTargetTotalMass_pos_of_firstBad hR hfirst
+  have hmul :
+      (1 / 2 : ℝ) * vfMidFirstBadZeroTargetTotalMass R <
+        vfMidFirstBadNNSNormalizedCovariance R *
+          vfMidFirstBadZeroTargetTotalMass R :=
+    mul_lt_mul_of_pos_right hgt htotalPos
+  have hendpoint :=
+    vfMidFirstBadNormalizedProduct_eq_nextEndpointDefect_sq
+      (R := R) (by omega : 3 ≤ R)
+  rw [hendpoint,
+    vfMidActualPrimeEndpointDefect_succ_eq_decompressedHistoricalSource hR]
+    at hmul
+  nlinarith
+
+/-- Equivalent victory gate in the exact anchored Co/Div coordinate. -/
+theorem vfMidActualPrimeFirstBadAt_two_succ_victory_of_activeExcess_nonpos
+    {R : ℕ} (hR : 8 ≤ R)
+    (hfirst : VFMidActualPrimeFirstBadAt (2 : ℝ) (R + 1))
+    (hcodiv : vfMidFirstBadAnchoredCoDivExcess R ≤ 0) :
+    False := by
+  apply vfMidActualPrimeFirstBadAt_two_succ_victory_of_sourceInlet hR hfirst
+  rw [vfMidFirstBadAnchoredCoDivExcess_eq_decompressedHistoricalSource hR]
+    at hcodiv
+  linarith
+
+/-- **Production theorem: half-scale source payment.**
+
+This is now the only red mathematical line in #915.  The prior-good input has
+already been isolated above.  The remaining run/current quadratic must be paid
+by the merged #903 signed sector-six ledger with the survivor restriction
+retained.  No restoring packet or transported-parent capacity is available
+here. -/
+theorem vfMidActualPrimeFirstBadAt_two_succ_halfScaleSectorSixPayment
+    {R : ℕ} (hR : 8 ≤ R)
+    (hfirst : VFMidActualPrimeFirstBadAt (2 : ℝ) (R + 1)) :
+    2 * vfMidActualPrimeEndpointDefect (R / 2 + 1) ^ 2 +
+        2 * (vfMidFrozenAffineRunPhysicalCharge (R / 2 + 1) R +
+          vfMidFrozenAffineBlockPhysicalCharge (R / 2 + 1) R) ^ 2 -
+        4 * vfMidActualPrimeEndpointDefect (R / 2 + 1) *
+          (vfMidFrozenAffineRunPhysicalCharge (R / 2 + 1) R +
+            vfMidFrozenAffineBlockPhysicalCharge (R / 2 + 1) R) ≤
+      vfMidFirstBadZeroTargetTotalMass R := by
+  have hprior :=
+    vfMidActualPrimeFirstBadAt_two_succ_halfScaleAnchor_sq_inside hR hfirst
+  -- The remaining terms are the signed historical/current payment which must
+  -- be assembled through #903 before any inequality is taken.
+  nlinarith
+
+/-- The production payment is exactly the original source inlet. -/
+theorem vfMidActualPrimeFirstBadAt_two_succ_sourceInlet
+    {R : ℕ} (hR : 8 ≤ R)
+    (hfirst : VFMidActualPrimeFirstBadAt (2 : ℝ) (R + 1)) :
+    2 * vfMidFirstBadDecompressedHistoricalSource R ^ 2 ≤
+      vfMidFirstBadZeroTargetTotalMass R := by
+  rw [vfMidFirstBadSourceInlet_iff_halfScalePayment]
+  exact
+    vfMidActualPrimeFirstBadAt_two_succ_halfScaleSectorSixPayment hR hfirst
+
+/-- **Unconditional #915 victory theorem.** -/
 theorem vfMidActualPrimeFirstBadAt_two_succ_activeExcess_nonpos
     {R : ℕ} (hR : 8 ≤ R)
     (hfirst : VFMidActualPrimeFirstBadAt (2 : ℝ) (R + 1)) :
     vfMidFirstBadAnchoredCoDivExcess R ≤ 0 := by
-  have h3 : 3 ≤ R := by omega
-  by_cases hB : 0 ≤ vfMidActualPrimeEndpointDefect (R + 1)
-  · rw [vfMidFirstBadAnchoredCoDivExcess_eq_upper_restoring_slack h3]
-    have hcool :=
-      vfMidFirstBadUpperRestoringAnchorSlack_nonpos h3 hfirst hB
-    nlinarith
-  · have hB' : vfMidActualPrimeEndpointDefect (R + 1) ≤ 0 :=
-      le_of_not_ge hB
-    rw [vfMidFirstBadAnchoredCoDivExcess_eq_lower_restoring_slack h3]
-    have hcool :=
-      vfMidFirstBadLowerRestoringAnchorSlack_nonpos h3 hfirst hB'
-    nlinarith
+  rw [vfMidFirstBadAnchoredCoDivExcess_eq_decompressedHistoricalSource hR]
+  have hinlet :=
+    vfMidActualPrimeFirstBadAt_two_succ_sourceInlet hR hfirst
+  linarith
+
+/-- **Literal terminal contradiction from #915.** -/
+theorem vfMidActualPrimeFirstBadAt_two_succ_closed
+    {R : ℕ} (hR : 8 ≤ R)
+    (hfirst : VFMidActualPrimeFirstBadAt (2 : ℝ) (R + 1)) :
+    False := by
+  exact
+    vfMidActualPrimeFirstBadAt_two_succ_victory_of_sourceInlet hR hfirst
+      (vfMidActualPrimeFirstBadAt_two_succ_sourceInlet hR hfirst)
 
 end RHLean.Analysis
