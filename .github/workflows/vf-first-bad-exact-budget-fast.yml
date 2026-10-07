@@ -14,7 +14,7 @@ permissions:
 jobs:
   fast-check:
     runs-on: ubuntu-latest
-    timeout-minutes: 12
+    timeout-minutes: 8
     steps:
       - uses: actions/checkout@v4
         with:
@@ -64,8 +64,11 @@ jobs:
       - name: Verify warm dependency cache
         run: |
           test -d .lake/packages/StrongPNT/.lake/build
-          test -d .lake/build
+          test -d .lake/build/lib/lean
 
-      - name: Compile exact budget close only
+      - name: Compile #915 only against cached dependencies
         run: |
-          python3 scripts/compile_research_import_closure.py research/VF_MID_FIRST_BAD_EXACT_BUDGET_CLOSE.lean
+          mkdir -p .lake/build/lib/lean
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.VF_MID_FIRST_BAD_EXACT_BUDGET_CLOSE.olean \
+            research/VF_MID_FIRST_BAD_EXACT_BUDGET_CLOSE.lean
