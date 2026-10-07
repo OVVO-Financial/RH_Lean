@@ -90,6 +90,14 @@ jobs:
           #print axioms RHLean.Analysis.sum_vfMidRawParents_eq_completed_add_incomplete
           #print axioms RHLean.Analysis.vfMidActiveScaledReturnedClippedCellMass_eq_completed_add_incomplete
           #print axioms RHLean.Analysis.vfMidActiveReturnedPairWeight_secondMixed_eq_zero_of_completed
+          #print axioms RHLean.Analysis.vfMidActiveReturnedPairWeight_firstMixed_eq_zero_of_completed
+          #print axioms RHLean.Analysis.vfMidActiveReturnedRawParentFiberMass_eq_zero_of_completed
+          #print axioms RHLean.Analysis.vfMidActiveScaledReturnedClippedCellMass_eq_incompleteRawParents
+          #print axioms RHLean.Analysis.vfMidActiveScaledReturnedClippedCellMass_eq_sixOrientedSectors
+          #print axioms RHLean.Analysis.sum_vfMidActiveWeightedCellExcess_le_two_sixOrientedBoundary
+          #print axioms RHLean.Analysis.vfMidFirstBadAnchoredCoDivExcess_le_activeResidual_add_two_sixBoundary
+          #print axioms RHLean.Analysis.vfMidFirstBadNNSNormalizedCovariance_le_half_of_activeSixBoundaryBudget
+          #print axioms RHLean.Analysis.vfMidActualPrimeFirstBadAt_two_succ_false_of_activeSixBoundaryBudget
           EOF
           lake env lean -DwarningAsError=true /tmp/VF_ACTIVE_RAW_PARENT_SPLICE_AUDIT.lean | tee active-raw-parent-splice-axioms.log
           if grep -q 'sorryAx' active-raw-parent-splice-axioms.log; then exit 1; fi
