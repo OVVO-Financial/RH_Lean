@@ -83,6 +83,8 @@ Each PR description and checklist update must identify:
 
 ### PR #903 — actual-prime escape classifier / greatest-owner continuation partition
 
+- [x] Correct route lock: several individually good child blocks may accumulate a signed bias; do not infer one bad child directly.
+
 - [x] Branch from current `main`; do not mutate #900.
 - [x] Add an exact priority partition/Fubini for the greatest-owner continuation
   carrier, with no new analytic hypothesis or norm estimate.
@@ -98,9 +100,7 @@ Each PR description and checklist update must identify:
 - [ ] No global Gram/covariance/H-norm or realized-prime cancellation theorem
   may be added merely to replace the already-solved fantasy/admissible
   cancellation geometry.
-- Remaining mathematical obligation: prove
-  `VFMidActualPrimeOwnerEscapeAdmissibleStatement` by the exact physical owner
-  classifier and strict-child reproduction law.
+- Corrected remaining mathematical obligation: first rule out coherent accumulation across several individually good child blocks by proving the run-level centered late-owner estimate (`VFMidDyadicSignedLateCorrectionStatement`) or an equivalent first-bad dyadic-run bound. Then consume the owner classifier to descend any unresolved supercritical run to strictly lower scales; pointwise `VFMidActualPrimeOwnerEscapeAdmissibleStatement` is downstream, not the immediate selector.
 
 ## 4. Successful PR ledger
 
