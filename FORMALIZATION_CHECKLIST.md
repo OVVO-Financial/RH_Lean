@@ -94,8 +94,14 @@ Each PR description and checklist update must identify:
   `VFMidActualPrimeOwnerEscapeAdmissibleStatement`.
 - [x] Mark #900's H-norm/covariance closure as an alternative, nondependency
   route for the canonical owner-admissible proof.
-- [ ] Hosted warning-fatal Lean CI must compile the new continuation module.
+- [x] Encode the exact count-space fan escape bills:
+  lower horizontal/composite first-hit and upper prime-jump first-break,
+  together with generic and square-site capacity contradiction interfaces.
+  These are necessary escape costs only; they do not assume actual cone
+  membership or prove the required all-scale prime-gap/cluster exclusion.
+- [ ] Hosted warning-fatal Lean CI must compile the new continuation and fan-capacity modules.
 - [ ] Before merge, verify that any further theorem on #903 directly advances
+  run-level escape control / lower-run descent and then the downstream
   actual-parent-escape -> strict-recursive-bad-child reproduction.
 - [ ] No global Gram/covariance/H-norm or realized-prime cancellation theorem
   may be added merely to replace the already-solved fantasy/admissible
