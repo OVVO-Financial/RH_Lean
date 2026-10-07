@@ -1,6 +1,7 @@
 import Mathlib
 import «research.VF_MID_FINAL_RAW_CLIPPED_TELESCOPE»
 import «research.VF_MID_FAN_ESCAPE_CAPACITY_BILLS»
+import «research.VF_MID_CENTERED_GREATEST_OWNER_RANK_TELESCOPE»
 
 /-!
 # VF first-bad run capacitor in exact lower-prime coordinates
@@ -48,6 +49,8 @@ or absolute-value decomposition is introduced here.
 noncomputable section
 
 namespace RHLean.Analysis
+
+open RHLean.Proof
 
 attribute [local instance] Classical.propDecidable
 
@@ -185,5 +188,134 @@ theorem vfMidDyadicLowerTransport_child_strictly_lower
     q.Prime ∧ q < A ^ 2 ∧ Nat.sqrt q < A := by
   exact vfMidDyadicFrozenCompositeOwnerChild_prime_below_frozenSquare
     hA hAB hBA hR hp hq
+
+
+/-! ## Already-proved no-persistence machinery feeds sector six
+
+The scalar lower-prime capacitor above and the pair-level continuation ledger
+live in different exact currencies and are not identified by analogy. At the
+pair level, the existing signed-cell polarization has already removed the
+interior persistence mechanism:
+
+* the rank-zero diagonal is terminal/nonpositive;
+* clipped/admitted transport is explicit boundary mass;
+* the admitted positive-lag carrier is uniquely partitioned by greatest owner;
+* continuation sectors one through five are nonrecursive;
+* sector six is the only genuinely recursive remainder.
+
+The exact signed-cell equality in the centered greatest-owner module puts that
+already-proved no-persistence reduction into the same scalar capacitor algebra
+used above.
+-/
+
+/-- **No-persistence capacitor tripwire.**
+
+If the terminal/boundary side of one signed first-owner cell is bounded by
+cap, while the complete signed cell exceeds cap + H, then sector six alone
+must carry more than H. -/
+theorem vfMidNoPersistenceCapacitor_forces_sectorSixDirichletMass
+    {R p : ℕ} {sig : Finset ℕ}
+    (hp : p.Prime) {cap H : ℝ}
+    (hsafe :
+      lowOwnerFirstOwnerNoPersistenceSafeDirichletMass R p sig ≤ cap)
+    (hexcess :
+      cap + H < lowOwnerFirstOwnerSignedCellTelescope R p sig) :
+    H < lowOwnerFirstOwnerSectorSixRecursiveDirichletMass R p sig := by
+  exact vfMidRecursiveResidual_gt_of_safeCapacity
+    (lowOwnerFirstOwnerSignedCellTelescope_eq_noPersistenceSafe_add_sectorSix
+      hp)
+    hsafe hexcess
+
+/-- If sector six remains inside [-H,H], the already-terminal/boundary mass is
+forced into the exact parent window. This is the contrapositive form used when
+a first-bad source cannot be absorbed without recursive descent. -/
+theorem vfMidNoPersistenceSafeMass_mem_cellWindow_of_sectorSix_abs_le
+    {R p : ℕ} {sig : Finset ℕ}
+    (hp : p.Prime) {H : ℝ}
+    (hrec :
+      |lowOwnerFirstOwnerSectorSixRecursiveDirichletMass R p sig| ≤ H) :
+    lowOwnerFirstOwnerSignedCellTelescope R p sig - H ≤
+        lowOwnerFirstOwnerNoPersistenceSafeDirichletMass R p sig ∧
+      lowOwnerFirstOwnerNoPersistenceSafeDirichletMass R p sig ≤
+        lowOwnerFirstOwnerSignedCellTelescope R p sig + H := by
+  exact vfMidSafeMass_mem_parentWindow_of_recursive_abs_le
+    (lowOwnerFirstOwnerSignedCellTelescope_eq_noPersistenceSafe_add_sectorSix
+      hp)
+    hrec
+
+/-- Positive sector-six mass cannot be supported by an empty recursive
+continuation carrier. Hence some greatest owner has a literal sector-six
+pair. -/
+theorem vfMidSectorSixDirichletMass_pos_has_recursivePair
+    {R p : ℕ} {sig : Finset ℕ}
+    (hpos : 0 < lowOwnerFirstOwnerSectorSixRecursiveDirichletMass R p sig) :
+    ∃ r ∈ lowOwnerRevealedPrimesAbove R p,
+      ∃ m n : ℕ,
+        (m, n) ∈
+          lowOwnerFirstOwnerGreatestOwnerRecursiveContinuationPairFiber
+            R p sig r := by
+  by_contra hnone
+  push_neg at hnone
+  have hzero :
+      lowOwnerFirstOwnerAdmittedPositiveSectorSixDirichletMass R p sig = 0 := by
+    unfold lowOwnerFirstOwnerAdmittedPositiveSectorSixDirichletMass
+    apply Finset.sum_eq_zero
+    intro r hr
+    unfold lowOwnerFirstOwnerGreatestOwnerSectorSixDirichletMass
+    apply Finset.sum_eq_zero
+    intro mn hmn
+    rcases mn with ⟨m, n⟩
+    exact (hnone r hr m n hmn).elim
+  unfold lowOwnerFirstOwnerSectorSixRecursiveDirichletMass at hpos
+  rw [hzero] at hpos
+  norm_num at hpos
+
+/-- **Capacitor overflow forces literal sector-six descent.**
+
+Once the already-proved no-persistence/terminal sectors cannot absorb the
+signed cell demand, the capacitor forces positive sector-six mass. A literal
+sector-six pair therefore exists, and its existing continuation theorem
+supplies a stripped parent in the strict recursive carrier with fresh-owner
+rank reduced by one.
+
+No new cancellation estimate or persistence hypothesis appears. -/
+theorem vfMidNoPersistenceCapacitor_forces_sectorSixDescent
+    {R p : ℕ} {sig : Finset ℕ}
+    (hp : p.Prime) {cap H : ℝ}
+    (hH : 0 ≤ H)
+    (hsafe :
+      lowOwnerFirstOwnerNoPersistenceSafeDirichletMass R p sig ≤ cap)
+    (hexcess :
+      cap + H < lowOwnerFirstOwnerSignedCellTelescope R p sig) :
+    ∃ r ∈ lowOwnerRevealedPrimesAbove R p,
+      ∃ m n : ℕ,
+        (m, n) ∈
+            lowOwnerFirstOwnerGreatestOwnerRecursiveContinuationPairFiber
+              R p sig r ∧
+          squarefreePairPrimeOrderedParent r m n ∈
+            postRootCovarianceRemainderRecursivePairCarrier
+              (squareRootEndpoint R / r) ∧
+          (squarefreePairFreshPrimeSet
+              (squarefreePairPrimeOrderedParent r m n).1
+              (squarefreePairPrimeOrderedParent r m n).2).card + 1 =
+            (squarefreePairFreshPrimeSet m n).card ∧
+          ∀ q ∈ squarefreePairFreshPrimeSet
+              (squarefreePairPrimeOrderedParent r m n).1
+              (squarefreePairPrimeOrderedParent r m n).2,
+            q < r := by
+  have hrec :
+      H < lowOwnerFirstOwnerSectorSixRecursiveDirichletMass R p sig :=
+    vfMidNoPersistenceCapacitor_forces_sectorSixDirichletMass
+      hp hsafe hexcess
+  have hpos :
+      0 < lowOwnerFirstOwnerSectorSixRecursiveDirichletMass R p sig :=
+    lt_of_le_of_lt hH hrec
+  rcases vfMidSectorSixDirichletMass_pos_has_recursivePair hpos with
+    ⟨r, hr, m, n, hmn⟩
+  have hdata :=
+    lowOwnerFirstOwnerGreatestOwnerRecursiveContinuationPairFiber_data
+      hp hmn
+  dsimp only at hdata
+  exact ⟨r, hr, m, n, hmn, hdata⟩
 
 end RHLean.Analysis
