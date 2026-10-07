@@ -5,6 +5,7 @@ on:
     branches: [vf-first-bad-active-excess-ledger]
     paths:
       - research/VF_MID_FIRST_BAD_ACTIVE_CLIPPED_BOUNDARY.lean
+      - research/VF_MID_FIRST_BAD_SCALED_CLIPPED_GATE.lean
       - .github/workflows/vf-first-bad-active-clipped-boundary.yml
   workflow_dispatch:
 
@@ -81,13 +82,18 @@ jobs:
       - name: Compile and audit clipped boundary
         run: |
           python3 scripts/compile_research_import_closure.py research/VF_MID_FIRST_BAD_ACTIVE_CLIPPED_BOUNDARY.lean
+          python3 scripts/compile_research_import_closure.py research/VF_MID_FIRST_BAD_SCALED_CLIPPED_GATE.lean
           cat > /tmp/VF_ACTIVE_CLIPPED_AUDIT.lean <<'EOF'
           import «research.VF_MID_FIRST_BAD_ACTIVE_CLIPPED_BOUNDARY»
+          import «research.VF_MID_FIRST_BAD_SCALED_CLIPPED_GATE»
           #print axioms RHLean.Analysis.vfMidOneBlockActivePhysicalSite_eq_zero_of_admittedBase
           #print axioms RHLean.Analysis.vfMidActivePhysicalPair_eq_scaledDirichletPolarizationAtom
           #print axioms RHLean.Analysis.vfMidActiveCellGram_eq_scaledPolarizationCellMass
           #print axioms RHLean.Analysis.vfMidActiveScaledAdmittedBaseCellMass_eq_zero
           #print axioms RHLean.Analysis.vfMidActiveCellGram_eq_scaledClippedBaseCellMass
+          #print axioms RHLean.Analysis.vfMidScaledCompletedGatePMDegreeTwoDenominator_eq_retainedParentEnergy
+          #print axioms RHLean.Analysis.vfMidScaledCompletedGateClippedExitTreeEnergy_le_half_pmDegreeTwo
+          #print axioms RHLean.Analysis.vfMidGlobalScaledCompletedGateClippedExitTreeEnergy_le_half_pmDegreeTwo
           EOF
           lake env lean -DwarningAsError=true /tmp/VF_ACTIVE_CLIPPED_AUDIT.lean | tee active-clipped-axioms.log
           if grep -q 'sorryAx' active-clipped-axioms.log; then exit 1; fi
