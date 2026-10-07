@@ -189,6 +189,148 @@ theorem vfMidActiveReturnedPairCoDivExcess_add_strippedParent_nonpos
         hr hchild)
       (vfMidActiveReturnedPairRetainedScalar R p sig child)
 
+/-- Co/Div excess of the stripped parent, carrying the exact scalar from the
+literal active child occurrence.  This is an occurrence ledger: if two active
+children descend to the same arithmetic parent they remain separately tagged
+by their original child and therefore no multiplicity is lost. -/
+def vfMidActiveReturnedRawParentTransportedExcess
+    (R p : ℕ) (sig : Finset ℕ) (r : ℕ)
+    (parent : ℕ × ℕ) : ℝ :=
+  ∑ child ∈
+      lowOwnerFirstOwnerPolarizationFixedRawParentFiber
+        (R + 1) p sig r parent,
+    vfMidPointwiseCoDivExcess
+      (vfMidActiveReturnedPairRetainedScalar R p sig child *
+        postRootZeroTargetPairExcess
+          (squarefreePrimeFamilyParent r child.1,
+            squarefreePrimeFamilyParent r child.2))
+
+/-- One raw-parent fibre plus its occurrence-tagged stripped-parent ledger is
+cooling.  This is the finite-sum form of the literal local #914/#915 heat
+identity and does not identify coincident stripped parents. -/
+theorem vfMidActiveReturnedRawParentFiberExcess_add_transported_nonpos
+    {R p r : ℕ} {sig : Finset ℕ} {parent : ℕ × ℕ}
+    (hr : r.Prime) :
+    vfMidActiveReturnedRawParentFiberExcess R p sig r parent +
+      vfMidActiveReturnedRawParentTransportedExcess R p sig r parent ≤ 0 := by
+  unfold vfMidActiveReturnedRawParentFiberExcess
+    vfMidActiveReturnedRawParentTransportedExcess
+  rw [← Finset.sum_add_distrib]
+  apply Finset.sum_nonpos
+  intro child hchild
+  exact
+    vfMidActiveReturnedPairCoDivExcess_add_strippedParent_nonpos
+      hr hchild
+
+/-- The occurrence-tagged stripped-parent ledger attached to exactly the three
+physical boundary sectors which survive #914. -/
+def vfMidActiveThreeBoundaryTransportedExcess (R : ℕ) : ℝ :=
+  ∑ p ∈ primesUpTo (squareRootEndpoint (R + 1)),
+    ∑ sig ∈ lowOwnerFirstOwnerSignatureSet (R + 1) p,
+      ∑ r ∈ lowOwnerRevealedPrimesAbove (R + 1) p,
+        ((∑ parent ∈
+            lowOwnerFirstOwnerIncompleteFirstClipLeftSet
+              (R + 1) p sig r,
+            vfMidActiveReturnedRawParentTransportedExcess
+              R p sig r parent) +
+          (∑ parent ∈
+            lowOwnerFirstOwnerIncompleteNextClipRightSet
+              (R + 1) p sig r,
+            vfMidActiveReturnedRawParentTransportedExcess
+              R p sig r parent) +
+          ∑ parent ∈
+            lowOwnerFirstOwnerIncompleteReturnedClipLeftSet
+              (R + 1) p sig r,
+            vfMidActiveReturnedRawParentTransportedExcess
+              R p sig r parent)
+
+/-- Sum a pointwise nonpositive paired ledger over one finite carrier. -/
+private theorem sum_pair_nonpos
+    {ι : Type*} [DecidableEq ι]
+    (s : Finset ι) (f g : ι → ℝ)
+    (h : ∀ i ∈ s, f i + g i ≤ 0) :
+    (∑ i ∈ s, f i) + (∑ i ∈ s, g i) ≤ 0 := by
+  rw [← Finset.sum_add_distrib]
+  exact Finset.sum_nonpos h
+
+/-- **Global exact owner-heat extraction.**
+
+The literal three-boundary Co/Div excess plus its occurrence-tagged stripped
+parents is nonpositive.  Every active occurrence is paired before any quotient,
+norm, triangle inequality, or parent deduplication is introduced. -/
+theorem vfMidActiveThreeBoundaryExcess_add_transported_nonpos
+    (R : ℕ) :
+    vfMidActiveThreeBoundaryExcess R +
+      vfMidActiveThreeBoundaryTransportedExcess R ≤ 0 := by
+  unfold vfMidActiveThreeBoundaryExcess
+    vfMidActiveThreeBoundaryTransportedExcess
+  apply sum_pair_nonpos
+  intro p hpMem
+  apply sum_pair_nonpos
+  intro sig _hsig
+  apply sum_pair_nonpos
+  intro r hrMem
+  have hr : r.Prime :=
+    (mem_primesUpTo.mp (Finset.mem_filter.mp hrMem).1).1
+  have hfirst :
+      (∑ parent ∈
+          lowOwnerFirstOwnerIncompleteFirstClipLeftSet
+            (R + 1) p sig r,
+          vfMidActiveReturnedRawParentFiberExcess R p sig r parent) +
+        (∑ parent ∈
+          lowOwnerFirstOwnerIncompleteFirstClipLeftSet
+            (R + 1) p sig r,
+          vfMidActiveReturnedRawParentTransportedExcess R p sig r parent) ≤ 0 := by
+    apply sum_pair_nonpos
+    intro parent _hparent
+    exact
+      vfMidActiveReturnedRawParentFiberExcess_add_transported_nonpos
+        (R := R) (p := p) (r := r) (sig := sig) (parent := parent) hr
+  have hnext :
+      (∑ parent ∈
+          lowOwnerFirstOwnerIncompleteNextClipRightSet
+            (R + 1) p sig r,
+          vfMidActiveReturnedRawParentFiberExcess R p sig r parent) +
+        (∑ parent ∈
+          lowOwnerFirstOwnerIncompleteNextClipRightSet
+            (R + 1) p sig r,
+          vfMidActiveReturnedRawParentTransportedExcess R p sig r parent) ≤ 0 := by
+    apply sum_pair_nonpos
+    intro parent _hparent
+    exact
+      vfMidActiveReturnedRawParentFiberExcess_add_transported_nonpos
+        (R := R) (p := p) (r := r) (sig := sig) (parent := parent) hr
+  have hreturned :
+      (∑ parent ∈
+          lowOwnerFirstOwnerIncompleteReturnedClipLeftSet
+            (R + 1) p sig r,
+          vfMidActiveReturnedRawParentFiberExcess R p sig r parent) +
+        (∑ parent ∈
+          lowOwnerFirstOwnerIncompleteReturnedClipLeftSet
+            (R + 1) p sig r,
+          vfMidActiveReturnedRawParentTransportedExcess R p sig r parent) ≤ 0 := by
+    apply sum_pair_nonpos
+    intro parent _hparent
+    exact
+      vfMidActiveReturnedRawParentFiberExcess_add_transported_nonpos
+        (R := R) (p := p) (r := r) (sig := sig) (parent := parent) hr
+  linarith
+
+/-- After exact owner heat is extracted, the unconditional #915 target has only
+one remaining packing statement: the quarantined global residual must fit
+inside the occurrence-tagged stripped-parent ledger.  This is strictly sharper
+than dropping the heat and asking for separate upper/lower source bills. -/
+theorem vfMidActualPrimeFirstBadAt_two_succ_activeExcess_nonpos_of_transport
+    {R : ℕ} (hR : 8 ≤ R)
+    (htransport :
+      vfMidActiveGlobalResidualExcess R ≤
+        vfMidActiveThreeBoundaryTransportedExcess R) :
+    vfMidFirstBadAnchoredCoDivExcess R ≤ 0 := by
+  rw [vfMidFirstBadAnchoredCoDivExcess_eq_activeResidual_add_threeBoundaryExcess
+    (by omega : 3 ≤ R)]
+  have hheat := vfMidActiveThreeBoundaryExcess_add_transported_nonpos R
+  linarith
+
 /-- Production target: unconditional exact first-bad budget close.
 
 The proof starts from the endpoint-sign restoring decomposition while retaining
