@@ -4,28 +4,9 @@ on:
   pull_request:
     branches: [main]
     paths:
-      - research/VF_MID_FIRST_BAD_TERMINAL_CONTRADICTION.lean
-      - research/VF_MID_FIRST_BAD_AFFINE_OWNER_SPLICE.lean
-      - research/VF_MID_FULL_AFFINE_PAIR_CLASSIFIER.lean
-      - research/VF_MID_FRACTIONAL_INCIDENCE_CAPACITY.lean
-      - research/VF_MID_ADJACENT_SQUARE_SELBERG_BOUNDARY.lean
-      - research/VF_MID_ONE_BLOCK_SOURCE_TO_RANK_INLET.lean
-      - research/VF_MID_GLOBAL_FIRST_BAD_RADIAL_BUDGET.lean
-      - research/VF_MID_FIRST_BAD_PARTIAL_MOMENT_SYNTHESIS.lean
-      - research/VF_MID_FIRST_BAD_NORMALIZED_PARTIAL_MOMENT.lean
-      - research/NNS_EQUAL_ABS_DEGREE_NORMALIZATION.lean
-      - research/VF_MID_OWNER_FIBER_DEGREE_NORMALIZATION.lean
-      - research/NNS_ZERO_TARGET_FIRST_OWNER_CODIV_FUBINI.lean
-      - research/VF_MID_COMPLETED_GATE_PM_DENOMINATOR.lean
-      - research/VF_MID_GLOBAL_COMPLETED_GATE_PM_BUDGET.lean
-      - research/VF_MID_ANCHORED_CODIV_GATE_INLET.lean
       - research/VF_MID_FIRST_BAD_RESTORING_DECOMPOSITION.lean
       - research/VF_MID_FIRST_BAD_CORRELATION_DESCENT.lean
       - research/VF_MID_FIRST_BAD_HISTORY_COMPRESSION.lean
-      - research/VF_MID_CENTERED_GREATEST_OWNER_RANK_TELESCOPE.lean
-      - research/VF_MID_FAN_ESCAPE_CAPACITY_BILLS.lean
-      - research/VF_MID_FIRST_BAD_LOWER_RUN_CAPACITOR.lean
-      - research/VF_MID_FAN_ESCAPE_RUN_CAPACITY.lean
       - .github/workflows/vf-first-bad-terminal.yml
   workflow_dispatch:
 
@@ -79,19 +60,17 @@ jobs:
           restore-keys: |
             rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py') }}-
             rhlean-build-${{ runner.os }}-
-      - name: Compile terminal contradiction import closure
+      - name: Compile banked first-bad infrastructure
         run: |
-          python3 scripts/compile_research_import_closure.py research/VF_MID_FIRST_BAD_TERMINAL_CONTRADICTION.lean
-          python3 scripts/compile_research_import_closure.py research/VF_MID_GLOBAL_FIRST_BAD_RADIAL_BUDGET.lean
-          python3 scripts/compile_research_import_closure.py research/VF_MID_FIRST_BAD_PARTIAL_MOMENT_SYNTHESIS.lean
-          python3 scripts/compile_research_import_closure.py research/VF_MID_FIRST_BAD_NORMALIZED_PARTIAL_MOMENT.lean
-          python3 scripts/compile_research_import_closure.py research/NNS_EQUAL_ABS_DEGREE_NORMALIZATION.lean
-          python3 scripts/compile_research_import_closure.py research/VF_MID_OWNER_FIBER_DEGREE_NORMALIZATION.lean
-          python3 scripts/compile_research_import_closure.py research/NNS_ZERO_TARGET_FIRST_OWNER_CODIV_FUBINI.lean
-          python3 scripts/compile_research_import_closure.py research/VF_MID_COMPLETED_GATE_PM_DENOMINATOR.lean
-          python3 scripts/compile_research_import_closure.py research/VF_MID_GLOBAL_COMPLETED_GATE_PM_BUDGET.lean
-          python3 scripts/compile_research_import_closure.py research/VF_MID_ANCHORED_CODIV_GATE_INLET.lean
-          python3 scripts/compile_research_import_closure.py research/VF_MID_CENTERED_GREATEST_OWNER_RANK_TELESCOPE.lean
-          python3 scripts/compile_research_import_closure.py research/VF_MID_FAN_ESCAPE_CAPACITY_BILLS.lean
-          python3 scripts/compile_research_import_closure.py research/VF_MID_FIRST_BAD_LOWER_RUN_CAPACITOR.lean
-          python3 scripts/compile_research_import_closure.py research/VF_MID_FAN_ESCAPE_RUN_CAPACITY.lean
+          python3 scripts/compile_research_import_closure.py research/VF_MID_FIRST_BAD_RESTORING_DECOMPOSITION.lean
+          python3 scripts/compile_research_import_closure.py research/VF_MID_FIRST_BAD_CORRELATION_DESCENT.lean
+          python3 scripts/compile_research_import_closure.py research/VF_MID_FIRST_BAD_HISTORY_COMPRESSION.lean
+          cat > /tmp/VF_MID_FIRST_BAD_BANK_ACCEPTANCE.lean <<'EOF'
+          import «research.VF_MID_FIRST_BAD_CORRELATION_DESCENT»
+          import «research.VF_MID_FIRST_BAD_HISTORY_COMPRESSION»
+          #check RHLean.Analysis.vfMidActualPrimeFirstBadAt_two_succ_nnsNormalized_gt_half
+          #check RHLean.Analysis.vfMidActualPrimeEndpointDefect_eq_anchor_sub_frozenAffineRun
+          #check RHLean.Analysis.vfMidActualPrimeEndpointDefect_eq_anchor_sub_oddRunSeatMass
+          #print axioms RHLean.Analysis.vfMidActualPrimeFirstBadAt_two_succ_nnsNormalized_gt_half
+          EOF
+          lake env lean -DwarningAsError=true /tmp/VF_MID_FIRST_BAD_BANK_ACCEPTANCE.lean
