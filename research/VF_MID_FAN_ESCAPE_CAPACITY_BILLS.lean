@@ -1,5 +1,6 @@
 import Mathlib
 import «research.VF_MID_OPTIMAL_BASE_FIRST_CROSSING_TRIGGER»
+import «research.VF_MID_SQUARE_WHEEL_BACKLOG»
 
 /-!
 # Exact count-space escape bills for the solved radial fan
@@ -60,6 +61,8 @@ future wheel/survivor capacity theorem can be compared.
 -/
 
 noncomputable section
+
+open scoped BigOperators
 
 namespace RHLean.Analysis
 
@@ -277,6 +280,100 @@ theorem vfMidRadialUpper_noBreak_of_squareSiteCapacity_lt_bill
     (vfMidSolvedFantasyRadialUpperCount K)
     A (vfMidRadialCenterCount A) s
     (vfMidSquareSpan A s) q hcap hq
+
+/-! ## Exact multi-block prime capacity from the compiled prefix wheels
+
+The repository already contains a deterministic upper bound on the *actual*
+prime supply in every square block:
+
+  vfMidIntegerBlockPrimeSupply R <= vfMidPrefixWheelEnvelope S R
+
+for every prefix cutoff S <= R.
+
+The definitions below sum that theorem over a contiguous square-root run.  The
+cutoff is allowed to vary with the block, so a later proof may choose the
+strongest convenient finite wheel independently at each R.
+-/
+
+/-- Actual number of prime jumps supplied by the square blocks
+`R = A, ..., A+s-1`. -/
+def vfMidSquareRunPrimeSupply (A s : ℕ) : ℕ :=
+  ∑ R ∈ Finset.Ico A (A + s), vfMidIntegerBlockPrimeSupply R
+
+/-- Deterministic prefix-wheel capacity over the same run.  The function
+`S R` selects the finite prefix cutoff used on block R. -/
+def vfMidSquareRunPrefixWheelCapacity
+    (S : ℕ → ℕ) (A s : ℕ) : ℕ :=
+  ∑ R ∈ Finset.Ico A (A + s), vfMidPrefixWheelEnvelope (S R) R
+
+/-- **Compiled block bounds sum without loss.**
+
+The actual prime population of a complete square-block run is bounded by the
+sum of any valid blockwise prefix-wheel envelopes. -/
+theorem vfMidSquareRunPrimeSupply_le_prefixWheelCapacity
+    (S : ℕ → ℕ) (A s : ℕ)
+    (hA : 2 ≤ A)
+    (hS : ∀ R ∈ Finset.Ico A (A + s), S R ≤ R) :
+    vfMidSquareRunPrimeSupply A s ≤
+      vfMidSquareRunPrefixWheelCapacity S A s := by
+  unfold vfMidSquareRunPrimeSupply vfMidSquareRunPrefixWheelCapacity
+  apply Finset.sum_le_sum
+  intro R hR
+  have hR2 : 2 ≤ R := hA.trans (Finset.mem_Ico.mp hR).1
+  exact
+    vfMidIntegerBlockPrimeSupply_le_prefixWheelEnvelope
+      (S R) R hR2 (hS R hR)
+
+/-- Coarse universal run capacity obtained from the already-compiled
+`P_R <= R` theorem.  This is useful when no wheel cutoff needs to be chosen. -/
+theorem vfMidSquareRunPrimeSupply_le_sum_roots
+    (A s : ℕ) (hA : 2 ≤ A) :
+    vfMidSquareRunPrimeSupply A s ≤
+      ∑ R ∈ Finset.Ico A (A + s), R := by
+  unfold vfMidSquareRunPrimeSupply
+  apply Finset.sum_le_sum
+  intro R hR
+  have hR2 : 2 ≤ R := hA.trans (Finset.mem_Ico.mp hR).1
+  exact vfMidIntegerBlockPrimeSupply_le_R R hR2
+
+/-- **Upper-wall wheel-capacity tripwire.**
+
+If the entire blockwise prefix-wheel capacity of a run is already smaller than
+the exact upper-wall prime-jump bill, then the *actual* prime supply of that run
+cannot cross the radial upper wall from the starting center.
+
+This consumes the real prime-count bound, not the trivial integer-site count. -/
+theorem vfMidRadialUpper_noBreak_of_runPrefixWheelCapacity_lt_bill
+    (K : ℝ) (S : ℕ → ℕ) (A s : ℕ)
+    (hA : 2 ≤ A)
+    (hS : ∀ R ∈ Finset.Ico A (A + s), S R ≤ R)
+    (hcap :
+      vfMidSquareRunPrefixWheelCapacity S A s <
+        vfMidRadialUpperPrimeJumpBill K A s) :
+    ¬ (vfMidSolvedFantasyRadialUpperCount K (A + s) <
+      vfMidRadialCenterCount A +
+        (vfMidSquareRunPrimeSupply A s : ℝ)) := by
+  apply vfMidRadialUpperPrimeJumpBill_minimal K A s
+  exact lt_of_le_of_lt
+    (vfMidSquareRunPrimeSupply_le_prefixWheelCapacity S A s hA hS)
+    hcap
+
+/-- One-block specialization: any valid prefix wheel whose envelope is smaller
+than the next-square jump bill rules out a one-block upper escape by the actual
+prime population of that block. -/
+theorem vfMidRadialUpper_noBreak_oneBlock_of_prefixWheelEnvelope_lt_bill
+    (K : ℝ) (S A : ℕ)
+    (hA : 2 ≤ A) (hSA : S ≤ A)
+    (hcap :
+      vfMidPrefixWheelEnvelope S A <
+        vfMidRadialUpperPrimeJumpBill K A 1) :
+    ¬ (vfMidSolvedFantasyRadialUpperCount K (A + 1) <
+      vfMidRadialCenterCount A +
+        (vfMidIntegerBlockPrimeSupply A : ℝ)) := by
+  apply vfMidRadialUpperPrimeJumpBill_minimal K A 1
+  exact lt_of_le_of_lt
+    (vfMidIntegerBlockPrimeSupply_le_prefixWheelEnvelope S A hA hSA)
+    hcap
 
 /-! ## Exact algebraic capacity bounce
 
