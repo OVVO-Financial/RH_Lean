@@ -976,6 +976,150 @@ def VFMidThetaEndpointOutsideAt (C : ℝ) (R : ℕ) : Prop :=
       vfMidDirectThetaEndpointError R ≤
         vfMidThetaBarrierRadius C R)
 
+/-- A local VF block violation forces a theta endpoint violation once it
+exceeds both endpoint radii in VF currency and the exact log-position cost.
+This is a consumer of a proved local margin, not an escape-forcing premise. -/
+theorem vfMidFullScaleViolation_forces_thetaEndpointViolation
+    (C : ℝ) (S : ℕ) (hS : 2 ≤ S)
+    (hviolation :
+      (vfMidThetaBarrierRadius C S + vfMidThetaBarrierRadius C (S + 1)) /
+          Real.log (vfMidBandMidpoint S) + |vfMidDirectLogPositionError S| <
+        |vfMidOddCompositeTrackingDefect S|) :
+    ∃ T : ℕ, (T = S ∨ T = S + 1) ∧ VFMidThetaEndpointOutsideAt C T := by
+  have hSreal : (2 : ℝ) ≤ (S : ℝ) := by exact_mod_cast hS
+  have hmid : 1 < vfMidBandMidpoint S := by
+    unfold vfMidBandMidpoint
+    nlinarith
+  have hlog : 0 < Real.log (vfMidBandMidpoint S) := Real.log_pos hmid
+  by_contra hnone
+  have hinside : ∀ T : ℕ, (T = S ∨ T = S + 1) →
+      -vfMidThetaBarrierRadius C T ≤ vfMidDirectThetaEndpointError T ∧
+        vfMidDirectThetaEndpointError T ≤ vfMidThetaBarrierRadius C T := by
+    intro T hT
+    by_contra houtside
+    exact hnone ⟨T, hT, houtside⟩
+  have hleft := hinside S (Or.inl rfl)
+  have hright := hinside (S + 1) (Or.inr rfl)
+  have hband : |vfMidDirectThetaBandError S| ≤
+      vfMidThetaBarrierRadius C S + vfMidThetaBarrierRadius C (S + 1) := by
+    rw [vfMidDirectThetaBandError_eq_endpoint_diff, abs_le]
+    constructor <;> linarith [hleft.1, hleft.2, hright.1, hright.2]
+  have hsplit : vfMidOddCompositeTrackingDefect S =
+      -(vfMidDirectThetaBandError S / Real.log (vfMidBandMidpoint S) +
+        vfMidDirectLogPositionError S) := by
+    rw [vfMidOddCompositeTrackingDefect_eq_neg_bandError S hS,
+      ← vfMidDirectBandError_eq_squareBandError,
+      vfMidDirectBandError_eq_theta_add_position]
+  have hfull : |vfMidOddCompositeTrackingDefect S| ≤
+      (vfMidThetaBarrierRadius C S + vfMidThetaBarrierRadius C (S + 1)) /
+          Real.log (vfMidBandMidpoint S) + |vfMidDirectLogPositionError S| := by
+    rw [hsplit, abs_neg]
+    calc
+      |vfMidDirectThetaBandError S / Real.log (vfMidBandMidpoint S) +
+          vfMidDirectLogPositionError S| ≤
+        |vfMidDirectThetaBandError S / Real.log (vfMidBandMidpoint S)| +
+          |vfMidDirectLogPositionError S| := abs_add_le _ _
+      _ = |vfMidDirectThetaBandError S| / Real.log (vfMidBandMidpoint S) +
+          |vfMidDirectLogPositionError S| := by
+        rw [abs_div, abs_of_pos hlog]
+      _ ≤ (vfMidThetaBarrierRadius C S + vfMidThetaBarrierRadius C (S + 1)) /
+          Real.log (vfMidBandMidpoint S) + |vfMidDirectLogPositionError S| :=
+        add_le_add_right (div_le_div_of_nonneg_right hband hlog.le) _
+  exact (not_lt_of_ge hfull) hviolation
+
+/-- Uniform local VF charge sufficient to force one of the two theta
+endpoints outside, including the already-proved log-position allowance. -/
+def vfMidThetaLocalBlockEscapeThreshold (C : ℝ) (S : ℕ) : ℝ :=
+  (vfMidThetaBarrierRadius C S + vfMidThetaBarrierRadius C (S + 1)) /
+      Real.log (vfMidBandMidpoint S) + 9 / Real.log 4
+
+/-- Squared-energy version of the same local threshold. -/
+def vfMidThetaLocalBlockEscapeEnergyThreshold (C : ℝ) (S : ℕ) : ℝ :=
+  (vfMidThetaLocalBlockEscapeThreshold C S) ^ 2
+
+/-- The local threshold is nonnegative in the intended nonnegative-barrier
+regime, already from child scale two. -/
+theorem vfMidThetaLocalBlockEscapeThreshold_nonneg
+    (C : ℝ) (hC : 0 ≤ C) {S : ℕ} (hS : 2 ≤ S) :
+    0 ≤ vfMidThetaLocalBlockEscapeThreshold C S := by
+  have hSreal : (2 : ℝ) ≤ (S : ℝ) := by exact_mod_cast hS
+  have hmid : 1 < vfMidBandMidpoint S := by
+    unfold vfMidBandMidpoint
+    nlinarith
+  have hlog : 0 < Real.log (vfMidBandMidpoint S) := Real.log_pos hmid
+  have hlog4 : 0 < Real.log 4 := Real.log_pos (by norm_num)
+  unfold vfMidThetaLocalBlockEscapeThreshold vfMidThetaBarrierRadius
+  positivity
+
+/-- A local block defect above the uniform threshold forces either its left
+or right theta endpoint outside.  No prime-distribution premise is used. -/
+theorem vfMidThetaEndpointOutside_of_localBlockDefect
+    (C : ℝ) {S : ℕ} (hS : 2 ≤ S)
+    (hlarge : vfMidThetaLocalBlockEscapeThreshold C S <
+      |vfMidOddCompositeTrackingDefect S|) :
+    VFMidThetaEndpointOutsideAt C S ∨
+      VFMidThetaEndpointOutsideAt C (S + 1) := by
+  have hposition := abs_vfMidDirectLogPositionError_le S hS
+  have hcost :
+      (vfMidThetaBarrierRadius C S + vfMidThetaBarrierRadius C (S + 1)) /
+          Real.log (vfMidBandMidpoint S) + |vfMidDirectLogPositionError S| ≤
+        vfMidThetaLocalBlockEscapeThreshold C S := by
+    unfold vfMidThetaLocalBlockEscapeThreshold
+    linarith
+  obtain ⟨T, hT, houtside⟩ :=
+    vfMidFullScaleViolation_forces_thetaEndpointViolation C S hS (hcost.trans_lt hlarge)
+  rcases hT with rfl | rfl
+  · exact Or.inl houtside
+  · exact Or.inr houtside
+
+/-- Squared local charge suffices once the threshold is known nonnegative.
+The endpoint conclusion and the child lower range are unchanged. -/
+theorem vfMidThetaEndpointOutside_of_localBlockDefect_sq
+    (C : ℝ) (hC : 0 ≤ C) {S : ℕ} (hS : 2 ≤ S)
+    (hlarge : vfMidThetaLocalBlockEscapeEnergyThreshold C S <
+      (vfMidOddCompositeTrackingDefect S) ^ 2) :
+    VFMidThetaEndpointOutsideAt C S ∨
+      VFMidThetaEndpointOutsideAt C (S + 1) := by
+  have hthreshold := vfMidThetaLocalBlockEscapeThreshold_nonneg C hC hS
+  have hlargeAbs : vfMidThetaLocalBlockEscapeThreshold C S <
+      |vfMidOddCompositeTrackingDefect S| := by
+    unfold vfMidThetaLocalBlockEscapeEnergyThreshold at hlarge
+    nlinarith [abs_nonneg (vfMidOddCompositeTrackingDefect S),
+      sq_abs (vfMidOddCompositeTrackingDefect S)]
+  exact vfMidThetaEndpointOutside_of_localBlockDefect C hS hlargeAbs
+
+/-- Direct inherited-packet consumer using the exact complement capacity.
+Its margin and endpoint conversion cost remain explicit: no unconditional
+parent-escape implication is asserted. -/
+theorem vfMidNativePacket_forces_recursiveViolation_of_complement_margin
+    (C : ℝ) (R S T : ℕ) (hstep : VFMidRecursiveScaleStep R S)
+    (hTS : T ≤ S)
+    (hmargin :
+      vfMidThetaLocalBlockEscapeThreshold C S <
+        vfMidRecursiveNativeChargeInBlock R S +
+          (((vfMidRecursiveComplementCarrier R S).card : ℝ) -
+            vfMidRecursiveRightSquareAtom R S) *
+            vfMidOddFractionalPrimeSeatWeight S -
+          ((min (vfMidRecursiveComplementCarrier R S).card
+            (vfMidPrefixWheelEnvelope T S -
+              (vfMidRecursivePrimeChildrenInBlock R S).card) : ℕ) : ℝ) ∨
+      vfMidRecursiveNativeChargeInBlock R S +
+          (((vfMidRecursiveComplementCarrier R S).card : ℝ) -
+            vfMidRecursiveRightSquareAtom R S) *
+            vfMidOddFractionalPrimeSeatWeight S <
+        -vfMidThetaLocalBlockEscapeThreshold C S) :
+    ∃ U : ℕ, VFMidRecursiveScaleStep R S ∧
+      (U = S ∨ U = S + 1) ∧ VFMidThetaEndpointOutsideAt C U := by
+  have hS : 2 ≤ S := by
+    have hS3 := vfMidRecursiveScaleStep_three_le hstep
+    omega
+  have hfull :=
+    vfMidNativePacket_forces_fullScaleViolation_of_complement_margin
+      R S T hS hTS (vfMidThetaLocalBlockEscapeThreshold C S) hmargin
+  rcases vfMidThetaEndpointOutside_of_localBlockDefect C hS hfull with hleft | hright
+  · exact ⟨S, hstep, Or.inl rfl, hleft⟩
+  · exact ⟨S + 1, hstep, Or.inr rfl, hright⟩
+
 /-- **Logically minimal boundary forcing statement.**
 
 To close the envelope by minimal counterexample, a first one-step escape at
