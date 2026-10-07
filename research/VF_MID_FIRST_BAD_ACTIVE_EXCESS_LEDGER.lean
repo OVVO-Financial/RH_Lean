@@ -62,6 +62,162 @@ theorem vfMidOneBlockActivePhysicalSite_absSum_eq
       intro n hn
       simp [vfMidOneBlockActivePhysicalSite, hn]
 
+/-! ## Literal excluded physical carrier -/
+
+/-- Physical squareful seats excluded from the squarefree Möbius carrier,
+with the least-prime owner retained. -/
+def vfMidOneBlockProcessedSquarefulPhysicalCarrier (R : ℕ) : Finset ℕ :=
+  (vfMidFrozenProcessedOwnerPrimes R R).biUnion
+    (vfMidSquarefulProcessedOwnerSites R)
+
+/-- Distinct least-prime owners give disjoint squareful physical fibres. -/
+theorem vfMidSquarefulProcessedOwnerSites_pairwiseDisjoint
+    (R : ℕ) :
+    Set.PairwiseDisjoint
+      (↑(vfMidFrozenProcessedOwnerPrimes R R))
+      (vfMidSquarefulProcessedOwnerSites R) := by
+  intro p _hp q _hq hpq
+  change Disjoint
+    (vfMidSquarefulProcessedOwnerSites R p)
+    (vfMidSquarefulProcessedOwnerSites R q)
+  rw [Finset.disjoint_left]
+  intro n hnp hnq
+  have hpmin :
+      n.minFac = p :=
+    (Finset.mem_filter.mp (Finset.mem_filter.mp hnp).1).2
+  have hqmin :
+      n.minFac = q :=
+    (Finset.mem_filter.mp (Finset.mem_filter.mp hnq).1).2
+  exact hpq (hpmin.symm.trans hqmin)
+
+/-- **Literal carrier identity.**
+
+The odd seats omitted by the active squarefree physical carrier are exactly
+the processed squareful physical seats.  This is a set equality, not a
+cardinality comparison. -/
+theorem vfMidOddCandidates_sdiff_active_eq_squarefulProcessedCarrier
+    {R : ℕ} (hR : 3 ≤ R) :
+    vfMidOddCandidateSeats R \ vfMidOneBlockActivePhysicalCarrier R =
+      vfMidOneBlockProcessedSquarefulPhysicalCarrier R := by
+  ext n
+  constructor
+  · intro hn
+    have hncand : n ∈ vfMidOddCandidateSeats R :=
+      (Finset.mem_sdiff.mp hn).1
+    have hnnot :
+        n ∉ vfMidOneBlockActivePhysicalCarrier R :=
+      (Finset.mem_sdiff.mp hn).2
+    have hsplit :=
+      vfMidSquarePrefixWheelSurvivors_eq_prime_union_prefixComposite
+        (A := 2) (R := R) (by omega : 2 ≤ R) (by omega : 2 ≤ R)
+    have hmem :
+        n ∈ vfMidSquareWheelPrimes R ∪
+          vfMidSquareBandPrefixCompositeSurvivors 2 R := by
+      rw [← hsplit]
+      simpa [vfMidOddCandidateSeats] using hncand
+    rcases Finset.mem_union.mp hmem with hnPrime | hnComposite
+    · exfalso
+      apply hnnot
+      unfold vfMidOneBlockActivePhysicalCarrier
+      exact Finset.mem_union.mpr (Or.inl hnPrime)
+    · have hnComp : n ∈ vfMidSquareBandComposites R :=
+        (Finset.mem_filter.mp hnComposite).1
+      have hnSurv : lowWheelHighSurvivor 2 n :=
+        (Finset.mem_filter.mp hnComposite).2
+      have hpOwner :
+          n.minFac ∈ vfMidSquareBandOwnerPrimes R :=
+        vfMidSquareBandComposite_minFac_mem_ownerPrimes
+          (by omega : 2 ≤ R) hnComp
+      have hpGt : 2 < n.minFac :=
+        (vfMidSquareBandComposite_survives_prefix_iff_minFac_gt
+          (z := 2) (R := R) (n := n) (by omega : 2 ≤ R) hnComp).1 hnSurv
+      have hpLate :
+          n.minFac ∈ vfMidSquareBandLateOwnerPrimes 2 R :=
+        mem_vfMidSquareBandLateOwnerPrimes.mpr ⟨hpOwner, hpGt⟩
+      have hpProcessed :
+          n.minFac ∈ vfMidFrozenProcessedOwnerPrimes R R := by
+        rw [vfMidFrozenProcessedOwnerPrimes_self_eq_allOddOwners R]
+        exact hpLate
+      have hnOwner :
+          n ∈ vfMidSquareBandCompositeOwner R n.minFac :=
+        Finset.mem_filter.mpr ⟨hnComp, rfl⟩
+      have hnNotSquarefree : ¬ Squarefree n := by
+        intro hnSquarefree
+        apply hnnot
+        unfold vfMidOneBlockActivePhysicalCarrier
+        apply Finset.mem_union.mpr
+        apply Or.inr
+        unfold vfMidOneBlockProcessedSquarefreePhysicalCarrier
+        apply Finset.mem_biUnion.mpr
+        exact ⟨n.minFac, hpProcessed,
+          Finset.mem_filter.mpr ⟨hnOwner, hnSquarefree⟩⟩
+      unfold vfMidOneBlockProcessedSquarefulPhysicalCarrier
+      apply Finset.mem_biUnion.mpr
+      exact ⟨n.minFac, hpProcessed,
+        Finset.mem_filter.mpr ⟨hnOwner, hnNotSquarefree⟩⟩
+  · intro hn
+    unfold vfMidOneBlockProcessedSquarefulPhysicalCarrier at hn
+    rcases Finset.mem_biUnion.mp hn with ⟨p, hpProcessed, hnSquareful⟩
+    have hnOwner : n ∈ vfMidSquareBandCompositeOwner R p :=
+      (Finset.mem_filter.mp hnSquareful).1
+    have hnNotSquarefree : ¬ Squarefree n :=
+      (Finset.mem_filter.mp hnSquareful).2
+    have hnComp : n ∈ vfMidSquareBandComposites R :=
+      (Finset.mem_filter.mp hnOwner).1
+    have hnMin : n.minFac = p :=
+      (Finset.mem_filter.mp hnOwner).2
+    have hpLate :
+        p ∈ vfMidSquareBandLateOwnerPrimes 2 R := by
+      rw [← vfMidFrozenProcessedOwnerPrimes_self_eq_allOddOwners R]
+      exact hpProcessed
+    have hpGt : 2 < p :=
+      (mem_vfMidSquareBandLateOwnerPrimes.mp hpLate).2
+    have hnSurv : lowWheelHighSurvivor 2 n := by
+      apply (vfMidSquareBandComposite_survives_prefix_iff_minFac_gt
+        (z := 2) (R := R) (n := n) (by omega : 2 ≤ R) hnComp).2
+      simpa [hnMin] using hpGt
+    have hncand : n ∈ vfMidOddCandidateSeats R := by
+      unfold vfMidOddCandidateSeats vfMidSquarePrefixWheelSurvivors
+      apply Finset.mem_filter.mpr
+      constructor
+      · have hnSite : n ∈ vfMidSquareBandSites R :=
+          (Finset.mem_filter.mp hnComp).1
+        simpa [vfMidSquareBandSites, vfMidSquareWheelSites] using hnSite
+      · exact hnSurv
+    apply Finset.mem_sdiff.mpr
+    refine ⟨hncand, ?_⟩
+    intro hnActive
+    unfold vfMidOneBlockActivePhysicalCarrier at hnActive
+    rcases Finset.mem_union.mp hnActive with hnPrime | hnSquarefreeCarrier
+    · have hnP : n.Prime := (Finset.mem_filter.mp hnPrime).2
+      have hnNotP : ¬ n.Prime := (Finset.mem_filter.mp hnComp).2
+      exact hnNotP hnP
+    · unfold vfMidOneBlockProcessedSquarefreePhysicalCarrier at hnSquarefreeCarrier
+      rcases Finset.mem_biUnion.mp hnSquarefreeCarrier with
+        ⟨q, _hq, hnSquarefree⟩
+      exact hnNotSquarefree (Finset.mem_filter.mp hnSquarefree).2
+
+/-- The absolute omitted mass and the signed squareful restoring charge are
+the same physical quantity because every squareful processed seat carries the
+nonnegative VF fractional charge. -/
+theorem vfMidWeightedOmittedSeatAbsMass_eq_squarefulCharge
+    {R : ℕ} (hR : 3 ≤ R) :
+    vfMidWeightedOmittedSeatAbsMass R =
+      vfMidOneBlockProcessedSquarefulCharge R := by
+  unfold vfMidWeightedOmittedSeatAbsMass
+  rw [vfMidOddCandidates_sdiff_active_eq_squarefulProcessedCarrier hR]
+  unfold vfMidOneBlockProcessedSquarefulPhysicalCarrier
+  rw [Finset.sum_biUnion
+    (vfMidSquarefulProcessedOwnerSites_pairwiseDisjoint R)]
+  unfold vfMidOneBlockProcessedSquarefulCharge
+  apply Finset.sum_congr rfl
+  intro p _hp
+  apply Finset.sum_congr rfl
+  intro n hn
+  rw [vfMidOddSignedSeatCharge_eq_weight_on_squareful_processed hn]
+  rw [abs_of_nonneg
+    (vfMidOddFractionalPrimeSeatWeight_nonneg R (by omega : 2 ≤ R))]
+
 /-- Literal active diagonal after the identity root has been removed. -/
 def vfMidActivePhysicalDiagonalMass (R : ℕ) : ℝ :=
   lowOwnerGlobalDiagonalPairMassWith (R + 1)
@@ -225,6 +381,19 @@ theorem vfMidFirstBadCoDivExcess_eq_activeResidual_add_weightedCells
   unfold vfMidActiveGlobalResidualExcess
   rw [← hcells]
   ring
+
+/-- Named Co/Div form of the same exact active ledger. -/
+theorem vfMidFirstBadAnchoredCoDivExcess_eq_activeResidual_add_weightedCells
+    {R : ℕ} (hR : 3 ≤ R) :
+    vfMidFirstBadAnchoredCoDivExcess R =
+      vfMidActiveGlobalResidualExcess R +
+        ∑ p ∈ primesUpTo (squareRootEndpoint (R + 1)),
+          ∑ sig ∈ lowOwnerFirstOwnerSignatureSet (R + 1) p,
+            vfMidActiveWeightedCellExcess R p sig := by
+  rw [vfMidFirstBadAnchoredCoDivExcess_eq_two_product_sub_total,
+    vfMidFirstBadNormalizedProduct_eq_nextEndpointDefect_sq hR]
+  exact
+    vfMidFirstBadCoDivExcess_eq_activeResidual_add_weightedCells hR
 
 /-- Omitted-seat capacity correction is always cooling: it enters the global
 excess with a nonpositive sign. -/
