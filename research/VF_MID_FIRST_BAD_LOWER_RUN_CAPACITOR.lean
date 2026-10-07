@@ -27,13 +27,19 @@ Thus the capacitor variables are not new analytic objects:
 
 The last term is an exact multiplicity-preserving lower-scale prime transport.
 Every tagged child prime occurring in it lies strictly below A^2 and has
-square-root scale strictly below A.
+square-root scale strictly below A.  It is also nonnegative, because it is
+literally a sum of child-population cardinalities.
 
-The generic capacitor lemmas then apply without any pair/Gram conversion:
-if |Q_recursive| <= H, the deterministic/frozen part Q_safe must remain inside
-the rigid window [Q_parent-H,Q_parent+H].  Conversely, any proved capacity or
-floor for Q_safe which leaves that window forces Q_recursive to be
-supercritical.
+Therefore this coordinate is the **lower-wall / composite-vacuum capacitor**.
+It transports positive VF-minus-actual pressure to lower scales.  The
+upper-wall / prime-cluster direction must be handled by the complementary
+prime-survivor capacity ledger; it is not represented by pretending this
+nonnegative transport can become negative.
+
+The generic capacitor window applies without any pair/Gram conversion:
+if Q_recursive <= H, the deterministic/frozen part Q_safe must remain inside
+the rigid window [Q_parent-H,Q_parent+H].  Any upper capacity for Q_safe which
+leaves that window forces Q_recursive to be positively supercritical.
 
 No prime-gap estimate, independence hypothesis, fantasy-cone membership, norm,
 or absolute-value decomposition is introduced here.
@@ -136,18 +142,36 @@ theorem vfMidDyadicLowerPrimeIntervalTransport_gt_of_frozenSafeCapacity
       hA hAB hBA)
     hsafe hexcess
 
-/-- Negative-side capacitor tripwire. -/
-theorem vfMidDyadicLowerPrimeIntervalTransport_lt_neg_of_frozenSafeFloor
+/-- The lower-prime transport is nonnegative: it is exactly the
+multiplicity-preserving population of stripped frozen-composite prime
+children.  This fixes the sign of the lower-wall descent currency. -/
+theorem vfMidDyadicLowerPrimeIntervalTransport_nonneg
+    {A B : ℕ}
+    (hA : 4 ≤ A) (hAB : A ≤ B) (hBA : B ≤ 2 * A) :
+    0 ≤ vfMidDyadicLowerPrimeIntervalTransport A B := by
+  unfold vfMidDyadicLowerPrimeIntervalTransport
+  rw [← vfMidDyadicFrozenCompositeOwnerChildSupply_eq_primeIntervalSupply
+    hA hAB hBA]
+  unfold vfMidDyadicFrozenCompositeOwnerChildSupply
+  positivity
+
+/-- Because the lower transport is nonnegative, an ordinary upper bound is
+enough to invoke the two-sided capacitor window; no absolute-value estimate is
+needed on this side. -/
+theorem vfMidDyadicFrozenSafeMass_mem_trackingWindow_of_lowerTransport_le
     {A B : ℕ}
     (hA : 4 ≤ A) (hAB : A ≤ B) (hBA : B ≤ 2 * A)
-    {floorMass H : ℝ}
-    (hsafe : floorMass ≤ vfMidDyadicFrozenSafeMass A B)
-    (hover : vfMidDyadicVFTrackingDefect A B + H < floorMass) :
-    vfMidDyadicLowerPrimeIntervalTransport A B < -H := by
-  exact vfMidRecursiveResidual_lt_neg_of_safeFloor
-    (vfMidDyadicVFTrackingDefect_eq_frozenSafe_add_lowerTransport
-      hA hAB hBA)
-    hsafe hover
+    {H : ℝ}
+    (hrec : vfMidDyadicLowerPrimeIntervalTransport A B ≤ H) :
+    vfMidDyadicVFTrackingDefect A B - H ≤
+        vfMidDyadicFrozenSafeMass A B ∧
+      vfMidDyadicFrozenSafeMass A B ≤
+        vfMidDyadicVFTrackingDefect A B + H := by
+  have hnonneg :=
+    vfMidDyadicLowerPrimeIntervalTransport_nonneg hA hAB hBA
+  apply vfMidDyadicFrozenSafeMass_mem_trackingWindow_of_lowerTransport_abs_le
+    hA hAB hBA
+  simpa [abs_of_nonneg hnonneg] using hrec
 
 /-- Every actual tagged prime child in the lower transport lies on a strictly
 smaller square-root scale.  This packages the existing frozen-run geometry in
