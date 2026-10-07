@@ -269,12 +269,12 @@ theorem lowOwnerFirstOwnerGreatestOwnerRecursiveContinuationPairFiber_data
   have h3rest := Finset.mem_filter.mp h4rest.1
   have h2rest := Finset.mem_filter.mp h3rest.1
   have h1rest := Finset.mem_filter.mp h2rest.1
-  have hbase := (Finset.mem_filter.mp h1rest.1).1
-  have hnotCurrent := (Finset.mem_filter.mp h1rest.1).2
-  have hnotEqual := h1rest.2
-  have hnotClipped := h2rest.2
-  have hnotLowerFamily := h3rest.2
-  have hnotLowerTerminal := h4rest.2
+  have hbase := h1rest.1
+  have hnotCurrent := h1rest.2
+  have hnotEqual := h2rest.2
+  have hnotClipped := h3rest.2
+  have hnotLowerFamily := h4rest.2
+  have hnotLowerTerminal := h5.2
   have hcont :=
     lowOwnerFirstOwnerGreatestOwnerPositivePair_namedContinuation hp hbase
   dsimp only at hcont ⊢
