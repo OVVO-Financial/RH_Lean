@@ -5,6 +5,43 @@ square-prefix Mertens program. It records which mechanisms are exact, which
 finite experiments have been run, which mechanisms have failed their declared
 tests, and which routes remain materially distinct.
 
+## Current canonical route lock — 2026-10-06
+
+The canonical direct-VF closure is **structural owner admissibility**, not a
+fresh realized-cancellation estimate:
+
+```text
+VFMidActualPrimeOwnerEscapeAdmissibleStatement
+  -> VFMidSquareEndpointVonKochBoundedStatement
+  -> RH through the existing compiled bridge.
+```
+
+The only open arithmetic implication in this route is strict-child escape
+reproduction for the actual prime trajectory.  The solved fantasy series and
+admissible channel already encode the cancellation geometry used as the safe
+reference.  Do not reopen that content as a new Gram, covariance, H-norm, or
+global prime-error cancellation program.
+
+A proposed theorem belongs to this route only if it directly advances
+
+```text
+actual bad R
+  -> exists S, VFMidRecursiveScaleStep R S and actual bad S.
+```
+
+Consequences for current PRs:
+
+| Route / PR | Canonical status |
+| --- | --- |
+| Owner-admissible strict-child reproduction | **ACTIVE / REQUIRED** |
+| #903 greatest-owner continuation partition | **ACTIVE STRUCTURAL SUPPORT ONLY**: exact classifier/Fubini for escape reproduction |
+| #900 normalized covariance / global H-norm | **ALTERNATIVE, NOT REQUIRED**: may donate exact lemmas, but its half-bound is not a dependency |
+| Direct actual-prime membership in the solved fantasy cone | **NONCANONICAL SUFFICIENT CONDITION**: essentially the target in another coordinate |
+
+The no-drift test is mandatory: if a proposed step does not help select a
+strict recursive bad child from an actual parent escape, it is outside the
+canonical closeout.
+
 ## Current closeout — 2026-09-26
 
 [`CURRENT_PROOF_CONTRACT.md`](CURRENT_PROOF_CONTRACT.md) gives the exact
