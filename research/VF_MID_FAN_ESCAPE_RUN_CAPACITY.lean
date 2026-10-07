@@ -65,14 +65,11 @@ theorem vfMidDyadicPrimeJumpCount_cast_eq_primeSupply
       vfMidDyadicPrimeSupply A B := by
   have hsq : A ^ 2 ≤ B ^ 2 :=
     Nat.pow_le_pow_left hAB 2
-  have hcount :=
-    primeCard_Ioc_add_primeCounting_eq hsq
   have hpc :
-      Nat.primeCounting (A ^ 2) ≤ Nat.primeCounting (B ^ 2) := by
-    omega
+      Nat.primeCounting (A ^ 2) ≤ Nat.primeCounting (B ^ 2) :=
+    Nat.monotone_primeCounting hsq
   unfold vfMidDyadicPrimeJumpCount vfMidDyadicPrimeSupply
   rw [Nat.cast_sub hpc]
-  norm_num
 
 /-- The square-root displacement B-A really lands at B. -/
 theorem vfMidRadial_runOffset_add
@@ -119,15 +116,12 @@ theorem vfMidPrimeCounting_sq_eq_start_add_jumpCount
         (vfMidDyadicPrimeJumpCount A B : ℝ) := by
   have hsq : A ^ 2 ≤ B ^ 2 :=
     Nat.pow_le_pow_left hAB 2
-  have hcount :=
-    primeCard_Ioc_add_primeCounting_eq hsq
   have hpc :
-      Nat.primeCounting (A ^ 2) ≤ Nat.primeCounting (B ^ 2) := by
-    omega
+      Nat.primeCounting (A ^ 2) ≤ Nat.primeCounting (B ^ 2) :=
+    Nat.monotone_primeCounting hsq
   unfold vfMidDyadicPrimeJumpCount
   rw [Nat.cast_sub hpc]
-  push_cast
-  linarith
+  ring
 
 /-- **Centered-start upper containment from finite wheel capacity.**
 
@@ -162,130 +156,6 @@ theorem vfMidRadialUpper_actualPrime_le_of_center_and_prefixCapacity
   rw [← hcount]
   exact habove'
 
-
-/-! ## Variable-prefix wheel capacity over a complete square run -/
-
-/-- Actual prime population over the consecutive square blocks
-`R in [A,A+s)`, kept as a natural number for direct comparison with the
-integer upper-wall jump bill. -/
-def vfMidSquareRunPrimeSupply (A s : ℕ) : ℕ :=
-  ∑ R ∈ Finset.Ico A (A + s), vfMidIntegerBlockPrimeSupply R
-
-/-- Deterministic run capacity obtained by choosing an admissible prefix-wheel
-cutoff independently in every block. -/
-def vfMidSquareRunPrefixWheelCapacity
-    (S : ℕ → ℕ) (A s : ℕ) : ℕ :=
-  ∑ R ∈ Finset.Ico A (A + s), vfMidPrefixWheelEnvelope (S R) R
-
-/-- **Exact finite run wheel capacity.**
-
-Every block may use its own prefix cutoff `S R <= R`; summing the compiled
-blockwise envelopes gives a deterministic upper bound for the complete actual
-prime population of the run. -/
-theorem vfMidSquareRunPrimeSupply_le_prefixWheelCapacity
-    (S : ℕ → ℕ) (A s : ℕ)
-    (hA : 2 ≤ A)
-    (hS : ∀ R ∈ Finset.Ico A (A + s), S R ≤ R) :
-    vfMidSquareRunPrimeSupply A s ≤
-      vfMidSquareRunPrefixWheelCapacity S A s := by
-  unfold vfMidSquareRunPrimeSupply vfMidSquareRunPrefixWheelCapacity
-  apply Finset.sum_le_sum
-  intro R hR
-  have hAR : A ≤ R := (Finset.mem_Ico.mp hR).1
-  have hR2 : 2 ≤ R := hA.trans hAR
-  exact
-    vfMidIntegerBlockPrimeSupply_le_prefixWheelEnvelope
-      (S R) R hR2 (hS R hR)
-
-/-- The natural run population is exactly the existing real dyadic prime
-supply. -/
-theorem vfMidSquareRunPrimeSupply_cast_eq_dyadicPrimeSupply
-    (A s : ℕ) :
-    (vfMidSquareRunPrimeSupply A s : ℝ) =
-      vfMidDyadicPrimeSupply A (A + s) := by
-  rw [vfMidDyadicPrimeSupply_eq_sum_blockPrimeSupply
-    A (A + s) (by omega)]
-  unfold vfMidSquareRunPrimeSupply
-  push_cast
-  rfl
-
-/-- **Variable-prefix wheel capacity below the fan bill forbids upper escape.**
-
-This is the exact finite-capacity contradiction in the same natural-count
-currency as the upper jump bill. -/
-theorem vfMidRadialUpper_noBreak_of_runPrefixWheelCapacity_lt_bill
-    (S : ℕ → ℕ) (K : ℝ) (A s : ℕ)
-    (hA : 2 ≤ A)
-    (hS : ∀ R ∈ Finset.Ico A (A + s), S R ≤ R)
-    (hcap :
-      vfMidSquareRunPrefixWheelCapacity S A s <
-        vfMidRadialUpperPrimeJumpBill K A s) :
-    ¬ (vfMidSolvedFantasyRadialUpperCount K (A + s) <
-      vfMidRadialCenterCount A +
-        (vfMidSquareRunPrimeSupply A s : ℝ)) := by
-  have hsupply :=
-    vfMidSquareRunPrimeSupply_le_prefixWheelCapacity S A s hA hS
-  have hq :
-      vfMidSquareRunPrimeSupply A s <
-        vfMidRadialUpperPrimeJumpBill K A s :=
-    hsupply.trans_lt hcap
-  exact vfMidRadialUpperPrimeJumpBill_minimal K A s hq
-
-/-- The same upper no-crossing theorem written directly as the actual
-square-endpoint prime-count increment. -/
-theorem vfMidRadialUpper_noBreak_of_runPrefixWheelCapacity_lt_bill_primeCounting
-    (S : ℕ → ℕ) (K : ℝ) (A s : ℕ)
-    (hA : 2 ≤ A)
-    (hS : ∀ R ∈ Finset.Ico A (A + s), S R ≤ R)
-    (hcap :
-      vfMidSquareRunPrefixWheelCapacity S A s <
-        vfMidRadialUpperPrimeJumpBill K A s) :
-    ¬ (vfMidSolvedFantasyRadialUpperCount K (A + s) <
-      vfMidRadialCenterCount A +
-        ((Nat.primeCounting ((A + s) ^ 2) : ℝ) -
-          (Nat.primeCounting (A ^ 2) : ℝ))) := by
-  have hno :=
-    vfMidRadialUpper_noBreak_of_runPrefixWheelCapacity_lt_bill
-      S K A s hA hS hcap
-  have hrun :=
-    vfMidSquareRunPrimeSupply_cast_eq_dyadicPrimeSupply A s
-  unfold vfMidDyadicPrimeSupply at hrun
-  simpa [hrun] using hno
-
-/-- **One-block wheel specialization.**
-
-Any single admissible prefix-wheel envelope which is smaller than the exact
-one-block jump bill already forbids an upper-wall crossing in that block. -/
-theorem vfMidRadialUpper_noBreak_oneBlock_of_prefixWheelEnvelope_lt_bill
-    (K : ℝ) (T R : ℕ)
-    (hR : 2 ≤ R) (hTR : T ≤ R)
-    (hcap :
-      vfMidPrefixWheelEnvelope T R <
-        vfMidRadialUpperPrimeJumpBill K R 1) :
-    ¬ (vfMidSolvedFantasyRadialUpperCount K (R + 1) <
-      vfMidRadialCenterCount R +
-        (vfMidIntegerBlockPrimeSupply R : ℝ)) := by
-  have hsupply :=
-    vfMidIntegerBlockPrimeSupply_le_prefixWheelEnvelope T R hR hTR
-  have hq :
-      vfMidIntegerBlockPrimeSupply R <
-        vfMidRadialUpperPrimeJumpBill K R 1 :=
-    hsupply.trans_lt hcap
-  have hmin :=
-    vfMidRadialUpperPrimeJumpBill_minimal K R 1 hq
-  simpa using hmin
-
-/-- Coarse all-scale fallback: summing the compiled block bound
-`P_R <= R` over a run. -/
-theorem vfMidSquareRunPrimeSupply_le_sum_roots
-    (A s : ℕ) (hA : 2 ≤ A) :
-    vfMidSquareRunPrimeSupply A s ≤
-      ∑ R ∈ Finset.Ico A (A + s), R := by
-  unfold vfMidSquareRunPrimeSupply
-  apply Finset.sum_le_sum
-  intro R hR
-  have hAR : A ≤ R := (Finset.mem_Ico.mp hR).1
-  exact vfMidIntegerBlockPrimeSupply_le_R R (hA.trans hAR)
 
 
 end RHLean.Analysis
