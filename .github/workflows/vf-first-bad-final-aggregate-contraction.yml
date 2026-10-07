@@ -109,6 +109,9 @@ jobs:
           #print axioms RHLean.Analysis.vfMidActiveWeightedCellExcess_eq_threeBoundaryExcess
           #print axioms RHLean.Analysis.sum_vfMidActiveWeightedCellExcess_eq_threeBoundaryExcess
           #print axioms RHLean.Analysis.vfMidFirstBadAnchoredCoDivExcess_eq_activeResidual_add_threeBoundaryExcess
+          #print axioms RHLean.Analysis.vfMidActiveReturnedRawParentFiberExcess_eq_fourMass_sub_twoAbs
+          #print axioms RHLean.Analysis.vfMidActiveThreeBoundaryExcess_eq_fourMass_sub_twoAbs
+          #print axioms RHLean.Analysis.vfMidFirstBadAnchoredCoDivExcess_eq_activeResidual_add_fourBoundary_sub_heat
           #print axioms RHLean.Analysis.vfMidActualPrimeFirstBadAt_two_succ_activeExcess_nonpos_of_exactBudget
           EOF
           lake env lean -DwarningAsError=true /tmp/VF_FINAL_AGGREGATE_AUDIT.lean | tee final-aggregate-axioms.log
