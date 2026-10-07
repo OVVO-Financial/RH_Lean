@@ -679,8 +679,8 @@ theorem descendingGreatestOwner_retained_pointwiseCoDivExcess_pair_eq_heat
     descendingGreatestOwner_retained_zeroTargetExcess_flip
       hp hcross coefficient
   dsimp only at hflip ⊢
-  rw [hflip]
-  simpa [add_comm] using
+  rw [hflip, abs_neg]
+  simpa only [add_comm] using
     (vfMidPointwiseCoDivExcess_add_neg
       (coefficient ^ 2 *
         postRootZeroTargetPairExcess
@@ -700,6 +700,7 @@ theorem descendingGreatestOwner_retained_pointwiseCoDivExcess_pair_nonpos
         (coefficient ^ 2 * postRootZeroTargetPairExcess (m, n)) +
       vfMidPointwiseCoDivExcess
         (coefficient ^ 2 * postRootZeroTargetPairExcess (um, un)) ≤ 0 := by
+  dsimp only
   rw [descendingGreatestOwner_retained_pointwiseCoDivExcess_pair_eq_heat
     hp hcross coefficient]
   have hnonneg :
@@ -1237,9 +1238,6 @@ theorem vfMidActiveReturnedRawParentFiberExcess_eq_fourMass_sub_twoAbs
     vfMidActiveReturnedPairCoDivExcess
     vfMidPointwiseCoDivExcess
   rw [Finset.mul_sum, Finset.mul_sum, ← Finset.sum_sub_distrib]
-  apply Finset.sum_congr rfl
-  intro child _hchild
-  ring
 
 /-- Absolute heat carried by exactly the three physical boundary sectors which
 survive the #914 support classification. -/
@@ -1263,6 +1261,7 @@ def vfMidActiveThreeBoundaryAbsMass (R : ℕ) : ℝ :=
 @[simp] theorem vfMidActiveThreeBoundaryAbsMass_nonneg (R : ℕ) :
     0 ≤ vfMidActiveThreeBoundaryAbsMass R := by
   unfold vfMidActiveThreeBoundaryAbsMass
+    vfMidActiveReturnedRawParentFiberAbsMass
   positivity
 
 /-- **Exact 317/1027 production normal form.**
@@ -1271,6 +1270,15 @@ The three-boundary Co/Div excess is not a positive boundary majorant.  It is
 literally four times the signed physical boundary mass minus twice its retained
 absolute heat.  This is the equality the finite 317/1027 ledgers were
 diagnosing. -/
+private theorem sum_eq_four_mul_sub_two_mul_of_pointwise
+    {ι : Type*} [DecidableEq ι]
+    (s : Finset ι) (e m a : ι → ℝ)
+    (h : ∀ i ∈ s, e i = 4 * m i - 2 * a i) :
+    (∑ i ∈ s, e i) =
+      4 * (∑ i ∈ s, m i) - 2 * (∑ i ∈ s, a i) := by
+  rw [Finset.mul_sum, Finset.mul_sum, ← Finset.sum_sub_distrib]
+  exact Finset.sum_congr rfl h
+
 theorem vfMidActiveThreeBoundaryExcess_eq_fourMass_sub_twoAbs
     (R : ℕ) :
     vfMidActiveThreeBoundaryExcess R =
@@ -1279,17 +1287,67 @@ theorem vfMidActiveThreeBoundaryExcess_eq_fourMass_sub_twoAbs
   unfold vfMidActiveThreeBoundaryExcess
     vfMidActiveThreeBoundaryMass
     vfMidActiveThreeBoundaryAbsMass
-  rw [Finset.mul_sum, Finset.mul_sum]
-  apply Finset.sum_congr rfl
+  apply sum_eq_four_mul_sub_two_mul_of_pointwise
   intro p _hp
-  rw [Finset.mul_sum, Finset.mul_sum]
-  apply Finset.sum_congr rfl
+  apply sum_eq_four_mul_sub_two_mul_of_pointwise
   intro sig _hsig
-  rw [Finset.mul_sum, Finset.mul_sum]
-  apply Finset.sum_congr rfl
+  apply sum_eq_four_mul_sub_two_mul_of_pointwise
   intro r _hr
-  repeat' rw [Finset.mul_sum]
-  simp_rw [vfMidActiveReturnedRawParentFiberExcess_eq_fourMass_sub_twoAbs]
+  have hfirst :
+      (∑ parent ∈
+          lowOwnerFirstOwnerIncompleteFirstClipLeftSet
+            (R + 1) p sig r,
+          vfMidActiveReturnedRawParentFiberExcess R p sig r parent) =
+        4 * (∑ parent ∈
+          lowOwnerFirstOwnerIncompleteFirstClipLeftSet
+            (R + 1) p sig r,
+          vfMidActiveReturnedRawParentFiberMass R p sig r parent) -
+        2 * (∑ parent ∈
+          lowOwnerFirstOwnerIncompleteFirstClipLeftSet
+            (R + 1) p sig r,
+          vfMidActiveReturnedRawParentFiberAbsMass R p sig r parent) := by
+    apply sum_eq_four_mul_sub_two_mul_of_pointwise
+    intro parent _hparent
+    exact
+      vfMidActiveReturnedRawParentFiberExcess_eq_fourMass_sub_twoAbs
+        R p sig r parent
+  have hnext :
+      (∑ parent ∈
+          lowOwnerFirstOwnerIncompleteNextClipRightSet
+            (R + 1) p sig r,
+          vfMidActiveReturnedRawParentFiberExcess R p sig r parent) =
+        4 * (∑ parent ∈
+          lowOwnerFirstOwnerIncompleteNextClipRightSet
+            (R + 1) p sig r,
+          vfMidActiveReturnedRawParentFiberMass R p sig r parent) -
+        2 * (∑ parent ∈
+          lowOwnerFirstOwnerIncompleteNextClipRightSet
+            (R + 1) p sig r,
+          vfMidActiveReturnedRawParentFiberAbsMass R p sig r parent) := by
+    apply sum_eq_four_mul_sub_two_mul_of_pointwise
+    intro parent _hparent
+    exact
+      vfMidActiveReturnedRawParentFiberExcess_eq_fourMass_sub_twoAbs
+        R p sig r parent
+  have hreturned :
+      (∑ parent ∈
+          lowOwnerFirstOwnerIncompleteReturnedClipLeftSet
+            (R + 1) p sig r,
+          vfMidActiveReturnedRawParentFiberExcess R p sig r parent) =
+        4 * (∑ parent ∈
+          lowOwnerFirstOwnerIncompleteReturnedClipLeftSet
+            (R + 1) p sig r,
+          vfMidActiveReturnedRawParentFiberMass R p sig r parent) -
+        2 * (∑ parent ∈
+          lowOwnerFirstOwnerIncompleteReturnedClipLeftSet
+            (R + 1) p sig r,
+          vfMidActiveReturnedRawParentFiberAbsMass R p sig r parent) := by
+    apply sum_eq_four_mul_sub_two_mul_of_pointwise
+    intro parent _hparent
+    exact
+      vfMidActiveReturnedRawParentFiberExcess_eq_fourMass_sub_twoAbs
+        R p sig r parent
+  rw [hfirst, hnext, hreturned]
   ring
 
 /-- The complete anchored excess in the exact signed-boundary/heat currency.
