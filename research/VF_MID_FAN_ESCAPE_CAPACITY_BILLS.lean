@@ -1,6 +1,7 @@
 import Mathlib
 import «research.VF_MID_OPTIMAL_BASE_FIRST_CROSSING_TRIGGER»
 import «research.VF_MID_SQUARE_WHEEL_BACKLOG»
+import «research.VF_MID_DYADIC_OWNER_EXACT»
 
 /-!
 # Exact count-space escape bills for the solved radial fan
@@ -336,6 +337,15 @@ theorem vfMidSquareRunPrimeSupply_le_sum_roots
   have hR2 : 2 ≤ R := hA.trans (Finset.mem_Ico.mp hR).1
   exact vfMidIntegerBlockPrimeSupply_le_R R hR2
 
+/-- The natural-number run supply is exactly the repository's actual
+square-endpoint prime-count increment after coercion to reals. -/
+theorem vfMidSquareRunPrimeSupply_cast_eq_dyadicPrimeSupply
+    (A s : ℕ) :
+    (vfMidSquareRunPrimeSupply A s : ℝ) =
+      vfMidDyadicPrimeSupply A (A + s) := by
+  rw [vfMidDyadicPrimeSupply_eq_sum_blockPrimeSupply A (A + s) (by omega)]
+  simp [vfMidSquareRunPrimeSupply]
+
 /-- **Upper-wall wheel-capacity tripwire.**
 
 If the entire blockwise prefix-wheel capacity of a run is already smaller than
@@ -357,6 +367,26 @@ theorem vfMidRadialUpper_noBreak_of_runPrefixWheelCapacity_lt_bill
   exact lt_of_le_of_lt
     (vfMidSquareRunPrimeSupply_le_prefixWheelCapacity S A s hA hS)
     hcap
+
+/-- Same run-level tripwire stated directly in the repository's exact
+square-endpoint prime-count increment currency
+
+  pi((A+s)^2) - pi(A^2).
+
+No separate identification of a hypothetical cluster is needed. -/
+theorem vfMidRadialUpper_noBreak_of_runPrefixWheelCapacity_lt_bill_primeCounting
+    (K : ℝ) (S : ℕ → ℕ) (A s : ℕ)
+    (hA : 2 ≤ A)
+    (hS : ∀ R ∈ Finset.Ico A (A + s), S R ≤ R)
+    (hcap :
+      vfMidSquareRunPrefixWheelCapacity S A s <
+        vfMidRadialUpperPrimeJumpBill K A s) :
+    ¬ (vfMidSolvedFantasyRadialUpperCount K (A + s) <
+      vfMidRadialCenterCount A +
+        vfMidDyadicPrimeSupply A (A + s)) := by
+  rw [← vfMidSquareRunPrimeSupply_cast_eq_dyadicPrimeSupply A s]
+  exact vfMidRadialUpper_noBreak_of_runPrefixWheelCapacity_lt_bill
+    K S A s hA hS hcap
 
 /-- One-block specialization: any valid prefix wheel whose envelope is smaller
 than the next-square jump bill rules out a one-block upper escape by the actual
