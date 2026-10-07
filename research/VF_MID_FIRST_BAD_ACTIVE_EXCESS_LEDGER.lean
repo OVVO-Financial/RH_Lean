@@ -175,6 +175,10 @@ theorem vfMid_globalCapacity_eq_activeResidual_add_cells
       (R + 1) (vfMidOneBlockActivePhysicalSite R)] at hfubini
   have htotal := vfMidFirstBadZeroTargetTotalMass_eq R
   rw [vfMidOddSeatAbsMass_eq_active_add_omitted hR] at htotal
+  have hDsq :
+      |vfMidActualPrimeEndpointDefect R| ^ 2 =
+        vfMidActualPrimeEndpointDefect R ^ 2 :=
+    sq_abs (vfMidActualPrimeEndpointDefect R)
   have hcells :
       (∑ p ∈ primesUpTo (squareRootEndpoint (R + 1)),
         ∑ sig ∈ lowOwnerFirstOwnerSignatureSet (R + 1) p,
@@ -186,7 +190,7 @@ theorem vfMid_globalCapacity_eq_activeResidual_add_cells
     rfl
   rw [hcells]
   unfold vfMidActiveCapacityResidual vfMidActivePhysicalDiagonalMass
-  nlinarith only [htotal, hfubini]
+  nlinarith only [htotal, hfubini, hDsq]
 
 /-- **Exact global active excess ledger.**
 
