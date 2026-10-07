@@ -1,6 +1,6 @@
 # RH_Lean current proof contract
 
-Status date: 2026-10-01. The direct VF-mid route is the canonical proof program.
+Status date: 2026-10-06. The direct VF-mid route is the canonical proof program.
 Compiled Lean source and successful checks of the relevant commit are
 authoritative. Historical handoffs, attractive finite plots, and stronger
 sufficient criteria do not override this contract.
@@ -115,6 +115,80 @@ Accordingly, `ActualPrimeContainedInSolvedFantasyConeStatement` is retained
 as a valid metric sufficient condition and visualization, but it is **not** the
 canonical remaining arithmetic obligation. Proving that cone membership
 directly would be essentially the target bound in different coordinates.
+
+## Route lock — 2026-10-06: solved cancellation geometry, open escape reproduction
+
+This section is binding for the direct VF route and is intended to prevent a
+repeat of the recent drift into parallel covariance/H-norm closure programs.
+
+The four fantasy/proxy constructions and the solved fantasy cone already encode
+the cancellation geometry that motivated the admissible channel. Their proved
+role is to certify safe reference directions and the available RH-scale room.
+They are **not** a premise that actual primes already lie in that cone, and the
+canonical proof must not replace the remaining arithmetic step by a new global
+claim that realized prime errors "cancel enough."
+
+The sole canonical arithmetic theorem to prove is still
+
+`VFMidActualPrimeOwnerEscapeAdmissibleStatement`.
+
+Equivalently, after finite base control, the exact obligation is
+
+```text
+actual channel-threatening bad scale R
+  -> exists S,
+       VFMidRecursiveScaleStep R S
+       and actual bad scale S.
+```
+
+Since `vfMidRecursiveScaleStep_lt` gives `S < R`, this strict-child
+reproduction is killed by the already-compiled strong-induction consumer.
+
+The intended arithmetic proof is therefore an **escape classifier**, not a new
+cancellation estimate:
+
+```text
+actual first escape
+  -> exact VF seat / affine-Mobius trigger
+  -> exact first-owner / greatest-owner classification
+  -> one of:
+       (a) already-solved admissible/fantasy-safe cancellation geometry,
+       (b) terminal or favorable sector,
+       (c) clipped sector already covered by the existing contraction,
+       (d) strict recursive child.
+```
+
+The proof must show that a genuine parent escape cannot be exhausted by
+(a)–(c), so a bad state survives in (d).  Cancellation internal to the exact
+fantasy/owner coordinates may be used, but it is not to be re-proved as an
+independent all-scale covariance, Gram, H-norm, or realized-prime cancellation
+theorem.
+
+### Mandatory no-drift rule
+
+Every new theorem proposed as part of the canonical closure must answer:
+
+> Does this theorem directly help prove that an actual bad scale reproduces on
+> a strict recursive VF child?
+
+If the answer is no, it is diagnostic, historical, or an alternative route,
+not part of the canonical closeout.
+
+In particular:
+
+- `ActualPrimeContainedInSolvedFantasyConeStatement` remains a noncanonical
+  sufficient condition; proving it directly is essentially the target in
+  another metric coordinate.
+- A new global Gram/covariance/H-norm half-bound is **not required** by the
+  owner-admissible route.
+- PR #900 (`vf-final-global-hnorm`) is therefore not a dependency of the
+  canonical proof.  Exact identities developed there may be reused only when
+  they directly support actual-prime escape reproduction; its terminal target
+  `vfMidFirstBadNNSNormalizedCovariance_le_half` is an alternative sufficient
+  route, not the required theorem.
+- PR #903 is restricted to exact classifier/Fubini bookkeeping needed for the
+  escape-reproduction proof.  It must not evolve into another standalone
+  energy/cancellation program.
 
 ## Fixed-alignment step-graph criterion: conditional only
 
