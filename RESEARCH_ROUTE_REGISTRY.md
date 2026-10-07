@@ -7,40 +7,33 @@ tests, and which routes remain materially distinct.
 
 ## Current canonical route lock — 2026-10-06
 
-The canonical direct-VF closure is **structural owner admissibility**, not a
-fresh realized-cancellation estimate:
+**Correction:** strict-child endpoint reproduction is not the immediate
+arithmetic target.  Several individually good child blocks may accumulate a
+signed bias while remaining inside the channel.
+
+The active target is run-level control of the native dyadic defect:
 
 ```text
-VFMidActualPrimeOwnerEscapeAdmissibleStatement
-  -> VFMidSquareEndpointVonKochBoundedStatement
-  -> RH through the existing compiled bridge.
+D_B - D_A
+  = prefixError(2,A,B)
+    - centeredLateOwnerCorrection(2,A,B).
 ```
 
-The only open arithmetic implication in this route is strict-child escape
-reproduction for the actual prime trajectory.  The solved fantasy series and
-admissible channel already encode the cancellation geometry used as the safe
-reference.  Do not reopen that content as a new Gram, covariance, H-norm, or
-global prime-error cancellation program.
-
-A proposed theorem belongs to this route only if it directly advances
-
-```text
-actual bad R
-  -> exists S, VFMidRecursiveScaleStep R S and actual bad S.
-```
-
-Consequences for current PRs:
+The prefix term is already kernel-bounded by `4*A` independently of the
+number of adjacent square blocks.  The open quantitative seam is the centered
+chronological late-owner census, exposed by
+`VFMidDyadicSignedLateCorrectionStatement`.
 
 | Route / PR | Canonical status |
 | --- | --- |
-| Owner-admissible strict-child reproduction | **ACTIVE / REQUIRED** |
-| #903 greatest-owner continuation partition | **ACTIVE STRUCTURAL SUPPORT ONLY**: exact classifier/Fubini for escape reproduction |
-| #900 normalized covariance / global H-norm | **ALTERNATIVE, NOT REQUIRED**: may donate exact lemmas, but its half-bound is not a dependency |
-| Direct actual-prime membership in the solved fantasy cone | **NONCANONICAL SUFFICIENT CONDITION**: essentially the target in another coordinate |
+| Multi-block centered late-owner correction / lower-run descent | **ACTIVE / REQUIRED** |
+| Pointwise owner-admissible strict-child reproduction | **DOWNSTREAM CONSUMER**, only after run accumulation is ruled out |
+| #903 greatest-owner continuation partition | **ACTIVE STRUCTURAL SUPPORT** for exact run-level owner classification |
+| #900 normalized covariance / global H-norm | **ALTERNATIVE, NOT REQUIRED** |
+| Direct actual-prime membership in solved fantasy cone | **NONCANONICAL SUFFICIENT CONDITION** |
 
-The no-drift test is mandatory: if a proposed step does not help select a
-strict recursive bad child from an actual parent escape, it is outside the
-canonical closeout.
+No-drift test: a new theorem must either control cumulative signed drift across
+a child run or descend an unresolved run-level defect to strictly lower scales.
 
 ## Current closeout — 2026-09-26
 
