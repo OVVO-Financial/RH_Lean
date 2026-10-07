@@ -205,17 +205,26 @@ theorem vfMidFirstBadCoDivExcess_eq_activeResidual_add_weightedCells
         ∑ p ∈ primesUpTo (squareRootEndpoint (R + 1)),
           ∑ sig ∈ lowOwnerFirstOwnerSignatureSet (R + 1) p,
             vfMidActiveWeightedCellExcess R p sig := by
+  have hcells :
+      (∑ p ∈ primesUpTo (squareRootEndpoint (R + 1)),
+        ∑ sig ∈ lowOwnerFirstOwnerSignatureSet (R + 1) p,
+          vfMidActiveWeightedCellDemand R p sig) -
+      (∑ p ∈ primesUpTo (squareRootEndpoint (R + 1)),
+        ∑ sig ∈ lowOwnerFirstOwnerSignatureSet (R + 1) p,
+          vfMidActiveWeightedCellCapacity R p sig) =
+      ∑ p ∈ primesUpTo (squareRootEndpoint (R + 1)),
+        ∑ sig ∈ lowOwnerFirstOwnerSignatureSet (R + 1) p,
+          vfMidActiveWeightedCellExcess R p sig := by
+    unfold vfMidActiveWeightedCellExcess
+    rw [← Finset.sum_sub_distrib]
+    apply Finset.sum_congr rfl
+    intro p _hp
+    rw [← Finset.sum_sub_distrib]
   rw [vfMid_globalDemand_eq_activeResidual_add_cells hR,
     vfMid_globalCapacity_eq_activeResidual_add_cells hR]
   unfold vfMidActiveGlobalResidualExcess
-    vfMidActiveWeightedCellExcess
-  rw [← Finset.sum_sub_distrib]
-  apply congrArg
-    (fun x : ℝ =>
-      vfMidActiveDemandResidual R - vfMidActiveCapacityResidual R + x)
-  apply Finset.sum_congr rfl
-  intro p _hp
-  rw [← Finset.sum_sub_distrib]
+  rw [← hcells]
+  ring
 
 /-- Omitted-seat capacity correction is always cooling: it enters the global
 excess with a nonpositive sign. -/
