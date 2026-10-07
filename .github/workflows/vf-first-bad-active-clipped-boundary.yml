@@ -91,6 +91,9 @@ jobs:
           #print axioms RHLean.Analysis.vfMidActiveCellGram_eq_scaledPolarizationCellMass
           #print axioms RHLean.Analysis.vfMidActiveScaledAdmittedBaseCellMass_eq_zero
           #print axioms RHLean.Analysis.vfMidActiveCellGram_eq_scaledClippedBaseCellMass
+          #print axioms RHLean.Analysis.vfMidActiveWeightedCellExcess_le_two_cellGram
+          #print axioms RHLean.Analysis.vfMidActiveWeightedCellExcess_le_half_branchSum_sq
+          #print axioms RHLean.Analysis.sum_vfMidActiveWeightedCellExcess_le_half_restrictedIncidenceEnergy
           #print axioms RHLean.Analysis.vfMidScaledCompletedGatePMDegreeTwoDenominator_eq_retainedParentEnergy
           #print axioms RHLean.Analysis.vfMidScaledCompletedGateClippedExitTreeEnergy_le_half_pmDegreeTwo
           #print axioms RHLean.Analysis.vfMidGlobalScaledCompletedGateClippedExitTreeEnergy_le_half_pmDegreeTwo
