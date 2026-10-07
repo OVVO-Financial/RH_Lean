@@ -483,6 +483,128 @@ theorem sum_vfMidActiveRawParentChild_parentHeat_nonpos
     positivity
   nlinarith
 
+
+/-- Exact heat identity on one literal #914 raw-parent fibre.  This is the
+equality-strengthened form of the already-compiled nonpositivity lemma: every
+actual child occurrence is paired with its stripped greatest-owner parent
+before any summation, so the retained site-dependent coefficient is unchanged
+and the whole fibre contributes exactly minus four times its literal absolute
+mass. -/
+theorem vfMidActiveReturnedRawParentFiberExcess_add_transported_eq_neg_four_abs
+    {R p r : ℕ} {sig : Finset ℕ} {parent : ℕ × ℕ}
+    (hr : r.Prime) :
+    vfMidActiveReturnedRawParentFiberExcess R p sig r parent +
+      vfMidActiveReturnedRawParentTransportedExcess R p sig r parent =
+      -4 * vfMidActiveReturnedRawParentFiberAbsMass R p sig r parent := by
+  unfold vfMidActiveReturnedRawParentFiberExcess
+    vfMidActiveReturnedRawParentTransportedExcess
+    vfMidActiveReturnedRawParentFiberAbsMass
+  rw [← Finset.sum_add_distrib, Finset.mul_sum]
+  apply Finset.sum_congr rfl
+  intro child hchild
+  rw [vfMidActiveReturnedPairCoDivExcess_eq_retainedScalar]
+  have hcross :=
+    lowOwnerFirstOwnerPolarizationFixedRawParentFiber_mem_descendingCross
+      hr hchild
+  have hheat :=
+    descendingGreatestOwner_retainedScalar_pointwiseCoDivExcess_pair_eq_heat
+      hr hcross
+      (vfMidActiveReturnedPairRetainedScalar R p sig child)
+  dsimp only at hheat
+  rw [vfMidActiveReturnedPairWeight_eq_retainedScalar_mul_zeroTarget]
+  exact hheat
+
+private theorem sum_pair_eq_neg_four_exactBudget
+    {ι : Type*} [DecidableEq ι]
+    (s : Finset ι) (f g a : ι → ℝ)
+    (h : ∀ i ∈ s, f i + g i = -4 * a i) :
+    (∑ i ∈ s, f i) + (∑ i ∈ s, g i) =
+      -4 * ∑ i ∈ s, a i := by
+  rw [← Finset.sum_add_distrib, Finset.mul_sum]
+  exact Finset.sum_congr rfl h
+
+/-- Global exact #914/#915 owner heat.
+
+The complete three surviving boundary sectors plus the occurrence-tagged
+stripped-parent continuation are not merely nonpositive: they are exactly
+minus four times the literal boundary absolute mass.  Thus the finite 317/1027
+heat mechanism survives the full p/sig/r/raw-parent/child Fubini with no loss
+of multiplicity and no replacement of the retained VF coefficient. -/
+theorem vfMidActiveThreeBoundaryExcess_add_transported_eq_neg_four_abs
+    (R : ℕ) :
+    vfMidActiveThreeBoundaryExcess R +
+      vfMidActiveThreeBoundaryTransportedExcess R =
+      -4 * vfMidActiveThreeBoundaryAbsMass R := by
+  unfold vfMidActiveThreeBoundaryExcess
+    vfMidActiveThreeBoundaryTransportedExcess
+    vfMidActiveThreeBoundaryAbsMass
+  apply sum_pair_eq_neg_four_exactBudget
+  intro p hpMem
+  apply sum_pair_eq_neg_four_exactBudget
+  intro sig _hsig
+  apply sum_pair_eq_neg_four_exactBudget
+  intro r hrMem
+  have hr : r.Prime :=
+    (mem_primesUpTo.mp (Finset.mem_filter.mp hrMem).1).1
+  have hfirst :
+      (∑ parent ∈
+          lowOwnerFirstOwnerIncompleteFirstClipLeftSet
+            (R + 1) p sig r,
+          vfMidActiveReturnedRawParentFiberExcess R p sig r parent) +
+        (∑ parent ∈
+          lowOwnerFirstOwnerIncompleteFirstClipLeftSet
+            (R + 1) p sig r,
+          vfMidActiveReturnedRawParentTransportedExcess R p sig r parent) =
+        -4 *
+          ∑ parent ∈
+            lowOwnerFirstOwnerIncompleteFirstClipLeftSet
+              (R + 1) p sig r,
+            vfMidActiveReturnedRawParentFiberAbsMass R p sig r parent := by
+    apply sum_pair_eq_neg_four_exactBudget
+    intro parent _hparent
+    exact
+      vfMidActiveReturnedRawParentFiberExcess_add_transported_eq_neg_four_abs
+        (R := R) (p := p) (r := r) (sig := sig) (parent := parent) hr
+  have hnext :
+      (∑ parent ∈
+          lowOwnerFirstOwnerIncompleteNextClipRightSet
+            (R + 1) p sig r,
+          vfMidActiveReturnedRawParentFiberExcess R p sig r parent) +
+        (∑ parent ∈
+          lowOwnerFirstOwnerIncompleteNextClipRightSet
+            (R + 1) p sig r,
+          vfMidActiveReturnedRawParentTransportedExcess R p sig r parent) =
+        -4 *
+          ∑ parent ∈
+            lowOwnerFirstOwnerIncompleteNextClipRightSet
+              (R + 1) p sig r,
+            vfMidActiveReturnedRawParentFiberAbsMass R p sig r parent := by
+    apply sum_pair_eq_neg_four_exactBudget
+    intro parent _hparent
+    exact
+      vfMidActiveReturnedRawParentFiberExcess_add_transported_eq_neg_four_abs
+        (R := R) (p := p) (r := r) (sig := sig) (parent := parent) hr
+  have hreturned :
+      (∑ parent ∈
+          lowOwnerFirstOwnerIncompleteReturnedClipLeftSet
+            (R + 1) p sig r,
+          vfMidActiveReturnedRawParentFiberExcess R p sig r parent) +
+        (∑ parent ∈
+          lowOwnerFirstOwnerIncompleteReturnedClipLeftSet
+            (R + 1) p sig r,
+          vfMidActiveReturnedRawParentTransportedExcess R p sig r parent) =
+        -4 *
+          ∑ parent ∈
+            lowOwnerFirstOwnerIncompleteReturnedClipLeftSet
+              (R + 1) p sig r,
+            vfMidActiveReturnedRawParentFiberAbsMass R p sig r parent := by
+    apply sum_pair_eq_neg_four_exactBudget
+    intro parent _hparent
+    exact
+      vfMidActiveReturnedRawParentFiberExcess_add_transported_eq_neg_four_abs
+        (R := R) (p := p) (r := r) (sig := sig) (parent := parent) hr
+  linarith
+
 /-- Production target: unconditional exact first-bad budget close.
 
 The proof starts from the endpoint-sign restoring decomposition while retaining
