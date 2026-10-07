@@ -130,45 +130,54 @@ individually inside the endpoint envelope while their signed increments lean in
 one direction and accumulate.  Therefore a pointwise packet-to-bad-child
 selector is not the canonical immediate theorem.
 
-The first missing arithmetic step is **run-level no-coherent-drift** on a
-contiguous square range `[A,B)`, naturally with `A < B <= 2*A`.  The native
-dyadic identity already proves
+The repository has already proved the required **no independent
+persistence** mechanism.  It must not be reintroduced as a new arithmetic
+obligation.
+
+At the scalar run level, the native dyadic identity isolates the chronological
+owner census, while fixed-prefix/common-wheel placement contributes only
+endpoint terms.  At the trajectory level, interior lifetimes telescope to
+zero.  At the returned-core pair level, admitted/interior survivor mass is
+eliminated before the recursive continuation is exposed: the signed cell
+polarization separates rank-zero diagonal, mixed clipped boundary mass, and
+the admitted positive-lag carrier.
+
+PR #903 now packages the latter exact reduction as
+
+`lowOwnerFirstOwnerSignedCellTelescope_eq_noPersistenceSafe_add_sectorSix`,
+
+whose right side is literally
 
 ```text
-D_B - D_A
-  = prefixWheelError(z,A,B)
-    - (lateRemoval(z,A,B) - lateReference(z,A,B)).
+(rank-zero diagonal
+ + mixed clipped boundary
+ + 2 * continuation sectors 1..5)
++
+(2 * continuation sector 6).
 ```
 
-For the parity prefix `z=2`, the entire common-wheel contribution over
-arbitrarily many adjacent square blocks has only four endpoint errors:
+No norm or estimate occurs in that equality.  The generic capacitor is then
+instantiated directly by
 
-```text
-|prefixWheelError(2,A,B)| <= 4*A.
-```
+`vfMidNoPersistenceCapacitor_forces_sectorSixDirichletMass`.
 
-Thus per-block composite-placement errors do not accumulate independently.
-All possible coherent multi-block drift is isolated in the centered
-chronological late-owner census
+If the already-terminal/boundary side cannot absorb the signed cell demand,
+sector six alone is forced above the residual threshold.  The theorem
 
-```text
-lateRemoval(2,A,B) - lateReference(2,A,B).
-```
+`vfMidNoPersistenceCapacitor_forces_sectorSixDescent`
 
-The exact owner modules identify `lateRemoval` with the sum, over every block
-`r in [A,B)`, of the least-prime-factor owner fibres that survive the frozen
-prefix.  This is the correct object on which composite equidistribution and
-recursive owner descent must act.
+then extracts a literal sector-six pair and applies the existing continuation
+classifier: its stripped ordered parent lies in
+`postRootCovarianceRemainderRecursivePairCarrier (squareRootEndpoint R / r)`,
+its fresh-owner rank drops by one, and all remaining fresh owners are smaller
+than `r`.
 
-The canonical quantitative target is therefore the existing statement
-
-`VFMidDyadicSignedLateCorrectionStatement`
-
-or an equivalent first-bad/run-level theorem strong enough to show that an
-escape-sized cumulative bias cannot persist across a dyadic run.  Once that
-run-level accumulation is controlled, one may either close the square-endpoint
-bound directly through the already-compiled dyadic consumer or derive the
-owner-admissible strict-child law as a corollary.
+Therefore **"prove that bias cannot persist" is closed infrastructure, not
+the current seam.**  The remaining arithmetic inlet is narrower: the exact
+first-bad actual-VF source/budget must be placed onto this already-cancelled
+cell ledger with the survivor restriction retained, or bounded there by an
+already-proved signed identity.  No new decorrelation, equidistribution, or
+persistence hypothesis is authorized.
 
 ### Exact fan-escape capacity bills
 
@@ -371,13 +380,17 @@ taking absolute values.
 Only after this run-level theorem is proved is it legitimate to state
 pointwise `VFMidActualPrimeOwnerEscapeAdmissibleStatement` as closed.
 
-### Mandatory no-drift rule
+### Mandatory descent rule
 
-Every new theorem proposed for the canonical closure must answer:
+No new "no coherent drift" theorem is to be introduced unless an exact
+uncovered carrier is first exhibited.  The existing persistence cancellations
+are to be consumed directly.
 
-> Does this theorem control the cumulative signed defect across a run of child
-> blocks, or legally descend any unresolved run-level defect to a strictly
-> lower run?
+Every new theorem proposed for the canonical closure must instead answer:
+
+> Does it place the actual first-bad source onto the already-cancelled
+> terminal/sector-six ledger, or does it legally descend the resulting
+> sector-six remainder to a strictly lower recursive state?
 
 If not, it is diagnostic or an alternative route.
 
