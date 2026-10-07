@@ -38,17 +38,22 @@ theorem vfMidFirstBadSourceToSectorSixInlet :
           (2 : ℝ) * vfMidSyntheticRadialScale S := by
     intro S hS hSR
     exact vfMidActualPrimeFirstBadAt_prior_inside hfirst hS hSR
-  have hsource :
-      vfMidActualPrimeEndpointDefect (R + 1) =
-        vfMidFirstBadDecompressedHistoricalSource R :=
-    vfMidActualPrimeEndpointDefect_succ_eq_decompressedHistoricalSource hR
-  -- FINISH-LINE INLET:
-  -- place the literal source on the #903 signed-cell ledger, route every
-  -- unfunded half-excess to sector six, and descend strict fresh-owner rank
-  -- until the terminal nonpositive sector contradicts the excess.
-  --
-  -- The compiler goal below is intentionally left as the exact arithmetic
-  -- inlet.  All future proof iterations happen here and nowhere else.
-  rw [← hsource]
+  have hrank :
+      2 * vfMidSquareEndpointAccumulationCorrelation R +
+          vfMidSquareBandError R ^ 2 ≤
+        ((2 : ℝ) * vfMidSyntheticRadialScale (R + 1)) ^ 2 -
+          vfMidActualPrimeEndpointDefect R ^ 2 := by
+    -- SINGLE OPEN PRODUCTION SEAM:
+    -- reassemble the actual first-bad source on the #903 signed-cell ledger,
+    -- keep the survivor restriction through owner Fubini, send every unfunded
+    -- excess into sector six, and exhaust strict fresh-owner rank using
+    -- prior-good descendants.  No packet-to-child or unsigned enlargement.
+    sorry
+  have hfalse :
+      False :=
+    vfMidActualPrimeFirstBadAt_succ_finalContraction
+      (K := (2 : ℝ)) (R := R) (by norm_num)
+      (by omega : 3 ≤ R) hfirst hrank
+  exact hfalse.elim
 
 end RHLean.Analysis
