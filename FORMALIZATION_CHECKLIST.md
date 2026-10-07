@@ -79,6 +79,29 @@ Each PR description and checklist update must identify:
 - CI commands that gate merge;
 - remaining analytic or realization obligations.
 
+## Active PR record
+
+### PR #903 — actual-prime escape classifier / greatest-owner continuation partition
+
+- [x] Branch from current `main`; do not mutate #900.
+- [x] Add an exact priority partition/Fubini for the greatest-owner continuation
+  carrier, with no new analytic hypothesis or norm estimate.
+- [x] Record the 2026-10-06 route lock in the authoritative proof contract,
+  current handoff, and route registry.
+- [x] Restrict the role of #903 to structural classifier bookkeeping needed for
+  `VFMidActualPrimeOwnerEscapeAdmissibleStatement`.
+- [x] Mark #900's H-norm/covariance closure as an alternative, nondependency
+  route for the canonical owner-admissible proof.
+- [ ] Hosted warning-fatal Lean CI must compile the new continuation module.
+- [ ] Before merge, verify that any further theorem on #903 directly advances
+  actual-parent-escape -> strict-recursive-bad-child reproduction.
+- [ ] No global Gram/covariance/H-norm or realized-prime cancellation theorem
+  may be added merely to replace the already-solved fantasy/admissible
+  cancellation geometry.
+- Remaining mathematical obligation: prove
+  `VFMidActualPrimeOwnerEscapeAdmissibleStatement` by the exact physical owner
+  classifier and strict-child reproduction law.
+
 ## 4. Successful PR ledger
 
 ### Repository cleanup — 2026-09-26 (integrated with #798)
