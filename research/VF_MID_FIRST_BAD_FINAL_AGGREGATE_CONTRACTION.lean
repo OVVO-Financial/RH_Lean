@@ -381,4 +381,141 @@ theorem vfMidActiveScaledReturnedClippedCellMass_eq_threeBoundarySectors
   rw [hfr, hnl, hrr]
   ring
 
+
+/-! ## Collapse the complete #911 excess to one three-boundary budget -/
+
+/-- The globally assembled retained-weight mass on the only three oriented
+raw-parent sectors which can carry the actual active source. -/
+def vfMidActiveThreeBoundaryMass (R : ℕ) : ℝ :=
+  ∑ p ∈ primesUpTo (squareRootEndpoint (R + 1)),
+    ∑ sig ∈ lowOwnerFirstOwnerSignatureSet (R + 1) p,
+      ∑ r ∈ lowOwnerRevealedPrimesAbove (R + 1) p,
+        ((∑ parent ∈
+            lowOwnerFirstOwnerIncompleteFirstClipLeftSet
+              (R + 1) p sig r,
+            vfMidActiveReturnedRawParentFiberMass R p sig r parent) +
+          (∑ parent ∈
+            lowOwnerFirstOwnerIncompleteNextClipRightSet
+              (R + 1) p sig r,
+            vfMidActiveReturnedRawParentFiberMass R p sig r parent) +
+          ∑ parent ∈
+            lowOwnerFirstOwnerIncompleteReturnedClipLeftSet
+              (R + 1) p sig r,
+            vfMidActiveReturnedRawParentFiberMass R p sig r parent)
+
+/-- Global Fubini: the sum of actual active cell Grams is exactly the
+three-boundary mass. -/
+theorem sum_vfMidActiveCellGram_eq_threeBoundaryMass
+    {R : ℕ} (hR : 3 ≤ R) :
+    (∑ p ∈ primesUpTo (squareRootEndpoint (R + 1)),
+      ∑ sig ∈ lowOwnerFirstOwnerSignatureSet (R + 1) p,
+        lowOwnerFirstOwnerCellGramWith
+          (R + 1) p sig (vfMidOneBlockActivePhysicalSite R)) =
+      vfMidActiveThreeBoundaryMass R := by
+  unfold vfMidActiveThreeBoundaryMass
+  apply Finset.sum_congr rfl
+  intro p hpMem
+  have hp : p.Prime := (mem_primesUpTo.mp hpMem).1
+  apply Finset.sum_congr rfl
+  intro sig _hsig
+  rw [vfMidActiveCellGram_eq_scaledReturnedClippedCellMass hR hp,
+    vfMidActiveScaledReturnedClippedCellMass_eq_threeBoundarySectors hp]
+
+/-- The complete active first-owner Co/Div cell excess is bounded by twice the
+literal three-boundary mass.  This is just the already-green pointwise
+`cellExcess ≤ 2 * cellGram` summed over the exact Fubini labels. -/
+theorem sum_vfMidActiveWeightedCellExcess_le_two_threeBoundaryMass
+    {R : ℕ} (hR : 3 ≤ R) :
+    (∑ p ∈ primesUpTo (squareRootEndpoint (R + 1)),
+      ∑ sig ∈ lowOwnerFirstOwnerSignatureSet (R + 1) p,
+        vfMidActiveWeightedCellExcess R p sig) ≤
+      2 * vfMidActiveThreeBoundaryMass R := by
+  calc
+    (∑ p ∈ primesUpTo (squareRootEndpoint (R + 1)),
+      ∑ sig ∈ lowOwnerFirstOwnerSignatureSet (R + 1) p,
+        vfMidActiveWeightedCellExcess R p sig) ≤
+      ∑ p ∈ primesUpTo (squareRootEndpoint (R + 1)),
+        ∑ sig ∈ lowOwnerFirstOwnerSignatureSet (R + 1) p,
+          2 * lowOwnerFirstOwnerCellGramWith
+            (R + 1) p sig (vfMidOneBlockActivePhysicalSite R) := by
+      apply Finset.sum_le_sum
+      intro p hpMem
+      have hp : p.Prime := (mem_primesUpTo.mp hpMem).1
+      apply Finset.sum_le_sum
+      intro sig _hsig
+      exact vfMidActiveWeightedCellExcess_le_two_cellGram hR hp
+    _ = 2 *
+        (∑ p ∈ primesUpTo (squareRootEndpoint (R + 1)),
+          ∑ sig ∈ lowOwnerFirstOwnerSignatureSet (R + 1) p,
+            lowOwnerFirstOwnerCellGramWith
+              (R + 1) p sig (vfMidOneBlockActivePhysicalSite R)) := by
+      rw [Finset.mul_sum]
+      apply Finset.sum_congr rfl
+      intro p _hp
+      rw [Finset.mul_sum]
+    _ = 2 * vfMidActiveThreeBoundaryMass R := by
+      rw [sum_vfMidActiveCellGram_eq_threeBoundaryMass hR]
+
+/-- **Final exact reduction before the arithmetic inequality.**
+
+The full anchored Co/Div excess is at most the quarantined global residual plus
+twice the three surviving retained-weight boundary sectors. -/
+theorem vfMidFirstBadAnchoredCoDivExcess_le_activeResidual_add_threeBoundary
+    {R : ℕ} (hR : 3 ≤ R) :
+    vfMidFirstBadAnchoredCoDivExcess R ≤
+      vfMidActiveGlobalResidualExcess R +
+        2 * vfMidActiveThreeBoundaryMass R := by
+  rw [vfMidFirstBadAnchoredCoDivExcess_eq_activeResidual_add_weightedCells hR]
+  exact add_le_add_left
+    (sum_vfMidActiveWeightedCellExcess_le_two_threeBoundaryMass hR)
+    (vfMidActiveGlobalResidualExcess R)
+
+/-- The single remaining arithmetic budget after all source/support/Fubini
+routing has been compiled. -/
+def VFMidFirstBadThreeBoundaryBudgetStatement : Prop :=
+  ∀ {R : ℕ}, 8 ≤ R →
+    VFMidActualPrimeFirstBadAt (2 : ℝ) (R + 1) →
+      vfMidActiveGlobalResidualExcess R +
+        2 * vfMidActiveThreeBoundaryMass R ≤ 0
+
+/-- The three-boundary budget immediately gives the desired nonpositive full
+anchored excess. -/
+theorem vfMidActualPrimeFirstBadAt_two_succ_activeExcess_nonpos_of_threeBoundaryBudget
+    (hbudget : VFMidFirstBadThreeBoundaryBudgetStatement)
+    {R : ℕ} (hR : 8 ≤ R)
+    (hfirst : VFMidActualPrimeFirstBadAt (2 : ℝ) (R + 1)) :
+    vfMidFirstBadAnchoredCoDivExcess R ≤ 0 := by
+  exact
+    (vfMidFirstBadAnchoredCoDivExcess_le_activeResidual_add_threeBoundary
+      (by omega : 3 ≤ R)).trans
+      (hbudget hR hfirst)
+
+/-- The budget is already in the exact historical-source inlet currency. -/
+theorem vfMidFirstBadSourceToSectorSixInlet_of_threeBoundaryBudget
+    (hbudget : VFMidFirstBadThreeBoundaryBudgetStatement) :
+    VFMidFirstBadSourceToSectorSixInletStatement := by
+  intro R hR hfirst
+  have hcodiv :=
+    vfMidActualPrimeFirstBadAt_two_succ_activeExcess_nonpos_of_threeBoundaryBudget
+      hbudget hR hfirst
+  rw [vfMidFirstBadAnchoredCoDivExcess_eq_decompressedHistoricalSource hR]
+    at hcodiv
+  linarith
+
+/-- Once the three-boundary budget is discharged, the already-compiled
+normalized half consumer contradicts the already-compiled first-bad strict
+greater-than-half theorem. -/
+theorem vfMidActualPrimeFirstBadAt_two_succ_closed_of_threeBoundaryBudget
+    (hbudget : VFMidFirstBadThreeBoundaryBudgetStatement)
+    {R : ℕ} (hR : 8 ≤ R)
+    (hfirst : VFMidActualPrimeFirstBadAt (2 : ℝ) (R + 1)) :
+    False := by
+  have hle :=
+    vfMidFirstBadNNSNormalizedCovariance_le_half_of_sourceToSectorSixInlet
+      (vfMidFirstBadSourceToSectorSixInlet_of_threeBoundaryBudget hbudget)
+      hR hfirst
+  have hgt :=
+    vfMidActualPrimeFirstBadAt_two_succ_nnsNormalized_gt_half hR hfirst
+  linarith
+
 end RHLean.Analysis
