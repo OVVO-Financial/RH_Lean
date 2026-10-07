@@ -1,5 +1,6 @@
 import Mathlib
 import «research.GLOBAL_RETURNED_CORE_UNIQUE_OWNER_CONTINUATION_LEDGER»
+import «research.GLOBAL_RETURNED_CORE_ADMITTED_POSITIVE_OWNER_FUBINI»
 
 /-!
 # VF centered greatest-owner continuation partition
@@ -286,5 +287,133 @@ theorem lowOwnerFirstOwnerGreatestOwnerRecursiveContinuationPairFiber_data
   · exact (hnotLowerFamily hlowerFamily).elim
   · exact (hnotLowerTerminal hlowerTerminal).elim
   · exact hrecursive
+
+
+/-! ## No-persistence capacitor ledger
+
+The direct survivor machinery has already removed persistent admitted/interior
+mass before this continuation partition is used.  The Dirichlet polarization
+ledger supplies the exact remaining split:
+
+* the rank-zero diagonal is nonrecursive;
+* the mixed clipped sector is literal boundary mass;
+* the admitted positive-lag sector is partitioned uniquely by greatest owner;
+* within each greatest-owner fibre, the six-sector identity above leaves only
+  sector six as genuinely recursive.
+
+The definitions below merely package those existing equalities.  No estimate,
+norm, absolute value, or new cancellation hypothesis is introduced.
+-/
+
+/-- Sectors one through five in one greatest-owner fibre, in the exact
+Dirichlet-polarization weight carried by the existing signed cell telescope. -/
+def lowOwnerFirstOwnerGreatestOwnerNoPersistenceSafeDirichletMass
+    (R p : ℕ) (sig : Finset ℕ) (r : ℕ) : ℝ :=
+  (∑ mn ∈ lowOwnerFirstOwnerGreatestOwnerCurrentFamilyPairFiber
+      R p sig r, lowOwnerFirstOwnerDirichletPolarizationAtom R p mn) +
+  (∑ mn ∈ lowOwnerFirstOwnerGreatestOwnerEqualParentPairFiber
+      R p sig r, lowOwnerFirstOwnerDirichletPolarizationAtom R p mn) +
+  (∑ mn ∈ lowOwnerFirstOwnerGreatestOwnerClippedPairFiber
+      R p sig r, lowOwnerFirstOwnerDirichletPolarizationAtom R p mn) +
+  (∑ mn ∈ lowOwnerFirstOwnerGreatestOwnerLowerFamilyPairFiber
+      R p sig r, lowOwnerFirstOwnerDirichletPolarizationAtom R p mn) +
+  (∑ mn ∈ lowOwnerFirstOwnerGreatestOwnerLowerTerminalPairFiber
+      R p sig r, lowOwnerFirstOwnerDirichletPolarizationAtom R p mn)
+
+/-- Sector six in one greatest-owner fibre, with exactly the same signed
+Dirichlet-polarization weight as the parent cell telescope. -/
+def lowOwnerFirstOwnerGreatestOwnerSectorSixDirichletMass
+    (R p : ℕ) (sig : Finset ℕ) (r : ℕ) : ℝ :=
+  ∑ mn ∈ lowOwnerFirstOwnerGreatestOwnerRecursiveContinuationPairFiber
+      R p sig r, lowOwnerFirstOwnerDirichletPolarizationAtom R p mn
+
+/-- **One-fibre no-persistence split.**
+
+The whole positive greatest-owner fibre is exactly sectors one through five
+plus sector six.  This is the six-sector Fubini specialized to the signed
+Dirichlet weight; no inequality has yet been used. -/
+theorem sum_lowOwnerFirstOwnerGreatestOwnerPositive_dirichlet_eq_safe_add_sectorSix
+    (R p : ℕ) (sig : Finset ℕ) (r : ℕ) :
+    (∑ mn ∈ lowOwnerFirstOwnerGreatestOwnerPositivePairFiber R p sig r,
+        lowOwnerFirstOwnerDirichletPolarizationAtom R p mn) =
+      lowOwnerFirstOwnerGreatestOwnerNoPersistenceSafeDirichletMass
+          R p sig r +
+        lowOwnerFirstOwnerGreatestOwnerSectorSixDirichletMass
+          R p sig r := by
+  rw [sum_lowOwnerFirstOwnerGreatestOwnerPositivePairFiber_eq_sixContinuationSectors]
+  rfl
+
+/-- Aggregate sectors one through five over the unique greatest-owner
+partition of one admitted positive-lag first-owner/signature cell. -/
+def lowOwnerFirstOwnerAdmittedPositiveNoPersistenceSafeDirichletMass
+    (R p : ℕ) (sig : Finset ℕ) : ℝ :=
+  ∑ r ∈ lowOwnerRevealedPrimesAbove R p,
+    lowOwnerFirstOwnerGreatestOwnerNoPersistenceSafeDirichletMass R p sig r
+
+/-- Aggregate sector-six mass over the same unique greatest-owner partition. -/
+def lowOwnerFirstOwnerAdmittedPositiveSectorSixDirichletMass
+    (R p : ℕ) (sig : Finset ℕ) : ℝ :=
+  ∑ r ∈ lowOwnerRevealedPrimesAbove R p,
+    lowOwnerFirstOwnerGreatestOwnerSectorSixDirichletMass R p sig r
+
+/-- **Admitted positive-lag mass = no-persistence sectors + sector six.**
+
+Unique greatest-owner Fubini is performed before the six-sector split, so no
+owner label or multiplicity is discarded. -/
+theorem sum_lowOwnerFirstOwnerAdmittedPositive_dirichlet_eq_safe_add_sectorSix
+    {R p : ℕ} {sig : Finset ℕ} (hp : p.Prime) :
+    (∑ mn ∈ lowOwnerFirstOwnerAdmittedPositivePairCarrier R p sig,
+        lowOwnerFirstOwnerDirichletPolarizationAtom R p mn) =
+      lowOwnerFirstOwnerAdmittedPositiveNoPersistenceSafeDirichletMass R p sig +
+        lowOwnerFirstOwnerAdmittedPositiveSectorSixDirichletMass R p sig := by
+  rw [sum_lowOwnerFirstOwnerAdmittedPositive_eq_sum_greatestOwnerFibers
+    hp (lowOwnerFirstOwnerDirichletPolarizationAtom R p)]
+  unfold lowOwnerFirstOwnerAdmittedPositiveNoPersistenceSafeDirichletMass
+    lowOwnerFirstOwnerAdmittedPositiveSectorSixDirichletMass
+  rw [← Finset.sum_add_distrib]
+  apply Finset.sum_congr rfl
+  intro r _hr
+  exact
+    sum_lowOwnerFirstOwnerGreatestOwnerPositive_dirichlet_eq_safe_add_sectorSix
+      R p sig r
+
+/-- The nonrecursive part of one complete signed cell after all already-proved
+no-persistence reductions: rank-zero diagonal, mixed clipped boundary, and
+twice sectors one through five of the admitted positive-lag population. -/
+def lowOwnerFirstOwnerNoPersistenceSafeDirichletMass
+    (R p : ℕ) (sig : Finset ℕ) : ℝ :=
+  (∑ a ∈ lowOwnerFirstOwnerAdmittedBaseFiber R p sig,
+      lowOwnerFirstOwnerDirichletPolarizationAtom R p (a, a)) +
+    lowOwnerFirstOwnerClippedMixedPolarizationMass R p sig +
+    2 * lowOwnerFirstOwnerAdmittedPositiveNoPersistenceSafeDirichletMass
+      R p sig
+
+/-- The only genuinely recursive contribution to one complete signed cell:
+twice the positive-lag sector-six mass. -/
+def lowOwnerFirstOwnerSectorSixRecursiveDirichletMass
+    (R p : ℕ) (sig : Finset ℕ) : ℝ :=
+  2 * lowOwnerFirstOwnerAdmittedPositiveSectorSixDirichletMass R p sig
+
+/-- **Exact no-persistence capacitor identity.**
+
+After the repository's already-proved interior cancellation and boundary
+polarization, the entire signed cell telescope is exactly
+
+  safe sectors + sector six.
+
+The safe side consists only of the nonpositive rank-zero diagonal, the mixed
+clipped boundary, and continuation sectors one through five.  Every remaining
+recursive contribution is literally sector six. -/
+theorem lowOwnerFirstOwnerSignedCellTelescope_eq_noPersistenceSafe_add_sectorSix
+    {R p : ℕ} {sig : Finset ℕ} (hp : p.Prime) :
+    lowOwnerFirstOwnerSignedCellTelescope R p sig =
+      lowOwnerFirstOwnerNoPersistenceSafeDirichletMass R p sig +
+        lowOwnerFirstOwnerSectorSixRecursiveDirichletMass R p sig := by
+  rw [lowOwnerFirstOwnerSignedCellTelescope_eq_admitted_add_clippedMixed hp]
+  rw [lowOwnerFirstOwnerAdmittedPolarizationMass_eq_diag_add_two_positive]
+  rw [sum_lowOwnerFirstOwnerAdmittedPositive_dirichlet_eq_safe_add_sectorSix hp]
+  unfold lowOwnerFirstOwnerNoPersistenceSafeDirichletMass
+    lowOwnerFirstOwnerSectorSixRecursiveDirichletMass
+  ring
 
 end RHLean.Proof
