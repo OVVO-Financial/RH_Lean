@@ -14,6 +14,8 @@ on:
       - scripts/vf_mid_915_two_owner_flux_regression.py
       - research/VF_MID_915_TWO_OWNER_CLIPPED_FLUX.lean
       - research/VF_MID_915_LATE_PREFIX_WEIGHTED_DYADIC.lean
+      - research/VF_MID_915_CENTERED_OWNER_TRIANGULAR.lean
+      - scripts/vf_mid_915_centered_owner_triangular_regression.py
       - scripts/vf_mid_915_late_prefix_weighted_regression.py
       - .github/workflows/vf-first-bad-exact-budget-fast.yml
   workflow_dispatch:
@@ -38,6 +40,7 @@ jobs:
           python3 scripts/vf_mid_915_pnt_production_regression.py --extended
           python3 scripts/vf_mid_915_two_owner_flux_regression.py
           python3 scripts/vf_mid_915_late_prefix_weighted_regression.py
+          python3 scripts/vf_mid_915_centered_owner_triangular_regression.py
 
       - name: Restore Lake packages
         uses: actions/cache/restore@v5
@@ -132,6 +135,9 @@ jobs:
         run: |
           lake build RHLean.Proof.PrimeCombReciprocalBandCancellation
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_915_LATE_PREFIX_WEIGHTED_DYADIC.olean research/VF_MID_915_LATE_PREFIX_WEIGHTED_DYADIC.lean
+
+      - name: Compile centered owner triangular Fubini and original VF denominator
+        run: lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_915_CENTERED_OWNER_TRIANGULAR.olean research/VF_MID_915_CENTERED_OWNER_TRIANGULAR.lean
 
       - name: Compile #915 only against cached dependencies
         run: |
