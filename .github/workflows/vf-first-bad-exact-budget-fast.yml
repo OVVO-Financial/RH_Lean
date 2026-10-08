@@ -9,6 +9,7 @@ on:
       - scripts/vf_mid_sector_six_direct_probe.py
       - scripts/vf_mid_sector_six_cone_regression.py
       - scripts/vf_mid_sector_six_exact_r18.py
+      - scripts/vf_mid_915_ascending_sieve_regression.py
       - .github/workflows/vf-first-bad-exact-budget-fast.yml
   workflow_dispatch:
 
@@ -24,10 +25,11 @@ jobs:
         with:
           ref: ${{ github.event.pull_request.head.sha || github.sha }}
 
-      - name: Regress raw Sector Six vs complete VF boundary (before Lean)
+      - name: Regress raw Sector Six, retained VF boundary, and ascending prime-2 physical source
         run: |
           python3 scripts/vf_mid_sector_six_cone_regression.py
           python3 scripts/vf_mid_sector_six_exact_r18.py
+          python3 scripts/vf_mid_915_ascending_sieve_regression.py
 
       - name: Restore Lake packages
         uses: actions/cache/restore@v5
