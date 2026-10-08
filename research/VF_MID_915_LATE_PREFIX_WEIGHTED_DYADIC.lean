@@ -132,7 +132,7 @@ theorem vfMid915CurrentOddWeight_zero_of_double_fits
 
 theorem vfMid915CurrentOddWeight_even_zero (R n : ℕ) :
     vfMid915CurrentOddPhysicalWeight R (2 * n) = 0 := by
-  simp [vfMid915CurrentOddPhysicalWeight, Nat.even_two_mul]
+  simp [vfMid915CurrentOddPhysicalWeight]
 
 /-- Every overlapping dyadic prime owner term is EXACTLY ZERO on the
 unchanged one-block parity-reduced VF field. No nonzero --4|z| payment
@@ -146,8 +146,11 @@ theorem vfMid915CurrentOddWeight_dyadicOverlap_zero
   intro q _hq
   by_cases hfit : q.Prime ∧ (2 * c) * q ≤ (R + 1) ^ 2 - 1
   · have h2 : 2 * (c * q) < (R + 1) ^ 2 := by
-      have hprod : (2 * c) * q = 2 * (c * q) := by ring
-      omega
+      calc
+        2 * (c * q) = (2 * c) * q := by ring
+        _ ≤ (R + 1) ^ 2 - 1 := hfit.2
+        _ < (R + 1) ^ 2 :=
+          Nat.sub_lt (by positivity) (by norm_num)
     rw [if_pos hfit,
       vfMid915CurrentOddWeight_zero_of_double_fits hR h2,
       show (2 * c) * q = 2 * (c * q) by ring,
@@ -177,7 +180,7 @@ a=R/2+1, cannot have cofactor c >= 5. Only c=3 can contribute to
 the explicit recent-half-run prime-owner match; c>=5 requires older ancestry
 inside the compressed anchor D_a. No primality is assumed for this geometry. -/
 theorem vfMid915HalfScaleOddCofactor_eq_three
-    {R c q n : ℕ} (hR : 8 ≤ R)
+    {R c q n : ℕ}
     (hcOdd : Odd c) (hc3 : 3 ≤ c)
     (hq : (R / 2 + 1) ^ 2 ≤ q)
     (hn : n < (R + 1) ^ 2) (hfactor : n = c * q) :
