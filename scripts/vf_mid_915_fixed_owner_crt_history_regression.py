@@ -91,6 +91,32 @@ def wheel_count(Q, pref, x):
     return (x // Q) * pref[Q] + pref[x % Q + 1]
 
 
+def sharp_fixed_wheel_period_bound(Q, wheel_pref):
+    """Uniform historical square-block deviation via ONE exact CRT period.
+
+    For ANY wheel W, reduced-residue indicator chi_W satisfies
+    chi_W(n+W)=chi_W(n) and chi_W(k^2)=chi_W(k).
+    The square-block centered field
+      E_W(r)=#coprime(n,W)_{r^2<n<(r+1)^2} - (2*phi(W)/W)*r
+    is W-periodic with zero W-period mean. The latter follows by
+    telescoping the integer interval (0,W^2) and removing squares:
+      sum_{r=0}^{W-1} #coprime(n,W)_{open block}=(W-1)*phi(W).
+    This is a GENERAL mathematical proof; the following loop computes the
+    sharp finite prefix range for the specific W=510510.
+    """
+    phi=wheel_pref[Q]
+    assert phi==92160
+    running=mi=ma=0
+    for r in range(Q):
+        N=wheel_count(Q,wheel_pref,(r+1)**2-1)-wheel_count(Q,wheel_pref,r*r)
+        epsilon_num=Q*N-2*phi*r
+        running+=epsilon_num
+        mi=min(mi,running)
+        ma=max(ma,running)
+    assert running==0
+    return Fraction(ma-mi,Q)
+
+
 def test_run(by_p, A, B, Q, wheel_pref, alpha, bound):
     total = Fraction(0)
     for r in range(A, B):
@@ -137,13 +163,17 @@ def main():
                 later *= Fraction(u - 1, u)
         uniform_bound += Fraction(ma - mi, p) * later
     assert uniform_bound == Fraction(6352, 221)
+    sharp_bound=sharp_fixed_wheel_period_bound(Q,wheel_pref)
+    assert sharp_bound == Fraction(46460,2431)
+    assert sharp_bound < uniform_bound
     print("FIXED_WHEEL S=17 densityPerOddSeat=%s "
-          "ALL_historicalRunsAbsCenteredError_le=%s (~%.9f) PASS"
-          % (alpha, uniform_bound, float(uniform_bound)))
+          "ownerTriangleBound=%s sharpPeriodBound=%s (~%.9f) "
+          "UNIFORM_ALL_A_B_via_periodic_square_coprime=PASS"
+          % (alpha,uniform_bound,sharp_bound,float(sharp_bound)))
     for R in (18, 56, 317, 1027, 6000, 100000):
         A = R // 2 + 1
         B = R + 1
-        test_run(by_p, A, B, Q, wheel_pref, alpha, uniform_bound)
+        test_run(by_p, A, B, Q, wheel_pref, alpha, sharp_bound)
     print("PASS exact small-owner CRT and bounded historical corrections.")
     print("OPEN: quantify PNT-centered large-owner remainder p>17 "
           "on original signed historical/current quadratic source; "
