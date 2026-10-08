@@ -78,9 +78,11 @@ Take R=8, X=(R+1)^2-1=80, p=3, q=5, n=39:
     39 --adjoin 5--> 195 [clipped] --strip 3--> 65.
 
 The terminal 65 is an actual **composite** in the R=8 square block,
-so the current source weight is +w_8=+0.496079621. The two
-clipped path values are respectively +w_8 and zero. Both are
-kernel-checkable finite arithmetic examples in the new Lean module.
+so the current source weight is +w_8=+0.496079621. The two clipped path values using the actual VF weight are respectively
++w_8 and zero. The new Lean examples kernel-check the underlying path
+admission/clipping with *unit terminal weight*; the generic theorem covers
+arbitrary original signed weights, and the finite regression separately
+checks the actual numerical w_8 charge.
 The intermediate 13 is an actual *historical prime* with its own
 different VF charge w_3-1=-0.076174181; replacing it by a synthetic
 -w_8 would be an illicit retained-weight substitution.
