@@ -757,6 +757,46 @@ theorem vfMidActualPrimeFirstBadAt_two_succ_victory_of_activeExcess_nonpos
     at hcodiv
   linarith
 
+/-- The half-scale historical run and current block are not two independent
+objects: together they are exactly the already-compiled subdoubling VF tracking
+defect on [A,R+1), with A = R/2+1. -/
+theorem vfMidHalfScaleRunPlusBlock_eq_trackingDefect
+    {R : ℕ} (hR : 8 ≤ R) :
+    vfMidFrozenAffineRunPhysicalCharge (R / 2 + 1) R +
+        vfMidFrozenAffineBlockPhysicalCharge (R / 2 + 1) R =
+      vfMidDyadicVFTrackingDefect (R / 2 + 1) (R + 1) := by
+  have hA3 : 3 ≤ R / 2 + 1 := by omega
+  have hA2 : 2 ≤ R / 2 + 1 := by omega
+  have hAR : R / 2 + 1 ≤ R := by omega
+  have hAB : R / 2 + 1 ≤ R + 1 := by omega
+  have hBA : R + 1 ≤ 2 * (R / 2 + 1) := by omega
+  calc
+    vfMidFrozenAffineRunPhysicalCharge (R / 2 + 1) R +
+        vfMidFrozenAffineBlockPhysicalCharge (R / 2 + 1) R =
+      vfMidFrozenAffineRunPhysicalCharge (R / 2 + 1) (R + 1) :=
+        (vfMidFrozenAffineRunPhysicalCharge_succ hAR).symm
+    _ = vfMidOddRunSeatMass (R / 2 + 1) (R + 1) :=
+      vfMidFrozenAffineRunPhysicalCharge_eq_oddRunSeatMass hA3 hAB hBA
+    _ = vfMidDyadicVFTrackingDefect (R / 2 + 1) (R + 1) :=
+      (vfMidDyadicVFTrackingDefect_eq_oddRunSeatMass hA2 hAB).symm
+
+/-- The same half-scale packet is already split by the lower-run capacitor:
+the frozen-safe part plus the exact multiplicity-preserving lower-prime
+transport.  This is the run-level object which must feed the #903 recursive
+selector; no new decomposition is introduced in #915. -/
+theorem vfMidHalfScaleRunPlusBlock_eq_frozenSafe_add_lowerTransport
+    {R : ℕ} (hR : 8 ≤ R) :
+    vfMidFrozenAffineRunPhysicalCharge (R / 2 + 1) R +
+        vfMidFrozenAffineBlockPhysicalCharge (R / 2 + 1) R =
+      vfMidDyadicFrozenSafeMass (R / 2 + 1) (R + 1) +
+        vfMidDyadicLowerPrimeIntervalTransport (R / 2 + 1) (R + 1) := by
+  rw [vfMidHalfScaleRunPlusBlock_eq_trackingDefect hR]
+  exact
+    vfMidDyadicVFTrackingDefect_eq_frozenSafe_add_lowerTransport
+      (by omega : 4 ≤ R / 2 + 1)
+      (by omega : R / 2 + 1 ≤ R + 1)
+      (by omega : R + 1 ≤ 2 * (R / 2 + 1))
+
 /-- **Production theorem: half-scale source payment.**
 
 This is now the only red mathematical line in #915.  The prior-good input has
@@ -776,8 +816,10 @@ theorem vfMidActualPrimeFirstBadAt_two_succ_halfScaleSectorSixPayment
       vfMidFirstBadZeroTargetTotalMass R := by
   have hprior :=
     vfMidActualPrimeFirstBadAt_two_succ_halfScaleAnchor_sq_inside hR hfirst
-  -- The remaining terms are the signed historical/current payment which must
-  -- be assembled through #903 before any inequality is taken.
+  rw [vfMidHalfScaleRunPlusBlock_eq_frozenSafe_add_lowerTransport hR]
+  -- At this point the only unresolved quantity is the existing run capacitor:
+  -- FrozenSafe + LowerPrimeIntervalTransport.  The next step is the compiled
+  -- strict-excess selector / sector-six rank descent, not another scalar bound.
   nlinarith
 
 /-- The production payment is exactly the original source inlet. -/
