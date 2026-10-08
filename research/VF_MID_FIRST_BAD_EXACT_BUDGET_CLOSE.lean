@@ -640,18 +640,35 @@ theorem vfMidFirstBadAnchoredUpper_sub_lower_eq_signedSource (R : ℕ) :
         vfMidActualPrimeEndpointDefect R := by
   unfold vfMidFirstBadAnchoredUpperPartialMass
     vfMidFirstBadAnchoredLowerPartialMass
-  rw [← Finset.sum_sub_distrib]
   have hsum :
       (∑ n ∈ vfMidOddCandidateSeats R,
-        (zeroTargetUpperPart (vfMidOddSignedSeatCharge R n) -
-          zeroTargetLowerPart (vfMidOddSignedSeatCharge R n))) =
+        zeroTargetUpperPart (vfMidOddSignedSeatCharge R n)) -
+        (∑ n ∈ vfMidOddCandidateSeats R,
+          zeroTargetLowerPart (vfMidOddSignedSeatCharge R n)) =
         ∑ n ∈ vfMidOddCandidateSeats R,
           vfMidOddSignedSeatCharge R n := by
+    rw [← Finset.sum_sub_distrib]
     apply Finset.sum_congr rfl
     intro n _hn
     exact zeroTargetUpperPart_sub_lowerPart _
-  rw [hsum, zeroTargetUpperPart_sub_lowerPart]
-  ring
+  calc
+    zeroTargetUpperPart (-vfMidActualPrimeEndpointDefect R) +
+          (∑ n ∈ vfMidOddCandidateSeats R,
+            zeroTargetUpperPart (vfMidOddSignedSeatCharge R n)) -
+        (zeroTargetLowerPart (-vfMidActualPrimeEndpointDefect R) +
+          ∑ n ∈ vfMidOddCandidateSeats R,
+            zeroTargetLowerPart (vfMidOddSignedSeatCharge R n)) =
+      (zeroTargetUpperPart (-vfMidActualPrimeEndpointDefect R) -
+        zeroTargetLowerPart (-vfMidActualPrimeEndpointDefect R)) +
+      ((∑ n ∈ vfMidOddCandidateSeats R,
+          zeroTargetUpperPart (vfMidOddSignedSeatCharge R n)) -
+        ∑ n ∈ vfMidOddCandidateSeats R,
+          zeroTargetLowerPart (vfMidOddSignedSeatCharge R n)) := by ring
+    _ = -vfMidActualPrimeEndpointDefect R +
+        (∑ n ∈ vfMidOddCandidateSeats R,
+          vfMidOddSignedSeatCharge R n) := by
+      rw [zeroTargetUpperPart_sub_lowerPart, hsum]
+    _ = _ := by ring
 
 /-- Upper plus lower anchored partial mass is exactly the unchanged #897
 absolute denominator amplitude. -/
@@ -663,18 +680,35 @@ theorem vfMidFirstBadAnchoredUpper_add_lower_eq_absMass (R : ℕ) :
           |vfMidOddSignedSeatCharge R n| := by
   unfold vfMidFirstBadAnchoredUpperPartialMass
     vfMidFirstBadAnchoredLowerPartialMass
-  rw [← Finset.sum_add_distrib]
   have hsum :
       (∑ n ∈ vfMidOddCandidateSeats R,
-        (zeroTargetUpperPart (vfMidOddSignedSeatCharge R n) +
-          zeroTargetLowerPart (vfMidOddSignedSeatCharge R n))) =
+        zeroTargetUpperPart (vfMidOddSignedSeatCharge R n)) +
+        (∑ n ∈ vfMidOddCandidateSeats R,
+          zeroTargetLowerPart (vfMidOddSignedSeatCharge R n)) =
         ∑ n ∈ vfMidOddCandidateSeats R,
           |vfMidOddSignedSeatCharge R n| := by
+    rw [← Finset.sum_add_distrib]
     apply Finset.sum_congr rfl
     intro n _hn
     exact zeroTargetUpperPart_add_lowerPart_exactBudget _
-  rw [hsum, zeroTargetUpperPart_add_lowerPart_exactBudget, abs_neg]
-  ring
+  calc
+    zeroTargetUpperPart (-vfMidActualPrimeEndpointDefect R) +
+          (∑ n ∈ vfMidOddCandidateSeats R,
+            zeroTargetUpperPart (vfMidOddSignedSeatCharge R n)) +
+        (zeroTargetLowerPart (-vfMidActualPrimeEndpointDefect R) +
+          ∑ n ∈ vfMidOddCandidateSeats R,
+            zeroTargetLowerPart (vfMidOddSignedSeatCharge R n)) =
+      (zeroTargetUpperPart (-vfMidActualPrimeEndpointDefect R) +
+        zeroTargetLowerPart (-vfMidActualPrimeEndpointDefect R)) +
+      ((∑ n ∈ vfMidOddCandidateSeats R,
+          zeroTargetUpperPart (vfMidOddSignedSeatCharge R n)) +
+        ∑ n ∈ vfMidOddCandidateSeats R,
+          zeroTargetLowerPart (vfMidOddSignedSeatCharge R n)) := by ring
+    _ = |-vfMidActualPrimeEndpointDefect R| +
+        (∑ n ∈ vfMidOddCandidateSeats R,
+          |vfMidOddSignedSeatCharge R n|) := by
+      rw [zeroTargetUpperPart_add_lowerPart_exactBudget, hsum]
+    _ = _ := by rw [abs_neg]
 
 /-- The anchored Co-minus-three-Div observable is exactly the elementary
 positive-mass balance polynomial U^2 + L^2 - 6 U L.
@@ -701,9 +735,42 @@ theorem vfMidFirstBadAnchoredCoDivExcess_eq_upperLowerBalance
       (vfMidActualPrimeEndpointDefect R)
   have hsub := vfMidFirstBadAnchoredUpper_sub_lower_eq_signedSource R
   have hadd := vfMidFirstBadAnchoredUpper_add_lower_eq_absMass R
-  unfold vfMidFirstBadAnchoredCoDivExcess
   unfold vfMidAnchoredZeroTargetTotalMass at htotal
-  nlinarith
+  unfold vfMidFirstBadAnchoredCoDivExcess
+  calc
+    vfMidAnchoredZeroTargetCoPartialGram
+          (vfMidOddCandidateSeats R) (vfMidOddSignedSeatCharge R)
+          (vfMidActualPrimeEndpointDefect R) -
+        3 * vfMidAnchoredZeroTargetDivergentGram
+          (vfMidOddCandidateSeats R) (vfMidOddSignedSeatCharge R)
+          (vfMidActualPrimeEndpointDefect R) =
+      2 * (vfMidAnchoredZeroTargetCoPartialGram
+          (vfMidOddCandidateSeats R) (vfMidOddSignedSeatCharge R)
+          (vfMidActualPrimeEndpointDefect R) -
+        vfMidAnchoredZeroTargetDivergentGram
+          (vfMidOddCandidateSeats R) (vfMidOddSignedSeatCharge R)
+          (vfMidActualPrimeEndpointDefect R)) -
+      (vfMidAnchoredZeroTargetCoPartialGram
+          (vfMidOddCandidateSeats R) (vfMidOddSignedSeatCharge R)
+          (vfMidActualPrimeEndpointDefect R) +
+        vfMidAnchoredZeroTargetDivergentGram
+          (vfMidOddCandidateSeats R) (vfMidOddSignedSeatCharge R)
+          (vfMidActualPrimeEndpointDefect R)) := by ring
+    _ =
+      2 * ((∑ n ∈ vfMidOddCandidateSeats R,
+          vfMidOddSignedSeatCharge R n) -
+        vfMidActualPrimeEndpointDefect R) ^ 2 -
+      (|vfMidActualPrimeEndpointDefect R| +
+        ∑ n ∈ vfMidOddCandidateSeats R,
+          |vfMidOddSignedSeatCharge R n|) ^ 2 := by
+      rw [hexcess, htotal]
+    _ =
+      2 * (vfMidFirstBadAnchoredUpperPartialMass R -
+        vfMidFirstBadAnchoredLowerPartialMass R) ^ 2 -
+      (vfMidFirstBadAnchoredUpperPartialMass R +
+        vfMidFirstBadAnchoredLowerPartialMass R) ^ 2 := by
+      rw [hsub, hadd]
+    _ = _ := by ring
 
 /-- Exact positive-mass form of the #915 target. -/
 theorem vfMidFirstBadAnchoredCoDivExcess_nonpos_iff_upperLowerBalance
