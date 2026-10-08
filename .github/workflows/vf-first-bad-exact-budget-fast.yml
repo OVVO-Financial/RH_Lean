@@ -5,6 +5,10 @@ on:
     branches: [vf-first-bad-final-aggregate-contraction]
     paths:
       - research/VF_MID_FIRST_BAD_EXACT_BUDGET_CLOSE.lean
+      - research/VF_MID_915_SECTOR_SIX_CONE_AUDIT.md
+      - scripts/vf_mid_sector_six_direct_probe.py
+      - scripts/vf_mid_sector_six_cone_regression.py
+      - scripts/vf_mid_sector_six_exact_r18.py
       - .github/workflows/vf-first-bad-exact-budget-fast.yml
   workflow_dispatch:
 
@@ -19,6 +23,11 @@ jobs:
       - uses: actions/checkout@v4
         with:
           ref: ${{ github.event.pull_request.head.sha || github.sha }}
+
+      - name: Regress raw Sector Six vs complete VF boundary (before Lean)
+        run: |
+          python3 scripts/vf_mid_sector_six_cone_regression.py
+          python3 scripts/vf_mid_sector_six_exact_r18.py
 
       - name: Restore Lake packages
         uses: actions/cache/restore@v5
