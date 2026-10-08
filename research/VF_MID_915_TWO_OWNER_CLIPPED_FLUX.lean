@@ -99,7 +99,6 @@ theorem vfMid915ClippedInsert_twoStep_eq_final
   by_cases hp : p * n ≤ X
   · simp only [vfMid915ClippedInsert, if_pos hp]
     rw [show q * (p * n) = (p * q) * n by ring]
-    rfl
   · have hnot : ¬ (p * q) * n ≤ X := by
       intro h
       have hmul : p * n ≤ q * (p * n) := by
@@ -158,7 +157,7 @@ theorem vfMid915BooleanMixedResponse_eq_three_nonnegative_atoms
     (if !bp && !bq then u else 0) +
       (if bp && !bq then lp else 0) +
       (if !bp && bq then lq else 0) := by
-  cases bp <;> cases bq <;> simp <;> ring
+  cases bp <;> cases bq <;> simp
 
 theorem vfMid915BooleanMixedResponse_nonneg
     (u lp lq : ℝ) (bp bq : Bool)
