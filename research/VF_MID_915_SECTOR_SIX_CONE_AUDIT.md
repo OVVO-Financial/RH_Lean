@@ -2,6 +2,127 @@
 
 **Status:** empirical arithmetic-carrier tests added; **the exact half-scale payment remains unproved**. This audit is not a Lean certificate of RH and introduces no new analytic or distribution hypothesis.
 
+## 2026-10-08 PNT actual-prime reciprocal-star input and SIGNED payment test
+
+**Use the PNT theorem already compiled in RH_Lean.** This is NOT a new
+distribution-of-primes hypothesis; do not replace actual block prime counts by
+their Li values, and do not assume PNT controls every square block.
+
+Already formalized (external to #915's direct import closure):
+
+1. nativePrimeNumberTheorem, in
+   RHLean/Analysis/NativePNTTransfer.lean: pi(N) log(N)/N -> 1.
+2. eventually_vfMidActualRootSquareReciprocalPrimeMass_lt_one,
+   in research/VF_MID_ACTUAL_PRIME_ROOT_SQUARE_CONTRACTION.lean:
+   for all sufficiently large R,
+       beta_R = sum_(R<q<=R^2, q prime) 1/q < 1.
+   PNT also gives beta_R -> log 2.
+3. vfMidActualHighPrimeProtectedStarMass_eq in the same file:
+       Star(R,m) = (1-beta_(R,m)) v(R,m) + Defect(R,m)
+   on the actual reciprocal/protected square-block correlation. Each
+   cofactor m is below R and each prime q is genuinely above R; only
+   permitted mq<=R^2-1 occurrences appear.
+4. abs_vfMidActualHighPrimeProtectedStarDefectMass_le and
+   abs_vfMidActualHighPrimeProtectedStarMass_le_parent_of_rootMass,
+   in research/VF_MID_ACTUAL_PRIME_STAR_DEFECT_CONTRACTION.lean:
+       |Defect(R,m)| <= beta_(R,m) |v(R,m)|,
+       |Star(R,m)| <= |v(R,m)|       if beta_R <= 1.
+
+**Essential restriction:** These are high-prime reciprocal Euler stars for a
+native PNT/protected block, NOT the low-prime least-owner removal census in
+the original odd seats and NOT a proven matched historical/current return
+on the #915 first-bad packet. The Euler star nonexpansion has no uniform
+strict gain: the permitted defect can use up its whole beta*|parent| allowance.
+It cannot be plugged into hbalance without a literal source/weight-preserving
+pair-level Fubini transport and a new SIGNED estimate.
+
+### Exact numerical target (not a proxy substitution)
+
+For every actual square block R define
+
+    P_R = pi((R+1)^2)-pi(R^2),
+    D_R = pi(R^2)-VF_mid(R^2),
+    V_R = (2R+1)/log(R^2+R+1/2), w_R = V_R/R,
+    U_R = (-D_R)_+ + w_R*(R-P_R),
+    L_R = ( D_R)_+ + (1-w_R)*P_R.
+
+The ORIGINAL #915 sharp signed payment, including its +4 absolute heat term,
+has the exact existing Lean equivalence:
+
+    Margin_R
+       = ThreeBoundaryTransportedExcess + 4*ThreeBoundaryAbsMass
+         - ActiveGlobalResidualExcess
+       = (U_R+L_R)^2 - 2 D_(R+1)^2
+       = 6 U_R L_R - U_R^2 - L_R^2.
+
+scripts/vf_mid_915_pnt_production_regression.py computes this using:
+- exact sieved prime counts and VF midpoint masses, and the original
+  parity-reduced seat charges; **no PNT-density substitution**;
+- independently split squarefree-active and squareful-omitted charges, the
+  original vfMidActiveDemandResidual/CapacityResidual formulas, and the
+  physical unordered signed/absolute pair Fubini;
+- formal occurrence-tagged parent sign-reversal z -> -z, with the exact
+  Echild + Etransport = -4 |z| heat; these formal parent entries are NOT
+  asserted to occur independently in the original historical source;
+- an independent protected square correlation:
+      v(R,m) = mu(m)*(-sum_(R^2<d<=(R+1)^2, m|d) log(d/m))/m,
+      D(R,m,q) = mu(m)*(response(m)-response(mq))/(m*q),
+  where response is the NEGATIVE log sum and q runs over actual R<q<=R^2-1
+  with mq<=R^2-1. It checks the signed Euler-star equality, nonnegative
+  beta, the defect budget, and aggregate absolute nonexpansion.
+
+Representative **signed payment** values (positive = gate passes):
+
+| R | actual beta_R | original sharp margin | normalized (U-L)^2/(U+L)^2 |
+| ---: | ---: | ---: | ---: |
+| 8 | 0.537667 | 22.028829 | 0.027125 |
+| 18 | 0.622831 | 104.491820 | 0.105070 |
+| 56 | 0.668437 | 628.228360 | 0.184765 |
+| 119 | 0.669896 | 1777.023204 | 0.206054 |
+| 317 | 0.679984 | 13423.784662 | 0.093334 |
+| 1027 | 0.689169 | 105561.281363 | 0.107592 |
+| 5266 | 0.691959 | 2090948.119616 | 0.045816 |
+| 6000 | 0.691933 | 2583879.010666 | 0.095024 |
+
+The full numerical **consecutive scan R=8,...,6000** passed:
+- largest normalized squared imbalance 0.206053679, R=119;
+- minimum original signed margin 18.949363, R=9;
+- largest observed reciprocal-prime beta 0.692571322, R=5380,
+  strictly below 1;
+- largest |D_R|/(2 R log R) 0.045990242, R=15; **no first-bad state
+  is actually witnessed in this scan**.
+
+The direct Euler star is nonexpansive, but the signed defect almost exhausts
+the allowed capacity:
+
+| R | beta_R | sum_m |D(R,m)| / sum_m beta_(R,m)|v(R,m)| | sum_m |Star(R,m)| / sum_m |v(R,m)| |
+| ---: | ---: | ---: | ---: |
+| 17 | 0.606596 | 0.991898 | 0.995554 |
+| 56 | 0.668437 | 0.997863 | 0.998670 |
+| 317 | 0.679984 | 0.999707 | 0.999811 |
+| 1027 | 0.689169 | 0.999922 | 0.999949 |
+
+At R=1027, the signed retained part is -4920.204 and the signed physical
+defect is -13113.115, giving signed star -18033.319. This is a literal signed
+sum; the physical defect is **not** a small unsigned perturbation.
+
+**Decision for #915:** PNT resolves the high-prime reciprocal owner *mass*
+budget and the existing Euler star is exact. The unproved first-bad payment
+is NOT resolved by those facts: its signed physical defect nearly cancels
+the nominal gain from (1-beta), and the star carrier has not been reassembled
+as the original historical/current first-bad source. Preserve the original
++4 heat and original absolute denominator; prove the exact occurrence-matched
+signed cross-owner correction against hfirst, not a new bound on pi(x).
+
+Fast CI runs:
+
+    python3 scripts/vf_mid_915_pnt_production_regression.py --extended
+
+The numerical checks are deterministic finite regressions, **not** a proof of
+an all-R cone, first-bad payment, or RH. The production hbalance remains open.
+
+---
+
 ## 2026-10-08 forward correction: ascend from owner 2
 
 **Use ascending least-prime-owner reconstruction of the ORIGINAL physical
