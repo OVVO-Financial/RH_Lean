@@ -1130,8 +1130,11 @@ theorem vfMid915AscendingStage_step
         vfMid915AscendingStageSigned R D w C + d ∧
     vfMid915AscendingStageAbs R D w (C + d) =
         vfMid915AscendingStageAbs R D w C + (2 * w - 1) * d := by
-  constructor <;> unfold vfMid915AscendingStageSigned
-    vfMid915AscendingStageAbs <;> ring
+  constructor
+  · unfold vfMid915AscendingStageSigned
+    ring
+  · unfold vfMid915AscendingStageAbs
+    ring
 
 /-- Exact cross-owner contribution to the cone-slack change.
 Its first term depends on the *entire accumulated state*; the quadratic
