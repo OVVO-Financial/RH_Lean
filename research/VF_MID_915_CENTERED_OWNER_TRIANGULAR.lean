@@ -289,7 +289,6 @@ theorem vfMid915CenteredHeadTailOriginalOddGram_exact
     exact vfMid915CenteredHeadTailSquare_exact hp Q hQ beta
   rw [hsum, Finset.sum_sub_distrib, Finset.sum_add_distrib]
   rw [Finset.mul_sum]
-  ring
 
 /-! ## No-decompression original-source reconstruction -/
 
