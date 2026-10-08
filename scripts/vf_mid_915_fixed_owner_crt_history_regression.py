@@ -146,6 +146,58 @@ def test_run(by_p, A, B, Q, wheel_pref, alpha, bound):
           % (A, B, total, float(total), bound))
 
 
+def actual_prime_sieve(N):
+    """Independent actual-prime sieve; no PNT-density replacements."""
+    from bisect import bisect_right
+    isp=bytearray(b'\x01')*(N+1)
+    isp[0:2]=b'\x00\x00'
+    for p in range(2,math.isqrt(N)+1):
+        if isp[p]:
+            isp[p*p:N+1:p]=b'\x00'*((N-p*p)//p+1)
+    plist=[n for n in range(2,N+1) if isp[n]]
+    return plist, bisect_right
+
+
+def actual_vf_half_run_owner_weld(by_p,Q,wheel_pref,alpha,sharp_bound):
+    """Original VF-minus-ACTUAL PRIME supply, split by genuine >17 removals.
+
+    The small-wheel correction is uniformly bounded; the moving higher-
+    owner packet is an ACTUAL composite count, not assumed independent.
+    """
+    import bisect
+    roots=(56,317,1027)
+    primes,_=actual_prime_sieve((max(roots)+1)**2)
+    for R in roots:
+        A=R//2+1; B=R+1
+        assert A>=17
+        vw=0.
+        smooth=Fraction(0)
+        high=0
+        primecount=0
+        for r in range(A,B):
+            pcount=(bisect.bisect_right(primes,(r+1)**2-1)
+                    -bisect.bisect_right(primes,r*r))
+            N=wheel_count(Q,wheel_pref,(r+1)**2-1)-wheel_count(Q,wheel_pref,r*r)
+            late=N-pcount
+            assert late>=0
+            high+=late;primecount+=pcount
+            smooth+=Fraction(N)-alpha*r
+            vw+=(2*r+1)/math.log(r*r+r+.5)-float(alpha*r)
+        actual=vw+high-float(smooth)
+        independent=sum(
+            (2*r+1)/math.log(r*r+r+.5)-
+            (bisect.bisect_right(primes,(r+1)**2-1)-
+             bisect.bisect_right(primes,r*r))
+            for r in range(A,B)
+        )
+        assert abs(actual-independent)<2e-7,(R,actual,independent)
+        assert abs(smooth)<=sharp_bound
+        print("ACTUAL_OWNER_WELD R=%d A=%d B=%d deterministicVFminusWheel=%.6f "
+              "actualHighPrimeOwnerRemovals=%d fixedWheelError=%s "
+              "originalVFHistoForcing=%.6f physicalEquality=PASS"
+              %(R,A,B,vw,high,smooth,actual))
+
+
 def main():
     by_p = build_certificates()
     Q = by_p[17][1]
@@ -174,6 +226,7 @@ def main():
         A = R // 2 + 1
         B = R + 1
         test_run(by_p, A, B, Q, wheel_pref, alpha, sharp_bound)
+    actual_vf_half_run_owner_weld(by_p,Q,wheel_pref,alpha,sharp_bound)
     print("PASS exact small-owner CRT and bounded historical corrections.")
     print("OPEN: quantify PNT-centered large-owner remainder p>17 "
           "on original signed historical/current quadratic source; "
