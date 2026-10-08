@@ -25,6 +25,35 @@ The latter complete source is numerically cone-balanced on tested clocks, but
 this does not imply balance after recursive child-run descent or at the
 first-bad anchor.  No theorem below asserts such an implication.
 
+## Reuse proved PNT before the final signed payment (2026-10-08)
+
+The PNT is already compiled, not a new assumption:
+  RHLean.Analysis.nativePrimeNumberTheorem
+and on the separate protected/native-PNT high-prime-star carrier,
+  eventually_vfMidActualRootSquareReciprocalPrimeMass_lt_one
+proves eventual beta_R = sum_(R<q<=R^2 prime) (1/q) < 1.
+
+The separate proven exact Euler-star law is
+  vfMidActualHighPrimeProtectedStarMass_eq:
+    Star(R,m) = (1-beta_(R,m))*v(R,m) + Defect(R,m).
+The proven defect allowance
+  abs_vfMidActualHighPrimeProtectedStarDefectMass_le
+has |Defect| <= beta_(R,m)*|v|, giving the existing
+  abs_vfMidActualHighPrimeProtectedStarMass_le_parent_of_rootMass
+nonexpansion.  These declarations live in the PNT-star research files,
+not in this production file's current import closure.
+
+Do NOT insert this high-prime q>R reciprocal coefficient into the separate
+ascending low-prime p<=R parity-sieve count. Do NOT assume the signed physical
+defect is negligible. The finite regression at R=1027 shows its summed
+absolute allowance is 99.9922% used and star absolute mass is 99.9949%
+of parent absolute mass: no strict source payment follows from beta_R<1.
+The missing link remains an occurrence-matched SIGNED transport between the
+native PNT protected-star packet and THIS #915 historical/current physical
+source plus the hfirst-specific payment. The final mathematical goal stays
+the existing sharp-transport/source-inlet inequality, without enlargement
+of its original absolute denominator or additional assumptions.
+
 The remaining consumer must reconstruct the actual historical/current packet
 as a FULL compensated grouped return, retaining signed source, the ORIGINAL
 absolute-mass denominator, occurrence tags, survivor restrictions, and
@@ -1313,6 +1342,14 @@ theorem vfMidActualPrimeFirstBadAt_two_succ_halfScaleSectorSixPayment
     -- Required: occurrence-matched historical/current pair-Fubini transport
     -- plus an arithmetic payment SPECIFIC to hfirst; no synthetic negative
     -- stripped parents and no all-R/all-stage cone hypothesis.
+    -- Compiled external PNT: nativePrimeNumberTheorem, plus the eventual
+    -- actual high-owner reciprocal beta_R<1 and exact protected Euler star.
+    -- Star = (1-beta_m)*parent + signed physical defect; defect <=
+    -- beta_m*|parent|, so beta<1 gives ONLY nonexpansion. Numerically
+    -- at R=1027 the signed star defect allowance is 99.9922% exhausted.
+    -- The high-prime protected star is NOT this low-owner historical/current
+    -- carrier. Its original occurrence-matched signed return must be proved
+    -- before it can pay hbalance; formal negative parents are not capacity.
     -- The failing linarith remains the explicit mathematical seam.
     linarith
   have hcodiv :
