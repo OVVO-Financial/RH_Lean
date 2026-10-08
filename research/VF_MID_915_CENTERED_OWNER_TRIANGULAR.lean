@@ -1,6 +1,7 @@
 import Mathlib
 import «research.VF_MID_FIRST_BAD_NORMALIZED_PARTIAL_MOMENT»
 import «research.VF_MID_FIRST_BAD_WEIGHTED_OWNER_FUBINI»
+import «research.VF_MID_FIRST_BAD_HISTORY_COMPRESSION»
 
 /-!
 # #915: original-source centered first-prime-owner triangular covariance
@@ -290,6 +291,58 @@ theorem vfMid915ActualOddSignedSource_eq_centeredOwner
       rw [Finset.sum_add_distrib, Finset.sum_const]
       rw [vfMidOddCandidateSeats_card]
       simp only [nsmul_eq_mul]
+
+/-- Exact CENTERED actual-prime owner identity on the FULL historical VF
+defect. The signed historical anchor is retained as one scalar, with
+no history norm expansion and no optional guessed sign cancellation.
+This is the exact arithmetic target needed for multiscale first badness. -/
+theorem vfMid915ActualHistoricalDefect_eq_centeredOwner
+    {A B : ℕ} (hA : 2 ≤ A) (hAB : A ≤ B) :
+    vfMidActualPrimeEndpointDefect B =
+      vfMidActualPrimeEndpointDefect A -
+        (∑ r ∈ Finset.Ico A B,
+          ((r : ℝ) *
+            (vfMidOddFractionalPrimeSeatWeight r -
+              vfMid915CenteredAlpha (r - 2)) +
+            ∑ n ∈ vfMidOddCandidateSeats r,
+              vfMid915CenteredAccum n (r - 2))) := by
+  have hhistory :=
+    vfMidActualPrimeEndpointDefect_eq_anchor_sub_oddRunSeatMass hA hAB
+  rw [vfMidOddRunSeatMass_eq_sum_physicalSeats] at hhistory
+  have hsum :
+      (∑ r ∈ Finset.Ico A B,
+          ∑ n ∈ vfMidOddCandidateSeats r,
+            vfMidOddSignedSeatCharge r n) =
+      ∑ r ∈ Finset.Ico A B,
+        ((r : ℝ) *
+            (vfMidOddFractionalPrimeSeatWeight r -
+              vfMid915CenteredAlpha (r - 2)) +
+          ∑ n ∈ vfMidOddCandidateSeats r,
+            vfMid915CenteredAccum n (r - 2)) := by
+    apply Finset.sum_congr rfl
+    intro r hr
+    exact vfMid915ActualOddSignedSource_eq_centeredOwner
+      r (hA.trans (Finset.mem_Ico.mp hr).1)
+  rw [hsum] at hhistory
+  exact hhistory
+
+/-- #915 canonical half-scale historical source, rewritten solely in the
+exact actual centered low-owner shocks and the ORIGINAL half-run anchor.
+PNT or Fourier bounds may act on this signed sum only after respecting
+its survivor conditioning; no earlier abs denominator is reintroduced. -/
+theorem vfMid915ActualHalfScaleDefect_eq_centeredOwner
+    (R : ℕ) (hR : 8 ≤ R) :
+    vfMidActualPrimeEndpointDefect (R + 1) =
+      vfMidActualPrimeEndpointDefect (R / 2 + 1) -
+        (∑ r ∈ Finset.Ico (R / 2 + 1) (R + 1),
+          ((r : ℝ) *
+            (vfMidOddFractionalPrimeSeatWeight r -
+              vfMid915CenteredAlpha (r - 2)) +
+            ∑ n ∈ vfMidOddCandidateSeats r,
+              vfMid915CenteredAccum n (r - 2))) := by
+  exact vfMid915ActualHistoricalDefect_eq_centeredOwner
+    (by omega : 2 ≤ R / 2 + 1)
+    (by omega : R / 2 + 1 ≤ R + 1)
 
 /-- Exact original zero-target absolute denominator: no old individual
 historical occurrence is reintroduced after compression to D_R. -/
