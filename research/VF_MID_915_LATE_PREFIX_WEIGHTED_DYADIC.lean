@@ -174,6 +174,81 @@ theorem vfMid915CurrentOddWeight_dyadicPair_eq_outerShell
     vfMid915CurrentOddWeight_dyadicOverlap_zero R c hR]
   ring
 
+/-! ## Direct weld to the production squarefree-active Fubini site field -/
+
+/-- An even site is never part of #915's actual SQUAREFREE-ACTIVE
+first-owner field. This uses the existing exact parity-carrier inclusion,
+not a synthetic sign or a hypothetical mate. -/
+theorem vfMid915ActivePhysicalSite_even_zero
+    (R n : ℕ) (hR : 3 ≤ R) :
+    vfMidOneBlockActivePhysicalSite R (2 * n) = 0 := by
+  have hnot : 2 * n ∉ vfMidOneBlockActivePhysicalCarrier R := by
+    intro hn
+    have hOdd :=
+      (vfMidOneBlockActivePhysicalCarrier_subset_oddCandidates hR) hn
+    change 2 * n ∈ vfMidSquarePrefixWheelSurvivors 2 R at hOdd
+    unfold vfMidSquarePrefixWheelSurvivors at hOdd
+    have hsurv : lowWheelHighSurvivor 2 (2 * n) :=
+      (Finset.mem_filter.mp hOdd).2
+    have htwo : 2 ∈ primesUpTo 2 :=
+      mem_primesUpTo.mpr ⟨Nat.prime_two, le_rfl⟩
+    have hnodiv : ¬ 2 ∣ 2 * n := hsurv 2 htwo
+    exact hnodiv ⟨n, rfl⟩
+  simp [vfMidOneBlockActivePhysicalSite, hnot]
+
+/-- Actual squarefree-active first-owner site: a c*q occurrence whose
+DOUBLE still fits under X_R cannot be physically active at R. -/
+theorem vfMid915ActivePhysicalSite_zero_of_doubled_fits
+    {R n : ℕ} (hR : 3 ≤ R)
+    (hfit : 2 * n ≤ (R + 1) ^ 2 - 1) :
+    vfMidOneBlockActivePhysicalSite R n = 0 := by
+  have hnot : n ∉ vfMidOneBlockActivePhysicalCarrier R := by
+    intro hn
+    have h := vfMidOneBlockActivePhysical_two_mul_gt_endpoint hR hn
+    change (R + 1) ^ 2 - 1 < 2 * n at h
+    omega
+  simp [vfMidOneBlockActivePhysicalSite, hnot]
+
+/-- **Production-carrier specialization of the no-pairing theorem.**
+The complete weighted dyadic overlap is zero on the literal
+vfMidOneBlockActivePhysicalSite used in original #915's weighted
+first-owner Fubini, not merely on a new proxy weight. -/
+theorem vfMid915ActivePhysicalSite_dyadicOverlap_zero
+    (R c : ℕ) (hR : 3 ≤ R) :
+    vfMid915WeightedDyadicOverlap R ((R + 1) ^ 2 - 1) c
+      (vfMidOneBlockActivePhysicalSite R) = 0 := by
+  unfold vfMid915WeightedDyadicOverlap
+  apply Finset.sum_eq_zero
+  intro q _hq
+  by_cases hfit : q.Prime ∧ (2 * c) * q ≤ (R + 1) ^ 2 - 1
+  · have htwo : 2 * (c * q) ≤ (R + 1) ^ 2 - 1 := by
+      calc
+        2 * (c * q) = (2 * c) * q := by ring
+        _ ≤ (R + 1) ^ 2 - 1 := hfit.2
+    have hz1 : vfMidOneBlockActivePhysicalSite R (c * q) = 0 :=
+      vfMid915ActivePhysicalSite_zero_of_doubled_fits hR htwo
+    have hz2 : vfMidOneBlockActivePhysicalSite R ((2 * c) * q) = 0 := by
+      rw [show (2 * c) * q = 2 * (c * q) by ring]
+      exact vfMid915ActivePhysicalSite_even_zero R (c * q) hR
+    simp [hfit, hz1, hz2]
+  · simp [hfit]
+
+/-- Exact original ACTIVE-FUBINI output: any odd c paired with 2c leaves
+ONLY the exclusive physical shell. No extra negative heat may be spent
+locally from a completed dyadic overlap because that overlap is zero. -/
+theorem vfMid915ActivePhysicalSite_dyadicPair_eq_outerShell
+    (R c : ℕ) (hR : 3 ≤ R) (hc : Odd c) :
+    vfMid915WeightedLatePrimeFiber R ((R + 1) ^ 2 - 1) c
+        (vfMidOneBlockActivePhysicalSite R) +
+      vfMid915WeightedLatePrimeFiber R ((R + 1) ^ 2 - 1) (2 * c)
+        (vfMidOneBlockActivePhysicalSite R) =
+    vfMid915WeightedDyadicOuterShell R ((R + 1) ^ 2 - 1) c
+      (vfMidOneBlockActivePhysicalSite R) := by
+  rw [vfMid915WeightedDyadicPrimeFiber_eq_overlap_add_shell
+    R ((R + 1) ^ 2 - 1) c (vfMidOneBlockActivePhysicalSite R) hc,
+    vfMid915ActivePhysicalSite_dyadicOverlap_zero R c hR]
+  ring
+
 /-- Genuine **half-scale ancestry bottleneck**. In an unfinished square band,
 an odd composite c*q with historical prime q inside [a², (R+1)²), where
 a=R/2+1, cannot have cofactor c >= 5. Only c=3 can contribute to
