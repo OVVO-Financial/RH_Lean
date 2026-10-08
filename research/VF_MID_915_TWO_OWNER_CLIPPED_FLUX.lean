@@ -158,6 +158,7 @@ theorem vfMid915BooleanMixedResponse_eq_three_nonnegative_atoms
       (if bp && !bq then lp else 0) +
       (if !bp && bq then lq else 0) := by
   cases bp <;> cases bq <;> simp
+  all_goals ring
 
 theorem vfMid915BooleanMixedResponse_nonneg
     (u lp lq : ℝ) (bp bq : Bool)
