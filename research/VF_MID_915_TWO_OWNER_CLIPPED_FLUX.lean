@@ -98,7 +98,7 @@ theorem vfMid915ClippedInsert_twoStep_eq_final
       if (p * q) * n ≤ X then (p * q) * n else 0 := by
   by_cases hp : p * n ≤ X
   · simp only [vfMid915ClippedInsert, if_pos hp]
-    rw [show q * (p * n) = (p * q) * n by omega]
+    rw [show q * (p * n) = (p * q) * n by ring]
     rfl
   · have hnot : ¬ (p * q) * n ≤ X := by
       intro h
@@ -106,7 +106,7 @@ theorem vfMid915ClippedInsert_twoStep_eq_final
         simpa using
           (Nat.mul_le_mul_right (p * n) hq)
       have hnormal : q * (p * n) = (p * q) * n := by
-        omega
+        ring
       omega
     simp [vfMid915ClippedInsert, hp, hnot]
 
