@@ -277,4 +277,51 @@ theorem vfMid915HalfScaleOddCofactor_eq_three
     positivity
   omega
 
+
+/-- **Odd physical version of the inert top band.** The ordinary Möbius
+late-flip process has no proper multiple for a prime p>X/2. AFTER the fixed
+prime-2 parity sieve, no ODD proper multiple exists already for p>X/3:
+any odd positive cofactor must equal 1. This is a geometric fact, not PNT. -/
+theorem vfMid915OddTopThirdCofactor_eq_one
+    {X c p : ℕ}
+    (hTop : X < 3 * p) (hcOdd : Odd c) (hc1 : 1 ≤ c)
+    (hfit : c * p ≤ X) :
+    c = 1 := by
+  by_contra hne
+  have hc3 : 3 ≤ c := by
+    rcases hcOdd with ⟨k, hk⟩
+    omega
+  have hprod : 3 * p ≤ c * p :=
+    Nat.mul_le_mul_right p hc3
+  omega
+
+/-- For R >= 16 the c=3 current-block descendant also has its prime
+ancestor q in the explicit half-scale historical run [a²,R²). Together
+with vfMid915HalfScaleOddCofactor_eq_three, this identifies exactly
+WHICH prime-owner multiplicative ancestor can occur inside that run.
+There is still no Co/Div compensation theorem: the historical and
+current VF weights are different and the historical charge is compressed. -/
+theorem vfMid915TripleCurrentParent_in_halfRun
+    {R n q : ℕ} (hR : 16 ≤ R)
+    (hn : R ^ 2 < n) (hfactor : n = 3 * q) :
+    (R / 2 + 1) ^ 2 ≤ q := by
+  let a := R / 2 + 1
+  have ha : 2 * a ≤ R + 2 := by
+    dsimp [a]
+    omega
+  have haSq : 4 * a ^ 2 ≤ (R + 2) ^ 2 := by
+    have hmul := Nat.mul_le_mul ha ha
+    nlinarith
+  have hR13 : 13 * R ≤ R * R :=
+    Nat.mul_le_mul_right R (by omega : 13 ≤ R)
+  have hRBig : 3 * (R + 2) ^ 2 ≤ 4 * R ^ 2 := by
+    nlinarith
+  have hPrior : 3 * a ^ 2 ≤ R ^ 2 := by
+    nlinarith
+  have hq : R ^ 2 < 3 * q := by
+    omega
+  have hfinal : a ^ 2 ≤ q := by
+    nlinarith
+  simpa [a] using hfinal
+
 end RHLean.Analysis
