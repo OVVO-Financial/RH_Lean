@@ -95,7 +95,7 @@ The full numerical **consecutive scan R=8,...,6000** passed:
 The direct Euler star is nonexpansive, but the signed defect almost exhausts
 the allowed capacity:
 
-| R | beta_R | sum_m |D(R,m)| / sum_m beta_(R,m)|v(R,m)| | sum_m |Star(R,m)| / sum_m |v(R,m)| |
+| R | beta_R | total abs(defect) / allowed defect capacity | total abs(star) / total abs(parent) |
 | ---: | ---: | ---: | ---: |
 | 17 | 0.606596 | 0.991898 | 0.995554 |
 | 56 | 0.668437 | 0.997863 | 0.998670 |
