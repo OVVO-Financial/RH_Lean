@@ -2,6 +2,145 @@
 
 **Status:** empirical arithmetic-carrier tests added; **the exact half-scale payment remains unproved**. This audit is not a Lean certificate of RH and introduces no new analytic or distribution hypothesis.
 
+## 2026-10-08 rigorous two-owner clipped flux and mixed response audit
+
+**Source:** research/VF_MID_915_TWO_OWNER_CLIPPED_FLUX.lean
+**Regression:** scripts/vf_mid_915_two_owner_flux_regression.py
+
+### Completed INSERTION orders have zero order leakage
+
+For any positive prime multipliers p,q on a common physical clock X:
+
+    clippedInsert_X(q, clippedInsert_X(p,n))
+       = if p*q*n <= X then p*q*n else 0
+       = clippedInsert_X(p, clippedInsert_X(q,n)).
+
+A final product on the clock implies both multiplicative prefixes are on
+the clock. Thus **insertion-order clipping is NOT a source of saving**.
+The incomplete first/next/returned raw-parent boundary instead records
+which complete physical cube CORNERS are absent, not a failure of
+multiplication to commute. Existing two-prime completed Fubini already
+proves a stronger order-independent terminal-filter theorem.
+
+### Toggles really can exit and re-enter
+
+A prime toggle tau_p may add p when absent and strip p when present. For
+distinct commuting toggles let t=tau_q(tau_p(n))=tau_p(tau_q(n)).
+For an exact signed terminal weight W(t), the two clipped path weights have
+difference
+
+    Delta_pq(n) =
+      1_{n<=X} 1_{t<=X}
+      [1_{tau_p(n)<=X} - 1_{tau_q(n)<=X}] W(t).
+
+This **exact** algebraic statement is proved by
+vfMid915ClippedTwoStep_sub_reverse_eq_exitReturn, splitting the result
+into the two mutually exclusive intermediate-support orientations.
+vfMid915ClippedTwoStep_sum_order_flux sums the unchanged signed weight
+over arbitrary occurrence sets, without taking a norm.
+
+Those general occurrence sets are NOT yet identified with #915's actual
+weighted historical/current first-owner quadratic Co/Div carrier. A
+reversed path by itself cannot be spent as a real negative parent.
+
+### Exact positive response curvature
+
+For the physical adjacent-square positive cofactor response
+
+    H_R(m) = sum_{R^2<d<=(R+1)^2, m|d} log(d/m),
+
+and distinct primes p,q, the mixed difference
+H_R(m)-H_R(mp)-H_R(mq)+H_R(mpq) is a sum of the following sitewise
+terms, writing d=m*t:
+
+| p divides t | q divides t | contribution |
+| --- | --- | --- |
+| no | no | log(t) |
+| yes | no | log(p) |
+| no | yes | log(q) |
+| yes | yes | 0 |
+
+All terms are nonnegative. The generic signed four-term Boolean identity
+and its nonnegativity are formally proved in
+vfMid915BooleanMixedResponse_eq_three_nonnegative_atoms and
+vfMid915BooleanMixedResponse_nonneg. The separate direct link from this
+Boolean lemma to the previously defined
+vfMidSquareProtectedResponseLogMass has NOT yet been formalized;
+the regression checks this exact relation numerically for actual
+physical cofactor sums. Positive scalar curvature does **not**
+imply a favorable sign after Möbius pair polarization.
+
+### Concrete surviving historical/current leakage, not a negative heat proof
+
+Take R=8, X=(R+1)^2-1=80, p=3, q=5, n=39:
+
+    39 --strip 3--> 13 --adjoin 5--> 65 (both physical)
+    39 --adjoin 5--> 195 [clipped] --strip 3--> 65.
+
+The terminal 65 is an actual **composite** in the R=8 square block,
+so the current source weight is +w_8=+0.496079621. The two
+clipped path values are respectively +w_8 and zero. Both are
+kernel-checkable finite arithmetic examples in the new Lean module.
+The intermediate 13 is an actual *historical prime* with its own
+different VF charge w_3-1=-0.076174181; replacing it by a synthetic
+-w_8 would be an illicit retained-weight substitution.
+The compressed prior defect D_a does not expose it as an independent
+negative current-block Co/Div pair.
+
+### Finite ordered path-flux census, ACTUAL current site weights
+
+For sampled distinct ordered odd-prime pairs p<q <=R, enumerate the
+real current square-block odd terminal t and its squarefree
+historical factor-exchange start n. Verify both paths and all three
+physical states. The weights are exactly w_R - 1_Prime(t); they are
+NOT reweighted by a PNT density. In this signed *one-site* test:
+
+| R | p,q | first-only nonzero paths | reverse-only paths | signed flux |
+| ---: | ---: | ---: | ---: | ---: |
+| 8 | 3,5 | 1 | 0 | +0.496079621 |
+| 18 | 3,5 | 2 | 0 | +0.704407086 |
+| 56 | 3,5 | 7 | 0 | +1.750622257 |
+| 317 | 3,5 | 34 | 0 | +5.911596486 |
+| 1027 | 3,5 | 109 | 0 | +15.725290599 |
+| 317 | 5,7 | 30 | 0 | +5.216114547 |
+| 1027 | 5,7 | 101 | 0 | +14.571140830 |
+
+All nonzero tested terminals are actual composites, because a low prime
+factor remains. Their one-site VF weight is POSITIVE. Hence on this
+unrestricted path carrier the two-owner flux is NOT automatically the
+desired favorable negative Co/Div heat. The first-owner survivor filters,
+quadratic pair weights, and genuine signed historical counterparts remain
+essential and are NOT tested by this table.
+
+Independent positive-response curvature with m=1,p=3,q=5 is:
+R=8: 44.646767; R=18: 134.691045; R=317: 4217.652951;
+R=1027: 16244.292906. Direct four-response evaluations agree with
+the exact atom-class summation to floating-point tolerance.
+
+### Historical support is mathematically unavoidable
+
+vfMid915TwoOddOwnerReplacement_exits_current_square proves that if
+R^2<n<(R+1)^2, n=q*k, q<=R, and p,q are distinct odd primes, then
+
+    p*k <= R^2 or (R+1)^2 <= p*k.
+
+Odd low-prime factor replacement cannot leave BOTH endpoints in the
+current open adjacent-square interval. Hence any true compensating
+opposite-parity occurrence must be established across HISTORICAL
+support or another actual independent pair fibre, not fabricated
+within the current one-block site census.
+
+**Result:** The two-owner test gives rigorous exact local identities,
+a geometric no-go for pure-insertion order leakage, and *unfavorable*
+positive one-site signed exit-return flux in the sampled actual carrier.
+It DOES NOT prove the #915 hbalance gate. To obtain strict saving,
+one still must construct a legal occurrence-preserving match between
+this historical return geometry and the literal first-owner signed
+quadratic packet, and prove an independent first-bad-specific
+inequality after retaining the original denominator.
+
+---
+
 ## 2026-10-08 PNT actual-prime reciprocal-star input and SIGNED payment test
 
 **Use the PNT theorem already compiled in RH_Lean.** This is NOT a new
