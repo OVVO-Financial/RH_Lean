@@ -2,6 +2,108 @@
 
 **Status:** empirical arithmetic-carrier tests added; **the exact half-scale payment remains unproved**. This audit is not a Lean certificate of RH and introduces no new analytic or distribution hypothesis.
 
+## 2026-10-08 forward correction: ascend from owner 2
+
+**Use ascending least-prime-owner reconstruction of the ORIGINAL physical
+source, not universal raw Sector Six descent.** This retains each physical
+integer occurrence and its native VF seat weight. At cutoff S, the prefix
+survivors are the physical odd seats not yet eliminated by odd primes <= S.
+
+For a fixed block R set:
+
+- w_R = V_R/R, P_R = the *actual* prime supply, D_R = pi(R^2)-VF_mid(R^2).
+- C_(S,R) = R - |vfMidSquarePrefixWheelSurvivors(S,R)|.
+
+With every *unremoved* odd seat provisionally assigned prime charge w_R-1,
+the physical ascending ledger has exact coordinates
+
+    G_(S,R) = -D_R + (w_R-1)R + C_(S,R)
+    T_(S,R) = |D_R| + (1-w_R)R + (2w_R-1)C_(S,R)
+    B_(S,R) = T_(S,R)^2 - 2 G_(S,R)^2.
+
+At S=2, C=0. At S=R, all composites are removed uniquely at their least
+odd-prime owner, so C=R-P_R and the ledger gives **exactly**
+
+    G_(R,R) = U_R-L_R = -D_(R+1)
+    T_(R,R) = U_R+L_R = |D_R| + sum_{odd seats} |w_R-1_prime(n)|.
+
+Thus the *original* anchored absolute denominator is recovered without
+swapping it for a larger blockwise absolute sum. The existing
+vfMid_root_sub_prefixSurvivorCard_eq_processedOwnerCards provides the exact
+ascending owner census for every frozen cutoff 3 <= S <= R.
+
+The **new kernel targets/checkable lemmas** in the #915 production file are:
+
+    vfMid915AscendingProcessedMass_two
+    vfMid915AscendingProcessedMass_eq_processedOwner
+    vfMid915AscendingProcessedMass_full
+    vfMid915AscendingStage_step
+    vfMid915AscendingStage_slack_step
+    vfMid915AscendingSigned_full_eq_anchored
+    vfMid915AscendingAbsolute_full_eq_anchored
+    vfMid915AscendingFinalSlack_eq_anchoredBalance
+
+For a newly processed owner removing d previously surviving seats,
+
+    Delta G = d,
+    Delta T = (2w_R-1)d,
+    Delta B = 2d[(2w_R-1)T-2G] + d^2[(2w_R-1)^2-2].
+
+The cross-owner term uses the **entire accumulated** G,T. This is why
+owner-by-owner cone payment cannot be substituted for the aggregate.
+
+Numerical regression of **these physical degree-one coordinates**:
+
+| R | B after owner 2 | B after owner 3 | B at full cutoff R |
+| ---: | ---: | ---: | ---: |
+| 18 | 89.626 | 165.913 | 104.492 |
+| 317 | -10,120.581 | 25,572.580 | 13,423.785 |
+| 1027 | -173,464.141 | 211,608.389 | 105,561.281 |
+
+These stage values are provisional sieve configurations, not the actual
+prime-seat source until full cutoff. The negative entries at owner 2 are a
+**regression requirement**, not errors. The test
+scripts/vf_mid_915_ascending_sieve_regression.py independently reconstructs
+actual U/L from physical seat charges, checks both final G,T and the full
+per-prime exact quadratic change, and runs in the fast workflow.
+
+### Fundamental scope restriction: no unconditional cone induction
+
+The completed anchored cone is **not** expected to remain nonnegative at all
+large R. In fact, the classical Littlewood prime-minus-Li omega oscillations,
+Brun-Titchmarsh P_R=O(R/log R), and RH_Lean's VF_mid-Li=O(1) square-endpoint
+bound imply that |D_R|/(R/log R) is unbounded on a sequence, whereas current
+one-block absolute seat mass and |D_(R+1)-D_R| are both O(R/log R). Hence
+T_R^2 - 2 D_(R+1)^2 < 0 on that sequence. This is an external analytic
+diagnostic, **not** a theorem already formalized in Lean and **not** a
+counterexample to a hypothetical *first-bad-specific* statement.
+
+Consequently never assert (a) cone membership of all intermediate S,
+(b) universal balanced *completed* anchored U/L for all R, or (c) cone balance
+of the raw #903 recursive sector. Passing tests through R=6000 does not
+authorize any of these universal claims.
+
+### What ascent proves, and what remains open
+
+The new degree-one source equalities are **not the final payment**. The
+remaining mathematical seam is a *pair-level historical/current Fubini
+reconstruction* starting with those original ascending physical occurrences.
+It must preserve multiplicities, survivor restrictions, orientation, site-VF
+weights, historical D_A, the signed run/block cross terms, and the original
+absolute mass; no artificial stripped-parent negative capacity may appear.
+
+After that exact equality, prove under only hR and hfirst the unchanged
+first-bad **signed sharp-transport** payment:
+
+    ActiveGlobalResidualExcess
+      <= ThreeBoundaryTransportedExcess + 4*ThreeBoundaryAbsMass.
+
+The previously compiled heat and sharp-transport/source-inlet equivalences
+then consume the payment. A generic cone induction is NOT the next proof
+goal. No new PR, premise, or bridge is authorized.
+
+---
+
 ## 1. Two different objects must not be identified
 
 1. **#903 native recursive *sixth priority continuation***:
@@ -73,8 +175,7 @@ vfMidActualPrimeFirstBadAt_two_succ_halfScaleSectorSixPayment
 `2 * D_(R+1)^2 <= M_R` under only `hR` and `hfirst`, with no
 new hypothetical balance or transport premise.
 
-**The next substantive theorem must be an actual physical
-source-to-compensated-return reconstruction, not another cone identity.**
+**The ascending degree-one source-to-original-U/L equalities are now supplied. The next substantive theorem must be the complete pair-level physical historical/current-to-compensated-return reconstruction, not another cone identity.**
 
 It must explicitly produce the *complete unsplit grouped return* with:
 
@@ -88,9 +189,10 @@ It must explicitly produce the *complete unsplit grouped return* with:
   original **absolute-mass denominator** `U+L`, without enlarging it
   by taking absolute values before cancellation.
 
-**Only after this exact reassembly** is it legitimate to ask whether the
-complete compensated return forms a nonnegative cone state, or whether the
-whole signed-run inequality follows directly without a cone induction.
+**Only after the pair-level reassembly** is it legitimate to prove a
+first-bad-specific global signed-run inequality. Universal anchored cone
+membership and universal intermediate-stage cone induction are ruled out as
+proof routes; a first-bad-conditional payment is still open.
 
 One must not infer `B(U_A,L_A)>=0` merely from
 `|D_A|<=2*rho_A` (a bound on a different coordinate).
@@ -122,6 +224,7 @@ Run from repository root:
 ```bash
 python3 scripts/vf_mid_sector_six_cone_regression.py
 python3 scripts/vf_mid_sector_six_exact_r18.py
+python3 scripts/vf_mid_915_ascending_sieve_regression.py
 ```
 
 For a detailed diagnostic with full per-sector owner ledgers:
