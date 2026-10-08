@@ -774,7 +774,7 @@ theorem vfMidFirstBadAnchoredCoDivExcess_eq_upperLowerBalance
 
 /-- Exact positive-mass form of the #915 target. -/
 theorem vfMidFirstBadAnchoredCoDivExcess_nonpos_iff_upperLowerBalance
-    {R : ℕ} (hR : 3 ≤ R) :
+    (R : ℕ) :
     vfMidFirstBadAnchoredCoDivExcess R ≤ 0 ↔
       vfMidFirstBadAnchoredUpperPartialMass R ^ 2 +
         vfMidFirstBadAnchoredLowerPartialMass R ^ 2 ≤
