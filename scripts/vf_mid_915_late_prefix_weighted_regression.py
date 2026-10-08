@@ -50,6 +50,68 @@ def weight(R):
     return (2*R+1) / (R * math.log(R*R+R+.5))
 
 
+def history_owner_packet(R, prime, sf, primes):
+    """Literal signed full historical run, each site assigned a genuine owner.
+
+    No enlargement of #915's ORIGINAL absolute denominator; no imaginary
+    negative counterpart for an owner whose prime site precedes a^2.
+    """
+    a=R//2+1
+    X=(R+1)**2-1
+    F=smooth=high_prime=high_composite=old_owner_positive=0.
+    topPrimeNegative=0.
+    topPrimeCount=0
+    groups={}
+    counts=[0,0,0]
+    for r in range(a,R+1):
+        wr=weight(r)
+        for n in range((r*r+1)|1,(r+1)**2,2):
+            charge=wr-int(bool(prime[n]))
+            F+=charge
+            m=n
+            q=1
+            while m>1:
+                p=sf[m] or m
+                q=max(q,p)
+                while m%p==0:m//=p
+            if q<=R:
+                assert not prime[n] and charge>0
+                smooth+=charge
+                counts[0]+=1
+            elif prime[n]:
+                assert n==q
+                high_prime+=charge
+                counts[1]+=1
+                groups[q]=groups.get(q,0.)+charge
+                if q>X//3:
+                    topPrimeCount+=1
+                    topPrimeNegative+=charge
+            else:
+                high_composite+=charge
+                counts[2]+=1
+                groups[q]=groups.get(q,0.)+charge
+                assert q>R and charge>0
+                if q<a*a:
+                    old_owner_positive+=charge
+    D_a=bisect_right(primes,a*a)-sum(
+        (2*r+1)/math.log(r*r+r+.5) for r in range(2,a))
+    D_next=bisect_right(primes,X)-sum(
+        (2*r+1)/math.log(r*r+r+.5) for r in range(2,R+1))
+    assert abs(F-(D_a-D_next))<4e-4,(R,F,D_a-D_next)
+    assert abs(F-(smooth+high_prime+high_composite))<4e-5
+    for q,g in groups.items():
+        if q>X//3:
+            assert g<0 and prime[q]
+    print("RUN_PACKET R=%d a=%d physical_F=%.6f D_a=%.6f D_next=%.6f "
+          "smooth_positive=%.6f highprime_negative=%.6f "
+          "highcomposite_positive=%.6f old_owner_positive=%.6f "
+          "topThirdPrimeCount=%d topThirdSigned=%.6f "
+          "seatCounts=%s PASS"
+          %(R,a,F,D_a,D_next,smooth,high_prime,high_composite,
+            old_owner_positive,topPrimeCount,topPrimeNegative,counts))
+    return F
+
+
 def main():
     parser=argparse.ArgumentParser()
     parser.add_argument("--extended",action="store_true")
@@ -100,6 +162,7 @@ def main():
                 assert c==1, (R,n,c,q)
                 topThird+=1
         assert topThird==0
+        history_owner_packet(R, prime, sf, primes)
         # Original anchored U,L and D: independent exact accounting of
         # scalar first-bad margin. This test does not prove its sign.
         D=bisect_right(primes,R*R)-sum(
