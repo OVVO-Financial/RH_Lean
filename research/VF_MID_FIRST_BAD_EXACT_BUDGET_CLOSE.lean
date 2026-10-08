@@ -13,6 +13,23 @@ under a genuine K=2 first-bad hypothesis.
 
 There is no budget proposition, no conditional budget consumer, and no new
 analytic hypothesis in this module.
+
+## Sector Six regression correction (2026-10-08)
+
+The raw #903 admitted/admitted recursive priority sector six is NOT a
+cone-balanced child state in general: its exact atom U/L slack is negative at
+production R=8 and R=18 (see VF_MID_915_SECTOR_SIX_CONE_AUDIT.md).
+That priority remainder is distinct from the three nonzero oriented incomplete
+raw-parent sectors carrying #915's clipped/admitted retained VF source.
+The latter complete source is numerically cone-balanced on tested clocks, but
+this does not imply balance after recursive child-run descent or at the
+first-bad anchor.  No theorem below asserts such an implication.
+
+The remaining consumer must reconstruct the actual historical/current packet
+as a FULL compensated grouped return, retaining signed source, the ORIGINAL
+absolute-mass denominator, occurrence tags, survivor restrictions, and
+historical anchor.  The owner heat only pays for genuinely matched returns.
+This file intentionally leaves the unconditional quantitative payment open.
 -/
 
 noncomputable section
@@ -1075,10 +1092,18 @@ theorem vfMidActualPrimeFirstBadAt_two_succ_halfScaleSectorSixPayment
           (vfMidFirstBadAnchoredUpperPartialMass R)
           (vfMidFirstBadAnchoredLowerPartialMass R) := by
     rw [vfMidFirstBadAnchoredBalanceSlack_eq_neg_coDivExcess]
-    -- Exact remaining payment after all current-cell owner heat is retained:
-    -- the compressed historical/root residual must fit inside the transported
-    -- stripped-parent mass plus the four-|w| heat credit.  No scalar
-    -- majorant is introduced here.
+    -- OPEN, not implied by hprior/hsplit/hheat.
+    -- The native #903 sixth continuation class is numerically OUTSIDE the
+    -- balance cone at production R=8 and R=18.  The three retained-VF
+    -- oriented boundary sectors are a DIFFERENT carrier; their complete
+    -- observed balance cannot be substituted here.
+    --
+    -- Required: exact occurrence-preserving, survivor-restricted,
+    -- retained-weight historical/current source -> compensated grouped
+    -- owner-return reassembly.  It must recover BOTH U-L and the original
+    -- U+L absolute denominator, account for actually matched parent heat,
+    -- and justify all lower-rank payments without assuming child balance.
+    -- The failing linarith remains the explicit mathematical seam.
     linarith
   have hcodiv :
       vfMidFirstBadAnchoredCoDivExcess R ≤ 0 :=
