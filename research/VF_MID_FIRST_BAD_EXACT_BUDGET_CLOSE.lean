@@ -1062,6 +1062,207 @@ theorem vfMidHalfScaleRunPlusBlock_eq_frozenSafe_add_lowerTransport
       (by omega : R / 2 + 1 ≤ R + 1)
       (by omega : R + 1 ≤ 2 * (R / 2 + 1))
 
+
+/-! ## Forward reconstruction: owner 2 -> 3 -> 5 -> ... -> R
+
+This is the *degree-one physical ledger*, not an invented stripped-parent
+payment.  Process a fixed square block from the exact parity carrier and
+remove each composite at its least odd-prime owner.  The retained VF seat
+weight stays on the original physical occurrence.  Only at the final cutoff
+does the provisional survivor charge become the actual prime indicator.
+
+These identities preserve the original anchored signed source AND its original
+absolute-mass denominator.  They do not prove that every intermediate sieve
+state is cone-balanced (that claim is false) and do not prove the pair-level
+historical/current sharp-transport payment.  That remains the red hbalance.
+-/
+
+/-- Number of original parity seats already removed by the prefix wheel,
+expressed as an exact real cardinal difference. -/
+def vfMid915AscendingProcessedMass (S R : ℕ) : ℝ :=
+  (R : ℝ) - ((vfMidSquarePrefixWheelSurvivors S R).card : ℝ)
+
+/-- At the first owner, 2, no *odd* candidate has yet been removed. -/
+theorem vfMid915AscendingProcessedMass_two (R : ℕ) :
+    vfMid915AscendingProcessedMass 2 R = 0 := by
+  have hcard : (vfMidSquarePrefixWheelSurvivors 2 R).card = R :=
+    vfMidOddCandidateSeats_card R
+  unfold vfMid915AscendingProcessedMass
+  rw [hcard]
+  ring
+
+/-- On a frozen prefix, ascending removals equal the unique processed
+least-prime owner census already formalized in the affine splice. -/
+theorem vfMid915AscendingProcessedMass_eq_processedOwner
+    {A R : ℕ} (hA : 3 ≤ A) (hAR : A ≤ R) :
+    vfMid915AscendingProcessedMass A R =
+      ∑ p ∈ vfMidFrozenProcessedOwnerPrimes A R,
+        ((vfMidSquareBandCompositeOwner R p).card : ℝ) := by
+  exact vfMid_root_sub_prefixSurvivorCard_eq_processedOwnerCards hA hAR
+
+/-- Completion of the entire prefix sieve: every remaining survivor is prime.
+No heuristic block-prime supply is substituted. -/
+theorem vfMid915AscendingProcessedMass_full (R : ℕ) (hR : 2 ≤ R) :
+    vfMid915AscendingProcessedMass R R =
+      (R : ℝ) - (vfMidIntegerBlockPrimeSupply R : ℝ) := by
+  unfold vfMid915AscendingProcessedMass
+  rw [vfMidIntegerBlockPrimeSupply_eq_fullPrefixWheelCard R hR]
+
+/-- A provisional forward-sieve signed source, prior to final removal. -/
+def vfMid915AscendingStageSigned (R : ℕ) (D w C : ℝ) : ℝ :=
+  -D + (w - 1) * (R : ℝ) + C
+
+/-- Original-denominator accounting on that *same* provisional physical
+carrier.  It may only be interpreted as actual VF seat absolute mass once
+all least-prime owners have acted. -/
+def vfMid915AscendingStageAbs (R : ℕ) (D w C : ℝ) : ℝ :=
+  |D| + (1 - w) * (R : ℝ) + (2 * w - 1) * C
+
+def vfMid915AscendingStageSlack (R : ℕ) (D w C : ℝ) : ℝ :=
+  vfMid915AscendingStageAbs R D w C ^ 2 -
+    2 * vfMid915AscendingStageSigned R D w C ^ 2
+
+/-- An ascending least-prime removal adds d to signed charge and
+(2w-1)d to the original absolute ledger, without ownerwise assumptions. -/
+theorem vfMid915AscendingStage_step
+    (R : ℕ) (D w C d : ℝ) :
+    vfMid915AscendingStageSigned R D w (C + d) =
+        vfMid915AscendingStageSigned R D w C + d ∧
+    vfMid915AscendingStageAbs R D w (C + d) =
+        vfMid915AscendingStageAbs R D w C + (2 * w - 1) * d := by
+  constructor <;> unfold vfMid915AscendingStageSigned
+    vfMid915AscendingStageAbs <;> ring
+
+/-- Exact cross-owner contribution to the cone-slack change.
+Its first term depends on the *entire accumulated state*; the quadratic
+increment may be negative.  No forward monotonicity/cone induction follows. -/
+theorem vfMid915AscendingStage_slack_step
+    (R : ℕ) (D w C d : ℝ) :
+    vfMid915AscendingStageSlack R D w (C + d) -
+        vfMid915AscendingStageSlack R D w C =
+      2 * d * ((2 * w - 1) * vfMid915AscendingStageAbs R D w C -
+        2 * vfMid915AscendingStageSigned R D w C) +
+      d ^ 2 * ((2 * w - 1) ^ 2 - 2) := by
+  unfold vfMid915AscendingStageSlack vfMid915AscendingStageAbs
+    vfMid915AscendingStageSigned
+  ring
+
+/-- Literal physical prefix state, including the original D_R anchor. -/
+def vfMid915AscendingSigned (S R : ℕ) : ℝ :=
+  vfMid915AscendingStageSigned R
+    (vfMidActualPrimeEndpointDefect R)
+    (vfMidOddFractionalPrimeSeatWeight R)
+    (vfMid915AscendingProcessedMass S R)
+
+def vfMid915AscendingAbsolute (S R : ℕ) : ℝ :=
+  vfMid915AscendingStageAbs R
+    (vfMidActualPrimeEndpointDefect R)
+    (vfMidOddFractionalPrimeSeatWeight R)
+    (vfMid915AscendingProcessedMass S R)
+
+/-- At cutoff R the forward sieve recovers the original anchored U-L,
+without a signed owner enlargement or historical absolute-value expansion. -/
+theorem vfMid915AscendingSigned_full_eq_anchored
+    (R : ℕ) (hR : 3 ≤ R) :
+    vfMid915AscendingSigned R R =
+      vfMidFirstBadAnchoredUpperPartialMass R -
+        vfMidFirstBadAnchoredLowerPartialMass R := by
+  have hR2 : 2 ≤ R := by omega
+  have hcard := vfMidOddActualComposite_card_add_primeSupply R hR2
+  have hcardR :
+      ((vfMidSquareBandPrefixCompositeSurvivors 2 R).card : ℝ) +
+        (vfMidIntegerBlockPrimeSupply R : ℝ) = (R : ℝ) := by
+    exact_mod_cast hcard
+  have hseat :
+      (∑ n ∈ vfMidOddCandidateSeats R, vfMidOddSignedSeatCharge R n) =
+        vfMidBandMass R - (vfMidIntegerBlockPrimeSupply R : ℝ) := by
+    rw [vfMidOddSignedSeatCharge_sum R hR2]
+    unfold vfMidOddCompositeTrackingDefect
+      vfMidOddFractionalCompositeReference
+    linarith
+  rw [vfMidFirstBadAnchoredUpper_sub_lower_eq_signedSource R, hseat]
+  unfold vfMid915AscendingSigned vfMid915AscendingStageSigned
+  rw [vfMid915AscendingProcessedMass_full R hR2]
+  have hw := vfMidOddFractionalPrimeSeatWeight_mul_population R hR2
+  nlinarith [hw]
+
+/-- At cutoff R, and only then, the ascending absolute ledger is EXACTLY
+the original #897 anchored U+L denominator.  No ownerwise abs majorant. -/
+theorem vfMid915AscendingAbsolute_full_eq_anchored
+    (R : ℕ) (hR : 3 ≤ R) :
+    vfMid915AscendingAbsolute R R =
+      vfMidFirstBadAnchoredUpperPartialMass R +
+        vfMidFirstBadAnchoredLowerPartialMass R := by
+  have hR2 : 2 ≤ R := by omega
+  have hw0 := vfMidOddFractionalPrimeSeatWeight_nonneg R hR2
+  have hw1 := vfMidOddFractionalPrimeSeatWeight_le_one_of_three_le R hR
+  have hpoint :
+      ∀ n ∈ vfMidOddCandidateSeats R,
+        |vfMidOddSignedSeatCharge R n| =
+          vfMidOddFractionalPrimeSeatWeight R +
+            (1 - 2 * vfMidOddFractionalPrimeSeatWeight R) *
+              vfMidActualPrimeSeatMass n := by
+    intro n _hn
+    by_cases hp : n.Prime
+    · rw [vfMidOddSignedSeatCharge_of_prime R n hp]
+      have hcomp : 0 ≤ 1 - vfMidOddFractionalPrimeSeatWeight R := by
+        linarith
+      rw [abs_neg, abs_of_nonneg hcomp]
+      simp [vfMidActualPrimeSeatMass, hp]
+      ring
+    · rw [vfMidOddSignedSeatCharge_of_not_prime R n hp,
+        abs_of_nonneg hw0]
+      simp [vfMidActualPrimeSeatMass, hp]
+  have hsumAbs :
+      (∑ n ∈ vfMidOddCandidateSeats R,
+        |vfMidOddSignedSeatCharge R n|) =
+        vfMidOddFractionalPrimeSeatWeight R * (R : ℝ) +
+          (1 - 2 * vfMidOddFractionalPrimeSeatWeight R) *
+            (vfMidIntegerBlockPrimeSupply R : ℝ) := by
+    calc
+      _ = ∑ n ∈ vfMidOddCandidateSeats R,
+            (vfMidOddFractionalPrimeSeatWeight R +
+              (1 - 2 * vfMidOddFractionalPrimeSeatWeight R) *
+                vfMidActualPrimeSeatMass n) := by
+            apply Finset.sum_congr rfl
+            intro n hn
+            exact hpoint n hn
+      _ = (∑ _n ∈ vfMidOddCandidateSeats R,
+              vfMidOddFractionalPrimeSeatWeight R) +
+            (1 - 2 * vfMidOddFractionalPrimeSeatWeight R) *
+              (∑ n ∈ vfMidOddCandidateSeats R,
+                vfMidActualPrimeSeatMass n) := by
+            rw [Finset.sum_add_distrib, Finset.mul_sum]
+      _ = _ := by
+            rw [vfMidActualPrimeSeatMass_sum_oddCandidates R hR2,
+              Finset.sum_const, nsmul_eq_mul, vfMidOddCandidateSeats_card]
+            ring
+  rw [vfMidFirstBadAnchoredUpper_add_lower_eq_absMass R, hsumAbs]
+  unfold vfMid915AscendingAbsolute vfMid915AscendingStageAbs
+  rw [vfMid915AscendingProcessedMass_full R hR2]
+  ring
+
+/-- An exact bridge to the production cone *coordinate*, not a positive-cone
+claim.  A proof that this slack is nonnegative still needs new arithmetic. -/
+theorem vfMid915AscendingFinalSlack_eq_anchoredBalance
+    (R : ℕ) (hR : 3 ≤ R) :
+    vfMid915AscendingStageSlack R
+        (vfMidActualPrimeEndpointDefect R)
+        (vfMidOddFractionalPrimeSeatWeight R)
+        (vfMid915AscendingProcessedMass R R) =
+      vfMidUpperLowerBalanceSlack
+        (vfMidFirstBadAnchoredUpperPartialMass R)
+        (vfMidFirstBadAnchoredLowerPartialMass R) := by
+  change vfMid915AscendingAbsolute R R ^ 2 -
+      2 * vfMid915AscendingSigned R R ^ 2 =
+        vfMidUpperLowerBalanceSlack
+          (vfMidFirstBadAnchoredUpperPartialMass R)
+          (vfMidFirstBadAnchoredLowerPartialMass R)
+  rw [vfMid915AscendingAbsolute_full_eq_anchored R hR,
+    vfMid915AscendingSigned_full_eq_anchored R hR]
+  unfold vfMidUpperLowerBalanceSlack
+  ring
+
 /-- **Production theorem: half-scale source payment.**
 
 This is now the only red mathematical line in #915.  The prior-good input has
@@ -1098,11 +1299,17 @@ theorem vfMidActualPrimeFirstBadAt_two_succ_halfScaleSectorSixPayment
     -- oriented boundary sectors are a DIFFERENT carrier; their complete
     -- observed balance cannot be substituted here.
     --
-    -- Required: exact occurrence-preserving, survivor-restricted,
-    -- retained-weight historical/current source -> compensated grouped
-    -- owner-return reassembly.  It must recover BOTH U-L and the original
-    -- U+L absolute denominator, account for actually matched parent heat,
-    -- and justify all lower-rank payments without assuming child balance.
+    -- The forward parity/least-prime reconstruction above now recovers
+    -- BOTH the actual anchored U-L and its exact original U+L denominator.
+    -- It begins at owner 2, adds each unique least-owner removal once,
+    -- and retains the original physical VF weight throughout.
+    -- These are *degree-one* equalities, NOT a paid pair-level historical
+    -- return reconstruction.  Universal cone closure would be false:
+    -- stage slack can be negative, and the unconditional anchored cone
+    -- conflicts asymptotically with Littlewood's known oscillations.
+    -- Required: occurrence-matched historical/current pair-Fubini transport
+    -- plus an arithmetic payment SPECIFIC to hfirst; no synthetic negative
+    -- stripped parents and no all-R/all-stage cone hypothesis.
     -- The failing linarith remains the explicit mathematical seam.
     linarith
   have hcodiv :
