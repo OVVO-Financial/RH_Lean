@@ -1064,11 +1064,32 @@ theorem vfMidActualPrimeFirstBadAt_two_succ_halfScaleSectorSixPayment
       vfMidFirstBadZeroTargetTotalMass R := by
   have hprior :=
     vfMidActualPrimeFirstBadAt_two_succ_halfScaleAnchor_sq_inside hR hfirst
-  rw [vfMidHalfScaleRunPlusBlock_eq_frozenSafe_add_lowerTransport hR]
-  -- At this point the only unresolved quantity is the existing run capacitor:
-  -- FrozenSafe + LowerPrimeIntervalTransport.  The next step is the compiled
-  -- strict-excess selector / sector-six rank descent, not another scalar bound.
-  nlinarith
+  have hsplit :=
+    vfMidFirstBadAnchoredCoDivExcess_eq_activeResidual_add_threeBoundaryExcess
+      (R := R) (by omega : 3 ≤ R)
+  have hheat :=
+    vfMidActiveThreeBoundaryExcess_add_transported_eq_neg_four_abs R
+  have hbalance :
+      0 ≤
+        vfMidUpperLowerBalanceSlack
+          (vfMidFirstBadAnchoredUpperPartialMass R)
+          (vfMidFirstBadAnchoredLowerPartialMass R) := by
+    rw [vfMidFirstBadAnchoredBalanceSlack_eq_neg_coDivExcess]
+    -- Exact remaining payment after all current-cell owner heat is retained:
+    -- the compressed historical/root residual must fit inside the transported
+    -- stripped-parent mass plus the four-|w| heat credit.  No scalar
+    -- majorant is introduced here.
+    linarith
+  have hcodiv :
+      vfMidFirstBadAnchoredCoDivExcess R ≤ 0 :=
+    (vfMidFirstBadAnchoredBalanceSlack_nonneg_iff_coDiv_nonpos R).1 hbalance
+  have hinlet :
+      2 * vfMidFirstBadDecompressedHistoricalSource R ^ 2 ≤
+        vfMidFirstBadZeroTargetTotalMass R := by
+    rw [vfMidFirstBadAnchoredCoDivExcess_eq_decompressedHistoricalSource hR]
+      at hcodiv
+    linarith
+  exact (vfMidFirstBadSourceInlet_iff_halfScalePayment).1 hinlet
 
 /-- The production payment is exactly the original source inlet. -/
 theorem vfMidActualPrimeFirstBadAt_two_succ_sourceInlet
