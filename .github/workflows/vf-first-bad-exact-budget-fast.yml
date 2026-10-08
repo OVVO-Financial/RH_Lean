@@ -123,10 +123,7 @@ jobs:
           key: vf915-research-base-${{ runner.os }}-${{ runner.arch }}-${{ github.event.pull_request.base.sha || github.sha }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
 
       - name: Compile new #915 exact two-owner clipped-flux lemmas
-        run: |
-          lake env lean -DwarningAsError=true \\
-            -o .lake/build/lib/lean/research.VF_MID_915_TWO_OWNER_CLIPPED_FLUX.olean \\
-            research/VF_MID_915_TWO_OWNER_CLIPPED_FLUX.lean
+        run: lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_915_TWO_OWNER_CLIPPED_FLUX.olean research/VF_MID_915_TWO_OWNER_CLIPPED_FLUX.lean
 
       - name: Compile #915 only against cached dependencies
         run: |
