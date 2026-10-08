@@ -52,6 +52,12 @@ jobs:
           restore-keys: |
             strongpnt-port-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-
 
+      - name: Ensure StrongPNT terminal dependency
+        run: |
+          if [ ! -f .lake/packages/StrongPNT/.lake/build/lib/lean/StrongPNT/PNT5_Strong.olean ]; then
+            lake build StrongPNT.PNT5_Strong
+          fi
+
       - name: Restore RHLean build cache
         uses: actions/cache/restore@v5
         with:
@@ -61,14 +67,23 @@ jobs:
             rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py') }}-
             rhlean-build-${{ runner.os }}-
 
+      - name: Restore stable #914 research closure
+        id: research-cache
+        uses: actions/cache/restore@v5
+        with:
+          path: .lake/build/lib/lean/research.*
+          key: vf915-research-base-${{ runner.os }}-${{ runner.arch }}-${{ github.event.pull_request.base.sha || github.sha }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
+
       - name: Verify warm dependency cache
         run: |
-          test -d .lake/packages/StrongPNT/.lake/build
-          test -d .lake/build/lib/lean
+          test -f .lake/build/lib/lean/research.VF_MID_FIRST_BAD_FINAL_AGGREGATE_CONTRACTION.olean || {
+            echo "Stable #914 research cache is not warm yet."
+            echo "Let the full 'VF first-bad exact budget close' workflow seed it once, then rerun this fast job."
+            exit 1
+          }
 
       - name: Compile #915 only against cached dependencies
         run: |
-          mkdir -p .lake/build/lib/lean
           lake env lean -DwarningAsError=true \
             -o .lake/build/lib/lean/research.VF_MID_FIRST_BAD_EXACT_BUDGET_CLOSE.olean \
             research/VF_MID_FIRST_BAD_EXACT_BUDGET_CLOSE.lean
