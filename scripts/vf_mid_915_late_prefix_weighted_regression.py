@@ -50,7 +50,7 @@ def weight(R):
     return (2*R+1) / (R * math.log(R*R+R+.5))
 
 
-def history_owner_packet(R, prime, sf, primes):
+def history_owner_packet(R, prime, sf, primes, triplePairs):
     """Literal signed full historical run, each site assigned a genuine owner.
 
     No enlargement of #915's ORIGINAL absolute denominator; no imaginary
@@ -59,6 +59,7 @@ def history_owner_packet(R, prime, sf, primes):
     a=R//2+1
     X=(R+1)**2-1
     F=smooth=high_prime=high_composite=old_owner_positive=0.
+    prev_abs=current_abs=0.
     topPrimeNegative=0.
     topPrimeCount=0
     groups={}
@@ -68,6 +69,8 @@ def history_owner_packet(R, prime, sf, primes):
         for n in range((r*r+1)|1,(r+1)**2,2):
             charge=wr-int(bool(prime[n]))
             F+=charge
+            if r==R: current_abs+=abs(charge)
+            else: prev_abs+=abs(charge)
             m=n
             q=1
             while m>1:
@@ -95,6 +98,8 @@ def history_owner_packet(R, prime, sf, primes):
                     old_owner_positive+=charge
     D_a=bisect_right(primes,a*a)-sum(
         (2*r+1)/math.log(r*r+r+.5) for r in range(2,a))
+    D_R=bisect_right(primes,R*R)-sum(
+        (2*r+1)/math.log(r*r+r+.5) for r in range(2,R))
     D_next=bisect_right(primes,X)-sum(
         (2*r+1)/math.log(r*r+r+.5) for r in range(2,R+1))
     assert abs(F-(D_a-D_next))<4e-4,(R,F,D_a-D_next)
@@ -102,6 +107,23 @@ def history_owner_packet(R, prime, sf, primes):
     for q,g in groups.items():
         if q>X//3:
             assert g<0 and prime[q]
+    # Exact cost of re-expanding the compressed historical anchor.
+    # It is NOT new spendable capacity in the original #915 norm.
+    M_original=abs(D_R)+current_abs
+    M_expanded=abs(D_a)+prev_abs+current_abs
+    compression=M_expanded-M_original
+    assert compression >=-1e-5
+    denominator_leak=2*M_original*compression+compression**2
+    B_original=M_original**2-2*D_next**2
+    B_expanded=M_expanded**2-2*D_next**2
+    assert abs((B_expanded-denominator_leak)-B_original)<.02
+    pair_heat=6*sum(-p[2]*p[3] for p in triplePairs)
+    assert pair_heat>=0
+    print('COMPRESSION R=%d originalM=%.6f expandedM=%.6f '
+          'norm_leak=%.6f denominator_leak=%.3f '
+          'matched_c3_negative_pair_heat=%.6f original_margin=%.6f PASS'
+          %(R,M_original,M_expanded,compression,denominator_leak,
+            pair_heat,B_original))
     print("RUN_PACKET R=%d a=%d physical_F=%.6f D_a=%.6f D_next=%.6f "
           "smooth_positive=%.6f highprime_negative=%.6f "
           "highcomposite_positive=%.6f old_owner_positive=%.6f "
@@ -162,7 +184,7 @@ def main():
                 assert c==1, (R,n,c,q)
                 topThird+=1
         assert topThird==0
-        history_owner_packet(R, prime, sf, primes)
+        history_owner_packet(R, prime, sf, primes, triplePairs)
         # Original anchored U,L and D: independent exact accounting of
         # scalar first-bad margin. This test does not prove its sign.
         D=bisect_right(primes,R*R)-sum(
