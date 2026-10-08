@@ -29,6 +29,7 @@ it does NOT prove the first-bad payment or RH.
 noncomputable section
 open scoped BigOperators
 namespace RHLean.Analysis
+open RHLean.Arithmetic RHLean.Proof
 open RHLean.Proof
 
 attribute [local instance] Classical.propDecidable
