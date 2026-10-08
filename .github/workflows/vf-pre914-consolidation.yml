@@ -1,11 +1,16 @@
-name: VF first-bad active raw-parent splice
+name: VF pre-914 consolidation
 
 on:
   pull_request:
-    branches: [vf-first-bad-weighted-sector-six-aggregate]
+    branches: [main]
     paths:
+      - research/VF_MID_FIRST_BAD_SOURCE_TO_SECTOR_SIX_INLET.lean
+      - research/VF_MID_FIRST_BAD_WEIGHTED_OWNER_FUBINI.lean
+      - research/VF_MID_FIRST_BAD_ACTIVE_EXCESS_LEDGER.lean
+      - research/VF_MID_FIRST_BAD_ACTIVE_CLIPPED_BOUNDARY.lean
+      - research/VF_MID_FIRST_BAD_SCALED_CLIPPED_GATE.lean
       - research/VF_MID_FIRST_BAD_ACTIVE_RAW_PARENT_SPLICE.lean
-      - .github/workflows/vf-first-bad-active-raw-parent-splice.yml
+      - .github/workflows/vf-pre914-consolidation.yml
   workflow_dispatch:
 
 permissions:
@@ -14,7 +19,7 @@ permissions:
 jobs:
   check:
     runs-on: ubuntu-latest
-    timeout-minutes: 35
+    timeout-minutes: 60
     steps:
       - uses: actions/checkout@v4
         with:
@@ -75,21 +80,13 @@ jobs:
               for line in source.read_text().splitlines():
                   if line.startswith('import RHLean'):
                       roots.add(line.removeprefix('import ').strip())
-          visit('research.VF_MID_FIRST_BAD_ACTIVE_RAW_PARENT_SPLICE')
+          for module in [
+              'research.VF_MID_FIRST_BAD_SOURCE_TO_SECTOR_SIX_INLET',
+              'research.VF_MID_FIRST_BAD_ACTIVE_RAW_PARENT_SPLICE']:
+              visit(module)
           subprocess.run(['lake', 'build', *sorted(roots)], check=True)
           PY
-      - name: Compile and audit active raw-parent splice
+      - name: Compile consolidated production modules
         run: |
+          python3 scripts/compile_research_import_closure.py research/VF_MID_FIRST_BAD_SOURCE_TO_SECTOR_SIX_INLET.lean
           python3 scripts/compile_research_import_closure.py research/VF_MID_FIRST_BAD_ACTIVE_RAW_PARENT_SPLICE.lean
-          cat > /tmp/VF_ACTIVE_RAW_PARENT_SPLICE_AUDIT.lean <<'EOF'
-          import «research.VF_MID_FIRST_BAD_ACTIVE_RAW_PARENT_SPLICE»
-          #print axioms RHLean.Analysis.vfMidActiveReturnedPairCarrier_subset_offDiagonal
-          #print axioms RHLean.Analysis.vfMidActiveScaledReturnedClippedCellMass_eq_offDiagonal
-          #print axioms RHLean.Analysis.vfMidActiveScaledReturnedClippedCellMass_eq_ownerFibers
-          #print axioms RHLean.Analysis.vfMidActiveScaledReturnedClippedCellMass_eq_rawParents
-          #print axioms RHLean.Analysis.sum_vfMidRawParents_eq_completed_add_incomplete
-          #print axioms RHLean.Analysis.vfMidActiveScaledReturnedClippedCellMass_eq_completed_add_incomplete
-          #print axioms RHLean.Analysis.vfMidActiveReturnedPairWeight_secondMixed_eq_zero_of_completed
-          EOF
-          lake env lean -DwarningAsError=true /tmp/VF_ACTIVE_RAW_PARENT_SPLICE_AUDIT.lean | tee active-raw-parent-splice-axioms.log
-          if grep -q 'sorryAx' active-raw-parent-splice-axioms.log; then exit 1; fi

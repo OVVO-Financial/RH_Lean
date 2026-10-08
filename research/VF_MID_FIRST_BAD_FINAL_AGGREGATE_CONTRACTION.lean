@@ -33,74 +33,9 @@ open RHLean.Arithmetic RHLean.Proof
 
 attribute [local instance] Classical.propDecidable
 
-/-- **Completed raw parents carry no actual #913 active source.**
-
-The source is the returned clipped pair carrier.  A completed p/r cube cannot
-contain a source-supported mixed corner with its retained VF coefficient. -/
-theorem vfMidActiveReturnedRawParentFiberMass_eq_zero_of_completed
-    {R p r : ℕ} {sig : Finset ℕ} {parent : ℕ × ℕ}
-    (hcompleted :
-      parent ∈ lowOwnerFirstOwnerCompletedPolarizationRawParentSet
-        (R + 1) p sig r) :
-    vfMidActiveReturnedRawParentFiberMass R p sig r parent = 0 := by
-  unfold vfMidActiveReturnedRawParentFiberMass
-  apply Finset.sum_eq_zero
-  intro child hchild
-  rcases
-      lowOwnerFirstOwnerPolarizationFixedRawParentFiber_child_mixed hchild with
-    hleft | hright
-  · rw [hleft]
-    have hblock :
-        LowOwnerCompletedPolarizationBlock (R + 1) p (r, parent) :=
-      (Finset.mem_filter.mp hcompleted).2
-    have hpra :
-        p * (r * parent.1) ≤ squareRootEndpoint (R + 1) := by
-      rcases hblock with
-        ⟨_hr, _hra, _hrb, _ha, _hpa, _hraX, hpra,
-          _hb, _hpb, _hrbX, _hprb⟩
-      exact hpra
-    have hnot :
-        (r * parent.1, parent.2) ∉
-          vfMidActiveReturnedPairCarrier R p sig := by
-      intro hmem
-      have hclip :
-          r * parent.1 ∈
-            lowOwnerFirstOwnerClippedBaseFiber (R + 1) p sig :=
-        (Finset.mem_product.mp hmem).1
-      have hgt :
-          squareRootEndpoint (R + 1) < p * (r * parent.1) :=
-        (Finset.mem_filter.mp hclip).2
-      omega
-    simp [vfMidActiveReturnedPairWeight, hnot]
-  · rw [hright]
-    exact
-      vfMidActiveReturnedPairWeight_secondMixed_eq_zero_of_completed
-        hcompleted
-
-/-- The completed part of the #913 raw-parent splice vanishes identically, so
-the actual active source is exactly the incomplete raw boundary. -/
-theorem vfMidActiveScaledReturnedClippedCellMass_eq_incompleteRawParents
-    {R p : ℕ} {sig : Finset ℕ} (hp : p.Prime) :
-    vfMidActiveScaledReturnedClippedCellMass R p sig =
-      ∑ r ∈ lowOwnerRevealedPrimesAbove (R + 1) p,
-        ∑ parent ∈
-          lowOwnerFirstOwnerIncompletePolarizationRawParentSet
-            (R + 1) p sig r,
-          vfMidActiveReturnedRawParentFiberMass R p sig r parent := by
-  rw [vfMidActiveScaledReturnedClippedCellMass_eq_completed_add_incomplete hp]
-  apply Finset.sum_congr rfl
-  intro r _hr
-  have hzero :
-      (∑ parent ∈
-        lowOwnerFirstOwnerCompletedPolarizationRawParentSet
-          (R + 1) p sig r,
-        vfMidActiveReturnedRawParentFiberMass R p sig r parent) = 0 := by
-    apply Finset.sum_eq_zero
-    intro parent hparent
-    exact
-      vfMidActiveReturnedRawParentFiberMass_eq_zero_of_completed
-        hparent
-  rw [hzero, zero_add]
+/- The completed-parent zero and incomplete-parent reassembly theorems are
+   imported from the consolidated raw-parent module; keep one declaration of
+   each when the production stack is integrated on main. -/
 
 /-- Exact six-sector split of the retained-weight active boundary on one
 greatest-owner label. -/

@@ -3,6 +3,7 @@ import «research.VF_MID_FIRST_BAD_SCALED_CLIPPED_GATE»
 import «research.GLOBAL_RETURNED_CORE_POLARIZATION_RAW_PARENT_FUBINI»
 import «research.GLOBAL_RETURNED_CORE_RAW_PARENT_COMPLETED_GATE_SPLIT»
 import «research.GLOBAL_RETURNED_CORE_RAW_PARENT_BOUNDARY_ORIENTED_FUBINI»
+import «research.VF_MID_FIRST_BAD_CORRELATION_DESCENT»
 
 /-!
 # First-bad active source: exact raw-parent completed/incomplete splice
@@ -226,5 +227,445 @@ theorem vfMidActiveReturnedPairWeight_secondMixed_eq_zero_of_completed
       (Finset.mem_filter.mp hclip).2
     omega
   simp [vfMidActiveReturnedPairWeight, hnot]
+
+
+/-- On a completed raw parent the first mixed child orientation is also absent
+from the active returned support: completion keeps the returned first
+coordinate p-admitted, while the active source requires it to be p-clipped. -/
+theorem vfMidActiveReturnedPairWeight_firstMixed_eq_zero_of_completed
+    {R p r : ℕ} {sig : Finset ℕ} {parent : ℕ × ℕ}
+    (hcompleted :
+      parent ∈ lowOwnerFirstOwnerCompletedPolarizationRawParentSet
+        (R + 1) p sig r) :
+    vfMidActiveReturnedPairWeight R p sig
+      (r * parent.1, parent.2) = 0 := by
+  have hblock :
+      LowOwnerCompletedPolarizationBlock (R + 1) p (r, parent) :=
+    (Finset.mem_filter.mp hcompleted).2
+  have hprLeft :
+      p * (r * parent.1) ≤ squareRootEndpoint (R + 1) := by
+    simpa [LowOwnerCompletedPolarizationBlock] using
+      hblock.2.2.2.2.2.2.1
+  have hnot :
+      (r * parent.1, parent.2) ∉
+        vfMidActiveReturnedPairCarrier R p sig := by
+    intro hmem
+    have hclip :
+        r * parent.1 ∈ lowOwnerFirstOwnerClippedBaseFiber
+          (R + 1) p sig :=
+      (Finset.mem_product.mp hmem).1
+    have hgt :
+        squareRootEndpoint (R + 1) < p * (r * parent.1) :=
+      (Finset.mem_filter.mp hclip).2
+    omega
+  simp [vfMidActiveReturnedPairWeight, hnot]
+
+/-- **Completed raw parents carry no active returned source at all.**
+
+A fixed raw-parent fibre contains only its two mixed r-corners.  Completion
+keeps the first coordinate of both corners p-admitted, whereas the active
+returned source is supported on p-clipped first coordinates. -/
+theorem vfMidActiveReturnedRawParentFiberMass_eq_zero_of_completed
+    {R p r : ℕ} {sig : Finset ℕ} {parent : ℕ × ℕ}
+    (hcompleted :
+      parent ∈ lowOwnerFirstOwnerCompletedPolarizationRawParentSet
+        (R + 1) p sig r) :
+    vfMidActiveReturnedRawParentFiberMass R p sig r parent = 0 := by
+  unfold vfMidActiveReturnedRawParentFiberMass
+  apply Finset.sum_eq_zero
+  intro child hchild
+  rcases
+      lowOwnerFirstOwnerPolarizationFixedRawParentFiber_child_mixed hchild with
+    hleft | hright
+  · rw [hleft]
+    exact
+      vfMidActiveReturnedPairWeight_firstMixed_eq_zero_of_completed hcompleted
+  · rw [hright]
+    exact
+      vfMidActiveReturnedPairWeight_secondMixed_eq_zero_of_completed hcompleted
+
+/-- Hence the whole completed side of one raw-parent split vanishes. -/
+theorem sum_vfMidActiveCompletedRawParents_eq_zero
+    (R p : ℕ) (sig : Finset ℕ) (r : ℕ) :
+    (∑ parent ∈
+      lowOwnerFirstOwnerCompletedPolarizationRawParentSet
+        (R + 1) p sig r,
+      vfMidActiveReturnedRawParentFiberMass R p sig r parent) = 0 := by
+  apply Finset.sum_eq_zero
+  intro parent hparent
+  exact
+    vfMidActiveReturnedRawParentFiberMass_eq_zero_of_completed hparent
+
+/-- **All active returned mass is on incomplete raw parents.**
+
+This removes the completed-gate branch entirely for the #911/#912 active
+source; no completed-parent capacity is charged. -/
+theorem vfMidActiveScaledReturnedClippedCellMass_eq_incompleteRawParents
+    {R p : ℕ} {sig : Finset ℕ} (hp : p.Prime) :
+    vfMidActiveScaledReturnedClippedCellMass R p sig =
+      ∑ r ∈ lowOwnerRevealedPrimesAbove (R + 1) p,
+        ∑ parent ∈
+          lowOwnerFirstOwnerIncompletePolarizationRawParentSet
+            (R + 1) p sig r,
+          vfMidActiveReturnedRawParentFiberMass R p sig r parent := by
+  rw [vfMidActiveScaledReturnedClippedCellMass_eq_completed_add_incomplete hp]
+  apply Finset.sum_congr rfl
+  intro r _hr
+  rw [sum_vfMidActiveCompletedRawParents_eq_zero]
+  ring
+
+/-- **Exact six-sector active boundary normal form.**
+
+After the completed side vanishes, every retained active coefficient lies in
+exactly one of the six already-compiled oriented incomplete sectors. -/
+theorem vfMidActiveScaledReturnedClippedCellMass_eq_sixOrientedSectors
+    {R p : ℕ} {sig : Finset ℕ} (hp : p.Prime) :
+    vfMidActiveScaledReturnedClippedCellMass R p sig =
+      ∑ r ∈ lowOwnerRevealedPrimesAbove (R + 1) p,
+        ((∑ parent ∈
+            lowOwnerFirstOwnerIncompleteFirstClipLeftSet
+              (R + 1) p sig r,
+            vfMidActiveReturnedRawParentFiberMass R p sig r parent) +
+          (∑ parent ∈
+            lowOwnerFirstOwnerIncompleteFirstClipRightSet
+              (R + 1) p sig r,
+            vfMidActiveReturnedRawParentFiberMass R p sig r parent) +
+          (∑ parent ∈
+            lowOwnerFirstOwnerIncompleteNextClipLeftSet
+              (R + 1) p sig r,
+            vfMidActiveReturnedRawParentFiberMass R p sig r parent) +
+          (∑ parent ∈
+            lowOwnerFirstOwnerIncompleteNextClipRightSet
+              (R + 1) p sig r,
+            vfMidActiveReturnedRawParentFiberMass R p sig r parent) +
+          (∑ parent ∈
+            lowOwnerFirstOwnerIncompleteReturnedClipLeftSet
+              (R + 1) p sig r,
+            vfMidActiveReturnedRawParentFiberMass R p sig r parent) +
+          ∑ parent ∈
+            lowOwnerFirstOwnerIncompleteReturnedClipRightSet
+              (R + 1) p sig r,
+            vfMidActiveReturnedRawParentFiberMass R p sig r parent) := by
+  rw [vfMidActiveScaledReturnedClippedCellMass_eq_incompleteRawParents hp]
+  apply Finset.sum_congr rfl
+  intro r _hr
+  exact
+    sum_lowOwnerFirstOwnerIncompleteRawParents_eq_sixOrientedSectors
+      (R := R + 1) (p := p) (r := r) (sig := sig) hp
+      (vfMidActiveReturnedRawParentFiberMass R p sig r)
+
+/-- The literal active first-owner Gram is therefore exactly the six-sector
+signed boundary mass, still before any new square or absolute value. -/
+theorem vfMidActiveCellGram_eq_sixOrientedBoundary
+    {R p : ℕ} {sig : Finset ℕ}
+    (hR : 3 ≤ R) (hp : p.Prime) :
+    lowOwnerFirstOwnerCellGramWith
+        (R + 1) p sig (vfMidOneBlockActivePhysicalSite R) =
+      ∑ r ∈ lowOwnerRevealedPrimesAbove (R + 1) p,
+        ((∑ parent ∈
+            lowOwnerFirstOwnerIncompleteFirstClipLeftSet
+              (R + 1) p sig r,
+            vfMidActiveReturnedRawParentFiberMass R p sig r parent) +
+          (∑ parent ∈
+            lowOwnerFirstOwnerIncompleteFirstClipRightSet
+              (R + 1) p sig r,
+            vfMidActiveReturnedRawParentFiberMass R p sig r parent) +
+          (∑ parent ∈
+            lowOwnerFirstOwnerIncompleteNextClipLeftSet
+              (R + 1) p sig r,
+            vfMidActiveReturnedRawParentFiberMass R p sig r parent) +
+          (∑ parent ∈
+            lowOwnerFirstOwnerIncompleteNextClipRightSet
+              (R + 1) p sig r,
+            vfMidActiveReturnedRawParentFiberMass R p sig r parent) +
+          (∑ parent ∈
+            lowOwnerFirstOwnerIncompleteReturnedClipLeftSet
+              (R + 1) p sig r,
+            vfMidActiveReturnedRawParentFiberMass R p sig r parent) +
+          ∑ parent ∈
+            lowOwnerFirstOwnerIncompleteReturnedClipRightSet
+              (R + 1) p sig r,
+            vfMidActiveReturnedRawParentFiberMass R p sig r parent) := by
+  rw [vfMidActiveCellGram_eq_scaledReturnedClippedCellMass hR hp,
+    vfMidActiveScaledReturnedClippedCellMass_eq_sixOrientedSectors hp]
+
+/-- Global active cell excess is bounded directly by twice the exact signed
+six-sector boundary mass.  This is the legal pre-square splice: no completed
+parent survives and no cross-term is dropped. -/
+theorem sum_vfMidActiveWeightedCellExcess_le_two_sixOrientedBoundary
+    {R : ℕ} (hR : 3 ≤ R) :
+    (∑ p ∈ primesUpTo (squareRootEndpoint (R + 1)),
+      ∑ sig ∈ lowOwnerFirstOwnerSignatureSet (R + 1) p,
+        vfMidActiveWeightedCellExcess R p sig) ≤
+      2 *
+        (∑ p ∈ primesUpTo (squareRootEndpoint (R + 1)),
+          ∑ sig ∈ lowOwnerFirstOwnerSignatureSet (R + 1) p,
+            ∑ r ∈ lowOwnerRevealedPrimesAbove (R + 1) p,
+              ((∑ parent ∈
+                  lowOwnerFirstOwnerIncompleteFirstClipLeftSet
+                    (R + 1) p sig r,
+                  vfMidActiveReturnedRawParentFiberMass
+                    R p sig r parent) +
+                (∑ parent ∈
+                  lowOwnerFirstOwnerIncompleteFirstClipRightSet
+                    (R + 1) p sig r,
+                  vfMidActiveReturnedRawParentFiberMass
+                    R p sig r parent) +
+                (∑ parent ∈
+                  lowOwnerFirstOwnerIncompleteNextClipLeftSet
+                    (R + 1) p sig r,
+                  vfMidActiveReturnedRawParentFiberMass
+                    R p sig r parent) +
+                (∑ parent ∈
+                  lowOwnerFirstOwnerIncompleteNextClipRightSet
+                    (R + 1) p sig r,
+                  vfMidActiveReturnedRawParentFiberMass
+                    R p sig r parent) +
+                (∑ parent ∈
+                  lowOwnerFirstOwnerIncompleteReturnedClipLeftSet
+                    (R + 1) p sig r,
+                  vfMidActiveReturnedRawParentFiberMass
+                    R p sig r parent) +
+                ∑ parent ∈
+                  lowOwnerFirstOwnerIncompleteReturnedClipRightSet
+                    (R + 1) p sig r,
+                  vfMidActiveReturnedRawParentFiberMass
+                    R p sig r parent)) := by
+  calc
+    (∑ p ∈ primesUpTo (squareRootEndpoint (R + 1)),
+      ∑ sig ∈ lowOwnerFirstOwnerSignatureSet (R + 1) p,
+        vfMidActiveWeightedCellExcess R p sig) ≤
+      ∑ p ∈ primesUpTo (squareRootEndpoint (R + 1)),
+        ∑ sig ∈ lowOwnerFirstOwnerSignatureSet (R + 1) p,
+          2 * lowOwnerFirstOwnerCellGramWith
+            (R + 1) p sig (vfMidOneBlockActivePhysicalSite R) := by
+      apply Finset.sum_le_sum
+      intro p hpMem
+      have hp : p.Prime := (mem_primesUpTo.mp hpMem).1
+      apply Finset.sum_le_sum
+      intro sig _hsig
+      exact vfMidActiveWeightedCellExcess_le_two_cellGram hR hp
+    _ = 2 *
+        (∑ p ∈ primesUpTo (squareRootEndpoint (R + 1)),
+          ∑ sig ∈ lowOwnerFirstOwnerSignatureSet (R + 1) p,
+            ∑ r ∈ lowOwnerRevealedPrimesAbove (R + 1) p,
+              ((∑ parent ∈
+                  lowOwnerFirstOwnerIncompleteFirstClipLeftSet
+                    (R + 1) p sig r,
+                  vfMidActiveReturnedRawParentFiberMass
+                    R p sig r parent) +
+                (∑ parent ∈
+                  lowOwnerFirstOwnerIncompleteFirstClipRightSet
+                    (R + 1) p sig r,
+                  vfMidActiveReturnedRawParentFiberMass
+                    R p sig r parent) +
+                (∑ parent ∈
+                  lowOwnerFirstOwnerIncompleteNextClipLeftSet
+                    (R + 1) p sig r,
+                  vfMidActiveReturnedRawParentFiberMass
+                    R p sig r parent) +
+                (∑ parent ∈
+                  lowOwnerFirstOwnerIncompleteNextClipRightSet
+                    (R + 1) p sig r,
+                  vfMidActiveReturnedRawParentFiberMass
+                    R p sig r parent) +
+                (∑ parent ∈
+                  lowOwnerFirstOwnerIncompleteReturnedClipLeftSet
+                    (R + 1) p sig r,
+                  vfMidActiveReturnedRawParentFiberMass
+                    R p sig r parent) +
+                ∑ parent ∈
+                  lowOwnerFirstOwnerIncompleteReturnedClipRightSet
+                    (R + 1) p sig r,
+                  vfMidActiveReturnedRawParentFiberMass
+                    R p sig r parent)) := by
+      rw [Finset.mul_sum]
+      apply Finset.sum_congr rfl
+      intro p hpMem
+      have hp : p.Prime := (mem_primesUpTo.mp hpMem).1
+      rw [Finset.mul_sum]
+      apply Finset.sum_congr rfl
+      intro sig _hsig
+      rw [vfMidActiveCellGram_eq_sixOrientedBoundary hR hp]
+
+/-- **Direct global accounting splice.**
+
+The exact #911 global Co/Div ledger now sees only the root/exclusion residual
+plus twice the six incomplete boundary sectors. -/
+theorem vfMidFirstBadAnchoredCoDivExcess_le_activeResidual_add_two_sixBoundary
+    {R : ℕ} (hR : 3 ≤ R) :
+    vfMidFirstBadAnchoredCoDivExcess R ≤
+      vfMidActiveGlobalResidualExcess R +
+        2 *
+          (∑ p ∈ primesUpTo (squareRootEndpoint (R + 1)),
+            ∑ sig ∈ lowOwnerFirstOwnerSignatureSet (R + 1) p,
+              ∑ r ∈ lowOwnerRevealedPrimesAbove (R + 1) p,
+                ((∑ parent ∈
+                    lowOwnerFirstOwnerIncompleteFirstClipLeftSet
+                      (R + 1) p sig r,
+                    vfMidActiveReturnedRawParentFiberMass
+                      R p sig r parent) +
+                  (∑ parent ∈
+                    lowOwnerFirstOwnerIncompleteFirstClipRightSet
+                      (R + 1) p sig r,
+                    vfMidActiveReturnedRawParentFiberMass
+                      R p sig r parent) +
+                  (∑ parent ∈
+                    lowOwnerFirstOwnerIncompleteNextClipLeftSet
+                      (R + 1) p sig r,
+                    vfMidActiveReturnedRawParentFiberMass
+                      R p sig r parent) +
+                  (∑ parent ∈
+                    lowOwnerFirstOwnerIncompleteNextClipRightSet
+                      (R + 1) p sig r,
+                    vfMidActiveReturnedRawParentFiberMass
+                      R p sig r parent) +
+                  (∑ parent ∈
+                    lowOwnerFirstOwnerIncompleteReturnedClipLeftSet
+                      (R + 1) p sig r,
+                    vfMidActiveReturnedRawParentFiberMass
+                      R p sig r parent) +
+                  ∑ parent ∈
+                    lowOwnerFirstOwnerIncompleteReturnedClipRightSet
+                      (R + 1) p sig r,
+                    vfMidActiveReturnedRawParentFiberMass
+                      R p sig r parent)) := by
+  rw [vfMidFirstBadAnchoredCoDivExcess_eq_activeResidual_add_weightedCells hR]
+  have hcells :=
+    sum_vfMidActiveWeightedCellExcess_le_two_sixOrientedBoundary hR
+  linarith
+
+/-- A nonpositive bound on the now-explicit root-plus-six-boundary ledger gives
+the terminal NNS half ceiling.  No owner-tree mathematics remains in this
+consumer. -/
+theorem vfMidFirstBadNNSNormalizedCovariance_le_half_of_activeSixBoundaryBudget
+    {R : ℕ} (hR : 8 ≤ R)
+    (hfirst : VFMidActualPrimeFirstBadAt (2 : ℝ) (R + 1))
+    (hbudget :
+      vfMidActiveGlobalResidualExcess R +
+        2 *
+          (∑ p ∈ primesUpTo (squareRootEndpoint (R + 1)),
+            ∑ sig ∈ lowOwnerFirstOwnerSignatureSet (R + 1) p,
+              ∑ r ∈ lowOwnerRevealedPrimesAbove (R + 1) p,
+                ((∑ parent ∈
+                    lowOwnerFirstOwnerIncompleteFirstClipLeftSet
+                      (R + 1) p sig r,
+                    vfMidActiveReturnedRawParentFiberMass
+                      R p sig r parent) +
+                  (∑ parent ∈
+                    lowOwnerFirstOwnerIncompleteFirstClipRightSet
+                      (R + 1) p sig r,
+                    vfMidActiveReturnedRawParentFiberMass
+                      R p sig r parent) +
+                  (∑ parent ∈
+                    lowOwnerFirstOwnerIncompleteNextClipLeftSet
+                      (R + 1) p sig r,
+                    vfMidActiveReturnedRawParentFiberMass
+                      R p sig r parent) +
+                  (∑ parent ∈
+                    lowOwnerFirstOwnerIncompleteNextClipRightSet
+                      (R + 1) p sig r,
+                    vfMidActiveReturnedRawParentFiberMass
+                      R p sig r parent) +
+                  (∑ parent ∈
+                    lowOwnerFirstOwnerIncompleteReturnedClipLeftSet
+                      (R + 1) p sig r,
+                    vfMidActiveReturnedRawParentFiberMass
+                      R p sig r parent) +
+                  ∑ parent ∈
+                    lowOwnerFirstOwnerIncompleteReturnedClipRightSet
+                      (R + 1) p sig r,
+                    vfMidActiveReturnedRawParentFiberMass
+                      R p sig r parent)) ≤ 0) :
+    vfMidFirstBadNNSNormalizedCovariance R ≤ (1 / 2 : ℝ) := by
+  have hcodiv :
+      vfMidFirstBadAnchoredCoDivExcess R ≤ 0 :=
+    (vfMidFirstBadAnchoredCoDivExcess_le_activeResidual_add_two_sixBoundary
+      (by omega : 3 ≤ R)).trans hbudget
+  have htotal0 : 0 ≤ vfMidFirstBadZeroTargetTotalMass R := by
+    rw [vfMidFirstBadZeroTargetTotalMass_eq]
+    positivity
+  have hendpoint :=
+    vfMidFirstBadNormalizedProduct_eq_nextEndpointDefect_sq
+      (R := R) (by omega : 3 ≤ R)
+  have htotalPos : 0 < vfMidFirstBadZeroTargetTotalMass R := by
+    by_contra hnot
+    have hzero : vfMidFirstBadZeroTargetTotalMass R = 0 :=
+      le_antisymm (le_of_not_gt hnot) htotal0
+    rw [hzero, mul_zero] at hendpoint
+    have hDzero :
+        vfMidActualPrimeEndpointDefect (R + 1) = 0 := by
+      nlinarith [sq_nonneg (vfMidActualPrimeEndpointDefect (R + 1))]
+    have hbreach := hfirst.1
+    unfold VFMidSyntheticBadAt at hbreach
+    rw [hDzero, abs_zero] at hbreach
+    have hscalePos :
+        0 < vfMidSyntheticRadialScale (R + 1) :=
+      vfMidSyntheticRadialScale_pos (by omega : 2 ≤ R + 1)
+    nlinarith
+  by_contra hnot
+  have hgt :
+      (1 / 2 : ℝ) < vfMidFirstBadNNSNormalizedCovariance R :=
+    lt_of_not_ge hnot
+  have hmul :
+      (1 / 2 : ℝ) * vfMidFirstBadZeroTargetTotalMass R <
+        vfMidFirstBadNNSNormalizedCovariance R *
+          vfMidFirstBadZeroTargetTotalMass R :=
+    mul_lt_mul_of_pos_right hgt htotalPos
+  have hpos :
+      0 < vfMidFirstBadAnchoredCoDivExcess R := by
+    rw [vfMidFirstBadAnchoredCoDivExcess_eq_two_product_sub_total]
+    nlinarith
+  exact (not_lt_of_ge hcodiv) hpos
+
+/-- **Terminal collision.**  Once the exact root-plus-six-boundary budget is
+nonpositive, first badness simultaneously forces N_R > 1/2 and N_R <= 1/2. -/
+theorem vfMidActualPrimeFirstBadAt_two_succ_false_of_activeSixBoundaryBudget
+    {R : ℕ} (hR : 8 ≤ R)
+    (hfirst : VFMidActualPrimeFirstBadAt (2 : ℝ) (R + 1))
+    (hbudget :
+      vfMidActiveGlobalResidualExcess R +
+        2 *
+          (∑ p ∈ primesUpTo (squareRootEndpoint (R + 1)),
+            ∑ sig ∈ lowOwnerFirstOwnerSignatureSet (R + 1) p,
+              ∑ r ∈ lowOwnerRevealedPrimesAbove (R + 1) p,
+                ((∑ parent ∈
+                    lowOwnerFirstOwnerIncompleteFirstClipLeftSet
+                      (R + 1) p sig r,
+                    vfMidActiveReturnedRawParentFiberMass
+                      R p sig r parent) +
+                  (∑ parent ∈
+                    lowOwnerFirstOwnerIncompleteFirstClipRightSet
+                      (R + 1) p sig r,
+                    vfMidActiveReturnedRawParentFiberMass
+                      R p sig r parent) +
+                  (∑ parent ∈
+                    lowOwnerFirstOwnerIncompleteNextClipLeftSet
+                      (R + 1) p sig r,
+                    vfMidActiveReturnedRawParentFiberMass
+                      R p sig r parent) +
+                  (∑ parent ∈
+                    lowOwnerFirstOwnerIncompleteNextClipRightSet
+                      (R + 1) p sig r,
+                    vfMidActiveReturnedRawParentFiberMass
+                      R p sig r parent) +
+                  (∑ parent ∈
+                    lowOwnerFirstOwnerIncompleteReturnedClipLeftSet
+                      (R + 1) p sig r,
+                    vfMidActiveReturnedRawParentFiberMass
+                      R p sig r parent) +
+                  ∑ parent ∈
+                    lowOwnerFirstOwnerIncompleteReturnedClipRightSet
+                      (R + 1) p sig r,
+                    vfMidActiveReturnedRawParentFiberMass
+                      R p sig r parent)) ≤ 0) :
+    False := by
+  have hle :=
+    vfMidFirstBadNNSNormalizedCovariance_le_half_of_activeSixBoundaryBudget
+      hR hfirst hbudget
+  have hgt :=
+    vfMidActualPrimeFirstBadAt_two_succ_nnsNormalized_gt_half hR hfirst
+  linarith
+
 
 end RHLean.Analysis
