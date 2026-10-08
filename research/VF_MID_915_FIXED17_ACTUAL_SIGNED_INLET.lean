@@ -87,6 +87,7 @@ theorem vfMid915OddPhysicalSource_eq_fixed17_plus_late
   rw [vfMidSquareBandPrimes_card_eq_integerBlockPrimeSupply R] at hblock
   unfold vfMid915FixedWheel17SignedBoundary
     vfMid915FixedWheel17Supply vfMid915ActualAfter17OwnerRemovals
+  simp only [vfMid915FixedWheel17Supply]
   linarith
 
 /-- Full ACTUAL half-run signed inlet in fixed-wheel small-owner and late
