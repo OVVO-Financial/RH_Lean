@@ -144,6 +144,185 @@ inequality after retaining the original denominator.
 
 ---
 
+## 2026-10-08 exact inherited Möbius prefixes on original VF weights
+
+**Production source:** research/VF_MID_915_LATE_PREFIX_WEIGHTED_DYADIC.lean
+**Actual-prime numerical test:** scripts/vf_mid_915_late_prefix_weighted_regression.py
+
+This is a direct attempt to spend the ALREADY COMPILED large-prime inheritance
+and dyadic Mobius replication in #915's actual VF weighted physical Fubini:
+
+- primeCombLargePrimeFamilyMass_eq_neg_mertens;
+- orderedPrimeReplication_dyadic_pair;
+- lateFlipPNTError_eq_lowerHalf;
+- vfMidOneBlockActivePhysical_two_mul_gt_endpoint.
+
+### 1. Exact weight-preserving dyadic prime-owner Fubini
+
+For any real ORIGINAL site weight W(n), odd lower cofactor c, high actual
+prime owner q>R and upper clock X, let mu denote the integer Mobius weight.
+The inherited (c,2c) family has the literal atom equality:
+
+    1_{q prime,cq<=X} mu(c) W(cq)
+       + 1_{q prime,2cq<=X} mu(2c) W(2cq)
+    = 1_{q prime,2cq<=X} mu(c) [W(cq)-W(2cq)]
+       + 1_{q prime,cq<=X<2cq} mu(c) W(cq).
+
+The c/2c signs use mu(2c)=-mu(c); the expression preserves ORIGINAL
+site-dependent VF weights and the true owner q. The sum over actual q
+is vfMid915WeightedDyadicPrimeFiber_eq_overlap_add_shell.
+No Li density substitution and no absolutes are involved.
+
+### 2. Unexpected HARD physical-support obstruction: entire current overlap is zero
+
+On the current odd square band, an active n>R^2 has doubled site
+2n >=(R+1)^2 for R>=2, so the completed c/2c cofactor pairing
+cannot occur with both positive cofactor sites in the same square band.
+Also, 2cq is even and excluded by the original parity-first VF carrier.
+
+The Lean theorem
+vfMid915CurrentOddWeight_dyadicOverlap_zero
+proves this for ALL original odd seats, including squareful restoring
+sites. The stronger DIRECT PRODUCTION weld
+vfMid915ActivePhysicalSite_dyadicOverlap_zero
+proves it for vfMidOneBlockActivePhysicalSite, the LITERAL signed
+squarefree-active VF first-owner Fubini weight from #900/#915.
+
+Consequently,
+
+    weightedLatePrimeFiber(c) + weightedLatePrimeFiber(2c)
+        = weightedDyadicOuterShell(c)
+
+in the original active Fubini field. Its overlap does NOT supply any
+separately spendable -4|z|. The whole current-block dyadic source is
+an UNPAID outer-shell boundary unless its genuine historical return
+is linked and its original scale matched.
+
+### 3. Exact geometric half-scale bottleneck and stronger parity top band
+
+Let a=floor(R/2)+1 and X=(R+1)^2-1.
+
+vfMid915HalfScaleOddCofactor_eq_three proves: if n=cq<X+1,
+odd c>=3, and q>=a^2, then c=3, because
+(R+1)^2<=4a^2<5a^2<=c q would contradict n<X+1 for c>=5.
+For R>=16, vfMid915TripleCurrentParent_in_halfRun proves the converse
+for CURRENT n=3q>R^2: the actual earlier prime q lies above a^2.
+No primality assumption is needed for these geometric inequalities.
+
+Thus **only the c=3 high-prime ancestor can be paid by a literal
+historical prime seat inside the explicit a..R run.** Every c>=5
+ancestor necessarily precedes the a^2 anchor, so matching its negative
+prime seat would require disaggregating D_a and retaining every
+corresponding original denominator correction. It is NOT an already
+available new negative parent.
+
+A stronger physical parity threshold also holds:
+vfMid915OddTopThirdCofactor_eq_one proves that if q>X/3,
+any legal positive ODD cofactor c with cq<=X equals 1.
+The classical Mobius late-flip chronology is inert for q>X/2;
+the **parity-reduced odd VF carrier has no proper multiple already
+for q>X/3**. This changes the relevant top boundary.
+
+### 4. Verified actual prime numerical packets
+
+The test enumerates actual odd square-block seats and their unique
+prime factor q>R when present; it separately tests exact c/2c
+dyadic Fubini using literal current VF weights. No simulated prime
+process is substituted. Every sampled overlap is zero.
+
+CURRENT square-block high-prime descendant census:
+
+| R | current composites with prime factor q>R | squareful cofactor | descendants with q>=a^2 (c=3 only) | descendants c>=5 with q<a^2 | signed c=3 parent+child degree-one sum |
+| ---: | ---: | ---: | ---: | ---: | ---: |
+| 8 | 3 | 0 | 0 | 2 | 0.000 |
+| 18 | 8 | 1 | 2 | 6 | -0.403 |
+| 56 | 34 | 5 | 5 | 29 | -2.291 |
+| 317 | 192 | 27 | 23 | 169 | -14.576 |
+| 1027 | 659 | 112 | 52 | 607 | -36.348 |
+
+At R=1027, only **52/659** current high-prime-factor composites have
+their prime q within the current #915 explicit half-scale historical
+run. The remaining 607 high-owner composites have their prime owner
+before a^2. Note the signed c=3 parent+child degree-one sum uses
+W_R(3q)=w_R > 0 and original W_(floor sqrt q)(q)=w_(floor sqrt q)-1<0.
+Their values are DIFFERENT: the -36.348 sum is NOT already the
+required quadratic Co/Div first-bad payment.
+
+### 5. Full original historical SOURCE reassembled by genuine owners
+
+Independently, enumerate EVERY odd VF charge in blocks r=a,...,R,
+including all squareful-composite restoring charges and actual
+prime seats. Partition by whether the unique largest prime factor
+q is <=R (smooth) or >R (high). The latter partition is DISJOINT,
+because two q>R cannot divide one site below (R+1)^2.
+No matched prime parent outside the actual run is manufactured.
+
+The sum is exactly the existing half-run VF tracking charge
+
+    F_(a,R+1) = D_a - D_(R+1).
+
+| R | F exact | smooth positive | high-prime-seat negative | high-prime-composite positive | positive high composites with prime q before a^2 |
+| ---: | ---: | ---: | ---: | ---: | ---: |
+| 8 | +1.372 | +2.893 | -5.823 | +4.303 | +4.303 |
+| 18 | +1.716 | +10.214 | -28.704 | +20.207 | +18.424 |
+| 56 | +8.391 | +72.398 | -227.255 | +163.249 | +154.633 |
+| 317 | +14.979 | +1,754.514 | -5,635.627 | +3,896.092 | +3,751.646 |
+| 1027 | +57.833 | +15,286.257 | -50,500.990 | +35,272.565 | +34,254.918 |
+
+At R=1027 the physical historical signed packet is EXACTLY
+
+    +15,286.257293
+    -50,500.989756
+    +35,272.565049
+    = +57.832586 (up to displayed rounding)
+    = D_514-D_1028.
+
+The positive high-owner composites with their prime q BEFORE the
+half-run anchor account for about **97.1%** of ALL high-prime
+composite positive VF charge in the entire half-run.
+
+Top-third primes q>X/3 have no proper odd multiple by theorem. Their
+historical prime seats form a genuine, signed negative packet:
+at R=1027 there are 52,454 such prime seats in the run, with
+total original signed VF charge **-44,623.553**.
+
+These large positive and negative packets nearly cancel in the exact
+signed history. Their *absolute mass* does NOT cancel. Indeed at R=1027
+the positive smooth+high composite charges total about +50,558.822,
+the negative prime seats total -50,500.990, and the absolute historical
+charge is about 101,059.812. The signed historical state is only +57.833.
+
+### 6. Why this is NOT a proof of #915 hbalance
+
+Re-expanding D_R into its individual historical signed seats is valid
+in the NUMERATOR but its absolute mass is orders of magnitude larger
+than the compressed ORIGINAL anchored denominator
+M_R=|D_R|+currentOddSeatAbsoluteMass. Spending a negative historical
+pair as if it were an independent addition to that denominator would
+silently enlarge the budget and be invalid.
+
+The conclusion is a genuine multiscale bottleneck:
+  - the dyadic c/2c sign reversal does NOT produce current-band overlap;
+  - only c=3 can return to the immediate a..R historical prime band;
+  - c>=5 requires recursing BELOW a^2, into the very source whose
+    total had already been compressed to D_a;
+  - substantial negative top-third prime mass is ALREADY included in
+    the signed historical anchor and cannot be charged twice.
+
+PNT describes the large prime packet's aggregate population, and
+the completed prefix law gives exact Mobius signs, but **neither by
+itself yields the original first-bad quadratic signed payment**.
+The next necessary theorem is an occurrence-preserving MULTISCALE
+ancestor reassembly with a signed comparison of the original quadratic
+denominator *after historical compression*. This is not equivalent
+to pretending the dyadic removed even seat is an available partner.
+
+CI compiles the new standalone research Lean file warning-fatal
+before the unchanged #915 production theorem; numeric regression
+runs in the same fast job. Production hbalance is still open.
+
+---
+
 ## 2026-10-08 PNT actual-prime reciprocal-star input and SIGNED payment test
 
 **Use the PNT theorem already compiled in RH_Lean.** This is NOT a new
