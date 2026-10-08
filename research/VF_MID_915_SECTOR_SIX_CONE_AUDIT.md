@@ -292,7 +292,71 @@ the positive smooth+high composite charges total about +50,558.822,
 the negative prime seats total -50,500.990, and the absolute historical
 charge is about 101,059.812. The signed historical state is only +57.833.
 
-### 6. Why this is NOT a proof of #915 hbalance
+### 6. Quantitative price of historical decompression (ORIGINAL denominator)
+
+This final diagnostic is essential. The original #915 current anchored absolute
+mass is
+
+    M_orig = |D_R| + sum_(n in odd R block) |z_R(n)|.
+
+Let a=floor(R/2)+1, and H_prev be the sum of the ORIGINAL absolute
+physical odd VF charges over all historical blocks a <= r < R.
+If we UNCOMPRESS D_R into individual earlier sites, the enlarged mass is
+
+    M_expanded = |D_a| + H_prev + sum_(n in odd R block) |z_R(n)|.
+
+By exact history, D_R=D_a - sum_(previous signed charges). Thus
+
+    delta = M_expanded - M_orig
+          = |D_a| + H_prev - |D_R| >= 0.
+
+For the same endpoint energy 2*D_(R+1)^2, the two squared-cone
+slacks differ by the EXACT identity
+
+    B_expanded - B_original
+       = M_expanded^2 - M_orig^2
+       = 2*M_orig*delta + delta^2.
+
+This is the **absolute-denominator COMPRESSION LEAK**. It MUST be paid
+before any favorable signed historical pair from the expanded source
+can be used against the original anchored half gate. Merely decomposing
+the earlier signed history and treating its individual negative
+occurrences as new available capacity is mathematically INVALID.
+
+The numerical script independently checks all terms, both endpoints,
+and the equality above. It also enumerates the GENUINE historical
+c=3 prime q / current 3q occurrence pairs and computes the favorable
+negative Co-minus-three-Div pair energy:
+
+    -6 * sum_(q genuinely paired) |z_hist(q)*z_current(3q)|.
+
+Here those pairs are physically real across different square blocks,
+but their negative contribution belongs to the UNCOMPRESSED
+historical quadratic expansion, **not** an independently available
+payment on the original #915 compressed denominator.
+
+| R | original M | expanded M | M-expanded-minus-M-original | squared denominator compression leak | genuine c=3 negative-pair heat magnitude |
+| ---: | ---: | ---: | ---: | ---: | ---: |
+| 8 | 4.826 | 13.597 | 8.771 | 161.579 | 0.000 |
+| 18 | 11.502 | 61.137 | 49.635 | 3,605.466 | 2.340 |
+| 56 | 31.567 | 468.079 | 436.512 | 218,101.511 | 5.314 |
+| 317 | 128.471 | 11,310.503 | 11,182.032 | 127,910,970.342 | 19.378 |
+| 1027 | 366.748 | 101,122.277 | 100,755.529 | **10,225,580,470.548** | **37.957** |
+
+At R=1027 the genuine c=3 negative historical pair contributions are
+numerically REAL but their magnitude is negligible compared to the
+cost of expanding the original absolute denominator (roughly 1 part
+in 269 million). This ratio is only a finite diagnostic and does
+not prove the required unmatched payment is impossible. It does
+falsify the simple attempt to "spend" c=3 historical pairs on the
+current anchored cone without paying the enormous compression leak.
+
+This is a stronger conclusion than merely saying the parents have
+different VF scales: the signed reconstruction IS exact, the
+historical negative pairs EXIST, and the original-source price of
+using their uncompressed norm is quantitatively explicit.
+
+### 7. Why this is NOT a proof of #915 hbalance
 
 Re-expanding D_R into its individual historical signed seats is valid
 in the NUMERATOR but its absolute mass is orders of magnitude larger
