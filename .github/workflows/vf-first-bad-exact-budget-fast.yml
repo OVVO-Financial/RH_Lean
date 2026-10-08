@@ -14,7 +14,7 @@ permissions:
 jobs:
   fast-check:
     runs-on: ubuntu-latest
-    timeout-minutes: 8
+    timeout-minutes: 12
     steps:
       - uses: actions/checkout@v4
         with:
@@ -74,13 +74,37 @@ jobs:
           path: .lake/build/lib/lean/research.*
           key: vf915-research-base-${{ runner.os }}-${{ runner.arch }}-${{ github.event.pull_request.base.sha || github.sha }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
 
-      - name: Verify warm dependency cache
+      - name: Build stable #914 research closure on cache miss
+        if: steps.research-cache.outputs.cache-hit != 'true'
         run: |
-          test -f .lake/build/lib/lean/research.VF_MID_FIRST_BAD_FINAL_AGGREGATE_CONTRACTION.olean || {
-            echo "Stable #914 research cache is not warm yet."
-            echo "Let the full 'VF first-bad exact budget close' workflow seed it once, then rerun this fast job."
-            exit 1
-          }
+          python3 - <<'PY'
+          import subprocess
+          import sys
+          sys.path.insert(0, 'scripts')
+          import compile_research_import_closure as closure
+          seen, roots = set(), set()
+          def visit(module):
+              if module in seen:
+                  return
+              seen.add(module)
+              source = closure.source_for(module)
+              for dependency in closure.research_imports(source):
+                  visit(dependency)
+              for line in source.read_text().splitlines():
+                  if line.startswith('import RHLean'):
+                      roots.add(line.removeprefix('import ').strip())
+          visit('research.VF_MID_FIRST_BAD_FINAL_AGGREGATE_CONTRACTION')
+          if roots:
+              subprocess.run(['lake', 'build', *sorted(roots)], check=True)
+          PY
+          python3 scripts/compile_research_import_closure.py research/VF_MID_FIRST_BAD_FINAL_AGGREGATE_CONTRACTION.lean
+
+      - name: Save stable #914 research closure
+        if: steps.research-cache.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v5
+        with:
+          path: .lake/build/lib/lean/research.*
+          key: vf915-research-base-${{ runner.os }}-${{ runner.arch }}-${{ github.event.pull_request.base.sha || github.sha }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
 
       - name: Compile #915 only against cached dependencies
         run: |
