@@ -109,17 +109,15 @@ theorem vfMid915PrefixState_eq_factor_sub_shock
     · by_cases hdiv : p ∣ n
       · have hnot : ¬ lowWheelHighSurvivor p n := by
           intro h
-          exact hdiv (hiff.mp h).2
+          exact (hiff.mp h).2 hdiv
         simp [vfMid915PrefixState, vfMid915OwnerStepFactor,
           vfMid915OwnerStepShock, vfMid915CenteredOwnerDeviation,
           hp, hs, hdiv, hnot]
-        ring
       · have hsurv : lowWheelHighSurvivor p n :=
           hiff.mpr ⟨hs, hdiv⟩
         simp [vfMid915PrefixState, vfMid915OwnerStepFactor,
           vfMid915OwnerStepShock, vfMid915CenteredOwnerDeviation,
           hp, hs, hdiv, hsurv]
-        ring
     · have hnot : ¬ lowWheelHighSurvivor p n := by
         intro h
         exact hs (hiff.mp h).1
@@ -153,7 +151,6 @@ theorem vfMid915CenteredOwner_pair_eq_late
   · obtain ⟨hsp, hnot⟩ :=
       vfMid915LaterOwner_survivor_excludes_earlier hp hpq hs
     simp [vfMid915CenteredOwnerDeviation, hs, hsp, hnot]
-    ring
   · simp [vfMid915CenteredOwnerDeviation, hs]
 
 /-- The SAME triangular law on the ORIGINAL R-th odd VF carrier.
@@ -166,7 +163,7 @@ theorem vfMid915CenteredOwner_originalOddGram_eq_late
       -(1 / (p : ℝ)) *
         ∑ n ∈ vfMidOddCandidateSeats R,
           vfMid915CenteredOwnerDeviation q n := by
-  rw [← Finset.mul_sum]
+  rw [Finset.mul_sum]
   apply Finset.sum_congr rfl
   intro n _hn
   exact vfMid915CenteredOwner_pair_eq_late hp hpq
@@ -194,7 +191,7 @@ theorem vfMid915CenteredOwner_originalOddDiagonal_eq_population
       (1 / (p : ℝ)) * (1 - 1 / (p : ℝ)) *
         (∑ n ∈ vfMidOddCandidateSeats R,
           vfMid915PrefixState (p - 1) n) := by
-  rw [← Finset.mul_sum, ← Finset.mul_sum, ← Finset.sum_add_distrib]
+  rw [Finset.mul_sum, Finset.mul_sum, ← Finset.sum_add_distrib]
   apply Finset.sum_congr rfl
   intro n _hn
   exact vfMid915CenteredOwner_deviation_sq p n
@@ -265,7 +262,7 @@ theorem vfMid915ActualOddSignedSeat_eq_centeredOwner
   have hRidx : R - 2 + 2 = R := by omega
   rw [hRidx, hstate] at htel
   unfold vfMidOddSignedSeatCharge
-  rw [← htel]
+  rw [htel]
   ring
 
 /-- Degree-one source is now an EXACT centered-owner ledger on the actual
@@ -290,8 +287,9 @@ theorem vfMid915ActualOddSignedSource_eq_centeredOwner
           intro n hn
           exact vfMid915ActualOddSignedSeat_eq_centeredOwner hR hn
     _ = _ := by
-      rw [Finset.sum_add_distrib, Finset.sum_const, Finset.sum_const]
+      rw [Finset.sum_add_distrib, Finset.sum_const]
       rw [vfMidOddCandidateSeats_card]
+      simp only [nsmul_eq_mul]
       push_cast
       ring
 
@@ -306,9 +304,16 @@ theorem vfMid915OriginalFirstBadDenominator_eq_centeredOwner
               vfMid915CenteredAlpha (R - 2) +
                 vfMid915CenteredAccum n (R - 2)|) ^ 2 := by
   rw [vfMidFirstBadZeroTargetTotalMass_eq]
-  congr 1
-  apply Finset.sum_congr rfl
-  intro n hn
-  rw [vfMid915ActualOddSignedSeat_eq_centeredOwner hR hn]
+  have hsum :
+      (∑ n ∈ vfMidOddCandidateSeats R,
+        |vfMidOddSignedSeatCharge R n|) =
+      ∑ n ∈ vfMidOddCandidateSeats R,
+        |vfMidOddFractionalPrimeSeatWeight R -
+          vfMid915CenteredAlpha (R - 2) +
+            vfMid915CenteredAccum n (R - 2)| := by
+    apply Finset.sum_congr rfl
+    intro n hn
+    rw [vfMid915ActualOddSignedSeat_eq_centeredOwner hR hn]
+  rw [hsum]
 
 end RHLean.Analysis
