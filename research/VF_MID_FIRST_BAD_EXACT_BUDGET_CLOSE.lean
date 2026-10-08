@@ -717,7 +717,7 @@ Thus the #915 half gate contains no irreducible signed pair algebra: all signs
 can be postponed to the final subtraction of two nonnegative degree-one partial
 masses. -/
 theorem vfMidFirstBadAnchoredCoDivExcess_eq_upperLowerBalance
-    {R : ℕ} (hR : 3 ≤ R) :
+    (R : ℕ) :
     vfMidFirstBadAnchoredCoDivExcess R =
       vfMidFirstBadAnchoredUpperPartialMass R ^ 2 +
         vfMidFirstBadAnchoredLowerPartialMass R ^ 2 -
@@ -780,7 +780,76 @@ theorem vfMidFirstBadAnchoredCoDivExcess_nonpos_iff_upperLowerBalance
         vfMidFirstBadAnchoredLowerPartialMass R ^ 2 ≤
         6 * vfMidFirstBadAnchoredUpperPartialMass R *
           vfMidFirstBadAnchoredLowerPartialMass R := by
-  rw [vfMidFirstBadAnchoredCoDivExcess_eq_upperLowerBalance hR]
+  rw [vfMidFirstBadAnchoredCoDivExcess_eq_upperLowerBalance R]
+  constructor <;> intro h <;> linarith
+
+
+
+/-! ## Division-free UPM/LPM balance slack -/
+
+/-- Polynomial balance slack for two nonnegative degree-one partial masses.
+No ratio or inverse is introduced, so the definition remains meaningful on
+empty Fubini fibres. -/
+def vfMidUpperLowerBalanceSlack (U L : ℝ) : ℝ :=
+  6 * U * L - U ^ 2 - L ^ 2
+
+/-- The balance slack is invariant under the owner sign-reversal swap
+UPM <-> LPM. -/
+@[simp] theorem vfMidUpperLowerBalanceSlack_swap (U L : ℝ) :
+    vfMidUpperLowerBalanceSlack L U =
+      vfMidUpperLowerBalanceSlack U L := by
+  unfold vfMidUpperLowerBalanceSlack
+  ring
+
+/-- A common retained scalar acts quadratically on the balance slack. -/
+theorem vfMidUpperLowerBalanceSlack_smul
+    (c U L : ℝ) :
+    vfMidUpperLowerBalanceSlack (c * U) (c * L) =
+      c ^ 2 * vfMidUpperLowerBalanceSlack U L := by
+  unfold vfMidUpperLowerBalanceSlack
+  ring
+
+/-- Exact division-free corridor identity.  This is the payment algebra:
+balance slack is nonnegative exactly when twice the squared signed source is
+bounded by the squared total partial mass. -/
+theorem vfMidUpperLowerBalanceSlack_nonneg_iff_sourceMass
+    (U L : ℝ) :
+    0 ≤ vfMidUpperLowerBalanceSlack U L ↔
+      2 * (U - L) ^ 2 ≤ (U + L) ^ 2 := by
+  unfold vfMidUpperLowerBalanceSlack
+  constructor <;> intro h <;> nlinarith
+
+/-- A completed owner-reversal pair lands on the center line U=L and therefore
+has strictly favorable balance slack, including the zero-mass case. -/
+theorem vfMidUpperLowerBalanceSlack_ownerPair_nonneg
+    (U L : ℝ) :
+    0 ≤ vfMidUpperLowerBalanceSlack (U + L) (L + U) := by
+  unfold vfMidUpperLowerBalanceSlack
+  nlinarith [sq_nonneg (U + L)]
+
+/-- On the actual anchored VF carrier, the polynomial balance slack is exactly
+the negative Co-minus-three-Div excess already transported by #914/#915.  This
+is the pair-linear form used by the owner/Fubini descent. -/
+theorem vfMidFirstBadAnchoredBalanceSlack_eq_neg_coDivExcess
+    (R : ℕ) :
+    vfMidUpperLowerBalanceSlack
+        (vfMidFirstBadAnchoredUpperPartialMass R)
+        (vfMidFirstBadAnchoredLowerPartialMass R) =
+      -vfMidFirstBadAnchoredCoDivExcess R := by
+  rw [vfMidFirstBadAnchoredCoDivExcess_eq_upperLowerBalance R]
+  unfold vfMidUpperLowerBalanceSlack
+  ring
+
+/-- Hence the anchored payment gate is literally nonnegative UPM/LPM balance
+slack; no scalar estimate is hidden in this equivalence. -/
+theorem vfMidFirstBadAnchoredBalanceSlack_nonneg_iff_coDiv_nonpos
+    (R : ℕ) :
+    0 ≤
+        vfMidUpperLowerBalanceSlack
+          (vfMidFirstBadAnchoredUpperPartialMass R)
+          (vfMidFirstBadAnchoredLowerPartialMass R) ↔
+      vfMidFirstBadAnchoredCoDivExcess R ≤ 0 := by
+  rw [vfMidFirstBadAnchoredBalanceSlack_eq_neg_coDivExcess]
   constructor <;> intro h <;> linarith
 
 
