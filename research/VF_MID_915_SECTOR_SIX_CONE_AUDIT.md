@@ -89,9 +89,10 @@ negative current-block Co/Div pair.
 
 ### Finite ordered path-flux census, ACTUAL current site weights
 
-For sampled distinct ordered odd-prime pairs p<q <=R, enumerate the
-real current square-block odd terminal t and its squarefree
-historical factor-exchange start n. Verify both paths and all three
+For sampled distinct ordered odd-prime pairs p<q <=R, enumerate ONLY
+squarefree current-block odd terminal t and its actual squarefree
+historical factor-exchange start n (explicit full squarefree sieve;
+not merely p^2- and q^2-free). Verify both paths and all three
 physical states. The weights are exactly w_R - 1_Prime(t); they are
 NOT reweighted by a PNT density. In this signed *one-site* test:
 
@@ -99,11 +100,11 @@ NOT reweighted by a PNT density. In this signed *one-site* test:
 | ---: | ---: | ---: | ---: | ---: |
 | 8 | 3,5 | 1 | 0 | +0.496079621 |
 | 18 | 3,5 | 2 | 0 | +0.704407086 |
-| 56 | 3,5 | 7 | 0 | +1.750622257 |
-| 317 | 3,5 | 34 | 0 | +5.911596486 |
-| 1027 | 3,5 | 109 | 0 | +15.725290599 |
-| 317 | 5,7 | 30 | 0 | +5.216114547 |
-| 1027 | 5,7 | 101 | 0 | +14.571140830 |
+| 56 | 3,5 | 6 | 0 | +1.500533364 |
+| 317 | 3,5 | 32 | 0 | +5.563855516 |
+| 1027 | 3,5 | 102 | 0 | +14.715409551 |
+| 317 | 5,7 | 27 | 0 | +4.694503092 |
+| 1027 | 5,7 | 86 | 0 | +12.407110014 |
 
 All nonzero tested terminals are actual composites, because a low prime
 factor remains. Their one-site VF weight is POSITIVE. Hence on this
