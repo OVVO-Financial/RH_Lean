@@ -1,11 +1,6 @@
 name: VF first-bad exact budget close
 
 on:
-  pull_request:
-    branches: [vf-first-bad-final-aggregate-contraction]
-    paths:
-      - research/VF_MID_FIRST_BAD_EXACT_BUDGET_CLOSE.lean
-      - .github/workflows/vf-first-bad-exact-budget-close.yml
   workflow_dispatch:
 
 permissions:
