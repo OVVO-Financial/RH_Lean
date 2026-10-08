@@ -605,6 +605,118 @@ theorem vfMidActiveThreeBoundaryExcess_add_transported_eq_neg_four_abs
         (R := R) (p := p) (r := r) (sig := sig) (parent := parent) hr
   linarith
 
+
+/-! ## Positive UPM/LPM reduction of the anchored half gate -/
+
+/-- Total positive-side degree-one partial mass of the anchored current VF
+carrier. The historical endpoint enters as the single literal anchor -D;
+no historical absolute-value enlargement occurs. -/
+def vfMidFirstBadAnchoredUpperPartialMass (R : ℕ) : ℝ :=
+  zeroTargetUpperPart (-vfMidActualPrimeEndpointDefect R) +
+    ∑ n ∈ vfMidOddCandidateSeats R,
+      zeroTargetUpperPart (vfMidOddSignedSeatCharge R n)
+
+/-- Total negative-side degree-one partial-moment magnitude of the same
+anchored carrier. Both this quantity and the upper mass are pointwise sums of
+nonnegative partial masses; the signed endpoint information is recovered only
+by subtraction. -/
+def vfMidFirstBadAnchoredLowerPartialMass (R : ℕ) : ℝ :=
+  zeroTargetLowerPart (-vfMidActualPrimeEndpointDefect R) +
+    ∑ n ∈ vfMidOddCandidateSeats R,
+      zeroTargetLowerPart (vfMidOddSignedSeatCharge R n)
+
+private theorem zeroTargetUpperPart_add_lowerPart_exactBudget (x : ℝ) :
+    zeroTargetUpperPart x + zeroTargetLowerPart x = |x| := by
+  unfold zeroTargetUpperPart zeroTargetLowerPart
+  ring
+
+/-- Upper minus lower anchored partial mass is exactly the signed anchored
+physical source. -/
+theorem vfMidFirstBadAnchoredUpper_sub_lower_eq_signedSource (R : ℕ) :
+    vfMidFirstBadAnchoredUpperPartialMass R -
+        vfMidFirstBadAnchoredLowerPartialMass R =
+      (∑ n ∈ vfMidOddCandidateSeats R,
+          vfMidOddSignedSeatCharge R n) -
+        vfMidActualPrimeEndpointDefect R := by
+  unfold vfMidFirstBadAnchoredUpperPartialMass
+    vfMidFirstBadAnchoredLowerPartialMass
+  rw [← Finset.sum_sub_distrib]
+  have hsum :
+      (∑ n ∈ vfMidOddCandidateSeats R,
+        (zeroTargetUpperPart (vfMidOddSignedSeatCharge R n) -
+          zeroTargetLowerPart (vfMidOddSignedSeatCharge R n))) =
+        ∑ n ∈ vfMidOddCandidateSeats R,
+          vfMidOddSignedSeatCharge R n := by
+    apply Finset.sum_congr rfl
+    intro n _hn
+    exact zeroTargetUpperPart_sub_lowerPart _
+  rw [hsum, zeroTargetUpperPart_sub_lowerPart]
+  ring
+
+/-- Upper plus lower anchored partial mass is exactly the unchanged #897
+absolute denominator amplitude. -/
+theorem vfMidFirstBadAnchoredUpper_add_lower_eq_absMass (R : ℕ) :
+    vfMidFirstBadAnchoredUpperPartialMass R +
+        vfMidFirstBadAnchoredLowerPartialMass R =
+      |vfMidActualPrimeEndpointDefect R| +
+        ∑ n ∈ vfMidOddCandidateSeats R,
+          |vfMidOddSignedSeatCharge R n| := by
+  unfold vfMidFirstBadAnchoredUpperPartialMass
+    vfMidFirstBadAnchoredLowerPartialMass
+  rw [← Finset.sum_add_distrib]
+  have hsum :
+      (∑ n ∈ vfMidOddCandidateSeats R,
+        (zeroTargetUpperPart (vfMidOddSignedSeatCharge R n) +
+          zeroTargetLowerPart (vfMidOddSignedSeatCharge R n))) =
+        ∑ n ∈ vfMidOddCandidateSeats R,
+          |vfMidOddSignedSeatCharge R n| := by
+    apply Finset.sum_congr rfl
+    intro n _hn
+    exact zeroTargetUpperPart_add_lowerPart_exactBudget _
+  rw [hsum, zeroTargetUpperPart_add_lowerPart_exactBudget, abs_neg]
+  ring
+
+/-- The anchored Co-minus-three-Div observable is exactly the elementary
+positive-mass balance polynomial U^2 + L^2 - 6 U L.
+
+Thus the #915 half gate contains no irreducible signed pair algebra: all signs
+can be postponed to the final subtraction of two nonnegative degree-one partial
+masses. -/
+theorem vfMidFirstBadAnchoredCoDivExcess_eq_upperLowerBalance
+    {R : ℕ} (hR : 3 ≤ R) :
+    vfMidFirstBadAnchoredCoDivExcess R =
+      vfMidFirstBadAnchoredUpperPartialMass R ^ 2 +
+        vfMidFirstBadAnchoredLowerPartialMass R ^ 2 -
+        6 * vfMidFirstBadAnchoredUpperPartialMass R *
+          vfMidFirstBadAnchoredLowerPartialMass R := by
+  have hexcess :=
+    vfMidAnchoredZeroTarget_excess_eq_sub_sq
+      (vfMidOddCandidateSeats R)
+      (vfMidOddSignedSeatCharge R)
+      (vfMidActualPrimeEndpointDefect R)
+  have htotal :=
+    vfMidAnchoredZeroTargetTotalMass_eq_absSum_sq
+      (vfMidOddCandidateSeats R)
+      (vfMidOddSignedSeatCharge R)
+      (vfMidActualPrimeEndpointDefect R)
+  have hsub := vfMidFirstBadAnchoredUpper_sub_lower_eq_signedSource R
+  have hadd := vfMidFirstBadAnchoredUpper_add_lower_eq_absMass R
+  unfold vfMidFirstBadAnchoredCoDivExcess
+  unfold vfMidAnchoredZeroTargetTotalMass at htotal
+  nlinarith
+
+/-- Exact positive-mass form of the #915 target. -/
+theorem vfMidFirstBadAnchoredCoDivExcess_nonpos_iff_upperLowerBalance
+    {R : ℕ} (hR : 3 ≤ R) :
+    vfMidFirstBadAnchoredCoDivExcess R ≤ 0 ↔
+      vfMidFirstBadAnchoredUpperPartialMass R ^ 2 +
+        vfMidFirstBadAnchoredLowerPartialMass R ^ 2 ≤
+        6 * vfMidFirstBadAnchoredUpperPartialMass R *
+          vfMidFirstBadAnchoredLowerPartialMass R := by
+  rw [vfMidFirstBadAnchoredCoDivExcess_eq_upperLowerBalance hR]
+  constructor <;> intro h <;> linarith
+
+
 /-! ## Half-scale production inlet and literal victory condition -/
 
 /-- Exact square expansion of the decompressed historical source.
