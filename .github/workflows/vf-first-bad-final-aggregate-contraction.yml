@@ -1,8 +1,14 @@
 name: VF first-bad final aggregate contraction
 
 on:
+  push:
+    branches: [vf-first-bad-final-aggregate-contraction]
+    paths:
+      - research/VF_MID_FIRST_BAD_FINAL_AGGREGATE_CONTRACTION.lean
+      - .github/workflows/vf-first-bad-final-aggregate-contraction.yml
   pull_request:
-    branches: [vf-first-bad-active-raw-parent-splice]
+    types: [opened, reopened]
+    branches: [main]
     paths:
       - research/VF_MID_FIRST_BAD_FINAL_AGGREGATE_CONTRACTION.lean
       - .github/workflows/vf-first-bad-final-aggregate-contraction.yml
@@ -116,3 +122,8 @@ jobs:
           EOF
           lake env lean -DwarningAsError=true /tmp/VF_FINAL_AGGREGATE_AUDIT.lean | tee final-aggregate-axioms.log
           if grep -q 'sorryAx' final-aggregate-axioms.log; then exit 1; fi
+      - name: Save verified research closure for #915
+        uses: actions/cache/save@v5
+        with:
+          path: .lake/build/lib/lean/research.*
+          key: vf915-research-base-${{ runner.os }}-${{ runner.arch }}-${{ github.event.pull_request.head.sha || github.sha }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}

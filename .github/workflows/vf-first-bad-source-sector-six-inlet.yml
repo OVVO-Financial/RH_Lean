@@ -2,7 +2,7 @@ name: VF first-bad source to sector-six inlet
 
 on:
   pull_request:
-    branches: [vf-first-bad-finish-line]
+    branches: [main]
     paths:
       - research/VF_MID_FIRST_BAD_SOURCE_TO_SECTOR_SIX_INLET.lean
       - .github/workflows/vf-first-bad-source-sector-six-inlet.yml
