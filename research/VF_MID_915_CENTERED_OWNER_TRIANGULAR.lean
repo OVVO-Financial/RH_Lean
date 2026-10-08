@@ -197,6 +197,100 @@ theorem vfMid915CenteredOwner_originalOddDiagonal_eq_population
   intro n _hn
   exact vfMid915CenteredOwner_deviation_sq p n
 
+/-! ## Entire later-owner tail, directly in original square-block Gram -/
+
+/-- The weighted ACTUAL later-owner field, with all original site-dependent
+prime-divisibility restrictions still inside the g_q. -/
+def vfMid915CenteredLaterOwnerTail
+    (Q : Finset ℕ) (beta : ℕ → ℝ) (n : ℕ) : ℝ :=
+  ∑ q ∈ Q, beta q * vfMid915CenteredOwnerDeviation q n
+
+/-- **Full head/tail arithmetic covariance cancellation.** Any prime
+p earlier than every q in Q has a pairwise cross-product with the later
+field that reduces exactly to -tail/p. This is a signed identity on the
+original integer sites, not a norm bound. -/
+theorem vfMid915CenteredEarlier_times_actualLaterTail
+    {p n : ℕ} (hp : p.Prime) (Q : Finset ℕ)
+    (hQ : ∀ q ∈ Q, p < q) (beta : ℕ → ℝ) :
+    vfMid915CenteredOwnerDeviation p n *
+        vfMid915CenteredLaterOwnerTail Q beta n =
+      -(1 / (p : ℝ)) *
+        vfMid915CenteredLaterOwnerTail Q beta n := by
+  unfold vfMid915CenteredLaterOwnerTail
+  rw [Finset.mul_sum, Finset.mul_sum]
+  apply Finset.sum_congr rfl
+  intro q hq
+  have hpair :=
+    vfMid915CenteredOwner_pair_eq_late hp (hQ q hq)
+      (n := n)
+  calc
+    vfMid915CenteredOwnerDeviation p n *
+        (beta q * vfMid915CenteredOwnerDeviation q n) =
+      beta q * (vfMid915CenteredOwnerDeviation p n *
+        vfMid915CenteredOwnerDeviation q n) := by ring
+    _ = beta q * (-(1 / (p : ℝ)) *
+        vfMid915CenteredOwnerDeviation q n) := by rw [hpair]
+    _ = -(1 / (p : ℝ)) *
+        (beta q * vfMid915CenteredOwnerDeviation q n) := by ring
+
+/-- Signed HEAD/TAIL quadratic normal form. The two-owner interaction is
+a LINEAR genuinely survivor-conditioned later-owner packet; no synthetic
+Möbius parent and no historical absolute denominator are used. -/
+theorem vfMid915CenteredHeadTailSquare_exact
+    {p n : ℕ} (hp : p.Prime)
+    (Q : Finset ℕ) (hQ : ∀ q ∈ Q, p < q)
+    (beta : ℕ → ℝ) :
+    (beta p * vfMid915CenteredOwnerDeviation p n +
+        vfMid915CenteredLaterOwnerTail Q beta n)^2 =
+      (beta p * vfMid915CenteredOwnerDeviation p n)^2 +
+        (vfMid915CenteredLaterOwnerTail Q beta n)^2 -
+      2 * (beta p / (p : ℝ)) *
+        vfMid915CenteredLaterOwnerTail Q beta n := by
+  have hcross :=
+    vfMid915CenteredEarlier_times_actualLaterTail hp Q hQ beta
+      (n := n)
+  calc
+    (beta p * vfMid915CenteredOwnerDeviation p n +
+        vfMid915CenteredLaterOwnerTail Q beta n)^2 =
+      (beta p * vfMid915CenteredOwnerDeviation p n)^2 +
+        vfMid915CenteredLaterOwnerTail Q beta n ^ 2 +
+        2 * beta p * (vfMid915CenteredOwnerDeviation p n *
+          vfMid915CenteredLaterOwnerTail Q beta n) := by ring
+    _ = _ := by rw [hcross]; ring
+
+/-- Restrict the exact quadratic head/tail cancellation to the LITERAL
+original odd-site VF first-owner physical carrier, before any absolute
+value or identity/squareful restorative bookkeeping. -/
+theorem vfMid915CenteredHeadTailOriginalOddGram_exact
+    (R p : ℕ) (hp : p.Prime)
+    (Q : Finset ℕ) (hQ : ∀ q ∈ Q, p < q)
+    (beta : ℕ → ℝ) :
+    (∑ n ∈ vfMidOddCandidateSeats R,
+      (beta p * vfMid915CenteredOwnerDeviation p n +
+        vfMid915CenteredLaterOwnerTail Q beta n)^2) =
+      (∑ n ∈ vfMidOddCandidateSeats R,
+        (beta p * vfMid915CenteredOwnerDeviation p n)^2) +
+      (∑ n ∈ vfMidOddCandidateSeats R,
+        (vfMid915CenteredLaterOwnerTail Q beta n)^2) -
+      2 * (beta p / (p : ℝ)) *
+        (∑ n ∈ vfMidOddCandidateSeats R,
+          vfMid915CenteredLaterOwnerTail Q beta n) := by
+  have hsum :
+      (∑ n ∈ vfMidOddCandidateSeats R,
+        (beta p * vfMid915CenteredOwnerDeviation p n +
+          vfMid915CenteredLaterOwnerTail Q beta n)^2) =
+      ∑ n ∈ vfMidOddCandidateSeats R,
+        ((beta p * vfMid915CenteredOwnerDeviation p n)^2 +
+          (vfMid915CenteredLaterOwnerTail Q beta n)^2 -
+          2 * (beta p / (p : ℝ)) *
+            vfMid915CenteredLaterOwnerTail Q beta n) := by
+    apply Finset.sum_congr rfl
+    intro n hn
+    exact vfMid915CenteredHeadTailSquare_exact hp Q hQ beta
+  rw [hsum, Finset.sum_sub_distrib, Finset.sum_add_distrib]
+  rw [Finset.mul_sum]
+  ring
+
 /-! ## No-decompression original-source reconstruction -/
 
 /-- Products of actual 1-1/p factors, computed in the genuine chronology
