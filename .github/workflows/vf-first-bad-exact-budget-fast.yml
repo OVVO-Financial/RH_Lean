@@ -14,6 +14,7 @@ on:
       - scripts/vf_mid_915_two_owner_flux_regression.py
       - research/VF_MID_915_TWO_OWNER_CLIPPED_FLUX.lean
       - research/VF_MID_915_LATE_PREFIX_WEIGHTED_DYADIC.lean
+      - research/VF_MID_915_EXACT_HISTORICAL_NNS_COMPRESSION.lean
       - research/VF_MID_915_CENTERED_OWNER_TRIANGULAR.lean
       - scripts/vf_mid_915_centered_owner_triangular_regression.py
       - scripts/vf_mid_915_late_prefix_weighted_regression.py
@@ -138,6 +139,9 @@ jobs:
 
       - name: Compile centered owner triangular Fubini and original VF denominator
         run: lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_915_CENTERED_OWNER_TRIANGULAR.olean research/VF_MID_915_CENTERED_OWNER_TRIANGULAR.lean
+
+      - name: Compile exact original NNS historical compression and restoration
+        run: lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_915_EXACT_HISTORICAL_NNS_COMPRESSION.olean research/VF_MID_915_EXACT_HISTORICAL_NNS_COMPRESSION.lean
 
       - name: Compile #915 only against cached dependencies
         run: |
