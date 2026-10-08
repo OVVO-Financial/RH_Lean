@@ -99,7 +99,7 @@ def vfMid915OwnerStepShock (p n : ℕ) : ℝ :=
 /-- The only needed sieve recurrence: actual surviving state at p is
 t_p times the earlier surviving state, minus the centered owner shock. -/
 theorem vfMid915PrefixState_eq_factor_sub_shock
-    {p n : ℕ} (hp2 : 2 ≤ p) :
+    {p n : ℕ} :
     vfMid915PrefixState p n =
       vfMid915OwnerStepFactor p * vfMid915PrefixState (p - 1) n -
         vfMid915OwnerStepShock p n := by
@@ -227,7 +227,7 @@ theorem vfMid915Centered_prefix_telescopes
   | succ k ih =>
       have hstep :=
         vfMid915PrefixState_eq_factor_sub_shock
-          (p := k + 3) (n := n) (by omega : 2 ≤ k + 3)
+          (p := k + 3) (n := n)
       have hind :
           vfMid915PrefixState (k + 2) n =
             vfMid915CenteredAlpha k -
@@ -290,8 +290,6 @@ theorem vfMid915ActualOddSignedSource_eq_centeredOwner
       rw [Finset.sum_add_distrib, Finset.sum_const]
       rw [vfMidOddCandidateSeats_card]
       simp only [nsmul_eq_mul]
-      push_cast
-      ring
 
 /-- Exact original zero-target absolute denominator: no old individual
 historical occurrence is reintroduced after compression to D_R. -/
