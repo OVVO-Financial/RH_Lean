@@ -17,6 +17,15 @@ def prime_table(N):
     return prime
 
 
+def squarefree_table(N, prime):
+    sqfree = bytearray(b'\x01') * (N + 1)
+    sqfree[0] = 0
+    for p in range(2, math.isqrt(N) + 1):
+        if prime[p]:
+            sqfree[p * p:N + 1:p * p] = b'\x00' * ((N - p * p) // (p * p) + 1)
+    return sqfree
+
+
 def toggle(p, n):
     return n // p if n % p == 0 else p * n
 
@@ -33,10 +42,10 @@ def active_weight(R, t, prime):
     return w - int(bool(prime[t]))
 
 
-def signed_flux(R, prime, p, q):
+def signed_flux(R, prime, sqfree, p, q):
     """Enumerate all nonzero exclusive-path terminal occurrences for p,q.
 
-    A squarefree terminal t has exactly one of p,q, and the initial state
+    An explicitly squarefree terminal t has exactly one of p,q, and the initial state
     n is obtained by replacing that factor with the other prime. Each (n,t)
     is enumerated once for this fixed ordered owner pair, not identified
     with any signed historical pair of #915.
@@ -47,6 +56,8 @@ def signed_flux(R, prime, p, q):
     prime_terminal = [0, 0]
     examples = []
     for t in range((R * R + 1) | 1, X + 1, 2):
+        if not sqfree[t]:
+            continue
         w = active_weight(R, t, prime)
         for d, other in ((p, q), (q, p)):
             if t % d or t % other == 0 or t % (d * d) == 0:
@@ -55,6 +66,7 @@ def signed_flux(R, prime, p, q):
             n = k * other
             if n <= 0 or n > X:
                 continue
+            assert sqfree[n]
             after_p = toggle(p, n)
             after_q = toggle(q, n)
             terminal_pq = toggle(q, after_p)
@@ -113,6 +125,7 @@ def curvature(R, m, p, q):
 
 def main():
     primes = prime_table(1028 ** 2)
+    sqfree = squarefree_table(1028 ** 2, primes)
     for R in (8, 18, 56, 317, 1027):
         pairs = [(3, 5), (5, 7), (11, 13)]
         if R >= 23:
@@ -120,7 +133,7 @@ def main():
         for p, q in pairs:
             if q > R:
                 continue
-            counts, weights, examples = signed_flux(R, primes, p, q)
+            counts, weights, examples = signed_flux(R, primes, sqfree, p, q)
             print('FLUX R=%d p=%d q=%d firstOnly=%d reverseOnly=%d '
                   'signed=%.9f example=%s PASS'
                   % (R,p,q,*counts,sum(weights),examples))
