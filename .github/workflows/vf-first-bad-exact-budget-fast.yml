@@ -16,6 +16,7 @@ on:
       - research/VF_MID_915_LATE_PREFIX_WEIGHTED_DYADIC.lean
       - research/VF_MID_915_EXACT_HISTORICAL_NNS_COMPRESSION.lean
       - research/VF_MID_915_CENTERED_OWNER_TRIANGULAR.lean
+      - research/VF_MID_915_COMPRESSED_HISTORY_SINK.lean
       - scripts/vf_mid_915_centered_owner_triangular_regression.py
       - scripts/vf_mid_915_late_prefix_weighted_regression.py
       - .github/workflows/vf-first-bad-exact-budget-fast.yml
@@ -136,6 +137,9 @@ jobs:
         run: |
           lake build RHLean.Proof.PrimeCombReciprocalBandCancellation
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_915_LATE_PREFIX_WEIGHTED_DYADIC.olean research/VF_MID_915_LATE_PREFIX_WEIGHTED_DYADIC.lean
+
+      - name: Compile exact historical NNS cross-pair compression sink
+        run: lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_915_COMPRESSED_HISTORY_SINK.olean research/VF_MID_915_COMPRESSED_HISTORY_SINK.lean
 
       - name: Compile centered owner triangular Fubini and original VF denominator
         run: lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_915_CENTERED_OWNER_TRIANGULAR.olean research/VF_MID_915_CENTERED_OWNER_TRIANGULAR.lean
