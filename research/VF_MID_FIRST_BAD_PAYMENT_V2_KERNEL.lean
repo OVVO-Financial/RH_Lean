@@ -427,6 +427,45 @@ theorem vfV2HalfRunTwoOddPrimeStrips_beforeAnchor
   have hd : A ^ 2 ≤ d := Nat.le_of_not_gt hnot
   nlinarith
 
+/-! ## The LATE A-wheel packet projects to prime-pair factors < 4*A
+
+The ALREADY COMPILED native dyadic-owner decoder proves that every
+composite survivor of the frozen initial wheel through A in any
+subdoubling square band is n=p*q with primes A<p<q and n<B².
+This arithmetic lemma supplies the stronger uniform projection:
+q<4A, not merely q<A². All these prime vertices are known
+long before the ORIGINAL square-run anchor. This is the exact
+low-root-scale analogue of the upper-prime / reciprocal buckets.
+-/
+
+/-- If the least owner p is above the frozen root A, its partner
+cofactor q is below 4*A throughout a subdoubling window.
+No PNT, RH, primality or distribution hypothesis is needed here. -/
+theorem vfV2HalfRunLateOwnerPartner_lt_fourAnchor
+    (A B p q : ℕ) (hBA : B ≤ 2 * A)
+    (hp : A < p) (hn : p * q < B ^ 2) :
+    q < 4 * A := by
+  have hBsq : B ^ 2 ≤ (2 * A) ^ 2 :=
+    Nat.pow_le_pow_left hBA 2
+  by_contra hnot
+  have hq : 4 * A ≤ q := Nat.le_of_not_gt hnot
+  have hp' : A + 1 ≤ p := by omega
+  have hprod : (A + 1) * (4 * A) ≤ p * q :=
+    Nat.mul_le_mul hp' hq
+  nlinarith
+
+/-- For A>=5 the SAME partner is strictly below the original
+historical square anchor A², so the rank-two prime incidence
+uses no as-yet-unknown prime identities. -/
+theorem vfV2HalfRunLateOwnerPartner_beforeAnchor
+    (A B p q : ℕ) (hA : 5 ≤ A) (hBA : B ≤ 2 * A)
+    (hp : A < p) (hn : p * q < B ^ 2) :
+    q < A ^ 2 := by
+  have hq :=
+    vfV2HalfRunLateOwnerPartner_lt_fourAnchor A B p q hBA hp hn
+  have hlinear : 4 * A < A ^ 2 := by nlinarith [hA]
+  exact hq.trans hlinear
+
 /-- No prime parent q is consumed more than once by the one possible
 within-run 3q-child map. Pairing is an injection on the REAL
 physical integer sites, but is NOT itself a Co/Div sign estimate. -/
