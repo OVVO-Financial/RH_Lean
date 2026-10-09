@@ -159,6 +159,11 @@ def state_transition_probe(r, P, V, pi, D, e, delta, g_error, h_error, outdir):
        ('middle_half',(o>=q25)&(o<=q75)),
        ('negative_anchor',D[:-1]<0),('positive_anchor',D[:-1]>0),
        ('current_under',over[:-1]==0),('current_over',over[:-1]==1)]
+    full_q80=np.quantile(o,.8)
+    for prior in (0,1):
+        for high in (False,True):
+            groups.append((f'previous_{"under" if prior==0 else "over"}_{"top20" if high else "bottom80"}_occupancy',
+                           (over[:-1]==prior)&((o>=full_q80)==high)))
     for lo,hi in ((8,1000),(1001,3000),(3001,6000)):
         mask=(r[:-1]>=lo)&(r[:-1]<=hi)
         if mask.sum()<20: continue
