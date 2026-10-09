@@ -342,14 +342,30 @@ in that block! Thus current-block factorization and the
 abstract prior-good inequality ALONE cannot prevent escape.
 The actual historical D_R must be carried throughout.
 
-The finite independent scan R=8..6000 finds 333 genuine
-blocks satisfying (AD2):
+The finite independent scan R=8..6000 finds **333** genuine
+lower-vulnerable blocks satisfying (AD2) and **324** genuine
+upper-vulnerable blocks satisfying P_R-V_R>DeltaW_R.
+These are fake-anchor scalar breaches only; no actual-prime
+first-bad was found in these 5,993 blocks. Lower examples:
 
 | Root R | Genuine P_R | V_R | Delta wall | Hypothetical breach | Actual D_R | Actual historical clearance D_R+W_R |
 |---:|---:|---:|---:|---:|---:|---:|
 | 425 | 56 | 70.292636 | 14.106529 | 0.186107 | -46.035259 | 5098.240535 |
 | 2456 | 268 | 314.673957 | 17.612986 | 29.060971 | -180.235002 | 38164.257987 |
 | 5065 | 547 | 593.830762 | 19.060416 | 27.770346 | -416.835777 | 85993.172614 |
+
+The UPPER counterpart is even more directly relevant to the existing
+5267 first-bad slack calculation. At R=5266, the COMPLETELY
+GENUINE prime population is P_R=675; V_R=614.590437,
+DeltaW_R=19.138243. With a fictitious prior defect
+D_R=+W_R, the next endpoint violates the UPPER wall
+by **41.271320** despite using all actual prime-factor
+incidence in the current square band. The genuine historical
+defect is D_R=-385.159422, not +W_R; its true upper
+clearance W_R-D_R=**90634.144836**. The fake-anchor
+original scalar NNS normalization is about **0.976684**.
+This confirms exactly why the historical slack dominates
+the local first-bad gradient in the project checkpoint.
 
 These blocks remain safely inside the true wall.
 Their ORIGINAL one-block NNS values using the FAKE anchor
@@ -401,12 +417,13 @@ Two further lemmas give the exact lower and upper
 historical-buffer first-bad equivalences.
 
 scripts/vf_mid_918_adversarial_sieve_duel.py regenerates
-every numerical certificate and scans all 5993 real blocks;
+every numerical certificate and scans all 5993 real blocks for
+both upper-wall and lower-wall fake-anchor vulnerabilities;
 the seconds-fast #918 workflow runs it.
 
 **Conclusion:** Four synthetic drought attacks are defeated
 by elementary, genuine finite historical sieve arithmetic;
-333 scalar fake-anchor attacks WITH GENUINE prime counts
+657 = 333 lower + 324 upper scalar fake-anchor attacks WITH GENUINE prime counts
 show why local factorization alone cannot close the proof.
 The original all-scale signed Sector Six historical payment
 remains the unique open RH-strength theorem. No new proxy
