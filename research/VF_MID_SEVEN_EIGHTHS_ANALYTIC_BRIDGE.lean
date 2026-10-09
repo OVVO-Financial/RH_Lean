@@ -4,14 +4,24 @@ import «research.VF_MID_LI_UNIFORM_QUADRATURE»
 /-!
 # The seven-eighths zero-free result as a SEPARATE analytic input
 
-OpenAI's external 7/8 theorem lives in openai/math at Lean 4.34.1;
-RH_Lean's native kernel is Lean 4.24.0. Do NOT attempt a direct
-incompatible import or assert the published statement as an axiom.
+As of October 9, 2026, openai/math RELEASES A NEWLY CLAIMED,
+Lean-formalized 7/8 zeta nonvanishing theorem (Lean 4.34.1).
+An independent third-party repository reports recompilation of
+its 2,924-module zeta proof closure. This is NEW, not a classical
+previously settled result, and expert review is not complete.
 
-More importantly, zero-free(s.re > 7/8) -> an explicit quantitative
-prime-counting error is a substantial analytic theorem. The external
-Nonvanishing.lean file proves the ZERO-FREE statement; its docs
-do not claim a formalized pi(x)-Li(x) error theorem.
+RH_Lean's native kernel is Lean 4.24.0. Its current proof DOES
+NOT import or re-verify the upstream theorem. The nonvanishing
+statement here is an EXPLICIT PROP, not an unproved axiom.
+The crucial quantitative ZERO-FREE -> prime-count error
+explicit-formula implication is also a SEPARATE, UNPROVED PROP.
+Upstream Nonvanishing.lean does not supply that quantitative
+pi(x)-Li(x) transfer merely by stating zero-freeness.
+
+The target for stronger RH-scale cancellation is not a scalar
+7/8 wall but a new uniform moving-A signed bilinear estimate
+with the ORIGINAL full Sector Six cross-family Gram.
+See VF_MID_919_OPEN_UNIFORM_ANALYTIC_TARGET.md.
 
 This module proves the conditional, fully kernel-checked, exact
 VF midpoint consequence of the named prime-counting input, preserving
@@ -25,8 +35,11 @@ noncomputable section
 
 namespace RHLean.Analysis
 
-/-- Analytic fact exported by the separate OpenAI math formalization.
-This is an INTERFACE ONLY; no proof of it is claimed in RH_Lean. -/
+/-- Statement of the newly released external 7/8 zeta nonvanishing
+claim, whose exact theorem appears in openai/math (Lean 4.34.1).
+This RH_Lean Lean 4.24 declaration is ONLY A PROPOSITION.
+A #check of this definition does not verify or import the
+upstream theorem; no local proof is claimed. -/
 def VFMidSevenEighthsZetaZeroFree : Prop :=
   ∀ s : ℂ, (7 / 8 : ℝ) < s.re → riemannZeta s ≠ 0
 
