@@ -196,6 +196,7 @@ theorem vfMid915StratifiedPhysical_actual_eq_floorLi_add_mismatch
   push_cast at hreal
   simp only [vfMid915ActualPrimeCofactorBand,
     vfMid915FloorLiCofactorBand]
+  push_cast
   linear_combination (vfMid915CofactorPhysicalCharge R c) * hreal
 
 /-- The sum of all genuine prime-cofactor window deviations is the
