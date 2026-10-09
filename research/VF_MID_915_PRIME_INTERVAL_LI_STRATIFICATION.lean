@@ -81,7 +81,14 @@ theorem vfMid915PhysicalPrimeCofactor_le_root
   have hc : R + 1 ≤ c := by omega
   have hq' : R + 1 ≤ q := by omega
   have hproduct := Nat.mul_le_mul hc hq'
-  nlinarith
+  have hproduct' : (R + 1) ^ 2 ≤ c * q := by
+    nlinarith [hproduct]
+  have hpositive : 0 < (R + 1) ^ 2 := by positivity
+  have hsmall : c * q < (R + 1) ^ 2 := by
+    have hsub : (R + 1) ^ 2 - 1 < (R + 1) ^ 2 :=
+      Nat.sub_lt hpositive (by norm_num)
+    omega
+  omega
 
 /-- Two primes strictly above the root cannot have their product in the
 current square clock. This is the geometric uniqueness restriction on
@@ -185,11 +192,11 @@ theorem vfMid915StratifiedPhysical_actual_eq_floorLi_add_mismatch
   have hband := vfMid915ActualMinusFloorLi_interval_eq_backlog
     (vfMid915PrimeCofactorLower R c)
     (vfMid915PrimeCofactorUpper R c)
-  dsimp [vfMid915ActualPrimeCofactorBand,
-    vfMid915FloorLiCofactorBand] at hband
   have hreal := congrArg (fun z : ℤ => (z : ℝ)) hband
   push_cast at hreal
-  nlinarith
+  simp only [vfMid915ActualPrimeCofactorBand,
+    vfMid915FloorLiCofactorBand]
+  linear_combination (vfMid915CofactorPhysicalCharge R c) * hreal
 
 /-- The sum of all genuine prime-cofactor window deviations is the
 sum of their signed integer mismatch backlogs, without pretending the
@@ -211,8 +218,8 @@ theorem vfMid915ActualBandSumMinusLi_eq_signedError
   have hband := vfMid915ActualMinusFloorLi_interval_eq_backlog
     (vfMid915PrimeCofactorLower R c)
     (vfMid915PrimeCofactorUpper R c)
-  dsimp [vfMid915ActualPrimeCofactorBand,
-    vfMid915FloorLiCofactorBand] at hband
+  simp only [vfMid915ActualPrimeCofactorBand,
+    vfMid915FloorLiCofactorBand]
   exact_mod_cast hband
 
 
