@@ -1089,7 +1089,7 @@ theorem vfV2CompletedSquareWheelBandPhase_le_two_boundary
         |vfV2FixedWheelPrefixPhase F density (A ^ 2)| :=
       by
         simpa only [sub_zero, zero_sub, abs_neg] using
-          (abs_sub_le vfV2FixedWheelPrefixPhase F density (B ^ 2) 0 vfV2FixedWheelPrefixPhase F density (A ^ 2))
+          (abs_sub_le (vfV2FixedWheelPrefixPhase F density (B ^ 2)) 0 (vfV2FixedWheelPrefixPhase F density (A ^ 2)))
     _ ≤ C + C :=
       add_le_add (hbound _) (hbound _)
     _ = 2 * C := by ring
@@ -1174,7 +1174,7 @@ theorem vfV2CompletedOpenSquareWheelBandPhase_abs_le_four_boundary
           |vfV2FixedWheelPrefixPhase F density (A ^ 2)| :=
         by
         simpa only [sub_zero, zero_sub, abs_neg] using
-          (abs_sub_le vfV2FixedWheelPrefixPhase F density (B ^ 2) 0 vfV2FixedWheelPrefixPhase F density (A ^ 2))
+          (abs_sub_le (vfV2FixedWheelPrefixPhase F density (B ^ 2)) 0 (vfV2FixedWheelPrefixPhase F density (A ^ 2)))
       _ ≤ C + C := add_le_add (hbound _) (hbound _)
       _ = 2 * C := by ring
   have hroot :
@@ -1187,7 +1187,7 @@ theorem vfV2CompletedOpenSquareWheelBandPhase_abs_le_four_boundary
           |vfV2FixedWheelPrefixPhase F density A| :=
         by
         simpa only [sub_zero, zero_sub, abs_neg] using
-          (abs_sub_le vfV2FixedWheelPrefixPhase F density B 0 vfV2FixedWheelPrefixPhase F density A)
+          (abs_sub_le (vfV2FixedWheelPrefixPhase F density B) 0 (vfV2FixedWheelPrefixPhase F density A))
       _ ≤ C + C := add_le_add (hbound _) (hbound _)
       _ = 2 * C := by ring
   calc
