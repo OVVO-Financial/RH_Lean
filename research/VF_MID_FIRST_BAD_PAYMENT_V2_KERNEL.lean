@@ -1092,6 +1092,110 @@ theorem vfV2CompletedSquareWheelBandPhase_le_two_boundary
       add_le_add (hbound _) (hbound _)
     _ = 2 * C := by ring
 
+/-! ## Literal OPEN square physical carrier: the SECOND root-scale telescope
+
+The original VF block is (R²,(R+1)²), OPEN at both square ends.
+A fixed-wheel coprime square endpoint contributes a ROUGH COMPOSITE,
+never an actual prime or a new NNS physical site. Thus one must also
+subtract the corresponding ROOT-wheel increment F(R+1)-F(R), because
+gcd((R+1)²,Q)=1 iff gcd(R+1,Q)=1.
+
+The result is a DOUBLE endpoint telescope. Dropping the root-scale
+correction would accidentally introduce squareful sites into the odd
+physical carrier and invalidate the original NNS denominator.
+-/
+
+/-- Signed one-step root-wheel phase. -/
+def vfV2FixedWheelRootStepPhase
+    (F : ℕ → ℝ) (density : ℝ) (R : ℕ) : ℝ :=
+  F (R + 1) - F R - density
+
+/-- The centered OPEN square-block wheel phase: completed square-phase
+minus the root phase for the potentially surviving terminal square. -/
+def vfV2CompletedOpenSquareWheelBandPhase
+    (F : ℕ → ℝ) (density : ℝ) (R : ℕ) : ℝ :=
+  vfV2CompletedSquareWheelBandPhase F density R -
+    vfV2FixedWheelRootStepPhase F density R
+
+/-- Root-level deletion of the square endpoint ALSO telescopes. -/
+theorem vfV2FixedWheelRootStepPhase_telescope
+    (F : ℕ → ℝ) (density : ℝ) (A B : ℕ)
+    (hAB : A ≤ B) :
+    (∑ R ∈ Finset.Ico A B,
+      vfV2FixedWheelRootStepPhase F density R) =
+      vfV2FixedWheelPrefixPhase F density B -
+      vfV2FixedWheelPrefixPhase F density A := by
+  induction B, hAB using Nat.le_induction with
+  | base =>
+      simp [vfV2FixedWheelPrefixPhase]
+  | succ B hAB ih =>
+      rw [Finset.sum_Ico_succ_top hAB, ih]
+      unfold vfV2FixedWheelRootStepPhase
+        vfV2FixedWheelPrefixPhase
+      push_cast
+      ring
+
+/-- Exact TWO-SCALE telescope of EVERY complete OPEN square block
+INSIDE a potentially incomplete prime wheel. Four ENDPOINT prefix
+phases survive: at A², B², A, and B. No interior block phases survive. -/
+theorem vfV2CompletedOpenSquareWheelBandPhase_double_telescope
+    (F : ℕ → ℝ) (density : ℝ) (A B : ℕ)
+    (hAB : A ≤ B) :
+    (∑ R ∈ Finset.Ico A B,
+      vfV2CompletedOpenSquareWheelBandPhase F density R) =
+      (vfV2FixedWheelPrefixPhase F density (B ^ 2) -
+        vfV2FixedWheelPrefixPhase F density (A ^ 2)) -
+      (vfV2FixedWheelPrefixPhase F density B -
+        vfV2FixedWheelPrefixPhase F density A) := by
+  unfold vfV2CompletedOpenSquareWheelBandPhase
+  rw [Finset.sum_sub_distrib,
+    vfV2CompletedSquareWheelBandPhase_telescope F density A B hAB,
+    vfV2FixedWheelRootStepPhase_telescope F density A B hAB]
+
+/-- Four endpoint phases, not 2*(number of square blocks) phases. -/
+theorem vfV2CompletedOpenSquareWheelBandPhase_abs_le_four_boundary
+    (F : ℕ → ℝ) (density C : ℝ) (A B : ℕ)
+    (hAB : A ≤ B)
+    (hbound : ∀ x : ℕ,
+      |vfV2FixedWheelPrefixPhase F density x| ≤ C) :
+    |∑ R ∈ Finset.Ico A B,
+      vfV2CompletedOpenSquareWheelBandPhase F density R| ≤ 4 * C := by
+  rw [vfV2CompletedOpenSquareWheelBandPhase_double_telescope
+    F density A B hAB]
+  have hsq :
+      |vfV2FixedWheelPrefixPhase F density (B ^ 2) -
+        vfV2FixedWheelPrefixPhase F density (A ^ 2)| ≤ 2 * C := by
+    calc
+      |vfV2FixedWheelPrefixPhase F density (B ^ 2) -
+          vfV2FixedWheelPrefixPhase F density (A ^ 2)| ≤
+        |vfV2FixedWheelPrefixPhase F density (B ^ 2)| +
+          |vfV2FixedWheelPrefixPhase F density (A ^ 2)| :=
+        abs_sub_le _ _
+      _ ≤ C + C := add_le_add (hbound _) (hbound _)
+      _ = 2 * C := by ring
+  have hroot :
+      |vfV2FixedWheelPrefixPhase F density B -
+        vfV2FixedWheelPrefixPhase F density A| ≤ 2 * C := by
+    calc
+      |vfV2FixedWheelPrefixPhase F density B -
+          vfV2FixedWheelPrefixPhase F density A| ≤
+        |vfV2FixedWheelPrefixPhase F density B| +
+          |vfV2FixedWheelPrefixPhase F density A| :=
+        abs_sub_le _ _
+      _ ≤ C + C := add_le_add (hbound _) (hbound _)
+      _ = 2 * C := by ring
+  calc
+    |(vfV2FixedWheelPrefixPhase F density (B ^ 2) -
+          vfV2FixedWheelPrefixPhase F density (A ^ 2)) -
+        (vfV2FixedWheelPrefixPhase F density B -
+          vfV2FixedWheelPrefixPhase F density A)| ≤
+      |vfV2FixedWheelPrefixPhase F density (B ^ 2) -
+          vfV2FixedWheelPrefixPhase F density (A ^ 2)| +
+      |vfV2FixedWheelPrefixPhase F density B -
+          vfV2FixedWheelPrefixPhase F density A| := abs_sub_le _ _
+    _ ≤ 2 * C + 2 * C := add_le_add hsq hroot
+    _ = 4 * C := by ring
+
 /-- Signed divisor-floor expansion for a FINITE selected wheel. -/
 def vfV2FiniteSignedWheelFloorPrefix
     (divs : Finset ℕ) (mu : ℕ → ℝ) (x : ℕ) : ℝ :=
