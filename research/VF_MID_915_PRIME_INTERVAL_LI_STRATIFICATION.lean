@@ -215,4 +215,107 @@ theorem vfMid915ActualBandSumMinusLi_eq_signedError
     vfMid915FloorLiCofactorBand] at hband
   exact_mod_cast hband
 
+
+/-! ## Cofactor-first historical Fubini and exact retained-weight Abel -/
+
+/-- The quotient-square cutoff for one cofactor's ACTUAL prime counts.
+Above its native cofactor threshold r>=c, the geometric root condition
+q>r is automatic for all prime q between consecutive cutoffs. -/
+def vfMid915PrimeCofactorSquareCutoff (r c : ℕ) : ℕ :=
+  r ^ 2 / c
+
+/-- The true integer prime-minus-Li backlog at cofactor-scaled square r²/c. -/
+def vfMid915PrimeCofactorBacklog (r c : ℕ) : ℝ :=
+  ((vfMidPrimeFloorLiIntegerBacklog
+    (vfMid915PrimeCofactorSquareCutoff r c) : ℤ) : ℝ)
+
+/-- Exact signed prime discrepancy on a cofactor's adjacent quotient-square
+interval. This is the source's real event error, NOT an independent
+probabilistic prime-density approximation. -/
+theorem vfMid915PrimeCofactorBlock_actualMinusLi_eq_backlog
+    (r c : ℕ) :
+    vfMid915ActualPrimeInterval
+        (vfMid915PrimeCofactorSquareCutoff r c)
+        (vfMid915PrimeCofactorSquareCutoff (r + 1) c) -
+      vfMid915FloorLiPrimeInterval
+        (vfMid915PrimeCofactorSquareCutoff r c)
+        (vfMid915PrimeCofactorSquareCutoff (r + 1) c) =
+      vfMidPrimeFloorLiIntegerBacklog
+        (vfMid915PrimeCofactorSquareCutoff (r + 1) c) -
+      vfMidPrimeFloorLiIntegerBacklog
+        (vfMid915PrimeCofactorSquareCutoff r c) := by
+  exact vfMid915ActualMinusFloorLi_interval_eq_backlog _ _
+
+/-- Exact retained-weight discrete Abel sum. The absence of a division
+or sign bound makes this true for ANY actual sequence of prime events.
+All completed intermediate integer events telescope before taking norms. -/
+theorem vfMid915ExactWeightedAbel
+    (w E : ℕ → ℝ) (A B : ℕ) (hAB : A ≤ B) :
+    (∑ r ∈ Finset.Ico A B,
+      w r * (E (r + 1) - E r)) =
+      w B * E B - w A * E A +
+        (∑ r ∈ Finset.Ico A B,
+          (w r - w (r + 1)) * E (r + 1)) := by
+  have hlocal (r : ℕ) :
+      w r * (E (r + 1) - E r) =
+        ((w (r + 1) * E (r + 1)) - (w r * E r)) +
+          (w r - w (r + 1)) * E (r + 1) := by
+    ring
+  calc
+    (∑ r ∈ Finset.Ico A B, w r * (E (r + 1) - E r)) =
+        ∑ r ∈ Finset.Ico A B,
+          ((w (r + 1) * E (r + 1)) - (w r * E r) +
+            (w r - w (r + 1)) * E (r + 1)) := by
+      apply Finset.sum_congr rfl
+      intro r _hr
+      exact hlocal r
+    _ = (∑ r ∈ Finset.Ico A B,
+          ((w (r + 1) * E (r + 1)) - (w r * E r))) +
+          (∑ r ∈ Finset.Ico A B,
+            (w r - w (r + 1)) * E (r + 1)) := by
+      rw [Finset.sum_add_distrib]
+    _ = _ := by
+      have htelescope :
+          (∑ r ∈ Finset.Ico A B,
+            ((w (r + 1) * E (r + 1)) - (w r * E r))) =
+            w B * E B - w A * E A :=
+        Finset.sum_Ico_sub (fun r => w r * E r) hAB
+      rw [htelescope]
+
+/-- Historical starting square-root index for one original cofactor.
+The c root threshold is imposed at the SAME time as the genuine
+first-bad half-run anchor, not substituted retrospectively. -/
+def vfMid915CofactorHistoryStart (A c : ℕ) : ℕ :=
+  max A c
+
+/-- Original VF scalar w_r is retained at every actual historical
+integer site's NATIVE square block r; no use of w_B as a constant. -/
+def vfMid915HistoricalCofactorTransportError (A B c : ℕ) : ℝ :=
+  ∑ r ∈ Finset.Ico (vfMid915CofactorHistoryStart A c) B,
+    vfMidOddFractionalPrimeSeatWeight r *
+      (vfMid915PrimeCofactorBacklog (r + 1) c -
+        vfMid915PrimeCofactorBacklog r c)
+
+/-- The native historical weighted prime-interval Li error is EXACTLY a
+small set of endpoint backlog charges plus a smooth coefficient-VARIATION
+term. This is the cofactor-first multiscale boundary compression requested
+for #915; no |historical z| denominator decompression occurs. -/
+theorem vfMid915HistoricalCofactorTransportError_eq_endpoints_add_variation
+    {A B c : ℕ} (hAB : vfMid915CofactorHistoryStart A c ≤ B) :
+    vfMid915HistoricalCofactorTransportError A B c =
+      vfMidOddFractionalPrimeSeatWeight B *
+        vfMid915PrimeCofactorBacklog B c -
+      vfMidOddFractionalPrimeSeatWeight (vfMid915CofactorHistoryStart A c) *
+        vfMid915PrimeCofactorBacklog
+          (vfMid915CofactorHistoryStart A c) c +
+      (∑ r ∈ Finset.Ico (vfMid915CofactorHistoryStart A c) B,
+        (vfMidOddFractionalPrimeSeatWeight r -
+          vfMidOddFractionalPrimeSeatWeight (r + 1)) *
+          vfMid915PrimeCofactorBacklog (r + 1) c) := by
+  unfold vfMid915HistoricalCofactorTransportError
+  exact vfMid915ExactWeightedAbel
+    vfMidOddFractionalPrimeSeatWeight
+    (fun r => vfMid915PrimeCofactorBacklog r c)
+    (vfMid915CofactorHistoryStart A c) B hAB
+
 end RHLean.Analysis
