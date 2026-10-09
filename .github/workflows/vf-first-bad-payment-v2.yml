@@ -110,6 +110,9 @@ jobs:
           #print axioms RHLean.Analysis.vfV2CompletedOpenSquareWheelBandPhase_double_telescope
           #check RHLean.Analysis.vfV2CompletedSquareWheelBandPhase_telescope
           #check RHLean.Analysis.vfV2FiniteSignedWheelCompletedSquares_abs_le_two_card
+          #check RHLean.Analysis.vfV2HalfRunLateOwnerPartner_lt_fourAnchor
+          #check RHLean.Analysis.vfV2HalfRunLateOwnerPartner_beforeAnchor
+          #print axioms RHLean.Analysis.vfV2HalfRunLateOwnerPartner_beforeAnchor
           #check RHLean.Analysis.vfV2HalfRunOwnerFiveChild_beforeAnchor
           #check RHLean.Analysis.vfV2HalfRunOnlyThreePrimeOwnerCanStayLive
           #check RHLean.Analysis.vfV2HalfRunLiveHighPrime_oddMultiplier_eq_three
