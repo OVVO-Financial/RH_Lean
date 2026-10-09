@@ -165,7 +165,8 @@ theorem vfMid915OriginalOddRun_eq_transportBoundary
     vfMidOddRunSeatMass A B =
       -((vfMidFloorLiSignedPopulationBalance (A ^ 2) (B ^ 2) : ℤ) : ℝ) -
         (vfMidFloorLiVFBridge B - vfMidFloorLiVFBridge A) := by
-  have hrun := vfMidOddRunSeatMass_eq_dyadicTracking A B hA
+  have hrun :=
+    (vfMidDyadicVFTrackingDefect_eq_oddRunSeatMass hA hAB).symm
   have hbridge := vfMidDyadicVFTrackingDefect_eq_floorLiDefect_sub_bridgeIncrement
     hA (hA.trans hAB) hAB
   have htern :
@@ -258,7 +259,6 @@ theorem vfMid915FloorLiVFBridge_abs_le_uniform
           vfMidLogarithmicIntegralFromTwo ((R : ℝ) ^ 2)| +
           |-vfMidLiError ((R : ℝ) ^ 2)| := abs_add_le _ _
       _ = _ := by rw [abs_neg]
-  rw [hsplit]
   linarith
 
 /-- Exact first-bad HALF-SCALE interface, all historical signed owner drift
