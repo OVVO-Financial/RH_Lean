@@ -583,6 +583,28 @@ For R=1027, $E(A^2)=-64$, $E(B^2)=-122$,
 hence **$E_B-E_A=-58$** (the negative defect GREW).
 
 Yet both examples are far inside the growing $W_B$ wall.
+A new independent R=8..6000 **actual-prime half-run audit** computes
+the required historical drift including the real preceding wall slack,
+not merely the minimum necessary drift (22):
+
+| R | A | signed E(B²)-E(A²) | wall growth W_B-W_A | actual outward error | required oriented error for crossing |
+|---:|---:|---:|---:|---:|---:|
+| 317 | 159 | -15 | 2052.753 | 15 | 3640.416 |
+| 1027 | 514 | -58 | 7842.116 | 58 | 14196.824 |
+| 1760 | 881 | -95 | 14373.926 | 95 | 26226.080 |
+| 5267 | 2634 | -130 | 48795.130 | 130 | 90094.819 |
+| 6000 | 3001 | -332 | 56357.358 | 332 | 104194.993 |
+
+All rows use the negative first-bad orientation because the actual
+terminal signed defect is negative. The last column is
+$S_A^{-1}+(W_B-W_A)+(b_B-b_A)$, from (21); it is
+**not** the amount that must occur unconditionally, nor a
+numerical RH proof. The data show that the ACTUAL prime discrepancy
+moves farther from zero while its normalized wall clearance
+improves substantially. Over all 5993 tested runs, the maximum
+ratio $|E_B-E_A|/(W_B-W_A)$ is about 0.100142 at R=9;
+the scan is finite and does not establish this as an all-R bound.
+
 Thus a proposed lemma requiring
 $\operatorname{sgn}(D_A)(E_B-E_A)\le0$ over every half-run
 would already be **false on actual primes**. The true objective
