@@ -208,7 +208,8 @@ multiple inside the SAME full integer clock X=(R+1)^2. -/
 theorem vfMid915_currentSquareSite_is_aboveHalf
     {R q : ℕ} (hR : 2 ≤ R) (hq : R ^ 2 < q) :
     (R + 1) ^ 2 < 2 * q := by
-  have h2R : 2 * R ≤ R * R := Nat.mul_le_mul_left R hR
+  have h2R : 2 * R ≤ R * R := by
+    simpa [Nat.mul_comm] using Nat.mul_le_mul_left R hR
   have hqnat : R ^ 2 + 1 ≤ q := by omega
   have htwice := Nat.mul_le_mul_left 2 hqnat
   nlinarith
@@ -220,7 +221,8 @@ theorem vfMid915_middlePrimeFactor_precedes_currentSquare
     {R q : ℕ} (hR : 3 ≤ R)
     (hq : q ≤ (R + 1) ^ 2 / 2) :
     q < R ^ 2 := by
-  have h3R : 3 * R ≤ R * R := Nat.mul_le_mul_left R hR
+  have h3R : 3 * R ≤ R * R := by
+    simpa [Nat.mul_comm] using Nat.mul_le_mul_left R hR
   have hdouble : q * 2 ≤ (R + 1) ^ 2 :=
     (Nat.le_div_iff_mul_le (by norm_num : 0 < (2 : ℕ))).mp hq
   nlinarith
