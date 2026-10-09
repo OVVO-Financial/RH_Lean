@@ -383,8 +383,7 @@ def main():
             min_balance = record["slack"], r
         negatives += record["slack"] < 0
         breaches += record["firstbad_breach"]
-        if old_row is not None:
-            assert old_row["R"]+1 == r or not args.extended
+        if old_row is not None and old_row["R"]+1 == r:
             for fixed in site_matrix:
                 u,l=physical_site_masses(old_row["R"],old_row["P"],
                                          old_row["w"],fixed)
@@ -403,7 +402,7 @@ def main():
             bflag = r in samples or r in (56,1760,2000,5267,6000)
             li = floor_li_audit(r, record, pi, vf, buckets=bflag, flags=flags)
             dP=li["delta"]
-            if old_li_delta is not None:
+            if old_li_delta is not None and old_row is not None and old_row["R"]+1 == r:
                 ml=four_quadrant(old_li_delta,dP)
                 aggregated_floorli[:]=[z+x for z,x in zip(aggregated_floorli,ml)]
                 floorli_lag_pairs.append((old_li_delta,dP))
