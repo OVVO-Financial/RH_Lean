@@ -100,6 +100,11 @@ jobs:
           #check RHLean.Analysis.vfV2PositiveFirstBad_requires_historicalPrimeLiExcess
           #check RHLean.Analysis.vfV2NegativeFirstBad_requires_historicalPrimeLiDeficit
           #print axioms RHLean.Analysis.vfV2Payment_of_floorLi_actual_signed_bounds
+          #check RHLean.Analysis.vfV2SixBudget_eq_originalExcess_add_pairCorrection
+          #check RHLean.Analysis.vfV2SixPairCorrection_nonneg
+          #check RHLean.Analysis.vfV2SixBudget_pos_of_originalExcess_pos
+          #print axioms RHLean.Analysis.vfV2SixBudget_eq_originalExcess_add_pairCorrection
+          #print axioms RHLean.Analysis.vfV2SixBudget_pos_of_originalExcess_pos
           #check RHLean.Analysis.vfV2NoUnconditionalAllStateCone
           #check RHLean.Analysis.vfV2SparseCofactorBeforeHalfAnchor
           #check RHLean.Analysis.vfV2SparseFourFactorImpossible
@@ -227,6 +232,9 @@ jobs:
           #check RHLean.Analysis.vfV2ActualOccurrencePreservingReturn_closes_firstBad
           #print axioms RHLean.Analysis.vfV2ActualHighPrimeAgeNativeMass_sum
           #print axioms RHLean.Analysis.vfV2ActualDelayedMovingWallIdentity
+          #check RHLean.Analysis.vfV2ActualFirstBad_originalExcess_pos
+          #check RHLean.Analysis.vfV2ActualFirstBad_sixSectorBudget_pos
+          #print axioms RHLean.Analysis.vfV2ActualFirstBad_sixSectorBudget_pos
           #check RHLean.Analysis.VFMidActualPrimeSignedOwnerEscapeRule
           #check RHLean.Analysis.vfV2ActualPrime_noFirstBad_of_signedOwnerEscapeRule
           #check RHLean.Analysis.vfV2ActualPrime_admissibilityStatus
