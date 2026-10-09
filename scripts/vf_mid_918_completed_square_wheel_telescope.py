@@ -62,6 +62,28 @@ def run(A, B, y):
         e-(Q*(F(r+1)-F(r))-phi)
         for r,e in zip(range(A,B),band_scaled_errors)
     ]
+    # The ORIGINAL VF odd-seat scalar is w_r=V_r/r, not a
+    # constant density multiplier. Retain w_r via exact Abel:
+    # sum w_r (Gamma_(r+1)-Gamma_r)
+    # = w_(B-1) Gamma_B - w_A Gamma_A
+    #   +sum_(A<r<B) (w_(r-1)-w_r) Gamma_r.
+    # Gamma_r=E_y(r^2)-E_y(r), already a 2-endpoint phase.
+    weights=[band_v(r)/r for r in range(A,B)]
+    assert all(weights[i+1] <= weights[i] for i in range(len(weights)-1))
+    gam=lambda r: scaled_phase(r*r)-scaled_phase(r)
+    weighted_signed=math.fsum(w*e/Q for w,e in zip(weights,open_scaled_errors))
+    weighted_absolute=math.fsum(abs(w*e/Q) for w,e in zip(weights,open_scaled_errors))
+    total_variation=math.fsum(abs(weights[i]-weights[i-1])
+                              for i in range(1,len(weights)))
+    weighted_abel=(
+        weights[-1]*gam(B)/Q - weights[0]*gam(A)/Q
+        +math.fsum((weights[i-1]-weights[i])*gam(A+i)/Q
+                   for i in range(1,len(weights)))
+    )
+    assert abs(weighted_signed-weighted_abel)<1e-7
+    weighted_uniform_bound=(2*len(terms))*(
+        weights[0]+weights[-1]+total_variation)
+    assert abs(weighted_signed)<=weighted_uniform_bound+1e-9
     signed_open_scaled=sum(open_scaled_errors)
     open_endpoint_scaled=(
         scaled_phase(U)-scaled_phase(L)-
@@ -113,6 +135,11 @@ def run(A, B, y):
             sum(map(abs,open_scaled_errors))/Q,
         open_phase_saving=(sum(map(abs,open_scaled_errors))/
                            max(1,abs(signed_open_scaled))),
+        original_VF_weighted_phase=weighted_signed,
+        original_VF_weighted_abs=weighted_absolute,
+        original_VF_weighted_saving=(
+            weighted_absolute/max(1e-12,abs(weighted_signed))),
+        original_VF_abel_bound=weighted_uniform_bound,
         density_base=density_base,
         signed_boundary_phase=boundary_phase,
         sum_absolute_band_phases=naive_total,
@@ -139,6 +166,8 @@ def main():
                   'openPhase={physical_open_phase:+.6f} '
                   'openAbsPerBlock={sum_absolute_open_band_phases:.6f} '
                   'openSaving={open_phase_saving:.3f} '
+                  'VFweighted={original_VF_weighted_phase:+.6f} '
+                  'weightedAbs={original_VF_weighted_abs:.6f} '
                   'telescopingSaving={saved_factor:.3f} '
                   'densityMinusVF={deterministic_wheel_minus_V:.6f} '
                   'actualDelta={actual_P_minus_V:.6f}'.format(**s))
@@ -169,6 +198,9 @@ def main():
             assert s['physical_open_high_composites']==2149049
             assert 3.02 < s['physical_open_phase'] < 3.03
             assert s['open_phase_saving']>1980
+            assert 0.35 < s['original_VF_weighted_phase'] < 0.36
+            assert 724 < s['original_VF_weighted_abs'] < 726
+            assert s['original_VF_weighted_saving']>2000
         if y==29:
             assert s['Q']==6469693230
             assert s['physical_open_wheel_survivors']==3285420
@@ -182,7 +214,11 @@ def main():
               'P={genuine_primes} V={V:.6f} actualDelta={actual_P_minus_V:+.6f} '
               'openPhase={physical_open_phase:+.6f} '
               'sumAbsOpen={sum_absolute_open_band_phases:.6f} '
-              'saving={open_phase_saving:.3f}'.format(**s))
+              'saving={open_phase_saving:.3f} '
+              'VFweighted={original_VF_weighted_phase:+.6f} '
+              'weightedAbs={original_VF_weighted_abs:.6f} '
+              'weightedSaving={original_VF_weighted_saving:.3f} '
+              'weightedUpperBound={original_VF_abel_bound:.3f}'.format(**s))
     print('PASS: BOTH square and root boundaries telescope on literal OPEN square sites; '
           'genuine high-owner correction retained exactly. NOT RH.')
 
