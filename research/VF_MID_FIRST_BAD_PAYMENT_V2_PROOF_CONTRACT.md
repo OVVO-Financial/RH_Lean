@@ -646,6 +646,49 @@ frozen starting A-wheel has an even sharper exact RANK-TWO prime-pair
 projection to integer factors under 4A. This is an existing part of the
 dyadic VF production graph, now sharpened and measured in #918.
 
+### 0E.0 q>R is an exact quotient projection to n/q<=R (the x/3 analogue)
+
+For ANY physical n in the strict-open R-square band and any
+genuine prime factor q>R, write n=c*q. Since n<(R+1)^2
+and q>=R+1, necessarily **c<=R**. Two distinct
+post-root prime factors cannot coexist in the same band
+(already proved as
+vfV2HighPrimeFactorUniqueOnOpenSquare).
+Since q>R>=c, the least-prime owner of the composite
+is exactly **minFac(c)**, never the post-root q.
+
+On the ORIGINAL odd physical carrier c is ODD and c>=3;
+there is no admissible c=2 negative 2q seat. For fixed odd
+c in [3,R], the genuine large-prime q lies in the EXACT
+prime-count window
+
+\[
+\boxed{
+\max\{R,\lfloor R^2/c\rfloor\}<q\le
+\left\lfloor\frac{(R+1)^2-1}{c}\right\rfloor.
+} \tag{AP0}
+\]
+
+Each such q creates one and only one original odd composite
+site n=cq. Since q>c it is a uniquely oriented factor
+projection, and n cannot be an endpoint square. Summing
+the genuine pi difference across odd c gives the complete
+post-root composite sector WITHOUT double counting.
+The source is the earlier integer cofactor c<=R (far below
+the historical square root R^2), not an independent "new
+prime owner".
+
+The corresponding Mathlib-only lemmas in #918 are
+vfV2PostRootCofactor_le_root and
+vfV2PostRootPrime_leastOwner_eq_cofactor. The older
+reciprocal transport and quotient-bucket machinery
+SquareRootLowPrimePostRootTransform.lean and
+SquareRootMiddleSequentialCoherence.lean is the matching
+native signed Möbius coordinate. The prime-count projection
+above is a plain arithmetic identity; its signed historical
+Co/Div bound remains open.
+
+
 ### 0E.1 Every p>=5 odd owner exits BELOW the run anchor immediately
 
 Let A<=r<B<=2A and n=p*c an odd composite physical site of
