@@ -11,6 +11,7 @@ on:
       - research/VF_MID_919_OAI_FERMAT_TWIST_PROJECTION.lean
       - research/VF_MID_919_OAI_PHASE_ALIGNED_OWNER_COMPENSATION.lean
       - research/VF_MID_919_OAI_OWNER_TWO_SIGNED_BOUNDARY.lean
+      - research/VF_MID_919_OAI_QUADRATIC_NORM_EULER.lean
       - research/VF_MID_919_OAI_OWNER_TWO_SIGNED_MERTENS_MOMENT.md
       - research/GLOBAL_RETURNED_CORE_COMPENSATED_FOUR_CORNER.lean
       - research/VF_MID_919_OAI_C_TO_R_CANCELLATION_WELD.md
@@ -62,6 +63,7 @@ jobs:
             research/VF_MID_SEVEN_EIGHTHS_MELLIN_SQUARE_KERNEL.lean \
             research/VF_MID_919_OAI_PARTIAL_MOMENT_TAILS.lean \
             research/VF_MID_919_OAI_FERMAT_TWIST_PROJECTION.lean \
+            research/VF_MID_919_OAI_QUADRATIC_NORM_EULER.lean \
             research/VF_MID_919_OAI_PHASE_ALIGNED_OWNER_COMPENSATION.lean \
             research/VF_MID_919_OAI_OWNER_TWO_SIGNED_BOUNDARY.lean; then
             echo "No proof holes or added axioms allowed"
@@ -130,6 +132,11 @@ jobs:
           lake env lean -DwarningAsError=true \
             -o .lake/build/lib/lean/research.VF_MID_919_OAI_FERMAT_TWIST_PROJECTION.olean \
             research/VF_MID_919_OAI_FERMAT_TWIST_PROJECTION.lean
+      - name: Kernel-compile split-inert-ramified norm-Euler Mobius coefficient dictionary
+        run: |
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.VF_MID_919_OAI_QUADRATIC_NORM_EULER.olean \
+            research/VF_MID_919_OAI_QUADRATIC_NORM_EULER.lean
       - name: Verify theorem signatures, axioms and exactly located open input
         run: |
           cat > /tmp/vf_seven_eighths_acceptance.lean <<'LEAN'
@@ -138,6 +145,7 @@ jobs:
           import «research.VF_MID_SEVEN_EIGHTHS_MELLIN_SQUARE_KERNEL»
           import «research.VF_MID_919_OAI_PARTIAL_MOMENT_TAILS»
           import «research.VF_MID_919_OAI_FERMAT_TWIST_PROJECTION»
+          import «research.VF_MID_919_OAI_QUADRATIC_NORM_EULER»
           #check RHLean.Geometry.vf919TwistedFermatProduct_eq_product_sub_gap
           #check RHLean.Geometry.vf919TwistedFermatProduct_one
           #check RHLean.Geometry.vf919TwistedFermatProduct_neg_phase
@@ -145,6 +153,9 @@ jobs:
           #check RHLean.Geometry.vf919FermatNorm_sq_eq_product_add_gap
           #print axioms RHLean.Geometry.vf919TwistedFermatProduct_eq_product_sub_gap
           #print axioms RHLean.Geometry.vf919FermatNorm_sq_eq_product_add_gap
+          #check RHLean.Analysis.vf919EisensteinNormMobiusEuler_eq_rational_mul_quadratic
+          #check RHLean.Analysis.vf919FiniteNormMobiusEulerProduct_eq_rational_times_quadratic
+          #print axioms RHLean.Analysis.vf919FiniteNormMobiusEulerProduct_eq_rational_times_quadratic
           #check RHLean.Analysis.vf919RowPartialSquare_reassembly
           #check RHLean.Analysis.vf919RowUPM2_add_LPM2_eq_deviationSquare
           #check RHLean.Analysis.vf919RowUPM2_controls_upperTail
