@@ -52,7 +52,7 @@ def li_floor(n):
     return math.floor(val)
 
 
-def floor_li_audit(r, record, pi, vf, buckets=False):
+def floor_li_audit(r, record, pi, vf, buckets=False, flags=None):
     """ACTUAL pi vs Li bucket event census and exact original hbalance certificate.
 
     Full integer FACTOR buckets at X=(r+1)^2:
@@ -120,6 +120,44 @@ def floor_li_audit(r, record, pi, vf, buckets=False):
         assert dcurrent == delta
         # E2=1 comes from the genuine prime 2; Q(2)=0 by definition.
         assert E2 == 1
+        # CURRENT odd descendants n=c*q with c odd>=3, q ACTUAL PRIME>r.
+        # Cohort intervals are true prime windows, not fictional Li factors.
+        # This is the #915 odd-cofactor geometry restored to native #918.
+        assert flags is not None
+        actual_large=li_large=0
+        poserr=negerr=0
+        for c in range(3,r+1,2):
+            qlo=max(r,x//c)
+            qhi=(X-1)//c
+            if qhi<=qlo:
+                continue
+            actual=sum(flags[qlo+1:qhi+1])
+            expected=li_floor(qhi)-li_floor(qlo)
+            actual_large+=actual
+            li_large+=expected
+            if actual>=expected:
+                poserr+=actual-expected
+            else:
+                negerr+=expected-actual
+        # Genuine odd-prime population and all remaining smooth composites
+        # partition exactly the r ORIGINAL odd candidate seats.
+        smooth=r-P-actual_large
+        smooth_li=r-F-li_large   # formal benchmark complement, not sieve
+        assert smooth>=0
+        delta_large=actual_large-li_large
+        delta_smooth=smooth-smooth_li
+        assert delta + delta_large + delta_smooth == 0
+        weighted_prime=(w-1)*delta
+        weighted_large=w*delta_large
+        weighted_smooth=w*delta_smooth
+        assert close(weighted_prime+weighted_large+weighted_smooth,-delta)
+        assert delta_large==poserr-negerr
+        historical_expected={56:(34,35),119:(80,72),
+                             317:(192,204),1027:(659,648),
+                             1760:(1169,1134)}
+        if r in historical_expected:
+            assert (actual_large,li_large)==historical_expected[r], (
+                "failed native historical #915 anchor",r,actual_large,li_large)
         A=(r//2+1)**2
         EA=pi[A]-li_floor(A)
         assert EA+(E1-EA)==E1
@@ -127,7 +165,15 @@ def floor_li_audit(r, record, pi, vf, buckets=False):
             "E0":E0, "E1":E1, "delta":delta, "F":F,
             "E2":E2,"elow":dlow,"emid":dmid,"etop":dtop,
             "ehist_top":dhist,"ecurrent":dcurrent,"ehalf":E1-EA,
-            "A":A, "H":H, "lowP":low_actual, "midP":mid_actual,
+            "A":A, "H":H,
+            "highC_actual":actual_large,"highC_li":li_large,
+            "highC_delta":delta_large,"highC_positiveErrors":poserr,
+            "highC_negativeErrors":negerr,
+            "smoothC_actual":smooth,"smoothC_formalLi":smooth_li,
+            "weighted_primeError":weighted_prime,
+            "weighted_highCError":weighted_large,
+            "weighted_smoothError":weighted_smooth,
+            "lowP":low_actual, "midP":mid_actual,
             "topP":top_actual,"lowLi":low_li,"midLi":mid_li,
             "topLi":top_li, "boundlow":lo, "boundhigh":hi,
             "mplus":plus, "mminus":minus,
@@ -286,7 +332,7 @@ def main():
         breaches += record["firstbad_breach"]
         if args.floor_li:
             bflag = r in samples or r in (56,1760,2000,5267,6000)
-            li = floor_li_audit(r, record, pi, vf, buckets=bflag)
+            li = floor_li_audit(r, record, pi, vf, buckets=bflag, flags=flags)
             dP=li["delta"]
             if abs(dP)>li_error_max[0]:
                 li_error_max=(abs(dP),r)
@@ -310,6 +356,19 @@ def main():
                        li["ehist_top"],li["ecurrent"],li["ehalf"],
                        li["boundlow"],li["boundhigh"],dP,
                        li["mplus"],li["mminus"]))
+                print("ODD_COHORT R=%d actualHighC=%d LiHighC=%d "
+                      "signedCohortError=%+d windowErrors(+%d,-%d) "
+                      "actualSmooth=%d benchmarkSmooth=%d "
+                      "weightedActualPrime=%+.6f "
+                      "weightedHighComposite=%+.6f weightedSmooth=%+.6f "
+                      "restoredActualMinusLi=%+.6f PASS" %
+                      (r,li["highC_actual"],li["highC_li"],
+                       li["highC_delta"],li["highC_positiveErrors"],
+                       li["highC_negativeErrors"],li["smoothC_actual"],
+                       li["smoothC_formalLi"],li["weighted_primeError"],
+                       li["weighted_highCError"],li["weighted_smoothError"],
+                       li["weighted_primeError"]+li["weighted_highCError"]+
+                       li["weighted_smoothError"]))
         if r in samples or r in (1760, 5267, 6000):
             print(f"R={r:<5d} P={record['P']:<5d} "
                   f"U={record['U']:.6f} L={record['L']:.6f} "
