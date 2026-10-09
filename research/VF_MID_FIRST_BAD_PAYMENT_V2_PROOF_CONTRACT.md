@@ -57,10 +57,10 @@ no first bad, because their antecedent itself forces the reverse sign.
 Neither implication can be inferred from the sign identity.
 
 The Mathlib-only sign audit is
-\`vfV2SixBudget_eq_originalExcess_add_pairCorrection\`.
+`vfV2SixBudget_eq_originalExcess_add_pairCorrection`.
 The native exact-carrier assertions are
-\`vfV2ActualFirstBad_originalExcess_pos\` and
-\`vfV2ActualFirstBad_sixSectorBudget_pos\`.
+`vfV2ActualFirstBad_originalExcess_pos` and
+`vfV2ActualFirstBad_sixSectorBudget_pos`.
 These are proof-check targets in the dedicated CI; the first-bad
 *nonpositive* arithmetic payment remains unproved.
 
@@ -101,22 +101,22 @@ reclassifying sites.
 ### EXACT scope of the equivalence with RH: record explicit interfaces
 
 1. **Already available on the #918 branch:**
-   \`vfV2ActualPrime_signedOwnerRule_iff_noFirstBad\` establishes that
+   `vfV2ActualPrime_signedOwnerRule_iff_noFirstBad` establishes that
    the original sign-payment rule
-   \`VFMidActualPrimeSignedOwnerEscapeRule\` is logically equivalent to
+   `VFMidActualPrimeSignedOwnerEscapeRule` is logically equivalent to
    **no first-bad successor with index R+1, R>=8**.
    This equivalence is a logical closure, NOT an arithmetic proof.
 2. **New native checked target:**
-   \`vfV2ActualPrime_allInside_of_noFirstBad_and_base\` performs the
+   `vfV2ActualPrime_allInside_of_noFirstBad_and_base` performs the
    minimal-counterexample argument. It explicitly requires finite
    base containment for **2<=B<=8**. No missing early indices are
    silently ignored.
 3. **New conditional RH bridge:**
-   \`vfV2ActualPrime_RH_of_signedOwnerRule_and_base\` derives RH from
+   `vfV2ActualPrime_RH_of_signedOwnerRule_and_base` derives RH from
    the signed rule **provided the finite base and the existing
-   \`ClassicalVonKochRHCriterion\` argument**. The latter is an
+   `ClassicalVonKochRHCriterion` argument**. The latter is an
    explicit classical analytic interface in
-   \`VF_MID_VON_KOCH_BRIDGE.lean\`, NOT a Lean-kernel proof of the
+   `VF_MID_VON_KOCH_BRIDGE.lean`, NOT a Lean-kernel proof of the
    classical analytic criterion itself.
 4. **Do NOT yet state an unconditional Lean equivalence with RH.**
    The existing classical criterion provides an equivalence between
@@ -137,7 +137,7 @@ cannot start from the assertion that the previous endpoints are
 inside their radial wall. These are different properties.
 
 The fast Lean theorem
-\`vfV2PriorGoodEvenNextGood_doesNotForcePhi_nonneg\`
+`vfV2PriorGoodEvenNextGood_doesNotForcePhi_nonneg`
 checks a concrete **scalar** counterstate:
 
 \[
@@ -159,10 +159,10 @@ the prior-good radial assumption does NOT imply
 \(\Phi_{R-1}\ge0\) or \(\Phi_R\ge0\).
 
 The signed jump-normal-form lemmas now in the tiny kernel are
-\`vfV2FirstBad_requires_strictCurrentDeviation\`,
-\`vfV2FirstBad_positive_outward\`,
-\`vfV2FirstBad_negative_outward\` and
-\`vfV2FirstBad_outward_orientation\`. They prove the correct
+`vfV2FirstBad_requires_strictCurrentDeviation`,
+`vfV2FirstBad_positive_outward`,
+`vfV2FirstBad_negative_outward` and
+`vfV2FirstBad_outward_orientation`. They prove the correct
 necessary outward-sign and wall-growth implications, not a
 quantitative restriction on actual prime history.
 
@@ -216,8 +216,8 @@ The owner-weighted Fubini identities are finite carrier
 reindexings and do not *by themselves* use the desired
 quantitative prime discrepancy. The status of the complete
 native dependency graph still must be checked with the
-opt-in full import-closure job and \`#print axioms\`.
-The **explicit parameter** \`ClassicalVonKochRHCriterion\`
+opt-in full import-closure job and `#print axioms`.
+The **explicit parameter** `ClassicalVonKochRHCriterion`
 must be kept visible in any RH bridge theorem; do not
 mislabel a conditional consumer as an unconditional proof.
 
@@ -608,10 +608,10 @@ $$
 $$
 
 All these identities and the conditional **two-margin certificate**
-are in \`VF_MID_FIRST_BAD_PAYMENT_V2_KERNEL.lean\`:
-\`vfV2LiPlus_actual\`, \`vfV2LiMinus_actual\`,
-\`vfV2Balance_factor\`,
-\`vfV2Payment_of_floorLi_actual_signed_bounds\`.
+are in `VF_MID_FIRST_BAD_PAYMENT_V2_KERNEL.lean`:
+`vfV2LiPlus_actual`, `vfV2LiMinus_actual`,
+`vfV2Balance_factor`,
+`vfV2Payment_of_floorLi_actual_signed_bounds`.
 The certificate is algebra, not an unconditional assertion that (18)
 always holds for genuine prime counts.
 
@@ -666,7 +666,7 @@ $$
 This is an exact one-block restoration identity. It neither
 creates negative physical capacity nor bounds δ_P.
 The corresponding algebraic Lean theorem is
-\`vfV2OddCohortFloorLi_restores_primeError\`.
+`vfV2OddCohortFloorLi_restores_primeError`.
 
 | R | actual high-q odd composites G | floor-Li cofactor events G_Li | error (G-G_Li) | signed cofactor-window + / - |
 |---:|---:|---:|---:|---:|
@@ -759,10 +759,10 @@ error estimate over this moving half-scale difference.
 The new *Mathlib-only* Lean kernel formally proves both
 positive and negative versions:
 
-- \`vfV2HistoricalPositiveWallClearance\`
-- \`vfV2HistoricalNegativeWallClearance\`
-- \`vfV2PositiveFirstBad_requires_historicalPrimeLiExcess\`
-- \`vfV2NegativeFirstBad_requires_historicalPrimeLiDeficit\`
+- `vfV2HistoricalPositiveWallClearance`
+- `vfV2HistoricalNegativeWallClearance`
+- `vfV2PositiveFirstBad_requires_historicalPrimeLiExcess`
+- `vfV2NegativeFirstBad_requires_historicalPrimeLiDeficit`
 
 These theorems take the actually established bounded
 bridge and prior-good/first-bad conditions as explicit hypotheses.
@@ -897,7 +897,7 @@ For any fixed-target pair panel, the four raw quadrant totals are
 The zero-denominator convention is 0. Centered Pearson is shown
 separately for comparison. The main Lean library proves the Schur
 correction makes centered covariance TARGET INVARIANT
-(\`RHLean.Analysis.finiteTargetScaledSchur_target_invariant\`).
+(`RHLean.Analysis.finiteTargetScaledSchur_target_invariant`).
 No sample/rolling mean is used as the target in these NNS matrices.
 
 ### Raw vs normalized, at fixed target zero and lag 1
@@ -911,7 +911,7 @@ No sample/rolling mean is used as the target in these NNS matrices.
 **CRITICAL:** The physical and aggregate VF methods have the
 SAME signed pair-product numerator, by Fubini.
 They have radically different denominators because
-\`abs(sum q)\` differs from \`sum abs(q)\`. Thus an impressive
+`abs(sum q)` differs from `sum abs(q)`. Thus an impressive
 aggregate-first NNS anticorrelation is NOT the normalized
 physical-seat coefficient of #918's actual original carrier.
 
@@ -1007,7 +1007,7 @@ normalized Co/Div sign look favorable.
 ### Historical versus current: the actual Fubini term
 
 The existing Lean identity
-\`vfMidOddHistoricalCurrentSeatGram_eq_endpointPolarization\`
+`vfMidOddHistoricalCurrentSeatGram_eq_endpointPolarization`
 computes the signed **historical/current** Gram for
 A=floor(R/2)+1. On the block-level panel
 
@@ -1113,18 +1113,18 @@ The full space has 27 states, of which only eight have no zero
 coordinates. The **other 19 states must be retained** as an explicit
 zero-sector defect. The existing main modules
 
-- \`RHLean/Analysis/ThreeSlotMertensDegreeOneProjection.lean\`
-- \`RHLean/Analysis/PhysicalDegreeOneMixingConjecture.lean\`
-- \`RHLean/Analysis/PhysicalPartialMomentSchur.lean\`
-- \`RHLean/Analysis/FinitePrimeTMixing.lean\`
-- \`RHLean/Analysis/DeterministicTGreenKuboComparison.lean\`
+- `RHLean/Analysis/ThreeSlotMertensDegreeOneProjection.lean`
+- `RHLean/Analysis/PhysicalDegreeOneMixingConjecture.lean`
+- `RHLean/Analysis/PhysicalPartialMomentSchur.lean`
+- `RHLean/Analysis/FinitePrimeTMixing.lean`
+- `RHLean/Analysis/DeterministicTGreenKuboComparison.lean`
 
 prove exact integer transition counts, a degree-one Walsh observable,
 zero-sector remainder, target-invariant physical Schur covariance,
 complete-period prime-local finite transfer, and exact lagged signed
 energy reassembly. They **do not prove** an asymptotic bound on the
 incomplete physical transition matrix. The outstanding analytical
-statement \`PhysicalDegreeOneMixingConjecture\` remains a named
+statement `PhysicalDegreeOneMixingConjecture` remains a named
 unproved proposition.
 
 The archived empirical eight-state *conditioned* row matrix at
@@ -1294,16 +1294,16 @@ two-state sign Markov approximation.
 
 ### Reproduction and the actual unproved theorem
 
-Run the opt-in \`crossblock_moments\` workflow input,
-which calls \`scripts/vf_mid_918_crossblock_moments.py\`
+Run the opt-in `crossblock_moments` workflow input,
+which calls `scripts/vf_mid_918_crossblock_moments.py`
 and publishes additional outputs:
 
-- \`state_transition_summary.json\`: all physical-prime sign matrices,
+- `state_transition_summary.json`: all physical-prime sign matrices,
   live midpoint matrices, row normalization, conditional fixed
   historical states and observed wall occupancy;
-- \`state_dependent_restoration.csv\`: whole-panel, fixed
+- `state_dependent_restoration.csv`: whole-panel, fixed
   root-window and occupancy-conditioned transitions;
-- \`midpoint_halves.csv\`: every integer midpoint actual-prime
+- `midpoint_halves.csv`: every integer midpoint actual-prime
   count and signed VF-half discrepancy.
 
 The exact twenty-seven-state Walsh transport is **not**
@@ -1333,13 +1333,13 @@ anticorrelation is NOT a pointwise owner-restoring theorem.
 ### 4E.1 The strict-open, parity-locked least-owner partition
 
 The ORIGINAL physical source is exactly the R odd integers
-\`n\` with \`R^2 < n < (R+1)^2\`. In particular, upper prime squares
+`n` with `R^2 < n < (R+1)^2`. In particular, upper prime squares
 are **excluded**, even though the defect recurrence can use pi at closed
 square endpoints because a square greater than 4 is composite.
 
-Write \`ell(n)\` for the smallest prime factor of an odd composite.
-For every physical composite, \`ell(n) <= R\` because
-\`ell(n)^2 <= n < (R+1)^2\`. Define disjoint native counts:
+Write `ell(n)` for the smallest prime factor of an odd composite.
+For every physical composite, `ell(n) <= R` because
+`ell(n)^2 <= n < (R+1)^2`. Define disjoint native counts:
 
 $
 \begin{aligned}
@@ -1362,13 +1362,13 @@ EXCLUDED upper boundary. The single interior multiple of 101 is even,
 so **there are ZERO original 101-owned sites**, not one. At R=101 there
 are two interior 101 multiples, exactly one odd and uniquely owned by
 101: the semiprime 101*103=10403. The previous boundary-count assertion
-\`unique_p==1 and count_square==1\` for R=100 was false and caused
+`unique_p==1 and count_square==1` for R=100 was false and caused
 the previous fast CI to fail. It has been corrected; no square is
 counted as a phantom restoring physical source.
 
 ### 4E.2 Exact TWO/THREE-factor theorem for every sparse owner
 
-Let \`p=ell(n)\` in the sparse tier, so \`R<p^2\`.
+Let `p=ell(n)` in the sparse tier, so `R<p^2`.
 Since p^2 and R are integers, p^2 >= R+1. If n had FOUR
 prime factors (with multiplicity), each would be >=p, implying
 
@@ -1432,7 +1432,7 @@ to two finite factor shapes instead of a freely branching owner tree.
 
 ### 4E.3 The real half-run ancestry theorem
 
-Set \`A=floor(R/2)+1\`. For EVERY R>=9, p^2>R implies
+Set `A=floor(R/2)+1`. For EVERY R>=9, p^2>R implies
 p>=4, and integer arithmetic gives
 
 $
@@ -1455,9 +1455,9 @@ is genuine: 75=3*(5*5), where the cofactor 25 equals A^2,
 so the Lean lemma correctly starts at R>=9.
 
 This is now a **formal Mathlib-only Lean theorem**
-\`vfV2SparseCofactorBeforeHalfAnchor\` in the existing kernel,
+`vfV2SparseCofactorBeforeHalfAnchor` in the existing kernel,
 rather than a conjectured ancestor cutoff. Its companion
-\`vfV2SparseFourFactorImpossible\` formalizes the four-factor
+`vfV2SparseFourFactorImpossible` formalizes the four-factor
 exclusion. Every sparse cofactor is within the *prior-good
 historical square range* of a hypothetical first bad.
 
@@ -1489,7 +1489,7 @@ $
 $
 
 The Mathlib-only Lean theorem
-\`vfV2HighFactorOneOddChildPerOpenBlock\` establishes this
+`vfV2HighFactorOneOddChildPerOpenBlock` establishes this
 one-block occurrence injection. The opt-in true-prime owner
 probe checks each q>R occurs at most once among the original
 odd c*q sites. The theorem complements the prior-good
@@ -1524,7 +1524,7 @@ least-prime owner p, and zero otherwise. NEVER silently remove
 this boundary correction; R=8, n=81, owner 3 is a witness.
 
 The full sparse-tier VF packet retains the physical weight
-\`w_r=V_r/r\`:
+`w_r=V_r/r`:
 
 $
 \begin{aligned}
@@ -1538,7 +1538,7 @@ $
 $
 
 Empty ranges contribute zero. The on-branch Lean lemma
-\`vfV2SparseOwnerFubini\` proves the finite
+`vfV2SparseOwnerFubini` proves the finite
 weight-preserving summation interchange with an abstract
 occurrence-count N; the prime/rough-cofactor ownership
 classification is separately checked arithmetically.
@@ -1572,8 +1572,8 @@ the exact 141 count and the independent Abel equality.
 
 ### 4E.5 Floor Li on the mature-survivor / sparse-owner buckets
 
-Let \`Q(x)=floor(Li_2(x))\` be ONLY a deterministic reference
-and \`F_R=Q((R+1)^2)-Q(R^2)\`. The mature-owner survivors are
+Let `Q(x)=floor(Li_2(x))` be ONLY a deterministic reference
+and `F_R=Q((R+1)^2)-Q(R^2)`. The mature-owner survivors are
 
 $
 T_R=R-G_R=P_R+S_R.
@@ -1599,7 +1599,7 @@ $
 $
 
 This is proven symbolically by
-\`vfV2SparseOwnerFloorLiResidual\`.
+`vfV2SparseOwnerFloorLiResidual`.
 
 | R | Actual S | floor-Li demand F | projected sparse T-F | actual sparse surplus sigma |
 |---:|---:|---:|---:|---:|
@@ -1654,7 +1654,7 @@ L_R &=(D_R)_++(1-w_R)P_R.
 \end{aligned}
 $
 
-Set \`U0=(-D_R)_++w_R G_R\`, \`s=w_R S_R\`.
+Set `U0=(-D_R)_++w_R G_R`, `s=w_R S_R`.
 Then the exact complete, cross-owner-preserving expansion is
 
 $
@@ -1669,7 +1669,7 @@ $
 $
 
 The standalone Lean lemma
-\`vfV2SparseCoDivFullCrossTerms\` checks (E11).
+`vfV2SparseCoDivFullCrossTerms` checks (E11).
 It prevents us from counting the favorable 6sL_R without
 its adverse 2sU0+s^2 cross-owner cost.
 
@@ -1725,10 +1725,10 @@ OPEN. No RH claim.
 **This section corrects an interpretation of 4E.** The sparse
 semiprime/triple partition is NOT a different sufficient theorem and
 has NOT proved the original Sector Six cone. The empirical
-\`sigma_R=F_R-P_R\` is an exact restatement of prime supply and its
+`sigma_R=F_R-P_R` is an exact restatement of prime supply and its
 lag correlation cannot bind historical wall slack. The last open
 production gate remains the one declared in
-\`VFMidMinimalActualFirstBadPaymentV2Statement\`, equivalently:
+`VFMidMinimalActualFirstBadPaymentV2Statement`, equivalently:
 
 $
 \boxed{
@@ -1739,7 +1739,7 @@ $
 $
 
 The main repository's compiled route
-\`vfMidActualPrimeFirstBadAt_two_succ_false_of_activeSixBoundaryBudget\`
+`vfMidActualPrimeFirstBadAt_two_succ_false_of_activeSixBoundaryBudget`
 instead uses the original owner-sector boundary:
 
 $
@@ -1751,8 +1751,8 @@ $
 $
 
 That is a SHORT NAME for the exact six nested first/next/returned
-left/right raw-parent \`Finset\` sums in
-\`VF_MID_FIRST_BAD_ACTIVE_RAW_PARENT_SPLICE.lean\`, **not** a new
+left/right raw-parent `Finset` sums in
+`VF_MID_FIRST_BAD_ACTIVE_RAW_PARENT_SPLICE.lean`, **not** a new
 unproved equivalence. Its exact inequality is STILL OPEN. The
 weighted first-owner Fubini and existing sector-six decomposition
 already express the anchored source and retain all diagonal,
@@ -1774,7 +1774,7 @@ $
 All such n lie in a distinct open square block
 r^2<pq<(r+1)^2, with p<=r<p^2 and q>r.
 The distinct-root claim follows from the previously proved
-\`vfV2HighFactorOneOddChildPerOpenBlock\`.
+`vfV2HighFactorOneOddChildPerOpenBlock`.
 
 Thus the exact number of those children is
 
@@ -1813,9 +1813,9 @@ C_q:=\sum_{\substack{p\ {\rm prime}\\p<q<p^3}}w_{\lfloor\sqrt{pq}\rfloor}
 $
 
 The ordinary PROVED prime number theorem implies
-\`N(q)~q/log(q)\` along primes q, so
-\`C_q\` grows at least on the order of \`q/(log q)^2\`, while
-\`h_q\` stays bounded and approaches 1. **Therefore a proposed
+`N(q)~q/log(q)` along primes q, so
+`C_q` grows at least on the order of `q/(log q)^2`, while
+`h_q` stays bounded and approaches 1. **Therefore a proposed
 per-old-prime bound C_q<=h_q is false for arbitrarily large q**,
 independently of RH. It cannot be the Sector Six payment.
 
@@ -1835,10 +1835,10 @@ the exact p<q<p^3 classification and weight lower bound.
 
 Two more Mathlib-only lemmas in the SAME seven-file #918 scope:
 
-* \`vfV2HighParentChargeOnceFubini\` interchanges the history/root
+* `vfV2HighParentChargeOnceFubini` interchanges the history/root
   sum with the high-prime-parent q sum while subtracting the old
   prime-negative weight **exactly once per q, outside the child sum**.
-* \`vfV2HighParentRepeatedChargeOvercount\` displays the false
+* `vfV2HighParentRepeatedChargeOvercount` displays the false
   extra restoring allowance when the same old h_q is subtracted
   once per descendant:
 
@@ -1851,7 +1851,7 @@ $
 \tag{F6}
 $
 
-The \`(#Kids-1)*h_q\` correction is not optional. The q=101
+The `(#Kids-1)*h_q` correction is not optional. The q=101
 family would otherwise spend the original historical negative
 23 times; q=997, 163 times.
 
@@ -1859,7 +1859,7 @@ family would otherwise spend the original historical negative
 its contribution, so the Fubini lemma is a tool for an EXACT
 decompression of D_A, not permission to subtract h_q again
 from an already-anchored source. The full original physical
-\`M_R^2\` denominator and signed Gram cross-owner products
+`M_R^2` denominator and signed Gram cross-owner products
 must be reconstructed *after* this once-only accounting.
 
 ### 4F.3 Remaining FIRST-BAD payment, with no substitute target
@@ -1882,7 +1882,7 @@ summation identities and the PNT alone give NO sign for this
 complete weighted source.
 
 The hypothesized channel slacks at A, whether denoted
-\`S_A^+\` or \`S_A^-\`, must not be treated as additional
+`S_A^+` or `S_A^-`, must not be treated as additional
 uncompressed material. Their conservation is exactly what
 the missing bound must establish. A sequence can approach
 the wall through many ordinary blocks. One-block negative
@@ -1907,57 +1907,57 @@ admissibility rules**, without treating an open signed assertion as proved.
 Two new Lean artifacts in #918 intentionally keep very different
 certainty levels separate:
 
-* \`research/VF_MID_FIRST_BAD_PAYMENT_V2_KERNEL.lean\` now proves
+* `research/VF_MID_FIRST_BAD_PAYMENT_V2_KERNEL.lean` now proves
   Mathlib-only generic monotone 0/1 step-counting, the true prime/nonprime
   finite-seat split, exact weighted signed prime-site charges, unique-owner
   Fubini for *any* covering finite owner assignment, and the once-counted
   historical charge law. These results are unconditional.
-* \`research/VF_MID_FIRST_BAD_ACTUAL_ADMISSIBILITY_CERTIFICATE.lean\`
+* `research/VF_MID_FIRST_BAD_ACTUAL_ADMISSIBILITY_CERTIFICATE.lean`
   assembles twelve existing actual-prime arithmetic identities into
-  \`VFMidActualPrimeVerifiedStructuralRules\` and proves its witness
-  \`vfV2ActualPrime_verifiedStructuralRules\`. It imports the original
-  production graph, so compilation and \`#print axioms\` require the
+  `VFMidActualPrimeVerifiedStructuralRules` and proves its witness
+  `vfV2ActualPrime_verifiedStructuralRules`. It imports the original
+  production graph, so compilation and `#print axioms` require the
   optional cached full-native CI; the underlying lemmas already live
-  on \`main\`. Do **not** report this new composite native declaration as
+  on `main`. Do **not** report this new composite native declaration as
   kernel-checked until that job completes.
 
 ### 4G.1 Rules already present in the TRUE prime arithmetic
 
 | Rule | Exact original production theorem | Result type |
 |---|---|---|
-| Monotone 0/1 jumps | \`vfV2GenericUnitStepCount_succ\`, \`..._monotone\` | Generic Boolean counting function, Mathlib only |
-| Exactly R odd seats | \`vfMidOddCandidateSeats_card\` | Actual open square block |
-| VF reference on original seats | \`vfMidOddFractionalPrimeSeatWeight_sum\` | Sum native w_R = V_R |
-| Actual prime-site filter | \`vfMidOddCandidateSeats_filter_prime\` | Literal \`Nat.Prime\` on original sites |
-| FTA prime/composite partition | \`vfMidOddActualComposite_card_add_primeSupply\` | P_R+C_R=R |
-| Exact signed charges | \`vfMidOddSignedSeatCharge_sum\` | Sum (w_R-1_Prime)=V_R-P_R |
-| Unique least-prime owner | \`vfMidOddCompositeTrackingDefect_eq_ownerCensus_sub_reference\` | Every composite counted once |
-| Restricted depth-two Möbius decoder | \`vfMidOddSignedSeatCharge_eq_affineCenter_add_half_moebius_of_cube\` | On a FROZEN rough survivor carrier under cubic cutoff |
-| Historical source charged once | \`vfMidActualPrimeEndpointDefect_eq_anchor_sub_frozenAffineRun\` | Actual D_B = D_A - signed owner run |
-| Original NNS denominator | \`vfMidFirstBadZeroTargetTotalMass_eq\` | Exact anchored L1 square |
-| Complete signed Co/Div ledger | \`vfMidFirstBadAnchoredCoDivExcess_eq_activeResidual_add_weightedCells\` | No deleted diagonal, squareful or cross-owner terms |
-| Returned Sector Six weld | \`vfMidActiveCellGram_eq_scaledReturnedClippedCellMass\` and \`vfMidActiveScaledReturnedClippedCellMass_eq_sixOrientedSectors\` | Actual weighted incomplete raw-parent sectors |
-| First-bad strict direction | \`vfMidActualPrimeFirstBadAt_two_succ_nnsNormalized_gt_half\` | First bad => original NNS > 1/2 |
+| Monotone 0/1 jumps | `vfV2GenericUnitStepCount_succ`, `..._monotone` | Generic Boolean counting function, Mathlib only |
+| Exactly R odd seats | `vfMidOddCandidateSeats_card` | Actual open square block |
+| VF reference on original seats | `vfMidOddFractionalPrimeSeatWeight_sum` | Sum native w_R = V_R |
+| Actual prime-site filter | `vfMidOddCandidateSeats_filter_prime` | Literal `Nat.Prime` on original sites |
+| FTA prime/composite partition | `vfMidOddActualComposite_card_add_primeSupply` | P_R+C_R=R |
+| Exact signed charges | `vfMidOddSignedSeatCharge_sum` | Sum (w_R-1_Prime)=V_R-P_R |
+| Unique least-prime owner | `vfMidOddCompositeTrackingDefect_eq_ownerCensus_sub_reference` | Every composite counted once |
+| Restricted depth-two Möbius decoder | `vfMidOddSignedSeatCharge_eq_affineCenter_add_half_moebius_of_cube` | On a FROZEN rough survivor carrier under cubic cutoff |
+| Historical source charged once | `vfMidActualPrimeEndpointDefect_eq_anchor_sub_frozenAffineRun` | Actual D_B = D_A - signed owner run |
+| Original NNS denominator | `vfMidFirstBadZeroTargetTotalMass_eq` | Exact anchored L1 square |
+| Complete signed Co/Div ledger | `vfMidFirstBadAnchoredCoDivExcess_eq_activeResidual_add_weightedCells` | No deleted diagonal, squareful or cross-owner terms |
+| Returned Sector Six weld | `vfMidActiveCellGram_eq_scaledReturnedClippedCellMass` and `vfMidActiveScaledReturnedClippedCellMass_eq_sixOrientedSectors` | Actual weighted incomplete raw-parent sectors |
+| First-bad strict direction | `vfMidActualPrimeFirstBadAt_two_succ_nnsNormalized_gt_half` | First bad => original NNS > 1/2 |
 
 The new generic once-owner theorem
-\`vfV2UniqueOwnerOnceCharge\` and existing
-\`vfV2HighParentRepeatedChargeOvercount\` prevent the dishonest shortcut
+`vfV2UniqueOwnerOnceCharge` and existing
+`vfV2HighParentRepeatedChargeOvercount` prevent the dishonest shortcut
 of spending a historical prime-negative charge once per child.
 
 **Limit of the cube decoder:** It is proved on the restricted
-\`vfMidSquarePrefixWheelSurvivors A r\` set when
-\`(r+1)^2 <= (A+1)^3\`. One must not apply the affine
+`vfMidSquarePrefixWheelSurvivors A r` set when
+`(r+1)^2 <= (A+1)^3`. One must not apply the affine
 prime/semiprime formula on arbitrary odd composites, where triple
 and higher factor signs occur.
 
 ### 4G.2 Genuine LOCAL signed Möbius census, in exact original units
 
 Write
-\`Q_{A,r} = #vfMidSquarePrefixWheelSurvivors(A,r)\` and
-\`M_{A,r} = sum_{n in vfMidSquarePrefixWheelSurvivors(A,r)} mu(n)\`.
+`Q_{A,r} = #vfMidSquarePrefixWheelSurvivors(A,r)` and
+`M_{A,r} = sum_{n in vfMidSquarePrefixWheelSurvivors(A,r)} mu(n)`.
 
-In a finite frozen-wheel run \`A <= r < B\`, provided
-\`3 <= A\` and \`(r+1)^2 <= (A+1)^3\` throughout, the repository's
+In a finite frozen-wheel run `A <= r < B`, provided
+`3 <= A` and `(r+1)^2 <= (A+1)^3` throughout, the repository's
 true rank-two Möbius prime decoder proves
 
 $
@@ -1977,8 +1977,8 @@ $
 Two new native Lean theorems express this finite TRUE arithmetic
 relation with all cube and interval hypotheses explicit:
 
-* \`vfV2ActualPrimeFrozenRunMobiusDecoder\`;
-* \`vfV2ActualPrimeFrozenRunMobiusDeviation\`.
+* `vfV2ActualPrimeFrozenRunMobiusDecoder`;
+* `vfV2ActualPrimeFrozenRunMobiusDeviation`.
 
 This is an exact **localized signed owner-balance identity**,
 not the corresponding **localized quantitative bound**. It is a
@@ -1986,9 +1986,9 @@ more precise translation of the user's Möbius-density argument
 into the actual physical survivor population.
 
 Why ordinary proved densities are not a proof of the latter:
-\`M(x)=sum_{n<=x}mu(n)=o(x)\` estimates μ on ALL integers, not
+`M(x)=sum_{n<=x}mu(n)=o(x)` estimates μ on ALL integers, not
 the restricted rough set, and offers no rate at
-\`H=O(sqrt(x) log(x)^2)=o(x)\`. Even equality of limiting odd
+`H=O(sqrt(x) log(x)^2)=o(x)`. Even equality of limiting odd
 squarefree positive/negative proportions does not estimate
 the centered sum in (F7) uniformly for EVERY finite frozen
 historical window. That localized arithmetic is the missing
@@ -1997,7 +1997,7 @@ postulating a rate equivalent to the desired conclusion.
 
 ### 4G.3 Precisely ONE remaining signed admissibility rule
 
-\`VFMidActualPrimeSignedOwnerEscapeRule\` is a NEW NAME for
+`VFMidActualPrimeSignedOwnerEscapeRule` is a NEW NAME for
 the OLD production signed first-bad requirement, preserving
 exactly the six raw-parent sums:
 
@@ -2011,12 +2011,12 @@ $
 $
 
 The original conditional contradiction
-\`vfMidActualPrimeFirstBadAt_two_succ_false_of_activeSixBoundaryBudget\`
+`vfMidActualPrimeFirstBadAt_two_succ_false_of_activeSixBoundaryBudget`
 then eliminates any first bad at R+1 for R>=8.
 
 **Do not call (F8) independently established.** A new
 logical-audit theorem
-\`vfV2ActualPrime_signedOwnerRule_iff_noFirstBad\`
+`vfV2ActualPrime_signedOwnerRule_iff_noFirstBad`
 even proves that (F8), with these first-bad quantifiers,
 is logically equivalent to NO first bad above the finite base:
 the reverse implication is vacuous. A proof must use
@@ -2044,11 +2044,11 @@ The central suggestion is mathematically valid in logical form:
 
 **What is actually established:** Main already proves a *stronger*
 deterministic floor-Li reference rate than the basic root bound.
-\`research/VF_MID_LI_UNIFORM_QUADRATURE.lean\` has
-\`abs_vfMidLiError_sq_le_uniform\`, asserting that
-\`|VF_mid(R^2) - Li_2(R^2)| <= C0\` for ALL R>=2 with one
-fixed constant C0. \`research/LI_FLOOR_PRIME_COUNT_FANTASY.lean\`
-has \`abs_liFloorPrimeCountProxy_sub_li_lt_one\`.
+`research/VF_MID_LI_UNIFORM_QUADRATURE.lean` has
+`abs_vfMidLiError_sq_le_uniform`, asserting that
+`|VF_mid(R^2) - Li_2(R^2)| <= C0` for ALL R>=2 with one
+fixed constant C0. `research/LI_FLOOR_PRIME_COUNT_FANTASY.lean`
+has `abs_liFloorPrimeCountProxy_sub_li_lt_one`.
 Therefore, at EVERY square endpoint,
 
 $
@@ -2066,10 +2066,10 @@ if specifically using K=2. No RH conclusion follows yet.
 **Concrete obstruction to claiming the same actual owner class:**
 On block R=8 with frozen cutoff A=4, n=65=5*13 satisfies
 64<n<81, minFac(n)=5>A and the valid cube-depth hypothesis
-\`(R+1)^2=81 <= (A+1)^3=125\`. The actual physical decoder
-(\`vfMidOddSignedSeatCharge_eq_affineCenter_add_half_moebius_of_cube\`)
-uses \`mu(65)=+1\`, therefore the ACTUAL prime jump at n=65
-must be zero, giving charge \`w_8\`.
+`(R+1)^2=81 <= (A+1)^3=125`. The actual physical decoder
+(`vfMidOddSignedSeatCharge_eq_affineCenter_add_half_moebius_of_cube`)
+uses `mu(65)=+1`, therefore the ACTUAL prime jump at n=65
+must be zero, giving charge `w_8`.
 
 But the numerical floor-Li integer potential at this site is
 
@@ -2078,22 +2078,22 @@ Li_2(64)=20.8895045479\ldots,\qquad
 Li_2(65)=21.1295054848\ldots,
 $
 
-so \`Q(65)-Q(64)=1\`; its hypothetical prime-seat charge would
-be \`w_8-1\`. These differ by EXACTLY one count. The
+so `Q(65)-Q(64)=1`; its hypothetical prime-seat charge would
+be `w_8-1`. These differ by EXACTLY one count. The
 transcendental floor comparison is numerical in this audit, NOT
 a Lean-certified inequality. An earlier even violation occurs
 at n=6, and at R=317 there are 26 even floor-Li jumps and 51
 composite floor-Li jumps within its 55 block events.
-Thus Q cannot be substituted for the literal \`Nat.Prime\` site
+Thus Q cannot be substituted for the literal `Nat.Prime` site
 filter or pointwise restricted Mobius/FTA decoder. Calling
 these different values of the *same* owner admissibility law
 is invalid, not merely a loss of precision.
 
 **There is a qualitative asymptotic mismatch as well.** The
-event gaps of floor(Li_2(n)) are asymptotic to \`log n\`
+event gaps of floor(Li_2(n)) are asymptotic to `log n`
 (by the mean value theorem applied to Li and the at-most-one
 integer rounding at jump sites). Actual consecutive prime
-gaps divided by \`log p_n\` have unbounded limsup
+gaps divided by `log p_n` have unbounded limsup
 (Westzynthius, strengthened by Ford--Green--Konyagin--Tao
 and Maynard; see Annals of Mathematics 183 (2016)).
 Consequently any rule requiring every gap to stay between
@@ -2102,8 +2102,8 @@ This does not rule out a suitable WEAKER class with exceptional
 gaps: such a class must be proved sufficient on all histories.
 
 **Exact comparison that a shared class MUST control:**
-Let \`q_n := Q(n)-Q(n-1)\`, \`p_n := 1_Prime(n)\`,
-\`xi_n := p_n-q_n\`. Then
+Let `q_n := Q(n)-Q(n-1)`, `p_n := 1_Prime(n)`,
+`xi_n := p_n-q_n`. Then
 
 $
 \boxed{
@@ -2116,12 +2116,12 @@ $
 
 The fantasy bracket in (F10) has proved O(1) size.
 The actual cumulative signed primitive relocation
-\`sum xi_n\` does NOT. This is precisely the arithmetic
+`sum xi_n` does NOT. This is precisely the arithmetic
 content of the first-bad signed payment.
 
 A possible non-circular class property, *not yet proved for pi*,
-would bound ranked event relocations \`|p_j-q_j|\` by
-\`O(sqrt(q_j) log(q_j)^2)\`. By monotonicity and the
+would bound ranked event relocations `|p_j-q_j|` by
+`O(sqrt(q_j) log(q_j)^2)`. By monotonicity and the
 known Li floor increment bound, only events in a window
 of that width could be unmatched at a given x, so
 
@@ -2183,24 +2183,24 @@ four-cohort prime/high-q/smooth conservation identity still totals
 -P_R+F_R: it is **a census identity**, NOT independent restoring capacity.
 
 The Mathlib-only existing kernel file
-\`research/VF_MID_FIRST_BAD_PAYMENT_V2_KERNEL.lean\` now includes:
+`research/VF_MID_FIRST_BAD_PAYMENT_V2_KERNEL.lean` now includes:
 
-- \`vfV2HighPrimeParentPrecedesCurrentSquare\`;
-- \`vfV2AgeCohortNativeMass_sum\`, \`..._disjoint\`;
-- \`vfV2AgeFourCohortFullGram\` and
-  \`vfV2FourAgeCohorts_do_not_create_restoringMass\`;
-- \`vfV2StrictPastRoots_lt_current\`, past-only score ranking;
-- \`vfV2BlockFlux_telescope\`,
-  \`vfV2DelayedFlux_eq_futureBlockSum\`,
-  \`vfV2CurrentPlusDelayedFlux\`,
-  \`vfV2DelayedMovingWallClearance\`;
-- \`vfV2JointDelayedFluxCell_sum\`, a finite full nine-cell
+- `vfV2HighPrimeParentPrecedesCurrentSquare`;
+- `vfV2AgeCohortNativeMass_sum`, `..._disjoint`;
+- `vfV2AgeFourCohortFullGram` and
+  `vfV2FourAgeCohorts_do_not_create_restoringMass`;
+- `vfV2StrictPastRoots_lt_current`, past-only score ranking;
+- `vfV2BlockFlux_telescope`,
+  `vfV2DelayedFlux_eq_futureBlockSum`,
+  `vfV2CurrentPlusDelayedFlux`,
+  `vfV2DelayedMovingWallClearance`;
+- `vfV2JointDelayedFluxCell_sum`, a finite full nine-cell
   reassembly into the SAME actual signed flux;
-- \`vfV2NoUniversalDelayedInwardFlux\`, an explicit counterexample to
+- `vfV2NoUniversalDelayedInwardFlux`, an explicit counterexample to
   claiming an unconditional future inward drift for generic sequences.
 
 The existing actual-prime certificate now specializes the Mathlib kernel to
-the literal \`Nat.Prime\` physical parent filter, actual floor-Li backlog,
+the literal `Nat.Prime` physical parent filter, actual floor-Li backlog,
 strictly future block corrections, and the native VF radial wall.  The
 terminal consumer **requires the SAME original signed Sector Six inequality**
 as before.  New actual-prime bridge declarations are subject to slow native
