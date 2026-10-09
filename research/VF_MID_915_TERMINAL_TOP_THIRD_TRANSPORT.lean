@@ -199,4 +199,52 @@ theorem vfMid915_topThird_lowWheelSurvivors_eq_primes
     exact ⟨⟨hlo, hhi⟩,
       (vfMid915_topThird_lowWheelB_iff_prime hB hlo hhi).2 hprime⟩
 
+
+/-! ## Payment audit: true full-integer 2*q children carry ZERO original VF mass -/
+
+/-- The CURRENT square block is wholly beyond the half-clock for R>=2.
+In particular each current prime seat has NO proper composite
+multiple inside the SAME full integer clock X=(R+1)^2. -/
+theorem vfMid915_currentSquareSite_is_aboveHalf
+    {R q : ℕ} (hR : 2 ≤ R) (hq : R ^ 2 < q) :
+    (R + 1) ^ 2 < 2 * q := by
+  have h2R : 2 * R ≤ R * R := Nat.mul_le_mul_left R hR
+  have hqnat : R ^ 2 + 1 ≤ q := by omega
+  have htwice := Nat.mul_le_mul_left 2 hqnat
+  nlinarith
+
+/-- With R>=3, the entire middle factor bucket p<=X/2 precedes
+the CURRENT band (R^2,(R+1)^2). Any p-to-2*p interaction
+must be historical; it cannot directly pay a current prime seat. -/
+theorem vfMid915_middlePrimeFactor_precedes_currentSquare
+    {R q : ℕ} (hR : 3 ≤ R)
+    (hq : q ≤ (R + 1) ^ 2 / 2) :
+    q < R ^ 2 := by
+  have h3R : 3 * R ≤ R * R := Nat.mul_le_mul_left R hR
+  have hdouble : q * 2 ≤ (R + 1) ^ 2 :=
+    (Nat.le_div_iff_mul_le (by norm_num : 0 < (2 : ℕ))).mp hq
+  nlinarith
+
+/-- TRUE prime q in the middle factor bucket gives the physical
+even child 2q, but the entire ORIGINAL VF source is already
+restricted to ODD parity survivors. This is the exact absolute
+historical NNS charge of ALL the proposed 2q returns. It is ZERO;
+counting 2q as new negative Co/Div heat double-counts owner 2. -/
+def vfMid915MiddleDoubleHistoricalOriginalVFAbs
+    (A B : ℕ) : ℝ :=
+  ∑ r ∈ Finset.Ico A B,
+    ∑ q ∈ (Finset.Ioc B (B ^ 2 / 2)).filter Nat.Prime,
+      |vfMid915CurrentOddPhysicalWeight r (2 * q)|
+
+theorem vfMid915MiddleDoubleHistoricalOriginalVFAbs_eq_zero
+    (A B : ℕ) :
+    vfMid915MiddleDoubleHistoricalOriginalVFAbs A B = 0 := by
+  unfold vfMid915MiddleDoubleHistoricalOriginalVFAbs
+  apply Finset.sum_eq_zero
+  intro r _hr
+  apply Finset.sum_eq_zero
+  intro q _hq
+  rw [vfMid915CurrentOddWeight_even_zero]
+  simp
+
 end RHLean.Analysis
