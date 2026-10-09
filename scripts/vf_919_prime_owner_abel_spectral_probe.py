@@ -12,6 +12,7 @@ They DO NOT in this test: nearly all p-column errors have one sign.
 Do not invent a restoring signed payment from spectral input.
 """
 import math
+import cmath
 
 A, B = 2634, 5267
 MAX = 4 * A
@@ -42,7 +43,7 @@ def test_unrestricted_dirichlet_vs_physical_cutoff():
     s = complex(1.35, 0.41)
 
     def drich(n):
-        return __import__("cmath").exp(-s * math.log(n))
+        return cmath.exp(-s * math.log(n))
 
     # Finite product identity: 1/2(P^2 - P(2s)) exactly
     # counts unordered p<q without a PHYSICAL CUTOFF.
