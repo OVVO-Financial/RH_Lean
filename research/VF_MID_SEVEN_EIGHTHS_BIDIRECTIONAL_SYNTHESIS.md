@@ -193,3 +193,114 @@ prime-Li Abel source*, *truncated rough Euler product*,
 *Möbius inverse of zeta*, and *von Mangoldt logarithmic
 derivative*. The analytic-strength global signed
 inequality, however, remains genuinely open.
+
+
+## 5. The concrete original-weight Mellin synthesis of COMPLETED SQUARE BLOCKS
+
+There is a sharper analytic interface than the one-column
+Abel formula S1. Put \(w_R=\mathrm{VFbandMass}(R)/R\),
+and for complex s define the finite common Mellin numerator
+
+\[
+\boxed{K_{A,B}(s)=\sum_{R=A}^{B-1}w_R
+        \big((R+1)^{2s}-R^{2s}\big).}\tag{S8}
+\]
+
+Because the original square bands are *completed*, a
+complex-valued Abel identity gives
+
+\[
+\boxed{
+K_{A,B}(s)
+=w_B B^{2s}-w_A A^{2s}
++\sum_{R=A}^{B-1}(w_R-w_{R+1})(R+1)^{2s}.
+}\tag{S9}
+\]
+
+Thus original VF weights have been moved into a single
+DETERMINISTIC analytic kernel with two terminal square
+phases and a signed weight-variation measure, rather than
+being treated as an arbitrary p-dependent prime coefficient.
+The new Lean module
+research/VF_MID_SEVEN_EIGHTHS_MELLIN_SQUARE_KERNEL.lean
+proves S9 exactly in COMPLEX arithmetic and checks axioms
+without any Perron hypothesis. It does NOT establish
+the contour representation below.
+
+For real \(\sigma>1\), set
+
+\[
+P_{>A}(s)=\sum_{p>A,\ p\mathrm{\ prime}}p^{-s},\qquad
+H_A(s)=\sum_{A<p<q,\ p,q\mathrm{\ prime}}(pq)^{-s}.
+\]
+
+Ordinary absolutely convergent Dirichlet-series multiplication
+gives the **exact rank-two** identity
+
+\[
+\boxed{H_A(s)=\frac12
+\big(P_{>A}(s)^2-P_{>A}(2s)\big).}\tag{S10}
+\]
+
+For each distinct prime pair p<q, n=pq is NEVER a square.
+Therefore ordinary Perron inversion of
+\((R+1)^{2s}-R^{2s}\) selects the original strict
+OPEN square band without a half-boundary correction.
+With the usual limiting interpretation of vertical integrals,
+
+\[
+\boxed{
+\sum_{\substack{A<p<q\\ pq<B^2}}
+ w_{\lfloor\sqrt{pq}\rfloor}
+=
+\lim_{T\to\infty}
+\frac1{2\pi i}\int_{\sigma-iT}^{\sigma+iT}
+ \frac{K_{A,B}(s)}s
+ \frac{P_{>A}(s)^2-P_{>A}(2s)}2\,ds.
+}\tag{S11}
+\]
+
+This is a substantive synthesis in the **spectral direction**:
+the SAME genuine 125,272 semiprime incidence charges
+become a prime-zeta square against a COMMON kernel,
+with the original completed-square w_R values retained.
+The left side is a genuine positive physical composite
+packet; it is not the full signed NNS Gram.
+
+A related analytic identity is
+
+\[
+P_{>A}(s)
+=\sum_{k\ge1}\frac{\mu(k)}{k}\log\zeta(ks)
+-\sum_{p\le A}p^{-s}\qquad(\Re s>1).\tag{S12}
+\]
+
+OpenAI's zeta-free \(7/8\) region could support
+local analytic continuation of the k=1 factor in
+S12 to Re s>7/8, away from the pole and branch
+singularity at s=1; k>=2 factors already converge
+absolutely there. This is the **precise analytic
+spot** where the new result can enter the genuine
+completed-square owner packet.
+
+**Critical nontrivial missing estimate:** shifting
+the contour of S11 requires power-saving bounds
+on \(P_{>A}(\sigma+it)^2\) multiplied by \(K_{A,B}\),
+UNIFORMLY in the moving cutoff A and twist height t.
+Zero-free zeta alone provides no such squared-prime
+bilinear moment estimate. OpenAI's paper uses a
+highly specialized Eisenstein/cubic-theta character
+large sieve: its fourth-moment statement requires
+prime coefficients fixed across varying rows, not
+arbitrary p-specific weights. S8-S9 is a plausible
+way to factor our p-dependence into a common Mellin
+kernel, but the needed matching *character family*
+and *large-sieve moment bound* are not present.
+
+The exact contour identity S11 is standard classical
+analysis, NOT yet a kernel-checked Lean theorem.
+Only the algebraic finite square-kernel identity S9
+and original-weighted finite owner Abel transport S1
+are compiled in the new branch. This expressly
+prevents claiming an analytic gain from an unproved
+contour estimate.
