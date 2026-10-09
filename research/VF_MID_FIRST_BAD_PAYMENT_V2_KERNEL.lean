@@ -118,6 +118,38 @@ theorem vfV2LiMinus_actual (D w F d R : Real) :
   unfold vfV2Next vfV2LiMinus
   ring
 
+/-- Factored original NNS payment; no new reference mass. -/
+theorem vfV2Balance_factor (D w P C : Real) :
+    vfV2Balance D w P C =
+      (vfV2Upper D w C + vfV2Lower D w P +
+        Real.sqrt 2*vfV2Next D w P C) *
+      (vfV2Upper D w C + vfV2Lower D w P -
+        Real.sqrt 2*vfV2Next D w P C) := by
+  have hs : Real.sqrt (2 : Real) ^ 2 = 2 :=
+    Real.sq_sqrt (by norm_num : (0 : Real) <= 2)
+  unfold vfV2Balance
+  rw [vfV2Upper_sub_lower_eq_neg_next]
+  calc
+    (vfV2Upper D w C + vfV2Lower D w P)^2 -
+        2 * (-vfV2Next D w P C)^2 =
+      (vfV2Upper D w C + vfV2Lower D w P)^2 -
+        (Real.sqrt 2 * vfV2Next D w P C)^2 := by
+          rw [mul_pow, hs]
+          ring
+    _ = _ := by ring
+
+/-- An exact CONDITIONAL certificate using the SIGNED ACTUAL prime
+error d = (pi(X)-Q(X))-(pi(R^2)-Q(R^2)), with Q=floor Li2.
+The conditions themselves require true prime arithmetic. -/
+theorem vfV2Payment_of_floorLi_actual_signed_bounds
+    (D w F d R : Real)
+    (hplus : 0 <= vfV2LiPlus D w F R + (1-2*w+Real.sqrt 2)*d)
+    (hminus : 0 <= vfV2LiMinus D w F R + (1-2*w-Real.sqrt 2)*d) :
+    0 <= vfV2Balance D w (F+d) (R-(F+d)) := by
+  rw [vfV2Balance_factor]
+  rw [vfV2LiPlus_actual, vfV2LiMinus_actual]
+  exact mul_nonneg hplus hminus
+
 /-- The cost of changing an anchored denominator from M to M+delta.
 It is not additional physical budget. -/
 theorem vfV2ParityRepacking_squares_cost (M delta : ℝ) :
