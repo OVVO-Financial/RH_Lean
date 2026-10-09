@@ -146,6 +146,21 @@ def main():
     total_bound = math.fsum(column_bounds)
     negatives = sum(x < 0 for x in abel_phases)
     positives = sum(x > 0 for x in abel_phases)
+    # Original-weighted genuine owner error, split at target ZERO.
+    # Exact NNS UPM/LPM sums: residual = UPM1-LPM1,
+    # squared energy = UPM2+LPM2.
+    upm1 = math.fsum(max(x, 0.0) for x in abel_phases)
+    lpm1 = math.fsum(max(-x, 0.0) for x in abel_phases)
+    upm2 = math.fsum(max(x, 0.0)**2 for x in abel_phases)
+    lpm2 = math.fsum(max(-x, 0.0)**2 for x in abel_phases)
+    assert abs(upm1 - lpm1 - total_error) < 1e-9
+    assert abs(upm1 + lpm1 - total_unsigned) < 1e-9
+    assert abs(upm2 + lpm2 -
+               math.fsum(x*x for x in abel_phases)) < 1e-9
+    assert abs(upm1 - 2.2450216025690954) < 1e-6
+    assert abs(lpm1 - 138.53871385537948) < 1e-6
+    assert abs(upm2 - 0.35613000064300243) < 1e-6
+    assert abs(lpm2 - 86.93776573214745) < 1e-6
 
     assert len(owners) == 316
     assert sum(degree) == 125272
@@ -168,6 +183,12 @@ def main():
               total_prime, total_model, total_error, total_unsigned,
               total_unsigned / abs(total_error),
               negatives, positives, total_bound))
+    print("VF919_ZERO_TARGET_OWNER_PARTIAL_MOMENTS "
+          "UPM1=%.9f LPM1=%.9f lower_to_upper_1=%.4fx "
+          "UPM2=%.9f LPM2=%.9f lower_to_upper_2=%.4fx" %
+          (upm1, lpm1, lpm1/upm1, upm2, lpm2, lpm2/upm2))
+    print("CAUTION: lower-tail dominance is arithmetic data only, "
+          "NOT an independently spendable restoring payment.")
     print("PASS: genuine prime-factor graph + original VF weight "
           "+ exact discrete signed Abel; no RH, no global sector-six claim.")
 
