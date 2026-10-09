@@ -3,17 +3,21 @@ import «research.VF_MID_915_TERMINAL_TOP_THIRD_TRANSPORT»
 import «research.VF_MID_FIRST_BAD_NORMALIZED_PARTIAL_MOMENT»
 
 /-!
-# #915: exact NNS parity-refinement price for 2p composite children
+# #915: exact NNS parity-refinement price; audit of proposed 2p payments
 
 The full integer carrier provides real 2q composite children to large primes
 q in (sqrt(X),X/2], but every such even child has ZERO weight in the ORIGINAL
-odd-seat VF physical source. A parity-refined even-inclusive VF charge can
-preserve the original signed source by halving w across each odd/even seat
-pair, but its absolute NNS mass INCREASES by exactly w * P_R.
+odd-seat VF physical source. We therefore AUDIT a separate surrogate:
+refining each odd current seat into an equal-weight odd/even NEIGHBOR pair.
+This preserves the signed source but its absolute NNS mass INCREASES by
+exactly w*P_R. Such neighbors are NOT the multiplicative q-to-2q return;
+that return crosses native square-root bands and needs another weld.
 
 The exact squared-mass cost is 2*M_original*(w*P_R)+(w*P_R)^2.
-No historical mass is added for free. The cost is *not* a payment of
-the first-bad hbalance or a proof of RH.
+No historical mass is added for free. The local pair-heat theorem below
+only assesses equal-weight same-band parity refinement. It does NOT
+bound a genuinely reconstructed cross-band q-to-2q source pairing.
+The cost is *not* a payment of first-bad hbalance or a proof of RH.
 -/
 
 noncomputable section
@@ -45,9 +49,9 @@ theorem vfMid915ParitySplit_abs_one
   rw [abs_of_nonpos hn1, abs_of_nonneg hw2, abs_of_nonpos hn2]
   ring
 
-/-- At a GENUINE PRIME, the favorable local opposite-sign
-odd/even pair heat equals the exact squared-absolute-mass inflation.
-It is therefore NOT new paid NNS capacity. -/
+/-- At a GENUINE PRIME, the favorable local odd/even NEIGHBOR-pair
+heat equals the exact squared-absolute-mass inflation. This surrogate
+is NOT a native multiplicative q-to-2q physical pair. -/
 theorem vfMid915ParitySplit_primePairHeat_eq_exactLocalPrice
     (w : ℝ) (hw0 : 0 ≤ w) (hw1 : w ≤ 1) :
     (|w / 2 - 1| + |w / 2|) ^ 2 - (w - 1) ^ 2 =
@@ -299,9 +303,9 @@ theorem vfMid915OriginalOddAbs_ge_actualPrimePart
         intro n _hn
         exact hpoint n
 
-/-- The unconditional quantitative NEGATIVE VERDICT for owner-2
-full-integer compensation: per-site paired negative heat has a global
-absolute-NNS restoration cost at least P_R times as large.
+/-- The unconditional quantitative NEGATIVE VERDICT for the equal-weight
+SAME-BAND PARITY-NEIGHBOR surrogate: its summed local negative pair heat
+has a global absolute-NNS restoration cost at least P_R times as large.
 At R=317 the measured factor is ~145.84; at R=1027 ~406.46.
 This is NOT a proof of the terminal first-bad hbalance. -/
 theorem vfMid915ParityRefinedGlobalPrice_ge_primeCount_mul_localHeat
