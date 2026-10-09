@@ -360,6 +360,46 @@ This directly identifies the term whose sign/cancellation OAI methods
 must ultimately certify. A rowwise norm estimate erases precisely
 the sign distinction that matters.
 
+### Complete signed telescope: negative branch squares are NOT discarded
+
+The latest finite probe also verifies, by an **independent direct enumeration**
+of the actual admitted parent sites, both
+\[
+L_R=O(\lfloor X_R/2\rfloor)-O(R-1)
+   +\sum_{q^2<R,\,q\text{ odd prime}}\frac1q\,
+       O(\lfloor X_R/q^2\rfloor),
+\qquad
+I_R=L_R-J_R=Q_R-M(R-1),
+\]
+and, on every sampled root, the full first-owner identity
+\[
+\boxed{2G_R=I_R^2-L_R^2-J_R^2+B_R
+             =-2(L_R+C_R)J_R.}\tag{B14}
+\]
+The `-L_R²` and `-J_R²` payments are now **kept in the numerical
+report**, not estimated away.
+
+| R | clipped signed B_R | negative branches -L²-J² | full 2G | full 2G/R² |
+|---:|---:|---:|---:|---:|
+| 56 | +235.200 | -682.627 | -442.027 | -0.140952 |
+| 119 | +1096.267 | -2849.562 | -1745.078 | -0.123231 |
+| 317 | -1058.811 | -689.296 | -1747.629 | -0.017391 |
+| 548 | +43183.572 | -17393.991 | +25793.423 | +0.085891 |
+| 1027 | +147495.043 | -71449.689 | +76654.457 | +0.072677 |
+| 1600 | +136327.411 | -61537.131 | +75635.619 | +0.029545 |
+
+For every root 8<=R<=1600 in this *finite* census the maximum
+positive `2G_R/R²` is approximately **0.085891 at R=548**,
+whereas the clipped term alone has maximum positive `B_R/R²`
+approximately **0.287332 at R=57**. These are NOT all-scale estimates
+and say nothing by themselves about the full historical Sector Six.
+
+**Implication for the OAI attack:** Seek a signed power saving on the
+complete B6-derived mixed boundary **inside B14**, with the two
+negative branches retained. Proving only a bound on the individual
+amplified principal row, or only on |B_R|, does not realize this payment.
+
+
 ## 5. Critical source compatibility
 
 The OpenAI paper's selected-prime slot sets explicitly exclude its
