@@ -150,6 +150,19 @@ theorem vfV2Payment_of_floorLi_actual_signed_bounds
   rw [vfV2LiPlus_actual, vfV2LiMinus_actual]
   exact mul_nonneg hplus hminus
 
+/-- Actual prime and both composite-sector discrepancies against
+floor Li sum to zero on the ORIGINAL R odd candidate seats.
+The weighted physical VF correction therefore equals -dP, exactly.
+This cannot be separately credited as fresh negative NNS heat. -/
+theorem vfV2OddCohortFloorLi_restores_primeError
+    (w dP dHigh dSmooth : Real)
+    (hcount : dP + dHigh + dSmooth = 0) :
+    (w - 1)*dP + w*dHigh + w*dSmooth = -dP := by
+  calc
+    (w - 1)*dP + w*dHigh + w*dSmooth =
+      w*(dP + dHigh + dSmooth) - dP := by ring
+    _ = -dP := by rw [hcount]; ring
+
 /-- The cost of changing an anchored denominator from M to M+delta.
 It is not additional physical budget. -/
 theorem vfV2ParityRepacking_squares_cost (M delta : ℝ) :
