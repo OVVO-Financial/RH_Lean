@@ -321,6 +321,119 @@ theorem vfV2HighFactorOneOddChildPerOpenBlock
 
 
 
+/-! ## Oct 9: ALL odd high-owner children project to the half-run
+anchor, except the single live factor-3 channel.
+
+For A <= r < B <= 2*A, an odd physical composite has a prime
+least owner p >= 3. If p >= 5, removing p moves the child below
+A^2, even WITHOUT the previous sparse condition p^2>r.
+If its child remains in the current A^2..B^2 history, p MUST be 3.
+That one live 3-channel is time-separated: the parent is below
+(4/3)*A^2 and the child is above 3*A^2. Removing TWO odd
+prime factors always lands below A^2.
+
+No probabilistic prime statement or cancellation estimate is assumed.
+-/
+
+/-- All owners p>=5 of any odd composite in a SUBDOUBLING completed
+square run have cofactor strictly below the fixed early square anchor.
+This applies to mature as well as sparse owners. -/
+theorem vfV2HalfRunOwnerFiveChild_beforeAnchor
+    (A B p c : ℕ) (hA : 1 ≤ A) (hBA : B ≤ 2 * A)
+    (hp : 5 ≤ p) (hn : p * c < B ^ 2) :
+    c < A ^ 2 := by
+  have hBsq : B ^ 2 ≤ (2 * A) ^ 2 :=
+    Nat.pow_le_pow_left hBA 2
+  have hpc : 5 * c ≤ p * c :=
+    Nat.mul_le_mul_right c hp
+  have hApos : 1 ≤ A ^ 2 := by nlinarith
+  by_contra hnot
+  have hc : A ^ 2 ≤ c := Nat.le_of_not_gt hnot
+  nlinarith
+
+/-- The SOLE possible least-prime owner of an odd composite whose
+stripped child stays IN the half-run is prime 3. Owner 2 is absent
+from the original odd NNS carrier, and every p>=5 exits the run. -/
+theorem vfV2HalfRunOnlyThreePrimeOwnerCanStayLive
+    (A B p c : ℕ) (hA : 1 ≤ A) (hBA : B ≤ 2 * A)
+    (hpPrime : p.Prime) (hpge3 : 3 ≤ p)
+    (hn : p * c < B ^ 2) (hlive : A ^ 2 ≤ c) :
+    p = 3 := by
+  have hp4 : p ≠ 4 := by
+    intro heq
+    subst p
+    norm_num at hpPrime
+  by_contra hpNe3
+  have hp5 : 5 ≤ p := by omega
+  have hprior :=
+    vfV2HalfRunOwnerFiveChild_beforeAnchor
+      A B p c hA hBA hp5 hn
+  omega
+
+/-- Same conclusion for a LARGE PRIME q born after A², viewed as
+a factor in an odd composite c*q: if the odd cofactor c>=3 and
+the descendant lies before B²<=4A², then c=3 exactly.
+
+Unlike an arbitrary sum over high owners, this is a SINGLE
+occurrence-preserving q -> 3*q projection in the half-run. -/
+theorem vfV2HalfRunLiveHighPrime_oddMultiplier_eq_three
+    (A B c q : ℕ) (hBA : B ≤ 2 * A)
+    (hcOdd : c % 2 = 1) (hc3 : 3 ≤ c)
+    (hqLive : A ^ 2 ≤ q) (hchild : c * q < B ^ 2) :
+    c = 3 := by
+  have hBsq : B ^ 2 ≤ (2 * A) ^ 2 :=
+    Nat.pow_le_pow_left hBA 2
+  by_contra hcNe3
+  have hc5 : 5 ≤ c := by omega
+  have hprod : 5 * (A ^ 2) ≤ c * q := by
+    calc
+      5 * (A ^ 2) ≤ 5 * q := Nat.mul_le_mul_left 5 hqLive
+      _ ≤ c * q := Nat.mul_le_mul_right q hc5
+  nlinarith
+
+/-- The live parent of a 3-child is forced into the EARLY run
+below (4/3)*A², while the child lies in the LATE run above
+3*A². Both restrictions are deterministic and strictly
+separate the two root-scale windows. -/
+theorem vfV2HalfRunThreeParent_earlyChild_late
+    (A B q : ℕ) (hBA : B ≤ 2 * A)
+    (hqLive : A ^ 2 ≤ q) (hchild : 3 * q < B ^ 2) :
+    3 * q < 4 * A ^ 2 ∧ 3 * A ^ 2 ≤ 3 * q := by
+  have hBsq : B ^ 2 ≤ (2 * A) ^ 2 :=
+    Nat.pow_le_pow_left hBA 2
+  constructor
+  · nlinarith
+  · exact Nat.mul_le_mul_left 3 hqLive
+
+/-- Even the p=3 case has no indefinite within-half-run owner
+tower: two successive ODD factor strips (both factors >=3)
+always produce a child below the historical A² anchor. -/
+theorem vfV2HalfRunTwoOddPrimeStrips_beforeAnchor
+    (A B p q d : ℕ) (hA : 1 ≤ A) (hBA : B ≤ 2 * A)
+    (hp : 3 ≤ p) (hq : 3 ≤ q)
+    (hchild : p * (q * d) < B ^ 2) :
+    d < A ^ 2 := by
+  have hBsq : B ^ 2 ≤ (2 * A) ^ 2 :=
+    Nat.pow_le_pow_left hBA 2
+  have hprod : 3 * 3 ≤ p * q :=
+    Nat.mul_le_mul hp hq
+  have hqd : 9 * d ≤ p * (q * d) := by
+    calc
+      9 * d = (3 * 3) * d := by ring
+      _ ≤ (p * q) * d := Nat.mul_le_mul_right d hprod
+      _ = p * (q * d) := by ring
+  have hApos : 1 ≤ A ^ 2 := by nlinarith
+  by_contra hnot
+  have hd : A ^ 2 ≤ d := Nat.le_of_not_gt hnot
+  nlinarith
+
+/-- No prime parent q is consumed more than once by the one possible
+within-run 3q-child map. Pairing is an injection on the REAL
+physical integer sites, but is NOT itself a Co/Div sign estimate. -/
+theorem vfV2HalfRunThreeChild_injective
+    (q r : ℕ) (h : 3 * q = 3 * r) :
+    q = r := by omega
+
 /-! ## Cross-block high-prime parent-charge conservation
 
 The old prime q is ONE negative original physical site (already inside
