@@ -11,8 +11,133 @@ Examples:
   python3 scripts/vf_mid_first_bad_payment_v2_test.py --extended
 """
 import argparse
+import functools
 import math
 import time
+
+
+
+# Exact discrete-Li COUNTING BENCHMARK Q(n)=floor(Li_2(n)).
+# No assumption is made that its events are actual primes or physical owners.
+_EULER_GAMMA = 0.577215664901532860606512090082402431
+
+
+def _ei_positive(z):
+    # Ei(z)=gamma+log(z)+sum(z**k/(k*k!),k>=1), z>0.
+    term = z
+    total = term
+    for k in range(2, 160):
+        term *= z / k
+        update = term / k
+        total += update
+        if abs(update) < max(1.0, abs(total)) * 1e-15:
+            break
+    return _EULER_GAMMA + math.log(z) + total
+
+
+_EI_LOG_TWO = _ei_positive(math.log(2.0))
+
+
+@functools.lru_cache(maxsize=200_000)
+def li_floor(n):
+    """The SAME integer Li_2 staircase as #915: floor(Ei(log n)-Ei(log 2)).
+    n=2 anchors Li_2(2)=0; floating values near integers FAIL CLOSED.
+    """
+    if n <= 2:
+        return 0
+    val = _ei_positive(math.log(n)) - _EI_LOG_TWO
+    assert abs(val - round(val)) > 2e-8, (
+        "Li2 event floor is near an integer; high-precision verification required",
+        n, val)
+    return math.floor(val)
+
+
+def floor_li_audit(r, record, pi, vf, buckets=False):
+    """ACTUAL pi vs Li bucket event census and exact original hbalance certificate.
+
+    Full integer FACTOR buckets at X=(r+1)^2:
+      q<=sqrt(X); sqrt(X)<q<=X/2; q>X/2.
+    Li Q-events are BENCHMARK demand only, not hypothetical prime owners.
+    Current odd prime seats lie in (r^2,X], a subinterval of terminal q>X/2.
+    """
+    x, B = r * r, r + 1
+    X, H = B * B, B * B // 2
+    assert B < H < x < X, (r, B, H, x, X)
+    w, D, P, M2 = (record[k] for k in ("w", "D0", "P", "M2"))
+    Qx, QX = li_floor(x), li_floor(X)
+    F, delta = QX - Qx, P - (QX - Qx)
+    E0, E1 = pi[x] - Qx, pi[X] - QX
+    b0, b1 = Qx - vf[r], QX - vf[r+1]
+    assert E1 - E0 == delta
+    assert close(D, E0 + b0)
+    assert close(record["D1"], E1 + b1)
+    assert close(record["D1"], D + F + delta - w*r)
+    assert 0 <= F <= r  # integer Li demand is a benchmark, not physical seats
+
+    # Exact *SIGNED* delta certificate. It carries the original D and M,
+    # and does NOT insert the even 2q multiples into the odd NNS carrier.
+    root2 = math.sqrt(2.0)
+    Mfloor = abs(D) + w*r + (1-2*w)*F
+    Dfloor = D + F - w*r
+    plus0 = Mfloor + root2*Dfloor
+    minus0 = Mfloor - root2*Dfloor
+    coefplus = (1-2*w) + root2
+    coefminus = (1-2*w) - root2
+    plus = plus0 + coefplus*delta
+    minus = minus0 + coefminus*delta
+    actual_M = math.sqrt(M2)
+    actual_D = record["D1"]
+    assert close(plus, actual_M + root2*actual_D)
+    assert close(minus, actual_M - root2*actual_D)
+    assert close(plus * minus, record["slack"], scale=1.0)
+    assert 0 < coefplus and coefminus < 0
+    lo, hi = -plus0/coefplus, minus0/(-coefminus)
+    assert close(plus/coefplus, delta-lo)
+    assert close(minus/(-coefminus), hi-delta)
+    # Do NOT assert plus/minus >=0 for all actual R: that would assume RH.
+    # Instead report any counterexample and the amount of floor-Li error
+    # that the real first-bad hbalance would have to control.
+
+    if buckets:
+        QS, QH = li_floor(B), li_floor(H)
+        Q2, p2 = li_floor(2), pi[2]
+        EB = pi[B] - QS
+        EH = pi[H] - QH
+        E2 = p2 - Q2
+        dlow, dmid = EB-E2, EH-EB
+        dtop = E1-EH
+        dhist = E0-EH
+        dcurrent = E1-E0
+        # The three TRUE integer prime-count buckets plus Li demand.
+        low_actual, low_li = pi[B]-p2, QS-Q2
+        mid_actual, mid_li = pi[H]-pi[B], QH-QS
+        top_actual, top_li = pi[X]-pi[H], QX-QH
+        assert (dlow, dmid, dtop) == (
+            low_actual-low_li, mid_actual-mid_li, top_actual-top_li)
+        assert dtop == dhist + dcurrent
+        assert E1 == E2 + dlow + dmid + dtop
+        assert E0 == E2 + dlow + dmid + dhist
+        assert dcurrent == delta
+        # E2=1 comes from the genuine prime 2; Q(2)=0 by definition.
+        assert E2 == 1
+        A=(r//2+1)**2
+        EA=pi[A]-li_floor(A)
+        assert EA+(E1-EA)==E1
+        return {
+            "E0":E0, "E1":E1, "delta":delta, "F":F,
+            "E2":E2,"elow":dlow,"emid":dmid,"etop":dtop,
+            "ehist_top":dhist,"ecurrent":dcurrent,"ehalf":E1-EA,
+            "A":A, "H":H, "lowP":low_actual, "midP":mid_actual,
+            "topP":top_actual,"lowLi":low_li,"midLi":mid_li,
+            "topLi":top_li, "boundlow":lo, "boundhigh":hi,
+            "mplus":plus, "mminus":minus,
+        }
+    return {
+        "E0":E0,"E1":E1,"delta":delta,"F":F,
+        "boundlow":lo,"boundhigh":hi,"mplus":plus,"mminus":minus,
+        "li_proxy_slack":(abs(b0) + w*(r-F) + (1-w)*F)**2 -
+            2*b1*b1,
+    }
 
 
 def prime_flags(limit):
@@ -120,6 +245,9 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--extended", action="store_true",
                         help="every R=8..6000, including 317/1027/1760/5267")
+    parser.add_argument("--floor-li", action="store_true",
+                        help="also audit exact floor-Li event errors and the "
+                             "sqrt(x)/x/2/terminal prime buckets")
     args = parser.parse_args()
 
     start = time.monotonic()
@@ -131,6 +259,12 @@ def main():
     largest = max(indices)
     flags = prime_flags((largest + 1) ** 2)
     endpoints = {r * r for r in indices} | {(r + 1) ** 2 for r in indices}
+    if args.floor_li:
+        endpoints.add(2)
+        samples_for_buckets = set(samples) | {56, 1760, 2000, 5267, 6000}
+        for r in samples_for_buckets.intersection(indices):
+            B=r+1
+            endpoints.update((B, B*B//2, (r//2+1)**2))
     pi = count_at_queries(flags, endpoints)
     vf = midpoint_prefix(largest + 1)
 
@@ -138,6 +272,11 @@ def main():
     min_balance = (float("inf"), None)
     negatives = 0
     breaches = 0
+    li_error_max=(0,None)
+    li_near_min=(float("inf"),None)
+    li_near_max=(float("inf"),None)
+    li_proxy_neg=0
+    li_cone_violations=0
     for r in indices:
         record = verify(r, pi, vf, flags if r in samples or r in (1760, 5267, 6000)
                         else None)
@@ -145,6 +284,32 @@ def main():
             min_balance = record["slack"], r
         negatives += record["slack"] < 0
         breaches += record["firstbad_breach"]
+        if args.floor_li:
+            bflag = r in samples or r in (56,1760,2000,5267,6000)
+            li = floor_li_audit(r, record, pi, vf, buckets=bflag)
+            dP=li["delta"]
+            if abs(dP)>li_error_max[0]:
+                li_error_max=(abs(dP),r)
+            if dP-li["boundlow"]<li_near_min[0]:
+                li_near_min=(dP-li["boundlow"],r)
+            if li["boundhigh"]-dP<li_near_max[0]:
+                li_near_max=(li["boundhigh"]-dP,r)
+            li_cone_violations+=(li["mplus"]<0 or li["mminus"]<0)
+            if not bflag:
+                li_proxy_neg+=li["li_proxy_slack"]<0
+            if bflag:
+                print("FLOOR_LI R=%d actualP=%d floorLiP=%d deltaP=%+d "
+                      "E(R^2)=%+d E(X)=%+d "
+                      "bucketMismatch[<=sqrt,mid,terminal]=(%+d,%+d,%+d) "
+                      "terminal[history,current]=(%+d,%+d) "
+                      "halfRunE=%+d "
+                      "deltaAllowed=[%.3f,%.3f] observed=%+d "
+                      "linearMargin=[%.3f,%.3f] PASS" %
+                      (r,record["P"],li["F"],dP,li["E0"],li["E1"],
+                       li["elow"],li["emid"],li["etop"],
+                       li["ehist_top"],li["ecurrent"],li["ehalf"],
+                       li["boundlow"],li["boundhigh"],dP,
+                       li["mplus"],li["mminus"]))
         if r in samples or r in (1760, 5267, 6000):
             print(f"R={r:<5d} P={record['P']:<5d} "
                   f"U={record['U']:.6f} L={record['L']:.6f} "
@@ -156,6 +321,18 @@ def main():
           f"negative balances={negatives} (diagnostic, not failures); "
           f"firstbad breaches={breaches}; "
           f"minimum slack={min_balance}; elapsed={time.monotonic()-start:.2f}s")
+    if args.floor_li:
+        print("FLOOR-LI ACTUAL PRIME BUCKET SCAN: max absolute current "
+              "P-floorLi event error=%s; min upper/lower signed error "
+              "allowance=%s/%s; actual cone violations=%d; "
+              "Li-proxy negative-slack scans=%d; Li evaluations=%d; "
+              "elapsed=%.2fs PASS" %
+              (li_error_max,li_near_min,li_near_max,li_cone_violations,
+               li_proxy_neg,li_floor.cache_info().misses,
+               time.monotonic()-start))
+        print("CRITICAL: E(X)=pi(X)-floor(Li2(X)) is ACTUAL unknown "
+              "arithmetic. Bucket identities only telescope it. "
+              "A uniform signed bound on E is NOT proved.")
     print("OPEN: hfirst-specific signed balance, NOT proved by the regression.")
 
 
