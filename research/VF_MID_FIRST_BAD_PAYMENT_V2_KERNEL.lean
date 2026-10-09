@@ -735,6 +735,75 @@ theorem vfV2NoUniversalDelayedInwardFlux :
   norm_num [vfV2DelayedOrientedFlux] at h
 
 
+/-! ## First-bad wall-normal form: necessary, never sufficient
+
+These are pure algebraic implications of a prior-good endpoint and a later
+wall breach. They add NO prime-distribution hypothesis, no new physical seat,
+and no unwarranted sign estimate on the actual owner Gram.
+-/
+
+/-- Any breach from inside the previous wall requires a current signed
+increment larger in magnitude than the wall growth. -/
+theorem vfV2FirstBad_requires_strictCurrentDeviation
+    (D delta WA WB : ℝ)
+    (hprior : |D| ≤ WA)
+    (hbad : WB < |D + delta|) :
+    WB - WA < |delta| := by
+  have htri := abs_add D delta
+  linarith
+
+/-- Upper first bad forces a genuine positive outward increment. -/
+theorem vfV2FirstBad_positive_outward
+    (D delta WA WB : ℝ)
+    (hprior : |D| ≤ WA) (hwallGrowth : WA ≤ WB)
+    (hbad : WB < D + delta) :
+    0 < delta ∧ WB - D < delta := by
+  have hD : D ≤ WA := (abs_le.mp hprior).2
+  constructor <;> linarith
+
+/-- Lower first bad forces a genuine negative outward increment. -/
+theorem vfV2FirstBad_negative_outward
+    (D delta WA WB : ℝ)
+    (hprior : |D| ≤ WA) (hwallGrowth : WA ≤ WB)
+    (hbad : D + delta < -WB) :
+    delta < 0 ∧ delta < -WB - D := by
+  have hD : -WA ≤ D := (abs_le.mp hprior).1
+  constructor <;> linarith
+
+/-- A supposed first bad has the same strict sign as the increment causing
+it, regardless of the sign of the earlier defect. -/
+theorem vfV2FirstBad_outward_orientation
+    (D delta WA WB : ℝ)
+    (hprior : |D| ≤ WA) (hwallGrowth : WA ≤ WB)
+    (hbad : WB < |D + delta|) :
+    (0 < D + delta ∧ 0 < delta) ∨
+      (D + delta < 0 ∧ delta < 0) := by
+  rcases lt_or_ge (D + delta) 0 with hneg | hnonneg
+  · have hbadneg : D + delta < -WB := by
+      rw [abs_of_neg hneg] at hbad
+      linarith
+    exact Or.inr ⟨hneg,
+      (vfV2FirstBad_negative_outward D delta WA WB
+        hprior hwallGrowth hbadneg).1⟩
+  · have hbadpos : WB < D + delta := by
+      rwa [abs_of_nonneg hnonneg] at hbad
+    have hsign :=
+      (vfV2FirstBad_positive_outward D delta WA WB
+        hprior hwallGrowth hbadpos).1
+    have hWA0 : 0 ≤ WA := (abs_nonneg D).trans hprior
+    exact Or.inl ⟨by linarith, hsign⟩
+
+/-- The prior-good wall does NOT provide a nonnegative anchored NNS
+potential, even if the next endpoint ALSO remains inside its wall.
+This is a scalar counterstate, NOT an actual-prime counterexample. -/
+theorem vfV2PriorGoodEvenNextGood_doesNotForcePhi_nonneg :
+    ∃ D w P C WA WB : ℝ,
+      |D| ≤ WA ∧ WA ≤ WB ∧
+      |vfV2Next D w P C| ≤ WB ∧
+      vfV2Balance D w P C < 0 := by
+  refine ⟨20, 1 / 4, 4, 4, 20, 23, ?_, ?_, ?_, ?_⟩ <;>
+    norm_num [vfV2Next, vfV2Balance, vfV2Upper, vfV2Lower]
+
 /-! ## Original Sector Six sign audit: signed/absolute active pair products
 
 The six oriented raw-parent sectors reindex the signed active Gram Z.
