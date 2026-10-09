@@ -804,6 +804,150 @@ theorem vfV2PriorGoodEvenNextGood_doesNotForcePhi_nonneg :
   refine ⟨20, 1 / 4, 4, 4, 20, 23, ?_, ?_, ?_, ?_⟩ <;>
     norm_num [vfV2Next, vfV2Balance, vfV2Upper, vfV2Lower]
 
+/-! ## Adversarial-to-adversarial: historical factor locks and finite sieve
+
+An artificial prime drought can breach the K=2 wall. The past primes up to
+A^2, however, already determine the complete primality of every integer
+A^2 < n < A^4: all composite witnesses lie below sqrt(n) < A^2.
+This is an EXACT structural sieve lock, not a lower prime-density estimate.
+
+The finite Bonferroni owner bound below is an actual combinatorial inequality.
+It explicitly retains every unresolved high-owner union occurrence; it cannot
+produce a UNIFORM numerical saving without additional arithmetic information.
+-/
+
+/-- Every composite in a historical-prefix-locked range must present an
+actual prime-factor certificate from the ORIGINAL historical prefix. -/
+def vfV2HistoricalCompositeWitness (A n : ℕ) : Prop :=
+  ∃ p : ℕ, p.Prime ∧ p ≤ A ^ 2 ∧ p ∣ n
+
+/-- Historical genuine prime owners up through A² already decide primality
+from A² up to (A²)². The proof uses literal least prime factors, not PNT. -/
+theorem vfV2HistoricalPrefixLocksPrime
+    {A n : ℕ} (hlo : A ^ 2 < n)
+    (hhi : n < (A ^ 2) ^ 2) :
+    n.Prime ↔ ¬ vfV2HistoricalCompositeWitness A n := by
+  constructor
+  · intro hnprime ⟨p, hpprime, hpbound, hpdvd⟩
+    have hpeq : p = n :=
+      (Nat.prime_dvd_prime_iff_eq hpprime hnprime).mp hpdvd
+    omega
+  · intro hnone
+    by_contra hnprime
+    have hnpos : 0 < n := by omega
+    have hnnotone : n ≠ 1 := by omega
+    let p := n.minFac
+    have hpprime : p.Prime := by
+      simpa [p] using Nat.minFac_prime hnnotone
+    have hpdvd : p ∣ n := by
+      simpa [p] using Nat.minFac_dvd n
+    have hpsq : p ^ 2 ≤ n := by
+      simpa [p] using Nat.minFac_sq_le_self hnpos hnprime
+    have hpbound : p ≤ A ^ 2 := by
+      by_contra hpnot
+      have hle : A ^ 2 ≤ p := by omega
+      have hpow : (A ^ 2) ^ 2 ≤ p ^ 2 :=
+        Nat.pow_le_pow_left hle 2
+      omega
+    exact hnone ⟨p, hpprime, hpbound, hpdvd⟩
+
+/-- All-drought is EQUIVALENT to a complete historical-prime covering of
+the same range, not something that can be posited independently. -/
+theorem vfV2HistoricalDrought_iff_completeFactorCover
+    {A L U : ℕ}
+    (hL : A ^ 2 ≤ L) (hU : U ≤ (A ^ 2) ^ 2) :
+    (∀ n : ℕ, L < n → n < U → ¬ n.Prime) ↔
+      (∀ n : ℕ, L < n → n < U →
+        vfV2HistoricalCompositeWitness A n) := by
+  constructor
+  · intro hdrought n hnL hnU
+    have hiff :=
+      vfV2HistoricalPrefixLocksPrime
+        (lt_of_le_of_lt hL hnL) (lt_of_lt_of_le hnU hU)
+    by_contra hnowitness
+    exact (hdrought n hnL hnU) (hiff.mpr hnowitness)
+  · intro hcover n hnL hnU hnprime
+    have hiff :=
+      vfV2HistoricalPrefixLocksPrime
+        (lt_of_le_of_lt hL hnL) (lt_of_lt_of_le hnU hU)
+    exact (hiff.mp hnprime) (hcover n hnL hnU)
+
+/-- The physical sites that pass only a selected SMALL prime wheel. -/
+def vfV2PartialWheelSites (sites small : Finset ℕ) : Finset ℕ :=
+  sites.filter (fun n => ∀ p ∈ small, ¬ p ∣ n)
+
+/-- A high-prime owner p captures just its genuine occurrences on the
+small-wheel survivors. Each physical n is a site, not a reusable credit. -/
+def vfV2PartialWheelOwnerHits
+    (sites small : Finset ℕ) (p : ℕ) : Finset ℕ :=
+  (vfV2PartialWheelSites sites small).filter (fun n => p ∣ n)
+
+/-- The whole owner-union has cardinality at most the sum of individual
+owner-fiber cardinalities. This is deliberately the one-sided Bonferroni
+INEQUALITY rather than a false disjoint-owner identity. -/
+theorem vfV2FiniteOwnerUnion_card_le_sum
+    (high : Finset ℕ) (hits : ℕ → Finset ℕ) :
+    (high.biUnion hits).card ≤ ∑ p ∈ high, (hits p).card := by
+  classical
+  induction high using Finset.induction_on with
+  | empty => simp
+  | @insert p s hp ih =>
+      calc
+        ((insert p s).biUnion hits).card =
+            ((hits p) ∪ (s.biUnion hits)).card := by simp
+        _ ≤ (hits p).card + (s.biUnion hits).card :=
+          Finset.card_union_le _ _
+        _ ≤ (hits p).card + ∑ q ∈ s, (hits q).card :=
+          Nat.add_le_add_left ih _
+        _ = ∑ q ∈ insert p s, (hits q).card := by
+          simp [Finset.sum_insert, hp]
+
+/-- TRUE finite partial-wheel sieve lower bound.
+
+If every nonprime site is covered by a prime factor in small U high, then:
+rough survivors <= genuine primes + counted high-factor hits.
+The high-factor hits may overlap; all are kept, so no independence,
+equidistribution or signed owner cancellation is assumed. -/
+theorem vfV2PartialWheelForcedPrimeLower
+    (sites small high : Finset ℕ)
+    (hfactor : ∀ n ∈ sites, ¬ n.Prime →
+      ∃ p ∈ small ∪ high, p ∣ n) :
+    (vfV2PartialWheelSites sites small).card ≤
+      (sites.filter Nat.Prime).card +
+        ∑ p ∈ high, (vfV2PartialWheelOwnerHits sites small p).card := by
+  classical
+  let rough := vfV2PartialWheelSites sites small
+  let hits := fun p => vfV2PartialWheelOwnerHits sites small p
+  have hsub : rough ⊆
+      (sites.filter Nat.Prime) ∪ high.biUnion hits := by
+    intro n hnrough
+    have hnsite : n ∈ sites := (Finset.mem_filter.mp hnrough).1
+    have hsmall : ∀ p ∈ small, ¬ p ∣ n :=
+      (Finset.mem_filter.mp hnrough).2
+    by_cases hnprime : n.Prime
+    · exact Finset.mem_union.mpr
+        (Or.inl (Finset.mem_filter.mpr ⟨hnsite, hnprime⟩))
+    · obtain ⟨p, hpunion, hpdiv⟩ :=
+        hfactor n hnsite hnprime
+      have hphigh : p ∈ high := by
+        rcases Finset.mem_union.mp hpunion with hpsmall | hphigh
+        · exact False.elim ((hsmall p hpsmall) hpdiv)
+        · exact hphigh
+      apply Finset.mem_union.mpr
+      right
+      exact Finset.mem_biUnion.mpr
+        ⟨p, hphigh, Finset.mem_filter.mpr ⟨hnrough, hpdiv⟩⟩
+  calc
+    rough.card ≤
+        ((sites.filter Nat.Prime) ∪ high.biUnion hits).card :=
+      Finset.card_le_card hsub
+    _ ≤ (sites.filter Nat.Prime).card + (high.biUnion hits).card :=
+      Finset.card_union_le _ _
+    _ ≤ (sites.filter Nat.Prime).card +
+          ∑ p ∈ high, (hits p).card :=
+      Nat.add_le_add_left
+        (vfV2FiniteOwnerUnion_card_le_sum high hits) _
+
 /-! ## Original Sector Six sign audit: signed/absolute active pair products
 
 The six oriented raw-parent sectors reindex the signed active Gram Z.
