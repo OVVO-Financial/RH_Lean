@@ -80,9 +80,6 @@ theorem vfSevenEighthsWeightedIncrement_abs_le_twice_initial
       2 * w a * M := by
   have hwa : 0 ≤ w a := hw a le_rfl hab
   have hwb : 0 ≤ w b := hw b hab le_rfl
-  have hM : 0 ≤ M := by
-    have ha := hE a le_rfl hab
-    linarith [abs_nonneg (E a)]
   have hcoef : ∀ r ∈ Finset.Ico a b, 0 ≤ w r - w (r + 1) := by
     intro r hr
     have hrange := Finset.mem_Ico.mp hr
