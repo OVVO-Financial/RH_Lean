@@ -475,6 +475,13 @@ def repeated_historical_high_prime_regression():
             weighted_children+=weight
             count+=1
         assert count==expected
+        predicted=sum(1 for p in range(3,q,2)
+                      if all(p%d for d in range(3,math.isqrt(p)+1,2))
+                      and p**3>q)
+        # Exact p<q, q<p^3 characterization of q's sparse
+        # semiprime children. The PNT makes this count unbounded.
+        assert count==predicted
+        assert weighted_children>count/math.log(q)
         assert weighted_children>negative_once, ("false per-parent bound",q)
         print("HISTORICAL_PARENT_REUSE q=%d homeRoot=%d "
               "originalNegativeOnce=%.12f children=%d "
