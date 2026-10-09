@@ -1015,6 +1015,23 @@ select different root regimes, so these conditional
 frequencies do not isolate a causal or stationary transition
 law. They cannot be used to infer boundary-proximate behavior.
 
+To distinguish occupancy-conditioning from the TRIVIAL
+last-sign alternation, a second explicit finite split holds the
+most recent block sign fixed and compares the top 20% of
+historical wall occupancy against the remaining 80%:
+
+| immediately preceding VF block | P(next above VF), remaining 80% | P(next above VF), highest 20% |
+|---|---:|---:|
+| preceding BELOW VF | 52.00% (2475 states) | 58.09% (556 states) |
+| preceding ABOVE VF | 45.25% (2318 states) | 46.97% (643 states) |
+
+This persists descriptively after controlling one lag-one sign,
+but still does NOT control the hidden prime-residue state,
+time-scale variation, or an unobserved near-wall regime.
+The actual-prime panel is deterministic, not a random Markov
+training sample, and conditional percentages cannot be multiplied
+to obtain an all-scale cumulative-tail theorem.
+
 The sign-runs are short in this observed window
 (max ten consecutive under-VF, seven consecutive over-VF).
 There is no deterministic all-$R$ maximum-run theorem.
