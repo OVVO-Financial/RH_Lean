@@ -32,6 +32,68 @@ def vfMid915PrimeCofactorLower (R c : ℕ) : ℕ :=
 def vfMid915PrimeCofactorUpper (R c : ℕ) : ℕ :=
   ((R + 1) ^ 2 - 1) / c
 
+/-! ## Exact physical sqrt-x geometry -/
+
+/-- The actual prime q occurrences associated with each cofactor interval. -/
+def vfMid915PhysicalPrimeCofactorFiber (R c : ℕ) : Finset ℕ :=
+  (Finset.Ioc
+    (vfMid915PrimeCofactorLower R c)
+    (vfMid915PrimeCofactorUpper R c)).filter Nat.Prime
+
+/-- No probabilistic heuristics: membership in a cofactor window is precisely
+ACTUAL prime membership plus the original square-block physical inequalities. -/
+theorem vfMid915PhysicalPrimeCofactorFiber_mem_iff
+    {R c q : ℕ} (hc : 0 < c) :
+    q ∈ vfMid915PhysicalPrimeCofactorFiber R c ↔
+      q.Prime ∧ R < q ∧ R ^ 2 < c * q ∧
+        c * q ≤ (R + 1) ^ 2 - 1 := by
+  unfold vfMid915PhysicalPrimeCofactorFiber
+  rw [Finset.mem_filter, Finset.mem_Ioc]
+  constructor
+  · rintro ⟨⟨hlow, hupp⟩, hqprime⟩
+    have hbounds :
+        R < q ∧ R ^ 2 / c < q := by
+      exact (max_lt_iff.mp hlow)
+    have hstart : R ^ 2 < c * q := by
+      have h := (Nat.div_lt_iff_lt_mul hc).mp hbounds.2
+      simpa [Nat.mul_comm] using h
+    have hend : c * q ≤ (R + 1) ^ 2 - 1 := by
+      have h := (Nat.le_div_iff_mul_le hc).mp hupp
+      simpa [Nat.mul_comm] using h
+    exact ⟨hqprime, hbounds.1, hstart, hend⟩
+  · rintro ⟨hqprime, hroot, hstart, hend⟩
+    refine ⟨⟨?_, ?_⟩, hqprime⟩
+    · apply max_lt_iff.mpr
+      constructor
+      · exact hroot
+      · apply (Nat.div_lt_iff_lt_mul hc).mpr
+        simpa [Nat.mul_comm] using hstart
+    · apply (Nat.le_div_iff_mul_le hc).mpr
+      simpa [Nat.mul_comm] using hend
+
+/-- The cofactor of a large-prime-factor site lies at or below R.
+No new prime owner can be introduced by a cofactor above this root. -/
+theorem vfMid915PhysicalPrimeCofactor_le_root
+    {R c q : ℕ}
+    (hq : R < q) (hsite : c * q ≤ (R + 1) ^ 2 - 1) :
+    c ≤ R := by
+  by_contra hnot
+  have hc : R + 1 ≤ c := by omega
+  have hq' : R + 1 ≤ q := by omega
+  have hproduct := Nat.mul_le_mul hc hq'
+  nlinarith
+
+/-- Two primes strictly above the root cannot have their product in the
+current square clock. This is the geometric uniqueness restriction on
+the REAL prime-factor carrier, not a density assertion. -/
+theorem vfMid915TwoPostRootPrimes_product_exceeds_squareClock
+    {R p q : ℕ} (hp : R < p) (hq : R < q) :
+    (R + 1) ^ 2 ≤ p * q := by
+  have hp' : R + 1 ≤ p := by omega
+  have hq' : R + 1 ≤ q := by omega
+  have hproduct := Nat.mul_le_mul hp' hq'
+  nlinarith
+
 def vfMid915ActualPrimeInterval (lo hi : ℕ) : ℤ :=
   (Nat.primeCounting hi : ℤ) - (Nat.primeCounting lo : ℤ)
 
