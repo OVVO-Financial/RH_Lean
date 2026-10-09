@@ -78,6 +78,11 @@ jobs:
           #check RHLean.Analysis.vfV2Balance_eq_originalMass_sub_two_next_sq
           #check RHLean.Analysis.vfV2Payment_iff_exactSignedBalance
           #check RHLean.Analysis.vfV2Payment_iff_twoSector
+          #check RHLean.Analysis.vfV2LiPlus_actual
+          #check RHLean.Analysis.vfV2LiMinus_actual
+          #check RHLean.Analysis.vfV2Balance_factor
+          #check RHLean.Analysis.vfV2Payment_of_floorLi_actual_signed_bounds
+          #print axioms RHLean.Analysis.vfV2Payment_of_floorLi_actual_signed_bounds
           #check RHLean.Analysis.vfV2NoUnconditionalAllStateCone
           #print axioms RHLean.Analysis.vfV2Payment_iff_exactSignedBalance
           #print axioms RHLean.Analysis.vfV2NoUnconditionalAllStateCone
