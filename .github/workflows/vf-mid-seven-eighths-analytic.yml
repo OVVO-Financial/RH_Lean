@@ -14,6 +14,7 @@ on:
       - scripts/vf_919_prime_owner_abel_spectral_probe.py
       - scripts/vf_919_original_weight_character_moment_probe.py
       - research/VF_MID_919_OAI_STAGE_SAVINGS_AND_BOOTSTRAP.md
+      - research/VF_MID_919_OAI_UPM_LPM_ASYMMETRIC_GAIN.md
       - research/VF_MID_SEVEN_EIGHTHS_ANALYTIC_STATUS.md
       - .github/workflows/vf-mid-seven-eighths-analytic.yml
   workflow_dispatch:
