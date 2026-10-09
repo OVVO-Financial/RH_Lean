@@ -637,6 +637,230 @@ geometry itself.
 
 ---
 
+## 0E. Oct 9 SECOND PROJECTION: all odd high-owner blocks descend to earlier blocks
+
+**Finding:** The high-owner remainder is NOT an arbitrary new sequence. The
+prime-cofactor quotient geometry forces a very short historical DAG with one
+exceptional live multiplier **3** on the original ODD physical carrier. The
+frozen starting A-wheel has an even sharper exact RANK-TWO prime-pair
+projection to integer factors under 4A. This is an existing part of the
+dyadic VF production graph, now sharpened and measured in #918.
+
+### 0E.1 Every p>=5 odd owner exits BELOW the run anchor immediately
+
+Let A<=r<B<=2A and n=p*c an odd composite physical site of
+the r-th strict-OPEN square block. Since p is its least prime factor,
+p>=3. Elementary multiplication gives
+
+\[
+n<B^2\le4A^2,\qquad
+p\ge5\quad\Longrightarrow\quad
+c=n/p<A^2. \tag{AP1}
+\]
+
+This does **NOT** require the older sparse-owner condition p^2>r.
+It works for every mature owner p>=5, squareful or squarefree.
+
+The ONLY prime p>=3 that can leave c>=A^2 still within the same
+run is p=3. Its owner projection is the single dilation
+
+\[
+\boxed{c\mapsto3c,\quad
+ A^2\le c<B^2/3\le4A^2/3,\quad
+ 3A^2\le3c<B^2.} \tag{AP2}
+\]
+
+The parent is in the EARLY segment with square root
+r_parent <= 2A/sqrt(3); the child is in the LATE
+segment with root r_child >= sqrt(3)*A. These bands are
+disjoint because 2/sqrt(3)<sqrt(3). The sign correction
+cannot be paid before its child actually occurs.
+
+If c itself is composite with any least odd prime q>=3,
+a SECOND strip lands below A^2:
+
+\[
+n=p(qd)<4A^2,\quad p,q\ge3
+\quad\Longrightarrow\quad d<A^2. \tag{AP3}
+\]
+
+Hence the odd original half-run has at most ONE internal owner
+generation; two prime-factor strips always reach the prior
+anchor. The boundary squares at c=j^2 or 3c=j^2
+must still be excluded from physical NNS seats.
+
+This was added to the fast warning-fatal Lean kernel as
+vfV2HalfRunOwnerFiveChild_beforeAnchor,
+vfV2HalfRunOnlyThreePrimeOwnerCanStayLive,
+vfV2HalfRunLiveHighPrime_oddMultiplier_eq_three,
+vfV2HalfRunThreeParent_earlyChild_late,
+vfV2HalfRunTwoOddPrimeStrips_beforeAnchor and
+vfV2HalfRunThreeChild_injective.
+
+### 0E.2 Actual original 2633-block prime/composite ledger
+
+For A=2634,B=5267, every physical original odd seat is accounted for:
+
+| Strict open-square source | Physical sites | Where a stripped parent lies |
+|---|---:|---|
+| Actual prime seats | 1,253,703 | Genuine negative original source |
+| Composite least owner 3, parent below A^2 | 2,312,331 | Historical anchor |
+| Composite least owner 3, LIVE parent at/above A^2 | 1,154,452 | ONE earlier in-run 3-channel |
+| Composite least owner >=5 | 5,679,864 | Historical anchor after ONE strip |
+| **Total original physical ODD seats** | **10,400,350** | No artificial even sites |
+
+The raw candidate c interval for the live 3-channel
+has **1,154,570** odd integers. Exactly **118** yield a
+squareful terminal child 3c=j^2, so they are excluded.
+Among the remaining valid physical live children:
+**145,173** have an actual PRIME c=q; the other **1,009,279**
+have COMPOSITE c. Another **203** of those c are perfect
+squares (not genuine earlier physical seats); their children
+3c are non-square and remain correctly counted. The
+boundary terms must not be silently turned into prime
+or restoring owner charges.
+
+For all prime-parent pairs q -> 3q:
+q is genuinely prime, q and 3q are both real physical ODD
+sites in the historical run, with q born in root blocks
+2634..3040 and 3q appearing in roots 4562..5266.
+The map q ->3q is injective (the old negative prime seat is
+used ONCE). The original zero-target signed site weights sum to:
+
+\[
+\sum_{\rm pairs}(w_{\lfloor\sqrt q\rfloor}-1)
+=-126911.536862,
+\qquad
+\sum_{\rm pairs}w_{\lfloor\sqrt{3q}\rfloor}
+=+17080.084813,
+\]
+
+and the literal paired signed mass is -109831.452049.
+
+**Dangerous false proof:** the selected matched population
+has original normalized scalar Co/Div NNS value **0.581807**
+(ABOVE 1/2), not a favorable sector-six payment. Pairing
+alone is insufficient; the other one million live 3-owner
+composite parents, all prior-anchor owners, diagonals and
+cross-family terms must be retained before any quadratic bound.
+
+### 0E.3 Frozen starting A-wheel survivors: rank TWO at integer scale 4A
+
+This is the even more important projection already established
+on main by these genuine native theorems:
+
+- vfMidSquareBandPrefixComposite_survivor_eq_two_primes_of_subdoubling
+- vfMidSquareBandLateOwnerRoughChild_prime_of_subdoubling
+- vfMidDyadicLateRemoval_eq_ownerCensus
+- vfMidSquareBandPrefixComposite_moebius_eq_one_of_subdoubling
+- two_mul_vfMidIntegerBlockPrimeSupply_eq_prefixSurvivors_sub_mobiusMass
+- vfMidSquareBandCompositeOwner_card_eq_actualPhiDifference
+
+After freezing the full prefix wheel through A, every
+surviving composite in each strict-open block A<=r<B is
+EXACTLY a product of distinct genuine primes
+
+\[
+\boxed{n=pq,\quad A<p<q,\quad pq<B^2.} \tag{AP4}
+\]
+
+Since B<=2A and p>A, the partner is forced to
+
+\[
+\boxed{q<4A<A^2\quad(A\ge5).} \tag{AP5}
+\]
+
+Thus ALL late-owner semiprimes are determined entirely by
+the **tiny genuine earlier prime population** in (A,4A).
+For A=2634, 4A=10536, compared with A^2=6937956.
+This is a projection of the high square run to prime
+arguments near its ROOT, more stringent than x/2 buckets.
+
+The complete rank-two late packet (NOT all 9 million composites)
+is an exact ordered prime-pair hyperbola count:
+
+\[
+\boxed{
+\mathrm{Late}(A,B)
+=\sum_{\substack{A<p<B\\p\ \mathrm{prime}}}
+ \left[
+  \pi\!\left(\left\lfloor \frac{B^2-1}{p}\right\rfloor\right)
+  -\pi(p)
+ \right].} \tag{AP6}
+\]
+
+No squareful terminal correction occurs in (AP6), because
+distinct primes p<q imply pq is not a perfect square.
+No completed CRT period is required. Each p-column is the
+union of all its FULL historical square blocks and telescopes
+to a single lower-prime window. The exact ORIGINAL weighted
+version is the same tagged sum of
+w_floor(sqrt(pq)) over all prime edges (p,q); the
+weights are NOT replaced by 1/p or an enlarged NNS denominator.
+
+**Independent finite physical census:**
+
+| Rank-two graph statistic, A=2634,B=5267 | Exact result |
+|---|---:|
+| Genuine lower prime p-owner vertices | 316 |
+| Distinct historical prime q partner vertices | 899 |
+| Physical semiprime incidence edges | **125,272** |
+| Lowest and highest partner q | 2657, 10477 |
+| Nonempty completed square blocks | 2,610 of 2,633 |
+| Max occurrences in one block | 114 |
+| Exact original VF-weighted positive semiprime charge | +14,955.134569 |
+
+A genuine old prime q=5273 has **316** distinct late
+semiprime descendants (one for every initial p-owner
+vertex). Counting its old negative charge once PER CHILD
+would be a severe physical overcount.
+The old q-negative mass of the 899 DISTINCT partner
+vertices is about -690.667, while the dishonest
+repeat-per-edge negative mass would be about -96035.834.
+NEITHER of those is independently spendable negative
+capacity in the original Sector Six, because the historical
+prime charges have already been compressed into D_A.
+
+The incidence graph is a nested hyperbolic (Ferrers-style)
+prime-pair window: as p increases, the upper partner
+cutoff floor((B^2-1)/p) decreases. That gives a concrete
+lower-scale carrier for the ALREADY COMPILED
+weight-preserving first-owner Fubini and descendant
+contraction, with genuine source q counted ONCE.
+
+The simple partner projection AP5 is now also in the
+warning-fatal Mathlib kernel as
+vfV2HalfRunLateOwnerPartner_lt_fourAnchor and
+vfV2HalfRunLateOwnerPartner_beforeAnchor.
+
+### 0E.4 Why this does not yet close Sector Six
+
+These exact projections are substantial STRUCTURAL restrictions,
+not yet a bound on the signed full historical Gram.
+For any decomposition of actual native physical charges
+into families X_3live, X_prior, X_rank2 and X_other,
+the TOTAL squared signed charge keeps **all** cross terms
+2*X_i*X_j and squareful/diagonal contributions. The
+rank-two graph q multiplicities are not new negative
+prime-parent resources. Bounds on individual edge
+magnitudes or prior-good lower-square endpoints do not
+supply the missing first-bad sign.
+
+The next precise proof task is the *physical* reassembly
+of the native Sector Six owner-tagged signed Gram through
+(AP2) and (AP6), with each original q-negative site
+charged ONCE in D_A, each real composite seat once at
+its root weight w_r, and all mixed prime/semiprime and
+squareful cross terms carried through. Only a genuinely
+new worst-case signed bound on this compressed incidence
+graph would imply first-bad nonpositive payment.
+
+The existing dyadic/Phi/Mobius projection theorems must be
+REUSED, not reintroduced as new unproved equivalences.
+
+---
+
+
 ## 1. One objective, no substitute theorems
 
 For each square block $(R^2,(R+1)^2)$, set
