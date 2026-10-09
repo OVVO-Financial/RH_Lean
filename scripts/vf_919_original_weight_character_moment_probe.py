@@ -76,9 +76,10 @@ def main():
     for m in MODS:
         print(" modulus=%3d nonprincipal_second_moment_ratio=%.6f" %
               (m, ratios[m]))
-    print("PASS: no fixed power-saving of physical weights on these "
-          "finite rational-Dirichlet character tests; this does NOT "
-          "exclude a new SIGNED historical/CoDiv cross-moment estimate.")
+    print("PASS: original VF weights yield no systematic extra "
+          "nonprincipal cancellation in these FINITE fixed-modulus "
+          "tests; no asymptotic conclusion is justified, and a new "
+          "SIGNED historical/CoDiv cross-moment estimate is still open.")
 
 
 if __name__ == "__main__":
