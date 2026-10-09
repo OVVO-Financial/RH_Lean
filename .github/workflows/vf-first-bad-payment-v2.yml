@@ -65,6 +65,7 @@ jobs:
           lint: false
       - name: Compile exact signed parity/NNS kernel, warnings fatal
         run: |
+          mkdir -p .lake/build/lib/lean
           lake env lean -DwarningAsError=true \
             -o .lake/build/lib/lean/research.VF_MID_FIRST_BAD_PAYMENT_V2_KERNEL.olean \
             research/VF_MID_FIRST_BAD_PAYMENT_V2_KERNEL.lean
