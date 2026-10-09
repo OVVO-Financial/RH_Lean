@@ -373,6 +373,15 @@ def sparse_first_owner_boundary_regression():
                 bisect.bisect_right(primes,qhi)-
                 bisect.bisect_right(primes,qlo))
         assert semiprime_interval_sum==semiprime
+        # Actual primes, not a simulated floor-Li event carrier:
+        # T_R=P_R+S_R survive the mature sieve; S^Li_R=T_R-F_R.
+        # S_R-S^Li_R=F_R-P_R exactly. A sign estimate is STILL open.
+        floor_demand=li_floor((r+1)**2)-li_floor(r*r)
+        mature_survivors=sparse+actual_primes
+        projected_sparse=mature_survivors-floor_demand
+        sparse_residual=sparse-projected_sparse
+        assert 0<=projected_sparse<=mature_survivors
+        assert sparse_residual==floor_demand-actual_primes
         full101=last//p101-r*r//p101
         odd101=sum(c%2 for c in range(r*r//p101+1,last//p101+1))
         unique101=owners.count(p101)
@@ -385,10 +394,54 @@ def sparse_first_owner_boundary_regression():
             assert full101==2 and odd101==unique101==1
         print("SPARSE_EXACT R=%d p101_full=%d p101_odd=%d "
               "p101_unique=%d prime_seats=%d mature=%d sparse=%d "
-              "semiprime=%d triple=%d boundary=OPEN PASS" %
+              "semiprime=%d triple=%d floorLiDemand=%d "
+              "floorLiSparseResidual=%+d boundary=OPEN PASS" %
               (r,full101,odd101,unique101,actual_primes,mature,sparse,
-               semiprime,triple))
+               semiprime,triple,floor_demand,sparse_residual))
 
+
+
+def sparse_p101_abel_regression():
+    """Proof-faithful rough-cofactor prefix telescope for prime owner 101.
+
+    Strict open endpoints and all VF weights remain attached. This is
+    an independent finite Fubini/Abel check, NOT an all-R RH bound.
+    """
+    p,A,B=101,101,317
+    smaller=[q for q in range(3,p,2)
+             if all(q%d for d in range(3,math.isqrt(q)+1,2))]
+    last_c=(B*B)//p
+    rough=[0]*(last_c+1)
+    for c in range(p,last_c+1,2):
+        if all(c%q for q in smaller):
+            rough[c]=1
+    prefix=[0]*(last_c+1)
+    for c in range(1,last_c+1):
+        prefix[c]=prefix[c-1]+rough[c]
+    def G(root):
+        return prefix[root*root//p]
+    counts=[]
+    weights=[]
+    for r in range(A,B):
+        # G(r+1)-G(r) counts <= upper square; discard the upper
+        # square if least-prime owner p. For these roots the endpoint
+        # correction is identically zero (r+1<=317<101^2).
+        boundary=int((r+1)%2==1 and (r+1)%p==0 and
+                     all((r+1)%q for q in smaller))
+        assert boundary==0
+        n=G(r+1)-G(r)-boundary
+        counts.append(n)
+        weights.append((2*r+1)/(r*math.log(r*r+r+0.5)))
+    assert sum(counts)==G(B)-G(A)==141
+    native=math.fsum(w*n for w,n in zip(weights,counts))
+    abel=(weights[-1]*G(B)-weights[0]*G(A)+
+          math.fsum((weights[j-1]-weights[j])*G(A+j)
+                    for j in range(1,len(weights))))
+    assert math.isclose(native,abel,rel_tol=2e-13,abs_tol=2e-11)
+    assert math.isclose(native,26.456125656779307,rel_tol=3e-13)
+    print("SPARSE_ABEl p=101 roots=[101,317) "
+          "unique_owner_count=141 weighted_native=%.12f "
+          "weighted_Abel=%.12f strict_open=PASS" % (native,abel))
 
 
 def check_synthetic_counterexample():
@@ -437,6 +490,7 @@ def main():
 
     check_synthetic_counterexample()
     sparse_first_owner_boundary_regression()
+    sparse_p101_abel_regression()
     min_balance = (float("inf"), None)
     negatives = 0
     breaches = 0
