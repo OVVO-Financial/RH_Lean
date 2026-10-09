@@ -31,6 +31,57 @@ def original_weight(p, q):
     return (2 * r + 1) / (r * math.log(r * r + r + 0.5))
 
 
+def test_unrestricted_dirichlet_vs_physical_cutoff():
+    """Check the exact prime-zeta-square identity without conflating
+    its INFINITE/UNRESTRICTED source with the physical pq < B^2 packet.
+    This is a *finite identity test*, not Perron inversion.
+    """
+    a, b, maxp = 8, 17, 53
+    flags = sieve(maxp)
+    selected = [p for p in range(a + 1, maxp + 1) if flags[p]]
+    s = complex(1.35, 0.41)
+
+    def drich(n):
+        return __import__("cmath").exp(-s * math.log(n))
+
+    # Finite product identity: 1/2(P^2 - P(2s)) exactly
+    # counts unordered p<q without a PHYSICAL CUTOFF.
+    P = sum(drich(p) for p in selected)
+    P2 = sum(drich(p * p) for p in selected)
+    uncut = (P * P - P2) / 2
+    uncut_pairs = sum(drich(p * q) for i, p in enumerate(selected)
+                      for q in selected[i + 1:])
+    assert abs(uncut - uncut_pairs) < 1e-12
+
+    cut_pairs = [(p, q) for i, p in enumerate(selected)
+                 for q in selected[i + 1:] if p * q < b * b]
+    assert 0 < len(cut_pairs) < len(selected) * (len(selected) - 1) // 2
+    Hcut = sum(drich(p * q) for p, q in cut_pairs)
+    assert abs(Hcut - uncut) > 1e-7
+
+    # The original strict OPEN square R bands form an EXACT, DISJOINT
+    # partition on distinct-prime products; no half-weight square sites.
+    cut_routed = 0.0
+    cut_direct = 0.0
+    for p, q in cut_pairs:
+        n = p * q
+        r = math.isqrt(n)
+        assert a * a < n < b * b
+        assert a <= r < b and r * r < n < (r + 1) ** 2
+        cut_direct += original_weight(p, q)
+        cut_routed += sum(original_weight(p, q) for R in range(a, b)
+                          if R * R < n < (R + 1) * (R + 1))
+    assert abs(cut_direct - cut_routed) < 1e-12
+    print("PASS_FINITE_PRIME_ZETA_SQUARE_SOURCE "
+          "A=%d B=%d primes_in_finite_dirichlet=%d "
+          "uncut_pair_count=%d physical_cut_pair_count=%d "
+          "exact_finite_dirichlet_error=%.3e "
+          "original_weight_open_square_route_error=%.3e" %
+          (a, b, len(selected), len(selected)*(len(selected)-1)//2,
+           len(cut_pairs), abs(uncut-uncut_pairs),
+           abs(cut_direct-cut_routed)))
+
+
 def main():
     primes = sieve(MAX)
     owners = [p for p in range(A + 1, B) if primes[p]]
@@ -121,4 +172,5 @@ def main():
 
 
 if __name__ == "__main__":
+    test_unrestricted_dirichlet_vs_physical_cutoff()
     main()
