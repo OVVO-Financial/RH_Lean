@@ -294,12 +294,17 @@ def main():
     parser.add_argument("--floor-li", action="store_true",
                         help="also audit exact floor-Li event errors and the "
                              "sqrt(x)/x/2/terminal prime buckets")
+    parser.add_argument("--max-root",type=int,default=6000,
+                        help="upper root in --extended mode; 6000 for fast CI, "
+                             "e.g. 15000 for independent larger stress")
     args = parser.parse_args()
 
     start = time.monotonic()
     samples = (8, 18, 29, 57, 119, 317, 1027)
     if args.extended:
-        indices = range(8, 6001)
+        assert 8 <= args.max_root <= 15000, (
+            "max-root exceeds explicitly tested memory budget",args.max_root)
+        indices = range(8,args.max_root+1)
     else:
         indices = samples
     largest = max(indices)
@@ -323,6 +328,8 @@ def main():
     li_near_max=(float("inf"),None)
     li_proxy_neg=0
     li_cone_violations=0
+    li_sqrt_counterexamples=0
+    li_sqrt_max=(0.0,None,None)
     for r in indices:
         record = verify(r, pi, vf, flags if r in samples or r in (1760, 5267, 6000)
                         else None)
@@ -334,6 +341,10 @@ def main():
             bflag = r in samples or r in (56,1760,2000,5267,6000)
             li = floor_li_audit(r, record, pi, vf, buckets=bflag, flags=flags)
             dP=li["delta"]
+            li_sqrt_counterexamples+=(abs(dP)>math.sqrt(r))
+            normalized_delta=abs(dP)/math.sqrt(r)
+            if normalized_delta>li_sqrt_max[0]:
+                li_sqrt_max=(normalized_delta,r,dP)
             if abs(dP)>li_error_max[0]:
                 li_error_max=(abs(dP),r)
             if dP-li["boundlow"]<li_near_min[0]:
@@ -384,9 +395,11 @@ def main():
         print("FLOOR-LI ACTUAL PRIME BUCKET SCAN: max absolute current "
               "P-floorLi event error=%s; min upper/lower signed error "
               "allowance=%s/%s; actual cone violations=%d; "
+              "sqrt(R) event-error excursions=%d; max|delta|/sqrt(R)=%s; "
               "Li-proxy negative-slack scans=%d; Li evaluations=%d; "
               "elapsed=%.2fs PASS" %
               (li_error_max,li_near_min,li_near_max,li_cone_violations,
+               li_sqrt_counterexamples,li_sqrt_max,
                li_proxy_neg,li_floor.cache_info().misses,
                time.monotonic()-start))
         print("CRITICAL: E(X)=pi(X)-floor(Li2(X)) is ACTUAL unknown "
