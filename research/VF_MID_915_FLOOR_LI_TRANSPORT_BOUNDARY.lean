@@ -12,7 +12,7 @@ the RED production theorem or assert its unproved first-bad inequality.
 
 The original entire signed historical owner run is compressed exactly into:
   * the original signed historical anchor D_A,
-  * the genuinely unmatched prime-versus-floor-Li +1/-1 population at
+  * the genuinely unmatched prime-versus-floor-Li positive-one / negative-one population at
     the endpoint, with all matched populations canceled ONCE, and
   * the DETERMINISTIC difference between floor-Li and VF at the two squares.
 
@@ -59,7 +59,7 @@ def vfMid915HistoricalMovingOwnerCorrection (A B : ℕ) : ℝ :=
     vfMid915MovingOwnerMinusFloorLiDemand r
 
 /-- Exact entire history = negative boundary mass of the actual primitive
-floor-Li mismatch stream. All paired +/- event mass disappears once. -/
+floor-Li mismatch stream. All paired opposite-sign event mass disappears once. -/
 theorem vfMid915HistoricalMovingOwner_eq_signedMismatch
     {A B : ℕ} (hA : 2 ≤ A) (hAB : A ≤ B) :
     vfMid915HistoricalMovingOwnerCorrection A B =
@@ -90,7 +90,7 @@ theorem vfMid915HistoricalMovingOwner_eq_signedMismatch
 
 /-! ## Honest cancellation of the two actual event populations -/
 
-/-- The largest possible count of paired +/- *unit* mismatches inside the
+/-- The largest possible count of paired opposite-sign *unit* mismatches inside the
 given interval. This definition makes no assertion about event chronology. -/
 def vfMid915TransportMatchedPopulation (a b : ℕ) : ℤ :=
   min (vfMidFloorLiPositiveMismatchPopulation a b)
@@ -105,7 +105,7 @@ def vfMid915TransportUnmatchedNegative (a b : ℕ) : ℤ :=
     vfMid915TransportMatchedPopulation a b
 
 /-- Cancellation is EXACT and cannot create extra historical NNS capacity:
-every +/- pair is deducted from both original populations once. -/
+every opposite-sign pair is deducted from both original populations once. -/
 theorem vfMid915TransportUnmatched_signed_eq_balance
     (a b : ℕ) :
     vfMid915TransportUnmatchedPositive a b -
@@ -262,7 +262,7 @@ theorem vfMid915FloorLiVFBridge_abs_le_uniform
   linarith
 
 /-- Exact first-bad HALF-SCALE interface, all historical signed owner drift
-compressed to unmatched transport +/- and a deterministic uniform bridge.
+compressed to unmatched transport opposite-sign and a deterministic uniform bridge.
 For B=R+1 the index ranges are the literal #915 physical run. -/
 theorem vfMid915FirstBadHalfRun_eq_unmatchedTransport
     (R : ℕ) (hR : 8 ≤ R) :
