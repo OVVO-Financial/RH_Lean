@@ -709,7 +709,21 @@ theorem vfV2JointDelayedFluxCell_sum
     _ = _ := by
       apply Finset.sum_congr rfl
       intro R _
-      simp
+      calc
+        (∑ o : Fin 3, ∑ a : Fin 3,
+            (if occ R = o ∧ age R = a
+             then vfV2DelayedOrientedFlux E (orientation R) R horizon
+             else 0)) =
+          ∑ o : Fin 3,
+            (if occ R = o
+             then vfV2DelayedOrientedFlux E (orientation R) R horizon
+             else 0) := by
+            apply Finset.sum_congr rfl
+            intro o _
+            by_cases ho : occ R = o
+            · simp [ho]
+            · simp [ho]
+        _ = vfV2DelayedOrientedFlux E (orientation R) R horizon := by simp
 
 /-- Pure finite classification cannot force arbitrary future prime-like
 staircases to mean-revert: a nontrivial signed arithmetic result is needed. -/
