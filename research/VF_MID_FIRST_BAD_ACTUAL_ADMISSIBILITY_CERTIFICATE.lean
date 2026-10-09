@@ -178,7 +178,6 @@ theorem vfV2ActualPrimeFrozenRunMobiusDeviation
       2 * (∑ r ∈ Finset.Ico A B,
         ((vfMidIntegerBlockPrimeSupply r : ℝ) - vfMidBandMass r)) := by
   have h := vfV2ActualPrimeFrozenRunMobiusDecoder hA hAB hcube
-  rw [← Finset.mul_sum]
   calc
     _ = ∑ r ∈ Finset.Ico A B,
           2 * ((((vfMidSquarePrefixWheelSurvivors A r).card : ℝ) -
@@ -187,9 +186,12 @@ theorem vfV2ActualPrimeFrozenRunMobiusDeviation
       apply Finset.sum_congr rfl
       intro r _hr
       ring
-    _ = _ := by
-      rw [← h]
-      simp only [Finset.mul_sum]
+    _ = 2 * (∑ r ∈ Finset.Ico A B,
+          ((((vfMidSquarePrefixWheelSurvivors A r).card : ℝ) -
+             vfMidSquareBandPrefixSurvivorMobiusMassReal A r) / 2 -
+               vfMidBandMass r)) := by
+      rw [Finset.mul_sum]
+    _ = _ := by rw [h]
 
 /-- The six original incomplete raw-parent sectors, with the SIGNED source
 vfMidActiveReturnedRawParentFiberMass and no new square or absolute value.
