@@ -950,6 +950,79 @@ theorem vfV2PartialWheelForcedPrimeLower
       Nat.add_le_add_left
         (vfV2FiniteOwnerUnion_card_le_sum high hits) _
 
+/-! ## Specialize the union bound to genuine historical prime-factor incidence -/
+
+/-- The ACTUAL primes known at or before the historical anchor A². -/
+def vfV2HistoricalPrimeIndex (A : ℕ) : Finset ℕ :=
+  (Finset.Icc 2 (A ^ 2)).filter Nat.Prime
+
+/-- The subset of historical owners already in the selected small wheel. -/
+def vfV2HistoricalSmallPrimeIndex (A y : ℕ) : Finset ℕ :=
+  (vfV2HistoricalPrimeIndex A).filter (fun p => p ≤ y)
+
+/-- The remaining historical owners, with NO hypothetical future primes. -/
+def vfV2HistoricalHighPrimeIndex (A y : ℕ) : Finset ℕ :=
+  (vfV2HistoricalPrimeIndex A).filter (fun p => y < p)
+
+/-- The original OPEN square-run integer sites, not invented synthetic seats. -/
+def vfV2HistoricalSquareRunSites (A B : ℕ) : Finset ℕ :=
+  Finset.Ioo (A ^ 2) (B ^ 2)
+
+/-- ACTUAL factorization supplies the complete cover hypothesis in the
+finite wheel Bonferroni inequality. Every factor p<=B is already present
+in the genuine prefix through A² whenever B<=A².
+
+The arithmetic conclusion is an UNCONDITIONAL exact finite lower bound,
+NOT a uniform positive bound for all root scales. -/
+theorem vfV2HistoricalPrimePartialWheelBonferroni
+    {A B y : ℕ} (hA : 2 ≤ A) (hB : B ≤ A ^ 2) :
+    (vfV2PartialWheelSites
+      (vfV2HistoricalSquareRunSites A B)
+      (vfV2HistoricalSmallPrimeIndex A y)).card ≤
+    ((vfV2HistoricalSquareRunSites A B).filter Nat.Prime).card +
+      ∑ p ∈ vfV2HistoricalHighPrimeIndex A y,
+        (vfV2PartialWheelOwnerHits
+          (vfV2HistoricalSquareRunSites A B)
+          (vfV2HistoricalSmallPrimeIndex A y) p).card := by
+  classical
+  apply vfV2PartialWheelForcedPrimeLower
+  intro n hn hncomp
+  have hnI : A ^ 2 < n ∧ n < B ^ 2 := by
+    exact Finset.mem_Ioo.mp hn
+  have hUB : B ^ 2 ≤ (A ^ 2) ^ 2 :=
+    Nat.pow_le_pow_left hB 2
+  have hw : vfV2HistoricalCompositeWitness A n := by
+    by_contra hnowitness
+    have hp := (vfV2HistoricalPrefixLocksPrime
+      hA hnI.1 (lt_of_lt_of_le hnI.2 hUB)).mpr hnowitness
+    exact hncomp hp
+  rcases hw with ⟨p, hpPrime, hpBound, hpDvd⟩
+  have hpKnown : p ∈ vfV2HistoricalPrimeIndex A := by
+    apply Finset.mem_filter.mpr
+    exact ⟨Finset.mem_Icc.mpr ⟨hpPrime.two_le, hpBound⟩, hpPrime⟩
+  refine ⟨p, ?_, hpDvd⟩
+  by_cases hpy : p ≤ y
+  · exact Finset.mem_union.mpr (Or.inl
+      (Finset.mem_filter.mpr ⟨hpKnown, hpy⟩))
+  · have hpy' : y < p := by omega
+    exact Finset.mem_union.mpr (Or.inr
+      (Finset.mem_filter.mpr ⟨hpKnown, hpy'⟩))
+
+/-- Exact LOWER-wall first-crossing condition in historical-buffer currency.
+No arbitrary first-bad state can replace the genuine historical D_R. -/
+theorem vfV2LowerWallBreach_iff_historicalBufferShortfall
+    (D P V WR Wnext : ℝ) :
+    D + P - V < -Wnext ↔
+      D + WR < (V - P) - (Wnext - WR) := by
+  constructor <;> intro h <;> linarith
+
+/-- Exact UPPER-wall counterpart. Genuine history must retain this buffer too. -/
+theorem vfV2UpperWallBreach_iff_historicalBufferShortfall
+    (D P V WR Wnext : ℝ) :
+    Wnext < D + P - V ↔
+      WR - D < (P - V) - (Wnext - WR) := by
+  constructor <;> intro h <;> linarith
+
 /-! ## Original Sector Six sign audit: signed/absolute active pair products
 
 The six oriented raw-parent sectors reindex the signed active Gram Z.
