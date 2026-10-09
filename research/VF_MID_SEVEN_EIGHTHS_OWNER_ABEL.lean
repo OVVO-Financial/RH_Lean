@@ -195,6 +195,41 @@ theorem vfSevenEighthsWeightedOwnerPrimeLiDifference_eq_abel
       (vfSevenEighthsPhysicalOwnerWeight p)
       p upper hp
 
+/-- A uniform ANALYTIC prime-Li error on the LOWER q-interval
+gives a non-per-site bound on the original p*q VF-weighted
+arithmetic-minus-Li incidence. The two shape hypotheses concern
+the original physical weights, not a synthetic substitute.
+
+No 7/8 zero-free estimate is smuggled into this theorem: the
+explicit source bound is visible in its statement. -/
+theorem vfSevenEighthsWeightedOwnerPrimeLiDifference_abs_le
+    (p upper : ℕ) (M : ℝ) (hp : p ≤ upper)
+    (herror : ∀ q, p ≤ q → q ≤ upper →
+      |vfSevenEighthsPrimeLiErrorAtNat q| ≤ M)
+    (hweight : ∀ q, p ≤ q → q ≤ upper →
+      0 ≤ vfSevenEighthsPhysicalOwnerWeight p q)
+    (hdec : ∀ q, p ≤ q → q < upper →
+      vfSevenEighthsPhysicalOwnerWeight p (q + 1) ≤
+        vfSevenEighthsPhysicalOwnerWeight p q) :
+    |vfSevenEighthsWeightedOwnerPrimeLiDifference p upper| ≤
+      2 * vfSevenEighthsPhysicalOwnerWeight p p * M := by
+  have hsource :
+      vfSevenEighthsWeightedOwnerPrimeLiDifference p upper =
+      ∑ r ∈ Finset.Ico p upper,
+        vfSevenEighthsPhysicalOwnerWeight p (r + 1) *
+        (vfSevenEighthsPrimeLiErrorAtNat (r + 1) -
+          vfSevenEighthsPrimeLiErrorAtNat r) := by
+    unfold vfSevenEighthsWeightedOwnerPrimeLiDifference
+    apply Finset.sum_congr rfl
+    intro r _
+    unfold vfSevenEighthsPrimeLiErrorAtNat
+    ring
+  rw [hsource]
+  exact vfSevenEighthsWeightedIncrement_abs_le_twice_initial
+    vfSevenEighthsPrimeLiErrorAtNat
+    (vfSevenEighthsPhysicalOwnerWeight p)
+    p upper M hp herror hweight hdec
+
 /-- Each genuine p-column can have a different prime-pair upper
 bound. This is the exact finite column-wise sum of signed
 historical-cumulative endpoint and variation terms, preserving
