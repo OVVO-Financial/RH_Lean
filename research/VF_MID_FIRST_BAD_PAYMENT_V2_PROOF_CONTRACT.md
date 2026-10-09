@@ -1661,6 +1661,137 @@ We have not proved RH and should not describe this work
 as a resolved Sector Six cone.
 
 
+
+## 4G. Complete admissibility-rule audit and TRUE localized Möbius decoder
+
+This is the response to the request to **establish all the required
+admissibility rules**, without treating an open signed assertion as proved.
+Two new Lean artifacts in #918 intentionally keep very different
+certainty levels separate:
+
+* \`research/VF_MID_FIRST_BAD_PAYMENT_V2_KERNEL.lean\` now proves
+  Mathlib-only generic monotone 0/1 step-counting, the true prime/nonprime
+  finite-seat split, exact weighted signed prime-site charges, unique-owner
+  Fubini for *any* covering finite owner assignment, and the once-counted
+  historical charge law. These results are unconditional.
+* \`research/VF_MID_FIRST_BAD_ACTUAL_ADMISSIBILITY_CERTIFICATE.lean\`
+  assembles twelve existing actual-prime arithmetic identities into
+  \`VFMidActualPrimeVerifiedStructuralRules\` and proves its witness
+  \`vfV2ActualPrime_verifiedStructuralRules\`. It imports the original
+  production graph, so compilation and \`#print axioms\` require the
+  optional cached full-native CI; the underlying lemmas already live
+  on \`main\`. Do **not** report this new composite native declaration as
+  kernel-checked until that job completes.
+
+### 4G.1 Rules already present in the TRUE prime arithmetic
+
+| Rule | Exact original production theorem | Result type |
+|---|---|---|
+| Monotone 0/1 jumps | \`vfV2GenericUnitStepCount_succ\`, \`..._monotone\` | Generic Boolean counting function, Mathlib only |
+| Exactly R odd seats | \`vfMidOddCandidateSeats_card\` | Actual open square block |
+| VF reference on original seats | \`vfMidOddFractionalPrimeSeatWeight_sum\` | Sum native w_R = V_R |
+| Actual prime-site filter | \`vfMidOddCandidateSeats_filter_prime\` | Literal \`Nat.Prime\` on original sites |
+| FTA prime/composite partition | \`vfMidOddActualComposite_card_add_primeSupply\` | P_R+C_R=R |
+| Exact signed charges | \`vfMidOddSignedSeatCharge_sum\` | Sum (w_R-1_Prime)=V_R-P_R |
+| Unique least-prime owner | \`vfMidOddCompositeTrackingDefect_eq_ownerCensus_sub_reference\` | Every composite counted once |
+| Restricted depth-two Möbius decoder | \`vfMidOddSignedSeatCharge_eq_affineCenter_add_half_moebius_of_cube\` | On a FROZEN rough survivor carrier under cubic cutoff |
+| Historical source charged once | \`vfMidActualPrimeEndpointDefect_eq_anchor_sub_frozenAffineRun\` | Actual D_B = D_A - signed owner run |
+| Original NNS denominator | \`vfMidFirstBadZeroTargetTotalMass_eq\` | Exact anchored L1 square |
+| Complete signed Co/Div ledger | \`vfMidFirstBadAnchoredCoDivExcess_eq_activeResidual_add_weightedCells\` | No deleted diagonal, squareful or cross-owner terms |
+| Returned Sector Six weld | \`vfMidActiveCellGram_eq_scaledReturnedClippedCellMass\` and \`vfMidActiveScaledReturnedClippedCellMass_eq_sixOrientedSectors\` | Actual weighted incomplete raw-parent sectors |
+| First-bad strict direction | \`vfMidActualPrimeFirstBadAt_two_succ_nnsNormalized_gt_half\` | First bad => original NNS > 1/2 |
+
+The new generic once-owner theorem
+\`vfV2UniqueOwnerOnceCharge\` and existing
+\`vfV2HighParentRepeatedChargeOvercount\` prevent the dishonest shortcut
+of spending a historical prime-negative charge once per child.
+
+**Limit of the cube decoder:** It is proved on the restricted
+\`vfMidSquarePrefixWheelSurvivors A r\` set when
+\`(r+1)^2 <= (A+1)^3\`. One must not apply the affine
+prime/semiprime formula on arbitrary odd composites, where triple
+and higher factor signs occur.
+
+### 4G.2 Genuine LOCAL signed Möbius census, in exact original units
+
+Write
+\`Q_{A,r} = #vfMidSquarePrefixWheelSurvivors(A,r)\` and
+\`M_{A,r} = sum_{n in vfMidSquarePrefixWheelSurvivors(A,r)} mu(n)\`.
+
+In a finite frozen-wheel run \`A <= r < B\`, provided
+\`3 <= A\` and \`(r+1)^2 <= (A+1)^3\` throughout, the repository's
+true rank-two Möbius prime decoder proves
+
+$
+\boxed{2P_r=Q_{A,r}-M_{A,r}.}
+$
+
+Summing and subtracting the EXACT VF midpoint band masses gives
+
+$
+\boxed{
+2(D_B-D_A)=
+\sum_{r=A}^{B-1}\left(Q_{A,r}-M_{A,r}-2V_r\right).
+}
+\tag{F7}
+$
+
+Two new native Lean theorems express this finite TRUE arithmetic
+relation with all cube and interval hypotheses explicit:
+
+* \`vfV2ActualPrimeFrozenRunMobiusDecoder\`;
+* \`vfV2ActualPrimeFrozenRunMobiusDeviation\`.
+
+This is an exact **localized signed owner-balance identity**,
+not the corresponding **localized quantitative bound**. It is a
+more precise translation of the user's Möbius-density argument
+into the actual physical survivor population.
+
+Why ordinary proved densities are not a proof of the latter:
+\`M(x)=sum_{n<=x}mu(n)=o(x)\` estimates μ on ALL integers, not
+the restricted rough set, and offers no rate at
+\`H=O(sqrt(x) log(x)^2)=o(x)\`. Even equality of limiting odd
+squarefree positive/negative proportions does not estimate
+the centered sum in (F7) uniformly for EVERY finite frozen
+historical window. That localized arithmetic is the missing
+Sector Six sign information; it must be derived without
+postulating a rate equivalent to the desired conclusion.
+
+### 4G.3 Precisely ONE remaining signed admissibility rule
+
+\`VFMidActualPrimeSignedOwnerEscapeRule\` is a NEW NAME for
+the OLD production signed first-bad requirement, preserving
+exactly the six raw-parent sums:
+
+$
+\mathrm{FirstBad}_{2}(R+1)\quad\Rightarrow\quad
+\underbrace{\mathrm{ActiveGlobalResidualExcess}(R)}_{\text{old anchor/omitted source}}
++
+2\underbrace{\mathrm{SixOrientedIncompleteBoundaryMass}(R)}_{\text{old native weighted Gram}}
+\le0.
+\tag{F8}
+$
+
+The original conditional contradiction
+\`vfMidActualPrimeFirstBadAt_two_succ_false_of_activeSixBoundaryBudget\`
+then eliminates any first bad at R+1 for R>=8.
+
+**Do not call (F8) independently established.** A new
+logical-audit theorem
+\`vfV2ActualPrime_signedOwnerRule_iff_noFirstBad\`
+even proves that (F8), with these first-bad quantifiers,
+is logically equivalent to NO first bad above the finite base:
+the reverse implication is vacuous. A proof must use
+actual local owner incidence and the signed Fubini ledger,
+not assert (F8) as a generic admissibility axiom.
+
+This **is** the full rule inventory. All independently verified
+structural rules are source-identifiable; the only absent
+mathematical ingredient remains unconditional actual-arithmetic
+proof of (F8). The finite CI of ordinary algebraic rules is
+not a certificate of (F8), and no RH conclusion is claimed.
+
+
 ## 5. Testing: deliberately separate seconds from native compilation
 
 **Fast lane** (automatically on every PR update; no Lean/StrongPNT):
