@@ -24,6 +24,7 @@ on:
       - scripts/vf_mid_915_historical_cofactor_abel_regression.py
       - scripts/vf_mid_915_top_third_sector_restoration_regression.py
       - research/VF_MID_915_TERMINAL_TOP_THIRD_TRANSPORT.lean
+      - research/VF_MID_915_PARITY_REFINEMENT_EXACT_PRICE.lean
       - research/VF_MID_915_TERMINAL_TOP_THIRD_TRANSPORT.md
       - scripts/vf_mid_915_floor_li_transport_regression.py
       - scripts/vf_mid_915_centered_owner_triangular_regression.py
@@ -174,6 +175,9 @@ jobs:
 
       - name: Compile top-third no-descendant arithmetic / floor-Li split
         run: lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_915_TERMINAL_TOP_THIRD_TRANSPORT.olean research/VF_MID_915_TERMINAL_TOP_THIRD_TRANSPORT.lean
+
+      - name: Compile exact full parity NNS denominator restoration cost
+        run: lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_915_PARITY_REFINEMENT_EXACT_PRICE.olean research/VF_MID_915_PARITY_REFINEMENT_EXACT_PRICE.lean
 
       - name: Compile #915 only against cached dependencies
         run: |
