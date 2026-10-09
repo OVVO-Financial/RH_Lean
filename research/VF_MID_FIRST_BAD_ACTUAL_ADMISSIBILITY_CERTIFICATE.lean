@@ -343,6 +343,75 @@ theorem vfV2ActualPrime_signedOwnerRule_iff_noFirstBad :
 
 
 
+/-! ## Exact quantified logical chain and the classical RH bridge
+
+The existing signed-owner rule is equivalent to the ABSENCE OF FIRST BAD
+at successors R+1 with R>=8.  It is not yet an arithmetic theorem.
+
+A finite-base hypothesis for roots 2..8 must accompany that assertion
+before deriving global K=2 containment. The forward RH implication
+below uses the repository's EXPLICIT classical von-Koch/RH criterion
+argument; it does not assert that the criterion was proved inside Lean.
+Conversely, the general RH O(sqrt(x) log x) bound has an unspecified
+constant; RH => this PARTICULAR K=2 wall needs an explicit additional
+quantitative estimate (e.g. Schoenfeld plus checked finite base).
+-/
+
+/-- No first bad above root 8, together with verified finite roots 2..8,
+rules out EVERY radial wall escape. This is a strict minimal-counterexample
+argument, independent of prime counting estimates. -/
+theorem vfV2ActualPrime_allInside_of_noFirstBad_and_base
+    (hbase : ∀ B : ℕ, 2 ≤ B → B ≤ 8 →
+      ¬ VFMidSyntheticBadAt vfMidActualPrimeEndpointDefect (2 : ℝ) B)
+    (hno : ∀ R : ℕ, 8 ≤ R →
+      ¬ VFMidActualPrimeFirstBadAt (2 : ℝ) (R + 1)) :
+    ∀ B : ℕ, 2 ≤ B →
+      ¬ VFMidSyntheticBadAt vfMidActualPrimeEndpointDefect (2 : ℝ) B := by
+  intro B
+  induction B using Nat.strong_induction_on with
+  | h B ih =>
+      intro hB
+      by_cases hsmall : B ≤ 8
+      · exact hbase B hB hsmall
+      · have hlarge : 9 ≤ B := by omega
+        intro hbad
+        have hfirst : VFMidActualPrimeFirstBadAt (2 : ℝ) B := by
+          constructor
+          · exact hbad
+          · intro S hS hSB
+            exact ih S hSB hS
+        have hnot := hno (B - 1) (by omega : 8 ≤ B - 1)
+        have hBdecomp : B - 1 + 1 = B := Nat.sub_add_cancel (by omega : 1 ≤ B)
+        rw [hBdecomp] at hnot
+        exact hnot hfirst
+
+/-- Audited conditional implication:
+SIGNED OWNER PAYMENT + finite base + EXPLICIT classical von-Koch criterion
+implies Mathlib RH. No theorem here proves the signed owner payment or
+imports the classical criterion without a caller-supplied argument. -/
+theorem vfV2ActualPrime_RH_of_signedOwnerRule_and_base
+    (criterion : ClassicalVonKochRHCriterion)
+    (hbase : ∀ B : ℕ, 2 ≤ B → B ≤ 8 →
+      ¬ VFMidSyntheticBadAt vfMidActualPrimeEndpointDefect (2 : ℝ) B)
+    (hrule : VFMidActualPrimeSignedOwnerEscapeRule) :
+    VFMidRiemannHypothesisStatement := by
+  have hno :=
+    vfV2ActualPrime_signedOwnerRule_iff_noFirstBad.mp hrule
+  have hall :=
+    vfV2ActualPrime_allInside_of_noFirstBad_and_base hbase hno
+  have hrad :
+      VFMidSyntheticRadialBounded vfMidActualPrimeEndpointDefect := by
+    refine ⟨2, by norm_num, ?_⟩
+    intro R hR
+    exact le_of_not_gt (hall R hR)
+  have hrad' :
+      VFMidSyntheticRadialBounded
+        (fun R => vfMidPrimeError ((R : ℝ) ^ 2)) := by
+    simpa [vfMidActualPrimeEndpointDefect] using hrad
+  have hsq : VFMidSquareEndpointVonKochBoundedStatement :=
+    vfMidActualRadialBounded_iff_squareEndpoint.mp hrad'
+  exact riemannHypothesis_of_vfMidSquareEndpoint criterion hsq
+
 /-! ## Actual-prime specialization of age and prospective signed flux
 
 The finite population here is the ORIGINAL odd physical square carrier,
