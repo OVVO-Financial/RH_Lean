@@ -194,7 +194,7 @@ def scan_near_wall(max_root=6000):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--anchors", nargs="+", type=int,
-                        default=[317, 1000, 2000, 6000])
+                        default=[317, 1000, 2000, 5267, 6000])
     parser.add_argument("--json", type=Path, default=None)
     parser.add_argument("--near-wall-max", type=int, default=6000)
     args = parser.parse_args()
