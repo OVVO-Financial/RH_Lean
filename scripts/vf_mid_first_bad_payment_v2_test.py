@@ -444,6 +444,47 @@ def sparse_p101_abel_regression():
           "weighted_Abel=%.12f strict_open=PASS" % (native,abel))
 
 
+
+def repeated_historical_high_prime_regression():
+    """Concrete disproof of parent-by-parent cross-block charge reuse.
+
+    A prime q has ONE earlier negative original physical site. It can
+    produce many positive *distinct* sparse semiprime children p*q in
+    later blocks. Each child is independent physical mass but NOT an
+    extra copy of q's earlier negative source/anchor charge.
+    """
+    for q,expected in ((101,23),(997,163)):
+        assert all(q%d for d in range(2,math.isqrt(q)+1))
+        home=math.isqrt(q)
+        home_w=(2*home+1)/(home*math.log(home*home+home+0.5))
+        negative_once=1-home_w
+        weighted_children=0.0
+        roots=set()
+        count=0
+        for p in range(3,q,2):
+            if any(p%d==0 for d in range(3,math.isqrt(p)+1,2)):
+                continue
+            n=p*q
+            r=math.isqrt(n)
+            if not (9<=r and p<=r<p*p and r<q):
+                continue
+            assert r*r<n<(r+1)**2
+            assert r not in roots, ("one high parent at most once per root",q,r)
+            roots.add(r)
+            weight=(2*r+1)/(r*math.log(r*r+r+0.5))
+            weighted_children+=weight
+            count+=1
+        assert count==expected
+        assert weighted_children>negative_once, ("false per-parent bound",q)
+        print("HISTORICAL_PARENT_REUSE q=%d homeRoot=%d "
+              "originalNegativeOnce=%.12f children=%d "
+              "distinctRoots=%d childPositiveMass=%.12f "
+              "reuseRatio=%.6f naiveParentBudget=FALSE PASS" %
+              (q,home,negative_once,count,len(roots),weighted_children,
+               weighted_children/negative_once))
+
+
+
 def check_synthetic_counterexample():
     # w=1/4, P=0, C=8, D=0: U=2, L=0, slack=-4.
     # This rules out mistaking the symbolic algebra for an unconditional
@@ -491,6 +532,7 @@ def main():
     check_synthetic_counterexample()
     sparse_first_owner_boundary_regression()
     sparse_p101_abel_regression()
+    repeated_historical_high_prime_regression()
     min_balance = (float("inf"), None)
     negatives = 0
     breaches = 0
