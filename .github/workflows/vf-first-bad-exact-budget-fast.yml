@@ -18,6 +18,8 @@ on:
       - research/VF_MID_915_CENTERED_OWNER_TRIANGULAR.lean
       - research/VF_MID_915_COMPRESSED_HISTORY_SINK.lean
       - research/VF_MID_915_FIXED17_ACTUAL_SIGNED_INLET.lean
+      - research/VF_MID_915_FLOOR_LI_TRANSPORT_BOUNDARY.lean
+      - scripts/vf_mid_915_floor_li_transport_regression.py
       - scripts/vf_mid_915_centered_owner_triangular_regression.py
       - scripts/vf_mid_915_late_prefix_weighted_regression.py
       - .github/workflows/vf-first-bad-exact-budget-fast.yml
@@ -44,6 +46,7 @@ jobs:
           python3 scripts/vf_mid_915_two_owner_flux_regression.py
           python3 scripts/vf_mid_915_late_prefix_weighted_regression.py
           python3 scripts/vf_mid_915_centered_owner_triangular_regression.py
+          python3 scripts/vf_mid_915_floor_li_transport_regression.py
 
       - name: Restore Lake packages
         uses: actions/cache/restore@v5
@@ -150,6 +153,12 @@ jobs:
 
       - name: Compile actual after-17 owner historical signed VF inlet
         run: lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_915_FIXED17_ACTUAL_SIGNED_INLET.olean research/VF_MID_915_FIXED17_ACTUAL_SIGNED_INLET.lean
+
+      - name: Build established discrete-Li transport import closure
+        run: python3 scripts/compile_research_import_closure.py research/VF_MID_FLOOR_LI_TRANSPORT_CANCELLATION.lean
+
+      - name: Compile exact #915 actual-owner to unmatched floor-Li boundary transfer
+        run: lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_915_FLOOR_LI_TRANSPORT_BOUNDARY.olean research/VF_MID_915_FLOOR_LI_TRANSPORT_BOUNDARY.lean
 
       - name: Compile #915 only against cached dependencies
         run: |
