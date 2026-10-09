@@ -9,6 +9,93 @@ as the single small target for an actual signed first-bad closure.
 **Native consumer:** `research/VF_MID_FIRST_BAD_PAYMENT_V2_NATIVE_CONSUMER.lean`.
 **Only open proof gate:** `VFMidMinimalActualFirstBadPaymentV2Statement`.
 
+## 0A. Oct 9 sign audit: NO sign inconsistency; the contradictory sign is the open theorem
+
+The production implication is a proof by contradiction, not a statement that
+the first-bad hypothesis and a nonpositive sector budget are compatible.
+Write
+
+\[
+\mathcal E_R=2D_{R+1}^2-M_R^2,\qquad
+\mathcal K_R=\mathcal R_R+2\mathcal S_R .
+\]
+
+On the original active prime/squarefree carrier, with \(P_R\) actual primes,
+\(F_R\) actual odd squarefree composites, and \(w_R=V_R/R\),
+
+\[
+Z_R=\frac{(w_RF_R-(1-w_R)P_R)^2-
+ ((1-w_R)^2P_R+w_R^2F_R)}{2},
+\]
+
+\[
+A_R=\frac{(w_RF_R+(1-w_R)P_R)^2-
+ ((1-w_R)^2P_R+w_R^2F_R)}{2}.
+\]
+
+The original Co/Div excess is \(\mathcal E_R=\mathcal R_R+4Z_R-2A_R\).
+The six-sector signed reassembly gives \(\mathcal S_R=Z_R\), so
+
+\[
+\boxed{\mathcal K_R
+ =\mathcal E_R+2(A_R-Z_R)
+ =\mathcal E_R+4w_R(1-w_R)P_RF_R.}
+\]
+
+**The correction has a PLUS sign.** For \(0\le w_R\le1\), it is
+nonnegative. The earlier numerical table is consistent. Under the
+hypothetical first-bad hypothesis, the already-compiled radial lemma
+gives \(\mathcal E_R>0\), and hence \(\mathcal K_R>0\).
+This is entirely EXPECTED. It does **not** disprove the proposed missing
+theorem \(\mathrm{FirstBad}\Rightarrow\mathcal K_R\le0\):
+deriving that opposite sign independently from genuine prime history
+would immediately contradict first-badness. The alternative
+\(\mathrm{FirstBad}\Rightarrow\mathcal E_R\le0\) has the same logical
+structure; it is weaker as a pointwise requirement. The universally
+quantified first-bad-conditioned versions are both equivalent to
+no first bad, because their antecedent itself forces the reverse sign.
+Neither implication can be inferred from the sign identity.
+
+The Mathlib-only sign audit is
+\`vfV2SixBudget_eq_originalExcess_add_pairCorrection\`.
+The native exact-carrier assertions are
+\`vfV2ActualFirstBad_originalExcess_pos\` and
+\`vfV2ActualFirstBad_sixSectorBudget_pos\`.
+These are proof-check targets in the dedicated CI; the first-bad
+*nonpositive* arithmetic payment remains unproved.
+
+### Correct first-bad local normal form, and a dangerous false shortcut
+
+Let \(W_R=2R\log R\) and \(\delta_R=P_R-V_R\).
+If \(|D_R|\le W_R\) and \(|D_R+\delta_R|>W_{R+1}\), then
+
+\[
+|\delta_R|>W_{R+1}-|D_R|\ge W_{R+1}-W_R
+\]
+
+and \(\delta_R\) has the same sign as \(D_{R+1}\).
+That NECESSARY logarithmic jump is valid. It is not a sufficient
+contradiction with any standard one-block prime-count upper bound.
+
+**In particular the suggestion that \(|D_R|\gg P_R+V_R\) rules out
+first badness is false.** A near-wall prior defect can cross on a
+small jump, even when \(|\delta_R|\ll P_R+V_R\). A concrete *scalar*
+counterstate (NOT a claim about the actual prime history) is
+\(R=100000,\ D_R=W_R,\ P_R=8712,\ V_R\approx8685.929295\).
+Here \(\delta_R\approx26.071\) exceeds
+\(W_{R+1}-W_R\approx25.026\), while
+\(P_R+V_R\approx17397.929\) and the original
+\(N_R\approx0.98637>1/2\). This satisfies the local prior-good
+and next-bad inequalities with an ordinary-sized block count.
+
+Thus a regime split or a Brun--Titchmarsh count bound alone does NOT
+establish the missing payment. One needs a genuinely quantitative
+historical arithmetic restriction forbidding the approach to
+the wall. No additional owner energy may be manufactured by
+reclassifying sites.
+
+---
+
 ## 1. One objective, no substitute theorems
 
 For each square block $(R^2,(R+1)^2)$, set
