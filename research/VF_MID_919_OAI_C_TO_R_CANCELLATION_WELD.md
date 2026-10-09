@@ -7,6 +7,12 @@ The global character/physical-atom moment weld and new
 power-saving estimates remain UNPROVED. This is a specific
 mathematical integration plan, not an RH proof.
 
+**New native-carrier extension:**
+`VF_MID_919_OAI_PHASE_ALIGNED_OWNER_COMPENSATION.lean` now supplies
+the phase-alignment condition, occurrence-preserving physical child return,
+full admitted-plus-clipped cell reassembly, and its complete Hermitian Gram.
+The precise scope and remaining arithmetic dictionary are in Section 8.
+
 ## 1. Distinguish TWO C-to-R maps. Only one preserves sextic phases.
 
 **Invertible linear pair:** Define Fred's original
@@ -326,3 +332,120 @@ the native signed Gram PLUS its missing
 anti-diagonal Hermitian energy, with
 the genuine Hecke character phases
 and physical owner weights attached.
+
+## 8. Exact phase alignment on the existing physical owner cell
+
+The new module works on the **existing first-separation owner carrier**
+`lowOwnerFirstOwnerBaseFiber`, `lowOwnerFirstOwnerChildFiber`,
+`lowOwnerFirstOwnerAdmittedBaseFiber`, and
+`lowOwnerFirstOwnerClippedBaseFiber`. Its coefficient is exactly
+`lowOwnerZeroFrequencyMobiusWeight R n`, the returned-core AMP
+common-clock weight. This is not an assumed identification with the original
+VF square-band weight or with the whole historical Sector Six source.
+The owner here is the cell's first-separation prime, not a redefinition of
+VF's greatest-prime ancestry convention.
+
+Write
+
+\[
+ F_\chi(n)=w_R(n)\mu(n)\chi(n),\qquad
+ \Delta_p(a)=(w_R(a)-w_R(pa))\mu(a).
+\]
+
+For an actual p-free parent, fresh-prime reversal gives
+\(\mu(pa)=-\mu(a)\). If the row satisfies the explicit local law
+\(\chi(pa)=\chi(p)\chi(a)\), the **unaligned** source is
+
+\[
+\boxed{F_\chi(a)+F_\chi(pa)
+ =\chi(a)\Delta_p(a)
+  +(1-\chi(p))w_R(pa)\mu(a)\chi(a).}
+\tag{A1}
+\]
+
+Thus attaching the character to the physical sites before compensation
+creates an extra term. It is not merely deterministic weight variation:
+it can survive even for a constant site weight. For \(\chi(p)\ne0\),
+the exact phase-aligned operation instead satisfies
+
+\[
+\boxed{F_\chi(a)+\chi(p)^{-1}F_\chi(pa)
+ =\chi(a)\Delta_p(a).}
+\tag{A2}
+\]
+
+The native compiled weight difference identifies
+\(\Delta_p(a)=(D_a-R_a)\mu(a)\), with daughter crossing and root
+crossing evaluated at the actual physical sites. No constant Mellin ratio
+or factorization of \(w_R(pa)\) is needed.
+
+The new theorem `vf919FirstOwnerChild_sum_eq_returnedParents` returns the
+actual child population by \(n\mapsto n/p\), with inverse \(a\mapsto pa\),
+for an arbitrary complex coefficient field. Every admitted occurrence is
+preserved exactly once. Splitting the base fibre by whether \(pa\le R^2-1\)
+then proves
+
+\[
+\boxed{Z_{R,p,\sigma}=I_{R,p,\sigma}+C_{R,p,\sigma},}
+\tag{A3}
+\]
+
+where
+
+\[
+\begin{aligned}
+Z&=\sum_{a\in\mathrm{Base}}F_\chi(a)
+       +\chi(p)^{-1}\sum_{n\in\mathrm{Child}}F_\chi(n),\\
+I&=\sum_{a\in\mathrm{Admitted}}\chi(a)(D_a-R_a)\mu(a),\\
+C&=\sum_{a\in\mathrm{Clipped}}F_\chi(a).
+\end{aligned}
+\]
+
+This is `vf919CharacterAlignedCell_eq_compensated_add_clipped`.
+It requires only the stated local multiplicativity on the admitted fibre
+and the nonzero prime phase, in addition to the native prime-parent laws.
+At a zero prime phase the child site vanishes and the parent survives;
+the module proves that separately. It does not replace OpenAI's analytic
+ramified-row error with zero.
+
+**Energy is taken only after A3.** Let \(W_{ab}\) be exactly
+`weightedMoebiusFreshPrimeFourCornerMass
+(lowOwnerZeroFrequencyMobiusWeight R) p a b`. Then
+
+\[
+\boxed{|I|^2=\sum_{a,b\in\mathrm{Admitted}}
+               W_{ab}\Re(\chi(a)\overline{\chi(b)}),}
+\tag{A4}
+\]
+
+and the complete physical cell moment is
+
+\[
+\boxed{|Z|^2=\sum_{a,b\in\mathrm{Admitted}}
+ W_{ab}\Re(\chi(a)\overline{\chi(b)})
+       +|C|^2+2\Re(I\overline C).}
+\tag{A5}
+\]
+
+These are `vf919CharacterCompensatedInterior_norm_sq_eq_physicalGram`
+and `vf919CharacterAlignedCell_norm_sq_eq_full_physicalGram`.
+All ordered admitted cross terms are retained. The clipped square and
+signed interior/clipped cross term are explicit and cannot be dropped.
+At \(\chi=1\), the source specializes exactly to the native real
+base-plus-child cell. The full cell also inherits the existing normalized
+real-pair energy and signed-product-plus-anti-diagonal identities.
+
+**What this narrows:** phase alignment and once-only child return are now
+explicit native-carrier theorems. Transporting an OAI local row must prove
+that its normalized coefficients implement A2 (or retain the A1 defect),
+rather than asserting that twisting commutes with physical compensation.
+
+**Still open:** identifying OAI's marked/rescaled ideal probe with Z,
+including its \(q_p^{-3/2}\) scale changes, primary generator orientations,
+zero extensions, fixed prime-slot supports and coefficients; attaching the
+original VF moving square weights and all historical/cross-owner Sector Six
+terms; and proving a new uniform bound on the complete resulting moment.
+The presence of \(\chi(p)^{-1}\) in both A2 and OAI Eq. 5.13b is a useful
+local compatibility condition, not a proof that their operators coincide.
+No new zero-free boundary or actual-prime first-bad payment is proved here.
+
