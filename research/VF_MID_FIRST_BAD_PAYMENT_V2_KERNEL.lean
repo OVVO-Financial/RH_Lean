@@ -361,8 +361,7 @@ theorem vfV2HighParentRepeatedChargeOvercount
     (∑ c ∈ kids, (childMass c - oldNegative)) +
         ((kids.card : ℝ) - 1) * oldNegative =
       (∑ c ∈ kids, childMass c) - oldNegative := by
-  simp only [Finset.sum_sub_distrib, Finset.sum_const_zero,
-    Finset.sum_const, nsmul_eq_mul]
+  simp only [Finset.sum_sub_distrib, Finset.sum_const, nsmul_eq_mul]
   ring
 
 
