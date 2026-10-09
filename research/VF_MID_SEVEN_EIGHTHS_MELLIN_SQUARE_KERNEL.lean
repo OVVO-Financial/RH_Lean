@@ -64,8 +64,19 @@ def vfSevenEighthsCompletedSquareMellinKernel
       (vfSevenEighthsSquareMellinPhase s (R + 1) -
        vfSevenEighthsSquareMellinPhase s R)
 
+/-! ### Boundary bookkeeping at B
+
+The original physical kernel has ONLY R in [A,B). The weight
+`vfSevenEighthsMellinOriginalWeight B` below is an AUXILIARY
+continuation, defined by the same midpoint formula at root B solely
+for summation by parts. It is NOT an extra physical B-th block.
+Its occurrence at the right boundary cancels against the R=B-1
+weight-difference term in the Abel expansion.
+-/
+
 /-- Original VF square-block Mellin kernel equals TWO endpoint
-phases plus signed variation in its actual original weights. -/
+phases plus signed variation in its actual original weights.
+The B weight is AUXILIARY (no B-th physical source is counted). -/
 theorem vfSevenEighthsCompletedSquareMellinKernel_abel
     (s : ℂ) (A B : ℕ) (hAB : A ≤ B) :
     vfSevenEighthsCompletedSquareMellinKernel s A B =
