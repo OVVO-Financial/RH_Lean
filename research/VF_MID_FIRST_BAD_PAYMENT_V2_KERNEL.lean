@@ -525,11 +525,7 @@ theorem vfV2AgeCohortNativeMass_disjoint
     (if vfV2HighPrimeParentAgeBucket R (birthRoot n) = b
        then weight n else 0) = 0 := by
   by_cases ha : vfV2HighPrimeParentAgeBucket R (birthRoot n) = a
-  · have hb :
-        vfV2HighPrimeParentAgeBucket R (birthRoot n) ≠ b := by
-      rw [ha]
-      exact hab
-    simp [ha, hb]
+  · simp [ha, hab]
   · simp [ha]
 
 /-- Cross-cohort Gram products cannot be omitted or replaced by a sum
@@ -669,11 +665,23 @@ theorem vfV2JointDelayedFluxCell_sum
       ∑ R ∈ roots, vfV2DelayedOrientedFlux E (orientation R) R horizon := by
   classical
   simp only [vfV2JointDelayedFluxCell]
-  rw [Finset.sum_comm]
-  apply Finset.sum_congr rfl
-  intro R hR
-  rw [Finset.sum_comm]
-  simp
+  calc
+    _ = ∑ o : Fin 3, ∑ R ∈ roots, ∑ a : Fin 4,
+          (if occ R = o ∧ age R = a
+           then vfV2DelayedOrientedFlux E (orientation R) R horizon
+           else 0) := by
+      apply Finset.sum_congr rfl
+      intro o _
+      rw [Finset.sum_comm]
+    _ = ∑ R ∈ roots, ∑ o : Fin 3, ∑ a : Fin 4,
+          (if occ R = o ∧ age R = a
+           then vfV2DelayedOrientedFlux E (orientation R) R horizon
+           else 0) := by
+      rw [Finset.sum_comm]
+    _ = _ := by
+      apply Finset.sum_congr rfl
+      intro R _
+      simp
 
 /-- Pure finite classification cannot force arbitrary future prime-like
 staircases to mean-revert: a nontrivial signed arithmetic result is needed. -/
