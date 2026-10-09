@@ -8,6 +8,7 @@ on:
       - research/VF_MID_SEVEN_EIGHTHS_OWNER_ABEL.lean
       - research/VF_MID_SEVEN_EIGHTHS_MELLIN_SQUARE_KERNEL.lean
       - research/VF_MID_SEVEN_EIGHTHS_BIDIRECTIONAL_SYNTHESIS.md
+      - research/VF_MID_919_OPEN_UNIFORM_ANALYTIC_TARGET.md
       - scripts/vf_919_prime_owner_abel_spectral_probe.py
       - research/VF_MID_SEVEN_EIGHTHS_ANALYTIC_STATUS.md
       - .github/workflows/vf-mid-seven-eighths-analytic.yml
@@ -39,7 +40,8 @@ jobs:
         run: |
           if grep -nE '^[[:space:]]*(sorry|admit|axiom)([[:space:]]|$)' \
             research/VF_MID_SEVEN_EIGHTHS_ANALYTIC_BRIDGE.lean \
-            research/VF_MID_SEVEN_EIGHTHS_OWNER_ABEL.lean; then
+            research/VF_MID_SEVEN_EIGHTHS_OWNER_ABEL.lean \
+            research/VF_MID_SEVEN_EIGHTHS_MELLIN_SQUARE_KERNEL.lean; then
             echo "No proof holes or added axioms allowed"
             exit 1
           fi
