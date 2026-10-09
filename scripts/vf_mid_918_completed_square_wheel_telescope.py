@@ -150,6 +150,81 @@ def run(A, B, y):
         V=V)
 
 
+def test_frozen_anchor_late_owner_prime_pair_projection():
+    """FULL genuine A-wheel high-owner packet, collapsed before any norm.
+
+    On A<=r<B<=2*A, composites that survive primes <=A are
+    EXACTLY p*q with genuine primes A<p<q<4*A. The graph is a
+    hyperbolic Ferrers/monotone prime-window incidence matrix.
+    There are no odd-square phantom events. The SAME q may have
+    MANY p children; its OLD negative prime charge is ONCE, never
+    once per graph edge.
+    """
+    from bisect import bisect_right
+    from collections import Counter
+    A,B=2634,5267
+    U=B*B-1
+    C=4*A
+    flags=sieve_prefix(C)
+    allpr=[p for p in range(A+1,C+1) if flags[p]]
+    leftowners=[p for p in allpr if p<B]
+    degree=Counter()
+    owner_degree={}
+    root_count=Counter()
+    weighted=[]
+    total=0
+    weights={r:band_v(r)/r for r in range(A,B)}
+    for p in leftowners:
+        right=U//p
+        assert right<C
+        k=bisect_right(allpr,p)
+        j=bisect_right(allpr,right)
+        owner_degree[p]=j-k
+        for q in allpr[k:j]:
+            n=p*q
+            r=math.isqrt(n)
+            assert A*A<n<B*B
+            assert r*r<n<(r+1)**2 # DISTINCT prime pair cannot be a square
+            assert A<=r<B and p<=r<q
+            degree[q]+=1
+            root_count[r]+=1
+            weighted.append(weights[r])
+            total+=1
+    assert len(leftowners)==316
+    assert len(degree)==899
+    assert total==125272
+    assert sum(owner_degree.values())==total
+    assert (min(degree),max(degree))==(2657,10477)
+    assert (min(leftowners),max(leftowners))==(2647,5261)
+    assert degree[5273]==316
+    assert len(root_count)==2610
+    assert max(root_count.values())==114
+    mass=math.fsum(weighted)
+    assert abs(mass-14955.1345693)<1e-5
+    old_once=math.fsum(
+        (band_v(math.isqrt(q))/math.isqrt(q))-1
+        for q in degree)
+    fake_repeated=math.fsum(
+        multiplicity*((band_v(math.isqrt(q))/math.isqrt(q))-1)
+        for q,multiplicity in degree.items())
+    assert abs(old_once+690.6666743)<1e-5
+    assert abs(fake_repeated+96035.8337803)<1e-5
+    print('ACTUAL_FROZEN_A_WHEEL_LATE_RANK_TWO '
+          'A=%d B=%d prime_p_owners=%d distinct_prime_q_partners=%d '
+          'unique_semiprime_physical_sites=%d '
+          'min_q=%d max_q=%d max_q_degree=%d max_q_degree_at=5273 '
+          'original_VF_weighted_composite_mass=%.6f '
+          'true_historical_distinct_q_prime_charge=%+.6f '
+          'ILLEGAL_repeated_q_charge=%+.6f '
+          'direct_prime_window_and_pair_enumerations_AGREE'%(
+              A,B,len(leftowners),len(degree),total,
+              min(degree),max(degree),max(degree.values()),
+              mass,old_once,fake_repeated))
+    # Both old-negative figures are DIAGNOSTICS, not freely
+    # spendable physical NNS payments. The old q charge
+    # has already been compressed into actual D_A.
+
+
 def test_half_run_only_live_multiplier_three():
     """Actual q<->3q live matched parents in the FULL 2633-block run.
 
@@ -348,6 +423,7 @@ def main():
               'weightedAbs={original_VF_weighted_abs:.6f} '
               'weightedSaving={original_VF_weighted_saving:.3f} '
               'weightedUpperBound={original_VF_abel_bound:.3f}'.format(**s))
+    test_frozen_anchor_late_owner_prime_pair_projection()
     test_half_run_only_live_multiplier_three()
     test_historical_prime_101_is_periodic_hit_not_reusable_owner()
     print('PASS: BOTH square and root boundaries telescope on literal OPEN square sites; '
