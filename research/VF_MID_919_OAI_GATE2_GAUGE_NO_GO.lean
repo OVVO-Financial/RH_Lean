@@ -62,7 +62,10 @@ fixed complex-linear map followed by the identification `ℂ = ℝ²`, so it can
 transport an identity but cannot add information to it. -/
 theorem vf919Gate2_coordinates_eq_realify_one_add_I (z : ℂ) :
     (z.re - z.im, z.re + z.im) = (((1 + I) * z).re, ((1 + I) * z).im) := by
-  refine Prod.ext ?_ ?_ <;> simp [Complex.mul_re, Complex.mul_im] <;> ring
+  refine Prod.ext ?_ ?_
+  · simp [Complex.mul_re]
+  · simp [Complex.mul_im]
+    ring
 
 theorem vf919Gate2Signed_eq_re_sq (z : ℂ) :
     vf919Gate2Signed z = (z ^ 2).re := by
