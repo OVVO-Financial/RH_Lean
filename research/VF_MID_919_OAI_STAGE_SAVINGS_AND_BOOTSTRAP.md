@@ -325,3 +325,78 @@ contribution and of why it cannot yet be
 claimed. It does NOT make 7/8 a universal
 threshold, and it does NOT import or
 prove a strengthened zeta nonvanishing theorem.
+
+
+## 6. Independent VF-weight spectral moment diagnostic (actual arithmetic)
+
+There is a further quantitative reason that the smooth VF
+physical weight *alone* cannot be presumed to enhance a
+large-sieve moment. The exact original weight is
+
+\[
+w_R=\frac{2R+1}{R\log(R^2+R+1/2)}
+     =\frac1{\log R}+O\left(\frac1{R\log R}\right)
+     \quad(R\to\infty).
+\]
+
+For R from 2634 to 5267, the actual weight falls only
+from 0.126984871290 to 0.116706572229, an 8.094%
+relative variation. Completed-square Abel summation
+isolates this smooth variation but DOES NOT turn it
+into a power saving without new SIGNED arithmetic.
+
+A more direct finite spectral test uses small rational
+Dirichlet characters, in exactly the genuine
+A=2634, B=5267 semiprime population (125272 cells).
+For a prime modulus m<=257 let
+
+\[
+S_a=\sum_{\substack{A<p<q,\ pq<B^2\\pq\equiv a\bmod m}}
+             w_{\lfloor\sqrt{pq}\rfloor},
+\qquad a\in(\mathbb Z/m)^\times.
+\]
+
+Finite Dirichlet orthogonality gives the EXACT identity
+
+\[
+\boxed{
+\sum_{\chi\bmod m,\ \chi\ne\chi_0}
+\left|\sum_{A<p<q,\ pq<B^2}
+w_{\lfloor\sqrt{pq}\rfloor}\chi(pq)\right|^2
+=(m-1)\sum_a(S_a-\bar S)^2.
+}\tag{C1}
+\]
+
+The corresponding flat-weight control assigns every
+cell the SAME value \(\bar w=\sum w/125272\);
+comparison to flat weight after dividing by
+\(\bar w^2\) removes the trivial mean-weight scaling.
+
+Exact finite residue-class calculations give the
+following VF-versus-flat **nonprincipal second-moment
+ratios**, where 1.000 means no gain:
+
+| Prime modulus | VF / flat normalized second moment |
+|---:|---:|
+| 5 | 1.033473 |
+| 7 | 1.014375 |
+| 13 | 0.975033 |
+| 31 | 0.997693 |
+| 61 | 0.990516 |
+| 257 | 1.003298 |
+
+Reproducible test:
+scripts/vf_919_original_weight_character_moment_probe.py.
+The regression is in the dedicated #919 CI.
+
+This is a **NEGATIVE result for the simple hypothesis
+"VF's smooth physical weight alone adds spectral
+cancellation."** Across these fixed rational moduli,
+the mean-matched nonprincipal moment is essentially
+unchanged. It does **not** test OpenAI's sextic
+Hecke-family moment nor the full historical signed
+Sector Six Gram. It tells us to target the **signed
+owner/age/CoDiv cross terms** and the exact
+marked-minus-rescaled local factors, rather than
+expecting a power saving from deterministic
+completed-square weight variation by itself.
