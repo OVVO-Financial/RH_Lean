@@ -1,11 +1,47 @@
-# #915 — Top-third terminal obstruction and Li cofactor/smooth restoration
+# #915 — Full sqrt / half partition, parity owner-2 slice, and Li restoration
 
 Date: October 8, 2026. **Unconditional geometry and exact finite accounting; NOT an RH proof.**
-This is an attack on the proposed use of the native historical cofactor-first
-Abel transformation to pay production `hbalance`. It retains original VF
-scalars, the compressed historical endpoint, and the original NNS denominator.
+This attacks the cofactor-first Abel route to production `hbalance` and corrects
+the original top-third-only presentation: `x/2` is the TRUE full-integer
+terminal cutoff; `x/3` applies only after removing owner-2 even sites.
+Both cuts must be retained. All comparisons use original VF scalars,
+compressed historical anchor, and unchanged NNS denominator.
 
-## 1. A large piece of the unmatched event backlog has NO odd parent-child return
+## 1. The full three prime-factor buckets, plus the parity overlay
+
+At a physical cutoff `X=B^2`, the natural complete-integer partition is:
+
+1. `p<=B=sqrt(X)`: actual low-prime sieve coordinates; EVERY composite
+   `n<=X` has a prime factor here. These are the least-prime owners.
+2. `B<p<=floor(X/2)`: post-root primes with genuine composite multiples,
+   starting with `2p<=X`. Such `p` is a large factor of `2p`, NOT the
+   least-prime owner. This is a historical prime/descendant coupling sector.
+3. `p>floor(X/2)`: genuinely terminal prime events with NO proper
+   integer multiple `c*p<=X` for ANY `c>=2`.
+
+**Parity overlay inside bucket 2:**
+
+- `B<p<=floor(X/3)`: both `2p` and, possibly, `3p` are below `X`;
+  more cofactor descendants appear as p decreases.
+- `floor(X/3)<p<=floor(X/2)`: the unique proper multiple is
+  **`2p`**, which has least-prime owner 2. This is NOT a terminal sector
+  in the full integer carrier, although it is terminal after restriction
+  to the odd-seat carrier.
+
+The earlier top-third argument proved only that odd descendants cannot
+occur. It **did not** justify treating this entire top third as physically
+unpaired; the even `2p` parent/child relation must be restored before the
+original signed Fubini or NNS payment is attempted.
+
+New exact Lean facts:
+
+- `vfMid915_aboveHalf_noProperMultiple`;
+- `vfMid915_middleFull_2q_exists`;
+- `vfMid915_aboveThird_onlyDoubleMultiple`;
+- `vfMid915_halfRun_floorLiMismatch_eq_upperHalf_add_lower`;
+- `vfMid915_halfRun_floorLiMismatch_eq_threeUpperStrata`.
+
+### Why the odd-only top-third observation remains useful
 
 Put `a=floor(R/2)+1`, `B=R+1`, `X=B^2` and `T=floor(X/3)`.
 Write `E(n)=pi(n)-floor(Li_2(n))`. The exact primitive mismatch splits as
@@ -45,26 +81,32 @@ composite removals of the q-sites by small p<=B, not imaginary proper
 odd descendants c*q within the earlier half-run. It is an exact sieve,
 **not an estimate** of survivors versus Li jumps.
 
-### Actual arithmetic at the two historical anchors
+### Exact floor-Li discrepancies in the full buckets at two historical anchors
 
 | Quantity | R=317 | R=1027 |
 |---|---:|---:|
 | a | 159 | 514 |
 | T=floor((R+1)^2/3) | 33,708 | 352,261 |
+| H=floor((R+1)^2/2) | 50,562 | 528,392 |
 | E(a^2) | -26 | -64 |
 | E(T) | -24 | -50 |
+| E(H) | -31 | -60 |
 | E(B^2) | -41 | -122 |
-| Lower, descendant-eligible mismatch E(T)-E(a^2) | **+2** | **+14** |
-| Terminal top-third mismatch E(B^2)-E(T) | **-17** | **-72** |
+| q<=X/3, including odd cofactor descendants: E(T)-E(a^2) | **+2** | **+14** |
+| X/3<q<=X/2, only even `2q` descendants: E(H)-E(T) | **-7** | **-10** |
+| q>X/2, NO proper descendants: E(B^2)-E(H) | **-10** | **-62** |
+| Upper-third subtotal E(B^2)-E(T) | **-17** | **-72** |
 | Net historical mismatch | **-15** | **-58** |
 | Actual top-third primes | 6,076 | 52,454 |
 | Top-third floor-Li jumps | 6,093 | 52,526 |
 
-**Finding:** The top-third terminal sector alone supplies more than
-100% of the observed negative net drift; the cofactor-accessible lower
-region compensates part of it (+2 and +14). Consequently an inequality
-derived solely from proper odd composite descendants cannot control the
-actual backlog without an independent terminal-prime arithmetic input.
+**Corrected finding:** The region above X/3 supplies -17 and -72, but
+**part of that discrepancy is still paired physically with even `2q`**:
+-7 and -10. The genuinely descendant-free region q>X/2 supplies -10
+and -62. The lower region, with odd composite descendants, contributes
++2 and +14. An odd-only cofactor proof cannot control either the
+owner-2-only mixed interval or the genuinely terminal prime-only interval
+without the corresponding full-carrier arithmetic accounting.
 
 This does NOT say that the lower sector contributes nothing to historical
 physical energy, or that its primitive mismatch controls its large
@@ -131,7 +173,8 @@ This is a decomposition of an actual arithmetic charge, not a sign bound.
 
 ## 3. First-bad consequence: a forced terminal-prime discrepancy
 
-At a hypothetical first-bad B for K=2, write J=floor(sqrt(T)).
+At a hypothetical first-bad B for K=2, write J=floor(sqrt(T)),
+where T may be either floor(B^2/3) or floor(B^2/2).
 The earlier square J^2 is inside the first-bad wall. Define the
 uniformly bounded square-endpoint Li/VF bridge
 `b_j = floor(Li_2(j^2))-VF_mid(j^2)`. Then (for J>=2):
@@ -153,13 +196,18 @@ Asymptotically the right side is
 
     2*(1-1/sqrt(3))*B*log(B) - O(B),
 
-roughly **0.8453 B log B**, if the first-bad hypothesis actually holds.
+roughly **0.8453 B log B** for T=floor(B^2/3). At the FULL-integer
+terminal boundary T=floor(B^2/2), the analogous leading coefficient is
+`2*(1-1/sqrt(2)) = 0.585786...`. Both are only necessary lower
+bounds if the first-bad hypothesis actually holds.
 
-This is a real sign-independent **necessary condition**, not a proved
-upper bound. It clarifies the missing arithmetic precisely: an
-actual-prime estimate on the terminal interval (B^2/3,B^2]
-strong enough to defeat this threshold, OR a rigorously favorable
-joint cancellation with the lower descendant-eligible sector.
+This is a sign-independent **necessary condition**, not a proved
+upper bound. The full terminal interval is `(B^2/2,B^2]`, while
+`(B^2/3,B^2/2]` MUST retain its genuine even `2q` descendants.
+The missing arithmetic is either an actual-prime discrepancy estimate
+strong enough to defeat the full terminal threshold, or a rigorously
+favorable *joint signed* comparison including both the owner-2-only
+and lower odd-cofactor sectors.
 Neither follows from PNT, the finite Li transport pairing statistics,
 or the geometry of missing odd descendants.
 
@@ -169,9 +217,10 @@ so it must not be inserted as a disguised assumption.
 
 ## 4. Consequences for the production #915 payment
 
-1. The **upper terminal prime-only mismatch** must remain a separate
-   signed source through the original first-bad calculation. There is
-   *no* historical odd cofactor parent whose heat can pay it before B^2.
+1. The **upper-half terminal prime-only mismatch** must remain a separate
+   signed source. For `X/3<q<=X/2`, preserve the distinct genuine
+   historical **`2q`, least-owner-2** occurrence; suppressing it through
+   an odd-only projection is not a proof of compensation.
 2. The **lower cofactor ancestry** cannot be estimated by spending
    historical blockwise absolute mass. First restore the *actual*
    smooth complement with original w_r and original NNS denominator.
@@ -181,8 +230,8 @@ so it must not be inserted as a disguised assumption.
 4. The truly open mathematical requirement remains the
    **first-bad-specific joint signed arithmetic payment** in
    `VF_MID_FIRST_BAD_EXACT_BUDGET_CLOSE.lean` at `hbalance`.
-   This attack has not proved it; do not claim that the existing
-   cofactor-Abel theorem alone covers the terminal events.
+   This attack has not proved it; do not claim that cofactor-Abel or
+   exact owner-2 correspondence alone controls the terminal discrepancy.
 
 ### Reproducible independent audit
 
