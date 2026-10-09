@@ -64,6 +64,32 @@ theorem vfMid915MiddleEvenPrimeParent_window_iff_physical
       omega
     exact ⟨hl', hq⟩
 
+/-- The actual prime q whose EVEN child 2q is in the current square
+band is a historical parent entirely inside the TRUE first-bad
+half-run (a^2,R^2). No postulated prior child or synthetic q is used. -/
+theorem vfMid915MiddleEvenPrimeParent_inActualHalfRun
+    {R q : ℕ} (hR : 8 ≤ R)
+    (hl : R ^ 2 / 2 < q) (hu : q ≤ R ^ 2 / 2 + R) :
+    (R / 2 + 1) ^ 2 ≤ q ∧ q < R ^ 2 := by
+  have ha : 2 * (R / 2 + 1) ≤ R + 2 := by omega
+  have hasq : 4 * (R / 2 + 1) ^ 2 ≤ (R + 2) ^ 2 := by
+    have hprod := Nat.mul_le_mul ha ha
+    nlinarith
+  have hscale : 4 * R + 4 ≤ R ^ 2 := by
+    have hprod : 8 * R ≤ R * R :=
+      Nat.mul_le_mul_right R hR
+    nlinarith
+  have hahlf : 2 * (R / 2 + 1) ^ 2 ≤ R ^ 2 := by
+    nlinarith
+  have hafloor : (R / 2 + 1) ^ 2 ≤ R ^ 2 / 2 := by
+    apply (Nat.le_div_iff_mul_le (by norm_num : 0 < (2 : ℕ))).mpr
+    simpa [Nat.mul_comm] using hahlf
+  have hrfloor : 2 * (R ^ 2 / 2) ≤ R ^ 2 := by omega
+  have hq2 : 2 * q ≤ R ^ 2 + 2 * R := by omega
+  constructor
+  · omega
+  · omega
+
 /-- Sharp, honest 6-wheel bound for genuine middle q-prime events.
 No Li density and no assumption on short prime gaps. -/
 theorem vfMid915MiddleEvenPrimeParentSupply_le_sixWheel
