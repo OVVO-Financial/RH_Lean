@@ -1792,6 +1792,122 @@ proof of (F8). The finite CI of ordinary algebraic rules is
 not a certificate of (F8), and no RH conclusion is claimed.
 
 
+
+## 4H. Floor-Li fantasy: proved O(1) square-endpoint safety, but not the actual wheel class
+
+The central suggestion is mathematically valid in logical form:
+
+1. Define a class of monotone integer staircases by *independently
+   checkable* arithmetic admissibility laws.
+2. Prove EVERY member of that class lies within C R log R of the
+   deterministic VF_mid square-endpoint series.
+3. Show both floor-Li Q and actual prime counting pi satisfy those laws.
+4. Apply class containment to pi and the already-compiled von-Koch bridge.
+
+**What is actually established:** Main already proves a *stronger*
+deterministic floor-Li reference rate than the basic root bound.
+\`research/VF_MID_LI_UNIFORM_QUADRATURE.lean\` has
+\`abs_vfMidLiError_sq_le_uniform\`, asserting that
+\`|VF_mid(R^2) - Li_2(R^2)| <= C0\` for ALL R>=2 with one
+fixed constant C0. \`research/LI_FLOOR_PRIME_COUNT_FANTASY.lean\`
+has \`abs_liFloorPrimeCountProxy_sub_li_lt_one\`.
+Therefore, at EVERY square endpoint,
+
+$
+\boxed{|Q(R^2)-VF_{\rm mid}(R^2)|<C_0+1.}
+\tag{F9}
+$
+
+This is an **unconditional, proved O(1) bound** for the floor-Li
+fantasy, hence it cannot have a first bad endpoint for some
+sufficiently wide fixed K R log R wall. The coarse theorem by
+itself does not certify the special numerical K=2 at the very
+smallest roots; sharpen the constant or verify finite base separately
+if specifically using K=2. No RH conclusion follows yet.
+
+**Concrete obstruction to claiming the same actual owner class:**
+On block R=8 with frozen cutoff A=4, n=65=5*13 satisfies
+64<n<81, minFac(n)=5>A and the valid cube-depth hypothesis
+\`(R+1)^2=81 <= (A+1)^3=125\`. The actual physical decoder
+(\`vfMidOddSignedSeatCharge_eq_affineCenter_add_half_moebius_of_cube\`)
+uses \`mu(65)=+1\`, therefore the ACTUAL prime jump at n=65
+must be zero, giving charge \`w_8\`.
+
+But the numerical floor-Li integer potential at this site is
+
+$
+Li_2(64)=20.8895045479\ldots,\qquad
+Li_2(65)=21.1295054848\ldots,
+$
+
+so \`Q(65)-Q(64)=1\`; its hypothetical prime-seat charge would
+be \`w_8-1\`. These differ by EXACTLY one count. The
+transcendental floor comparison is numerical in this audit, NOT
+a Lean-certified inequality. An earlier even violation occurs
+at n=6, and at R=317 there are 26 even floor-Li jumps and 51
+composite floor-Li jumps within its 55 block events.
+Thus Q cannot be substituted for the literal \`Nat.Prime\` site
+filter or pointwise restricted Mobius/FTA decoder. Calling
+these different values of the *same* owner admissibility law
+is invalid, not merely a loss of precision.
+
+**There is a qualitative asymptotic mismatch as well.** The
+event gaps of floor(Li_2(n)) are asymptotic to \`log n\`
+(by the mean value theorem applied to Li and the at-most-one
+integer rounding at jump sites). Actual consecutive prime
+gaps divided by \`log p_n\` have unbounded limsup
+(Westzynthius, strengthened by Ford--Green--Konyagin--Tao
+and Maynard; see Annals of Mathematics 183 (2016)).
+Consequently any rule requiring every gap to stay between
+fixed logarithmic-base multiples is NOT shared by Q and pi.
+This does not rule out a suitable WEAKER class with exceptional
+gaps: such a class must be proved sufficient on all histories.
+
+**Exact comparison that a shared class MUST control:**
+Let \`q_n := Q(n)-Q(n-1)\`, \`p_n := 1_Prime(n)\`,
+\`xi_n := p_n-q_n\`. Then
+
+$
+\boxed{
+\pi(R^2)-VF_{\rm mid}(R^2)
+=[Q(R^2)-VF_{\rm mid}(R^2)]
++[\pi(4)-Q(4)]+\sum_{n=5}^{R^2}\xi_n.
+}
+\tag{F10}
+$
+
+The fantasy bracket in (F10) has proved O(1) size.
+The actual cumulative signed primitive relocation
+\`sum xi_n\` does NOT. This is precisely the arithmetic
+content of the first-bad signed payment.
+
+A possible non-circular class property, *not yet proved for pi*,
+would bound ranked event relocations \`|p_j-q_j|\` by
+\`O(sqrt(q_j) log(q_j)^2)\`. By monotonicity and the
+known Li floor increment bound, only events in a window
+of that width could be unmatched at a given x, so
+
+$
+|\pi(x)-Q(x)|=O\bigl((\sqrt{x}\log^2 x)/\log x\bigr)
+=O(\sqrt{x}\log x).
+$
+
+This is a logically sufficient deterministic **event-transport
+certificate**, not independent evidence that actual primes satisfy it.
+The previously recorded floor-Li transport miner found short
+FIFO lifetimes empirically through 1e8 but did not prove any
+uniform asymptotic matching. Its owner-realization/payment is
+the actual unresolved theorem; the reference's O(1) property
+cannot substitute for it.
+
+**Research policy:** Preserve the proved fantasy cancellation
+and native Sector Six mechanics. Do not claim floor-Li belongs
+to the actual wheel/FTA owner class, do not assume pointwise
+even/odd parity alignment, and do not replace the remaining
+actual signed transport or six-sector inequality by the
+fact that the reference itself is well-behaved.
+
+
 ## 5. Testing: deliberately separate seconds from native compilation
 
 **Fast lane** (automatically on every PR update; no Lean/StrongPNT):
