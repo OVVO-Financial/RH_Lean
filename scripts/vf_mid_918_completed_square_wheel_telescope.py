@@ -48,6 +48,26 @@ def run(A, B, y):
         assert scaled_error == scaled_phase(r1)-scaled_phase(r0)
         band_scaled_errors.append(scaled_error)
 
+    # Crucial: original VF odd sites use OPEN square blocks.
+    # The appended upper square may survive a partial wheel, but is
+    # ALWAYS a composite and cannot enter the physical NNS carrier.
+    # Since gcd((r+1)^2,Q)=1 iff gcd(r+1,Q)=1, the correction
+    # is an entire SECOND root-level wheel telescope.
+    root_survivors = F(B)-F(A)
+    root_scaled_error = Q*root_survivors - phi*(B-A)
+    open_scaled_errors = [
+        e-(Q*(F(r+1)-F(r))-phi)
+        for r,e in zip(range(A,B),band_scaled_errors)
+    ]
+    signed_open_scaled=sum(open_scaled_errors)
+    open_endpoint_scaled=(
+        scaled_phase(U)-scaled_phase(L)-
+        (scaled_phase(B)-scaled_phase(A))
+    )
+    assert signed_open_scaled == open_endpoint_scaled
+    assert abs(signed_open_scaled)<=4*len(terms)*Q
+    assert root_survivors == sum(
+        math.gcd(j*j,Q)==1 for j in range(A+1,B+1))
     signed_scaled = sum(band_scaled_errors)
     endpoint_scaled = scaled_phase(U)-scaled_phase(L)
     assert signed_scaled == endpoint_scaled
@@ -63,6 +83,12 @@ def run(A, B, y):
         if not flags[n] and math.gcd(n,Q)==1
     )
     assert S == P + true_high_composites
+    # Squareful endpoint sites (some pass the small wheel) have
+    # now been removed without changing any genuine prime count.
+    open_S = S - root_survivors
+    open_C = true_high_composites - root_survivors
+    assert open_S == P + open_C
+    assert open_C >= 0
     V = math.fsum(band_v(r) for r in range(A,B))
     density_base = phi*span/Q
     boundary_phase = signed_scaled/Q
@@ -76,6 +102,14 @@ def run(A, B, y):
         number_of_divisor_faces=len(terms),
         full_wheel_survivors=S, genuine_primes=P,
         genuine_high_owner_composites=true_high_composites,
+        square_endpoint_rough_composites=root_survivors,
+        physical_open_wheel_survivors=open_S,
+        physical_open_high_composites=open_C,
+        physical_open_phase=signed_open_scaled/Q,
+        sum_absolute_open_band_phases=
+            sum(map(abs,open_scaled_errors))/Q,
+        open_phase_saving=(sum(map(abs,open_scaled_errors))/
+                           max(1,abs(signed_open_scaled))),
         density_base=density_base,
         signed_boundary_phase=boundary_phase,
         sum_absolute_band_phases=naive_total,
@@ -94,9 +128,14 @@ def main():
                   'Q={Q} span={span} fullCRT={complete_CRT_period_fits} '
                   'completedSquares={complete_square_blocks} faces={number_of_divisor_faces} '
                   'S={full_wheel_survivors} C_high={genuine_high_owner_composites} '
+                  'rootSquareCorrection={square_endpoint_rough_composites} '
+                  'openS={physical_open_wheel_survivors} openC={physical_open_high_composites} '
                   'P_actual={genuine_primes} density={density_base:.6f} '
                   'phase={signed_boundary_phase:+.6f} '
                   'absPerBlock={sum_absolute_band_phases:.6f} '
+                  'openPhase={physical_open_phase:+.6f} '
+                  'openAbsPerBlock={sum_absolute_open_band_phases:.6f} '
+                  'openSaving={open_phase_saving:.3f} '
                   'telescopingSaving={saved_factor:.3f} '
                   'densityMinusVF={deterministic_wheel_minus_V:.6f} '
                   'actualDelta={actual_P_minus_V:.6f}'.format(**s))
@@ -105,12 +144,16 @@ def main():
                 assert 0 < s['signed_boundary_phase']<1
                 assert s['sum_absolute_band_phases']>249
                 assert s['saved_factor']>270
+                assert 2.55 < s['physical_open_phase'] < 2.56
+                assert 97 < s['open_phase_saving'] < 99
             if (A,B,y)==(6000,6154,19):
                 assert s['Q']>s['span']
                 assert 0 < s['signed_boundary_phase']<1
                 assert s['sum_absolute_band_phases']>295
                 assert s['saved_factor']>490
-    print('PASS: signed complete-square fixed-wheel phases telescope; '
+                assert 0.93 < s['physical_open_phase'] < 0.95
+                assert 315 < s['open_phase_saving'] < 317
+    print('PASS: BOTH square and root boundaries telescope on literal OPEN square sites; '
           'genuine high-owner correction retained exactly. NOT RH.')
 
 
