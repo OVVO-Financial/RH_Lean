@@ -90,6 +90,8 @@ jobs:
           #check RHLean.Analysis.vfSevenEighthsPhysicalOwnerWeight
           #check RHLean.Analysis.vfSevenEighthsPrimeLiErrorAtNat_eq
           #check RHLean.Analysis.vfSevenEighthsWeightedOwnerPrimeLiDifference_eq_abel
+          #check RHLean.Analysis.vfSevenEighthsWeightedOwnerPrimeLiDifference_abs_le
+          #print axioms RHLean.Analysis.vfSevenEighthsWeightedOwnerPrimeLiDifference_abs_le
           #check RHLean.Analysis.vfSevenEighthsOwnerPacket_abel
           #print axioms RHLean.Analysis.vfSevenEighthsOwnerPacket_abel
           #check RHLean.Analysis.VFMidSevenEighthsZetaZeroFree
