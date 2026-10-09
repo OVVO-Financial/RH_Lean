@@ -47,7 +47,7 @@ theorem vfMid915MiddleEvenPrimeParent_window_iff_physical
     have hlow := (Nat.div_lt_iff_lt_mul
       (by norm_num : 0 < (2 : ℕ))).mp hl
     have hmul : 2 * (R ^ 2 / 2 + R) ≤ R ^ 2 + 2 * R := by
-      have hdiv : 2 * (R ^ 2 / 2) ≤ R ^ 2 := Nat.mul_div_le _ _
+      have hdiv : 2 * (R ^ 2 / 2) ≤ R ^ 2 := by omega
       omega
     constructor
     · simpa [Nat.mul_comm] using hlow
@@ -59,7 +59,7 @@ theorem vfMid915MiddleEvenPrimeParent_window_iff_physical
     have hupper : 2 * q ≤ R ^ 2 + 2 * R := by
       nlinarith
     have hq : q ≤ R ^ 2 / 2 + R := by
-      have hdiv : 2 * (R ^ 2 / 2) ≤ R ^ 2 := Nat.mul_div_le _ _
+      have hdiv : 2 * (R ^ 2 / 2) ≤ R ^ 2 := by omega
       have hrem : R ^ 2 < 2 * (R ^ 2 / 2) + 2 := by omega
       omega
     exact ⟨hl', hq⟩
