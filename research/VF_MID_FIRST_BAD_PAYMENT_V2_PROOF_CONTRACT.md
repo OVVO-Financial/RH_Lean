@@ -855,6 +855,217 @@ not an observational lag-one Pearson or an
 aggregate-first normalized NNS value.
 
 
+## 4D. State-dependent transition operators: connect the OLD 27-state cube
+to the ACTUAL VF midpoint square-block dynamics
+
+This is a direct crosswalk to the existing, already formalized transition
+work. **Do not mistake 27-state Möbius sign statistics for a Markov law
+on actual prime counts.** The two carriers must be kept distinct.
+
+### Already-proved 27-state ternary/8-state signed physical transition model
+
+The genuine Möbius cells are
+
+$
+S_k=(\mu(4k+1),\mu(4k+2),\mu(4k+3))
+\in\{-1,0,1\}^3.
+$
+
+The full space has 27 states, of which only eight have no zero
+coordinates. The **other 19 states must be retained** as an explicit
+zero-sector defect. The existing main modules
+
+- \`RHLean/Analysis/ThreeSlotMertensDegreeOneProjection.lean\`
+- \`RHLean/Analysis/PhysicalDegreeOneMixingConjecture.lean\`
+- \`RHLean/Analysis/PhysicalPartialMomentSchur.lean\`
+- \`RHLean/Analysis/FinitePrimeTMixing.lean\`
+- \`RHLean/Analysis/DeterministicTGreenKuboComparison.lean\`
+
+prove exact integer transition counts, a degree-one Walsh observable,
+zero-sector remainder, target-invariant physical Schur covariance,
+complete-period prime-local finite transfer, and exact lagged signed
+energy reassembly. They **do not prove** an asymptotic bound on the
+incomplete physical transition matrix. The outstanding analytical
+statement \`PhysicalDegreeOneMixingConjecture\` remains a named
+unproved proposition.
+
+The archived empirical eight-state *conditioned* row matrix at
+$x=10^7$ has maximum entrywise deviation about **0.003305**
+from a uniform $1/8$ row. The COMPLETE local odd-prime three-slot
+Walsh eigenvalues are
+
+$
+\lambda_{p,j}=1-\frac{2j(p-1)}{p^2-3},\quad j=1,2,3.
+$
+
+The six-coordinate **transition** transfer has a different
+$p^2-6$ denominator. These are distinct finite CRT operators.
+Neither eigenvalue product automatically controls an INCOMPLETE
+physical square-block prefix. Its endpoint/zero-sector boundary
+has to be bounded in retained physical signs and weights.
+
+The degree-one Möbius statistic encodes Mertens, not $\pi$:
+even though an actual prime has $\mu(p)=-1$,
+an odd squarefree product of three distinct primes also has
+$\mu(n)=-1$. Consequently a negative Möbius state is NOT
+an actual prime event. A transfer to #918 must preserve the
+prime-indicator decoder/actual first-owner sieve, original
+$R$ odd seats and full native $w_R=V_R/R$ reference mass.
+
+### Empirical ACTUAL pi square-block transitions
+
+These are NEW finite diagnostics for R=8..6000, evaluated from
+true prime counts. The state is the **fixed target 0**
+of $e_R=P_R-V_R$, not a moving empirical mean.
+
+| current $e_R$ sign / next | next below VF | next above VF |
+|---|---:|---:|
+| below | 1421 (46.882%) | 1610 (53.118%) |
+| above | 1610 (54.374%) | 1351 (45.626%) |
+
+The empirical conditional nonconstant eigenvalue IF one modeled
+this coarse two-state table as a Markov kernel is about **-0.074913**.
+There is NO proof the actual arithmetic process is Markov, autonomous,
+or that these probabilities hold in unobserved root regimes.
+
+The actual $P_R-F_R$ sign, with $F_R$ the floor-Li integer demand,
+has the full **three-state** transition count table:
+
+| row / next | negative | zero | positive |
+|---|---:|---:|---:|
+| negative | 1296 | 125 | 1483 |
+| zero | 110 | 16 | 125 |
+| positive | 1498 | 109 | 1230 |
+
+The stronger high-q/smooth sector sign transitions should NOT
+be interpreted as three independent sources. The exact
+$\delta_P+\delta_G+\delta_H=0$ forces all three sector errors
+to share an algebraic conservation law; floor-Li event phases also
+change across scales.
+
+### Actual VF-midpoint WITHIN each square block
+
+Split at integer $m_R=R^2+R$, directly below the geometrical
+midpoint $R^2+R+\tfrac12$. The exact reference advance to the
+integer split is the existing live VF-mid interpolation
+
+$
+V_R^{\mathrm{first}}=
+\frac{R}{\log(R^2+R/2)},\qquad
+V_R^{\mathrm{second}}=V_R-V_R^{\mathrm{first}}.
+$
+
+Here $P_R^{\mathrm{first}}=\pi(m_R)-\pi(R^2)$ and
+$P_R^{\mathrm{second}}=\pi((R+1)^2)-\pi(m_R)$.
+Both are ACTUAL primes. Their signed deviations sum EXACTLY
+to $e_R$; the same fixed original full-block odd-seat VF
+mass $V_R$ is used, with **no new even prime candidate**.
+
+Observed within-block transition counts:
+
+| first-half state / second-half | second below VF | second above VF |
+|---|---:|---:|
+| first below VF | 1383 | 1605 |
+| first above VF | 1634 | 1371 |
+
+First-half below predicts second-half above with conditional
+frequency **53.715%**; first-half above predicts second-half
+below with frequency **54.376%**. Across all 5,993 blocks,
+within-block Pearson is **-0.098403** and target-zero
+aggregate NNS **-0.154673**. For the end-of-block second
+half to the NEXT block's first half, Pearson is **-0.096360**
+and NNS is **-0.150727**.
+
+Do not confuse this live midpoint reference with an artificial
+uniform half-splitting of odd-seat weights: the max measured
+difference from $(\lfloor R/2\rfloor)w_R$ is **0.148832**.
+The original #918 proof still uses the full block original
+carrier with $V_R=Rw_R$.
+
+### Conditional restoration at greater empirical wall pressure
+
+For each R let $D_R$ be the **ACTUAL** historical endpoint
+defect and $W_R=2R\log R$. To avoid guessing the future
+sign, orient the next increment using the earlier history:
+
+$
+\mathrm{outward}_{R+1}
+=\operatorname{sgn}(D_R)\,[P_{R+1}-V_{R+1}].
+$
+
+Negative values are inward. On the 5,992 consecutive transitions:
+
+| historical wall occupancy stratum | n | next move inward | mean next outward increment |
+|---|---:|---:|---:|
+| bottom decile of $|D_R|/W_R$ | 600 | 43.50% | +1.9373 |
+| top decile of $|D_R|/W_R$ | 600 | 51.83% | -0.3562 |
+| middle 50% | 2996 | 50.27% | -0.3390 |
+
+In the **three fixed root bands** 8..1000, 1001..3000,
+3001..6000, the top wall-occupancy quintile has empirical
+next-inward probabilities **51.76%, 57.00%, 57.17%**.
+This finite evidence hints at state-dependent restraint.
+
+**Critical limitations:** Every sampled $D_R$ is NEGATIVE,
+so there is no observed positive-wall restoration sample.
+The MAXIMUM observed wall occupancy is only
+**0.045990 at R=15**, i.e. below five percent of the
+$K=2$ wall, nowhere near first badness. Occupancy strata
+select different root regimes, so these conditional
+frequencies do not isolate a causal or stationary transition
+law. They cannot be used to infer boundary-proximate behavior.
+
+The sign-runs are short in this observed window
+(max ten consecutive under-VF, seven consecutive over-VF).
+There is no deterministic all-$R$ maximum-run theorem.
+
+### "101 acts like 2": retain the chronological delay
+
+The genuine prime 101 occurs in square block R=10.
+Its even child 202 is in block R=14 and has ZERO
+independent physical odd-seat charge; its first odd
+composite child 303=3*101 occurs only in block R=17.
+Thus the same-prime odd composite owner mechanism
+is NOT universally a next-block immediate reversal.
+A next-block empirical anticorrelation alone cannot
+identify the owner-level source of the feedback.
+
+At scale R, a high prime factor q has potential odd
+future descendants c*q and is active on cofactor
+windows with their own root entry times. The proof
+needs their **exact signed nonlocal transition kernel**
+and smooth-composite restoration, not the stationary
+two-state sign Markov approximation.
+
+### Reproduction and the actual unproved theorem
+
+Run the opt-in \`crossblock_moments\` workflow input,
+which calls \`scripts/vf_mid_918_crossblock_moments.py\`
+and publishes additional outputs:
+
+- \`state_transition_summary.json\`: all physical-prime sign matrices,
+  live midpoint matrices, row normalization, conditional fixed
+  historical states and observed wall occupancy;
+- \`state_dependent_restoration.csv\`: whole-panel, fixed
+  root-window and occupancy-conditioned transitions;
+- \`midpoint_halves.csv\`: every integer midpoint actual-prime
+  count and signed VF-half discrepancy.
+
+The exact twenty-seven-state Walsh transport is **not**
+the two-state prime-count Markov surrogate.
+For a deterministic proof, the admissible extended physical
+state would have to retain relevant residue/owner phases,
+the actual first-owner/prime decoder, the signed smooth-core
+completion, and the historical $D_A$. Only after establishing
+a weight-preserving physical pushforward AND an incomplete-CRT
+frontier bound could a quantitative transition estimate
+control the original first-bad historical Gram.
+
+A candidate estimator for conditional one-step expectation is
+not the required pointwise arithmetic inequality.
+**No step of the proof currently bounds the true owner-driven
+positive-lag accumulation uniformly near the hypothetical wall.**
+
 ## 5. Testing: deliberately separate seconds from native compilation
 
 **Fast lane** (automatically on every PR update; no Lean/StrongPNT):
