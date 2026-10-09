@@ -369,4 +369,96 @@ theorem vfV2SparseCrossOwnerSquare (s₁ s₂ : ℝ) :
     (s₁ + s₂) ^ 2 = s₁ ^ 2 + s₂ ^ 2 + 2 * s₁ * s₂ := by
   ring
 
+
+/-! ## Fully generic unit-step + uniquely-owned carrier rules
+
+These claims HOLD FOR EVERY Boolean unit-jump selection and every finite
+owner assignment that covers its seats. They establish precisely what the
+generic monotonically increasing arithmetic-step/owner model grants, before
+any actual-prime-specific restriction on its signed historical phases.
+They DO NOT imply a radial cone: a trivial zero-prime binary selector and
+the separately checked all-state counterexample refute such an inference. -/
+
+/-- A completely generic integer unit-step count; prime counting is the
+specific selector \`fun n => decide n.Prime\`. -/
+def vfV2GenericUnitStepCount (isJump : ℕ → Bool) (N : ℕ) : ℕ :=
+  ∑ n ∈ Finset.range N, if isJump n then 1 else 0
+
+/-- The next integer changes a generic counting staircase by exactly one
+unit or by zero. No arithmetic distribution assumptions enter. -/
+theorem vfV2GenericUnitStepCount_succ (isJump : ℕ → Bool) (N : ℕ) :
+    vfV2GenericUnitStepCount isJump (N + 1) =
+      vfV2GenericUnitStepCount isJump N +
+        (if isJump N then 1 else 0) := by
+  simp [vfV2GenericUnitStepCount, Finset.sum_range_succ]
+
+theorem vfV2GenericUnitStepCount_monotone (isJump : ℕ → Bool) :
+    Monotone (vfV2GenericUnitStepCount isJump) := by
+  apply monotone_nat_of_le_succ
+  intro N
+  rw [vfV2GenericUnitStepCount_succ]
+  omega
+
+/-- The exact finite prime/nonprime seat population, with neither even
+sites nor manufactured reference mass added. -/
+theorem vfV2FiniteActualPrimeNonprimePopulation (seats : Finset ℕ) :
+    (∑ n ∈ seats, if n.Prime then (1 : ℝ) else 0) +
+      (∑ n ∈ seats, if ¬ n.Prime then (1 : ℝ) else 0) =
+        (seats.card : ℝ) := by
+  classical
+  rw [← Finset.sum_add_distrib]
+  calc
+    (∑ n ∈ seats,
+      (if n.Prime then (1 : ℝ) else 0) +
+        (if ¬ n.Prime then (1 : ℝ) else 0)) =
+        ∑ _n ∈ seats, (1 : ℝ) := by
+          apply Finset.sum_congr rfl
+          intro n _hn
+          by_cases hp : n.Prime <;> simp [hp]
+    _ = (seats.card : ℝ) := by simp
+
+/-- The actual-prime 0/1 selector has the correct affine VF-minus-prime
+signed mass on EVERY finite carrier, regardless of distribution. -/
+theorem vfV2FiniteActualPrimeSignedSeatMass
+    (seats : Finset ℕ) (w : ℝ) :
+    (∑ n ∈ seats,
+        (w - if n.Prime then (1 : ℝ) else 0)) =
+      w * (seats.card : ℝ) -
+        ∑ n ∈ seats, if n.Prime then (1 : ℝ) else 0 := by
+  classical
+  rw [Finset.sum_sub_distrib, Finset.sum_const, nsmul_eq_mul]
+
+/-- A UNIQUE owner function partitions any finite weighted source exactly
+once; it does NOT make the resulting signed quadratic form nonpositive. -/
+theorem vfV2UniqueOwnerFiniteFubini
+    (seats owners : Finset ℕ) (owner : ℕ → ℕ) (charge : ℕ → ℝ)
+    (howner : ∀ n ∈ seats, owner n ∈ owners) :
+    (∑ n ∈ seats, charge n) =
+      ∑ p ∈ owners, ∑ n ∈ seats,
+        if p = owner n then charge n else 0 := by
+  classical
+  calc
+    _ = ∑ n ∈ seats, ∑ p ∈ owners,
+          if p = owner n then charge n else 0 := by
+      apply Finset.sum_congr rfl
+      intro n hn
+      simp [howner n hn]
+    _ = _ := by rw [Finset.sum_comm]
+
+/-- Generic once-counted parent incidence carries the cross-block sum
+without supplying a new historical negative copy per child. -/
+theorem vfV2UniqueOwnerOnceCharge
+    (seats owners : Finset ℕ) (owner : ℕ → ℕ)
+    (charge : ℕ → ℝ) (historicalCharge : ℕ → ℝ)
+    (howner : ∀ n ∈ seats, owner n ∈ owners) :
+    (∑ n ∈ seats, charge n) -
+      (∑ p ∈ owners, historicalCharge p) =
+      ∑ p ∈ owners,
+        ((∑ n ∈ seats,
+          if p = owner n then charge n else 0) -
+          historicalCharge p) := by
+  rw [vfV2UniqueOwnerFiniteFubini seats owners owner charge howner]
+  rw [Finset.sum_sub_distrib]
+
+
 end RHLean.Analysis
