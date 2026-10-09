@@ -313,47 +313,81 @@ def constant_target_pearson(values):
 
 
 def sparse_first_owner_boundary_regression():
-    """Least-prime owners on the strictly OPEN square carrier.
+    """Independent true-prime and least-owner square-band census.
 
-    A p-multiple on the full lattice is not necessarily an odd seat or
-    a p-FIRST-owner site. At R=p-1, p^2 is the EXCLUDED upper endpoint.
-    On the open carrier every composite's least prime owner <= R.
+    The physical carrier is strictly R^2<n<(R+1)^2. With least owner
+    p>sqrt(R), an odd composite has only 2 or 3 prime factors counted
+    with multiplicity. Semiprimes are p*q with genuine prime q>R;
+    the triple packet has all three prime factors <=R. The independent
+    semiprime prime-interval formula is also checked (no fake Li events).
     """
-    lo_primes=prime_flags(10202)
-    primes=[p for p in range(3,10203,2) if lo_primes[p]]
-    p=101
-    for r in (100,101,10201):
-        first=r*r+1
-        if first%2==0:first+=1
+    import bisect
+    small_flags=prime_flags(10202)
+    small=[p for p in range(3,10203,2) if small_flags[p]]
+    # For R=10201, p>sqrt(R) means p>=103, q<=(R+1)^2/p.
+    max_cofactor=10202**2//101+1
+    large_flags=prime_flags(max_cofactor)
+    primes=[p for p in range(2,len(large_flags)) if large_flags[p]]
+    p101=101
+    for r in (8,100,101,119,317,1027,1760,5267,6000,10201):
+        first=r*r+1+(r%2)
         last=(r+1)**2-1
-        assert first+2*(r-1)<=last and first+2*r>last
+        assert first%2 and first+2*(r-1)<=last and first+2*r>last
         owners=[0]*r
-        for q in primes:
-            if q>r:break
-            cf=(first+q-1)//q
+        for p in small:
+            if p>r:break
+            cf=(first+p-1)//p
             if cf%2==0:cf+=1
-            ix=(q*cf-first)//2
-            for j in range(ix,r,q):
-                if owners[j]==0:owners[j]=q
-        count_prime=owners.count(0)
-        count_mature=sum(1 for q in owners if q and q*q<=r)
-        count_sparse=sum(1 for q in owners if q and q*q>r)
-        assert count_prime+count_mature+count_sparse==r
-        full_p_hits=last//p-r*r//p
-        odd_p_hits=sum(1 for cf in range(r*r//p+1,last//p+1)
-                       if cf%2)
-        unique_p=sum(q==p for q in owners)
-        assert 0<=unique_p<=odd_p_hits<=full_p_hits
+            ix=(p*cf-first)//2
+            for j in range(ix,r,p):
+                if owners[j]==0:owners[j]=p
+        mature=sum(1 for p in owners if p and p*p<=r)
+        sparse=sum(1 for p in owners if p and p*p>r)
+        actual_primes=owners.count(0)
+        assert actual_primes+mature+sparse==r
+        semiprime=triple=0
+        for j,p in enumerate(owners):
+            if not p or p*p<=r:continue
+            n=first+2*j
+            assert n%p==0
+            q=n//p
+            assert q>=p and q<len(large_flags)
+            if large_flags[q]:
+                semiprime+=1
+                assert q>r
+            else:
+                triple+=1
+                # A composite cofactor can only have TWO prime factors,
+                # and the largest of those is <=R (omega(n)=3).
+                div=next((t for t in small if t*t<=q and q%t==0),None)
+                assert div is not None
+                assert div>=p and large_flags[q//div] and q//div<=r
+        assert semiprime+triple==sparse
+        semiprime_interval_sum=0
+        for p in small:
+            if p>r:break
+            if p*p<=r:continue
+            qlo=r*r//p
+            qhi=last//p
+            semiprime_interval_sum+=(
+                bisect.bisect_right(primes,qhi)-
+                bisect.bisect_right(primes,qlo))
+        assert semiprime_interval_sum==semiprime
+        full101=last//p101-r*r//p101
+        odd101=sum(c%2 for c in range(r*r//p101+1,last//p101+1))
+        unique101=owners.count(p101)
+        assert 0<=unique101<=odd101<=full101
         if r==100:
-            assert unique_p==odd_p_hits==full_p_hits==0 # p^2 excluded
-            assert (r+1)**2==p*p
+            # 101^2=10201 is the EXCLUDED upper boundary;
+            # the one interior 101 multiple is even.
+            assert full101==1 and odd101==unique101==0
         if r==101:
-            assert full_p_hits==2 and odd_p_hits==unique_p==1
-        print("SPARSE_EXACT R=%d interior_p101_hits=%d odd_p101_hits=%d "
-              "unique_first_owner_p101=%d block_prime_count=%d "
-              "mature=%d sparse=%d upper_square_excluded=PASS" %
-              (r,full_p_hits,odd_p_hits,unique_p,count_prime,
-               count_mature,count_sparse))
+            assert full101==2 and odd101==unique101==1
+        print("SPARSE_EXACT R=%d p101_full=%d p101_odd=%d "
+              "p101_unique=%d prime_seats=%d mature=%d sparse=%d "
+              "semiprime=%d triple=%d boundary=OPEN PASS" %
+              (r,full101,odd101,unique101,actual_primes,mature,sparse,
+               semiprime,triple))
 
 
 
