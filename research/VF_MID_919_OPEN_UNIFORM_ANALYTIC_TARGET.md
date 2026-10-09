@@ -205,6 +205,10 @@ The honest next analytic task is to establish **all of**:
    sigma on any proposed shifted line, and be strong
    enough after UNSMOOTHING to beat an absolute
    per-prime-owner column bound.
+   Even granting ZF78, the protected shifted contour has
+   sigma=7/8+epsilon for epsilon>0. Strict nonvanishing
+   Re(s)>7/8 does NOT justify a contour exactly ON 7/8
+   or bounds uniform as epsilon decreases to zero.
 3. **Native signed source-to-boundary weld.** Transport
    that centered analytic estimate back into the
    original VF/Mobius physical ledger while
