@@ -313,6 +313,19 @@ theorem vfV2ActualHighPrimeParent_genuine
   rw [dif_pos hex]
   exact Classical.choose_spec hex
 
+/-- On the strict original physical square band, the chosen genuine high
+prime is the UNIQUE prime q>R dividing that site.  The earlier choice is
+therefore intrinsic, not a statistical owner assumption. -/
+theorem vfV2ActualHighPrimeParent_unique_on_band
+    {R n q : ℕ}
+    (hn : n ∈ vfV2ActualHighPrimeOddCompositeSites R)
+    (hband : R ^ 2 < n ∧ n < (R + 1) ^ 2)
+    (hqPrime : q.Prime) (hq : R < q) (hqn : q ∣ n) :
+    vfV2ActualHighPrimeParent R n = q := by
+  have hchosen := vfV2ActualHighPrimeParent_genuine hn
+  exact vfV2HighPrimeFactorUniqueOnOpenSquare hband
+    hchosen.1 hqPrime hchosen.2.1 hq hchosen.2.2.1 hqn
+
 /-- Physical high-prime owner-age cohorts reassemble the ACTUAL current
 odd-composite sites, never the historical negative prime q charges. -/
 theorem vfV2ActualHighPrimeAgeNativeMass_sum (R : ℕ) :
