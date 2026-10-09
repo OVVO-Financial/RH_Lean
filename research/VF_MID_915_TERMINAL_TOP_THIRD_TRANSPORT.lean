@@ -57,4 +57,77 @@ theorem vfMid915_halfRun_floorLiMismatch_eq_topThird_add_lower
     vfMidFloorLiSignedMismatchMass_eq_backlog_increment hA]
   ring
 
+
+/-- Terminal top-third odd descendants do not exist, but every integer
+terminal site is STILL decided by the genuine ascending low-prime wheel.
+This is a prime FACTORIZATION theorem, not a floor-Li approximation. -/
+theorem vfMid915_boundedWindow_lowWheel_iff_prime
+    {B q : ℕ} (hBq : B < q) (hqB : q ≤ B ^ 2) :
+    lowWheelHighSurvivor B q ↔ q.Prime := by
+  constructor
+  · intro hsurv
+    by_contra hcomp
+    have hqpos : 0 < q := by omega
+    have hqone : q ≠ 1 := by omega
+    let p := q.minFac
+    have hpprime : p.Prime := by
+      simpa [p] using Nat.minFac_prime hqone
+    have hpdvd : p ∣ q := by
+      simpa [p] using Nat.minFac_dvd q
+    have hpsq : p ^ 2 ≤ q := by
+      simpa [p] using Nat.minFac_sq_le_self hqpos hcomp
+    have hpB : p ≤ B := by
+      by_contra hnot
+      have hpLarge : B + 1 ≤ p := by omega
+      have hsqBig : (B + 1) ^ 2 ≤ p ^ 2 :=
+        Nat.pow_le_pow_left hpLarge 2
+      nlinarith
+    have hpMem : p ∈ primesUpTo B :=
+      mem_primesUpTo.mpr ⟨hpprime, hpB⟩
+    exact hsurv p hpMem hpdvd
+  · intro hprime p hpMem hpdvd
+    have hpprime : p.Prime := prime_of_mem_primesUpTo hpMem
+    have hpB : p ≤ B := (mem_primesUpTo.mp hpMem).2
+    have hpq : p = q :=
+      (Nat.prime_dvd_prime_iff_eq hpprime hprime).mp hpdvd
+    omega
+
+/-- At B >= 4, every top-third site lies ABOVE the cutoff wheel B.
+Thus terminal primality is certified by the low-owner sieve through B. -/
+theorem vfMid915_topThird_lowWheelB_iff_prime
+    {B q : ℕ} (hB : 4 ≤ B)
+    (hq : B ^ 2 / 3 < q) (hqB : q ≤ B ^ 2) :
+    lowWheelHighSurvivor B q ↔ q.Prime := by
+  have hmult : 4 * B ≤ B * B :=
+    Nat.mul_le_mul_right B hB
+  have hcut : 3 * (B + 1) ≤ B ^ 2 := by
+    nlinarith
+  have hBq : B < q := by omega
+  exact vfMid915_boundedWindow_lowWheel_iff_prime hBq hqB
+
+/-- Literal terminal integer candidates surviving the ACTUAL ascending
+low-prime wheel through B, with no future odd descendant capacity. -/
+def vfMid915TopThirdLowWheelSurvivors (B : ℕ) : Finset ℕ := by
+  classical
+  exact (Finset.Ioc (B ^ 2 / 3) (B ^ 2)).filter (lowWheelHighSurvivor B)
+
+/-- A genuine sieve (least-owner) alternative to the missing high-q odd
+descendants: the terminal survivor SET is exactly the actual prime SET.
+No smallness of its floor-Li discrepancy is asserted. -/
+theorem vfMid915_topThird_lowWheelSurvivors_eq_primes
+    {B : ℕ} (hB : 4 ≤ B) :
+    vfMid915TopThirdLowWheelSurvivors B =
+      (Finset.Ioc (B ^ 2 / 3) (B ^ 2)).filter Nat.Prime := by
+  classical
+  ext q
+  simp only [vfMid915TopThirdLowWheelSurvivors,
+    Finset.mem_filter, Finset.mem_Ioc]
+  constructor
+  · rintro ⟨⟨hlo, hhi⟩, hsurv⟩
+    exact ⟨⟨hlo, hhi⟩,
+      (vfMid915_topThird_lowWheelB_iff_prime hB hlo hhi).1 hsurv⟩
+  · rintro ⟨⟨hlo, hhi⟩, hprime⟩
+    exact ⟨⟨hlo, hhi⟩,
+      (vfMid915_topThird_lowWheelB_iff_prime hB hlo hhi).2 hprime⟩
+
 end RHLean.Analysis
