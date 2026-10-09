@@ -163,6 +163,50 @@ theorem vfV2OddCohortFloorLi_restores_primeError
       w*(dP + dHigh + dSmooth) - dP := by ring
     _ = -dP := by rw [hcount]; ring
 
+/-! ## Historical wall-relative restoration, with true floor-Li backlog ## -/
+
+/-- Exact positive-wall clearance across a historical run. The bridge is
+DETERMINISTIC and the error is the ACTUAL prime-minus-floor-Li backlog. -/
+theorem vfV2HistoricalPositiveWallClearance
+    (WA WB DA DB EA EB bA bB : Real)
+    (hA : DA = EA+bA) (hB : DB = EB+bB) :
+    WB-DB = (WA-DA)+(WB-WA)-(EB-EA)-(bB-bA) := by
+  linarith
+
+/-- Exact negative-wall clearance: no forced sign reversal is assumed. -/
+theorem vfV2HistoricalNegativeWallClearance
+    (WA WB DA DB EA EB bA bB : Real)
+    (hA : DA = EA+bA) (hB : DB = EB+bB) :
+    WB+DB = (WA+DA)+(WB-WA)+(EB-EA)+(bB-bA) := by
+  linarith
+
+/-- Positive first badness REQUIRES a large POSITIVE accumulated
+true-prime error over the entire prior historical run, since the square
+floor-Li/VF bridge is uniformly bounded. This is a NECESSARY condition,
+not an unconditional bound that would rule out the first bad. -/
+theorem vfV2PositiveFirstBad_requires_historicalPrimeLiExcess
+    (WA WB DA DB EA EB bA bB C : Real)
+    (hprior : DA <= WA) (hbad : WB < DB)
+    (hA : DA = EA+bA) (hB : DB = EB+bB)
+    (hbA : |bA| <= C) (hbB : |bB| <= C) :
+    WB-WA-2*C < EB-EA := by
+  have hbAlo : -C <= bA := (abs_le.mp hbA).1
+  have hbBhi : bB <= C := (abs_le.mp hbB).2
+  linarith
+
+/-- Negative first badness REQUIRES an equally large NEGATIVE
+historical prime-minus-floor-Li drift. Neither owner counts nor the
+Li telescope automatically prevent it. -/
+theorem vfV2NegativeFirstBad_requires_historicalPrimeLiDeficit
+    (WA WB DA DB EA EB bA bB C : Real)
+    (hprior : -WA <= DA) (hbad : DB < -WB)
+    (hA : DA = EA+bA) (hB : DB = EB+bB)
+    (hbA : |bA| <= C) (hbB : |bB| <= C) :
+    WB-WA-2*C < EA-EB := by
+  have hbAhi : bA <= C := (abs_le.mp hbA).2
+  have hbBlo : -C <= bB := (abs_le.mp hbB).1
+  linarith
+
 /-- The cost of changing an anchored denominator from M to M+delta.
 It is not additional physical budget. -/
 theorem vfV2ParityRepacking_squares_cost (M delta : ℝ) :
