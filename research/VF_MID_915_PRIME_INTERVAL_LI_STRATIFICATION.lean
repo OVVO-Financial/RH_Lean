@@ -216,6 +216,63 @@ theorem vfMid915ActualBandSumMinusLi_eq_signedError
   exact_mod_cast hband
 
 
+/-! ## Critical prime-square boundary exclusion -/
+
+/-- A genuine q-prime >r multiplied by a cofactor <=r CANNOT be a square
+exactly on the next endpoint. The deterministic Li staircase MAY jump at
+this quotient endpoint; actual prime counting will not. -/
+theorem vfMid915PrimeCofactorSquareEndpoint_excluded
+    {r c q : ℕ}
+    (hcr : c ≤ r) (hqr : r < q) (hqPrime : q.Prime) :
+    c * q ≠ (r + 1) ^ 2 := by
+  intro hsquare
+  have hqdiv : q ∣ (r + 1) ^ 2 := by
+    rw [← hsquare]
+    exact dvd_mul_left q c
+  have hqdivr : q ∣ r + 1 :=
+    hqPrime.dvd_of_dvd_pow hqdiv
+  have hqle : q ≤ r + 1 :=
+    Nat.le_of_dvd (by omega : 0 < r + 1) hqdivr
+  have hqeq : q = r + 1 := by omega
+  subst q
+  have hmul : c * (r + 1) ≤ r * (r + 1) :=
+    Nat.mul_le_mul_right (r + 1) hcr
+  nlinarith
+
+/-- EXACT cofactor-first physical interval: for c<=r the prime count
+across the closed quotient-square cutoffs equals the ACTUAL number of
+sites c*q strictly BETWEEN consecutive squares, with genuine q>r.
+No prime can land on the quotient-square endpoint, even though Li can. -/
+theorem vfMid915PrimeCofactorSquareBand_iff_physical
+    {r c q : ℕ} (hc : 0 < c) (hcr : c ≤ r) :
+    (q.Prime ∧ r ^ 2 / c < q ∧ q ≤ (r + 1) ^ 2 / c) ↔
+      (q.Prime ∧ r < q ∧ r ^ 2 < c * q ∧
+        c * q < (r + 1) ^ 2) := by
+  constructor
+  · rintro ⟨hqPrime, hlow, hupp⟩
+    have hstart : r ^ 2 < c * q := by
+      have h := (Nat.div_lt_iff_lt_mul hc).mp hlow
+      simpa [Nat.mul_comm] using h
+    have hupper : c * q ≤ (r + 1) ^ 2 := by
+      have h := (Nat.le_div_iff_mul_le hc).mp hupp
+      simpa [Nat.mul_comm] using h
+    have hroot : r < q := by
+      by_contra hnot
+      have hqle : q ≤ r := by omega
+      have hmul : c * q ≤ r * r := Nat.mul_le_mul hcr hqle
+      nlinarith
+    have hnot := vfMid915PrimeCofactorSquareEndpoint_excluded
+      hcr hroot hqPrime
+    refine ⟨hqPrime, hroot, hstart, ?_⟩
+    omega
+  · rintro ⟨hqPrime, hroot, hstart, hupper⟩
+    refine ⟨hqPrime, ?_, ?_⟩
+    · apply (Nat.div_lt_iff_lt_mul hc).mpr
+      simpa [Nat.mul_comm] using hstart
+    · apply (Nat.le_div_iff_mul_le hc).mpr
+      have hle : c * q ≤ (r + 1) ^ 2 := by omega
+      simpa [Nat.mul_comm] using hle
+
 /-! ## Cofactor-first historical Fubini and exact retained-weight Abel -/
 
 /-- The quotient-square cutoff for one cofactor's ACTUAL prime counts.
