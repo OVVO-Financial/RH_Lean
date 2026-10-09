@@ -20,6 +20,9 @@ from vf_mid_918_adversarial_sieve_duel import (
 
 CASES = [(317, 395), (5267, 5417), (6000, 6154)]
 CUTOFFS = [7, 13, 19]
+# The REAL first-bad original historical half-run at root R=5266:
+# A=floor(R/2)+1=2634, B=R+1=5267 (2,633 completed bands).
+HALFRUN_CASES = [(2634, 5267, 23), (2634, 5267, 29)]
 
 
 def run(A, B, y):
@@ -153,6 +156,33 @@ def main():
                 assert s['saved_factor']>490
                 assert 0.93 < s['physical_open_phase'] < 0.95
                 assert 315 < s['open_phase_saving'] < 317
+    for A,B,y in HALFRUN_CASES:
+        s=run(A,B,y)
+        assert not s['complete_CRT_period_fits']
+        assert B-A == 2633
+        assert s['genuine_primes'] == 1253703
+        assert -134 < s['actual_P_minus_V'] < -132
+        if y==23:
+            assert s['Q']==223092870
+            assert s['square_endpoint_rough_composites']==431
+            assert s['physical_open_wheel_survivors']==3402752
+            assert s['physical_open_high_composites']==2149049
+            assert 3.02 < s['physical_open_phase'] < 3.03
+            assert s['open_phase_saving']>1980
+        if y==29:
+            assert s['Q']==6469693230
+            assert s['physical_open_wheel_survivors']==3285420
+            assert s['physical_open_high_composites']==2031717
+            assert 7.19 < s['physical_open_phase'] < 7.21
+            assert s['open_phase_saving']>960
+        print('ACTUAL_FIRSTBAD_HALFRUN A={A} B={B} y={cutoff} '
+              'Q={Q} span={span} fullCRT={complete_CRT_period_fits} '
+              'completedSquares={complete_square_blocks} faces={number_of_divisor_faces} '
+              'openS={physical_open_wheel_survivors} openC={physical_open_high_composites} '
+              'P={genuine_primes} V={V:.6f} actualDelta={actual_P_minus_V:+.6f} '
+              'openPhase={physical_open_phase:+.6f} '
+              'sumAbsOpen={sum_absolute_open_band_phases:.6f} '
+              'saving={open_phase_saving:.3f}'.format(**s))
     print('PASS: BOTH square and root boundaries telescope on literal OPEN square sites; '
           'genuine high-owner correction retained exactly. NOT RH.')
 
