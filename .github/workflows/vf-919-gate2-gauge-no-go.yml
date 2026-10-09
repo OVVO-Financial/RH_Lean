@@ -1,0 +1,106 @@
+name: VF 919 GATE-2 gauge no-go
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - research/VF_MID_919_OAI_GATE2_GAUGE_NO_GO.lean
+      - research/VF_MID_919_OAI_GATE2_GAUGE_NO_GO.md
+      - scripts/vf_919_gate2_gauge_probe.py
+      - .github/workflows/vf-919-gate2-gauge-no-go.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: vf-919-gate2-gauge-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  probe:
+    name: Natural-gauge character moment probe (no packages)
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check gauge dependence of the GATE-2 signed channel
+        run: python3 -B scripts/vf_919_gate2_gauge_probe.py
+  kernel:
+    name: GATE-2 gauge no-go kernel (Lean 4.24, Mathlib only)
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - name: Forbid proof holes and added axioms
+        run: |
+          if grep -nE '^[[:space:]]*(sorry|admit|axiom)([[:space:]]|$)|\bsorry\b' \
+            research/VF_MID_919_OAI_GATE2_GAUGE_NO_GO.lean; then
+            echo "No proof holes or added axioms allowed"
+            exit 1
+          fi
+      - name: Restore cached pinned Lake packages
+        uses: actions/cache/restore@v4
+        with:
+          path: .lake/packages
+          key: lake-packages-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
+      - name: Install Lean 4.24 and Mathlib cache
+        uses: leanprover/lean-action@v1
+        with:
+          use-github-cache: false
+          use-mathlib-cache: true
+          build: false
+          test: false
+          lint: false
+      - name: Compile GATE-2 gauge no-go (warning-fatal)
+        run: |
+          mkdir -p .lake/build/lib/lean
+          set -o pipefail
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.VF_MID_919_OAI_GATE2_GAUGE_NO_GO.olean \
+            research/VF_MID_919_OAI_GATE2_GAUGE_NO_GO.lean 2>&1 | tee gate2-gauge.log
+      - name: Audit named theorem axioms
+        run: |
+          cat > /tmp/Gate2GaugeAxioms.lean <<'LEAN'
+          import «research.VF_MID_919_OAI_GATE2_GAUGE_NO_GO»
+          #print axioms RHLean.Geometry.vf919Gate2_coordinates_eq_realify_one_add_I
+          #print axioms RHLean.Geometry.vf919Gate2_split
+          #print axioms RHLean.Geometry.vf919Gate2Signed_I_mul
+          #print axioms RHLean.Geometry.exists_unimodular_vf919Gate2Signed_eq_energy
+          #print axioms RHLean.Geometry.exists_unimodular_vf919Gate2Signed_eq_neg_energy
+          #print axioms RHLean.Geometry.vf919Gate2_family_split_gauge
+          #print axioms RHLean.Geometry.vf919Gate2_signed_le_all_gauges_iff
+          #print axioms RHLean.Geometry.vf919Gate2_neg_le_signed_all_gauges_iff
+          #print axioms RHLean.Geometry.vf919Gate2_antiDiagonal_le_all_gauges_iff
+          #print axioms RHLean.Geometry.sum_vf919Gate2Signed_primitiveRoot_orbit
+          #print axioms RHLean.Geometry.sum_vf919Gate2AntiDiagonal_primitiveRoot_orbit
+          #print axioms RHLean.Geometry.sum_vf919Gate2Signed_sextic_orbit
+          #print axioms RHLean.Geometry.vf919Gate2Signed_compensated_sub
+          #print axioms RHLean.Geometry.vf919Gate2_exact_compensation
+          #print axioms RHLean.Geometry.vf919Gate2_dirichlet_sum_sq
+          #print axioms RHLean.Geometry.vf919Gate2_dirichlet_signed_eq_zero_of_short
+          #print axioms RHLean.Geometry.vf919Gate2_dirichlet_antiDiagonal_eq_energy_of_short
+          #print axioms RHLean.Geometry.vf919Gate2_dirichlet_short_atom_nonvacuous
+          LEAN
+          set -o pipefail
+          lake env lean -DwarningAsError=true /tmp/Gate2GaugeAxioms.lean 2>&1 | tee gate2-gauge-axioms.log
+          python3 - <<'PY'
+          import re
+          from pathlib import Path
+          s = Path('gate2-gauge-axioms.log').read_text()
+          records = re.findall(r"depends on axioms:\s*\[([^\]]*)\]", s, re.S)
+          axiom_free = s.count("does not depend on any axioms")
+          assert len(records) + axiom_free == 18, (records, axiom_free)
+          allowed = {'propext', 'Classical.choice', 'Quot.sound'}
+          for record in records:
+              actual = {a.strip() for a in record.split(',') if a.strip()}
+              assert actual <= allowed, actual
+          print("PASS: 18 GATE-2 no-go theorems use only standard axioms")
+          PY
+      - name: Retain compiler logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: vf-919-gate2-gauge-logs
+          path: gate2-gauge*.log
+          if-no-files-found: ignore

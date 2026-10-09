@@ -68,6 +68,39 @@ Numerical experiments are diagnostics only. A route marked **closed** must not
 be restarted by merely increasing the finite range, renaming the same
 components, or replacing one sign-blind inequality by another.
 
+## Closed sub-route: GATE-2 complex-to-real split of OAI character moments
+
+**Status: CLOSED AS A LEVER (2026-10-09).** The proposal transported OpenAI's
+compensated character-row cancellation into VF through
+`Phi(a+bi) = (a-b, a+b)`, then split the Hermitian moment as
+`sum |Z_u|^2 = sum X_u Y_u + (1/2) sum (X_u - Y_u)^2`. It read the first
+term as the signed VF Co/Div channel to be identified with the Sector Six
+Gram.
+
+[`VF_MID_919_OAI_GATE2_GAUGE_NO_GO.lean`](research/VF_MID_919_OAI_GATE2_GAUGE_NO_GO.lean)
+proves that `sum X_u Y_u = sum Re(Z_u^2)` is not an invariant of the row
+family. Unimodular row phases fix every `|Z_u|` but move it across
+`[-H, H]`, and both ends are attained. A bound on either channel that holds
+in every gauge is exactly a bound on `H`. Over the six sextic units it sums
+to zero. Exact compensation `G + v^{-1}H = 0` makes the two signed channels
+equal rather than opposite. In the natural gauge on the full Dirichlet
+family it equals `phi(q) sum_{mn = 1 mod q} a_m a_n`. It therefore vanishes
+for every real coefficient vector supported on `[2, sqrt q]`, where the
+anti-diagonal is the whole moment. The four-corner match lands on the
+compensated interior, already excluded by regression constraint 8 of the
+contract. See the [audit note](research/VF_MID_919_OAI_GATE2_GAUGE_NO_GO.md).
+
+### Do not repeat this route by
+
+- bounding `Re(Z^2)` or `2 (Im Z)^2` in a fixed gauge as a substitute for
+  `|Z|^2`;
+- realifying an identity through a fixed real-linear map and calling it a
+  transported estimate;
+- treating four-term expansions of compensated differences as evidence that
+  two operators coincide;
+- citing support sparsity or largest-prime reindexing as a power saving for a
+  character-moment inequality.
+
 ## Refuted premise: uniformly small uncentered reciprocal prefixes
 
 The `CriticalReciprocalPrefixRootBound` proposed in
