@@ -406,16 +406,12 @@ theorem vfV2FiniteActualPrimeNonprimePopulation (seats : Finset ℕ) :
       (∑ n ∈ seats, if ¬ Nat.Prime n then (1 : ℝ) else 0) =
         (seats.card : ℝ) := by
   classical
-  rw [← Finset.sum_add_distrib]
-  calc
-    (∑ n ∈ seats,
+  have hsite (n : ℕ) :
       (if Nat.Prime n then (1 : ℝ) else 0) +
-        (if ¬ Nat.Prime n then (1 : ℝ) else 0)) =
-        ∑ _n ∈ seats, (1 : ℝ) := by
-          apply Finset.sum_congr rfl
-          intro n _hn
-          by_cases hp : Nat.Prime n <;> simp [hp]
-    _ = (seats.card : ℝ) := by simp
+        (if ¬ Nat.Prime n then (1 : ℝ) else 0) = 1 := by
+    by_cases hp : Nat.Prime n <;> simp [hp]
+  rw [← Finset.sum_add_distrib]
+  simp [hsite]
 
 /-- The actual-prime 0/1 selector has the correct affine VF-minus-prime
 signed mass on EVERY finite carrier, regardless of distribution. -/
