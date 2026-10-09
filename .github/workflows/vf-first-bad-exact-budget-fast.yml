@@ -22,6 +22,9 @@ on:
       - research/VF_MID_915_PRIME_INTERVAL_LI_STRATIFICATION.lean
       - scripts/vf_mid_915_prime_interval_li_regression.py
       - scripts/vf_mid_915_historical_cofactor_abel_regression.py
+      - scripts/vf_mid_915_top_third_sector_restoration_regression.py
+      - research/VF_MID_915_TERMINAL_TOP_THIRD_TRANSPORT.lean
+      - research/VF_MID_915_TERMINAL_TOP_THIRD_TRANSPORT.md
       - scripts/vf_mid_915_floor_li_transport_regression.py
       - scripts/vf_mid_915_centered_owner_triangular_regression.py
       - scripts/vf_mid_915_late_prefix_weighted_regression.py
@@ -52,6 +55,7 @@ jobs:
           python3 scripts/vf_mid_915_floor_li_transport_regression.py
           python3 scripts/vf_mid_915_prime_interval_li_regression.py
           python3 scripts/vf_mid_915_historical_cofactor_abel_regression.py
+          python3 scripts/vf_mid_915_top_third_sector_restoration_regression.py
 
       - name: Restore Lake packages
         uses: actions/cache/restore@v5
@@ -167,6 +171,9 @@ jobs:
 
       - name: Compile arbitrary sqrt-cofactor prime-band floor-Li stratification
         run: lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_915_PRIME_INTERVAL_LI_STRATIFICATION.olean research/VF_MID_915_PRIME_INTERVAL_LI_STRATIFICATION.lean
+
+      - name: Compile top-third no-descendant arithmetic / floor-Li split
+        run: lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_915_TERMINAL_TOP_THIRD_TRANSPORT.olean research/VF_MID_915_TERMINAL_TOP_THIRD_TRANSPORT.lean
 
       - name: Compile #915 only against cached dependencies
         run: |
