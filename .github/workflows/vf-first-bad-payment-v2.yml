@@ -100,6 +100,14 @@ jobs:
           #check RHLean.Analysis.vfV2NegativeFirstBad_requires_historicalPrimeLiDeficit
           #print axioms RHLean.Analysis.vfV2Payment_of_floorLi_actual_signed_bounds
           #check RHLean.Analysis.vfV2NoUnconditionalAllStateCone
+          #check RHLean.Analysis.vfV2SparseCofactorBeforeHalfAnchor
+          #check RHLean.Analysis.vfV2SparseFourFactorImpossible
+          #check RHLean.Analysis.vfV2SparseOwnerFubini
+          #check RHLean.Analysis.vfV2SparseOwnerFloorLiResidual
+          #check RHLean.Analysis.vfV2SparseCoDivFullCrossTerms
+          #check RHLean.Analysis.vfV2HighFactorOneOddChildPerOpenBlock
+          #print axioms RHLean.Analysis.vfV2SparseCofactorBeforeHalfAnchor
+          #print axioms RHLean.Analysis.vfV2HighFactorOneOddChildPerOpenBlock
           #print axioms RHLean.Analysis.vfV2Payment_iff_exactSignedBalance
           #print axioms RHLean.Analysis.vfV2NoUnconditionalAllStateCone
           LEAN
@@ -194,7 +202,7 @@ jobs:
           python3 -B scripts/vf_mid_918_crossblock_moments.py \
             --max-root 6000 --outdir vf918_crossblock
       - name: Count genuine cross-block odd prime-to-composite owner pairs
-        run: python3 -B scripts/vf_mid_918_owner_matched_probe.py
+        run: python3 -B scripts/vf_mid_918_owner_matched_probe.py --sparse-full
       - name: Publish reproducible comparison dataset
         uses: actions/upload-artifact@v4
         with:
