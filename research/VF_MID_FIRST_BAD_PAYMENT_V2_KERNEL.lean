@@ -295,6 +295,31 @@ theorem vfV2SparseCoDivFullCrossTerms (U0 L s : ℝ) :
         (6 * s * L - 2 * s * U0 - s ^ 2) := by
   ring
 
+
+/-- No high-q factor q>R can produce TWO distinct ODD descendants
+inside the same OPEN square block. Two odd cofactors differ by >=2,
+and their products by >=2*q>2*R+1, exceeding the block width.
+This is the occurrence-matching injection at ONE fixed R only;
+across many distinct roots the same earlier prime may recur. -/
+theorem vfV2HighFactorOneOddChildPerOpenBlock
+    (R q a b : ℕ) (hq : R < q)
+    (haLower : R ^ 2 < q * (2 * a + 1))
+    (haUpper : q * (2 * a + 1) < (R + 1) ^ 2)
+    (hbLower : R ^ 2 < q * (2 * b + 1))
+    (hbUpper : q * (2 * b + 1) < (R + 1) ^ 2) :
+    a = b := by
+  rcases lt_trichotomy a b with hab | heq | hba
+  · have hgap : 2 * a + 3 ≤ 2 * b + 1 := by omega
+    have hm : q * (2 * a + 3) ≤ q * (2 * b + 1) :=
+      Nat.mul_le_mul_left q hgap
+    nlinarith
+  · exact heq
+  · have hgap : 2 * b + 3 ≤ 2 * a + 1 := by omega
+    have hm : q * (2 * b + 3) ≤ q * (2 * a + 1) :=
+      Nat.mul_le_mul_left q hgap
+    nlinarith
+
+
 theorem vfV2SparseCrossOwnerSquare (s₁ s₂ : ℝ) :
     (s₁ + s₂) ^ 2 = s₁ ^ 2 + s₂ ^ 2 + 2 * s₁ * s₂ := by
   ring
