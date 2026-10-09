@@ -149,11 +149,54 @@ def run_anchor(A, candidates, find_shift=False):
     return result
 
 
+def scan_near_wall(max_root=6000):
+    """Attack LOCAL owner-only restoration using actual P_r at a false anchor.
+
+    A fictitious D_r=-W_r obeys prior-good radial containment and uses the
+    GENUINE r-th block prime population. It may nevertheless cross the lower
+    wall in one step. The genuine historical D_r has a large extra clearance.
+    This proves that current-block incidence + prior-good is insufficient;
+    all signed historical owners must stay attached to the actual anchor.
+    """
+    flags = sieve_prefix((max_root+1)**2)
+    R0=8
+    pi0=sum(flags[:R0*R0+1])
+    D=pi0-math.fsum(band_v(r) for r in range(2,R0))
+    vulnerable=[]
+    true_crossings=0
+    for r in range(R0,max_root+1):
+        P=sum(flags[r*r+1:(r+1)**2])
+        V=band_v(r)
+        dw=wall(r+1)-wall(r)
+        outward=V-P-dw
+        Dnext=D+P-V
+        if Dnext < -wall(r+1):
+            true_crossings += 1
+        if outward>0:
+            lower_buffer=D+wall(r)
+            assert lower_buffer>=outward, (
+                "actual first-bad lower wall would be here",r)
+            vulnerable.append(dict(R=r,actual_P=P,V=V,wall_increment=dw,
+                                   synthetic_breach=outward,
+                                   actual_defect_before=D,
+                                   historical_lower_buffer=lower_buffer,
+                                   actual_buffer_after=lower_buffer-outward))
+        D=Dnext
+    assert true_crossings==0 and len(vulnerable)>0
+    largest=max(vulnerable,key=lambda z:z["synthetic_breach"])
+    earliest=vulnerable[0]
+    return dict(max_root=max_root,
+                genuine_blocks_that_breach_if_anchor_at_lower_wall=len(vulnerable),
+                actual_lower_wall_breaches=true_crossings,
+                earliest=earliest,largest=largest)
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--anchors", nargs="+", type=int,
                         default=[317, 1000, 2000, 6000])
     parser.add_argument("--json", type=Path, default=None)
+    parser.add_argument("--near-wall-max", type=int, default=6000)
     args = parser.parse_args()
     cutoffs = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31]
     cases = []
@@ -175,10 +218,13 @@ def main():
                       "defeats={defeats_drought}".format(**c))
         if "primorial_shift_counterexample" in case:
             print("  SHIFT_FIRST_COMPOSITE", case["primorial_shift_counterexample"])
+    near_wall = scan_near_wall(args.near_wall_max)
+    print("GENUINE_BLOCK_NEAR_WALL_ADVERSARY",near_wall)
     if args.json:
         args.json.parent.mkdir(parents=True, exist_ok=True)
         args.json.write_text(json.dumps(
-            dict(status="FINITE_CERTIFICATE_NOT_RH", cases=cases),
+            dict(status="FINITE_CERTIFICATE_NOT_RH", cases=cases,
+                 genuine_current_block_near_wall_adversary=near_wall),
             indent=2)+"\n")
     print("PASS historical-prefix Möbius/owner lower certificates; "
           "no uniform RH-strength estimate assumed")
