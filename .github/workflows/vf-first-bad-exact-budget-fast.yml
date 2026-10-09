@@ -25,6 +25,9 @@ on:
       - scripts/vf_mid_915_top_third_sector_restoration_regression.py
       - research/VF_MID_915_TERMINAL_TOP_THIRD_TRANSPORT.lean
       - research/VF_MID_915_PARITY_REFINEMENT_EXACT_PRICE.lean
+      - research/VF_MID_915_MIDDLE_PRIME_COMPOSITE_CAPACITY.lean
+      - research/VF_MID_915_PARITY_REFINEMENT_PAYMENT_AUDIT.md
+      - scripts/vf_mid_915_middle_prime_composite_capacity_regression.py
       - research/VF_MID_915_TERMINAL_TOP_THIRD_TRANSPORT.md
       - scripts/vf_mid_915_floor_li_transport_regression.py
       - scripts/vf_mid_915_centered_owner_triangular_regression.py
@@ -57,6 +60,7 @@ jobs:
           python3 scripts/vf_mid_915_prime_interval_li_regression.py
           python3 scripts/vf_mid_915_historical_cofactor_abel_regression.py
           python3 scripts/vf_mid_915_top_third_sector_restoration_regression.py
+          python3 scripts/vf_mid_915_middle_prime_composite_capacity_regression.py --extended
 
       - name: Restore Lake packages
         uses: actions/cache/restore@v5
@@ -175,6 +179,9 @@ jobs:
 
       - name: Compile top-third no-descendant arithmetic / floor-Li split
         run: lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_915_TERMINAL_TOP_THIRD_TRANSPORT.olean research/VF_MID_915_TERMINAL_TOP_THIRD_TRANSPORT.lean
+
+      - name: Compile 30/6 wheel physical middle-prime/composite donor capacity
+        run: lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_915_MIDDLE_PRIME_COMPOSITE_CAPACITY.olean research/VF_MID_915_MIDDLE_PRIME_COMPOSITE_CAPACITY.lean
 
       - name: Compile exact full parity NNS denominator restoration cost
         run: lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_915_PARITY_REFINEMENT_EXACT_PRICE.olean research/VF_MID_915_PARITY_REFINEMENT_EXACT_PRICE.lean
