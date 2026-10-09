@@ -10,6 +10,7 @@ on:
       - research/VF_MID_919_OAI_PARTIAL_MOMENT_TAILS.lean
       - research/VF_MID_919_OAI_FERMAT_TWIST_PROJECTION.lean
       - research/VF_MID_919_OAI_PHASE_ALIGNED_OWNER_COMPENSATION.lean
+      - research/VF_MID_919_OAI_OWNER_TWO_SIGNED_BOUNDARY.lean
       - research/GLOBAL_RETURNED_CORE_COMPENSATED_FOUR_CORNER.lean
       - research/VF_MID_919_OAI_C_TO_R_CANCELLATION_WELD.md
       - RHLean/Geometry/FermatCoordinates.lean
@@ -57,7 +58,8 @@ jobs:
             research/VF_MID_SEVEN_EIGHTHS_MELLIN_SQUARE_KERNEL.lean \
             research/VF_MID_919_OAI_PARTIAL_MOMENT_TAILS.lean \
             research/VF_MID_919_OAI_FERMAT_TWIST_PROJECTION.lean \
-            research/VF_MID_919_OAI_PHASE_ALIGNED_OWNER_COMPENSATION.lean; then
+            research/VF_MID_919_OAI_PHASE_ALIGNED_OWNER_COMPENSATION.lean \
+            research/VF_MID_919_OAI_OWNER_TWO_SIGNED_BOUNDARY.lean; then
             echo "No proof holes or added axioms allowed"
             exit 1
           fi
@@ -238,19 +240,19 @@ jobs:
                       library.update(re.findall(r'\bRHLean(?:\.[A-Za-z0-9_]+)*\b', line))
               for module in closure.research_imports(path):
                   visit(closure.source_for(module))
-          visit('research/VF_MID_919_OAI_PHASE_ALIGNED_OWNER_COMPENSATION.lean')
+          visit('research/VF_MID_919_OAI_OWNER_TWO_SIGNED_BOUNDARY.lean')
           subprocess.run(['lake', 'build', *sorted(library)], check=True)
           PY
       - name: Warning-fatal compile of complete native import closure
         run: |
           set -o pipefail
           python3 scripts/compile_research_import_closure.py \
-            research/VF_MID_919_OAI_PHASE_ALIGNED_OWNER_COMPENSATION.lean \
+            research/VF_MID_919_OAI_OWNER_TWO_SIGNED_BOUNDARY.lean \
             2>&1 | tee vf919-native-phase-compile.log
       - name: Verify native carrier theorem signatures and standard axioms
         run: |
           cat > /tmp/vf919_native_phase_axioms.lean <<'LEAN'
-          import «research.VF_MID_919_OAI_PHASE_ALIGNED_OWNER_COMPENSATION»
+          import «research.VF_MID_919_OAI_OWNER_TWO_SIGNED_BOUNDARY»
           #check RHLean.Proof.vf919CharacterAlignedCell_eq_compensated_add_clipped
           #check RHLean.Proof.vf919CharacterCompensatedInterior_norm_sq_eq_physicalGram
           #check RHLean.Proof.vf919CharacterAlignedCell_norm_sq_eq_full_physicalGram
@@ -267,6 +269,13 @@ jobs:
           #print axioms RHLean.Proof.vf919CharacterChild_aligned_eq_neg_returned
           #print axioms RHLean.Proof.vf919CharacterCellMixedGram_eq_signedTelescope
           #print axioms RHLean.Proof.vf919CharacterCellMixedGram_one
+          #check RHLean.Proof.vf919OwnerTwoSignedBoundary_eq_topMertens_times_returned
+          #check RHLean.Proof.vf919OwnerTwoSignedGram_eq_interior_sub_branches_add_boundary
+          #print axioms RHLean.Proof.vf919OwnerTwoSignedBoundary_eq_topMertens_times_returned
+          #print axioms RHLean.Proof.vf919OwnerTwoSignedGram_eq_interior_sub_branches_add_boundary
+          #print axioms RHLean.Proof.vf919OwnerTwoSignedBoundary_abs_le_of_real_magnitudes
+          #print axioms RHLean.Proof.vf919OwnerTwoSignedBoundary_nonpos_of_aligned
+          #print axioms RHLean.Proof.vf919OwnerTwoSignedBoundary_nonneg_of_opposite
           LEAN
           set -o pipefail
           lake env lean -DwarningAsError=true /tmp/vf919_native_phase_axioms.lean \
@@ -277,7 +286,7 @@ jobs:
           text = Path('vf919-native-phase-axioms.log').read_text()
           records = re.findall(r'depends on axioms:\s*\[([^\]]*)\]', text, re.S)
           closed = len(re.findall(r'does not depend on any axioms', text))
-          assert len(records) + closed == 12, (records, closed)
+          assert len(records) + closed == 17, (records, closed)
           allowed = {'propext', 'Classical.choice', 'Quot.sound'}
           for record in records:
               actual = {a.strip() for a in record.split(',') if a.strip()}
