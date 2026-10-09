@@ -6,6 +6,7 @@ on:
     paths:
       - research/VF_MID_FIRST_BAD_PAYMENT_V2_KERNEL.lean
       - research/VF_MID_FIRST_BAD_PAYMENT_V2_NATIVE_CONSUMER.lean
+      - research/VF_MID_FIRST_BAD_ACTUAL_ADMISSIBILITY_CERTIFICATE.lean
       - scripts/vf_mid_first_bad_payment_v2_test.py
       - scripts/vf_mid_918_crossblock_moments.py
       - scripts/vf_mid_918_owner_matched_probe.py
@@ -108,6 +109,14 @@ jobs:
           #check RHLean.Analysis.vfV2HighFactorOneOddChildPerOpenBlock
           #check RHLean.Analysis.vfV2HighParentChargeOnceFubini
           #check RHLean.Analysis.vfV2HighParentRepeatedChargeOvercount
+          #check RHLean.Analysis.vfV2GenericUnitStepCount_succ
+          #check RHLean.Analysis.vfV2GenericUnitStepCount_monotone
+          #check RHLean.Analysis.vfV2FiniteActualPrimeNonprimePopulation
+          #check RHLean.Analysis.vfV2FiniteActualPrimeSignedSeatMass
+          #check RHLean.Analysis.vfV2UniqueOwnerFiniteFubini
+          #check RHLean.Analysis.vfV2UniqueOwnerOnceCharge
+          #print axioms RHLean.Analysis.vfV2UniqueOwnerFiniteFubini
+          #print axioms RHLean.Analysis.vfV2UniqueOwnerOnceCharge
           #print axioms RHLean.Analysis.vfV2HighParentChargeOnceFubini
           #print axioms RHLean.Analysis.vfV2HighParentRepeatedChargeOvercount
           #print axioms RHLean.Analysis.vfV2SparseCofactorBeforeHalfAnchor
@@ -129,7 +138,8 @@ jobs:
       - name: Reject native consumer proof holes
         run: |
           if grep -nE '^[[:space:]]*(sorry|admit|axiom)([[:space:]]|$)' \
-            research/VF_MID_FIRST_BAD_PAYMENT_V2_NATIVE_CONSUMER.lean; then
+            research/VF_MID_FIRST_BAD_PAYMENT_V2_NATIVE_CONSUMER.lean \
+            research/VF_MID_FIRST_BAD_ACTUAL_ADMISSIBILITY_CERTIFICATE.lean; then
             echo "Native consumer must have no proof holes or axioms"
             exit 1
           fi
@@ -178,11 +188,22 @@ jobs:
           lake build RHLean
           python3 scripts/compile_research_import_closure.py \
             research/VF_MID_FIRST_BAD_PAYMENT_V2_NATIVE_CONSUMER.lean
+          python3 scripts/compile_research_import_closure.py \
+            research/VF_MID_FIRST_BAD_ACTUAL_ADMISSIBILITY_CERTIFICATE.lean
       - name: Verify the native target is explicitly conditional
         run: |
           cat > /tmp/vf_v2_native_acceptance.lean <<'LEAN'
           import «research.VF_MID_FIRST_BAD_PAYMENT_V2_NATIVE_CONSUMER»
+          import «research.VF_MID_FIRST_BAD_ACTUAL_ADMISSIBILITY_CERTIFICATE»
           #check RHLean.Analysis.VFMidMinimalActualFirstBadPaymentV2Statement
+          #check RHLean.Analysis.VFMidActualPrimeVerifiedStructuralRules
+          #check RHLean.Analysis.vfV2ActualPrime_verifiedStructuralRules
+          #check RHLean.Analysis.vfV2ActualSixSectorSignedMass
+          #check RHLean.Analysis.VFMidActualPrimeSignedOwnerEscapeRule
+          #check RHLean.Analysis.vfV2ActualPrime_noFirstBad_of_signedOwnerEscapeRule
+          #check RHLean.Analysis.vfV2ActualPrime_admissibilityStatus
+          #print axioms RHLean.Analysis.vfV2ActualPrime_verifiedStructuralRules
+          #print axioms RHLean.Analysis.vfV2ActualPrime_admissibilityStatus
           #check RHLean.Analysis.vfMidMinimalActualFirstBad_closed_of_exactPaymentV2
           #print axioms RHLean.Analysis.vfMidMinimalActualFirstBad_closed_of_exactPaymentV2
           LEAN
