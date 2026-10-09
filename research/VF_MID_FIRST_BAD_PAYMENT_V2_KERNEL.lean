@@ -320,6 +320,52 @@ theorem vfV2HighFactorOneOddChildPerOpenBlock
     nlinarith
 
 
+
+/-! ## Cross-block high-prime parent-charge conservation
+
+The old prime q is ONE negative original physical site (already inside
+the earlier historical anchor). Its positive q-multiple descendants at
+different R are distinct sites with their OWN native w_R.
+An operation subtracting q's original negative site separately for EACH
+later child does NOT preserve the physical source. -/
+
+/-- Finite Fubini grouped by the genuine high prime q, with exactly ONE
+historical negative charge per parent q. It must remain OUTSIDE the inner
+sum over all later blocks R. This is only source-preserving accounting:
+the sign of the resulting owner Gram remains arithmetic and OPEN. -/
+theorem vfV2HighParentChargeOnceFubini
+    (roots parents : Finset ℕ)
+    (w : ℕ → ℝ) (children : ℕ → ℕ → ℝ)
+    (oldNegative : ℕ → ℝ) :
+    (∑ r ∈ roots, ∑ q ∈ parents,
+      if r < q then w r * children r q else 0)
+      - (∑ q ∈ parents, oldNegative q) =
+      ∑ q ∈ parents,
+        ((∑ r ∈ roots,
+          if r < q then w r * children r q else 0)
+          - oldNegative q) := by
+  calc
+    _ = (∑ q ∈ parents, ∑ r ∈ roots,
+          if r < q then w r * children r q else 0)
+          - (∑ q ∈ parents, oldNegative q) := by
+        rw [Finset.sum_comm]
+    _ = _ := by
+        rw [Finset.sum_sub_distrib]
+
+/-- The EXACT overcount from subtracting the SAME old parent's negative
+charge h independently at every later child: (number of children - 1)*h.
+For more than one child and positive h this is STRICT extra (fake)
+restoring capacity, not a true first-bad Co/Div contraction. -/
+theorem vfV2HighParentRepeatedChargeOvercount
+    (kids : Finset ℕ) (childMass : ℕ → ℝ) (oldNegative : ℝ) :
+    (∑ c ∈ kids, (childMass c - oldNegative)) +
+        ((kids.card : ℝ) - 1) * oldNegative =
+      (∑ c ∈ kids, childMass c) - oldNegative := by
+  simp only [Finset.sum_sub_distrib, Finset.sum_const_zero,
+    Finset.sum_const, nsmul_eq_mul]
+  ring
+
+
 theorem vfV2SparseCrossOwnerSquare (s₁ s₂ : ℝ) :
     (s₁ + s₂) ^ 2 = s₁ ^ 2 + s₂ ^ 2 + 2 * s₁ * s₂ := by
   ring
