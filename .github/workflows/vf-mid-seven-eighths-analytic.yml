@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - research/VF_MID_SEVEN_EIGHTHS_ANALYTIC_BRIDGE.lean
+      - research/VF_MID_SEVEN_EIGHTHS_OWNER_ABEL.lean
       - research/VF_MID_SEVEN_EIGHTHS_ANALYTIC_STATUS.md
       - .github/workflows/vf-mid-seven-eighths-analytic.yml
   workflow_dispatch:
@@ -26,7 +27,8 @@ jobs:
       - name: Forbid proof holes and direct incompatible OAI imports
         run: |
           if grep -nE '^[[:space:]]*(sorry|admit|axiom)([[:space:]]|$)' \
-            research/VF_MID_SEVEN_EIGHTHS_ANALYTIC_BRIDGE.lean; then
+            research/VF_MID_SEVEN_EIGHTHS_ANALYTIC_BRIDGE.lean \
+            research/VF_MID_SEVEN_EIGHTHS_OWNER_ABEL.lean; then
             echo "No proof holes or added axioms allowed"
             exit 1
           fi
@@ -62,10 +64,23 @@ jobs:
           lake env lean -DwarningAsError=true \
             -o .lake/build/lib/lean/research.VF_MID_SEVEN_EIGHTHS_ANALYTIC_BRIDGE.olean \
             research/VF_MID_SEVEN_EIGHTHS_ANALYTIC_BRIDGE.lean
+      - name: Compile original-weight spectral-owner Abel reassembly (warning-fatal)
+        run: |
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.VF_MID_SEVEN_EIGHTHS_OWNER_ABEL.olean \
+            research/VF_MID_SEVEN_EIGHTHS_OWNER_ABEL.lean
       - name: Verify theorem signatures, axioms and exactly located open input
         run: |
           cat > /tmp/vf_seven_eighths_acceptance.lean <<'LEAN'
           import «research.VF_MID_SEVEN_EIGHTHS_ANALYTIC_BRIDGE»
+          import «research.VF_MID_SEVEN_EIGHTHS_OWNER_ABEL»
+          #check RHLean.Analysis.vfSevenEighthsWeightedIncrementAbel
+          #check RHLean.Analysis.vfSevenEighthsWeightVariation_telescope
+          #check RHLean.Analysis.vfSevenEighthsPhysicalOwnerWeight
+          #check RHLean.Analysis.vfSevenEighthsPrimeLiErrorAtNat_eq
+          #check RHLean.Analysis.vfSevenEighthsWeightedOwnerPrimeLiDifference_eq_abel
+          #check RHLean.Analysis.vfSevenEighthsOwnerPacket_abel
+          #print axioms RHLean.Analysis.vfSevenEighthsOwnerPacket_abel
           #check RHLean.Analysis.VFMidSevenEighthsZetaZeroFree
           #check RHLean.Analysis.VFMidSevenEighthsExplicitFormulaBridge
           #check RHLean.Analysis.VFMidSevenEighthsPrimeLiEndpointBounded
