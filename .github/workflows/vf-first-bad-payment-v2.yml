@@ -102,6 +102,12 @@ jobs:
           #check RHLean.Analysis.vfV2PositiveFirstBad_requires_historicalPrimeLiExcess
           #check RHLean.Analysis.vfV2NegativeFirstBad_requires_historicalPrimeLiDeficit
           #print axioms RHLean.Analysis.vfV2Payment_of_floorLi_actual_signed_bounds
+          #check RHLean.Analysis.vfV2HistoricalPrefixLocksPrime
+          #check RHLean.Analysis.vfV2HistoricalDrought_iff_completeFactorCover
+          #check RHLean.Analysis.vfV2FiniteOwnerUnion_card_le_sum
+          #check RHLean.Analysis.vfV2PartialWheelForcedPrimeLower
+          #print axioms RHLean.Analysis.vfV2HistoricalPrefixLocksPrime
+          #print axioms RHLean.Analysis.vfV2PartialWheelForcedPrimeLower
           #check RHLean.Analysis.vfV2FirstBad_requires_strictCurrentDeviation
           #check RHLean.Analysis.vfV2FirstBad_positive_outward
           #check RHLean.Analysis.vfV2FirstBad_negative_outward
