@@ -45,6 +45,36 @@ theorem vfMid915ParitySplit_abs_one
   rw [abs_of_nonpos hn1, abs_of_nonneg hw2, abs_of_nonpos hn2]
   ring
 
+/-- At a GENUINE PRIME, the favorable local opposite-sign
+odd/even pair heat equals the exact squared-absolute-mass inflation.
+It is therefore NOT new paid NNS capacity. -/
+theorem vfMid915ParitySplit_primePairHeat_eq_exactLocalPrice
+    (w : ℝ) (hw0 : 0 ≤ w) (hw1 : w ≤ 1) :
+    (|w / 2 - 1| + |w / 2|) ^ 2 - (w - 1) ^ 2 =
+      -4 * (w / 2 - 1) * (w / 2) := by
+  have hw2 : 0 ≤ w / 2 := by positivity
+  have hn1 : w / 2 - 1 ≤ 0 := by linarith
+  rw [abs_of_nonpos hn1, abs_of_nonneg hw2]
+  ring
+
+/-- Even full-clock pairing gives ZERO local heat on composite odd seats,
+and exactly (2w-w^2) per actual prime. -/
+theorem vfMid915ParitySplit_quadraticPrice_event
+    (w b : ℝ) (hw0 : 0 ≤ w) (hw1 : w ≤ 1)
+    (hb : b = 0 ∨ b = 1) :
+    (|w / 2 - b| + |w / 2|) ^ 2 -
+      (w - b) ^ 2 = (2 * w - w ^ 2) * b := by
+  rcases hb with hb | hb
+  · subst b
+    have hw2 : 0 ≤ w / 2 := by positivity
+    rw [sub_zero, sub_zero, abs_of_nonneg hw2]
+    ring
+  · subst b
+    have hw2 : 0 ≤ w / 2 := by positivity
+    have hn1 : w / 2 - 1 ≤ 0 := by linarith
+    rw [abs_of_nonpos hn1, abs_of_nonneg hw2]
+    ring
+
 /-- The prime/composite case-split is on the ACTUAL sieve, not floor Li. -/
 theorem vfMid915ParitySplit_physicalSeatAbs
     (R n : ℕ) (hR : 3 ≤ R) :
