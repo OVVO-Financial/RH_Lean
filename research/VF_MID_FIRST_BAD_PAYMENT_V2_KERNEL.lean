@@ -494,6 +494,34 @@ theorem vfV2HighPrimeParentPrecedesCurrentSquare
   · exact hq
   · nlinarith
 
+/-- There cannot be two distinct genuine prime factors q,s>R in the
+original strict OPEN square band.  If they were distinct, their coprime
+product would be at least (R+1)^2 and would divide n<(R+1)^2.
+This makes the high-prime ancestor classification genuinely intrinsic. -/
+theorem vfV2HighPrimeFactorUniqueOnOpenSquare
+    {R n q s : ℕ} (hsite : R ^ 2 < n ∧ n < (R + 1) ^ 2)
+    (hqPrime : q.Prime) (hsPrime : s.Prime)
+    (hq : R < q) (hs : R < s)
+    (hqn : q ∣ n) (hsn : s ∣ n) :
+    q = s := by
+  by_contra hne
+  have hcop : q.Coprime s := by
+    rw [hqPrime.coprime_iff_not_dvd]
+    intro hdiv
+    exact hne ((Nat.prime_dvd_prime_iff_eq hqPrime hsPrime).mp hdiv)
+  have hqsn : q * s ∣ n :=
+    Nat.Coprime.mul_dvd_of_dvd_of_dvd hcop hqn hsn
+  have hqsnLe : q * s ≤ n :=
+    Nat.le_of_dvd (by omega) hqsn
+  have hqge : R + 1 ≤ q := by omega
+  have hsge : R + 1 ≤ s := by omega
+  have hprod : (R + 1) ^ 2 ≤ q * s := by
+    calc
+      (R + 1) ^ 2 = (R + 1) * (R + 1) := by ring
+      _ ≤ q * (R + 1) := Nat.mul_le_mul_right (R + 1) hqge
+      _ ≤ q * s := Nat.mul_le_mul_left q hsge
+  omega
+
 /-- Age classification partitions EXISTING sites; each site supplies its
 original single weight exactly once, not an independent ancestor payment. -/
 def vfV2AgeCohortNativeMass
@@ -646,34 +674,34 @@ theorem vfV2DelayedMovingWallClearance
   ring
 
 /-- Conditional two-way state-age stratification is a finite partition:
-all joint-cell weighted fluxes reassemble exactly, without independence
+all nine joint-cell weighted fluxes reassemble exactly, without independence
 assumptions, future peeking or a new absolute denominator. -/
 def vfV2JointDelayedFluxCell
-    (roots : Finset ℕ) (occ : ℕ → Fin 3) (age : ℕ → Fin 4)
+    (roots : Finset ℕ) (occ : ℕ → Fin 3) (age : ℕ → Fin 3)
     (E : ℕ → ℝ) (orientation : ℕ → ℝ) (horizon : ℕ)
-    (o : Fin 3) (a : Fin 4) : ℝ :=
+    (o : Fin 3) (a : Fin 3) : ℝ :=
   ∑ R ∈ roots,
     if occ R = o ∧ age R = a
     then vfV2DelayedOrientedFlux E (orientation R) R horizon
     else 0
 
 theorem vfV2JointDelayedFluxCell_sum
-    (roots : Finset ℕ) (occ : ℕ → Fin 3) (age : ℕ → Fin 4)
+    (roots : Finset ℕ) (occ : ℕ → Fin 3) (age : ℕ → Fin 3)
     (E : ℕ → ℝ) (orientation : ℕ → ℝ) (horizon : ℕ) :
-    (∑ o : Fin 3, ∑ a : Fin 4,
+    (∑ o : Fin 3, ∑ a : Fin 3,
       vfV2JointDelayedFluxCell roots occ age E orientation horizon o a) =
       ∑ R ∈ roots, vfV2DelayedOrientedFlux E (orientation R) R horizon := by
   classical
   simp only [vfV2JointDelayedFluxCell]
   calc
-    _ = ∑ o : Fin 3, ∑ R ∈ roots, ∑ a : Fin 4,
+    _ = ∑ o : Fin 3, ∑ R ∈ roots, ∑ a : Fin 3,
           (if occ R = o ∧ age R = a
            then vfV2DelayedOrientedFlux E (orientation R) R horizon
            else 0) := by
       apply Finset.sum_congr rfl
       intro o _
       rw [Finset.sum_comm]
-    _ = ∑ R ∈ roots, ∑ o : Fin 3, ∑ a : Fin 4,
+    _ = ∑ R ∈ roots, ∑ o : Fin 3, ∑ a : Fin 3,
           (if occ R = o ∧ age R = a
            then vfV2DelayedOrientedFlux E (orientation R) R horizon
            else 0) := by
