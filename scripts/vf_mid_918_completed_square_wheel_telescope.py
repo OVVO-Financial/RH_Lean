@@ -166,6 +166,7 @@ def test_half_run_only_live_multiplier_three():
     odd_parent_composite=odd_parent_square=0
     prime_neg,three_child_pos=[],[]
     counts_odd=0
+    child_square_excluded=0
     def weight(r):
         return (2*r+1)/(r*math.log(r*r+r+0.5))
     for c in range(lo+1,upper+1):
@@ -173,6 +174,9 @@ def test_half_run_only_live_multiplier_three():
             continue
         counts_odd+=1
         assert 3*c<B*B and 3*c>3*A*A
+        if math.isqrt(3*c)**2==3*c:
+            child_square_excluded+=1
+            assert not prime[c]
         if prime[c]:
             r=math.isqrt(c)
             s=math.isqrt(3*c)
@@ -191,6 +195,28 @@ def test_half_run_only_live_multiplier_three():
     assert len(prime_pairs)==145173
     assert odd_parent_composite==1009397
     assert odd_parent_square==203
+    assert child_square_excluded==118
+    assert counts_odd-child_square_excluded==1154452
+    # Every interior odd square must be removed from the strict-open
+    # physical NNS carriers; the all-odd integer interval overcounts.
+    # The sum of R odd sites is the REAL physical seat count.
+    physical_odd_seats=sum(range(A,B))
+    assert physical_odd_seats==10400350
+    excluded_odd_squares=sum(r%2 for r in range(A+1,B))
+    assert excluded_odd_squares==1316
+    lo_raw=lo+1
+    first=lo_raw+(3-lo_raw%6)%6
+    all_three_multiples=(B*B-1-first)//6+1
+    excluded_three_squares=sum(r%2 and r%3==0
+                               for r in range(A+1,B))
+    assert excluded_three_squares==439
+    physical_three_owners=all_three_multiples-excluded_three_squares
+    assert physical_three_owners==3466783
+    actual_prime_count=1253703  # independently checked in run(A,B,y)
+    physical_ge_five_owners=(physical_odd_seats-actual_prime_count-
+                              physical_three_owners)
+    assert physical_ge_five_owners==5679864
+    assert physical_three_owners+physical_ge_five_owners+actual_prime_count==physical_odd_seats
     assert len(set(prime_pairs))==len(prime_pairs)
     negative=math.fsum(prime_neg)
     positive=math.fsum(three_child_pos)
@@ -203,7 +229,13 @@ def test_half_run_only_live_multiplier_three():
           'all_odd_parent_cofactors=%d paired_actual_prime_q=%d '
           'paired_composite_cofactors=%d '
           'excluded_parent_square_sites=%d '
-          'all_child_n=3*q_late_n>=3*A2 '
+          'excluded_child_square_sites=%d '
+          'genuine_live_3_composites=%d '
+          'total_real_physical_odd_seats=%d '
+          'all_real_p3_owned_composites=%d '
+          'all_real_p_ge5_owned_composites=%d '
+          'all_real_primes=%d '
+          'all_prime_q_children_n=3*q_late_n>=3*A2 '
           'parent_root_range=2634..3040 '
           'child_root_range=4562..5266 '
           'original_prime_negative_mass=%+.6f '
@@ -212,6 +244,9 @@ def test_half_run_only_live_multiplier_three():
           'pair_only_original_NNS=%.6f'%(
               A,B,lo,upper,counts_odd,len(prime_pairs),
               odd_parent_composite,odd_parent_square,
+              child_square_excluded, counts_odd-child_square_excluded,
+              physical_odd_seats,physical_three_owners,
+              physical_ge_five_owners,actual_prime_count,
               negative,positive,net,Nm
           ))
     # The matched subset ALONE is NNS supercritical. Never infer
