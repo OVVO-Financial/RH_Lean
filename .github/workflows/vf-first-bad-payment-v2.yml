@@ -83,6 +83,8 @@ jobs:
           #check RHLean.Analysis.vfV2Balance_factor
           #check RHLean.Analysis.vfV2Payment_of_floorLi_actual_signed_bounds
           #check RHLean.Analysis.vfV2OddCohortFloorLi_restores_primeError
+          #check RHLean.Analysis.vfV2HistoricalPositiveWallClearance
+          #check RHLean.Analysis.vfV2HistoricalNegativeWallClearance
           #print axioms RHLean.Analysis.vfV2Payment_of_floorLi_actual_signed_bounds
           #check RHLean.Analysis.vfV2NoUnconditionalAllStateCone
           #print axioms RHLean.Analysis.vfV2Payment_iff_exactSignedBalance
