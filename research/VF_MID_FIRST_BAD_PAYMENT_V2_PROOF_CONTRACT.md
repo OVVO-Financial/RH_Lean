@@ -248,6 +248,213 @@ the inequality (12).
 8. The user-facing objective is the single *hfirst-specific* target,
    NOT an unconditional all-$R$ inequality.
 
+## 4A. Actual pi versus floor Li on the TRUE prime-factor buckets
+
+**Implemented directly in #918, without importing #915's heavy modules.**
+The full consecutive R=8..6000 scan uses ACTUAL integer primality
+from an independent sieve, plus the explicit floor-Li baseline.
+The revised CI check passed all **5,993** R blocks in **0.56 seconds
+of Python runtime**, including the native composite-cofactor audits.
+
+Set X=(R+1)^2, S=R+1=sqrt(X), H=floor(X/2), and
+Q(n)=floor(Li_2(n)) where Li_2(x)=integral from 2 to x of dt/log t.
+Write E(n)=pi(n)-Q(n). Q is a DETERMINISTIC integer reference,
+not a second prime sieve. Q-events that fall on even or composite
+integers have no genuine prime owner.
+
+The true integer-prime FACTOR buckets are exactly:
+
+1. p<=S: all possible least-prime sieve owners (every composite
+   n<=X has a prime divisor <=S).
+2. S<p<=H: genuine prime factors with at least one even composite
+   descendant 2p<=X, ALREADY accounted for in the reference baseline.
+3. H<p<=X: truly terminal prime factors, none with a proper
+   integer multiple <=X.
+
+For R>=8, **all current physical odd primes** are in (R^2,X],
+a subinterval of the terminal factor bucket (H,X]. Splitting the
+terminal bucket at R^2 is essential to distinguish historical
+drift already compressed in D_R from the CURRENT block error.
+
+The corresponding signed bucket telescope is EXACT:
+
+$
+\begin{aligned}
+E(X)=E(2)
+ &+[E(S)-E(2)]\\
+ &+[E(H)-E(S)]\\
+ &+[E(R^2)-E(H)]\\
+ &+[E(X)-E(R^2)].
+\end{aligned}
+\tag{13}
+$
+
+Here E(2)=1 (because pi(2)=1 while Q(2)=0). The last term,
+delta_R=E(X)-E(R^2), is exactly actual P_R minus the current
+floor-Li demand F_R=Q(X)-Q(R^2).
+
+### Reproduction on ACTUAL primes
+
+| R | low E <=sqrt X | middle E (sqrt X,X/2] | terminal historical E (X/2,R^2] | terminal CURRENT delta | E(X) |
+|---:|---:|---:|---:|---:|---:|
+| 119 | -4 | -13 | -5 | -6 | -27 |
+| 317 | -5 | -27 | -9 | -1 | -41 |
+| 1027 | -9 | -52 | -58 | -4 | -122 |
+| 1760 | -9 | -98 | -55 | -32 | -193 |
+| 5267 | -17 | -264 | -46 | +2 | -324 |
+| 6000 | -17 | -188 | -356 | +8 | -552 |
+
+All entries are exact integer counts of ACTUAL pi minus Q.
+Example: at R=1027, 1-9-52-58-4=-122. At R=317,
+1-5-27-9-1=-41. **The x/2 split works exactly**; it
+does NOT independently bound terminal prime fluctuations.
+
+### Put Q back into the ORIGINAL first-bad inequality
+
+The deterministic square-endpoint bridge is b_R=Q(R^2)-VF_mid(R^2).
+The ACTUAL anchor is
+
+$
+D_R=b_R+E(R^2),\qquad
+P_R=F_R+\delta_R,\qquad
+D_{R+1}=D_R+F_R+\delta_R-V_R.
+\tag{14}
+$
+
+Hold the **ACTUAL** D_R fixed. Using F_R in place of P_R defines
+a comparison count, not an imagined real prime arrangement.
+
+Let
+
+$
+\begin{aligned}
+M_R^0&=|D_R|+w_RR+(1-2w_R)F_R,\\
+Y_R^0&=D_R+F_R-V_R,\\
+G_R^+&=M_R^0+\sqrt2Y_R^0,\\
+G_R^-&=M_R^0-\sqrt2Y_R^0.
+\end{aligned}
+\tag{15}
+$
+
+Because P_R=F_R+delta_R, the TWO actual signed cone margins are
+
+$
+\boxed{\begin{aligned}
+M_R+\sqrt2D_{R+1}
+ &=G_R^++(1-2w_R+\sqrt2)\delta_R,\\
+M_R-\sqrt2D_{R+1}
+ &=G_R^-+(1-2w_R-\sqrt2)\delta_R.
+\end{aligned}}
+\tag{16}
+$
+
+and their product is **literally the original** hbalance:
+
+$
+\boxed{\mathcal B_R
+ =(M_R+\sqrt2D_{R+1})(M_R-\sqrt2D_{R+1}).}
+\tag{17}
+$
+
+There is NO new denominator and NO separate even 2p negative heat.
+For R>=8, w_R<1/2. Thus the admissible ACTUAL signed
+current error interval (conditioned on the already ACTUAL D_R) is
+
+$
+\boxed{
+-\frac{G_R^+}{1-2w_R+\sqrt2}
+ \ \le\ \delta_R\ \le\
+ \frac{G_R^-}{\sqrt2-1+2w_R}.
+}
+\tag{18}
+$
+
+All these identities and the conditional **two-margin certificate**
+are in \`VF_MID_FIRST_BAD_PAYMENT_V2_KERNEL.lean\`:
+\`vfV2LiPlus_actual\`, \`vfV2LiMinus_actual\`,
+\`vfV2Balance_factor\`,
+\`vfV2Payment_of_floorLi_actual_signed_bounds\`.
+The certificate is algebra, not an unconditional assertion that (18)
+always holds for genuine prime counts.
+
+**Actual error tolerance and observations** (rounded only for display):
+
+| R | actual P_R | floor-Li F_R | delta_R | allowed actual signed delta interval | actual NNS |
+|---:|---:|---:|---:|---|---:|
+| 119 | 19 | 25 | -6 | [-15.870,102.230] | 0.206054 |
+| 317 | 54 | 55 | -1 | [-36.309,240.453] | 0.093334 |
+| 1027 | 144 | 148 | -4 | [-96.498,759.962] | 0.107592 |
+| 1760 | 204 | 236 | -32 | [-159.763,1162.700] | 0.123155 |
+| 5267 | 617 | 615 | +2 | [-436.565,2887.044] | 0.052116 |
+| 6000 | 698 | 690 | +8 | [-453.228,3989.729] | 0.095024 |
+
+Over R=8..6000 the largest |delta_R| was 61 at R=5266.
+There were **zero** failing actual signed margins, while the
+tightest normalized actual covariance was 0.206054 at R=119.
+These are finite demonstrations that the floor-Li placement
+works with genuine pi, **not** a proof of a uniform δ-bound.
+
+### Native odd-composite cofactor Fubini, without 2p charging
+
+For each ODD c>=3, actual q>R prime descendants n=cq in the current
+open band are counted by the true interval
+
+$
+\max(R,\lfloor R^2/c\rfloor)
+ <q\le\lfloor((R+1)^2-1)/c\rfloor.
+$
+
+Define A_c=actual pi interval, F_c=floor-Li interval *reference*;
+each event A_c is a genuine PRIME q but the floor-Li events F_c
+may be at composites. Let G=sum A_c, G_Li=sum F_c,
+and let S=R-P_R-G, S_Li=R-F_R-G_Li be the respective actual
+smooth-composite population and formal benchmark complement.
+
+The three signed error populations obey
+
+$
+\delta_P+\delta_G+\delta_S=0.
+$
+
+Keeping the NATIVE VF odd-seat weights, the correction is
+
+$
+\boxed{
+(w_R-1)\delta_P+w_R\delta_G+w_R\delta_S=-\delta_P.
+}
+\tag{19}
+$
+
+This is an exact one-block restoration identity. It neither
+creates negative physical capacity nor bounds δ_P.
+The corresponding algebraic Lean theorem is
+\`vfV2OddCohortFloorLi_restores_primeError\`.
+
+| R | actual high-q odd composites G | floor-Li cofactor events G_Li | error (G-G_Li) | signed cofactor-window + / - |
+|---:|---:|---:|---:|---:|
+| 119 | 80 | 72 | +8 | +24 / -16 |
+| 317 | 192 | 204 | -12 | +50 / -62 |
+| 1027 | 659 | 648 | +11 | +144 / -133 |
+| 1760 | 1169 | 1134 | +35 | +291 / -256 |
+| 5267 | 3400 | 3411 | -11 | +735 / -746 |
+| 6000 | 3878 | 3882 | -4 | +895 / -899 |
+
+The current odd-site population identities and weighted restoration
+are verified independently, not inferred from square-endpoint totals.
+The current weighted cofactor sign fluctuates:
+R=317 contributes w*(-12)=-2.086446;
+R=1027 contributes w*(+11)=+1.586956.
+
+**Proof status:** Both signed bucket transports and the actual-prime
+numerical matches hold. Neither exact telescope (13) nor weighted
+conservation (19) establishes that the true δ_R lies in (18)
+under a hypothetical first-bad. Indeed at such a first bad the
+existing compiled NNS theorem forces the opposite strict sign.
+The unproved step is a FIRST-BAD-SPECIFIC prime-distribution/
+cross-time-correlation inequality on the real E(R^2) and
+delta_R, not a new factorization, not a stronger fitted Li proxy,
+and not the mere fact that the observed samples fit.
+
 ## 5. Testing: deliberately separate seconds from native compilation
 
 **Fast lane** (automatically on every PR update; no Lean/StrongPNT):
