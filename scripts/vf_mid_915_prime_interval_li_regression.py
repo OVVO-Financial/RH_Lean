@@ -83,9 +83,9 @@ def run(R, prime, primes):
             assert n in all_sites
             physical_direct+= w-int(bool(prime[n]))
     assert abs(physical_direct-actual_charge)<1e-8
-    assert abs((actual_charge-li_charge)-w*(
-        mismatch_total-(values[1][2] if 1 in values else 0)
-    )+(values[1][2] if 1 in values else 0))<1e-7
+    assert abs((actual_charge-li_charge)-(
+        w*mismatch_total-(values[1][2] if 1 in values else 0)
+    ))<1e-7
     assert sum(int(not prime[n]) for n in all_sites)==hist_above+hist_below
     actual_prime=pi(X)-pi(lower_sq)
     assert values[1][0]==actual_prime
