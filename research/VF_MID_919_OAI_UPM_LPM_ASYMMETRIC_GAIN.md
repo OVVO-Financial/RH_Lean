@@ -258,3 +258,73 @@ the source-to-boundary occurrence
 map. This could improve the
 LOW-side bound, which is just as
 necessary as a HIGH-side improvement.
+
+
+## 7. Actual original-weight NNS partial moments on the 316 native owners
+
+A new CI regression now computes NNS zero-target
+LPM/UPM of the signed analytic owner-column
+residuals already obtained from genuine p<q
+prime products at A=2634,B=5267. This is an
+actual physical arithmetic census, NOT
+fictional independent sample rows:
+
+\[
+e_p=\sum_{\substack{q>p,\ q\mathrm{\ prime}\\pq<B^2}}
+w_{\lfloor\sqrt{pq}\rfloor}
+-\sum_{q=p+1}^{\lfloor(B^2-1)/p\rfloor}
+w_{\lfloor\sqrt{pq}\rfloor}
+  \big(\operatorname{Li}_2(q)-\operatorname{Li}_2(q-1)\big).
+\]
+
+All 316 error columns use their ORIGINAL
+root-of-product VF weights. The zero-target
+partial moments are:
+
+| Moment | Upper partial | Lower partial | LPM/UPM |
+|---|---:|---:|---:|
+| Degree 1 | 2.245021603 | 138.538713855 | 61.709x |
+| Degree 2 | 0.356130001 | 86.937765732 | 244.118x |
+
+They satisfy exactly
+
+\[
+\sum_p e_p=\mathrm{UPM}_1-\mathrm{LPM}_1
+=-136.293692253
+\]
+
+and
+
+\[
+\sum_p e_p^2=\mathrm{UPM}_2+\mathrm{LPM}_2
+\approx87.293895733.
+\]
+
+Thus the four-sector/directional construction
+is NOT merely aesthetically asymmetric:
+there is a real 61.7x first-order and
+244x second-order lower-tail dominance in
+this original native numerical packet.
+
+This is STILL NOT evidence that the hard
+OPENAI Hecke rows have the same partial
+moments, or that the lower tail is always
+restoring. For a LOWER-wall first-bad escape,
+negative owner errors could in fact be
+OUTWARD and DANGEROUS. Which partial tail
+is favorable must be fixed relative to the
+first-bad wall's sign and the genuine OAI
+marked-minus-rescaled phase.
+
+The only legitimate way to spend this
+asymmetry is to establish a sign-correct,
+uniform-in-scale, occurrence-preserving
+transfer into the OAI retained row count
+or normalized probe norm, including the
+mixed original Sector Six Gram and its
+unique historical owner charges.
+
+This is a better *diagnostic* than simply
+comparing an uncentered positive
+semiprime mass to Li, but it is not yet
+the missing arithmetic power saving.
