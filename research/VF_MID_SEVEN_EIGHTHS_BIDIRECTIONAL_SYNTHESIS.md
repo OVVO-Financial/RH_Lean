@@ -2,6 +2,18 @@
 
 **Status:** Exact arithmetic/Mellin mathematics and warning-fatal Lean finite Abel lemmas; conditional analytic bounds, NOT RH.
 
+**October 9 epistemic correction:** The zeta Re(s)>7/8 zero-free half-plane was
+previously an open problem. OpenAI has NOW published a newly claimed proof
+with a Lean 4.34.1 theorem; independent auditors report a complete rebuild
+of the zeta theorem's 2,924-module import closure. This is a documented
+formal result claim, NOT a previously settled classical theorem and not
+yet a broadly peer-reviewed mathematical result. RH_Lean does NOT import
+that external kernel theorem. Its zero-free input and the quantitative
+explicit-formula implication remain SEPARATE, NAMED hypotheses.
+See the full provenance and exact uniform analytic target in
+research/VF_MID_919_OPEN_UNIFORM_ANALYTIC_TARGET.md.
+
+
 ## 1. Analytic information INTO genuine weighted owner cells
 
 Freeze a subdoubling run at A=2634, B=5267. Genuine late-owner
@@ -204,6 +216,12 @@ and for complex s define the finite common Mellin numerator
 \[
 \boxed{K_{A,B}(s)=\sum_{R=A}^{B-1}w_R
         \big((R+1)^{2s}-R^{2s}\big).}\tag{S8}
+
+**Endpoint convention:** `w_B=V_B/B` is defined by extending
+the same deterministic VF formula one index beyond the physical
+run ONLY for Abel summation. It cancels against the last
+weight-variation term; there is NO physical B-th block.
+
 \]
 
 Because the original square bands are *completed*, a
@@ -267,6 +285,21 @@ with the original completed-square w_R values retained.
 The left side is a genuine positive physical composite
 packet; it is not the full signed NNS Gram.
 
+**Essential distinction:** `H_A(s)` in (S10) is an UNRESTRICTED
+Dirichlet series; its coefficients include products pq beyond B².
+The actual physically truncated finite source is
+
+\[
+H_{A,B}^{\rm phys}(s)=
+\sum_{\substack{A<p<q\\pq<B^2}}(pq)^{-s}.
+\]
+
+The physical source is NOT equal to the bare expression in (S10).
+The Perron cutoff in the *formal* representation (S11) enforces
+the pq<B² restriction, conditional on correctly justified
+truncation and limit interchange.
+
+
 A related analytic identity is
 
 \[
@@ -296,6 +329,22 @@ arbitrary p-specific weights. S8-S9 is a plausible
 way to factor our p-dependence into a common Mellin
 kernel, but the needed matching *character family*
 and *large-sieve moment bound* are not present.
+
+The real-axis finite prime polynomial \(\sum_{p\le A}p^{-\sigma}\)
+grows on the order of \(A^{1-\sigma}/\log A\) for
+\(0<\sigma<1\). Its dependence on the moving cutoff
+must be retained. Likewise the squared prime-zeta series
+creates logarithm-squared structure near s=1, which is
+NOT treated by a simple-pole residue calculation.
+
+The Perron integral in (S11) is conditionally formulated:
+the integrand need not be absolutely integrable along
+an infinite vertical line, and no deformation across
+the pole/branch point has been proved. The genuinely
+OPEN uniform signed-bilinear contour target, with full
+original Sector Six Gram cross terms and once-counted
+historical charges, is stated in
+research/VF_MID_919_OPEN_UNIFORM_ANALYTIC_TARGET.md.
 
 The exact contour identity S11 is standard classical
 analysis, NOT yet a kernel-checked Lean theorem.
