@@ -2,6 +2,7 @@ import Mathlib
 import «research.VF_MID_FIRST_BAD_ACTIVE_RAW_PARENT_SPLICE»
 import «research.VF_MID_ENDPOINT_TRIGGER_DICTIONARY»
 import «research.VF_MID_FIRST_BAD_PAYMENT_V2_KERNEL»
+import «research.VF_MID_FLOOR_LI_TRANSPORT_CANCELLATION»
 
 /-!
 # Actual prime admissibility certificate: established structural rules
@@ -276,6 +277,126 @@ theorem vfV2ActualPrime_signedOwnerRule_iff_noFirstBad :
       h hR hfirst
   · intro h R hR hfirst
     exact (h R hR hfirst).elim
+
+
+
+/-! ## Actual-prime specialization of age and prospective signed flux
+
+The finite population here is the ORIGINAL odd physical square carrier,
+filtered by GENUINE prime factors q>R.  Each composite site is charged
+ONCE and belongs to exactly one age class via a selected genuine parent.
+No floor-Li event is a physical site; no old prime charge is duplicated.
+These theorems deliberately do NOT establish the first-bad Sector Six sign. -/
+
+/-- Only actual composite odd seats possessing a genuine prime factor q>R.
+The strict q<n guard excludes prime n=q; q is never a floor-Li event. -/
+def vfV2ActualHighPrimeOddCompositeSites (R : ℕ) : Finset ℕ :=
+  (vfMidOddCandidateSeats R).filter fun n =>
+    ∃ q : ℕ, q.Prime ∧ R < q ∧ q ∣ n ∧ q < n
+
+/-- A representative TRUE high-prime ancestor for each physical composite.
+The choice cannot create a second physical site or an additional charge. -/
+noncomputable def vfV2ActualHighPrimeParent (R n : ℕ) : ℕ :=
+  if h : ∃ q : ℕ, q.Prime ∧ R < q ∧ q ∣ n ∧ q < n
+  then Classical.choose h
+  else 0
+
+theorem vfV2ActualHighPrimeParent_genuine
+    {R n : ℕ} (hn : n ∈ vfV2ActualHighPrimeOddCompositeSites R) :
+    (vfV2ActualHighPrimeParent R n).Prime ∧
+      R < vfV2ActualHighPrimeParent R n ∧
+      vfV2ActualHighPrimeParent R n ∣ n ∧
+      vfV2ActualHighPrimeParent R n < n := by
+  have hex : ∃ q : ℕ, q.Prime ∧ R < q ∧ q ∣ n ∧ q < n :=
+    (Finset.mem_filter.mp hn).2
+  unfold vfV2ActualHighPrimeParent
+  rw [dif_pos hex]
+  exact Classical.choose_spec hex
+
+/-- Physical high-prime owner-age cohorts reassemble the ACTUAL current
+odd-composite sites, never the historical negative prime q charges. -/
+theorem vfV2ActualHighPrimeAgeNativeMass_sum (R : ℕ) :
+    (∑ bucket : Fin 4,
+      vfV2AgeCohortNativeMass R
+        (vfV2ActualHighPrimeOddCompositeSites R)
+        (fun n => Nat.sqrt (vfV2ActualHighPrimeParent R n))
+        (fun _ => vfMidOddFractionalPrimeSeatWeight R) bucket) =
+      ∑ n ∈ vfV2ActualHighPrimeOddCompositeSites R,
+        vfMidOddFractionalPrimeSeatWeight R := by
+  exact vfV2AgeCohortNativeMass_sum R
+    (vfV2ActualHighPrimeOddCompositeSites R)
+    (fun n => Nat.sqrt (vfV2ActualHighPrimeParent R n))
+    (fun _ => vfMidOddFractionalPrimeSeatWeight R)
+
+/-- The genuine physical flux endpoint E_R is the integer actual-prime
+count minus the deterministic integer floor-Li count at R^2. -/
+def vfV2ActualSquareFloorLiError (R : ℕ) : ℝ :=
+  (vfMidPrimeFloorLiBacklog R : ℝ)
+
+/-- Actual signed block flux equals P_R-F_R, not a proxy owner census. -/
+theorem vfV2ActualSquareFloorLiFlux_eq_trueBlockCorrection (R : ℕ) :
+    vfV2BlockFlux vfV2ActualSquareFloorLiError R =
+      (vfMidFloorLiActualBlockCorrection R : ℝ) := by
+  unfold vfV2BlockFlux vfV2ActualSquareFloorLiError
+  exact_mod_cast
+    (vfMidFloorLiActualBlockCorrection_eq_backlog_increment R).symm
+
+/-- The DELAYED response is the sum of genuine actual-minus-floor-Li block
+corrections at R+1,...,R+h, so block R is demonstrably excluded. -/
+theorem vfV2ActualDelayedFlux_eq_genuineFutureCorrections
+    (R horizon : ℕ) (orientation : ℝ) :
+    vfV2DelayedOrientedFlux vfV2ActualSquareFloorLiError
+        orientation R horizon =
+      orientation *
+        (∑ r ∈ Finset.Ico (R + 1) (R + 1 + horizon),
+          (vfMidFloorLiActualBlockCorrection r : ℝ)) := by
+  rw [vfV2DelayedFlux_eq_futureBlockSum]
+  congr 1
+  apply Finset.sum_congr rfl
+  intro r _
+  exact vfV2ActualSquareFloorLiFlux_eq_trueBlockCorrection r
+
+/-- Exact correspondence between the original ACTUAL prime endpoint defect,
+the integer signed count backlog and the deterministic floor-Li VF bridge. -/
+theorem vfV2ActualDefect_eq_backlog_plus_deterministicBridge (R : ℕ) :
+    vfMidActualPrimeEndpointDefect R =
+      vfV2ActualSquareFloorLiError R + vfMidFloorLiVFBridge R := by
+  exact vfMidPrimeError_sq_eq_floorLiBacklog_add_bridge R
+
+/-- The precise future-oriented moving wall identity, in native actual pi
+and VF currency.  It still gives no sign inequality for a hypothetical first
+bad. -/
+theorem vfV2ActualDelayedMovingWallIdentity
+    (R horizon : ℕ) (orientation : ℝ) :
+    ((2 : ℝ) * vfMidSyntheticRadialScale (R + 1 + horizon) -
+       orientation * vfMidActualPrimeEndpointDefect (R + 1 + horizon)) -
+      ((2 : ℝ) * vfMidSyntheticRadialScale (R + 1) -
+       orientation * vfMidActualPrimeEndpointDefect (R + 1)) =
+    ((2 : ℝ) * vfMidSyntheticRadialScale (R + 1 + horizon) -
+       2 * vfMidSyntheticRadialScale (R + 1)) -
+      vfV2DelayedOrientedFlux vfV2ActualSquareFloorLiError
+        orientation R horizon -
+      orientation *
+        (vfMidFloorLiVFBridge (R + 1 + horizon) -
+          vfMidFloorLiVFBridge (R + 1)) := by
+  exact vfV2DelayedMovingWallClearance
+    (W := fun t => 2 * vfMidSyntheticRadialScale t)
+    (D := vfMidActualPrimeEndpointDefect)
+    (E := vfV2ActualSquareFloorLiError)
+    (b := vfMidFloorLiVFBridge) orientation R horizon
+    (vfV2ActualDefect_eq_backlog_plus_deterministicBridge (R + 1))
+    (vfV2ActualDefect_eq_backlog_plus_deterministicBridge (R + 1 + horizon))
+
+/-- This is the original production conclusion with the SAME original
+signed Sector Six premise, not a hypothetical age-feedback substitute. -/
+theorem vfV2ActualOccurrencePreservingReturn_closes_firstBad
+    {R : ℕ} (hR : 8 ≤ R)
+    (hfirst : VFMidActualPrimeFirstBadAt (2 : ℝ) (R + 1))
+    (hreturn : vfMidActiveGlobalResidualExcess R +
+      2 * vfV2ActualSixSectorSignedMass R ≤ 0) :
+    False := by
+  exact vfMidActualPrimeFirstBadAt_two_succ_false_of_activeSixBoundaryBudget
+    hR hfirst hreturn
 
 
 end RHLean.Analysis
