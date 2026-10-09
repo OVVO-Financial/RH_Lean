@@ -7,11 +7,18 @@ on:
       - research/VF_MID_FIRST_BAD_PAYMENT_V2_KERNEL.lean
       - research/VF_MID_FIRST_BAD_PAYMENT_V2_NATIVE_CONSUMER.lean
       - scripts/vf_mid_first_bad_payment_v2_test.py
+      - scripts/vf_mid_918_crossblock_moments.py
+      - scripts/vf_mid_918_owner_matched_probe.py
       - .github/workflows/vf-first-bad-payment-v2.yml
   workflow_dispatch:
     inputs:
       deep_native:
         description: "Opt into slow native StrongPNT/research closure check"
+        required: false
+        default: false
+        type: boolean
+      crossblock_moments:
+        description: "Opt into actual-prime full Co/Div matrices and owner matching (~5s compute after optional Python dependency setup)"
         required: false
         default: false
         type: boolean
@@ -164,3 +171,31 @@ jobs:
           #print axioms RHLean.Analysis.vfMidMinimalActualFirstBad_closed_of_exactPaymentV2
           LEAN
           lake env lean -DwarningAsError=true /tmp/vf_v2_native_acceptance.lean
+
+  crossblock-moments-opt-in:
+    name: Optional 5993-block actual-prime partial-moment matrices
+    if: github.event_name == 'workflow_dispatch' && inputs.crossblock_moments
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up scientific Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install isolated research dependencies
+        run: python3 -m pip install --quiet numpy scipy mpmath
+      - name: Compare all fixed-target raw/normalized NNS and Pearson lagged matrices
+        run: |
+          python3 -B scripts/vf_mid_918_crossblock_moments.py \
+            --max-root 6000 --outdir vf918_crossblock
+      - name: Count genuine cross-block odd prime-to-composite owner pairs
+        run: python3 -B scripts/vf_mid_918_owner_matched_probe.py
+      - name: Publish reproducible comparison dataset
+        uses: actions/upload-artifact@v4
+        with:
+          name: vf918-crossblock-actual-primes
+          path: |
+            vf918_crossblock/*.csv
+            vf918_crossblock/summary.json
+          if-no-files-found: error
