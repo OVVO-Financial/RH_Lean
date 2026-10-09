@@ -97,6 +97,78 @@ theorem vfMid915ParitySplit_physicalSeatAbs
     exact vfMid915ParitySplit_abs_zero
       (vfMidOddFractionalPrimeSeatWeight R) hw0
 
+/-- Actual physical square-prime indicator: a pointwise 0/1 atom. -/
+theorem vfMid915ActualPrimeSeatMass_zero_or_one (n : ℕ) :
+    vfMidActualPrimeSeatMass n = 0 ∨
+      vfMidActualPrimeSeatMass n = 1 := by
+  unfold vfMidActualPrimeSeatMass
+  by_cases hp : n.Prime
+  · simp [hp]
+  · simp [hp]
+
+/-- Exact numerical local opposite-sign heat (and its compensating
+absolute-norm premium) on each actual odd VF site. -/
+theorem vfMid915ParitySplit_physicalSeatQuadraticPrice
+    (R n : ℕ) (hR : 3 ≤ R) :
+    (|vfMidOddFractionalPrimeSeatWeight R / 2 -
+        vfMidActualPrimeSeatMass n| +
+      |vfMidOddFractionalPrimeSeatWeight R / 2|) ^ 2 -
+       (vfMidOddSignedSeatCharge R n) ^ 2 =
+      (2 * vfMidOddFractionalPrimeSeatWeight R -
+        vfMidOddFractionalPrimeSeatWeight R ^ 2) *
+        vfMidActualPrimeSeatMass n := by
+  have hw0 :=
+    vfMidOddFractionalPrimeSeatWeight_nonneg R (by omega : 2 ≤ R)
+  have hw1 :=
+    vfMidOddFractionalPrimeSeatWeight_le_one_of_three_le R hR
+  have hevent := vfMid915ParitySplit_quadraticPrice_event
+    (vfMidOddFractionalPrimeSeatWeight R)
+    (vfMidActualPrimeSeatMass n)
+    hw0 hw1 (vfMid915ActualPrimeSeatMass_zero_or_one n)
+  simpa [vfMidOddSignedSeatCharge] using hevent
+
+/-- TOTAL local pair heat that can possibly be credited to splitting
+the current odd prime charges into even/odd halves. This is NOT an
+actual pair-CODIV history reconstruction and cannot be spent twice. -/
+def vfMid915ParityRefinedLocalPairHeat (R : ℕ) : ℝ :=
+  ∑ n ∈ vfMidOddCandidateSeats R,
+    ((|vfMidOddFractionalPrimeSeatWeight R / 2 -
+         vfMidActualPrimeSeatMass n| +
+       |vfMidOddFractionalPrimeSeatWeight R / 2|) ^ 2 -
+      (vfMidOddSignedSeatCharge R n) ^ 2)
+
+/-- No mysterious large per-site negative heat: its exact total is
+(2*w_R-w_R^2)*P_R. At R=1027 this is about 38.55, versus >15669
+of GLOBAL NNS-square restoration cost for full parity refinement. -/
+theorem vfMid915ParityRefinedLocalPairHeat_eq_coefficient_mul_primeSupply
+    (R : ℕ) (hR : 3 ≤ R) :
+    vfMid915ParityRefinedLocalPairHeat R =
+      (2 * vfMidOddFractionalPrimeSeatWeight R -
+        vfMidOddFractionalPrimeSeatWeight R ^ 2) *
+        (vfMidIntegerBlockPrimeSupply R : ℝ) := by
+  unfold vfMid915ParityRefinedLocalPairHeat
+  calc
+    (∑ n ∈ vfMidOddCandidateSeats R,
+      ((|vfMidOddFractionalPrimeSeatWeight R / 2 -
+           vfMidActualPrimeSeatMass n| +
+         |vfMidOddFractionalPrimeSeatWeight R / 2|) ^ 2 -
+        (vfMidOddSignedSeatCharge R n) ^ 2)) =
+      ∑ n ∈ vfMidOddCandidateSeats R,
+        (2 * vfMidOddFractionalPrimeSeatWeight R -
+          vfMidOddFractionalPrimeSeatWeight R ^ 2) *
+          vfMidActualPrimeSeatMass n := by
+      apply Finset.sum_congr rfl
+      intro n _hn
+      exact vfMid915ParitySplit_physicalSeatQuadraticPrice R n hR
+    _ = (2 * vfMidOddFractionalPrimeSeatWeight R -
+          vfMidOddFractionalPrimeSeatWeight R ^ 2) *
+        (∑ n ∈ vfMidOddCandidateSeats R,
+           vfMidActualPrimeSeatMass n) := by
+      rw [Finset.mul_sum]
+    _ = _ := by
+      rw [vfMidActualPrimeSeatMass_sum_oddCandidates R
+        (by omega : 2 ≤ R)]
+
 /-- Half of VF expectation is attached to each of the two parity seats;
 the actual prime event is attached to its odd seat. Every even mate
 contains no actual prime in the original integer square band. -/
