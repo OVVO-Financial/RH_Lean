@@ -400,6 +400,57 @@ theorem vfV2ActualDelayedMovingWallIdentity
     (vfV2ActualDefect_eq_backlog_plus_deterministicBridge (R + 1))
     (vfV2ActualDefect_eq_backlog_plus_deterministicBridge (R + 1 + horizon))
 
+/-! ### The actual observational coordinates, with no future information -/
+
+/-- Historical absolute occupancy relative to the ORIGINAL K=2 VF wall.
+This is a descriptive score; it does NOT imply a uniform future drift. -/
+def vfV2ActualWallOccupancy (R : ℕ) : ℝ :=
+  |vfMidActualPrimeEndpointDefect R| /
+    ((2 : ℝ) * vfMidSyntheticRadialScale R)
+
+theorem vfV2ActualWallOccupancy_nonneg
+    {R : ℕ} (hR : 2 ≤ R) :
+    0 ≤ vfV2ActualWallOccupancy R := by
+  have hw : 0 < vfMidSyntheticRadialScale R :=
+    vfMidSyntheticRadialScale_pos hR
+  unfold vfV2ActualWallOccupancy
+  positivity
+
+/-- Empirical occupancy classification uses the past (R-span,...,R-1)
+only, with a score determined by ACTUAL pi and VF. -/
+def vfV2ActualPastOnlyHighOccupancy (R span : ℕ) : Prop :=
+  vfV2PastOnlyHighOccupancy vfV2ActualWallOccupancy R span
+
+def vfV2ActualPastOnlyLowOccupancy (R span : ℕ) : Prop :=
+  vfV2PastOnlyLowOccupancy vfV2ActualWallOccupancy R span
+
+/-- The current sign of the ACTUAL historical endpoint defect is frozen
+before evaluating future flux.  Its value is -1 or +1, not a fitted
+expectation or an unknown future prime property. -/
+def vfV2ActualHistoricalOrientation (R : ℕ) : ℝ :=
+  if vfMidActualPrimeEndpointDefect R < 0 then -1 else 1
+
+theorem vfV2ActualHistoricalOrientation_neg
+    {R : ℕ} (hneg : vfMidActualPrimeEndpointDefect R < 0) :
+    vfV2ActualHistoricalOrientation R = -1 := by
+  simp [vfV2ActualHistoricalOrientation, hneg]
+
+/-- The strictly delayed oriented observation studied numerically:
+the *current* original physical square block is excluded, and the orientation
+is fixed using the historical defect at R. -/
+def vfV2ActualStrictDelayedFlux (R horizon : ℕ) : ℝ :=
+  vfV2DelayedOrientedFlux vfV2ActualSquareFloorLiError
+    (vfV2ActualHistoricalOrientation R) R horizon
+
+theorem vfV2ActualStrictDelayedFlux_eq_truePrimeBlockSum
+    (R horizon : ℕ) :
+    vfV2ActualStrictDelayedFlux R horizon =
+      vfV2ActualHistoricalOrientation R *
+        (∑ r ∈ Finset.Ico (R + 1) (R + 1 + horizon),
+          (vfMidFloorLiActualBlockCorrection r : ℝ)) := by
+  exact vfV2ActualDelayedFlux_eq_genuineFutureCorrections
+    R horizon (vfV2ActualHistoricalOrientation R)
+
 /-- This is the original production conclusion with the SAME original
 signed Sector Six premise, not a hypothetical age-feedback substitute. -/
 theorem vfV2ActualOccurrencePreservingReturn_closes_firstBad
