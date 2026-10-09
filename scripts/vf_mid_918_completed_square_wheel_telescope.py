@@ -150,6 +150,74 @@ def run(A, B, y):
         V=V)
 
 
+def test_half_run_only_live_multiplier_three():
+    """Actual q<->3q live matched parents in the FULL 2633-block run.
+
+    First owner p>=5 -> child <A^2. A cofactor born DURING the
+    historical run can enter another physical odd composite only
+    via multiplier 3; composite 3-parents are separate from PRIME
+    q<->3q sign-reversing pairs, and square-root parents are excluded.
+    """
+    A,B=2634,5267
+    lo=A*A
+    upper=(B*B-1)//3
+    prime=sieve_prefix(upper)
+    prime_pairs=[]
+    odd_parent_composite=odd_parent_square=0
+    prime_neg,three_child_pos=[],[]
+    counts_odd=0
+    def weight(r):
+        return (2*r+1)/(r*math.log(r*r+r+0.5))
+    for c in range(lo+1,upper+1):
+        if not c%2:
+            continue
+        counts_odd+=1
+        assert 3*c<B*B and 3*c>3*A*A
+        if prime[c]:
+            r=isqrt(c) if False else math.isqrt(c)
+            s=math.isqrt(3*c)
+            assert r*r<c<(r+1)**2
+            assert s*s<3*c<(s+1)**2
+            assert A<=r<B and A<=s<B
+            assert r<=3040 and s>=4562
+            prime_pairs.append(c)
+            prime_neg.append(weight(r)-1)
+            three_child_pos.append(weight(s))
+        else:
+            odd_parent_composite+=1
+            if math.isqrt(c)**2==c:
+                odd_parent_square+=1
+    assert counts_odd==1154570
+    assert len(prime_pairs)==145173
+    assert odd_parent_composite==1009397
+    assert odd_parent_square==203
+    assert len(set(prime_pairs))==len(prime_pairs)
+    negative=math.fsum(prime_neg)
+    positive=math.fsum(three_child_pos)
+    net=negative+positive
+    Nm=net**2/(positive-negative)**2
+    assert abs(net+109831.4520493)<1e-5
+    assert 0.58180 < Nm < 0.58182
+    print('ACTUAL_LIVE_THREE_PROJECTION '
+          'A=%d B=%d parent_q_range=(%d,%d] '
+          'all_odd_parent_cofactors=%d paired_actual_prime_q=%d '
+          'paired_composite_cofactors=%d '
+          'excluded_parent_square_sites=%d '
+          'all_child_n=3*q_late_n>=3*A2 '
+          'parent_root_range=2634..3040 '
+          'child_root_range=4562..5266 '
+          'original_prime_negative_mass=%+.6f '
+          'original_3prime_child_positive_mass=%+.6f '
+          'net_pair_signed_mass=%+.6f '
+          'pair_only_original_NNS=%.6f'%(
+              A,B,lo,upper,counts_odd,len(prime_pairs),
+              odd_parent_composite,odd_parent_square,
+              negative,positive,net,Nm
+          ))
+    # The matched subset ALONE is NNS supercritical. Never infer
+    # the global Sector Six contraction from its signed negative sum.
+
+
 def test_historical_prime_101_is_periodic_hit_not_reusable_owner():
     """A mature historical prime behaves like 2 in its PERIODIC HITS,
     but only a minority are its unique LEAST-PRIME-OWNER composites.
@@ -245,6 +313,7 @@ def main():
               'weightedAbs={original_VF_weighted_abs:.6f} '
               'weightedSaving={original_VF_weighted_saving:.3f} '
               'weightedUpperBound={original_VF_abel_bound:.3f}'.format(**s))
+    test_half_run_only_live_multiplier_three()
     test_historical_prime_101_is_periodic_hit_not_reusable_owner()
     print('PASS: BOTH square and root boundaries telescope on literal OPEN square sites; '
           'genuine high-owner correction retained exactly. NOT RH.')
