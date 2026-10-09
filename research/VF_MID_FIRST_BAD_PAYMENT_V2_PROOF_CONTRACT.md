@@ -96,6 +96,157 @@ reclassifying sites.
 
 ---
 
+## 0B. Oct 9 quantified implication and energy audit
+
+### EXACT scope of the equivalence with RH: record explicit interfaces
+
+1. **Already available on the #918 branch:**
+   \`vfV2ActualPrime_signedOwnerRule_iff_noFirstBad\` establishes that
+   the original sign-payment rule
+   \`VFMidActualPrimeSignedOwnerEscapeRule\` is logically equivalent to
+   **no first-bad successor with index R+1, R>=8**.
+   This equivalence is a logical closure, NOT an arithmetic proof.
+2. **New native checked target:**
+   \`vfV2ActualPrime_allInside_of_noFirstBad_and_base\` performs the
+   minimal-counterexample argument. It explicitly requires finite
+   base containment for **2<=B<=8**. No missing early indices are
+   silently ignored.
+3. **New conditional RH bridge:**
+   \`vfV2ActualPrime_RH_of_signedOwnerRule_and_base\` derives RH from
+   the signed rule **provided the finite base and the existing
+   \`ClassicalVonKochRHCriterion\` argument**. The latter is an
+   explicit classical analytic interface in
+   \`VF_MID_VON_KOCH_BRIDGE.lean\`, NOT a Lean-kernel proof of the
+   classical analytic criterion itself.
+4. **Do NOT yet state an unconditional Lean equivalence with RH.**
+   The existing classical criterion provides an equivalence between
+   RH and an arbitrary-constant von-Koch estimate. Turning that
+   estimate back into **this fixed K=2 containment at every
+   square endpoint** requires a quantitative RH implication
+   (e.g. Schoenfeld's conditional explicit bound, careful Li
+   normalization, the deterministic VF/Li bridge, and finitely
+   many small roots). That reverse step has not been installed
+   in the repository. Conversely, the forward implication remains
+   conditional on its explicitly supplied classical criterion.
+
+### Prior-good is NOT an NNS induction invariant
+
+The proposed energy induction
+\(\Phi_R=M_R^2-2D_{R+1}^2\ge0\)
+cannot start from the assertion that the previous endpoints are
+inside their radial wall. These are different properties.
+
+The fast Lean theorem
+\`vfV2PriorGoodEvenNextGood_doesNotForcePhi_nonneg\`
+checks a concrete **scalar** counterstate:
+
+\[
+D=20,\quad w=1/4,\quad P=C=4,\quad W_{\rm prior}=20,\quad
+W_{\rm next}=23.
+\]
+
+It has a prior GOOD endpoint, next GOOD endpoint (\(D'=22\)),
+and yet
+
+\[
+M=(|20|+1+3)=24,\qquad
+\Phi=24^2-2(22)^2=-392.
+\]
+
+This is NOT an example of actual primes. It shows only that an
+energy induction needs a *separate arithmetic invariant*;
+the prior-good radial assumption does NOT imply
+\(\Phi_{R-1}\ge0\) or \(\Phi_R\ge0\).
+
+The signed jump-normal-form lemmas now in the tiny kernel are
+\`vfV2FirstBad_requires_strictCurrentDeviation\`,
+\`vfV2FirstBad_positive_outward\`,
+\`vfV2FirstBad_negative_outward\` and
+\`vfV2FirstBad_outward_orientation\`. They prove the correct
+necessary outward-sign and wall-growth implications, not a
+quantitative restriction on actual prime history.
+
+### What additional prime arithmetic must actually achieve
+
+Write \(B=R+1\), \(A=\lfloor R/2\rfloor+1\),
+\(\sigma=\mathrm{sgn}(D_B)\in\{-1,1\}\), and
+\(\delta_r=P_r-V_r\). The first-bad inequality gives
+
+\[
+\boxed{\sigma\sum_{r=A}^{B-1}\delta_r>W_B-\sigma D_A.}
+\]
+
+The prior-good anchor says \(\sigma D_A\le W_A\), so
+the required outward accumulation is substantial. The
+half-run FTA/wheel/Möbius decoder in the existing repository
+gives an *exact* expression for the same sum,
+
+\[
+\sum_{r=A}^{B-1}\delta_r
+=\frac12\sum_{r=A}^{B-1}
+ \left(Q_{A,r}-\mathcal M_{A,r}-2V_r\right)
+\]
+
+when the proven cubic-depth restriction holds, where
+\(Q_{A,r}\) is the *actual frozen-wheel survivor count* and
+\(\mathcal M_{A,r}\) is its restricted signed Möbius census.
+This is the genuine prime-supply decoder; no synthetic floor-Li
+jump is inserted.
+
+**Arithmetic seam:** prove an original-weight,
+occurrence-preserving, historical correlation restriction that
+forbids the corresponding oriented survivor/Möbius sum
+from exceeding the actual wall clearance **at a putative
+first bad**. Merely replacing \(\delta_r\) by the decoded
+expression, or multiplying both sides by 2, is an identity,
+NOT a restoring inequality. No old negative parent charge
+may be independently spent for each later child.
+
+The original Sector Six budget is a sufficient, stronger
+pointwise certificate: \(E_R\le K_R\), with a nonnegative
+opposite-sign correction. Since first bad already forces
+\(E_R>0\) and \(K_R>0\), proving \(K_R\le0\) is **exactly**
+the RH-strength arithmetic contradiction. A current-block
+bound on \(P_R\) or a finite Möbius census does not control
+the potentially wall-sized historical anchor \(D_R\).
+
+### Circularity and numerical-testing boundaries
+
+The owner-weighted Fubini identities are finite carrier
+reindexings and do not *by themselves* use the desired
+quantitative prime discrepancy. The status of the complete
+native dependency graph still must be checked with the
+opt-in full import-closure job and \`#print axioms\`.
+The **explicit parameter** \`ClassicalVonKochRHCriterion\`
+must be kept visible in any RH bridge theorem; do not
+mislabel a conditional consumer as an unconditional proof.
+
+Extending finite sieves verifies arithmetic and can catch
+a mistaken correction coefficient, but cannot establish
+first-bad exclusion. In particular, \(N_R>1/2\) and
+\(K_R<0\) are already algebraically incompatible on the
+original carrier because \(E_R\le K_R\). A search for
+that combination cannot discover a new sign phenomenon.
+
+Classical Littlewood oscillation plus short-interval
+Brun--Titchmarsh estimates suggests the stronger
+asymptotic observation \(\limsup N_R=1\) on actual primes:
+the discrepancy can outweigh the local \(O(R/\log R)\)
+physical mass along exceptional square indices. This
+**has not been formalized in Lean here** and requires
+real classical analytic inputs, not an invented local
+cancellation law. Such occurrences are compatible with
+remaining *inside* a growing RH wall.
+
+The classical explicit formula for prime counts may provide
+an alternative analytic approach, but there is currently NO
+proved identity identifying the six owner sectors with a
+grouping of zeta-zero terms. A conventional zero-free region
+alone does not yield RH-order cancellation.
+
+---
+
+
 ## 1. One objective, no substitute theorems
 
 For each square block $(R^2,(R+1)^2)$, set
