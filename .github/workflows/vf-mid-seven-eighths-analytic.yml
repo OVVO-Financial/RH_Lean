@@ -76,6 +76,8 @@ jobs:
           import «research.VF_MID_SEVEN_EIGHTHS_OWNER_ABEL»
           #check RHLean.Analysis.vfSevenEighthsWeightedIncrementAbel
           #check RHLean.Analysis.vfSevenEighthsWeightVariation_telescope
+          #check RHLean.Analysis.vfSevenEighthsWeightedIncrement_abs_le_twice_initial
+          #print axioms RHLean.Analysis.vfSevenEighthsWeightedIncrement_abs_le_twice_initial
           #check RHLean.Analysis.vfSevenEighthsPhysicalOwnerWeight
           #check RHLean.Analysis.vfSevenEighthsPrimeLiErrorAtNat_eq
           #check RHLean.Analysis.vfSevenEighthsWeightedOwnerPrimeLiDifference_eq_abel
