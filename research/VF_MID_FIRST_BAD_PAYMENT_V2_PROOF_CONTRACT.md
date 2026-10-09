@@ -247,6 +247,170 @@ alone does not yield RH-order cancellation.
 ---
 
 
+## 0C. Oct 9 adversary-vs-adversary: genuine historical sieve and near-wall test
+
+**Status:** finite exact certificates plus new small Lean structural theorems.
+No all-scale first-bad payment and NO RH proof.
+
+### Attacker 1: freeze prime supply from a genuine prefix
+
+Choose the genuine anchor A, fix D_A=pi(A^2)-VF_mid(A^2),
+then impose synthetic future P_r=0. The first lower-wall
+breach occurs at B. Because B<=A^2 in these examples, ALL
+prime factors required to determine genuine primality through
+B^2 were ALREADY PRESENT in the historical prime prefix <=A^2.
+
+| Real anchor A | First zero-supply bad B | Frozen blocks | Breach past wall | Real primes in run | Minimum primes to avoid breach at B |
+|---:|---:|---:|---:|---:|---:|
+| 317 | 395 | 78 | 40.271857 | 4,729 | 41 |
+| 1000 | 1102 | 102 | 95.150981 | 15,446 | 96 |
+| 2000 | 2120 | 120 | 124.247283 | 32,441 | 125 |
+| 6000 | 6154 | 154 | 591.469814 | 107,382 | 592 |
+
+Finite exact-integer prime censuses plus deterministic float VF weights.
+The hypothetical ZERO-prime final block has original NNS N=1
+because M=|D_previous|+V=|D_next|. These are synthetic paths,
+NOT actual native Sector Six counterexamples.
+
+### Defender 1: exact finite mathematical wheel/owner inequality
+
+Put L=A^2, U=B^2-1, and select a small-prime cutoff y<=B.
+Let Q_y be the product of actual primes p<=y and define
+
+\[
+ F_y(t)=\sum_{d\mid Q_y}\mu(d)\lfloor t/d\rfloor.
+\]
+
+This counts integers <=t not divisible by any p<=y.
+Every composite n in (L,U] surviving this small wheel has
+a genuine prime factor y<p<=B, and ALL these factor primes
+are already in the prefix <=A^2. The arithmetic union bound is
+
+\[
+\boxed{
+\pi(U)-\pi(L)\ge
+\underbrace{F_y(U)-F_y(L)}_{S_y(L,U)}
+-\underbrace{\sum_{\substack{y<p\le B\\p\ {\rm prime}}}
+ [F_y(\lfloor U/p\rfloor)-F_y(\lfloor L/p\rfloor)]}_{T_y(L,U)}.
+}
+\tag{AD1}
+\]
+
+This is a GENUINE unconditional finite sieve inequality.
+The correction T_y counts all high-owner hits and may OVERCOUNT
+overlapping factors; it is not independently spendable NNS capacity.
+No future prime indicator appears on the right.
+
+At A=317,B=395, choosing y=7 (wheel Q=210) gives
+S=12693, T=11178 and a *rigorous* 1515-prime lower count,
+far more than the 41 needed to beat the proposed drought.
+At y=13, Q=30030 and S=10650,T=7566 yield 3084.
+
+At A=6000,B=6154, y=13 yields signed -30527
+(S=359011,T=389538) and y=17 yields -8856
+(S=337892,T=346748). Cutoff y=19 first gives a positive
+certificate S=320109,T=311709, lower bound 8400,
+beating the 592-prime requirement. However its
+Q=9699690 exceeds the interval's 1,871,715 open sites,
+so there is NO complete CRT period from which to infer an
+all-scale phase uniformity bound.
+
+Smallest tested successful y: 7,11,13,19 for
+A=317,1000,2000,6000. The growing-wheel incomplete
+residue phase is the remaining bottleneck, not an
+undocumented probability assumption.
+
+### Attacker 2: keep GENUINE current primes, spoof only the near-wall anchor
+
+The stronger adversary sets D_R=-W_R, thereby satisfying the
+prior-good radial condition, while using the exact true prime
+population P_R in the next block.
+
+Define DeltaW_R=W_(R+1)-W_R. The fake-anchor next endpoint
+crosses the lower wall if and only if
+
+\[
+\boxed{V_R-P_R>\Delta W_R.} \tag{AD2}
+\]
+
+The real P_R satisfies EVERY actual factor and wheel identity
+in that block! Thus current-block factorization and the
+abstract prior-good inequality ALONE cannot prevent escape.
+The actual historical D_R must be carried throughout.
+
+The finite independent scan R=8..6000 finds 333 genuine
+blocks satisfying (AD2):
+
+| Root R | Genuine P_R | V_R | Delta wall | Hypothetical breach | Actual D_R | Actual historical clearance D_R+W_R |
+|---:|---:|---:|---:|---:|---:|---:|
+| 425 | 56 | 70.292636 | 14.106529 | 0.186107 | -46.035259 | 5098.240535 |
+| 2456 | 268 | 314.673957 | 17.612986 | 29.060971 | -180.235002 | 38164.257987 |
+| 5065 | 547 | 593.830762 | 19.060416 | 27.770346 | -416.835777 | 85993.172614 |
+
+These blocks remain safely inside the true wall.
+Their ORIGINAL one-block NNS values using the FAKE anchor
+are approximately 0.96472, 0.97609 and 0.97803 (>1/2).
+The fake anchor is NOT pi(R^2)-VF_mid(R^2), and substituting
+it into native owner Fubini is illegitimate.
+
+### The exact historical buffer
+
+The true scalar lower crossing is exactly
+
+\[
+\boxed{
+D_R+W_R<(V_R-P_R)-\Delta W_R.
+} \tag{AD3}
+\]
+
+The upper counterpart has buffer W_R-D_R and forcing
+(P_R-V_R)-DeltaW_R. These are now Mathlib-only Lean theorems.
+The missing **joint historical arithmetic** must prevent the
+actual buffer and actual prime-factor incidences from
+simultaneously satisfying the breach inequality. This is
+NOT implied by knowing each current P_R exactly.
+
+### Fixed wheel spoofing and first concrete counterexample
+
+A primorial shift H=60060 preserves the prime congruences
+2,3,5,7,11,13 but not the full growing wheel. The first
+found spoof moves genuine prime 100501 to alleged prime
+160561=307*523. That site is not divisible by any of the
+first six primes but has a genuine historical factor 307.
+
+### Branch deliverables and remaining status
+
+The exact factor-lock theorem
+vfV2HistoricalPrefixLocksPrime proves that actual primes
+through A^2 determine primality of A^2<n<A^4. The
+vfV2HistoricalDrought_iff_completeFactorCover theorem
+rules out assigning an arbitrary prime-free future
+without a genuine historical factor certificate.
+
+The Mathlib-only finite owner-union theorem
+vfV2FiniteOwnerUnion_card_le_sum, the generic
+vfV2PartialWheelForcedPrimeLower, and the actual
+Nat.Prime specialization
+vfV2HistoricalPrimePartialWheelBonferroni
+retain all high-prime overlaps and require no RH hypothesis.
+Two further lemmas give the exact lower and upper
+historical-buffer first-bad equivalences.
+
+scripts/vf_mid_918_adversarial_sieve_duel.py regenerates
+every numerical certificate and scans all 5993 real blocks;
+the seconds-fast #918 workflow runs it.
+
+**Conclusion:** Four synthetic drought attacks are defeated
+by elementary, genuine finite historical sieve arithmetic;
+333 scalar fake-anchor attacks WITH GENUINE prime counts
+show why local factorization alone cannot close the proof.
+The original all-scale signed Sector Six historical payment
+remains the unique open RH-strength theorem. No new proxy
+or replacement denominator was introduced.
+
+---
+
+
 ## 1. One objective, no substitute theorems
 
 For each square block $(R^2,(R+1)^2)$, set
