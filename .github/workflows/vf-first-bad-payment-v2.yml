@@ -201,5 +201,5 @@ jobs:
           name: vf918-crossblock-actual-primes
           path: |
             vf918_crossblock/*.csv
-            vf918_crossblock/summary.json
+            vf918_crossblock/*.json
           if-no-files-found: error
