@@ -94,6 +94,30 @@ theorem vfV2Payment_iff_twoSector (D w P C : ℝ) :
   rw [vfV2Balance_eq_neg_coDivExcess]
   constructor <;> intro h <;> linarith
 
+/-! ## True prime-minus-discrete-Li signed margins ## -/
+
+def vfV2LiPlus (D w F R : Real) : Real :=
+  |D| + w*R + (1-2*w)*F + Real.sqrt 2*(D+F-w*R)
+
+def vfV2LiMinus (D w F R : Real) : Real :=
+  |D| + w*R + (1-2*w)*F - Real.sqrt 2*(D+F-w*R)
+
+theorem vfV2LiPlus_actual (D w F d R : Real) :
+    vfV2Upper D w (R-(F+d)) + vfV2Lower D w (F+d) +
+        Real.sqrt 2*vfV2Next D w (F+d) (R-(F+d)) =
+      vfV2LiPlus D w F R + (1-2*w+Real.sqrt 2)*d := by
+  rw [vfV2Upper_add_lower_eq_original_abs]
+  unfold vfV2Next vfV2LiPlus
+  ring
+
+theorem vfV2LiMinus_actual (D w F d R : Real) :
+    vfV2Upper D w (R-(F+d)) + vfV2Lower D w (F+d) -
+        Real.sqrt 2*vfV2Next D w (F+d) (R-(F+d)) =
+      vfV2LiMinus D w F R + (1-2*w-Real.sqrt 2)*d := by
+  rw [vfV2Upper_add_lower_eq_original_abs]
+  unfold vfV2Next vfV2LiMinus
+  ring
+
 /-- The cost of changing an anchored denominator from M to M+delta.
 It is not additional physical budget. -/
 theorem vfV2ParityRepacking_squares_cost (M delta : ℝ) :
