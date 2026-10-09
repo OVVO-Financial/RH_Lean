@@ -1023,6 +1023,171 @@ theorem vfV2UpperWallBreach_iff_historicalBufferShortfall
       WR - D < (P - V) - (Wnext - WR) := by
   constructor <;> intro h <;> linarith
 
+/-! ## Completed square blocks INSIDE an incomplete wheel
+
+A fixed finite wheel may have an enormous CRT period Q, with no full
+Q-period contained in the tested interval. This does NOT prevent signed
+complete square-band errors from telescoping: after every completed band
+the carry is a single prefix residual. Over any consecutive run the
+net cost is only the TWO boundary prefix errors, not the sum of
+individual per-band absolute errors. This is genuine cancellation in the
+fixed small-wheel *geometry*, not yet cancellation of the residual
+actual high-prime composite owners.
+
+The following floor-prefix estimate is UNIFORM even when Q greatly
+exceeds the physical run: for an actual squarefree-divisor carrier its
+cardinality is 2^(number of selected primes), rather than Q.
+-/
+
+/-- The exact centered phase of ANY fixed-wheel counting prefix. -/
+def vfV2FixedWheelPrefixPhase
+    (F : ℕ → ℝ) (density : ℝ) (x : ℕ) : ℝ :=
+  F x - density * (x : ℝ)
+
+/-- Signed phase on a COMPLETED square band, with the exact 2R+1 width. -/
+def vfV2CompletedSquareWheelBandPhase
+    (F : ℕ → ℝ) (density : ℝ) (R : ℕ) : ℝ :=
+  F ((R + 1) ^ 2) - F (R ^ 2) -
+    density * ((2 * R + 1 : ℕ) : ℝ)
+
+/-- Every consecutive run of COMPLETED square blocks has only TWO
+incomplete-wheel endpoint phases, irrespective of the CRT period.
+No pointwise bound or probabilistic cancellation is assumed. -/
+theorem vfV2CompletedSquareWheelBandPhase_telescope
+    (F : ℕ → ℝ) (density : ℝ) (A B : ℕ)
+    (hAB : A ≤ B) :
+    (∑ R ∈ Finset.Ico A B,
+      vfV2CompletedSquareWheelBandPhase F density R) =
+      vfV2FixedWheelPrefixPhase F density (B ^ 2) -
+      vfV2FixedWheelPrefixPhase F density (A ^ 2) := by
+  induction B, hAB using Nat.le_induction with
+  | base =>
+      simp [vfV2FixedWheelPrefixPhase]
+  | succ B hAB ih =>
+      rw [Finset.sum_Ico_succ_top hAB, ih]
+      unfold vfV2CompletedSquareWheelBandPhase
+        vfV2FixedWheelPrefixPhase
+      push_cast
+      ring
+
+/-- A uniform endpoint wheel-residual bound costs only twice that
+bound over arbitrarily many completed square blocks, with NO block
+count factor. This does not supply such a bound for the prime owner
+remainder; only for the selected wheel. -/
+theorem vfV2CompletedSquareWheelBandPhase_le_two_boundary
+    (F : ℕ → ℝ) (density C : ℝ) (A B : ℕ)
+    (hAB : A ≤ B)
+    (hbound : ∀ x : ℕ,
+      |vfV2FixedWheelPrefixPhase F density x| ≤ C) :
+    |∑ R ∈ Finset.Ico A B,
+      vfV2CompletedSquareWheelBandPhase F density R| ≤ 2 * C := by
+  rw [vfV2CompletedSquareWheelBandPhase_telescope F density A B hAB]
+  calc
+    |vfV2FixedWheelPrefixPhase F density (B ^ 2) -
+        vfV2FixedWheelPrefixPhase F density (A ^ 2)| ≤
+      |vfV2FixedWheelPrefixPhase F density (B ^ 2)| +
+        |vfV2FixedWheelPrefixPhase F density (A ^ 2)| :=
+      abs_sub_le _ _
+    _ ≤ C + C :=
+      add_le_add (hbound _) (hbound _)
+    _ = 2 * C := by ring
+
+/-- Signed divisor-floor expansion for a FINITE selected wheel. -/
+def vfV2FiniteSignedWheelFloorPrefix
+    (divs : Finset ℕ) (mu : ℕ → ℝ) (x : ℕ) : ℝ :=
+  ∑ d ∈ divs, mu d * ((x / d : ℕ) : ℝ)
+
+/-- Exact mean density of the same finite divisor-floor expansion. -/
+def vfV2FiniteSignedWheelDensity
+    (divs : Finset ℕ) (mu : ℕ → ℝ) : ℝ :=
+  ∑ d ∈ divs, mu d / (d : ℝ)
+
+/-- An individual floor term differs from its unrounded divisor density
+by at most one, uniformly in the integer prefix and divisor size. -/
+theorem vfV2FiniteWheelFloorDivError_le_one
+    (x d : ℕ) (hd : 0 < d) :
+    |((x / d : ℕ) : ℝ) - (x : ℝ) / (d : ℝ)| ≤ 1 := by
+  have hdreal : (0 : ℝ) < (d : ℝ) := by exact_mod_cast hd
+  have hrem : x % d < d := Nat.mod_lt x hd
+  have hremreal : ((x % d : ℕ) : ℝ) < (d : ℝ) := by
+    exact_mod_cast hrem
+  have heq : ((x % d : ℕ) : ℝ) +
+      (d : ℝ) * ((x / d : ℕ) : ℝ) = (x : ℝ) := by
+    exact_mod_cast (Nat.mod_add_div x d)
+  have hfloor :
+      (x : ℝ) / (d : ℝ) - ((x / d : ℕ) : ℝ) =
+        ((x % d : ℕ) : ℝ) / (d : ℝ) := by
+    apply (sub_eq_iff_eq_add).2
+    apply (div_eq_iff hdreal.ne').2
+    nlinarith [heq]
+  rw [abs_sub_comm, hfloor, abs_of_nonneg (by positivity)]
+  exact (div_le_one hdreal.le).2 hremreal.le
+
+/-- UNIFORM incomplete-CRT wheel discrepancy, independent of Q:
+the only cost is the NUMBER OF DIVISOR FACES. This applies even
+when NO complete CRT period lies in the whole square run. -/
+theorem vfV2FiniteSignedWheelPrefixPhase_abs_le_card
+    (divs : Finset ℕ) (mu : ℕ → ℝ)
+    (hdiv : ∀ d ∈ divs, 0 < d)
+    (hmu : ∀ d ∈ divs, |mu d| ≤ 1)
+    (x : ℕ) :
+    |vfV2FixedWheelPrefixPhase
+       (vfV2FiniteSignedWheelFloorPrefix divs mu)
+       (vfV2FiniteSignedWheelDensity divs mu) x| ≤
+      (divs.card : ℝ) := by
+  classical
+  have heq :
+      vfV2FixedWheelPrefixPhase
+          (vfV2FiniteSignedWheelFloorPrefix divs mu)
+          (vfV2FiniteSignedWheelDensity divs mu) x =
+      ∑ d ∈ divs,
+        mu d * (((x / d : ℕ) : ℝ) - (x : ℝ) / (d : ℝ)) := by
+    unfold vfV2FixedWheelPrefixPhase
+      vfV2FiniteSignedWheelFloorPrefix vfV2FiniteSignedWheelDensity
+    rw [Finset.sum_mul]
+    rw [← Finset.sum_sub_distrib]
+    apply Finset.sum_congr rfl
+    intro d hd
+    ring
+  rw [heq]
+  calc
+    |∑ d ∈ divs,
+        mu d * (((x / d : ℕ) : ℝ) - (x : ℝ) / (d : ℝ))| ≤
+      ∑ d ∈ divs,
+        |mu d * (((x / d : ℕ) : ℝ) - (x : ℝ) / (d : ℝ))| :=
+      abs_sum_le_sum_abs _ _
+    _ ≤ ∑ d ∈ divs, (1 : ℝ) := by
+      apply Finset.sum_le_sum
+      intro d hd
+      rw [abs_mul]
+      have hx := vfV2FiniteWheelFloorDivError_le_one x d (hdiv d hd)
+      have hm := hmu d hd
+      have hx0 : 0 ≤ |((x / d : ℕ) : ℝ) - (x : ℝ) / (d : ℝ)| :=
+        abs_nonneg _
+      have hm0 : 0 ≤ |mu d| := abs_nonneg _
+      nlinarith [mul_nonneg (sub_nonneg.mpr hm) hx0,
+        mul_nonneg hm0 (sub_nonneg.mpr hx)]
+    _ = (divs.card : ℝ) := by simp
+
+/-- The completed-square run of an actual finite signed divisor wheel
+therefore has magnitude at most twice the NUMBER OF DIVISOR FACES.
+This is a proved, all-scale *small-wheel* bound but it says nothing
+about the high-prime owner correction needed for Sector Six. -/
+theorem vfV2FiniteSignedWheelCompletedSquares_abs_le_two_card
+    (divs : Finset ℕ) (mu : ℕ → ℝ)
+    (hdiv : ∀ d ∈ divs, 0 < d)
+    (hmu : ∀ d ∈ divs, |mu d| ≤ 1)
+    (A B : ℕ) (hAB : A ≤ B) :
+    |∑ R ∈ Finset.Ico A B,
+        vfV2CompletedSquareWheelBandPhase
+          (vfV2FiniteSignedWheelFloorPrefix divs mu)
+          (vfV2FiniteSignedWheelDensity divs mu) R| ≤
+      2 * (divs.card : ℝ) := by
+  exact vfV2CompletedSquareWheelBandPhase_le_two_boundary
+    _ _ _ A B hAB
+    (vfV2FiniteSignedWheelPrefixPhase_abs_le_card
+      divs mu hdiv hmu)
+
 /-! ## Original Sector Six sign audit: signed/absolute active pair products
 
 The six oriented raw-parent sectors reindex the signed active Gram Z.
