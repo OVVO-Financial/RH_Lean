@@ -619,6 +619,244 @@ would be necessary to breach. These numerical checks can
 FALSIFY candidate owner-pullback laws; they cannot
 establish them for all R.
 
+## 4C. Empirical cross-block correlation and all NNS partial moments
+
+**Research-only numerical evidence, NEVER the missing first-bad theorem.**
+All rows below are from ACTUAL sieve-computed pi through X=6001^2,
+R=8..6000 (5993 blocks), with Q=floor Li_2 and original odd VF weights.
+The independent comprehensive vectorized run completed in ~4.4 sec
+(excluding runner startup); its floor-Li array included 12,004,000
+integer arguments and six near-jump values were verified with
+55-decimal-digit mpmath (zero corrections). The standard-library
+#918 --extended --floor-li CI also independently checks its original
+odd-seat accounting and endpoint discrepancies.
+
+### Three DIFFERENT empirical operators: do not conflate
+
+1. **Aggregate-first block errors.** z_r=P_r-V_r or
+   delta_r=P_r-[Q((r+1)^2)-Q(r^2)]; for lag k and FIXED t
+   apply partialUpper/Lower to z_r-t and z_(r+k)-t, then sum across r.
+2. **Physical seat-first all-pairs NNS.** On the ORIGINAL r odd
+   sites use q_r(n)=w_r-1_Prime(n). Apply target t to EVERY literal site
+   FIRST; pair ALL sites from block r with ALL sites from block r+k.
+   At t=0, the two masses of each block are
+   U_r=w_r(r-P_r), L_r=(1-w_r)P_r.
+3. **Original anchored first-bad SELF Gram.** Add ONE earlier
+   signed scalar -D_r to block r's literal odd-site carrier.
+   This is neither operator 1 nor a temporal cross-block Gram.
+   Its normalized value is D_(r+1)^2 / M_r^2 >=0.
+
+For any fixed-target pair panel, the four raw quadrant totals are
+
+    CUPM=sum upper(x,t)*upper(y,t)
+    CLPM=sum lower(x,t)*lower(y,t)
+    DUPM=sum upper(x,t)*lower(y,t)
+    DLPM=sum lower(x,t)*upper(y,t)
+    Co=CUPM+CLPM, Div=DUPM+DLPM,
+    Raw=Co-Div, Total=Co+Div,
+    NNS=(Co-Div)/(Co+Div).
+
+The zero-denominator convention is 0. Centered Pearson is shown
+separately for comparison. The main Lean library proves the Schur
+correction makes centered covariance TARGET INVARIANT
+(\`RHLean.Analysis.finiteTargetScaledSchur_target_invariant\`).
+No sample/rolling mean is used as the target in these NNS matrices.
+
+### Raw vs normalized, at fixed target zero and lag 1
+
+| Carrier | CUPM | CLPM | DUPM | DLPM | Co-Div | NNS |
+|---|---:|---:|---:|---:|---:|---:|
+| Literal physical odd seats, Cartesian r/r+1 | 800755069 | 800286757 | 800562087 | 800556934 | -77195.67 | **-0.000024107** |
+| Aggregate signed VF block first | 106874 | 113012 | 154681 | 142401 | -77195.67 | **-0.149324** |
+| Aggregate true prime-minus-floorLi block first | 106663 | 113367 | 155048 | 143150 | -78168 | **-0.150837** |
+
+**CRITICAL:** The physical and aggregate VF methods have the
+SAME signed pair-product numerator, by Fubini.
+They have radically different denominators because
+\`abs(sum q)\` differs from \`sum abs(q)\`. Thus an impressive
+aggregate-first NNS anticorrelation is NOT the normalized
+physical-seat coefficient of #918's actual original carrier.
+
+An added seconds-fast CI audit computes *all four* literal
+seat-first quadrants at t=0 and t=+/-0.1, computes the
+aggregate-first quadrants at t=0, and **asserts exact signed
+Gram equality** (to floating verification tolerance), without
+altering the five-file PR or building StrongPNT.
+
+### Lagged true-prime and composite-owner dependencies
+
+| Actual block series, R=8..6000 | Pearson lag 1 | NNS at t=0 lag 1 |
+|---|---:|---:|
+| P_r-V_r | -0.096143 | -0.149324 |
+| P_r-floorLi block demand | -0.097081 | -0.150837 |
+| (P_r-V_r)/sqrt(V_r) | -0.112556 | -0.173846 |
+| High-q odd composites, actual minus floorLi | -0.362482 | -0.440971 |
+| Remaining smooth composites, actual minus formal Li complement | -0.530072 | -0.578448 |
+| High-q odd composites, actual minus CONTINUOUS Li | -0.186247 | -0.125619 |
+| Remaining smooth composites, actual minus CONTINUOUS Li complement | -0.337538 | **+0.043147** |
+
+This continuous-versus-discrete Li comparison matters.
+A substantial part of the apparent negative cofactor-series
+autocorrelation depends on using the discrete floor-Li
+staircase. For the smooth composite sector with continuous Li,
+the **same** data have NEGATIVE Pearson but POSITIVE t=0
+NNS. Target-zero Co/Div is UNcentered signed interaction and
+can have a different sign from centered Pearson when
+the series have nonzero baseline imbalance.
+
+Lag response is neither simply always negative nor
+a monotone restorative kernel: for the floor-Li
+large-q/smooth residuals Pearson at lag 2 is
++0.044098/+0.124722, whereas at lag 1 it is
+-0.362482/-0.530072. For actual P-floorLi
+lags 1,2,4,8,16,32, Pearson is
+-0.097081,-0.061939,-0.046641,-0.021079,-0.009869,+0.018995.
+Lag-1 prime-error Pearson remains negative in all three
+fixed subranges 8..1000, 1001..3000, 3001..6000
+(-0.1509,-0.1289,-0.0858).
+
+### Full 3-by-3 native weighted cross-block NNS matrix at target zero
+
+Rows = source sector at block r;
+columns = source sector at block r+1.
+All three are corrections against floorLi relative to the
+original physical VF charges:
+
+    a_r=(w_r-1)*delta_r     [prime]
+    g_r=w_r*(G_r-G_r^Li)   [large-prime odd composite]
+    h_r=w_r*(H_r-H_r^Li)   [smooth composite]
+
+Their sum is **EXACTLY** -delta_r. The normalized Co-Div
+lag-1 matrix is
+
+| r source / r+1 destination | prime | large q | smooth |
+|---|---:|---:|---:|
+| Prime | -0.150004 | -0.123705 | +0.062769 |
+| Large-q | -0.113788 | -0.439351 | +0.486929 |
+| Smooth | +0.048999 | +0.480987 | -0.575189 |
+
+Notice large->smooth and smooth->large are POSITIVE, while
+both self-sector lag-1 diagonals are NEGATIVE. That is a
+mixed signed interaction structure, NOT automatic globally
+nonpositive Co-Div energy. The raw Co and Div matrices
+are separately computable with the code below; normalizing
+each cell does not produce an additive global inequality.
+
+### Fixed target stress test
+
+Aggregate actual P-floorLi at lag 1:
+
+| fixed t | Co | Div | normalized NNS | centered Pearson |
+|---:|---:|---:|---:|---:|
+| -1 | 223079 | 296363 | -0.1411 | -0.0971 |
+| 0 | 220030 | 298198 | -0.1508 | -0.0971 |
+| +1 | 225944 | 297012 | -0.1359 | -0.0971 |
+
+For the **literal physical seats** (changing t on each
+of the r actual site charges), lag-1 NNS values are:
+
+    t=-0.1   +0.121559
+    t= 0.0   -0.000024107
+    t=+0.1   +0.548503
+    t=+0.25  +0.999999741
+
+These target shifts are legitimate *alternative* partial-moment
+statistics, but NOT the original tracking-defect physics.
+At a shifted t the signed source itself changes by a
+deterministic multiple of the physical seat count; the
+original #918 first-bad weld remains defined at t=0.
+One cannot choose a convenient target solely to make the
+normalized Co/Div sign look favorable.
+
+### Historical versus current: the actual Fubini term
+
+The existing Lean identity
+\`vfMidOddHistoricalCurrentSeatGram_eq_endpointPolarization\`
+computes the signed **historical/current** Gram for
+A=floor(R/2)+1. On the block-level panel
+
+    history_r = D_r-D_A
+    current_r = P_r-V_r
+
+the Pearson cross-statistic is **-0.06963** and t=0
+NNS is **-0.05035** across all r=8..6000. By contrast,
+D_r versus the current increment gives Pearson -0.04374
+and t=0 NNS -0.01782. The empirical historical sign
+association is modest, far weaker than the isolated
+smooth-composite lag-one NNS. Again, the original
+global mass is not the aggregate-first denominator.
+
+The maximum measured occupancy of the wall
+|D_r|/(2r log r) is only **0.04599** (at r=15).
+NONE of the sampled trajectories is anywhere close to
+a hypothetical first-bad boundary, so these correlations
+do not verify feedback where it actually matters.
+
+### Nonlocal genuine owner pairs (q prime -> c*q composite)
+
+The literal negative historical prime q carries signed
+charge w_floor(sqrt(q))-1, while its odd composite descendant
+c*q at root R carries +w_R.
+Each selected parent/descendant pair is, trivially,
+DIVERGENT with positive mass w_R*(1-w_parent).
+Its NNS on this PRESELECTED pair population is -1 by
+construction; that is not a global contraction.
+
+Independent true-prime owner matching finds:
+
+| current R | ALL high-q odd descendants | within half-run ancestor A..R-1 | divergent matched mass within half-run | divergent matched mass from all history |
+|---:|---:|---:|---:|---:|
+| 119 | 80 | 11 | 1.759838 | 11.490544 |
+| 317 | 192 | 23 | 3.229685 | 24.787636 |
+| 1027 | 659 | 52 | 6.326219 | 74.631875 |
+| 1760 | 1169 | 94 | 10.763633 | 125.391234 |
+| 5267 | 3400 | 229 | 23.392887 | 328.670776 |
+| 6000 | 3878 | 233 | 23.498222 | 370.264993 |
+
+Inside the half-run all these q parents are c=3
+(the previously established top-third geometry);
+most matched parents belong to EARLIER history already
+compressed in the single D_A anchor.
+The selected negative pairing heat CANNOT be added to
+#918's original Co/Div denominator, nor spent twice.
+Its deficit relative to the massive total physical pair
+mass illustrates why a proof must route ALL other
+unmatched, diagonal and restoring terms quantitatively.
+
+### What this comparison establishes, and what it does not
+
+The empirical evidence is robust for short-range
+anti-correlation of real prime-count residuals and
+some odd-owner sectors. But:
+
+- Partial-moment normalization **does not commute**
+  with signed block aggregation.
+- Large/smooth Li benchmark residuals are constrained
+  by the exact tautology
+  delta_prime+delta_large+delta_smooth=0.
+  Their extreme long-horizon mutual negative correlation
+  is partly a consequence of this algebra and benchmark
+  biases, NOT an independent theorem about prime owners.
+- Floor versus continuous Li can materially change
+  sector lag-correlation magnitudes and even normalized
+  signs.
+- The original first-bad SELF NNS coefficient is
+  **nonnegative**, unlike temporal cross-block lag
+  covariance: its maximum over R<=6000 is 0.206054,
+  not the -0.149324 or -0.000024107 of the two
+  temporal operators.
+- The data do not sample any near-wall endpoint.
+- No unconditional signed owner-tree estimate follows
+  from these correlations; RH remains open.
+
+The necessary NEW mathematical theorem would be a
+first-bad-CONDITIONAL wall-relative bound on the FULL
+retained-weight historical/current signed physical Gram
+(including the compressed anchor and all owner sectors),
+not an observational lag-one Pearson or an
+aggregate-first normalized NNS value.
+
+
 ## 5. Testing: deliberately separate seconds from native compilation
 
 **Fast lane** (automatically on every PR update; no Lean/StrongPNT):
