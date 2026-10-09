@@ -6,6 +6,7 @@ on:
     paths:
       - research/VF_MID_SEVEN_EIGHTHS_ANALYTIC_BRIDGE.lean
       - research/VF_MID_SEVEN_EIGHTHS_OWNER_ABEL.lean
+      - scripts/vf_919_prime_owner_abel_spectral_probe.py
       - research/VF_MID_SEVEN_EIGHTHS_ANALYTIC_STATUS.md
       - .github/workflows/vf-mid-seven-eighths-analytic.yml
   workflow_dispatch:
@@ -18,6 +19,14 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  actual-owner-probe:
+    name: Actual prime-pair signed spectral Abel check (no packages)
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify original native VF weights and actual prime incidence
+        run: python3 -B scripts/vf_919_prime_owner_abel_spectral_probe.py
   mathlib-only:
     name: Seven-eighths bridge kernel (Lean 4.24, no StrongPNT)
     runs-on: ubuntu-latest
