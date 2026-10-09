@@ -259,4 +259,23 @@ theorem vfV2ActualPrime_admissibilityStatus :
     fun h R hR hfirst =>
       vfV2ActualPrime_noFirstBad_of_signedOwnerEscapeRule h hR hfirst⟩
 
+
+/-- Logical honesty audit. Once the compiled first-bad consumer is available,
+the signed owner rule as quantified above is EQUIVALENT to having no
+first-bad successor above the base. The reverse implication is vacuous.
+Consequently the rule CANNOT be listed as independently established
+admissibility, and a genuine arithmetic proof of its signed budget is
+indispensable. -/
+theorem vfV2ActualPrime_signedOwnerRule_iff_noFirstBad :
+    VFMidActualPrimeSignedOwnerEscapeRule ↔
+      ∀ R : ℕ, 8 ≤ R →
+        ¬ VFMidActualPrimeFirstBadAt (2 : ℝ) (R + 1) := by
+  constructor
+  · intro h R hR hfirst
+    exact vfV2ActualPrime_noFirstBad_of_signedOwnerEscapeRule
+      h hR hfirst
+  · intro h R hR hfirst
+    exact (h R hR hfirst).elim
+
+
 end RHLean.Analysis
