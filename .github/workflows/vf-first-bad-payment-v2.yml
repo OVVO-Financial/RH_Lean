@@ -116,6 +116,8 @@ jobs:
           #check RHLean.Analysis.vfV2HalfRunLateOwnerPartner_lt_fourAnchor
           #check RHLean.Analysis.vfV2HalfRunLateOwnerPartner_beforeAnchor
           #print axioms RHLean.Analysis.vfV2HalfRunLateOwnerPartner_beforeAnchor
+          #check RHLean.Analysis.vfV2HalfRunHighOwnerAfterWheel_beforeAnchor
+          #print axioms RHLean.Analysis.vfV2HalfRunHighOwnerAfterWheel_beforeAnchor
           #check RHLean.Analysis.vfV2HalfRunOwnerFiveChild_beforeAnchor
           #check RHLean.Analysis.vfV2HalfRunOnlyThreePrimeOwnerCanStayLive
           #check RHLean.Analysis.vfV2HalfRunLiveHighPrime_oddMultiplier_eq_three
