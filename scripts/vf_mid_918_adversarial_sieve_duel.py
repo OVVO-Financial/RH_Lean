@@ -150,45 +150,57 @@ def run_anchor(A, candidates, find_shift=False):
 
 
 def scan_near_wall(max_root=6000):
-    """Attack LOCAL owner-only restoration using actual P_r at a false anchor.
+    """Genuine P_r + a falsified wall-saturating anchor: BOTH signs.
 
-    A fictitious D_r=-W_r obeys prior-good radial containment and uses the
-    GENUINE r-th block prime population. It may nevertheless cross the lower
-    wall in one step. The genuine historical D_r has a large extra clearance.
-    This proves that current-block incidence + prior-good is insufficient;
-    all signed historical owners must stay attached to the actual anchor.
+    An artificial D_r=+W_r or -W_r meets prior-good containment while
+    keeping every current physical prime/factor incidence genuine.
+    Either one can cross the K=2 wall. The real historical defect has
+    the required buffer and is NOT freely replaceable by a fake anchor.
     """
     flags = sieve_prefix((max_root+1)**2)
-    R0=8
-    pi0=sum(flags[:R0*R0+1])
-    D=pi0-math.fsum(band_v(r) for r in range(2,R0))
-    vulnerable=[]
-    true_crossings=0
-    for r in range(R0,max_root+1):
-        P=sum(flags[r*r+1:(r+1)**2])
-        V=band_v(r)
-        dw=wall(r+1)-wall(r)
-        outward=V-P-dw
+    R0 = 8
+    pi0 = sum(flags[:R0*R0+1])
+    D = pi0-math.fsum(band_v(r) for r in range(2, R0))
+    upper_vulnerable, lower_vulnerable = [], []
+    actual_crossings=0
+    for r in range(R0, max_root+1):
+        P = sum(flags[r*r+1:(r+1)**2])
+        V = band_v(r)
+        dw = wall(r+1)-wall(r)
         Dnext=D+P-V
-        if Dnext < -wall(r+1):
-            true_crossings += 1
-        if outward>0:
-            lower_buffer=D+wall(r)
-            assert lower_buffer>=outward, (
-                "actual first-bad lower wall would be here",r)
-            vulnerable.append(dict(R=r,actual_P=P,V=V,wall_increment=dw,
-                                   synthetic_breach=outward,
-                                   actual_defect_before=D,
-                                   historical_lower_buffer=lower_buffer,
-                                   actual_buffer_after=lower_buffer-outward))
+        if abs(Dnext) > wall(r+1):
+            actual_crossings+=1
+        upper_outward = P-V-dw
+        lower_outward = V-P-dw
+        if upper_outward > 0:
+            buffer=wall(r)-D
+            assert buffer >= upper_outward
+            upper_vulnerable.append(dict(R=r, actual_P=P,V=V,
+                                         wall_increment=dw,
+                                         synthetic_breach=upper_outward,
+                                         actual_defect_before=D,
+                                         historical_upper_buffer=buffer,
+                                         actual_buffer_after=buffer-upper_outward))
+        if lower_outward > 0:
+            buffer=D+wall(r)
+            assert buffer >= lower_outward
+            lower_vulnerable.append(dict(R=r, actual_P=P,V=V,
+                                         wall_increment=dw,
+                                         synthetic_breach=lower_outward,
+                                         actual_defect_before=D,
+                                         historical_lower_buffer=buffer,
+                                         actual_buffer_after=buffer-lower_outward))
         D=Dnext
-    assert true_crossings==0 and len(vulnerable)>0
-    largest=max(vulnerable,key=lambda z:z["synthetic_breach"])
-    earliest=vulnerable[0]
+    assert actual_crossings == 0
+    assert upper_vulnerable and lower_vulnerable
     return dict(max_root=max_root,
-                genuine_blocks_that_breach_if_anchor_at_lower_wall=len(vulnerable),
-                actual_lower_wall_breaches=true_crossings,
-                earliest=earliest,largest=largest)
+                genuine_upper_blocks_cross_if_anchored_at_upper_wall=len(upper_vulnerable),
+                genuine_lower_blocks_cross_if_anchored_at_lower_wall=len(lower_vulnerable),
+                actual_wall_breaches=actual_crossings,
+                earliest_upper=upper_vulnerable[0],
+                earliest_lower=lower_vulnerable[0],
+                largest_upper=max(upper_vulnerable,key=lambda z:z["synthetic_breach"]),
+                largest_lower=max(lower_vulnerable,key=lambda z:z["synthetic_breach"]))
 
 
 def main():
