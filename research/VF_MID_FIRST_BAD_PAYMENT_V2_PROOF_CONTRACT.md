@@ -278,7 +278,7 @@ drift already compressed in D_R from the CURRENT block error.
 
 The corresponding signed bucket telescope is EXACT:
 
-$
+$$
 \begin{aligned}
 E(X)=E(2)
  &+[E(S)-E(2)]\\
@@ -287,7 +287,7 @@ E(X)=E(2)
  &+[E(X)-E(R^2)].
 \end{aligned}
 \tag{13}
-$
+$$
 
 Here E(2)=1 (because pi(2)=1 while Q(2)=0). The last term,
 delta_R=E(X)-E(R^2), is exactly actual P_R minus the current
@@ -314,19 +314,19 @@ does NOT independently bound terminal prime fluctuations.
 The deterministic square-endpoint bridge is b_R=Q(R^2)-VF_mid(R^2).
 The ACTUAL anchor is
 
-$
+$$
 D_R=b_R+E(R^2),\qquad
 P_R=F_R+\delta_R,\qquad
 D_{R+1}=D_R+F_R+\delta_R-V_R.
 \tag{14}
-$
+$$
 
 Hold the **ACTUAL** D_R fixed. Using F_R in place of P_R defines
 a comparison count, not an imagined real prime arrangement.
 
 Let
 
-$
+$$
 \begin{aligned}
 M_R^0&=|D_R|+w_RR+(1-2w_R)F_R,\\
 Y_R^0&=D_R+F_R-V_R,\\
@@ -334,11 +334,11 @@ G_R^+&=M_R^0+\sqrt2Y_R^0,\\
 G_R^-&=M_R^0-\sqrt2Y_R^0.
 \end{aligned}
 \tag{15}
-$
+$$
 
 Because P_R=F_R+delta_R, the TWO actual signed cone margins are
 
-$
+$$
 \boxed{\begin{aligned}
 M_R+\sqrt2D_{R+1}
  &=G_R^++(1-2w_R+\sqrt2)\delta_R,\\
@@ -346,28 +346,28 @@ M_R-\sqrt2D_{R+1}
  &=G_R^-+(1-2w_R-\sqrt2)\delta_R.
 \end{aligned}}
 \tag{16}
-$
+$$
 
 and their product is **literally the original** hbalance:
 
-$
+$$
 \boxed{\mathcal B_R
  =(M_R+\sqrt2D_{R+1})(M_R-\sqrt2D_{R+1}).}
 \tag{17}
-$
+$$
 
 There is NO new denominator and NO separate even 2p negative heat.
 For R>=8, w_R<1/2. Thus the admissible ACTUAL signed
 current error interval (conditioned on the already ACTUAL D_R) is
 
-$
+$$
 \boxed{
 -\frac{G_R^+}{1-2w_R+\sqrt2}
  \ \le\ \delta_R\ \le\
  \frac{G_R^-}{\sqrt2-1+2w_R}.
 }
 \tag{18}
-$
+$$
 
 All these identities and the conditional **two-margin certificate**
 are in \`VF_MID_FIRST_BAD_PAYMENT_V2_KERNEL.lean\`:
@@ -399,10 +399,10 @@ works with genuine pi, **not** a proof of a uniform δ-bound.
 For each ODD c>=3, actual q>R prime descendants n=cq in the current
 open band are counted by the true interval
 
-$
+$$
 \max(R,\lfloor R^2/c\rfloor)
  <q\le\lfloor((R+1)^2-1)/c\rfloor.
-$
+$$
 
 Define A_c=actual pi interval, F_c=floor-Li interval *reference*;
 each event A_c is a genuine PRIME q but the floor-Li events F_c
@@ -412,18 +412,18 @@ smooth-composite population and formal benchmark complement.
 
 The three signed error populations obey
 
-$
+$$
 \delta_P+\delta_G+\delta_S=0.
-$
+$$
 
 Keeping the NATIVE VF odd-seat weights, the correction is
 
-$
+$$
 \boxed{
 (w_R-1)\delta_P+w_R\delta_G+w_R\delta_S=-\delta_P.
 }
 \tag{19}
-$
+$$
 
 This is an exact one-block restoration identity. It neither
 creates negative physical capacity nor bounds δ_P.
@@ -454,6 +454,148 @@ The unproved step is a FIRST-BAD-SPECIFIC prime-distribution/
 cross-time-correlation inequality on the real E(R^2) and
 delta_R, not a new factorization, not a stronger fitted Li proxy,
 and not the mere fact that the observed samples fit.
+
+## 4B. Accumulated historical drift: the exact first-bad obstruction
+
+The terminal current prime-count error $\delta_R$ can be ordinary at
+a first bad, since the endpoint can begin almost on its admissible wall.
+**No single-block spike is needed.** What IS necessary is an unusually
+large *historical signed imbalance* before the final block.
+
+Put $A=\lfloor R/2\rfloor+1$, $B=R+1$,
+$W_t=2t\log t$,
+$E_t=\pi(t^2)-Q(t^2)$ and
+$b_t=Q(t^2)-VF_{\rm mid}(t^2)$, so $D_t=E_t+b_t$.
+For either sign $\sigma\in\{-1,+1\}$ define the
+ORIGINAL admissible signed wall clearance
+
+$$
+S_t^\sigma=W_t-\sigma D_t.
+$$
+
+Exact finite historical telescoping (NO approximation to prime supply):
+
+$$
+\boxed{
+S_B^\sigma=S_A^\sigma+(W_B-W_A)
+-\sigma(E_B-E_A)-\sigma(b_B-b_A).
+}
+\tag{20}
+$$
+
+If $B$ is a hypothetical first bad in direction $\sigma$,
+then $S_B^\sigma<0$, while first badness guarantees
+$S_A^\sigma\ge0$. Thus
+
+$$
+\boxed{
+\sigma(E_B-E_A)>
+S_A^\sigma+(W_B-W_A)-\sigma(b_B-b_A).
+}
+\tag{21}
+$$
+
+The squared-endpoint Li/VF bridge has an established uniform
+bound $|b_t|\le C_0$, where the existing proof supplies the
+deterministic choice $C_0=1+$ square-endpoint VF/Li constant.
+Consequently a hypothetical first-bad event NECESSARILY implies
+
+$$
+\boxed{
+\sigma(E_B-E_A)>W_B-W_A-2C_0.
+}
+\tag{22}
+$$
+
+This is mathematically important: a harmless LAST block can cross
+only after the longer half-scale window has built a large enough
+ACTUAL floor-Li error to overcome the expanding wall. Since
+$A\simeq B/2$, the required discrepancy in (22) is
+of order $B\log B$, even though individual $\delta_r$ may
+be comparatively tiny.
+
+**But (22) is only a necessary condition for first badness, not a
+contradiction.** Ordinary PNT gives no $O(B\log B)$
+error estimate over this moving half-scale difference.
+
+The new *Mathlib-only* Lean kernel formally proves both
+positive and negative versions:
+
+- \`vfV2HistoricalPositiveWallClearance\`
+- \`vfV2HistoricalNegativeWallClearance\`
+- \`vfV2PositiveFirstBad_requires_historicalPrimeLiExcess\`
+- \`vfV2NegativeFirstBad_requires_historicalPrimeLiDeficit\`
+
+These theorems take the actually established bounded
+bridge and prior-good/first-bad conditions as explicit hypotheses.
+There is no extra owner arithmetic asserted.
+
+### Where original composite owners must enter
+
+Use ONLY the true R odd seats. Write
+
+$$
+C_r=r-P_r=G_r+H_r,
+$$
+
+where $G_r$ counts current odd composites having a unique
+ACTUAL prime factor $q>r$ (with odd cofactor $c\ge3$),
+and $H_r$ counts all remaining actual odd composites.
+Let $G_r^{Li}$ be the same odd-cofactor prime windows evaluated
+using $Q$ rather than $\pi$, and set
+$H_r^{Li}=r-F_r-G_r^{Li}$ as an **algebraic reference complement**,
+not a new physical smooth-prime sieve.
+
+Then, with the original native carrier,
+
+$$
+\boxed{
+E_B-E_A
+=\sum_{r=A}^{B-1}(P_r-F_r)
+=-\sum_{r=A}^{B-1}
+ \big[(G_r-G_r^{Li})+(H_r-H_r^{Li})\big].
+}
+\tag{23}
+$$
+
+The fixed-c historical $G_r$ prime windows telescope and obey the
+weight-retaining Abel identity already investigated in #915.
+This transfers THEIR signed errors to endpoint prime backlogs and
+weight-variation terms; it DOES NOT bound their combined signs.
+The complementary smooth sector $H_r$ ensures exact conservation,
+not automatic restoration. Multiplicative $2q$ children remain
+EVEN and supply zero independent original odd-carrier mass.
+
+**The precise additional theorem we would need** is an
+actual-prime, half-run, signed owner correlation inequality which
+places the right-hand side of (23) strictly below the breach threshold
+(21) in the would-be escaping direction. It must account for
+cross-cofactor overlap, smooth-sector response, prior history
+compressed in $D_A$, and all native VF weights. Merely writing (23)
+in Möbius, Fubini or floor-Li coordinates is not that theorem.
+
+### Distinguish restorative control from forced sign reversal
+
+Actual numerics already DISPROVE universal absolute pullback:
+for R=317, $E(A^2)=-26$, $E(B^2)=-41$,
+hence **$E_B-E_A=-15$** (the negative defect GREW).
+For R=1027, $E(A^2)=-64$, $E(B^2)=-122$,
+hence **$E_B-E_A=-58$** (the negative defect GREW).
+
+Yet both examples are far inside the growing $W_B$ wall.
+Thus a proposed lemma requiring
+$\operatorname{sgn}(D_A)(E_B-E_A)\le0$ over every half-run
+would already be **false on actual primes**. The true objective
+is wall-RELATIVE control: growth must be sufficiently restrained
+WHEN historical wall clearance is in danger of exhaustion.
+
+The built-in fast regression now computes (20)--(22) from
+actual prime counts for every R=8..6000 (and optional R<=15000),
+prints the signed half-run accumulation and its ratio to
+wall expansion, and reports the exact historical excess that
+would be necessary to breach. These numerical checks can
+FALSIFY candidate owner-pullback laws; they cannot
+establish them for all R.
 
 ## 5. Testing: deliberately separate seconds from native compilation
 
