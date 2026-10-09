@@ -1481,6 +1481,184 @@ actual-prime first-bad historical payment (11):
 OPEN. No RH claim.
 
 
+
+## 4F. Sector Six is still the production objective: cross-block once-charge obstruction (Oct 9)
+
+**This section corrects an interpretation of 4E.** The sparse
+semiprime/triple partition is NOT a different sufficient theorem and
+has NOT proved the original Sector Six cone. The empirical
+\`sigma_R=F_R-P_R\` is an exact restatement of prime supply and its
+lag correlation cannot bind historical wall slack. The last open
+production gate remains the one declared in
+\`VFMidMinimalActualFirstBadPaymentV2Statement\`, equivalently:
+
+$
+\boxed{
+\mathrm{FirstBad}_{2}(R+1)\Longrightarrow
+6U_RL_R-U_R^2-L_R^2\ge 0.
+}
+\tag{F1}
+$
+
+The main repository's compiled route
+\`vfMidActualPrimeFirstBadAt_two_succ_false_of_activeSixBoundaryBudget\`
+instead uses the original owner-sector boundary:
+
+$
+\boxed{
+\operatorname{ActiveGlobalResidualExcess}(R)
++2\,\operatorname{SixOrientedIncompleteBoundaryMass}(R)\le0.
+}
+\tag{F2}
+$
+
+That is a SHORT NAME for the exact six nested first/next/returned
+left/right raw-parent \`Finset\` sums in
+\`VF_MID_FIRST_BAD_ACTIVE_RAW_PARENT_SPLICE.lean\`, **not** a new
+unproved equivalence. Its exact inequality is STILL OPEN. The
+weighted first-owner Fubini and existing sector-six decomposition
+already express the anchored source and retain all diagonal,
+squareful, omitted-site and residual contributions. The sparse tier
+can feed these native sectors only through an incidence-preserving
+source-to-boundary classifier **on their original weighted carrier**.
+
+### 4F.1 Why an old prime's one negative site CANNOT pay its own later children
+
+For a fixed old odd prime q, consider its sparse *semiprime*
+descendants n=pq with p another odd prime. Their root is
+r=floor(sqrt(pq)), and the least owner p is sparse exactly when
+
+$
+\boxed{p<q<p^3.}
+\tag{F3}
+$
+
+All such n lie in a distinct open square block
+r^2<pq<(r+1)^2, with p<=r<p^2 and q>r.
+The distinct-root claim follows from the previously proved
+\`vfV2HighFactorOneOddChildPerOpenBlock\`.
+
+Thus the exact number of those children is
+
+$
+\boxed{
+N(q)=\pi(q-1)-\pi(\lfloor q^{1/3}\rfloor).
+}
+\tag{F4}
+$
+
+There is only ONE earlier original prime-negative site at integer q:
+its original weight has absolute value
+
+$
+h_q=1-w_{\lfloor\sqrt q\rfloor}.
+$
+
+But each of the N(q) later positive physical composite sites has
+its OWN weight w_r. Since r<q, for q>=5 we have
+
+$
+w_r=\frac{2r+1}{r\log(r^2+r+\frac12)}
+     >\frac{1}{\log q}.
+$
+
+Hence, with genuinely different later blocks,
+
+$
+\boxed{
+C_q:=\sum_{\substack{p\ {\rm prime}\\p<q<p^3}}w_{\lfloor\sqrt{pq}\rfloor}
+>\frac{N(q)}{\log q}.
+}
+\tag{F5}
+$
+
+The ordinary PROVED prime number theorem implies
+\`N(q)~q/log(q)\` along primes q, so
+\`C_q\` grows at least on the order of \`q/(log q)^2\`, while
+\`h_q\` stays bounded and approaches 1. **Therefore a proposed
+per-old-prime bound C_q<=h_q is false for arbitrarily large q**,
+independently of RH. It cannot be the Sector Six payment.
+
+Concrete full actual-prime regressions:
+
+| Historical prime q | Original prime root | Original negative h_q | Distinct sparse semiprime children N(q) | Later positive VF mass C_q | C_q/h_q |
+|---:|---:|---:|---:|---:|---:|
+| 101 | 10 | 0.553667784804 | 23 | 5.743609659795 | 10.37 |
+| 997 | 31 | 0.705479535555 | 163 | 25.886856393834 | 36.69 |
+
+The seconds-fast actual-primes test checks these independently by
+enumerating actual prime p, genuine semiprime pq, actual root r,
+unique open-block incidence and original w_r. It also checks
+the exact p<q<p^3 classification and weight lower bound.
+
+### 4F.2 Lean: the high-prime q charge is SUBTRACTED ONCE, not per child
+
+Two more Mathlib-only lemmas in the SAME seven-file #918 scope:
+
+* \`vfV2HighParentChargeOnceFubini\` interchanges the history/root
+  sum with the high-prime-parent q sum while subtracting the old
+  prime-negative weight **exactly once per q, outside the child sum**.
+* \`vfV2HighParentRepeatedChargeOvercount\` displays the false
+  extra restoring allowance when the same old h_q is subtracted
+  once per descendant:
+
+$
+\boxed{
+\sum_{c\in \mathrm{Kids}(q)}(w_c-h_q)
++\bigl(\#\mathrm{Kids}(q)-1\bigr)h_q
+=\sum_{c\in \mathrm{Kids}(q)}w_c-h_q.
+}
+\tag{F6}
+$
+
+The \`(#Kids-1)*h_q\` correction is not optional. The q=101
+family would otherwise spend the original historical negative
+23 times; q=997, 163 times.
+
+**Importantly:** D_A already contains the historical q-site and
+its contribution, so the Fubini lemma is a tool for an EXACT
+decompression of D_A, not permission to subtract h_q again
+from an already-anchored source. The full original physical
+\`M_R^2\` denominator and signed Gram cross-owner products
+must be reconstructed *after* this once-only accounting.
+
+### 4F.3 Remaining FIRST-BAD payment, with no substitute target
+
+The sparse tier tells us where historical cofactors live:
+below A^2 for A=floor(R/2)+1. It does NOT say how signs of
+their **reused** parent occurrences combine. Moreover the
+old negative parent h_q, although within the prior-good
+anchor, is not free capacity that can pay every later child.
+
+The next *arithmetic* step is a genuinely **signed**
+incidence-preserving mapping of the once-counted historical
+q charges and their many later positive p*q children into
+the MAIN Sector Six incomplete left/right raw-parent
+fibers, retaining the other Gram/diagonal and residual terms.
+Its quantified conclusion must be the bound (F2), or the
+unchanged first-bad payment (F1), based on a NEW restriction
+on actual prime-factor residue phases. The previous elementary
+summation identities and the PNT alone give NO sign for this
+complete weighted source.
+
+The hypothesized channel slacks at A, whether denoted
+\`S_A^+\` or \`S_A^-\`, must not be treated as additional
+uncompressed material. Their conservation is exactly what
+the missing bound must establish. A sequence can approach
+the wall through many ordinary blocks. One-block negative
+autocorrelation, individual Euler-star nonexpansion,
+and the half-run prior-good status do not rule out such
+a walk.
+
+**Final mathematical status:** F3-F6 are exact relations
+(the numeric table is a finite audit; the PNT asymptotic is
+an ordinary-paper deduction from established PNT).
+The Lean lemmas prove their algebraic once-charge content.
+F1/F2 still require a new actual-prime signed theorem.
+We have not proved RH and should not describe this work
+as a resolved Sector Six cone.
+
+
 ## 5. Testing: deliberately separate seconds from native compilation
 
 **Fast lane** (automatically on every PR update; no Lean/StrongPNT):
