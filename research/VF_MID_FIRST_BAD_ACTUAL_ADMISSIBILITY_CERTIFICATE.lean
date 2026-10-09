@@ -125,6 +125,72 @@ theorem vfV2ActualPrime_verifiedStructuralRules :
       vfMidActualPrimeFirstBadAt_two_succ_nnsNormalized_gt_half hR hfirst
   }
 
+
+/-! ## Genuine localized rough-Mobius decoder, not asymptotic density
+
+The physical prime/composite source in any finite frozen-wheel run under
+the cubic-depth condition can be written exactly as a signed Mobius
+imbalance on the ACTUAL survivors of that frozen wheel. This is the
+correct localized population on which a future quantitative sign
+estimate must act; the unrestricted density of μ(n)=±1 is insufficient
+to bound these rough filtered sums. -/
+
+/-- For every actual finite run satisfying the depth-two restriction,
+the historical prime-minus-VF error is EXACTLY the centered restricted
+rough-Mobius balance. The frozen survivor count stays on the original
+arithmetic wheel; no artificial prime jumps or proxy counts enter.
+This is a TRUE arithmetic identity, not the missing estimate. -/
+theorem vfV2ActualPrimeFrozenRunMobiusDecoder
+    {A B : ℕ} (hA : 3 ≤ A) (hAB : A ≤ B)
+    (hcube : ∀ r ∈ Finset.Ico A B, (r + 1) ^ 2 ≤ (A + 1) ^ 3) :
+    (∑ r ∈ Finset.Ico A B,
+      ((vfMidIntegerBlockPrimeSupply r : ℝ) - vfMidBandMass r)) =
+    ∑ r ∈ Finset.Ico A B,
+      (((((vfMidSquarePrefixWheelSurvivors A r).card : ℝ) -
+        vfMidSquareBandPrefixSurvivorMobiusMassReal A r) / 2) -
+        vfMidBandMass r) := by
+  apply Finset.sum_congr rfl
+  intro r hr
+  have hAr : A ≤ r := (Finset.mem_Ico.mp hr).1
+  have hz :=
+    two_mul_vfMidIntegerBlockPrimeSupply_eq_prefixSurvivors_sub_mobiusMass_of_cube
+      hA hAr (hcube r hr)
+  have hreal :
+      (2 : ℝ) * (vfMidIntegerBlockPrimeSupply r : ℝ) =
+        ((vfMidSquarePrefixWheelSurvivors A r).card : ℝ) -
+          vfMidSquareBandPrefixSurvivorMobiusMassReal A r := by
+    rw [vfMidSquareBandPrefixSurvivorMobiusMassReal_eq_cast]
+    exact_mod_cast hz
+  linarith
+
+/-- The localized signed Mobius deviation equals TWICE the actual
+prime-minus-VF run deviation, with the deterministic frozen-wheel
+population adjustment retained. This does NOT assert a bound on
+the deviation and therefore cannot be substituted for the Sector Six
+signed capacity inequality. -/
+theorem vfV2ActualPrimeFrozenRunMobiusDeviation
+    {A B : ℕ} (hA : 3 ≤ A) (hAB : A ≤ B)
+    (hcube : ∀ r ∈ Finset.Ico A B, (r + 1) ^ 2 ≤ (A + 1) ^ 3) :
+    (∑ r ∈ Finset.Ico A B,
+        (((vfMidSquarePrefixWheelSurvivors A r).card : ℝ) -
+          vfMidSquareBandPrefixSurvivorMobiusMassReal A r -
+            2 * vfMidBandMass r)) =
+      2 * (∑ r ∈ Finset.Ico A B,
+        ((vfMidIntegerBlockPrimeSupply r : ℝ) - vfMidBandMass r)) := by
+  have h := vfV2ActualPrimeFrozenRunMobiusDecoder hA hAB hcube
+  rw [← Finset.mul_sum]
+  calc
+    _ = ∑ r ∈ Finset.Ico A B,
+          2 * ((((vfMidSquarePrefixWheelSurvivors A r).card : ℝ) -
+             vfMidSquareBandPrefixSurvivorMobiusMassReal A r) / 2 -
+               vfMidBandMass r) := by
+      apply Finset.sum_congr rfl
+      intro r _hr
+      ring
+    _ = _ := by
+      rw [← h]
+      simp only [Finset.mul_sum]
+
 /-- The six original incomplete raw-parent sectors, with the SIGNED source
 vfMidActiveReturnedRawParentFiberMass and no new square or absolute value.
 This definition only abbreviates the already-compiled #912 physical ledger. -/
