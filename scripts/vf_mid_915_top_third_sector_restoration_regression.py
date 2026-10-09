@@ -16,6 +16,7 @@ EXPECTED = {
 def check(R):
     A, B = R // 2 + 1, R + 1
     X, T = B * B, B * B // 3
+    H = X // 2
     pflag, primes = prime_sieve(X)
     count = [0] * (X + 1)
     for n in range(1, X + 1):
@@ -25,8 +26,18 @@ def check(R):
         for n in range(q, X + 1, q):
             lpf[n] = q
     E = lambda n: count[n] - li_floor(n)
-    EA, ET, EB = E(A*A), E(T), E(X)
-    assert A*A <= T and (EA, ET, EB) == EXPECTED[R][:3]
+    EA, ET, EH, EB = E(A*A), E(T), E(H), E(X)
+    assert A*A <= T < H and (EA, ET, EB) == EXPECTED[R][:3]
+    assert (ET-EA) + (EH-ET) + (EB-EH) == EB-EA
+    # Bucket 2b: post-root primes in (X/3,X/2] have exactly
+    # one proper full-integer multiple, 2q, which is even.
+    # Bucket 3: primes q>X/2 have NO proper integer multiple.
+    owner2_only_primes = [q for q in primes if T < q <= H]
+    terminal_primes = [q for q in primes if H < q <= X]
+    assert all(2*q<=X and 3*q>X for q in owner2_only_primes)
+    assert all(2*q>X for q in terminal_primes)
+    assert len(owner2_only_primes)==count[H]-count[T]
+    assert len(terminal_primes)==count[X]-count[H]
     totals = dict(P=0,F=0,G=0,FL=0,S=0,SL=0,
                   cp=0.0,cg=0.0,cs=0.0,abs_local_g=0.0)
     by_cofactor = {}
@@ -83,8 +94,11 @@ def check(R):
     assert Ptop-Ftop==EB-ET
     # Every integer q > floor(X/3) has no odd cofactor c >= 3 in n <= X.
     assert 3*(T+1)>X
-    print('R=%d A=%d B=%d E(A^2)=%d E(T)=%d E(B^2)=%d '
-          'lowMismatch=%+d topMismatch=%+d topActual=%d topLi=%d '
+    print('R=%d A=%d B=%d E(A^2)=%d E(X/3)=%d E(X/2)=%d E(X)=%d '
+          'lowerCompositeEligibleMismatch=%+d owner2OnlyMismatch=%+d '
+          'noDescendantMismatch=%+d '
+          'fullMiddleActualPrimes=%d terminalActualPrimes=%d '
+          'topActual=%d topLi=%d '
           'actualP=%d liP=%d actualHighC=%d liHighC=%d '
           'actualSmooth=%d liSmooth=%d '
           'chargePrime=%+.9f chargeHighC=%+.9f chargeSmooth=%+.9f '
@@ -92,7 +106,9 @@ def check(R):
           'abelEndpoints=%+.9f abelVariation=%+.9f '
           'cofactorInterCohortRatio=%.6f '
           'absLocalCofactorCharge=%.6f PASS' %
-          (R,A,B,EA,ET,EB,ET-EA,EB-ET,Ptop,Ftop,totals['P'],totals['F'],
+          (R,A,B,EA,ET,EH,EB,ET-EA,EH-ET,EB-EH,
+           len(owner2_only_primes),len(terminal_primes),
+           Ptop,Ftop,totals['P'],totals['F'],
            totals['G'],totals['FL'],totals['S'],totals['SL'],
            totals['cp'],totals['cg'],totals['cs'],
            totals['cp']+totals['cg']+totals['cs'],
