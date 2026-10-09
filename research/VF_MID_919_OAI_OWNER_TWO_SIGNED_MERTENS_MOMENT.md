@@ -192,35 +192,92 @@ ideal Möbius sums destroys their cancellation. One cannot use
 the Dirichlet-convolution formula to infer a rational power saving by
 termwise bounds on a_F.
 
-### Existing OAI inverse moments do not yet save the principal row
+### Correction: OAI Sixth-power amplification DOES save the principal ideal row
 
-The paper's "Marked inverse moment" (Section "The inverse moment with prime
-factors", Lemma old-eq:4.1) estimates, with no selected prime factors,
+The previous paragraph, which concluded that **no published OAI moment provides a
+principal-row saving**, was incorrect. It analyzed only the MARKED inverse
+moment (old-eq:4.1) and omitted the separate **Sixth-power amplification**
+lemma, \`lem:inverse-amplification\` / \`eq:amplified-note\`, in OpenAI's
+September 30 manuscript (paper.tex, near lines 12362–12455).
 
-\[
- M_u(Z^r;W)=Z^{-r/2}
-   \sum_{\mathfrak n}\mu_F(\mathfrak n)\psi_u(\mathfrak n)
-     W(N\mathfrak n/Z^r),\qquad
- \sum_{0<N u\ll Z^m}|M_u|^2\ll Z^{m+\epsilon}
-\]
-under r <= m-c_1 (and the second displayed range condition).
-Taking the single principal row u=1 only yields
-\[
- \left|\sum_{\mathfrak n}\mu_F(\mathfrak n)
-     W(N\mathfrak n/Z^r)\right|
- \ll Z^{(m+r)/2+\epsilon}.
-\]
-Since m>r, this is NO better than a length-Z^r trivial power.
-Even before incorporating the chi_{-3} convolution B11 and the second
-Mertens factor in B1, the *existing averaged moment* cannot prove the
-needed principal-row saving merely by selecting one row.
+For a fixed permitted annular smooth test W, fixed character presentation nu,
+the original zero extensions, and **zero prime slots**, define
 
-The concrete new analytic work is therefore **a principal-row
-amplification/correlation theorem for the quadratically convoluted
-B11 coefficients**, compatible with the TWO original Möbius factors
-in B1/B6 and the signed native mixed boundary. Neither the published
-mean-square bound nor phase-preserving C-to-R realification alone
-establishes that statement.
+\\[
+ M_u(D;W)=D^{-1/2}\\sum_{\\mathfrak n}
+     \\mu_F(\\mathfrak n)\\nu(\\mathfrak n)
+     \\chi_{\\mathfrak n}(u)^{\\varepsilon_\\chi}
+     W(N\\mathfrak n/D).
+\\]
+
+OAI proves, for any fixed c>0,
+
+\\[
+ \\sum_{N u\\asymp U}|M_u(D;W)|^2
+ \\ll_{c,\\epsilon,W,\\mathrm{fixed\\ data}}
+ \\max\\{U,\\;U^{1/6}D^{5(1+c)/6}\\}(UD)^\\epsilon
+\\tag{B12}
+\\]
+
+over sixth-power-free element rows with all the original fixed exclusions.
+**The row u=1 is included** (take U=1), so choosing c sufficiently
+small in terms of epsilon and absorbing bounded initial D gives
+
+\\[
+ \\boxed{|M_1(D;W)|^2\\ll_\\epsilon D^{5/6+\\epsilon},}
+ \\qquad
+ \\boxed{\\left|\\sum_{\\mathfrak n}\\mu_F(\\mathfrak n)
+           \\nu(\\mathfrak n)W(N\\mathfrak n/D)\\right|
+           \\ll_\\epsilon D^{11/12+\\epsilon}.}
+ \\tag{B13}
+\\]
+
+This is an **actual, unconditional, principal-row ideal-Mobius
+power saving in OAI's fixed smooth/masked setting**. It uses averaging
+over auxiliary SIXTH-POWER multiples of the row and does not follow from
+the original unamplified marked lemma. The precise arithmetic presentation,
+annular seminorms, excluded prime support S and uniformity conditions in the
+lemma must be retained.
+
+Why it does **not** pay the native signed clipped boundary:
+
+1. The available B13 sum is over ideals, includes nu and the OAI fixed
+   zero extensions, and uses a fixed smooth annular weight. The native
+   C_R=M(R^2-1) has a SHARP rational-integer cutoff and all Euler factors,
+   especially p=2. Excluded Euler factors and a smoothing/Perron
+   completion with controlled unsmoothed tails are still necessary.
+2. Rational Mobius is the exact convolution B9:
+   \`mu_Z = chi_{-3} * a_F\`. Even a sharp ideal-Mobius
+   O(D^{11/12+epsilon}) estimate cannot be inserted through B11 termwise
+   without losing the saving to the growing quadratic-character
+   convolution. The signed d-sum needs to remain intact.
+3. The boundary is B1 = -2 M(X_R) J_R with J_R the **different**
+   q²-daughter-weighted odd-Mobius return B2. Bounding M and J
+   independently sacrifices the cross-correlation whose sign is needed.
+   The complete B6 numerator and BOTH negative native branch squares
+   must remain together.
+4. The exponent 11/12 > 7/8. Even an ideal sharp-cutoff saving of
+   11/12 would not strengthen the best claimed zeta line 7/8, still less
+   give the RH-scale R² boundary payment.
+
+**The next analytic target is now more precise:** transfer the
+sixth-power amplification mechanism to a **uniform signed cross
+estimate for the COMPLETE B6 two-factor expression**, with the
+quadratic convolution, deleted prime Euler factors, moving q²
+daughter kernel, and justified sharp-cutoff limit. Feed the resulting
+bound into the **full native signed telescope**
+
+\\[
+ 2G_R=I_R^2-L_R^2-J_R^2-2C_RJ_R,
+\\]
+
+without replacing \`-L_R²-J_R²\` by zero or spending only an
+unsigned bound on C_R or J_R. The remaining stage must also identify
+the historical Sector Six first-bad source with this signed ledger.
+This stronger B6 estimate and historical identification are **open**.
+B12 and B13 are sourced statements of the external manuscript, NOT
+new RH_Lean kernel-certified imports.
+
 
 ## 3. What the OAI 7/8 result ALREADY offers, and what it does not
 
