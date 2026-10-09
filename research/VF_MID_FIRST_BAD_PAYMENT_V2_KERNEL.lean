@@ -390,7 +390,7 @@ theorem vfV2GenericUnitStepCount_succ (isJump : ℕ → Bool) (N : ℕ) :
     vfV2GenericUnitStepCount isJump (N + 1) =
       vfV2GenericUnitStepCount isJump N +
         (if isJump N then 1 else 0) := by
-  simp [vfV2GenericUnitStepCount, Finset.sum_range_succ]
+  exact Finset.sum_range_succ (fun n => if isJump n then 1 else 0) N
 
 theorem vfV2GenericUnitStepCount_monotone (isJump : ℕ → Bool) :
     Monotone (vfV2GenericUnitStepCount isJump) := by
@@ -402,19 +402,19 @@ theorem vfV2GenericUnitStepCount_monotone (isJump : ℕ → Bool) :
 /-- The exact finite prime/nonprime seat population, with neither even
 sites nor manufactured reference mass added. -/
 theorem vfV2FiniteActualPrimeNonprimePopulation (seats : Finset ℕ) :
-    (∑ n ∈ seats, if n.Prime then (1 : ℝ) else 0) +
-      (∑ n ∈ seats, if ¬ n.Prime then (1 : ℝ) else 0) =
+    (∑ n ∈ seats, if Nat.Prime n then (1 : ℝ) else 0) +
+      (∑ n ∈ seats, if ¬ Nat.Prime n then (1 : ℝ) else 0) =
         (seats.card : ℝ) := by
   classical
   rw [← Finset.sum_add_distrib]
   calc
     (∑ n ∈ seats,
-      (if n.Prime then (1 : ℝ) else 0) +
-        (if ¬ n.Prime then (1 : ℝ) else 0)) =
+      (if Nat.Prime n then (1 : ℝ) else 0) +
+        (if ¬ Nat.Prime n then (1 : ℝ) else 0)) =
         ∑ _n ∈ seats, (1 : ℝ) := by
           apply Finset.sum_congr rfl
           intro n _hn
-          by_cases hp : n.Prime <;> simp [hp]
+          by_cases hp : Nat.Prime n <;> simp [hp]
     _ = (seats.card : ℝ) := by simp
 
 /-- The actual-prime 0/1 selector has the correct affine VF-minus-prime
@@ -422,11 +422,12 @@ signed mass on EVERY finite carrier, regardless of distribution. -/
 theorem vfV2FiniteActualPrimeSignedSeatMass
     (seats : Finset ℕ) (w : ℝ) :
     (∑ n ∈ seats,
-        (w - if n.Prime then (1 : ℝ) else 0)) =
+        (w - if Nat.Prime n then (1 : ℝ) else 0)) =
       w * (seats.card : ℝ) -
-        ∑ n ∈ seats, if n.Prime then (1 : ℝ) else 0 := by
+        ∑ n ∈ seats, if Nat.Prime n then (1 : ℝ) else 0 := by
   classical
   rw [Finset.sum_sub_distrib, Finset.sum_const, nsmul_eq_mul]
+  ring
 
 /-- A UNIQUE owner function partitions any finite weighted source exactly
 once; it does NOT make the resulting signed quadratic form nonpositive. -/
