@@ -351,6 +351,31 @@ theorem vfV2HalfRunOwnerFiveChild_beforeAnchor
   have hc : A ^ 2 ≤ c := Nat.le_of_not_gt hnot
   nlinarith
 
+/-- FULL HIGH-OWNER PROJECTION FOR EVERY FINITE FROZEN WHEEL y>=3.
+
+Every composite surviving the low wheel through y has a genuine
+least-prime owner p>y. For a subdoubling completed square run,
+its unique c=n/p is STRICTLY BELOW the left historical anchor A².
+Thus the WHOLE high-owner correction, including mature owners and
+semiprimes, is a lower-square projection. The y=23/29 wheel
+correction carries no live p=3 exception; that channel was
+already deleted by the low wheel.
+
+This is an exact support theorem, NOT a bound on the signed
+high-owner mass or on original Sector Six cross terms. -/
+theorem vfV2HalfRunHighOwnerAfterWheel_beforeAnchor
+    (A B y p c : ℕ) (hA : 1 ≤ A) (hBA : B ≤ 2 * A)
+    (hy : 3 ≤ y) (hpPrime : p.Prime) (hp : y < p)
+    (hphysical : p * c < B ^ 2) :
+    c < A ^ 2 := by
+  have hpNe4 : p ≠ 4 := by
+    intro h
+    subst p
+    norm_num at hpPrime
+  have hp5 : 5 ≤ p := by omega
+  exact vfV2HalfRunOwnerFiveChild_beforeAnchor
+    A B p c hA hBA hp5 hphysical
+
 /-- The SOLE possible least-prime owner of an odd composite whose
 stripped child stays IN the half-run is prime 3. Owner 2 is absent
 from the original odd NNS carrier, and every p>=5 exits the run. -/
