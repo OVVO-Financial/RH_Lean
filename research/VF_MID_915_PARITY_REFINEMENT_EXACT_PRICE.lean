@@ -235,4 +235,102 @@ theorem vfMid915ParityRefinedCurrentNNSMass_eq_original_add_exactPrice
   rw [vfMid915ParityRefinedCurrentAbs_eq_original_add_primePremium R hR]
   ring
 
+
+/-! ## Genuine signed quantitative inequality: no free 2q NNS payment -/
+
+/-- A pure scalar ORIGINAL-denominator inequality. Splitting a w-weighted
+prime into one negative odd and one positive even contribution incurs
+more quadratic NNS inflation than the sum of its local opposite-sign
+pair heats: price >= (#actual primes) * local_heat. -/
+theorem vfMid915ParitySplit_globalPrice_ge_count_mul_localHeat
+    (M w p : ℝ) (hw : 0 ≤ w) (hp : 0 ≤ p)
+    (hM : (1 - w) * p ≤ M) :
+    p * ((2 * w - w ^ 2) * p) ≤
+      2 * M * (w * p) + (w * p) ^ 2 := by
+  have hwp : 0 ≤ w * p := mul_nonneg hw hp
+  have hmul := mul_le_mul_of_nonneg_right hM hwp
+  calc
+    p * ((2 * w - w ^ 2) * p) =
+        2 * ((1 - w) * p) * (w * p) + (w * p) ^ 2 := by ring
+    _ ≤ 2 * M * (w * p) + (w * p) ^ 2 := by
+      linarith [hmul]
+
+/-- Original physical odd-seat absolute mass contains at least
+(1-w_R) times EVERY actual prime seat. No reference Li-only event
+is allowed to count as a physical negative prime. -/
+theorem vfMid915OriginalOddAbs_ge_actualPrimePart
+    (R : ℕ) (hR : 3 ≤ R) :
+    (1 - vfMidOddFractionalPrimeSeatWeight R) *
+      (vfMidIntegerBlockPrimeSupply R : ℝ) ≤
+      ∑ n ∈ vfMidOddCandidateSeats R,
+        |vfMidOddSignedSeatCharge R n| := by
+  have hw0 :=
+    vfMidOddFractionalPrimeSeatWeight_nonneg R (by omega : 2 ≤ R)
+  have hw1 :=
+    vfMidOddFractionalPrimeSeatWeight_le_one_of_three_le R hR
+  have hpoint (n : ℕ) :
+      (1 - vfMidOddFractionalPrimeSeatWeight R) *
+        vfMidActualPrimeSeatMass n ≤
+        |vfMidOddSignedSeatCharge R n| := by
+    by_cases hp : n.Prime
+    · have hcomp : 0 ≤ 1 - vfMidOddFractionalPrimeSeatWeight R := by
+        linarith
+      rw [vfMidOddSignedSeatCharge_of_prime R n hp, abs_neg,
+        abs_of_nonneg hcomp]
+      simp [vfMidActualPrimeSeatMass, hp]
+    · rw [vfMidOddSignedSeatCharge_of_not_prime R n hp,
+        abs_of_nonneg hw0]
+      simpa [vfMidActualPrimeSeatMass, hp] using hw0
+  calc
+    (1 - vfMidOddFractionalPrimeSeatWeight R) *
+        (vfMidIntegerBlockPrimeSupply R : ℝ) =
+      (1 - vfMidOddFractionalPrimeSeatWeight R) *
+        (∑ n ∈ vfMidOddCandidateSeats R,
+          vfMidActualPrimeSeatMass n) := by
+        rw [vfMidActualPrimeSeatMass_sum_oddCandidates R
+          (by omega : 2 ≤ R)]
+    _ = ∑ n ∈ vfMidOddCandidateSeats R,
+          (1 - vfMidOddFractionalPrimeSeatWeight R) *
+            vfMidActualPrimeSeatMass n := by
+        rw [Finset.mul_sum]
+    _ ≤ ∑ n ∈ vfMidOddCandidateSeats R,
+          |vfMidOddSignedSeatCharge R n| := by
+        apply Finset.sum_le_sum
+        intro n _hn
+        exact hpoint n
+
+/-- The unconditional quantitative NEGATIVE VERDICT for owner-2
+full-integer compensation: per-site paired negative heat has a global
+absolute-NNS restoration cost at least P_R times as large.
+At R=317 the measured factor is ~145.84; at R=1027 ~406.46.
+This is NOT a proof of the terminal first-bad hbalance. -/
+theorem vfMid915ParityRefinedGlobalPrice_ge_primeCount_mul_localHeat
+    (R : ℕ) (hR : 3 ≤ R) :
+    (vfMidIntegerBlockPrimeSupply R : ℝ) *
+        vfMid915ParityRefinedLocalPairHeat R ≤
+      vfMid915ParityRefinedCurrentNNSMass R -
+        vfMidFirstBadZeroTargetTotalMass R := by
+  have hw0 :=
+    vfMidOddFractionalPrimeSeatWeight_nonneg R (by omega : 2 ≤ R)
+  have hp0 : 0 ≤ (vfMidIntegerBlockPrimeSupply R : ℝ) := by positivity
+  have habs := vfMid915OriginalOddAbs_ge_actualPrimePart R hR
+  have hM :
+      (1 - vfMidOddFractionalPrimeSeatWeight R) *
+          (vfMidIntegerBlockPrimeSupply R : ℝ) ≤
+        |vfMidActualPrimeEndpointDefect R| +
+          ∑ n ∈ vfMidOddCandidateSeats R,
+            |vfMidOddSignedSeatCharge R n| := by
+    have habs0 : 0 ≤ |vfMidActualPrimeEndpointDefect R| :=
+      abs_nonneg _
+    linarith
+  have hscalar := vfMid915ParitySplit_globalPrice_ge_count_mul_localHeat
+    (|vfMidActualPrimeEndpointDefect R| +
+       ∑ n ∈ vfMidOddCandidateSeats R,
+         |vfMidOddSignedSeatCharge R n|)
+    (vfMidOddFractionalPrimeSeatWeight R)
+    (vfMidIntegerBlockPrimeSupply R : ℝ) hw0 hp0 hM
+  rw [vfMid915ParityRefinedLocalPairHeat_eq_coefficient_mul_primeSupply R hR,
+    vfMid915ParityRefinedCurrentNNSMass_eq_original_add_exactPrice R hR]
+  linarith [hscalar]
+
 end RHLean.Analysis
