@@ -194,9 +194,14 @@ theorem vfMid915ActualDefect_eq_anchor_add_unmatchedBoundary
   have hsource := vfMidActualPrimeEndpointDefect_eq_anchor_sub_oddRunSeatMass
     hA hAB
   have hrun := vfMid915OriginalOddRun_eq_transportBoundary hA hAB
+  have hpopulation :=
+    vfMid915TransportUnmatched_signed_eq_balance (A ^ 2) (B ^ 2)
+  have hpopulationR :
+      ((vfMid915TransportUnmatchedPositive (A ^ 2) (B ^ 2) : ℤ) : ℝ) -
+        ((vfMid915TransportUnmatchedNegative (A ^ 2) (B ^ 2) : ℤ) : ℝ) =
+      ((vfMidFloorLiSignedPopulationBalance (A ^ 2) (B ^ 2) : ℤ) : ℝ) := by
+    exact_mod_cast hpopulation
   rw [hrun] at hsource
-  rw [vfMid915TransportUnmatched_signed_eq_balance] -- expected orientation?
-  push_cast
   linarith
 
 /-- All historical owner interactions before B, including those preceding
@@ -238,10 +243,22 @@ theorem vfMid915FloorLiVFBridge_abs_le_uniform
     unfold vfMidFloorLiVFBridge vfMidLiError
     ring
   rw [hsplit]
-  have htri :=
-    abs_sub (liFloorPrimeCountProxy ((R : ℝ) ^ 2) -
-      vfMidLogarithmicIntegralFromTwo ((R : ℝ) ^ 2))
-        (vfMidLiError ((R : ℝ) ^ 2))
+  have htri :
+      |(liFloorPrimeCountProxy ((R : ℝ) ^ 2) -
+          vfMidLogarithmicIntegralFromTwo ((R : ℝ) ^ 2)) -
+        vfMidLiError ((R : ℝ) ^ 2)| ≤
+      |liFloorPrimeCountProxy ((R : ℝ) ^ 2) -
+        vfMidLogarithmicIntegralFromTwo ((R : ℝ) ^ 2)| +
+        |vfMidLiError ((R : ℝ) ^ 2)| := by
+    calc
+      _ = |(liFloorPrimeCountProxy ((R : ℝ) ^ 2) -
+          vfMidLogarithmicIntegralFromTwo ((R : ℝ) ^ 2)) +
+          (-vfMidLiError ((R : ℝ) ^ 2))| := by ring
+      _ ≤ |liFloorPrimeCountProxy ((R : ℝ) ^ 2) -
+          vfMidLogarithmicIntegralFromTwo ((R : ℝ) ^ 2)| +
+          |-vfMidLiError ((R : ℝ) ^ 2)| := abs_add_le _ _
+      _ = _ := by rw [abs_neg]
+  rw [hsplit]
   linarith
 
 /-- Exact first-bad HALF-SCALE interface, all historical signed owner drift
