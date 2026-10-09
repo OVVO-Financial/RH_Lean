@@ -58,6 +58,71 @@ theorem vfMid915_halfRun_floorLiMismatch_eq_topThird_add_lower
   ring
 
 
+/-! ## True FULL-integer sqrt / half partition, with parity overlay -/
+
+/-- A large factor q above half the full clock X=B^2 has NO proper
+integer multiple <=X, even when the full carrier includes even sites. -/
+theorem vfMid915_aboveHalf_noProperMultiple
+    {B c q : ℕ} (hc : 2 ≤ c) (hq : B ^ 2 / 2 < q) :
+    B ^ 2 < c * q := by
+  have htwo : B ^ 2 < q * 2 :=
+    (Nat.div_lt_iff_lt_mul (by norm_num : 0 < (2 : ℕ))).mp hq
+  have hmul : 2 * q ≤ c * q :=
+    Nat.mul_le_mul_right q hc
+  nlinarith
+
+/-- Between sqrt(X) and X/2, the FULL integer carrier has the
+genuine even composite 2*q. Its least-prime owner is 2; q is
+its post-root (greatest) prime factor, not its least-prime owner. -/
+theorem vfMid915_middleFull_2q_exists
+    {B q : ℕ} (hroot : B < q) (hhalf : q ≤ B ^ 2 / 2) :
+    B < q ∧ 2 * q ≤ B ^ 2 := by
+  have hdouble : q * 2 ≤ B ^ 2 :=
+    (Nat.le_div_iff_mul_le (by norm_num : 0 < (2 : ℕ))).mp hhalf
+  exact ⟨hroot, by simpa [Nat.mul_comm] using hdouble⟩
+
+/-- Above X/3 but below X/2, the ONLY proper integer multiple <=X
+is 2*q. In the native odd-seat carrier this entire middle slice
+has NO proper odd child; the even 2*q was removed by owner 2. -/
+theorem vfMid915_aboveThird_onlyDoubleMultiple
+    {B c q : ℕ} (hc : 2 ≤ c)
+    (hq : B ^ 2 / 3 < q) (hsite : c * q ≤ B ^ 2) :
+    c = 2 := by
+  by_contra hneq
+  have hc3 : 3 ≤ c := by omega
+  have hlarge := vfMid915_topThird_noOddDescendant hc3 hq
+  omega
+
+/-- Exact endpoint mismatch split at the genuine full-integer cutoff
+X/2, with the earlier historical anchor retained. -/
+theorem vfMid915_halfRun_floorLiMismatch_eq_upperHalf_add_lower
+    (A B : ℕ) (hA : A ^ 2 ≤ B ^ 2 / 2) :
+    vfMidPrimeFloorLiIntegerBacklog (B ^ 2) -
+      vfMidPrimeFloorLiIntegerBacklog (A ^ 2) =
+    vfMidFloorLiSignedMismatchMass (B ^ 2 / 2) (B ^ 2) +
+      vfMidFloorLiSignedMismatchMass (A ^ 2) (B ^ 2 / 2) := by
+  have htop : B ^ 2 / 2 ≤ B ^ 2 := by omega
+  rw [vfMidFloorLiSignedMismatchMass_eq_backlog_increment htop,
+    vfMidFloorLiSignedMismatchMass_eq_backlog_increment hA]
+  ring
+
+/-- Refine the full-integer middle bucket at X/3 solely to
+expose its owner-2-only sector. This is a decomposition, NOT
+a smallness statement about its prime-minus-floor-Li error. -/
+theorem vfMid915_halfRun_floorLiMismatch_eq_threeUpperStrata
+    (A B : ℕ) (hA : A ^ 2 ≤ B ^ 2 / 3) :
+    vfMidPrimeFloorLiIntegerBacklog (B ^ 2) -
+      vfMidPrimeFloorLiIntegerBacklog (A ^ 2) =
+    vfMidFloorLiSignedMismatchMass (B ^ 2 / 2) (B ^ 2) +
+      vfMidFloorLiSignedMismatchMass (B ^ 2 / 3) (B ^ 2 / 2) +
+      vfMidFloorLiSignedMismatchMass (A ^ 2) (B ^ 2 / 3) := by
+  have h32 : B ^ 2 / 3 ≤ B ^ 2 / 2 := by omega
+  have h2 : B ^ 2 / 2 ≤ B ^ 2 := by omega
+  rw [vfMidFloorLiSignedMismatchMass_eq_backlog_increment h2,
+    vfMidFloorLiSignedMismatchMass_eq_backlog_increment h32,
+    vfMidFloorLiSignedMismatchMass_eq_backlog_increment hA]
+  ring
+
 /-- Terminal top-third odd descendants do not exist, but every integer
 terminal site is STILL decided by the genuine ascending low-prime wheel.
 This is a prime FACTORIZATION theorem, not a floor-Li approximation. -/
@@ -68,7 +133,11 @@ theorem vfMid915_boundedWindow_lowWheel_iff_prime
   · intro hsurv
     by_contra hcomp
     have hqpos : 0 < q := by omega
-    have hqone : q ≠ 1 := by omega
+    have hqone : q ≠ 1 := by
+      intro hqone
+      have hBzero : B = 0 := by omega
+      subst B
+      simp [hqone] at hqB
     let p := q.minFac
     have hpprime : p.Prime := by
       simpa [p] using Nat.minFac_prime hqone
