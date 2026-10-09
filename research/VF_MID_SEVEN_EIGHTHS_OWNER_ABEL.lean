@@ -57,6 +57,78 @@ theorem vfSevenEighthsWeightVariation_telescope
       rw [Finset.sum_Ico_succ_top hab, ih]
       ring
 
+/-! ## Non-accumulation of a signed analytic error inside ONE owner column
+
+For any bounded cumulative source error and any monotone
+nonnegative original-style weights, the Abel identity shows
+that the signed weighted error is <= 2*w(a)*M, independent of
+the number of prime candidate sites in the column.
+
+The bound is deliberately on ONE p-column only. Summing it
+over p remains an absolute estimate and does NOT establish
+the full cross-p Sector Six covariance.
+-/
+
+theorem vfSevenEighthsWeightedIncrement_abs_le_twice_initial
+    (E w : ℕ → ℝ) (a b : ℕ) (M : ℝ)
+    (hab : a ≤ b)
+    (hE : ∀ r, a ≤ r → r ≤ b → |E r| ≤ M)
+    (hw : ∀ r, a ≤ r → r ≤ b → 0 ≤ w r)
+    (hdec : ∀ r, a ≤ r → r < b → w (r + 1) ≤ w r) :
+    |∑ r ∈ Finset.Ico a b,
+        w (r + 1) * (E (r + 1) - E r)| ≤
+      2 * w a * M := by
+  have hwa : 0 ≤ w a := hw a le_rfl hab
+  have hwb : 0 ≤ w b := hw b hab le_rfl
+  have hM : 0 ≤ M := by
+    have ha := hE a le_rfl hab
+    linarith [abs_nonneg (E a)]
+  have hcoef : ∀ r ∈ Finset.Ico a b, 0 ≤ w r - w (r + 1) := by
+    intro r hr
+    have hrange := Finset.mem_Ico.mp hr
+    exact sub_nonneg.mpr (hdec r hrange.1 hrange.2)
+  have hsumBound :
+      (∑ r ∈ Finset.Ico a b,
+        |(w r - w (r + 1)) * E r|) ≤
+        (w a - w b) * M := by
+    calc
+      (∑ r ∈ Finset.Ico a b,
+          |(w r - w (r + 1)) * E r|) ≤
+          ∑ r ∈ Finset.Ico a b, (w r - w (r + 1)) * M := by
+            apply Finset.sum_le_sum
+            intro r hr
+            rw [abs_mul, abs_of_nonneg (hcoef r hr)]
+            have hrange := Finset.mem_Ico.mp hr
+            exact mul_le_mul_of_nonneg_left
+              (hE r hrange.1 hrange.2.le) (hcoef r hr)
+      _ = (∑ r ∈ Finset.Ico a b,
+            (w r - w (r + 1))) * M := by rw [Finset.sum_mul]
+      _ = (w a - w b) * M := by
+        rw [vfSevenEighthsWeightVariation_telescope w a b hab]
+  rw [vfSevenEighthsWeightedIncrementAbel E w a b hab]
+  calc
+    |w b * E b - w a * E a +
+        ∑ r ∈ Finset.Ico a b, (w r - w (r + 1)) * E r| ≤
+        |w b * E b - w a * E a| +
+        |∑ r ∈ Finset.Ico a b,
+          (w r - w (r + 1)) * E r| := abs_add_le _ _
+    _ ≤ (|w b * E b| + |w a * E a|) +
+        ∑ r ∈ Finset.Ico a b,
+          |(w r - w (r + 1)) * E r| := by
+          apply add_le_add
+          · simpa only [sub_zero, zero_sub, abs_neg] using
+              (abs_sub_le (w b * E b) 0 (w a * E a))
+          · exact Finset.abs_sum_le_sum_abs _ _
+    _ ≤ (w b * M + w a * M) + (w a - w b) * M := by
+          apply add_le_add
+          · apply add_le_add
+            · rw [abs_mul, abs_of_nonneg hwb]
+              exact mul_le_mul_of_nonneg_left (hE b hab le_rfl) hwb
+            · rw [abs_mul, abs_of_nonneg hwa]
+              exact mul_le_mul_of_nonneg_left (hE a le_rfl hab) hwa
+          · exact hsumBound
+    _ = 2 * w a * M := by ring
+
 /-- The exact ROOT-WEIGHT of one genuine high-owner semiprime site
 n=p*q, where p and q are distinct primes, p<q. It is the
 original physical odd candidate's w_R; NO extra physical sites
