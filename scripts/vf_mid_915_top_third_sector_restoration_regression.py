@@ -6,7 +6,7 @@ The floor-Li smooth reference is a FORMAL complement, not a new sieve set.
 No asymptotic or unconditional first-bad estimate is claimed.
 """
 import math
-from vf_mid_915_floor_li_transport_regression import prime_sieve, li_floor
+from vf_mid_915_floor_li_transport_regression import prime_sieve, li_floor, midpoint_vf
 
 EXPECTED = {
     317: (-26, -24, -41, 6897, 6912, 23240, 23680),
@@ -94,6 +94,35 @@ def check(R):
     assert Ptop-Ftop==EB-ET
     # Every integer q > floor(X/3) has no odd cofactor c >= 3 in n <= X.
     assert 3*(T+1)>X
+    # FULL parity-refined CURRENT clock: split each genuine odd physical
+    # w-prime charge into (w/2-prime) and (w/2 at its even mate).
+    # The L1 premium must be charged before using ANY even mate as heat.
+    w = (2*R+1)/(R*math.log(R*R+R+0.5))
+    first = R*R+1
+    if first % 2 == 0:
+        first += 1
+    odds = range(first,(R+1)**2,2)
+    P_R = count[(R+1)**2]-count[R*R]
+    original_signed = sum(w-int(bool(pflag[n])) for n in odds)
+    refined_signed = sum(w/2-int(bool(pflag[n]))+w/2 for n in odds)
+    original_abs = sum(abs(w-int(bool(pflag[n]))) for n in odds)
+    refined_abs = sum(abs(w/2-int(bool(pflag[n])))+abs(w/2) for n in odds)
+    assert abs(original_signed-refined_signed)<1e-9
+    assert abs(original_signed-(R*w-P_R))<1e-9
+    premium=w*P_R
+    assert abs(refined_abs-original_abs-premium)<1e-9
+    D_R=count[R*R]-midpoint_vf(R)
+    M_original=abs(D_R)+original_abs
+    M_refined=abs(D_R)+refined_abs
+    price=2*M_original*premium+premium*premium
+    assert abs((M_refined*M_refined-M_original*M_original)-price)<1e-7
+    assert all(2*q<=X and 2*q%2==0 for q in owner2_only_primes)
+    print('PARITY_PRICE R=%d P_R=%d w=%.9f '
+          'originalAbs=%.9f refinedAbs=%.9f L1Premium=%.9f '
+          'originalM=%.9f squaredCost=%.9f '
+          'even2qOriginalVFPayment=0.000000 PASS' %
+          (R,P_R,w,original_abs,refined_abs,premium,
+           M_original,price))
     print('R=%d A=%d B=%d E(A^2)=%d E(X/3)=%d E(X/2)=%d E(X)=%d '
           'lowerCompositeEligibleMismatch=%+d owner2OnlyMismatch=%+d '
           'noDescendantMismatch=%+d '
