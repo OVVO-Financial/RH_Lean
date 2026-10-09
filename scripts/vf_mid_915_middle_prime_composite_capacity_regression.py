@@ -24,7 +24,11 @@ def main():
     pi=lambda n:bisect.bisect_right(primes,n)
     tight=[]
     max_share=(-1,None)
+    signed_min=(float('inf'),None)
     near=[]
+    def w(r):
+        return (2*r+1)/(r*math.log(r*r+r+0.5))
+    all_weight={r:w(r) for r in range(2,limit+1)}
     for r in range(4,limit+1):
         curr=pi((r+1)**2)-pi(r*r)
         low=r*r//2
@@ -34,6 +38,16 @@ def main():
         assert low+1 > r
         composite_donors=r-curr
         assert mid<=composite_donors
+        historical_q=primes[bisect.bisect_right(primes,low):bisect.bisect_right(primes,low+r)]
+        # Real signed NEGATIVE historical parent charge, evaluated at
+        # the actual native sqrt(q) square band, not its later even child.
+        historical_negative=sum(1-all_weight[math.isqrt(q)] for q in historical_q)
+        current_positive=w(r)*composite_donors
+        signed_margin=current_positive-historical_negative
+        if r>=8:
+            assert signed_margin > 0, (r, signed_margin)
+        if signed_margin < signed_min[0]:
+            signed_min=(signed_margin,r)
         if r>=62:
             Ucurr=8*((2*r)//30+1)
             Umid=2*(r//6+1)
@@ -49,10 +63,14 @@ def main():
             mids=[q for q in primes[bisect.bisect_right(primes,low):bisect.bisect_right(primes,low+r)]]
             assert all(r*r<2*q<(r+1)**2 and a*a<=q<r*r for q in mids)
             assert len(mids)==mid
+            assert mids==historical_q
             print('REAL_OWNER R=%d currentPrimes=%d even2qPrimeParents=%d '
                   'trueOddCompositeDonors=%d surplus=%d halfRunAnchor=%d '
+                  'nativePositiveVF=%.9f genuineHistoricalNegativeVF=%.9f '
+                  'signedHistoricalCurrentMargin=%.9f '
                   'kernelEnvelope30=%d kernelEnvelope6=%d PASS' %
                   (r,curr,mid,composite_donors,composite_donors-mid,a,
+                   current_positive,historical_negative,signed_margin,
                    8*((2*r)//30+1),2*(r//6+1)))
         share=mid / max(1,composite_donors)
         if share>max_share[0]:
@@ -62,6 +80,10 @@ def main():
     print('PASS actual prime 2q parent count <= original positive odd composite '
           'seat count ALL 4<=R<=%d; 30/6 wheel bound all R>=62.'%limit)
     print('finite exceptions not covered by coarse wheels 4..61: VERIFIED')
+    print('NUMERICAL ONLY signed physical charge margin positive at every '
+          '8<=R<=%d; minimum (signed margin,R)=%s. '
+          'This is NOT the missing all-R arithmetic theorem or hbalance.'
+          %(limit,signed_min))
     print('tight R:',tight[:25],'; max occupied donor fraction:',max_share,
           '; near finite:',near[:25])
 
