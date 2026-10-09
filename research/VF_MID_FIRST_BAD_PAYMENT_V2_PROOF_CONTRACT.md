@@ -559,6 +559,84 @@ No synthetic-prime owner or changed NNS normalization was used.
 ---
 
 
+### ORIGINAL first-bad half-run (the decisive completed-block stress)
+
+For R=5266, the production first-bad history uses
+A=floor(R/2)+1=2634, B=R+1=5267.
+This is a run of **2633 fully completed square blocks**,
+not the earlier artificial 150-block drought window.
+
+The integer span is 20,803,333, strictly SMALLER than each
+of the tested sieve periods Q_23=223,092,870 and
+Q_29=6,469,693,230. So NO selected-prime CRT period fits.
+
+| Exact original half-run | y=23 | y=29 |
+|---|---:|---:|
+| Divisor faces | 512 | 1,024 |
+| Full CRT periods | 0 | 0 |
+| True open-wheel survivors | 3,402,752 | 3,285,420 |
+| Actual primes | 1,253,703 | 1,253,703 |
+| Actual high-owner open composites | 2,149,049 | 2,031,717 |
+| Signed OPEN incomplete-wheel boundary phase | +3.024867 | +7.196423 |
+| Sum ABSOLUTE open-block phase errors | 5,989.912552 | 6,917.523167 |
+| Cancellative saving | **1,980.22x** | **961.24x** |
+
+The actual prime-minus-VF drift over the very same historical
+half-run is -132.642152. No synthetic prime counts or
+invented original NNS even sites are present in these figures.
+
+### Keep the genuine VF fractional weights: exact Abel continuation
+
+Put \(\Gamma_y(r)=E_y(r^2)-E_y(r)\). The OPEN per-block
+phase is exactly \(\Gamma_y(r+1)-\Gamma_y(r)\).
+For the ORIGINAL per-odd-seat VF reference weight
+\(w_r=V_r/r\), finite summation by parts gives
+
+\[
+\boxed{
+\sum_{r=A}^{B-1} w_r(\Gamma_y(r+1)-\Gamma_y(r))
+=w_{B-1}\Gamma_y(B)-w_A\Gamma_y(A)
++\sum_{r=A+1}^{B-1}(w_{r-1}-w_r)\Gamma_y(r).
+} \tag{AD8}
+\]
+
+The weights are positive and decreasing, since
+\(w_r=(2+1/r)/\log m_r\). The repository already proves
+the decrease of the reciprocal-log constituent in
+VF_MID_DIRECT_DISCREPANCY_ABEL.lean. Thus, if
+\(|\Gamma_y(r)|\le 2|D_y|\) on the run, then the
+weighted phase obeys the uniform simple envelope
+\(4|D_y|w_A\), irrespective of the number of complete
+blocks (the total variation telescopes).
+
+At A=2634,B=5267,y=23 the actual weighted phase is
+**+0.352626**, whereas summing the magnitudes of the
+individual weighted phases gives **724.733900**:
+**2,055.25x signed saving with the ORIGINAL fractional weights**.
+The crude finite face/Abel bound is 260.065016, still
+independent of the 2633 completed square blocks and
+vast Q_y. For y=29, weighted phase is +0.858811
+versus unsigned 837.192292 (974.83x saving).
+
+The discrete Abel identity (AD8) is a mathematical
+consequence of the previously proven endpoint telescope;
+the numeric script verifies it directly to floating tolerance.
+No new Lean-specific weighted specialization is yet claimed
+kernel-compiled. The original Sector Six remains QUADRATIC,
+so the high-owner cross products and historical anchor cannot
+be discarded merely because the finite-wheel LINEAR phase
+has cancelled.
+
+**This is the concrete benefit sought from complete square
+blocks inside an incomplete wheel:** we can use exact
+boundary telescopes AND retain the original VF weights
+without paying one error per square block. The remaining
+nontrivial term is the occurrence-preserving, historically
+oriented HIGH-OWNER composite phase, not incomplete-CRT
+geometry itself.
+
+---
+
 ## 1. One objective, no substitute theorems
 
 For each square block $(R^2,(R+1)^2)$, set
