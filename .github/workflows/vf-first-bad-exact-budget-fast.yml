@@ -21,6 +21,7 @@ on:
       - research/VF_MID_915_FLOOR_LI_TRANSPORT_BOUNDARY.lean
       - research/VF_MID_915_PRIME_INTERVAL_LI_STRATIFICATION.lean
       - scripts/vf_mid_915_prime_interval_li_regression.py
+      - scripts/vf_mid_915_historical_cofactor_abel_regression.py
       - scripts/vf_mid_915_floor_li_transport_regression.py
       - scripts/vf_mid_915_centered_owner_triangular_regression.py
       - scripts/vf_mid_915_late_prefix_weighted_regression.py
@@ -50,6 +51,7 @@ jobs:
           python3 scripts/vf_mid_915_centered_owner_triangular_regression.py
           python3 scripts/vf_mid_915_floor_li_transport_regression.py
           python3 scripts/vf_mid_915_prime_interval_li_regression.py
+          python3 scripts/vf_mid_915_historical_cofactor_abel_regression.py
 
       - name: Restore Lake packages
         uses: actions/cache/restore@v5
