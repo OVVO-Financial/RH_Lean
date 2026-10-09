@@ -106,6 +106,127 @@ def seat_first_moments(r, P, w, lag, target):
                 Co=co,Div=div,raw_cross=co-div,
                 nns_norm=(co-div)/(co+div),div_share=div/(co+div))
 
+def state_transition_probe(r, P, V, pi, D, e, delta, g_error, h_error, outdir):
+    """Actual-prime state transitions and true live VF midpoint half-blocks.
+
+    This diagnostic is NOT a stochastic Markov premise and no first-bad
+    state is observed. It retains the ORIGINAL odd-seat VF mass V/R.
+    """
+    r=np.asarray(r,dtype=np.int64)
+    P=np.asarray(P,dtype=np.int64)
+    V=np.asarray(V,dtype=float)
+    D=np.asarray(D,dtype=float)
+    e=np.asarray(e,dtype=float)
+    delta=np.asarray(delta,dtype=float)
+    w=V/r
+    z=e/np.sqrt(r*w*(1-w))
+    assert np.all(np.diff(r)==1)
+    def trans(a,b,n,src,dst=None):
+        if dst is None: dst=src
+        counts=np.zeros((n,len(dst)),dtype=np.int64)
+        np.add.at(counts,(a,b),1)
+        rows=counts.sum(axis=1,keepdims=True)
+        probs=np.divide(counts,rows,out=np.zeros_like(counts,dtype=float),where=rows!=0)
+        return dict(from_states=src,to_states=dst,counts=counts.tolist(),
+                    row_probabilities=probs.tolist(),n=int(counts.sum()))
+    over=(e>=0).astype(np.int64)
+    ternary=['negative','zero','positive']
+    gf=(np.sign(g_error).astype(int)+1)
+    hf=(np.sign(h_error).astype(int)+1)
+    transitions=dict(
+      VF_over_under=trans(over[:-1],over[1:],2,['below_VF','above_VF']),
+      standardized_VF_3=trans(np.where(z[:-1]<-1,0,np.where(z[:-1]>1,2,1)),
+                             np.where(z[1:]<-1,0,np.where(z[1:]>1,2,1)),
+                             3,['z<-1','abs(z)<=1','z>1']),
+      floorLi_3=trans((np.sign(delta[:-1])+1).astype(int),
+                      (np.sign(delta[1:])+1).astype(int),3,['P<F','P=F','P>F']),
+      large_prime_odd_composite_3=trans(gf[:-1],gf[1:],3,ternary),
+      smooth_odd_composite_3=trans(hf[:-1],hf[1:],3,ternary),
+      VF_and_large_owner_to_next_VF=trans(3*over[:-1]+gf[:-1],over[1:],6,
+                    ['under/G-','under/G0','under/G+','over/G-','over/G0','over/G+'],
+                    ['below_VF','above_VF']),
+    )
+    pp=transitions['VF_over_under']['row_probabilities']
+    transitions['VF_over_under']['conditional_eigen_if_markov']=pp[0][0]-pp[1][0]
+    occ=np.abs(D)/(2*r*np.log(r))
+    sign=np.where(D[:-1]>=0,1.,-1.)
+    outward=sign*e[1:]
+    o=occ[:-1]
+    q10,q25,q75,q90=np.quantile(o,[.1,.25,.75,.9])
+    groups=[
+       ('all',np.ones(len(o),dtype=bool)),
+       ('bottom_decile',o<=q10),('top_decile',o>=q90),
+       ('middle_half',(o>=q25)&(o<=q75)),
+       ('negative_anchor',D[:-1]<0),('positive_anchor',D[:-1]>0),
+       ('current_under',over[:-1]==0),('current_over',over[:-1]==1)]
+    for lo,hi in ((8,1000),(1001,3000),(3001,6000)):
+        mask=(r[:-1]>=lo)&(r[:-1]<=hi)
+        if mask.sum()<20: continue
+        threshold=np.quantile(o[mask],.8)
+        groups += [(f'{lo}-{hi}_top_quintile',mask&(o>=threshold)),
+                   (f'{lo}-{hi}_remaining',mask&(o<threshold))]
+    conditioned=[]
+    for name,mask in groups:
+        if not np.any(mask):continue
+        v=outward[mask]
+        conditioned.append(dict(state=name,n=int(mask.sum()),
+             p_inward=float(np.mean(v<0)),p_outward=float(np.mean(v>0)),
+             mean_next_outward=float(np.mean(v)),
+             median_radial_occupancy=float(np.median(o[mask])),
+             max_radial_occupancy=float(np.max(o[mask]))))
+    # The native VF live-band midpoint is R^2+R+1/2; the last INTEGER
+    # before it is R^2+R. Use VF_mid(R^2+R)-VF_mid(R^2)
+    # = R/log(R^2+R/2). This differs slightly from floor(R/2)*w.
+    x0=r*r
+    xm=x0+r
+    x1=(r+1)*(r+1)
+    Pfirst=pi[xm]-pi[x0]
+    Psecond=pi[x1]-pi[xm]
+    assert np.array_equal(Pfirst+Psecond,P)
+    Vfirst=r/np.log(r.astype(float)**2+r/2.)
+    ef=Pfirst-Vfirst
+    es=Psecond-(V-Vfirst)
+    assert np.allclose(ef+es,e,atol=1e-9)
+    mid=dict(
+      first_to_second=co_div_moment(ef,es),
+      second_to_next_first=co_div_moment(es[:-1],ef[1:]),
+      first_to_next_first=co_div_moment(ef[:-1],ef[1:]),
+      sign_matrix=trans((ef>=0).astype(int),(es>=0).astype(int),2,
+                        ['first_below_VF','first_above_VF'],
+                        ['second_below_VF','second_above_VF']),
+      maximum_live_midpoint_vs_oddseat_midpoint=float(np.max(np.abs(Vfirst-(r//2)*w))),
+    )
+    cuts=np.r_[0,np.flatnonzero(np.diff(over)!=0)+1,len(over)]
+    runlen=np.diff(cuts)
+    runs=dict(longest_over=int(max(runlen[over[cuts[:-1]]==1])),
+              longest_under=int(max(runlen[over[cuts[:-1]]==0])),
+              mean_length=float(np.mean(runlen)))
+    with (outdir/'state_dependent_restoration.csv').open('w',newline='') as fh:
+        writer=csv.DictWriter(fh,fieldnames=list(conditioned[0]))
+        writer.writeheader();writer.writerows(conditioned)
+    with (outdir/'midpoint_halves.csv').open('w',newline='') as fh:
+        writer=csv.writer(fh)
+        writer.writerow(['R','P','first_P','second_P','VF_mass',
+                         'VF_mid_integer_mass','first_error','second_error',
+                         'D_R','wall_occupancy'])
+        for j in range(len(r)):
+            writer.writerow([int(r[j]),int(P[j]),int(Pfirst[j]),int(Psecond[j]),
+                    float(V[j]),float(Vfirst[j]),float(ef[j]),float(es[j]),
+                    float(D[j]),float(occ[j])])
+    result=dict(transitions=transitions,conditioned=conditioned,midpoint=mid,
+      run_lengths=runs,maximum_wall_occupancy=dict(
+        value=float(np.max(occ)),R=int(r[np.argmax(occ)])),
+      observed_positive_historical_defect=bool(np.any(D>0)),
+      interpretation='finite actual primes; no near first-bad states; no Markov assumption')
+    with (outdir/'state_transition_summary.json').open('w') as fh:
+        json.dump(result,fh,indent=2)
+    print('STATE_VF_COUNT_MATRIX',transitions['VF_over_under']['counts'],flush=True)
+    print('STATE_FLOORLI_3_MATRIX',transitions['floorLi_3']['counts'],flush=True)
+    print('LIVE_MIDPOINT_MATRIX',mid['sign_matrix']['counts'],flush=True)
+    print('STATE_HIGH_OCCUPANCY',next(z for z in conditioned if z['state']=='top_decile'),flush=True)
+    return result
+
+
 def full_analysis(max_r=6000, outdir='/mnt/data/vf918_crossblock'):
     tt=time.perf_counter()
     outdir=Path(outdir);outdir.mkdir(parents=True,exist_ok=True)
@@ -268,6 +389,7 @@ def full_analysis(max_r=6000, outdir='/mnt/data/vf918_crossblock'):
         # Historical r in [A,R): sum charge = -(D_R-D_A); current charge = -ep.
         corrF=(d_now-d_anchor)*ep
         assert math.isclose(corrF,(- (d_now-d_anchor))*(-ep),rel_tol=1e-10)
+    state_probe=state_transition_probe(r,Pr,V,pi,D,e,delta,gd,hd,outdir)
     # Print and save.
     with (outdir/'moments.csv').open('w',newline='') as ff:
         dw=csv.DictWriter(ff,fieldnames=list(corrs[0]));dw.writeheader();dw.writerows(corrs)
@@ -281,6 +403,7 @@ def full_analysis(max_r=6000, outdir='/mnt/data/vf918_crossblock'):
                  samples={str(k):dict(P=int(Pr[k-8]),FloorP=int(Fr[k-8]),dP=int(delta[k-8]),g=int(G[k-8]),floor_g=int(GLi[k-8]),dg=int(gd[k-8]),h=int(H[k-8]),dh=int(hd[k-8]),correl_window_error_plus=int(plus[k-8]),correl_window_error_minus=int(minus[k-8]),half_error=int(deltaH[k-8]),wall_growth=float(wall[k-8])) for k in (119,317,1027,1760,5267,6000) if k<=max_r},
                  lag1_moments_0={k:co_div_moment(x[:-1],x[1:]) for k,x in signals.items()},
                  cross_matrix=matrices,negative_feedback=dyn,historical=hist,
+                 state_dependent_transitions=state_probe,
                  max_NNS_oneblock=(float(np.max(Dnext**2/M0**2)),int(r[np.argmax(Dnext**2/M0**2)])),
                  seat_first_moments=seat_first,
                  empirical_fixed_slices={},
