@@ -46,6 +46,44 @@ Run the new
 `scripts/vf_mid_915_middle_prime_composite_capacity_regression.py --extended`
 for every R=4..6000, and real site scans at selected R.
 
+## Stronger genuine *signed* historical/current payment diagnostic
+
+One current positive odd-composite site carries +w_R. Each ACTUAL
+historical prime q has its original negative prime-seat charge
+-(1-w_{floor(sqrt(q))}), at its TRUE native square-root band. These
+weights differ by scale, and q itself is contained in the compressed
+historical D_R. The genuinely signed first-order packet to control is
+
+    S_R = w_R*(R-P_R)
+          - sum_{R^2/2<q<=R^2/2+R, q prime}
+              (1-w_{floor(sqrt(q))}).
+
+This is NOT the scalar residual of the complete D_R NNS source:
+it compares a selected TRUE historical negative packet against the
+entire TRUE positive current odd-composite packet. Neither any q nor
+any composite is invented. It gives no permission to expand D_R's
+historical absolute mass.
+
+The new regression checks **every actual R=8..6000** and finds S_R>0
+(with minimum about +0.9433 at R=21):
+
+| R | H_R actual q parents | Historical negative charge | Original current positive charge | S_R |
+|---:|---:|---:|---:|---:|
+| 8 | 1 | 0.4221 | 1.9843 | +1.5622 |
+| 317 | 29 | 23.6314 | 45.7279 | +22.0965 |
+| 1027 | 73 | 61.9120 | 127.3893 | +65.4773 |
+| 5266 | 327 | 287.2260 | 535.8118 | +248.5858 |
+| 6000 | 356 | 313.3757 | 609.5042 | +296.1286 |
+
+**This signed estimate is NOT kernel proved for all R.**
+Indeed H_R<=C_R is insufficient to establish it: each negative
+historical prime carries roughly ONE unit while a positive current
+composite carries only about 1/log R. The fixed 6-wheel bound on H_R
+is O(R), whereas the positive charge w_R*C_R is O(R/log R).
+A much stronger **actual-prime distribution / owner-correlation**
+bound is needed for this weighted inequality, and still more for
+the full historical NNS quadratic. A finite sample cannot replace it.
+
 **Critical limitation:** This is *first-order real physical positive source
 capacity*, not the unresolved second-order first-bad NNS comparison.
 The historical negative prime q lives inside the compressed D_R scalar,
