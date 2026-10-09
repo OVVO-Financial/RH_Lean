@@ -226,6 +226,69 @@ def vfV2ActualSixSectorSignedMass (R : ℕ) : ℝ :=
               (R + 1) p sig r,
             vfMidActiveReturnedRawParentFiberMass R p sig r parent)
 
+/-! ## First-bad sign audit, using the ORIGINAL native prime definitions
+
+This is intentionally the OPPOSITE strict sign to the still-open arithmetic
+payment. A contradiction proof must derive the nonpositive budget independently
+from actual prime-factor arithmetic. No sign of a physical pair is flipped.
+-/
+
+/-- The already-proved first-bad radial bound forces the actual physical
+Co/Div excess 2 D_(R+1)^2 - M_R^2 to be STRICTLY POSITIVE. -/
+theorem vfV2ActualFirstBad_originalExcess_pos
+    {R : ℕ} (hR : 8 ≤ R)
+    (hfirst : VFMidActualPrimeFirstBadAt (2 : ℝ) (R + 1)) :
+    0 < vfMidFirstBadAnchoredCoDivExcess R := by
+  have hhalf :=
+    vfMidActualPrimeFirstBadAt_two_succ_half_totalMass_le_radial hR hfirst
+  have hbreach := hfirst.1
+  unfold VFMidSyntheticBadAt at hbreach
+  have hwall0 :
+      0 ≤ (2 : ℝ) * vfMidSyntheticRadialScale (R + 1) :=
+    mul_nonneg (by norm_num)
+      (le_of_lt (vfMidSyntheticRadialScale_pos
+        (by omega : 2 ≤ R + 1)))
+  have habsPos : 0 < |vfMidActualPrimeEndpointDefect (R + 1)| :=
+    lt_of_le_of_lt hwall0 hbreach
+  have hsumPos :
+      0 < |vfMidActualPrimeEndpointDefect (R + 1)| +
+          (2 : ℝ) * vfMidSyntheticRadialScale (R + 1) :=
+    add_pos_of_pos_of_nonneg habsPos hwall0
+  have hprodPos :
+      0 <
+        (|vfMidActualPrimeEndpointDefect (R + 1)| -
+          (2 : ℝ) * vfMidSyntheticRadialScale (R + 1)) *
+        (|vfMidActualPrimeEndpointDefect (R + 1)| +
+          (2 : ℝ) * vfMidSyntheticRadialScale (R + 1)) :=
+    mul_pos (sub_pos.mpr hbreach) hsumPos
+  have hbadSq :
+      ((2 : ℝ) * vfMidSyntheticRadialScale (R + 1)) ^ 2 <
+        vfMidActualPrimeEndpointDefect (R + 1) ^ 2 := by
+    rw [← sq_abs (vfMidActualPrimeEndpointDefect (R + 1))]
+    nlinarith
+  rw [vfMidFirstBadAnchoredCoDivExcess_eq_two_product_sub_total,
+      vfMidFirstBadNormalizedProduct_eq_nextEndpointDefect_sq
+        (by omega : 3 ≤ R)]
+  linarith
+
+/-- Native, occurrence-preserving six-sector SIGN: a hypothetical first bad
+forces the ORIGINAL signed upper budget to be strictly POSITIVE, because
+the compiled upper splice is >= the positive Co/Div excess.
+This has the exact same carrier and six-sector definition as the open rule. -/
+theorem vfV2ActualFirstBad_sixSectorBudget_pos
+    {R : ℕ} (hR : 8 ≤ R)
+    (hfirst : VFMidActualPrimeFirstBadAt (2 : ℝ) (R + 1)) :
+    0 < vfMidActiveGlobalResidualExcess R +
+      2 * vfV2ActualSixSectorSignedMass R := by
+  have hE := vfV2ActualFirstBad_originalExcess_pos hR hfirst
+  have hupper :=
+    vfMidFirstBadAnchoredCoDivExcess_le_activeResidual_add_two_sixBoundary
+      (by omega : 3 ≤ R)
+  change vfMidFirstBadAnchoredCoDivExcess R ≤
+    vfMidActiveGlobalResidualExcess R +
+      2 * vfV2ActualSixSectorSignedMass R at hupper
+  exact lt_of_lt_of_le hE hupper
+
 /-- SINGLE MISSING arithmetic admissibility rule:
 after the exact signed weighted reassembly, the original root/exclusion
 residual plus the six incomplete boundary sectors is NONPOSITIVE, specifically
