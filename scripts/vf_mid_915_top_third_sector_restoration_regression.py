@@ -111,6 +111,10 @@ def check(R):
     assert abs(original_signed-(R*w-P_R))<1e-9
     premium=w*P_R
     assert abs(refined_abs-original_abs-premium)<1e-9
+    local_pair_heat=sum(
+        (abs(w/2-int(bool(pflag[n])))+abs(w/2))**2 -
+        (w-int(bool(pflag[n])))**2 for n in odds)
+    assert abs(local_pair_heat-(2*w-w*w)*P_R)<1e-8
     D_R=count[R*R]-midpoint_vf(R)
     M_original=abs(D_R)+original_abs
     M_refined=abs(D_R)+refined_abs
@@ -120,9 +124,10 @@ def check(R):
     print('PARITY_PRICE R=%d P_R=%d w=%.9f '
           'originalAbs=%.9f refinedAbs=%.9f L1Premium=%.9f '
           'originalM=%.9f squaredCost=%.9f '
+          'localPrimePairHeat=%.9f squaredCostToLocalHeat=%.3f '
           'even2qOriginalVFPayment=0.000000 PASS' %
           (R,P_R,w,original_abs,refined_abs,premium,
-           M_original,price))
+           M_original,price,local_pair_heat,price/local_pair_heat))
     print('R=%d A=%d B=%d E(A^2)=%d E(X/3)=%d E(X/2)=%d E(X)=%d '
           'lowerCompositeEligibleMismatch=%+d owner2OnlyMismatch=%+d '
           'noDescendantMismatch=%+d '
