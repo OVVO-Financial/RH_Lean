@@ -19,6 +19,8 @@ on:
       - research/VF_MID_915_COMPRESSED_HISTORY_SINK.lean
       - research/VF_MID_915_FIXED17_ACTUAL_SIGNED_INLET.lean
       - research/VF_MID_915_FLOOR_LI_TRANSPORT_BOUNDARY.lean
+      - research/VF_MID_915_PRIME_INTERVAL_LI_STRATIFICATION.lean
+      - scripts/vf_mid_915_prime_interval_li_regression.py
       - scripts/vf_mid_915_floor_li_transport_regression.py
       - scripts/vf_mid_915_centered_owner_triangular_regression.py
       - scripts/vf_mid_915_late_prefix_weighted_regression.py
@@ -47,6 +49,7 @@ jobs:
           python3 scripts/vf_mid_915_late_prefix_weighted_regression.py
           python3 scripts/vf_mid_915_centered_owner_triangular_regression.py
           python3 scripts/vf_mid_915_floor_li_transport_regression.py
+          python3 scripts/vf_mid_915_prime_interval_li_regression.py
 
       - name: Restore Lake packages
         uses: actions/cache/restore@v5
@@ -159,6 +162,9 @@ jobs:
 
       - name: Compile exact #915 actual-owner to unmatched floor-Li boundary transfer
         run: lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_915_FLOOR_LI_TRANSPORT_BOUNDARY.olean research/VF_MID_915_FLOOR_LI_TRANSPORT_BOUNDARY.lean
+
+      - name: Compile arbitrary sqrt-cofactor prime-band floor-Li stratification
+        run: lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_915_PRIME_INTERVAL_LI_STRATIFICATION.olean research/VF_MID_915_PRIME_INTERVAL_LI_STRATIFICATION.lean
 
       - name: Compile #915 only against cached dependencies
         run: |
