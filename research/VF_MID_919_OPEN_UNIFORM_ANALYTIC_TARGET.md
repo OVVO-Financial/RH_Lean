@@ -225,6 +225,21 @@ G\Big(\sum_j F_j\Big)
    independently spent as another historical negative
    prime charge. A sector-six first-bad payment is
    not obtained merely by bounding C^{(2)}_{A,B}.
+
+   The existing independently developed PR #918 contains
+   precise named physical acceptance interfaces:
+   - vfV2AgeFourCohortFullGram (age-class cross products);
+   - vfV2SparseCoDivFullCrossTerms (signed native Co/Div);
+   - vfV2UniqueOwnerOnceCharge (no duplicated prime parent);
+   - vfV2SixBudget_eq_originalExcess_add_pairCorrection
+     (the original genuine Sector Six algebra).
+   These declarations live on PR #918's independent branch;
+   PR #919, based on main, does NOT import or claim to
+   reprove these native physical consumer theorems.
+
+   The desired weld must match the analytic centered
+   bilinear source to THESE original physical expressions,
+   not to a newly chosen proxy norm or per-column envelope.
 5. **The nontrivial estimate.** Demonstrate an actual
    first-bad signed contraction from these analytic
    bounds, rather than insert the desired sign as a
