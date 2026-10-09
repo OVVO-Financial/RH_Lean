@@ -150,6 +150,32 @@ def run(A, B, y):
         V=V)
 
 
+def test_historical_prime_101_is_periodic_hit_not_reusable_owner():
+    """A mature historical prime behaves like 2 in its PERIODIC HITS,
+    but only a minority are its unique LEAST-PRIME-OWNER composites.
+    Thus exact 2-scale floor cancellation is not an owner-by-owner
+    negative payment or a license to spend a parent charge repeatedly.
+    """
+    A,B,p=2634,5267,101
+    full_hits=(B*B//p-A*A//p)-(B//p-A//p)
+    factors=sieve_prefix(p-1)
+    smaller_primes=[q for q in range(2,p) if factors[q]]
+    unique=0
+    for k in range((A*A)//p+1,(B*B)//p+1):
+        n=p*k
+        if n>=B*B or n<=A*A: continue
+        if math.isqrt(n)**2==n: continue
+        if all(k%q for q in smaller_primes):
+            unique+=1
+    assert (full_hits,unique)==(205948,24882)
+    bulk=((B*B-A*A)-(B-A))/p
+    print("COMPLETED_SQUARE_HISTORICAL_PRIME_101 "
+          "A=%d B=%d p=%d full_factor_hits=%d "
+          "unique_least_owner_hits=%d overlap_reused_hits=%d "
+          "bulk_linear_density=%.9f signed_boundary_phase=%+.9f"%
+          (A,B,p,full_hits,unique,full_hits-unique,bulk,full_hits-bulk))
+
+
 def main():
     for A,B in CASES:
         for y in CUTOFFS:
@@ -219,6 +245,7 @@ def main():
               'weightedAbs={original_VF_weighted_abs:.6f} '
               'weightedSaving={original_VF_weighted_saving:.3f} '
               'weightedUpperBound={original_VF_abel_bound:.3f}'.format(**s))
+    test_historical_prime_101_is_periodic_hit_not_reusable_owner()
     print('PASS: BOTH square and root boundaries telescope on literal OPEN square sites; '
           'genuine high-owner correction retained exactly. NOT RH.')
 
