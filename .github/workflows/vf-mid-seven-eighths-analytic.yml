@@ -11,6 +11,7 @@ on:
       - research/VF_MID_919_OAI_FERMAT_TWIST_PROJECTION.lean
       - research/VF_MID_919_OAI_PHASE_ALIGNED_OWNER_COMPENSATION.lean
       - research/VF_MID_919_OAI_OWNER_TWO_SIGNED_BOUNDARY.lean
+      - research/VF_MID_919_OAI_OWNER_TWO_SIGNED_MERTENS_MOMENT.md
       - research/GLOBAL_RETURNED_CORE_COMPENSATED_FOUR_CORNER.lean
       - research/VF_MID_919_OAI_C_TO_R_CANCELLATION_WELD.md
       - RHLean/Geometry/FermatCoordinates.lean
@@ -20,6 +21,7 @@ on:
       - research/VF_MID_919_OPEN_UNIFORM_ANALYTIC_TARGET.md
       - scripts/vf_919_prime_owner_abel_spectral_probe.py
       - scripts/vf_919_original_weight_character_moment_probe.py
+      - scripts/vf_919_owner_two_signed_boundary_probe.py
       - research/VF_MID_919_OAI_STAGE_SAVINGS_AND_BOOTSTRAP.md
       - research/VF_MID_919_OAI_UPM_LPM_ASYMMETRIC_GAIN.md
       - research/VF_MID_SEVEN_EIGHTHS_ANALYTIC_STATUS.md
@@ -44,6 +46,8 @@ jobs:
         run: python3 -B scripts/vf_919_prime_owner_abel_spectral_probe.py
       - name: Compare original VF weights with flat-source character moments
         run: python3 -B scripts/vf_919_original_weight_character_moment_probe.py
+      - name: Verify full owner-two clipped/returned signed boundary and its Mertens dyadic transfer
+        run: python3 -B scripts/vf_919_owner_two_signed_boundary_probe.py 1600
   mathlib-only:
     name: Seven-eighths bridge kernel (Lean 4.24, no StrongPNT)
     runs-on: ubuntu-latest
