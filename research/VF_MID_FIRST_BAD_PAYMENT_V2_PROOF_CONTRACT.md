@@ -1908,6 +1908,114 @@ actual signed transport or six-sector inequality by the
 fact that the reference itself is well-behaved.
 
 
+## 4I. Joint historical wall occupancy / genuine parent age: exact Lean scope and finite results (Oct 9)
+
+The **production target is UNCHANGED**: under an ACTUAL prime first bad at
+R+1, prove the original weighted occurrence-preserving six-sector signed return
+
+\[
+\boxed{
+\mathrm{ActiveGlobalResidualExcess}(R)
++2\,\mathrm{SixOrientedIncompleteBoundaryMass}(R)\le 0.
+}
+\]
+
+Use the original odd-seat carrier, historical anchor D_R charged ONCE, full
+diagonal, mature/sparse/smooth terms, the cross-owner Gram and all incomplete
+first/next/returned left/right fibers.  Do **NOT** substitute an estimated
+conditional expectation or add a wall-near stochastic assumption.
+
+### Exact physical age classification and what it does NOT pay
+
+For each original odd composite n=cq in R^2<n<(R+1)^2 with genuine prime
+factor q>R (and odd c>=3), put b=floor(sqrt(q)) and age=(R-b)/R.
+Genuine high-q prime factors already existed below R^2.  Cohorts are:
+
+- bucket 0: age < 0.55;
+- bucket 1: age 0.55..0.70;
+- bucket 2: age 0.70..0.85;
+- bucket 3: age >= 0.85.
+
+All comparisons in Lean use integer inequalities on 20*b, 10*b and R.
+Age cohorts partition CURRENT physical composite sites: their total native
+weight equals the original high-q composite mass.  Each site is included
+only ONCE and a prior negative prime q is NOT credited once per later child.
+The complete squared source includes all SIX cross-age terms.  The
+four-cohort prime/high-q/smooth conservation identity still totals
+-P_R+F_R: it is **a census identity**, NOT independent restoring capacity.
+
+The Mathlib-only existing kernel file
+\`research/VF_MID_FIRST_BAD_PAYMENT_V2_KERNEL.lean\` now includes:
+
+- \`vfV2HighPrimeParentPrecedesCurrentSquare\`;
+- \`vfV2AgeCohortNativeMass_sum\`, \`..._disjoint\`;
+- \`vfV2AgeFourCohortFullGram\` and
+  \`vfV2FourAgeCohorts_do_not_create_restoringMass\`;
+- \`vfV2StrictPastRoots_lt_current\`, past-only score ranking;
+- \`vfV2BlockFlux_telescope\`,
+  \`vfV2DelayedFlux_eq_futureBlockSum\`,
+  \`vfV2CurrentPlusDelayedFlux\`,
+  \`vfV2DelayedMovingWallClearance\`;
+- \`vfV2JointDelayedFluxCell_sum\`, a finite full nine-cell
+  reassembly into the SAME actual signed flux;
+- \`vfV2NoUniversalDelayedInwardFlux\`, an explicit counterexample to
+  claiming an unconditional future inward drift for generic sequences.
+
+The existing actual-prime certificate now specializes the Mathlib kernel to
+the literal \`Nat.Prime\` physical parent filter, actual floor-Li backlog,
+strictly future block corrections, and the native VF radial wall.  The
+terminal consumer **requires the SAME original signed Sector Six inequality**
+as before.  New actual-prime bridge declarations are subject to slow native
+import-closure CI; their existence as source is not a claim of compilation.
+
+### Finite joint conditioning: observations, not universal laws
+
+Independent actual-prime census through roots R=8..31621 (31,614 blocks).
+Prospective panel R=1000..31493 uses trailing 1,000 roots only to define
+low/mid/high occupancy quantiles and Li-calibrated q-parent age exposure
+tertiles.  The *strictly delayed* response excludes block R:
+
+\[
+J^{\rm delayed}_{16}(R)
+=\mathrm{sgn}(D_R)\,[E_{R+17}-E_{R+1}],\quad
+E_R=\pi(R^2)-Q(R^2).
+\]
+
+Negative J means inward motion, not guaranteed defect sign reversal.
+Measured means, age exposure columns younger/middle/older:
+
+| Past-only relative wall occupancy | Younger | Middle | Older | All |
+|---|---:|---:|---:|---:|
+| Low | +22.07 | +19.81 | +18.06 | +19.98 |
+| Middle | +0.88 | -1.19 | -3.32 | -1.23 |
+| High | -18.02 | -14.00 | -20.09 | -17.31 |
+
+The high-low mean is -37.29; contiguous 250-root block bootstrap
+sensitivity interval approximately [-45.7,-29.3].  Oldest-youngest
+*within high* is only -2.07, bootstrap interval [-6.4,+2.0]
+(includes zero).  Mature least-prime owner p provides a NEGATIVE
+CONTROL: in high occupancy the apparent next-16 mean INCLUDING the
+current block is -33.21 (high maturity) vs -1.71 (low maturity),
+but EXCLUDING current it becomes -13.59 vs -20.75.  Therefore mature
+owners CANNOT be treated as newly spendable negative energy.
+
+**Severe extrapolation limitation:** historical "high occupancy" here
+averages only ~0.392% of the K=2 wall.  No near-wall first-bad case or
+positive-wall history was observed.  Finite conditional means do NOT
+establish a pointwise all-R signed return or a Markov contraction.
+
+The only permitted mathematical next step is to prove the existing original
+Sector Six signed source-to-boundary inequality directly from real
+owner incidences and once-charged history.  Do not create a new PR, rename
+the RH-strength gate, or replace its physical denominator by a cohort
+normalization.
+
+Full finite research archive and notes were generated in the associated
+ChatGPT analysis workspace; the true prime audit remains the only arithmetic
+input, not a Lean hypothesis.
+
+---
+
 ## 5. Testing: deliberately separate seconds from native compilation
 
 **Fast lane** (automatically on every PR update; no Lean/StrongPNT):
