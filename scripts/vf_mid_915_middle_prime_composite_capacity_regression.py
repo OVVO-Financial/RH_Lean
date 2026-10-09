@@ -46,7 +46,7 @@ def main():
         signed_margin=current_positive-historical_negative
         if r>=8:
             assert signed_margin > 0, (r, signed_margin)
-        if signed_margin < signed_min[0]:
+        if r>=8 and signed_margin < signed_min[0]:
             signed_min=(signed_margin,r)
         if r>=62:
             Ucurr=8*((2*r)//30+1)
