@@ -1003,7 +1003,7 @@ Negative values are inward. On the 5,992 consecutive transitions:
 
 In the **three fixed root bands** 8..1000, 1001..3000,
 3001..6000, the top wall-occupancy quintile has empirical
-next-inward probabilities **51.76%, 57.00%, 57.17%**.
+next-inward probabilities **51.76%, 56.75%, 57.17%**.
 This finite evidence hints at state-dependent restraint.
 
 **Critical limitations:** Every sampled $D_R$ is NEGATIVE,
