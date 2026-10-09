@@ -689,6 +689,53 @@ above is a plain arithmetic identity; its signed historical
 Co/Div bound remains open.
 
 
+### 0E.0b Crucial: the ENTIRE high-owner C_y residual is a lower-square projection
+
+For the actual finite 23- and 29-prime wheels in section 0D, the
+composite correction C_y^{open}(A,B) includes only genuine composites
+whose LEAST prime factor p is greater than the wheel cutoff y.
+Because y>=3, primality p>y forces p>=5. Therefore the same
+elementary subdoubling inequality is UNIFORM on the **whole**
+high-owner correction, not merely a sparse subset:
+
+\[
+\boxed{
+\forall n\in C_y^{open}(A,B),\qquad
+p=\operatorname{minFac}(n)>y\ge3,\quad
+c=n/p<A^2.} \tag{AP0b}
+\]
+
+Thus for A=2634,B=5267 the 2,149,049 actual
+high-owner composite sites on the y=23 wheel, and
+2,031,717 on the y=29 wheel, are all *images*
+of cofactor integers below A^2=6,937,956.
+The wheel already removed p=3: no within-half-run
+live-3 exception remains **inside C_y^{open}**.
+The original full odd physical carrier does retain the
+separate live p=3 channel, and its original Co/Div cross
+terms with C_y and prime seats MUST remain.
+
+This is a genuine ALL-SITE support reduction of the
+otherwise huge high-owner incomplete-wheel correction.
+It does **not** bound its signed total: many different
+high owners p can attach to one old cofactor c, and
+the unique least-owner constraint only prevents
+multiple counting of the SAME resulting n, not
+independent spending of a negative historical charge
+on c or a historical prime factor. Consequently the
+hard theorem is the *weighted, once-charged joint
+historical covariance* of this explicit lower-square
+projection with original D_A and the p=3 channel.
+
+New Mathlib-only production lemma:
+vfV2HalfRunHighOwnerAfterWheel_beforeAnchor.
+It complements the already compiled native cofactor
+Phi transform and the exact y-wheel Boolean-square
+telescope. Under a hypothetically first-bad run it
+identifies where prior-good child arguments live,
+but the prior-good scalar wall is not itself a
+bound on this bilinear arithmetic incidence.
+
 ### 0E.1 Every p>=5 odd owner exits BELOW the run anchor immediately
 
 Let A<=r<B<=2A and n=p*c an odd composite physical site of
