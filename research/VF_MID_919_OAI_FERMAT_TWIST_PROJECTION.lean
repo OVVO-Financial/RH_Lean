@@ -72,4 +72,29 @@ theorem vf919TwistedFermatProduct_neg_phase
       (-m) * fermatPoint c q = -(m * fermatPoint c q) := by ring
   rw [h, neg_sq]
 
+/-- The Hermitian analytic energy is NOT the physical signed
+real-squared channel alone. The missing nonnegative payment
+is exactly the square of the real-pair anti-diagonal, divided
+by two. This identity prevents using a scalar product
+projection as an upper bound on a complex large-sieve moment. -/
+theorem vf919ComplexNorm_sq_eq_signedProjection_add_antiDiagonal
+    (z : ℂ) :
+    ‖z‖ ^ 2 = (z ^ 2).re +
+      ((z.re - z.im) - (z.re + z.im)) ^ 2 / 2 := by
+  rw [Complex.sq_norm]
+  simp [Complex.normSq_apply, pow_two, Complex.mul_re]
+  ring
+
+/-- For a genuine physical (cofactor, prime) pair, the exact
+gap between the Hermitian energy and the C->R product
+projection is (q-c)^2/2. This gap can be LARGE in the
+high-prime/low-cofactor sector; it cannot be discarded. -/
+theorem vf919FermatNorm_sq_eq_product_add_gap
+    (c q : ℝ) :
+    ‖fermatPoint c q‖ ^ 2 =
+      c * q + (q - c) ^ 2 / 2 := by
+  rw [Complex.sq_norm]
+  simp [fermatPoint, fermatA, fermatB, Complex.normSq_apply]
+  ring
+
 end RHLean.Geometry
