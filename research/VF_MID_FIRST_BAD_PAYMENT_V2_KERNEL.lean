@@ -1087,7 +1087,9 @@ theorem vfV2CompletedSquareWheelBandPhase_le_two_boundary
         vfV2FixedWheelPrefixPhase F density (A ^ 2)| ≤
       |vfV2FixedWheelPrefixPhase F density (B ^ 2)| +
         |vfV2FixedWheelPrefixPhase F density (A ^ 2)| :=
-      abs_sub_le _ _
+      by
+        simpa only [sub_zero, zero_sub, abs_neg] using
+          (abs_sub_le vfV2FixedWheelPrefixPhase F density (B ^ 2) 0 vfV2FixedWheelPrefixPhase F density (A ^ 2))
     _ ≤ C + C :=
       add_le_add (hbound _) (hbound _)
     _ = 2 * C := by ring
@@ -1170,7 +1172,9 @@ theorem vfV2CompletedOpenSquareWheelBandPhase_abs_le_four_boundary
           vfV2FixedWheelPrefixPhase F density (A ^ 2)| ≤
         |vfV2FixedWheelPrefixPhase F density (B ^ 2)| +
           |vfV2FixedWheelPrefixPhase F density (A ^ 2)| :=
-        abs_sub_le _ _
+        by
+        simpa only [sub_zero, zero_sub, abs_neg] using
+          (abs_sub_le vfV2FixedWheelPrefixPhase F density (B ^ 2) 0 vfV2FixedWheelPrefixPhase F density (A ^ 2))
       _ ≤ C + C := add_le_add (hbound _) (hbound _)
       _ = 2 * C := by ring
   have hroot :
@@ -1181,7 +1185,9 @@ theorem vfV2CompletedOpenSquareWheelBandPhase_abs_le_four_boundary
           vfV2FixedWheelPrefixPhase F density A| ≤
         |vfV2FixedWheelPrefixPhase F density B| +
           |vfV2FixedWheelPrefixPhase F density A| :=
-        abs_sub_le _ _
+        by
+        simpa only [sub_zero, zero_sub, abs_neg] using
+          (abs_sub_le vfV2FixedWheelPrefixPhase F density B 0 vfV2FixedWheelPrefixPhase F density A)
       _ ≤ C + C := add_le_add (hbound _) (hbound _)
       _ = 2 * C := by ring
   calc
@@ -1192,7 +1198,9 @@ theorem vfV2CompletedOpenSquareWheelBandPhase_abs_le_four_boundary
       |vfV2FixedWheelPrefixPhase F density (B ^ 2) -
           vfV2FixedWheelPrefixPhase F density (A ^ 2)| +
       |vfV2FixedWheelPrefixPhase F density B -
-          vfV2FixedWheelPrefixPhase F density A| := abs_sub_le _ _
+          vfV2FixedWheelPrefixPhase F density A| := by
+        simpa only [sub_zero, zero_sub, abs_neg] using
+          (abs_sub_le (vfV2FixedWheelPrefixPhase F density (B ^ 2) - vfV2FixedWheelPrefixPhase F density (A ^ 2)) 0 (vfV2FixedWheelPrefixPhase F density B - vfV2FixedWheelPrefixPhase F density A))
     _ ≤ 2 * C + 2 * C := add_le_add hsq hroot
     _ = 4 * C := by ring
 
@@ -1223,9 +1231,10 @@ theorem vfV2FiniteWheelFloorDivError_le_one
         ((x % d : ℕ) : ℝ) / (d : ℝ) := by
     apply (sub_eq_iff_eq_add).2
     apply (div_eq_iff hdreal.ne').2
+    rw [add_mul, div_mul_cancel₀ _ hdreal.ne']
     nlinarith [heq]
   rw [abs_sub_comm, hfloor, abs_of_nonneg (by positivity)]
-  exact (div_le_one hdreal.le).2 hremreal.le
+  exact (div_le_one hdreal).2 hremreal.le
 
 /-- UNIFORM incomplete-CRT wheel discrepancy, independent of Q:
 the only cost is the NUMBER OF DIVISOR FACES. This applies even
@@ -1259,7 +1268,7 @@ theorem vfV2FiniteSignedWheelPrefixPhase_abs_le_card
         mu d * (((x / d : ℕ) : ℝ) - (x : ℝ) / (d : ℝ))| ≤
       ∑ d ∈ divs,
         |mu d * (((x / d : ℕ) : ℝ) - (x : ℝ) / (d : ℝ))| :=
-      abs_sum_le_sum_abs _ _
+      Finset.abs_sum_le_sum_abs _ _
     _ ≤ ∑ d ∈ divs, (1 : ℝ) := by
       apply Finset.sum_le_sum
       intro d hd
