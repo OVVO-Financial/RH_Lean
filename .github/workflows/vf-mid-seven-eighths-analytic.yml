@@ -1,0 +1,103 @@
+name: VF seven-eighths analytic bridge
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - research/VF_MID_SEVEN_EIGHTHS_ANALYTIC_BRIDGE.lean
+      - research/VF_MID_SEVEN_EIGHTHS_ANALYTIC_STATUS.md
+      - .github/workflows/vf-mid-seven-eighths-analytic.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: vf-seven-eighths-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  mathlib-only:
+    name: Seven-eighths bridge kernel (Lean 4.24, no StrongPNT)
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Forbid proof holes and direct incompatible OAI imports
+        run: |
+          if grep -nE '^[[:space:]]*(sorry|admit|axiom)([[:space:]]|$)' \
+            research/VF_MID_SEVEN_EIGHTHS_ANALYTIC_BRIDGE.lean; then
+            echo "No proof holes or added axioms allowed"
+            exit 1
+          fi
+          if grep -nE '^[[:space:]]*import OAI' \
+            research/VF_MID_SEVEN_EIGHTHS_ANALYTIC_BRIDGE.lean; then
+            echo "External OAI is Lean 4.34; RHLean is pinned Lean 4.24"
+            exit 1
+          fi
+      - name: Restore cached pinned Lake packages
+        uses: actions/cache/restore@v4
+        with:
+          path: .lake/packages
+          key: lake-packages-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
+      - name: Install Lean 4.24 and Mathlib cache
+        uses: leanprover/lean-action@v1
+        with:
+          use-github-cache: false
+          use-mathlib-cache: true
+          build: false
+          test: false
+          lint: false
+      - name: Compile existing midpoint Li bridge and O(1) quadrature (warning-fatal)
+        run: |
+          mkdir -p .lake/build/lib/lean
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.VF_MID_VON_KOCH_BRIDGE.olean \
+            research/VF_MID_VON_KOCH_BRIDGE.lean
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.VF_MID_LI_UNIFORM_QUADRATURE.olean \
+            research/VF_MID_LI_UNIFORM_QUADRATURE.lean
+      - name: Compile honest 7/8 conditional bridge (warning-fatal)
+        run: |
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.VF_MID_SEVEN_EIGHTHS_ANALYTIC_BRIDGE.olean \
+            research/VF_MID_SEVEN_EIGHTHS_ANALYTIC_BRIDGE.lean
+      - name: Verify theorem signatures, axioms and exactly located open input
+        run: |
+          cat > /tmp/vf_seven_eighths_acceptance.lean <<'LEAN'
+          import «research.VF_MID_SEVEN_EIGHTHS_ANALYTIC_BRIDGE»
+          #check RHLean.Analysis.VFMidSevenEighthsZetaZeroFree
+          #check RHLean.Analysis.VFMidSevenEighthsExplicitFormulaBridge
+          #check RHLean.Analysis.VFMidSevenEighthsPrimeLiEndpointBounded
+          #check RHLean.Analysis.VFMidSevenEighthsVFEndpointBounded
+          #check RHLean.Analysis.vfMidSevenEighthsWeight_ge_logTwo
+          #check RHLean.Analysis.vfMidSevenEighthsVFEndpointBounded_of_primeLi
+          #check RHLean.Analysis.vfMidSevenEighthsVFEndpointBounded_of_zeroFree
+          #check RHLean.Analysis.vfMidSevenEighthsWall_track_of_primeLi
+          #print axioms RHLean.Analysis.vfMidSevenEighthsVFEndpointBounded_of_primeLi
+          #print axioms RHLean.Analysis.vfMidSevenEighthsVFEndpointBounded_of_zeroFree
+          LEAN
+          lake env lean -DwarningAsError=true /tmp/vf_seven_eighths_acceptance.lean
+
+  external-interface:
+    name: External OpenAI theorem provenance and toolchain compatibility
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify exact external public theorem source and toolchain pins
+        shell: bash
+        run: |
+          set -eu
+          oai=https://raw.githubusercontent.com/openai/math/main/lean
+          curl --fail --silent --show-error --location --max-time 45 \
+            "$oai/lean-toolchain" > /tmp/oai_toolchain
+          curl --fail --silent --show-error --location --max-time 45 \
+            "$oai/OAI/NumberTheory/DirichletL/Nonvanishing.lean" > /tmp/oai_nonvanishing
+          grep -F 'leanprover/lean4:v4.34.1' /tmp/oai_toolchain
+          grep -F 'theorem riemannZeta_ne_zero_of_seven_eighths_lt_re' /tmp/oai_nonvanishing
+          grep -F 'SevenEighths.ProbeFinalAssemblyUnconditional.zeta_nonzero' /tmp/oai_nonvanishing
+          grep -F 'leanprover/lean4:v4.24.0' lean-toolchain
+          echo 'PASS: zeta zero-free theorem exists upstream; toolchains DIFFER.'
+          echo 'NOT CERTIFIED HERE: the explicit-formula 7/8 pi-Li error theorem.'
+          echo 'NOT ATTEMPTED: cross-toolchain import or external full OAI build.'
