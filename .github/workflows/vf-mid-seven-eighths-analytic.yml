@@ -8,6 +8,9 @@ on:
       - research/VF_MID_SEVEN_EIGHTHS_OWNER_ABEL.lean
       - research/VF_MID_SEVEN_EIGHTHS_MELLIN_SQUARE_KERNEL.lean
       - research/VF_MID_919_OAI_PARTIAL_MOMENT_TAILS.lean
+      - research/VF_MID_919_OAI_FERMAT_TWIST_PROJECTION.lean
+      - RHLean/Geometry/FermatCoordinates.lean
+      - RHLean/Geometry/ComplexSquareRecovery.lean
       - RHLean/Analysis/PartialMomentSchurTarget.lean
       - research/VF_MID_SEVEN_EIGHTHS_BIDIRECTIONAL_SYNTHESIS.md
       - research/VF_MID_919_OPEN_UNIFORM_ANALYTIC_TARGET.md
@@ -49,7 +52,8 @@ jobs:
             research/VF_MID_SEVEN_EIGHTHS_ANALYTIC_BRIDGE.lean \
             research/VF_MID_SEVEN_EIGHTHS_OWNER_ABEL.lean \
             research/VF_MID_SEVEN_EIGHTHS_MELLIN_SQUARE_KERNEL.lean \
-            research/VF_MID_919_OAI_PARTIAL_MOMENT_TAILS.lean; then
+            research/VF_MID_919_OAI_PARTIAL_MOMENT_TAILS.lean \
+            research/VF_MID_919_OAI_FERMAT_TWIST_PROJECTION.lean; then
             echo "No proof holes or added axioms allowed"
             exit 1
           fi
@@ -104,6 +108,18 @@ jobs:
           lake env lean -DwarningAsError=true \
             -o .lake/build/lib/lean/research.VF_MID_919_OAI_PARTIAL_MOMENT_TAILS.olean \
             research/VF_MID_919_OAI_PARTIAL_MOMENT_TAILS.lean
+      - name: Kernel-compile original squared-Fermat character twist C-to-R projection
+        run: |
+          mkdir -p .lake/build/lib/lean/RHLean/Geometry
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/RHLean/Geometry/FermatCoordinates.olean \
+            RHLean/Geometry/FermatCoordinates.lean
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/RHLean/Geometry/ComplexSquareRecovery.olean \
+            RHLean/Geometry/ComplexSquareRecovery.lean
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.VF_MID_919_OAI_FERMAT_TWIST_PROJECTION.olean \
+            research/VF_MID_919_OAI_FERMAT_TWIST_PROJECTION.lean
       - name: Verify theorem signatures, axioms and exactly located open input
         run: |
           cat > /tmp/vf_seven_eighths_acceptance.lean <<'LEAN'
@@ -111,6 +127,14 @@ jobs:
           import «research.VF_MID_SEVEN_EIGHTHS_OWNER_ABEL»
           import «research.VF_MID_SEVEN_EIGHTHS_MELLIN_SQUARE_KERNEL»
           import «research.VF_MID_919_OAI_PARTIAL_MOMENT_TAILS»
+          import «research.VF_MID_919_OAI_FERMAT_TWIST_PROJECTION»
+          #check RHLean.Geometry.vf919TwistedFermatProduct_eq_product_sub_gap
+          #check RHLean.Geometry.vf919TwistedFermatProduct_one
+          #check RHLean.Geometry.vf919TwistedFermatProduct_neg_phase
+          #check RHLean.Geometry.vf919ComplexNorm_sq_eq_signedProjection_add_antiDiagonal
+          #check RHLean.Geometry.vf919FermatNorm_sq_eq_product_add_gap
+          #print axioms RHLean.Geometry.vf919TwistedFermatProduct_eq_product_sub_gap
+          #print axioms RHLean.Geometry.vf919FermatNorm_sq_eq_product_add_gap
           #check RHLean.Analysis.vf919RowPartialSquare_reassembly
           #check RHLean.Analysis.vf919RowUPM2_add_LPM2_eq_deviationSquare
           #check RHLean.Analysis.vf919RowUPM2_controls_upperTail
