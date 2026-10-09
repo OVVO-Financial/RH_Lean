@@ -10,6 +10,8 @@ on:
       - research/VF_MID_SEVEN_EIGHTHS_BIDIRECTIONAL_SYNTHESIS.md
       - research/VF_MID_919_OPEN_UNIFORM_ANALYTIC_TARGET.md
       - scripts/vf_919_prime_owner_abel_spectral_probe.py
+      - scripts/vf_919_original_weight_character_moment_probe.py
+      - research/VF_MID_919_OAI_STAGE_SAVINGS_AND_BOOTSTRAP.md
       - research/VF_MID_SEVEN_EIGHTHS_ANALYTIC_STATUS.md
       - .github/workflows/vf-mid-seven-eighths-analytic.yml
   workflow_dispatch:
@@ -30,6 +32,8 @@ jobs:
       - uses: actions/checkout@v4
       - name: Verify original native VF weights and actual prime incidence
         run: python3 -B scripts/vf_919_prime_owner_abel_spectral_probe.py
+      - name: Compare original VF weights with flat-source character moments
+        run: python3 -B scripts/vf_919_original_weight_character_moment_probe.py
   mathlib-only:
     name: Seven-eighths bridge kernel (Lean 4.24, no StrongPNT)
     runs-on: ubuntu-latest
