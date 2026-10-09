@@ -13,40 +13,40 @@ as the single small target for an actual signed first-bad closure.
 
 For each square block $(R^2,(R+1)^2)$, set
 
-$
+$$
 m_R=R^2+R+\tfrac12,\qquad
 V_R=\frac{2R+1}{\log m_R},\qquad w_R=\frac{V_R}{R}.
-$
+$$
 
-$
+$$
 D_R=\pi(R^2)-VF_{\rm mid}(R^2),\qquad
 P_R=\pi((R+1)^2)-\pi(R^2),\qquad C_R=R-P_R.
-$
+$$
 
 Here $\pi(x)$ is the ACTUAL prime counting function, not a floor-Li
 staircase or density proxy. Exact recursion:
 
-$
+$$
 D_{R+1}=D_R+P_R-V_R.
 \tag{1}
-$
+$$
 
 The complete integer block contains exactly $2R$ integers, but ALL
 $V_R$ reference mass resides on its exactly $R$ odd candidate seats.
 This accounts for reference advance at even integers while actual
 $\pi(2k)=\pi(2k-1)$ for $2k\ge4$:
 
-$
+$$
 \boxed{w_R=V_R/R\quad\text{(never }V_R/(2R)\text{)}.}
 \tag{2}
-$
+$$
 
 Per original odd candidate $n$, the signed charge is
 
-$
+$$
 z_R(n)=w_R-\mathbf 1_{\mathbb P}(n).
 \tag{3}
-$
+$$
 
 The full signed block is $\sum_{\rm odd}z_R=V_R-P_R$. Including
 the historical anchor $-D_R$ gives **exactly** $-D_{R+1}$.
@@ -58,55 +58,55 @@ absolute denominator, no fake Li "prime" event.
 
 For $R\ge8$ define the original anchored zero-target partial masses
 
-$
+$$
 \boxed{\begin{aligned}
 U_R&=(-D_R)_+ + w_RC_R,\\
 L_R&=( D_R)_+ + (1-w_R)P_R.
 \end{aligned}}
 \tag{4}
-$
+$$
 
 Their signed and absolute identities (NO distributional assumptions) are
 
-$
+$$
 U_R-L_R=-D_{R+1},\qquad
 U_R+L_R=|D_R|+w_RC_R+(1-w_R)P_R.
 \tag{5}
-$
+$$
 
 The original **NNS squared anchored L1 mass**, not ordinary
 statistical variance, is
 
-$
+$$
 \boxed{
 M_R^2=(U_R+L_R)^2
 =\big(|D_R|+w_RC_R+(1-w_R)P_R\big)^2.
 }
 \tag{6}
-$
+$$
 
 The exact original payment is
 
-$
+$$
 \boxed{
 \mathcal B_R=(U_R+L_R)^2-2(U_R-L_R)^2\ \ge 0
 }
 \tag{7}
-$
+$$
 
 which is equivalent to BOTH of
 
-$
+$$
 \boxed{2D_{R+1}^2\le M_R^2}
 \tag{8}
-$
+$$
 
 and
 
-$
+$$
 \boxed{U_R^2+L_R^2\le 6U_RL_R.}
 \tag{9}
-$
+$$
 
 Equations (4)–(9) are algebraic and kernel-tested in the standalone
 `VF_MID_FIRST_BAD_PAYMENT_V2_KERNEL.lean`. No one has proved (7)
@@ -121,23 +121,23 @@ NOT thereby asserted to occur as actual prime blocks.
 Let $\rho_R=R\log R$ and let
 $\mathrm{FirstBad}_2(R+1)$ mean:
 
-$
+$$
 |D_{R+1}|>2\rho_{R+1},
 \qquad
 \forall j<R+1,\ j\ge2:\ |D_j|\le2\rho_j.
 \tag{10}
-$
+$$
 
 The one and only open arithmetic gate is
 
-$
+$$
 \boxed{
 \forall R\ge8:\quad
 \mathrm{FirstBad}_2(R+1)\ \Longrightarrow\
 2D_{R+1}^2\le M_R^2.
 }
 \tag{11}
-$
+$$
 
 **Lean native type (defined as a `Prop`, NOT proved):**
 
@@ -176,11 +176,11 @@ The tiny **native conditional consumer**
 the existing main theorems. Given **(11) as an explicit hypothesis**,
 the proof uses
 
-$
+$$
 \frac12 M_R^2\ge D_{R+1}^2
 =\mathcal N_R\,M_R^2
 >\frac12 M_R^2,
-$
+$$
 
 where $M_R^2>0$ under first-bad.
 The contradiction is exact, but WITHOUT (11) it is not an RH proof.
@@ -215,14 +215,14 @@ historical charges, or assume every owner sector pays separately.
 
 The exact desired arithmetic inequality in terms of counts is
 
-$
+$$
 \boxed{
 2\big(D_R+P_R-V_R\big)^2
 \le
 \big(|D_R|+w_R(R-P_R)+(1-w_R)P_R\big)^2
 }
 \tag{12}
-$
+$$
 
 *under (10)*. This is the only place new arithmetic proof work should go.
 Do not add another equivalent source ledger without using it to prove
