@@ -6,15 +6,6 @@ on:
     paths:
       - research/VF_MID_FIRST_BAD_PAYMENT_V2_KERNEL.lean
       - research/VF_MID_FIRST_BAD_PAYMENT_V2_NATIVE_CONSUMER.lean
-      - research/VF_MID_FIRST_BAD_PAYMENT_V2_PROOF_CONTRACT.md
-      - scripts/vf_mid_first_bad_payment_v2_test.py
-      - .github/workflows/vf-first-bad-payment-v2.yml
-  push:
-    branches: [vf-first-bad-minimal-parity-payment]
-    paths:
-      - research/VF_MID_FIRST_BAD_PAYMENT_V2_KERNEL.lean
-      - research/VF_MID_FIRST_BAD_PAYMENT_V2_NATIVE_CONSUMER.lean
-      - research/VF_MID_FIRST_BAD_PAYMENT_V2_PROOF_CONTRACT.md
       - scripts/vf_mid_first_bad_payment_v2_test.py
       - .github/workflows/vf-first-bad-payment-v2.yml
   workflow_dispatch:
