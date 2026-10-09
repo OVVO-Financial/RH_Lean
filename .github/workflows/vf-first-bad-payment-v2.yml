@@ -100,6 +100,13 @@ jobs:
           #check RHLean.Analysis.vfV2PositiveFirstBad_requires_historicalPrimeLiExcess
           #check RHLean.Analysis.vfV2NegativeFirstBad_requires_historicalPrimeLiDeficit
           #print axioms RHLean.Analysis.vfV2Payment_of_floorLi_actual_signed_bounds
+          #check RHLean.Analysis.vfV2FirstBad_requires_strictCurrentDeviation
+          #check RHLean.Analysis.vfV2FirstBad_positive_outward
+          #check RHLean.Analysis.vfV2FirstBad_negative_outward
+          #check RHLean.Analysis.vfV2FirstBad_outward_orientation
+          #check RHLean.Analysis.vfV2PriorGoodEvenNextGood_doesNotForcePhi_nonneg
+          #print axioms RHLean.Analysis.vfV2FirstBad_outward_orientation
+          #print axioms RHLean.Analysis.vfV2PriorGoodEvenNextGood_doesNotForcePhi_nonneg
           #check RHLean.Analysis.vfV2SixBudget_eq_originalExcess_add_pairCorrection
           #check RHLean.Analysis.vfV2SixPairCorrection_nonneg
           #check RHLean.Analysis.vfV2SixBudget_pos_of_originalExcess_pos
@@ -232,6 +239,9 @@ jobs:
           #check RHLean.Analysis.vfV2ActualOccurrencePreservingReturn_closes_firstBad
           #print axioms RHLean.Analysis.vfV2ActualHighPrimeAgeNativeMass_sum
           #print axioms RHLean.Analysis.vfV2ActualDelayedMovingWallIdentity
+          #check RHLean.Analysis.vfV2ActualPrime_allInside_of_noFirstBad_and_base
+          #check RHLean.Analysis.vfV2ActualPrime_RH_of_signedOwnerRule_and_base
+          #print axioms RHLean.Analysis.vfV2ActualPrime_RH_of_signedOwnerRule_and_base
           #check RHLean.Analysis.vfV2ActualFirstBad_originalExcess_pos
           #check RHLean.Analysis.vfV2ActualFirstBad_sixSectorBudget_pos
           #print axioms RHLean.Analysis.vfV2ActualFirstBad_sixSectorBudget_pos
