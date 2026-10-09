@@ -1339,6 +1339,24 @@ theorem vfMidActualPrimeFirstBadAt_two_succ_halfScaleSectorSixPayment
     -- return reconstruction.  Universal cone closure would be false:
     -- stage slack can be negative, and the unconditional anchored cone
     -- conflicts asymptotically with Littlewood's known oscillations.
+    -- PARITY COMPRESSION IS FINAL, not an unfinished even-owner ledger:
+    -- * The full open square block has 2R integers and exactly R odd
+    --   candidates after owner 2. All original VF block mass V_R is
+    --   concentrated at w_R=V_R/R on those R odd sites, NOT V_R/(2R).
+    -- * The signed odd-seat sum is exactly V_R-P_R. Adding the already
+    --   compressed physical endpoint anchor yields -D_(R+1).
+    -- * The UNCHANGED original zero-target squared denominator is
+    --       (|D_R| + w_R*(R-P_R) + (1-w_R)*P_R)^2.
+    --   It is the square of the anchored L1 mass, not an ordinary
+    --   probabilistic variance.
+    -- * True historical even composites 2q are already absent from
+    --   this carrier. Their existence in the full integer lattice
+    --   supplies ZERO extra original NNS charge/negative pair heat.
+    --   Reintroducing them double-counts owner 2 and alters the norm.
+    -- * Proven physical donor COUNT bounds or parity-neighbor surrogate
+    --   price/heat identities are not the hfirst-specific SIGNED PAIR
+    --   payment. Do not use them as the source of hbalance.
+    --
     -- Required: occurrence-matched historical/current pair-Fubini transport
     -- plus an arithmetic payment SPECIFIC to hfirst; no synthetic negative
     -- stripped parents and no all-R/all-stage cone hypothesis.
