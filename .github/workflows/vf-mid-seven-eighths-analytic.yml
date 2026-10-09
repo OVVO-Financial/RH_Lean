@@ -9,6 +9,7 @@ on:
       - research/VF_MID_SEVEN_EIGHTHS_MELLIN_SQUARE_KERNEL.lean
       - research/VF_MID_919_OAI_PARTIAL_MOMENT_TAILS.lean
       - research/VF_MID_919_OAI_FERMAT_TWIST_PROJECTION.lean
+      - research/VF_MID_919_OAI_C_TO_R_CANCELLATION_WELD.md
       - RHLean/Geometry/FermatCoordinates.lean
       - RHLean/Geometry/ComplexSquareRecovery.lean
       - RHLean/Analysis/PartialMomentSchurTarget.lean
