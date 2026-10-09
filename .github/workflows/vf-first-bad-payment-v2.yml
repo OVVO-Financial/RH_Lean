@@ -122,6 +122,25 @@ jobs:
           #print axioms RHLean.Analysis.vfV2SparseCofactorBeforeHalfAnchor
           #print axioms RHLean.Analysis.vfV2HighFactorOneOddChildPerOpenBlock
           #print axioms RHLean.Analysis.vfV2Payment_iff_exactSignedBalance
+          #check RHLean.Analysis.vfV2HighPrimeFactorUniqueOnOpenSquare
+          #check RHLean.Analysis.vfV2HighPrimeParentPrecedesCurrentSquare
+          #check RHLean.Analysis.vfV2AgeCohortNativeMass_sum
+          #check RHLean.Analysis.vfV2AgeCohortNativeMass_disjoint
+          #check RHLean.Analysis.vfV2AgeFourCohortFullGram
+          #check RHLean.Analysis.vfV2FourAgeCohorts_do_not_create_restoringMass
+          #check RHLean.Analysis.vfV2AgeCohortReferenceDifference
+          #check RHLean.Analysis.vfV2StrictPastRoots_lt_current
+          #check RHLean.Analysis.vfV2BlockFlux_telescope
+          #check RHLean.Analysis.vfV2DelayedFlux_eq_futureBlockSum
+          #check RHLean.Analysis.vfV2CurrentPlusDelayedFlux
+          #check RHLean.Analysis.vfV2DelayedMovingWallClearance
+          #check RHLean.Analysis.vfV2JointDelayedFluxCell_sum
+          #check RHLean.Analysis.vfV2NoUniversalDelayedInwardFlux
+          #print axioms RHLean.Analysis.vfV2HighPrimeFactorUniqueOnOpenSquare
+          #print axioms RHLean.Analysis.vfV2AgeCohortNativeMass_sum
+          #print axioms RHLean.Analysis.vfV2DelayedMovingWallClearance
+          #print axioms RHLean.Analysis.vfV2JointDelayedFluxCell_sum
+          #print axioms RHLean.Analysis.vfV2NoUniversalDelayedInwardFlux
           #print axioms RHLean.Analysis.vfV2NoUnconditionalAllStateCone
           LEAN
           lake env lean -DwarningAsError=true /tmp/vf_v2_acceptance.lean
@@ -199,6 +218,15 @@ jobs:
           #check RHLean.Analysis.VFMidActualPrimeVerifiedStructuralRules
           #check RHLean.Analysis.vfV2ActualPrime_verifiedStructuralRules
           #check RHLean.Analysis.vfV2ActualSixSectorSignedMass
+          #check RHLean.Analysis.vfV2ActualHighPrimeParent_genuine
+          #check RHLean.Analysis.vfV2ActualHighPrimeAgeNativeMass_sum
+          #check RHLean.Analysis.vfV2ActualSquareFloorLiFlux_eq_trueBlockCorrection
+          #check RHLean.Analysis.vfV2ActualDelayedFlux_eq_genuineFutureCorrections
+          #check RHLean.Analysis.vfV2ActualDefect_eq_backlog_plus_deterministicBridge
+          #check RHLean.Analysis.vfV2ActualDelayedMovingWallIdentity
+          #check RHLean.Analysis.vfV2ActualOccurrencePreservingReturn_closes_firstBad
+          #print axioms RHLean.Analysis.vfV2ActualHighPrimeAgeNativeMass_sum
+          #print axioms RHLean.Analysis.vfV2ActualDelayedMovingWallIdentity
           #check RHLean.Analysis.VFMidActualPrimeSignedOwnerEscapeRule
           #check RHLean.Analysis.vfV2ActualPrime_noFirstBad_of_signedOwnerEscapeRule
           #check RHLean.Analysis.vfV2ActualPrime_admissibilityStatus
