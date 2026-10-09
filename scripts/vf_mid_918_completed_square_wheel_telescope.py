@@ -37,6 +37,8 @@ def run(A, B, y):
 
     L, U = A*A, B*B
     span = U-L
+    aligned_start = ((L + 1 + Q - 1) // Q) * Q
+    full_aligned_period_fits = aligned_start + Q <= U + 1
     band_scaled_errors = []
     for r in range(A, B):
         r0, r1 = r*r, (r+1)*(r+1)
@@ -69,7 +71,7 @@ def run(A, B, y):
 
     naive_total = sum(map(abs, band_scaled_errors))/Q
     return dict(A=A,B=B,cutoff=y,Q=Q,span=span,
-        complete_CRT_period_fits=span>=Q,
+        complete_CRT_period_fits=full_aligned_period_fits,
         complete_square_blocks=B-A,
         number_of_divisor_faces=len(terms),
         full_wheel_survivors=S, genuine_primes=P,
