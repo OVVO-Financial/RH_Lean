@@ -91,7 +91,7 @@ def run(R,prime,primes):
     actual_moving=required_moving=totalWheel=0
     for r in range(a,R+1):
         X=(r+1)**2
-        wheel=sum(math.gcd(n,Q17)==1 for n in range(r*r+1,X,2))
+        wheel=sum(math.gcd(n,Q17)==1 for n in range((r*r+1)|1,X,2))
         P=bisect_right(primes,X)-bisect_right(primes,r*r)
         F=li_floor(X)-li_floor(r*r)
         actual_moving+=wheel-P
