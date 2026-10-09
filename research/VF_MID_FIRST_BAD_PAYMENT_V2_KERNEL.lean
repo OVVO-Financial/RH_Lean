@@ -459,4 +459,230 @@ theorem vfV2UniqueOwnerOnceCharge
   rw [Finset.sum_sub_distrib]
 
 
+
+/-! ## Actual-owner age, strict-past conditioning, and delayed signed flux
+
+These are UNCONDITIONAL finite conservation and algebra lemmas.  The observed
+higher-wall-occupancy / older-parent conditional inward drift is empirical;
+NO expectation, regression coefficient, near-wall feedback inequality or
+Sector Six payment is asserted here. -/
+
+/-- The four exact numerical parent-age cohorts.  If b is the square-root
+birth index of a genuine high prime q, the age is (R-b)/R.
+0: age < 0.55; 1: 0.55..0.70; 2: 0.70..0.85; 3: >=0.85.
+Integer comparisons avoid any floating-point classification. -/
+def vfV2HighPrimeParentAgeBucket (R birth : ℕ) : Fin 4 :=
+  if 20 * birth ≤ 3 * R then 3
+  else if 10 * birth ≤ 3 * R then 2
+  else if 20 * birth ≤ 9 * R then 1
+  else 0
+
+/-- When a genuine prime q>R is an odd composite factor n=c*q with c>=3
+in the original strict OPEN square band, q already predates R^2. -/
+theorem vfV2HighPrimeParentPrecedesCurrentSquare
+    (R c q birth : ℕ) (hR : 3 ≤ R) (hc : 3 ≤ c)
+    (hsite : c * q < (R + 1) ^ 2)
+    (hbirth : birth ^ 2 ≤ q) :
+    q < R ^ 2 ∧ birth < R := by
+  have hthree : 3 * q ≤ c * q :=
+    Nat.mul_le_mul_right q hc
+  have hroot : (R + 1) ^ 2 ≤ 3 * R ^ 2 := by
+    nlinarith
+  have hq : q < R ^ 2 := by
+    nlinarith
+  constructor
+  · exact hq
+  · nlinarith
+
+/-- Age classification partitions EXISTING sites; each site supplies its
+original single weight exactly once, not an independent ancestor payment. -/
+def vfV2AgeCohortNativeMass
+    (R : ℕ) (sites : Finset ℕ) (birthRoot : ℕ → ℕ)
+    (weight : ℕ → ℝ) (bucket : Fin 4) : ℝ :=
+  ∑ n ∈ sites,
+    if vfV2HighPrimeParentAgeBucket R (birthRoot n) = bucket
+    then weight n else 0
+
+theorem vfV2AgeCohortNativeMass_sum
+    (R : ℕ) (sites : Finset ℕ) (birthRoot : ℕ → ℕ)
+    (weight : ℕ → ℝ) :
+    (∑ bucket : Fin 4,
+      vfV2AgeCohortNativeMass R sites birthRoot weight bucket) =
+      ∑ n ∈ sites, weight n := by
+  classical
+  simp only [vfV2AgeCohortNativeMass]
+  rw [Finset.sum_comm]
+  apply Finset.sum_congr rfl
+  intro n hn
+  simp
+
+/-- A site cannot simultaneously be paid by two different age cohorts. -/
+theorem vfV2AgeCohortNativeMass_disjoint
+    (R n : ℕ) (birthRoot : ℕ → ℕ) (weight : ℕ → ℝ)
+    (a b : Fin 4) (hab : a ≠ b) :
+    (if vfV2HighPrimeParentAgeBucket R (birthRoot n) = a
+       then weight n else 0) *
+    (if vfV2HighPrimeParentAgeBucket R (birthRoot n) = b
+       then weight n else 0) = 0 := by
+  by_cases ha : vfV2HighPrimeParentAgeBucket R (birthRoot n) = a
+  · have hb :
+        vfV2HighPrimeParentAgeBucket R (birthRoot n) ≠ b := by
+      rw [ha]
+      exact hab
+    simp [ha, hb]
+  · simp [ha]
+
+/-- Cross-cohort Gram products cannot be omitted or replaced by a sum
+of squares: owner splitting does NOT automatically give contraction. -/
+theorem vfV2AgeFourCohortFullGram (a b c d : ℝ) :
+    (a + b + c + d) ^ 2 =
+      a ^ 2 + b ^ 2 + c ^ 2 + d ^ 2 +
+        2 * (a*b + a*c + a*d + b*c + b*d + c*d) := by
+  ring
+
+/-- Prime and mature/high-parent/smooth composite corrections at one block
+still total -deltaPrime in original VF currency after age partition.
+No age bucket contributes independent negative material. -/
+theorem vfV2FourAgeCohorts_do_not_create_restoringMass
+    (w dP d0 d1 d2 d3 dSmooth : ℝ)
+    (hseats : dP + d0 + d1 + d2 + d3 + dSmooth = 0) :
+    (w - 1) * dP +
+      w * d0 + w * d1 + w * d2 + w * d3 + w * dSmooth =
+      -dP := by
+  calc
+    _ = w * (dP + d0 + d1 + d2 + d3 + dSmooth) - dP := by ring
+    _ = -dP := by rw [hseats]; ring
+
+/-- The age reference differs from the actual age census only through
+signed, once-counted cohort discrepancies. -/
+theorem vfV2AgeCohortReferenceDifference
+    (actual reference : Fin 4 → ℝ) :
+    (∑ bucket : Fin 4, (actual bucket - reference bucket)) =
+      (∑ bucket : Fin 4, actual bucket) -
+      (∑ bucket : Fin 4, reference bucket) := by
+  rw [Finset.sum_sub_distrib]
+
+/-- The occupancy conditioning window strictly PRECEDES the response root. -/
+def vfV2StrictPastRoots (R span : ℕ) : Finset ℕ :=
+  Finset.Ico (R - span) R
+
+theorem vfV2StrictPastRoots_lt_current
+    {R span k : ℕ} (hk : k ∈ vfV2StrictPastRoots R span) :
+    k < R := by
+  exact (Finset.mem_Ico.mp hk).2
+
+/-- Finite historical occupancy rank; NO future score is inspected.
+The score can be the actual |D_R|/(2R log R), but is not assumed random. -/
+def vfV2PastOnlyRank (score : ℕ → ℝ) (R span : ℕ) : ℕ :=
+  ((vfV2StrictPastRoots R span).filter
+      (fun t => score t ≤ score R)).card
+
+/-- Historical high/low wall-occupancy classifications used by the audit.
+These are definitions, not unproved arithmetic claims. -/
+def vfV2PastOnlyHighOccupancy
+    (score : ℕ → ℝ) (R span : ℕ) : Prop :=
+  4 * (vfV2StrictPastRoots R span).card ≤
+    5 * vfV2PastOnlyRank score R span
+
+def vfV2PastOnlyLowOccupancy
+    (score : ℕ → ℝ) (R span : ℕ) : Prop :=
+  5 * vfV2PastOnlyRank score R span ≤
+    (vfV2StrictPastRoots R span).card
+
+/-- The exact signed actual minus floor-Li block flux when
+E(R) = pi(R^2) - Q(R^2). -/
+def vfV2BlockFlux (E : ℕ → ℝ) (R : ℕ) : ℝ :=
+  E (R + 1) - E R
+
+theorem vfV2BlockFlux_telescope
+    (E : ℕ → ℝ) {A B : ℕ} (hAB : A ≤ B) :
+    (∑ r ∈ Finset.Ico A B, vfV2BlockFlux E r) =
+      E B - E A := by
+  induction B, hAB using Nat.le_induction with
+  | base =>
+      simp
+  | succ B hAB ih =>
+      rw [Finset.sum_Ico_succ_top hAB, ih]
+      unfold vfV2BlockFlux
+      ring
+
+/-- Past-oriented future observation excludes block R itself and starts at
+R+1.  orientation=-1 in the observed negative-D cohort. -/
+def vfV2DelayedOrientedFlux
+    (E : ℕ → ℝ) (orientation : ℝ)
+    (R horizon : ℕ) : ℝ :=
+  orientation * (E (R + 1 + horizon) - E (R + 1))
+
+theorem vfV2DelayedFlux_eq_futureBlockSum
+    (E : ℕ → ℝ) (orientation : ℝ)
+    (R horizon : ℕ) :
+    vfV2DelayedOrientedFlux E orientation R horizon =
+      orientation *
+      (∑ r ∈ Finset.Ico (R + 1) (R + 1 + horizon),
+        vfV2BlockFlux E r) := by
+  unfold vfV2DelayedOrientedFlux
+  rw [vfV2BlockFlux_telescope E (by omega)]
+
+theorem vfV2CurrentPlusDelayedFlux
+    (E : ℕ → ℝ) (orientation : ℝ)
+    (R horizon : ℕ) :
+    orientation * (E (R + 1 + horizon) - E R) =
+      orientation * vfV2BlockFlux E R +
+        vfV2DelayedOrientedFlux E orientation R horizon := by
+  unfold vfV2BlockFlux vfV2DelayedOrientedFlux
+  ring
+
+/-- Exact channel-clearance motion. No age-correlated inward drift is
+inferred from the identity or introduced as a hypothesis. -/
+theorem vfV2DelayedMovingWallClearance
+    (W D E b : ℕ → ℝ) (orientation : ℝ)
+    (R horizon : ℕ)
+    (hstart : D (R + 1) = E (R + 1) + b (R + 1))
+    (hend : D (R + 1 + horizon) =
+      E (R + 1 + horizon) + b (R + 1 + horizon)) :
+    (W (R + 1 + horizon) - orientation * D (R + 1 + horizon)) -
+      (W (R + 1) - orientation * D (R + 1)) =
+    (W (R + 1 + horizon) - W (R + 1)) -
+      vfV2DelayedOrientedFlux E orientation R horizon -
+      orientation * (b (R + 1 + horizon) - b (R + 1)) := by
+  rw [hstart, hend]
+  unfold vfV2DelayedOrientedFlux
+  ring
+
+/-- Conditional two-way state-age stratification is a finite partition:
+all joint-cell weighted fluxes reassemble exactly, without independence
+assumptions, future peeking or a new absolute denominator. -/
+def vfV2JointDelayedFluxCell
+    (roots : Finset ℕ) (occ : ℕ → Fin 3) (age : ℕ → Fin 4)
+    (E : ℕ → ℝ) (orientation : ℕ → ℝ) (horizon : ℕ)
+    (o : Fin 3) (a : Fin 4) : ℝ :=
+  ∑ R ∈ roots,
+    if occ R = o ∧ age R = a
+    then vfV2DelayedOrientedFlux E (orientation R) R horizon
+    else 0
+
+theorem vfV2JointDelayedFluxCell_sum
+    (roots : Finset ℕ) (occ : ℕ → Fin 3) (age : ℕ → Fin 4)
+    (E : ℕ → ℝ) (orientation : ℕ → ℝ) (horizon : ℕ) :
+    (∑ o : Fin 3, ∑ a : Fin 4,
+      vfV2JointDelayedFluxCell roots occ age E orientation horizon o a) =
+      ∑ R ∈ roots, vfV2DelayedOrientedFlux E (orientation R) R horizon := by
+  classical
+  simp only [vfV2JointDelayedFluxCell]
+  rw [Finset.sum_comm]
+  apply Finset.sum_congr rfl
+  intro R hR
+  rw [Finset.sum_comm]
+  simp
+
+/-- Pure finite classification cannot force arbitrary future prime-like
+staircases to mean-revert: a nontrivial signed arithmetic result is needed. -/
+theorem vfV2NoUniversalDelayedInwardFlux :
+    ¬ ∀ E : ℕ → ℝ, ∀ (R horizon : ℕ),
+      vfV2DelayedOrientedFlux E 1 R horizon ≤ 0 := by
+  intro hall
+  have h := hall (fun n : ℕ => (n : ℝ)) 0 1
+  norm_num [vfV2DelayedOrientedFlux] at h
+
+
 end RHLean.Analysis
