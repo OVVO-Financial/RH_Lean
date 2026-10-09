@@ -27,6 +27,7 @@ def audit(roots=(119, 317, 1027, 1760, 5267, 6000)):
         total_div=0.0
         recent_div=0.0
         c3=0
+        seen_high_parents=set()
         for c in range(3,R+1,2):
             lo=max(R,R*R//c)
             upper=((R+1)**2-1)//c
@@ -37,6 +38,10 @@ def audit(roots=(119, 317, 1027, 1760, 5267, 6000)):
             if len(q)==0:
                 continue
             assert np.all(c*q>R*R) and np.all(c*q<(R+1)**2)
+            for ancestor in q:
+                ancestor=int(ancestor)
+                assert ancestor not in seen_high_parents, (R,ancestor,c)
+                seen_high_parents.add(ancestor)
             s=np.floor(np.sqrt(q)).astype(np.int64)
             assert np.all(s>=2) and np.all(s<R)
             old_w=(2*s+1)/(s*np.log(s*s+s+0.5))
