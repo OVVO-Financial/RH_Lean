@@ -62,7 +62,7 @@ zero-free -> Mertens argument must also control the actual returned child
 amplitude, or else use its signed correlation directly. -/
 theorem vf919OwnerTwoSignedBoundary_abs_le_of_real_magnitudes
     {R : ℕ} {C J : ℝ}
-    (hR : 2 ≤ R) (hC : 0 ≤ C) (hJ : 0 ≤ J)
+    (hR : 2 ≤ R) (hC : 0 ≤ C)
     (hM : |((mertensSummatoryInt (squareRootEndpoint R) : ℤ) : ℝ)| ≤ C)
     (hreturned :
       |lowOwnerFirstOwnerReturnedChildParentAmplitude R 2 ∅| ≤ J) :
