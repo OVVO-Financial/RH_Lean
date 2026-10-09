@@ -33,7 +33,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Full actual-prime audit to square root R=6000
-        run: python3 -B scripts/vf_mid_first_bad_payment_v2_test.py --extended
+        run: python3 -B scripts/vf_mid_first_bad_payment_v2_test.py --extended --floor-li
 
   # Isolated algebraic Lean file, Mathlib ONLY. It cannot import
   # the 30+ files from the old #915 branch or compile StrongPNT5.
