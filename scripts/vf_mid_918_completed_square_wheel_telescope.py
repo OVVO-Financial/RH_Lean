@@ -174,7 +174,7 @@ def test_half_run_only_live_multiplier_three():
         counts_odd+=1
         assert 3*c<B*B and 3*c>3*A*A
         if prime[c]:
-            r=isqrt(c) if False else math.isqrt(c)
+            r=math.isqrt(c)
             s=math.isqrt(3*c)
             assert r*r<c<(r+1)**2
             assert s*s<3*c<(s+1)**2
