@@ -126,6 +126,102 @@ adapt OAI's inverse-character moments: work with a completed version
 of the entire B6 kernel, before Cauchy and before splitting C and J
 into positive energies.
 
+## 2b. The missing Hecke-to-rational arithmetic coefficients have an EXACT dictionary
+
+There is a more precise entry point than trying to identify OpenAI's
+completed c*n^3 coefficients with individual ordinary squarefree integers.
+
+For F=Q(sqrt(-3)), let mu_F(ideal) be the ideal Möbius function and define
+
+\[
+ a_F(n)=\sum_{N\mathfrak a=n}\mu_F(\mathfrak a),\qquad
+ \chi_{-3}(n)=
+ \begin{cases}0&3\mid n\\1&n\equiv1\pmod3\\-1&n\equiv2\pmod3.\end{cases}
+\]
+
+The classical exact Dedekind factorization and Dirichlet convolution give
+
+\[
+ \zeta_F(s)=\zeta(s)L(s,\chi_{-3}),\qquad
+ \boxed{\mu(n)=\sum_{d\mid n}\chi_{-3}(d)a_F(n/d).}\tag{B9}
+\]
+
+It is a **coefficientwise equality of arithmetic functions**, not merely
+equality of complex phases. In particular, it preserves split/inert
+multiplicities instead of falsely identifying one ideal with one integer:
+
+| Rational prime | Norm-ideal coefficient a_F(p) | chi_{-3}(p) | rational mu(p) |
+|---|---:|---:|---:|
+| 2 (inert) | 0 | -1 | -1 |
+| 3 (ramified) | -1 | 0 | -1 |
+| 7 (split) | -2 | +1 | -1 |
+
+For p=2, a_F(4)=-1 while chi_{-3}(4)=+1, giving
+mu(4)=a_F(4)+chi_{-3}(2)a_F(2)+chi_{-3}(4)=0,
+exactly as required.
+
+**New mathematical/Lean entrypoint:**
+VF_MID_919_OAI_QUADRATIC_NORM_EULER.lean formally proves the
+polynomial local identity, for every prime-residue case,
+
+\[
+  E_{F,p}(t)=(1-t)(1-\chi_{-3}(p)t),
+  \quad E_{F,p}\in\{(1-t)^2,\,1-t^2,\,1-t\},
+ \tag{B10}
+\]
+
+and its product over an arbitrary finite prime-label set. That is the
+correct local multiplicity/zero-factor dictionary. The Lean module
+does **not** independently prove algebraic number-field prime splitting
+or the global identity B9; the analytic number-field interpretation of
+its Euler factors remains to be imported/verified.
+
+On finite cutoffs B9 yields the exact formula
+
+\[
+ \boxed{M(X)=\sum_{d\le X}\chi_{-3}(d)
+                \sum_{N\mathfrak a\le X/d}\mu_F(\mathfrak a).}
+ \tag{B11}
+\]
+
+This is the concrete coefficient-level bridge from the OAI's IDEAL
+Mobius input to VF's ACTUAL rational Mertens clipped boundary. But
+it also identifies a missing **quadratic-character cross-convolution**:
+the d sum carries signs, and applying absolute values to the inner
+ideal Möbius sums destroys their cancellation. One cannot use
+the Dirichlet-convolution formula to infer a rational power saving by
+termwise bounds on a_F.
+
+### Existing OAI inverse moments do not yet save the principal row
+
+The paper's "Marked inverse moment" (Section "The inverse moment with prime
+factors", Lemma old-eq:4.1) estimates, with no selected prime factors,
+
+\[
+ M_u(Z^r;W)=Z^{-r/2}
+   \sum_{\mathfrak n}\mu_F(\mathfrak n)\psi_u(\mathfrak n)
+     W(N\mathfrak n/Z^r),\qquad
+ \sum_{0<N u\ll Z^m}|M_u|^2\ll Z^{m+\epsilon}
+\]
+under r <= m-c_1 (and the second displayed range condition).
+Taking the single principal row u=1 only yields
+\[
+ \left|\sum_{\mathfrak n}\mu_F(\mathfrak n)
+     W(N\mathfrak n/Z^r)\right|
+ \ll Z^{(m+r)/2+\epsilon}.
+\]
+Since m>r, this is NO better than a length-Z^r trivial power.
+Even before incorporating the chi_{-3} convolution B11 and the second
+Mertens factor in B1, the *existing averaged moment* cannot prove the
+needed principal-row saving merely by selecting one row.
+
+The concrete new analytic work is therefore **a principal-row
+amplification/correlation theorem for the quadratically convoluted
+B11 coefficients**, compatible with the TWO original Möbius factors
+in B1/B6 and the signed native mixed boundary. Neither the published
+mean-square bound nor phase-preserving C-to-R realification alone
+establishes that statement.
+
 ## 3. What the OAI 7/8 result ALREADY offers, and what it does not
 
 With a standard quantitative zero-free-to-Mertens theorem (not imported
