@@ -44,6 +44,8 @@ jobs:
         run: python3 -B scripts/vf_mid_first_bad_payment_v2_test.py --extended --floor-li
       - name: Exact historical sieve counterattack against prime drought
         run: python3 -B scripts/vf_mid_918_adversarial_sieve_duel.py
+      - name: Completed-square cancellation within incomplete historical wheel
+        run: python3 -B scripts/vf_mid_918_completed_square_wheel_telescope.py
       - name: Syntax check opt-in matrix and genuine owner probes without external packages
         run: |
           python3 -m py_compile scripts/vf_mid_918_crossblock_moments.py
