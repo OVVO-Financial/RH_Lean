@@ -77,7 +77,8 @@ theorem vf919CharacterAlignedSite_eq_parentTwisted
   rw [realMoebiusStep_mul_prime_eq_neg hp ha, hmul,
     ← lowOwnerZeroFrequencyMobiusWeight_sub_mul hp.one_le]
   push_cast
-  field_simp [hphase] <;> ring
+  field_simp [hphase]
+  ring
 
 /-- A zero prime phase has no inverse cancellation: its child site vanishes
 and the surviving source is the parent. This is separate from the good-row
@@ -187,7 +188,7 @@ theorem vf919FiniteHermitianGram {ι : Type*} (s : Finset ι) (f : ι → ℂ) :
       ∑ a ∈ s, ∑ b ∈ s, (f a * star (f b)).re := by
   have hn (z : ℂ) : ‖z‖ ^ 2 = (z * star z).re := by
     rw [Complex.sq_norm]
-    simp [Complex.normSq_apply, Complex.mul_re] <;> ring
+    simp [Complex.normSq_apply, Complex.mul_re]
   rw [hn, star_sum, Finset.sum_mul]
   simp_rw [Finset.mul_sum]
   simp only [Complex.re_sum]
@@ -206,7 +207,8 @@ theorem vf919ParentTwistedCompensatedSite_hermitian_eq_fourCorner
     _ = lowOwnerFirstOwnerCompensatedSite R p a *
         lowOwnerFirstOwnerCompensatedSite R p b *
         (chi a * star (chi b)).re := by
-      simp [vf919ParentTwistedCompensatedSite, Complex.mul_re, Complex.mul_im] <;> ring
+      simp [vf919ParentTwistedCompensatedSite, Complex.mul_re, Complex.mul_im]
+      ring
     _ = _ := by
       rw [lowOwnerFirstOwnerCompensatedSite_mul_eq_fourCornerMass hp ha hb]
 
@@ -302,7 +304,7 @@ theorem vf919CharacterChild_aligned_eq_neg_returned
   rw [realMoebiusStep_mul_prime_eq_neg hp
     (lowOwnerFirstOwnerAdmittedBase_not_dvd ha), hmul a ha]
   push_cast
-  field_simp [hphase] <;> ring
+  field_simp [hphase]
 
 /-- Mixed Gram of the actual two branches, with the child phase aligned. -/
 def vf919CharacterCellMixedGram
@@ -333,7 +335,8 @@ theorem vf919CharacterCellMixedGram_eq_signedTelescope
       vf919CharacterClippedExit R p sig chi) *
       star (-vf919CharacterReturnedParent R p sig chi)).re = _
   rw [vf919CharacterCompensatedInterior_eq_admitted_sub_returned sig chi hp.one_le]
-  simp [Complex.sq_norm, Complex.normSq_sub, Complex.mul_re] <;> ring
+  simp [Complex.sq_norm, Complex.normSq_sub, Complex.mul_re]
+  ring
 
 /-- The character telescope's actual mixed source is precisely the existing
 native first-owner cell Gram when the phase is trivial. -/
