@@ -435,6 +435,26 @@ At \(\chi=1\), the source specializes exactly to the native real
 base-plus-child cell. The full cell also inherits the existing normalized
 real-pair energy and signed-product-plus-anti-diagonal identities.
 
+The stronger signed form retains the two branch squares instead of
+bounding the full cell by its compensated interior. Write
+\(L=\sum_{\mathrm{Admitted}}F_\chi(a)\) and
+\(J=\sum_{\mathrm{Admitted}}w_R(pa)\mu(a)\chi(a)\).
+The module proves \(I=L-J\) and the actual aligned child branch is \(-J\).
+Consequently its literal mixed first-owner Gram obeys
+
+\[
+\boxed{2\Re((L+C)\overline{-J})
+ =|I|^2-|L|^2-|J|^2-2\Re(C\overline J).}
+\tag{A6}
+\]
+
+This is `vf919CharacterCellMixedGram_eq_signedTelescope`.
+The clipped square in A5 cancels against the full base-branch square;
+its **signed** \(-2\Re(C\overline J)\) boundary remains. At trivial phase
+the mixed source is exactly `lowOwnerFirstOwnerCellGram`, as proved by
+`vf919CharacterCellMixedGram_one`. This consumes the native signed-cell
+mechanism rather than converting it to an unsigned clipped capacity.
+
 **What this narrows:** phase alignment and once-only child return are now
 explicit native-carrier theorems. Transporting an OAI local row must prove
 that its normalized coefficients implement A2 (or retain the A1 defect),
@@ -445,6 +465,9 @@ including its \(q_p^{-3/2}\) scale changes, primary generator orientations,
 zero extensions, fixed prime-slot supports and coefficients; attaching the
 original VF moving square weights and all historical/cross-owner Sector Six
 terms; and proving a new uniform bound on the complete resulting moment.
+The once-only return proved here is within a single cell. It does not yet
+certify the simultaneous selected-slot subset expansion or global once-only
+historical owner accounting when different cells use different inverse phases.
 The presence of \(\chi(p)^{-1}\) in both A2 and OAI Eq. 5.13b is a useful
 local compatibility condition, not a proof that their operators coincide.
 No new zero-free boundary or actual-prime first-bad payment is proved here.

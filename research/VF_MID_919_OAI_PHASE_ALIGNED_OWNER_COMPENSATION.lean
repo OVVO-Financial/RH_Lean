@@ -113,6 +113,19 @@ theorem vf919FirstOwnerChild_sum_eq_returnedParents
     have hnDvd := (Finset.mem_filter.mp hn).2.2
     rw [Nat.mul_div_cancel' hnDvd]
 
+/-- The literal base-carrier partition also preserves arbitrary complex
+coefficients, so its clipped terms remain available before energy. -/
+theorem vf919FirstOwnerBase_sum_eq_admitted_add_clipped
+    (R p : ℕ) (sig : Finset ℕ) (f : ℕ → ℂ) :
+    (∑ a ∈ lowOwnerFirstOwnerBaseFiber R p sig, f a) =
+      (∑ a ∈ lowOwnerFirstOwnerAdmittedBaseFiber R p sig, f a) +
+        ∑ a ∈ lowOwnerFirstOwnerClippedBaseFiber R p sig, f a := by
+  unfold lowOwnerFirstOwnerAdmittedBaseFiber lowOwnerFirstOwnerClippedBaseFiber
+  simpa only [not_le] using
+    (Finset.sum_filter_add_sum_filter_not
+      (s := lowOwnerFirstOwnerBaseFiber R p sig)
+      (p := fun a => p * a ≤ squareRootEndpoint R) (f := f)).symm
+
 /-- Full phase-aligned physical cell, before removing the clipped exit. -/
 def vf919CharacterAlignedCell
     (R p : ℕ) (sig : Finset ℕ) (chi : ℕ → ℂ) : ℂ :=
@@ -150,12 +163,7 @@ theorem vf919CharacterAlignedCell_eq_compensated_add_clipped
         vf919CharacterMobiusSite R chi a) +
       ∑ a ∈ lowOwnerFirstOwnerClippedBaseFiber R p sig,
         vf919CharacterMobiusSite R chi a := by
-    unfold lowOwnerFirstOwnerAdmittedBaseFiber lowOwnerFirstOwnerClippedBaseFiber
-    simpa only [not_le] using
-      (Finset.sum_filter_add_sum_filter_not
-        (s := lowOwnerFirstOwnerBaseFiber R p sig)
-        (p := fun a => p * a ≤ squareRootEndpoint R)
-        (f := vf919CharacterMobiusSite R chi)).symm
+    exact vf919FirstOwnerBase_sum_eq_admitted_add_clipped R p sig _
   have hinter :
       (∑ a ∈ lowOwnerFirstOwnerAdmittedBaseFiber R p sig,
         vf919CharacterMobiusSite R chi a) +
@@ -244,6 +252,98 @@ theorem vf919CharacterAlignedCell_norm_sq_eq_full_physicalGram
       ‖z + w‖ ^ 2 = ‖z‖ ^ 2 + ‖w‖ ^ 2 + 2 * (z * star w).re := by
     simpa only [Complex.sq_norm] using Complex.normSq_add z w
   rw [hnorm, vf919CharacterCompensatedInterior_norm_sq_eq_physicalGram chi hp]
+
+/-- Admitted parent branch, still with its complex phase attached. -/
+def vf919CharacterAdmittedBase
+    (R p : ℕ) (sig : Finset ℕ) (chi : ℕ → ℂ) : ℂ :=
+  ∑ a ∈ lowOwnerFirstOwnerAdmittedBaseFiber R p sig,
+    vf919CharacterMobiusSite R chi a
+
+/-- Returned child coefficient BEFORE the native fresh-prime sign reversal. -/
+def vf919CharacterReturnedParent
+    (R p : ℕ) (sig : Finset ℕ) (chi : ℕ → ℂ) : ℂ :=
+  ∑ a ∈ lowOwnerFirstOwnerAdmittedBaseFiber R p sig,
+    ((lowOwnerZeroFrequencyMobiusWeight R (p * a) *
+      realMoebiusStep a : ℝ) : ℂ) * chi a
+
+/-- Native signed daughter/root difference, with every parent phase intact. -/
+theorem vf919CharacterCompensatedInterior_eq_admitted_sub_returned
+    {R p : ℕ} (sig : Finset ℕ) (chi : ℕ → ℂ) (hp : 1 ≤ p) :
+    vf919CharacterCompensatedInterior R p sig chi =
+      vf919CharacterAdmittedBase R p sig chi -
+        vf919CharacterReturnedParent R p sig chi := by
+  unfold vf919CharacterCompensatedInterior vf919CharacterAdmittedBase
+    vf919CharacterReturnedParent vf919ParentTwistedCompensatedSite
+    vf919CharacterMobiusSite lowOwnerFirstOwnerCompensatedSite
+    lowOwnerZeroFrequencyMobiusSite
+  rw [← Finset.sum_sub_distrib]
+  apply Finset.sum_congr rfl
+  intro a _ha
+  rw [← lowOwnerZeroFrequencyMobiusWeight_sub_mul hp]
+  push_cast
+  ring
+
+/-- The phase-aligned ACTUAL child branch is the negative of its returned
+parent amplitude. The inverse phase is not applied to a proxy population. -/
+theorem vf919CharacterChild_aligned_eq_neg_returned
+    {R p : ℕ} {sig : Finset ℕ} (chi : ℕ → ℂ) (hp : p.Prime)
+    (hphase : chi p ≠ 0)
+    (hmul : ∀ a ∈ lowOwnerFirstOwnerAdmittedBaseFiber R p sig,
+      chi (p * a) = chi p * chi a) :
+    (chi p)⁻¹ * (∑ n ∈ lowOwnerFirstOwnerChildFiber R p sig,
+      vf919CharacterMobiusSite R chi n) =
+      -vf919CharacterReturnedParent R p sig chi := by
+  rw [vf919FirstOwnerChild_sum_eq_returnedParents hp]
+  unfold vf919CharacterReturnedParent
+  rw [Finset.mul_sum, ← Finset.sum_neg_distrib]
+  apply Finset.sum_congr rfl
+  intro a ha
+  unfold vf919CharacterMobiusSite lowOwnerZeroFrequencyMobiusSite
+  rw [realMoebiusStep_mul_prime_eq_neg hp
+    (lowOwnerFirstOwnerAdmittedBase_not_dvd ha), hmul a ha]
+  push_cast
+  field_simp [hphase] <;> ring
+
+/-- Mixed Gram of the actual two branches, with the child phase aligned. -/
+def vf919CharacterCellMixedGram
+    (R p : ℕ) (sig : Finset ℕ) (chi : ℕ → ℂ) : ℝ :=
+  ((∑ a ∈ lowOwnerFirstOwnerBaseFiber R p sig,
+    vf919CharacterMobiusSite R chi a) *
+    star ((chi p)⁻¹ * (∑ n ∈ lowOwnerFirstOwnerChildFiber R p sig,
+      vf919CharacterMobiusSite R chi n))).re
+
+/-- **Signed cell telescope with phases.** The clipped square cancels against
+the full base-branch square; the surviving boundary is the SIGNED `-2 C J`
+mixed term. It must not be replaced by an unsigned clipped capacity. -/
+theorem vf919CharacterCellMixedGram_eq_signedTelescope
+    {R p : ℕ} {sig : Finset ℕ} (chi : ℕ → ℂ) (hp : p.Prime)
+    (hphase : chi p ≠ 0)
+    (hmul : ∀ a ∈ lowOwnerFirstOwnerAdmittedBaseFiber R p sig,
+      chi (p * a) = chi p * chi a) :
+    2 * vf919CharacterCellMixedGram R p sig chi =
+      ‖vf919CharacterCompensatedInterior R p sig chi‖ ^ 2 -
+      ‖vf919CharacterAdmittedBase R p sig chi‖ ^ 2 -
+      ‖vf919CharacterReturnedParent R p sig chi‖ ^ 2 -
+      2 * (vf919CharacterClippedExit R p sig chi *
+        star (vf919CharacterReturnedParent R p sig chi)).re := by
+  unfold vf919CharacterCellMixedGram
+  rw [vf919FirstOwnerBase_sum_eq_admitted_add_clipped,
+    vf919CharacterChild_aligned_eq_neg_returned chi hp hphase hmul]
+  change 2 * ((vf919CharacterAdmittedBase R p sig chi +
+      vf919CharacterClippedExit R p sig chi) *
+      star (-vf919CharacterReturnedParent R p sig chi)).re = _
+  rw [vf919CharacterCompensatedInterior_eq_admitted_sub_returned sig chi hp.one_le]
+  simp [Complex.sq_norm, Complex.normSq_sub, Complex.mul_re] <;> ring
+
+/-- The character telescope's actual mixed source is precisely the existing
+native first-owner cell Gram when the phase is trivial. -/
+theorem vf919CharacterCellMixedGram_one
+    (R p : ℕ) (sig : Finset ℕ) :
+    vf919CharacterCellMixedGram R p sig (fun _ => 1) =
+      lowOwnerFirstOwnerCellGram R p sig := by
+  simp [vf919CharacterCellMixedGram, vf919CharacterMobiusSite,
+    lowOwnerFirstOwnerCellGram, lowOwnerFirstOwnerBaseAmplitude,
+    lowOwnerFirstOwnerChildAmplitude, Complex.mul_re]
 
 /-- The native inverse phase at ONE is the already-compiled real compensated
 cell, with its clipped exit. This identifies the exact untwisted specialization. -/
