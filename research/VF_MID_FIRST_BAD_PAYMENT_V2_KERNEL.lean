@@ -222,4 +222,81 @@ theorem vfV2NoUnconditionalAllStateCone :
   have h := hall 0 (1 / 4) 0 8
   norm_num [vfV2Balance, vfV2Upper, vfV2Lower] at h
 
+
+/-! ## Exact sparse-tier transport and half-run geometry
+
+These lemmas do not assert the missing first-bad signed Co/Div inequality.
+Their input is the ORIGINAL physical odd-seat owner partition. In particular,
+a sparse owner p has p^2 > R and the open endpoint n < (R+1)^2.
+-/
+
+/-- Any sparse owner p at R>=9 is at least 4. Consequently, every
+cofactor c of a physical composite p*c lies STRICTLY below the square
+of A=R/2+1. This makes its prime ancestors prior-good under a first-bad
+hypothesis, but does not make their earlier signed charge spendable twice. -/
+theorem vfV2SparseCofactorBeforeHalfAnchor (R p c : ℕ)
+    (hR : 9 ≤ R) (hp : R < p ^ 2)
+    (hopen : p * c < (R + 1) ^ 2) :
+    c < (R / 2 + 1) ^ 2 := by
+  have hp4 : 4 ≤ p := by nlinarith
+  have hhalf : R + 1 ≤ 2 * (R / 2 + 1) := by omega
+  have hsq : (R + 1) ^ 2 ≤ (2 * (R / 2 + 1)) ^ 2 := by
+    nlinarith
+  have hmult : 4 * c ≤ p * c :=
+    Nat.mul_le_mul_right c hp4
+  nlinarith
+
+/-- An owner p with p^2>R cannot occur four times in the prime
+factorization of any number in the STRICTLY OPEN current square block.
+Thus the entire intermediate tier consists only of 2- and 3-almost-primes. -/
+theorem vfV2SparseFourFactorImpossible (R p n : ℕ)
+    (hp : R < p ^ 2) (hopen : n < (R + 1) ^ 2)
+    (hfour : p ^ 4 ≤ n) : False := by
+  have hle : R + 1 ≤ p ^ 2 := by omega
+  have hsquare : (R + 1) ^ 2 ≤ (p ^ 2) ^ 2 := by
+    nlinarith
+  have hpower : (p ^ 2) ^ 2 = p ^ 4 := by ring
+  omega
+
+/-- Weight-preserving finite Fubini over ALL sparse owners before taking
+absolute values or a Co/Div bound. The same w_R is kept on every site.
+This is a classification identity, NOT nonpositivity of the global Gram. -/
+theorem vfV2SparseOwnerFubini (A B : ℕ) (owners : Finset ℕ)
+    (w : ℕ → ℝ) (N : ℕ → ℕ → ℝ) :
+    (∑ r ∈ Finset.Ico A B,
+        w r * ∑ p ∈ owners,
+          if p ≤ r ∧ r < p ^ 2 then N r p else 0) =
+      ∑ p ∈ owners, ∑ r ∈ Finset.Ico A B,
+        if p ≤ r ∧ r < p ^ 2 then w r * N r p else 0 := by
+  calc
+    _ = ∑ r ∈ Finset.Ico A B, ∑ p ∈ owners,
+          if p ≤ r ∧ r < p ^ 2 then w r * N r p else 0 := by
+        apply Finset.sum_congr rfl
+        intro r hr
+        rw [Finset.mul_sum]
+        apply Finset.sum_congr rfl
+        intro p hp_mem
+        by_cases h : p ≤ r ∧ r < p ^ 2 <;> simp [h]
+    _ = _ := by rw [Finset.sum_comm]
+
+/-- The mature-survivor count T=P+S converts the ACTUAL prime error
+against the floor-Li demand F into the negative sparse-owner residual
+against T-F. This is an exact arithmetic telescope, not a probabilistic
+estimate of the residual. -/
+theorem vfV2SparseOwnerFloorLiResidual (T S F : ℝ) :
+    (T - S) - F = -(S - (T - F)) := by
+  ring
+
+/-- The sparse component must be assembled BEFORE squaring. Its cross
+term can help or hurt the native Co/Div sign and cannot be discarded. -/
+theorem vfV2SparseCoDivFullCrossTerms (U0 L s : ℝ) :
+    (U0 + s + L) ^ 2 - 2 * (U0 + s - L) ^ 2 =
+      (6 * U0 * L - U0 ^ 2 - L ^ 2) +
+        (6 * s * L - 2 * s * U0 - s ^ 2) := by
+  ring
+
+theorem vfV2SparseCrossOwnerSquare (s₁ s₂ : ℝ) :
+    (s₁ + s₂) ^ 2 = s₁ ^ 2 + s₂ ^ 2 + 2 * s₁ * s₂ := by
+  ring
+
 end RHLean.Analysis
