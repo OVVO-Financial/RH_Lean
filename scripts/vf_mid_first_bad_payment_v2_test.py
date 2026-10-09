@@ -312,6 +312,7 @@ def main():
     endpoints = {r * r for r in indices} | {(r + 1) ** 2 for r in indices}
     if args.floor_li:
         endpoints.add(2)
+        endpoints.update((r//2+1)**2 for r in indices)
         samples_for_buckets = set(samples) | {56, 1760, 2000, 5267, 6000}
         for r in samples_for_buckets.intersection(indices):
             B=r+1
@@ -330,6 +331,8 @@ def main():
     li_cone_violations=0
     li_sqrt_counterexamples=0
     li_sqrt_max=(0.0,None,None)
+    half_drift_max=(0.0,None,None)
+    half_wall_ratio_max=(0.0,None)
     for r in indices:
         record = verify(r, pi, vf, flags if r in samples or r in (1760, 5267, 6000)
                         else None)
@@ -341,6 +344,50 @@ def main():
             bflag = r in samples or r in (56,1760,2000,5267,6000)
             li = floor_li_audit(r, record, pi, vf, buckets=bflag, flags=flags)
             dP=li["delta"]
+            # Under a first-bad B=R+1, this is the exact HISTORICAL
+            # prime-floor-Li accumulation from A=floor(R/2)+1 to B.
+            # Long build-up, not one-block volatility, determines escape.
+            A=r//2+1
+            B=r+1
+            errA=pi[A*A]-li_floor(A*A)
+            errB=li["E1"]
+            dE=errB-errA
+            bA=li_floor(A*A)-vf[A]
+            bB=li_floor(B*B)-vf[B]
+            DA=pi[A*A]-vf[A]
+            DB=record["D1"]
+            WA=2*A*math.log(A)
+            WB=2*B*math.log(B)
+            growth=WB-WA
+            assert growth>0
+            assert close(DA,errA+bA)
+            assert close(DB,errB+bB)
+            assert close(DB-DA,dE+(bB-bA))
+            plusA=WA-DA
+            minusA=WA+DA
+            plusB=WB-DB
+            minusB=WB+DB
+            assert close(plusB,plusA+growth-dE-(bB-bA))
+            assert close(minusB,minusA+growth+dE+(bB-bA))
+            ratio=abs(dE)/growth
+            if ratio>half_wall_ratio_max[0]:
+                half_wall_ratio_max=(ratio,r)
+            if abs(dE)>half_drift_max[0]:
+                half_drift_max=(abs(dE),r,dE)
+            if bflag:
+                sign=1 if DB>=0 else -1
+                oriented=sign*dE
+                anchorSlack=WA-sign*DA
+                required=anchorSlack+growth-sign*(bB-bA)
+                assert close(required-oriented,WB-sign*DB)
+                print("HISTORY R=%d A=%d B=%d E(A^2)=%+d E(B^2)=%+d "
+                      "historicalError=%+d wallGrowth=%.3f "
+                      "historyToWallGrowth=%.6f "
+                      "firstBadOrientation=%+d orientedError=%+.3f "
+                      "necessaryOrientedHistoryForBreach=%.3f "
+                      "remainingSignedWallClearance=%.3f PASS" %
+                      (r,A,B,errA,errB,dE,growth,ratio,sign,
+                       oriented,required,required-oriented))
             li_sqrt_counterexamples+=(abs(dP)>math.sqrt(r))
             normalized_delta=abs(dP)/math.sqrt(r)
             if normalized_delta>li_sqrt_max[0]:
@@ -402,6 +449,10 @@ def main():
                li_sqrt_counterexamples,li_sqrt_max,
                li_proxy_neg,li_floor.cache_info().misses,
                time.monotonic()-start))
+        print("HISTORICAL ACTUAL pi-floorLi: largest abs half-run "
+              "E(B²)-E(A²)=%s; max abs history / moving-wall growth=%s; "
+              "these finite facts are NOT an all-R restorative theorem" %
+              (half_drift_max,half_wall_ratio_max))
         print("CRITICAL: E(X)=pi(X)-floor(Li2(X)) is ACTUAL unknown "
               "arithmetic. Bucket identities only telescope it. "
               "A uniform signed bound on E is NOT proved.")
