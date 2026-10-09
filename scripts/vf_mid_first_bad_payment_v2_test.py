@@ -276,6 +276,42 @@ def verify(r, pi, vf, flags=None):
     }
 
 
+def four_quadrant(x, y, tx=0.0, ty=0.0):
+    # Fixed targets only, no rolling/sample-dependent moving target.
+    a, b = x-tx, y-ty
+    ua, la = max(a, 0.0), max(-a, 0.0)
+    ub, lb = max(b, 0.0), max(-b, 0.0)
+    return (ua*ub, la*lb, ua*lb, la*ub)
+
+
+def physical_site_masses(r, p, w, target):
+    # ORIGINAL R literal odd seats: composites at +w, primes at w-1.
+    # Apply partialUpper/Lower BEFORE aggregating seats.
+    c = r-p
+    return (c*max(w-target,0.0)+p*max(w-1-target,0.0),
+            c*max(target-w,0.0)+p*max(target+1-w,0.0))
+
+
+def moment_sums(values):
+    cu, cl, du, dl = values
+    co, div = cu+cl, du+dl
+    return dict(CUPM=cu, CLPM=cl, DUPM=du, DLPM=dl, Co=co, Div=div,
+                Signed=co-div, NNS=(co-div)/(co+div) if co+div else 0.0)
+
+
+def constant_target_pearson(values):
+    # Conventional Pearson is centered once over the entire fixed panel
+    # for COMPARISON; NNS physical targets remain prescribed constants.
+    if len(values)<2:
+        return 0.0
+    x, y=zip(*values)
+    mx, my=math.fsum(x)/len(x), math.fsum(y)/len(y)
+    numerator=math.fsum((a-mx)*(b-my) for a,b in values)
+    vx=math.fsum((a-mx)**2 for a in x)
+    vy=math.fsum((b-my)**2 for b in y)
+    return numerator/math.sqrt(vx*vy) if vx*vy>0 else 0.0
+
+
 def check_synthetic_counterexample():
     # w=1/4, P=0, C=8, D=0: U=2, L=0, slack=-4.
     # This rules out mistaking the symbolic algebra for an unconditional
@@ -333,6 +369,13 @@ def main():
     li_sqrt_max=(0.0,None,None)
     half_drift_max=(0.0,None,None)
     half_wall_ratio_max=(0.0,None)
+    site_matrix={t:[0.0]*4 for t in (0.0,-0.1,0.1)}
+    aggregated_vf=[0.0]*4
+    aggregated_floorli=[0.0]*4
+    old_row=None
+    old_li_delta=None
+    vf_lag_pairs=[]
+    floorli_lag_pairs=[]
     for r in indices:
         record = verify(r, pi, vf, flags if r in samples or r in (1760, 5267, 6000)
                         else None)
@@ -340,10 +383,31 @@ def main():
             min_balance = record["slack"], r
         negatives += record["slack"] < 0
         breaches += record["firstbad_breach"]
+        if old_row is not None:
+            assert old_row["R"]+1 == r or not args.extended
+            for fixed in site_matrix:
+                u,l=physical_site_masses(old_row["R"],old_row["P"],
+                                         old_row["w"],fixed)
+                up,lp=physical_site_masses(r,record["P"],record["w"],fixed)
+                m=site_matrix[fixed]
+                m[0]+=u*up
+                m[1]+=l*lp
+                m[2]+=u*lp
+                m[3]+=l*up
+            q_prev=old_row["w"]*old_row["R"]-old_row["P"]
+            q_curr=record["w"]*r-record["P"]
+            mf=four_quadrant(q_prev,q_curr)
+            aggregated_vf[:]=[z+x for z,x in zip(aggregated_vf,mf)]
+            vf_lag_pairs.append((q_prev,q_curr))
         if args.floor_li:
             bflag = r in samples or r in (56,1760,2000,5267,6000)
             li = floor_li_audit(r, record, pi, vf, buckets=bflag, flags=flags)
             dP=li["delta"]
+            if old_li_delta is not None:
+                ml=four_quadrant(old_li_delta,dP)
+                aggregated_floorli[:]=[z+x for z,x in zip(aggregated_floorli,ml)]
+                floorli_lag_pairs.append((old_li_delta,dP))
+            old_li_delta=dP
             # Under a first-bad B=R+1, this is the exact HISTORICAL
             # prime-floor-Li accumulation from A=floor(R/2)+1 to B.
             # Long build-up, not one-block volatility, determines escape.
@@ -427,12 +491,40 @@ def main():
                        li["weighted_highCError"],li["weighted_smoothError"],
                        li["weighted_primeError"]+li["weighted_highCError"]+
                        li["weighted_smoothError"]))
+        old_row=record
         if r in samples or r in (1760, 5267, 6000):
             print(f"R={r:<5d} P={record['P']:<5d} "
                   f"U={record['U']:.6f} L={record['L']:.6f} "
                   f"Dnext={record['D1']:+.6f} "
                   f"slack={record['slack']:+.4f} "
                   f"NNS={record['norm']:.6f} PASS")
+    if vf_lag_pairs:
+        literal=moment_sums(site_matrix[0.0])
+        block=moment_sums(aggregated_vf)
+        assert close(literal["Signed"],block["Signed"],scale=len(vf_lag_pairs)), (
+            "absolute-mass normalization changed signed physical crossblock Gram")
+        print("CROSSBLOCK_PHYSICAL_SEAT_MATRIX target=0 lag=1 "
+              "CUPM=%.4f CLPM=%.4f DUPM=%.4f DLPM=%.4f "
+              "Co=%.4f Div=%.4f Signed=%.4f NNS=%.9f PASS" %
+              (literal["CUPM"],literal["CLPM"],literal["DUPM"],
+               literal["DLPM"],literal["Co"],literal["Div"],
+               literal["Signed"],literal["NNS"]))
+        print("CROSSBLOCK_AGGREGATED_VF target=0 lag=1 "
+              "Co=%.4f Div=%.4f Signed=%.4f NNS=%.6f Pearson=%.6f PASS" %
+              (block["Co"],block["Div"],block["Signed"],block["NNS"],
+               constant_target_pearson(vf_lag_pairs)))
+        for t in (-0.1,0.1):
+            m=moment_sums(site_matrix[t])
+            print("CROSSBLOCK_PHYSICAL_SEAT fixed_target=%+.1f "
+                  "lag=1 Co=%.4f Div=%.4f NNS=%.6f "
+                  "(target shift changes signed physical deviations) PASS" %
+                  (t,m["Co"],m["Div"],m["NNS"]))
+        if args.floor_li and floorli_lag_pairs:
+            m=moment_sums(aggregated_floorli)
+            print("CROSSBLOCK_AGGREGATED_FLOORLI fixed_target=0 lag=1 "
+                  "Co=%.3f Div=%.3f NNS=%.6f Pearson=%.6f PASS" %
+                  (m["Co"],m["Div"],m["NNS"],
+                   constant_target_pearson(floorli_lag_pairs)))
     print(f"PASS {len(indices)} true-prime blocks: exactly 2R full integers, "
           f"R odd candidates, w=V/R, unchanged original anchored mass; "
           f"negative balances={negatives} (diagnostic, not failures); "
