@@ -6,6 +6,8 @@ on:
     paths:
       - research/VF_MID_SEVEN_EIGHTHS_ANALYTIC_BRIDGE.lean
       - research/VF_MID_SEVEN_EIGHTHS_OWNER_ABEL.lean
+      - research/VF_MID_SEVEN_EIGHTHS_MELLIN_SQUARE_KERNEL.lean
+      - research/VF_MID_SEVEN_EIGHTHS_BIDIRECTIONAL_SYNTHESIS.md
       - scripts/vf_919_prime_owner_abel_spectral_probe.py
       - research/VF_MID_SEVEN_EIGHTHS_ANALYTIC_STATUS.md
       - .github/workflows/vf-mid-seven-eighths-analytic.yml
@@ -78,11 +80,21 @@ jobs:
           lake env lean -DwarningAsError=true \
             -o .lake/build/lib/lean/research.VF_MID_SEVEN_EIGHTHS_OWNER_ABEL.olean \
             research/VF_MID_SEVEN_EIGHTHS_OWNER_ABEL.lean
+      - name: Compile completed-square original-weight Mellin kernel (warning-fatal)
+        run: |
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.VF_MID_SEVEN_EIGHTHS_MELLIN_SQUARE_KERNEL.olean \
+            research/VF_MID_SEVEN_EIGHTHS_MELLIN_SQUARE_KERNEL.lean
       - name: Verify theorem signatures, axioms and exactly located open input
         run: |
           cat > /tmp/vf_seven_eighths_acceptance.lean <<'LEAN'
           import «research.VF_MID_SEVEN_EIGHTHS_ANALYTIC_BRIDGE»
           import «research.VF_MID_SEVEN_EIGHTHS_OWNER_ABEL»
+          import «research.VF_MID_SEVEN_EIGHTHS_MELLIN_SQUARE_KERNEL»
+          #check RHLean.Analysis.vfSevenEighthsComplexWeightedIncrementAbel
+          #check RHLean.Analysis.vfSevenEighthsSquareMellinPhase
+          #check RHLean.Analysis.vfSevenEighthsCompletedSquareMellinKernel_abel
+          #print axioms RHLean.Analysis.vfSevenEighthsCompletedSquareMellinKernel_abel
           #check RHLean.Analysis.vfSevenEighthsWeightedIncrementAbel
           #check RHLean.Analysis.vfSevenEighthsWeightVariation_telescope
           #check RHLean.Analysis.vfSevenEighthsWeightedIncrement_abs_le_twice_initial
