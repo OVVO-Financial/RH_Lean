@@ -115,7 +115,60 @@ and a² describes the exact historical compression frontier.
 All can be represented by the SAME generic interval floor-Li
 comparison without inventing a new prime-probability model.
 
-## 4. Why this is useful but not an automatic RH theorem
+## 4. Further exploratory all-cofactor R-scan
+
+As a separate numerical stress test (NOT a formal theorem), I scanned
+every square block R=8,...,2000, using an exact prime sieve and
+vectorized evaluation of the integer Li₂ staircase at every
+cofactor-window endpoint. The 317 and 1027 cohorts and the worst-case
+positive/negative windows were independently spot-checked against
+45-digit mpmath Li floor calculations; there were zero floor
+disagreements at the checked endpoints.
+
+Let
+
+    E_comp(R) = sum_(odd 3<=c<=R)
+      [(π(hi_c)-π(lo_c))-(⌊Li₂(hi_c)⌋-⌊Li₂(lo_c)⌋)],
+
+with lo_c=max(R,floor(R²/c)), hi_c=floor(X/c).
+Denote the sum of all POSITIVE cofactor errors by P(R), the magnitude
+of all NEGATIVE cofactor errors by N(R). Then
+
+    E_comp(R)=P(R)-N(R),
+
+and the algebraic cancellation against the cofactor-wise raw absolute
+errors is exactly
+
+    [P(R)+N(R)]-|E_comp(R)| = 2 min(P(R),N(R)).
+
+This is *not* the production Co/Div cancellation. It is only the
+composite-prime cofactor Fubini sector of the current VF source.
+
+| R | actual high-prime composites | Li cohort events | P(R) | N(R) | net E_comp(R) | cofactor absolute-saving count |
+| ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| 56 | 34 | 35 | 7 | 8 | -1 | 14 |
+| 79 | 41 | 47 | 12 | 18 | -6 | 24 |
+| 119 | 80 | 72 | 24 | 16 | +8 | 32 |
+| 317 | 192 | 204 | 50 | 62 | -12 | 100 |
+| 1027 | 659 | 648 | 144 | 133 | +11 | 266 |
+| 1760 | 1169 | 1134 | 291 | 256 | +35 | 512 |
+| 2000 | 1270 | 1294 | 293 | 317 | -24 | 586 |
+
+Across the consecutive R=8..2000 scan:
+  - 739 blocks had positive cofactor residual;
+  - 1180 had negative residual;
+  - 74 had exactly zero residual;
+  - maximum +52 at R=1861 (actual 1215, Li 1163);
+  - minimum -52 at R=1953 (actual 1219, Li 1271).
+
+Numerically this cofactor-window error remains much smaller than the
+total individual absolute window errors, and it changes sign.
+However, an observed |E_comp(R)|<=52 up to R=2000 is emphatically
+NOT an all-scale bound. The near-perfect cofactor compensation
+must be justified by a genuine arithmetic correlation theorem
+if it is to enter #915 hbalance.
+
+## 5. Why this is useful but not an automatic RH theorem
 
 The generic floor-Li identity is exact for all intervals. It cannot
 force the actual count to be near the floor-Li demand in an interval
