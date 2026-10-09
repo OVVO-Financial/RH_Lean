@@ -624,7 +624,7 @@ establish them for all R.
 **Research-only numerical evidence, NEVER the missing first-bad theorem.**
 All rows below are from ACTUAL sieve-computed pi through X=6001^2,
 R=8..6000 (5993 blocks), with Q=floor Li_2 and original odd VF weights.
-The independent comprehensive vectorized run completed in ~4.4 sec
+The checked-in complete vectorized experiment\n`scripts/vf_mid_918_crossblock_moments.py`\ncompleted in ~4.4 sec
 (excluding runner startup); its floor-Li array included 12,004,000
 integer arguments and six near-jump values were verified with
 55-decimal-digit mpmath (zero corrections). The standard-library
@@ -680,8 +680,7 @@ physical-seat coefficient of #918's actual original carrier.
 An added seconds-fast CI audit computes *all four* literal
 seat-first quadrants at t=0 and t=+/-0.1, computes the
 aggregate-first quadrants at t=0, and **asserts exact signed
-Gram equality** (to floating verification tolerance), without
-altering the five-file PR or building StrongPNT.
+Gram equality** (to floating verification tolerance), without rebuilding StrongPNT; the complete scientific cohort study is an independently opt-in script.
 
 ### Lagged true-prime and composite-owner dependencies
 
@@ -738,8 +737,7 @@ lag-1 matrix is
 Notice large->smooth and smooth->large are POSITIVE, while
 both self-sector lag-1 diagonals are NEGATIVE. That is a
 mixed signed interaction structure, NOT automatic globally
-nonpositive Co-Div energy. The raw Co and Div matrices
-are separately computable with the code below; normalizing
+nonpositive Co-Div energy. The full raw Co and Div matrices are separately available in\nthe checked-in opt-in cross-block experiment; normalizing
 each cell does not produce an additive global inequality.
 
 ### Fixed target stress test
@@ -918,8 +916,26 @@ slower after a cold cache and is **NOT** called by fast smoke CI.
 Neither this deep check nor the algebra check tries to prove (11).
 
 The workflow `.github/workflows/vf-first-bad-payment-v2.yml`
-splits these lanes and cancels stale PR runs; the first job needs only
-Python 3 stdlib. The GitHub manual workflow has `deep_native` input.
+splits these lanes and cancels stale PR runs. The standard PR smoke path
+requires only stdlib Python plus the tiny cached Lean kernel. Manual
+`workflow_dispatch` inputs `deep_native` and `crossblock_moments`
+are independent and BOTH default to false. The latter installs its own
+NumPy/SciPy/mpmath dependencies, runs the entire 5,993-block cohort
+NNS/Pearson/Schur study (~4.4s CPU after setup), runs the selected
+true owner-matched q->c*q probe, and uploads CSV/JSON results as
+the `vf918-crossblock-actual-primes` GitHub Action artifact.
+
+Reproduce this optional research analysis locally:
+
+```sh
+python3 -m pip install numpy scipy mpmath
+python3 scripts/vf_mid_918_crossblock_moments.py \
+  --max-root 6000 --outdir vf918_crossblock
+python3 scripts/vf_mid_918_owner_matched_probe.py
+```
+
+Neither research script imports or changes production Lean,
+nor is its finite numerical output used as a proof hypothesis.
 
 ### Acceptance contract for any future proof patch
 
@@ -941,13 +957,15 @@ Python 3 stdlib. The GitHub manual workflow has `deep_native` input.
 ## 6. Dependency/size budget
 
 New branch is based directly on `main`.
-This workstream starts with **exactly five files**:
+This workstream has **exactly seven narrowly scoped files**:
 
 1. This canonical proof contract (one `.md`);
 2. One small Mathlib-only algebraic kernel file;
 3. One native conditional consumer importing existing main;
-4. One stdlib actual-prime regression script;
-5. One isolated fast workflow with an opt-in deep lane.
+4. One stdlib actual-prime regression and full physical-seat matrix script;
+5. One isolated fast workflow with opt-in native AND empirical cohort lanes;
+6. One opt-in fast NumPy/SciPy entire actual-prime/Co-Div experiment;
+7. One opt-in genuine prime-owner-to-odd-composite probe.
 
 Do not transplant #915's 36-file exploratory diff, commit history,
 experimental Li/floor-Li scripts, or failing terminal file.
