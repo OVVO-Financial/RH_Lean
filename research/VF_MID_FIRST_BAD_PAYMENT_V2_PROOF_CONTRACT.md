@@ -432,6 +432,133 @@ or replacement denominator was introduced.
 ---
 
 
+## 0D. Oct 9 completed square blocks INSIDE incomplete wheels: DOUBLE endpoint telescope
+
+**The completed-square intuition is mathematically correct.**
+The old SquareWheelNesting.lean theorem telescopes signed square-block MERTENS
+increments to two primorial residual endpoints. That theorem is already
+exact, but does not by itself bound the prime-minus-VF owner forcing.
+
+Here is the corresponding *genuine finite sieve* mechanism.
+Choose a fixed low-prime cutoff y and primorial Q_y. Write
+
+\[
+F_y(x)=\#\{1\le n\le x:\gcd(n,Q_y)=1\}
+=\sum_{d\mid Q_y}\mu(d)\lfloor x/d\rfloor,
+\qquad
+\rho_y=\phi(Q_y)/Q_y,\quad E_y(x)=F_y(x)-\rho_y x.
+\]
+
+**First completed-square telescope.**
+For all A<=B,
+
+\[
+\boxed{
+\sum_{r=A}^{B-1}
+[F_y((r+1)^2)-F_y(r^2)-\rho_y(2r+1)]
+=E_y(B^2)-E_y(A^2).
+} \tag{AD4}
+\]
+
+NO full Q_y period is needed. Each internal square-boundary phase
+cancels exactly, rather than contributing in absolute value.
+
+**Crucial physical endpoint correction and SECOND telescope.**
+The original VF physical carrier is OPEN between r² and (r+1)².
+A terminal square can survive a selected partial wheel although it
+is composite, and must NEVER be inserted into the NNS odd-seat
+denominator. Since gcd(j²,Q_y)=1 iff gcd(j,Q_y)=1,
+the total small-wheel OPEN square survivors equal
+
+\[
+\boxed{
+S_y^{open}(A,B)
+=F_y(B^2)-F_y(A^2)-F_y(B)+F_y(A).
+} \tag{AD5}
+\]
+
+The centered signed OPEN-square phase therefore obeys
+
+\[
+\boxed{
+\sum_{r=A}^{B-1}
+[S_y^{open}(r)-2\rho_y r]
+=[E_y(B^2)-E_y(A^2)]-[E_y(B)-E_y(A)].
+} \tag{AD6}
+\]
+
+FOUR endpoint phases; no internal phases. Prime 2 is included
+in Q_y, so the OPEN wheel survivors lie on the genuine ODD sites,
+without added even charges. The squareful endpoint correction is
+kept exactly, not treated as restoring NNS capacity.
+
+**Uniform incomplete-period bound.**
+The signed Möbius divisor-floor formula gives
+|E_y(x)| <= |D_y|, where D_y is the squarefree divisor carrier
+of Q_y with 2^(pi(y)) members. This is valid even if Q_y exceeds
+the complete square-run length. Therefore (AD4) costs at most
+2|D_y| and the literal OPEN-carrier (AD6) at most 4|D_y|.
+For y=19, |D_y|=256, Q_y=9,699,690. These proved
+bounds are crude (512 and 1024), but are independent of
+the number of completed square blocks and of Q_y.
+
+**Exact finite true-prime results at y=19 (NO full CRT period).**
+
+| Root run | Integer span | Complete square blocks | Surviving upper SQUARES removed | OPEN-wheel survivors | Actual primes | Actual high-owner OPEN composites |
+|---|---:|---:|---:|---:|---:|---:|
+| 5267..5417 | 1,602,600 | 150 | 24 | 274,060 | 93,259 | 180,801 |
+| 6000..6154 | 1,871,716 | 154 | 26 | 320,083 | 107,382 | 212,701 |
+
+| Root run | Sum ABSOLUTE per-block OPEN phase errors | Actual signed double-endpoint phase | Cancellation factor |
+|---|---:|---:|---:|
+| 5267..5417 | 250.129883 | +2.555278 | 97.89 |
+| 6000..6154 | 296.132088 | +0.938557 | 315.52 |
+
+The erroneous one-level phases WITH the terminal squares would be
++0.901674 and +0.600857. The DOUBLE telescope above is the one
+compatible with the ORIGINAL physical prime/NNS carrier.
+
+The exact original signed error over the completed run is
+
+\[
+\boxed{
+D_B-D_A
+=\rho_y[(B^2-A^2)-(B-A)]-\sum_{r=A}^{B-1}V_r
++\{E_y(B^2)-E_y(A^2)-E_y(B)+E_y(A)\}
+-C_y^{open}(A,B).
+} \tag{AD7}
+\]
+
+The high-owner term is the ACTUAL count of composite OPEN
+survivors, each site counted once. For 5267..5417 it equals
+180801, and the prime supply is 274060-180801=93259;
+the VF reference sum is 93354.825775, so D_B-D_A=-95.825775.
+The finite-wheel phase is just +2.555278.
+
+**Progress classification.**
+The small-wheel incomplete-CRT phase has now been reduced
+to endpoint terms, rigorously, without a full CRT period or
+a per-block absolute loss. This validates the completed
+square-block mechanism. It does NOT yet control the massive
+actual high-owner composite correction; that historically
+signed term is still the unique RH-strength Sector Six seam.
+
+New Mathlib-only theorem declarations in the existing #918 kernel:
+vfV2CompletedSquareWheelBandPhase_telescope,
+vfV2FiniteSignedWheelPrefixPhase_abs_le_card,
+vfV2FiniteSignedWheelCompletedSquares_abs_le_two_card,
+vfV2CompletedOpenSquareWheelBandPhase_double_telescope,
+vfV2CompletedOpenSquareWheelBandPhase_abs_le_four_boundary.
+Source presence does not imply warning-fatal Lean compilation;
+CI status must be checked separately.
+
+The independent seconds-fast numeric regression is
+scripts/vf_mid_918_completed_square_wheel_telescope.py.
+No synthetic-prime owner or changed NNS normalization was used.
+
+---
+
+
 ## 1. One objective, no substitute theorems
 
 For each square block $(R^2,(R+1)^2)$, set
