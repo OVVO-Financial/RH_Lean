@@ -1232,6 +1232,38 @@ Merely finding a prior-good parent cannot restore the required
 CURRENT signed Gram unless a true charge-conserving boundary
 map is proved.
 
+
+### 4E.3a One high-prime parent has at most one odd child per block
+
+Fix R and any integer q>R. If two DISTINCT odd cofactors c,d
+produced q*c and q*d strictly inside (R^2,(R+1)^2), then
+|c-d|>=2, hence
+
+$
+|qc-qd|\ge2q\ge2R+2>2R+1=(R+1)^2-R^2.
+$
+
+This is impossible. Therefore
+
+$
+\boxed{\text{Each }q>R\text{ has at most ONE odd child in block }R.}
+\tag{E4a}
+$
+
+The Mathlib-only Lean theorem
+\`vfV2HighFactorOneOddChildPerOpenBlock\` establishes this
+one-block occurrence injection. The opt-in true-prime owner
+probe checks each q>R occurs at most once among the original
+odd c*q sites. The theorem complements the prior-good
+cofactor bound (E4).
+
+**Crucial limitation:** this injection is valid for ONE fixed
+root R. The SAME historical prime q can have different
+odd cofactor children in different blocks; its original
+negative NNS charge cannot be paid again in each block.
+Across-block occurrence multiplicity and the old D_A
+historical anchor still need a native, weighted signed proof.
+
 ### 4E.4 First-owner Fubini AND exact boundary Abel transform
 
 For p prime, define the rough-cofactor prefix
@@ -1339,6 +1371,11 @@ This is proven symbolically by
 | 1760 | 306 | 236 | 274 | +32 |
 | 5267 | 721 | 615 | 723 | -2 |
 | 6000 | 812 | 690 | 820 | -8 |
+
+The opt-in original owner probe can be run with `--sparse-full` to
+reproduce the full-panel count of **2,318,557** sparse semiprimes and
+**287,454** sparse triples (and both lag-one correlations) without
+changing production Lean or the ordinary seconds-fast lane.
 
 Across R=8..6000, raw sparse counts correlate nearly +1
 because their base levels grow. That trend must NOT be
