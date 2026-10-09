@@ -106,6 +106,10 @@ jobs:
           #check RHLean.Analysis.vfV2SparseOwnerFloorLiResidual
           #check RHLean.Analysis.vfV2SparseCoDivFullCrossTerms
           #check RHLean.Analysis.vfV2HighFactorOneOddChildPerOpenBlock
+          #check RHLean.Analysis.vfV2HighParentChargeOnceFubini
+          #check RHLean.Analysis.vfV2HighParentRepeatedChargeOvercount
+          #print axioms RHLean.Analysis.vfV2HighParentChargeOnceFubini
+          #print axioms RHLean.Analysis.vfV2HighParentRepeatedChargeOvercount
           #print axioms RHLean.Analysis.vfV2SparseCofactorBeforeHalfAnchor
           #print axioms RHLean.Analysis.vfV2HighFactorOneOddChildPerOpenBlock
           #print axioms RHLean.Analysis.vfV2Payment_iff_exactSignedBalance
