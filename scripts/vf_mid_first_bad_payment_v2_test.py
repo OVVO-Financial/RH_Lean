@@ -313,11 +313,11 @@ def constant_target_pearson(values):
 
 
 def sparse_first_owner_boundary_regression():
-    """Exact segmented odd-seat least-prime ownership.
+    """Least-prime owners on the strictly OPEN square carrier.
 
-    A p hit on an odd seat is NOT automatically a p FIRST-owner site.
-    Full-lattice p multiples / even sites are never NNS charges. At
-    r=p-1, n=p^2 is a separate one-cell upper-square frontier.
+    A p-multiple on the full lattice is not necessarily an odd seat or
+    a p-FIRST-owner site. At R=p-1, p^2 is the EXCLUDED upper endpoint.
+    On the open carrier every composite's least prime owner <= R.
     """
     lo_primes=prime_flags(10202)
     primes=[p for p in range(3,10203,2) if lo_primes[p]]
@@ -325,9 +325,11 @@ def sparse_first_owner_boundary_regression():
     for r in (100,101,10201):
         first=r*r+1
         if first%2==0:first+=1
+        last=(r+1)**2-1
+        assert first+2*(r-1)<=last and first+2*r>last
         owners=[0]*r
         for q in primes:
-            if q>r+1:break
+            if q>r:break
             cf=(first+q-1)//q
             if cf%2==0:cf+=1
             ix=(q*cf-first)//2
@@ -335,23 +337,24 @@ def sparse_first_owner_boundary_regression():
                 if owners[j]==0:owners[j]=q
         count_prime=owners.count(0)
         count_mature=sum(1 for q in owners if q and q*q<=r)
-        count_sparse=sum(1 for q in owners if q and q<=r and q*q>r)
-        count_square=sum(1 for q in owners if q==r+1)
-        assert count_prime+count_mature+count_sparse+count_square==r
-        all_p_hits=(r+1)**2//p-r*r//p
-        odd_p_hits=sum(1 for cf in range(r*r//p+1,(r+1)**2//p+1)
+        count_sparse=sum(1 for q in owners if q and q*q>r)
+        assert count_prime+count_mature+count_sparse==r
+        full_p_hits=last//p-r*r//p
+        odd_p_hits=sum(1 for cf in range(r*r//p+1,last//p+1)
                        if cf%2)
         unique_p=sum(q==p for q in owners)
-        assert 0<=unique_p<=odd_p_hits<=all_p_hits
+        assert 0<=unique_p<=odd_p_hits<=full_p_hits
         if r==100:
-            assert unique_p==1 and count_square==1  # p^2=10201
+            assert unique_p==odd_p_hits==full_p_hits==0 # p^2 excluded
+            assert (r+1)**2==p*p
         if r==101:
-            assert all_p_hits==2 and odd_p_hits==unique_p==1
-        print("SPARSE_EXACT R=%d raw_all_p101_hits=%d odd_p101_hits=%d "
+            assert full_p_hits==2 and odd_p_hits==unique_p==1
+        print("SPARSE_EXACT R=%d interior_p101_hits=%d odd_p101_hits=%d "
               "unique_first_owner_p101=%d block_prime_count=%d "
-              "mature=%d sparse=%d square_frontier=%d PASS" %
-              (r,all_p_hits,odd_p_hits,unique_p,count_prime,
-               count_mature,count_sparse,count_square))
+              "mature=%d sparse=%d upper_square_excluded=PASS" %
+              (r,full_p_hits,odd_p_hits,unique_p,count_prime,
+               count_mature,count_sparse))
+
 
 
 def check_synthetic_counterexample():
