@@ -105,6 +105,10 @@ jobs:
           #check RHLean.Analysis.vfV2HistoricalPrefixLocksPrime
           #check RHLean.Analysis.vfV2HistoricalDrought_iff_completeFactorCover
           #check RHLean.Analysis.vfV2FiniteOwnerUnion_card_le_sum
+          #check RHLean.Analysis.vfV2HistoricalPrimePartialWheelBonferroni
+          #check RHLean.Analysis.vfV2LowerWallBreach_iff_historicalBufferShortfall
+          #check RHLean.Analysis.vfV2UpperWallBreach_iff_historicalBufferShortfall
+          #print axioms RHLean.Analysis.vfV2HistoricalPrimePartialWheelBonferroni
           #check RHLean.Analysis.vfV2PartialWheelForcedPrimeLower
           #print axioms RHLean.Analysis.vfV2HistoricalPrefixLocksPrime
           #print axioms RHLean.Analysis.vfV2PartialWheelForcedPrimeLower
