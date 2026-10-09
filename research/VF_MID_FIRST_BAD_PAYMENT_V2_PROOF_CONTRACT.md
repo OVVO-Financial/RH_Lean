@@ -265,6 +265,7 @@ B^2 were ALREADY PRESENT in the historical prime prefix <=A^2.
 | 317 | 395 | 78 | 40.271857 | 4,729 | 41 |
 | 1000 | 1102 | 102 | 95.150981 | 15,446 | 96 |
 | 2000 | 2120 | 120 | 124.247283 | 32,441 | 125 |
+| 5267 | 5417 | 150 | 536.4552 | 93,259 | 537 |
 | 6000 | 6154 | 154 | 591.469814 | 107,382 | 592 |
 
 Finite exact-integer prime censuses plus deterministic float VF weights.
@@ -315,8 +316,11 @@ Q=9699690 exceeds the interval's 1,871,715 open sites,
 so there is NO complete CRT period from which to infer an
 all-scale phase uniformity bound.
 
-Smallest tested successful y: 7,11,13,19 for
-A=317,1000,2000,6000. The growing-wheel incomplete
+Smallest tested successful y: 7,11,13,19,19 for
+A=317,1000,2000,5267,6000.
+For the project checkpoint A=5267,B=5417, cutoff y=19
+certifies 274083-262893=11190 primes in the run, while
+only 537 are needed to defeat a zero-prime first crossing. The growing-wheel incomplete
 residue phase is the remaining bottleneck, not an
 undocumented probability assumption.
 
