@@ -339,14 +339,14 @@ No probabilistic prime statement or cancellation estimate is assumed.
 square run have cofactor strictly below the fixed early square anchor.
 This applies to mature as well as sparse owners. -/
 theorem vfV2HalfRunOwnerFiveChild_beforeAnchor
-    (A B p c : ℕ) (hA : 1 ≤ A) (hBA : B ≤ 2 * A)
+    (A B p c : ℕ) (_hA : 1 ≤ A) (hBA : B ≤ 2 * A)
     (hp : 5 ≤ p) (hn : p * c < B ^ 2) :
     c < A ^ 2 := by
   have hBsq : B ^ 2 ≤ (2 * A) ^ 2 :=
     Nat.pow_le_pow_left hBA 2
   have hpc : 5 * c ≤ p * c :=
     Nat.mul_le_mul_right c hp
-  have hApos : 1 ≤ A ^ 2 := by nlinarith [hA]
+  have hApos : 1 ≤ A ^ 2 := by nlinarith
   by_contra hnot
   have hc : A ^ 2 ≤ c := Nat.le_of_not_gt hnot
   nlinarith
@@ -409,7 +409,7 @@ theorem vfV2HalfRunThreeParent_earlyChild_late
 tower: two successive ODD factor strips (both factors >=3)
 always produce a child below the historical A² anchor. -/
 theorem vfV2HalfRunTwoOddPrimeStrips_beforeAnchor
-    (A B p q d : ℕ) (hA : 1 ≤ A) (hBA : B ≤ 2 * A)
+    (A B p q d : ℕ) (_hA : 1 ≤ A) (hBA : B ≤ 2 * A)
     (hp : 3 ≤ p) (hq : 3 ≤ q)
     (hchild : p * (q * d) < B ^ 2) :
     d < A ^ 2 := by
@@ -422,7 +422,7 @@ theorem vfV2HalfRunTwoOddPrimeStrips_beforeAnchor
       9 * d = (3 * 3) * d := by ring
       _ ≤ (p * q) * d := Nat.mul_le_mul_right d hprod
       _ = p * (q * d) := by ring
-  have hApos : 1 ≤ A ^ 2 := by nlinarith [hA]
+  have hApos : 1 ≤ A ^ 2 := by nlinarith
   by_contra hnot
   have hd : A ^ 2 ≤ d := Nat.le_of_not_gt hnot
   nlinarith
@@ -511,6 +511,8 @@ theorem vfV2PostRootPrime_leastOwner_eq_cofactor
     (hq : R < q) (hqPrime : q.Prime) :
     (q * c).minFac = c.minFac := by
   have hcp : c.minFac.Prime := Nat.minFac_prime (by omega : c ≠ 1)
+  have hcp_le_c : c.minFac ≤ c :=
+    Nat.le_of_dvd (by omega : 0 < c) (Nat.minFac_dvd c)
   have hpdvd : c.minFac ∣ q * c :=
     dvd_mul_of_dvd_right (Nat.minFac_dvd c) q
   have hle : (q * c).minFac ≤ c.minFac :=
