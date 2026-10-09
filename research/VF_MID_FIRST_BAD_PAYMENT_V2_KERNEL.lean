@@ -749,7 +749,7 @@ theorem vfV2FirstBad_requires_strictCurrentDeviation
     (hprior : |D| ≤ WA)
     (hbad : WB < |D + delta|) :
     WB - WA < |delta| := by
-  have htri := abs_add D delta
+  have htri := abs_add_le D delta
   linarith
 
 /-- Upper first bad forces a genuine positive outward increment. -/
