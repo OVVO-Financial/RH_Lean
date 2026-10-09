@@ -197,40 +197,40 @@ termwise bounds on a_F.
 The previous paragraph, which concluded that **no published OAI moment provides a
 principal-row saving**, was incorrect. It analyzed only the MARKED inverse
 moment (old-eq:4.1) and omitted the separate **Sixth-power amplification**
-lemma, \`lem:inverse-amplification\` / \`eq:amplified-note\`, in OpenAI's
+lemma, `lem:inverse-amplification` / `eq:amplified-note`, in OpenAI's
 September 30 manuscript (paper.tex, near lines 12362–12455).
 
 For a fixed permitted annular smooth test W, fixed character presentation nu,
 the original zero extensions, and **zero prime slots**, define
 
-\\[
- M_u(D;W)=D^{-1/2}\\sum_{\\mathfrak n}
-     \\mu_F(\\mathfrak n)\\nu(\\mathfrak n)
-     \\chi_{\\mathfrak n}(u)^{\\varepsilon_\\chi}
-     W(N\\mathfrak n/D).
-\\]
+\[
+ M_u(D;W)=D^{-1/2}\sum_{\mathfrak n}
+     \mu_F(\mathfrak n)\nu(\mathfrak n)
+     \chi_{\mathfrak n}(u)^{\varepsilon_\chi}
+     W(N\mathfrak n/D).
+\]
 
 OAI proves, for any fixed c>0,
 
-\\[
- \\sum_{N u\\asymp U}|M_u(D;W)|^2
- \\ll_{c,\\epsilon,W,\\mathrm{fixed\\ data}}
- \\max\\{U,\\;U^{1/6}D^{5(1+c)/6}\\}(UD)^\\epsilon
-\\tag{B12}
-\\]
+\[
+ \sum_{N u\asymp U}|M_u(D;W)|^2
+ \ll_{c,\epsilon,W,\mathrm{fixed\ data}}
+ \max\{U,\;U^{1/6}D^{5(1+c)/6}\}(UD)^\epsilon
+\tag{B12}
+\]
 
 over sixth-power-free element rows with all the original fixed exclusions.
 **The row u=1 is included** (take U=1), so choosing c sufficiently
 small in terms of epsilon and absorbing bounded initial D gives
 
-\\[
- \\boxed{|M_1(D;W)|^2\\ll_\\epsilon D^{5/6+\\epsilon},}
- \\qquad
- \\boxed{\\left|\\sum_{\\mathfrak n}\\mu_F(\\mathfrak n)
-           \\nu(\\mathfrak n)W(N\\mathfrak n/D)\\right|
-           \\ll_\\epsilon D^{11/12+\\epsilon}.}
- \\tag{B13}
-\\]
+\[
+ \boxed{|M_1(D;W)|^2\ll_\epsilon D^{5/6+\epsilon},}
+ \qquad
+ \boxed{\left|\sum_{\mathfrak n}\mu_F(\mathfrak n)
+           \nu(\mathfrak n)W(N\mathfrak n/D)\right|
+           \ll_\epsilon D^{11/12+\epsilon}.}
+ \tag{B13}
+\]
 
 This is an **actual, unconditional, principal-row ideal-Mobius
 power saving in OAI's fixed smooth/masked setting**. It uses averaging
@@ -247,7 +247,7 @@ Why it does **not** pay the native signed clipped boundary:
    especially p=2. Excluded Euler factors and a smoothing/Perron
    completion with controlled unsmoothed tails are still necessary.
 2. Rational Mobius is the exact convolution B9:
-   \`mu_Z = chi_{-3} * a_F\`. Even a sharp ideal-Mobius
+   `mu_Z = chi_{-3} * a_F`. Even a sharp ideal-Mobius
    O(D^{11/12+epsilon}) estimate cannot be inserted through B11 termwise
    without losing the saving to the growing quadratic-character
    convolution. The signed d-sum needs to remain intact.
@@ -267,11 +267,11 @@ quadratic convolution, deleted prime Euler factors, moving q²
 daughter kernel, and justified sharp-cutoff limit. Feed the resulting
 bound into the **full native signed telescope**
 
-\\[
+\[
  2G_R=I_R^2-L_R^2-J_R^2-2C_RJ_R,
-\\]
+\]
 
-without replacing \`-L_R²-J_R²\` by zero or spending only an
+without replacing `-L_R²-J_R²` by zero or spending only an
 unsigned bound on C_R or J_R. The remaining stage must also identify
 the historical Sector Six first-bad source with this signed ledger.
 This stronger B6 estimate and historical identification are **open**.
