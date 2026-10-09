@@ -32,6 +32,19 @@ prime q in the top third may act as a small-owner parent at a later
 square scale after 3q enters the clock, but such *future* mass cannot be
 spent at a first-bad boundary B.
 
+**What does control terminal q itself?** A genuine low-owner sieve. For
+B>=4, every q in (T,B^2] satisfies B<q<=B^2. The existing least-prime
+factor arithmetic therefore proves
+
+    q is prime  <=>  lowWheelHighSurvivor(B,q).
+
+New theorem `vfMid915_topThird_lowWheelSurvivors_eq_primes` identifies the
+entire terminal actual-prime SET with the full low-prime wheel survivors.
+This is the viable occurrence carrier for terminal events: ascending
+composite removals of the q-sites by small p<=B, not imaginary proper
+odd descendants c*q within the earlier half-run. It is an exact sieve,
+**not an estimate** of survivors versus Li jumps.
+
 ### Actual arithmetic at the two historical anchors
 
 | Quantity | R=317 | R=1027 |
