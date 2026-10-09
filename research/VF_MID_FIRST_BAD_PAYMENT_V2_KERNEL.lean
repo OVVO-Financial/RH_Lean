@@ -836,7 +836,7 @@ theorem vfV2HistoricalPrefixLocksPrime
     by_contra hnprime
     have hnpos : 0 < n := by omega
     have hnnotone : n ≠ 1 := by
-      have hAsq : 1 ≤ A ^ 2 := by nlinarith
+      have hAsq : 4 ≤ A ^ 2 := by nlinarith [hA]
       omega
     let p := n.minFac
     have hpprime : p.Prime := by
@@ -870,7 +870,7 @@ theorem vfV2HistoricalDrought_iff_completeFactorCover
     exact (hdrought n hnL hnU) (hiff.mpr hnowitness)
   · intro hcover n hnL hnU hnprime
     have hiff :=
-      vfV2HistoricalPrefixLocksPrime
+      vfV2HistoricalPrefixLocksPrime hA
         (lt_of_le_of_lt hL hnL) (lt_of_lt_of_le hnU hU)
     exact (hiff.mp hnprime) (hcover n hnL hnU)
 
