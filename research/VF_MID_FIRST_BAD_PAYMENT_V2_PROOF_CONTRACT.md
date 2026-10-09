@@ -1547,8 +1547,10 @@ N(q)=\pi(q-1)-\pi(\lfloor q^{1/3}\rfloor).
 \tag{F4}
 $
 
-There is only ONE earlier original prime-negative site at integer q:
-its original weight has absolute value
+For q>=11 there is only ONE earlier original prime-negative
+site at integer q (for the exceptional smaller roots, the native
+signed value must be used rather than asserting a negative sign).
+For q>=11, its original absolute negative weight is
 
 $
 h_q=1-w_{\lfloor\sqrt q\rfloor}.
