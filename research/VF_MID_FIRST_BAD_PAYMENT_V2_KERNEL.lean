@@ -824,7 +824,7 @@ def vfV2HistoricalCompositeWitness (A n : ℕ) : Prop :=
 /-- Historical genuine prime owners up through A² already decide primality
 from A² up to (A²)². The proof uses literal least prime factors, not PNT. -/
 theorem vfV2HistoricalPrefixLocksPrime
-    {A n : ℕ} (hlo : A ^ 2 < n)
+    {A n : ℕ} (hA : 2 ≤ A) (hlo : A ^ 2 < n)
     (hhi : n < (A ^ 2) ^ 2) :
     n.Prime ↔ ¬ vfV2HistoricalCompositeWitness A n := by
   constructor
@@ -835,7 +835,9 @@ theorem vfV2HistoricalPrefixLocksPrime
   · intro hnone
     by_contra hnprime
     have hnpos : 0 < n := by omega
-    have hnnotone : n ≠ 1 := by omega
+    have hnnotone : n ≠ 1 := by
+      have hAsq : 1 ≤ A ^ 2 := by nlinarith
+      omega
     let p := n.minFac
     have hpprime : p.Prime := by
       simpa [p] using Nat.minFac_prime hnnotone
@@ -855,14 +857,14 @@ theorem vfV2HistoricalPrefixLocksPrime
 the same range, not something that can be posited independently. -/
 theorem vfV2HistoricalDrought_iff_completeFactorCover
     {A L U : ℕ}
-    (hL : A ^ 2 ≤ L) (hU : U ≤ (A ^ 2) ^ 2) :
+    (hA : 2 ≤ A) (hL : A ^ 2 ≤ L) (hU : U ≤ (A ^ 2) ^ 2) :
     (∀ n : ℕ, L < n → n < U → ¬ n.Prime) ↔
       (∀ n : ℕ, L < n → n < U →
         vfV2HistoricalCompositeWitness A n) := by
   constructor
   · intro hdrought n hnL hnU
     have hiff :=
-      vfV2HistoricalPrefixLocksPrime
+      vfV2HistoricalPrefixLocksPrime hA
         (lt_of_le_of_lt hL hnL) (lt_of_lt_of_le hnU hU)
     by_contra hnowitness
     exact (hdrought n hnL hnU) (hiff.mpr hnowitness)
