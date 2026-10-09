@@ -346,7 +346,7 @@ theorem vfV2HalfRunOwnerFiveChild_beforeAnchor
     Nat.pow_le_pow_left hBA 2
   have hpc : 5 * c ≤ p * c :=
     Nat.mul_le_mul_right c hp
-  have hApos : 1 ≤ A ^ 2 := by nlinarith
+  have hApos : 1 ≤ A ^ 2 := by nlinarith [hA]
   by_contra hnot
   have hc : A ^ 2 ≤ c := Nat.le_of_not_gt hnot
   nlinarith
@@ -422,7 +422,7 @@ theorem vfV2HalfRunTwoOddPrimeStrips_beforeAnchor
       9 * d = (3 * 3) * d := by ring
       _ ≤ (p * q) * d := Nat.mul_le_mul_right d hprod
       _ = p * (q * d) := by ring
-  have hApos : 1 ≤ A ^ 2 := by nlinarith
+  have hApos : 1 ≤ A ^ 2 := by nlinarith [hA]
   by_contra hnot
   have hd : A ^ 2 ≤ d := Nat.le_of_not_gt hnot
   nlinarith
