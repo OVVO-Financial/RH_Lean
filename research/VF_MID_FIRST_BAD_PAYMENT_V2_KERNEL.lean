@@ -79,7 +79,7 @@ theorem vfV2Payment_iff_exactSignedBalance (D w P C : ℝ) :
   rw [vfV2Balance_eq_originalMass_sub_two_next_sq]
   constructor <;> intro h <;> linarith
 
-/-- The equivalent nonnegative co-/divergent two-sector payment. -/
+/-- The equivalent nonnegative co-partial versus divergent two-sector payment. -/
 theorem vfV2Balance_eq_neg_coDivExcess (D w P C : ℝ) :
     vfV2Balance D w P C =
       -(vfV2Upper D w C ^ 2 + vfV2Lower D w P ^ 2 -
