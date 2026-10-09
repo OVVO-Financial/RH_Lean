@@ -735,4 +735,60 @@ theorem vfV2NoUniversalDelayedInwardFlux :
   norm_num [vfV2DelayedOrientedFlux] at h
 
 
+/-! ## Original Sector Six sign audit: signed/absolute active pair products
+
+The six oriented raw-parent sectors reindex the signed active Gram Z.
+For P negative prime charges (w-1) and F positive squarefree-composite
+charges w, the absolute Gram is A and the signed Gram is Z.
+The original Co/Div excess is G+4Z-2A and the six-sector upper budget
+is G+2Z. Hence budget = excess + a NONNEGATIVE opposite-sign correction.
+These are exact scalar identities; they do not prove the open payment.
+-/
+
+def vfV2ActiveSignedPairGram (w P F : ℝ) : ℝ :=
+  ((w * F - (1 - w) * P) ^ 2 -
+    ((1 - w) ^ 2 * P + w ^ 2 * F)) / 2
+
+def vfV2ActiveAbsolutePairGram (w P F : ℝ) : ℝ :=
+  (((1 - w) * P + w * F) ^ 2 -
+    ((1 - w) ^ 2 * P + w ^ 2 * F)) / 2
+
+/-- Sign and factor audit: SIX_BUDGET = ORIGINAL_EXCESS + positive correction.
+In particular, reversing this correction would be an algebraic error. -/
+theorem vfV2SixBudget_eq_originalExcess_add_pairCorrection
+    (G w P F : ℝ) :
+    G + 2 * vfV2ActiveSignedPairGram w P F =
+      (G + 4 * vfV2ActiveSignedPairGram w P F -
+        2 * vfV2ActiveAbsolutePairGram w P F) +
+          4 * w * (1 - w) * P * F := by
+  unfold vfV2ActiveSignedPairGram vfV2ActiveAbsolutePairGram
+  ring
+
+theorem vfV2SixPairCorrection_nonneg
+    {w P F : ℝ}
+    (hw0 : 0 ≤ w) (hw1 : w ≤ 1)
+    (hP : 0 ≤ P) (hF : 0 ≤ F) :
+    0 ≤ 4 * w * (1 - w) * P * F := by
+  have hwComplement : 0 ≤ 1 - w := by linarith
+  exact mul_nonneg
+    (mul_nonneg (mul_nonneg
+      (mul_nonneg (by norm_num : (0 : ℝ) ≤ 4) hw0)
+      hwComplement) hP) hF
+
+/-- A positive original Co/Div excess automatically forces POSITIVE six-sector
+upper budget. This is expected at a hypothetical first bad endpoint, not
+a sign inconsistency in the intended contradiction proof. -/
+theorem vfV2SixBudget_pos_of_originalExcess_pos
+    (G w P F : ℝ)
+    (hE : 0 <
+      G + 4 * vfV2ActiveSignedPairGram w P F -
+        2 * vfV2ActiveAbsolutePairGram w P F)
+    (hw0 : 0 ≤ w) (hw1 : w ≤ 1)
+    (hP : 0 ≤ P) (hF : 0 ≤ F) :
+    0 < G + 2 * vfV2ActiveSignedPairGram w P F := by
+  rw [vfV2SixBudget_eq_originalExcess_add_pairCorrection]
+  exact add_pos_of_pos_of_nonneg hE
+    (vfV2SixPairCorrection_nonneg hw0 hw1 hP hF)
+
+
 end RHLean.Analysis
