@@ -7,6 +7,8 @@ on:
       - research/VF_MID_SEVEN_EIGHTHS_ANALYTIC_BRIDGE.lean
       - research/VF_MID_SEVEN_EIGHTHS_OWNER_ABEL.lean
       - research/VF_MID_SEVEN_EIGHTHS_MELLIN_SQUARE_KERNEL.lean
+      - research/VF_MID_919_OAI_PARTIAL_MOMENT_TAILS.lean
+      - RHLean/Analysis/PartialMomentSchurTarget.lean
       - research/VF_MID_SEVEN_EIGHTHS_BIDIRECTIONAL_SYNTHESIS.md
       - research/VF_MID_919_OPEN_UNIFORM_ANALYTIC_TARGET.md
       - scripts/vf_919_prime_owner_abel_spectral_probe.py
@@ -45,7 +47,8 @@ jobs:
           if grep -nE '^[[:space:]]*(sorry|admit|axiom)([[:space:]]|$)' \
             research/VF_MID_SEVEN_EIGHTHS_ANALYTIC_BRIDGE.lean \
             research/VF_MID_SEVEN_EIGHTHS_OWNER_ABEL.lean \
-            research/VF_MID_SEVEN_EIGHTHS_MELLIN_SQUARE_KERNEL.lean; then
+            research/VF_MID_SEVEN_EIGHTHS_MELLIN_SQUARE_KERNEL.lean \
+            research/VF_MID_919_OAI_PARTIAL_MOMENT_TAILS.lean; then
             echo "No proof holes or added axioms allowed"
             exit 1
           fi
@@ -91,12 +94,28 @@ jobs:
           lake env lean -DwarningAsError=true \
             -o .lake/build/lib/lean/research.VF_MID_SEVEN_EIGHTHS_MELLIN_SQUARE_KERNEL.olean \
             research/VF_MID_SEVEN_EIGHTHS_MELLIN_SQUARE_KERNEL.lean
+      - name: Compile native NNS partial-moment target and OAI near-saturation tails (warning-fatal)
+        run: |
+          mkdir -p .lake/build/lib/lean/RHLean/Analysis
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/RHLean/Analysis/PartialMomentSchurTarget.olean \
+            RHLean/Analysis/PartialMomentSchurTarget.lean
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.VF_MID_919_OAI_PARTIAL_MOMENT_TAILS.olean \
+            research/VF_MID_919_OAI_PARTIAL_MOMENT_TAILS.lean
       - name: Verify theorem signatures, axioms and exactly located open input
         run: |
           cat > /tmp/vf_seven_eighths_acceptance.lean <<'LEAN'
           import «research.VF_MID_SEVEN_EIGHTHS_ANALYTIC_BRIDGE»
           import «research.VF_MID_SEVEN_EIGHTHS_OWNER_ABEL»
           import «research.VF_MID_SEVEN_EIGHTHS_MELLIN_SQUARE_KERNEL»
+          import «research.VF_MID_919_OAI_PARTIAL_MOMENT_TAILS»
+          #check RHLean.Analysis.vf919RowPartialSquare_reassembly
+          #check RHLean.Analysis.vf919RowUPM2_add_LPM2_eq_deviationSquare
+          #check RHLean.Analysis.vf919RowUPM2_controls_upperTail
+          #check RHLean.Analysis.vf919RowLPM2_controls_lowerTail
+          #check RHLean.Analysis.vf919OAI_saturationTail_le_deficitLPM2
+          #print axioms RHLean.Analysis.vf919OAI_saturationTail_le_deficitLPM2
           #check RHLean.Analysis.vfSevenEighthsComplexWeightedIncrementAbel
           #check RHLean.Analysis.vfSevenEighthsSquareMellinPhase
           #check RHLean.Analysis.vfSevenEighthsCompletedSquareMellinKernel_abel
