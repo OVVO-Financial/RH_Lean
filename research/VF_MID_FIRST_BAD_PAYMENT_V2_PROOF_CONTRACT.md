@@ -1083,6 +1083,367 @@ not the required pointwise arithmetic inequality.
 **No step of the proof currently bounds the true owner-driven
 positive-lag accumulation uniformly near the hypothetical wall.**
 
+
+## 4E. Sparse-tier owner attack: exact prior-half-run ancestor theorem (Oct 9)
+
+**Status:** the new sparse owner/cofactor transport, prime-semiprime/triple
+partition, residual calibration, original Co/Div expansion, and numerical
+regressions are proved or verified as stated below. Their *global signed
+near-wall payment* is still OPEN. In particular, empirical lag-one
+anticorrelation is NOT a pointwise owner-restoring theorem.
+
+### 4E.1 The strict-open, parity-locked least-owner partition
+
+The ORIGINAL physical source is exactly the R odd integers
+\`n\` with \`R^2 < n < (R+1)^2\`. In particular, upper prime squares
+are **excluded**, even though the defect recurrence can use pi at closed
+square endpoints because a square greater than 4 is composite.
+
+Write \`ell(n)\` for the smallest prime factor of an odd composite.
+For every physical composite, \`ell(n) <= R\` because
+\`ell(n)^2 <= n < (R+1)^2\`. Define disjoint native counts:
+
+$
+\begin{aligned}
+G_R&=\#\{n:\ R^2<n<(R+1)^2,\ n\ {\rm odd\ composite},
+                         \ell(n)^2\le R\},\\
+S_R&=\#\{n:\ R^2<n<(R+1)^2,\ n\ {\rm odd\ composite},
+                         R<\ell(n)^2\}.
+\end{aligned}
+$
+
+The exact no-double-counting partition is
+
+$
+\boxed{P_R+G_R+S_R=R.}
+\tag{E1}
+$
+
+**A p hit is not a p owner.** At R=100, the square 101^2=10201 is the
+EXCLUDED upper boundary. The single interior multiple of 101 is even,
+so **there are ZERO original 101-owned sites**, not one. At R=101 there
+are two interior 101 multiples, exactly one odd and uniquely owned by
+101: the semiprime 101*103=10403. The previous boundary-count assertion
+\`unique_p==1 and count_square==1\` for R=100 was false and caused
+the previous fast CI to fail. It has been corrected; no square is
+counted as a phantom restoring physical source.
+
+### 4E.2 Exact TWO/THREE-factor theorem for every sparse owner
+
+Let \`p=ell(n)\` in the sparse tier, so \`R<p^2\`.
+Since p^2 and R are integers, p^2 >= R+1. If n had FOUR
+prime factors (with multiplicity), each would be >=p, implying
+
+$
+ n\ge p^4\ge(R+1)^2,
+$
+
+contradicting the STRICT upper physical boundary. Thus every
+sparse-owned composite has Omega(n)=2 or Omega(n)=3.
+
+In the two-factor case, write n=pq, p<=q primes. Since p<=R and
+n>R^2, **q>R**. The semiprime sparse packet has the exact finite
+prime-interval formula
+
+$
+\boxed{
+S_R^{(2)}
+=
+\sum_{\substack{p\ {\rm prime}\\ \sqrt R<p\le R}}
+\left[
+\pi\!\left(\left\lfloor\frac{(R+1)^2-1}{p}\right\rfloor\right)
+-\pi\!\left(\left\lfloor\frac{R^2}{p}\right\rfloor\right)
+\right].
+}
+\tag{E2}
+$
+
+In the three-factor case, n=pqt with primes p<=q<=t and
+p^2>R. If t>=R+1 then n>=p^2(R+1)>=(R+1)^2,
+impossible. Therefore the entire **triple-smooth remainder**
+has **all three prime factors <=R**. This is a finite
+number-theoretic classifier, not a heuristic bucket or an extra
+NNS source:
+
+$
+\boxed{S_R=S_R^{(2)}+S_R^{(3)}.}
+\tag{E3}
+$
+
+All counts were independently checked using a segmented least-prime
+sieve and the separate prime-interval formula (E2).
+
+| R | Actual P | Mature G | Sparse S | Sparse semiprimes | Sparse triples |
+|---:|---:|---:|---:|---:|---:|
+| 8 | 4 | 0 | 4 | 3 | 1 |
+| 100 | 23 | 54 | 23 | 18 | 5 |
+| 101 | 22 | 54 | 25 | 22 | 3 |
+| 119 | 19 | 65 | 35 | 34 | 1 |
+| 317 | 54 | 201 | 62 | 56 | 6 |
+| 1027 | 144 | 710 | 173 | 161 | 12 |
+| 1760 | 204 | 1250 | 306 | 281 | 25 |
+| 5267 | 617 | 3929 | 721 | 644 | 77 |
+| 6000 | 698 | 4490 | 812 | 724 | 88 |
+| 10201 | 1096 | 7783 | 1322 | 1169 | 153 |
+
+Over ALL 5,993 true-prime blocks R=8..6000, precisely
+**88.9695784%** of sparse composites are the genuine prime-prime
+semiprime packet (E2), and the remaining **11.0304216%** are
+the three-factor packet. This constrains the arithmetic proof
+to two finite factor shapes instead of a freely branching owner tree.
+
+### 4E.3 The real half-run ancestry theorem
+
+Set \`A=floor(R/2)+1\`. For EVERY R>=9, p^2>R implies
+p>=4, and integer arithmetic gives
+
+$
+R+1\le 2A,\qquad
+p\,A^2\ge4A^2\ge(R+1)^2.
+$
+
+Consequently, for **every sparse composite n=p*c** on the
+original physical carrier,
+
+$
+\boxed{c< A^2,\qquad A=\lfloor R/2\rfloor+1,\quad R\ge9.}
+\tag{E4}
+$
+
+The result covers semiprime parent q as well as the entire
+two-prime cofactor of a sparse triple. It needs NO prime
+equidistribution assumption. The R=8 exceptional possibility
+is genuine: 75=3*(5*5), where the cofactor 25 equals A^2,
+so the Lean lemma correctly starts at R>=9.
+
+This is now a **formal Mathlib-only Lean theorem**
+\`vfV2SparseCofactorBeforeHalfAnchor\` in the existing kernel,
+rather than a conjectured ancestor cutoff. Its companion
+\`vfV2SparseFourFactorImpossible\` formalizes the four-factor
+exclusion. Every sparse cofactor is within the *prior-good
+historical square range* of a hypothetical first bad.
+
+**Crucial no-double-spend limitation:** for semiprime n=pq, the
+genuine negative prime seat at q lies in an EARLIER square
+block, below A^2. Its contribution is ALREADY represented in
+the compressed historical anchor D_A. It does not create
+a new negative site in the current original R-seat NNS norm.
+Merely finding a prior-good parent cannot restore the required
+CURRENT signed Gram unless a true charge-conserving boundary
+map is proved.
+
+### 4E.4 First-owner Fubini AND exact boundary Abel transform
+
+For p prime, define the rough-cofactor prefix
+
+$
+F_p(t)=\#\{c\ {\rm odd}: c\ge p,\ pc\le t^2,\
+                 q\nmid c\ \forall q<p\ {\rm prime}\}.
+$
+
+If N_{r,p} counts actual odd interior composites of least owner p,
+then exactly
+
+$
+\boxed{N_{r,p}=F_p(r+1)-F_p(r)-b_{r,p},}
+\tag{E5}
+$
+
+where b_{r,p}=1 if the odd upper square (r+1)^2 itself has
+least-prime owner p, and zero otherwise. NEVER silently remove
+this boundary correction; R=8, n=81, owner 3 is a witness.
+
+The full sparse-tier VF packet retains the physical weight
+\`w_r=V_r/r\`:
+
+$
+\begin{aligned}
+\mathcal S_{A,B}
+ &=\sum_{r=A}^{B-1}w_r
+       \sum_{\substack{p\ {\rm prime}\\p\le r<p^2}}N_{r,p}\\
+ &=\sum_{p\ {\rm prime}}\ 
+       \sum_{r=\max(A,p)}^{\min(B,p^2)-1}w_rN_{r,p}.
+\end{aligned}
+\tag{E6}
+$
+
+Empty ranges contribute zero. The on-branch Lean lemma
+\`vfV2SparseOwnerFubini\` proves the finite
+weight-preserving summation interchange with an abstract
+occurrence-count N; the prime/rough-cofactor ownership
+classification is separately checked arithmetically.
+
+For a fixed p and a<=r<b, the exact Abel transform is
+
+$
+\boxed{\begin{aligned}
+\sum_{r=a}^{b-1}w_rN_{r,p}
+={}&w_{b-1}F_p(b)-w_aF_p(a)\\
+&+\sum_{r=a+1}^{b-1}(w_{r-1}-w_r)F_p(r)
+ -\sum_{r=a}^{b-1}w_rb_{r,p}.
+\end{aligned}}
+\tag{E7}
+$
+
+For p=101, the **216** successive roots 101<=r<317
+have 141 UNIQUE first-owner hits, all semiprimes. Both native
+site integration and (E7) give, independently,
+
+$
+\boxed{\sum_{r=101}^{316}w_rN_{r,101}
+=26.456125656779307\ldots .}
+\tag{E8}
+$
+
+The numeric value is **weighted original VF positive mass**;
+it is NOT 26.456 units of freely spendable independent
+negative parent energy. The fast stdlib regression checks
+the exact 141 count and the independent Abel equality.
+
+### 4E.5 Floor Li on the mature-survivor / sparse-owner buckets
+
+Let \`Q(x)=floor(Li_2(x))\` be ONLY a deterministic reference
+and \`F_R=Q((R+1)^2)-Q(R^2)\`. The mature-owner survivors are
+
+$
+T_R=R-G_R=P_R+S_R.
+$
+
+Set the calibrated floor-Li **sparse benchmark**
+
+$
+\widehat S_R=T_R-F_R.
+$
+
+Unlike fabricated floor-Li prime owners, this projects Li
+demand onto the ACTUAL mature-sieve survivor set; it
+introduces no fake physical sites. Define the genuine
+signed sparse surplus
+
+$
+\boxed{
+\sigma_R=S_R-\widehat S_R
+        =F_R-P_R=-(P_R-F_R).
+}
+\tag{E9}
+$
+
+This is proven symbolically by
+\`vfV2SparseOwnerFloorLiResidual\`.
+
+| R | Actual S | floor-Li demand F | projected sparse T-F | actual sparse surplus sigma |
+|---:|---:|---:|---:|---:|
+| 119 | 35 | 25 | 29 | +6 |
+| 317 | 62 | 55 | 61 | +1 |
+| 1027 | 173 | 148 | 169 | +4 |
+| 1760 | 306 | 236 | 274 | +32 |
+| 5267 | 721 | 615 | 723 | -2 |
+| 6000 | 812 | 690 | 820 | -8 |
+
+Across R=8..6000, raw sparse counts correlate nearly +1
+because their base levels grow. That trend must NOT be
+confused with restoration. The calibrated sigma residual's
+lag-one Pearson is **-0.097081** (the negative of the
+prime-floor-Li error process has the SAME autocorrelation,
+since both coordinates are multiplied by -1). This is weak
+empirical anticorrelation, NOT a quantitative bound on its
+partial sums or a proof near the wall.
+
+The historical defect transport is EXACT:
+
+$
+\boxed{
+D_B=D_A+
+   \underbrace{\sum_{r=A}^{B-1}(F_r-V_r)}_{\beta_{A,B}\text{ deterministic}}
+   -\sum_{r=A}^{B-1}\sigma_r.
+}
+\tag{E10}
+$
+
+Consequently, EVERY unknown actual-prime deviation from the
+floor-Li benchmark in this owner partition lives in the
+calibrated sparse-owner surplus; the mature survivor count
+is determined by the lower sieve. This makes the proposed
+signed error transparent, but does **not** independently
+bound it: (E9) means a uniform RH-strength bound on the
+cumulative surplus is itself RH-strength.
+
+### 4E.6 The COMPLETE native Co/Div requirement and proof boundary
+
+The one-block original anchored masses are unmodified:
+
+$
+\begin{aligned}
+U_R &=(-D_R)_++w_R(G_R+S_R),\\
+L_R &=(D_R)_++(1-w_R)P_R.
+\end{aligned}
+$
+
+Set \`U0=(-D_R)_++w_R G_R\`, \`s=w_R S_R\`.
+Then the exact complete, cross-owner-preserving expansion is
+
+$
+\boxed{
+\begin{aligned}
+\mathcal B_R
+=6U_RL_R-U_R^2-L_R^2
+&=(6U_0L_R-U_0^2-L_R^2)\\
+&\quad +6sL_R-2sU_0-s^2.
+\end{aligned}}
+\tag{E11}
+$
+
+The standalone Lean lemma
+\`vfV2SparseCoDivFullCrossTerms\` checks (E11).
+It prevents us from counting the favorable 6sL_R without
+its adverse 2sU0+s^2 cross-owner cost.
+
+**The strongest new arithmetic fact is (E4): ALL sparse
+cofactors are below the prior-good half-run square.**
+This provides the exact domain in which the earlier
+compiled historical first-owner / restricted-reciprocal
+contraction lemmas can be applied, WITHOUT an extra
+statistical independence assumption. But to close RH
+one STILL has to produce a native **signed**, occurrence-
+matched, weight-conserving inequality for (E11)
+or equivalently a historical surplus barrier in (E10)
+which excludes every first-bad wall approach.
+
+Concretely, write W_B=2B log B. The first-bad exclusion needs
+
+$
+\boxed{
+-W_B\le
+D_A+\beta_{A,B}-\sum_{r=A}^{B-1}\sigma_r
+\le W_B
+\quad\text{for the hypothetical first-bad history}.
+}
+\tag{E12}
+$
+
+Equation (E12) is a **target**, not a theorem: by (E10)
+it is exactly the wall constraint. The proof would need a
+NEW actual-prime signed estimate on the rough-cofactor
+incomplete-wheel phases (or a valid conserved Gram payment)
+to establish it. The finite R=8..6000 checks and an
+empirical transition matrix do not establish this estimate.
+
+Also, the old main first-bad radial lemma already shows that
+at a HYPOTHETICAL first bad the production half-NNS
+inequality must FAIL. Hence simply proving the half gate
+from local owner-count inequalities is impossible: the
+historical arithmetic must actually eliminate the
+near-wall trajectory. The exact cross-owner signed
+remainder is the unproved mathematical seam.
+
+**Progress classification:** exact sparse factor geometry,
+cofactor descent, finite Fubini, algebraic Gram split:
+PROVED (kernel / elementary arithmetic); numeric
+semiprime/triple and Abel scans: VERIFIED FINITELY;
+actual-prime first-bad historical payment (11):
+OPEN. No RH claim.
+
+
 ## 5. Testing: deliberately separate seconds from native compilation
 
 **Fast lane** (automatically on every PR update; no Lean/StrongPNT):
