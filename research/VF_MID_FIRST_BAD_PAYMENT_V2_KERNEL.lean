@@ -473,6 +473,61 @@ theorem vfV2HalfRunThreeChild_injective
     (q r : ℕ) (h : 3 * q = 3 * r) :
     q = r := by omega
 
+/-! ## Post-root q projection: exact analogue of the X/2 prime buckets
+
+On one original OPEN square block R²<n<(R+1)², a genuine
+prime q>R dividing n forces n=q*c with c<=R. Therefore
+the new high-prime coordinate DOES NOT own the least-prime
+charge: minFac(n)=minFac(c) whenever c>=2. The original
+NNS odd-cofactor carrier has c>=3 and c odd, so x/3
+rather than x/2 is its first live high-prime layer.
+
+The separate existing theorem
+vfV2HighPrimeFactorUniqueOnOpenSquare supplies uniqueness
+of this q>R; these facts make the cofactor projection a
+non-overcounting arithmetic classifier.
+-/
+
+/-- Any post-root prime factor q>R in a strict square band pushes its
+integer cofactor all the way below the root R, not just below R². -/
+theorem vfV2PostRootCofactor_le_root
+    (R q c : ℕ) (hq : R < q)
+    (hopen : q * c < (R + 1) ^ 2) :
+    c ≤ R := by
+  by_contra hnot
+  have hq' : R + 1 ≤ q := by omega
+  have hc' : R + 1 ≤ c := by omega
+  have hbound : (R + 1) ^ 2 ≤ q * c := by
+    calc
+      (R + 1) ^ 2 = (R + 1) * (R + 1) := by ring
+      _ ≤ q * c := Nat.mul_le_mul hq' hc'
+  omega
+
+/-- The least prime factor on the actual post-root composite is
+INHERITED from its strictly smaller cofactor. The high q is the
+unique LARGEST factor, not a second least-owner negative charge. -/
+theorem vfV2PostRootPrime_leastOwner_eq_cofactor
+    (R q c : ℕ) (hc : 2 ≤ c) (hcR : c ≤ R)
+    (hq : R < q) (hqPrime : q.Prime) :
+    (q * c).minFac = c.minFac := by
+  have hcp : c.minFac.Prime := Nat.minFac_prime (by omega : c ≠ 1)
+  have hpdvd : c.minFac ∣ q * c :=
+    dvd_mul_of_dvd_right (Nat.minFac_dvd c) q
+  have hle : (q * c).minFac ≤ c.minFac :=
+    Nat.minFac_le_of_dvd hcp.two_le hpdvd
+  have hprod1 : q * c ≠ 1 := by
+    have hq2 := hqPrime.two_le
+    nlinarith
+  have hmp : (q * c).minFac.Prime := Nat.minFac_prime hprod1
+  have hmdvd : (q * c).minFac ∣ q * c := Nat.minFac_dvd (q * c)
+  rcases hmp.dvd_mul.mp hmdvd with htoQ | htoC
+  · have hEq : (q * c).minFac = q :=
+      (Nat.prime_dvd_prime_iff_eq hmp hqPrime).mp htoQ
+    omega
+  · have hge : c.minFac ≤ (q * c).minFac :=
+      Nat.minFac_le_of_dvd hmp.two_le htoC
+    omega
+
 /-! ## Cross-block high-prime parent-charge conservation
 
 The old prime q is ONE negative original physical site (already inside
