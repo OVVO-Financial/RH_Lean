@@ -168,7 +168,116 @@ NOT an all-scale bound. The near-perfect cofactor compensation
 must be justified by a genuine arithmetic correlation theorem
 if it is to enter #915 hbalance.
 
-## 5. Why this is useful but not an automatic RH theorem
+## 5. NEW: telescope prime-cofactor history FIRST, then Abel-transform Li errors
+
+A more significant consequence of stratifying relative to the native
+sqrt scale is **exact historical cancellation at fixed cofactor**.
+
+For a genuine odd cofactor c>=3 and historical square-root run a<=r<B,
+its ACTUAL q>r-prime descendants can occur only for r>=c.
+Thus the earliest possible native historical square block is
+
+    r0(c)=max(a,c).
+
+When r>=c, the condition c*q>r² forces q>r automatically. Moreover
+if q>r is prime and c<=r then c*q cannot equal (r+1)²:
+since q|((r+1)²), primality forces q|(r+1), hence q=r+1, but
+c<=r makes c*q<(r+1)². This is formally stated as
+
+    vfMid915PrimeCofactorSquareEndpoint_excluded
+    vfMid915PrimeCofactorSquareBand_iff_physical
+
+in the revised Lean module.
+
+**As a result, the entire historical sequence of SHORT prime windows
+for fixed c telescopes to ONE BROAD actual-prime interval:**
+
+    sum_(r=r0(c))^(B-1)
+      [π(⌊(r+1)²/c⌋)-π(⌊r²/c⌋)]
+    = π(⌊B²/c⌋)-π(⌊r0(c)²/c⌋).
+
+The actual prime count is unaffected by including the CLOSED upper
+quotient face because no ACTUAL q-prime can occur on that square face.
+
+CAVEAT: floor-Li CAN have events on those quotient faces. To preserve
+correct Fubini one must also use the CLOSED quotient-face
+floor-Li demand Q(⌊(r+1)²/c⌋)-Q(⌊r²/c⌋).
+Those "Li-only" square-face jumps remain in the genuine signed
+E(q) boundary and are NOT synthetic prime occurrences. If one used
+OPEN upper q faces for the Li comparison, an additional deterministic
+square-boundary correction would be mandatory.
+
+### Literal native VF weights retained in the historical transport
+
+The source charges the actual site c*q with ORIGINAL native w_r,
+which varies across historical blocks. Writing
+
+    E_c(r)=π(⌊r²/c⌋)-⌊Li₂(⌊r²/c⌋)⌋,
+
+the signed ACTUAL-minus-floor-Li weighted history for fixed c is
+
+    sum_(r=r0)^(B-1) w_r [E_c(r+1)-E_c(r)].
+
+Abel's finite summation gives the exact identity
+
+    = w_B E_c(B) - w_r0 E_c(r0)
+      + sum_(r=r0)^(B-1) (w_r-w_(r+1)) E_c(r+1).
+
+This is new theorem
+vfMid915HistoricalCofactorTransportError_eq_endpoints_add_variation
+in research/VF_MID_915_PRIME_INTERVAL_LI_STRATIFICATION.lean.
+The generic finite sum identity is
+vfMid915ExactWeightedAbel.
+
+**The historical prime-owner fluctuations have genuinely been compressed
+into boundary backlogs plus a smooth weight-VARIATION term, without
+ever replacing the earlier anchor D_a by its enormous historical
+absolute mass.**
+
+This does NOT mean that the remaining cofactor-summed boundary
+backlogs have already been bounded at RH scale. Their arithmetic signs
+and cross-cofactor/time correlations remain difficult.
+
+### Actual-prime numerical check for historical half-runs
+
+Independent initial numerical exploration used an actual sieve and
+closed-quotient interval floor-Li comparisons (SciPy Ei). It verifies
+telescoping of each fixed-c prime population and the Abel identity
+for the original native w_r. The new checked-in standalone Python
+regression reproduces the physical uniqueness and selected cofactor
+Abel identities without SciPy.
+
+| Historical run | c | native r0 | full actual q prime interval | actual q count | floor-Li event count | signed difference |
+| --- | ---: | ---: | --- | ---: | ---: | ---: |
+| a=159..317 | 3 | 159 | (8427,33707] | 2556 | 2561 | -5 |
+| a=159..317 | 5 | 159 | (5056,20224] | 1610 | 1621 | -11 |
+| a=159..317 | 9 | 159 | (2809,11235] | 948 | 961 | -13 |
+| a=514..1027 | 3 | 514 | (88065,352261] | 21604 | 21616 | -12 |
+| a=514..1027 | 5 | 514 | (52839,211356] | 13532 | 13536 | -4 |
+| a=514..1027 | 9 | 514 | (29355,117420] | 7891 | 7918 | -27 |
+
+Summed over ALL odd cofactors c>=3 through R, counting EVERY
+historical q>r composite occurrence once:
+
+| Historical run | original high-prime physical sites | summed Li cofactor events | net signed count error | native VF-weighted actual composite charge | native VF-weighted Li charge | signed VF difference |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| 159..317 | 23240 | 23680 | -440 | +4244.102778 | +4324.636570 | -80.533792 |
+| 514..1027 | 250542 | 252429 | -1887 | +37634.432530 | +37919.220650 | -284.788121 |
+
+These historical cofactor counts are **not** the previously used
+fixed global q>R (rather than q>r) high-prime-factor population, so
+one should not compare the two totals without correcting the root
+cutoff. The current native root is r on each historical block.
+
+This is a real step beyond the earlier one-block mismatch experiment:
+the temporal sum over r has been ELIMINATED at each fixed cofactor
+in exact arithmetic. PNT can now see a relatively broad prime window
+when c is fixed and B/r0 is bounded away from 1; the remaining
+large-c/high-frequency coefficients and signed interplay must still
+be estimated. One cannot apply PNT to the original individual
+O(r/c) short prime windows as if that were a proven local asymptotic.
+
+## 6. Why this is useful but not an automatic RH theorem
 
 The generic floor-Li identity is exact for all intervals. It cannot
 force the actual count to be near the floor-Li demand in an interval
