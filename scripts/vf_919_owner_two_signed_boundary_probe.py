@@ -90,3 +90,58 @@ for R in (8,17,56,119,317,1027,1600,2500):
     if R<=RMAX:
         C,J,B=closed_boundary(R)
         print('root',R,'M',C,'returned',f'{J:+.6f}','B',f'{B:+.6f}','B/R^2',f'{B/(R*R):+.8f}')
+
+
+# Full native signed telescope: keep the TWO negative branch squares.
+# Let L be the admitted p-free AMP base, J the returned p-child parent,
+# C the clipped p-free exit, and I=L-J the compensated interior.
+# The exact first-owner identity is
+#   2 G = I*I - L*L - J*J - 2*C*J = -2*(L+C)*J.
+def full_signed_ledger(R):
+    X = R*R-1
+    qset = [q for q in oddprimes if q*q < R]
+    C, J, B = closed_boundary(R)
+    L = Odd[X//2] - Odd[R-1] + sum(Odd[X//(q*q)]/q for q in qset)
+    Q = sum(M[X//(q*q)]/q for q in qset)
+    I = Q - M[R-1]
+    assert abs(L-J-I) < 1e-7, ('admitted interior / raw q2 mismatch', R, L, J, I)
+    negative_branches = -L*L-J*J
+    full = I*I + negative_branches + B
+    direct_gram = -2*(L+C)*J
+    assert abs(full-direct_gram) < 1e-7*max(1,abs(full),abs(direct_gram)), (
+        'signed telescope mismatch', R, full, direct_gram)
+    return C,L,J,I,B,negative_branches,full
+
+# Independently enumerate the admitted parent weight at the witness roots.
+for R in (8,17,56,119,317,1027):
+    if R <= RMAX:
+        X=R*R-1
+        qset=[q for q in oddprimes if q*q<R]
+        L_direct = 0.0
+        for a in range(1,X//2+1,2):
+            weight=float(R<=a)
+            for q in qset:
+                weight+=float(a<=X//(q*q))/q
+            L_direct+=mu[a]*weight
+        _,L,J,I,B,neg,full=full_signed_ledger(R)
+        assert abs(L_direct-L)<1e-7, ('literal admitted base mismatch',R,L_direct,L)
+        print('verified-full-telescope',R,'L',round(L,7),'J',round(J,7),
+              'I',round(I,7),'B',round(B,7),'negative-branches',
+              round(neg,7),'2G',round(full,7),'2G/R^2',
+              round(full/(R*R),8))
+
+fullpos=fullneg=fullzero=0
+maxratio=float('-inf')
+maxroot=None
+for R in range(8,RMAX+1):
+    *_, full = full_signed_ledger(R)
+    fullpos+=full>0
+    fullneg+=full<0
+    fullzero+=full==0
+    ratio=full/(R*R)
+    if ratio>maxratio:
+        maxratio,maxroot=ratio,R
+print('all-root full-telescope census',8,RMAX,
+      'positive',fullpos,'negative',fullneg,'zero',fullzero,
+      'max-signed-2G/R^2',round(maxratio,10),'at root',maxroot)
+print('NOTE: finite normalized statistics are not a uniform analytic bound.')
