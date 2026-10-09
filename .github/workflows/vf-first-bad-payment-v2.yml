@@ -1,0 +1,164 @@
+name: VF first-bad v2 minimal fast
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - research/VF_MID_FIRST_BAD_PAYMENT_V2_KERNEL.lean
+      - research/VF_MID_FIRST_BAD_PAYMENT_V2_NATIVE_CONSUMER.lean
+      - research/VF_MID_FIRST_BAD_PAYMENT_V2_PROOF_CONTRACT.md
+      - scripts/vf_mid_first_bad_payment_v2_test.py
+      - .github/workflows/vf-first-bad-payment-v2.yml
+  push:
+    branches: [vf-first-bad-minimal-parity-payment]
+    paths:
+      - research/VF_MID_FIRST_BAD_PAYMENT_V2_KERNEL.lean
+      - research/VF_MID_FIRST_BAD_PAYMENT_V2_NATIVE_CONSUMER.lean
+      - research/VF_MID_FIRST_BAD_PAYMENT_V2_PROOF_CONTRACT.md
+      - scripts/vf_mid_first_bad_payment_v2_test.py
+      - .github/workflows/vf-first-bad-payment-v2.yml
+  workflow_dispatch:
+    inputs:
+      deep_native:
+        description: "Opt into slow native StrongPNT/research closure check"
+        required: false
+        default: false
+        type: boolean
+
+permissions:
+  contents: read
+
+concurrency:
+  group: vf-first-bad-v2-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  # Test first. No Lean toolchain, no third-party Python packages,
+  # no StrongPNT, no workflow warmup. Runs in seconds.
+  actual-primes:
+    name: Actual primes and exact original NNS (seconds)
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+      - name: Full actual-prime audit to square root R=6000
+        run: python3 -B scripts/vf_mid_first_bad_payment_v2_test.py --extended
+
+  # Isolated algebraic Lean file, Mathlib ONLY. It cannot import
+  # the 30+ files from the old #915 branch or compile StrongPNT5.
+  algebraic-lean:
+    name: Parity-contract Lean only (Mathlib cache)
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - name: Reject proof holes
+        run: |
+          if grep -nE '^[[:space:]]*(sorry|admit|axiom)([[:space:]]|$)' \
+            research/VF_MID_FIRST_BAD_PAYMENT_V2_KERNEL.lean; then
+            echo "Proof holes or new axioms prohibited"
+            exit 1
+          fi
+      - name: Restore pinned package download
+        uses: actions/cache/restore@v4
+        with:
+          path: .lake/packages
+          key: lake-packages-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
+      - name: Get Lean and prebuilt Mathlib
+        uses: leanprover/lean-action@v1
+        with:
+          use-github-cache: false
+          use-mathlib-cache: true
+          build: false
+          test: false
+          lint: false
+      - name: Compile exact signed parity/NNS kernel, warnings fatal
+        run: |
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.VF_MID_FIRST_BAD_PAYMENT_V2_KERNEL.olean \
+            research/VF_MID_FIRST_BAD_PAYMENT_V2_KERNEL.lean
+      - name: Check Lean declarations and axioms
+        run: |
+          cat > /tmp/vf_v2_acceptance.lean <<'LEAN'
+          import «research.VF_MID_FIRST_BAD_PAYMENT_V2_KERNEL»
+          #check RHLean.Analysis.vfV2Upper_sub_lower_eq_neg_next
+          #check RHLean.Analysis.vfV2Upper_add_lower_eq_original_abs
+          #check RHLean.Analysis.vfV2Balance_eq_originalMass_sub_two_next_sq
+          #check RHLean.Analysis.vfV2Payment_iff_exactSignedBalance
+          #check RHLean.Analysis.vfV2Payment_iff_twoSector
+          #check RHLean.Analysis.vfV2NoUnconditionalAllStateCone
+          #print axioms RHLean.Analysis.vfV2Payment_iff_exactSignedBalance
+          #print axioms RHLean.Analysis.vfV2NoUnconditionalAllStateCone
+          LEAN
+          lake env lean -DwarningAsError=true /tmp/vf_v2_acceptance.lean
+
+  # The expensive native first-bad dependency graph is deliberately
+  # NOT part of the fast pull_request/push path. Run manually on demand.
+  native-deep-opt-in:
+    name: Optional full native consumer (manual, cached)
+    if: github.event_name == 'workflow_dispatch' && inputs.deep_native
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - name: Reject native consumer proof holes
+        run: |
+          if grep -nE '^[[:space:]]*(sorry|admit|axiom)([[:space:]]|$)' \
+            research/VF_MID_FIRST_BAD_PAYMENT_V2_NATIVE_CONSUMER.lean; then
+            echo "Native consumer must have no proof holes or axioms"
+            exit 1
+          fi
+      - name: Restore pinned Lake dependencies
+        uses: actions/cache/restore@v4
+        with:
+          path: .lake/packages
+          key: lake-packages-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
+      - uses: leanprover/lean-action@v1
+        with:
+          use-github-cache: false
+          use-mathlib-cache: true
+          build: false
+          test: false
+          lint: false
+      - name: Apply existing pinned StrongPNT port
+        run: |
+          python3 scripts/strongpnt_424/apply.py
+          python3 scripts/strongpnt_424/apply_post.py
+          python3 scripts/strongpnt_424/apply_pnt5_mid.py
+          python3 scripts/strongpnt_424/apply_pnt5_strong.py
+          python3 scripts/strongpnt_424/apply_lint.py
+      - name: Restore existing StrongPNT port cache
+        uses: actions/cache/restore@v4
+        with:
+          path: |
+            .lake/packages/PrimeNumberTheoremAnd/.lake/build
+            .lake/packages/StrongPNT/.lake/build
+          key: strongpnt-port-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-${{ hashFiles('scripts/strongpnt_424/*.py') }}
+          restore-keys: |
+            strongpnt-port-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-
+      - name: Ensure preexisting StrongPNT terminal dependency
+        run: |
+          if [ ! -f .lake/packages/StrongPNT/.lake/build/lib/lean/StrongPNT/PNT5_Strong.olean ]; then
+            lake build StrongPNT.PNT5_Strong
+          fi
+      - name: Restore cached RHLean native oleans
+        uses: actions/cache/restore@v4
+        with:
+          path: .lake/build
+          key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py') }}
+          restore-keys: |
+            rhlean-build-${{ runner.os }}-${{ runner.arch }}-
+      - name: Build main native library and compile consumer import closure
+        run: |
+          lake build RHLean
+          python3 scripts/compile_research_import_closure.py \
+            research/VF_MID_FIRST_BAD_PAYMENT_V2_NATIVE_CONSUMER.lean
+      - name: Verify the native target is explicitly conditional
+        run: |
+          cat > /tmp/vf_v2_native_acceptance.lean <<'LEAN'
+          import «research.VF_MID_FIRST_BAD_PAYMENT_V2_NATIVE_CONSUMER»
+          #check RHLean.Analysis.VFMidMinimalActualFirstBadPaymentV2Statement
+          #check RHLean.Analysis.vfMidMinimalActualFirstBad_closed_of_exactPaymentV2
+          #print axioms RHLean.Analysis.vfMidMinimalActualFirstBad_closed_of_exactPaymentV2
+          LEAN
+          lake env lean -DwarningAsError=true /tmp/vf_v2_native_acceptance.lean
