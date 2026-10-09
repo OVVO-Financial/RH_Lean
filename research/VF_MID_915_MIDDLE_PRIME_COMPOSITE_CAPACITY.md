@@ -1,5 +1,37 @@
 # #915 — A new *positive* native capacity inequality for genuine 2q middle parents
 
+## Governing parity-compressed identity — production invariant
+
+This module's middle-prime counts are **not** an additional physical
+source. For every R>=3 the complete square-block expected prime mass
+V_R already lives on exactly R ODD candidate seats with
+w_R=V_R/R. Every even seat is absent from the production first-bad
+carrier, and contributes zero to its original signed/absolute NNS
+source. In particular 2q can NEVER be credited as a new negative
+partial-moment or Co/Div return.
+
+Write D_R=pi(R^2)-VF_mid(R^2), P_R for the true current prime count,
+and C_R=R-P_R. The original anchored partial masses are EXACTLY
+
+    U_R = max(-D_R,0) + w_R*C_R
+    L_R = max( D_R,0) + (1-w_R)*P_R.
+
+Thus U_R-L_R=-D_(R+1) and the ORIGINAL denominator is
+
+    M_R^2 = (U_R+L_R)^2
+          = (|D_R|+w_R*C_R+(1-w_R)*P_R)^2.
+
+Here M_R^2 is **squared anchored L1 partial mass**, not a
+probabilistic variance. The required payment is
+
+    (U_R+L_R)^2 - 2*(U_R-L_R)^2 >= 0.
+
+The actual R>=62 count inequality H_R<=C_R does not give this
+signed quadratic inequality. It is a combinatorial comparison between
+DIFFERENT populations, not an occurrence-matched weighted return, and
+no fabricated even-site charge may fill the gap.
+
+
 **Statement and proof structure:** The current R-th square band has R actual
 odd VF candidate seats, partitioned into P_R actual primes and C_R=R-P_R
 actual odd composites. Set
