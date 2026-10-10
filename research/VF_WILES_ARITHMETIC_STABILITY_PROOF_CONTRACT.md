@@ -85,6 +85,20 @@ If the support is paired once with an explicit reflected copy, the familiar
 local law is `f(z)+f(-z)=-4|z|`. In either orientation, all signed
 coefficient weights remain attached.
 
+### Exact OAI/Hecke zero-mask inlet (new universal theorems)
+
+`vfWilesSymmetricMask` gives a genuine induced coherent packet under an
+arbitrary sitewise zero mask **provided** the mask commutes with the
+occurrence-level return involution. Its stability theorem carries the original
+amplitude through the mask. The mask-intertwining law must be proved for
+the real OAI selected-prime tuples and native cutoff windows; no assertion
+of that law has yet been made for actual primes.
+
+`vfWilesZeroMaskEnergy_le_original` separately proves the unconditional
+finite norm contraction of a zero mask. **Mask norm contraction alone is not
+a bound on the signed cross-owner Gram**; the compatibility hypothesis and
+full history remain necessary.
+
 A distinct family of **explicitly realized** dissipative cells contributes
 `-sum_j u_j^2`; `vfWilesUniversalArithmeticPacketStability` proves
 the complete represented packet is nonpositive.
