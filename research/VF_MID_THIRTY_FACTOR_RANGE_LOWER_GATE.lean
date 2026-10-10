@@ -143,10 +143,20 @@ because factors 2,3,5 have already been removed by coprimality to 30.
 No prime indicator, least-prime predicate, or pi in this definition.
 Each covered integer is counted exactly ONCE, regardless of the
 number of divisors or least-prime-factor owner presentations. -/
-def vfMidThirtyFactorCovered (R : ℕ) : Finset ℕ := by
+def vfMidThirtyFactorCovered (R : ℕ) : Finset ℕ :=
+  (vfMidThirtyCandidates R).filter
+    (fun n => decide (∃ d ∈ Finset.Icc 7 R, d ∣ n) = true)
+
+/-- Stable membership API: avoid inconsistent elaborations of the
+Decidable instance for a finite divisor-existence predicate. -/
+theorem vfMidThirtyFactorCovered_mem_iff
+    (R n : ℕ) :
+    n ∈ vfMidThirtyFactorCovered R ↔
+      n ∈ vfMidThirtyCandidates R ∧
+        ∃ d ∈ Finset.Icc 7 R, d ∣ n := by
   classical
-  exact (vfMidThirtyCandidates R).filter
-    (fun n => ∃ d ∈ Finset.Icc 7 R, d ∣ n)
+  simp only [vfMidThirtyFactorCovered, Finset.mem_filter,
+    decide_eq_true_eq]
 
 /-- A candidate has a factor in [7,R] precisely when it is rejected
 by the complete factor wheel through R.  This is pure finite
@@ -171,7 +181,7 @@ theorem vfMidThirtyFactorCovered_mem_iff_not_fullWheel
   constructor
   · intro hcovered
     obtain ⟨_hn, d, hdIcc, hdDvd⟩ :=
-      Finset.mem_filter.mp hcovered
+      (vfMidThirtyFactorCovered_mem_iff R n).1 hcovered
     have hd : 2 ≤ d := by
       have hdi := Finset.mem_Icc.mp hdIcc
       omega
@@ -208,7 +218,7 @@ theorem vfMidThirtyFactorCovered_mem_iff_not_fullWheel
         rw [hp6] at hpPrime
         norm_num at hpPrime
       omega
-    exact Finset.mem_filter.mpr
+    exact (vfMidThirtyFactorCovered_mem_iff R n).2
       ⟨hn, ⟨p, Finset.mem_Icc.mpr ⟨hpSeven, hpLe⟩, hpDvd⟩⟩
 
 /-- Pure divisor-range factor coverage equals the difference between
@@ -222,7 +232,7 @@ theorem vfMidThirtyFactorCovered_eq_prefixFive_sdiff_full
   ext n
   constructor
   · intro hn
-    have hnCand := (Finset.mem_filter.mp hn).1
+    have hnCand := ((vfMidThirtyFactorCovered_mem_iff R n).1 hn).1
     exact Finset.mem_sdiff.mpr ⟨hnCand,
       (vfMidThirtyFactorCovered_mem_iff_not_fullWheel hR hnCand).1 hn⟩
   · intro hn
