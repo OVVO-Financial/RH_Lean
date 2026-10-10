@@ -1,0 +1,31 @@
+name: Absolute-A exact census and constant certificate
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - scripts/absolute_a_signed_estimate_audit.cpp
+      - scripts/absolute_a_constant_certificate.py
+      - research/ABSOLUTE_A_ALL_SCALE_SIGNED_ESTIMATE_AUDIT.md
+      - research/SQUARE_ROOT_LEGAL_GRAM_ATTACK.md
+      - .github/workflows/absolute-a-signed-estimate-audit.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Compile exact segmented census
+        run: >-
+          g++ -O3 -std=c++17 -Wall -Wextra -Werror
+          scripts/absolute_a_signed_estimate_audit.cpp
+          -o /tmp/absolute_a_audit
+      - name: Recompute every integer below 100 million
+        run: /tmp/absolute_a_audit 10000
+      - name: Check exact induction constants
+        run: python3 scripts/absolute_a_constant_certificate.py
