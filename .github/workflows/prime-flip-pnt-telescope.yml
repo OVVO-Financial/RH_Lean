@@ -566,6 +566,11 @@ jobs:
           #print axioms RHLean.Analysis.vfMidThirtyLowerFactorSafe_iff_actualLowerChannel
           #print axioms RHLean.Analysis.vfMidThirtyHorizontalCoverageSafe_iff_actualLowerHorizontal
           #print axioms RHLean.Analysis.vfMidThirtyFirstLowerBreach_forces_factorRunOverrun
+          #print axioms RHLean.Analysis.vfMidThirtyLateOwnerRemoval_eq_factorCoveredRun
+          #print axioms RHLean.Analysis.vfMidThirtyRunExcess_eq_nativeTracking
+          #print axioms RHLean.Analysis.vfMidThirtyOwnerResidual_sub_nativeTracking_eq_fixedPhase
+          #print axioms RHLean.Analysis.vfMidThirtyOwnerResidual_sub_nativeTracking_abs_le_thirtytwo
+          #print axioms RHLean.Analysis.vfMidThirtyFirstLowerBreach_forces_ownerResidualOverrun
           #print axioms RHLean.Analysis.vfMidAlignedHorizontalCrossed_abs_endpointError_lt
           #print axioms RHLean.Analysis.vfMidAlignedLeftVerticalCrossed_abs_endpointError_lt
           #print axioms RHLean.Analysis.vfMidAlignedRightVerticalCrossed_abs_endpointError_le_bandMass_of_above
