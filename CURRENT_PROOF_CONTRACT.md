@@ -407,6 +407,32 @@ In particular:
 
 ## Fixed-alignment step-graph criterion: conditional only
 
+
+**Discrete staircase / c₀ clarification (2026-10-10).**
+See the formal proof/diagnostic contract
+[research/VF_MID_C0_DISCRETE_STAIRCASE_ALIGNMENT_CONTRACT.md](research/VF_MID_C0_DISCRETE_STAIRCASE_ALIGNMENT_CONTRACT.md)
+and its native implementation in
+\`research/VF_MID_ALIGNED_STEP_GRAPH.lean\`.
+
+* VF starts with discrete complete square-block masses
+  \(F_R=\sum_{2\le r<R} m_r\), \(F_{R+1}-F_R=m_R\).
+  The continuous \`vfMid\` interpolant agrees at square endpoints but is
+  **not the original integer block step graph**.
+* The canonical additive (NOT multiplicative) phase is
+  \(c_0=4-5/\log(13/2)=1.328777548342988\ldots\), giving
+  \(K_R(c_0)=\lfloor F_R+c_0\rfloor\) with \(K_3(c_0)=\pi(9)=4\).
+* For any fixed \(c\ge0\), \(\epsilon_R(c)=F_R+c-K_R(c)\in[0,1)\) and
+  \(K_{R+1}-K_R=m_R+\epsilon_R-\epsilon_{R+1}\).
+  The REAL block dynamics are unchanged, and integer rounding **telescopes**,
+  leaving only \(\epsilon_A-\epsilon_B\) over any range. No signed
+  actual-prime Sector Six payment arises merely from choosing c.
+* Independently replayed for every root R=2..10,000:
+  canonical c₀ produced zero full-graph crossing failures; on the c-grid
+  0..3 by 0.001, the 537 successful values range from 1.329 to 1.865.
+  These are **finite diagnostics** and deliberately NOT a universal
+  c₀ bracketing theorem.
+
+
 PR #842 formalizes a useful sufficient implication for a fixed additive phase
 
 ```text
