@@ -286,6 +286,7 @@ theorem vfVarSquareShortNorm_quotient_gt_root
     Nat.mul_le_mul_left (R + 1) hmR
   have hmax : (R + 1) * (R - 1) = R ^ 2 - 1 := by
     have hsub : R - 1 + 1 = R := by omega
+    have hsqsub : R ^ 2 - 1 + 1 = R ^ 2 := Nat.sub_add_cancel hsq
     nlinarith
   exact (Nat.le_div_iff_mul_le hm).mpr (by omega)
 
