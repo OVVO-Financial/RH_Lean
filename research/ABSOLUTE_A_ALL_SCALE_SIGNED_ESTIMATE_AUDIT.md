@@ -4,7 +4,7 @@ Date: 2026-10-10. Source baseline: `86ef222e24c608bc2fe5757bda8f04ad96c7ec01`.
 
 **The desired uniform upper estimate is still unproved.** This note adds an
 independent finite census, a paper proof that even the restriction to R>=56
-requires **A > 0.43**, and a precise analysis of the external signed inputs.
+requires **A > 0.4357**, and a precise analysis of the external signed inputs.
 The lower restriction uses Hurst's published unconditional theorem. It is not a
 new Lean-kernel theorem, an RH proof, or a reason to reject the target with an
 arbitrary larger finite A.
@@ -119,7 +119,7 @@ They are not asserted unconditionally. In particular, an arbitrary fixed-A
 claim cannot be extracted merely from a quoted M(x)=O_epsilon(x^(1/2+epsilon))
 estimate without a separate control of constants and historical record growth.
 
-## 4. New rigorous restriction: every valid uniform A exceeds 0.43
+## 4. New rigorous restriction: every valid uniform A exceeds 0.4357
 
 This argument uses the exact least envelope, a once-only interpolation of the
 actual Mertens state, the finite base in section 2, and Hurst's theorem. It does
@@ -218,12 +218,109 @@ must exceed 0.43. No location for that future witness is claimed, and no
 finite upper bound on all ratios has been proved. This does not refute an
 absolute-A theorem with a larger constant.
 
-### 4.3 Do not replace the historical maximum by a limsup
+### 4.3 Stronger six-prime, first-crossing restriction
+
+The preceding argument establishes the 0.43 barrier by strong induction.
+A direct first-crossing argument gives a strictly stronger barrier without
+induction over every future Mertens value.
+
+Take the six primes P={2,3,5,7,11,13}. By inclusion-exclusion over the 64
+square-divisor products, the number of integers in an arbitrary integer
+interval avoiding all p^2 with p in P is at most
+
+\[
+\delta_6 |b-a|+64,\qquad
+\delta_6=\prod_{p\in P}(1-p^{-2})
+=\frac{442368}{715715}=0.618078425071432\ldots.
+\]
+
+Indeed, for each divisor d of 30030, the corresponding interval count
+floor(b/d^2)-floor(a/d^2) differs from |b-a|/d^2 by less than one
+(after ordering the endpoints). Since mu vanishes at every excluded
+integer, this gives the genuine uniform signed bound
+
+\[
+|M(b)-M(a)|\le \delta_6 |b-a|+64. \tag{W6}
+\]
+
+First set B=1837/1000 and F(n)=|M(n)-1|/sqrt(n+1). Hurst's strict
+liminf theorem guarantees an integer n with F(n)>B; let n0 be the
+*least* such integer. The verified all-integer base F(n)^2<=3/2
+for n<10^8 implies n0>=10^8.
+
+Put z=sqrt(n0+1) and let s be a nearest integer to z. Then
+
+\[
+z\ge10000,\quad |s-z|\le\tfrac12,\quad
+|n_0-(s^2-1)|\le z+\tfrac14,\quad s\le z+\tfrac12.
+\]
+
+Crucially, every historical envelope argument y<s is **earlier than n0**,
+even if s^2-1>n0. Minimality therefore gives
+
+\[
+K_s=\max_{0\le y<s}\frac{(M(y)-1)^2}{y+1}\le B^2.
+\]
+
+By the reverse triangle inequality and (W6),
+
+\[
+|M(s^2-1)-1|>
+(B-\delta_6)z-\delta_6/4-64.
+\]
+
+All terms on the right are positive for z>=10000. Divide by
+s sqrt(K_s) <= B(z+1/2) and use z>=10000 to get
+
+\[
+\frac{(M(s^2-1)-1)^2}{s^2K_s}>
+\left(
+\frac{B-\delta_6-(\delta_6/4+64)/10000}
+     {B(1+1/20000)}
+\right)^2
+=0.4356183240438920487\ldots>0.4356.
+\]
+
+This alone proves the proposed >0.4356 strengthening. Moreover, since
+Hurst proves the **strict** bound
+liminf M(x)/sqrt(x)<-1.837625, we may take
+B=14701/8000=1.837625 in precisely the same first-crossing argument.
+The exact rational certificate then gives the still stronger value
+
+\[
+\left(
+\frac{B-\delta_6-(\delta_6/4+64)/10000}
+     {B(1+1/20000)}
+\right)^2
+=0.4357709546198786\ldots>0.4357.
+\]
+
+The exact census shows that all roots s<=10000, s>=56 have ratio
+at most 0.139629931234195..., whereas s>=10000 above. Hence the
+witness s must satisfy s>10000. Unconditionally,
+
+\[
+\boxed{\exists R>10000:\quad
+\frac{(M(R^2-1)-1)^2}{R^2K_R}>0.4357.}
+\]
+
+By U_R+V_R=M(R^2-1)-1 and C_R=-U_R V_R, at that root
+
+\[
+2C_R<U_R^2+V_R^2-0.4357\,R^2K_R.
+\]
+
+Thus no proposed *universal* signed-return bound forcing every such
+normalized residual <=0.4357 can be correct. This does not disprove
+a fixed-A upper bound with a larger constant, and neither the Hurst
+theorem nor this first-crossing proof has been imported into Lean.
+
+### 4.4 Do not replace the historical maximum by a limsup
 
 K_R contains *all* earlier values. A finite historical peak may exceed the
 eventual limsup. Therefore the informal substitution
 lim K_R=(limsup |M(n)|/sqrt(n))^2 is not justified. The induction in section
-4.2 avoids that error explicitly. In particular, this note does not claim the
+4.2 and first-crossing argument in section 4.3 avoid that error explicitly. In particular, this note does not claim the
 tempting asymptotic constant (1-(6/pi^2)/1.837625)^2 as an unconditional lower
 bound for A.
 
