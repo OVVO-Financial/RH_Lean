@@ -172,7 +172,7 @@ theorem vfVarMertens_squareHyperbola_exact_split
         vfVarSquareShortNormHighQuotient R := by
   let X := R ^ 2 - 1
   have hX : 12 ≤ X := by dsimp [X]; nlinarith
-  have hlow : (Finset.Icc 1 (R - 1)).Disjoint
+  have hlow : Disjoint (Finset.Icc 1 (R - 1))
       (Finset.Icc R X) := by
     apply Finset.disjoint_left.mpr
     intro t ht hu
@@ -242,8 +242,10 @@ theorem vfVarSquareShortNorm_norm_le_two_coeffMass (R : ℕ) :
             (vfVarSharpKernel_norm_le_two _) (norm_nonneg _)
     _ = 2 * (∑ m ∈ Finset.Icc 1 (R - 1),
           ‖vf919ExcludedNormCoefficients m‖) := by
-          simp_rw [mul_comm (‖vf919ExcludedNormCoefficients _‖) (2 : ℝ)]
           rw [Finset.mul_sum]
+          apply Finset.sum_congr rfl
+          intro m _hm
+          ring
 
 /-- The precise new quantitative target: bound the hard low-quotient
 sector; the high-quotient sector is already a short coefficient sum.
