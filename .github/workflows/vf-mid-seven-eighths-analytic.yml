@@ -11,6 +11,7 @@ on:
       - research/VF_MID_919_OAI_FERMAT_TWIST_PROJECTION.lean
       - research/VF_MID_919_OAI_PHASE_ALIGNED_OWNER_COMPENSATION.lean
       - research/VF_MID_919_OAI_OWNER_TWO_SIGNED_BOUNDARY.lean
+      - research/VF_MID_919_OAI_R2K_ENDPOINT_LIMIT.lean
       - research/VF_MID_919_OAI_QUADRATIC_NORM_EULER.lean
       - research/VF_MID_919_OAI_OWNER_TWO_SIGNED_MERTENS_MOMENT.md
       - research/GLOBAL_RETURNED_CORE_COMPENSATED_FOUR_CORNER.lean
@@ -65,7 +66,8 @@ jobs:
             research/VF_MID_919_OAI_FERMAT_TWIST_PROJECTION.lean \
             research/VF_MID_919_OAI_QUADRATIC_NORM_EULER.lean \
             research/VF_MID_919_OAI_PHASE_ALIGNED_OWNER_COMPENSATION.lean \
-            research/VF_MID_919_OAI_OWNER_TWO_SIGNED_BOUNDARY.lean; then
+            research/VF_MID_919_OAI_OWNER_TWO_SIGNED_BOUNDARY.lean \
+            research/VF_MID_919_OAI_R2K_ENDPOINT_LIMIT.lean; then
             echo "No proof holes or added axioms allowed"
             exit 1
           fi
@@ -256,6 +258,7 @@ jobs:
               for module in closure.research_imports(path):
                   visit(closure.source_for(module))
           visit('research/VF_MID_919_OAI_OWNER_TWO_SIGNED_BOUNDARY.lean')
+          visit('research/VF_MID_919_OAI_R2K_ENDPOINT_LIMIT.lean')
           subprocess.run(['lake', 'build', *sorted(library)], check=True)
           PY
       - name: Warning-fatal compile of complete native import closure
@@ -264,10 +267,14 @@ jobs:
           python3 scripts/compile_research_import_closure.py \
             research/VF_MID_919_OAI_OWNER_TWO_SIGNED_BOUNDARY.lean \
             2>&1 | tee vf919-native-phase-compile.log
+          python3 scripts/compile_research_import_closure.py \
+            research/VF_MID_919_OAI_R2K_ENDPOINT_LIMIT.lean \
+            2>&1 | tee vf919-native-R2K-limit-compile.log
       - name: Verify native carrier theorem signatures and standard axioms
         run: |
           cat > /tmp/vf919_native_phase_axioms.lean <<'LEAN'
           import «research.VF_MID_919_OAI_OWNER_TWO_SIGNED_BOUNDARY»
+          import «research.VF_MID_919_OAI_R2K_ENDPOINT_LIMIT»
           #check RHLean.Proof.vf919CharacterAlignedCell_eq_compensated_add_clipped
           #check RHLean.Proof.vf919CharacterCompensatedInterior_norm_sq_eq_physicalGram
           #check RHLean.Proof.vf919CharacterAlignedCell_norm_sq_eq_full_physicalGram
@@ -291,6 +298,10 @@ jobs:
           #print axioms RHLean.Proof.vf919OwnerTwoSignedBoundary_abs_le_of_real_magnitudes
           #print axioms RHLean.Proof.vf919OwnerTwoSignedBoundary_nonpos_of_aligned
           #print axioms RHLean.Proof.vf919OwnerTwoSignedBoundary_nonneg_of_opposite
+          #check RHLean.Proof.vf919RootMertens_sq_le_four_root_envelope
+          #check RHLean.Proof.vf919Post789_signedAggregate_le_twoEnergy_add_topMertensSq
+          #print axioms RHLean.Proof.vf919RootMertens_sq_le_four_root_envelope
+          #print axioms RHLean.Proof.vf919Post789_signedAggregate_le_twoEnergy_add_topMertensSq
           LEAN
           set -o pipefail
           lake env lean -DwarningAsError=true /tmp/vf919_native_phase_axioms.lean \
@@ -301,7 +312,7 @@ jobs:
           text = Path('vf919-native-phase-axioms.log').read_text()
           records = re.findall(r'depends on axioms:\s*\[([^\]]*)\]', text, re.S)
           closed = len(re.findall(r'does not depend on any axioms', text))
-          assert len(records) + closed == 17, (records, closed)
+          assert len(records) + closed == 19, (records, closed)
           allowed = {'propext', 'Classical.choice', 'Quot.sound'}
           for record in records:
               actual = {a.strip() for a in record.split(',') if a.strip()}
@@ -312,7 +323,9 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: vf919-native-phase-logs
-          path: vf919-native-phase-*.log
+          path: |
+            vf919-native-phase-*.log
+            vf919-native-R2K-limit-compile.log
           if-no-files-found: ignore
 
   external-interface:
