@@ -328,4 +328,80 @@ theorem vfWilesIncompleteReturn_exact_boundary
   rw [vfWilesReversibleSector_eq_negative_absolute, hboundary]
   ring
 
+
+/-! ## Exact original Co/Div prime-wheel owner-event influence
+
+On the actual anchored original odd-seat carrier each composite is
+initially an unclassified parity survivor with virtual prime charge
+w - 1, and is reclassified exactly once, by its LEAST prime factor,
+into its actual composite charge w. The intermediate classification
+is a finite enumeration state, never a claim about extra actual primes.
+
+The resulting Co/Div slack change has a precise three-term
+decomposition: (a) the site's diagonal, (b) positive interaction
+with as-yet-unclassified negative seats, and (c) negative interaction
+with the already-positive anchor/composite seats. The owner index
+determines WHICH integer is removed and WHEN. After t removals,
+the local effect depends only on t, so the exact identity cannot
+by itself establish a distributional or first-bad contraction.
+-/
+
+/-- Original native anchored Co/Div slack, equivalently M^2-2S^2. -/
+def vfWilesCoDivSlack (U L : ℝ) : ℝ :=
+  6 * U * L - U ^ 2 - L ^ 2
+
+/-- The exact signed change produced when a *genuine composite* is
+first removed by its least prime owner: one as-yet unclassified
+negative seat of magnitude 1-w becomes a positive seat of mass w.
+The original historical anchor appears ONLY in U and L. -/
+theorem vfWilesOwnerReclassification_event_delta
+    (U L w : ℝ) :
+    vfWilesCoDivSlack (U + w) (L - (1 - w)) -
+      vfWilesCoDivSlack U L =
+      (1 - 2 * w) +
+        (2 + 4 * w) * (L - (1 - w)) -
+          (6 - 4 * w) * U := by
+  unfold vfWilesCoDivSlack
+  ring
+
+/-- Across an actual owner-ordered integer census, once t composite
+sites have been *reclassified* the increment at the next genuinely
+composite site decreases by a precise positive coefficient
+2+8*w*(1-w) when 0<w<1. The effect is algebraic and
+independent of that next site's factorization identity. -/
+theorem vfWilesOwnerReclassification_event_affine
+    (U0 L0 w t : ℝ) :
+    vfWilesCoDivSlack (U0 + w * (t + 1))
+        (L0 - (1 - w) * (t + 1)) -
+      vfWilesCoDivSlack (U0 + w * t)
+        (L0 - (1 - w) * t) =
+    (vfWilesCoDivSlack (U0 + w) (L0 - (1 - w)) -
+      vfWilesCoDivSlack U0 L0) -
+      (2 + 8 * w * (1 - w)) * t := by
+  unfold vfWilesCoDivSlack
+  ring
+
+/-- The one-event slope is strictly positive for the physical
+0<w<1 weights. Therefore the event contribution ultimately
+changes from restoring to adverse as composite removals progress.
+No positivity of the *terminal* Co/Div slack follows. -/
+theorem vfWilesOwnerReclassification_slope_pos
+    (w : ℝ) (hw0 : 0 < w) (hw1 : w < 1) :
+    0 < 2 + 8 * w * (1 - w) := by
+  have hpos : 0 < w * (1 - w) :=
+    mul_pos hw0 (sub_pos.mpr hw1)
+  nlinarith
+
+/-- Final slack after removing t composite seats depends on the
+one preserved historical anchor and the total number of removed
+seats. This deliberately exposes why ownerwise finite arithmetic
+identities alone do not give a first-bad inequality. -/
+theorem vfWilesOwnerReclassification_final_from_population
+    (U0 L0 w t : ℝ) :
+    vfWilesCoDivSlack (U0 + w * t) (L0 - (1 - w) * t) =
+      (6 * (U0 + w * t) * (L0 - (1 - w) * t) -
+        (U0 + w * t) ^ 2 - (L0 - (1 - w) * t) ^ 2) := by
+  rfl
+
+
 end RHLean.Analysis
