@@ -28,6 +28,7 @@ open scoped BigOperators
 namespace RHLean.Analysis
 
 open RHLean.Arithmetic RHLean.Proof
+attribute [local instance] Classical.propDecidable
 
 /-- Candidate integers after deleting every factor 2, 3, or 5.  This is
 a pure gcd condition: no Nat.Prime or primeCounting in its definition. -/
