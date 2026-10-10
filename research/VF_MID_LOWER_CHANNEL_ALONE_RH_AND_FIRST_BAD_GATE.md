@@ -308,3 +308,102 @@ finite cases have been re-proved in Lean. No all-R bound follows.**
 A first bad event for \(K=2\) cannot occur in this certified horizon,
 but the current research still needs an all-scale signed owner-return
 argument.
+
+
+## 8. Sharper, SIGNED midpoint convexity: a much farther finite root horizon
+
+**This improves Section 7.** Section 7 bounded the *absolute* VF/Li
+quadrature error by a deliberately large constant. For a LOWER wall,
+its **sign**, already determined by calculus, is more useful.
+
+Let \(f(t)=1/\log t\) for \(t>1\). Direct differentiation gives
+\[
+f'(t)=-\frac1{t\log^2t},\qquad
+f''(t)=\frac{\log t+2}{t^2\log^3t}>0\quad(t>1).
+\]
+These exact derivative identities are already available in the repository
+as \`hasDerivAt_vfInvLogDeriv\` and
+\`deriv_vfInvLogDeriv\`, in
+\`research/VF_MID_LI_UNIFORM_QUADRATURE.lean\`.
+Thus \(f\) is strictly convex on each closed square tile
+\([r^2,(r+1)^2]\), \(r\ge2\).
+
+By the **Hermite–Hadamard midpoint inequality**, for
+\(m_r=r^2+r+1/2\),
+\[
+\frac{2r+1}{\log m_r}
+=(2r+1)f(m_r)
+\le\int_{r^2}^{(r+1)^2}\frac{dt}{\log t}.
+\]
+Summing all completed tiles,
+\[
+\boxed{
+F_R\le\int_4^{R^2}\frac{dt}{\log t}
+=\operatorname{li}(R^2)-\operatorname{li}(4),
+\qquad R\ge2.
+}
+\tag{SIGNED-MID}
+\]
+The strict inequality holds for \(R>2\); at \(R=2\)
+the sum is empty. Since \(\operatorname{li}(4)>0\),
+\[
+\boxed{
+D_R=\pi(R^2)-F_R
+ \ge \pi(R^2)-\operatorname{li}(R^2)+\operatorname{li}(4)
+ >\pi(R^2)-\operatorname{li}(R^2).
+}
+\tag{FAVORABLE-SIGN}
+\]
+This is a UNIVERSAL all-root inequality, derived from
+**deterministic midpoint convexity**, not prime distribution.
+It does *not* say \(F_R\) is always numerically closer to
+\(\pi(R^2)\) than \(\operatorname{li}(R^2)\); its sign is fixed,
+but proximity is not.
+
+Now invoke Johnston, *Ramanujan Journal* (2022), **Theorem 4.1**
+with parameter \(a=1\):
+\[
+|\pi(x)-\operatorname{li}(x)|<
+\sqrt{x}\log x
+\quad\text{for every }2\le x\le2.165\cdot10^{30}.
+\]
+The paper explicitly states the estimate for ordinary
+(unnormalized) \(\pi\), not only the half-weight convention.
+Combining with (FAVORABLE-SIGN) at \(x=R^2\) yields
+\[
+\boxed{
+D_R>-2R\log R\quad
+\forall\,2\le R\le 1{,}471{,}393{,}896{,}956{,}216.
+}
+\tag{LONG-FINITE-LOWER-WALL}
+\]
+The upper endpoint is exactly
+\(\lfloor\sqrt{2.165\cdot 10^{30}}\rfloor\),
+computed by integer square root. This **supersedes** the weaker
+\(10{,}492{,}854{,}711{,}659\) horizon in Section 7
+for the intended \(K=2\) lower wall.
+
+The stronger Johnston bound with constant \(1/(8\pi)\) also gives
+the far *narrower* radial coefficient
+\[
+\boxed{
+D_R >-\frac{R\log R}{4\pi}
+\quad (52\le R\le10{,}492{,}854{,}711{,}659).
+}
+\tag{NARROW-FINITE-WALL}
+\]
+This follows by the SAME favorable quadrature sign, without paying
+the absolute constant \(Q\).
+
+**Rigor/status:** SIGNED-MID is a complete paper-level calculus
+deduction using a classical convexity inequality; its explicit
+integration/certification is not yet separately kernel-compiled.
+The two Johnston results are published and cited, but are not
+imported as kernel theorems. Neither finite range implies RH or
+an all-root signed owner-return estimate.
+
+References:
+- Johnston, Theorem 4.1 and Corollary 3.3,
+  https://link.springer.com/article/10.1007/s11139-022-00616-x
+- Original VF derivative lemmas in
+  \`research/VF_MID_LI_UNIFORM_QUADRATURE.lean\`.
