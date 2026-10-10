@@ -520,7 +520,7 @@ theorem vfMidThirtyFirstLowerBreach_forces_factorRunOverrun
       vfMidThirtyLowerHistoricalSlack K A +
         K * ((B : ℝ) * Real.log (B : ℝ) -
           (A : ℝ) * Real.log (A : ℝ)) := by
-  unfold VFMidThirtyLowerFactorSafe at hgood hbad
+  unfold VFMidThirtyLowerFactorSafe at hbad
   unfold vfMidThirtyLowerHistoricalSlack
   push_neg at hbad
   linarith
