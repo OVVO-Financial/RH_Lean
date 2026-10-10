@@ -71,6 +71,7 @@ on:
       - research/VF_MID_INTEGER_BLOCK_CAPTURE.lean
       - research/VF_MID_LITERAL_BLOCK_CROSSING.lean
       - research/VF_MID_ALIGNED_STEP_GRAPH.lean
+      - research/VF_MID_SQRT_TWO_VERTICAL_PNT_HORIZONTAL.lean
       - research/VF_MID_STEP_GRAPH_BRACKETING.lean
       - research/VF_MID_CORNER_CHANNEL.lean
       - research/VF_MID_SQUARE_WHEEL_BACKLOG.lean
@@ -143,6 +144,7 @@ jobs:
       - name: Build exact dependencies
         run: |
           lake build RHLean.Analysis.PrimeSieveAbelIdentity
+          lake build RHLean.Analysis.NativePNTTransfer
           lake build RHLean.Analysis.SquareRootMiddleSequentialCoherence
           lake build RHLean.Proof.LargePrimeTerminalFlipLayers
           lake build RHLean.Proof.PrimeCombVisualizationFrames
@@ -170,6 +172,7 @@ jobs:
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_FLOOR_LI_DISCRETE_BACKLOG.olean research/VF_MID_FLOOR_LI_DISCRETE_BACKLOG.lean 2>&1 | tee vf-mid-floor-li-discrete-backlog.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_RECURSIVE_CHILD_INJECTIVE.olean research/VF_MID_RECURSIVE_CHILD_INJECTIVE.lean 2>&1 | tee vf-mid-recursive-child-injective.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_ALIGNED_STEP_GRAPH.olean research/VF_MID_ALIGNED_STEP_GRAPH.lean 2>&1 | tee vf-mid-aligned-step-graph.log
+          lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_SQRT_TWO_VERTICAL_PNT_HORIZONTAL.olean research/VF_MID_SQRT_TWO_VERTICAL_PNT_HORIZONTAL.lean 2>&1 | tee vf-mid-sqrt-two-vertical-pnt-horizontal.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_STEP_GRAPH_BRACKETING.olean research/VF_MID_STEP_GRAPH_BRACKETING.lean 2>&1 | tee vf-mid-step-graph-bracketing.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_CORNER_CHANNEL.olean research/VF_MID_CORNER_CHANNEL.lean 2>&1 | tee vf-mid-corner-channel.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_LI_PHASE_FAN.olean research/VF_MID_LI_PHASE_FAN.lean 2>&1 | tee vf-mid-li-phase-fan.log
@@ -277,6 +280,7 @@ jobs:
           import «research.VF_MID_INTEGER_BLOCK_CAPTURE»
           import «research.VF_MID_LITERAL_BLOCK_CROSSING»
           import «research.VF_MID_ALIGNED_STEP_GRAPH»
+          import «research.VF_MID_SQRT_TWO_VERTICAL_PNT_HORIZONTAL»
           import «research.VF_MID_STEP_GRAPH_BRACKETING»
           import «research.VF_MID_CORNER_CHANNEL»
           import «research.VF_MID_SQUARE_WHEEL_BACKLOG»
@@ -511,6 +515,19 @@ jobs:
           #print axioms RHLean.Analysis.vfMidAlignedIntegerBacklog_eq_direct_error_phase
           #print axioms RHLean.Analysis.vfMidAlignedIntegerBacklog_succ
           #print axioms RHLean.Analysis.vfMidAlignedIntegerBacklog_interval_eq_direct_error_phase
+          #print axioms RHLean.Analysis.vfMidSqrtTwoVerticalPhase_nonneg
+          #print axioms RHLean.Analysis.vfMidSqrtTwoVerticalPhase_pos
+          #print axioms RHLean.Analysis.vfMidSqrtTwoVerticalPhase_sq
+          #print axioms RHLean.Analysis.vfMidSqrtTwoAlignedMass_succ
+          #print axioms RHLean.Analysis.vfMidSqrtTwoIntegerLevel_step
+          #print axioms RHLean.Analysis.vfMidSqrtTwoHorizontalCrossed_iff_actualSupply
+          #print axioms RHLean.Analysis.vfMidSqrtTwoHorizontalCrossed_iff_actualWheel
+          #print axioms RHLean.Analysis.vfMidSqrtTwoIntegerBacklog_eq_actualPrimeError
+          #print axioms RHLean.Analysis.vfMidSqrtTwoIntegerBacklog_interval
+          #print axioms RHLean.Analysis.vfMidSqrtTwoSquareClock_tendsto_atTop
+          #print axioms RHLean.Analysis.vfMidSqrtTwoActualPrimeSquarePNT
+          #print axioms RHLean.Analysis.vfMidSqrtTwoActualPrimeSquarePNT_percent
+          #print axioms RHLean.Analysis.vfMidSqrtTwoRelativeHeightAlignment_of_VF_mainTerm
           #print axioms RHLean.Analysis.vfMidAlignedHorizontalCrossed_abs_endpointError_lt
           #print axioms RHLean.Analysis.vfMidAlignedLeftVerticalCrossed_abs_endpointError_lt
           #print axioms RHLean.Analysis.vfMidAlignedRightVerticalCrossed_abs_endpointError_le_bandMass_of_above
