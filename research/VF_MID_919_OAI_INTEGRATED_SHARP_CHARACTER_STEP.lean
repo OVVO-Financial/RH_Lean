@@ -98,12 +98,7 @@ theorem vf919FiniteMovingNormConvolution_eq_sharp
     simpa only [Nat.cast_mul] using
       (vf919HalfIntegerMovingMultiplicativeSite_iff
         N d m h u hwidth hlo hhi)
-  by_cases hdm : d * m ≤ N
-  · have hreal := heq.mpr hdm
-    simp [hdm, hreal]
-  · have hnot : ¬ ((d : ℝ) * (m : ℝ) ≤ ((N : ℝ) + 1 / 2) * u) :=
-      fun hh => hdm (heq.mp hh)
-    simp [hdm, hnot]
+  exact congrArg (fun P : Prop => if P then chi d else 0) (propext heq)
 
 /-- Key pointwise reduction **before** integration: any signed test density
 rho supported in the transition window multiplies a constant complete
