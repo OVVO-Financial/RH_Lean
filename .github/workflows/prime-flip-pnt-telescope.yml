@@ -73,6 +73,9 @@ on:
       - research/VF_MID_ALIGNED_STEP_GRAPH.lean
       - research/VF_MID_SQRT_TWO_VERTICAL_PNT_HORIZONTAL.lean
       - research/VF_MID_SQRT_TWO_LI_HORIZONTAL.lean
+      - research/VF_MID_THIRTY_FACTOR_RANGE_LOWER_GATE.lean
+      - research/VF_MID_THIRTY_FACTOR_RANGE_PROOF_CONTRACT.md
+      - scripts/VFMidThirtyFactorRange/verify.py
       - research/VF_MID_STEP_GRAPH_BRACKETING.lean
       - research/VF_MID_CORNER_CHANNEL.lean
       - research/VF_MID_SQUARE_WHEEL_BACKLOG.lean
@@ -175,6 +178,7 @@ jobs:
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_ALIGNED_STEP_GRAPH.olean research/VF_MID_ALIGNED_STEP_GRAPH.lean 2>&1 | tee vf-mid-aligned-step-graph.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_SQRT_TWO_VERTICAL_PNT_HORIZONTAL.olean research/VF_MID_SQRT_TWO_VERTICAL_PNT_HORIZONTAL.lean 2>&1 | tee vf-mid-sqrt-two-vertical-pnt-horizontal.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_SQRT_TWO_LI_HORIZONTAL.olean research/VF_MID_SQRT_TWO_LI_HORIZONTAL.lean 2>&1 | tee vf-mid-sqrt-two-li-horizontal.log
+          lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_THIRTY_FACTOR_RANGE_LOWER_GATE.olean research/VF_MID_THIRTY_FACTOR_RANGE_LOWER_GATE.lean 2>&1 | tee vf-mid-thirty-factor-range-lower-gate.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_STEP_GRAPH_BRACKETING.olean research/VF_MID_STEP_GRAPH_BRACKETING.lean 2>&1 | tee vf-mid-step-graph-bracketing.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_CORNER_CHANNEL.olean research/VF_MID_CORNER_CHANNEL.lean 2>&1 | tee vf-mid-corner-channel.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_LI_PHASE_FAN.olean research/VF_MID_LI_PHASE_FAN.lean 2>&1 | tee vf-mid-li-phase-fan.log
@@ -284,6 +288,7 @@ jobs:
           import «research.VF_MID_ALIGNED_STEP_GRAPH»
           import «research.VF_MID_SQRT_TWO_VERTICAL_PNT_HORIZONTAL»
           import «research.VF_MID_SQRT_TWO_LI_HORIZONTAL»
+          import «research.VF_MID_THIRTY_FACTOR_RANGE_LOWER_GATE»
           import «research.VF_MID_STEP_GRAPH_BRACKETING»
           import «research.VF_MID_CORNER_CHANNEL»
           import «research.VF_MID_SQUARE_WHEEL_BACKLOG»
@@ -541,6 +546,26 @@ jobs:
           #print axioms RHLean.Analysis.vfMidSquareVF_vs_Li2_squaredErrors
           #print axioms RHLean.Analysis.vfMidSquareActualPrimeVF_abs_le_of_Li2_error
           #print axioms RHLean.Analysis.vfMidSquareSqrtTwoPhase_primeVF_error_eq
+          #print axioms RHLean.Analysis.vfMidPrefixWheelModulus_five_eq_thirty
+          #print axioms RHLean.Analysis.vfMidThirtyCandidates_eq_prefixFive
+          #print axioms RHLean.Analysis.vfMidPrimesUpToFive_eq_triple
+          #print axioms RHLean.Analysis.vfMidThirtyPrefixWheelDensity_eq_four_fifteenths
+          #print axioms RHLean.Analysis.vfMidThirtyFixedWheelPrefixError_le_eight
+          #print axioms RHLean.Analysis.vfMidThirtyRunPrefixDensityError_le_thirtytwo
+          #print axioms RHLean.Analysis.vfMidThirtyCandidateRun_densityError_le_thirtytwo
+          #print axioms RHLean.Analysis.vfMidThirtyCandidates_not_lastDigitFive
+          #print axioms RHLean.Analysis.vfMidThirtyFactorCovered_mem_iff_not_fullWheel
+          #print axioms RHLean.Analysis.vfMidThirtyFactorCovered_eq_prefixFive_sdiff_full
+          #print axioms RHLean.Analysis.vfMidThirtyFactorCovered_eq_lateComposite
+          #print axioms RHLean.Analysis.vfMidThirtyFactorCovered_card_eq_lateOwnerCards
+          #print axioms RHLean.Analysis.vfMidThirtyCovered_add_actualPrimeSupply_eq_candidates
+          #print axioms RHLean.Analysis.vfMidThirtyFactorCoverageExcess_eq_vfMass_sub_actualSupply
+          #print axioms RHLean.Analysis.vfMidThirtyFactorCoverageExcess_eq_oddOwnerDefect
+          #print axioms RHLean.Analysis.vfMidThirtyAccumulatedFactorExcess_eq_endpointDefect
+          #print axioms RHLean.Analysis.vfMidPrimeCounting_twentyFive
+          #print axioms RHLean.Analysis.vfMidThirtyLowerFactorSafe_iff_actualLowerChannel
+          #print axioms RHLean.Analysis.vfMidThirtyHorizontalCoverageSafe_iff_actualLowerHorizontal
+          #print axioms RHLean.Analysis.vfMidThirtyFirstLowerBreach_forces_factorRunOverrun
           #print axioms RHLean.Analysis.vfMidAlignedHorizontalCrossed_abs_endpointError_lt
           #print axioms RHLean.Analysis.vfMidAlignedLeftVerticalCrossed_abs_endpointError_lt
           #print axioms RHLean.Analysis.vfMidAlignedRightVerticalCrossed_abs_endpointError_le_bandMass_of_above
