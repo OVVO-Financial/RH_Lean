@@ -6,7 +6,9 @@ on:
     paths:
       - research/VF_MID_919_OAI_PRINCIPAL_COEFFICIENT_MAP.lean
       - research/VF_MID_919_OAI_SIGNED_SIXTH_POWER_INLET.lean
+      - research/VF_MID_919_QUOTIENT_SIGNED_RETURN.lean
       - scripts/vf919_principal_coefficient_check.py
+      - scripts/vf919_quotient_signed_return_probe.py
       - .github/workflows/vf-mid-principal-coefficients.yml
   workflow_dispatch:
 
@@ -45,6 +47,8 @@ jobs:
           for name in ('PRINCIPAL_COEFFICIENT_MAP', 'SIGNED_SIXTH_POWER_INLET'):
               path = Path(f'research/VF_MID_919_OAI_{name}.lean')
               assert not re.search(r'\b(sorry|admit|axiom)\b', path.read_text()), path
+          path = Path('research/VF_MID_919_QUOTIENT_SIGNED_RETURN.lean')
+          assert not re.search(r'\b(sorry|admit|axiom)\b', path.read_text()), path
           PY
       - name: Compile exact coefficient map and signed amplifier warning-fatally
         run: |
@@ -59,12 +63,17 @@ jobs:
             -o .lake/build/lib/lean/research.VF_MID_919_OAI_SIGNED_SIXTH_POWER_INLET.olean \
             research/VF_MID_919_OAI_SIGNED_SIXTH_POWER_INLET.lean \
             2>&1 | tee vf919-signed-amplifier-compile.log || status=1
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.VF_MID_919_QUOTIENT_SIGNED_RETURN.olean \
+            research/VF_MID_919_QUOTIENT_SIGNED_RETURN.lean \
+            2>&1 | tee vf919-quotient-return-compile.log || status=1
           exit "$status"
       - name: Check elaborated signatures and standard axioms
         run: |
           cat > /tmp/vf919_principal_axioms.lean <<'LEAN'
           import «research.VF_MID_919_OAI_PRINCIPAL_COEFFICIENT_MAP»
           import «research.VF_MID_919_OAI_SIGNED_SIXTH_POWER_INLET»
+          import «research.VF_MID_919_QUOTIENT_SIGNED_RETURN»
           #check RHLean.Analysis.vf919QuadraticCharacter_mul_norm_eq_mobius
           #print axioms RHLean.Analysis.vf919QuadraticCharacter_mul_norm_eq_mobius
           #check RHLean.Analysis.vf919ExcludedNorm_restored_character_eq_mobius
@@ -97,6 +106,18 @@ jobs:
           #print axioms RHLean.Analysis.vf919PrincipalSixthPowerRow_eq_maskedMobius
           #check RHLean.Analysis.vf919SignedMixedGram_sixthPower_divisorMatrix
           #print axioms RHLean.Analysis.vf919SignedMixedGram_sixthPower_divisorMatrix
+          #check RHLean.Analysis.vf919QuotientBucket_above
+          #print axioms RHLean.Analysis.vf919QuotientBucket_above
+          #check RHLean.Analysis.vf919Mertens_eq_exact_quotient_buckets
+          #print axioms RHLean.Analysis.vf919Mertens_eq_exact_quotient_buckets
+          #check RHLean.Analysis.vf919QuotientKernelPrimitive36_bounds
+          #print axioms RHLean.Analysis.vf919QuotientKernelPrimitive36_bounds
+          #check RHLean.Analysis.vf919QuotientKernelPrimitive36_step
+          #print axioms RHLean.Analysis.vf919QuotientKernelPrimitive36_step
+          #check RHLean.Analysis.vf919QuotientKernel36_signed_abel
+          #print axioms RHLean.Analysis.vf919QuotientKernel36_signed_abel
+          #check RHLean.Analysis.vf919Mertens_eq_exact_signed_quotient_return
+          #print axioms RHLean.Analysis.vf919Mertens_eq_exact_signed_quotient_return
           LEAN
           set -o pipefail
           lake env lean -DwarningAsError=true /tmp/vf919_principal_axioms.lean \
@@ -107,7 +128,7 @@ jobs:
           text = Path('vf919-principal-axioms.log').read_text()
           records = re.findall(r'depends on axioms:\s*\[([^\]]*)\]', text, re.S)
           closed = len(re.findall(r'does not depend on any axioms', text))
-          assert len(records) + closed == 16, (records, closed)
+          assert len(records) + closed == 22, (records, closed)
           allowed = {'propext', 'Classical.choice', 'Quot.sound'}
           for record in records:
               assert {a.strip() for a in record.split(',') if a.strip()} <= allowed, record
@@ -117,6 +138,8 @@ jobs:
           set -o pipefail
           python3 scripts/vf919_principal_coefficient_check.py \
             2>&1 | tee vf919-principal-numerical.log
+          python3 scripts/vf919_quotient_signed_return_probe.py \
+            2>&1 | tee vf919-signed-quotient-numerical.log
       - name: Retain compiler and axiom evidence
         if: always()
         uses: actions/upload-artifact@v4
