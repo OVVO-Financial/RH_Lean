@@ -319,9 +319,13 @@ theorem vfWilesIncompleteReturn_exact_boundary
     4 * (∑ i ∈ boundary, boundaryAmplitude i) -
       2 * ((∑ i ∈ paired.sites, |paired.amplitude i|) +
         (∑ i ∈ boundary, |boundaryAmplitude i|)) := by
-  rw [vfWilesReversibleSector_eq_negative_absolute]
-  unfold vfWilesLocalSector
-  simp only [Finset.sum_sub_distrib, Finset.mul_sum]
+  have hboundary :
+      (∑ i ∈ boundary, vfWilesLocalSector (boundaryAmplitude i)) =
+        4 * (∑ i ∈ boundary, boundaryAmplitude i) -
+          2 * (∑ i ∈ boundary, |boundaryAmplitude i|) := by
+    unfold vfWilesLocalSector
+    simp only [Finset.sum_sub_distrib, ← Finset.mul_sum]
+  rw [vfWilesReversibleSector_eq_negative_absolute, hboundary]
   ring
 
 end RHLean.Analysis
