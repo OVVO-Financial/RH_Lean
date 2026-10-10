@@ -521,4 +521,32 @@ theorem vfMidThirtyFirstLowerBreach_forces_factorRunOverrun
   push_neg at hbad
   linarith
 
+/-- A first-bad LOWER wall in pure divisor-range coordinates FORCES the
+physical, once-owned p>5 signed late-removal residual to exceed the
+available historical slack and wall-growth bill, up to the exact
+32-count finite-wheel endpoint phase.
+
+This is the strongest currently proved direct obstruction from the
+modulo-30 reduction.  Excluding this overrun unconditionally would
+close the LOWER channel, but no such global signed bound is assumed. -/
+theorem vfMidThirtyFirstLowerBreach_forces_ownerResidualOverrun
+    (K : ℝ) {A B : ℕ}
+    (hA : 5 ≤ A) (hAB : A ≤ B)
+    (hgood : VFMidThirtyLowerFactorSafe K A)
+    (hbad : ¬ VFMidThirtyLowerFactorSafe K B) :
+    vfMidThirtyLowerHistoricalSlack K A +
+        K * ((B : ℝ) * Real.log (B : ℝ) -
+          (A : ℝ) * Real.log (A : ℝ)) - 32 <
+      vfMidDyadicLateRemoval 5 A B -
+        vfMidDyadicLateReference 5 A B := by
+  have hover :=
+    vfMidThirtyFirstLowerBreach_forces_factorRunOverrun
+      K hA hAB hgood hbad
+  rw [vfMidThirtyRunExcess_eq_nativeTracking hA hAB] at hover
+  have hphase :=
+    vfMidThirtyOwnerResidual_sub_nativeTracking_abs_le_thirtytwo
+      A B hA hAB
+  have hlower := (abs_le.mp hphase).1
+  linarith
+
 end RHLean.Analysis
