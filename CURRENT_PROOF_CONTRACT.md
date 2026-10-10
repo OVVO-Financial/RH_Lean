@@ -405,7 +405,154 @@ In particular:
 - PR #903 is restricted to exact classifier/Fubini bookkeeping that supports
   the run-level owner decomposition and lower-run descent.
 
+## Exact modulo-30 factor-range lower gate (2026-10-10; #925)
+
+The lower-channel *source statement* now uses only integer factor ranges,
+the original VF band masses, and finite cardinality counts:
+[research/VF_MID_THIRTY_FACTOR_RANGE_LOWER_GATE.lean](research/VF_MID_THIRTY_FACTOR_RANGE_LOWER_GATE.lean).
+The reference/closure contract is
+[research/VF_MID_THIRTY_FACTOR_RANGE_PROOF_CONTRACT.md](research/VF_MID_THIRTY_FACTOR_RANGE_PROOF_CONTRACT.md).
+
+* For every R>=5, let W_R be the gcd(n,30)=1 candidates strictly inside
+  (R²,(R+1)²), i.e. residues 1,7,11,13,17,19,23,29 modulo30. This
+  EXCLUDES all odd n mod10=5, together with multiples of 2 and 3.
+* C_R counts EACH n in W_R ONCE when it has some integer factor
+  d in [7,R]. This source definition does NOT depend on Nat.Prime
+  or pi. The EXISTING FTA square-wheel theorem, used only in the
+  proof, decodes actual square-block prime supply as |W_R|-C_R.
+* Already-established Boolean-wheel/Fubini theorems have a surprising
+  all-run strength: for every A<=B,
+  abs(sum_{A<=r<B} |W_r| - (4/15)*[(B²-A²)-(B-A)]) <= 32.
+  This is a UNIFORM O(1) four-endpoint error independent of run length.
+  It uses the root-endpoint correction; an O(B-A) sum of independent
+  per-block errors would be unnecessarily weaker.
+* Define E_r^30=C_r-(|W_r|-V_r). It is EXACTLY the original
+  odd-seat/least-prime-owner tracking defect V_r-P_r; stripping 3,5
+  does NOT create an additional arithmetic payment.
+* The new source-only lower bound
+  \`VFMidThirtyLowerFactorSafe K R\` is precisely
+  sum_{5<=r<R} E_r^30 <= 9-F_5+K R log R.
+  FTA converts it to D_R>=-K R log R, but that **source bound is
+  presently OPEN**.
+* With the selected sqrt(2) additive phase, the horizontal condition
+  floor(F_L+sqrt2)<=pi(R²) is **exactly equivalent** to
+  sum E_r^30 <= 9-F_5+F_R-floor(F_L+sqrt2); L may be R minus the
+  canonical O(log(R)^2) root lag.
+* Any first lower breach forces a STRICT source-native overrun
+  exceeding the old historical slack plus the complete wall-growth
+  allowance. The exact theorem provides the right input for the
+  original signed parent/child / Sector Six owner argument.
+
+The independent \`scripts/VFMidThirtyFactorRange/verify.py\` audits
+integer least factors, original survivor identities, and the horizontal
+sqrt(2) lag for thousands of square blocks. **A finite experiment is
+not an all-R theorem, and no universal block-by-block crossing should
+be assumed** (Littlewood forbids it). The remaining proof is to
+prohibit the required once-owned factor-coverage overrun by a NEW
+uniform signed arithmetic return theorem; FTA classification alone
+does not bound it.
+
+## Quantitative Li horizontal baseline (2026-10-10; stronger than bare PNT)
+
+Use the provable **actual-prime logarithmic-integral error** as the
+primary horizontal estimate, rather than just the PNT density limit.
+This is **not** a claim that Li or VF is pointwise closer to true pi
+at every finite x.
+
+The repository ALREADY proves the unconditional, stronger **O(1)
+VF-to-Li_2 square-endpoint quadrature** theorem
+`vfMidLiSquareEndpointUniformBounded` in
+`research/VF_MID_LI_UNIFORM_QUADRATURE.lean`.
+The new exact actual-prime Li-to-VF transport in
+[research/VF_MID_SQRT_TWO_LI_HORIZONTAL.lean](research/VF_MID_SQRT_TWO_LI_HORIZONTAL.lean)
+gives, with a fixed deterministic `C_quad`,
+`|pi(R^2)-F_R| <= |pi(R^2)-Li_2(R^2)| + C_quad`,
+and the converse bound. The full conditional proof contract is
+[research/VF_MID_SQRT_TWO_LI_HORIZONTAL_CONTRACT.md](research/VF_MID_SQRT_TWO_LI_HORIZONTAL_CONTRACT.md).
+
+The classical de la Vallee Poussin zero-free-region theorem
+**unconditionally** gives
+`pi(x)-li(x) = O(x exp(-a sqrt(log x)))` for some a>0.
+It improves bare PNT and, with the compiled O(1) bridge,
+yields a quantitative VF error of the same shape.
+It still does NOT establish the required
+`|pi(R^2)-F_R| = O(R log R)`.
+
+Numerically, using repository-normalized `Li_2 = int_2^x dt/log t`,
+original VF is closer than Li_2 at 2497 of 2499 exact square endpoints
+R=2..2500, but Li_2 is closer at R=2,3: an unconditional
+**universal** VF-nearer-than-Li assertion is false even finitely.
+An exact squared-error identity in the new Lean module isolates
+the actual prime sign that decides which one is nearer.
+
+**Never conflate**: proven uniform VF-Li quadrature; proven
+unconditional pi-Li zero-free-region error (external, not yet
+imported into Lean); finite observed VF advantage; open
+RH-equivalent prime-VF signed endpoint bound.
+
+## Chosen sqrt-two phase and PNT horizontal clock (2026-10-10)
+
+The new route adopts **c0_chosen = sqrt(2)** as a fixed ADDITIVE
+vertical phase, formalized as `vfMidChosenC0` in
+[`VF_MID_SQRT_TWO_VERTICAL_PNT_HORIZONTAL.lean`](research/VF_MID_SQRT_TWO_VERTICAL_PNT_HORIZONTAL.lean).
+This deliberately does NOT assert the false numerical equality
+`sqrt(2) = 4 - 5/log(13/2)`: the latter remains the historical
+x=9 *real exact anchor*, and the original VF block masses are unchanged.
+
+The **independent horizontal question** is to translate the
+VF square-root INDEX rather than add more vertical correction:
+`VFMidSqrtTwoHorizontalRootWindow L R U` states exactly that
+`floor(F_L+sqrt2) <= pi(R^2) <= floor(F_U+sqrt2)`.
+The associated native finite lemma gives
+`F_L-F_R+sqrt2-1 < D_R <= F_U-F_R+sqrt2`.
+
+The repo already proves **actual-prime PNT**
+`nativePrimeNumberTheorem`; its composition with the genuine square
+clock, `vfMidSqrtTwoActualPrimeSquarePNT`, is being kernel-checked.
+PNT and the independently elementary VF asymptotic support only
+an eventual root-index displacement **o(R)**, NOT the horizontal
+**O((log R)^2)** displacement corresponding to the original
+RH-scale endpoint tracking target `O(R log R)`. The inverse-clock
+asymptotic still awaits a direct native Lean theorem.
+
+PNT alone cannot guarantee a prime in even ONE prescribed square
+block: deleting the primes in the sparse blocks with R=2^k alters
+pi(x) by at most O(sqrt x), preserving PNT while leaving infinitely
+many blocks empty (as a logical countermodel, NOT as a replacement
+for the true prime carrier). Original arithmetic remains defined by
+`Nat.Prime`/FTA. Do not assume any universal fixed-phase crossing:
+classical Littlewood excursions prevent it.
+
+Complete specification:
+[research/VF_MID_SQRT_TWO_VERTICAL_PNT_HORIZONTAL_CONTRACT.md](research/VF_MID_SQRT_TWO_VERTICAL_PNT_HORIZONTAL_CONTRACT.md).
+
 ## Fixed-alignment step-graph criterion: conditional only
+
+
+**Discrete staircase / c₀ clarification (2026-10-10).**
+See the formal proof/diagnostic contract
+[research/VF_MID_C0_DISCRETE_STAIRCASE_ALIGNMENT_CONTRACT.md](research/VF_MID_C0_DISCRETE_STAIRCASE_ALIGNMENT_CONTRACT.md)
+and its native implementation in
+\`research/VF_MID_ALIGNED_STEP_GRAPH.lean\`.
+
+* VF starts with discrete complete square-block masses
+  \(F_R=\sum_{2\le r<R} m_r\), \(F_{R+1}-F_R=m_R\).
+  The continuous \`vfMid\` interpolant agrees at square endpoints but is
+  **not the original integer block step graph**.
+* The canonical additive (NOT multiplicative) phase is
+  \(c_0=4-5/\log(13/2)=1.328777548342988\ldots\), giving
+  \(K_R(c_0)=\lfloor F_R+c_0\rfloor\) with \(K_3(c_0)=\pi(9)=4\).
+* For any fixed \(c\ge0\), \(\epsilon_R(c)=F_R+c-K_R(c)\in[0,1)\) and
+  \(K_{R+1}-K_R=m_R+\epsilon_R-\epsilon_{R+1}\).
+  The REAL block dynamics are unchanged, and integer rounding **telescopes**,
+  leaving only \(\epsilon_A-\epsilon_B\) over any range. No signed
+  actual-prime Sector Six payment arises merely from choosing c.
+* Independently replayed for every root R=2..10,000:
+  canonical c₀ produced zero full-graph crossing failures; on the c-grid
+  0..3 by 0.001, the 537 successful values range from 1.329 to 1.865.
+  These are **finite diagnostics** and deliberately NOT a universal
+  c₀ bracketing theorem.
+
 
 PR #842 formalizes a useful sufficient implication for a fixed additive phase
 
@@ -700,3 +847,30 @@ A new route must identify the quantitative ingredient, its exact carrier and
 quantifiers, and the compiled consumer it meets. Success means proving a
 sufficient uniform estimate and composing it with that consumer without a new
 open premise. The present coefficient sharpening makes no such closure claim.
+
+
+## PR #925 square theta / zeta spectral cross-check (2026-10-10)
+
+This is an **additional representation of the SAME lower first-bad source**,
+not a newly solved sign bound or a new replacement for actual primes.
+Read [the full contract](research/VF_MID_925_FACTOR_SPECTRAL_LOWER_CHANNEL_CONTRACT.md)
+and [the factor/theta native Lean module](research/VF_MID_925_FACTOR_THETA_SPECTRAL_WELD.lean).
+On the strictly open square band, full 2,3,5,...,R factor survivors S_R give
+Q_R = sum_(n in S_R) log n = theta((R+1)^2)-theta(R^2).
+Set U_R = (2R+1)-Q_R. The new source bridge proves the genuine signed
+coverage excess is E_R = U_R/log(m_R) - Pos_R, with the original log-position
+term and least-prime-owner native descent preserved.
+
+The exact classical midpoint-jump explicit formula yields, on paper,
+U_R = sum_rho((b^rho-a^rho)/rho) +
+(1/2)log((1-b^-2)/(1-a^-2)) + H_R +
+(Lambda(a)+Lambda(b))/2; H_R is proper-prime-power mass strictly INSIDE
+(a,b), and a=R^2,b=(R+1)^2. Both endpoint HALF jumps are essential.
+The Lean spectral bridge accepts that external explicit formula ONLY as
+an explicit hformula hypothesis; it does not import or prove a zeta
+sum estimate. For a first lower bad root, the exact necessary obstruction
+is U_R/log(m_R) > historicalSlack + wallGrowth + Pos_R.
+A T~R zero cutoff has an RH-scale *truncation remainder* but does not
+bound the growing finite zero sum. Numerically irrational zero ordinates
+are not a cancellation argument. The original signed owner/sector-six
+quantitative return bound still remains OPEN.

@@ -60,6 +60,9 @@ on:
       - research/ZERO_TARGET_PARTIAL_MOMENT_COVARIANCE.lean
       - research/ZERO_TARGET_COVARIANCE_OWNER_DESCENT.lean
       - research/VF_MID_SQUARE_THETA_NATIVE_DESCENT.lean
+      - research/VF_MID_925_FACTOR_THETA_SPECTRAL_WELD.lean
+      - research/VF_MID_925_FACTOR_SPECTRAL_LOWER_CHANNEL_CONTRACT.md
+      - scripts/VFMid925Spectral/verify_factor_theta.py
       - research/VF_MID_ACTUAL_PRIME_ROOT_SQUARE_CONTRACTION.lean
       - research/PRIME_WHEEL_ROUGH_SEAT_SQRT_SPECIALIZATION.lean
       - research/VF_MID_PROXY_ENERGY_PULL.lean
@@ -71,6 +74,12 @@ on:
       - research/VF_MID_INTEGER_BLOCK_CAPTURE.lean
       - research/VF_MID_LITERAL_BLOCK_CROSSING.lean
       - research/VF_MID_ALIGNED_STEP_GRAPH.lean
+      - research/VF_MID_SQRT_TWO_VERTICAL_PNT_HORIZONTAL.lean
+      - research/VF_MID_SQRT_TWO_LI_HORIZONTAL.lean
+      - research/VF_MID_THIRTY_FACTOR_RANGE_LOWER_GATE.lean
+      - research/VF_MID_ADAPTIVE_FACTOR_OWNER_RETURN.lean
+      - research/VF_MID_THIRTY_FACTOR_RANGE_PROOF_CONTRACT.md
+      - scripts/VFMidThirtyFactorRange/verify.py
       - research/VF_MID_STEP_GRAPH_BRACKETING.lean
       - research/VF_MID_CORNER_CHANNEL.lean
       - research/VF_MID_SQUARE_WHEEL_BACKLOG.lean
@@ -143,6 +152,7 @@ jobs:
       - name: Build exact dependencies
         run: |
           lake build RHLean.Analysis.PrimeSieveAbelIdentity
+          lake build RHLean.Analysis.NativePNTTransfer
           lake build RHLean.Analysis.SquareRootMiddleSequentialCoherence
           lake build RHLean.Proof.LargePrimeTerminalFlipLayers
           lake build RHLean.Proof.PrimeCombVisualizationFrames
@@ -170,6 +180,10 @@ jobs:
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_FLOOR_LI_DISCRETE_BACKLOG.olean research/VF_MID_FLOOR_LI_DISCRETE_BACKLOG.lean 2>&1 | tee vf-mid-floor-li-discrete-backlog.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_RECURSIVE_CHILD_INJECTIVE.olean research/VF_MID_RECURSIVE_CHILD_INJECTIVE.lean 2>&1 | tee vf-mid-recursive-child-injective.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_ALIGNED_STEP_GRAPH.olean research/VF_MID_ALIGNED_STEP_GRAPH.lean 2>&1 | tee vf-mid-aligned-step-graph.log
+          lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_SQRT_TWO_VERTICAL_PNT_HORIZONTAL.olean research/VF_MID_SQRT_TWO_VERTICAL_PNT_HORIZONTAL.lean 2>&1 | tee vf-mid-sqrt-two-vertical-pnt-horizontal.log
+          lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_SQRT_TWO_LI_HORIZONTAL.olean research/VF_MID_SQRT_TWO_LI_HORIZONTAL.lean 2>&1 | tee vf-mid-sqrt-two-li-horizontal.log
+          lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_THIRTY_FACTOR_RANGE_LOWER_GATE.olean research/VF_MID_THIRTY_FACTOR_RANGE_LOWER_GATE.lean 2>&1 | tee vf-mid-thirty-factor-range-lower-gate.log
+          lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_ADAPTIVE_FACTOR_OWNER_RETURN.olean research/VF_MID_ADAPTIVE_FACTOR_OWNER_RETURN.lean 2>&1 | tee vf-mid-adaptive-factor-owner-return.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_STEP_GRAPH_BRACKETING.olean research/VF_MID_STEP_GRAPH_BRACKETING.lean 2>&1 | tee vf-mid-step-graph-bracketing.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_CORNER_CHANNEL.olean research/VF_MID_CORNER_CHANNEL.lean 2>&1 | tee vf-mid-corner-channel.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_LI_PHASE_FAN.olean research/VF_MID_LI_PHASE_FAN.lean 2>&1 | tee vf-mid-li-phase-fan.log
@@ -222,6 +236,49 @@ jobs:
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_PHI_CUTOFF_TELESCOPE.olean research/VF_MID_PHI_CUTOFF_TELESCOPE.lean 2>&1 | tee vf-mid-phi-cutoff-telescope.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_PHI_ODD_LI_TRANSFER.olean research/VF_MID_PHI_ODD_LI_TRANSFER.lean 2>&1 | tee vf-mid-phi-odd-li-transfer.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_PHI_DIAGONAL_TRANSFER.olean research/VF_MID_PHI_DIAGONAL_TRANSFER.lean 2>&1 | tee vf-mid-phi-diagonal-transfer.log
+      - name: Kernel-check genuine factor theta psi0 and original first-bad weld
+        run: |
+          set -o pipefail
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.VF_MID_925_FACTOR_THETA_SPECTRAL_WELD.olean \
+            research/VF_MID_925_FACTOR_THETA_SPECTRAL_WELD.lean \
+            2>&1 | tee vf925-factor-theta-spectral-weld.log
+          cat > /tmp/VF925FactorThetaSpectralAxioms.lean <<'LEAN'
+          import «research.VF_MID_925_FACTOR_THETA_SPECTRAL_WELD»
+          #check RHLean.Analysis.vf925FactorRangeUncovered_eq_fullWheel
+          #check RHLean.Analysis.vf925FactorRangeUncovered_eq_directPrimeBand
+          #check RHLean.Analysis.vf925FactorRangeThetaMass_eq_directThetaMass
+          #check RHLean.Analysis.vf925FactorRangeThetaMass_eq_thetaDifference
+          #check RHLean.Analysis.vf925FactorThetaForcing_eq_neg_thetaBandError
+          #check RHLean.Analysis.vf925FactorThetaForcing_eq_thetaEndpointDrop
+          #check RHLean.Analysis.vf925FactorThetaForcing_eq_nativeOwnerPacket
+          #check RHLean.Analysis.vf925FactorCoverageExcess_eq_thetaForcing_div_log_sub_position
+          #check RHLean.Analysis.vf925PsiMidSquareDiff_eq_factorTheta_plus_power_plus_halfJumps
+          #check RHLean.Analysis.vf925FactorThetaForcing_of_explicitPsiMidDifference
+          #check RHLean.Analysis.vf925FirstLowerBreach_forces_thetaSourceThreshold
+          #check RHLean.Analysis.vf925FirstLowerBreach_forces_spectralThreshold
+          #print axioms RHLean.Analysis.vf925FactorRangeUncovered_eq_directPrimeBand
+          #print axioms RHLean.Analysis.vf925FactorRangeThetaMass_eq_thetaDifference
+          #print axioms RHLean.Analysis.vf925FactorThetaForcing_eq_nativeOwnerPacket
+          #print axioms RHLean.Analysis.vf925FactorCoverageExcess_eq_thetaForcing_div_log_sub_position
+          #print axioms RHLean.Analysis.vf925PsiMidSquareDiff_eq_factorTheta_plus_power_plus_halfJumps
+          #print axioms RHLean.Analysis.vf925FactorThetaForcing_of_explicitPsiMidDifference
+          #print axioms RHLean.Analysis.vf925FirstLowerBreach_forces_thetaSourceThreshold
+          #print axioms RHLean.Analysis.vf925FirstLowerBreach_forces_spectralThreshold
+          LEAN
+          lake env lean -DwarningAsError=true /tmp/VF925FactorThetaSpectralAxioms.lean \
+            | tee /tmp/vf925-factor-theta-axioms.log
+          python3 - <<'PY'
+          import re
+          from pathlib import Path
+          s=Path('/tmp/vf925-factor-theta-axioms.log').read_text()
+          records=re.findall(r'depends on axioms:\s*\[([^\]]*)\]',s,re.S)
+          assert len(records)==8, f'expected eight axiom checks, got {len(records)}'
+          allowed={'propext','Classical.choice','Quot.sound'}
+          for record in records:
+              actual={x.strip() for x in record.split(',') if x.strip()}
+              assert actual<=allowed, f'nonstandard axioms: {actual-allowed}'
+          PY
       - name: Kernel-check survivor-owner gate import closure
         run: |
           lake build RHLean
@@ -277,6 +334,10 @@ jobs:
           import «research.VF_MID_INTEGER_BLOCK_CAPTURE»
           import «research.VF_MID_LITERAL_BLOCK_CROSSING»
           import «research.VF_MID_ALIGNED_STEP_GRAPH»
+          import «research.VF_MID_SQRT_TWO_VERTICAL_PNT_HORIZONTAL»
+          import «research.VF_MID_SQRT_TWO_LI_HORIZONTAL»
+          import «research.VF_MID_THIRTY_FACTOR_RANGE_LOWER_GATE»
+          import «research.VF_MID_ADAPTIVE_FACTOR_OWNER_RETURN»
           import «research.VF_MID_STEP_GRAPH_BRACKETING»
           import «research.VF_MID_CORNER_CHANNEL»
           import «research.VF_MID_SQUARE_WHEEL_BACKLOG»
@@ -505,6 +566,64 @@ jobs:
           #print axioms RHLean.Analysis.vfMidAlignedIntegerBlockLevel_cast_le
           #print axioms RHLean.Analysis.vfMidAlignedMass_lt_integerBlockLevel_add_one
           #print axioms RHLean.Analysis.vfMidAlignedIntegerBlock_rounding_error
+          #print axioms RHLean.Analysis.vfMidAlignedRoundingPhase_bounds
+          #print axioms RHLean.Analysis.vfMidAlignedIntegerBlockLevel_succ_real
+          #print axioms RHLean.Analysis.vfMidAlignedIntegerBlockLevel_stepError_abs_lt_one
+          #print axioms RHLean.Analysis.vfMidAlignedIntegerBacklog_eq_direct_error_phase
+          #print axioms RHLean.Analysis.vfMidAlignedIntegerBacklog_succ
+          #print axioms RHLean.Analysis.vfMidAlignedIntegerBacklog_interval_eq_direct_error_phase
+          #print axioms RHLean.Analysis.vfMidChosenC0_eq_sqrt_two
+          #print axioms RHLean.Analysis.vfMidSqrtTwoVerticalPhase_nonneg
+          #print axioms RHLean.Analysis.vfMidSqrtTwoVerticalPhase_pos
+          #print axioms RHLean.Analysis.vfMidSqrtTwoVerticalPhase_sq
+          #print axioms RHLean.Analysis.vfMidSqrtTwoAlignedMass_succ
+          #print axioms RHLean.Analysis.vfMidSqrtTwoIntegerLevel_step
+          #print axioms RHLean.Analysis.vfMidSqrtTwoHorizontalCrossed_iff_actualSupply
+          #print axioms RHLean.Analysis.vfMidSqrtTwoHorizontalCrossed_iff_actualWheel
+          #print axioms RHLean.Analysis.vfMidSqrtTwoIntegerBacklog_eq_actualPrimeError
+          #print axioms RHLean.Analysis.vfMidSqrtTwoIntegerBacklog_interval
+          #print axioms RHLean.Analysis.vfMidSqrtTwoHorizontalRootWindow_bounds_actualDefect
+          #print axioms RHLean.Analysis.vfMidSqrtTwoHorizontalCrossed_emptyBlock_iff
+          #print axioms RHLean.Analysis.vfMidSqrtTwoSquareClock_tendsto_atTop
+          #print axioms RHLean.Analysis.vfMidSqrtTwoActualPrimeSquarePNT
+          #print axioms RHLean.Analysis.vfMidSqrtTwoActualPrimeSquarePNT_percent
+          #print axioms RHLean.Analysis.vfMidSqrtTwoRelativeHeightAlignment_of_VF_mainTerm
+          #print axioms RHLean.Analysis.vfMidSquareActualPrimeVF_eq_primeLi2_add_quadrature
+          #print axioms RHLean.Analysis.vfMidSquareLi2MinusVF_abs_le_uniform
+          #print axioms RHLean.Analysis.vfMidSquareActualPrimeVF_abs_le_primeLi2_abs_add_uniform
+          #print axioms RHLean.Analysis.vfMidSquareActualPrimeLi2_abs_le_primeVF_abs_add_uniform
+          #print axioms RHLean.Analysis.vfMidSquareVF_vs_Li2_squaredErrors
+          #print axioms RHLean.Analysis.vfMidSquareActualPrimeVF_abs_le_of_Li2_error
+          #print axioms RHLean.Analysis.vfMidSquareSqrtTwoPhase_primeVF_error_eq
+          #print axioms RHLean.Analysis.vfMidPrefixWheelModulus_five_eq_thirty
+          #print axioms RHLean.Analysis.vfMidThirtyCandidates_eq_prefixFive
+          #print axioms RHLean.Analysis.vfMidPrimesUpToFive_eq_triple
+          #print axioms RHLean.Analysis.vfMidThirtyPrefixWheelDensity_eq_four_fifteenths
+          #print axioms RHLean.Analysis.vfMidThirtyFixedWheelPrefixError_le_eight
+          #print axioms RHLean.Analysis.vfMidThirtyRunPrefixDensityError_le_thirtytwo
+          #print axioms RHLean.Analysis.vfMidThirtyCandidateRun_densityError_le_thirtytwo
+          #print axioms RHLean.Analysis.vfMidThirtyCandidates_not_lastDigitFive
+          #print axioms RHLean.Analysis.vfMidThirtyFactorCovered_mem_iff_not_fullWheel
+          #print axioms RHLean.Analysis.vfMidThirtyFactorCovered_eq_prefixFive_sdiff_full
+          #print axioms RHLean.Analysis.vfMidThirtyFactorCovered_eq_lateComposite
+          #print axioms RHLean.Analysis.vfMidThirtyFactorCovered_card_eq_lateOwnerCards
+          #print axioms RHLean.Analysis.vfMidThirtyCovered_add_actualPrimeSupply_eq_candidates
+          #print axioms RHLean.Analysis.vfMidThirtyFactorCoverageExcess_eq_vfMass_sub_actualSupply
+          #print axioms RHLean.Analysis.vfMidThirtyFactorCoverageExcess_eq_oddOwnerDefect
+          #print axioms RHLean.Analysis.vfMidThirtyAccumulatedFactorExcess_eq_endpointDefect
+          #print axioms RHLean.Analysis.vfMidPrimeCounting_twentyFive
+          #print axioms RHLean.Analysis.vfMidThirtyLowerFactorSafe_iff_actualLowerChannel
+          #print axioms RHLean.Analysis.vfMidThirtyHorizontalCoverageSafe_iff_actualLowerHorizontal
+          #print axioms RHLean.Analysis.vfMidThirtyFirstLowerBreach_forces_factorRunOverrun
+          #print axioms RHLean.Analysis.vfMidThirtyLateOwnerRemoval_eq_factorCoveredRun
+          #print axioms RHLean.Analysis.vfMidThirtyRunExcess_eq_nativeTracking
+          #print axioms RHLean.Analysis.vfMidThirtyOwnerResidual_sub_nativeTracking_eq_fixedPhase
+          #print axioms RHLean.Analysis.vfMidThirtyOwnerResidual_sub_nativeTracking_abs_le_thirtytwo
+          #print axioms RHLean.Analysis.vfMidThirtyFirstLowerBreach_forces_ownerResidualOverrun
+          #print axioms RHLean.Analysis.vfMidAdaptiveOwnerResidual_sub_nativeTracking_eq_phase
+          #print axioms RHLean.Analysis.vfMidAdaptiveOwnerResidual_sub_nativeTracking_abs_le_four_anchor
+          #print axioms RHLean.Analysis.vfMidAdaptiveFirstLowerBreach_forces_ownerReturnOverrun
+          #print axioms RHLean.Analysis.vfMidAdaptiveLowerSafe_of_physicalReturnUpper
           #print axioms RHLean.Analysis.vfMidAlignedHorizontalCrossed_abs_endpointError_lt
           #print axioms RHLean.Analysis.vfMidAlignedLeftVerticalCrossed_abs_endpointError_lt
           #print axioms RHLean.Analysis.vfMidAlignedRightVerticalCrossed_abs_endpointError_le_bandMass_of_above
