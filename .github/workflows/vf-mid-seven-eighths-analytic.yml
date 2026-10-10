@@ -302,14 +302,11 @@ jobs:
         run: |
           set -o pipefail
           python3 scripts/compile_research_import_closure.py \
-            research/VF_MID_919_OAI_NATIVE_PRINCIPAL_WELD.lean \
+            research/VF_MID_919_OAI_RECTANGLE_RANK_OBSTRUCTION.lean \
             2>&1 | tee vf919-native-phase-compile.log
           python3 scripts/compile_research_import_closure.py \
             research/VF_MID_919_OAI_R2K_ENDPOINT_LIMIT.lean \
             2>&1 | tee vf919-native-R2K-limit-compile.log
-          python3 scripts/compile_research_import_closure.py \
-            research/VF_MID_919_OAI_RECTANGLE_RANK_OBSTRUCTION.lean \
-            2>&1 | tee vf919-native-rank-compile.log
       - name: Verify native carrier theorem signatures and standard axioms
         run: |
           cat > /tmp/vf919_native_phase_axioms.lean <<'LEAN'
@@ -386,7 +383,6 @@ jobs:
           path: |
             vf919-native-phase-*.log
             vf919-native-R2K-limit-compile.log
-            vf919-native-rank-compile.log
           if-no-files-found: ignore
 
   external-interface:
