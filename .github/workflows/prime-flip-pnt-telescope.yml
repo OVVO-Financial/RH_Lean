@@ -515,6 +515,7 @@ jobs:
           #print axioms RHLean.Analysis.vfMidAlignedIntegerBacklog_eq_direct_error_phase
           #print axioms RHLean.Analysis.vfMidAlignedIntegerBacklog_succ
           #print axioms RHLean.Analysis.vfMidAlignedIntegerBacklog_interval_eq_direct_error_phase
+          #print axioms RHLean.Analysis.vfMidChosenC0_eq_sqrt_two
           #print axioms RHLean.Analysis.vfMidSqrtTwoVerticalPhase_nonneg
           #print axioms RHLean.Analysis.vfMidSqrtTwoVerticalPhase_pos
           #print axioms RHLean.Analysis.vfMidSqrtTwoVerticalPhase_sq
@@ -524,6 +525,8 @@ jobs:
           #print axioms RHLean.Analysis.vfMidSqrtTwoHorizontalCrossed_iff_actualWheel
           #print axioms RHLean.Analysis.vfMidSqrtTwoIntegerBacklog_eq_actualPrimeError
           #print axioms RHLean.Analysis.vfMidSqrtTwoIntegerBacklog_interval
+          #print axioms RHLean.Analysis.vfMidSqrtTwoHorizontalRootWindow_bounds_actualDefect
+          #print axioms RHLean.Analysis.vfMidSqrtTwoHorizontalCrossed_emptyBlock_iff
           #print axioms RHLean.Analysis.vfMidSqrtTwoSquareClock_tendsto_atTop
           #print axioms RHLean.Analysis.vfMidSqrtTwoActualPrimeSquarePNT
           #print axioms RHLean.Analysis.vfMidSqrtTwoActualPrimeSquarePNT_percent
