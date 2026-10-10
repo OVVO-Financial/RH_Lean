@@ -252,7 +252,81 @@ uniform sign inequality. Existing finite owner-sector
 numerics may help nominate such an inequality; an actual
 all-R structural proof is still necessary.
 
-## 6. Finitude boundary and CI
+## 6. Exact signed owner weld with a fixed 32-count boundary
+
+This closes the principal *representation mismatch* between the new
+divisor-only factor-range statement and the old physical-sector
+proof currency. It does NOT close the missing inequality itself.
+
+The new native theorem
+\`vfMidThirtyLateOwnerRemoval_eq_factorCoveredRun\` identifies
+the ENTIRE count \(\sum_{A\le r<B}C_r\) literally with the
+original once-charged
+\`vfMidDyadicLateRemoval 5 A B\`, hence retains the real
+least-prime-owner incidence and occurrence multiplicities.
+
+The theorem
+\`vfMidThirtyRunExcess_eq_nativeTracking\` identifies
+\[
+T_B^{30}-T_A^{30}
+=\mathrm{vfMidDyadicVFTrackingDefect}(A,B)
+= (F_B-F_A)-(\pi(B^2)-\pi(A^2)).
+\tag{13}
+\]
+The core uniformly signed transfer is
+\[
+\boxed{
+\left|
+ [\mathrm{LateRemoval}_5(A,B)-\mathrm{LateReference}_5(A,B)]
+ -\mathrm{VFTracking}(A,B)
+\right|\le32.
+}
+\tag{14}
+\]
+The difference inside the absolute value is EXACTLY the
+four-endpoint *fixed* wheel-30 density phase from (5).
+There is no hidden cutoff-dependent error of size O(B-A).
+The proof uses the already verified generic wheel theorem and
+the original exact owner census, not an extra prime
+distribution hypothesis.
+
+Combining (11), (13), (14), the new theorem
+\`vfMidThirtyFirstLowerBreach_forces_ownerResidualOverrun\`
+proves the **precise physical signed first-bad obstruction**:
+\[
+\boxed{\begin{aligned}
+&\mathrm{LateRemoval}_5(A,B)
+-\mathrm{LateReference}_5(A,B)\\
+&\qquad>
+S_A+K(B\log B-A\log A)-32.
+\end{aligned}}
+\tag{15}
+\]
+
+Equation (15) is a true theorem conditioned on a hypothetical
+first-bad lower source event, *not* the inequality in the opposite
+direction. An unconditional native signed owner-return
+upper bound
+\[
+\mathrm{LateRemoval}_5-\mathrm{LateReference}_5
+\le S_A+K(B\log B-A\log A)-32
+\]
+(on the needed first-bad configuration) would create the
+contradiction and exclude the lower escape. That independent
+upper bound remains **OPEN**; one cannot derive it by dropping
+signed cross-owner terms or by assuming an empirically fitted
+class property.
+
+The Wiles-style classification target is therefore now
+concrete: identify an independently provable factor-range
+coherence/return restriction on *actual chronological owners*
+strong enough to exclude the physical sign in (15), including
+the historical slack S_A. The known finite 317/1027 and
+owner-age conditioned numerics may propose such a restriction,
+but only an all-R proof can discharge it.
+
+## 7. Finitude boundary and CI
+
 
 \`scripts/VFMidThirtyFactorRange/verify.py\` independently
 builds the least-prime-factor sieve, verifies every covered
