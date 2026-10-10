@@ -580,3 +580,183 @@ Neither source classification nor raw anti-phase coupling controls
 the signed historically unpaired remainder. A strong bound on
 that **original physical** remainder remains the unproved RH-scale
 input. Nothing in this update claims such a bound.
+
+
+## 8. Derived full frozen-wheel return: genuine arithmetic compensation (Oct 10)
+
+The literal raw-site involution is impossible (Section 7), but the
+ALREADY-EXISTING #918 completed-square telescope and frozen A-wheel
+rank-two factor classifier give a **different, exact signed return**
+for every A<=B<=2A (A>=5). This is a true prime-arithmetic identity;
+the right side can be evaluated by divisibility and only primes at
+arguments <=4A, with no fresh definition or estimate of pi at B^2.
+
+Put Q_A=product of actual primes p<=A, rho_A=phi(Q_A)/Q_A, and
+
+\[
+F_A(x)=\#\{1\le n\le x:\gcd(n,Q_A)=1\},
+\quad E_A(x)=F_A(x)-\rho_Ax,\quad
+\Gamma_A(r)=E_A(r^2)-E_A(r).
+\]
+
+For STRICT-OPEN original physical square blocks, define
+
+\[
+H(A,B)=B^2-A^2-(B-A),\quad
+V(A,B)=\sum_{r=A}^{B-1}V_r,\quad
+T(A,B)=\sum_{\substack{A<p<B\\p\ \mathrm{prime}}}
+  [\pi(\lfloor(B^2-1)/p\rfloor)-\pi(p)].
+\]
+
+The term T counts unique late-owner p<q prime-pair composites
+pq in the open square carrier. Each q<4A<A^2 for A>=5 and
+B<=2A; historical q charges are NOT repeated T times.
+
+The source classifier and double square/root endpoint telescope give
+the two exact equations
+
+\[
+S_A^{open}(A,B)
+=\rho_A H(A,B)+\Gamma_A(B)-\Gamma_A(A),
+\]
+
+\[
+S_A^{open}(A,B)
+=\pi(B^2)-\pi(A^2)+T(A,B).
+\]
+
+Therefore, defining the DETERMINISTIC mismatch and ACTUAL arithmetic
+return by
+
+\[
+\mathrm{Bias}_A(B)=\rho_AH(A,B)-V(A,B),
+\qquad
+\mathrm{Return}_A(B)=T(A,B)-[\Gamma_A(B)-\Gamma_A(A)],
+\]
+
+one gets the **exact, signed, source-identified return law**
+
+\[
+\boxed{
+D_B-D_A=\mathrm{Bias}_A(B)-\mathrm{Return}_A(B).
+}\tag{925-R}
+\]
+
+No empirical fit, unsigned relaxation, fabricated sink, or newly
+defined pi appears in its construction. The original per-root VF
+weights enter through the exact V(A,B) sum. Note carefully that
+(925-R) is a LINEAR identity: importing it as the original
+QUADRATIC signed Sector Six/CoDiv Gram still requires a complete
+weight- and occurrence-preserving polarization with all cross terms.
+
+### 8.1 A genuine UNCONDITIONAL first-order signed return, using PNT
+
+For any FIXED t in (1,2], put B=floor(t*A), and let A tend to infinity.
+By the proved classical PNT and Mertens product theorem,
+
+\[
+\pi(B^2)-\pi(A^2)
+=\frac{(t^2-1)A^2}{2\log A}
++o(A^2/\log A),
+\quad
+\rho_A=\frac{e^{-\gamma}+o(1)}{\log A}.
+\]
+
+The rank-two packet has at most
+\(\binom{\pi(4A)}2=O(A^2/\log^2 A)\) edges, so
+\(T(A,B)=o(A^2/\log A)\).
+The already-proved VF/Li midpoint bridge gives
+\(V(A,B)=(t^2-1)A^2/(2\log A)+o(A^2/\log A)\).
+
+Consequently (write c=e^{-gamma}-1/2>0),
+
+\[
+\boxed{
+\Gamma_A(B)-\Gamma_A(A)
+=-c(t^2-1)\frac{A^2}{\log A}
++o(A^2/\log A)
+}
+\]
+
+and
+
+\[
+\boxed{
+\mathrm{Bias}_A(B)
+\sim \mathrm{Return}_A(B)
+\sim c(t^2-1)\frac{A^2}{\log A}>0.
+}\tag{925-FIRST}
+\]
+
+This is a *paper-level asymptotic derivation* from established classical
+theorems, NOT a new Lean-checked asymptotic theorem and NOT RH.
+It proves that the arithmetic return has the RIGHT leading sign
+and cancels the leading deterministic frozen-wheel bias for all
+sufficiently large A with fixed t. This gives a substantive
+noncircular signed arithmetic mechanism, not just empirical guessing.
+
+**Crucial red team:** (925-FIRST) holds only to relative o(1).
+The biased staircase with an added x^(3/4) also has a perturbation
+of size O(A^(3/2)) = o(A^2/log A) and therefore would pass
+a first-order relative return test, while violating the VF
+O(A log A) wall. Thus (925-FIRST) is provable, but FAR too weak
+to be the needed stability class theorem.
+
+### 8.2 New complete empirical census
+
+\`scripts/vf925_frozen_wheel_coherence.py --max-anchor 3000\`
+independently sieves the genuine primes and constructs the
+actual p<q prime-pair graph, with every q counted ONCE per
+physical pq site and no historical charge re-use. For the
+**2,981** dyadic A-runs (A=20..3000,B=2A):
+
+- The genuine wheel phase \(\Gamma_A(B)-\Gamma_A(A)\)
+  was negative on all 2,981 cases.
+- \(\mathrm{Bias}_A(B)\) was positive in all 2,981 cases.
+- **2,904/2,981** cases had |D_B-D_A| <= 2% of
+  |Bias_A(B)|. The median Return/Bias ratio was **1.00128348**.
+- None of these samples is near a hypothetical first-bad
+  boundary; this is evidence about mechanism, not a theorem
+  about all roots.
+
+The project's ORIGINAL first-bad half-run A=2634,B=5267
+has the following exact integer and approximate reference ledger:
+
+| Term | Observed value |
+|---|---:|
+| Actual prime sites between square endpoints | 1,253,703 |
+| Genuine late semiprime physical sites T | 125,272 |
+| All A-wheel OPEN survivors | 1,378,975 |
+| Wheel bulk rho_A*H | 1,480,524.961668 |
+| Signed wheel double-boundary phase | -101,549.961668 |
+| Deterministic bias rho_A*H - V | +226,689.319517 |
+| Actual return T - phase | +226,821.961668 |
+| Signed remainder D_B-D_A | **-132.642152** |
+
+The large +226,689 deterministic bias is restored by TWO
+separately defined true arithmetic contributions: 125,272
+physical late semiprimes AND +101,549.961668 of negative
+wheel-boundary phase. This is the real cancellation that the
+classification should explain quantitatively. The numerical
+residual is not obtained by fitting either of the two terms.
+
+### 8.3 Remaining QUANTITATIVE theorem (not yet derived)
+
+Prove an independent, uniform historically conditioned bound on
+**the difference between these two arithmetically defined quantities**,
+with the original six-sector Gram rather than replacing it by
+the linear identity:
+
+\[
+\mathrm{Return}_A(B)-\mathrm{Bias}_A(B)
+=T(A,B)-[\Gamma_A(B)-\Gamma_A(A)]
+ -[\rho_AH(A,B)-V(A,B)].
+\]
+
+The limiting first-order sign (925-FIRST) is established on paper
+from PNT/Mertens; RH-scale accuracy, valid at arbitrary hypothetical
+first-bad endpoints and with all original weights/masks/history,
+remains open. A proof must produce a genuine strengthened
+phase/prime-pair covariance estimate or equivalent historically
+conditioned positive-operator bound. It cannot define
+"coherence" to be the target small residual.
