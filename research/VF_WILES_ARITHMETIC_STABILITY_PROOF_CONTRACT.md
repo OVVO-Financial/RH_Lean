@@ -431,3 +431,152 @@ Track the three gates separately in CI and the PR summary:
 
 Do not describe any of these open gates as compiled or proved on the
 strength of the conditional finite kernel.
+
+
+## 7. Actual derived obstruction: raw prime/composite charges CANNOT antiphase (2026-10-10)
+
+**This is a new unconditional algebraic result**, now formulated in the
+Mathlib-only kernel. It is more informative than a missing lemma:
+a direct literal pairing of the original prime/composite VF atoms
+is mathematically IMPOSSIBLE.
+
+For every genuine odd physical source site in block R, the signed
+unmodified source is
+
+\[
+z_R(n) = w_R-\mathbf{1}_{\mathbb P}(n),\qquad
+w_R=\frac{2R+1}{R\log(R^2+R+\tfrac12)}.
+\]
+
+For R>=8, one has \(0<w_R<1/2\)
+(the value at R=8 is 0.4960796214 and \(w_R\) decreases thereafter).
+Thus the two disjoint sign/magnitude ranges are:
+
+\[
+\text{composite: }0<z_R(n)<1/2,\qquad
+\text{prime: }-1<z_R(n)<-1/2.
+\]
+
+**Cross-root no-go:** for ANY R,S>=8 and ANY two original odd seats
+n,m, \(z_R(n)\ne-z_S(m)\). The positive raw charge is <1/2 and
+every negative raw charge has absolute magnitude >1/2.
+There is no exact original-site-level sign-reversing involution,
+not even by mapping a prime in one square band to a composite
+in a different square band.
+
+The new independent Lean theorem is
+\`vfWilesOriginalOddSeatCharge_no_exact_antiphase\`,
+assuming the independently checkable weight interval.
+\`vfWilesReversibleRawPhysicalCarrier_empty\` proves that any
+literal raw-charge instance of \`VFWilesReversibleCells\`
+must have EMPTY carrier. These statements use no \(\pi\)
+error estimate, no RH hypothesis and no fitted residual.
+
+The original R=5266 physical block makes the obstruction concrete:
+
+\[
+P=675,\ C=4591,\ V=614.590437282,\ w=0.116709160.
+\]
+
+Original composite positive mass \(wC=535.811754190\).
+Original prime negative magnitude \((1-w)P=596.221316907\).
+Their difference is \(V-P=-60.409562718\): it is not zero.
+Balancing *one* prime negative charge requires about
+\((1-w)/w=7.568307739\) composite positive charges, not
+one opposite atom. Nor can the old negative charge be
+reused for multiple later composite children.
+
+### 7.1 Exactly what survives of the antiphase theorem
+
+The internal original-source divisor toggle is VALID:
+for an odd n in the strict-open R-square band, let S_R(n)
+be the actual odd prime divisors <=R. Then
+
+\[
+\sum_{T\subseteq S_R(n)}(-1)^{|T|}
+=\begin{cases}
+1,&S_R(n)=\varnothing;\\
+0,&S_R(n)\ne\varnothing.
+\end{cases}
+\]
+
+For composite n, toggling any chosen p in S_R(n) gives an
+honest sign-reversing involution on its squarefree divisor
+subsets. For prime n, S_R(n) is EMPTY and an unpaired +1
+survives. Over the genuine odd physical carrier, the complete
+unpaired survivors are precisely the P_R real prime sites.
+This is a true factorization-level cancellation mechanism,
+but its UNPAIRED residue is EXACTLY the unknown prime supply.
+The VF reference mass also remains as a separate fractional source.
+Consequently the exact sieve toggle has not proved a prime-distribution
+estimate; applying it to the full first-bad packet still requires
+an independently proved boundary/parent-correlation bound.
+
+### 7.2 Correct theorem interface: compensated groups plus UNMATCHED boundary
+
+The bare reversible theorem cannot be used as the actual
+physical classifier. The corrected source-to-boundary map must:
+
+1. group ORIGINAL prime/composite occurrences with exact fractional
+   multiplicities into independently justified compensated cells,
+   without making extra physical sites or repeating a historical charge;
+2. keep a separately enumerated, unpaired physical BOUNDARY, with
+   its original sign and sharp square windows;
+3. prove a non-circular upper bound on the historically conditioned
+   boundary flux, including masked p=2/p=3, squareful exclusions,
+   original cross-owner Gram and early/late clipped sectors.
+
+The new kernel theorem
+\`vfWilesIncompleteReturn_exact_boundary\` proves the precise identity
+
+\[
+\sum_{\mathrm{paired}}f(z)+\sum_{\mathrm{boundary}}f(b)
+=4\sum_{\mathrm{boundary}}b
+ -2\left(\sum_{\mathrm{paired}}|z|
+          +\sum_{\mathrm{boundary}}|b|\right),
+\quad f(x)=4x-2|x|.
+\]
+
+The **4*boundary signed flux** cannot be omitted. Forming packets
+with no boundary, or assigning an unproved scalar square to the
+boundary, assumes away the missing arithmetic estimate. #925 must
+therefore advance to a compensated higher-rank transport/Gram class.
+This retains the Wiles-style classification goal but decisively
+rules out a simple raw-site involution.
+
+### 7.3 Independent empirical π red-team
+
+The new standard-library script
+\`scripts/vf925_empirical_class_no_go.py --max-r 6000\`
+constructs the TRUE pi via an independent integer sieve up to
+36,012,001, while VF_mid and Li_2 are computed numerically.
+The script is included in the #925 warning-fatal CI workflow.
+
+- 5,993 genuine square blocks R=8..6000; every checked
+  w_R lies in (0,1/2).
+- The actual defect remains inside the 2R log R wall in this
+  finite sample. The largest *radial occupancy* in the scanned
+  range occurs at R=15: only 0.045990242 of the wall.
+- **3,031 of 5,993** genuine blocks have outward local
+  error \(D_R(P_R-V_R)>0\) (50.576%). Thus pointwise
+  "every block restores" is empirically FALSE.
+- Among the highest-occupancy decile, the next genuine
+  block moves inward only about **52.833%** of the time.
+  There are no near-first-bad historical states in the
+  sample: this statistic cannot prove a universal return law.
+- Floor-Li's absolute square-endpoint deterministic
+  bridge stays below approximately 2.102 in the sampled
+  range, illustrating its own explicit construction.
+- The biased staircase \(N(n)=\lfloor Li_2(n)+n^{3/4}\rfloor\)
+  first escapes the fixed \(2R\log R\) wall at R=74 for R>=8
+  and remains outside throughout the scanned range.
+  It has fake "prime events" at the composites 106,108,
+  110,112,... and fails the genuine divisor-source classifier.
+
+**Interpretation:** the prime wheel certifies the actual source,
+and the bounded wheel periodic residue plus frozen-half-run
+cofactor descent certifies the exact routing (already on main).
+Neither source classification nor raw anti-phase coupling controls
+the signed historically unpaired remainder. A strong bound on
+that **original physical** remainder remains the unproved RH-scale
+input. Nothing in this update claims such a bound.
