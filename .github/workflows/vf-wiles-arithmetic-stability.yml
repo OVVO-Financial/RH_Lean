@@ -119,6 +119,8 @@ jobs:
           #check RHLean.Analysis.vfWilesFrozenWheelOddSeat_pointwise
           #check RHLean.Analysis.vfWilesFrozenWheelOddSeat_sum
           #check RHLean.Analysis.vfWilesOddBandNextRightClip_noIntermediate
+          #check RHLean.Analysis.vfWilesSignedNextRight_quadraticDeviation
+          #check RHLean.Analysis.vfWilesUnfilteredPairQuadratic_ratio
           #print axioms RHLean.Analysis.vfWilesReversibleCells_sum_mirror
           #print axioms RHLean.Analysis.vfWilesSymmetricMask_stable
           #print axioms RHLean.Analysis.vfWilesUniversalArithmeticPacketStability
@@ -130,6 +132,8 @@ jobs:
           #print axioms RHLean.Analysis.vfWilesFrozenWheelOddSeat_pointwise
           #print axioms RHLean.Analysis.vfWilesFrozenWheelOddSeat_sum
           #print axioms RHLean.Analysis.vfWilesOddBandNextRightClip_noIntermediate
+          #print axioms RHLean.Analysis.vfWilesSignedNextRight_quadraticDeviation
+          #print axioms RHLean.Analysis.vfWilesUnfilteredPairQuadratic_ratio
           LEAN
           lake env lean -DwarningAsError=true /tmp/VFWilesStabilityAcceptance.lean \
             | tee /tmp/vf-wiles-axioms.log
@@ -138,8 +142,8 @@ jobs:
           from pathlib import Path
           s = Path("/tmp/vf-wiles-axioms.log").read_text()
           records = re.findall(r"depends on axioms:\s*\[([^\]]*)\]", s, re.S)
-          if len(records) != 11:
-              raise SystemExit("Expected exactly eleven axiom audit records, got " + str(len(records)))
+          if len(records) != 13:
+              raise SystemExit("Expected exactly thirteen axiom audit records, got " + str(len(records)))
           allowed = {"propext", "Classical.choice", "Quot.sound"}
           for record in records:
               actual = {a.strip() for a in record.split(",") if a.strip()}
