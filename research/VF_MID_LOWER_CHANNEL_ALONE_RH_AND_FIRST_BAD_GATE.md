@@ -57,7 +57,7 @@ As \(R\asymp\sqrt x\), this proves the **one-sided** all-real-x bound
 
 Let \(\Theta=\sup\{\Re\rho:\zeta(\rho)=0,\ 0<\Re\rho<1\}\).
 Montgomery and Vaughan, *Multiplicative Number Theory I*,
-Chapter 15, Theorem 15.2, states for every \(\varepsilon>0\),
+Chapter 15, Theorem 15.3, states for every \(\varepsilon>0\),
 
 \[
 \pi(x)-\operatorname{li}(x)
@@ -86,7 +86,7 @@ arithmetic closure therefore disappears at the *mathematical*
 level, not by a new direct upper-channel bound.
 
 Reference: H. L. Montgomery and R. C. Vaughan,
-*Multiplicative Number Theory I: Classical Theory*, Theorem 15.2,
+*Multiplicative Number Theory I: Classical Theory*, Theorem 15.3,
 as quoted at
 https://mathoverflow.net/questions/390973/optimality-of-the-riemann-hypothesis/390975 .
 
@@ -243,7 +243,7 @@ to \(\pi(x)-\operatorname{li}(x)\ge
 -O_\varepsilon(x^{(1+\varepsilon)/2})\).
 If a zero has real part \(\beta>1/2\), choose a sufficiently small
 \(\varepsilon>0\) so that
-\((1+\varepsilon)/2<\beta\); Theorem 15.2 provides incompatible
+\((1+\varepsilon)/2<\beta\); Theorem 15.3 provides incompatible
 negative oscillations of an intermediate power.
 The quantifier **for every epsilon** is indispensable. One fixed
 exponent below 1 would establish only a corresponding zero-free
