@@ -114,6 +114,46 @@ run forms. This is a real, unconditional long-run simplification.
 It isolates the ONLY potentially unbounded contributor in this
 factor decomposition: the evolving owner coverage p>=7.
 
+**Sharp periodic refinement: universal 32/15 rather than 32,
+mathematically complete on paper; not yet kernel-compiled.**
+Define the exact fixed-wheel prefix phase
+\[
+e(n)=F_5(n)-\frac4{15}n.
+\]
+Since the eight residues modulo 30 repeat EXACTLY,
+\(e(n+30)=e(n)\). Define the square-clock correction
+\[
+q(r):=e(r^2)-e(r),\qquad q(r+30)=q(r).
+\]
+Equation (4) makes the full A-to-B count error
+\(\varepsilon_{A,B}=q(B)-q(A)\), literally a difference
+of two values of a **30-state periodic function**.
+The 30 exact rational cases are exhaustively checked by
+\`scripts/VFMidThirtyFactorRange/verify_periodic_certificate.py\`:
+\[
+-\frac43=\min_{0\le r<30}q(r),\qquad
+\max_{0\le r<30}q(r)=\frac45.
+\]
+Thus for ALL A,B (not merely tested intervals),
+\[
+\boxed{
+|\varepsilon_{A,B}|\le \frac{32}{15}
+\approx2.1333333.
+}\tag{5-sharp}
+\]
+The logical reason this finite computation GENERALIZES is a
+**proved elementary algebraic periodic reduction**:
+every r equals \(30k+t\), and q depends only on t.
+The independent script displays each exact rational
+certificate and tests all 900 ordered residue pairs.
+This is different in kind from extending a finite prime
+staircase plot: the dynamically moving factor-owner sequence
+has no comparable proved finite-period reduction.
+The native Lean bound (5) remains 32 until the small
+closed-form 30-residue certificate is transplanted and
+kernel checked; do NOT label (5-sharp) Lean-proved yet.
+
+
 It does not itself force a lower bound on the remaining survivors.
 
 ## 3. The signed excess is EXACTLY the old native VF currency
