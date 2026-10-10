@@ -15,6 +15,7 @@ on:
       - research/VF_MID_THIRTY_FACTOR_RANGE_LOWER_GATE.lean
       - research/VF_MID_THIRTY_FACTOR_RANGE_PROOF_CONTRACT.md
       - scripts/VFMidThirtyFactorRange/verify.py
+      - scripts/VFMidThirtyFactorRange/verify_periodic_certificate.py
       - scripts/VFMidAlignedStepGraph/verify_c0_contract.py
       - scripts/VFMidAlignedStepGraph/verify.py
       - CURRENT_PROOF_CONTRACT.md
@@ -148,6 +149,19 @@ jobs:
             "sqrt2_horizontal":d["horizontal"],
             "four_endpoint":d["thirty_wheel_four_endpoint"],
           },sort_keys=True))
+          PY
+      - name: Exhaustive 30-state square-endpoint phase certificate
+        run: |
+          python3 scripts/VFMidThirtyFactorRange/verify_periodic_certificate.py \
+            > /tmp/vf-thirty-periodic.json
+          python3 - <<'PY'
+          import json
+          with open('/tmp/vf-thirty-periodic.json') as f: d=json.load(f)
+          assert d["status"]=="exact_mod30_finite_state_certificate_not_RH"
+          assert d["sharp_all_runs_error"]=="32/15"
+          assert d["residue_classes_checked"]==30
+          assert d["ordered_endpoint_pairs_checked"]==900
+          print("FINITE STATE -> ALL ROOTS via Euclidean period 30:",d["sharp_all_runs_error"])
           PY
       - name: Audit declarations and standard axioms
         run: |
