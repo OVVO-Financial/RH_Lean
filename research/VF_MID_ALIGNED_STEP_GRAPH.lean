@@ -327,8 +327,7 @@ theorem vfMidAlignedIntegerBacklog_interval_eq_direct_error_phase
           vfMidDirectSquareEndpointError A) -
         (vfMidAlignedRoundingPhase c B -
           vfMidAlignedRoundingPhase c A) := by
-  rw [vfMidAlignedIntegerBacklog_eq_direct_error_phase,
-    vfMidAlignedIntegerBacklog_eq_direct_error_phase]
+  simp only [vfMidAlignedIntegerBacklog_eq_direct_error_phase]
   ring
 
 
