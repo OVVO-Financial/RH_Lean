@@ -405,6 +405,53 @@ In particular:
 - PR #903 is restricted to exact classifier/Fubini bookkeeping that supports
   the run-level owner decomposition and lower-run descent.
 
+## Exact modulo-30 factor-range lower gate (2026-10-10; #925)
+
+The lower-channel *source statement* now uses only integer factor ranges,
+the original VF band masses, and finite cardinality counts:
+[research/VF_MID_THIRTY_FACTOR_RANGE_LOWER_GATE.lean](research/VF_MID_THIRTY_FACTOR_RANGE_LOWER_GATE.lean).
+The reference/closure contract is
+[research/VF_MID_THIRTY_FACTOR_RANGE_PROOF_CONTRACT.md](research/VF_MID_THIRTY_FACTOR_RANGE_PROOF_CONTRACT.md).
+
+* For every R>=5, let W_R be the gcd(n,30)=1 candidates strictly inside
+  (R²,(R+1)²), i.e. residues 1,7,11,13,17,19,23,29 modulo30. This
+  EXCLUDES all odd n mod10=5, together with multiples of 2 and 3.
+* C_R counts EACH n in W_R ONCE when it has some integer factor
+  d in [7,R]. This source definition does NOT depend on Nat.Prime
+  or pi. The EXISTING FTA square-wheel theorem, used only in the
+  proof, decodes actual square-block prime supply as |W_R|-C_R.
+* Already-established Boolean-wheel/Fubini theorems have a surprising
+  all-run strength: for every A<=B,
+  abs(sum_{A<=r<B} |W_r| - (4/15)*[(B²-A²)-(B-A)]) <= 32.
+  This is a UNIFORM O(1) four-endpoint error independent of run length.
+  It uses the root-endpoint correction; an O(B-A) sum of independent
+  per-block errors would be unnecessarily weaker.
+* Define E_r^30=C_r-(|W_r|-V_r). It is EXACTLY the original
+  odd-seat/least-prime-owner tracking defect V_r-P_r; stripping 3,5
+  does NOT create an additional arithmetic payment.
+* The new source-only lower bound
+  \`VFMidThirtyLowerFactorSafe K R\` is precisely
+  sum_{5<=r<R} E_r^30 <= 9-F_5+K R log R.
+  FTA converts it to D_R>=-K R log R, but that **source bound is
+  presently OPEN**.
+* With the selected sqrt(2) additive phase, the horizontal condition
+  floor(F_L+sqrt2)<=pi(R²) is **exactly equivalent** to
+  sum E_r^30 <= 9-F_5+F_R-floor(F_L+sqrt2); L may be R minus the
+  canonical O(log(R)^2) root lag.
+* Any first lower breach forces a STRICT source-native overrun
+  exceeding the old historical slack plus the complete wall-growth
+  allowance. The exact theorem provides the right input for the
+  original signed parent/child / Sector Six owner argument.
+
+The independent \`scripts/VFMidThirtyFactorRange/verify.py\` audits
+integer least factors, original survivor identities, and the horizontal
+sqrt(2) lag for thousands of square blocks. **A finite experiment is
+not an all-R theorem, and no universal block-by-block crossing should
+be assumed** (Littlewood forbids it). The remaining proof is to
+prohibit the required once-owned factor-coverage overrun by a NEW
+uniform signed arithmetic return theorem; FTA classification alone
+does not bound it.
+
 ## Quantitative Li horizontal baseline (2026-10-10; stronger than bare PNT)
 
 Use the provable **actual-prime logarithmic-integral error** as the
