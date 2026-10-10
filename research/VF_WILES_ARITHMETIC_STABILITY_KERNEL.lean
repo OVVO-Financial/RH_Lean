@@ -433,7 +433,7 @@ theorem vfWilesFrozenWheelOddSeat_pointwise
         ((if survives then (1 : ℝ) else 0) - rho) -
           (if late then (1 : ℝ) else 0) := by
   cases survives <;> cases late <;>
-    simp_all <;> ring
+    simp_all; ring
 
 /-- Every original physical odd seat retains its OWN w_r; the bias,
 signed survivor phase, and late composite term are summed without
@@ -510,7 +510,7 @@ theorem vfWilesOddBandNextRightClip_noIntermediate
     have hrh : r * h < r * b :=
       lt_of_le_of_lt (Nat.le_max_left (r * h) (p * b)) hafter
     have hbh : h < b := by
-      by_contra h
+      by_contra hnot
       have hble : b ≤ h := by omega
       have hmul : r * b ≤ r * h := Nat.mul_le_mul_left r hble
       omega
