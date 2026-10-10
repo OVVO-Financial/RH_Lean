@@ -215,4 +215,70 @@ theorem vf925FactorThetaForcing_of_explicitPsiMidDifference
   unfold vf925FactorThetaForcing
   linarith
 
+
+/-! ## ORIGINAL lower first-bad event in the same theta currency
+
+A first lower-wall failure forces an *actual source* theta-shortage
+threshold, where the once-charged historical slack and actual within-band
+prime-location term are both preserved. This is a necessary consequence
+of failure, NOT the missing arithmetic upper bound.
+
+If the external explicit formula is supplied, the very same condition
+becomes a lower bound on the signed growing zero sum, with all exact
+prime-power and jump corrections left in place. The condition alone
+does not rule out a failure.
+-/
+
+/-- If the source-native lower channel fails for the FIRST time after
+a safe predecessor, the genuine log-weighted factor-range deficit
+must be sufficiently large to pay the historical slack and wall
+increment INCLUDING the original signed position term. -/
+theorem vf925FirstLowerBreach_forces_thetaSourceThreshold
+    (K : ℝ) (R : ℕ) (hR : 5 ≤ R)
+    (hgood : VFMidThirtyLowerFactorSafe K R)
+    (hbad : ¬ VFMidThirtyLowerFactorSafe K (R + 1)) :
+    vfMidThirtyLowerHistoricalSlack K R +
+        K * (((R + 1 : ℕ) : ℝ) *
+          Real.log (((R + 1 : ℕ) : ℝ)) -
+          (R : ℝ) * Real.log (R : ℝ)) +
+        vfMidDirectLogPositionError R <
+      vf925FactorThetaForcing R /
+        Real.log (vfMidBandMidpoint R) := by
+  have hover :=
+    vfMidThirtyFirstLowerBreach_forces_factorRunOverrun
+      K hR (Nat.le_succ R) hgood hbad
+  rw [vfMidThirtyAccumulatedFactorExcess_succ R hR,
+    ← vfMidThirtyFactorCoverageExcess_eq_vfMass_sub_actualSupply R hR,
+    vf925FactorCoverageExcess_eq_thetaForcing_div_log_sub_position R hR]
+      at hover
+  linarith
+
+/-- Spectral reading of the **same** physical first-bad condition. The
+explicit formula is passed IN AS A HYPOTHESIS and MUST NOT be inferred
+from the source identities themselves. -/
+theorem vf925FirstLowerBreach_forces_spectralThreshold
+    (K : ℝ) (R : ℕ) (hR : 5 ≤ R)
+    (spectralIncrement trivialIncrement : ℝ)
+    (hformula :
+      vf925PsiMidAt ((R + 1) ^ 2) - vf925PsiMidAt (R ^ 2) =
+        (2 * (R : ℝ) + 1) -
+          spectralIncrement - trivialIncrement)
+    (hgood : VFMidThirtyLowerFactorSafe K R)
+    (hbad : ¬ VFMidThirtyLowerFactorSafe K (R + 1)) :
+    vfMidThirtyLowerHistoricalSlack K R +
+        K * (((R + 1 : ℕ) : ℝ) *
+          Real.log (((R + 1 : ℕ) : ℝ)) -
+          (R : ℝ) * Real.log (R : ℝ)) +
+        vfMidDirectLogPositionError R <
+      (spectralIncrement + trivialIncrement +
+        vf925StrictInteriorHigherPowerMass R +
+        (Λ (R ^ 2) + Λ ((R + 1) ^ 2)) / 2) /
+          Real.log (vfMidBandMidpoint R) := by
+  have htheta :=
+    vf925FirstLowerBreach_forces_thetaSourceThreshold
+      K R hR hgood hbad
+  rw [vf925FactorThetaForcing_of_explicitPsiMidDifference
+    R hR spectralIncrement trivialIncrement hformula] at htheta
+  exact htheta
+
 end RHLean.Analysis
