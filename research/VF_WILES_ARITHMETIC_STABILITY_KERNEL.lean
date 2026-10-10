@@ -519,4 +519,53 @@ theorem vfWilesOddBandNextRightClip_noIntermediate
       Nat.mul_le_mul_left r hgapb
     nlinarith
 
+
+/-! ## Exact quadratic backbone versus actual arithmetic profile
+
+The square-block fractional-root parameter controls the geometric
+two-coordinate pair count. An actual signed next-right sector
+additionally contains the independently determined prime/squarefree-
+composite incidence P*C and composite/composite clipped count N.
+
+The statement below preserves the ORIGINAL VF sign and weight.
+It isolates the *only* correction to a pure t^2 law at every
+actual cutoff, without postulating cancellation or identifying
+the correction with a positive Gram payment. The physical
+specialization must use P, C, and N from the true integer carrier.
+-/
+
+/-- Exact signed next-right departure from the purely geometric
+quadratic profile: deltaP, deltaC, deltaN are discrepancies in
+the actual prime, squarefree-composite, and native next-right
+composite-pair incidence counts, respectively. -/
+theorem vfWilesSignedNextRight_quadraticDeviation
+    (w t P C N deltaP deltaC deltaN : ℝ) :
+    (w ^ 2 * (t ^ 2 * N + deltaN) -
+       w * (1 - w) * (t * P + deltaP) * (t * C + deltaC)) -
+       t ^ 2 * (w ^ 2 * N - w * (1 - w) * P * C) =
+    w ^ 2 * deltaN -
+      w * (1 - w) *
+        (t * (P * deltaC + C * deltaP) + deltaP * deltaC) := by
+  ring
+
+/-- Unfiltered two-site pair formation is exactly quadratic in
+site occupancy with an explicit finite-population correction.
+This is a UNIVERSAL algebraic law, not a short-interval PNT
+for the signed and owner-filtered actual packet. -/
+theorem vfWilesUnfilteredPairQuadratic_ratio
+    (m R : ℕ) (hR : 2 ≤ R) :
+    ((m : ℝ) * ((m : ℝ) - 1)) /
+        ((R : ℝ) * ((R : ℝ) - 1)) =
+      ((m : ℝ) / (R : ℝ)) ^ 2 -
+        ((m : ℝ) / (R : ℝ)) *
+          (1 - (m : ℝ) / (R : ℝ)) / ((R : ℝ) - 1) := by
+  have hRpos : (0 : ℝ) < (R : ℝ) := by
+    exact_mod_cast (show 0 < R by omega)
+  have hRone : (1 : ℝ) < (R : ℝ) := by
+    exact_mod_cast (show 1 < R by omega)
+  have hn0 : (R : ℝ) ≠ 0 := ne_of_gt hRpos
+  have hn1 : (R : ℝ) - 1 ≠ 0 := ne_of_gt (sub_pos.mpr hRone)
+  field_simp
+  <;> ring
+
 end RHLean.Analysis
