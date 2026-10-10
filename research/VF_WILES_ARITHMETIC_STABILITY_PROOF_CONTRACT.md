@@ -282,3 +282,152 @@ occurrence packets*, with a kernel-checked conditional first-bad trap.
 owner packet has such a representation (or a provably sound, independently
 derived higher-rank replacement) with all historical charge/weight
 conservation. **Without that embedding, RH is not proved.**
+
+
+## 6. Classification theorem: three separate proof obligations (2026-10-10 refinement)
+
+The goal is a **single, noncircular transport class** with (i) a universal
+stability theorem, (ii) membership of the true prime-count profile, and
+(iii) independently constructed fantasy-model members.  These are three
+DIFFERENT claims.  The Mathlib-only reversible-cell theorem proves a finite
+conditional kernel, not all three.
+
+### 6.1 Common interface: square-endpoint profiles, NOT a prime sieve axiom
+
+For a profile F, use the square samples and increments
+
+```text
+A_F(R) := F(R^2)
+D_F(R) := A_F(R) - VF_mid(R^2)
+e_F(R) := A_F(R+1) - A_F(R) - V_R
+D_F(R+1) = D_F(R) + e_F(R).
+```
+
+The interface should permit real-valued Li/fractional/interpolated VF
+profiles as well as integer-valued floor-Li and pi.  Do **not** bake
+`Nat.Prime`, exact prime-wheel survivors, or integer 0/1 jumps into the
+UNIVERSAL interface: doing so wrongly excludes the fantasy examples.
+Instead each concrete profile must furnish a **sound realization map** from
+its own event/source data into a common finite weighted transport ledger.
+
+Each occurrence must retain its source index, source multiplicity, exact
+weight, mask, phase, clipping boundary, owner, and historical age. A
+profile's realization map must be injective on physically distinct
+occurrences, with a checkable inverse or a proved multiplicity-preserving
+surjection. It must account for the entire physical boundary and ALL
+historical charges exactly once. Nonnegative dissipative sinks must be
+derived from independent local source identities, never manufactured from
+a residual scalar square root.
+
+The **crucial additional arithmetic constraint** is a genuine
+return/compensation law (or an independently proved masked Gram/operator
+contraction) on the physical transported amplitudes with the actual
+coefficient signs. A permutation or an unweighted Fubini identity by
+itself is not such a law. In the current reversible model, specifically,
+`amplitude (mirror i) = -amplitude i` and mask symmetry are powerful
+quantitative conditions, not consequences already established by prime
+divisibility.
+
+### 6.2 Required theorem gates
+
+1. **Class/stability.** Construct a single source-realized,
+   occurrence-faithful transport class, without mentioning pi, RH,
+   first-bad failure, `D_F` channel containment, or the final budget sign
+   among its *primitive* conditions. Establish a UNIFORM stability theorem
+   for its members at square endpoints, using the locally certified
+   physical return/Gram law and an exact history ledger. The theorem must
+   control both upper and lower escapes. The current finite kernel is
+   potentially an internal lemma, not proof of this gate.
+2. **Actual-prime membership.** Instantiate F with the EXISTING pi
+   definition. Import the established prime-wheel, least-prime-owner,
+   restricted Mobius decoder, physical weights and original six-sector
+   Fubini identities. THEN construct the new local signed transport /
+   compensation certificate. `vfV2ActualPrime_verifiedStructuralRules`
+   supplies structural input **but does not prove that certificate**.
+   The sign-bearing representation must be proved by its individual
+   finite-arithmetic/ideal identities before summing, without using the
+   desired RH-scale bound.
+3. **Fantasy membership.** Independently exhibit the SAME transport
+   class's source-realized certificate for floor-Li, exact Li and the
+   other existing fantasy profiles. Floor-Li can use its own rounding
+   and midpoint-quadrature source data; it must not be falsely assigned
+   prime-factor owners. Merely citing its previously established
+   `O(1)` endpoint discrepancy is a proof of **stability**, not proof
+   of membership in the new arithmetic transport class.
+
+For actual primes, the exact unfinished target after gate 2 is the
+ORIGINAL `vfV2ActualSixSectorSignedMass` and
+`vfMidActiveGlobalResidualExcess` with their native signed weights.
+`vfV2ActualPrime_signedOwnerRule_iff_noFirstBad` on main already warns
+that listing the conditional first-bad budget sign as an admissibility
+field is logically equivalent to listing the target conclusion. Therefore
+no primitive class property may be an alias for this signed rule.
+
+### 6.3 Sharp biased-staircase countermodel
+
+Set, after any needed finite prefix adjustment,
+
+```text
+H(n) = Li_2(n) + n^(3/4)
+N(n) = floor(H(n)).
+```
+
+For sufficiently large n,
+
+```text
+0 < H'(n) = 1/log(n) + (3/4)n^(-1/4) < 1,
+```
+
+so the integer staircase eventually has only 0/1 increments and is
+nondecreasing. Also `N(n) ~ n/log n`; all telescoping identities and
+`D_(R+1)^2 - D_R^2 = 2 D_R e_R + e_R^2` hold. But the proved uniform
+midpoint quadrature for Li gives
+
+```text
+N(R^2) - VF_mid(R^2) = R^(3/2) + O(1).
+```
+
+This violates every fixed `C R log R` channel. Thus neither PNT
+asymptotics, staircase shape, generic quadratic energy, nor abstract
+pair algebra can be a sufficient CLASS criterion.
+
+**Acceptance test:** identify the *first specific independently defined
+transport/coherence axiom* that fails for N, with an occurrence-level
+witness, while providing explicit certificates for floor-Li and prime
+profiles. Showing only `N` fails the final channel bound is NOT enough
+to establish this structural discrimination.
+
+### 6.4 Prime-wheel versus fantasy: no false shared factorization
+
+True primes are singled out by divisibility; on a square band,
+`n` is prime iff it survives division by all primes up to the
+appropriate square root (with endpoint conventions checked). This is an
+exact finite **classifier** of genuine prime events. It does NOT
+supply an anti-phase signed return or a uniform contraction after
+weighting and historical restriction. The floor-Li staircase does not
+satisfy that classifier. Conversely, analytic Li quadrature does not
+prove any signed cancellation for the true prime-wheel transport.
+
+The only credible shared class is therefore defined at the level of a
+**realized, physical weighted transport certificate**, with different
+honest source generators and the same independently proven local
+coherence law. Proving that genuine prime incidence realizes this law
+is the remaining major mathematical result. It must not be obscured by
+renaming the law `admissible` or by assuming its existence in the
+membership theorem.
+
+### 6.5 Delivery and compile honesty
+
+Track the three gates separately in CI and the PR summary:
+
+- Finite universal kernel: **proved in this branch**, conditional on
+  antipodal occurrence pairing.
+- Structural prime incidence: **already established on main**;
+  full signed transport / stable-class prime membership: **OPEN**.
+- Fantasy endpoint stability: **already established on main**;
+  actual membership in the proposed COMMON transport class: **OPEN**.
+- Universal RH-scale class theorem and actual native six-sector
+  contradiction: **OPEN**.
+
+Do not describe any of these open gates as compiled or proved on the
+strength of the conditional finite kernel.
