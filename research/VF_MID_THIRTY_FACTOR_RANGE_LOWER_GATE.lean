@@ -244,14 +244,21 @@ theorem vfMidThirtyAccumulatedFactorExcess_eq_endpointDefect
     vfMidThirtyAccumulatedFactorExcess R =
       vfMidSquareEndpointError 5 - vfMidSquareEndpointError R := by
   unfold vfMidThirtyAccumulatedFactorExcess
-  rw [← Finset.sum_Ico_sub vfMidSquareEndpointError hR]
-  apply Finset.sum_congr rfl
-  intro r hr
-  have hrFive : 5 ≤ r := (Finset.mem_Ico.mp hr).1
-  rw [vfMidThirtyFactorCoverageExcess_eq_vfMass_sub_actualSupply r hrFive]
-  rw [vfMidSquareEndpointError_succ r (by omega : 2 ≤ r)]
-  unfold vfMidSquareBandError
-  rw [vfMidSquareBandPrimes_card_eq_integerBlockPrimeSupply r]
+  have hterms :
+      (∑ r ∈ Finset.Ico 5 R, vfMidThirtyFactorCoverageExcess r) =
+        ∑ r ∈ Finset.Ico 5 R,
+          -(vfMidSquareEndpointError (r + 1) -
+              vfMidSquareEndpointError r) := by
+    apply Finset.sum_congr rfl
+    intro r hr
+    have hrFive : 5 ≤ r := (Finset.mem_Ico.mp hr).1
+    rw [vfMidThirtyFactorCoverageExcess_eq_vfMass_sub_actualSupply r hrFive]
+    rw [vfMidSquareEndpointError_succ r (by omega : 2 ≤ r)]
+    unfold vfMidSquareBandError
+    rw [vfMidSquareBandPrimes_card_eq_integerBlockPrimeSupply r]
+    ring
+  rw [hterms, ← Finset.sum_neg_distrib]
+  rw [Finset.sum_Ico_sub vfMidSquareEndpointError hR]
   ring
 
 /-- Finite initial count is explicit and contains the exceptional
@@ -307,25 +314,21 @@ theorem vfMidThirtyHorizontalCoverageSafe_iff_actualLowerHorizontal
         (9 : ℝ) - vfMidFinishedMass 5 := by
     unfold vfMidSquareEndpointError
     norm_num [vfMidPrimeCounting_twentyFive]
-  have hprimeNat :
-      (vfMidAlignedIntegerBlockLevel (Real.sqrt 2) L : ℝ) ≤
-        (Nat.primeCounting (R ^ 2) : ℝ) ↔
-      vfMidAlignedIntegerBlockLevel (Real.sqrt 2) L ≤
-        Nat.primeCounting (R ^ 2) := by
-    exact_mod_cast (Iff.rfl :
-      vfMidAlignedIntegerBlockLevel (Real.sqrt 2) L ≤
-      Nat.primeCounting (R ^ 2) ↔
-      vfMidAlignedIntegerBlockLevel (Real.sqrt 2) L ≤
-      Nat.primeCounting (R ^ 2))
   unfold VFMidThirtyHorizontalCoverageSafe
   rw [htel, hbase]
   unfold vfMidSquareEndpointError
   constructor
   · intro h
-    apply hprimeNat.mp
-    linarith
+    have hreal :
+        (vfMidAlignedIntegerBlockLevel (Real.sqrt 2) L : ℝ) ≤
+          (Nat.primeCounting (R ^ 2) : ℝ) := by
+      linarith
+    exact_mod_cast hreal
   · intro h
-    have hreal := hprimeNat.mpr h
+    have hreal :
+        (vfMidAlignedIntegerBlockLevel (Real.sqrt 2) L : ℝ) ≤
+          (Nat.primeCounting (R ^ 2) : ℝ) := by
+      exact_mod_cast h
     linarith
 
 /-- Factor-only historical lower slack.  This retains the OLD margin,
