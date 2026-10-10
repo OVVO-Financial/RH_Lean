@@ -322,6 +322,11 @@ jobs:
           #check RHLean.Proof.vf919OwnerTwoSignedGram_eq_interior_sub_branches_add_boundary
           #print axioms RHLean.Proof.vf919OwnerTwoSignedBoundary_eq_topMertens_times_returned
           #print axioms RHLean.Proof.vf919OwnerTwoSignedGram_eq_interior_sub_branches_add_boundary
+          #print axioms RHLean.Proof.vf919OwnerTwoPhysicalParentSite_sum_eq_base
+          #print axioms RHLean.Proof.vf919OwnerTwoPhysicalReturnedSite_sum_eq_returned
+          #print axioms RHLean.Proof.vf919OwnerTwoSignedGram_eq_native_site_products
+          #print axioms RHLean.Proof.vf919OwnerTwoSignedGram_eq_excludedSixHecke_of_identification
+          #print axioms RHLean.Proof.vf919OwnerTwoSignedGram_eq_amplified_signed_cross_of_identification
           #print axioms RHLean.Proof.vf919OwnerTwoSignedBoundary_abs_le_of_real_magnitudes
           #print axioms RHLean.Proof.vf919OwnerTwoSignedBoundary_nonpos_of_aligned
           #print axioms RHLean.Proof.vf919OwnerTwoSignedBoundary_nonneg_of_opposite
@@ -339,7 +344,7 @@ jobs:
           text = Path('vf919-native-phase-axioms.log').read_text()
           records = re.findall(r'depends on axioms:\s*\[([^\]]*)\]', text, re.S)
           closed = len(re.findall(r'does not depend on any axioms', text))
-          assert len(records) + closed == 19, (records, closed)
+          assert len(records) + closed == 24, (records, closed)
           allowed = {'propext', 'Classical.choice', 'Quot.sound'}
           for record in records:
               actual = {a.strip() for a in record.split(',') if a.strip()}
