@@ -125,7 +125,7 @@ theorem vf919QuotientKernel36_signed_abel (N : ℕ) (b : ℕ → ℂ) :
       (vf919QuotientKernelPrimitive36 N : ℂ) * b (N + 1) := by
   induction N with
   | zero =>
-      simp [vf919QuotientKernelPrimitive36]
+      simp [vf919QuotientKernelPrimitive36, vf919QuotientKernelPrimitive36Table]
   | succ N ih =>
       have hstep :
           (vf919SharpQuotientKernel36 (N + 1) : ℂ) =
