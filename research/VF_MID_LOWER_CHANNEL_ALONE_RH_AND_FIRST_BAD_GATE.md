@@ -407,3 +407,40 @@ References:
   https://link.springer.com/article/10.1007/s11139-022-00616-x
 - Original VF derivative lemmas in
   \`research/VF_MID_LI_UNIFORM_QUADRATURE.lean\`.
+
+
+## 9. Zeta-zero / theta representation incorporated without changing the goal
+
+The attached October 10 spectral analysis is now integrated through
+[the dedicated detailed proof contract](VF_MID_925_FACTOR_SPECTRAL_LOWER_CHANNEL_CONTRACT.md)
+and the new native module
+\`VF_MID_925_FACTOR_THETA_SPECTRAL_WELD.lean\`.
+
+The same true source-only survivor set \(S_R\) gives \(Q_R=\sum_{n\in S_R}\log n\)
+and \(U_R=(2R+1)-Q_R\). The native arithmetic formalization identifies
+the genuine factor coverage excess as
+\[
+E_R=V_R-P_R=\frac{U_R}{\log m_R}-\mathrm{Pos}_R.
+\]
+Thus a first-bad predecessor must satisfy the strengthened exact
+*necessary* signed condition
+\[
+\frac{U_R}{\log m_R}>
+S_R^{\mathrm{slack}}+K((R+1)\log(R+1)-R\log R)+\mathrm{Pos}_R.
+\]
+The classical symmetric-height explicit formula expresses \(U_R\)
+as the signed zero-square-block increment plus the trivial-zero term,
+STRICTLY interior higher prime powers and **BOTH** von Mangoldt
+square-endpoint half jumps. The new Lean consumer states that spectral
+identity only under an explicit external \(hformula\) hypothesis.
+The finite physical survivor/theta/psi0 identities are separately
+formalized without the external assumption, and an independent integer
+script checks the prime-power endpoint cases.
+
+Frequency scale \(|\Im\rho|\asymp R\) is a relevant diagnostic for
+the square geometry, not a uniform bound on the zero sum. Finitely
+many zeros cause an estimable truncation error, but irrationality
+or floating point approximation of their ordinates does not force
+the original arithmetic signed owner return. The only sufficient
+arithmetic objective remains universal exclusion of lower-channel
+first-bad events, as above. **No new RH closure is claimed.**
