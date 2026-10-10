@@ -14,15 +14,28 @@ where `A` is an absolute constant and `K_R` controls all lower Mertens values:
 (M(y)-1)^2 \le K_R (y+1),\qquad y<R.
 \]
 
-The exhaustive exact scan through `R = 100000` found
+**Numerical correction, 2026-10-10.** The previously reported maximum
+`0.1291432502985845` at `R = 88130` over roots through `100000` is
+incompatible with the exact `R = 5561` witness under this definition of `K`.
+That larger-range maximum is uncertified. The independent segmented audit
+`scripts/absolute_a_signed_estimate_audit.cpp` now recomputes every integer
+through `99999999` and every endpoint through `R = 10000`, obtaining
 
 \[
-\max_{56\le R\le 100000}
+\max_{56\le R\le 10000}
 \frac{(M(R^2-1)-1)^2}{R^2K(R)}
-=0.1291432502985845
+=\frac{12954050}{92774163}=0.139629931234195\ldots
 \]
 
-at `R = 88130`. The formal theorem deliberately does not assert a subunit
+at `R = 5561`, with `K=3/2`. All-integer shifted energy below `10^8`
+has exact maximum `3/2` at `n=5`. See
+[the full audit and all-scale constant restriction](ABSOLUTE_A_ALL_SCALE_SIGNED_ESTIMATE_AUDIT.md).
+Its paper argument, using this finite base and Hurst's unconditional theorem,
+shows that any valid all-scale constant must satisfy `A > 0.43`; therefore
+some later actual amplification ratio must exceed the currently observed
+maximum. The all-scale upper estimate remains unproved.
+
+The formal theorem deliberately does not assert a subunit
 constant. Any finite absolute `A` is enough for the RH-scale exponent after
 square-root descent.
 
