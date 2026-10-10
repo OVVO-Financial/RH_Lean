@@ -404,4 +404,62 @@ theorem vfWilesOwnerReclassification_final_from_population
   rfl
 
 
+
+/-! ## Original-site frozen-wheel signed return (not a fantasy pi definition)
+
+For a genuine odd nonsquare integer in a subdoubling frozen A-wheel,
+survival either means a true prime, or one late product p*q of
+distinct genuine primes >A. The native arithmetic modules already
+provide that exact factorization classifier. This independent
+Mathlib-only lemma is the POINTWISE weighted transport, where rho
+is an explicit independent odd-wheel density and w is the original
+VF seat weight. None of the three terms is fitted to a pi error.
+
+The native actual-prime specialization must use the existing
+finite prime/survivor/late-factor classifier, not assert that a
+floor-Li fantasy has real prime factors. The equality is LINEAR
+and cannot be substituted for the still-open quadratic Sector Six
+uniform bound.
+-/
+
+/-- One Boolean sieve site: a late composite survivor must actually
+survive the frozen low-prime wheel. -/
+theorem vfWilesFrozenWheelOddSeat_pointwise
+    (survives late : Bool)
+    (hLate : late = true → survives = true)
+    (rho w : ℝ) :
+    (if survives && !late then (1 : ℝ) else 0) - w =
+      (rho - w) +
+        ((if survives then (1 : ℝ) else 0) - rho) -
+          (if late then (1 : ℝ) else 0) := by
+  cases survives <;> cases late <;>
+    simp_all <;> ring
+
+/-- Every original physical odd seat retains its OWN w_r; the bias,
+signed survivor phase, and late composite term are summed without
+absolute values, proxy prime events, or changed denominators. -/
+theorem vfWilesFrozenWheelOddSeat_sum
+    {α : Type*}
+    (sites : Finset α) (survives late : α → Bool)
+    (rho : ℝ) (w : α → ℝ)
+    (hLate : ∀ i ∈ sites, late i = true → survives i = true) :
+    (∑ i ∈ sites,
+      ((if survives i && !late i then (1 : ℝ) else 0) - w i)) =
+      (∑ i ∈ sites, (rho - w i)) +
+        (∑ i ∈ sites,
+          ((if survives i then (1 : ℝ) else 0) - rho)) -
+          (∑ i ∈ sites, (if late i then (1 : ℝ) else 0)) := by
+  classical
+  calc
+    _ = ∑ i ∈ sites,
+        ((rho - w i) +
+          ((if survives i then (1 : ℝ) else 0) - rho) -
+            (if late i then (1 : ℝ) else 0)) := by
+          apply Finset.sum_congr rfl
+          intro i hi
+          exact vfWilesFrozenWheelOddSeat_pointwise
+            (survives i) (late i) (hLate i hi) rho (w i)
+    _ = _ := by
+      simp only [Finset.sum_sub_distrib, Finset.sum_add_distrib]
+
 end RHLean.Analysis
