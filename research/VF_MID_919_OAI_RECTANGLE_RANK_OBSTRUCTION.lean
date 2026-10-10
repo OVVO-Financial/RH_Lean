@@ -44,7 +44,8 @@ theorem vf919LowOwners317 :
   constructor
   · rintro ⟨hne, ⟨hp, _⟩, hs⟩
     have hq : q ≤ 17 := by nlinarith
-    interval_cases q <;> norm_num at hp hne ⊢
+    revert hp hne
+    interval_cases q <;> norm_num
   · intro hq
     simp only [Finset.mem_insert, Finset.mem_singleton] at hq
     rcases hq with rfl | rfl | rfl | rfl | rfl | rfl <;> norm_num
@@ -63,7 +64,19 @@ theorem vf919RankWitness_sites (i j : Fin 3) :
     Squarefree (vf919RankWitnessRows i * vf919RankWitnessColumns j) ∧
     2 * (vf919RankWitnessRows i * vf919RankWitnessColumns j) ≤
       squareRootEndpoint 317 := by
-  fin_cases i <;> fin_cases j <;> decide
+  have hp : (vf919RankWitnessRows i).Prime := by
+    fin_cases i <;> norm_num [vf919RankWitnessRows]
+  have hp' : (vf919RankWitnessColumns j).Prime := by
+    fin_cases j <;> norm_num [vf919RankWitnessColumns]
+  have hc : (vf919RankWitnessRows i).Coprime (vf919RankWitnessColumns j) :=
+    (Nat.coprime_primes hp hp').2 (by
+      fin_cases i <;> fin_cases j <;> decide)
+  refine ⟨hp, hp', ?_, ?_, ?_,
+    (Nat.squarefree_mul hc).2 ⟨hp.prime.squarefree, hp'.prime.squarefree⟩, ?_⟩
+  · fin_cases i <;> decide
+  · fin_cases j <;> decide
+  · fin_cases i <;> fin_cases j <;> decide
+  · fin_cases i <;> fin_cases j <;> decide
 
 /-- The coefficient matrix is taken directly from the native AMP definition. -/
 def vf919OwnerTwoSiteMatrix317 : Matrix (Fin 3) (Fin 3) ℂ :=
@@ -86,7 +99,7 @@ theorem vf919OwnerTwoSiteMatrix317_eq :
 theorem vf919OwnerTwoSiteMatrix317_det :
     Matrix.det vf919OwnerTwoSiteMatrix317 = -2309174383131000 := by
   rw [vf919OwnerTwoSiteMatrix317_eq, Matrix.det_fin_three]
-  norm_num
+  norm_num [Matrix.cons_val_two]
 
 theorem vf919OwnerTwoSiteMatrix317_det_ne_zero :
     Matrix.det vf919OwnerTwoSiteMatrix317 ≠ 0 := by
