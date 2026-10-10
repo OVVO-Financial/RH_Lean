@@ -135,7 +135,8 @@ theorem vf919FiniteSixExcludedHecke_S_eq_A_sub_T
       vf919FiniteSixExcludedHecke ms ds a chi sharp := by
   rw [← vf919FiniteSixExcludedHecke_sub]
   have heq : (fun n : ℕ => smooth n - high n) = sharp :=
-    funext hmask
+    funext n
+    exact hmask n
   rw [heq]
 
 /-- Four signed mask coefficients at one rational site. -/
