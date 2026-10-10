@@ -566,6 +566,6 @@ theorem vfWilesUnfilteredPairQuadratic_ratio
   have hn0 : (R : ℝ) ≠ 0 := ne_of_gt hRpos
   have hn1 : (R : ℝ) - 1 ≠ 0 := ne_of_gt (sub_pos.mpr hRone)
   field_simp
-  <;> ring
+  ring
 
 end RHLean.Analysis
