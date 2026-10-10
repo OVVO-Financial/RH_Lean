@@ -1,0 +1,70 @@
+name: VF 919 excluded-six signed Hecke kernel
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - research/VF_MID_919_OAI_EXCLUDED_SIX_SIGNED_KERNEL.lean
+      - research/VF_MID_919_OAI_QUADRATIC_NORM_EULER.lean
+      - .github/workflows/vf919-excluded-six-signed-kernel.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: vf919-excluded-six-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  finite-signed-kernel:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Reject proof holes and added axioms
+        run: |
+          if grep -nE '^[[:space:]]*(sorry|admit|axiom)([[:space:]]|$)' \
+              research/VF_MID_919_OAI_EXCLUDED_SIX_SIGNED_KERNEL.lean; then
+            exit 1
+          fi
+      - uses: actions/cache/restore@v4
+        with:
+          path: .lake/packages
+          key: lake-packages-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
+      - uses: leanprover/lean-action@v1
+        with:
+          use-github-cache: false
+          use-mathlib-cache: true
+          build: false
+          test: false
+          lint: false
+      - name: Warning-fatal compile of norm Euler factor and exact physical signed kernel
+        run: |
+          set -e
+          mkdir -p .lake/build/lib/lean
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.VF_MID_919_OAI_QUADRATIC_NORM_EULER.olean \
+            research/VF_MID_919_OAI_QUADRATIC_NORM_EULER.lean
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.VF_MID_919_OAI_EXCLUDED_SIX_SIGNED_KERNEL.olean \
+            research/VF_MID_919_OAI_EXCLUDED_SIX_SIGNED_KERNEL.lean
+      - name: Check theorem signatures and standard axioms
+        run: |
+          cat >/tmp/vf919_six_signed_acceptance.lean <<'LEAN'
+          import «research.VF_MID_919_OAI_EXCLUDED_SIX_SIGNED_KERNEL»
+          #check RHLean.Analysis.vf919HeckePrimeTwoLeg_retains_physical_weights
+          #check RHLean.Analysis.vf919HeckePrimeTwoLeg_of_norm_recursion
+          #check RHLean.Analysis.vf919FiniteSixExcludedRationalPairing_eq_Hecke
+          #check RHLean.Analysis.vf919FiniteSixExcludedHecke_S_eq_A_sub_T
+          #check RHLean.Analysis.vf919SixExcludedSharpQuotientKernel_periodic
+          #check RHLean.Analysis.vf919SixExcludedSharpQuotientKernel_full_period_zero
+          #check RHLean.Analysis.vf919PrincipalSignedSixthPowerCrossMatrix
+          #print axioms RHLean.Analysis.vf919HeckePrimeTwoLeg_retains_physical_weights
+          #print axioms RHLean.Analysis.vf919FiniteSixExcludedRationalPairing_eq_Hecke
+          #print axioms RHLean.Analysis.vf919FiniteSixExcludedHecke_S_eq_A_sub_T
+          #print axioms RHLean.Analysis.vf919SixExcludedSharpQuotientKernel_periodic
+          #print axioms RHLean.Analysis.vf919SixExcludedSharpQuotientKernel_full_period_zero
+          #print axioms RHLean.Analysis.vf919PrincipalSignedSixthPowerCrossMatrix
+          LEAN
+          lake env lean -DwarningAsError=true /tmp/vf919_six_signed_acceptance.lean

@@ -1,0 +1,409 @@
+name: VF seven-eighths analytic bridge
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - research/VF_MID_SEVEN_EIGHTHS_ANALYTIC_BRIDGE.lean
+      - research/VF_MID_SEVEN_EIGHTHS_OWNER_ABEL.lean
+      - research/VF_MID_SEVEN_EIGHTHS_MELLIN_SQUARE_KERNEL.lean
+      - research/VF_MID_919_OAI_PARTIAL_MOMENT_TAILS.lean
+      - research/VF_MID_919_OAI_FERMAT_TWIST_PROJECTION.lean
+      - research/VF_MID_919_OAI_PHASE_ALIGNED_OWNER_COMPENSATION.lean
+      - research/VF_MID_919_OAI_OWNER_TWO_SIGNED_BOUNDARY.lean
+      - research/VF_MID_919_OAI_PRINCIPAL_COEFFICIENT_MAP.lean
+      - research/VF_MID_919_OAI_NATIVE_PRINCIPAL_WELD.lean
+      - research/VF_MID_919_OAI_RECTANGLE_RANK_OBSTRUCTION.lean
+      - scripts/vf919_rectangle_rank_check.py
+      - research/VF_MID_919_OAI_SHARP_SMOOTH_NO_GAP.lean
+      - research/VF_MID_919_OAI_INTEGRATED_SHARP_CHARACTER_STEP.lean
+      - research/VF_MID_919_OAI_R2K_ENDPOINT_LIMIT.lean
+      - research/VF_MID_919_OAI_QUADRATIC_NORM_EULER.lean
+      - research/VF_MID_919_OAI_OWNER_TWO_SIGNED_MERTENS_MOMENT.md
+      - research/GLOBAL_RETURNED_CORE_COMPENSATED_FOUR_CORNER.lean
+      - research/VF_MID_919_OAI_C_TO_R_CANCELLATION_WELD.md
+      - RHLean/Geometry/FermatCoordinates.lean
+      - RHLean/Geometry/ComplexSquareRecovery.lean
+      - RHLean/Analysis/PartialMomentSchurTarget.lean
+      - research/VF_MID_SEVEN_EIGHTHS_BIDIRECTIONAL_SYNTHESIS.md
+      - research/VF_MID_919_OPEN_UNIFORM_ANALYTIC_TARGET.md
+      - scripts/vf_919_prime_owner_abel_spectral_probe.py
+      - scripts/vf_919_original_weight_character_moment_probe.py
+      - scripts/vf_919_owner_two_signed_boundary_probe.py
+      - research/VF_MID_919_OAI_STAGE_SAVINGS_AND_BOOTSTRAP.md
+      - research/VF_MID_919_OAI_UPM_LPM_ASYMMETRIC_GAIN.md
+      - research/VF_MID_SEVEN_EIGHTHS_ANALYTIC_STATUS.md
+      - .github/workflows/vf-mid-seven-eighths-analytic.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: vf-seven-eighths-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  actual-owner-probe:
+    name: Actual prime-pair signed spectral Abel check (no packages)
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify original native VF weights and actual prime incidence
+        run: python3 -B scripts/vf_919_prime_owner_abel_spectral_probe.py
+      - name: Compare original VF weights with flat-source character moments
+        run: python3 -B scripts/vf_919_original_weight_character_moment_probe.py
+      - name: Verify full owner-two clipped/returned signed boundary and its Mertens dyadic transfer
+        run: python3 -B scripts/vf_919_owner_two_signed_boundary_probe.py 1600
+      - name: Verify exact native AMP rank-three coefficient witness
+        run: python3 -B scripts/vf919_rectangle_rank_check.py
+  mathlib-only:
+    name: Seven-eighths bridge kernel (Lean 4.24, no StrongPNT)
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Forbid proof holes and direct incompatible OAI imports
+        run: |
+          if grep -nE '^[[:space:]]*(sorry|admit|axiom)([[:space:]]|$)' \
+            research/VF_MID_SEVEN_EIGHTHS_ANALYTIC_BRIDGE.lean \
+            research/VF_MID_SEVEN_EIGHTHS_OWNER_ABEL.lean \
+            research/VF_MID_SEVEN_EIGHTHS_MELLIN_SQUARE_KERNEL.lean \
+            research/VF_MID_919_OAI_PARTIAL_MOMENT_TAILS.lean \
+            research/VF_MID_919_OAI_FERMAT_TWIST_PROJECTION.lean \
+            research/VF_MID_919_OAI_QUADRATIC_NORM_EULER.lean \
+            research/VF_MID_919_OAI_PHASE_ALIGNED_OWNER_COMPENSATION.lean \
+            research/VF_MID_919_OAI_OWNER_TWO_SIGNED_BOUNDARY.lean \
+            research/VF_MID_919_OAI_PRINCIPAL_COEFFICIENT_MAP.lean \
+            research/VF_MID_919_OAI_NATIVE_PRINCIPAL_WELD.lean \
+            research/VF_MID_919_OAI_RECTANGLE_RANK_OBSTRUCTION.lean \
+            research/VF_MID_919_OAI_R2K_ENDPOINT_LIMIT.lean \
+            research/VF_MID_919_OAI_SHARP_SMOOTH_NO_GAP.lean \
+            research/VF_MID_919_OAI_INTEGRATED_SHARP_CHARACTER_STEP.lean; then
+            echo "No proof holes or added axioms allowed"
+            exit 1
+          fi
+          if grep -nE '^[[:space:]]*import OAI' \
+            research/VF_MID_SEVEN_EIGHTHS_ANALYTIC_BRIDGE.lean; then
+            echo "External OAI is Lean 4.34; RHLean is pinned Lean 4.24"
+            exit 1
+          fi
+      - name: Restore cached pinned Lake packages
+        uses: actions/cache/restore@v4
+        with:
+          path: .lake/packages
+          key: lake-packages-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
+      - name: Install Lean 4.24 and Mathlib cache
+        uses: leanprover/lean-action@v1
+        with:
+          use-github-cache: false
+          use-mathlib-cache: true
+          build: false
+          test: false
+          lint: false
+      - name: Compile existing midpoint Li bridge and O(1) quadrature (warning-fatal)
+        run: |
+          mkdir -p .lake/build/lib/lean
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.VF_MID_VON_KOCH_BRIDGE.olean \
+            research/VF_MID_VON_KOCH_BRIDGE.lean
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.VF_MID_LI_UNIFORM_QUADRATURE.olean \
+            research/VF_MID_LI_UNIFORM_QUADRATURE.lean
+      - name: Compile exact sharp recovery from half-integer smoothing (warning-fatal)
+        run: |
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.VF_MID_919_OAI_SHARP_SMOOTH_NO_GAP.olean \
+            research/VF_MID_919_OAI_SHARP_SMOOTH_NO_GAP.lean
+      - name: Kernel-compile seminorm-free finite signed character integration
+        run: |
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.VF_MID_919_OAI_INTEGRATED_SHARP_CHARACTER_STEP.olean \
+            research/VF_MID_919_OAI_INTEGRATED_SHARP_CHARACTER_STEP.lean
+      - name: Compile honest 7/8 conditional bridge (warning-fatal)
+        run: |
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.VF_MID_SEVEN_EIGHTHS_ANALYTIC_BRIDGE.olean \
+            research/VF_MID_SEVEN_EIGHTHS_ANALYTIC_BRIDGE.lean
+      - name: Compile original-weight spectral-owner Abel reassembly (warning-fatal)
+        run: |
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.VF_MID_SEVEN_EIGHTHS_OWNER_ABEL.olean \
+            research/VF_MID_SEVEN_EIGHTHS_OWNER_ABEL.lean
+      - name: Compile completed-square original-weight Mellin kernel (warning-fatal)
+        run: |
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.VF_MID_SEVEN_EIGHTHS_MELLIN_SQUARE_KERNEL.olean \
+            research/VF_MID_SEVEN_EIGHTHS_MELLIN_SQUARE_KERNEL.lean
+      - name: Compile native NNS partial-moment target and OAI near-saturation tails (warning-fatal)
+        run: |
+          mkdir -p .lake/build/lib/lean/RHLean/Analysis
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/RHLean/Analysis/PartialMomentSchurTarget.olean \
+            RHLean/Analysis/PartialMomentSchurTarget.lean
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.VF_MID_919_OAI_PARTIAL_MOMENT_TAILS.olean \
+            research/VF_MID_919_OAI_PARTIAL_MOMENT_TAILS.lean
+      - name: Kernel-compile original squared-Fermat character twist C-to-R projection
+        run: |
+          mkdir -p .lake/build/lib/lean/RHLean/Geometry
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/RHLean/Geometry/FermatCoordinates.olean \
+            RHLean/Geometry/FermatCoordinates.lean
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/RHLean/Geometry/ComplexSquareRecovery.olean \
+            RHLean/Geometry/ComplexSquareRecovery.lean
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.VF_MID_919_OAI_FERMAT_TWIST_PROJECTION.olean \
+            research/VF_MID_919_OAI_FERMAT_TWIST_PROJECTION.lean
+      - name: Kernel-compile split-inert-ramified norm-Euler Mobius coefficient dictionary
+        run: |
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.VF_MID_919_OAI_QUADRATIC_NORM_EULER.olean \
+            research/VF_MID_919_OAI_QUADRATIC_NORM_EULER.lean
+      - name: Verify theorem signatures, axioms and exactly located open input
+        run: |
+          cat > /tmp/vf_seven_eighths_acceptance.lean <<'LEAN'
+          import «research.VF_MID_SEVEN_EIGHTHS_ANALYTIC_BRIDGE»
+          import «research.VF_MID_SEVEN_EIGHTHS_OWNER_ABEL»
+          import «research.VF_MID_SEVEN_EIGHTHS_MELLIN_SQUARE_KERNEL»
+          import «research.VF_MID_919_OAI_PARTIAL_MOMENT_TAILS»
+          import «research.VF_MID_919_OAI_FERMAT_TWIST_PROJECTION»
+          import «research.VF_MID_919_OAI_QUADRATIC_NORM_EULER»
+          import «research.VF_MID_919_OAI_SHARP_SMOOTH_NO_GAP»
+          import «research.VF_MID_919_OAI_INTEGRATED_SHARP_CHARACTER_STEP»
+          #check RHLean.Analysis.vf919HalfIntegerWindow_eq_sharp
+          #check RHLean.Analysis.vf919SquareHalfIntegerCenter
+          #check RHLean.Analysis.vf919SquareQ2Window_eq_sharp
+          #check RHLean.Analysis.vf919RootWindow_eq_sharp
+          #print axioms RHLean.Analysis.vf919SquareQ2Window_eq_sharp
+          #print axioms RHLean.Analysis.vf919RootWindow_eq_sharp
+          #check RHLean.Analysis.vf919HalfIntegerMovingMultiplicativeSite_iff
+          #print axioms RHLean.Analysis.vf919FiniteMovingNormConvolution_eq_sharp
+          #print axioms RHLean.Analysis.vf919FiniteSignedWindowIntegrand_eq_sharp
+          #print axioms RHLean.Analysis.vf919FiniteIntegratedNormConvolution_eq_mass_mul_sharp
+          #print axioms RHLean.Analysis.vf919FiniteIntegratedNormConvolution_unit_mass
+          #check RHLean.Geometry.vf919TwistedFermatProduct_eq_product_sub_gap
+          #check RHLean.Geometry.vf919TwistedFermatProduct_one
+          #check RHLean.Geometry.vf919TwistedFermatProduct_neg_phase
+          #check RHLean.Geometry.vf919ComplexNorm_sq_eq_signedProjection_add_antiDiagonal
+          #check RHLean.Geometry.vf919FermatNorm_sq_eq_product_add_gap
+          #print axioms RHLean.Geometry.vf919TwistedFermatProduct_eq_product_sub_gap
+          #print axioms RHLean.Geometry.vf919FermatNorm_sq_eq_product_add_gap
+          #check RHLean.Analysis.vf919EisensteinNormMobiusEuler_eq_rational_mul_quadratic
+          #check RHLean.Analysis.vf919FiniteNormMobiusEulerProduct_eq_rational_times_quadratic
+          #print axioms RHLean.Analysis.vf919FiniteNormMobiusEulerProduct_eq_rational_times_quadratic
+          #check RHLean.Analysis.vf919RowPartialSquare_reassembly
+          #check RHLean.Analysis.vf919RowUPM2_add_LPM2_eq_deviationSquare
+          #check RHLean.Analysis.vf919RowUPM2_controls_upperTail
+          #check RHLean.Analysis.vf919RowLPM2_controls_lowerTail
+          #check RHLean.Analysis.vf919OAI_saturationTail_le_deficitLPM2
+          #print axioms RHLean.Analysis.vf919OAI_saturationTail_le_deficitLPM2
+          #check RHLean.Analysis.vfSevenEighthsComplexWeightedIncrementAbel
+          #check RHLean.Analysis.vfSevenEighthsSquareMellinPhase
+          #check RHLean.Analysis.vfSevenEighthsCompletedSquareMellinKernel_abel
+          #print axioms RHLean.Analysis.vfSevenEighthsCompletedSquareMellinKernel_abel
+          #check RHLean.Analysis.vfSevenEighthsWeightedIncrementAbel
+          #check RHLean.Analysis.vfSevenEighthsWeightVariation_telescope
+          #check RHLean.Analysis.vfSevenEighthsWeightedIncrement_abs_le_twice_initial
+          #print axioms RHLean.Analysis.vfSevenEighthsWeightedIncrement_abs_le_twice_initial
+          #check RHLean.Analysis.vfSevenEighthsPhysicalOwnerWeight
+          #check RHLean.Analysis.vfSevenEighthsPrimeLiErrorAtNat_eq
+          #check RHLean.Analysis.vfSevenEighthsWeightedOwnerPrimeLiDifference_eq_abel
+          #check RHLean.Analysis.vfSevenEighthsWeightedOwnerPrimeLiDifference_abs_le
+          #print axioms RHLean.Analysis.vfSevenEighthsWeightedOwnerPrimeLiDifference_abs_le
+          #check RHLean.Analysis.vfSevenEighthsOwnerPacket_abel
+          #print axioms RHLean.Analysis.vfSevenEighthsOwnerPacket_abel
+          #check RHLean.Analysis.VFMidSevenEighthsZetaZeroFree
+          #check RHLean.Analysis.VFMidSevenEighthsExplicitFormulaBridge
+          #check RHLean.Analysis.VFMidSevenEighthsPrimeLiEndpointBounded
+          #check RHLean.Analysis.VFMidSevenEighthsVFEndpointBounded
+          #check RHLean.Analysis.vfMidSevenEighthsWeight_ge_logTwo
+          #check RHLean.Analysis.vfMidSevenEighthsVFEndpointBounded_of_primeLi
+          #check RHLean.Analysis.vfMidSevenEighthsVFEndpointBounded_of_zeroFree
+          #check RHLean.Analysis.vfMidSevenEighthsWall_track_of_primeLi
+          #print axioms RHLean.Analysis.vfMidSevenEighthsVFEndpointBounded_of_primeLi
+          #print axioms RHLean.Analysis.vfMidSevenEighthsVFEndpointBounded_of_zeroFree
+          LEAN
+          lake env lean -DwarningAsError=true /tmp/vf_seven_eighths_acceptance.lean
+
+  native-phase-alignment:
+    name: Native weighted owner phase alignment and full clipped Gram
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Restore pinned Lake packages
+        uses: actions/cache/restore@v5
+        with:
+          path: .lake/packages
+          key: lake-packages-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
+      - uses: leanprover/lean-action@v1
+        with:
+          use-github-cache: false
+          use-mathlib-cache: true
+          build: false
+          test: false
+          lint: false
+      - name: Apply existing StrongPNT compatibility layer
+        run: |
+          python3 scripts/strongpnt_424/apply.py
+          python3 scripts/strongpnt_424/apply_post.py
+          python3 scripts/strongpnt_424/apply_pnt5_mid.py
+          python3 scripts/strongpnt_424/apply_pnt5_strong.py
+          python3 scripts/strongpnt_424/apply_lint.py
+      - name: Restore existing StrongPNT port build cache
+        uses: actions/cache/restore@v5
+        with:
+          path: |
+            .lake/packages/PrimeNumberTheoremAnd/.lake/build
+            .lake/packages/StrongPNT/.lake/build
+          key: strongpnt-port-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-${{ hashFiles('scripts/strongpnt_424/*.py') }}
+          restore-keys: |
+            strongpnt-port-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-
+      - name: Restore native library build cache
+        uses: actions/cache/restore@v5
+        with:
+          path: .lake/build
+          key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py', 'RHLean.lean', 'RHLean/**/*.lean') }}
+          restore-keys: |
+            rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py') }}-
+            rhlean-build-${{ runner.os }}-${{ runner.arch }}-
+      - name: Build exact native library prerequisites
+        run: |
+          python3 - <<'PY'
+          import importlib.util
+          import re
+          import subprocess
+          from pathlib import Path
+          spec = importlib.util.spec_from_file_location('closure', 'scripts/compile_research_import_closure.py')
+          closure = importlib.util.module_from_spec(spec)
+          spec.loader.exec_module(closure)
+          seen, library = set(), set()
+          def visit(path):
+              path = Path(path)
+              if path in seen:
+                  return
+              seen.add(path)
+              for line in path.read_text().splitlines():
+                  if line.lstrip().startswith('import '):
+                      library.update(re.findall(r'\bRHLean(?:\.[A-Za-z0-9_]+)*\b', line))
+              for module in closure.research_imports(path):
+                  visit(closure.source_for(module))
+          visit('research/VF_MID_919_OAI_NATIVE_PRINCIPAL_WELD.lean')
+          visit('research/VF_MID_919_OAI_RECTANGLE_RANK_OBSTRUCTION.lean')
+          visit('research/VF_MID_919_OAI_R2K_ENDPOINT_LIMIT.lean')
+          subprocess.run(['lake', 'build', *sorted(library)], check=True)
+          PY
+      - name: Warning-fatal compile of complete native import closure
+        run: |
+          set -o pipefail
+          python3 scripts/compile_research_import_closure.py \
+            research/VF_MID_919_OAI_RECTANGLE_RANK_OBSTRUCTION.lean \
+            2>&1 | tee vf919-native-phase-compile.log
+          python3 scripts/compile_research_import_closure.py \
+            research/VF_MID_919_OAI_R2K_ENDPOINT_LIMIT.lean \
+            2>&1 | tee vf919-native-R2K-limit-compile.log
+      - name: Verify native carrier theorem signatures and standard axioms
+        run: |
+          cat > /tmp/vf919_native_phase_axioms.lean <<'LEAN'
+          import «research.VF_MID_919_OAI_NATIVE_PRINCIPAL_WELD»
+          import «research.VF_MID_919_OAI_R2K_ENDPOINT_LIMIT»
+          import «research.VF_MID_919_OAI_RECTANGLE_RANK_OBSTRUCTION»
+          #check RHLean.Proof.vf919CharacterAlignedCell_eq_compensated_add_clipped
+          #check RHLean.Proof.vf919CharacterCompensatedInterior_norm_sq_eq_physicalGram
+          #check RHLean.Proof.vf919CharacterAlignedCell_norm_sq_eq_full_physicalGram
+          #check RHLean.Proof.vf919CharacterCellMixedGram_eq_signedTelescope
+          #print axioms RHLean.Proof.vf919CharacterUnalignedSite_eq_compensated_add_phaseDefect
+          #print axioms RHLean.Proof.vf919CharacterAlignedSite_eq_parentTwisted
+          #print axioms RHLean.Proof.vf919CharacterAlignedSite_of_zero_prime_phase
+          #print axioms RHLean.Proof.vf919FirstOwnerChild_sum_eq_returnedParents
+          #print axioms RHLean.Proof.vf919CharacterAlignedCell_eq_compensated_add_clipped
+          #print axioms RHLean.Proof.vf919CharacterCompensatedInterior_norm_sq_eq_physicalGram
+          #print axioms RHLean.Proof.vf919CharacterAlignedCell_norm_sq_eq_full_physicalGram
+          #print axioms RHLean.Proof.vf919CharacterAlignedCell_normalizedRealEnergy
+          #print axioms RHLean.Proof.vf919CharacterAlignedCell_energy_eq_signed_plus_gap
+          #print axioms RHLean.Proof.vf919CharacterChild_aligned_eq_neg_returned
+          #print axioms RHLean.Proof.vf919CharacterCellMixedGram_eq_signedTelescope
+          #print axioms RHLean.Proof.vf919CharacterCellMixedGram_one
+          #check RHLean.Proof.vf919OwnerTwoSignedBoundary_eq_topMertens_times_returned
+          #check RHLean.Proof.vf919OwnerTwoSignedGram_eq_interior_sub_branches_add_boundary
+          #print axioms RHLean.Proof.vf919OwnerTwoSignedBoundary_eq_topMertens_times_returned
+          #print axioms RHLean.Proof.vf919OwnerTwoSignedGram_eq_interior_sub_branches_add_boundary
+          #print axioms RHLean.Proof.vf919OwnerTwoPhysicalParentSite_sum_eq_base
+          #print axioms RHLean.Proof.vf919OwnerTwoPhysicalReturnedSite_sum_eq_returned
+          #print axioms RHLean.Proof.vf919OwnerTwoSignedGram_eq_native_site_products
+          #check RHLean.Proof.vf919OwnerTwoParentPrincipalNormSum_eq_native
+          #print axioms RHLean.Proof.vf919OwnerTwoParentPrincipalNormSum_eq_native
+          #check RHLean.Proof.vf919OwnerTwoReturnedPrincipalNormSum_eq_native
+          #print axioms RHLean.Proof.vf919OwnerTwoReturnedPrincipalNormSum_eq_native
+          #check RHLean.Proof.vf919OwnerTwoSignedGram_eq_constructedPrincipalNormPairing
+          #print axioms RHLean.Proof.vf919OwnerTwoSignedGram_eq_constructedPrincipalNormPairing
+          #print axioms RHLean.Proof.vf919OwnerTwoSignedGram_eq_excludedSixHecke_of_identification
+          #print axioms RHLean.Proof.vf919OwnerTwoSignedGram_eq_amplified_signed_cross_of_identification
+          #print axioms RHLean.Proof.vf919OwnerTwoSignedBoundary_abs_le_of_real_magnitudes
+          #print axioms RHLean.Proof.vf919OwnerTwoSignedBoundary_nonpos_of_aligned
+          #print axioms RHLean.Proof.vf919OwnerTwoSignedBoundary_nonneg_of_opposite
+          #print axioms RHLean.Proof.vf919CenteredRectangle_det_eq_zero
+          #print axioms RHLean.Proof.vf919LowOwners317
+          #print axioms RHLean.Proof.vf919RankWitness_sites
+          #print axioms RHLean.Proof.vf919OwnerTwoSiteMatrix317_eq
+          #print axioms RHLean.Proof.vf919OwnerTwoSiteMatrix317_det
+          #print axioms RHLean.Proof.vf919OwnerTwoSiteMatrix317_det_ne_zero
+          #print axioms RHLean.Proof.vf919OwnerTwoSiteMatrix317_not_single_centered_rectangle
+          #check RHLean.Proof.vf919OwnerTwoSiteMatrix317_not_single_centered_rectangle
+          #check RHLean.Proof.vf919RootMertens_sq_le_four_root_envelope
+          #check RHLean.Proof.vf919Post789_signedAggregate_le_twoEnergy_add_topMertensSq
+          #print axioms RHLean.Proof.vf919RootMertens_sq_le_four_root_envelope
+          #print axioms RHLean.Proof.vf919Post789_signedAggregate_le_twoEnergy_add_topMertensSq
+          LEAN
+          set -o pipefail
+          lake env lean -DwarningAsError=true /tmp/vf919_native_phase_axioms.lean \
+            2>&1 | tee vf919-native-phase-axioms.log
+          python3 - <<'PY'
+          import re
+          from pathlib import Path
+          text = Path('vf919-native-phase-axioms.log').read_text()
+          records = re.findall(r'depends on axioms:\s*\[([^\]]*)\]', text, re.S)
+          closed = len(re.findall(r'does not depend on any axioms', text))
+          assert len(records) + closed == 34, (records, closed)
+          allowed = {'propext', 'Classical.choice', 'Quot.sound'}
+          for record in records:
+              actual = {a.strip() for a in record.split(',') if a.strip()}
+              assert actual <= allowed, actual
+          PY
+      - name: Retain native carrier compiler and axiom evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: vf919-native-phase-logs
+          path: |
+            vf919-native-phase-*.log
+            vf919-native-R2K-limit-compile.log
+          if-no-files-found: ignore
+
+  external-interface:
+    name: External OpenAI theorem provenance and toolchain compatibility
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify exact external public theorem source and toolchain pins
+        shell: bash
+        run: |
+          set -eu
+          oai=https://raw.githubusercontent.com/openai/math/main/lean
+          curl --fail --silent --show-error --location --max-time 45 \
+            "$oai/lean-toolchain" > /tmp/oai_toolchain
+          curl --fail --silent --show-error --location --max-time 45 \
+            "$oai/OAI/NumberTheory/DirichletL/Nonvanishing.lean" > /tmp/oai_nonvanishing
+          grep -F 'leanprover/lean4:v4.34.1' /tmp/oai_toolchain
+          grep -F 'theorem riemannZeta_ne_zero_of_seven_eighths_lt_re' /tmp/oai_nonvanishing
+          grep -F 'SevenEighths.ProbeFinalAssemblyUnconditional.zeta_nonzero' /tmp/oai_nonvanishing
+          grep -F 'leanprover/lean4:v4.24.0' lean-toolchain
+          echo 'PASS: zeta zero-free theorem exists upstream; toolchains DIFFER.'
+          echo 'NOT CERTIFIED HERE: the explicit-formula 7/8 pi-Li error theorem.'
+          echo 'NOT ATTEMPTED: cross-toolchain import or external full OAI build.'

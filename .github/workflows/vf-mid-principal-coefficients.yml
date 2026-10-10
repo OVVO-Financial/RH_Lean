@@ -1,0 +1,157 @@
+name: VF principal coefficient map and signed sixth-power inlet
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - research/VF_MID_919_OAI_PRINCIPAL_COEFFICIENT_MAP.lean
+      - research/VF_MID_919_OAI_SIGNED_SIXTH_POWER_INLET.lean
+      - research/VF_MID_919_QUOTIENT_SIGNED_RETURN.lean
+      - scripts/vf919_principal_coefficient_check.py
+      - scripts/vf919_quotient_signed_return_probe.py
+      - .github/workflows/vf-mid-principal-coefficients.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: vf-principal-coefficients-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  principal-coefficient-kernel:
+    name: Exact Mobius coefficient map, periodic kernel and signed amplifier
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - uses: actions/cache/restore@v5
+        with:
+          path: .lake/packages
+          key: lake-packages-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
+      - uses: leanprover/lean-action@v1
+        with:
+          use-github-cache: false
+          use-mathlib-cache: true
+          build: false
+          test: false
+          lint: false
+      - name: Forbid proof holes and added axioms
+        run: |
+          python3 - <<'PY'
+          import re
+          from pathlib import Path
+          for name in ('PRINCIPAL_COEFFICIENT_MAP', 'SIGNED_SIXTH_POWER_INLET'):
+              path = Path(f'research/VF_MID_919_OAI_{name}.lean')
+              assert not re.search(r'\b(sorry|admit|axiom)\b', path.read_text()), path
+          path = Path('research/VF_MID_919_QUOTIENT_SIGNED_RETURN.lean')
+          assert not re.search(r'\b(sorry|admit|axiom)\b', path.read_text()), path
+          PY
+      - name: Compile exact coefficient map and signed amplifier warning-fatally
+        run: |
+          mkdir -p .lake/build/lib/lean
+          set -o pipefail
+          status=0
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.VF_MID_919_OAI_PRINCIPAL_COEFFICIENT_MAP.olean \
+            research/VF_MID_919_OAI_PRINCIPAL_COEFFICIENT_MAP.lean \
+            2>&1 | tee vf919-principal-coefficient-compile.log || status=1
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.VF_MID_919_OAI_SIGNED_SIXTH_POWER_INLET.olean \
+            research/VF_MID_919_OAI_SIGNED_SIXTH_POWER_INLET.lean \
+            2>&1 | tee vf919-signed-amplifier-compile.log || status=1
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.VF_MID_919_QUOTIENT_SIGNED_RETURN.olean \
+            research/VF_MID_919_QUOTIENT_SIGNED_RETURN.lean \
+            2>&1 | tee vf919-quotient-return-compile.log || status=1
+          exit "$status"
+      - name: Check elaborated signatures and standard axioms
+        run: |
+          cat > /tmp/vf919_principal_axioms.lean <<'LEAN'
+          import «research.VF_MID_919_OAI_PRINCIPAL_COEFFICIENT_MAP»
+          import «research.VF_MID_919_OAI_SIGNED_SIXTH_POWER_INLET»
+          import «research.VF_MID_919_QUOTIENT_SIGNED_RETURN»
+          #check RHLean.Analysis.vf919QuadraticCharacter_mul_norm_eq_mobius
+          #print axioms RHLean.Analysis.vf919QuadraticCharacter_mul_norm_eq_mobius
+          #check RHLean.Analysis.vf919ExcludedNorm_restored_character_eq_mobius
+          #print axioms RHLean.Analysis.vf919ExcludedNorm_restored_character_eq_mobius
+          #check RHLean.Analysis.vf919PhysicalHeckeKernel_sub
+          #print axioms RHLean.Analysis.vf919PhysicalHeckeKernel_sub
+          #check RHLean.Analysis.vf919LowHigh_kernel_commutes
+          #print axioms RHLean.Analysis.vf919LowHigh_kernel_commutes
+          #check RHLean.Analysis.vf919IntegerCharacterPrefix_eq_residue
+          #print axioms RHLean.Analysis.vf919IntegerCharacterPrefix_eq_residue
+          #check RHLean.Analysis.vf919SharpQuotientKernel36_period
+          #print axioms RHLean.Analysis.vf919SharpQuotientKernel36_period
+          #check RHLean.Analysis.vf919SharpQuotientKernel36_mod
+          #print axioms RHLean.Analysis.vf919SharpQuotientKernel36_mod
+          #check RHLean.Analysis.vf919SharpQuotientKernel36_bounds
+          #print axioms RHLean.Analysis.vf919SharpQuotientKernel36_bounds
+          #check RHLean.Analysis.vf919SharpQuotientKernel36_mean_zero
+          #print axioms RHLean.Analysis.vf919SharpQuotientKernel36_mean_zero
+          #check RHLean.Analysis.vf919DirichletWeightedPairing
+          #print axioms RHLean.Analysis.vf919DirichletWeightedPairing
+          #check RHLean.Analysis.vf919WeightedMobius_eq_excludedNormKernel
+          #print axioms RHLean.Analysis.vf919WeightedMobius_eq_excludedNormKernel
+          #check RHLean.Analysis.vf919SharpPhysicalHeckeKernel_eq_periodic_quotient
+          #print axioms RHLean.Analysis.vf919SharpPhysicalHeckeKernel_eq_periodic_quotient
+          #check RHLean.Analysis.vf919Mertens_eq_excludedNorm_periodicKernel
+          #print axioms RHLean.Analysis.vf919Mertens_eq_excludedNorm_periodicKernel
+          #check RHLean.Analysis.vf919FiniteIdealRow_sixthPower_column
+          #print axioms RHLean.Analysis.vf919FiniteIdealRow_sixthPower_column
+          #check RHLean.Analysis.vf919PrincipalSixthPowerRow_eq_maskedMobius
+          #print axioms RHLean.Analysis.vf919PrincipalSixthPowerRow_eq_maskedMobius
+          #check RHLean.Analysis.vf919SignedMixedGram_sixthPower_divisorMatrix
+          #print axioms RHLean.Analysis.vf919SignedMixedGram_sixthPower_divisorMatrix
+          #check RHLean.Analysis.vf919QuotientBucket_above
+          #print axioms RHLean.Analysis.vf919QuotientBucket_above
+          #check RHLean.Analysis.vf919Mertens_eq_exact_quotient_buckets
+          #print axioms RHLean.Analysis.vf919Mertens_eq_exact_quotient_buckets
+          #check RHLean.Analysis.vf919QuotientKernelPrimitive36_bounds
+          #print axioms RHLean.Analysis.vf919QuotientKernelPrimitive36_bounds
+          #check RHLean.Analysis.vf919QuotientKernelPrimitive36_step
+          #print axioms RHLean.Analysis.vf919QuotientKernelPrimitive36_step
+          #check RHLean.Analysis.vf919QuotientKernel36_signed_abel
+          #print axioms RHLean.Analysis.vf919QuotientKernel36_signed_abel
+          #check RHLean.Analysis.vf919Mertens_eq_exact_signed_quotient_return
+          #print axioms RHLean.Analysis.vf919Mertens_eq_exact_signed_quotient_return
+          #check RHLean.Analysis.vf919QuotientKernel36_all_start_zero
+          #print axioms RHLean.Analysis.vf919QuotientKernel36_all_start_zero
+          #check RHLean.Analysis.vf919EachNormFull36mCutoffReturn
+          #print axioms RHLean.Analysis.vf919EachNormFull36mCutoffReturn
+          #check RHLean.Analysis.vf919QuotientKernelPrimitive36_norm_le_four
+          #print axioms RHLean.Analysis.vf919QuotientKernelPrimitive36_norm_le_four
+          #check RHLean.Analysis.vf919Mertens_norm_le_four_quotient_variation
+          #print axioms RHLean.Analysis.vf919Mertens_norm_le_four_quotient_variation
+          LEAN
+          set -o pipefail
+          lake env lean -DwarningAsError=true /tmp/vf919_principal_axioms.lean \
+            2>&1 | tee vf919-principal-axioms.log
+          python3 - <<'PY'
+          import re
+          from pathlib import Path
+          text = Path('vf919-principal-axioms.log').read_text()
+          records = re.findall(r'depends on axioms:\s*\[([^\]]*)\]', text, re.S)
+          closed = len(re.findall(r'does not depend on any axioms', text))
+          assert len(records) + closed == 26, (records, closed)
+          allowed = {'propext', 'Classical.choice', 'Quot.sound'}
+          for record in records:
+              assert {a.strip() for a in record.split(',') if a.strip()} <= allowed, record
+          PY
+      - name: Verify independent exact coefficient census
+        run: |
+          set -o pipefail
+          python3 scripts/vf919_principal_coefficient_check.py \
+            2>&1 | tee vf919-principal-numerical.log
+          python3 scripts/vf919_quotient_signed_return_probe.py \
+            2>&1 | tee vf919-signed-quotient-numerical.log
+      - name: Retain compiler and axiom evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: vf919-principal-coefficient-logs
+          path: vf919-*.log
+          if-no-files-found: ignore
