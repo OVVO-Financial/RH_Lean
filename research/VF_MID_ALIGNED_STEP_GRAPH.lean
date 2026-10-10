@@ -214,6 +214,124 @@ theorem vfMidAlignedIntegerBlock_rounding_error
   · linarith [vfMidAlignedIntegerBlockLevel_cast_le c hc R]
   · linarith [vfMidAlignedMass_lt_integerBlockLevel_add_one c R]
 
+
+/-! ## Discrete c₀ phase bookkeeping (not a new arithmetic payment)
+
+Three distinct representations must not be identified:
+* vfMidFinishedMass R: the real-valued cumulative square-block mass F_R;
+* vfMidAlignedIntegerBlockLevel c R: the integer staircase floor(F_R+c);
+* vfMid: an optionally interpolated continuous path agreeing at square endpoints.
+
+A fixed additive phase c, including the canonical c₀, changes neither V_R
+nor the actual prime supply P_R. The only added integer-step effect is a
+bounded rounding phase, whose increments telescope *exactly* across blocks.
+This does NOT prove a uniform fixed-phase graph intersection or any signed
+Sector Six cancellation bound.
+-/
+
+/-- Exact fractional remainder of the aligned integer staircase.
+    On nonnegative aligned masses it lies in [0,1). -/
+def vfMidAlignedRoundingPhase (c : ℝ) (R : ℕ) : ℝ :=
+  vfMidAlignedMass c R -
+    (vfMidAlignedIntegerBlockLevel c R : ℝ)
+
+/-- A nonnegative fixed alignment has a subunit rounding phase. -/
+theorem vfMidAlignedRoundingPhase_bounds
+    (c : ℝ) (hc : 0 ≤ c) (R : ℕ) :
+    0 ≤ vfMidAlignedRoundingPhase c R ∧
+      vfMidAlignedRoundingPhase c R < 1 := by
+  simpa only [vfMidAlignedRoundingPhase] using
+    vfMidAlignedIntegerBlock_rounding_error c hc R
+
+/-- Aligned integer-step increments are the original VF band mass plus
+the *difference* of two fractional rounding phases, never a rescaled VF. -/
+theorem vfMidAlignedIntegerBlockLevel_succ_real
+    (c : ℝ) {R : ℕ} (hR : 2 ≤ R) :
+    (vfMidAlignedIntegerBlockLevel c (R + 1) : ℝ) -
+        (vfMidAlignedIntegerBlockLevel c R : ℝ) =
+      vfMidBandMass R +
+        vfMidAlignedRoundingPhase c R -
+          vfMidAlignedRoundingPhase c (R + 1) := by
+  unfold vfMidAlignedRoundingPhase
+  rw [vfMidAlignedMass_succ c hR]
+  ring
+
+/-- The rounding correction to every aligned integer VF band increment
+is strictly less than one, independently of the true prime locations. -/
+theorem vfMidAlignedIntegerBlockLevel_stepError_abs_lt_one
+    (c : ℝ) (hc : 0 ≤ c) {R : ℕ} (hR : 2 ≤ R) :
+    |((vfMidAlignedIntegerBlockLevel c (R + 1) : ℝ) -
+        (vfMidAlignedIntegerBlockLevel c R : ℝ)) -
+          vfMidBandMass R| < 1 := by
+  have hphaseR := vfMidAlignedRoundingPhase_bounds c hc R
+  have hphaseNext := vfMidAlignedRoundingPhase_bounds c hc (R + 1)
+  have hstep := vfMidAlignedIntegerBlockLevel_succ_real c hR
+  have heq :
+      ((vfMidAlignedIntegerBlockLevel c (R + 1) : ℝ) -
+          (vfMidAlignedIntegerBlockLevel c R : ℝ)) -
+          vfMidBandMass R =
+        vfMidAlignedRoundingPhase c R -
+          vfMidAlignedRoundingPhase c (R + 1) := by
+    linarith
+  rw [heq, abs_lt]
+  constructor <;> linarith [hphaseR.1, hphaseR.2,
+    hphaseNext.1, hphaseNext.2]
+
+/-- The physically meaningful signed integer backlog at each square boundary.
+This is the aligned VF integer level minus ACTUAL prime counting. -/
+def vfMidAlignedIntegerBacklog (c : ℝ) (R : ℕ) : ℝ :=
+  (vfMidAlignedIntegerBlockLevel c R : ℝ) -
+    (Nat.primeCounting (R ^ 2) : ℝ)
+
+/-- Exact discrete backlogged mass: the canonical signed VF error, an
+additive alignment, and a bounded fractional phase. No surrogate pi. -/
+theorem vfMidAlignedIntegerBacklog_eq_direct_error_phase
+    (c : ℝ) (R : ℕ) :
+    vfMidAlignedIntegerBacklog c R =
+      -vfMidDirectSquareEndpointError R + c -
+        vfMidAlignedRoundingPhase c R := by
+  unfold vfMidAlignedIntegerBacklog
+    vfMidAlignedRoundingPhase
+    vfMidAlignedIntegerBlockLevel
+    vfMidAlignedMass
+    vfMidDirectSquareEndpointError
+  ring
+
+/-- Discrete backlog one-step dynamics: prime supply alone is arithmetic.
+The c-phase correction is an exact bounded telescoping boundary term. -/
+theorem vfMidAlignedIntegerBacklog_succ
+    (c : ℝ) {R : ℕ} (hR : 2 ≤ R) :
+    vfMidAlignedIntegerBacklog c (R + 1) =
+      vfMidAlignedIntegerBacklog c R +
+        vfMidBandMass R -
+          (vfMidIntegerBlockPrimeSupply R : ℝ) +
+        vfMidAlignedRoundingPhase c R -
+          vfMidAlignedRoundingPhase c (R + 1) := by
+  have hP :
+      (vfMidIntegerBlockPrimeSupply R : ℝ) +
+        (Nat.primeCounting (R ^ 2) : ℝ) =
+          (Nat.primeCounting ((R + 1) ^ 2) : ℝ) := by
+    exact_mod_cast vfMidIntegerBlockPrimeSupply_add_primeCounting R
+  have hStep := vfMidAlignedIntegerBlockLevel_succ_real c hR
+  unfold vfMidAlignedIntegerBacklog
+  linarith
+
+/-- Telescoping over any endpoints cancels the *constant* c entirely.
+Only the two terminal fractional rounding phases remain; these cannot
+constitute an independent multi-block cancellation estimate. -/
+theorem vfMidAlignedIntegerBacklog_interval_eq_direct_error_phase
+    (c : ℝ) (A B : ℕ) :
+    vfMidAlignedIntegerBacklog c B -
+        vfMidAlignedIntegerBacklog c A =
+      -(vfMidDirectSquareEndpointError B -
+          vfMidDirectSquareEndpointError A) -
+        (vfMidAlignedRoundingPhase c B -
+          vfMidAlignedRoundingPhase c A) := by
+  rw [vfMidAlignedIntegerBacklog_eq_direct_error_phase,
+    vfMidAlignedIntegerBacklog_eq_direct_error_phase]
+  ring
+
+
 /-! ## Prefix-wheel support for aligned vertical faces
 
 The exact square-block supply identity rewrites a vertical graph face into a
