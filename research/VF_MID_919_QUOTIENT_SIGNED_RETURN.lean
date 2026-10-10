@@ -233,10 +233,53 @@ theorem vf919EachNormFull36mCutoffReturn (m a : ℕ) (hm : 0 < m) :
           (m : ℤ) * vf919SharpQuotientKernel36 (a + j) := by
         apply Finset.sum_congr rfl
         intro j _hj
-        simp [Finset.sum_const, nsmul_eq_mul]
+        simp [Finset.sum_const]
     _ = (m : ℤ) * (∑ j ∈ Finset.range 36,
           vf919SharpQuotientKernel36 (a + j)) := by
         rw [Finset.mul_sum]
     _ = 0 := by rw [vf919QuotientKernel36_all_start_zero]; ring
+
+
+/-! ## Unconditional but potentially weak signed-cutoff variation ceiling -/
+
+/-- The finite quotient primitive is bounded by four even as a complex
+coefficient. This uses ONLY the explicit 36-element table. -/
+theorem vf919QuotientKernelPrimitive36_norm_le_four (t : ℕ) :
+    ‖(vf919QuotientKernelPrimitive36 t : ℂ)‖ ≤ (4 : ℝ) := by
+  rw [Complex.norm_intCast]
+  have habs : |vf919QuotientKernelPrimitive36 t| ≤ (4 : ℤ) :=
+    abs_le.mpr (vf919QuotientKernelPrimitive36_bounds t)
+  exact_mod_cast habs
+
+/-- A genuine all-cutoff coefficient inequality with NO numerical premise.
+The open arithmetic task is to bound the signed bucket VARIATION; the
+numerical observation V_X ~ sqrt(X) log X is not inserted here. -/
+theorem vf919Mertens_norm_le_four_quotient_variation
+    (X : ℕ) (hX : 12 ≤ X) :
+    ‖(∑ n ∈ Finset.Icc 1 X, (ArithmeticFunction.moebius n : ℂ))‖ ≤
+      4 * (∑ t ∈ Finset.Icc 1 X,
+        ‖vf919QuotientBucket X t - vf919QuotientBucket X (t + 1)‖) := by
+  rw [vf919Mertens_eq_exact_signed_quotient_return X hX]
+  calc
+    ‖∑ t ∈ Finset.Icc 1 X,
+        (vf919QuotientKernelPrimitive36 t : ℂ) *
+          (vf919QuotientBucket X t - vf919QuotientBucket X (t + 1))‖ ≤
+      ∑ t ∈ Finset.Icc 1 X,
+        ‖(vf919QuotientKernelPrimitive36 t : ℂ) *
+          (vf919QuotientBucket X t - vf919QuotientBucket X (t + 1))‖ :=
+        norm_sum_le _ _
+    _ = ∑ t ∈ Finset.Icc 1 X,
+        ‖(vf919QuotientKernelPrimitive36 t : ℂ)‖ *
+          ‖vf919QuotientBucket X t - vf919QuotientBucket X (t + 1)‖ := by
+        simp_rw [norm_mul]
+    _ ≤ ∑ t ∈ Finset.Icc 1 X,
+        (4 : ℝ) * ‖vf919QuotientBucket X t - vf919QuotientBucket X (t + 1)‖ := by
+        apply Finset.sum_le_sum
+        intro t _ht
+        exact mul_le_mul_of_nonneg_right
+          (vf919QuotientKernelPrimitive36_norm_le_four t) (norm_nonneg _)
+    _ = 4 * (∑ t ∈ Finset.Icc 1 X,
+          ‖vf919QuotientBucket X t - vf919QuotientBucket X (t + 1)‖) := by
+        rw [Finset.mul_sum]
 
 end RHLean.Analysis
