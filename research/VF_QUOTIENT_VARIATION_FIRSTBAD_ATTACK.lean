@@ -74,7 +74,7 @@ theorem vfVarSelectedQuotientBuckets (X : ℕ) (S : Finset ℕ) :
       intro t ht
       have hn : X / m ≠ t := by
         intro heq
-        exact hmem (heq ▸ ht)
+        exact hmem (heq.symm ▸ ht)
       simp [hn]
     rw [hzero]
     simp [hmem]
