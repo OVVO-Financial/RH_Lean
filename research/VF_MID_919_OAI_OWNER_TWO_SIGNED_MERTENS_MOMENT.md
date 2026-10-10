@@ -560,3 +560,86 @@ native telescope. The remaining arithmetic/analytic gain must be
 stronger than what the published scalar sixth-power amplification
 provides. No new zero-free exponent or RH claim follows from this
 section.
+
+
+## 7. Seminorm-free recovery takes place AFTER the character Abel integral
+
+**Correction to the attempted pointwise amplification:** for a shrinking
+window, no estimate of `J_{W_h}(D)` uniform in the smooth seminorms can
+hold, even near fixed D=3. If `V_h(1-h)=1`, `V_h(1+h)=0`, the mean
+value theorem gives a point `u_h` with
+`V_h'(u_h)=-1/(2h)`. Its profile `W_h(u)=u V_h'(u)`
+has `W_h(u_h)=-u_h/(2h)`. With `D_h=3/u_h`,
+`h<1/7` and the excluded Euler factors restored, the unique ideal
+of norm 3 contributes `J_{W_h}(D_h)=u_h/(2h)`.
+For `R>=4`, at `t_h=x*u_h/3`, the other AMP
+root/daughter scales are absent, so the full
+`mathcal J_R(t_h)` has this arbitrarily large spike.
+This is an obstruction to a POINTWISE uniform bound, not an
+obstruction to the SIGNED INTEGRATED target.
+
+There is a direct and substantially stronger exact recovery identity
+*inside the integral*. Write `T=N+1/2` for any integer `N>=0`
+and choose `0<h` with `h*T<1/2`. For any positive
+integer norm `m`, and for **every** `u in [1-h,1+h]`,
+the half-integer gap proves
+
+```text
+       d*m <= T*u   iff   d*m <= N     (all integer d>=1).
+```
+
+In particular the truncated quadratic-character prefix
+`C_chi(T*u/m) = sum_{d*m<=N} chi(d)` is **constant on the
+entire window**, not merely at `u=1`.
+For a differentiable `V_h` transitioning from one to zero with
+`V_h'` supported in this window, `W_h(u)=u V_h'(u)` and
+the substitution `u=m*t/T` give the finite, exact identity
+
+```text
+- integral_{t=1}^infinity C_chi(t)/t * W_h(m*t/T) dt
+  = - integral_{u=m/T}^infinity C_chi(T*u/m) * V_h'(u) du
+  = sum_{d*m<=N} chi(d).
+```
+
+For `m<=N` the transition lies wholly above `t=1`; for
+`m>N` the transition lies wholly below `t=1` and contributes
+zero. Thus the formula holds for **all positive integer norms**.
+The O(1/h) derivative spike is integrated into the fixed unit
+mass `-int V_h'=1`; no limit, seminorm-uniform amplification,
+or pointwise kernel estimate is needed.
+
+After multiplying by the **signed** ideal Möbius coefficients `a_F(m)`
+and summing finitely, the exact convolution `mu=chi_{-3}*a_F`
+returns `M(N)`. Repeat the same calculation with
+`(T,N)=(x,X_R)`, `(y,R-1)` and each
+daughter site `m*q^2` at the common center x.
+The same `h*x<1/2` works for all cases and yields the
+WHOLE AMP coefficient sum before any absolute values.
+
+**New Mathlib-only Lean entry point**
+`VF_MID_919_OAI_INTEGRATED_SHARP_CHARACTER_STEP.lean` proves
+an arbitrary signed, *finite* ideal-norm/rational-character
+convolution is independent of the transition point u, and that
+its integral against ANY signed density supported in the window is
+exactly its sharp value times the total density mass. The
+normalized-mass specialization is likewise proved. The module
+does not import OAI's sixth-power amplification, establish the
+global Dedekind dictionary or formalize the t-to-u change of
+variables; those are separate interfaces. Its CI compilation
+and axiom auditing are required before calling the new Lean
+statements kernel verified.
+
+**Analytic implication:** any useful bound must act on the
+*integrated signed convolution or its completed Hermitian Gram*,
+not on pointwise `J_{W_h}`. The exact integration can remove
+the derivative spike completely but CANNOT, by itself, estimate
+the recovered Mertens amplitude. The still-open uniform target is
+
+```text
+|A_R|^2 - D_R - Q_R^2 <= 2 E_R + C R^2 K,
+A_R = - integral_1^infinity C_chi(t)/t * mathcal J_R(t) dt,
+```
+
+with all cross terms and the native negative-energy subtraction
+retained. In particular, the stronger cancellation does NOT follow
+from the published fixed-smooth sixth-power amplification lemma.
