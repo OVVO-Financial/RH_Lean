@@ -61,11 +61,67 @@ the new unconditional quantitative bound is
 }
 \]
 
-This **improves the previous \(4V_R^{\mathrm{full}}\) ceiling** by
-isolating the high-quotient sector at cost \(2A_R^{\mathrm{short}}\)
-instead of charging its variation with the primitive factor 4.
+This **isolates the high-quotient sector** at cost \(2A_R^{\mathrm{short}}\)
+instead of charging its variation with the primitive factor 4. On the
+observed data, where \(V_R^{\mathrm{high}}=2A_R^{\mathrm{short}}\),
+this is a factor-four saving on that sector. A pointwise comparison of
+the two upper bounds for arbitrary R requires proving the high-variation
+identity, not just the observed cases.
 It is an improved explicit *reduction*, not a new Mertens growth
 exponent. No \(O(R\log R)\) bound for \(V_R^{\mathrm{low}}\) is proved.
+
+## Elementary short-sector closure — mathematical argument, Lean import pending
+
+There is a stronger elementary estimate for the **short** sector than
+the generic coefficient-mass bound. Put
+
+\[
+d_\chi(n)=(1*\chi_{-3})(n)=\sum_{d\mid n}\chi_{-3}(d).
+\]
+
+The constructed coefficient \(a^{(6)}=\mathbf1_{(n,6)=1}
+(\mu*(\chi_{-3}\mu))\) and \(d_\chi\) are multiplicative.
+At each rational prime, compare local coefficients:
+
+| prime | \(|a^{(6)}(p^e)|\) for \(e=0,1,2,\ge3\) | \(d_\chi(p^e)\) |
+|---|---|---|
+| \(p\equiv1\bmod3\) | \(1,2,1,0\) | \(e+1\) |
+| \(p\equiv2\bmod3\), \(p\ne2\) | \(1,0,1,0\) | \(1\) for even \(e\), \(0\) for odd \(e\) |
+| \(p=2\) or \(p=3\) | \(1,0,0,0\) | nonnegative, and \(d_\chi(1)=1\) |
+
+Thus the Euler-factor comparison and multiplicativity give
+\[
+|a^{(6)}(n)|\le d_\chi(n)
+\]
+for every positive integer \(n\). Independently, Dirichlet
+hyperbola Fubini gives
+\[
+\sum_{n\le N}d_\chi(n)
+=\sum_{a=1}^N C_\chi(\lfloor N/a\rfloor)
+\le N,
+\]
+because \(C_\chi(y)=\mathbf1_{y\equiv1\bmod3}\in\{0,1\}\).
+Consequently the **mathematical** short-sector estimate is
+\[
+\boxed{A_R^{\mathrm{short}}\le R-1,\qquad |S_R|\le2(R-1),}
+\]
+and the all-R mathematical reduction becomes
+\[
+\boxed{|M(R^2-1)|\le4V_R^{\mathrm{low}}+2(R-1).}
+\]
+
+**Formalization boundary:** the current Lean module proves
+\(|M|\le4V_{\mathrm{low}}+2A_{\mathrm{short}}\). It does
+**not yet** prove the pointwise multiplicative Euler-factor
+domination or the quadratic-divisor summatory bound. The independent
+Python regression checks the pointwise domination for every
+\(n\) up to the largest tested root and checks the exact divisor
+hyperbola identity. Port those two elementary proofs into Lean before
+claiming the final \(+2(R-1)\) inequality as kernel-verified.
+
+This removes the *short* coefficient sector as a genuine analytic
+obstacle. The hard all-R estimate is exclusively the low-quotient
+variation or a weaker, history-conditioned signed return.
 
 ## Exact-integer census
 
