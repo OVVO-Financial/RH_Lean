@@ -1,0 +1,109 @@
+name: VF square quotient variation first-bad attack
+
+on:
+  pull_request:
+    branches: [main, vf-seven-eighths-analytic-zero-free-bridge]
+    paths:
+      - research/VF_QUOTIENT_VARIATION_FIRSTBAD_ATTACK.lean
+      - research/VF_QUOTIENT_VARIATION_FIRSTBAD_ATTACK.md
+      - scripts/vf_quotient_variation_firstbad_probe.py
+      - .github/workflows/vf-quotient-variation-firstbad-attack.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: vf-quotient-variation-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  square-hyperbola-signed-return:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - uses: actions/cache/restore@v5
+        with:
+          path: .lake/packages
+          key: lake-packages-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
+      - uses: leanprover/lean-action@v1
+        with:
+          use-github-cache: false
+          use-mathlib-cache: true
+          build: false
+          test: false
+          lint: false
+      - name: Reject proof holes and added axioms
+        run: |
+          python3 - <<'PY'
+          import re
+          from pathlib import Path
+          path = Path('research/VF_QUOTIENT_VARIATION_FIRSTBAD_ATTACK.lean')
+          assert not re.search(r'(?m)^\s*(sorry|admit|axiom)\b', path.read_text())
+          PY
+      - name: Warning-fatal compile of complete quotient-return import closure
+        run: |
+          set -o pipefail
+          python3 scripts/compile_research_import_closure.py \
+            research/VF_QUOTIENT_VARIATION_FIRSTBAD_ATTACK.lean \
+            2>&1 | tee vf-quotient-variation-compile.log
+      - name: Verify theorem signatures and standard axioms
+        run: |
+          cat >/tmp/vf_quotient_variation_acceptance.lean <<'LEAN'
+          import «research.VF_QUOTIENT_VARIATION_FIRSTBAD_ATTACK»
+          #check RHLean.Analysis.vfVarSquareHighQuotient_iff_smallNorm
+          #print axioms RHLean.Analysis.vfVarSquareHighQuotient_iff_smallNorm
+          #check RHLean.Analysis.vfVarSelectedQuotientBuckets
+          #print axioms RHLean.Analysis.vfVarSelectedQuotientBuckets
+          #check RHLean.Analysis.vfVarSquareHighQuotient_eq_shortNorm
+          #print axioms RHLean.Analysis.vfVarSquareHighQuotient_eq_shortNorm
+          #check RHLean.Analysis.vfVarMertens_squareHyperbola_exact_split
+          #print axioms RHLean.Analysis.vfVarMertens_squareHyperbola_exact_split
+          #check RHLean.Analysis.vfVarSharpKernel_norm_le_two
+          #print axioms RHLean.Analysis.vfVarSharpKernel_norm_le_two
+          #check RHLean.Analysis.vfVarSquareShortNorm_norm_le_two_coeffMass
+          #print axioms RHLean.Analysis.vfVarSquareShortNorm_norm_le_two_coeffMass
+          #check RHLean.Analysis.vfVarSquareMertens_norm_le_longPlus_shortMass
+          #print axioms RHLean.Analysis.vfVarSquareMertens_norm_le_longPlus_shortMass
+          #check RHLean.Analysis.vfVarSquareShortNorm_quotient_gt_root
+          #print axioms RHLean.Analysis.vfVarSquareShortNorm_quotient_gt_root
+          #check RHLean.Analysis.vfVarSquareDiagonalQuotient_ne
+          #print axioms RHLean.Analysis.vfVarSquareDiagonalQuotient_ne
+          #check RHLean.Analysis.vfVarSquareDiagonalBucket_zero
+          #print axioms RHLean.Analysis.vfVarSquareDiagonalBucket_zero
+          #check RHLean.Analysis.vfVarSquareLongNorm_eq_signed_lowVariation
+          #print axioms RHLean.Analysis.vfVarSquareLongNorm_eq_signed_lowVariation
+          #check RHLean.Analysis.vfVarSquareLongNorm_norm_le_four_lowVariation
+          #print axioms RHLean.Analysis.vfVarSquareLongNorm_norm_le_four_lowVariation
+          #check RHLean.Analysis.vfVarSquareMertens_norm_le_four_lowVariation_add_two_shortMass
+          #print axioms RHLean.Analysis.vfVarSquareMertens_norm_le_four_lowVariation_add_two_shortMass
+          LEAN
+          set -o pipefail
+          lake env lean -DwarningAsError=true /tmp/vf_quotient_variation_acceptance.lean \
+            2>&1 | tee vf-quotient-variation-axioms.log
+          python3 - <<'PY'
+          import re
+          from pathlib import Path
+          text = Path('vf-quotient-variation-axioms.log').read_text()
+          records = re.findall(r'depends on axioms:\s*\[([^\]]*)\]', text, re.S)
+          closed = len(re.findall(r'does not depend on any axioms', text))
+          assert len(records) + closed == 13, (records, closed)
+          allowed = {'propext', 'Classical.choice', 'Quot.sound'}
+          for record in records:
+              assert {a.strip() for a in record.split(',') if a.strip()} <= allowed, record
+          PY
+      - name: Verify exact Mertens split and variation census
+        run: |
+          set -o pipefail
+          python3 scripts/vf_quotient_variation_firstbad_probe.py \
+            2>&1 | tee vf-quotient-variation-numerical.log
+      - name: Retain compiler and numerical evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: vf-quotient-variation-logs
+          path: vf-quotient-variation-*.log
+          if-no-files-found: ignore
