@@ -360,6 +360,70 @@ theorem vfMidThirtyAccumulatedFactorExcess_eq_endpointDefect
   rw [Finset.sum_Ico_sub vfMidSquareEndpointError hR]
   ring
 
+/-- The complete run of gcd-30 divisor-covered sites equals the
+native (exact, occurrence-preserving) chronological late-owner census
+at cutoff 5. No multiplicity loss and no probability argument. -/
+theorem vfMidThirtyLateOwnerRemoval_eq_factorCoveredRun
+    (A B : ℕ) (hA : 5 ≤ A) (hAB : A ≤ B) :
+    vfMidDyadicLateRemoval 5 A B =
+      ∑ r ∈ Finset.Ico A B,
+        ((vfMidThirtyFactorCovered r).card : ℝ) := by
+  rw [vfMidDyadicLateRemoval_eq_ownerCensus 5 A B
+    (by omega : 2 ≤ A) hA hAB]
+  unfold vfMidDyadicOwnerLateRemoval
+  apply Finset.sum_congr rfl
+  intro r hr
+  have hrFive : 5 ≤ r := hA.trans (Finset.mem_Ico.mp hr).1
+  have howners := vfMidThirtyFactorCovered_card_eq_lateOwnerCards r hrFive
+  exact_mod_cast howners.symm
+
+/-- Across any source run the accumulated pure factor coverage excess
+IS the original native signed VF tracking defect. -/
+theorem vfMidThirtyRunExcess_eq_nativeTracking
+    {A B : ℕ} (hA : 5 ≤ A) (hAB : A ≤ B) :
+    vfMidThirtyAccumulatedFactorExcess B -
+        vfMidThirtyAccumulatedFactorExcess A =
+      vfMidDyadicVFTrackingDefect A B := by
+  have hAt := vfMidThirtyAccumulatedFactorExcess_eq_endpointDefect A hA
+  have hBt :=
+    vfMidThirtyAccumulatedFactorExcess_eq_endpointDefect B
+      (hA.trans hAB)
+  have htracking :=
+    vfMidDyadicVFTrackingDefect_eq_vfMass_sub_primeSupply
+      A B (by omega : 2 ≤ A) hAB
+  rw [hAt, hBt, htracking]
+  unfold vfMidSquareEndpointError
+    vfMidDyadicVFMass vfMidDyadicPrimeSupply
+  ring
+
+/-- A uniform signed native cutover: passing from the parity-2 owner
+tracking object to the genuinely physical p>5 owner-reference residual
+costs EXACTLY the four-endpoint frozen wheel-30 phase, nothing else. -/
+theorem vfMidThirtyOwnerResidual_sub_nativeTracking_eq_fixedPhase
+    (A B : ℕ) (hA : 5 ≤ A) (hAB : A ≤ B) :
+    (vfMidDyadicLateRemoval 5 A B -
+        vfMidDyadicLateReference 5 A B) -
+          vfMidDyadicVFTrackingDefect A B =
+      vfMidDyadicPrefixSupply 5 A B -
+        (4 / 15 : ℝ) * vfMidDyadicInteriorLength A B := by
+  rw [vfMidDyadicVFTrackingDefect_eq_vfMass_sub_primeSupply
+    A B (by omega : 2 ≤ A) hAB]
+  unfold vfMidDyadicLateRemoval vfMidDyadicLateReference
+  rw [vfMidThirtyPrefixWheelDensity_eq_four_fifteenths]
+  ring
+
+/-- UNIVERSAL quantitative preservation of the signed p>5
+owner-reference residual relative to the original VF tracking defect.
+The cost 32 is independent of both run length and owner ages. -/
+theorem vfMidThirtyOwnerResidual_sub_nativeTracking_abs_le_thirtytwo
+    (A B : ℕ) (hA : 5 ≤ A) (hAB : A ≤ B) :
+    |(vfMidDyadicLateRemoval 5 A B -
+        vfMidDyadicLateReference 5 A B) -
+          vfMidDyadicVFTrackingDefect A B| ≤ 32 := by
+  rw [vfMidThirtyOwnerResidual_sub_nativeTracking_eq_fixedPhase
+    A B hA hAB]
+  exact vfMidThirtyRunPrefixDensityError_le_thirtytwo A B
+
 /-- Finite initial count is explicit and contains the exceptional
 small primes 2,3,5; all later data are factor ranges above 5. -/
 theorem vfMidPrimeCounting_twentyFive :
