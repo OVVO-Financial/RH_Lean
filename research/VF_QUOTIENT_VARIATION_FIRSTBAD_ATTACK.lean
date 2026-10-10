@@ -261,4 +261,127 @@ theorem vfVarSquareMertens_norm_le_longPlus_shortMass
   exact (norm_add_le _ _).trans
     (add_le_add_left (vfVarSquareShortNorm_norm_le_two_coeffMass R) _)
 
+
+/-! ## The missing diagonal bucket and improved one-sided low/high budget -/
+
+/-- The strict half-square gap is stronger than just m < R iff
+floor(X/m) >= R: for m < R the quotient is at least R+1. -/
+theorem vfVarSquareShortNorm_quotient_gt_root
+    (R m : ℕ) (hR : 2 ≤ R) (hm : 0 < m) (hlt : m < R) :
+    R + 1 ≤ (R ^ 2 - 1) / m := by
+  have hsq : 1 ≤ R ^ 2 := by nlinarith
+  have hmR : m ≤ R - 1 := by omega
+  have hmul : (R + 1) * m ≤ (R + 1) * (R - 1) :=
+    Nat.mul_le_mul_left (R + 1) hmR
+  have hmax : (R + 1) * (R - 1) = R ^ 2 - 1 := by
+    have hsub : R - 1 + 1 = R := by omega
+    nlinarith
+  exact (Nat.le_div_iff_mul_le hm).mpr (by omega)
+
+/-- There is no integer norm m>0 on the diagonal quotient t=R. -/
+theorem vfVarSquareDiagonalQuotient_ne
+    (R m : ℕ) (hR : 2 ≤ R) (hm : 0 < m) :
+    (R ^ 2 - 1) / m ≠ R := by
+  intro hq
+  by_cases hlt : m < R
+  · have hh := vfVarSquareShortNorm_quotient_gt_root R m hR hm hlt
+    omega
+  · have hh :=
+      (vfVarSquareHighQuotient_iff_smallNorm R m hR hm).mp (by omega : R ≤ (R ^ 2 - 1) / m)
+    exact hlt hh
+
+/-- Exact diagonal gap: the boundary quotient bucket is zero. -/
+theorem vfVarSquareDiagonalBucket_zero
+    (R : ℕ) (hR : 2 ≤ R) :
+    vf919QuotientBucket (R ^ 2 - 1) R = 0 := by
+  unfold vf919QuotientBucket
+  apply Finset.sum_eq_zero
+  intro m hm
+  have hmpos : 0 < m := by
+    have := (Finset.mem_Icc.mp hm).1
+    omega
+  have hne := vfVarSquareDiagonalQuotient_ne R m hR hmpos
+  simp [hne]
+
+/-- The hard low-quotient sector also has an exact signed primitive,
+and the terminal boundary is genuinely ZERO at the square hyperbola. -/
+theorem vfVarSquareLongNorm_eq_signed_lowVariation
+    (R : ℕ) (hR : 2 ≤ R) :
+    vfVarSquareLongNormLowQuotient R =
+      ∑ t ∈ Finset.Icc 1 (R - 1),
+        (vf919QuotientKernelPrimitive36 t : ℂ) *
+          (vf919QuotientBucket (R ^ 2 - 1) t -
+            vf919QuotientBucket (R ^ 2 - 1) (t + 1)) := by
+  unfold vfVarSquareLongNormLowQuotient
+  have hab := vf919QuotientKernel36_signed_abel (R - 1)
+    (vf919QuotientBucket (R ^ 2 - 1))
+  have hsucc : R - 1 + 1 = R := by omega
+  rw [hsucc, vfVarSquareDiagonalBucket_zero R hR] at hab
+  simpa using hab
+
+/-- Only the LOW quotient variation needs the factor-four primitive
+bound. The HIGH quotient sector costs at most twice the short norm mass. -/
+theorem vfVarSquareLongNorm_norm_le_four_lowVariation
+    (R : ℕ) (hR : 2 ≤ R) :
+    ‖vfVarSquareLongNormLowQuotient R‖ ≤
+      4 * (∑ t ∈ Finset.Icc 1 (R - 1),
+        ‖vf919QuotientBucket (R ^ 2 - 1) t -
+          vf919QuotientBucket (R ^ 2 - 1) (t + 1)‖) := by
+  rw [vfVarSquareLongNorm_eq_signed_lowVariation R hR]
+  calc
+    ‖∑ t ∈ Finset.Icc 1 (R - 1),
+        (vf919QuotientKernelPrimitive36 t : ℂ) *
+          (vf919QuotientBucket (R ^ 2 - 1) t -
+            vf919QuotientBucket (R ^ 2 - 1) (t + 1))‖ ≤
+      ∑ t ∈ Finset.Icc 1 (R - 1),
+        ‖(vf919QuotientKernelPrimitive36 t : ℂ) *
+          (vf919QuotientBucket (R ^ 2 - 1) t -
+            vf919QuotientBucket (R ^ 2 - 1) (t + 1))‖ :=
+        norm_sum_le _ _
+    _ = ∑ t ∈ Finset.Icc 1 (R - 1),
+        ‖(vf919QuotientKernelPrimitive36 t : ℂ)‖ *
+          ‖vf919QuotientBucket (R ^ 2 - 1) t -
+            vf919QuotientBucket (R ^ 2 - 1) (t + 1)‖ := by
+          simp_rw [norm_mul]
+    _ ≤ ∑ t ∈ Finset.Icc 1 (R - 1),
+        (4 : ℝ) *
+          ‖vf919QuotientBucket (R ^ 2 - 1) t -
+            vf919QuotientBucket (R ^ 2 - 1) (t + 1)‖ := by
+          apply Finset.sum_le_sum
+          intro t _ht
+          exact mul_le_mul_of_nonneg_right
+            (vf919QuotientKernelPrimitive36_norm_le_four t) (norm_nonneg _)
+    _ = 4 * (∑ t ∈ Finset.Icc 1 (R - 1),
+          ‖vf919QuotientBucket (R ^ 2 - 1) t -
+            vf919QuotientBucket (R ^ 2 - 1) (t + 1)‖) := by
+          rw [Finset.mul_sum]
+
+/-- New unconditional quantitative square-cutoff reduction:
+  |M(R^2-1)| <= 4 * LOW quotient variation + 2 * SHORT norm coefficient mass.
+Unlike the old 4 * FULL variation bound, the short sector costs only 2,
+not 8. This still does NOT prove an RH-scale bound on LOW variation. -/
+theorem vfVarSquareMertens_norm_le_four_lowVariation_add_two_shortMass
+    (R : ℕ) (hR : 4 ≤ R) :
+    ‖(∑ n ∈ Finset.Icc 1 (R ^ 2 - 1),
+      (ArithmeticFunction.moebius n : ℂ))‖ ≤
+      4 * (∑ t ∈ Finset.Icc 1 (R - 1),
+        ‖vf919QuotientBucket (R ^ 2 - 1) t -
+          vf919QuotientBucket (R ^ 2 - 1) (t + 1)‖) +
+      2 * (∑ m ∈ Finset.Icc 1 (R - 1),
+        ‖vf919ExcludedNormCoefficients m‖) := by
+  rw [vfVarMertens_squareHyperbola_exact_split R hR]
+  calc
+    ‖vfVarSquareLongNormLowQuotient R +
+        vfVarSquareShortNormHighQuotient R‖ ≤
+      ‖vfVarSquareLongNormLowQuotient R‖ +
+        ‖vfVarSquareShortNormHighQuotient R‖ :=
+        norm_add_le _ _
+    _ ≤ 4 * (∑ t ∈ Finset.Icc 1 (R - 1),
+          ‖vf919QuotientBucket (R ^ 2 - 1) t -
+            vf919QuotientBucket (R ^ 2 - 1) (t + 1)‖) +
+        2 * (∑ m ∈ Finset.Icc 1 (R - 1),
+          ‖vf919ExcludedNormCoefficients m‖) :=
+        add_le_add (vfVarSquareLongNorm_norm_le_four_lowVariation R (by omega))
+          (vfVarSquareShortNorm_norm_le_two_coeffMass R)
+
 end RHLean.Analysis
