@@ -4,31 +4,33 @@ on:
   push:
     branches: [main]
     paths:
-      - 'RHLean.lean'
-      - 'RHLean/**/*.lean'
-      - 'scripts/proof_inventory.py'
-      - 'scripts/rhlean_kg.py'
-      - 'scripts/decl_graph.py'
-      - 'scripts/proofq.py'
-      - 'scripts/check_knowledge_graph.py'
-      - 'scripts/research_overlap.py'
-      - 'scripts/semantic_facets.json'
-      - 'scripts/lean/DeclGraph.lean'
-      - '.github/workflows/proof-inventory.yml'
+      - '**.lean'
+      - '**.md'
+      - 'scripts/**'
+      - 'research/**'
+      - 'experiments/**'
+      - 'numerics/**'
+      - 'export_*/**'
+      - 'docs/**'
+      - '.github/workflows/**'
+      - 'lake-manifest.json'
+      - 'lean-toolchain'
+      - '.gitignore'
   pull_request:
     types: [opened, synchronize, reopened]
     paths:
-      - 'RHLean.lean'
-      - 'RHLean/**/*.lean'
-      - 'scripts/proof_inventory.py'
-      - 'scripts/rhlean_kg.py'
-      - 'scripts/decl_graph.py'
-      - 'scripts/proofq.py'
-      - 'scripts/check_knowledge_graph.py'
-      - 'scripts/research_overlap.py'
-      - 'scripts/semantic_facets.json'
-      - 'scripts/lean/DeclGraph.lean'
-      - '.github/workflows/proof-inventory.yml'
+      - '**.lean'
+      - '**.md'
+      - 'scripts/**'
+      - 'research/**'
+      - 'experiments/**'
+      - 'numerics/**'
+      - 'export_*/**'
+      - 'docs/**'
+      - '.github/workflows/**'
+      - 'lake-manifest.json'
+      - 'lean-toolchain'
+      - '.gitignore'
   workflow_dispatch:
 
 permissions:
@@ -98,6 +100,35 @@ jobs:
             cat kg-check.txt
             echo '```'
           } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Check repository navigation regressions
+        run: python3 -m unittest discover -s scripts -p test_repo_index.py -v
+
+      - name: Build full repository source index and import DAG
+        run: |
+          python3 scripts/repo_index.py build \
+            --dot repo-imports.dot --report repo-map.md --require-acyclic
+          python3 - <<'PY'
+          import json
+          inv = json.load(open('proof-inventory.json'))
+          repo = json.load(open('repo-index.json'))
+          files = repo['files']
+          library = [d for d in repo['declarations']
+                     if files[d['file_id']]['scope'] == 'library'
+                     and d['kind'] in ('theorem', 'lemma')]
+          expected = inv['named_proofs']['total_theorem_plus_lemma']
+          assert len(library) == expected, (len(library), expected)
+          staging_roots = inv['dependent_lean_outside_scope']['roots']
+          staging = [e for e in repo['modules'].values()
+                     if e['path'].split('/')[0] in staging_roots]
+          assert len(staging) == inv['dependent_lean_outside_scope']['lean_files']
+          assert any(d['name'].endswith('vfMidActualPrimeFirstBadAt_two_succ_activeExcess_nonpos_of_exactBudget')
+                     for d in repo['declarations']), 'lost the final aggregate research sentinel'
+          print(f'Library counters agree: {expected}; staging modules indexed: {len(staging)}')
+          PY
+          python3 scripts/proofq.py repo-search 'SectorSix' \
+            --scope research --kind declaration --limit 20 > repo-frontier.txt
+          cat repo-map.md >> "$GITHUB_STEP_SUMMARY"
 
       # The standing reports a research agent would otherwise have to rerun by
       # hand. `obligations` maps genuinely open propositions appearing on RH
@@ -180,3 +211,8 @@ jobs:
             kg-duplicates.txt
             kg-research-overlap.txt
             kg-regions.txt
+            region-graph.json
+            repo-index.json
+            repo-imports.dot
+            repo-map.md
+            repo-frontier.txt
