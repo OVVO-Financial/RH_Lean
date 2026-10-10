@@ -74,6 +74,7 @@ on:
       - research/VF_MID_SQRT_TWO_VERTICAL_PNT_HORIZONTAL.lean
       - research/VF_MID_SQRT_TWO_LI_HORIZONTAL.lean
       - research/VF_MID_THIRTY_FACTOR_RANGE_LOWER_GATE.lean
+      - research/VF_MID_ADAPTIVE_FACTOR_OWNER_RETURN.lean
       - research/VF_MID_THIRTY_FACTOR_RANGE_PROOF_CONTRACT.md
       - scripts/VFMidThirtyFactorRange/verify.py
       - research/VF_MID_STEP_GRAPH_BRACKETING.lean
@@ -179,6 +180,7 @@ jobs:
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_SQRT_TWO_VERTICAL_PNT_HORIZONTAL.olean research/VF_MID_SQRT_TWO_VERTICAL_PNT_HORIZONTAL.lean 2>&1 | tee vf-mid-sqrt-two-vertical-pnt-horizontal.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_SQRT_TWO_LI_HORIZONTAL.olean research/VF_MID_SQRT_TWO_LI_HORIZONTAL.lean 2>&1 | tee vf-mid-sqrt-two-li-horizontal.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_THIRTY_FACTOR_RANGE_LOWER_GATE.olean research/VF_MID_THIRTY_FACTOR_RANGE_LOWER_GATE.lean 2>&1 | tee vf-mid-thirty-factor-range-lower-gate.log
+          lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_ADAPTIVE_FACTOR_OWNER_RETURN.olean research/VF_MID_ADAPTIVE_FACTOR_OWNER_RETURN.lean 2>&1 | tee vf-mid-adaptive-factor-owner-return.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_STEP_GRAPH_BRACKETING.olean research/VF_MID_STEP_GRAPH_BRACKETING.lean 2>&1 | tee vf-mid-step-graph-bracketing.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_CORNER_CHANNEL.olean research/VF_MID_CORNER_CHANNEL.lean 2>&1 | tee vf-mid-corner-channel.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_LI_PHASE_FAN.olean research/VF_MID_LI_PHASE_FAN.lean 2>&1 | tee vf-mid-li-phase-fan.log
@@ -289,6 +291,7 @@ jobs:
           import «research.VF_MID_SQRT_TWO_VERTICAL_PNT_HORIZONTAL»
           import «research.VF_MID_SQRT_TWO_LI_HORIZONTAL»
           import «research.VF_MID_THIRTY_FACTOR_RANGE_LOWER_GATE»
+          import «research.VF_MID_ADAPTIVE_FACTOR_OWNER_RETURN»
           import «research.VF_MID_STEP_GRAPH_BRACKETING»
           import «research.VF_MID_CORNER_CHANNEL»
           import «research.VF_MID_SQUARE_WHEEL_BACKLOG»
@@ -571,6 +574,10 @@ jobs:
           #print axioms RHLean.Analysis.vfMidThirtyOwnerResidual_sub_nativeTracking_eq_fixedPhase
           #print axioms RHLean.Analysis.vfMidThirtyOwnerResidual_sub_nativeTracking_abs_le_thirtytwo
           #print axioms RHLean.Analysis.vfMidThirtyFirstLowerBreach_forces_ownerResidualOverrun
+          #print axioms RHLean.Analysis.vfMidAdaptiveOwnerResidual_sub_nativeTracking_eq_phase
+          #print axioms RHLean.Analysis.vfMidAdaptiveOwnerResidual_sub_nativeTracking_abs_le_four_anchor
+          #print axioms RHLean.Analysis.vfMidAdaptiveFirstLowerBreach_forces_ownerReturnOverrun
+          #print axioms RHLean.Analysis.vfMidAdaptiveLowerSafe_of_physicalReturnUpper
           #print axioms RHLean.Analysis.vfMidAlignedHorizontalCrossed_abs_endpointError_lt
           #print axioms RHLean.Analysis.vfMidAlignedLeftVerticalCrossed_abs_endpointError_lt
           #print axioms RHLean.Analysis.vfMidAlignedRightVerticalCrossed_abs_endpointError_le_bandMass_of_above
