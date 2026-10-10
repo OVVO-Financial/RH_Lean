@@ -847,3 +847,30 @@ A new route must identify the quantitative ingredient, its exact carrier and
 quantifiers, and the compiled consumer it meets. Success means proving a
 sufficient uniform estimate and composing it with that consumer without a new
 open premise. The present coefficient sharpening makes no such closure claim.
+
+
+## PR #925 square theta / zeta spectral cross-check (2026-10-10)
+
+This is an **additional representation of the SAME lower first-bad source**,
+not a newly solved sign bound or a new replacement for actual primes.
+Read [the full contract](research/VF_MID_925_FACTOR_SPECTRAL_LOWER_CHANNEL_CONTRACT.md)
+and [the factor/theta native Lean module](research/VF_MID_925_FACTOR_THETA_SPECTRAL_WELD.lean).
+On the strictly open square band, full 2,3,5,...,R factor survivors S_R give
+Q_R = sum_(n in S_R) log n = theta((R+1)^2)-theta(R^2).
+Set U_R = (2R+1)-Q_R. The new source bridge proves the genuine signed
+coverage excess is E_R = U_R/log(m_R) - Pos_R, with the original log-position
+term and least-prime-owner native descent preserved.
+
+The exact classical midpoint-jump explicit formula yields, on paper,
+U_R = sum_rho((b^rho-a^rho)/rho) +
+(1/2)log((1-b^-2)/(1-a^-2)) + H_R +
+(Lambda(a)+Lambda(b))/2; H_R is proper-prime-power mass strictly INSIDE
+(a,b), and a=R^2,b=(R+1)^2. Both endpoint HALF jumps are essential.
+The Lean spectral bridge accepts that external explicit formula ONLY as
+an explicit hformula hypothesis; it does not import or prove a zeta
+sum estimate. For a first lower bad root, the exact necessary obstruction
+is U_R/log(m_R) > historicalSlack + wallGrowth + Pos_R.
+A T~R zero cutoff has an RH-scale *truncation remainder* but does not
+bound the growing finite zero sum. Numerically irrational zero ordinates
+are not a cancellation argument. The original signed owner/sector-six
+quantitative return bound still remains OPEN.
