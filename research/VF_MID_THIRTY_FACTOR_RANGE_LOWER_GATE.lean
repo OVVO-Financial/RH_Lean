@@ -58,6 +58,31 @@ theorem vfMidThirtyCandidates_eq_prefixFive (R : ℕ) :
     have hcop := (lowWheelHighSurvivor_iff_coprime_prefixWheel 5 n).1 hsurv
     simpa only [vfMidPrefixWheelModulus_five_eq_thirty] using hcop
 
+/-- Fixed 2,3,5 wheel is an exact 30-cycle with 8 admissible
+residue classes.  This equality is FINITE and unconditional. -/
+theorem vfMidPrimesUpToFive_eq_triple :
+    primesUpTo 5 = ({2, 3, 5} : Finset ℕ) := by
+  decide
+
+/-- After stripping only 2,3,5 the exact Euler density is 8/30.
+Unlike the growing sieve, this finite-wheel phase is uniformly bounded. -/
+theorem vfMidThirtyPrefixWheelDensity_eq_four_fifteenths :
+    vfMidPrefixWheelDensity 5 = (4 / 15 : ℝ) := by
+  norm_num [vfMidPrefixWheelDensity, vfMidPrimesUpToFive_eq_triple]
+
+/-- Crucial outside-the-box simplification: the ENTIRE fixed-wheel
+prefix counting error is bounded by 8 at every N, independent of N.
+This is an existing proved Boolean floor-error theorem specialized
+to z=5. Only the evolving owners p>=7 can create the unbounded
+arithmetic component of the lower-channel problem. -/
+theorem vfMidThirtyFixedWheelPrefixError_le_eight
+    (N : ℕ) :
+    |(vfMidPrefixWheelCounting 5 N : ℝ) -
+      (4 / 15 : ℝ) * (N : ℝ)| ≤ 8 := by
+  have h := abs_vfMidPrefixWheelCounting_sub_density_mul_le 5 N
+  simpa [vfMidThirtyPrefixWheelDensity_eq_four_fifteenths,
+    vfMidPrimesUpToFive_eq_triple] using h
+
 /-- In particular, EVERY odd integer ending in 5 is excluded.
 The exceptional prime 5 lies below all blocks with R >= 5. -/
 theorem vfMidThirtyCandidates_not_lastDigitFive
@@ -167,6 +192,48 @@ theorem vfMidThirtyFactorCovered_eq_prefixFive_sdiff_full
   · intro hn
     obtain ⟨hnCand, hnNotFull⟩ := Finset.mem_sdiff.mp hn
     exact (vfMidThirtyFactorCovered_mem_iff_not_fullWheel hR hnCand).2 hnNotFull
+
+/-- The factor-range union is not a free-for-all overlapping sum:
+it is exactly the disjoint least-prime-owner part remaining after
+the 2,3,5 factor coordinates. Each composite is charged ONCE. -/
+theorem vfMidThirtyFactorCovered_eq_lateComposite
+    (R : ℕ) (hR : 5 ≤ R) :
+    vfMidThirtyFactorCovered R =
+      vfMidSquareBandPrefixCompositeSurvivors 5 R := by
+  classical
+  rw [vfMidThirtyFactorCovered_eq_prefixFive_sdiff_full R hR]
+  rw [vfMidThirtyCandidates_eq_prefixFive]
+  rw [vfMidSquarePrefixWheelSurvivors_eq_prime_union_prefixComposite
+    (by omega : 2 ≤ R) hR]
+  rw [vfMidSquarePrefixWheelSurvivors_full,
+    vfMidSquareWheelSurvivors_eq_primes R (by omega : 2 ≤ R)]
+  ext n
+  simp only [Finset.mem_sdiff, Finset.mem_union]
+  constructor
+  · rintro ⟨hpOrComp, hnotPrime⟩
+    rcases hpOrComp with hp | hc
+    · exact False.elim (hnotPrime hp)
+    · exact hc
+  · intro hc
+    have hdisj :=
+      vfMidSquareWheelPrimes_disjoint_prefixComposite 5 R
+    have hnNotPrime : n ∉ vfMidSquareWheelPrimes R := by
+      intro hp
+      exact (Finset.disjoint_left.mp hdisj) hp hc
+    exact ⟨Or.inr hc, hnNotPrime⟩
+
+/-- Explicit occurrence-preserving owner partition of the pure
+factor-range covered cardinality.  All owners p>5 are disjoint.
+This is the exact interface to the original native Sector Six
+signed owner-return machinery, not an additional approximation. -/
+theorem vfMidThirtyFactorCovered_card_eq_lateOwnerCards
+    (R : ℕ) (hR : 5 ≤ R) :
+    (vfMidThirtyFactorCovered R).card =
+      ∑ p ∈ vfMidSquareBandLateOwnerPrimes 5 R,
+        (vfMidSquareBandCompositeOwner R p).card := by
+  rw [vfMidThirtyFactorCovered_eq_lateComposite R hR]
+  exact vfMidSquareBandPrefixComposite_card_eq_sum_lateOwnerCards
+    5 R (by omega : 2 ≤ R)
 
 /-- The full FTA survivor set is contained in the fixed wheel-30
 candidate set. This is an exact finite-set inclusion, not a density
