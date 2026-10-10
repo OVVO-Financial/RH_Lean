@@ -144,12 +144,17 @@ theorem vf919FiniteIdealRow_sixthPower_column
     have hc : vf919IdealLabelCoefficient phase s =
         vf919IdealLabelCoefficient phase (s ∩ A) *
           vf919IdealLabelCoefficient phase (s \ A) := by
-      unfold vf919IdealLabelCoefficient
-      rw [hsplit, Finset.prod_union hdis]
+      calc
+        vf919IdealLabelCoefficient phase s =
+            vf919IdealLabelCoefficient phase ((s ∩ A) ∪ (s \ A)) :=
+          congrArg (vf919IdealLabelCoefficient phase) hsplit
+        _ = _ := Finset.prod_union hdis
     have hn : vf919IdealLabelNorm norm s =
         vf919IdealLabelNorm norm (s ∩ A) * vf919IdealLabelNorm norm (s \ A) := by
-      unfold vf919IdealLabelNorm
-      rw [hsplit, Finset.prod_union hdis]
+      calc
+        vf919IdealLabelNorm norm s = vf919IdealLabelNorm norm ((s ∩ A) ∪ (s \ A)) :=
+          congrArg (vf919IdealLabelNorm norm) hsplit
+        _ = _ := Finset.prod_union hdis
     rw [hc, hn]
     ring
 

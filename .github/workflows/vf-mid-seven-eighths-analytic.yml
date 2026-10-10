@@ -11,6 +11,8 @@ on:
       - research/VF_MID_919_OAI_FERMAT_TWIST_PROJECTION.lean
       - research/VF_MID_919_OAI_PHASE_ALIGNED_OWNER_COMPENSATION.lean
       - research/VF_MID_919_OAI_OWNER_TWO_SIGNED_BOUNDARY.lean
+      - research/VF_MID_919_OAI_PRINCIPAL_COEFFICIENT_MAP.lean
+      - research/VF_MID_919_OAI_NATIVE_PRINCIPAL_WELD.lean
       - research/VF_MID_919_OAI_SHARP_SMOOTH_NO_GAP.lean
       - research/VF_MID_919_OAI_INTEGRATED_SHARP_CHARACTER_STEP.lean
       - research/VF_MID_919_OAI_R2K_ENDPOINT_LIMIT.lean
@@ -284,7 +286,7 @@ jobs:
                       library.update(re.findall(r'\bRHLean(?:\.[A-Za-z0-9_]+)*\b', line))
               for module in closure.research_imports(path):
                   visit(closure.source_for(module))
-          visit('research/VF_MID_919_OAI_OWNER_TWO_SIGNED_BOUNDARY.lean')
+          visit('research/VF_MID_919_OAI_NATIVE_PRINCIPAL_WELD.lean')
           visit('research/VF_MID_919_OAI_R2K_ENDPOINT_LIMIT.lean')
           subprocess.run(['lake', 'build', *sorted(library)], check=True)
           PY
@@ -292,7 +294,7 @@ jobs:
         run: |
           set -o pipefail
           python3 scripts/compile_research_import_closure.py \
-            research/VF_MID_919_OAI_OWNER_TWO_SIGNED_BOUNDARY.lean \
+            research/VF_MID_919_OAI_NATIVE_PRINCIPAL_WELD.lean \
             2>&1 | tee vf919-native-phase-compile.log
           python3 scripts/compile_research_import_closure.py \
             research/VF_MID_919_OAI_R2K_ENDPOINT_LIMIT.lean \
@@ -300,7 +302,7 @@ jobs:
       - name: Verify native carrier theorem signatures and standard axioms
         run: |
           cat > /tmp/vf919_native_phase_axioms.lean <<'LEAN'
-          import «research.VF_MID_919_OAI_OWNER_TWO_SIGNED_BOUNDARY»
+          import «research.VF_MID_919_OAI_NATIVE_PRINCIPAL_WELD»
           import «research.VF_MID_919_OAI_R2K_ENDPOINT_LIMIT»
           #check RHLean.Proof.vf919CharacterAlignedCell_eq_compensated_add_clipped
           #check RHLean.Proof.vf919CharacterCompensatedInterior_norm_sq_eq_physicalGram
@@ -325,6 +327,12 @@ jobs:
           #print axioms RHLean.Proof.vf919OwnerTwoPhysicalParentSite_sum_eq_base
           #print axioms RHLean.Proof.vf919OwnerTwoPhysicalReturnedSite_sum_eq_returned
           #print axioms RHLean.Proof.vf919OwnerTwoSignedGram_eq_native_site_products
+          #check RHLean.Proof.vf919OwnerTwoParentPrincipalNormSum_eq_native
+          #print axioms RHLean.Proof.vf919OwnerTwoParentPrincipalNormSum_eq_native
+          #check RHLean.Proof.vf919OwnerTwoReturnedPrincipalNormSum_eq_native
+          #print axioms RHLean.Proof.vf919OwnerTwoReturnedPrincipalNormSum_eq_native
+          #check RHLean.Proof.vf919OwnerTwoSignedGram_eq_constructedPrincipalNormPairing
+          #print axioms RHLean.Proof.vf919OwnerTwoSignedGram_eq_constructedPrincipalNormPairing
           #print axioms RHLean.Proof.vf919OwnerTwoSignedGram_eq_excludedSixHecke_of_identification
           #print axioms RHLean.Proof.vf919OwnerTwoSignedGram_eq_amplified_signed_cross_of_identification
           #print axioms RHLean.Proof.vf919OwnerTwoSignedBoundary_abs_le_of_real_magnitudes
@@ -344,7 +352,7 @@ jobs:
           text = Path('vf919-native-phase-axioms.log').read_text()
           records = re.findall(r'depends on axioms:\s*\[([^\]]*)\]', text, re.S)
           closed = len(re.findall(r'does not depend on any axioms', text))
-          assert len(records) + closed == 24, (records, closed)
+          assert len(records) + closed == 27, (records, closed)
           allowed = {'propext', 'Classical.choice', 'Quot.sound'}
           for record in records:
               actual = {a.strip() for a in record.split(',') if a.strip()}
@@ -382,4 +390,3 @@ jobs:
           echo 'PASS: zeta zero-free theorem exists upstream; toolchains DIFFER.'
           echo 'NOT CERTIFIED HERE: the explicit-formula 7/8 pi-Li error theorem.'
           echo 'NOT ATTEMPTED: cross-toolchain import or external full OAI build.'
-

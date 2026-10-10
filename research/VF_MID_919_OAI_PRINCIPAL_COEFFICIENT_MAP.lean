@@ -198,7 +198,7 @@ private theorem vf919MaskedZeta_eq_deletedFactors :
       vf919PrimeToSixMask, vf919RationalZeta, ArithmeticFunction.natCoe_apply,
       ArithmeticFunction.zeta_apply, h₆iff, h2, h3, h₂, h₃, h₆, hn,
       or_true, or_false, and_true, and_false, if_true, if_false,
-      Nat.cast_zero, Nat.cast_one, zero_mul, one_mul] <;> norm_num
+      Nat.cast_one, zero_mul, one_mul] <;> norm_num
 
 private theorem vf919MaskedCharacter_eq_deletedFactor :
     vf919ArithmeticTwist vf919PrimeToSixMask vf919QuadraticCharacter =
@@ -300,11 +300,17 @@ theorem vf919Smooth_sub_transport_eq_sharp (R X : ℕ) :
     (fun n => vf919SmoothPhysicalWeight R X n -
       vf919HighTransportPhysicalWeight R X n) = vf919SharpPhysicalWeight X := by
   funext n
-  by_cases hn : n ≤ X <;>
-    by_cases hs : ∀ p : ℕ, p.Prime → p ∣ n → p ≤ R <;>
-    simp only [vf919SmoothPhysicalWeight, vf919HighTransportPhysicalWeight,
-      vf919SharpPhysicalWeight, hn, hs, not_true_eq_false, not_false_eq_true,
-      and_true, and_false, true_and, false_and, if_true, if_false] <;> norm_num
+  unfold vf919SmoothPhysicalWeight vf919HighTransportPhysicalWeight
+    vf919SharpPhysicalWeight
+  by_cases hn : n ≤ X
+  · by_cases hs : ∀ p : ℕ, p.Prime → p ∣ n → p ≤ R
+    · rw [if_pos ⟨hn, hs⟩, if_neg (by rintro ⟨_, h⟩; exact h hs), if_pos hn]
+      norm_num
+    · rw [if_neg (by rintro ⟨_, h⟩; exact hs h), if_pos ⟨hn, hs⟩, if_pos hn]
+      norm_num
+  · rw [if_neg (by rintro ⟨h, _⟩; exact hn h),
+      if_neg (by rintro ⟨h, _⟩; exact hn h), if_neg hn]
+    norm_num
 
 /-- The original low/high mask cancellation commutes with conversion at
 EACH norm, before summation or taking any energy. -/

@@ -76,6 +76,16 @@ constructed arithmetic function with norm-grouped ideal Möbius, remain
 separate semantic obligations. Neither module imports the upstream OpenAI
 Hecke-character formalization or its analytic moment estimates.
 
+The native consumer in `VF_MID_919_OAI_NATIVE_PRINCIPAL_WELD.lean` applies
+the weighted theorem to the literal existing owner-two parent and returned
+site weights. It proves both norm sums equal their native amplitudes and
+uses the existing complete source-product identity to recover the whole
+signed owner-two Gram. Its only cutoff requirement is `12 <= R^2-1`.
+No ideal-coefficient identification is assumed by these rationally
+constructed coefficient theorems. This consumer uses the native AMP
+weights; the original VF square-band historical reassembly remains a
+distinct obligation.
+
 ## Reproducible finite arithmetic and proof boundary
 
 `scripts/vf919_principal_coefficient_check.py` computes the coefficients
