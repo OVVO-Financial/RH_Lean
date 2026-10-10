@@ -94,6 +94,18 @@ but is ALREADY NOT true at all finite square endpoints.
 The user-selected sqrt(2) alignment is a separate additive
 translation and must not be confused with original F_R.
 
+A SECOND distinct check uses the real *aligned* height
+F_R+sqrt(2), rather than F_R. This height is closer to
+pi(R^2) than Li_2 at **2498 of the same 2499 roots**;
+Li_2 remains closer at R=2, x=4:
+pi(4)=2, F_2+sqrt(2)=1.41421356,
+Li_2(4)=1.92242131. The absolute errors are
+0.58578644 versus 0.07757869.
+At R=3, pi(9)=4, F_3+sqrt(2)=4.08543601 and
+Li_2(9)=4.676074..., so sqrt(2)-aligned VF is
+closer there. These are empirical finite checks,
+not universal error bounds.
+
 Classical Littlewood oscillations likewise prevent assuming
 a fixed sign of the actual prime-minus-standard-li error
 for all x.
