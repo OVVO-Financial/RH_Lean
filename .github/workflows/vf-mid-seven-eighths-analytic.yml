@@ -11,6 +11,7 @@ on:
       - research/VF_MID_919_OAI_FERMAT_TWIST_PROJECTION.lean
       - research/VF_MID_919_OAI_PHASE_ALIGNED_OWNER_COMPENSATION.lean
       - research/VF_MID_919_OAI_OWNER_TWO_SIGNED_BOUNDARY.lean
+      - research/VF_MID_919_OAI_SHARP_SMOOTH_NO_GAP.lean
       - research/VF_MID_919_OAI_R2K_ENDPOINT_LIMIT.lean
       - research/VF_MID_919_OAI_QUADRATIC_NORM_EULER.lean
       - research/VF_MID_919_OAI_OWNER_TWO_SIGNED_MERTENS_MOMENT.md
@@ -67,7 +68,8 @@ jobs:
             research/VF_MID_919_OAI_QUADRATIC_NORM_EULER.lean \
             research/VF_MID_919_OAI_PHASE_ALIGNED_OWNER_COMPENSATION.lean \
             research/VF_MID_919_OAI_OWNER_TWO_SIGNED_BOUNDARY.lean \
-            research/VF_MID_919_OAI_R2K_ENDPOINT_LIMIT.lean; then
+            research/VF_MID_919_OAI_R2K_ENDPOINT_LIMIT.lean \
+            research/VF_MID_919_OAI_SHARP_SMOOTH_NO_GAP.lean; then
             echo "No proof holes or added axioms allowed"
             exit 1
           fi
@@ -98,6 +100,11 @@ jobs:
           lake env lean -DwarningAsError=true \
             -o .lake/build/lib/lean/research.VF_MID_LI_UNIFORM_QUADRATURE.olean \
             research/VF_MID_LI_UNIFORM_QUADRATURE.lean
+      - name: Compile exact sharp recovery from half-integer smoothing (warning-fatal)
+        run: |
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.VF_MID_919_OAI_SHARP_SMOOTH_NO_GAP.olean \
+            research/VF_MID_919_OAI_SHARP_SMOOTH_NO_GAP.lean
       - name: Compile honest 7/8 conditional bridge (warning-fatal)
         run: |
           lake env lean -DwarningAsError=true \
@@ -148,6 +155,13 @@ jobs:
           import «research.VF_MID_919_OAI_PARTIAL_MOMENT_TAILS»
           import «research.VF_MID_919_OAI_FERMAT_TWIST_PROJECTION»
           import «research.VF_MID_919_OAI_QUADRATIC_NORM_EULER»
+          import «research.VF_MID_919_OAI_SHARP_SMOOTH_NO_GAP»
+          #check RHLean.Analysis.vf919HalfIntegerWindow_eq_sharp
+          #check RHLean.Analysis.vf919SquareHalfIntegerCenter
+          #check RHLean.Analysis.vf919SquareQ2Window_eq_sharp
+          #check RHLean.Analysis.vf919RootWindow_eq_sharp
+          #print axioms RHLean.Analysis.vf919SquareQ2Window_eq_sharp
+          #print axioms RHLean.Analysis.vf919RootWindow_eq_sharp
           #check RHLean.Geometry.vf919TwistedFermatProduct_eq_product_sub_gap
           #check RHLean.Geometry.vf919TwistedFermatProduct_one
           #check RHLean.Geometry.vf919TwistedFermatProduct_neg_phase
