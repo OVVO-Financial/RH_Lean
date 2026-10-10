@@ -42,7 +42,9 @@ than beginning with an isolated PR cache.
 The five first-bad/recursive workflows classify changed files against their
 actual transitive import DAG before installing Lean. Unrelated research edits
 skip expensive setup; new imports enter the closure automatically. A missing
-base commit conservatively runs the check. Keep theorem signatures
+base commit conservatively runs the check. PR and main-push filters also
+include native sources, dependency pins and the shared CI/parser helpers,
+so their changes reach this routing step before merge. Keep theorem signatures
 and axiom checks after compilation; cached oleans alone do not establish
 acceptance. New research workflows can use `./.github/actions/lean-setup`
 followed by `./.github/actions/research-compile` with a `targets` input.
