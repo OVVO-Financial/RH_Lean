@@ -462,4 +462,61 @@ theorem vfWilesFrozenWheelOddSeat_sum
     _ = _ := by
       simp only [Finset.sum_sub_distrib, Finset.sum_add_distrib]
 
+
+/-! ## A genuine all-integer no-migration lemma for the raw next-right clip
+
+The x=289..324 and larger-block sweeps suggest that no surviving
+odd physical pair changes its first/next/returned clipping orientation
+after the two physical sites are present. The underlying next-right
+geometry is independent of primality estimates.
+
+Let a=r*h and c=p*b be two odd sites above R^2, with p<r odd.
+If the *prospective* r*b corner exceeds both sites, then its
+overhang cannot be smaller than the completed square-band width:
+it is at least (R+1)^2. This derives solely from (i) odd factors
+separated by >=2 and (ii) narrow square bands.
+
+This lemma does not prove the native six-sector inclusion by itself:
+the original first-owner and returned-owner source selectors must
+still be imported when constructing the actual-prime specialization.
+-/
+
+/-- A next-right raw-parent corner cannot newly cross the clock
+in the interior of a completed square band, once both physical
+odd source sites have entered. -/
+theorem vfWilesOddBandNextRightClip_noIntermediate
+    (R p r h b : ℕ)
+    (hpOdd : p % 2 = 1) (hrOdd : r % 2 = 1)
+    (hhOdd : h % 2 = 1) (hbOdd : b % 2 = 1)
+    (hpr : p < r)
+    (ha : R ^ 2 < r * h)
+    (hc : R ^ 2 < p * b)
+    (hafter : max (r * h) (p * b) < r * b) :
+    (R + 1) ^ 2 ≤ r * b := by
+  have hgap : p + 2 ≤ r := by omega
+  by_cases hrR : r ≤ R
+  · have hpR : p ≤ R := by omega
+    have hbR : R < b := by
+      by_contra h
+      have hbLe : b ≤ R := by omega
+      have h1 : p * b ≤ R * b := Nat.mul_le_mul_right b hpR
+      have h2 : R * b ≤ R * R := Nat.mul_le_mul_left R hbLe
+      have hcl : R * R < p * b := by simpa only [pow_two] using hc
+      omega
+    have hmul : (p + 2) * b ≤ r * b :=
+      Nat.mul_le_mul_right b hgap
+    nlinarith
+  · have hrgt : R < r := by omega
+    have hrh : r * h < r * b :=
+      lt_of_le_of_lt (Nat.le_max_left (r * h) (p * b)) hafter
+    have hbh : h < b := by
+      by_contra h
+      have hble : b ≤ h := by omega
+      have hmul : r * b ≤ r * h := Nat.mul_le_mul_left r hble
+      omega
+    have hgapb : h + 2 ≤ b := by omega
+    have hmul : r * (h + 2) ≤ r * b :=
+      Nat.mul_le_mul_left r hgapb
+    nlinarith
+
 end RHLean.Analysis
