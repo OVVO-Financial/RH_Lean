@@ -20,6 +20,9 @@ open scoped BigOperators
 
 namespace RHLean.Analysis
 
+@[simp] theorem vf919ArithmeticFunction_sub_apply
+    (f g : ArithmeticFunction ℂ) (n : ℕ) : (f - g) n = f n - g n := rfl
+
 def vf919ChiMinusThree (n : ℕ) : ℂ :=
   if n % 3 = 0 then 0 else if n % 3 = 1 then 1 else -1
 
@@ -80,7 +83,7 @@ def vf919ExcludedNormCoefficients : ArithmeticFunction ℂ :=
   by_cases hn : n = 0
   · simp [hn, vf919ChiMinusThree]
   · simp [vf919QuadraticCharacter, vf919ArithmeticTwist,
-      vf919RationalZeta, ArithmeticFunction.zeta_apply_ne hn]
+      vf919RationalZeta, hn]
 
 theorem vf919QuadraticCharacter_mul_inverse :
     vf919QuadraticCharacter * vf919QuadraticInverse = 1 := by
@@ -104,7 +107,8 @@ theorem vf919QuadraticCharacter_mul_norm_eq_mobius :
     _ = vf919RationalMobius := by rw [vf919QuadraticCharacter_mul_inverse]; simp
 
 def vf919DirichletDelta (k : ℕ) : ArithmeticFunction ℂ :=
-  ⟨fun n => if n = k ∧ k ≠ 0 then 1 else 0, by simp⟩
+  ⟨fun n => if n = k ∧ k ≠ 0 then 1 else 0, by
+    by_cases hk : k = 0 <;> simp [hk]⟩
 
 theorem vf919DirichletDelta_mul_apply (k : ℕ) (hk : 0 < k)
     (f : ArithmeticFunction ℂ) (n : ℕ) :
@@ -114,7 +118,8 @@ theorem vf919DirichletDelta_mul_apply (k : ℕ) (hk : 0 < k)
   rw [ArithmeticFunction.mul_apply]
   by_cases hkn : k ∣ n
   · rw [if_pos hkn]
-    apply Finset.sum_eq_single (k, n / k)
+    rw [Finset.sum_eq_single (k, n / k)]
+    · simp [vf919DirichletDelta, hk.ne']
     · intro x hx hne
       by_cases hxk : x.1 = k
       · have hp := (Nat.mem_divisorsAntidiagonal.mp hx).1
@@ -126,7 +131,6 @@ theorem vf919DirichletDelta_mul_apply (k : ℕ) (hk : 0 < k)
     · intro hnot
       exact (hnot (Nat.mem_divisorsAntidiagonal.mpr
         ⟨Nat.mul_div_cancel' hkn, hn⟩)).elim
-    · simp [vf919DirichletDelta, hk.ne']
   · rw [if_neg hkn]
     apply Finset.sum_eq_zero
     intro x hx
@@ -157,6 +161,13 @@ private theorem vf919MaskedZeta_eq_deletedFactors :
       (1 - vf919DirichletDelta 2) * (1 - vf919DirichletDelta 3) *
         vf919RationalZeta := by
   have hdelta := vf919DirichletDelta_mul 2 3 (by decide) (by decide)
+  change vf919DirichletDelta 2 * vf919DirichletDelta 3 = vf919DirichletDelta 6 at hdelta
+  have hfactor : (1 - vf919DirichletDelta 2) * (1 - vf919DirichletDelta 3) *
+      vf919RationalZeta = vf919RationalZeta - vf919DirichletDelta 2 * vf919RationalZeta -
+        vf919DirichletDelta 3 * vf919RationalZeta + vf919DirichletDelta 6 * vf919RationalZeta := by
+    rw [← hdelta]
+    ring
+  rw [hfactor]
   ext n
   by_cases hn : n = 0
   · simp [hn]
@@ -176,17 +187,14 @@ private theorem vf919MaskedZeta_eq_deletedFactors :
     simp [hz] at this
     exact hn this.symm
   have h₆iff : 6 ∣ n ↔ 2 ∣ n ∧ 3 ∣ n := by
-    exact (by decide : Nat.Coprime 2 3).mul_dvd_iff_dvd_and_dvd
-  simp only [sub_mul, mul_sub, one_mul, mul_one, mul_assoc,
-    ← mul_assoc (vf919DirichletDelta 2) (vf919DirichletDelta 3), hdelta,
-    ArithmeticFunction.sub_apply]
+    simp only [Nat.dvd_iff_mod_eq_zero]
+    omega
+  simp only [vf919ArithmeticFunction_sub_apply, ArithmeticFunction.add_apply]
   rw [vf919DirichletDelta_mul_apply 2 (by decide),
     vf919DirichletDelta_mul_apply 3 (by decide),
     vf919DirichletDelta_mul_apply 6 (by decide)]
   by_cases h2 : 2 ∣ n <;> by_cases h3 : 3 ∣ n <;>
-    simp [vf919ArithmeticTwist, vf919PrimeToSixMask, vf919RationalZeta,
-      ArithmeticFunction.zeta_apply_ne hn, h2, h3, h₆iff,
-      ArithmeticFunction.zeta_apply_ne, h₂, h₃, h₆]
+    simp_all [vf919ArithmeticTwist, vf919PrimeToSixMask, vf919RationalZeta]
 
 private theorem vf919MaskedCharacter_eq_deletedFactor :
     vf919ArithmeticTwist vf919PrimeToSixMask vf919QuadraticCharacter =
@@ -196,12 +204,17 @@ private theorem vf919MaskedCharacter_eq_deletedFactor :
     vf919DirichletDelta_mul_apply 2 (by decide)]
   by_cases h2 : 2 ∣ n
   · have hchi : vf919ChiMinusThree n = -vf919ChiMinusThree (n / 2) := by
-      rw [← Nat.mul_div_cancel' h2, vf919ChiMinusThree_mul]
-      norm_num [vf919ChiMinusThree]
+      calc
+        vf919ChiMinusThree n =
+            vf919ChiMinusThree 2 * vf919ChiMinusThree (n / 2) := by
+          rw [← vf919ChiMinusThree_mul, Nat.mul_div_cancel' h2]
+        _ = -vf919ChiMinusThree (n / 2) := by
+          rw [show vf919ChiMinusThree 2 = -1 from by norm_num [vf919ChiMinusThree]]
+          ring
     simp [vf919ArithmeticTwist, vf919PrimeToSixMask, h2, hchi]
   · by_cases h3 : 3 ∣ n
     · have hn3 : n % 3 = 0 := Nat.mod_eq_zero_of_dvd h3
-      simp [vf919ArithmeticTwist, vf919PrimeToSixMask, h2, h3,
+      simp [vf919ArithmeticTwist, vf919PrimeToSixMask, h2,
         vf919ChiMinusThree, hn3]
     · simp [vf919ArithmeticTwist, vf919PrimeToSixMask, h2, h3]
 
@@ -274,9 +287,9 @@ theorem vf919PhysicalHeckeKernel_sub (N m : ℕ) (w v : ℕ → ℂ) :
   ring
 
 def vf919SmoothPhysicalWeight (R X n : ℕ) : ℂ :=
-  if n ≤ X ∧ (∀ p : ℕ, p.Prime → p ∣ n → p ≤ R) then 1 else 0
+  by classical exact if n ≤ X ∧ (∀ p : ℕ, p.Prime → p ∣ n → p ≤ R) then 1 else 0
 def vf919HighTransportPhysicalWeight (R X n : ℕ) : ℂ :=
-  if n ≤ X ∧ ¬ (∀ p : ℕ, p.Prime → p ∣ n → p ≤ R) then -1 else 0
+  by classical exact if n ≤ X ∧ ¬ (∀ p : ℕ, p.Prime → p ∣ n → p ≤ R) then -1 else 0
 def vf919SharpPhysicalWeight (X n : ℕ) : ℂ := if n ≤ X then 1 else 0
 
 theorem vf919Smooth_sub_transport_eq_sharp (R X : ℕ) :
@@ -311,11 +324,11 @@ theorem vf919IntegerCharacterPrefix_eq_residue (N : ℕ) :
     have hn := Nat.mod_lt N (by decide : 0 < 3)
     interval_cases h : N % 3
     · have hs : (N + 1) % 3 = 1 := by omega
-      simp [vf919IntegerCharacter, h, hs]
+      simp [vf919IntegerCharacter, hs]
     · have hs : (N + 1) % 3 = 2 := by omega
-      simp [vf919IntegerCharacter, h, hs]
+      simp [vf919IntegerCharacter, hs]
     · have hs : (N + 1) % 3 = 0 := by omega
-      simp [vf919IntegerCharacter, h, hs]
+      simp [vf919IntegerCharacter, hs]
 
 def vf919SharpQuotientKernel36 (N : ℕ) : ℤ :=
   vf919IntegerCharacterPrefix N - vf919IntegerCharacterPrefix (N / 3) -
@@ -358,5 +371,206 @@ theorem vf919SharpQuotientKernel36_mean_zero :
     (∑ j ∈ Finset.range 36, vf919SharpQuotientKernel36 j) = 0 := by
   norm_num [Finset.sum_range_succ, vf919SharpQuotientKernel36,
     vf919IntegerCharacterPrefix_eq_residue]
+
+private theorem vf919DivisorAntidiagonal_eq_box (N n : ℕ)
+    (hn : n ∈ Finset.Icc 1 N) :
+    n.divisorsAntidiagonal =
+      ((Finset.Icc 1 N).product (Finset.Icc 1 N)).filter
+        (fun x : ℕ × ℕ => x.1 * x.2 = n) := by
+  ext x
+  simp only [Nat.mem_divisorsAntidiagonal, Finset.mem_filter,
+    Finset.mem_product, Finset.mem_Icc]
+  have hn1 := (Finset.mem_Icc.mp hn).1
+  have hnN := (Finset.mem_Icc.mp hn).2
+  constructor
+  · rintro ⟨hprod, _hne⟩
+    have hx1 : 1 ≤ x.1 := by
+      by_contra h
+      have hz : x.1 = 0 := by omega
+      simp [hz] at hprod
+      omega
+    have hx2 : 1 ≤ x.2 := by
+      by_contra h
+      have hz : x.2 = 0 := by omega
+      simp [hz] at hprod
+      omega
+    have hleft : x.1 ≤ x.1 * x.2 := by
+      simpa using Nat.mul_le_mul_left x.1 hx2
+    have hright : x.2 ≤ x.1 * x.2 := by
+      simpa using Nat.mul_le_mul_right x.2 hx1
+    exact ⟨⟨⟨hx1, by omega⟩, ⟨hx2, by omega⟩⟩, hprod⟩
+  · rintro ⟨_hbox, hprod⟩
+    exact ⟨hprod, by omega⟩
+
+/-- Finite Dirichlet Fubini with every physical coefficient unchanged.
+The support hypothesis is ONLY a cutoff, not a cancellation assumption. -/
+theorem vf919DirichletWeightedPairing (N : ℕ)
+    (f g : ArithmeticFunction ℂ) (w : ℕ → ℂ)
+    (hw : ∀ n, N < n → w n = 0) :
+    (∑ n ∈ Finset.Icc 1 N, (f * g) n * w n) =
+      ∑ m ∈ Finset.Icc 1 N, f m *
+        ∑ d ∈ Finset.Icc 1 N, g d * w (m * d) := by
+  calc
+    (∑ n ∈ Finset.Icc 1 N, (f * g) n * w n) =
+        ∑ n ∈ Finset.Icc 1 N, ∑ m ∈ Finset.Icc 1 N,
+          ∑ d ∈ Finset.Icc 1 N,
+            if m * d = n then f m * g d * w n else 0 := by
+      apply Finset.sum_congr rfl
+      intro n hn
+      rw [ArithmeticFunction.mul_apply, vf919DivisorAntidiagonal_eq_box N n hn,
+        Finset.sum_filter, Finset.sum_mul, Finset.sum_product]
+      apply Finset.sum_congr rfl
+      intro m _hm
+      apply Finset.sum_congr rfl
+      intro d _hd
+      split_ifs <;> simp
+    _ = ∑ m ∈ Finset.Icc 1 N, ∑ d ∈ Finset.Icc 1 N,
+          ∑ n ∈ Finset.Icc 1 N,
+            if m * d = n then f m * g d * w n else 0 := by
+      rw [Finset.sum_comm]
+      apply Finset.sum_congr rfl
+      intro m _hm
+      rw [Finset.sum_comm]
+    _ = ∑ m ∈ Finset.Icc 1 N, f m *
+          ∑ d ∈ Finset.Icc 1 N, g d * w (m * d) := by
+      apply Finset.sum_congr rfl
+      intro m hm
+      rw [Finset.mul_sum]
+      apply Finset.sum_congr rfl
+      intro d hd
+      have hpos : 1 ≤ m * d := by
+        have hm1 := (Finset.mem_Icc.mp hm).1
+        have hd1 := (Finset.mem_Icc.mp hd).1
+        nlinarith
+      by_cases hle : m * d ≤ N
+      · have hmem : m * d ∈ Finset.Icc 1 N := Finset.mem_Icc.mpr ⟨hpos, hle⟩
+        simp [eq_comm, hmem, mul_assoc]
+      · have hnot : m * d ∉ Finset.Icc 1 N := by simp [hle]
+        simp [eq_comm, hnot, hw (m * d) (by omega)]
+
+private theorem vf919DeltaWeightedPairing (N k : ℕ) (hk : k ∈ Finset.Icc 1 N)
+    (f : ArithmeticFunction ℂ) (w : ℕ → ℂ)
+    (hw : ∀ n, N < n → w n = 0) :
+    (∑ n ∈ Finset.Icc 1 N, (vf919DirichletDelta k * f) n * w n) =
+      ∑ m ∈ Finset.Icc 1 N, f m * w (k * m) := by
+  rw [vf919DirichletWeightedPairing N (vf919DirichletDelta k) f w hw]
+  have hk0 : k ≠ 0 := by have := (Finset.mem_Icc.mp hk).1; omega
+  simp [vf919DirichletDelta, hk0, hk]
+
+private theorem vf919RestoringFactorsWeightedPairing (N : ℕ) (hN : 12 ≤ N)
+    (f : ArithmeticFunction ℂ) (w : ℕ → ℂ)
+    (hw : ∀ n, N < n → w n = 0) :
+    (∑ n ∈ Finset.Icc 1 N,
+      (((1 - vf919DirichletDelta 3) * (1 - vf919DirichletDelta 4)) * f) n * w n) =
+      ∑ n ∈ Finset.Icc 1 N, f n *
+        (w n - w (3 * n) - w (4 * n) + w (12 * n)) := by
+  have h34 := vf919DirichletDelta_mul 3 4 (by decide) (by decide)
+  change vf919DirichletDelta 3 * vf919DirichletDelta 4 = vf919DirichletDelta 12 at h34
+  have hfactor : ((1 - vf919DirichletDelta 3) * (1 - vf919DirichletDelta 4)) * f =
+      f - vf919DirichletDelta 3 * f - vf919DirichletDelta 4 * f +
+        vf919DirichletDelta 12 * f := by rw [← h34]; ring
+  rw [hfactor]
+  simp only [ArithmeticFunction.add_apply, vf919ArithmeticFunction_sub_apply,
+    sub_mul, add_mul, Finset.sum_sub_distrib, Finset.sum_add_distrib]
+  rw [vf919DeltaWeightedPairing N 3 (by simp; omega) f w hw,
+    vf919DeltaWeightedPairing N 4 (by simp; omega) f w hw,
+    vf919DeltaWeightedPairing N 12 (by simp; omega) f w hw]
+  simp only [mul_sub, mul_add, Finset.sum_sub_distrib, Finset.sum_add_distrib]
+
+/-- COMPLETE rational-to-excluded-norm dictionary for arbitrary complex
+physical weights, using the actual Mathlib Mobius function. No coefficient
+identification hypothesis or arithmetic estimate occurs in this theorem. -/
+theorem vf919WeightedMobius_eq_excludedNormKernel
+    (N : ℕ) (hN : 12 ≤ N) (w : ℕ → ℂ)
+    (hw : ∀ n, N < n → w n = 0) :
+    (∑ n ∈ Finset.Icc 1 N, (ArithmeticFunction.moebius n : ℂ) * w n) =
+      ∑ m ∈ Finset.Icc 1 N,
+        vf919ExcludedNormCoefficients m * vf919PhysicalHeckeKernel N w m := by
+  let v : ℕ → ℂ := fun n => w n - w (3 * n) - w (4 * n) + w (12 * n)
+  have hv : ∀ n, N < n → v n = 0 := by
+    intro n hn
+    dsimp [v]
+    rw [hw n hn, hw (3 * n) (by omega), hw (4 * n) (by omega),
+      hw (12 * n) (by omega)]
+    ring
+  have hcoef : vf919RationalMobius =
+      ((1 - vf919DirichletDelta 3) * (1 - vf919DirichletDelta 4)) *
+        (vf919ExcludedNormCoefficients * vf919QuadraticCharacter) := by
+    rw [← vf919ExcludedNorm_restored_character_eq_mobius]
+    ring
+  calc
+    (∑ n ∈ Finset.Icc 1 N, (ArithmeticFunction.moebius n : ℂ) * w n) =
+        ∑ n ∈ Finset.Icc 1 N, vf919RationalMobius n * w n := rfl
+    _ = ∑ n ∈ Finset.Icc 1 N,
+        (((1 - vf919DirichletDelta 3) * (1 - vf919DirichletDelta 4)) *
+          (vf919ExcludedNormCoefficients * vf919QuadraticCharacter)) n * w n := by rw [hcoef]
+    _ = ∑ n ∈ Finset.Icc 1 N,
+        (vf919ExcludedNormCoefficients * vf919QuadraticCharacter) n * v n :=
+      vf919RestoringFactorsWeightedPairing N hN _ w hw
+    _ = ∑ m ∈ Finset.Icc 1 N, vf919ExcludedNormCoefficients m *
+        ∑ d ∈ Finset.Icc 1 N, vf919QuadraticCharacter d * v (m * d) :=
+      vf919DirichletWeightedPairing N _ _ v hv
+    _ = ∑ m ∈ Finset.Icc 1 N,
+        vf919ExcludedNormCoefficients m * vf919PhysicalHeckeKernel N w m := by
+      simp [vf919PhysicalHeckeKernel, v]
+
+private theorem vf919CharacterSum_sharp_dilation (N X m : ℕ)
+    (hX : X ≤ N) (hm : 0 < m) :
+    (∑ d ∈ Finset.Icc 1 N, if m * d ≤ X then vf919ChiMinusThree d else 0) =
+      (vf919IntegerCharacterPrefix (X / m) : ℂ) := by
+  have hdiv : X / m ≤ N := (Nat.div_le_self X m).trans hX
+  have hfilter : (Finset.Icc 1 N).filter (fun d => m * d ≤ X) =
+      Finset.Icc 1 (X / m) := by
+    ext d
+    have hiff : m * d ≤ X ↔ d ≤ X / m := by
+      simpa [Nat.mul_comm] using (Nat.le_div_iff_mul_le hm).symm
+    simp only [Finset.mem_filter, Finset.mem_Icc, hiff]
+    omega
+  rw [← Finset.sum_filter, hfilter]
+  simp only [vf919IntegerCharacterPrefix, Int.cast_sum]
+  apply Finset.sum_congr rfl
+  intro d _hd
+  unfold vf919IntegerCharacter vf919ChiMinusThree
+  split_ifs <;> norm_num
+
+theorem vf919SharpPhysicalHeckeKernel_eq_periodic_quotient (N X m : ℕ)
+    (hX : X ≤ N) (hm : 0 < m) :
+    vf919PhysicalHeckeKernel N (vf919SharpPhysicalWeight X) m =
+      (vf919SharpQuotientKernel36 (X / m) : ℂ) := by
+  unfold vf919PhysicalHeckeKernel vf919SharpPhysicalWeight
+  simp only [mul_sub, mul_add, mul_ite, mul_one, mul_zero,
+    Finset.sum_sub_distrib, Finset.sum_add_distrib]
+  simp only [← Nat.mul_assoc]
+  rw [vf919CharacterSum_sharp_dilation N X m hX hm,
+    vf919CharacterSum_sharp_dilation N X (3 * m) hX (by omega),
+    vf919CharacterSum_sharp_dilation N X (4 * m) hX (by omega),
+    vf919CharacterSum_sharp_dilation N X (12 * m) hX (by omega)]
+  simp [vf919SharpQuotientKernel36, Nat.div_div_eq_div_mul, Nat.mul_comm]
+
+/-- The actual sharp Mertens prefix in excluded principal norm currency.
+The 36-periodic coefficient is applied to floor(X/m), not to m. -/
+theorem vf919Mertens_eq_excludedNorm_periodicKernel (X : ℕ) (hX : 12 ≤ X) :
+    (∑ n ∈ Finset.Icc 1 X, (ArithmeticFunction.moebius n : ℂ)) =
+      ∑ m ∈ Finset.Icc 1 X, vf919ExcludedNormCoefficients m *
+        (vf919SharpQuotientKernel36 (X / m) : ℂ) := by
+  have hw : ∀ n, X < n → vf919SharpPhysicalWeight X n = 0 := by
+    intro n hn
+    simp [vf919SharpPhysicalWeight, Nat.not_le.mpr hn]
+  calc
+    (∑ n ∈ Finset.Icc 1 X, (ArithmeticFunction.moebius n : ℂ)) =
+        ∑ n ∈ Finset.Icc 1 X,
+          (ArithmeticFunction.moebius n : ℂ) * vf919SharpPhysicalWeight X n := by
+      apply Finset.sum_congr rfl
+      intro n hn
+      simp [vf919SharpPhysicalWeight, (Finset.mem_Icc.mp hn).2]
+    _ = ∑ m ∈ Finset.Icc 1 X, vf919ExcludedNormCoefficients m *
+          vf919PhysicalHeckeKernel X (vf919SharpPhysicalWeight X) m :=
+      vf919WeightedMobius_eq_excludedNormKernel X hX _ hw
+    _ = ∑ m ∈ Finset.Icc 1 X, vf919ExcludedNormCoefficients m *
+          (vf919SharpQuotientKernel36 (X / m) : ℂ) := by
+      apply Finset.sum_congr rfl
+      intro m hm
+      rw [vf919SharpPhysicalHeckeKernel_eq_periodic_quotient X X m le_rfl
+        (by have := (Finset.mem_Icc.mp hm).1; omega)]
 
 end RHLean.Analysis

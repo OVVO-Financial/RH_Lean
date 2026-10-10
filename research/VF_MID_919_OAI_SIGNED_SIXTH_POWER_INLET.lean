@@ -1,5 +1,4 @@
 import Mathlib
-import «research.VF_MID_919_OAI_PRINCIPAL_COEFFICIENT_MAP»
 
 /-!
 # Finite occurrence-preserving sixth-power inlet

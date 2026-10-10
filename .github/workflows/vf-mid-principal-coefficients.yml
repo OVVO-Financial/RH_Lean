@@ -6,6 +6,7 @@ on:
     paths:
       - research/VF_MID_919_OAI_PRINCIPAL_COEFFICIENT_MAP.lean
       - research/VF_MID_919_OAI_SIGNED_SIXTH_POWER_INLET.lean
+      - scripts/vf919_principal_coefficient_check.py
       - .github/workflows/vf-mid-principal-coefficients.yml
   workflow_dispatch:
 
@@ -38,23 +39,27 @@ jobs:
           lint: false
       - name: Forbid proof holes and added axioms
         run: |
-          if rg -n '\b(sorry|admit|axiom)\b' \
-            research/VF_MID_919_OAI_PRINCIPAL_COEFFICIENT_MAP.lean \
-            research/VF_MID_919_OAI_SIGNED_SIXTH_POWER_INLET.lean; then
-            exit 1
-          fi
+          python3 - <<'PY'
+          import re
+          from pathlib import Path
+          for name in ('PRINCIPAL_COEFFICIENT_MAP', 'SIGNED_SIXTH_POWER_INLET'):
+              path = Path(f'research/VF_MID_919_OAI_{name}.lean')
+              assert not re.search(r'\b(sorry|admit|axiom)\b', path.read_text()), path
+          PY
       - name: Compile exact coefficient map and signed amplifier warning-fatally
         run: |
           mkdir -p .lake/build/lib/lean
           set -o pipefail
+          status=0
           lake env lean -DwarningAsError=true \
             -o .lake/build/lib/lean/research.VF_MID_919_OAI_PRINCIPAL_COEFFICIENT_MAP.olean \
             research/VF_MID_919_OAI_PRINCIPAL_COEFFICIENT_MAP.lean \
-            2>&1 | tee vf919-principal-coefficient-compile.log
+            2>&1 | tee vf919-principal-coefficient-compile.log || status=1
           lake env lean -DwarningAsError=true \
             -o .lake/build/lib/lean/research.VF_MID_919_OAI_SIGNED_SIXTH_POWER_INLET.olean \
             research/VF_MID_919_OAI_SIGNED_SIXTH_POWER_INLET.lean \
-            2>&1 | tee vf919-signed-amplifier-compile.log
+            2>&1 | tee vf919-signed-amplifier-compile.log || status=1
+          exit "$status"
       - name: Check elaborated signatures and standard axioms
         run: |
           cat > /tmp/vf919_principal_axioms.lean <<'LEAN'
@@ -78,6 +83,14 @@ jobs:
           #print axioms RHLean.Analysis.vf919SharpQuotientKernel36_bounds
           #check RHLean.Analysis.vf919SharpQuotientKernel36_mean_zero
           #print axioms RHLean.Analysis.vf919SharpQuotientKernel36_mean_zero
+          #check RHLean.Analysis.vf919DirichletWeightedPairing
+          #print axioms RHLean.Analysis.vf919DirichletWeightedPairing
+          #check RHLean.Analysis.vf919WeightedMobius_eq_excludedNormKernel
+          #print axioms RHLean.Analysis.vf919WeightedMobius_eq_excludedNormKernel
+          #check RHLean.Analysis.vf919SharpPhysicalHeckeKernel_eq_periodic_quotient
+          #print axioms RHLean.Analysis.vf919SharpPhysicalHeckeKernel_eq_periodic_quotient
+          #check RHLean.Analysis.vf919Mertens_eq_excludedNorm_periodicKernel
+          #print axioms RHLean.Analysis.vf919Mertens_eq_excludedNorm_periodicKernel
           #check RHLean.Analysis.vf919FiniteIdealRow_sixthPower_column
           #print axioms RHLean.Analysis.vf919FiniteIdealRow_sixthPower_column
           #check RHLean.Analysis.vf919PrincipalSixthPowerRow_eq_maskedMobius
@@ -94,11 +107,16 @@ jobs:
           text = Path('vf919-principal-axioms.log').read_text()
           records = re.findall(r'depends on axioms:\s*\[([^\]]*)\]', text, re.S)
           closed = len(re.findall(r'does not depend on any axioms', text))
-          assert len(records) + closed == 12, (records, closed)
+          assert len(records) + closed == 16, (records, closed)
           allowed = {'propext', 'Classical.choice', 'Quot.sound'}
           for record in records:
               assert {a.strip() for a in record.split(',') if a.strip()} <= allowed, record
           PY
+      - name: Verify independent exact coefficient census
+        run: |
+          set -o pipefail
+          python3 scripts/vf919_principal_coefficient_check.py \
+            2>&1 | tee vf919-principal-numerical.log
       - name: Retain compiler and axiom evidence
         if: always()
         uses: actions/upload-artifact@v4
