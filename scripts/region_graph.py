@@ -831,9 +831,10 @@ def main() -> int:
             f"{data['stats']['located']} located, "
             f"{len(data['crossings'])} crossings"
         )
-        return 0
-
-    data = build()
+        if not (args.json or args.dot):
+            return 0
+    else:
+        data = build()
 
     if args.json:
         args.json.write_text(json.dumps(data, indent=2, sort_keys=True), encoding="utf-8")

@@ -25,21 +25,8 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
 
-      - name: Restore dependency sources
-        id: lakepackages
-        uses: actions/cache/restore@v5
-        with:
-          path: .lake/packages
-          key: lake-packages-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
-
-      - name: Set up Lean and Mathlib
-        uses: leanprover/lean-action@v1
-        with:
-          use-github-cache: false
-          use-mathlib-cache: true
-          build: false
-          test: false
-          lint: false
+      - name: Set up Lean and cached Mathlib
+        uses: ./.github/actions/lean-setup
 
       - name: Apply StrongPNT 4.24 compatibility patch
         run: |
