@@ -241,4 +241,87 @@ theorem vfWilesOpposedRows_canHavePositiveGram :
     0 < ((1 : ℝ) - (-1)) ^ 2 - (1 : ℝ) ^ 2 - (-1 : ℝ) ^ 2 := by
   norm_num
 
+
+/-! ## Exact obstruction to pairing UNALTERED physical odd-seat charges
+
+The genuine native VF site charge in square block R is
+  w_R - 1_Prime(n), where 0 < w_R < 1/2 for R >= 8.
+Consequently each ORIGINAL prime charge is < -1/2 while every
+ORIGINAL composite charge is between 0 and +1/2.
+An exact sign-reversing mirror cannot map any one of these original
+atoms to another, even when the source/destination roots differ.
+
+This is an algebraic no-go result, NOT a bound on prime distribution:
+the antiphase class above can represent actual prime history only via
+independently derived compensated or composite cells (such as a masked
+higher-rank Gram with its honest boundary and historical terms). It cannot
+obtain membership by simply naming the original physical sites as cells.
+-/
+
+/-- Literal original VF odd-site charge. In the physical application,
+isPrime is the true Nat.Prime decision at that occurrence. -/
+def vfWilesOriginalOddSeatCharge (w : ℝ) (isPrime : Bool) : ℝ :=
+  if isPrime then w - 1 else w
+
+/-- No two unsplit original physical charges (possibly in DIFFERENT
+square blocks) can be exact negatives when their native weights lie
+strictly between 0 and 1/2. This excludes any direct antiphase return
+between literal odd-seat occurrences. -/
+theorem vfWilesOriginalOddSeatCharge_no_exact_antiphase
+    (w v : ℝ)
+    (hwpos : 0 < w) (hwhalf : w < 1 / 2)
+    (hvpos : 0 < v) (hvhalf : v < 1 / 2)
+    (p q : Bool) :
+    vfWilesOriginalOddSeatCharge w p ≠
+      -vfWilesOriginalOddSeatCharge v q := by
+  intro heq
+  cases p <;> cases q <;>
+    dsimp [vfWilesOriginalOddSeatCharge] at heq <;>
+    linarith
+
+/-- An anti-phase reversible packet whose amplitudes are EXACTLY the
+unaltered raw odd-seat physical charges must have EMPTY support. This
+gives a formal red-team acceptance failure for the naive proposed
+actual-prime membership of the original reversible class. -/
+theorem vfWilesReversibleRawPhysicalCarrier_empty
+    {α : Type*} [DecidableEq α]
+    (c : VFWilesReversibleCells α)
+    (weight : α → ℝ) (isPrime : α → Bool)
+    (hpos : ∀ i ∈ c.sites, 0 < weight i)
+    (hhalf : ∀ i ∈ c.sites, weight i < (1 / 2 : ℝ))
+    (hraw : ∀ i ∈ c.sites,
+      c.amplitude i =
+        vfWilesOriginalOddSeatCharge (weight i) (isPrime i)) :
+    c.sites = ∅ := by
+  classical
+  by_contra hne
+  have hs : c.sites.Nonempty := Finset.nonempty_iff_ne_empty.mpr hne
+  obtain ⟨i, hi⟩ := hs
+  have hmi : c.mirror i ∈ c.sites := c.mirror_mem i hi
+  have hanti := c.amplitude_neg i hi
+  rw [hraw (c.mirror i) hmi, hraw i hi] at hanti
+  exact (vfWilesOriginalOddSeatCharge_no_exact_antiphase
+    (weight (c.mirror i)) (weight i)
+    (hpos (c.mirror i) hmi) (hhalf (c.mirror i) hmi)
+    (hpos i hi) (hhalf i hi)
+    (isPrime (c.mirror i)) (isPrime i)) hanti
+
+/-- A general exact identity retaining the unmatched physical boundary.
+Closed anti-phase cells cancel in their LINEAR signed amplitude. Any
+unmatched sites remain explicitly in the 4*boundary flux, so their
+signed contribution cannot be silently converted into dissipation. -/
+theorem vfWilesIncompleteReturn_exact_boundary
+    {α β : Type*} [DecidableEq α]
+    (paired : VFWilesReversibleCells α)
+    (boundary : Finset β) (boundaryAmplitude : β → ℝ) :
+    vfWilesReversibleSector paired +
+      (∑ i ∈ boundary, vfWilesLocalSector (boundaryAmplitude i)) =
+    4 * (∑ i ∈ boundary, boundaryAmplitude i) -
+      2 * ((∑ i ∈ paired.sites, |paired.amplitude i|) +
+        (∑ i ∈ boundary, |boundaryAmplitude i|)) := by
+  rw [vfWilesReversibleSector_eq_negative_absolute]
+  unfold vfWilesLocalSector
+  simp only [Finset.sum_sub_distrib, Finset.mul_sum]
+  ring
+
 end RHLean.Analysis
