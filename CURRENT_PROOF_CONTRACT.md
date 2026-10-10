@@ -405,6 +405,42 @@ In particular:
 - PR #903 is restricted to exact classifier/Fubini bookkeeping that supports
   the run-level owner decomposition and lower-run descent.
 
+## Chosen sqrt-two phase and PNT horizontal clock (2026-10-10)
+
+The new route adopts **c0_chosen = sqrt(2)** as a fixed ADDITIVE
+vertical phase, formalized as `vfMidChosenC0` in
+[`VF_MID_SQRT_TWO_VERTICAL_PNT_HORIZONTAL.lean`](research/VF_MID_SQRT_TWO_VERTICAL_PNT_HORIZONTAL.lean).
+This deliberately does NOT assert the false numerical equality
+`sqrt(2) = 4 - 5/log(13/2)`: the latter remains the historical
+x=9 *real exact anchor*, and the original VF block masses are unchanged.
+
+The **independent horizontal question** is to translate the
+VF square-root INDEX rather than add more vertical correction:
+`VFMidSqrtTwoHorizontalRootWindow L R U` states exactly that
+`floor(F_L+sqrt2) <= pi(R^2) <= floor(F_U+sqrt2)`.
+The associated native finite lemma gives
+`F_L-F_R+sqrt2-1 < D_R <= F_U-F_R+sqrt2`.
+
+The repo already proves **actual-prime PNT**
+`nativePrimeNumberTheorem`; its composition with the genuine square
+clock, `vfMidSqrtTwoActualPrimeSquarePNT`, is being kernel-checked.
+PNT and the independently elementary VF asymptotic support only
+an eventual root-index displacement **o(R)**, NOT the horizontal
+**O((log R)^2)** displacement corresponding to the original
+RH-scale endpoint tracking target `O(R log R)`. The inverse-clock
+asymptotic still awaits a direct native Lean theorem.
+
+PNT alone cannot guarantee a prime in even ONE prescribed square
+block: deleting the primes in the sparse blocks with R=2^k alters
+pi(x) by at most O(sqrt x), preserving PNT while leaving infinitely
+many blocks empty (as a logical countermodel, NOT as a replacement
+for the true prime carrier). Original arithmetic remains defined by
+`Nat.Prime`/FTA. Do not assume any universal fixed-phase crossing:
+classical Littlewood excursions prevent it.
+
+Complete specification:
+[research/VF_MID_SQRT_TWO_VERTICAL_PNT_HORIZONTAL_CONTRACT.md](research/VF_MID_SQRT_TWO_VERTICAL_PNT_HORIZONTAL_CONTRACT.md).
+
 ## Fixed-alignment step-graph criterion: conditional only
 
 
