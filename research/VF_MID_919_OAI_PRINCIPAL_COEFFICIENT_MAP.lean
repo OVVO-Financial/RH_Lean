@@ -19,6 +19,7 @@ noncomputable section
 open scoped BigOperators
 
 namespace RHLean.Analysis
+attribute [local instance] Classical.propDecidable
 
 @[simp] theorem vf919ArithmeticFunction_sub_apply
     (f g : ArithmeticFunction ℂ) (n : ℕ) : (f - g) n = f n - g n := rfl
@@ -107,8 +108,7 @@ theorem vf919QuadraticCharacter_mul_norm_eq_mobius :
     _ = vf919RationalMobius := by rw [vf919QuadraticCharacter_mul_inverse]; simp
 
 def vf919DirichletDelta (k : ℕ) : ArithmeticFunction ℂ :=
-  ⟨fun n => if n = k ∧ k ≠ 0 then 1 else 0, by
-    by_cases hk : k = 0 <;> simp [hk]⟩
+  ⟨fun n => if n = k ∧ k ≠ 0 then 1 else 0, by simp [eq_comm]⟩
 
 theorem vf919DirichletDelta_mul_apply (k : ℕ) (hk : 0 < k)
     (f : ArithmeticFunction ℂ) (n : ℕ) :
@@ -194,7 +194,11 @@ private theorem vf919MaskedZeta_eq_deletedFactors :
     vf919DirichletDelta_mul_apply 3 (by decide),
     vf919DirichletDelta_mul_apply 6 (by decide)]
   by_cases h2 : 2 ∣ n <;> by_cases h3 : 3 ∣ n <;>
-    simp_all [vf919ArithmeticTwist, vf919PrimeToSixMask, vf919RationalZeta]
+    simp only [vf919ArithmeticTwist, ArithmeticFunction.coe_mk,
+      vf919PrimeToSixMask, vf919RationalZeta, ArithmeticFunction.natCoe_apply,
+      ArithmeticFunction.zeta_apply, h₆iff, h2, h3, h₂, h₃, h₆, hn,
+      or_true, or_false, and_true, and_false, if_true, if_false,
+      Nat.cast_zero, Nat.cast_one, zero_mul, one_mul] <;> norm_num
 
 private theorem vf919MaskedCharacter_eq_deletedFactor :
     vf919ArithmeticTwist vf919PrimeToSixMask vf919QuadraticCharacter =
@@ -298,8 +302,9 @@ theorem vf919Smooth_sub_transport_eq_sharp (R X : ℕ) :
   funext n
   by_cases hn : n ≤ X <;>
     by_cases hs : ∀ p : ℕ, p.Prime → p ∣ n → p ≤ R <;>
-    simp [vf919SmoothPhysicalWeight, vf919HighTransportPhysicalWeight,
-      vf919SharpPhysicalWeight, hn, hs]
+    simp only [vf919SmoothPhysicalWeight, vf919HighTransportPhysicalWeight,
+      vf919SharpPhysicalWeight, hn, hs, not_true_eq_false, not_false_eq_true,
+      and_true, and_false, true_and, false_and, if_true, if_false] <;> norm_num
 
 /-- The original low/high mask cancellation commutes with conversion at
 EACH norm, before summation or taking any energy. -/
@@ -375,7 +380,7 @@ theorem vf919SharpQuotientKernel36_mean_zero :
 private theorem vf919DivisorAntidiagonal_eq_box (N n : ℕ)
     (hn : n ∈ Finset.Icc 1 N) :
     n.divisorsAntidiagonal =
-      ((Finset.Icc 1 N).product (Finset.Icc 1 N)).filter
+      ((Finset.Icc 1 N) ×ˢ (Finset.Icc 1 N)).filter
         (fun x : ℕ × ℕ => x.1 * x.2 = n) := by
   ext x
   simp only [Nat.mem_divisorsAntidiagonal, Finset.mem_filter,

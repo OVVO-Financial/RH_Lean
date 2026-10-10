@@ -34,6 +34,7 @@ def vf919SixthPowerMaskedRow (P A : Finset ι) (norm : ι → ℕ)
 def vf919NormDilatedWeight (norm : ι → ℕ) (s : Finset ι) (b : ℕ → ℂ) : ℕ → ℂ :=
   fun m => b (vf919IdealLabelNorm norm s * m)
 
+omit [DecidableEq ι] in
 theorem vf919IdealLabelCoefficient_principal (s : Finset ι) :
     vf919IdealLabelCoefficient (fun _ => 1) s = (-1 : ℂ) ^ s.card := by
   simp [vf919IdealLabelCoefficient]
@@ -84,7 +85,7 @@ theorem vf919FiniteIdealRow_sixthPower_column
   simp_rw [vf919SixthPowerMaskedRow_eq_survivorRow]
   unfold vf919FiniteIdealRow vf919NormDilatedWeight
   simp_rw [Finset.mul_sum]
-  rw [← Finset.sum_product]
+  rw [← Finset.sum_product' A.powerset (P \ A).powerset]
   apply Finset.sum_bij (fun s _ => (s ∩ A, s \ A))
   · intro s hs
     apply Finset.mem_product.mpr
