@@ -60,6 +60,9 @@ on:
       - research/ZERO_TARGET_PARTIAL_MOMENT_COVARIANCE.lean
       - research/ZERO_TARGET_COVARIANCE_OWNER_DESCENT.lean
       - research/VF_MID_SQUARE_THETA_NATIVE_DESCENT.lean
+      - research/VF_MID_925_FACTOR_THETA_SPECTRAL_WELD.lean
+      - research/VF_MID_925_FACTOR_SPECTRAL_LOWER_CHANNEL_CONTRACT.md
+      - scripts/VFMid925Spectral/verify_factor_theta.py
       - research/VF_MID_ACTUAL_PRIME_ROOT_SQUARE_CONTRACTION.lean
       - research/PRIME_WHEEL_ROUGH_SEAT_SQRT_SPECIALIZATION.lean
       - research/VF_MID_PROXY_ENERGY_PULL.lean
@@ -233,6 +236,49 @@ jobs:
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_PHI_CUTOFF_TELESCOPE.olean research/VF_MID_PHI_CUTOFF_TELESCOPE.lean 2>&1 | tee vf-mid-phi-cutoff-telescope.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_PHI_ODD_LI_TRANSFER.olean research/VF_MID_PHI_ODD_LI_TRANSFER.lean 2>&1 | tee vf-mid-phi-odd-li-transfer.log
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_PHI_DIAGONAL_TRANSFER.olean research/VF_MID_PHI_DIAGONAL_TRANSFER.lean 2>&1 | tee vf-mid-phi-diagonal-transfer.log
+      - name: Kernel-check genuine factor theta psi0 and original first-bad weld
+        run: |
+          set -o pipefail
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.VF_MID_925_FACTOR_THETA_SPECTRAL_WELD.olean \
+            research/VF_MID_925_FACTOR_THETA_SPECTRAL_WELD.lean \
+            2>&1 | tee vf925-factor-theta-spectral-weld.log
+          cat > /tmp/VF925FactorThetaSpectralAxioms.lean <<'LEAN'
+          import «research.VF_MID_925_FACTOR_THETA_SPECTRAL_WELD»
+          #check RHLean.Analysis.vf925FactorRangeUncovered_eq_fullWheel
+          #check RHLean.Analysis.vf925FactorRangeUncovered_eq_directPrimeBand
+          #check RHLean.Analysis.vf925FactorRangeThetaMass_eq_directThetaMass
+          #check RHLean.Analysis.vf925FactorRangeThetaMass_eq_thetaDifference
+          #check RHLean.Analysis.vf925FactorThetaForcing_eq_neg_thetaBandError
+          #check RHLean.Analysis.vf925FactorThetaForcing_eq_thetaEndpointDrop
+          #check RHLean.Analysis.vf925FactorThetaForcing_eq_nativeOwnerPacket
+          #check RHLean.Analysis.vf925FactorCoverageExcess_eq_thetaForcing_div_log_sub_position
+          #check RHLean.Analysis.vf925PsiMidSquareDiff_eq_factorTheta_plus_power_plus_halfJumps
+          #check RHLean.Analysis.vf925FactorThetaForcing_of_explicitPsiMidDifference
+          #check RHLean.Analysis.vf925FirstLowerBreach_forces_thetaSourceThreshold
+          #check RHLean.Analysis.vf925FirstLowerBreach_forces_spectralThreshold
+          #print axioms RHLean.Analysis.vf925FactorRangeUncovered_eq_directPrimeBand
+          #print axioms RHLean.Analysis.vf925FactorRangeThetaMass_eq_thetaDifference
+          #print axioms RHLean.Analysis.vf925FactorThetaForcing_eq_nativeOwnerPacket
+          #print axioms RHLean.Analysis.vf925FactorCoverageExcess_eq_thetaForcing_div_log_sub_position
+          #print axioms RHLean.Analysis.vf925PsiMidSquareDiff_eq_factorTheta_plus_power_plus_halfJumps
+          #print axioms RHLean.Analysis.vf925FactorThetaForcing_of_explicitPsiMidDifference
+          #print axioms RHLean.Analysis.vf925FirstLowerBreach_forces_thetaSourceThreshold
+          #print axioms RHLean.Analysis.vf925FirstLowerBreach_forces_spectralThreshold
+          LEAN
+          lake env lean -DwarningAsError=true /tmp/VF925FactorThetaSpectralAxioms.lean \
+            | tee /tmp/vf925-factor-theta-axioms.log
+          python3 - <<'PY'
+          import re
+          from pathlib import Path
+          s=Path('/tmp/vf925-factor-theta-axioms.log').read_text()
+          records=re.findall(r'depends on axioms:\s*\[([^\]]*)\]',s,re.S)
+          assert len(records)==8, f'expected eight axiom checks, got {len(records)}'
+          allowed={'propext','Classical.choice','Quot.sound'}
+          for record in records:
+              actual={x.strip() for x in record.split(',') if x.strip()}
+              assert actual<=allowed, f'nonstandard axioms: {actual-allowed}'
+          PY
       - name: Kernel-check survivor-owner gate import closure
         run: |
           lake build RHLean
