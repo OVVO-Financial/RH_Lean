@@ -39,6 +39,13 @@ def main() -> None:
     aligned_h, aligned_fail, aligned_vertical, k = scan(
         args.r_max, pi_sq, f, c0
     )
+    sqrt2 = math.sqrt(2.0)
+    sqrt2_h, sqrt2_fail, sqrt2_vertical, sqrt2_k = scan(
+        args.r_max, pi_sq, f, sqrt2
+    )
+    differing_levels = [
+        r for r in range(2, args.r_max + 2) if sqrt2_k[r] != k[r]
+    ]
     window = phase_window(
         args.r_max, pi_sq, f, start=0.0, stop=3.0, step=args.grid_step
     )
@@ -50,6 +57,22 @@ def main() -> None:
         "c0_formula": "4 - 5/log(13/2)",
         "F3": f[3],
         "c0": c0,
+        "sqrt2_diagnostic": {
+            "phase": sqrt2,
+            "phase_difference_from_c0": sqrt2 - c0,
+            "horizontal_crossings": (args.r_max - 1) - len(sqrt2_h),
+            "left_vertical_only": sum(m == "L" for _, m in sqrt2_vertical),
+            "right_vertical_only": sum(m == "R" for _, m in sqrt2_vertical),
+            "full_graph_failures": sqrt2_fail,
+            "integer_levels_differing_from_c0": len(differing_levels),
+            "first_differing_root": differing_levels[0] if differing_levels else None,
+            "root_6_levels": {
+                "pi_36": pi_sq[6],
+                "F_6": f[6],
+                "canonical_K_6": k[6],
+                "sqrt2_K_6": sqrt2_k[6],
+            },
+        },
         "canonical": {
             "horizontal_crossings": nblocks - len(aligned_h),
             "left_vertical_only": sum(m == "L" for _, m in aligned_vertical),
@@ -103,6 +126,12 @@ def main() -> None:
         assert pi_sq[17] == 61
         assert pi_sq[317] == 9631
         assert pi_sq[1027] == 82462
+        assert sqrt2_fail == []
+        assert (nblocks - len(sqrt2_h)) == 9994
+        assert sqrt2_vertical == aligned_vertical
+        assert len(differing_levels) == 863
+        assert differing_levels[0] == 6
+        assert k[6] == 12 and sqrt2_k[6] == 13
 
     result = json.dumps(record, indent=2, sort_keys=True) + "\n"
     if args.json_out:
