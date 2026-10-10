@@ -505,6 +505,12 @@ jobs:
           #print axioms RHLean.Analysis.vfMidAlignedIntegerBlockLevel_cast_le
           #print axioms RHLean.Analysis.vfMidAlignedMass_lt_integerBlockLevel_add_one
           #print axioms RHLean.Analysis.vfMidAlignedIntegerBlock_rounding_error
+          #print axioms RHLean.Analysis.vfMidAlignedRoundingPhase_bounds
+          #print axioms RHLean.Analysis.vfMidAlignedIntegerBlockLevel_succ_real
+          #print axioms RHLean.Analysis.vfMidAlignedIntegerBlockLevel_stepError_abs_lt_one
+          #print axioms RHLean.Analysis.vfMidAlignedIntegerBacklog_eq_direct_error_phase
+          #print axioms RHLean.Analysis.vfMidAlignedIntegerBacklog_succ
+          #print axioms RHLean.Analysis.vfMidAlignedIntegerBacklog_interval_eq_direct_error_phase
           #print axioms RHLean.Analysis.vfMidAlignedHorizontalCrossed_abs_endpointError_lt
           #print axioms RHLean.Analysis.vfMidAlignedLeftVerticalCrossed_abs_endpointError_lt
           #print axioms RHLean.Analysis.vfMidAlignedRightVerticalCrossed_abs_endpointError_le_bandMass_of_above
