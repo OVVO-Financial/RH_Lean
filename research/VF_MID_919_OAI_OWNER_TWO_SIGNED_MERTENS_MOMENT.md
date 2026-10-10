@@ -431,3 +431,132 @@ analytic theorem; the second part is an actual-source dictionary.
 
 No such two-variable saving, RH bound, or whole-Sector-Six payment is
 claimed in #919.
+
+## 6. New fixed-smooth complete-AMP transfer: OAI amplification to R^(11/3+eps)
+**Scope:** This subsection proves the analytic deduction *conditional on the
+published OpenAI sixth-power amplification lemma* at the principal element
+row and on the standard Dedekind-zeta Euler coefficient dictionary.  This is
+NOT an independently kernel-proved import of the OAI lemma.  The accompanying
+Mathlib-only finite-width **sharp-recovery algebra** is kernel checked in
+`VF_MID_919_OAI_SHARP_SMOOTH_NO_GAP.lean`; that algebra does not control
+smooth seminorm constants.
+
+Write `X_R=R^2-1`, `x=X_R+1/2=R^2-1/2`, and
+`y=R-1/2`. For any **fixed** smooth compactly supported
+`V:[0,infinity)->R` which is 1 near zero, define
+
+```text
+M_V(T) = sum_{n>=1} mu(n) V(n/T)
+A_(R,V) = M_V(x) - M_V(y)
+          + sum_{q odd prime, q^2<R} (1/q) M_V(x/q^2).
+```
+
+For `chi=chi_{-3}` and the norm-grouped ideal-Mobius coefficient
+`a_F(n)=sum_{Norm ideal=n} mu_F(ideal)`, the exact Dirichlet
+convolution `mu_Z=chi * a_F` is B9. Set
+`C_chi(t)=sum_{d<=t}chi(d)`, so `|C_chi(t)|<=1` for all real t,
+and `W(u)=u*V'(u)`, a **fixed annular** smooth test. Abel summation
+of the quadratic-character variable, followed by ordinary Fubini
+(the sums are finite on the support), yields the exact identity
+
+```text
+M_V(T) = - integral_{1}^{infinity} (C_chi(t)/t) J_W(T/t) dt,
+J_W(D) = sum_{ideal a} mu_F(a) W(Norm(a)/D).
+```
+
+OpenAI's published lemma `lem:inverse-amplification` /
+`eq:amplified-note` specializes to the principal sixth-power-free
+element row `u=1`, fixed trivial `nu`, and zero marked prime slots.
+Its normalized principal ideal sum then obeys
+`|D^(-1/2) J_W(D)|^2 << D^(5/6+eps)`, hence
+
+```text
+|J_W(D)| <<_{W,delta,S} D^alpha,
+alpha = 11/12 + delta.
+```
+
+To use the *unrestricted* ideal sum, restore the finitely many fixed
+excluded prime-ideal Euler factors: each contributes a finite
+squarefree-divisor sum of rescaled tests. Their total cost is a
+fixed constant independent of D. For bounded positive D the
+annular ideal sum is bounded directly, so the same exponent can be
+used in the whole Abel integral. Thus
+
+```text
+|M_V(T)| <<_{V,delta} T^alpha
+  * integral_1^infinity t^(-1-alpha) dt
+ <<_{V,delta} T^alpha.
+```
+
+It follows directly from the **complete** smooth AMP expression that
+
+```text
+|A_(R,V)| <<_{V,delta}
+  x^alpha (1 + sum_{q odd prime} q^(-1-2*alpha))
+  + y^alpha
+ <<_{V,delta} R^(2*alpha);
+|A_(R,V)|^2 <<_{V,eps} R^(11/3+eps).
+```
+
+Here the quadratic-character summatory cancellation **is genuinely
+used**, with no exponent lost to the growing `chi * a_F` convolution.
+Nevertheless, the *last* bound uses the triangle inequality among the
+`x`, `y`, and q^2 daughter components; it does **not** retain the
+cross-component signed covariance required for the RH-scale Sector Six
+payment. For comparison, a separate quantitative 7/8 zero-free-to-Mertens
+transfer would give a stronger exponent `R^(7/2+eps)` for the square,
+but likewise not the RH-scale `R^2 K` bound.
+
+### Exact finite-width sharp recovery (no limiting interchanges)
+
+A key refinement is that the midpoint offsets make all sharp sites
+**arithmetically separated** from the smoothing transition. Let
+`V_h(u)=1` for `u<=1-h` and `V_h(u)=0` for `u>=1+h`,
+with `0<h<1/(2x)`. Because `n*q^2` and `X_R`
+are integers,
+
+```text
+V_h( n*q^2/x ) = 1_{n*q^2 <= X_R},   for EVERY integer n,q.
+V_h( n/y )     = 1_{n <= R-1}.
+```
+
+The first identity also covers `q=1`. Therefore at every fixed
+root `R>=2` the **whole** physical AMP amplitude is recovered
+exactly from this ONE smooth window:
+
+```text
+A_(R,V_h)
+  = M(X_R) - M(R-1)
+    + sum_{q odd prime, q^2<R} (1/q) M(floor(X_R/q^2))
+  = lowOwnerZeroFrequencyMobiusAmplitude R.
+```
+
+The individual no-gap assertions are formalized by
+`vf919HalfIntegerWindow_eq_sharp`,
+`vf919SquareQ2Window_eq_sharp`, and
+`vf919RootWindow_eq_sharp`. This avoids the need to argue about
+pointwise convergence at a discontinuous endpoint or to exchange an
+unspecified smoothing limit with an infinite sum. It DOES NOT avoid
+the uniformity problem: `h` necessarily shrinks on the order
+`R^(-2)`, and the derivatives of `W_h(u)=u V_h'(u)`
+typically grow like `h^(-k-1)=R^(2k+2)`.
+
+The published OAI lemma gives constants dependent on finitely many
+smooth seminorms, not a root-uniform estimate at these shrinking windows.
+Even a hypothetical seminorm-uniform `11/12` bound would leave
+`R^(11/3+eps)`, well above the necessary `R^2 K` budget.
+
+**Actual next quantitative target:** Obtain an estimate for the
+*whole* signed returned-core integrand
+
+```text
+J_W(x/t) - J_W(y/t)
+ + sum_{q odd prime, q^2<R} (1/q) J_W(x/(q^2*t))
+```
+
+*before* triangle inequality, uniformly for the root-dependent
+`W_h`, and retain the negative branch squares in the complete
+native telescope. The remaining arithmetic/analytic gain must be
+stronger than what the published scalar sixth-power amplification
+provides. No new zero-free exponent or RH claim follows from this
+section.
