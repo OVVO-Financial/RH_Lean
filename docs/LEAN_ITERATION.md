@@ -34,11 +34,19 @@ Mathlib download. Cold setup and the one-time migration from an old cache
 still run `lake exe cache get`. Dependency restores never cross toolchain or
 manifest pins. Native build fallbacks use a compatibility hash; research
 artifacts additionally carry content records and output digests.
+Compatible research caches can supply prerequisites to another entry point;
+each module still needs a matching input record and artifact digest. Main
+pushes warm these caches so a new proof PR can inherit the baseline, rather
+than beginning with an isolated PR cache.
 
 The five first-bad/recursive workflows classify changed files against their
 actual transitive import DAG before installing Lean. Unrelated research edits
 skip expensive setup; new imports enter the closure automatically. A missing
-base commit conservatively runs the check. Keep theorem signatures
+base commit conservatively runs the check. PR and main-push filters also
+include native sources, dependency pins and the shared CI/parser helpers,
+so their changes reach this routing step before merge. Keep theorem signatures
 and axiom checks after compilation; cached oleans alone do not establish
 acceptance. New research workflows can use `./.github/actions/lean-setup`
 followed by `./.github/actions/research-compile` with a `targets` input.
+The payment-v2 and seven-eighths workflows also use the shared pinned setup;
+their optional jobs and numerical, signature and axiom checks stay intact.

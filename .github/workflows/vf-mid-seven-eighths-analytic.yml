@@ -89,19 +89,8 @@ jobs:
             echo "External OAI is Lean 4.34; RHLean is pinned Lean 4.24"
             exit 1
           fi
-      - name: Restore cached pinned Lake packages
-        uses: actions/cache/restore@v4
-        with:
-          path: .lake/packages
-          key: lake-packages-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
-      - name: Install Lean 4.24 and Mathlib cache
-        uses: leanprover/lean-action@v1
-        with:
-          use-github-cache: false
-          use-mathlib-cache: true
-          build: false
-          test: false
-          lint: false
+      - name: Set up Lean and cached Mathlib
+        uses: ./.github/actions/lean-setup
       - name: Compile existing midpoint Li bridge and O(1) quadrature (warning-fatal)
         run: |
           mkdir -p .lake/build/lib/lean
@@ -236,18 +225,8 @@ jobs:
       - uses: actions/checkout@v4
         with:
           ref: ${{ github.event.pull_request.head.sha || github.sha }}
-      - name: Restore pinned Lake packages
-        uses: actions/cache/restore@v5
-        with:
-          path: .lake/packages
-          key: lake-packages-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
-      - uses: leanprover/lean-action@v1
-        with:
-          use-github-cache: false
-          use-mathlib-cache: true
-          build: false
-          test: false
-          lint: false
+      - name: Set up Lean and cached Mathlib
+        uses: ./.github/actions/lean-setup
       - name: Apply existing StrongPNT compatibility layer
         run: |
           python3 scripts/strongpnt_424/apply.py
@@ -268,10 +247,10 @@ jobs:
         uses: actions/cache/restore@v5
         with:
           path: .lake/build
-          key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py', 'RHLean.lean', 'RHLean/**/*.lean') }}
+          key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py') }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py', 'RHLean.lean', 'RHLean/**/*.lean') }}
           restore-keys: |
             rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py') }}-
-            rhlean-build-${{ runner.os }}-${{ runner.arch }}-
+            rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py', 'RHLean.lean', 'RHLean/**/*.lean') }}
       - name: Build exact native library prerequisites
         run: |
           python3 - <<'PY'
@@ -298,6 +277,13 @@ jobs:
           visit('research/VF_MID_919_OAI_R2K_ENDPOINT_LIMIT.lean')
           subprocess.run(['lake', 'build', *sorted(library)], check=True)
           PY
+      - name: Restore and compile verified native research prerequisites
+        uses: ./.github/actions/research-compile
+        with:
+          build-library: 'false'
+          targets: |
+            research/VF_MID_919_OAI_RECTANGLE_RANK_OBSTRUCTION.lean
+            research/VF_MID_919_OAI_R2K_ENDPOINT_LIMIT.lean
       - name: Warning-fatal compile of complete native import closure
         run: |
           set -o pipefail

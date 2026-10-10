@@ -1,11 +1,36 @@
 name: VF pre-914 consolidation
 
 on:
+  push:
+    branches: [main]
+    paths:
+      - 'research/**/*.lean'
+      - 'RHLean.lean'
+      - 'RHLean/**/*.lean'
+      - 'lakefile.lean'
+      - 'lake-manifest.json'
+      - 'lean-toolchain'
+      - 'scripts/strongpnt_424/**'
+      - '.github/actions/**'
+      - 'scripts/compile_research_import_closure.py'
+      - 'scripts/repo_index.py'
+      - 'scripts/rhlean_kg.py'
+      - '.github/workflows/vf-pre914-consolidation.yml'
   pull_request:
     branches: [main]
     paths:
       - 'research/**/*.lean'
-      - .github/workflows/vf-pre914-consolidation.yml
+      - 'RHLean.lean'
+      - 'RHLean/**/*.lean'
+      - 'lakefile.lean'
+      - 'lake-manifest.json'
+      - 'lean-toolchain'
+      - 'scripts/strongpnt_424/**'
+      - '.github/actions/**'
+      - 'scripts/compile_research_import_closure.py'
+      - 'scripts/repo_index.py'
+      - 'scripts/rhlean_kg.py'
+      - '.github/workflows/vf-pre914-consolidation.yml'
   workflow_dispatch:
 
 permissions:

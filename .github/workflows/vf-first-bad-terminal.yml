@@ -1,11 +1,36 @@
 name: VF first-bad normalized infrastructure
 
 on:
+  push:
+    branches: [main]
+    paths:
+      - 'research/**/*.lean'
+      - 'RHLean.lean'
+      - 'RHLean/**/*.lean'
+      - 'lakefile.lean'
+      - 'lake-manifest.json'
+      - 'lean-toolchain'
+      - 'scripts/strongpnt_424/**'
+      - '.github/actions/**'
+      - 'scripts/compile_research_import_closure.py'
+      - 'scripts/repo_index.py'
+      - 'scripts/rhlean_kg.py'
+      - '.github/workflows/vf-first-bad-terminal.yml'
   pull_request:
     branches: [main]
     paths:
       - 'research/**/*.lean'
-      - .github/workflows/vf-first-bad-terminal.yml
+      - 'RHLean.lean'
+      - 'RHLean/**/*.lean'
+      - 'lakefile.lean'
+      - 'lake-manifest.json'
+      - 'lean-toolchain'
+      - 'scripts/strongpnt_424/**'
+      - '.github/actions/**'
+      - 'scripts/compile_research_import_closure.py'
+      - 'scripts/repo_index.py'
+      - 'scripts/rhlean_kg.py'
+      - '.github/workflows/vf-first-bad-terminal.yml'
   workflow_dispatch:
 
 permissions:

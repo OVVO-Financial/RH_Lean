@@ -66,19 +66,8 @@ jobs:
             echo "Proof holes or new axioms prohibited"
             exit 1
           fi
-      - name: Restore pinned package download
-        uses: actions/cache/restore@v4
-        with:
-          path: .lake/packages
-          key: lake-packages-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
-      - name: Get Lean and prebuilt Mathlib
-        uses: leanprover/lean-action@v1
-        with:
-          use-github-cache: false
-          use-mathlib-cache: true
-          build: false
-          test: false
-          lint: false
+      - name: Set up Lean and cached Mathlib
+        uses: ./.github/actions/lean-setup
       - name: Compile exact signed parity/NNS kernel, warnings fatal
         run: |
           mkdir -p .lake/build/lib/lean
@@ -210,18 +199,8 @@ jobs:
             echo "Native consumer must have no proof holes or axioms"
             exit 1
           fi
-      - name: Restore pinned Lake dependencies
-        uses: actions/cache/restore@v4
-        with:
-          path: .lake/packages
-          key: lake-packages-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
-      - uses: leanprover/lean-action@v1
-        with:
-          use-github-cache: false
-          use-mathlib-cache: true
-          build: false
-          test: false
-          lint: false
+      - name: Set up Lean and cached Mathlib
+        uses: ./.github/actions/lean-setup
       - name: Apply existing pinned StrongPNT port
         run: |
           python3 scripts/strongpnt_424/apply.py
