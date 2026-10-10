@@ -83,6 +83,39 @@ theorem vfMidThirtyFixedWheelPrefixError_le_eight
   simpa [vfMidThirtyPrefixWheelDensity_eq_four_fifteenths,
     vfMidPrimesUpToFive_eq_triple] using h
 
+/-- The essential four-endpoint telescoping upgrade: the TOTAL 30-wheel
+candidate supply on ANY concatenated square-block run differs from
+the fixed Euler-density reference by at most 32, *not* by an error
+growing with the number of blocks. This follows from the existing
+native signed four-endpoint prefix identity. -/
+theorem vfMidThirtyRunPrefixDensityError_le_thirtytwo
+    (A B : ℕ) :
+    |vfMidDyadicPrefixSupply 5 A B -
+      (4 / 15 : ℝ) * vfMidDyadicInteriorLength A B| ≤ 32 := by
+  have h := abs_vfMidDyadicPrefixSupply_sub_density_le_four_pow 5 A B
+  simpa [vfMidThirtyPrefixWheelDensity_eq_four_fifteenths,
+    vfMidPrimesUpToFive_eq_triple] using h
+
+/-- Physical version: finite factor carriers, not a prime-counting model.
+All fixed-wheel rounding is an O(1) FOUR-ENDPOINT effect across the
+entire run; only the growing factor owners p>=7 remain to be bounded. -/
+theorem vfMidThirtyCandidateRun_densityError_le_thirtytwo
+    (A B : ℕ) (hAB : A ≤ B) :
+    |(∑ r ∈ Finset.Ico A B, ((vfMidThirtyCandidates r).card : ℝ)) -
+      (4 / 15 : ℝ) * vfMidDyadicInteriorLength A B| ≤ 32 := by
+  have hsum :=
+    vfMidDyadicPrefixSupply_eq_sum_prefixWheelCards 5 A B hAB
+  have hrewrite :
+      (∑ r ∈ Finset.Ico A B, ((vfMidThirtyCandidates r).card : ℝ)) =
+        vfMidDyadicPrefixSupply 5 A B := by
+    calc
+      _ = ∑ r ∈ Finset.Ico A B,
+          ((vfMidSquarePrefixWheelSurvivors 5 r).card : ℝ) := by
+            simp only [vfMidThirtyCandidates_eq_prefixFive]
+      _ = vfMidDyadicPrefixSupply 5 A B := hsum.symm
+  rw [hrewrite]
+  exact vfMidThirtyRunPrefixDensityError_le_thirtytwo A B
+
 /-- In particular, EVERY odd integer ending in 5 is excluded.
 The exceptional prime 5 lies below all blocks with R >= 5. -/
 theorem vfMidThirtyCandidates_not_lastDigitFive
