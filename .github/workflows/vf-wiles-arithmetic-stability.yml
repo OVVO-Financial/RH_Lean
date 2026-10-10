@@ -13,6 +13,9 @@ on:
       - research/VF_MID_ALIGNED_STEP_GRAPH.lean
       - research/VF_MID_C0_DISCRETE_STAIRCASE_ALIGNMENT_CONTRACT.md
       - research/VF_MID_THIRTY_FACTOR_RANGE_LOWER_GATE.lean
+      - research/VF_MID_925_FACTOR_THETA_SPECTRAL_WELD.lean
+      - research/VF_MID_925_FACTOR_SPECTRAL_LOWER_CHANNEL_CONTRACT.md
+      - scripts/VFMid925Spectral/verify_factor_theta.py
       - research/VF_MID_THIRTY_FACTOR_RANGE_PROOF_CONTRACT.md
       - scripts/VFMidThirtyFactorRange/verify.py
       - scripts/VFMidThirtyFactorRange/verify_periodic_certificate.py
@@ -184,6 +187,25 @@ jobs:
           assert x['largest_normalized_defect']<0.092
           assert x['max_telescoping_rounding']<1e-6
           print('C++ FACTOR RANGE 10000-ROOT CENSUS:',json.dumps(x,sort_keys=True))
+          PY
+      - name: Exact factor theta and both psi0 square endpoint half jumps
+        run: |
+          python3 scripts/VFMid925Spectral/verify_factor_theta.py --max-root 1027 \
+            > /tmp/vf925-factor-theta-psi0.json
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          x=json.loads(Path('/tmp/vf925-factor-theta-psi0.json').read_text())
+          assert x['status']=='finite_arithmetic_factor_theta_psi0_audit_not_RH'
+          assert x['tested_complete_blocks']==1023
+          assert x['first_both_square_half_jumps']==7
+          assert x['nonzero_left_square_half_jumps']>0
+          assert x['nonzero_right_square_half_jumps']>0
+          assert x['uncovered_genuine_primes']>0
+          print("FACTOR/THETA/PSI0 REAL INTEGER WELD:",json.dumps({
+            k:v for k,v in x.items() if k!='witnesses'
+          },sort_keys=True))
+          print("R=7 both endpoint power jumps:", x['witnesses']['7'])
           PY
       - name: Audit declarations and standard axioms
         run: |
