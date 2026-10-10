@@ -31,7 +31,9 @@ at `R = 5561`, with `K=3/2`. All-integer shifted energy below `10^8`
 has exact maximum `3/2` at `n=5`. See
 [the full audit and all-scale constant restriction](ABSOLUTE_A_ALL_SCALE_SIGNED_ESTIMATE_AUDIT.md).
 Its paper argument, using this finite base and Hurst's unconditional theorem,
-shows that any valid all-scale constant must satisfy `A > 0.43`; therefore
+first showed `A > 0.43`; a sharpened six-prime first-crossing argument
+now shows that even the restricted `R >= 56` constant must satisfy
+`A > 0.4357`. Therefore
 some later actual amplification ratio must exceed the currently observed
 maximum. The all-scale upper estimate remains unproved.
 
