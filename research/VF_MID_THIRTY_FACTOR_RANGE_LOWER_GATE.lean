@@ -563,4 +563,115 @@ theorem vfMidThirtyFirstLowerBreach_forces_ownerResidualOverrun
   have hlower := (abs_le.mp hphase).1
   linarith
 
+
+/-! ## Exact signed first-bad phase and the one-block vacancy bottleneck
+
+The 32-count estimate is useful for a uniform envelope, but its worst-case
+subtraction must not be confused with the true source-to-owner payment.
+At a particular hypothesized breach we can retain the complete signed
+wheel phase, without losing 32 counts.
+
+More importantly, a FIRST failed square-root endpoint has an immediately
+preceding safe endpoint. Since the actual supply in one square block is a
+cardinality, it is nonnegative. Hence a first lower escape can happen only
+when historical slack plus one-step wall growth is STRICTLY smaller than
+the ENTIRE VF mass of the next block. This is an unconditional, source
+divisibility-based restriction, not the missing owner-return estimate.
+-/
+
+/-- Exact one-step factor-range excess. This uses the ORIGINAL
+integer block supply decoded via FTA, never a fantasy staircase. -/
+theorem vfMidThirtyAccumulatedFactorExcess_succ
+    (R : ℕ) (hR : 5 ≤ R) :
+    vfMidThirtyAccumulatedFactorExcess (R + 1) -
+        vfMidThirtyAccumulatedFactorExcess R =
+      vfMidBandMass R - (vfMidIntegerBlockPrimeSupply R : ℝ) := by
+  unfold vfMidThirtyAccumulatedFactorExcess
+  rw [Finset.sum_Ico_succ_top hR]
+  rw [vfMidThirtyFactorCoverageExcess_eq_vfMass_sub_actualSupply R hR]
+  ring
+
+/-- No asymmetric 32-count weakening: a hypothetical first-bad run
+requires a STRICT excess above historical slack, wall growth AND the
+TRUE signed four-endpoint wheel phase. -/
+theorem vfMidThirtyFirstLowerBreach_forces_exactSignedOwnerOverrun
+    (K : ℝ) {A B : ℕ}
+    (hA : 5 ≤ A) (hAB : A ≤ B)
+    (hgood : VFMidThirtyLowerFactorSafe K A)
+    (hbad : ¬ VFMidThirtyLowerFactorSafe K B) :
+    vfMidThirtyLowerHistoricalSlack K A +
+        K * ((B : ℝ) * Real.log (B : ℝ) -
+          (A : ℝ) * Real.log (A : ℝ)) +
+        (vfMidDyadicPrefixSupply 5 A B -
+          (4 / 15 : ℝ) * vfMidDyadicInteriorLength A B) <
+      vfMidDyadicLateRemoval 5 A B -
+        vfMidDyadicLateReference 5 A B := by
+  have hover :=
+    vfMidThirtyFirstLowerBreach_forces_factorRunOverrun
+      K hA hAB hgood hbad
+  rw [vfMidThirtyRunExcess_eq_nativeTracking hA hAB] at hover
+  have hphase :=
+    vfMidThirtyOwnerResidual_sub_nativeTracking_eq_fixedPhase
+      A B hA hAB
+  linarith
+
+/-- At the FIRST bad root, the preceding square block must have
+abnormally LOW genuine survivor supply relative to the full
+historical cushion. This condition is exact; prime counts appear
+only as the already-proved output of divisor-range FTA. -/
+theorem vfMidThirtyFirstLowerBreach_forces_oneBandLowSupply
+    (K : ℝ) (R : ℕ) (hR : 5 ≤ R)
+    (hgood : VFMidThirtyLowerFactorSafe K R)
+    (hbad : ¬ VFMidThirtyLowerFactorSafe K (R + 1)) :
+    (vfMidIntegerBlockPrimeSupply R : ℝ) +
+        vfMidThirtyLowerHistoricalSlack K R +
+        K * (((R + 1 : ℕ) : ℝ) *
+          Real.log (((R + 1 : ℕ) : ℝ)) -
+          (R : ℝ) * Real.log (R : ℝ)) <
+      vfMidBandMass R := by
+  have hover :=
+    vfMidThirtyFirstLowerBreach_forces_factorRunOverrun
+      K hR (Nat.le_succ R) hgood hbad
+  rw [vfMidThirtyAccumulatedFactorExcess_succ R hR] at hover
+  linarith
+
+/-- Even if the entire new square band were prime-free, the lower
+wall cannot be breached until the accumulated historical slack
+has been almost completely spent. -/
+theorem vfMidThirtyFirstLowerBreach_requires_nearWall
+    (K : ℝ) (R : ℕ) (hR : 5 ≤ R)
+    (hgood : VFMidThirtyLowerFactorSafe K R)
+    (hbad : ¬ VFMidThirtyLowerFactorSafe K (R + 1)) :
+    vfMidThirtyLowerHistoricalSlack K R +
+        K * (((R + 1 : ℕ) : ℝ) *
+          Real.log (((R + 1 : ℕ) : ℝ)) -
+          (R : ℝ) * Real.log (R : ℝ)) <
+      vfMidBandMass R := by
+  have hlow :=
+    vfMidThirtyFirstLowerBreach_forces_oneBandLowSupply
+      K R hR hgood hbad
+  have hnonneg :
+      (0 : ℝ) ≤ (vfMidIntegerBlockPrimeSupply R : ℝ) := by
+    positivity
+  linarith
+
+/-- Practical invariant-consumer: if the previously earned cushion
+covers even a hypothetically EMPTY next square block, the lower
+channel remains safe without using any estimate for a new prime. -/
+theorem vfMidThirtyLowerSafe_succ_of_fullVacancyBuffer
+    (K : ℝ) (R : ℕ) (hR : 5 ≤ R)
+    (hgood : VFMidThirtyLowerFactorSafe K R)
+    (hbuffer :
+      vfMidBandMass R ≤
+        vfMidThirtyLowerHistoricalSlack K R +
+          K * (((R + 1 : ℕ) : ℝ) *
+            Real.log (((R + 1 : ℕ) : ℝ)) -
+            (R : ℝ) * Real.log (R : ℝ))) :
+    VFMidThirtyLowerFactorSafe K (R + 1) := by
+  by_contra hbad
+  have hnear :=
+    vfMidThirtyFirstLowerBreach_requires_nearWall
+      K R hR hgood hbad
+  linarith
+
 end RHLean.Analysis
