@@ -365,7 +365,80 @@ the historical slack S_A. The known finite 317/1027 and
 owner-age conditioned numerics may propose such a restriction,
 but only an all-R proof can discharge it.
 
-## 7. Finitude boundary and CI
+## 7. Adaptive frozen-wheel proof kernel: more than a fixed 30-wheel
+
+The true extra mathematical latitude is an INFINITE family of finite
+low-factor prefixes, frozen separately at the historical anchor A.
+For any cutoff z<=A, write
+\(d_z=2^{\#\{p\le z:p\mathrm{\ prime}\}}\),
+the exact number of Boolean faces in its inclusion-exclusion cube.
+The existing generic four-endpoint theorem gives
+\[
+\boxed{
+\left|
+(\mathrm{LateRemoval}_z-\mathrm{LateReference}_z)
+-\mathrm{VFTracking}(A,B)
+\right|\le 4d_z
+}
+\tag{16}
+\]
+for *every* B>=A, with NO dependence on B-A. Crucially,
+this is an **already-proved generic mathematical theorem**, now
+explicitly welded to the actual p>z owner ledger in the new
+\`research/VF_MID_ADAPTIVE_FACTOR_OWNER_RETURN.lean\` module.
+
+Select ONLY finite cutoffs satisfying the INDEPENDENT
+non-RH face budget
+\[
+\boxed{
+z\le A,\qquad 2^{\#\{p\le z\}}\le A.
+}
+\tag{17}
+\]
+These restrictions involve only the starting prime-coordinate
+list, not pi(A²), Li, or any hypothesized endpoint channel.
+Then (16) has error <=4A, well inside a K A log A
+RH-scale radial width. This is a genuine all-scale rule
+for choosing an evolving cutoff without paying a boundary
+error proportional to run length.
+
+At a hypothetical lower first bad, the *entire* remaining
+p>z native signed late owner residual MUST obey the strict
+inequality
+\[
+\boxed{\begin{aligned}
+ &\mathrm{LateRemoval}_z(A,B)
+ -\mathrm{LateReference}_z(A,B)\\
+ &\quad > S_A + K(B\log B-A\log A)-4A.
+\end{aligned}}
+\tag{18}
+\]
+The opposite owner-return estimate under an INDEPENDENT
+structural hypothesis would exclude that lower breach;
+the exact implication is now in
+\`vfMidAdaptiveLowerSafe_of_physicalReturnUpper\`.
+
+Unlike the trivial choice z=5, (17) allows z to GROW with A.
+For example, the safe rough sufficient inequality
+\(2^z\le A\) (since there are at most z prime coordinates
+up to z) permits z as large as \(\lfloor\log_2 A\rfloor\).
+The new theorem does NOT require PNT, zero-free regions,
+or such an explicit cutoff formula: the admissible property
+is a finite parameter passed to it. Using the true
+number of prime faces permits higher cutoffs than 2^z
+would suggest.
+
+This is a promising new tradeoff: larger frozen base means
+fewer active least-prime owners, while the cumulative
+fixed-wheel error stays O(A). Its weakness is that 4A
+is a much larger allowance than the sharp fixed mod30
+32/15. We can optimize z for different anchors and
+owner-age strata. It does NOT produce the missing
+signed upper bound automatically: the sieve parity/owner
+correlation gap remains.
+
+## 8. Finitude boundary and CI
+
 
 
 \`scripts/VFMidThirtyFactorRange/verify.py\` independently
