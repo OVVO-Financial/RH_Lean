@@ -27,9 +27,17 @@ open scoped Topology
 
 namespace RHLean.Analysis
 
-/-- Chosen fixed additive VF vertical phase. This does not redefine the
-x=9 exact anchor, vfMidInitialAnchor. -/
-def vfMidSqrtTwoVerticalPhase : ℝ := Real.sqrt 2
+/-- User-chosen c₀ in the new vertical/horizontal alignment route.
+This is a CONVENTION, not a theorem saying the old x=9 real-valued
+anchor equals sqrt(2). -/
+def vfMidChosenC0 : ℝ := Real.sqrt 2
+
+@[simp] theorem vfMidChosenC0_eq_sqrt_two :
+    vfMidChosenC0 = Real.sqrt 2 := rfl
+
+/-- Fixed additive phase used to align VF in the present square-block
+step-graph program, leaving the historical x=9 anchor intact. -/
+def vfMidSqrtTwoVerticalPhase : ℝ := vfMidChosenC0
 
 theorem vfMidSqrtTwoVerticalPhase_nonneg :
     0 ≤ vfMidSqrtTwoVerticalPhase := by
