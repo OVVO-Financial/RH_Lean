@@ -46,7 +46,7 @@ def run(max_anchor):
             pos+=1
         density[r]=prod
     def case(A,B):
-        assert 20<=A and A<B<=2*A
+        assert 20<=A<=max_anchor and A<B<=2*A
         lower=A*A;upper=B*B-1
         P=pi_sq[B]-pi_sq[A]
         start=bisect.bisect_right(low_primes,A)
@@ -72,7 +72,11 @@ def run(max_anchor):
     values=[case(A,2*A) for A in range(20,max_anchor+1)]
     ratios=sorted(z['restoration_ratio'] for z in values)
     N=len(values)
-    checks=[case(317,395),case(1000,1102),case(2000,2120)]
+    checks=[case(317,395)]
+    if max_anchor>=1000:
+        checks.append(case(1000,1102))
+    if max_anchor>=2000:
+        checks.append(case(2000,2120))
     if max_anchor>=2634:
         checks.append(case(2634,5267))
     if max_anchor>=2709:
