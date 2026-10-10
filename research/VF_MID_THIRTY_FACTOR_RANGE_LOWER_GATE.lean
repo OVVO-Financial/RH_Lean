@@ -79,8 +79,9 @@ theorem vfMidThirtyFixedWheelPrefixError_le_eight
     |(vfMidPrefixWheelCounting 5 N : ℝ) -
       (4 / 15 : ℝ) * (N : ℝ)| ≤ 8 := by
   have h := abs_vfMidPrefixWheelCounting_sub_density_mul_le 5 N
-  simpa [vfMidThirtyPrefixWheelDensity_eq_four_fifteenths,
-    vfMidPrimesUpToFive_eq_triple] using h
+  convert h using 1 <;>
+    norm_num [vfMidThirtyPrefixWheelDensity_eq_four_fifteenths,
+      vfMidPrimesUpToFive_eq_triple]
 
 /-- The essential four-endpoint telescoping upgrade: the TOTAL 30-wheel
 candidate supply on ANY concatenated square-block run differs from
@@ -92,8 +93,9 @@ theorem vfMidThirtyRunPrefixDensityError_le_thirtytwo
     |vfMidDyadicPrefixSupply 5 A B -
       (4 / 15 : ℝ) * vfMidDyadicInteriorLength A B| ≤ 32 := by
   have h := abs_vfMidDyadicPrefixSupply_sub_density_le_four_pow 5 A B
-  simpa [vfMidThirtyPrefixWheelDensity_eq_four_fifteenths,
-    vfMidPrimesUpToFive_eq_triple] using h
+  convert h using 1 <;>
+    norm_num [vfMidThirtyPrefixWheelDensity_eq_four_fifteenths,
+      vfMidPrimesUpToFive_eq_triple]
 
 /-- Physical version: finite factor carriers, not a prime-counting model.
 All fixed-wheel rounding is an O(1) FOUR-ENDPOINT effect across the
@@ -140,8 +142,9 @@ because factors 2,3,5 have already been removed by coprimality to 30.
 No prime indicator, least-prime predicate, or pi in this definition.
 Each covered integer is counted exactly ONCE, regardless of the
 number of divisors or least-prime-factor owner presentations. -/
-def vfMidThirtyFactorCovered (R : ℕ) : Finset ℕ :=
-  (vfMidThirtyCandidates R).filter
+def vfMidThirtyFactorCovered (R : ℕ) : Finset ℕ := by
+  classical
+  exact (vfMidThirtyCandidates R).filter
     (fun n => ∃ d ∈ Finset.Icc 7 R, d ∣ n)
 
 /-- A candidate has a factor in [7,R] precisely when it is rejected
@@ -356,7 +359,7 @@ theorem vfMidThirtyAccumulatedFactorExcess_eq_endpointDefect
     unfold vfMidSquareBandError
     rw [vfMidSquareBandPrimes_card_eq_integerBlockPrimeSupply r]
     ring
-  rw [hterms, ← Finset.sum_neg_distrib]
+  rw [hterms, Finset.sum_neg_distrib]
   rw [Finset.sum_Ico_sub vfMidSquareEndpointError hR]
   ring
 
@@ -508,8 +511,8 @@ of the lower wall.  There are only factor-range counts in the
 hypotheses and the CONCLUSION. No false cancellation theorem
 is smuggled in. -/
 theorem vfMidThirtyFirstLowerBreach_forces_factorRunOverrun
-    (K : ℝ) {A B : ℕ} (hA : 5 ≤ A) (hAB : A ≤ B)
-    (hgood : VFMidThirtyLowerFactorSafe K A)
+    (K : ℝ) {A B : ℕ} (_hA : 5 ≤ A) (_hAB : A ≤ B)
+    (_hgood : VFMidThirtyLowerFactorSafe K A)
     (hbad : ¬ VFMidThirtyLowerFactorSafe K B) :
     vfMidThirtyAccumulatedFactorExcess B -
         vfMidThirtyAccumulatedFactorExcess A >
