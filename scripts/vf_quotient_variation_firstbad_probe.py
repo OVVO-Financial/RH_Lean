@@ -62,6 +62,23 @@ def run(extended: bool = False) -> None:
     scan = range(4, 251)
     maximum = max(*roots, max(scan))
     mu, grouped = coefficients(maximum * maximum - 1)
+    # Pointwise Euler-factor domination by d_chi(n)=(1*chi_-3)(n).
+    # The formal Lean proof of this all-n inequality remains an explicit
+    # task; the regression verifies it for every n <= the largest root.
+    dchi = [0] * (maximum + 1)
+    for d in range(1, maximum + 1):
+        c = (0, 1, -1)[d % 3]
+        if c:
+            for n in range(d, maximum + 1, d):
+                dchi[n] += c
+    assert all(z >= 0 for z in dchi[1:])
+    assert all(abs(grouped[n] if n % 2 and n % 3 else 0) <= dchi[n]
+               for n in range(1, maximum + 1))
+    for n in (4, 31, 317, maximum):
+        assert sum(dchi[1:n + 1]) == sum((n // a) % 3 == 1
+                                          for a in range(1, n + 1))
+        assert sum(dchi[1:n + 1]) <= n
+
     prefix = array('i', [0]) * len(mu)
     for n in range(1, len(mu)):
         prefix[n] = prefix[n - 1] + mu[n]
@@ -93,6 +110,7 @@ def run(extended: bool = False) -> None:
     print(f'scanned R=4..250; max observed V_low/(R log R)='
           f'{largest[0]:.9f} at R={largest[1]}')
     print('High signed sector has positive, zero and negative examples.')
+    print('Pointwise |a6(n)| <= (1*chi_-3)(n) verified for n <= largest root.')
     print('No all-R variation estimate or first-bad contraction is asserted.')
 
 
