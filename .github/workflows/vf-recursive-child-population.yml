@@ -1,6 +1,19 @@
 name: VF recursive child population and complement capacity
 
 on:
+  push:
+    branches: [main]
+    paths:
+      - 'research/**/*.lean'
+      - 'RHLean.lean'
+      - 'RHLean/**/*.lean'
+      - 'lakefile.lean'
+      - 'lake-manifest.json'
+      - 'lean-toolchain'
+      - 'scripts/strongpnt_424/**'
+      - '.github/actions/**'
+      - 'scripts/compile_research_import_closure.py'
+      - '.github/workflows/vf-recursive-child-population.yml'
   pull_request:
     branches: [main, vf-recursive-child-population]
     paths:
@@ -40,6 +53,28 @@ jobs:
           python3 scripts/strongpnt_424/apply_pnt5_mid.py
           python3 scripts/strongpnt_424/apply_pnt5_strong.py
           python3 scripts/strongpnt_424/apply_lint.py
+      - name: Restore StrongPNT port build cache
+        if: steps.affected.outputs.affected == 'true'
+        id: strongpntcache
+        uses: actions/cache/restore@v5
+        with:
+          path: |
+            .lake/packages/PrimeNumberTheoremAnd/.lake/build
+            .lake/packages/StrongPNT/.lake/build
+          key: strongpnt-port-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-${{ hashFiles('scripts/strongpnt_424/*.py') }}
+          restore-keys: |
+            strongpnt-port-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-
+      - name: Prebuild StrongPNT dependency
+        if: steps.affected.outputs.affected == 'true'
+        run: lake build StrongPNT.PNT5_Strong
+      - name: Save StrongPNT port build cache
+        if: steps.affected.outputs.affected == 'true' && steps.strongpntcache.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v5
+        with:
+          path: |
+            .lake/packages/PrimeNumberTheoremAnd/.lake/build
+            .lake/packages/StrongPNT/.lake/build
+          key: ${{ steps.strongpntcache.outputs.cache-primary-key }}
       - name: Restore RHLean build cache
         if: steps.affected.outputs.affected == 'true'
         uses: actions/cache/restore@v5
