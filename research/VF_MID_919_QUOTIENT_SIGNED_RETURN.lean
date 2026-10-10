@@ -74,11 +74,13 @@ theorem vf919Mertens_eq_exact_quotient_buckets (X : ℕ) (hX : 12 ≤ X) :
 
 /-- The finite primitive of the *literal* period-36 integer kernel.
 Its 36 entries are the exact partial sums starting at residue one. -/
+def vf919QuotientKernelPrimitive36Table : Fin 36 → ℤ :=
+  ![0, 1, 1, 0, -1, -3, -4, -4, -4, -4, -3, -3,
+    -3, -2, -2, -1, 0, 0, 0, 1, 2, 2, 3, 3,
+    3, 4, 4, 4, 4, 3, 1, 0, -1, -1, 0, 0]
+
 def vf919QuotientKernelPrimitive36 (n : ℕ) : ℤ :=
-  (![0, 1, 1, 0, -1, -3, -4, -4, -4, -4, -3, -3,
-     -3, -2, -2, -1, 0, 0, 0, 1, 2, 2, 3, 3,
-     3, 4, 4, 4, 4, 3, 1, 0, -1, -1, 0, 0] : Fin 36 → ℤ)
-    ⟨n % 36, by omega⟩
+  vf919QuotientKernelPrimitive36Table ⟨n % 36, by omega⟩
 
 /-- Universal exact primitive bound: no hypothesis on rational or ideal
 Mobius values enters this calculation. -/
@@ -87,7 +89,8 @@ theorem vf919QuotientKernelPrimitive36_bounds (n : ℕ) :
       vf919QuotientKernelPrimitive36 n ≤ 4 := by
   have hmod : n % 36 < 36 := Nat.mod_lt n (by decide)
   interval_cases h : n % 36 <;>
-    norm_num [vf919QuotientKernelPrimitive36, h]
+    norm_num [vf919QuotientKernelPrimitive36,
+      vf919QuotientKernelPrimitive36Table, h]
 
 /-- The exact derivative of the bounded primitive is the original signed
 quotient kernel. This is what exposes the moving-cutoff return flux. -/
@@ -97,11 +100,19 @@ theorem vf919QuotientKernelPrimitive36_step (n : ℕ) (hn : 0 < n) :
         vf919SharpQuotientKernel36 n := by
   have hprev : (n - 1) % 36 = (n % 36 + 35) % 36 := by omega
   have hmod : n % 36 < 36 := Nat.mod_lt n (by decide)
+  have hindex :
+      (⟨(n - 1) % 36, Nat.mod_lt (n - 1) (by decide)⟩ : Fin 36) =
+        ⟨(n % 36 + 35) % 36, Nat.mod_lt _ (by decide)⟩ := by
+    exact Fin.ext hprev
   rw [vf919SharpQuotientKernel36_mod]
-  unfold vf919QuotientKernelPrimitive36
-  rw [hprev]
+  change vf919QuotientKernelPrimitive36Table ⟨n % 36, by omega⟩ -
+      vf919QuotientKernelPrimitive36Table
+        ⟨(n - 1) % 36, by omega⟩ =
+        vf919SharpQuotientKernel36 (n % 36)
+  rw [hindex]
   interval_cases h : n % 36 <;>
-    norm_num [vf919SharpQuotientKernel36,
+    norm_num [vf919QuotientKernelPrimitive36Table,
+      vf919SharpQuotientKernel36,
       vf919IntegerCharacterPrefix_eq_residue, h]
 
 /-- A universal finite signed Abel identity. This is a *signed equality*,
