@@ -13,6 +13,8 @@ on:
       - research/VF_MID_919_OAI_OWNER_TWO_SIGNED_BOUNDARY.lean
       - research/VF_MID_919_OAI_PRINCIPAL_COEFFICIENT_MAP.lean
       - research/VF_MID_919_OAI_NATIVE_PRINCIPAL_WELD.lean
+      - research/VF_MID_919_OAI_RECTANGLE_RANK_OBSTRUCTION.lean
+      - scripts/vf919_rectangle_rank_check.py
       - research/VF_MID_919_OAI_SHARP_SMOOTH_NO_GAP.lean
       - research/VF_MID_919_OAI_INTEGRATED_SHARP_CHARACTER_STEP.lean
       - research/VF_MID_919_OAI_R2K_ENDPOINT_LIMIT.lean
@@ -54,6 +56,8 @@ jobs:
         run: python3 -B scripts/vf_919_original_weight_character_moment_probe.py
       - name: Verify full owner-two clipped/returned signed boundary and its Mertens dyadic transfer
         run: python3 -B scripts/vf_919_owner_two_signed_boundary_probe.py 1600
+      - name: Verify exact native AMP rank-three coefficient witness
+        run: python3 -B scripts/vf919_rectangle_rank_check.py
   mathlib-only:
     name: Seven-eighths bridge kernel (Lean 4.24, no StrongPNT)
     runs-on: ubuntu-latest
@@ -73,6 +77,7 @@ jobs:
             research/VF_MID_919_OAI_OWNER_TWO_SIGNED_BOUNDARY.lean \
             research/VF_MID_919_OAI_PRINCIPAL_COEFFICIENT_MAP.lean \
             research/VF_MID_919_OAI_NATIVE_PRINCIPAL_WELD.lean \
+            research/VF_MID_919_OAI_RECTANGLE_RANK_OBSTRUCTION.lean \
             research/VF_MID_919_OAI_R2K_ENDPOINT_LIMIT.lean \
             research/VF_MID_919_OAI_SHARP_SMOOTH_NO_GAP.lean \
             research/VF_MID_919_OAI_INTEGRATED_SHARP_CHARACTER_STEP.lean; then
@@ -289,6 +294,7 @@ jobs:
               for module in closure.research_imports(path):
                   visit(closure.source_for(module))
           visit('research/VF_MID_919_OAI_NATIVE_PRINCIPAL_WELD.lean')
+          visit('research/VF_MID_919_OAI_RECTANGLE_RANK_OBSTRUCTION.lean')
           visit('research/VF_MID_919_OAI_R2K_ENDPOINT_LIMIT.lean')
           subprocess.run(['lake', 'build', *sorted(library)], check=True)
           PY
@@ -301,11 +307,15 @@ jobs:
           python3 scripts/compile_research_import_closure.py \
             research/VF_MID_919_OAI_R2K_ENDPOINT_LIMIT.lean \
             2>&1 | tee vf919-native-R2K-limit-compile.log
+          python3 scripts/compile_research_import_closure.py \
+            research/VF_MID_919_OAI_RECTANGLE_RANK_OBSTRUCTION.lean \
+            2>&1 | tee vf919-native-rank-compile.log
       - name: Verify native carrier theorem signatures and standard axioms
         run: |
           cat > /tmp/vf919_native_phase_axioms.lean <<'LEAN'
           import «research.VF_MID_919_OAI_NATIVE_PRINCIPAL_WELD»
           import «research.VF_MID_919_OAI_R2K_ENDPOINT_LIMIT»
+          import «research.VF_MID_919_OAI_RECTANGLE_RANK_OBSTRUCTION»
           #check RHLean.Proof.vf919CharacterAlignedCell_eq_compensated_add_clipped
           #check RHLean.Proof.vf919CharacterCompensatedInterior_norm_sq_eq_physicalGram
           #check RHLean.Proof.vf919CharacterAlignedCell_norm_sq_eq_full_physicalGram
@@ -340,6 +350,14 @@ jobs:
           #print axioms RHLean.Proof.vf919OwnerTwoSignedBoundary_abs_le_of_real_magnitudes
           #print axioms RHLean.Proof.vf919OwnerTwoSignedBoundary_nonpos_of_aligned
           #print axioms RHLean.Proof.vf919OwnerTwoSignedBoundary_nonneg_of_opposite
+          #print axioms RHLean.Proof.vf919CenteredRectangle_det_eq_zero
+          #print axioms RHLean.Proof.vf919LowOwners317
+          #print axioms RHLean.Proof.vf919RankWitness_sites
+          #print axioms RHLean.Proof.vf919OwnerTwoSiteMatrix317_eq
+          #print axioms RHLean.Proof.vf919OwnerTwoSiteMatrix317_det
+          #print axioms RHLean.Proof.vf919OwnerTwoSiteMatrix317_det_ne_zero
+          #print axioms RHLean.Proof.vf919OwnerTwoSiteMatrix317_not_single_centered_rectangle
+          #check RHLean.Proof.vf919OwnerTwoSiteMatrix317_not_single_centered_rectangle
           #check RHLean.Proof.vf919RootMertens_sq_le_four_root_envelope
           #check RHLean.Proof.vf919Post789_signedAggregate_le_twoEnergy_add_topMertensSq
           #print axioms RHLean.Proof.vf919RootMertens_sq_le_four_root_envelope
@@ -354,7 +372,7 @@ jobs:
           text = Path('vf919-native-phase-axioms.log').read_text()
           records = re.findall(r'depends on axioms:\s*\[([^\]]*)\]', text, re.S)
           closed = len(re.findall(r'does not depend on any axioms', text))
-          assert len(records) + closed == 27, (records, closed)
+          assert len(records) + closed == 34, (records, closed)
           allowed = {'propext', 'Classical.choice', 'Quot.sound'}
           for record in records:
               actual = {a.strip() for a in record.split(',') if a.strip()}
@@ -368,6 +386,7 @@ jobs:
           path: |
             vf919-native-phase-*.log
             vf919-native-R2K-limit-compile.log
+            vf919-native-rank-compile.log
           if-no-files-found: ignore
 
   external-interface:
