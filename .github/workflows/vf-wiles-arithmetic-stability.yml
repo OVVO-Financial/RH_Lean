@@ -10,6 +10,11 @@ on:
       - scripts/vf925_frozen_wheel_coherence.py
       - scripts/vf925_317_1027_ci_replay.py
       - research/VF_WILES_317_1027_EXACT_INTEGER_CANCELLATION.md
+      - research/VF_MID_ALIGNED_STEP_GRAPH.lean
+      - research/VF_MID_C0_DISCRETE_STAIRCASE_ALIGNMENT_CONTRACT.md
+      - scripts/VFMidAlignedStepGraph/verify_c0_contract.py
+      - scripts/VFMidAlignedStepGraph/verify.py
+      - CURRENT_PROOF_CONTRACT.md
       - .github/workflows/vf-wiles-arithmetic-stability.yml
   workflow_dispatch:
 
@@ -94,6 +99,26 @@ jobs:
           PY
       - name: Exact every-odd-integer 317 and 1027 cancellation replay
         run: python3 scripts/vf925_317_1027_ci_replay.py
+      - name: Replay discrete c0 phase-alignment diagnostic through 10000 roots
+        run: |
+          python3 scripts/VFMidAlignedStepGraph/verify_c0_contract.py \
+            --r-max 10000 --grid-step 0.001 --assert-10000 \
+            --json-out /tmp/vf-c0-discrete-phase.json \
+            > /tmp/vf-c0-discrete-phase-stdout.json
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          d = json.loads(Path("/tmp/vf-c0-discrete-phase.json").read_text())
+          assert d["status"] == "finite_integer_sieve_diagnostic_not_universal_proof"
+          assert d["blocks_tested"] == 9999
+          assert d["canonical"]["full_graph_failures"] == []
+          assert d["canonical"]["horizontal_crossings"] == 9994
+          print("c0 exact finite phase check:", json.dumps({
+              "c0": d["c0"],
+              "phase_grid": d["phase_grid"],
+              "canonical": d["canonical"],
+          }, sort_keys=True))
+          PY
       - name: Audit declarations and standard axioms
         run: |
           cat > /tmp/VFWilesStabilityAcceptance.lean <<'LEAN'
