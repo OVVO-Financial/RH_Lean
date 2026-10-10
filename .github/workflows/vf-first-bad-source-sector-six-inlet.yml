@@ -4,12 +4,16 @@ on:
   pull_request:
     branches: [main]
     paths:
-      - research/VF_MID_FIRST_BAD_SOURCE_TO_SECTOR_SIX_INLET.lean
+      - 'research/**/*.lean'
       - .github/workflows/vf-first-bad-source-sector-six-inlet.yml
   workflow_dispatch:
 
 permissions:
   contents: read
+
+concurrency:
+  group: research-${{ github.workflow }}-${{ github.head_ref || github.ref_name }}
+  cancel-in-progress: true
 
 jobs:
   check:
@@ -19,19 +23,17 @@ jobs:
       - uses: actions/checkout@v4
         with:
           ref: ${{ github.event.pull_request.head.sha || github.sha }}
-      - name: Restore Lake packages
-        uses: actions/cache/restore@v5
+      - name: Route changed files through the import DAG
+        id: affected
+        uses: ./.github/actions/research-affected
         with:
-          path: .lake/packages
-          key: lake-packages-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
-      - uses: leanprover/lean-action@v1
-        with:
-          use-github-cache: false
-          use-mathlib-cache: true
-          build: false
-          test: false
-          lint: false
+          targets: |
+            research/VF_MID_FIRST_BAD_SOURCE_TO_SECTOR_SIX_INLET.lean
+      - name: Set up Lean and cached Mathlib
+        if: steps.affected.outputs.affected == 'true'
+        uses: ./.github/actions/lean-setup
       - name: Apply StrongPNT compatibility patch
+        if: steps.affected.outputs.affected == 'true'
         run: |
           python3 scripts/strongpnt_424/apply.py
           python3 scripts/strongpnt_424/apply_post.py
@@ -39,6 +41,7 @@ jobs:
           python3 scripts/strongpnt_424/apply_pnt5_strong.py
           python3 scripts/strongpnt_424/apply_lint.py
       - name: Restore StrongPNT port build cache
+        if: steps.affected.outputs.affected == 'true'
         uses: actions/cache/restore@v5
         with:
           path: |
@@ -48,18 +51,26 @@ jobs:
           restore-keys: |
             strongpnt-port-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-
       - name: Prebuild StrongPNT dependency
+        if: steps.affected.outputs.affected == 'true'
         run: lake build StrongPNT.PNT5_Strong
       - name: Restore RHLean build cache
+        if: steps.affected.outputs.affected == 'true'
         uses: actions/cache/restore@v5
         with:
           path: .lake/build
-          key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py', 'RHLean.lean', 'RHLean/**/*.lean') }}
+          key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py') }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py', 'RHLean.lean', 'RHLean/**/*.lean') }}
           restore-keys: |
             rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py') }}-
-            rhlean-build-${{ runner.os }}-
+            rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py', 'RHLean.lean', 'RHLean/**/*.lean') }}
+      - name: Compile cached research import closure
+        if: steps.affected.outputs.affected == 'true'
+        uses: ./.github/actions/research-compile
+        with:
+          targets: |
+            research/VF_MID_FIRST_BAD_SOURCE_TO_SECTOR_SIX_INLET.lean
       - name: Compile isolated inlet
+        if: steps.affected.outputs.affected == 'true'
         run: |
-          python3 scripts/compile_research_import_closure.py research/VF_MID_FIRST_BAD_SOURCE_TO_SECTOR_SIX_INLET.lean
           cat > /tmp/VF_MID_FIRST_BAD_SOURCE_TO_SECTOR_SIX_INLET_ACCEPTANCE.lean <<'EOF'
           import «research.VF_MID_FIRST_BAD_SOURCE_TO_SECTOR_SIX_INLET»
           #check RHLean.Analysis.VFMidFirstBadSourceToSectorSixInletStatement

@@ -1,61 +1,55 @@
-name: VF pre-914 consolidation
+name: Targeted Lean iteration
 
 on:
-  pull_request:
-    branches: [main]
-    paths:
-      - 'research/**/*.lean'
-      - .github/workflows/vf-pre914-consolidation.yml
   workflow_dispatch:
+    inputs:
+      targets:
+        description: Space-separated research/*.lean files to compile at the selected branch
+        required: true
+        default: research/VF_MID_LI_UNIFORM_QUADRATURE.lean
+        type: string
+  pull_request:
+    types: [opened, synchronize, reopened]
+    paths:
+      - '.github/actions/**'
+      - '.github/workflows/research-iteration.yml'
+      - 'scripts/compile_research_import_closure.py'
+      - 'scripts/test_research_compile.py'
+      - 'scripts/repo_index.py'
+      - 'scripts/rhlean_kg.py'
 
 permissions:
   contents: read
 
 concurrency:
-  group: research-${{ github.workflow }}-${{ github.head_ref || github.ref_name }}
+  group: research-iteration-${{ github.head_ref || github.ref_name }}
   cancel-in-progress: true
 
 jobs:
   check:
     runs-on: ubuntu-latest
-    timeout-minutes: 60
+    timeout-minutes: 35
     steps:
       - uses: actions/checkout@v4
-        with:
-          ref: ${{ github.event.pull_request.head.sha || github.sha }}
-      - name: Route changed files through the import DAG
-        id: affected
-        uses: ./.github/actions/research-affected
-        with:
-          targets: |
-            research/VF_MID_FIRST_BAD_SOURCE_TO_SECTOR_SIX_INLET.lean
-            research/VF_MID_FIRST_BAD_ACTIVE_RAW_PARENT_SPLICE.lean
+      - name: Check research cache regressions
+        run: python3 -m unittest discover -s scripts -p test_research_compile.py -v
       - name: Set up Lean and cached Mathlib
-        if: steps.affected.outputs.affected == 'true'
         uses: ./.github/actions/lean-setup
-      - name: Apply StrongPNT compatibility patch
-        if: steps.affected.outputs.affected == 'true'
+      - name: Apply StrongPNT compatibility patches
         run: |
           python3 scripts/strongpnt_424/apply.py
           python3 scripts/strongpnt_424/apply_post.py
           python3 scripts/strongpnt_424/apply_pnt5_mid.py
           python3 scripts/strongpnt_424/apply_pnt5_strong.py
           python3 scripts/strongpnt_424/apply_lint.py
-      - name: Restore StrongPNT port build cache
-        if: steps.affected.outputs.affected == 'true'
+      - name: Restore StrongPNT boundary
         uses: actions/cache/restore@v5
         with:
           path: |
             .lake/packages/PrimeNumberTheoremAnd/.lake/build
             .lake/packages/StrongPNT/.lake/build
           key: strongpnt-port-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-${{ hashFiles('scripts/strongpnt_424/*.py') }}
-          restore-keys: |
-            strongpnt-port-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-
-      - name: Prebuild StrongPNT dependency
-        if: steps.affected.outputs.affected == 'true'
-        run: lake build StrongPNT.PNT5_Strong
-      - name: Restore RHLean build cache
-        if: steps.affected.outputs.affected == 'true'
+      - name: Restore native library artifacts
         uses: actions/cache/restore@v5
         with:
           path: .lake/build
@@ -63,10 +57,14 @@ jobs:
           restore-keys: |
             rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py') }}-
             rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py', 'RHLean.lean', 'RHLean/**/*.lean') }}
-      - name: Compile cached research import closure
-        if: steps.affected.outputs.affected == 'true'
+      - name: Compile selected research closure with warnings fatal
         uses: ./.github/actions/research-compile
         with:
-          targets: |
-            research/VF_MID_FIRST_BAD_SOURCE_TO_SECTOR_SIX_INLET.lean
-            research/VF_MID_FIRST_BAD_ACTIVE_RAW_PARENT_SPLICE.lean
+          targets: ${{ inputs.targets || 'research/VF_MID_LI_UNIFORM_QUADRATURE.lean' }}
+      - name: Verify restored closure reuse with the real Lean compiler
+        if: github.event_name == 'pull_request'
+        run: |
+          touch research/VF_MID_LI_UNIFORM_QUADRATURE.lean
+          python3 scripts/compile_research_import_closure.py \
+            research/VF_MID_LI_UNIFORM_QUADRATURE.lean | tee research-cache-smoke.log
+          grep -q 'compiled=0 cached=' research-cache-smoke.log

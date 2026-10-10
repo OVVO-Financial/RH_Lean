@@ -1,0 +1,52 @@
+name: Compile a verified research import closure
+description: Reuse unchanged research prerequisites with warning-fatal compilation and content validation.
+inputs:
+  targets:
+    description: Space or newline separated research/*.lean entry points
+    required: true
+  build-library:
+    description: Build imported RHLean targets before compiling research modules
+    default: 'true'
+runs:
+  using: composite
+  steps:
+    - name: Plan research imports and cache identity
+      id: plan
+      shell: bash
+      env:
+        RHLEAN_RESEARCH_TARGETS: ${{ inputs.targets }}
+      run: python3 scripts/compile_research_import_closure.py --plan /tmp/rhlean-research-plan.json
+    - name: Restore verified research artifacts
+      id: research
+      uses: actions/cache/restore@v5
+      with:
+        path: |
+          .lake/build/lib/lean/research.*.olean
+          .lake/build/lib/lean/research.*.olean.json
+        key: research-closure-v2-${{ runner.os }}-${{ runner.arch }}-${{ steps.plan.outputs.target-key }}-${{ steps.plan.outputs.environment-key }}-${{ steps.plan.outputs.plan-key }}
+        restore-keys: |
+          research-closure-v2-${{ runner.os }}-${{ runner.arch }}-${{ steps.plan.outputs.target-key }}-${{ steps.plan.outputs.environment-key }}-
+    - name: Build native prerequisites and compile research closure
+      id: compile
+      shell: bash
+      env:
+        RHLEAN_RESEARCH_TARGETS: ${{ inputs.targets }}
+        BUILD_LIBRARY: ${{ inputs.build-library }}
+      run: |
+        args=()
+        if [[ "$BUILD_LIBRARY" == true ]]; then args+=(--build-library); fi
+        python3 scripts/compile_research_import_closure.py "${args[@]}"
+    # Completed ancestors remain useful when a new leaf proof fails. Only
+    # matching records + artifact digests can be reused on the next attempt.
+    - name: Save completed research prerequisites
+      if: >-
+        !cancelled()
+        && steps.research.outcome == 'success'
+        && steps.compile.outcome != 'skipped'
+        && steps.research.outputs.cache-hit != 'true'
+      uses: actions/cache/save@v5
+      with:
+        path: |
+          .lake/build/lib/lean/research.*.olean
+          .lake/build/lib/lean/research.*.olean.json
+        key: ${{ steps.research.outputs.cache-primary-key }}
