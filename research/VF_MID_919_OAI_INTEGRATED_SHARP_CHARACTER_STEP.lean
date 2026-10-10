@@ -97,7 +97,12 @@ theorem vf919FiniteMovingNormConvolution_eq_sharp
         d * m ≤ N :=
     vf919HalfIntegerMovingMultiplicativeSite_iff
       N d m h u hwidth hlo hhi
-  exact congrArg (fun P : Prop => if P then chi d else 0) (propext heq)
+  by_cases hd : d * m ≤ N
+  · have hcond := heq.mpr hd
+    rw [if_pos hcond, if_pos hd]
+  · have hcond : ¬ (((d * m : ℕ) : ℝ) ≤ ((N : ℝ) + 1 / 2) * u) :=
+      fun ha => hd (heq.mp ha)
+    rw [if_neg hcond, if_neg hd]
 
 /-- Key pointwise reduction **before** integration: any signed test density
 rho supported in the transition window multiplies a constant complete
