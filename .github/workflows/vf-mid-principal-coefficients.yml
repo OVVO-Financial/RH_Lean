@@ -118,6 +118,10 @@ jobs:
           #print axioms RHLean.Analysis.vf919QuotientKernel36_signed_abel
           #check RHLean.Analysis.vf919Mertens_eq_exact_signed_quotient_return
           #print axioms RHLean.Analysis.vf919Mertens_eq_exact_signed_quotient_return
+          #check RHLean.Analysis.vf919QuotientKernel36_all_start_zero
+          #print axioms RHLean.Analysis.vf919QuotientKernel36_all_start_zero
+          #check RHLean.Analysis.vf919EachNormFull36mCutoffReturn
+          #print axioms RHLean.Analysis.vf919EachNormFull36mCutoffReturn
           LEAN
           set -o pipefail
           lake env lean -DwarningAsError=true /tmp/vf919_principal_axioms.lean \
@@ -128,7 +132,7 @@ jobs:
           text = Path('vf919-principal-axioms.log').read_text()
           records = re.findall(r'depends on axioms:\s*\[([^\]]*)\]', text, re.S)
           closed = len(re.findall(r'does not depend on any axioms', text))
-          assert len(records) + closed == 22, (records, closed)
+          assert len(records) + closed == 24, (records, closed)
           allowed = {'propext', 'Classical.choice', 'Quot.sound'}
           for record in records:
               assert {a.strip() for a in record.split(',') if a.strip()} <= allowed, record
