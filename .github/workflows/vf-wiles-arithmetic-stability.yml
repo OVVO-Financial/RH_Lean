@@ -16,6 +16,7 @@ on:
       - research/VF_MID_THIRTY_FACTOR_RANGE_PROOF_CONTRACT.md
       - scripts/VFMidThirtyFactorRange/verify.py
       - scripts/VFMidThirtyFactorRange/verify_periodic_certificate.py
+      - scripts/VFMidThirtyFactorRange/verify_cpp.cpp
       - scripts/VFMidAlignedStepGraph/verify_c0_contract.py
       - scripts/VFMidAlignedStepGraph/verify.py
       - CURRENT_PROOF_CONTRACT.md
@@ -162,6 +163,27 @@ jobs:
           assert d["residue_classes_checked"]==30
           assert d["ordered_endpoint_pairs_checked"]==900
           print("FINITE STATE -> ALL ROOTS via Euclidean period 30:",d["sharp_all_runs_error"])
+          PY
+      - name: Exact independent 10000-root C++ factor-coverage audit
+        run: |
+          c++ -O3 -std=c++17 \
+            -o /tmp/vf-factor30-fast scripts/VFMidThirtyFactorRange/verify_cpp.cpp
+          /tmp/vf-factor30-fast 10000 > /tmp/vf-factor30-10000.json
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          x=json.loads(Path('/tmp/vf-factor30-10000.json').read_text())
+          assert x['status']=='finite_exact_factor_sieve_not_RH'
+          assert x['blocks']==9996
+          assert x['candidates']==26669328
+          assert x['covered']==20906801
+          assert x['survivors']==5762527
+          assert x['ending_5']==10000998
+          assert x['sqrt2_first_horizontal_failure']==0
+          assert x['smallest_horizontal_margin']==2
+          assert x['largest_normalized_defect']<0.092
+          assert x['max_telescoping_rounding']<1e-6
+          print('C++ FACTOR RANGE 10000-ROOT CENSUS:',json.dumps(x,sort_keys=True))
           PY
       - name: Audit declarations and standard axioms
         run: |
