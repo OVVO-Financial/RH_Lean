@@ -87,16 +87,18 @@ theorem vfMidSquareActualPrimeLi2_abs_le_primeVF_abs_add_uniform
       |vfMidDirectSquareEndpointError R -
           vfMidSquareLi2MinusVF R| ≤
         |vfMidDirectSquareEndpointError R| +
-          |vfMidSquareLi2MinusVF R| :=
-    abs_sub_le _ _
-  rw [heq] at htri
+          |vfMidSquareLi2MinusVF R| := by
+    simpa only [sub_eq_add_neg, abs_neg] using
+      (abs_add_le (vfMidDirectSquareEndpointError R)
+        (-vfMidSquareLi2MinusVF R))
   have hcancel :
-      vfMidSquarePrimeLi2Error R +
-          vfMidSquareLi2MinusVF R -
-            vfMidSquareLi2MinusVF R =
-        vfMidSquarePrimeLi2Error R := by ring
+      vfMidDirectSquareEndpointError R -
+          vfMidSquareLi2MinusVF R =
+        vfMidSquarePrimeLi2Error R := by
+    rw [heq]
+    ring
   rw [hcancel] at htri
-  linarith
+  exact htri.trans (add_le_add_left hgap _)
 
 /-- The exact distance comparison shows why observing VF closer in
 a finite numerical sample does NOT prove a universal sign theorem.
