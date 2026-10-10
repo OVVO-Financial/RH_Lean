@@ -100,6 +100,6 @@ theorem vf919OwnerTwoSignedGram_eq_constructedPrincipalNormPairing (R : ℕ)
   rw [vf919OwnerTwoSignedGram_eq_native_site_products,
     vf919OwnerTwoPhysicalParentSite_sum_eq_base,
     vf919OwnerTwoPhysicalReturnedSite_sum_eq_returned]
-  simp
+  simp [mul_assoc]
 
 end RHLean.Proof

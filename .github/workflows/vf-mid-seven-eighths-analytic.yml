@@ -71,6 +71,8 @@ jobs:
             research/VF_MID_919_OAI_QUADRATIC_NORM_EULER.lean \
             research/VF_MID_919_OAI_PHASE_ALIGNED_OWNER_COMPENSATION.lean \
             research/VF_MID_919_OAI_OWNER_TWO_SIGNED_BOUNDARY.lean \
+            research/VF_MID_919_OAI_PRINCIPAL_COEFFICIENT_MAP.lean \
+            research/VF_MID_919_OAI_NATIVE_PRINCIPAL_WELD.lean \
             research/VF_MID_919_OAI_R2K_ENDPOINT_LIMIT.lean \
             research/VF_MID_919_OAI_SHARP_SMOOTH_NO_GAP.lean \
             research/VF_MID_919_OAI_INTEGRATED_SHARP_CHARACTER_STEP.lean; then
