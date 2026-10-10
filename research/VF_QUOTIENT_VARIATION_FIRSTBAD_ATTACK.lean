@@ -40,6 +40,7 @@ theorem vfVarSquareHighQuotient_iff_smallNorm
       Nat.mul_le_mul_left R hmR
     have hmax : R * (R - 1) ≤ R ^ 2 - 1 := by
       have hsub : R - 1 + 1 = R := by omega
+      have hsqsub : R ^ 2 - 1 + 1 = R ^ 2 := Nat.sub_add_cancel hsq
       nlinarith
     exact (Nat.le_div_iff_mul_le hm).mpr (hmul.trans hmax)
 
@@ -105,6 +106,8 @@ theorem vfVarSquareHighQuotient_eq_shortNorm
   have hX : R - 1 ≤ X := by
     dsimp [X]
     have hsq : 1 ≤ R ^ 2 := by nlinarith
+    have hsqsub : R ^ 2 - 1 + 1 = R ^ 2 := Nat.sub_add_cancel hsq
+    have hsub : R - 1 + 1 = R := by omega
     nlinarith
   rw [vfVarSelectedQuotientBuckets]
   unfold vfVarSquareShortNormHighQuotient
@@ -171,7 +174,11 @@ theorem vfVarMertens_squareHyperbola_exact_split
       vfVarSquareLongNormLowQuotient R +
         vfVarSquareShortNormHighQuotient R := by
   let X := R ^ 2 - 1
-  have hX : 12 ≤ X := by dsimp [X]; nlinarith
+  have hX : 12 ≤ X := by
+    dsimp [X]
+    have hsq : 1 ≤ R ^ 2 := by nlinarith
+    have hsqsub : R ^ 2 - 1 + 1 = R ^ 2 := Nat.sub_add_cancel hsq
+    nlinarith
   have hlow : Disjoint (Finset.Icc 1 (R - 1))
       (Finset.Icc R X) := by
     apply Finset.disjoint_left.mpr
@@ -184,7 +191,11 @@ theorem vfVarMertens_squareHyperbola_exact_split
         Finset.Icc 1 (R - 1) ∪ Finset.Icc R X := by
     ext t
     simp only [Finset.mem_Icc, Finset.mem_union]
-    have hX' : R ≤ X := by dsimp [X]; nlinarith
+    have hX' : R ≤ X := by
+      dsimp [X]
+      have hsq : 1 ≤ R ^ 2 := by nlinarith
+      have hsqsub : R ^ 2 - 1 + 1 = R ^ 2 := Nat.sub_add_cancel hsq
+      nlinarith
     omega
   calc
     (∑ n ∈ Finset.Icc 1 X,
