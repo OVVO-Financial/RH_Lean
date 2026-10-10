@@ -92,12 +92,17 @@ theorem vf919FiniteMovingNormConvolution_eq_sharp
   congr 1
   apply Finset.sum_congr rfl
   intro d _hd
-  have heq := vf919HalfIntegerMovingMultiplicativeSite_iff
-    N d m h u hwidth hlo hhi
+  have heq :
+      (d : ℝ) * (m : ℝ) ≤ ((N : ℝ) + 1 / 2) * u ↔
+        d * m ≤ N := by
+    simpa only [Nat.cast_mul] using
+      (vf919HalfIntegerMovingMultiplicativeSite_iff
+        N d m h u hwidth hlo hhi)
   by_cases hdm : d * m ≤ N
-  · simp [hdm, heq.mpr hdm]
-  · have hnot : ¬ (((d * m : ℕ) : ℝ) ≤ ((N : ℝ) + 1 / 2) * u) := by
-      exact fun hh => hdm (heq.mp hh)
+  · have hreal := heq.mpr hdm
+    simp [hdm, hreal]
+  · have hnot : ¬ ((d : ℝ) * (m : ℝ) ≤ ((N : ℝ) + 1 / 2) * u) :=
+      fun hh => hdm (heq.mp hh)
     simp [hdm, hnot]
 
 /-- Key pointwise reduction **before** integration: any signed test density
