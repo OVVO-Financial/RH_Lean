@@ -193,7 +193,159 @@ finite diagnostic are replayable using
 This is **evidence about finite crossing geometry**, never
 a theorem about all square roots.
 
-## 5. Nonnegotiable proof scope
+## 5. The sqrt(2) test and an unconditional fixed-phase no-go
+
+The suggestion \(c=\sqrt2\) is natural to TEST because factor-2
+ancestry rescales the *square-root coordinate* by \(1/\sqrt2\).
+But this multiplicative contraction does not imply a unique additive
+VF prime-count shift. In fact the canonical x=9 real anchor is
+\(c_0=4-5/\log(13/2)\approx1.328777548\ne\sqrt2\).
+
+Removing the prime 2 from actual \(\pi(x)\), for x>=2, changes the
+count by **exactly 1**, not sqrt(2). More explicitly,
+\[
+c_0=4-m_2
+=\underbrace{1}_{\text{prime 2}}
+  +\underbrace{(3-m_2)}_{\text{remaining anchor discrepancy}}.
+\]
+Thus the first prime is *not* an independent derivation of sqrt(2)
+as a count-space phase.
+
+### Exact finite red-team: sqrt(2) also crosses every sampled block
+
+The updated authentic-prime script
+\`scripts/VFMidAlignedStepGraph/verify_c0_contract.py\` uses
+the **original unaltered VF sequence** and \(\pi(R^2)\), and
+independently measures the graph for \(c=\sqrt2\):
+
+* \(R=2,\ldots,10000\): 9999 tested blocks.
+* \(c=c_0\): 9994 horizontal; 4 left-only; 1 right-only; 0 failures.
+* \(c=\sqrt2\): **identical crossing-mode counts** and 0 failures.
+* **863 out of the 10000 integer square-root levels** R=2..10001
+  differ between \(K_R(c_0)\) and \(K_R(\sqrt2)\).
+* First such difference: R=6, \(\pi(36)=11\),
+  \(F_6\approx11.640926795663164\),
+  \(K_6(c_0)=12\), \(K_6(\sqrt2)=13\).
+* Fixed alignment shift:
+  \(\sqrt2-c_0\approx0.0854360140301067\).
+
+Therefore the finite crossing property does **not** select
+sqrt(2), nor does a visually successful phase identify the
+owner-2 arithmetic correction uniquely. Both phases can cross
+while producing different integer *increments* on some blocks.
+The original real-valued \(m_R\) remains the same.
+
+### Uniform midpoint quadrature: the actual square-block integration
+error is O(1) at square endpoints
+
+This sharpens the existing coarse O(sqrt(x)) quadrature bridge
+*at the original square endpoints* without needing any prime
+distribution or RH assumption. Put \(f(t)=1/\log t\). Then
+\[
+f''(t)=\frac{\log t+2}{t^2(\log t)^3}>0,\quad t>1.
+\]
+For the r-th square band of width \(h_r=2r+1\) and midpoint
+\(u_r=r^2+r+\frac12\), midpoint quadrature says
+\[
+0\le\delta_r:=
+\int_{r^2}^{(r+1)^2}f(t)\,dt-h_r f(u_r)
+\le \frac{h_r^3}{24}
+   \sup_{r^2\le t\le (r+1)^2}|f''(t)|
+=O\left(\frac1{r\log^2 r}\right).
+\]
+The upper-bound series \(\sum_{r\ge2}1/(r\log^2 r)\)
+converges. Hence the exact **actual midpoint VF** obeys
+\[
+\boxed{
+F_R=\operatorname{Li}_2(R^2)-C_{\rm mid}
+       +O(1/\log R),\qquad
+C_{\rm mid}:=\int_2^4f(t)\,dt+\sum_{r=2}^\infty\delta_r>0
+}
+\]
+and in particular \(|F_R-\operatorname{Li}_2(R^2)|=O(1)\).
+Here \(\operatorname{Li}_2(x)=\int_2^x dt/\log t\).
+The remainder from the convergent tail is O(1/log R)
+by the integral test.
+
+Numerically, \(F_R-\operatorname{Li}_2(R^2)\) equals
+\(-2.078328519\) at R=17, \(-2.097198532\) at R=317,
+\(-2.100041334\) at R=1027 and \(-2.103386266\)
+at R=10000. The true
+\(\pi(10000^2)-F_{10000}\approx-751.226898\),
+far larger than the ~2.10 constant midpoint quadrature offset.
+It cannot be attributed to the midpoint discretization or to
+the 0.0854 change from c0 to sqrt2.
+
+**Status:** this is a paper-level calculus proof included for
+research use. The sharpened O(1) endpoint estimate has NOT
+yet been kernel-formalized in Lean; the existing weaker
+VF/Li bridge remains the compiled theorem.
+
+### No fixed additive phase can cross in ALL sufficiently large blocks
+
+The following **unconditional mathematical no-go**, using
+classical Littlewood oscillation, rules out the proposed
+universal \(\sqrt2\) statement (and EVERY other fixed c).
+It is stronger than the previous "not yet proved" warning:
+
+> For every real constant c, there are infinitely many R such
+> that the full three-mode aligned step-graph predicate
+> \`VFMidAlignedStepGraphCrossed c R\` fails.
+
+**Proof outline.** Suppose, contrariwise, that some fixed
+c makes the graph cross every block R>=R0.
+Write \(K_R=K_R(c)=\lfloor F_R+c\rfloor\).
+The three source-native horizontal/left/right crossing cases,
+monotonicity of \(K_R\) and of \(\pi\), applied in the two
+adjacent blocks R-1 and R, give for all R>=R0+1:
+\[
+\boxed{K_{R-2}\le\pi(R^2)\le K_{R+1}.}
+\tag{G}
+\]
+The lower inequality is supplied by the crossing in block R-1;
+the upper inequality by the crossing in block R.
+For example, in the right-vertical case on block R,
+\(\pi(R^2)\le\pi((R+1)^2)\le K_{R+1}\).
+The other cases are immediate from the definitions.
+
+Since \(m_R=F_{R+1}-F_R=O(R/\log R)\),
+the width of the G sandwich is O(R/log R).
+The constant c and all floor errors contribute only O_c(1).
+Together with the proved-on-paper
+\(F_R=\operatorname{Li}_2(R^2)+O(1)\), this forces
+\[
+\pi(R^2)-\operatorname{Li}_2(R^2)=O(R/\log R).
+\]
+For every real \(x\in[R^2,(R+1)^2]\),
+monotonicity of \(\pi(x)\) and of \(\operatorname{Li}_2(x)\)
+then extends it to
+\[
+\pi(x)-\operatorname{Li}_2(x)
+=O(\sqrt x/\log x).
+\]
+But the **unconditional** classical Littlewood theorem gives
+\[
+\pi(x)-\operatorname{li}(x)
+=\Omega_\pm\left(
+ \frac{\sqrt x}{\log x}\log\log\log x\right),
+\]
+and \(\operatorname{li}\) differs from \(\operatorname{Li}_2\)
+by only a constant. Contradiction. QED.
+
+**Formalization boundary:** the local two-block sandwich
+(G) is a natural, finite Lean theorem, but the global
+no-go also imports analytic calculus/summability and the
+classical Littlewood result. Neither this mathematical proof
+outline nor the finite sqrt2 check should be represented as
+a kernel-checked infinite no-go theorem until those results
+are fully imported and compiled.
+
+The valid RH-scale goal remains
+\(|\pi(R^2)-F_R|=O(R\log R)\), which is vastly weaker
+than universal fixed-phase crossing and is not contradicted
+by Littlewood.
+
+## 6. Nonnegotiable proof scope
 
 The actual outstanding RH criterion remains the signed
 square-endpoint tracking estimate
