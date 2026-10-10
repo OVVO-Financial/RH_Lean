@@ -9,7 +9,7 @@ finds the structure that matters.  The generated inventory is authoritative for
 current counts; this directory's tooling treats the library as a mathematical
 knowledge graph instead.
 
-There are six layers.  Each answers a different question, and it is worth being
+The layers answer different questions, and it is worth being
 precise about which question, because they are easy to confuse.
 
 | Layer | Question | Producer | Exact? |
@@ -22,6 +22,7 @@ precise about which question, because they are easy to confuse.
 | 5. Proof status | proved / reduced / open / refuted | folded into layer 2 | derived |
 | 6. Reduction DAG | which proposition has been traded for which | folded into layer 2 | derived |
 | 7. Regional geometry | *where on `[1, x]`* a declaration works | `scripts/region_graph.py` | mixed, graded |
+| Repository source navigation | which research, document, script, export, or fetched PR source contains a result; how its modules import one another | `scripts/repo_index.py` | source imports; lexical search |
 
 Layer 1 is architecture.  Layer 2 is mathematics.  Layers 3 and 4 are search
 heuristics that shorten a candidate list; they are never evidence.  Layers 5
@@ -123,6 +124,19 @@ python3 scripts/decl_graph.py --compare syntactic.json elaborated.json
 ```
 
 ## Querying it
+
+For the entire repository, including active research, start with
+[`proofq repo-search` and the repository import DAG](REPOSITORY_SEARCH.md):
+
+```bash
+python3 scripts/proofq.py repo-search 'SectorSix' --scope research
+python3 scripts/proofq.py repo-search 'owner two' --kind declaration
+python3 scripts/repo_index.py build --dot repo-imports.dot --report repo-map.md --require-acyclic
+```
+
+The commands below query the audited library declaration graph. A result from
+the broader source index retains its source occurrence and does not inherit
+library proof-status claims.
 
 `scripts/proofq.py` reads `decl-graph.json` (or builds one in memory if there is
 none) and answers the questions the research actually asks.
@@ -330,21 +344,26 @@ takes a few seconds and needs no Lean toolchain.
 
 ## What the graph does not cover
 
-The graph scans `RHLean/` only. That is deliberate -- it is the compiled,
-authoritative tree -- but it is worth knowing what sits outside it.
+The audited declaration graph scans `RHLean/` only. The separate
+[repository source index](REPOSITORY_SEARCH.md) also searches research,
+documentation, scripts, exports, and explicitly fetched PR refs, and generates
+their project-scoped import DAG.
 
 `research/**.lean` is real Lean that imports `RHLean.*` and proves things, yet
-it is absent from `RHLean.lean` and from the `lakefile.lean` target, so CI never
-compiles it and it never enters the graph. It is where much of the active
+it is absent from `RHLean.lean` and from the `lakefile.lean` library target.
+Selected modules are kernel-checked by dedicated workflows, including their
+research import closures; they do not enter the library declaration graph.
+They do enter the repository source index. It is where much of the active
 frontier work now happens, and it has been growing considerably faster than the
 compiled tree: run the inventory for the current figures rather than trusting a
 number written here, which is exactly the kind of count that rots.
 
 `scripts/proof_inventory.py` reports this surface under "Dependent Lean outside
 the scanned tree" and in the JSON under `dependent_lean_outside_scope`. It is
-excluded from every authoritative count, because those proofs are not
-kernel-checked by CI. Treat the figure as a measure of unverified work in
-flight, not as part of the library.
+excluded from library counts. Neither an inventory entry nor a source-index
+hit establishes that a research file compiled: inspect its applicable workflow
+and successful checks on the exact commit. Treat the figure as staging-source
+coverage, not as an extension of the audited library surface.
 
 ### Finding scratch the library has already absorbed
 
@@ -398,6 +417,11 @@ Then add carrier values to `scripts/semantic_facets.json` using token groups
 taken from those module names.  Between PR #585 and PR #705, 103 modules were
 added and the share of closed propositions with no carrier had risen to 41%;
 extending the vocabulary from those module names brought it back to 18%.
+
+The current vocabulary also covers VF-mid, first-bad, Sector Six, owner-two,
+floor-Li, compensated four-corner, and Hecke terminology. The repository source
+index applies the same heuristic facets to research occurrences, so these
+filters work before a module is promoted to the library.
 
 Note that `name_tokens` splits `PostRoot` into `post` + `root` **and**
 `PNTChebyshev` into `pnt` + `chebyshev`, so acronym-led names are matchable.

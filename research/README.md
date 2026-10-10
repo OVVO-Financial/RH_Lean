@@ -1,5 +1,11 @@
 # Research closeout map
 
+For source discovery across all current research modules and fetched PR refs,
+use the [repository search and import DAG](../docs/REPOSITORY_SEARCH.md):
+`python3 scripts/proofq.py repo-search 'SectorSix' --scope research`.
+The historical table below is not a complete module catalog; the generated
+index lists every current source occurrence and preserves its provenance.
+
 The [current proof contract](../CURRENT_PROOF_CONTRACT.md) defines the open
 CORR-4 estimate and the [documentation index](../docs/DOCUMENTATION_INDEX.md)
 explains authority and verification. No unconditional RH proof is claimed.

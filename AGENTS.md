@@ -62,6 +62,14 @@ Consult `CURRENT_PROOF_CONTRACT.md` for the exact active theorem target and the 
 Before proposing a new route:
 
 1. Search the repository for an existing theorem on the same carrier.
+   Use `python3 scripts/proofq.py repo-search '<terms>'` for full-source,
+   statement, documentation, and script search; use `--scope research` for
+   staging modules. The default library `proofq search` is not exhaustive over
+   the repository. Follow [repository search](docs/REPOSITORY_SEARCH.md) when
+   including fetched PR refs, and inspect import dependencies with
+   `python3 scripts/repo_index.py module <module-or-path> --transitive`.
+   Search hits are source navigation; confirm compilation and hypotheses
+   against the relevant source and successful workflow at its exact commit.
 2. Identify the exact carrier, weight, endpoint convention, root parameter, owner convention, and whether the object is scalar, coefficient-level, or already reassembled.
 3. State which compiled equality transports the proposed idea into the current common object.
 4. Check the route against `CURRENT_PROOF_CONTRACT.md` and the recorded no-go modules.
