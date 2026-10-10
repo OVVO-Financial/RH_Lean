@@ -158,4 +158,85 @@ theorem vf919Mertens_eq_exact_signed_quotient_return
   rw [vf919QuotientBucket_above X (X + 1) (by omega)]
   ring
 
+
+/-! ## Exact 36m-cutoff return of an individual physical norm occurrence
+
+The quotient kernel is periodic in its integer QUOTIENT. Therefore an
+individual norm m reappears at each successive cutoff for m consecutive
+integer endpoints. A complete period is 36*m endpoints. The total signed
+coefficient across such an aligned period vanishes exactly, with no Mobius
+estimate and no summation over different norms. This is a future return,
+NOT a payment available before a hypothetical first bad endpoint. -/
+
+private theorem vf919Kernel36_shift_range_sum (f : ℕ → ℤ) (n : ℕ) :
+    (∑ j ∈ Finset.range n, f (j + 1)) =
+      (∑ j ∈ Finset.range n, f j) - f 0 + f n := by
+  induction n with
+  | zero => simp
+  | succ n ih =>
+      simp only [Finset.sum_range_succ]
+      rw [ih]
+      ring
+
+/-- A complete quotient cycle has EXACT zero signed mass regardless of the
+starting quotient. Not an estimate, and no principal-row hypothesis. -/
+theorem vf919QuotientKernel36_all_start_zero (a : ℕ) :
+    (∑ j ∈ Finset.range 36, vf919SharpQuotientKernel36 (a + j)) = 0 := by
+  induction a with
+  | zero =>
+      simpa only [Nat.zero_add] using vf919SharpQuotientKernel36_mean_zero
+  | succ a ih =>
+      have hshift := vf919Kernel36_shift_range_sum
+        (fun j => vf919SharpQuotientKernel36 (a + j)) 36
+      have hper := vf919SharpQuotientKernel36_period a
+      calc
+        (∑ j ∈ Finset.range 36, vf919SharpQuotientKernel36 (a + 1 + j)) =
+            ∑ j ∈ Finset.range 36,
+              vf919SharpQuotientKernel36 (a + (j + 1)) := by
+                apply Finset.sum_congr rfl
+                intro j _hj
+                congr 1
+                omega
+        _ = (∑ j ∈ Finset.range 36, vf919SharpQuotientKernel36 (a + j)) -
+              vf919SharpQuotientKernel36 a +
+              vf919SharpQuotientKernel36 (a + 36) := by
+                simpa using hshift
+        _ = (∑ j ∈ Finset.range 36, vf919SharpQuotientKernel36 (a + j)) := by
+              rw [hper]
+              ring
+        _ = 0 := ih
+
+/-- Every fixed actual norm coefficient has an exact signed return after
+36*m consecutive endpoint cutoffs once it has entered the support.
+The occurrence is kept, and the integer cutoff n/m is used literally.
+The result holds for any positive m and starting quotient a. -/
+theorem vf919EachNormFull36mCutoffReturn (m a : ℕ) (hm : 0 < m) :
+    (∑ j ∈ Finset.range 36,
+      ∑ r ∈ Finset.range m,
+        vf919SharpQuotientKernel36 ((m * (a + j) + r) / m)) = 0 := by
+  calc
+    (∑ j ∈ Finset.range 36,
+        ∑ r ∈ Finset.range m,
+          vf919SharpQuotientKernel36 ((m * (a + j) + r) / m)) =
+      ∑ j ∈ Finset.range 36,
+        ∑ r ∈ Finset.range m,
+          vf919SharpQuotientKernel36 (a + j) := by
+            apply Finset.sum_congr rfl
+            intro j _hj
+            apply Finset.sum_congr rfl
+            intro r hr
+            have hquot : (m * (a + j) + r) / m = a + j := by
+              rw [Nat.mul_add_div hm, Nat.div_eq_of_lt (Finset.mem_range.mp hr)]
+              omega
+            rw [hquot]
+    _ = ∑ j ∈ Finset.range 36,
+          (m : ℤ) * vf919SharpQuotientKernel36 (a + j) := by
+        apply Finset.sum_congr rfl
+        intro j _hj
+        simp [Finset.sum_const, nsmul_eq_mul]
+    _ = (m : ℤ) * (∑ j ∈ Finset.range 36,
+          vf919SharpQuotientKernel36 (a + j)) := by
+        rw [Finset.mul_sum]
+    _ = 0 := by rw [vf919QuotientKernel36_all_start_zero]; ring
+
 end RHLean.Analysis
