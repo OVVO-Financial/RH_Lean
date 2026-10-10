@@ -35,6 +35,17 @@ def run(roots: tuple[int, ...]) -> None:
     assert all(primitive[t % 36] - primitive[(t - 1) % 36]
                == quotient_kernel(t) for t in range(1, 3000))
 
+    # Once a fixed norm has entered the physical support, every 36*m
+    # consecutive cutoff sites complete an EXACT zero-sum return cycle.
+    # These are temporal returns, not simultaneous owner-to-owner payments.
+    for m in (1, 7, 13, 31, 97, 503):
+        for start in (1, 5, 317):
+            samples = [quotient_kernel(x // m)
+                       for x in range(m * start, m * (start + 36))]
+            assert sum(samples) == 0
+            assert sum(max(z, 0) for z in samples) == 10 * m
+            assert sum(min(z, 0) for z in samples) == -10 * m
+
     upper = max(roots) ** 2 - 1
     mu, grouped = coefficients(upper)
     print('R,M,raw_abs,bucket_abs,period36_abs,bucket_variation,positive_packets,negative_packets')
@@ -77,7 +88,7 @@ def run(roots: tuple[int, ...]) -> None:
               f'{signed_variation},{sum(z > 0 for z in packets)},'
               f'{sum(z < 0 for z in packets)}')
 
-    print('Every tested quotient occurrence, exact signed Abel return, and two-sided packet sign checked.')
+    print('Every tested quotient occurrence, exact signed Abel return, 36m clock and two-sided packet sign checked.')
     print('No bound uniform in R and no historical Sector Six first-bad payment is asserted.')
 
 
