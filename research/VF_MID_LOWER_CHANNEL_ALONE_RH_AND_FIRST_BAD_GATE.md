@@ -224,3 +224,87 @@ extends the *certified analytic finite horizon* past the repository's
 factor-sieve experiment near \(10^8\), but it does not supply any
 all-\(R\) return inequality. Do not confuse finite verification of
 zeta zeros with unconditional RH.
+
+
+## 6. A weaker, sufficient root-error objective for the owner recursion
+
+The same Montgomery–Vaughan one-sided oscillation theorem proves that
+RH follows already from the family of **weaker** lower estimates
+
+\[
+\boxed{\forall \varepsilon>0\quad\exists C_\varepsilon,R_\varepsilon:
+ \quad \forall R\ge R_\varepsilon,\quad
+ D_R\ge-C_\varepsilon R^{1+\varepsilon}.}
+\tag{LC-eps}
+\]
+
+Indeed, the endpoint VF/Li bounded bridge and monotonicity extend this
+to \(\pi(x)-\operatorname{li}(x)\ge
+-O_\varepsilon(x^{(1+\varepsilon)/2})\).
+If a zero has real part \(\beta>1/2\), choose a sufficiently small
+\(\varepsilon>0\) so that
+\((1+\varepsilon)/2<\beta\); Theorem 15.2 provides incompatible
+negative oscillations of an intermediate power.
+The quantifier **for every epsilon** is indispensable. One fixed
+exponent below 1 would establish only a corresponding zero-free
+half-plane, not RH.
+
+This allows a possible **epsilon-relaxed historical barrier** during
+the owner proof. A polynomial root-width \(R^{1+\varepsilon}\)
+is larger than \(R\log R\) and the adaptive frozen-wheel \(O(R)\)
+boundary allowance is negligible relative to it. However, the
+actual owner-return estimate required for every epsilon remains
+unproved, and no sieve-parity obstacle disappears automatically.
+Do not replace the original target on main; treat (LC-eps) as a
+potential way of avoiding epsilon-free logarithmic losses.
+
+## 7. Certified analytic finite horizon beyond the C++ arithmetic census
+
+The Johnston published finite-range theorem cited above provides
+\[
+|\pi(R^2)-\operatorname{li}(R^2)|
+ < \frac{R\log R}{4\pi}
+\]
+for \(R\ge52\) and
+\(R\le\lfloor\sqrt{1.101\cdot10^{26}}\rfloor
+=\mathbf{10,492,854,711,659}\).
+
+The repository's explicit uniform midpoint quadrature constant is
+\[
+Q=|\mathrm{vfMidLiError}(4)|+
+108\left(\frac{1}{2\log^2 2}+\frac1{\log 2}\right).
+\]
+Using \(\log 2>2/3\) and the elementary
+\(0<\operatorname{Li}_2(4)<2/\log2<3\),
+together with \(F_2=0\), gives **\(Q<286.5<287\)**.
+The normalization shift between the classical
+\(\operatorname{li}\) and \(\operatorname{Li}_2\) is the fixed
+\(\operatorname{li}(2)\approx1.0452\), in particular its
+absolute value is \(<3\).
+Thus throughout the stated finite range,
+\[
+D_R>-\frac{R\log R}{4\pi}-290.
+\]
+For \(R\ge52\), \(\log R>3\), and
+\(2-\frac1{4\pi}>\frac{23}{12}\), so
+\[
+\left(2-\frac1{4\pi}\right)R\log R
+ > \frac{23}{12}\cdot52\cdot3=299>290.
+\]
+It follows, as an **external paper-level finite-range deduction**, that
+\[
+\boxed{D_R>-2R\log R\qquad
+52\le R\le 10,492,854,711,659.}
+\tag{Certified finite root horizon}
+\]
+The cases \(5\le R\le51\) have already been independently checked
+by the repository's exact prime-factor sieve with generous positive
+margin. This combines published analytic control and small finite
+arithmetic, extending the evidence horizon by more than nine orders
+of magnitude in \(R\) beyond the \(R=10^4\) direct census.
+
+**No claim is made that this published analytic result or the numerical
+finite cases have been re-proved in Lean. No all-R bound follows.**
+A first bad event for \(K=2\) cannot occur in this certified horizon,
+but the current research still needs an all-scale signed owner-return
+argument.
