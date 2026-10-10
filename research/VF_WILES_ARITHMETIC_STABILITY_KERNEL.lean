@@ -128,6 +128,56 @@ theorem vfWilesReversibleSector_nonpos
     exact abs_nonneg _
   linarith
 
+/-- The exact condition under which a physical zero mask is allowed to
+commute with the return map. It is NOT automatic for OAI/Hecke tuple masks;
+that compatibility is part of the open actual-arithmetic bridge. -/
+def vfWilesSymmetricMask
+    {α : Type*} [DecidableEq α]
+    (c : VFWilesReversibleCells α)
+    (keep : α → Prop) [DecidablePred keep]
+    (hkeep : ∀ i ∈ c.sites, keep (c.mirror i) ↔ keep i) :
+    VFWilesReversibleCells α where
+  sites := c.sites
+  mirror := c.mirror
+  mirror_mem := c.mirror_mem
+  mirror_involutive := c.mirror_involutive
+  amplitude := fun i => if keep i then c.amplitude i else 0
+  amplitude_neg := by
+    intro i hi
+    by_cases hk : keep i
+    · have hm : keep (c.mirror i) := (hkeep i hi).mpr hk
+      simp [hk, hm, c.amplitude_neg i hi]
+    · have hm : ¬keep (c.mirror i) := by
+        intro him
+        exact hk ((hkeep i hi).mp him)
+      simp [hk, hm]
+
+/-- A mirror-invariant zero mask preserves finite signed packet stability,
+with all physical coefficients kept on their original occurrences. -/
+theorem vfWilesSymmetricMask_stable
+    {α : Type*} [DecidableEq α]
+    (c : VFWilesReversibleCells α)
+    (keep : α → Prop) [DecidablePred keep]
+    (hkeep : ∀ i ∈ c.sites, keep (c.mirror i) ↔ keep i) :
+    vfWilesReversibleSector (vfWilesSymmetricMask c keep hkeep) ≤ 0 :=
+  vfWilesReversibleSector_nonpos _
+
+/-- A zero mask alone never increases the ordinary finite quadratic norm.
+Unlike the signed sector theorem, this fact does not require mask symmetry;
+it also does not give a SIGNED mixed owner-child estimate. -/
+theorem vfWilesZeroMaskEnergy_le_original
+    {α : Type*} (s : Finset α)
+    (keep : α → Prop) [DecidablePred keep]
+    (u : α → ℝ) :
+    (∑ i ∈ s, (if keep i then u i else 0) ^ 2) ≤
+      ∑ i ∈ s, (u i) ^ 2 := by
+  apply Finset.sum_le_sum
+  intro i _hi
+  by_cases hk : keep i
+  · simp [hk]
+  · simp [hk]
+    positivity
+
 /-- Independent negative-square sinks: their membership and signed weights
 must also be established from real historical arithmetic, without fitting a
 new square root to the aggregate first-bad excess. -/
