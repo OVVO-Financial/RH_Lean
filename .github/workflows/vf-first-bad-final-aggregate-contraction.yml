@@ -2,9 +2,17 @@ name: VF first-bad final aggregate contraction
 
 on:
   push:
-    branches: [vf-first-bad-final-aggregate-contraction]
+    branches: [main, vf-first-bad-final-aggregate-contraction]
     paths:
       - 'research/**/*.lean'
+      - 'RHLean.lean'
+      - 'RHLean/**/*.lean'
+      - 'lakefile.lean'
+      - 'lake-manifest.json'
+      - 'lean-toolchain'
+      - 'scripts/strongpnt_424/**'
+      - '.github/actions/**'
+      - 'scripts/compile_research_import_closure.py'
       - .github/workflows/vf-first-bad-final-aggregate-contraction.yml
   pull_request:
     types: [opened, synchronize, reopened]

@@ -23,9 +23,12 @@ runs:
         path: |
           .lake/build/lib/lean/research.*.olean
           .lake/build/lib/lean/research.*.olean.json
-        key: research-closure-v2-${{ runner.os }}-${{ runner.arch }}-${{ steps.plan.outputs.target-key }}-${{ steps.plan.outputs.environment-key }}-${{ steps.plan.outputs.plan-key }}
+        key: research-closure-v2-${{ runner.os }}-${{ runner.arch }}-${{ steps.plan.outputs.environment-key }}-${{ steps.plan.outputs.target-key }}-${{ steps.plan.outputs.plan-key }}
         restore-keys: |
+          research-closure-v2-${{ runner.os }}-${{ runner.arch }}-${{ steps.plan.outputs.environment-key }}-${{ steps.plan.outputs.target-key }}-
+          research-closure-v2-${{ runner.os }}-${{ runner.arch }}-${{ steps.plan.outputs.target-key }}-${{ steps.plan.outputs.environment-key }}-${{ steps.plan.outputs.plan-key }}
           research-closure-v2-${{ runner.os }}-${{ runner.arch }}-${{ steps.plan.outputs.target-key }}-${{ steps.plan.outputs.environment-key }}-
+          research-closure-v2-${{ runner.os }}-${{ runner.arch }}-${{ steps.plan.outputs.environment-key }}-
     - name: Build native prerequisites and compile research closure
       id: compile
       shell: bash

@@ -129,6 +129,14 @@ class ResearchCacheTests(unittest.TestCase):
         self.assertEqual(plan['targets'], ['research.A', 'research.B', 'research.C'])
         self.assertEqual([m['module'] for m in plan['modules']], ['research.D', 'research.B', 'research.A', 'research.C'])
 
+    def test_another_closure_reuses_verified_shared_prerequisites(self):
+        _, first = self.compile(('A',))
+        result, second = self.compile(('B', 'C'))
+        self.assertEqual(result, (1, 2))
+        self.assertEqual(first['environment'], second['environment'])
+        self.assertEqual(first['modules'][:2], second['modules'][:2])
+        self.assertEqual(self.compile(('A',))[0], (0, 3))
+
     def test_import_parser_ignores_comments_and_body(self):
         self.write('A', '/- nested /- import research.Absent -/ comment -/\n'
                    'module\npublic import «research.B» RHLean.Native -- import research.Absent\n'

@@ -34,6 +34,10 @@ Mathlib download. Cold setup and the one-time migration from an old cache
 still run `lake exe cache get`. Dependency restores never cross toolchain or
 manifest pins. Native build fallbacks use a compatibility hash; research
 artifacts additionally carry content records and output digests.
+Compatible research caches can supply prerequisites to another entry point;
+each module still needs a matching input record and artifact digest. Main
+pushes warm these caches so a new proof PR can inherit the baseline, rather
+than beginning with an isolated PR cache.
 
 The five first-bad/recursive workflows classify changed files against their
 actual transitive import DAG before installing Lean. Unrelated research edits
