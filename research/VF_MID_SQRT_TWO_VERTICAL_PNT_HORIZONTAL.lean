@@ -136,6 +136,83 @@ theorem vfMidSqrtTwoIntegerBacklog_interval
   exact vfMidAlignedIntegerBacklog_interval_eq_direct_error_phase
     vfMidSqrtTwoVerticalPhase A B
 
+/-! ## Horizontal root-clock alignment is NOT vertical calibration
+
+A horizontal match translates the VF *square-root index* until the
+integer VF level brackets the ACTUAL prime count at a fixed R².
+Its needed width is a separate arithmetic problem. The following
+finite conditional lemma quantifies its exact effect on D_R.
+-/
+
+/-- Genuine horizontal displacement: compare the actual pi(R²) level to
+the aligned VF levels at two (possibly different) root indices L,U.
+This is distinct from the within-R-block horizontal crossing predicate. -/
+def VFMidSqrtTwoHorizontalRootWindow (L R U : ℕ) : Prop :=
+  vfMidSqrtTwoIntegerLevel L ≤ Nat.primeCounting (R ^ 2) ∧
+    Nat.primeCounting (R ^ 2) ≤ vfMidSqrtTwoIntegerLevel U
+
+/-- Every horizontal root-window bound yields an explicit signed
+endpoint defect bound using ONLY ORIGINAL VF band masses. Neither PNT
+nor a prime distribution estimate is assumed in this finite theorem. -/
+theorem vfMidSqrtTwoHorizontalRootWindow_bounds_actualDefect
+    {L R U : ℕ}
+    (hwindow : VFMidSqrtTwoHorizontalRootWindow L R U) :
+    vfMidFinishedMass L - vfMidFinishedMass R +
+        vfMidSqrtTwoVerticalPhase - 1 <
+          vfMidDirectSquareEndpointError R ∧
+    vfMidDirectSquareEndpointError R ≤
+      vfMidFinishedMass U - vfMidFinishedMass R +
+        vfMidSqrtTwoVerticalPhase := by
+  rcases hwindow with ⟨hleft, hright⟩
+  have hleftR :
+      (vfMidSqrtTwoIntegerLevel L : ℝ) ≤
+        (Nat.primeCounting (R ^ 2) : ℝ) := by
+    exact_mod_cast hleft
+  have hrightR :
+      (Nat.primeCounting (R ^ 2) : ℝ) ≤
+        (vfMidSqrtTwoIntegerLevel U : ℝ) := by
+    exact_mod_cast hright
+  have hphaseL :=
+    vfMidAlignedRoundingPhase_bounds
+      vfMidSqrtTwoVerticalPhase vfMidSqrtTwoVerticalPhase_nonneg L
+  have hphaseU :=
+    vfMidAlignedRoundingPhase_bounds
+      vfMidSqrtTwoVerticalPhase vfMidSqrtTwoVerticalPhase_nonneg U
+  have hleftEq :
+      (vfMidSqrtTwoIntegerLevel L : ℝ) =
+        vfMidFinishedMass L + vfMidSqrtTwoVerticalPhase -
+          vfMidAlignedRoundingPhase vfMidSqrtTwoVerticalPhase L := by
+    unfold vfMidAlignedRoundingPhase vfMidAlignedMass
+    dsimp [vfMidSqrtTwoIntegerLevel]
+    ring
+  have hrightEq :
+      (vfMidSqrtTwoIntegerLevel U : ℝ) =
+        vfMidFinishedMass U + vfMidSqrtTwoVerticalPhase -
+          vfMidAlignedRoundingPhase vfMidSqrtTwoVerticalPhase U := by
+    unfold vfMidAlignedRoundingPhase vfMidAlignedMass
+    dsimp [vfMidSqrtTwoIntegerLevel]
+    ring
+  unfold vfMidDirectSquareEndpointError
+  constructor
+  · linarith [hphaseL.2]
+  · linarith [hphaseU.1]
+
+/-- PNT cannot be substituted for the actual within-block prime count:
+when the real prime supply happens to be zero, a horizontal crossing is
+possible ONLY at literal integer-level equality. This is a finite fact. -/
+theorem vfMidSqrtTwoHorizontalCrossed_emptyBlock_iff
+    {R : ℕ} (hzero : vfMidIntegerBlockPrimeSupply R = 0) :
+    VFMidSqrtTwoHorizontalCrossed R ↔
+      vfMidSqrtTwoIntegerLevel R = Nat.primeCounting (R ^ 2) := by
+  rw [vfMidSqrtTwoHorizontalCrossed_iff_actualSupply, hzero, Nat.add_zero]
+  constructor
+  · rintro ⟨hlo, hhi⟩
+    exact le_antisymm hhi hlo
+  · intro h
+    constructor
+    · exact h.ge
+    · exact h.le
+
 /-! ## Proven PNT: the legitimate macroscopic horizontal information -/
 
 /-- The genuine square-root clock tends to infinity. -/
