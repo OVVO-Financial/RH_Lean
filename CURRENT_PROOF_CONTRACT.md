@@ -405,6 +405,44 @@ In particular:
 - PR #903 is restricted to exact classifier/Fubini bookkeeping that supports
   the run-level owner decomposition and lower-run descent.
 
+## Quantitative Li horizontal baseline (2026-10-10; stronger than bare PNT)
+
+Use the provable **actual-prime logarithmic-integral error** as the
+primary horizontal estimate, rather than just the PNT density limit.
+This is **not** a claim that Li or VF is pointwise closer to true pi
+at every finite x.
+
+The repository ALREADY proves the unconditional, stronger **O(1)
+VF-to-Li_2 square-endpoint quadrature** theorem
+`vfMidLiSquareEndpointUniformBounded` in
+`research/VF_MID_LI_UNIFORM_QUADRATURE.lean`.
+The new exact actual-prime Li-to-VF transport in
+[research/VF_MID_SQRT_TWO_LI_HORIZONTAL.lean](research/VF_MID_SQRT_TWO_LI_HORIZONTAL.lean)
+gives, with a fixed deterministic `C_quad`,
+`|pi(R^2)-F_R| <= |pi(R^2)-Li_2(R^2)| + C_quad`,
+and the converse bound. The full conditional proof contract is
+[research/VF_MID_SQRT_TWO_LI_HORIZONTAL_CONTRACT.md](research/VF_MID_SQRT_TWO_LI_HORIZONTAL_CONTRACT.md).
+
+The classical de la Vallee Poussin zero-free-region theorem
+**unconditionally** gives
+`pi(x)-li(x) = O(x exp(-a sqrt(log x)))` for some a>0.
+It improves bare PNT and, with the compiled O(1) bridge,
+yields a quantitative VF error of the same shape.
+It still does NOT establish the required
+`|pi(R^2)-F_R| = O(R log R)`.
+
+Numerically, using repository-normalized `Li_2 = int_2^x dt/log t`,
+original VF is closer than Li_2 at 2497 of 2499 exact square endpoints
+R=2..2500, but Li_2 is closer at R=2,3: an unconditional
+**universal** VF-nearer-than-Li assertion is false even finitely.
+An exact squared-error identity in the new Lean module isolates
+the actual prime sign that decides which one is nearer.
+
+**Never conflate**: proven uniform VF-Li quadrature; proven
+unconditional pi-Li zero-free-region error (external, not yet
+imported into Lean); finite observed VF advantage; open
+RH-equivalent prime-VF signed endpoint bound.
+
 ## Chosen sqrt-two phase and PNT horizontal clock (2026-10-10)
 
 The new route adopts **c0_chosen = sqrt(2)** as a fixed ADDITIVE
