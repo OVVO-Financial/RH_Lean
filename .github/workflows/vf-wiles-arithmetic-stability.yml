@@ -66,11 +66,15 @@ jobs:
           #check RHLean.Analysis.vfWilesReversibleCells_sum_mirror
           #check RHLean.Analysis.vfWilesReversibleCells_amplitude_sum_zero
           #check RHLean.Analysis.vfWilesReversibleSector_eq_negative_absolute
+          #check RHLean.Analysis.vfWilesSymmetricMask
+          #check RHLean.Analysis.vfWilesSymmetricMask_stable
+          #check RHLean.Analysis.vfWilesZeroMaskEnergy_le_original
           #check RHLean.Analysis.vfWilesUniversalArithmeticPacketStability
           #check RHLean.Analysis.vfWilesFirstBadContradiction_of_arithmeticRepresentation
           #check RHLean.Analysis.vfWilesUnpairedCell_canBePositive
           #check RHLean.Analysis.vfWilesOpposedRows_canHavePositiveGram
           #print axioms RHLean.Analysis.vfWilesReversibleCells_sum_mirror
+          #print axioms RHLean.Analysis.vfWilesSymmetricMask_stable
           #print axioms RHLean.Analysis.vfWilesUniversalArithmeticPacketStability
           #print axioms RHLean.Analysis.vfWilesFirstBadContradiction_of_arithmeticRepresentation
           LEAN
@@ -81,8 +85,8 @@ jobs:
           from pathlib import Path
           s = Path("/tmp/vf-wiles-axioms.log").read_text()
           records = re.findall(r"depends on axioms:\s*\[([^\]]*)\]", s, re.S)
-          if len(records) != 3:
-              raise SystemExit("Expected exactly three axiom audit records, got " + str(len(records)))
+          if len(records) != 4:
+              raise SystemExit("Expected exactly four axiom audit records, got " + str(len(records)))
           allowed = {"propext", "Classical.choice", "Quot.sound"}
           for record in records:
               actual = {a.strip() for a in record.split(",") if a.strip()}
