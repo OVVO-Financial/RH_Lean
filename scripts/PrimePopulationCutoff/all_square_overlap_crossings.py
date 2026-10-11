@@ -5,7 +5,7 @@ from math import gcd
 import numpy as np
 from prime_cutoff_audit import mobius_sieve
 from pathlib import Path
-D=Path('/mnt/data/prime_cutoff_experiment')
+D=Path(__file__).resolve().parent
 maxR=1000
 primes,spf,mu,om,gr,M,Q=mobius_sieve(maxR*maxR-1)
 P=np.asarray(primes,dtype=np.int64)
