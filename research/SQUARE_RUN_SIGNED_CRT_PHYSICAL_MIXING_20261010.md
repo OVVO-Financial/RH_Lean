@@ -214,3 +214,39 @@ This document establishes the elementary signed low-wheel and
 physical covariance statements by explicit finite proofs, not by
 Lean-kernel certification of those new statements. The missing
 uniform high-owner theorem is OPEN.
+
+
+## 7. NEW SHARP ALL-SCALE CRT PERIOD CERTIFICATES
+
+The 4^k and 2^k bounds are loose. For the first five primes,
+the *entire* signed period Q^2 and the whole unsigned square-correction
+period Q have been enumerated in exact 64-bit integer arithmetic
+(scripts/signed_crt_complete_period_sharp.cpp).
+
+Because s_P(n) is Q^2-periodic and its complete-period signed mass
+is phi(Q)^2, the centered function e_P(x) is Q^2-periodic.
+Similarly u_P(x) is Q-periodic. Consequently enumeration of each
+entire period proves a bound for **ALL integer x**, not just the finite
+square roots used in the experiment. Apply (S4) and the triangle
+inequality with the SHARP complete-period sup norms.
+
+For P consisting of all primes through y:
+
+| y | Q | signed period Q^2 | max |e_P(x)| | max |u_P(x)| | all-scale open-run bound |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| 5 | 30 | 900 | 4364/900 | 28/30 | 2602/225 = 11.564444... |
+| 7 | 210 | 44100 | 519408/44100 | 318/210 | 32566/1225 = 26.584489... |
+| 11 | 2310 | 5336100 | 186878700/5336100 | 5820/2310 | **445162/5929 = 75.082138...** |
+
+The y=11 signed period count is +1,774,080, -1,543,680, zero 2,018,340;
+their signed difference is 230,400 = phi(2310)^2.
+The maximizer of |e_P| occurs at residue x=80041, and the maximizer
+of |u_P| at residue x=113. The sharp bound for their *sum over
+possibly distinct endpoints* is 445162/5929; we do NOT claim this
+is the exact best bound on (S4), only a fully proved universal one.
+
+Unlike the crude 2*4^5+2*2^5 = 2112, this 75.083 bound is small
+compared with square-root radii beyond 76. It controls **the centered
+low-prime signed phase**, not the physical high-prime compensation or
+the coherent mean. It therefore does not prove a finite amplification
+constant for full Mobius and does not contradict the known parity barrier.
