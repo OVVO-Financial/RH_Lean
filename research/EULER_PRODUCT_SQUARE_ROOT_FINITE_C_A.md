@@ -94,7 +94,7 @@ Every nonzero coefficient in T_R has index >= R. Accordingly, every term in \zet
 Take the **sum of coefficients with integer index n <= X=R^2-1** on both sides of (4). On the left,
 
 \[
-\sum_{n\le X}[n^{-s}](\zeta Z_R^2)
+\sum_{n\le X}\operatorname{coeff}_n(\zeta Z_R^2)
 =\sum_{a,b<R}\mu(a)\mu(b)\#\{k\ge1:k ab\le X\}
 =Q_R.
 \]
