@@ -47,7 +47,11 @@ int main(int argc,char **argv){
     }
     vector<int> smallM(MAXR+1,0);
     for(int n=1;n<=MAXR;n++)smallM[n]=smallM[n-1]+mu[n];
-    if(smallM[100]!=1||smallM[1000]!=2||mertensAtX[317]!=-28){cerr<<"Sanity check failed";return 3;}
+    if((MAXR>=100 && smallM[100]!=1) ||
+       (MAXR>=1000 && smallM[1000]!=2) ||
+       (MAXR>=317 && mertensAtX[317]!=-28)){
+        cerr<<"Sanity check failed";return 3;
+    }
     vector<int> coprimeSigned(MAXR+1,0),coprimeUnsigned(MAXR+1,0);
     // Earlier cofactors c<d, c>=2 that are coprime with d.
     for(int d=2;d<=MAXR;d++)for(int c=2;c<d;c++)
