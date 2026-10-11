@@ -200,7 +200,119 @@ Establishing the required all-scale bound for that signed cross-interaction
 is exactly the unresolved finite-\(C\) theorem. No new equivalent hypothesis
 is silently introduced as a lemma.
 
-## 7. What is new, what is still open, and how to reproduce
+## 7. A second-order Euler asymptotic and a rigorous sign-preservation no-go
+
+The finite-candidate field and its high-prime corrections each have *another nonzero, oppositely signed* leading term after the mean \(+4\) has been removed. This observation is stronger than the displayed finite censuses: **the separately centered terms are provably too large to satisfy the finite-\(C\) target**, regardless of the size of \(C\).
+
+Put \(X=R^2-1\), \(L=\log X\), \(H_R=\pi(X)-\pi(R-1)\), and
+\[
+B_R^{\rm prime}=\sum_{\substack{R\le p\le X\\p\ \mathrm{prime}}}
+M(\lfloor X/p\rfloor).
+\]
+Summing the exact proper-multiple updates, including the inert top half,
+gives
+\[
+\sum_{p\in P_R}\Delta_p=2(H_R-B_R^{\rm prime}),\quad
+J_R=M(X)-2H_R+2B_R^{\rm prime}.
+\]
+Therefore the **exact finite centered identity** is
+\[
+\boxed{
+J_R+4N_R
+=M(X)+2B_R^{\rm prime}-2\pi(X)+4\pi(X/2)-2\pi(R-1).
+}\tag{16}
+\]
+
+### Prove the prime-cofactor main coefficient without assuming RH
+
+Changing the summation order yields
+\[
+\boxed{
+B_R^{\rm prime}
+=\sum_{n<R}\mu(n)\bigl[\pi(X/n)-\pi(R-1)\bigr].
+}\tag{17}
+\]
+Here square brackets denote ordinary grouping, not a Dirichlet coefficient
+operator. Every argument \(X/n\) is at least order \(R\), so the classical
+unconditional quantitative PNT permits replacing \(\pi(X/n)\) by
+\(\operatorname{Li}(X/n)\), with total error \(o(X/L^2)\):
+the absolute sum of the individual PNT errors is
+\(O_B(X\log R/(\log R)^B)\), and one chooses \(B>3\).
+Also \(\pi(R-1)M(R-1)=o(X/L^2)\).
+
+For a direct asymptotic evaluation of the remaining sum, use partial
+summation. With \(Y=R-1\):
+\[
+\sum_{n\le Y}\mu(n)\operatorname{Li}(X/n)
+=M(Y)\operatorname{Li}(X/Y)
++X\int_1^Y\frac{M(t)}{t^2(L-\log t)}\,dt.
+\]
+The boundary term is \(o(X/L^2)\). The classical PNT consequences
+\[
+\int_1^\infty\frac{M(t)}{t^2}\,dt=0,\qquad
+\int_1^\infty\frac{M(t)\log t}{t^2}\,dt=-1
+\]
+follow by partial summation from
+\(\sum_n\mu(n)/n=0\) and \(\sum_n\mu(n)\log n/n=-1\)
+(DLMF §27.11.14–15).
+
+Since \(\log t/L\le 1/2+o(1)\) for \(t\le R\) and
+\(M(t)=O_B(t/(\log t)^B)\) for every fixed \(B>0\), dominated convergence
+applies to
+\[
+\frac1{L-\log t}
+=\frac1L+\frac{\log t}{L^2(1-\log t/L)}.
+\]
+The first term contributes \(o(1/L^2)\) after extending its integral to
+infinity. The second contributes \(-1/L^2+o(1/L^2)\).
+Thus
+\[
+\boxed{B_R^{\rm prime}=-\frac{X}{L^2}+o(X/L^2).}\tag{18}
+\]
+
+### The two remaining coherent masses
+
+Classical expansion of the prime counting function gives
+\[
+-2\pi(X)+4\pi(X/2)
+=2\log2\,\frac{X}{L^2}+o(X/L^2).
+\]
+Also \(\pi(R-1)=o(X/L^2)\) and
+\(M(X)=o(X/L^2)\), unconditionally. Insert (18) into (16):
+\[
+\boxed{
+J_R+4N_R=-2(1-\log2)\frac{X}{L^2}+o(X/L^2).
+}\tag{19}
+\]
+The exact reconstruction \(M(X)=J_R+\sum_p\Delta_p\) then forces
+\[
+\boxed{
+\sum_{p\in P_R}(\Delta_p-4)
+=+2(1-\log2)\frac{X}{L^2}+o(X/L^2).
+}\tag{20}
+\]
+The coefficient \(2(1-\log2)\approx0.61370563888\) is strictly positive.
+
+A *pointwise elementary* bound on the historical envelope is \(K_R\le R\):
+\(|M(y)-1|\le y+1\) for \(0\le y<R\). Therefore
+\(R\sqrt{K_R}\le R^{3/2}\), while \(X/L^2\asymp R^2/(\log R)^2\).
+It follows **unconditionally** that
+\[
+\boxed{
+\frac{|J_R+4N_R|}{R\sqrt{K_R}}\to\infty,\qquad
+\frac{|\sum_p(\Delta_p-4)|}{R\sqrt{K_R}}\to\infty.
+}\tag{21}
+\]
+
+**Proof strategy consequence:** even after centering by the arithmetic
+mean-four theorem, separate root-budget bounds on the initial field and
+the correction sum are mathematically impossible. Their signed
+off-diagonal compensation is the only route left within this physical
+prime-comb decomposition. Equations (13)–(14) prove the diagonal is
+uniformly controlled; equation (21) proves that the decisive task is
+the coupled signed cross-term. This is **not** a proof of finite \(C\).
+
+## 8. What is new, what is still open, and how to reproduce
 
 The exact historic feedback law and frozen-prime insertion were already formalized in:
 - RHLean/Proof/PrimeCombVisualizationDynamics.lean
