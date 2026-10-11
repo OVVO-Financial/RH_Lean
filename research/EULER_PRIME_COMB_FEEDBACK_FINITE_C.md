@@ -139,7 +139,66 @@ At \(R=10{,}000\), the two centered contributions are \(-230{,}958\) and \(+232{
 \]
 This is the same \(Q_R\) bound, not an independently solved estimate.
 
-## 6. What is new, what is still open, and how to reproduce
+## 6. An unconditional pointwise bound for **actual prime-update diagonal energy**
+
+This is a genuinely quantitative theorem at the **correct RH-scale normalization**, not an asymptotic matching identity.
+
+Let the active high-prime set be \(P_R=\{p\text{ prime}:R\le p\le X/2\}\) and \(y_p=\lfloor X/p\rfloor\). Every \(y_p<R\), so the strict historical envelope gives
+\[
+(M(y_p)-1)^2\le (y_p+1)K_R.
+\]
+The exact physical increment is \(\Delta_p=-2(M(y_p)-1)\), whence
+\[
+\sum_{p\in P_R}\Delta_p^2
+\le4K_R\sum_{p\in P_R}(y_p+1)
+\le4K_R\left(X\sum_{R\le p<R^2}\frac1p+\#P_R\right).
+\]
+The all-root reciprocal-prime estimate already certified in the companion Euler research manuscript is
+\(\sum_{R\le p<R^2}1/p\le5/6\); trivially \(\#P_R\le X/2\). Consequently
+\[
+\boxed{\forall R\ge2:\quad
+\sum_{p\in P_R}\Delta_p^2
+\le \frac{16}{3}X K_R
+<\frac{16}{3}R^2K_R.}\tag{13}
+\]
+This is an unconditional **uniform bound on the squared genuine prime-candidate updates**, with no independence, probabilistic, RH, or finite-A assumption.
+
+For the centered steps \(Z_p=\Delta_p-4=-2(M(y_p)+1)\), the elementary inequality
+\(Z_p^2\le2\Delta_p^2+32\) gives
+\[
+\boxed{\sum_{p\in P_R} Z_p^2
+\le\frac{80}{3}R^2K_R.}\tag{14}
+\]
+These are actual physical diagonal bounds, not just a frequency-averaged norm.
+
+Independent C++ audit:
+
+| R | Exact \(\sum\Delta_p^2\) | \(\sum\Delta_p^2/(R^2K_R)\) | Exact \(\sum Z_p^2\) | \(\sum Z_p^2/(R^2K_R)\) |
+|---:|---:|---:|---:|---:|
+| 56 | 4,696 | 0.99830 | 776 | 0.16497 |
+| 317 | 104,968 | 0.69638 | 19,144 | 0.12701 |
+| 1,000 | 864,396 | 0.57626 | 167,964 | 0.11198 |
+| 5,561 | 21,208,300 | 0.45720 | 4,608,876 | 0.09936 |
+| 10,000 | 64,309,436 | 0.42873 | 14,447,868 | 0.09632 |
+
+**Why this does not already prove finite C:** let \(B_R=2M(R-1)-(J_R+4N_R)\) and \(Z_p=\Delta_p-4\). The *original* floor sum is
+\(Q_R=B_R-\sum_{p\in P_R}Z_p\), so
+\[
+\boxed{
+Q_R^2=B_R^2+\sum_{p\in P_R}Z_p^2
+-2B_R\sum_{p\in P_R}Z_p
++2\sum_{\substack{p<q\\p,q\in P_R}}Z_pZ_q.}\tag{15}
+\]
+Equation (14) **controls the diagonal**. The remaining square contains the
+highly coherent off-diagonal interactions among the genuine inserted primes
+and their signed interaction with the field that they reconstruct. These
+terms must be retained together; bounding either piece separately is
+contradicted by the large numerical values of the centered signed masses.
+Establishing the required all-scale bound for that signed cross-interaction
+is exactly the unresolved finite-\(C\) theorem. No new equivalent hypothesis
+is silently introduced as a lemma.
+
+## 7. What is new, what is still open, and how to reproduce
 
 The exact historic feedback law and frozen-prime insertion were already formalized in:
 - RHLean/Proof/PrimeCombVisualizationDynamics.lean
