@@ -1,0 +1,122 @@
+{
+  "date": "2026-10-11",
+  "status": "finite exact/sampled experiment; not an all-R bound",
+  "sample_size": 1500000,
+  "seed": 20261011,
+  "primes": [
+    2,
+    3,
+    5,
+    7,
+    11,
+    13,
+    17,
+    19,
+    23,
+    29
+  ],
+  "complete_integer_CRT_period": 6469693230,
+  "phase_extrema": {
+    "ordinary_max": 8.763061,
+    "ordinary_min": -8.763061,
+    "square_max": 6.62202,
+    "square_min": -8.451179,
+    "type": "exact over complete CRT-compatible phase configurations",
+    "ordinary_all_nine_odd_positive": 0.000616981340242,
+    "square_all_nine_odd_positive": 0
+  },
+  "sampled_superposition_tails": {
+    "ordinary_abs_ge_3": 0.160473,
+    "square_abs_ge_3": 0.116103,
+    "ordinary_abs_ge_4": 0.058397,
+    "square_abs_ge_4": 0.033512,
+    "ordinary_abs_ge_5": 0.016355,
+    "square_abs_ge_5": 0.006569
+  },
+  "Euler_local_probability": {
+    "ordinary_plus": 0.318645,
+    "ordinary_minus": 0.293698,
+    "ordinary_zero": 0.387657,
+    "ordinary_nonzero": 0.612343,
+    "square_plus": 0.162931,
+    "square_minus": 0.164408,
+    "square_zero": 0.67266,
+    "square_nonzero": 0.32734,
+    "type": "exact finite CRT measure; not Mertens summatory"
+  },
+  "Euler_prefix_FFT": {
+    "primes": [
+      2,
+      3,
+      5,
+      7
+    ],
+    "period": 44100,
+    "conductors": 80,
+    "ordinary_diag": 21.135651,
+    "ordinary_cross": -4.881228,
+    "ordinary_total": 16.254423,
+    "square_diag": 20.53396,
+    "square_cross": -4.72469,
+    "square_total": 15.80927,
+    "type": "exhaustive 44100 endpoint samples, numerical FFT decomposition"
+  },
+  "Perron_log_toy": {
+    "diagonal": 0.4450106075,
+    "perfect_at_zero": 2.3514344671,
+    "T_1000": 0.444907,
+    "type": "finite ten-prime analytic height average, no physical weights"
+  },
+  "Mobius_census": {
+    "R_min": 2,
+    "R_max": 6000,
+    "physical_x_max": 35999999,
+    "max_C_R_for_R_ge_31": 0.374992,
+    "argmax_C_R_for_R_ge_31": 5561,
+    "C_2": 1.5,
+    "selected_R": [
+      {
+        "R": 56,
+        "M_X": 6,
+        "M_R_minus_1": -2,
+        "Q_R": -10,
+        "C_R": 0.145803
+      },
+      {
+        "R": 317,
+        "M_X": -28,
+        "M_R_minus_1": -3,
+        "Q_R": 22,
+        "C_R": 0.056665
+      },
+      {
+        "R": 1000,
+        "M_X": 212,
+        "M_R_minus_1": 2,
+        "Q_R": -208,
+        "C_R": 0.169831
+      },
+      {
+        "R": 5561,
+        "M_X": -2544,
+        "M_R_minus_1": 5,
+        "Q_R": 2554,
+        "C_R": 0.374992
+      },
+      {
+        "R": 6000,
+        "M_X": 2256,
+        "M_R_minus_1": 0,
+        "Q_R": -2256,
+        "C_R": 0.307003
+      }
+    ],
+    "Pearson_C_R_R_ge_31": {
+      "fixed_abs_sine": -0.02393,
+      "four_prime_Euler_abs_prefix": 0.01126,
+      "growing_abs_sine": -0.00038,
+      "growing_abs_sine_normalized": -0.01485,
+      "growing_abs_sine_over_p": -0.02
+    }
+  }
+}
