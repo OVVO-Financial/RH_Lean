@@ -320,6 +320,9 @@ These facts support the suggested square-clock mechanism but **do not yet give p
 
 ## 9. Finite arithmetic census (not a global bound)
 
+**Follow-up spectral experiment (2026-10-11).** The [staggered prime-wave / CRT / Euler / Perron / finite-C report](PRIME_PERRON_STAGGERED_PHASE_FINITE_C_EXPERIMENT_2026_10_11.md), with [reproducible source and workflow](../experiments/prime_phase_finite_c/README.md), tests the physical square-root phases against ordinary CRT phase sampling. Exact ten-prime sine maxima drop from +8.763 to +6.622, while the worst absolute maximum only drops from 8.763 to 8.451. Local Euler square-root phases show 67.27% zero states versus 38.77% for uniform integer phases; however the exhaustive four-prime signed Fourier **prefix energy** improves only 2.74% and the schematic wave amplitudes correlate essentially zero with genuine \(C_R\) through \(R=6000\). The original user's staggered R script is archived. This is a useful *negative* test: nonalignment and local density alone do not provide the signed all-root \(Q_R\) bound. The genuine cofactor-weighted nonzero conductor response remains the open component.
+
+
 The following exact-root summaries use the strict \(K_R\) and the actual Mobius sequence. Roots through \(1{,}000\), the double floor kernel for smaller roots, and the prime-comb correction formula were independently recomputed for this synthesis. The larger rows are from the reproducible repository censuses.
 
 | \(R\) | \(M(R^2-1)\) | \(Q_R\) | \(K_R\) | \(C_R\) | \(A_R\) |
