@@ -1,5 +1,7 @@
 # Euler product and the finite-C / finite-A square-root target
 
+**Start here for the complete handoff:** [Standalone research note — sequential Euler insertion, Mobius densities, square-block CRT, and finite C/A](SEQUENTIAL_EULER_SQUARE_BLOCK_FINITE_C_A_RESEARCH_NOTE.md). This is the self-contained version with the exact conditional RH proof, complete definitions, numerical audit, caveats, and next proof task.
+
 **Status (2026-10-11):** Exact finite Euler identities and historical weighted-energy estimates are established mathematically; the universal unweighted bound defining finite C remains **open**. This is a research proof map, not a claim that RH has been proved.
 
 **Fixed objective.** Prove one real constant C < infinity for all integers R >= 2:
