@@ -239,7 +239,7 @@ Examples from the exact audit (the ratios are rounded):
 | 56 | -41 | 47 | 6 | -10 | 0.145803 | 0.005315 |
 | 317 | -918 | 890 | -28 | 22 | 0.056665 | 0.005579 |
 | 5561 | -126917 | 124373 | -2544 | 2554 | 0.374992 | 0.139630 |
-| 10000 | -354099 | 356027 | 1928 | -1974 | 0.161176 | 0.024782 |
+| 10000 | -354099 | 356027 | 1928 | -1974 | 0.161176 | 0.024756 |
 
 The attached checker tests roots through 317 by default (larger roots require more time and memory); the 5561/10000 entries come from the earlier independent finite Euler/Mobius censuses. No finite census establishes a universal constant.
 
