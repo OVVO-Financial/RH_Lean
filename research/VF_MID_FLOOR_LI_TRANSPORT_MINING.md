@@ -383,3 +383,15 @@ transport/block miner and a compact committed result summary.
 
 The older exhaustive primitive and NNS stress suite remains in
 \`numerics/floor_li_discrete_meboot/\`.
+
+
+## 2026-10-11: Exact actual-prime frequency forcing versus finite C/A
+
+The fixed actual-prime frequency mismatch η(n) = 1_P(n) - Δfloor(Li_2(n))
+connects the already-proved floor-Li transport identities to the exact
+Möbius prime-root/smooth parity calculation. See
+[Finite C/A Euler parity and floor-Li frequency synthesis](FINITE_C_A_EULER_PARITY_FLOOR_LI_FREQUENCY_SYNTHESIS.md)
+for the U/V asymptotics, square-block arithmetic, and the precise distinction
+between a proved fantasy closure and the **open** signed physical
+bilinear-floor constant C. This connection is an exact source-to-source
+crosswalk, not a proof of the missing all-scale estimate.
