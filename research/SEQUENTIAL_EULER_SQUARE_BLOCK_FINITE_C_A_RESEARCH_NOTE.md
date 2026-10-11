@@ -14,6 +14,10 @@ satisfies \(Q_R=2M(R-1)-M(R^2-1)\).
 
 The **single open quantitative target** in this approach is a fixed finite \(C\) satisfying \(|Q_R|\le CR\sqrt{K_R}\) for every root \(R\), where \(K_R\) is the strict historical Mertens energy below \(R\). Such a bound gives a fixed finite square-root amplification \(A\), then a polylogarithmic square-root bound for \(M(x)\) by repeated descent, and hence RH. The paper also records the exact sequential prime-comb feedback, finite-wheel densities, square-block telescoping and CRT orthogonality, canonical \(U_R,V_R\) anti-alignment, reproducible numerics, and the crucial distinction between **phase-averaged independence** and a worst-case bound at the moving physical square endpoints.
 
+## Postscript: what thorough Euler accounting must preserve (2026-10-11)
+
+The follow-up [Twisted Euler two-wall finite-C ledger](TWISTED_EULER_TWO_WALL_FINITE_C_LEDGER.md) rewrites the **original** (Q_R=2M(R-1)-M(R^2-1)) as a single signed Euler population, proving an exact prime-toggle decomposition into a historical-crossing wall and an upper product-exit wall. This identifies a strict no-go for **one-edge-only** sign-reversing matchings: every prime in ((X/2,X]) is an isolated positive vertex of the twisted Boolean-cube adjacency graph; there are \(\asymp X/\log X\) such vertices, far above the target \(R\sqrt{K_R}\). The successful transport must connect different prime-owner families and preserve all signed boundary multiplicities. This is an obstruction to one particular local matching technique, **not** an obstruction to finite C. Its [independent audit](../scripts/euler_twisted_two_wall_audit.py) verifies the literal identities through \(R=317\).
+
 ## 1. Definitions, scope, and the single target
 
 For \(n\ge1\), the Mobius function is \(\mu(1)=1\), \(\mu(n)=0\) if a prime square divides \(n\), and \(\mu(n)=(-1)^{\omega(n)}\) otherwise, where \(\omega(n)\) counts *distinct* prime factors. Set \(M(x)=\sum_{1\le n\le x}\mu(n)\), including \(M(0)=0\). For each integer \(R\ge2\), put
