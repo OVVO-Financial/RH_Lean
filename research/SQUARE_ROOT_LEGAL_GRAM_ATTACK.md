@@ -1,5 +1,15 @@
 # Square-root legal-ancestry Gram attack
 
+## 2026-10-11: Euler parity and floor-Li actual-frequency crosswalk
+
+The analytic root/smooth anti-alignment theorem, square-block endpoint
+arithmetic, and the already-compiled floor-Li-to-actual-prime frequency
+forcing are now collected in
+[Finite C/A Euler parity and floor-Li frequency synthesis](FINITE_C_A_EULER_PARITY_FLOOR_LI_FREQUENCY_SYNTHESIS.md).
+The asymptotic U/V cancellation and floor-Li model closure do **not** by
+themselves prove the uniform signed floor-sum bound C. This remains the sole
+quantitative target in that record.
+
 ## Status
 
 The square-root endpoint experiment suggests the fixed-amplification statement
@@ -14,15 +24,23 @@ where `A` is an absolute constant and `K_R` controls all lower Mertens values:
 (M(y)-1)^2 \le K_R (y+1),\qquad y<R.
 \]
 
-The exhaustive exact scan through `R = 100000` found
+**Corrected finite census (PR #926; 2026-10-10).** The earlier claim of
+a maximum 0.1291432502985845 through R=100000 was incompatible with the
+exact R=5561 witness and is withdrawn. The independently recomputed,
+certified range 56 <= R <= 10000 has
 
 \[
-\max_{56\le R\le 100000}
+\max_{56\le R\le10000}
 \frac{(M(R^2-1)-1)^2}{R^2K(R)}
-=0.1291432502985845
+=\frac{12954050}{92774163}
+=0.139629931234195\ldots
 \]
 
-at `R = 88130`. The formal theorem deliberately does not assert a subunit
+at R=5561. See [PR #926](https://github.com/OVVO-Financial/RH_Lean/pull/926)
+for the source, exact census and qualification; do not extrapolate this
+finite maximum to R=100000 or to all scales.
+
+The formal theorem deliberately does not assert a subunit
 constant. Any finite absolute `A` is enough for the RH-scale exponent after
 square-root descent.
 
