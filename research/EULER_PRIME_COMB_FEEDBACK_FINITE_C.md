@@ -121,6 +121,7 @@ This is a new explicit arithmetic explanation of leading signed compensation in 
 | 1,000 | -169,582 | 41,370 | 41,160 | 102 | +169,794 | +212 |
 | 5,561 | -4,073,166 | 997,847 | 992,007 | 3,159 | +4,070,622 | -2,544 |
 | 10,000 | -12,230,578 | 2,999,905 | 2,982,696 | 9,357 | +12,232,506 | +1,928 |
+| 20,000 | -45,093,849 | 11,076,675 | 11,013,469 | 34,786 | +45,092,250 | -1,599 |
 
 These data show why independent random-sign modeling or cancellation **among the late prime steps** is the wrong mechanism: almost all those steps have the same sign! The decisive cancellation is **between the candidate field and its sequential correction ledger**.
 
@@ -180,6 +181,7 @@ Independent C++ audit:
 | 1,000 | 864,396 | 0.57626 | 167,964 | 0.11198 |
 | 5,561 | 21,208,300 | 0.45720 | 4,608,876 | 0.09936 |
 | 10,000 | 64,309,436 | 0.42873 | 14,447,868 | 0.09632 |
+| 20,000 | 239,198,548 | 0.39866 | 55,687,348 | 0.09281 |
 
 **Why this does not already prove finite C:** let \(B_R=2M(R-1)-(J_R+4N_R)\) and \(Z_p=\Delta_p-4\). The *original* floor sum is
 \(Q_R=B_R-\sum_{p\in P_R}Z_p\), so
@@ -208,7 +210,7 @@ The exact historic feedback law and frozen-prime insertion were already formaliz
 
 This note adds the first-exception \(M(95)=2\) monotonicity cutoff, a PNT-derived exact limit distribution of step signs, a harmonic identity giving the deterministic mean \(+4\), and an explicit non-circular audit of the *remaining large signed cross-compensation*.
 
-Reproduce the small/medium-root checks and the finite limiting-frequency truncation using [the standard-library prime-comb feedback audit](../scripts/euler_prime_comb_terminal_probe.py). The large-root samples were independently computed in optimized C++ with a prime sieve to \(10^8\); no new Lean compilation is claimed.
+Reproduce the small/medium-root checks and the finite limiting-frequency truncation using [the standard-library prime-comb feedback audit](../scripts/euler_prime_comb_terminal_probe.py). All large-root samples, including \(R=20{,}000\), can be independently reproduced using [the segmented C++ field reconstruction](../experiments/euler_prime_comb_full_field_audit.cpp). It computes both \(J_R\) and \(M(X)\) from actual Möbius coefficients, then checks their agreement with the separately accumulated prime insertions. Examples: `g++ -O3 -std=c++17 experiments/euler_prime_comb_full_field_audit.cpp -o audit`, then `./audit 10000` or `./audit 20000`. No new Lean compilation is claimed.
 
 **The only unresolved mathematical estimate remains a uniform finite \(C\) on the combined signed \(Q_R\).** A proof must couple (rather than separate) the actual candidate-field history and the measured prime updates at every moving square endpoint. The PNT-scale average \(+4\), monotonicity and convergence-rate results do not imply that bound.
 
