@@ -12,7 +12,7 @@ from math import gcd, isqrt
 from pathlib import Path
 from prime_cutoff_audit import mobius_sieve
 
-DIR=Path('/mnt/data/prime_cutoff_experiment')
+DIR=Path(__file__).resolve().parent
 
 def main():
     xs=[30,210,288,317,1023,1027,3135,9215,9999,100488,999999]
