@@ -262,7 +262,7 @@ def phase(root,x, primes,spf,mu,omega,greatest,M,Q,write_dir, full_rows):
 def main():
     ap=argparse.ArgumentParser()
     ap.add_argument('--values',type=int,nargs='+',default=[30,210,288,317,1023,1027,3135,9999,100488,999999])
-    ap.add_argument('--outdir',type=Path,default=Path('/mnt/data/prime_cutoff_experiment'))
+    ap.add_argument('--outdir',type=Path,default=Path(__file__).resolve().parent)
     args=ap.parse_args()
     args.outdir.mkdir(exist_ok=True,parents=True)
     xs=sorted(set(args.values))
