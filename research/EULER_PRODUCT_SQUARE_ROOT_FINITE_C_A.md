@@ -267,6 +267,9 @@ The attached checker tests roots through 317 by default (larger roots require mo
 
 ## Sequential-prime feedback follow-up (2026-10-11)
 
+**Finite wave-alignment experimental follow-up.** [Full report](PRIME_PERRON_STAGGERED_PHASE_FINITE_C_EXPERIMENT_2026_10_11.md) and [source/CI handoff](../experiments/prime_phase_finite_c/README.md). Exact square-endpoint CRT phase restrictions and local Euler zero-density changes are substantial, but no tested schematic sine or four-prime Euler-prefix signal predicts the true \(C_R\) census through root 6000. Do **not** turn height-averaged dephasing or a toy phase-frequency distribution into a pointwise Perron inversion bound.
+
+
 The literal animated prime-candidate field has an exact post-root increment
 \(\Delta_p=2(1-M(\lfloor X_R/p\rfloor))\), not an independent random sign.
 The [new feedback audit](EULER_PRIME_COMB_FEEDBACK_FINITE_C.md) proves a
