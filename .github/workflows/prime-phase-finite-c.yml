@@ -1,0 +1,92 @@
+name: Prime phase finite-C experiment
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - "experiments/prime_phase_finite_c/**"
+      - "research/PRIME_PERRON_STAGGERED_PHASE_FINITE_C_EXPERIMENT_2026_10_11.md"
+      - ".github/workflows/prime-phase-finite-c.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  regenerate-prime-phase:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Python scientific dependencies
+        run: python -m pip install --disable-pip-version-check numpy scipy matplotlib
+      - name: Compile exact Mobius census
+        working-directory: experiments/prime_phase_finite_c
+        run: g++ -O3 -std=c++17 mobius_root_census.cpp -o mobius_root_census
+      - name: Recompute every Mobius square root through 6000
+        working-directory: experiments/prime_phase_finite_c
+        run: ./mobius_root_census 6000 actual_root_scan.csv
+      - name: Recompute CRT sine, Euler phase, Perron and physical C
+        working-directory: experiments/prime_phase_finite_c
+        env:
+          PHASE_SAMPLES: "1500000"
+          MPLBACKEND: Agg
+        run: python prime_phase_experiment.py > prime_phase_run.log
+      - name: Recompute exact full-wheel Fourier conductor Gram
+        working-directory: experiments/prime_phase_finite_c
+        run: python euler_fourier_conductor_audit.py > fourier_run.log
+      - name: Recompute growing prime waves
+        working-directory: experiments/prime_phase_finite_c
+        run: python growing_prime_wave_audit.py > growing_run.log
+      - name: Validate published numeric checkpoints
+        working-directory: experiments/prime_phase_finite_c
+        run: |
+          python - <<'PY'
+          import json, math, csv
+          from pathlib import Path
+          data=json.loads(Path('EXPERIMENT_RESULTS.json').read_text())
+          r=json.loads(Path('results.json').read_text())
+          f=json.loads(Path('fourier_conductor_results.json').read_text())
+          g=json.loads(Path('growing_prime_wave_results.json').read_text())
+          def close(x,y,atol=0.00002):
+              assert math.isclose(x,y,rel_tol=0,abs_tol=atol),(x,y,atol)
+          assert r['phase']['n_samples']==1500000
+          close(r['phase']['phase_limits']['exact_square_max'],data['phase_extrema']['square_max'])
+          close(r['phase']['phase_limits']['exact_square_min'],data['phase_extrema']['square_min'])
+          close(r['euler']['populations']['square']['zero'],data['Euler_local_probability']['square_zero'])
+          assert f['num_reduced_conductors']==80
+          close(f['ordinary']['mean_total_energy'],data['Euler_prefix_FFT']['ordinary_total'])
+          close(f['square']['mean_total_energy'],data['Euler_prefix_FFT']['square_total'])
+          close(f['square']['mean_signed_cross_conductor_energy'],data['Euler_prefix_FFT']['square_cross'])
+          close(r['perron']['diagonal'],data['Perron_log_toy']['diagonal'],1e-9)
+          assert r['mertens']['root_max']==6000
+          assert r['mertens']['argmax_C_for_R_ge_31']==5561
+          close(r['mertens']['max_C_for_R_ge_31'],data['Mobius_census']['max_C_R_for_R_ge_31'])
+          close(r['mertens']['correlations']['absY_vs_C']['pearson'],data['Mobius_census']['Pearson_C_R_R_ge_31']['fixed_abs_sine'])
+          close(g['waves_amplitude_corr_C']['pearson'],data['Mobius_census']['Pearson_C_R_R_ge_31']['growing_abs_sine'])
+          with open('actual_root_scan.csv') as h:
+              rows=list(csv.DictReader(h))
+          assert len(rows)==5999
+          assert int(rows[-1]['R'])==6000
+          assert int(float(rows[-1]['M_X']))==2256
+          assert int(float(rows[-1]['Q_R']))==-2256
+          print('All checkpoint audits passed; finite C remains unproved.')
+          PY
+      - name: Publish full regenerated charts and data
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: prime-phase-finite-C-reproducibility
+          retention-days: 90
+          if-no-files-found: warn
+          path: |
+            experiments/prime_phase_finite_c/*.py
+            experiments/prime_phase_finite_c/*.cpp
+            experiments/prime_phase_finite_c/*.R
+            experiments/prime_phase_finite_c/*.md
+            experiments/prime_phase_finite_c/*.csv
+            experiments/prime_phase_finite_c/*.json
+            experiments/prime_phase_finite_c/*.png
+            experiments/prime_phase_finite_c/*.log
