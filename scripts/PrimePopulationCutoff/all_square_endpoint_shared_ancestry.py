@@ -11,7 +11,7 @@ from pathlib import Path
 from prime_cutoff_audit import mobius_sieve
 
 NROOT=1000
-DIR=Path('/mnt/data/prime_cutoff_experiment')
+DIR=Path(__file__).resolve().parent
 ps,spf,mu,om,gr,M,Q=mobius_sieve(NROOT*NROOT-1)
 P=np.asarray(ps,dtype=np.int64)
 a=np.zeros(NROOT,dtype=np.int64)
