@@ -1,7 +1,7 @@
 from pathlib import Path
 import pandas as pd
 import numpy as np
-D=Path('/mnt/data/cofactor_conditioning_experiment')
+D=Path(__file__).resolve().parent
 f=pd.read_csv(D/'root_features.csv')
 o=pd.read_csv(D/'selected_owner_groups.csv')
 d=pd.read_csv(D/'selected_depth.csv')
