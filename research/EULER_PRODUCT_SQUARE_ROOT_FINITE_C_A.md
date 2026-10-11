@@ -261,3 +261,22 @@ The attached checker tests roots through 317 by default (larger roots require mo
 - Meromorphic continuation of zeta (distinct from convergence of the prime Euler product): https://dlmf.nist.gov/25.2
 - Rosser and Schoenfeld (1962), explicit prime reciprocal estimates: https://denisevellachemla.eu/Rosser-Schoenfeld-1962.pdf
 - Earlier research note in this conversation: Finite_C_A_Euler_Product_Square_Root_Attack.md (research source, not independently merged into Lean).
+
+
+## Sequential-prime feedback follow-up (2026-10-11)
+
+The literal animated prime-candidate field has an exact post-root increment
+\(\Delta_p=2(1-M(\lfloor X_R/p\rfloor))\), not an independent random sign.
+The [new feedback audit](EULER_PRIME_COMB_FEEDBACK_FINITE_C.md) proves a
+terminal monotonicity threshold \(p>X_R/95\), a finite harmonic Euler identity,
+and the unconditional PNT-scale mean correction \(\Delta_p\) averaged over
+active post-root primes tending to **+4**. It also shows numerically that
+almost all actual late-prime updates are *positive*: the critical compensation
+is between the initial candidate field and the accumulated corrections,
+not within the latter's sign count. This is independently reproduced by
+[euler_prime_comb_terminal_probe.py](../scripts/euler_prime_comb_terminal_probe.py).
+
+These are new **structural** and **PNT-scale** results, not an all-scale
+finite-\(C\) estimate. At \(R=10{,}000\), centering both contributions by
+the deterministic \(+4\) per active prime still leaves \(-230958\) and
+\(+232886\), whose further **signed** compensation is indispensable.
