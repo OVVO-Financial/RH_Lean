@@ -1,69 +1,114 @@
 # RH_Lean current proof contract
 
-Status date: 2026-10-11 (retains the canonical 2026-10-06 route lock). The direct VF-mid route is the canonical proof program.
-Compiled Lean source and successful checks of the relevant commit are
-authoritative. Historical handoffs, attractive finite plots, and stronger
-sufficient criteria do not override this contract.
+**Status date: 2026-10-12. SINGLE PUBLIC CANONICAL VF: sqrt(2) vertical alignment.**
+This is the public-definition supersession of the existing raw midpoint
+construction, NOT a change to any frozen arithmetic prime-owner coefficient
+or pre-existing theorem statement. The long-running direct VF-mid
+SIGNED arithmetic route is still canonical; finite A/C and CORR-4 remain
+sufficient alternatives. RH/finite A/finite C and the genuine signed
+first-bad payment are OPEN.
+
+Read [the complete autopsy and exact legacy-coordinate map](research/VF_CANONICAL_SQRT_TWO_AUTOPSY_2026_10_12.md).
+The public Lean interface is
+[research/VF_CANONICAL_SQRT_TWO.lean](research/VF_CANONICAL_SQRT_TWO.lean)
+and the criterion is
+[research/VF_CANONICAL_SQRT_TWO_VON_KOCH.lean](research/VF_CANONICAL_SQRT_TWO_VON_KOCH.lean).
+New declarations require successful warning-fatal Lean and standard-axiom
+checks; historical names are not reinterpreted before compilation.
+
+## Canonical mathematical object and unique RH-scale goal
+
+For x>=4, R=floor(sqrt x),
+
+\[
+\boxed{VF_{\rm can}(x)=
+\sqrt2+\sum_{r=2}^{R-1}\frac{2r+1}{\log(r^2+r+1/2)}
++\frac{x-R^2}{\log((R^2+x)/2)}.}
+\]
+
+This is exactly vfMidAligned(sqrt2,x), which equals the original raw
+vfMid(x) + sqrt2. The chosen phase is a fixed ADDITIVE translation, not the
+historical exact c_anchor=4-vfMidFinishedMass(3), not a multiplicative factor,
+and not a floor or odd fractional staircase.
+
+Define the real completed mass F_R=vfMidFinishedMass R and the only
+public endpoint prime discrepancy
+
+\[
+\boxed{D_R^{\rm can}:=\pi(R^2)-F_R-\sqrt2.}
+\]
+
+The **CURRENT PUBLIC ARITHMETIC PROOF GOAL** is
+
+\[
+\boxed{\exists C\ge0:\quad
+|D_R^{\rm can}|\le CR\log R\quad\forall R\ge2.}
+\]
+
+Lean: VFCanonicalSquareVonKochStatement. Existing pre-2026-10-12
+VFMidSquareEndpointVonKochBoundedStatement is an EXACTLY EQUIVALENT
+legacy RAW phase criterion, not a separately open theorem. The new
+vfCanonicalSquareVonKoch_iff_legacy is the obligatory transfer.
+For fixed phase c, existence of a uniform von-Koch C is unchanged,
+but individual first-bad and energy inequalities are NOT IDENTICAL.
+
+Original PRIME events and original block mass remain unchanged:
+\[
+D_{R+1}^{\rm can}=D_R^{\rm can}+P_R-V_R,\quad
+P_R=\pi((R+1)^2)-\pi(R^2),\quad
+V_R=(2R+1)/\log(R^2+R+1/2).
+\]
+Legacy owner/FTA wheel lemmas use the raw defect
+\(D_R^{\rm raw}=\pi(R^2)-F_R\), satisfying
+\(D_R^{\rm can}=D_R^{\rm raw}-\sqrt2\).
+The older theorem source/owner incidence is untouched.
+DO NOT replace raw covariance terms or the physical historical
+denominator with shifted ones without carrying the true
+\(-2\sqrt2 D_R^{\rm raw}+2\) quadratic correction.
+
+## All-real Li_2 quadrature is ALREADY reducible to compiled lemmas
+
+The existing
+[research/VF_MID_LI_UNIFORM_QUADRATURE.lean](research/VF_MID_LI_UNIFORM_QUADRATURE.lean)
+proves the global \(O(1)\) square-endpoint quadrature bound. Crucially,
+[research/VF_MID_VON_KOCH_BRIDGE.lean](research/VF_MID_VON_KOCH_BRIDGE.lean)
+ALSO already proves the uniformly bounded LIVE-partial-square
+quadrature and the exact complete-square-plus-live decomposition.
+
+The new [all-real theorem assembly](research/VF_CANONICAL_ALL_REAL_LI_O_ONE.lean)
+yields the *stronger than previously exposed* unconditional estimate
+
+\[
+\boxed{\forall x\in[4,\infty),\quad
+|VF_{\rm can}(x)-Li_2(x)|\le C_0<\infty.}
+\]
+
+This is NOT merely square-endpoint \(O(1)\); it applies at every real
+cutoff including the interior of every square block. The chosen
+phase adds the fixed sqrt2 to the deterministic bound.
+Standard li(x) differs from Li_2(x)=int_2^x dt/log t by an additive
+constant; never mix normalizations.
+
+The canonical ↔ classical prime-minus-Li von Koch equivalence is
+formalized in the new von-Koch bridge, and the classical von-Koch ↔ RH
+theorem remains EXPLICITLY passed as ClassicalVonKochRHCriterion.
+The open estimate is actual prime-versus-canonical VF, not
+the deterministic VF-Li_2 error.
 
 ## Motto and guiding light
 
-> **Close RH through VF.  Preserve the RH-scale target; do not replace it with
-> a stronger block-by-block statement merely because that stronger statement
-> fits finite data.**
+> **Close RH through the CANONICAL sqrt2 VF actual-prime discrepancy.
+> Signed original physical reassembly first; energy second.
+> Never replace the still-open actual-prime von Koch bound by a stronger
+> false per-band graph-crossing requirement or a hidden covariance premise.**
 
-The VF construction can remain an excellent RH-scale approximation to the
-prime-counting staircase even though no fixed vertical alignment intersects
-that staircase in every square block forever.  Those are different claims.
-
-The canonical arithmetic target is therefore the cumulative square-endpoint
-bound
-
-```text
-exists C >= 0, for every natural R >= 2,
-  |pi(R^2) - VF_mid(R^2)| <= C R log R.
-```
-
-In Lean this is
-
-`VFMidSquareEndpointVonKochBoundedStatement`
-
-from
-[`VF_MID_VON_KOCH_BRIDGE.lean`](research/VF_MID_VON_KOCH_BRIDGE.lean).
-
-The already-compiled bridge
-`vfMidVonKochBounded_of_squareEndpoint` extends that estimate to every real
-cutoff `x >= 4`; `primeLiVonKochBounded_of_vfMidSquareEndpoint` combines it
-with the unconditional VF/Li quadrature estimate; and
-`riemannHypothesis_of_vfMidSquareEndpoint` feeds it into the repository's
-explicit classical von-Koch/RH criterion.
-
-The remaining work is therefore arithmetic control of the cumulative signed
-VF error itself.  Write
-
-```text
-D_R = pi(R^2) - vfMidFinishedMass R
-P_R = pi((R+1)^2) - pi(R^2)
-m_R = vfMidBandMass R.
-```
-
-Then the exact recurrence is
-
-```text
-D_(R+1) = D_R + (P_R - m_R).
-```
-
-The square-wheel/FTA modules identify `P_R` exactly as the survivors of the
-common finite prime wheel for that square block.  Thus the central research
-question is signed cumulative control of
-
-```text
-sum_{r<R} (P_r - m_r),
-```
-
-at the `R log R` scale.  Local prime/composite dispersion, finite wheel
-exactness, least-prime ownership, and square-root dependency are useful only
-insofar as they help prove this cumulative estimate without introducing a
-stronger false premise.
+The old source remains the signed cumulative square-block arithmetic.
+All statements later in this historical contract naming **D_R without
+a superscript, VF_mid or vfMidFinishedMass refer to the RAW, frozen
+implementation coordinate**, and must be translated using
+\(D_R^{can}=D_R^{raw}-\sqrt2\) when presenting the public canonical
+criterion. The user-facing canonical object supersedes those prior
+PUBLIC names but does NOT mutate thousands of source definitions.
 
 ## 2026-10-11 alignment: finite A/C is a sufficient ALTERNATIVE, not a new VF gate
 
