@@ -124,25 +124,48 @@ For each **published** Workspace Agent: open the agent from **Agents / Built by 
 
 See official [Workspace Agent scheduling documentation](https://help.openai.com/en/articles/20001143-chatgpt-workspace-agents-for-enterprise-and-business): schedules are independent triggers; creating schedules does not automatically route one run's outputs into the next. The assistant's separate ChatGPT automation scheduler is **not** a substitute for scheduled Workspace Agent runs.
 
-### Handoff dependency: MUST be explicitly configured
+### Mandatory handoff: reports as GitHub Markdown files, NOT issue comments
 
-Without an actual shared handoff, all agents will run separately. At present the suggested configuration gives GitHub **read-only** access, which means later runs CANNOT see previous runs' private responses through the repository.
+**Live reporting branch:** `agent-reports`, permanently separate from the canonical research `main` branch.
+**Dated directory:** `research/agent_reports/YYYY-MM-DD/` with the timezone `America/New_York`.
 
-Recommended implementation: establish a dedicated issue/ledger for the daily cycle in `OVVO-Financial/RH_Lean`; give all agents read access to today's ledger and, **only after user authorization**, add narrowly-scoped permission to post comments to the designated issue(s). Do NOT allow direct push/merge or general unreviewed GitHub writes. Prefer a service account or equivalent least-privilege account for unattended scheduled runs when the application supports it. If per-action approval is required, unattended writing may wait for approval. If issue-scoped commenting cannot be constrained safely with the connector, use a shared approved document/channel instead, or accept MANUAL handoffs rather than claiming a fully connected unattended cycle.
+Read the [reporting branch README](https://github.com/OVVO-Financial/RH_Lean/blob/agent-reports/research/agent_reports/README.md), [Markdown template](https://github.com/OVVO-Financial/RH_Lean/blob/agent-reports/research/agent_reports/REPORT_TEMPLATE.md), and [eight copy/paste schedule-stage prompts](https://github.com/OVVO-Financial/RH_Lean/blob/agent-reports/research/agent_reports/SCHEDULE_PROMPTS.md). This design **replaces the earlier proposal for a GitHub issue-comment ledger**.
 
-Use these issue comment section labels, with run datetime, UTC offset/timezone, and current main SHA: `GOALS`, `OWNER`, `ANALYTIC`, `WHEEL`, `CENSUS`, `REFEREE`, `LEAN`, `SYNTHESIS`. Each specialist's comment contains exact theorem, dependencies, verified evidence, counterexamples, and first unpaid input; if no proof is found, mark **NO NEW ESTIMATE**, not an invented result. Avoid writing long-term AI chat logs or confidential user data into publicly accessible issues.
+Each agent MUST create **one distinct report Markdown file** each day on `agent-reports`, even if it found no new theorem. Every report records live `main` commit, date/time, exact theorem or counterexample, method, original arithmetic carrier, proof strength, data/code provenance, current unresolved obligations, and downstream handoff IDs. Reports on `agent-reports` are NOT mathematically authoritative; `AGENTS.md`, `CURRENT_PROOF_CONTRACT.md` and original Lean source are retrieved from latest `main` at each run.
 
-**Schedule does not imply real-time dependency orchestration:** the next agent may start before its predecessor finishes. Each run must inspect which earlier comments actually exist, mark unavailable results `PENDING`, process any finished items, and pass late results into the next available daily cycle. The 7:00 PM coordinator must NOT falsely mark an unverified claim or missing stage as completed. Change scheduling gaps if measured runtime warrants.
+The daily fixed filenames correspond to the timetable above:
 
-### Copy/paste schedule instruction — each run
+```text
+research/agent_reports/YYYY-MM-DD/
+  00-coordinator-am.md       (Agent #1, 07:00)
+  10-owner-payment.md        (Agent #2, 08:00)
+  20-analytic-type-ii.md     (Agent #5, 09:00)
+  30-finite-wheel.md         (Agent #6, 10:00)
+  40-prime-census.md         (Agent #4, 13:00)
+  50-adversarial-referee.md  (Agent #3, 15:00)
+  60-lean-verification.md    (Agent #7, 17:00)
+  90-coordinator-pm.md       (Agent #1, 19:00)
+```
 
-> Run today's RH_Lean research stage. FIRST fetch fresh `AGENTS.md` and `CURRENT_PROOF_CONTRACT.md` from `main`, record the SHA, and update the target to the current directions. Read today's shared research ledger if configured; use the precise work product of available earlier stages, never assume or invent missing handoffs. Carry out my mathematical specialty's assigned stage at its scheduled time. Independently prove, falsify, or identify the exact obstruction. Label every claim PROVED IN LEAN, PAPER PROOF, FINITE TEST, CONDITIONAL, CONJECTURE, REFUTED, or PENDING. If permitted, publish a concise dated stage report to the authorized ledger; otherwise report here that the handoff needs manual transfer. Never write to main or merge. End with concrete next obligations and a no-new-progress status when appropriate.
+**Technical write operation:** use the GitHub file-create action `path=research/agent_reports/YYYY-MM-DD/{assigned-file}`, `branch=agent-reports`; do NOT leave `branch` absent (that would write to the default branch). If the file already exists, first fetch its blob SHA and use the GitHub file-update action, preserving previous content in a timestamped rerun section. Re-fetch after commit; do not announce success until the actual committed file is visible. No direct writes to `main`, active proof branches or another specialist's report.
 
-Use schedule-specific refinements for #1 **morning** (create/identify today's ledger, decide targets) and #1 **evening** (read actual completed reports, issue the FINAL DAILY SYNTHESIS, identify missing stages and queue carryovers). Independent research roles should not read another proposer's narrative as evidence of correctness; referees must cross-check source mathematics.
+**Operational permissions:**
+- The agents as originally configured had GitHub **read-only** access. They CANNOT publish reports until the user enables authorized GitHub file-create/update actions for their agent tools. The present repository files DO NOT automatically grant such permissions.
+- GitHub write access to a repository may not be constrained to one branch/folder by Workspace Agent instruction text alone. Use server-enforced least privilege, a restricted GitHub App, or an independently permission-checked writing intermediary where available. Do not represent ordinary repo-level write access as technically folder-scoped.
+- Report commits are allowed only in `agent-reports` by behavioral instruction; no merges and no proof source writes. If unattended write permissions cannot be constrained safely, keep explicit approval and treat daily handoff as partially manual.
+- If the agent has no write permission, it must say `NOT_PUBLISHED` and provide the report in its chat. Downstream agents must label the upstream file `PENDING`, not fabricate its findings.
 
-### Definition of a completed cycle
+**Dependency guarantee:** these are independent scheduled launches, not a transactional pipeline. A prior agent may still be running when the next begins. Each recipient reads ONLY files actually published. The evening Coordinator must fetch all seven earlier named reports explicitly; include a stage-completion table, claim-by-claim verdicts, evidence URLs, and explicit `PENDING` or `BLOCKED` statuses. A truly completed daily cycle requires actual reports rather than promises.
 
-A completed cycle means **all seven scheduled agents actually ran**, a central direction was consulted freshly, available claims were independently researched, the specific claims were numerically challenged, an adversarial review occurred, Lean verification **ran and was logged** or was explicitly marked blocked/not applicable, and the coordinator issued a dated final synthesis. Eight planned schedules alone do not establish completion.
+### Schedule instruction — paste into EACH daily trigger
+
+> Execute my RH_Lean stage of today's complete seven-agent research cycle. FIRST read fresh `main:AGENTS.md` and `main:CURRENT_PROOF_CONTRACT.md`, recording the verified `main` commit SHA and today's central research objective. Read the named earlier reports from branch `agent-reports` under `research/agent_reports/YYYY-MM-DD/`; never invent missing content. Conduct my specialty's assigned research stage with exact quantitative statements, attempted falsification, proof/evidence classification and first open lemma. Using the provided report template, create my assigned Markdown report file **on branch `agent-reports` only**, re-fetch and verify the commit; on read-only/permission failure, clearly report `NOT_PUBLISHED` and provide the report in chat. Never write to `main` or merge. The Coordinator's evening run must verify all seven prior stage reports and mark any missing one PENDING.
+
+Use the branch's [stage-specific prompts](https://github.com/OVVO-Financial/RH_Lean/blob/agent-reports/research/agent_reports/SCHEDULE_PROMPTS.md) for the additional role instruction and exact filename.
+
+### Completion criterion
+
+A complete daily cycle consists of: actual coordinator morning goals; three independent discovery reports; a reproducible census report; adversarial verdicts linked to exact claim IDs; actual Lean compilation with SHA/audit **or an explicit no-new-theorem/blocker report**; and an evening synthesis verifying which seven prior reports were published. If any run was late or lacked GitHub write permissions, it is NOT fully completed. Never silently assume agent-to-agent results have propagated.
 
 ## Handoffs and operating cadence
 
