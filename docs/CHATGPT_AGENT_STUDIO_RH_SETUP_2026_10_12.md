@@ -101,6 +101,49 @@ Use GitHub only within the named repository. Create a separate branch and draft 
 
 **Preview test:** "Find the exact kernel declaration showing #931 clipped/admitted versus admitted/admitted disjointness; explain why the open source inlet has not been proved. State whether you have run Lean."
 
+## Full research cycle **EVERY calendar day** (America/New_York)
+
+User directive 2026-10-12: **run the entire seven-agent workflow daily, including weekends**. The coordinator runs twice; schedule **eight invocations each day**.
+
+| Time ET | Agent | Input and required output |
+| --- | --- | --- |
+| 7:00 AM | #1 Research Coordinator, morning | Refresh live `main` `AGENTS.md` and `CURRENT_PROOF_CONTRACT.md`; establish new day's objective and proof-status baseline; identify pending old claims. |
+| 8:00 AM | #2 Owner Payment | Independent genuine arithmetic/owner-incidence research aligned with today's central objective; propose exact signed inequalities or a documented obstruction. |
+| 9:00 AM | #5 Analytic Type II | Independent rigorous analytic estimates aligned with today's central objective; report exact cutoff, savings and missing estimate. |
+| 10:00 AM | #6 Finite Wheel & Incidence | Independent sieve/combinatorial attack with original physical coefficient preservation; report a new bounded theorem or counterexample. |
+| 1:00 PM | #4 Prime Census Laboratory | Reproduce and attempt to falsify the day's **specific** claims using authentic prime/Möbius arithmetic, code and recorded execution provenance. |
+| 3:00 PM | #3 Adversarial Referee | Read exact surviving statements, attempt independent counterexamples and identify hidden assumptions or circularity. |
+| 5:00 PM | #7 Lean Verification | Compile/audit independently established surviving statements if an authorized execution environment exists; otherwise report no Lean execution and prepare precise proof obligations. |
+| 7:00 PM | #1 Research Coordinator, evening | Integrate the real available findings, explicitly mark absent/late results, rank net-new mathematical progress and define the next day's work. |
+
+Each agent must retrieve latest `main` central instructions on EACH scheduled run. Use the **America/New_York** timezone rather than a fixed UTC offset so daylight-saving time is handled.
+
+### Click-by-click scheduling
+
+For each **published** Workspace Agent: open the agent from **Agents / Built by me** > choose **Schedule** in the top-right of its agent page (or **Edit agent → Channels → ChatGPT → Add schedule**) > select ChatGPT channel, **daily / every 1 day** frequency, timezone **America/New_York**, and the exact time in the table > paste its schedule-specific instruction (below) > select **Add schedule**; repeat for each. Create TWO different schedules for #1 Coordinator.
+
+See official [Workspace Agent scheduling documentation](https://help.openai.com/en/articles/20001143-chatgpt-workspace-agents-for-enterprise-and-business): schedules are independent triggers; creating schedules does not automatically route one run's outputs into the next. The assistant's separate ChatGPT automation scheduler is **not** a substitute for scheduled Workspace Agent runs.
+
+### Handoff dependency: MUST be explicitly configured
+
+Without an actual shared handoff, all agents will run separately. At present the suggested configuration gives GitHub **read-only** access, which means later runs CANNOT see previous runs' private responses through the repository.
+
+Recommended implementation: establish a dedicated issue/ledger for the daily cycle in `OVVO-Financial/RH_Lean`; give all agents read access to today's ledger and, **only after user authorization**, add narrowly-scoped permission to post comments to the designated issue(s). Do NOT allow direct push/merge or general unreviewed GitHub writes. Prefer a service account or equivalent least-privilege account for unattended scheduled runs when the application supports it. If per-action approval is required, unattended writing may wait for approval. If issue-scoped commenting cannot be constrained safely with the connector, use a shared approved document/channel instead, or accept MANUAL handoffs rather than claiming a fully connected unattended cycle.
+
+Use these issue comment section labels, with run datetime, UTC offset/timezone, and current main SHA: `GOALS`, `OWNER`, `ANALYTIC`, `WHEEL`, `CENSUS`, `REFEREE`, `LEAN`, `SYNTHESIS`. Each specialist's comment contains exact theorem, dependencies, verified evidence, counterexamples, and first unpaid input; if no proof is found, mark **NO NEW ESTIMATE**, not an invented result. Avoid writing long-term AI chat logs or confidential user data into publicly accessible issues.
+
+**Schedule does not imply real-time dependency orchestration:** the next agent may start before its predecessor finishes. Each run must inspect which earlier comments actually exist, mark unavailable results `PENDING`, process any finished items, and pass late results into the next available daily cycle. The 7:00 PM coordinator must NOT falsely mark an unverified claim or missing stage as completed. Change scheduling gaps if measured runtime warrants.
+
+### Copy/paste schedule instruction — each run
+
+> Run today's RH_Lean research stage. FIRST fetch fresh `AGENTS.md` and `CURRENT_PROOF_CONTRACT.md` from `main`, record the SHA, and update the target to the current directions. Read today's shared research ledger if configured; use the precise work product of available earlier stages, never assume or invent missing handoffs. Carry out my mathematical specialty's assigned stage at its scheduled time. Independently prove, falsify, or identify the exact obstruction. Label every claim PROVED IN LEAN, PAPER PROOF, FINITE TEST, CONDITIONAL, CONJECTURE, REFUTED, or PENDING. If permitted, publish a concise dated stage report to the authorized ledger; otherwise report here that the handoff needs manual transfer. Never write to main or merge. End with concrete next obligations and a no-new-progress status when appropriate.
+
+Use schedule-specific refinements for #1 **morning** (create/identify today's ledger, decide targets) and #1 **evening** (read actual completed reports, issue the FINAL DAILY SYNTHESIS, identify missing stages and queue carryovers). Independent research roles should not read another proposer's narrative as evidence of correctness; referees must cross-check source mathematics.
+
+### Definition of a completed cycle
+
+A completed cycle means **all seven scheduled agents actually ran**, a central direction was consulted freshly, available claims were independently researched, the specific claims were numerically challenged, an adversarial review occurred, Lean verification **ran and was logged** or was explicitly marked blocked/not applicable, and the coordinator issued a dated final synthesis. Eight planned schedules alone do not establish completion.
+
 ## Handoffs and operating cadence
 
 - Run the **Owner Payment** and **Analytic Type II** agents as independent research attacks; ask the **Wheel & Incidence** agent for separate arithmetic estimates.
