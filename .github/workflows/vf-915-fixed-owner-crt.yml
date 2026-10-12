@@ -1,0 +1,23 @@
+name: VF 915 fixed-owner CRT period audit
+
+on:
+  pull_request:
+    branches: [vf-first-bad-final-aggregate-contraction]
+    paths:
+      - scripts/vf_mid_915_fixed_owner_crt_history_regression.py
+      - .github/workflows/vf-915-fixed-owner-crt.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify-crt-owner:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Check exact rational CRT centered-owner full periods
+        run: python3 scripts/vf_mid_915_fixed_owner_crt_history_regression.py

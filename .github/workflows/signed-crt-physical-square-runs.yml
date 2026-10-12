@@ -1,0 +1,47 @@
+name: Signed CRT physical square-run certificates
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - research/SQUARE_RUN_SIGNED_CRT_PHYSICAL_MIXING_20261010.md
+      - scripts/signed_square_run_crt_parity_certificate.py
+      - scripts/signed_crt_complete_period_sharp.cpp
+      - scripts/physical_square_run_residue_covariance.cpp
+      - .github/workflows/signed-crt-physical-square-runs.yml
+  push:
+    branches: [square-run-physical-crt-mixing-20261010]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  signed-crt-arithmetic:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Exact signed-wheel and square-correction tests
+        run: python3 scripts/signed_square_run_crt_parity_certificate.py
+      - name: Compile physical Möbius segmented covariance census
+        run: |
+          g++ -std=c++17 -O3 -Wall -Wextra -Werror \
+            -o /tmp/physical_square_residue \
+            scripts/physical_square_run_residue_covariance.cpp
+      - name: Compile and check sharp all-scale CRT period certificates
+        run: |
+          g++ -std=c++17 -O3 -Wall -Wextra -Werror \
+            -o /tmp/signed_crt_period \
+            scripts/signed_crt_complete_period_sharp.cpp
+          /tmp/signed_crt_period | tee /tmp/signed_crt_period.txt
+          grep -F 'y=7 Q=210 period=44100 rho=2304/44100 max_signed_phase=519408/44100' /tmp/signed_crt_period.txt
+          grep -F 'y=11 Q=2310 period=5336100 rho=230400/5336100 max_signed_phase=186878700/5336100' /tmp/signed_crt_period.txt
+      - name: Check actual Möbius and centered Cauchy certificates
+        run: |
+          /tmp/physical_square_residue 5267 5417 > /tmp/run_5267.csv
+          /tmp/physical_square_residue 6000 6154 > /tmp/run_6000.csv
+          /tmp/physical_square_residue 88130 88140 > /tmp/run_88130.csv
+          grep -F '5267,5417,1602600,11,-496,' /tmp/run_5267.csv
+          grep -F '6000,6154,1871716,11,-580,' /tmp/run_6000.csv
+          grep -F '88130,88140,1762700,11,-1167,' /tmp/run_88130.csv

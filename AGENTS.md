@@ -93,22 +93,25 @@ Treat rediscovery of these as a failed branch unless a genuinely new signed ingr
 - ownerwise squaring before transferring omitted higher-owner contacts to their signed earlier-owner mates;
 - using the `q^{-2}` branching budget as though it supplied the missing signed daughter-energy dictionary.
 
-## Current quantitative objective
+## Current quantitative objective (aligned 2026-10-11)
 
-The current target is CORR-4, with the exact carrier, lower-envelope
-quantifiers, and sufficient Stokes/remainder thresholds in
-`CURRENT_PROOF_CONTRACT.md`. The signed daughter dictionary and the forward
-Mertens-to-RH bridge are already available. The unresolved input is a uniform
-quantitative bound on the top-endpoint correlation, not another bookkeeping
-identification.
+**Canonical:** The active direct VF-mid program remains the cumulative real-prime discrepancy
+\[
+|\pi(R^2)-VF_{\rm mid}(R^2)|=O(R\log R),
+\]
+with actual owner-admissible escape proved from a chronological **multi-block run**, not from a one-bad-child selector. The no-independent-persistence owner-cell cancellation and sector-six rank descent are already established infrastructure. Consume them; do NOT introduce a new general "no persistent correlation" or ergodicity hypothesis. The unresolved actual-prime seam is the original first-bad weighted source-to-compensated-boundary occurrence map and run-level signed late-owner correction. Check CURRENT_PROOF_CONTRACT.md before attempting new code.
 
-The #797–#800 closeout freezes further searches among the existing internal
-identity families pending a new quantitative ingredient. Preserve the exact
-identities, counterexamples, and diagnostics. A new route must state what
-estimate it adds and how that estimate reaches the compiled consumer; a
-coordinate rename, completed square, finite regression, or reciprocal budget
-alone does not qualify. This freeze does not assert impossibility of every
-elementary approach.
+**Sufficient alternative (#929):** Finite-C (the original Mertens bilinear \(Q_R=2M(R-1)-M(R^2-1)\)) and finite-A endpoint amplification are equivalent as existence claims and would imply RH through the existing conditional Lean consumer. They remain UNPROVED and are not a separate required gate for the VF proof. Read [the aligned finite A/C scope and assumptions audit](research/FINITE_A_C_VF_ALIGNMENT_2026_10_11.md) before changing this route.
+
+- Never re-label the equivalent \(\Gamma_R\le BR^2 K_R\) live signed-pair inequality as a new known bound; the diagonal is controlled, the POSITIVE reassembled cross-family Gram is not.
+- Never apply global \(6/\pi^2\) squarefree density, fixed-prime multiplicative sign purity, or fixed-T gcd-sector asymptotics to a selected growing first-owner/run carrier without a uniform transfer theorem. The live interaction is a PAIR sum, not an integer population.
+- No same-prime parent/child edge occurs between *distinct simultaneously live* odd packets of \((x/2,x]\). Such exact opposite signs are historical/future generation transport, not already-paid endpoint covariance.
+- Root-relative period/CRT phase independence and near-zero fixed-lag Pearson/Spearman/Kendall are diagnostics, NOT worst-case control of multiplicative signed ancestry at physical square endpoints.
+- Opposite terminal-owner / seed contributions may be individually much bigger than the target \(R\sqrt{K_R}\). Reassemble the original source, its weights, cross terms, clips and both walls **before** norming or comparing it to the target.
+
+**Preserved older alternative:** CORR-4 remains an open sufficient route with its own compiled conditional Stokes/remainder consumer; the #797–#800 identity-family search freeze still applies. Do not describe CORR-4 as the current required canonical theorem.
+
+The acceptance test for any new step is a genuinely INDEPENDENT quantified arithmetic inequality on the exact original physical carrier or an actual-source-to-recursive-run matching theorem. A density computation, algebraic reformulation, one-owner sign, finite graph, or a conditional theorem with its input left open is NOT RH closure.
 
 ## Lean and repository rules
 

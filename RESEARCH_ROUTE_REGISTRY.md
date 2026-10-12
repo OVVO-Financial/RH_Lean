@@ -5,6 +5,24 @@ square-prefix Mertens program. It records which mechanisms are exact, which
 finite experiments have been run, which mechanisms have failed their declared
 tests, and which routes remain materially distinct.
 
+## 2026-10-11 alignment: PR #929 finite A/C as a DISTINCT sufficient route
+
+**Read the [finite A/C ↔ direct VF alignment contract](research/FINITE_A_C_VF_ALIGNMENT_2026_10_11.md) before proposing any new "correlation mechanism."** The canonical VF cumulative \(\pi-VF_{\rm mid}\) route and its multi-block owner descent below are unchanged. PR [#929](https://github.com/OVVO-Financial/RH_Lean/pull/929) pursues the independent Mertens-amplification sufficient criterion, not a new required theorem for the direct VF route.
+
+| Physical route / item | Current evidence | Status |
+| --- | --- | --- |
+| Direct VF multi-block late-owner remainder | Existing no-independent-persistence signed-cell classification, sector-six rank descent, exact parity-prefix endpoint budget | **CANONICAL; original first-bad source-to-compensated-run payment OPEN** |
+| Finite-C bilinear \(Q_R=2M(R-1)-M(R^2-1)\) | Exact finite Euler convolution, same-number normalized finite-A equivalence | **ALTERNATIVE; uniform finite C OPEN** |
+| Finite-A endpoint amplification \((M(R^2-1)-1)^2\le AR^2K_R\) | Conditional Lean energy-to-RH consumer; finite C iff finite A | **ALTERNATIVE; uniform finite A OPEN** |
+| Live odd-annulus pair Gram \(M(X)^2=L_X+2\Gamma_X\) | Exact cumulative sign/birth/death/gcd incidence, diagonal \(L_X=O(X)\) | **STRUCTURE COMPLETE; \(\Gamma_X\le BX K_R\) is equivalent to finite A and OPEN** |
+| Multiplicative \(\mu(pm)=-\mu(m)\) and true squarefree densities | Exact prime-conditioned moving-lag sign kernel, elementary density estimates | **PROVED locally; cannot pay unmapped live endpoint pairs** |
+| Fixed-cutoff gcd compensation and signed prime-face experiments | Paper-level fixed-T rational asymptotics; finite true-Möbius censuses through R=20000 | **Quantitative local progress / finite diagnostics; NOT uniform in moving cutoff** |
+| CORR-4 global Gram and older square-root energy | Existing alternate compiled conditional consumers; closure hypothesis still open | **PRESERVED ALTERNATIVE, not today's canonical requirement** |
+
+**No-go locks from the existing autopsy:** No independent-persistence hypothesis; no arbitrary-random-partition explanation; no absolute support or 39.2%-zero-density bound on a *pair* Gram; no one-prime pairing for isolated singleton faces; no independent spending of complete Euler cube negative heat that straddles a run boundary; no replacing the needed positive cross-owner upper bound with the already-proved negative one-sided bound; no declaring a PNT/CRT/Fourier average to be pointwise in R.
+
+**Next valid quantitative step:** place the LITERAL actual-first-bad historical/current VF source onto the existing signed owner/terminal/sector-six ledger, or prove a uniform original physical \(Q_R\) / \(\Gamma_R\) estimate from the full simultaneous cross-family cofactor kernel. The former is the canonical route; the latter is optional sufficient research. Neither is closed by the exact identities alone.
+
 ## Current canonical route lock — 2026-10-06
 
 **Correction:** strict-child endpoint reproduction is not the immediate

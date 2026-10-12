@@ -142,3 +142,17 @@ Per the registry's do-not-repeat discipline: do not restart the 2-vs-3 lever by
 enlarging `X`, renaming `N_2/N_3`, or pairing a different fixed consecutive
 class. A future omega-parity theorem must control the full `A_high` (transport)
 sum itself, with the `sqrt(m)` boundary geometry retained.
+
+
+## 2026-10-11: Unconditional asymptotic root/smooth anti-alignment
+
+The parity mechanism has now been connected to the published
+Selberg–Delange asymptotic for W(X) = sum_{n<=X} mu(n) omega(n):
+U_R = X_R/(log X_R)^2 + O(X_R/(log X_R)^3), and
+V_R = -X_R/(log X_R)^2 + O(X_R/(log X_R)^3).
+The exact incidence bridge and the distinction between the normalized
+interaction tending to -1 and a finite pointwise C are recorded in
+[Finite C/A Euler parity and floor-Li frequency synthesis](FINITE_C_A_EULER_PARITY_FLOOR_LI_FREQUENCY_SYNTHESIS.md).
+These are classical-analytic/paper-level deductions and have **not** been
+newly compiled in Lean. Do not reopen fixed omega=2 versus omega=3 pairing
+or mislabel the observed asymptotic cancellation as a finite-C proof.

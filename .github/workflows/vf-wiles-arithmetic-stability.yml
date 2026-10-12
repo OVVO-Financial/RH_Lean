@@ -1,0 +1,265 @@
+name: VF Wiles-style arithmetic stability (independent kernel)
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - research/VF_WILES_ARITHMETIC_STABILITY_KERNEL.lean
+      - research/VF_WILES_ARITHMETIC_STABILITY_PROOF_CONTRACT.md
+      - scripts/vf925_empirical_class_no_go.py
+      - scripts/vf925_frozen_wheel_coherence.py
+      - scripts/vf925_317_1027_ci_replay.py
+      - research/VF_WILES_317_1027_EXACT_INTEGER_CANCELLATION.md
+      - research/VF_MID_ALIGNED_STEP_GRAPH.lean
+      - research/VF_MID_C0_DISCRETE_STAIRCASE_ALIGNMENT_CONTRACT.md
+      - research/VF_MID_THIRTY_FACTOR_RANGE_LOWER_GATE.lean
+      - research/VF_MID_925_FACTOR_THETA_SPECTRAL_WELD.lean
+      - research/VF_MID_925_FACTOR_SPECTRAL_LOWER_CHANNEL_CONTRACT.md
+      - scripts/VFMid925Spectral/verify_factor_theta.py
+      - research/VF_MID_THIRTY_FACTOR_RANGE_PROOF_CONTRACT.md
+      - scripts/VFMidThirtyFactorRange/verify.py
+      - scripts/VFMidThirtyFactorRange/verify_periodic_certificate.py
+      - scripts/VFMidThirtyFactorRange/verify_cpp.cpp
+      - scripts/VFMidAlignedStepGraph/verify_c0_contract.py
+      - scripts/VFMidAlignedStepGraph/verify.py
+      - CURRENT_PROOF_CONTRACT.md
+      - .github/workflows/vf-wiles-arithmetic-stability.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: vf-wiles-stability-${{ github.workflow }}-${{ github.head_ref || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  universal-stability:
+    name: Kernel-checked independent weighted return
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: No holes, no native imports, no RH assumptions
+        run: |
+          set -eu
+          f=research/VF_WILES_ARITHMETIC_STABILITY_KERNEL.lean
+          test "$(head -n 1 "$f")" = "import Mathlib"
+          if grep -nE '^[[:space:]]*(sorry|admit|axiom)([[:space:]]|$)' "$f"; then
+            echo "An unproved axiom or hole is forbidden"
+            exit 1
+          fi
+          if grep -nE '^import (RHLean|«research\.)' "$f"; then
+            echo "Universal theorem must remain Mathlib-only"
+            exit 1
+          fi
+      - name: Restore pinned dependencies
+        uses: actions/cache/restore@v4
+        with:
+          path: .lake/packages
+          key: lake-packages-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
+      - name: Lean and Mathlib cache
+        uses: leanprover/lean-action@v1
+        with:
+          use-github-cache: false
+          use-mathlib-cache: true
+          build: false
+          test: false
+          lint: false
+      - name: Compile independent universal stability theorem
+        run: |
+          mkdir -p .lake/build/lib/lean
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.VF_WILES_ARITHMETIC_STABILITY_KERNEL.olean \
+            research/VF_WILES_ARITHMETIC_STABILITY_KERNEL.lean
+
+      - name: Exact prime classifier and biased-staircase red-team
+        run: |
+          python3 scripts/vf925_empirical_class_no_go.py --max-r 6000 > /tmp/vf925-empirical.json
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          s=json.loads(Path('/tmp/vf925-empirical.json').read_text())
+          assert s['blocks_tested'] == 5993
+          assert s['actual_pi']['outward_blocks'] == 3031
+          assert s['biased_staircase']['first_wall_escape_at_or_above_8'] == 74
+          assert s['biased_staircase']['permanent_wall_escape_at_or_above_8'] == 74
+          assert s['actual_pi']['no_first_bad_observed']
+          assert abs(s['raw_antiphase']['max_weight'] - 0.496079621) < 1e-8
+          print('EXACT PRIME AND CLASS NO-GO CENSUS:')
+          print(json.dumps({k:v for k,v in s.items() if k != 'checkpoints'},indent=2))
+          PY
+      - name: Exact A-wheel and rank-two compensated transport audit
+        run: |
+          python3 scripts/vf925_frozen_wheel_coherence.py --max-anchor 3000 > /tmp/vf925-wheel.json
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          s=json.loads(Path('/tmp/vf925-wheel.json').read_text())
+          assert s['dyadic_cases'] == 2981
+          assert s['wheel_phase_negative_cases'] == 2981
+          assert s['deterministic_offset_positive_cases'] == 2981
+          assert s['within_two_percent_of_deterministic_offset'] == 2904
+          print('GENUINE A-WHEEL RANK-TWO RETURN:')
+          print(json.dumps({k:v for k,v in s.items() if k != 'exact_sample_runs'},indent=2))
+          PY
+      - name: Exact every-odd-integer 317 and 1027 cancellation replay
+        run: python3 scripts/vf925_317_1027_ci_replay.py
+      - name: Replay discrete c0 phase-alignment diagnostic through 10000 roots
+        run: |
+          python3 scripts/VFMidAlignedStepGraph/verify_c0_contract.py \
+            --r-max 10000 --grid-step 0.001 --assert-10000 \
+            --json-out /tmp/vf-c0-discrete-phase.json \
+            > /tmp/vf-c0-discrete-phase-stdout.json
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          d = json.loads(Path("/tmp/vf-c0-discrete-phase.json").read_text())
+          assert d["status"] == "finite_integer_sieve_diagnostic_not_universal_proof"
+          assert d["blocks_tested"] == 9999
+          assert d["canonical"]["full_graph_failures"] == []
+          assert d["canonical"]["horizontal_crossings"] == 9994
+          print("c0 exact finite phase check:", json.dumps({
+              "c0": d["c0"],
+              "phase_grid": d["phase_grid"],
+              "canonical": d["canonical"],
+          }, sort_keys=True))
+          PY
+      - name: Audit independent factor-range coverage and sqrt2 horizontal lag
+        run: |
+          python3 scripts/VFMidThirtyFactorRange/verify.py \
+            --r-max 2500 --lag 0.4 --assert-exact \
+            > /tmp/vf-factor30-2500.json
+          python3 - <<'PY'
+          import json
+          with open('/tmp/vf-factor30-2500.json') as handle:
+              d=json.load(handle)
+          assert d['status']=='finite_integer_factor_sieve_not_a_universal_RH_proof'
+          assert d['blocks_checked']==2496
+          assert d['gcd30_candidate_total']==1667328
+          assert d['factors_7_to_R_unique_covered_total']==1238193
+          assert d['FTA_genuine_survivor_total']==429135
+          assert d['odd_last_digit_five_removed_total']==625248
+          assert d['horizontal']['first_failure'] is None
+          assert d['thirty_wheel_four_endpoint']['proved_uniform_upper_bound']==32
+          assert d['factor_defect_identity_max_rounding_error']<1e-6
+          print("mod30 factor-range evidence (finite, not RH):",json.dumps({
+            "blocks":d["blocks_checked"],
+            "candidates":d["gcd30_candidate_total"],
+            "unique_factor_covered":d["factors_7_to_R_unique_covered_total"],
+            "true_survivors":d["FTA_genuine_survivor_total"],
+            "sqrt2_horizontal":d["horizontal"],
+            "four_endpoint":d["thirty_wheel_four_endpoint"],
+          },sort_keys=True))
+          PY
+      - name: Exhaustive 30-state square-endpoint phase certificate
+        run: |
+          python3 scripts/VFMidThirtyFactorRange/verify_periodic_certificate.py \
+            > /tmp/vf-thirty-periodic.json
+          python3 - <<'PY'
+          import json
+          with open('/tmp/vf-thirty-periodic.json') as f: d=json.load(f)
+          assert d["status"]=="exact_mod30_finite_state_certificate_not_RH"
+          assert d["sharp_all_runs_error"]=="32/15"
+          assert d["residue_classes_checked"]==30
+          assert d["ordered_endpoint_pairs_checked"]==900
+          print("FINITE STATE -> ALL ROOTS via Euclidean period 30:",d["sharp_all_runs_error"])
+          PY
+      - name: Exact independent 10000-root C++ factor-coverage audit
+        run: |
+          c++ -O3 -std=c++17 \
+            -o /tmp/vf-factor30-fast scripts/VFMidThirtyFactorRange/verify_cpp.cpp
+          /tmp/vf-factor30-fast 10000 > /tmp/vf-factor30-10000.json
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          x=json.loads(Path('/tmp/vf-factor30-10000.json').read_text())
+          assert x['status']=='finite_exact_factor_sieve_not_RH'
+          assert x['blocks']==9996
+          assert x['candidates']==26669328
+          assert x['covered']==20906801
+          assert x['survivors']==5762527
+          assert x['ending_5']==10000998
+          assert x['sqrt2_first_horizontal_failure']==0
+          assert x['smallest_horizontal_margin']==2
+          assert x['largest_normalized_defect']<0.092
+          assert x['max_telescoping_rounding']<1e-6
+          print('C++ FACTOR RANGE 10000-ROOT CENSUS:',json.dumps(x,sort_keys=True))
+          PY
+      - name: Exact factor theta and both psi0 square endpoint half jumps
+        run: |
+          python3 scripts/VFMid925Spectral/verify_factor_theta.py --max-root 1027 \
+            > /tmp/vf925-factor-theta-psi0.json
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          x=json.loads(Path('/tmp/vf925-factor-theta-psi0.json').read_text())
+          assert x['status']=='finite_arithmetic_factor_theta_psi0_audit_not_RH'
+          assert x['tested_complete_blocks']==1023
+          assert x['first_both_square_half_jumps']==7
+          assert x['nonzero_left_square_half_jumps']>0
+          assert x['nonzero_right_square_half_jumps']>0
+          assert x['uncovered_genuine_primes']>0
+          print("FACTOR/THETA/PSI0 REAL INTEGER WELD:",json.dumps({
+            k:v for k,v in x.items() if k!='witnesses'
+          },sort_keys=True))
+          print("R=7 both endpoint power jumps:", x['witnesses']['7'])
+          PY
+      - name: Audit declarations and standard axioms
+        run: |
+          cat > /tmp/VFWilesStabilityAcceptance.lean <<'LEAN'
+          import «research.VF_WILES_ARITHMETIC_STABILITY_KERNEL»
+          #check RHLean.Analysis.VFWilesReversibleCells
+          #check RHLean.Analysis.vfWilesLocalSector_mirror
+          #check RHLean.Analysis.vfWilesReversibleCells_sum_mirror
+          #check RHLean.Analysis.vfWilesReversibleCells_amplitude_sum_zero
+          #check RHLean.Analysis.vfWilesReversibleSector_eq_negative_absolute
+          #check RHLean.Analysis.vfWilesSymmetricMask
+          #check RHLean.Analysis.vfWilesSymmetricMask_stable
+          #check RHLean.Analysis.vfWilesZeroMaskEnergy_le_original
+          #check RHLean.Analysis.vfWilesUniversalArithmeticPacketStability
+          #check RHLean.Analysis.vfWilesFirstBadContradiction_of_arithmeticRepresentation
+          #check RHLean.Analysis.vfWilesUnpairedCell_canBePositive
+          #check RHLean.Analysis.vfWilesOpposedRows_canHavePositiveGram
+          #check RHLean.Analysis.vfWilesOriginalOddSeatCharge_no_exact_antiphase
+          #check RHLean.Analysis.vfWilesReversibleRawPhysicalCarrier_empty
+          #check RHLean.Analysis.vfWilesIncompleteReturn_exact_boundary
+          #check RHLean.Analysis.vfWilesOwnerReclassification_event_delta
+          #check RHLean.Analysis.vfWilesOwnerReclassification_event_affine
+          #check RHLean.Analysis.vfWilesOwnerReclassification_slope_pos
+          #check RHLean.Analysis.vfWilesFrozenWheelOddSeat_pointwise
+          #check RHLean.Analysis.vfWilesFrozenWheelOddSeat_sum
+          #check RHLean.Analysis.vfWilesOddBandNextRightClip_noIntermediate
+          #check RHLean.Analysis.vfWilesSignedNextRight_quadraticDeviation
+          #check RHLean.Analysis.vfWilesUnfilteredPairQuadratic_ratio
+          #print axioms RHLean.Analysis.vfWilesReversibleCells_sum_mirror
+          #print axioms RHLean.Analysis.vfWilesSymmetricMask_stable
+          #print axioms RHLean.Analysis.vfWilesUniversalArithmeticPacketStability
+          #print axioms RHLean.Analysis.vfWilesFirstBadContradiction_of_arithmeticRepresentation
+          #print axioms RHLean.Analysis.vfWilesReversibleRawPhysicalCarrier_empty
+          #print axioms RHLean.Analysis.vfWilesIncompleteReturn_exact_boundary
+          #print axioms RHLean.Analysis.vfWilesOwnerReclassification_event_delta
+          #print axioms RHLean.Analysis.vfWilesOwnerReclassification_event_affine
+          #print axioms RHLean.Analysis.vfWilesFrozenWheelOddSeat_pointwise
+          #print axioms RHLean.Analysis.vfWilesFrozenWheelOddSeat_sum
+          #print axioms RHLean.Analysis.vfWilesOddBandNextRightClip_noIntermediate
+          #print axioms RHLean.Analysis.vfWilesSignedNextRight_quadraticDeviation
+          #print axioms RHLean.Analysis.vfWilesUnfilteredPairQuadratic_ratio
+          LEAN
+          lake env lean -DwarningAsError=true /tmp/VFWilesStabilityAcceptance.lean \
+            | tee /tmp/vf-wiles-axioms.log
+          python3 - <<'PY'
+          import re
+          from pathlib import Path
+          s = Path("/tmp/vf-wiles-axioms.log").read_text()
+          records = re.findall(r"depends on axioms:\s*\[([^\]]*)\]", s, re.S)
+          if len(records) != 13:
+              raise SystemExit("Expected exactly thirteen axiom audit records, got " + str(len(records)))
+          allowed = {"propext", "Classical.choice", "Quot.sound"}
+          for record in records:
+              actual = {a.strip() for a in record.split(",") if a.strip()}
+              if not actual <= allowed:
+                  raise SystemExit("Nonstandard axioms: " + repr(actual - allowed))
+          PY

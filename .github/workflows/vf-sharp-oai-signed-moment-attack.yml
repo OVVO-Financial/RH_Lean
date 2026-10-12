@@ -1,0 +1,137 @@
+name: VF sharp signed OAI moment attack
+
+on:
+  pull_request:
+    branches: [main, vf-seven-eighths-analytic-zero-free-bridge]
+    paths:
+      - research/VF_SHARP_OAI_SIGNED_MOMENT_ATTACK.lean
+      - research/VF_SHARP_OAI_SIGNED_MOMENT_ATTACK.md
+      - scripts/vf_sharp_oai_row_rank_probe.py
+      - .github/workflows/vf-sharp-oai-signed-moment-attack.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: vf-sharp-oai-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  sharp-physical-moment:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Restore pinned Lake packages
+        uses: actions/cache/restore@v5
+        with:
+          path: .lake/packages
+          key: lake-packages-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
+      - uses: leanprover/lean-action@v1
+        with:
+          use-github-cache: false
+          use-mathlib-cache: true
+          build: false
+          test: false
+          lint: false
+      - name: Apply pinned StrongPNT compatibility layer
+        run: |
+          python3 scripts/strongpnt_424/apply.py
+          python3 scripts/strongpnt_424/apply_post.py
+          python3 scripts/strongpnt_424/apply_pnt5_mid.py
+          python3 scripts/strongpnt_424/apply_pnt5_strong.py
+          python3 scripts/strongpnt_424/apply_lint.py
+      - uses: actions/cache/restore@v5
+        with:
+          path: |
+            .lake/packages/PrimeNumberTheoremAnd/.lake/build
+            .lake/packages/StrongPNT/.lake/build
+          key: strongpnt-port-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-${{ hashFiles('scripts/strongpnt_424/*.py') }}
+          restore-keys: |
+            strongpnt-port-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-
+      - uses: actions/cache/restore@v5
+        with:
+          path: .lake/build
+          key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py', 'RHLean.lean', 'RHLean/**/*.lean') }}
+          restore-keys: |
+            rhlean-build-${{ runner.os }}-${{ runner.arch }}-
+      - name: Reject new proof holes
+        run: |
+          python3 - <<'PY'
+          import re
+          from pathlib import Path
+          path = Path('research/VF_SHARP_OAI_SIGNED_MOMENT_ATTACK.lean')
+          assert not re.search(r'(?m)^\s*(sorry|admit|axiom)\b', path.read_text())
+          PY
+      - name: Build only the imported native RHLean library modules
+        run: |
+          python3 - <<'PY'
+          import importlib.util
+          import re
+          import subprocess
+          from pathlib import Path
+          spec = importlib.util.spec_from_file_location('closure', 'scripts/compile_research_import_closure.py')
+          closure = importlib.util.module_from_spec(spec)
+          spec.loader.exec_module(closure)
+          seen, library = set(), set()
+          def visit(path):
+              path = Path(path)
+              if path in seen:
+                  return
+              seen.add(path)
+              for line in path.read_text().splitlines():
+                  if line.lstrip().startswith('import '):
+                      library.update(re.findall(r'\bRHLean(?:\.[A-Za-z0-9_]+)*\b', line))
+              for module in closure.research_imports(path):
+                  visit(closure.source_for(module))
+          visit('research/VF_SHARP_OAI_SIGNED_MOMENT_ATTACK.lean')
+          if library:
+              subprocess.run(['lake', 'build', *sorted(library)], check=True)
+          PY
+      - name: Compile exact physical centered moment and native prerequisites
+        run: |
+          set -o pipefail
+          python3 scripts/compile_research_import_closure.py \
+            research/VF_SHARP_OAI_SIGNED_MOMENT_ATTACK.lean \
+            2>&1 | tee vf-sharp-oai-compile.log
+      - name: Audit exact theorem signatures and standard axioms
+        run: |
+          cat >/tmp/vf_sharp_oai_acceptance.lean <<'LEAN'
+          import «research.VF_SHARP_OAI_SIGNED_MOMENT_ATTACK»
+          #check RHLean.Proof.vfSharpOAIPhysicalCenteredNormRow_eq_native_difference
+          #print axioms RHLean.Proof.vfSharpOAIPhysicalCenteredNormRow_eq_native_difference
+          #check RHLean.Proof.vfSharpOAIComplexCenteredPolarization
+          #print axioms RHLean.Proof.vfSharpOAIComplexCenteredPolarization
+          #check RHLean.Proof.vfSharpOAIActualGram_eq_centered_sub_diagonals
+          #print axioms RHLean.Proof.vfSharpOAIActualGram_eq_centered_sub_diagonals
+          #check RHLean.Proof.vfSharpOAIActualGram_le_centeredEnergy
+          #print axioms RHLean.Proof.vfSharpOAIActualGram_le_centeredEnergy
+          #check RHLean.Proof.vfSharpOAIActualGram_le_of_physical_centered_moment
+          #print axioms RHLean.Proof.vfSharpOAIActualGram_le_of_physical_centered_moment
+          LEAN
+          set -o pipefail
+          lake env lean -DwarningAsError=true /tmp/vf_sharp_oai_acceptance.lean \
+            2>&1 | tee vf-sharp-oai-axioms.log
+          python3 - <<'PY'
+          import re
+          from pathlib import Path
+          text = Path('vf-sharp-oai-axioms.log').read_text()
+          records = re.findall(r'depends on axioms:\s*\[([^\]]*)\]', text, re.S)
+          closed = len(re.findall(r'does not depend on any axioms', text))
+          assert len(records) + closed == 5, (records, closed)
+          allowed = {'propext', 'Classical.choice', 'Quot.sound'}
+          for record in records:
+              assert {a.strip() for a in record.split(',') if a.strip()} <= allowed, record
+          PY
+      - name: Exact rational rank regression for sharp physical occurrence matrices
+        run: python3 scripts/vf_sharp_oai_row_rank_probe.py
+      - name: Retain compiler evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: vf-sharp-oai-moment-logs
+          path: vf-sharp-oai-*.log
+          if-no-files-found: ignore

@@ -23,5 +23,7 @@ repo-index.json
 repo-imports.dot
 repo-map.md
 /repo-frontier.txt
+/research-frontier.dot
+/research-frontier.md
 /decl-graph.txt
 /kg-*.txt

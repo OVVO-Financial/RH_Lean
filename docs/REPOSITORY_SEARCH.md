@@ -56,25 +56,38 @@ Use the existing [knowledge graph](KNOWLEDGE_GRAPH.md) commands for declaration
 dependencies, reduction rules, and proof-status analysis. The source import DAG
 does not replace the kernel's elaborated dependency graph.
 
-## Include active PR work
+## Current frontier and PR history
 
-PRs #915, #918, and #919 were unmerged on 2026-10-10. Fetch their current heads
-explicitly, then index them as separate views:
+The [current research frontier DAG](RESEARCH_FRONTIER_DAG.md) and
+[registry](research-frontier.json) replace the obsolete October 10 list of
+unmerged #915/#918/#919 branches. The #918/#919 work is already on main;
+#915 and #922/#923/#925–#929 are preserved as distinct cleanup tracks.
+The registry records sources and open inputs rather than a live PR-state claim.
 
 ```bash
-git fetch origin refs/pull/915/head:refs/remotes/origin/pr-915 refs/pull/918/head:refs/remotes/origin/pr-918 refs/pull/919/head:refs/remotes/origin/pr-919
-python3 scripts/repo_index.py build --ref origin/pr-915 --ref origin/pr-918 --ref origin/pr-919 --dot repo-imports.dot --report repo-map.md --require-acyclic
-python3 scripts/proofq.py repo-search 'owner two' --view origin/pr-919 --scope research
-python3 scripts/repo_index.py module research/VF_MID_FIRST_BAD_FINAL_AGGREGATE_CONTRACTION.lean --view origin/pr-915
+python3 scripts/research_frontier_dag.py
+python3 scripts/proofq.py repo-search 'FirstBadSourcePayment' --scope research
+python3 scripts/proofq.py repo-search 'lowVariation' --scope research
+```
+
+To compare a specific current or historical PR, fetch that PR explicitly,
+then index its ref as a separate view. For example:
+
+```bash
+git fetch origin refs/pull/915/head:refs/remotes/origin/pr/915
+python3 scripts/repo_index.py build --ref origin/pr/915 --dot repo-imports.dot --report repo-map.md --require-acyclic
+python3 scripts/proofq.py repo-search 'FirstBadSourcePayment' --view origin/pr/915 --scope research
+python3 scripts/repo_index.py module research/VF_MID_FIRST_BAD_EXACT_BUDGET_CLOSE.lean --view origin/pr/915
 ```
 
 Every view records its resolved commit. A modified checkout is marked as such
 and JSON results include the file's content hash; its commit is the checkout's
 base, not a claim that uncommitted edits belong to that commit.
-Indexing reads Git blobs in a batch and
-does not switch branches, merge PR contents, or count PR results as landed on
-`main`. Ref queries also work with an explicit commit SHA. The tool never
-fetches remote refs itself; repeat `git fetch` to refresh them.
+Indexing reads Git blobs in a batch and does not switch branches, merge PR
+contents, or count PR results as landed on main. Ref queries also work with an
+explicit commit SHA. The tool never fetches remote refs itself; repeat
+`git fetch` to refresh them. PR heads and check status must be inspected at
+GitHub before making compilation or merge-readiness claims.
 
 ## Freshness and CI
 

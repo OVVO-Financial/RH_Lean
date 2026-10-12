@@ -1,0 +1,677 @@
+import Mathlib
+import «research.VF_MID_ODD_FRACTIONAL_CLUSTER»
+import «research.VF_MID_ALIGNED_STEP_GRAPH»
+
+/-!
+# Pure factor-range formulation of the one-sided VF lower-channel gate
+
+Everything on the source side is deterministic divisibility on integer seats.
+Remove the exact 2-3-5 wheel first (residue classes 1,7,11,13,17,19,23,29
+modulo 30); from the remaining candidates, charge each covered seat only once
+if SOME divisor in [7,R] divides it.
+
+For n strictly between R² and (R+1)², FTA proves that the uncovered sites
+are precisely the actual prime seats. That theorem is the ONLY bridge back
+to prime counting: neither the carrier nor the quantitative factor-coverage
+barrier requires a prime-count function or a fantasy surrogate.
+
+Crucial warning: an additional 3-5 sieve improves bookkeeping but CANNOT
+by itself prove the needed upper bound on the remaining factor coverage.
+The condition that would exclude a first lower-channel escape is stated
+exactly and remains the mathematical open obligation.
+-/
+
+noncomputable section
+
+open scoped BigOperators
+
+namespace RHLean.Analysis
+
+open RHLean.Arithmetic RHLean.Proof
+attribute [local instance] Classical.propDecidable
+
+/-- Candidate integers after deleting every factor 2, 3, or 5.  This is
+a pure gcd condition: no Nat.Prime or primeCounting in its definition. -/
+def vfMidThirtyCandidates (R : ℕ) : Finset ℕ :=
+  (vfMidSquareWheelSites R).filter (fun n => (30 : ℕ).Coprime n)
+
+/-- The finite prime-prefix modulus through 5 is literally 2*3*5. -/
+theorem vfMidPrefixWheelModulus_five_eq_thirty :
+    vfMidPrefixWheelModulus 5 = 30 := by
+  decide
+
+/-- The modular wheel-30 candidates are EXACTLY the existing cutoff-5
+factor-wheel carrier.  This also preserves all its original owner metadata. -/
+theorem vfMidThirtyCandidates_eq_prefixFive (R : ℕ) :
+    vfMidThirtyCandidates R = vfMidSquarePrefixWheelSurvivors 5 R := by
+  classical
+  ext n
+  simp only [vfMidThirtyCandidates, vfMidSquarePrefixWheelSurvivors,
+    Finset.mem_filter]
+  constructor
+  · rintro ⟨hn, hcop⟩
+    refine ⟨hn, ?_⟩
+    apply (lowWheelHighSurvivor_iff_coprime_prefixWheel 5 n).2
+    simpa only [vfMidPrefixWheelModulus_five_eq_thirty] using hcop
+  · rintro ⟨hn, hsurv⟩
+    refine ⟨hn, ?_⟩
+    have hcop := (lowWheelHighSurvivor_iff_coprime_prefixWheel 5 n).1 hsurv
+    simpa only [vfMidPrefixWheelModulus_five_eq_thirty] using hcop
+
+/-- Fixed 2,3,5 wheel is an exact 30-cycle with 8 admissible
+residue classes.  This equality is FINITE and unconditional. -/
+theorem vfMidPrimesUpToFive_eq_triple :
+    primesUpTo 5 = ({2, 3, 5} : Finset ℕ) := by
+  decide
+
+/-- After stripping only 2,3,5 the exact Euler density is 8/30.
+Unlike the growing sieve, this finite-wheel phase is uniformly bounded. -/
+theorem vfMidThirtyPrefixWheelDensity_eq_four_fifteenths :
+    vfMidPrefixWheelDensity 5 = (4 / 15 : ℝ) := by
+  norm_num [vfMidPrefixWheelDensity, vfMidPrimesUpToFive_eq_triple]
+
+/-- Crucial outside-the-box simplification: the ENTIRE fixed-wheel
+prefix counting error is bounded by 8 at every N, independent of N.
+This is an existing proved Boolean floor-error theorem specialized
+to z=5. Only the evolving owners p>=7 can create the unbounded
+arithmetic component of the lower-channel problem. -/
+theorem vfMidThirtyFixedWheelPrefixError_le_eight
+    (N : ℕ) :
+    |(vfMidPrefixWheelCounting 5 N : ℝ) -
+      (4 / 15 : ℝ) * (N : ℝ)| ≤ 8 := by
+  have h := abs_vfMidPrefixWheelCounting_sub_density_mul_le 5 N
+  convert h using 1 <;>
+    norm_num [vfMidThirtyPrefixWheelDensity_eq_four_fifteenths,
+      vfMidPrimesUpToFive_eq_triple]
+
+/-- The essential four-endpoint telescoping upgrade: the TOTAL 30-wheel
+candidate supply on ANY concatenated square-block run differs from
+the fixed Euler-density reference by at most 32, *not* by an error
+growing with the number of blocks. This follows from the existing
+native signed four-endpoint prefix identity. -/
+theorem vfMidThirtyRunPrefixDensityError_le_thirtytwo
+    (A B : ℕ) :
+    |vfMidDyadicPrefixSupply 5 A B -
+      (4 / 15 : ℝ) * vfMidDyadicInteriorLength A B| ≤ 32 := by
+  have h := abs_vfMidDyadicPrefixSupply_sub_density_le_four_pow 5 A B
+  convert h using 1 <;>
+    norm_num [vfMidThirtyPrefixWheelDensity_eq_four_fifteenths,
+      vfMidPrimesUpToFive_eq_triple]
+
+/-- Physical version: finite factor carriers, not a prime-counting model.
+All fixed-wheel rounding is an O(1) FOUR-ENDPOINT effect across the
+entire run; only the growing factor owners p>=7 remain to be bounded. -/
+theorem vfMidThirtyCandidateRun_densityError_le_thirtytwo
+    (A B : ℕ) (hAB : A ≤ B) :
+    |(∑ r ∈ Finset.Ico A B, ((vfMidThirtyCandidates r).card : ℝ)) -
+      (4 / 15 : ℝ) * vfMidDyadicInteriorLength A B| ≤ 32 := by
+  have hsum :=
+    vfMidDyadicPrefixSupply_eq_sum_prefixWheelCards 5 A B hAB
+  have hrewrite :
+      (∑ r ∈ Finset.Ico A B, ((vfMidThirtyCandidates r).card : ℝ)) =
+        vfMidDyadicPrefixSupply 5 A B := by
+    calc
+      _ = ∑ r ∈ Finset.Ico A B,
+          ((vfMidSquarePrefixWheelSurvivors 5 r).card : ℝ) := by
+            simp only [vfMidThirtyCandidates_eq_prefixFive]
+      _ = vfMidDyadicPrefixSupply 5 A B := hsum.symm
+  rw [hrewrite]
+  exact vfMidThirtyRunPrefixDensityError_le_thirtytwo A B
+
+/-- In particular, EVERY odd integer ending in 5 is excluded.
+The exceptional prime 5 lies below all blocks with R >= 5. -/
+theorem vfMidThirtyCandidates_not_lastDigitFive
+    {R n : ℕ} (hn : n ∈ vfMidThirtyCandidates R) :
+    n % 10 ≠ 5 := by
+  have hsurv : lowWheelHighSurvivor 5 n := by
+    have hm := vfMidThirtyCandidates_eq_prefixFive R
+    have hmem : n ∈ vfMidSquarePrefixWheelSurvivors 5 R := by
+      rw [← hm]
+      exact hn
+    exact (Finset.mem_filter.mp hmem).2
+  have hfive : 5 ∈ primesUpTo 5 :=
+    mem_primesUpTo.mpr ⟨by norm_num, by omega⟩
+  have hnot : ¬ 5 ∣ n := hsurv 5 hfive
+  intro hlast
+  have hdiv : 5 ∣ n := by
+    refine ⟨2 * (n / 10) + 1, ?_⟩
+    omega
+  exact hnot hdiv
+
+/-- The pure divisor-range-covered population.  The range starts at 7
+because factors 2,3,5 have already been removed by coprimality to 30.
+No prime indicator, least-prime predicate, or pi in this definition.
+Each covered integer is counted exactly ONCE, regardless of the
+number of divisors or least-prime-factor owner presentations. -/
+def vfMidThirtyFactorCovered (R : ℕ) : Finset ℕ :=
+  (vfMidThirtyCandidates R).filter
+    (fun n => decide (∃ d ∈ Finset.Icc 7 R, d ∣ n) = true)
+
+/-- Stable membership API: avoid inconsistent elaborations of the
+Decidable instance for a finite divisor-existence predicate. -/
+theorem vfMidThirtyFactorCovered_mem_iff
+    (R n : ℕ) :
+    n ∈ vfMidThirtyFactorCovered R ↔
+      n ∈ vfMidThirtyCandidates R ∧
+        ∃ d ∈ Finset.Icc 7 R, d ∣ n := by
+  classical
+  simp only [vfMidThirtyFactorCovered, Finset.mem_filter,
+    decide_eq_true_eq]
+
+/-- A candidate has a factor in [7,R] precisely when it is rejected
+by the complete factor wheel through R.  This is pure finite
+divisibility; FTA only appears in the standard implementation of
+the existing "primesUpTo" wheel when selecting prime coordinates. -/
+theorem vfMidThirtyFactorCovered_mem_iff_not_fullWheel
+    {R n : ℕ} (hR : 5 ≤ R) (hn : n ∈ vfMidThirtyCandidates R) :
+    n ∈ vfMidThirtyFactorCovered R ↔
+      n ∉ vfMidSquarePrefixWheelSurvivors R R := by
+  classical
+  have hnFive : n ∈ vfMidSquarePrefixWheelSurvivors 5 R := by
+    rw [← vfMidThirtyCandidates_eq_prefixFive R]
+    exact hn
+  have hnSite : n ∈ vfMidSquareWheelSites R :=
+    (Finset.mem_filter.mp hnFive).1
+  have hnSurvFive : lowWheelHighSurvivor 5 n :=
+    (Finset.mem_filter.mp hnFive).2
+  have hnOne : n ≠ 1 := by
+    have hnBand := Finset.mem_Ioo.mp hnSite
+    change R ^ 2 < n ∧ n < (R + 1) ^ 2 at hnBand
+    nlinarith
+  constructor
+  · intro hcovered
+    obtain ⟨_hn, d, hdIcc, hdDvd⟩ :=
+      (vfMidThirtyFactorCovered_mem_iff R n).1 hcovered
+    have hd : 2 ≤ d := by
+      have hdi := Finset.mem_Icc.mp hdIcc
+      omega
+    have hp : n.minFac.Prime := Nat.minFac_prime hnOne
+    have hpDvd : n.minFac ∣ n := Nat.minFac_dvd n
+    have hpLeD : n.minFac ≤ d :=
+      Nat.minFac_le_of_dvd hd hdDvd
+    have hpR : n.minFac ≤ R :=
+      hpLeD.trans (Finset.mem_Icc.mp hdIcc).2
+    have hpMem : n.minFac ∈ primesUpTo R :=
+      mem_primesUpTo.mpr ⟨hp, hpR⟩
+    intro hfull
+    have hsurvR : lowWheelHighSurvivor R n :=
+      (Finset.mem_filter.mp hfull).2
+    exact (hsurvR n.minFac hpMem) hpDvd
+  · intro hnotFull
+    have hnotSurv : ¬ lowWheelHighSurvivor R n := by
+      intro hsurv
+      exact hnotFull (Finset.mem_filter.mpr ⟨hnSite, hsurv⟩)
+    unfold lowWheelHighSurvivor at hnotSurv
+    push_neg at hnotSurv
+    obtain ⟨p, hpMem, hpDvd⟩ := hnotSurv
+    have hpPrime : p.Prime := prime_of_mem_primesUpTo hpMem
+    have hpLe : p ≤ R := (mem_primesUpTo.mp hpMem).2
+    have hpFive : 5 < p := by
+      by_contra h
+      have hsmall : p ≤ 5 := Nat.le_of_not_gt h
+      have hmem5 : p ∈ primesUpTo 5 :=
+        mem_primesUpTo.mpr ⟨hpPrime, hsmall⟩
+      exact (hnSurvFive p hmem5) hpDvd
+    have hpSeven : 7 ≤ p := by
+      have hpNe6 : p ≠ 6 := by
+        intro hp6
+        rw [hp6] at hpPrime
+        norm_num at hpPrime
+      omega
+    exact (vfMidThirtyFactorCovered_mem_iff R n).2
+      ⟨hn, ⟨p, Finset.mem_Icc.mpr ⟨hpSeven, hpLe⟩, hpDvd⟩⟩
+
+/-- Pure divisor-range factor coverage equals the difference between
+the cutoff-5 and the full cutoff-R survivor sets. -/
+theorem vfMidThirtyFactorCovered_eq_prefixFive_sdiff_full
+    (R : ℕ) (hR : 5 ≤ R) :
+    vfMidThirtyFactorCovered R =
+      vfMidThirtyCandidates R \
+        vfMidSquarePrefixWheelSurvivors R R := by
+  classical
+  ext n
+  constructor
+  · intro hn
+    have hnCand := ((vfMidThirtyFactorCovered_mem_iff R n).1 hn).1
+    exact Finset.mem_sdiff.mpr ⟨hnCand,
+      (vfMidThirtyFactorCovered_mem_iff_not_fullWheel hR hnCand).1 hn⟩
+  · intro hn
+    obtain ⟨hnCand, hnNotFull⟩ := Finset.mem_sdiff.mp hn
+    exact (vfMidThirtyFactorCovered_mem_iff_not_fullWheel hR hnCand).2 hnNotFull
+
+/-- The factor-range union is not a free-for-all overlapping sum:
+it is exactly the disjoint least-prime-owner part remaining after
+the 2,3,5 factor coordinates. Each composite is charged ONCE. -/
+theorem vfMidThirtyFactorCovered_eq_lateComposite
+    (R : ℕ) (hR : 5 ≤ R) :
+    vfMidThirtyFactorCovered R =
+      vfMidSquareBandPrefixCompositeSurvivors 5 R := by
+  classical
+  rw [vfMidThirtyFactorCovered_eq_prefixFive_sdiff_full R hR]
+  rw [vfMidThirtyCandidates_eq_prefixFive]
+  rw [vfMidSquarePrefixWheelSurvivors_eq_prime_union_prefixComposite
+    (by omega : 2 ≤ R) hR]
+  rw [vfMidSquarePrefixWheelSurvivors_full,
+    vfMidSquareWheelSurvivors_eq_primes R (by omega : 2 ≤ R)]
+  ext n
+  simp only [Finset.mem_sdiff, Finset.mem_union]
+  constructor
+  · rintro ⟨hpOrComp, hnotPrime⟩
+    rcases hpOrComp with hp | hc
+    · exact False.elim (hnotPrime hp)
+    · exact hc
+  · intro hc
+    have hdisj :=
+      vfMidSquareWheelPrimes_disjoint_prefixComposite 5 R
+    have hnNotPrime : n ∉ vfMidSquareWheelPrimes R := by
+      intro hp
+      exact (Finset.disjoint_left.mp hdisj) hp hc
+    exact ⟨Or.inr hc, hnNotPrime⟩
+
+/-- Explicit occurrence-preserving owner partition of the pure
+factor-range covered cardinality.  All owners p>5 are disjoint.
+This is the exact interface to the original native Sector Six
+signed owner-return machinery, not an additional approximation. -/
+theorem vfMidThirtyFactorCovered_card_eq_lateOwnerCards
+    (R : ℕ) (hR : 5 ≤ R) :
+    (vfMidThirtyFactorCovered R).card =
+      ∑ p ∈ vfMidSquareBandLateOwnerPrimes 5 R,
+        (vfMidSquareBandCompositeOwner R p).card := by
+  rw [vfMidThirtyFactorCovered_eq_lateComposite R hR]
+  exact vfMidSquareBandPrefixComposite_card_eq_sum_lateOwnerCards
+    5 R (by omega : 2 ≤ R)
+
+/-- The full FTA survivor set is contained in the fixed wheel-30
+candidate set. This is an exact finite-set inclusion, not a density
+or independence assertion. -/
+theorem vfMidFullWheel_subset_thirtyCandidates
+    (R : ℕ) (hR : 5 ≤ R) :
+    vfMidSquarePrefixWheelSurvivors R R ⊆
+      vfMidThirtyCandidates R := by
+  rw [vfMidThirtyCandidates_eq_prefixFive]
+  exact vfMidSquarePrefixWheelSurvivors_mono (by omega : 5 ≤ R)
+
+/-- Exact finite cardinal partition.  The actual prime population is
+used here ONLY as a consequence of full-wheel FTA equivalence.
+The source-side populations involve only the gcd-30 filter and
+divisor-range coverage through R. -/
+theorem vfMidThirtyCovered_add_actualPrimeSupply_eq_candidates
+    (R : ℕ) (hR : 5 ≤ R) :
+    (vfMidThirtyFactorCovered R).card +
+      vfMidIntegerBlockPrimeSupply R =
+        (vfMidThirtyCandidates R).card := by
+  have hpartition :=
+    Finset.card_sdiff_add_card_eq_card
+      (vfMidFullWheel_subset_thirtyCandidates R hR)
+  rw [← vfMidThirtyFactorCovered_eq_prefixFive_sdiff_full R hR] at hpartition
+  rw [← vfMidIntegerBlockPrimeSupply_eq_fullPrefixWheelCard R
+    (by omega : 2 ≤ R)] at hpartition
+  exact hpartition
+
+/-- The difference between actual factor-range coverage and the VF
+reference on precisely the SAME wheel-30 candidate carrier. -/
+def vfMidThirtyFactorCoverageExcess (R : ℕ) : ℝ :=
+  ((vfMidThirtyFactorCovered R).card : ℝ) -
+    (((vfMidThirtyCandidates R).card : ℝ) - vfMidBandMass R)
+
+/-- The factor-range-centered excess is exactly V_R - P_R.  Tightening
+the fixed wheel changes both the candidate population and the
+composite reference by the SAME amount; it does not create
+an unearned improvement to the native signed Sector Six payment. -/
+theorem vfMidThirtyFactorCoverageExcess_eq_vfMass_sub_actualSupply
+    (R : ℕ) (hR : 5 ≤ R) :
+    vfMidThirtyFactorCoverageExcess R =
+      vfMidBandMass R - (vfMidIntegerBlockPrimeSupply R : ℝ) := by
+  have hnat := vfMidThirtyCovered_add_actualPrimeSupply_eq_candidates R hR
+  have hreal :
+      ((vfMidThirtyFactorCovered R).card : ℝ) +
+        (vfMidIntegerBlockPrimeSupply R : ℝ) =
+          ((vfMidThirtyCandidates R).card : ℝ) := by
+    exact_mod_cast hnat
+  unfold vfMidThirtyFactorCoverageExcess
+  linarith
+
+/-- Wheel-30 processing leaves the ORIGINAL parity owner-census defect
+unchanged: it only moves the deterministic 3,5 composite owners from
+the later ledger into the base carrier. -/
+theorem vfMidThirtyFactorCoverageExcess_eq_oddOwnerDefect
+    (R : ℕ) (hR : 5 ≤ R) :
+    vfMidThirtyFactorCoverageExcess R =
+      vfMidOddCompositeTrackingDefect R := by
+  rw [vfMidThirtyFactorCoverageExcess_eq_vfMass_sub_actualSupply R hR,
+    vfMidOddCompositeTrackingDefect_eq_neg_bandError R (by omega)]
+  unfold vfMidSquareBandError
+  rw [vfMidSquareBandPrimes_card_eq_integerBlockPrimeSupply R]
+  ring
+
+/-- The full history of factor-range coverage, with NO prime count in
+the expression.  Positive excess is precisely the cumulative shortage
+of full-wheel survivors relative to the unchanged VF mass. -/
+def vfMidThirtyAccumulatedFactorExcess (R : ℕ) : ℝ :=
+  ∑ r ∈ Finset.Ico 5 R, vfMidThirtyFactorCoverageExcess r
+
+/-- Exact factor-range telescope.  Prime counting is an OUTPUT via FTA,
+not a definition used to build the source-side factor excess. -/
+theorem vfMidThirtyAccumulatedFactorExcess_eq_endpointDefect
+    (R : ℕ) (hR : 5 ≤ R) :
+    vfMidThirtyAccumulatedFactorExcess R =
+      vfMidSquareEndpointError 5 - vfMidSquareEndpointError R := by
+  unfold vfMidThirtyAccumulatedFactorExcess
+  have hterms :
+      (∑ r ∈ Finset.Ico 5 R, vfMidThirtyFactorCoverageExcess r) =
+        ∑ r ∈ Finset.Ico 5 R,
+          -(vfMidSquareEndpointError (r + 1) -
+              vfMidSquareEndpointError r) := by
+    apply Finset.sum_congr rfl
+    intro r hr
+    have hrFive : 5 ≤ r := (Finset.mem_Ico.mp hr).1
+    rw [vfMidThirtyFactorCoverageExcess_eq_vfMass_sub_actualSupply r hrFive]
+    rw [vfMidSquareEndpointError_succ r (by omega : 2 ≤ r)]
+    unfold vfMidSquareBandError
+    rw [vfMidSquareBandPrimes_card_eq_integerBlockPrimeSupply r]
+    ring
+  rw [hterms, Finset.sum_neg_distrib]
+  rw [Finset.sum_Ico_sub vfMidSquareEndpointError hR]
+  ring
+
+/-- The complete run of gcd-30 divisor-covered sites equals the
+native (exact, occurrence-preserving) chronological late-owner census
+at cutoff 5. No multiplicity loss and no probability argument. -/
+theorem vfMidThirtyLateOwnerRemoval_eq_factorCoveredRun
+    (A B : ℕ) (hA : 5 ≤ A) (hAB : A ≤ B) :
+    vfMidDyadicLateRemoval 5 A B =
+      ∑ r ∈ Finset.Ico A B,
+        ((vfMidThirtyFactorCovered r).card : ℝ) := by
+  rw [vfMidDyadicLateRemoval_eq_ownerCensus 5 A B
+    (by omega : 2 ≤ A) hA hAB]
+  unfold vfMidDyadicOwnerLateRemoval
+  apply Finset.sum_congr rfl
+  intro r hr
+  have hrFive : 5 ≤ r := hA.trans (Finset.mem_Ico.mp hr).1
+  have howners := vfMidThirtyFactorCovered_card_eq_lateOwnerCards r hrFive
+  exact_mod_cast howners.symm
+
+/-- Across any source run the accumulated pure factor coverage excess
+IS the original native signed VF tracking defect. -/
+theorem vfMidThirtyRunExcess_eq_nativeTracking
+    {A B : ℕ} (hA : 5 ≤ A) (hAB : A ≤ B) :
+    vfMidThirtyAccumulatedFactorExcess B -
+        vfMidThirtyAccumulatedFactorExcess A =
+      vfMidDyadicVFTrackingDefect A B := by
+  have hAt := vfMidThirtyAccumulatedFactorExcess_eq_endpointDefect A hA
+  have hBt :=
+    vfMidThirtyAccumulatedFactorExcess_eq_endpointDefect B
+      (hA.trans hAB)
+  have htracking :=
+    vfMidDyadicVFTrackingDefect_eq_vfMass_sub_primeSupply
+      A B (by omega : 2 ≤ A) hAB
+  rw [hAt, hBt, htracking]
+  unfold vfMidSquareEndpointError
+    vfMidDyadicVFMass vfMidDyadicPrimeSupply
+  ring
+
+/-- A uniform signed native cutover: passing from the parity-2 owner
+tracking object to the genuinely physical p>5 owner-reference residual
+costs EXACTLY the four-endpoint frozen wheel-30 phase, nothing else. -/
+theorem vfMidThirtyOwnerResidual_sub_nativeTracking_eq_fixedPhase
+    (A B : ℕ) (hA : 5 ≤ A) (hAB : A ≤ B) :
+    (vfMidDyadicLateRemoval 5 A B -
+        vfMidDyadicLateReference 5 A B) -
+          vfMidDyadicVFTrackingDefect A B =
+      vfMidDyadicPrefixSupply 5 A B -
+        (4 / 15 : ℝ) * vfMidDyadicInteriorLength A B := by
+  rw [vfMidDyadicVFTrackingDefect_eq_vfMass_sub_primeSupply
+    A B (by omega : 2 ≤ A) hAB]
+  unfold vfMidDyadicLateRemoval vfMidDyadicLateReference
+  rw [vfMidThirtyPrefixWheelDensity_eq_four_fifteenths]
+  ring
+
+/-- UNIVERSAL quantitative preservation of the signed p>5
+owner-reference residual relative to the original VF tracking defect.
+The cost 32 is independent of both run length and owner ages. -/
+theorem vfMidThirtyOwnerResidual_sub_nativeTracking_abs_le_thirtytwo
+    (A B : ℕ) (hA : 5 ≤ A) (hAB : A ≤ B) :
+    |(vfMidDyadicLateRemoval 5 A B -
+        vfMidDyadicLateReference 5 A B) -
+          vfMidDyadicVFTrackingDefect A B| ≤ 32 := by
+  rw [vfMidThirtyOwnerResidual_sub_nativeTracking_eq_fixedPhase
+    A B hA hAB]
+  exact vfMidThirtyRunPrefixDensityError_le_thirtytwo A B
+
+/-- Finite initial count is explicit and contains the exceptional
+small primes 2,3,5; all later data are factor ranges above 5. -/
+theorem vfMidPrimeCounting_twentyFive :
+    Nat.primeCounting 25 = 9 := by decide
+
+/-- Quantitative factor-only lower-channel barrier.  It is the
+ONE mathematical statement still to prove, and does not mention
+Nat.Prime, Nat.primeCounting, or Li anywhere in its DEFINITION. -/
+def VFMidThirtyLowerFactorSafe (K : ℝ) (R : ℕ) : Prop :=
+  vfMidThirtyAccumulatedFactorExcess R ≤
+    (9 : ℝ) - vfMidFinishedMass 5 +
+      K * (R : ℝ) * Real.log (R : ℝ)
+
+/-- Exact FTA transfer from the factor-only barrier to the
+genuine prime lower-channel inequality, without assuming
+PNT, RH, or a particular prime distribution. -/
+theorem vfMidThirtyLowerFactorSafe_iff_actualLowerChannel
+    (K : ℝ) (R : ℕ) (hR : 5 ≤ R) :
+    VFMidThirtyLowerFactorSafe K R ↔
+      -(K * (R : ℝ) * Real.log (R : ℝ)) ≤
+        vfMidSquareEndpointError R := by
+  have htel := vfMidThirtyAccumulatedFactorExcess_eq_endpointDefect R hR
+  have hbase :
+      vfMidSquareEndpointError 5 =
+        (9 : ℝ) - vfMidFinishedMass 5 := by
+    unfold vfMidSquareEndpointError
+    norm_num [vfMidPrimeCounting_twentyFive]
+  unfold VFMidThirtyLowerFactorSafe
+  rw [htel, hbase]
+  constructor <;> intro h <;> linarith
+
+/-- This exact horizontal-lag criterion is phrased on factor-range
+coverage. The target VF level is the literal floor at the
+chosen sqrt(2) vertical phase, at ANY shifted root L. -/
+def VFMidThirtyHorizontalCoverageSafe (L R : ℕ) : Prop :=
+  vfMidThirtyAccumulatedFactorExcess R ≤
+    (9 : ℝ) - vfMidFinishedMass 5 + vfMidFinishedMass R -
+      (vfMidAlignedIntegerBlockLevel (Real.sqrt 2) L : ℝ)
+
+/-- A complete finite equivalence: lower VF horizontal alignment at
+square root R is EXACTLY a divisor-coverage upper bound; the
+prime staircase is recovered only on the conclusion side. -/
+theorem vfMidThirtyHorizontalCoverageSafe_iff_actualLowerHorizontal
+    (L R : ℕ) (hR : 5 ≤ R) :
+    VFMidThirtyHorizontalCoverageSafe L R ↔
+      vfMidAlignedIntegerBlockLevel (Real.sqrt 2) L ≤
+        Nat.primeCounting (R ^ 2) := by
+  have htel := vfMidThirtyAccumulatedFactorExcess_eq_endpointDefect R hR
+  have hbase :
+      vfMidSquareEndpointError 5 =
+        (9 : ℝ) - vfMidFinishedMass 5 := by
+    unfold vfMidSquareEndpointError
+    norm_num [vfMidPrimeCounting_twentyFive]
+  unfold VFMidThirtyHorizontalCoverageSafe
+  rw [htel, hbase]
+  unfold vfMidSquareEndpointError
+  constructor
+  · intro h
+    have hreal :
+        (vfMidAlignedIntegerBlockLevel (Real.sqrt 2) L : ℝ) ≤
+          (Nat.primeCounting (R ^ 2) : ℝ) := by
+      linarith
+    exact_mod_cast hreal
+  · intro h
+    have hreal :
+        (vfMidAlignedIntegerBlockLevel (Real.sqrt 2) L : ℝ) ≤
+          (Nat.primeCounting (R ^ 2) : ℝ) := by
+      exact_mod_cast h
+    linarith
+
+/-- Factor-only historical lower slack.  This retains the OLD margin,
+so the first-bad argument cannot discard its largest source of
+protective capacity. -/
+def vfMidThirtyLowerHistoricalSlack (K : ℝ) (A : ℕ) : ℝ :=
+  (9 : ℝ) - vfMidFinishedMass 5 +
+    K * (A : ℝ) * Real.log (A : ℝ) -
+    vfMidThirtyAccumulatedFactorExcess A
+
+/-- An invalid lower barrier at B after a safe A requires a STRICT
+overrun of the available historical slack plus the entire movement
+of the lower wall.  There are only factor-range counts in the
+hypotheses and the CONCLUSION. No false cancellation theorem
+is smuggled in. -/
+theorem vfMidThirtyFirstLowerBreach_forces_factorRunOverrun
+    (K : ℝ) {A B : ℕ} (_hA : 5 ≤ A) (_hAB : A ≤ B)
+    (_hgood : VFMidThirtyLowerFactorSafe K A)
+    (hbad : ¬ VFMidThirtyLowerFactorSafe K B) :
+    vfMidThirtyAccumulatedFactorExcess B -
+        vfMidThirtyAccumulatedFactorExcess A >
+      vfMidThirtyLowerHistoricalSlack K A +
+        K * ((B : ℝ) * Real.log (B : ℝ) -
+          (A : ℝ) * Real.log (A : ℝ)) := by
+  unfold VFMidThirtyLowerFactorSafe at hbad
+  unfold vfMidThirtyLowerHistoricalSlack
+  push_neg at hbad
+  linarith
+
+/-- A first-bad LOWER wall in pure divisor-range coordinates FORCES the
+physical, once-owned p>5 signed late-removal residual to exceed the
+available historical slack and wall-growth bill, up to the exact
+32-count finite-wheel endpoint phase.
+
+This is the strongest currently proved direct obstruction from the
+modulo-30 reduction.  Excluding this overrun unconditionally would
+close the LOWER channel, but no such global signed bound is assumed. -/
+theorem vfMidThirtyFirstLowerBreach_forces_ownerResidualOverrun
+    (K : ℝ) {A B : ℕ}
+    (hA : 5 ≤ A) (hAB : A ≤ B)
+    (hgood : VFMidThirtyLowerFactorSafe K A)
+    (hbad : ¬ VFMidThirtyLowerFactorSafe K B) :
+    vfMidThirtyLowerHistoricalSlack K A +
+        K * ((B : ℝ) * Real.log (B : ℝ) -
+          (A : ℝ) * Real.log (A : ℝ)) - 32 <
+      vfMidDyadicLateRemoval 5 A B -
+        vfMidDyadicLateReference 5 A B := by
+  have hover :=
+    vfMidThirtyFirstLowerBreach_forces_factorRunOverrun
+      K hA hAB hgood hbad
+  rw [vfMidThirtyRunExcess_eq_nativeTracking hA hAB] at hover
+  have hphase :=
+    vfMidThirtyOwnerResidual_sub_nativeTracking_abs_le_thirtytwo
+      A B hA hAB
+  have hlower := (abs_le.mp hphase).1
+  linarith
+
+
+/-! ## Exact signed first-bad phase and the one-block vacancy bottleneck
+
+The 32-count estimate is useful for a uniform envelope, but its worst-case
+subtraction must not be confused with the true source-to-owner payment.
+At a particular hypothesized breach we can retain the complete signed
+wheel phase, without losing 32 counts.
+
+More importantly, a FIRST failed square-root endpoint has an immediately
+preceding safe endpoint. Since the actual supply in one square block is a
+cardinality, it is nonnegative. Hence a first lower escape can happen only
+when historical slack plus one-step wall growth is STRICTLY smaller than
+the ENTIRE VF mass of the next block. This is an unconditional, source
+divisibility-based restriction, not the missing owner-return estimate.
+-/
+
+/-- Exact one-step factor-range excess. This uses the ORIGINAL
+integer block supply decoded via FTA, never a fantasy staircase. -/
+theorem vfMidThirtyAccumulatedFactorExcess_succ
+    (R : ℕ) (hR : 5 ≤ R) :
+    vfMidThirtyAccumulatedFactorExcess (R + 1) -
+        vfMidThirtyAccumulatedFactorExcess R =
+      vfMidBandMass R - (vfMidIntegerBlockPrimeSupply R : ℝ) := by
+  unfold vfMidThirtyAccumulatedFactorExcess
+  rw [Finset.sum_Ico_succ_top hR]
+  rw [vfMidThirtyFactorCoverageExcess_eq_vfMass_sub_actualSupply R hR]
+  ring
+
+/-- No asymmetric 32-count weakening: a hypothetical first-bad run
+requires a STRICT excess above historical slack, wall growth AND the
+TRUE signed four-endpoint wheel phase. -/
+theorem vfMidThirtyFirstLowerBreach_forces_exactSignedOwnerOverrun
+    (K : ℝ) {A B : ℕ}
+    (hA : 5 ≤ A) (hAB : A ≤ B)
+    (hgood : VFMidThirtyLowerFactorSafe K A)
+    (hbad : ¬ VFMidThirtyLowerFactorSafe K B) :
+    vfMidThirtyLowerHistoricalSlack K A +
+        K * ((B : ℝ) * Real.log (B : ℝ) -
+          (A : ℝ) * Real.log (A : ℝ)) +
+        (vfMidDyadicPrefixSupply 5 A B -
+          (4 / 15 : ℝ) * vfMidDyadicInteriorLength A B) <
+      vfMidDyadicLateRemoval 5 A B -
+        vfMidDyadicLateReference 5 A B := by
+  have hover :=
+    vfMidThirtyFirstLowerBreach_forces_factorRunOverrun
+      K hA hAB hgood hbad
+  rw [vfMidThirtyRunExcess_eq_nativeTracking hA hAB] at hover
+  have hphase :=
+    vfMidThirtyOwnerResidual_sub_nativeTracking_eq_fixedPhase
+      A B hA hAB
+  linarith
+
+/-- At the FIRST bad root, the preceding square block must have
+abnormally LOW genuine survivor supply relative to the full
+historical cushion. This condition is exact; prime counts appear
+only as the already-proved output of divisor-range FTA. -/
+theorem vfMidThirtyFirstLowerBreach_forces_oneBandLowSupply
+    (K : ℝ) (R : ℕ) (hR : 5 ≤ R)
+    (hgood : VFMidThirtyLowerFactorSafe K R)
+    (hbad : ¬ VFMidThirtyLowerFactorSafe K (R + 1)) :
+    (vfMidIntegerBlockPrimeSupply R : ℝ) +
+        vfMidThirtyLowerHistoricalSlack K R +
+        K * (((R + 1 : ℕ) : ℝ) *
+          Real.log (((R + 1 : ℕ) : ℝ)) -
+          (R : ℝ) * Real.log (R : ℝ)) <
+      vfMidBandMass R := by
+  have hover :=
+    vfMidThirtyFirstLowerBreach_forces_factorRunOverrun
+      K hR (Nat.le_succ R) hgood hbad
+  rw [vfMidThirtyAccumulatedFactorExcess_succ R hR] at hover
+  linarith
+
+/-- Even if the entire new square band were prime-free, the lower
+wall cannot be breached until the accumulated historical slack
+has been almost completely spent. -/
+theorem vfMidThirtyFirstLowerBreach_requires_nearWall
+    (K : ℝ) (R : ℕ) (hR : 5 ≤ R)
+    (hgood : VFMidThirtyLowerFactorSafe K R)
+    (hbad : ¬ VFMidThirtyLowerFactorSafe K (R + 1)) :
+    vfMidThirtyLowerHistoricalSlack K R +
+        K * (((R + 1 : ℕ) : ℝ) *
+          Real.log (((R + 1 : ℕ) : ℝ)) -
+          (R : ℝ) * Real.log (R : ℝ)) <
+      vfMidBandMass R := by
+  have hlow :=
+    vfMidThirtyFirstLowerBreach_forces_oneBandLowSupply
+      K R hR hgood hbad
+  have hnonneg :
+      (0 : ℝ) ≤ (vfMidIntegerBlockPrimeSupply R : ℝ) := by
+    positivity
+  linarith
+
+/-- Practical invariant-consumer: if the previously earned cushion
+covers even a hypothetically EMPTY next square block, the lower
+channel remains safe without using any estimate for a new prime. -/
+theorem vfMidThirtyLowerSafe_succ_of_fullVacancyBuffer
+    (K : ℝ) (R : ℕ) (hR : 5 ≤ R)
+    (hgood : VFMidThirtyLowerFactorSafe K R)
+    (hbuffer :
+      vfMidBandMass R ≤
+        vfMidThirtyLowerHistoricalSlack K R +
+          K * (((R + 1 : ℕ) : ℝ) *
+            Real.log (((R + 1 : ℕ) : ℝ)) -
+            (R : ℝ) * Real.log (R : ℝ))) :
+    VFMidThirtyLowerFactorSafe K (R + 1) := by
+  by_contra hbad
+  have hnear :=
+    vfMidThirtyFirstLowerBreach_requires_nearWall
+      K R hR hgood hbad
+  linarith
+
+end RHLean.Analysis
