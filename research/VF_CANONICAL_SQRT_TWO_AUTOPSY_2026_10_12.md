@@ -267,3 +267,51 @@ CI: [vf-canonical-sqrt-two.yml](../.github/workflows/vf-canonical-sqrt-two.yml) 
 Neither this bound nor finite A/C has been proved. Historical anchor normalization, phase plots, Euler products, and the all-real O(1) deterministic approximation cannot substitute for the missing actual-prime signed bound.
 
 **Effective migration order:** New docs/public theorem -> VFCanonical*; unshifted source notebooks -> explicit "legacy/raw" label; old chosen phase and existing bytewise Lean proof -> preserved as implementation; corner/fantasy -> auxiliary labelled; latest proof-DAG -> explicit same-statement equivalences. Never rewrite original source quantities in an already-verified theorem as though they had silently acquired sqrt2.
+
+
+## 8. Direct real-prime numerical comparison — canonical VF vs BOTH Li normalizations
+
+**Genuine sieve, no fantasy series, and the real (unrounded) canonical sqrt2 VF.**
+The dedicated, zero-extra-dependency
+[compare_canonical_pi_li.py](../scripts/VFMidAlignedStepGraph/compare_canonical_pi_li.py)
+sieves actual primes all the way through x=100,000,000, evaluates the
+EXACT displayed real VF formula, integrates \(Li_2=\int_2^x dt/\log t\)
+by composite Simpson quadrature and computes the standard
+\(\operatorname{li}(x)=Li_2(x)+\operatorname{li}(2)\), with
+\(\operatorname{li}(2)\approx1.045163780117493\) from the Ei Taylor series.
+
+It then compares three signed errors and their absolute values:
+
+\[
+E_{\rm VF}(x)=\pi(x)-VF_{\rm canon}(x),\quad
+E_{Li_2}(x)=\pi(x)-Li_2(x),\quad
+E_{\rm li}(x)=\pi(x)-\operatorname{li}(x).
+\]
+
+Sample TRUE-prime counts and computed absolute errors:
+
+| x | Genuine pi(x) | Real canonical VF(x) | Li_2(x) | Classical li(x) | \|pi-VF\| | \|pi-Li_2\| | \|pi-li\| |
+| ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| 4 | 2 | 1.414214 | 1.922421 | 2.967585 | **0.585786** | **0.077579** | 0.967585 |
+| 9 | 4 | 4.085436 | 4.676074 | 5.721238 | **0.085436** | 0.676074 | 1.721238 |
+| 100 | 25 | 28.426283 | 29.080978 | 30.126142 | **3.426283** | 4.080978 | 5.126142 |
+| 317 *(live, not a square)* | 66 | 69.589962 | 70.254489 | 71.299653 | **3.589962** | 4.254489 | 5.299653 |
+| 1,000 *(live)* | 168 | 175.893512 | 176.564494 | 177.609658 | **7.893512** | 8.564494 | 9.609658 |
+| 10,000 | 1,229 | 1,244.413401 | 1,245.092052 | 1,246.137216 | **15.413401** | 16.092052 | 17.137216 |
+| 100,489 = 317² | 9,631 | 9,670.545850 | 9,671.228835 | 9,672.273998 | **39.545850** | 40.228835 | 41.273998 |
+| 1,000,000 | 78,498 | 78,625.818221 | 78,626.503996 | 78,627.549159 | **127.818221** | 128.503996 | 129.549159 |
+| 100,000,000 = 10000² | 5,761,455 | 5,762,207.641112 | 5,762,208.330284 | 5,762,209.375448 | **752.641112** | 753.330284 | 754.375448 |
+
+The independent SciPy Ei evaluation reproduced the square-endpoint
+values within numerical floating precision, including the pi(1e8) checkpoint.
+
+The **COMPLETE** enumerations, not cherry-picked sample endpoints, give:
+
+- Every square \(R^2\), for **9999 consecutive roots \(2\le R\le10000\)**: canonical VF has smaller absolute actual-prime error than \(Li_2\) at **9998/9999** roots. The sole exception is \(R=2\), \(x=4\). Against *standard* li, VF wins at **9999/9999** roots.
+- Every integer cutoff **4<=x<=1,000,000** (999,997 genuine-prime checks, including all square-band interiors): canonical VF wins against \(Li_2\) at **999,992/999,997**, with exactly five exceptions \(x=4,5,6,7,8\). Against *standard* li it wins at **999,995/999,997**, exceptions \(x=5,7\).
+- Mean absolute error over all square endpoints 2<=R<=10000:
+  **VF 359.471266**, **Li_2 360.158813**, **standard li 361.203961**.
+
+**Important interpretation:** at x=1e8, \(Li_2(x)-VF_{\rm canon}(x)\approx0.689173\) and \(\operatorname{li}(x)-VF_{\rm canon}(x)\approx1.734336\), whereas the errors relative to actual pi are about 753. The VF improvement is only **0.689 prime-count units**, approximately **0.0915%** of the \(Li_2\) absolute error, not a new asymptotic order or an enormous statistical gain. The near-universal sampled wins arise partly because the observed true pi is below both comparable reference curves for the large tested x; shifting the curve downward slightly helps numerically. Classical prime/li oscillations prevent inferring a universal pointwise advantage for all x. This numerical experiment does **not** establish finite A, finite C, or RH.
+
+For reproducibility the GitHub Actions [canonical VF workflow](../.github/workflows/vf-canonical-sqrt-two.yml) executes this test on genuine primes and uploads the JSON data, independently of the Lean proofs. The ALL-REAL O(1) theorem above is unconditional mathematical content; the stronger *empirical closeness to pi* is not a universal theorem.
