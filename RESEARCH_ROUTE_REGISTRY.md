@@ -5,6 +5,14 @@ square-prefix Mertens program. It records which mechanisms are exact, which
 finite experiments have been run, which mechanisms have failed their declared
 tests, and which routes remain materially distinct.
 
+## October 12 2026 — permanent dated Markdown handoffs on `agent-reports`
+
+Created a separate [GitHub `agent-reports` branch](https://github.com/OVVO-Financial/RH_Lean/tree/agent-reports/research/agent_reports) with [README](https://github.com/OVVO-Financial/RH_Lean/blob/agent-reports/research/agent_reports/README.md), [template](https://github.com/OVVO-Financial/RH_Lean/blob/agent-reports/research/agent_reports/REPORT_TEMPLATE.md), and [all eight stage schedule prompts](https://github.com/OVVO-Financial/RH_Lean/blob/agent-reports/research/agent_reports/SCHEDULE_PROMPTS.md).
+
+Daily agents must each create `research/agent_reports/YYYY-MM-DD/{assigned-stage-file}.md` **on branch `agent-reports`**, with one file per run (eight for seven agents). The 19:00 Coordinator explicitly fetches the seven earlier files and synthesizes proved/refuted/pending claims. The branch is a **research handoff ledger only**, not proof authority; authoritative `AGENTS.md`, `CURRENT_PROOF_CONTRACT.md`, and Lean live on `main`.
+
+**Not yet operational:** Agent Studio schedules and write tools must be configured separately. Agents initially given GitHub read-only permission cannot publish these files. A prompt restriction is NOT a technical GitHub path/branch permission boundary; use least-privilege enforcement where supported, or leave writes approval gated. A report that was not actually committed and fetched back is marked `NOT_PUBLISHED`. This replaces the GitHub issue-comment suggestion; no automatic synchronizing of independent Workspace Agents is implied.
+
 ## October 12 2026 — full daily seven-agent cycle (eight schedules)
 
 The user requires a **complete research cycle every calendar day**, not weekly rotation. Schedule #1 morning 7 AM ET and evening 7 PM ET; specialists #2 8 AM, #5 9 AM, #6 10 AM, #4 1 PM, #3 3 PM, #7 5 PM. The [Agent Studio guide](docs/CHATGPT_AGENT_STUDIO_RH_SETUP_2026_10_12.md) records the eight triggers, central live-AGENTS refresh, real shared ledger requirement, approval/permission safety, and honest `PENDING` status when a stage has not completed. Neither a schedule nor read-only GitHub alone provides automatic agent-to-agent handoffs.
