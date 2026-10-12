@@ -105,10 +105,16 @@ jobs:
           #check RHLean.Analysis.vfCanonicalFinishedMass_succ
           #check RHLean.Analysis.abs_vfCanonicalLiError_le_uniform_allReal
           #check RHLean.Analysis.vfCanonicalSquareDefect_succ
+          #check RHLean.Analysis.vfCanonicalSquareDefect_sq_eq_legacy_cross_corrected
+          #check RHLean.Analysis.vfCanonicalSquareDefect_interval_eq_legacy
+          #check RHLean.Analysis.vfCanonicalIntegerLevel_succ_real
+          #check RHLean.Analysis.vfCanonicalIntegerBacklog_eq_neg_defect_sub_rounding
           #check RHLean.Analysis.vfCanonicalPrimeError_abs_le_primeLi_abs_add_uniform
           #check RHLean.Analysis.vfCanonicalUpperLeftPhase_li_uniform
           #print axioms RHLean.Analysis.abs_vfCanonicalLiError_le_uniform_allReal
           #print axioms RHLean.Analysis.vfCanonicalSquareDefect_succ
+          #print axioms RHLean.Analysis.vfCanonicalSquareDefect_sq_eq_legacy_cross_corrected
+          #print axioms RHLean.Analysis.vfCanonicalIntegerBacklog_eq_neg_defect_sub_rounding
           #print axioms RHLean.Analysis.vfCanonicalUpperLeftPhase_li_uniform
           #check RHLean.Analysis.vfCanonicalSquareVonKoch_iff_legacy
           #check RHLean.Analysis.vfCanonicalSquareVonKoch_iff_primeLiVonKoch
