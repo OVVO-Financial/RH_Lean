@@ -119,6 +119,7 @@ The companion C++ linear sieve independently checks the square-block telescope, 
 |317|100488|1725|1752|-27|-28|+22|20358|
 |1000|999999|9423|9210|+213|+212|-208|202646|
 |2000|3999999|25483|25290|+193|+192|-182|810554|
+|5561|30924720|119471|122014|-2543|-2544|+2554|6266686|
 |6000|35999999|136961|134704|+2257|+2256|-2256|7295158|
 
 Here "sum" is positive minus negative block totals over r=2..R-1; add M(3)=-1 for M(X). For R=6000, the signed completed square-block masses have total variation 271665 but sum to +2257, while the 7,295,158 nonzero residual odd coefficients sum to just +2256. No result at finite R proves uniform suppression as R->infinity.
@@ -139,3 +140,48 @@ The following modules already formalize major pieces of the cumulative-clock vie
 The all-R obstruction is no longer a lack of finite arithmetic or of a cumulative representation. It is the **uniform control of signed residual incomplete packets across square time**, especially their cross-block covariance and historical cofactor/survivor coupling. For finite C this must imply |3+sum_(r=2)^(R-1)f_r| <= C R sqrt(K_R) for every R, not merely a fraction of X, a local block upper bound, or cancellation of already-complete prime cubes.
 
 A key scale distinction: at x about R^2, the historical envelope K_R uses M(y) for y<R; those older values come from square blocks of clock at most sqrt(R), i.e. the fourth-root scale of x. The signed-return theorem must propagate a bound across that much larger scale jump.
+
+
+## 7. Exact all-x live-cohort squared energy: the diagonal is already correct scale
+
+Let the surviving, still-live odd cohort at endpoint x be
+\[
+\mathcal L_x=\{m:\ x/2<m\le x,\ m\ {\rm odd},\ \mu(m)\ne0\},
+\quad L_x=|\mathcal L_x|,
+\]
+and its fully signed **cross-cohort interaction**
+\[
+\Gamma_x=\sum_{\substack{m<n\\m,n\in\mathcal L_x}}\mu(m)\mu(n).
+\]
+The universal cross-square-block birth/death pairing (5) implies the exact integer identity
+\[
+\boxed{M(x)^2=L_x+2\Gamma_x.}\tag{8}
+\]
+Since there are at most x/4+1 odd integers in the upper half of [1,x],
+\[
+\boxed{L_x\le x/4+1.}\tag{9}
+\]
+So the diagonal is **unconditionally at the proper squared RH scale O(x)**. A fraction of x is useless as a bound on |M(x)|, but **a fixed multiple of x K_R in the square/covariance currency is precisely the target**.
+
+If, and only if up to harmless absolute constants, the positive covariance obeys the still-unproved bound
+\[
+\boxed{\exists B<\infty:\quad
+\Gamma_{R^2-1}\le B\,R^2K_R\quad\forall R\ge2,}\tag{10}
+\]
+then (8)-(9), K_R>=1, and (M-1)^2<=2M^2+2 imply a fixed finite-A amplification and hence the existing conditional RH closure. This is a genuinely cumulative physical target, but (10) is **not an independently proved saving**; it is essentially the original hard estimate moved into the live-cohort interaction, and must be established using the actual sign/factor ancestry.
+
+### Nonpositive covariance fails for genuine primes
+
+An independent genuine Mobius sieve checked **every R=2..6000** (5,999 square endpoints). The naive guess Gamma<=0 for every R is FALSE: **exactly three roots** have positive live-packet covariance:
+
+| R | X=R²-1 | M(X) | L_X | 2 Gamma_X = M(X)²-L_X |
+|---:|---:|---:|---:|---:|
+|3|8|-2|2|+2|
+|53|2808|-24|566|+10|
+|5561|30924720|-2544|6266686|+205250|
+
+For comparison at R=6000 the live count is 7295158 and M(X)=2256, yielding 2Gamma=-2205622. The positive R=5561 example is essential: no termwise all-R nonpositive covariance theorem is possible, even though it happens at most of the finite roots.
+
+The reproducible C++ audit scans the live cohort cardinality incrementally as the square endpoint increases, checking these covariance exceptions alongside the signed block and Euler-cube identities. Its numerical range is not an all-scale bound.
+
+This cleanly isolates the gap: **complete historical cross-block packets cancel exactly**, their incomplete odd packets have a diagonal already at O(x), but the SIGNED PAIR OVERLAP of the still-live cohorts must have a uniform finite upper bound in units x K_R. This cannot be obtained merely by counting the live packets or appealing to their common birth/death rule.
