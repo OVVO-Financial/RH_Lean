@@ -194,3 +194,57 @@ Therefore existence of fixed B in H(B) is equivalent (up to constants) to origin
 The proven per-sector squarefree density only evaluates fixed a,b leading counts; it does NOT establish a uniform **SIGNED bilinear** estimate when a,b grow with R. The unproved estimate must preserve all positive/negative cofactor sectors simultaneously. One sufficient combinatorial proof would construct an actual occurrence-preserving injection pairing positive live-pair charges to distinct negative charges, leaving at most BR²K_R unmatched positives. If its existence is just asserted instead of being constructed, that is H(B) in disguise. Alternatively prove the equivalent signed bilinear inequality by a genuinely new finite arithmetic argument. No future prime descendant outside the endpoint may be used to pay a current positive charge.
 
 In brief: known density facts are unconditional, all algebraic deductions are closed, and the only additional assumption needed for a *conditional* theorem is the RH-strength uniform signed reassembly bound. A genuinely unconditional proof MUST DERIVE that bound, not assume it.
+
+
+## 8. CRITICAL cardinality correction: pair interaction is NOT the number of signed integers
+
+A common proposed shortcut is: because the signed interaction is supported in a partition of length <x/3, remove about 40% of zero-Mobius sites, so |Gamma| must be O(0.6x/3). **This is false as an upper bound on Gamma.** It confuses a *linear signed population* with a *quadratic signed pair count*. The true global zero density is 1-6/pi²≈0.392073, but it must not be pasted onto an arithmetically selected subcarrier.
+
+Define the true live odd squarefree carrier S_x={m odd: x/2<m<=x, mu(m)²=1}. With P_x=# positive sites and N_x=# negative sites,
+\[
+L_x=P_x+N_x,\quad M(x)=P_x-N_x,\quad
+\Gamma_x=\binom{P_x}{2}+\binom{N_x}{2}-P_x N_x
+=\frac{M(x)^2-L_x}{2}.
+\]
+The total number of pair interactions is \(\binom{L_x}{2}\), not \(L_x\). A single eligible source may participate in L_x-1 pair interactions. A gcd value g may support MANY pairs: at x=2808, there are L=566 live sources, P=271, N=295, same-sign pairs 79950, opposite-sign pairs 79945, Gamma=+5. Yet the EXACT-gcd g=1 sector alone contributes +554, even though it has just one distinct gcd value! Other g-sectors cancel most of its contribution.
+
+The exact asymptotic density of this ACTUAL odd top-half carrier is
+\[
+\boxed{L_x=\frac{2}{\pi^2}x+O(\sqrt x),}
+\]
+because odd squarefree integers have density 4/pi² in the integers and the annulus has length x/2. Conditional on ODD n, squarefreeness frequency is 8/pi²≈0.810569, zero frequency ≈0.189431; 39.2% zeros applies only to all integers, not the odd carrier.
+
+### A stronger unconditional refutation: Gamma_x > L_x even on infinitely many square endpoints
+
+Hurst, *Computations of the Mertens Function and Improved Bounds on the Mertens Conjecture*, Math. Comp. 87 (2018), 1013–1028, DOI 10.1090/mcom/3275, proves the unconditional extreme oscillation
+\[
+\liminf_{x\to\infty}M(x)/\sqrt x<-1.837625.
+\]
+(This is an analytic existence theorem, not an explicit known numerical counterexample to Mertens's original conjecture.) Therefore at arbitrarily large integer endpoints,
+\[
+\limsup \frac{\Gamma_x}{L_x}
+\ge \frac12\left(\frac{1.837625^2}{2/\pi^2}-1\right)
+\approx 7.83208.
+\]
+In particular Gamma_x > L_x at infinitely many arbitrary integer x.
+
+The result persists even when restricted to the repo's COMPLETE SQUARE endpoints X_R=R²-1. To see this, for any integer x choose the nearest such X_R. Adjacent X_R differ by 2R+1, so |x-X_R|<=sqrt(x)+O(1). Since each mu(n) is in {-1,0,+1},
+\[
+|M(X_R)|\ge |M(x)|-|x-X_R|.
+\]
+Transport Hurst's large negative excursion to this nearest X_R:
+\[
+\limsup_{R\to\infty}\frac{|M(X_R)|}{\sqrt{X_R}}
+\ge 1.837625-1=0.837625.
+\]
+Then using the actual live diagonal L_(X_R)~(2/pi²)X_R,
+\[
+\boxed{
+\limsup_{R\to\infty}\frac{\Gamma_{X_R}}{L_{X_R}}
+\ge \frac12\left(\frac{(1.837625-1)^2}{2/\pi^2}-1\right)
+\approx 1.231167>1.
+}
+\]
+Thus, **for infinitely many complete-square endpoints, the genuine signed interaction exceeds the number of live integers**. It is mathematically IMPOSSIBLE to prove a universal Gamma_R<=L_R cardinality ceiling; such a bound would contradict the published unconditional oscillation theorem. This observation is independent of RH and independent of whether fixed finite-A exists.
+
+What remains POSSIBLE is a bound Gamma_R <= B R² K_R with a sufficiently large, scale-independent B, derived from actual signed reassembly. Neither L_R alone nor the 39.2% unconditional zero density gives it. A proposal that assigns at most one sign charge to each integer must first prove a legitimate injective assignment of the ACTUAL pair contributions; the existing covariance sum has high multiplicities and cannot be silently converted into a single-site sum.
