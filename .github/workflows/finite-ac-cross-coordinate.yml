@@ -88,5 +88,9 @@ jobs:
           #check RHLean.Proof.dyadicPostRootSurvivorMass_squareEndpoint_eq_transport_add_rootPacket
           #print axioms RHLean.Proof.squareRootEndpoint_natSqrt_eq_pred
           #print axioms RHLean.Proof.dyadicPostRootSurvivorMass_squareEndpoint_eq_transport_add_rootPacket
+          #check RHLean.Proof.squareRootOddGenericSmooth_add_postRoot_eq_squarePrefixMertens
+          #check RHLean.Proof.squareRootOddGenericSmooth_add_half_primeComb_sub_primeCount_eq_mertens
+          #print axioms RHLean.Proof.squareRootOddGenericSmooth_add_postRoot_eq_squarePrefixMertens
+          #print axioms RHLean.Proof.squareRootOddGenericSmooth_add_half_primeComb_sub_primeCount_eq_mertens
           LEAN
           lake env lean -DwarningAsError=true /tmp/VFCrossCarrierAudit.lean
