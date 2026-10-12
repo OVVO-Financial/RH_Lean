@@ -130,19 +130,23 @@
     },
     {
       "pr": 931,
-      "name": "Cross-coordinate VF clipped/admitted vs sector-six finite A/C audit",
+      "name": "Exhaustive cross-coordinate VF/finite-A audit and dyadic/prime-comb occurrence weld",
       "route": "canonical VF cross-carrier structural audit; alternative Mertens finite A/C search",
-      "evidence": "Full-source DAG declaration audit, existing exact source Fubini, elementary cross-carrier disjointness; new Lean compilation pending",
-      "open": "Nonlocal weight-preserving actual-prime return, quantitative signed child-run payment, and independent uniform finite A/C bound",
+      "evidence": "Full main/research/export DAG and true Mobius census; new per-prime/global chronological-dyadic equality and rank-one root-prime boundary correction, Lean CI pending",
+      "open": "Genuine signed quantitative cancellation of smooth and high-prime fields; original-weight nonlocal historical return/child-run payment; uniform finite A/C",
       "documents": [
         "research/FINITE_AC_CROSS_COORDINATE_DAG_CLOSURE_AUDIT_2026_10_12.md"
       ],
       "modules": [
-        "research/VF_MID_932_ORIGINAL_VF_CARRIER_DISJOINT.lean"
+        "research/VF_MID_932_ORIGINAL_VF_CARRIER_DISJOINT.lean",
+        "research/FINITE_A_C_PRIME_COMB_DYADIC_OCCURRENCE_WELD.lean"
       ],
       "sentinels": [
         "vfMidActiveReturnedPairCarrier_disjoint_admittedPairs",
-        "vfMidActiveReturnedPairWeight_eq_zero_of_admittedPositive"
+        "vfMidActiveReturnedPairWeight_eq_zero_of_admittedPositive",
+        "primeCombTailSignedDelta_eq_two_plus_dyadicSurvivor",
+        "primeCombPostRootSignedDeltaTotal_eq_primeNumber_add_dyadicSurvivor",
+        "dyadicPostRootSurvivorMass_squareEndpoint_eq_transport_add_rootPacket"
       ]
     }
   ]
