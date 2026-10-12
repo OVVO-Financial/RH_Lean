@@ -1,71 +1,84 @@
 # RH_Lean
 
-Lean 4 formalization of the square-prefix and direct VF-mid programs.
+Lean 4 formalization of the classical von-Koch prime-counting criterion
+in a square-tiled VF coordinate, plus the genuinely open signed
+actual-prime and Möbius arithmetic research.
 
-> **Guiding light: close RH through VF.  Prove the RH-scale cumulative
-> `pi - VF_mid` bound; do not replace it with a stronger block-by-block
-> crossing statement merely because that stronger statement fits finite data.**
+> **2026-10-12 CANONICAL VF — the only current PUBLIC VF definition is**
+>
+> \( VF(x)=\sqrt2+\sum_{r=2}^{R-1}(2r+1)/\log(r^2+r+1/2)
+>   +(x-R^2)/\log((R^2+x)/2),\quad R=\lfloor\sqrt x\rfloor,\ x\ge4. \)
+>
+> The original vfMid / owner-cell source, historical x=9 c0,
+> integer-floor and fractional-seat plots remain UNCHANGED INTERNAL COORDINATES
+> and need an explicit proven phase translation to be used as current VF.
 
-**Status (2026-10-11): no unconditional proof of the Riemann hypothesis,
-finite A, or finite C is claimed.** The repository proves the exact VF square-block construction, its
-unconditional Li quadrature bridge, exact prime/common-wheel survivor
-identities, and conditional implications from a direct VF discrepancy bound to
-Mathlib's `RiemannHypothesis`. The remaining task is the arithmetic bound
-itself.
+**Status (2026-10-12): finite A, finite C and RH remain unproved.**
+The repository contains exact square wheel/prime-owner arithmetic,
+an unconditional square-endpoint **VF_raw-Li_2 = O(1)** theorem, and now
+[PR #932](https://github.com/OVVO-Financial/RH_Lean/pull/932) adds the
+missing **all-real** \(VF_{\rm raw}-Li_2=O(1)\) Lean assembly and the
+new canonical sqrt2 vertical-phase interface. **New Lean compilation is
+required before calling those newly proposed theorems verified.**
+The classical von-Koch ↔ RH theorem remains an explicitly supplied
+formal interface; the actual-prime von-Koch inequality is open.
 
-Start with [`CURRENT_PROOF_CONTRACT.md`](CURRENT_PROOF_CONTRACT.md) for the
-current target and exact Lean interfaces. The
-[documentation index](docs/DOCUMENTATION_INDEX.md) distinguishes current
-instructions, append-only research history, numerical diagnostics, and exports.
-Use the [repository search and import DAG](docs/REPOSITORY_SEARCH.md) to find
-existing results across the library, research, documents, scripts, exports, and
-fetched PR refs. `python3 scripts/proofq.py repo-search 'SectorSix' --scope research`
-is a starting point for the current first-bad work.
-The [current research frontier DAG](docs/RESEARCH_FRONTIER_DAG.md) maps the
-retained PR tracks and their still-open inputs; CI validates and regenerates
-their transitive source import graph.
+Start with the [definitive full VF autopsy](research/VF_CANONICAL_SQRT_TWO_AUTOPSY_2026_10_12.md),
+[canonical VF Lean API](research/VF_CANONICAL_SQRT_TWO.lean),
+[all-real quadrature](research/VF_CANONICAL_ALL_REAL_LI_O_ONE.lean), and
+[canonical von-Koch reduction](research/VF_CANONICAL_SQRT_TWO_VON_KOCH.lean).
+See [current proof contract](CURRENT_PROOF_CONTRACT.md) and
+[research search/DAG](docs/REPOSITORY_SEARCH.md) for theorem provenance.
 
-## Canonical VF target
+## Canonical VF target (supersedes the older raw-VF public wording)
 
-At square endpoints define
+Let \(F_R=\sum_{2\le r<R}V_r\), \(V_r=(2r+1)/\log(r^2+r+1/2)\).
+The **single real public endpoint** and actual-prime discrepancy are
 
-```text
-D_R = pi(R^2) - vfMidFinishedMass R.
-```
+\[
+VF_{\rm can}(R^2)=F_R+\sqrt2,\qquad
+D_R^{\rm can}:=\pi(R^2)-F_R-\sqrt2.
+\]
 
-The live target is
+The live proof target is exactly
 
-```text
-exists C >= 0, for every natural R >= 2,
-  |D_R| <= C R log R.
-```
+\[
+\boxed{\exists C\ge0\ \forall R\ge2:
+|D_R^{\rm can}|\le CR\log R.}
+\]
 
-In Lean this is `VFMidSquareEndpointVonKochBoundedStatement`. The compiled
-VF/Li bridge extends it to real cutoffs and transfers it to the classical
-von-Koch prime-counting scale; the existing RH consumer then closes the route.
+The new Lean statement is **VFCanonicalSquareVonKochStatement**.
+Its canonical⇔legacy theorem establishes exact equivalence (with
+renormalized constants) to the existing, HISTORICAL
+**VFMidSquareEndpointVonKochBoundedStatement**; the latter is NOT
+silently redefined or deleted.
 
-The exact square-block recurrence is
+The signed source is still genuinely arithmetic and unchanged:
 
-```text
-D_(R+1) = D_R + P_R - m_R,
-```
+\[
+\boxed{D_{R+1}^{\rm can}
+ =D_R^{\rm can}+\big(P_R-V_R\big),}
+\]
 
-where `P_R` is the exact prime/common-wheel survivor population of block
-`R`, and `m_R = vfMidBandMass R` is the deterministic VF midpoint mass.
-The central problem is therefore signed cumulative control of the survivor
-error `P_R - m_R`.
+where \(P_R=\pi((R+1)^2)-\pi(R^2)\) counts actual primes and
+\(V_R\) is the original midpoint block mass.
 
-A fixed aligned VF step graph can intersect `pi` over very long finite
-ranges and is useful diagnostic geometry.  Universal fixed-phase
-block-by-block intersection is nevertheless too strong: it would impose a
-one-sided `O(sqrt(x)/log(x))` upper bound on positive `pi-Li` excursions,
-incompatible with classical Littlewood oscillation.  The fixed-alignment
-results are retained only as conditional sufficient lemmas.  Their failure as
-a universal target does **not** weaken the legitimate
-`O(R log R)` VF program.
+**Sharper deterministic result:** old primary Lean modules already proved
+the uniform completed-square quadrature bound and separately a uniform
+LIVE-band quadrature bound; their sum yields
 
-The older CORR-4/Mertens route remains preserved as alternative infrastructure;
-it is not the canonical research target.
+\[
+\boxed{VF_{\rm can}(x)-Li_2(x)=O(1)\quad\text{FOR ALL REAL }x\ge4,}
+\]
+not merely \(O(\sqrt x)\) or an endpoint-only \(O(1)\).
+This is deterministic; it is NOT a bound on \(\pi-VF_{\rm can}\).
+The standard \(li\) differs from \(Li_2=\int_2^x dt/\log t\) by a
+constant, and MUST be distinguished in numerical plots and theorem names.
+
+Old corner/phase/floor/fractional and historical c0 results remain
+meaningful derived diagnostics; no fixed-phase graph crossing for every
+block is assumed. The arithmetic first-bad signed historical/current
+payment is still open.
 
 ## Finite A / finite C: separate sufficient alternative (PR #929)
 
