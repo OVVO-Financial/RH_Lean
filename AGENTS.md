@@ -24,6 +24,10 @@ For every new research assignment, and again before making a significant recomme
 
 Initial ChatGPT Agent Studio campaign: [setup guide](docs/CHATGPT_AGENT_STUDIO_RH_SETUP_2026_10_12.md) and [research snapshot](research/CHATGPT_AGENT_STUDIO_FIRST_BAD_CAMPAIGN_2026_10_12.md). These are **dated starting assignments**, not higher-priority instructions than `AGENTS.md` and the current proof contract.
 
+### Daily seven-specialist research loop (when scheduled)
+
+The user directs a **complete daily research cycle, including weekends**. Scheduling details and the eight daily triggers for seven agents (morning/evening coordinator, three independent discovery roles, census, referee, and Lean verifier) are documented in [the Studio setup guide](docs/CHATGPT_AGENT_STUDIO_RH_SETUP_2026_10_12.md). **Every scheduled invocation must re-read these central files from `main`**. Each specialist should read the previous stages' work only if a real approved shared handoff exists. Otherwise label missing results, do not fabricate agent-to-agent communication, and do not claim that isolated schedules constitute a fully completed pipeline. A scheduled formalization stage must distinguish actual compiled Lean/CI results from suggested proofs, and the final coordinator must explicitly report incomplete stages. Scheduled agents have no blanket authorization to write to GitHub or merge.
+
 ## Mandatory public VF canonicalization — 2026-10-12
 
 **NEW SINGLE PUBLIC DEFINITION:** On x>=4,
