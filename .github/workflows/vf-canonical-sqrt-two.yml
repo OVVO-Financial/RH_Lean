@@ -7,6 +7,7 @@ on:
       - 'research/VF_CANONICAL_*.lean'
       - 'research/VF_CANONICAL_*.md'
       - 'scripts/vf_canonical_definition_autopsy.py'
+      - 'scripts/VFMidAlignedStepGraph/compare_canonical_pi_li.py'
       - 'README.md'
       - 'AGENTS.md'
       - 'CURRENT_PROOF_CONTRACT.md'
@@ -40,6 +41,30 @@ jobs:
           path: |
             vf-canonical-definitions.json
             vf-canonical-definitions.md
+
+  genuine-primes-vs-li:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Exhaustive genuine-prime VF/Li2/standard-li comparison
+        run: |
+          python3 -B scripts/VFMidAlignedStepGraph/compare_canonical_pi_li.py \
+            --r-max 10000 --integer-max 1000000 \
+            --json-out canonical-vf-prime-comparison.json \
+            > /tmp/canonical-vf-prime-comparison.stdout
+          python3 - <<'PY'
+          import json
+          j=json.load(open("canonical-vf-prime-comparison.json"))
+          print("Square roots:", j["square_endpoints"])
+          print("Every integer through 1e6:", j["integer_cutoffs"])
+          for k in ("4","9","317","10000","100489","1000000","100000000"):
+              print(k, j["examples"][k])
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: canonical-vf-vs-genuine-prime-li
+          path: canonical-vf-prime-comparison.json
 
   all-real-quadrature:
     runs-on: ubuntu-latest
