@@ -397,3 +397,65 @@ These coefficients are NOT monotone: e.g. c_280<0 but c_290>0. The rigorous clai
 This establishes that the genuine factorial-sign machinery contains signed negative RETURNS between specified generations. It does NOT control all ancestors with g<=x/T as x grows.
 
 The original missing all-root finite A bound asks for an O(x K_floor(sqrt x)) ceiling on the FULL \(\Gamma_x\), which includes EVERY gcd depth down to g=1. To proceed, derive a **UNIFORM-IN-T continuation of (20)-(23)** whose constants and O_T(sqrt x) errors do not grow uncontrollably when T is chosen with x (ideally T~sqrt x or larger), then control the remaining g-small tail. Finite fixed-T negative compensation is a genuine theorem, but the uniform-in-scale part is the RH-strength barrier.
+
+
+## 10. Exact ROOT historical split: where the exceptional positive interaction is generated
+
+The fixed cutoff in Section 9 is not the final target. Put x=R²-1 and split true covariance by the actual common odd squarefree ancestor g **AT THE HISTORICAL ROOT R**:
+\[
+\Gamma_x=\Gamma_x^{(g\ge R)}+\Gamma_x^{(g<R)}.
+\]
+This is particularly significant because for \(g\ge R\), the exclusive cofactors \(a=m/g,b=n/g\) automatically satisfy \(a<b<R\), so their actual \(\mu(a)\mu(b)\) signs are entirely HISTORICAL data in the \(K_R\) range. Conversely, for \(g<R\), the common factor is historical but the exclusive cofactors may continue to much greater scales. This is an exact arithmetic two-sector frontier, not an invented independence split.
+
+### Exact O(x log x) ALL-endpoint physical gcd classifier
+
+Define for each positive odd d the genuine live-divisible signed and diagonal masses
+\[
+V_d(x)=\sum_{\substack{x/2<m\le x\\m\ {\rm odd},\ d\mid m}}\mu(m),
+\qquad
+D_d(x)=\sum_{\substack{x/2<m\le x\\m\ {\rm odd},\ d\mid m}}\mu(m)^2.
+\]
+Their real physical signed pair-incidence is
+\[
+F_d(x)=\frac12(V_d(x)^2-D_d(x))
+=\sum_{\substack{g\ge1\\d\mid g}}E_g(x),
+\]
+where \(E_g(x)\) is the signed sum of live pairs with EXACT common gcd g. Consequently the FINITE divisor Möbius inversion
+\[
+\boxed{E_g(x)=F_g(x)-\sum_{k\ge2}E_{kg}(x)
+=\sum_{k\ge1}\mu(k)F_{gk}(x)}\tag{24}
+\]
+classifies every exact shared-ancestor population without enumerating all O(x²) pairs. Since two distinct odd live multiples of g require cofactors 3 and 5 at minimum, \(E_g=0\) for \(g>x/5\). A single reverse divisor sieve therefore computes ALL sectors in O(x log x) basic operations. It independently verifies \(\sum_g E_g(x)=(M(x)^2-L_x)/2\).
+
+The fully reproducible [live_gcd_exact_sector_sieve.cpp](../experiments/PrimePopulationCutoff/live_gcd_exact_sector_sieve.cpp) was built with g++ -O3 -std=c++17 -Wall -Wextra -Werror and run on genuine Mobius values through x=35,999,999.
+
+| R | X=R²-1 | signed high-g sector g>=R | signed historical-g sector g<R | full Γ_X |
+|---:|---:|---:|---:|---:|
+|317|100488|-182|-9605|-9787|
+|1000|999999|-49283|-29568|-78851|
+|2000|3999999|-283303|-103542|-386845|
+|5561|30924720|-2968782|+3071407|+102625|
+|6000|35999999|-3536529|+2433718|-1102811|
+
+**Important exceptional case R=5561:** the 2,968,782 units of NEGATIVE high-g signed ancestry are outweighed by 3,071,407 units of POSITIVE shared ancestry with g<R, leaving the observed +102,625. The rare positive covariance is localized in precisely the deep, historically rooted shared-ancestor sector, not a failure of the negative high-ancestor compensation.
+
+Three further exact scale partitions at this same endpoint (all true prime/Mobius sites):
+\[
+\boxed{
+\begin{array}{r|r}
+\text{shared ancestor population}&\text{signed overlap}\\
+g>x/15&+1,013,967\\
+x/500<g\le x/15&-1,584,108\\
+g\le x/500&+672,766\\ \hline
+\text{total }\Gamma_x&+102,625
+\end{array}}
+\]
+For the first two rows, the unconditional fixed-T asymptotic of Section 9 correctly predicts the observed coefficients to nearly four significant digits. The final positive row shows where the NONUNIFORM low-g ancestry re-enters.
+
+### What this gives the finite-A attack, and what it does not
+
+This is the direct cumulative signed factor interaction the model already possesses. It supplies BOTH a fixed-depth negative compensation theorem and an exact all-root classifier separating historical cofactors (high g) from historical common ancestors (low g).
+
+A valid independent proof must establish, for ALL roots R and with one absolute constant, that the combined two-sector remainder is O(R²K_R) in the SQUARED currency (rather than assuming either sector individually has the desired sign). The g<R sector is the key suspect for exceptional positive return, but its historical gcd alone does NOT control the later exclusive cofactors.
+
+Crucially, the literal sign patterns and physical cutoff populations are already exactly known from the prime-addition process; **the only missing object is a uniform bound**, not a representation, a stochastic covariance, or a newly defined arithmetic mechanism.
