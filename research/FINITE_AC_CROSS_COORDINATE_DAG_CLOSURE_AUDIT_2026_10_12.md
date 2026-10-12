@@ -292,3 +292,70 @@ N_R=\#\{p\ge R:\ p\le R^2-1,\ p\ \mathrm{prime}\}.}\tag{I.6}
 It is **the original finite-A claim**, not a completed bound. The search shows where the arithmetic dependence has to survive: through the entire smooth/high signed cross term and the true prime counts, after the safe small root-equality correction has been removed. The successful new result is an exact *reconciliation of coordinate systems*, not a proof of RH.
 
 The hosted strict source audit and warning-fatal Lean checks are the acceptance tests for the new statements; until those checks finish, only the independently checked integer calculations and paper identities are established.
+
+
+## J. Four-way full-source commutative diagram and measured signed quadratic cancellation
+
+The repository also already proves the canonical **born-smooth + positive-smooth + physical dyadic high-prime = true Mertens endpoint** in [DyadicSurvivorMatchedSplice.lean](../RHLean/Proof/DyadicSurvivorMatchedSplice.lean):
+
+\[
+\boxed{P_R+B_R+H_R^{\rm can}=M(R^2-1).}
+\]
+
+Combining that finished theorem with (I.3) gives a NEW formal coordinate, with exactly the right root-prime adjustment,
+
+\[
+S_R^{\rm gen}:=P_R+B_R-\mathbf1_{\mathbb P}(R)H_{R^2-1}(R).
+\]
+
+This is a *definition* of the corrected smooth component on the formal Mobius source. For R>=3 it coincides with the actual greatest-prime-below-root odd-live squarefree census, and the complete global identity is
+
+\[
+\boxed{S_R^{\rm gen}+H_R^{\rm gen}=M(R^2-1),}
+\]
+\[
+\boxed{
+S_R^{\rm gen}+\frac12\Delta_R^{\rm gen}-N_R^{\rm gen}
+=M(R^2-1).
+}
+\]
+
+The new Lean file now states and proves, from exact existing primary sources,
+
+- squareRootOddGenericSmooth_add_postRoot_eq_squarePrefixMertens;
+- squareRootOddGenericSmooth_add_half_primeComb_sub_primeCount_eq_mertens.
+
+These are full original-source **four-coordinate welding identities** (prime-comb chronology, dyadic high-prime survivor, born/positive smooth, complete Mertens), not yet checked by the new CI compile. No randomness, no independence and no discarded prime label occurs. The corrections are exactly zero except for the one genuine p=R face when R is prime.
+
+### The exact signed Co/Div cancellation this exposes
+
+Set S=S_R^{gen}, H=H_R^{gen}, M=S+H. At R=5561 the independently verified true Möbius census gives:
+
+\[
+S=-126,917,\quad H=124,373,\quad M=-2,544.
+\]
+
+Then the **quadratic signed cross-term** is
+
+\[
+\begin{aligned}
+S^2 &=16,107,924,889,\\
+H^2 &=15,468,643,129,\\
+2SH &=-31,570,096,082,\\
+(S+H)^2 &= 6,471,936.
+\end{aligned}
+\]
+
+Thus the actual negative historical/survivor interaction cancels
+
+\[
+\boxed{99.9795\%}
+\]
+
+of the positive diagonal \(S^2+H^2=31,576,568,018\) at this tested endpoint. At R=6000 the cancellation is **99.9878%**; at R=317 it is **99.9520%**. These are genuine signed product identities, not an unsubstantiated average-sign assumption.
+
+Crucially, **the arithmetic question is now fully explicit in matched populations**: does the genuine prime-factor/ownership structure prohibit positive excess \(S^2+H^2+2SH\) from exceeding \(A R^2K_R\) uniformly? The empirical cross-sector anti-alignment is powerful evidence that absolute-value bounds on separate populations are wasteful, but these exact equalities do NOT prove that the observed 99.9% negative cross-term persists at all R. Indeed at R=17 the two components are both negative and the cross-term is POSITIVE. A uniform theorem must handle every sign regime.
+
+The candidate analytic work is no longer to *identify* the missing pair population: both true smooth and high populations and their relative sign are fully explicit. It is to establish a **uniform quantitative anti-persistence of the signed smooth/high sum under genuine prime-dependent chronological updates**. The correct measure must remain in the original \(K_R\) normalization and not be replaced by an RH-equivalent conditional hypothesis.
+
+No new universal bound and no completed RH proof is asserted.
