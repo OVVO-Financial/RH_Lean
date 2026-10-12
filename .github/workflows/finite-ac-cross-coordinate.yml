@@ -6,6 +6,7 @@ on:
     paths:
       - 'scripts/finite_ac_coordinate_dag_audit.py'
       - 'research/VF_MID_932_ORIGINAL_VF_CARRIER_DISJOINT.lean'
+      - 'research/FINITE_A_C_PRIME_COMB_DYADIC_OCCURRENCE_WELD.lean'
       - 'research/FINITE_AC_CROSS_COORDINATE_DAG_CLOSURE_AUDIT_2026_10_12.md'
       - '.github/workflows/finite-ac-cross-coordinate.yml'
   workflow_dispatch:
@@ -58,16 +59,22 @@ jobs:
         run: |
           python3 scripts/compile_research_import_closure.py \
             --build-library \
-            research/VF_MID_932_ORIGINAL_VF_CARRIER_DISJOINT.lean
+            research/VF_MID_932_ORIGINAL_VF_CARRIER_DISJOINT.lean \
+            research/FINITE_A_C_PRIME_COMB_DYADIC_OCCURRENCE_WELD.lean
       - name: Kernel declaration and axiom footprint check
         run: |
           cat > /tmp/VFCrossCarrierAudit.lean <<'LEAN'
           import «research.VF_MID_932_ORIGINAL_VF_CARRIER_DISJOINT»
+          import «research.FINITE_A_C_PRIME_COMB_DYADIC_OCCURRENCE_WELD»
           #check RHLean.Analysis.vfMidActiveReturnedPairCarrier_disjoint_admittedPairs
           #check RHLean.Analysis.vfMidActiveReturnedPairWeight_eq_zero_of_admittedPositive
           #check RHLean.Analysis.sum_vfMidActiveReturnedPairWeight_admittedPositive_eq_zero
           #print axioms RHLean.Analysis.vfMidActiveReturnedPairCarrier_disjoint_admittedPairs
           #print axioms RHLean.Analysis.vfMidActiveReturnedPairWeight_eq_zero_of_admittedPositive
           #print axioms RHLean.Analysis.sum_vfMidActiveReturnedPairWeight_admittedPositive_eq_zero
+          #check RHLean.Proof.primeCombTailSignedDelta_eq_two_plus_dyadicSurvivor
+          #check RHLean.Proof.primeCombPostRootSignedDeltaTotal_eq_primeNumber_add_dyadicSurvivor
+          #print axioms RHLean.Proof.primeCombTailSignedDelta_eq_two_plus_dyadicSurvivor
+          #print axioms RHLean.Proof.primeCombPostRootSignedDeltaTotal_eq_primeNumber_add_dyadicSurvivor
           LEAN
           lake env lean -DwarningAsError=true /tmp/VFCrossCarrierAudit.lean
