@@ -81,6 +81,23 @@ Each PR description and checklist update must identify:
 
 ## Active PR record
 
+### PR #933 — ChatGPT Agent Studio independent first-bad research campaign (2026-10-12)
+
+- [x] Read `AGENTS.md`, current canonical proof contract, original #915 exact source/budget and merged #931 cross-coordinate audit.
+- [x] Create a focused branch and document two standalone resources: a first-bad diagnostic/no-circularity campaign note and a ChatGPT Agent Studio browser setup with seven agent prompts.
+- [x] Preserve original raw physical first-bad weights and historical denominator vs the canonical public sqrt2 VF shift.
+- [x] Distinguish a locally restarted narrow K=0.019 wall breach from the formal globally first-bad K=2 predicate; the former does not refute the original source-payment statement.
+- [x] Explicitly cite preexisting single-block child-owner uniqueness and warn that historical primes can have many descendants across runs; no repeated spending of an old negative charge.
+- [x] Label every numerical example as finite and the open signed payment as open; no conditional theorem relabeled unconditional.
+- [x] Update `RESEARCH_ROUTE_REGISTRY.md` to make the campaign discoverable.
+- [ ] Review numerical diagnostics and all GitHub app/Agent Studio user interface settings before publication.
+- [ ] Applicable repository documentation, source-DAG, and workflow checks (not yet verified on this new head).
+- [ ] Merge only after green required CI and explicit approval.
+
+**Changes:** `research/CHATGPT_AGENT_STUDIO_FIRST_BAD_CAMPAIGN_2026_10_12.md`, `docs/CHATGPT_AGENT_STUDIO_RH_SETUP_2026_10_12.md`, `RESEARCH_ROUTE_REGISTRY.md`, `FORMALIZATION_CHECKLIST.md`. **New Lean declarations:** none. **Analytic gate remaining:** original signed #915 actual-prime physical source-to-recursive-run payment; genuine bounded amplification and RH remain open. **Proof axioms:** unchanged; no Lean compilation claimed.
+
+
+
 ### PR #932 — sole public sqrt2 VF / fully real O(1) / von-Koch supersession (2026-10-12)
 
 - [x] Inspect compiled square-endpoint O(1) in VF_MID_LI_UNIFORM_QUADRATURE and LIVE partial band O(1) + exact split in VF_MID_VON_KOCH_BRIDGE.
