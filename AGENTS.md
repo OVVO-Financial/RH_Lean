@@ -10,6 +10,28 @@ These instructions govern mathematical research, Lean formalization, and reposit
 4. Architecture notes, route registries, research notes, exports, old PRs, and historical handoffs are evidence and context, not authority when they conflict with compiled source or the current proof contract.
 5. Never infer that two quantities are equal because their prose descriptions sound similar. Use or prove an exact bridge theorem.
 
+## Dynamic research direction and specialist-agent refresh
+
+**Central routing rule:** `AGENTS.md` governs standing agent conduct and how to find current instructions; `CURRENT_PROOF_CONTRACT.md` identifies the **current active mathematical proof target**, with compiled Lean source authoritative for what is actually proved. The user may change research strategy at any time; dated campaign notes, old PRs, custom agent names, and previously supplied prompts do NOT freeze a mathematical target.
+
+For every new research assignment, and again before making a significant recommendation or writing code:
+
+1. Fetch fresh `AGENTS.md` and `CURRENT_PROOF_CONTRACT.md` from the current `main` HEAD using the connected GitHub repository; record the actual branch/commit and indicate whether retrieval succeeded. Do not substitute chat memory, a cached snapshot, or a draft PR for fresh authoritative instructions.
+2. Read relevant Lean declarations, then consult `CURRENT_RESEARCH_HANDOFF.md`, `RESEARCH_ROUTE_REGISTRY.md`, and research PRs only for scoped context. A draft PR can propose a future priority but does not supersede `main` until merged or the user expressly changes the assignment.
+3. Derive the current research objective from these fresh sources. Treat named specialist agents (owner payment, analytic number theory, sieve/combinatorics, numerical referee, Lean verification, coordination) as **persistent expertise**, not permanent commitments to #915, finite A/C, Type II, or any particular conjecture. Redirect that expertise to the active target; explicitly flag a mismatch or ask for direction if the specialty cannot help.
+4. If the sources conflict, distinguish operating rules, formal mathematics and current objectives; identify the conflict and ask rather than invent a reconciliation. Existing safety, proof-integrity, no-hidden-assumptions, warning-fatal and authorization constraints are never silently weakened.
+5. Treat a long-lived session as potentially stale: re-fetch on a new user request, an announced pivot, or before a substantive deliverable. Do not claim that Workspace Agents automatically synchronize their memory or launch other agents. State any GitHub access limitation.
+
+Initial ChatGPT Agent Studio campaign: [setup guide](docs/CHATGPT_AGENT_STUDIO_RH_SETUP_2026_10_12.md) and [research snapshot](research/CHATGPT_AGENT_STUDIO_FIRST_BAD_CAMPAIGN_2026_10_12.md). These are **dated starting assignments**, not higher-priority instructions than `AGENTS.md` and the current proof contract.
+
+### Daily seven-specialist research loop (when scheduled)
+
+The user directs a **complete daily research cycle, including weekends**. The daily inter-agent handoff is a **dated Markdown report per stage on the dedicated `agent-reports` branch**, under `research/agent_reports/YYYY-MM-DD/`; see [report branch README](https://github.com/OVVO-Financial/RH_Lean/blob/agent-reports/research/agent_reports/README.md), [report template](https://github.com/OVVO-Financial/RH_Lean/blob/agent-reports/research/agent_reports/REPORT_TEMPLATE.md), and [eight schedule prompts](https://github.com/OVVO-Financial/RH_Lean/blob/agent-reports/research/agent_reports/SCHEDULE_PROMPTS.md). Scheduling details are in [Studio setup guide](docs/CHATGPT_AGENT_STUDIO_RH_SETUP_2026_10_12.md).
+
+**Every scheduled invocation must re-read these central files from `main`**, then fetch actual earlier reports explicitly using `ref=agent-reports`. Source-of-truth mathematics NEVER comes from the reports branch. The seven agents post eight uniquely named files per day: `00-coordinator-am.md`, `10-owner-payment.md`, `20-analytic-type-ii.md`, `30-finite-wheel.md`, `40-prime-census.md`, `50-adversarial-referee.md`, `60-lean-verification.md`, `90-coordinator-pm.md`. Each agent may write only its named Markdown report to `agent-reports`, never to `main` or any Lean source, **and only after separate GitHub write permission is granted**. Instructions alone cannot elevate read-only connector access nor technically enforce path limits on a broad GitHub write grant.
+
+The evening Coordinator fetches the seven upstream report paths, reconciles exact claim IDs and evidence, records `PENDING`/not-published stages instead of inventing handoffs, and publishes a dated verified synthesis. A scheduled formalization stage distinguishes actual compiled Lean/CI from suggested proofs. A plan to post files is NOT a complete automated cycle until the schedules, write credentials, real file commits and readbacks are separately verified. No agent may merge or change `main` without approval.
+
 ## Mandatory public VF canonicalization — 2026-10-12
 
 **NEW SINGLE PUBLIC DEFINITION:** On x>=4,

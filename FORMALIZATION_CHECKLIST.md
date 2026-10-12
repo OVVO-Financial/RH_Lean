@@ -81,6 +81,33 @@ Each PR description and checklist update must identify:
 
 ## Active PR record
 
+### PR #933 — ChatGPT Agent Studio independent first-bad research campaign (2026-10-12)
+
+- [x] Read `AGENTS.md`, current canonical proof contract, original #915 exact source/budget and merged #931 cross-coordinate audit.
+- [x] Create a focused branch and document two standalone resources: a first-bad diagnostic/no-circularity campaign note and a ChatGPT Agent Studio browser setup with seven agent prompts.
+- [x] Preserve original raw physical first-bad weights and historical denominator vs the canonical public sqrt2 VF shift.
+- [x] Distinguish a locally restarted narrow K=0.019 wall breach from the formal globally first-bad K=2 predicate; the former does not refute the original source-payment statement.
+- [x] Explicitly cite preexisting single-block child-owner uniqueness and warn that historical primes can have many descendants across runs; no repeated spending of an old negative charge.
+- [x] Label every numerical example as finite and the open signed payment as open; no conditional theorem relabeled unconditional.
+- [x] Update `RESEARCH_ROUTE_REGISTRY.md` to make the campaign discoverable.
+- [x] Update `AGENTS.md` to make specialist roles follow fresh `main` strategy and `CURRENT_PROOF_CONTRACT.md` rather than pinning work to #915.
+- [x] Revise all seven Studio role prompts and common rules to separate persistent expertise from changing active mathematical priorities.
+
+- [x] Document eight daily ET schedules for all seven research agents, with AM/PM coordinator and dependency gates.
+- [x] Keep GitHub agent-file writes authorization-gated; create the separate `agent-reports` branch with dated Markdown reports, a reusable template and eight stage-specific schedule prompts. This supersedes the issue-comment ledger suggestion.
+- [x] Direct all seven agents to publish their own unique stage report on `agent-reports`, and require the evening Coordinator to fetch actual committed reports by name.
+- [x] Distinguish a GitHub repo write permission from a technically branch/path restricted grant; require user authorization and verified report readback before asserting that agent handoffs are operational.
+- [x] Make every stage re-read latest central instructions and report missing predecessor outputs as PENDING rather than asserting a completed cycle.
+- [x] Clarify that draft PR notes are historical until merged and created ChatGPT Workspace Agents require manual editing of their long-lived instructions.
+
+- [ ] Review numerical diagnostics and all GitHub app/Agent Studio user interface settings before publication.
+- [ ] Applicable repository documentation, source-DAG, and workflow checks (not yet verified on this new head).
+- [ ] Merge only after green required CI and explicit approval.
+
+**Changes in PR #933:** `AGENTS.md`, `research/CHATGPT_AGENT_STUDIO_FIRST_BAD_CAMPAIGN_2026_10_12.md`, `docs/CHATGPT_AGENT_STUDIO_RH_SETUP_2026_10_12.md`, `RESEARCH_ROUTE_REGISTRY.md`, `FORMALIZATION_CHECKLIST.md`. **Separate reporting branch:** `agent-reports:research/agent_reports/{README.md,REPORT_TEMPLATE.md,SCHEDULE_PROMPTS.md}` (not part of the PR diff, not proof authority). **New Lean declarations:** none. **Analytic gate remaining:** original signed #915 actual-prime physical source-to-recursive-run payment; genuine bounded amplification and RH remain open. **Proof axioms:** unchanged; no Lean compilation claimed.
+
+
+
 ### PR #932 — sole public sqrt2 VF / fully real O(1) / von-Koch supersession (2026-10-12)
 
 - [x] Inspect compiled square-endpoint O(1) in VF_MID_LI_UNIFORM_QUADRATURE and LIVE partial band O(1) + exact split in VF_MID_VON_KOCH_BRIDGE.

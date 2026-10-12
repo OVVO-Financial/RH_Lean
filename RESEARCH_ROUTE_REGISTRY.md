@@ -5,6 +5,28 @@ square-prefix Mertens program. It records which mechanisms are exact, which
 finite experiments have been run, which mechanisms have failed their declared
 tests, and which routes remain materially distinct.
 
+## October 12 2026 — permanent dated Markdown handoffs on `agent-reports`
+
+Created a separate [GitHub `agent-reports` branch](https://github.com/OVVO-Financial/RH_Lean/tree/agent-reports/research/agent_reports) with [README](https://github.com/OVVO-Financial/RH_Lean/blob/agent-reports/research/agent_reports/README.md), [template](https://github.com/OVVO-Financial/RH_Lean/blob/agent-reports/research/agent_reports/REPORT_TEMPLATE.md), and [all eight stage schedule prompts](https://github.com/OVVO-Financial/RH_Lean/blob/agent-reports/research/agent_reports/SCHEDULE_PROMPTS.md).
+
+Daily agents must each create `research/agent_reports/YYYY-MM-DD/{assigned-stage-file}.md` **on branch `agent-reports`**, with one file per run (eight for seven agents). The 19:00 Coordinator explicitly fetches the seven earlier files and synthesizes proved/refuted/pending claims. The branch is a **research handoff ledger only**, not proof authority; authoritative `AGENTS.md`, `CURRENT_PROOF_CONTRACT.md`, and Lean live on `main`.
+
+**Not yet operational:** Agent Studio schedules and write tools must be configured separately. Agents initially given GitHub read-only permission cannot publish these files. A prompt restriction is NOT a technical GitHub path/branch permission boundary; use least-privilege enforcement where supported, or leave writes approval gated. A report that was not actually committed and fetched back is marked `NOT_PUBLISHED`. This replaces the GitHub issue-comment suggestion; no automatic synchronizing of independent Workspace Agents is implied.
+
+## October 12 2026 — full daily seven-agent cycle (eight schedules)
+
+The user requires a **complete research cycle every calendar day**, not weekly rotation. Schedule #1 morning 7 AM ET and evening 7 PM ET; specialists #2 8 AM, #5 9 AM, #6 10 AM, #4 1 PM, #3 3 PM, #7 5 PM. The [Agent Studio guide](docs/CHATGPT_AGENT_STUDIO_RH_SETUP_2026_10_12.md) records the eight triggers, central live-AGENTS refresh, real shared ledger requirement, approval/permission safety, and honest `PENDING` status when a stage has not completed. Neither a schedule nor read-only GitHub alone provides automatic agent-to-agent handoffs.
+
+## October 12 2026 — dynamic specialist-agent research routing (#933)
+
+Every ChatGPT Agent Studio specialist must retrieve `AGENTS.md` and `CURRENT_PROOF_CONTRACT.md` fresh from `main` on each new research request. The agent's named specialty is stable, but the research target is **not** pinned to the historical #915 source payment or Type II kernel. The detailed [Studio setup instructions](docs/CHATGPT_AGENT_STUDIO_RH_SETUP_2026_10_12.md) now provide a reusable builder instruction and update all seven role prompts. Changes committed to #933 remain proposals until merged; existing Studio agent configurations require a manual instruction edit.
+
+## October 12 2026 — ChatGPT Agent Studio first-bad research campaign (#933, documentation only)
+
+The [first-bad signed owner research campaign](research/CHATGPT_AGENT_STUDIO_FIRST_BAD_CAMPAIGN_2026_10_12.md) records independently reported finite diagnostics, original #915 source-payment constraints, and mandatory falsification rules. The [ChatGPT Agent Studio setup](docs/CHATGPT_AGENT_STUDIO_RH_SETUP_2026_10_12.md) supplies explicit browser creation instructions and seven individually focused agent prompts. These ChatGPT Workspace Agents are independent runs, not automatically orchestrated Codex subagents. This PR changes NO Lean theorem or canonical VF definition and claims no new RH-scale bound.
+
+The **K=0.019** locally restarted wall breach near R=1031 is NOT a formal global K=2 first-bad counterexample: the original normalized physical source N at R=1030 is reported below 1/2. The semiprime child/owner uniqueness within one square band was already proved, while a historical prime may reappear in hundreds of later semiprime descendant occurrences. The open problem remains a genuinely new signed, occurrence-preserving, once-charged RUN-level historical payment.
+
 ## October 12 2026 — sole canonical public VF +sqrt2 and all-real O(1)
 
 **Current authoritative object:** VF_canonical(x)=vfMid(x)+sqrt(2)
