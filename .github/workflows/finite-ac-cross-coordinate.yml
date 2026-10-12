@@ -10,6 +10,10 @@ on:
       - '.github/workflows/finite-ac-cross-coordinate.yml'
   workflow_dispatch:
 
+concurrency:
+  group: finite-ac-cross-coordinate-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
 permissions:
   contents: read
 
