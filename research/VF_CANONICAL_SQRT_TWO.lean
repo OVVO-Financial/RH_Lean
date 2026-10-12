@@ -285,6 +285,7 @@ theorem vfCanonicalIntegerBacklog_eq_neg_defect_sub_rounding
     vfCanonicalIntegerBacklog R =
       -vfCanonicalSquareDefect R - vfCanonicalRoundingPhase R := by
   unfold vfCanonicalIntegerBacklog vfCanonicalIntegerLevel
+    vfCanonicalRoundingPhase
   have h := vfMidSqrtTwoIntegerBacklog_eq_actualPrimeError R
   rw [h]
   rw [vfCanonicalSquareDefect_eq_legacy_sub_phase]
