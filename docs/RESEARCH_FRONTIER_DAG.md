@@ -4,7 +4,7 @@ Updated 2026-10-12 UTC. The direct `pi - VF_mid` square-run route is canonical.
 Finite A/C and CORR-4 remain sufficient alternatives with unproved quantitative
 inputs. The [proof contract](../CURRENT_PROOF_CONTRACT.md) governs all routes.
 
-The [frontier registry](research-frontier.json) preserves the eight PR tracks
+The [frontier registry](research-frontier.json) preserves the nine PR tracks
 from the cleanup batch. It records source entry points, evidence scope and
 the input each track still needs. PR state is read from GitHub; this registry
 is a source map rather than a live merge-status database.
@@ -19,6 +19,7 @@ is a source map rather than a live merge-status database.
 | #927 | Signed finite-prime double telescope and complete-period certificates. | Growing high-owner physical remainder; the full Mobius field is not periodic. |
 | #928 | Euler parity asymptotics and floor-Li frequency synthesis. | Pointwise original-carrier finite-C estimate. |
 | #929 | Exact finite-A/C equivalence, prime-comb, density and ancestry accounting. | Uniform signed finite-A/C estimate; [route alignment](../research/FINITE_A_C_VF_ALIGNMENT_2026_10_11.md). |
+| #931 | Exhaustive cross-coordinate source/import audit plus actual-VF clipped/admitted versus Dirichlet admitted/admitted disjointness lemma. | The nonlocal weight-preserving historical return and uniform signed child-run payment; [audit](../research/FINITE_AC_CROSS_COORDINATE_DAG_CLOSURE_AUDIT_2026_10_12.md). |
 
 ## Actual import relationships
 
@@ -26,6 +27,11 @@ Arrows point from an importing source to its dependency. This selected diagram
 is navigation only; an import does not discharge an open mathematical input.
 The independent #925 reversible-packet kernel imports Mathlib only and has no
 native actual-prime representation edge.
+The #931 subdiagram highlights literal imports and the mathematical distinction
+between clipped/admitted VF-active source and admitted/admitted Dirichlet
+sector six. Even when a transitive import exists, it does not imply that their
+original physical pair carriers or VF weights are equal. Dotted lines denote
+unproved quantitative/representation obligations, NOT actual imports.
 
 ```mermaid
 flowchart TD
@@ -37,6 +43,12 @@ flowchart TD
   Li --> Quad["Uniform VF/Li quadrature"]
   PNT["#925 PNT horizontal clock"] --> Aligned
   PNT --> Native["Native PNT transfer"]
+  Guard931["#931 literal carrier non-overlap"] --> Raw["Original VF weighted clipped/admitted source"]
+  Guard931 --> Adm["Admitted/admitted Dirichlet pair carrier"]
+  Raw --> VFClip["VF original clipped boundary Fubini"]
+  SignedSix["Generic no-persistence and sector six"] --> Adm
+  Canonical["Open original first-bad payment"] -. needs nonlocal weighted historical return .-> Raw
+  Canonical -. needs run-level signed continuation .-> SignedSix
 ```
 
 ## Regenerate and validate
