@@ -5,6 +5,12 @@ square-prefix Mertens program. It records which mechanisms are exact, which
 finite experiments have been run, which mechanisms have failed their declared
 tests, and which routes remain materially distinct.
 
+## October 12 2026 — ChatGPT Agent Studio first-bad research campaign (#933, documentation only)
+
+The [first-bad signed owner research campaign](research/CHATGPT_AGENT_STUDIO_FIRST_BAD_CAMPAIGN_2026_10_12.md) records independently reported finite diagnostics, original #915 source-payment constraints, and mandatory falsification rules. The [ChatGPT Agent Studio setup](docs/CHATGPT_AGENT_STUDIO_RH_SETUP_2026_10_12.md) supplies explicit browser creation instructions and seven individually focused agent prompts. These ChatGPT Workspace Agents are independent runs, not automatically orchestrated Codex subagents. This PR changes NO Lean theorem or canonical VF definition and claims no new RH-scale bound.
+
+The **K=0.019** locally restarted wall breach near R=1031 is NOT a formal global K=2 first-bad counterexample: the original normalized physical source N at R=1030 is reported below 1/2. The semiprime child/owner uniqueness within one square band was already proved, while a historical prime may reappear in hundreds of later semiprime descendant occurrences. The open problem remains a genuinely new signed, occurrence-preserving, once-charged RUN-level historical payment.
+
 ## October 12 2026 — sole canonical public VF +sqrt2 and all-real O(1)
 
 **Current authoritative object:** VF_canonical(x)=vfMid(x)+sqrt(2)
