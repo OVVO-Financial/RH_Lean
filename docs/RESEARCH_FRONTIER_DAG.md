@@ -19,7 +19,7 @@ is a source map rather than a live merge-status database.
 | #927 | Signed finite-prime double telescope and complete-period certificates. | Growing high-owner physical remainder; the full Mobius field is not periodic. |
 | #928 | Euler parity asymptotics and floor-Li frequency synthesis. | Pointwise original-carrier finite-C estimate. |
 | #929 | Exact finite-A/C equivalence, prime-comb, density and ancestry accounting. | Uniform signed finite-A/C estimate; [route alignment](../research/FINITE_A_C_VF_ALIGNMENT_2026_10_11.md). |
-| #931 | Exhaustive cross-coordinate source/import audit plus actual-VF clipped/admitted versus Dirichlet admitted/admitted disjointness lemma. | The nonlocal weight-preserving historical return and uniform signed child-run payment; [audit](../research/FINITE_AC_CROSS_COORDINATE_DAG_CLOSURE_AUDIT_2026_10_12.md). |
+| #931 | Exact prime-comb chronological/dyadic high-prime occurrence weld, p=R root-prime correction, seven actual Möbius censuses, and physical VF clipped/admitted versus Dirichlet admitted/admitted guardrail. | **Quantitative signed smooth/high-prime cancellation** or original-weight nonlocal historical-return child-run payment; [audit](../research/FINITE_AC_CROSS_COORDINATE_DAG_CLOSURE_AUDIT_2026_10_12.md). |
 
 ## Actual import relationships
 
@@ -47,6 +47,11 @@ flowchart TD
   Guard931 --> Adm["Admitted/admitted Dirichlet pair carrier"]
   Raw --> VFClip["VF original clipped boundary Fubini"]
   SignedSix["Generic no-persistence and sector six"] --> Adm
+  PrimeComb["Prime comb: actual Delta_p"] --> DyadicWeld["Delta_p = 2*(1+H_p)"]
+  Dyadic["Dyadic high-prime live H_p"] --> DyadicWeld
+  RootBoundary["sqrt(R^2-1)=R-1"] --> Correction["Generic versus canonical p=R packet"]
+  Correction --> DyadicWeld
+  DyadicWeld -. leaves unpaid signed smooth/high cancellation .-> Canonical
   Canonical["Open original first-bad payment"] -. needs nonlocal weighted historical return .-> Raw
   Canonical -. needs run-level signed continuation .-> SignedSix
 ```
