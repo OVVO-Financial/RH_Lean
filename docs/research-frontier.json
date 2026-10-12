@@ -8,9 +8,18 @@
       "route": "canonical VF",
       "evidence": "Lean identities and explicitly conditional consumers; exact finite regressions",
       "open": "VFMid915FirstBadSourcePaymentStatement and original-weight historical/current run payment",
-      "documents": ["research/VF_MID_915_SOURCE_PAYMENT_STATUS.md"],
-      "modules": ["research/VF_MID_FIRST_BAD_EXACT_BUDGET_CLOSE.lean", "research/VF_MID_915_CENTERED_OWNER_TRIANGULAR.lean", "research/VF_MID_915_PRIME_INTERVAL_LI_STRATIFICATION.lean"],
-      "sentinels": ["VFMid915FirstBadSourcePaymentStatement", "vfMid915FirstBad_closed_of_sourcePayment"]
+      "documents": [
+        "research/VF_MID_915_SOURCE_PAYMENT_STATUS.md"
+      ],
+      "modules": [
+        "research/VF_MID_FIRST_BAD_EXACT_BUDGET_CLOSE.lean",
+        "research/VF_MID_915_CENTERED_OWNER_TRIANGULAR.lean",
+        "research/VF_MID_915_PRIME_INTERVAL_LI_STRATIFICATION.lean"
+      ],
+      "sentinels": [
+        "VFMid915FirstBadSourcePaymentStatement",
+        "vfMid915FirstBad_closed_of_sourcePayment"
+      ]
     },
     {
       "pr": 922,
@@ -18,9 +27,15 @@
       "route": "analytic input",
       "evidence": "Lean physical polarization and conditional moment inlet; finite rank witnesses",
       "open": "Genuine ideal/source semantics, uniform physical moment estimate and historical reassembly",
-      "documents": ["research/VF_SHARP_OAI_SIGNED_MOMENT_ATTACK.md"],
-      "modules": ["research/VF_SHARP_OAI_SIGNED_MOMENT_ATTACK.lean"],
-      "sentinels": ["vfSharpOAIActualGram_le_of_physical_centered_moment"]
+      "documents": [
+        "research/VF_SHARP_OAI_SIGNED_MOMENT_ATTACK.md"
+      ],
+      "modules": [
+        "research/VF_SHARP_OAI_SIGNED_MOMENT_ATTACK.lean"
+      ],
+      "sentinels": [
+        "vfSharpOAIActualGram_le_of_physical_centered_moment"
+      ]
     },
     {
       "pr": 923,
@@ -28,9 +43,15 @@
       "route": "arithmetic input",
       "evidence": "Lean strict quotient gap, signed Abel identity and quantitative reduction",
       "open": "Uniform low-quotient control; all-n short-coefficient domination and original historical payment",
-      "documents": ["research/VF_QUOTIENT_VARIATION_FIRSTBAD_ATTACK.md"],
-      "modules": ["research/VF_QUOTIENT_VARIATION_FIRSTBAD_ATTACK.lean"],
-      "sentinels": ["vfVarSquareMertens_norm_le_four_lowVariation_add_two_shortMass"]
+      "documents": [
+        "research/VF_QUOTIENT_VARIATION_FIRSTBAD_ATTACK.md"
+      ],
+      "modules": [
+        "research/VF_QUOTIENT_VARIATION_FIRSTBAD_ATTACK.lean"
+      ],
+      "sentinels": [
+        "vfVarSquareMertens_norm_le_four_lowVariation_add_two_shortMass"
+      ]
     },
     {
       "pr": 925,
@@ -38,9 +59,22 @@
       "route": "canonical VF representation",
       "evidence": "Lean reversible-packet kernel, factor/survivor identities, PNT and conditional spectral transport",
       "open": "Actual-prime class representation and signed lower-channel/run estimate; spectral formula is an explicit input",
-      "documents": ["research/VF_WILES_ARITHMETIC_STABILITY_PROOF_CONTRACT.md", "research/VF_MID_THIRTY_FACTOR_RANGE_PROOF_CONTRACT.md"],
-      "modules": ["research/VF_WILES_ARITHMETIC_STABILITY_KERNEL.lean", "research/VF_MID_THIRTY_FACTOR_RANGE_LOWER_GATE.lean", "research/VF_MID_925_FACTOR_THETA_SPECTRAL_WELD.lean", "research/VF_MID_SQRT_TWO_LI_HORIZONTAL.lean", "research/VF_MID_SQRT_TWO_VERTICAL_PNT_HORIZONTAL.lean", "research/VF_MID_ADAPTIVE_FACTOR_OWNER_RETURN.lean", "research/VF_MID_ALIGNED_STEP_GRAPH.lean"],
-      "sentinels": ["vfWilesUniversalArithmeticPacketStability"]
+      "documents": [
+        "research/VF_WILES_ARITHMETIC_STABILITY_PROOF_CONTRACT.md",
+        "research/VF_MID_THIRTY_FACTOR_RANGE_PROOF_CONTRACT.md"
+      ],
+      "modules": [
+        "research/VF_WILES_ARITHMETIC_STABILITY_KERNEL.lean",
+        "research/VF_MID_THIRTY_FACTOR_RANGE_LOWER_GATE.lean",
+        "research/VF_MID_925_FACTOR_THETA_SPECTRAL_WELD.lean",
+        "research/VF_MID_SQRT_TWO_LI_HORIZONTAL.lean",
+        "research/VF_MID_SQRT_TWO_VERTICAL_PNT_HORIZONTAL.lean",
+        "research/VF_MID_ADAPTIVE_FACTOR_OWNER_RETURN.lean",
+        "research/VF_MID_ALIGNED_STEP_GRAPH.lean"
+      ],
+      "sentinels": [
+        "vfWilesUniversalArithmeticPacketStability"
+      ]
     },
     {
       "pr": 926,
@@ -48,7 +82,9 @@
       "route": "sufficient Mertens alternative",
       "evidence": "Exact integer/rational census and paper proof using Hurst; no new Lean theorem",
       "open": "Independent uniform upper estimate for absolute A",
-      "documents": ["research/ABSOLUTE_A_ALL_SCALE_SIGNED_ESTIMATE_AUDIT.md"],
+      "documents": [
+        "research/ABSOLUTE_A_ALL_SCALE_SIGNED_ESTIMATE_AUDIT.md"
+      ],
       "modules": [],
       "sentinels": []
     },
@@ -58,7 +94,9 @@
       "route": "physical arithmetic diagnostics",
       "evidence": "Paper double telescope, exact complete-period certificates and genuine Mobius covariance diagnostics",
       "open": "Growing high-owner remainder; truncated periodic comb estimates do not bound the full Mobius field",
-      "documents": ["research/SQUARE_RUN_SIGNED_CRT_PHYSICAL_MIXING_20261010.md"],
+      "documents": [
+        "research/SQUARE_RUN_SIGNED_CRT_PHYSICAL_MIXING_20261010.md"
+      ],
       "modules": [],
       "sentinels": []
     },
@@ -68,7 +106,9 @@
       "route": "sufficient Mertens alternative",
       "evidence": "Paper asymptotics and exact identities linked to existing Lean frequency transport",
       "open": "Pointwise uniform finite-C bound on the original signed carrier",
-      "documents": ["research/FINITE_C_A_EULER_PARITY_FLOOR_LI_FREQUENCY_SYNTHESIS.md"],
+      "documents": [
+        "research/FINITE_C_A_EULER_PARITY_FLOOR_LI_FREQUENCY_SYNTHESIS.md"
+      ],
       "modules": [],
       "sentinels": []
     },
@@ -78,9 +118,36 @@
       "route": "sufficient Mertens alternative",
       "evidence": "Exact finite accounting, paper deductions, reproducing experiments and existing conditional Lean consumer",
       "open": "Uniform original-carrier signed finite-A/C estimate; distinct canonical VF source/run splice also remains open",
-      "documents": ["research/FINITE_A_C_VF_ALIGNMENT_2026_10_11.md", "research/EULER_PRODUCT_SQUARE_ROOT_FINITE_C_A.md"],
-      "modules": ["RHLean/Proof/SquareRootAmplificationClosure.lean", "RHLean/Analysis/MertensEnergyRHForward.lean"],
+      "documents": [
+        "research/FINITE_A_C_VF_ALIGNMENT_2026_10_11.md",
+        "research/EULER_PRODUCT_SQUARE_ROOT_FINITE_C_A.md"
+      ],
+      "modules": [
+        "RHLean/Proof/SquareRootAmplificationClosure.lean",
+        "RHLean/Analysis/MertensEnergyRHForward.lean"
+      ],
       "sentinels": []
+    },
+    {
+      "pr": 932,
+      "name": "Single canonical sqrt2 VF + fully real uniform O(1) Li quadrature",
+      "route": "CANONICAL VF public-definition supersession, exact phase transport and classical von Koch",
+      "evidence": "Old compiled summable square midpoint/Li O(1), old uniform LIVE quadrature, new all-real Lean composition and sqrt2 phase; proof CI required",
+      "open": "Actual-prime canonical signed square endpoint discrepancy <= C R log R; classical von Koch criterion remains explicit formal input",
+      "documents": [
+        "research/VF_CANONICAL_SQRT_TWO_AUTOPSY_2026_10_12.md"
+      ],
+      "modules": [
+        "research/VF_CANONICAL_ALL_REAL_LI_O_ONE.lean",
+        "research/VF_CANONICAL_SQRT_TWO.lean",
+        "research/VF_CANONICAL_SQRT_TWO_VON_KOCH.lean"
+      ],
+      "sentinels": [
+        "abs_vfMidLiError_le_uniform_allReal",
+        "abs_vfCanonicalLiError_le_uniform_allReal",
+        "vfCanonicalSquareDefect_sq_eq_legacy_cross_corrected",
+        "vfCanonicalSquareVonKoch_iff_primeLiVonKoch"
+      ]
     }
   ]
 }
