@@ -220,6 +220,76 @@ theorem vfCanonicalPrimeError_abs_le_primeLi_abs_add_uniform
   rw [hident]
   exact (abs_sub _ _).trans (add_le_add_left hbound _)
 
+/-! ### Exact vertical phase correction to energy, historical return and floors -/
+
+/-- Absolute wall, first-bad trigger and squared energy MUST use the
+canonical translated value, not the unchanged raw endpoint. -/
+theorem vfCanonicalSquareDefect_sq_eq_legacy_cross_corrected
+    (R : ℕ) :
+    (vfCanonicalSquareDefect R) ^ 2 =
+      (vfMidDirectSquareEndpointError R) ^ 2 -
+        2 * vfCanonicalPhase * vfMidDirectSquareEndpointError R + 2 := by
+  rw [vfCanonicalSquareDefect_eq_legacy_sub_phase]
+  have hsq : vfCanonicalPhase ^ 2 = 2 :=
+    vfMidSqrtTwoVerticalPhase_sq
+  calc
+    (vfMidDirectSquareEndpointError R - vfCanonicalPhase) ^ 2 =
+      (vfMidDirectSquareEndpointError R) ^ 2 -
+        2 * vfCanonicalPhase * vfMidDirectSquareEndpointError R +
+          vfCanonicalPhase ^ 2 := by ring
+    _ = (vfMidDirectSquareEndpointError R) ^ 2 -
+        2 * vfCanonicalPhase * vfMidDirectSquareEndpointError R + 2 := by
+      rw [hsq]
+
+/-- Subtracting TWO endpoint values cancels sqrt2; original signed
+source / owner run telescoping is UNCHANGED. -/
+theorem vfCanonicalSquareDefect_interval_eq_legacy
+    (A R : ℕ) :
+    vfCanonicalSquareDefect R - vfCanonicalSquareDefect A =
+      vfMidDirectSquareEndpointError R -
+        vfMidDirectSquareEndpointError A := by
+  rw [vfCanonicalSquareDefect_eq_legacy_sub_phase,
+    vfCanonicalSquareDefect_eq_legacy_sub_phase]
+  ring
+
+/-- The canonical noninteger fractional floor remainder is in [0,1);
+it is a distinct object from the original signed arithmetic defect. -/
+def vfCanonicalRoundingPhase (R : ℕ) : ℝ :=
+  vfMidAlignedRoundingPhase vfCanonicalPhase R
+
+theorem vfCanonicalRoundingPhase_bounds (R : ℕ) :
+    0 ≤ vfCanonicalRoundingPhase R ∧
+      vfCanonicalRoundingPhase R < 1 := by
+  exact vfMidAlignedRoundingPhase_bounds
+    vfCanonicalPhase vfCanonicalPhase_nonneg R
+
+/-- The floor staircase has ONLY a bounded telescope correction, not
+a new prime supply or reweighting of the original midpoint band. -/
+theorem vfCanonicalIntegerLevel_succ_real
+    {R : ℕ} (hR : 2 ≤ R) :
+    (vfCanonicalIntegerLevel (R + 1) : ℝ) -
+        (vfCanonicalIntegerLevel R : ℝ) =
+      vfMidBandMass R + vfCanonicalRoundingPhase R -
+        vfCanonicalRoundingPhase (R + 1) := by
+  exact vfMidAlignedIntegerBlockLevel_succ_real
+    vfCanonicalPhase hR
+
+/-- Exact canonical integer-level backlog: besides the canonical
+ACTUAL prime defect, there is only the bounded subunit rounding phase. -/
+def vfCanonicalIntegerBacklog (R : ℕ) : ℝ :=
+  (vfCanonicalIntegerLevel R : ℝ) -
+    (Nat.primeCounting (R ^ 2) : ℝ)
+
+theorem vfCanonicalIntegerBacklog_eq_neg_defect_sub_rounding
+    (R : ℕ) :
+    vfCanonicalIntegerBacklog R =
+      -vfCanonicalSquareDefect R - vfCanonicalRoundingPhase R := by
+  unfold vfCanonicalIntegerBacklog vfCanonicalIntegerLevel
+  have h := vfMidSqrtTwoIntegerBacklog_eq_actualPrimeError R
+  rw [h]
+  rw [vfCanonicalSquareDefect_eq_legacy_sub_phase]
+  rfl
+
 /-! ### Distinct *proxy* and phase-fan coordinates -/
 
 /-- Canonical phase chord: the REAL midpoint-to-midpoint chord, not the
