@@ -130,3 +130,67 @@ The exact perfect anticorrelation applies to DIVISIBILITY-LINKED parent/child pa
 Their real role is to explain how historical births are paid by descendant deaths across square-block time. Any all-R finite-A proof must transport the exact sign/density through the full chronology and retain all incomplete prime-factor cubes, occurrence multiplicities, survivor masks and cross-family interactions. The endpoint Gamma_(R²-1)<=B R²K_R remains unproved. Even the universal-in-p O(sqrt N) density bound (4) is NOT by itself a bound for a sum over all primes and all ancestry layers.
 
 This is the correct use of established Möbius densities: prove them on the ACTUAL prime-conditioned carrier, push them along the exact multiplicative square-clock, and NEVER replace signed descendants with random independent populations or average away the moving lag.
+
+
+## 7. Explicit assumptions audit: a conditional finite-A/finite-C theorem, and why it is not a proof
+
+There are NO probability, stationarity, ergodicity, sign-independence or unknown Möbius-density assumptions in the following identities. The prime-multiplicativity, squarefree density, and square-block packet clocks are unconditional. **ONE genuinely new quantitative sign bound remains UNPROVED.** Naming it does not prove it.
+
+For R>=2 put x=R²-1 and the original historical envelope
+\[
+K_R=\max_{0\le y<R}\frac{(M(y)-1)^2}{y+1}\ge1.
+\]
+The inequality K_R>=1 uses y=0 and M(0)=0. Let
+\[
+\mathcal L_R=\{m\ {\rm odd}:x/2<m\le x,\ \mu(m)^2=1\},\
+L_R=|\mathcal L_R|,\
+\Gamma_R=\sum_{m<n,\;m,n\in\mathcal L_R}\mu(m)\mu(n).
+\]
+The unconditional dyadic packet identity gives
+\[
+M(x)=\sum_{m\in\mathcal L_R}\mu(m),\quad
+M(x)^2=L_R+2\Gamma_R,\quad 0\le L_R\le R²/2.
+\]
+
+**The ONE missing quantitative assumption H(B):**
+\[
+\boxed{B\ge0,\quad \forall R\ge2:\ \Gamma_R\le B R²K_R,\
+B\text{ independent of }R.}
+\]
+It is a uniform bound on the **actual occurrence-preserving signed pair interaction**, not a consequence of proven density estimates. Fixed prime-dilation perfect anticorrelation provides NO direct negative pair INSIDE the simultaneously live set: each pair m<n has n<2m, so no n=pm with integer p>=2 is possible.
+
+**Rigorous conditional proof with constants.** If H(B), then
+\[
+\begin{aligned}
+M(x)^2&=L_R+2\Gamma_R\le(1/2+2B)R²K_R,\\
+(M(x)-1)^2&\le2M(x)^2+2
+\le(4B+1)R²K_R+2
+\le(4B+3/2)R²K_R,
+\end{aligned}
+\]
+using K_R>=1, R>=2. Therefore the repo's square-root endpoint amplification statement is obtained with A=4B+3/2. Historical K_R gives \(|M(R-1)-1|\le\sqrt{R K_R}\), so
+\[
+|Q_R|=|2M(R-1)-M(x)|
+\le2+2\sqrt{R K_R}+\sqrt{1/2+2B}\,R\sqrt{K_R}
+\le\boxed{[4+\sqrt{1/2+2B}]\,R\sqrt{K_R}.}
+\]
+Finite C holds with \(C=4+\sqrt{1/2+2B}\). Existing repository closure proves that fixed endpoint amplification implies the standard Mertens energy bound; RH follows under its standard classical equivalence.
+
+**THIS HYPOTHESIS IS NOT AN INDEPENDENT PROOF.** Conversely, finite A with \((M(x)-1)^2\le A R²K_R\) yields
+\[
+\Gamma_R=(M(x)^2-L_R)/2
+\le (M(x)-1)^2+1
+\le (A+1/4)R²K_R.
+\]
+Therefore existence of fixed B in H(B) is equivalent (up to constants) to original finite-A existence. Simply ASSUMING H(B) would assume the unsolved theorem.
+
+**The honest independent proof target:** derive H(B) directly from the exact sign-preserving physical gcd classifier
+\[
+\Gamma_R=\sum_{\substack{a<b<2a,\ a,b\ {\rm odd}\\
+(a,b)=1,\ \mu(a)^2\mu(b)^2=1}}
+\mu(ab)\,
+\#\{g:\ x/(2a)<g\le x/b,\ \mu(g)^2=1,\ (g,2ab)=1\}.
+\]
+The proven per-sector squarefree density only evaluates fixed a,b leading counts; it does NOT establish a uniform **SIGNED bilinear** estimate when a,b grow with R. The unproved estimate must preserve all positive/negative cofactor sectors simultaneously. One sufficient combinatorial proof would construct an actual occurrence-preserving injection pairing positive live-pair charges to distinct negative charges, leaving at most BR²K_R unmatched positives. If its existence is just asserted instead of being constructed, that is H(B) in disguise. Alternatively prove the equivalent signed bilinear inequality by a genuinely new finite arithmetic argument. No future prime descendant outside the endpoint may be used to pay a current positive charge.
+
+In brief: known density facts are unconditional, all algebraic deductions are closed, and the only additional assumption needed for a *conditional* theorem is the RH-strength uniform signed reassembly bound. A genuinely unconditional proof MUST DERIVE that bound, not assume it.
