@@ -292,3 +292,108 @@ The diagonal is already \(L_X\le X/4+1\). The original finite-A goal would follo
 with one finite absolute C and every R. This is a precise sign-preserving arithmetic target, but it is not currently known, and merely calling it 'the exact interaction' or bounding lifetimes does not establish its scale. The bound is effectively the original finite-A difficulty expressed with true temporal packet interactions, not an additional independent premise.
 
 The new structural facts (finite pair lifetimes, noncomparable simultaneous odd ancestors, and exclusive-factor sign formula) are useful restrictions to exploit in seeking an independent proof of (16). The needed inequality must be derived from actual factor/parity incidence; nothing stochastic or merely empirical closes it.
+
+
+## 9. PROVED fixed-depth sign reversal: positive high ancestry is reimbursed by deeper negative ancestry
+
+This is the first genuine quantitative **signed cancellation theorem for a universal, fixed set of chronological ancestry partitions**, not merely an identity or finite-x empirical plot. It still does NOT supply a global finite-C/A/RH estimate because its cutoff is FIXED.
+
+### Exactly strip common prime ancestry, retain the exclusive-factor sign
+
+Equation (14) gives all physical covariance in gcd-normalized coordinates (m,n)=(ga,gb) with unique g=gcd(m,n), odd squarefree g,a,b, pairwise disjoint factor supports, a<b<2a, and mu(m)mu(n)=mu(ab).
+
+For any fixed real T>0 define the exact signed subpopulation
+\[
+\Gamma_x^{(>x/T)}
+=\sum_{\substack{x/2<m<n\le x\\m,n\ {\rm odd}\\\gcd(m,n)>x/T}}\mu(m)\mu(n).
+\]
+We can use a positive integer T>=6 for finite sieve constants. Necessarily b<T. The pair admits an ancestor g iff
+\[
+\boxed{x\max\{1/T,1/(2a)\}<g\le x/b,\quad
+\mu(g)^2=1,\ \gcd(g,2ab)=1.}\tag{17}
+\]
+
+### The complete top ancestor sector is FORCED POSITIVE
+
+For g>x/15 we have b<15. Since a,b are odd squarefree, coprime, and a<b<2a, exactly FIVE exclusive-factor pairs are possible:
+\[
+(a,b)\in\{(3,5),(5,7),(7,11),(7,13),(11,13)\}.
+\]
+All have mu(ab)=+1. Therefore
+\[
+\boxed{\Gamma_x^{(>x/15)}\ge0\quad\text{for EVERY integer x}.}\tag{18}
+\]
+For even larger common ancestry g>x/6, the only possible exclusive pair is (3,5):
+\[
+\boxed{\Gamma_x^{(>x/6)}
+=\#\{x/6<g\le x/5:\ \mu(g)^2=1,\ \gcd(g,30)=1\}.}\tag{19}
+\]
+An elementary squarefree-coprime density argument gives
+\[
+\Gamma_x^{(>x/6)}=\frac{x}{12\pi^2}+O(\sqrt x).
+\]
+Thus a FORCED positive interaction of order x in the CORRECT squared-discrepancy currency is present at all large endpoints. A naive universal nonpositive-covariance assertion cannot work.
+
+### Every fixed cutoff has a provable signed coefficient
+
+Set \(h(n)=\prod_{p\mid n}p/(p+1)\). For each fixed squarefree, coprime odd a,b, the density of squarefree g coprime to 2ab is exactly \(\frac4{\pi^2}h(a)h(b)\). Elementary Mobius square-divisor inversion proves an error O_ab(sqrt x) in its count up to x. Thus for any FIXED integer T>=6:
+\[
+\boxed{
+\Gamma_x^{(>x/T)}
+=c_T x+O_T(\sqrt x),}\tag{20}
+\]
+with an EXPLICIT finite rational multiple of \(1/\pi^2\),
+\[
+\boxed{
+\pi^2 c_T=
+4\sum_{\substack{a<b<2a,\ b<T\\a,b\ {\rm odd},\ \mu(ab)\ne0}}
+\mu(ab)h(a)h(b)
+\left[\frac1b-\max\left(\frac1{2a},\frac1T\right)\right].}\tag{21}
+\]
+Nothing RH-like, probabilistic, or about UNKNOWN primes is assumed. The sign coefficients are the actual Mobius signs of the exclusive prime-factor sets.
+
+Exact rational evaluation of this FINITE sum proves
+\[
+\boxed{\pi^2c_{15}=\frac{233}{720}>0,\qquad
+\pi^2c_{500}<-\frac9{50}<0.}\tag{22}
+\]
+A standard-library Python rational certificate recomputes all 9,024 pairs at T=500 with fractions (not floating point): [gcd_live_cutoff_rational.py](../experiments/PrimePopulationCutoff/gcd_live_cutoff_rational.py).
+
+**Therefore, unconditionally for all sufficiently large x, the *intermediate* common-ancestor range \(x/500<g\le x/15\) has a strictly NEGATIVE signed aggregate**
+\[
+\boxed{
+\Gamma_x^{(x/500<g\le x/15)}
+=(c_{500}-c_{15})x+O_{500}(\sqrt x),
+\qquad c_{500}-c_{15}\approx-0.05123543.}\tag{23}
+\]
+This is not a representation of an unknown covariance: it is a proved direction-and-size result from explicit sign parity and positive physical cofactor-availability counts. It shows the later, finer ancestry classes quantitatively OVERPAY the forced positive early classes.
+
+### Actual finite counts and further nested arithmetic coefficients
+
+Direct integer sieve (genuine mu at every site) counts signed interactions across millions of physical pairs:
+
+| x | g>x/15 exact signed | g>x/500 exact signed | correction from x/500<g<=x/15 |
+|---:|---:|---:|---:|
+| 2808 | +92 | -82 | -174 |
+| 3135 | +105 | +3 | -102 |
+| 100488 | +3297 | -2041 | -5338 |
+| 999999 | +32790 | -18382 | -51172 |
+
+The signed asymptotic coefficients computed from the same finite exact rational formula at larger fixed T are (rounded):
+
+| fixed T | c_T |
+|---:|---:|
+| 15 | +0.0327886608 |
+| 100 | +0.0313127333 |
+| 300 | +0.0010704305 |
+| 500 | -0.0184467717 |
+| 1000 | -0.0501845731 |
+| 6000 | -0.0982225377 |
+
+These coefficients are NOT monotone: e.g. c_280<0 but c_290>0. The rigorous claim is the fixed-T asymptotic and the exact rational signs at T=15 and T=500, NOT a limit or uniform stability assertion for T growing with x.
+
+### Direct next step, no new surrogate problem
+
+This establishes that the genuine factorial-sign machinery contains signed negative RETURNS between specified generations. It does NOT control all ancestors with g<=x/T as x grows.
+
+The original missing all-root finite A bound asks for an O(x K_floor(sqrt x)) ceiling on the FULL \(\Gamma_x\), which includes EVERY gcd depth down to g=1. To proceed, derive a **UNIFORM-IN-T continuation of (20)-(23)** whose constants and O_T(sqrt x) errors do not grow uncontrollably when T is chosen with x (ideally T~sqrt x or larger), then control the remaining g-small tail. Finite fixed-T negative compensation is a genuine theorem, but the uniform-in-scale part is the RH-strength barrier.
