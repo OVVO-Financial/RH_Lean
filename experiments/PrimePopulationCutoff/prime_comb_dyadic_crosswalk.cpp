@@ -50,13 +50,20 @@ int main(int argc, char** argv) {
     bool rootPrime=(least[R]==R);
     long long hCan=-canonicalMtail,hGeneric=-primeMtail;
     long long rootPacket=rootPrime?-pref[R-1]:0;
-    long long oddLive=0;
-    for (int c=X/2+1; c<=X; ++c) if(c%2==1)oddLive+=mu[c];
+    long long oddLive=0, independentSmooth=0;
+    for (int c=X/2+1; c<=X; ++c) if(c%2==1) {
+      oddLive+=mu[c];
+      if(mu[c]) {
+        int q=c, biggest=1;
+        while(q>1) {int factor=least[q];biggest=max(biggest,factor);q/=factor;}
+        if(biggest<R) independentSmooth+=mu[c];
+      }
+    }
     long long deltaCan=2*(canonicalCount-canonicalMtail);
     long long deltaGeneric=2*(count-primeMtail);
     if (hGeneric!=hCan+rootPacket ||
         pref[X]!=pref[X]+primeMtail+hGeneric ||
-        oddLive!=pref[X] ||
+        oddLive!=pref[X] || independentSmooth!=pref[X]+primeMtail ||
         deltaGeneric!=deltaCan+(rootPrime?2*(1-pref[R-1]):0)) {
       cerr<<"Cross-coordinate equality failed at R="<<R<<"\n";
       return 3;
