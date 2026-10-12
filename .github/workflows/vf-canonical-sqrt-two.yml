@@ -88,17 +88,19 @@ jobs:
       - name: Strict native and research import-closure compile
         run: |
           python3 scripts/compile_research_import_closure.py --build-library \
-            research/VF_CANONICAL_SQRT_TWO.lean
+            research/VF_CANONICAL_SQRT_TWO.lean \
+            research/VF_CANONICAL_SQRT_TWO_VON_KOCH.lean
       - name: Ensure no admitted holes or project axioms
         run: |
           if grep -nE '^[[:space:]]*(sorry|admit|axiom)([[:space:]]|$)' \
                research/VF_CANONICAL_ALL_REAL_LI_O_ONE.lean \
-               research/VF_CANONICAL_SQRT_TWO.lean; then
+               research/VF_CANONICAL_SQRT_TWO.lean \
+               research/VF_CANONICAL_SQRT_TWO_VON_KOCH.lean; then
             echo "Proof holes or explicit axioms forbidden"
             exit 1
           fi
           cat >/tmp/VFCanonicalKernelAudit.lean <<'LEAN'
-          import «research.VF_CANONICAL_SQRT_TWO»
+          import «research.VF_CANONICAL_SQRT_TWO_VON_KOCH»
           #check RHLean.Analysis.vfCanonical_sq
           #check RHLean.Analysis.vfCanonicalFinishedMass_succ
           #check RHLean.Analysis.abs_vfCanonicalLiError_le_uniform_allReal
@@ -108,5 +110,10 @@ jobs:
           #print axioms RHLean.Analysis.abs_vfCanonicalLiError_le_uniform_allReal
           #print axioms RHLean.Analysis.vfCanonicalSquareDefect_succ
           #print axioms RHLean.Analysis.vfCanonicalUpperLeftPhase_li_uniform
+          #check RHLean.Analysis.vfCanonicalSquareVonKoch_iff_legacy
+          #check RHLean.Analysis.vfCanonicalSquareVonKoch_iff_primeLiVonKoch
+          #check RHLean.Analysis.vfCanonicalRealVonKoch_iff_primeLiVonKoch
+          #print axioms RHLean.Analysis.vfCanonicalSquareVonKoch_iff_legacy
+          #print axioms RHLean.Analysis.vfCanonicalSquareVonKoch_iff_primeLiVonKoch
           LEAN
           lake env lean -DwarningAsError=true /tmp/VFCanonicalKernelAudit.lean
