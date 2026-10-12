@@ -1,6 +1,6 @@
 # RH_Lean current proof contract
 
-Status date: 2026-10-06. The direct VF-mid route is the canonical proof program.
+Status date: 2026-10-11 (retains the canonical 2026-10-06 route lock). The direct VF-mid route is the canonical proof program.
 Compiled Lean source and successful checks of the relevant commit are
 authoritative. Historical handoffs, attractive finite plots, and stronger
 sufficient criteria do not override this contract.
@@ -65,6 +65,26 @@ exactness, least-prime ownership, and square-root dependency are useful only
 insofar as they help prove this cumulative estimate without introducing a
 stronger false premise.
 
+## 2026-10-11 alignment: finite A/C is a sufficient ALTERNATIVE, not a new VF gate
+
+See [the finite-A/C ↔ direct-VF alignment contract](research/FINITE_A_C_VF_ALIGNMENT_2026_10_11.md), accompanying [PR #929](https://github.com/OVVO-Financial/RH_Lean/pull/929). **This does not change the canonical VF target above or its run-level owner-descent instructions below.**
+
+For X_R=R²−1 and strict historical K_R=max_{0<=y<R}(M(y)−1)²/(y+1), the *Mertens* alternative uses the ORIGINAL historical bilinear kernel
+\[
+Q_R=\sum_{1\le a,b<R}\mu(a)\mu(b)\lfloor X_R/(ab)\rfloor
+=2M(R-1)-M(X_R).
+\]
+The finite-C claim \(|Q_R|\le C R\sqrt{K_R}\) and finite-A claim \((M(X_R)-1)^2\le A R^2 K_R\), with ANY fixed finite constants, are **equivalent as existence statements** and are **unproved**. Finite A is sufficient for the already-compiled Mertens-energy-to-RH consumer. It is not claimed to be equivalent to RH; its reverse implication from RH is not known.
+
+The complete *live* Möbius packet diagonal/off-diagonal identity is
+\[
+M(X_R)^2=L_R+2\Gamma_R,\quad L_R\le R^2/2.
+\]
+The tempting signed bound \(\Gamma_R\le B R^2 K_R\) is itself **equivalent to finite A up to constants**. It must NEVER be imported as a newly justified persistence, decorrelation, density or matching assumption. The signed ancestry, prime-factor clocks, fixed-T gcd cancellation, and conditional Möbius densities are real; the all-scale positive cross-family remainder is not bounded by these alone. Two different simultaneously live odd packets cannot be direct prime multiples, and finite carrier cardinality bounds do not bound a pair Gram.
+
+**No mechanism rediscovery:** The first-owner/two-boundary/sector-six autopsy already proves no-independent-persistence cancellation and rank descent *on its original owner-cell carrier*. The unproved ORIGINAL-source bridge is a literal, incidence- and weight-preserving match of the actual first-bad historical/current VF source to those compensated terminal cells, including survivor masks, clipping, older-anchor cross terms, and cumulative lower-child RUNS. A formal parent negative charge is not a paid physical occurrence until that bridge is proved. The named chronological inlet is VFMidDyadicSignedLateCorrectionStatement; the actual-prime owner-admissibility predicate remains downstream.
+
+**Status discipline:** fixed-T rational ancestry signs, PNT means, CRT phase averages, moving-prime-lag correlations, numerical scans through R=20000, and a green *documentation/experiment* workflow are not uniform signed estimates or Lean proofs of finite A/C. Preserve the direct-VF/canonical-versus-Mertens/alternative distinction in all future updates.
 
 ## Canonical closure route: structural admissibility, not realized cancellation
 
