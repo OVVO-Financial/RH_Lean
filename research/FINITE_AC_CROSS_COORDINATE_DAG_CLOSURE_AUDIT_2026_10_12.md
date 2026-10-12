@@ -185,3 +185,108 @@ The separate, fully successful **primary Lean knowledge graph / proof-inventory*
 Two decisive source-level findings align with this knowledge-graph diagnosis: the **owner-two clipped exit equals the complete top M(X_R)** despite an unconditional correct-scale bound on the compensated interior; and the actual VF weighted clipped/admitted physical pair carrier is **disjoint** from generic admitted/admitted sector-six pairs, despite a transitive import path already existing between their modules. Hence the missing result is *not another import or coordinate equality* but independent quantitative arithmetic on the true source, potentially carried across nonlocal historical-return boundaries.
 
 This knowledge-graph evidence is stronger than a keyword search: it groups provably equivalent proposition components, separates open/conditional/negative results, and identifies where overlapping representations have already been formally reduced to the same Mertens state. It **does not prove finite A, finite C or RH**.
+
+
+## I. NEW cross-coordinate equality: the chronological prime comb is the dyadic owner-two survivor
+
+The full-source search uncovered a stronger **already-proved pair of theorem families** in *different* primary Lean modules:
+
+- [PrimeCombVisualizationDynamics.lean](../RHLean/Proof/PrimeCombVisualizationDynamics.lean): primeCombTailSignedDelta_eq, the **actual one-prime chronological update** at arbitrary integer W.
+- [PrimeCombReciprocalBandCancellation.lean](../RHLean/Proof/PrimeCombReciprocalBandCancellation.lean): primeCombLargePrimeFamilyMass_eq_neg_mertens and reciprocal-quotient bands.
+- [DyadicSurvivorMertensInvariant.lean](../RHLean/Proof/DyadicSurvivorMertensInvariant.lean): dyadicLargePrimeSurvivorMass_eq_neg_mertens and dyadicLargePrimeSurvivorMass_eq_primeCombLargePrimeFamilyMass. Thus prime-comb FAMILY and dyadic SURVIVOR were **already** kernel-identified: no independent cancellation is created by rewriting between them.
+
+For every actual prime p>floor(sqrt(W)) with p<=W, put k=floor(W/p). The two primary independently proved identifications are
+
+\[
+H_W(p):=\sum_{\substack{W/(2p)<c\le W/p\\c\ {\rm odd}}}\mu(cp)=-M(k)
+\qquad\text{and}\qquad
+\Delta_W(p):=2(1-M(k)).
+\]
+
+This yields a **new explicit cross-coordinate composition**
+
+\[
+\boxed{\Delta_W(p)=2\big(1+H_W(p)\big).}
+\]
+
+The new Lean module [FINITE_A_C_PRIME_COMB_DYADIC_OCCURRENCE_WELD.lean](FINITE_A_C_PRIME_COMB_DYADIC_OCCURRENCE_WELD.lean) expresses it on the original single prime p and sums it over **every prime occurrence once**, producing
+
+\[
+\boxed{\sum_{\sqrt W<p\le W\atop p\text{ prime}}\Delta_W(p)
+=2\Bigg(\pi(W)-\pi(\lfloor\sqrt W\rfloor)
++\sum_{\sqrt W<p\le W\atop p\text{ prime}}H_W(p)\Bigg).}\tag{I.1}
+\]
+
+The full signed **smooth** dyadic live component S_W is defined as the sum over live odd squarefree integers with **no** prime factor greater than floor(sqrt W). Unique factorization of numbers up to W gives
+
+\[
+\boxed{M(W)=S_W+\sum_{\sqrt W<p\le W}H_W(p)
+=S_W+\frac12\sum_{\sqrt W<p\le W}\Delta_W(p)
+-\big(\pi(W)-\pi(\lfloor\sqrt W\rfloor)\big).}\tag{I.2}
+\]
+
+These identities preserve every actual cofactor, prime interval and Möbius sign. However, the *remaining bound* on the right of (I.2) is precisely the Mertens discrepancy again, not an independently paid inequality.
+
+### Boundary convention discovered: there is an EXACT one-prime correction
+
+For every integer R>=2 and X_R=R²−1,
+
+\[
+\boxed{\lfloor\sqrt{X_R}\rfloor=R-1.}
+\]
+
+Consequently the **generic** post-root fibre sum in DyadicSurvivorMertensInvariant.lean ranges over p>R−1, whereas the **canonical** square-root transport squareRootDyadicSurvivorMass R ranges over p>R. These two adjacent definitions do NOT have the same prime population when R itself is prime. They differ by exactly ONE physical owner:
+
+\[
+\boxed{
+\operatorname{DyadicPostRoot}(R^2-1)
+=\operatorname{SquareRootDyadicTransport}(R)
+-\mathbf 1_{\mathbb P}(R)\,M(R-1).}\tag{I.3}
+\]
+
+The new Lean module encodes this as squareRootEndpoint_natSqrt_eq_pred and dyadicPostRootSurvivorMass_squareEndpoint_eq_transport_add_rootPacket. This root equality correction is *not* a sign saving; failing to include it causes spurious numerical mismatches and can misalign Fubini endpoint conventions. A similar actual chronological correction is
+
+\[
+\boxed{\Delta_{\rm generic}-\Delta_{\rm canonical}
+=2\mathbf1_{\mathbb P}(R)(1-M(R-1)).}\tag{I.4}
+\]
+
+**The correction is quantitatively harmless at the finite-A scale.** By definition of the historical lower envelope K_R>=1,
+\[
+(M(R-1)-1)^2\le R K_R,
+\]
+whence
+\[
+\boxed{\big|\mathbf1_{\mathbb P}(R)M(R-1)\big|^2
+\le 2R K_R+2\le 4R K_R,\qquad R\ge2.}\tag{I.5}
+\]
+Thus switching endpoint conventions incurs only a smaller-scale O(sqrt(R K_R)) term, while the real large cross-sector compensation is still unproved.
+
+### Exact genuine-prime and Möbius numerics, not random models
+
+An independently rebuilt Möbius linear sieve through 35,999,999 tests *all* the equalities above, including odd-dyadic M(W), on each root. Here H_can excludes p=R and H_generic includes it if prime.
+
+| R | X=R²-1 | M(R-1) | M(X) | H_can | H_generic | root correction | S_generic | total chronological Δ |
+|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| 17 | 288 | -1 | -7 | -4 | -3 | +1 | -4 | 104 |
+| 56 | 3,135 | -2 | +6 | +47 | +47 | 0 | -41 | 952 |
+| 317 | 100,488 | -3 | -28 | +887 | +890 | +3 | -918 | 20,912 |
+| 1000 | 999,999 | +2 | +212 | +6,567 | +6,567 | 0 | -6,355 | 169,794 |
+| 2000 | 3,999,999 | +5 | +192 | +21,607 | +21,607 | 0 | -21,415 | 608,900 |
+| 5561 | 30,924,720 | +5 | -2,544 | +124,373 | +124,373 | 0 | -126,917 | 4,070,622 |
+| 6000 | 35,999,999 | 0 | +2,256 | +145,554 | +145,554 | 0 | -143,298 | 4,698,066 |
+
+**This is an important empirical cancellation witness in a shared coordinate:** at R=5561 the high-prime live Möbius source is **+124,373**, the root-smooth live source is **-126,917**, and the genuine signed endpoint is **-2,544**. Any proof that individually estimates only high fibres, only the smooth field or only the prime-comb updates loses the dominant \(\approx 125,000\)-unit cross-sector cancellation.
+
+The exact finite-A equation in these same coordinates is
+
+\[
+\boxed{
+\big(S_R+\tfrac12\Delta_R-N_R-1\big)^2\le A R^2K_R,
+\quad
+N_R=\#\{p\ge R:\ p\le R^2-1,\ p\ \mathrm{prime}\}.}\tag{I.6}
+\]
+
+It is **the original finite-A claim**, not a completed bound. The search shows where the arithmetic dependence has to survive: through the entire smooth/high signed cross term and the true prime counts, after the safe small root-equality correction has been removed. The successful new result is an exact *reconciliation of coordinate systems*, not a proof of RH.
+
+The hosted strict source audit and warning-fatal Lean checks are the acceptance tests for the new statements; until those checks finish, only the independently checked integer calculations and paper identities are established.
