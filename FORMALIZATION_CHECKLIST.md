@@ -81,6 +81,22 @@ Each PR description and checklist update must identify:
 
 ## Active PR record
 
+### PR #929 — Euler/Möbius finite A/C alignment with canonical VF (2026-10-11)
+
+- [x] Retain CURRENT_PROOF_CONTRACT.md as canonical VF square-run/actual-owner proof route. Finite C/A is an alternative SUFFICIENT Mertens route, not a new prerequisite.
+- [x] Preserve the *original* strict historical \(K_R\), square endpoint \(X_R=R^2-1\), and bilinear \(Q_R=2M(R-1)-M(X_R)\); finite C iff finite A as existence statements only. Neither is claimed proved.
+- [x] Place the complete status/proof-contract reconciliation in [research/FINITE_A_C_VF_ALIGNMENT_2026_10_11.md](research/FINITE_A_C_VF_ALIGNMENT_2026_10_11.md).
+- [x] Reconcile AGENTS.md, README.md, CURRENT_PROOF_CONTRACT.md, RESEARCH_ROUTE_REGISTRY.md, and both documentation/research discovery indexes; no generic decorrelation or no-persistence theorem added.
+- [x] Distinguish the true signed live pair Gram \(\Gamma_R\) from a source cardinality and state that its proposed uniform \(R^2K_R\) bound is equivalent to the unproved finite-A target.
+- [x] Preserve the proved owner-cell cancellation / descending sector-six mechanism, but clearly identify the still-missing original-weight first-bad VF source-to-compensated-run match and physical all-root Mertens mixed-sector estimate.
+- [x] Preserve finite actual-Möbius census evidence through R=20,000, reported true fixed-cutoff asymptotics, and Hurst/matching/partition no-go warnings as evidence with their correct mathematical status.
+- [x] Documentation-only alignment: no new Lean theorem declaration, no project axiom, and no claim of finite A/C or RH closure.
+- [ ] Verify the documentation and proof-inventory checks on the FINAL exact #929 head SHA and record the results in the PR body or discussion before merge.
+- [ ] Confirm no pre-existing stale claim of "CORR-4 as the required current canonical target" remains in authoritative current-status entry points.
+- [ ] Merge only after applicable CI and explicit authorization. This PR's experiments and documentation are not theorem verification.
+
+**Exact remaining mathematical gate:** derive an independent weight-preserving, cross-owner signed bound for the original Mertens floor kernel OR complete actual-prime VF historical/current first-bad source-to-sector-six chronological RUN reassembly and quantitative descent. A conditional finite-A/H(B) assumption is not an arithmetic estimate. The terminal implications are conditional and already available.
+
 ### PR #903 — actual-prime escape classifier / greatest-owner continuation partition
 
 - [x] Correct route lock: several individually good child blocks may accumulate a signed bias; do not infer one bad child directly.
