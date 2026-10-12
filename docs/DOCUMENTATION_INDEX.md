@@ -1,7 +1,9 @@
 # Documentation index
 
-Updated 2026-09-26. The repository is a formal reduction and obstruction map;
-the required uniform correlation estimate remains open. Start with the
+Updated 2026-10-11. The repository is a formal reduction and obstruction map;
+the CANONICAL direct VF cumulative signed owner/run estimate remains open. The
+Mertens finite-A/finite-C and historical CORR-4 routes are unproved sufficient
+alternatives, not replacements. Start with the
 [current proof contract](../CURRENT_PROOF_CONTRACT.md).
 
 ## Reading order and authority
@@ -10,6 +12,7 @@ the required uniform correlation estimate remains open. Start with the
 | --- | --- |
 | [README](../README.md) | Public project status and entry points. |
 | [Current proof contract](../CURRENT_PROOF_CONTRACT.md) | Exact current target, quantifiers, sufficient constants, and theorem interfaces. |
+| [Finite A/C ↔ original VF alignment (Oct 11)](../research/FINITE_A_C_VF_ALIGNMENT_2026_10_11.md) | Distinguish the canonical VF target from finite-A/C alternatives, exact signed mechanisms, conditional consumers, and the one remaining quantitative gate. |
 | [Agent instructions](../AGENTS.md) | Research and repository rules. |
 | [Formalization checklist](../FORMALIZATION_CHECKLIST.md) | Execution gates and historical PR closeouts. |
 | [Formalization sequence](../FORMALIZATION_SEQUENCE.md) | Dependency catalog and append-only research record. |
