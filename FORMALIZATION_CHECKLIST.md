@@ -81,6 +81,24 @@ Each PR description and checklist update must identify:
 
 ## Active PR record
 
+### PR #931 — exhaustive cross-coordinate DAG closure audit (2026-10-12)
+
+- [x] Investigate the updated #930 research-frontier DAG, not just the canonical RHLean library or GitHub keyword snippets.
+- [x] Audit exact provenance across the main library, research modules, signed owner Fubini, Othello, dyadic and exported historical representations.
+- [x] Preserve strict X_R=R²−1 and K_R=max_(y<R)(M(y)−1)²/(y+1), original floor-kernel Q_R and conditional finite A iff finite C.
+- [x] Confirm original VF physical source -> its OWN signed six raw-parent boundaries and three nonzero Co/Div orientations are ALREADY exact; do not label this identification missing.
+- [x] Discover and state the mismatched physical carriers: original VF returned pair is clipped/admitted; no-persistence recursive greatest-owner is admitted/admitted.
+- [x] Add [research/VF_MID_932_ORIGINAL_VF_CARRIER_DISJOINT.lean](research/VF_MID_932_ORIGINAL_VF_CARRIER_DISJOINT.lean) with the literal disjointness and admitted-pair zero-extension assertions; this is a no-go guardrail, NOT an all-scale cancellation theorem.
+- [x] Add the exhaustive [source+import-DAG auditor](scripts/finite_ac_coordinate_dag_audit.py), accompanying [research report](research/FINITE_AC_CROSS_COORDINATE_DAG_CLOSURE_AUDIT_2026_10_12.md), and scoped hosted warning-fatal workflow.
+- [x] Add #931 as a separate structural audit track in the #930 research-frontier manifest and rendered discovery map.
+- [x] Full-source strict audit succeeded on an intermediate PR head: 2,783 eligible files, 2,164 Lean modules, 32,640 parsed declarations, 28/28 exact named anchors and 0 import cycles. Provenance and exact final-head check are still required.
+- [ ] All hosted warning-fatal Lean/standard-axiom checks for the new module pass on the final PR head. Do NOT claim kernel verification until observed.
+- [ ] Verify the final-head source-DAG audit, proof inventory, full documentation checks and applicable research CI.
+- [ ] No unconditional first-bad payment, finite A, finite C, or RH closure is claimed. Merge requires green checks and explicit authorization.
+
+**Remaining mathematical obligation:** original-occurrence and VF-weight preserving nonlocal historical-return transport from clipped/admitted boundary to a genuinely compensated lower-scale carrier, with quantitative child-RUN signed propagation (not just one recursive pair). Separately the optional finite-A/C route still needs a uniform positive signed mixed-owner upper estimate. Any such theorem must be independently proved, not stipulated as another form of original RH-strength payment.
+
+
 ### PR #929 — Euler/Möbius finite A/C alignment with canonical VF (2026-10-11)
 
 - [x] Retain CURRENT_PROOF_CONTRACT.md as canonical VF square-run/actual-owner proof route. Finite C/A is an alternative SUFFICIENT Mertens route, not a new prerequisite.
