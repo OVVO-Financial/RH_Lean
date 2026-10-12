@@ -180,3 +180,26 @@ g++ -O3 -std=c++17 -Wall -Wextra -Werror experiments/PrimePopulationCutoff/prime
 \`\`\`
 
 The program independently constructs actual primes, the Mobius function, its signed prefixes, actual reciprocal-band populations, and true top-half survivor counts via the root wheel. It exits nonzero if it finds a counterexample to the global numerical hypothesis. None of these new statements are claimed as newly Lean-compiled.
+
+
+## 7. Exact terminal prime-rank matching: a quantitative first-crossing contract
+
+Enumerate the *actual root-wheel survivors* in the top half as
+\(x/2<p_1<\cdots<p_P\le x\). The terminal scalar state is precisely
+\[
+\boxed{S_{p_j}(x)=A(x)-j\quad(0\le j\le P).}\tag{13}
+\]
+This is a deterministic one-credit-per-prime matching, valid for every x>=9. No stochastic population independence is used: each p_j is already certified by W_r.
+
+If \(0\le A(x)\le P(x)\), the first nonpositive crossing occurs at prime rank A (or the state starts at zero when A=0), and exactly \(P-A=-M(x)\) high-prime singletons remain thereafter. If \(A>P\), no crossing occurs and exactly \(A-P=M(x)\) unmatched positive credits remain. Hence the **terminal unmatched population** is always \(|A-P|=|M(x)|\); for x where A<0, the terminal walk begins negative and has residual P-A.
+
+An all-x square-root amplification bound would follow if the certified root-wheel and prior Euler population jointly imposed
+\[
+\boxed{
+P(x)-C\sqrt{xK_{r+1}}\le A(x)
+\le P(x)+C\sqrt{xK_{r+1}}.
+}\tag{14}
+\]
+This is a TWO-sided finite-rank restriction. One-sided maximality Hmax does not imply either inequality: it locates the peak without restricting how many terminal prime ranks remain after the peak is spent. The proof must derive (14) from the earlier-prime root-wheel incidence and signed cofactor information, not from choosing C retrospectively or replacing P with an independent prime model.
+
+Numerical unmatched populations from the exact prior table are respectively 3, 4, 3, 28, 212, and 2256 at x=20,317,1027,100488,999999,35999999. This gives a direct finite test for future proposed pairing/classifier lemmas at EACH actual cutoff while keeping the all-x proof target fixed.
