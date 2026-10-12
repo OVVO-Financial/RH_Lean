@@ -1,0 +1,252 @@
+import Mathlib
+import «research.VF_MID_915_PRIME_INTERVAL_LI_STRATIFICATION»
+
+/-!
+# #915: terminal top-third actual-prime / floor-Li transport
+
+The historical odd cofactor carrier has a genuine blind sector:
+if q > floor(B^2/3), there is NO proper odd multiple c*q (c >= 3)
+at or before square endpoint B^2. This holds for all integers q,
+regardless of whether they are actually prime or floor-Li-only events.
+
+The primitive floor-Li backlog across [A^2,B^2] splits into the
+top-third terminal mismatch plus the earlier descendant-eligible mismatch.
+The terminal term cannot be bounded by a cofactor-only ancestry estimate.
+Neither this split nor the arithmetic obstruction proves #915 hbalance.
+-/
+
+noncomputable section
+namespace RHLean.Analysis
+open RHLean.Arithmetic RHLean.Proof
+
+/-- Above the top-third cutoff there is no proper odd composite
+descendant in the historical square endpoint B^2. -/
+theorem vfMid915_topThird_noOddDescendant
+    {B c q : ℕ} (hc : 3 ≤ c) (hq : B ^ 2 / 3 < q) :
+    B ^ 2 < c * q := by
+  have hthree : B ^ 2 < q * 3 :=
+    (Nat.div_lt_iff_lt_mul (by norm_num : 0 < (3 : ℕ))).mp hq
+  have hmul : 3 * q ≤ c * q :=
+    Nat.mul_le_mul_right q hc
+  nlinarith
+
+/-- Consequently the top-third event cannot produce any proper odd
+composite site in ANY prior square band r < B. -/
+theorem vfMid915_topThird_notHistoricalOddComposite
+    {B r c q : ℕ}
+    (hc : 3 ≤ c) (hq : B ^ 2 / 3 < q)
+    (hr : r + 1 ≤ B) :
+    ¬ c * q ≤ (r + 1) ^ 2 := by
+  intro hsite
+  have hsq : (r + 1) * (r + 1) ≤ B * B :=
+    Nat.mul_le_mul hr hr
+  have htop := vfMid915_topThird_noOddDescendant hc hq
+  nlinarith
+
+/-- A genuinely chronological, exact split of the floor-Li primitive
+mismatch: terminal q > B^2/3 plus descendant-eligible q <= B^2/3.
+No fictitious prime/composite owner is added to either sector. -/
+theorem vfMid915_halfRun_floorLiMismatch_eq_topThird_add_lower
+    (A B : ℕ) (hA : A ^ 2 ≤ B ^ 2 / 3) :
+    vfMidPrimeFloorLiIntegerBacklog (B ^ 2) -
+      vfMidPrimeFloorLiIntegerBacklog (A ^ 2) =
+    vfMidFloorLiSignedMismatchMass (B ^ 2 / 3) (B ^ 2) +
+      vfMidFloorLiSignedMismatchMass (A ^ 2) (B ^ 2 / 3) := by
+  have htop : B ^ 2 / 3 ≤ B ^ 2 := by omega
+  rw [vfMidFloorLiSignedMismatchMass_eq_backlog_increment htop,
+    vfMidFloorLiSignedMismatchMass_eq_backlog_increment hA]
+  ring
+
+
+/-! ## True FULL-integer sqrt / half partition, with parity overlay -/
+
+/-- A large factor q above half the full clock X=B^2 has NO proper
+integer multiple <=X, even when the full carrier includes even sites. -/
+theorem vfMid915_aboveHalf_noProperMultiple
+    {B c q : ℕ} (hc : 2 ≤ c) (hq : B ^ 2 / 2 < q) :
+    B ^ 2 < c * q := by
+  have htwo : B ^ 2 < q * 2 :=
+    (Nat.div_lt_iff_lt_mul (by norm_num : 0 < (2 : ℕ))).mp hq
+  have hmul : 2 * q ≤ c * q :=
+    Nat.mul_le_mul_right q hc
+  nlinarith
+
+/-- Between sqrt(X) and X/2, the FULL integer carrier has the
+genuine even composite 2*q. Its least-prime owner is 2; q is
+its post-root (greatest) prime factor, not its least-prime owner. -/
+theorem vfMid915_middleFull_2q_exists
+    {B q : ℕ} (hroot : B < q) (hhalf : q ≤ B ^ 2 / 2) :
+    B < q ∧ 2 * q ≤ B ^ 2 := by
+  have hdouble : q * 2 ≤ B ^ 2 :=
+    (Nat.le_div_iff_mul_le (by norm_num : 0 < (2 : ℕ))).mp hhalf
+  exact ⟨hroot, by simpa [Nat.mul_comm] using hdouble⟩
+
+/-- Above X/3 but below X/2, the ONLY proper integer multiple <=X
+is 2*q. In the native odd-seat carrier this entire middle slice
+has NO proper odd child; the even 2*q was removed by owner 2. -/
+theorem vfMid915_aboveThird_onlyDoubleMultiple
+    {B c q : ℕ} (hc : 2 ≤ c)
+    (hq : B ^ 2 / 3 < q) (hsite : c * q ≤ B ^ 2) :
+    c = 2 := by
+  by_contra hneq
+  have hc3 : 3 ≤ c := by omega
+  have hlarge := vfMid915_topThird_noOddDescendant hc3 hq
+  omega
+
+/-- Exact endpoint mismatch split at the genuine full-integer cutoff
+X/2, with the earlier historical anchor retained. -/
+theorem vfMid915_halfRun_floorLiMismatch_eq_upperHalf_add_lower
+    (A B : ℕ) (hA : A ^ 2 ≤ B ^ 2 / 2) :
+    vfMidPrimeFloorLiIntegerBacklog (B ^ 2) -
+      vfMidPrimeFloorLiIntegerBacklog (A ^ 2) =
+    vfMidFloorLiSignedMismatchMass (B ^ 2 / 2) (B ^ 2) +
+      vfMidFloorLiSignedMismatchMass (A ^ 2) (B ^ 2 / 2) := by
+  have htop : B ^ 2 / 2 ≤ B ^ 2 := by omega
+  rw [vfMidFloorLiSignedMismatchMass_eq_backlog_increment htop,
+    vfMidFloorLiSignedMismatchMass_eq_backlog_increment hA]
+  ring
+
+/-- Refine the full-integer middle bucket at X/3 solely to
+expose its owner-2-only sector. This is a decomposition, NOT
+a smallness statement about its prime-minus-floor-Li error. -/
+theorem vfMid915_halfRun_floorLiMismatch_eq_threeUpperStrata
+    (A B : ℕ) (hA : A ^ 2 ≤ B ^ 2 / 3) :
+    vfMidPrimeFloorLiIntegerBacklog (B ^ 2) -
+      vfMidPrimeFloorLiIntegerBacklog (A ^ 2) =
+    vfMidFloorLiSignedMismatchMass (B ^ 2 / 2) (B ^ 2) +
+      vfMidFloorLiSignedMismatchMass (B ^ 2 / 3) (B ^ 2 / 2) +
+      vfMidFloorLiSignedMismatchMass (A ^ 2) (B ^ 2 / 3) := by
+  have h32 : B ^ 2 / 3 ≤ B ^ 2 / 2 := by omega
+  have h2 : B ^ 2 / 2 ≤ B ^ 2 := by omega
+  rw [vfMidFloorLiSignedMismatchMass_eq_backlog_increment h2,
+    vfMidFloorLiSignedMismatchMass_eq_backlog_increment h32,
+    vfMidFloorLiSignedMismatchMass_eq_backlog_increment hA]
+  ring
+
+/-- Terminal top-third odd descendants do not exist, but every integer
+terminal site is STILL decided by the genuine ascending low-prime wheel.
+This is a prime FACTORIZATION theorem, not a floor-Li approximation. -/
+theorem vfMid915_boundedWindow_lowWheel_iff_prime
+    {B q : ℕ} (hBq : B < q) (hqB : q ≤ B ^ 2) :
+    lowWheelHighSurvivor B q ↔ q.Prime := by
+  constructor
+  · intro hsurv
+    by_contra hcomp
+    have hqpos : 0 < q := by omega
+    have hqone : q ≠ 1 := by
+      intro hqone
+      have hBzero : B = 0 := by omega
+      subst B
+      simp [hqone] at hqB
+    let p := q.minFac
+    have hpprime : p.Prime := by
+      simpa [p] using Nat.minFac_prime hqone
+    have hpdvd : p ∣ q := by
+      simpa [p] using Nat.minFac_dvd q
+    have hpsq : p ^ 2 ≤ q := by
+      simpa [p] using Nat.minFac_sq_le_self hqpos hcomp
+    have hpB : p ≤ B := by
+      by_contra hnot
+      have hpLarge : B + 1 ≤ p := by omega
+      have hsqBig : (B + 1) ^ 2 ≤ p ^ 2 :=
+        Nat.pow_le_pow_left hpLarge 2
+      nlinarith
+    have hpMem : p ∈ primesUpTo B :=
+      mem_primesUpTo.mpr ⟨hpprime, hpB⟩
+    exact hsurv p hpMem hpdvd
+  · intro hprime p hpMem hpdvd
+    have hpprime : p.Prime := prime_of_mem_primesUpTo hpMem
+    have hpB : p ≤ B := (mem_primesUpTo.mp hpMem).2
+    have hpq : p = q :=
+      (Nat.prime_dvd_prime_iff_eq hpprime hprime).mp hpdvd
+    omega
+
+/-- At B >= 4, every top-third site lies ABOVE the cutoff wheel B.
+Thus terminal primality is certified by the low-owner sieve through B. -/
+theorem vfMid915_topThird_lowWheelB_iff_prime
+    {B q : ℕ} (hB : 4 ≤ B)
+    (hq : B ^ 2 / 3 < q) (hqB : q ≤ B ^ 2) :
+    lowWheelHighSurvivor B q ↔ q.Prime := by
+  have hmult : 4 * B ≤ B * B :=
+    Nat.mul_le_mul_right B hB
+  have hcut : 3 * (B + 1) ≤ B ^ 2 := by
+    nlinarith
+  have hBq : B < q := by omega
+  exact vfMid915_boundedWindow_lowWheel_iff_prime hBq hqB
+
+/-- Literal terminal integer candidates surviving the ACTUAL ascending
+low-prime wheel through B, with no future odd descendant capacity. -/
+def vfMid915TopThirdLowWheelSurvivors (B : ℕ) : Finset ℕ := by
+  classical
+  exact (Finset.Ioc (B ^ 2 / 3) (B ^ 2)).filter (lowWheelHighSurvivor B)
+
+/-- A genuine sieve (least-owner) alternative to the missing high-q odd
+descendants: the terminal survivor SET is exactly the actual prime SET.
+No smallness of its floor-Li discrepancy is asserted. -/
+theorem vfMid915_topThird_lowWheelSurvivors_eq_primes
+    {B : ℕ} (hB : 4 ≤ B) :
+    vfMid915TopThirdLowWheelSurvivors B =
+      (Finset.Ioc (B ^ 2 / 3) (B ^ 2)).filter Nat.Prime := by
+  classical
+  ext q
+  simp only [vfMid915TopThirdLowWheelSurvivors,
+    Finset.mem_filter, Finset.mem_Ioc]
+  constructor
+  · rintro ⟨⟨hlo, hhi⟩, hsurv⟩
+    exact ⟨⟨hlo, hhi⟩,
+      (vfMid915_topThird_lowWheelB_iff_prime hB hlo hhi).1 hsurv⟩
+  · rintro ⟨⟨hlo, hhi⟩, hprime⟩
+    exact ⟨⟨hlo, hhi⟩,
+      (vfMid915_topThird_lowWheelB_iff_prime hB hlo hhi).2 hprime⟩
+
+
+/-! ## Payment audit: true full-integer 2*q children carry ZERO original VF mass -/
+
+/-- The CURRENT square block is wholly beyond the half-clock for R>=2.
+In particular each current prime seat has NO proper composite
+multiple inside the SAME full integer clock X=(R+1)^2. -/
+theorem vfMid915_currentSquareSite_is_aboveHalf
+    {R q : ℕ} (hR : 2 ≤ R) (hq : R ^ 2 < q) :
+    (R + 1) ^ 2 < 2 * q := by
+  have h2R : 2 * R ≤ R * R := by
+    simpa [Nat.mul_comm] using Nat.mul_le_mul_left R hR
+  have hqnat : R ^ 2 + 1 ≤ q := by omega
+  have htwice := Nat.mul_le_mul_left 2 hqnat
+  nlinarith
+
+/-- With R>=3, the entire middle factor bucket p<=X/2 precedes
+the CURRENT band (R^2,(R+1)^2). Any p-to-2*p interaction
+must be historical; it cannot directly pay a current prime seat. -/
+theorem vfMid915_middlePrimeFactor_precedes_currentSquare
+    {R q : ℕ} (hR : 3 ≤ R)
+    (hq : q ≤ (R + 1) ^ 2 / 2) :
+    q < R ^ 2 := by
+  have h3R : 3 * R ≤ R * R := by
+    simpa [Nat.mul_comm] using Nat.mul_le_mul_left R hR
+  have hdouble : q * 2 ≤ (R + 1) ^ 2 :=
+    (Nat.le_div_iff_mul_le (by norm_num : 0 < (2 : ℕ))).mp hq
+  nlinarith
+
+/-- TRUE prime q in the middle factor bucket gives the physical
+even child 2q, but the entire ORIGINAL VF source is already
+restricted to ODD parity survivors. This is the exact absolute
+historical NNS charge of ALL the proposed 2q returns. It is ZERO;
+counting 2q as new negative Co/Div heat double-counts owner 2. -/
+def vfMid915MiddleDoubleHistoricalOriginalVFAbs
+    (A B : ℕ) : ℝ :=
+  ∑ r ∈ Finset.Ico A B,
+    ∑ q ∈ (Finset.Ioc B (B ^ 2 / 2)).filter Nat.Prime,
+      |vfMid915CurrentOddPhysicalWeight r (2 * q)|
+
+theorem vfMid915MiddleDoubleHistoricalOriginalVFAbs_eq_zero
+    (A B : ℕ) :
+    vfMid915MiddleDoubleHistoricalOriginalVFAbs A B = 0 := by
+  unfold vfMid915MiddleDoubleHistoricalOriginalVFAbs
+  apply Finset.sum_eq_zero
+  intro r _hr
+  apply Finset.sum_eq_zero
+  intro q _hq
+  rw [vfMid915CurrentOddWeight_even_zero]
+  simp
+
+end RHLean.Analysis

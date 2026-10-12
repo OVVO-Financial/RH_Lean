@@ -1,5 +1,15 @@
 # Square-root legal-ancestry Gram attack
 
+## 2026-10-11: Euler parity and floor-Li actual-frequency crosswalk
+
+The analytic root/smooth anti-alignment theorem, square-block endpoint
+arithmetic, and the already-compiled floor-Li-to-actual-prime frequency
+forcing are now collected in
+[Finite C/A Euler parity and floor-Li frequency synthesis](FINITE_C_A_EULER_PARITY_FLOOR_LI_FREQUENCY_SYNTHESIS.md).
+The asymptotic U/V cancellation and floor-Li model closure do **not** by
+themselves prove the uniform signed floor-sum bound C. This remains the sole
+quantitative target in that record.
+
 ## Status
 
 The square-root endpoint experiment suggests the fixed-amplification statement
@@ -14,15 +24,30 @@ where `A` is an absolute constant and `K_R` controls all lower Mertens values:
 (M(y)-1)^2 \le K_R (y+1),\qquad y<R.
 \]
 
-The exhaustive exact scan through `R = 100000` found
+**Numerical correction, 2026-10-10.** The previously reported maximum
+`0.1291432502985845` at `R = 88130` over roots through `100000` is
+incompatible with the exact `R = 5561` witness under this definition of `K`.
+That larger-range maximum is uncertified. The independent segmented audit
+`scripts/absolute_a_signed_estimate_audit.cpp` now recomputes every integer
+through `99999999` and every endpoint through `R = 10000`, obtaining
 
 \[
-\max_{56\le R\le 100000}
+\max_{56\le R\le 10000}
 \frac{(M(R^2-1)-1)^2}{R^2K(R)}
-=0.1291432502985845
+=\frac{12954050}{92774163}=0.139629931234195\ldots
 \]
 
-at `R = 88130`. The formal theorem deliberately does not assert a subunit
+at `R = 5561`, with `K=3/2`. All-integer shifted energy below `10^8`
+has exact maximum `3/2` at `n=5`. See
+[the full audit and all-scale constant restriction](ABSOLUTE_A_ALL_SCALE_SIGNED_ESTIMATE_AUDIT.md).
+Its paper argument, using this finite base and Hurst's unconditional theorem,
+first showed `A > 0.43`; a sharpened six-prime first-crossing argument
+now shows that even the restricted `R >= 56` constant must satisfy
+`A > 0.4357`. Therefore
+some later actual amplification ratio must exceed the currently observed
+maximum. The all-scale upper estimate remains unproved.
+
+The formal theorem deliberately does not assert a subunit
 constant. Any finite absolute `A` is enough for the RH-scale exponent after
 square-root descent.
 
@@ -256,3 +281,45 @@ The next proof-level advance should be a global signed Gram or centered
 prime-window theorem for this cross-region core. No raw diagonal estimate,
 fixed-prime absolute bound, or sign-blind renewal telescope is an acceptable
 replacement.
+
+
+## Euler-product square-root cutoff and finite C / A (2026-10-11)
+
+See [Euler product and finite C/A: exact square-root bridge](EULER_PRODUCT_SQUARE_ROOT_FINITE_C_A.md)
+and the runnable audit at [euler_finite_ca_cutoff_audit.py](../scripts/euler_finite_ca_cutoff_audit.py).
+
+The **same original** Möbius bilinear floor operator, with X=R^2-1, is
+
+\[
+Q_R=\sum_{a,b<R}\mu(a)\mu(b)\lfloor X/(ab)\rfloor
+    =2M(R-1)-M(X).
+\]
+
+The second equality is a formal Euler-product coefficient identity: write
+F=1/\zeta, Z_R=\sum_{n<R}\mu(n)n^{-s}, T_R=F-Z_R. Then
+\(\zeta Z_R^2=F-2T_R+\zeta T_R^2\), and the last term has
+**no coefficient below R^2**. This is why the historical cutoff is the square root.
+
+Writing \(K_R=\max_{y<R}(M(y)-1)^2/(y+1)\), the fixed-C estimate
+
+\[
+|Q_R|\le C R\sqrt{K_R}
+\]
+
+would imply the already-established conditional amplification premise with
+
+\[
+A\le(C+\sqrt2+1/2)^2.
+\]
+
+The opposite implication also holds with C<=sqrt(A)+sqrt(2)+1/2.
+The finite high-prime Euler factor has a uniformly bounded critical-line
+*mean-square* (<=11/6), and high-prime descendants have an exact
+reciprocal-weighted energy contraction (<=5/6). Neither estimate is an
+unweighted sharp-endpoint bound for Q_R. The needed **signed** low-smooth /
+high-prime compensation remains open; neither the product factor nor the
+finite numerical audit establishes a finite universal C.
+
+Historical tables earlier in this document include older provisional
+maximum-ratio figures; use the independently corrected finite-A census
+and the linked Euler audit for the current C/A numerical normalization.

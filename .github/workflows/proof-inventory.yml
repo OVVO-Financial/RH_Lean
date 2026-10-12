@@ -130,6 +130,11 @@ jobs:
             --scope research --kind declaration --limit 20 > repo-frontier.txt
           cat repo-map.md >> "$GITHUB_STEP_SUMMARY"
 
+      - name: Validate current research frontier and extract its import DAG
+        run: |
+          python3 scripts/research_frontier_dag.py
+          cat research-frontier.md >> "$GITHUB_STEP_SUMMARY"
+
       # The standing reports a research agent would otherwise have to rerun by
       # hand. `obligations` maps genuinely open propositions appearing on RH
       # reduction routes; multi-premise packages remain conjunctive in proofq.
@@ -214,3 +219,5 @@ jobs:
             repo-imports.dot
             repo-map.md
             repo-frontier.txt
+            research-frontier.dot
+            research-frontier.md

@@ -9,6 +9,11 @@ finds the structure that matters.  The generated inventory is authoritative for
 current counts; this directory's tooling treats the library as a mathematical
 knowledge graph instead.
 
+The [current research frontier](RESEARCH_FRONTIER_DAG.md) adds a validated
+registry of the #915/#922/#923/#925–#929 source tracks. Its generated import
+closure is extracted from the same repository index, while its evidence and
+open-input labels keep conditional and paper results distinct from closure.
+
 The layers answer different questions, and it is worth being
 precise about which question, because they are easy to confuse.
 
