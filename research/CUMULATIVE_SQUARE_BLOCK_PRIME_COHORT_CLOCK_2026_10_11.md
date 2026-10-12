@@ -185,3 +185,110 @@ For comparison at R=6000 the live count is 7295158 and M(X)=2256, yielding 2Gamm
 The reproducible C++ audit scans the live cohort cardinality incrementally as the square endpoint increases, checking these covariance exceptions alongside the signed block and Euler-cube identities. Its numerical range is not an all-scale bound.
 
 This cleanly isolates the gap: **complete historical cross-block packets cancel exactly**, their incomplete odd packets have a diagonal already at O(x), but the SIGNED PAIR OVERLAP of the still-live cohorts must have a uniform finite upper bound in units x K_R. This cannot be obtained merely by counting the live packets or appealing to their common birth/death rule.
+
+
+## 8. Explicit cumulative signed interaction: NO unknown covariance mechanism
+
+The signed interaction is ALREADY fully determined by the chronological prime/square-cohort process. It is not a new stochastic or independent variable. The task is a universal quantitative bound on this exact arithmetic expression.
+
+### A. Every pair has exact overlap clocks
+
+For odd squarefree m define its lifetime indicator at square endpoint X_R=R²-1:
+\[
+I_R(m)={\bf1}_{\{\lfloor\sqrt m\rfloor<R\le\lfloor\sqrt{2m}\rfloor\}}.
+\]
+A pair m<n contributes \(\mu(m)\mu(n)I_R(m)I_R(n)\). Because n>m, its joint support simplifies to
+\[
+\boxed{\Gamma_R=
+\sum_{\substack{m<n,\ m,n\ {\rm odd}}}
+\mu(m)\mu(n)
+{\bf1}_{\{\lfloor\sqrt n\rfloor<R\le\lfloor\sqrt{2m}\rfloor\}}.}\tag{11}
+\]
+The support is empty unless n<2m. In a whole interval of square clocks A<=R<=B, the EXACT cumulative signed exposure is
+\[
+\boxed{\sum_{R=A}^B\Gamma_R=
+\sum_{\substack{m<n,\ m,n\ {\rm odd}}}\mu(m)\mu(n)
+\left[\min(B,\lfloor\sqrt{2m}\rfloor)
+-\max(A,\lfloor\sqrt n\rfloor+1)+1\right]_+,}\tag{12}
+\]
+where [t]_+=max(t,0). Thus every arithmetic pair has a definite sign and an EXACT finite interaction duration; there are no guessed independence assumptions. Each live pair is within one multiplicative factor 2.
+
+**Non-obvious ancestry constraint:** Two simultaneously LIVE odd packets can NEVER divide one another. If odd m|n and m<n then n>=3m, whereas their joint lifetime requires n<2m. Hence direct opposite-signed odd-prime parent-child *edges* never appear as live-live covariance terms; their effects occur at different clock generations. Only the prime-2 partner annihilates a packet within its immediate dyadic lifetime. The concurrent interaction is between distinct, noncomparable ancestry branches.
+
+### B. Common prime ancestry cancels from the pair SIGN
+
+For squarefree odd m<n, put g=gcd(m,n), a=m/g, b=n/g. Necessarily gcd(a,b)=1 and gcd(g,ab)=1. Multiplicativity yields
+\[
+\boxed{\mu(m)\mu(n)=\mu(a)\mu(b)=\mu(ab).}\tag{13}
+\]
+The sign depends on the EXCLUSIVE prime factors; their shared ancestor g appears only in the physical availability and timing. Both live exactly when x/(2a)<g<=x/b. Therefore the ENTIRE physical interaction at ANY integer endpoint x is the exact *gcd-stripped finite ledger*
+\[
+\boxed{
+\Gamma_x=
+\sum_{\substack{1\le a<b<2a\\ a,b\ {\rm odd}\\ \mu(ab)\ne0}}
+\mu(ab)
+\sum_{\substack{x/(2a)<g\le x/b\\g\ {\rm odd},\ \mu(g)^2=1\\\gcd(g,ab)=1}}1.
+}\tag{14}
+\]
+In particular all weights in the inner sum are NONNEGATIVE actual squarefree-coprime occurrence counts, while the outer signed coefficient is forced by prime factor parity. There is no free covariance to estimate; the needed estimate has to exploit these exact signs and the coupled gcd-availability counts.
+
+Small exact census by direct enumeration of ALL simultaneous live pairs:
+
+| x | M(x) | live L_x | Γ_x | pair coprime contribution | pair shared-gcd contribution |
+|---:|---:|---:|---:|---:|---:|
+| 8 | -2 | 2 | +1 | +1 | 0 |
+| 317 | -4 | 66 | -25 | -31 | +6 |
+| 2808 | -24 | 566 | +5 | +554 | -549 |
+| 3135 | +6 | 634 | -299 | +4 | -303 |
+
+The x=2808 example demonstrates dramatic cancellation between two **arithmetically coupled** ancestry sectors. The sign of a single sector is not a universal invariant.
+
+### C. Exact signed-return update at EACH completed square block
+
+Let X_r=r²-1. Define newly born and dying odd squarefree packets in block r:
+\[
+\mathcal B_r=\{m\ {\rm odd}:\mu(m)\ne0,\ r²\le m<(r+1)²\},\quad
+\mathcal D_r=\{m\ {\rm odd}:\mu(m)\ne0,\ r²\le2m<(r+1)²\}.
+\]
+Let a_r=sum_(m in B_r)mu(m), d_r=sum_(m in D_r)mu(m);
+let alpha_r=|B_r| and delta_r=|D_r|. Every dying packet belonged to the preceding live set, and every born packet is new. Thus the signed mass still surviving after the deaths is
+\[
+u_r=M(X_r)-d_r.
+\]
+The physical block increment is B_r=a_r-d_r. Partitioning the old-old, new-new, dying-dying and survivor-new signed pairs gives the EXACT identity
+\[
+\boxed{
+\Gamma_{r+1}-\Gamma_r=
+\underbrace{(a_r-d_r)u_r}_{\text{cross-generation signed return}}
++\underbrace{\frac{a_r²-\alpha_r}{2}}_{\text{new-birth pair signs}}
+-\underbrace{\frac{d_r²-\delta_r}{2}}_{\text{completed-death pair signs}}.
+}\tag{15}
+\]
+All quantities are explicitly computed from genuine Mobius prime-factor signs and the *same* cumulative previously constructed field. There are no assumed sign bounds here.
+
+Telescoping (15) from r=2, where Gamma_2=0, reconstructs the complete live covariance. Independent exact C++ linear-sieve audit over EVERY r=2..5999 verifies this signed-return recurrence:
+
+| R | cumulative cross-generation return | cumulative birth-pair signs | cumulative death-pair signs | resulting Γ_R |
+|---:|---:|---:|---:|---:|
+| 53 | +108 | -142 | -39 | +5 |
+| 317 | -10399 | +738 | +126 | -9787 |
+| 1000 | -79727 | +2946 | +2070 | -78851 |
+| 5561 | +202813 | -151483 | -51295 | +102625 |
+| 6000 | -1052177 | -101152 | -50518 | -1102811 |
+
+For example, at R=5561, \(202813-151483-(-51295)=102625\). Thus positive cumulative covariance can be driven by cross-generation return despite negative signed interactions among new births; this is real arithmetic and does NOT mean the signed return is always negative or always positive.
+
+### D. The only quantitative gate, still OPEN
+
+The diagonal is already \(L_X\le X/4+1\). The original finite-A goal would follow from any proved universal positive-part upper budget on the **EXACT historical sum of (15)**:
+\[
+\boxed{
+\sum_{r=2}^{R-1}\left[
+(a_r-d_r)u_r
++\tfrac12(a_r²-\alpha_r-d_r²+\delta_r)
+\right]\le C R² K_R,
+}\tag{16}
+\]
+with one finite absolute C and every R. This is a precise sign-preserving arithmetic target, but it is not currently known, and merely calling it 'the exact interaction' or bounding lifetimes does not establish its scale. The bound is effectively the original finite-A difficulty expressed with true temporal packet interactions, not an additional independent premise.
+
+The new structural facts (finite pair lifetimes, noncomparable simultaneous odd ancestors, and exclusive-factor sign formula) are useful restrictions to exploit in seeking an independent proof of (16). The needed inequality must be derived from actual factor/parity incidence; nothing stochastic or merely empirical closes it.
