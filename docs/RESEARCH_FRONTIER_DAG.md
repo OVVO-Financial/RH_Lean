@@ -1,10 +1,10 @@
 # Current research frontier and import DAG
 
-Updated 2026-10-12 UTC. The direct `pi - VF_mid` square-run route is canonical.
+Updated 2026-10-12 UTC. The direct `pi - VF_canonical` square-run route is canonical, where VF_canonical = raw vfMid + sqrt(2).
 Finite A/C and CORR-4 remain sufficient alternatives with unproved quantitative
 inputs. The [proof contract](../CURRENT_PROOF_CONTRACT.md) governs all routes.
 
-The [frontier registry](research-frontier.json) preserves the nine PR tracks
+The [frontier registry](research-frontier.json) preserves the ten PR tracks
 from the cleanup batch. It records source entry points, evidence scope and
 the input each track still needs. PR state is read from GitHub; this registry
 is a source map rather than a live merge-status database.
@@ -20,6 +20,7 @@ is a source map rather than a live merge-status database.
 | #928 | Euler parity asymptotics and floor-Li frequency synthesis. | Pointwise original-carrier finite-C estimate. |
 | #929 | Exact finite-A/C equivalence, prime-comb, density and ancestry accounting. | Uniform signed finite-A/C estimate; [route alignment](../research/FINITE_A_C_VF_ALIGNMENT_2026_10_11.md). |
 | #931 | Exact prime-comb chronological/dyadic high-prime occurrence weld, p=R root-prime correction, seven actual Möbius censuses, and physical VF clipped/admitted versus Dirichlet admitted/admitted guardrail. | **Quantitative signed smooth/high-prime cancellation** or original-weight nonlocal historical-return child-run payment; [audit](../research/FINITE_AC_CROSS_COORDINATE_DAG_CLOSURE_AUDIT_2026_10_12.md). |
+| #932 | Complete public VF supersession: **raw midpoint + sqrt(2)**, new **all-real O(1)** VF-Li_2 bound, exact prime defect, cross-energy and von-Koch equivalence, 719-definition inventory. | Actual-prime signed canonical von-Koch bound remains OPEN; [full VF autopsy](../research/VF_CANONICAL_SQRT_TWO_AUTOPSY_2026_10_12.md). |
 
 ## Actual import relationships
 
@@ -54,6 +55,10 @@ flowchart TD
   DyadicWeld -. leaves unpaid signed smooth/high cancellation .-> Canonical
   Canonical["Open original first-bad payment"] -. needs nonlocal weighted historical return .-> Raw
   Canonical -. needs run-level signed continuation .-> SignedSix
+  Canon932["#932 Canonical VF=raw+sqrt2"] --> Quad
+  Canon932 --> Aligned
+  Canon932 --> Defect["Canonical actual-prime defect Draw-sqrt2"]
+  Defect -. signed actual-prime von Koch still OPEN .-> Run["#915 physical signed owner/run payment"]
 ```
 
 ## Regenerate and validate

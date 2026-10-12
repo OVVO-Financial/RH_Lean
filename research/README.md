@@ -10,7 +10,7 @@ cleanup tracks. The [#915 payment status](VF_MID_915_SOURCE_PAYMENT_STATUS.md)
 distinguishes its exact toolkit from the still-unproved source-payment target.
 
 The [current proof contract](../CURRENT_PROOF_CONTRACT.md) specifies the
-CANONICAL direct VF-mid cumulative prime-error bound and the still-open
+CANONICAL sqrt2-shifted REAL VF cumulative prime-error bound and the still-open
 multi-block actual-owner source/terminal/sector-six payment. The older CORR-4
 estimate remains an ALTERNATIVE, not the canonical requirement. The
 [finite-A/C alignment contract](FINITE_A_C_VF_ALIGNMENT_2026_10_11.md)
@@ -27,6 +27,7 @@ or RH proof is claimed.
 | #798: available unconditional estimate | [Global bound](GLOBAL_RETURNED_CORE_POST789_UNCONDITIONAL_GLOBAL_BOUND.lean) | Compiled subexponential input; insufficient for the RH consumer. |
 | #799: global cancellation identity | [Möbius inversion](MOBIUS_INVERSION_GLOBAL_CANCELLATION.lean) | Warning-fatal Lean check and exact finite identities. |
 | #800: signed K₂ closeout | [K₂ note](K2_COHERENT_MODE_KILL_GATE.md) | Existing Lean summatory comparison, classical series derivation, and floating-point diagnostic, labeled separately. |
+| #932: canonical VF full real-continuum O(1) and sqrt2 phase | [Definitive canonical VF autopsy](VF_CANONICAL_SQRT_TWO_AUTOPSY_2026_10_12.md) | New all-real uniform deterministic Li theorem, explicit legacy translations and classical von Koch reduction; CI pending, actual-prime bound OPEN. |
 | #929: exact finite A/C ↔ Mertens endpoint bridge, owner ancestry, true Möbius densities | [Finite A/C ↔ VF alignment](FINITE_A_C_VF_ALIGNMENT_2026_10_11.md) | Exact identities / numerical diagnostics; conditional Lean consumer; independent uniform positive signed remainder estimate still OPEN. |
 
 Earlier notes are historical route records. Read their exact carriers and

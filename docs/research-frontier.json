@@ -148,6 +148,27 @@
         "primeCombPostRootSignedDeltaTotal_eq_primeNumber_add_dyadicSurvivor",
         "dyadicPostRootSurvivorMass_squareEndpoint_eq_transport_add_rootPacket"
       ]
+    },
+    {
+      "pr": 932,
+      "name": "Single canonical sqrt2 VF + fully real uniform O(1) Li quadrature",
+      "route": "CANONICAL VF public-definition supersession, exact phase transport and classical von Koch",
+      "evidence": "Old compiled summable square midpoint/Li O(1), old uniform LIVE quadrature, new all-real Lean composition and sqrt2 phase; proof CI required",
+      "open": "Actual-prime canonical signed square endpoint discrepancy <= C R log R; classical von Koch criterion remains explicit formal input",
+      "documents": [
+        "research/VF_CANONICAL_SQRT_TWO_AUTOPSY_2026_10_12.md"
+      ],
+      "modules": [
+        "research/VF_CANONICAL_ALL_REAL_LI_O_ONE.lean",
+        "research/VF_CANONICAL_SQRT_TWO.lean",
+        "research/VF_CANONICAL_SQRT_TWO_VON_KOCH.lean"
+      ],
+      "sentinels": [
+        "abs_vfMidLiError_le_uniform_allReal",
+        "abs_vfCanonicalLiError_le_uniform_allReal",
+        "vfCanonicalSquareDefect_sq_eq_legacy_cross_corrected",
+        "vfCanonicalSquareVonKoch_iff_primeLiVonKoch"
+      ]
     }
   ]
 }

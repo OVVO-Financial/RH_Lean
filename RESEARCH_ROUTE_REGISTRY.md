@@ -5,6 +5,37 @@ square-prefix Mertens program. It records which mechanisms are exact, which
 finite experiments have been run, which mechanisms have failed their declared
 tests, and which routes remain materially distinct.
 
+## October 12 2026 — sole canonical public VF +sqrt2 and all-real O(1)
+
+**Current authoritative object:** VF_canonical(x)=vfMid(x)+sqrt(2)
+for all relevant x>=4. The REAL square endpoint is raw F_R+sqrt2;
+the rounded graph is a derived, different object. The former original
+vfMid (raw midpoint), the exact x=9 anchor c0=4-F_3, the odd fractional
+seat plot and Li fantasy series remain preserved historical/internal
+representations, never interchangeable public definitions.
+
+[Full VF signed/phase/all-real autopsy](research/VF_CANONICAL_SQRT_TWO_AUTOPSY_2026_10_12.md).
+[Public canonical Lean module](research/VF_CANONICAL_SQRT_TWO.lean).
+[All-real O(1) proof assembly](research/VF_CANONICAL_ALL_REAL_LI_O_ONE.lean).
+[Canonical actual-prime/von Koch criterion](research/VF_CANONICAL_SQRT_TWO_VON_KOCH.lean).
+
+**New independent logical advance:** Existing Lean already proves
+uniform O(1) completed-square VF-Li_2 quadrature, uniform O(1) LIVE
+quadrature, and the exact completed/live split. Therefore the old
+midpoint discrepancy, and hence new sqrt2 canonical discrepancy,
+are O(1) for EVERY REAL x>=4, not merely at R². The new theorem
+records this missed exact composition. No prime-distribution hypothesis.
+New Lean must pass warning-fatal CI.
+
+**Open analytic arithmetic, unchanged:** prove the actual-prime
+\[
+|\pi(R^2)-VF_{\rm can}(R^2)|\le CR\log R
+\]
+with one uniform C. Equivalently prove the frozen raw version, but
+the ORIGINAL signed source weights remain raw while every public
+first-bad wall translates D_can=D_raw-sqrt2. A phase correction
+does not pay Sector Six, close finite A/C, or prove RH.
+
 ## 2026-10-11 alignment: PR #929 finite A/C as a DISTINCT sufficient route
 
 **Read the [finite A/C ↔ direct VF alignment contract](research/FINITE_A_C_VF_ALIGNMENT_2026_10_11.md) before proposing any new "correlation mechanism."** The canonical VF cumulative \(\pi-VF_{\rm mid}\) route and its multi-block owner descent below are unchanged. PR [#929](https://github.com/OVVO-Financial/RH_Lean/pull/929) pursues the independent Mertens-amplification sufficient criterion, not a new required theorem for the direct VF route.

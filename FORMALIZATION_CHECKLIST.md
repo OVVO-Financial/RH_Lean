@@ -81,6 +81,25 @@ Each PR description and checklist update must identify:
 
 ## Active PR record
 
+### PR #932 — sole public sqrt2 VF / fully real O(1) / von-Koch supersession (2026-10-12)
+
+- [x] Inspect compiled square-endpoint O(1) in VF_MID_LI_UNIFORM_QUADRATURE and LIVE partial band O(1) + exact split in VF_MID_VON_KOCH_BRIDGE.
+- [x] Write the missing all-real O(1) Lean composition with one explicit finite uniform constant and no prime hypotheses.
+- [x] Define one public real canonical VF=old raw vfMid+sqrt2; keep ALL historical internal definitions immutable for backward compatibility.
+- [x] Supply real/endpoint/integer-step/logarithmic-integral/true-prime/phase-fan/root-clock exact definitions and the preserved actual prime-block recurrence, exact historical phase cancellation, quadratic signed energy cross-term, and bounded floor telescope.
+- [x] Supply formal canonical real and square von Koch equivalences to frozen old VF and the classical prime-Li statement; explicitly retain the ClassicalVonKochRHCriterion parameter.
+- [x] Inventory every VF-labelled source definition in both RHLean and research (excluded historical exports, not a redefinition).
+- [x] Create [full canonical mathematical autopsy](research/VF_CANONICAL_SQRT_TWO_AUTOPSY_2026_10_12.md) and update public README, AGENTS, proof contract, research registry and documentation indexes.
+- [x] Add warning-fatal Lean 4.24 all-real and native canonical import-closure workflows plus standard-axiom audit.
+- [ ] All new Lean theorems actually compile warning-fatally at FINAL PR head. No implicit axiom, sorry or project-only assumption.
+- [ ] Full-source definition-autopsy strict gate and proof inventory pass on FINAL head.
+- [ ] Existing public raw-VF theorem texts remain correct as LEGACY COORDINATES; no original owner/mass/cutoff/signed source mutated.
+- [ ] New canonical first-bad sqrt2 energy denominator and original physical raw-parent/source map have a separate fully verified literal bridge before claiming paid Sector Six; no RH proof is claimed.
+- [ ] Review / explicit permission before merge.
+
+**Open target:** VFCanonicalSquareVonKochStatement, equivalently frozen VFMidSquareEndpointVonKochBoundedStatement. Finite A/C still an OPTIONAL sufficient Mertens route. The O(1) midpoint-Li bound is deterministic, and canonical sqrt2 phase adds only a fixed vertical shift.
+
+
 ### PR #931 — exhaustive cross-coordinate DAG closure audit (2026-10-12)
 
 - [x] Investigate the updated #930 research-frontier DAG, not just the canonical RHLean library or GitHub keyword snippets.

@@ -10,6 +10,28 @@ These instructions govern mathematical research, Lean formalization, and reposit
 4. Architecture notes, route registries, research notes, exports, old PRs, and historical handoffs are evidence and context, not authority when they conflict with compiled source or the current proof contract.
 5. Never infer that two quantities are equal because their prose descriptions sound similar. Use or prove an exact bridge theorem.
 
+## Mandatory public VF canonicalization — 2026-10-12
+
+**NEW SINGLE PUBLIC DEFINITION:** On x>=4,
+\[
+VF(x)=vfCanonical(x)=vfMid(x)+\sqrt2.
+\]
+Square endpoint \(VF(R^2)=vfMidFinishedMass R+\sqrt2\).
+The only public integer step is the DERIVED floor of that REAL height.
+The actual-prime endpoint defect is
+\(D_R^{can}=\pi(R^2)-VF(R^2)=D_R^{raw}-\sqrt2\).
+Lean canonical modules: VF_CANONICAL_ALL_REAL_LI_O_ONE,
+VF_CANONICAL_SQRT_TWO, VF_CANONICAL_SQRT_TWO_VON_KOCH;
+full [mandatory coordinate autopsy](research/VF_CANONICAL_SQRT_TWO_AUTOPSY_2026_10_12.md).
+
+- **Supersession concerns all NEW public names/plots and the canonical proof goal.** Do not bulk-rename, redefine, or mutate OLD vfMid, original physical weights, owner-cell source, formal theorem signatures or their historical exact x=9 anchor: they remain LEGACY implementation. Always transport with explicit exact Lean theorems.
+- **O(1) on ALL REAL x>=4 is unconditional** from the pre-existing square O(1), live-band O(1), and the exact decomposition; DO NOT revert to the obsolete all-real O(sqrt x) description as the strongest theorem. CI is required to certify the newly assembled Lean theorem.
+- Li baseline is Li_2=int_2^x dt/log t. Standard principal-value li differs by fixed li(2). Never conflate these height normalizations.
+- The canonical statement VFCanonicalSquareVonKochStatement is equivalent as an existence assertion to the old raw VFMidSquareEndpointVonKochBoundedStatement. Actual-prime inclusion is OPEN. Classical von Koch/RH remains an explicit ClassicalVonKochRHCriterion parameter.
+- sqrt2 is a user-chosen FIXED vertical phase, NOT the historical exact anchor 4-5/log(13/2), and NOT a theorem of universal pointwise approximation advantage.
+- The correct translated **quadratic** energy is (D_raw-sqrt2)^2=D_raw^2-2sqrt2*D_raw+2. Never silently use a raw historical energy/first-bad denominator for a canonical first-bad source.
+- Keep finite A/C's actual Mertens K_R and original floor kernel entirely distinct; phase alignment contributes nothing to their uniform signed upper estimate.
+
 ## Governing mathematical philosophy
 
 Keep the proof as elementary as possible and faithful to the repository's Eulerian geometry. The fundamental arithmetic operation is adjoining a fresh prime coordinate.
@@ -93,7 +115,7 @@ Treat rediscovery of these as a failed branch unless a genuinely new signed ingr
 - ownerwise squaring before transferring omitted higher-owner contacts to their signed earlier-owner mates;
 - using the `q^{-2}` branching budget as though it supplied the missing signed daughter-energy dictionary.
 
-## Current quantitative objective (aligned 2026-10-11)
+## Current quantitative objective (legacy raw source, equivalent to canonical sqrt2, updated 2026-10-12)
 
 **Canonical:** The active direct VF-mid program remains the cumulative real-prime discrepancy
 \[
