@@ -90,6 +90,10 @@ Each PR description and checklist update must identify:
 - [x] Explicitly cite preexisting single-block child-owner uniqueness and warn that historical primes can have many descendants across runs; no repeated spending of an old negative charge.
 - [x] Label every numerical example as finite and the open signed payment as open; no conditional theorem relabeled unconditional.
 - [x] Update `RESEARCH_ROUTE_REGISTRY.md` to make the campaign discoverable.
+- [x] Update `AGENTS.md` to make specialist roles follow fresh `main` strategy and `CURRENT_PROOF_CONTRACT.md` rather than pinning work to #915.
+- [x] Revise all seven Studio role prompts and common rules to separate persistent expertise from changing active mathematical priorities.
+- [x] Clarify that draft PR notes are historical until merged and created ChatGPT Workspace Agents require manual editing of their long-lived instructions.
+
 - [ ] Review numerical diagnostics and all GitHub app/Agent Studio user interface settings before publication.
 - [ ] Applicable repository documentation, source-DAG, and workflow checks (not yet verified on this new head).
 - [ ] Merge only after green required CI and explicit approval.
