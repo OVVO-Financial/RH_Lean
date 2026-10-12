@@ -146,8 +146,9 @@ A fresh C++17 linear Mobius sieve tracks **every actual post-root prime** and te
 |1000|999999|41370|102|444|25746|149069384|99.379589|
 |2000|3999999|148630|429|2102|93100|2531877544|421.979591|
 |5561|30924720|997847|3159|20128|629788|162767647232|3508.9|
+|6000|35999999|1150584|3543|22576|726614|210418962720|3896.64746|
 
-Every one of **1,999 square roots R=2..2000** passed all literal future-suffix checks. Independent moving-endpoint checks passed for **all integers x=3..50000** and an additional 4,000 deterministically seeded sampled x<=1,000,000. The smallest historical B(t) for t=2..1999 was exactly 1/6 at t=2. This census is *not* a proof for all small roots; (6) is an unconditional **eventual** theorem.
+Every one of **5,999 square roots R=2..6000** passed all literal future-suffix checks. Independent moving-endpoint checks passed for **all integers x=3..100000** and an additional 4,000 deterministically seeded sampled x<=1,000,000. The smallest historical B(t) for t=2..5999 was exactly 1/6 at t=2. This census is *not* a proof for all small roots; (6) is an unconditional **eventual** theorem.
 
 Reproduction source: experiments/PrimePopulationCutoff/prime_suffix_chronology_audit.cpp (also available as a local standalone reproducible C++ tool).
 
