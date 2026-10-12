@@ -5,6 +5,10 @@ square-prefix Mertens program. It records which mechanisms are exact, which
 finite experiments have been run, which mechanisms have failed their declared
 tests, and which routes remain materially distinct.
 
+## October 12 2026 — full daily seven-agent cycle (eight schedules)
+
+The user requires a **complete research cycle every calendar day**, not weekly rotation. Schedule #1 morning 7 AM ET and evening 7 PM ET; specialists #2 8 AM, #5 9 AM, #6 10 AM, #4 1 PM, #3 3 PM, #7 5 PM. The [Agent Studio guide](docs/CHATGPT_AGENT_STUDIO_RH_SETUP_2026_10_12.md) records the eight triggers, central live-AGENTS refresh, real shared ledger requirement, approval/permission safety, and honest `PENDING` status when a stage has not completed. Neither a schedule nor read-only GitHub alone provides automatic agent-to-agent handoffs.
+
 ## October 12 2026 — dynamic specialist-agent research routing (#933)
 
 Every ChatGPT Agent Studio specialist must retrieve `AGENTS.md` and `CURRENT_PROOF_CONTRACT.md` fresh from `main` on each new research request. The agent's named specialty is stable, but the research target is **not** pinned to the historical #915 source payment or Type II kernel. The detailed [Studio setup instructions](docs/CHATGPT_AGENT_STUDIO_RH_SETUP_2026_10_12.md) now provide a reusable builder instruction and update all seven role prompts. Changes committed to #933 remain proposals until merged; existing Studio agent configurations require a manual instruction edit.
