@@ -94,7 +94,9 @@ Each PR description and checklist update must identify:
 - [x] Revise all seven Studio role prompts and common rules to separate persistent expertise from changing active mathematical priorities.
 
 - [x] Document eight daily ET schedules for all seven research agents, with AM/PM coordinator and dependency gates.
-- [x] Keep GitHub write actions authorization-gated, and label shared GitHub ledger/issue-scoped comments as optional and not currently configured.
+- [x] Keep GitHub agent-file writes authorization-gated; create the separate `agent-reports` branch with dated Markdown reports, a reusable template and eight stage-specific schedule prompts. This supersedes the issue-comment ledger suggestion.
+- [x] Direct all seven agents to publish their own unique stage report on `agent-reports`, and require the evening Coordinator to fetch actual committed reports by name.
+- [x] Distinguish a GitHub repo write permission from a technically branch/path restricted grant; require user authorization and verified report readback before asserting that agent handoffs are operational.
 - [x] Make every stage re-read latest central instructions and report missing predecessor outputs as PENDING rather than asserting a completed cycle.
 - [x] Clarify that draft PR notes are historical until merged and created ChatGPT Workspace Agents require manual editing of their long-lived instructions.
 
@@ -102,7 +104,7 @@ Each PR description and checklist update must identify:
 - [ ] Applicable repository documentation, source-DAG, and workflow checks (not yet verified on this new head).
 - [ ] Merge only after green required CI and explicit approval.
 
-**Changes:** `research/CHATGPT_AGENT_STUDIO_FIRST_BAD_CAMPAIGN_2026_10_12.md`, `docs/CHATGPT_AGENT_STUDIO_RH_SETUP_2026_10_12.md`, `RESEARCH_ROUTE_REGISTRY.md`, `FORMALIZATION_CHECKLIST.md`. **New Lean declarations:** none. **Analytic gate remaining:** original signed #915 actual-prime physical source-to-recursive-run payment; genuine bounded amplification and RH remain open. **Proof axioms:** unchanged; no Lean compilation claimed.
+**Changes in PR #933:** `AGENTS.md`, `research/CHATGPT_AGENT_STUDIO_FIRST_BAD_CAMPAIGN_2026_10_12.md`, `docs/CHATGPT_AGENT_STUDIO_RH_SETUP_2026_10_12.md`, `RESEARCH_ROUTE_REGISTRY.md`, `FORMALIZATION_CHECKLIST.md`. **Separate reporting branch:** `agent-reports:research/agent_reports/{README.md,REPORT_TEMPLATE.md,SCHEDULE_PROMPTS.md}` (not part of the PR diff, not proof authority). **New Lean declarations:** none. **Analytic gate remaining:** original signed #915 actual-prime physical source-to-recursive-run payment; genuine bounded amplification and RH remain open. **Proof axioms:** unchanged; no Lean compilation claimed.
 
 
 
