@@ -86,8 +86,9 @@ int main(int argc,char**argv) {
   int rootmax=(argc>1 ? atoi(argv[1]) : 6000);
   int allxmax=(argc>2 ? atoi(argv[2]) : 200000);
   if(rootmax<2 || allxmax<9) return 2;
-  int64_t max_needed=max(int64_t(rootmax)*rootmax-1,
-                         int64_t(allxmax));
+  int64_t max_needed=max(int64_t(95),
+                         max(int64_t(rootmax)*rootmax-1,
+                             int64_t(allxmax)));
   if(max_needed>numeric_limits<int>::max()) {
     cerr << "endpoint exceeds supported int range\n"; return 2;
   }
