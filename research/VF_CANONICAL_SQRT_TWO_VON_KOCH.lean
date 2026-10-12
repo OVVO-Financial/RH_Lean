@@ -92,17 +92,33 @@ theorem vfCanonicalRealVonKoch_iff_legacy :
       rw [vfCanonicalPrimeError_eq_legacy_sub_phase]
       ring
     rw [h]
-    exact abs_add_fixed_phase_on_weight
-      _ _ C _ vfCanonicalPhase_nonneg
-      (vfCanonicalRealVonKochWeight_ge_one hx) (hbound x hx)
+    have hbound' :
+        |vfCanonicalPrimeError x| ≤
+          C * (Real.sqrt x * Real.log x) := by
+      simpa only [mul_assoc] using hbound x hx
+    have hphase :=
+      abs_add_fixed_phase_on_weight
+        (vfCanonicalPrimeError x) vfCanonicalPhase C
+        (Real.sqrt x * Real.log x)
+        vfCanonicalPhase_nonneg
+        (vfCanonicalRealVonKochWeight_ge_one hx) hbound'
+    simpa only [mul_assoc] using hphase
   · rintro ⟨C, hC, hbound⟩
     refine ⟨C + vfCanonicalPhase,
       add_nonneg hC vfCanonicalPhase_nonneg, ?_⟩
     intro x hx
     rw [vfCanonicalPrimeError_eq_legacy_sub_phase]
-    exact abs_sub_fixed_phase_on_weight
-      _ _ C _ vfCanonicalPhase_nonneg
-      (vfCanonicalRealVonKochWeight_ge_one hx) (hbound x hx)
+    have hbound' :
+        |vfMidPrimeError x| ≤
+          C * (Real.sqrt x * Real.log x) := by
+      simpa only [mul_assoc] using hbound x hx
+    have hphase :=
+      abs_sub_fixed_phase_on_weight
+        (vfMidPrimeError x) vfCanonicalPhase C
+        (Real.sqrt x * Real.log x)
+        vfCanonicalPhase_nonneg
+        (vfCanonicalRealVonKochWeight_ge_one hx) hbound'
+    simpa only [mul_assoc] using hphase
 
 /-- The square-only canonical tracking criterion is exactly the original
 square-endpoint von-Koch statement; NO per-band pointwise criterion added. -/
@@ -121,9 +137,17 @@ theorem vfCanonicalSquareVonKoch_iff_legacy :
       rw [vfCanonicalSquareDefect_eq_legacy_sub_phase]
       ring
     rw [h]
-    exact abs_add_fixed_phase_on_weight _ _ C _
-      vfCanonicalPhase_nonneg
-      (vfCanonicalSquareVonKochWeight_ge_one hR) (hbound R hR)
+    have hbound' :
+        |vfCanonicalSquareDefect R| ≤
+          C * ((R : ℝ) * Real.log (R : ℝ)) := by
+      simpa only [mul_assoc] using hbound R hR
+    have hphase :=
+      abs_add_fixed_phase_on_weight
+        (vfCanonicalSquareDefect R) vfCanonicalPhase C
+        ((R : ℝ) * Real.log (R : ℝ))
+        vfCanonicalPhase_nonneg
+        (vfCanonicalSquareVonKochWeight_ge_one hR) hbound'
+    simpa only [mul_assoc] using hphase
   · rintro ⟨C, hC, hbound⟩
     refine ⟨C + vfCanonicalPhase,
       add_nonneg hC vfCanonicalPhase_nonneg, ?_⟩
@@ -134,9 +158,17 @@ theorem vfCanonicalSquareVonKoch_iff_legacy :
       rw [vfMidDirectSquareEndpointError_eq_vfMidPrimeError hR]
       exact hbound R hR
     rw [vfCanonicalSquareDefect_eq_legacy_sub_phase]
-    exact abs_sub_fixed_phase_on_weight _ _ C _
-      vfCanonicalPhase_nonneg
-      (vfCanonicalSquareVonKochWeight_ge_one hR) hold
+    have hold' :
+        |vfMidDirectSquareEndpointError R| ≤
+          C * ((R : ℝ) * Real.log (R : ℝ)) := by
+      simpa only [mul_assoc] using hold
+    have hphase :=
+      abs_sub_fixed_phase_on_weight
+        (vfMidDirectSquareEndpointError R) vfCanonicalPhase C
+        ((R : ℝ) * Real.log (R : ℝ))
+        vfCanonicalPhase_nonneg
+        (vfCanonicalSquareVonKochWeight_ge_one hR) hold'
+    simpa only [mul_assoc] using hphase
 
 /-- Both REAL and SQUARE versions preserve classical Li_2 tracking. -/
 theorem vfCanonicalRealVonKoch_iff_primeLiVonKoch :
