@@ -141,3 +141,30 @@ This is **not** the discovery of a missing elementary VF source classifier. The 
 - PR remains draft, no merge without review/approval; no probabilistic, density extrapolation or hidden RH-strength premise.
 
 See also [CURRENT_PROOF_CONTRACT.md](../CURRENT_PROOF_CONTRACT.md), [docs/research-frontier.json](../docs/research-frontier.json), [docs/REPOSITORY_SEARCH.md](../docs/REPOSITORY_SEARCH.md), [research/FINITE_A_C_VF_ALIGNMENT_2026_10_11.md](FINITE_A_C_VF_ALIGNMENT_2026_10_11.md), and [research/VF_MID_915_SOURCE_PAYMENT_STATUS.md](VF_MID_915_SOURCE_PAYMENT_STATUS.md).
+
+
+## G. Further high-value source discoveries: apparent closures that are already conditional or on the wrong side of the wall
+
+The exhaustive source-index output contains 70 first-bad/source-budget declaration-body matches, 114 amplification/Gram matches, 123 coercivity/contractive matches, 1,020 signed Fubini matches, and 35 run-descent matches in the primary library plus research tree. These counts are source SEARCH HITS, not independently proved arithmetic statements. The full-index CI on a PR source snapshot scanned **2,783 eligible files, 2,164 Lean modules, 32,640 declarations and zero import cycles**, with **all 28 specified exact anchors located**. A follow-up exact final-head check is still required. The import graph CONFIRMS that the original VF raw-parent module transitively imports the generic Dirichlet sector-six continuation module. Thus the obstacle is NOT an absent import path: it is the proven disjointness of their literal pair supports and incompatible signed physical weights.
+
+**Already proved conditional-rule equivalence.** [VF_MID_FIRST_BAD_ACTUAL_ADMISSIBILITY_CERTIFICATE.lean](VF_MID_FIRST_BAD_ACTUAL_ADMISSIBILITY_CERTIFICATE.lean) proves vfV2ActualPrime_verifiedStructuralRules and has the precisely named
+
+\[
+\text{vfV2ActualPrime\_signedOwnerRule\_iff\_noFirstBad}.
+\]
+
+The supposed global owner-escape rule is equivalent to there being no later first-bad endpoint. The theorem vfV2ActualOccurrencePreservingReturn_closes_firstBad explicitly takes the unchanged **original signed six-sector budget as an hypothesis**. This cannot be imported as independent admissibility or numerical compensation. It confirms the exact logical cost of the desired final sign estimate.
+
+**Owner-two interior is ALREADY quantitatively controlled.** [GLOBAL_RETURNED_CORE_OWNER_TWO_CLIPPED_EXIT.lean](GLOBAL_RETURNED_CORE_OWNER_TWO_CLIPPED_EXIT.lean) proves
+
+- lowOwnerFirstOwnerClippedAmplitude_two_eq_topMertens: the owner-2 clipped exit is EXACTLY M(X_R);
+- squareEndpointMertensEnergyReal_eq_ownerTwoClipped_sq: the required endpoint square is that exit square;
+- ownerTwoCompensatedInterior_fourEnergyBound_unconditional: the interior ALREADY obeys the target-shaped four-energy upper estimate without any new hypothesis.
+
+Therefore using the proven interior 1/4-frame or four-energy bound **cannot** close finite A. The entire hard M(X_R) quantity remains on the *clipped boundary*. This is a stronger no-go than the mere absence of an identical carrier: the alleged helpful bound is already available and explicitly leaves the full top-scale Mertens discrepancy unpaid.
+
+**Directional Perron-frame restriction.** [STABLE_FAR_PERRON_QUARTER_FRAME_BOUND.lean](STABLE_FAR_PERRON_QUARTER_FRAME_BOUND.lean) proves an unconditional 1/4 upper synthesis frame for the critical q² owner multiplier but also constructs a zero-frequency two-owner nonzero-input / zero-output witness. Its inequality cannot be reversed to bound owner input energies or the original physical source. The unproved amplitude-to-daughter identification remains necessary.
+
+**Dyadic dissipation is an open quantitative package.** [PrimeSieveDyadicPacketDissipation.lean](../RHLean/Analysis/PrimeSieveDyadicPacketDissipation.lean) records the exact deep-energy identity D_J=L_J+D_(J+1), and conditional level-fraction or reverse-Carleson RH consumers. No unconditional lower bound on the released signed-sibling energy at the active moving frontier is proved there.
+
+**Revised priority:** the narrow signed arithmetic breakthrough cannot come from an existing compensated *interior* contraction or an import edge alone. It must control the actual top clipped exit using literal nonlocal historical returns and an occurrence-preserving, bounded-multiplicity aggregate signed payment, or independently control the fully signed Mertens cross-owner boundary. The repository is unusually complete in equivalent representations; that very completeness rules out several tempting shortcuts.
