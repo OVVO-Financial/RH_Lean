@@ -6,8 +6,8 @@ Lean 4 formalization of the square-prefix and direct VF-mid programs.
 > `pi - VF_mid` bound; do not replace it with a stronger block-by-block
 > crossing statement merely because that stronger statement fits finite data.**
 
-**Status (2026-10-01): no unconditional proof of the Riemann hypothesis is
-claimed.** The repository proves the exact VF square-block construction, its
+**Status (2026-10-11): no unconditional proof of the Riemann hypothesis,
+finite A, or finite C is claimed.** The repository proves the exact VF square-block construction, its
 unconditional Li quadrature bridge, exact prime/common-wheel survivor
 identities, and conditional implications from a direct VF discrepancy bound to
 Mathlib's `RiemannHypothesis`. The remaining task is the arithmetic bound
@@ -63,6 +63,22 @@ a universal target does **not** weaken the legitimate
 
 The older CORR-4/Mertens route remains preserved as alternative infrastructure;
 it is not the canonical research target.
+
+## Finite A / finite C: separate sufficient alternative (PR #929)
+
+The [finite-A/C alignment and original-VF autopsy contract](research/FINITE_A_C_VF_ALIGNMENT_2026_10_11.md) reconciles the newer [Euler square-root research](research/SEQUENTIAL_EULER_SQUARE_BLOCK_FINITE_C_A_RESEARCH_NOTE.md) with the canonical direct VF run-level program.
+
+Write \(X_R=R^2-1\), \(K_R=\max_{0\le y<R}(M(y)-1)^2/(y+1)\) and let \(Q_R=2M(R-1)-M(X_R)\), equivalently its original historical bilinear floor sum. The assertions
+\[
+\exists C<\infty\ \forall R\ge2:\ |Q_R|\le CR\sqrt{K_R},
+\qquad
+\exists A<\infty\ \forall R\ge2:\ (M(X_R)-1)^2\le AR^2K_R
+\]
+are **equivalent as existence claims** and are sufficient for the existing conditional Mertens-energy-to-RH chain. **Neither is proved.** These Mertens A/C constants are not the coefficient of the canonical VF radial wall, and neither route assumes a random Möbius process.
+
+The signed-packet autopsy already reconstructs the actual prime-factor genealogy, density-preserving multiplier signs, chronological square clocks, first-owner pair Fubini and exact live odd-annulus Gram \(\Gamma_R\). A proposed bound \(\Gamma_R\le BR^2K_R\) is **equivalent to the original missing finite-A estimate**; it is not a free consequence of squarefree density, exact sign flips, or near-zero aggregate correlations. Distinct simultaneous live odd packets cannot be direct prime multiples. The autopsy's no-independent-persistence and sector-six descent infrastructure is already present; what remains unproved on the VF route is the original-weight actual-prime source/unfinished-run payment.
+
+PR [#929](https://github.com/OVVO-Financial/RH_Lean/pull/929) includes finite exact arithmetic experiments through R=20,000 and paper-level cutoff/asymptotic arguments. The finite scans, a green documentation check, and existing conditional Lean consumers do **not** establish a universal bound or RH.
 
 ## What the recent closeout establishes
 
