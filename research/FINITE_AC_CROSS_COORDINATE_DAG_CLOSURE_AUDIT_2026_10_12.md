@@ -217,13 +217,15 @@ The new Lean module [FINITE_A_C_PRIME_COMB_DYADIC_OCCURRENCE_WELD.lean](FINITE_A
 +\sum_{\sqrt W<p\le W\atop p\text{ prime}}H_W(p)\Bigg).}\tag{I.1}
 \]
 
-The full signed **smooth** dyadic live component S_W is defined as the sum over live odd squarefree integers with **no** prime factor greater than floor(sqrt W). Unique factorization of numbers up to W gives
+**For W>=4** (so every prime greater than sqrt(W) is odd), the full signed **smooth** dyadic live component S_W is defined as the sum over live odd squarefree integers with **no** prime factor greater than floor(sqrt W). Unique factorization on the actual squarefree odd live annulus then gives
 
 \[
 \boxed{M(W)=S_W+\sum_{\sqrt W<p\le W}H_W(p)
 =S_W+\frac12\sum_{\sqrt W<p\le W}\Delta_W(p)
 -\big(\pi(W)-\pi(\lfloor\sqrt W\rfloor)\big).}\tag{I.2}
 \]
+
+**Small-clock exception:** At W=2 or 3, the generic high-prime sum includes p=2. Its formal dyadic fibre is valid but does not consist of ODD physical live numbers, so the smooth-plus-high decomposition (I.2) must not be applied there. Every square endpoint used in the numerical scan has R>=3, so W=R²-1>=8. The per-prime chronological/dyadic fibre theorem holds separately without this physical odd-live restriction.
 
 These identities preserve every actual cofactor, prime interval and Möbius sign. However, the *remaining bound* on the right of (I.2) is precisely the Mertens discrepancy again, not an independently paid inequality.
 
