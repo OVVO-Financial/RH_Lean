@@ -1,0 +1,105 @@
+name: Finite A/C cross-coordinate source and carrier audit
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'scripts/finite_ac_coordinate_dag_audit.py'
+      - 'research/VF_MID_932_ORIGINAL_VF_CARRIER_DISJOINT.lean'
+      - 'research/FINITE_A_C_PRIME_COMB_DYADIC_OCCURRENCE_WELD.lean'
+      - 'experiments/PrimePopulationCutoff/prime_comb_dyadic_crosswalk.cpp'
+      - 'experiments/PrimePopulationCutoff/dyadic_all_roots_signed_cross_scan.cpp'
+      - 'research/FINITE_AC_CROSS_COORDINATE_DAG_CLOSURE_AUDIT_2026_10_12.md'
+      - '.github/workflows/finite-ac-cross-coordinate.yml'
+  workflow_dispatch:
+
+concurrency:
+  group: finite-ac-cross-coordinate-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  full-source-dag:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Exhaustive source, declaration and import audit
+        run: |
+          python3 scripts/finite_ac_coordinate_dag_audit.py --strict \
+            --markdown finite-ac-coordinate-audit.md \
+            --json finite-ac-coordinate-audit.json
+      - name: Verify true Mobius dyadic-chronological crosswalk through R=6000
+        run: |
+          g++ -O3 -std=c++17 -Wall -Wextra -Werror \
+            experiments/PrimePopulationCutoff/prime_comb_dyadic_crosswalk.cpp \
+            -o /tmp/prime_comb_dyadic_crosswalk
+          /tmp/prime_comb_dyadic_crosswalk | tee finite-ac-dyadic-crosswalk.csv
+      - name: Exhaustive real-Mobius signed cross-sector scan for every R through 6000
+        run: |
+          g++ -O3 -std=c++17 -Wall -Wextra -Werror \
+            experiments/PrimePopulationCutoff/dyadic_all_roots_signed_cross_scan.cpp \
+            -o /tmp/dyadic_all_roots_signed_cross_scan
+          /tmp/dyadic_all_roots_signed_cross_scan 6000 \
+            | tee finite-ac-all-roots-signed-cross.csv
+      - uses: actions/upload-artifact@v4
+        with:
+          name: finite-ac-cross-coordinate-source-audit
+          path: |
+            finite-ac-coordinate-audit.md
+            finite-ac-coordinate-audit.json
+            finite-ac-dyadic-crosswalk.csv
+            finite-ac-all-roots-signed-cross.csv
+
+  kernel-carrier-disjoint:
+    runs-on: ubuntu-latest
+    timeout-minutes: 75
+    steps:
+      - uses: actions/checkout@v4
+      - uses: leanprover/lean-action@v1
+        with:
+          use-github-cache: true
+          use-mathlib-cache: true
+          build: false
+          test: false
+          lint: false
+      - name: Apply existing StrongPNT 4.24 compatibility layer
+        run: |
+          python3 scripts/strongpnt_424/apply.py
+          python3 scripts/strongpnt_424/apply_post.py
+          python3 scripts/strongpnt_424/apply_pnt5_mid.py
+          python3 scripts/strongpnt_424/apply_pnt5_strong.py
+          python3 scripts/strongpnt_424/apply_lint.py
+      - name: Build the exact native and research import closure
+        run: |
+          python3 scripts/compile_research_import_closure.py \
+            --build-library \
+            research/VF_MID_932_ORIGINAL_VF_CARRIER_DISJOINT.lean \
+            research/FINITE_A_C_PRIME_COMB_DYADIC_OCCURRENCE_WELD.lean
+      - name: Kernel declaration and axiom footprint check
+        run: |
+          cat > /tmp/VFCrossCarrierAudit.lean <<'LEAN'
+          import «research.VF_MID_932_ORIGINAL_VF_CARRIER_DISJOINT»
+          import «research.FINITE_A_C_PRIME_COMB_DYADIC_OCCURRENCE_WELD»
+          #check RHLean.Analysis.vfMidActiveReturnedPairCarrier_disjoint_admittedPairs
+          #check RHLean.Analysis.vfMidActiveReturnedPairWeight_eq_zero_of_admittedPositive
+          #check RHLean.Analysis.sum_vfMidActiveReturnedPairWeight_admittedPositive_eq_zero
+          #print axioms RHLean.Analysis.vfMidActiveReturnedPairCarrier_disjoint_admittedPairs
+          #print axioms RHLean.Analysis.vfMidActiveReturnedPairWeight_eq_zero_of_admittedPositive
+          #print axioms RHLean.Analysis.sum_vfMidActiveReturnedPairWeight_admittedPositive_eq_zero
+          #check RHLean.Proof.primeCombTailSignedDelta_eq_two_plus_dyadicSurvivor
+          #check RHLean.Proof.primeCombPostRootSignedDeltaTotal_eq_primeNumber_add_dyadicSurvivor
+          #print axioms RHLean.Proof.primeCombTailSignedDelta_eq_two_plus_dyadicSurvivor
+          #print axioms RHLean.Proof.primeCombPostRootSignedDeltaTotal_eq_primeNumber_add_dyadicSurvivor
+          #check RHLean.Proof.squareRootEndpoint_natSqrt_eq_pred
+          #check RHLean.Proof.dyadicPostRootSurvivorMass_squareEndpoint_eq_transport_add_rootPacket
+          #print axioms RHLean.Proof.squareRootEndpoint_natSqrt_eq_pred
+          #print axioms RHLean.Proof.dyadicPostRootSurvivorMass_squareEndpoint_eq_transport_add_rootPacket
+          #check RHLean.Proof.squareRootOddGenericSmooth_add_postRoot_eq_squarePrefixMertens
+          #check RHLean.Proof.squareRootOddGenericSmooth_add_half_primeComb_sub_primeCount_eq_mertens
+          #print axioms RHLean.Proof.squareRootOddGenericSmooth_add_postRoot_eq_squarePrefixMertens
+          #print axioms RHLean.Proof.squareRootOddGenericSmooth_add_half_primeComb_sub_primeCount_eq_mertens
+          LEAN
+          lake env lean -DwarningAsError=true /tmp/VFCrossCarrierAudit.lean

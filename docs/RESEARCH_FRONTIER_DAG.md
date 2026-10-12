@@ -4,7 +4,7 @@ Updated 2026-10-12 UTC. The direct `pi - VF_canonical` square-run route is canon
 Finite A/C and CORR-4 remain sufficient alternatives with unproved quantitative
 inputs. The [proof contract](../CURRENT_PROOF_CONTRACT.md) governs all routes.
 
-The [frontier registry](research-frontier.json) preserves the nine PR tracks
+The [frontier registry](research-frontier.json) preserves the ten PR tracks
 from the cleanup batch. It records source entry points, evidence scope and
 the input each track still needs. PR state is read from GitHub; this registry
 is a source map rather than a live merge-status database.
@@ -19,6 +19,7 @@ is a source map rather than a live merge-status database.
 | #927 | Signed finite-prime double telescope and complete-period certificates. | Growing high-owner physical remainder; the full Mobius field is not periodic. |
 | #928 | Euler parity asymptotics and floor-Li frequency synthesis. | Pointwise original-carrier finite-C estimate. |
 | #929 | Exact finite-A/C equivalence, prime-comb, density and ancestry accounting. | Uniform signed finite-A/C estimate; [route alignment](../research/FINITE_A_C_VF_ALIGNMENT_2026_10_11.md). |
+| #931 | Exact prime-comb chronological/dyadic high-prime occurrence weld, p=R root-prime correction, seven actual Möbius censuses, and physical VF clipped/admitted versus Dirichlet admitted/admitted guardrail. | **Quantitative signed smooth/high-prime cancellation** or original-weight nonlocal historical-return child-run payment; [audit](../research/FINITE_AC_CROSS_COORDINATE_DAG_CLOSURE_AUDIT_2026_10_12.md). |
 | #932 | Complete public VF supersession: **raw midpoint + sqrt(2)**, new **all-real O(1)** VF-Li_2 bound, exact prime defect, cross-energy and von-Koch equivalence, 719-definition inventory. | Actual-prime signed canonical von-Koch bound remains OPEN; [full VF autopsy](../research/VF_CANONICAL_SQRT_TWO_AUTOPSY_2026_10_12.md). |
 
 ## Actual import relationships
@@ -27,6 +28,11 @@ Arrows point from an importing source to its dependency. This selected diagram
 is navigation only; an import does not discharge an open mathematical input.
 The independent #925 reversible-packet kernel imports Mathlib only and has no
 native actual-prime representation edge.
+The #931 subdiagram highlights literal imports and the mathematical distinction
+between clipped/admitted VF-active source and admitted/admitted Dirichlet
+sector six. Even when a transitive import exists, it does not imply that their
+original physical pair carriers or VF weights are equal. Dotted lines denote
+unproved quantitative/representation obligations, NOT actual imports.
 
 ```mermaid
 flowchart TD
@@ -38,6 +44,17 @@ flowchart TD
   Li --> Quad["Uniform VF/Li quadrature"]
   PNT["#925 PNT horizontal clock"] --> Aligned
   PNT --> Native["Native PNT transfer"]
+  Guard931["#931 literal carrier non-overlap"] --> Raw["Original VF weighted clipped/admitted source"]
+  Guard931 --> Adm["Admitted/admitted Dirichlet pair carrier"]
+  Raw --> VFClip["VF original clipped boundary Fubini"]
+  SignedSix["Generic no-persistence and sector six"] --> Adm
+  PrimeComb["Prime comb: actual Delta_p"] --> DyadicWeld["Delta_p = 2*(1+H_p)"]
+  Dyadic["Dyadic high-prime live H_p"] --> DyadicWeld
+  RootBoundary["sqrt(R^2-1)=R-1"] --> Correction["Generic versus canonical p=R packet"]
+  Correction --> DyadicWeld
+  DyadicWeld -. leaves unpaid signed smooth/high cancellation .-> Canonical
+  Canonical["Open original first-bad payment"] -. needs nonlocal weighted historical return .-> Raw
+  Canonical -. needs run-level signed continuation .-> SignedSix
   Canon932["#932 Canonical VF=raw+sqrt2"] --> Quad
   Canon932 --> Aligned
   Canon932 --> Defect["Canonical actual-prime defect Draw-sqrt2"]
