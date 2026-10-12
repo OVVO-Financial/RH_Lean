@@ -359,3 +359,55 @@ Crucially, **the arithmetic question is now fully explicit in matched population
 The candidate analytic work is no longer to *identify* the missing pair population: both true smooth and high populations and their relative sign are fully explicit. It is to establish a **uniform quantitative anti-persistence of the signed smooth/high sum under genuine prime-dependent chronological updates**. The correct measure must remain in the original \(K_R\) normalization and not be replaced by an RH-equivalent conditional hypothesis.
 
 No new universal bound and no completed RH proof is asserted.
+
+
+## K. Exhaustive all-root signed anticorrelation: the positive mixed sector disappears after R=21 on the tested range
+
+The original empirical census only selected seven roots. The new
+[dyadic_all_roots_signed_cross_scan.cpp](../experiments/PrimePopulationCutoff/dyadic_all_roots_signed_cross_scan.cpp)
+runs a **complete independent physical-site census at every root** \(2\le R\le6000\), all integers through 35,999,999.
+
+It builds the exact Möbius function with a linear prime sieve. Each odd squarefree site \(m\) is active precisely for roots
+
+\[
+\lfloor\sqrt m\rfloor+1\le R\le\lfloor\sqrt{2m}\rfloor.
+\]
+
+Among these, it belongs to the true GENERIC high-prime sector exactly when
+\(R\le P^+(m)\), where \(P^+(m)\) is the actual largest prime factor;
+otherwise it belongs to the genuine smooth odd sector. Two difference arrays
+sum each physical occurrence once over its ENTIRE root lifetime, so every
+root is verified without an \(O(R^2)\) independent rescan.
+The scan *separately* computes the raw prefix \(M(R^2-1)\) directly from \(\mu\),
+and asserts its exact equality to the sum of the two cumulative sector ledgers
+for **all 5,999 roots**. The sample direct prime-by-prime quotient census in
+the other program is an independent second crosscheck.
+
+Define the signed quadratic interaction
+
+\[
+\mathcal I_R:=2S_R^{\rm gen} H_R^{\rm gen}.
+\]
+
+The exhaustive deterministic scan returns:
+
+- **Only four strictly positive \(\mathcal I_R\)** among all \(2\le R\le6000\): \(R=11,14,17,21\).
+- For **every tested \(R\ge22\)**, \(S_R^{\rm gen}<0\) and \(H_R^{\rm gen}\ge0\).
+- The only \(R\ge22\) with \(H_R^{\rm gen}=0\) is \(R=26\); all \(27\le R\le6000\) have \(S_R^{\rm gen}<0<H_R^{\rm gen}\) and hence \(\mathcal I_R<0\).
+- Among \(R\ge100\), the worst normalized unsquared-sector energy ratio
+\[
+\frac{(S_R^{\rm gen}+H_R^{\rm gen})^2}
+     {(S_R^{\rm gen})^2+(H_R^{\rm gen})^2}
+\]
+is \(\approx0.03463136832\), at \(R=102\). This is a **finite-range** extremum, not a uniform all-R proof.
+
+The original physical-sign conjecture suggested by the data is
+
+\[
+\boxed{S_R^{\rm gen}<0<H_R^{\rm gen}\quad\forall R\ge27.}
+\]
+
+**Status: conjecture, not a theorem.** Even proving the two sector signs for all sufficiently large roots would NOT establish finite \(A\): the negative cross term must quantitatively cancel the diagonals to within the much smaller \(A R^2K_R\) wall. This experiment isolates a deterministic real-arithmetic tendency that avoids making false conjectures such as \(\Gamma_R\le0\) or universally negative cross term for all roots.
+
+The two all-root scan/selected-root prime-fibre audit programs are registered
+in the PR #931 CI and will reject any failed true-Mobius endpoint reassembly.
