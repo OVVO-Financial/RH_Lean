@@ -289,6 +289,7 @@ theorem vfCanonicalIntegerBacklog_eq_neg_defect_sub_rounding
   have h := vfMidSqrtTwoIntegerBacklog_eq_actualPrimeError R
   rw [h]
   rw [vfCanonicalSquareDefect_eq_legacy_sub_phase]
+  simp only [vfCanonicalPhase]
   ring
 
 /-! ### Distinct *proxy* and phase-fan coordinates -/
