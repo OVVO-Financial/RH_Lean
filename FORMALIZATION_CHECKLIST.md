@@ -86,7 +86,7 @@ Each PR description and checklist update must identify:
 - [x] Inspect compiled square-endpoint O(1) in VF_MID_LI_UNIFORM_QUADRATURE and LIVE partial band O(1) + exact split in VF_MID_VON_KOCH_BRIDGE.
 - [x] Write the missing all-real O(1) Lean composition with one explicit finite uniform constant and no prime hypotheses.
 - [x] Define one public real canonical VF=old raw vfMid+sqrt2; keep ALL historical internal definitions immutable for backward compatibility.
-- [x] Supply real/endpoint/integer-step/logarithmic-integral/true-prime/phase-fan/root-clock exact definitions and the preserved actual prime-block recurrence.
+- [x] Supply real/endpoint/integer-step/logarithmic-integral/true-prime/phase-fan/root-clock exact definitions and the preserved actual prime-block recurrence, exact historical phase cancellation, quadratic signed energy cross-term, and bounded floor telescope.
 - [x] Supply formal canonical real and square von Koch equivalences to frozen old VF and the classical prime-Li statement; explicitly retain the ClassicalVonKochRHCriterion parameter.
 - [x] Inventory every VF-labelled source definition in both RHLean and research (excluded historical exports, not a redefinition).
 - [x] Create [full canonical mathematical autopsy](research/VF_CANONICAL_SQRT_TWO_AUTOPSY_2026_10_12.md) and update public README, AGENTS, proof contract, research registry and documentation indexes.
