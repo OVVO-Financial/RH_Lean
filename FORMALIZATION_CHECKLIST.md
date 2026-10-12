@@ -92,6 +92,10 @@ Each PR description and checklist update must identify:
 - [x] Update `RESEARCH_ROUTE_REGISTRY.md` to make the campaign discoverable.
 - [x] Update `AGENTS.md` to make specialist roles follow fresh `main` strategy and `CURRENT_PROOF_CONTRACT.md` rather than pinning work to #915.
 - [x] Revise all seven Studio role prompts and common rules to separate persistent expertise from changing active mathematical priorities.
+
+- [x] Document eight daily ET schedules for all seven research agents, with AM/PM coordinator and dependency gates.
+- [x] Keep GitHub write actions authorization-gated, and label shared GitHub ledger/issue-scoped comments as optional and not currently configured.
+- [x] Make every stage re-read latest central instructions and report missing predecessor outputs as PENDING rather than asserting a completed cycle.
 - [x] Clarify that draft PR notes are historical until merged and created ChatGPT Workspace Agents require manual editing of their long-lived instructions.
 
 - [ ] Review numerical diagnostics and all GitHub app/Agent Studio user interface settings before publication.
