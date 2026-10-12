@@ -203,3 +203,42 @@ P(x)-C\sqrt{xK_{r+1}}\le A(x)
 This is a TWO-sided finite-rank restriction. One-sided maximality Hmax does not imply either inequality: it locates the peak without restricting how many terminal prime ranks remain after the peak is spent. The proof must derive (14) from the earlier-prime root-wheel incidence and signed cofactor information, not from choosing C retrospectively or replacing P with an independent prime model.
 
 Numerical unmatched populations from the exact prior table are respectively 3, 4, 3, 28, 212, and 2256 at x=20,317,1027,100488,999999,35999999. This gives a direct finite test for future proposed pairing/classifier lemmas at EACH actual cutoff while keeping the all-x proof target fixed.
+
+
+## 8. An exact limiting sign in the historical population weights
+
+A finite Abel/Fubini identity gives
+\[
+\sum_{k=1}^t\frac{M(k)}{k(k+1)}
+=\sum_{n=1}^t\frac{\mu(n)}n-\frac{M(t)}{t+1}.
+\]
+The classical unconditional PNT implies both terms on the right tend to zero. Since M(1)=1 and M(2)=0, the *completed historical quotient-weight limit is rigorously*
+\[
+\boxed{\sum_{k=3}^\infty\frac{M(k)}{k(k+1)}=-\frac12.}\tag{15}
+\]
+This is a **universal signed harmonic limit**, not a density model or a bound at an individual physical endpoint.
+
+An independent exact Möbius sieve through k=10,000,000 gives the split
+\[
+\sum_{3\le k\le10^7,M(k)>0}\frac{M(k)}{k(k+1)}
+=+0.00708739009,
+\]
+\[
+\sum_{3\le k\le10^7,M(k)<0}\frac{M(k)}{k(k+1)}
+=-0.50708956613,
+\]
+net -0.50000217604. Every historical partial sum in k=3..6000 was negative, but no all-k finite-prefix sign theorem is claimed.
+
+For each physical endpoint, the *exact* gap between harmonic expected weights and actual prime populations is
+\[
+\sum_{k=3}^{t} M(k)H_k(x)
+=
+\frac{x}{\log x}
+\sum_{k=3}^{t}\frac{M(k)}{k(k+1)}
++
+\sum_{k=3}^{t}
+M(k)\left[
+H_k(x)-\frac{x}{k(k+1)\log x}
+\right].
+\]
+Thus a possible UNCONDITIONAL proof of Hmax (not yet supplied) would establish a uniform negative margin in the historical harmonic prefixes and control the *actual* prime-band deviation in the second sum without assuming pointwise independence or RH. Even a proof of Hmax would still leave the two-sided terminal unmatched-population inequality (14) open.
