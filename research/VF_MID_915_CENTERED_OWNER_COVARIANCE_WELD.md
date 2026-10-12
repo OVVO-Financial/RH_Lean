@@ -5,10 +5,12 @@ native, occurrence-preserving mathematical results proved in the additional
 Lean helpers and verified against actual prime data. It replaces neither the
 fixed first-bad statement nor the original weighted NNS denominator.
 
-The **canonical remaining production theorem** is
-\`vfMidActualPrimeFirstBadAt_two_succ_halfScaleSectorSixPayment\`
-in \`research/VF_MID_FIRST_BAD_EXACT_BUDGET_CLOSE.lean\`, where
-\`hbalance\` remains **UNPROVED**. A green helper is not a green production file.
+The **canonical remaining source-payment target** is
+`VFMid915FirstBadSourcePaymentStatement` in
+`research/VF_MID_FIRST_BAD_EXACT_BUDGET_CLOSE.lean`. Anchored balance remains
+**UNPROVED**. The `_of_anchoredBalance` consumers are explicitly conditional;
+a green compile does not prove their input. See the
+[source-payment status](VF_MID_915_SOURCE_PAYMENT_STATUS.md).
 
 ## 1. Rigorous improvement: stop decompressing D_R
 

@@ -2,17 +2,18 @@ import Mathlib
 import «research.VF_MID_FIRST_BAD_FINAL_AGGREGATE_CONTRACTION»
 
 /-!
-# Unconditional close of the exact first-bad budget
+# Exact first-bad budget identities and conditional payment consumers
 
-This PR is stacked on #914. It assumes the exact #914 signed-boundary/heat
-normal form compiles and attacks only the unconditional inequality
+This module extends the #914 signed-boundary/heat normal form and isolates
+the still-open unconditional inequality
 
   vfMidFirstBadAnchoredCoDivExcess R <= 0
 
 under a genuine K=2 first-bad hypothesis.
 
-There is no budget proposition, no conditional budget consumer, and no new
-analytic hypothesis in this module.
+The exact identities below do not prove this inequality. The final consumers
+explicitly require anchored balance; the universal first-bad source-payment
+target is a proposition, not a theorem. No unconditional closure is claimed.
 
 ## Sector Six regression correction (2026-10-08)
 
@@ -1295,16 +1296,22 @@ theorem vfMid915AscendingFinalSlack_eq_anchoredBalance
   unfold vfMidUpperLowerBalanceSlack
   ring
 
-/-- **Production theorem: half-scale source payment.**
+/-- The original first-bad source-payment target. This proposition remains
+open: defining it supplies neither a proof nor a new axiom. -/
+def VFMid915FirstBadSourcePaymentStatement : Prop :=
+  ∀ {R : ℕ}, 8 ≤ R →
+    VFMidActualPrimeFirstBadAt (2 : ℝ) (R + 1) →
+    2 * vfMidFirstBadDecompressedHistoricalSource R ^ 2 ≤
+      vfMidFirstBadZeroTargetTotalMass R
 
-This is now the only red mathematical line in #915.  The prior-good input has
-already been isolated above.  The remaining run/current quadratic must be paid
-by the merged #903 signed sector-six ledger with the survivor restriction
-retained.  No restoring packet or transported-parent capacity is available
-here. -/
-theorem vfMidActualPrimeFirstBadAt_two_succ_halfScaleSectorSixPayment
+/-- Conditional half-scale payment from the original anchored balance.
+The balance hypothesis is the missing arithmetic input, not a consequence of
+prior-good anchors, the signed split, or the matched-pair heat identity. -/
+theorem vfMidActualPrimeFirstBadAt_two_succ_halfScaleSectorSixPayment_of_anchoredBalance
     {R : ℕ} (hR : 8 ≤ R)
-    (hfirst : VFMidActualPrimeFirstBadAt (2 : ℝ) (R + 1)) :
+    (hbalance : 0 ≤ vfMidUpperLowerBalanceSlack
+      (vfMidFirstBadAnchoredUpperPartialMass R)
+      (vfMidFirstBadAnchoredLowerPartialMass R)) :
     2 * vfMidActualPrimeEndpointDefect (R / 2 + 1) ^ 2 +
         2 * (vfMidFrozenAffineRunPhysicalCharge (R / 2 + 1) R +
           vfMidFrozenAffineBlockPhysicalCharge (R / 2 + 1) R) ^ 2 -
@@ -1312,66 +1319,7 @@ theorem vfMidActualPrimeFirstBadAt_two_succ_halfScaleSectorSixPayment
           (vfMidFrozenAffineRunPhysicalCharge (R / 2 + 1) R +
             vfMidFrozenAffineBlockPhysicalCharge (R / 2 + 1) R) ≤
       vfMidFirstBadZeroTargetTotalMass R := by
-  have hprior :=
-    vfMidActualPrimeFirstBadAt_two_succ_halfScaleAnchor_sq_inside hR hfirst
-  have hsplit :=
-    vfMidFirstBadAnchoredCoDivExcess_eq_activeResidual_add_threeBoundaryExcess
-      (R := R) (by omega : 3 ≤ R)
-  have hheat :=
-    vfMidActiveThreeBoundaryExcess_add_transported_eq_neg_four_abs R
-  have hbalance :
-      0 ≤
-        vfMidUpperLowerBalanceSlack
-          (vfMidFirstBadAnchoredUpperPartialMass R)
-          (vfMidFirstBadAnchoredLowerPartialMass R) := by
-    rw [vfMidFirstBadAnchoredBalanceSlack_eq_neg_coDivExcess]
-    -- OPEN, not implied by hprior/hsplit/hheat.
-    -- The native #903 sixth continuation class is numerically OUTSIDE the
-    -- balance cone at production R=8 and R=18.  The three retained-VF
-    -- oriented boundary sectors are a DIFFERENT carrier; their complete
-    -- observed balance cannot be substituted here.
-    --
-    -- The forward parity/least-prime reconstruction above now recovers
-    -- BOTH the actual anchored U-L and its exact original U+L denominator.
-    -- It begins at owner 2, adds each unique least-owner removal once,
-    -- and retains the original physical VF weight throughout.
-    -- These are *degree-one* equalities, NOT a paid pair-level historical
-    -- return reconstruction.  Universal cone closure would be false:
-    -- stage slack can be negative, and the unconditional anchored cone
-    -- conflicts asymptotically with Littlewood's known oscillations.
-    -- PARITY COMPRESSION IS FINAL, not an unfinished even-owner ledger:
-    -- * The full open square block has 2R integers and exactly R odd
-    --   candidates after owner 2. All original VF block mass V_R is
-    --   concentrated at w_R=V_R/R on those R odd sites, NOT V_R/(2R).
-    -- * The signed odd-seat sum is exactly V_R-P_R. Adding the already
-    --   compressed physical endpoint anchor yields -D_(R+1).
-    -- * The UNCHANGED original zero-target squared denominator is
-    --       (|D_R| + w_R*(R-P_R) + (1-w_R)*P_R)^2.
-    --   It is the square of the anchored L1 mass, not an ordinary
-    --   probabilistic variance.
-    -- * True historical even composites 2q are already absent from
-    --   this carrier. Their existence in the full integer lattice
-    --   supplies ZERO extra original NNS charge/negative pair heat.
-    --   Reintroducing them double-counts owner 2 and alters the norm.
-    -- * Proven physical donor COUNT bounds or parity-neighbor surrogate
-    --   price/heat identities are not the hfirst-specific SIGNED PAIR
-    --   payment. Do not use them as the source of hbalance.
-    --
-    -- Required: occurrence-matched historical/current pair-Fubini transport
-    -- plus an arithmetic payment SPECIFIC to hfirst; no synthetic negative
-    -- stripped parents and no all-R/all-stage cone hypothesis.
-    -- Compiled external PNT: nativePrimeNumberTheorem, plus the eventual
-    -- actual high-owner reciprocal beta_R<1 and exact protected Euler star.
-    -- Star = (1-beta_m)*parent + signed physical defect; defect <=
-    -- beta_m*|parent|, so beta<1 gives ONLY nonexpansion. Numerically
-    -- at R=1027 the signed star defect allowance is 99.9922% exhausted.
-    -- The high-prime protected star is NOT this low-owner historical/current
-    -- carrier. Its original occurrence-matched signed return must be proved
-    -- before it can pay hbalance; formal negative parents are not capacity.
-    -- The failing linarith remains the explicit mathematical seam.
-    linarith
-  have hcodiv :
-      vfMidFirstBadAnchoredCoDivExcess R ≤ 0 :=
+  have hcodiv : vfMidFirstBadAnchoredCoDivExcess R ≤ 0 :=
     (vfMidFirstBadAnchoredBalanceSlack_nonneg_iff_coDiv_nonpos R).1 hbalance
   have hinlet :
       2 * vfMidFirstBadDecompressedHistoricalSource R ^ 2 ≤
@@ -1381,33 +1329,48 @@ theorem vfMidActualPrimeFirstBadAt_two_succ_halfScaleSectorSixPayment
     linarith
   exact (vfMidFirstBadSourceInlet_iff_halfScalePayment).1 hinlet
 
-/-- The production payment is exactly the original source inlet. -/
-theorem vfMidActualPrimeFirstBadAt_two_succ_sourceInlet
+/-- Conditional source inlet with the same explicit, unpaid balance input. -/
+theorem vfMidActualPrimeFirstBadAt_two_succ_sourceInlet_of_anchoredBalance
     {R : ℕ} (hR : 8 ≤ R)
-    (hfirst : VFMidActualPrimeFirstBadAt (2 : ℝ) (R + 1)) :
+    (hbalance : 0 ≤ vfMidUpperLowerBalanceSlack
+      (vfMidFirstBadAnchoredUpperPartialMass R)
+      (vfMidFirstBadAnchoredLowerPartialMass R)) :
     2 * vfMidFirstBadDecompressedHistoricalSource R ^ 2 ≤
       vfMidFirstBadZeroTargetTotalMass R := by
   rw [vfMidFirstBadSourceInlet_iff_halfScalePayment]
   exact
-    vfMidActualPrimeFirstBadAt_two_succ_halfScaleSectorSixPayment hR hfirst
+    vfMidActualPrimeFirstBadAt_two_succ_halfScaleSectorSixPayment_of_anchoredBalance
+      hR hbalance
 
-/-- **Unconditional #915 victory theorem.** -/
-theorem vfMidActualPrimeFirstBadAt_two_succ_activeExcess_nonpos
-    {R : ℕ} (hR : 8 ≤ R)
-    (hfirst : VFMidActualPrimeFirstBadAt (2 : ℝ) (R + 1)) :
-    vfMidFirstBadAnchoredCoDivExcess R ≤ 0 := by
-  rw [vfMidFirstBadAnchoredCoDivExcess_eq_decompressedHistoricalSource hR]
-  have hinlet :=
-    vfMidActualPrimeFirstBadAt_two_succ_sourceInlet hR hfirst
-  linarith
+/-- Conditional excess consumer. It does not establish anchored balance. -/
+theorem vfMidActualPrimeFirstBadAt_two_succ_activeExcess_nonpos_of_anchoredBalance
+    (R : ℕ)
+    (hbalance : 0 ≤ vfMidUpperLowerBalanceSlack
+      (vfMidFirstBadAnchoredUpperPartialMass R)
+      (vfMidFirstBadAnchoredLowerPartialMass R)) :
+    vfMidFirstBadAnchoredCoDivExcess R ≤ 0 :=
+  (vfMidFirstBadAnchoredBalanceSlack_nonneg_iff_coDiv_nonpos R).1 hbalance
 
-/-- **Literal terminal contradiction from #915.** -/
-theorem vfMidActualPrimeFirstBadAt_two_succ_closed
+/-- The terminal contradiction remains conditional on original balance. -/
+theorem vfMidActualPrimeFirstBadAt_two_succ_closed_of_anchoredBalance
     {R : ℕ} (hR : 8 ≤ R)
-    (hfirst : VFMidActualPrimeFirstBadAt (2 : ℝ) (R + 1)) :
+    (hfirst : VFMidActualPrimeFirstBadAt (2 : ℝ) (R + 1))
+    (hbalance : 0 ≤ vfMidUpperLowerBalanceSlack
+      (vfMidFirstBadAnchoredUpperPartialMass R)
+      (vfMidFirstBadAnchoredLowerPartialMass R)) :
     False := by
   exact
     vfMidActualPrimeFirstBadAt_two_succ_victory_of_sourceInlet hR hfirst
-      (vfMidActualPrimeFirstBadAt_two_succ_sourceInlet hR hfirst)
+      (vfMidActualPrimeFirstBadAt_two_succ_sourceInlet_of_anchoredBalance hR hbalance)
+
+/-- Consumer of the unchanged universal payment target. The target itself
+remains unproved; this theorem cannot be used without supplying its proof. -/
+theorem vfMid915FirstBad_closed_of_sourcePayment
+    (hpayment : VFMid915FirstBadSourcePaymentStatement)
+    {R : ℕ} (hR : 8 ≤ R)
+    (hfirst : VFMidActualPrimeFirstBadAt (2 : ℝ) (R + 1)) :
+    False := by
+  exact vfMidActualPrimeFirstBadAt_two_succ_victory_of_sourceInlet hR hfirst
+    (hpayment hR hfirst)
 
 end RHLean.Analysis

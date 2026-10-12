@@ -1,0 +1,36 @@
+name: Route changes through the research import DAG
+description: Skip expensive setup when no input of this research closure changed.
+inputs:
+  targets:
+    description: Space or newline separated research/*.lean entry points
+    required: true
+outputs:
+  affected:
+    description: Whether the changed files affect these targets; true when comparison is unavailable
+    value: ${{ steps.changed.outputs.affected }}
+runs:
+  using: composite
+  steps:
+    - name: Compare source inputs before installing Lean
+      id: changed
+      shell: bash
+      env:
+        BASE_SHA: ${{ github.event.pull_request.base.sha || github.event.before }}
+        EVENT_NAME: ${{ github.event_name }}
+        RHLEAN_RESEARCH_TARGETS: ${{ inputs.targets }}
+      run: |
+        if [[ "$EVENT_NAME" == workflow_dispatch || ! "$BASE_SHA" =~ ^[0-9a-f]{40}$ || "$BASE_SHA" =~ ^0+$ ]]; then
+          echo 'affected=true' >> "$GITHUB_OUTPUT"
+          exit 0
+        fi
+        if ! git cat-file -e "$BASE_SHA^{commit}" 2>/dev/null; then
+          if ! git fetch --no-tags --depth=1 origin "$BASE_SHA"; then
+            echo 'affected=true' >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+        fi
+        if ! git diff --name-only --no-renames "$BASE_SHA" HEAD -- > /tmp/rhlean-research-changed.txt; then
+          echo 'affected=true' >> "$GITHUB_OUTPUT"
+          exit 0
+        fi
+        python3 scripts/compile_research_import_closure.py --affected-files /tmp/rhlean-research-changed.txt

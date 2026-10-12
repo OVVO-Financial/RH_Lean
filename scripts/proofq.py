@@ -1402,10 +1402,22 @@ def main() -> int:
     p.add_argument("--role")
     p.set_defaults(func=cmd_search)
 
+    # Full repository source navigation is separate from the audited library
+    # declaration graph. In particular, research source is not proof status.
+    import repo_index
+
+    p = sub.add_parser("repo-search", help="search research, full source, documents, exports, and fetched refs")
+    repo_index.add_search_arguments(p)
+
     p = sub.add_parser("stats", help="graph and facet summary", parents=[common])
     p.set_defaults(func=cmd_stats)
 
     args = parser.parse_args()
+    if args.command == "repo-search":
+        try:
+            return repo_index.run_search(args)
+        except (ValueError, re.error) as exc:
+            parser.error(str(exc))
     graph = KnowledgeGraph.load(args.graph)
     return int(args.func(graph, args) or 0)
 

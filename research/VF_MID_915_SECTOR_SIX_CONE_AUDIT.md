@@ -675,7 +675,7 @@ are different from the positive/negative split of pair products above.
 Maintain the unchanged production objective:
 
 ```lean
-vfMidActualPrimeFirstBadAt_two_succ_halfScaleSectorSixPayment
+VFMid915FirstBadSourcePaymentStatement
 ```
 
 `2 * D_(R+1)^2 <= M_R` under only `hR` and `hfirst`, with no

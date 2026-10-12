@@ -1,19 +1,43 @@
 name: VF recursive child population and complement capacity
 
 on:
+  push:
+    branches: [main]
+    paths:
+      - 'research/**/*.lean'
+      - 'RHLean.lean'
+      - 'RHLean/**/*.lean'
+      - 'lakefile.lean'
+      - 'lake-manifest.json'
+      - 'lean-toolchain'
+      - 'scripts/strongpnt_424/**'
+      - '.github/actions/**'
+      - 'scripts/compile_research_import_closure.py'
+      - 'scripts/repo_index.py'
+      - 'scripts/rhlean_kg.py'
+      - '.github/workflows/vf-recursive-child-population.yml'
   pull_request:
     branches: [main, vf-recursive-child-population]
     paths:
-      - research/VF_MID_RECURSIVE_REMAINDER_BOUND.lean
-      - research/VF_MID_PROXY_ENERGY_PULL.lean
-      - .github/workflows/vf-recursive-child-population.yml
+      - 'research/**/*.lean'
+      - 'RHLean.lean'
+      - 'RHLean/**/*.lean'
+      - 'lakefile.lean'
+      - 'lake-manifest.json'
+      - 'lean-toolchain'
+      - 'scripts/strongpnt_424/**'
+      - '.github/actions/**'
+      - 'scripts/compile_research_import_closure.py'
+      - 'scripts/repo_index.py'
+      - 'scripts/rhlean_kg.py'
+      - '.github/workflows/vf-recursive-child-population.yml'
   workflow_dispatch:
 
 permissions:
   contents: read
 
 concurrency:
-  group: vf-recursive-child-population-${{ github.ref }}
+  group: vf-recursive-child-population-${{ github.head_ref || github.ref_name }}
   cancel-in-progress: true
 
 jobs:
@@ -24,34 +48,56 @@ jobs:
       - uses: actions/checkout@v4
         with:
           ref: ${{ github.event.pull_request.head.sha || github.sha }}
-      - name: Restore Lake packages
-        uses: actions/cache/restore@v5
+      - name: Route changed files through the import DAG
+        id: affected
+        uses: ./.github/actions/research-affected
         with:
-          path: .lake/packages
-          key: lake-packages-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
-      - uses: leanprover/lean-action@v1
-        with:
-          use-github-cache: false
-          use-mathlib-cache: true
-          build: false
-          test: false
-          lint: false
+          targets: |
+            research/VF_MID_PROXY_ENERGY_PULL.lean
+      - name: Set up Lean and cached Mathlib
+        if: steps.affected.outputs.affected == 'true'
+        uses: ./.github/actions/lean-setup
       - name: Apply StrongPNT compatibility patch
+        if: steps.affected.outputs.affected == 'true'
         run: |
           python3 scripts/strongpnt_424/apply.py
           python3 scripts/strongpnt_424/apply_post.py
           python3 scripts/strongpnt_424/apply_pnt5_mid.py
           python3 scripts/strongpnt_424/apply_pnt5_strong.py
           python3 scripts/strongpnt_424/apply_lint.py
+      - name: Restore StrongPNT port build cache
+        if: steps.affected.outputs.affected == 'true'
+        id: strongpntcache
+        uses: actions/cache/restore@v5
+        with:
+          path: |
+            .lake/packages/PrimeNumberTheoremAnd/.lake/build
+            .lake/packages/StrongPNT/.lake/build
+          key: strongpnt-port-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-${{ hashFiles('scripts/strongpnt_424/*.py') }}
+          restore-keys: |
+            strongpnt-port-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-
+      - name: Prebuild StrongPNT dependency
+        if: steps.affected.outputs.affected == 'true'
+        run: lake build StrongPNT.PNT5_Strong
+      - name: Save StrongPNT port build cache
+        if: steps.affected.outputs.affected == 'true' && steps.strongpntcache.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v5
+        with:
+          path: |
+            .lake/packages/PrimeNumberTheoremAnd/.lake/build
+            .lake/packages/StrongPNT/.lake/build
+          key: ${{ steps.strongpntcache.outputs.cache-primary-key }}
       - name: Restore RHLean build cache
+        if: steps.affected.outputs.affected == 'true'
         uses: actions/cache/restore@v5
         with:
           path: .lake/build
-          key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py', 'RHLean.lean', 'RHLean/**/*.lean') }}
+          key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py') }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py', 'RHLean.lean', 'RHLean/**/*.lean') }}
           restore-keys: |
             rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py') }}-
-            rhlean-build-${{ runner.os }}-
+            rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py', 'RHLean.lean', 'RHLean/**/*.lean') }}
       - name: Build imported RHLean modules
+        if: steps.affected.outputs.affected == 'true'
         run: |
           lake build --wfail \
             RHLean.Proof.LowWheelHighPrimeSurvivor \
@@ -75,10 +121,15 @@ jobs:
             RHLean.Analysis.NativePNTTransfer \
             RHLean.Analysis.VioleSequentialEulerClosure \
             RHLean.Analysis.NativePNTSignedSecondSelbergFrontierCharge
-      - name: Compile child capacity and theta consumer import closure
-        run: |
-          python3 scripts/compile_research_import_closure.py research/VF_MID_PROXY_ENERGY_PULL.lean
+      - name: Compile cached research import closure
+        if: steps.affected.outputs.affected == 'true'
+        uses: ./.github/actions/research-compile
+        with:
+          targets: |
+            research/VF_MID_PROXY_ENERGY_PULL.lean
+          build-library: 'false'
       - name: Check decomposition, capacity, endpoint consumers, and axioms
+        if: steps.affected.outputs.affected == 'true'
         shell: bash
         run: |
           set -o pipefail

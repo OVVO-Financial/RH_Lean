@@ -16,6 +16,7 @@ the required uniform correlation estimate remains open. Start with the
 | [Research route registry](../RESEARCH_ROUTE_REGISTRY.md) | Route dispositions and the scope of the current freeze. |
 | [Research handoff](../CURRENT_RESEARCH_HANDOFF.md) | Latest handoff followed by historical checkpoints. |
 | [Knowledge graph](KNOWLEDGE_GRAPH.md) | Navigation, inventory, and exact dependency audit tooling. |
+| [Repository search and import DAG](REPOSITORY_SEARCH.md) | Full-source discovery across research, documents, scripts, exports, and fetched PR refs, with occurrence and commit provenance. |
 
 Lean source and the applicable successful kernel checks take precedence over
 prose. A theorem's ordinary hypotheses matter even when its axiom list is
@@ -51,6 +52,7 @@ headers, not their Lean sources, manifests, or provenance pins.
 | Paper / Analysis boundary | `bash scripts/check_paper_analysis_boundary.sh` |
 | Export closure and synchronization | `python3 scripts/check_export_sync.py` / `Public export verification` |
 | Library compilation and exact declaration graph | `Lean source audits`, including `Hosted Lean build` and the owned-warning gate |
+| Full repository search and module DAG | `python3 -m unittest discover -s scripts -p test_repo_index.py -v`; `python3 scripts/repo_index.py build --require-acyclic` / `Proof inventory` |
 | Local development validation | `bash scripts/local_ci.sh` (requires Lean and dependency-cache access) |
 | Local independent export builds | `bash scripts/verify_exports_local.sh` |
 | #796–#798 Stokes / CORR research chain | [Signed cell Stokes bridge check](../.github/workflows/signed-cell-stokes-bridge.yml) |

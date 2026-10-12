@@ -1,0 +1,46 @@
+name: Set up pinned Lean dependencies
+description: Reuse a complete pinned Mathlib cache and save cold setup before proof checks.
+runs:
+  using: composite
+  steps:
+    - name: Restore pinned dependencies
+      id: packages
+      uses: actions/cache/restore@v5
+      with:
+        path: .lake/packages
+        key: lake-packages-v2-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
+        # One-time migration from the old cache; never cross dependency pins.
+        restore-keys: |
+          lake-packages-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
+    - name: Check complete dependency cache marker
+      id: complete
+      shell: bash
+      run: |
+        if [[ -f .lake/packages/.rhlean-mathlib-complete-v2 ]]; then
+          echo 'ready=true' >> "$GITHUB_OUTPUT"
+        else
+          echo 'ready=false' >> "$GITHUB_OUTPUT"
+        fi
+    - name: Install Lean and restore missing Mathlib artifacts
+      id: setup
+      uses: leanprover/lean-action@v1
+      with:
+        auto-config: false
+        use-github-cache: false
+        use-mathlib-cache: ${{ steps.packages.outputs.cache-hit != 'true' || steps.complete.outputs.ready != 'true' }}
+        build: false
+        test: false
+        lint: false
+    - name: Mark successful dependency setup
+      shell: bash
+      run: touch .lake/packages/.rhlean-mathlib-complete-v2
+    - name: Save complete dependencies before proof compilation
+      if: >-
+        !cancelled()
+        && steps.packages.outcome == 'success'
+        && steps.setup.outcome == 'success'
+        && steps.packages.outputs.cache-hit != 'true'
+      uses: actions/cache/save@v5
+      with:
+        path: .lake/packages
+        key: ${{ steps.packages.outputs.cache-primary-key }}

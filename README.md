@@ -17,6 +17,10 @@ Start with [`CURRENT_PROOF_CONTRACT.md`](CURRENT_PROOF_CONTRACT.md) for the
 current target and exact Lean interfaces. The
 [documentation index](docs/DOCUMENTATION_INDEX.md) distinguishes current
 instructions, append-only research history, numerical diagnostics, and exports.
+Use the [repository search and import DAG](docs/REPOSITORY_SEARCH.md) to find
+existing results across the library, research, documents, scripts, exports, and
+fetched PR refs. `python3 scripts/proofq.py repo-search 'SectorSix' --scope research`
+is a starting point for the current first-bad work.
 
 ## Canonical VF target
 

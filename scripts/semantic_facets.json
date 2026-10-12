@@ -461,6 +461,34 @@
           ]
         ]
       },
+      "vf-mid": {
+        "tokens": [["vf", "mid"]],
+        "modules": ["VF_MID", "VFMid"]
+      },
+      "first-bad": {
+        "tokens": [["first", "bad"]],
+        "modules": ["FIRST_BAD"]
+      },
+      "sector-six": {
+        "tokens": [["sector", "six"]],
+        "modules": ["SECTOR_SIX"]
+      },
+      "owner-two": {
+        "tokens": [["owner", "two"]],
+        "modules": ["OWNER_TWO"]
+      },
+      "floor-li": {
+        "tokens": [["floor", "li"]],
+        "modules": ["FLOOR_LI"]
+      },
+      "compensated-four-corner": {
+        "tokens": [["compensated", "corner"]],
+        "modules": ["COMPENSATED_FOUR_CORNER"]
+      },
+      "hecke": {
+        "tokens": [["hecke"]],
+        "modules": ["HECKE"]
+      },
       "physical-degree-one": {
         "tokens": [
           [

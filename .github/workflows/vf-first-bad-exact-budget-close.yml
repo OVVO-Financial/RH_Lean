@@ -1,4 +1,4 @@
-name: VF first-bad exact budget close
+name: VF 915 conditional source-payment audit
 
 on:
   workflow_dispatch:
@@ -94,3 +94,28 @@ jobs:
           lake env lean -DwarningAsError=true \
             -o .lake/build/lib/lean/research.VF_MID_FIRST_BAD_EXACT_BUDGET_CLOSE.olean \
             research/VF_MID_FIRST_BAD_EXACT_BUDGET_CLOSE.lean
+
+      - name: Audit explicit conditional consumers and standard axioms
+        run: |
+          cat > /tmp/VF915ConditionalAcceptance.lean <<'LEAN'
+          import «research.VF_MID_FIRST_BAD_EXACT_BUDGET_CLOSE»
+          #check RHLean.Analysis.VFMid915FirstBadSourcePaymentStatement
+          #print axioms RHLean.Analysis.vfMidActualPrimeFirstBadAt_two_succ_halfScaleSectorSixPayment_of_anchoredBalance
+          #print axioms RHLean.Analysis.vfMidActualPrimeFirstBadAt_two_succ_sourceInlet_of_anchoredBalance
+          #print axioms RHLean.Analysis.vfMidActualPrimeFirstBadAt_two_succ_activeExcess_nonpos_of_anchoredBalance
+          #print axioms RHLean.Analysis.vfMidActualPrimeFirstBadAt_two_succ_closed_of_anchoredBalance
+          #print axioms RHLean.Analysis.vfMid915FirstBad_closed_of_sourcePayment
+          LEAN
+          lake env lean -DwarningAsError=true /tmp/VF915ConditionalAcceptance.lean | tee /tmp/vf915-conditional-axioms.log
+          python3 - <<'PY_AUDIT'
+          import re
+          from pathlib import Path
+          records = re.findall(r"depends on axioms:\s*\[([^\]]*)\]", Path('/tmp/vf915-conditional-axioms.log').read_text(), re.S)
+          if len(records) != 5:
+              raise SystemExit(f'Expected five conditional-consumer axiom records, got {len(records)}')
+          allowed = {'propext', 'Classical.choice', 'Quot.sound'}
+          for record in records:
+              actual = {a.strip() for a in record.split(',') if a.strip()}
+              if not actual <= allowed:
+                  raise SystemExit(f'Nonstandard axioms: {actual - allowed}')
+          PY_AUDIT

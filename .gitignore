@@ -19,3 +19,9 @@ proof-import-graph.dot
 proof-inventory.txt
 region-graph.json
 region-graph.dot
+repo-index.json
+repo-imports.dot
+repo-map.md
+/repo-frontier.txt
+/decl-graph.txt
+/kg-*.txt
