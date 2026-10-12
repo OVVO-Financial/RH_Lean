@@ -5,6 +5,10 @@ square-prefix Mertens program. It records which mechanisms are exact, which
 finite experiments have been run, which mechanisms have failed their declared
 tests, and which routes remain materially distinct.
 
+## October 12 2026 — dynamic specialist-agent research routing (#933)
+
+Every ChatGPT Agent Studio specialist must retrieve `AGENTS.md` and `CURRENT_PROOF_CONTRACT.md` fresh from `main` on each new research request. The agent's named specialty is stable, but the research target is **not** pinned to the historical #915 source payment or Type II kernel. The detailed [Studio setup instructions](docs/CHATGPT_AGENT_STUDIO_RH_SETUP_2026_10_12.md) now provide a reusable builder instruction and update all seven role prompts. Changes committed to #933 remain proposals until merged; existing Studio agent configurations require a manual instruction edit.
+
 ## October 12 2026 — ChatGPT Agent Studio first-bad research campaign (#933, documentation only)
 
 The [first-bad signed owner research campaign](research/CHATGPT_AGENT_STUDIO_FIRST_BAD_CAMPAIGN_2026_10_12.md) records independently reported finite diagnostics, original #915 source-payment constraints, and mandatory falsification rules. The [ChatGPT Agent Studio setup](docs/CHATGPT_AGENT_STUDIO_RH_SETUP_2026_10_12.md) supplies explicit browser creation instructions and seven individually focused agent prompts. These ChatGPT Workspace Agents are independent runs, not automatically orchestrated Codex subagents. This PR changes NO Lean theorem or canonical VF definition and claims no new RH-scale bound.
