@@ -8,6 +8,7 @@ on:
       - 'research/VF_MID_932_ORIGINAL_VF_CARRIER_DISJOINT.lean'
       - 'research/FINITE_A_C_PRIME_COMB_DYADIC_OCCURRENCE_WELD.lean'
       - 'experiments/PrimePopulationCutoff/prime_comb_dyadic_crosswalk.cpp'
+      - 'experiments/PrimePopulationCutoff/dyadic_all_roots_signed_cross_scan.cpp'
       - 'research/FINITE_AC_CROSS_COORDINATE_DAG_CLOSURE_AUDIT_2026_10_12.md'
       - '.github/workflows/finite-ac-cross-coordinate.yml'
   workflow_dispatch:
@@ -36,6 +37,13 @@ jobs:
             experiments/PrimePopulationCutoff/prime_comb_dyadic_crosswalk.cpp \
             -o /tmp/prime_comb_dyadic_crosswalk
           /tmp/prime_comb_dyadic_crosswalk | tee finite-ac-dyadic-crosswalk.csv
+      - name: Exhaustive real-Mobius signed cross-sector scan for every R through 6000
+        run: |
+          g++ -O3 -std=c++17 -Wall -Wextra -Werror \
+            experiments/PrimePopulationCutoff/dyadic_all_roots_signed_cross_scan.cpp \
+            -o /tmp/dyadic_all_roots_signed_cross_scan
+          /tmp/dyadic_all_roots_signed_cross_scan 6000 \
+            | tee finite-ac-all-roots-signed-cross.csv
       - uses: actions/upload-artifact@v4
         with:
           name: finite-ac-cross-coordinate-source-audit
@@ -43,6 +51,7 @@ jobs:
             finite-ac-coordinate-audit.md
             finite-ac-coordinate-audit.json
             finite-ac-dyadic-crosswalk.csv
+            finite-ac-all-roots-signed-cross.csv
 
   kernel-carrier-disjoint:
     runs-on: ubuntu-latest
