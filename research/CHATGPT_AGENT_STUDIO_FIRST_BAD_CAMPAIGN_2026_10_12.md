@@ -4,6 +4,10 @@ Date: 2026-10-12. Status: **research directions and falsification controls, NOT 
 
 This note accompanies [the ChatGPT Agent Studio setup and copy/paste prompts](../docs/CHATGPT_AGENT_STUDIO_RH_SETUP_2026_10_12.md). It is documentation, not a change to any Lean theorem, coefficient, wall, or canonical definition.
 
+## Strategy-pivot scope — do not lock agents to this research lane
+
+This is an **October 12 historical snapshot**. The latest `AGENTS.md` and `CURRENT_PROOF_CONTRACT.md` on `main` govern every fresh research session, and compiled Lean governs proof status. If the central strategy moves from original #915 owner payment to any other route, reassign each specialist's relevant expertise; do not continue old October 12 goals by default. This file's case studies remain falsification regressions only when relevant. Custom Workspace Agent prompts and previous model memory cannot override newer central source instructions.
+
 ## Sources of mathematical authority
 
 - [AGENTS.md](../AGENTS.md) and [CURRENT_PROOF_CONTRACT.md](../CURRENT_PROOF_CONTRACT.md) govern all new work.
