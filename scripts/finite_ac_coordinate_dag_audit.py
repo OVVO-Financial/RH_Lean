@@ -47,6 +47,15 @@ ANCHORS = [
     ("long range cofactor root is not injective", "research/DYADIC_LONG_RANGE_TETHER_AUDIT.lean", "squareRootLongRangeRoot_not_injective_at_56", "NO-GO"),
     ("low quotient necessary work", "research/VF_QUOTIENT_VARIATION_FIRSTBAD_ATTACK.lean", "vfVarSquareMertens_norm_le_four_lowVariation_add_two_shortMass", "exact reduction"),
     ("OAI physical centered moment", "research/VF_SHARP_OAI_SIGNED_MOMENT_ATTACK.lean", "vfSharpOAIActualGram_le_of_physical_centered_moment", "conditional"),
+    ("actual chronological prime-comb response", "RHLean/Proof/PrimeCombVisualizationDynamics.lean", "primeCombTailSignedDelta_eq", "exact per-prime"),
+    ("actual dyadic high-prime fibre", "RHLean/Proof/DyadicSurvivorMertensInvariant.lean", "dyadicLargePrimeSurvivorMass_eq_neg_mertens", "exact per-prime"),
+    ("already proved prime-comb/dyadic fibre equality", "RHLean/Proof/DyadicSurvivorMertensInvariant.lean", "dyadicLargePrimeSurvivorMass_eq_primeCombLargePrimeFamilyMass", "exact"),
+    ("new occurrence-preserving per-prime chrono/dyadic bridge", "research/FINITE_A_C_PRIME_COMB_DYADIC_OCCURRENCE_WELD.lean", "primeCombTailSignedDelta_eq_two_plus_dyadicSurvivor", "new exact, pending Lean"),
+    ("new global signed chronological/dyadic bridge", "research/FINITE_A_C_PRIME_COMB_DYADIC_OCCURRENCE_WELD.lean", "primeCombPostRootSignedDeltaTotal_eq_primeNumber_add_dyadicSurvivor", "new exact, pending Lean"),
+    ("square-root endpoint off-by-one lemma", "research/FINITE_A_C_PRIME_COMB_DYADIC_OCCURRENCE_WELD.lean", "squareRootEndpoint_natSqrt_eq_pred", "new endpoint identity, pending Lean"),
+    ("physical generic/canonical root prime boundary correction", "research/FINITE_A_C_PRIME_COMB_DYADIC_OCCURRENCE_WELD.lean", "dyadicPostRootSurvivorMass_squareEndpoint_eq_transport_add_rootPacket", "new exact boundary correction, pending Lean"),
+    ("original sign rule equivalent to no first bad", "research/VF_MID_FIRST_BAD_ACTUAL_ADMISSIBILITY_CERTIFICATE.lean", "vfV2ActualPrime_signedOwnerRule_iff_noFirstBad", "NO-GO"),
+    ("owner-two compensated interior bound is already unconditional", "research/GLOBAL_RETURNED_CORE_OWNER_TWO_CLIPPED_EXIT.lean", "ownerTwoCompensatedInterior_fourEnergyBound_unconditional", "NO-GO"),
 ]
 SEARCH = {
     "original first bad": r"FirstBad.*(source|payment|balance|budget)",
@@ -57,6 +66,7 @@ SEARCH = {
     "counterexamples and no-go": r"(NoGo|not_injective|iff_mertensEnergy|cannot|obstruction)",
     "OAI physical kernel": r"(OAI|principal|Hecke).*(physical|source|moment|ideal)",
     "run descent": r"(Run|run).*(descen|firstBad|capacitor|lateOwner)",
+    "prime-comb vs dyadic": r"(primeComb|dyadic).*(Mertens|survivor|signedDelta|familyMass)",
 }
 COMPARE = [
     ("research/VF_MID_FIRST_BAD_ACTIVE_RAW_PARENT_SPLICE.lean",
