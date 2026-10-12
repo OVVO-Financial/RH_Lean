@@ -1,5 +1,6 @@
 import Mathlib
 import RHLean.Proof.DyadicSurvivorMertensInvariant
+import RHLean.Proof.DyadicSurvivorMatchedSplice
 
 /-!
 # Prime-comb chronological response = dyadic owner-two survivor, fibrewise
@@ -123,5 +124,64 @@ theorem dyadicPostRootSurvivorMass_squareEndpoint_eq_transport_add_rootPacket
   unfold dyadicPostRootSurvivorMass squareRootDyadicSurvivorMass
   rw [hroot, hset, Finset.sum_insert hnot]
   ring
+
+/-!
+## FULL commutative physical-source square, including the p=R correction
+
+Existing canonical born/positive smooth plus canonical high equals M(X_R).
+Our new generic high has exactly one extra root-prime packet. Thus the
+GENERIC smooth state is the existing positive/born smooth with that
+single prime packet subtracted. This is the exact arithmetic identity,
+not a bound or a declaration of independence.
+-/
+
+/-- Smooth total with the generic sqrt(X_R) cutoff; the R-prime packet
+is removed from canonical smooth only when that prime actually exists. -/
+def squareRootOddGenericSmoothMass (R : ℕ) : ℂ :=
+  squareRootPositiveSmoothMass R + squareRootBornSmoothMass R -
+    (if R.Prime then
+      dyadicLargePrimeSurvivorMass (squareRootEndpoint R) R
+    else 0)
+
+/-- Complete signed smooth plus high on the SAME generic root convention. -/
+theorem squareRootOddGenericSmooth_add_postRoot_eq_squarePrefixMertens
+    (R : ℕ) (hR : 2 ≤ R) :
+    squareRootOddGenericSmoothMass R +
+      dyadicPostRootSurvivorMass (squareRootEndpoint R) =
+        RHLean.Analysis.squarePrefixMertens (R - 1) := by
+  have hcanon :=
+    squareRootPositiveSmooth_add_bornSmooth_add_dyadicHigh_eq_squarePrefixMertens
+      R (by omega : 1 ≤ R)
+  have hcanonHigh :=
+    squareRootDyadicSurvivorMass_eq_dyadicCanonicalHighSourceMass
+      R (by omega : 0 < R)
+  rw [← hcanonHigh] at hcanon
+  have hroot :=
+    dyadicPostRootSurvivorMass_squareEndpoint_eq_transport_add_rootPacket
+      R hR
+  unfold squareRootOddGenericSmoothMass
+  rw [hroot]
+  linear_combination hcanon
+
+/-- Four-coordinate, occurrence-preserving global bridge:
+  chronological prime-comb Delta,
+  genuine post-root prime count,
+  GENERIC corrected odd-dyadic smooth,
+  and complete square-prefix Mertens
+are one and the same signed field, without any norm/triangle inequalities. -/
+theorem squareRootOddGenericSmooth_add_half_primeComb_sub_primeCount_eq_mertens
+    (R : ℕ) (hR : 2 ≤ R) :
+    squareRootOddGenericSmoothMass R +
+        (1 / 2 : ℂ) *
+          primeCombPostRootSignedDeltaTotal (squareRootEndpoint R) -
+        primeCombPostRootPrimeNumber (squareRootEndpoint R) =
+      RHLean.Analysis.squarePrefixMertens (R - 1) := by
+  have hsource :=
+    squareRootOddGenericSmooth_add_postRoot_eq_squarePrefixMertens R hR
+  have hdelta :=
+    primeCombPostRootSignedDeltaTotal_eq_primeNumber_add_dyadicSurvivor
+      (squareRootEndpoint R)
+  rw [hdelta]
+  linear_combination hsource
 
 end RHLean.Proof
