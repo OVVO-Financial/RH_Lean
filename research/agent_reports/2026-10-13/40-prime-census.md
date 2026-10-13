@@ -174,3 +174,17 @@ The Python reference took 15.55 seconds; the C++ large scan took 16.08 seconds. 
 - **First blocker:** occurrence- and weight-preserving historical/current source splice into the compensated owner-cell ledger.
 - **Next step:** test a genuine weighted splice when one is proposed; otherwise referee and formalize the two-slot lemma.
 - **Avoid:** repeating the same unit census or treating `d*(d-1)` as a signed source payment.
+
+
+---
+
+## 1 PM rerun checkpoint — 2026-10-13T13:52:31-04:00
+
+- **Status:** IN_PROGRESS; scheduled Prime Census Laboratory stage.
+- **Authority refresh:** current `main` HEAD `52babf6eb87a7c6f80316ceb952667ad65cb2aa3`; `AGENTS.md` blob `709ad61bf4555fe4f2c92af3fd42f3994798c8bf`; `CURRENT_PROOF_CONTRACT.md` blob `f6e8dc6813ec63974489c26b0c383e34203f0aa9`.
+- **Current objective:** `VFCanonicalSquareVonKochStatement`; the open direct inlet remains the signed, occurrence- and coefficient-preserving early-plus-late source/reassembly bridge. The canonical `sqrt(2)` phase does not alter run increments or frozen physical weights.
+- **Upstream reports retrieved:** coordinator blob `87a596f6f7bcb9bab6b2d29fc7c162c64ed544cb`; owner-payment blob `d60ca9e416c70faa1a4bce60291c73daf82d0366`; analytic blob `f503ac5ce9e04219c4928defc8d74c7f40c02ea0`; finite-wheel report retrieved with claims `20261013-wheel-1` through `-6` (current blob recorded in the final update).
+- **Source inspected:** `VF_MID_DYADIC_OWNER_EXACT.lean` blob `95e7aa05b62861a19f0179aa529f817e3a402bba`; `VF_MID_DYADIC_OWNER_PARITY_TWO.lean` blob `fb025b16bbbd6ca4bcf6288745c283aefa913218`; `VF_MID_DYADIC_PREFIX_OWNER.lean` blob `6757501bfc343d51ddb34483f8195da4a2c84047`.
+- **Open/draft PR discovery:** none returned by GitHub. PR #936 is merged into the observed main HEAD.
+- **Delta task:** independently reproduce the exact cutoff partition, refined prime-owner cap, twin saturation, partner-degree ledger, both smallest multiplicity counterexamples, the production-scale `A=2634,B=5267` census, and the two-box late-tail injection. Separate physical enumeration from formula-based cross-checks and retain strict endpoints and occurrence multiplicity.
+- **Execution environment:** CPython 3.12.14 and g++ 13.3.0 available. No Lean build is planned; no source file will be modified.
