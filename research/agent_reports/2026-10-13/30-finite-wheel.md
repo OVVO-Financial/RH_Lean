@@ -230,3 +230,132 @@ VFMid915FirstBadSourcePaymentStatement. In particular, it contains no clipping w
 - **Upstream refresh:** coordinator `87a596f6f7bcb9bab6b2d29fc7c162c64ed544cb`; owner-payment `d60ca9e416c70faa1a4bce60291c73daf82d0366`; analytic `f503ac5ce9e04219c4928defc8d74c7f40c02ea0`.
 - **Warm start:** morning Claims `20261013-wheel-1` through `-4` retained subject to fresh-source checks. The current objective remains `VFCanonicalSquareVonKochStatement`; the exact signed early-plus-late owner reference/source bridge remains open.
 - **Delta task:** test whether cofactor progression supplies a genuine cross-block congestion restriction after the run-wide two-slot claim was refuted at `(A,B)=(6,11)`. Preserve every physical occurrence, least-prime owner, open-square boundary, and block multiplicity. No weighted historical-source conclusion will be inferred without the missing exact bridge.
+
+## Rerun findings — 2026-10-13T12:14:35-04:00
+
+### Refreshed authority and exact objective
+
+The pre-publication refresh again returned main HEAD `52babf6eb87a7c6f80316ceb952667ad65cb2aa3`, `AGENTS.md` blob `709ad61bf4555fe4f2c92af3fd42f3994798c8bf`, and `CURRENT_PROOF_CONTRACT.md` blob `f6e8dc6813ec63974489c26b0c383e34203f0aa9`. The relevant compiled source `VF_MID_FINAL_RAW_CLIPPED_TELESCOPE.lean` is unchanged at blob `dc1611da7eeca2ed2f2273fa73c9a659b4ba2f42`.
+
+The current objective remains the canonical bound `VFCanonicalSquareVonKochStatement`. The exact open dyadic inlet is `VFMidDyadicSignedLateCorrectionStatement`; the first structural gap is still a sign-, coefficient-, occurrence-, mask-, and ancestry-preserving source/reassembly bridge. This rerun studies only the genuine frozen-`A` rank-two tail. It does not substitute that tail for the cutoff-two correction or for the historical #915 source.
+
+### Known baseline, not claimed as new
+
+Current main already proves the run hyperbola formula in
+`vfMidDyadicFrozenCompositeOwnerChildSupply_eq_semiprimeHyperbolaCards` and
+`vfMidDyadicFrozenCompositeOwnerChildSupply_eq_semiprimeHyperbolaPrimeCounting`:
+for `3 <= A <= B <= 2A`, the physical frozen-`A` composite occurrences are exactly edges
+
+\[
+E_{A,B}=\{(p,q):p,q\text{ prime},\ A<p<q,\ pq<B^2\},
+\]
+
+and
+
+\[
+|E_{A,B}|=\sum_{A<p<B}\left(\pi\!\left(\left\lfloor\frac{B^2-1}{p}\right\rfloor\right)-\pi(p)\right).
+\]
+
+The proof contract already describes this as a nested Ferrers-style graph and already records the `A=2634,B=5267` census. Neither the hyperbola formula nor generic nesting is new here.
+
+### Claim 20261013-wheel-5 — exact partner-side degree and edge-excess ledger
+
+- **Status:** PAPER_PROOF. No local Lean compilation was performed.
+- **Quantified statement:** Let `3 <= A <= B <= 2A`. For a prime partner `q`, put
+  \[
+  U_q=\min\!\left(q-1,\left\lfloor\frac{B^2-1}{q}\right\rfloor\right).
+  \]
+  Its genuine owner multiplicity in the physical edge set is exactly
+  \[
+  \boxed{\deg_{A,B}(q)=\pi(U_q)-\pi(A).}
+  \]
+  If the owner set `P={p prime : A<p<B}` is nonempty and `p_0=min P`, then the set of distinct partner primes is exactly
+  \[
+  \boxed{Q_{A,B}=\{q\text{ prime}:p_0<q\le\lfloor(B^2-1)/p_0\rfloor\}.}
+  \]
+  Consequently
+  \[
+  \boxed{|E_{A,B}|-|Q_{A,B}|=\sum_{q\in Q_{A,B}}(\deg_{A,B}(q)-1).}
+  \]
+  If `P` is empty, all three populations are zero.
+- **Derivation:** For a fixed owner `p`, its compiled hyperbola row is
+  `N(p)={q prime : p<q<=floor((B^2-1)/p)}`. If `p_1<p_2`, then the upper cutoff for `p_2` is no larger and `q>p_2` implies `q>p_1`; hence `N(p_2) subset N(p_1)`. The union of all rows is therefore the first row `N(p_0)`. Conversely, for fixed `q`, an owner edge is equivalent to
+  `A<p<q` and `p<=floor((B^2-1)/q)`; the displayed prime-count difference follows. Double-counting the same finite edge set first by `p` and then by `q` proves the excess identity.
+- **Carrier and boundary audit:** Every edge is the unique physical composite `n=pq`. Since `p<q`, `n` is not a square and lies in exactly one strict open block, at root `r=floor(sqrt(pq))`. Reindexing by `q` retains `n,r,p,q` and unit multiplicity. The corresponding rank-two weighted identity retains the literal coefficient `w_r` on every edge; it does not replace it by `1/p`, `1/q`, or a canonical defect coefficient. No historical prime charge is created by the reindexing.
+- **Independent ingredient:** the new closed formula is the partner-side degree, including the exact strict hyperbola boundary. It makes repeated historical-prime ancestry explicit rather than hiding it in the already-known owner-side AP6 sum.
+- **Novelty audit:** AP6 and the qualitative Ferrers observation were already known. Repository searches found no theorem or report giving this right-degree formula or the exact edge-excess identity. The result is not a cancellation estimate and is not equivalent to the open signed inequality.
+- **Quantitative effect:** this does not reduce the number of positive semiprime edges. It exactly limits the number of *distinct* partner-prime identities available to any source map and measures the multiplicity loss if one falsely spends a single partner charge once per descendant. Thus it narrows SOURCE-SPLICE-1 but does not bound `VFMidDyadicSignedLateCorrectionStatement`.
+- **First unresolved lemma:** construct the literal weighted `q`-indexed reassembly of the original first-bad source, including survivor/admission masks, clipping, anchor terms, raw-parent tags, and all cross terms, with each historical `q` source occurrence used once. Then prove a signed estimate after, not before, that reassembly.
+
+### Claim 20261013-wheel-6 — bounded partner congestion and partnerwise payment are false
+
+- **Status:** REFUTED by exact finite counterexample.
+- **Smallest counterexample in lexicographic scan order `A`, then `B`:** `A=6,B=12,q=13`. The same genuine historical partner has two different least-prime owners:
+  \[
+  91=7\cdot13\quad(r=9),\qquad 143=11\cdot13\quad(r=11).
+  \]
+  Both lie in strict open blocks of the same run and satisfy every edge hypothesis. Thus a partner-prime charge cannot be independently assigned to every owner incidence.
+- **Complete small graph:** the five edges are
+  `(7,11),(7,13),(7,17),(7,19),(11,13)`; there are four distinct partners and edge excess one. This complements morning Claim 3: Claim 3 showed one owner recurring across blocks; Claim 6 shows one historical partner recurring across owners.
+- **Large genuine congestion:** for the already documented production-scale run `A=2634,B=5267`, the exact formula reproduces `125272` edges, `899` distinct partners, edge excess `124373`, and maximum partner degree `316` at `q=5273`. This is a consistency check against existing repository data, not a new census claim.
+- **Consequence:** Ferrers nesting increases overlap; it does not supply matching-like independence. Any proof charging the unique old negative `q` occurrence once per edge is invalid unless the original source contains separately tagged charges with exactly those multiplicities.
+
+### Exact computations performed
+
+Two independent exact scans were executed with Python 3.12.
+
+1. An Eratosthenes prime table through `50000` evaluated the closed left- and right-degree formulas on every full dyadic run `3<=A<=5000`. It verified owner-edge sum = partner-degree sum and first-row union cardinality. Selected full-run results were:
+
+| A | edges | distinct partners | max partner degree | edge excess |
+|---:|---:|---:|---:|---:|
+| 6 | 5 | 4 | 2 | 1 |
+| 50 | 131 | 26 | 10 | 105 |
+| 100 | 463 | 51 | 20 | 412 |
+| 500 | 6587 | 204 | 72 | 6383 |
+| 1000 | 22627 | 379 | 134 | 22248 |
+| 5000 | 385553 | 1589 | 560 | 383964 |
+
+Across these full runs the largest observed partner degree was `562` at `A=4985,B=9970,q=9973`; the largest edge/distinct-partner ratio was about `243.1115` at `A=4991,B=9982`. These are finite observations only.
+
+2. A smallest-prime-factor table through `359999` enumerated the literal physical integers in all `45147` nontrivial runs `3<=A<=300`, `A<B<=2A`. For every run it checked the strict open-square physical composite count against AP6, the partner-degree sum, and the first-row union formula. All checks passed. Intermediate squares were excluded and every occurrence retained its least-prime owner and root before aggregation.
+
+### Counterexample and circularity assessment
+
+- The theorem permits arbitrary repeated owners across blocks and arbitrary repeated partners across owners; it records rather than erases both multiplicities.
+- It does not infer a signed bound from an unsigned census.
+- It does not reuse one historical negative charge for multiple descendants.
+- It does not assume RH, finite A/C, CORR-4, owner admissibility, or the source-payment inequality.
+- The production-scale excess demonstrates that partner compression alone is not a favorable payment: the edge population is much larger than the distinct historical-prime population.
+- The original cutoff-two early-owner carrier `3<=p<=A`, beginning with occurrence `27`, is untouched. Therefore this rank-two theorem cannot control even the one-block obstruction identified by Analytic Claim `20261013-analytic-3`.
+
+### Explicit 1 PM Prime Census Laboratory tests
+
+1. Independently verify Claim 5 on every `3<=A<=5000`, all `A<B<=2A`, recording both owner and partner degree sequences rather than only total edges.
+2. Confirm the minimal repeated-partner witness `A=6,B=12,q=13` with tuples `(r,n,p,q)`, and search independently for any earlier endpoint convention counterexample.
+3. Reproduce `A=2634,B=5267`: `125272` edges, `899` distinct partners, maximum degree `316` at `q=5273`, and edge excess `124373`.
+4. For every tested run verify nested rows `N(p_2) subset N(p_1)` when `p_1<p_2`, and verify `sum_q deg(q)=sum_p |N(p)|` exactly.
+5. On any proposed weighted source map, retain tuples `(r,p,q,n,w_r,sourceTag,mask)`; compare the edge-grouped and partner-grouped weighted sums before applying inequalities. Count the historical `q` source occurrence once unless separate source tags prove greater availability.
+6. Measure edge excess and maximum partner degree on the actual threatening first-bad runs; do not interpret either statistic as signed cancellation.
+
+### Claims for Adversarial Referee and Lean Verification
+
+- **Referee:** check both strict divisions by `B^2-1`, the redundancy of an explicit `p<B` bound in the right-degree formula, the empty-owner case, and the smallest-counterexample claim. Reject any transfer from the frozen-`A` tail to the full cutoff-two source without the early-owner and coefficient bridge.
+- **Potential Lean candidate after independent acceptance:** define the partner fibre of the existing semiprime hyperbola edge set and prove its membership/cardinality formula plus the edge double count. This is a supporting incidence lemma only; no source-payment PR or closure claim is warranted.
+
+## Updated final report summary
+
+**Net-new rerun progress:** PAPER_PROOF of the exact partner-side degree and edge-excess ledger, plus the smallest genuine repeated-partner counterexample. The already-known AP6 hyperbola formula and qualitative Ferrers nesting are not claimed as new. The new ledger is an exact multiplicity restriction for source reassembly, not an `O(A log A)` signed estimate.
+
+**Open target status:** `NO_NEW_RESULT` on the canonical bound, `VFMidDyadicSignedLateCorrectionStatement`, the original weighted source splice, #915 source payment, finite A/C, CORR-4, and RH.
+
+**Publication intent:** append-only update to the assigned report path; no Lean source, main branch, issue, PR, or other agent report was modified.
+
+## Updated next-run resume capsule (non-authoritative)
+
+- **Checkpoint:** 2026-10-13T12:14:35-04:00; main `52babf6e...`; central blobs unchanged.
+- **Upstream consumed:** coordinator `87a596f6...`; owner `d60ca9e...`; analytic `f503ac5c...`.
+- **New claims:** `20261013-wheel-5` exact right-degree/edge-excess ledger; `20261013-wheel-6` minimal repeated-partner refutation.
+- **Executed evidence:** all full dyadic runs through `A=5000` for closed degree formulas; all `45147` runs through `A=300` for independent physical/SPF comparison.
+- **First unresolved blocker:** original-weight partner-indexed source reassembly with every mask, tag, anchor and cross term, jointly with the early-owner carrier.
+- **Next action:** consume the 1 PM census and referee verdicts; formalize Claim 5 only if independently accepted and useful to SOURCE-SPLICE-1.
+- **Avoid:** treating distinct partner count as negative payment capacity, paying one `q` charge per edge, or substituting frozen-`A` tail control for the centered cutoff-two inlet.
