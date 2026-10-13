@@ -6,8 +6,11 @@
 
 - **Report date (America/New_York):** YYYY-MM-DD
 - **Agent / stage:** RH | [NAME] / [FILENAME]
-- **Scheduled start:** HH:MM ET
+- **Scheduled start:** HH:MM ET (actual configured slot; do not infer)
+- **Run ID / sequence:** [ISO 8601 start timestamp with timezone and first/second/other run of this date]
 - **Actual execution / completed time:** [ISO 8601 with offset]
+- **Previous own checkpoint:** [report path, blob SHA and run ID, or NONE]
+- **Warm-start cache status:** [reused/invalidated items, with exact source and proof dependency checks]
 - **Observed `main` HEAD SHA:** [verified exact SHA]
 - **Central contract fetched:** [main:AGENTS.md and main:CURRENT_PROOF_CONTRACT.md, success/failure]
 - **Report target:** `agent-reports:research/agent_reports/YYYY-MM-DD/FILENAME.md`
@@ -49,3 +52,17 @@
 **Net-new mathematical progress:** [specific theorem/estimate, or NONE]
 **Completeness:** [DONE / DONE_NO_NEW_RESULT / PARTIAL / BLOCKED]
 **No RH-proof claim:** [yes; unless independently verified complete proof with all checks]
+
+## Next-run resume capsule (non-authoritative)
+
+- **Checkpoint/run timestamp:** [ISO 8601 with offset, date-specific file]
+- **Source freshness:** [main HEAD and crucial contract/relevant source blob SHAs; changed or unchanged]
+- **Upstream consumed:** [precise report paths, latest run timestamps, blob SHAs and claim IDs, or PENDING]
+- **Completed evidence worth reusing:** [theorems, experiments, finite ranges, result/code hashes, citations, exact statuses; no unsupported claims]
+- **Invalidations / uncertain results:** [precise changed source/hypothesis/dependency or NONE]
+- **First unresolved mathematical/CI blocker:** [one exact claim or job ID]
+- **Next highest-value step:** [specific reproducible proof/experiment/review action]
+- **For Agent #7:** [PR URL, head SHA, relevant Actions run/job URLs, latest CI/axiom state and required repair; no local Lean execution]
+- **Avoid next run:** [unchanged scans, previously validated computations or green CI tied to the same source SHA]
+
+For the second daily invocation, append its timestamped findings to this existing dated report and end with a **new final capsule**, preserving all earlier run sections. The latest capsule is a work checkpoint, not current mathematical authority.
