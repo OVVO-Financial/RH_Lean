@@ -22,6 +22,22 @@ For every new research assignment, and again before making a significant recomme
 4. If the sources conflict, distinguish operating rules, formal mathematics and current objectives; identify the conflict and ask rather than invent a reconciliation. Existing safety, proof-integrity, no-hidden-assumptions, warning-fatal and authorization constraints are never silently weakened.
 5. Treat a long-lived session as potentially stale: re-fetch on a new user request, an announced pivot, or before a substantive deliverable. Do not claim that Workspace Agents automatically synchronize their memory or launch other agents. State any GitHub access limitation.
 
+### Centralized live assignment and PR discovery — no pinned Studio tasks
+
+The seven Workspace Agents' **saved, durable Agent Studio Instructions are role specifications, not a priority queue**. They must contain permanent mathematical specialties, operating safeguards, GitHub permission boundaries, source-refresh rules, reporting filenames, and allowed proof-PR workflow—but **must NOT hard-code a particular PR number, research claim ID, dated campaign, first theorem, numerical test case, or named implementation target as a mandatory scheduled assignment**. Update the shared GitHub instructions and proof contract instead of repeatedly editing seven agents.
+
+Every new direct research task and **every scheduled invocation** must resolve the assignment afresh:
+
+1. Read the actual **current `main` HEAD** and fetch both `main:AGENTS.md` and `main:CURRENT_PROOF_CONTRACT.md`. Determine the live mathematical objective, including any express user-directed pivot. Read current original Lean source to distinguish what has actually been proved from what remains open.
+2. Read relevant **latest actually committed** upstream agent reports and the agent's own previous `Next-run resume capsule` on `agent-reports`, with report/commit SHAs and original stable claim IDs. Missing stages remain `PENDING`; prior snapshots are historical continuity, not active commands.
+3. Discover current relevant **open/draft PRs directly from GitHub**, checking each exact PR state, base/head SHA, diff/theorem declarations, CI status and last update. `AGENTS.md` may centrally nominate a current PR or research frontier, but **validate it against live GitHub and current proof contract** before acting. No PR number in an old instruction or report automatically determines current work.
+4. Select the highest-value **still-open, independently justified** task matching the agent's permanent specialty: first unresolved mathematical lemma, new specific census/referee test, existing implementation PR repair, or a new formalization of a genuine supporting theorem. Avoid work already merged, refuted, superseded or delegated to another active PR. A clear direct user assignment takes priority when consistent with mathematical and repository safeguards.
+5. Record the chosen objective and **dynamically discovered** claim IDs, PR numbers, source SHAs, and evidence links **in that run's report**, not in saved Studio Instructions. On the next run, independently recheck whether those facts remain current rather than treating a warm-start capsule as authority.
+
+**Separate historical citations from operational assignments.** Dates, PR references and archived research examples in this repository's mathematical documentation are evidence of prior work; they are **not automatic instructions to reopen or implement that PR**. The active mathematical target is specified by the live proof contract, with this file governing the selection process. The authoritative status of an implementation comes from actual GitHub PR and CI records.
+
+This applies to **all seven agents**, including the Research Coordinator and Lean Verification, and applies equally to the twice-daily schedules. If an existing saved Agent Studio instruction still contains a compulsory named PR or claim, remove that local clause; GitHub cannot remotely edit the saved Agent Studio text.
+
 Initial ChatGPT Agent Studio campaign: [setup guide](docs/CHATGPT_AGENT_STUDIO_RH_SETUP_2026_10_12.md) and [research snapshot](research/CHATGPT_AGENT_STUDIO_FIRST_BAD_CAMPAIGN_2026_10_12.md). These are **dated starting assignments**, not higher-priority instructions than `AGENTS.md` and the current proof contract.
 
 ## Twice-daily warm-start and verification cache
@@ -64,7 +80,7 @@ The evening Coordinator fetches the seven upstream report paths, reconciles exac
 
 Each daily report is filed under `research/agent_reports/YYYY-MM-DD/` using `America/New_York`. Read real predecessor files at `ref=agent-reports`; absent files are `PENDING`, not evidence of a completed stage. To update an existing report, fetch its blob SHA, preserve old content, append dated findings, commit explicitly to `agent-reports`, and re-fetch to verify the commit. On failure state `NOT_PUBLISHED` and provide full report text. No agent may overwrite another's report or merge the reporting branch into `main`.
 
-### Lean Verification proof-promotion exception (effective only after merger of this policy)
+### Lean Verification proof-promotion exception (authorized on current `main`)
 
 `RH | Lean Verification` owns the end-to-end **formalization → draft PR → GitHub Actions Lean CI → CI repair → human-review handoff** for independently justified new mathematical results. **GitHub Actions triggered by its proof PR is the sole Lean build/test environment for this agent.** Agent #7 does not execute Lean locally, does not need local Lean/Mathlib installation, and must not make missing local command execution a blocker when PR CI is available. Once this authorization is on `main` and actual feature-branch/PR write tools are available, routine implementation and draft PR creation need no additional per-claim human permission. **Only the repository owner or an expressly authorized human may merge; the agent must not merge or enable auto-merge.**
 
@@ -84,7 +100,7 @@ Allowed code writes are confined to `agent/lean-verification/` feature branches 
 
 Track **mathematical** states (`PROVED_IN_LEAN`, `PAPER_PROOF`, `FINITE_COMPUTATION`, `CONDITIONAL`, `REFUTED`, `NO_NEW_RESULT`, `BLOCKED`) separately from **PR** states (`DRAFT_PR`, `CI_PENDING`, `CI_FAILED`, `CI_GREEN`, `REVIEW_READY`, `MERGED`). An unverified proof in a draft PR is not `PROVED_IN_LEAN`; `PROVED_IN_LEAN` requires relevant real GitHub Actions Lean CI evidence at the exact source SHA and an acceptable axiom audit. A green conditional theorem does not establish its unproved antecedent. If no valid theorem is ready, audit/repair existing PRs or report `NO_NEW_THEOREM_TO_FORMALIZE` rather than creating filler PRs.
 
-**First candidate, not a frozen assignment:** inspect `20261012-wheel-1`, the proposed subdoubling late-owner fibre bound of two, with its block/run corollaries and any newer counterevidence. If independently justified and not already implemented, it is eligible for a focused formalization PR; the improved unit-weight census is not an RH proof or the original signed VF source-payment bound.
+**Dynamic initial and recurring candidate selection:** retrieve the live proof contract, the latest independently evaluated agent report claims, and all relevant open/draft Lean proof PRs. Prefer repairing a valid existing PR over creating a duplicate; otherwise formalize the highest-value independently justified supporting theorem. No particular historical candidate, PR, claim ID, or date is an implicit standing assignment. An improved positive census does not by itself pay the original signed VF source.
 
 ## Mandatory public VF canonicalization — 2026-10-12
 
