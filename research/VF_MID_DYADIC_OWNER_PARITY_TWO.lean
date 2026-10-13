@@ -58,8 +58,7 @@ private theorem finset_odd_four_consecutive_card_le_two
 in the precise child-carrier form needed to intersect with odd prime children.
 The square-band endpoints stay strictly open. -/
 theorem vfMidSquareBandLateOwner_roughChildren_subset_four_slots
-    {A R p : ℕ} (hA : 3 ≤ A) (hAR : A ≤ R)
-    (hRlt : R < 2 * A)
+    {A R p : ℕ} (hRlt : R < 2 * A)
     (hp : p ∈ vfMidSquareBandLateOwnerPrimes A R) :
     vfMidSquareBandOwnerRoughChildren R p ⊆
       Finset.Ioc (R ^ 2 / p) (R ^ 2 / p + 4) := by
@@ -129,7 +128,7 @@ theorem vfMidSquareBandLateOwner_card_le_two_of_subdoubling
     finset_odd_four_consecutive_card_le_two (R ^ 2 / p)
       (vfMidSquareBandOwnerRoughChildren R p)
       (vfMidSquareBandLateOwner_roughChildren_subset_four_slots
-        hA hAR hRlt hp) hodd
+        hRlt hp) hodd
   calc
     (vfMidSquareBandCompositeOwner R p).card =
         (vfMidSquareBandCompositeOwnerChildren R p).card := by
