@@ -28,9 +28,47 @@ Initial ChatGPT Agent Studio campaign: [setup guide](docs/CHATGPT_AGENT_STUDIO_R
 
 The user directs a **complete daily research cycle, including weekends**. The daily inter-agent handoff is a **dated Markdown report per stage on the dedicated `agent-reports` branch**, under `research/agent_reports/YYYY-MM-DD/`; see [report branch README](https://github.com/OVVO-Financial/RH_Lean/blob/agent-reports/research/agent_reports/README.md), [report template](https://github.com/OVVO-Financial/RH_Lean/blob/agent-reports/research/agent_reports/REPORT_TEMPLATE.md), and [eight schedule prompts](https://github.com/OVVO-Financial/RH_Lean/blob/agent-reports/research/agent_reports/SCHEDULE_PROMPTS.md). Scheduling details are in [Studio setup guide](docs/CHATGPT_AGENT_STUDIO_RH_SETUP_2026_10_12.md).
 
-**Every scheduled invocation must re-read these central files from `main`**, then fetch actual earlier reports explicitly using `ref=agent-reports`. Source-of-truth mathematics NEVER comes from the reports branch. The seven agents post eight uniquely named files per day: `00-coordinator-am.md`, `10-owner-payment.md`, `20-analytic-type-ii.md`, `30-finite-wheel.md`, `40-prime-census.md`, `50-adversarial-referee.md`, `60-lean-verification.md`, `90-coordinator-pm.md`. Each agent may write only its named Markdown report to `agent-reports`, never to `main` or any Lean source, **and only after separate GitHub write permission is granted**. Instructions alone cannot elevate read-only connector access nor technically enforce path limits on a broad GitHub write grant.
+**Every scheduled invocation must re-read these central files from `main`**, then fetch actual earlier reports explicitly using `ref=agent-reports`. Source-of-truth mathematics NEVER comes from the reports branch. The seven agents post eight uniquely named files per day: `00-coordinator-am.md`, `10-owner-payment.md`, `20-analytic-type-ii.md`, `30-finite-wheel.md`, `40-prime-census.md`, `50-adversarial-referee.md`, `60-lean-verification.md`, `90-coordinator-pm.md`. By default, every scheduled agent may write only its assigned daily Markdown report to `agent-reports`, with explicitly authorized GitHub write access. **Exception:** `RH | Lean Verification` may additionally create/update its own `agent/lean-verification/` proof feature branches and associated draft pull requests targeting `main` under the proof-promotion policy below. This does not authorize direct writes to `main` or merges. Broad read/write connector privileges (even without delete ability) do not technically enforce branch/path restrictions.
 
-The evening Coordinator fetches the seven upstream report paths, reconciles exact claim IDs and evidence, records `PENDING`/not-published stages instead of inventing handoffs, and publishes a dated verified synthesis. A scheduled formalization stage distinguishes actual compiled Lean/CI from suggested proofs. A plan to post files is NOT a complete automated cycle until the schedules, write credentials, real file commits and readbacks are separately verified. No agent may merge or change `main` without approval.
+The evening Coordinator fetches the seven upstream report paths, reconciles exact claim IDs and evidence, records `PENDING`/not-published stages instead of inventing handoffs, and publishes a dated verified synthesis. The 17:00 Lean Verification stage independently formalizes qualified results, performs authorized proof-branch and PR work, and reports verified compilation/CI and PR status to the 19:00 Coordinator. A plan to post files is NOT a complete automated cycle until schedules, write credentials, actual report commits and readbacks have been verified. No scheduled agent may write directly to `main`, merge, or enable auto-merge; the repository owner retains final merge authority.
+
+### Seven-agent write authorization and proof promotion
+
+**Connector capability is not authorization.** Even if all seven agents have repository-wide GitHub read/write rights except deletion, their permitted actions are restricted here. Prompt instructions do not create technical branch/path restrictions; maintain `main` protection and enforce least privilege where available. The `agent-reports` README governs the default reporting lane; this section is the explicit additional proof-branch exception for Agent #7 only, once merged into `main`.
+
+| Scheduled agent | Permitted routine GitHub writes |
+| --- | --- |
+| Research Coordinator | Its own `00-coordinator-am.md` and `90-coordinator-pm.md` on `agent-reports` |
+| Owner Payment | Its own `10-owner-payment.md` on `agent-reports` |
+| Analytic Type II | Its own `20-analytic-type-ii.md` on `agent-reports` |
+| Finite Wheel & Incidence | Its own `30-finite-wheel.md` on `agent-reports` |
+| Prime Census Laboratory | Its own `40-prime-census.md` on `agent-reports` |
+| Adversarial Referee | Its own `50-adversarial-referee.md` on `agent-reports` |
+| Lean Verification | Its own `60-lean-verification.md` on `agent-reports`; plus scoped proof-branch/PR operations below |
+
+Each daily report is filed under `research/agent_reports/YYYY-MM-DD/` using `America/New_York`. Read real predecessor files at `ref=agent-reports`; absent files are `PENDING`, not evidence of a completed stage. To update an existing report, fetch its blob SHA, preserve old content, append dated findings, commit explicitly to `agent-reports`, and re-fetch to verify the commit. On failure state `NOT_PUBLISHED` and provide full report text. No agent may overwrite another's report or merge the reporting branch into `main`.
+
+### Lean Verification proof-promotion exception (effective only after merger of this policy)
+
+`RH | Lean Verification` owns the end-to-end **formalization → draft PR → CI repair → human-review handoff** for independently justified new mathematical results. Once this authorization is on `main` and actual feature-branch/PR write tools are available, routine implementation and draft PR creation need no additional per-claim human permission. **Only the repository owner or an expressly authorized human may merge; the agent must not merge or enable auto-merge.**
+
+At the 17:00 ET daily run (including weekends), and for directly authorized implementation requests:
+
+1. **Refresh authority and queue.** Fetch current `main:AGENTS.md`, `main:CURRENT_PROOF_CONTRACT.md`, actual `main` commit SHA, relevant original Lean declarations, pinned Lean/Mathlib revisions, and existing open proof PRs. Search for duplicates before proposing an implementation.
+2. **Read all six earlier daily reports**, if present: `00-coordinator-am.md`, `10-owner-payment.md`, `20-analytic-type-ii.md`, `30-finite-wheel.md`, `40-prime-census.md`, `50-adversarial-referee.md`. Keep their original claim IDs and adversarial objections. Mark absent or unpublished handoffs `PENDING`. Independently assess available findings even if some reports are absent.
+3. **Verify the mathematics.** Restate exact quantifiers, original carriers, weights and hypotheses. Audit proof dependencies, circularity, RH-equivalent assumptions and source bridges. A legitimate supporting lemma can qualify even if it does not prove RH; a conditional consumer does not prove its open premise.
+4. **Implement on an isolated feature branch.** Reuse a suitable already-open proof PR if possible. Otherwise create a branch from fresh `main` named `agent/lean-verification/YYYYMMDD-claim-slug`. Commit only the focused Lean proof, necessary supporting imports/tests and directly related proof documentation. Keep unrelated source, central proof contracts and `AGENTS.md` unchanged.
+5. **Run real verification.** Compile against the pinned toolchain, apply warning-fatal rules, proof-inventory/dependency audits, root/import and public-export checks, terminal-axiom audits, and applicable CI. Report exact commands, commit SHA, declaration, full assumptions, warnings and observed results. Never fabricate Lean or CI evidence.
+6. **Open and maintain a draft PR targeting `main`.** Include claim IDs, mathematical content, exact theorem declarations, dependencies, report links, tested commit, proof/axiom evidence and any remaining gaps. A draft PR may obtain CI when local execution is unavailable, but do not commit `sorry`, `admit`, unproved axioms, unproved source-payment assumptions or masked placeholders.
+7. **Repair and continue.** Read failed CI logs, make justified focused fixes only on the authorized proof branch, rerun checks, and carry forward the same PR across days. Avoid duplicate PRs and weakening CI to obtain green checks.
+8. **Mark ready for human review only after verification.** Require a complete independently justified theorem, successful relevant Lean checks/CI, standard-axiom compliance, no hidden proof gaps, and a candid account of any missing external referee review. Never directly modify `main` or merge.
+9. **Publish `60-lean-verification.md`** to `agent-reports` with claim IDs, PR numbers/URLs and head SHAs, executed checks, mathematical status, CI state, pending objections and remaining obligations. The 19:00 Coordinator must check actual PR status and separate research reports from merged theorems.
+
+Allowed code writes are confined to `agent/lean-verification/` feature branches and their associated PRs; the report write remains confined to Agent #7's assigned dated Markdown file. Other six agents remain report-only. Forbidden actions include pushes to `main`, merge/auto-merge, deletions, edits on unrelated branches, modifications to other agents' reports, changes to central instructions/contracts, permissions or CI policies, and circumvention through low-level Git operations.
+
+Track **mathematical** states (`PROVED_IN_LEAN`, `PAPER_PROOF`, `FINITE_COMPUTATION`, `CONDITIONAL`, `REFUTED`, `NO_NEW_RESULT`, `BLOCKED`) separately from **PR** states (`DRAFT_PR`, `CI_PENDING`, `CI_FAILED`, `CI_GREEN`, `REVIEW_READY`, `MERGED`). An unverified proof in a draft PR is not `PROVED_IN_LEAN`; a green conditional theorem does not establish its unproved antecedent. If no valid theorem is ready, audit/repair existing PRs or report `NO_NEW_THEOREM_TO_FORMALIZE` rather than creating filler PRs.
+
+**First candidate, not a frozen assignment:** inspect `20261012-wheel-1`, the proposed subdoubling late-owner fibre bound of two, with its block/run corollaries and any newer counterevidence. If independently justified and not already implemented, it is eligible for a focused formalization PR; the improved unit-weight census is not an RH proof or the original signed VF source-payment bound.
 
 ## Mandatory public VF canonicalization — 2026-10-12
 
@@ -159,6 +197,9 @@ The acceptance test for any new step is a genuinely INDEPENDENT quantified arith
 
 ## Lean and repository rules
 
+- The general instruction to work on branches and submit PRs applies only to actors authorized for source changes. The six non-Lean scheduled specialists remain report-only; only Agent #7 has the additional proof-branch exception above, which takes effect on `main` after the reviewed policy merge.
+- Keep daily agent reports separate from implementation PRs. Neither a report nor an unmerged draft PR establishes a new kernel-verified theorem in `main`.
+
 - Never use `sorry`, `admit`, `axiom`, or a project-local assumption to close a mathematical gap.
 - Do not weaken a theorem merely to make it compile without explicitly documenting that the mathematical target changed.
 - Keep changes localized and reuse existing definitions and theorem names where possible.
@@ -177,3 +218,5 @@ Structural progress means a new exact identification, compensation, mate transfe
 Quantitative progress means a proved inequality for the correctly reassembled signed object that improves the required scale and composes with the recursive energy/terminal bridge.
 
 Do not label a restatement, coordinate rename, support bound, mask norm, torus spectral calculation, unsigned coefficient estimate, or heuristic cancellation as closure.
+
+**Implementation progress:** A new independently justified result is implemented in a focused feature-branch PR, verified by actual Lean/CI and axiom audits, and submitted for human review. A review-ready PR is not `MERGED`: only an approved human merge adds it to `main`.
