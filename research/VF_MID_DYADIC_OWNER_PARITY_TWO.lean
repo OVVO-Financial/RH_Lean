@@ -249,4 +249,11 @@ theorem vfMidDyadicPrimeSupply_ge_startPrefix_sub_two_triangular
   unfold vfMidDyadicLateRemoval at hlate
   linarith
 
+/-! ## Kernel axiom audit for the newly formalized arithmetic inequalities -/
+
+#print axioms vfMidSquareBandLateOwner_card_le_two_of_subdoubling
+#print axioms vfMidSquareBandPrefixComposite_start_card_le_two_mul_gap
+#print axioms vfMidDyadicLateRemoval_start_le_two_triangular
+#print axioms vfMidDyadicPrimeSupply_ge_startPrefix_sub_two_triangular
+
 end RHLean.Analysis
