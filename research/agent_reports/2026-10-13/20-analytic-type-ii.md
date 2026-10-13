@@ -256,3 +256,189 @@ uniformly for `2<=A<B<=2A`. The analytic input must be independent of the desire
 - **Next highest-value step:** consume the independent census/referee verdicts, then test whether an exact Boolean-face/Mobius expansion supplies an ownerwise reference without sharp-boundary loss.
 - **For Agent #7:** no open/draft PR; only the exact partition/short-run lemma is potentially formalization-ready after review.
 - **Avoid next run:** reusing the two-slot fibre cap as whole-carrier cancellation, repeating the one-block scan without a larger or differently targeted range, or importing a PNT/RH-scale Type II estimate under a new name.
++
+---
+
+## Continuation - 2026-10-13T09:16:37-04:00
+
+### Freshness and correction
+
+Immediately before this continuation, authority was re-fetched successfully at unchanged
+`main` HEAD `52babf6eb87a7c6f80316ceb952667ad65cb2aa3`:
+`AGENTS.md` blob `709ad61bf4555fe4f2c92af3fd42f3994798c8bf` and
+`CURRENT_PROOF_CONTRACT.md` blob
+`f6e8dc6813ec63974489c26b0c383e34203f0aa9`. This section preserves all
+earlier material. There were still no open or draft PRs.
+
+The earlier bound `|Delta(A,B)| <= 6*A^2` is valid but unnecessarily loose.
+Because both `VFMass(A,B)` and `PrimeSupply(A,B)` lie in
+`[0,B^2-A^2]`, the exact identity
+`Delta=VFMass-PrimeSupply` gives the sharper elementary bound
+
+```text
+|Delta(A,B)| <= B^2-A^2 <= 3*A^2
+```
+
+for `2<=A<B<=2*A`. For the VF term, use
+`(2r+1)/log(r^2+r+1/2) <= 2r+1` for `r>=2` and telescope
+`sum_(A<=r<B)(2r+1)=B^2-A^2`. This correction changes no earlier verdict.
+
+### Claim 20261013-analytic-4 - a quadratic-over-log-squared late-tail obstruction
+
+- **Status:** `PAPER_PROOF`, with a separate `FINITE_COMPUTATION` diagnostic.
+- **Exact carrier:** the literal positive unit-occurrence tail
+  
+  ```text
+  T_A(A,2A) = sum_(A<=r<2A) sum_(p in LateOwnerPrimes(A,r))
+                card(CompositeOwner(r,p)).
+  ```
+  
+  Every summand retains its physical integer, square block, least-prime owner,
+  and multiplicity one.
+- **Exact quantified statement:** There is an absolute integer `A0` such that
+  for every integer `A>=A0`,
+  
+  ```text
+  T_A(A,2A) >= A^2 / (1000*(log A)^2).
+  ```
+  
+  Consequently, any proof which takes absolute values of the `p>A` owner
+  fibres before installing a matching signed decomposition of the reference
+  has variation at least this large. Its ratio to the required `A log A`
+  scale is at least `A/(1000*(log A)^3)`, which tends to infinity.
+- **Injection proof:** Let
+  
+  ```text
+  P_A = {p prime : 6A/5 < p <= 5A/4},
+  Q_A = {q prime : 3A/2 < q <= 8A/5}.
+  ```
+  
+  For every `(p,q) in P_A x Q_A`, the integer `n=pq` has least prime
+  factor `p>A`, the factors are distinct, and
+  
+  ```text
+  A^2 < (9/5)*A^2 < n <= 2*A^2 < 4*A^2.
+  ```
+  
+  Hence `n` is not a square and lies in exactly one open physical block
+  `r^2<n<(r+1)^2` with `A<=r<2A`; it is one occurrence in the displayed
+  late-owner carrier. Unique factorization makes the map `(p,q) -> n`
+  injective. The prime number theorem in fixed proportional intervals gives
+  `#P_A ~ A/(20 log A)` and `#Q_A ~ A/(10 log A)`. For all sufficiently
+  large `A`, these are at least `A/(40 log A)` and
+  `A/(20 log A)`, respectively, so their product is at least
+  `A^2/(800*(log A)^2)`, which implies the stated conservative constant.
+- **Endpoint and phase audit:** The products are strictly above `A^2`,
+  strictly below `(2A)^2`, and cannot hit an intermediate square. The owner
+  cutoff is strict `p>A`. No smoothing, dyadic overlap, additive phase,
+  omitted diagonal, or endpoint error occurs.
+- **Literature actually examined for the only asymptotic input:** NIST DLMF
+  section 27.12, equation 27.12.6 records the Vinogradov-Korobov PNT error
+  
+  ```text
+  |pi(x)-li(x)| = O(x*exp(-d*(log x)^(3/5)*(log log x)^(-1/5))),
+  ```
+  
+  citing Korobov (1958) and Vinogradov (1958):
+  https://dlmf.nist.gov/27.12#E6. This is more than sufficient for the two
+  fixed-interval prime asymptotics. Platt-Trudgian, *The error term in the
+  prime number theorem*, Math. Comp. 90 (2021), Theorem 1 and Corollary 1,
+  was also inspected at https://arxiv.org/abs/1809.03134; its explicit
+  Chebyshev bounds are not needed for the existential `A0`.
+- **Attempted falsification:** A Python 3.12 Eratosthenes sieve enumerated all
+  pairs in the two boxes and verified, for each pair, `p<q`,
+  `A<p<=floor(sqrt(pq))<2A`, strict square-band placement, and injectivity.
+  Results were:
+
+  | A | #P | #Q | injected occurrences | normalized count `N log^2(A)/A^2` |
+  |---:|---:|---:|---:|---:|
+  | 500 | 5 | 7 | 35 | 0.00540699 |
+  | 1,000 | 8 | 12 | 96 | 0.00458084 |
+  | 5,000 | 29 | 57 | 1,653 | 0.00479652 |
+  | 10,000 | 54 | 108 | 5,832 | 0.00494731 |
+
+  The executed algorithm was a bytearray sieve through `2A`, followed by
+  the literal rational endpoint tests `5p>6A, 4p<=5A, 2q>3A, 5q<=8A`
+  and `math.isqrt(pq)` square-wall checks. The finite table is diagnostic
+  only; the proof is the injection plus PNT.
+- **Meaning and limit:** This does not refute the signed
+  `O(A log A)` target. It proves that the merged two-slot theorem cannot be
+  summed by absolute values to reach that target, even after its constant is
+  improved: there are genuinely too many positive physical occurrences.
+  Cancellation must pair this population with an exact ownerwise share of
+  `H_2`, or occur in a joint early-plus-late signed identity before norms.
+
+### Original-source bridge audit for Claim 4
+
+1. **Signed subcarrier inclusion:** each injected `pq` is a literal
+   `+1` occurrence in `T_A(A,2A)`, hence in the exact partition of
+   `T_2(A,2A)`. Least-prime ownership prevents duplication.
+2. **Exact scalar reassembly:** `Delta=T_2-H_2=VFMass-PrimeSupply`; the
+   canonical `sqrt(2)` phase cancels between endpoints.
+3. **No transfer asserted:** the injection carries no raw VF seat weight,
+   historical parent/child tag, survivor/admission mask, clipped exit,
+   anchor cross term, pair interaction, or lower-child run. Therefore it
+   cannot be charged directly to the #903 safe/sector-six ledger and does
+   not prove `VFMid915FirstBadSourcePaymentStatement`.
+4. **First missing lemma:** before any Type I/II norm, construct an exact
+   owner-indexed decomposition of `H_2` and of the weighted original source
+   on the same occurrences, including both clipping walls and all historical
+   multiplicities/cross terms, so that the two prime boxes above are canceled
+   or descended without ownerwise absolute values.
+
+### Updated downstream requests
+
+- **Prime Census Laboratory:** independently reproduce the two-box injection,
+  then measure what fraction of `T_A(A,2A)` it captures through a declared
+  range. For every injected `pq`, retain `(A,r,p,q,n)` and test any
+  proposed ownerwise reference/source map for exact multiplicity and weight.
+  Search especially for endpoint mistakes caused by rational rounding.
+- **Adversarial Referee:** verify the fixed-box PNT constants, strict open-wall
+  placement, unique-factorization injection, and the logical scope: the claim
+  obstructs termwise absolute values but does not lower-bound
+  `|T_2-H_2|`.
+- **Lean Verification:** the finite injection can be stated elementarily on
+  the current owner carrier, but its PNT cardinality lower bound requires
+  analytic infrastructure not presently identified in the repository. No
+  proof PR is requested.
+- **Research Coordinator:** treat Claim 4 as a method obstruction and carrier
+  stress test, not as progress toward the signed target itself.
+
+## Final continuation summary
+
+**Established:** `PAPER_PROOF` that the genuine late-owner tail contains
+`>= A^2/(1000 log^2 A)` physical occurrences for all sufficiently large
+`A`, and the sharper trivial whole-correction bound `3A^2`.
+
+**Not established:** cancellation of those occurrences against the VF
+reference; the required `O(A log A)` estimate; the weighted source splice;
+source payment; owner admissibility; finite A/C; CORR-4; or RH.
+
+**First missing lemma:** an occurrence- and coefficient-preserving ownerwise
+reference/source decomposition that keeps the prime-box population inside a
+joint signed sum until after cancellation or strict lower-run descent.
+
+## Updated next-run resume capsule (non-authoritative)
+
+- **Checkpoint/run timestamp:** 2026-10-13T09:16:37-04:00.
+- **Source freshness:** unchanged main
+  `52babf6eb87a7c6f80316ceb952667ad65cb2aa3`; central blobs
+  `709ad61b...` and `f6e8dc68...`; exact carrier blobs unchanged.
+- **Upstream consumed:** coordinator `87a596f6...`; owner
+  `d60ca9e...`; prior own report absent; continuation appended to report blob `dfbd8546ac7550ed2c39cfcb629bc644f8b48cd4`.
+- **Completed evidence worth reusing:** Claims
+  `20261013-analytic-1` through `-4`; especially the exact cutoff
+  partition, one-block late-tail counterexample, and two-prime-box injection.
+- **Invalidations / uncertain results:** no source invalidation. The
+  asymptotic threshold `A0` is existential, not computed. The lower bound
+  concerns total variation, not the centered correction.
+- **First unresolved blocker:** exact ownerwise reference plus weighted
+  historical-source splice before absolute values.
+- **Next highest-value step:** test a literal Boolean-face/Mobius
+  owner-indexed reference on the injected prime boxes and demand exact
+  equality before estimating it.
+- **For Agent #7:** no open/draft PR and no formalization request.
+- **Avoid next run:** summing fibre caps absolutely, interpreting the late-tail
+  lower bound as a lower bound for `|Delta|`, or rerunning the same finite
+  table without testing a concrete source/reference map.
+
