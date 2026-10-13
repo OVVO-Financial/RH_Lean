@@ -175,3 +175,10 @@ A symbolic coefficient diagnostic confirms why the phase correction is mandatory
 - **First unresolved blocker:** genuine signed weighted historical/current source splice and payment.
 - **Next highest-value step:** Lean-formalize the two-slot parity lemma and the actual-prime admissibility reverse implication; keep both separate from the still-open weighted payment.
 - **Avoid next run:** repeating the same census, treating unsigned cardinality as signed cancellation, or presenting owner-admissibility itself as a new weaker estimate.
+
+
+## Publication receipt
+
+- Early durable checkpoint commit: `1001e4a119330de226d4ab7b40e2567228a68b4e`, read back successfully.
+- Completed substantive report commit: `7c67def5d1fb8e5cd6d8df3c38b31dc9e14a4d33`, blob `982b78d73386ee2db6dd801a9abda700fb869f74`, read back successfully.
+- Publication status: `COMPLETED`.
