@@ -11,6 +11,9 @@ on:
   pull_request:
     types: [opened, synchronize, reopened]
     paths:
+      # Compile new/modified research proof files on draft PRs.
+      - 'research/*.lean'
+      - 'research/**/*.lean'
       - '.github/actions/**'
       - '.github/workflows/research-iteration.yml'
       - 'scripts/compile_research_import_closure.py'
@@ -31,6 +34,42 @@ jobs:
     timeout-minutes: 35
     steps:
       - uses: actions/checkout@v4
+      # Compute exact changed proof targets before expensive dependency setup.
+      - name: Choose changed research Lean targets
+        id: targets
+        shell: bash
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          PR_BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          MANUAL_TARGETS: ${{ inputs.targets }}
+        run: |
+          set -euo pipefail
+          if [[ "$EVENT_NAME" == pull_request ]]; then
+            if [[ ! "$PR_BASE_SHA" =~ ^[0-9a-f]{40}$ ]]; then
+              echo 'Missing valid PR base SHA.' >&2
+              exit 1
+            fi
+            if ! git cat-file -e "$PR_BASE_SHA^{commit}" 2>/dev/null; then
+              git fetch --no-tags --depth=1 origin "$PR_BASE_SHA"
+            fi
+            git diff --name-only --diff-filter=ACMR "$PR_BASE_SHA" HEAD -- research/ > /tmp/research-target-changes.txt
+            changed="$(grep -E '^research/.+\.lean$' /tmp/research-target-changes.txt | sort -u | paste -sd ' ' - || true)"
+            targets="$changed"
+            if [[ -z "$targets" ]]; then
+              targets="research/VF_MID_LI_UNIFORM_QUADRATURE.lean"
+            fi
+          else
+            targets="$MANUAL_TARGETS"
+          fi
+          if [[ -z "$targets" ]]; then
+            echo 'No research Lean target provided.' >&2
+            exit 1
+          fi
+          echo "targets=$targets" >> "$GITHUB_OUTPUT"
+          echo "Selected Lean research targets: $targets"
+          echo "### Research Lean targets" >> "$GITHUB_STEP_SUMMARY"
+          echo "$targets" >> "$GITHUB_STEP_SUMMARY"
+
       - name: Check research cache regressions
         run: python3 -m unittest discover -s scripts -p test_research_compile.py -v
       - name: Set up Lean and cached Mathlib
@@ -60,11 +99,15 @@ jobs:
       - name: Compile selected research closure with warnings fatal
         uses: ./.github/actions/research-compile
         with:
-          targets: ${{ inputs.targets || 'research/VF_MID_LI_UNIFORM_QUADRATURE.lean' }}
-      - name: Verify restored closure reuse with the real Lean compiler
+          targets: ${{ steps.targets.outputs.targets }}
+      # A second compiler pass must reuse exactly this PR's selected targets.
+      - name: Verify selected closure reuses compiled artifacts
         if: github.event_name == 'pull_request'
+        env:
+          RHLEAN_RESEARCH_TARGETS: ${{ steps.targets.outputs.targets }}
         run: |
-          touch research/VF_MID_LI_UNIFORM_QUADRATURE.lean
-          python3 scripts/compile_research_import_closure.py \
-            research/VF_MID_LI_UNIFORM_QUADRATURE.lean | tee research-cache-smoke.log
+          set -euo pipefail
+          read -r first_target _ <<< "$RHLEAN_RESEARCH_TARGETS"
+          touch "$first_target"
+          python3 scripts/compile_research_import_closure.py | tee research-cache-smoke.log
           grep -q 'compiled=0 cached=' research-cache-smoke.log
