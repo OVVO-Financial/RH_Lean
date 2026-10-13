@@ -48,6 +48,14 @@ Each invocation must do **new work or a verified continuation**, rather than rep
 
 **The latest capsule is navigation and continuity, not proof authority.** It cannot replace current source, theorem assumptions or kernel evidence. Maintain full historical report sections and claim provenance. Concurrent runs must re-fetch blob SHA and reconcile/retry one GitHub conflict without deleting prior content.
 
+## Best-effort partial reports and usage-limit resilience
+
+The user's preference is **research continuity over all-or-nothing runs**. When an agent invocation starts and has working GitHub write access, it must **publish a small useful checkpoint early** (after refreshing authoritative `main` files and reading its available predecessor reports, but **before** expensive computation, lengthy browsing, large repository audits or Lean PR CI waiting). Publish to its **one assigned date-and-stage file** with the exact observed `main` commit SHA, actual timestamp/run ID, current objective, report/claim IDs consumed, first concrete pending task, and honest status `IN_PROGRESS` / completeness `PARTIAL`. These are execution states, not mathematical proof claims. Never populate unsupported research results. Fetch blob SHA and preserve previous run content.
+
+Then **append substantive findings as soon as they are established**, rather than deferring all writing until the very end. A final best-effort update should include completed evidence, failures, and a short next-run resume capsule. Avoid excessive GitHub writes; aim for an initial checkpoint, meaningful-result update when available, and a final completion or handoff update.
+
+If a five-hour allowance or other usage/spending limit interrupts a run, **do not claim a completed task or an automatically generated later report**. The already-committed checkpoint is the durable partial output. The next eligible agent invocation (if permitted to start by its account/workspace usage limits and available credits) reads that checkpoint and continues. Scheduling does **not** bypass shared usage limits; if launch is blocked before any report is written, no report can be guaranteed. Mark missing handoffs `PENDING` until an actual GitHub commit exists. Do not invent a future run, backdate reports, or assume credits are available. Check Scheduled/Agent run history for skipped, blocked, or incomplete invocations.
+
 ## Exact read/write protocol
 
 - At the start: read `AGENTS.md` and `CURRENT_PROOF_CONTRACT.md` with `ref=main`, and read relevant Lean files on `main`. Record the observed main commit SHA, not a guessed SHA.
