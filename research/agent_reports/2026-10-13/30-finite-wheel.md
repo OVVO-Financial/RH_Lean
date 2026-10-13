@@ -219,3 +219,14 @@ VFMid915FirstBadSourcePaymentStatement. In particular, it contains no clipping w
 - **Next highest-value step:** Prime Census Laboratory extension and Adversarial Referee verification of Claims 1–3.
 - **For Agent #7:** no PR requested; Claim 1 is formalization-ready only after independent review. No local Lean execution or CI evidence.
 - **Avoid next run:** charging an owner only twice across a whole run, interpreting finite positive certificates as a uniform theorem, or substituting the current odd-seat scalar charge for the historical #915 source.
+
+
+---
+
+## Rerun checkpoint — 2026-10-13T12:10:00-04:00
+
+- **Status:** IN_PROGRESS; second invocation of the dated stage.
+- **Authority refresh:** main HEAD `52babf6eb87a7c6f80316ceb952667ad65cb2aa3`; `AGENTS.md` blob `709ad61bf4555fe4f2c92af3fd42f3994798c8bf`; `CURRENT_PROOF_CONTRACT.md` blob `f6e8dc6813ec63974489c26b0c383e34203f0aa9`.
+- **Upstream refresh:** coordinator `87a596f6f7bcb9bab6b2d29fc7c162c64ed544cb`; owner-payment `d60ca9e416c70faa1a4bce60291c73daf82d0366`; analytic `f503ac5ce9e04219c4928defc8d74c7f40c02ea0`.
+- **Warm start:** morning Claims `20261013-wheel-1` through `-4` retained subject to fresh-source checks. The current objective remains `VFCanonicalSquareVonKochStatement`; the exact signed early-plus-late owner reference/source bridge remains open.
+- **Delta task:** test whether cofactor progression supplies a genuine cross-block congestion restriction after the run-wide two-slot claim was refuted at `(A,B)=(6,11)`. Preserve every physical occurrence, least-prime owner, open-square boundary, and block multiplicity. No weighted historical-source conclusion will be inferred without the missing exact bridge.
