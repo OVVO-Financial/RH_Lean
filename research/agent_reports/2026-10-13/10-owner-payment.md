@@ -63,3 +63,116 @@ Authority, current HEAD, reporting protocol, coordinator handoff, and open-PR st
 - **Next highest-value step:** inspect literal definitions at current HEAD and test the first putative carrier map
 - **For Agent #7:** no open proof PR found
 - **Avoid next run:** treating conditional source payment or narrative carrier similarity as a proof
+
+
+---
+
+## Completed research update — 2026-10-13T08:15:08-04:00
+
+### Freshness and inspected source
+
+The final recommendation was preceded by a second authority refresh. `main` remained at `52babf6eb87a7c6f80316ceb952667ad65cb2aa3`; `AGENTS.md` blob `709ad61bf4555fe4f2c92af3fd42f3994798c8bf` and `CURRENT_PROOF_CONTRACT.md` blob `f6e8dc6813ec63974489c26b0c383e34203f0aa9` were unchanged. The current public target is still `VFCanonicalSquareVonKochStatement`; raw historical weights may not be shifted to canonical phase.
+
+Exact declarations inspected at current main include:
+
+- `VFMid915FirstBadSourcePaymentStatement` and `vfMidHalfScaleRunPlusBlock_eq_trackingDefect` in `VF_MID_FIRST_BAD_EXACT_BUDGET_CLOSE.lean` blob `160194aa0bfccc8211264012fcc2ba018e936ab2`.
+- `vfMidFirstBadDecompressedHistoricalSource` in `VF_MID_FIRST_BAD_SOURCE_TO_SECTOR_SIX_INLET.lean` blob `5d03f3080d014aba1e02485ae9c0b08988478c3c`.
+- `vfMidDyadicLateRemoval`, `vfMidDyadicLateReference`, and `VFMidDyadicSignedLateCorrectionStatement` in `VF_MID_DYADIC_PREFIX_OWNER.lean` blob `6757501bfc343d51ddb34483f8195da4a2c84047`.
+- `vfMidDyadicLateRemoval_eq_ownerCensus` and the least-prime-owner definitions in `VF_MID_DYADIC_OWNER_EXACT.lean` blob `95e7aa05b62861a19f0179aa529f817e3a402bba`.
+- PR #936's merged `vfMidSquareBandLateOwner_card_le_two_of_subdoubling` and `vfMidDyadicLateRemoval_start_le_two_triangular` in `VF_MID_DYADIC_OWNER_PARITY_TWO.lean` blob `fb025b16bbbd6ca4bcf6288745c283aefa913218`.
+- The actual one-block physical site and clipped/admitted raw-parent carrier in `VF_MID_FIRST_BAD_WEIGHTED_OWNER_FUBINI.lean` blob `58b78186e4fd5b68179afe4be0b7b6e4761442d6` and `VF_MID_FIRST_BAD_ACTIVE_RAW_PARENT_SPLICE.lean` blob `e61eb36301f650bfb41079bbd7367f9f45cf6d3e`.
+
+No open or draft PR existed during this run.
+
+### Claim 20261013-owner-1 — exact scalar source/correction bridge already exists
+
+- **Statement.** Put (A=lfloor R/2floor+1), (B=R+1), and
+  (C_2(A,B)=mathrm{LateRemoval}(2,A,B)-mathrm{LateReference}(2,A,B)).
+  For every (Rge8),
+  [
+  mathrm{Source}_R=D_A-C_2(A,B)=D_B.
+  ]
+- **Status:** `PROVED_IN_LEAN` as a chain of current declarations; `NO_NEW_RESULT` for novelty.
+- **Derivation.** `vfMidHalfScaleRunPlusBlock_eq_trackingDefect` identifies the historical run plus current block with `vfMidDyadicVFTrackingDefect A B`. Unfolding that definition and using the cutoff-two owner identity identifies it with (C_2(A,B)). The definition of the decompressed source is (D_A-(run+block)), while `vfMidActualPrimeEndpointDefect_succ_eq_decompressedHistoricalSource` proves it equals (D_B).
+- **Assessment.** The requested scalar splice is therefore not the missing lemma. The missing content is occurrence-, sign-, multiplicity-, mask-, and weight-preserving placement onto the #903 pair ledger. Re-proving the displayed equality would be circular/duplicate work.
+
+### Claim 20261013-owner-2 — exact cutoff partition exposes the unmatched carrier
+
+Define the early-owner census
+[
+E_A(A,B)=sum_{rin[A,B)} sum_{substack{pin OwnerPrimes(r)\\2<ple A}}
+  |Owner(r,p)|.
+]
+Then for (2le Ale B),
+[
+mathrm{LateRemoval}(2,A,B)=E_A(A,B)+mathrm{LateRemoval}(A,A,B).
+]
+Consequently, writing (ho_z=mathrm{vfMidPrefixWheelDensity}(z)) and
+(L=mathrm{vfMidDyadicInteriorLength}(A,B)),
+[
+C_2(A,B)=C_A(A,B)+E_A(A,B)-(ho_2-ho_A)L.
+]
+
+- **Status:** `PAPER_PROOF`.
+- **Proof.** The current Lean theorem `vfMidDyadicLateRemoval_eq_ownerCensus` writes each late removal as a disjoint least-prime-owner sum over (p>z). The finite set (p>2) is the disjoint union of (2<ple A) and (p>A). Substitution into the definitions of the two reference terms gives the second identity; the VF mass cancels exactly.
+- **Independent content.** This is an exact carrier audit, not a bound. It shows precisely what PR #936 controls: only the (p>A) terminal tail. The original (z=2) correction also contains all (3le ple A) occurrences, centered by the density change.
+- **Circularity assessment.** Bounding the two displayed summands separately is not authorized as progress unless their bounds preserve their essential signed cancellation. Replacing the full correction by the (p>A) term silently drops (E_A).
+
+### Claim 20261013-owner-3 — direct parity-carrier replacement is false
+
+- **Status:** `REFUTED` by `FINITE_COMPUTATION`.
+- **Exact tested production case:** (R=8), hence (A=5,B=9). The carrier is the union of open square interiors for roots (5,6,7,8), of total length (L=52).
+- **Executed result:** prime supply is 13. The cutoff-two survivor population is 26, hence (mathrm{LateRemoval}(2,5,9)=13), with composite occurrences
+  [
+  27,33,35,39,45,51,55,57,63,65,69,75,77.
+  ]
+  The cutoff-five survivor population is 14, hence (mathrm{LateRemoval}(5,5,9)=1), whose only composite is (77=7cdot11).
+- **First unmatched occurrence:** (27), least-prime owner (3). Eleven further occurrences are also lost; their owners are (3) or (5). Thus the proposed direct occurrence map from the (z=2) census to the PR #936 (p>A) carrier cannot be injective, surjective onto the physical source, or weight preserving.
+- **Exact centered check:** (ho_2=1/2), (ho_5=4/15), and
+  (E_5(5,9)=12). Therefore
+  [
+  E_5-(ho_2-ho_5)L=12-(7/30)52=-2/15.
+  ]
+  This equals the difference of the two prefix endpoint errors and confirms the partition numerically without using VF values.
+- **Reproducer:** deterministic integer enumeration of the 52 open-square-interior sites, trial-division primality, and least-prime factors; executed in the scheduled container. No probabilistic or external data input was used.
+
+### Claim 20261013-owner-4 — the new two-slot constant is sharp on the half-scale geometry
+
+- **Status:** `FINITE_COMPUTATION`.
+- **Statement/test:** At production (R=22), (A=12), (B=23), the final block root is (r=22). The late owner (p=17>A) has two prime children (29,31), giving the two distinct physical composites (493) and (527) in ((22^2,23^2)).
+- **Consequence:** `vfMidSquareBandLateOwner_card_le_two_of_subdoubling` cannot be universally improved to one merely by parity or the subdoubling geometry. Any further reduction needs a new residue/incidence restriction and still would control only the (p>A) tail.
+
+### Novelty, obstruction, and first unproved lemma
+
+The run produced no new all-scale source-payment inequality. It did produce a precise negative result: PR #936's new triangular tail bound cannot replace the original cutoff-two chronological owner correction. At the smallest formal first-bad scale, twelve genuine historical occurrences disappear, with (27) the first unmatched occurrence.
+
+The exact first unproved lemma is now narrower:
+
+> Construct a multiplicity-preserving weighted partition of the original cutoff-two physical occurrences into (i) the early-owner range (3le ple A) and (ii) the late (p>A) tail, carry `vfMidOddSignedSeatCharge`, clipping/admission masks, historical anchor, and raw-parent occurrence tags on both pieces, and prove a joint signed payment into the #903 safe/sector-six ledger without taking separate absolute values or deduplicating coincident parents.
+
+The unit-cardinality identity in Claim 2 is the underlying finite-set partition, but it is not this weighted pair-level lemma. The first concrete test obligation is that the proposed early-owner map places the (R=8) occurrence (27) exactly once with its original weight and owner (3).
+
+### Downstream handoff
+
+- **Prime Census Laboratory:** independently reproduce Claims 3 and 4; then test any proposed weighted early-owner map on all (Rle20000), beginning with occurrence (27), and verify total multiplicity and weight equality before testing inequalities.
+- **Adversarial Referee:** review Claim 2's cutoff partition and reject any use of PR #936 that omits (E_A), replaces the joint centered expression by separate absolute bounds, or treats the scalar source equality as an occurrence bridge.
+- **Lean Verification:** Claim 2 could be formalized as a small exact owner-census cutoff-partition lemma if useful, but it supplies no quantitative payment and should not be presented as closure. No new proof PR is requested.
+- **Remaining obstacle:** signed, original-weight early-owner plus late-tail payment on the actual historical/current pair carrier.
+
+## Final report summary
+
+**Net-new mathematical progress:** exact cutoff-carrier obstruction and two finite counterexamples/sharpness witnesses; no all-scale payment theorem.  
+**Completeness:** `DONE_NO_NEW_RESULT` for the source-payment objective; useful `REFUTED` shortcut.  
+**No RH-proof claim:** yes.
+
+## Next-run resume capsule (non-authoritative)
+
+- **Checkpoint/run timestamp:** 2026-10-13T08:15:08-04:00
+- **Source freshness:** main `52babf6eb87a7c6f80316ceb952667ad65cb2aa3`; contract `f6e8dc6813ec63974489c26b0c383e34203f0aa9`; dyadic owner exact `95e7aa05b62861a19f0179aa529f817e3a402bba`; parity-two `fb025b16bbbd6ca4bcf6288745c283aefa913218`.
+- **Upstream consumed:** `2026-10-13/00-coordinator-am.md` blob `87a596f6f7bcb9bab6b2d29fc7c162c64ed544cb`; prior-day own report PENDING.
+- **Completed evidence worth reusing:** Claims `20261013-owner-1` through `-4`; especially the (R=8) first unmatched occurrence (27) and the (R=22) two-slot sharpness witness.
+- **Invalidations / uncertain results:** finite computations are exact only for the stated cases; Claim 2 is a paper proof not yet a named Lean theorem.
+- **First unresolved mathematical blocker:** weighted occurrence bridge for early owners (3le ple A), jointly centered with the late tail and retaining all original masks/cross terms.
+- **Next highest-value step:** define the early-owner weighted occurrence ledger on the existing physical carrier and prove literal sum equality before attempting any inequality.
+- **For Agent #7:** no open/draft PR; do not open a closure PR from the unsigned partition alone.
+- **Avoid next run:** re-proving the scalar source/tracking equality, treating `LateRemoval(A,A,B)` as `LateRemoval(2,A,B)`, or attempting a universal one-slot improvement.
