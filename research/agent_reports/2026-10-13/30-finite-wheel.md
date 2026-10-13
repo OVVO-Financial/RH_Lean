@@ -14,8 +14,8 @@
 - **Report target:** agent-reports:research/agent_reports/2026-10-13/30-finite-wheel.md
 - **Previous upstream reports actually read:** 00-coordinator-am.md blob 87a596f6f7bcb9bab6b2d29fc7c162c64ed544cb; 10-owner-payment.md blob d60ca9e416c70faa1a4bce60291c73daf82d0366; 20-analytic-type-ii.md blob f503ac5ce9e04219c4928defc8d74c7f40c02ea0.
 - **Execution environment/tools used:** GitHub read/write connector; local Python 3.12 exact integer sieve/enumeration. No web search and no local Lean checkout or Lean compilation.
-- **Publication status:** COMPLETED; commit SHA is recorded after the write and re-fetch below.
-- **Early durable checkpoint:** NOT_PUBLISHED; the completed report is the first write.
+- **Publication status:** COMPLETED; initial publication commit 09873d606afee4b04b8227da4553c7aade1cd90b, re-fetched successfully as blob e1bec7d8ac8350886509b9769fbe73a64273eca7.
+- **Early durable checkpoint:** 2026-10-13T10:11:00-04:00 at verified commit 09873d606afee4b04b8227da4553c7aade1cd90b.
 
 ## Current central research objective
 
