@@ -11,7 +11,7 @@ on:
   pull_request:
     types: [opened, synchronize, reopened]
     paths:
-      # Automatically compile changed research source files in draft PRs.
+      # Compile new/modified research proof files on draft PRs.
       - 'research/*.lean'
       - 'research/**/*.lean'
       - '.github/actions/**'
@@ -34,7 +34,7 @@ jobs:
     timeout-minutes: 35
     steps:
       - uses: actions/checkout@v4
-      # Select research targets before paying for Lean setup.
+      # Compute exact changed proof targets before expensive dependency setup.
       - name: Choose changed research Lean targets
         id: targets
         shell: bash
@@ -53,7 +53,24 @@ jobs:
               git fetch --no-tags --depth=1 origin "$PR_BASE_SHA"
             fi
             git diff --name-only --diff-filter=ACMR "$PR_BASE_SHA" HEAD -- research/ > /tmp/research-target-changes.txt
-            changed="$(grep -E '^research/.+\.lean
+            changed="$(grep -E '^research/.+\.lean$' /tmp/research-target-changes.txt | sort -u | paste -sd ' ' - || true)"
+            targets="$changed"
+            if [[ -z "$targets" ]]; then
+              targets="research/VF_MID_LI_UNIFORM_QUADRATURE.lean"
+            fi
+          else
+            targets="$MANUAL_TARGETS"
+          fi
+          if [[ -z "$targets" ]]; then
+            echo 'No research Lean target provided.' >&2
+            exit 1
+          fi
+          echo "targets=$targets" >> "$GITHUB_OUTPUT"
+          echo "Selected Lean research targets: $targets"
+          echo "### Research Lean targets" >> "$GITHUB_STEP_SUMMARY"
+          echo "$targets" >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Check research cache regressions
         run: python3 -m unittest discover -s scripts -p test_research_compile.py -v
       - name: Set up Lean and cached Mathlib
         uses: ./.github/actions/lean-setup
@@ -83,7 +100,7 @@ jobs:
         uses: ./.github/actions/research-compile
         with:
           targets: ${{ steps.targets.outputs.targets }}
-      # A second compiler pass must safely reuse these same exact targets.
+      # A second compiler pass must reuse exactly this PR's selected targets.
       - name: Verify selected closure reuses compiled artifacts
         if: github.event_name == 'pull_request'
         env:
