@@ -196,3 +196,149 @@ Claim 2 is the underlying unit-cardinality partition, but not this weighted pair
 - **Next highest-value step:** define that early-owner weighted ledger on the existing physical carrier and prove literal sum equality before attempting an inequality.
 - **For Agent #7:** no open/draft PR; do not open a closure PR from the unsigned partition alone.
 - **Avoid next run:** re-proving the scalar source/tracking equality, conflating `LateRemoval(A,A,B)` with `LateRemoval(2,A,B)`, or seeking a universal one-slot bound.
+
+
+---
+
+## Continuation — 2026-10-13T08:15:02-04:00 scheduled invocation
+
+### Refresh and delta
+
+- Re-fetched `main:AGENTS.md`, `main:CURRENT_PROOF_CONTRACT.md`, and relevant compiled declarations at observed `main` HEAD `52babf6eb87a7c6f80316ceb952667ad65cb2aa3` (retrieval window 2026-10-13 08:15–08:28 ET).
+- Re-read today's coordinator handoff, blob `87a596f6f7bcb9bab6b2d29fc7c162c64ed544cb`. It was produced at older HEAD `7ff5ff9e...`, but its public target and carrier warnings remain consistent with current sources.
+- Re-read this report's first checkpoint, blob `9ff3c3c4b82c25da1e2533eef4e4c12cfbcfcea4`. The 2026-10-12 own report is absent and remains `PENDING`.
+- Dynamically checked open/draft PRs: none. PR #936 is now merged, merge commit `52babf6e...`; its final proof head was `36a5a899...`.
+- Relevant current source blobs: `VF_MID_DYADIC_PREFIX_OWNER.lean` `6757501b...`; `VF_MID_DYADIC_OWNER_EXACT.lean` `95e7aa05...`; `VF_MID_FIRST_BAD_EXACT_BUDGET_CLOSE.lean` `160194aa...`; `VF_MID_FIRST_BAD_WEIGHTED_OWNER_FUBINI.lean` `58b78186...`; source-payment status `aefc7291...`.
+
+### Exact declarations and carriers examined
+
+The open run inlet is literally
+
+```lean
+def VFMidDyadicSignedLateCorrectionStatement : Prop :=
+  ∃ C : ℝ, 0 ≤ C ∧
+    ∀ A B : ℕ, 2 ≤ A → A < B → B ≤ 2 * A →
+      |vfMidDyadicLateRemoval 2 A B -
+          vfMidDyadicLateReference 2 A B| ≤
+        C * (A : ℝ) * Real.log A
+```
+
+with
+`vfMidDyadicLateRemoval z A B = vfMidDyadicPrefixSupply z A B - vfMidDyadicPrimeSupply A B`
+and
+`vfMidDyadicLateReference z A B = vfMidPrefixWheelDensity z * vfMidDyadicInteriorLength A B - vfMidDyadicVFMass A B`.
+The chronological carrier is
+```lean
+vfMidDyadicOwnerLateRemoval z A B =
+  ∑ r ∈ Ico A B, ∑ p ∈ vfMidSquareBandLateOwnerPrimes z r,
+    card (vfMidSquareBandCompositeOwner r p).
+```
+The original #915 target remains
+```text
+∀ R ≥ 8, first-bad at R+1 →
+  2 * vfMidFirstBadDecompressedHistoricalSource R ^ 2
+    ≤ vfMidFirstBadZeroTargetTotalMass R.
+```
+It is still a proposition, not a theorem.
+
+### Claim 20261013-owner-2 — saturated late-owner fibres are unique twin-cofactor packets
+
+- **Status:** `PAPER_PROOF`.
+- **Quantified statement:** Let `3 ≤ A ≤ R < 2A`, and let prime `p>A` be a genuine late least-prime owner in the open square block ((R²,(R+1)²)). If
+  `card(vfMidSquareBandCompositeOwner R p)=2`, then there is a prime `q` such that `p<q`, `q+2` is prime, and the two physical composites are exactly `pq` and `p(q+2)`. For fixed `R` and fixed twin start `q`, at most one integer owner `p` can produce this saturated fibre.
+- **Original carrier:** the actual unit-occurrence owner fibre `vfMidSquareBandCompositeOwner R p`; no new surrogate carrier or weight is introduced.
+- **Derivation:** PR #936 proves that the quotient-child set has cardinality at most two, is contained in the four consecutive slots `Ioc (R²/p) (R²/p+4)`, and consists of odd primes. If the cardinality is two, it occupies both odd slots, hence the cofactors differ by exactly two. The existing semiprime theorem and the absence of a perfect square strictly between consecutive squares give `p<q`. Reconstruction gives `pq` and `p(q+2)`.
+- **Owner uniqueness for the twin packet:** any owner producing the same `q,q+2` must lie in
+  [
+  R^2/q < p < (R+1)^2/(q+2).
+  ]
+  The interval length is less than one because the denominator minus the numerator of that length is
+  [
+  q(q+2)-((2R+1)q-2R^2)=(q-R)^2+R^2+q>0.
+  ]
+  Thus it contains at most one integer.
+- **Historical-multiplicity consequence:** inside one square block, a twin-cofactor packet cannot be charged to two distinct least-prime owners. This does **not** give uniqueness across a complete run: the same twin pair can recur in later blocks with a different owner.
+- **Novelty/circularity:** independent consequence of primality, parity, open-square placement, and least-prime ownership. It does not assume either open target inequality.
+
+### Claim 20261013-owner-3 — residue-refined block capacity
+
+- **Status:** `PAPER_PROOF`; quantitative but insufficient for the open inlet.
+- Put `d=R-A` and let `N_{A,R}` be the physical unit count
+  `card(vfMidSquareBandPrefixCompositeSurvivors A R)`.
+  Let
+  [
+  P_{A,R}={p:A<ple R, pmod6in{1,5}},
+  ]
+  and
+  [
+  T_{A,R}={q:R<qle R+2d, qmod6=5}.
+  ]
+  Then
+  [
+  oxed{N_{A,R}le |P_{A,R}|+|T_{A,R}|.}
+  ]
+- **Proof:** since every owner fibre has size 0, 1, or 2,
+  [
+  N_{A,R}=#{	ext{nonempty fibres}}+#{	ext{two-child fibres}}.
+  ]
+  A nonempty fibre owner is a prime (p>Age3), hence (pmod6in{1,5}), giving the first injection. By Claim owner-2, a two-child fibre injects into its twin start (q). From (pq>R^2) and (ple R), (q>R). From (pge A+1) and (pq<(R+1)^2),
+  ((A+1)qle R^2+2R). For (1le d<A),
+  [
+  (A+1)(R+2d)-(R^2+2R)=d(A+1-d)-Age0,
+  ]
+  so (qle R+2d). Both (q,q+2>3) prime forces (qmod6=5).
+- **Closed coarse corollary:** for `d>0`,
+  [
+  N_{A,R}le
+  min!left(2d,;2lfloor d/6floor+2+lceil d/3ceilight).
+  ]
+  The second expression is asymptotic to (2d/3), improving the merged (2d) block capacity by a factor tending to three. Summing it over a full run is still (asymp (B-A)^2/3), far above the required (Alog A) scale when (B-Aasymp A).
+- **No source substitution:** this is an unsigned unit-occurrence restriction. It does not identify `vfMidFirstBadDecompressedHistoricalSource`, preserve its raw VF weights, or pay its NNS denominator.
+
+### Executed finite falsification
+
+A direct SPF-sieve enumeration used the literal conditions
+[
+A<ple R,quad R^2<pq<(R+1)^2,quad ple q,quad p,q 	ext{prime}
+]
+for every `3≤A≤500` and every `A≤R<2A`: **125,247 blocks**. No violation of the twin saturation, fixed-block twin-owner uniqueness, or residue-refined capacity was found. The largest observed fibre was 2. The largest observed ratio `N_{A,R}/(R-A)` was 1 (example `A=4,R=5`).
+
+A second executed sample over complete runs gave:
+
+| A | actual late occurrences | merged triangular budget A(A-1) | residue-refined summed coarse budget |
+|---:|---:|---:|---:|
+| 50 | 131 | 2,450 | 890 |
+| 100 | 463 | 9,900 | 3,448 |
+| 500 | 6,587 | 249,500 | 83,915 |
+| 1,000 | 22,627 | 999,000 | 334,498 |
+| 5,000 | 385,553 | 24,995,000 | 8,339,165 |
+
+These are finite computations, not evidence of a uniform (Alog A) theorem. The same twin pair did recur in different blocks with different owners (for example (101,103) at ((R,p)=(73,53)) and ((77,59))), falsifying any run-wide uniqueness strengthening.
+
+### Novelty, obstruction, and first unproved lemma
+
+- Claim owner-2 adds an exact saturation classifier and a fixed-block no-double-owner theorem absent from the merged two-slot result.
+- Claim owner-3 adds an independently justified congruence/twin-incidence restriction and a deterministic factor-three asymptotic improvement to the unsigned block/run capacity.
+- It does **not** close `VFMidDyadicSignedLateCorrectionStatement`: even the improved cumulative bound is quadratic, and the inlet is the centered difference at prefix `z=2`, not merely the starting-wheel `z=A` tail.
+- It does **not** close `VFMid915FirstBadSourcePaymentStatement`: the literal historical source has raw VF coefficients, survivor masks, clipped/admitted boundary weights, anchor terms, and cross terms not present in this unit census.
+- **Exact first unproved lemma remains:** an occurrence- and coefficient-preserving map from each original first-bad historical/current physical source occurrence into the chronological compensated owner ledger, followed by a signed complete-run estimate or lower-child transfer. Claim owner-2 may police multiplicity in the saturated late-owner subcarrier but supplies no such map.
+
+### Downstream requests
+
+- **Prime Census Laboratory:** independently enumerate ((A,R,p,q)) for a larger declared range; verify the fixed-(R,q) owner injection, record saturation density, and specifically search for endpoint/off-by-one failures in `q≤R+2(R-A)`.
+- **Adversarial Referee:** review the interval-length proof, the concavity endpoint check for `d(A+1-d)≥A`, and the distinction between fixed-block uniqueness and false run-wide uniqueness.
+- **Lean Verification:** Claims owner-2 and owner-3 are suitable for focused formalization only after independent acceptance. Suggested theorem shapes should stay on `vfMidSquareBandCompositeOwner` and `vfMidSquareBandPrefixCompositeSurvivors`; no proof-PR action is requested from this agent.
+
+## Updated final report summary
+
+**Net-new mathematical progress:** exact twin-cofactor saturation/no-double-owner restriction and residue-refined block capacity.  
+**Strongest status:** `PAPER_PROOF` plus `FINITE_COMPUTATION`.  
+**Open target status:** `NO_NEW_RESULT` on the signed (Alog A) inlet and original #915 source payment.  
+**No RH-proof claim:** yes.
+
+## Updated next-run resume capsule (non-authoritative)
+
+- **Checkpoint:** 2026-10-13 08:28 ET at main `52babf6e...`.
+- **Reuse:** Claims `20261013-owner-2` and `20261013-owner-3`, current-source blobs listed above, and the 125,247-block falsification.
+- **Do not overstate:** fixed-block twin-owner uniqueness is false if promoted to a full-run uniqueness claim.
+- **Next action:** consume independent census/referee responses; if accepted, ask Lean Verification for the exact twin-saturation and residue-capacity lemmas. In parallel, test whether the literal weighted first-bad carrier ever lands entirely in this late-semiprime subcarrier; absent that exact bridge, do not transfer the capacity.
