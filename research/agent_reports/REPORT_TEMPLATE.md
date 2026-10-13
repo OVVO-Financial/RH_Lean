@@ -16,7 +16,8 @@
 - **Report target:** `agent-reports:research/agent_reports/YYYY-MM-DD/FILENAME.md`
 - **Previous upstream reports actually read:** [paths and source commit SHA or PENDING]
 - **Execution environment/tools used:** [GitHub read, GitHub write, web, code, Lean CI; verify each]
-- **Publication status:** [PUBLISHED with GitHub commit SHA / NOT_PUBLISHED]
+- **Publication status:** [INITIAL_CHECKPOINT / PARTIAL / COMPLETED / NOT_PUBLISHED, with actual verified GitHub commit SHA when published]
+- **Early durable checkpoint:** [time and verified GitHub commit SHA, or NOT_PUBLISHED; state only work actually started]
 
 ## Current central research objective
 
