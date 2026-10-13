@@ -3,7 +3,7 @@
 **Branch:** `agent-reports` (**not** `main`).
 **Reports root:** `research/agent_reports/`.
 **Timezone/date for filenames:** `America/New_York`, ISO `YYYY-MM-DD` (including weekends).
-**Schedule:** one complete seven-agent cycle every day, with eight scheduled runs because Coordinator starts and ends the cycle.
+**Schedule:** the user reports two scheduled runs per agent per day, including weekends. Coordinator's AM/PM files cover its two logical phases; other specialists may append a second run to their existing named report. The eight names below are **logical report files, not a limit of eight invocations**. Actual additional start times are configured in Agent Studio and must be verified there.
 **Authorization:** this branch/folder is a proposed workflow; creating it does NOT grant Workspace Agents GitHub write access or set schedules. Configure and authorize those separately.
 
 ## Source of truth (never reverse this precedence)
@@ -30,7 +30,23 @@ research/agent_reports/YYYY-MM-DD/
   90-coordinator-pm.md         19:00 ET  verified synthesis, next priorities
 ```
 
-These are eight **independent launch times**, not a guaranteed dependency-controlled workflow. Scheduling alone will not create the files. Each agent must successfully use a GitHub create/update-file action targeted at branch `agent-reports`; read-only GitHub cannot publish reports.
+These are the original **handoff anchor times**, not a dependency-controlled schedule or an exhaustive list of the additional configured launches. Scheduling alone does not create files; every invocation must commit its own report to `agent-reports` and verify the readback. Twice-daily invocations of the same specialist use the **same dated filename**, appending a timestamped new run and a refreshed resume capsule rather than creating conflicting alternate names or deleting earlier findings.
+
+## Twice-daily warm-start and cache-validity protocol
+
+Each invocation must do **new work or a verified continuation**, rather than repeat the same exploratory search automatically. Before expensive searches, scans, experiments or Lean CI:
+
+1. **Check live authority first:** fetch current `main:AGENTS.md`, `main:CURRENT_PROOF_CONTRACT.md` and actual `main` HEAD SHA on EVERY run, even on a cache hit. A cached summary never replaces these files or actual compiled Lean/CI.
+2. **Resume from the latest verified checkpoint:** fetch your own existing dated report, or the last available previous-day report, and read its final `## Next-run resume capsule`. Read the latest actually published upstream reports from today; when unavailable, consult the previous calendar day's verified handoff as **historical carry-forward** while marking today's missing stage `PENDING`. Record timestamps and file/commit SHAs; never assume a scheduled agent completed.
+3. **Invalidate selectively:** compare recorded `main` SHA, relevant source blob SHAs, theorem statements, upstream report SHA/claim IDs, experiment code/input hashes, and (for Agent #7) proof PR head SHA and CI run status. A changed proof contract or relevant dependency requires revalidation. An unchanged unrelated file does not justify rebuilding unaffected mathematical or software work.
+4. **Reuse verifiable completed work:** preserve exact results, counterexamples, reproducible commands, finite tested ranges, literature references, and prior accepted/rejected claim IDs **without re-running them** if all their dependencies still match. Revisit only on a changed premise, reproducibility issue, new candidate, or useful wider range. A prior negative result remains a negative result with its original precise scope.
+5. **Spend time on the next gap:** prioritize the first unresolved theorem/experiment, new upstream claim, referee objection, or failed CI job. Avoid full-repository reindexing and repeated large prime/Möbius scans when an unchanged source-specific index or independently verified computation already exists.
+6. **End each run with a concise checkpoint:** append a timestamped run section and a new `## Next-run resume capsule` (target approximately 250–500 words). Include run ID/date, observed main SHA, crucial source/contract blob SHAs, latest consumed upstream report SHAs and claim IDs, completed proof/experiment evidence, exact outstanding blocker, highest-value next action, and Agent #7 PR/head SHA/CI job URLs when applicable. State which cached claims remain verified versus require revalidation. Do not save secrets or misleading proof conclusions.
+7. **Report efficiency:** identify reused versus invalidated work, relevant CI cache hit/miss evidence if observed, and whether expensive computation or a full build was skipped safely. Do not invent saved minutes, cache hits or cost estimates.
+
+**Agent #7 uses GitHub Actions CI on proof PRs, not local Lean execution.** Reuse the existing pinned Mathlib/StrongPNT/RHLean/research-closure Actions caches. Read the exact PR head SHA and CI workflow/job states before doing anything expensive. Do not push a no-op change or rerun green CI on unchanged code; reuse checks tied to the exact unchanged head SHA. For a failed CI run, fix only the diagnosed failure and rely on the next PR commit's CI; for pending CI, carry forward the run URL rather than spinning or claiming completion. A draft PR that does not trigger required Lean CI is `BLOCKED`, not verified.
+
+**The latest capsule is navigation and continuity, not proof authority.** It cannot replace current source, theorem assumptions or kernel evidence. Maintain full historical report sections and claim provenance. Concurrent runs must re-fetch blob SHA and reconcile/retry one GitHub conflict without deleting prior content.
 
 ## Exact read/write protocol
 
