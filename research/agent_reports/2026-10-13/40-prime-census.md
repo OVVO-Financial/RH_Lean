@@ -307,3 +307,8 @@ The first Python attempt exposed that the aggregate interval ((A^2,B^2)) include
 - **First blocker:** exact original-weight early-plus-late source/reference reassembly on the already-cancelled ledger.
 - **Next action:** test a concrete proposed weighted map site-by-site, beginning with (27), while retaining ((r,n,p,q,w_r,sourceTag,mask)); otherwise await the 3 PM referee verdict before formalization.
 - **Avoid:** repeating these unchanged scans, inferring aggregate factor-2 sharpness from zero-cap equality, or converting congestion statistics into signed payment.
+
+
+### Publication confirmation — 2026-10-13T13:59:00-04:00
+
+The substantive 1 PM findings were committed as `7d5cbc6d59d76a9c2e2b7831ad05bc74cfd87da0` and successfully re-fetched from `agent-reports` as blob `cab30123869d694a536057faa4364fea2dc8a3d1`. Readback confirmed Claims `20261013-census-5` through `-7`, the Python result hash, and the completed handoff. This confirmation append changes no mathematical claim.
