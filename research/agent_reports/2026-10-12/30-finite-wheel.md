@@ -11,7 +11,7 @@
 - **Report target:** `agent-reports:research/agent_reports/2026-10-12/30-finite-wheel.md`
 - **Previous upstream reports actually read:** `00-coordinator-am.md` PENDING (404); `10-owner-payment.md` PENDING (404); `20-analytic-type-ii.md` PENDING (404), all checked on `agent-reports`.
 - **Execution environment/tools used:** authenticated GitHub read/search and authorized report-file write; CPython 3 exact integer enumeration. No Lean build or CI was run.
-- **Publication status:** PUBLISHING; GitHub commit SHA and readback verification are reported after the write.
+- **Publication status:** PUBLISHED. Initial report commit: `710ca9d74cebbb878767f36a2a841c4c9dfe0679`; this metadata update is verified by a subsequent readback.
 
 ## Current central research objective
 
