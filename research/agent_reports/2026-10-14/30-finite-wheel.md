@@ -595,3 +595,177 @@ source estimate, finite A/C, CORR-4, or RH theorem is proved.
 - **Upstream intake:** today's `00-coordinator-am.md` is `TODAY=PENDING`; today's Owner Payment `a2ed7dc2...`, Analytic Type II `b8ee78df...`, Coordinator PM `d7229fa1...`, this report `2c2d3a0d42c3af6efb638b2cd2d8aec806aaaf74`, and external inbox `6fce4e9d...` were read. Yesterday's coordinator/owner/analytic/wheel reports were read as continuity.
 - **Delta task:** prove and falsify a tag-wise root-spacing bound for all repeated descendants of one historical prime `q`, then test whether it yields a multiplicity-safe signed packet with the original VF weights. All current occurrences remain distinct; the historical `q` charge is counted once.
 - **Checkpoint classification:** `NO_NEW_RESULT` at checkpoint; no canonical-bound or RH claim.
+
+
+## Scheduled 4 PM run completed — 2026-10-14T16:18:00-04:00
+
+### Provenance and two-day continuity
+
+- **Report date / stage:** 2026-10-14, America/New_York / RH | Finite Wheel & Incidence.
+- **Observed current \`main\` HEAD:** \`13c3aeab8f84fc2309175261948a17a50c8342f4\`; explicit \`fetch_commit(main)\` at 2026-10-14T16:08:55-04:00 returned merge commit #942.
+- **Central authority:** \`main:AGENTS.md\` blob \`26715158e91d4f5f71e9e8aa15baa1a17053e456\`; \`main:CURRENT_PROOF_CONTRACT.md\` blob \`27dceba62b4797bbb394439d13fc4a8dbe29ea0b\`; both fetched successfully.
+- **Current-day upstream actually read:** \`00-coordinator-am.md\` = \`TODAY=PENDING\` (verified 404); \`10-owner-payment.md\` blob \`a2ed7dc27756393c49beb5bebae80971a2af6aff\`, latest run 12:36:56 ET, Claims \`20261014-owner-5/-6\`; \`20-analytic-type-ii.md\` blob \`b8ee78df90d9fccb4b1201c933720a70300d9d51\`, latest run 12:54:35 ET, Claims \`20261014-analytic-4/-5\`; \`90-coordinator-pm.md\` blob \`d7229fa116dfa7180fc941f18e5d8250dacf6714\`, latest run 12:24:28 ET. The pre-run version of this report was blob \`2c2d3a0d42c3af6efb638b2cd2d8aec806aaaf74\`.
+- **Previous-day continuity:** coordinator AM \`87a596f6f7bcb9bab6b2d29fc7c162c64ed544cb\`, coordinator PM \`aab612c387de93a777c696bc54be128b210cb8b8\`, Owner \`32f1574b8ade7dedc602b07b1b9257341320080a\`, Analytic \`d9f73a0aab42e70ca30a17d16822a8281ca7afef\`, and this stage \`1c96431194038b2691f628bfce5736f7f0dcacd5\` were read. These are historical continuity, not current authority.
+- **External intake:** \`EXTERNAL_HANDOFFS.md\` blob \`6fce4e9d024b6c4ad47798c5d7c162101a2435a0\`. \`EXT-20261014-1\` is now subsumed by merged sharp primorial theorems; \`EXT-20261014-5\` remains \`PAPER_PROOF\` and is not used below.
+- **Early checkpoint:** commit \`fdf03ae1afea635a0c5c099c87035faaee6dc491\`, verified readback blob \`492260fc9d1f786befc3c12c637fb7c2d20f80be\`.
+- **Tools:** GitHub connector reads/writes and CPython 3.12 exact integer enumeration. No local Lean build, proof PR, web source, issue, branch, or source-file write.
+
+### Current objective and changed formal baseline
+
+The unique public target remains \`VFCanonicalSquareVonKochStatement\`:
+\[
+\exists C\ge 0\ \forall R\ge2,\qquad
+|\pi(R^2)-\operatorname{vfMidFinishedMass}(R)-\sqrt2|
+\le C R\log R.
+\]
+Current compiled main shows that the signed-late/admissibility interfaces are target-equivalent and that the old #915 payment is not an independently available first-bad premise. Therefore this result is not presented as a completion lemma.
+
+The live baseline used here is:
+
+- \`VF_MID_HISTORICAL_PRIME_MULTIPLICITY.lean\`, blob \`fda6db056571191feffd08f2d1d6fe0fa02f0d8c\`: exact owner threshold \(2^{20}\), global fibre, and same-block uniqueness;
+- \`VF_MID_OWNER_SIGNED_PAIR_BOUNDS.lean\`, blob \`e3cc17224469e24516390a8f20e590d5932dbfc1\`: original current weight \(w_R<9/64\), historical weight \(w_r<99/640\), literal signed charges, and restored pair cross-term identity;
+- \`VF_MID_FIRST_BAD_WEIGHTED_OWNER_FUBINI.lean\`, blob \`58b78186e4fd5b68179afe4be0b7b6e4761442d6\`, and \`VF_MID_FIRST_BAD_ACTIVE_RAW_PARENT_SPLICE.lean\`, blob \`e61eb36301f650bfb41079bbd7367f9f45cf6d3e\`: original physical sites, weights, masks, clipping, raw-parent sectors, residuals and cross terms;
+- \`VF_MID_932_ORIGINAL_VF_CARRIER_DISJOINT.lean\`, blob \`9dcd03a96ff44ba876fec2994a487441cd6f1d09\`: the relevant carriers cannot be silently identified;
+- \`VF_MID_LATE_OWNER_SHARP_PRIMORIAL_BUDGET.lean\`, blob \`4925053b09acaa927f48c7fad8f13c0f4bf5ff71\`: this report's earlier Claims 5/6 are now \`PROVED_IN_LEAN\`.
+
+The new question is whether the threshold \(1024p\le\lfloor\sqrt{pq}\rfloor\) supplies a cross-block restriction that remains valid when the same historical prime \(q\) has many current descendants.
+
+### Claim 20261014-wheel-8 — sharp 1024 root spacing for a repeated historical tag
+
+**Status: \`PAPER_PROOF\`. No Lean compilation was performed.**
+
+Let \(q\) be prime and let \(3\le p_1<p_2\) be primes. Put
+\[
+R_i=\lfloor\sqrt{p_iq}\rfloor.
+\]
+If \(1024p_2\le R_2\), then
+\[
+\boxed{R_2-R_1\ge1024.}
+\]
+Consequently, for \(A<B\) and any set \(S\) of eligible prime owners with
+\(A\le R_p<B\),
+\[
+\boxed{|S|\le 1+\left\lfloor\frac{B-A-1}{1024}\right\rfloor}
+\]
+when \(S\ne\varnothing\). In particular, a half-open root interval of length at most 6144 contains at most six descendants of one historical tag.
+
+**Derivation.** The compiled threshold equivalence gives
+\(q\ge2^{20}p_2\). Since distinct odd primes differ by at least two,
+\[
+\sqrt{p_2q}-\sqrt{p_1q}
+=\frac{q(p_2-p_1)}{\sqrt{p_2q}+\sqrt{p_1q}}
+\ge\frac{p_2-p_1}{2}\sqrt{\frac q{p_2}}
+\ge1024.
+\]
+Translation by the integer 1024 commutes with the floor, so the same lower bound holds for \(R_2-R_1\). Ordering the roots in \([A,B)\) gives the cardinality bound.
+
+**Carrier audit.** Every occurrence remains the literal squarefree composite \(p q\), with genuine least-prime owner \(p\), strict walls
+\(R_p^2<pq<(R_p+1)^2\), and unit occurrence multiplicity. Repeated \(q\) tags are retained. A mask may select any subset of these occurrences and cannot weaken the spacing bound. No assertion is made that the one historical \(q\) occurrence passes the source's admission/clipping masks.
+
+**Independent ingredient and novelty.** The compiled exact fibre counts owners globally and proves only same-block uniqueness. Repository search found no quantitative separation theorem between different roots of one tag. The new ingredient is the threshold geometry combined with the parity gap between genuine odd primes. It is neither a wheel survivor census nor an inequality equivalent to the canonical endpoint bound.
+
+### Claim 20261014-wheel-9 — multiplicity-safe six-block signed packet
+
+**Status: \`PAPER_PROOF\`.**
+
+Let \(q\) be prime, \(A<B\), and let \(S\ne\varnothing\) be any selected set of prime owners \(p\ge3\) satisfying
+\[
+R_p=\lfloor\sqrt{pq}\rfloor,\qquad
+1024p\le R_p,\qquad A\le R_p<B,\qquad B-A\le6144.
+\]
+Put \(r=\lfloor\sqrt q\rfloor\). Count the historical prime occurrence \(q\) exactly once. Then the literal original signed seat charges satisfy
+\[
+\boxed{
+\sum_{p\in S}\operatorname{charge}(R_p,pq)
++\operatorname{charge}(r,q)<-\frac1{640}.}
+\]
+
+**Proof.** Claim 8 gives \(|S|\le6\). Each current \(pq\) is composite and contributes exactly \(+w_{R_p}\). Since \(R_p\ge1024p\ge3072\), the compiled physical bound gives \(w_{R_p}<9/64\). The nonempty fibre and threshold imply \(r\ge1024\); the historical prime contributes exactly
+\(-(1-w_r)\), with \(w_r<99/640\). Therefore
+\[
+\sum_{p\in S}w_{R_p}-(1-w_r)
+<6\frac9{64}-\frac{541}{640}
+=-\frac1{640}.
+\]
+
+This is a signed, original-coefficient statement and does not clone \(q\): all selected current occurrences are summed, while the historical charge occurs once. It remains valid after deleting current sites by a mask, provided the one stated historical occurrence is actually present. It does not restore the anchor, squareful terms, clipping coefficients, omitted sites, other historical tags, or quadratic cross terms.
+
+**Quantitative contribution.** For a root window of length \(L\), the integer-population trivial bound is \(L\) current descendants and the uniform current-mass bound is \((9/64)L\). Claim 8 replaces these by
+\[
+1+\left\lfloor\frac{L-1}{1024}\right\rfloor
+\quad\text{and}\quad
+\frac9{64}\left(1+\left\lfloor\frac{L-1}{1024}\right\rfloor\right).
+\]
+At \(L\le6144\), this crosses the exact one-history sign threshold with strict margin \(1/640\). No density hypothesis, RH, finite A/C, #915 payment, or endpoint bound is assumed.
+
+### Claim 20261014-wheel-10 — exact computation and falsification
+
+**Status: \`FINITE_COMPUTATION\`; \`REFUTED\` for a 1025-spacing strengthening and for unrestricted one-history payment.**
+
+1. A sieve through \(10^7\) checked all 438,030 prime \(q\) from \(3\cdot2^{20}\) through \(10^7\), with every eligible prime owner. No root gap below 1024 occurred; the smallest observed gap was 1110 at
+\((q,p_1,p_2,R_1,R_2)=(7340033,5,7,6058,7168)\).
+2. The stronger universal gap 1025 is false. Exact trial division certified the primality of
+\[
+p_1=10139,\quad p_2=10141,\quad q=10633609379.
+\]
+The corresponding data are
+\[
+R_1=10383360,\quad R_2=10384384,\quad R_2-R_1=1024.
+\]
+The products are \(107814165493681\) and \(107835432712439\); both have strict positive lower and upper square gaps. Threshold slacks \(R_i-1024p_i\) are respectively 1024 and 0. Thus the constant in Claim 8 is sharp on genuine primes and physical descendants.
+3. The current Owner witness \(q=1000000007\), \(A=488109\) was independently re-enumerated: 111 selected prime owners, roots 488876 through 976217, minimum adjacent root gap 1064. Claim 8 gives the honest capacity 477. Hence it records repeated ancestry but does not falsely force a one-slot fibre.
+4. The same 111-descendant witness, with upstream's rigorous \(X>111/14>1>y\), refutes extending Claim 9 to an arbitrary half-run. A single historical charge cannot be reused in successive 6144-windows.
+
+**Algorithms actually executed.** CPython 3.12 used an Eratosthenes byte sieve, \`math.isqrt\`, exact product/square-gap checks, and deterministic 64-bit Miller-Rabin followed by complete trial division through \(\lfloor\sqrt q\rfloor=103119\) for the sharpness witness. The \(q=1000000007\) reproduction sieved owners through 953 and retained every \((p,R_p)\). No floating calculation is used in Claims 8 or 9.
+
+### Falsification, circularity and source limits
+
+- Small endpoint cases, threshold equality, strict square walls, repeated historical tags, and a production-style half-run overload were tested.
+- The theorem permits arbitrarily many descendants globally; it only spaces them. It does not infer historical availability from current demand.
+- Claim 9 spends one historical \(q\) once. Partitioning a long run into short windows and paying every window with that same \(q\) is explicitly invalid.
+- The signed linear packet is not the global NNS quadratic. The exact merged cross-term identity shows that residual/anchor cross terms remain.
+- The original active masks and clipping are not replaced by a larger carrier. The result applies to an admitted subset only after an exact source theorem proves which current and historical tags are present.
+- No implication to \`VFCanonicalSquareVonKochStatement\` has been proved. The production target remains \`NO_NEW_RESULT\`.
+
+### First unresolved lemma
+
+Define on the literal first-bad active carrier, for each historical tag \(q\), its actually admitted current descendants and its admitted historical supply \(a(q)\). Prove an order-independent disjoint decomposition that may allocate the unique historical \(q\) to at most one root window of length 6144, leaves every other descendant in a multiplicity residual, and preserves masks, clipping, anchor, squareful restoration, chronology and all quadratic cross terms. Then bound the joint residual without reusing \(q\).
+
+This route-specific lemma, provisionally \`TAG-PACKET-DISJOINT-1\`, is not known to be sufficient for the canonical target.
+
+### Explicit 1 AM Prime Census Laboratory tests
+
+1. Independently verify Claim 8 over genuine tuples \((q,p,R_p)\), including threshold equality and both strict square gaps. Confirm the exact 1024-gap witness above.
+2. Search for the maximum tag degree in every half-open window of lengths 1024, 2048, ..., 6144. Retain owner primes and roots; do not deduplicate \(q\).
+3. Test whether prime-wheel restrictions improve the six-slot cap, especially the minimum root span supporting seven prime owners. Treat any finite improvement as finite evidence until an all-scale residue proof is supplied.
+4. On actual masked first-bad carriers, emit tuples
+\((q,p,R,pq,w_R,\text{currentTag},\text{historicalTag},\text{mask},\text{clip})\).
+Verify Claim 9 only when the single historical \(q\) tag is present, and count it once.
+5. Reproduce \(q=1000000007,A=488109\): 111 descendants, minimum root gap 1064, spacing capacity 477, exact current-weight sum and one historical magnitude. This is the adversarial long-run control.
+6. Measure how many disjoint 6144-windows are occupied by each \(q\), and report the residual after choosing at most one packet per actually available historical tag. Do not infer a global signed bound from packet counts alone.
+
+### Review and formalization handoff
+
+- **Adversarial Referee:** check the floor transfer, use of the odd-prime gap, the \(B-A-1\) endpoint, the inference \(r\ge1024\), the exact \(-1/640\) arithmetic, and the mask/availability limitation. Independently trial-divide the sharp witness.
+- **Potential Lean Verification candidate after acceptance:** formalize Claim 8 against \`vfMidHistoricalPrimeOwnerFibre\`, then Claim 9 using the existing literal signed-charge bounds. The theorem must state one historical occurrence, a selected finite current set, and \(B-A\le6144\); it must not claim a global payment or source inclusion.
+- **Prime Census:** Claims 8-10 and the six tests above are explicit and reproducible.
+
+### Final classification
+
+**Net-new mathematical progress:** \`PAPER_PROOF\` of sharp cross-block 1024 spacing and the multiplicity-safe original-weight six-block signed packet; \`FINITE_COMPUTATION\` sharpness and repeated-tag tests.
+
+**Trivial versus improved bound:** \(L\) current sites versus
+\(1+\lfloor(L-1)/1024\rfloor\); for \(L\le6144\), an exact signed margin below \(-1/640\) after using one historical \(q\) once.
+
+**Canonical/RH status:** \`NO_NEW_RESULT\`. No claim that RH, finite A/C, CORR-4, a target-equivalent inlet, or the old #915 payment is proved.
+
+### Updated next-run resume capsule — 2026-10-14T16:18:00-04:00
+
+- **Source freshness:** main \`13c3aeab8f84fc2309175261948a17a50c8342f4\`; central blobs \`26715158...\`, \`27dceba6...\`; multiplicity \`fda6db05...\`; signed pairs \`e3cc1722...\`; physical Fubini \`58b78186...\`; raw-parent splice \`e61eb363...\`.
+- **Upstream consumed:** today AM coordinator \`PENDING\`; Owner \`a2ed7dc2...\`, Analytic \`b8ee78df...\`, Coordinator PM \`d7229fa1...\`; yesterday coordinator/owner/analytic/wheel blobs listed above; external inbox \`6fce4e9d...\`.
+- **Reusable new claims:** \`20261014-wheel-8\` sharp 1024 tag-root spacing; \`20261014-wheel-9\` one-history, at-most-six-current original-weight packet \(<-1/640\); \`20261014-wheel-10\` finite verification and 1025 refutation.
+- **Computation:** 438,030 prime \(q\le10^7\) scanned; exact sharp witness \((10139,10141,10633609379)\); \(q=1000000007\) half-run independently reproduced.
+- **First unresolved blocker:** \`TAG-PACKET-DISJOINT-1\`, the exact mask/clip/anchor/cross-term preserving allocation and multiplicity residual.
+- **Next action:** independent Census and Referee review; request Lean formalization only if accepted.
+- **For Agent #7:** no PR exists or is requested in this run; no local Lean or CI evidence.
+- **Avoid next run:** reusing one \(q\) in multiple windows, converting the linear packet to a global NNS conclusion without cross terms, or repeating the unchanged fixed-primorial scans.
