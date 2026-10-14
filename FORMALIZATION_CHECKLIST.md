@@ -81,6 +81,17 @@ Each PR description and checklist update must identify:
 
 ## Active PR record
 
+### PR #944 — central seven-agent signed collision-transfer routing (2026-10-14; instructions only)
+
+- [x] Refresh current main and actual merged #938, #939 and #941–#943 state; preserve canonical +sqrt(2) target and frozen raw #915 source.
+- [x] Update `AGENTS.md` and `CURRENT_PROOF_CONTRACT.md` with the live actual-prime versus Li/floor-Li **signed collision** crosswalk, role-specific experiments, full original NNS/owner terms and no-hidden-RH criteria.
+- [x] Update the Studio setup guide to require verified actual saved agent configurations, no lingering read-only Agent #7 restriction, one invocation/day and mandatory live main refetch; **this PR cannot modify Studio state or schedules**.
+- [x] Reconcile research handoff, route registry, and reader-facing documentation. Existing external report-branch prompts remain a lower-priority, independent branch and MUST re-read current main.
+- [x] Distinguish the existing Lean-certified finite continuous Li-density collision budget from the divergent *absolute* genuine-prime reciprocal sum; do not infer signed cancellation from either.
+- [ ] Confirm final-head documentation/source sanity and diff; record actual CI status before merge.
+- [ ] Human review/merge only; no new Lean statements or RH proof claim.
+
+
 ### PR #933 — ChatGPT Agent Studio independent first-bad research campaign (2026-10-12)
 
 - [x] Read `AGENTS.md`, current canonical proof contract, original #915 exact source/budget and merged #931 cross-coordinate audit.
