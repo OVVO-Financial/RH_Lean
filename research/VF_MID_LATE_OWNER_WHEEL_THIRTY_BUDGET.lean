@@ -46,7 +46,7 @@ private theorem prime_gt_five_coprime_thirty
 
 /-- Literal quotient-child inclusion in the four-slot 30-wheel. -/
 theorem vfMidSquareBandLateOwner_roughChildren_subset_wheelThirty
-    {A R p : ℕ} (hA : 5 ≤ A) (hAR : A ≤ R)
+    {A R p : ℕ} (hA : 5 ≤ A) (_hAR : A ≤ R)
     (hRlt : R < 2 * A)
     (hp : p ∈ vfMidSquareBandLateOwnerPrimes A R) :
     vfMidSquareBandOwnerRoughChildren R p ⊆
