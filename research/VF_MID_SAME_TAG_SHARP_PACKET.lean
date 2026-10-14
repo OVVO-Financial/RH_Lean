@@ -206,9 +206,9 @@ private theorem vfMidSameTag_twelve_residue_capacity (a : ℕ) :
       ((Finset.range 12).filter
         (fun k => (a % 6 + k) % 6 = 1 ∨ (a % 6 + k) % 6 = 5)) := by
     ext k
-    simp only [Finset.mem_filter, Finset.mem_range]
+    simp only [Finset.mem_filter]
     have hmod : (a + k) % 6 = (a % 6 + k) % 6 := by omega
-    simp [hmod]
+    rw [hmod]
   rw [hset]
   have hcalc : ∀ r : ℕ, r < 6 →
       ((Finset.range 12).filter
