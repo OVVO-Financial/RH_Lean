@@ -239,3 +239,11 @@ These results verify the unchanged parity dependency only. They do not kernel-ve
 - **First unresolved production premise:** `SOURCE-SPLICE-1`, followed by history availability and the signed late-correction/source-payment estimate.
 - **Next action:** if source writes are authorized, formalize the wheel fibre and run lemmas on `agent/lean-verification/YYYYMMDD-short-topic`; otherwise audit any newly published owner/analytic report for an exact weighted bridge.
 - **Avoid:** treating unit-weight capacity as signed payment, using cutoff `A` as cutoff `2`, averaging adaptive residues, or claiming kernel verification for the uncompiled wheel claims.
+
+
+## Publication verification
+
+- **Completed audit content commit:** `8469f35e341d8aebaa273db456093a6695a3d596`.
+- **Completed audit blob read back:** `d55c9a8d9bb85a17bafdae86fb39b699886c3bbd`.
+- **Readback:** exact 16,408-character match; completed audit and final resume capsule present.
+- **Publication status:** `COMPLETED`.
