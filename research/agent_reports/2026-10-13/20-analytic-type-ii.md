@@ -457,3 +457,274 @@ joint signed sum until after cancellation or strict lower-run descent.
 - **Current objective:** advance the exact original-weight historical/current source payment toward `VFMid915FirstBadSourcePaymentStatement`, or give a rigorous quantitative obstruction, while preserving the canonical public target `VFCanonicalSquareVonKochStatement`.
 - **Delta task:** audit whether the owner's injective current `3q` / historical prime `q` cancellation can be upgraded from signed linear dominance to a useful exact quadratic/NNS restriction after the mandatory history-compression restoration. The reported witness `R=1011,n=1022127,q=340709` already falsifies naive pairwise NNS payment.
 - **Publication status:** `PARTIAL`; this checkpoint contains no new theorem.
+
+
+### Completed evening investigation — 2026-10-13T22:29:27-04:00
+
+#### Fresh source and handoff audit
+
+The mathematical authority remained `main` HEAD
+`52babf6eb87a7c6f80316ceb952667ad65cb2aa3`. In addition to the upstream
+files recorded in the checkpoint, this run read Prime Census blob
+`e14006a1a29a2f6c9ef2306fea6b1f4243bdf58c`, Adversarial Referee blob
+`1f47fd36415359f115a0488192a2f5f6cf57c047`, Lean Verification blob
+`e3c413a3949ad685e5f8a344e934e0adc30c15ca`, and Coordinator PM blob
+`aab612c387de93a777c696bc54be128b210cb8b8`. The referee and coordinator
+leave `SOURCE-SPLICE-1` open. No open/draft PR was found.
+
+Exact current-main declarations inspected include:
+
+- `VF_MID_SIGNED_SEAT_CHARGE.lean` blob
+  `13dda0d2c6cc59580959a2d59fad60126b1c6b0b`:
+  `vfMidOddSignedSeatCharge_of_prime` and
+  `vfMidOddSignedSeatCharge_of_not_prime`;
+- `VF_MID_FIRST_BAD_NORMALIZED_PARTIAL_MOMENT.lean` blob
+  `b199c5ae9e9440bedd81d3730b8e6c87519e923e`:
+  `vfMidFirstBadZeroTargetTotalMass_eq`;
+- `VF_MID_FIRST_BAD_SOURCE_TO_SECTOR_SIX_INLET.lean` blob
+  `5d03f3080d014aba1e02485ae9c0b08988478c3c`:
+  the literal source and its exact equality with the next endpoint defect;
+- `VF_MID_915_EXACT_HISTORICAL_NNS_COMPRESSION.lean` blob
+  `190bd8024bcda99eb3b3349729466903db4e4c39`:
+  the mandatory squared-norm restoration;
+- `VF_MID_915_LATE_PREFIX_WEIGHTED_DYADIC.lean` blob
+  `3d12fe937cc7de03fb307417a7156d194bab45db`:
+  `vfMid915TripleCurrentParent_in_halfRun`.
+
+#### Exact carrier and required target
+
+Write
+[
+ w_t=rac{2t+1}{tlog(t^2+t+1/2)}.
+]
+For an actual current composite occurrence
+[
+ R^2<n<(R+1)^2,qquad n=3q,qquad q {m prime},
+]
+put (r=lfloorsqrt qfloor). The literal current seat charge is
+(x=w_R>0), and the literal historical prime-seat charge is
+(-(1-w_r)=-y), where (y=1-w_r>0). For (Rge16), current main places
+(q) in the actual half-run history and the map (nmapsto q=n/3) is
+injective. Thus this is an original occurrence pair, not a model carrier.
+
+The production target is still
+[
+ 2,	exttt{vfMidFirstBadDecompressedHistoricalSource}(R)^2
+ le 	exttt{vfMidFirstBadZeroTargetTotalMass}(R)
+]
+under the first-bad hypotheses. The public consumer requires the resulting
+(O(Rlog R)) canonical endpoint bound. For one isolated pair, the trivial
+estimate is
+[
+ |(x+y)^2-2(x-y)^2|le (x+y)^2+2(x-y)^2le12
+]
+when (0<x,yle1). The useful information sought here is not a smaller
+absolute constant but the correct sign of this quadratic slack.
+
+### Claim 20261013-analytic-5 — exact two-seat NNS ratio criterion
+
+- **Status:** `PAPER_PROOF`.
+- **Statement:** For all real (x,y>0),
+  [
+  (x+y)^2-2(x-y)^2ge0
+  quadLongleftrightarrowquad
+  3-2sqrt2le y/xle3+2sqrt2.
+  ]
+- **Proof:** Divide by (x^2), put (t=y/x), and factor
+  [
+  1+2t+t^2-2(1-2t+t^2)
+   =-t^2+6t-1
+   =-(t-(3-2sqrt2))(t-(3+2sqrt2)).
+  ]
+- **Interpretation:** Signed dominance (y>x) is insufficient. Pairwise NNS
+  payment additionally imposes an upper ratio bound (y/xle3+2sqrt2).
+
+### Claim 20261013-analytic-6 — uniform large-scale failure and infinitely many actual failures
+
+- **Status:** `PAPER_PROOF`; independently reproduces and strengthens the
+  finite obstruction in Owner Claim `20261013-owner-6`.
+- **Exact quantified statement:** For every integer (Rge200000), every
+  prime (q), and every (n=3q) satisfying
+  (R^2<n<(R+1)^2), with (r=lfloorsqrt qfloor), one has
+  [
+  y=1-w_r>6w_R=6x
+  ]
+  and hence
+  [
+  (x+y)^2-2(x-y)^2=6xy-x^2-y^2<0.
+  ]
+  There are infinitely many actual triples satisfying these hypotheses.
+- **Weight proof:** For every (t>1),
+  [
+  0<w_t<rac{3}{2log t},
+  ]
+  since (2+1/tle3) and
+  (log(t^2+t+1/2)>2log t). The compiled half-run theorem gives
+  (rgelfloor R/2floor+1). For (Rge200000),
+  (log R>12), so (x<1/8); also (rge100001) and
+  (log r>6), so (w_r<1/4) and (y>3/4). Therefore (y>6x), and
+  (6xy-x^2-y^2<y(6x-y)<0).
+- **Elementary constant check:** (e<11/4) follows from the exponential
+  series and the geometric bound on its tail. Hence
+  (e^{12}<(11/4)^{12}=3138428376721/16777216<200000).
+  Also (e^6<3^6<100001). No PNT or unproved cancellation is used.
+- **Infinitude:** primes (q>3) are unbounded. For each such (q), put
+  (R=lfloorsqrt{3q}floor). Since (3q) is not a square,
+  (R^2<3q<(R+1)^2); unbounded (q) gives unbounded (R), hence
+  infinitely many members beyond the explicit threshold.
+- **Saving comparison:** this is a sign obstruction on a literal
+  original-weight subcarrier. It does not estimate the full source and does
+  not contradict the desired global (O(Rlog R)) cancellation.
+
+### Claim 20261013-analytic-7 — exact cross-term obstruction to local deletion
+
+- **Status:** `PAPER_PROOF`.
+- **Statement:** Let a residual carrier have signed sum (S_0) and absolute
+  mass (M_0). Add the literal pair (+x,-y), and put
+  (a=x+y), (d=x-y). For the source-payment slack
+  (G(M,S)=M^2-2S^2),
+  [
+  G(M_0+a,S_0+d)-G(M_0,S_0)
+   =2M_0a-4S_0d+(a^2-2d^2).
+  ]
+- **Proof:** expand both squares.
+- **Consequence:** the isolated pair slack (a^2-2d^2) is not its global
+  payment contribution. The two cross terms depend on the complete anchor,
+  unmatched history, current seats, and all other owners. After historical
+  decompression, `vfMid915ActualHistoricalSquaredNormRestoration` adds the
+  further exact (4UL+2C(U+L-|U-L|)) price. Therefore neither the negative
+  large-scale pair slack nor the linear signed cancellation may be deleted
+  locally without a global reassembly theorem.
+
+#### Falsification and computation
+
+CPython 3.12 evaluated the literal formulas. At the uniform threshold,
+(R=200000,r=100001),
+[
+ x=0.08192662162711639,quad
+ y=0.9131407824958928,quad
+ y/x=11.145837145000227,
+]
+and the isolated slack is (-0.3916748237094641). The reported first witness
+was independently checked:
+[
+ R=1011, q=340709, n=1022127, r=583.
+]
+Trial division through (lfloorsqrt qfloor) found no divisor, strict
+open-band membership is (1022121<n<1024144), and the recomputed slack is
+(-0.00006744905275524182). These are `FINITE_COMPUTATION` checks only;
+Claims 5--7 have paper proofs.
+
+Attempts to strengthen the result were deliberately rejected:
+
+- negative isolated slack does not imply negative global slack because Claim 7
+  exposes uncontrolled cross terms;
+- signed linear dominance does not pay the NNS denominator;
+- no Type I/II decomposition helps this two-seat nonoscillatory ratio problem;
+- no historical prime may be spent twice, and the compression-restoration
+  term cannot be dropped.
+
+#### Explicit bridge to the original source
+
+1. **Exact equality:** current main gives charge (+w_R) on the actual
+   composite (n=3q) and charge (-(1-w_r)) on the actual historical prime
+   (q).
+2. **Proven implication/change of variables:** for (Rge16), the compiled
+   half-run theorem puts (r) in ([lfloor R/2floor+1,R));
+   (nmapsto q=n/3) is injective.
+3. **Signed reindexing:** matching these occurrences preserves their distinct
+   block weights, signs, square-wall strictness, and multiplicity one.
+4. **Exact algebra:** Claim 7 retains every cross term when this pair is
+   inserted into the full signed/absolute ledger.
+5. **Exact restoration:** the compiled compression theorem specifies the
+   additional price between decompressed history and the original NNS
+   denominator.
+6. **Unproved transfer lemma:** no theorem yet identifies the residual after
+   all such pairings with the six-boundary/sector-six ledger while retaining
+   the anchor, masks, clipping, raw-parent multiplicity, cross-owner terms,
+   and complete lower-child runs.
+
+#### Literature and analytic-method audit
+
+No external theorem is needed for the evening claims: they use elementary
+logarithmic bounds, Euclid's infinitude of primes, exact repository
+declarations, and algebra. The earlier report's Vinogradov--Korobov benchmark
+remains the strongest unconditional general estimate recorded on the whole
+sharp scalar carrier and is still far above the required (Alog A) scale.
+There is no oscillatory phase in the present pair, and both walls are sharp,
+so Vaughan/Heath-Brown or generic Type II norm bounds would address a different
+carrier unless an exact source reassembly is first proved.
+
+#### Established, open, and first missing lemma
+
+**Established:**
+
+- `20261013-analytic-5`: exact ratio criterion for an isolated two-seat NNS
+  payment.
+- `20261013-analytic-6`: every eligible original (3q) pair fails that
+  isolated payment for (Rge200000), with infinitely many actual failures.
+- `20261013-analytic-7`: exact global cross-term formula explaining why
+  pairwise slack cannot be summed independently.
+- Owner Claim `20261013-owner-5` was independently consistent with the
+  inspected literal charge formulas and compiled half-run placement.
+
+**Not established:**
+
+- nonnegativity or a lower bound for the full global source-payment slack;
+- a residual source-to-sector-six equality after matching (3q) pairs;
+- the (O(Alog A)) signed late correction, canonical endpoint bound,
+  finite A/C, CORR-4, actual-prime admissibility, or RH.
+
+**First missing lemma:** Construct an order-independent exact residual identity
+after injectively matching every eligible current (3q) seat to its historical
+prime (q). The identity must express the change in the complete anchored
+source-payment slack, including Claim 7's cross terms and the compiled
+compression-restoration price, on the original carrier and then place the
+residual on the six-boundary/sector-six ledger with all masks, clipping,
+owner multiplicities, anchor terms, cross-owner interactions, and lower-child
+runs intact.
+
+#### Requested downstream work
+
+- **Prime Census Laboratory (1 AM):** enumerate literal eligible (3q) pairs
+  to a declared larger range; locate the last nonnegative isolated slack and
+  the first scale after which every observed actual pair is negative; verify
+  primality/open-wall certificates; and compute Claim 7's *global* increment
+  using exact full-carrier (M_0,S_0), not only pair slack. Preserve
+  ((R,n,q,r,w_R,w_r,	ext{sourceTag},	ext{mask})).
+- **Adversarial Referee (3 AM):** audit the (w_t<3/(2log t)) bound, the
+  half-run-to-(r) step, the elementary (Rge200000) constants, the
+  infinitude construction, and the sign/cross-term algebra. In particular,
+  reject any inference from infinitely many local failures to failure of the
+  global source inequality.
+- **Lean Verification:** Claims 5 and 7 are small algebraic candidates.
+  Claim 6 additionally needs elementary real-log bounds and the existing
+  half-run declaration. Formalization is useful only as a guardrail against
+  pairwise payment, not as source closure.
+
+#### Evening final status
+
+- **Strongest new result:** `PAPER_PROOF`, Claim
+  `20261013-analytic-6`.
+- **Production target:** `NO_NEW_RESULT`; source payment and the canonical
+  RH-scale estimate remain open.
+- **No RH-proof claim:** yes.
+
+## Updated next-run resume capsule (non-authoritative)
+
+- **Checkpoint:** 2026-10-13T22:29:27-04:00 at main
+  `52babf6eb87a7c6f80316ceb952667ad65cb2aa3`.
+- **New reusable claims:** `20261013-analytic-5..7`.
+- **Mandatory design constraint:** eligible (3q) pairs have negative
+  isolated NNS slack uniformly for (Rge200000) and infinitely often; retain
+  global cross terms and compression restoration.
+- **Upstream consumed:** Coordinator AM `87a596f6...`; Owner latest
+  `32f1574b...`; Census `e14006a1...`; Referee `1f47fd36...`; Lean
+  `e3c413a3...`; Coordinator PM `aab612c3...`.
+- **First blocker:** exact original-carrier residual reassembly after
+  coefficient-preserving pair matching.
+- **Next action:** obtain the requested global-increment census and adversarial
+  audit, then state the residual equality before attempting any inequality.
+- **Avoid:** pairwise NNS payment, discarding negative pair slack as if it were
+  paid capacity, omitting cross terms/restoration, or reusing historical prime
+  occurrences.
