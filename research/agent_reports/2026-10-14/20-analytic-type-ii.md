@@ -363,3 +363,18 @@ new rigorous restriction and obstruction were established.
 - Early checkpoint readback blob:
   `26a3f309cbd749a5591fb63846acddbbc30ba3da`.
 - Substantive completion commit: `a3927834a2c82708e2fb2d9ab54ce8405aa85c6e`.\n- Verified substantive readback blob: `96665c849fe9bf916c47070deeb91adce9414041`; required claims and downstream sections were present.\n- **Publication status:** COMPLETED on explicit branch `agent-reports`.
+
+
+---
+
+## Second analytic run checkpoint — 2026-10-14T12:49:04-04:00
+
+### Refreshed authority and assignment
+
+- **Actual live `main` HEAD:** `13c3aeab8f84fc2309175261948a17a50c8342f4`, retrieved 2026-10-14T12:49-04:00 from the GitHub `branches/main` endpoint.
+- **Central files:** `main:AGENTS.md` blob `26715158e91d4f5f71e9e8aa15baa1a17053e456`; `main:CURRENT_PROOF_CONTRACT.md` blob `27dceba62b4797bbb394439d13fc4a8dbe29ea0b`; both fetched successfully.
+- **Today/two-day continuity:** `00-coordinator-am.md` remains `TODAY=PENDING`; today's owner report blob `a2ed7dc27756393c49beb5bebae80971a2af6aff`; previous-day owner and analytic checkpoints were re-read; today's earlier analytic material above is preserved.
+- **External inbox:** blob `6fce4e9d024b6c4ad47798c5d7c162101a2435a0` consumed. PRs #938, #939 and #942 are now merged; live open/draft PR search returned none.
+- **Current objective:** the unique public target remains `VFCanonicalSquareVonKochStatement`. Target-equivalent signed-late/admissibility/payment reformulations are excluded as independent progress.
+- **Delta selected:** quantify the multiplicity of repeated historical tags in a sharp run using an unconditional prime-interval estimate, then audit whether the resulting logarithmic saving controls the literal original carrier after signs, masks, clipping, anchor expansion, historical runs and quadratic cross terms.
+- **Status:** `IN_PROGRESS`. No global endpoint estimate or RH consequence is claimed at this checkpoint.
