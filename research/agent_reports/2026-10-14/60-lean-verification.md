@@ -247,3 +247,17 @@ These results verify the unchanged parity dependency only. They do not kernel-ve
 - **Completed audit blob read back:** `d55c9a8d9bb85a17bafdae86fb39b699886c3bbd`.
 - **Readback:** exact 16,408-character match; completed audit and final resume capsule present.
 - **Publication status:** `COMPLETED`.
+
+
+---
+
+## Run 2 — PARTIAL / IN_PROGRESS
+
+- **Timestamp:** 2026-10-14T12:08:15-04:00 (America/New_York).
+- **Invocation scope:** direct user instruction is review-only for GitHub Lean source. The only authorized write is this append-only report; no source, branch, PR, issue, or other report will be modified.
+- **Live authority:** `main` commit `13c3aeab8f84fc2309175261948a17a50c8342f4`; `AGENTS.md` blob `26715158e91d4f5f71e9e8aa15baa1a17053e456`; `CURRENT_PROOF_CONTRACT.md` blob `27dceba62b4797bbb394439d13fc4a8dbe29ea0b`. All three were freshly retrieved.
+- **Current objective:** independently audit today's exact owner, analytic, wheel, census, and referee claims against the original signed VF carriers and the current no-narrowing contract; verify which declarations are already on current `main`; identify any still-new theorem eligible for formalization without modifying Lean source.
+- **Today's upstream availability:** `00-coordinator-am.md` is `PENDING` (GitHub fetch failed/not found); `10-owner-payment.md` blob `08b203d38e2c0d495631c1873edb903d83412ea1`; `20-analytic-type-ii.md` blob `7e6667d1e3e95861eb9c4e929b478ac910b3c2dc`; `30-finite-wheel.md` blob `2c2d3a0d42c3af6efb638b2cd2d8aec806aaaf74`; `40-prime-census.md` blob `7bd424fd86fcbb45a56f8a203f66b021779c97a6`; `50-adversarial-referee.md` blob `291927079f3a362afd1cf944d42bc7598645e5d8`.
+- **Live PR queue:** no open pull requests returned at the initial refresh.
+- **Material source change since Run 1:** wheel-30, ancestry-multiplicity, original signed pair/NNS, and exact 2310/30030 results have since merged. Their exact declarations, imports, CI provenance, and axiom evidence are being checked before classification.
+- **Checkpoint status:** `IN_PROGRESS`. No new kernel-verification claim is made by this checkpoint.
