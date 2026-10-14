@@ -344,3 +344,15 @@ upstream reports were published.
 - **Highest-value next action:** scheduled Referee audits EXT-5; Owner and
   Analytic tracks propose only exact identities or genuinely new inequalities
   that survive the no-narrowing and original-carrier checks.
+
+
+## Publication verification
+
+- **Completed synthesis commit:** `d31e7e631d90cd822b33e9ff15e267048615ef66`.
+- **Completed synthesis blob read back:** `c5009eac76d78a60290f5745673b2186ba371c7d`.
+- **Readback:** 17,563 characters; all required audit, advance, refutation,
+  duplicate, frontier, dependency, priority, operational, final, and resume
+  sections present.
+- **Final publication status:** COMPLETED on the explicit
+  `agent-reports` branch. The daily research cycle itself remains
+  incomplete because `00/10/20` are `PENDING`.
