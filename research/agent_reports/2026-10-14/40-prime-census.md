@@ -970,3 +970,458 @@ large ancestry primes; four high-precision signed pairs.
 - **Claims selected for independent audit:** `20261014-owner-5..6`, `20261014-analytic-4..5`, and `20261014-wheel-8..10`, with emphasis on exact floor endpoints, root spacing, multiplicity, original weights, and the claimed six-block signed margin.
 - **Live PR discovery:** no open or draft pull requests were returned. PRs #941 and #942 are merged into the observed `main`.
 - **Next computation:** implement an independent exact prime/integer-root enumerator and a separately structured C++ cross-check; search for smaller root gaps, reproduce the sharp 1025 counterexample and the (q=1000000007) half-run overload, then evaluate signed packets at increased decimal precision.
+
+
+## Scheduled continuation completed — 2026-10-14T16:22:08-04:00
+
+### Provenance and changed baseline
+
+- **Execution interval:** 2026-10-14T16:16:31-04:00 through 2026-10-14T16:22:08-04:00.
+- **Observed current `main` HEAD:** `13c3aeab8f84fc2309175261948a17a50c8342f4`, read from the live `branches/main` endpoint. It is the verified merge commit for PR #942. No open or draft PR was returned.
+- **Authority blobs:** `AGENTS.md` `26715158e91d4f5f71e9e8aa15baa1a17053e456`; `CURRENT_PROOF_CONTRACT.md` `27dceba62b4797bbb394439d13fc4a8dbe29ea0b`.
+- **Current-day inputs:** Coordinator AM `TODAY=PENDING`; Owner Payment `a2ed7dc27756393c49beb5bebae80971a2af6aff`, Claims `20261014-owner-5..6`; Analytic Type II `b8ee78df90d9fccb4b1201c933720a70300d9d51`, Claims `20261014-analytic-4..5`; Finite Wheel `476d1af0f2624f615e7cdcb017812633dbd232f0`, Claims `20261014-wheel-8..10`.
+- **Previous-day continuity actually read:** Coordinator AM `87a596f6f7bcb9bab6b2d29fc7c162c64ed544cb`; Owner `32f1574b8ade7dedc602b07b1b9257341320080a`; Analytic `d9f73a0aab42e70ca30a17d16822a8281ca7afef`; Wheel `1c96431194038b2691f628bfce5736f7f0dcacd5`; Census `e14006a1a29a2f6c9ef2306fea6b1f4243bdf58c`. These are continuity only.
+- **External inbox:** `6fce4e9d024b6c4ad47798c5d7c162101a2435a0`. `EXT-20261014-1..5` were consumed earlier today; no new external claim superseded the present inputs.
+- **Relevant compiled source inspected:** historical multiplicity `fda6db056571191feffd08f2d1d6fe0fa02f0d8c`; signed pair bounds `e3cc17224469e24516390a8f20e590d5932dbfc1`; weighted physical Fubini `58b78186e4fd5b68179afe4be0b7b6e4761442d6`; active raw-parent splice `e61eb36301f650bfb41079bbd7367f9f45cf6d3e`; sharp primorial budget `4925053b09acaa927f48c7fad8f13c0f4bf5ff71`.
+- **Early checkpoint:** commit `f93338ed768e8f3b822a39daeec6a425cfe8d45e`, verified blob `55e12bcd3d2247f124ef3f19f00c4d1866683698`.
+- **Environment:** CPython 3.12.14; g++ 13.3.0, `-O3 -std=c++20`; Linux 6.18.44 x86_64. No local Lean compilation was performed.
+
+The unique open public goal remains `VFCanonicalSquareVonKochStatement`. The claims below are exact incidence/linear-charge restrictions only. They do not supply masks, clipping, anchor restoration, the quadratic NNS cross terms, or endpoint control.
+
+### Claim 20261014-census-10 — independent reproduction of the new upstream arithmetic
+
+**Status: `FINITE_COMPUTATION`; upstream universal statements retain their reported `PAPER_PROOF` or `PROVED_IN_LEAN` status.**
+
+Two independently structured programs agreed on all exact integer data.
+
+1. `20261014-wheel-8/-10`: all 438,030 primes (q) with (3cdot2^{20}<qle10^7) and every eligible odd-prime owner were enumerated. No adjacent root gap below 1024 occurred. The minimum was 1110 at
+   [
+   (q,p_1,p_2,R_1,R_2)=(7340033,5,7,6058,7168).
+   ]
+   Window maxima for lengths (1024,2048,ldots,6144) were respectively (1,2,3,3,3,3).
+2. The claimed sharp witness was independently certified:
+   [
+   (p_1,p_2,q)=(10139,10141,10633609379),quad
+   (R_1,R_2)=(10383360,10384384).
+   ]
+   The gap is exactly 1024. Lower square gaps are 604081 and 1652983; upper gaps are 20162640 and 19115786; threshold slacks (R_i-1024p_i) are 1024 and 0. Python deterministic 64-bit Miller--Rabin and C++ complete trial division both certified all three primes.
+3. `20261014-owner-5/-6`: for (q=1000000007), (A=488109), the programs found exactly 111 prime owners in ([239,953]), sum 64891, 111 distinct roots from 488876 to 976217, and minimum adjacent gap 1064. The owner-list SHA-256 is exactly the upstream value
+   `e5bae15ed976f7db0020fa9f46b24b1f5d1cfec0cf1035d3237acc6dfd48d50f`.
+4. `20261014-analytic-4/-5`: for the prime (q=1000000000039),
+   [
+   A=244140625,quad L_q=59604,quad U_q=238418.
+   ]
+   Both programs found 15,072 owners, endpoints 59611 and 238417, roots 244153640 through 488279633, and minimum lower/upper square gaps 32849 and 3849. The owner hash reproduced exactly:
+   `c91405733e2058eb5af1d02eb7357e30fcbe0eb4544cb6ac977fc65c2c69845d`.
+
+No contradiction was found in the exact fibre formula, weight asymptotic's finite example, or sharp 1024 spacing. Finite agreement does not prove the PNT asymptotics.
+
+### Claim 20261014-census-11 — four-owner sharp window cap
+
+**Status: `PAPER_PROOF` plus `FINITE_COMPUTATION`; strengthens the valid but nonsharp six-site bound in `20261014-wheel-9`.**
+
+Let (q) be prime and let (S) be a nonempty set of distinct odd-prime owners (p), with
+[
+R_p=lfloorsqrt{pq}floor,qquad 1024ple R_p,qquad
+Ale R_p<B,qquad B-Ale6144.
+]
+Then
+[
+oxed{|S|le4.}
+]
+
+Order five hypothetical owners (p_1<cdots<p_5). The compiled threshold equivalence gives (qge2^{20}p_5). If (p_1=3), then (p_5ge13), and
+[
+sqrt{p_5q}-sqrt{p_1q}
+ge1024,rac{p_5-p_1}{1+sqrt{p_1/p_5}}
+ge1024,rac{10}{1+sqrt{3/13}}>6144.
+]
+(The last inequality follows after isolating and squaring: (4>6sqrt{3/13}).)
+If (p_1>3), five odd primes cannot occupy an interval of diameter 10: the six odd candidates contain two distinct multiples of 3, both composite. Hence (p_5-p_1ge12), while (1+sqrt{p_1/p_5}<2), giving the same strict (>6144) bound.
+
+For real (x-y>6144), (lfloor xfloor-lfloor yfloor>6143), hence the integer root difference is at least 6144. But two roots in ([A,B)) with (B-Ale6144) differ by at most 6143, contradiction.
+
+The cap is optimal. Both implementations certified the genuine four-owner witness
+[
+q=11534351,quad (p_i)=(3,5,7,11),quad
+(R_i)=(5882,7594,8985,11264),
+]
+whose root span is 5382. All products have strict positive square gaps, and the threshold slacks are (2810,2474,1817,0). C++ complete trial division certified (q) prime.
+
+This improvement comes from exact odd-prime constellation geometry, not a probabilistic wheel average. It answers the requested prime-restriction test all-scale and falsifies any universal cap of three.
+
+### Claim 20261014-census-12 — strengthened one-history signed packet
+
+**Status: `PAPER_PROOF`; high-precision values are diagnostic only.**
+
+Under Claim 11, count the one historical prime occurrence (q) exactly once. The compiled literal bounds give current weights (w(R_p)<9/64) and historical magnitude (1-w(lfloorsqrt qfloor)>541/640). Therefore
+[
+oxed{sum_{pin S}operatorname{charge}(R_p,pq)
++operatorname{charge}(lfloorsqrt qfloor,q)
+<-rac{181}{640}.}
+]
+Indeed (4(9/64)-541/640=-181/640). This strictly strengthens the upstream (-1/640) margin.
+
+For the sharp four-owner witness, 180-decimal evaluation gave current sum
+(0.4441934219799508828305322527815ldots), historical magnitude
+(0.8769882373588209633522582840591ldots), and signed total
+(-0.4327948153788700805217260312776ldots).
+The 120- and 180-digit runs agreed through all displayed digits. The sign and theorem do not depend on floating arithmetic; they follow from the exact rational bounds.
+
+For the 111-descendant control, the exact sliding maxima at lengths
+(1024,2048,3072,4096,5120,6144) were (1,2,2,3,4,4). There were 71 occupied (A)-aligned 6144-windows, each holding at most four sites. Spending the one historical tag on a best four-site packet leaves 107 current descendants, so repeated packet payment would clone (q). At 180 digits:
+[
+X=8.2169191125328057557ldots,quad
+y=0.9034885076691904531ldots,quad
+-X^2+6Xy-y^2=-23.7906992656729320483ldots.
+]
+The maximum-weight four-site packet found had current mass
+(0.2915597847805521420ldots) and linear signed margin
+(-0.6119287228886383111ldots).
+
+Thus the local packet is genuinely favorable and multiplicity-safe, but 107 residual current occurrences remain in this witness. No global NNS conclusion follows.
+
+### Algorithms, commands, and error control
+
+Executed commands:
+
+```bash
+python -u census_20261014.py
+PREC=180 python -u census_20261014.py
+g++ -O3 -std=c++20 census_20261014.cpp -o /tmp/census_20261014
+/tmp/census_20261014
+```
+
+The Python implementation used an Eratosthenes byte sieve, exact `isqrt`, deterministic 64-bit Miller--Rabin, exact integer endpoints and `decimal` logarithms at 120 and 180 digits. Its final measured time was 5.365179 seconds. The C++ implementation used a structurally different linear sieve, independently corrected integer square root, and complete odd trial division for supplied large witnesses; its measured time was 0.0814869 seconds. Times are observed wall times, not benchmarks.
+
+Source hashes:
+
+```text
+334bc3a8bf1bbf4efe604b74da22472f18211d4e47d928e403856e6b4bf2c5a9  census_20261014.py
+28ea63586d7a34d58c9f272dfdac213e464d5de9f3f1c0b8b62629226811e133  census_20261014.cpp
+```
+
+#### Executed Python source
+
+```python
+#!/usr/bin/env python3
+from bisect import bisect_right
+from decimal import Decimal, getcontext
+from hashlib import sha256
+from math import isqrt
+from os import environ
+from time import perf_counter
+
+M = 1 << 20
+getcontext().prec = int(environ.get("PREC", "120"))
+
+
+def sieve(n):
+    a = bytearray(b"\x01") * (n + 1)
+    a[:2] = b"\x00\x00"
+    for p in range(2, isqrt(n) + 1):
+        if a[p]:
+            a[p * p:n + 1:p] = b"\x00" * ((n - p * p) // p + 1)
+    return a, [i for i in range(2, n + 1) if a[i]]
+
+
+def is_prime64(n):
+    if n < 2:
+        return False
+    for p in (2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37):
+        if n % p == 0:
+            return n == p
+    d, s = n - 1, 0
+    while d % 2 == 0:
+        d //= 2
+        s += 1
+    for a in (2, 325, 9375, 28178, 450775, 9780504, 1795265022):
+        if a % n == 0:
+            continue
+        x = pow(a, d, n)
+        if x in (1, n - 1):
+            continue
+        for _ in range(s - 1):
+            x = x * x % n
+            if x == n - 1:
+                break
+        else:
+            return False
+    return True
+
+
+def next_prime(n):
+    n = max(2, n)
+    if n == 2:
+        return 2
+    n += (n % 2 == 0)
+    while not is_prime64(n):
+        n += 2
+    return n
+
+
+def root_row(p, q):
+    n = p * q
+    r = isqrt(n)
+    return p, r, n - r * r, (r + 1) * (r + 1) - n, r - 1024 * p
+
+
+def weight(t):
+    t = Decimal(t)
+    return (2 * t + 1) / (t * (t * t + t + Decimal("0.5")).ln())
+
+
+def max_window(rows, length):
+    best = (0, None, None)
+    j = 0
+    for i in range(len(rows)):
+        while rows[i][1] - rows[j][1] >= length:
+            j += 1
+        cand = (i - j + 1, j, i)
+        if cand[0] > best[0]:
+            best = cand
+    return best
+
+
+start = perf_counter()
+isprime, primes = sieve(10_000_000)
+
+# Exhaust the same bounded q range and retain window-degree diagnostics.
+q_count = 0
+min_gap = None
+min_gap_row = None
+max_degrees = {L: 0 for L in range(1024, 6145, 1024)}
+violations = 0
+for q in primes[bisect_right(primes, 3 * M):]:
+    if q > 10_000_000:
+        break
+    q_count += 1
+    ps = primes[1:bisect_right(primes, q // M)]
+    rows = [root_row(p, q) for p in ps]
+    for a, b in zip(rows, rows[1:]):
+        gap = b[1] - a[1]
+        if min_gap is None or gap < min_gap:
+            min_gap = gap
+            min_gap_row = (q, a[0], b[0], a[1], b[1])
+        violations += gap < 1024
+    for L in max_degrees:
+        max_degrees[L] = max(max_degrees[L], max_window(rows, L)[0])
+
+# Exact 1024 sharpness witness.
+sharp_q = 10_633_609_379
+sharp = [root_row(p, sharp_q) for p in (10_139, 10_141)]
+
+# Find a genuine four-owner witness in a 6144-root window.
+four = None
+small_primes = [p for p in primes if 3 <= p <= 1000]
+for i in range(len(small_primes) - 3):
+    quartet = small_primes[i:i + 4]
+    q = next_prime(M * quartet[-1])
+    rows = [root_row(p, q) for p in quartet]
+    if rows[-1][1] - rows[0][1] < 6144:
+        four = (q, rows)
+        break
+four_weight = sum(weight(r[1]) for r in four[1])
+four_y = Decimal(1) - weight(isqrt(four[0]))
+
+# Long half-run overload and exact weights.
+q = 1_000_000_007
+A, B = 488_109, 976_218
+owners = [p for p in primes if 239 <= p <= 953]
+rows = [root_row(p, q) for p in owners]
+X = sum(weight(r[1]) for r in rows)
+y = Decimal(1) - weight(isqrt(q))
+G = -X * X + 6 * X * y - y * y
+windows = {}
+for L in range(1024, 6145, 1024):
+    c, j, i = max_window(rows, L)
+    windows[L] = (c, rows[j][0] if j is not None else None,
+                  rows[i][0] if i is not None else None,
+                  rows[j][1] if j is not None else None,
+                  rows[i][1] if i is not None else None)
+aligned = {}
+for row in rows:
+    k = (row[1] - A) // 6144
+    aligned[k] = aligned.get(k, 0) + 1
+packet_count, j, i = max_window(rows, 6144)
+packet_weight = sum(weight(rows[k][1]) for k in range(j, i + 1))
+
+owner_text = ",".join(map(str, owners)).encode()
+
+# Independent reproduction of the analytic dyadic-fibre example.
+analytic_q = 1_000_000_000_039
+analytic_A = analytic_q // 4096
+analytic_L = analytic_A * analytic_A // analytic_q
+analytic_U = ((2 * analytic_A) ** 2 - 1) // analytic_q
+analytic_owners = primes[bisect_right(primes, analytic_L):bisect_right(primes, analytic_U)]
+analytic_rows = [root_row(p, analytic_q) for p in analytic_owners]
+analytic_X = sum(weight(r[1]) for r in analytic_rows)
+analytic_y = Decimal(1) - weight(isqrt(analytic_q))
+analytic_text = ",".join(map(str, analytic_owners)).encode()
+print("bounded_q", q_count, "violations", violations,
+      "min_gap", min_gap, "min_gap_row", min_gap_row)
+print("bounded_window_max", max_degrees)
+print("sharp_prime", is_prime64(sharp_q), "owners_prime",
+      is_prime64(10_139), is_prime64(10_141), "rows", sharp,
+      "gap", sharp[1][1] - sharp[0][1])
+print("four_witness", four, "span", four[1][-1][1] - four[1][0][1])
+print("four_signed", four_weight, four_y, four_weight - four_y,
+      "rational_bound", Decimal(-181) / Decimal(640))
+print("overload", len(owners), sum(owners), len({r[1] for r in rows}),
+      rows[0][1], rows[-1][1],
+      min(rows[i + 1][1] - rows[i][1] for i in range(len(rows) - 1)))
+print("windows", windows)
+print("aligned_6144", len(aligned), max(aligned.values()),
+      sorted(aligned.items())[:3], sorted(aligned.items())[-3:])
+print("residual_after_one_best_packet", len(rows) - packet_count)
+print("weights_X", X)
+print("weights_y", y)
+print("weights_G", G)
+print("best_packet_count_weight_margin", packet_count, packet_weight,
+      packet_weight - y)
+print("owner_sha256", sha256(owner_text).hexdigest())
+print("analytic", is_prime64(analytic_q), analytic_A, analytic_L, analytic_U,
+      len(analytic_owners), analytic_owners[0], analytic_owners[-1],
+      analytic_rows[0][1], analytic_rows[-1][1],
+      min(r[2] for r in analytic_rows), min(r[3] for r in analytic_rows))
+print("analytic_weights", analytic_X, analytic_y)
+print("analytic_owner_sha256", sha256(analytic_text).hexdigest())
+print("script_sha256", sha256(open(__file__, "rb").read()).hexdigest())
+print("elapsed_seconds", format(perf_counter() - start, ".6f"))
+```
+
+#### Executed C++ source
+
+```cpp
+#include <algorithm>
+#include <chrono>
+#include <cmath>
+#include <cstdint>
+#include <iostream>
+#include <numeric>
+#include <vector>
+
+using u64 = uint64_t;
+static constexpr u64 M = 1ULL << 20;
+
+static bool prime_trial(u64 n) {
+  if (n < 2) return false;
+  if (n % 2 == 0) return n == 2;
+  for (u64 d = 3; d <= n / d; d += 2) if (n % d == 0) return false;
+  return true;
+}
+
+static u64 iroot(u64 n) {
+  u64 r = static_cast<u64>(std::sqrt(static_cast<long double>(n)));
+  while ((r + 1) <= n / (r + 1)) ++r;
+  while (r > n / r) --r;
+  return r;
+}
+
+struct Row { u64 p, r, low, high, threshold; };
+static Row row(u64 p, u64 q) {
+  u64 n = p * q, r = iroot(n);
+  return {p, r, n - r * r, (r + 1) * (r + 1) - n, r - 1024 * p};
+}
+
+static std::vector<int> linear_primes(int n) {
+  std::vector<int> lp(n + 1), ps;
+  for (int x = 2; x <= n; ++x) {
+    if (!lp[x]) { lp[x] = x; ps.push_back(x); }
+    for (int p : ps) {
+      if (p > lp[x] || 1LL * p * x > n) break;
+      lp[p * x] = p;
+    }
+  }
+  return ps;
+}
+
+int main() {
+  auto start = std::chrono::steady_clock::now();
+  auto ps = linear_primes(10000000);
+  u64 qcount = 0, violations = 0, mingap = ~u64(0);
+  std::vector<u64> maxdeg(7);
+  u64 bestq=0,bp1=0,bp2=0,br1=0,br2=0;
+  for (int qi : ps) {
+    u64 q = qi;
+    if (q <= 3 * M) continue;
+    ++qcount;
+    std::vector<Row> rows;
+    for (int p : ps) {
+      if (p < 3) continue;
+      if (u64(p) * M > q) break;
+      rows.push_back(row(p,q));
+    }
+    for (size_t i=1;i<rows.size();++i) {
+      u64 g=rows[i].r-rows[i-1].r;
+      if(g<mingap){mingap=g;bestq=q;bp1=rows[i-1].p;bp2=rows[i].p;br1=rows[i-1].r;br2=rows[i].r;}
+      violations += g < 1024;
+    }
+    for(int k=1;k<=6;++k){u64 L=1024*k;size_t j=0;for(size_t i=0;i<rows.size();++i){while(rows[i].r-rows[j].r>=L)++j;maxdeg[k]=std::max<u64>(maxdeg[k],i-j+1);}}
+  }
+  std::cout<<"bounded_q "<<qcount<<" violations "<<violations<<" min_gap "<<mingap
+           <<" row "<<bestq<<' '<<bp1<<' '<<bp2<<' '<<br1<<' '<<br2<<" max";
+  for(int k=1;k<=6;++k)std::cout<<' '<<1024*k<<':'<<maxdeg[k];std::cout<<'\n';
+
+  u64 sq=10633609379ULL;
+  auto a=row(10139,sq), b=row(10141,sq);
+  std::cout<<"sharp primes "<<prime_trial(10139)<<' '<<prime_trial(10141)<<' '<<prime_trial(sq)
+           <<" gap "<<b.r-a.r<<" rows "<<a.r<<' '<<a.low<<' '<<a.high<<' '<<a.threshold
+           <<" | "<<b.r<<' '<<b.low<<' '<<b.high<<' '<<b.threshold<<'\n';
+
+  std::vector<u64> quartet={3,5,7,11};u64 fq=M*quartet.back();while(!prime_trial(fq))++fq;
+  std::vector<Row> fr;for(auto p:quartet)fr.push_back(row(p,fq));
+  std::cout<<"four "<<fq<<" prime "<<prime_trial(fq)<<" span "<<fr.back().r-fr.front().r;
+  for(auto z:fr)std::cout<<" | "<<z.p<<','<<z.r<<','<<z.low<<','<<z.high<<','<<z.threshold;std::cout<<'\n';
+
+  u64 q=1000000007ULL;std::vector<Row> rows;u64 owner_sum=0;
+  for(int p:ps)if(p>=239&&p<=953){rows.push_back(row(p,q));owner_sum+=p;}
+  u64 mg=~u64(0);for(size_t i=1;i<rows.size();++i)mg=std::min(mg,rows[i].r-rows[i-1].r);
+  std::cout<<"overload "<<rows.size()<<' '<<owner_sum<<" roots "<<rows.front().r<<' '<<rows.back().r<<" min_gap "<<mg<<'\n';
+
+  u64 aq=1000000000039ULL,A=aq/4096,L=A*A/aq,U=((2*A)*(2*A)-1)/aq;
+  std::vector<Row> ar;for(int p:ps){if(u64(p)<=L)continue;if(u64(p)>U)break;ar.push_back(row(p,aq));}
+  u64 minlo=~u64(0),minhi=~u64(0);for(auto z:ar){minlo=std::min(minlo,z.low);minhi=std::min(minhi,z.high);}
+  std::cout<<"analytic "<<prime_trial(aq)<<' '<<A<<' '<<L<<' '<<U<<' '<<ar.size()
+           <<" owners "<<ar.front().p<<' '<<ar.back().p<<" roots "<<ar.front().r<<' '<<ar.back().r
+           <<" gaps "<<minlo<<' '<<minhi<<'\n';
+  std::cout<<"elapsed_seconds "<<std::chrono::duration<double>(std::chrono::steady_clock::now()-start).count()<<'\n';
+}
+```
+
+### Counterexample and coverage summary
+
+- **Confirmed:** 1025 root spacing is `REFUTED`; the smallest supplied sharp witness has exact gap 1024.
+- **Confirmed:** a universal three-owner cap in a 6144 window is `REFUTED` by the exact four-owner witness above.
+- **Strengthened:** the upstream six-site cap is valid but nonsharp; the all-scale prime-carrier cap is exactly four.
+- **Confirmed:** assigning one historical (q) separately to every descendant is `REFUTED`; the 111-site witness leaves 107 sites after one optimal local packet.
+- **Finite coverage:** every eligible owner for all 438,030 primes (qle10^7) above (3cdot2^{20}), the two large supplied witnesses, the analytic 15,072-owner example, and the complete 111-owner half-run.
+- **Numerical uncertainty:** no integer or primality result used floating point. Decimal signs were stable at 120/180 digits and have margins above (0.4), but are not interval certificates. The universal sign claims rest on rational inequalities.
+
+### Remaining proof obligations and referee requests
+
+1. Audit the five-prime diameter dichotomy, strict floor transfer and exact four-owner witness in Claim 11.
+2. If accepted, Lean may formalize the cap-four theorem against `vfMidHistoricalOwner_sqrt_iff`, then strengthen the literal selected-packet charge from (-1/640) to (-181/640). This is auxiliary, not a completion theorem.
+3. `TAG-PACKET-DISJOINT-1` remains unresolved: an exact active-carrier theorem must decide which historical (q) is admitted, allocate it at most once, preserve masks/clipping/anchor/squareful terms/chronology, and retain every quadratic cross term.
+4. The 111-site witness shows that local packets do not control the multiplicity residual. A new joint residual estimate on the original carrier is still required.
+5. Claims `20261014-analytic-4/-5` save logarithms within one fixed tag but do not sum over tags or prove (O(Alog A)) endpoint discrepancy.
+6. No computation here proves the canonical endpoint bound, first-bad payment, finite A/C, CORR-4, or RH.
+
+### Updated final report summary
+
+**Net-new mathematical progress:** `PAPER_PROOF` of the optimal all-scale four-owner cap in every 6144-root window and the strengthened one-history signed margin (-181/640); exact four-owner sharpness witness. Independent `FINITE_COMPUTATION` reproduced all new upstream integer examples.
+
+**Completeness:** `DONE` for today's available arithmetic claims; `DONE_NO_NEW_RESULT` for the canonical endpoint target.
+
+**No RH-proof claim:** yes.
+
+## Updated next-run resume capsule — 2026-10-14T16:22:08-04:00
+
+- **Source freshness:** main `13c3aeab8f84fc2309175261948a17a50c8342f4`; central and relevant source blobs listed above.
+- **Upstream consumed:** today `00=TODAY=PENDING`; Owner `a2ed7dc2...`; Analytic `b8ee78df...`; Wheel `476d1af0...`; yesterday's five relevant blobs listed above.
+- **Completed evidence worth reusing:** Claims `20261014-census-10..12`; exact cap four and witness ((q,p)=(11534351;3,5,7,11)); two-implementation reproductions; source hashes above.
+- **Invalidations / corrections:** upstream cap six remains true but is nonsharp; replace its local worst-case packet margin (-1/640) by (-181/640) when the exact selected-set hypotheses hold. No source inclusion or global payment follows.
+- **First unresolved blocker:** exact admitted tag ledger and joint residual/cross-term estimate without historical-tag reuse.
+- **Next highest-value step:** Referee audit of Claim 11, followed only then by scoped Lean formalization; separately emit literal masked active-carrier tuples before testing any aggregate signed estimate.
+- **For Agent #7:** formalize only the auxiliary cap-four and selected-packet theorem after referee acceptance; do not state source admission, global covariance, or canonical completion.
+- **Avoid next run:** repeating unchanged bounded scans, paying multiple windows with one (q), dropping 107 residual descendants, or converting the linear packet into the global quadratic NNS.
