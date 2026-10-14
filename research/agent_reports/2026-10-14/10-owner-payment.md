@@ -435,69 +435,69 @@ Compiled `main` is authoritative. No open or draft PR was discovered.
 **Status: PAPER_PROOF plus exact FINITE_COMPUTATION.**
 
 Put
-[
-q=1,000,000,007,qquad R=976,217,qquad
-A=lfloor R/2\rfloor+1=488,109
-]
+$
+q=1,000,000,007, R=976,217,
+A=floor(R/2)+1=488,109
+$
 and let
-[
-P={p: p\text{ prime}, 239le ple953}.
-]
-For every (pin P), put (r_p=lfloorsqrt{pq}\rfloor). Then:
+$
+P={p: p prime, 239 <= p <= 953}.
+$
+For every p in P, put r_p=floor(sqrt(pq)). Then:
 
 1. (q) is prime and (P) has exactly 111 elements;
-2. (Ale r_ple R<2A), and the 111 roots (r_p) are distinct;
-3. (r_p^2<pq<(r_p+1)^2), so every (pq) is a distinct original odd
+2. A <= r_p <= R < 2A, and the 111 roots (r_p) are distinct;
+3. r_p^2 < pq < (r_p+1)^2, so every (pq) is a distinct original odd
    composite occurrence in the complete current half-run;
-4. (p) is its genuine least-prime owner and
-   (1024ple r_p), so every occurrence lies in the compiled small-owner
+4. p is its genuine least-prime owner and
+   1024 p <= r_p, so every occurrence lies in the compiled small-owner
    ancestry sector;
-5. the single historical prime occurrence (q) lies in block
-   (lfloorsqrt q\rfloor=31,622<A), hence is pre-anchor history, not
+5. the single historical prime occurrence q lies in block
+   floor(sqrt(q))=31,622 < A, hence is pre-anchor history, not
    111 separately available historical occurrences.
 
 The exact finite checks include
-[
-239q-A^2=749,605,792>0,quad
-R^2<953q<(R+1)^2,quad 2A-R=1,
-]
-and (2^{20}cdot953=999,292,928<q).
-The same-block uniqueness theorem makes (pmapsto r_p) injective.
+$
+239q-A^2=749,605,792>0,
+R^2<953q<(R+1)^2, 2A-R=1,
+$
+and 2^20 * 953 = 999,292,928 < q.
+The same-block uniqueness theorem makes p -> r_p injective.
 
-Let (x_p=w(r_p)), (X=sum_{pin P}x_p), and
-(y=1-w(lfloorsqrt q\rfloor)), the magnitude of the one original
-historical prime charge. Every (r_ple976,217), so its midpoint is below
-(10^{12}). The elementary exponential series gives
-[
+Let x_p=w(r_p), X=sum_(p in P) x_p, and
+y=1-w(floor(sqrt(q))), the magnitude of the one original
+historical prime charge. Every r_p <= 976,217, so its midpoint is below
+10^12. The elementary exponential series gives
+$
 e>1+1+\frac12+\frac16+\frac1{24}=\frac{65}{24},
 qquad (65/24)^{28}>10^{12}.
-]
+$
 Therefore (log(r_p^2+r_p+1/2)<28) and
-[
+$
 x_p>\frac{2}{28}=\frac1{14}.
-]
+$
 Consequently
-[
+$
 \boxed{X>\frac{111}{14}>1>y.}
-]
+$
 Thus the 111 actual current descendants cannot be linearly cancelled by
 one copy of the historical prime charge. The obstruction is already inside
 the exact first-bad half-run geometry; it is not merely a collision between
 widely separated arbitrary blocks.
 
 For the grouped isolated zero-target slack,
-[
+$
 G=(X+y)^2-2(X-y)^2=-X^2+6Xy-y^2.
-]
-Since (X>111/14>6) and (y<1), (G< -X^2+6X<0).
+$
+Since X>111/14>6 and y<1, G < -X^2+6X < 0.
 Thus grouping all 111 demands against the one available history also fails
 the local NNS payment gate. This is diagnostic only: the global anchor,
 other sites and restored cross terms remain mandatory.
 
 ### Executed computation and reproducer facts
 
-A CPython 3.12 exact-integer enumeration trial-divided (q) through
-(lfloorsqrt q\rfloor=31,622), enumerated all primes in ([239,953]),
+A CPython 3.12 exact-integer enumeration trial-divided q through
+floor(sqrt(q))=31,622, enumerated all primes in [239,953],
 and checked each strict square block and threshold condition.
 
 - owner count: 111;
@@ -542,7 +542,7 @@ canonical endpoint bound, #915 payment, finite A/C, CORR-4 nor RH. It does
 not prove that these 111 descendants alone determine the masked active
 raw-parent carrier; it proves they are physical occurrences in the full
 original run and prevents any later source splice from spending the one
-historical (q) 111 times.
+historical q 111 times.
 
 ### Exact first unproved lemma after this obstruction
 
@@ -565,12 +565,12 @@ bidirectional no-narrowing screen.
 - **Adversarial Referee:** audit whether every (pq) is present in the full
   original frozen run, while distinguishing that fact from membership in the
   narrower clipped/admitted active raw-parent mask; review the grouped
-  (G<0) derivation and sign orientation.
+  G<0 derivation and sign orientation.
 - **Lean Verification:** no immediate PR request. If independently accepted,
   the useful scoped theorem is the finite ancestry-overload certificate and
   rational raw-weight lower bound, without a global payment conclusion.
 - **Coordinator:** retain Claim owner-5 as a mandatory multiplicity
-  counterexample. Any future source splice must group by historical (q)
+  counterexample. Any future source splice must group by historical q
   before summing owner-pair contributions.
 
 ### Continuation final status
@@ -593,12 +593,12 @@ bidirectional no-narrowing screen.
   AGENTS `26715158...`; contract `27dceba6...`.
 - **New formal baseline:** owner-1/2 and exact cross-term identity are
   `PROVED_IN_LEAN` through merged PR #942.
-- **New reusable obstruction:** owner-5, (q=1,000,000,007),
-  (A=488,109), (R=976,217), 111 distinct current descendants,
-  (X>111/14>y), grouped (G<0).
-- **Mandatory interpretation:** one historical (q) is one occurrence; never
-  multiply it by (pi(lfloor q/2^{20}\rfloor)-1).
-- **First blocker:** exact source-tagged (q)-group ledger with masks, anchor,
+- **New reusable obstruction:** owner-5, q=1,000,000,007,
+  A=488,109, R=976,217, 111 distinct current descendants,
+  X>111/14>y, grouped G<0.
+- **Mandatory interpretation:** one historical q is one occurrence; never
+  multiply it by pi(floor(q/2^20))-1.
+- **First blocker:** exact source-tagged q-group ledger with masks, anchor,
   residual and all cross terms; no joint estimate is proved.
 - **Next action:** obtain Census/Referee review and search the minimal
   same-half-run overload; only then consider a finite Lean certificate.
