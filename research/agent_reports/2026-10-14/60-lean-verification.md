@@ -472,3 +472,12 @@ Classification: **NEW_SCOPED_THEOREMS_READY_FOR_FORMALIZATION; NOT_COMPILED; NO_
 - **Formal status:** ready for scoped formalization, but `NOT_COMPILED` and no new axiom result under this run's review-only restriction.
 - **First blocker:** admitted tag ledger plus global residual and quadratic cross-term control without historical reuse.
 - **Avoid:** cloning `q`, treating a selected linear packet as a quadratic source payment, or presenting target-equivalent inlets as narrowed progress.
+
+
+## Run 3 publication verification
+
+- **Completed audit commit:** `53c8755421a445146b0a37f547d5e4ca23cf3482`.
+- **Completed audit blob read back:** `d9528137e2cc5b11ad16dae5567c8efcf0096a97`.
+- **Readback:** completed audit, verdicts, execution limitation and final resume capsule are present.
+- **Early checkpoint commit:** `f97c28d4e615b76e17a6bfbc100044303d9b9cac`; checkpoint blob `18b77d713015032cb6e16cd63e9278c1b6707993`.
+- **Publication status:** `COMPLETED`.
