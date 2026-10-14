@@ -404,3 +404,71 @@ For the next Coordinator:
 - **Current objective:** independently audit Claims `20261014-owner-5/-6`, `analytic-4/-5`, `wheel-8/-10`, and `census-10/-12` on their exact arithmetic carriers, with special attention to the Referee's domain repair, one-history multiplicity restriction, source-admission gap, and quadratic cross terms.
 - **Provisional finding:** the 1024 root-spacing theorem, optimal four-owner cap in a half-open root window of length at most 6144, and the conditional one-history signed packet are genuine auxiliary paper results. They do not establish source admission, permit tag reuse, or control the global residual/cross terms. Exact formalization scope and available execution evidence remain under review.
 - **Checkpoint status:** `IN_PROGRESS`. No new kernel-verification claim is made here.
+
+
+## Run 3 — completed audit — 2026-10-14T16:34:50-04:00
+
+### Final live state and inputs
+
+- **Authority:** `main` remained `13c3aeab8f84fc2309175261948a17a50c8342f4`; `AGENTS.md` blob `26715158e91d4f5f71e9e8aa15baa1a17053e456`; `CURRENT_PROOF_CONTRACT.md` blob `27dceba62b4797bbb394439d13fc4a8dbe29ea0b`.
+- **Requested reports:** Coordinator AM remained `PENDING`/404. Owner `a2ed7dc27756393c49beb5bebae80971a2af6aff`; Analytic `b8ee78df90d9fccb4b1201c933720a70300d9d51`; Wheel `476d1af0f2624f615e7cdcb017812633dbd232f0`; Census `5cfe80753bbfa0374da9eace00b3a137aeaf43b8`; Referee `d4e0a25917843660a8010bc88558b73eb8d243ee`.
+- **Formal source inspected:** historical multiplicity `fda6db056571191feffd08f2d1d6fe0fa02f0d8c`; signed pair bounds `e3cc17224469e24516390a8f20e590d5932dbfc1`; signed-seat source `13dda0d2c6cc59580959a2d59fad60126b1c6b0b`; sharp primorial budget `4925053b09acaa927f48c7fad8f13c0f4bf5ff71`; wheel-30 budget `3701895c3e3af16b6f6b0506ed69f7b5c3d55800`.
+- **Pinned toolchain:** `leanprover/lean4:v4.24.0`, blob `c00a53503cc3cc776c290056ed21ce7e5d80b083`; manifest blob `e7198c2f87e3cc2947190fca647deb93a6137b5a`.
+- **PR queue:** no open or draft PRs. Read-only scope was honored: no Lean source, feature branch, PR, issue, or other agent report was modified.
+
+### Independent mathematical audit
+
+The live target remains `VFCanonicalSquareVonKochStatement`. The merged signed-late, tracking, owner-admissibility and #915 payment audits remain no-narrowing barriers: target-equivalent premises and the fixed `K=2` envelope are not independently paid lemmas. The original arithmetic coefficients remain the literal current charge `+w(R)` and the single historical prime charge `-(1-w(floor(sqrt q)))`; the canonical `sqrt(2)` phase does not change them.
+
+1. **Sharp repeated-tag spacing.** For primes `3 <= p1 < p2`, `Ri=floor(sqrt(pi*q))`, and `1024*p2 <= R2`, current main gives `q >= 2^20*p2`. Hence
+   `sqrt(p2*q)-sqrt(p1*q) >= 1024*(p2-p1)/(1+sqrt(p1/p2)) > 1024`.
+   Therefore `R2-R1 >= 1024`. The strict square carrier is automatic for nonsquares `pi*q`; threshold also forces `q>pi`, so `pi` is the genuine least-prime owner. **ACCEPT `20261014-wheel-8` / PAPER_PROOF.** A Lean statement should use a `Finset` or explicit finiteness for the cardinality corollary.
+
+2. **Optimal four-owner cap.** In a half-open integer root window `[A,B)` with `B-A <= 6144`, five eligible owners are impossible. If the least owner is 3, the fifth is at least 13 and the real root span is strictly greater than 6144. If the least owner exceeds 3, six consecutive odd candidates contain two composite multiples of 3, so the fifth prime is at least 12 larger; the same strict span follows. Floors then differ by at least 6144, while two roots in the window differ by at most 6143. The exact witness `q=11534351`, owners `3,5,7,11`, roots `5882,7594,8985,11264` has span 5382, so four is sharp. **ACCEPT `20261014-census-11` / PAPER_PROOF plus FINITE_COMPUTATION.** This strengthens the valid six-site wheel-9 cap.
+
+3. **One-history signed packet.** With at most four current descendants, each literal current charge is `<9/64`; one actual historical prime charge is `<-541/640`. Thus the selected linear packet is strictly below `4*(9/64)-541/640=-181/640`. **ACCEPT `20261014-census-12` / PAPER_PROOF**, conditional on counting the historical occurrence once and only once. It is not an admission theorem and cannot be repeated across windows.
+
+4. **Multiplicity obstruction.** The `q=1000000007` half-run has 111 distinct eligible descendants but only one historical integer `q`. The exact rational argument gives current mass `X>111/14>1>y`; this refutes cloning the historical charge and any unconditional demand-to-one-history pairing. **REVISE `20261014-owner-5`** to call it a compatible half-run diagnostic, not an actual first-bad/source-admitted event. **ACCEPT `owner-6` / REFUTED** for the unrestricted pairing principle.
+
+5. **Dyadic fibre asymptotics.** For `A=floor(q/4096)`, the strict quotient interval has endpoints `Lq=floor(A^2/q)` and `Uq=floor(((2A)^2-1)/q)`. PNT yields `|Dq| ~ 3q/(2^24 log q) ~ 3A/(4096 log A)`; uniformly `w(R) log A -> 1`, so `Xq ~ 3A/(4096 (log A)^2)`. **REVISE `analytic-4`:** its exact all-odd-prime formula must either require `q>=4096` or state natural truncated-subtraction conventions when `A=0`; the asymptotic is **ACCEPT / PAPER_PROOF**. **ACCEPT `analytic-5` / PAPER_PROOF.** Neither estimate sums over historical tags or controls masks, anchor, chronology or cross terms.
+
+6. **Finite diagnostics.** **ACCEPT `wheel-10` and `census-10` / FINITE_COMPUTATION** at their exact witness scopes. **REJECT / REFUTED** the universal 1025-spacing strengthening, the universal three-owner cap, and arbitrary repeated one-history payment. The last rejection is only of the stated local/cloned pairing, not a fully specified first-bad theorem.
+
+### Independent computation
+
+A fresh CPython 3.12 exact-integer run used deterministic 64-bit Miller-Rabin, `isqrt`, exact square gaps and rational arithmetic. It reproduced:
+
+- four-owner witness roots `5882,7594,8985,11264`, span `5382`, threshold slacks `2810,2474,1817,0`;
+- sharp spacing witness roots `10383360,10384384`, gap exactly `1024`, with all three integers prime and strict positive square gaps;
+- overload witness: `q` prime, 111 prime owners, owner sum 64891, 111 distinct roots from 488876 to 976217, all thresholds and strict square gaps positive;
+- exact packet constants `-181/640` and `-1/640`.
+
+This finite command was not Lean compilation and supplies no kernel evidence.
+
+### Formalization and execution status
+
+There is a genuine scoped formalization candidate: a module importing the historical-multiplicity and signed-pair modules and proving (i) `R2-R1>=1024`, (ii) the `Finset` cardinality cap `<=4` in a half-open window of length at most 6144, and (iii) the selected one-history charge bound `<-181/640`. These claims are auxiliary and not target-equivalent.
+
+**No Lean command was executed.** The repository policy identifies GitHub Actions PR CI as the only authorized Lean environment, while this direct invocation explicitly forbids Lean source, branch and PR modifications. Therefore there was no in-scope route to compile the candidate. No new axiom output exists, and no kernel-verification claim is made. Prior current-main dependencies retain the already recorded PR-CI axiom evidence `[propext, Classical.choice, Quot.sound]`; that evidence does not automatically certify the new paper claims.
+
+Classification: **NEW_SCOPED_THEOREMS_READY_FOR_FORMALIZATION; NOT_COMPILED; NO_NEW_LEAN_THEOREM THIS RUN.** This is not `NO_NEW_THEOREM_TO_FORMALIZE`, because the cap-four package is independently valid and appropriately scoped.
+
+### Exact recommendations for the 07:00 Coordinator
+
+- **ACCEPT:** wheel-8 spacing; wheel-9 as a valid but nonsharp corollary; census-11 optimal cap four; census-12 one-history linear packet; analytic-5; analytic-4 asymptotic after domain repair; owner-6 refutation; exact finite witnesses.
+- **REVISE:** owner-5 must not imply actual first-bad/source admission; analytic-4 must fix the small-`q` domain; wheel-10 must name the defeated local/cloned payment rather than a full #915 theorem.
+- **REJECT / REFUTED:** 1025 universal spacing, universal cap three, one historical occurrence independently paying every descendant, arbitrary-half-run extension of a one-history packet, and any summation of isolated pair/packet negativity without residual cross terms.
+- **Do not promote:** the new packet to source admission, global covariance, #915 payment, finite A/C, CORR-4, the canonical endpoint bound, or RH.
+- **Next formal step when source-write authority is available:** formalize the three auxiliary declarations in one focused PR and require targeted warning-fatal compilation, full build/source audits, no-holes checks, and explicit `#print axioms` output.
+- **First production obligation:** define admitted availability `a(q)` and demanded multiplicity `d(q)` on the literal masked, clipped, anchored, occurrence-tagged, chronology-preserving raw carrier, allocate each historical occurrence at most once, and prove a joint residual/cross-term estimate. The 111-site witness already refutes `d(q)<=a(q)` and cloned-history accounting.
+
+### Next-run resume capsule
+
+- **Checkpoint:** 2026-10-14T16:34:50-04:00.
+- **Authority:** main `13c3aeab8f84fc2309175261948a17a50c8342f4`; AGENTS `26715158...`; contract `27dceba6...`.
+- **Upstream:** `00=PENDING`; Owner `a2ed7dc2...`; Analytic `b8ee78df...`; Wheel `476d1af0...`; Census `5cfe8075...`; Referee `d4e0a259...`.
+- **Accepted new package:** wheel-8/census-11/census-12, `PAPER_PROOF`; finite witnesses independently reproduced.
+- **Required revisions:** analytic-4 domain; owner-5 first-bad wording; wheel-10 payment scope.
+- **Formal status:** ready for scoped formalization, but `NOT_COMPILED` and no new axiom result under this run's review-only restriction.
+- **First blocker:** admitted tag ledger plus global residual and quadratic cross-term control without historical reuse.
+- **Avoid:** cloning `q`, treating a selected linear packet as a quadratic source payment, or presenting target-equivalent inlets as narrowed progress.
