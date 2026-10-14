@@ -378,3 +378,312 @@ new rigorous restriction and obstruction were established.
 - **Current objective:** the unique public target remains `VFCanonicalSquareVonKochStatement`. Target-equivalent signed-late/admissibility/payment reformulations are excluded as independent progress.
 - **Delta selected:** quantify the multiplicity of repeated historical tags in a sharp run using an unconditional prime-interval estimate, then audit whether the resulting logarithmic saving controls the literal original carrier after signs, masks, clipping, anchor expansion, historical runs and quadratic cross terms.
 - **Status:** `IN_PROGRESS`. No global endpoint estimate or RH consequence is claimed at this checkpoint.
+
+
+## Second analytic run completed — 2026-10-14T12:54:35-04:00
+
+### Changed formal baseline
+
+Current `main` at `13c3aeab8f84fc2309175261948a17a50c8342f4`
+has now merged the morning analytic and owner restrictions:
+
+- `research/VF_MID_HISTORICAL_PRIME_MULTIPLICITY.lean`, blob
+  `fda6db056571191feffd08f2d1d6fe0fa02f0d8c`, kernel-proves the exact
+  global owner fibre, its cardinality
+  `pi(floor(q/2^20))-1`, arbitrary finite owner coverage and fixed-block
+  uniqueness.
+- `research/VF_MID_OWNER_SIGNED_PAIR_BOUNDS.lean`, blob
+  `e3cc17224469e24516390a8f20e590d5932dbfc1`, kernel-proves the literal
+  signed pair gap, isolated NNS bound and exact residual cross-term equation.
+- The compression, payment-audit and signed-charge blobs remain
+  `190bd802...`, `f7d046d8...` and `13dda0d2...`.
+- Today's Census, Referee and Lean reports were read at blobs
+  `7bd424fd...`, `29192707...` and `5416d53a...`. The Lean report
+  verifies that PR #942 merged with all required workflows green. No open or
+  draft PR was found.
+
+The new work below is a paper consequence on a sharp dyadic subfibre. It is
+not yet a Lean theorem.
+
+### Exact carrier
+
+Let
+[
+  w(t)=rac{2t+1}{tlog(t^2+t+1/2)}.
+]
+For an odd prime (q), put (A=lfloor q/2^{12}floor). Define
+[
+ mathcal D_q={pge3:p {m prime},     A^2<pq<(2A)^2},
+ qquad R_p=lfloorsqrt{pq}floor.
+]
+For all sufficiently large (q), every (pinmathcal D_q) is a distinct
+genuine least-prime owner occurrence on the literal current candidate-seat
+carrier, with
+[
+ Ale R_p<2A,qquad 1024ple R_p.
+]
+The corresponding current charge is exactly (+w(R_p)). The prime (q)
+itself is one genuine historical occurrence, in block
+(r_q=lfloorsqrt qfloor<A), with charge
+(-(1-w(r_q))); it is not one occurrence per (p).
+
+### Claim 20261014-analytic-4 — exact dyadic fibre and PNT asymptotic
+
+**Status: PAPER_PROOF.**
+
+Set
+[
+ L_q=leftlfloorrac{A^2}{q}ightfloor,qquad
+ U_q=leftlfloorrac{(2A)^2-1}{q}ightfloor.
+]
+For every odd prime (q),
+[
+ |mathcal D_q|
+ =pi(U_q)-pi(L_q)-{f1}_{,L_q<2le U_q}.
+]
+For sufficiently large (q), the indicator vanishes. As (q	oinfty)
+through primes,
+[
+ oxed{quad |mathcal D_q|
+ sim rac{3q}{2^{24}log q}
+ sim rac{3A}{4096log A}.quad}
+]
+
+**Proof.** Strict square-band membership is equivalent to
+(L_q<ple U_q); the (-1) in (U_q) preserves the open upper square wall.
+Moreover
+[
+ rac{L_q}{q}longrightarrow2^{-24},qquad
+ rac{U_q}{q}longrightarrow2^{-22}.
+]
+The prime number theorem applied at these two fixed positive multiples of
+(q) gives the displayed difference. Since
+(ple U_q<4A^2/qle q/2^{22}<q/2^{20}), the compiled exact threshold
+theorem gives (1024ple R_p), and (p<q) makes (p) the least owner.
+The compiled fixed-block uniqueness theorem makes (pmapsto R_p)
+injective. Finally (A>sqrt q) for large (q), so (q)'s block is
+strictly before the run.
+
+**Uniform benchmark.** For arbitrary (A,q), if (H=U_q-L_q>1), the
+Montgomery--Vaughan Brun--Titchmarsh inequality gives
+[
+ |mathcal D_q|lepi(U_q)-pi(L_q)
+ le rac{2H}{log H}.
+]
+The integer-population trivial bound is (H). Thus the prime restriction is
+a logarithmic saving when (H) is large. In the fixed-proportion construction
+the PNT asymptotic is sharper and has no exceptional prime subsequence.
+
+### Claim 20261014-analytic-5 — exact current-weight asymptotic
+
+**Status: PAPER_PROOF.**
+
+On the same literal current subcarrier let
+[
+ X_q=sum_{pinmathcal D_q}w(R_p).
+]
+Then, as (q	oinfty) through primes,
+[
+ oxed{quad X_qsim
+ rac{3A}{4096(log A)^2}.quad}
+]
+Indeed uniformly for (Ale R<2A),
+[
+ w(R)log Alongrightarrow1:
+]
+the numerator divided by (R) tends uniformly to (2), while
+(log(R^2+R+1/2)/log A	o2). Claim 4 then gives the result.
+
+This is a second logarithmic saving relative to the unit-weight occurrence
+bound. It also proves (X_q	oinfty), whereas the one available historical
+magnitude (y_q=1-w(r_q)) tends to (1). Hence no fixed number of copies of
+the historical prime charge can supply all demands even inside one sharp
+dyadic run. Cloning (q) once per owner would insert artificial historical
+absolute mass asymptotic to (|mathcal D_q|), while the genuine positive
+current mass is only of order (A/log^2 A).
+
+### Quantitative comparison with the proof consumer
+
+- **Trivial occurrence estimate:** (Hsim3A/4096).
+- **Prime-owner improvement:** (|mathcal D_q|sim
+  3A/(4096log A)), one logarithm saved.
+- **Actual signed-seat coefficient mass:** (X_qsim
+  3A/(4096log^2 A)), a second logarithm saved.
+- **Required production estimate:** after summing the complete signed original
+  carrier over all tags, retaining history, anchor, masks, clipping and cross
+  terms, the canonical consumer needs (O(Alog A)) endpoint discrepancy
+  rather than the elementary (O(A^2)) scale.
+
+The per-tag current mass is below the target scale, but there is no proved
+summation over all (q), no sign control for the other seats and no bound for
+the quadratic cross terms. Thus this estimate cannot be promoted to endpoint
+control.
+
+### Finite falsification and reproduction
+
+**Status: FINITE_COMPUTATION.** CPython 3.12.14 used deterministic 64-bit
+Miller--Rabin bases and an exact sieve. For
+[
+ q=1{,}000{,}000{,}000{,}039,quad
+ A=244{,}140{,}625,
+]
+the exact endpoints are (L_q=59{,}604), (U_q=238{,}418). The run contains
+15,072 owners, from 59,611 to 238,417, with 15,072 distinct roots ranging
+from 244,153,640 to 488,279,633. Every strict wall and threshold check passed.
+The smallest lower/upper square gaps were 32,849 and 3,849. The exact
+owner-list SHA-256 is
+`c91405733e2058eb5af1d02eb7357e30fcbe0eb4544cb6ac977fc65c2c69845d`.
+Floating evaluation, used only diagnostically, gave
+[
+ X_q=763.9303559735089,quad
+ y_q=0.9276175527778593.
+]
+Tests near (10^{10},10^{11},10^{12}) gave owner counts
+246, 1,871 and 15,072; all exact carrier conditions passed. The slow finite
+approach to the leading asymptotic was recorded rather than hidden.
+
+This refutes every constant dyadic-run multiplicity cap. It does not refute
+a multiplicity-aware joint ledger.
+
+### Literature audit
+
+The core proof uses only the prime number theorem
+(pi(x)sim x/log x), whose exact statement was checked at
+[NIST DLMF 27.2.3](https://dlmf.nist.gov/27.2.E3); that source attributes
+the first proofs to Hadamard and de la Vallée Poussin (1896). The uniform
+optional bound uses H. L. Montgomery and R. C. Vaughan,
+[*The large sieve*](https://doi.org/10.1112/S0025579300004708),
+*Mathematika* 20 (1973), 119--134. The DOI metadata was accessible; the
+publisher PDF was not retrievable in this run. Its (2H/log H)
+Brun--Titchmarsh form is also the same classical input independently audited
+in today's Owner report. Neither theorem assumes RH; constants here depend
+only on the fixed powers of two.
+
+Repository searches for the dyadic historical-prime multiplicity asymptotic,
+the constant (3/4096), and the weighted (A/log^2 A) conclusion found no
+equivalent theorem. The merged exact fibre identity is an input, not the new
+asymptotic conclusion.
+
+### Explicit bridge and first failure
+
+1. **Exact equality/change of variables:** (pleftrightarrow pq) identifies
+   the stated prime interval with literal odd composite candidate seats in
+   ([A,2A)), preserving both strict square walls.
+2. **Proven implication:** the compiled threshold theorem gives the genuine
+   least-prime owner and small-owner eligibility; fixed-block uniqueness
+   preserves unit current multiplicity.
+3. **Exact coefficient:** each current occurrence carries (+w(R_p)).
+4. **Exact historical occurrence:** (q) carries
+   (-(1-w(r_q))) once below (A), hence inside pre-anchor history in the
+   compressed run, not once per current edge.
+5. **Dyadic decomposition:** Claims 4--5 concern one complete sharp run and
+   retain the original current weights; no smoothing is used.
+6. **Unproved mask/clip transfer:** no theorem says all these occurrences
+   survive the actual threatening-source masks, both walls or clipped
+   sector-six admission.
+7. **Unproved multiplicity ledger:** the available count (a(q)) of tagged
+   historical occurrences after anchor expansion and cumulative lower-child
+   chronology is not identified with the demand count (d(q)).
+8. **Unproved global reassembly:** inserting any disjoint subset changes the
+   full zero-target slack by the compiled
+   (2M_0(x+y)-4S_0(x-y)) cross terms, and historical decompression adds its
+   exact restoration price. Neither is bounded here.
+9. **No closure:** #915 payment, signed-late correction, owner admissibility,
+   canonical endpoint control, finite A/C, CORR-4 and RH remain open.
+
+### Falsification, circularity and method selection
+
+- A constant or one-history-per-tag run bound is **REFUTED** by Claim 4.
+- Pairing every demand with the same (q) is invalid and would alter the
+  carrier.
+- The fact that (X_q=O(A/log^2 A)) does not permit summation over all
+  historical tags; such a summation can recover an (A^2)-scale population.
+- The asymptotic uses only unconditional PNT and exact current-main
+  declarations, so it is neither RH-equivalent nor circular.
+- No oscillatory phase occurs inside one fixed-(q) fibre. Vaughan or
+  Heath--Brown decomposition would only re-express the prime indicator; PNT
+  already gives the sharp fixed-proportion main term. Type II cancellation
+  can become relevant only after an exact signed aggregation over (q) is
+  exposed.
+- The near-hyperbola/stationary issue is therefore an obstruction here:
+  all coefficients (+w(R_p)) have the same sign. There is no cancellation
+  to claim within this fibre.
+- `EXT-20261014-5` remains accepted as `PAPER_PROOF`; it independently
+  rules out an all-(R) strict-fraction bound for the unchanged #915
+  denominator and is not used in Claims 4--5.
+
+### Established
+
+- **PROVED_IN_LEAN baseline:** exact global historical-owner fibre, exact
+  small-owner signed pair inequalities and exact pair cross-term identity,
+  all merged at the current `main`.
+- **PAPER_PROOF `20261014-analytic-4`:** exact sharp-run fibre formula and
+  asymptotic (3A/(4096log A)).
+- **PAPER_PROOF `20261014-analytic-5`:** genuine current-seat mass asymptotic
+  (3A/(4096log^2 A)).
+- **FINITE_COMPUTATION:** the 15,072-to-one sharp-run instance above.
+
+### Not established
+
+- Actual masked historical availability (a(q)), a disjoint source matching,
+  a signed sum over all (q), or any bound for restored cross terms.
+- Any all-scale (O(Alog A)) endpoint estimate.
+- #915 payment, the target-equivalent inlets, finite A/C, CORR-4 or RH.
+
+### First missing lemma
+
+On the literal threatening-run source, define (d(q)) as the number of
+selected current (pq) occurrences and (a(q)) as the number of separately
+tagged historical (q) occurrences actually admitted after masks, clipping,
+anchor expansion and cumulative-run chronology. Prove an exact,
+order-independent decomposition
+[
+ {m source}={m disjoint matched part}+{m multiplicity residual}
+]
+that preserves every coefficient, sign, owner, wall, clip, anchor,
+cross-owner interaction and lower-child run. Then state and prove a joint
+signed estimate for the residual plus all compression/cross terms. Claims
+4--5 force this lemma to allow unbounded (d(q)) within one run; a bounded
+tag capacity or cloned history is false.
+
+### Requests for Prime Census Laboratory
+
+1. Reproduce the exact (q=1{,}000{,}000{,}000{,}039) interval, primality,
+   owner hash, roots, strict-wall gaps and (X_q), then extend along declared
+   prime (q) values to test convergence of
+   (d(q)4096log A/(3A)) and (X_q4096log^2 A/(3A)).
+2. On any literal source implementation, emit
+   ((q,p,R,n,w(R),sourceTag,mask,clipWall,anchorOrRun)), and compare
+   (d(q)) with actual (a(q)); do not deduplicate or clone (q).
+3. Compute the full global increment with actual residual ((M_0,S_0)), all
+   anchor and compression-restoration terms. The isolated/grouped slack is
+   not the production statistic.
+4. Separate generic sharp runs from actual first-bad runs; no first-bad event
+   is established by this report.
+
+### Claims requiring adversarial review
+
+- Audit the exact floor formula, the (-1) upper wall and the automatic
+  (p<q/2^{20}) threshold.
+- Audit the two fixed-scale PNT subtraction and uniform
+  (w(R)log A	o1) argument.
+- Verify that (q) occurs only once in pre-anchor history and that the
+  current-main fibre theorem counts owner demands, not admitted historical
+  copies.
+- Re-run the deterministic primality/sieve certificate or downgrade the
+  large example if its exact primality is not independently reproduced.
+- Reject any inference from the per-tag (A/log^2 A) estimate to a global
+  endpoint bound without the missing source decomposition and cross-term
+  estimate.
+
+### Final classification and resume capsule
+
+- **Production target:** `NO_NEW_RESULT`; the canonical estimate is open.
+- **Best new result:** Claims `20261014-analytic-4/-5`, `PAPER_PROOF`.
+- **Checkpoint:** current main `13c3aeab8f84fc2309175261948a17a50c8342f4`;
+  this run consumed today's updated Owner, Census, Referee, Lean and external
+  reports.
+- **Next action:** obtain an independent referee verdict and a tagged
+  (d(q))-versus-(a(q)) source census before proposing any aggregate
+  inequality.
+- **No RH-proof claim:** yes.
