@@ -90,6 +90,8 @@ theorem vfMidSameTagWindow_sharp_four_historical_prime :
 /-- Exact separation witness, from two prime owners and a genuine q:
 the difference of the corresponding integer square roots equals 1024.
 This certifies that 1025 is not a valid universal separation bound. -/
+set_option maxRecDepth 16384 in
+set_option maxHeartbeats 2000000 in
 theorem vfMidSameTag_root_spacing_1024_sharp :
     Nat.Prime 10139 ∧ Nat.Prime 10141 ∧
       Nat.Prime 10633609379 ∧
@@ -116,9 +118,7 @@ theorem vfMidSameTag_root_spacing_1024_sharp :
   · norm_num
   constructor
   · rw [hr2]
-    norm_num
   · rw [hr1, hr2]
-    norm_num
 
 #print axioms vfMidSameTagWindow_sharp_four_witness
 #print axioms vfMidSameTagWindow_sharp_four_historical_prime
