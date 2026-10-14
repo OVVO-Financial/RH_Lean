@@ -382,3 +382,19 @@ closure, finite A/C, CORR-4, or RH proof is claimed.
 - **Readback checks:** 16,740 characters; no control characters; Claims 1–4,
   counterexample, limsup conclusion, final summary, and resume capsule present.
 - **Publication status:** COMPLETED on explicit branch \`agent-reports\`.
+
+
+---
+
+## Scheduled continuation checkpoint — 2026-10-14T12:32:56-04:00
+
+- **Status:** `IN_PROGRESS`.
+- **Invocation timing:** this continuation was observed at 12:29 ET, outside the user-supplied 20:43 ET daily slot; repository instructions do not create or alter schedules.
+- **Authority refresh:** current `main` HEAD `13c3aeab8f84fc2309175261948a17a50c8342f4`; `AGENTS.md` blob `26715158e91d4f5f71e9e8aa15baa1a17053e456`; `CURRENT_PROOF_CONTRACT.md` blob `27dceba62b4797bbb394439d13fc4a8dbe29ea0b`.
+- **Two-day continuity:** today's Owner report (this file) and yesterday's Owner blob `32f1574b8ade7dedc602b07b1b9257341320080a` were read. Today's Coordinator PM blob `d7229fa116dfa7180fc941f18e5d8250dacf6714` is available; yesterday's PM blob `aab612c387de93a777c696bc54be128b210cb8b8` is `YESTERDAY=CARRY_FORWARD`. Today's Coordinator AM remains `TODAY=PENDING`.
+- **Current upstream inputs:** Census `7bd424fd86fcbb45a56f8a203f66b021779c97a6`; Referee `291927079f3a362afd1cf944d42bc7598645e5d8`; Lean Verification `5416d53aa473952f7f02e79d132c98df4f83c8f2`; external inbox `6fce4e9d024b6c4ad47798c5d7c162101a2435a0`.
+- **Live PR discovery:** no open or draft PRs. PR #942 is merged as current `main`; proof head `c3927c683ba78a37b0448ad13c5f8d13d1d5b6a0`.
+- **Delta from the morning run:** Claims `20261014-owner-1` and `20261014-owner-2` are now `PROVED_IN_LEAN` in `VF_MID_OWNER_SIGNED_PAIR_BOUNDS.lean`, together with the exact residual cross-term identity. Their restricted scope is unchanged: they do not provide historical-tag availability, cross-owner injectivity, or a global covariance/payment inequality.
+- **Current objective:** determine a multiplicity-safe demanded-versus-available historical-prime ledger on the original masked/anchored carrier, or prove a sharp obstruction. The first audit will group current demands by the actual historical prime `q`, retain all owner occurrences, and test whether the available original occurrence can be used without cloning.
+- **No-narrowing screen:** any proposed quantitative bound strong enough to finish the canonical endpoint must be checked for target equivalence. The useful independent target at this checkpoint is an exact source-tag/multiplicity identity or a counterexample to one, not a renamed #915 payment.
+- **Production status:** `NO_NEW_RESULT` at checkpoint; no RH claim.
