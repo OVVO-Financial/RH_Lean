@@ -334,3 +334,251 @@ actual-prime admissibility and RH remain open.
 - **Next highest-value step:** consume the 1 AM census and referee audit; test wheel-30 only on actual threatening runs while preserving full source tags
 - **For Agent #7:** no open PR; Claims 1–2 are potential supporting lemmas only after independent review
 - **Avoid next run:** wheel-average heuristics on adaptive floors, cross-block reuse of an owner cap, edgewise reuse of one historical prime charge, or substituting unsigned capacity for signed source payment
+
+
+---
+
+## Scheduled rerun — 2026-10-14T10:00:44-04:00
+
+### Provenance and authority refresh
+
+- **Actual execution / completed time:** 2026-10-14T10:00:44-04:00 / 2026-10-14T10:11:40-04:00.
+- **Observed current `main` HEAD:** `18fa753f6ea12951845fec65414b47faea0172a1`, retrieved immediately before publication.
+- **Fresh authority blobs:** `AGENTS.md` `26715158e91d4f5f71e9e8aa15baa1a17053e456`; `CURRENT_PROOF_CONTRACT.md` `27dceba62b4797bbb394439d13fc4a8dbe29ea0b`.
+- **Reporting protocol blobs:** README `81c3dea2cedcd699a5a0523a00e5cc8ec78f8913`; template `f1e13534f2b36a39e833493ec1739e97ab17f3d7`; prompts `f452d69999f0180e7e576011a8ad1ad6a2eed549`.
+- **Previous own checkpoint:** this file, blob `e86a066b5fe4488972f9b49400ebb77d76cab41b`, run 2026-10-14T00:12:56-04:00. Its Claims `20261014-wheel-1..2` are now `PROVED_IN_LEAN` on live `main` through `VF_MID_LATE_OWNER_WHEEL_THIRTY_BUDGET.lean`, blob `3701895c3e3af16b6f6b0506ed69f7b5c3d55800`.
+- **Today's required earlier stages:** `00-coordinator-am.md` = `TODAY=PENDING`; `10-owner-payment.md` retrieved at blob `08b203d38e2c0d495631c1873edb903d83412ea1`, Claims `20261014-owner-0..4`; `20-analytic-type-ii.md` = `TODAY=PENDING`.
+- **Previous-day continuity:** `00-coordinator-am.md` blob `87a596f6f7bcb9bab6b2d29fc7c162c64ed544cb`, `10-owner-payment.md` blob `32f1574b8ade7dedc602b07b1b9257341320080a`, and `20-analytic-type-ii.md` blob `d9f73a0aab42e70ca30a17d16822a8281ca7afef`, all `YESTERDAY=CARRY_FORWARD` where today's stage is pending.
+- **Later current-day continuity read because already committed:** Prime Census `fc25130ac028c2556f1754ac75ee494c440e3dbc`, Referee `19e14164a9337af696ce0705a50e48e81248f93a`, Lean Verification `cc3ec0fa23860573909c6492095c42fbaa17a20f`, and Coordinator PM `33709beb6d3dc3043c94a930f72fdd9f375e4fd7`.
+- **External intake:** index blob `6fce4e9d024b6c4ad47798c5d7c162101a2435a0`; seven-function handoff blob `efb9015e923fd1ce7da5c5300679924163cc6737`; reproducer blob `4b308fde87a7b746ff7baff22a6f015b5bbf4c53`. This run independently audits `EXT-20261014-1`.
+- **Tools actually used:** connected GitHub reads/writes and CPython 3.12 exact integer enumeration. No local Lean build and no web source were used.
+
+### Current central mathematical objective
+
+The unique open public theorem is still `VFCanonicalSquareVonKochStatement`:
+there must exist a fixed (C\ge0) such that
+[
+  |\pi(R^2)-\operatorname{vfMidFinishedMass}(R)-\sqrt2|
+  \le C R\log R\qquad(R\ge2).
+]
+Live `main` now compiles both directions showing that the named dyadic
+signed-late correction and actual-prime owner-escape admissibility are
+target-equivalent, not smaller arithmetic lemmas. The #915 content audit also
+shows that its first-bad payment is equivalent, after the finite base window,
+to the fixed (K=2) raw envelope. Consequently this run treats finite wheels
+only as independently proved supporting restrictions and makes no closure
+claim.
+
+Relevant compiled declarations were inspected in
+`VF_MID_FINAL_RAW_CLIPPED_TELESCOPE.lean` blob
+`dc1611da7eeca2ed2f2273fa73c9a659b4ba2f42`,
+`VF_MID_RECURSIVE_CHILD_INJECTIVE.lean` blob
+`795be470bc796421d9a53e76f3eb21788f34e249`,
+`VF_MID_OPEN_INLET_TARGET_EQUIVALENCE.lean` blob
+`379f17c0739e8bcb4543a91bed9ced7624773ef7`, and
+`VF_MID_915_SOURCE_PAYMENT_CONTENT_AUDIT.lean` blob
+`f7d046d8d94962e18f794deee7e33ce7508a0e74`.
+
+### Exact carrier and question
+
+For (A\le R<2A) and a genuine late least-prime owner
+(p\in\texttt{vfMidSquareBandLateOwnerPrimes}(A,R)), put
+[
+ t=\left\lfloor\frac{R^2}{p}\right\rfloor,qquad
+ u=\left\lfloor\frac{(R+1)^2-1}{p}\right\rfloor.
+]
+Current main proves that stripping (p) is cardinality preserving and that
+the child fibre is exactly the set of primes (q\in(t,u]). In particular
+(p\le R), (q>p>A), every physical occurrence is (n=pq) with
+(R^2<n<(R+1)^2), and (u\le t+4). Define
+[
+ C_M(R,p)=\#\{q\in\mathbb Z:t<q\le u, \gcd(q,M)=1\}.
+]
+The question was whether the external (M=2310) bound has the exact claimed
+endpoints and hypotheses, and whether a strictly stronger deterministic wheel
+restriction follows without residue-distribution assumptions.
+
+### Claim 20261014-wheel-5 — corrected sharp-threshold audit of EXT-20261014-1
+
+**Status: `PAPER_PROOF`; verdict `ACCEPT_WITH_SHARPENING`.**
+
+For every (7\le A\le R<2A) and every genuine late owner (p),
+[
+ #\texttt{vfMidSquareBandCompositeOwner}(R,p)
+ \le C_{2310}(R,p)\le C_{210}(R,p)\le C_{30}(R,p)
+ \le W_{30}(t)\le2.
+]
+
+The submitted (A\ge11) statement is therefore correct, but (A\ge7) is
+the sharp uniform threshold. Indeed (p>A\ge7) and primality give
+(p\ge11). The strict quotient lower endpoint and (p\le R) give
+(q>t\ge R\ge p), so (q>p\ge11). Thus the genuine prime child (q)
+is divisible by none of (2,3,5,7,11), proving the (2310)-wheel inclusion.
+Nested divisor sets give the middle inequalities, and (u\le t+4) gives the
+last two.
+
+Sharpness of the threshold is a genuine exact counterexample:
+[
+ (A,R,p,q,n,t,u)=(6,8,7,11,77,9,11).
+]
+Here (64<77<81), (p=7) is the least-prime owner, and the actual fibre
+contains (q=11), but (C_{2310}(8,7)=0). Thus the same theorem with
+(A\ge6) is false.
+
+No sign, VF coefficient, historical mask, clipping weight, anchor, or source
+tag is altered by this result; none is present in this unsigned child census.
+
+### Claim 20261014-wheel-6 — a strictly stronger wheel-30030 capacity
+
+**Status: `PAPER_PROOF`.**
+
+For every (11\le A\le R<2A) and every genuine late owner (p),
+[
+ oxed{#\texttt{vfMidSquareBandCompositeOwner}(R,p)
+ \le C_{30030}(R,p)\le C_{2310}(R,p).}
+]
+Here (30030=2\cdot3\cdot5\cdot7\cdot11\cdot13). Since
+(p>A\ge11), one has (p\ge13), while the strict quotient inequality gives
+the prime child (q>p), hence (q\ge17). Therefore
+(gcd(q,30030)=1). The second inequality is the literal inclusion of
+(30030)-survivors in (2310)-survivors.
+
+The threshold is again sharp: at (A=10,R=11,p=11), the genuine child
+(q=13) gives (143=11\cdot13) in the strict block (121<n<144), but
+(13\mid30030).
+
+Summing (C_{30030}) over the same owner/root carrier gives the exact unsigned
+run consequences
+[
+ \texttt{LateRemoval}(A,A,B)\le W_{30030}(A,B),
+]
+[
+ \texttt{PrefixSupply}(A,A,B)-W_{30030}(A,B)
+ \le\texttt{PrimeSupply}(A,B)
+]
+for (11\le A\le B\le2A). This is a proper deterministic strengthening of
+the fixed-(2310) submission, not an adaptive equidistribution assertion.
+
+### Claim 20261014-wheel-7 — exact finite reproduction and falsification
+
+**Status: `FINITE_COMPUTATION`.**
+
+The external CPython algorithm was independently reimplemented with strict
+upper endpoint (((R+1)^2-1)//p). Every listed (2310) total was reproduced,
+and the new (30030) totals were:
+
+| run | actual | (C_{2310}) | (C_{30030}) | saving vs (C_{2310}) |
+|---|---:|---:|---:|---:|
+| [50,100) | 131 | 133 | 131 | 2 |
+| [100,200) | 463 | 532 | 481 | 51 |
+| [500,1000) | 6,587 | 9,735 | 8,972 | 763 |
+| [2634,5267) | 125,272 | 226,691 | 209,320 | 17,371 |
+| [5000,10000) | 385,553 | 747,547 | 689,930 | 57,617 |
+
+A separate scan of every (7\le A\le500), every (A\le R<2A), and every
+prime (A<p\le R) found no violation of Claim 5. It also reproduced the
+sharp (A=6) failure above. These computations establish only the stated
+finite checks; Claims 5 and 6 rest on the paper derivations.
+
+Repeated ancestry remains decisive. The same historical prime (q=13)
+occurs as (91=7\cdot13) in block (R=9) and (143=11\cdot13) in block
+(R=11). Current main proves same-block cross-owner child uniqueness, but it
+does not make a historical (q)-charge reusable across blocks. Every proposed
+weighted application must retain separate physical source tags and the full
+global cross terms.
+
+### Novelty, independence, and quantitative effect
+
+Already known or now compiled: the exact prime quotient interval, generic
+finite-wheel nesting, wheel-30 fibre/run bounds, same-block child uniqueness,
+and the fact that a complete prefix wheel below its square cutoff identifies
+primes exactly. None is relabeled new.
+
+New in this rerun: the sharp (A\ge7) threshold for the external (2310)
+carrier, its smallest threshold counterexample, and the stronger
+(30030)-capacity theorem with sharp (A\ge11) threshold and exact run
+totals. These use only genuine prime identity, strict square endpoints, and
+divisibility by fixed small primes. They assume neither RH nor any endpoint
+error estimate.
+
+The numerical improvement is exact but modest: on ([2634,5267)),
+(C_{30030}) lowers the proved unsigned cap from (226691) to (209320);
+the actual population is (125272). The trivial four-site cap, parity cap,
+wheel-30 cap, (2310) cap, and (30030) cap form a valid descending chain.
+No member controls the signed raw source or its quadratic norm. Extending the
+fixed modulus eventually reconstructs the already-known exact prime interval,
+so this hierarchy does not by itself create an RH-scale cancellation estimate.
+
+### First unresolved lemmas and no-narrowing result
+
+- **Completion theorem:** the first unproved theorem that closes the program is
+  still `VFCanonicalSquareVonKochStatement`; the named signed-late and
+  owner-escape statements are target-equivalent.
+- **Structural supporting problem:** an exact original-occurrence,
+  coefficient, sign, owner, ancestry, mask, clip, anchor, multiplicity,
+  chronology, and cross-term preserving source reassembly may still be useful,
+  but an inequality strong enough to pay it is not supplied by Claims 5--6.
+- **Finite-wheel limit:** a larger fixed primorial monotonically sharpens an
+  unsigned local population cap; without an exact signed source identity and a
+  new signed estimate, this is census refinement rather than target progress.
+
+### Explicit 1 AM Prime Census Laboratory tests
+
+1. Independently verify Claim 5 for every (7\le A\le5000), retaining
+   ((A,R,p,q,n,t,u,C_{2310})), and confirm the sharp failure
+   ((6,8,7,11,77,9,11)).
+2. Reproduce all five (C_{30030}) totals in Claim 7 with an independent
+   physical-integer/SPF implementation, not the quotient script.
+3. Confirm the (A=10,R=11,p=11,q=13,n=143) sharp failure for the
+   (30030) threshold and retain strict endpoint evidence.
+4. Compare (C_{30030}) with the adaptive complete-prefix-wheel count on the
+   actual threatening runs; report exact savings but do not infer residue
+   independence or signed cancellation.
+5. In every ancestry experiment retain
+   ((R,p,q,n,w_R,\text{sourceTag},\text{mask},\text{historicalTag}));
+   test repeated (q=13) and never spend one historical occurrence twice.
+
+### Referee and Lean handoff
+
+Adversarial Referee should check the deductions (t\ge R\), (q>p), the
+two sharp threshold witnesses, the use of (((R+1)^2-1)//p), and the run
+inequality direction. Lean Verification may formalize Claims 5 and 6 only as
+supporting finite-carrier corollaries after independent acceptance. No source
+payment, target-equivalent inlet, or RH closure PR is warranted.
+
+### Updated final status
+
+**Net-new mathematical progress:** `PAPER_PROOF` of the sharpened
+wheel-2310 threshold and the strictly stronger wheel-30030 capacity;
+`FINITE_COMPUTATION` reproduction and new exact totals.
+
+**Production target:** `NO_NEW_RESULT`. No canonical endpoint bound, signed
+source estimate, finite A/C, CORR-4, or RH theorem is proved.
+
+**Completeness:** `DONE` for this scheduled research stage.
+
+**No RH-proof claim:** yes.
+
+## Updated next-run resume capsule (non-authoritative)
+
+- **Checkpoint:** 2026-10-14T10:11:40-04:00 at main
+  `18fa753f6ea12951845fec65414b47faea0172a1`.
+- **Upstream consumed:** today's Owner Payment blob `08b203d3...`;
+  today's `00/20` are `PENDING`; yesterday's `00/10/20` blobs and the
+  already-committed current-day Census/Referee/Lean/Coordinator blobs listed
+  above were read.
+- **External claim consumed:** `EXT-20261014-1` =
+  `ACCEPT_WITH_SHARPENING`.
+- **Completed evidence:** Claims `20261014-wheel-5..7`; exact (2310)
+  reproduction; (30030) table; sharp threshold counterexamples.
+- **Uncertain or invalidated:** no theorem invalidated. The external
+  (A\ge11) hypothesis was sufficient but nonsharp for (2310). No local
+  Lean compilation was performed.
+- **First unresolved blocker:** no independently proved signed estimate on the
+  original weighted source; the completion theorem remains the canonical
+  target itself.
+- **Next action:** independent physical census and referee review of Claims
+  5--6; formalize only after acceptance.
+- **Avoid:** presenting deeper fixed wheels as signed cancellation, reusing a
+  historical prime across descendants, or treating a target-equivalent inlet
+  as a narrower lemma.
