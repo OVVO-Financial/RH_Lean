@@ -4,7 +4,7 @@ import «research.VF_MID_LATE_OWNER_WHEEL_THIRTY_BUDGET»
 /-!
 # Genuine late-owner four-slot sieve at exact modulus 2310 and 30030
 
-Independent referee accepted claims 20261014-wheel-5/-6. These are
+Independent referee accepted claims 20261014-wheel-5 and 20261014-wheel-6. These are
 unconditional **unsigned** upper bounds for actual prime child fibres.
 All objects retain the strict open square-band endpoints. This module
 does not estimate VF-signed ancestral charges or historical availability.
