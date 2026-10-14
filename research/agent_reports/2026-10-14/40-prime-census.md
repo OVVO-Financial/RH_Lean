@@ -956,3 +956,17 @@ large ancestry primes; four high-precision signed pairs.
 - **Avoid next run:** repeating the unchanged wheel scans, deduplicating a
   historical prime, summing isolated pair slacks, or relabeling a
   target-equivalent inlet as a smaller theorem.
+
+
+---
+
+## Scheduled continuation checkpoint — 2026-10-14T16:18:13-04:00
+
+- **Status:** `IN_PROGRESS / NO_NEW_RESULT`; this is the required early durable checkpoint.
+- **Observed current `main` HEAD:** `13c3aeab8f84fc2309175261948a17a50c8342f4`, verified from the live `branches/main` endpoint at 2026-10-14T16:18:13-04:00.
+- **Fresh authority:** `AGENTS.md` blob `26715158e91d4f5f71e9e8aa15baa1a17053e456`; `CURRENT_PROOF_CONTRACT.md` blob `27dceba62b4797bbb394439d13fc4a8dbe29ea0b`.
+- **Current objective:** the unique open public target remains `VFCanonicalSquareVonKochStatement`. This continuation tests new exact repeated-tag incidence and signed-packet claims without cloning a historical prime or promoting a local linear packet to the original global quadratic norm.
+- **Today's upstream reports:** `00-coordinator-am.md = TODAY=PENDING`; Owner Payment blob `a2ed7dc27756393c49beb5bebae80971a2af6aff`; Analytic Type II blob `b8ee78df90d9fccb4b1201c933720a70300d9d51`; Finite Wheel blob `476d1af0f2624f615e7cdcb017812633dbd232f0`. The prior two-day continuity and external inbox blob `6fce4e9d024b6c4ad47798c5d7c162101a2435a0` were read.
+- **Claims selected for independent audit:** `20261014-owner-5..6`, `20261014-analytic-4..5`, and `20261014-wheel-8..10`, with emphasis on exact floor endpoints, root spacing, multiplicity, original weights, and the claimed six-block signed margin.
+- **Live PR discovery:** no open or draft pull requests were returned. PRs #941 and #942 are merged into the observed `main`.
+- **Next computation:** implement an independent exact prime/integer-root enumerator and a separately structured C++ cross-check; search for smaller root gaps, reproduce the sharp 1025 counterexample and the (q=1000000007) half-run overload, then evaluate signed packets at increased decimal precision.
