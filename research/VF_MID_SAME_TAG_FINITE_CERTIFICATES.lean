@@ -98,7 +98,7 @@ proof of that finite primality assertion. No new axiom is introduced. -/
 the difference of the corresponding integer square roots equals 1024.
 This certifies that 1025 is not a valid universal separation bound. -/
 theorem vfMidSameTag_root_spacing_1024_sharp
-    (hq : Nat.Prime 10633609379) :
+    (_hq : Nat.Prime 10633609379) :
     Nat.Prime 10139 ∧ Nat.Prime 10141 ∧
       1024 * 10141 ≤ Nat.sqrt (10141 * 10633609379) ∧
       Nat.sqrt (10141 * 10633609379) =
