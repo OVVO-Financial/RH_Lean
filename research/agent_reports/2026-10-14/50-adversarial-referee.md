@@ -487,3 +487,13 @@ Carry owner-1/-2, analytic-1/-2, and wheel-5/-6 as accepted supporting PAPER_PRO
 - **Readback checks:** 39,394 characters; scheduled-rerun provenance, all owner/analytic/wheel/census claim IDs, exact counterexamples, status separation, Lean handoff, Coordinator recommendation, and updated capsule present.
 - **Branch confirmation:** agent-reports HEAD was c394367b716dcf5f6955deaae134b0f600abd63b after the substantive write; main remained 18fa753f6ea12951845fec65414b47faea0172a1.
 - **Publication status:** COMPLETED.
+
+
+## Scheduled 4:25 PM referee checkpoint — 2026-10-14T16:28:01-04:00
+
+- **Status:** IN_PROGRESS; this checkpoint is navigation, not proof evidence.
+- **Live authority:** `main` HEAD `13c3aeab8f84fc2309175261948a17a50c8342f4`; `AGENTS.md` blob `26715158e91d4f5f71e9e8aa15baa1a17053e456`; `CURRENT_PROOF_CONTRACT.md` blob `27dceba62b4797bbb394439d13fc4a8dbe29ea0b`; fetched successfully at this run.
+- **Today's inputs:** Coordinator AM = TODAY=PENDING (verified GitHub 404); Owner Payment blob `a2ed7dc27756393c49beb5bebae80971a2af6aff`; Analytic Type II blob `b8ee78df90d9fccb4b1201c933720a70300d9d51`; Finite Wheel blob `476d1af0f2624f615e7cdcb017812633dbd232f0`; Prime Census blob `5cfe80753bbfa0374da9eace00b3a137aeaf43b8`.
+- **Two-day continuity:** 2026-10-13 Coordinator/Owner/Analytic/Wheel/Census blobs were re-read as YESTERDAY=CARRY_FORWARD; external inbox blob `6fce4e9d024b6c4ad47798c5d7c162101a2435a0` is unchanged.
+- **Claims selected for delta review:** `20261014-owner-5/-6`, `20261014-analytic-4/-5`, `20261014-wheel-8/-10`, and `20261014-census-10/-12`, plus the changed `PROVED_IN_LEAN` status of owner-1/-2 and wheel-5/-6 after merged PR #942.
+- **Exact checks already completed:** all submitted overload, dyadic-fibre, sharp-spacing, and four-owner witnesses were independently reproduced with integer arithmetic; final scope, carrier, novelty, and implication audits remain in progress.
