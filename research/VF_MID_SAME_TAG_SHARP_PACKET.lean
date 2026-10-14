@@ -49,7 +49,7 @@ private theorem vfMidSameTag_root_gap_two
     have hleft : 0 < (q : ℝ) - 524288 := by
       have hqR : (1048576 : ℝ) * ((p₁ : ℝ) + 2) ≤ (q : ℝ) := by
         exact_mod_cast hqLarge
-      positivity
+      nlinarith
     have hright : 0 < 1024 * (r : ℝ) - ((q : ℝ) - 524288) := by
       linarith
     have hsquareDiff :=
@@ -180,6 +180,217 @@ private theorem vfMidSameTag_root_gap_three_to_thirteen
     Nat.mul_le_mul_right q hp₂
   nlinarith [hrSquare, hrootCeiling, hmul, hlt, hqLarge]
 
+
+/-- A genuine prime at least five is a unit modulo six. -/
+private theorem vfMidSameTag_prime_mod_six
+    {p : ℕ} (hp : p.Prime) (hp5 : 5 ≤ p) :
+    p % 6 = 1 ∨ p % 6 = 5 := by
+  have hodd : Odd p := hp.odd_of_ne_two (by omega)
+  obtain ⟨k, hk⟩ := hodd
+  have hnot3 : p % 3 ≠ 0 := by
+    intro hz
+    have hdiv : 3 ∣ p := Nat.dvd_of_mod_eq_zero hz
+    rcases (Nat.dvd_prime hp).mp hdiv with heq | heq
+    · omega
+    · omega
+  omega
+
+/-- Every twelve consecutive integers contain exactly four residue positions
+coprime to six. The calculation is independent of the starting integer. -/
+private theorem vfMidSameTag_twelve_residue_capacity (a : ℕ) :
+    ((Finset.range 12).filter
+       (fun k => (a + k) % 6 = 1 ∨ (a + k) % 6 = 5)).card = 4 := by
+  have hmod : a % 6 < 6 := Nat.mod_lt _ (by norm_num)
+  interval_cases h : a % 6 <;>
+    norm_num [Finset.range, Nat.add_mod, h]
+
+/-- Pure elementary finite-prime restriction. More than four primes >=5
+cannot lie in twelve consecutive integers. -/
+private theorem vfMidSameTag_prime_interval_twelve_card_le_four
+    {a : ℕ} (ha : 5 ≤ a) :
+    ((Finset.Icc a (a + 11)).filter Nat.Prime).card ≤ 4 := by
+  let S : Finset ℕ := (Finset.Icc a (a + 11)).filter Nat.Prime
+  let T : Finset ℕ :=
+    (Finset.range 12).filter
+      (fun k => (a + k) % 6 = 1 ∨ (a + k) % 6 = 5)
+  have hmap : Set.MapsTo (fun p : ℕ => p - a) (S : Set ℕ) (T : Set ℕ) := by
+    intro p hp
+    have hmember := (Finset.mem_filter.mp hp).1
+    have hpPrime := (Finset.mem_filter.mp hp).2
+    have hlo : a ≤ p := (Finset.mem_Icc.mp hmember).1
+    have hhi : p ≤ a + 11 := (Finset.mem_Icc.mp hmember).2
+    have hres : p % 6 = 1 ∨ p % 6 = 5 :=
+      vfMidSameTag_prime_mod_six hpPrime (by omega)
+    have heq : a + (p - a) = p := Nat.add_sub_of_le hlo
+    change p - a ∈ T
+    simp only [T, Finset.mem_filter, Finset.mem_range]
+    exact ⟨by omega, by simpa [heq] using hres⟩
+  have hinj : Set.InjOn (fun p : ℕ => p - a) (S : Set ℕ) := by
+    intro p hp p' hp' heq
+    have hpLo : a ≤ p :=
+      (Finset.mem_Icc.mp (Finset.mem_filter.mp hp).1).1
+    have hp'Lo : a ≤ p' :=
+      (Finset.mem_Icc.mp (Finset.mem_filter.mp hp').1).1
+    omega
+  calc
+    S.card ≤ T.card := Finset.card_le_card_of_injOn _ hmap hinj
+    _ = 4 := vfMidSameTag_twelve_residue_capacity a
+
+/-- The physical carrier for an individual historical prime in a
+half-open window of square ROOTS. Membership retains the genuine
+least-owner threshold, rather than replacing it with a wheel or density. -/
+def vfMidSameTagWindow (q A B : ℕ) : Finset ℕ :=
+  (vfMidHistoricalPrimeOwnerFibre q).filter
+    (fun p => A ≤ Nat.sqrt (p * q) ∧ Nat.sqrt (p * q) < B)
+
+@[simp] theorem mem_vfMidSameTagWindow {q A B p : ℕ} :
+    p ∈ vfMidSameTagWindow q A B ↔
+      p.Prime ∧ 3 ≤ p ∧
+        1024 * p ≤ Nat.sqrt (p * q) ∧
+        A ≤ Nat.sqrt (p * q) ∧ Nat.sqrt (p * q) < B := by
+  simp only [vfMidSameTagWindow, Finset.mem_filter]
+  rw [mem_vfMidHistoricalPrimeOwnerFibre_iff]
+  constructor
+  · rintro ⟨⟨hp, hp3, hpDiv⟩, hA, hB⟩
+    have hqBound : vfMidHistoricalOwnerThreshold * p ≤ q := by
+      have h := (Nat.le_div_iff_mul_le
+        (by norm_num [vfMidHistoricalOwnerThreshold])).1 hpDiv
+      simpa [Nat.mul_comm] using h
+    exact ⟨hp, hp3,
+      (vfMidHistoricalOwner_sqrt_iff (by omega : 0 < p)).mpr hqBound,
+      hA, hB⟩
+  · rintro ⟨hp, hp3, hroot, hA, hB⟩
+    have hqBound := (vfMidHistoricalOwner_sqrt_iff
+      (by omega : 0 < p)).mp hroot
+    have hpDiv : p ≤ q / vfMidHistoricalOwnerThreshold := by
+      apply (Nat.le_div_iff_mul_le
+        (by norm_num [vfMidHistoricalOwnerThreshold])).2
+      simpa [Nat.mul_comm] using hqBound
+    exact ⟨⟨hp, hp3, hpDiv⟩, hA, hB⟩
+
+/-- The optimal four-owner capacity in an arbitrary 6144-root window.
+The historical prime q can have unbounded total descendants in a longer run. -/
+theorem vfMidSameTagWindow_card_le_four
+    (q A B : ℕ) (hAB : B ≤ A + 6144) :
+    (vfMidSameTagWindow q A B).card ≤ 4 := by
+  let S : Finset ℕ := vfMidSameTagWindow q A B
+  by_cases hS : S.Nonempty
+  · let m := S.min' hS
+    have hm : m ∈ S := Finset.min'_mem S hS
+    have hmData := (mem_vfMidSameTagWindow.mp hm)
+    have hmPrime : m.Prime := hmData.1
+    have hm3 : 3 ≤ m := hmData.2.1
+    have hmA : A ≤ Nat.sqrt (m * q) := hmData.2.2.2.1
+    have hmin : ∀ p ∈ S, m ≤ p := by
+      intro p hp
+      exact Finset.min'_le S p hp
+    have hnear : ∀ p ∈ S, p < m + 12 := by
+      intro p hp
+      by_contra hnot
+      have hgap : m + 12 ≤ p := by omega
+      have hpData := mem_vfMidSameTagWindow.mp hp
+      have hscale : 1048576 * p ≤ q :=
+        (vfMidHistoricalOwner_sqrt_iff hpData.1.pos).mp hpData.2.2.1
+      have hfar : Nat.sqrt (m * q) + 6144 ≤ Nat.sqrt (p * q) :=
+        vfMidSameTag_root_gap_twelve hgap hscale
+      omega
+    by_cases hm3eq : m = 3
+    · have hsub : S ⊆ ({3, 5, 7, 11} : Finset ℕ) := by
+        intro p hp
+        have hpData := mem_vfMidSameTagWindow.mp hp
+        have hle : m ≤ p := hmin p hp
+        have hlt : p < m + 12 := hnear p hp
+        by_cases hpEq : p = 3
+        · simp [hpEq]
+        · have hres := vfMidSameTag_prime_mod_six hpData.1 (by omega : 5 ≤ p)
+          simp only [Finset.mem_insert, Finset.mem_singleton]
+          omega
+      exact (Finset.card_le_card hsub).trans (by norm_num)
+    · have hm5 : 5 ≤ m := by
+        have hodd := hmPrime.odd_of_ne_two (by omega)
+        obtain ⟨k, hk⟩ := hodd
+        omega
+      have hsub :
+          S ⊆ (Finset.Icc m (m + 11)).filter Nat.Prime := by
+        intro p hp
+        have hpData := mem_vfMidSameTagWindow.mp hp
+        exact Finset.mem_filter.mpr
+          ⟨Finset.mem_Icc.mpr ⟨hmin p hp, by have := hnear p hp; omega⟩,
+            hpData.1⟩
+      exact (Finset.card_le_card hsub).trans
+        (vfMidSameTag_prime_interval_twelve_card_le_four hm5)
+  · have hEmpty : S = ∅ := Finset.not_nonempty_iff_eq_empty.mp hS
+    simp [hEmpty]
+
+/-- A historical q supporting at least one selected eligible owner must
+itself lie past the actual 1024-th historical square root. -/
+private theorem vfMidSameTag_historical_root_ge
+    {q A B : ℕ} (hS : (vfMidSameTagWindow q A B).Nonempty) :
+    1024 ≤ Nat.sqrt q := by
+  obtain ⟨p, hp⟩ := hS
+  have hpData := mem_vfMidSameTagWindow.mp hp
+  have hqBound : 1048576 * p ≤ q :=
+    (vfMidHistoricalOwner_sqrt_iff hpData.1.pos).mp hpData.2.2.1
+  apply (Nat.le_sqrt).2
+  have hp3 : 3 ≤ p := hpData.2.1
+  nlinarith
+
+/-- Current products are composite, hence carry the *literal* positive
+VF odd-seat weight, not an independently invented owner proxy. -/
+private theorem vfMidSameTag_current_charge_eq
+    {q A B p : ℕ} (hq : q.Prime)
+    (hp : p ∈ vfMidSameTagWindow q A B) :
+    vfMidOddSignedSeatCharge (Nat.sqrt (p * q)) (p * q) =
+      vfMidOddFractionalPrimeSeatWeight (Nat.sqrt (p * q)) := by
+  have hpPrime := (mem_vfMidSameTagWindow.mp hp).1
+  have hnNotPrime : ¬(p * q).Prime := by
+    intro h
+    have hdiv : p ∣ p * q := dvd_mul_right p q
+    rcases (Nat.dvd_prime h).mp hdiv with h1 | heq
+    · exact hpPrime.ne_one h1
+    · have hm : 2 * p ≤ p * q := by
+        simpa [Nat.mul_comm] using Nat.mul_le_mul_left p hq.two_le
+      omega
+  exact vfMidOddSignedSeatCharge_of_not_prime
+    (Nat.sqrt (p * q)) (p * q) hnNotPrime
+
+/-- A single historical q is spent ONCE and at most four current
+descendants are included. The sharp rational original-coefficient margin
+is -181/640. It is a local LINEAR packet, not a global NNS bound. -/
+theorem vfMidSameTagWindow_one_history_signed_packet
+    {q A B : ℕ} (hq : q.Prime)
+    (hAB : B ≤ A + 6144)
+    (hS : (vfMidSameTagWindow q A B).Nonempty) :
+    (∑ p ∈ vfMidSameTagWindow q A B,
+      vfMidOddSignedSeatCharge (Nat.sqrt (p * q)) (p * q)) +
+        vfMidOddSignedSeatCharge (Nat.sqrt q) q <
+      -(181 / 640 : ℝ) := by
+  let S : Finset ℕ := vfMidSameTagWindow q A B
+  have hcard : S.card ≤ 4 := vfMidSameTagWindow_card_le_four q A B hAB
+  have hcardR : (S.card : ℝ) ≤ 4 := by exact_mod_cast hcard
+  have hsum : (∑ p ∈ S,
+       vfMidOddSignedSeatCharge (Nat.sqrt (p * q)) (p * q)) ≤
+        (S.card : ℝ) * (9 / 64 : ℝ) := by
+    calc
+      _ ≤ ∑ p ∈ S, (9 / 64 : ℝ) := by
+        apply Finset.sum_le_sum
+        intro p hp
+        have hpData := mem_vfMidSameTagWindow.mp hp
+        have hR : 2048 ≤ Nat.sqrt (p * q) := by
+          have hr := hpData.2.2.1
+          omega
+        rw [vfMidSameTag_current_charge_eq hq hp]
+        exact (vfMidOddWeight_lt_9_div_64 hR).le
+      _ = (S.card : ℝ) * (9 / 64 : ℝ) := by
+        simp [nsmul_eq_mul]
+  have hr : 1024 ≤ Nat.sqrt q :=
+    vfMidSameTag_historical_root_ge hS
+  have hweight := vfMidOddWeight_lt_99_div_640 hr
+  rw [vfMidOddSignedSeatCharge_of_prime (Nat.sqrt q) q hq]
+  linarith
+
 #print axioms vfMidSameTag_root_spacing_1024
+#print axioms vfMidSameTagWindow_card_le_four
+#print axioms vfMidSameTagWindow_one_history_signed_packet
 
 end RHLean.Analysis
