@@ -357,3 +357,147 @@ These are finite computations, not evidence of a uniform (Alog A) theorem. The s
 - **Current objective:** state and justify a literal original-weight historical/current carrier payment that advances `VFMid915FirstBadSourcePaymentStatement`, retaining occurrence identity, raw block-dependent VF weights, the historical anchor, and the original NNS denominator.
 - **Delta task selected:** investigate the exact recent-half-run ancestor of a current physical composite `n=3q`. Current main already proves the ancestry bottleneck and explicitly says no weight compensation theorem is known. The candidate new restriction is an injective original-occurrence pairing of the positive current charge at `3q` with the negative historical prime charge at `q`, with the actual weights compared rather than replaced.
 - **First checks:** direct finite evaluation found the charge pair becomes nonpositive from block `R=12` in tested eligible cases; a uniform paper proof is being developed for the safer range `R>=16`, where current main already places `q` in the explicit half run.
+
+### Evening authority and dependency audit — completed 2026-10-13T20:49:22-04:00
+
+A final refresh returned unchanged `main` HEAD `52babf6eb87a7c6f80316ceb952667ad65cb2aa3`, `AGENTS.md` blob `709ad61bf4555fe4f2c92af3fd42f3994798c8bf`, and contract blob `f6e8dc6813ec63974489c26b0c383e34203f0aa9`. No open/draft PR was returned.
+
+Reports actually read during this invocation:
+
+- this report, morning blob `d60ca9e416c70faa1a4bce60291c73daf82d0366`, then the verified early-checkpoint blob `b337be78de5b0a81f0f8c107fdf0ec8baf9acd7a`;
+- Coordinator PM `90-coordinator-pm.md`, blob `aab612c387de93a777c696bc54be128b210cb8b8`;
+- Prime Census `40-prime-census.md`, blob `e14006a1a29a2f6c9ef2306fea6b1f4243bdf58c`;
+- Adversarial Referee `50-adversarial-referee.md`, blob `1f47fd36415359f115a0488192a2f5f6cf57c047`;
+- reporting protocol blobs: README `6352109e25bff6dad702d1b9a4bb687bb5de3944`, template `71eb758b6dcd0945d5eda219422219d07721f37e`, prompts `ec91852f81ababe42dd17795809fb60c271919eb`.
+
+The Census and Referee independently accepted the morning twin-packet and residue-capacity paper arguments at their stated scopes. The Referee also identified the morning reuse of claim IDs as a provenance defect; all evening claims therefore receive new IDs.
+
+Relevant current-main source blobs and exact declarations examined:
+
+- `VF_MID_FIRST_BAD_SOURCE_TO_SECTOR_SIX_INLET.lean` `5d03f3080d014aba1e02485ae9c0b08988478c3c`: `vfMidFirstBadDecompressedHistoricalSource`, `vfMidActualPrimeEndpointDefect_succ_eq_decompressedHistoricalSource`;
+- `VF_MID_FULL_AFFINE_PAIR_CLASSIFIER.lean` `ba81978178e557a7b589ea330e554f781c606859`: `vfMidFrozenAffineBlockPhysicalCharge_eq_blockSeatMass`, `vfMidFrozenAffineRunPhysicalCharge_eq_oddRunSeatMass`;
+- `VF_MID_FIRST_BAD_WEIGHTED_OWNER_FUBINI.lean` `58b78186e4fd5b68179afe4be0b7b6e4761442d6`: `vfMidOneBlockActivePhysicalSite_sum_eq_activeSource`, `vfMidWeightedSiteSquare_eq_diagonal_add_firstOwnerCells`;
+- `VF_MID_FIRST_BAD_ACTIVE_RAW_PARENT_SPLICE.lean` `e61eb36301f650bfb41079bbd7367f9f45cf6d3e`: `vfMidActiveReturnedPairCarrier`, `vfMidActiveReturnedPairWeight`;
+- `VF_MID_915_EXACT_HISTORICAL_NNS_COMPRESSION.lean` `190bd8024bcda99eb3b3349729466903db4e4c39`: `vfMid915HistoryUpper_sub_lower_eq_neg_endpoint`, `vfMid915ActualHistoricalSquaredNormRestoration`;
+- `VF_MID_915_LATE_PREFIX_WEIGHTED_DYADIC.lean` `3d12fe937cc7de03fb307417a7156d194bab45db`: `vfMid915HalfScaleOddCofactor_eq_three`, `vfMid915TripleCurrentParent_in_halfRun`;
+- `VF_MID_ODD_FRACTIONAL_CLUSTER.lean` `942badff45c03d2a9e97789b57d1bd8052232191`: `vfMidOddFractionalPrimeSeatWeight`;
+- `VF_MID_FIRST_BAD_EXACT_BUDGET_CLOSE.lean` `160194aa0bfccc8211264012fcc2ba018e936ab2`: `VFMid915FirstBadSourcePaymentStatement` and the unchanged conditional consumers.
+
+### Claim 20261013-owner-5 — injective triple-ancestor carrier with strict raw-weight dominance
+
+- **Status:** `PAPER_PROOF`.
+- **Statement:** Let `R >= 16`, put `A = floor(R/2)+1`, and let `n` be an original odd current-band occurrence with
+  \[
+  R^2<n<(R+1)^2,\qquad n=3q,\qquad q\ \text{prime}.
+  \]
+  Put `r=floor(sqrt(q))`. Then:
+  1. `A <= r < R`;
+  2. `q` is an original prime occurrence in the open historical block `(r^2,(r+1)^2)`;
+  3. the map `n -> q=n/3` is injective on these current occurrences; and
+  4. on the literal block-dependent VF weights,
+     \[
+     \operatorname{charge}_R(n)+\operatorname{charge}_r(q)
+       = w_R+w_r-1 < -\frac{43}{720}<0,
+     \]
+     where
+     \[
+     w_t=\frac{2t+1}{t\log(t^2+t+\tfrac12)}
+       =\texttt{vfMidOddFractionalPrimeSeatWeight}\ t.
+     \]
+- **Carrier fidelity:** `n` is the actual current composite seat and `q` is its actual historical prime occurrence. No canonical defect, invented parent, duplicated ancestor, unit-cardinality proxy, or constant surrogate weight is used. In the anchored-source orientation, expanding `-D_R` as `-D_A +` the historical run places the historical prime charge with exactly the sign displayed above.
+- **Ancestry proof:** current main's `vfMid915TripleCurrentParent_in_halfRun` gives `A^2 <= q`, hence `A <= r`. Also
+  \[
+  3q=n<(R+1)^2<3R^2
+  \]
+  for `R>=2`, so `q<R^2` and `r<R`. Since `q>3` is prime, it is odd and not a square, so it lies strictly between `r^2` and `(r+1)^2` and belongs to the original parity-reduced historical carrier. Division by three proves injectivity.
+- **Raw-weight proof:** `R>=16` gives
+  \[
+  w_R < \frac{33/16}{5}=\frac{33}{80}.
+  \]
+  Indeed the logarithmic denominator exceeds \(\log256=8\log2>5\). Also `r>=A>=9` gives
+  \[
+  w_r < \frac{19/9}{4}=\frac{19}{36},
+  \]
+  because the denominator exceeds \(\log81=4\log3>4\). Thus
+  \[
+  w_R+w_r-1 < \frac{33}{80}+\frac{19}{36}-1
+    =-\frac{43}{720}.
+  \]
+  The elementary logarithm bounds can be certified from \(\log b=\int_1^b dx/x\): the four-bin right-endpoint lower sum for \(\log2\) is \(533/840>5/8\), and the eight-bin sum for \(\log3\) is \(28271/27720>1\).
+- **Quantitative contribution:** this gives a genuine, multiplicity-safe signed cancellation theorem for the recent-half-run semiprime portion of early owner `3`, precisely the part omitted by a late-owner-only carrier. It is not an all-scale source-payment theorem.
+
+### Claim 20261013-owner-6 — standalone NNS payment by the same pair is false
+
+- **Status:** `REFUTED` by `FINITE_COMPUTATION`, with exact carrier conditions and high-precision real evaluation.
+- For a current-positive charge `x=w_R` and its historical-negative magnitude `y=1-w_r`, the two-site NNS balance slack is
+  \[
+  6xy-x^2-y^2.
+  \]
+  Signed dominance `y>x` does not imply this slack is nonnegative. The first enumerated actual failure is
+  \[
+  R=1011,\quad n=1022127=3\cdot340709,\quad q=340709\ \text{prime},
+  \quad r=583.
+  \]
+  Here `n` is six units above `R^2=1022121`; the evaluated literal weights are
+  \[
+  x=0.1445970687073586,\quad y=0.8428559287306625,
+  \]
+  and the slack is \(-0.00006744905275524582\).
+- Therefore Claim owner-5 may not be promoted to an independent pairwise proof of `VFMid915FirstBadSourcePaymentStatement`. The excess historical negative charge must remain in the global signed ledger and interact with other owners, the anchor, and the compression-restoration terms.
+
+### Executed falsification and finite evidence
+
+A CPython 3.12 SPF-sieve scan enumerated every prime `q` for which `n=3q` lies in an open square block, for every `3 <= R <= 5000`. It evaluated the literal formula for `w_R` and `w_floor(sqrt(q))`.
+
+- **560,898** eligible physical occurrences were tested.
+- The signed charge sum was positive only in 13 occurrences, all with `R<=11`; the last was `R=11,n=141,q=47,r=6`, excess `0.005741995542285494`. This is a concrete warning against dropping the theorem's scale hypotheses.
+- Every tested occurrence with `R>=12` satisfied signed dominance. For the proved range `R>=16`, the largest observed signed sum was `-0.16361939442253437`, at `R=16,n=267,q=89,r=9`.
+- The NNS pair slack was nonnegative for 29,216 tested occurrences and negative for 531,661. The first actual negative witness is Claim owner-6; by `R=5000` the most negative observed slack was approximately `-0.1624129087`.
+- These computations support and falsify only the stated finite claims. Claim owner-5 rests on the paper derivation, not on the scan.
+
+### Novelty, circularity, and limitations
+
+Claim owner-5 adds independently justified arithmetic information absent from the inspected current declarations: a literal occurrence injection plus a strict inequality between the two original, different block weights. It does not assume the source-payment inequality or any asymptotic prime-distribution estimate.
+
+It also does not repackage an unsigned count. The restriction is signed and coefficient-preserving. However, Claim owner-6 shows exactly why it does not close the nonlinear NNS gate: local signed cancellation and local NNS balance are different statements. Expanding history also incurs the exact compression-restoration price proved in `vfMid915ActualHistoricalSquaredNormRestoration`; that price has not been paid here.
+
+### Exact first unproved lemma
+
+After removing the injectively matched owner-`3` prime-descendant pairs of Claim owner-5 from the literal historical/current numerator, prove a global UPM/LPM slack inequality for the **residual** original carrier that simultaneously:
+
+1. keeps the unmatched historical negative surplus rather than discarding or duplicating it;
+2. retains `D_A`, all current seats, squareful restoring seats, clipping/admission masks, raw-parent multiplicity, and cross-owner interactions;
+3. includes the exact historical compression-restoration term; and
+4. maps the resulting residual pair ledger into the existing six-boundary/sector-six transport without taking separate absolute values.
+
+The first concrete obstruction is the actual `R=1011` triple pair above: any proposed lemma asserting nonnegative slack owner-pair by owner-pair is false.
+
+### Downstream handoff
+
+- **Prime Census Laboratory:** independently reproduce the 560,898-occurrence scan, especially primality and strict open-band membership of the `R=1011` witness; search for a smaller exact algebraic NNS-slack witness and test the signed bound through a larger declared range.
+- **Adversarial Referee:** audit the historical sign orientation, the injection into `r in [A,R)`, the logarithmic rational bounds, and the distinction between signed dominance and nonlinear NNS payment.
+- **Lean Verification:** Claim owner-5 is a focused formalization candidate on the existing physical carrier. Suggested theorem shape: hypotheses `16 <= R`, `R^2<n<(R+1)^2`, `n=3*q`, `q.Prime`; conclusion historical membership/injectivity plus
+  \[
+  \texttt{vfMidOddSignedSeatCharge R n}+
+  \texttt{vfMidOddSignedSeatCharge (Nat.sqrt q) q}< -43/720.
+  \]
+  No proof PR is requested or authorized from this agent.
+- **Research Coordinator:** treat Claim owner-5 as a real early-owner signed restriction and Claim owner-6 as a mandatory design constraint. The global residual and compression price remain open.
+
+### Evening final status
+
+- **Strongest new result:** `PAPER_PROOF` Claim `20261013-owner-5`.
+- **Strongest new obstruction:** `REFUTED` local pairwise NNS payment, Claim `20261013-owner-6`.
+- **Production target:** `NO_NEW_RESULT`; `VFMid915FirstBadSourcePaymentStatement` and the canonical RH-scale goal remain open.
+- **Publication status:** report update pending verification below.
+- **No RH-proof claim:** yes.
+
+## Updated next-run resume capsule (non-authoritative)
+
+- **Checkpoint:** 2026-10-13T20:49:22-04:00 at unchanged main `52babf6eb87a7c6f80316ceb952667ad65cb2aa3`.
+- **New reusable claim:** `20261013-owner-5`, injective original-weight triple-ancestor signed dominance with margin `43/720` for `R>=16`.
+- **Mandatory counterexample:** `20261013-owner-6`, first enumerated actual negative pair slack at `R=1011,n=1022127,q=340709,r=583`.
+- **Finite reproducer scope:** all eligible `3q` occurrences through `R=5000`, 560,898 occurrences.
+- **First blocker:** global residual UPM/LPM balance with compression restoration, anchor, masks, multiplicities, and cross-owner terms retained.
+- **Next action:** obtain Census and Referee review; if accepted, request Lean formalization of owner-5, then formulate the residual ledger equality before seeking any inequality.
+- **Avoid:** calling signed dominance a pairwise NNS payment, spending one historical prime more than once, or enlarging the original denominator by decompressed historical absolute mass.
