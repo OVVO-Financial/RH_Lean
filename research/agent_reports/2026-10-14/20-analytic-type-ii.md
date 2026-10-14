@@ -121,7 +121,7 @@ C(q) = {odd primes p : p <= floor(q/M)}
 
 For every `p in C(q)`, `pq` is an odd squarefree current candidate seat,
 its genuine least-prime owner is `p`, and `q` is a distinct historical
-prime candidate seat in block `r_q=floor(sqrt q)<R_p).
+prime candidate seat in block `r_q=floor(sqrt q)<R_p`.
 
 **Proof.** Since `p` and `q` are distinct primes, `pq` is not a square,
 so the displayed strict square inequalities follow from the definition of
@@ -135,7 +135,7 @@ iff p <= floor(q/M).
 ```
 
 The first equivalence is the defining property of integer square root. The
-second cancels the positive integer `p`. Since `p <= q/M < q), `p` is
+second cancels the positive integer `p`. Since `p <= q/M < q`, `p` is
 the least prime factor. Counting all primes up to `floor(q/M)` and deleting
 the even prime 2 proves the formula. Finally `p>=3` implies
 `sqrt(pq)>sqrt(q)`; the present lower bounds make the floor inequality
@@ -155,7 +155,7 @@ does not supply any part of that power-scale saving.
 
 **Status: PAPER_PROOF.**
 
-For fixed `R,q), at most one integer `p` can satisfy the carrier conditions
+For fixed `R,q`, at most one integer `p` can satisfy the carrier conditions
 of Claim 1. Indeed, if `p1<p2` did so, both products would lie in the same
 open square band and
 
@@ -193,7 +193,7 @@ p=5: R=5,120, pq=26,214,415,
 ```
 
 Both `R>=1024p`, and both current blocks lie in the single sharp dyadic run
-`3000 <= R < 6000), while the common historical prime lies below the run.
+`3000 <= R < 6000`, while the common historical prime lies below the run.
 The natural tag map therefore spends the same `q` twice if it pairs every
 current occurrence independently. At ordinary double precision,
 
@@ -232,8 +232,8 @@ primality test or floating-point value enters the exact collision.
 
 1. **Change of variables / exact equality:** each carrier point is the literal
    odd integer occurrence `n=pq` in its unique strict square block.
-2. **Exact owner identification:** because `p<q), the genuine least-prime
-   owner of `n` is `p); different `p` give different current integers.
+2. **Exact owner identification:** because `p<q`, the genuine least-prime
+   owner of `n` is `p`; different `p` give different current integers.
 3. **Exact current coefficient:** compiled source gives composite charge
    `x_p=w(R_p)>0`.
 4. **Exact historical coefficient:** the actual prime occurrence `q` in
@@ -288,7 +288,7 @@ a(q) = number of actually admitted copies of q after masks, clipping,
        anchor expansion and cumulative-run multiplicity.
 ```
 
-Prove either an exact coefficient-preserving injection with `d(q)<=a(q)),
+Prove either an exact coefficient-preserving injection with `d(q)<=a(q)`,
 or an exact decomposition into a disjoint paired subset plus residual, and
 then bound that residual jointly with all restored cross terms. Claim 3 forces
 the theorem to explain at least the two demands on `q=5,242,883`; merely
@@ -362,4 +362,4 @@ new rigorous restriction and obstruction were established.
   `55f24575bb7e8b4923e987b281413356a02f438b`.
 - Early checkpoint readback blob:
   `26a3f309cbd749a5591fb63846acddbbc30ba3da`.
-- Final commit and final readback blob are recorded after the verified update.
+- Substantive completion commit: `a3927834a2c82708e2fb2d9ab54ce8405aa85c6e`.\n- Verified substantive readback blob: `96665c849fe9bf916c47070deeb91adce9414041`; required claims and downstream sections were present.\n- **Publication status:** COMPLETED on explicit branch `agent-reports`.
