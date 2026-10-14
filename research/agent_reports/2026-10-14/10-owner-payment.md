@@ -435,14 +435,14 @@ Compiled `main` is authoritative. No open or draft PR was discovered.
 **Status: PAPER_PROOF plus exact FINITE_COMPUTATION.**
 
 Put
-$
+$$
 q=1,000,000,007, R=976,217,
 A=floor(R/2)+1=488,109
-$
+$$
 and let
-$
+$$
 P={p: p prime, 239 <= p <= 953}.
-$
+$$
 For every p in P, put r_p=floor(sqrt(pq)). Then:
 
 1. (q) is prime and (P) has exactly 111 elements;
@@ -457,10 +457,10 @@ For every p in P, put r_p=floor(sqrt(pq)). Then:
    111 separately available historical occurrences.
 
 The exact finite checks include
-$
+$$
 239q-A^2=749,605,792>0,
 R^2<953q<(R+1)^2, 2A-R=1,
-$
+$$
 and 2^20 * 953 = 999,292,928 < q.
 The same-block uniqueness theorem makes p -> r_p injective.
 
@@ -468,27 +468,27 @@ Let x_p=w(r_p), X=sum_(p in P) x_p, and
 y=1-w(floor(sqrt(q))), the magnitude of the one original
 historical prime charge. Every r_p <= 976,217, so its midpoint is below
 10^12. The elementary exponential series gives
-$
+$$
 e>1+1+\frac12+\frac16+\frac1{24}=\frac{65}{24},
 qquad (65/24)^{28}>10^{12}.
-$
+$$
 Therefore (log(r_p^2+r_p+1/2)<28) and
-$
+$$
 x_p>\frac{2}{28}=\frac1{14}.
-$
+$$
 Consequently
-$
+$$
 \boxed{X>\frac{111}{14}>1>y.}
-$
+$$
 Thus the 111 actual current descendants cannot be linearly cancelled by
 one copy of the historical prime charge. The obstruction is already inside
 the exact first-bad half-run geometry; it is not merely a collision between
 widely separated arbitrary blocks.
 
 For the grouped isolated zero-target slack,
-$
+$$
 G=(X+y)^2-2(X-y)^2=-X^2+6Xy-y^2.
-$
+$$
 Since X>111/14>6 and y<1, G < -X^2+6X < 0.
 Thus grouping all 111 demands against the one available history also fails
 the local NNS payment gate. This is diagnostic only: the global anchor,
