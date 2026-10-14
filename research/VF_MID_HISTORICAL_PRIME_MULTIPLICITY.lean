@@ -134,7 +134,7 @@ theorem vfMidHistoricalPrimeOwnerFibre_card_eq_pi_sub_one
         exact ⟨⟨by norm_num, hN⟩, by norm_num⟩
       · exact ⟨⟨by omega, hpN⟩, hpPrime⟩
   have hpi := vfMidHistoricalPrimeInterval_card_eq_pi N
-  rw [hsplit, Finset.card_insert_of_not_mem h2not] at hpi
+  rw [hsplit, Finset.card_insert_of_notMem h2not] at hpi
   rw [vfMidHistoricalPrimeOwnerFibre_eq_primeInterval]
   change ((Finset.Icc 3 N).filter Nat.Prime).card =
     Nat.primeCounting N - 1
