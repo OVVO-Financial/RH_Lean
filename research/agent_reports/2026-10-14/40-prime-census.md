@@ -540,3 +540,419 @@ source-payment advance.
 - Work started: independent exact prime/SPF/Mobius tests of the new wheel thresholds, ancestry multiplicity, collision, and owner-weight sign claims. No new result is asserted at this checkpoint.
 
 **Checkpoint status:** `IN_PROGRESS / NO_NEW_RESULT`.
+
+### Completed continuation — 2026-10-14T10:39:47-04:00
+
+#### Provenance refresh and live state
+
+- The scheduled invocation began at `2026-10-14T10:28:24-04:00` and completed at
+  `2026-10-14T10:39:47-04:00`.
+- `main` remained `18fa753f6ea12951845fec65414b47faea0172a1`.
+  No open or draft pull request was returned by a live GitHub search.
+- The early checkpoint was published as commit
+  `ccb0350e97f6dadeeea7f531d4bdde3aa2289017` and verified at blob
+  `2cbb12710de3f4baaaca48348aae348512dc9409`.
+- Today's upstream reports actually consumed are the three blobs recorded in
+  the checkpoint; `00-coordinator-am.md` remains `TODAY=PENDING`.
+- Previous-day continuity was checked from Coordinator AM blob
+  `87a596f6f7bcb9bab6b2d29fc7c162c64ed544cb`, Owner Payment
+  `32f1574b8ade7dedc602b07b1b9257341320080a`, Analytic Type II
+  `d9f73a0aab42e70ca30a17d16822a8281ca7afef`, Finite Wheel
+  `1c96431194038b2691f628bfce5736f7f0dcacd5`, and this stage
+  `e14006a1a29a2f6c9ef2306fea6b1f4243bdf58c`.
+- Relevant compiled declarations were inspected in
+  `VF_MID_LATE_OWNER_WHEEL_THIRTY_BUDGET.lean` blob
+  `3701895c3e3af16b6f6b0506ed69f7b5c3d55800`,
+  `VF_MID_DYADIC_OWNER_EXACT.lean` blob
+  `95e7aa05b62861a19f0179aa529f817e3a402bba`,
+  `VF_MID_FINAL_RAW_CLIPPED_TELESCOPE.lean` blob
+  `dc1611da7eeca2ed2f2273fa73c9a659b4ba2f42`, and
+  `VF_MID_915_SOURCE_PAYMENT_CONTENT_AUDIT.lean` blob
+  `f7d046d8d94962e18f794deee7e33ce7508a0e74`.
+
+The exact experimental carrier was the strict open square block
+(R^2<n<(R+1)^2), with genuine least-prime owner (p>A), (ple R<2A),
+and quotient
+
+[
+ t=lfloor R^2/pfloor,qquad
+ u=lfloor((R+1)^2-1)/pfloor.
+]
+
+The compiled theorem identifies the owner fibre with the primes
+(qin(t,u]). For a squarefree semiprime (n=pq), the physical Möbius value
+is therefore (+1). Wheel capacities count the integers in this exact
+quotient interval coprime to the stated primorial; they contain no VF weight,
+sign, mask, clip, anchor, history tag, or quadratic cross term.
+
+### Claim 20261014-census-6 — sharp 2310/30030 wheel audit
+
+- **Exact statement tested:** Claims `20261014-wheel-5..7`: for
+  (7le Ale R<2A), every genuine late-owner fibre is bounded by its
+  (gcd(cdot,2310)=1) quotient capacity; for (11le Ale R<2A), it is
+  bounded by the (gcd(cdot,30030)=1) capacity.
+- **Status:** `PAPER_PROOF` accepted for the all-scale divisibility arguments;
+  `FINITE_COMPUTATION` for the independent coverage below.
+- **Complete finite coverage:** quotient enumeration checked every distinct
+  ((R,p)) fibre induced by at least one (7le Ale5000),
+  (Ale R<2A): 2,958,529 fibres, 875,012 nonempty. There were zero 2310
+  violations. Restricting to induced (Age11), there were zero 30030
+  violations.
+- **Sharp failures reproduced:** ((A,R,p,q,n,t,u)=(6,8,7,11,77,9,11))
+  has 2310 capacity zero; ((10,11,11,13,143,11,13)) has 30030 capacity
+  zero. Both products satisfy the strict endpoint inequalities.
+- **Exact run totals, agreed by both implementations:**
+
+| run | actual | (C_{2310}) | (C_{30030}) |
+|---|---:|---:|---:|
+| ([50,100)) | 131 | 133 | 131 |
+| ([100,200)) | 463 | 532 | 481 |
+| ([500,1000)) | 6,587 | 9,735 | 8,972 |
+| ([2634,5267)) | 125,272 | 226,691 | 209,320 |
+| ([5000,10000)) | 385,553 | 747,547 | 689,930 |
+
+No adaptive residue-dispersion or signed cancellation theorem follows. The
+larger fixed wheel is a valid deterministic unsigned refinement only.
+
+### Claim 20261014-census-7 — ancestry fibre and collision
+
+- **Exact statement:** for (M=1024^2), odd prime (qge2M), and
+  (R_p=lfloorsqrt{pq}floor), the owners satisfying
+  (R_pge1024p) are exactly the odd primes
+  (plelfloor q/Mfloor). Thus the fibre size is
+  (pi(lfloor q/Mfloor)-1).
+- **Status:** `PAPER_PROOF` accepted after checking the integer-square-root
+  equivalence, strict nonsquare endpoint, least-factor condition, and
+  historical block ordering; `FINITE_COMPUTATION` for the cases below.
+- Deterministic 64-bit primality and exact integer square roots reproduced the
+  five supplied (q)'s. Their odd-owner counts were respectively
+  (0,1,2,4,9) at
+  (q=2097169,3145739,5242883,11534351,30408713).
+- The dyadic-run collision was reproduced:
+  (q=5242883) is prime and is used by
+  (3q) in block (R=3965) and (5q) in block (R=5120); both lie in
+  (3000le R<6000). Independent C++ trial division again certified
+  (3,5,q) prime and both strict block memberships.
+- **Consequence:** same-block uniqueness is compatible with unbounded global
+  historical-tag multiplicity. Deduplicating (q), or charging its one
+  compressed historical occurrence once per current owner, changes the
+  physical carrier.
+
+### Claim 20261014-census-8 — original-weight signs and falsification
+
+- **Status:** `PAPER_PROOF` accepted for Owner Claims
+  `20261014-owner-1..2`; `FINITE_COMPUTATION / REFUTED` for the
+  unrestricted strengthening.
+- With
+  (w(t)=(2t+1)/(tlog(t^2+t+1/2))), the fixed-owner hypotheses
+  (Rge1024p) imply the submitted strict bounds
+  (w(R)+w(lfloorsqrt qfloor)-1<-451/640) and
+  (6xy-x^2-y^2<-541/409600), for
+  (x=w(R)), (y=1-w(lfloorsqrt qfloor)).
+  The elementary proof's logarithmic inequalities and natural-number
+  threshold were checked directly.
+- The collision pairs had 180-digit recomputations
+  [
+  (x-y,;6xy-x^2-y^2)=
+  (-0.7499978375451564ldots,-0.1420856151730422ldots)
+  ]
+  for (p=3), and
+  [
+  (-0.7536138350812305ldots,-0.1601165756375213ldots)
+  ]
+  for (p=5).
+- The mandatory counterexample
+  ((R,p,q,r)=(2048,2029,2069,45)) was independently reconstructed with
+  prime (p,q), strict block membership, and
+  [
+  x-y=-0.6039748931220550ldots,qquad
+  6xy-x^2-y^2=+0.0209714374292720ldots.
+  ]
+  Therefore removing the lower child-scale condition makes isolated
+  negativity false.
+- Decimal logarithms were evaluated independently at precisions 100 and 180;
+  the displayed digits and signs agreed. The smallest displayed absolute
+  margin exceeds (2cdot10^{-2}), so rounding at these precisions cannot
+  plausibly change a sign. This is a stability check, not an interval-arithmetic
+  proof; the universal accepted statements rest on the exact rational/log
+  inequalities in the paper proof.
+- Pairwise favorable slack still cannot be summed: the exact change after
+  adding a pair to residual totals contains the uncontrolled terms
+  (2M_0(x+y)-4S_0(x-y)), and the collision shows historical multiplicity
+  cannot be discarded.
+
+### Claim 20261014-census-9 — independent physical and Möbius conservation
+
+- **Status:** `FINITE_COMPUTATION`.
+- A C++ segmented least-prime-factor scan enumerated every physical integer in
+  the five runs rather than generating prime quotients. It skipped every
+  intermediate square atom explicitly and verified
+  (n=pq), least-factor ownership, (p<q), primality of (q), and both
+  strict square inequalities.
+- Independent trial factorization returned (mu(n)=+1) for every retained
+  occurrence. On ([2634,5267)), physical count = Möbius sum = 125,272;
+  on ([5000,10000)), both equal 385,553. The smaller three runs likewise
+  matched exactly.
+- The physical implementation independently reproduced every wheel total in
+  Claim 6. No discrepancy remained.
+
+### External and no-narrowing decisions
+
+- `EXT-20261014-1`: accepted with the sharper threshold already stated by
+  Finite Wheel, and independently reproduced here.
+- `EXT-20261014-2/3`: accepted only at the fixed-owner, isolated-pair scope;
+  cross-owner/history aggregation remains invalid.
+- `EXT-20261014-5`: no independent infinite computation is possible. Owner
+  Payment's paper audit is consistent with the exact compiled two-parameter
+  denominator; this run found no arithmetic contradiction and does not promote
+  it beyond `PAPER_PROOF`.
+- `CL-20261014-1..7`: current-main compiled baseline after merged PRs
+  #938/#939. The named quantitative inlets are target-equivalent or the
+  original #915 inequality is strictly false on first-bad inputs.
+- No computation here proves the canonical endpoint bound, #915 payment,
+  signed-late correction, actual-prime admissibility, finite A/C, CORR-4, or
+  RH.
+
+### Executed algorithms and environment
+
+Actual environment: CPython 3.12.14, g++ 13.3.0 with
+`-O3 -std=c++20`, Linux 6.18.44 x86_64. Exact commands:
+
+```bash
+python -u census_continuation.py
+g++ -O3 -std=c++20 census_physical_continuation.cpp \
+  -o /tmp/census_physical_continuation
+/tmp/census_physical_continuation
+```
+
+The Python method used an Eratosthenes table for bounded wheel scans,
+deterministic 64-bit Miller-Rabin for larger supplied primes, exact integer
+square roots, and `decimal` logarithms. Its measured elapsed time was
+140.840169 seconds. The C++ physical scan used a segmented least-factor array
+and independent trial-factor Möbius evaluation; the largest scan reported
+23.1534 seconds in the final run. These are observed wall times, not controlled
+benchmarks. Source hashes:
+
+```text
+984fc0225536ad5dc7dffbf7cfc5f117cab90016921d4261f932f35b157a1211  census_continuation.py
+c525abebf9e2ffa9066326e3eec47a78dd9684551e3182902505f384cb728560  census_physical_continuation.cpp
+```
+
+Complete executed source follows.
+
+#### Python continuation implementation
+
+```python
+#!/usr/bin/env python3
+from bisect import bisect_right
+from decimal import Decimal, getcontext
+from hashlib import sha256
+from math import gcd, isqrt
+from time import perf_counter
+
+getcontext().prec = 100
+
+def sieve(n):
+    a = bytearray(b'\x01') * (n + 1)
+    a[:2] = b'\x00\x00'
+    for p in range(2, isqrt(n) + 1):
+        if a[p]:
+            a[p*p:n+1:p] = b'\x00' * ((n-p*p)//p + 1)
+    return a, [i for i in range(2, n + 1) if a[i]]
+
+def is_prime64(n):
+    if n < 2: return False
+    small = (2,3,5,7,11,13,17,19,23,29,31,37)
+    for p in small:
+        if n % p == 0: return n == p
+    d, s = n-1, 0
+    while d % 2 == 0: d //= 2; s += 1
+    for a in (2, 325, 9375, 28178, 450775, 9780504, 1795265022):
+        if a % n == 0: continue
+        x = pow(a, d, n)
+        if x in (1, n-1): continue
+        for _ in range(s-1):
+            x = x*x % n
+            if x == n-1: break
+        else: return False
+    return True
+
+def capacity(R,p,M):
+    t=R*R//p; u=((R+1)*(R+1)-1)//p
+    return sum(gcd(q,M)==1 for q in range(t+1,u+1))
+
+def run(A,B,primes,isprime):
+    out=[0,0,0]
+    for R in range(A,B):
+        for p in primes[bisect_right(primes,A):bisect_right(primes,R)]:
+            t=R*R//p; u=((R+1)*(R+1)-1)//p
+            out[0]+=sum(isprime[q] for q in range(t+1,u+1))
+            out[1]+=capacity(R,p,2310)
+            out[2]+=capacity(R,p,30030)
+    return tuple(out)
+
+def weight(t):
+    T=Decimal(t)
+    return (2*T+1)/(T*(T*T+T+Decimal('0.5')).ln())
+
+start=perf_counter()
+isprime,primes=sieve(20050)
+runs=[(50,100),(100,200),(500,1000),(2634,5267),(5000,10000)]
+for A,B in runs: print('run',A,B,*run(A,B,primes,isprime))
+
+# Exhaust all distinct fibres induced by at least one 7 <= A <= 5000.
+tested=nonempty=viol2310=viol30030=0
+first2310=None; first30030=None
+for R in range(7,10000):
+    minA=max(7,R//2+1)
+    if minA>5000: continue
+    for p in primes[bisect_right(primes,minA):bisect_right(primes,R)]:
+        tested+=1; t=R*R//p; u=((R+1)*(R+1)-1)//p
+        qs=[q for q in range(t+1,u+1) if isprime[q]]
+        nonempty += bool(qs)
+        c2310=capacity(R,p,2310)
+        if len(qs)>c2310:
+            viol2310+=1
+            if first2310 is None:first2310=(minA,R,p,t,u,qs,c2310)
+        if minA>=11:
+            c30030=capacity(R,p,30030)
+            if len(qs)>c30030:
+                viol30030+=1
+                if first30030 is None:first30030=(minA,R,p,t,u,qs,c30030)
+print('global',tested,nonempty,'viol2310',viol2310,first2310,'viol30030',viol30030,first30030)
+for A,R,p in [(6,8,7),(10,11,11)]:
+    t=R*R//p; u=((R+1)*(R+1)-1)//p
+    qs=[q for q in range(t+1,u+1) if isprime[q]]
+    print('threshold',A,R,p,t,u,qs,[p*q for q in qs],capacity(R,p,2310),capacity(R,p,30030))
+
+# Exact ancestry formula and collision.
+M=1024**2
+for q in (2097169,3145739,5242883,11534351,30408713):
+    ps=[p for p in range(3,q//M+1,2) if is_prime64(p)]
+    rows=[]
+    for p in ps:
+        R=isqrt(p*q)
+        rows.append((p,R,R>=1024*p,R*R<p*q<(R+1)**2))
+    print('ancestry',q,is_prime64(q),q//M,len(ps),rows)
+q=5242883
+for p in (3,5):
+    R=isqrt(p*q); r=isqrt(q); x=weight(R); y=1-weight(r)
+    print('collision',p,q,R,r,p*q-R*R,(R+1)**2-p*q,'sep',x-y,'slack',6*x*y-x*x-y*y)
+
+# Owner claims and positive strengthening counterexample at 100 digits.
+for R,p,q in [(2048,2029,2069),(3072,3,None),(5120,5,None)]:
+    if q is None:
+        t=R*R//p; u=((R+1)*(R+1)-1)//p
+        q=next(v for v in range(t+1,u+1) if is_prime64(v))
+    r=isqrt(q); x=weight(R); y=1-weight(r)
+    print('ownerpair',R,p,q,is_prime64(p),is_prime64(q),r,'strict',R*R<p*q<(R+1)**2,'sep',x-y,'slack',6*x*y-x*x-y*y)
+
+data=open(__file__,'rb').read()
+print('sha256',sha256(data).hexdigest())
+print('elapsed_seconds',format(perf_counter()-start,'.6f'))
+```
+
+#### C++ continuation implementation
+
+```cpp
+#include <algorithm>
+#include <chrono>
+#include <cmath>
+#include <cstdint>
+#include <iostream>
+#include <numeric>
+#include <vector>
+
+static std::vector<int> primes_to(int n) {
+  std::vector<uint8_t> a(n+1,1); a[0]=a[1]=0;
+  for(int p=2; int64_t(p)*p<=n; ++p) if(a[p]) for(int m=p*p;m<=n;m+=p)a[m]=0;
+  std::vector<int> ps; for(int n0=2;n0<=n;++n0)if(a[n0])ps.push_back(n0); return ps;
+}
+static int cap(uint64_t R,int p,int M){
+  uint64_t t=R*R/p,u=((R+1)*(R+1)-1)/p; int c=0;
+  for(uint64_t q=t+1;q<=u;++q)c+=std::gcd<uint64_t>(q,M)==1; return c;
+}
+static int mu_trial(uint64_t n,const std::vector<int>& ps){
+  int mu=1; for(int p:ps){if(uint64_t(p)*p>n)break;if(n%p)continue;n/=p;mu=-mu;if(n%p==0)return 0;}if(n>1)mu=-mu;return mu;
+}
+static bool prime_trial(uint64_t n){if(n<2)return false;if(n%2==0)return n==2;for(uint64_t d=3;d*d<=n;d+=2)if(n%d==0)return false;return true;}
+static void scan(int A,int B){
+  auto st=std::chrono::steady_clock::now(); uint64_t lo=uint64_t(A)*A+1,hi=uint64_t(B)*B-1; size_t N=hi-lo+1;
+  std::vector<uint32_t> spf(N,0); auto ps=primes_to(2*B+10);
+  for(int p:ps){if(uint64_t(p)*p>hi)break;uint64_t f=std::max<uint64_t>(uint64_t(p)*p,((lo+p-1)/p)*p);for(uint64_t n=f;n<=hi;n+=p){auto&s=spf[n-lo];if(!s)s=p;}}
+  uint64_t actual=0,c2310=0,c30030=0,muplus=0,musum=0,viol=0; int R=A; uint64_t next=uint64_t(R+1)*(R+1);
+  for(size_t i=0;i<N;++i){uint64_t n=lo+i;while(n>=next){++R;next=uint64_t(R+1)*(R+1);}if(n==uint64_t(R)*R)continue;uint32_t p=spf[i];
+    if(p>uint32_t(A)){uint64_t q=n/p;bool qp=q>=2;for(int d=2;uint64_t(d)*d<=q&&qp;++d)if(q%d==0)qp=false;bool ok=n==uint64_t(p)*q&&p<=uint32_t(R)&&p<q&&qp&&uint64_t(R)*R<n&&n<uint64_t(R+1)*(R+1);if(!ok){std::cerr<<"bad "<<n<<' '<<p<<' '<<q<<' '<<R<<'\n';std::exit(2);}int mu=mu_trial(n,ps);++actual;muplus+=mu==1;musum+=mu;}
+  }
+  for(int r=A;r<B;++r)for(int p:ps){if(p<=A)continue;if(p>r)break;c2310+=cap(r,p,2310);c30030+=cap(r,p,30030);}
+  double sec=std::chrono::duration<double>(std::chrono::steady_clock::now()-st).count();
+  std::cout<<"physical "<<A<<' '<<B<<" actual "<<actual<<" c2310 "<<c2310<<" c30030 "<<c30030<<" muplus "<<muplus<<" musum "<<musum<<" violations "<<viol<<" seconds "<<sec<<'\n';
+}
+int main(){for(auto ab:std::vector<std::pair<int,int>>{{50,100},{100,200},{500,1000},{2634,5267},{5000,10000}})scan(ab.first,ab.second);uint64_t q=5242883;std::cout<<"collision_q_prime "<<prime_trial(q)<<'\n';for(uint64_t p:{3ULL,5ULL}){uint64_t R=std::sqrt((long double)(p*q));while((R+1)*(R+1)<=p*q)++R;while(R*R>p*q)--R;std::cout<<"collision "<<p<<' '<<q<<' '<<R<<" prime "<<prime_trial(p)<<' '<<prime_trial(q)<<" strict "<<(R*R<p*q&&p*q<(R+1)*(R+1))<<'\n';}}
+```
+
+### Remaining mathematical obligations
+
+1. Any use of Claims 6--9 on the VF source must first give a literal
+   occurrence-, coefficient-, sign-, mask-, clip-, anchor-, multiplicity-,
+   chronology-, and cross-term-preserving identity. This structural equality
+   is not itself a payment estimate.
+2. Cross-owner historical availability must respect the exact ancestry fibre.
+   The \(q=5242883\) collision forbids one historical occurrence from being
+   copied for both current owners.
+3. The residual large-owner carrier \(p>R/1024\) has no uniform isolated
+   negative sign; the \((2048,2029,2069,45)\) witness must be retained.
+4. A genuine quantitative advance still requires an independently proved
+   signed estimate on the original carrier. Unsigned fixed-wheel savings,
+   isolated pair slack, and target-equivalent inlet names do not provide it.
+5. The Adversarial Referee should audit the exact ancestry-fibre proof,
+   both threshold counterexamples, the historical collision, and the
+   distinction between an unconditional reassembly equality and an RH-hard
+   payment bound.
+
+## Updated final report summary
+
+**Net-new mathematical progress:** no new all-scale theorem beyond the
+upstream paper claims. This continuation independently accepted the sharp
+2310/30030 wheel restrictions and exact ancestry-fibre formula, reproduced all
+finite totals by two structurally different algorithms, and confirmed the
+cross-owner multiplicity and positive-slack counterexamples.
+
+**Finite scope:** complete induced fibres for \(7\le A\le5000\); physical
+integer scans on the five tabulated runs through \(B=10000\); five supplied
+large ancestry primes; four high-precision signed pairs.
+
+**Completeness:** `DONE` for today's available upstream arithmetic claims;
+`DONE_NO_NEW_RESULT` for the canonical endpoint target.
+
+**No RH-proof claim:** yes.
+
+## Updated next-run resume capsule (non-authoritative)
+
+- **Checkpoint/run timestamp:** `2026-10-14T10:39:47-04:00`.
+- **Source freshness:** main
+  `18fa753f6ea12951845fec65414b47faea0172a1`; authority and Lean blobs
+  recorded above.
+- **Upstream consumed:** today's `00=TODAY=PENDING`; today Owner
+  `08b203d3...`, Analytic `7e6667d1...`, Wheel `2c2d3a0...`; yesterday's
+  `00/10/20/30/40` blobs recorded above.
+- **Completed evidence worth reusing:** Claims
+  `20261014-census-6..9`; zero wheel violations on 2,958,529 induced
+  fibres; exact five-run two-implementation agreement; ancestry collision at
+  \(q=5242883\); positive-slack counterexample
+  \((2048,2029,2069,45)\); executed source hashes and commands above.
+- **Invalidations / uncertain results:** unrestricted isolated negativity is
+  `REFUTED`; no interval-arithmetic transcendental certificate was used;
+  `EXT-20261014-5` remains `PAPER_PROOF`.
+- **First unresolved mathematical blocker:** a new, independently provable
+  signed original-carrier estimate; the canonical theorem itself remains the
+  first unproved completion statement.
+- **Next highest-value step:** test only a newly specified source-tagged
+  signed identity or estimate, explicitly grouping by historical \(q\) with
+  its full multiplicity and retaining residual cross terms.
+- **For Agent #7:** no new proof PR exists. Claims `wheel-5..6` and
+  `analytic-1..2` are scoped auxiliary formalization candidates only after
+  referee acceptance; they are not closure lemmas.
+- **Avoid next run:** repeating the unchanged wheel scans, deduplicating a
+  historical prime, summing isolated pair slacks, or relabeling a
+  target-equivalent inlet as a smaller theorem.
