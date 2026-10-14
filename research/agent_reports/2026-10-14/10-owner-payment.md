@@ -6,7 +6,7 @@
 - **Agent / stage:** RH | Owner Payment / `10-owner-payment.md`
 - **Configured daily schedule supplied by user:** 20:43 ET, including weekends
 - **Run ID / sequence:** 2026-10-14T09:40:24-04:00 / first owner-payment run observed today; invocation occurred outside the supplied 20:43 ET slot
-- **Actual execution / checkpoint time:** 2026-10-14T09:44:51-04:00
+- **Actual execution / completed time:** 2026-10-14T09:40:24-04:00 / 2026-10-14T09:49:47-04:00
 - **Previous own checkpoint:** `research/agent_reports/2026-10-13/10-owner-payment.md`, blob `32f1574b8ade7dedc602b07b1b9257341320080a`, latest capsule 2026-10-13T20:49:22-04:00
 - **Warm-start cache status:** yesterday's Claim `20261013-owner-5` and counterexample `20261013-owner-6` retained as historical supporting evidence; the former production framing is invalidated by merged PRs #938/#939
 - **Observed `main` HEAD SHA:** `18fa753f6ea12951845fec65414b47faea0172a1`
@@ -16,8 +16,8 @@
 - **Previous-day continuity actually read:** YESTERDAY=CARRY_FORWARD from own report above and coordinator PM `research/agent_reports/2026-10-13/90-coordinator-pm.md`, blob `aab612c387de93a777c696bc54be128b210cb8b8`
 - **External inbox consumed:** `research/agent_reports/EXTERNAL_HANDOFFS.md`, blob `6fce4e9d024b6c4ad47798c5d7c162101a2435a0`; relevant claims `EXT-20261014-2`, `EXT-20261014-3`, `EXT-20261014-5`, and `CL-20261014-1..7`
 - **Execution environment/tools used:** authenticated GitHub read/write connector; no local Lean execution and no source modification
-- **Publication status:** INITIAL_CHECKPOINT / IN_PROGRESS
-- **Early durable checkpoint:** publication commit and readback pending
+- **Publication status:** COMPLETED; substantive corrected content commit `cb784a90e221fbfe683d0cd17d477c726a910fd5`, verified readback blob `2e739c20695a3c7146dd0b07412e0a8347ca8d26`
+- **Early durable checkpoint:** commit `65da360956338bcf5615aeb69383812d2a0f8b68`, verified readback blob `3fd5ae643d390ce242d25e434a16b0412c51d45d`
 
 ## Current central research objective
 
@@ -372,3 +372,13 @@ closure, finite A/C, CORR-4, or RH proof is claimed.
 - **For Agent #7:** formalize Claims 1–2 only after referee acceptance.
 - **Avoid:** universal pairwise negativity, cross-owner reuse of \`q\`,
   altered denominators, target-equivalent inlets, or unchanged scans.
+
+
+## Publication verification
+
+- **Initial checkpoint commit:** \`65da360956338bcf5615aeb69383812d2a0f8b68\`.
+- **Substantive corrected report commit:** \`cb784a90e221fbfe683d0cd17d477c726a910fd5\`.
+- **Verified substantive blob:** \`2e739c20695a3c7146dd0b07412e0a8347ca8d26\`.
+- **Readback checks:** 16,740 characters; no control characters; Claims 1–4,
+  counterexample, limsup conclusion, final summary, and resume capsule present.
+- **Publication status:** COMPLETED on explicit branch \`agent-reports\`.
