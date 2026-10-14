@@ -49,7 +49,11 @@ private theorem vfMidSameTagDyadic_domain
       (vfMidSameTagDyadicStart q) ^ 2 ≤
         (2 * vfMidSameTagDyadicStart q) ^ 2 - 1 := by
     have ha := hA
-    omega -- replaced by nonlinear arithmetic if necessary
+    have haSq : 1 ≤ (vfMidSameTagDyadicStart q) ^ 2 := by nlinarith
+    have hsquares :
+        (vfMidSameTagDyadicStart q) ^ 2 + 1 ≤
+          (2 * vfMidSameTagDyadicStart q) ^ 2 := by nlinarith
+    omega
   exact ⟨hq0, hA, Nat.div_le_div_right hnum⟩
 
 /-- Exact strict-wall equivalence at arbitrary q>=4096:
@@ -122,7 +126,7 @@ private theorem vfMidSameTag_primeCount_split
   rw [Finset.card_union_of_disjoint hdisj] at hcard
   rw [vfMidSameTag_primeCounting_range L,
       vfMidSameTag_primeCounting_range U] at hcard
-  omega
+  simpa [E, F, G, add_comm] using hcard
 
 /-- Excluding the even prime is an exact one-unit correction, not an
 asymptotic approximation. -/
@@ -149,6 +153,8 @@ private theorem vfMidSameTag_oddPrimeCount_split
   change F.card + Nat.primeCounting L = Nat.primeCounting U at hCount
   have hTwo : 2 ∈ F ↔ L < 2 ∧ 2 ≤ U := by
     simp [F, Nat.prime_two]
+  change O.card + Nat.primeCounting L +
+      (if L < 2 ∧ 2 ≤ U then 1 else 0) = Nat.primeCounting U
   by_cases heven : 2 ∈ F
   · have hCond : L < 2 ∧ 2 ≤ U := hTwo.mp heven
     have hErase := Finset.card_erase_of_mem heven
@@ -158,7 +164,7 @@ private theorem vfMidSameTag_oddPrimeCount_split
   · have hCond : ¬(L < 2 ∧ 2 ≤ U) := by
       intro h
       exact heven (hTwo.mpr h)
-    have hErase : F.erase 2 = F := Finset.erase_eq_of_not_mem heven
+    have hErase : F.erase 2 = F := Finset.erase_eq_of_notMem heven
     rw [hO, hErase]
     simp only [if_neg hCond]
     omega
