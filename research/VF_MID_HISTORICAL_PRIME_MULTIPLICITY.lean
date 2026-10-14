@@ -9,7 +9,7 @@ an eligible small prime owner at scale `R_p = Nat.sqrt (p*q)` when
 physical occurrences. No historical prime is cloned to pay more than one
 source charge; multiplicity is an obstruction, not a cancellation estimate.
 
-Accepted agent findings: 20261014-analytic-1/-2 (PAPER_PROOF, now formalized here).
+Accepted agent findings: 20261014-analytic-1 and 20261014-analytic-2 (PAPER_PROOF, now formalized here).
 The original masks, clips, anchor and restored NNS cross terms are NOT bounded.
 -/
 
