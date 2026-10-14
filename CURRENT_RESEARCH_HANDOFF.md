@@ -4,6 +4,17 @@ This file preserves the research history. The current mathematical frontier is
 specified by [`CURRENT_PROOF_CONTRACT.md`](CURRENT_PROOF_CONTRACT.md), which
 overrides older instructions and open/closed labels below.
 
+## Active research handoff — 2026-10-14 signed actual-prime collision transfer
+
+**Binding live priority:** Follow `main:AGENTS.md` and `main:CURRENT_PROOF_CONTRACT.md` to research an *independent signed genuine-prime arithmetic mechanism* in place of the exact-Li model's absolutely summable quadratic collision correction. This is not a claimed proof of that mechanism. The deterministic floor-Li staircase has `|floor Li-Li|<1` by construction; its event positions are not actual primes. The exact actual-versus-floor-Li ternary mismatch, owner-census, Duhamel/Volterra, cofactor Abel, quadratic boundary and original #915 historical-source transport equalities are already compiled. None proves an RH-scale bound on unmatched signed transport. The continuous Li-density critical weight satisfies `sum_q |w_Li(q)|²/q<infinity`; the direct actual-prime replacement instead gives the divergent **unsigned** `sum_p 1/p`. A new estimate must use genuine multiplicative ancestry, not this failed absolute norm transfer.
+
+**Original source invariants:** one genuine historical prime charge per occurrence; real prime clocks; original site weights, survivor masks, clipping and squareful/earlier-owner compensation; the compressed `|D_R|` anchor; all original first-bad zero-target NNS diagonal, off-diagonal and cross terms. A favorable isolated owner pair or four-owner local packet is not global payment. The required first stage is a falsifiable exact physical signed collision/forcing crosswalk (structural, not yet quantitative), followed by an *independent* uniform signed estimate or explicit obstruction. Always test for RH-equivalent rewriting.
+
+**Seven-agent split:** Coordinator orchestrates one ledger with explicit uncertainties; Owner Payment preserves physical source and tag multiplicities; Analytic Type II seeks an actual-coefficient signed renewal/bilinear saving and bounds coherent modes; Finite Wheel & Incidence looks for signed cross-family factor restrictions; Prime Census reproduces original covariance and compares signed versus unsigned budgets on real primes; Referee tries to falsify and checks every retained term; Lean Verification formalizes referee-qualified new theorems through a real PR/Actions CI or reports `NO_NEW_THEOREM_TO_FORMALIZE`. Reports consume today's AND yesterday's committed stages and the external inbox, one scheduled run per agent/day by user's latest budget. Changes on GitHub do not themselves modify saved Agent Studio instructions or schedules.
+
+**Source and merged states:** `research/EXACT_LI_PURE_MODEL_CLOSURE.lean`, `research/VF_MID_FLOOR_LI_CRITICAL_BALANCE.lean`, `research/VF_MID_FLOOR_LI_TRANSPORT_CANCELLATION.lean`, `research/VF_MID_915_FLOOR_LI_TRANSPORT_BOUNDARY.lean`, and `research/VF_MID_SAME_TAG_SHARP_PACKET.lean` are starting points; #938/#939 and #941–#943 have merged, supplying equivalence/payment audits and local arithmetic restrictions, not an all-scale original NNS signed bound. The dated sections below preserve earlier hypotheses and routes; they do not override this live priority or establish any prior last-lemma reduction.
+
+
 ## Current handoff — 2026-10-06: cumulative child runs, not one bad child
 
 The active correction is that a channel-threatening parent need not select one
