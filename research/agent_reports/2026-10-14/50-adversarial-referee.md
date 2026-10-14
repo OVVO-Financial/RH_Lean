@@ -252,3 +252,11 @@ Claims `20261014-wheel-1` and `20261014-wheel-2` are suitable for a focused form
 - **Next highest-value step:** inspect any later source-tagged owner report or Lean PR; verify exact coefficient and occurrence preservation before allowing the wheel cap into a signed inequality
 - **For Agent #7:** formalize only Claims 1-2 if no duplicate exists; use PR GitHub Actions and report exact head/run/axiom evidence
 - **Avoid next run:** repeating unchanged scans, averaging adaptive residues, or treating an unsigned cap as signed payment
+
+
+## Publication verification
+
+- **Completed report content commit:** `d0e941b13a5ab8a60e7c5cf521848f270b07daf3`
+- **Completed report blob read back:** `368b40a1a59708e4a24e97cf49d54d72ea172447`
+- **Readback checks:** completed update, all nine reviewed claim IDs, final summary, and resume capsule present
+- **Publication status:** COMPLETED
