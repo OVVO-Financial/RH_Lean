@@ -1,12 +1,26 @@
 # RH_Lean current proof contract
 
-**Status date: 2026-10-12. SINGLE PUBLIC CANONICAL VF: sqrt(2) vertical alignment.**
+**Canonical alignment established 2026-10-12; methodological review dated 2026-10-14. SINGLE PUBLIC CANONICAL VF: sqrt(2) vertical alignment.**
 This is the public-definition supersession of the existing raw midpoint
 construction, NOT a change to any frozen arithmetic prime-owner coefficient
 or pre-existing theorem statement. The long-running direct VF-mid
 SIGNED arithmetic route is still canonical; finite A/C and CORR-4 remain
 sufficient alternatives. RH/finite A/finite C and the genuine signed
 first-bad payment are OPEN.
+
+## 2026-10-14 no-narrowing and physical-payment review — NOT YET MERGED
+
+**The unique OPEN public theorem remains `VFCanonicalSquareVonKochStatement`.** The following is a dated review of independently submitted, CI-green **open** PRs, not an assertion that their new declarations have already entered `main`. Re-fetch each PR's present state/head and original source before using the results as compiled dependencies on `main`.
+
+- [PR #938](https://github.com/OVVO-Financial/RH_Lean/pull/938), review head `e2a2f39b9999652be2207bb7afa083d67f8efb78`, establishes (on that PR branch) both directions between the dyadic signed-late correction, native VF tracking, actual-prime owner-escape admissibility, and the existing square-endpoint/canonical von-Koch statements. **These named inlets are logically target-equivalent, not narrower arithmetic estimates.** A new *proof* of one might still prove RH, but calling it a solved structural input or a smaller missing lemma does not reduce the required arithmetic strength.
+- [PR #939](https://github.com/OVVO-Financial/RH_Lean/pull/939), review head `7b9385069c78f6f4001a0288ca702bd0db5a21c3`, audits the original `VFMid915FirstBadSourcePaymentStatement` at fixed `K=2`. At every actual first-bad successor the **strict opposite** of its required quadratic payment already follows from the existing conditional victory theorem; the proposed payment therefore amounts to the **absence of a first-bad successor**. Assuming the (numerically checked, but not compiled in this PR) good base scales `2..8`, it is equivalent to the explicit raw envelope `|D_R^raw| <= 2 R log R` for all `R>=2`. Its pointwise payment inequality involves only actual endpoint defect `D_R` and genuine block prime supply `P_R` plus deterministic midpoint weights, not a separately available owner-wheel capacity.
+- **Original compressed NNS zero-target mass matters.** For `R>=8`, `m_R=(2R+1)/log(R^2+R+1/2)`, `w_R=m_R/R`, `beta_R=m_R+(1-2w_R)P_R`, `D_(R+1)=D_R+P_R-m_R`, and the frozen raw #915 inlet is `2 D_(R+1)^2 <= (|D_R|+beta_R)^2`. Historical mass in `|D_R|` cannot be silently replaced by an enlarged uncompressed absolute history; the compiled historical compression theorem spells out the lost/restored cross terms. An individual two-seat NNS slack or unsigned wheel/cardinality bound is not an independent proof of that global payment.
+- **Independent outside-session paper result (NOT formalized):** external claim `EXT-20261014-5` derives `limsup D_(R+1)^2/(|D_R|+beta_R)^2 = 1` from Littlewood plus Brun-Titchmarsh, ruling out a hypothesis-free fixed-fraction `<1` upper bound if the derivation passes independent review. Do not promote that paper claim to a Lean theorem or confuse it with failure of the *conditional* first-bad formulation.
+- **Distinguish equation from estimate.** A fully verified, original-weight signed source-to-Sector-Six occurrence/mask/clip/multiplicity/cross-term equality might still be provable and valuable. The quantitative inequality that would pay its still-open source, however, cannot be assumed to become easier merely from reindexing. No result here proves the impossibility of new arithmetic cancellation estimates, finite A/C, CORR-4, or RH.
+
+All seven specialist agents must consult the live [external research inbox](https://github.com/OVVO-Financial/RH_Lean/blob/agent-reports/research/agent_reports/EXTERNAL_HANDOFFS.md) **as evidence** after reading both today's and the previous calendar day's committed stage reports. The inbox is on `agent-reports`; it never supersedes the current `main` theorem contract. The later user-stated scheduling budget is **one actual run per agent daily**; dated two-run setup examples do not schedule or authorize extra launches. `AGENTS.md` defines the permanent run behavior and mathematical status checks.
+
+**Interpretation of older sections below:** paragraphs identifying a *single remaining* #915, signed-late, or owner-escape seam are dated research proposals, not an instruction to redo target-equivalent proof attempts. Audit exact forward/reverse implications before treating a named condition as independent progress. After either PR merges, verify the `main` declarations and revise the contractual status in a separate reviewed change.
 
 Read [the complete autopsy and exact legacy-coordinate map](research/VF_CANONICAL_SQRT_TWO_AUTOPSY_2026_10_12.md).
 The public Lean interface is
@@ -131,9 +145,11 @@ The tempting signed bound \(\Gamma_R\le B R^2 K_R\) is itself **equivalent to fi
 
 **Status discipline:** fixed-T rational ancestry signs, PNT means, CRT phase averages, moving-prime-lag correlations, numerical scans through R=20000, and a green *documentation/experiment* workflow are not uniform signed estimates or Lean proofs of finite A/C. Preserve the direct-VF/canonical-versus-Mertens/alternative distinction in all future updates.
 
-## Canonical closure route: structural admissibility, not realized cancellation
+## Historical proposed closure route: structural admissibility (pre-2026-10-14 audit)
 
-The final direct-VF closure is now stated as an admissible-class theorem rather
+**Status qualification:** This section documents the 2026-10-12 proposed sufficient route. The pending #938 logical audit establishes on its CI-verified PR branch that actual-prime owner-escape admissibility is **equivalent** to the canonical von-Koch target. Consequently it is not an already-narrowed, independently available last lemma. The structural class and its conditional consumer remain valid but unproved on the genuine prime sequence.
+
+The earlier direct-VF closure was stated as an admissible-class theorem rather
 than as a request for a separate global cancellation estimate for the realized
 prime sequence.
 
@@ -425,7 +441,7 @@ the maximum positive VF-minus-actual complement charge
 prime-minus-VF convention).  Any future instantiation on #903 must preserve
 this sign convention and must first have #901/#902 in its import ancestry.
 
-### Intended run-level owner mechanism
+### Historical intended run-level owner mechanism (conditional route)
 
 For a threatening run, classify the exact chronological owner census before
 taking absolute values.
@@ -953,4 +969,8 @@ records the unchanged original source-inlet inequality as
 `vfMid915FirstBad_closed_of_sourcePayment` consumers explicitly retain the
 unproved input. Read the [source-payment status](research/VF_MID_915_SOURCE_PAYMENT_STATUS.md).
 The original occurrence-preserving historical/current run splice, actual-prime
-class inclusion, finite A/C, and RH remain open after integration.
+class inclusion, finite A/C, and RH remain open after integration. The dated
+2026-10-14 pending #938/#939 reviews above classify the named signed-late,
+owner-admissibility and #915 payment *statements* as target-equivalent or
+fixed-envelope restatements; an exact source-to-ledger equality remains a
+separate potential structural project, not an automatically sufficient payment.
