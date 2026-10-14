@@ -398,3 +398,209 @@ closure, finite A/C, CORR-4, or RH proof is claimed.
 - **Current objective:** determine a multiplicity-safe demanded-versus-available historical-prime ledger on the original masked/anchored carrier, or prove a sharp obstruction. The first audit will group current demands by the actual historical prime `q`, retain all owner occurrences, and test whether the available original occurrence can be used without cloning.
 - **No-narrowing screen:** any proposed quantitative bound strong enough to finish the canonical endpoint must be checked for target equivalence. The useful independent target at this checkpoint is an exact source-tag/multiplicity identity or a counterexample to one, not a renamed #915 payment.
 - **Production status:** `NO_NEW_RESULT` at checkpoint; no RH claim.
+
+
+## Scheduled continuation result — 2026-10-14T12:36:56-04:00
+
+### Authoritative delta and definitions examined
+
+Current `main` remained
+`13c3aeab8f84fc2309175261948a17a50c8342f4`.
+The continuation examined:
+
+- `research/VF_MID_HISTORICAL_PRIME_MULTIPLICITY.lean`, blob
+  `fda6db056571191feffd08f2d1d6fe0fa02f0d8c`:
+  `vfMidHistoricalPrimeOwnerFibre`,
+  `mem_vfMidHistoricalPrimeOwnerFibre_iff`,
+  `vfMidHistoricalPrimeOwnerFibre_card_eq_pi_sub_one`, and
+  `vfMidHistoricalSmallOwner_sameBlock_unique`;
+- `research/VF_MID_OWNER_SIGNED_PAIR_BOUNDS.lean`, blob
+  `e3cc1722...`: the now-compiled original-weight small-owner gap,
+  isolated NNS slack, and exact residual cross-term identity;
+- `research/VF_MID_SIGNED_SEAT_CHARGE.lean`, blob
+  `13dda0d2c6cc59580959a2d59fad60126b1c6b0b`: the literal weight
+  `w(t)=(2t+1)/(t log(t^2+t+1/2))` and signed seat charge;
+- `research/VF_MID_FIRST_BAD_SOURCE_TO_SECTOR_SIX_INLET.lean`, blob
+  `5d03f3080d014aba1e02485ae9c0b08988478c3c`: the exact anchor-minus-run-minus-block
+  source and its equality to the next endpoint defect;
+- `research/VF_MID_FIRST_BAD_ACTIVE_RAW_PARENT_SPLICE.lean`, blob
+  `e61eb36301f650bfb41079bbd7367f9f45cf6d3e`: original masks, clipped/admitted
+  carrier and explicit residual/cross-term discipline.
+
+The current contract still contains stale pre-merge wording for #938/#939.
+Compiled `main` is authoritative. No open or draft PR was discovered.
+
+### Claim 20261014-owner-5 — explicit 111-to-one historical ancestry overload inside one exact half-run
+
+**Status: PAPER_PROOF plus exact FINITE_COMPUTATION.**
+
+Put
+[
+q=1,000,000,007,qquad R=976,217,qquad
+A=lfloor R/2floor+1=488,109
+]
+and let
+[
+P={p: p	ext{ prime}, 239le ple953}.
+]
+For every (pin P), put (r_p=lfloorsqrt{pq}floor). Then:
+
+1. (q) is prime and (P) has exactly 111 elements;
+2. (Ale r_ple R<2A), and the 111 roots (r_p) are distinct;
+3. (r_p^2<pq<(r_p+1)^2), so every (pq) is a distinct original odd
+   composite occurrence in the complete current half-run;
+4. (p) is its genuine least-prime owner and
+   (1024ple r_p), so every occurrence lies in the compiled small-owner
+   ancestry sector;
+5. the single historical prime occurrence (q) lies in block
+   (lfloorsqrt qfloor=31,622<A), hence is pre-anchor history, not
+   111 separately available historical occurrences.
+
+The exact finite checks include
+[
+239q-A^2=749,605,792>0,quad
+R^2<953q<(R+1)^2,quad 2A-R=1,
+]
+and (2^{20}cdot953=999,292,928<q).
+The same-block uniqueness theorem makes (pmapsto r_p) injective.
+
+Let (x_p=w(r_p)), (X=sum_{pin P}x_p), and
+(y=1-w(lfloorsqrt qfloor)), the magnitude of the one original
+historical prime charge. Every (r_ple976,217), so its midpoint is below
+(10^{12}). The elementary exponential series gives
+[
+e>1+1+rac12+rac16+rac1{24}=rac{65}{24},
+qquad (65/24)^{28}>10^{12}.
+]
+Therefore (log(r_p^2+r_p+1/2)<28) and
+[
+x_p>rac{2}{28}=rac1{14}.
+]
+Consequently
+[
+oxed{X>rac{111}{14}>1>y.}
+]
+Thus the 111 actual current descendants cannot be linearly cancelled by
+one copy of the historical prime charge. The obstruction is already inside
+the exact first-bad half-run geometry; it is not merely a collision between
+widely separated arbitrary blocks.
+
+For the grouped isolated zero-target slack,
+[
+G=(X+y)^2-2(X-y)^2=-X^2+6Xy-y^2.
+]
+Since (X>111/14>6) and (y<1), (G< -X^2+6X<0).
+Thus grouping all 111 demands against the one available history also fails
+the local NNS payment gate. This is diagnostic only: the global anchor,
+other sites and restored cross terms remain mandatory.
+
+### Executed computation and reproducer facts
+
+A CPython 3.12 exact-integer enumeration trial-divided (q) through
+(lfloorsqrt qfloor=31,622), enumerated all primes in ([239,953]),
+and checked each strict square block and threshold condition.
+
+- owner count: 111;
+- owner sum: 64,891;
+- owner-list SHA-256 (comma-separated decimal primes):
+  `e5bae15ed976f7db0020fa9f46b24b1f5d1cfec0cf1035d3237acc6dfd48d50f`;
+- distinct root count: 111; root range 488,876 to 976,217;
+- 80-decimal diagnostic values:
+  (X=8.2169191125328057557ldots),
+  (y=0.9034885076691904531ldots), and
+  (G=-23.7906992656729320483ldots).
+
+The sign conclusions do not depend on these floating evaluations; they follow
+from the rational (1/14) bound above.
+
+### Claim 20261014-owner-6 — refuted demand-to-one-history pairing principle
+
+**Status: REFUTED by Claim owner-5.**
+
+Any proposed run-level map that assigns the unique historical occurrence of a
+prime (q) independently to every eligible descendant (pq), or assumes
+their total current weight is bounded by that one historical magnitude, is
+false. The witness above has 111 distinct demanded occurrences and one
+available source occurrence, with total demanded original weight strictly
+larger than the available magnitude.
+
+This does not refute an occurrence-indexed ledger that keeps all 111 current
+sites and the single historical site and then controls them jointly with the
+rest of the source. It refutes cloning and one-copy pairwise cancellation.
+
+### Novelty and circularity assessment
+
+The merged multiplicity module gives the exact global owner-fibre cardinality
+and an arbitrary-bounded-owner coverage theorem. Claim owner-5 adds a concrete
+**single canonical half-run**, the literal raw VF weights, a certified
+111-to-one overload, and a strict grouped NNS obstruction. Repository search
+found no prior occurrence of this (q) or this certificate.
+
+The result uses only primality, exact square placement, the compiled owner
+threshold, and elementary logarithmic bounds. It assumes neither the
+canonical endpoint bound, #915 payment, finite A/C, CORR-4 nor RH. It does
+not prove that these 111 descendants alone determine the masked active
+raw-parent carrier; it proves they are physical occurrences in the full
+original run and prevents any later source splice from spending the one
+historical (q) 111 times.
+
+### Exact first unproved lemma after this obstruction
+
+Construct an exact demanded-versus-available ledger indexed first by the
+historical prime (q), with one source occurrence of (q) and every distinct
+current descendant tag ((R,p,q)). Preserve original signs, weights, masks,
+clipping, the (D_A) anchor, omitted seats, squareful restoration and all
+quadratic cross terms. Then prove a joint residual estimate without replacing
+the one historical occurrence by its owner-fibre multiplicity.
+
+This is a route-specific first lemma, not a certified uniquely sufficient or
+narrower RH completion statement. Any quantitative conclusion must pass the
+bidirectional no-narrowing screen.
+
+### Downstream requests
+
+- **Prime Census Laboratory:** independently reproduce the exact 111-prime
+  list/hash, primality of (q), root injectivity, and the rational
+  (x_p>1/14) certificate; then search for the smallest same-half-run overload.
+- **Adversarial Referee:** audit whether every (pq) is present in the full
+  original frozen run, while distinguishing that fact from membership in the
+  narrower clipped/admitted active raw-parent mask; review the grouped
+  (G<0) derivation and sign orientation.
+- **Lean Verification:** no immediate PR request. If independently accepted,
+  the useful scoped theorem is the finite ancestry-overload certificate and
+  rational raw-weight lower bound, without a global payment conclusion.
+- **Coordinator:** retain Claim owner-5 as a mandatory multiplicity
+  counterexample. Any future source splice must group by historical (q)
+  before summing owner-pair contributions.
+
+### Continuation final status
+
+- **Net-new result:** Claim `20261014-owner-5`, exact half-run
+  111-to-one original-weight ancestry overload.
+- **Refuted strengthening:** Claim `20261014-owner-6`, one historical charge
+  independently pays every eligible owner demand.
+- **Production target:** `NO_NEW_RESULT`; the canonical endpoint theorem,
+  finite A/C, CORR-4 and RH remain open.
+- **Schedule verification:** the actual enabled Agent schedule is daily
+  (weekly rule listing all seven weekdays) at 20:43 in
+  `America/New_York`; no duplicate or schedule edit was made. This
+  continuation's 12:29 ET launch was outside that stored rule.
+- **No RH-proof claim:** yes.
+
+## Updated next-run resume capsule — 2026-10-14T12:36:56-04:00
+
+- **Authority:** main `13c3aeab8f84fc2309175261948a17a50c8342f4`;
+  AGENTS `26715158...`; contract `27dceba6...`.
+- **New formal baseline:** owner-1/2 and exact cross-term identity are
+  `PROVED_IN_LEAN` through merged PR #942.
+- **New reusable obstruction:** owner-5, (q=1,000,000,007),
+  (A=488,109), (R=976,217), 111 distinct current descendants,
+  (X>111/14>y), grouped (G<0).
+- **Mandatory interpretation:** one historical (q) is one occurrence; never
+  multiply it by (pi(lfloor q/2^{20}floor)-1).
+- **First blocker:** exact source-tagged (q)-group ledger with masks, anchor,
+  residual and all cross terms; no joint estimate is proved.
+- **Next action:** obtain Census/Referee review and search the minimal
+  same-half-run overload; only then consider a finite Lean certificate.
+- **Avoid:** cloned history, summed isolated pair slacks, altered denominator,
+  or target-equivalent inlets relabeled as smaller lemmas.
