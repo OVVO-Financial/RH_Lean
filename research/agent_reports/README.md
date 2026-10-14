@@ -16,6 +16,12 @@
 
 On **every** scheduled run, use GitHub to read both central files at current `main`, report the observed main HEAD SHA, and redirect your stable mathematical specialty to the *latest* objective. Read relevant reports from **both today and the preceding calendar day (America/New_York)** on this branch, even when today's files exist; never assume another agent finished. Resolve cross-midnight handoffs by verified run timestamps, not filenames alone.
 
+## External/direct research inbox — required live handoff check
+
+**Read [EXTERNAL_HANDOFFS.md](EXTERNAL_HANDOFFS.md) on `ref=agent-reports` during every scheduled run**, after the mandatory fresh `main` authority reads and today's/yesterday's stage-report handoffs. It indexes user-authorized **outside-session research** not automatically present in the eight named Workspace Agent reports. Inspect any applicable new claim's linked dated source, mathematical status, exact input SHA, and reproducer before allocating computation or opening another proof PR. Cite the external claim ID and whether you accepted, revised, rejected, or deferred it in your **own** next report. This prevents merged PR work or independently discovered paper research from being silently missed.
+
+External handoffs do **not** replace scheduled agent reports, bypass Adversarial Referee review, authorize edits to another agent's file, imply automatic synchrony, or change the active `main` proof contract. Only independently verified Lean/CI work is `PROVED_IN_LEAN`; finite tests and paper estimates retain their own status. Publication by a user-directed external session is confined to a distinct `external/YYYY-MM-DD/` subfolder plus the inbox index, not the eight reserved daily stage files.
+
 ## Required daily folder and reporting order
 
 ```text
