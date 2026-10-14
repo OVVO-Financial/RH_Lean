@@ -489,7 +489,7 @@ The first concrete obstruction is the actual `R=1011` triple pair above: any pro
 - **Strongest new result:** `PAPER_PROOF` Claim `20261013-owner-5`.
 - **Strongest new obstruction:** `REFUTED` local pairwise NNS payment, Claim `20261013-owner-6`.
 - **Production target:** `NO_NEW_RESULT`; `VFMid915FirstBadSourcePaymentStatement` and the canonical RH-scale goal remain open.
-- **Publication status:** report update pending verification below.
+- **Publication status:** substantive evening findings published at commit `3a513f070828de3e24baf6f38e9ec46777229fe4` and re-fetched as blob `1c41bb37c8d07638d7b501c8bcd8eda3b9e579fc`.
 - **No RH-proof claim:** yes.
 
 ## Updated next-run resume capsule (non-authoritative)
