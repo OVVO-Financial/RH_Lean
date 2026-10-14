@@ -86,7 +86,8 @@ theorem vfMidOddWeight_lt_99_div_640
       (40 / 3 : ℝ) < Real.log (vfMidBandMidpoint t) := by
     convert (vfMidMidpoint_log_gt_four_k_div_three
       (t := t) (B := 1024) (k := 10)
-      (by norm_num) ht (by norm_num)) using 1 <;> norm_num
+      (by norm_num) ht (by norm_num)) using 1
+    norm_num
   have htReal : (1024 : ℝ) ≤ (t : ℝ) := by exact_mod_cast ht
   have hnum :
       2 * (t : ℝ) + 1 <
@@ -104,7 +105,8 @@ theorem vfMidOddWeight_lt_9_div_64
       (44 / 3 : ℝ) < Real.log (vfMidBandMidpoint t) := by
     convert (vfMidMidpoint_log_gt_four_k_div_three
       (t := t) (B := 2048) (k := 11)
-      (by norm_num) ht (by norm_num)) using 1 <;> norm_num
+      (by norm_num) ht (by norm_num)) using 1
+    norm_num
   have htReal : (2048 : ℝ) ≤ (t : ℝ) := by exact_mod_cast ht
   have hnum :
       2 * (t : ℝ) + 1 <
