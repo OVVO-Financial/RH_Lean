@@ -342,3 +342,18 @@ These are finite computations, not evidence of a uniform (Alog A) theorem. The s
 - **Reuse:** Claims `20261013-owner-2` and `20261013-owner-3`, current-source blobs listed above, and the 125,247-block falsification.
 - **Do not overstate:** fixed-block twin-owner uniqueness is false if promoted to a full-run uniqueness claim.
 - **Next action:** consume independent census/referee responses; if accepted, ask Lean Verification for the exact twin-saturation and residue-capacity lemmas. In parallel, test whether the literal weighted first-bad carrier ever lands entirely in this late-semiprime subcarrier; absent that exact bridge, do not transfer the capacity.
+
+
+---
+
+## Evening continuation — 2026-10-13T20:43:01-04:00 scheduled invocation
+
+### Early checkpoint — 2026-10-13T20:47:38-04:00
+
+- **Status:** `IN_PROGRESS`.
+- **Authority refresh:** successfully re-fetched `main:AGENTS.md` blob `709ad61bf4555fe4f2c92af3fd42f3994798c8bf` and `main:CURRENT_PROOF_CONTRACT.md` blob `f6e8dc6813ec63974489c26b0c383e34203f0aa9`; observed actual `main` HEAD `52babf6eb87a7c6f80316ceb952667ad65cb2aa3`. Retrieval window began 2026-10-13T20:43:01-04:00.
+- **Warm start:** read this report at blob `d60ca9e416c70faa1a4bce60291c73daf82d0366`, the reporting protocol files, and evening Coordinator handoff `90-coordinator-pm.md` blob `aab612c387de93a777c696bc54be128b210cb8b8`.
+- **Live PR discovery:** no open or draft pull requests were returned for `OVVO-Financial/RH_Lean`.
+- **Current objective:** state and justify a literal original-weight historical/current carrier payment that advances `VFMid915FirstBadSourcePaymentStatement`, retaining occurrence identity, raw block-dependent VF weights, the historical anchor, and the original NNS denominator.
+- **Delta task selected:** investigate the exact recent-half-run ancestor of a current physical composite `n=3q`. Current main already proves the ancestry bottleneck and explicitly says no weight compensation theorem is known. The candidate new restriction is an injective original-occurrence pairing of the positive current charge at `3q` with the negative historical prime charge at `q`, with the actual weights compared rather than replaced.
+- **First checks:** direct finite evaluation found the charge pair becomes nonpositive from block `R=12` in tested eligible cases; a uniform paper proof is being developed for the safer range `R>=16`, where current main already places `q` in the explicit half run.
