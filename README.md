@@ -4,6 +4,9 @@ Lean 4 formalization of the classical von-Koch prime-counting criterion
 in a square-tiled VF coordinate, plus the genuinely open signed
 actual-prime and Möbius arithmetic research.
 
+**Current research direction (2026-10-14):** the seven specialist agents are centrally routed via [AGENTS.md](AGENTS.md) and the [current proof contract](CURRENT_PROOF_CONTRACT.md) toward an **independent signed actual-prime arithmetic replacement** for the continuous Li model's non-transferable *absolute* critical Poisson collision bound. Floor-Li's O(1) rounding and exact actual-minus-floor-Li transport are already proven algebra; they do not bound the genuine unmatched prime population. The continuous Li-density critical collision sum is finite, whereas simply inserting the actual prime indicator yields the divergent unsigned sum of reciprocal primes. No global signed NNS source payment, finite A/C, or RH is proved. PRs #938/#939 are merged logical/payment audits; #941–#943 are merged local arithmetic restrictions, not global closure. See [the studio configuration guide](docs/CHATGPT_AGENT_STUDIO_RH_SETUP_2026_10_12.md) for the one-time check required by saved Workspace Agent instructions: GitHub changes do not edit Studio settings.
+
+
 > **2026-10-12 CANONICAL VF — the only current PUBLIC VF definition is**
 >
 > \( VF(x)=\sqrt2+\sum_{r=2}^{R-1}(2r+1)/\log(r^2+r+1/2)
@@ -13,13 +16,11 @@ actual-prime and Möbius arithmetic research.
 > integer-floor and fractional-seat plots remain UNCHANGED INTERNAL COORDINATES
 > and need an explicit proven phase translation to be used as current VF.
 
-**Status (2026-10-12): finite A, finite C and RH remain unproved.**
+**Status (updated 2026-10-14): finite A, finite C and RH remain unproved.**
 The repository contains exact square wheel/prime-owner arithmetic,
-an unconditional square-endpoint **VF_raw-Li_2 = O(1)** theorem, and now
-[PR #932](https://github.com/OVVO-Financial/RH_Lean/pull/932) adds the
-missing **all-real** \(VF_{\rm raw}-Li_2=O(1)\) Lean assembly and the
-new canonical sqrt2 vertical-phase interface. **New Lean compilation is
-required before calling those newly proposed theorems verified.**
+an unconditional square-endpoint **VF_raw-Li_2 = O(1)** theorem, and merged
+[PR #932](https://github.com/OVVO-Financial/RH_Lean/pull/932) introduced the
+all-real \(VF_{\rm raw}-Li_2=O(1)\) Lean assembly and canonical sqrt2 vertical-phase interface. The actual-prime von Koch inequality remains unproved.
 The classical von-Koch ↔ RH theorem remains an explicitly supplied
 formal interface; the actual-prime von-Koch inequality is open.
 
