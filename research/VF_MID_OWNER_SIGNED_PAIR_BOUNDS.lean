@@ -4,7 +4,7 @@ import «research.VF_MID_SIGNED_SEAT_CHARGE»
 /-!
 # Restricted genuine-prime owner ancestry: original-weight sign bounds
 
-Claim IDs 20261014-owner-1/-2, accepted by Adversarial Referee as
+Claim IDs 20261014-owner-1 and 20261014-owner-2, accepted by Adversarial Referee as
 PAPER_PROOF. The current semiprime seat has positive weight w(R);
 its distinct historical prime q has negative charge -(1-w(sqrt q)).
 
