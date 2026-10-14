@@ -582,3 +582,16 @@ source estimate, finite A/C, CORR-4, or RH theorem is proved.
 - **Avoid:** presenting deeper fixed wheels as signed cancellation, reusing a
   historical prime across descendants, or treating a target-equivalent inlet
   as a narrower lemma.
+
+
+---
+
+## Scheduled 4 PM run checkpoint — 2026-10-14T16:12:00-04:00
+
+- **Status:** `IN_PROGRESS`; durable checkpoint before final derivation.
+- **Observed current `main` HEAD:** `13c3aeab8f84fc2309175261948a17a50c8342f4`, fetched by explicit `fetch_commit(main)`.
+- **Fresh authority:** `AGENTS.md` blob `26715158e91d4f5f71e9e8aa15baa1a17053e456`; `CURRENT_PROOF_CONTRACT.md` blob `27dceba62b4797bbb394439d13fc4a8dbe29ea0b`.
+- **Current objective:** the unique public target remains `VFCanonicalSquareVonKochStatement`. The named signed-late and #915 payment propositions are target-equivalent or false on first-bad instances, so this run seeks an independently proved incidence restriction on the literal small-owner current/historical carrier.
+- **Upstream intake:** today's `00-coordinator-am.md` is `TODAY=PENDING`; today's Owner Payment `a2ed7dc2...`, Analytic Type II `b8ee78df...`, Coordinator PM `d7229fa1...`, this report `2c2d3a0d42c3af6efb638b2cd2d8aec806aaaf74`, and external inbox `6fce4e9d...` were read. Yesterday's coordinator/owner/analytic/wheel reports were read as continuity.
+- **Delta task:** prove and falsify a tag-wise root-spacing bound for all repeated descendants of one historical prime `q`, then test whether it yields a multiplicity-safe signed packet with the original VF weights. All current occurrences remain distinct; the historical `q` charge is counted once.
+- **Checkpoint classification:** `NO_NEW_RESULT` at checkpoint; no canonical-bound or RH claim.
