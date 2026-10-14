@@ -171,7 +171,7 @@ The tempting signed bound \(\Gamma_R\le B R^2 K_R\) is itself **equivalent to fi
 
 ## Historical proposed closure route: structural admissibility (pre-2026-10-14 audit)
 
-**Status qualification:** This section documents the 2026-10-12 proposed sufficient route. The pending #938 logical audit establishes on its CI-verified PR branch that actual-prime owner-escape admissibility is **equivalent** to the canonical von-Koch target. Consequently it is not an already-narrowed, independently available last lemma. The structural class and its conditional consumer remain valid but unproved on the genuine prime sequence.
+**Status qualification:** This section documents the 2026-10-12 proposed sufficient route. The now-merged #938 logical audit established in CI-verified Lean that actual-prime owner-escape admissibility is **equivalent** to the canonical von-Koch target. Consequently it is not an already-narrowed, independently available last lemma. The structural class and its conditional consumer remain valid but unproved on the genuine prime sequence.
 
 The earlier direct-VF closure was stated as an admissible-class theorem rather
 than as a request for a separate global cancellation estimate for the realized
@@ -994,7 +994,7 @@ records the unchanged original source-inlet inequality as
 unproved input. Read the [source-payment status](research/VF_MID_915_SOURCE_PAYMENT_STATUS.md).
 The original occurrence-preserving historical/current run splice, actual-prime
 class inclusion, finite A/C, and RH remain open after integration. The dated
-2026-10-14 pending #938/#939 reviews above classify the named signed-late,
+2026-10-14 formerly pending (now merged) #938/#939 reviews above classify the named signed-late,
 owner-admissibility and #915 payment *statements* as target-equivalent or
 fixed-envelope restatements; an exact source-to-ledger equality remains a
 separate potential structural project, not an automatically sufficient payment.
