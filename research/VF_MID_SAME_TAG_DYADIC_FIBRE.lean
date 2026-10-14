@@ -158,6 +158,7 @@ private theorem vfMidSameTag_oddPrimeCount_split
   by_cases heven : 2 ∈ F
   · have hCond : L < 2 ∧ 2 ≤ U := hTwo.mp heven
     have hErase := Finset.card_erase_of_mem heven
+    have hFpos : 0 < F.card := Finset.card_pos.mpr ⟨2, heven⟩
     rw [hO, hErase]
     simp only [if_pos hCond]
     omega
