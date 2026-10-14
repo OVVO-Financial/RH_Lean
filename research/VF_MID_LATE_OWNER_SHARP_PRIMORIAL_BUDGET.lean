@@ -98,6 +98,8 @@ private theorem vfMidLateRoughChild_exact_window_and_gt_owner
     simpa [Nat.mul_comm] using hlo
   have hhigh : q ≤ ((R + 1) ^ 2 - 1) / p := by
     apply (Nat.le_div_iff_mul_le hpos).2
+    have hhiComm : q * p < (R + 1) ^ 2 := by
+      simpa [Nat.mul_comm] using hhi
     have hn : q * p ≤ (R + 1) ^ 2 - 1 := by omega
     exact hn
   have hgt : p < q := by
