@@ -261,3 +261,123 @@ These results verify the unchanged parity dependency only. They do not kernel-ve
 - **Live PR queue:** no open pull requests returned at the initial refresh.
 - **Material source change since Run 1:** wheel-30, ancestry-multiplicity, original signed pair/NNS, and exact 2310/30030 results have since merged. Their exact declarations, imports, CI provenance, and axiom evidence are being checked before classification.
 - **Checkpoint status:** `IN_PROGRESS`. No new kernel-verification claim is made by this checkpoint.
+
+
+## Run 2 — completed audit — 2026-10-14T12:12:08-04:00
+
+### Final live-state refresh
+
+- **Authority remained stable:** `main` commit `13c3aeab8f84fc2309175261948a17a50c8342f4`; `AGENTS.md` blob `26715158e91d4f5f71e9e8aa15baa1a17053e456`; `CURRENT_PROOF_CONTRACT.md` blob `27dceba62b4797bbb394439d13fc4a8dbe29ea0b`.
+- **Pinned execution inputs:** `lean-toolchain` blob `c00a53503cc3cc776c290056ed21ce7e5d80b083` contains `leanprover/lean4:v4.24.0`; `lake-manifest.json` blob `e7198c2f87e3cc2947190fca647deb93a6137b5a`.
+- **Requested reports:** `00-coordinator-am.md` remained `PENDING`/not found; Owner `08b203d38e2c0d495631c1873edb903d83412ea1`; Analytic `7e6667d1e3e95861eb9c4e929b478ac910b3c2dc`; Wheel `2c2d3a0d42c3af6efb638b2cd2d8aec806aaaf74`; Census `7bd424fd86fcbb45a56f8a203f66b021779c97a6`; Referee `291927079f3a362afd1cf944d42bc7598645e5d8`.
+- **Continuity and external lane:** prior-day Lean report blob `e3c413a3949ad685e5f8a344e934e0adc30c15ca`; `EXTERNAL_HANDOFFS.md` blob `6fce4e9d024b6c4ad47798c5d7c162101a2435a0`, including `EXT-20261014-5`.
+- **Live PR queue:** no open or draft PRs. PRs #937, #938, #939, #941 and #942 are closed and merged; there is no implementation work to resume.
+- **Read-only scope honored:** no Lean source, branch, PR, issue, or other agent report was modified.
+
+### Current objective and no-narrowing baseline
+
+The unique open public target remains `VFCanonicalSquareVonKochStatement`. Current `main` proves that the named signed-late, tracking and owner-admissibility inlets are target-equivalent, not narrower paid lemmas. It also proves that the frozen #915 payment is incompatible with an actual first-bad successor and, after a good finite base, is equivalent to the raw `K=2` envelope. These logical audits prevent a conditional consumer or renamed endpoint bound from being presented as independent progress.
+
+The canonical `sqrt(2)` phase does not change the legacy raw VF coefficients. Any quadratic transport must preserve the raw term `-2*sqrt(2)*D_raw + 2`. No submitted claim alters that coefficient; the unsigned wheel claims simply do not contain it.
+
+### Exact carriers and independently checked mathematics
+
+1. **Original signed pair carrier.** On current `main`, `vfMidOddSignedSeatCharge R (p*q)` is the actual positive composite charge `w(R)`, while the genuine earlier prime `q` at `r=floor(sqrt q)` has charge `-(1-w(r))`. For primes `p,q`, strict physical placement
+   `R^2 < p*q < (R+1)^2`, and `1024*p <= R`, the arithmetic gives `R>=2048`, `r>=1024`, and
+   `w(R)+w(r)-1 < -451/640`. With `x=w(R)`, `y=1-w(r)`, it gives
+   `6xy-x^2-y^2 < -541/409600`. The proof uses explicit logarithmic bounds, not PNT, RH, independence, or a changed weight.
+
+2. **Why the pair result does not sum.** Adding one pair to residual totals `(M0,S0)` changes `M^2-2S^2` by
+   `2*M0*(x+y)-4*S0*(x-y)+(x+y)^2-2*(x-y)^2`.
+   The first two terms have no sign control. The physical history also contains one occurrence of `q`, not one reusable negative charge for every current owner demand. Thus any global-payment interpretation of the isolated negative slack is rejected.
+
+3. **Historical-prime ancestry fibre.** With `M=1024^2=2^20`,
+   `vfMidHistoricalPrimeOwnerFibre q` is exactly the prime interval
+   `{p prime : 3 <= p <= floor(q/M)}`. If `q>=2M`, its cardinality is
+   `pi(floor(q/M))-1`. This counts current owner demands indexed by `p`; it does not manufacture historical source occurrences. The same-block theorem correctly forbids two ordered owners `p1<p2` sharing the same `q` in one open square band, but the exact `q=5,242,883`, `p=3,5` example shows cross-block and one-dyadic-run reuse. Global tag injectivity is therefore refuted.
+
+4. **Exact primorial child carriers.** The capacity is the strict quotient interval
+   `Ioc(floor(R^2/p), floor(((R+1)^2-1)/p))`, filtered by coprimality. For `7<=A<=R<2A` and a genuine late owner `p`, primality gives `p>=11`, the strict lower wall gives `q>p`, and hence every actual prime child is coprime to `2310`. The threshold is sharp: `A=6,R=8,p=7,q=11,n=77`. Likewise `A>=11` yields the `30030` cap, sharply failing at `A=10,R=11,p=11,q=13,n=143`. Summation is over the disjoint least-prime-owner physical census.
+
+5. **Unsigned/signed and cutoff separation.** Wheel-30/2310/30030 budgets bound positive unit-weight physical occurrences in `lateRemoval(A,A,B)`. Production uses cutoff `2`, centered signed late correction, masks, clipping, anchor, chronology, both walls, historical occurrence tags and global cross terms. No unsigned capacity or finite residue frequency bridges those objects.
+
+6. **Normalized-payment obstruction.** The Owner/Referee proof of `EXT-20261014-5` is accepted at `PAPER_PROOF`: for
+   `N_R=D_(R+1)^2/(|D_R|+beta_R)^2`, `R>=8`, one has `0<=N_R<=1` and `limsup N_R=1`. The square transfer splits `h=x-R^2` at `R/log R`; trivial counting handles the short case and Montgomery-Vaughan Brun-Titchmarsh handles the other, while the VF-to-`li` square error is `O(1)`. Littlewood oscillation then dominates `beta_R=O(R/log R)`. This rules out a hypothesis-free fixed `N_R<=c<1`; it neither asserts a first-bad event nor disproves RH. Its analytic Littlewood ingredient is not Lean-verified here.
+
+### Current-main Lean declarations and classifications
+
+- `research/VF_MID_LATE_OWNER_WHEEL_THIRTY_BUDGET.lean`, blob `3701895c3e3af16b6f6b0506ed69f7b5c3d55800`: Claims `20261014-wheel-1..2`, exact fibre, run and prime-supply bounds — **ACCEPT / PROVED_IN_LEAN**.
+- `research/VF_MID_HISTORICAL_PRIME_MULTIPLICITY.lean`, blob `fda6db056571191feffd08f2d1d6fe0fa02f0d8c`: Claims `20261014-analytic-1..2`, exact fibre cardinality, unbounded coverage and same-block uniqueness — **ACCEPT / PROVED_IN_LEAN**.
+- `research/VF_MID_OWNER_SIGNED_PAIR_BOUNDS.lean`, blob `e3cc17224469e24516390a8f20e590d5932dbfc1`: Claims `20261014-owner-1..2`, original charge gap, isolated NNS slack and restored cross-term identity — **ACCEPT / PROVED_IN_LEAN at the stated isolated-pair scope**.
+- `research/VF_MID_LATE_OWNER_SHARP_PRIMORIAL_BUDGET.lean`, blob `4925053b09acaa927f48c7fad8f13c0f4bf5ff71`: Claims `20261014-wheel-5..6`, exact 2310/30030 inclusions, capacities, run bounds and sharp threshold examples — **ACCEPT / PROVED_IN_LEAN**.
+- Claim `20261014-owner-0` — **ACCEPT / PROVED_IN_LEAN / NO_NEW_RESULT**, reused no-narrowing baseline.
+- Claim `20261014-owner-3` — **ACCEPT as counterexample; REJECT / REFUTED** the unrestricted negativity strengthening.
+- Claim `20261014-owner-4` / `EXT-20261014-5` — **ACCEPT / PAPER_PROOF**, not Lean-verified.
+- Claim `20261014-analytic-0` — **PENDING checkpoint only**, superseded by completed claims.
+- Claim `20261014-analytic-3` — **ACCEPT / FINITE_COMPUTATION as an exact collision; REJECT / REFUTED** global or dyadic-run tag injectivity.
+- Claim `20261014-wheel-3` — **REVISE**: universal one-child bound **REJECT / REFUTED**; exact witnesses **ACCEPT**.
+- Claims `20261014-wheel-4,-7` — **ACCEPT / FINITE_COMPUTATION** only.
+- Claims `20261014-census-1,-2,-6,-7,-8` — **ACCEPT** at the paper/formal scopes above plus separately scoped `FINITE_COMPUTATION`; no independent signed-payment consequence.
+- Claims `20261014-census-3,-4,-9` — **ACCEPT / FINITE_COMPUTATION**; retain the one-child and unrestricted-negativity refutations.
+- Claim `20261014-census-5` — **ACCEPT / NO_NEW_RESULT**; finite adaptive residue ratios are not an all-scale theorem.
+
+### Actual GitHub Actions execution evidence
+
+No local Lean command was run: current policy makes PR GitHub Actions the authorized Lean environment, and this invocation forbids source/branch/PR changes. Exact existing PR-head evidence was inspected instead.
+
+**PR #941**, head `5ba3ffffa84d0a82f90c9773f684d61a267b4df9`, merged as `08dd9c47c154aee9747651275009a2d8d314fade`:
+
+- Targeted run `38588506051`, job `115936823973`, success.
+- Command: `python3 scripts/compile_research_import_closure.py --plan /tmp/rhlean-research-plan.json` with `RHLEAN_RESEARCH_TARGETS=research/VF_MID_HISTORICAL_PRIME_MULTIPLICITY.lean`.
+- Output: `compiled=1 cached=0`; cache smoke `compiled=0 cached=1`.
+- Printed axioms for five public declarations: exactly `[propext, Classical.choice, Quot.sound]`.
+- Source-audit run `38588506860`: audit job `115936860883` and hosted build `115936862729`, both success.
+- Full command: `lake build RHLean > lean-build.log 2>&1`.
+- Output: `Build completed successfully (8199 jobs)`; `No RHLean-owned Lean warnings found.`
+
+**PR #942**, head `c3927c683ba78a37b0448ad13c5f8d13d1d5b6a0`, merged as current `main` `13c3aeab8f84fc2309175261948a17a50c8342f4`:
+
+- Targeted run `38592307885`, job `115950056779`, success.
+- Command: the same import-closure script with targets `VF_MID_LATE_OWNER_SHARP_PRIMORIAL_BUDGET.lean` and `VF_MID_OWNER_SIGNED_PAIR_BOUNDS.lean`.
+- Output: `Build completed successfully (7513 jobs)`, `compiled=1 cached=25`; smoke `compiled=0 cached=26`.
+- Printed axioms for all six signed-pair public declarations: exactly `[propext, Classical.choice, Quot.sound]`.
+- The exact primorial module was a source-sensitive cache reuse on this final head; its source contains five explicit `#print axioms` commands. The final source-audit/no-holes and full-build jobs passed, but the final targeted log did not reprint those cached declarations. This limitation is recorded rather than inventing output.
+- Source-audit run `38592308014`: audit job `115950111747` and hosted build `115950112016`, both success.
+- Full output: `Build completed successfully (8199 jobs)`; `No RHLean-owned Lean warnings found.`
+- All nine workflows on each of PR heads #941 and #942 completed successfully. Node/action deprecation notices and the expected patched external StrongPNT worktree notice were infrastructure warnings, not RHLean-owned Lean warnings.
+
+Wheel-30 Claims 1–2 reuse PR #937 head `59221ae46b2fa9b61cce2330ba965ea99bbce715`, targeted run `38548372917` and source-audit run `38548373792`, all nine workflows successful; the Referee's prior exact axiom evidence remains applicable to unchanged blob `3701895c...`.
+
+### Hidden-assumption and circularity verdict
+
+- **No hidden RH premise** occurs in the accepted fixed-owner, ancestry-fibre or primorial proofs. They are genuine supporting theorems.
+- **RH-equivalent premises remain open:** the named signed-late/tracking/admissibility inlets and the quantitative #915 payment cannot be treated as narrower solved obligations.
+- **Coefficient mismatch avoided:** pair theorems use original `vfMidOddSignedSeatCharge`; wheel/ancestry theorems are explicitly unsigned and never substituted into the signed denominator.
+- **Multiplicity mismatch remains:** owner demand cardinality is not historical charge supply. Same-block uniqueness does not imply run/global injectivity.
+- **Cross-term mismatch remains:** isolated negative NNS slack is nonadditive in the global residual.
+- **Endpoint/cutoff mismatch remains:** strict physical `Ioo` and exact quotient `Ioc` are preserved, but start-cutoff `A` budgets do not prove the cutoff-`2` centered late correction.
+- **Finite-to-uniform inference rejected:** finite census totals and residue frequencies give no adaptive equidistribution or all-scale strict factor.
+
+### Result and Coordinator recommendations
+
+**NO_NEW_THEOREM_TO_FORMALIZE.** Every independently valid elementary supporting theorem submitted today is already merged and CI-verified on current `main`. The remaining normalized-payment obstruction is a paper result whose new analytic ingredient depends on classical Littlewood and Brun-Titchmarsh infrastructure not established as an available scoped Lean dependency here. Under the direct read-only instruction, no proof branch or PR was created.
+
+For the next Coordinator:
+
+1. Carry owner-1/2, analytic-1/2 and wheel-5/6 as `PROVED_IN_LEAN` on current `main`, with their restricted carriers; retain wheel-1/2 likewise.
+2. Carry owner-4/`EXT-20261014-5` only as `PAPER_PROOF`.
+3. Record the refutations: universal one-child, unrestricted isolated negativity, global/dyadic historical-tag injectivity, and lowered 2310/30030 thresholds.
+4. Do not label `SOURCE-SPLICE-1` the unique or narrowed final lemma. A fully specified coefficient- and occurrence-preserving equality may be useful; any bound strong enough to pay the target must pass the no-narrowing screen.
+5. Highest-value unresolved arithmetic work is a demanded-versus-available historical occurrence ledger with original coefficients, masks, clipping, chronology and the full residual cross terms, or another independently quantified estimate on the exact raw carrier.
+6. The canonical endpoint theorem, finite A/C, CORR-4, genuine #915 source payment and RH remain open.
+
+## Next-run resume capsule
+
+- **Checkpoint:** 2026-10-14T12:12:08-04:00.
+- **Authority:** main `13c3aeab8f84fc2309175261948a17a50c8342f4`; AGENTS `26715158e91d4f5f71e9e8aa15baa1a17053e456`; contract `27dceba62b4797bbb394439d13fc4a8dbe29ea0b`.
+- **Upstream:** `00` PENDING; Owner `08b203d3...`; Analytic `7e6667d1...`; Wheel `2c2d3a0d...`; Census `7bd424fd...`; Referee `29192707...`; external inbox `6fce4e9d...`.
+- **New current-main modules:** ancestry `fda6db05...`, signed pair `e3cc1722...`, sharp primorial `4925053b...`; wheel-30 unchanged `3701895c...`.
+- **CI:** PR #941 head `5ba3ffff...`, targeted run `38588506051`, source audit `38588506860`, green; PR #942 head `c3927c68...`, targeted run `38592307885`, source audit `38592308014`, green.
+- **Classification:** submitted elementary supporting claims are now `PROVED_IN_LEAN`; `EXT-20261014-5` remains `PAPER_PROOF`; production target `NO_NEW_RESULT`; this run `NO_NEW_THEOREM_TO_FORMALIZE`.
+- **Reused:** exact finite scans and PR #937 wheel evidence on unchanged blobs. **Invalidated:** Run 1's paper-only status for claims since merged; no mathematical refutation was invalidated.
+- **Next step:** seek an occurrence-preserving original-weight ledger inequality that survives full cross terms and no-narrowing; do not rerun unchanged unsigned censuses.
