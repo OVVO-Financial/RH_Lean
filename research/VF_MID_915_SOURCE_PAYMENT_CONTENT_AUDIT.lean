@@ -1,6 +1,5 @@
 import Mathlib
 import «research.VF_MID_FIRST_BAD_EXACT_BUDGET_CLOSE»
-import «research.VF_MID_FIRST_BAD_ACTUAL_ADMISSIBILITY_CERTIFICATE»
 import «research.VF_CANONICAL_SQRT_TWO_VON_KOCH»
 
 /-!
@@ -86,10 +85,38 @@ theorem vfMid915FirstBadSourcePayment_iff_noFirstBad :
   · intro hno R hR hfirst
     exact (hno R hR hfirst).elim
 
+/-- Least-bad-scale induction.  This is the same argument as
+`vfV2ActualPrime_allInside_of_noFirstBad_and_base` in
+`VF_MID_FIRST_BAD_ACTUAL_ADMISSIBILITY_CERTIFICATE`, restated here so that this
+audit does not import that module's opt-in native dependency graph. -/
+private theorem vfMid915Audit_allInside_of_noFirstBad_and_base
+    (hbase : ∀ B : ℕ, 2 ≤ B → B ≤ 8 →
+      ¬ VFMidSyntheticBadAt vfMidActualPrimeEndpointDefect (2 : ℝ) B)
+    (hno : ∀ R : ℕ, 8 ≤ R →
+      ¬ VFMidActualPrimeFirstBadAt (2 : ℝ) (R + 1)) :
+    ∀ B : ℕ, 2 ≤ B →
+      ¬ VFMidSyntheticBadAt vfMidActualPrimeEndpointDefect (2 : ℝ) B := by
+  intro B
+  induction B using Nat.strong_induction_on with
+  | h B ih =>
+      intro hB
+      by_cases hsmall : B ≤ 8
+      · exact hbase B hB hsmall
+      · have hlarge : 9 ≤ B := by omega
+        intro hbad
+        have hfirst : VFMidActualPrimeFirstBadAt (2 : ℝ) B := by
+          constructor
+          · exact hbad
+          · intro S hS hSB
+            exact ih S hSB hS
+        have hnot := hno (B - 1) (by omega : 8 ≤ B - 1)
+        have hBdecomp : B - 1 + 1 = B := Nat.sub_add_cancel (by omega : 1 ≤ B)
+        rw [hBdecomp] at hnot
+        exact hnot hfirst
+
 /-- Without any base hypothesis: no first-bad successor above root 8 holds
 exactly when some base scale in `2..8` is already bad, or no scale `>= 2` is
-bad at all.  (Least-bad-scale argument; the inductive half reuses
-`vfV2ActualPrime_allInside_of_noFirstBad_and_base`.) -/
+bad at all.  (Least-bad-scale argument.) -/
 theorem vfMid_noFirstBadTwo_iff_baseBad_or_allInside :
     (∀ R : ℕ, 8 ≤ R → ¬ VFMidActualPrimeFirstBadAt (2 : ℝ) (R + 1)) ↔
       ((∃ B : ℕ, 2 ≤ B ∧ B ≤ 8 ∧
@@ -105,7 +132,7 @@ theorem vfMid_noFirstBadTwo_iff_baseBad_or_allInside :
       have hbase : ∀ B : ℕ, 2 ≤ B → B ≤ 8 →
           ¬ VFMidSyntheticBadAt vfMidActualPrimeEndpointDefect (2 : ℝ) B :=
         fun B hB2 hB8 hbad => hb ⟨B, hB2, hB8, hbad⟩
-      exact vfV2ActualPrime_allInside_of_noFirstBad_and_base hbase hno
+      exact vfMid915Audit_allInside_of_noFirstBad_and_base hbase hno
   · rintro (⟨B, hB2, hB8, hbad⟩ | hall) R _hR hfirst
     · exact hfirst.2 B hB2 (by omega) hbad
     · exact hall (R + 1) (by omega) hfirst.1
@@ -124,7 +151,7 @@ theorem vfMid915FirstBadSourcePayment_iff_radialTwoEnvelope_of_base
   constructor
   · intro hno R hR
     exact le_of_not_gt
-      (vfV2ActualPrime_allInside_of_noFirstBad_and_base hbase hno R hR)
+      (vfMid915Audit_allInside_of_noFirstBad_and_base hbase hno R hR)
   · intro henv R _hR hfirst
     have hbad := hfirst.1
     unfold VFMidSyntheticBadAt at hbad
