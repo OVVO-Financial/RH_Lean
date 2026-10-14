@@ -442,3 +442,18 @@ joint signed sum until after cancellation or strict lower-run descent.
   lower bound as a lower bound for `|Delta|`, or rerunning the same finite
   table without testing a concrete source/reference map.
 
+
+
+---
+
+## Evening continuation — 2026-10-13T22:27:23-04:00 scheduled invocation
+
+### Early checkpoint — 2026-10-13T22:27:23-04:00
+
+- **Status:** `IN_PROGRESS`.
+- **Authority refresh:** successfully re-fetched `main:AGENTS.md` blob `709ad61bf4555fe4f2c92af3fd42f3994798c8bf` and `main:CURRENT_PROOF_CONTRACT.md` blob `f6e8dc6813ec63974489c26b0c383e34203f0aa9`; observed actual `main` HEAD `52babf6eb87a7c6f80316ceb952667ad65cb2aa3`.
+- **Upstream actually read:** morning Coordinator `00-coordinator-am.md` blob `87a596f6f7bcb9bab6b2d29fc7c162c64ed544cb`; latest Owner Payment `10-owner-payment.md` blob `32f1574b8ade7dedc602b07b1b9257341320080a`, including evening Claims `20261013-owner-5` and `20261013-owner-6`; this report's prior checkpoint blob `f503ac5ce9e04219c4928defc8d74c7f40c02ea0`.
+- **Live PR discovery:** no open or draft pull request was returned.
+- **Current objective:** advance the exact original-weight historical/current source payment toward `VFMid915FirstBadSourcePaymentStatement`, or give a rigorous quantitative obstruction, while preserving the canonical public target `VFCanonicalSquareVonKochStatement`.
+- **Delta task:** audit whether the owner's injective current `3q` / historical prime `q` cancellation can be upgraded from signed linear dominance to a useful exact quadratic/NNS restriction after the mandatory history-compression restoration. The reported witness `R=1011,n=1022127,q=340709` already falsifies naive pairwise NNS payment.
+- **Publication status:** `PARTIAL`; this checkpoint contains no new theorem.
