@@ -356,3 +356,326 @@ upstream reports were published.
 - **Final publication status:** COMPLETED on the explicit
   `agent-reports` branch. The daily research cycle itself remains
   incomplete because `00/10/20` are `PENDING`.
+
+
+---
+
+## Coordinator rerun correction — 2026-10-14T12:24:28-04:00
+
+This append preserves the earlier synthesis and corrects it against the later
+specialist reports and current `main`. Every reporting read and this write
+explicitly target the `agent-reports` branch.
+
+### Provenance and authority refresh
+
+- **Retrieval time (America/New_York):** 2026-10-14T12:24:28-04:00.
+- **Observed `main` HEAD commit SHA:** `13c3aeab8f84fc2309175261948a17a50c8342f4`.
+- **Commit/blob distinction:** the preceding value is the actual `main`
+  commit. Authority blobs are `AGENTS.md`
+  `26715158e91d4f5f71e9e8aa15baa1a17053e456` and
+  `CURRENT_PROOF_CONTRACT.md`
+  `27dceba62b4797bbb394439d13fc4a8dbe29ea0b`.
+- **Authority retrieval:** SUCCESS from explicit `ref=main` reads. The
+  reporting README, template, prompts, external inbox, all dated specialist
+  inputs, and this target were read with explicit `ref=agent-reports`.
+- **External inbox:** `agent-reports:research/agent_reports/EXTERNAL_HANDOFFS.md`,
+  blob `6fce4e9d024b6c4ad47798c5d7c162101a2435a0`.
+- **Previous PM checkpoint:** this file, blob
+  `33709beb6d3dc3043c94a930f72fdd9f375e4fd7`; preserved above.
+- **Report target:** `agent-reports:research/agent_reports/2026-10-14/90-coordinator-pm.md`.
+- **Tools/evidence:** authenticated GitHub reads and restricted report write;
+  current Lean source; PR and GitHub Actions records. No local Lean build was
+  run or claimed.
+
+The proof contract's dated “NOT YET MERGED” heading is stale relative to live
+source. PRs #938 and #939 are merged, and later PRs #941 and #942 are also
+merged. Compiled `main` and verified exact-head CI control formal status;
+the contract still controls the unique open target and carrier discipline.
+
+### Current mathematical objective and verified baseline
+
+The unique open public theorem remains
+`VFCanonicalSquareVonKochStatement`:
+
+```text
+exists C >= 0, forall R >= 2,
+  |primeCounting(R^2) - vfMidFinishedMass(R) - sqrt(2)|
+    <= C * R * log R.
+```
+
+The merged no-narrowing declarations prove that the signed-late correction,
+native tracking and actual-prime owner-admissibility formulations are
+target-equivalent. The frozen #915 payment is false at every actual first-bad
+successor and, with the finite base premise, equivalent to the raw `K=2`
+envelope. No current report or merged theorem proves the canonical bound, RH,
+finite A/C, CORR-4, or genuine signed source payment.
+
+### 1. Daily completion audit
+
+All entries below are explicit `agent-reports` branch reads.
+
+| Required upstream report | Current evidence | Status |
+|---|---|---|
+| `00-coordinator-am.md` | explicit fetch returned not found / no blob SHA | **PENDING** |
+| `10-owner-payment.md` | blob `08b203d38e2c0d495631c1873edb903d83412ea1`; completed 09:49 ET | PUBLISHED |
+| `20-analytic-type-ii.md` | blob `7e6667d1e3e95861eb9c4e929b478ac910b3c2dc`; completed 10:04 ET | PUBLISHED |
+| `30-finite-wheel.md` | blob `2c2d3a0d42c3af6efb638b2cd2d8aec806aaaf74`; rerun completed 10:11 ET | PUBLISHED |
+| `40-prime-census.md` | blob `7bd424fd86fcbb45a56f8a203f66b021779c97a6`; continuation completed 10:39 ET | PUBLISHED |
+| `50-adversarial-referee.md` | blob `291927079f3a362afd1cf944d42bc7598645e5d8`; rerun completed 10:56 ET | PUBLISHED |
+| `60-lean-verification.md` | blob `5416d53aa473952f7f02e79d132c98df4f83c8f2`; Run 2 completed 12:12 ET | PUBLISHED |
+
+Completion is **6/7 upstream reports**. The daily research cycle is therefore
+**not fully complete**. Yesterday's seven specialist-stage files and
+`90-coordinator-pm.md` were also read from the explicit `agent-reports`
+branch for continuity; today's later reports supersede their paper-only
+classifications where current Lean now proves the claims.
+
+### 2. Accepted advances
+
+#### A. Original signed small-owner pair bounds — PROVED_IN_LEAN
+
+`research/VF_MID_OWNER_SIGNED_PAIR_BOUNDS.lean`, current blob
+`e3cc17224469e24516390a8f20e590d5932dbfc1`, imports the original signed
+seat charge and proves:
+
+- `vfMidSmallOwner_original_signed_gap`;
+- `vfMidSmallOwner_original_seat_charge_gap`;
+- `vfMidSmallOwner_isolated_NNS_slack_lt`;
+- `vfMidNNS_pair_add_cross_terms`.
+
+These formalize Owner Claims `20261014-owner-1..2`: for genuine primes and
+the literal current/historical pair with `R >= 1024 p`, the original charge
+gap is below `-451/640` and the isolated NNS slack is below
+`-541/409600`. The cross-term theorem also formalizes why this local slack
+does not add into a global payment without residual control. This is genuine
+supporting arithmetic on the original coefficients, not target closure.
+
+#### B. Historical-prime multiplicity — PROVED_IN_LEAN
+
+`research/VF_MID_HISTORICAL_PRIME_MULTIPLICITY.lean`, blob
+`fda6db056571191feffd08f2d1d6fe0fa02f0d8c`, proves the exact owner fibre,
+cardinality, unbounded coverage and same-block uniqueness, including
+`vfMidHistoricalPrimeOwnerFibre_card_eq_pi_sub_one` and
+`vfMidHistoricalSmallOwner_sameBlock_unique`. This upgrades Analytic Claims
+`20261014-analytic-1..2` to `PROVED_IN_LEAN`.
+
+The result is also an obstruction: same-block uniqueness does not imply
+run/global historical-tag injectivity, and owner demand multiplicity is not
+historical charge supply.
+
+#### C. Sharp 2310/30030 primorial budgets — PROVED_IN_LEAN
+
+`research/VF_MID_LATE_OWNER_SHARP_PRIMORIAL_BUDGET.lean`, blob
+`4925053b09acaa927f48c7fad8f13c0f4bf5ff71`, proves the exact 2310
+inclusion from threshold `A >= 7`, the 30030 inclusion from `A >= 11`,
+capacity nesting, dyadic late-removal bounds and the correctly directed
+prime-supply lower bound. Key declarations include
+`vfMidLateOwner_roughChildren_subset_exact2310`,
+`vfMidLateOwner_roughChildren_subset_exact30030` and
+`vfMidDyadicPrimeSupply_ge_exact30030`.
+
+This upgrades Wheel Claims `20261014-wheel-5..6` to
+`PROVED_IN_LEAN`. It is a genuine deterministic unsigned carrier
+refinement, but it contains no VF sign, historical occurrence, mask, clip,
+anchor or quadratic cross term.
+
+#### D. Formal verification and CI evidence
+
+PR #941, proof head `5ba3ffffa84d0a82f90c9773f684d61a267b4df9`,
+merged as `08dd9c47c154aee9747651275009a2d8d314fade`. Targeted run
+`38588506051` and source-audit run `38588506860` succeeded; the five
+public declarations printed exactly
+`[propext, Classical.choice, Quot.sound]`.
+
+PR #942, proof head `c3927c683ba78a37b0448ad13c5f8d13d1d5b6a0`,
+merged as current `main`
+`13c3aeab8f84fc2309175261948a17a50c8342f4`. Targeted run
+`38592307885` and source-audit run `38592308014` succeeded; the hosted
+full build completed 8,199 jobs with no RHLean-owned Lean warnings. All six
+signed-pair public declarations printed only the standard three axioms. The
+primorial module was a source-sensitive cache reuse on the final head and
+contains five explicit axiom-print guards; the final targeted log did not
+reprint those cached declarations, so no stronger axiom-output claim is made.
+
+The earlier wheel-30 Claims `20261014-wheel-1..2` remain
+`PROVED_IN_LEAN` in blob
+`3701895c3e3af16b6f6b0506ed69f7b5c3d55800` with PR #937 exact-head
+CI. These are supporting results, not additional proof of the endpoint bound.
+
+#### E. Normalized-payment no-go — PAPER_PROOF
+
+Owner Claim `20261014-owner-4` / `EXT-20261014-5` was independently
+accepted by Owner Payment and the Adversarial Referee:
+
+```text
+N_R = D_(R+1)^2 / (|D_R| + beta_R)^2,
+0 <= N_R <= 1 for R >= 8, and limsup N_R = 1.
+```
+
+The argument retains the unchanged raw denominator and uses the pointwise
+sandwich, Brun-Titchmarsh, the compiled VF-to-li square error and Littlewood
+oscillation with an explicit square-transfer split. It rules out an
+unconditional all-`R` fixed factor `N_R <= c < 1`. It is not Lean
+verified, does not create a first-bad event and does not refute the conditional
+first-bad strategy or RH.
+
+### 3. Refuted hypotheses and exact counterexamples
+
+1. **Universal one-child late-owner fibre — REFUTED:** at
+   `(A,R,p)=(12,22,17)`, both children `29` and `31` occur.
+2. **Unrestricted isolated pair negativity — REFUTED:** genuine primes
+   `(R,p,q,r)=(2048,2029,2069,45)` give rigorously enclosed isolated slack
+   `0.0209714374... > 0`.
+3. **Global or dyadic-run historical-tag injectivity — REFUTED:** prime
+   `q=5,242,883` is demanded by `p=3` at `R=3965` and `p=5` at
+   `R=5120`, both within `[3000,6000)`.
+4. **2310 threshold lowered to `A >= 6` — REFUTED:** `7*11=77` at
+   `(A,R,p)=(6,8,7)`.
+5. **30030 threshold lowered to `A >= 10` — REFUTED:** `11*13=143` at
+   `(A,R,p)=(10,11,11)`.
+6. **Original #915 payment as an independently usable first-bad premise —
+   REFUTED on its hypothesis domain:** current Lean proves the strict opposite
+   at every actual first-bad successor.
+
+### 4. Duplicate results and scope corrections
+
+- Owner Claims 1–2, Analytic Claims 1–2 and Wheel Claims 5–6 passed through
+  paper proposal, census reproduction, referee acceptance and Lean
+  formalization. Those layers are evidence for the same results, not distinct
+  advances; current-main declarations now subsume the paper-only status.
+- Census Claims 6–9 are independent reproductions and finite conservation
+  checks. They do not add all-scale signed estimates.
+- Signed-late, tracking and owner-admissibility remain equivalent
+  representations of the canonical target, not three completion lemmas.
+- Fixed-owner injection does not give cross-owner availability. The exact
+  ancestry fibre explains why cloning one historical prime occurrence changes
+  the physical carrier.
+- Isolated negative NNS slack is nonadditive because residual cross terms are
+  uncontrolled; the merged cross-term identity makes this limitation formal.
+- Deeper fixed primorials refine an unsigned local capacity and eventually
+  reproduce an already-known exact prime interval. They do not manufacture
+  signed cancellation.
+
+### 5. Current mathematical frontier
+
+1. **Canonical endpoint theorem:** the first known completion theorem remains
+   `VFCanonicalSquareVonKochStatement`; no certified strictly weaker named
+   theorem is presently known to close it.
+2. **Demanded-versus-available historical occurrence ledger:** on literal
+   tagged occurrences, define demand `d(q)` and actually admitted supply
+   `a(q)` after masks, clipping, anchor expansion, chronology and cumulative
+   runs. Prove an exact equality/decomposition before any inequality.
+3. **Joint residual and cross-term estimate:** any use of the small-owner
+   negative pairs must bound the large-owner residual and all restored cross
+   terms together. The positive-slack witness must remain in the test suite.
+4. **Analytic obstruction:** `EXT-20261014-5` is accepted as
+   `PAPER_PROOF` but its Littlewood/Brun-Titchmarsh input is not formalized
+   in Lean. It is a no-go for one unchanged-denominator strategy, not positive
+   target control.
+5. **Alternative routes:** finite A/C and CORR-4 remain open alternatives;
+   no current report advances them.
+
+An exact occurrence-, coefficient-, sign-, mask-, clip-, anchor-,
+multiplicity-, chronology- and cross-term-preserving source identity may be
+useful, but it is not itself a payment theorem and is not established as the
+unique last lemma.
+
+### 6. Cross-track dependencies and tomorrow's priorities
+
+- **Owner Payment:** specify the literal `d(q)`/`a(q)` ledger using the
+  merged original signed-pair declarations. Success is an unconditional exact
+  source equality or a genuinely new joint residual estimate; failure is
+  cloned history or omitted cross terms.
+- **Analytic Type II:** seek a quantified estimate for the residual with the
+  original coefficients, or prove a precise obstruction. Screen both
+  implications against the canonical target before calling anything narrower.
+- **Finite Wheel & Incidence:** stop extending fixed primorials unless a
+  concrete signed consumer is stated. Test whether a finite incidence lemma
+  controls admitted multiplicity without changing weights or tags.
+- **Prime Census Laboratory:** avoid repeating the 2,958,529-fibre and
+  five-run scans. Implement only a literal tagged `d(q)` versus `a(q)`
+  census with masks, walls, anchors, weights and full residual cross terms.
+- **Adversarial Referee:** falsify the first fully quantified tagged-ledger
+  statement. Enforce original carrier, multiplicity, both directions in every
+  claimed equivalence, and the exact positive-slack/collision witnesses.
+- **Lean Verification:** no new theorem presently requires formalization.
+  Audit only a newly referee-accepted scoped statement; do not duplicate
+  #937–#942 or formalize a conditional target-equivalent consumer.
+
+### 7. External-handoff disposition
+
+- `EXT-20261014-1` was accepted with sharper thresholds and is now
+  formalized by PR #942.
+- `EXT-20261014-2..3` were generalized to all fixed genuine prime owners
+  under `R >= 1024p`, independently reviewed and formalized by PR #942,
+  with the isolated/nonadditive scope explicit.
+- `EXT-20261014-4` remains `PROVED_IN_LEAN` through PR #937.
+- `CL-20261014-1..7` are compiled no-narrowing/#915 content-audit baseline,
+  not target progress.
+- `EXT-20261014-5` is accepted as `PAPER_PROOF`.
+- Remaining `CL-20261014-8..10` claims are not promoted here beyond their
+  published evidentiary status; they were not needed to classify today's new
+  formal advances.
+
+### 8. Operational issues
+
+- `00-coordinator-am.md` is still absent on the explicit
+  `agent-reports` branch, so the seven-stage daily cycle is incomplete.
+- Specialist reports before 12:06 ET cite earlier `main`
+  `18fa753f...`; Lean Verification Run 2 correctly revalidated the changed
+  modules at current `main` `13c3aeab...`.
+- The current proof contract retains a stale “NOT YET MERGED” heading for
+  #938/#939. This report records the mismatch and follows current compiled
+  source without editing central instructions.
+- The combined legacy commit-status endpoint for the merge commit has no
+  reported contexts; formal evidence is tied to the exact PR heads and
+  successful Actions runs described above.
+
+### Final rerun synthesis
+
+**Accepted new formal progress:** original signed small-owner pair bounds and
+their cross-term identity; exact historical-prime multiplicity and same-block
+uniqueness; sharp 2310/30030 late-owner capacities and run bounds. All are
+`PROVED_IN_LEAN` on current `main` with verified PR CI at the stated
+revisions.
+
+**Accepted paper progress:** the normalized #915 denominator has unconditional
+`limsup N_R=1`, classified `PAPER_PROOF`.
+
+**Genuine target progress:** `NO_NEW_RESULT`. The new formal results sharpen
+and constrain supporting arithmetic but do not prove the canonical endpoint
+bound or RH.
+
+**Current first blocker for the owner-pair route:** a literal
+demanded-versus-available historical occurrence ledger and a joint bound for
+the residual plus every restored cross term. This is a route-specific first
+blocker, not a certified unique completion lemma.
+
+**Daily cycle status:** incomplete, with **6/7** required upstream reports
+published.
+
+**No RH-proof claim:** yes.
+
+### Updated next-run resume capsule
+
+- **Authority:** current `main`
+  `13c3aeab8f84fc2309175261948a17a50c8342f4`; authority blobs
+  `26715158...` and `27dceba6...`.
+- **Reporting branch:** explicit `agent-reports`; today's `00` is
+  `PENDING`; `10/20/30/40/50/60` current blobs are listed in the audit.
+- **New formal modules:** ancestry `fda6db05...`, signed pair
+  `e3cc1722...`, sharp primorial `4925053b...`; wheel-30
+  `3701895c...`.
+- **CI:** PR #941 head `5ba3ffff...`, runs `38588506051` /
+  `38588506860`; PR #942 head `c3927c68...`, runs
+  `38592307885` / `38592308014`; successful as scoped above.
+- **Formal classifications:** owner-1/2, analytic-1/2, wheel-1/2 and
+  wheel-5/6 are `PROVED_IN_LEAN`. `EXT-20261014-5` is
+  `PAPER_PROOF`.
+- **Mandatory counterexamples:** two-child `(12,22,17)`; positive slack
+  `(2048,2029,2069,45)`; repeated `q=5,242,883`; threshold witnesses
+  `77` and `143`.
+- **Highest-value next step:** specify and falsify `d(q) <= a(q)` on the
+  real masked/anchored ledger, then seek a joint residual/cross-term estimate.
+- **Avoid:** repeated unsigned scans, cloned historical charges, summed
+  isolated slacks, altered denominators and target-equivalent “last lemmas.”
