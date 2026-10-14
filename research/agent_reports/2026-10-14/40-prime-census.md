@@ -1425,3 +1425,31 @@ int main() {
 - **Next highest-value step:** Referee audit of Claim 11, followed only then by scoped Lean formalization; separately emit literal masked active-carrier tuples before testing any aggregate signed estimate.
 - **For Agent #7:** formalize only the auxiliary cap-four and selected-packet theorem after referee acceptance; do not state source admission, global covariance, or canonical completion.
 - **Avoid next run:** repeating unchanged bounded scans, paying multiple windows with one (q), dropping 107 residual descendants, or converting the linear packet into the global quadratic NNS.
+
+
+### Publication rendering correction — 2026-10-14T16:24:00-04:00
+
+The preceding continuation was successfully committed, but transport through the
+connector stripped some Markdown backslashes in displayed formulas. The exact
+claim statements, in ASCII notation, are:
+
+- **Claim 20261014-census-11:** for prime q and a nonempty set S of distinct
+  odd-prime owners p satisfying
+  R_p = floor(sqrt(p*q)), 1024*p <= R_p, A <= R_p < B, and
+  B-A <= 6144, one has |S| <= 4.
+- For hypothetical p_1 < ... < p_5, the threshold gives
+  q >= 2^20*p_5, and
+  sqrt(p_5*q)-sqrt(p_1*q)
+  >= 1024*(p_5-p_1)/(1+sqrt(p_1/p_5)) > 6144.
+  The two cases are: p_1=3, hence p_5>=13; or p_1>3, hence
+  p_5-p_1>=12 because six consecutive odd candidates contain two composite
+  multiples of 3. The floor difference is therefore at least 6144, impossible
+  inside a half-open integer interval of length at most 6144.
+- **Claim 20261014-census-12:** on that selected carrier, counting the one
+  historical q exactly once,
+  sum_(p in S) charge(R_p,p*q) + charge(floor(sqrt(q)),q) < -181/640,
+  since 4*(9/64)-541/640 = -181/640.
+- The exact four-owner sharpness witness is
+  q=11534351, owners (3,5,7,11), roots
+  (5882,7594,8985,11264), with span 5382.
+- All statuses and source hashes in the preceding section are unchanged.
