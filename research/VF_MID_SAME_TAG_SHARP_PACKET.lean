@@ -200,9 +200,22 @@ coprime to six. The calculation is independent of the starting integer. -/
 private theorem vfMidSameTag_twelve_residue_capacity (a : ℕ) :
     ((Finset.range 12).filter
        (fun k => (a + k) % 6 = 1 ∨ (a + k) % 6 = 5)).card = 4 := by
-  have hmod : a % 6 < 6 := Nat.mod_lt _ (by norm_num)
-  interval_cases h : a % 6 <;>
-    norm_num [Finset.range, Nat.add_mod, h]
+  have hset :
+      ((Finset.range 12).filter
+        (fun k => (a + k) % 6 = 1 ∨ (a + k) % 6 = 5)) =
+      ((Finset.range 12).filter
+        (fun k => (a % 6 + k) % 6 = 1 ∨ (a % 6 + k) % 6 = 5)) := by
+    ext k
+    simp only [Finset.mem_filter, Finset.mem_range]
+    have hmod : (a + k) % 6 = (a % 6 + k) % 6 := by omega
+    simp [hmod]
+  rw [hset]
+  have hcalc : ∀ r : ℕ, r < 6 →
+      ((Finset.range 12).filter
+        (fun k => (r + k) % 6 = 1 ∨ (r + k) % 6 = 5)).card = 4 := by
+    intro r hr
+    interval_cases r <;> decide
+  exact hcalc (a % 6) (Nat.mod_lt _ (by norm_num))
 
 /-- Pure elementary finite-prime restriction. More than four primes >=5
 cannot lie in twelve consecutive integers. -/
@@ -231,6 +244,7 @@ private theorem vfMidSameTag_prime_interval_twelve_card_le_four
       (Finset.mem_Icc.mp (Finset.mem_filter.mp hp).1).1
     have hp'Lo : a ≤ p' :=
       (Finset.mem_Icc.mp (Finset.mem_filter.mp hp').1).1
+    change p - a = p' - a at heq
     omega
   calc
     S.card ≤ T.card := Finset.card_le_card_of_injOn _ hmap hinj
@@ -300,9 +314,22 @@ theorem vfMidSameTagWindow_card_le_four
         have hpData := mem_vfMidSameTagWindow.mp hp
         have hle : m ≤ p := hmin p hp
         have hlt : p < m + 12 := hnear p hp
+        have hlt13 : p < 13 := by
+          by_contra hn
+          have h13 : 13 ≤ p := by omega
+          have hscale : 1048576 * p ≤ q :=
+            (vfMidHistoricalOwner_sqrt_iff hpData.1.pos).mp hpData.2.2.1
+          have hfar : Nat.sqrt (3 * q) + 6144 ≤ Nat.sqrt (p * q) :=
+            vfMidSameTag_root_gap_three_to_thirteen h13 hscale
+          have hpB := hpData.2.2.2.2
+          rw [hm3eq] at hmA
+          omega
         by_cases hpEq : p = 3
         · simp [hpEq]
-        · have hres := vfMidSameTag_prime_mod_six hpData.1 (by omega : 5 ≤ p)
+        · have hpOdd := hpData.1.odd_of_ne_two (by omega)
+          obtain ⟨k, hk⟩ := hpOdd
+          have hp5 : 5 ≤ p := by omega
+          have hres := vfMidSameTag_prime_mod_six hpData.1 hp5
           simp only [Finset.mem_insert, Finset.mem_singleton]
           omega
       exact (Finset.card_le_card hsub).trans (by norm_num)
@@ -320,7 +347,9 @@ theorem vfMidSameTagWindow_card_le_four
       exact (Finset.card_le_card hsub).trans
         (vfMidSameTag_prime_interval_twelve_card_le_four hm5)
   · have hEmpty : S = ∅ := Finset.not_nonempty_iff_eq_empty.mp hS
-    simp [hEmpty]
+    change S.card ≤ 4
+    rw [hEmpty]
+    simp
 
 /-- A historical q supporting at least one selected eligible owner must
 itself lie past the actual 1024-th historical square root. -/
@@ -350,7 +379,8 @@ private theorem vfMidSameTag_current_charge_eq
     · exact hpPrime.ne_one h1
     · have hm : 2 * p ≤ p * q := by
         simpa [Nat.mul_comm] using Nat.mul_le_mul_left p hq.two_le
-      omega
+      have hp2 := hpPrime.two_le
+      nlinarith
   exact vfMidOddSignedSeatCharge_of_not_prime
     (Nat.sqrt (p * q)) (p * q) hnNotPrime
 
