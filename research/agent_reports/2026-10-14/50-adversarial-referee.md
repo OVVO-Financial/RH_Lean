@@ -497,3 +497,142 @@ Carry owner-1/-2, analytic-1/-2, and wheel-5/-6 as accepted supporting PAPER_PRO
 - **Two-day continuity:** 2026-10-13 Coordinator/Owner/Analytic/Wheel/Census blobs were re-read as YESTERDAY=CARRY_FORWARD; external inbox blob `6fce4e9d024b6c4ad47798c5d7c162101a2435a0` is unchanged.
 - **Claims selected for delta review:** `20261014-owner-5/-6`, `20261014-analytic-4/-5`, `20261014-wheel-8/-10`, and `20261014-census-10/-12`, plus the changed `PROVED_IN_LEAN` status of owner-1/-2 and wheel-5/-6 after merged PR #942.
 - **Exact checks already completed:** all submitted overload, dyadic-fibre, sharp-spacing, and four-owner witnesses were independently reproduced with integer arithmetic; final scope, carrier, novelty, and implication audits remain in progress.
+
+
+## Scheduled 4:25 PM referee completion — 2026-10-14T16:28:59-04:00
+
+### Provenance and current objective
+
+- **Execution time:** 2026-10-14T16:25:26-04:00 through 2026-10-14T16:28:59-04:00, America/New_York.
+- **Authoritative main:** `13c3aeab8f84fc2309175261948a17a50c8342f4`, merge commit for PR #942. Main was read only.
+- **Authority blobs:** `AGENTS.md` `26715158e91d4f5f71e9e8aa15baa1a17053e456`; `CURRENT_PROOF_CONTRACT.md` `27dceba62b4797bbb394439d13fc4a8dbe29ea0b`.
+- **Central objective:** prove the canonical additive-sqrt(2) VF square-endpoint bound, hence the canonical von Koch statement, using a genuinely new arithmetic estimate. Exact identities and target-equivalent inlets are not progress on the missing estimate.
+- **Today read:** Coordinator AM = `TODAY=PENDING` after an explicit GitHub 404; Owner `a2ed7dc27756393c49beb5bebae80971a2af6aff`; Analytic `b8ee78df90d9fccb4b1201c933720a70300d9d51`; Wheel `476d1af0f2624f615e7cdcb017812633dbd232f0`; Census `5cfe80753bbfa0374da9eace00b3a137aeaf43b8`.
+- **Continuity read:** the five corresponding 2026-10-13 reports were retained only as `YESTERDAY=CARRY_FORWARD`. The external inbox `6fce4e9d024b6c4ad47798c5d7c162101a2435a0` was unchanged and supplied no newer claim than the reports audited here.
+
+### Changed formal baseline
+
+Current-main source was inspected at these blobs: historical multiplicity `fda6db056571191feffd08f2d1d6fe0fa02f0d8c`; signed pair bounds `e3cc17224469e24516390a8f20e590d5932dbfc1`; signed seat charge `13dda0d2c6cc59580959a2d59fad60126b1c6b0b`; weighted physical Fubini `58b78186e4fd5b68179afe4be0b7b6e4761442d6`; raw-parent splice `e61eb36301f650bfb41079bbd7367f9f45cf6d3e`; sharp primorial budget `4925053b09acaa927f48c7fad8f13c0f4bf5ff71`.
+
+PR #942 proof head `c3927c683ba78a37b0448ad13c5f8d13d1d5b6a0` has successful targeted run `38592307885`, job `115950056779`: warning-fatal selected-closure compilation reported `compiled=1 cached=25`, then `compiled=0 cached=26`. The six signed-pair declarations printed exactly `propext`, `Classical.choice`, and `Quot.sound`. The exact primorial module was source-sensitive cache reuse on this final head; its source contains five axiom-print commands, but that final targeted log did not reprint them. Source-audit run `38592308014` passed. Accordingly:
+
+- `20261014-owner-1/-2`: **ACCEPT / PROVED_IN_LEAN**, only for the stated fixed-owner original-weight gap, isolated NNS slack, and explicit residual cross-term identity.
+- `20261014-analytic-1/-2`: **ACCEPT / PROVED_IN_LEAN** for the exact owner-threshold fibre and same-block uniqueness/global-reuse facts now in the historical-multiplicity module.
+- `20261014-wheel-5/-6`: **ACCEPT / PROVED_IN_LEAN** for the unsigned 2310/30030 capacities and run inequalities. They do not supply signed payment.
+
+### Independent exact checks
+
+CPython 3.12 used exact integer arithmetic, `isqrt`, complete owner enumeration in the submitted finite intervals, and deterministic 64-bit Miller-Rabin. No floating result is used for a verdict.
+
+1. For `q=1,000,000,007`, all primes `239 <= p <= 953` were enumerated: count 111, owner sum 64,891, distinct roots 488,876 through 976,217, minimum root gap 1,064, minimum lower/upper square gaps 3,756 and 3,959, and minimum threshold slack 345. The owner hash is `e5bae15ed976f7db0020fa9f46b24b1f5d1cfec0cf1035d3237acc6dfd48d50f`. Exact rational arithmetic confirmed `(65/24)^28 > 10^12`.
+2. For `q=1,000,000,000,039`, `A=244,140,625`, `L=59,604`, and `U=238,418`. Exact enumeration gives 15,072 prime owners, endpoints 59,611 and 238,417, roots 244,153,640 through 488,279,633, and minimum lower/upper square gaps 32,849 and 3,849.
+3. The sharp spacing witness `(p1,p2,q)=(10139,10141,10633609379)` has roots 10,383,360 and 10,384,384, exact gap 1,024, threshold slacks 1,024 and 0, and all four square-wall gaps positive.
+4. The four-owner witness `q=11,534,351`, owners `3,5,7,11`, has roots `5882,7594,8985,11264`, span 5,382, threshold slacks `2810,2474,1817,0`, and positive strict-wall gaps. The key exact inequality in the five-owner exclusion has squared margin `16*13-36*3=100>0`.
+5. The unchanged 438,030-prime sweep was not repeated: its inputs and two independent upstream implementations are unchanged. It remains `FINITE_COMPUTATION`, never an all-scale proof.
+
+### Claim-by-claim verdicts on the new submissions
+
+#### `20261014-owner-5` — Owner Payment
+
+**Recommendation: REVISE. Status: PAPER_PROOF plus FINITE_COMPUTATION.**
+
+Exact accepted core: with the displayed `q,A,R` and the 111 prime owners, every `pq` is a distinct strict-block squarefree composite with least owner `p`, `1024p <= floor(sqrt(pq))`, and genuine current charge `+w`. The single integer `q` occurs in only one historical square block. Since every current root is below one million, `w>1/14), so `X>111/14>1>y`. Also
+`(X+y)^2-2(X-y)^2=-X^2+6Xy-y^2<0` for `X>6` and `y<1`.
+
+Required revision: call this a compatible dyadic half-run diagnostic, not an actual first-bad event. No first-bad predicate, source admission mask, clipping weight, anchor contribution, or global residual/cross-term hypothesis is proved. Thus the finite overload defeats cloned one-history accounting but is not a counterexample to a fully stated conditional first-bad theorem.
+
+#### `20261014-owner-6` — Owner Payment
+
+**Recommendation: ACCEPT. Status: REFUTED for the proposed unrestricted pairing principle.**
+
+Any map that independently reuses the unique historical occurrence of `q` for all 111 current descendants, or bounds their total current weight by that one historical magnitude, fails on owner-5. This does not refute an occurrence-indexed ledger that keeps all 112 sites and proves a joint estimate with every omitted term.
+
+#### `20261014-analytic-4` — Analytic Type II
+
+**Recommendation: REVISE. Status: PAPER_PROOF for the asymptotic; exact formula needs a domain convention.**
+
+For `A=floor(q/4096)`, strict walls give `L_q<p<=U_q`, where `L_q=floor(A^2/q)` and `U_q=floor(((2A)^2-1)/q)`. Hence, once these are natural-number quantities, the prime count is exactly `pi(U_q)-pi(L_q)-1_{L_q<2<=U_q}`. PNT at the two fixed multiples `2^-24 q` and `2^-22 q` gives
+`|D_q| ~ 3q/(2^24 log q) ~ 3A/(4096 log A)`; the constants and strict upper endpoint are correct.
+
+Required revision: the report says “for every odd prime q” without specifying natural truncated subtraction when `A=0`, or restricting to `q>=4096`. State one of those conventions. The asymptotic is unaffected. Also cite the precise Brun-Titchmarsh domain when retaining the optional uniform benchmark.
+
+#### `20261014-analytic-5` — Analytic Type II
+
+**Recommendation: ACCEPT. Status: PAPER_PROOF.**
+
+Uniformly for `A<=R<2A`, the literal current weight satisfies `w(R) log A -> 1`; multiplying analytic-4 gives
+`X_q ~ 3A/(4096 (log A)^2)`. Therefore `X_q -> infinity` while one historical magnitude tends to one. This is genuine asymptotic multiplicity information, but it neither sums over historical tags nor controls the canonical endpoint discrepancy.
+
+#### `20261014-wheel-8` — Finite Wheel & Incidence
+
+**Recommendation: ACCEPT. Status: PAPER_PROOF.**
+
+Expanded quantifiers: for natural `q,p1,p2`, with `q,p1,p2` prime, `3<=p1<p2`, `Ri=floor(sqrt(pi*q))`, and `1024p2<=R2`, one has `R2-R1>=1024`. The threshold implies `q>=2^20 p2`; the odd-prime gap gives `p2-p1>=2`; rationalizing the square roots gives a real gap at least 1,024, which survives flooring by an integer. For natural `A<B`, the stated interval cardinality follows. The constant is sharp by the exact prime witness above.
+
+#### `20261014-wheel-9` — Finite Wheel & Incidence
+
+**Recommendation: ACCEPT. Status: PAPER_PROOF.**
+
+In a half-open integer root window of length at most 6,144, wheel-8 gives at most six current descendants. Since `R>=1024p>=3072`, each current charge is `<9/64`; nonemptiness gives the historical root at least 1,024 and historical charge `< -541/640`. Counting `q` once yields total charge `<6(9/64)-541/640=-1/640`. This survives deletion of positive current sites only when the stated historical occurrence is actually admitted. It cannot be spent again in another window.
+
+#### `20261014-wheel-10` — Finite Wheel & Incidence
+
+**Recommendation: REVISE as a compound claim. Status: FINITE_COMPUTATION plus REFUTED strengthenings.**
+
+The exact 1,024-gap witness ACCEPTS the refutation of a universal 1,025 spacing theorem. The 111-owner witness ACCEPTS refutation of an arbitrary-half-run extension of the one-history local packet. Revise “unrestricted one-history payment” to name the defeated linear/local pairing statement: the witness does not satisfy the full #915 first-bad premise and does not include the actual source masks, anchor, residual, or quadratic cross terms.
+
+#### `20261014-census-10` — Prime Census Laboratory
+
+**Recommendation: ACCEPT. Status: FINITE_COMPUTATION.**
+
+The exact witness data and both complete finite owner enumerations were independently reproduced as listed above. The bounded sweep remains finite evidence and supplies no PNT or all-scale spacing proof.
+
+#### `20261014-census-11` — Prime Census Laboratory
+
+**Recommendation: ACCEPT. Status: PAPER_PROOF plus FINITE_COMPUTATION.**
+
+Five owners in a 6,144 window are impossible. If the least is 3, the fifth is at least 13 and the real root span exceeds
+`1024*10/(1+sqrt(3/13))>6144`. If the least exceeds 3, six consecutive odd positions contain two composite multiples of 3, so five primes require owner diameter at least 12; the root span is again strictly greater than 6,144. Floors then differ by at least 6,144, impossible inside the half-open window. The four-owner witness proves optimality and refutes a universal cap of three.
+
+#### `20261014-census-12` — Prime Census Laboratory
+
+**Recommendation: ACCEPT. Status: PAPER_PROOF; decimals are diagnostic FINITE_COMPUTATION.**
+
+Using the exact four-owner cap and the compiled literal bounds gives
+`sum current charges + one historical charge <4(9/64)-541/640=-181/640`. This is a genuine multiplicity-safe local signed packet. It does not iterate: in the 111-descendant witness, spending the sole historical tag once leaves 107 current sites. No global NNS or canonical endpoint conclusion follows.
+
+### Counterexamples and diagnostics
+
+**Confirmed refutations with all hypotheses of the defeated strengthening:** universal 1,025 root spacing; universal three-owner cap in a 6,144 window; independent reuse of one historical occurrence for all descendants; and extension of the one-history packet to an arbitrary half-run.
+
+**Diagnostics, not counterexamples to a full first-bad theorem:** the 111-owner overload, the negative grouped isolated slack, the local `-181/640` packet, the narrow-wall event near `R=1031`, and all finite density scans. None supplies the global first-bad premise plus source admission, anchor, clipping, residual, and restored cross terms.
+
+### Carrier, circularity, and novelty audit
+
+1. The new spacing and four-owner cap are on literal squarefree composites `pq`, genuine least-prime owners, strict square walls, and unit occurrence multiplicity. Their signed corollary uses the original raw current weight and one raw historical prime charge; no canonical-energy substitution occurs.
+2. The cap is genuinely new local information and is not target-equivalent. It is insufficient globally because one tag may have 111 or asymptotically unbounded descendants across successive windows.
+3. The analytic fibre asymptotic adds a second logarithmic saving after weights, but this is per fixed historical tag. Summing over tags, masks, and chronology is unproved.
+4. Pairwise or packet negativity cannot be added inside a quadratic norm without the residual cross terms `2M0(x+y)-4S0(x-y)`. The compiled identity exposes rather than controls those terms.
+5. None of the new paper claims proves the canonical endpoint bound, finite A/C, CORR-4, the #915 payment, or RH.
+
+### Outstanding obligations and Lean handoff
+
+- Formalization candidate 1: wheel-8 root spacing, with explicit natural-number domains and the sharp witness separate from the theorem.
+- Formalization candidate 2: census-11 four-owner cap and census-12 local signed packet, explicitly conditional on one admitted historical occurrence.
+- Formalization candidate 3: analytic-4/-5 only after fixing the small-`q` convention; the PNT asymptotic requires the repository's accepted analytic infrastructure, not finite computation.
+- Do not formalize owner-5 as a first-bad theorem. A useful finite lemma may record the exact overload witness, but it is diagnostic.
+- The first production blocker remains a literal admitted-tag accounting theorem plus a joint bound for residual and all quadratic cross terms. Any proposed `d(q)<=a(q)` one-copy inequality is already refuted.
+
+### Recommendation to the Coordinator
+
+Carry wheel-8, wheel-9, census-11 and census-12 as accepted local `PAPER_PROOF` results; carry census-10 as `FINITE_COMPUTATION`. Carry analytic-5 and the asymptotic part of analytic-4, but require the stated domain repair. Carry owner-6 as a rigorous refutation of cloned history and owner-5 only after removing any implication of an actual first-bad event. Upgrade owner-1/-2, analytic-1/-2, and wheel-5/-6 to their current-main `PROVED_IN_LEAN` scopes. Do not open a closure PR from these results.
+
+### Final classification and next-run resume capsule
+
+- **New accepted paper result:** sharp four-owner 6,144-window cap and multiplicity-safe signed packet `<-181/640`.
+- **New accepted diagnostics:** exact 111-owner overload; exact dyadic fibre/weight asymptotics after domain repair; sharp 1,024 spacing.
+- **Refuted strengthenings:** 1,025 spacing, three-owner cap, cloned one-history pairing, and arbitrary-half-run one-history packet.
+- **Production target:** `NO_NEW_RESULT`; the canonical endpoint theorem and RH remain open.
+- **Upstream completeness:** every substantive new claim in today's available 10/20/30/40 reports was reviewed; `00` remains `PENDING`.
+- **Top continuation:** define actual admitted multiplicity `a(q)` and demanded multiplicity `d(q)` on the masked, anchored raw source, then falsify or prove a joint residual/cross-term inequality without reusing `q`.
+- **No RH-proof claim:** yes.
