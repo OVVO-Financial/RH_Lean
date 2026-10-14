@@ -74,8 +74,9 @@ private theorem vfMidOddWeight_lt_of_log_and_num
         c * (Real.log (vfMidBandMidpoint t) * (t : ℝ)) := by
     nlinarith
   unfold vfMidOddFractionalPrimeSeatWeight vfMidBandMass
-  rw [div_div_eq_div_mul]
-  exact (div_lt_iff₀ (mul_pos hlogpos htpos)).2 hnumlog
+  apply (div_lt_iff₀ htpos).2
+  apply (div_lt_iff₀ hlogpos).2
+  nlinarith [hnumlog]
 
 /-- For every scale >=1024 the physical odd-seat weight is <99/640. -/
 theorem vfMidOddWeight_lt_99_div_640
@@ -83,10 +84,9 @@ theorem vfMidOddWeight_lt_99_div_640
     vfMidOddFractionalPrimeSeatWeight t < (99 / 640 : ℝ) := by
   have hlog :
       (40 / 3 : ℝ) < Real.log (vfMidBandMidpoint t) := by
-    simpa using
-      (vfMidMidpoint_log_gt_four_k_div_three
-        (t := t) (B := 1024) (k := 10)
-        (by norm_num) ht (by norm_num))
+    convert (vfMidMidpoint_log_gt_four_k_div_three
+      (t := t) (B := 1024) (k := 10)
+      (by norm_num) ht (by norm_num)) using 1 <;> norm_num
   have htReal : (1024 : ℝ) ≤ (t : ℝ) := by exact_mod_cast ht
   have hnum :
       2 * (t : ℝ) + 1 <
@@ -102,10 +102,9 @@ theorem vfMidOddWeight_lt_9_div_64
     vfMidOddFractionalPrimeSeatWeight t < (9 / 64 : ℝ) := by
   have hlog :
       (44 / 3 : ℝ) < Real.log (vfMidBandMidpoint t) := by
-    simpa using
-      (vfMidMidpoint_log_gt_four_k_div_three
-        (t := t) (B := 2048) (k := 11)
-        (by norm_num) ht (by norm_num))
+    convert (vfMidMidpoint_log_gt_four_k_div_three
+      (t := t) (B := 2048) (k := 11)
+      (by norm_num) ht (by norm_num)) using 1 <;> norm_num
   have htReal : (2048 : ℝ) ≤ (t : ℝ) := by exact_mod_cast ht
   have hnum :
       2 * (t : ℝ) + 1 <
@@ -173,8 +172,8 @@ theorem vfMidSmallOwner_original_seat_charge_gap
     have hdiv : p ∣ p * q := dvd_mul_right p q
     rcases (Nat.dvd_prime h).mp hdiv with hp1 | heq
     · exact hp.ne_one hp1
-    · have hm : 2 * p ≤ p * q :=
-        Nat.mul_le_mul_left p hq.two_le
+    · have hm : 2 * p ≤ p * q := by
+        simpa [Nat.mul_comm] using Nat.mul_le_mul_left p hq.two_le
       omega
   rw [vfMidOddSignedSeatCharge_of_not_prime R (p * q) hnNotPrime,
     vfMidOddSignedSeatCharge_of_prime (Nat.sqrt q) q hq]
@@ -186,7 +185,7 @@ theorem vfMidSmallOwner_original_seat_charge_gap
 this fixed-owner sector. This does not bound the whole covariance:
 historical q availability and the M0,S0 cross terms remain unproved. -/
 theorem vfMidSmallOwner_isolated_NNS_slack_lt
-    {R p q : ℕ} (hp : p.Prime) (hq : q.Prime)
+    {R p q : ℕ} (hp : p.Prime) (_hq : q.Prime)
     (hscale : 1024 * p ≤ R)
     (hlo : R ^ 2 < p * q)
     (_hhi : p * q < (R + 1) ^ 2) :
