@@ -79,7 +79,7 @@ and *strictly beyond* its prime owner. This strictness comes from
 `R^2 < p*q`, not from an assumed probabilistic prime gap. -/
 private theorem vfMidLateRoughChild_exact_window_and_gt_owner
     {A R p q : ℕ}
-    (_hA : 3 ≤ A) (_hAR : A ≤ R) (hRlt : R < 2 * A)
+    (_hA : 3 ≤ A) (_hAR : A ≤ R) (_hRlt : R < 2 * A)
     (hp : p ∈ vfMidSquareBandLateOwnerPrimes A R)
     (hq : q ∈ vfMidSquareBandOwnerRoughChildren R p) :
     q ∈ Finset.Ioc (R ^ 2 / p) (((R + 1) ^ 2 - 1) / p) ∧
