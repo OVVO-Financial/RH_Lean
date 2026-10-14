@@ -477,3 +477,13 @@ Carry owner-1/-2, analytic-1/-2, and wheel-5/-6 as accepted supporting PAPER_PRO
 - **Highest-value continuation:** specify and falsify d(q)<=a(q) on the real masked/anchored ledger before attempting any aggregate inequality.
 - **For Lean Verification:** only the scoped scalar/cardinality candidates above; no closure consumer.
 - **Avoid:** cloned historical charges, summed isolated slacks, altered denominator, target-equivalent inlets, or another unchanged census.
+
+
+## Scheduled rerun publication verification
+
+- **Substantive commit:** c394367b716dcf5f6955deaae134b0f600abd63b.
+- **Verified substantive blob:** 6f64e44b7b806fa44b210df0b5d0cb38a9c45a06.
+- **Readback time:** 2026-10-14T10:56:26-04:00.
+- **Readback checks:** 39,394 characters; scheduled-rerun provenance, all owner/analytic/wheel/census claim IDs, exact counterexamples, status separation, Lean handoff, Coordinator recommendation, and updated capsule present.
+- **Branch confirmation:** agent-reports HEAD was c394367b716dcf5f6955deaae134b0f600abd63b after the substantive write; main remained 18fa753f6ea12951845fec65414b47faea0172a1.
+- **Publication status:** COMPLETED.
