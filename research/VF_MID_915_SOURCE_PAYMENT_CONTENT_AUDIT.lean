@@ -373,17 +373,57 @@ theorem vfMid915_payment_fails_of_endpoint_gt_blockMass
   have hleft : (|D| + β) * (|D| + β) = (|D| + β) ^ 2 := by ring
   linarith [hsq, hright, hleft]
 
+/-! ## Axiom audit (compile-time)
+
+Each `#guard_msgs` fails the warning-fatal build unless the theorem depends on
+exactly the standard axioms `propext`, `Classical.choice`, `Quot.sound`. -/
+
+/-- info: 'RHLean.Analysis.vfMidFirstBadSourceToSectorSixInlet_iff_915SourcePayment' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
 #print axioms vfMidFirstBadSourceToSectorSixInlet_iff_915SourcePayment
+
+/-- info: 'RHLean.Analysis.vfMid915FirstBad_totalMass_lt_twice_sourceSq' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
 #print axioms vfMid915FirstBad_totalMass_lt_twice_sourceSq
+
+/-- info: 'RHLean.Analysis.vfMid915FirstBadSourcePayment_iff_noFirstBad' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
 #print axioms vfMid915FirstBadSourcePayment_iff_noFirstBad
+
+/-- info: 'RHLean.Analysis.vfMid_noFirstBadTwo_iff_baseBad_or_allInside' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
 #print axioms vfMid_noFirstBadTwo_iff_baseBad_or_allInside
+
+/-- info: 'RHLean.Analysis.vfMid915FirstBadSourcePayment_iff_radialTwoEnvelope_of_base' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
 #print axioms vfMid915FirstBadSourcePayment_iff_radialTwoEnvelope_of_base
+
+/-- info: 'RHLean.Analysis.vfMidSquareEndpointVonKochBounded_of_915SourcePayment_and_base' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
 #print axioms vfMidSquareEndpointVonKochBounded_of_915SourcePayment_and_base
+
+/-- info: 'RHLean.Analysis.vfCanonicalSquareVonKoch_of_915SourcePayment_and_base' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
 #print axioms vfCanonicalSquareVonKoch_of_915SourcePayment_and_base
+
+/-- info: 'RHLean.Analysis.vfMidActualPrimeEndpointDefect_succ_eq_add_blockSupply' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
 #print axioms vfMidActualPrimeEndpointDefect_succ_eq_add_blockSupply
+
+/-- info: 'RHLean.Analysis.vfMidOddSignedSeatCharge_absSum_eq' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
 #print axioms vfMidOddSignedSeatCharge_absSum_eq
+
+/-- info: 'RHLean.Analysis.vfMid915SourcePaymentAt_iff_twoParameter' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
 #print axioms vfMid915SourcePaymentAt_iff_twoParameter
+
+/-- info: 'RHLean.Analysis.vfMid915_payment_of_endpoint_le_blockSlack' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
 #print axioms vfMid915_payment_of_endpoint_le_blockSlack
+
+/-- info: 'RHLean.Analysis.vfMid915_payment_fails_of_endpoint_gt_blockMass' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
 #print axioms vfMid915_payment_fails_of_endpoint_gt_blockMass
 
 end RHLean.Analysis
