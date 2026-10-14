@@ -14,7 +14,8 @@
 - **Observed `main` HEAD SHA:** [verified exact SHA]
 - **Central contract fetched:** [main:AGENTS.md and main:CURRENT_PROOF_CONTRACT.md, success/failure]
 - **Report target:** `agent-reports:research/agent_reports/YYYY-MM-DD/FILENAME.md`
-- **Previous upstream reports actually read:** [paths and source commit SHA or PENDING]
+- **Previous upstream reports actually read (today):** [paths, latest verified run timestamps, blob SHA, claim IDs or TODAY=PENDING]
+- **Previous-day upstream continuity actually read:** [yesterday's relevant stage paths, latest verified run timestamps, blob SHAs, claim IDs; label YESTERDAY=CARRY_FORWARD when today's stage is PENDING; otherwise NONE]
 - **Execution environment/tools used:** [GitHub read, GitHub write, web, code, Lean CI; verify each]
 - **Publication status:** [INITIAL_CHECKPOINT / PARTIAL / COMPLETED / NOT_PUBLISHED, with actual verified GitHub commit SHA when published]
 - **Early durable checkpoint:** [time and verified GitHub commit SHA, or NOT_PUBLISHED; state only work actually started]
@@ -58,7 +59,7 @@
 
 - **Checkpoint/run timestamp:** [ISO 8601 with offset, date-specific file]
 - **Source freshness:** [main HEAD and crucial contract/relevant source blob SHAs; changed or unchanged]
-- **Upstream consumed:** [precise report paths, latest run timestamps, blob SHAs and claim IDs, or PENDING]
+- **Upstream consumed (two-day window):** [today AND yesterday: precise report paths, latest run timestamps, blob SHAs and claim IDs; distinguish TODAY=PENDING from YESTERDAY=CARRY_FORWARD]
 - **Completed evidence worth reusing:** [theorems, experiments, finite ranges, result/code hashes, citations, exact statuses; no unsupported claims]
 - **Invalidations / uncertain results:** [precise changed source/hypothesis/dependency or NONE]
 - **First unresolved mathematical/CI blocker:** [one exact claim or job ID]
