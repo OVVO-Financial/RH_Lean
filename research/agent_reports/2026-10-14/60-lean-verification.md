@@ -381,3 +381,12 @@ For the next Coordinator:
 - **Classification:** submitted elementary supporting claims are now `PROVED_IN_LEAN`; `EXT-20261014-5` remains `PAPER_PROOF`; production target `NO_NEW_RESULT`; this run `NO_NEW_THEOREM_TO_FORMALIZE`.
 - **Reused:** exact finite scans and PR #937 wheel evidence on unchanged blobs. **Invalidated:** Run 1's paper-only status for claims since merged; no mathematical refutation was invalidated.
 - **Next step:** seek an occurrence-preserving original-weight ledger inequality that survives full cross terms and no-narrowing; do not rerun unchanged unsigned censuses.
+
+
+## Run 2 publication verification
+
+- **Completed audit commit:** `9158e93a4e68aef8902fb210d9fea294a381de6e`.
+- **Completed audit blob read back:** `561f7c6031bc231d5f2ed25170d16843435374f7`.
+- **Readback:** exact 32,553-character match before this verification append; completed audit, verdicts, CI evidence and resume capsule present.
+- **Early checkpoint commit:** `a0ed834b778378b3f688c0080983b766d69662e6`; checkpoint blob `f259f497082cf6c1059fc50dd2808722d7e732b6`.
+- **Publication status:** `COMPLETED`.
