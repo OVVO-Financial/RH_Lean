@@ -26,7 +26,7 @@ Daily agents must each create `research/agent_reports/YYYY-MM-DD/{assigned-stage
 
 ## October 12 2026 — full daily seven-agent cycle (eight schedules)
 
-**Historical two-run example, superseded:** The user later constrained the compute budget to **one actual scheduled run per agent per calendar day**. The original stage anchors were Coordinator #1 7 AM and 7 PM, #2 8 AM, #5 9 AM, #6 10 AM, #4 1 PM, #3 3 PM, #7 5 PM; these are logical report labels, NOT instructions to add a second Coordinator run. The [Agent Studio guide](docs/CHATGPT_AGENT_STUDIO_RH_SETUP_2026_10_12.md) records the eight triggers, central live-AGENTS refresh, real shared ledger requirement, approval/permission safety, and honest `PENDING` status when a stage has not completed. Neither a schedule nor read-only GitHub alone provides automatic agent-to-agent handoffs.
+**Historical two-run example, superseded:** The user later constrained the compute budget to **one actual scheduled run per agent per calendar day**. The original stage anchors were Coordinator #1 7 AM and 7 PM, #2 8 AM, #5 9 AM, #6 10 AM, #4 1 PM, #3 3 PM, #7 5 PM; these are logical report labels, NOT instructions to add a second Coordinator run. The [Agent Studio guide](docs/CHATGPT_AGENT_STUDIO_RH_SETUP_2026_10_12.md) records the eight historical logical anchors (not eight required active triggers), central live-AGENTS refresh, real shared ledger requirement, approval/permission safety, and honest `PENDING` status when a stage has not completed. Neither a schedule nor read-only GitHub alone provides automatic agent-to-agent handoffs.
 
 ## October 12 2026 — dynamic specialist-agent research routing (#933)
 
