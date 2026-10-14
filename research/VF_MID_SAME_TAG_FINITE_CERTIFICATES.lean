@@ -88,7 +88,39 @@ theorem vfMidSameTagWindow_sharp_four_historical_prime :
   norm_num
 
 set_option maxRecDepth 16384
-set_option maxHeartbeats 2000000
+set_option maxHeartbeats 4000000
+
+/-- The large 34-bit historical prime is certified by Lucas's criterion
+using the primitive root 2 and the prime factors 2,7,17,103,433777
+of q-1. Unlike the direct norm_num primality evaluator, this yields a
+short kernel-checkable Pratt-style certificate. -/
+private theorem vfMidSameTag_largeHistoricalPrime :
+    Nat.Prime 10633609379 := by
+  apply lucas_primality 10633609379 (2 : ZMod 10633609379)
+  · decide
+  · intro d hd hdiv
+    have hfact : d ∣ ((((2 * 7) * 17) * 103) * 433777) := by
+      convert hdiv using 1 <;> norm_num
+    have hdprime : d = 2 ∨ d = 7 ∨ d = 17 ∨ d = 103 ∨ d = 433777 := by
+      rcases hd.dvd_mul.mp hfact with hmid | h433
+      · rcases hd.dvd_mul.mp hmid with hlow | h103
+        · rcases hd.dvd_mul.mp hlow with h27 | h17
+          · rcases hd.dvd_mul.mp h27 with h2 | h7
+            · exact Or.inl ((Nat.prime_dvd_prime_iff_eq hd (by norm_num)).mp h2)
+            · exact Or.inr (Or.inl
+                ((Nat.prime_dvd_prime_iff_eq hd (by norm_num)).mp h7))
+          · exact Or.inr (Or.inr (Or.inl
+              ((Nat.prime_dvd_prime_iff_eq hd (by norm_num)).mp h17)))
+        · exact Or.inr (Or.inr (Or.inr (Or.inl
+            ((Nat.prime_dvd_prime_iff_eq hd (by norm_num)).mp h103))))
+      · exact Or.inr (Or.inr (Or.inr (Or.inr
+          ((Nat.prime_dvd_prime_iff_eq hd (by norm_num)).mp h433))))
+    rcases hdprime with h2 | h7 | h17 | h103 | h433
+    · subst d; decide
+    · subst d; decide
+    · subst d; decide
+    · subst d; decide
+    · subst d; decide
 
 /-- Exact separation witness, from two prime owners and a genuine q:
 the difference of the corresponding integer square roots equals 1024.
@@ -116,7 +148,7 @@ theorem vfMidSameTag_root_spacing_1024_sharp :
   constructor
   · norm_num
   constructor
-  · norm_num
+  · exact vfMidSameTag_largeHistoricalPrime
   constructor
   · rw [hr2]
   · rw [hr1, hr2]
