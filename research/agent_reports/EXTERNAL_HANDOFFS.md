@@ -39,6 +39,15 @@ Main: `fcccdb32559d762dc5296dc519929f053f0fdf95`. Proof PRs (REVIEW_READY, not m
 - **Referee:** EXT-1 ACCEPT, EXT-2 ACCEPT (scope note), EXT-3 REVISE, designation of SOURCE-SPLICE-1 as a "first missing lemma" REJECT (it is RH-equivalent).
 - **First unproved statement:** the canonical target itself; there is no strictly weaker named lemma on `main` whose proof completes the route.
 
+
+### 2026-10-14 (third) — Independent review: physical normalized source-payment limsup
+
+**[Read the complete paper proof and audit](external/2026-10-14/normalized-payment-limsup-no-go.md)**. Consumes and checks the two earlier external sessions and PR #938/#939 as they existed at the review.
+
+- **EXT-20261014-5 / PAPER_PROOF:** for the exact #915 original-physical denominator `T_R=(|D_R|+beta_R)^2`, source `S_R=D_{R+1}` and `N_R=S_R^2/T_R`, one has `0<=N_R<=1` for all `R>=8` and **`limsup_(R->infinity) N_R=1` unconditionally** (classical Littlewood + Brun–Titchmarsh + compiled VF–li O(1) bridge). This strengthens the second handoff's CL-11: **no uniform unconditional `N_R<=c<1` is possible** with the existing denominator. Not a Lean proof; independent referee review required.
+- **Critical scope correction:** #939 audits the original payment inequality, not every possible occurrence-preserving `SOURCE-SPLICE-1` *equality*. A new exact identity may be unconditional; deriving a bound strong enough to pay the source would be RH-hard. The previous isolated EXT-3 paired NNS statistic is not itself the original global #915 norm. The suggested de la Vallée Poussin baseline is weaker than the established Vinogradov–Korobov unconditional prime-counting error.
+- **Agent routing:** Coordinator include the result in next handoff; Referee independently test its full proof and denominator; Owner/Analytic reject proposed all-R strict-fraction NNS payment without altering the carrier; Lean agent may prove the deterministic sandwich on a separate scoped PR, but Littlewood is **not** formalized in this submission.
+
 ## Index integrity
 
 This file lists *external* research only. The eight named reports under `research/agent_reports/YYYY-MM-DD/` remain the seven agents' actual scheduled output. External submissions do not supersede authoritative live Lean source or `main` proof instructions. New entries should include original claim IDs, status, source/commit SHA, direct GitHub handoff link, reproducer path, and first missing mathematical lemma.
