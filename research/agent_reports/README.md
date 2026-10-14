@@ -3,10 +3,13 @@
 **Branch:** `agent-reports` (**not** `main`).
 **Reports root:** `research/agent_reports/`.
 **Timezone/date for filenames:** `America/New_York`, ISO `YYYY-MM-DD` (including weekends).
-**Schedule:** the user reports two scheduled runs per agent per day, including weekends. Coordinator's AM/PM files cover its two logical phases; other specialists may append a second run to their existing named report. The eight names below are **logical report files, not a limit of eight invocations**. Actual additional start times are configured in Agent Studio and must be verified there.
+**Schedule (latest user budget, 2026-10-14): ONE scheduled invocation per agent per calendar day**, including weekends only if actually configured. Coordinator AM/PM are historical *logical* report phases, not an instruction to schedule two separate Coordinator runs. The eight stage filenames below do not establish eight launches. Agent Studio is authoritative for actual enabled schedules and launch times; unfired phases remain `PENDING`.
 **Authorization:** this branch/folder is a proposed workflow; creating it does NOT grant Workspace Agents GitHub write access or set schedules. Configure and authorize those separately.
 
 ## Source of truth (never reverse this precedence)
+
+**Live mathematical direction (2026-10-14, read from main):** the central campaign is the *signed genuine-prime versus exact Li/floor-Li critical collision/forcing transfer*. Floor-Li's deterministic <1 rounding and the original prime/floor-Li signed transport are ALREADY exact; the continuous-Li density's finite quadratic Poisson collision budget cannot simply be transplanted to the actual-prime indicator because its unsigned analog is the divergent sum of prime reciprocals. Agents must seek/falsify a separately justified **signed actual-arithmetic** mechanism preserving the entire original owner/once-spent historical/NNS cross-term ledger. This paragraph is a dated pointer, never proof authority or a frozen assignment; re-fetch live main on each invocation. Agent #7 has an approved proof feature-branch/PR+CI repair lane under main's current AGENTS rules; if its saved Studio instructions/tools prohibit this, the GitHub edit alone does NOT fix Studio.
+
 
 1. Live `main:AGENTS.md` governs agent conduct and where to find current directions.
 2. Live `main:CURRENT_PROOF_CONTRACT.md` defines the current research objective.
@@ -36,9 +39,9 @@ research/agent_reports/YYYY-MM-DD/
   90-coordinator-pm.md         19:00 ET  verified synthesis, next priorities
 ```
 
-These are the original **handoff anchor times**, not a dependency-controlled schedule or an exhaustive list of the additional configured launches. Scheduling alone does not create files; every invocation must commit its own report to `agent-reports` and verify the readback. Twice-daily invocations of the same specialist use the **same dated filename**, appending a timestamped new run and a refreshed resume capsule rather than creating conflicting alternate names or deleting earlier findings.
+These are the original **handoff anchor times**, not proof of configured launches or a mandate for any additional schedule. Scheduling alone does not create files; every invocation must commit its own report to `agent-reports` and verify the readback. **If** additional invocations are expressly reauthorized and actually configured later, they use the **same dated filename**, appending a timestamped new run and a refreshed resume capsule. Under the current one-run budget, never manufacture an extra launch or a Coordinator PM handoff.
 
-## Twice-daily warm-start and cache-validity protocol
+## Every actual invocation: warm-start and cache-validity protocol
 
 Each invocation must do **new work or a verified continuation**, rather than repeat the same exploratory search automatically. Before expensive searches, scans, experiments or Lean CI:
 

@@ -26,6 +26,18 @@
 
 ## Work performed today
 
+### Mandatory active-route / transfer screen (complete where relevant)
+
+- **Live contract / main SHA:** [current authoritative goal fetched, not an old pinned candidate]
+- **Model reference and exact theorem:** [floor-Li deterministic rounding, Li-density Poisson collision, signed event relocation, or original source — DO NOT conflate]
+- **Genuine-prime carrier and coefficients:** [original prime owner, sign, tag multiplicity/once-spent history, weight, masks/clips/squareful, anchor and original cross terms]
+- **Signed-vs-unsigned comparison:** [precise expression and bound; note that actual-prime unsigned critical collision sum diverges, not finite by Li-density substitution]
+- **What is NEW beyond exact transport / proxy equivalence:** [independent arithmetic ingredient, or NONE]
+- **Falsification and coherent-mode test:** [real cutoffs and hashes, not heuristic assumptions; indicate NOT_RUN when applicable]
+- **Original gate connection:** [exact theorem bridge to native original NNS/canonical endpoint/finite A/C consumer; pending if unproved]
+- **Promotion status:** [IDENTITY_ONLY / FINITE_COMPUTATION / PAPER_PROOF / CONDITIONAL / REFUTED / PROVED_IN_LEAN with real CI; do not upgrade without evidence]
+
+
 [New mathematics/reproduction, not repeated background. If blocked, specify the blocker.]
 
 ## Claims and evidence
@@ -67,4 +79,4 @@
 - **For Agent #7:** [PR URL, head SHA, relevant Actions run/job URLs, latest CI/axiom state and required repair; no local Lean execution]
 - **Avoid next run:** [unchanged scans, previously validated computations or green CI tied to the same source SHA]
 
-For the second daily invocation, append its timestamped findings to this existing dated report and end with a **new final capsule**, preserving all earlier run sections. The latest capsule is a work checkpoint, not current mathematical authority.
+**Current budget is one run per agent per calendar day.** If the user later authorizes and configures an additional same-day invocation, append its timestamped findings to this existing dated report and end with a new final capsule, preserving earlier sections. Never invent an extra Coordinator AM/PM phase; missing schedules/stages are PENDING. The latest capsule is a work checkpoint, not current mathematical authority.
