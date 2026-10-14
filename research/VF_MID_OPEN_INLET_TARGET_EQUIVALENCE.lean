@@ -275,16 +275,53 @@ theorem vfMidOpenInlets_noNarrowing_canonical :
       vfCanonicalSquareVonKoch_iff_legacy.symm,
     vfMidActualPrimeOwnerEscapeAdmissible_iff_canonicalSquareVonKoch⟩
 
+/-! ## Axiom audit (compile-time)
+
+Each `#guard_msgs` fails the warning-fatal build unless the theorem depends on
+exactly the standard axioms `propext`, `Classical.choice`, `Quot.sound`. -/
+
+/-- info: 'RHLean.Analysis.vfMidDyadicLateCorrection_two_eq_neg_primeError_increment' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
 #print axioms vfMidDyadicLateCorrection_two_eq_neg_primeError_increment
+
+/-- info: 'RHLean.Analysis.abs_vfMidPrimeError_sq_sub_sq_le_of_squareEndpointBound' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
 #print axioms abs_vfMidPrimeError_sq_sub_sq_le_of_squareEndpointBound
+
+/-- info: 'RHLean.Analysis.vfMidDyadicSignedLateCorrection_of_squareEndpointVonKoch' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
 #print axioms vfMidDyadicSignedLateCorrection_of_squareEndpointVonKoch
+
+/-- info: 'RHLean.Analysis.vfMidDyadicSignedLateCorrection_iff_squareEndpointVonKoch' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
 #print axioms vfMidDyadicSignedLateCorrection_iff_squareEndpointVonKoch
+
+/-- info: 'RHLean.Analysis.vfMidDyadicSignedLateCorrection_iff_canonicalSquareVonKoch' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
 #print axioms vfMidDyadicSignedLateCorrection_iff_canonicalSquareVonKoch
+
+/-- info: 'RHLean.Analysis.vfMidDyadicVFTrackingBounded_of_squareEndpointVonKoch' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
 #print axioms vfMidDyadicVFTrackingBounded_of_squareEndpointVonKoch
+
+/-- info: 'RHLean.Analysis.vfMidDyadicVFTrackingBounded_iff_squareEndpointVonKoch' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
 #print axioms vfMidDyadicVFTrackingBounded_iff_squareEndpointVonKoch
+
+/-- info: 'RHLean.Analysis.vfMidActualPrimeOwnerEscapeAdmissible_of_squareEndpointVonKoch' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
 #print axioms vfMidActualPrimeOwnerEscapeAdmissible_of_squareEndpointVonKoch
+
+/-- info: 'RHLean.Analysis.vfMidActualPrimeOwnerEscapeAdmissible_iff_squareEndpointVonKoch' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
 #print axioms vfMidActualPrimeOwnerEscapeAdmissible_iff_squareEndpointVonKoch
+
+/-- info: 'RHLean.Analysis.vfMidActualPrimeOwnerEscapeAdmissible_iff_canonicalSquareVonKoch' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
 #print axioms vfMidActualPrimeOwnerEscapeAdmissible_iff_canonicalSquareVonKoch
+
+/-- info: 'RHLean.Analysis.vfMidOpenInlets_noNarrowing_canonical' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
 #print axioms vfMidOpenInlets_noNarrowing_canonical
 
 end RHLean.Analysis
