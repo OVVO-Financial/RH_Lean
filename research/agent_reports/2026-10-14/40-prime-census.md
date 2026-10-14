@@ -525,3 +525,18 @@ source-payment advance.
 - **Avoid next run:** repeating the same `A<=5000` scans on unchanged sources,
   treating near-20% two-slot frequency as uniformity, or transferring an
   unsigned cap to signed source payment
+
+---
+
+## Scheduled continuation — 2026-10-14T10:28:24-04:00
+
+### Early checkpoint — 2026-10-14T10:37:00-04:00
+
+- Fresh `main` HEAD: `18fa753f6ea12951845fec65414b47faea0172a1`.
+- Fresh authority: `AGENTS.md` blob `26715158e91d4f5f71e9e8aa15baa1a17053e456`; `CURRENT_PROOF_CONTRACT.md` blob `27dceba62b4797bbb394439d13fc4a8dbe29ea0b`.
+- Today's inputs: `00-coordinator-am.md` = `TODAY=PENDING`; Owner Payment blob `08b203d38e2c0d495631c1873edb903d83412ea1`, Claims `20261014-owner-1..4`; Analytic Type II blob `7e6667d1e3e95861eb9c4e929b478ac910b3c2dc`, Claims `20261014-analytic-1..3`; Finite Wheel blob `2c2d3a0d42c3af6efb638b2cd2d8aec806aaaf74`, Claims `20261014-wheel-5..7`.
+- External inbox blob `6fce4e9d024b6c4ad47798c5d7c162101a2435a0` consumed; relevant new claims are `EXT-20261014-1..5` and `CL-20261014-1..11`.
+- Current objective remains `VFCanonicalSquareVonKochStatement`; merged PRs #938/#939 make the named signed-late, owner-admissibility, and original #915 payment inlets target-equivalent or false at first-bad, not smaller paid lemmas.
+- Work started: independent exact prime/SPF/Mobius tests of the new wheel thresholds, ancestry multiplicity, collision, and owner-weight sign claims. No new result is asserted at this checkpoint.
+
+**Checkpoint status:** `IN_PROGRESS / NO_NEW_RESULT`.
