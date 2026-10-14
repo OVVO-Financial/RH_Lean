@@ -390,3 +390,17 @@ For the next Coordinator:
 - **Readback:** exact 32,553-character match before this verification append; completed audit, verdicts, CI evidence and resume capsule present.
 - **Early checkpoint commit:** `a0ed834b778378b3f688c0080983b766d69662e6`; checkpoint blob `f259f497082cf6c1059fc50dd2808722d7e732b6`.
 - **Publication status:** `COMPLETED`.
+
+
+---
+
+## Run 3 — PARTIAL / IN_PROGRESS
+
+- **Timestamp:** 2026-10-14T16:33:00-04:00 (America/New_York).
+- **Invocation scope:** direct user instruction is review-only for GitHub Lean source. The only authorized write is this append-only report; no source, branch, PR, issue, or other agent report will be modified.
+- **Live authority:** `main` commit `13c3aeab8f84fc2309175261948a17a50c8342f4`; `AGENTS.md` blob `26715158e91d4f5f71e9e8aa15baa1a17053e456`; `CURRENT_PROOF_CONTRACT.md` blob `27dceba62b4797bbb394439d13fc4a8dbe29ea0b`. All were freshly retrieved.
+- **Requested upstream reports:** `00-coordinator-am.md` is `PENDING`/404; Owner blob `a2ed7dc27756393c49beb5bebae80971a2af6aff`; Analytic blob `b8ee78df90d9fccb4b1201c933720a70300d9d51`; Wheel blob `476d1af0f2624f615e7cdcb017812633dbd232f0`; Census blob `5cfe80753bbfa0374da9eace00b3a137aeaf43b8`; Referee blob `d4e0a25917843660a8010bc88558b73eb8d243ee`.
+- **Live PR queue:** no open or draft pull requests at the initial refresh.
+- **Current objective:** independently audit Claims `20261014-owner-5/-6`, `analytic-4/-5`, `wheel-8/-10`, and `census-10/-12` on their exact arithmetic carriers, with special attention to the Referee's domain repair, one-history multiplicity restriction, source-admission gap, and quadratic cross terms.
+- **Provisional finding:** the 1024 root-spacing theorem, optimal four-owner cap in a half-open root window of length at most 6144, and the conditional one-history signed packet are genuine auxiliary paper results. They do not establish source admission, permit tag reuse, or control the global residual/cross terms. Exact formalization scope and available execution evidence remain under review.
+- **Checkpoint status:** `IN_PROGRESS`. No new kernel-verification claim is made here.
