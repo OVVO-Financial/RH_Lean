@@ -39,7 +39,7 @@ research/agent_reports/YYYY-MM-DD/
   90-coordinator-pm.md         19:00 ET  verified synthesis, next priorities
 ```
 
-These are the original **handoff anchor times**, not a dependency-controlled schedule or an exhaustive list of the additional configured launches. Scheduling alone does not create files; every invocation must commit its own report to `agent-reports` and verify the readback. **If** additional invocations are expressly reauthorized and actually configured later, they use the **same dated filename**, appending a timestamped new run and a refreshed resume capsule. Under the current one-run budget, never manufacture an extra launch or a Coordinator PM handoff.
+These are the original **handoff anchor times**, not proof of configured launches or a mandate for any additional schedule. Scheduling alone does not create files; every invocation must commit its own report to `agent-reports` and verify the readback. **If** additional invocations are expressly reauthorized and actually configured later, they use the **same dated filename**, appending a timestamped new run and a refreshed resume capsule. Under the current one-run budget, never manufacture an extra launch or a Coordinator PM handoff.
 
 ## Every actual invocation: warm-start and cache-validity protocol
 
