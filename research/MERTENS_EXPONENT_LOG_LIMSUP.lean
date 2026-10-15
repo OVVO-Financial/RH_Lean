@@ -99,7 +99,9 @@ theorem powerBound_of_eventually_logSlope_le {b : ℝ}
     exact (le_max_right _ _).trans ((logSlope_le_iff hn).mp hbn)
   obtain ⟨N, hN⟩ := eventually_atTop.mp htail
   have hC0 : 0 ≤ (N : ℝ) + 1 := by positivity
-  have hC1 : 1 ≤ (N : ℝ) + 1 := by positivity
+  have hC1 : 1 ≤ (N : ℝ) + 1 := by
+    have hN0 : (0 : ℝ) ≤ (N : ℝ) := Nat.cast_nonneg N
+    linarith
   refine ⟨(N : ℝ) + 1, hC0, fun n hn => ?_⟩
   have hnR : (1 : ℝ) ≤ (n : ℝ) := by exact_mod_cast hn
   have hpow0 : 0 ≤ (n : ℝ) ^ b := Real.rpow_nonneg (Nat.cast_nonneg n) b
