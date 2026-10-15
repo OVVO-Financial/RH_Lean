@@ -20,6 +20,10 @@ example (f g : Nat -> Int) {X U V : Nat}
       (Finset.sum (Finset.Icc 1 U) f) * (Finset.sum (Finset.Icc 1 V) g) :=
   signedHyperbola_split f g hU hV hUV hcover
 
+example (f g : ArithmeticFunction Int) (X : Nat) :
+    Finset.sum (Finset.range (X + 1)) (fun n => (f * g) n) =
+      signedHyperbola f g X := convolution_sum_eq_signedHyperbola f g X
+
 example : inverseDefect (mobiusPrefix 10) 11 * inverseDefect (mobiusPrefix 10) 13 = 1 :=
   fresh_prime_defect_product (by norm_num) (by norm_num) (by norm_num)
     (by norm_num) (by norm_num)
@@ -41,3 +45,4 @@ example : inverseDefect (mobiusPrefix 10) 11 * inverseDefect (mobiusPrefix 10) 1
 #print axioms RHLean.Analysis.MertensFiniteExtension.signedHyperbola_split_filtered
 #print axioms RHLean.Analysis.MertensFiniteExtension.hyperbola_overlap_sum
 #print axioms RHLean.Analysis.MertensFiniteExtension.signedHyperbola_split
+#print axioms RHLean.Analysis.MertensFiniteExtension.convolution_sum_eq_signedHyperbola

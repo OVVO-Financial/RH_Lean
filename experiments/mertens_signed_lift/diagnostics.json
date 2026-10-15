@@ -1,0 +1,19 @@
+{
+  "floor_kernel": [
+    {"N":10,"x":100,"M_N":-1,"M_x":1,"Q":-3,"raw_absolute_budget":581,"row_signed_then_absolute":25,"cauchy_squared_budget":1078},
+    {"N":32,"x":1024,"M_N":-4,"M_x":-4,"Q":-4,"raw_absolute_budget":9884,"row_signed_then_absolute":168,"cauchy_squared_budget":117580},
+    {"N":100,"x":10000,"M_N":1,"M_x":-23,"Q":25,"raw_absolute_budget":145269,"row_signed_then_absolute":1181,"cauchy_squared_budget":9581331},
+    {"N":317,"x":100489,"M_N":-4,"M_x":-28,"Q":20,"raw_absolute_budget":2058316,"row_signed_then_absolute":3010,"cauchy_squared_budget":153437122},
+    {"N":1000,"x":1000000,"M_N":2,"M_x":212,"Q":-208,"raw_absolute_budget":27299564,"row_signed_then_absolute":23240,"cauchy_squared_budget":19366009312},
+    {"N":2000,"x":4000000,"M_N":5,"M_x":192,"Q":-182,"raw_absolute_budget":127584094,"row_signed_then_absolute":74326,"cauchy_squared_budget":352018198080}
+  ],
+  "higher_order": [
+    {"N":10,"k":3,"x":1000,"signed_components":[-3,-18,23],"sum":2,"M_x":2,"separated_absolute_budget":44},
+    {"N":10,"k":4,"x":10000,"signed_components":[-4,-480,1052,-591],"sum":-23,"M_x":-23,"separated_absolute_budget":2127},
+    {"N":30,"k":3,"x":27000,"signed_components":[-9,-69,68],"sum":-10,"M_x":-10,"separated_absolute_budget":146},
+    {"N":30,"k":4,"x":810000,"signed_components":[-12,-4512,8900,-4437],"sum":-61,"M_x":-61,"separated_absolute_budget":17861},
+    {"N":100,"k":3,"x":1000000,"signed_components":[3,-2877,3086],"sum":212,"M_x":212,"separated_absolute_budget":5966}
+  ],
+  "defect_N10": [[1,0],[2,0],[10,0],[11,-1],[13,-1],[121,-1],[143,-1],[187,-1]],
+  "defect_square_at_121_143_187": [1,2,2]
+}
