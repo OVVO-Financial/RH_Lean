@@ -604,3 +604,21 @@ bidirectional no-narrowing screen.
   same-half-run overload; only then consider a finite Lean certificate.
 - **Avoid:** cloned history, summed isolated pair slacks, altered denominator,
   or target-equivalent inlets relabeled as smaller lemmas.
+
+
+---
+
+## Scheduled continuation — 2026-10-14T20:43:04-04:00
+
+### Early checkpoint — 2026-10-14T20:49:20-04:00
+
+- **Status:** `IN_PROGRESS`.
+- **Run ID:** `RH-OWNER-20261014-204304-EDT`; scheduled invocation.
+- **Calendar continuity:** Eastern date `2026-10-14`, preceding date `2026-10-13`. Today's existing Owner report revision was blob `a2ed7dc27756393c49beb5bebae80971a2af6aff`; yesterday's Owner report was read at blob `32f1574b8ade7dedc602b07b1b9257341320080a` and is `YESTERDAY=CARRY_FORWARD`.
+- **Fresh authority:** actual `main` HEAD `8fff3dbd6db8cfd84e6806789c4b1f7b4e475db5`; `AGENTS.md` blob `04b72000ee47585344b68b42bf098937d697e7d2`; `CURRENT_PROOF_CONTRACT.md` blob `c672b561fdcf08b53af0d555eff16fd8b68acde0`.
+- **Live objective:** construct or falsify a complete occurrence-preserving signed actual-prime collision ledger that retains once-only historical tags, native VF weights, masks, clipping, anchor/restoration and all NNS polarization terms. The continuous-Li absolute quadratic collision budget does not transfer to genuine prime indicators.
+- **Upstream evidence consumed:** today's Coordinator mirror/final synthesis blob `bf05965ed6adcac8ee9ae7d6066e047485baf945`; today's Analytic report blob `b8ee78df90d9fccb4b1201c933720a70300d9d51`; current external index blob `6fce4e9d024b6c4ad47798c5d7c162101a2435a0`; yesterday's Owner report and today's earlier Owner findings. Relevant current-main source blobs include signed-pair/cross-term `e3cc17224469e24516390a8f20e590d5932dbfc1`, sharp packet `134163c9d752ee767f2c4971da46cba2c1a58fff`, multiplicity `fda6db056571191feffd08f2d1d6fe0fa02f0d8c`, dyadic fibre `22be4464e2a69539d78b042df1ca377d618efa7e`, and active raw-parent splice `e61eb36301f650bfb41079bbd7367f9f45cf6d3e`.
+- **PR discovery:** no open or draft PRs. PRs #941--#944 are merged; #945 was merged only to `agent-reports`. The prior Coordinator statement that #944 remained draft is superseded by its verified merge at the current main HEAD.
+- **First precise task:** derive and falsify the exact zero-target polarization obtained by selecting one once-only historical-tag packet of current mass `U` and leaving same-tag current residual mass `V`. Test whether the compiled negative local packet remains favorable after restoring the omitted packet-residual cross term.
+- **Known blocker:** no current theorem identifies the sharp same-tag window with the literal admitted/masked first-bad source. Any result in this run therefore remains a carrier-level arithmetic restriction unless that admission bridge is separately proved.
+
