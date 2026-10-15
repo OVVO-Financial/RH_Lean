@@ -62,7 +62,7 @@ theorem powerBound_of_strip_interior
   · have hX3 : 3 < X := by linarith
     have hε : 0 < 4 / X := div_pos (by norm_num) hX
     have hε1 : 4 / X < 1 := (div_lt_one hX).mpr hlarge
-    have hεX : (4 / X) * X = 4 := by field_simp
+    have hεX : (4 / X) * X = 4 := div_mul_cancel₀ 4 hX.ne'
     have hXε : 2 < X * (4 / X) := by rw [mul_comm, hεX]; norm_num
     have hsm := hsmoothed (4 / X) X hε hε1 hX3
     have hcl := hclose X hX3 (4 / X) hε hε1 hXε
@@ -107,7 +107,8 @@ theorem growthAtMost_of_strip {a : ℝ} (ha : 0 ≤ a)
   let d : ℝ := min (ε / 4) ((1 - a) / 4)
   have hd : 0 < d := by
     dsimp [d]
-    exact lt_min (by positivity) (by have hgap : 0 < 1 - a := by linarith; positivity)
+    exact lt_min (div_pos hε (by norm_num))
+      (div_pos (sub_pos.mpr halt) (by norm_num))
   have hdε : d ≤ ε / 4 := min_le_left _ _
   have hda : d ≤ (1 - a) / 4 := min_le_right _ _
   have hd1 : d ≤ 1 := by linarith

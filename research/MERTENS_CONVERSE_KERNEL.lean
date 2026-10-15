@@ -48,8 +48,9 @@ theorem regularizedSmoothedIntegrand_differentiableAt
     differentiableAt_id.const_cpow (Or.inl (by exact_mod_cast hX.ne'))
   exact (hrec.mul hmel).mul hpow
 
-/-- A fixed positive real-part margin controls the entire complex norm. -/
-theorem norm_ge_scaled_height {σ : ℝ} (hσ0 : 0 < σ) (hσ1 : σ ≤ 1)
+/-- A real-part margin at most one controls the entire complex norm.
+The inequality itself does not require positivity of the margin. -/
+theorem norm_ge_scaled_height {σ : ℝ} (hσ1 : σ ≤ 1)
     {s : ℂ} (hs : σ ≤ s.re) : (σ / 2) * (1 + |s.im|) ≤ ‖s‖ := by
   have hreal : σ ≤ ‖s‖ := hs.trans (Complex.re_le_norm s)
   have him : |s.im| ≤ ‖s‖ := Complex.abs_im_le_norm s
@@ -102,7 +103,7 @@ theorem regularizedSmoothedIntegrand_bound
   have hnormPower : ‖s‖ ^ (-1 - q) ≤
       (σ / 2) ^ (-1 - q) * (1 + |s.im|) ^ (-1 - q) := by
     have h := Real.rpow_le_rpow_of_nonpos hmargin
-      (norm_ge_scaled_height hσ0 hσ.le hsσ) (by linarith : -1 - q ≤ 0)
+      (norm_ge_scaled_height hσ.le hsσ) (by linarith : -1 - q ≤ 0)
     rwa [Real.mul_rpow (by positivity) hbase.le] at h
   have hmel := hm q hq.le hq1 s hspos hs2 ε hε hε1
   have hrec := hz s hsσ hs2
