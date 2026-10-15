@@ -1,0 +1,90 @@
+name: Mertens converse development
+
+on:
+  pull_request:
+    paths:
+      - 'research/MERTENS_CONVERSE_*.lean'
+      - 'research/MERTENS_CONVERSE_*.md'
+      - 'scripts/mertens_converse_*.py'
+      - '.github/workflows/mertens-converse.yml'
+      - 'lean-toolchain'
+      - 'lake-manifest.json'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+
+concurrency:
+  group: mertens-converse-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  converse:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/lean-setup
+      - name: Apply existing StrongPNT compatibility patches
+        run: |
+          python3 scripts/strongpnt_424/apply.py
+          python3 scripts/strongpnt_424/apply_post.py
+          python3 scripts/strongpnt_424/apply_pnt5_mid.py
+          python3 scripts/strongpnt_424/apply_pnt5_strong.py
+          python3 scripts/strongpnt_424/apply_lint.py
+      - name: Restore pinned StrongPNT boundary
+        uses: actions/cache/restore@v5
+        with:
+          path: |
+            .lake/packages/PrimeNumberTheoremAnd/.lake/build
+            .lake/packages/StrongPNT/.lake/build
+          key: strongpnt-port-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-${{ hashFiles('scripts/strongpnt_424/*.py') }}
+      - name: Restore native library artifacts
+        uses: actions/cache/restore@v5
+        with:
+          path: .lake/build
+          key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py') }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py', 'RHLean.lean', 'RHLean/**/*.lean') }}
+          restore-keys: |
+            rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py') }}-
+      - name: Record exact pinned source interfaces
+        run: python3 scripts/mertens_converse_source_inventory.py > mertens-converse-interfaces.log
+      - name: Preserve read-only development sources
+        uses: actions/upload-artifact@v4
+        with:
+          name: mertens-converse-sources-${{ github.sha }}
+          path: |
+            mertens-converse-sources.zip
+            mertens-converse-interfaces.log
+          retention-days: 7
+      - name: Compile converse closure with warnings fatal
+        uses: ./.github/actions/research-compile
+        with:
+          targets: research/MERTENS_CONVERSE_ACCEPTANCE.lean
+      - name: Audit exact theorem axiom footprints
+        shell: bash
+        run: |
+          set -euo pipefail
+          lake env lean -DwarningAsError=true research/MERTENS_CONVERSE_ACCEPTANCE.lean 2>&1 | tee mertens-converse-axioms.log
+          python3 - <<'PY'
+          import pathlib, re
+          source = pathlib.Path('research/MERTENS_CONVERSE_ACCEPTANCE.lean').read_text()
+          expected = re.findall(r'^#print axioms (\S+)', source, re.M)
+          assert expected, 'No audited theorems'
+          text = pathlib.Path('mertens-converse-axioms.log').read_text()
+          rows = re.findall(r"'([^']+)' depends on axioms:\s*\[([^\]]*)\]", text)
+          assert len(rows) == len(expected), (rows, expected)
+          assert {name for name, _ in rows} == set(expected), (rows, expected)
+          allowed = {'propext', 'Classical.choice', 'Quot.sound'}
+          for name, axioms in rows:
+              found = {s.strip() for s in axioms.split(',') if s.strip()}
+              assert found <= allowed, (name, found - allowed)
+          print(f'PASS: {len(rows)} exact kernel dependency lists.')
+          PY
+      - name: Preserve proof evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mertens-converse-evidence-${{ github.sha }}
+          path: mertens-converse-axioms.log
+          if-no-files-found: ignore
