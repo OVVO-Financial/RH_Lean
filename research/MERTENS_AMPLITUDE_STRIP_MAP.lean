@@ -103,8 +103,9 @@ theorem mertens_eighth_crossing_iff {n : ℕ} (hn : 2 ≤ n)
 /-- Away from M(n)=0, the existing clipped log slope agrees with the actual coordinate. -/
 theorem actual_coordinate_eq_logSlope {n : ℕ} (hM : mertensSummatory n ≠ 0) :
     amplitudeCoordinate (n : ℝ) (mertensAmplitude n) = mertensLogSlope n := by
+  have hnorm : 1 ≤ ‖mertensSummatory n‖ := one_le_mertensAmplitude hM
   unfold amplitudeCoordinate mertensAmplitude mertensLogSlope
-  rw [max_eq_right (one_le_mertensAmplitude hM)]
+  rw [max_eq_right hnorm]
 
 /-- The clipping used for the asymptotic theorem is displayed explicitly. -/
 theorem clipped_coordinate_eq_logSlope (n : ℕ) :
@@ -130,15 +131,22 @@ theorem mertens_three : mertensSummatory 3 = (-1 : ℂ) := by
   have h3 : μ 3 = (-1 : ℤ) := ArithmeticFunction.moebius_apply_prime (by norm_num)
   norm_num [mertensSummatory, Finset.sum_range_succ, ArithmeticFunction.moebius_apply_one, h2, h3]
 
+theorem mertensAmplitude_three : mertensAmplitude 3 = 1 := by
+  change ‖mertensSummatory 3‖ = 1
+  rw [mertens_three]
+  norm_num
+
 theorem mertensCoordinate_three : mertensAmplitudeCoordinate 3 = some 0 := by
-  norm_num [mertensAmplitudeCoordinate, mertensAmplitude, mertens_three,
-    amplitudeCoordinate?, amplitudeCoordinate]
+  change amplitudeCoordinate? (3 : ℝ) (mertensAmplitude 3) = some 0
+  rw [mertensAmplitude_three, checkedCoordinate_some (by norm_num) (by norm_num), coordinate_one]
 
 /-- Mapping a band is not asserting that every actual sample belongs to it. -/
 theorem mertens_three_outside_eighths :
     ¬ (mertensAmplitude 3 ∈ amplitudeBand (3 : ℝ) ((1 : ℝ) / 8) ((7 : ℝ) / 8)) := by
-  have hM : mertensSummatory 3 ≠ 0 := by rw [mertens_three]; norm_num
-  rw [mertens_amplitudeBand_iff (by norm_num : 2 ≤ (3 : ℕ)) hM]
-  norm_num [mertensAmplitude, mertens_three, amplitudeCoordinate, Set.mem_Icc]
+  rw [mertensAmplitude_three]
+  intro h
+  have hc := (coordinate_mem_Icc_iff (x := (3 : ℝ)) (A := (1 : ℝ))
+    (l := (1 : ℝ) / 8) (u := (7 : ℝ) / 8) (by norm_num) (by norm_num)).mpr h
+  norm_num [amplitudeCoordinate, Set.mem_Icc] at hc
 
 end RHLean.Analysis.MertensAmplitude

@@ -1,4 +1,4 @@
-import «research.MERTENS_AMPLITUDE_STRIP_MAP»
+import «research.MERTENS_AMPLITUDE_COMPLEX_STRIP»
 
 /-! Exact finite-amplitude statements, domain regressions and kernel audits. -/
 open RHLean.Analysis RHLean.Analysis.MertensAmplitude RHLean.Analysis.MertensExponent
@@ -36,6 +36,17 @@ example : Filter.limsup
     (fun n : ℕ => Real.log (max 1 ‖mertensSummatory n‖) / Real.log (n : ℝ)) Filter.atTop =
       zetaRightmostRealPart := amplitude_limsup_eq_rightmost
 
+example {x A : ℝ} (hx : 1 < x) (hA : 0 < A) (t : ℝ) :
+    amplitudeStripPoint x A t ∈ amplitudeVerticalStrip ((1 : ℝ) / 8) ((7 : ℝ) / 8) ↔
+      (x ^ ((1 : ℝ) / 8) ≤ A ∧ A ≤ x ^ ((7 : ℝ) / 8)) := stripPoint_mem_iff hx hA t
+
+example {x A : ℝ} (hx : 1 < x) (hA : 0 < A) (t : ℝ) :
+    amplitudeStripPoint x (x / A) t = 1 - star (amplitudeStripPoint x A t) :=
+  stripPoint_reflection hx hA t
+
+example (t : ℝ) : mertensStripPoint 2 t = none :=
+  mertensStripPoint_none_of_zero mertens_two t
+
 #print axioms RHLean.Analysis.MertensAmplitude.coordinate_rpow
 #print axioms RHLean.Analysis.MertensAmplitude.rpow_coordinate
 #print axioms RHLean.Analysis.MertensAmplitude.coordinate_sqrt
@@ -62,3 +73,8 @@ example : Filter.limsup
 #print axioms RHLean.Analysis.MertensAmplitude.mertensCoordinate_two
 #print axioms RHLean.Analysis.MertensAmplitude.mertensCoordinate_three
 #print axioms RHLean.Analysis.MertensAmplitude.mertens_three_outside_eighths
+#print axioms RHLean.Analysis.MertensAmplitude.stripPoint_mem_iff
+#print axioms RHLean.Analysis.MertensAmplitude.stripPoint_reflection
+#print axioms RHLean.Analysis.MertensAmplitude.image_amplitudeBand_all_heights
+#print axioms RHLean.Analysis.MertensAmplitude.mertensStripPoint_some
+#print axioms RHLean.Analysis.MertensAmplitude.mertensStripPoint_none_of_zero

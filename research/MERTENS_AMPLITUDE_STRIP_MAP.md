@@ -62,6 +62,27 @@ An envelope constant is also tracked exactly:
  s_x(Cx^a)=a+\frac{\log C}{\log x},\qquad C>0.
 \]
 
+## Literal complex vertical strip
+
+`amplitudeStripPoint x A t` is the complex point with real part s_x(A) and
+imaginary part t. The height is an independent supplied coordinate; the
+amplitude does not determine a zero ordinate.
+
+`stripPoint_mem_iff` proves that membership in the closed complex vertical
+strip with real-part endpoints l,u is exactly amplitude-band membership.
+`image_amplitudeBand_all_heights` proves that allowing all heights maps the
+whole band onto the whole complex strip.
+
+At each fixed height the reflection is
+
+\[
+ s_x(x/A)+it=1-\overline{s_x(A)+it}.
+\]
+
+`mertensStripPoint n t` is the domain-checked complex realization of the actual
+Mertens sample and returns `none` at zero amplitude. None of the constructed
+complex points is asserted to be a zeta zero.
+
 ## Genuine Mertens samples and zero handling
 
 `mertensAmplitude n` is the norm of the existing genuine `mertensSummatory n`.
@@ -108,6 +129,7 @@ with a zeta zero; no unconditional 7/8 bound or RH proof is added.
 
 - `MERTENS_AMPLITUDE_COORDINATES.lean`: finite positive-amplitude geometry.
 - `MERTENS_AMPLITUDE_STRIP_MAP.lean`: actual Mertens samples and asymptotic bridge.
+- `MERTENS_AMPLITUDE_COMPLEX_STRIP.lean`: literal complex points and strip image.
 - `MERTENS_AMPLITUDE_ACCEPTANCE.lean`: exact signatures and regression tests.
 - `.github/workflows/mertens-amplitude-map.yml`: warning-fatal import closure
   and exact kernel dependency audit.
