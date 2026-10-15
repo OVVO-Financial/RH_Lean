@@ -73,13 +73,13 @@ theorem threeCircle_power_bound {f : ℂ → ℂ} {r₀ r R A B : ℝ}
   have hpoint : Complex.log z ∈ verticalClosedStrip (Real.log r₀) (Real.log R) := by
     change Real.log r₀ ≤ (Complex.log z).re ∧ (Complex.log z).re ≤ Real.log R
     rw [Complex.log_re]
-    exact ⟨Real.log_le_log hr₀ (le_of_not_gt hsmall),
+    exact ⟨Real.log_le_log hr₀ (lt_of_not_ge hsmall).le,
       Real.log_le_log hzpos (hz.trans hrR.le)⟩
   have hthree := norm_le_interp_of_mem_verticalClosedStrip'
     hlogs hpoint hdiff hbounded hleft hright
   simp only [g, Complex.exp_log hz0, Complex.log_re] at hthree
   have htheta : 0 ≤ (Real.log ‖z‖ - Real.log r₀) / (Real.log R - Real.log r₀) :=
-    div_nonneg (sub_nonneg.mpr (Real.log_le_log hr₀ (le_of_not_gt hsmall))) hden.le
+    div_nonneg (sub_nonneg.mpr (Real.log_le_log hr₀ (lt_of_not_ge hsmall).le)) hden.le
   have htheta_le : (Real.log ‖z‖ - Real.log r₀) / (Real.log R - Real.log r₀) ≤
       (Real.log r - Real.log r₀) / (Real.log R - Real.log r₀) := by
     exact div_le_div_of_nonneg_right
