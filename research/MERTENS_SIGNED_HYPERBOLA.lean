@@ -78,6 +78,7 @@ theorem hyperbola_overlap_sum (f g : Nat -> Int) {X U V : Nat}
   change (∑ p ∈ (Icc 1 U) ×ˢ (Icc 1 V), f p.1 * g p.2) = _
   rw [Finset.sum_product]
   simp only [Finset.mul_sum, Finset.sum_mul]
+  exact Finset.sum_comm
 
 /-- Dirichlet's split, including the exact signed rectangle correction. -/
 theorem signedHyperbola_split (f g : Nat -> Int) {X U V : Nat}
