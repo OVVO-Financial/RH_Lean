@@ -204,7 +204,7 @@ theorem inverseDefect_prefix_prime {N p : Nat}
     inverseDefect (mobiusPrefix N) p = -1 := by
   have hsum : Finset.sum p.divisors (mobiusPrefix N) = (1 : Int) := by
     have h := Nat.sum_divisors_prime_pow (k := 1) (f := mobiusPrefix N) hp
-    simpa [Finset.sum_range_succ, mobiusPrefix, hN, hNp.not_le] using h
+    simpa [Finset.sum_range_succ, mobiusPrefix, hN, hNp.not_ge] using h
   unfold inverseDefect
   change (1 : ArithmeticFunction Int) p - (mobiusPrefix N * zetaInt) p = -1
   rw [ArithmeticFunction.one_apply_ne hp.ne_one]
