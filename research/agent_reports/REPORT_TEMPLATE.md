@@ -24,19 +24,31 @@
 
 [Literal concise restatement from current main. If it changed since yesterday, record the pivot and its source.]
 
+## Conceptual advancement and mechanism portfolio
+
+- **What changed mathematically:** [new theorem, invariant, inverse idea, counterexample, decisive failure, or honestly NONE]
+- **Competing mechanism ID:** [new independent idea or justified continuation; why not synonymous with an old target-equivalent formulation]
+- **Original actual arithmetic carrier:** [genuine primes/Moebius, coefficients, signs, occurrence multiplicity, masks/clip/chronology, historical anchor, restoration and covariance cross terms as applicable]
+- **Fully quantified theorem or conjecture:** [variables, domains, constants, uniformity, exact inequality, precise mathematical evidence status]
+- **Independent new ingredient:** [arithmetical/analytic principle proved, or exactly stated open lemma]
+- **Consumer connection:** [original-source bridge and actual canonical/finite A/C/CORR-4 implication; identify every missing arrow]
+- **Forward/reverse equivalence:** [search existing compiled implications in both directions; classify TARGET_EQUIVALENT if so]
+- **Most threatening counterexample:** [genuine exact witness or falsifier, tested vs suggested, original hypotheses satisfied]
+- **Mechanism decision:** [CONTINUE / REVISE / SUSPEND / REJECT; reason and next responsible agent]
+- **Distinct alternative considered:** [other plausible explanation/route, or why only one survives]
+
 ## Work performed today
 
-### Mandatory active-route / transfer screen (complete where relevant)
+### Required original-carrier and theory-discovery screen (as applicable)
 
-- **Live contract / main SHA:** [current authoritative goal fetched, not an old pinned candidate]
-- **Model reference and exact theorem:** [floor-Li deterministic rounding, Li-density Poisson collision, signed event relocation, or original source — DO NOT conflate]
-- **Genuine-prime carrier and coefficients:** [original prime owner, sign, tag multiplicity/once-spent history, weight, masks/clips/squareful, anchor and original cross terms]
-- **Signed-vs-unsigned comparison:** [precise expression and bound; note that actual-prime unsigned critical collision sum diverges, not finite by Li-density substitution]
-- **What is NEW beyond exact transport / proxy equivalence:** [independent arithmetic ingredient, or NONE]
-- **Falsification and coherent-mode test:** [real cutoffs and hashes, not heuristic assumptions; indicate NOT_RUN when applicable]
-- **Original gate connection:** [exact theorem bridge to native original NNS/canonical endpoint/finite A/C consumer; pending if unproved]
-- **Promotion status:** [IDENTITY_ONLY / FINITE_COMPUTATION / PAPER_PROOF / CONDITIONAL / REFUTED / PROVED_IN_LEAN with real CI; do not upgrade without evidence]
-
+- **Live original source:** [main SHA, relevant true theorem declarations, identity/estimate distinction]
+- **Independence and novelty:** [new independently justified mathematical restriction; not just an exact reindexing, proxy tracking, conditional consumer or renamed missing bound]
+- **Genuine coefficient accounting:** [original signs and weights, historical tags once, true masks, clips, squareful compensation, anchors, restoration and all necessary cross terms]
+- **Quantitative strength:** [actual scale, constants, uniformity, growing parameter losses, comparison with final consumer]
+- **Competing predictions:** [precise alternative mechanisms; why this experiment or lemma distinguishes them]
+- **Falsification and no-go:** [real arithmetic counterexample, coherent mode, original hypothesis check; NOT_RUN if not executed]
+- **Model transfer, only if invoked:** [continuous Li density versus floor-Li staircase versus genuine primes; exact bridge and known signed/unsigned obstruction]
+- **Formal or paper evidence:** [IDENTITY_ONLY / FINITE_COMPUTATION / PAPER_PROOF / CONDITIONAL / CONJECTURE / REFUTED / TARGET_EQUIVALENT / PROVED_IN_LEAN; source/CI when claimed]
 
 [New mathematics/reproduction, not repeated background. If blocked, specify the blocker.]
 
@@ -63,7 +75,8 @@
 
 ## Final report summary
 
-**Net-new mathematical progress:** [specific theorem/estimate, or NONE]
+**Net-new mathematical progress:** [specific theorem/estimate, significant counterexample, or NONE]
+**Competing-mechanism impact:** [new independent route, corrected/refuted approach, or unchanged with reason]
 **Completeness:** [DONE / DONE_NO_NEW_RESULT / PARTIAL / BLOCKED]
 **No RH-proof claim:** [yes; unless independently verified complete proof with all checks]
 
@@ -75,7 +88,7 @@
 - **Completed evidence worth reusing:** [theorems, experiments, finite ranges, result/code hashes, citations, exact statuses; no unsupported claims]
 - **Invalidations / uncertain results:** [precise changed source/hypothesis/dependency or NONE]
 - **First unresolved mathematical/CI blocker:** [one exact claim or job ID]
-- **Next highest-value step:** [specific reproducible proof/experiment/review action]
+- **Next highest-value step:** [one decisive independent theorem, exact falsifier, experiment or active proof-PR repair, not a restatement of the open target]
 - **For Agent #7:** [PR URL, head SHA, relevant Actions run/job URLs, latest CI/axiom state and required repair; no local Lean execution]
 - **Avoid next run:** [unchanged scans, previously validated computations or green CI tied to the same source SHA]
 
