@@ -60,7 +60,9 @@ theorem mellin_compactSupport_bounded_positive_strip {ν : ℝ → ℝ}
     unfold mellin
     simp only [smul_eq_mul]
     exact SetIntegral.integral_eq_integral_inter_of_support_subset_Icc hgsupp
-      (fun x hx => by linarith [hx.1])
+      (fun x hx => by
+        change 0 < x
+        linarith [hx.1])
   rw [heq, integral_Icc_eq_integral_Ioc,
     ← intervalIntegral.integral_of_le (by norm_num : (1 : ℝ) / 2 ≤ 2)]
   calc

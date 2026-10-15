@@ -1,10 +1,4 @@
-import «research.MERTENS_CONVERSE_RECIPROCAL»
-import «research.MERTENS_CONVERSE_THREE_CIRCLES»
-import «research.MERTENS_CONVERSE_ZETA_BOUNDS»
-import «research.MERTENS_CONVERSE_LOG_INTERPOLATION»
-import «research.MERTENS_CONVERSE_SUBPOWER»
-import «research.MERTENS_CONVERSE_CONTOUR»
-import «research.MERTENS_CONVERSE_MELLIN_DECAY»
+import «research.MERTENS_CONVERSE_INVERSION»
 
 /-! Exact signatures and kernel dependencies for the converse development. -/
 
@@ -41,3 +35,14 @@ example {a σ η : ℝ} (ha : 0 ≤ a) (haσ : a < σ) (hσ : σ < 1)
 #print axioms RHLean.Analysis.MertensExponent.smoothingMellin_simple_decay
 #print axioms RHLean.Analysis.MertensExponent.interpolate_simple_and_quadratic_decay
 #print axioms RHLean.Analysis.MertensExponent.smoothingMellin_fractional_decay
+#print axioms RHLean.Analysis.MertensExponent.regularizedSmoothedIntegrand_eq_native
+#print axioms RHLean.Analysis.MertensExponent.regularizedSmoothedIntegrand_differentiableAt
+#print axioms RHLean.Analysis.MertensExponent.norm_ge_scaled_height
+#print axioms RHLean.Analysis.MertensExponent.converseHeightWeight_integrable
+#print axioms RHLean.Analysis.MertensExponent.regularizedSmoothedIntegrand_bound
+#print axioms RHLean.Analysis.MertensExponent.converseIntegralConstant_pos
+#print axioms RHLean.Analysis.MertensExponent.integrable_vertical_of_heightBound
+#print axioms RHLean.Analysis.MertensExponent.verticalIntegral_norm_le_heightBound
+#print axioms RHLean.Analysis.MertensExponent.converseHeightWeight_tendsto_zero
+#print axioms RHLean.Analysis.MertensExponent.verticalIntegral_congr_line
+#print axioms RHLean.Analysis.MertensExponent.smoothedMobius_bound_of_strip
