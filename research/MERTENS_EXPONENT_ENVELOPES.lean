@@ -147,7 +147,7 @@ theorem growthAtMost_iff_growthExponent_le {a : ℝ} (ha : 0 ≤ a) :
 theorem not_growthAtMost_iff (a : ℝ) :
     ¬ MertensGrowthAtMost a ↔
       ∃ ε : ℝ, 0 < ε ∧ ¬ MertensPowerBound (a + ε) := by
-  simp only [MertensGrowthAtMost, not_forall, not_imp]
+  simp only [MertensGrowthAtMost, not_forall, exists_prop]
 
 /-- A certified finite crossing disproves only the specified constant. -/
 theorem fixed_envelope_fails_of_witness {a C : ℝ} {n : ℕ}
