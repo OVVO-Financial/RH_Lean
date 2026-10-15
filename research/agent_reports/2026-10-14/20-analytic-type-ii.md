@@ -718,38 +718,38 @@ This section replaces the first completion publication from the same run.
 The mathematical claim is unchanged. Readback found that the first write
 lost TeX backslashes and recorded an incorrect transport-boundary blob SHA.
 The verified blob is
-\`research/VF_MID_915_FLOOR_LI_TRANSPORT_BOUNDARY.lean\`
-\`10829c3857b6a375d1dd8179f78a35550c9e67d8\`.
+`research/VF_MID_915_FLOOR_LI_TRANSPORT_BOUNDARY.lean`
+`10829c3857b6a375d1dd8179f78a35550c9e67d8`.
 No earlier established claim was removed or reclassified.
 
 ### Publication and source audit
 
 The early checkpoint was re-fetched successfully at blob
-\`587735ca87743282874d9bc091174073fcded649\`; its run ID and content were
-verified. No source file was modified. Live-\`main\` dependencies inspected:
+`587735ca87743282874d9bc091174073fcded649`; its run ID and content were
+verified. No source file was modified. Live-`main` dependencies inspected:
 
-- \`research/EXACT_LI_PURE_MODEL_CLOSURE.lean\`, blob
-  \`e2e9a3f3b8759e6e1331d2b52942cb6639ddeb4d\`:
-  \`criticalLiFrequencyWeight_sq_summable\`,
-  \`hardCorePoissonScalarCorrection\`, and its quadratic remainder bound.
-- \`research/VF_MID_ACTUAL_CRITICAL_OWNER_RECURSION.lean\`, blob
-  \`1f813639332458ade7f1fd61bc1ca6bb745a0aa6\`:
-  \`criticalActualPrimeFrequencyWeight\`,
-  \`criticalCenteredPrimeFrequencyWeight\`, and the exact signed Duhamel
-  identity \`actualPrimeCriticalState_sub_allScaleLiCriticalState\`.
-- Discrete backlog blob \`4255ca0dffe480f2aec6bd0b68797bbd293396c3\`;
+- `research/EXACT_LI_PURE_MODEL_CLOSURE.lean`, blob
+  `e2e9a3f3b8759e6e1331d2b52942cb6639ddeb4d`:
+  `criticalLiFrequencyWeight_sq_summable`,
+  `hardCorePoissonScalarCorrection`, and its quadratic remainder bound.
+- `research/VF_MID_ACTUAL_CRITICAL_OWNER_RECURSION.lean`, blob
+  `1f813639332458ade7f1fd61bc1ca6bb745a0aa6`:
+  `criticalActualPrimeFrequencyWeight`,
+  `criticalCenteredPrimeFrequencyWeight`, and the exact signed Duhamel
+  identity `actualPrimeCriticalState_sub_allScaleLiCriticalState`.
+- Discrete backlog blob `4255ca0dffe480f2aec6bd0b68797bbd293396c3`;
   transport-boundary blob
-  \`10829c3857b6a375d1dd8179f78a35550c9e67d8\`; prime-interval/Abel blob
-  \`64f20246df7b57224e3a67a27f6cfcf0188d104f\`.
+  `10829c3857b6a375d1dd8179f78a35550c9e67d8`; prime-interval/Abel blob
+  `64f20246df7b57224e3a67a27f6cfcf0188d104f`.
   These are exact identities, not unmatched-backlog estimates.
 - Same-tag sharp packet blob
-  \`134163c9d752ee767f2c4971da46cba2c1a58fff\` and dyadic-fibre blob
-  \`22be4464e2a69539d78b042df1ca377d618efa7e\`.
+  `134163c9d752ee767f2c4971da46cba2c1a58fff` and dyadic-fibre blob
+  `22be4464e2a69539d78b042df1ca377d618efa7e`.
 
 Live PR discovery found no open/draft mathematical replacement; PR #944 is
-merged at current \`main\`. Earlier Claims \`20261014-analytic-1..5\`
+merged at current `main`. Earlier Claims `20261014-analytic-1..5`
 remain valid at their stated scopes. Claims 1--2 are now compiled on
-\`main\`; Claims 4--5 remain paper asymptotics.
+`main`; Claims 4--5 remain paper asymptotics.
 
 ### Claim 20261014-analytic-6 — coherent centered-prime local-correction divergence
 
@@ -760,18 +760,18 @@ For integers q >= 4 define
     d_q = Li_2(q) - Li_2(q-1),
     zeta_q = (1_Prime(q) - d_q) / sqrt(q).
 
-Embedded in C, \`zeta_q\` is exactly the compiled
-\`criticalCenteredPrimeFrequencyWeight q\`. Let
+Embedded in C, `zeta_q` is exactly the compiled
+`criticalCenteredPrimeFrequencyWeight q`. Let
 
     f(z) = (1-z) exp(z) - 1,
     C(X) = sum_{4 <= q <= X} f(zeta_q).
 
-Thus \`f(z)\` is the real restriction of
-\`hardCorePoissonScalarCorrection z - 1\`. Then
+Thus `f(z)` is the real restriction of
+`hardCorePoissonScalarCorrection z - 1`. Then
 
     C(X) = -(1/2) log log X + O(1)          (X -> infinity).
 
-In particular, \`C(X) -> -infinity\`. The literal sitewise substitution of
+In particular, `C(X) -> -infinity`. The literal sitewise substitution of
 the centered genuine-prime coefficient into the continuous-Li scalar
 correction has a coherent negative quadratic mode. Signed summation does not
 restore the collision budget.
@@ -782,35 +782,35 @@ For every real z,
 
     f(z) = - integral_0^z t exp(t) dt.
 
-Therefore \`f(z) <= 0\` for every real \`z < 1\`. For \`|z| <= 1/2\`,
+Therefore `f(z) <= 0` for every real `z < 1`. For `|z| <= 1/2`,
 
     |f(z) + z^2/2|
       = |integral_0^z t (exp(t)-1) dt|
       <= exp(1/2) |z|^3 / 3.                         (1)
 
-For q >= 4, positivity and monotonicity of \`1/log t\` give
+For q >= 4, positivity and monotonicity of `1/log t` give
 
     0 < d_q <= 1/log(q-1) < 1.
 
-The finitely many initial values are harmless and \`|zeta_q| <= 1/2\`.
+The finitely many initial values are harmless and `|zeta_q| <= 1/2`.
 Also
 
     sum_q |zeta_q|^3 < infinity.
 
-At prime sites this is bounded by \`sum_p p^(-3/2)\`; off prime sites it
-is bounded by \`sum_q q^(-3/2)\`. Summing (1) gives
+At prime sites this is bounded by `sum_p p^(-3/2)`; off prime sites it
+is bounded by `sum_q q^(-3/2)`. Summing (1) gives
 
     C(X) = -(1/2) sum_{4 <= q <= X} zeta_q^2 + O(1). (2)
 
 The nonprime part of the square sum is bounded by the compiled Li collision
-series \`sum_q d_q^2/q < infinity\`. At prime sites,
+series `sum_q d_q^2/q < infinity`. At prime sites,
 
     (1-d_p)^2/p = 1/p - 2 d_p/p + d_p^2/p.
 
 The last series converges by the same Li collision theorem. The middle
-series converges because \`d_p <= 1/log(p-1)\` and
-\`pi(x) << x/log x\`; partial summation gives
-\`sum_p 1/(p log p) < infinity\`. Hence
+series converges because `d_p <= 1/log(p-1)` and
+`pi(x) << x/log x`; partial summation gives
+`sum_p 1/(p log p) < infinity`. Hence
 
     sum_{4 <= q <= X} zeta_q^2
       = sum_{p <= X} 1/p + O(1)
@@ -819,38 +819,38 @@ series converges because \`d_p <= 1/log(p-1)\` and
 by Mertens' reciprocal-prime theorem. Equation (2) proves the claim.
 
 For the weaker divergence result, Mertens' asymptotic is unnecessary. For
-all sufficiently large primes p, \`1-d_p >= 1/2\`, whence
+all sufficiently large primes p, `1-d_p >= 1/2`, whence
 
     f(zeta_p) <= -zeta_p^2/2 <= -1/(8p).
 
-Euler's divergence of \`sum_p 1/p\` then suffices.
+Euler's divergence of `sum_p 1/p` then suffices.
 
 ### Quantitative specification and boundary audit
 
 - **Carrier:** every integer q in the sharp interval [4,X], with the exact
   compiled singleton Li increment, prime indicator, and q^(-1/2)
   normalization.
-- **Signs:** prime sites have positive \`zeta_p\); composite sites have
-  negative \`zeta_q\). Every real local correction is nevertheless
+- **Signs:** prime sites have positive `zeta_p\); composite sites have
+  negative `zeta_q\). Every real local correction is nevertheless
   nonpositive.
-- **Known bound:** the continuous Li series \`sum d_q^2/q\` is finite.
-- **Actual centered behavior:** square mass is \`log log X + O(1)\`; the
-  signed scalar correction is \`-(1/2) log log X + O(1)\`.
+- **Known bound:** the continuous Li series `sum d_q^2/q` is finite.
+- **Actual centered behavior:** square mass is `log log X + O(1)`; the
+  signed scalar correction is `-(1/2) log log X + O(1)`.
 - **Constants:** absolute after the fixed lower cutoff. Changing q=0,1,2,3
   changes only the bounded term.
 - **Uniformity:** every sharp cutoff X >= 4; no exceptional subsequence and
   no smoothing.
 - **Coherent mode:** the quadratic correction removes the sign of
-  \`1_Prime(q)-d_q\` intrinsically, before any triangle inequality.
+  `1_Prime(q)-d_q` intrinsically, before any triangle inequality.
 - **Advance over the known obstruction:** this strengthens “the absolute
   square budget diverges” to “the native signed sitewise scalar correction
   has fixed negative sign and exact divergent leading order.”
 
 ### Exact bridge and its limit
 
-1. **Exact definition:** \`zeta_q\` equals
-   \`criticalActualPrimeFrequencyWeight q -
-   criticalLiFrequencyWeight q\`.
+1. **Exact definition:** `zeta_q` equals
+   `criticalActualPrimeFrequencyWeight q -
+   criticalLiFrequencyWeight q`.
 2. **Exact signed identity:** the compiled critical Duhamel theorem inserts
    this coefficient into the actual-state source, multiplied by the inherited
    child state.
@@ -860,7 +860,7 @@ Euler's divergence of \`sum_p 1/p\` then suffices.
    above.
 5. **Missing bridge:** the physical Duhamel source also contains child-state
    response factors, owner chronology, masks, and mixed interactions. No
-   theorem identifies \`C(X)\` with the original #915 zero-target quantity,
+   theorem identifies `C(X)` with the original #915 zero-target quantity,
    the canonical endpoint defect, or a complete physical collision ledger.
 6. **Valid conclusion:** the literal local scalar replacement is
    **REFUTED** as a uniformly summable correction. A viable replacement must
@@ -870,7 +870,7 @@ Euler's divergence of \`sum_p 1/p\` then suffices.
 ### Falsification and finite computation
 
 A deterministic CPython 3.12.14 sieve evaluated the raw-prime specialization
-\`f(p^(-1/2))\` through 10^7. At X=10^7 (664,579 primes):
+`f(p^(-1/2))` through 10^7. At X=10^7 (664,579 primes):
 
     sum_{5 <= p <= X} f(p^(-1/2)) = -1.217811415236425
     sum_{5 <= p <= X} 1/p         =  2.208116047946181
@@ -878,8 +878,8 @@ A deterministic CPython 3.12.14 sieve evaluated the raw-prime specialization
 
 The last quantity stabilized from X=10^2 through 10^7, consistent with the
 convergent O(p^(-3/2)) remainder. Algorithm: Eratosthenes byte sieve plus
-IEEE-754 evaluation of \`(1-p^(-1/2)) exp(p^(-1/2))-1\`. Script SHA-256:
-\`4997c48a10353c50726a8935b0173246335a49a16486bda3ce7fefdfb28bd301\`.
+IEEE-754 evaluation of `(1-p^(-1/2)) exp(p^(-1/2))-1`. Script SHA-256:
+`4997c48a10353c50726a8935b0173246335a49a16486bda3ce7fefdfb28bd301`.
 This checks normalization and sign only; it does not prove Claim 6.
 
 Falsification covered negative composite coefficients, small sites, cubic
@@ -900,17 +900,17 @@ uses Euler's reciprocal-prime theorem. No RH, zero-free region, or unproved
 prime-correlation input is used.
 
 Repository searches for a centered-prime specialization of
-\`hardCorePoissonScalarCorrection\` and this signed
-\`-(1/2) log log X\` result found no equivalent theorem. The compiled Li
+`hardCorePoissonScalarCorrection` and this signed
+`-(1/2) log log X` result found no equivalent theorem. The compiled Li
 square-summability theorem is an input, while Claim 6 computes and falsifies
 the corresponding centered actual-prime local mechanism. It does not assume
 the canonical target and is noncircular.
 
 ### Established and not established
 
-**Established:** Claim \`20261014-analytic-6\`, a paper proof that the
+**Established:** Claim `20261014-analytic-6`, a paper proof that the
 literal centered actual-prime sitewise hard-core/Poisson correction is
-coherently negative and diverges as \`-(1/2) log log X + O(1)\`. This is a
+coherently negative and diverges as `-(1/2) log log X + O(1)`. This is a
 rigorous no-go for that local transfer mechanism.
 
 **Not established:** any bound for the complete Duhamel source with inherited
@@ -920,35 +920,35 @@ restoration terms; an O(R log R) canonical endpoint estimate; finite A/C,
 CORR-4, #915 payment, or RH.
 
 **First missing lemma:** on the exact Duhamel/physical carrier, identify a
-nonlocal kernel \`K(q;R)\` and prove a coefficient-preserving identity in
+nonlocal kernel `K(q;R)` and prove a coefficient-preserving identity in
 which the coherent local term
 
     -(1/2) sum_{p <= X} 1/p
 
 is either explicitly restored/cancelled by a named mixed interaction or
 retained as a quantified loss. Then prove a signed bound for
-\`sum_q zeta_q K(q;R)\` with all masks, child states, cutoffs, and cross
+`sum_q zeta_q K(q;R)` with all masks, child states, cutoffs, and cross
 terms present. A sitewise scalar correction cannot work by Claim 6.
 
 ### Downstream requests
 
-- **Prime Census:** evaluate the centered \`zeta_q\` correction at exact
+- **Prime Census:** evaluate the centered `zeta_q` correction at exact
   integer Li increments and test the residual after adding
-  \`(1/2) log log X\`.
+  `(1/2) log log X`.
 - **Adversarial Referee:** audit the integral remainder, convergence of
-  \`sum_p d_p/p\`, and exact identification with the compiled centered
+  `sum_p d_p/p`, and exact identification with the compiled centered
   coefficient. Reject any overreach to the full response-weighted source.
 - **Lean Verification:** after referee acceptance, the finite local lemmas
-  \`f(z) <= 0\` and
-  \`|f(z)+z^2/2| <= exp(1/2)|z|^3/3\` for real \`|z|<=1/2\` are scoped
+  `f(z) <= 0` and
+  `|f(z)+z^2/2| <= exp(1/2)|z|^3/3` for real `|z|<=1/2` are scoped
   formalization candidates. No Mertens formalization is asserted.
 
 ### Final classification and next-run resume capsule
 
-- **Production target:** \`NO_NEW_RESULT\`; the canonical estimate is open.
-- **Net-new result:** Claim \`20261014-analytic-6\`, \`PAPER_PROOF\`, and
+- **Production target:** `NO_NEW_RESULT`; the canonical estimate is open.
+- **Net-new result:** Claim `20261014-analytic-6`, `PAPER_PROOF`, and
   falsification of the literal sitewise centered scalar transfer.
-- **Main baseline:** \`8fff3dbd6db8cfd84e6806789c4b1f7b4e475db5\`.
+- **Main baseline:** `8fff3dbd6db8cfd84e6806789c4b1f7b4e475db5`.
 - **Highest-value next step:** expose the response-weighted centered kernel
   and test whether a named mixed term cancels the coherent reciprocal-prime
   mode exactly.
@@ -959,12 +959,12 @@ terms present. A sitewise scalar correction cannot work by Claim 6.
 
 ### Third-run publication verification
 
-- Early checkpoint commit: \`782cf8c086dcae0c9fe7f1da8b5e429543af1f5e\`.
+- Early checkpoint commit: `782cf8c086dcae0c9fe7f1da8b5e429543af1f5e`.
 - Substantive corrected completion commit:
-  \`2a88ddd18d2395d2b675d1be1899e5fce2b7eefb\`.
+  `2a88ddd18d2395d2b675d1be1899e5fce2b7eefb`.
 - Verified corrected readback blob:
-  \`5d956cddb2fcc0237278b172f5c79734e83941e6\`.
+  `5d956cddb2fcc0237278b172f5c79734e83941e6`.
 - Readback checks: Claim 6, the exact leading formula, corrected source SHA,
   revision note, established/not-established split, first missing lemma, and
   next-run capsule are present; the superseded incorrect SHA is absent.
-- **Publication status:** \`COMPLETED\` on explicit branch \`agent-reports\`.
+- **Publication status:** `COMPLETED` on explicit branch `agent-reports`.
