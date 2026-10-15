@@ -84,7 +84,8 @@ theorem smoothedMobius_bound_of_strip
       hnonneg hmass hε hε1 hX (s := (u : ℂ) + t * I) (by simpa using hau)
     have hpath : ContinuousAt (fun v : ℝ => (u : ℂ) + (v : ℂ) * I) t := by
       fun_prop
-    exact hd.continuousAt.comp hpath
+    exact ContinuousAt.comp (f := fun v : ℝ => (u : ℂ) + (v : ℂ) * I)
+      (g := regularizedSmoothedIntegrand ν ε X) (x := t) hd.continuousAt hpath
   have hil : Integrable (fun t : ℝ => f ((σ : ℂ) + t * I)) :=
     integrable_vertical_of_heightBound hq (hlineContinuous σ haσ)
       (hlineBound σ le_rfl (by linarith))
