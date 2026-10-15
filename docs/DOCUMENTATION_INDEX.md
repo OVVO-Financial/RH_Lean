@@ -1,6 +1,6 @@
 # Documentation index
 
-Updated 2026-10-12. The repository is a formal reduction and obstruction map;
+Updated 2026-10-14. The repository is a formal reduction and obstruction map;
 the CANONICAL direct VF cumulative signed owner/run estimate remains open. The
 Mertens finite-A/finite-C and historical CORR-4 routes are unproved sufficient
 alternatives, not replacements. Start with the
@@ -14,7 +14,8 @@ alternatives, not replacements. Start with the
 | [Current proof contract](../CURRENT_PROOF_CONTRACT.md) | Sole sqrt2 canonical VF endpoint, frozen raw arithmetic translation, actual-prime open gate. |
 | [Canonical VF full autopsy (Oct 12)](../research/VF_CANONICAL_SQRT_TWO_AUTOPSY_2026_10_12.md) | Definitive new real VF definition, all-real O(1), phase/cofactor/floor/fantasy normalization, von Koch formal interfaces. |
 | [Finite A/C ↔ original VF alignment (Oct 11)](../research/FINITE_A_C_VF_ALIGNMENT_2026_10_11.md) | Distinguish the canonical VF target from finite-A/C alternatives, exact signed mechanisms, conditional consumers, and the one remaining quantitative gate. |
-| [Agent instructions](../AGENTS.md) | Research and repository rules. |
+| [Agent instructions](../AGENTS.md) | Agent governance, mathematical integrity and repository permissions. |
+| [Dynamic research-agent protocol](DYNAMIC_RESEARCH_AGENTS.md) | Seven permanent specialties, independent theory portfolio, falsification standards and formal proof handoffs. |
 | [Formalization checklist](../FORMALIZATION_CHECKLIST.md) | Execution gates and historical PR closeouts. |
 | [Formalization sequence](../FORMALIZATION_SEQUENCE.md) | Dependency catalog and append-only research record. |
 | [Research route registry](../RESEARCH_ROUTE_REGISTRY.md) | Route dispositions and the scope of the current freeze. |
