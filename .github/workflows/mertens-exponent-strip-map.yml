@@ -1,0 +1,83 @@
+name: Mertens exponent strip map
+
+on:
+  pull_request:
+    paths:
+      - 'research/MERTENS_EXPONENT_*.lean'
+      - 'research/MERTENS_EXPONENT_STRIP_MAP.md'
+      - 'RHLean/Analysis/Mertens*.lean'
+      - '.github/workflows/mertens-exponent-strip-map.yml'
+      - '.github/actions/lean-setup/**'
+      - '.github/actions/research-compile/**'
+      - 'scripts/compile_research_import_closure.py'
+      - 'lean-toolchain'
+      - 'lake-manifest.json'
+  push:
+    branches: [main]
+    paths:
+      - 'research/MERTENS_EXPONENT_*.lean'
+      - 'RHLean/Analysis/Mertens*.lean'
+      - '.github/workflows/mertens-exponent-strip-map.yml'
+      - 'lean-toolchain'
+      - 'lake-manifest.json'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+
+concurrency:
+  group: mertens-exponent-map-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  exponent-map:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/lean-setup
+      - name: Restore native prerequisites
+        id: native
+        uses: actions/cache/restore@v5
+        with:
+          path: .lake/build
+          key: mertens-map-native-v1-${{ runner.os }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-${{ github.sha }}
+          restore-keys: |
+            mertens-map-native-v1-${{ runner.os }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-
+      - name: Compile complete warning-fatal import closure
+        uses: ./.github/actions/research-compile
+        with:
+          targets: research/MERTENS_EXPONENT_STRIP_ACCEPTANCE.lean
+      - name: Check kernel axiom footprints and exact acceptance signatures
+        shell: bash
+        run: |
+          set -euo pipefail
+          lake env lean -DwarningAsError=true research/MERTENS_EXPONENT_STRIP_ACCEPTANCE.lean 2>&1 | tee mertens-exponent-axioms.log
+          python3 - <<'PY'
+          import pathlib
+          import re
+          text = pathlib.Path('mertens-exponent-axioms.log').read_text()
+          rows = re.findall(r"'([^']+)' depends on axioms:\s*\[([^\]]*)\]", text)
+          expected = re.findall(r'^#print axioms (\S+)', pathlib.Path('research/MERTENS_EXPONENT_STRIP_ACCEPTANCE.lean').read_text(), re.M)
+          assert len(expected) == 16, expected
+          assert {name for name, _ in rows} == set(expected), (rows, expected)
+          allowed = {'propext', 'Classical.choice', 'Quot.sound'}
+          for name, axioms in rows:
+              found = {s.strip() for s in axioms.split(',') if s.strip()}
+              assert found <= allowed, (name, found - allowed)
+          print(f'PASS: {len(rows)} kernel axiom footprints contain only standard Lean axioms.')
+          PY
+      - name: Save completed native prerequisites
+        if: ${{ !cancelled() && steps.native.outcome == 'success' && steps.native.outputs.cache-hit != 'true' }}
+        uses: actions/cache/save@v5
+        with:
+          path: .lake/build
+          key: ${{ steps.native.outputs.cache-primary-key }}
+      - name: Preserve acceptance evidence
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: mertens-exponent-acceptance-${{ github.sha }}
+          path: mertens-exponent-axioms.log
+          if-no-files-found: ignore
