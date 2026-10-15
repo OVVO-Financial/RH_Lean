@@ -22,7 +22,7 @@ local notation "I" => Complex.I
 theorem converseHeightWeight_tendsto_zero {q : ℝ} (hq : 0 < q) :
     Tendsto (converseHeightWeight q) atTop (𝓝 0) := by
   have hpos : 0 < 1 + q / 2 := by linarith
-  have h := (Real.tendsto_rpow_neg_atTop hpos).comp
+  have h := (_root_.tendsto_rpow_neg_atTop hpos).comp
     (tendsto_atTop_add_const_left atTop (1 : ℝ) tendsto_id)
   apply h.congr'
   filter_upwards [eventually_ge_atTop (0 : ℝ)] with t ht

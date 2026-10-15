@@ -42,7 +42,10 @@ theorem reciprocal_stretchedLog_of_strip {a σ : ℝ}
   have hR₂half : R₂ ≤ (1 : ℝ) / 2 := by dsimp [R₂, b]; linarith
   have hb : 0 < b := by dsimp [b]; linarith
   let D : ℝ := 8 + 8 / b
-  have hD : 1 ≤ D := by dsimp [D]; have : 0 < 8 / b := by positivity; linarith
+  have hD : 1 ≤ D := by
+    dsimp [D]
+    have hquot : 0 ≤ (8 : ℝ) / b := div_nonneg (by norm_num) hb.le
+    linarith
   obtain ⟨E, hE, hEbound⟩ := zeta_bounded_right_halfPlane
     (u := (3 : ℝ) / 2) (by norm_num)
   obtain ⟨K₀, hK₀, hKbound⟩ := strongMertens_inv_zeta_bdd_on_vertical_line_gt_one
@@ -120,7 +123,7 @@ theorem exp_stretchedLog_eventually_le_rpow {θ C η : ℝ}
       Real.exp (C * (Real.log T) ^ θ) ≤ T ^ η := by
   have hlim : Tendsto (fun T : ℝ => C * (Real.log T) ^ (θ - 1)) atTop (𝓝 0) := by
     have h := (tendsto_const_nhds (x := C)).mul
-      ((Real.tendsto_rpow_neg_atTop (sub_pos.mpr hθ)).comp Real.tendsto_log_atTop)
+      ((_root_.tendsto_rpow_neg_atTop (sub_pos.mpr hθ)).comp Real.tendsto_log_atTop)
     simpa only [mul_zero, neg_sub] using h
   filter_upwards [hlim.eventually (gt_mem_nhds hη),
     eventually_ge_atTop (3 : ℝ)] with T hsmall hT
