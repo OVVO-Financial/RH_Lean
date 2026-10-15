@@ -775,3 +775,10 @@ For completeness, adding the certified owners \(7\) and \(11\) gives grouped val
 - **Production target:** \`NO_NEW_RESULT\`; no complete-source signed estimate and no RH claim.
 - **Next action:** construct the exact admitted-tag source ledger and test its grouped per-tag \(H\) plus cross-tag/anchor/restoration terms; preserve the two-owner reversal and 111-descendant overload as mandatory adversarial cases.
 - **Avoid:** cloning one historical \(q\), summing isolated pair inequalities, treating linear signed negativity as quadratic payment, or dropping the residual polarization.
+
+
+### Publication verification
+
+- **Substantive report commit:** \`7f9cf075658f4302b4a844b7ff88c02fa5639b7e\`.
+- **Verified readback blob:** \`0c931e6443330c4954b62bd4cdc577ab39e344f2\`; Claims \`20261014-owner-7/-8\`, the rational bound, executed decimals, limitations and resume capsule were present.
+- **Publication status:** \`COMPLETED\` on explicit branch \`agent-reports\`.
