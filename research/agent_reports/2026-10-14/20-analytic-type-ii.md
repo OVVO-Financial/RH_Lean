@@ -955,3 +955,16 @@ terms present. A sitewise scalar correction cannot work by Claim 6.
 - **Avoid next run:** another absolute collision norm, isolated owner-pair
   slack aggregation, or treating Abel/Duhamel equalities as estimates.
 - **No RH-proof claim:** yes.
+
+
+### Third-run publication verification
+
+- Early checkpoint commit: \`782cf8c086dcae0c9fe7f1da8b5e429543af1f5e\`.
+- Substantive corrected completion commit:
+  \`2a88ddd18d2395d2b675d1be1899e5fce2b7eefb\`.
+- Verified corrected readback blob:
+  \`5d956cddb2fcc0237278b172f5c79734e83941e6\`.
+- Readback checks: Claim 6, the exact leading formula, corrected source SHA,
+  revision note, established/not-established split, first missing lemma, and
+  next-run capsule are present; the superseded incorrect SHA is absent.
+- **Publication status:** \`COMPLETED\` on explicit branch \`agent-reports\`.
