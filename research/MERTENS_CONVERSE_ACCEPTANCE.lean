@@ -1,12 +1,30 @@
-import «research.MERTENS_CONVERSE_INVERSION»
+import «research.MERTENS_CONVERSE_IDENTIFICATION»
 
-/-! Exact signatures and kernel dependencies for the converse development. -/
+/-!
+# Exact bidirectional Mertens map acceptance
+
+These examples pin the genuine definitions and the exact ordinary hypotheses.
+The main coordinate equality and logarithmic-limsup identification have no
+ordinary assumptions. The equivalence is uniform over every nonnegative a.
+Kernel axiom footprints are checked separately by the dedicated CI workflow.
+-/
 
 open RHLean.Analysis RHLean.Analysis.MertensExponent
 
+example : mertensGrowthExponent = zetaRightmostRealPart :=
+  growthExponent_eq_rightmost
+
+example : Filter.limsup mertensLogSlope Filter.atTop = zetaRightmostRealPart :=
+  logLimsup_eq_rightmost
+
+example {a : ℝ} (ha : 0 ≤ a) :
+    MertensGrowthAtMost a ↔ ZerosInSymmetricStrip a :=
+  growthAtMost_iff_strip ha
+
 example {a : ℝ} (ha : 0 ≤ a) (h : ZerosInSymmetricStrip a) :
-    DifferentiableOn ℂ nativeInvZetaRegularized (exponentHalfPlane a) :=
-  regularizedReciprocal_holomorphic_of_strip ha h
+    ∀ ε : ℝ, 0 < ε → ∃ C : ℝ, 0 ≤ C ∧ ∀ n : ℕ, 1 ≤ n →
+      ‖mertensSummatory n‖ ≤ C * Real.rpow (n : ℝ) (a + ε) :=
+  growthAtMost_of_strip ha h
 
 example {a σ η : ℝ} (ha : 0 ≤ a) (haσ : a < σ) (hσ : σ < 1)
     (h : ZerosInSymmetricStrip a) (hη : 0 < η) :
@@ -46,3 +64,17 @@ example {a σ η : ℝ} (ha : 0 ≤ a) (haσ : a < σ) (hσ : σ < 1)
 #print axioms RHLean.Analysis.MertensExponent.converseHeightWeight_tendsto_zero
 #print axioms RHLean.Analysis.MertensExponent.verticalIntegral_congr_line
 #print axioms RHLean.Analysis.MertensExponent.smoothedMobius_bound_of_strip
+#print axioms RHLean.Analysis.MertensExponent.sharpReal_nat_eq_mertens
+#print axioms RHLean.Analysis.MertensExponent.powerBound_of_strip_interior
+#print axioms RHLean.Analysis.MertensExponent.growthAtMost_of_strip
+#print axioms RHLean.Analysis.MertensExponent.growthAtMost_iff_strip
+#print axioms RHLean.Analysis.MertensExponent.rightmost_nonneg
+#print axioms RHLean.Analysis.MertensExponent.strip_at_rightmost
+#print axioms RHLean.Analysis.MertensExponent.growthExponent_le_rightmost
+#print axioms RHLean.Analysis.MertensExponent.rightmost_le_growthExponent_unconditional
+#print axioms RHLean.Analysis.MertensExponent.growthExponent_eq_rightmost
+#print axioms RHLean.Analysis.MertensExponent.logLimsup_eq_rightmost
+#print axioms RHLean.Analysis.MertensExponent.growthAtMost_iff_rightmost_le
+#print axioms RHLean.Analysis.MertensExponent.strip_iff_rightmost_le_unconditional
+#print axioms RHLean.Analysis.MertensExponent.growthAtMost_half_iff_criticalZeros
+#print axioms RHLean.Analysis.MertensExponent.growthAtMost_sevenEighths_iff_strip

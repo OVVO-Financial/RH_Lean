@@ -45,7 +45,6 @@ theorem mellin_compactSupport_bounded_positive_strip {ν : ℝ → ℝ}
       have h := (Real.rpow_le_rpow hxpos.le hx.2 hs0).trans
         (Real.rpow_le_rpow_of_exponent_le (by norm_num : (1 : ℝ) ≤ 2) hs2)
       norm_num only [Real.rpow_two] at h
-      norm_num at h
       exact h
     have hpow : x ^ (s.re - 1) ≤ 8 := by
       rw [Real.rpow_sub hxpos, Real.rpow_one]
