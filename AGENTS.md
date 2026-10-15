@@ -8,7 +8,7 @@ At every direct task and every actually configured invocation, fetch the actual 
 
 1. This `AGENTS.md`: conduct, permissions and routing.
 2. [CURRENT_PROOF_CONTRACT.md](CURRENT_PROOF_CONTRACT.md): exact current mathematical target, source conventions and verified baseline.
-3. [Factor-depth research brief](docs/FACTOR_DEPTH_RESEARCH_BRIEF.md): current hypotheses, discriminating tests, regressions and role-specific next questions.
+3. [Factor-depth research brief](docs/FACTOR_DEPTH_RESEARCH_BRIEF.md): current hypotheses, discriminating tests, regressions and role-specific next questions. For MU-LIFT work also read the [amplification budget](docs/MERTENS_AMPLIFICATION_BUDGET.md).
 4. [Dynamic research protocol](docs/DYNAMIC_RESEARCH_AGENTS.md): mechanism cards, acceptance criteria and division of work.
 
 Then inspect relevant original Lean declarations and live PR/CI state. Read relevant **today AND preceding-calendar-day** reports, own resume capsules and `research/agent_reports/EXTERNAL_HANDOFFS.md` with **`ref=agent-reports`**, using `America/New_York`. Record actual main and source/report blob SHAs, run timestamps and stable claim IDs. Resolve overnight continuity by actual timestamps, not folder names. `TODAY=PENDING; YESTERDAY=CARRY_FORWARD` is not a failed prior run or a completed current-day stage.
@@ -28,6 +28,14 @@ This is **not** permission to assume their mismatch is small. The exact partitio
 Start from the three distinct candidate mechanisms in the brief: **factor-depth signed transport/invariant; inverse arithmetic obstruction; genuine Mobius finite-prefix signed amplification**. Nonlocal response-weighted analysis remains eligible. Do not allocate all seven specialties to one renamed missing bound, invent a route to meet a quota, or require a failed mechanism to remain live. A route's independent input, not its notation or final consumer, determines whether it is distinct.
 
 Every substantive research run should attempt a proof, weaker independent bound with stated losses, decisive falsification, or genuinely discriminating experiment. An exact new structural lemma is valuable; do not reject it merely because it does not close RH. Conversely, another identity, bigger sieve or conditional victory theorem is not a positive global estimate. Report `NO_NEW_RESULT` honestly when appropriate.
+
+### MU-LIFT relaxation: judge normalized loss, not constant gain
+
+For `E(B)=max_(1<=n<B)|M(n)|/sqrt(n)`, seek an independently proved whole-prefix rule `E(B^2)<=G(B)*E(B)^r` with fixed `1<=r<2` and `log G(B)/log B -> 0`. It is enough eventually on one square-growing chain; the interval between its consecutive scales must still be fully covered. Constant or polylogarithmic gain is sufficient, **not required**. Larger subpower loss and some superlinear historical-budget dependence remain acceptable.
+
+The paper recurrence for `u_j=log E(B_j)/log B_j` is `u_(j+1)<=(r/2)*u_j+g_j/2`, with `g_j=log G_j/log B_j`. Its conditional contraction is not the unproved arithmetic inequality. The actual minimal-gain subpower condition is target-equivalent, so never promote it as an independently paid lemma. Preserve the exact signed floor kernel, original truncations and full-prefix interpolation.
+
+Merged #954 supplies exact higher-order support extension and signed hyperbola identities, not the quantitative bound. For a separately proved fixed-k whole-prefix lift `B -> B^k`, the criterion becomes `r<k`; a square-scale estimate cannot simply be reused on a cubic interval. Record **scale power k, final amplitude-budget power r, normalized loss g, interval/chain and independent input** in each MU-LIFT mechanism card. Normalize squared inequalities consistently; do not reject a valid estimate merely because an intermediate energy was squared or its finite loss is large. Full proof and boundary regressions are in the [amplification budget](docs/MERTENS_AMPLIFICATION_BUDGET.md).
 
 ### Non-negotiable zero-target covariance and source fidelity
 
@@ -49,7 +57,7 @@ Search before reimplementing: use `python3 scripts/proofq.py repo-search '<terms
 | --- | --- |
 | Research Coordinator / Proof Architect | Compare genuinely independent mechanisms, select decisive questions and retire failed ones. Separate new mathematics, quantitative progress, formal certification and operational delivery. Do not merely aggregate reports. |
 | Owner Payment / Arithmetic Structure | Derive coefficient-preserving cross-depth/ancestry transport or another signed invariant. Account for every residual and original covariance term. Do not repeat isolated owner-payment catalogues. |
-| Analytic Type II / Quantitative Theory | Seek an independent bound, inverse estimate or signed finite-prefix amplification law. State scale and losses. The Mertens converse already on main is baseline, not the next task. |
+| Analytic Type II / Quantitative Theory | Seek an independent bound, inverse estimate or signed finite-prefix amplification law. Assess its final r versus scale power k and normalized loss, not just constant gain. The Mertens converse and #954 identities on main are baseline, not quantitative cancellation. |
 | Finite Wheel / Structural Incidence | Identify and prove restrictions on configurations that could force a large imbalance, including factor-depth transitions and boundary incidence. Do not enlarge unsigned wheels or re-falsify global cap four without a changed hypothesis. |
 | Prime Census / Experimental Number Theory | Design competing predictions before running code; reconstruct complete signed layers directly; use held-out cases and deterministic controls to distinguish genuine arithmetic coupling from accounting tautology. |
 | Adversarial Referee / Mathematical Red Team | Audit quantifiers, dependence, source admission, full interactions and target equivalence; develop minimal counterexamples and the strongest surviving repair. A no-go applies only to its stated technique/carrier. |

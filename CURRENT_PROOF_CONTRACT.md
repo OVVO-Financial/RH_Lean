@@ -1,6 +1,6 @@
 # RH_Lean current proof contract
 
-**Live revision: 2026-10-15. Reviewed baseline: `main@df353c9d40c660cc247bd2fdb96c536c74b04fe3`.** Refresh live main on every run. This contract changes research direction, not any Lean definition, theorem, coefficient or proof assumption.
+**Live revision: 2026-10-15. Reviewed baseline: `main@c0bf6261b5e78aa0ec03967a86691987842b80eb` (merged #954).** Refresh live main on every run. This contract changes research direction, not any Lean definition, theorem, coefficient or proof assumption.
 
 ## Unchanged canonical object and open theorem
 
@@ -29,13 +29,13 @@ Legacy raw defect `D_raw(R)=pi(R^2)-F_R` satisfies `D_can=D_raw-sqrt(2)`. Existe
 
 ## Active portfolio: independent arithmetic restrictions
 
-Follow [AGENTS.md](AGENTS.md), the [dynamic protocol](docs/DYNAMIC_RESEARCH_AGENTS.md) and the [factor-depth research brief](docs/FACTOR_DEPTH_RESEARCH_BRIEF.md). The leading empirical frontier is the coupling between negative prime/semiprime tag mass and positive squareful/higher-factor mass. **It is not a new compulsory RH-strength premise.**
+Follow [AGENTS.md](AGENTS.md), the [dynamic protocol](docs/DYNAMIC_RESEARCH_AGENTS.md), the [factor-depth research brief](docs/FACTOR_DEPTH_RESEARCH_BRIEF.md) and, for MU-LIFT, the [amplification budget](docs/MERTENS_AMPLIFICATION_BUDGET.md). The leading empirical frontier is the coupling between negative prime/semiprime tag mass and positive squareful/higher-factor mass. **It is not a new compulsory RH-strength premise.**
 
 Start with three independently falsifiable candidates:
 
 1. **Signed factor-depth transport/invariant:** a coefficient-preserving relation between complete depth layers, with an independently proved restriction or remainder estimate.
 2. **Inverse arithmetic obstruction:** excessive imbalance forces a specified factor/ancestry/quotient configuration; separately prove that this configuration is impossible or quantitatively limited.
-3. **Mobius finite-prefix signed amplification:** use the genuine, now-compiled arithmetic extension while investigating an independent bound on its signed summatory gain. Exact reconstruction is not amplitude preservation.
+3. **Mobius finite-prefix signed amplification:** use the genuine, now-compiled arithmetic extension while investigating an independent bound on its signed summatory gain. Exact reconstruction is not amplitude preservation. Subpower gain with fixed subcritical historical-budget dependence is sufficient; constant gain is not required.
 
 Nonlocal response-weighted analysis, finite A/C and CORR-4 remain eligible alternatives when their independent inputs genuinely differ. The Coordinator may revise or reject a lane with evidence; do not manufacture diversity or send all specialists to the same missing inequality in three notations. Weaker uniform estimates and exact structural theorems count at their actual strength, even before they compose with the final target.
 
@@ -60,13 +60,35 @@ The complete square is `L_R^2=T_R^2+H_R^2+2*T_R*H_R`. Keep all within-tag, cross
 
 ## Verified Mertens baseline: do not re-prove the completed coordinate map
 
-Live source, not the overnight report's old queue, is authoritative. PRs #948-#951 are merged at the reviewed baseline; a stale PR body may still say draft/unmerged.
+Live source, not the overnight report's old queue, is authoritative. PRs #948-#951 and #954 are merged at the reviewed baseline; a stale PR body may still say draft/unmerged.
 
 - [Mertens converse identification](research/MERTENS_CONVERSE_IDENTIFICATION.lean), source blob `c15bdfcb0b050b26e3f0ea54775d8fd61d8af8bb`: `growthAtMost_iff_strip`, `growthExponent_eq_rightmost` and `logLimsup_eq_rightmost` identify the independently defined arithmetic growth exponent, literal natural-number logarithmic limsup and rightmost nontrivial-zero boundary. PR #949 head `982500b01f0f008b1164a172d06d28d14f8171d0` had all ten attached workflows successful. This is the **bidirectional** identification; the converse is no longer open. It gives no new numerical value of the common boundary.
 - PR #950 establishes the finite positive-amplitude/complex-strip coordinate map. Constructed strip points are not asserted to be zeta zeros; the height is supplied independently. Zero amplitudes have no finite sample coordinate, while the separate asymptotic coordinate displays `max(1,|M(n)|)` explicitly. Finite lower-cone crossings do not imply a new upper exponent bound.
 - [Finite-prefix extension](research/MERTENS_FINITE_PREFIX_EXTENSION.lean), source blob `0474a156e020dd11b32a9c023cc1ac25e48195ce`: in the integer Dirichlet convolution ring, `T(a)=2a-a*a*zetaInt` and `D(a)=1-a*zetaInt` satisfy `D(T(a))=D(a)*D(a)`. Agreement below B propagates below B^2; seed-only iteration reconstructs genuine coefficients. `guarded_interval_extension` consumes an explicitly checked finite anchor margin. Neither result proves an all-scale summatory norm estimate or perpetual guard availability. PR #951's finite computational certificates are not kernel-certified numerical data, and its optimized double-loop implementation is not silently identified with the formal convolution without the stated bridge.
+- Merged #954: [signed higher-order lift](research/MERTENS_HEATH_BROWN_SIGNED.lean), blob `bb028fc18b8228412dafa21f990eeb84dc376b95`, proves `heathBrownLift_agrees_below_power`, exact signed geometric/defect formulas and the quadratic Newton specialization. [Signed hyperbola](research/MERTENS_SIGNED_HYPERBOLA.lean) proves the complete finite convolution split with overlap retained. These are exact identities, not an estimate for the remaining signed rows or alternating families. Its sparse artificial-prefix control excludes scalar-prefix-only arguments for arbitrary inputs, not genuine-Mobius estimates using additional arithmetic.
 
 A new arithmetic gain theorem would be quantitative progress. Repackaging `MertensGrowthAtMost(1/2)`, a finite-A/C bound or universal certificate preservation as an assumed input is not. There is no new unconditional seven-eighths or half-exponent estimate in these coordinate/extension results.
+
+## Relaxed MU-LIFT quantitative target
+
+Let `E(B)=max_(1<=n<B)|M(n)|/sqrt(n)>=1`, for integer B>=2. On one chain `B_j=B_0^(2^j)`, an independently established whole-prefix recurrence
+
+```text
+E(B_j^2) <= G_j*E(B_j)^r,
+1<=r<2 fixed, G_j>=1, log G_j/log B_j -> 0
+```
+
+is sufficient. Its normalized logarithmic budget satisfies `u_(j+1)<=(r/2)*u_j+g_j/2`, so u_j->0; full-prefix interpolation yields `MertensGrowthAtMost (1/2)`. Eventual validity and any finite initial budget suffice. The paper proof, polylogarithmic accumulation, target-equivalence audit and r=2/vanishing-gap countermodels are in the [amplification budget](docs/MERTENS_AMPLIFICATION_BUDGET.md); no new Lean theorem is asserted here.
+
+The genuine signed input to seek for each chain member B is
+
+```text
+|2*M(B-1)-Q_(B-1)(X)| <= G_j*E(B)^r*sqrt(X)
+for every integer B<=X<B^2,
+Q_N(X)=sum_(1<=i,j<=N)mu(i)*mu(j)*floor(X/(i*j)).
+```
+
+The old prefix is included because G_j>=1, E(B)>=1 and r>=1. An endpoint-only bound needs a separately proved interpolation. A polylogarithmic G is sufficient, not necessary; do not reject a uniform larger subpower loss. Do not infer subpower growth from finite ratios, assume the actual-gain condition, silently vary r toward two, or drop signed overlap to change the arithmetic object. If a fixed-k whole-prefix estimate is independently proved using #954, replace the threshold by r<k; the larger interval and all dependence on k must be accounted for. Consistently squared energy inequalities must be converted to their final amplitude-budget exponent before this comparison.
 
 ## Frozen #915 source and no-narrowing safeguards
 
