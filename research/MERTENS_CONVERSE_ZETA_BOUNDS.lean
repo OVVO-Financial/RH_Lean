@@ -39,7 +39,7 @@ theorem zeta_bounded_right_halfPlane {u : ℝ} (hu : 1 < u) :
     ‖LSeries (1 : ℕ → ℂ) s‖ ≤ ∑' n, ‖LSeries.term (1 : ℕ → ℂ) s n‖ :=
       norm_tsum_le_tsum_norm hS.norm
     _ ≤ ∑' n, ‖LSeries.term (1 : ℕ → ℂ) (u : ℂ) n‖ :=
-      tsum_le_tsum (fun n => LSeries.norm_term_le_of_re_le_re _ (by simpa using hs) n)
+      Summable.tsum_le_tsum (fun n => LSeries.norm_term_le_of_re_le_re _ (by simpa using hs) n)
         hS.norm hU.norm
     _ ≤ C := by dsimp [C]; linarith
 
@@ -74,9 +74,10 @@ theorem zeta_norm_le_positive_strip {b : ℝ} (hb : 0 < b) {s : ℂ}
     rw [abs_of_pos hspos] at h
     linarith
   have hinv : 1 / s.re ≤ 1 / b := one_div_le_one_div_of_le hb hbs
+  have hJb : ‖J‖ ≤ b⁻¹ := by simpa only [one_div] using hJ.trans hinv
   have hprod : ‖s * J‖ ≤ (4 + |s.im|) / b := by
     rw [norm_mul, div_eq_mul_inv]
-    exact mul_le_mul hnorm (hJ.trans hinv) (norm_nonneg J) (by positivity)
+    exact mul_le_mul hnorm hJb (norm_nonneg J) (by positivity)
   have hrough : ‖riemannZeta s‖ ≤ 3 + (4 + |s.im|) / b := by
     rw [hrepr]
     have h1 := norm_add_le (1 : ℂ) ((-1 : ℂ) / (1 - s))
@@ -108,7 +109,7 @@ theorem zetaDiscPoint_ne_one {t : ℝ} (ht : 4 ≤ |t|) {w : ℂ}
   have himBound := Complex.abs_im_le_norm w
   have htEq : t = -(4 * w.im) := by linarith
   rw [htEq, abs_neg, abs_mul] at ht
-  norm_num only [abs_ofNat] at ht
+  norm_num at ht
   linarith
 
 /-- The shifted-disk polynomial bound is uniform in its growing height. -/
@@ -124,14 +125,14 @@ theorem zeta_norm_le_on_shifted_disk {b : ℝ} (hb : 0 < b) {t : ℝ}
     linarith
   have hupper : |(zetaDiscPoint t w).im| ≤ |t| + 2 := by
     rw [zetaDiscPoint_im]
-    have h := abs_add t (4 * w.im)
+    have h := abs_add_le t (4 * w.im)
     rw [abs_mul] at h
-    norm_num only [abs_ofNat] at h
+    norm_num at h
     linarith
   have hlower : 2 ≤ |(zetaDiscPoint t w).im| := by
     have h := abs_sub_abs_le_abs_sub t (t + 4 * w.im)
     simp only [sub_add_cancel_left, abs_neg, abs_mul] at h
-    norm_num only [abs_ofNat] at h
+    norm_num at h
     rw [zetaDiscPoint_im]
     linarith
   have hZ := zeta_norm_le_positive_strip hb hbs hre hlower

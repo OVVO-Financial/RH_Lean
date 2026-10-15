@@ -3,6 +3,7 @@ import «research.MERTENS_CONVERSE_THREE_CIRCLES»
 import «research.MERTENS_CONVERSE_ZETA_BOUNDS»
 import «research.MERTENS_CONVERSE_LOG_INTERPOLATION»
 import «research.MERTENS_CONVERSE_SUBPOWER»
+import «research.MERTENS_CONVERSE_CONTOUR»
 
 /-! Exact signatures and kernel dependencies for the converse development. -/
 
@@ -33,3 +34,5 @@ example {a σ η : ℝ} (ha : 0 ≤ a) (haσ : a < σ) (hσ : σ < 1)
 #print axioms RHLean.Analysis.MertensExponent.reciprocal_stretchedLog_of_strip
 #print axioms RHLean.Analysis.MertensExponent.exp_stretchedLog_eventually_le_rpow
 #print axioms RHLean.Analysis.MertensExponent.regularizedReciprocal_subpower_of_strip
+#print axioms RHLean.Analysis.MertensExponent.horizontalIntegral_tendsto_zero_of_bound
+#print axioms RHLean.Analysis.MertensExponent.verticalIntegral_eq_of_holomorphic_and_horizontal_limits
