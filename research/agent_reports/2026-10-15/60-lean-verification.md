@@ -149,3 +149,10 @@ After verifying the exact latest head, theorem scope, all workflows, axiom audit
 - Highest-value next analytic formalization question: a mathematically complete reverse Perron/Littlewood theorem with explicit vertical-line reciprocal-zeta bounds and truncation/error control. Do not encode the reverse as a hypothesis under another name.
 - Separately monitor referee-qualified exact raw tag/depth identities, but do not mistake their rearranged residual estimate for an independent `O(R log R)` bound.
 - The canonical `VFCanonicalSquareVonKochStatement`, finite A/C, CORR-4, genuine #915 payment, the reverse exponent theorem, `lambda_M=Theta`, and RH remain open.
+
+## Publication verification
+
+- Initial report commit: `d39b552121bb3e8fe9f36624a17d2fe9d42e7719`.
+- Initial report blob read back: `22c8f3d707ca4a082279cb847a4852c14b1032df`.
+- Readback verified the exact PR head, dedicated workflow run, theorem-scope classification, missing reverse implication, and next-run capsule.
+- Publication status: `COMPLETED`.
