@@ -1,6 +1,6 @@
 # RH_Lean research report — [DATE / ROLE]
 
-> TEMPLATE only. Copy into your own dated stage file. Scheduled agents do not modify this template. Read live main AGENTS, CURRENT_PROOF_CONTRACT, docs/FACTOR_DEPTH_RESEARCH_BRIEF and docs/DYNAMIC_RESEARCH_AGENTS first. Main authority, not this snapshot, determines current work.
+> TEMPLATE only. Copy into your own dated stage file. Scheduled agents do not modify this template. Read live main AGENTS, CURRENT_PROOF_CONTRACT, docs/FACTOR_DEPTH_RESEARCH_BRIEF and docs/DYNAMIC_RESEARCH_AGENTS first. For MU-LIFT also read main:docs/MERTENS_AMPLIFICATION_BUDGET.md when merged. Main authority, not this snapshot, determines current work.
 
 ## Provenance and actual execution
 
@@ -10,7 +10,7 @@
 - **Actual configured slot, if known:** [verified time or UNKNOWN; do not infer from filenames]
 - **Completion/publication state:** [IN_PROGRESS / PARTIAL / COMPLETED / NOT_PUBLISHED]
 - **Main HEAD:** [actual SHA]
-- **Authority read:** [AGENTS, CURRENT_PROOF_CONTRACT, live brief, dynamic protocol; blob SHAs and success/failure]
+- **Authority read:** [AGENTS, CURRENT_PROOF_CONTRACT, live brief, dynamic protocol and relevant amplification note; blob SHAs and success/failure]
 - **Relevant original sources:** [paths, blob SHAs, exact declarations and scope]
 - **Own previous capsule:** [path/blob/run ID, or NONE]
 - **Today handoffs:** [actual paths/blob SHAs/run timestamps/claim IDs, or TODAY=PENDING]
@@ -43,6 +43,22 @@
 - **Forward AND reverse strength audit:** [compiled arrows searched; TARGET_EQUIVALENT where applicable; stronger sufficient assumptions disclosed]
 - **Distinct rival/null explanation:** [different unpaid input and different prediction, or why the other lane was rejected/merged]
 - **Why this work changes the portfolio:** [not just a new notation, larger range or repeated local sign]
+
+### MU-LIFT normalized-loss record — when applicable
+
+Use the genuine `E(B)=max_(1<=n<B)|M(n)|/sqrt(n)`, not only a last-endpoint value.
+
+- **Scale power k and chain:** [fixed k>=2; B_(j+1)=B_j^k; eventual chain versus every-B scope]
+- **Final amplitude-budget power r:** [after taking any roots of energy inequalities; fixed r or proved uniform gap r<=k-eta]
+- **Proved/proposed gain G_j:** [all constants, dependence on scale/order, G_j>=1]
+- **Normalized cost g_j:** [log G_j/log B_j; proved asymptotic, finite diagnostic or OPEN]
+- **Covered interval and interpolation:** [all natural cutoffs in the new interval; full-prefix bridge; any still-missing coverage]
+- **Accumulated loss:** [normalized recurrence u_(j+1)<=(r/k)*u_j+g_j/k and applicable conditional consumer; do not assume its arithmetic premise]
+- **Independent arithmetic restriction:** [what beyond a generic bounded scalar prefix proves the signed estimate; retain complete floor weights/overlap/alternating families]
+- **Actual-gain equivalence audit:** [minimal actual gain is not an independently known subpower bound]
+- **Boundary controls:** [r=k, shrinking gap, sparse artificial prefix and finite guard failure; exact scope and disposition]
+
+Fixed subcritical r<k with subpower G is sufficient under the stated full-prefix hypotheses. Do not require constant/polylogarithmic gain, a tiny seed, or exact termwise cancellation. Conversely, exact support extension and a finite downward trend in g do not prove a uniform signed bound. A higher-order identity does not automatically extend a lower-order estimate to the larger interval.
 
 ## Complete-source and zero-target covariance audit
 
@@ -86,10 +102,11 @@ For a raw `L=T+H` calculation, display `L^2=T^2+H^2+2*T*H`, identify what each s
 - **Executed code/input/seed hashes and commands:** [...]
 - **What was NOT_RUN / untested:** [...]
 - **Why additional scale is justified:** [new regime/prediction/falsifier, not merely a larger maximum]
+- **MU-LIFT diagnostics, if used:** [complete-prefix maximizing locations, exact M(n)^2/n comparisons, normalized minimal gain for declared r; separate prefix-derived predictions, future-data checks and certified interval coverage]
 
 ## Mandatory scoped regressions
 
-Consult the current main brief, not a frozen list. For each relevant case record PASS / FAIL / REUSED / NOT_APPLICABLE / NOT_RUN and the exact source/carrier reason. Known controls include raw global cap-four failure, once-history grouped NNS sign reversal, repeated-history overload, complete factor-depth reconstruction, q>=R-only monotonicity, the sitewise Li coherent mode and finite-extension guard failure. A case on eligible ancestry is not automatically admitted to a later mask. Do not rerun unchanged large checks.
+Consult the current main brief and amplification note, not a frozen list. For each relevant case record PASS / FAIL / REUSED / NOT_APPLICABLE / NOT_RUN and the exact source/carrier reason. Known controls include raw global cap-four failure, once-history grouped NNS sign reversal, repeated-history overload, complete factor-depth reconstruction, q>=R-only monotonicity, the sitewise Li coherent mode, finite-extension guard failure, critical/vanishing-gap amplification countermodels and the sparse arbitrary-prefix control. Synthetic recurrence countermodels are not actual-Mertens counterexamples. A case on eligible ancestry is not automatically admitted to a later mask. Do not rerun unchanged large checks.
 
 ## Mechanism decision and downstream handoff
 
@@ -109,7 +126,7 @@ Consult the current main brief, not a frozen list. For each relevant case record
 - **Axiom footprint and acceptance declarations:** [...]
 - **CI state:** [PENDING / FAILED / GREEN; all results tied to the correct SHA]
 - **Repairs made / remaining blocker:** [...]
-- **Mathematics:** [unconditional/conditional/structural, exact premises still open]
+- **Mathematics:** [unconditional/conditional/structural, exact premises still open; a generic contraction theorem does not prove its arithmetic gain input]
 - **Repository state:** [DRAFT / REVIEW_READY / MERGED only if independently verified; human-only merge]
 - **No local Lean execution:** [actual compliance; missing local Lean is not a blocker when Actions is available]
 
@@ -127,7 +144,7 @@ Consult the current main brief, not a frozen list. For each relevant case record
 - Actual timestamp/run ID; source and authority SHAs.
 - Today AND yesterday plus external claims consumed; distinguish pending from carry-forward.
 - Verified results, regressions and code/CI evidence to reuse; dependency-specific invalidations.
-- Current mechanism decision and the next **independent** missing input.
+- Current mechanism decision and the next **independent** missing input; for MU-LIFT carry k/r/g/coverage and actual proof status.
 - Smallest decisive next test/proof/CI repair and exact outstanding blocker.
 - Agent #7 PR/head/run state; Coordinator mirror status.
 - Avoid unchanged scans, completed Mertens-coordinate work, no-op green CI and previously refuted unmodified mechanisms.
