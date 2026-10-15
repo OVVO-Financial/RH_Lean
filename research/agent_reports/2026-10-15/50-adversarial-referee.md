@@ -188,3 +188,9 @@ No reviewed claim proves the canonical endpoint bound or RH.
 - **First unresolved blocker:** an independent all-scale arithmetic estimate, either a genuine Mertens bound/reverse analytic theorem on the distinct route or a complete signed tag/depth residual estimate on the VF route.
 - **Avoid next run:** re-auditing unchanged #948, enlarging raw cap-four censuses, treating the tag identity as cancellation, or extending tail monotonicity below (R) without handling newly admitted (p<q) terms.
 - **No RH-proof claim:** yes.
+
+## Publication verification
+
+- Initial report commit: `7f7cb406129666ceeb8bd512af2031b0de1d18b4`.
+- Verified initial report blob: `3809ab7b881d56cce465d30050db90b2d4c7d0f4`.
+- Readback checks: PR verdict, all three referee claims, portfolio decisions, downstream handoff and resume capsule are present.
