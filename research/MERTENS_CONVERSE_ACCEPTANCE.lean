@@ -4,6 +4,7 @@ import «research.MERTENS_CONVERSE_ZETA_BOUNDS»
 import «research.MERTENS_CONVERSE_LOG_INTERPOLATION»
 import «research.MERTENS_CONVERSE_SUBPOWER»
 import «research.MERTENS_CONVERSE_CONTOUR»
+import «research.MERTENS_CONVERSE_MELLIN_DECAY»
 
 /-! Exact signatures and kernel dependencies for the converse development. -/
 
@@ -36,3 +37,7 @@ example {a σ η : ℝ} (ha : 0 ≤ a) (haσ : a < σ) (hσ : σ < 1)
 #print axioms RHLean.Analysis.MertensExponent.regularizedReciprocal_subpower_of_strip
 #print axioms RHLean.Analysis.MertensExponent.horizontalIntegral_tendsto_zero_of_bound
 #print axioms RHLean.Analysis.MertensExponent.verticalIntegral_eq_of_holomorphic_and_horizontal_limits
+#print axioms RHLean.Analysis.MertensExponent.mellin_compactSupport_bounded_positive_strip
+#print axioms RHLean.Analysis.MertensExponent.smoothingMellin_simple_decay
+#print axioms RHLean.Analysis.MertensExponent.interpolate_simple_and_quadratic_decay
+#print axioms RHLean.Analysis.MertensExponent.smoothingMellin_fractional_decay

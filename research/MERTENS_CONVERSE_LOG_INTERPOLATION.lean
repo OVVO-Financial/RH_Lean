@@ -52,6 +52,7 @@ theorem reciprocal_stretchedLog_of_local_data
   have hθ : θ ∈ Set.Ioo (0 : ℝ) 1 :=
     threeCircle_exponent_mem_Ioo (by norm_num) hr hr₁
   let A₀ : ℝ := (2 * R₁ / (R₂ - R₁)) * (D + K + 1)
+  have hgap : 0 < R₂ - R₁ := sub_pos.mpr h12
   have hA₀ : 0 < A₀ := by dsimp [A₀]; positivity
   let H : ℝ := A₀ + 1
   have hH : 1 ≤ H := by dsimp [H]; linarith
@@ -67,8 +68,6 @@ theorem reciprocal_stretchedLog_of_local_data
   have hTpos : 0 < T := by
     by_contra hnot
     have hnonpos : T ≤ 0 := le_of_not_gt hnot
-    -- In applications T is positive. A nonpositive T is excluded directly
-    -- by the positive norm at the center and the outer norm bound.
     have hF0 : F 0 ≠ 0 := hne 0 (by simpa using hR30.le)
     have hout0 := houter 0 (by simpa using hR20.le)
     have hprod : D * T ≤ 0 := mul_nonpos_of_nonneg_of_nonpos hD0.le hnonpos
