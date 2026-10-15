@@ -628,12 +628,12 @@ bidirectional no-narrowing screen.
 
 ### Final authority and evidence refresh
 
-- **Run ID:** \`RH-OWNER-20261014-204304-EDT\`; scheduled invocation begun at 20:43:04 EDT.
-- **Calendar continuity:** Eastern date \`2026-10-14\`; \`2026-10-13\` Owner report blob \`32f1574b8ade7dedc602b07b1b9257341320080a\` is \`YESTERDAY=CARRY_FORWARD\`.
-- **Final authority:** \`main\` remained \`8fff3dbd6db8cfd84e6806789c4b1f7b4e475db5\`; \`AGENTS.md\` blob \`04b72000ee47585344b68b42bf098937d697e7d2\`; \`CURRENT_PROOF_CONTRACT.md\` blob \`c672b561fdcf08b53af0d555eff16fd8b68acde0\`.
-- **Live PR state:** no open or draft PRs. PRs #941--#944 are merged into \`main\`; #945 is merged only into \`agent-reports\`.
-- **Reports/handoffs consumed:** Coordinator PM blob \`bf05965ed6adcac8ee9ae7d6066e047485baf945\`; Analytic Type II blob \`b8ee78df90d9fccb4b1201c933720a70300d9d51\`; Prime Census blob \`5cfe80753bbfa0374da9eace00b3a137aeaf43b8\`; Adversarial Referee blob \`d4e0a25917843660a8010bc88558b73eb8d243ee\`; Lean Verification blob \`d6b39eee3a942f3c655d44c1c11e7f6433df9a68\`; external inbox blob \`6fce4e9d024b6c4ad47798c5d7c162101a2435a0\`. Relevant external claims \`EXT-20261014-2/-3/-5\` and \`CL-20261014-1..7\` were consumed with their reported scopes; no paper claim was upgraded to Lean.
-- **Original source inspected:** \`VF_MID_OWNER_SIGNED_PAIR_BOUNDS.lean\` blob \`e3cc17224469e24516390a8f20e590d5932dbfc1\`; \`VF_MID_SAME_TAG_SHARP_PACKET.lean\` blob \`134163c9d752ee767f2c4971da46cba2c1a58fff\`; \`VF_MID_SAME_TAG_FINITE_CERTIFICATES.lean\` on current main. The compiled baseline includes the literal charge definition, negative isolated pair theorem, exact residual cross-term identity, four-owner cap, once-only linear packet, and the prime/root witness below.
+- **Run ID:** `RH-OWNER-20261014-204304-EDT`; scheduled invocation begun at 20:43:04 EDT.
+- **Calendar continuity:** Eastern date `2026-10-14`; `2026-10-13` Owner report blob `32f1574b8ade7dedc602b07b1b9257341320080a` is `YESTERDAY=CARRY_FORWARD`.
+- **Final authority:** `main` remained `8fff3dbd6db8cfd84e6806789c4b1f7b4e475db5`; `AGENTS.md` blob `04b72000ee47585344b68b42bf098937d697e7d2`; `CURRENT_PROOF_CONTRACT.md` blob `c672b561fdcf08b53af0d555eff16fd8b68acde0`.
+- **Live PR state:** no open or draft PRs. PRs #941--#944 are merged into `main`; #945 is merged only into `agent-reports`.
+- **Reports/handoffs consumed:** Coordinator PM blob `bf05965ed6adcac8ee9ae7d6066e047485baf945`; Analytic Type II blob `b8ee78df90d9fccb4b1201c933720a70300d9d51`; Prime Census blob `5cfe80753bbfa0374da9eace00b3a137aeaf43b8`; Adversarial Referee blob `d4e0a25917843660a8010bc88558b73eb8d243ee`; Lean Verification blob `d6b39eee3a942f3c655d44c1c11e7f6433df9a68`; external inbox blob `6fce4e9d024b6c4ad47798c5d7c162101a2435a0`. Relevant external claims `EXT-20261014-2/-3/-5` and `CL-20261014-1..7` were consumed with their reported scopes; no paper claim was upgraded to Lean.
+- **Original source inspected:** `VF_MID_OWNER_SIGNED_PAIR_BOUNDS.lean` blob `e3cc17224469e24516390a8f20e590d5932dbfc1`; `VF_MID_SAME_TAG_SHARP_PACKET.lean` blob `134163c9d752ee767f2c4971da46cba2c1a58fff`; `VF_MID_SAME_TAG_FINITE_CERTIFICATES.lean` on current main. The compiled baseline includes the literal charge definition, negative isolated pair theorem, exact residual cross-term identity, four-owner cap, once-only linear packet, and the prime/root witness below.
 
 ### Exact mathematical statement investigated
 
@@ -676,7 +676,7 @@ H(W,y)>0
 (3-2\sqrt2)y<W<(3+2\sqrt2)y.
 \]
 
-Thus negative isolated NNS slack is not monotone under restoration of same-tag positive current mass. The omitted interaction is positive whenever \(0<V<6y-2U\), and it can reverse the local sign. This is the specialization of the compiled global polarization theorem \`vfMidNNS_pair_add_cross_terms\` to a same-tag positive residual \((M_0,S_0)=(V,V)\); it does not alter any coefficient or clone the historical occurrence.
+Thus negative isolated NNS slack is not monotone under restoration of same-tag positive current mass. The omitted interaction is positive whenever \(0<V<6y-2U\), and it can reverse the local sign. This is the specialization of the compiled global polarization theorem `vfMidNNS_pair_add_cross_terms` to a same-tag positive residual \((M_0,S_0)=(V,V)\); it does not alter any coefficient or clone the historical occurrence.
 
 ### Claim 20261014-owner-8 — two genuine descendants reverse two negative isolated slacks
 
@@ -697,7 +697,7 @@ and the two genuine prime owners \(p=3,5\). Current main certifies
 
 with both products strictly inside their open square blocks. Moreover
 \(5882\ge1024\cdot3\) and \(7594\ge1024\cdot5\). Therefore the compiled theorem
-\`vfMidSmallOwner_isolated_NNS_slack_lt\` applies separately and gives
+`vfMidSmallOwner_isolated_NNS_slack_lt` applies separately and gives
 
 \[
 H(x_3,y)<-\frac{541}{409600},
@@ -736,7 +736,7 @@ No historical charge is duplicated: the group contains two actual current occurr
 
 ### Executed numerical check
 
-A CPython 3.12 \`decimal\` computation at 60-digit precision evaluated the literal midpoint-log weights:
+A CPython 3.12 `decimal` computation at 60-digit precision evaluated the literal midpoint-log weights:
 
 - \(y=0.876988237358820963352258284059\ldots\);
 - \(x_3=0.115220655970141289792444166759\ldots\), with isolated \(H=-0.1761012081084334\ldots\);
@@ -770,15 +770,15 @@ For completeness, adding the certified owners \(7\) and \(11\) gives grouped val
 
 ### Final status and next-run resume capsule
 
-- **Strongest new result:** \`20261014-owner-8\`, a \`PAPER_PROOF\` genuine-prime two-descendant reversal of negative isolated NNS slacks.
-- **Structural identity:** \`20261014-owner-7\`, exact residual polarization and sign thresholds.
-- **Production target:** \`NO_NEW_RESULT\`; no complete-source signed estimate and no RH claim.
+- **Strongest new result:** `20261014-owner-8`, a `PAPER_PROOF` genuine-prime two-descendant reversal of negative isolated NNS slacks.
+- **Structural identity:** `20261014-owner-7`, exact residual polarization and sign thresholds.
+- **Production target:** `NO_NEW_RESULT`; no complete-source signed estimate and no RH claim.
 - **Next action:** construct the exact admitted-tag source ledger and test its grouped per-tag \(H\) plus cross-tag/anchor/restoration terms; preserve the two-owner reversal and 111-descendant overload as mandatory adversarial cases.
 - **Avoid:** cloning one historical \(q\), summing isolated pair inequalities, treating linear signed negativity as quadratic payment, or dropping the residual polarization.
 
 
 ### Publication verification
 
-- **Substantive report commit:** \`7f9cf075658f4302b4a844b7ff88c02fa5639b7e\`.
-- **Verified readback blob:** \`0c931e6443330c4954b62bd4cdc577ab39e344f2\`; Claims \`20261014-owner-7/-8\`, the rational bound, executed decimals, limitations and resume capsule were present.
-- **Publication status:** \`COMPLETED\` on explicit branch \`agent-reports\`.
+- **Substantive report commit:** `7f9cf075658f4302b4a844b7ff88c02fa5639b7e`.
+- **Verified readback blob:** `0c931e6443330c4954b62bd4cdc577ab39e344f2`; Claims `20261014-owner-7/-8`, the rational bound, executed decimals, limitations and resume capsule were present.
+- **Publication status:** `COMPLETED` on explicit branch `agent-reports`.
