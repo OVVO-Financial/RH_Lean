@@ -64,7 +64,8 @@ theorem heathBrownLift_eq_geometric (a : ArithmeticFunction Int) (k : Nat) :
   | zero => simp [heathBrownLift]
   | succ k ih =>
     rw [heathBrownLift, ih, Finset.sum_range_succ']
-    simp only [pow_zero, mul_add, mul_one, pow_succ, Finset.sum_mul]
+    simp only [pow_zero, pow_succ']
+    rw [← Finset.mul_sum]
     ring
 
 /-- The previous Newton map is exactly the second-order signed lift. -/
@@ -114,7 +115,7 @@ theorem convolution_pow_zero_below {B : Nat} {f : ArithmeticFunction Int}
     (hf : forall n : Nat, n < B -> f n = 0) (k : Nat) :
     forall n : Nat, n < B ^ k -> (f ^ k) n = 0 := by
   induction k with
-  | zero => simpa using arithmetic_zero_below_one (1 : ArithmeticFunction Int)
+  | zero => simp
   | succ k ih =>
     intro n hn
     rw [pow_succ]
