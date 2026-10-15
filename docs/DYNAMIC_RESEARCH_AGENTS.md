@@ -22,7 +22,7 @@ These are *expertise*, not permanently assigned PRs, dates, theorem IDs, model c
 
 ## Daily scientific method
 
-1. **Refresh facts and authority:** read live main HEAD, ``AGENTS.md` and ``CURRENT_PROOF_CONTRACT.md`, original relevant Lean source, current PR/CI; read both today and preceding calendar day's actual dated stage reports on `agent-reports` and new `EXTERNAL_HANDOFFS.md` entries. Evidence from yesterday is `YESTERDAY=CARRY_FORWARD`, not today's completed stage.
+1. **Refresh facts and authority:** read live main HEAD, `AGENTS.md` and `CURRENT_PROOF_CONTRACT.md`, original relevant Lean source, current PR/CI; read both today and preceding calendar day's actual dated stage reports on `agent-reports` and new `EXTERNAL_HANDOFFS.md` entries. Evidence from yesterday is `YESTERDAY=CARRY_FORWARD`, not today's completed stage.
 2. **Locate the independent mathematical gap:** exact identity, input to be bounded, original carrier, consumer statement, and both directions of suspected target equivalence. Do not mistake a conditional theorem or new naming convention for new mathematics.
 3. **Compare mechanisms:** maintain roughly 2–3 *truly different* candidate routes when warranted. Suggested families: signed arithmetic invariant; an inverse forbidden configuration theorem; a joint nonlocal kernel/covariance theorem. Finite A/C and CORR-4 are possible distinct alternatives. No route quota is mandatory.
 4. **Attack rather than merely extend:** each research agent should attempt a substantive original hypothesis, mathematical proof, counterexample or corrective obstruction when tools permit. Prefer decisive falsification to a large new unmotivated finite census.
