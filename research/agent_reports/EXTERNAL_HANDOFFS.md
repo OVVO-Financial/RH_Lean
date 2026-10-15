@@ -8,6 +8,8 @@ After refreshing live `main:AGENTS.md`, `main:CURRENT_PROOF_CONTRACT.md`, actual
 
 If a handoff is stale, superseded, refuted, formalized, or irrelevant to your specialty, record the reason in **your own** scheduled report with live references. Do not erase research history. Future direct sessions explicitly authorized to publish may add new dated files under `external/YYYY-MM-DD/` and append an index entry here, without modifying existing specialist reports or `main`. Existing specialist agents keep their normal write restrictions.
 
+**Dynamic portfolio intake:** Evaluate new external claims as candidate independent mathematical inputs, counterexamples, exact structural results, or refinements of an existing route. The Proof Architect may nominate a genuinely distinct mechanism only with its actual arithmetic carrier, quantified statement, independent proof ingredient, no-narrowing audit and decisive falsification. No external handoff automatically becomes a team-wide mandatory research campaign. Continue to distinguish accepted paper work, finite evidence, conjecture, formal proof/CI and archived history.
+
 ## Open handoffs
 
 ### 2026-10-14 — Direct seven-function RH_Lean cycle
