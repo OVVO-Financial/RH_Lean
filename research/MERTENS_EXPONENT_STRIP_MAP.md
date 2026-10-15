@@ -28,8 +28,20 @@ exponent. For every `a >= 0`, the envelope module proves
 MertensGrowthAtMost a <-> mertensGrowthExponent <= a.
 ```
 
-No bound at the exact infimum is asserted. The equivalence with the
-logarithmic-limsup definition is not formalized in this PR.
+No bound at the exact infimum is asserted.
+
+The logarithmic module proves the exact **integer-scale** identification
+
+```text
+limsup_{n -> infinity} log(max(1, norm(M n))) / log(n)
+  = mertensGrowthExponent.
+```
+
+This is not a definition through zeta zeros. It follows from the actual
+arithmetic linear bound, monotonicity of logarithms, absorption of a constant
+by any positive exponent increase, and absorption of a finite initial segment
+into the multiplicative constant. A separate real-variable limsup theorem for
+the floor-step function is not included; the implemented limsup runs over n.
 
 ## Forward analytic chain
 
@@ -51,7 +63,8 @@ MertensGrowthAtMost a ->
 
 `strip_at_growthExponent` proves both walls for the independently defined
 arithmetic infimum itself, without an endpoint-attainment assumption.
-The left-zero contrapositive explicitly uses the opposite exponent
+`strip_at_logLimsup` expresses the same enclosure using the literal logarithmic
+limsup. The left-zero contrapositive explicitly uses the opposite exponent
 `1 - Re(rho)`, not `Re(rho)`.
 
 ## Independent zeta coordinate
@@ -102,8 +115,8 @@ is not assumed, exported as a theorem, or hidden in a typeclass. Consequently
 `mertensGrowthExponent = zetaRightmostRealPart` is **not** a result of this PR.
 The remaining analytic work is reciprocal-zeta control on interior vertical
 lines of a zero-free region and an appropriately quantified inversion argument.
-The logarithmic-limsup identification is also separate. No unconditional
-seven-eighths estimate or numerical existence of a zeta zero is newly claimed.
+No unconditional seven-eighths estimate or numerical existence of a zeta zero
+is newly claimed.
 
 ## Verification and source map
 
@@ -112,7 +125,8 @@ seven-eighths estimate or numerical existence of a zeta zero is newly claimed.
   analytic continuation, reflection, pointwise map and contrapositives.
 - `MERTENS_EXPONENT_DIAGNOSTICS.lean`: exact finite witness and independent zero
   supremum coordinate.
-- `MERTENS_EXPONENT_STRIP_ACCEPTANCE.lean`: exact signatures and 22 kernel axiom
+- `MERTENS_EXPONENT_LOG_LIMSUP.lean`: exact integer logarithmic-limsup coordinate.
+- `MERTENS_EXPONENT_STRIP_ACCEPTANCE.lean`: exact signatures and 24 kernel axiom
   printouts, checked by the dedicated workflow.
 
 Actions compiles the complete import closure using

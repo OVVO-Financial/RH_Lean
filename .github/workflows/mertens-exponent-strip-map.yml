@@ -60,7 +60,7 @@ jobs:
           text = pathlib.Path('mertens-exponent-axioms.log').read_text()
           rows = re.findall(r"'([^']+)' depends on axioms:\s*\[([^\]]*)\]", text)
           expected = re.findall(r'^#print axioms (\S+)', pathlib.Path('research/MERTENS_EXPONENT_STRIP_ACCEPTANCE.lean').read_text(), re.M)
-          assert len(expected) == 22, expected
+          assert len(expected) == 24, expected
           assert {name for name, _ in rows} == set(expected), (rows, expected)
           allowed = {'propext', 'Classical.choice', 'Quot.sound'}
           for name, axioms in rows:

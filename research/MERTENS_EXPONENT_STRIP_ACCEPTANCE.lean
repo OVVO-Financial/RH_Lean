@@ -1,4 +1,4 @@
-import «research.MERTENS_EXPONENT_DIAGNOSTICS»
+import «research.MERTENS_EXPONENT_LOG_LIMSUP»
 
 /-! Acceptance imports the original arithmetic carrier and the complete forward
 analytic proof. There is no assumed converse or exponent-to-zero equivalence. -/
@@ -40,6 +40,11 @@ example (hne : ∃ ρ : ℂ, NontrivialZetaZero ρ) :
     zetaRightmostRealPart ≤ mertensGrowthExponent := rightmost_le_growthExponent hne
 example (a : ℝ) (hne : ∃ ρ : ℂ, NontrivialZetaZero ρ) :
     ZerosInSymmetricStrip a ↔ zetaRightmostRealPart ≤ a := strip_iff_rightmost_le a hne
+example : Filter.limsup mertensLogSlope Filter.atTop = mertensGrowthExponent :=
+  logLimsup_eq_growthExponent
+example {ρ : ℂ} (hρ : NontrivialZetaZero ρ) :
+    1 - Filter.limsup mertensLogSlope Filter.atTop ≤ ρ.re ∧
+    ρ.re ≤ Filter.limsup mertensLogSlope Filter.atTop := strip_at_logLimsup ρ hρ
 
 #print axioms RHLean.Analysis.MertensExponent.mertens_norm_le
 #print axioms RHLean.Analysis.MertensExponent.powerBound_one
@@ -63,3 +68,5 @@ example (a : ℝ) (hne : ∃ ρ : ℂ, NontrivialZetaZero ρ) :
 #print axioms RHLean.Analysis.MertensExponent.zero_re_le_rightmost
 #print axioms RHLean.Analysis.MertensExponent.rightmost_le_growthExponent
 #print axioms RHLean.Analysis.MertensExponent.strip_iff_rightmost_le
+#print axioms RHLean.Analysis.MertensExponent.logLimsup_eq_growthExponent
+#print axioms RHLean.Analysis.MertensExponent.strip_at_logLimsup

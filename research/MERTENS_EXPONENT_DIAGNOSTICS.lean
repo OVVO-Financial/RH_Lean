@@ -32,7 +32,8 @@ theorem unit_horizontal_envelope_fails :
     ¬ (∀ n : ℕ, 1 ≤ n → ‖mertensSummatory n‖ ≤ Real.rpow (n : ℝ) 0) := by
   intro h
   have h5 := h 5 (by norm_num)
-  norm_num [mertens_five] at h5
+  rw [mertens_five] at h5
+  norm_num at h5
 
 /-- Every finite prefix has a constant envelope, so a census alone cannot
 refute a global existential-constant statement. -/
