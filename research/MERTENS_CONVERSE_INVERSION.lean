@@ -82,7 +82,9 @@ theorem smoothedMobius_bound_of_strip
     intro t
     have hd := regularizedSmoothedIntegrand_differentiableAt ha hstrip hdiff hsupp
       hnonneg hmass hε hε1 hX (s := (u : ℂ) + t * I) (by simpa using hau)
-    exact hd.continuousAt.comp (by fun_prop)
+    have hpath : ContinuousAt (fun v : ℝ => (u : ℂ) + (v : ℂ) * I) t := by
+      fun_prop
+    exact hd.continuousAt.comp hpath
   have hil : Integrable (fun t : ℝ => f ((σ : ℂ) + t * I)) :=
     integrable_vertical_of_heightBound hq (hlineContinuous σ haσ)
       (hlineBound σ le_rfl (by linarith))
