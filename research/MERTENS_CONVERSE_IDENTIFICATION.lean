@@ -54,7 +54,9 @@ theorem powerBound_of_strip_interior
   refine ⟨B, hB, ?_⟩
   intro n hn
   let X : ℝ := n
-  have hX1 : 1 ≤ X := by exact_mod_cast hn
+  have hX1 : 1 ≤ X := by
+    change (1 : ℝ) ≤ (n : ℝ)
+    exact_mod_cast hn
   have hX : 0 < X := zero_lt_one.trans_le hX1
   have hXp : 1 ≤ X ^ (σ + q) := Real.one_le_rpow hX1 hexponent
   have hXp0 : 0 ≤ X ^ (σ + q) := Real.rpow_nonneg hX.le _
