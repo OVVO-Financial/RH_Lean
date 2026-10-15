@@ -687,3 +687,24 @@ tag capacity or cloned history is false.
   (d(q))-versus-(a(q)) source census before proposing any aggregate
   inequality.
 - **No RH-proof claim:** yes.
+
+
+---
+
+## Third analytic run checkpoint — 2026-10-14T22:28:35-04:00
+
+### Provenance and live assignment
+
+- **Run ID:** `RH-ANALYTIC-20261014T222600-0400`.
+- **Invocation:** scheduled; actual platform invocation 2026-10-14T22:26:00-04:00.
+- **Status:** `IN_PROGRESS`.
+- **Current `main` HEAD:** `8fff3dbd6db8cfd84e6806789c4b1f7b4e475db5` (PR #944 merged).
+- **Authority blobs:** `AGENTS.md` `04b72000ee47585344b68b42bf098937d697e7d2`; `CURRENT_PROOF_CONTRACT.md` `c672b561fdcf08b53af0d555eff16fd8b68acde0`.
+- **Existing report revision consumed:** blob `b8ee78df90d9fccb4b1201c933720a70300d9d51`; APPEND mode preserves Claims `20261014-analytic-1..5`.
+- **Two-day continuity:** today's mirrored Coordinator synthesis blob `bf05965ed6adcac8ee9ae7d6066e047485baf945` consumed once; previous-day own blob `d9f73a0aab42e70ca30a17d16822a8281ca7afef` and Coordinator PM blob `aab612c387de93a777c696bc54be128b210cb8b8` read (`YESTERDAY=CARRY_FORWARD`).
+- **External inbox:** blob `6fce4e9d024b6c4ad47798c5d7c162101a2435a0` consumed; no newer indexed external handoff was found.
+- **PR state:** live search confirms #938, #939 and #941--#944 merged; relevant open/draft PR search found no replacement theorem branch.
+- **Current objective:** derive or falsify an independently justified signed genuine-prime arithmetic replacement for the continuous-Li absolute collision budget, on the complete physical forcing/ancestry carrier, while preserving the sole public goal `VFCanonicalSquareVonKochStatement`.
+- **First precise task:** crosswalk the compiled Li hard-core collision coefficients against the actual-prime/floor-Li forcing coefficients; isolate the diagonal and coherent modes that survive before absolute values, quantify the unavoidable cutoff growth, and determine whether any exact Abel/bilinear regrouping yields information beyond the already compiled transport identities.
+- **Known blocker:** `sum_{p prime} 1/p` rules out the direct absolute quadratic transfer; Claims `analytic-4/-5` also show a same-sign repeated-tag fibre with unbounded current mass. A valid replacement must exploit a joint arithmetic restriction across tags, masks and cross terms.
+- **No result claimed at checkpoint:** no all-scale signed estimate, canonical endpoint bound, finite A/C, CORR-4 or RH result has been established.
