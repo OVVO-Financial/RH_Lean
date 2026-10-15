@@ -8,9 +8,23 @@ SIGNED arithmetic route is still canonical; finite A/C and CORR-4 remain
 sufficient alternatives. RH/finite A/finite C and the genuine signed
 first-bad payment are OPEN.
 
-## 2026-10-14 active campaign: transfer the LI MODEL MECHANISM, not its assumed bound
+## 2026-10-14 active research strategy: competing independent mathematical mechanisms
 
-**Binding research priority until expressly replaced by the user:** study what *actually* cancels in continuous Li's hard-core/Poisson model, and derive or refute an independent **signed genuine-prime arithmetic replacement** for its nontransferable absolute collision estimate. All seven roles consume this priority through `main:AGENTS.md` and the role-aware live-routing protocol. This campaign does **not** change the unique public target or import a new sufficient assumption into the proof.
+**Binding strategy until expressly changed by the user:** pursue genuinely new, independently justified mathematics capable of proving the **unchanged** `VFCanonicalSquareVonKochStatement`. The previous signed actual-prime versus continuous/floor-Li collision-transfer campaign is one research lane, **not** the compulsory organizing hypothesis of all seven specialties. Follow the stable roles and dynamic portfolio rules in `AGENTS.md` and [Dynamic Research Agents](docs/DYNAMIC_RESEARCH_AGENTS.md). Neither the canonical VF, frozen legacy arithmetic nor established Lean theorem statements are changed. No proposed independent estimate is asserted true by this policy.
+
+**Candidate families, not proved claims:**
+- **Arithmetic invariant / conservation:** genuine sign-preserving involution, factor-ancestry restriction, conservation or telescoping with an independently proved useful estimate.
+- **Inverse theorem / structural obstruction:** bound failure implies a precisely defined exceptional arithmetic configuration, with an independent theorem excluding or controlling it.
+- **Nonlocal response-weighted / joint covariance:** exact occurrence-preserving mapping of actual prime forcing and original physical NNS source to a complete kernel or joint signed expression, followed by a new uniformly quantified bound including all mixed interactions.
+- **Existing sufficient alternatives:** finite A/C and CORR-4 remain mathematically unproved but eligible when their independent missing inputs genuinely differ.
+
+The Coordinator should evaluate about 2–3 independent candidates when warranted, without inventing filler routes. Every candidate needs its original carrier, precise theorem/quantifiers/constants, independent input, exact consumer arrow, forward/reverse target-equivalence audit, hardest counterexample, decisive next test, and reason to CONTINUE / REVISE / SUSPEND / REJECT. Specialists pursue conceptual discoveries, experiments and no-go/repair theorems within the live contract. Mathematical integrity, first-six report-only permissions, Agent #7 scoped proof branches, and human-only merge remain binding.
+
+### Former Li-collision campaign: exact distinctions retained for any use of this lane
+
+The following model/source distinctions remain essential but are not an instruction to spend every agent execution on this one mechanism.
+
+### Three levels that cannot be conflated
 
 ### Three levels that cannot be conflated
 
@@ -26,7 +40,7 @@ first-bad payment are OPEN.
 - Historical tag results #941–#943 (including sharp 1024 owner root spacing, four-owner cap in 6144, and one-history negative local packet) are compiled *local restrictions*. Within longer runs tag multiplicity and cumulative current weight can be unbounded. Their finite numerical witnesses and paper-level weighted asymptotics are not independent all-scale source cancellation; #943's 34-bit prime sharpness witness retains an explicit primality premise in Lean.
 - The candidate must have: full quantifiers, checked original-carrier transport, independently justified new arithmetic restriction, explicit sign/moment/coherent-mode estimate **before** absolute values, reproduction/falsification at real prime cutoffs, and exact consumer implication. A complete exact new ledger counts as **structural** progress; only a proved signed all-scale inequality with useful strength counts as **quantitative** progress. Conditional conclusions preserve their hypotheses. Never promote numerical evidence or rename the sought RH bound.
 - Existing source map: `research/EXACT_LI_PURE_MODEL_CLOSURE.lean`, `research/LI_FLOOR_PRIME_COUNT_FANTASY.lean`, `research/FOUR_FANTASY_PROXY_RH_CLOSURES.lean`, `research/VF_MID_FLOOR_LI_CRITICAL_BALANCE.lean`, `research/VF_MID_FLOOR_LI_TRANSPORT_CANCELLATION.lean`, `research/VF_MID_915_FLOOR_LI_TRANSPORT_BOUNDARY.lean`, `research/VF_MID_915_PRIME_INTERVAL_LI_STRATIFICATION.lean`, `research/VF_MID_HISTORICAL_PRIME_MULTIPLICITY.lean`, `research/VF_MID_OWNER_SIGNED_PAIR_BOUNDS.lean`, `research/VF_MID_SAME_TAG_SHARP_PACKET.lean` and `research/VF_MID_SAME_TAG_DYADIC_FIBRE.lean`.
-- The first deliverable is a **mechanism crosswalk and falsifiable physical signed-collision ledger**, not a pre-asserted RH theorem. The seven roles divide its incidence, analytic, finite, referee and Lean verification components as directed in `AGENTS.md`.
+- **For the Li-collision route**, a useful structural next result remains an exact physical signed-collision/forcing ledger, followed by a separately proved global bound; do not pre-assert closure. **For any different research route**, state the distinct independently justified mathematical theorem and exact source-to-canonical implication. The seven agents work dynamically as directed in current `AGENTS.md` and the dynamic research protocol.
 
 ### Actual merged-state correction and historical notes
 
