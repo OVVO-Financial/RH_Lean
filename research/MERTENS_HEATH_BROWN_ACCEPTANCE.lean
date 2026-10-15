@@ -24,6 +24,15 @@ example (f g : ArithmeticFunction Int) (X : Nat) :
     Finset.sum (Finset.range (X + 1)) (fun n => (f * g) n) =
       signedHyperbola f g X := convolution_sum_eq_signedHyperbola f g X
 
+example (f g : ArithmeticFunction Int) {X U V : Nat}
+    (hU : U <= X) (hV : V <= X) (hUV : U * V <= X)
+    (hcover : X < (U + 1) * (V + 1)) :
+    Finset.sum (Finset.range (X + 1)) (fun n => (f * g) n) =
+      Finset.sum (Finset.Icc 1 U) (fun i => f i * Finset.sum (Finset.Icc 1 (X / i)) g) +
+      Finset.sum (Finset.Icc 1 V) (fun j => g j * Finset.sum (Finset.Icc 1 (X / j)) f) -
+      (Finset.sum (Finset.Icc 1 U) f) * (Finset.sum (Finset.Icc 1 V) g) :=
+  convolution_sum_hyperbola f g hU hV hUV hcover
+
 example : inverseDefect (mobiusPrefix 10) 11 * inverseDefect (mobiusPrefix 10) 13 = 1 :=
   fresh_prime_defect_product (by norm_num) (by norm_num) (by norm_num)
     (by norm_num) (by norm_num)
@@ -46,3 +55,7 @@ example : inverseDefect (mobiusPrefix 10) 11 * inverseDefect (mobiusPrefix 10) 1
 #print axioms RHLean.Analysis.MertensFiniteExtension.hyperbola_overlap_sum
 #print axioms RHLean.Analysis.MertensFiniteExtension.signedHyperbola_split
 #print axioms RHLean.Analysis.MertensFiniteExtension.convolution_sum_eq_signedHyperbola
+#print axioms RHLean.Analysis.MertensFiniteExtension.leftHyperbola_eq_prefixSums
+#print axioms RHLean.Analysis.MertensFiniteExtension.rightHyperbola_eq_leftSwap
+#print axioms RHLean.Analysis.MertensFiniteExtension.signedHyperbola_split_prefixSums
+#print axioms RHLean.Analysis.MertensFiniteExtension.convolution_sum_hyperbola
