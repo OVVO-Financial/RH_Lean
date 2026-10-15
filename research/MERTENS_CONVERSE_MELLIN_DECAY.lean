@@ -42,10 +42,11 @@ theorem mellin_compactSupport_bounded_positive_strip {ν : ℝ → ℝ}
     intro x hx
     have hxpos : 0 < x := by linarith [hx.1]
     have hxpow : x ^ s.re ≤ 4 := by
-      have h := (Real.rpow_le_rpow hxpos.le hx.2 hs0).trans
-        (Real.rpow_le_rpow_of_exponent_le (by norm_num : (1 : ℝ) ≤ 2) hs2)
-      norm_num only [Real.rpow_two] at h
-      exact h
+      calc
+        x ^ s.re ≤ (2 : ℝ) ^ s.re := Real.rpow_le_rpow hxpos.le hx.2 hs0
+        _ ≤ (2 : ℝ) ^ (2 : ℝ) :=
+          Real.rpow_le_rpow_of_exponent_le (by norm_num : (1 : ℝ) ≤ 2) hs2
+        _ = 4 := by norm_num
     have hpow : x ^ (s.re - 1) ≤ 8 := by
       rw [Real.rpow_sub hxpos, Real.rpow_one]
       apply (div_le_iff₀ hxpos).mpr
