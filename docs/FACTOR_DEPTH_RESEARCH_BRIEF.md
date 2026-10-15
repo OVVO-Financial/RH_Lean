@@ -1,6 +1,6 @@
 # Live research brief: factor-depth coupling and independent amplification
 
-**Revision: 2026-10-15. Baseline inspected: `main@df353c9d40c660cc247bd2fdb96c536c74b04fe3`.** Read this file from current main every invocation, after [AGENTS.md](../AGENTS.md) and [CURRENT_PROOF_CONTRACT.md](../CURRENT_PROOF_CONTRACT.md). The target and permissions are unchanged. The candidates below are research hypotheses, not asserted new bounds.
+**Revision: 2026-10-15. Baseline inspected: `main@c0bf6261b5e78aa0ec03967a86691987842b80eb` (merged #954).** Read this file from current main every invocation, after [AGENTS.md](../AGENTS.md) and [CURRENT_PROOF_CONTRACT.md](../CURRENT_PROOF_CONTRACT.md). The target and permissions are unchanged. The candidates below are research hypotheses, not asserted new bounds. MU-LIFT work also reads the [subpower amplification budget](MERTENS_AMPLIFICATION_BUDGET.md).
 
 ## 1. What the overnight cycle actually changed
 
@@ -55,15 +55,17 @@ Wheel and Referee should separate the two theorems: (i) imbalance implies a name
 
 ### MU-LIFT: genuine finite-prefix signed amplification
 
-**Distinct current baseline:** [MERTENS_FINITE_PREFIX_EXTENSION.lean](../research/MERTENS_FINITE_PREFIX_EXTENSION.lean) already proves exact support extension using `T(a)=2a-a*a*zetaInt` and `D(T(a))=D(a)*D(a)`. The extension agrees with genuine mu below B^2 when the input agrees below B. It does not prove norm contraction.
+**Distinct current baseline:** [MERTENS_FINITE_PREFIX_EXTENSION.lean](../research/MERTENS_FINITE_PREFIX_EXTENSION.lean) proves the genuine Newton support extension B -> B^2. Merged #954 adds [higher-order signed lifts](../research/MERTENS_HEATH_BROWN_SIGNED.lean), exact B -> B^k coefficient reconstruction, and the [complete signed hyperbola bridge](../research/MERTENS_SIGNED_HYPERBOLA.lean). Neither support extension nor reindexing bounds the remaining signed summatory gain.
 
-Analytic should investigate an independently defined **signed summatory gain or certificate class**, its exact transition under T, all boundary errors and uniform dependence on the scale. Do not define the class by the desired future Mertens bound, assume its invariance, or infer cancellation from support squaring. Compare any candidate with the existing finite-A/C consumers and perform the same bidirectional strength audit.
+**Relaxed acceptance rule:** use `E(B)=max_(1<=n<B)|M(n)|/sqrt(n)`. An independently proved rule `E(B_j^2)<=G_j*E(B_j)^r` with fixed `1<=r<2` and `log G_j/log B_j -> 0` suffices on one eventually valid square-growing chain. Constants and the old budget may be large. Polylogarithmic gain is sufficient but **not necessary**; `exp(sqrt(log B))` and `exp(log B/log log B)` are also subpower. The normalized recurrence is `u_(j+1)<=(r/2)*u_j+g_j/2`, and the full-prefix definition supplies the all-cutoff passage. The [amplification note](MERTENS_AMPLIFICATION_BUDGET.md) contains the paper proof, exact accumulation and qualifications.
 
-A bounded gain at square-growing scales would permit a logarithmic loss in a correctly formulated all-prefix recursion; that gain and the required interpolation are obligations, not established inputs. A global absolute weighted l1 defect estimate is not a default repair: the compiled prime-tail coefficient obstruction must be respected.
+**Independent arithmetic target:** for N=B-1 and every integer B<=X<B^2, seek `|2*M(N)-Q_N(X)|<=G_j*E(B)^r*sqrt(X)` with the original signed floor form `Q_N(X)=sum_(i,j<=N)mu(i)*mu(j)*floor(X/(i*j))`. The old prefix is automatically dominated when G_j>=1,r>=1,E(B)>=1. An endpoint-only estimate needs an independent interval argument. The actual minimal-gain subpower condition is target-equivalent; naming or assuming it is not the new input.
 
-**Decisive test:** use the committed [finite-extension experiment](../experiments/mertens_finite_extension/) and exact guards, not only an independently sieved future sequence. Report what is computed from the prefix and what is separately checked with future data. Test the gain/class on valid prefixes and an explicit negative control. A finite checked interval is not perpetual preservation.
+Analytic should report **scale power k, final amplitude-budget power r, gain G, normalized loss g, full interval/chain and independent arithmetic ingredient**. Normalize squared-energy bounds consistently before comparing r to k. For a separately proved fixed-k whole-prefix inequality, r<k suffices; exact higher-order support alone does not prove that bound, and constants depending on a varying k need new control. Fixed r<2 or a uniform gap is essential to the stated square-scale argument; merely r_j<2 with r_j approaching two is insufficient.
 
-The completed [Mertens converse](../research/MERTENS_CONVERSE_IDENTIFICATION.lean) already gives the bidirectional coordinate identification. Do not assign re-proving it. The common exponent's numerical value remains uncontrolled by that identification alone. The finite amplitude strip map does not turn sample coordinates into actual zeta zeros.
+**Decisive test:** use the committed [finite-extension experiment](../experiments/mertens_finite_extension/) and [signed-lift diagnostics](../experiments/mertens_signed_lift/), retaining all cross-row and alternating-component terms. For fixed candidate r, record complete-prefix maxima and `log(max(1,E(B^k)/E(B)^r))/log B`, not just a last-endpoint value or a large finite loss ratio. Distinguish prefix-derived prediction, independent future-data validation and certified full-interval coverage. Finite decreasing costs do not prove subpower asymptotics. The #954 sparse arbitrary-prefix control must be excluded by actual Mobius restrictions, not by scalar prefix size alone.
+
+The completed [Mertens converse](../research/MERTENS_CONVERSE_IDENTIFICATION.lean) gives the bidirectional coordinate identification. Do not assign re-proving it. A generic contraction/full-prefix consumer is a legitimate conditional formalization candidate after duplicate search, but cannot be reported as proof of the arithmetic gain. Keep genuine finite A/C and the independent factor-depth/inverse lanes distinct.
 
 ## 4. Mandatory regression set, with carrier qualifiers
 
@@ -78,6 +80,8 @@ Reuse these results at unchanged dependencies; do not rerun a large scan merely 
 | Raw tag monotonicity | The paper theorem is only on prime tags q>=R: G_R(q) is nonincreasing, hence at most one positive-to-nonpositive transition. It does not imply transition existence, strict margins or monotonicity on q<R. |
 | Centered sitewise Li correction | Analytic-6 has `C(X)=-(1/2)*log(log X)+O(1)`. This defeats a uniformly summable scalar correction, not every nonlocal/response-weighted method. Its raw-prime finite check is not a direct numerical verification of every centered Li-increment term. |
 | Finite-extension negative control | PR #951 reports the first unit 0.45 failure at n=30770121 with M(n)=-2343, despite successful smaller interval certificates. This is executable finite evidence, not a Lean numerical theorem. It rejects automatic perpetual guard preservation, not every weaker signed amplification law. |
+| Amplification boundary controls | The synthetic E(B)=B^delta shows r=k is insufficient at scale B -> B^k. A vanishing gap r_j->2 can also fail despite subpower gain; the exact countermodel is in the amplification note. Neither model is a counterexample about actual mu. |
+| Arbitrary scalar prefix | #954's sparse a(1)=1,a(2)=-1 control defeats arguments for all bounded scalar-prefix inputs. Proposals must use genuine Mobius constraints and preserve all signed families. |
 
 Owner sources: [2026-10-14 report](https://github.com/OVVO-Financial/RH_Lean/blob/agent-reports/research/agent_reports/2026-10-14/10-owner-payment.md), owner-5 through owner-8, blob `4f39c1690ee4cee0a00d4ebd0d08323f06d6c75d`. The exact same-tag polarization in that report is `H(U+V,y)=H(U,y)+2*V*(3*y-U)-V^2`, with `H(W,y)=(W+y)^2-2*(W-y)^2`. This H is a local slack, **not** the residual H_R defined above.
 
@@ -99,14 +103,14 @@ Distinguish exact integer/rational comparisons, floating logs, arbitrary precisi
 
 **Owner:** obtain one useful exact depth/ancestry relation and identify what new restriction it might imply. Restore squareful, boundary and mixed terms explicitly. Seek an independently proved partial estimate, not another local pair catalogue.
 
-**Analytic:** compare the best nonlocal estimate with the distinct MU-LIFT gain question. Establish a quantitative bound at its honest strength or expose the exact obstruction. Do not import the desired amplification as a hypothesis under a new name.
+**Analytic:** compare the best nonlocal estimate with the distinct MU-LIFT gain question. Assess final r versus k and the normalized loss, allowing subpower gain beyond polylogarithms. Establish a quantitative bound at its honest strength or expose the exact obstruction. Do not import the desired amplification as a hypothesis under a new name.
 
 **Wheel:** work on the independent inverse-configuration restriction or a signed transition constraint. Retire unmodified fixed-capacity covering and unsigned-wheel enlargement as complete mechanisms.
 
-**Census:** execute the smallest test that separates the current contenders and compute residual layers directly. Expand ranges only when a stated prediction or regime change justifies it.
+**Census:** execute the smallest test that separates the current contenders and compute residual layers directly. For MU-LIFT certify full-prefix maxima or interval coverage and report normalized gain diagnostics; endpoint samples are not full-prefix bounds. Expand ranges only when a stated prediction or regime change justifies it.
 
-**Referee:** check every original carrier and source arrow; explicitly test cloning, nonadditivity, omitted depth mass, growing-cutoff uniformity, finite preservation and target-equivalence. Supply the strongest surviving corrected theorem.
+**Referee:** check every original carrier and source arrow; explicitly test cloning, nonadditivity, omitted depth mass, growing-cutoff uniformity, finite preservation and target-equivalence. For amplification require a fixed subcritical r or a separately proved varying-gap criterion. Supply the strongest surviving corrected theorem.
 
-**Lean:** refresh live code/PRs; repair a legitimate current PR first, or formalize a newly justified useful lemma after scope review. The raw partition/endpoint constant and tail monotonicity are possible small candidates, not mandatory work or closure claims. Do not duplicate merged Mertens maps/lift or create an assumed-invariant abstraction.
+**Lean:** refresh live code/PRs; repair a legitimate current PR first, or formalize a newly justified useful lemma after scope review. The raw partition/endpoint constant, tail monotonicity and generic subcritical-gain consumer are possible small candidates, not mandatory work or closure claims. Search existing amplification modules before duplicating; keep the unproved arithmetic input explicit.
 
 At the end of a run, answer: **What independent fact was learned? Which competing hypothesis changed status? What bound was actually improved, with what losses? What is the smallest next decisive step?** An honest unchanged frontier with a precise obstruction is better than manufactured novelty. No scheduled agent changes shared instructions, permissions, schedules or merge policy; proposals go to human review.
