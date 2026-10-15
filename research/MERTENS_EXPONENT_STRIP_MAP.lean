@@ -63,7 +63,8 @@ theorem mellin_differentiable_of_powerBound {a : ℝ} (ha : 0 ≤ a)
     · simpa only [neg_neg] using htop
     · simp only [neg_re]
       linarith
-    · convert hbot using 1 <;> ring_nf
+    · convert hbot using 1
+      ring_nf
     · simp only [neg_re]
       linarith
   have hcomp : DifferentiableAt ℂ (fun z : ℂ => mellin mertensStep (-z)) s := by
