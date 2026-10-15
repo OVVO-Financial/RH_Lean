@@ -182,4 +182,4 @@ All discrete claims are exact. Logarithmic weights are numerical diagnostics; th
 
 **Net-new result:** exact no-cloning tag/depth reconstruction, a raw-source cap-four counterexample at scale, and a reproducible factor-depth compensation diagnosis.
 
-**Publication status:** pending connector write/readback verification.
+**Publication status:** initial report committed as `194562e8c111e658b432c5b10ec98240000f9b64` and read back byte-identical as blob `5ad0a19cd45af66d87d87f246cb76a6925a3875d` at 2026-10-15T02:02:13-04:00. This verification line is being appended in a final report-only commit and will be re-fetched.
