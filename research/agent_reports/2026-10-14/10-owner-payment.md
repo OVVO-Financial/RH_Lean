@@ -622,3 +622,156 @@ bidirectional no-narrowing screen.
 - **First precise task:** derive and falsify the exact zero-target polarization obtained by selecting one once-only historical-tag packet of current mass `U` and leaving same-tag current residual mass `V`. Test whether the compiled negative local packet remains favorable after restoring the omitted packet-residual cross term.
 - **Known blocker:** no current theorem identifies the sharp same-tag window with the literal admitted/masked first-bad source. Any result in this run therefore remains a carrier-level arithmetic restriction unless that admission bridge is separately proved.
 
+
+
+## Scheduled continuation result — 2026-10-14T21:53:30-04:00
+
+### Final authority and evidence refresh
+
+- **Run ID:** \`RH-OWNER-20261014-204304-EDT\`; scheduled invocation begun at 20:43:04 EDT.
+- **Calendar continuity:** Eastern date \`2026-10-14\`; \`2026-10-13\` Owner report blob \`32f1574b8ade7dedc602b07b1b9257341320080a\` is \`YESTERDAY=CARRY_FORWARD\`.
+- **Final authority:** \`main\` remained \`8fff3dbd6db8cfd84e6806789c4b1f7b4e475db5\`; \`AGENTS.md\` blob \`04b72000ee47585344b68b42bf098937d697e7d2\`; \`CURRENT_PROOF_CONTRACT.md\` blob \`c672b561fdcf08b53af0d555eff16fd8b68acde0\`.
+- **Live PR state:** no open or draft PRs. PRs #941--#944 are merged into \`main\`; #945 is merged only into \`agent-reports\`.
+- **Reports/handoffs consumed:** Coordinator PM blob \`bf05965ed6adcac8ee9ae7d6066e047485baf945\`; Analytic Type II blob \`b8ee78df90d9fccb4b1201c933720a70300d9d51\`; Prime Census blob \`5cfe80753bbfa0374da9eace00b3a137aeaf43b8\`; Adversarial Referee blob \`d4e0a25917843660a8010bc88558b73eb8d243ee\`; Lean Verification blob \`d6b39eee3a942f3c655d44c1c11e7f6433df9a68\`; external inbox blob \`6fce4e9d024b6c4ad47798c5d7c162101a2435a0\`. Relevant external claims \`EXT-20261014-2/-3/-5\` and \`CL-20261014-1..7\` were consumed with their reported scopes; no paper claim was upgraded to Lean.
+- **Original source inspected:** \`VF_MID_OWNER_SIGNED_PAIR_BOUNDS.lean\` blob \`e3cc17224469e24516390a8f20e590d5932dbfc1\`; \`VF_MID_SAME_TAG_SHARP_PACKET.lean\` blob \`134163c9d752ee767f2c4971da46cba2c1a58fff\`; \`VF_MID_SAME_TAG_FINITE_CERTIFICATES.lean\` on current main. The compiled baseline includes the literal charge definition, negative isolated pair theorem, exact residual cross-term identity, four-owner cap, once-only linear packet, and the prime/root witness below.
+
+### Exact mathematical statement investigated
+
+For a fixed genuine historical prime tag \(q\), let
+
+\[
+x_p=w_{\lfloor\sqrt{pq}\rfloor}>0,\qquad
+y=1-w_{\lfloor\sqrt q\rfloor}>0
+\]
+
+be respectively a current composite charge and the magnitude of the single historical prime charge. For selected current mass \(U\) and unselected same-tag current mass \(V\), define the original NNS zero-target contribution
+
+\[
+H(W,y):=(W+y)^2-2(W-y)^2=-W^2+6Wy-y^2.
+\]
+
+The question was whether a negative isolated or selected packet remains favorable after the omitted same-tag current residual and its polarization cross term are restored.
+
+### Claim 20261014-owner-7 — exact same-tag residual polarization
+
+**Status: PAPER_PROOF (exact algebra; not separately formalized).**
+
+For all real \(U,V,y\),
+
+\[
+\boxed{H(U+V,y)=H(U,y)+2V(3y-U)-V^2.}
+\]
+
+Equivalently, adding the residual changes the local packet statistic by
+
+\[
+\boxed{V(6y-2U-V).}
+\]
+
+For \(y>0\), the complete sign classifier is
+
+\[
+H(W,y)>0
+\quad\Longleftrightarrow\quad
+(3-2\sqrt2)y<W<(3+2\sqrt2)y.
+\]
+
+Thus negative isolated NNS slack is not monotone under restoration of same-tag positive current mass. The omitted interaction is positive whenever \(0<V<6y-2U\), and it can reverse the local sign. This is the specialization of the compiled global polarization theorem \`vfMidNNS_pair_add_cross_terms\` to a same-tag positive residual \((M_0,S_0)=(V,V)\); it does not alter any coefficient or clone the historical occurrence.
+
+### Claim 20261014-owner-8 — two genuine descendants reverse two negative isolated slacks
+
+**Status: PAPER_PROOF, supported by FINITE_COMPUTATION.**
+
+Use the current-main certified historical prime
+
+\[
+q=11534351,\qquad r=\lfloor\sqrt q\rfloor=3396,
+\]
+
+and the two genuine prime owners \(p=3,5\). Current main certifies
+
+\[
+\lfloor\sqrt{3q}\rfloor=5882,\qquad
+\lfloor\sqrt{5q}\rfloor=7594,
+\]
+
+with both products strictly inside their open square blocks. Moreover
+\(5882\ge1024\cdot3\) and \(7594\ge1024\cdot5\). Therefore the compiled theorem
+\`vfMidSmallOwner_isolated_NNS_slack_lt\` applies separately and gives
+
+\[
+H(x_3,y)<-\frac{541}{409600},
+\qquad
+H(x_5,y)<-\frac{541}{409600}.
+\]
+
+Nevertheless their once-history grouped statistic is strictly positive:
+
+\[
+\boxed{H(x_3+x_5,y)>\frac{737}{15360}>0.}
+\]
+
+**Paper derivation.** The compiled weight bounds give
+\(x_3,x_5<9/64\) and \(y>541/640\); positivity of the seat weight gives
+\(y<1\). Also \(x_3,x_5>1/9\): for \(t\le7594\),
+
+\[
+t^2+t+\tfrac12<7595^2<(19/7)^{18}<e^{18},
+\]
+
+where \(e>19/7\) follows from the finite exponential series through degree six, so
+\(\log(t^2+t+1/2)<18\) and
+\(w_t=(2t+1)/(t\log(t^2+t+1/2))>1/9\).
+Putting \(W=x_3+x_5\) gives \(2/9<W<9/32\), hence
+
+\[
+H(W,y)=-W^2+6Wy-y^2
+>
+-\left(\frac9{32}\right)^2
++6\left(\frac29\right)\left(\frac{541}{640}\right)-1
+=\frac{737}{15360}.
+\]
+
+No historical charge is duplicated: the group contains two actual current occurrences and the one actual historical occurrence of \(q\).
+
+### Executed numerical check
+
+A CPython 3.12 \`decimal\` computation at 60-digit precision evaluated the literal midpoint-log weights:
+
+- \(y=0.876988237358820963352258284059\ldots\);
+- \(x_3=0.115220655970141289792444166759\ldots\), with isolated \(H=-0.1761012081084334\ldots\);
+- \(x_5=0.111924537413994653223454780341\ldots\), with isolated \(H=-0.1926964538376649\ldots\);
+- grouped \(H(x_3+x_5,y)=0.374518669279643197065301219538\ldots\).
+
+For completeness, adding the certified owners \(7\) and \(11\) gives grouped values \(0.8905963641\ldots\) and \(1.3708982725\ldots\). These decimals are diagnostic only; the strict two-owner sign reversal follows from the rational paper bounds above.
+
+### Falsification, novelty, and circularity review
+
+- The claim **refutes** any rule that sums the compiled negative isolated pair slacks, or treats the negative linear one-history packet as automatically favorable in the quadratic zero-target statistic, while omitting interactions among descendants sharing \(q\).
+- It does **not** refute every grouping: the earlier 111-descendant witness eventually has large enough total current mass for the \(-W^2\) term to dominate again. Claim owner-7 gives the exact two-threshold sign transition.
+- The result is not a coordinate transformation of the endpoint target and assumes no RH-scale bound. It is an independently proved arithmetic counterexample on compiled genuine-prime/root data.
+- It is not a source-admission theorem. Current main still does not prove that this certified tag and both descendants occur together in the literal masked/clipped first-bad raw source.
+- It supplies no cross-tag, anchor, squareful, restoration, clipping, or complete-carrier estimate. The canonical endpoint theorem, finite A/C, CORR-4, and RH remain open.
+
+### Established / not established / first missing lemma
+
+**Established:** exact same-tag residual polarization; a genuine two-descendant, one-history group whose two isolated NNS slacks are each negative but whose correctly grouped NNS contribution is positive.
+
+**Not established:** any all-scale signed genuine-prime collision bound, source payment, admitted-tag allocation, or endpoint estimate.
+
+**First missing lemma:** an exact literal-source admitted-tag equality defining current demand \(d(q)\), historical availability \(a(q)\), disjoint once-only packet selection, and the unmatched residual, followed by a joint estimate that retains the Claim owner-7 polarization term together with masks, clipping, anchor, squareful restoration and all cross-tag terms. The grouped statistic must be computed once per tag; isolated pair slacks cannot be added.
+
+### Downstream handoff
+
+- **Adversarial Referee:** audit the rational lower bound \(737/15360\), the use of the certified \(q,p,R\) data, and the distinction between full physical ancestry and actual masked source admission.
+- **Prime Census Laboratory:** reproduce literal weights and search for the lexicographically smallest genuine same-tag sign reversal; also reconstruct whether any such group is simultaneously admitted in the complete finite raw-source census.
+- **Lean Verification:** Claims owner-7 and owner-8 are focused formalization candidates. A suitable theorem should use the already compiled prime/root witnesses and prove the grouped positive lower bound without importing decimal approximations.
+- **Research Coordinator:** treat owner-8 as a mandatory nonadditivity counterexample for the signed actual-prime collision-transfer campaign.
+
+### Final status and next-run resume capsule
+
+- **Strongest new result:** \`20261014-owner-8\`, a \`PAPER_PROOF\` genuine-prime two-descendant reversal of negative isolated NNS slacks.
+- **Structural identity:** \`20261014-owner-7\`, exact residual polarization and sign thresholds.
+- **Production target:** \`NO_NEW_RESULT\`; no complete-source signed estimate and no RH claim.
+- **Next action:** construct the exact admitted-tag source ledger and test its grouped per-tag \(H\) plus cross-tag/anchor/restoration terms; preserve the two-owner reversal and 111-descendant overload as mandatory adversarial cases.
+- **Avoid:** cloning one historical \(q\), summing isolated pair inequalities, treating linear signed negativity as quadratic payment, or dropping the residual polarization.
