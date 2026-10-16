@@ -78,7 +78,10 @@ theorem nine_le_of_odd_one_lt_not_prime
     9 ≤ c := by
   by_contra h
   have hc8 : c ≤ 8 := by omega
-  interval_cases c <;> norm_num at hcOdd hcgt hcPrime
+  have hcCases : c = 3 ∨ c = 5 ∨ c = 7 := by
+    rcases hcOdd with ⟨k, hk⟩
+    omega
+  rcases hcCases with rfl | rfl | rfl <;> norm_num at hcPrime
 
 /-- Every odd residual source has canonical cofactor at least nine. -/
 theorem nine_le_canonicalCofactor_of_odd_factorDepthResidual
