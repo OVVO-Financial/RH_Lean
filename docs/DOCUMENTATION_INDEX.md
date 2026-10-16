@@ -1,6 +1,6 @@
 # Documentation index
 
-Updated 2026-10-16 after merged PR #958. The repository is a formal reduction and obstruction map;
+Updated 2026-10-16 after merged PR #961 and the unified manual cycle. The repository is a formal reduction and obstruction map;
 the CANONICAL direct VF cumulative signed owner/run estimate remains open. The
 Mertens finite-A/finite-C and historical CORR-4 routes are unproved sufficient
 alternatives, not replacements. Start with the
@@ -17,6 +17,9 @@ alternatives, not replacements. Start with the
 | [Agent instructions](../AGENTS.md) | Agent governance, mathematical integrity and repository permissions. |
 | [Live post-#958 factor-depth brief](FACTOR_DEPTH_RESEARCH_BRIEF.md) | Merged one-ninth support lemma; raw cross-tag and growing-cofactor paper restrictions; complete signed A/B next target and distinct MU-LIFT route. |
 | [Merged #958 odd cofactor support](../RHLean/Proof/OddResidualCofactorSupport.lean) | Qualified `9 * P+(m) < R^2` structural theorem PROVED_IN_LEAN_ON_MAIN; not a signed bound or return-cell bridge. |
+| [Merged #961 complete above-root fibre](../RHLean/Proof/RootWallCompleteFibre.lean) | PROVED_IN_LEAN_ON_MAIN: q>=R greatest-prime fibre is complete below R^2 with explicit residual exclusions; no raw signed bound or RH claim. |
+| [2026-10-16 cut-mode and manual-cycle review](FACTOR_DEPTH_RESEARCH_BRIEF.md) | Exact A/B raw cut, proposed B*-RH equivalence, prime-reciprocal band obstruction (paper/self-audited), scoped retirement and distinct Type II/Hilbert next inputs. |
+| [MU-LIFT Type II anatomy and fixed-g calibration](MERTENS_AMPLIFICATION_BUDGET.md) | Complete K1/K2/K3 floor-kernel ledger, unproved signed corner, chain vs every-B conditional zero-free strength, separate prime-reciprocal/Mertens notation. |
 | [Dynamic research-agent protocol](DYNAMIC_RESEARCH_AGENTS.md) | Seven permanent specialties, independent theory portfolio, falsification standards and formal proof handoffs. |
 | [Formalization checklist](../FORMALIZATION_CHECKLIST.md) | Execution gates and historical PR closeouts. |
 | [Formalization sequence](../FORMALIZATION_SEQUENCE.md) | Dependency catalog and append-only research record. |

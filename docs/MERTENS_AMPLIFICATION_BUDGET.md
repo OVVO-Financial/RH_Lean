@@ -1,6 +1,6 @@
 # Mertens amplification: subpower loss and subcritical budget dependence
 
-**Research steering and paper-level conditional analysis, 2026-10-15.** Based on the user's supplied relaxation and checked against `main@c0bf6261b5e78aa0ec03967a86691987842b80eb` after merged #954. Subordinate to [AGENTS.md](../AGENTS.md), [the proof contract](../CURRENT_PROOF_CONTRACT.md) and the [live mechanism brief](FACTOR_DEPTH_RESEARCH_BRIEF.md).
+**Research steering and paper-level conditional analysis, updated 2026-10-16 after merged #961 and the unified manual cycle.** Original subpower relaxation remains unchanged; new exact `K1/K2/K3` anatomy and fixed-g calibration are paper claims, not gain theorems. Subordinate to [AGENTS.md](../AGENTS.md), [the proof contract](../CURRENT_PROOF_CONTRACT.md) and the [live mechanism brief](FACTOR_DEPTH_RESEARCH_BRIEF.md).
 
 **Status:** the recurrence implications below have elementary paper proofs. This change adds no Lean theorem. The independent arithmetic amplification inequality remains OPEN. A conditional recurrence theorem can be formalized honestly as a consumer, but must not be counted as having proved its genuine-Mobius premise.
 
@@ -120,6 +120,36 @@ for every integer B<=X<B^2,
 on all sufficiently large members B of the chosen chain, with fixed 1<=r<2, G(B)>=1 and log G(B)/log B->0. The old prefix contributes E(B); since G(B)*E(B)^r>=E(B), this whole-new-interval estimate implies the full-prefix recurrence. An estimate only at X=B^2-1 does not imply it without a separately proved interpolation/covering bound.
 
 Preserve both signed linear terms, the complete floor weights, original truncations, all overlap/cross-row terms and genuine mu constraints. Large finite cancellation factors or a large seed budget are not automatic disqualifiers; judge the final asymptotic loss and input-budget power. Conversely, a row decomposition or a finite normalized-gain plot does not prove that loss vanishes.
+
+## 5A. Post-cycle exact signed anatomy and proposed corner: full scope required
+
+**PAPER_PROOF / IDENTITY_ONLY (2026-10-16 Analytic claim 1):** with `N=B-1`, integer `B<=X<B^2`, `psi(t)={t}-1/2` and signed genuine `mu(i)mu(j)`,
+```text
+M(X)=2 M(N) - Q_N(X) = 2 M(N)+K1_N(X)-K2_N(X)+K3_N(X)
+K1 = (1/2) sum_(i,j<=N; ij<=X) mu(i)mu(j)
+K2 = X sum_(i,j<=N; ij<=X) mu(i)mu(j)/(ij)
+K3 = sum_(i,j<=N; ij<=X) mu(i)mu(j) psi(X/(ij)).
+```
+Do not silently replace the truncated `ij<=X` ranges by all pairs or ignore the complementary `ij>X` pairs when using the alternative full-pair formula. The `K1-K2+K3` cancellation is exact bookkeeping, not an independently proved amplitude estimate.
+
+**Finite-support synthetic control (PAPER_PROOF):** for any finitely supported `a`, the Newton-lift summatory count satisfies `sum_(n<=X)T(a)(n)=-X*(sum a(n)/n)^2+O_a(1)` for `X` beyond its support, hence bounded iff that *fixed-control* weighted sum vanishes. This does not give a uniform bound for growing genuine Mobius prefixes or independently prove `m_N=sum_(n<=N)mu(n)/n` is small enough. Preserve original signed rows and all overlap.
+
+**Candidate Type II task:** define a real or integer `H>1` and the exact signed corner
+```text
+K3_corner(N,X,H) = sum_(i,j<=N; X/H<ij<=X)
+                        mu(i)mu(j)*psi(X/(ij)).
+```
+A bound `|K3_corner| <= G(B) E(B)^r sqrt(X)`, with `r<2` and `G=B^o(1)`, is only **one potential ingredient**. The rest of `K3`, both `K1,K2`, `2M(N)`, `H` and its possible dependence on B/X, admissibility masks, hyperbola boundary and the whole interval `B<=X<B^2` must still be controlled before inferring the genuine MU-LIFT recurrence. A reflection `ij -> X/(ij)` does not generally map integer pairs to integer pairs; a claimed symmetry must give an exact map/weighted identity, multiplicities, Mobius signs and explicit error. A shorter sum with unchanged difficult signed size is not an improved bound.
+
+**PAPER_PROOF / CONDITIONALLY STRONG CALIBRATION (2026-10-16 Analytic claim 3):** suppose along `B_(j+1)=B_j^2` we *independently prove*, for fixed `0<=r<2`, `g>=0` and C, an all-`X` interval estimate
+```text
+|M(X)| <= C B_j^g E(B_j)^r sqrt(X),  B_j<=X<B_j^2.
+```
+Then the paper recurrence gives `limsup log(E(B_j))/log B_j <= g/(2-r)`; with the direct interval factor, the all-integer exponent is at most `1/2+2g/(2-r)+epsilon` and the zero-free half-plane is `Re s>1/2+2g/(2-r)`. If the same uniform inequality is proved for **every** large B, the implication improves to `Re s>1/2+g/(2-r)`. Thus fixed `g<(2-r)/4` on the chain, or `g<(2-r)/2` for every B, would already imply a nontrivial zero-free strip of fixed width. This is a **conditional strength warning**, not a proved gain or a reason to reject correctly quantified subpower `g_j->0`. The original subpower acceptance criterion, `r<2`, full prefix and signed source fidelity remain in force.
+
+**Notation protection:** `E(B)` in this document is the **Mertens summatory normalized envelope**. The October 16 Owner uses `E_prime(y)=sum_(p<=y)1/p-log(log y)-M_Meissel` for the prime-reciprocal error. These are completely different functions. Its band no-go cannot be applied directly to this `E(B)` or this `K3` carrier.
+
+**Evidence:** [2026-10-16 Analytic report](https://github.com/OVVO-Financial/RH_Lean/blob/agent-reports/research/agent_reports/2026-10-16/20-analytic-type-ii.md), same-session [Referee self-audit](https://github.com/OVVO-Financial/RH_Lean/blob/agent-reports/research/agent_reports/2026-10-16/50-adversarial-referee.md). Independent re-review is still needed before treating the strongest analytic implications as separately accepted. **No new unconditional exponent or RH proof.**
 
 ## 6. Higher-order relaxation supplied by the #954 interface
 

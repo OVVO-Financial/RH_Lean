@@ -1,6 +1,6 @@
 # RH_Lean current proof contract
 
-**Live revision: 2026-10-16. Reviewed baseline: `main@b0446d45037b10637522791e398a9c8ffd99f123` (merged #958; #954 already merged).** Refresh live main on every run. This contract changes research direction, not any Lean definition, theorem, coefficient or proof assumption.
+**Live revision: 2026-10-16. Reviewed baseline: `main@df47c8ae0e751ce12bd0e493156a957d86e02ee4` (merged #961; #958/#959 already merged).** Refresh live main on every run. This contract changes research direction, not any Lean definition, theorem, coefficient or proof assumption.
 
 ## Unchanged canonical object and open theorem
 
@@ -27,17 +27,15 @@ The global VF_can-Li_2 difference is unconditionally O(1). This does not bound p
 
 Legacy raw defect `D_raw(R)=pi(R^2)-F_R` satisfies `D_can=D_raw-sqrt(2)`. Existence of a uniform von-Koch constant is phase invariant through the compiled equivalence; a fixed-K first-bad statement or energy is not. Carry the exact correction `-2*sqrt(2)*D_raw+2` when translating squared defects. Do not modify legacy definitions or original weights.
 
-## Active portfolio: independent arithmetic restrictions
+## Active research disposition after merged #961
 
-Follow [AGENTS.md](AGENTS.md), the [dynamic protocol](docs/DYNAMIC_RESEARCH_AGENTS.md), the [factor-depth research brief](docs/FACTOR_DEPTH_RESEARCH_BRIEF.md) and, for MU-LIFT, the [amplification budget](docs/MERTENS_AMPLIFICATION_BUDGET.md). The current raw-seat frontier is the **signed cross-tag coupling of a negative upper prime-tag sector with its entire complement**, including lower tags and squareful/higher-factor mass. Merged #958 supplies support geometry only; **it is not a new compulsory RH-strength premise or a quantitative cancellation estimate.**
+Read the live [agent instructions](AGENTS.md), [dynamic protocol](docs/DYNAMIC_RESEARCH_AGENTS.md), [factor-depth/cut-mode brief](docs/FACTOR_DEPTH_RESEARCH_BRIEF.md) and [Mertens budget](docs/MERTENS_AMPLIFICATION_BUDGET.md). The canonical arithmetic objective, original weights and proof consumers are unchanged.
 
-Start with three independently falsifiable candidates:
+**PROVISIONALLY SUSPEND** unmodified raw-ledger `A+B` regrouping, same-tag/fixed-cofactor matching and a target-size estimate for the complete `B_R` about the **specific smooth B*** defined by the manual cycle. The October 16 cycle reports exact cut cancellation, a root-band Mertens-prime-reciprocal mode and `B-B*` ⇔ RH. The analytic no-go/necessity statements were **paper proofs self-audited by one AI**, not independently refereed; do not upgrade them to an impossibility theorem for every cutoff, arbitrary smooth main term, nonlocal signed transport or masked/clipped first-bad source.
 
-1. **Signed factor-depth transport/invariant:** a coefficient-preserving relation between complete depth layers, with an independently proved restriction or remainder estimate.
-2. **Inverse arithmetic obstruction:** excessive imbalance forces a specified factor/ancestry/quotient configuration; separately prove that this configuration is impossible or quantitatively limited.
-3. **Mobius finite-prefix signed amplification:** use the genuine, now-compiled arithmetic extension while investigating an independent bound on its signed summatory gain. Exact reconstruction is not amplitude preservation. Subpower gain with fixed subcritical historical-budget dependence is sufficient; constant gain is not required.
+**Current independent candidates:** a genuine signed reduction of the full Mobius `K1/K2/K3` hyperbola floor kernel (a Type II corner is only one proposed input, requiring other terms and full-prefix coverage); a separate Nyman positive-Hilbert norm/decay theorem; and any nonlocal owner/prime input with genuinely different source information and independent quantitative payoff. Finite A/C and CORR-4 remain eligible as distinct alternatives. Retain the full physical zero-target NNS statistic, once-only occurrences, clipped masks, source/anchor restoration and all quadratic mixed terms.
 
-Nonlocal response-weighted analysis, finite A/C and CORR-4 remain eligible alternatives when their independent inputs genuinely differ. The Coordinator may revise or reject a lane with evidence; do not manufacture diversity or send all specialists to the same missing inequality in three notations. Weaker uniform estimates and exact structural theorems count at their actual strength, even before they compose with the final target.
+A new result is credited according to exact proof status and quantifier strength, not whether it sounds closer to RH. No canonical endpoint, Mertens exponent or finite A/C bound improved in this cycle.
 
 ## Raw factor-depth ledger and exact scope
 
@@ -72,9 +70,33 @@ The residual predicate explicitly excludes primes, distinct products of two prim
 
 **Raw-paper applications (2026-10-16 Wheel/Census/Referee):** physical positive `H_R` occurrences uniquely have `n=a*q`, odd composite `a>=9`, `q=P+(n)<R^2/9`; the upper tag sector `A_R` consists of prime tags `q>R^2/3`. Hence a tag-preserving direct `A_R`-to-`H_R` transport has no edges. Define `B_R=L_R-A_R`, **including lower tag charges and all `H_R` occurrences**; the proved leading-order statement is `A_R~ -R^2/(3*log R)` and `B_R~+R^2/(3*log R)`, not `A_R+H_R=o(R^2/log R)`. These estimates are PNT-scale only and do not yield `O(R log R)`.
 
-For a fixed finite composite-cofactor set `S`, `H_R(S)/H_R -> 0` is a referee-accepted **PAPER_PROOF**, sharpened for fixed `a` to `H_R(a)~2*R^2/(a*log^2(R^2))`. The cofactor-depth staircase `a^(j+1)>=(R^2)^j => Omega(n)>=j+2` is also a **PAPER_PROOF**. Neither is the Lean content of #958. Reject a fixed-cofactor-only or tag-preserving mechanism **at its stated raw-carrier scope**; the next open input is a native-weight, growing-cofactor **cross-tag signed** restriction on the complete `A_R+B_R` reassembly.
+For a fixed finite composite-cofactor set `S`, `H_R(S)/H_R -> 0` is a referee-accepted **PAPER_PROOF**, sharpened for fixed `a` to `H_R(a)~2*R^2/(a*log^2(R^2))`. The cofactor-depth staircase `a^(j+1)>=(R^2)^j => Omega(n)>=j+2` is also a **PAPER_PROOF**. Neither is the Lean content of #958. Reject a fixed-cofactor-only or tag-preserving mechanism **at its stated raw-carrier scope**. The post-#961 manual cycle later showed that pure `A+B` cut reassembly is an identity and provisionally suspended that route absent a genuinely new independently provable signed input; see the newer section below.
 
 At this partition retain `L_R^2=A_R^2+B_R^2+2*A_R*B_R`. At the nested partition retain `L_R^2=T_R^2+H_R^2+2*T_R*H_R`; neither alone is the complete original zero-target NNS returned-cell source. The owner-3 `q -> 3q` distinct-semiprime crossings remain in `T_R`, never reclassify them as `H_R`. A theorem asserting the full residual is `O(R log R)` without a genuinely independent arithmetic input is `TARGET_EQUIVALENT`. MU-LIFT is a separate, still-open route.
+
+## Merged #961 and manually reported cut-mode/Type II results
+
+**PROVED_IN_LEAN_ON_MAIN:** [RootWallCompleteFibre.lean](RHLean/Proof/RootWallCompleteFibre.lean), PR #961 merged, certifies for prime `q>=R` the greatest-prime complete fibre below `R^2`, multiplier `a<q`, non-square property, and explicit odd-residual characterization. Merged #958 separately supplies the one-ninth support theorem. Neither certifies the paper weighted `Phi_R` identity, a native signed/covariance estimate or returned-cell admission.
+
+**Raw `A+B` paper identity** (October 16 Owner, same-session self-audit, independently review before retirement):
+```text
+x = R^2
+A_R = sum_(prime x/3<q<x) (w(q)-1)
+B_R = F_R + 2 - pi(x/3) - sum_(prime x/3<q<x) w(q)
+L_R = A_R+B_R.
+```
+`B_R` contains the lower-tag sector and every positive `H_R` seat. The report proposes `|B_R-B*_R|=O(R log R)` **iff RH**, for its exact `B*_R` only. This is `PAPER_PROOF / INDEPENDENT_REVIEW_REQUIRED`, **not** a new independent subgoal, all-model equivalence or Lean theorem.
+
+**Prime reciprocal band** uses `E_prime(y)=sum_(p<=y)1/p-log(log y)-M_Meissel`, which is **not** the Mertens summatory budget `E_mu(B)`. The reported formula for `[R,2R)` is
+```text
+T_R-M_R^band = F_R*(E_prime(2R-1)-E_prime(R-1)) + rho_R,
+rho_R = O(R/log^2 R).
+```
+The companion `PAPER_PROOF / INDEPENDENT_REVIEW_REQUIRED` argues via a known zeta zero that `T_R-M_R^band` is not `O(R^(3/2-delta))` for fixed positive `delta`. Analytic's extension treats specified `x^theta` bands `1/2<=theta<2/3`. This limits a **band alone relative to that prime-free model**; it is not a universal ban on joint signed cross-band cancellation or explicitly oscillatory main terms.
+
+**Genuine-Mobius hyperbola identity:** for `N=B-1` and `B<=X<B^2`, `M(X)=2M(N)+K1-K2+K3`, with exact summands in the amplification budget. A prospective signed Type II bound for `X/H<ij<=X` within `K3` must specify `H`, all other K3 ranges, `K1/K2`, integer-pair multiplicities, source normalization, full-prefix interpolation and the true input exponent `r<2`. A formal `ij -> X/(ij)` reflection is **not** an integer-lattice involution without a proved map and boundary defects. The corner is a candidate attack, not a proved unique necessary source.
+
+**No quantitative improvement:** canonical endpoint, full zero-target source payment, genuine-Mobius gain, finite A/C, CORR-4 and RH remain OPEN.
 
 ## Verified Mertens baseline: do not re-prove the completed coordinate map
 
