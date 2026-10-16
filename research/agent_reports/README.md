@@ -15,15 +15,23 @@ For every actual invocation, obtain the live main HEAD and fetch at that revisio
 
 Relevant original Lean declarations plus verified CI establish mathematics. Live PR state overrides a stale draft/unmerged sentence in a report or PR body. Neither a main-file copy on this reporting branch nor a dated report is current policy authority.
 
-**Activation:** this reporting update accompanies [main policy PR #952](https://github.com/OVVO-Financial/RH_Lean/pull/952). Prefer human merge of main policy first, then this reporting PR. If the new brief is not yet on live main, record `STEERING_PENDING_MAIN_MERGE` and follow the actual existing main authority; do not silently elevate an unmerged branch. Direct user instructions retain their normal priority. No merge or auto-merge is authorized here.
+**Activation:** the main governance updates #952/#955 and the structural Lean support PR #958 were merged by 2026-10-16. **A new direction in a reporting-branch PR is not live main authority until its matching main PR actually merges.** Recheck main and actual PR metadata at every invocation, including whether the post-#958 central steering PR has merged. Direct user instructions retain their normal priority. No scheduled agent may merge or enable auto-merge.
 
 ## Current research steering, resolved dynamically
 
-The leading empirical question is the independent arithmetic coupling of negative prime/semiprime tag mass and positive squareful/higher-factor mass. The initial main-branch portfolio compares signed depth transport/invariants, inverse structural obstructions and genuine Mobius finite-prefix signed amplification. Nonlocal response-weighted analysis remains eligible. Read the current brief rather than pinning this snapshot as a permanent assignment.
+Post-#958 the leading **unproved quantitative** question is independent signed coupling of the upper negative prime-tag sector `A_R` to its **complete** complementary sector `B_R=L_R-A_R`, including lower-tag charges and squareful/higher-factor mass. The initial main-branch portfolio compares signed depth transport/invariants, inverse structural obstructions and genuine Mobius finite-prefix signed amplification. Nonlocal response-weighted analysis remains eligible. Read the current brief rather than pinning this snapshot as a permanent assignment.
 
 Preserve the full original **zero-target NNS statistic**, coefficients, once-only historical occurrences and all within-tag/cross-tag/cross-depth terms, masks, clipping, anchors and restoration. Raw odd seats, eligible ancestry and masked returned cells are different carriers. `L=T+H` and its square are identities, not a new bound or a replacement for the original compressed normalization.
 
 Every substantive report must answer: **What independent fact was learned? Which competing hypothesis changed status? What bound improved, at what scale and with what losses? What is the next smallest decisive step?** Useful structural results and weaker bounds deserve their actual credit. Larger sieves, favorable local signs, fitted residuals, conditional consumers and renamed target-equivalent conditions do not constitute a global estimate.
+
+### Post-#958 scoped evidence and current next input
+
+Merged main [#958](https://github.com/OVVO-Financial/RH_Lean/pull/958) Lean-proves `9*canonicalLargestPrimeFactor m<R^2` under its **explicit residual exclusions**, `Odd(canonicalCofactor m)` and `1<m<R^2`. That is a **support** theorem, not a compiled raw `H_R` bijection, a payment, or the canonical endpoint bound. On the paper raw carrier, `H_R` occurrences are `n=a*q`, odd composite `a>=9`, `q<R^2/9`; `A_R` occupies `q>R^2/3`. Direct **same-greatest-prime-tag** A-to-H matching is excluded. Fixed finite `H_R` cofactor sets have vanishing relative mass (PAPER_PROOF), and cofactor growth forces increasing factor-depth thresholds (PAPER_PROOF).
+
+**Do not overcorrect:** the PNT-scale opposite mode is between **A and all B**, not A and H alone; include lower-tag negative and positive contributions, preserve `L^2=A^2+B^2+2AB`, the nested `T/H` mixed term, and the entire original zero-target NNS source when applicable. The surviving candidate is a **native-weight, growing-cofactor, cross-tag signed restriction on complete B**, not a positive-H histogram or a fitted small residual. The Owner's `q->3q` crossings stay distinct semiprimes in `T`, not `H`. #958 does not establish a quantitative improvement. MU-LIFT remains a separate genuine Mobius all-prefix gain problem, and the Nyman positive-Hilbert finite separation does not prove Hilbert decay.
+
+Use the [October 16 Wheel](2026-10-16/30-finite-wheel.md), [Census](2026-10-16/40-prime-census.md), [Referee](2026-10-16/50-adversarial-referee.md) and [Lean](2026-10-16/60-lean-verification.md) as dated evidence. At every run **refresh main** before deciding whether the companion central steering PR has merged, and do not overwrite those existing completed reports.
 
 ## Report ownership and one Coordinator synthesis
 
