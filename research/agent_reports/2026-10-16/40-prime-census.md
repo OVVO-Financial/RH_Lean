@@ -200,4 +200,4 @@ No canonical endpoint, #915 payment, finite A/C, CORR-4, MU-LIFT gain, or RH pro
 
 - Early checkpoint commit: `696b94604a13297cd47cbc51b631729b8fce9caa`.
 - Verified checkpoint blob: `349595c9608bf9ab13197cae9477017bb9687361`.
-- The completion commit and final blob are recorded after the update/readback operation.
+- Substantive completion commit: `2b2049d3e4f619282d6eb67332fef398ab54cfe8`.\n- Verified substantive blob: `196707ebaa47da197b9275aa5d0d5980cbc35f1e`.\n- A final metadata-only correction records these identifiers; its resulting blob is verified externally because a file cannot contain its own Git blob hash.
