@@ -66,7 +66,7 @@ T_R - M_R = F_R*(E(2R-1) - E(R-1)) + rho_R,   rho_R = sum_{R<=q<2R} eta(q),
 rho_R in [ sum lo(q), sum lo(q) + wtilde(q) ]  =  O(R / log^2 R).
 ```
 
-**Proof.** owner-1 + owner-2 and ``sum_{R<=q<2R} 1/q = [log log + M + E](2R-1) - [log log + M + E](R-1)``. ∎ **Status:** `PAPER_PROOF`; `FINITE_COMPUTATION` confirmation: for `R in [1000, 5000]`, `corr(T_R - M_R, F_R*dE) = 0.99997`, `std(rho)/std(F_R*dE) = 0.008`, `rho_R/(R/log^2 R) in [0.19, 0.32]`.
+**Proof.** owner-1 + owner-2 and ``sum_{R<=q<2R} 1/q = log log(2R-1) - log log(R-1) + E(2R-1) - E(R-1)``. ∎ **Status:** `PAPER_PROOF`; `FINITE_COMPUTATION` confirmation: for `R in [1000, 5000]`, `corr(T_R - M_R, F_R*dE) = 0.99997`, `std(rho)/std(F_R*dE) = 0.008`, `rho_R/(R/log^2 R) in [0.19, 0.32]`.
 
 ### Claim `20261016-owner-4` — the band carries an unconditionally supertarget mode
 
