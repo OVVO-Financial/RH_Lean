@@ -1,6 +1,6 @@
 # RH_Lean research report — [DATE / ROLE]
 
-> TEMPLATE only. Copy into your own dated stage file. Scheduled agents do not modify this template. Read live main AGENTS, CURRENT_PROOF_CONTRACT, docs/FACTOR_DEPTH_RESEARCH_BRIEF and docs/DYNAMIC_RESEARCH_AGENTS first. For MU-LIFT also read main:docs/MERTENS_AMPLIFICATION_BUDGET.md when merged. Main authority, not this snapshot, determines current work.
+> TEMPLATE only. Copy into your own dated stage file. Scheduled agents do not modify this template. Read live main AGENTS, CURRENT_PROOF_CONTRACT, docs/FACTOR_DEPTH_RESEARCH_BRIEF and docs/DYNAMIC_RESEARCH_AGENTS first. For MU-LIFT also read main:docs/MERTENS_AMPLIFICATION_BUDGET.md. Main authority and actual merged PR/source state, not this snapshot, determine current work. Merged #958 is support-only; later status updates must be fetched.
 
 ## Provenance and actual execution
 
@@ -16,7 +16,7 @@
 - **Today handoffs:** [actual paths/blob SHAs/run timestamps/claim IDs, or TODAY=PENDING]
 - **Yesterday handoffs:** [same fields; label YESTERDAY=CARRY_FORWARD, not today's completed work]
 - **External inbox/intake:** [inbox SHA; relevant claim IDs and disposition, or no new applicable evidence]
-- **Live PR/state refresh:** [exact current heads/merge state/CI, including stale report statements corrected]
+- **Live PR/state refresh:** [exact current heads/merge state/CI; #958 PROVED_IN_LEAN_ON_MAIN after merge, or newer verified evidence; never treat a stale report as current]
 - **Reused / invalidated work:** [dependency-specific evidence; no invented cache hits or cost savings]
 - **Actual tools/environment:** [only what was used; Agent #7 Lean runs through GitHub Actions only]
 - **Early durable checkpoint:** [actual time and successful commit/readback, or NOT_PUBLISHED]
@@ -31,6 +31,15 @@
 **What remains merely an identity or observation?** [explicitly separate exact reindexing, a fitted cancellation, finite computation and conditional consumers from a proved estimate].
 
 **Quantitative change:** [actual bound before/after, constants and scale losses, or NO_QUANTITATIVE_IMPROVEMENT].
+
+### Post-#958 baseline check — when the raw factor-depth carrier is involved
+
+- **Compiled lemma:** [source SHA/actual theorem: residual exclusions, odd canonical cofactor, `1<m<R^2` => `9*P+(m)<R^2`; verify the Lean module at current main]. `PROVED_IN_LEAN_ON_MAIN` is support only.
+- **Raw paper classification:** [does the claimed `H_R` seat really have unique `n=a*q` with odd composite `a>=9` and `q<R^2/9`? Identify the missing formal map rather than asserting it exists].
+- **Upper/lower sector:** [upper `A_R` tags `q>R^2/3`; full signed complement `B_R=L_R-A_R`, including **lower tag contributions** and `H_R`. Never replace B with H].
+- **PNT strength:** [record `A_R~ -R^2/(3 log R)` and `B_R~+R^2/(3 log R)` only as leading-order PAPER_PROOF; state why this does not bound the `O(R log R)` remainder].
+- **No-go scope:** [REJECT same-tag A-to-H pairing; REJECT fixed finite cofactor backbone by `H_R(S)/H_R->0` PAPER_PROOF; DO NOT infer a quantitative signed A+B bound or returned-cell transfer].
+- **Independent next input:** [physical cross-tag, growing-cofactor native-weight map/defect; include negative partner, lower tags, `Omega`, cutoffs, mixed quadratic terms; OR give a genuinely independent MU-LIFT/Hilbert quantitative mechanism].
 
 ## Mechanism card
 
@@ -69,11 +78,11 @@ Mark each item PRESERVED / PROVED_BRIDGE / OPEN / NOT_APPLICABLE with explanatio
 - Exact endpoint convention, root R versus cutoff x, ownership and chronology.
 - Admission masks, clipping, both boundaries and cutoff-dependent terms.
 - Squareful/higher-factor/earlier-owner contributions, anchor and restoration.
-- Within-tag, cross-tag and cross-depth interactions, including the full mixed term when squaring.
+- Within-tag, cross-tag and cross-depth interactions, including **both** `L^2=T^2+H^2+2TH` and (when A/B partition is used) `L^2=A^2+B^2+2AB`; do not drop lower-tag pieces of B.
 - Original NNS zero target and normalization, rather than mean-centered correlation, a diagonal sum or an enlarged compressed denominator.
 - Exact bridge from the stated carrier to any later physical/source consumer.
 
-For a raw `L=T+H` calculation, display `L^2=T^2+H^2+2*T*H`, identify what each symbol means, and do not silently equate that square with the compressed #915 statistic. If using the same-tag local slack H(W,y), distinguish it from the higher-depth residual H_R. A product matrix of aggregate layer totals is not an independently discovered pairwise restriction.
+For a raw `L=T+H` calculation, display `L^2=T^2+H^2+2*T*H`, identify what each symbol means, and do not silently equate that square with the compressed #915 statistic. For `L=A+B` reassembly, display `L^2=A^2+B^2+2*A*B` with **complete** B. The PNT-scale A+B cancellation is not A+H cancellation. If using the same-tag local slack H(W,y), distinguish it from the higher-depth residual H_R. A product matrix of aggregate layer totals is not an independently discovered pairwise restriction.
 
 ## Work performed and evidence
 
@@ -106,7 +115,7 @@ For a raw `L=T+H` calculation, display `L^2=T^2+H^2+2*T*H`, identify what each s
 
 ## Mandatory scoped regressions
 
-Consult the current main brief and amplification note, not a frozen list. For each relevant case record PASS / FAIL / REUSED / NOT_APPLICABLE / NOT_RUN and the exact source/carrier reason. Known controls include raw global cap-four failure, once-history grouped NNS sign reversal, repeated-history overload, complete factor-depth reconstruction, q>=R-only monotonicity, the sitewise Li coherent mode, finite-extension guard failure, critical/vanishing-gap amplification countermodels and the sparse arbitrary-prefix control. Synthetic recurrence countermodels are not actual-Mertens counterexamples. A case on eligible ancestry is not automatically admitted to a later mask. Do not rerun unchanged large checks.
+Consult the current main brief and amplification note, not a frozen list. For each relevant case record PASS / FAIL / REUSED / NOT_APPLICABLE / NOT_RUN and the exact source/carrier reason. Known controls include raw global cap-four failure, once-history grouped NNS sign reversal, repeated-history overload, complete factor-depth reconstruction, **merged #958 one-ninth support**, **same-tag A-to-H impossibility**, **fixed-cofactor vanishing-mass PAPER_PROOF**, **cofactor-depth staircase PAPER_PROOF**, the complete A+B (not A+H) PNT compensation, q>=R-only monotonicity, the sitewise Li coherent mode, finite-extension guard failure, critical/vanishing-gap amplification countermodels and the sparse arbitrary-prefix control. Synthetic recurrence countermodels are not actual-Mertens counterexamples. A case on eligible ancestry is not automatically admitted to a later mask. Do not rerun unchanged large checks.
 
 ## Mechanism decision and downstream handoff
 
