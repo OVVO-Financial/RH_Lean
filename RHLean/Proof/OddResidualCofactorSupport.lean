@@ -108,4 +108,7 @@ theorem nine_mul_canonicalLargestPrimeFactor_lt_sq
     _ = m := hprod
     _ < R ^ 2 := hmR
 
+#print axioms RHLean.Proof.canonicalCofactor_one_lt_and_not_prime_of_factorDepthResidual
+#print axioms RHLean.Proof.nine_mul_canonicalLargestPrimeFactor_lt_sq
+
 end RHLean.Proof
