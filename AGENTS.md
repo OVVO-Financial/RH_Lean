@@ -1,6 +1,6 @@
 # RH_Lean research-agent instructions
 
-**Live steering revision: 2026-10-16, after merged PR #958.** These instructions govern research, formalization and repository operations. The unchanged public objective is `VFCanonicalSquareVonKochStatement`. No instruction in this file asserts a new cancellation bound or RH proof.
+**Live steering revision: 2026-10-16, after merged PRs #958 and #961 and the unified manual research cycle.** These instructions govern research, formalization and repository operations. The unchanged public objective is `VFCanonicalSquareVonKochStatement`. No instruction in this file asserts a new cancellation bound or RH proof.
 
 ## Mandatory authority and reading order
 
@@ -17,27 +17,31 @@ Compiled source plus verification at its exact revision establishes mathematics;
 
 The pre-update policy is preserved **byte-for-byte**, including its detailed no-go lists, in [AGENTS_POLICY_HISTORY_2026_10_15.md](AGENTS_POLICY_HISTORY_2026_10_15.md). It is historical, not a second live instruction hierarchy. The current files replace dated route locks and schedule ambiguities, not proof-integrity safeguards.
 
-## Current steering: explain factor-depth coupling, not just observe cancellation
+## Current steering: independently payable arithmetic, not sector reassembly
 
-The raw-seat reconstruction exposed a small signed total built from a large negative prime/semiprime tag sector and its complementary ledger. Merged #958 now proves a sharp support restriction, but not cancellation. The leading research question is:
+The canonical `VFCanonicalSquareVonKochStatement` remains OPEN. **PROVED_IN_LEAN_ON_MAIN:** merged #958 proves qualified odd-residual one-ninth support (`RHLean/Proof/OddResidualCofactorSupport.lean`). Merged #961 proves the complete greatest-prime **incidence fibre** for `q>=R` and `1<n<R^2`, with cofactor `a<q`, non-square and residual characterizations (`RHLean/Proof/RootWallCompleteFibre.lean`). Neither module defines the complete raw native-weight ledger, bounds a signed sum, admits returned cells or proves RH. Do not duplicate either module.
 
-> What independently provable signed relation couples the upper prime-tag sector to the **entire complement**, across different greatest-prime tags and growing cofactor ranges, while preserving the complete global interactions?
+The October 16 unified seven-function manual cycle was **one AI session** with a same-session referee self-audit, **not** seven independent scheduled agents or an independent mathematical review. The reports give a paper cut-mode identity
+```text
+x=R^2
+A_R = sum_(prime x/3<q<x) (w(q)-1)
+B_R = F_R + 2 - pi(x/3) - sum_(prime x/3<q<x) w(q).
+```
+Thus `A_R+B_R=L_R` is exact physical reassembly, not an independently bounded payment. `B_R` includes **all lower-tag charges and H_R**, not H alone. The report's theorem that `|B_R-B*_R|=O(R log R)` is RH-equivalent refers to its **particular specified smooth B***; it is `PAPER_PROOF / INDEPENDENT_REVIEW_REQUIRED`, not an all-cutoff no-go.
 
-This is **not** permission to assume their mismatch is small. The exact partition and its square are identities; numerical near-cancellation does not prove uniform control. Keep raw odd seats, eligible ancestry and masked/clipped first-bad returned cells distinct. Prove any source bridge before transporting an estimate.
+The same manual cycle reports a root band `[R,2R)` with
+```text
+E_prime(y)=sum_(p<=y)1/p - log(log y) - M_Meissel
+T_R-M_R^band=F_R*(E_prime(2R-1)-E_prime(R-1))+rho_R
+rho_R=O(R/log^2 R).
+```
+The claimed zero-based lower obstruction `T_R-M_R^band` not `O(R^(3/2-delta))` for any fixed `delta>0` is `PAPER_PROOF / INDEPENDENT_REVIEW_REQUIRED`. Its stated carrier is this band **relative to its specified prime-free main term**, plus an audited `x^theta` family with `1/2<=theta<2/3`. It does **not** exclude joint cross-band cancellation, an explicit prime-oscillation main term, all other cutoffs, nonlocal source transport or NNS source bridges. Avoid the report's overbroad shorthand "every sector." Finite band correlations are not all-scale bounds.
 
-Start from the three distinct candidate mechanisms in the brief: **factor-depth signed transport/invariant; inverse arithmetic obstruction; genuine Mobius finite-prefix signed amplification**. Nonlocal response-weighted analysis remains eligible. Do not allocate all seven specialties to one renamed missing bound, invent a route to meet a quota, or require a failed mechanism to remain live. A route's independent input, not its notation or final consumer, determines whether it is distinct.
+**Current routing:** PROVISIONALLY SUSPEND stand-alone raw-sector `A` or `B` target estimates, fixed small-cofactor and same-tag payment, and pure `A+B` regrouping without new arithmetic. Fold inverse configurations that merely reproduce the same band-prime statistic into that audit. Revive factor-depth/source payment only after identifying a *new* independently provable sieve, prime, Mobius or signed owner input with exact source admission, weights, physical occurrences, endpoints and mixed covariance. Do not force all roles into one route. Keep Nyman positive-Hilbert and genuinely different nonlocal alternatives alive.
 
-Every substantive research run should attempt a proof, weaker independent bound with stated losses, decisive falsification, or genuinely discriminating experiment. An exact new structural lemma is valuable; do not reject it merely because it does not close RH. Conversely, another identity, bigger sieve or conditional victory theorem is not a positive global estimate. Report `NO_NEW_RESULT` honestly when appropriate.
+**Priority candidate, not unique proven route:** study the exact signed genuine-Mobius floor-kernel decomposition `M(X)=2M(N)+K1-K2+K3`, for `N=B-1`, `B<=X<B^2`, `K3=sum_(i,j<=N;ij<=X)mu(i)mu(j)psi(X/(ij))`, `psi(t)={t}-1/2`. A possible `X/H<ij<=X` Type II corner estimate must specify `H`, sign-preserving integer multiplicities, `K1/K2`, the **rest of K3**, square/floor boundaries, and a complete full-prefix route with `r<2` and justified `G(B)=B^o(1)`. The proposed reflection `ij -> X/(ij)` is NOT automatically an integer-lattice involution; prove the map or an exact weighted replacement with every correction term before treating it as a symmetry. A conditional fixed `B^g` calibration is not an actual gained inequality.
 
-### October 16 merged support theorem and required change in direction
-
-**PROVED_IN_LEAN_ON_MAIN:** PR #958 merged into main (`RHLean/Proof/OddResidualCofactorSupport.lean`). Its theorem `RHLean.Proof.nine_mul_canonicalLargestPrimeFactor_lt_sq` states that for `1<m<R^2`, an odd canonical cofactor and the explicit `IsOddFactorDepthResidual m` exclusions imply `9*canonicalLargestPrimeFactor m<R^2`. The exclusions are prime, distinct-semiprime and prime-square cases. This is an unconditional structural **support** theorem, not a signed mass or covariance estimate. It does **not** formally implement the full paper `H_R` ledger, its incidence bijection or its admission to returned cells. Do not reproduce this completed theorem as new work.
-
-**PAPER_PROOF on the separately defined raw carrier:** each `H_R` seat has unique `n=a*q` with `q=P+(n)`, odd composite `a>=9`, and `q<R^2/9`. The upper negative sector `A_R` has `q>R^2/3`. Therefore a greatest-prime-tag-preserving direct `A_R`-to-`H_R` matching is impossible. **Do not claim the entire positive compensator is `H_R`:** the proved PNT-scale compensation is `A_R+B_R=L_R`, where `B_R=L_R-A_R` contains lower-tag charges **and** `H_R`. At that scale `A_R=-(1/3+o(1))*R^2/log R` and `B_R=(1/3+o(1))*R^2/log R`; these `o` errors are much too large for the canonical endpoint target. Retain `L_R^2=A_R^2+B_R^2+2*A_R*B_R`, as well as the internal `T_R/H_R` interactions and the actual zero-target normalization.
-
-**Additional PAPER_PROOF, not compiled by #958:** for each fixed finite set of odd composite cofactors `S`, `H_R(S)/H_R->0`; fixed `a` has the sharper `H_R(a)~2*R^2/(a*log^2(R^2))`. The cofactor-depth staircase `a^(j+1)>=(R^2)^j => Omega(n)>=j+2` is also a paper result. Thus a fixed small-cofactor backbone and a same-tag transport cannot be complete mechanisms. The necessary *shape* is a growing-cofactor, cross-tag **signed** coupling of the **complete** complement, not a proved quantitative gain.
-
-**Next independently payable input:** formulate a coefficient-preserving, occurrence-faithful cross-tag/cofactor-band transport for `A_R` against **all of** `B_R`, with original weights, low-tag contributions, squareful mass, moving boundaries, and every mixed quadratic term. State an independently provable restriction on the transport defect; naming `A_R+B_R` small is `TARGET_EQUIVALENT`. The Owner's `q -> 3q` crossings are distinct semiprimes inside `T_R`, **not** positive `H_R`. The independent signed MU-LIFT lane and properly scoped Hilbert-space alternatives remain open; do not force them into this raw-seat carrier. See the live brief and today's Wheel/Census/Referee reports for paper evidence.
+Use `E_mu(B)=max_(1<=n<B)|M(n)|/sqrt(n)` exclusively for the Mertens amplification budget; it is entirely distinct from the prime-reciprocal `E_prime(y)` above. A report may prove a weaker signed estimate, a rigorous counterexample, a useful structural restriction or nothing new; never relabel a cut identity or RH-equivalent subgoal as independent progress. The most ambitious paper no-gos require an **independent** follow-up referee pass before final retirement decisions.
 
 ### MU-LIFT relaxation: judge normalized loss, not constant gain
 
@@ -65,13 +69,13 @@ Search before reimplementing: use `python3 scripts/proofq.py repo-search '<terms
 
 | Agent | Live responsibility |
 | --- | --- |
-| Research Coordinator / Proof Architect | Treat #958 as merged structural infrastructure; rank growing-cofactor cross-tag transport against independent MU-LIFT and other genuinely distinct inputs. Retire same-tag and fixed-cofactor mechanisms; distinguish structural, quantitative and formal progress. |
-| Owner Payment / Arithmetic Structure | Seek an exact weighted **cross-tag** map or invariant connecting upper `A_R` to **complete** `B_R`, including lower tags and unbounded composite cofactors. Track the `q -> 3q` semiprimes in `T_R` and account for original global zero-target covariance and all defects; no isolated-pair catalogues. |
-| Analytic Type II / Quantitative Theory | Seek an independent quantitative MU-LIFT gain (final r versus k, normalized subpower loss, full-prefix coverage), or a distinct nonlocal/Hilbert bound with its own proved input. #958 says nothing about the Mertens gain or Nyman decay; do not conflate carriers. |
-| Finite Wheel / Structural Incidence | Use the now-proved one-ninth support to seek new constraints on **cross-tag, growing-cofactor** incidence or a non-tautological inverse configuration. Do not revisit tag-preserving `A_R`-to-`H_R` transport, fixed small-cofactor covering or unsigned-wheel growth without changed hypotheses. |
-| Prime Census / Experimental Number Theory | Test a predeclared signed transport observable for `A_R` versus **complete** `B_R`, stratified jointly by cofactor band and `Omega`; preserve native weights and negative partners. Reuse the verified `R<=5000` cofactor counts unless a new hypothesis requires new data. |
-| Adversarial Referee / Mathematical Red Team | Enforce the sharp division: #958 is Lean support only; fixed-cofactor asymptotics and staircase are paper; `A_R` cancels with **all** `B_R`, not `H_R` alone. Audit every proposed cross-tag kernel, growing-cutoff uniformity, complete covariance and target-equivalence. |
-| Lean Verification / Formal Certification | Recognize #958 and the one-ninth Lean lemma as **MERGED**; do not duplicate. Next optional candidate is the paper cofactor-depth staircase or a truly independent signed-transport lemma, after duplicate/scope review. Use own proof PR, exact-head Actions/axioms and human merge gate. |
+| Research Coordinator / Proof Architect | Recognize merged #958/#961 and the single self-audited manual cycle. Provisionally suspend old pure-sector routes, compare genuinely distinct signed Type II, Nyman-Hilbert and independently new nonlocal mechanisms. Separate paper obstructions from kernel-verified results. |
+| Owner Payment / Arithmetic Structure | Independently check the A/B cut and specified B*-RH bootstrap. Seek a genuinely NEW sieve/Buchstab/Vaughan or physical signed source identity with independently bounded defect, not another `A+B=L` reassembly. Retain all native weights and NNS mixed terms. |
+| Analytic Type II / Quantitative Theory | Independently audit the prime-reciprocal Mellin/zeta-zero band obstruction and fixed-(r,g) chain calibration. Explore the full genuine `K1/K2/K3` Type II anatomy or a distinct Nyman/nonlocal estimate; do not claim a K3 corner alone suffices. |
+| Finite Wheel / Structural Incidence | Look for an actual integer-pair/integer-divisor involution, signed support reduction or inverse obstruction for the hyperbola corner with exact boundaries, repeated primes and exclusions. Do not rediscover #961 complete fibres. |
+| Prime Census / Experimental Number Theory | Reuse the October 16 manual-cycle reproducers; test a predeclared signed integer-lattice/K3 symmetry or independent alternative, including `K1/K2` and the rest of K3, with exact and held-out controls. Avoid repeat scans lacking new predictions. |
+| Adversarial Referee / Mathematical Red Team | Provide an **independent** review of owner-4 zero/Mellin proof, owner-5 B* ⇔ RH bootstrap, analytic-3 fixed-(r,g) calibration and analytic-4 stated band range; test source fidelity, overbroad sector no-gos, noninteger reflections and all covariance terms. |
+| Lean Verification / Formal Certification | #958 and #961 are **MERGED**; do not duplicate. Formalize only a newly justified theorem after duplicate and independent scope review, via its authorized proof PR, exact-head GitHub Actions and standard axiom audits; human-only merge. |
 
 Saved Studio instructions specify these durable specialties, not mandatory PR numbers, dates, claims or theorem assignments. Resolve the queue from live main and current reports. Editing GitHub Markdown **does not** edit saved/published Studio instructions, tools, permissions or triggers.
 
