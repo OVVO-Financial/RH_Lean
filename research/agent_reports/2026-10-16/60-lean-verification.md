@@ -91,3 +91,8 @@ At this checkpoint, five legacy VF research import-closure workflows remain in p
 - The canonical quantitative obstruction remains a growing-cofactor, cross-tag signed transport with the complete complement and all quadratic interactions retained.
 
 No RH proof claim.
+
+
+## G. CI status refresh - 2026-10-16 06:13 EDT
+
+A final exact-head query found that VF recursive child population and complement capacity run `38880823467` completed successfully. Seven attached workflows are now green. Four legacy import-closure workflows remain in progress without a reported failure: `38880823503`, `38880823463`, `38880823805`, and `38880823702`. PR #958 remains draft; no no-op rerun commit or review-state transition was made.
