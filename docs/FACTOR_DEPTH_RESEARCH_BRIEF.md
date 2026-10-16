@@ -1,6 +1,6 @@
 # Live research brief: factor-depth coupling and independent amplification
 
-**Revision: 2026-10-16, after #958 merged on `main@b0446d45037b10637522791e398a9c8ffd99f123`.** Read this file from current main every invocation, after [AGENTS.md](../AGENTS.md) and [CURRENT_PROOF_CONTRACT.md](../CURRENT_PROOF_CONTRACT.md). The target and permissions are unchanged. The candidates below are research hypotheses, not asserted new bounds. MU-LIFT work also reads the [subpower amplification budget](MERTENS_AMPLIFICATION_BUDGET.md).
+**Revision: 2026-10-16, after #961 merged on `main@df47c8ae0e751ce12bd0e493156a957d86e02ee4` and the unified manual cycle.** Read this file from current main every invocation, after [AGENTS.md](../AGENTS.md) and [CURRENT_PROOF_CONTRACT.md](../CURRENT_PROOF_CONTRACT.md). The target and permissions are unchanged. The candidates below are research hypotheses, not asserted new bounds. MU-LIFT work also reads the [subpower amplification budget](MERTENS_AMPLIFICATION_BUDGET.md).
 
 ## 1. What the overnight cycle actually changed
 
@@ -8,7 +8,7 @@ The raw odd-seat census gave an exact complete partition into historical-prime/d
 
 Evidence: [Census, 2026-10-15](https://github.com/OVVO-Financial/RH_Lean/blob/agent-reports/research/agent_reports/2026-10-15/40-prime-census.md), claims census-1 through census-4, blob `2e3c1cf95cd11669d57d2ce1f7216916736ff095`; [Referee](https://github.com/OVVO-Financial/RH_Lean/blob/agent-reports/research/agent_reports/2026-10-15/50-adversarial-referee.md), blob `cf0db85f6b04c56527bc9a26a1b6741ae196435a`.
 
-**Updated leading question:** identify an independently provable **cross-tag, growing-cofactor signed** relation between the negative upper-tag sector `A_R` and the **entire** complementary ledger `B_R=L_R-A_R`. Coupling `A_R` only to `H_R` omits lower tags. Merely asserting that their mismatch is O(R log R) restates the endpoint target. Prefer a new restriction, exact transport with a separately controlled defect, or a weaker uniform estimate that reveals the missing mechanism.
+**Updated leading question:** after the exact reported A/B cut identity, what independently provable NEW signed arithmetic input (not just regrouping) can control the original source? Examine a complete genuine-Mobius Type II/hyperbola source estimate, or a genuinely distinct Nyman/nonlocal mechanism; pure raw-sector reassembly is provisionally suspended. Merely asserting that their mismatch is O(R log R) restates the endpoint target. Prefer a new restriction, exact transport with a separately controlled defect, or a weaker uniform estimate that reveals the missing mechanism.
 
 ## 2. Fixed source dictionary
 
@@ -52,11 +52,29 @@ Thus **direct greatest-tag-preserving `A_R -> H_R` incidence is empty**. A direc
 
 Paper sources: [Wheel (Oct 16)](https://github.com/OVVO-Financial/RH_Lean/blob/agent-reports/research/agent_reports/2026-10-16/30-finite-wheel.md), [Census (Oct 16)](https://github.com/OVVO-Financial/RH_Lean/blob/agent-reports/research/agent_reports/2026-10-16/40-prime-census.md), [Referee (Oct 16)](https://github.com/OVVO-Financial/RH_Lean/blob/agent-reports/research/agent_reports/2026-10-16/50-adversarial-referee.md). Prior exact local crossings: [Owner (Oct 15)](https://github.com/OVVO-Financial/RH_Lean/blob/agent-reports/research/agent_reports/2026-10-15/10-owner-payment.md). Always re-fetch for later corrections.
 
-## 3. Live competing mechanisms (post-#958)
+### Post-#961 unified-cycle evidence and scoped directions
+
+**Merged, kernel-proved:** [PR #961](https://github.com/OVVO-Financial/RH_Lean/pull/961) adds `RHLean/Proof/RootWallCompleteFibre.lean`: for prime `q>=R` the canonical greatest-prime fibre below `R^2` consists of its positive multiples with multiplier `a<q`, with non-square and explicit odd residual classification. Together with merged #958, this is **incidence/support**, not a weighted source or signed sum bound. Do not duplicate these declarations.
+
+**PAPER_PROOF / INDEPENDENT_REVIEW_REQUIRED (one self-audited manual AI cycle):**
+```text
+x=R^2
+A_R = sum_(prime x/3<q<x) (w(q)-1)
+B_R = F_R+2-pi(x/3)-sum_(prime x/3<q<x) w(q).
+```
+The exact `A_R+B_R=L_R` cancellation is `IDENTITY_ONLY`, not an independent payment. The claim `|B_R-B*_R|=O(R log R) iff RH` uses a **specific** `B*_R` smooth model from Owner `20261016-owner-5` and has not yet had an independent human/agent referee proof check. Do not generalize the equivalence to every cutoff/model.
+
+**Root-scale prime-reciprocal band:** distinguish `E_prime(y)=sum_(p<=y)1/p-log(log y)-M_Meissel` from `E_mu(B)=max_(1<=n<B)|M(n)|/sqrt(n)`. Owner `20261016-owner-3` states the paper identity `T_R-M_R^band=F_R*(E_prime(2R-1)-E_prime(R-1))+rho_R`, `rho_R=O(R/log^2 R)`. Owner `-4` argues from the known zeta zero near `1/2+14.13i` that `T_R-M_R^band` is **not** `O(R^(3/2-delta))` for any fixed positive delta. Analytic `-4` states a restricted `1/2<=theta<2/3` family. These **paper** no-gos apply to the named band **against the named prime-free main term**, and do NOT refute full cross-band cancellation or an explicit oscillatory main term. Independently audit the Mellin continuation, branch passage, arithmetic sampling and claimed exponent before declaring the method excluded.
+
+**Type II potential, not a unique proven closure:** Analytic `20261016-analytic-1` gives `M(X)=2M(N)+K1-K2+K3`, `N=B-1`, `B<=X<B^2`, with genuine `mu(i)mu(j)` and hyperbola cutoff `ij<=X`; see [amplification budget](MERTENS_AMPLIFICATION_BUDGET.md). A proposed `X/H<ij<=X` slice of `K3` requires explicit `H`, all remaining `K3` ranges, exact `K1/K2` cancellation, original signed coefficients and full-prefix coverage. A suggested `ij -> X/(ij)` reflection is **not** automatically an integral bijection; prove a signed lattice transformation or exact weighted identity with every boundary term. Do not infer new exponent improvement from a shorter but otherwise identical sum.
+
+**Disposition:** PROVISIONALLY SUSPEND pure raw A/B regrouping and stand-alone sector estimates about the specified main terms; MERGE inverse root-band prime-reciprocal configurations into their cut-mode audit; CONTINUE genuine signed MU-LIFT research and truly independent Hilbert/nonlocal inputs. These are research priorities, not a claim that every possible sector partition is RH-equivalent or supertarget. No quantitative progress toward the canonical bound, finite A/C or RH was made. Dated evidence: [Owner](https://github.com/OVVO-Financial/RH_Lean/blob/agent-reports/research/agent_reports/2026-10-16/10-owner-payment.md), [Analytic](https://github.com/OVVO-Financial/RH_Lean/blob/agent-reports/research/agent_reports/2026-10-16/20-analytic-type-ii.md), [Referee self-audit](https://github.com/OVVO-Financial/RH_Lean/blob/agent-reports/research/agent_reports/2026-10-16/50-adversarial-referee.md), [Census](https://github.com/OVVO-Financial/RH_Lean/blob/agent-reports/research/agent_reports/2026-10-16/40-prime-census.md).
+
+## 3. Active and suspended mechanisms after #961
 
 ### FD-TRANSPORT: signed depth-transition law
 
-**Hypothesis to develop:** a genuine prime-adjoining, divisor, involution or telescoping relation transfers native signed mass **across greatest-prime tags and growing cofactor bands**, reassembling the full `A_R+B_R` (not just `A_R+H_R`) with an independently controlled residual.
+**PROVISIONALLY SUSPENDED as a pure raw-seat route.** The proposed complete cross-tag A/B reassembly is now the exact cut identity and has no independently paid remainder. **Only consider revival** via a genuinely new sieve/Buchstab/Vaughan/Mobius or native-source identity with a separately proved quantitative input that preserves each original signed term. This paper disposition is scoped, not a proof excluding every cross-band mechanism.
 
 Owner should write the actual occurrence map or operator, not just label the desired remainder small. Preserve fresh-prime/coprimality conditions, multiplicities, weight changes `w_floor(sqrt(n*q))-w_floor(sqrt(n))`, new squareful contacts, physical boundaries, cutoff changes and all unmatched terms. A weighted conservation law must include its exact weighting defect; equal unweighted counts do not imply weighted cancellation.
 
@@ -66,13 +84,15 @@ A first successful result may be an exact transition identity plus a new sign, s
 
 ### INV-CONFIGURATION: inverse structural obstruction
 
-**Hypothesis to develop:** an excessive signed mismatch forces a precisely quantified surplus, incidence pattern, factor-depth transition defect or quotient-interval configuration that can be independently excluded or bounded.
+**MERGE, when it is only the root-band prime statistic.** Wheel `20261016-wheel-5` identifies a band imbalance with a prime-reciprocal Mertens error increment and independently bounds it at classical PNT strength. A distinct inverse route needs a newly specified configuration and an independently *stronger* arithmetic restriction, not the same cut mode in different notation.
 
 Wheel and Referee should separate the two theorems: (i) imbalance implies a named configuration, with constants and all hypotheses; (ii) genuine arithmetic restricts that configuration independently of the endpoint bound. A configuration defined simply as 'the mismatch is too large' is circular. A capacity bound on unrelated support is insufficient. Search for a minimal actual counterexample or sharp boundary before widening a wheel.
 
 **Decisive test:** determine a cross-tag/cofactor-band observable on which this inverse proposal and FD-TRANSPORT make different predictions; same-tag `A_R -> H_R` incidence is already proved empty, not an open experimental candidate. If they use the identical unpaid inequality, merge them into one lane and develop a truly different alternative. No arbitrary map between tags is allowed without preserving the physical coefficient and compensations.
 
-### MU-LIFT: genuine finite-prefix signed amplification
+### MU-LIFT: genuine finite-prefix signed amplification and the complete Type II anatomy
+
+**New research emphasis:** seek a truly signed shortening identity or independent Type II estimate in the exact `K1/K2/K3` hyperbola decomposition. The `K3` corner is a candidate, **not** sufficient by itself. The fixed `(r,g)` implication is conditional: chain coverage gives a zero-free boundary at `1/2+2g/(2-r)`, all-`B` coverage can improve it to `1/2+g/(2-r)`; a proven nontrivial gain would therefore already be a substantial zeta-zero result. A finite observed ratio is not this theorem. Distinguish the prime-reciprocal `E_prime` from the `E_mu` budget.
 
 **Distinct current baseline:** [MERTENS_FINITE_PREFIX_EXTENSION.lean](../research/MERTENS_FINITE_PREFIX_EXTENSION.lean) proves the genuine Newton support extension B -> B^2. Merged #954 adds [higher-order signed lifts](../research/MERTENS_HEATH_BROWN_SIGNED.lean), exact B -> B^k coefficient reconstruction, and the [complete signed hyperbola bridge](../research/MERTENS_SIGNED_HYPERBOLA.lean). Neither support extension nor reindexing bounds the remaining signed summatory gain.
 
@@ -109,6 +129,14 @@ Owner sources: [2026-10-14 report](https://github.com/OVVO-Financial/RH_Lean/blo
 
 Analytic source: [2026-10-14 report](https://github.com/OVVO-Financial/RH_Lean/blob/agent-reports/research/agent_reports/2026-10-14/20-analytic-type-ii.md), analytic-6, blob `3a6932d9c5e1474adf1f34374310c7b73eb71fc2`. Wheel source: [2026-10-15 report](https://github.com/OVVO-Financial/RH_Lean/blob/agent-reports/research/agent_reports/2026-10-15/30-finite-wheel.md), wheel-1..3, blob `6d451c35eef4021fcff78253bed609d193c249c1`.
 
+### Post-cycle scoped regressions
+
+- **#961 merged:** root-wall complete fibre and explicit odd-residual characterization are kernel-proved; full weighted raw charge, band identity and signed estimate are *not*.
+- **Owner cut and equivalence:** the exact A/B cut is raw-paper bookkeeping. The claimed `B_R-B*_R` iff RH for a specific B* has only one-session self-audit; next independent Referee must examine the bootstrap before treating it as settled.
+- **Band and prime reciprocal:** paper `[R,2R)` formula plus stated oscillation; no all-sector no-go. Finite `R=1000..5000` and segmented `R~1.1e8` diagnostics are source-referenced, not certified asymptotics. Reuse published data.
+- **K3 decomposition:** full signed pair support `ij<=X`; require all `K1,K2,K3`, every subregion and exact `H` when testing a corner. Reject a purported involution unless defined on actual integer lattice with exact signs, multiplicities and cutoffs.
+- **Single manual seven-role cycle:** one actual invocation, one AI self-audit; do not count it as seven scheduled runs or independent mathematical confirmation.
+
 ## 5. Census acceptance: discover a restriction, not a fitted residual
 
 A new experiment specifies in advance its two competing explanations, precise observable, rejection criterion, endpoint convention, scale range and held-out cases. Always label a root R separately from a cutoff x; `R=317` and `x=317` are different experiments.
@@ -121,18 +149,18 @@ Distinguish exact integer/rational comparisons, floating logs, arbitrary precisi
 
 ## 6. Next-role handoffs and stopping rules
 
-**Coordinator:** register #958 as merged support only; explicitly retire same-tag `A_R`-to-`H_R` and fixed-cofactor-only routes, and rank genuine cross-tag signed payment against independent MU-LIFT and other distinct inputs. Publish one decisive question per specialty. Separate signed-law progress from formal coordinate infrastructure. Correct stale converse/PR status from live main; do not rewrite historical reports to pretend they knew later merges.
+**Coordinator:** register #961 as MERGED, the manual cycle as one self-audited invocation, and its paper no-gos as independent-review-pending. Suspend pure-sector routes provisionally, without asserting all sector methods impossible. Rank distinct Type II, Nyman-Hilbert and new nonlocal input hypotheses.
 
-**Owner:** derive one coefficient-preserving signed relation between `A_R` and **complete** `B_R`, stratifying lower tags versus growing composite cofactors and keeping the `q->3q` semiprime packets inside T. Restore squareful, boundary and mixed terms explicitly. Seek an independently proved partial estimate, not another local pair catalogue.
+**Owner:** independently test the cut identity and the specific `B_R-B*_R` RH bootstrap. If renewing owner payment, supply a NEW native signed source/sieve theorem with a separately paid estimate and complete covariance; do not rederive A+B.
 
-**Analytic:** keep MU-LIFT independent of #958, with a genuine fixed-subcritical full-prefix estimate or honest quantitative obstruction; the Nyman positive-Hilbert coefficient-rigidity route is distinct and remains missing an all-scale decay proof. Assess final r versus k and the normalized loss, allowing subpower gain beyond polylogarithms. Establish a quantitative bound at its honest strength or expose the exact obstruction. Do not import the desired amplification as a hypothesis under a new name.
+**Analytic:** independently scrutinize owner-4 Mellin/zeta-zero argument and analytic-3 fixed-(r,g) calibration. Test the exact K1-K2+K3 signed hyperbola structure; work toward an actual, quantified full-prefix bound only with independent arithmetic input. Keep Nyman-Hilbert distinct.
 
-**Wheel:** find a non-tautological independent **cross-tag/growing-cofactor** restriction or inverse configuration; the greatest-tag-preserving A-to-H edge is already impossible. Retire unmodified fixed-capacity covering and unsigned-wheel enlargement as complete mechanisms.
+**Wheel:** find an exact **integer-lattice** involution or other arithmetic support restriction on K3 and the actual floor/divisor carrier, including repeated-prime and boundary cases. Check whether any claimed reduction actually shortens complexity and transports back with losses accounted for.
 
-**Census:** test a predeclared **signed A versus full B** cofactor/`Omega` transport kernel on held-out ranges; reuse the completed R<=5000 positive-H census rather than enlarging it without a new prediction. For MU-LIFT certify full-prefix maxima or interval coverage and report normalized gain diagnostics; endpoint samples are not full-prefix bounds. Expand ranges only when a stated prediction or regime change justifies it.
+**Census:** reuse `research/agent_reports/2026-10-16/manual-cycle/` reproducer; preregister one decisive K3/integer-pair symmetry or alternative test and retain K1/K2, other K3 regions, full signed μ and held-out endpoints. Do not rerun the 2e9 sieve or R<=5000 ledger just for size.
 
-**Referee:** enforce #958's exact compiled assumptions versus paper claims, A+B (not A+H) macro compensation, fixed-cofactor no-go and full covariance; test cloning, sign loss, growing-cutoff uniformity and target-equivalence. For amplification require a fixed subcritical r or a separately proved varying-gap criterion. Supply the strongest surviving corrected theorem.
+**Referee:** **independently** audit owner-4 band oscillation, owner-5 B* ⇔ RH equivalence, analytic-3 chain/all-B exponent differences, analytic-4 theta range and whether the K3 corner is genuinely distinct. A same-session self-audit is not independent validation. Keep any no-go within its exact carrier and quantifiers.
 
-**Lean:** recognize merged #958 as already proved; do not duplicate its one-ninth support lemma. Next optional focused candidate is the **paper** cofactor-depth staircase or a new native signed kernel, after independent review and duplicate search. The raw partition/endpoint constant, tail monotonicity and generic subcritical-gain consumer are possible small candidates, not mandatory work or closure claims. Search existing amplification modules before duplicating; keep the unproved arithmetic input explicit.
+**Lean:** treat #958 and #961 as merged infrastructure; search source for existing identity first. If a genuinely new, independently reviewed theorem exists, formalize it on the authorized branch with exact-head CI and axiom checks. Conditional gain consumers are not numerical gain proofs; no filler PR.
 
-At the end of a run, answer: **What independent fact was learned? Which competing hypothesis changed status? What bound was actually improved, with what losses? What is the smallest next decisive step?** An honest unchanged frontier with a precise obstruction is better than manufactured novelty. No scheduled agent changes shared instructions, permissions, schedules or merge policy; proposals go to human review.
+Every report specifies its independent fact, claim strength/status, exact carrier, missing source arrows, newly falsified hypothesis and smallest next arithmetic test. The canonical endpoint and global payment remain open. No scheduled role edits shared instructions or merges a PR.
