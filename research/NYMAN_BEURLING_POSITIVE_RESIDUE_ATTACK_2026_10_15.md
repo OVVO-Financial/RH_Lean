@@ -124,3 +124,67 @@ Primary literature:
 - https://arxiv.org/abs/math/0202141 (Báez-Duarte, integer-dilation criterion).
 - https://arxiv.org/abs/math/0103058 (Burnol, positive log lower bound).
 - Compiled RH_Lean translator: research/MERTENS_CONVERSE_IDENTIFICATION.lean.
+
+## 8. Stronger EXACT finite separation: full N=96 beats every omission-of-6 model
+
+The new executable files experiments/nyman_beurling/certify_N96.cpp and
+n96_coeffs.inc contain a fully specified rational approximant with all
+k=2,...,96 present. The 95 integer coefficients q_k define
+
+    P=2^20=1048576,
+    F(m)=sum_(k=2)^96 q_k*(m mod k)/P,
+    c_k=k*q_k/P.
+
+Choose T=3,000,000 and S=2^48=281474976710656. For every 1<=m<=T
+the program forms the exact signed integer residual numerator
+
+    R_m=P-sum_(k=2)^96 q_k*(m mod k)
+
+and rounds each nonnegative rational R_m^2/[P^2*m*(m+1)]
+UP to units 1/S using unsigned 128-bit integer arithmetic. The infinite
+tail is bounded by (1+sum_k |c_k|)^2/(T+1), rounded upward as well.
+The literal coefficients give sum_k k*|q_k|=27900192.
+
+ACTUALLY EXECUTED output (no floats):
+
+    N=96 P=1048576 T=3000000 SCALE=281474976710656
+    partial_ceiled=2933093216945
+    tail_ceiled=71511969227
+    total_ceiled=3004605186172
+    l1_numerator=27900192
+    less_than_1_over_92=PASS
+
+The integer comparison is
+
+    92*3004605186172 = 276423677127824
+      < 281474976710656 = S.
+
+Hence this single finite rational witness proves the *strict*
+separation
+
+    d_96^2 <= 3004605186172/281474976710656
+           ~= 0.0106745019443
+            < 1/92 ~= 0.0108695652174
+           <= inf_(F omitting modulus 6) ||1-F||_2^2.
+
+The coefficient-dependent numerator obeys
+|R_m|<=P+sum k*|q_k|=28948768. Multiplication by S of its square
+is below 2^128; the denominator, tail and accumulated upper sums also
+fit unsigned 128-bit for the specified finite T. The program checks
+the numerator bound at runtime. As an independent arithmetic cross-check,
+a separate Python arbitrary-precision implementation gave exactly
+2921808119029 for the first 10,000 terms rounded upward at scale 2^48,
+identical to a compiled 10,000-term variant of the C++ program.
+The final 3,000,000-term check is a reproducible integer computation;
+it has NOT been kernel-certified in Lean.
+
+**This is a constructive finite distinction between the complete
+arithmetical residue directions and a false sparse model.** It does
+NOT supply any all-N convergence or a new zero-free band. The numerical
+Gram optimum d_96^2 ~=0.0104205702 is smaller than this rigorous
+rational upper bound, as expected.
+
+Review action: accept the strict finite separation with its precise
+scope; retain the Burnol q<1/2 obstruction; continue the genuine
+uniform positive-approximation upper-bound search without treating
+finite strict separation as RH.
