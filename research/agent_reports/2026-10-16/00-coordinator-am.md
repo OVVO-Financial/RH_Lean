@@ -104,3 +104,14 @@ together with the matching smooth pieces `K1, K2` (analytic-1, G). Any sieve-ide
 - The appended sections of `30`–`60` add lines only (no deletions of the scheduled runs' text).
 - Lean PR #961: all eleven attached workflows green on exact head `dd066a06d752f5ee76017c687799c8b440c71609` (Lean source audits `38904295596`; four legacy VF suites `38904295487`, `38904295454`, `38904295391`, `38904295486` finished green after the synthesis); review-gap comment posted; PR marked ready for human review; **not merged**. Independent Python cross-check later extended to `6 <= R <= 520` (agreement `5.1e-11`, 0 complete-fibre failures; output sha256 `86bbfe91…0595`); the published `ledger_lab.cpp` regenerates `ledger5000.csv` byte-identically (sha256 `dbb8cd43…f926`).
 - A file cannot contain its own blob hash; this addendum's commit is verified externally.
+
+
+---
+
+## Scheduled continuation — 2026-10-16T19:09-04:00
+
+**Continuation status:** IN_PROGRESS
+**Invocation:** configured Coordinator schedule, one execution; this section updates the earlier unified-manual-cycle synthesis without altering its provenance.
+**Fresh authority:** `main@b9105f19fbbf25742a6909a6e8c995e6a9ddeddb`; merged #958 and #961 verified; no open PRs at intake; `agent-reports@2c55353b5e0c80799d3908840e49e99627a0074f`.
+
+The active investigation has found an exact sign-coherence theorem for the genuine-Mobius product fibres underlying `K1/K2/K3`: for fixed product `d`, every nonzero `mu(i)mu(j)` with `ij=d` has the same sign. Equivalently, if `d=t^2 s` with `s,t` squarefree and coprime, the truncated product coefficient equals `mu(s)` times a nonnegative balanced-factorization multiplicity; if a prime cube divides `d`, it is zero. This is being audited against the full kernel and no-circularity requirements before final classification. The immediate consequence is that factor swap or any fixed-product reindexing cannot be a cancellation mechanism; any useful reflection must cross product fibres and account for the resulting sawtooth, floor, and boundary defects.
