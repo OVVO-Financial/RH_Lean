@@ -331,5 +331,9 @@ mass, cloned history, or target-equivalent accumulated remainder.
 The early checkpoint was published at commit
 `2f5e6b79f434a9568b89ce1760434c58b616e6ff` and read back as blob
 `b25dc350bd09d46448c0b945e50eace62a63f516`.
-Final substantive commit/readback metadata will be appended after connector
-verification.
+The substantive report was published at commit
+`0c3fc12cd18c6e1fae1b0d7324e3b322667630da` and read back as blob
+`03401d783d88855084f5a0ac943efeb0e65ef393` (14,178 characters). The
+readback contains Claims `20261015-owner-transport-1/-2`, derivation,
+falsification, full covariance warning, specialist handoffs, and the resume
+capsule.
