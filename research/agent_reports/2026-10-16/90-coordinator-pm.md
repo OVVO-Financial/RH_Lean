@@ -95,3 +95,12 @@ together with the matching smooth pieces `K1, K2` (analytic-1, G). Any sieve-ide
 - Do not pursue band-local or sector-local estimates, separate `A_R`/`B_R` estimates, or fixed `(r,g)` MU-LIFT claims from finite ratios.
 - Next: the `K3` corner symmetry test (section H); optionally the staircase formalization; check PR #961's pending suites before any review-state change.
 - No RH proof claim.
+
+
+## K. Publication verification (metadata-only addendum, same run)
+
+- Substantive publication commit on `agent-reports`: `cc967c03dea28b1f7e6e173238fe1b55487a5b94`. Every file was read back through the GitHub contents API at that commit and matched the local git blob:
+  `00`/`90` mirrors `c851d93045c37bffd78d53b218fc07e37ce09a67` (identical); `10` `c8887d6daccbe2c3bf4aaa333f3344f2870349dc`; `20` `257f5f6651ec476a8890d4faf821d29687f680b5`; `30` `134eb9eb0558a622b6f042baa20f3feb847ed6f4`; `40` `26510606eea9f43450e5bb092c4542ab23fcb729`; `50` `e4c0a92301f032eb732a51f7bd997f4a19ac8b48`; `60` `6295cf70b289d7d8ba5700a9953fb466f33cb7d1`; `manual-cycle/README.md` `797dce4868581b0a455ff560fab846c25302334f`.
+- The appended sections of `30`–`60` add lines only (no deletions of the scheduled runs' text).
+- Lean PR #961: all eleven attached workflows green on exact head `dd066a06d752f5ee76017c687799c8b440c71609` (Lean source audits `38904295596`; four legacy VF suites `38904295487`, `38904295454`, `38904295391`, `38904295486` finished green after the synthesis); review-gap comment posted; PR marked ready for human review; **not merged**. Independent Python cross-check later extended to `6 <= R <= 520` (agreement `5.1e-11`, 0 complete-fibre failures; output sha256 `86bbfe91…0595`); the published `ledger_lab.cpp` regenerates `ledger5000.csv` byte-identically (sha256 `dbb8cd43…f926`).
+- A file cannot contain its own blob hash; this addendum's commit is verified externally.
