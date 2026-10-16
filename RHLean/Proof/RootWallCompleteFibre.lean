@@ -149,8 +149,25 @@ theorem nine_mul_le_of_odd_composite_cofactor {a q : ℕ} (haOdd : Odd a) (ha : 
     (haNP : ¬ a.Prime) : 9 * q ≤ a * q :=
   Nat.mul_le_mul_right q (nine_le_of_odd_one_lt_not_prime haOdd ha haNP)
 
+/-! ## Build-enforced axiom audit
+
+Each `#guard_msgs` fails the warning-fatal build unless the theorem depends on
+exactly the standard axioms `propext`, `Classical.choice`, `Quot.sound`. -/
+
+/-- info: 'RHLean.Proof.completeFibre_of_root_le' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
 #print axioms RHLean.Proof.completeFibre_of_root_le
+
+/-- info: 'RHLean.Proof.largestPrimeFactor_eq_iff_exists_mul_of_root_le' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
 #print axioms RHLean.Proof.largestPrimeFactor_eq_iff_exists_mul_of_root_le
+
+/-- info: 'RHLean.Proof.canonicalCofactor_lt_largestPrimeFactor_of_root_le' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms RHLean.Proof.canonicalCofactor_lt_largestPrimeFactor_of_root_le
+
+/-- info: 'RHLean.Proof.isOddFactorDepthResidual_mul_iff_of_lt' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
 #print axioms RHLean.Proof.isOddFactorDepthResidual_mul_iff_of_lt
 
 end RHLean.Proof
