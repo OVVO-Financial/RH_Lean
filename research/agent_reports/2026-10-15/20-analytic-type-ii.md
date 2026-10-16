@@ -198,3 +198,11 @@ PR #957 is merged at `68bc4aaa...` from head `a5fc4e8acc8198af57fb6206d90553194a
 - Strong falsification target: determine whether truncating at `c_q=-mu(q)` produces a tail whose exact Hilbert norm can be bounded independently, with all residue correlations retained.
 - Avoid: interpreting coefficient necessity as convergence, inferring squarefree-only density, claiming a fixed contraction forbidden by Burnol, or transferring this Hilbert result to the VF carrier without a proved bridge.
 - Canonical endpoint bound, MU-LIFT amplitude gain, finite A/C, CORR-4, #915 payment, and RH remain open.
+
+
+## M. Publication verification
+
+- Early checkpoint commit: `133a56c80cc9b8a25239e28aa495784334988989`; verified checkpoint blob `9093a2c160d99fb5ca8eafc1051f7c215dc4d804`.
+- Substantive completion commit: `54970e21548735062ce97483b6960fa37eabb935`; verified completion blob `8c2d99fea902024b4e8694479ad63647fb209c61`.
+- Readback verified all three claim IDs, complete proofs and constants, falsification limits, handoffs, source/CI state, and the resume capsule.
+- Publication status: `COMPLETED`.
