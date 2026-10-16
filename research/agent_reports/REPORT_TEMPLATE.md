@@ -1,6 +1,6 @@
 # RH_Lean research report — [DATE / ROLE]
 
-> TEMPLATE only. Copy into your own dated stage file. Scheduled agents do not modify this template. Read live main AGENTS, CURRENT_PROOF_CONTRACT, docs/FACTOR_DEPTH_RESEARCH_BRIEF and docs/DYNAMIC_RESEARCH_AGENTS first. For MU-LIFT also read main:docs/MERTENS_AMPLIFICATION_BUDGET.md. Main authority and actual merged PR/source state, not this snapshot, determine current work. Merged #958 is support-only; later status updates must be fetched.
+> TEMPLATE only. Copy into your own dated stage file. Scheduled agents do not modify this template. Read live main AGENTS, CURRENT_PROOF_CONTRACT, docs/FACTOR_DEPTH_RESEARCH_BRIEF and docs/DYNAMIC_RESEARCH_AGENTS first. For MU-LIFT also read main:docs/MERTENS_AMPLIFICATION_BUDGET.md. Main authority and actual merged PR/source state, not this snapshot, determine current work. Merged #958 AND #961 are support/incidence-only: actual signed band/cut paper results are NOT kernel-proved by those PRs. Read live main, not a stale report, for any later changes.
 
 ## Provenance and actual execution
 
@@ -16,11 +16,13 @@
 - **Today handoffs:** [actual paths/blob SHAs/run timestamps/claim IDs, or TODAY=PENDING]
 - **Yesterday handoffs:** [same fields; label YESTERDAY=CARRY_FORWARD, not today's completed work]
 - **External inbox/intake:** [inbox SHA; relevant claim IDs and disposition, or no new applicable evidence]
-- **Live PR/state refresh:** [exact current heads/merge state/CI; #958 PROVED_IN_LEAN_ON_MAIN after merge, or newer verified evidence; never treat a stale report as current]
+- **Live PR/state refresh:** [exact current heads/merge state/CI; #958 and #961 PROVED_IN_LEAN_ON_MAIN at their qualified structural scopes; identify later changes and stale reports]
 - **Reused / invalidated work:** [dependency-specific evidence; no invented cache hits or cost savings]
 - **Actual tools/environment:** [only what was used; Agent #7 Lean runs through GitHub Actions only]
 - **Early durable checkpoint:** [actual time and successful commit/readback, or NOT_PUBLISHED]
 - **Coordinator only:** [one run/synthesis, two identical compatibility mirrors; verify both, not two runs]
+- **Independent-review provenance:** [single-session self-audit / genuinely separate referee run / human review / none; do not conflate acceptance grades]
+- **Unified manual execution, if applicable:** [one owner-authorized AI session and run ID, sequential internal role passes, not seven automatic launches; append without overwriting distinct scheduled runs]
 
 ## Current objective and independent advance
 
@@ -41,11 +43,22 @@
 - **No-go scope:** [REJECT same-tag A-to-H pairing; REJECT fixed finite cofactor backbone by `H_R(S)/H_R->0` PAPER_PROOF; DO NOT infer a quantitative signed A+B bound or returned-cell transfer].
 - **Independent next input:** [physical cross-tag, growing-cofactor native-weight map/defect; include negative partner, lower tags, `Omega`, cutoffs, mixed quadratic terms; OR give a genuinely independent MU-LIFT/Hilbert quantitative mechanism].
 
+### Post-#961 baseline and cut-mode scope — when relevant
+
+- **Lean on main:** [#958 qualified odd residual support and #961 complete above-root greatest-prime fibre, actual theorem predicates and source SHAs; neither proves raw weighted sums or masked return-cell source].
+- **Exact raw A/B bookkeeping:** [`x=R^2`; `A_R=sum_(prime x/3<q<x)(w(q)-1)`; `B_R=F_R+2-pi(x/3)-sum_(prime x/3<q<x) w(q)`; `B_R` includes *all* lower tags and H. Identify whether this is merely an identity.]
+- **Specified smooth B* audit:** [do not claim that `B_R-B*_R=O(RlogR)` is weaker than RH when using the particular smooth B* from 20261016-owner-5; paper equivalence is `INDEPENDENT_REVIEW_REQUIRED`. State the actual model.]
+- **Prime-reciprocal band:** [`E_prime(y)=sum_(p<=y)1/p-loglog(y)-M_Meissel`; paper `[R,2R)` band `F_R delta E_prime+O(R/log^2R)`, claimed not O(`R^(3/2-delta)`) relative to specified prime-free main. Do not infer impossibility of all bands or jointly compensated sums.]
+- **Genuine Mobius floor kernel:** [`E_mu(B)=max_(n<B)|M(n)|/sqrt(n)`, distinct from E_prime; retain `M(X)=2M(N)+K1-K2+K3` with all signed terms, `B<=X<B^2`. A K3 corner only is a candidate, not a sufficient theorem.]
+- **Actual arithmetic map:** [if claiming `ij -> X/(ij)` symmetry, prove an integer-lattice signed map/weighted identity, H, multiplicities, boundary defects and stricter support; no heuristic reflection silently treated as bijective].
+- **Reviewed status:** [paper/source identity/finite/self-audited/independently accepted/Lean-verified; dates and claim IDs; list missing independent check].
+- **Mechanism disposition:** [pure sector route provisionally suspended **at exact carrier/main-term scope**, or truly new independently estimable revived ingredient; no universal no-go from one named cutoff].
+
 ## Mechanism card
 
 - **Stable mechanism ID / proposing role:** [...]
 - **Decision before this run:** [CONTINUE / REVISE / SUSPEND / REJECT]
-- **Original carrier:** [raw odd seats / eligible ancestry / masked-clipped returned cells / genuine Mobius prefix / other precisely defined carrier]
+- **Original carrier:** [raw odd seats / eligible ancestry / masked-clipped returned cells / genuine Mobius prefix, K1/K2/K3 subcorner / prime-reciprocal band E_prime / other precisely defined carrier]
 - **Exact statement:** [all variables, domains, constants, fixed versus growing parameters, uniformity, inequality direction and finite/all-scale scope]
 - **Independent input:** [new arithmetic/analytic principle, proved or explicitly open; not the desired endpoint estimate renamed]
 - **Source and consumer arrows:** [proved identities/implications and every missing bridge to canonical VF or a legitimate alternative]
@@ -115,12 +128,12 @@ For a raw `L=T+H` calculation, display `L^2=T^2+H^2+2*T*H`, identify what each s
 
 ## Mandatory scoped regressions
 
-Consult the current main brief and amplification note, not a frozen list. For each relevant case record PASS / FAIL / REUSED / NOT_APPLICABLE / NOT_RUN and the exact source/carrier reason. Known controls include raw global cap-four failure, once-history grouped NNS sign reversal, repeated-history overload, complete factor-depth reconstruction, **merged #958 one-ninth support**, **same-tag A-to-H impossibility**, **fixed-cofactor vanishing-mass PAPER_PROOF**, **cofactor-depth staircase PAPER_PROOF**, the complete A+B (not A+H) PNT compensation, q>=R-only monotonicity, the sitewise Li coherent mode, finite-extension guard failure, critical/vanishing-gap amplification countermodels and the sparse arbitrary-prefix control. Synthetic recurrence countermodels are not actual-Mertens counterexamples. A case on eligible ancestry is not automatically admitted to a later mask. Do not rerun unchanged large checks.
+Consult the current main brief and amplification note, not a frozen list. For each relevant case record PASS / FAIL / REUSED / NOT_APPLICABLE / NOT_RUN and the exact source/carrier reason. Known controls include raw global cap-four failure, once-history grouped NNS sign reversal, repeated-history overload, complete factor-depth reconstruction, **merged #958 one-ninth support and merged #961 above-root complete fibres**, **same-tag A-to-H impossibility**, **fixed-cofactor vanishing-mass PAPER_PROOF**, **cofactor-depth staircase PAPER_PROOF**, the exact A+B top-third cut, root-band E_prime `PAPER_PROOF / INDEPENDENT_REVIEW_REQUIRED`, specified B* ⇔ RH `PAPER_PROOF / INDEPENDENT_REVIEW_REQUIRED`, complete K1/K2/K3 identity, q>=R-only monotonicity, the sitewise Li coherent mode, finite-extension guard failure, critical/vanishing-gap amplification countermodels and the sparse arbitrary-prefix control. Distinguish the K3 carrier from prime-reciprocal E_prime. Synthetic recurrence countermodels are not actual-Mertens counterexamples. A case on eligible ancestry is not automatically admitted to a later mask. Do not rerun unchanged large checks.
 
 ## Mechanism decision and downstream handoff
 
 - **Decision now:** [CONTINUE / REVISE / SUSPEND / REJECT and mathematical reason]
-- **Competing hypothesis changed:** [...]
+- **Competing hypothesis changed:** [...]; [whether suspension is provisional pending an independent paper review]
 - **Strongest surviving theorem / repaired claim:** [...]
 - **Next independent question:** [one concrete theorem or falsifier, not the target restated]
 - **Next responsible specialty and smallest decisive step:** [...]
@@ -135,7 +148,7 @@ Consult the current main brief and amplification note, not a frozen list. For ea
 - **Axiom footprint and acceptance declarations:** [...]
 - **CI state:** [PENDING / FAILED / GREEN; all results tied to the correct SHA]
 - **Repairs made / remaining blocker:** [...]
-- **Mathematics:** [unconditional/conditional/structural, exact premises still open; a generic contraction theorem does not prove its arithmetic gain input]
+- **Mathematics:** [unconditional/conditional/structural, exact premises still open; #958/#961 merged infrastructure must not be recoded; a generic contraction theorem or K3 corner conditional alone does not prove actual signed input]
 - **Repository state:** [DRAFT / REVIEW_READY / MERGED only if independently verified; human-only merge]
 - **No local Lean execution:** [actual compliance; missing local Lean is not a blocker when Actions is available]
 
