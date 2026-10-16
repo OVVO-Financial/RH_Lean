@@ -497,7 +497,6 @@ import RHLean.Proof.LifetimeOverlapKernel
 import RHLean.Proof.LifetimeRunCancellation
 import RHLean.Proof.LogSquareCorrectionQ2Tower
 import RHLean.Proof.LowOmegaHighOrientation
-import RHLean.Proof.OddResidualCofactorSupport
 import RHLean.Proof.LowPrimeCombinedBornHighFirstFailure
 import RHLean.Proof.LowPrimeCombinedBornHighTransition
 import RHLean.Proof.LowPrimeCompletedPartnerWindowFold
@@ -582,6 +581,7 @@ import RHLean.Proof.MutableSupportBound
 import RHLean.Proof.NearOrthogonality
 import RHLean.Proof.NormalizedCofactorExpansion
 import RHLean.Proof.NormalizedCofactorTripling
+import RHLean.Proof.OddResidualCofactorSupport
 import RHLean.Proof.OneBlockInvariant
 import RHLean.Proof.OrderedEulerCutProjection
 import RHLean.Proof.OrthogonalResidual
