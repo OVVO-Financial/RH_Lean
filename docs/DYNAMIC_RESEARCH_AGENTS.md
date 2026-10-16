@@ -1,10 +1,10 @@
 # RH_Lean dynamic seven-agent research protocol
 
-**Updated 2026-10-15.** Subordinate to [AGENTS.md](../AGENTS.md) for conduct/permissions and [CURRENT_PROOF_CONTRACT.md](../CURRENT_PROOF_CONTRACT.md) for the mathematical target. Read the [live research brief](FACTOR_DEPTH_RESEARCH_BRIEF.md) from current main. Historical reports are evidence, not operating authority.
+**Updated 2026-10-16 after merged #958.** Subordinate to [AGENTS.md](../AGENTS.md) for conduct/permissions and [CURRENT_PROOF_CONTRACT.md](../CURRENT_PROOF_CONTRACT.md) for the mathematical target. Read the [live research brief](FACTOR_DEPTH_RESEARCH_BRIEF.md) from current main. Historical reports are evidence, not operating authority.
 
 ## The research question and the division of effort
 
-The latest full raw-seat census separates a negative prime/semiprime tag component from positive squareful/higher-factor mass. Their observed compensation identifies a place to investigate; it does not prove a new restriction. The primary question is an **independent arithmetic coupling law**, not another recitation of the small final discrepancy.
+The raw-seat census separates a negative prime/semiprime tag component from positive squareful/higher-factor mass. Merged #958 now proves a **support** restriction on the latter's canonical cofactor; it still does **not** prove a signed cancellation or quantitative endpoint bound. The primary question is an **independent arithmetic coupling law**, not another recitation of the small final discrepancy.
 
 Maintain genuinely different hypotheses. The initial portfolio is signed factor-depth transport, an inverse forbidden-configuration theorem, and genuine Mobius finite-prefix signed amplification. A nonlocal response-weighted alternative is welcome when it has a different independent input. Reject or replace a failed lane instead of renaming its missing bound. Do not force every agent to work on one campaign or maintain a fictitious quota of live routes.
 
@@ -19,6 +19,16 @@ Maintain genuinely different hypotheses. The initial portfolio is signed factor-
 | Lean / Certification | Implement a valid high-value supporting theorem or repair a current proof PR; verify actual Actions/axioms | Filler abstractions, duplicate merged work, assumed preservation, or reporting paper mathematics as compiled |
 
 These are current mathematical questions under durable specialties, not hard-coded Studio assignments. A user pivot or new live source may redirect them. The Coordinator publishes one daily synthesis under two compatibility filenames, not two runs.
+
+## Post-#958 mechanism routing (refresh main before reusing)
+
+Merged [#958](https://github.com/OVVO-Financial/RH_Lean/pull/958) has Lean-certified the qualified one-ninth theorem in `RHLean/Proof/OddResidualCofactorSupport.lean`: explicit nonprime/nonsemiprime/non-prime-square residual, odd canonical cofactor and `m<R^2` imply `9*P+(m)<R^2`. This is **support only**, not the paper `H_R` set bijection, signed estimate, masked/clipped admission or canonical endpoint.
+
+The Oct 16 Wheel/Census/Referee paper theorems give `H_R` seats `n=a*q` with odd composite `a>=9` and `q<R^2/9`, versus upper negative tail `A_R` on `q>R^2/3`. Hence **reject same-greatest-tag direct A-to-H transport**. The PNT-scale compensator is the **complete** `B_R=L_R-A_R`, not `H_R` alone; it contains lower-tag prime/semiprime charges and `H_R`. Fixed finite cofactor families have `H_R(S)/H_R->0` (PAPER_PROOF), and the `Omega` staircase forces depth growth with cofactor scale. Neither theorem bounds the reassembled signed total.
+
+Update the factor-depth lane to **growing-cofactor, cross-tag signed transport against all of B**. Every proposal specifies the physical map or kernel, native weight changes, negative partners, growing cutoffs, lower-tag versus H allocation and all mixed quadratic terms. Test an independent defect restriction; just writing `A_R+B_R=small` is target-equivalent. Do not recycle the accepted support theorem or the unchanged R<=5000 H histogram as new progress. Keep MU-LIFT (signed all-prefix gain with subcritical r and subpower G) and a properly distinguished positive-Hilbert/Nyman route as independent options, not falsely derived from #958.
+
+Roles: Coordinator updates competing mechanisms and retires killed ones; Owner builds complete signed A/B transport; Analytic seeks the genuine independent quantitative input; Wheel proves growing-cofactor/cross-tag incidence restrictions; Census tests signed B by cofactor band and Omega with negative A controls; Referee enforces carrier/PNT scope; Lean treats #958 as merged and considers the paper staircase only after necessity/scope checks.
 
 ## Mechanism card: required before substantial expenditure
 
@@ -36,7 +46,7 @@ A useful early result can be a weaker bound, sign restriction, exact transport d
 
 ## Complete-source and covariance acceptance
 
-Let the brief's raw decomposition be `L=T+H`. Retain `L^2=T^2+H^2+2*T*H`, all within/cross-tag interactions and exact normalization. The original NNS zero target is not replaced by mean centering, favorable isolated slacks, a sum of diagonals or a new larger denominator. Different carriers need proved bridges. Physical historical charges are counted once.
+Let the brief's raw decomposition be `L=T+H`, and further split `L=A+B` with `B` the complete complement of the upper negative tail. Retain **both** `L^2=T^2+H^2+2*T*H` and `L^2=A^2+B^2+2*A*B`, all within/cross-tag interactions and exact normalization. The original NNS zero target is not replaced by mean centering, favorable isolated slacks, a sum of diagonals or a new larger denominator. Different carriers need proved bridges. Physical historical charges are counted once.
 
 For a proposed depth transport, list each contribution's source and destination, arithmetic admissibility, signed native weight, multiplicity, squareful return, boundary crossing, cutoff change, anchor and residual. Never use a norm before the complete signed expression to be normed has been identified. A raw exact partition alone does not identify the later masked first-bad returned-pair source.
 
@@ -46,7 +56,7 @@ For a numerical pair study, distinguish a genuinely constrained or kernel-weight
 
 Before running a new census, write its hypothesis, rival, observable, source conventions, rejection condition and proposed held-out cases. Choose the smallest decisive test. Reuse prior exact populations and source/code hashes when unchanged. Wider ranges need a reason: a new prediction, boundary regime, counterexample search or robustness check, not simply a larger maximum.
 
-Compute squarefree depth layers and squareful mass directly from the physical seats in the reference implementation. Independently reconstruct the total and partition to check conservation. A residual recovered as `known total - known tags` is a useful checksum, but not independent evidence that the layers track. Preserve integer counts exactly and distinguish floating weights, high precision and certified intervals. Record code/inputs/seeds, commands actually run, coverage and untested tails.
+For the post-#958 factor-depth question, compute **the signed upper tail A and the complete complementary B directly**, including its lower-tag charges and positive H; stratify B by cofactor band and Omega and preserve the cross-sector products. Compute squarefree depth layers and squareful mass directly from the physical seats in the reference implementation. Independently reconstruct the total and partition to check conservation. A residual recovered as `known total - known tags` is a useful checksum, but not independent evidence that the layers track. Preserve integer counts exactly and distinguish floating weights, high precision and certified intervals. Record code/inputs/seeds, commands actually run, coverage and untested tails.
 
 Controls may break ancestry while preserving a stated marginal/depth profile, or compare the genuine source to a declared model. Label them synthetic, do not alter the canonical arithmetic object, and do not turn a permutation average into a worst-case result. Restore all excluded boundaries and cross terms before interpreting a comparison.
 
@@ -61,9 +71,9 @@ Controls may break ancestry while preserving a stated marginal/depth profile, or
 
 ## Formalization queue and current merged work
 
-Live PR/source refresh is mandatory before assigning code. The bidirectional Mertens exponent/zero-boundary identification, finite amplitude map and exact finite-prefix extension are already on the reviewed main baseline. Do not follow an old resume capsule asking for the completed converse. No new sublinear global Mertens bound follows from those results alone.
+Live PR/source refresh is mandatory before assigning code. The bidirectional Mertens exponent/zero-boundary identification, finite amplitude map, exact finite-prefix extension **and merged #958 one-ninth support lemma** are already on main. #958 needs no duplicate proof PR; its completion does not certify the paper fixed-cofactor asymptotic or staircase. Do not follow an old resume capsule asking for the completed converse. No new sublinear global Mertens bound follows from those results alone.
 
-Possible small targets include the raw partition with the correct endpoint constant, monotonicity of the native weight and raw tag tail q>=R, exact residual-polarization identities, or a new independently proved structural/amplification restriction. These are **candidates, not compulsory PRs**; check current source for duplicates and referee scope first. Priority goes to a theorem that changes mechanism selection or validates a needed source interface, not to maximizing file count.
+Possible small targets include the raw partition with the correct endpoint constant, the **paper cofactor-depth staircase** on the right canonical carrier, a genuine cross-tag signed-transport ingredient, monotonicity of the native weight and raw tag tail q>=R, or a new independently proved structural/amplification restriction. These are **candidates, not compulsory PRs**; check current source for duplicates and referee scope first. Priority goes to a theorem that changes mechanism selection or validates a needed source interface, not to maximizing file count.
 
 Only Lean Verification has the scheduled proof-branch exception. Use actual GitHub Actions on the proof PR, pinned dependencies, warning-fatal compilation and exact axiom audits. Repair diagnosed failures without weakening the statement or validation. Human-only merge remains binding. Papers, computations, PR CI and theorems on main have separate statuses.
 

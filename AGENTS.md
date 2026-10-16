@@ -1,6 +1,6 @@
 # RH_Lean research-agent instructions
 
-**Live steering revision: 2026-10-15.** These instructions govern research, formalization and repository operations. The unchanged public objective is `VFCanonicalSquareVonKochStatement`. No instruction in this file asserts a new cancellation bound or RH proof.
+**Live steering revision: 2026-10-16, after merged PR #958.** These instructions govern research, formalization and repository operations. The unchanged public objective is `VFCanonicalSquareVonKochStatement`. No instruction in this file asserts a new cancellation bound or RH proof.
 
 ## Mandatory authority and reading order
 
@@ -19,15 +19,25 @@ The pre-update policy is preserved **byte-for-byte**, including its detailed no-
 
 ## Current steering: explain factor-depth coupling, not just observe cancellation
 
-The overnight raw-seat reconstruction exposed a small signed total formed from a much larger negative prime/semiprime tag sum and positive squareful/higher-factor mass. The leading experimental question is:
+The raw-seat reconstruction exposed a small signed total built from a large negative prime/semiprime tag sector and its complementary ledger. Merged #958 now proves a sharp support restriction, but not cancellation. The leading research question is:
 
-> What independently provable arithmetic relation couples these components, with their complete global interactions retained?
+> What independently provable signed relation couples the upper prime-tag sector to the **entire complement**, across different greatest-prime tags and growing cofactor ranges, while preserving the complete global interactions?
 
 This is **not** permission to assume their mismatch is small. The exact partition and its square are identities; numerical near-cancellation does not prove uniform control. Keep raw odd seats, eligible ancestry and masked/clipped first-bad returned cells distinct. Prove any source bridge before transporting an estimate.
 
 Start from the three distinct candidate mechanisms in the brief: **factor-depth signed transport/invariant; inverse arithmetic obstruction; genuine Mobius finite-prefix signed amplification**. Nonlocal response-weighted analysis remains eligible. Do not allocate all seven specialties to one renamed missing bound, invent a route to meet a quota, or require a failed mechanism to remain live. A route's independent input, not its notation or final consumer, determines whether it is distinct.
 
 Every substantive research run should attempt a proof, weaker independent bound with stated losses, decisive falsification, or genuinely discriminating experiment. An exact new structural lemma is valuable; do not reject it merely because it does not close RH. Conversely, another identity, bigger sieve or conditional victory theorem is not a positive global estimate. Report `NO_NEW_RESULT` honestly when appropriate.
+
+### October 16 merged support theorem and required change in direction
+
+**PROVED_IN_LEAN_ON_MAIN:** PR #958 merged into main (`RHLean/Proof/OddResidualCofactorSupport.lean`). Its theorem `RHLean.Proof.nine_mul_canonicalLargestPrimeFactor_lt_sq` states that for `1<m<R^2`, an odd canonical cofactor and the explicit `IsOddFactorDepthResidual m` exclusions imply `9*canonicalLargestPrimeFactor m<R^2`. The exclusions are prime, distinct-semiprime and prime-square cases. This is an unconditional structural **support** theorem, not a signed mass or covariance estimate. It does **not** formally implement the full paper `H_R` ledger, its incidence bijection or its admission to returned cells. Do not reproduce this completed theorem as new work.
+
+**PAPER_PROOF on the separately defined raw carrier:** each `H_R` seat has unique `n=a*q` with `q=P+(n)`, odd composite `a>=9`, and `q<R^2/9`. The upper negative sector `A_R` has `q>R^2/3`. Therefore a greatest-prime-tag-preserving direct `A_R`-to-`H_R` matching is impossible. **Do not claim the entire positive compensator is `H_R`:** the proved PNT-scale compensation is `A_R+B_R=L_R`, where `B_R=L_R-A_R` contains lower-tag charges **and** `H_R`. At that scale `A_R=-(1/3+o(1))*R^2/log R` and `B_R=(1/3+o(1))*R^2/log R`; these `o` errors are much too large for the canonical endpoint target. Retain `L_R^2=A_R^2+B_R^2+2*A_R*B_R`, as well as the internal `T_R/H_R` interactions and the actual zero-target normalization.
+
+**Additional PAPER_PROOF, not compiled by #958:** for each fixed finite set of odd composite cofactors `S`, `H_R(S)/H_R->0`; fixed `a` has the sharper `H_R(a)~2*R^2/(a*log^2(R^2))`. The cofactor-depth staircase `a^(j+1)>=(R^2)^j => Omega(n)>=j+2` is also a paper result. Thus a fixed small-cofactor backbone and a same-tag transport cannot be complete mechanisms. The necessary *shape* is a growing-cofactor, cross-tag **signed** coupling of the **complete** complement, not a proved quantitative gain.
+
+**Next independently payable input:** formulate a coefficient-preserving, occurrence-faithful cross-tag/cofactor-band transport for `A_R` against **all of** `B_R`, with original weights, low-tag contributions, squareful mass, moving boundaries, and every mixed quadratic term. State an independently provable restriction on the transport defect; naming `A_R+B_R` small is `TARGET_EQUIVALENT`. The Owner's `q -> 3q` crossings are distinct semiprimes inside `T_R`, **not** positive `H_R`. The independent signed MU-LIFT lane and properly scoped Hilbert-space alternatives remain open; do not force them into this raw-seat carrier. See the live brief and today's Wheel/Census/Referee reports for paper evidence.
 
 ### MU-LIFT relaxation: judge normalized loss, not constant gain
 
@@ -55,13 +65,13 @@ Search before reimplementing: use `python3 scripts/proofq.py repo-search '<terms
 
 | Agent | Live responsibility |
 | --- | --- |
-| Research Coordinator / Proof Architect | Compare genuinely independent mechanisms, select decisive questions and retire failed ones. Separate new mathematics, quantitative progress, formal certification and operational delivery. Do not merely aggregate reports. |
-| Owner Payment / Arithmetic Structure | Derive coefficient-preserving cross-depth/ancestry transport or another signed invariant. Account for every residual and original covariance term. Do not repeat isolated owner-payment catalogues. |
-| Analytic Type II / Quantitative Theory | Seek an independent bound, inverse estimate or signed finite-prefix amplification law. Assess its final r versus scale power k and normalized loss, not just constant gain. The Mertens converse and #954 identities on main are baseline, not quantitative cancellation. |
-| Finite Wheel / Structural Incidence | Identify and prove restrictions on configurations that could force a large imbalance, including factor-depth transitions and boundary incidence. Do not enlarge unsigned wheels or re-falsify global cap four without a changed hypothesis. |
-| Prime Census / Experimental Number Theory | Design competing predictions before running code; reconstruct complete signed layers directly; use held-out cases and deterministic controls to distinguish genuine arithmetic coupling from accounting tautology. |
-| Adversarial Referee / Mathematical Red Team | Audit quantifiers, dependence, source admission, full interactions and target equivalence; develop minimal counterexamples and the strongest surviving repair. A no-go applies only to its stated technique/carrier. |
-| Lean Verification / Formal Certification | Independently assess valid mathematics, repair an existing relevant proof PR or formalize a useful accepted result on its authorized branch, verify actual Actions CI and hand off for human merge. |
+| Research Coordinator / Proof Architect | Treat #958 as merged structural infrastructure; rank growing-cofactor cross-tag transport against independent MU-LIFT and other genuinely distinct inputs. Retire same-tag and fixed-cofactor mechanisms; distinguish structural, quantitative and formal progress. |
+| Owner Payment / Arithmetic Structure | Seek an exact weighted **cross-tag** map or invariant connecting upper `A_R` to **complete** `B_R`, including lower tags and unbounded composite cofactors. Track the `q -> 3q` semiprimes in `T_R` and account for original global zero-target covariance and all defects; no isolated-pair catalogues. |
+| Analytic Type II / Quantitative Theory | Seek an independent quantitative MU-LIFT gain (final r versus k, normalized subpower loss, full-prefix coverage), or a distinct nonlocal/Hilbert bound with its own proved input. #958 says nothing about the Mertens gain or Nyman decay; do not conflate carriers. |
+| Finite Wheel / Structural Incidence | Use the now-proved one-ninth support to seek new constraints on **cross-tag, growing-cofactor** incidence or a non-tautological inverse configuration. Do not revisit tag-preserving `A_R`-to-`H_R` transport, fixed small-cofactor covering or unsigned-wheel growth without changed hypotheses. |
+| Prime Census / Experimental Number Theory | Test a predeclared signed transport observable for `A_R` versus **complete** `B_R`, stratified jointly by cofactor band and `Omega`; preserve native weights and negative partners. Reuse the verified `R<=5000` cofactor counts unless a new hypothesis requires new data. |
+| Adversarial Referee / Mathematical Red Team | Enforce the sharp division: #958 is Lean support only; fixed-cofactor asymptotics and staircase are paper; `A_R` cancels with **all** `B_R`, not `H_R` alone. Audit every proposed cross-tag kernel, growing-cutoff uniformity, complete covariance and target-equivalence. |
+| Lean Verification / Formal Certification | Recognize #958 and the one-ninth Lean lemma as **MERGED**; do not duplicate. Next optional candidate is the paper cofactor-depth staircase or a truly independent signed-transport lemma, after duplicate/scope review. Use own proof PR, exact-head Actions/axioms and human merge gate. |
 
 Saved Studio instructions specify these durable specialties, not mandatory PR numbers, dates, claims or theorem assignments. Resolve the queue from live main and current reports. Editing GitHub Markdown **does not** edit saved/published Studio instructions, tools, permissions or triggers.
 

@@ -1,6 +1,6 @@
 # RH_Lean current proof contract
 
-**Live revision: 2026-10-15. Reviewed baseline: `main@c0bf6261b5e78aa0ec03967a86691987842b80eb` (merged #954).** Refresh live main on every run. This contract changes research direction, not any Lean definition, theorem, coefficient or proof assumption.
+**Live revision: 2026-10-16. Reviewed baseline: `main@b0446d45037b10637522791e398a9c8ffd99f123` (merged #958; #954 already merged).** Refresh live main on every run. This contract changes research direction, not any Lean definition, theorem, coefficient or proof assumption.
 
 ## Unchanged canonical object and open theorem
 
@@ -29,7 +29,7 @@ Legacy raw defect `D_raw(R)=pi(R^2)-F_R` satisfies `D_can=D_raw-sqrt(2)`. Existe
 
 ## Active portfolio: independent arithmetic restrictions
 
-Follow [AGENTS.md](AGENTS.md), the [dynamic protocol](docs/DYNAMIC_RESEARCH_AGENTS.md), the [factor-depth research brief](docs/FACTOR_DEPTH_RESEARCH_BRIEF.md) and, for MU-LIFT, the [amplification budget](docs/MERTENS_AMPLIFICATION_BUDGET.md). The leading empirical frontier is the coupling between negative prime/semiprime tag mass and positive squareful/higher-factor mass. **It is not a new compulsory RH-strength premise.**
+Follow [AGENTS.md](AGENTS.md), the [dynamic protocol](docs/DYNAMIC_RESEARCH_AGENTS.md), the [factor-depth research brief](docs/FACTOR_DEPTH_RESEARCH_BRIEF.md) and, for MU-LIFT, the [amplification budget](docs/MERTENS_AMPLIFICATION_BUDGET.md). The current raw-seat frontier is the **signed cross-tag coupling of a negative upper prime-tag sector with its entire complement**, including lower tags and squareful/higher-factor mass. Merged #958 supplies support geometry only; **it is not a new compulsory RH-strength premise or a quantitative cancellation estimate.**
 
 Start with three independently falsifiable candidates:
 
@@ -57,6 +57,24 @@ The reported exact partition is `L_R=T_R+H_R` (`20261015-census-1`, referee acce
 Thus an O(R log R) bound for the total mismatch is the endpoint problem in these coordinates, not an independently paid new lemma. The **masked/clipped first-bad returned-pair carrier remains a separate object**: raw-seat admission or eligible ancestry is not a theorem of returned-cell admission.
 
 The complete square is `L_R^2=T_R^2+H_R^2+2*T_R*H_R`. Keep all within-tag, cross-tag, cross-depth, anchor and restoration interactions when using the full zero-target NNS statistic. This raw square must not be silently substituted for the compressed #915 normalization. A sum of tag squares, local signs or mean-centered empirical correlations is not the global statistic.
+
+## Merged #958: exact one-ninth support and the remaining complete complement
+
+**PROVED_IN_LEAN_ON_MAIN (2026-10-16):** [OddResidualCofactorSupport.lean](RHLean/Proof/OddResidualCofactorSupport.lean) is merged by PR #958. The exact final theorem `RHLean.Proof.nine_mul_canonicalLargestPrimeFactor_lt_sq` says
+
+```text
+1<m, Odd(canonicalCofactor m),
+IsOddFactorDepthResidual m, m<R^2
+  ==> 9*canonicalLargestPrimeFactor m < R^2.
+```
+
+The residual predicate explicitly excludes primes, distinct products of two primes and prime squares. This theorem is **not** an implemented set equivalence for the paper raw `H_R`, a signed-weight bound, a returned-cell admission lemma, or a proof of the canonical endpoint statement.
+
+**Raw-paper applications (2026-10-16 Wheel/Census/Referee):** physical positive `H_R` occurrences uniquely have `n=a*q`, odd composite `a>=9`, `q=P+(n)<R^2/9`; the upper tag sector `A_R` consists of prime tags `q>R^2/3`. Hence a tag-preserving direct `A_R`-to-`H_R` transport has no edges. Define `B_R=L_R-A_R`, **including lower tag charges and all `H_R` occurrences**; the proved leading-order statement is `A_R~ -R^2/(3*log R)` and `B_R~+R^2/(3*log R)`, not `A_R+H_R=o(R^2/log R)`. These estimates are PNT-scale only and do not yield `O(R log R)`.
+
+For a fixed finite composite-cofactor set `S`, `H_R(S)/H_R -> 0` is a referee-accepted **PAPER_PROOF**, sharpened for fixed `a` to `H_R(a)~2*R^2/(a*log^2(R^2))`. The cofactor-depth staircase `a^(j+1)>=(R^2)^j => Omega(n)>=j+2` is also a **PAPER_PROOF**. Neither is the Lean content of #958. Reject a fixed-cofactor-only or tag-preserving mechanism **at its stated raw-carrier scope**; the next open input is a native-weight, growing-cofactor **cross-tag signed** restriction on the complete `A_R+B_R` reassembly.
+
+At this partition retain `L_R^2=A_R^2+B_R^2+2*A_R*B_R`. At the nested partition retain `L_R^2=T_R^2+H_R^2+2*T_R*H_R`; neither alone is the complete original zero-target NNS returned-cell source. The owner-3 `q -> 3q` distinct-semiprime crossings remain in `T_R`, never reclassify them as `H_R`. A theorem asserting the full residual is `O(R log R)` without a genuinely independent arithmetic input is `TARGET_EQUIVALENT`. MU-LIFT is a separate, still-open route.
 
 ## Verified Mertens baseline: do not re-prove the completed coordinate map
 

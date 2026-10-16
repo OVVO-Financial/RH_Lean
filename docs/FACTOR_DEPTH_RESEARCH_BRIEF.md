@@ -1,6 +1,6 @@
 # Live research brief: factor-depth coupling and independent amplification
 
-**Revision: 2026-10-15. Baseline inspected: `main@c0bf6261b5e78aa0ec03967a86691987842b80eb` (merged #954).** Read this file from current main every invocation, after [AGENTS.md](../AGENTS.md) and [CURRENT_PROOF_CONTRACT.md](../CURRENT_PROOF_CONTRACT.md). The target and permissions are unchanged. The candidates below are research hypotheses, not asserted new bounds. MU-LIFT work also reads the [subpower amplification budget](MERTENS_AMPLIFICATION_BUDGET.md).
+**Revision: 2026-10-16, after #958 merged on `main@b0446d45037b10637522791e398a9c8ffd99f123`.** Read this file from current main every invocation, after [AGENTS.md](../AGENTS.md) and [CURRENT_PROOF_CONTRACT.md](../CURRENT_PROOF_CONTRACT.md). The target and permissions are unchanged. The candidates below are research hypotheses, not asserted new bounds. MU-LIFT work also reads the [subpower amplification budget](MERTENS_AMPLIFICATION_BUDGET.md).
 
 ## 1. What the overnight cycle actually changed
 
@@ -8,7 +8,7 @@ The raw odd-seat census gave an exact complete partition into historical-prime/d
 
 Evidence: [Census, 2026-10-15](https://github.com/OVVO-Financial/RH_Lean/blob/agent-reports/research/agent_reports/2026-10-15/40-prime-census.md), claims census-1 through census-4, blob `2e3c1cf95cd11669d57d2ce1f7216916736ff095`; [Referee](https://github.com/OVVO-Financial/RH_Lean/blob/agent-reports/research/agent_reports/2026-10-15/50-adversarial-referee.md), blob `cf0db85f6b04c56527bc9a26a1b6741ae196435a`.
 
-**Leading question:** find an independently provable arithmetic relation coupling the negative tag mass to the positive higher-depth mass, with the full physical signed statistic retained. Merely asserting that their mismatch is O(R log R) restates the endpoint target. Prefer a new restriction, exact transport with a separately controlled defect, or a weaker uniform estimate that reveals the missing mechanism.
+**Updated leading question:** identify an independently provable **cross-tag, growing-cofactor signed** relation between the negative upper-tag sector `A_R` and the **entire** complementary ledger `B_R=L_R-A_R`. Coupling `A_R` only to `H_R` omits lower tags. Merely asserting that their mismatch is O(R log R) restates the endpoint target. Prefer a new restriction, exact transport with a separately controlled defect, or a weaker uniform estimate that reveals the missing mechanism.
 
 ## 2. Fixed source dictionary
 
@@ -33,17 +33,36 @@ Three carriers must remain separate: **eligible ancestry**, **raw C_R**, and **l
 
 The square `L_R^2=T_R^2+H_R^2+2*T_R*H_R` retains the cross-depth interaction. T_R itself has within-tag and cross-tag interactions. The global zero-target NNS statistic uses its original coefficients and normalization; neither a diagonal sum nor a mean-centered correlation replaces it. The raw square is not automatically the compressed #915 norm.
 
-## 3. Initial competing mechanisms
+### October 16 accepted support geometry and corrected compensation target
+
+**Merged and Lean verified:** [PR #958](https://github.com/OVVO-Financial/RH_Lean/pull/958) introduced `RHLean/Proof/OddResidualCofactorSupport.lean` and proved that `1<m<R^2`, an odd `canonicalCofactor m` and the explicit exclusions in `IsOddFactorDepthResidual m` imply `9*canonicalLargestPrimeFactor m<R^2`. The strict prime-square exclusion matters. The module does **not** formalize the full raw `H_R` bijection or prove returned-cell admission, signed cancellation or a quantitative endpoint bound.
+
+**Raw carrier, PAPER_PROOF:** by the Wheel report every positive `H_R` seat has unique `n=a*q`, odd composite cofactor `a>=9` and greatest prime `q<R^2/9`. But the negative upper tag tail is
+
+```text
+A_R = sum_(prime q: R^2/3 < q < R^2) G_R(q),
+B_R = L_R - A_R  =  (lower prime-tag charges) + H_R.
+```
+
+Thus **direct greatest-tag-preserving `A_R -> H_R` incidence is empty**. A direct `A_R -> B_R` transport could still involve lower-tag terms; it must be fully specified rather than inferred from the support gap. Coordinator's PNT theorem gives `A_R=-(1/3+o(1))*R^2/log R` and `B_R=(1/3+o(1))*R^2/log R`, **not** an `A_R+H_R` compensation theorem. Its unbounded relative `o` remainder falls far short of the `O(R log R)` canonical target. Preserve `L_R^2=A_R^2+B_R^2+2*A_R*B_R` and, inside `B_R`, all existing `T_R/H_R` and complete zero-target NNS terms.
+
+**Growing cofactor requirement (PAPER_PROOF, not in #958):** for each fixed finite odd composite set `S`, `H_R(S)/H_R -> 0`. The Referee sharpens fixed layers to `H_R(a)~2*R^2/(a*log^2(R^2))`, versus `H_R >> R^2/log R`. Census proved `a^k < (R^2)^(k-1)` when `k=Omega(n)`, hence `a^(j+1)>=(R^2)^j => Omega(n)>=j+2`. Numerically, the top 15 cofactors account for only 14.27% of residual mass at `R=5000`; this is a **finite diagnostic**, not an asymptotic mass-band theorem.
+
+**Mechanism status:** REJECT same-greatest-tag `A_R -> H_R` matching and any fixed finite `H_R` cofactor backbone as complete explanations; CONTINUE/REVISE growing-cofactor, cross-tag transport for the **complete** signed complement. Next smallest real input: specify a signed transition kernel/bijection or weighted defect on dyadic cofactor bands `A<=a<2A`, including lower-tag charges, moving boundaries and the actual quadratic cross terms. Prove a uniform restriction **independently**, even weaker than the target, and recombine before taking norms. The Owner `q -> 3q` boundary packets are distinct semiprimes in `T_R`, not `H_R` mass.
+
+Paper sources: [Wheel (Oct 16)](https://github.com/OVVO-Financial/RH_Lean/blob/agent-reports/research/agent_reports/2026-10-16/30-finite-wheel.md), [Census (Oct 16)](https://github.com/OVVO-Financial/RH_Lean/blob/agent-reports/research/agent_reports/2026-10-16/40-prime-census.md), [Referee (Oct 16)](https://github.com/OVVO-Financial/RH_Lean/blob/agent-reports/research/agent_reports/2026-10-16/50-adversarial-referee.md). Prior exact local crossings: [Owner (Oct 15)](https://github.com/OVVO-Financial/RH_Lean/blob/agent-reports/research/agent_reports/2026-10-15/10-owner-payment.md). Always re-fetch for later corrections.
+
+## 3. Live competing mechanisms (post-#958)
 
 ### FD-TRANSPORT: signed depth-transition law
 
-**Hypothesis to develop:** a genuine prime-adjoining, divisor, involution or telescoping relation transfers native signed mass between factor-depth layers with an independently controlled residual.
+**Hypothesis to develop:** a genuine prime-adjoining, divisor, involution or telescoping relation transfers native signed mass **across greatest-prime tags and growing cofactor bands**, reassembling the full `A_R+B_R` (not just `A_R+H_R`) with an independently controlled residual.
 
 Owner should write the actual occurrence map or operator, not just label the desired remainder small. Preserve fresh-prime/coprimality conditions, multiplicities, weight changes `w_floor(sqrt(n*q))-w_floor(sqrt(n))`, new squareful contacts, physical boundaries, cutoff changes and all unmatched terms. A weighted conservation law must include its exact weighting defect; equal unweighted counts do not imply weighted cancellation.
 
 A first successful result may be an exact transition identity plus a new sign, support restriction or weaker explicit remainder bound. Quantify accumulated loss before claiming endpoint relevance. Nonlocal response-weighted analysis is a possible version only if it supplies a genuinely new property of the response, not the old Duhamel equality under a new name.
 
-**Decisive test:** derive a measurable prediction about layer increments or constrained ancestry pairs before scanning. Compare genuine data with a declared control that preserves specified layer populations but breaks the proposed ancestry relation. Failure may expose a missing squareful or boundary term. Controls are synthetic and never proof of arithmetic independence.
+**Decisive test:** declare a native-weight **signed** observable for both the upper `A_R` and the complete `B_R`, stratify B by lower-tag versus residual and growing cofactor/`Omega`, then derive a measurable prediction about its constrained ancestry pairs before scanning. Compare genuine data with a declared control that preserves specified layer populations but breaks the proposed ancestry relation. Failure may expose a missing squareful or boundary term. Controls are synthetic and never proof of arithmetic independence.
 
 ### INV-CONFIGURATION: inverse structural obstruction
 
@@ -51,7 +70,7 @@ A first successful result may be an exact transition identity plus a new sign, s
 
 Wheel and Referee should separate the two theorems: (i) imbalance implies a named configuration, with constants and all hypotheses; (ii) genuine arithmetic restricts that configuration independently of the endpoint bound. A configuration defined simply as 'the mismatch is too large' is circular. A capacity bound on unrelated support is insufficient. Search for a minimal actual counterexample or sharp boundary before widening a wheel.
 
-**Decisive test:** determine an observable on which this inverse proposal and FD-TRANSPORT make different predictions. If they use the identical unpaid inequality, merge them into one lane and develop a truly different alternative. No arbitrary map between tags is allowed without preserving the physical coefficient and compensations.
+**Decisive test:** determine a cross-tag/cofactor-band observable on which this inverse proposal and FD-TRANSPORT make different predictions; same-tag `A_R -> H_R` incidence is already proved empty, not an open experimental candidate. If they use the identical unpaid inequality, merge them into one lane and develop a truly different alternative. No arbitrary map between tags is allowed without preserving the physical coefficient and compensations.
 
 ### MU-LIFT: genuine finite-prefix signed amplification
 
@@ -77,6 +96,9 @@ Reuse these results at unchanged dependencies; do not rerun a large scan merely 
 | Same-tag NNS sign reversal: q=11534351, owners 3 and 5 | Two negative isolated slacks become a positive once-history grouped slack, with paper lower bound 737/15360. Do not add isolated slacks or infer quadratic payment from linear packet negativity. This is genuine ancestry, not yet a masked-source admission theorem. |
 | Repeated history: q=1000000007, 111 descendants in the reported half-run | One physical historical charge cannot be reused 111 times. Finite native-weight overload is not a complete-source first-bad counterexample. |
 | Full depth ledger: R=500,1000,2000,3000,3162 | Direct reconstruction includes all squareful/higher-factor mass; identity and observed compensation are not a new mismatch bound. R=3162 was the original held-out endpoint, not permanently fresh validation data. |
+| Merged #958 canonical cofactor support | PROVED_IN_LEAN_ON_MAIN: `IsOddFactorDepthResidual m`, odd cofactor and `m<R^2` imply `9*P+(m)<R^2`. This is support only; do not pretend the paper raw `H_R` set equivalence, PNT cancellation or returned-cell admission is compiled. |
+| October 16 raw tag support | `H_R` cofactor `a>=9` forces `q<R^2/9`, while `A_R` has `q>R^2/3`. Reject greatest-tag-preserving `A_R -> H_R` only. The complementary signed sector is full `B_R=L_R-A_R`, not `H_R` alone. |
+| Fixed-cofactor no-go / staircase | PAPER_PROOF: `H_R(S)/H_R -> 0` for fixed finite S; `a^(j+1)>=(R^2)^j` forces `Omega(n)>=j+2`. No inferred bound on signed `A_R+B_R`; do not rerun the 7,160,321-occurrence R=5000 census unchanged. |
 | Raw tag monotonicity | The paper theorem is only on prime tags q>=R: G_R(q) is nonincreasing, hence at most one positive-to-nonpositive transition. It does not imply transition existence, strict margins or monotonicity on q<R. |
 | Centered sitewise Li correction | Analytic-6 has `C(X)=-(1/2)*log(log X)+O(1)`. This defeats a uniformly summable scalar correction, not every nonlocal/response-weighted method. Its raw-prime finite check is not a direct numerical verification of every centered Li-increment term. |
 | Finite-extension negative control | PR #951 reports the first unit 0.45 failure at n=30770121 with M(n)=-2343, despite successful smaller interval certificates. This is executable finite evidence, not a Lean numerical theorem. It rejects automatic perpetual guard preservation, not every weaker signed amplification law. |
@@ -91,7 +113,7 @@ Analytic source: [2026-10-14 report](https://github.com/OVVO-Financial/RH_Lean/b
 
 A new experiment specifies in advance its two competing explanations, precise observable, rejection criterion, endpoint convention, scale range and held-out cases. Always label a root R separately from a cutoff x; `R=317` and `x=317` are different experiments.
 
-Use directly classified native seats to report signed depth totals, squareful mass, greatest-prime tags, relevant coprimality/shared-ancestry classes, quotient-boundary events and the actual constrained cross terms needed by the candidate. Exact population conservation and independently recomputed endpoint totals are required checks. A complement computed from the already-known endpoint is a checksum, not independent evidence of compensation.
+Use directly classified native seats to report **the signed A/B partition**, positive `H_R`, *all lower-tag contributions inside B*, cofactor bands, `Omega`, boundaries and the actual constrained cross terms needed by the candidate. A positive `H_R` histogram alone is not the missing signed compensator. Exact population conservation and independently recomputed endpoint totals are required checks. A complement computed from the already-known endpoint is a checksum, not independent evidence of compensation.
 
 Do not call the matrix of products of aggregate layer totals a newly discovered pairwise law: it is algebraically rank one. For covariance claims identify the actual occurrence-level kernel, restrictions and normalization. Keep zero target and original coefficients; mean-centering or deleting cross terms changes the question.
 
@@ -99,18 +121,18 @@ Distinguish exact integer/rational comparisons, floating logs, arbitrary precisi
 
 ## 6. Next-role handoffs and stopping rules
 
-**Coordinator:** publish a compact portfolio of the genuinely distinct live candidates, their independent missing inputs, one decisive next question per assigned specialty and explicit evidence-based decisions. Separate signed-law progress from formal coordinate infrastructure. Correct stale converse/PR status from live main; do not rewrite historical reports to pretend they knew later merges.
+**Coordinator:** register #958 as merged support only; explicitly retire same-tag `A_R`-to-`H_R` and fixed-cofactor-only routes, and rank genuine cross-tag signed payment against independent MU-LIFT and other distinct inputs. Publish one decisive question per specialty. Separate signed-law progress from formal coordinate infrastructure. Correct stale converse/PR status from live main; do not rewrite historical reports to pretend they knew later merges.
 
-**Owner:** obtain one useful exact depth/ancestry relation and identify what new restriction it might imply. Restore squareful, boundary and mixed terms explicitly. Seek an independently proved partial estimate, not another local pair catalogue.
+**Owner:** derive one coefficient-preserving signed relation between `A_R` and **complete** `B_R`, stratifying lower tags versus growing composite cofactors and keeping the `q->3q` semiprime packets inside T. Restore squareful, boundary and mixed terms explicitly. Seek an independently proved partial estimate, not another local pair catalogue.
 
-**Analytic:** compare the best nonlocal estimate with the distinct MU-LIFT gain question. Assess final r versus k and the normalized loss, allowing subpower gain beyond polylogarithms. Establish a quantitative bound at its honest strength or expose the exact obstruction. Do not import the desired amplification as a hypothesis under a new name.
+**Analytic:** keep MU-LIFT independent of #958, with a genuine fixed-subcritical full-prefix estimate or honest quantitative obstruction; the Nyman positive-Hilbert coefficient-rigidity route is distinct and remains missing an all-scale decay proof. Assess final r versus k and the normalized loss, allowing subpower gain beyond polylogarithms. Establish a quantitative bound at its honest strength or expose the exact obstruction. Do not import the desired amplification as a hypothesis under a new name.
 
-**Wheel:** work on the independent inverse-configuration restriction or a signed transition constraint. Retire unmodified fixed-capacity covering and unsigned-wheel enlargement as complete mechanisms.
+**Wheel:** find a non-tautological independent **cross-tag/growing-cofactor** restriction or inverse configuration; the greatest-tag-preserving A-to-H edge is already impossible. Retire unmodified fixed-capacity covering and unsigned-wheel enlargement as complete mechanisms.
 
-**Census:** execute the smallest test that separates the current contenders and compute residual layers directly. For MU-LIFT certify full-prefix maxima or interval coverage and report normalized gain diagnostics; endpoint samples are not full-prefix bounds. Expand ranges only when a stated prediction or regime change justifies it.
+**Census:** test a predeclared **signed A versus full B** cofactor/`Omega` transport kernel on held-out ranges; reuse the completed R<=5000 positive-H census rather than enlarging it without a new prediction. For MU-LIFT certify full-prefix maxima or interval coverage and report normalized gain diagnostics; endpoint samples are not full-prefix bounds. Expand ranges only when a stated prediction or regime change justifies it.
 
-**Referee:** check every original carrier and source arrow; explicitly test cloning, nonadditivity, omitted depth mass, growing-cutoff uniformity, finite preservation and target-equivalence. For amplification require a fixed subcritical r or a separately proved varying-gap criterion. Supply the strongest surviving corrected theorem.
+**Referee:** enforce #958's exact compiled assumptions versus paper claims, A+B (not A+H) macro compensation, fixed-cofactor no-go and full covariance; test cloning, sign loss, growing-cutoff uniformity and target-equivalence. For amplification require a fixed subcritical r or a separately proved varying-gap criterion. Supply the strongest surviving corrected theorem.
 
-**Lean:** refresh live code/PRs; repair a legitimate current PR first, or formalize a newly justified useful lemma after scope review. The raw partition/endpoint constant, tail monotonicity and generic subcritical-gain consumer are possible small candidates, not mandatory work or closure claims. Search existing amplification modules before duplicating; keep the unproved arithmetic input explicit.
+**Lean:** recognize merged #958 as already proved; do not duplicate its one-ninth support lemma. Next optional focused candidate is the **paper** cofactor-depth staircase or a new native signed kernel, after independent review and duplicate search. The raw partition/endpoint constant, tail monotonicity and generic subcritical-gain consumer are possible small candidates, not mandatory work or closure claims. Search existing amplification modules before duplicating; keep the unproved arithmetic input explicit.
 
 At the end of a run, answer: **What independent fact was learned? Which competing hypothesis changed status? What bound was actually improved, with what losses? What is the smallest next decisive step?** An honest unchanged frontier with a precise obstruction is better than manufactured novelty. No scheduled agent changes shared instructions, permissions, schedules or merge policy; proposals go to human review.
