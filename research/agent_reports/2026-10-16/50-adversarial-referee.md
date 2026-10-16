@@ -135,3 +135,80 @@ Reuse `wheel-1/-2`, `census-1`, new `20261016-referee-1`, the `A_R+B_R` scope co
 Do not treat `H_R` as the proved sole compensator, omit lower tags or `2T_RH_R`, transfer raw results to returned cells, infer squarefree-only density, or upgrade finite Hilbert separation to decay.
 
 No RH proof claim.
+
+
+---
+
+# Manual continuation — unified manual AI research cycle, pass 6 of 7 (2026-10-16)
+
+**Status of this section:** COMPLETED
+**Nature of review:** this is a **self-audit** by the same AI session that produced passes 2–5. It is not independent review by another agent and does not replace the scheduled Referee run above, which is preserved unchanged.
+**Run ID:** `RH-UNIFIED-MANUAL-20261016T0806-0400` · section written 2026-10-16T09:07-04:00
+**Authority:** `main@69e44d7c…`; `AGENTS.md` `c40e9bc1…`, contract `b945dec4…`, brief `80b865bf…`, protocol `03d07880…`, amplification budget `3beff1f7…`.
+
+## R-A. Verdict summary
+
+| Claim | Verdict | Strongest correct version / note |
+| --- | --- | --- |
+| owner-1 complete fibre | **ACCEPT / PAPER_PROOF** | Needs `R >= 5` (at `R = 3`, `q = 3` gives the non-seat `3`). Lean core green on PR #961. |
+| owner-2 sampling bracket | **ACCEPT** | Monotone comparison is valid because `wtilde` is nonincreasing on `[4, x)` and extended by `0` beyond `x`; when `q = R` is prime, `x/q = R` is an integer and the last sample is `(R-2)q`, still covered. |
+| owner-3 band identity | **ACCEPT** | Exact; bracket tested with 0 violations. |
+| owner-4 / Lemma M | **ACCEPT / PAPER_PROOF** | Audit points below. Scope: "band-local" means against a prime-free main term within `O(R^(3/2-delta))` of `M_R`; cross-band relations are not excluded. |
+| owner-5 cut identity | **ACCEPT** | Exact bookkeeping to `2e-9`. |
+| owner-5 B ⇔ RH | **ACCEPT / PAPER_PROOF** | Bootstrap checked below. |
+| owner-6 wall decomposition | **ACCEPT WITH SCOPE** | Exact identity; telescoping only for `y_m <= x^(2/3-delta)`; the `eta`-sum over `[R, x)` is `O(x/log^2 x)` and not claimed small. |
+| analytic-1 anatomy | **ACCEPT / IDENTITY_ONLY** | Verified exactly at 15 `(N, X)` pairs. |
+| analytic-2 controls | **ACCEPT** | `|Psi_a| <= (1/2)(sum|a|)^2` since `|psi| <= 1/2`. |
+| analytic-3 calibration | **ACCEPT** | Recurrence handles `r < 1` via the `max`; conclusion is conditional, not a gain. |
+| analytic-4 spectrum | **ACCEPT WITH RANGE** | `1/2 <= theta < 2/3`; the sparse set `y = R^(2 theta)` is dense enough for Lemma M because consecutive values move `E` by `O(y^(-1/(2theta)))`, `o(y^(-1/2-delta))` for `delta < 1/4`. |
+| wheel-4 staircase / wall | **ACCEPT** | Bertrand step correct; activity on `(R/sqrt 2, R)` deliberately unclaimed. |
+| wheel-5 inverse theorem | **ACCEPT** | Non-circular (scale `R` statistic vs scale `R^2` endpoint); its restriction is classical-strength only. |
+| census N-C/N-D | **ACCEPT / FINITE_COMPUTATION** | Pre-registration written after generation but before inspection — disclosed; development range `R <= 600` disclosed. |
+
+No claim is promoted to an endpoint bound, and none is target-equivalent in disguise: owner-5's equivalence is proved in both directions and is presented as an obstruction.
+
+## R-B. Audit of Lemma M (Mertens-increment oscillation)
+
+1. *Domain.* `E(y) = O(1/log y)` (Mertens) makes `Ehat(s)` holomorphic on `Re s > 0`. ✔
+2. *Continuation.* Under the contrary hypothesis, `D(s)` converges absolutely on `Re s > -1/2 - delta`; `D = (2^s - 1) Ehat - 2^s J`, `J` entire (substitution `u = 2y`, checked). Poles only at `2^s = 1`, i.e. `Re s = 0`. ✔
+3. *Link to primes.* `P(s+1) = s int_2^inf S(y) y^(-s-1) dy` with `S = log log + M + E`; the `log log` part gives `-log s + entire` (exponential integral). Sign checked: `s Ehat = P(s+1) + log s + entire`. ✔
+4. *Holomorphy of `P_2` at the boundary point.* `2 rho_0` has real part exactly `1`; `zeta` is finite and nonzero at `1 + 28.27i` (no zero on `Re = 1`, no pole off `1`), so `log zeta(2w)` is holomorphic near `rho_0`; `k >= 3` terms are uniformly small. ✔
+5. *Path.* From `s = 1` to `s_0 = -1/2 + 14.13i` in the upper half-plane, crossing `Re s = 0` at a non-pole and avoiding `s = 0` (so `log s` and `log zeta(s+1)` follow the principal continuation). ✔
+6. *Contradiction.* The continued branch of `log zeta` is holomorphic on a disk around `rho_0`, so `zeta(rho_0) != 0` — false. Only the classical, rigorously verified zero `rho_0` is used; no RH. ✔
+7. *Integer sampling.* `E` changes by `O(1/R)` on `[R, R+1]`. ✔
+
+**Falsification attempt.** Could a cleverer main term absorb the band mode? Its non-oscillating part (the positive bias of `E` from prime squares, visible as 80–88% negative `Pred` in census N-D) is explicit and absorbable; the lower bound, however, comes from the singularity at `rho_0`, i.e. from oscillation that no prime-free function can track. Survives.
+
+## R-C. Audit of the B ⇔ RH bootstrap (owner-5)
+
+From the identity, `(1 - w) epsilon(y) = -(B - B*) - wtilde(x-) epsilon(x) + int epsilon d wtilde` with `x = 3y`; since `wtilde` is monotone, `wtilde(x-) + TV = wtilde(x/3+) <= 2.6/log x` for large `x`, giving `|epsilon(y)| <= C' sqrt(y) log y + (kappa/log y) sup_{[y, 4y]} |epsilon|` after interpolation (`|epsilon(t) - epsilon(t')| = O(sqrt y)` on consecutive grid points). With `S(Y) = sup_{t<=Y}|epsilon|`, `lambda = kappa/log T_0 < 1/4`, `S(Y) <= K_0 + C' sqrt(Y) log Y + lambda S(4Y)` iterates to `O(sqrt(Y) log Y)` because `(4 lambda)^K Y -> 0` with the trivial `S(Z) <= Z`. That is von Koch's form of RH. Converse via Schoenfeld's explicit RH bound. ✔ The proof uses only the identity and classical facts; it does not assume any bound on `L_R`.
+
+## R-D. Errors found and repaired during the cycle (correction history)
+
+1. **Lab bookkeeping bug** (`ledger_lab`, first build): `wtilde(x/3+)` was evaluated at `floor(x/3)+1`, wrong when that integer is a perfect square (`R = 5, 12, 19, 45, …`), and sectors overlapped for `R < 6`. Symptom: cut-identity residuals up to `0.84` at 13 roots. Diagnosis showed the theory was right and the evaluation wrong; fixed before the held-out evaluation. Corrected residual `<= 2e-9`.
+2. **Duplicate Lean lemma caught:** the first draft of PR #961 re-proved `canonicalLargestPrimeFactor (a*q) = q`; repository search found `canonicalLargestPrimeFactor_mul_prime_eq` (`RHLean/Analysis/DyadicTransportCanonicalForm.lean`). The duplicate was removed before the first push; the module reuses the existing lemma.
+3. **Over-reach avoided:** an early draft of owner-6 asserted that the whole upper sector carries `-F_R E(R)` up to small error; the `eta`-sum over `[R, x)` is only `O(x/log^2 x)`, so the claim was restricted to chains ending below `x^(2/3)`.
+
+## R-E. Novelty and precedent
+
+- The mechanism behind owner-4 is classical in spirit: the error term of `Psi(x, sqrt x)` (Dickman `rho(2) = 1 - log 2`) contains `x * E(sqrt x)`. The raw-ledger statement, the explicit bracket, the unconditional exponent and the consequence for band-local transports are new on this carrier.
+- `research/LATE_FLIP_PNT_SPLIT_DIAGNOSTIC.md` already observed, on a different carrier, that band-by-band RH-quality *upper* bounds lose `R^(3/2) log R`. Owner-4 is the corresponding *lower* bound: the loss is genuine, not an artefact of the triangle inequality.
+- Analytic-2/3 sharpen, not replace, the #954 control discussion and the amplification budget.
+
+## R-F. Carrier and covariance checks
+
+- No raw-seat result is transferred to masked/clipped returned cells or to the compressed #915 norm. ✔
+- `L^2 = A^2 + B^2 + 2AB` retained with complete `B` (owner, section F); the A/B deviation covariance is dominated by `-2(1-w)^2 epsilon(x/3)^2`. ✔
+- `H_R` is never used as the sole compensator; lower-tag charges are inside `B`. ✔
+- Mean-centring, diagonal sums or favourable local signs are not used. ✔
+
+## R-G. Decisions
+
+- **Band-local / sector-local estimates at intermediate cuts:** REJECT (owner-4, analytic-4, unconditional).
+- **Independent estimate for complete `B_R`:** REJECT as a sub-goal (RH-equivalent, owner-5).
+- **Raw-ledger FD-TRANSPORT:** SUSPEND unless a sieve identity with explicit bilinear remainder is specified.
+- **INV-CONFIGURATION:** realised (wheel-5) at classical strength; MERGE into the cut-mode picture.
+- **MU-LIFT:** REVISE to a structural study of the `K3` corner; no fixed nontrivial `(r, g)` short of quasi-RH (analytic-3).
+- **Canonical endpoint, complete-source payment, finite A/C, CORR-4, RH:** OPEN / NO_NEW_RESULT.
+
+Self-audit only; no RH proof claim.

@@ -160,3 +160,64 @@ Handoffs:
 Early checkpoint commit: `d0ac594430f4c61d95765990cea4e36ea2e16966`; verified checkpoint blob `84facd494d32853f89a8e52762ea46139fce5d72`.
 
 The completion commit and final readback blob are recorded by the transport/readback operation outside this self-hashing body.
+
+
+---
+
+# Manual continuation — unified manual AI research cycle, pass 4 of 7 (2026-10-16)
+
+**Status of this section:** COMPLETED
+**Invocation:** explicitly owner-requested manual run, performed by one AI session (Claude) executing the seven functions sequentially. This section is **appended**; the scheduled 00:09 run above is preserved unchanged and remains that run's record.
+**Run ID:** `RH-UNIFIED-MANUAL-20261016T0806-0400` · section written 2026-10-16T09:07-04:00
+**Authority:** `main@69e44d7cc8a63ebc1160639c264cbda4210339e1` (after #958/#959 merged; #960 merged on `agent-reports`). `AGENTS.md` `c40e9bc1…`, contract `b945dec4…`, brief `80b865bf…`, protocol `03d07880…`. Upstream this cycle: Owner `20261016-owner-1..6`, Analytic `20261016-analytic-1..4`.
+**Result classes:** `PAPER_PROOF` (incidence walls, inverse theorem), `FINITE_COMPUTATION` (strata), `NO_NEW_RESULT` on the canonical bound.
+
+## M-A. What changed
+
+The greatest-prime incidence geometry of the raw carrier now has **two exact walls**: the merged one-ninth wall (`H_R` tags `q < R^2/9`) and the **square-root wall** `q = R`, above which every fibre is complete (owner-1; Lean core on draft PR #961). The scheduled run's inverse campaign falsified same-tag concentration; this pass supplies a non-circular inverse theorem whose configuration is independently restricted — and shows its restriction has exactly classical strength.
+
+## M-B. Claim `20261016-wheel-4` — fibre staircase and the square-root wall
+
+For `x = R^2`, `R >= 5`, prime `q`:
+
+```text
+x/(2k+1) < q < x/(2k-1),  q >= R  ==>  fibre(q) = {q, 3q, ..., (2k-1)q}       (k >= 1)
+H-part of fibre(q) nonempty            <=>  some odd composite a < x/q  <=>  q < x/9
+q >= R                                 ==>  no smoothness or square condition is active
+5 <= q <= R/sqrt(2)                    ==>  the smoothness condition P+(a) <= q is active
+```
+
+**Proof.** First three lines: owner-1 (complete fibre: all odd `a < x/q`), and the least odd composite is `9`. Last line: Bertrand gives a prime `p in (q, 2q)`; `2q <= x/q` iff `q <= R/sqrt 2`, so `a = p < x/q` is an odd cofactor with `P+(a) > q`, excluded from the fibre of `q`. Between `R/sqrt 2` and `R` activity depends on whether `(q, x/q)` contains a prime and is not claimed. **Status:** `PAPER_PROOF`; incidence core (`largestPrimeFactor_eq_iff_exists_mul_of_root_le`, `isOddFactorDepthResidual_mul_iff_of_lt`, `nine_mul_le_of_odd_composite_cofactor`) compiled on PR #961 at head `dd066a06…`.
+
+**Consequence.** The `A_R` sector (`q > x/3`) is the `k = 1` step of the staircase; the one-ninth wall is the `k = 5` step where the first composite cofactor `9` enters. Between `R` and `x/9` the `H` part of each fibre is the set of odd composites below `x/q` — a cofactor range that grows to `R` as `q` approaches the wall, consistent with census-2 (no fixed backbone).
+
+## M-C. Claim `20261016-wheel-5` — inverse configuration with an independent restriction
+
+**(i) Imbalance ⇒ configuration (two-sided, explicit).** For the band `[R, 2R)`, owner-3 gives
+
+```text
+| (T_R - M_R) - F_R (E(2R-1) - E(R-1)) |  <=  sum_{R<=q<2R} max(|lo(q)|, |lo(q) + wtilde(q)|)  =  O(R/log^2 R).
+```
+
+So a band imbalance `V` forces the Mertens increment `|E(2R-1) - E(R-1)| >= (V - O(R/log^2 R))/F_R`, and conversely. The configuration is a prime statistic at scale `R`, defined independently of `L_R` (scale `R^2`), so the template is **not circular**.
+
+**(ii) Independent restriction of the configuration.** Unconditionally (PNT with classical error term) `E(y) = O(exp(-c sqrt(log y)))`, hence
+
+```text
+|T_R - M_R| = O(R^2 exp(-c sqrt(log R)))         (explicit uniform estimate for a growing-cofactor cross band of complete B)
+```
+
+— weaker than the target by `R exp(-c sqrt(log R))/log R`. Under RH it is `O(R^(3/2))`; by Lemma M it is not `O(R^(3/2 - delta))`.
+
+**Status:** `PAPER_PROOF`. **Decision:** INV-CONFIGURATION is *realised* here, but the restriction it produces is exactly our knowledge of primes at scale `sqrt(x)`; it cannot reach the target scale on any intermediate band (analytic-4). Merge INV-CONFIGURATION into the cut-mode picture; do not run it as an independent lane to the endpoint.
+
+## M-D. Finite strata (`FINITE_COMPUTATION`, directly recomputed per seat, matching the Fenwick totals)
+
+At held-out `R = 4999` (`x = 24,990,001`): `S1 (q<R) = 463,865.15`, `S2 ([R,2R)) = 121,694.82`, `S3 ([2R, x/3]) = 298,366.96`, `S4 = A_R = -883,575.00`. Inside `S2`, 81.2% of the mass sits at cofactor exponent `log a/log x in [3/8, 1/2)`; `Omega = 2, 3, 4, >=5` carry `34,614 / 49,056 / 26,564 / 11,895`. The complete complement `B_R = S1 + S2 + S3` puts 52.5% of its mass below the wall (`S1`), where fibres are smooth-restricted.
+
+## M-E. Handoffs and capsule
+
+- **Census:** test the band law and the cut mode with pre-registered criteria (done in pass 5).
+- **Referee:** audit wheel-4's Bertrand step and wheel-5's two-sided bound.
+- **Lean:** wheel-4's incidence core is on PR #961; the analytic parts are out of scope.
+- **Capsule:** reuse wheel-4/5; avoid intermediate-cut band estimates, same-tag transport, fixed backbones, unsigned wheel growth. No RH proof claim.

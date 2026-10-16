@@ -203,3 +203,100 @@ No canonical endpoint, #915 payment, finite A/C, CORR-4, MU-LIFT gain, or RH pro
 - Substantive completion commit: `2b2049d3e4f619282d6eb67332fef398ab54cfe8`.
 - Verified substantive blob: `196707ebaa47da197b9275aa5d0d5980cbc35f1e`.
 - A final metadata-only correction records these identifiers; its resulting blob is verified externally because a file cannot contain its own Git blob hash.
+
+
+---
+
+# Manual continuation — unified manual AI research cycle, pass 5 of 7 (2026-10-16)
+
+**Status of this section:** COMPLETED
+**Invocation:** explicitly owner-requested manual run (one AI session, sequential role passes). Appended; the scheduled 01:51 run above is preserved unchanged.
+**Run ID:** `RH-UNIFIED-MANUAL-20261016T0806-0400` · section written 2026-10-16T09:07-04:00
+**Authority:** `main@69e44d7c…`; `AGENTS.md` `c40e9bc1…`, contract `b945dec4…`, brief `80b865bf…`, protocol `03d07880…`. Upstream: owner-1..6, analytic-1..4, wheel-4/5 of this cycle; the scheduled census-1..3 above.
+**Result classes:** `FINITE_COMPUTATION` (pre-registered, held-out), exact conservation checks, `NO_NEW_RESULT` on the canonical bound.
+
+## N-A. Why new data was justified
+
+The scheduled run's R<=5000 cofactor counts were not reused as-is because the new hypothesis needs observables never computed before: the **signed** tag-band sums of the complete complement as functions of every `R`, the per-tag sampling defects `eta(q)`, and the Mertens increments `E(2R-1) - E(R-1)`. One incremental pass over all `R <= 5000` (Fenwick trees over greatest-prime tags) produced every sector for every root; the large-`R` extension uses only primes below `2R`, justified by the proved identity owner-3.
+
+## N-B. Pre-registration (written before evaluating the held-out range)
+
+File `PREREGISTRATION.md` (sha256 `9ebfd820…a522da`, timestamp 2026-10-16T08:35:57-04:00). Disclosure: the CSV for `R <= 5000` had been generated, but not inspected, when the file was written; only `R = 100, 300, 500, 600` (development range) had been printed. Evaluation range: every `R in [1000, 5000]`; strata at `R = 2500, 4999` (new) and `3162, 4096, 5000` (prior endpoints, consistency only).
+
+- **P1 (band law, owner-2/3):** (a) every `eta(q)`, `q in [R, 2R)`, inside the proved bracket; (b) `rho_R` inside the summed bracket; (c) `std(rho)/std(Pred) < 0.25` and `corr(Delta, Pred) > 0.95`, where `Delta_R = T_R - M_R` and `Pred_R = F_R (E(2R-1) - E(R-1))`.
+- **Rival N1:** band deviation target-local and unrelated to the Mertens increment (`corr < 0.5` or `std(rho)` comparable to `std(Delta)`).
+- **P2 (cut mode, owner-5):** `corr(B_R - B*_R, -epsilon(R^2/3)) > 0.95`.
+- **Checks:** `L_R = F_R - pi(R^2) + 2`; `S1+S2+S3+S4 = L_R`; `B_R - B*_R` equals the cut-mode expression to floating precision.
+- **Descriptive (no test):** D1 fraction of roots with `|Delta_R| > |L_R|`; D2 largest `|Delta_R|/(R log R)`.
+
+## N-C. Results
+
+| Item | Outcome |
+| --- | --- |
+| P1a per-tag bracket | **0 violations** (all band tags, all `R in [1000,5000]`) |
+| P1b summed bracket | **0 violations** |
+| P1c | `std(rho)/std(Pred) = 0.0080`, `corr(Delta, Pred) = 0.99997` — **confirmed**; N1 rejected |
+| `rho_R/(R/log^2 R)` | in `[0.193, 0.324]` (systematic, as predicted by the bracket) |
+| P2 | `corr = 0.9908`; `std(Bdev + epsilon(x/3))/std(Bdev) = 0.135` — **confirmed** |
+| Conservation (`6 <= R <= 5000`) | `max |L - (F - pi + 2)| = 1.6e-9`; `max |Bdev - cutmode| = 2.0e-9` |
+| Independent re-implementation | exact-factoring Python, `6 <= R <= 300`: S1..S4, `Delta`, `rho` agree to `5.0e-12`; **0** complete-fibre failures (owner-1 checked for every prime `q in [R, R^2)`) |
+| D1 | `|Delta_R| > |L_R|` for **74.8%** of roots; max ratio **9.27** at `R = 4281` (`Delta = -2039.9`, `L = 220.1`) |
+| D2 | max `|Delta_R|/(R log R) = 0.071` (`R = 1328`) |
+
+Selected rows (long-double diagnostics, not certified intervals):
+
+| R | L_R | Delta_R | Pred_R | rho_R (bracket) | B_R - B*_R | -epsilon(x/3) |
+|---:|---:|---:|---:|---|---:|---:|
+| 1000 | 128.40 | -99.43 | -104.80 | 5.37 [-14.46, 23.12] | 63.89 | 52.56 |
+| 3162 | 331.31 | 457.30 | 444.62 | 12.68 [-33.63, 56.43] | 149.37 | 122.78 |
+| 4096 | 349.55 | -1301.20 | -1316.28 | 15.08 [-39.92, 67.50] | 217.95 | 199.42 |
+| 4999 | 351.92 | -267.48 | -286.56 | 19.08 [-46.95, 79.93] | 255.71 | 242.44 |
+| 5000 | 367.91 | -577.58 | -597.22 | 19.64 [-46.88, 79.77] | 266.46 | 252.60 |
+
+The census-1 endpoint `R = 3162` reproduces the October 15 totals (`T = -368,057.434`, `H = 368,388.745`, `L = 331.311`) to the printed digits.
+
+## N-D. Large-R extension of the proved band mode (`FINITE_COMPUTATION`)
+
+Segmented sieve to `2*10^9` (`pi(2*10^9) = 98,222,287`; recomputed Meissel–Mertens constant agrees with mpmath to `5e-13`), `F_R` summed exactly, 5,489 roots on a geometric grid plus dense windows up to `R = 10^9`; agrees with the ledger lab on 700 common roots to `5.6e-12`.
+
+| decade of R | max `|Pred|/(R log R)` | max `|Pred|/(R^(3/2)/log^2 R)` | max `|Pred|/(R/log R)` | share `Pred < 0` |
+|---|---:|---:|---:|---:|
+| 1e3 | 0.074 | 0.649 | 5.96 | 0.87 |
+| 1e4 | 0.115 | 0.636 | 13.95 | 0.80 |
+| 1e5 | 0.178 | 0.544 | 33.51 | 0.88 |
+| 1e6 | 0.336 | 0.514 | 83.51 | 0.83 |
+| 1e7 | 0.765 | 0.605 | 251.90 | 0.86 |
+| 1e8 | 1.340 | 0.678 | 523.51 | 0.87 |
+
+The band mode first exceeds `R log R` on the grid at `R = 1.101*10^8` (29 of 5,489 grid roots exceed it); its normalised size `|Pred|/(R^(3/2)/log^2 R)` stays in `[0.51, 0.68]` per decade, consistent with the `R^(3/2)/log^2 R` law; 408 sign changes along the grid. The negative majority reflects the positive bias of `E(y)` (prime-square contribution), which an explicit main term could absorb; owner-4's lower bound comes from the zero `rho_0`, not from this bias. By owner-3 the band deviation equals `Pred_R` plus an `O(R/log^2 R)` bracket; at `R ~ 10^8` the bracket is about `0.3 * 3*10^5` against `|Pred| ~ 2*10^9`. **These are finite values, not a proof of growth**; the all-scale statement is owner-4.
+
+## N-E. Reproducibility
+
+Files under `research/agent_reports/2026-10-16/manual-cycle/` on `agent-reports`:
+
+```text
+ledger_lab.cpp        c5346e6cf8bd9cb234633575df5e49aa7ad20631df881e2e9a3d2ead2686e963
+ledger5000.csv(.gz)   dbb8cd43b83ed9f4b0a92375376d1f695a2a2b7911ac3152d932f4903f01d926 (uncompressed)
+evaluate.py           741cea8cec0bfe144887171afd99016c825955fd1db609517c01930aa16461ec
+evaluate_out.txt      6e5520a5479a0340d01a73ec04d0353617bf3e5d4adbb8d33e3316908d3593c7
+crosscheck_small.py   cc79fac7626d2ad6382243ad68a604aea0504c06ffe511f47ed03f6c8ee50b5d
+band_mode_large.cpp   7b51a2212b36ceb41de10079f3e5937a9f2eef1d4b96cfbcb4c32f2d31662533
+band_large.csv(.gz)   bc9da5f15969138b9a28ae80d054d3fb82b11e9b6fcaa86632f45ca209e19444 (uncompressed)
+mulift_anatomy.cpp    978782969bcfa9b41816b4cd7e5292becfc7465647bf667a09b51b4df8dcdd64
+PREREGISTRATION.md    9ebfd820176bb61584d146d9c3563377fd68bb14b27cadc23390b94121a522da
+
+g++ -O2 -std=c++20 ledger_lab.cpp -o ledger_lab && ./ledger_lab 5000 ledger5000.csv 2500,3162,4096,4999,5000
+python3 evaluate.py
+python3 -I crosscheck_small.py ledger600.csv 300          (ledger600.csv from ./ledger_lab 600 ledger600.csv 500)
+g++ -O2 -std=c++20 band_mode_large.cpp -o band_mode_large && ./band_mode_large 1000000000 band_large.csv
+```
+
+Environment: g++ 13.3.0, Python 3.13.16, mpmath. Integer populations exact; weights in long double; no certified intervals. A bookkeeping bug in the first build of `ledger_lab` (evaluating `wtilde(x/3+)` at `floor(x/3)+1`, wrong when that integer is a square; and sector overlap for `R < 6`) produced spurious cut-identity residuals at 11 roots; it was diagnosed and fixed before evaluation, and the corrected identity holds to `2e-9` at every `R >= 6`.
+
+**NOT_RUN:** no certified interval arithmetic; no ledger beyond `R = 5000`; no test of bands at `y = x^theta`, `theta > 1/2` (analytic-4 is proved, not sampled).
+
+## N-F. Decisions and capsule
+
+- Band law and cut mode: **confirmed** as finite evidence for proved identities. Rival N1 rejected.
+- What the data add beyond the proofs: the supertarget regime of the band mode against `R log R` begins near `R ~ 10^8`, but the band deviation exceeds the **whole signed total** `|L_R|` already for most `R in [1000, 5000]`: cross-band cancellation is the dominant phenomenon at every accessible scale.
+- Reuse the files above; do not rerun without a changed definition or a new prediction. No RH proof claim.

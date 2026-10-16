@@ -96,3 +96,93 @@ No RH proof claim.
 ## G. CI status refresh - 2026-10-16 06:13 EDT
 
 A final exact-head query found that VF recursive child population and complement capacity run `38880823467` completed successfully. Seven attached workflows are now green. Four legacy import-closure workflows remain in progress without a reported failure: `38880823503`, `38880823463`, `38880823805`, and `38880823702`. PR #958 remains draft; no no-op rerun commit or review-state transition was made.
+
+
+---
+
+# Manual continuation — unified manual AI research cycle, pass 7 of 7 (2026-10-16)
+
+**Status of this section:** SUBSTANTIVE PROOF COMPLETE / LEGACY CI PENDING (see L-D)
+**Invocation:** explicitly owner-requested manual run; one AI session performing the Lean Verification function after its own self-audit (pass 6). Appended; the scheduled 05:17 run above and its 06:13 refresh are preserved unchanged.
+**Run ID:** `RH-UNIFIED-MANUAL-20261016T0806-0400` · section written 2026-10-16T09:07-04:00
+
+## L-A. Live state correction (no rewrite of the record above)
+
+The scheduled section above describes PR #958 as draft with legacy CI pending. Live metadata now shows **#958 merged** at `b0446d45037b10637522791e398a9c8ffd99f123` (2026-10-16T11:36:56Z), followed by the steering merge #959 (`main@69e44d7c…`). The one-ninth support theorem is therefore `PROVED_IN_LEAN_ON_MAIN`; it was not duplicated.
+
+## L-B. Candidate selection and duplicate review
+
+Referee-surviving candidates from this cycle: owner-1 (complete fibre), wheel-4 incidence core, and the residual characterization; analytic claims (Lemma M, B ⇔ RH, band oscillation) need zeta-zero and Mellin infrastructure and are out of scope. The October 16 staircase (census-1, accepted by today's scheduled Referee) remains a separate candidate and was not mixed in.
+
+Duplicate search (`proofq repo-search`, grep over `RHLean/` and `research/`): no root-wall fibre characterization, non-square lemma for `a*q` with `a < q`, or residual characterization exists. The evaluation `canonicalLargestPrimeFactor (a*q) = q` (`0 < a < q`, `q` prime) **already exists** as `canonicalLargestPrimeFactor_mul_prime_eq`, with `canonicalCofactor_mul_prime_eq`, in `RHLean/Analysis/DyadicTransportCanonicalForm.lean`; the first local draft duplicated it, and the duplicate was removed before the first push in favour of reuse.
+
+## L-C. Implementation
+
+Draft PR **[#961](https://github.com/OVVO-Financial/RH_Lean/pull/961)** · branch `agent/lean-verification/20261016-root-wall-complete-fibre` · base `main@69e44d7cc8a63ebc1160639c264cbda4210339e1`
+Heads: `cc8bc7667edc9fa888dd30d54256680dab15872e` (module) → **`dd066a06d752f5ee76017c687799c8b440c71609`** (axiom audits made build-enforced).
+Files: new `RHLean/Proof/RootWallCompleteFibre.lean`; one sorted import line in `RHLean.lean`.
+
+Declarations (namespace `RHLean.Proof`):
+
+```lean
+theorem lt_of_mul_lt_sq_of_root_le {R a q : ℕ} (hRq : R ≤ q) (h : a * q < R ^ 2) : a < q
+theorem mul_ne_sq_of_lt {a q : ℕ} (hq : q.Prime) (ha : 0 < a) (haq : a < q) (m : ℕ) : a * q ≠ m ^ 2
+theorem completeFibre_of_root_le {R a q : ℕ} (hq : q.Prime) (hRq : R ≤ q) (ha : 0 < a)
+    (h : a * q < R ^ 2) :
+    a < q ∧ canonicalLargestPrimeFactor (a * q) = q ∧ canonicalCofactor (a * q) = a ∧
+      ∀ m : ℕ, a * q ≠ m ^ 2
+theorem largestPrimeFactor_eq_iff_exists_mul_of_root_le {R q n : ℕ} (hq : q.Prime)
+    (hRq : R ≤ q) (hnR : n < R ^ 2) :
+    (1 < n ∧ canonicalLargestPrimeFactor n = q) ↔ ∃ a, 0 < a ∧ n = a * q
+theorem canonicalCofactor_lt_largestPrimeFactor_of_root_le {R n : ℕ} (hn : 1 < n)
+    (hnR : n < R ^ 2) (hRq : R ≤ canonicalLargestPrimeFactor n) :
+    canonicalCofactor n < canonicalLargestPrimeFactor n
+theorem isOddFactorDepthResidual_mul_iff_of_lt {a q : ℕ} (hq : q.Prime) (ha : 1 < a)
+    (haq : a < q) : IsOddFactorDepthResidual (a * q) ↔ ¬ a.Prime
+theorem nine_mul_le_of_odd_composite_cofactor {a q : ℕ} (haOdd : Odd a) (ha : 1 < a)
+    (haNP : ¬ a.Prime) : 9 * q ≤ a * q
+```
+
+No `sorry`, `admit`, new axiom, hidden conclusion hypothesis, weakened statement, policy or CI change. Local static checks only (`scripts/check_root_manifest.py`, `scripts/audit_assumptions.sh`); **no local Lean execution**.
+
+## L-D. CI evidence (GitHub Actions, exact heads)
+
+Head `dd066a06…` (current):
+
+| Workflow | Run | Result |
+| --- | --- | --- |
+| Lean source audits — Hosted Lean build (job `116983903587`) and audit (job `116983903016`) | `38904295596` | **success**: "Build Lean project", "Validate exact elaborated declaration graph", "Fail on RHLean-owned Lean warnings" all success; final failure gate skipped |
+| Proof inventory | `38904295251` | success |
+| Public export verification | `38904295313` | success |
+| Rough dyadic q2 compression | `38904295450` | success |
+| Renewal dyadic two-shell reduction | `38904295568` | success |
+| Dyadic survivor matched splice | `38904295397` | success |
+| VF recursive child population and complement capacity | `38904295482` | success |
+| VF first-bad normalized infrastructure | `38904295454` | in progress at writing |
+| VF first-bad final aggregate contraction | `38904295487` | in progress at writing |
+| VF first-bad source to sector-six inlet | `38904295391` | in progress at writing |
+| VF pre-914 consolidation | `38904295486` | in progress at writing |
+
+Head `cc8bc766…` (superseded): Lean source audits `38903743479` success (build job `116982049350`, warnings gate success); proof inventory, public exports, three dyadic suites and VF recursive child population success; the other four VF suites were cancelled by the concurrency group when `dd066a06` was pushed.
+
+**Axiom footprint.** The job-log download redirects to Azure blob storage, which this session's network proxy refuses, so the printed axiom lines could not be read directly. The second commit therefore replaced plain `#print axioms` with build-enforced audits:
+
+```lean
+/-- info: 'RHLean.Proof.<name>' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms RHLean.Proof.<name>
+```
+
+for `completeFibre_of_root_le`, `largestPrimeFactor_eq_iff_exists_mul_of_root_le`, `canonicalCofactor_lt_largestPrimeFactor_of_root_le` and `isOddFactorDepthResidual_mul_iff_of_lt`. The warning-fatal build of `dd066a06` succeeded, which is impossible unless each footprint is exactly `[propext, Classical.choice, Quot.sound]`.
+
+## L-E. Mathematical scope
+
+- **Formal soundness:** the incidence statements compile at the exact head with standard axioms.
+- **Significance:** the exact incidence fact behind the deterministic-charge theorem (owner-1) and the second structural wall (wheel-4); it re-derives the merged one-ninth wall from the fibre side.
+- **Not proved:** the raw native-weight ledger, the band identity (owner-3), Lemma M, the band oscillation (owner-4), the B ⇔ RH equivalence (owner-5), any signed or covariance estimate, returned-cell admission, the canonical endpoint, RH.
+
+## L-F. Repository state and next action
+
+PR #961: `DRAFT`, `CI_GREEN` on the primary Lean build/audits and six attached suites; four legacy VF import-closure suites pending (run IDs above). If they finish green on the unchanged head, mark the PR ready for human review; if one fails, inspect it and repair only a genuine integration issue. **Not merged**; human-only merge gate respected.
+
+Next optional candidates: the October 16 cofactor-depth staircase (`a^Omega < X^(Omega-1)`) via `List.prod_le_pow_card` and `Nat.perm_primeFactorsList_mul`; a scoped generic consumer for analytic-3 (conditional, would not prove its premise). No RH proof claim.

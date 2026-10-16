@@ -1,0 +1,1 @@
+checked R=6..300: max |python - ledger_lab| over S1..S4,Delta,rho = 5.002e-12; complete-fibre failures = 0

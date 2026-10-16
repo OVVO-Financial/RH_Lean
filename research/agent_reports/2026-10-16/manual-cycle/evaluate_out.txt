@@ -1,0 +1,21 @@
+P1a per-tag bracket violations: 0
+P1b rho outside summed bracket: 0
+P1c std(rho)/std(Pred)=0.0080 corr(Delta,Pred)=0.99997
+    mean rho=12.311 std rho=3.944 std Pred=494.757 std Delta=493.379
+    rho/(R/log^2R): min 0.193 max 0.324
+D1 fraction |Delta|>|L|: 0.748
+D2 max |Delta|/(R log R): 0.0706 at R=1328
+   max |Delta|/|L|: 9.27 at R=4281
+   max |Pred|/ (R^1.5/log^2 R): 0.727
+cons: max|checkL|=1.554e-09
+cut identity: max|Bdev-cutmode|=2.018e-09
+P2 corr(Bdev,-eps(x/3))=0.99081 ; std ratio std(Bdev+eps(x/3))/std(Bdev)=0.1353
+   corr(Adev, -eps(x)+eps(x/3))=0.99995
+1000 L=128.40 Delta=-99.43 Pred=-104.80 rho=5.37  A=-42362.8 B=42491.2 Bdev=63.89 -eps(x/3)=52.56  S1=23254.1 S2=7290.0 S3=11947.1
+2000 L=205.11 Delta=-322.62 Pred=-332.22 rho=9.61  A=-156225.0 B=156430.1 Bdev=124.04 -eps(x/3)=111.42  S1=83914.1 S2=24168.8 S3=48347.3
+2500 L=256.48 Delta=-322.43 Pred=-333.49 rho=11.06  A=-238030.4 B=238286.9 Bdev=139.08 -eps(x/3)=121.36  S1=127097.2 S2=35809.1 S3=75380.6
+3000 L=186.11 Delta=-661.27 Pred=-673.70 rho=12.43  A=-336057.5 B=336243.6 Bdev=157.94 -eps(x/3)=153.52  S1=178674.4 S2=49039.3 S3=108529.9
+3162 L=331.31 Delta=457.30 Pred=444.62 rho=12.68  A=-371041.2 B=371372.5 Bdev=149.37 -eps(x/3)=122.77  S1=196264.4 S2=54947.5 S3=120160.6
+4096 L=349.55 Delta=-1301.20 Pred=-1316.28 rho=15.08  A=-605683.6 B=606033.2 Bdev=217.95 -eps(x/3)=199.42  S1=319954.0 S2=84555.4 S3=201523.8
+4999 L=351.92 Delta=-267.48 Pred=-286.56 rho=19.08  A=-883575.0 B=883926.9 Bdev=255.71 -eps(x/3)=242.44  S1=463865.1 S2=121694.8 S3=298367.0
+5000 L=367.91 Delta=-577.58 Pred=-597.22 rho=19.64  A=-883904.9 B=884272.9 Bdev=266.46 -eps(x/3)=252.60  S1=464315.3 S2=121428.9 S3=298528.6
