@@ -48,7 +48,15 @@ The large-square tail is **unconditionally payable**. If `p>y` occurs squared wi
  <= 2X(1+log X)/y.
 ```
 
-For `y=floor(X^alpha)`, `X^alpha>=2`, it is `<=4 X^(1-alpha)(1+log X)`. This is a valid `O(X^(7/8)log X)` independent bound at `alpha=1/8`, but **the exponent arises from choosing the cutoff**. A separately reported VF raw squareful tail of `O(R^(7/4)/log R)` uses the genuine positive physical VF weights and is a different carrier: do not claim its numerical constant 10 is kernel-proved or transfer it to the signed Hecke ledger without a bridge.
+For `y=floor(X^alpha)`, `X^alpha>=2`, it is `<=4 X^(1-alpha)(1+log X)`. This is a valid `O(X^(7/8)log X)` independent bound at `alpha=1/8`, but **the exponent arises from choosing the cutoff**. The **separate genuine VF raw large-prime-square sector** also has an elementary, unconditional **paper proof** with the reported constant `10`, for every integer `R>=2` under the strict open-square odd-seat convention. Define `w_r=(2r+1)/(r log(r^2+r+1/2))` and sum `w_r` once over each odd physical seat `r^2<n<(r+1)^2`, `2<=r<R`, having a prime square divisor `p^2|n` with `p>R^(1/4)`. Call this nonnegative sum `H_R^{large square}`. Then
+
+```text
+0 <= H_R^{large square} <= 10*R^(7/4)/log R    (R>=2).
+```
+
+**Paper proof, all R:** for every `r>=2`, `r^2<n<(r+1)^2`, one has `w_r<=3/log n`. At `r=2` this follows from `3^5 < (13/2)^3`. For `r>=3`, use `log(r^2+r+1/2)>=log r+log(r+1)`, `log n<2log(r+1)` and `log(r+1)<=(3/2)log r` to check `(1+2/r)log(r+1)<=3log r`. For `R>=16`, every relevant `n>=p^2>R^(1/2)`, so its weight is `<6/log R`; moreover `p>R^(1/4)>=2` is odd. For each such p, the odd multiples of `p^2` below `R^2` number at most `R^2/(2p^2)+1/2`. Writing `y=floor(R^(1/4))>=R^(1/4)/2` and using `sum_(p>y)p^(-2)<=sum_(n>y)n^(-2)<=1/y`, the total overcounted odd seats is at most `R^(7/4)+R/2`. Hence `H<= (6R^(7/4)+3R)/log R <=9R^(7/4)/log R`. For `2<=R<16`, every raw odd seat has `n>=5` and `w_r<=3/log 5<2`; the total number of odd seats is less than `R^2/2`, hence `H<R^2<10R^(7/4)/log R` since `R^(1/4)log R<2log16<10`.
+
+This is an **unconditional bounded sector with the original VF physical weight**, not an estimate for the complete VF signed defect. It is a `PAPER_PROOF` in this PR, **not** a newly compiled Lean theorem. The Hecke BAD and VF positive-sector estimates concern distinct objects and cannot be added or transferred without matching carriers and weights.
 
 For `y=floor(X^alpha)`, each surviving large factor `p>y` is split and appears to the first power; the number `k` of such factors satisfies `k<1/alpha`. With `s` made of prime-to-6 primes `<=y`, define
 
