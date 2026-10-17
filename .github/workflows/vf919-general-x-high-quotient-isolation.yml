@@ -50,6 +50,43 @@ jobs:
           python3 scripts/compile_research_import_closure.py \
             research/VF_MID_919_GENERAL_X_HIGH_QUOTIENT_ISOLATION.lean \
             2>&1 | tee vf919-general-x-compile.log
+      - name: Surface compiler diagnostics as check annotations
+        if: failure()
+        run: |
+          python3 - <<'PY'
+          import re
+          from pathlib import Path
+          path = Path('vf919-general-x-compile.log')
+          text = path.read_text(errors='replace') if path.exists() else ''
+          lines = text.splitlines()
+          pat = re.compile(r'^(?:\./)?(?P<file>[^:\s]+\.lean):(?P<line>\d+):(?P<col>\d+): (?P<kind>error|warning)(?:\([^)]*\))?: ?(?P<msg>.*)$')
+          entries = []
+          i = 0
+          while i < len(lines):
+              m = pat.match(lines[i])
+              if m:
+                  body = [m.group('msg')]
+                  j = i + 1
+                  while j < len(lines) and not pat.match(lines[j]) and len(body) < 60:
+                      body.append(lines[j])
+                      j += 1
+                  entries.append((m, body))
+                  i = j
+              else:
+                  i += 1
+          def enc(s):
+              return s.replace('%', '%25').replace('\r', '%0D').replace('\n', '%0A')
+          errors = [e for e in entries if e[0].group('kind') == 'error']
+          for m, body in errors[:10]:
+              msg = '\n'.join(body)[:4000]
+              print(f"::error file={m.group('file')},line={m.group('line')},col={m.group('col')}::{enc(msg)}")
+          for m, body in errors[10:20]:
+              msg = '\n'.join(body)[:4000]
+              print(f"::warning file={m.group('file')},line={m.group('line')},col={m.group('col')}::{enc('[error] ' + msg)}")
+          print(f'parsed {len(errors)} errors and {len(entries) - len(errors)} warnings')
+          if not errors:
+              print('::error::' + enc('\n'.join(lines[-60:])[:4000]))
+          PY
       - name: Verify theorem signatures and standard axioms
         run: |
           cat >/tmp/vf919_general_x_acceptance.lean <<'LEAN'
