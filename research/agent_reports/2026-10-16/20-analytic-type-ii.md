@@ -115,3 +115,16 @@ uniformly over `B <= X < B^2`, together with the matching treatment of `K1, K2`.
 ## J. Resume capsule
 
 Reuse analytic-1..4. Next question: does the `K3` corner admit an exact signed reflection (e.g. `ij <-> X/(ij)` duality or a Mobius involution) that shortens it? Avoid: claiming any `(r, g)` from finite ratios; treating analytic-3 as progress. No RH proof claim.
+
+
+---
+
+# Scheduled continuation — 2026-10-16T22:30-04:00
+
+**Continuation status:** IN_PROGRESS
+
+Live authority was refreshed at `main@b9105f19fbbf25742a6909a6e8c995e6a9ddeddb`. Material blobs: `AGENTS.md` `9de61f7cb75c048f132ca048d5b16f4900aa7109`; contract `ddb716eeb08aeb9237c9652bc710a08a2a06c1c8`; brief `beb9984a92b07248363bf8c6e70a1c8893abcc24`; protocol `5a954ef55b4297526f0867fcc798869eea017927`; amplification budget `62bbe73c4755eaa64772ec2cc2731936c01b49cd`; signed hyperbola source `d199571f19346797229a25b0fa53c6e80499999f`. Merged #958/#961 remain structural only; live open-PR search returned none.
+
+Today and prior-day reports for Coordinator, Owner, Analytic, Wheel, Census, Referee and Lean, plus `EXTERNAL_HANDOFFS.md`, were refreshed. The newest upstream Claims are Coordinator `20261016-coordinator-3/-4` (squarefree-kernel compression and fixed-product sign coherence) and Owner `20261016-owner-7/-8` (exact dyadic cross-product identity and target-equivalent long-row completion).
+
+**Assigned analytic question.** Rewrite Owner's dyadic identity as exact parity, top-half boundary and even-even half-scale sectors. First try to prove the boundary sector from the existing prefix budget alone, with explicit uniform constants; then falsify any analogous independent claim for the parity and half-scale sectors. Preserve the full `Q_N` carrier, ordered multiplicities and all `K1/K2/K3` consequences. No quantitative gain is claimed at this checkpoint.
