@@ -186,3 +186,6 @@ No RH proof claim.
 Substantive report commit: `1d1c2090ccbf64d89ac786a058e110195de20ec2`. Immediate readback blob: `347e26297bdceaaa3a7376d0b7d189011a486275` (12,646 characters), containing both claim IDs and the explicit `NO_NEW_RESULT` classification.
 
 Final live refresh still found `main@b9105f19fbbf25742a6909a6e8c995e6a9ddeddb`. Draft PR #964 remained open, draft and unmerged, but its live head had advanced to `c5369f2abb3bf0b398eab321c2fdf36ccc48c893`. Claim wheel-2 was proved from the specifically recorded note blob `b7643d7e6daf3f66357594d84d1ba87c8fe32542` plus compiled main source; no uninspected later PR edit is silently incorporated.
+
+
+CI state on the final observed #964 head: Documentation checks run `39001645477` succeeded; Proof inventory run `39001645500` succeeded; Canonical VF sqrt2 full autopsy run `39001645442` was still in progress. No failed run was reported. The PR remains draft, so this report makes no review-state or merge action.
