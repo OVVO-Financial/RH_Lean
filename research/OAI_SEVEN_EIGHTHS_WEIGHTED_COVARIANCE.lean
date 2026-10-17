@@ -193,6 +193,66 @@ theorem covarianceUpperBounded_of_sevenEighths_zeroFree
   exact (WeightedMertens.covarianceUpperBounded_iff_energyUpperBounded ε heps).2
     (energyUpperBounded_of_sevenEighths_zeroFree hZF hε)
 
+/-- Direct unweighted, one-sided signed pair-sum power saving at 7/8.
+Unlike the root/smooth normalized two-scalar Gram, the physical Green--Kubo
+pair sum is NOT a Pearson correlation in [-1,1]. -/
+theorem unweighted_positiveLagPairSum_upper_of_sevenEighths
+    (hZF : SevenEighthsZeroFree) {η : ℝ} (hη : 0 < η) :
+    ∃ C : ℝ, 0 ≤ C ∧ ∀ n : ℕ, 1 ≤ n →
+      realMertensPositiveLagPairSum (n + 1) ≤
+        C * Real.rpow (n : ℝ) ((7 : ℝ) / 4 + η) := by
+  have hη2 : 0 < η / 2 := by linarith
+  obtain ⟨K, hK, hBound⟩ :
+      MertensExponent.MertensPowerBound ((7 : ℝ) / 8 + η / 2) :=
+    (growthAtMost_sevenEighths_of_zeroFree hZF) (η / 2) hη2
+  refine ⟨K ^ 2 / 2, div_nonneg (sq_nonneg K) (by norm_num), ?_⟩
+  intro n hn
+  have hn0 : 0 < (n : ℝ) := by
+    exact_mod_cast (by omega : 0 < n)
+  have hpNonneg :
+      0 ≤ K * Real.rpow (n : ℝ) ((7 : ℝ) / 8 + η / 2) :=
+    mul_nonneg hK (Real.rpow_nonneg hn0.le _)
+  have hSq :
+      ‖mertensSummatory n‖ ^ 2 ≤
+        (K * Real.rpow (n : ℝ) ((7 : ℝ) / 8 + η / 2)) ^ 2 :=
+    (sq_le_sq₀ (norm_nonneg _) hpNonneg).2 (hBound n hn)
+  have hadd :
+      Real.rpow (n : ℝ)
+          (((7 : ℝ) / 8 + η / 2) + ((7 : ℝ) / 8 + η / 2)) =
+        Real.rpow (n : ℝ) ((7 : ℝ) / 8 + η / 2) *
+          Real.rpow (n : ℝ) ((7 : ℝ) / 8 + η / 2) :=
+    Real.rpow_add hn0 _ _
+  have hpow :
+      (Real.rpow (n : ℝ) ((7 : ℝ) / 8 + η / 2)) ^ 2 =
+        Real.rpow (n : ℝ) ((7 : ℝ) / 4 + η) := by
+    calc
+      (Real.rpow (n : ℝ) ((7 : ℝ) / 8 + η / 2)) ^ 2 =
+          Real.rpow (n : ℝ) ((7 : ℝ) / 8 + η / 2) *
+            Real.rpow (n : ℝ) ((7 : ℝ) / 8 + η / 2) := by ring
+      _ = Real.rpow (n : ℝ)
+          (((7 : ℝ) / 8 + η / 2) + ((7 : ℝ) / 8 + η / 2)) := hadd.symm
+      _ = Real.rpow (n : ℝ) ((7 : ℝ) / 4 + η) := by
+        congr 1
+        ring
+  have hEq :
+      ‖mertensSummatory n‖ ^ 2 =
+        realMertensDiagonal (n + 1) +
+          2 * realMertensPositiveLagPairSum (n + 1) := by
+    rw [norm_mertensSummatory_sq_eq_realMertensLength_sq,
+      realMertensLength_sq_eq_diagonal_add_two_mul_positiveLagPairSum]
+  have hEnergy :
+      realMertensDiagonal (n + 1) +
+          2 * realMertensPositiveLagPairSum (n + 1) ≤
+        K ^ 2 * Real.rpow (n : ℝ) ((7 : ℝ) / 4 + η) := by
+    rw [← hEq]
+    calc
+      ‖mertensSummatory n‖ ^ 2 ≤
+          (K * Real.rpow (n : ℝ) ((7 : ℝ) / 8 + η / 2)) ^ 2 := hSq
+      _ = K ^ 2 * Real.rpow (n : ℝ) ((7 : ℝ) / 4 + η) := by
+        rw [mul_pow, hpow]
+  have hD := realMertensDiagonal_nonneg (n + 1)
+  nlinarith
+
 /-- A uniform covariance estimate at ANY ε<3/8 goes beyond the OAI baseline:
 its own independent analytic L2-to-zero-strip bridge is still explicitly
 required; the numerical exponent alone does not prove that bridge in Lean. -/
