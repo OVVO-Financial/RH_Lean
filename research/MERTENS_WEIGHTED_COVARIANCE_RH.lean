@@ -110,22 +110,34 @@ theorem majorant_nonneg (ε : ℝ) (n : ℕ) : 0 ≤ majorant ε n := by
 theorem linear_weight_eq_majorant (ε : ℝ) (n : ℕ) :
     (((n + 1 : ℕ) : ℝ)) * weight ε n = majorant ε n := by
   have hbase : 0 < (((n + 1 : ℕ) : ℝ)) := by positivity
+  have hone :
+      Real.rpow (((n + 1 : ℕ) : ℝ)) (1 : ℝ) =
+        (((n + 1 : ℕ) : ℝ)) :=
+    Real.rpow_one _
+  have hadd :
+      Real.rpow (((n + 1 : ℕ) : ℝ)) ((1 : ℝ) + (1 + 2 * ε)) =
+        Real.rpow (((n + 1 : ℕ) : ℝ)) (1 : ℝ) *
+          Real.rpow (((n + 1 : ℕ) : ℝ)) (1 + 2 * ε) :=
+    Real.rpow_add hbase _ _
+  have hpow :
+      Real.rpow (((n + 1 : ℕ) : ℝ)) (2 + 2 * ε) =
+        (((n + 1 : ℕ) : ℝ)) *
+          Real.rpow (((n + 1 : ℕ) : ℝ)) (1 + 2 * ε) := by
+    calc
+      Real.rpow (((n + 1 : ℕ) : ℝ)) (2 + 2 * ε) =
+          Real.rpow (((n + 1 : ℕ) : ℝ)) ((1 : ℝ) + (1 + 2 * ε)) := by
+            congr 1
+            ring
+      _ = Real.rpow (((n + 1 : ℕ) : ℝ)) (1 : ℝ) *
+            Real.rpow (((n + 1 : ℕ) : ℝ)) (1 + 2 * ε) := hadd
+      _ = (((n + 1 : ℕ) : ℝ)) *
+            Real.rpow (((n + 1 : ℕ) : ℝ)) (1 + 2 * ε) := by rw [hone]
+  have hpos : 0 < Real.rpow (((n + 1 : ℕ) : ℝ)) (1 + 2 * ε) :=
+    Real.rpow_pos_of_pos hbase _
   unfold weight majorant
-  -- The arithmetic lemmas use the real-power notation `^`, while this module
-  -- deliberately stores weights with the explicit `Real.rpow` constructor.
-  simp only [Real.rpow_eq_pow]
-  calc
-    (((n + 1 : ℕ) : ℝ)) *
-        (Real.rpow (((n + 1 : ℕ) : ℝ)) (2 + 2 * ε))⁻¹ =
-      Real.rpow (((n + 1 : ℕ) : ℝ)) (1 : ℝ) *
-        Real.rpow (((n + 1 : ℕ) : ℝ)) (-(2 + 2 * ε)) := by
-          rw [Real.rpow_one, Real.rpow_neg hbase.le]
-    _ = Real.rpow (((n + 1 : ℕ) : ℝ)) (1 + -(2 + 2 * ε)) := by
-      rw [← Real.rpow_add hbase]
-    _ = (Real.rpow (((n + 1 : ℕ) : ℝ)) (1 + 2 * ε))⁻¹ := by
-      rw [← Real.rpow_neg hbase.le]
-      congr 1
-      ring
+  rw [hpow]
+  field_simp [hbase.ne', hpos.ne']
+
 
 theorem majorant_summable (ε : ℝ) (hε : 0 < ε) :
     Summable (majorant ε) := by
