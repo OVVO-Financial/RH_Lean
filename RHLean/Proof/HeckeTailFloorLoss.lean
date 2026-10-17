@@ -41,4 +41,15 @@ theorem heckeBad_le_three_mul_scale_of_base
     (mul_le_mul_of_nonneg_right
       (heckeEighthRoot_floorLoss_le_three hy hz) hscale)
 
+
+/-! ## Build-enforced axiom audit -/
+
+/-- info: 'RHLean.Proof.heckeEighthRoot_floorLoss_le_three' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms RHLean.Proof.heckeEighthRoot_floorLoss_le_three
+
+/-- info: 'RHLean.Proof.heckeBad_le_three_mul_scale_of_base' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms RHLean.Proof.heckeBad_le_three_mul_scale_of_base
+
 end RHLean.Proof
