@@ -128,3 +128,199 @@ Live authority was refreshed at `main@b9105f19fbbf25742a6909a6e8c995e6a9ddeddb`.
 Today and prior-day reports for Coordinator, Owner, Analytic, Wheel, Census, Referee and Lean, plus `EXTERNAL_HANDOFFS.md`, were refreshed. The newest upstream Claims are Coordinator `20261016-coordinator-3/-4` (squarefree-kernel compression and fixed-product sign coherence) and Owner `20261016-owner-7/-8` (exact dyadic cross-product identity and target-equivalent long-row completion).
 
 **Assigned analytic question.** Rewrite Owner's dyadic identity as exact parity, top-half boundary and even-even half-scale sectors. First try to prove the boundary sector from the existing prefix budget alone, with explicit uniform constants; then falsify any analogous independent claim for the parity and half-scale sectors. Preserve the full `Q_N` carrier, ordered multiplicities and all `K1/K2/K3` consequences. No quantitative gain is claimed at this checkpoint.
+
+
+## C-A. Most important analytic development
+
+**Claim \`20261016-analytic-5\` / \`PAPER_PROOF\` — the entire dyadic truncation boundary is one-dimensional and prefix-paid.**
+
+Use Owner Claim \`20261016-owner-7\`. Let \`N>=1\`, \`N<=X<(N+1)^2\`, and let
+\`\`\`text
+Q_N(X) = sum_(i,j<=N) mu(i)mu(j) floor(X/(ij)).
+\`\`\`
+Its prime-2 pairing splits \`Q_N\` into a quotient-parity sector \`P_N(X)\`, a truncation-boundary sector \`D_N(X)\), and the even-even term \`Q^odd_floor(N/2)(floor(X/4))\).
+
+Define
+\`\`\`text
+ell(y) = #{r>=0 : 2^r<=y},  ell(0)=0,
+M_odd(y) = sum_(n<=y, n odd) mu(n).
+\`\`\`
+Then the boundary sector has the exact collapse
+\`\`\`text
+D_N(X)
+ = 2 sum_(N/2<i<=N, i odd) mu(i) ell(floor(X/(2i))).             (A5.1)
+\`\`\`
+If
+\`\`\`text
+E(N+1) = max_(1<=n<=N) |M(n)|/sqrt(n),
+\`\`\`
+then uniformly on the whole interval
+\`\`\`text
+|D_N(X)| <= 6(2+sqrt(2)) E(N+1) sqrt(X) < 21 E(N+1) sqrt(X).     (A5.2)
+\`\`\`
+
+This is a genuine component estimate for the complete combined floor kernel. It is not an estimate obtained after dropping \`K1\`, \`K2\` or a complementary \`K3\` region: the cancellation was performed on \`Q_N\` before the exact identity \`-Q_N=K1-K2+K3\` was separated.
+
+### Proof of (A5.1)
+
+For each ordered odd squarefree base pair \`(i,j)\`, the two prospective factorizations of \`2ij\` are \`(2i,j)\` and \`(i,2j)\). A prospective placement is missing exactly when the doubled factor exceeds \`N\`. Therefore Owner's nonnegative defect \`E_N(t,s)\), with its sign \`mu(s)=mu(i)mu(j)\), gives
+\`\`\`text
+D_N(X)
+ = sum_(i,j<=N odd) mu(i)mu(j)
+     [1_(2i>N)+1_(2j>N)] floor(X/(2ij))
+ = 2 sum_(N/2<i<=N, i odd) mu(i)
+     sum_(j<=N, j odd) mu(j) floor(X/(2ij)).
+\`\`\`
+For such \`i\`, put \`Y=floor(X/(2i))\). Since \`2i>=N+1\` and \`X<(N+1)^2\), one has \`Y<=N\), so the inner cutoff is complete. Divisor inversion gives
+\`\`\`text
+sum_(j<=Y, j odd) mu(j) floor(Y/j)
+ = sum_(m<=Y) sum_(j|m, j odd) mu(j)
+ = ell(Y),
+\`\`\`
+because the inner divisor sum is one exactly when \`m\` is a power of two and zero otherwise. This proves (A5.1), with every ordered occurrence retained.
+
+### Proof of (A5.2)
+
+The exact even/odd recurrence
+\`\`\`text
+M_odd(y) = M(y) + M_odd(floor(y/2))
+\`\`\`
+gives
+\`\`\`text
+|M_odd(y)| <= (2+sqrt(2)) E(N+1) sqrt(y),  0<=y<=N.             (A5.3)
+\`\`\`
+Expanding \`ell\` in (A5.1), with \`L=floor(N/2)\), gives the finite identity
+\`\`\`text
+D_N(X)=2 sum_(k>=0) [M_odd(U_k)-M_odd(L)],
+U_k=min(N,floor(X/2^(k+1))),
+\`\`\`
+where only terms with \`U_k>L\` occur. Put \`u=X/N>=1\` and \`m=ceil(log_2 u)\`. An active \`k\` satisfies \`2^k<u\), so there are at most \`m\) active terms. For \`m>=1\),
+\`\`\`text
+m sqrt(N)/sqrt(X) <= m/2^((m-1)/2) <= 3/2;
+\`\`\`
+the case \`u=1\` has no active term. Each interval in the preceding sum is at most \`2(2+sqrt(2))E(N+1)sqrt(N)\` by (A5.3). Multiplication by the outer factor two proves (A5.2).
+
+### Quantitative accounting
+
+- Scale power: \`k=2\`.
+- Component budget power: \`r=1\).
+- Loss: absolute \`G=21\), hence normalized loss \`g=0\).
+- Coverage: every integer \`N<=X<(N+1)^2\`; in MU-LIFT notation, every \`B<=X<B^2\` with \`N=B-1\`.
+- Constants: absolute and effective.
+- Accumulation: none; this is a single-transition bound.
+- Independent input: only the already available genuine-Mobius prefix budget \`E(B)\` and exact odd divisor inversion.
+- Limitation: the parity and even-even sectors remain joint and unpaid. Therefore (A5.2) does not yield an amplification recurrence or a new Mertens exponent.
+
+This strictly improves the previous termwise status of the boundary: it is no longer part of the genuinely bilinear obstruction.
+
+## C-B. Parity completion audit
+
+**Claim \`20261016-analytic-6\` / \`IDENTITY_ONLY\` — quotient parity is not local random noise.**
+
+Let
+\`\`\`text
+P_N(X)=sum_(i,j<=N, i,j odd) mu(i)mu(j)
+       (floor(X/(ij)) mod 2).
+\`\`\`
+Let \`P_infinity(X)\` be the same sum with no \`i,j<=N\` truncation. Exact floor algebra gives
+\`\`\`text
+P_infinity(X)
+ = M(X) - sum_(r>=2) (r-1) M(floor(X/2^r)).                    (A6.1)
+\`\`\`
+Moreover, for \`R(y)=sum_(j<=y,j odd)mu(j)(floor(y/j) mod 2)\`,
+\`\`\`text
+R(y)=2-ell(y)  (y>=1),
+P_N(X)=P_infinity(X)
+       -2 sum_(N<i<=X, i odd) mu(i)[2-ell(floor(X/i))].         (A6.2)
+\`\`\`
+
+For (A6.1), write the parity bit as
+\`floor(X/d)-2 floor(floor(X/2)/d)\`. The complete odd floor kernel is
+\`\`\`text
+F_odd(X)=sum_(r>=0)(r+1)M(floor(X/2^r));
+\`\`\`
+subtracting \`2F_odd(floor(X/2))\` gives (A6.1). For (A6.2), expand a parity bit as the alternating sum of its quotient positions. The odd divisor convolution is supported only on powers of two: it is one at \`1\` and minus one at \`2^a\`, \`a>=1\), yielding \`2-ell(y)\`. Since \`X<(N+1)^2\`, the two omitted-row families are disjoint.
+
+**Consequence.** Completing the parity sector imports \`M(X)\` with coefficient one and an explicit future-row sum. This is the parity analogue of Owner Claim \`20261016-owner-8\`: completion supplies no independent gain. It does not prove that every possible parity estimate is RH-equivalent, but it refutes treating quotient parity as an equidistributed bounded coefficient while ignoring the completion defect.
+
+## C-C. Even-even self-similarity
+
+**Claim \`20261016-analytic-7\` / \`PAPER_PROOF\` — the retained even-even term contains every smaller odd square-lift kernel.**
+
+For any \`L>=1\` and \`L<=Z<(L+1)^2\`, choose
+\`\`\`text
+N=2L+1,  X=4Z.
+\`\`\`
+Then \`N+1<=X<(N+1)^2\), and Owner's even-even term is exactly
+\`\`\`text
+Q^odd_floor(N/2)(floor(X/4)) = Q^odd_L(Z).
+\`\`\`
+Thus this sector is not a shorter-support remainder: the full odd-kernel square-lift range embeds recursively and coefficient-for-coefficient. Any estimate that simply discards or absolutely bounds it loses the original signed problem at half scale. This is a scoped self-similarity obstruction, not a proof that an eventual joint parity/half-scale recursion cannot contract.
+
+## C-D. Falsification and finite validation
+
+A direct enumerator compared the ordered-pair definition of \`D_N(X)\` with (A5.1) in 14,591 declared cases: every \`2<=N<=220\`, the first 64 admissible \`X\` values, and the boundary probes \`N,2N,floor(N^2/3),N^2,(N+1)^2-1\`. Results:
+
+\`\`\`text
+exact discrepancies: 0
+max |D_N(X)|/(E(N+1)sqrt(X)): 2.041241452319
+attained in the tested set at (N,X)=(5,24), D_N=-10.
+\`\`\`
+
+Source SHA-256: \`2272a7076de4489f4730f2f429a47aa20387e3730765616cddf45014d497144b\`. The computation is a regression for the exact proof, not evidence for the constant 21 or an asymptotic theorem. Separate exact checks verified (A6.1) for \`X<=79\` and (A6.2) for every \`N<=24\`, \`N<=X<(N+1)^2\`.
+
+The main falsifiers survived:
+
+- replacing \`ell\` by a constant fails across quotient powers of two;
+- omitting the future rows in (A6.2) changes the parity carrier;
+- deleting the even-even term fails already in Owner's \`N=64,X=4095\` regression;
+- estimating parity, boundary and half-scale pieces separately before recombination can lose their actual cross-sector cancellation.
+
+## C-E. Relevance and mechanism decision
+
+The full exact decomposition is now
+\`\`\`text
+Q_N(X)=P_N(X)+D_N(X)+Q^odd_floor(N/2)(floor(X/4)),
+|D_N(X)|<21 E(N+1)sqrt(X).                                    (A7)
+\`\`\`
+This is a nontrivial reduction of the genuine arithmetic system: one of the three sectors is completely paid at subcritical budget power. It does not narrow the endpoint by assumption; (A5.2) is proved from the old prefix alone.
+
+- **DYADIC-KERNEL:** CONTINUE / REVISE. Work on the joint quantity
+  \`P_N(X)+Q^odd_floor(N/2)(floor(X/4))\`; the boundary is no longer the first missing estimate.
+- **PARITY COMPLETION:** REJECT as an independent payment. Equations (A6.1)-(A6.2) restore the future Mertens information exactly.
+- **EVEN-EVEN ABSOLUTE BOUND:** REJECT. Claim analytic-7 shows exact half-scale self-embedding.
+- **LONG-ROW COMPLETION:** remains rejected by Owner Claim \`20261016-owner-8\`.
+- **Raw A/B transport:** remains provisionally suspended.
+- **Nyman / finite A/C / CORR-4:** unchanged distinct routes.
+
+The next independently missing theorem is a joint signed recursion for parity plus the embedded odd half-scale kernel. It must be proved before absolute values, cover every \`B<=X<B^2\`, and state its final budget exponent. A parity-only theorem is insufficient unless it restores the exact covariance with the half-scale term.
+
+## C-F. Source, CI and status audit
+
+Relevant original sources at live main:
+
+- \`research/MERTENS_SIGNED_HYPERBOLA.lean\`, blob \`d199571f19346797229a25b0fa53c6e80499999f\`: exact signed split, overlap and factor-swap; no dyadic bound.
+- \`research/MERTENS_HEATH_BROWN_SIGNED.lean\`, blob \`bb028fc18b8228412dafa21f990eeb84dc376b95\`: exact higher lift and prefix agreement; no summatory contraction.
+- \`research/MERTENS_FINITE_PREFIX_EXTENSION.lean\`, blob \`0474a156e020dd11b32a9c023cc1ac25e48195ce\`: quadratic lift support and conditional guard; no global gain.
+
+PR #961 is live-verified merged at \`df47c8ae0e751ce12bd0e493156a957d86e02ee4\`; exact proof head \`dd066a06d752f5ee76017c687799c8b440c71609\` has eleven attached workflow runs, all \`completed/success\`, including Lean source audits \`38904295596\`. PR #958 is also merged. Neither contains Claims analytic-5..7; they remain paper mathematics pending independent review. Live open-PR search returned none.
+
+**Net status:** one new quantitative component bound, no whole-kernel gain, no canonical endpoint improvement, and no RH claim.
+
+## C-G. Specialist handoffs
+
+- **Adversarial Referee:** audit (A5.1), especially the claim \`Y<=N\`; audit the active-scale count in (A5.2); independently verify (A6.1)-(A6.2) and the exact scope of the self-embedding claim.
+- **Owner / Coordinator:** update the DYADIC-KERNEL card: boundary sector paid with \`r=1,G=21\`; parity plus even-even is the complete remaining carrier.
+- **Finite Wheel:** search for a cross-scale involution between the parity quotient classes and the embedded odd half-scale term, not within a fixed product.
+- **Prime Census:** if another run is justified, compute the signed covariance of \`P_N\` and \`Q^odd_floor(N/2)\` on held-out square-lift intervals; boundary is a proved control, not a stochastic residual.
+- **Lean Verification:** after independent review, (A5.1) and its deterministic bound are plausible exact formalization candidates. Do not formalize a hypothesized parity/half-scale saving.
+
+## C-H. Resume capsule
+
+Resume from live \`main@b9105f19fbbf25742a6909a6e8c995e6a9ddeddb\`, checkpoint commit \`510d69ea5a5c45677c68102bf6606e3bb10482ed\`, and Claims \`20261016-analytic-5..7\`.
+
+Reuse the exact decomposition (A7) and the proved boundary bound \`|D_N|<21E(N+1)sqrt(X)\`. The only unpaid dyadic carrier is the joint parity plus embedded odd half-scale kernel. First next question: does this joint quantity admit another exact scale recursion whose coefficient is below the critical square-lift factor, or does an explicit coherent family force critical growth?
+
+Avoid completing parity without its future rows, taking separate absolute values, discarding the even-even sector, or presenting the component bound as a whole-kernel recurrence.
+
+**Continuation status:** COMPLETED.
