@@ -12,6 +12,18 @@ If a handoff is stale, superseded, refuted, formalized, or irrelevant to your sp
 
 ## Open handoffs
 
+### 2026-10-17 — User-directed independent Hecke 7/8 programme (PR #964, pending human merge)
+
+**[Read the complete all-seven-specialty handoff](external/2026-10-17/hecke-independent-seven-eighths-handoff.md)**. Source [DRAFT PR #964](https://github.com/OVVO-Financial/RH_Lean/pull/964), created from reviewed `main@b9105f19fbbf25742a6909a6e8c995e6a9ddeddb`. **The PR's proposed `AGENTS.md`, proof contract, research brief and dynamic protocol updates are not live on main yet.** This handoff is the approved intake mechanism for candidates, not a replacement for main or saved Studio agent configuration.
+
+- **EXT-20261017-HECKE-1 / PAPER_PROOF / REFEREE_PENDING:** elementary `|BAD_y(X)|<=2X(1+log X)/y`, `<=4X^(7/8)(1+log X)` at y=floor(X^(1/8)); distinct original VF large-square positive physical sector `<=10R^(7/4)/log R`, preserving actual weights, cutoffs and owner boundaries.
+- **EXT-20261017-HECKE-2 / IDENTITY_ONLY:** seven large split-prime layers `sum_k (-2)^k P_k`; the exact y=floor(sqrt X) zero-BAD **two-layer** Hecke identity `M(X)=P0-2P1`; prime-extension recursion and top-half principal split-prime `-2` cohort. Shorter layers are a representation, **not a bound**. Local Euler toggles cannot pay the coherent top-prime mass.
+- **EXT-20261017-HECKE-3 / OPEN:** independent uniform signed quotient-bucket variation `V_X=O_epsilon(X^(7/8+epsilon))` would suffice by compiled signed Abel `|M(X)|<=4V_X`, but is a strictly stronger arithmetic premise, not proved. The distinct square-shell dyadic second-moment bound is another stronger sufficient open input. Multi-row Hecke admissibility and source/Gram identification are open; `chi_-3` does not oscillate across surviving first-power split primes.
+- **FINITE CHECKS TO REPRODUCE:** draft scripts for cutoff sweep, BAD/CORE, zero-K bucket-safe variation, 10^7 population and top-half compensation. Unverified finite data are not proof; check exact script/source hashes.
+- **Specialist routing:** all seven receive a unique next-run research question in the linked handoff: Coordinator (compare independent gains), Owner (native source and VF squareful), Analytic (signed variation/multi-row moments), Wheel (exact cutoff/Euler/recursion), Census (held-out reproduction), Referee (independent scope/constant review), Lean (only independently qualified nonduplicate formalization). Preserve one daily invocation and the owner-only merge gate.
+
+
+
 ### 2026-10-14 — Direct seven-function RH_Lean cycle
 
 **[Read the complete handoff and proofs](external/2026-10-14/seven-function-handoff.md)**
