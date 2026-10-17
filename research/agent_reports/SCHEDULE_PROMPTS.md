@@ -1,5 +1,21 @@
 # Stable schedule-prompt reference for the seven RH_Lean agents
 
+## 2026-10-17 covariance-first directive, conditional on main instruction PR #970 merge
+
+**On EVERY scheduled invocation fetch LIVE main** and, if merged there, read the complete `docs/SIGNED_MOBIUS_COVARIANCE_RH_SEAM_2026_10_17.md` as the FIRST current mechanism assignment. The older post-#961 K3/owner cut-mode role examples below become SECONDARY comparisons, not current compulsory work. A not-yet-merged feature PR does NOT change active main policy.
+
+One shared exact quantitative seam, seven independent roles: `M(N)^2=D(N)+2*C(N)` with genuine `C(N)=sum_{a<b<=N}mu(a)mu(b)`; OAI's external conditional 7/8 benchmark gives `D+2C=O_eta(N^(7/4+eta))`, or bounded weighted `C_eps(T)` for `eps>3/8`. A new `kappa>0` saving from ORIGINAL signed Möbius arithmetic is required to improve 7/8; `D+2C=O_eta(N^(1+eta))` (or weighted criterion for every eps>0) is RH strength. Root/smooth scalar rho near -1 is NOT Pearson or the same as raw `C(N)`; denominator control is missing.
+
+- Coordinator: choose ONE genuine signed arithmetic input and ONE falsifier; publish the precise exponent/dependency DAG.
+- Owner: preserve physical U/V plus complete cross-owner original signs, clipped #915 masks/restoration and explain exact source transport.
+- Analytic: propose/prove full-shift or cofactor Type-II bilinear/mixed estimate with uniform all-N saving, not OAI recycled.
+- Wheel: exact squarefree, `gcd(a,a+h)|h`, unshared-prime-parity and largest-prime pair incidence with no lost signs.
+- Census: independent exact integer `M,D,C` verification, weighted diagnostic and U/V rho held-outs; finite ratios are not asymptotic.
+- Referee: check RH-equivalent circular input, epsilon threshold, all signs, full pairs, source and a genuine `kappa`.
+- Lean: verify #968/#969 exact heads and formalize only novel arithmetic; weighted L2→Mellin remains an explicit separate Lean obligation.
+
+**No new schedules, tools, launches, Studio edits or role permissions are created by this Markdown.** The six report-only, one Lean proof-branch and human-only merge policy remains exactly unchanged.
+
 **Updated 2026-10-16 after merged #961 and the unified manual cycle. One automatic invocation per agent per day** is the user budget, with weekends only as actually configured. Extra explicitly user-requested manual runs are permitted without creating additional automatic triggers. Timezone: `America/New_York`.
 
 This file is a reference for separately authorized Studio configuration. Editing it does **not** update saved/published Agent Studio instructions, schedules, tool access or permissions. Do not hard-code a PR number, claim ID, dated experiment or theorem as a permanent scheduled assignment. Old AM/PM clock-time examples are historical, not launch instructions.
@@ -23,6 +39,8 @@ This file is a reference for separately authorized Studio configuration. Editing
 > Respect live AGENTS permissions: the first six scheduled specialists write only their own dated report(s); only Lean Verification has its scoped agent/lean-verification/ proof-branch/draft-PR/Actions-only verification lane. No direct-main pushes, merges, auto-merge, other-report edits, policy/workflow-permission changes or schedule edits. A direct user-authorized maintenance task is separate from the scheduled research role. Actual broad connector access does not expand authorization.
 
 ## Role appendices: specialties, not frozen research queues
+
+**After #970 main merge, use the seven covariance-first role assignments above; historical appendices below remain role examples, not the current research queue.**
 
 | Role | Assigned output | Append to the shared preamble |
 | --- | --- | --- |
