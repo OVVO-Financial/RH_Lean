@@ -97,6 +97,15 @@ Here `q^-` means immediately before adjoining the prime `q`. All `T_q` commute b
 
 At `X/2<q<=X`, `floor(X/q)=1` and `C_(y,q^-)(1)=F_y(1)=K(1)=1`, so each split upper-half prime injects exactly `-2` into the core. Those primes have no distinct local upper-face pairing below `X`, consistent with the compiled `TopPrimeReplacementIsolation.lean` and `AdaptivePrimeMatching.lean` obstructions. Their order-`X/log X` contribution must be paid **nonlocally**, through older cofactor/depth/owner response; an absolute sum of unmatched faces cannot reach `X^(7/8)`.
 
+The prime recursion also isolates the *unavoidable principal top-half mode* exactly. Let `pi_split(u)=#{p<=u: p prime, p mod 3=1}`. If `y<=X/2` and `X>=12` then
+
+```text
+CORE_y(X) = C_(y,<=X/2)(X)
+            - 2*(pi_split(X)-pi_split(floor(X/2))).
+```
+
+No heuristic prime density is used in this equality. For the independently reproduced `X=10,000,000` census, there are **158,004 split primes** in `(5,000,000,10,000,000]`, so the upper-half injection is **-316,008**. At the exact zero-BAD square-root cutoff the earlier-prime core is **+317,045**, leaving `M(X)=+1,037`. This is a much larger **cross-owner** compensation than the final `P_0-2P_1` two-layer totals alone reveal. The numerical identity does **not** bound the earlier-prime core: showing the compensation uniformly to `O(X^(7/8+epsilon))` remains target-equivalent. A future genuine estimate must first account for this principal mode rather than norming the upper-half prime column separately.
+
 **Quantitative payment still OPEN:** a one-sided signed correlation or multi-row moment theorem for this complete prime-extension response, or an arithmetic bilinear bound retaining the full `P_0-2P_1` coupling, is required. Merely squaring the exact identity, bounding each `P_k` separately, or summing local favorable toggles is a target-equivalent or false shortcut. The previously compiled rank-3 native coefficient obstruction excludes a single unmasked centered two-factor rectangle at `R=317`; it does NOT prohibit masked multi-row or properly factored Hecke representations.
 
 ## 4. Independent exact census and useful failure controls
