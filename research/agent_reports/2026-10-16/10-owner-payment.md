@@ -359,3 +359,8 @@ Resume from:
 - next action: independent Referee audit, then exact larger-scale three-sector census or Lean formalization only if accepted.
 
 **Continuation status:** COMPLETED. Publication commit/blob and readback verification follow below.
+
+
+## C-L. Publication verification
+
+The substantive continuation was published at commit `feb887829da99b1d962ac3e8914ba0ffea5a93d8` and read back from `agent-reports` as blob `6aa3d5efa3c81f8744b44a8c73811124f694a086` (30,269 characters). Readback contained Claims `20261016-owner-7/-8`, the full derivation through (D3), quantitative limits, falsifiers, handoffs, and the resume capsule. Final refresh still found `main@b9105f19fbbf25742a6909a6e8c995e6a9ddeddb` and zero open PRs.
