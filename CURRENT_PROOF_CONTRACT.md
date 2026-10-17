@@ -1,5 +1,22 @@
 # RH_Lean current proof contract
 
+## Current user priority: signed Möbius covariance as the quantitative RH seam
+
+**2026-10-17 user-authorized directive, proposed until human merge:** read [the seven-agent original-Möbius covariance contract](docs/SIGNED_MOBIUS_COVARIANCE_RH_SEAM_2026_10_17.md) before launching research. This selects one common quantitative seam for all seven specialists while retaining the public `VFCanonicalSquareVonKochStatement`, the genuine masked #915 NNS source and other independent proof programs as secondary lanes.
+
+Actual Möbius carriers (NOT Pearson/NNS coefficients):
+```
+D(N) = sum_{n<=N} mu(n)^2;   C(N) = sum_{1<=a<b<=N} mu(a)*mu(b);
+M(N)^2 = D(N)+2*C(N);        C(N)>=-D(N)/2.
+E_eps(T) = sum_{n<=T} M(n)^2/n^(2+2eps)
+         = D_eps(T)+2*C_eps(T),   0<=D_eps(T)<=zeta(1+2eps).
+```
+The external OpenAI 7/8 zero-free theorem, accepted as an EXPLICIT hypothesis in RH_Lean's different Lean toolchain, gives the conditional **ceiling** `C(N)<=-D(N)/2+O_eta(N^(7/4+eta))` and a uniform upper bound for `C_eps(T)` when `eps>3/8`. `3/8=7/8-1/2`; neither the equality endpoint nor any `eps<3/8` follows from this input. At one fixed `eps0<3/8`, a NEW independent uniform signed bound improves zero confinement to `[1/2-eps0,1/2+eps0]` via classical weighted-L2 Mellin continuation. At EVERY `eps>0`, the criterion is RH-equivalent. Separately, a `C(N)=O_upper,eta(N^(7/4-kappa+eta))` gain with `kappa>0` improves the 7/8 exponent by `kappa/2`. A full RH-scale target is `D+2C=O_eta(N^(1+eta))`. These global identities and target statements alone are NOT independent arithmetic bounds.
+
+Measured root/smooth `rho_R=2U_RV_R/(U_R^2+V_R^2)` is a DIFFERENT signed two-population Gram, in [-1,1] when defined. At `R=5561` rho is approximately -0.99979757; the exact equality `(1+rho_R)(U_R^2+V_R^2)=(M(R^2-1)-1)^2` plus OAI only bounds that product by `O_eta(R^(7/2+eta))`. Do NOT infer rho tending to -1, pointwise pair sign rules, or original first-bad #915 NNS payment. The arithmetic saving must come from sign-preserving ALL-pair ancestry, gcd/unshared-parity or nonlocal root/smooth / true shell bilinear mixed estimates with all N, signs, cutoffs and restoring terms.
+
+**Formal authority snapshot:** existing on-main `RHLean/Analysis/DeterministicTGreenKuboComparison.lean`, `RHLean/Proof/SquareRootLegalAncestryGramReduction.lean`, `research/MERTENS_CONVERSE_IDENTIFICATION.lean`. PR #968 adds native weighted energy/Green--Kubo iff; PR #969 (stacked) adds the conditional OAI 7/8 transfer and root/smooth normalized Gram. Check their ACTUAL current head/CI before asserting proof status; the weighted-L2 -> Mellin analytic implication remains an explicit open Lean bridge, not a kernel-verified unconditional RH theorem. The dedicated #968 workflow originally omitted the pinned StrongPNT patches and has a fix pending exact-head check. Never accept CI-green on an unrelated workflow in its place.
+
 **Live baseline: merged #964 on `main@fef979286efa91b23bfced46f0a8a0143b000df0`, as checked 2026-10-17.** The cross-coordinate/low-quotient section below is proposed in a subsequent research-maintenance PR; until it merges, the existing main contract prevails. Refresh live main on every run. This contract changes research direction, not any Lean definition, theorem, coefficient or proof assumption.
 
 ## Unchanged canonical object and open theorem
