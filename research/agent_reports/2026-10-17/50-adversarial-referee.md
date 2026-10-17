@@ -63,7 +63,7 @@ Let `y=floor(X^(1/8))`, `X>=256`, and use the exact paper definition of `BAD_y`.
 |BAD_y(X)| <= 2 X (1+log X)/y.                 (C1)
 ```
 
-The factor 2 is exactly `|K|<=2`; the union bound permits repeated counting; `|a6(p^2u)|<=tau(u)`; `sum_(u<=Z)tau(u)<=Z(1+log Z)`; and `sum_(p>y)p^(-2)<=1/y). No signed-core term is discarded.
+The factor 2 is exactly `|K|<=2`; the union bound permits repeated counting; `|a6(p^2u)|<=tau(u)`; `sum_(u<=Z)tau(u)<=Z(1+log Z)`; and `sum_(p>y)p^(-2)<=1/y`. No signed-core term is discarded.
 
 Put `z=X^(1/8)>=2`. Since `y=floor z>=2`,
 
@@ -122,9 +122,9 @@ a6(p)=0,  a6(p^2)=-1                inert p=2 mod 3,
 a6(p^e)=0                            e>=3,
 ```
 
-with `p=2,3` removed by the mask. After excluding `p^2` for `p>y`, each remaining large prime is split and occurs once, so its factor is `-2`. If `y=floor(X^alpha)`, then every integer prime `p>y` satisfies `p>X^alpha`; hence `k` such factors force `X>product p_i>X^(alpha k)), so `k<1/alpha`. At `alpha=1/8`, depths are exactly `0..7`.
+with `p=2,3` removed by the mask. After excluding `p^2` for `p>y`, each remaining large prime is split and occurs once, so its factor is `-2`. If `y=floor(X^alpha)`, then every integer prime `p>y` satisfies `p>X^alpha`; hence `k` such factors force `X>product p_i>X^(alpha k)`, so `k<1/alpha`. At `alpha=1/8`, depths are exactly `0..7`.
 
-At `y=floor(sqrt X)`, `p>y` implies `p>sqrt X), so `p^2>X) and `BAD=0`. A surviving norm has at most one such prime and uniquely factors as `s q`, giving exactly
+At `y=floor(sqrt X)`, `p>y` implies `p>sqrt X`, so `p^2>X` and `BAD=0`. A surviving norm has at most one such prime and uniquely factors as `s q`, giving exactly
 
 ```text
 M(X)=P0(X;y)-2P1(X;y),  s<=floor(X/q)<sqrt X.
