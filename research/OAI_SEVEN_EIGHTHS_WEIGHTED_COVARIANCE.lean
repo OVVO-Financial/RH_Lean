@@ -74,23 +74,36 @@ theorem square_power_mul_weight_eq_majorant
     (Real.rpow (((n + 1 : ℕ) : ℝ)) a) ^ 2 *
       WeightedMertens.weight ε n = powerMajorant a ε n := by
   have hb : 0 < (((n + 1 : ℕ) : ℝ)) := by positivity
+  have hadd :
+      Real.rpow (((n + 1 : ℕ) : ℝ)) (a + a) =
+        Real.rpow (((n + 1 : ℕ) : ℝ)) a *
+          Real.rpow (((n + 1 : ℕ) : ℝ)) a :=
+    Real.rpow_add hb a a
+  have htwo :
+      (Real.rpow (((n + 1 : ℕ) : ℝ)) a) ^ 2 =
+        Real.rpow (((n + 1 : ℕ) : ℝ)) (2 * a) := by
+    rw [show (2 : ℝ) * a = a + a by ring, hadd]
+    ring
+  have hfactor :
+      Real.rpow (((n + 1 : ℕ) : ℝ)) (2 + 2 * ε) =
+        Real.rpow (((n + 1 : ℕ) : ℝ)) (2 * a) *
+          Real.rpow (((n + 1 : ℕ) : ℝ)) (2 + 2 * ε - 2 * a) := by
+    calc
+      Real.rpow (((n + 1 : ℕ) : ℝ)) (2 + 2 * ε) =
+          Real.rpow (((n + 1 : ℕ) : ℝ))
+            ((2 * a) + (2 + 2 * ε - 2 * a)) := by
+            congr 1
+            ring
+      _ = Real.rpow (((n + 1 : ℕ) : ℝ)) (2 * a) *
+          Real.rpow (((n + 1 : ℕ) : ℝ)) (2 + 2 * ε - 2 * a) :=
+        Real.rpow_add hb _ _
+  have hA : Real.rpow (((n + 1 : ℕ) : ℝ)) (2 * a) ≠ 0 :=
+    (Real.rpow_pos_of_pos hb _).ne'
+  have hB : Real.rpow (((n + 1 : ℕ) : ℝ)) (2 + 2 * ε - 2 * a) ≠ 0 :=
+    (Real.rpow_pos_of_pos hb _).ne'
   unfold WeightedMertens.weight powerMajorant
-  calc
-    (Real.rpow (((n + 1 : ℕ) : ℝ)) a) ^ 2 *
-        (Real.rpow (((n + 1 : ℕ) : ℝ)) (2 + 2 * ε))⁻¹ =
-      Real.rpow (((n + 1 : ℕ) : ℝ)) (a + a) *
-        (Real.rpow (((n + 1 : ℕ) : ℝ)) (2 + 2 * ε))⁻¹ := by
-        rw [Real.rpow_add hb]
-        ring
-    _ = Real.rpow (((n + 1 : ℕ) : ℝ)) (a + a) *
-        Real.rpow (((n + 1 : ℕ) : ℝ)) (-(2 + 2 * ε)) := by
-        rw [Real.rpow_neg hb.le]
-    _ = Real.rpow (((n + 1 : ℕ) : ℝ)) ((a + a) + -(2 + 2 * ε)) := by
-        rw [Real.rpow_add hb]
-    _ = (Real.rpow (((n + 1 : ℕ) : ℝ)) (2 + 2 * ε - 2 * a))⁻¹ := by
-        rw [← Real.rpow_neg hb.le]
-        congr 1
-        ring
+  rw [htwo, hfactor]
+  field_simp [hA, hB]
 
 /-- A genuine global Mertens power bound supplies a termwise weighted-energy
 majorant. No sign independence or separate pair assumption is used. -/
@@ -184,7 +197,7 @@ theorem covarianceUpperBounded_of_sevenEighths_zeroFree
 its own independent analytic L2-to-zero-strip bridge is still explicitly
 required; the numerical exponent alone does not prove that bridge in Lean. -/
 theorem betterThanSevenEighths_of_stronger_covariance
-    {ε : ℝ} (hε : 0 < ε) (hbetter : ε < (3 : ℝ) / 8)
+    {ε : ℝ} (hε : 0 < ε) (_hbetter : ε < (3 : ℝ) / 8)
     (hC : WeightedMertens.CovarianceUpperBounded ε)
     (analyticBridge : WeightedMertens.EnergyUpperBounded ε →
       MertensExponent.ZerosInSymmetricStrip ((1 : ℝ) / 2 + ε)) :
