@@ -41,7 +41,7 @@ A new result is credited according to exact proof status and quantifier strength
 
 **This subsection is proposed in draft PR #964; until a human merges it, the live main contract above governs automated runs. The unchanged endpoint remains `VFCanonicalSquareVonKochStatement`.** This independent-`7/8` milestone is a benchmark for genuine arithmetic savings, NOT a new assertion of `lambda_M <= 7/8` proved by RH_Lean or an equivalent replacement of the canonical goal.
 
-Compiled on main by #919: `a6(n)=1_(gcd(n,6)=1)[mu*(chi_{-3}mu)](n)`, the original 36-period quotient kernel `K`, `M(X)=sum_(m<=X)a6(m)*K(floor(X/m))`. At a large split prime p>=5, `a6(p)=-2` for p=1 mod 3 and 0 for p=2 mod 3; at p^2 the respective coefficients are +1 and -1. This mod-3 character **selects** surviving first-power split primes: it does not supply an oscillating large-prime phase. The existing bounded signed Abel primitive is an exact identity, not a signed variation estimate.
+Compiled on main by #919: `a6(n)=1_(gcd(n,6)=1) * (mu*(chi_{-3}mu))(n)`, the original 36-period quotient kernel `K`, `M(X)=sum_(m<=X)a6(m)*K(floor(X/m))`. At a large split prime p>=5, `a6(p)=-2` for p=1 mod 3 and 0 for p=2 mod 3; at p^2 the respective coefficients are +1 and -1. This mod-3 character **selects** surviving first-power split primes: it does not supply an oscillating large-prime phase. The existing bounded signed Abel primitive is an exact identity, not a signed variation estimate.
 
 **Two paid independent paper sectors, distinct carriers:**
 
