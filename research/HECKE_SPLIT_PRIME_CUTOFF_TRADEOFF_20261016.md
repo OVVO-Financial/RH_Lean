@@ -123,6 +123,40 @@ At `y=7`, the absolute sums of the four nontrivial signed depth totals already e
 
 Neither the large-square bound nor the two-layer reduction proves even a fixed positive improvement over the elementary global Mertens exponent. With the paid tail removed, a bound on the completed `CORE` is **equivalent up to that tail** to the 7/8 Mertens estimate. The square-shell second-moment `SB-7/8` is instead a distinct, stronger sufficient inequality whose own uniform estimate is also open.
 
+## 4A. A genuinely stronger sufficient input: signed quotient-bucket variation
+
+The **already compiled** `VF_MID_919_QUOTIENT_SIGNED_RETURN.lean` has a period-36 primitive `F(t)`, `|F(t)|<=4` and `F(t)-F(t-1)=K(t)`. Apply its exact Abel identity to the core coefficients *after* square exclusion, not termwise to their absolute values. Let
+
+```text
+B_(X,y)(t) = sum_(1<=m<=X, floor(X/m)=t) b_y(m),
+V_(X,y) = sum_(t=1..X) |B_(X,y)(t)-B_(X,y)(t+1)|,
+B_(X,y)(X+1)=0.
+```
+
+Then **without any analytic assumption**,
+
+```text
+CORE_y(X) = sum_(t=1..X) F(t)*(B_(X,y)(t)-B_(X,y)(t+1)),
+|CORE_y(X)| <= 4*V_(X,y).
+```
+
+Hence the **new candidate arithmetic hypothesis**
+
+```text
+forall epsilon>0, exists C_epsilon, forall X>=X0:
+  V_(X,floor(sqrt X)) <= C_epsilon * X^(7/8+epsilon)
+```
+
+is a sufficient route to an **independent 7/8 bound** (for root cutoff, `BAD=0`). It is **strictly stronger than merely bounding `|P0-2P1|`** because it norms the neighboring signed bucket changes before the final period-36 pairing. The root-cutoff `V` is exactly the previously studied #919 full quotient variation; this is **not a newly discovered bound**. At other cutoffs with `alpha>=1/8`, the analogous `V_(X,y)` bound plus the already paid `BAD` would also suffice. No `V` theorem of this strength has been proved.
+
+Exact independent `X=10^7` bucket census (include **all coefficients in every bucket, even where `K(t)=0`**, because those buckets enter adjacent differences):
+
+| y | 7 | 56 | 215 | 3162 |
+|---|---:|---:|---:|---:|
+| `V_(X,y)` | 25,222 | 25,451 | 25,514 | 25,547 |
+
+These small finite variations contrast sharply with the raw absolute norm weights, but cannot establish an all-`X` power saving or identify a native owner Gram. An agent seeking a quotient-variation bound must give an actual arithmetic restriction on **neighboring signed norm bucket differences**; simply invoking mean-zero K or the Abel identity remains `IDENTITY_ONLY`.
+
 ## 5. Next genuinely independent mechanism / adversarial tests
 
 1. **Owner and Finite Wheel:** formalize/check the cutoff-family factorization and prime-extension recursion against native #919 a6 coefficients and both actual square/floor walls; relate the root-cutoff `P_1` cofactor-prime sum to the existing once-only greatest-owner physical charges, with a separate bridge for the original VF weighted and #915 masked/clipped carriers.
