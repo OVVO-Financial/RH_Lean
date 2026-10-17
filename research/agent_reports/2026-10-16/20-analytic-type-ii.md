@@ -324,3 +324,8 @@ Reuse the exact decomposition (A7) and the proved boundary bound \`|D_N|<21E(N+1
 Avoid completing parity without its future rows, taking separate absolute values, discarding the even-even sector, or presenting the component bound as a whole-kernel recurrence.
 
 **Continuation status:** COMPLETED.
+
+
+## C-I. Publication verification
+
+The substantive continuation was published at commit \`7b51f2ba8b2e29d034d6214b8186c6e017ffdb7c\` and read back from \`agent-reports\` as blob \`f1b872ba763df4168de21c8bb1e26d65178cce91\` (23,425 characters). Readback contained Claims \`20261016-analytic-5..7\`, equations (A5.1)--(A7), the quantitative budget ledger, falsifiers, handoffs and the completed resume capsule. Final refresh still found \`main@b9105f19fbbf25742a6909a6e8c995e6a9ddeddb\` and zero open PRs. This metadata addendum's resulting blob is verified externally because a file cannot contain its own blob hash.
