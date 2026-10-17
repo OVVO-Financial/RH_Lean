@@ -150,3 +150,16 @@ A_R - A*_R = -(1 - wtilde(x-)) epsilon(x) + (1 - wtilde(x/3+)) epsilon(x/3) - in
 - Next independent question: is there a **sieve identity** on the raw carrier whose remainder is *strictly shorter* than the floor-kernel corner of MU-LIFT? If not, FD-TRANSPORT should stay suspended.
 - Avoid: band-local or sector-local estimates at any intermediate cut; separate estimates of `A_R` or `B_R`; treating the cut identity as progress.
 - No RH proof claim.
+
+
+# Scheduled continuation — 2026-10-16T21:23-04:00
+
+**Continuation status:** IN_PROGRESS
+
+Live authority was refreshed at `main@b9105f19fbbf25742a6909a6e8c995e6a9ddeddb`. Authority blobs: `AGENTS.md` `5ef4cf742ed8bff70e2ea99085c04012750f4430`; `CURRENT_PROOF_CONTRACT.md` `ddb716eeb08aeb9237c9652bc710a08a2a06c1c8`; signed hyperbola source `d199571f19346797229a25b0fa53c6e80499999f`. No open PRs. #958/#961 are merged structural results only.
+
+Today is 2026-10-16 in `America/New_York`; today's Owner report is resumed at blob `fadd8efd2acb7a556db87a3c1d6568885ed5c5b5`, not duplicated. The 2026-10-15 evidence is `YESTERDAY=CARRY_FORWARD`. Today's Coordinator continuation (`fc5c5b46a0ec56f606444bb5dbfe400d4a444d18`) adds Claims `20261016-coordinator-3/-4`: squarefree-kernel product compression and fixed-product sign coherence. All named 2026-10-16 reports, relevant 2026-10-15 reports, and `EXTERNAL_HANDOFFS.md` were refreshed.
+
+**First problem.** Test a distinct-product completion law for the genuine kernel. For `N <= X < (N+1)^2`, compare the prefix square
+`Q_N(X)=sum_{i,j<=N} mu(i)mu(j)floor(X/(ij))`
+with the full three-variable convolution. The candidate structural principle is that every omitted one-sided row collapses exactly by `mu*1=epsilon`. The decisive audit is whether the resulting boundary is independently smaller than the desired Mertens increment or is exactly target-equivalent. Full `K1/K2/K3`, ordered multiplicity, floor boundaries and future-row terms will be retained.
