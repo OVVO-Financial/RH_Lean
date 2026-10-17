@@ -24,6 +24,17 @@
 - **Independent-review provenance:** [single-session self-audit / genuinely separate referee run / human review / none; do not conflate acceptance grades]
 - **Unified manual execution, if applicable:** [one owner-authorized AI session and run ID, sequential internal role passes, not seven automatic launches; append without overwriting distinct scheduled runs]
 
+## Covariance-first claim audit — when current main selects this seam
+
+- **Actual arithmetic carrier and shift convention:** [full `C(N)=sum_{a<b<=N}mu(a)mu(b)`, `C_eps(T)`, square-shell signed pairs, distinct root/smooth rho, or original masked #915; do NOT collapse these objects].
+- **Native identity check:** [`M(N)^2=D(N)+2C(N)` with `D=sum mu^2`; physical squares, all pair occurrences, diagonal, boundaries].
+- **External 7/8 baseline:** [`C(N)<=-D(N)/2+O_eta(N^(7/4+eta))`; `sup_T C_eps(T)<∞` for eps>3/8 only; source is external and a conditional proof input].
+- **Independent NEW arithmetic bound:** [exact all-N signed pair/Type-II/shifted/gcd-unshared-parity mechanism, not the desired `M^2` estimate renamed, not reused OAI].
+- **Quantitative advance:** [new kappa>0, exponent `7/4-kappa+eta`, associated zero boundary `7/8-kappa/2`; or epsilon0<3/8 weighted bound; RH only if the EVERY-epsilon or `1+eta` theorem actually proved].
+- **Cross-owner rho gate:** [if using `rho=2UV/(U²+V²)`, check `(1+rho)(U²+V²)=(M(R²-1)-1)²`; is lower denominator control PROVED? Distinguish the original #915 NNS correlation].
+- **Independent falsifier:** [held-out actual-mu exact census, sign counterexample, unbounded scale obstruction, or separate referee mathematical audit].
+- **Status and provenance:** [newest main SHA, PR #968/#969 actual heads and CI if relevant; proof math conditional vs fully established vs open].
+
 ## Current objective and independent advance
 
 **Live objective:** [literal current main goal; note a verified user-directed pivot].

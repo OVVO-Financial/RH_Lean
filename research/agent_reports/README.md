@@ -1,5 +1,13 @@
 # RH_Lean daily multi-agent research ledger
 
+## 2026-10-17 next-run topic: complete signed Mobius covariance
+
+The user has requested a covariance-first attack by all seven specialists. This reporting-branch note is **not active policy by itself**: first verify that instruction PR #970 is HUMAN-MERGED into `main`, then read `main:docs/SIGNED_MOBIUS_COVARIANCE_RH_SEAM_2026_10_17.md` and the live `AGENTS.md`/proof contract. The old owner cut and K1/K2/K3 examples below remain evidence and potential arithmetic mechanisms but are no longer the FIRST cross-role assignment after that merge.
+
+Quantitative baseline: genuine `M(N)^2=D(N)+2C(N)`, `D=sum(mu²)`, `C=sum_{a<b}mu(a)mu(b)`; external assumed OAI ZF78 gives `D+2C=O_eta(N^(7/4+eta))`, and uniform weighted `C_eps(T)` only for eps>3/8. A strict new original-arithmetic saving `N^kappa` beats the 7/8 boundary; RH scale is `D+2C=O_eta(N^(1+eta))`. The sampled root/smooth `rho=2UV/(U²+V²)` near -1 is a DIFFERENT two-population normalization from the full pair covariance and original masked #915 NNS object.
+
+Every role should report its own original-carrier proposed signed inequality, all-N quantifiers, actual gain, first unproved arithmetic step, adverse test, independent review and source/CI status—or honestly record no progress. Reporting Markdown does not edit saved Studio instructions or schedules. Budget remains one scheduled run/agent/day, and only human review can merge central changes.
+
 **Branch: `agent-reports`, not main.** Reports live under `research/agent_reports/YYYY-MM-DD/`; use the actual `America/New_York` calendar date, including weekends when configured.
 
 **Budget:** one automatic scheduled invocation per agent per day. Additional explicitly user-requested manual runs are allowed and use the same dated stage file; they do not authorize more automatic launches. Actual Studio settings determine schedules and access. This README does not create launches, grant permissions or alter saved/published instructions.
