@@ -111,6 +111,9 @@ theorem linear_weight_eq_majorant (ε : ℝ) (n : ℕ) :
     (((n + 1 : ℕ) : ℝ)) * weight ε n = majorant ε n := by
   have hbase : 0 < (((n + 1 : ℕ) : ℝ)) := by positivity
   unfold weight majorant
+  -- The arithmetic lemmas use the real-power notation `^`, while this module
+  -- deliberately stores weights with the explicit `Real.rpow` constructor.
+  simp only [Real.rpow_eq_pow]
   calc
     (((n + 1 : ℕ) : ℝ)) *
         (Real.rpow (((n + 1 : ℕ) : ℝ)) (2 + 2 * ε))⁻¹ =
