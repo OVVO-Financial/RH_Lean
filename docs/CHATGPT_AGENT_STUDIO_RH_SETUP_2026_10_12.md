@@ -1,5 +1,11 @@
 # Create RH_Lean research agents in **ChatGPT Agent Studio** (browser)
 
+## October 17, 2026: dynamic seven-agent signed covariance pivot
+
+The USER has directed all seven existing research roles to attack an independent saving on the complete signed genuine Möbius pair covariance. The authoritative dynamic assignment is now [signed covariance RH seam](SIGNED_MOBIUS_COVARIANCE_RH_SEAM_2026_10_17.md) together with `main:AGENTS.md`, `main:CURRENT_PROOF_CONTRACT.md`, `main:docs/DYNAMIC_RESEARCH_AGENTS.md`. The dated construction prompts below are historical; **do not overwrite saved Studio prompts with the dated material or pin static PR numbers there.** Existing dynamic saved Studio instructions should automatically refresh main on their next scheduled run AFTER human merge of the new instruction PR.
+
+IMPORTANT: editing GitHub Markdown does not change the actual saved/published ChatGPT Workspace Agent Studio instructions, model/tools/permissions/schedules, nor launch agents. No Workspace Agent Studio management connection is available via GitHub. If a saved agent lacks the dynamic instruction to fetch main, its owner must correct that in Studio separately. Current one-run-per-specialist-per-day budget and six report-only/one Lean draft-PR permissions remain unchanged.
+
 Date: 2026-10-12. **This is NOT the Codex CLI / TOML subagent installation.** ChatGPT Agent Studio creates separate workspace agents in ChatGPT. The prior `.codex/agents/*.toml` kit is for a DIFFERENT client and is not automatically imported into this builder.
 
 Current entry screenshot: `https://chatgpt.com/agents/studio/new`, page text **"What should your agent do?"**, center prompt **"Create an agent that..."**, and upper right **"Start blank"**. The documented browser workflow is: Agents > Create > describe the agent (or Start blank) > review draft plan > **Build this agent** > configure builder > Preview > Create.
