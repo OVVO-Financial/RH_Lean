@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Check relative file targets in tracked Markdown (including new local files).
 
-Checks inline links and link-reference definitions outside fenced code blocks.
+Checks inline links and link-reference definitions outside fenced and inline code.
 External URLs and in-document anchors are deliberately outside this file audit.
 This is not a mathematical-status or rendered-layout checker.
 """
@@ -26,6 +26,10 @@ def main():
         count += 1
         text = (root / name).read_text(encoding="utf-8")
         text = re.sub(r"(?ms)^\s*(`{3,}|~{3,})[^\n]*\n.*?^\s*\1\s*$", "", text)
+        # Backticked code is literal Markdown, not an active link. In particular,
+        # genuine coefficient notation such as `[mu*(chi mu)](n)` must not
+        # require an unrelated file named `n` in a published agent report.
+        text = re.sub(r"(?<!`)(`+)(?!`)[^`\n]*\1(?!`)", "", text)
         targets = re.findall(r"\[[^\]\n]*\]\((<[^>]+>|[^\s)]+)(?:\s+[^)]*)?\)", text)
         targets += re.findall(r"(?m)^\s{0,3}\[[^\]]+\]:\s*(<[^>]+>|\S+)", text)
         for raw in targets:
