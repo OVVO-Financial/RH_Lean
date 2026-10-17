@@ -382,8 +382,8 @@ theorem vf919_dirichlet_apply_prime_pow (f g : ArithmeticFunction ℂ) {p : ℕ}
 theorem vf919EisensteinNorm_prime {p : ℕ} (hp : p.Prime) :
     vf919EisensteinNormCoefficients p = -vf919ChiMinusThree p - 1 := by
   have h := vf919_dirichlet_apply_prime_pow vf919RationalMobius vf919QuadraticInverse hp 1
-  rw [pow_one, Finset.sum_range_succ, Finset.sum_range_one, pow_zero, Nat.sub_zero, pow_one,
-    Nat.sub_self, pow_zero] at h
+  simp only [Finset.sum_range_succ, Finset.sum_range_one, Finset.sum_range_zero, zero_add,
+    pow_zero, pow_one, Nat.sub_zero, Nat.sub_self] at h
   have hE : vf919EisensteinNormCoefficients p =
       (vf919RationalMobius * vf919QuadraticInverse) p := rfl
   rw [hE, h, vf919QuadraticInverse_apply, vf919QuadraticInverse_apply, vf919RationalMobius_one,
@@ -393,8 +393,8 @@ theorem vf919EisensteinNorm_prime {p : ℕ} (hp : p.Prime) :
 theorem vf919EisensteinNorm_prime_sq {p : ℕ} (hp : p.Prime) :
     vf919EisensteinNormCoefficients (p ^ 2) = vf919ChiMinusThree p := by
   have h := vf919_dirichlet_apply_prime_pow vf919RationalMobius vf919QuadraticInverse hp 2
-  rw [Finset.sum_range_succ, Finset.sum_range_succ, Finset.sum_range_one, pow_zero,
-    Nat.sub_zero, Nat.sub_self, pow_zero, show (2 : ℕ) - 1 = 1 from rfl, pow_one] at h
+  simp only [Finset.sum_range_succ, Finset.sum_range_one, Finset.sum_range_zero, zero_add,
+    pow_zero, pow_one, Nat.sub_zero, Nat.sub_self, show (2 : ℕ) - 1 = 1 from rfl] at h
   have hE : vf919EisensteinNormCoefficients (p ^ 2) =
       (vf919RationalMobius * vf919QuadraticInverse) (p ^ 2) := rfl
   rw [hE, h, vf919QuadraticInverse_apply, vf919QuadraticInverse_apply,
