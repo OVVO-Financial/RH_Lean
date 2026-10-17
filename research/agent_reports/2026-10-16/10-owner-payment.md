@@ -163,3 +163,199 @@ Today is 2026-10-16 in `America/New_York`; today's Owner report is resumed at bl
 **First problem.** Test a distinct-product completion law for the genuine kernel. For `N <= X < (N+1)^2`, compare the prefix square
 `Q_N(X)=sum_{i,j<=N} mu(i)mu(j)floor(X/(ij))`
 with the full three-variable convolution. The candidate structural principle is that every omitted one-sided row collapses exactly by `mu*1=epsilon`. The decisive audit is whether the resulting boundary is independently smaller than the desired Mertens increment or is exactly target-equivalent. Full `K1/K2/K3`, ordered multiplicity, floor boundaries and future-row terms will be retained.
+
+
+## C-A. Most important mathematical development
+
+**Claim `20261016-owner-7` / `PAPER_PROOF` — exact dyadic cross-product cancellation of the truncated Möbius floor kernel.**
+
+Coordinator Claims `20261016-coordinator-3/-4` show that each fixed product fibre is sign-coherent, so a useful transformation must move between products. Toggling the prime `2` gives such a transformation: on every untruncated odd product fibre its sign flips and its ordered multiplicity doubles, exactly cancelling the bulk floor scale. With truncation retained, the failure of doubling is an explicit boundary count. This is a genuine cross-product conservation law; it is not a factor swap or an estimate.
+
+**Claim `20261016-owner-8` / `IDENTITY_ONLY` with a `TARGET_EQUIVALENT` no-go consequence — complete long-row conservation.**
+
+Completing the prefix square to the full convolution makes every omitted one-sided row equal exactly `mu(i)`; the total completion is `2(M(X)-M(N))`. Thus full-convolution completion alone introduces the unknown future Mertens increment exactly and supplies no independent gain.
+
+No canonical endpoint, RH, or MU-LIFT exponent bound is improved.
+
+## C-B. Current authoritative objective
+
+Authority at this continuation:
+
+- `main@b9105f19fbbf25742a6909a6e8c995e6a9ddeddb`;
+- `AGENTS.md` blob `9de61f7cb75c048f132ca048d5b16f4900aa7109` (this corrects the provisional blob written in the early checkpoint);
+- contract `ddb716eeb08aeb9237c9652bc710a08a2a06c1c8`;
+- brief `beb9984a92b07248363bf8c6e70a1c8893abcc24`;
+- protocol `5a954ef55b4297526f0867fcc798869eea017927`;
+- amplification budget `62bbe73c4755eaa64772ec2cc2731936c01b49cd`;
+- signed hyperbola source `d199571f19346797229a25b0fa53c6e80499999f`;
+- higher lift `bb028fc18b8228412dafa21f990eeb84dc376b95`;
+- root-wall / one-ninth sources `054694c0aa125e6f542a3208d85d30c2d79fb320` and `356eefadaa7d798177da54017873021c4b8e0eae`.
+
+The exact open public theorem remains
+`exists C>=0, forall R>=2, |D_can(R)|<=C R log R`.
+The active arithmetic alternative is a genuine whole-prefix gain for
+[
+Q_N(X)=sum_{1le i,jle N}mu(i)mu(j)leftlfloor {Xover ij}ightfloor,
+qquad Nle X<(N+1)^2,
+]
+with all `K1/K2/K3` terms recombined. Merged #958/#961 are incidence results only. Live PR search returned none.
+
+Continuity: today's Coordinator/Owner/Analytic/Wheel/Census/Referee/Lean blobs are respectively `fc5c5b46...`, this file's pre-continuation `fadd8efd...`, `257f5f66...`, `134eb9eb...`, `26510606...`, `e4c0a923...`, `180cf24f...`. The 2026-10-15 Owner blob is `01fb928b...`; its other named reports were refreshed. `EXTERNAL_HANDOFFS.md` remains `c1d1aad9...`, with no post-October-14 external entry.
+
+## C-C. Structural hypothesis investigated
+
+Let
+[
+h_N(d)=sum_{substack{ij=d\\i,jle N}}mu(i)mu(j).
+]
+The hypothesis was that the squarefree-kernel compression has a special cross-product symmetry at the prime `2`, because inserting `2` both flips the Möbius sign and provides two ordered placements. Unlike a generic prime toggle, the scale factor of the floor is also exactly two.
+
+For odd squarefree coprime `s,t`, define
+[
+A_N(t,s)=#{amid s:tale N, t(s/a)le N},
+quad E_N(t,s)=2A_N(t,s)-A_N(t,2s).
+]
+The proposed invariant pairs the distinct products `d=t^2s` and `2d`. The remaining `4|d` carrier is kept, not discarded.
+
+## C-D. Mathematical derivation
+
+Every nonzero term in the fibre `ij=t^2s` has
+[
+i=ta,qquad j=t(s/a),qquad amid s.
+]
+All primes of `t` occur once in each factor and all primes of `s` occur in exactly one factor. Hence
+[
+h_N(t^2s)=mu(s)A_N(t,s). 	ag{1}
+]
+For the fibre `2t^2s`, the new prime `2` is placed on the left or right. Therefore
+[
+h_N(2t^2s)=-mu(s)A_N(t,2s). 	ag{2}
+]
+Each admissible base divisor contributes two prospective placements. A placement is deleted exactly when doubling its corresponding factor crosses `N`. Thus
+[
+0le E_N(t,s)=2A_N(t,s)-A_N(t,2s), 	ag{3}
+]
+and every occurrence counted by `E_N` has one factor in ((N/2,N]). No occurrence is cloned: the two placements are two distinct ordered pairs in the original kernel.
+
+Put `d=t^2s` and `y=floor(X/d)`. Since
+[
+leftlfloor {Xover 2d}ightfloor=leftlfloor {yover2}ightfloor,
+]
+(1)--(3) give the exact paired-fibre law
+[
+egin{aligned}
+&h_N(d)lfloor X/dfloor+h_N(2d)lfloor X/(2d)floor\\
+&quad=mu(s)left[
+ A_N(t,s)(ymod2)+E_N(t,s)lfloor y/2floor
+ight]. 	ag{D2}
+end{aligned}
+]
+When both doubled placements remain below `N`, `E_N=0`: the bulk floor contribution collapses to a single parity bit.
+
+All nonzero products have prime exponents at most two. Products with 2-adic valuation zero or one occur in exactly one pair (D2). Products with valuation two have both factors even; writing `i=2a,j=2b` gives the exact global identity
+[
+egin{aligned}
+Q_N(X)
+={}&Q^{m odd}_{lfloor N/2floor}(lfloor X/4floor)\\
+&+sum_{substack{s,t {m odd squarefree}\\(s,t)=1}}
+mu(s)left[
+ A_N(t,s)(lfloor X/(t^2s)floormod2)
+ +E_N(t,s)lfloor X/(2t^2s)floor
+ight], 	ag{D3}
+end{aligned}
+]
+where
+[
+Q^{m odd}_L(Z)=
+sum_{substack{a,ble L\\a,b {m odd}}}
+mu(a)mu(b)lfloor Z/(ab)floor.
+]
+Only finitely many terms in (D3) are nonzero. This covers the full original ordered pair carrier and keeps the even-even sector exactly.
+
+For Claim owner-8, define the full kernel by removing `i,jle N`. Möbius inversion gives, for every positive integer `Y`,
+[
+sum_{jle Y}mu(j)lfloor Y/jfloor=1.
+]
+If `X<(N+1)^2`, no omitted pair has both factors above `N`. For every `i>N`, with `Y=lfloor X/ifloor`,
+[
+sum_{jle X/i}mu(j)lfloor X/(ij)floor=1.
+]
+Consequently the two disjoint omitted row families total
+[
+2sum_{N<ile X}mu(i)=2(M(X)-M(N)).
+]
+The complete convolution equals `M(X)`, hence
+[
+Q_N(X)=M(X)-2(M(X)-M(N))=2M(N)-M(X),
+]
+recovering the merged identity but now with exact rowwise ancestry. Completion is therefore not an independent estimate.
+
+## C-E. Quantitative consequence
+
+The independently established gain is structural, not a new asymptotic bound:
+
+1. On every interior `v_2(d)in{0,1}` paired fibre, a term of natural size `A_N floor(X/d)` is replaced exactly by the bounded parity coefficient `A_N(floor(X/d) mod 2)`.
+2. Every failure of this cancellation is localized to an explicit truncation boundary: one physical factor lies in `(N/2,N]`.
+3. The omitted `v_2(d)=2` carrier is an exact half-scale odd kernel, not an uncontrolled remainder.
+
+No useful uniform bound for the signed parity sum, the boundary defect, or their covariance with the half-scale odd kernel is yet proved. Taking absolute values gives potentially quadratic losses. Thus Claim owner-7 is `PAPER_PROOF / STRUCTURAL_RESULT`, not a MU-LIFT gain. A bound on the complete right side of (D3) at the requested strength would remain `TARGET_EQUIVALENT` unless derived from an independent parity/boundary restriction.
+
+## C-F. Falsification and circularity review
+
+- **Exact finite regression:** exhaustive integer reconstruction at `N=8,17,31,64` and `X=N,floor(N^2/3),N^2-1` found zero local coefficient errors and zero global decomposition errors. At `N=64,X=4095`, `Q_N=17`, the paired sector is `35`, and the retained `4|d` sector is `-18`; omitting the cross-sector interaction would be wrong.
+- **Generic-prime falsifier:** for a prime `p>2`, interior multiplicity still doubles, but `floor(y)-2floor(y/p)` retains a main term ((1-2/p)y). The exact scale collapse is special to `p=2`; no arbitrary-prime involution is claimed.
+- **Boundary falsifier:** if one factor lies above `N/2`, only one placement of `2` may survive. Declaring `A_N(t,2s)=2A_N(t,s)` globally is false; `E_N` is mandatory.
+- **Even-even falsifier:** products divisible by four are not paired by (D2). They produce the explicit `Q^{odd}` term and cannot be dropped.
+- **Sign audit:** fixed product fibres remain sign-coherent. Cancellation occurs only because `d` is changed to `2d); this respects Coordinator Claim `-4`.
+- **Circularity:** (D3) is exact. No boundedness of its transformed terms is assumed. Claim owner-8 proves that the tempting full-completion remainder is exactly the desired future increment, so that route is rejected as an independent payment.
+
+## C-G. Conceptual interpretation
+
+The prime `2` is not merely another sieve prime here. It simultaneously supplies the Möbius sign reversal, exactly two ordered placements, and exactly a factor-two dilation of the floor denominator. Those three facts convert smooth floor mass into parity. The remaining obstruction is now arithmetically explicit: signed parity of the quotient, truncation at the top half of the prefix, and an even-even half-scale kernel.
+
+This differs from raw `A+B` regrouping: it changes products and the analytic shape of the genuine Möbius kernel before estimation. It also explains why a fixed-product reflection cannot work and why an arbitrary prime toggle does not reproduce the cancellation.
+
+## C-H. Competing mechanisms
+
+- **DYADIC-KERNEL:** `CONTINUE`. New exact identity (D3). Missing input: an independent signed restriction coupling its parity, boundary, and half-scale sectors.
+- **LONG-ROW COMPLETION:** `ABANDON as an independent gain`. Claim owner-8 makes its remainder exactly `2(M(X)-M(N))`.
+- **GENERIC PRIME TOGGLE:** `REJECT as a scale-cancelling analogue` for `p>2`; the main floor scale survives.
+- **RAW FD-TRANSPORT:** remains provisionally suspended.
+- **NYMAN / finite A/C / CORR-4:** unchanged distinct alternatives.
+
+## C-I. Specialist handoffs
+
+- **Analytic Type II:** rewrite (D3) as parity plus top-half boundary plus `Q^{odd}`; seek an averaged signed estimate that recombines all three before absolute values. Determine its final amplitude exponent `r`, loss `G`, and full `Nle X<(N+1)^2` coverage.
+- **Finite Wheel:** classify `E_N(t,s)` by the actual doubled factor in `(N/2,N]); test whether odd residue classes or least-prime restrictions forbid simultaneous concentration of boundary and parity signs.
+- **Prime Census:** a new experiment is justified only for the three exact observables in (D3). Compare their signed covariance on held-out `N`; report integer-exact totals, not a stochastic independence claim.
+- **Adversarial Referee:** independently audit (1)--(D3), especially `A_N(t,2s)`, the valuation-two remainder, and whether an equivalent identity already exists. Try cube-full, `2d>N^2`, and one-placement boundary cases.
+- **Lean Verification:** only after Referee acceptance, formalize the paired-fibre lemma and global parity decomposition using the existing divisor-antidiagonal and signed-hyperbola infrastructure. Do not formalize an unproved quantitative premise.
+- **Coordinator:** evaluate DYADIC-KERNEL as the requested cross-product transform. Keep owner-8 as a no-go for naive full completion.
+
+## C-J. First independently missing lemma
+
+A useful next theorem must be weaker than the whole MU-LIFT target and independently arithmetic. One precise candidate is:
+
+For a declared dyadic subrange of `Nle X<(N+1)^2`, prove a signed estimate for the **joint** quantity
+[
+sum_{s,t}mu(s)left[A_N(t,s)(lfloor X/(t^2s)floormod2)
++E_N(t,s)lfloor X/(2t^2s)flooright]
++Q^{odd}_{lfloor N/2floor}(lfloor X/4floor),
+]
+using a separately justified parity or boundary distribution theorem, with a saving over the termwise quadratic bound. A theorem about the parity sector alone is insufficient unless the exact covariance with the boundary and half-scale sectors is restored.
+
+The smallest falsification task comes first: determine whether either residual sector can itself be as large as the original kernel on an infinite or structurally forced family. That test does not assume the target.
+
+## C-K. Next-run resume capsule
+
+Resume from:
+
+- authority `main@b9105f19fbbf25742a6909a6e8c995e6a9ddeddb`;
+- early checkpoint commit `4a327a5177a2007bfd35b45bd91f3314311ff60a`, report blob `491583d1c8b35d7605b61e890e17ece8ad000e7a`;
+- Claims `20261016-owner-7` (dyadic cross-product identity, `PAPER_PROOF`) and `20261016-owner-8` (rowwise completion, `IDENTITY_ONLY`; completion consequence `TARGET_EQUIVALENT`);
+- Coordinator Claims `20261016-coordinator-3/-4`;
+- finite regression at `N=8,17,31,64`, twelve `(N,X)` cases, zero discrepancies;
+- no new quantitative bound and no RH claim;
+- next action: independent Referee audit, then exact larger-scale three-sector census or Lean formalization only if accepted.
+
+**Continuation status:** COMPLETED. Publication commit/blob and readback verification follow below.
