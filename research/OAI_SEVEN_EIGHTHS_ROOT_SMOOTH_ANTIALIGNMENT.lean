@@ -148,9 +148,12 @@ theorem rootSmoothCrossGram_upper_of_sevenEighths
       ‖RHLean.Analysis.mertensSummatory x - (1 : ℂ)‖ ≤
         K * Real.rpow (((x + 1 : ℕ) : ℝ)) ((7 : ℝ) / 8 + η / 2) + 1 :=
     htri.trans (add_le_add_right hM 1)
+  have hpowNonneg :
+      0 ≤ Real.rpow (((x + 1 : ℕ) : ℝ)) ((7 : ℝ) / 8 + η / 2) :=
+    Real.rpow_nonneg hbase.le _
   have hpos :
-      0 ≤ K * Real.rpow (((x + 1 : ℕ) : ℝ)) ((7 : ℝ) / 8 + η / 2) + 1 := by
-    positivity
+      0 ≤ K * Real.rpow (((x + 1 : ℕ) : ℝ)) ((7 : ℝ) / 8 + η / 2) + 1 :=
+    add_nonneg (mul_nonneg hK hpowNonneg) zero_le_one
   have hsq :
       ‖RHLean.Analysis.mertensSummatory x - (1 : ℂ)‖ ^ 2 ≤
         (K * Real.rpow (((x + 1 : ℕ) : ℝ))
@@ -202,7 +205,20 @@ theorem rootSmoothCrossGram_upper_of_sevenEighths
       ring
     _ ≤ C * Real.rpow (((x + 1 : ℕ) : ℝ)) ((7 : ℝ) / 4 + η) := by
       dsimp [C]
-      nlinarith
+      have htwo :
+          (2 : ℝ) ≤ 2 * Real.rpow
+            (((x + 1 : ℕ) : ℝ)) ((7 : ℝ) / 4 + η) := by
+        linarith [hlarge]
+      calc
+        2 * K ^ 2 * Real.rpow
+              (((x + 1 : ℕ) : ℝ)) ((7 : ℝ) / 4 + η) + 2 ≤
+            2 * K ^ 2 * Real.rpow
+              (((x + 1 : ℕ) : ℝ)) ((7 : ℝ) / 4 + η) +
+              2 * Real.rpow
+                (((x + 1 : ℕ) : ℝ)) ((7 : ℝ) / 4 + η) :=
+          add_le_add_left htwo _
+        _ = (2 * K ^ 2 + 2) *
+            Real.rpow (((x + 1 : ℕ) : ℝ)) ((7 : ℝ) / 4 + η) := by ring
 
 /-- Precise OAI conclusion for the normalized correlation: OAI pays the
 SQUARED residual times the diagonal, not the normalized surplus itself.
@@ -229,3 +245,6 @@ end RHLean.Analysis.OAISevenEighthsRootSmooth
 #print axioms RHLean.Analysis.OAISevenEighthsRootSmooth.normalizedCrossGram_bounds
 #print axioms RHLean.Analysis.OAISevenEighthsRootSmooth.one_add_normalizedCrossGram_eq_mertens_residual
 #print axioms RHLean.Analysis.OAISevenEighthsRootSmooth.rootSmoothCrossGram_eq_shiftedMertensSq
+#print axioms RHLean.Analysis.OAISevenEighthsRootSmooth.normalized_surplus_mul_diagonal_eq_crossGram
+#print axioms RHLean.Analysis.OAISevenEighthsRootSmooth.rootSmoothCrossGram_upper_of_sevenEighths
+#print axioms RHLean.Analysis.OAISevenEighthsRootSmooth.normalized_surplus_bound_of_sevenEighths
