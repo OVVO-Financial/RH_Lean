@@ -1,0 +1,117 @@
+name: VF919 general-X high-quotient isolation
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - research/VF_MID_919_GENERAL_X_HIGH_QUOTIENT_ISOLATION.lean
+      - scripts/vf919_general_x_high_quotient_probe.py
+      - .github/workflows/vf919-general-x-high-quotient-isolation.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: vf919-general-x-high-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  general-x-high-quotient-isolation:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - uses: actions/cache/restore@v5
+        with:
+          path: .lake/packages
+          key: lake-packages-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
+      - uses: leanprover/lean-action@v1
+        with:
+          use-github-cache: false
+          use-mathlib-cache: true
+          build: false
+          test: false
+          lint: false
+      - name: Reject proof holes and added axioms
+        run: |
+          python3 - <<'PY'
+          import re
+          from pathlib import Path
+          path = Path('research/VF_MID_919_GENERAL_X_HIGH_QUOTIENT_ISOLATION.lean')
+          assert not re.search(r'(?m)^\s*(sorry|admit|axiom)\b', path.read_text())
+          assert not re.search(r'\b(sorry|admit)\b', path.read_text())
+          PY
+      - name: Warning-fatal compile of the complete import closure
+        run: |
+          set -o pipefail
+          python3 scripts/compile_research_import_closure.py \
+            research/VF_MID_919_GENERAL_X_HIGH_QUOTIENT_ISOLATION.lean \
+            2>&1 | tee vf919-general-x-compile.log
+      - name: Verify theorem signatures and standard axioms
+        run: |
+          cat >/tmp/vf919_general_x_acceptance.lean <<'LEAN'
+          import «research.VF_MID_919_GENERAL_X_HIGH_QUOTIENT_ISOLATION»
+          #check RHLean.Analysis.vf919ExcludedNorm_odd_of_ne_zero
+          #print axioms RHLean.Analysis.vf919ExcludedNorm_odd_of_ne_zero
+          #check RHLean.Analysis.vf919Quotient_gap
+          #print axioms RHLean.Analysis.vf919Quotient_gap
+          #check RHLean.Analysis.vf919HighQuotient_injective
+          #print axioms RHLean.Analysis.vf919HighQuotient_injective
+          #check RHLean.Analysis.vf919HighBucket_norm
+          #print axioms RHLean.Analysis.vf919HighBucket_norm
+          #check RHLean.Analysis.vf919HighBucket_isolated
+          #print axioms RHLean.Analysis.vf919HighBucket_isolated
+          #check RHLean.Analysis.vf919HighQuotientVariation_eq
+          #print axioms RHLean.Analysis.vf919HighQuotientVariation_eq
+          #check RHLean.Analysis.vf919ExcludedNorm_isMultiplicative
+          #print axioms RHLean.Analysis.vf919ExcludedNorm_isMultiplicative
+          #check RHLean.Analysis.vf919EisensteinNorm_prime
+          #print axioms RHLean.Analysis.vf919EisensteinNorm_prime
+          #check RHLean.Analysis.vf919EisensteinNorm_prime_sq
+          #print axioms RHLean.Analysis.vf919EisensteinNorm_prime_sq
+          #check RHLean.Analysis.vf919EisensteinNorm_prime_pow_eq_zero
+          #print axioms RHLean.Analysis.vf919EisensteinNorm_prime_pow_eq_zero
+          #check RHLean.Analysis.vf919ExcludedNorm_norm_le_chiDivisor
+          #print axioms RHLean.Analysis.vf919ExcludedNorm_norm_le_chiDivisor
+          #check RHLean.Analysis.vf919ChiDivisor_sum_le
+          #print axioms RHLean.Analysis.vf919ChiDivisor_sum_le
+          #check RHLean.Analysis.vf919ExcludedNorm_mass_le
+          #print axioms RHLean.Analysis.vf919ExcludedNorm_mass_le
+          #check RHLean.Analysis.vf919HighQuotientVariation_le
+          #print axioms RHLean.Analysis.vf919HighQuotientVariation_le
+          #check RHLean.Analysis.vf919HighQuotientVariation_le_two_sqrt
+          #print axioms RHLean.Analysis.vf919HighQuotientVariation_le_two_sqrt
+          #check RHLean.Analysis.vfVarSquareMertens_norm_le_four_lowVariation_add_two_root
+          #print axioms RHLean.Analysis.vfVarSquareMertens_norm_le_four_lowVariation_add_two_root
+          LEAN
+          set -o pipefail
+          lake env lean -DwarningAsError=true /tmp/vf919_general_x_acceptance.lean \
+            2>&1 | tee vf919-general-x-axioms.log
+          python3 - <<'PY'
+          import re
+          from pathlib import Path
+          text = Path('vf919-general-x-axioms.log').read_text()
+          records = re.findall(r'depends on axioms:\s*\[([^\]]*)\]', text, re.S)
+          closed = len(re.findall(r'does not depend on any axioms', text))
+          assert len(records) + closed == 16, (records, closed)
+          allowed = {'propext', 'Classical.choice', 'Quot.sound'}
+          for record in records:
+              assert {a.strip() for a in record.split(',') if a.strip()} <= allowed, record
+          print('axiom footprints:', records, 'closed:', closed)
+          PY
+      - name: Exact finite regression of census-2 and the coefficient majorant
+        run: |
+          set -o pipefail
+          cd scripts
+          python3 vf919_general_x_high_quotient_probe.py \
+            2>&1 | tee ../vf919-general-x-numerical.log
+      - name: Retain compiler and numerical evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: vf919-general-x-logs
+          path: vf919-general-x-*.log
+          if-no-files-found: ignore
