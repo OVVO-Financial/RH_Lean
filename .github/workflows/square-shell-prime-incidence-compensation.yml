@@ -1,0 +1,26 @@
+name: Square-shell prime incidence compensation certificate
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - "research/SQUARE_SHELL_INCIDENCE_COMPENSATION_20261017.md"
+      - "scripts/square_shell_prime_incidence_compensation.py"
+      - ".github/workflows/square-shell-prime-incidence-compensation.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  exact-physical-census:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Exact shell/coprime/prime-incidence/compensator verification
+        run: python3 -B scripts/square_shell_prime_incidence_compensation.py --max-root 317 --verbose
