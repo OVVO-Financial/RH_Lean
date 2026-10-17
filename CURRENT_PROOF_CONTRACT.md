@@ -37,6 +37,28 @@ Read the live [agent instructions](AGENTS.md), [dynamic protocol](docs/DYNAMIC_R
 
 A new result is credited according to exact proof status and quantifier strength, not whether it sounds closer to RH. No canonical endpoint, Mertens exponent or finite A/C bound improved in this cycle.
 
+## Proposed 2026-10-17 Hecke source-payment research contract — draft PR #964
+
+**This subsection is proposed in draft PR #964; until a human merges it, the live main contract above governs automated runs. The unchanged endpoint remains `VFCanonicalSquareVonKochStatement`.** This independent-`7/8` milestone is a benchmark for genuine arithmetic savings, NOT a new assertion of `lambda_M <= 7/8` proved by RH_Lean or an equivalent replacement of the canonical goal.
+
+Compiled on main by #919: `a6(n)=1_(gcd(n,6)=1) * (mu*(chi_{-3}mu))(n)`, the original 36-period quotient kernel `K`, `M(X)=sum_(m<=X)a6(m)*K(floor(X/m))`. At a large split prime p>=5, `a6(p)=-2` for p=1 mod 3 and 0 for p=2 mod 3; at p^2 the respective coefficients are +1 and -1. This mod-3 character **selects** surviving first-power split primes: it does not supply an oscillating large-prime phase. The existing bounded signed Abel primitive is an exact identity, not a signed variation estimate.
+
+**Two paid independent paper sectors, distinct carriers:**
+
+1. `BAD_y(X)`, the Hecke norm terms divisible by p^2 for some p>y: `|BAD_y(X)|<=2X(1+log X)/y` by `|a6|<=tau`, `|K|<=2` and the prime reciprocal-square sum. With y=floor(X^(1/8)), the bound is `<=4X^(7/8)(1+log X)` for X>=256.
+2. The original odd open-square VF physical weight on seats with p^2|n, p>R^(1/4): `0<=H_R^{large square}<=10 R^(7/4)/log R` (elementary paper argument, all R>=2). Original weights and seats are required; **do not identify this with the Hecke BAD carrier or count it as a bound on the whole signed original ledger**.
+
+**Core alternatives, both exact but quantitatively unpaid:**
+
+- `CORE_(floor(X^(1/8)))=sum_(k=0..7)(-2)^k P_k(X;y)` where distinct large primes are split and first power; completed `|CORE|=O_epsilon(X^(7/8+epsilon))` is target-equivalent, not independent progress.
+- At `y=floor(sqrt X)`, `BAD_y=0` **exactly**, hence `M(X)=P_0(X;y)-2P_1(X;y)`; `P_1` is a high split-prime `q>sqrt X` sum with cofactor `s<=X/q`. It is a simpler two-layer owner/Hecke interface, but difficult cancellation may be entirely transferred to `P_0`. The exact recurrence `C_q(X)=C_(q^-)(X)-2C_(q^-)(floor(X/q))` generates the large-prime layers. Upper-half split primes `q in (X/2,X]` inject `-2` each and have no local insertion neighbour; only **nonlocal** signed cross-owner/layer response can offset their macroscopic mass.
+
+**Stronger sufficient independent inputs (OPEN):** a uniform bound on the **complete** signed quotient bucket variation `V_X=sum_t|B_X(t)-B_X(t+1)|=O_epsilon(X^(7/8+epsilon))` gives `|M(X)|<=4V_X` through the existing signed Abel theorem. Alternatively, genuine square-shell second moment `sum_(H<=r<2H)delta_r^2=O_epsilon(H^(5/2+epsilon))` for all dyadic H yields Mertens exponent <=7/8 by Cauchy–Schwarz; it is a different, stronger sufficient condition, not the native #915 masked-source statistic. Neither is proved, and neither can be inferred from finite measurements.
+
+**Next-cycle research obligation:** the Coordinator compares the full nonlocal `P_0-2P_1` cofactor/owner Gram, the signed quotient-bucket variation, the seven-layer baseline, and the separate shell-energy route against full K1/K2/K3, Nyman, finite A/C. Each of the seven specialists has a specific parallel assignment in `AGENTS.md` and `docs/DYNAMIC_RESEARCH_AGENTS.md` (same PR). Prove a **new uniform signed restriction** independent of OpenAI's theorem, preserving actual coefficient, physical prime/cofactor occurrence, cutoff, restoration and full covariance; check the R=317 rank obstruction before asserting single-rectangle moment admissibility. Historical first-bad returned admission needs its separate bridge. Keep every actual mathematical/CI status precise.
+
+**Evidence and reproducibility:** [Hecke cutoff research note](research/HECKE_SPLIT_PRIME_CUTOFF_TRADEOFF_20261016.md), [separate shell-energy mechanism](research/INDEPENDENT_SEVEN_EIGHTHS_SQUARE_SHELL_ENERGY_20261016.md), and their C++/Python scripts in PR #964. Their finite census claims are to be independently reproduced before credit. These paper sectors are not automatically Lean compiled, the independent uniform signed core remains **OPEN**, and no improvement of the canonical endpoint is claimed.
+
 ## Raw factor-depth ledger and exact scope
 
 For natural R>=3, the raw odd-seat carrier is
