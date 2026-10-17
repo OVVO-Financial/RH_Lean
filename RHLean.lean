@@ -480,6 +480,7 @@ import RHLean.Proof.GeometricRHReduction
 import RHLean.Proof.GlobalFirstJumpCofactorCompression
 import RHLean.Proof.GlobalFirstJumpCriticalCorrelationBridge
 import RHLean.Proof.GlobalPrefixCarrierOthello
+import RHLean.Proof.HeckeTailFloorLoss
 import RHLean.Proof.HeightShellGram
 import RHLean.Proof.HeightShellReconstruction
 import RHLean.Proof.InternalBlockLifetimeGram
