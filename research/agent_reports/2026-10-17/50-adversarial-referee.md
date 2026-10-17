@@ -22,7 +22,7 @@ Two constants can be improved by the same elementary proofs:
 
 Thus the advertised constants `4` and `10` are accepted but nonsharp. These sharpenings do not control the unpaid signed Hecke core or the complete VF ledger.
 
-The quotient-variation inlet is accepted as an independently meaningful **normed sufficient condition**. The phrase “strictly stronger” must be read at the representation level: `V)-control implies core control by Abel and triangle inequality. No strict asymptotic separation theorem has been proved for the one fixed genuine arithmetic bucket family, so I classify that wording `REVISE`, not a refutation of the sufficient route.
+The quotient-variation inlet is accepted as an independently meaningful **normed sufficient condition**. The phrase “strictly stronger” must be read at the representation level: `V`-control implies core control by Abel and triangle inequality. No strict asymptotic separation theorem has been proved for the one fixed genuine arithmetic bucket family, so I classify that wording `REVISE`, not a refutation of the sufficient route.
 
 The rank-3 witness is accepted only at its literal scope: one unmasked occurrencewise difference of two separable products for the native AMP weight. It does not obstruct masked or multi-row Hecke sources, regrouping over factorizations, or the root-cutoff `P0-2P1` identity itself.
 
@@ -94,7 +94,7 @@ H_R^(large square)
  < (6 R^(7/4) + 3R)/log R.
 ```
 
-Since `R^(-3/4)<=1/8),
+Since `R^(-3/4)<=1/8`,
 
 ```text
 6 + 3R^(-3/4) <= 6 + 3/8 = 51/8.
@@ -108,7 +108,7 @@ R^(1/4) log R < 2 log 16 < 51/8,
 
 so again `H<(51/8)R^(7/4)/log R`.
 
-The intermediate weight inequality `w_r<=3/log n` was checked at `r=2` and `r>=3); the odd-multiple count is an overcount, not an equality; and each physical seat is summed once even if several large prime squares divide it.
+The intermediate weight inequality `w_r<=3/log n` was checked at `r=2` and `r>=3`; the odd-multiple count is an overcount, not an equality; and each physical seat is summed once even if several large prime squares divide it.
 
 **Verdict:** `ACCEPT_WITH_SHARPENING / PAPER_PROOF`. The stronger constant is `51/8`. This is still only a positive squareful subpopulation; it supplies no estimate for lower-tag charges, semiprime charges, mixed covariance, returned-cell admission or the total VF defect.
 
@@ -151,7 +151,7 @@ CORE_y(X)=sum_t F(t)(B(t)-B(t+1)),
 |CORE_y(X)|<=4 sum_t |B(t)-B(t+1)|.
 ```
 
-The endpoint is correct because `B(X+1)=0). At the root cutoff `b_y=a6` for every `m<=X`, so this is the native full #919 quotient variation.
+The endpoint is correct because `B(X+1)=0`. At the root cutoff `b_y=a6` for every `m<=X`, so this is the native full #919 quotient variation.
 
 **Verdict on implication:** `ACCEPT / PROVED_IN_LEAN` for the full-`a6` Abel inequality and `PAPER_PROOF` for applying the generic identity to the explicitly defined cutoff buckets. A uniform `V=O_epsilon(X^(7/8+epsilon))` is a genuine sufficient theorem and remains OPEN.
 
@@ -171,7 +171,7 @@ The exact Lean theorem uses the literal matrix
 
 at `R=317`, with determinant `-2309174383131000`. Since every matrix `f_i g_j-u_i v_j` has rank at most two and zero determinant, no single centered separable rectangle matches these nine native AMP coefficients occurrence by occurrence.
 
-**Verdict:** `ACCEPT / PROVED_IN_LEAN_ON_MAIN` for the displayed obstruction. **Unaffected approaches:** sums of rectangles, coupled masks, regrouping over factorizations, changing the coefficient carrier with an exact bridge, and admissible multi-row Hecke moments. The witness is not a no-go theorem for the root-cutoff Hecke representation and says nothing quantitative about `V).
+**Verdict:** `ACCEPT / PROVED_IN_LEAN_ON_MAIN` for the displayed obstruction. **Unaffected approaches:** sums of rectangles, coupled masks, regrouping over factorizations, changing the coefficient carrier with an exact bridge, and admissible multi-row Hecke moments. The witness is not a no-go theorem for the root-cutoff Hecke representation and says nothing quantitative about `V`.
 
 ## H. Independent computation
 
@@ -223,6 +223,6 @@ Reusable new claims:
 - `20261017-referee-3`: quotient variation is accepted as a stronger normed sufficient inlet; “strictly stronger on the genuine sequence” is unproved.
 - `20261017-referee-4`: rank witness accepted only for one unmasked centered rectangle.
 
-Next adversarial test: require any proposed `V) or multi-row theorem to state its complete bucket/source definition, conductor/profile uniformity, top-half principal-mode extraction, zero-`K` bucket retention and exact consumer. Search first for a lower-bound family or a source-admissibility failure before attempting a large computation.
+Next adversarial test: require any proposed `V` or multi-row theorem to state its complete bucket/source definition, conductor/profile uniformity, top-half principal-mode extraction, zero-`K` bucket retention and exact consumer. Search first for a lower-bound family or a source-admissibility failure before attempting a large computation.
 
 No RH proof claim.
