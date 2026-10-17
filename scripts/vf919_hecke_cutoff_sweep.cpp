@@ -83,10 +83,11 @@ int main(int argc, char **argv) {
     const int y = floor_integer_root(X, d);
     int64_t CORE = 0, BAD = 0;
     array<int64_t, 16> layers{};
+    // All signed quotient buckets are retained, including those with K(t)=0.
+    vector<int64_t> buckets(X + 2, 0);
     for (int n = 1; n <= X; ++n) {
       if (a6[n] == 0) continue;
       int64_t weight = int64_t(a6[n]) * quotient_kernel_36(X / n);
-      if (weight == 0) continue;
 
       int remaining = n, depth = 0;
       bool has_large_square = false;
@@ -108,6 +109,7 @@ int main(int argc, char **argv) {
         }
         layers[depth] += weight;
         CORE += weight;
+        buckets[X / n] += a6[n];
       }
     }
     if (CORE + BAD != M) {
@@ -119,8 +121,13 @@ int main(int argc, char **argv) {
       return 5;
     }
 
+    int64_t variation = 0;
+    for (int t = 1; t <= X; ++t)
+      variation += llabs(buckets[t] - buckets[t + 1]);
+
     cout << "CUTOFF d=" << d << " y=" << y << " core=" << CORE
-         << " bad=" << BAD << " reconstructed=" << CORE + BAD << " layers=";
+         << " bad=" << BAD << " reconstructed=" << CORE + BAD
+         << " variation=" << variation << " layers=";
     for (int k = 0; k < d; ++k) {
       if (k) cout << ",";
       cout << k << ":" << layers[k];
