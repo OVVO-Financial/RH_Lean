@@ -216,3 +216,11 @@ theorem criticalZeros_of_covariance
   analyticBridge (allCovariance_iff_allEnergy.mp hC)
 
 end RHLean.Analysis.WeightedMertens
+
+-- Acceptance is an audit of the ACTUAL inferred axioms, not merely a type check.
+#print axioms RHLean.Analysis.WeightedMertens.energy_eq_diagonal_add_two_covariance
+#print axioms RHLean.Analysis.WeightedMertens.covariance_eq_ordered_pairs
+#print axioms RHLean.Analysis.WeightedMertens.diagonal_uniform_bounded
+#print axioms RHLean.Analysis.WeightedMertens.covarianceUpperBounded_iff_energyUpperBounded
+#print axioms RHLean.Analysis.WeightedMertens.allCovariance_iff_allEnergy
+#print axioms RHLean.Analysis.WeightedMertens.criticalZeros_of_covariance
