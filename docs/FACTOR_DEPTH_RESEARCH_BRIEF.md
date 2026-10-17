@@ -1,5 +1,11 @@
 # Live research brief: factor-depth coupling and independent amplification
 
+## User-selected 2026-10-17 covariance-first mechanism
+
+**Mandatory new primary cross-role focus:** [full signed Möbius covariance RH-seam contract](SIGNED_MOBIUS_COVARIANCE_RH_SEAM_2026_10_17.md). Root/factor depth is now asked to provide independently provable original-sign pair incidence and UNshared-prime-parity cancellation, not just split/owner cutoffs. For `C(N)=sum_{a<b<=N} mu(a)mu(b)`, the exact `M(N)^2=D(N)+2C(N)` transfers externally assumed OAI `7/8` to `C(N)<=-D(N)/2+O_eta(N^(7/4+eta))`. The first claim beyond OAI needs a real `N^kappa` saving uniformly in N; `N^(1+eta)` combined energy is RH strength. The weighted `C_eps(T)` is paid by OAI for eps>3/8; showing one fixed eps<3/8 bounded would be an improvement, and all positive eps is RH-equivalent. These are benchmarks, NOT estimates furnished by factor counting alone.
+
+**Critical structural distinction:** shared gcd factors drop out of `mu(a)mu(b)` only when BOTH a and b are squarefree; exact signs depend on unshared prime parity, with `gcd(a,a+h)|h`. Do not silently substitute fixed wheel modulus density or same-q toggles for full additive-h pair correlation. The historical `U_R+V_R=M(R^2-1)-1` and measured near-minus-one `2U_RV_R/(U_R^2+V_R^2)` are distinct from full `C(N)` and original #915 NNS source; any source mapping needs all signed cross-owner mixed terms, squareful zeros, masks, anchors and once-only occurrences. Owner/Wheel each supply independent structural ideas, Analytic provides the uniform bound, Census tries adverse finite counterexamples, Referee tests logical circularity, Coordinator ranks, Lean certifies. The complete acceptance and per-role first output are in the linked document.
+
 **Live baseline: merged #964 on 2026-10-17; cross-coordinate low-quotient update proposed on a separate user-directed draft PR.** Read current main and the whole [cross-coordinate seven-agent research contract](CROSS_COORDINATE_LOW_QUOTIENT_RESEARCH_2026_10_17.md) after [AGENTS.md](../AGENTS.md) and [CURRENT_PROOF_CONTRACT.md](../CURRENT_PROOF_CONTRACT.md). The canonical target and permissions remain unchanged. Retain the [subpower amplification budget](MERTENS_AMPLIFICATION_BUDGET.md) for MU-LIFT work.
 
 ## Merged #964 Hecke owner/core research and sharpened October 17 scope

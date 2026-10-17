@@ -1,5 +1,13 @@
 # RH_Lean dynamic seven-agent research protocol
 
+## ACTIVE research routing overlay: all seven work on the signed covariance gain
+
+**2026-10-17 user-prioritized mathematical seam (proposed until merged):** use [the seven-role signed Möbius covariance instructions](SIGNED_MOBIUS_COVARIANCE_RH_SEAM_2026_10_17.md) as the FIRST mechanism selector for every scheduled role. The older cross-coordinate / low-quotient / Hecke program below remains a source of candidate sign mechanisms and adversarial controls but does not supersede this new common target. Read full role table in the linked contract and actually seek an independent uniform signed source estimate; no role should spend a full run rediscovering the identity `M^2=D+2C` or the classical exponent-symmetry correspondence.
+
+**Proof scoreboard, fixed quantifiers:** external OAI benchmark `M(N)^2=O_eta(N^(7/4+eta))`; `C(N)<=-D(N)/2+O_eta(N^(7/4+eta))`; weighted `C_eps(T)` bounded for all `eps>3/8`, not at exactly 3/8. A strictly new arithmetic estimate `D+2C=O_eta(N^(7/4-kappa+eta))`, `kappa>0`, beats OAI; `D+2C=O_eta(N^(1+eta))` is the RH-scale goal. Weighted `C_eps` bounded for some `eps0<3/8` independently also beats the benchmark; all eps>0 reaches RH. Establish the bound from a NEW sign-preserving all-shift/unshared-prime-parity/cofactor-owner mixed mechanism, NOT from the external zeta theorem or a renaming of the desired Mertens inequality.
+
+**Responsibility and costs:** Research Coordinator selects one candidate mechanism plus one decisive falsifier; Owner investigates full original cross-owner signed carriers; Analytic produces full-h/Type-II source estimate; Wheel proves exact squarefree/gcd/shift parity incidence; Census runs hypothesis-specific held-outs and zero-target distinctions; Referee checks scope, false Pearson interpretations, hidden RH input and actual stronger exponent; Lean audits #968/#969 and formalizes only new independent identities/proven inputs. **One scheduled invocation per agent per day**, no additional runs, reports-only for six specialists, human merge gate unchanged.
+
 **Live baseline after merged PR #964 (2026-10-17); this updated cross-coordinate role routing is proposed in a separate user-authorized draft PR, not active until human merge.** Preserve the unchanged canonical target, source/proof integrity and existing agent schedules. Subordinate to [AGENTS.md](../AGENTS.md) for conduct/permissions and [CURRENT_PROOF_CONTRACT.md](../CURRENT_PROOF_CONTRACT.md) for the mathematical target. Read the [live research brief](FACTOR_DEPTH_RESEARCH_BRIEF.md) from current main. Historical reports are evidence, not operating authority.
 
 ## The current independent mathematical problem and division of effort
