@@ -9,7 +9,12 @@ Exact integer checks, for every X <= LIMIT, of scheduled Census claim
 
 where B_X(t) keeps every quotient bucket, including those on which the
 period-36 kernel vanishes.  Also checks |a6(n)| <= d_chi(n) and
-sum_{n <= N} d_chi(n) <= N for n, N <= LIMIT.
+sum_{n <= N} d_chi(n) <= N for n, N <= LIMIT, and the finite face of the
+2026-10-17 manual-cycle result H-L (Lean section 10):
+
+    sum_{1 <= t <= r} (B_X(t) - B_X(t+1)) = B_X(1) - B_X(r+1),
+    B_X(1) = C6(X) - C6(X // 2),
+    |C6(X) - C6(X // 2)| <= V_low(X) + |B_X(r+1)| <= V_low(X) + sqrt(X).
 
 The Lean module carries the proof; this script is a regression only and
 does not extrapolate.
@@ -43,6 +48,7 @@ def main() -> None:
     first_boundary = None
     boundary_cases = 0
     worst = (0.0, 0)
+    hl_tight = (-10 ** 9, 0)
     for x in range(1, LIMIT + 1):
         r = isqrt(x)
         big_n = x // (r + 1)
@@ -51,6 +57,13 @@ def main() -> None:
             if a6[m]:
                 buckets[x // m] += a6[m]
         v_high = sum(abs(buckets[t] - buckets[t + 1]) for t in range(r + 1, x + 1))
+        v_low = sum(abs(buckets[t] - buckets[t + 1]) for t in range(1, r + 1))
+        half = sum(a6[m] for m in range(x // 2 + 1, x + 1))
+        assert buckets[1] == half, (x, buckets[1], half)
+        assert sum(buckets[t] - buckets[t + 1] for t in range(1, r + 1)) == buckets[1] - buckets[r + 1]
+        assert abs(half) <= v_low + abs(buckets[r + 1]), (x, half, v_low, buckets[r + 1])
+        assert abs(buckets[r + 1]) <= big_n and abs(half) <= v_low + x ** 0.5
+        hl_tight = max(hl_tight, (abs(half) - v_low - abs(buckets[r + 1]), x))
         mass = sum(abs(a6[n]) for n in range(1, big_n + 1))
         boundary = abs(buckets[r + 1])
         assert v_high == 2 * mass - boundary, (x, v_high, mass, boundary)
@@ -71,7 +84,9 @@ def main() -> None:
           f'|B(r+1)|={first_boundary[3]}')
     print(f'max V_high/sqrt(X) = {worst[0]:.6f} at X={worst[1]} (bound 2)')
     print(f'|a6(n)| <= d_chi(n) and sum_(n<=N) d_chi(n) <= N for all n, N <= {LIMIT}')
-    print('Finite regression only; no low-quotient or Mertens estimate is asserted.')
+    print(f'H-L finite face |C6(X)-C6(X//2)| <= V_low(X) + |B_X(r+1)| exact for every X <= {LIMIT}; '
+          f'max slack-deficit {hl_tight[0]} at X={hl_tight[1]} (must be <= 0)')
+    print('Finite regression only; no upper low-quotient or Mertens estimate is asserted.')
 
 
 if __name__ == '__main__':

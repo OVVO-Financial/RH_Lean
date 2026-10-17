@@ -23,10 +23,20 @@ multiplicativity and an exact prime-power evaluation.  They close the
 short-norm mass left open by
 `vfVarSquareMertens_norm_le_four_lowVariation_add_two_shortMass`.
 
-Scope: these are unconditional statements about the high-quotient sector and
-the coefficient mass.  Nothing here bounds the low-quotient variation, the
-Mertens function at any power saving, the canonical VF endpoint or the #915
-source.
+Section 10 adds the finite face of the manual-cycle result H-L: telescoping
+the low return gives
+
+`|sum_(X/2 < m <= X) a6(m)| <= V_low(X) + |B_X(r+1)| <= V_low(X) + sqrt X`,
+
+so every upper bound on `V_low` is also an upper bound on the half-interval
+coefficient sums `C6(X) - C6(floor(X/2))`.  The analytic consequence drawn in
+the cycle report (a bound `V_low = O(X^theta)` forces `zeta(s) L(s, chi_-3)` to
+be zero-free on `Re s > theta`) is a paper argument and is not formalized here.
+
+Scope: these are unconditional statements about the high-quotient sector, the
+coefficient mass and the lower side of the low variation.  Nothing here gives
+an upper bound for the low-quotient variation, the Mertens function at any
+power saving, the canonical VF endpoint or the #915 source.
 -/
 
 noncomputable section
@@ -606,6 +616,116 @@ theorem vfVarSquareMertens_norm_le_four_lowVariation_add_two_root
       2 * ((R - 1 : ℕ) : ℝ) := by
   have h := vfVarSquareMertens_norm_le_four_lowVariation_add_two_shortMass R hR
   have hm := vf919ExcludedNorm_mass_le (R - 1)
+  linarith
+
+/-! ## 10. The lower side of the low variation (finite face of H-L) -/
+
+/-- The quotient `floor(X/m)` equals `1` exactly on the upper half
+`X/2 < m <= X`. -/
+theorem vf919QuotientOne_iff (X m : ℕ) (hm : 0 < m) :
+    X / m = 1 ↔ m ≤ X ∧ X / 2 < m := by
+  constructor
+  · intro h
+    have h1 : 1 ≤ X / m := by omega
+    have h2 : X / m < 2 := by omega
+    rw [Nat.le_div_iff_mul_le hm] at h1
+    rw [Nat.div_lt_iff_lt_mul hm] at h2
+    constructor <;> omega
+  · rintro ⟨h1, h2⟩
+    have h1' : 1 ≤ X / m := (Nat.le_div_iff_mul_le hm).mpr (by omega)
+    have h2' : X / m < 2 := (Nat.div_lt_iff_lt_mul hm).mpr (by omega)
+    omega
+
+/-- The first quotient bucket is the upper-half coefficient sum
+`B_X(1) = C6(X) - C6(floor(X/2))`. -/
+theorem vf919QuotientBucket_one (X : ℕ) :
+    vf919QuotientBucket X 1 =
+      ∑ m ∈ Finset.Ioc (X / 2) X, vf919ExcludedNormCoefficients m := by
+  unfold vf919QuotientBucket
+  rw [← Finset.sum_filter]
+  refine Finset.sum_congr ?_ (fun _ _ => rfl)
+  ext m
+  simp only [Finset.mem_filter, Finset.mem_Icc, Finset.mem_Ioc]
+  constructor
+  · rintro ⟨⟨hm1, hmX⟩, hq⟩
+    exact ⟨((vf919QuotientOne_iff X m (by omega)).mp hq).2, hmX⟩
+  · rintro ⟨hlo, hmX⟩
+    exact ⟨⟨by omega, hmX⟩, (vf919QuotientOne_iff X m (by omega)).mpr ⟨hmX, hlo⟩⟩
+
+/-- Telescoping of the unweighted signed low return:
+`sum_(1<=t<=r) (B_X(t) - B_X(t+1)) = B_X(1) - B_X(r+1)`. -/
+theorem vf919LowReturn_telescope (X r : ℕ) :
+    (∑ t ∈ Finset.Icc 1 r,
+        (vf919QuotientBucket X t - vf919QuotientBucket X (t + 1))) =
+      vf919QuotientBucket X 1 - vf919QuotientBucket X (r + 1) := by
+  induction r with
+  | zero => simp
+  | succ r ih =>
+    rw [Finset.sum_Icc_succ_top (by omega : 1 ≤ r + 1), ih]
+    ring
+
+/-- **Finite face of H-L.**  The upper-half coefficient sum is at most the
+low variation plus the single boundary bucket:
+`|C6(X) - C6(floor(X/2))| <= V_low(X) + |B_X(r+1)|`, `r = floor(sqrt X)`.
+Every bucket is kept, including those on which the period-36 kernel
+vanishes. -/
+theorem vf919HalfIncrement_norm_le_lowVariation_add_boundary (X : ℕ) :
+    ‖∑ m ∈ Finset.Ioc (X / 2) X, vf919ExcludedNormCoefficients m‖ ≤
+      (∑ t ∈ Finset.Icc 1 (Nat.sqrt X),
+          ‖vf919QuotientBucket X t - vf919QuotientBucket X (t + 1)‖) +
+        ‖vf919QuotientBucket X (Nat.sqrt X + 1)‖ := by
+  have htel := vf919LowReturn_telescope X (Nat.sqrt X)
+  have h1 : vf919QuotientBucket X 1 =
+      (∑ t ∈ Finset.Icc 1 (Nat.sqrt X),
+          (vf919QuotientBucket X t - vf919QuotientBucket X (t + 1))) +
+        vf919QuotientBucket X (Nat.sqrt X + 1) := by
+    rw [htel]
+    ring
+  calc ‖∑ m ∈ Finset.Ioc (X / 2) X, vf919ExcludedNormCoefficients m‖
+      = ‖vf919QuotientBucket X 1‖ := by rw [vf919QuotientBucket_one]
+    _ = ‖(∑ t ∈ Finset.Icc 1 (Nat.sqrt X),
+            (vf919QuotientBucket X t - vf919QuotientBucket X (t + 1))) +
+          vf919QuotientBucket X (Nat.sqrt X + 1)‖ := by rw [← h1]
+    _ ≤ ‖∑ t ∈ Finset.Icc 1 (Nat.sqrt X),
+            (vf919QuotientBucket X t - vf919QuotientBucket X (t + 1))‖ +
+          ‖vf919QuotientBucket X (Nat.sqrt X + 1)‖ := norm_add_le _ _
+    _ ≤ (∑ t ∈ Finset.Icc 1 (Nat.sqrt X),
+            ‖vf919QuotientBucket X t - vf919QuotientBucket X (t + 1)‖) +
+          ‖vf919QuotientBucket X (Nat.sqrt X + 1)‖ :=
+      add_le_add_right (norm_sum_le _ _) _
+
+/-- The boundary bucket `B_X(r+1)` holds at most one norm, and its size is at
+most `sqrt X`. -/
+theorem vf919BoundaryBucket_norm_le_sqrt (X : ℕ) :
+    ‖vf919QuotientBucket X (Nat.sqrt X + 1)‖ ≤ Real.sqrt X := by
+  rw [vf919HighBucket_norm X (Nat.sqrt X + 1) le_rfl]
+  have hle : (∑ m ∈ Finset.Icc 1 (X / (Nat.sqrt X + 1)),
+        if X / m = Nat.sqrt X + 1 then ‖vf919ExcludedNormCoefficients m‖ else 0) ≤
+      ∑ m ∈ Finset.Icc 1 (X / (Nat.sqrt X + 1)), ‖vf919ExcludedNormCoefficients m‖ := by
+    apply Finset.sum_le_sum
+    intro m _
+    split_ifs
+    · exact le_rfl
+    · exact norm_nonneg _
+  have hmass := vf919ExcludedNorm_mass_le (X / (Nat.sqrt X + 1))
+  have hN : X / (Nat.sqrt X + 1) ≤ Nat.sqrt X := vf919HighNorm_le_root X
+  have hNr : ((X / (Nat.sqrt X + 1) : ℕ) : ℝ) ≤ (Nat.sqrt X : ℝ) := Nat.cast_le.mpr hN
+  have h2 : ((X / (Nat.sqrt X + 1) : ℕ) : ℝ) ≤ Real.sqrt X :=
+    hNr.trans Real.nat_sqrt_le_real_sqrt
+  linarith
+
+/-- **Two-sided role of the low variation.**  Together with
+`vfVarSquareMertens_norm_le_four_lowVariation_add_two_root`, any upper bound
+on `V_low` bounds the Mertens function from above and the upper-half
+coefficient sums `C6(X) - C6(floor(X/2))` as well:
+`|C6(X) - C6(floor(X/2))| <= V_low(X) + sqrt X`. -/
+theorem vf919HalfIncrement_norm_le_lowVariation_add_sqrt (X : ℕ) :
+    ‖∑ m ∈ Finset.Ioc (X / 2) X, vf919ExcludedNormCoefficients m‖ ≤
+      (∑ t ∈ Finset.Icc 1 (Nat.sqrt X),
+          ‖vf919QuotientBucket X t - vf919QuotientBucket X (t + 1)‖) +
+        Real.sqrt X := by
+  have h := vf919HalfIncrement_norm_le_lowVariation_add_boundary X
+  have hb := vf919BoundaryBucket_norm_le_sqrt X
   linarith
 
 end RHLean.Analysis
