@@ -12,6 +12,17 @@ If a handoff is stale, superseded, refuted, formalized, or irrelevant to your sp
 
 ## Open handoffs
 
+### 2026-10-17 — Complete cross-coordinate low-quotient programme, corrected q=R split-prime boundary
+
+**[Read the full user-directed seven-role handoff](external/2026-10-17/cross-coordinate-low-quotient-complete-handoff.md).** Full proposed mandatory document in [DRAFT PR #966](https://github.com/OVVO-Financial/RH_Lean/pull/966), based on `main@fef979286efa91b23bfced46f0a8a0143b000df0` (#964 already merged). **PR #966 is NOT merged**; this handoff is an external candidate routing notice, not current main or saved Studio-agent authority. The original canonical goal is still OPEN.
+
+- **EXT-20261017-XCOORD-1 / EXACT SCALAR / INDEPENDENT INT REGRESSION:** old `M=A_R-T_R` (original signed smooth/transport) and #919 `M=P0-2P1` are compatible with correct positive cofactor sign and **q=R prime boundary**: `P0=A_R+H_R-I_R+1_(R prime)*(1+chi_-3(R))*M(R-1)` for `X=R^2-1`. Earlier uncorrected formula is FALSE for split-prime R=7/13/103; inert R=317 concealed the error. This is NOT original VF physical-source or first-bad mask admission.
+- **EXT-20261017-XCOORD-2 / ALREADY PROVED ON MAIN:** the square-endpoint diagonal gap and low/high Hecke quotient Abel split predates this cycle (`research/VF_QUOTIENT_VARIATION_FIRSTBAD_ATTACK.lean`). Do not rediscover it. Oct 17 Census `20261017-census-2` is a **general-X PAPER_PROOF** `V_high=2sum_(n<=floor(X/(r+1)))|a6(n)|-|B_X(r+1)|<=2sqrt X`; independently referee it, retaining r+1 boundary (X=380 fails the uncorrected formula).
+- **EXT-20261017-XCOORD-3 / TRUE OPEN INPUT:** complete signed buckets `B_X(t)=C6(floor(X/t))-C6(floor(X/(t+1)))`, differences `D_X(t)=C6(floor(X/t))-2C6(floor(X/(t+1)))+C6(floor(X/(t+2)))`. Uniform genuine `V_low=sum_(t<=floor(sqrt X))|D_X(t)|=O_epsilon(X^(7/8+epsilon))` is a **stronger sufficient condition**, NOT implied by the signed scalar `S=A-T`. A distinct nonlocal original matched-source/zero-target NNS payment could bypass this stronger variation target with exact physical occurrence bridges; full K1/K2/K3, shell energy, Nyman and finite A/C remain available.
+- **All seven roles assigned in full handoff:** Coordinator (DAG and route choice), Owner (source/sign/cutoff bridges), Analytic (new uniform signed arithmetic), Wheel (exact boundaries and incidence), Census (held-out falsifiers not repetition), Referee (independent sharp scope), Lean (only qualified nonduplicate formalizations). Keep once/day schedule and no scheduled merges.
+
+
+
 ### 2026-10-17 — User-directed independent Hecke 7/8 programme (PR #964, pending human merge)
 
 **[Read the complete all-seven-specialty handoff](external/2026-10-17/hecke-independent-seven-eighths-handoff.md)**. Source [DRAFT PR #964](https://github.com/OVVO-Financial/RH_Lean/pull/964), created from reviewed `main@b9105f19fbbf25742a6909a6e8c995e6a9ddeddb`. **The PR's proposed `AGENTS.md`, proof contract, research brief and dynamic protocol updates are not live on main yet.** This handoff is the approved intake mechanism for candidates, not a replacement for main or saved Studio agent configuration.
