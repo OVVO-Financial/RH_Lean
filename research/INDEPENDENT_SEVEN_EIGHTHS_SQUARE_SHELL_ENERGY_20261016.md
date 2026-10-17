@@ -114,6 +114,20 @@ C(H) <= C_epsilon H^(5/2+epsilon).
 
 This is logically sufficient because the diagonal is only `O(H^2)`; it is not a new theorem, and a positive/negative pair count by itself does not prove it. If squarefree `m,n` share `d=gcd(m,n)`, then `mu(m)mu(n)=mu(m/d)mu(n/d)`: the common prime factors **drop out of the pair's sign**. Shared ancestry alone does not supply negative covariance. The parity of the *unshared* factors is a concrete conditioning candidate.
 
+### Exact shifted-Mobius interpretation (PAPER IDENTITY; a more specific input)
+
+On the open physical shell `I_r`, the integer sites are exactly `r^2+1, ..., r^2+2r`. Thus the **complete** signed off-diagonal covariance of the dyadic shell family is the *arithmetic shifted-correlation sum*
+
+```text
+C(H)
+ = 2 * sum_(r=H..2H-1) sum_(h=1..2r-1)
+       sum_(m=r^2+1..r^2+2r-h) mu(m)*mu(m+h).
+```
+
+It has `sum_(r=H..2H-1) r*(2r-1) = Theta(H^3)` unordered physical pair occurrences. The available purely termwise bound is therefore `|C(H)|=O(H^3)`. The exact diagonal is `sum_(r,n in I_r)mu(n)^2 <= sum_(r=H..2H-1)2r=3H^2-H`. This reveals the **required nontrivial source of saving**: cancellation among the genuine, square-centered *shifted two-point Mobius products* after all shifts `h<2r` and all shells `r in [H,2H)` are recombined. For (SB-7/8), an upper (not absolute two-sided) signed estimate `C(H)=O_upper(H^(5/2+epsilon))` suffices. Because `C(H)>=-D(H)`, a bound `|C(H)|<=...` would be equivalent at the relevant scale, but there is no assumed sign rule for individual `h`, `r` or cofactor families.
+
+This gives a concrete **additive–multiplicative junction** for an independent proof: Euler greatest-prime ownership provides the exact multiplicative decomposition of each site, while its constrained *additive* coincidence at shifts `m -> m+h` is the missing arithmetic estimate. Factor `d=gcd(m,m+h)` must divide `h`; for squarefree `m,m+h`, `mu(m)mu(m+h)=mu(m/d)mu((m+h)/d)` after cancelling their common squarefree factors. Conditioning on the *unshared* prime factors, not merely shared ancestry, is the right object to investigate. This is not an invocation of an unproved Chowla conjecture: a proposed proof must supply its own **uniform averaged** estimate for precisely this square-shell triangular weight and its `Theta(H^3)` physical pairs. Random signs or an almost-all-x theorem with no transfer to squares do not meet this test.
+
 This is a **new shell-energy carrier** for the zero-target statistic, not an unproved assertion that it is exactly the original #915 normalized first-bad covariance. Consumer is the genuine-Mobius growth boundary, with an explicitly separate bridge to the canonical VF objective.
 
 ## 4. Independently recomputed exact census
