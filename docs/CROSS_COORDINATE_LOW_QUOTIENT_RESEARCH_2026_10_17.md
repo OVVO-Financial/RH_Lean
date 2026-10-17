@@ -28,26 +28,54 @@ C_chi(t)=1_(t mod 3=1).
 ```
 The integer quotient kernel `K` has period 36, `|K|<=2`, with primitive bounded by 4. These periodic facts apply to the QUOTIENT variable, not the norms.
 
-For `y=floor(sqrt X)=R-1` when `X=R^2-1`, the cutoff is **R-1**, but a prime `q>sqrt X` means `q>=R`. At `X=R^2-1` with `R` prime, `q=R` is a live upper prime in the Hecke `P1` layer although it is not in the original transport `T_mu(R)` (whose prime range starts `q>R`). This is a **CRITICAL ENDPOINT MISMATCH**. It must be reconciled before claiming the naive crosswalk below for arbitrary R.
+At `X=R^2-1`, **the Hecke root cutoff is `y=floor(sqrt X)=R-1`**, whereas the older `squareRootSmoothMass(R-1)` includes factors up to `R` and its transport starts at `q>R`. This one-integer difference matters precisely when **R itself is prime**. In particular, a split prime `R==1 mod 3` contributes `-2*M(R-1)` to the Hecke root `P1` but is absent from the older transport starting at q>R.
 
-To avoid hidden off-by-one errors, define the exact square-root Hecke cutoff `y=floor(sqrt X)`, define `H_y(X)` as the large split-prime population `q>y` and `I_y(X)` as the inert population `q>y`; define the matching original Mertens smooth/transport at the SAME cutoff `y`:
+For a SAME-cutoff comparison define the positive cofactor transform and genuine signed smooth mass:
 ```text
-A_mu(X;y)=sum_(m<=X, P+(m)<=y) mu(m),
-T_mu(X;y)=sum_(y<q<=X, prime q) M(floor(X/q)),
+A_y(X)=sum_(1<=m<=X, P+(m)<=y) mu(m),
+T_y(X)=sum_(y<q<=X, prime q) M(floor(X/q)),
 H_y(X)=sum_(y<q<=X, prime q==1 mod 3) M(floor(X/q)),
 I_y(X)=sum_(y<q<=X, prime q==2 mod 3) M(floor(X/q)).
 ```
-At root cutoff `y=floor(sqrt X)`, each integer <=X has at most one prime >y, giving the exact smooth/transport identity `M(X)=A_mu(X;y)+T_mu(X;y)` if `T_mu` is defined with **positive** cofactor mass, or `M(X)=A_mu(X;y)-T_mu(X;y)` if `T_mu` uses the repository's sign-reversed convention. **Check the source definition, never interchange these signs.** In `TwoABScaleTransfer.lean`, `squareRootTransportMass` is the NEGATIVE of the high-prime cofactor sum, so `M=A-T` with `T=-sum_q M(floor(X/q))`. In `SquareRootMatchedTransport.lean`, `squareRootTransportPrimeFirst` may use the repository's opposite orientation; verify from its exact definitions before claiming an `A+H-I` dictionary.
-
-For the #919 root cutoff, the exact two-layer representation is
+When `y=floor(sqrt X)`, every integer `m<=X` has at most one rational prime factor `q>y` and its cofactor `c<=floor(X/q)<q`; consequently `mu(qc)=-mu(c)` (including zero on nonsquarefree c). Therefore, **with the explicitly positive prime-transform convention**, all identities are exact:
 ```text
-M(X)=P0(X;y)-2P1(X;y),    P1(X;y)=H_y(X),
-P1(X;y)=sum_(1<=u<=y) c_X(u)*M(u),
-c_X(u)=pi_split(floor(X/u))-pi_split(max(y,floor(X/(u+1)))).
+M(X)=A_y(X)-T_y(X),   T_y(X)=H_y(X)+I_y(X),
+M(X)=P0(X;y)-2*P1(X;y),   P1(X;y)=H_y(X),
+P0(X;y)=A_y(X)+H_y(X)-I_y(X).
 ```
-The `P1` equality and its finite base cases are **PAPER_PROOF / independently checked** in Oct 17 Wheel Claim `20261017-wheel-2`. `pi_split` counts primes `q==1 mod 3`; the max(y,...) imposes the exact cutoff. **No a priori equality of `P0` and original `A_mu` term by term is assumed.**
+The native `RHLean/Analysis/TwoABScaleTransfer.lean` defines `squareRootTransportMass` as **minus** the high-integer Möbius mass, exactly `T_y` at matching cutoff; `RHLean/Analysis/SquareRootMatchedTransport.lean` likewise uses a positive prime-first cofactor transform. Verify native source definitions and all endpoints rather than reinterpreting a positive cofactor transform as an integer-site Möbius charge.
 
-**Proof audit required before using the crosswalk:** select the actual native square-root smooth/transport definition and a consistent prime cutoff, derive the correct signed scalar identity algebraically, then prove or explicitly leave open the *occurrencewise* source map. For example, when `M=A+T_pos` and `T_pos=H+I` on one identical cutoff, comparison yields `P0=A+3H+I`, **not** `A+H-I`. The identity `P0=A+H-I` requires `M=A-(H+I)` with `T=H+I` and cannot be asserted without resolving the native transport convention. This is a source-level red-team requirement and a live corrective instruction to older informal assertions.
+The Oct 17 Wheel quotient-cell compression (PAPER_PROOF / independently checked) is
+```text
+P1(X;y)=sum_(1<=u<=y) c_X(u)*M(u),
+c_X(u)=pi_split(floor(X/u))-pi_split(max(y,floor(X/(u+1)))),
+```
+where `pi_split` counts primes `q==1 mod 3`. Thus the operator itself was already historical: the #919 Hecke layer uses split primes, while original `T_y` also contains inert primes. The correction to smooth `P0` is a signed **character-weighted** transform, not a termwise identity with A.
+
+**Important exact translation to the historical `R`-cutoff `A_R,T_R,H_R,I_R`:** write `A_R=A_R(X)=sum_(m<=X,P+(m)<=R)mu(m)`, `T_R=sum_(R<q<=X)M(floor(X/q))`, with `H_R,I_R` the split/inert parts of `T_R`. For prime `R` let `delta_R=1`; otherwise `delta_R=0`. The `q=R` endpoint yields
+```text
+A_y(X) = A_R(X) + delta_R*M(R-1),
+T_y(X) = T_R(X) + delta_R*M(R-1),
+H_y(X) = H_R(X) + delta_R*1_(R mod 3=1)*M(R-1),
+I_y(X) = I_R(X) + delta_R*1_(R mod 3=2)*M(R-1).
+
+P0(X;R-1) = A_R(X) + H_R(X) - I_R(X)
+             + delta_R*(1+chi_{-3}(R))*M(R-1).
+```
+This is the **corrected cross-coordinate scalar identity**. The tempting omission of the last term is FALSE when `R` is a split prime with `M(R-1) !=0`. Independently verified exact examples:
+```text
+R=7, X=48:  A_R=1, T_R=4, H_R=2, I_R=2,
+             P0=-1, M=-3, correction=-2;
+             naive A_R+H_R-I_R=+1 (WRONG).
+R=13, X=168: A_R=0, T_R=1, H_R=2, I_R=-1,
+             P0=-1, M=-1, correction=-4;
+             naive A_R+H_R-I_R=+3 (WRONG).
+R=103,X=10608: A_R=-126,T_R=-110,H_R=-53,I_R=-57,
+             P0=-124,M=-16,correction=-2.
+```
+These were computed by a separate exact-integer local sieve (Möbius, largest prime factors, Dirichlet-convolution a6 and quotient K), not Lean-verified. Test R prime split/inert, R composite, and arbitrary X around squares; **R=317 is inert**, so its zero correction concealed this issue in earlier informal crosswalk discussions.
+
+The identity is **scalar / exact-coefficient algebra**. It does not give an occurrencewise identification of the Hecke `P0` contributions with the original physical `A_R` atoms or a new bound. A termwise/source-level crosswalk, especially to masked/anchored #915 returned cells, is a separate theorem obligation.
 
 ## 3. Low/high quotient buckets: the actual bound and its arithmetic meaning
 
