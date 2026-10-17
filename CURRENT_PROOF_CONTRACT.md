@@ -1,6 +1,6 @@
 # RH_Lean current proof contract
 
-**Live revision: 2026-10-16. Reviewed baseline: `main@df47c8ae0e751ce12bd0e493156a957d86e02ee4` (merged #961; #958/#959 already merged).** Refresh live main on every run. This contract changes research direction, not any Lean definition, theorem, coefficient or proof assumption.
+**Live baseline: merged #964 on `main@fef979286efa91b23bfced46f0a8a0143b000df0`, as checked 2026-10-17.** The cross-coordinate/low-quotient section below is proposed in a subsequent research-maintenance PR; until it merges, the existing main contract prevails. Refresh live main on every run. This contract changes research direction, not any Lean definition, theorem, coefficient or proof assumption.
 
 ## Unchanged canonical object and open theorem
 
@@ -37,9 +37,9 @@ Read the live [agent instructions](AGENTS.md), [dynamic protocol](docs/DYNAMIC_R
 
 A new result is credited according to exact proof status and quantifier strength, not whether it sounds closer to RH. No canonical endpoint, Mertens exponent or finite A/C bound improved in this cycle.
 
-## Proposed 2026-10-17 Hecke source-payment research contract — draft PR #964
+## Merged #964: Hecke source-payment research contract (no independent 7/8 proof)
 
-**This subsection is proposed in draft PR #964; until a human merges it, the live main contract above governs automated runs. The unchanged endpoint remains `VFCanonicalSquareVonKochStatement`.** This independent-`7/8` milestone is a benchmark for genuine arithmetic savings, NOT a new assertion of `lambda_M <= 7/8` proved by RH_Lean or an equivalent replacement of the canonical goal.
+**PR #964 was human-merged on 2026-10-17. The unchanged endpoint remains `VFCanonicalSquareVonKochStatement`.** This independent-`7/8` milestone is a benchmark for genuine arithmetic savings, NOT a new assertion of `lambda_M <= 7/8` proved by RH_Lean or an equivalent replacement of the canonical goal.
 
 Compiled on main by #919: `a6(n)=1_(gcd(n,6)=1) * (mu*(chi_{-3}mu))(n)`, the original 36-period quotient kernel `K`, `M(X)=sum_(m<=X)a6(m)*K(floor(X/m))`. At a large split prime p>=5, `a6(p)=-2` for p=1 mod 3 and 0 for p=2 mod 3; at p^2 the respective coefficients are +1 and -1. This mod-3 character **selects** surviving first-power split primes: it does not supply an oscillating large-prime phase. The existing bounded signed Abel primitive is an exact identity, not a signed variation estimate.
 
@@ -55,9 +55,40 @@ Compiled on main by #919: `a6(n)=1_(gcd(n,6)=1) * (mu*(chi_{-3}mu))(n)`, the ori
 
 **Stronger sufficient independent inputs (OPEN):** a uniform bound on the **complete** signed quotient bucket variation `V_X=sum_t|B_X(t)-B_X(t+1)|=O_epsilon(X^(7/8+epsilon))` gives `|M(X)|<=4V_X` through the existing signed Abel theorem. Alternatively, genuine square-shell second moment `sum_(H<=r<2H)delta_r^2=O_epsilon(H^(5/2+epsilon))` for all dyadic H yields Mertens exponent <=7/8 by Cauchy–Schwarz; it is a different, stronger sufficient condition, not the native #915 masked-source statistic. Neither is proved, and neither can be inferred from finite measurements.
 
-**Next-cycle research obligation:** the Coordinator compares the full nonlocal `P_0-2P_1` cofactor/owner Gram, the signed quotient-bucket variation, the seven-layer baseline, and the separate shell-energy route against full K1/K2/K3, Nyman, finite A/C. Each of the seven specialists has a specific parallel assignment in `AGENTS.md` and `docs/DYNAMIC_RESEARCH_AGENTS.md` (same PR). Prove a **new uniform signed restriction** independent of OpenAI's theorem, preserving actual coefficient, physical prime/cofactor occurrence, cutoff, restoration and full covariance; check the R=317 rank obstruction before asserting single-rectangle moment admissibility. Historical first-bad returned admission needs its separate bridge. Keep every actual mathematical/CI status precise.
+**Current comparative research obligation (refined by later cross-coordinate audit):** the Coordinator compares the full nonlocal `P_0-2P_1` cofactor/owner Gram, the signed quotient-bucket variation, the seven-layer baseline, and the separate shell-energy route against full K1/K2/K3, Nyman, finite A/C. Each of the seven specialists has a specific parallel assignment in `AGENTS.md` and `docs/DYNAMIC_RESEARCH_AGENTS.md` (same PR). Prove a **new uniform signed restriction** independent of OpenAI's theorem, preserving actual coefficient, physical prime/cofactor occurrence, cutoff, restoration and full covariance; check the R=317 rank obstruction before asserting single-rectangle moment admissibility. Historical first-bad returned admission needs its separate bridge. Keep every actual mathematical/CI status precise.
 
 **Evidence and reproducibility:** [Hecke cutoff research note](research/HECKE_SPLIT_PRIME_CUTOFF_TRADEOFF_20261016.md), [separate shell-energy mechanism](research/INDEPENDENT_SEVEN_EIGHTHS_SQUARE_SHELL_ENERGY_20261016.md), and their C++/Python scripts in PR #964. Their finite census claims are to be independently reproduced before credit. These paper sectors are not automatically Lean compiled, the independent uniform signed core remains **OPEN**, and no improvement of the canonical endpoint is claimed.
+
+## Cross-coordinate Hecke / original smooth-transport / low quotient — proposed clarified contract
+
+**Mandatory full detail:** [cross-coordinate seven-agent directive](docs/CROSS_COORDINATE_LOW_QUOTIENT_RESEARCH_2026_10_17.md). Before invoking any bound, compare exact source declarations and current GitHub claim/CI status. All results below are genuine integer identities or separately labeled PAPER_PROOF; the open 7/8 signed input is not implied by a scalar equality. The previous square-endpoint low/high quotient split is **already in** `research/VF_QUOTIENT_VARIATION_FIRSTBAD_ATTACK.lean`; the October 17 Census extends the high-side control to general X with a boundary correction.
+
+**Distinguish three uses of S=A-T:** per-block odd-prime survivor census `P_R=R-C_R` (counts); signed square-prefix `M(R^2-1)=A_R-T_R` (actual Möbius); and the #919 signed four-shift Hecke functional preserving sitewise `smooth-high=sharp` (arbitrary weighted finite linearity). They are not automatically termwise or normwise identical, and none is the original #915 zero-target NNS source.
+
+At `X=R^2-1`, the **Hecke root cutoff is R-1**, not the historical original transport cutoff R. With positive cofactor transport `T_R=sum_(R<q<=X, prime)M(floor(X/q))`, historical split/inert parts `H_R,I_R`, `A_R=sum_(m<=X,P+(m)<=R)mu(m)`, the correct exact scalar crosswalk is:
+```text
+M(X)=A_R-T_R=P0(X;R-1)-2P1(X;R-1).
+P0(X;R-1)=A_R+H_R-I_R
+           +1_(R prime)*(1+chi_{-3}(R))*M(R-1).
+```
+When R is a **split prime**, q=R belongs to the Hecke large-prime layer but not the historical `q>R` transform; the last correction can be nonzero. The previously stated `P0=A_R+H_R-I_R` without an endpoint was false (independent integer witnesses R=7 and R=13); it happened to survive the **inert** R=317 example. When using a matched cutoff `y=floor(sqrt X)`, the exact simpler dictionary is `M=A_y-(H_y+I_y)=P0-2H_y`, hence `P0=A_y+H_y-I_y`. These are scalar relations; any original physical occurrence/weight, returned source mask or mixed covariance identification still requires separate proof.
+
+Define for all integers `X>=256`, `r=floor(sqrt X)`,
+```text
+a6(n)=1_(gcd(n,6)=1)*(mu*(chi_{-3} pointwise mu))(n),
+C6(z)=sum_(m<=z)a6(m),
+B_X(t)=C6(floor(X/t))-C6(floor(X/(t+1))),
+D_X(t)=B_X(t)-B_X(t+1)
+      =C6(floor(X/t))-2C6(floor(X/(t+1)))+C6(floor(X/(t+2))),
+V_low=sum_(t<=r)|D_X(t)|,  V_high=sum_(r<t<=X)|D_X(t)|.
+```
+The exact coefficient `a6` and quotient kernel K are the merged #919 objects; **retain buckets where K(t)=0**. Oct 17 Census `20261017-census-2` gave the new **PAPER_PROOF / REFEREE_PENDING** general-X formula `V_high=2sum_(n<=floor(X/(r+1)))|a6(n)|-|B_X(r+1)|<=2sqrt X`. The existing compiled Abel theorem then supplies `|M(X)|<=4(V_low+V_high)`.
+
+The true unproved **stronger sufficient** quantitative target is a *uniform in X* genuine coefficient estimate `V_low(X)=O_epsilon(X^(7/8+epsilon))`. It is not implied by `S=A-T`, scalar `P0-2P1`, period-36 mean-zero, matched/transport correlation on a different carrier, a norm bound on only positive terms, or finite Census measurements. The separately viable weaker objective is a fully source-admitted signed original first-bad payment; its consumer, missing bridges and zero-target covariance remain distinct.
+
+**Mandatory distinct research approaches:** (a) arithmetic low-bucket hyperbolic second-difference / genuine split-inert convolution estimate (Analytic, Wheel); (b) occurrence-faithful matched born-smooth / high-prime-owner cross-coordinate mixed response **before norms** (Owner, Analytic); (c) signed-variation controls and counterexamples (Census, Referee); (d) accepted nonduplicate formalization only (Lean); (e) genuine competing full K1/K2/K3, MU-LIFT, SB-7/8, finite A/C, Nyman, original VF carrier (Coordinator). See the linked document's detailed per-role deliverables and old source index.
+
+**Known status:** PR #964 merged, Oct 17 Wheel and Census paper identities plus separate Referee acceptance of large-square constants 3 and 51/8, and draft PR #965 formally proves **only the floor-loss step** of the tail sharpening (its BAD source bound is an explicit hypothesis). At latest observed head `209eadf4cf1ae213bee6c2a55e165e22dfa5174c` all 12 CI checks are GREEN; PR #965 was still draft and unmerged. Refresh before final. No independently proved 7/8 Mertens bound, low variation, canonical VF von-Koch estimate or RH.
 
 ## Raw factor-depth ledger and exact scope
 
