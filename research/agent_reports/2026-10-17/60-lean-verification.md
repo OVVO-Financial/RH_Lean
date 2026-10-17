@@ -1,9 +1,9 @@
 # RH_Lean agent daily report - 2026-10-17 / RH | Lean Verification
 
-**Status:** PARTIAL / IN_PROGRESS  
+**Status:** SUBSTANTIVE PROOF COMPLETE / ONE LEGACY CI WORKFLOW PENDING  
 **Run ID:** 2026-10-17T05:17:00-04:00, scheduled invocation  
 **Canonical objective:** `VFCanonicalSquareVonKochStatement` remains OPEN  
-**Result class:** `PROVED_IN_LEAN_ON_SUPERSEDED_PR_HEAD` for a conditional constant-sharpening consumer; latest exact-head CI pending
+**Result class:** `PROVED_IN_LEAN_ON_PR_HEAD` for a conditional constant-sharpening consumer; one legacy exact-head import-closure workflow pending
 
 ## A. Provenance and authority
 
@@ -84,3 +84,27 @@ Latest-head evidence at this checkpoint:
 Refresh PR #965 and exact head `a6bcf08e442f0368c261237b676cd7878581d449`. If every attached workflow completes green, record exact run/job evidence, inspect/establish the axiom footprint, mark ready for human review, and finalize this report. If CI fails, inspect the specific job log and repair only the genuine issue. Canonical endpoint, signed Hecke core, finite A/C, complete original source payment and RH remain OPEN.
 
 No RH proof claim.
+
+
+## G. Final exact-head refresh - 2026-10-17
+
+The proof branch advanced to final head `209eadf4cf1ae213bee6c2a55e165e22dfa5174c`, source blob `5fde384a2de250bbd0f927685bb09ee2bb90a03a`, root-manifest blob `526fc3efb80b1703693646ebe5387dc71a5fc796`. Build-enforced `#guard_msgs` now certifies both theorem footprints exactly as `[propext, Classical.choice, Quot.sound]`.
+
+Exact-head successful workflows:
+
+- Lean source audits `39021163793`: Hosted Lean build and audit jobs both GREEN; project build, exact declaration graph, warnings-as-errors, unfinished-proof/project-axiom audit, paper/Analysis boundary, root manifest and cache regressions all passed.
+- Proof inventory `39021163731`.
+- Public export verification `39021163799`.
+- Renewal dyadic two-shell `39021163725`.
+- Rough dyadic q2 `39021163765`.
+- Dyadic survivor matched splice `39021163722`.
+- VF recursive child population `39021163749`.
+- VF source-to-sector-six inlet `39021163723`.
+- VF pre-914 consolidation `39021163747`.
+- VF normalized infrastructure `39021163782`.
+
+Still running without a reported failure: VF first-bad final aggregate contraction `39021163752`. Therefore PR #965 remains `DRAFT`, exact-head primary proof status is `PROVED_IN_LEAN_ON_PR_HEAD`, and repository state is not yet review-ready. No no-op rerun, merge or auto-merge action was taken. A later run should refresh only this remaining workflow; if it succeeds on the unchanged head, mark the PR ready for human review and append that evidence.
+
+Early durable checkpoint: report commit `af26ae7ffd37bce8011b8a9cb342087f0c5e3401`, readback blob `278db10fc81aabc367e0d701f0e99a3a80209221`.
+
+Final completeness: `PARTIAL_CI_PENDING`. The mathematics compiled; the genuine `BAD_y` arithmetic premise, signed core, canonical endpoint and RH remain open.
