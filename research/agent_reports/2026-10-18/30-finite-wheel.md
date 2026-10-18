@@ -95,6 +95,7 @@ sum_{m squarefree, gcd(m,pq)=1}
   |mu(m) * sum_{d in A_(r,pq)(m)} mu(d)|
 = #{n in I_r : mu(n) != 0}.                              (L1)
 ```
+Thus applying a two-prime Boolean fold and then taking absolute values produces exactly the original squarefree population; it saves nothing.
 
 If an orbit has two sites, they are `pm` and `qm`. Their gcd is `m`, their unshared primes are exactly `p,q`, and
 ```text
@@ -124,6 +125,7 @@ inside `I_10`. They are incomparable, but have opposite divisor parity:
 ```text
 mu(6) = +1,  mu(7) = -1.
 ```
+Since `mu(17)=-1`, the two physical site signs are `mu(102)=-1` and `mu(119)=+1`; this one three-prime orbit cancels exactly.
 
 This witness is a falsifier against overextending (SC). Three prime faces are the first Boolean complexity at which one orbit can contain incomparable divisors of opposite parity. It does not imply aggregate shell cancellation: every cross-orbit and energy interaction must still be restored.
 
