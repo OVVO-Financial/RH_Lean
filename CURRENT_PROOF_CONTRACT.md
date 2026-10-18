@@ -1,5 +1,7 @@
 # RH_Lean current proof contract
 
+> **2026-10-18 execution refinement (pending merge):** [S=A-T two-scale signed renewal attack plan](research/SIGNED_RENEWAL_TWO_SCALE_ATTACK_PLAN_20261018.md). First seek a genuinely *independent* power-saving on the full signed square-shell second moment, with a parameterized high-divisor tail and honest prime-only d=1 compensation; then seek separate nonlocal cross-shell compensation for the RH-level endpoint. The plan preserves the original strict vs non-strict root cutoff, historical source #915, and #975/#976 obstructions. It records #978 as an independent, still-draft Λ-hyperbola/anchor interface, not a proved signed estimate. No canonical target, already established theorem, or current closed-status label is changed by this research steering.
+
 ## ACTIVE mathematical seam after the 2026-10-18 PNT-first user pivot (upon merge)
 
 **Primary operating authority:** [PNT-first signed cofactor / historical-return contract](docs/PNT_FIRST_SIGNED_COFACTOR_SEAM_2026_10_18.md). **PNT is established**, not an RH hypothesis. Use its true asymptotic/error theorem for genuine prime populations; *never* replace actual prime indicators by pointwise Li density without retaining the signed discrepancy and source weights.
