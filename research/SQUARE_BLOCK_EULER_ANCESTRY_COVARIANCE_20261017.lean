@@ -84,8 +84,10 @@ theorem squareBlock_atMostOneHighPrime
   have hblock : R ^ 2 ≤ n ∧ n < (R + 1) ^ 2 := by
     simpa [canonicalSquareBlock, Finset.mem_Ico] using hn
   have hUlow : R ^ 2 ≤ U := by
+    have hsquare : (R + 1) ^ 2 = R ^ 2 + 2 * R + 1 := by ring
     dsimp [U]
-    nlinarith
+    rw [hsquare]
+    omega
   have hUhigh : U < (R + 1) ^ 2 := by
     dsimp [U]
     omega
@@ -267,7 +269,7 @@ theorem ancestryCell_signedMass (x : ℕ) (v : ℕ × ℕ × ℕ) :
           apply Finset.sum_congr rfl
           exact hpoint
     _ = (-1 : ℤ) ^ (v.1 + v.2.1) * (ancestryCellCount x v : ℤ) := by
-          simp [ancestryCellCount, Finset.sum_const, nsmul_eq_mul, mul_comm]
+          simp [ancestryCellCount, Finset.sum_const, mul_comm]
 
 /-- Complete A_(k,l,j) tensor reassembles the *original signed pair sum*.
 All finite factor depths and all shared-prime depths are retained.
