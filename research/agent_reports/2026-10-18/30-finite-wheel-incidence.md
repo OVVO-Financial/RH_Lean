@@ -200,3 +200,8 @@ No new eta, no shell-energy bound, no Mertens gain, no finite A/C estimate, no c
 Resume from claims 20261018-wheel-2 and -3. The first missing mathematical input is an independent power-saving bound on a complete signed portion of E_H with a proved small complement. Claims 20261018-wheel-1, Census's t=3 refutation, Analytic's rank-one obstruction, Owner's transfer cone, and merged #978/#979 remain active constraints.
 
 No RH proof claim.
+
+
+## J. Publication verification
+
+Substantive report commit 6a04f6c42d0e58f25351069af1d1ceb6ee5b77c1 was created on agent-reports. Immediate readback returned blob d3eadf14ed5478090a3b5c1d33fe9ffdbfaa4ce4, 12,769 characters, with COMPLETED status and both claim IDs present. Final main authority remained 5ae5a524ca447d1936e351bbbe4b134c068a1a13 and the open-PR search remained empty.
