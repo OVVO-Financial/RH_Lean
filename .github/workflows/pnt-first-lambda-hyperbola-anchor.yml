@@ -1,0 +1,127 @@
+name: PNT-first Lambda hyperbola and anchor Lean
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - "research/PNT_FIRST_LAMBDA_HYPERBOLA_ANCHOR_20261018.lean"
+      - ".github/workflows/pnt-first-lambda-hyperbola-anchor.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  lean:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - name: Restore Lake packages
+        uses: actions/cache/restore@v5
+        with:
+          path: .lake/packages
+          key: lake-packages-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
+      - uses: leanprover/lean-action@v1
+        with:
+          use-github-cache: false
+          use-mathlib-cache: true
+          build: false
+          test: false
+          lint: false
+      - name: Apply StrongPNT Lean 4.24 patches
+        run: |
+          python3 scripts/strongpnt_424/apply.py
+          python3 scripts/strongpnt_424/apply_post.py
+          python3 scripts/strongpnt_424/apply_pnt5_mid.py
+          python3 scripts/strongpnt_424/apply_pnt5_strong.py
+          python3 scripts/strongpnt_424/apply_lint.py
+      - name: Restore StrongPNT build cache
+        uses: actions/cache/restore@v5
+        with:
+          path: |
+            .lake/packages/PrimeNumberTheoremAnd/.lake/build
+            .lake/packages/StrongPNT/.lake/build
+          key: strongpnt-port-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-${{ hashFiles('scripts/strongpnt_424/*.py') }}
+          restore-keys: |
+            strongpnt-port-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-
+      - name: Prebuild StrongPNT
+        run: lake build StrongPNT.PNT5_Strong
+      - name: Restore RHLean cache
+        uses: actions/cache/restore@v5
+        with:
+          path: .lake/build
+          key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py', 'RHLean.lean', 'RHLean/**/*.lean') }}
+          restore-keys: |
+            rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py') }}-
+            rhlean-build-${{ runner.os }}-
+      - name: Build reused root-library modules
+        run: |
+          lake build RHLean.Analysis.MobiusRenewalTelescope
+          lake build RHLean.Analysis.NativePNTSignedSecondSelbergFactorFourMoments
+      - name: Check PNT-first exact interfaces with warnings fatal
+        run: |
+          mkdir -p .lake/build/lib/lean
+          set +e
+          lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.PNT_FIRST_LAMBDA_HYPERBOLA_ANCHOR_20261018.olean research/PNT_FIRST_LAMBDA_HYPERBOLA_ANCHOR_20261018.lean > /tmp/pnt_first_lean.txt 2>&1
+          status=$?
+          set -e
+          cat /tmp/pnt_first_lean.txt
+          if [ "$status" -ne 0 ]; then
+            # Surface each Lean diagnostic as a check-run annotation (diagnostics only; the step still fails).
+            python3 - <<'PY'
+          import re
+          out = open('/tmp/pnt_first_lean.txt').read()
+          parts = re.split(r'\n(?=research/[^\n]*?:\d+:\d+: )', '\n' + out)
+          n = 0
+          for m in parts:
+              mm = re.match(r'(research/[^:\n]+):(\d+):(\d+): (error|warning)(.*)', m.strip(), re.S)
+              if mm and n < 10:
+                  path, line, col, kind, rest = mm.groups()
+                  text = (kind + rest).strip()[:1800]
+                  text = text.replace('%', '%25').replace('\r', '').replace('\n', '%0A')
+                  print(f"::error file={path},line={line},col={col}::{text}")
+                  n += 1
+          PY
+            exit "$status"
+          fi
+      - name: Audit standard axioms only
+        run: |
+          cat >/tmp/pnt_first_axioms.lean <<'EOF'
+          import «research.PNT_FIRST_LAMBDA_HYPERBOLA_ANCHOR_20261018»
+          #print axioms RHLean.Analysis.pntFirst_moebiusLog_divisorSum_complex
+          #print axioms RHLean.Analysis.pntFirst_landau_vonMangoldt_mertens
+          #print axioms RHLean.Analysis.pntFirst_lambdaError_hyperbola_total
+          #print axioms RHLean.Analysis.pntFirstLambdaError_add_dual
+          #print axioms RHLean.Analysis.pntFirst_sum_moebius_div_eq
+          #print axioms RHLean.Analysis.pntFirstLambdaModel_eq
+          #print axioms RHLean.Analysis.pntFirst_cofactorWindow_below_anchor
+          #print axioms RHLean.Analysis.pntFirst_cofactorWindow_inRun
+          #print axioms RHLean.Analysis.pntFirst_cofactorWindow_inRun_iff
+          #print axioms RHLean.Analysis.pntFirst_cofactorWindow_height_inRun_iff
+          EOF
+          lake env lean -DwarningAsError=true /tmp/pnt_first_axioms.lean | tee /tmp/pnt_first_axioms.log
+          if grep -q 'sorryAx' /tmp/pnt_first_axioms.log; then exit 1; fi
+          python3 - <<'PY'
+          import re
+          log = open('/tmp/pnt_first_axioms.log').read()
+          allowed = {'propext', 'Classical.choice', 'Quot.sound'}
+          for line in log.splitlines():
+              m = re.search(r"depends on axioms: \[(.*)\]", line)
+              if m:
+                  used = {a.strip() for a in m.group(1).split(',') if a.strip()}
+                  extra = used - allowed
+                  assert not extra, f"non-standard axioms: {extra}"
+          print('PASS standard axioms only')
+          PY
+      - name: Reject admitted proofs
+        run: |
+          python3 - <<'PY'
+          import pathlib, re
+          path = 'research/PNT_FIRST_LAMBDA_HYPERBOLA_ANCHOR_20261018.lean'
+          s = pathlib.Path(path).read_text()
+          body = re.sub(r'/-.*?-/', '', s, flags=re.S)
+          body = re.sub(r'--.*', '', body)
+          assert not re.search(r'\b(sorry|admit|axiom)\b', body), path
+          print('PASS no sorry/admit/axiom in Lean source')
+          PY
