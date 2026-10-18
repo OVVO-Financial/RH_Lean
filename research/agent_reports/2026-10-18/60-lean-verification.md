@@ -107,3 +107,80 @@ Quantitative status: `NO_NEW_QUANTITATIVE_RESULT`. No `kappa>0`, no shell `H^(5/
 The first genuine open arithmetic obligation is an independently proved all-depth cross-base or cross-depth signed estimate retaining every physical pair and boundary. Today's `r=9` counterexample shows that a fixed-depth `t=3` truncation cannot serve as that estimate. Any adjacent-depth recurrence must include a uniform, independently bounded alternating tail; merely restating the complete covariance in `A_t` coordinates is target-equivalent.
 
 No RH proof claim.
+
+
+---
+
+## G. Authorized live-contract continuation - claim `20261018-lean-2`
+
+**Continuation run:** 2026-10-18T17:59:15-04:00 scheduled invocation  
+**Status:** PROOF COMPLETE / REVIEW-READY PR / ALL EXACT-HEAD CI GREEN  
+**Result class:** `PROVED_IN_LEAN_ON_PR_HEAD / EXACT RAW-CARRIER STRUCTURAL NO-GO / NO_NEW_QUANTITATIVE_RESULT`
+
+### Authority and refreshed continuity
+
+The live baseline is now `main@5ae5a524ca447d1936e351bbbe4b134c068a1a13`, merge of PR #979. Current authority blobs are `AGENTS.md` `4c66a1d462df98c84deebf0069ad11f904039858` and `CURRENT_PROOF_CONTRACT.md` `2fa9931dcdc1fc8a816aefb8aa348db12ee9a384`. The pinned toolchain remains Lean 4.24.0 (`lean-toolchain` blob `c00a53503cc3cc776c290056ed21ce7e5d80b083`) with Mathlib v4.24.0 (`lakefile.lean` blob `a37237c4815d2e2d122704fabeb8de63744288f0`).
+
+All current October 18 specialist reports were consumed before selection: Coordinator `c9337407b72329a8fc68bd8694f7660a72aafc52`, Owner `4655c4379f9a5d4b13a9f43c1c1c0addfe90d836`, Analytic `f7b981952037bffa17c67b518edb0c5638f01f05`, Wheel-incidence `1f2e83a07d2d277f1137fd0239109f3abea5cbee`, Wheel `62da494755501409879e894779d026aed70835f8`, Census `701b74c281d01f6727669808566d76b1e8758b26`, and Referee `c0360eaa56c34198f21f9387113fd565a19b542f`. The complete October 17 set remains `YESTERDAY=CARRY_FORWARD` at the blobs recorded in Section A. External inbox blob `038018145c0fddb2f6306c0712373adf9cd1ea52` was re-read.
+
+Live PR search at intake returned none. PRs #975, #976, #977, #978 and #979 are merged; the earlier claim `20261018-lean-1` source is now on `main`. No valid proof PR required repair.
+
+### Candidate audit
+
+The updated Referee independently accepted four nonquantitative candidates: the fixed-cofactor anchor residue, `TAIL(Y)`, the rank-one outer-prime obstruction, and Owner's raw native/Mobius transfer cone. The live assignment prioritizes missing exact statements without attaching a quantitative consumer. Repository search found no existing transfer-cone declaration.
+
+The transfer cone was selected because it is exact, independently accepted, nonduplicate, and records a durable obstruction against an invalid scalar carrier substitution. It is deliberately formalized only at its proved raw-weight scope; the unique-high-prime occurrence partition and any masked #915 transport remain separate paper obligations.
+
+### Claim `20261018-lean-2`
+
+For nonnegative real sector weights `A,B,Z`, define the native mass as `A+B+Z` and the signed Mobius mass as `B-A`. Then
+
+```text
+(A+B+Z)^2 - (B-A)^2 = (2A+Z)(2B+Z) >= 0,
+```
+
+hence `(B-A)^2 <= (A+B+Z)^2`.
+
+This is the exact algebraic core of Owner claim `20261018-owner-1`, independently accepted as Referee claim `20261018-referee-6`.
+
+**No-circularity:** the proof is elementary ordered-ring algebra and uses no Mertens estimate, shell-energy premise, PNT error estimate, covariance sign, #915 payment, canonical endpoint hypothesis, or RH-strength input.
+
+**Scope:** exact raw-carrier structural no-go. It rules out norm-preserving scalar substitution of the weighted Mobius mass for the positive native composite mass. It does not prove the prime/cofactor partition, original returned-cell admission, masks, clipping, historical normalization, restoration, a signed quantitative saving, or any source-to-bound implication.
+
+### Implementation and exact-head verification
+
+PR: https://github.com/OVVO-Financial/RH_Lean/pull/980  
+Branch: `agent/lean-verification/20261018-raw-transfer-cone`  
+Base: `5ae5a524ca447d1936e351bbbe4b134c068a1a13`  
+Head: `c1d261e2a265f7ada3c6abf1e0b1a128009a4979`  
+Source: `research/RAW_TRANSFER_CONE_20261018.lean`, blob `b47db297c6b9e9eaee5d6d884a27bb211b9053ff`  
+Workflow blob: `793230dcfefc659855211e0479151dd134651a25`
+
+New declarations:
+
+- `RHLean.Analysis.rawTransferCone_sq_sub_sq`
+- `RHLean.Analysis.rawTransferCone_sq_nonneg`
+- `RHLean.Analysis.rawTransferCone_moebius_sq_le_native_sq`
+
+All ten workflows on the exact head completed successfully:
+
+- Raw transfer cone Lean `39170474286`: warning-fatal module compile and explicit axiom audit.
+- Lean source audits `39170474175`.
+- Proof inventory `39170474202`.
+- Public export verification `39170474236`.
+- Targeted Lean iteration `39170474198`.
+- VF recursive child population and complement capacity `39170474247`.
+- VF pre-914 consolidation `39170474177`.
+- VF first-bad source to sector-six inlet `39170474179`.
+- VF first-bad normalized infrastructure `39170474174`.
+- VF first-bad final aggregate contraction `39170474172`.
+
+The exact axiom footprint of all three declarations is `[propext, Classical.choice, Quot.sound]`. No `sorry`, `admit`, custom axiom, root-import change, target-equivalent premise, or CI weakening was introduced. PR #980 was marked ready for human review only after every exact-head workflow was green. It remains open and unmerged; no merge or auto-merge action was taken.
+
+### Updated proof-gap map
+
+The transfer-cone theorem closes only the scalar identification error: raw native positive mass is not isometric to signed Mobius mass. The first genuine VF obligation remains an occurrence-level, once-only masked transfer identity preserving actual weights, anchors, clipping, squareful restoration, global residual, and the original NNS denominator.
+
+On the arithmetic shell route, `TAIL(Y)` pays only the high-divisor budget; its absolute low complement contains the target through the `d=1` row. The existing outer-prime tile is rank one and has no mean-zero `q` mode. Therefore the next quantitative theorem must introduce genuine cross-shell or cofactor/divisor arithmetic dependence, restore the shell mean and every complement, and establish an independent power saving. The canonical `VFCanonicalSquareVonKochStatement`, Mertens square-root bound, and RH remain OPEN.
+
+No RH proof claim.
