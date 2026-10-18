@@ -153,3 +153,150 @@ Also `(1+rho)(U^2+V^2)=2545^2=6477025` within long-double rounding. A naive larg
 Do not rerun the 317/1027 tensor or these three bands unchanged. Next run should derive or falsify a recurrence between adjacent unshared-depth populations `A_t(H)` and `A_(t+1)(H)`, using a held-out band `512<=r<1024` and preserving exact pair multiplicities. A successful theorem must quantify the full alternating tail and then show its strict implication to the shell `5/2-kappa` input.
 
 No RH proof claim.
+
+
+---
+
+## Continuation update - 2026-10-18T13:16-04:00
+
+**Status:** COMPLETED  
+**Claim:** \`20261018-census-2\`  
+**Evidence:** \`FINITE_COMPUTATION / HELD-OUT FALSIFICATION / MECHANISM RESTRICTION\`; \`NO_NEW_QUANTITATIVE_RESULT\`
+
+### I. Refreshed authority and new assignment
+
+Authority was refreshed after the morning report. Live \`main\` is
+\`5ae5a524ca447d1936e351bbbe4b134c068a1a13\`, the merge of PR #979; no PR is
+open. Governing blobs are \`AGENTS.md\`
+\`4c66a1d462df98c84deebf0069ad11f904039858\`,
+\`CURRENT_PROOF_CONTRACT.md\`
+\`2fa9931dcdc1fc8a816aefb8aa348db12ee9a384\`, the PNT-first contract
+\`e8acbeff24942d1f8ee0079f715afff2ddda2c33\`, and the two-scale attack plan
+\`0606d764ffebb4639cc0abb52ccbef30546b7764\`.
+
+The exact source declarations inspected at this head are
+\`TwoABScaleTransfer.lean\` blob
+\`fae76878063583322a48a329810cc1cc7b037ee7\`,
+\`SquareRootMatchedTransport.lean\`
+\`e9ab3bff6b8819182c39721f92859679d250002e\`,
+\`SquareRootSmoothRenewalInstantiation.lean\`
+\`9a63c8c2f9e42a64c0010721a78101c1f56858b1\`, and
+\`SquareBlockSmoothTransportGram.lean\`
+\`09f5e0108eb254a2f20fa2fd694d69cb455b2857\`. They prove exact
+smooth-minus-transport and PNT decompositions, not a signed estimate.
+
+All named October 18 reports were consumed at their current blobs: Coordinator
+\`c9337407...\`, Owner \`4655c437...\`, Analytic \`f7b98195...\`, Wheel
+\`62da4947...\`, Census \`08d80d6...\`, Referee \`096513f9...\`, Lean
+\`0ed62011...\`. The complete October 17 set remains
+\`YESTERDAY=CARRY_FORWARD\`. External inbox blob
+\`038018145c0fddb2f6306c0712373adf9cd1ea52\` was re-read.
+
+Analytic claim \`20261018-analytic-1\` proves the proposed same-shell outer-prime
+tile is rank one. Its requested discriminator is therefore the cross-shell
+cofactor response itself, not a nonexistent mean-zero outer-prime mode.
+
+### J. Preregistered question
+
+For
+\[
+e_r(c)=\mu(c)P_r(c)-a_r^{\rm inc}(c),\qquad
+G_{r,C}=\sum_{C\le c<2C,\ c\le r}e_r(c),
+\]
+does the Li shell increment explain the sign and scale of
+\(\sum Q_rG_{r,C}\), or do the exact prime discrepancy and omitted cofactor
+complement remain load-bearing?
+
+The discovery block was \(H=2048\); the frozen held-out block was
+\(4096\le r<8192\). Bands were fixed before the held-out run:
+\(c=1,2,3\), \([8,16)\), \([64,128)\), \([512,1024)\), and
+\([4096,8192)\). The union and its complete complement were both retained.
+Failure criterion: opposite signs for the exact and Li terms, or a complement
+carrying a comparable share of the exact mixed term.
+
+### K. Exact held-out results at \(H=4096\)
+
+The sieve covered every integer through \(2^{26}-1=67,108,863\), with
+3,957,809 primes. For every one of the 4,096 shells,
+\[
+\sum_{c\le r}e_r(c)=-\delta_r
+\]
+held exactly. The block totals were
+\(\sum\delta_r=118\), \(\mathcal E(H)=30,291,950\), and therefore the complete
+response had \(\sum G_{\rm all}=-118\).
+
+| response | \(\sum G\) | \(V_{H,2H}(G)\) | exact \(\sum Q_rG_r\) | Li part | discrepancy part |
+|---|---:|---:|---:|---:|---:|
+| all cofactors | -118 | 391,878 | 2,796,235 | -149,681.6334 | 2,945,916.6334 |
+| \(c=1,2,3\) compensated | -21,496 | 179,898 | -14,721,285 | -15,198,254.6520 | 476,969.6520 |
+| \(c\ge4\) complement | 21,378 | 431,456 | 17,517,520 | 15,048,573.0186 | 2,468,946.9814 |
+| prescribed-band union | -1,250 | 342,302 | 404,921 | -856,465.3054 | 1,261,386.3054 |
+| prescribed complement | 1,132 | 395,926 | 2,391,314 | 706,783.6720 | 1,684,530.3280 |
+
+Thus the complete exact mixed term is positive while its Li component is
+negative. The prime-discrepancy component is 1.0535 times the exact total and
+reverses the sign. The complement of the prescribed bands supplies 85.52% of
+the exact total. This held-out finite hypothesis, “Li main term plus the named
+bands predicts the complete response,” is **REFUTED**. This does not refute a
+future all-band Type I/II theorem.
+
+The independent anchor check gives
+\[
+(\sum P_r(1),\sum P_r(2),\sum P_r(3))
+=(2,879,938,1,499,526,1,024,271),
+\]
+hence \(\sum A_r^{\rm anchor}=-356,141\) and
+\(A^{\rm anchor}\log H/H^2=-0.176566693805551159\). At \(H=2048\), the same
+implementation exactly reproduced Coordinator's published
+\((781,924,408,552,279,728,-93,644)\) row.
+
+Individual prescribed bands were also sign-incoherent. Their exact
+\(\sum QG\) values were \(38,849,594\), \(-30,321,027\),
+\(-23,249,852\), \(15,665,712\), \(-408,308\), \(-872,017\), and
+\(740,819\), in the order declared above. No local band has been promoted to a
+universal sign law.
+
+### L. Algorithms, independent checks and numerical control
+
+The primary C++17 code used an exact linear Möbius/largest-prime-factor sieve,
+binary-search prime counts at the literal endpoints
+\[
+P_r(c)=\pi(\lfloor((r+1)^2-1)/c\rfloor)-\pi(\lfloor r^2/c\rfloor),
+\]
+direct shell multiples for \(B_r(d)\), and the literal finite inversion for
+\(a_r^{\rm inc}(c)\). Build:
+\`g++ -O3 -std=c++17 -Wall -Wextra -Werror\` with GCC 13.3.0.
+Source SHA-256:
+\`a88cedb0c2fbcd8ce471210cb389a6741c8944dbe372c5dc18b0d1ede7e4ae91\`.
+
+A structurally separate Python 3.12.14 checker enumerated divisors of each
+smooth squarefree shell integer, rather than scanning shell multiples. At
+\(H=32\), both implementations gave
+\(\sum\delta=-15\), \(\sum G_{\rm all}=15\), zero identity failures, and
+\(\sum QG_{\rm all}=553\). Checker SHA-256:
+\`6d51288788e2d9ffae198e8eeb29b00ade1d1b4ae7a399496edafa609deb111a\`.
+
+Only the Li column is approximate: long-double 128-panel composite Simpson
+integration of \(dt/\log t\) on each shell. Repeating with 64 panels left every
+displayed value unchanged through at least 15 significant decimal digits.
+All signs, counts, variations, complements, Möbius identities, and exact mixed
+terms are integer-certified.
+
+### M. Proof impact and continuation checkpoint
+
+The experiment confirms Analytic's rank-one diagnosis and adds a finite
+mechanism restriction: neither the smooth Li increment nor a sparse menu of
+cofactor scales can replace the complete arithmetic response. The
+prime-location discrepancy is not a perturbative remainder on this block, and
+the \(c\ge4\) complement is essential to the sign.
+
+The first useful new theorem must therefore control a complete cross-shell
+cofactor/divisor transform with the Li term, exact prime discrepancy, \(c=1\),
+and every complementary band restored. A promising next discriminator is to
+decompose the discrepancy contribution by arithmetic cofactor class
+(squarefree sign, least/greatest prime factor, and endpoint birth/death) on a
+development block, freeze one deterministic class statement, and test it at
+\(H=8192\). Do not rerun the full \(H=4096\) table unchanged.
+
+No \(\eta>0\), shell-energy exponent improvement, canonical VF estimate, or RH
+proof is claimed.
