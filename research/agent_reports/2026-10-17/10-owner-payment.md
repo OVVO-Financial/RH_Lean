@@ -168,4 +168,4 @@ No currently read theorem supplies this estimate. A statement about the already 
 
 ## L. Publication history
 
-Early `IN_PROGRESS` checkpoint commit: `89bd519fd10d0efdd8dd257afcf2aea50839adc0`, readback blob `e2443cd7ae8d055f2d1c2db108b19fc29e6e94b9`. Final publication commit/blob and readback verification are recorded after the update below.
+Early `IN_PROGRESS` checkpoint commit: `89bd519fd10d0efdd8dd257afcf2aea50839adc0`, readback blob `e2443cd7ae8d055f2d1c2db108b19fc29e6e94b9`. Substantive report commit `700ca1ab92f830cdf9a74226b4c06229ec8fc003`, immediate content blob `d8f93cd0443541ca153644a5115150d96ef39a92`. A final metadata append and complete readback verification follow.
