@@ -1,0 +1,62 @@
+name: Fixed square-block Euler ancestry covariance Lean
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - "research/SQUARE_BLOCK_EULER_ANCESTRY_COVARIANCE_20261017.lean"
+      - "research/SQUARE_BLOCK_EULER_ANCESTRY_COVARIANCE_20261017.md"
+      - "scripts/square_block_euler_ancestry_20261017.py"
+      - ".github/workflows/square-block-euler-ancestry-covariance.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  exact-census:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify genuine Möbius pairs and fixed-wheel census
+        run: python3 scripts/square_block_euler_ancestry_20261017.py
+
+  lean:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: leanprover/lean-action@v1
+        with:
+          use-github-cache: false
+          use-mathlib-cache: true
+          build: false
+          test: false
+          lint: false
+      - name: Apply pinned StrongPNT Lean 4.24 patches
+        run: |
+          python3 scripts/strongpnt_424/apply.py
+          python3 scripts/strongpnt_424/apply_post.py
+          python3 scripts/strongpnt_424/apply_pnt5_mid.py
+          python3 scripts/strongpnt_424/apply_pnt5_strong.py
+          python3 scripts/strongpnt_424/apply_lint.py
+      - name: Prebuild StrongPNT and existing bridges
+        run: |
+          lake build StrongPNT.PNT5_Strong
+          lake build RHLean.Proof.SquareBlockSmoothTransportGram
+          lake build RHLean.Proof.CanonicalGapAncestryHighRealization
+          lake build RHLean.Analysis.MathlibMertensHook
+          lake build RHLean.Arithmetic.PrimeWheelMobiusRecovery
+      - name: Check new theorems with warnings fatal and inspect axioms
+        run: |
+          mkdir -p .lake/build/lib/lean
+          lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.SQUARE_BLOCK_EULER_ANCESTRY_COVARIANCE_20261017.olean research/SQUARE_BLOCK_EULER_ANCESTRY_COVARIANCE_20261017.lean
+      - name: Reject admitted proofs
+        run: |
+          python3 - <<'PY'
+          import pathlib,re
+          s=pathlib.Path('research/SQUARE_BLOCK_EULER_ANCESTRY_COVARIANCE_20261017.lean').read_text()
+          assert not re.search(r'\b(sorry|admit|axiom)\b', re.sub(r'/\-.*?\-/', '', s, flags=re.S))
+          print('PASS no sorry/admit/axiom in Lean source')
+          PY
