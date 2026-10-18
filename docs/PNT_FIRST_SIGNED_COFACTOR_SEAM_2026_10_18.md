@@ -12,7 +12,7 @@
 
 ## 2. Exact cofactor/PNT split; no asymptotic replacement hidden as equality
 
-For an integer `R>=2`, put `X=R^2-1`, `t_c=floor(X/c)` and `y=R-1=floor(sqrt X)` (for `R>=2`). Define actual
+For an integer `R>=3`, put `X=R^2-1`, `t_c=floor(X/c)` and `y=R-1=floor(sqrt X)` (so `y>=2`, within the Li_2 reference domain). The `R=2` case is a finite separately checked base. Define actual
 ```text
 N_R(c) = pi(t_c)-pi(R-1)               (1<=c<R)
 S_R    = sum_{n<=X, P+(n)<R} mu(n)     (P+(1)=1)
