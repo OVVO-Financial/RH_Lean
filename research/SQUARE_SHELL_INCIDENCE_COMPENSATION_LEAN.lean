@@ -61,8 +61,55 @@ private theorem shell_upper_divisor_delta
           rw [hset]
     _ = if d = n then 1 else 0 := by
           by_cases hdn : d ∣ n
-          · exact RHLean.Analysis.sum_moebius_upper_divisors_eq_one_or_zero
-              hdn hd (by omega)
+          · have hquot : n / d ≠ 0 := by
+              intro hzero
+              have hp : d * (n / d) = n := Nat.mul_div_cancel' hdn
+              rw [hzero, mul_zero] at hp
+              omega
+            have hgeom :
+                n.divisors.filter (fun c => d ∣ c) =
+                  (n / d).divisors.image (fun k => d * k) := by
+              ext c
+              simp only [Finset.mem_filter, Nat.mem_divisors, Finset.mem_image]
+              constructor
+              · rintro ⟨⟨hcn, _hnzero⟩, hdc⟩
+                refine ⟨c / d, ⟨?_, hquot⟩, Nat.mul_div_cancel' hdc⟩
+                apply (Nat.dvd_div_iff_mul_dvd hdn).2
+                simpa [Nat.mul_div_cancel' hdc] using hcn
+              · rintro ⟨k, ⟨hk, _⟩, rfl⟩
+                exact ⟨⟨(Nat.dvd_div_iff_mul_dvd hdn).1 hk, by omega⟩,
+                  dvd_mul_right d k⟩
+            have hinj :
+                Set.InjOn (fun k : ℕ => d * k)
+                  ((n / d).divisors : Set ℕ) := by
+              intro a _ha b _hb hab
+              exact Nat.eq_of_mul_eq_mul_left hd hab
+            calc
+              (∑ c ∈ n.divisors,
+                  if d ∣ c then (μ (n / c) : ℤ) else 0) =
+                ∑ c ∈ n.divisors.filter (fun c => d ∣ c),
+                  (μ (n / c) : ℤ) := by rw [Finset.sum_filter]
+              _ = ∑ c ∈ (n / d).divisors.image (fun k => d * k),
+                    (μ (n / c) : ℤ) := by rw [hgeom]
+              _ = ∑ k ∈ (n / d).divisors, (μ (n / (d * k)) : ℤ) := by
+                    rw [Finset.sum_image hinj]
+              _ = ∑ k ∈ (n / d).divisors, (μ ((n / d) / k) : ℤ) := by
+                    apply Finset.sum_congr rfl
+                    intro k _hk
+                    rw [Nat.div_div_eq_div_mul]
+              _ = if n / d = 1 then 1 else 0 :=
+                    RHLean.Analysis.sum_moebius_complementary_divisors_eq_one_or_zero
+                      (n / d)
+              _ = if d = n then 1 else 0 := by
+                    by_cases hEq : d = n
+                    · subst n
+                      simp [Nat.div_self hd]
+                    · have hneq : n / d ≠ 1 := by
+                        intro heq
+                        have hp : d * (n / d) = n := Nat.mul_div_cancel' hdn
+                        rw [heq, mul_one] at hp
+                        exact hEq hp
+                      simp [hEq, hneq]
           · have hne : d ≠ n := by
               intro heq
               exact hdn (heq ▸ dvd_rfl)
@@ -108,7 +155,7 @@ theorem shellIncidenceCompensator_matches (R d : ℕ) (B : ℕ → ℤ)
           by_cases hdc : d ∣ c <;> by_cases hcn : c ∣ n <;>
             simp [hdc, hcn]
     _ = B d := by
-          simp [Finset.sum_ite_eq', Finset.mem_Icc, hd, hdR]
+          simp [Finset.mem_Icc, hd, hdR]
 
 /-- Finite symmetric bilinear incidence quadratic, integer-valued. -/
 def shellBilinear (S : Finset ℕ) (G : ℕ → ℕ → ℤ)
@@ -133,8 +180,7 @@ theorem shellBilinear_sub (S : Finset ℕ) (G : ℕ → ℕ → ℤ)
       shellBilinear S G z z - shellBilinear S G z a -
       shellBilinear S G a z + shellBilinear S G a a := by
   unfold shellBilinear
-  simp only [sub_mul, mul_sub, Finset.sum_sub_distrib,
-    Finset.sum_add_distrib]
+  simp only [sub_mul, mul_sub, Finset.sum_sub_distrib]
   ring
 
 /-- **Complete first compensation: kernel-checked at all finite sizes.**
