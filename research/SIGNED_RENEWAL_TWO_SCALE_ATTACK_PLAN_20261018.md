@@ -219,6 +219,12 @@ If claiming a direct VF #915 descendant payment, write an occurrence-level map w
 
 ## 6. Predeclared falsifiers, CI and stop conditions
 
+**Reproducible finite checker:** run
+    python3 scripts/signed_renewal_two_scale_falsifiers.py --max-root 317
+from repository root. This new independent genuine-Möbius linear sieve checks the exact shell S=A-T, strict P_r(c) endpoints, prime-only/composite decomposition, smooth-compensator Möbius inversion and all divisor rows, outer q-prime C_r Q_r reindexing at dyadic H, prime-boundary handoffs, and the sign/approximate-window counterexamples. No PNT assumption or random-sign control is used. Larger finite probes are available with --max-root <= 2000 and do NOT certify any uniform estimate.
+
+
+
 1. **Prime-cutoff boundary:** r=7,13 are prime. Wrong use of floor((r^2-1)/r) would count the forbidden p=r; the correct lower endpoint floor(r^2/r)=r excludes it. Verify original strict q>R and newer q>=R root variants separately.
 2. **Geometric equivalence failure:** q=101, p=83, c=1: with r(q)=10, \(|p-q/c|=18<2\sqrt{101}\), but pc=83 is NOT in I_10. Only the exact two-sided shell walls are admissible.
 3. **Cofactor signs:** \(\mu(2)\mu(3)=+1\), \(\mu(5)\mu(6)=-1\), \(\mu(3)\mu(4)=0\). No blanket negative pair or forced shift decorrelation.
