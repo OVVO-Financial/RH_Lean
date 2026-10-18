@@ -191,3 +191,15 @@ These are assignments for the agents' next actual authorized executions. No addi
 - Missing today: Owner and Analytic remain `PENDING`.
 - Highest-value next reasoning task: construct or refute an exact occurrence-preserving coupling between the macroscopic anchor-visible residue and the `c>=4` compressed/smooth response, then test whether a dyadic Type II estimate controls that coupling without assuming shell energy.
 - No RH proof claim.
+
+
+---
+
+## Continuation checkpoint - 2026-10-18T19:32-04:00
+
+**Status:** IN_PROGRESS  
+**Authority refreshed:** `main@c2b075fca8a02079ebab7464a16e1fb58c2b5c7a` (merge of PR #980).  
+**New investigation:** moving-window cubic stability for genuine square-shell Mobius increments.  
+**Provisional classification:** `PAPER_PROOF / NEW DETERMINISTIC REDUCTION / NO_NEW_QUANTITATIVE_BOUND`.
+
+The exact claim, literature-scope audit, updated three-mechanism portfolio, specialist assignments, and final PR/CI/readback verification are being completed below in this same scheduled continuation. The prior synthesis above remains preserved as historical evidence; its older `main@5ae5...` snapshot is superseded for this continuation.
