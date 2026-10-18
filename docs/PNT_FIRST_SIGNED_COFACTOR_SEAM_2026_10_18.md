@@ -1,5 +1,9 @@
 # PNT-first signed cofactor / historical-return seam — seven-agent directive
 
+
+> **2026-10-18 quantitative execution refinement (pending merge):** The [S=A-T two-scale signed renewal attack plan](../research/SIGNED_RENEWAL_TWO_SCALE_ATTACK_PLAN_20261018.md) specifies the exact shell prime/composite mixed term, outer-prime double count, divisor compensator, adjustable high-divisor budget, and the independently unproved low-divisor/long-range signed estimates. It is the *next research experiment and acceptance protocol* under this PNT-first directive, not another claim that PNT or a Gram identity pays RH. See also the live draft [PR #978](https://github.com/OVVO-Financial/RH_Lean/pull/978) for separately proposed Λ-hyperbola/anchor exact interfaces.
+
+
 **Date:** 2026-10-18 (America/New_York). **Status:** user-authorized research steering; exact arithmetic, already proved Prime Number Theorem (PNT) allowed as an input; independent uniform signed estimate and RH still OPEN. **Priority:** this contract supersedes the October 17 *mechanism-selection* priority on global covariance / Hecke / low quotients while preserving their findings, proof obligations and alternate routes. It does **not** redefine the canonical VF or authorize merge, agent Studio edits, extra runs, or altered source weights.
 
 ## 1. The research decision

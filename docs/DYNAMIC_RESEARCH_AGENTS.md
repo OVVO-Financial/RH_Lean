@@ -1,5 +1,9 @@
 # RH_Lean dynamic seven-agent research protocol
 
+
+> **2026-10-18 active-next-cycle refinement (effective after human merge):** Under the PNT-first seven-agent contract, run the [two-scale signed S=A-T attack](../research/SIGNED_RENEWAL_TWO_SCALE_ATTACK_PLAN_20261018.md). Owner+Analytic lead on the compensated genuine q/p/cofactor mixed term, Wheel+Lean verify exact shell endpoints and adjustable divisor tail, Census+Referee falsify the c=1 mode and sign claims, Coordinator accepts only an independently proved signed saving with all complements paid. Distinguish a shell-energy improvement beyond 7/8 from the separate cross-shell RH-scale obligation. Prior timetable, permissions, original VF source, and merged no-go theorems are unchanged.
+
+
 ## ACTIVE seven-agent route — PNT-first signed cofactor / historical compensation (2026-10-18; effective upon merge)
 
 **All seven agents must read the entire [new role-by-role primary seam](PNT_FIRST_SIGNED_COFACTOR_SEAM_2026_10_18.md) before selecting their next mechanism.** Ordinary proved PNT is admitted. Start with `N_R(c)=pi(floor((R^2-1)/c))-pi(R-1)`, the exact Li model and signed `Delta` remainder, and the original smooth/high and historical source. Derive a truly NEW quantitative all-root **joint** signed cancellation, not another exact replacement formula. Distinguish original unit Möbius, finite C, actual-prime #915 original physical NNS, and the canonical `VF_can` channel. Audit #975 historical-anchor no-go and #976 positive two-prime orbit before claiming local pairing savings.
