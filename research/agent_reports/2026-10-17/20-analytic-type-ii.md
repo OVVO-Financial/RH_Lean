@@ -2,12 +2,12 @@
 
 **Status:** COMPLETED
 **Invocation:** scheduled run at 2026-10-17T22:26-04:00
-**Canonical objective:** \`VFCanonicalSquareVonKochStatement\` remains OPEN.
-**Result classes:** \`PAPER_PROOF\` (new shell response projection/inverse theorem), \`PAPER_PROOF\` (sharp generic block-norm barrier), \`FINITE_COMPUTATION\` (exact genuine-Mobius projection census), \`NO_NEW_BOUND\` on the shell exponent, global covariance, canonical VF target and RH.
+**Canonical objective:** `VFCanonicalSquareVonKochStatement` remains OPEN.
+**Result classes:** `PAPER_PROOF` (new shell response projection/inverse theorem), `PAPER_PROOF` (sharp generic block-norm barrier), `FINITE_COMPUTATION` (exact genuine-Mobius projection census), `NO_NEW_BOUND` on the shell exponent, global covariance, canonical VF target and RH.
 
 ## A. Most important analytic development
 
-### Claim \`20261017-analytic-1\` - prime/composite response projection theorem
+### Claim `20261017-analytic-1` - prime/composite response projection theorem
 
 For integer \(H\ge2\), let
 
@@ -125,7 +125,7 @@ H^{-1/2-\kappa+\eta}(\log H)^2.\tag{R}
 
 This is a **necessary inverse conclusion**, not a newly proved rate for genuine Mobius data. It is distinct from the repository's root/smooth \(\rho_R\), which has different signs and carrier.
 
-**Status:** \`PAPER_PROOF / NEW INVERSE THEOREM / NO_NEW_BOUND\`.
+**Status:** `PAPER_PROOF / NEW INVERSE THEOREM / NO_NEW_BOUND`.
 
 **Quantitative payoff if independently paid:** \(\kappa=0\) supplies the open shell \(7/8\) benchmark; any fixed \(\kappa>0\) improves the Mertens exponent to \(7/8-\kappa/4\), as in the existing square-clock argument. The theorem itself does not establish either input.
 
@@ -157,7 +157,7 @@ H^{11/4-\kappa/2+\eta/2}.
 
 They must be proved from prime/composite or unshared-prime arithmetic. Their conjunction is equivalent to the shell target through (P), so neither is credited as an achieved easier theorem.
 
-## C. Claim \`20261017-analytic-2\` - sharp generic block-norm barrier
+## C. Claim `20261017-analytic-2` - sharp generic block-norm barrier
 
 For arbitrary coefficients \(a_n\) on the disjoint shells \(I_r\),
 
@@ -170,9 +170,9 @@ This is Cauchy--Schwarz on each shell. The operator constant is sharp for the am
 
 Therefore disjointness, coefficient boundedness, squarefree density, or an unstructured Hilbert/large-sieve norm cannot reach \(H^{5/2-\kappa+\eta}\). A proof needs an arithmetic saving of \(H^{1/2+\kappa-\eta}\) in the complete signed response. This does not rule out a genuine Mobius dispersion theorem; it identifies the exact structure that theorem must use.
 
-**Status:** \`PAPER_PROOF / SHARP AMBIENT NO-GO\`.
+**Status:** `PAPER_PROOF / SHARP AMBIENT NO-GO`.
 
-## D. Claim \`20261017-analytic-3\` - exact finite projection census
+## D. Claim `20261017-analytic-3` - exact finite projection census
 
 A fresh linear Mobius sieve computed \(A_H,B_H,X_H,E_H\) with integers for every shell in each dyadic range through \(H=2048\). It checked \(E_H=A_H+B_H-2X_H\) exactly.
 
@@ -192,25 +192,25 @@ R_H/H^{5/2}=0.03887417,\qquad
 
 Thus the orthogonal residual dominates the scalar miscalibration in this finite range. This discriminates the next experiment: test a phase-bearing estimate on the residual, rather than spending the next run only refining the already-small scalar coefficient. No power law is inferred.
 
-Scratch source SHA-256: \`90db5897cb17023a5db4579416de868e0a809a8c7912ccfa0e226005a9e039f9\`.
-Output digest: \`6b06b446d91b4d0e78ca8abf1d46224b8364d8f8aabb79f6a56c10f1817d4dce\`.
-Compiler command: \`g++ -O3 -std=c++17 -Wall -Wextra -Werror\`. Floating values are display-only; all defining moments and the identity check used 64-bit integers, whose largest observed magnitude was below \(3.2\mathbin{\times}10^8\).
+Scratch source SHA-256: `90db5897cb17023a5db4579416de868e0a809a8c7912ccfa0e226005a9e039f9`.
+Output digest: `6b06b446d91b4d0e78ca8abf1d46224b8364d8f8aabb79f6a56c10f1817d4dce`.
+Compiler command: `g++ -O3 -std=c++17 -Wall -Wextra -Werror`. Floating values are display-only; all defining moments and the identity check used 64-bit integers, whose largest observed magnitude was below \(3.2\mathbin{\times}10^8\).
 
-**Status:** \`FINITE_COMPUTATION\`.
+**Status:** `FINITE_COMPUTATION`.
 
 ## E. Authority, continuity and source evidence
 
 - New York report date: 2026-10-17.
-- Actual main HEAD at final refresh: \`5aa5eb28c352882b8c8cd8d3e0714ddc5afcc555\`, merge of #973.
-- Authority blobs: \`AGENTS.md\` \`aef9d6f7a7d3a091f947effd38e9ad42a63e8445\`; \`CURRENT_PROOF_CONTRACT.md\` \`873ec6f70525e1e9ba1defecf8b0951ebe155069\`; signed-covariance directive \`8d846d6ee5d559065687b2ed5144aeb7ca3e1850\`.
-- Main source blobs: weighted covariance \`277b3f209788077b66fa6095d7c1358897b94e91\`; deterministic Green--Kubo \`172e0323f7804c08f7c4e77f2a7bc1af4c6cbd0d\`; shell-energy note \`8c881169efccd3eaf129af4321a1c4becb3833bf\`; shell compensation note \`d7826257273473e80948117ea5c0fcd04713af6f\`; shell compensation Lean \`3bf26af6f058d2057acc99c911fa11cb9a73c796\`.
-- PR #968 is merged into main (merge \`c43284955c8272e6211df7b47876c92cb178810a\`); all eleven workflows on proof head \`4f88a1d2b88c3ee4a34b0619a114167d0218a964\` succeeded.
-- PR #969 is marked merged only into the stacked feature branch; its OAI source is absent from main. Status: \`PROVED_IN_LEAN_ON_NONMAIN_BRANCH / INTEGRATION_REQUIRED\`, not on-main authority. Its five head workflows succeeded.
-- PR #973 is merged into main. All twelve workflows on exact proof head \`475b6014df268620486b82add85d4757c06829a4\` completed successfully, including the dedicated shell certificate, Lean build/axiom audit, source audits and proof inventory.
+- Actual main HEAD at final refresh: `5aa5eb28c352882b8c8cd8d3e0714ddc5afcc555`, merge of #973.
+- Authority blobs: `AGENTS.md` `aef9d6f7a7d3a091f947effd38e9ad42a63e8445`; `CURRENT_PROOF_CONTRACT.md` `873ec6f70525e1e9ba1defecf8b0951ebe155069`; signed-covariance directive `8d846d6ee5d559065687b2ed5144aeb7ca3e1850`.
+- Main source blobs: weighted covariance `277b3f209788077b66fa6095d7c1358897b94e91`; deterministic Green--Kubo `172e0323f7804c08f7c4e77f2a7bc1af4c6cbd0d`; shell-energy note `8c881169efccd3eaf129af4321a1c4becb3833bf`; shell compensation note `d7826257273473e80948117ea5c0fcd04713af6f`; shell compensation Lean `3bf26af6f058d2057acc99c911fa11cb9a73c796`.
+- PR #968 is merged into main (merge `c43284955c8272e6211df7b47876c92cb178810a`); all eleven workflows on proof head `4f88a1d2b88c3ee4a34b0619a114167d0218a964` succeeded.
+- PR #969 is marked merged only into the stacked feature branch; its OAI source is absent from main. Status: `PROVED_IN_LEAN_ON_NONMAIN_BRANCH / INTEGRATION_REQUIRED`, not on-main authority. Its five head workflows succeeded.
+- PR #973 is merged into main. All twelve workflows on exact proof head `475b6014df268620486b82add85d4757c06829a4` completed successfully, including the dedicated shell certificate, Lean build/axiom audit, source audits and proof inventory.
 - Open PR search at intake: none.
-- Today upstream blobs consumed: Coordinator \`9a797b07dcd7c74147b6b0cdbc8f6a69024c3961\`; Owner \`6980422de5f7cc55b9dec32a2f0fe21f98ed7ff1\`; Wheel \`dbaefd4005c2cc93b894f9bb97c7a74c5f28dc49\`; Census \`9efa34cd7a2d3c021b20779889eaaf6a556020d3\`; Referee \`a3867e19b4e6e409c09ab69899a628d042f11a8d\`; Lean \`1a03815f26aa6ee145d94c9848ac37483b093033\`.
-- Complete October 16 set consumed as \`YESTERDAY=CARRY_FORWARD\`: Coordinator \`fc5c5b46a0ec56f606444bb5dbfe400d4a444d18\`; Owner \`cb42efd7a6aa0e782c353803e604684b9500cdb2\`; Analytic \`2b93e7c237c09439746a93356c20cd15e4671028\`; Wheel \`134eb9eb0558a622b6f042baa20f3feb847ed6f4\`; Census \`26510606eea9f43450e5bb092c4542ab23fcb729\`; Referee \`e4c0a92301f032eb732a51f7bd997f4a19ac8b48\`; Lean \`180cf24f8444852a5b69bf2581f0c6d160f3a16e\`.
-- External inbox blob \`3cd80e68cec54cc9ce1e00a384cfe37a3a3babc0\`; \`EXT-20261017-XCOORD-1..3\` and \`EXT-20261017-HECKE-1..3\` consumed at their stated exact/open scopes.
+- Today upstream blobs consumed: Coordinator `9a797b07dcd7c74147b6b0cdbc8f6a69024c3961`; Owner `6980422de5f7cc55b9dec32a2f0fe21f98ed7ff1`; Wheel `dbaefd4005c2cc93b894f9bb97c7a74c5f28dc49`; Census `9efa34cd7a2d3c021b20779889eaaf6a556020d3`; Referee `a3867e19b4e6e409c09ab69899a628d042f11a8d`; Lean `1a03815f26aa6ee145d94c9848ac37483b093033`.
+- Complete October 16 set consumed as `YESTERDAY=CARRY_FORWARD`: Coordinator `fc5c5b46a0ec56f606444bb5dbfe400d4a444d18`; Owner `cb42efd7a6aa0e782c353803e604684b9500cdb2`; Analytic `2b93e7c237c09439746a93356c20cd15e4671028`; Wheel `134eb9eb0558a622b6f042baa20f3feb847ed6f4`; Census `26510606eea9f43450e5bb092c4542ab23fcb729`; Referee `e4c0a92301f032eb732a51f7bd997f4a19ac8b48`; Lean `180cf24f8444852a5b69bf2581f0c6d160f3a16e`.
+- External inbox blob `3cd80e68cec54cc9ce1e00a384cfe37a3a3babc0`; `EXT-20261017-XCOORD-1..3` and `EXT-20261017-HECKE-1..3` consumed at their stated exact/open scopes.
 
 ## F. Complete-source and no-circularity audit
 
@@ -227,7 +227,7 @@ Compiler command: \`g++ -O3 -std=c++17 -Wall -Wextra -Werror\`. Floating values 
 
 ## G. Mechanism decision and handoff
 
-**Decision:** \`CONTINUE / REVISE\` the shell mechanism. Suspend any second centering that merely recombines all divisor bands or deletes \(Q_r^2\). Use the response projection (P) as the falsification interface.
+**Decision:** `CONTINUE / REVISE` the shell mechanism. Suspend any second centering that merely recombines all divisor bands or deletes \(Q_r^2\). Use the response projection (P) as the falsification interface.
 
 **Next independent analytic question:** can the exact gcd/unshared-prime expansion prove a power-saving dispersion estimate for the orthogonal residual
 
@@ -248,6 +248,6 @@ without assuming a bound on \(\sum\Delta_r^2\), while a separate prime-weighted 
 
 ## H. Final summary and resume capsule
 
-New claim \`20261017-analytic-1\` gives the exact prime/composite projection and the quantified inverse restrictions (C), (M), and (R). Claim \`20261017-analytic-2\` proves that generic block norms stop sharply at \(H^3\). Claim \`20261017-analytic-3\` finds that the orthogonal residual, not scalar miscalibration, dominates the genuine finite shell energy through \(H=2048\).
+New claim `20261017-analytic-1` gives the exact prime/composite projection and the quantified inverse restrictions (C), (M), and (R). Claim `20261017-analytic-2` proves that generic block norms stop sharply at \(H^3\). Claim `20261017-analytic-3` finds that the orthogonal residual, not scalar miscalibration, dominates the genuine finite shell energy through \(H=2048\).
 
 No independent \(\kappa>0\), no \(\kappa=0\) shell theorem, no below-\(3/8\) weighted covariance bound, no improved Mertens exponent, no canonical VF estimate and no RH proof were obtained.
