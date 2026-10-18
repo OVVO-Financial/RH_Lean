@@ -51,7 +51,7 @@ At intake, today Coordinator/Owner/Analytic/Referee/Lean were `TODAY=PENDING`. T
 PR status and exact-head CI:
 
 - #968 is merged; proof head `4f88a1d2b88c3ee4a34b0619a114167d0218a964`; all 11 returned workflows succeeded.
-- #969 is now merged to main at merge commit `8fdb90d50b59c964eac142fc8b3d9fcd780af281`; proof head `f839a3ae41ab0f76a38df5f2ad0498c6105fde67`; all five returned workflows succeeded. Earlier reports correctly recorded the then-stacked/non-main state, now superseded by live metadata.
+- #969 has `merged=true` at merge commit `8fdb90d50b59c964eac142fc8b3d9fcd780af281`, but it was merged into its stacked feature base, not `main`. Its three changed files are absent from live `main`; proof head `f839a3ae41ab0f76a38df5f2ad0498c6105fde67` has five successful returned workflows. Status remains `PROVED_IN_LEAN_ON_NONMAIN_BRANCH / INTEGRATION_REQUIRED`.
 - #973 is merged at `5aa5eb28c352882b8c8cd8d3e0714ddc5afcc555`.
 - #974 is merged at current main; proof head `124c8c1b8084442ae2d1ca9f7bbd836517629e07`; all eleven returned workflows, including dedicated warning-fatal Lean, succeeded.
 - #975 is the only open PR, draft at head `d3e0cdc1ab306c94ef4a04acdc20c513e72c31e5`; all eleven returned workflows succeeded. It remains unmerged.
