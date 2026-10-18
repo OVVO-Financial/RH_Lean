@@ -160,39 +160,39 @@ No RH proof claim.
 ## Continuation update - 2026-10-18T13:16-04:00
 
 **Status:** COMPLETED  
-**Claim:** \`20261018-census-2\`  
-**Evidence:** \`FINITE_COMPUTATION / HELD-OUT FALSIFICATION / MECHANISM RESTRICTION\`; \`NO_NEW_QUANTITATIVE_RESULT\`
+**Claim:** `20261018-census-2`  
+**Evidence:** `FINITE_COMPUTATION / HELD-OUT FALSIFICATION / MECHANISM RESTRICTION`; `NO_NEW_QUANTITATIVE_RESULT`
 
 ### I. Refreshed authority and new assignment
 
-Authority was refreshed after the morning report. Live \`main\` is
-\`5ae5a524ca447d1936e351bbbe4b134c068a1a13\`, the merge of PR #979; no PR is
-open. Governing blobs are \`AGENTS.md\`
-\`4c66a1d462df98c84deebf0069ad11f904039858\`,
-\`CURRENT_PROOF_CONTRACT.md\`
-\`2fa9931dcdc1fc8a816aefb8aa348db12ee9a384\`, the PNT-first contract
-\`e8acbeff24942d1f8ee0079f715afff2ddda2c33\`, and the two-scale attack plan
-\`0606d764ffebb4639cc0abb52ccbef30546b7764\`.
+Authority was refreshed after the morning report. Live `main` is
+`5ae5a524ca447d1936e351bbbe4b134c068a1a13`, the merge of PR #979; no PR is
+open. Governing blobs are `AGENTS.md`
+`4c66a1d462df98c84deebf0069ad11f904039858`,
+`CURRENT_PROOF_CONTRACT.md`
+`2fa9931dcdc1fc8a816aefb8aa348db12ee9a384`, the PNT-first contract
+`e8acbeff24942d1f8ee0079f715afff2ddda2c33`, and the two-scale attack plan
+`0606d764ffebb4639cc0abb52ccbef30546b7764`.
 
 The exact source declarations inspected at this head are
-\`TwoABScaleTransfer.lean\` blob
-\`fae76878063583322a48a329810cc1cc7b037ee7\`,
-\`SquareRootMatchedTransport.lean\`
-\`e9ab3bff6b8819182c39721f92859679d250002e\`,
-\`SquareRootSmoothRenewalInstantiation.lean\`
-\`9a63c8c2f9e42a64c0010721a78101c1f56858b1\`, and
-\`SquareBlockSmoothTransportGram.lean\`
-\`09f5e0108eb254a2f20fa2fd694d69cb455b2857\`. They prove exact
+`TwoABScaleTransfer.lean` blob
+`fae76878063583322a48a329810cc1cc7b037ee7`,
+`SquareRootMatchedTransport.lean`
+`e9ab3bff6b8819182c39721f92859679d250002e`,
+`SquareRootSmoothRenewalInstantiation.lean`
+`9a63c8c2f9e42a64c0010721a78101c1f56858b1`, and
+`SquareBlockSmoothTransportGram.lean`
+`09f5e0108eb254a2f20fa2fd694d69cb455b2857`. They prove exact
 smooth-minus-transport and PNT decompositions, not a signed estimate.
 
 All named October 18 reports were consumed at their current blobs: Coordinator
-\`c9337407...\`, Owner \`4655c437...\`, Analytic \`f7b98195...\`, Wheel
-\`62da4947...\`, Census \`08d80d6...\`, Referee \`096513f9...\`, Lean
-\`0ed62011...\`. The complete October 17 set remains
-\`YESTERDAY=CARRY_FORWARD\`. External inbox blob
-\`038018145c0fddb2f6306c0712373adf9cd1ea52\` was re-read.
+`c9337407...`, Owner `4655c437...`, Analytic `f7b98195...`, Wheel
+`62da4947...`, Census `08d80d6...`, Referee `096513f9...`, Lean
+`0ed62011...`. The complete October 17 set remains
+`YESTERDAY=CARRY_FORWARD`. External inbox blob
+`038018145c0fddb2f6306c0712373adf9cd1ea52` was re-read.
 
-Analytic claim \`20261018-analytic-1\` proves the proposed same-shell outer-prime
+Analytic claim `20261018-analytic-1` proves the proposed same-shell outer-prime
 tile is rank one. Its requested discriminator is therefore the cross-shell
 cofactor response itself, not a nonexistent mean-zero outer-prime mode.
 
@@ -265,16 +265,16 @@ P_r(c)=\pi(\lfloor((r+1)^2-1)/c\rfloor)-\pi(\lfloor r^2/c\rfloor),
 \]
 direct shell multiples for \(B_r(d)\), and the literal finite inversion for
 \(a_r^{\rm inc}(c)\). Build:
-\`g++ -O3 -std=c++17 -Wall -Wextra -Werror\` with GCC 13.3.0.
+`g++ -O3 -std=c++17 -Wall -Wextra -Werror` with GCC 13.3.0.
 Source SHA-256:
-\`a88cedb0c2fbcd8ce471210cb389a6741c8944dbe372c5dc18b0d1ede7e4ae91\`.
+`a88cedb0c2fbcd8ce471210cb389a6741c8944dbe372c5dc18b0d1ede7e4ae91`.
 
 A structurally separate Python 3.12.14 checker enumerated divisors of each
 smooth squarefree shell integer, rather than scanning shell multiples. At
 \(H=32\), both implementations gave
 \(\sum\delta=-15\), \(\sum G_{\rm all}=15\), zero identity failures, and
 \(\sum QG_{\rm all}=553\). Checker SHA-256:
-\`6d51288788e2d9ffae198e8eeb29b00ade1d1b4ae7a399496edafa609deb111a\`.
+`6d51288788e2d9ffae198e8eeb29b00ade1d1b4ae7a399496edafa609deb111a`.
 
 Only the Li column is approximate: long-double 128-panel composite Simpson
 integration of \(dt/\log t\) on each shell. Repeating with 64 panels left every
