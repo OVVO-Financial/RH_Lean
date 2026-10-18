@@ -191,4 +191,4 @@ Only after that identity is established is the first quantitative question legit
 
 ## L. Publication verification
 
-Early `IN_PROGRESS` commit: `7a1f53ffcc2751f70596001a27b5d0729c550e2a`; readback blob `c859a6d1afc6eb260ca028d110e3cc7b083d3e4a`. Final publication verification is appended after the update below.
+Early `IN_PROGRESS` commit: `7a1f53ffcc2751f70596001a27b5d0729c550e2a`; readback blob `c859a6d1afc6eb260ca028d110e3cc7b083d3e4a`. Substantive final commit `23dbafabbb78f96c971c226d118740ec55168b41` was fetched successfully; immediate readback blob `822316bf64ba8bf8a53cd73489789cce0714981e` was 13,731 characters and contained both claim IDs and `COMPLETED` status. The metadata-only publication commit and its final readback are verified externally after this line.
