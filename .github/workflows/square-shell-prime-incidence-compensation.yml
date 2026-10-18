@@ -6,6 +6,7 @@ on:
     paths:
       - "research/SQUARE_SHELL_INCIDENCE_COMPENSATION_20261017.md"
       - "scripts/square_shell_prime_incidence_compensation.py"
+      - "scripts/square_shell_second_centering_census.cpp"
       - ".github/workflows/square-shell-prime-incidence-compensation.yml"
   workflow_dispatch:
 
@@ -23,4 +24,8 @@ jobs:
         with:
           python-version: "3.12"
       - name: Exact shell/coprime/prime-incidence/compensator verification
-        run: python3 -B scripts/square_shell_prime_incidence_compensation.py --max-root 317 --verbose
+        run: python3 -B scripts/square_shell_prime_incidence_compensation.py --max-root 317 --exhaustive-root 80
+      - name: Check all shell/band coefficients, owner channels and zero mode up to r=4096
+        run: |
+          g++ -O3 -std=c++17 -Wall -Wextra -Werror scripts/square_shell_second_centering_census.cpp -o /tmp/square_shell_second_centering
+          /tmp/square_shell_second_centering 4096
