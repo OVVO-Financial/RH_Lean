@@ -1,6 +1,24 @@
 # RH_Lean current proof contract
 
-## Current user priority: signed Möbius covariance as the quantitative RH seam
+## ACTIVE mathematical seam after the 2026-10-18 PNT-first user pivot (upon merge)
+
+**Primary operating authority:** [PNT-first signed cofactor / historical-return contract](docs/PNT_FIRST_SIGNED_COFACTOR_SEAM_2026_10_18.md). **PNT is established**, not an RH hypothesis. Use its true asymptotic/error theorem for genuine prime populations; *never* replace actual prime indicators by pointwise Li density without retaining the signed discrepancy and source weights.
+
+For `R>=2, X=R^2-1, t_c=floor(X/c), y=R-1`, set
+```text
+N_R(c)=pi(t_c)-pi(R-1)
+Delta(t)=pi(t)-Li_2(t)
+L_R=sum_(1<=c<R) mu(c)*(Li_2(t_c)-Li_2(R-1))
+E_R=sum_(1<=c<R) mu(c)*(Delta(t_c)-Delta(R-1))
+S_R=sum_(n<=X, P+(n)<R) mu(n)
+M(X)=S_R-L_R-E_R.               // exact, NOT an estimate
+```
+The `c=1` term includes `Delta(X)`; variable `c` approaches `R` and produces short intervals, so fixed-cofactor PNT is NOT a uniform local estimate. Keep `p=R` when `R` prime and source-specific `p>R` adjustments. The missing **independent, all-root signed correlation bound** must pay the combined smooth/model/error and historical cross-owner source, not just `L_R` or `E_R` by triangle inequality. Source acceptance, three separate consumers (Mertens, finite A/C, original canonical VF #915), falsifiers and all seven roles are specified in the linked new contract.
+
+The existing `PRIME_FLIP_PNT_TELESCOPE.lean`, `PRIME_FLIP_SECOND_ORDER_PNT_CLOSURE.lean`, `PrimeSievePNTCentering.lean`, genuine cofactor census, and the new #975/#976 no-go theorems are mandatory prior work. **OPEN:** the signed second-order estimate and its model payment; original #915 norm-preserving contiguous-child descent; finite A/C and RH. The previous Oct 17 global covariance benchmark remains as a supplementary sufficient route, not the team-wide mechanism selector. This is a research pivot, **not** a theorem asserting cancellation from PNT.
+
+
+## Retained October 17 signed Möbius covariance benchmark (secondary research lane)
 
 **2026-10-17 user-authorized directive, proposed until human merge:** read [the seven-agent original-Möbius covariance contract](docs/SIGNED_MOBIUS_COVARIANCE_RH_SEAM_2026_10_17.md) before launching research. This selects one common quantitative seam for all seven specialists while retaining the public `VFCanonicalSquareVonKochStatement`, the genuine masked #915 NNS source and other independent proof programs as secondary lanes.
 
