@@ -4,7 +4,7 @@
 
 **Primary operating authority:** [PNT-first signed cofactor / historical-return contract](docs/PNT_FIRST_SIGNED_COFACTOR_SEAM_2026_10_18.md). **PNT is established**, not an RH hypothesis. Use its true asymptotic/error theorem for genuine prime populations; *never* replace actual prime indicators by pointwise Li density without retaining the signed discrepancy and source weights.
 
-For `R>=2, X=R^2-1, t_c=floor(X/c), y=R-1`, set
+For `R>=3, X=R^2-1, t_c=floor(X/c), y=R-1>=2`, set
 ```text
 N_R(c)=pi(t_c)-pi(R-1)
 Delta(t)=pi(t)-Li_2(t)
