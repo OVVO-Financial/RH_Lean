@@ -220,3 +220,8 @@ New claim `20261018-analytic-1` proves that the proposed outer-prime tile is she
 The highest-value next analytic question is now precise: can one prove, from the squarefree divisor phase and moving shell endpoints, either a genuine low-divisor estimate for (G_{r,C}) or a cross-shell response theorem meeting (A3), while restoring the Li main term and all bands? A same-shell prime-pair theorem is not the missing input for the current tile.
 
 No RH proof claim.
+
+
+## J. Publication verification
+
+Early `IN_PROGRESS` checkpoint commit: `16afdce40725d13a10cefba5e2eb18fc988ae741`. Substantive final commit: `f0f410bfca0ba775d23db43a9267421f324a7b0e`. Immediate readback returned blob `ce59751e02ffde8f6711dd17f2e0da8f68c71c36`, 14,120 characters, with `COMPLETED` status and both claim IDs present. Final live-main refresh remained `5ae5a524ca447d1936e351bbbe4b134c068a1a13`; open PR search remained empty.
