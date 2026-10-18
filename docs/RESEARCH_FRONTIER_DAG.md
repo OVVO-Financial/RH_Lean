@@ -1,5 +1,16 @@
 # Current research frontier and import DAG
 
+## Live October 18 PNT-first source-to-bound DAG and newest PR dispositions
+
+**Current selected team mechanism:** [PNT-first signed Euler/Moebius cofactor compensation](PNT_FIRST_SIGNED_COFACTOR_SEAM_2026_10_18.md). Ordinary PNT is already proved. For `X=R^2-1`, `M(X)=S_R-L_R-E_R` where `L` is genuine cofactor-weighted Li prime availability and `E` the **signed actual-prime minus Li** transport. The remaining independent theorem is a quantitative bound on the joint signed smooth/model/error/historical source; identities do not constitute a saving. Keep `p=R` endpoint, top-half prime terminal cells, original #915 once-only active/returned masks, and original quadratic normalized denominator.
+
+- [PR #975](https://github.com/OVVO-Financial/RH_Lean/pull/975) (OPEN/DRAFT at October 18 inventory): source-legal historical cofactor parent no-go and original first-bad `E=G+2U-6L`; a hypothetical large first bad forces `G>0` (stronger scalar corollary `G>R^2` has not yet been named as Lean theorem). This forbids assuming local boundary alone pays the historical anchor. Not an RH proof.
+- [PR #976](https://github.com/OVVO-Financial/RH_Lean/pull/976) (OPEN at October 18 inventory): genuine two-prime same-base strict-square-shell Mobius signs agree, giving **positive**, not negative, covariance in that orbit. It is structural and does not provide shell-energy cancellation or RH.
+- Prior #915, #919, #922, #925, #931 and other historical entries in this file remain source **navigation**, not evidence that any listed PR is still open. Always query GitHub for live merge state.
+
+**Operational rule:** The role-by-role protocol in the new contract overrides Oct 17 primary assignments only **after merge into main**; updating a branch does not reconfigure saved Studio Agent Instructions. No changes to schedules, permissions or human merge policy.
+
+
 Updated 2026-10-12 UTC. The direct `pi - VF_canonical` square-run route is canonical, where VF_canonical = raw vfMid + sqrt(2).
 Finite A/C and CORR-4 remain sufficient alternatives with unproved quantitative
 inputs. The [proof contract](../CURRENT_PROOF_CONTRACT.md) governs all routes.
