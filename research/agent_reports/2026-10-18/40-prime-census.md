@@ -144,7 +144,7 @@ Also `(1+rho)(U^2+V^2)=2545^2=6477025` within long-double rounding. A naive larg
 
 1. **Rejected:** two-prime within-orbit cancellation (Wheel paper theorem) and three-prime-first-face sign control (this finite falsifier).
 2. **Highest-ranked surviving mechanism:** complete unshared-depth parity balance
-   `sum_t (-1)^t A_t(r)`, with a theorem that retains all `t), cross-base pairs, and shell boundaries before norms.
+   `sum_t (-1)^t A_t(r)`, with a theorem that retains all `t`, cross-base pairs, and shell boundaries before norms.
 3. **Precise next conjecture (`CONJECTURE`):** for each dyadic H, the large `t=3` cohort is compensated at leading scale by the complete `t>=4` tail; any proof of a `H^(5/2-kappa+eta)` shell-energy bound must establish a quantitative alternating-depth relation, not a bound on `A3` alone. A useful falsifiable formulation is to seek a signed recurrence for `A_t(H)=sum_(H<=r<2H)A_t(r)` whose truncation error after a growing depth cutoff is `O(H^(5/2-kappa+eta))`.
 4. The experiment supplies no candidate `kappa`; it narrows the structural target and prevents a false local mechanism from consuming another cycle.
 
