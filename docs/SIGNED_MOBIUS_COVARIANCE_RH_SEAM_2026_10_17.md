@@ -1,5 +1,8 @@
 # Seven-agent priority: independently pay the complete signed Möbius covariance
 
+> **Research steering update, 2026-10-18.** This October 17 global-covariance mandate is preserved as a **secondary mathematical source and alternative consumer**. The new PRIMARY seven-agent assignment is [PNT-first signed cofactor / historical compensation](PNT_FIRST_SIGNED_COFACTOR_SEAM_2026_10_18.md). No conclusion is drawn from global `M^2=D+2C` alone. Reuse full signed pair-incidence and numerical falsifiers, but apply them to genuine `N_R(c)=pi(floor((R^2-1)/c))-pi(R-1)`, `M=S-L-E`, historical boundary and actual original source. No separate signed-covariance campaign is authorized by this old document after the pivot.
+
+
 **Date / authority:** 2026-10-17, America/New_York. **Status:** user-authorized strategy revision proposed on a dedicated instruction PR. Becomes live only after the human-owned merge to `main`. This is an operational research directive, NOT a new unconditional bound or RH proof. `AGENTS.md` controls actions, report permissions and schedules; `CURRENT_PROOF_CONTRACT.md` retains the canonical VF goal.
 
 ## 0. Short directive: every specialist must attack the SAME identified seam
