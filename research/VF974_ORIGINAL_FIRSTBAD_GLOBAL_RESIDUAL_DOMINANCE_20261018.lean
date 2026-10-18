@@ -140,6 +140,7 @@ theorem vf974_globalResidual_eq_exactAnchorModel
     vf974AnchorModel vf974ActiveSource vf974ActiveAbs vf974RestoringMass
   rw [vfMidWeightedOmittedSeatAbsMass_eq_squarefulCharge hR,
       vf974_originalDefect_succ_eq_sub_threeStream hR]
+  dsimp [vf974ActiveSource, vf974RestoringMass]
   ring
 
 /-- NEW nontrivial sharp-angle obstruction: G is forced large and positive
@@ -147,7 +148,7 @@ when the compressed D anchor overwhelms the original one-block source.
 No relative prime-density estimate or pairwise independence is assumed. -/
 theorem vf974_anchoredModel_ge_history_minus_budget
     (D X t q diag : ℝ)
-    (ht : 0 ≤ t) (hq : 0 ≤ q) (hd : 0 ≤ diag)
+    (_ht : 0 ≤ t) (hq : 0 ≤ q) (hd : 0 ≤ diag)
     (hX : |X| ≤ t) :
     |D| ^ 2 - 6 * |D| * (t + q) - 6 * (t + q) ^ 2 ≤
       vf974AnchorModel D X t q diag := by
@@ -166,7 +167,7 @@ theorem vf974_anchoredModel_ge_history_minus_budget
     simpa only [neg_mul] using
       (mul_le_mul_of_nonneg_right hXlower hq)
   have hqt : t * q ≤ (t + q) ^ 2 := by
-    nlinarith [sq_nonneg t, sq_nonneg q, mul_nonneg ht hq]
+    nlinarith [sq_nonneg (t + q / 2), sq_nonneg q]
   have hDsq : D ^ 2 = |D| ^ 2 := (sq_abs D).symm
   unfold vf974AnchorModel
   nlinarith [hDX, hDq, hXq, hqt, hDsq, sq_nonneg q]
