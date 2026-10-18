@@ -205,3 +205,6 @@ No RH proof claim.
 ## J. Publication verification
 
 Substantive report commit 6a04f6c42d0e58f25351069af1d1ceb6ee5b77c1 was created on agent-reports. Immediate readback returned blob d3eadf14ed5478090a3b5c1d33fe9ffdbfaa4ce4, 12,769 characters, with COMPLETED status and both claim IDs present. Final main authority remained 5ae5a524ca447d1936e351bbbe4b134c068a1a13 and the open-PR search remained empty.
+
+
+Post-publication workflow verification: PR #979 proof/document head 9c3535d9cadc7016f39071c00ed2e1cc344c4911 has four pull-request workflow runs, all completed successfully. PR #978 proof head ba89ca4e5fc6a341ca0422698ec40b4646480000 has ten returned pull-request workflow runs, all completed successfully, including the dedicated PNT-first Lambda hyperbola and anchor Lean job and Lean source audits. These workflows certify their respective merged heads; they do not certify claims wheel-2/-3, which remain PAPER_PROOF plus independent finite verification pending Referee/Lean review.
