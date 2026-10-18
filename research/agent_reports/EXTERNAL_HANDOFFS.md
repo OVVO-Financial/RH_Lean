@@ -12,6 +12,16 @@ If a handoff is stale, superseded, refuted, formalized, or irrelevant to your sp
 
 ## Open handoffs
 
+### 2026-10-18 — User-directed PNT-first signed cofactor/prime-location error pivot, all seven roles
+
+**[Read the complete Oct 18 PNT-first seven-agent handoff](external/2026-10-18/pnt-first-signed-cofactor-seven-agent-handoff.md).** This is an authorized cross-session research-direction change, with [mergeable, review-pending PR #977](https://github.com/OVVO-Financial/RH_Lean/pull/977) updating `AGENTS.md`, `CURRENT_PROOF_CONTRACT.md`, the dynamic protocol and each agent's next-run deliverable. The two LIVE original-source PRs [#975](https://github.com/OVVO-Financial/RH_Lean/pull/975) and [#976](https://github.com/OVVO-Financial/RH_Lean/pull/976) have updated PNT-first migration descriptions. **The handoff is NOT current `main`, an edited saved Studio prompt, or permission to merge or run unscheduled agents.** At the next regular invocation, verify the live merge status; once #977 is merged, its document becomes the first mechanism selector; until then, record the pending user directive and observe current main source authority.
+
+- **EXT-20261018-PNT-1 / EXACT IDENTITY:** `M(R^2-1)=S_R-L_R-E_R`, where `N_R(c)=pi(floor((R^2-1)/c))-pi(R-1)`, `L_R` is Möbius-weighted Li prime availability, and `E_R=sum_(c<R)mu(c)[Delta(floor(X/c))-Delta(R-1)]`. The PNT hypothesis is an already-proved theorem. The all-root signed correlation/compensation bound is **OPEN**. Do not drop `Delta(X)`, the prime `p=R` cutoff, short cofactor intervals, or smooth-sector restorations.
+- **EXT-20261018-PNT-2 / INDEPENDENT NUMERIC FALSIFIERS:** empirical cofactor availability reverses naive parity; enormous cross-owner compensation changes between shared/coprime classes; late-flip PNT error coheres with Mertens, so separate Li error estimation can rehouse the same unsolved amplitude.
+- **EXT-20261018-PNT-3 / LEGAL SOURCE NO-GOS:** PR #975 original VF historical anchor cannot be discarded (hypothetical first bad forces positive global residual); PR #976 positive two-prime same-base orbit cannot be charged as negative covariance. A first-bad payment still requires a genuine original-weight signed estimate and strictly lower contiguous child-run.
+- **All seven role outputs** are individually stated in the handoff; maintain one run/day, unchanged original NNS and VF carriers, standard-axiom warning-fatal Lean, today/yesterday report continuity, and human-only merge.
+
+
 ### 2026-10-17 — Complete cross-coordinate low-quotient programme, corrected q=R split-prime boundary
 
 **[Read the full user-directed seven-role handoff](external/2026-10-17/cross-coordinate-low-quotient-complete-handoff.md).** Full proposed mandatory document in [DRAFT PR #966](https://github.com/OVVO-Financial/RH_Lean/pull/966), based on `main@fef979286efa91b23bfced46f0a8a0143b000df0` (#964 already merged). **PR #966 is NOT merged**; this handoff is an external candidate routing notice, not current main or saved Studio-agent authority. The original canonical goal is still OPEN.
