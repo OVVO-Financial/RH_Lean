@@ -20,7 +20,7 @@ The existing `PRIME_FLIP_PNT_TELESCOPE.lean`, `PRIME_FLIP_SECOND_ORDER_PNT_CLOSU
 
 ## Retained October 17 signed Möbius covariance benchmark (secondary research lane)
 
-**2026-10-17 user-authorized directive, proposed until human merge:** read [the seven-agent original-Möbius covariance contract](docs/SIGNED_MOBIUS_COVARIANCE_RH_SEAM_2026_10_17.md) before launching research. This selects one common quantitative seam for all seven specialists while retaining the public `VFCanonicalSquareVonKochStatement`, the genuine masked #915 NNS source and other independent proof programs as secondary lanes.
+**HISTORICAL 2026-10-17 directive, superseded as the primary by the PNT-first contract above:** the team previously used [the seven-agent original-Möbius covariance contract](docs/SIGNED_MOBIUS_COVARIANCE_RH_SEAM_2026_10_17.md) as its quantitative seam. It formerly selected one common quantitative seam for all seven specialists while retaining the public `VFCanonicalSquareVonKochStatement`, the genuine masked #915 NNS source and other independent proof programs as secondary lanes.
 
 Actual Möbius carriers (NOT Pearson/NNS coefficients):
 ```
