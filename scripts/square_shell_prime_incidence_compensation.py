@@ -174,14 +174,18 @@ def main():
     p = argparse.ArgumentParser()
     p.add_argument('--max-root', type=int, default=317)
     p.add_argument('--verbose', action='store_true')
+    p.add_argument('--exhaustive-root', type=int, default=80,
+                   help='test every admissible gcd band for each r=3..this cutoff')
     args = p.parse_args()
-    roots = [r for r in (14, 31, 137, 317) if r <= args.max_root]
+    roots = sorted(set([r for r in (14, 31, 137, 317) if r <= args.max_root] +
+                       list(range(3, min(args.exhaustive_root, args.max_root) + 1))))
     if not roots:
-        p.error('max-root must be >= 14')
+        p.error('--max-root must be >= 3')
     mu, greatest, pi, primes = sieve((max(roots) + 1) ** 2)
     count = 0
     for r in roots:
-        for D in (1, 2, 4, 8):
+        bands = range(1, (r - 1) // 2 + 1) if r <= args.exhaustive_root else (1, 2, 4, 8)
+        for D in bands:
             if 2 * D >= r:
                 continue
             run_one(r, D, mu, greatest, pi, primes, args.verbose)
