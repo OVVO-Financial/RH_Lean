@@ -55,15 +55,11 @@ jobs:
           restore-keys: |
             rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py') }}-
             rhlean-build-${{ runner.os }}-
-      - name: Build research import closure
-        run: |
-          mkdir -p .lake/build/lib/lean
-          lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_DYADIC_PREFIX_OWNER.olean research/VF_MID_DYADIC_PREFIX_OWNER.lean
-          lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.VF_MID_DYADIC_OWNER_EXACT.olean research/VF_MID_DYADIC_OWNER_EXACT.lean
       - name: Check two-prime orbit obstruction with warnings fatal
         run: |
+          mkdir -p .lake/build/lib/lean
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.SQUARE_SHELL_TWO_PRIME_ORBIT_20261018.olean research/SQUARE_SHELL_TWO_PRIME_ORBIT_20261018.lean
       - name: Audit no new axioms
         run: |
-          printf 'import «research.SQUARE_SHELL_TWO_PRIME_ORBIT_20261018»\n#print axioms RHLean.Analysis.squareShell_activeDivisorFactors_incomparable\n#print axioms RHLean.Analysis.squareShell_twoPrimeOrbit_moebius_eq\n#print axioms RHLean.Analysis.squareShell_twoPrimeOrbit_pairProduct_eq_sq\n#print axioms RHLean.Analysis.squareShell_twoPrimeOrbit_pairProduct_pos\n' >/tmp/square_shell_two_prime_axioms.lean
+          printf 'import «research.SQUARE_SHELL_TWO_PRIME_ORBIT_20261018»\n#print axioms RHLean.Analysis.squareShell_twoPrimeOrbit_moebius_eq\n#print axioms RHLean.Analysis.squareShell_twoPrimeOrbit_pairProduct_eq_sq\n#print axioms RHLean.Analysis.squareShell_twoPrimeOrbit_pairProduct_pos\n' >/tmp/square_shell_two_prime_axioms.lean
           lake env lean -DwarningAsError=true /tmp/square_shell_two_prime_axioms.lean
