@@ -6,7 +6,7 @@
 
 ## One formula, three distinct source obligations
 
-Let `R>=2`, `X=R^2-1`, `t_c=floor(X/c)`, `Delta(t)=pi(t)-Li_2(t)`. PNT is already proved. The exact genuine-cofactor identity is
+Let `R>=3` (handle R=2 as finite base because Li_2 needs endpoint >=2), `X=R^2-1`, `t_c=floor(X/c)`, `Delta(t)=pi(t)-Li_2(t)`. PNT is already proved. The exact genuine-cofactor identity is
 
 ```text
 N_R(c)=pi(t_c)-pi(R-1)            (1<=c<R)
