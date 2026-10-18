@@ -1,5 +1,9 @@
 # RH_Lean research-agent instructions
 
+
+> **EXECUTION PLAN ADDED 2026-10-18 (pending merge):** After the merged PNT-first contract, read the [S=A-T two-scale signed renewal attack plan](research/SIGNED_RENEWAL_TWO_SCALE_ATTACK_PLAN_20261018.md) BEFORE selecting the next numerical/analytic mechanism. One source, two distinct gates: independent dyadic shell-energy gain strictly past 7/8, then nonlocal cross-shell arithmetic compensation for the RH-level prefix; keep the original VF #915 physical carrier separate. The plan corrects the false p/c shell-window equivalence, unproved forced negative prime-owner covariance, and unjustified pointwise 7/8 short-interval saving. Work through its seven nonduplicate deliverables and veto tests. **The plan is not an established inequality and does not supersede canonical VF or modify schedules, saved Studio configs, or human-only merge.**
+
+
 ## Highest-priority user directive — PNT-first signed Euler/Möbius cofactor attack (2026-10-18)
 
 **ACTIVE when this update is merged to `main`: ALL SEVEN scheduled specialists use the complete [PNT-first signed cofactor / historical-return contract](docs/PNT_FIRST_SIGNED_COFACTOR_SEAM_2026_10_18.md) as their FIRST mechanism selector. The Prime Number Theorem is already proved and is an allowed unconditional input. Do not attempt to reprove average prime density; attack the still-OPEN uniform **signed** correlation/payment between genuine prime-extension availability, root-smooth Möbius mass, the exact Li prime-location discrepancy, and historical cross-owner boundary.** Exact root split: for `X=R^2-1`, `N_R(c)=pi(floor(X/c))-pi(R-1)`, `L_R=sum_(c<R)mu(c)[Li_2(floor(X/c))-Li_2(R-1)]`, `E_R=sum_(c<R)mu(c)[Delta(floor(X/c))-Delta(R-1)]`, `M(X)=S_R-L_R-E_R`. This exact identity is NOT an arithmetic saving. Ordinary PNT, or per-window Li replacement, does NOT yield RH-scale signed error. Preserve the joint signed terms before taking a norm.
