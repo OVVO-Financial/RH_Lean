@@ -7,6 +7,10 @@ on:
       - "research/SQUARE_BLOCK_EULER_ANCESTRY_COVARIANCE_20261017.lean"
       - "research/SQUARE_BLOCK_EULER_ANCESTRY_COVARIANCE_20261017.md"
       - "scripts/square_block_euler_ancestry_20261017.py"
+      - "research/VF974_FIRST_BAD_BOUNDARY_DESCENT_OBSTRUCTION_20261018.lean"
+      - "research/VF974_ORIGINAL_FIRSTBAD_GLOBAL_RESIDUAL_DOMINANCE_20261018.lean"
+      - "research/VF974_FIRST_BAD_BOUNDARY_DESCENT_OBSTRUCTION_20261018.md"
+      - "scripts/vf974_firstbad_boundary_probe_20261018.py"
       - ".github/workflows/square-block-euler-ancestry-covariance.yml"
   workflow_dispatch:
 
@@ -20,7 +24,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Verify genuine Möbius pairs and fixed-wheel census
-        run: python3 scripts/square_block_euler_ancestry_20261017.py
+        run: |
+          python3 scripts/square_block_euler_ancestry_20261017.py
+          python3 scripts/vf974_firstbad_boundary_probe_20261018.py
 
   lean:
     runs-on: ubuntu-latest
@@ -76,11 +82,37 @@ jobs:
         run: |
           mkdir -p .lake/build/lib/lean
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.SQUARE_BLOCK_EULER_ANCESTRY_COVARIANCE_20261017.olean research/SQUARE_BLOCK_EULER_ANCESTRY_COVARIANCE_20261017.lean
+      - name: Build the original first-bad and cofactor-obstruction Lean closure
+        uses: ./.github/actions/research-compile
+        with:
+          targets: |
+            research/VF974_ORIGINAL_FIRSTBAD_GLOBAL_RESIDUAL_DOMINANCE_20261018.lean
+      - name: Inspect new named theorems and standard axioms
+        run: |
+          cat >/tmp/VF974_FIRSTBAD_AUDIT.lean <<'EOF'
+          import «research.VF974_ORIGINAL_FIRSTBAD_GLOBAL_RESIDUAL_DOMINANCE_20261018»
+          #print axioms RHLean.Analysis.vf974_root_lt_halfRunStart_square
+          #print axioms RHLean.Analysis.vf974_highPrimeCofactor_lt_originalHalfRun
+          #print axioms RHLean.Analysis.vf974_highPrimeCofactor_not_in_originalHistoricalBlock
+          #print axioms RHLean.Analysis.vf974_oppositeMoebius_sameVFCharge_at_eighteen
+          #print axioms RHLean.Analysis.vf974_firstBadExcess_eq_residual_add_twoUpper_sub_sixLower
+          #print axioms RHLean.Analysis.vf974_firstBad_forces_positive_unmatched_boundary_pressure
+          #print axioms RHLean.Analysis.vf974_halfGate_fails_of_anchor_dominates
+          #print axioms RHLean.Analysis.vf974_anchoredModel_ge_history_minus_budget
+          #print axioms RHLean.Analysis.vf974_globalResidual_eq_exactAnchorModel
+          #print axioms RHLean.Analysis.vf974_firstBad_large_anchor_dominates_sevenBlockAbs
+          #print axioms RHLean.Analysis.vf974_firstBad_large_forces_positive_globalResidual
+          EOF
+          lake env lean -DwarningAsError=true /tmp/VF974_FIRSTBAD_AUDIT.lean | tee /tmp/vf974-firstbad-axioms.log
+          if grep -q 'sorryAx' /tmp/vf974-firstbad-axioms.log; then exit 1; fi
       - name: Reject admitted proofs
         run: |
           python3 - <<'PY'
           import pathlib,re
-          s=pathlib.Path('research/SQUARE_BLOCK_EULER_ANCESTRY_COVARIANCE_20261017.lean').read_text()
-          assert not re.search(r'\b(sorry|admit|axiom)\b', re.sub(r'/\-.*?\-/', '', s, flags=re.S))
+          for path in ['research/SQUARE_BLOCK_EULER_ANCESTRY_COVARIANCE_20261017.lean',
+                       'research/VF974_FIRST_BAD_BOUNDARY_DESCENT_OBSTRUCTION_20261018.lean',
+                       'research/VF974_ORIGINAL_FIRSTBAD_GLOBAL_RESIDUAL_DOMINANCE_20261018.lean']:
+              s=pathlib.Path(path).read_text()
+              assert not re.search(r'\b(sorry|admit|axiom)\b', re.sub(r'/\-.*?\-/', '', s, flags=re.S)), path
           print('PASS no sorry/admit/axiom in Lean source')
           PY
