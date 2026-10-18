@@ -63,5 +63,5 @@ jobs:
           lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.SQUARE_SHELL_INCIDENCE_COMPENSATION_LEAN.olean research/SQUARE_SHELL_INCIDENCE_COMPENSATION_LEAN.lean
       - name: Audit no new axioms
         run: |
-          printf 'import «research.SQUARE_SHELL_INCIDENCE_COMPENSATION_LEAN»\n#print axioms RHLean.Proof.shellIncidenceCompensator_matches\n#print axioms RHLean.Proof.shellCompletedSquare\n#print axioms RHLean.Proof.shell_unit_invisible_to_higher_divisors\n' >/tmp/shell_compensator_axioms.lean
+          printf 'import «research.SQUARE_SHELL_INCIDENCE_COMPENSATION_LEAN»\n#print axioms RHLean.Proof.shellIncidenceCompensator_matches\n#print axioms RHLean.Proof.shellCompletedSquare\n#print axioms RHLean.Proof.shell_unit_invisible_to_higher_divisors\n#print axioms RHLean.Proof.shellLowMoment_split_unit\n#print axioms RHLean.Proof.shellHighOwnerCofactorsAdjacent\n#print axioms RHLean.Proof.shellHighOwnerCannotCarryThree\n#print axioms RHLean.Proof.shellBucketBetaCollapse\n' >/tmp/shell_compensator_axioms.lean
           lake env lean -DwarningAsError=true /tmp/shell_compensator_axioms.lean
