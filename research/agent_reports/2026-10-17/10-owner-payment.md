@@ -168,4 +168,4 @@ No currently read theorem supplies this estimate. A statement about the already 
 
 ## L. Publication history
 
-Early `IN_PROGRESS` checkpoint commit: `89bd519fd10d0efdd8dd257afcf2aea50839adc0`, readback blob `e2443cd7ae8d055f2d1c2db108b19fc29e6e94b9`. Substantive report commit `700ca1ab92f830cdf9a74226b4c06229ec8fc003`, immediate content blob `d8f93cd0443541ca153644a5115150d96ef39a92`. A final metadata append and complete readback verification follow.
+Early `IN_PROGRESS` checkpoint commit: `89bd519fd10d0efdd8dd257afcf2aea50839adc0`, readback blob `e2443cd7ae8d055f2d1c2db108b19fc29e6e94b9`. Substantive report commit `700ca1ab92f830cdf9a74226b4c06229ec8fc003`, immediate content blob `d8f93cd0443541ca153644a5115150d96ef39a92`. Metadata commit `8c58b227bc896e00db587f7b1611f7b9890d120d` was fetched successfully; complete readback blob `ece63d03aeba7dd8b0e4b18456b48b57bb532c4f` was 13,907 characters and contained both claim IDs and the publication record.
