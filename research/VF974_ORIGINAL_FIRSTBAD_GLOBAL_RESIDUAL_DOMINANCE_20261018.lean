@@ -141,7 +141,6 @@ theorem vf974_globalResidual_eq_exactAnchorModel
   rw [vfMidWeightedOmittedSeatAbsMass_eq_squarefulCharge hR,
       vf974_originalDefect_succ_eq_sub_threeStream hR]
   dsimp [vf974ActiveSource, vf974RestoringMass]
-  ring
 
 /-- NEW nontrivial sharp-angle obstruction: G is forced large and positive
 when the compressed D anchor overwhelms the original one-block source.
