@@ -39,8 +39,8 @@ covariance. -/
 theorem squareShell_twoPrimeOrbit_pairProduct_eq_sq
     {R p q m : ℕ}
     (hp : p.Prime) (hq : q.Prime)
-    (hpmL : R ^ 2 < p * m) (hpmU : p * m < (R + 1) ^ 2)
-    (hqmL : R ^ 2 < q * m) (hqmU : q * m < (R + 1) ^ 2)
+    (_hpmL : R ^ 2 < p * m) (_hpmU : p * m < (R + 1) ^ 2)
+    (_hqmL : R ^ 2 < q * m) (_hqmU : q * m < (R + 1) ^ 2)
     (hpc : ¬ p ∣ m) (hqc : ¬ q ∣ m) :
     μ (p * m) * μ (q * m) = (μ m) ^ 2 := by
   rw [moebius_prime_mul hp hpc, moebius_prime_mul hq hqc]
