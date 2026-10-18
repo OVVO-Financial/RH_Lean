@@ -249,4 +249,60 @@ theorem shellLowMoment_split_unit (R : ℕ) (F : ℕ → ℤ)
   rw [hset] at hsplit
   simpa [add_comm] using hsplit.symm
 
+
+/-- If one prime q>r owns two seats in the strict square shell, their
+cofactors differ by at most one. No probabilistic or PNT input. -/
+theorem shellHighOwnerCofactorsAdjacent
+    (r q c cp : ℕ) (hq : r < q)
+    (hcL : r ^ 2 < q * c) (hcU : q * c ≤ r ^ 2 + 2 * r)
+    (hpL : r ^ 2 < q * cp) (hpU : q * cp ≤ r ^ 2 + 2 * r) :
+    c ≤ cp + 1 ∧ cp ≤ c + 1 := by
+  constructor
+  · by_contra hn
+    have hgap : cp + 2 ≤ c := by omega
+    have hmul : q * cp + 2 * q ≤ q * c := by
+      calc
+        q * cp + 2 * q = q * (cp + 2) := by ring
+        _ ≤ q * c := Nat.mul_le_mul_left q hgap
+    omega
+  · by_contra hn
+    have hgap : c + 2 ≤ cp := by omega
+    have hmul : q * c + 2 * q ≤ q * cp := by
+      calc
+        q * c + 2 * q = q * (c + 2) := by ring
+        _ ≤ q * cp := Nat.mul_le_mul_left q hgap
+    omega
+
+/-- No high-prime owner has three distinct cofactors in one square shell. -/
+theorem shellHighOwnerCannotCarryThree
+    (r q c₁ c₂ c₃ : ℕ) (hq : r < q)
+    (h12 : c₁ < c₂) (h23 : c₂ < c₃)
+    (h1L : r ^ 2 < q * c₁) (h1U : q * c₁ ≤ r ^ 2 + 2 * r)
+    (h3L : r ^ 2 < q * c₃) (h3U : q * c₃ ≤ r ^ 2 + 2 * r) : False := by
+  have h := shellHighOwnerCofactorsAdjacent r q c₃ c₁ hq h3L h3U h1L h1U
+  omega
+
+/-- Any disjoint collection of coefficient buckets, when it covers every
+positive divisor k of d exactly once, collapses to the genuine d=1
+Möbius delta. The dyadic gcd bands instantiate this with the bit-length
+bucket map; this theorem does NOT estimate the remaining square energy. -/
+theorem shellBucketBetaCollapse
+    (d : ℕ) (bands : Finset ℕ) (bucket : ℕ → ℕ)
+    (hcover : ∀ k ∈ d.divisors, bucket k ∈ bands) :
+    (∑ D ∈ bands, ∑ k ∈ d.divisors,
+      if bucket k = D then (μ (d / k) : ℤ) else 0) =
+        if d = 1 then 1 else 0 := by
+  calc
+    (∑ D ∈ bands, ∑ k ∈ d.divisors,
+      if bucket k = D then (μ (d / k) : ℤ) else 0) =
+        ∑ k ∈ d.divisors, ∑ D ∈ bands,
+          if bucket k = D then (μ (d / k) : ℤ) else 0 := by
+            rw [Finset.sum_comm]
+    _ = ∑ k ∈ d.divisors, (μ (d / k) : ℤ) := by
+          apply Finset.sum_congr rfl
+          intro k hk
+          simp [hcover k hk]
+    _ = if d = 1 then 1 else 0 :=
+          RHLean.Analysis.sum_moebius_complementary_divisors_eq_one_or_zero d
+
 end RHLean.Proof
