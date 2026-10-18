@@ -1,9 +1,9 @@
 # RH_Lean agent daily report - 2026-10-18 / RH | Adversarial Referee
 
-**Status:** COMPLETED  
+**Status:** COMPLETED (morning run plus authorized live-contract continuation)  
 **Run ID:** 2026-10-18T03:34:01-04:00, scheduled invocation  
 **Canonical objective:** `VFCanonicalSquareVonKochStatement` remains OPEN  
-**Result classes:** `PAPER_PROOF / ACCEPT` (square-shell antichain and two-prime local no-go), `FINITE_EXACT_REFUTATION` (first-cancelling-depth mechanism), `PROVED_IN_LEAN_ON_PR_HEAD / SCOPE_ONLY` (#975), `NO_NEW_QUANTITATIVE_RESULT`
+**Result classes:** `PAPER_PROOF / ACCEPT` (shell antichain, anchor-visible dyadic residue, parameterized divisor tail, rank-one outer-prime no-go, raw transfer cone), `FINITE_EXACT_REFUTATION` (first-cancelling-depth mechanism), `SCOPE_REVISED` (no original-VF admission from endpoint localization), `NO_NEW_QUANTITATIVE_RESULT`
 
 ## A. Bottom line
 
@@ -166,3 +166,149 @@ The theorem is a necessary consequence at a hypothetical first bad. It neither r
 Next Referee action should attack any proposed adjacent-depth recurrence at its residual/tail quantifiers and search for a genuine arithmetic family defeating fixed-depth closure. Do not rerun the already reproduced dyadic bands without a new theorem-shaped discriminator.
 
 No RH proof claim.
+
+
+## H. Authorized continuation after the PNT-first/two-scale merge
+
+**Continuation run:** 2026-10-18T16:04:04-04:00, scheduled invocation. This section supersedes the stale live-status inventory in Section B but preserves the independently valid morning decisions.
+
+Fresh authority and provenance:
+
+- \`main@5ae5a524ca447d1936e351bbbe4b134c068a1a13\`, merge of PR #979.
+- \`AGENTS.md\` blob \`4c66a1d462df98c84deebf0069ad11f904039858\`.
+- \`CURRENT_PROOF_CONTRACT.md\` blob \`2fa9931dcdc1fc8a816aefb8aa348db12ee9a384\`.
+- PNT-first contract blob \`e8acbeff24942d1f8ee0079f715afff2ddda2c33\`.
+- Two-scale attack plan blob \`0606d764ffebb4639cc0abb52ccbef30546b7764\`.
+- Exact #978 source \`research/PNT_FIRST_LAMBDA_HYPERBOLA_ANCHOR_20261018.lean\`, PR head \`ba89ca4e5fc6a341ca0422698ec40b4646480000\`.
+- Current reports consumed: Coordinator \`c9337407b72329a8fc68bd8694f7660a72aafc52\`; Owner \`4655c4379f9a5d4b13a9f43c1c1c0addfe90d836\`; Analytic \`f7b981952037bffa17c67b518edb0c5638f01f05\`; Wheel-incidence \`1f2e83a07d2d277f1137fd0239109f3abea5cbee\`; Wheel \`62da494755501409879e894779d026aed70835f8\`; Census \`701b74c281d01f6727669808566d76b1e8758b26\`; Lean \`0ed62011c7a02051b634928b10ef670380033e34\`; external inbox \`038018145c0fddb2f6306c0712373adf9cd1ea52\`.
+- The complete October 17 set remains \`YESTERDAY=CARRY_FORWARD\` at the blobs recorded in Section B; its source dependencies relevant here are unchanged.
+
+The canonical actual-prime theorem \`VFCanonicalSquareVonKochStatement\` remains OPEN.
+
+## I. Claim \`20261018-referee-3\`: anchor-visible dyadic residue
+
+For fixed \(c\in\{1,2,3\}\), define
+\[
+P_r(c)=\pi\!\left(\left\lfloor\frac{(r+1)^2-1}{c}\right\rfloor\right)
+       -\pi\!\left(\left\lfloor\frac{r^2}{c}\right\rfloor\right).
+\]
+For every \(H>c\), the strict shell intervals are disjoint and
+\[
+\sum_{H\le r<2H}P_r(c)
+=\pi\!\left(\left\lfloor\frac{4H^2-1}{c}\right\rfloor\right)
+ -\pi\!\left(\left\lfloor\frac{H^2}{c}\right\rfloor\right).
+\]
+The only possible internal square obstruction to the union is \(cp=m^2\). For \(c=1\) it is impossible; for \(c=2,3\) it forces \(p=c\), already absent once \(H>c\). Thus the Coordinator's \(O(1)\) qualification is safe, and the stronger eventual exact equality holds.
+
+Ordinary PNT at each fixed \(c\) gives
+\[
+\sum_{H\le r<2H}P_r(c)\sim \frac{3H^2}{2c\log H}.
+\]
+Since \(\mu(1)=1\) and \(\mu(2)=\mu(3)=-1\),
+\[
+\sum_{H\le r<2H}\bigl[-P_r(1)+P_r(2)+P_r(3)\bigr]
+\sim-\frac{H^2}{4\log H}.
+\]
+I independently reproduced every published integer row and a new held-out row:
+\[
+H=4096:\quad (P(1),P(2),P(3))=(2879938,1499526,1024271),
+\]
+so the residue is \(-356141\), with normalized value
+\(-356141\log(4096)/4096^2=-0.1765666938\).
+
+**Verdict:** \`ACCEPT / PAPER_PROOF / PNT-SCALE LOCAL-MECHANISM NO-GO\`.
+
+**Mandatory scope revision:** #978 proves only that the prefix window top
+\(\lfloor(R^2-1)/c\rfloor\) reaches the half-run block range iff \(c\le3\).
+It does not prove that the shell increments above are admitted returned cells of the original #915 source, preserve native weights, masks, clipping, squareful restoration, or the historical denominator. Therefore “anchor-visible” is valid endpoint geometry, not an occurrence-level VF bridge. The result refutes cancellation among the three unweighted high-prime shell modes alone; it does not refute compensation by smooth, \(c\ge4\), cone-slack, cross-owner, or original historical sectors.
+
+## J. Claim \`20261018-referee-4\`: \`TAIL(Y)\` is valid, but the absolute low complement contains the target
+
+Let
+\[
+F_r(d)=\sum_{\substack{n\in I_r\\d\mid n}}\mu(n),\qquad
+\beta_D(d)=\sum_{\substack{k\mid d\\D\le k<2D}}\mu(d/k).
+\]
+The proposed estimate
+\[
+\sum_{Y\le d\le r}|\beta_D(d)|F_r(d)^2
+\ll_\epsilon r^\epsilon\left(\frac{r^2}{Y}+r\right)
+\]
+is correct uniformly in \(D\) and \(1\le Y\le r\). Indeed
+\(|\beta_D(d)|\le\tau(d)\) and
+\[
+|F_r(d)|\le\#\{n\in I_r:d\mid n\}\le(2r+1)/d+1.
+\]
+After squaring and summing, the three terms are
+\(O(r^2/Y)\), \(O(r\log r)\), and \(O(r)\); applying the divisor bound with \(\epsilon/2\) and absorbing the logarithm gives the displayed \(\epsilon\)-form. No PNT or Mertens input is hidden here.
+
+The exact obstruction is sharper than a generic warning. At the dyadic band \(D=1\), only \(k=1\) occurs, so
+\[
+\beta_1(d)=\mu(d),\qquad F_r(1)=\delta_r.
+\]
+Consequently, for every \(Y>1\),
+\[
+\sum_{1\le d<Y}|\beta_1(d)|F_r(d)^2\ge F_r(1)^2=\delta_r^2,
+\]
+and hence
+\[
+\sum_{H\le r<2H}\sum_{1\le d<Y_r}
+|\beta_1(d)|F_r(d)^2\ge\mathcal E(H).
+\]
+
+**Verdict:** \`TAIL(Y): ACCEPT / ELEMENTARY PAPER_PROOF / GENUINE HIGH-TAIL OPTIMIZATION\`.
+An absolute-value estimate for the complete low complement with the desired exponent is a strictly stronger sufficient theorem that already bounds the target energy; it is not a reduction created by the tail split. Precision correction: call it \`TARGET-DOMINATING\`, not literally target-equivalent, because the converse need not hold. A signed low-divisor identity could still contain independent arithmetic cancellation, but then its sign, every complementary band, and the reconstruction of \(\mathcal E(H)\) must be proved before credit.
+
+## K. Claim \`20261018-referee-5\`: outer-prime dispersion degenerates to rank one
+
+For the plan's exact tile,
+\[
+\mathcal J(H;C)=\sum_{\substack{H^2<q<4H^2\\q\ {\rm prime}}}
+\sum_{C\le c<2C}e_{r(q)}(c),
+\]
+the bracket depends on \(q\) only through its shell index \(r(q)\). Therefore
+\[
+\mathcal J(H;C)=\sum_{H\le r<2H}Q_rG_{r,C},
+\qquad G_{r,C}=\sum_{C\le c<2C}e_r(c).
+\]
+Within one shell the outer-\(q\) incidence matrix has identical rows. Its rank is one, and projection to the mean-zero outer-prime subspace is zero.
+
+**Verdict:** Analytic claim \`20261018-analytic-1\` is
+\`ACCEPT / EXACT LOCAL TYPE-II NO-GO\`.
+The necessary inequality involving \(p-q/c\) does not create a selective \(p,q\) incidence: shell membership gives a complete Cartesian outer-prime product. Thinning to a diagonal changes the source and leaves a complement that may contain the entire constant mode. This refutes outer-\(q\) dispersion on the proposed tile, not Type I/II analysis in \(c\), divisor phases, or cross-shell variation.
+
+## L. Claim \`20261018-referee-6\`: raw native/Mobius transfer cone
+
+On the genuine odd high-prime composite shell carrier, partition nonnegative weights into
+\(A\) for \(\mu(c)=1\), \(B\) for \(\mu(c)=-1\), and \(Z\) for \(\mu(c)=0\).
+The high prime is unique because two factors \(>r\) would have product at least
+\((r+1)^2\). Hence \(\mu(pc)=-\mu(c)\), the native mass is
+\(V=A+B+Z\), and the weighted Mobius mass is \(W=B-A\). Exactly
+\[
+V^2-W^2=(2A+Z)(2B+Z)\ge0.
+\]
+Fixed legal fibres \(c=15,3,9\) populate \(A,B,Z\), respectively, on every sufficiently large dyadic block. PNT and the native lower weight bound therefore give
+\(V\pm W\gg H^2/\log^2H\) and
+\(V^2-W^2\gg H^4/\log^4H\).
+
+**Verdict:** Owner claims \`20261018-owner-1\` and
+\`20261018-owner-2\` are \`ACCEPT / PAPER_PROOF / RAW-CARRIER SCALAR-TRANSFER NO-GO\`.
+They refute norm-preserving scalar substitution of weighted Mobius mass for positive native composite mass. They do not prove a masked transfer-cone identity on the original returned-cell carrier and do not obstruct compensation by omitted sectors.
+
+## M. Live PR and CI verification
+
+- #975, #976, #977, #978 and #979 are merged into current \`main\`.
+- #978 proof head \`ba89ca4e5fc6a341ca0422698ec40b4646480000\`: all ten returned exact-head workflows completed successfully, including the dedicated warning-fatal PNT-first Lean and axiom audit.
+- #979 proof/document head \`9c3535d9cadc7016f39071c00ed2e1cc344c4911\`: all four returned workflows completed successfully.
+- Final open-PR search returned none.
+- #969 remains merged only into its stacked non-main base; its three OAI files are absent from \`main\`.
+
+## N. Updated strategy decision
+
+1. **Retain:** \`TAIL(Y)\` as an exact high-divisor budget and the dyadic residue as a local obstruction.
+2. **Retire:** outer-\(q\) mean-zero dispersion for the existing tile; the operator has no such mode.
+3. **Do not transfer:** unweighted Mobius shell signs directly into native VF mass; the cone defect is PNT-sized.
+4. **First honest analytic question:** find a genuinely \(q\)-dependent arithmetic kernel or a cross-shell/divisor-phase estimate whose deleted shell mean and \(D=1\) row are both restored and bounded independently.
+5. **First honest VF question:** prove the masked, once-only transfer-cone identity on original #915 definitions before asking for quantitative payment.
+
+No shell-energy exponent gain, Mertens improvement, canonical VF estimate, or RH theorem is established.
