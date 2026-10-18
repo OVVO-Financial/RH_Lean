@@ -1,4 +1,5 @@
 import Mathlib
+import RHLean.Analysis.CanonicalLowOccupancy
 import RHLean.Arithmetic.SignedBuchstabRecursion
 import RHLean.Arithmetic.PrimeWheelMobiusRecovery
 import RHLean.Analysis.MathlibMertensHook
@@ -130,6 +131,76 @@ theorem highPrimeCofactor_sign_reversal
     have hle : p ≤ c := Nat.le_of_dvd hc hdiv
     omega
   exact RHLean.Arithmetic.moebius_prime_mul hp hnot
+
+/-! ## The exact signed high-prime cofactor bill on the same block -/
+
+/-- A physical site on the high-prime side of its fixed square block has
+its *complete* Mobius sign reversed from its genuine low cofactor.  This
+retains arbitrarily many distinct low primes, and squareful cofactors
+remain zero.  It is not an estimate. -/
+theorem squareBlock_highPrimeOwnerSign
+    {R n : ℕ} (hR : 2 ≤ R) (hn : n ∈ canonicalSquareBlock R)
+    (hhigh : R < canonicalLargestPrimeFactor n) :
+    μ n = -μ (canonicalCofactor n) := by
+  have hnI : R ^ 2 ≤ n ∧ n < (R + 1) ^ 2 := by
+    simpa [canonicalSquareBlock, Finset.mem_Ico] using hn
+  have hn1 : 1 < n := by nlinarith
+  have hp : (canonicalLargestPrimeFactor n).Prime :=
+    canonicalLargestPrimeFactor_prime hn1
+  have hpDvd : canonicalLargestPrimeFactor n ∣ n :=
+    canonicalLargestPrimeFactor_dvd hn1
+  have hc : canonicalCofactor n ≤ R := by
+    simpa only [canonicalCofactor] using
+      squareBlock_highPrimeCofactor_le hn hhigh hpDvd
+  have hprod := canonicalCofactor_mul_largestPrimeFactor hn1
+  have hcpos : 0 < canonicalCofactor n := by
+    by_contra h
+    have hc0 : canonicalCofactor n = 0 := by omega
+    rw [hc0] at hprod
+    simp at hprod
+    omega
+  have hflip := highPrimeCofactor_sign_reversal hp hhigh hcpos hc
+  calc
+    μ n = μ (canonicalCofactor n * canonicalLargestPrimeFactor n) := by
+      rw [hprod]
+    _ = μ (canonicalLargestPrimeFactor n * canonicalCofactor n) := by
+      rw [Nat.mul_comm]
+    _ = -μ (canonicalCofactor n) := hflip
+
+/-- Sum each physical high-prime seat exactly ONCE, weighting it with
+the complete genuine low cofactor.  The existing native owner selector
+prohibits cloning or dropping the prime-only c=1 seat. -/
+noncomputable def squareBlockLowCofactorBill (R : ℕ) : ℂ :=
+  ∑ n ∈ canonicalSquareBlock R,
+    if R < canonicalLargestPrimeFactor n then
+      (((μ (canonicalCofactor n) : ℤ) : ℂ)) else 0
+
+/-- The canonical smooth/transport architecture already has the
+correct sign: its transport is exactly the signed LOW-cofactor bill
+after prime-extension parity reversal. -/
+theorem squareBlockTransportIncrement_eq_lowCofactorBill
+    (R : ℕ) (hR : 2 ≤ R) :
+    squareBlockTransportIncrement R = squareBlockLowCofactorBill R := by
+  classical
+  unfold squareBlockTransportIncrement squareBlockLowCofactorBill
+  rw [← Finset.sum_neg_distrib]
+  apply Finset.sum_congr rfl
+  intro n hn
+  by_cases hhigh : R < canonicalLargestPrimeFactor n
+  · simp only [hhigh, ite_true]
+    have hsign := squareBlock_highPrimeOwnerSign hR hn hhigh
+    simp [canonicalMoebiusWeight, hsign]
+  · simp [hhigh]
+
+/-- Physical square-block increment = genuine smooth sites minus
+the complete original-coefficient, low-cofactor extension bill.
+The arithmetic size of its cumulative sum is *not* estimated here. -/
+theorem squareBlockIncrement_eq_smooth_sub_lowCofactorBill
+    (R : ℕ) (hR : 2 ≤ R) :
+    canonicalTotalIncrement R =
+      squareBlockSmoothIncrement R - squareBlockLowCofactorBill R := by
+  rw [canonicalTotalIncrement_eq_smooth_sub_transport,
+      squareBlockTransportIncrement_eq_lowCofactorBill R hR]
 
 /-! ## Exact density-versus-covariance accounting -/
 
@@ -318,6 +389,9 @@ end RHLean.Proof
 #print axioms RHLean.Proof.squareBlock_atMostOneHighPrime
 #print axioms RHLean.Proof.squareBlock_highPrimeCofactor_le
 #print axioms RHLean.Proof.highPrimeCofactor_sign_reversal
+#print axioms RHLean.Proof.squareBlock_highPrimeOwnerSign
+#print axioms RHLean.Proof.squareBlockTransportIncrement_eq_lowCofactorBill
+#print axioms RHLean.Proof.squareBlockIncrement_eq_smooth_sub_lowCofactorBill
 #print axioms RHLean.Proof.populationDifference_sq_eq_total_add_two_covariance
 #print axioms RHLean.Proof.positiveCovariance_iff_squarefreePopulationExceeded
 #print axioms RHLean.Proof.covariance_ceiling_iff_mertens_square_ceiling
