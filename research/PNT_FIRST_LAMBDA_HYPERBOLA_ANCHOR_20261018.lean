@@ -170,7 +170,7 @@ theorem pntFirst_sum_moebius_div_eq (N : ℕ) (hN : 1 ≤ N) :
     rcases Nat.eq_zero_or_pos n with h0 | hpos
     · subst h0
       have hM1 : mertensSummatory 1 = 1 := by
-        simpa using mertensSummatory_succ 0
+        simp
       have hJ1 : pntFirstMertensTailIntegral 1 = 0 := by
         unfold pntFirstMertensTailIntegral
         rw [show (1 : ℕ) - 1 = 0 from rfl,
@@ -291,11 +291,13 @@ theorem pntFirst_cofactorWindow_height_inRun_iff (R c : ℕ) (hR : 13 ≤ R)
 
 end RHLean.Analysis
 
+#print axioms RHLean.Analysis.pntFirst_moebiusLog_divisorSum_complex
 #print axioms RHLean.Analysis.pntFirst_landau_vonMangoldt_mertens
 #print axioms RHLean.Analysis.pntFirst_lambdaError_hyperbola_total
 #print axioms RHLean.Analysis.pntFirstLambdaError_add_dual
 #print axioms RHLean.Analysis.pntFirst_sum_moebius_div_eq
 #print axioms RHLean.Analysis.pntFirstLambdaModel_eq
 #print axioms RHLean.Analysis.pntFirst_cofactorWindow_below_anchor
+#print axioms RHLean.Analysis.pntFirst_cofactorWindow_inRun
 #print axioms RHLean.Analysis.pntFirst_cofactorWindow_inRun_iff
 #print axioms RHLean.Analysis.pntFirst_cofactorWindow_height_inRun_iff
