@@ -185,11 +185,22 @@ theorem shell_unit_visible_at_one (R : ℕ) (hR : 1 ≤ R) :
   unfold shellDivisibilityProfile
   simp [Finset.sum_ite_eq', Finset.mem_Icc, hR]
 
-/-- The actual zero mode is *exactly* the square-shell energy; never drop it. -/
-theorem shell_low_divisor_d1_is_energy
-    (F : ℕ → ℤ) :
-    F 1 ^ 2 + (∑ d ∈ Finset.Icc 2 1, (μ d : ℤ) * F d ^ 2) =
-      F 1 ^ 2 := by
-  simp
+/-- The genuine d=1 summand is isolated from ALL higher divisor summands.
+This is not an empty range or a boundedness assertion. -/
+theorem shellLowMoment_split_unit (R : ℕ) (F : ℕ → ℤ)
+    (hR : 1 ≤ R) :
+    (∑ d ∈ Finset.Icc 1 R, (μ d : ℤ) * F d ^ 2) =
+      F 1 ^ 2 + ∑ d ∈ Finset.Icc 2 R, (μ d : ℤ) * F d ^ 2 := by
+  classical
+  have hmem : 1 ∈ Finset.Icc 1 R := Finset.mem_Icc.mpr ⟨by omega, hR⟩
+  have hset : (Finset.Icc 1 R).erase 1 = Finset.Icc 2 R := by
+    ext d
+    simp only [Finset.mem_erase, Finset.mem_Icc]
+    omega
+  have hsplit := Finset.sum_erase_add
+    (s := Finset.Icc 1 R)
+    (f := fun d => (μ d : ℤ) * F d ^ 2) hmem
+  rw [hset] at hsplit
+  simpa [add_comm] using hsplit.symm
 
 end RHLean.Proof
