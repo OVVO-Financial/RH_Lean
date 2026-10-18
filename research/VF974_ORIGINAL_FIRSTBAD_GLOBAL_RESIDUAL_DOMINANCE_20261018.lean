@@ -83,6 +83,12 @@ theorem vf974_originalDefect_succ_eq_sub_threeStream
   have hD1 :=
     vfMidActualPrimeEndpointDefect_eq_squareEndpointError
       (R := R + 1) (by omega : 2 ≤ R + 1)
+  change
+    vfMidDyadicFrozenSurvivorSeatCharge R (R + 1) +
+      vfMidDyadicProcessedOwnerSeatCharge R (R + 1) =
+        vfMidOneBlockPrimeSeatCharge R +
+          vfMidOneBlockProcessedSquarefreeCharge R +
+          vfMidOneBlockProcessedSquarefulCharge R at hthree
   dsimp [vf974ActiveSource, vf974RestoringMass]
   rw [hD0, hD1]
   linarith
@@ -128,12 +134,12 @@ theorem vf974_globalResidual_eq_exactAnchorModel
         (vf974ActiveAbs R)
         (vf974RestoringMass R)
         (vfMidActivePhysicalDiagonalMass R) := by
-  rw [vf974_originalDefect_succ_eq_sub_threeStream hR]
   unfold vfMidActiveGlobalResidualExcess
     vfMidActiveDemandResidual vfMidActiveCapacityResidual
     vfMidActiveIdentityAnchorGate
     vf974AnchorModel vf974ActiveSource vf974ActiveAbs vf974RestoringMass
-  rw [vfMidWeightedOmittedSeatAbsMass_eq_squarefulCharge hR]
+  rw [vfMidWeightedOmittedSeatAbsMass_eq_squarefulCharge hR,
+      vf974_originalDefect_succ_eq_sub_threeStream hR]
   ring
 
 /-- NEW nontrivial sharp-angle obstruction: G is forced large and positive
@@ -157,7 +163,8 @@ theorem vf974_anchoredModel_ge_history_minus_budget
     have hXlower : -t ≤ X := by
       have habs := neg_le_abs X
       linarith
-    exact mul_le_mul_of_nonneg_right hXlower hq
+    simpa only [neg_mul] using
+      (mul_le_mul_of_nonneg_right hXlower hq)
   have hqt : t * q ≤ (t + q) ^ 2 := by
     nlinarith [sq_nonneg t, sq_nonneg q, mul_nonneg ht hq]
   have hDsq : D ^ 2 = |D| ^ 2 := (sq_abs D).symm
@@ -249,7 +256,7 @@ theorem vf974_firstBad_large_anchor_dominates_sevenBlockAbs
     have := abs_add_le (vfMidActualPrimeEndpointDefect R)
       (vfMidActualPrimeEndpointDefect (R + 1) -
         vfMidActualPrimeEndpointDefect R)
-    convert this using 1 <;> ring
+    convert this using 1; ring
   have hRreal : 0 ≤ (R : ℝ) := by positivity
   linarith
 
