@@ -53,21 +53,28 @@ theorem pntFirst_moebiusLog_divisorSum_complex (n : ℕ) (hn : 1 ≤ n) :
     (∑ d ∈ n.divisors, (((μ d : ℤ) : ℂ)) * ((Real.log (d : ℝ) : ℝ) : ℂ)) =
       -((Λ n : ℝ) : ℂ) := by
   have h := sum_moebius_log_divisors_eq_neg_vonMangoldt n hn
-  have h' : ((∑ d ∈ n.divisors,
-        (μ : ArithmeticFunction ℝ) d * Real.log (d : ℝ) : ℝ) : ℂ) =
-      ((-Λ n : ℝ) : ℂ) := by
-    rw [h]
-  simp only [ArithmeticFunction.intCoe_apply] at h'
-  exact_mod_cast h'
+  have hR : (∑ d ∈ n.divisors, ((μ d : ℤ) : ℝ) * Real.log (d : ℝ)) = -Λ n := by
+    rw [← h]
+    refine Finset.sum_congr rfl (fun d _ => ?_)
+    rw [ArithmeticFunction.intCoe_apply]
+  have hC := congrArg (fun x : ℝ => (x : ℂ)) hR
+  simp only [Complex.ofReal_sum, Complex.ofReal_mul, Complex.ofReal_neg] at hC
+  rw [← hC]
+  refine Finset.sum_congr rfl (fun d _ => ?_)
+  push_cast
+  ring
 
 /-- **Landau's identity** `Σ_{d ≤ X} Λ(d) M(⌊X/d⌋) = -Σ_{n ≤ X} μ(n) log n`. -/
 theorem pntFirst_landau_vonMangoldt_mertens (X : ℕ) :
     (∑ d ∈ Finset.Icc 1 X, ((Λ d : ℝ) : ℂ) * mertensSummatory (X / d)) =
       -∑ n ∈ Finset.Icc 1 X,
         (((μ n : ℤ) : ℂ)) * ((Real.log (n : ℝ) : ℝ) : ℂ) := by
-  have h := sum_convolveOne_mul_mertensSummatory_div
-    (fun d => (((μ d : ℤ) : ℂ)) * ((Real.log (d : ℝ) : ℝ) : ℂ)) X
-  dsimp only at h
+  have h : (∑ n ∈ Finset.Icc 1 X,
+        (∑ d ∈ n.divisors, (((μ d : ℤ) : ℂ)) * ((Real.log (d : ℝ) : ℝ) : ℂ)) *
+          mertensSummatory (X / n)) =
+      ∑ a ∈ Finset.Icc 1 X, (((μ a : ℤ) : ℂ)) * ((Real.log (a : ℝ) : ℝ) : ℂ) :=
+    sum_convolveOne_mul_mertensSummatory_div
+      (fun d => (((μ d : ℤ) : ℂ)) * ((Real.log (d : ℝ) : ℝ) : ℂ)) X
   have hcoef : ∀ n ∈ Finset.Icc 1 X,
       (∑ d ∈ n.divisors, (((μ d : ℤ) : ℂ)) * ((Real.log (d : ℝ) : ℝ) : ℂ)) *
           mertensSummatory (X / n) =
@@ -129,7 +136,7 @@ theorem pntFirstLambdaError_add_dual (R : ℕ) (hR : 2 ≤ R) :
     rw [Finset.mem_Icc] at hd2
     omega
   rw [← Finset.sum_union hdisj]
-  apply Finset.sum_congr _ (fun _ _ => rfl)
+  refine Finset.sum_congr ?_ (fun _ _ => rfl)
   ext d
   simp only [Finset.mem_union, Finset.mem_Icc, Finset.mem_Ioc]
   omega
@@ -162,7 +169,14 @@ theorem pntFirst_sum_moebius_div_eq (N : ℕ) (hN : 1 ≤ N) :
   | succ n ih =>
     rcases Nat.eq_zero_or_pos n with h0 | hpos
     · subst h0
-      simp [pntFirstMertensTailIntegral, mertensSummatory_succ]
+      have hM1 : mertensSummatory 1 = 1 := by
+        simpa using mertensSummatory_succ 0
+      have hJ1 : pntFirstMertensTailIntegral 1 = 0 := by
+        unfold pntFirstMertensTailIntegral
+        rw [show (1 : ℕ) - 1 = 0 from rfl,
+          Finset.Icc_eq_empty (show ¬ (1 : ℕ) ≤ 0 by norm_num), Finset.sum_empty]
+      rw [show (0 : ℕ) + 1 = 1 from rfl, Finset.Icc_self, Finset.sum_singleton, hM1, hJ1]
+      simp
     · have ih' := ih hpos
       have hJ : pntFirstMertensTailIntegral (n + 1) =
           pntFirstMertensTailIntegral n +
@@ -232,7 +246,7 @@ theorem pntFirst_cofactorWindow_below_anchor (R c : ℕ) (hc : 4 ≤ c) :
       _ = 4 * (R / 2 + 1) ^ 2 := by ring
   calc (R ^ 2 - 1) / c ≤ (R ^ 2 - 1) / 4 := Nat.div_le_div_left hc (by norm_num)
     _ < (R / 2 + 1) ^ 2 := by
-      rw [Nat.div_lt_iff_lt_mul (by norm_num), mul_comm]
+      rw [Nat.div_lt_iff_lt_mul (by norm_num : 0 < 4), mul_comm]
       exact hA
 
 /-- For `R ≥ 13` the cofactors `c = 1, 2, 3` reach the #915 half-run. -/
@@ -252,7 +266,7 @@ theorem pntFirst_cofactorWindow_inRun (R c : ℕ) (hR : 13 ≤ R) (hc1 : 1 ≤ c
       rw [hk2, hk]
       exact Nat.le_sub_of_add_le h
   calc (R / 2 + 1) ^ 2 ≤ (R ^ 2 - 1) / 3 := by
-        rw [Nat.le_div_iff_mul_le (by norm_num), mul_comm]
+        rw [Nat.le_div_iff_mul_le (by norm_num : 0 < 3), mul_comm]
         exact key
     _ ≤ (R ^ 2 - 1) / c := Nat.div_le_div_left hc3 hc1
 

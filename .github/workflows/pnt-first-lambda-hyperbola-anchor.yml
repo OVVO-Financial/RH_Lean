@@ -62,7 +62,29 @@ jobs:
       - name: Check PNT-first exact interfaces with warnings fatal
         run: |
           mkdir -p .lake/build/lib/lean
-          lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.PNT_FIRST_LAMBDA_HYPERBOLA_ANCHOR_20261018.olean research/PNT_FIRST_LAMBDA_HYPERBOLA_ANCHOR_20261018.lean
+          set +e
+          lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.PNT_FIRST_LAMBDA_HYPERBOLA_ANCHOR_20261018.olean research/PNT_FIRST_LAMBDA_HYPERBOLA_ANCHOR_20261018.lean > /tmp/pnt_first_lean.txt 2>&1
+          status=$?
+          set -e
+          cat /tmp/pnt_first_lean.txt
+          if [ "$status" -ne 0 ]; then
+            # Surface each Lean diagnostic as a check-run annotation (diagnostics only; the step still fails).
+            python3 - <<'PY'
+          import re
+          out = open('/tmp/pnt_first_lean.txt').read()
+          parts = re.split(r'\n(?=research/[^\n]*?:\d+:\d+: )', '\n' + out)
+          n = 0
+          for m in parts:
+              mm = re.match(r'(research/[^:\n]+):(\d+):(\d+): (error|warning)(.*)', m.strip(), re.S)
+              if mm and n < 10:
+                  path, line, col, kind, rest = mm.groups()
+                  text = (kind + rest).strip()[:1800]
+                  text = text.replace('%', '%25').replace('\r', '').replace('\n', '%0A')
+                  print(f"::error file={path},line={line},col={col}::{text}")
+                  n += 1
+          PY
+            exit "$status"
+          fi
       - name: Audit standard axioms only
         run: |
           cat >/tmp/pnt_first_axioms.lean <<'EOF'
