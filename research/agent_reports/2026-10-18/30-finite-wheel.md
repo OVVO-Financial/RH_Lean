@@ -49,68 +49,61 @@ The 2026-10-18 report directory was absent at intake, so every upstream stage is
 ## C. Claim `20261018-wheel-1` - square-shell Boolean antichain
 
 Let
-[
-I_r={ninmathbb N:r^2<n<(r+1)^2}
-    ={r^2+1,ldots,r^2+2r}.
-]
+```text
+I_r = {n in N : r^2 < n < (r+1)^2}
+    = {r^2+1, ..., r^2+2r}.
+```
 Let `Q` be squarefree, let `m` be squarefree with `gcd(m,Q)=1`, and define the active divisor face
-[
-A_{r,Q}(m)={d:dmid Q,;mdin I_r}.
-]
-
+```text
+A_(r,Q)(m) = {d : d|Q and m*d in I_r}.
+```
 Then `A_{r,Q}(m)` is an antichain in the divisor lattice of `Q`: if `d,e` are active and `d|e`, then `d=e`.
 
 **Proof.** Every two integers `x<y` in `I_r` satisfy `y<2x`, because
-[
-2(r^2+1)-(r^2+2r)=r^2-2r+2=(r-1)^2+1>0.
-]
+```text
+2(r^2+1) - (r^2+2r) = r^2-2r+2 = (r-1)^2+1 > 0.
+```
 If distinct positive divisors satisfy `d|e`, then `e>=2d`, hence `me>=2md`, contradicting the subdoubling inequality for two sites in `I_r`. This is exact for every `r>=1`; both square endpoints are excluded. The endpoints have zero Mobius value anyway, but they were not used to hide an equality case.
 
 ### Exact orbit partition
 
 Every nonzero-Mobius site `n in I_r` has a unique representation
-[
-d=gcd(n,Q),qquad m=n/d,
-]
+```text
+d = gcd(n,Q),  m = n/d,
+```
 with `d|Q`, `m` squarefree, and `gcd(m,Q)=1`. Therefore the genuine shell increment has the once-only decomposition
-[
-Delta_r=sum_{substack{m {m squarefree}\(m,Q)=1}}
- mu(m)sum_{din A_{r,Q}(m)}mu(d).                 	ag{SA}
-]
+```text
+Delta_r = sum_{m squarefree, gcd(m,Q)=1}
+            mu(m) * sum_{d in A_(r,Q)(m)} mu(d).          (SA)
+```
 No site is duplicated, and squareful sites contribute zero on both sides.
 
 This is an exact arithmetic incidence representation. The theorem exposes a restriction unavailable in an arbitrary Boolean subcomplex: each active face is an antichain cut out by the multiplicative width of the square shell.
 
 ## D. Corollary - two-prime face sign coherence
 
-Take `Q=pq` for distinct primes `p,q`. The divisor lattice is
-[
-{1,p,q,pq}.
-]
-Its only two-element antichain is `{p,q}`. Consequently every nonempty `A_{r,pq}(m)` is either a singleton or `{p,q}`, and
-[
-left|sum_{din A_{r,pq}(m)}mu(d)ight|
-   =|A_{r,pq}(m)|.                                  	ag{SC}
-]
+Take `Q=pq` for distinct primes `p,q`. The divisor lattice is `{1,p,q,pq}`.
+Its only two-element antichain is `{p,q}`. Consequently every nonempty `A_(r,pq)(m)` is either a singleton or `{p,q}`, and
+```text
+|sum_{d in A_(r,pq)(m)} mu(d)| = |A_(r,pq)(m)|.          (SC)
+```
 There is no internal signed cancellation in any nonempty two-prime orbit.
 
 Summing (SC) over the unique orbit partition gives the exact l1 conservation law
-[
-sum_{substack{m {m squarefree}\(m,pq)=1}}
- left|mu(m)sum_{din A_{r,pq}(m)}mu(d)ight|
- =#{nin I_r:mu(n)
-e0}.                         	ag{L1}
-]
-Thus applying a two-prime Boolean fold and then taking absolute values produces exactly the original squarefree population; it saves nothing.
+```text
+sum_{m squarefree, gcd(m,pq)=1}
+  |mu(m) * sum_{d in A_(r,pq)(m)} mu(d)|
+= #{n in I_r : mu(n) != 0}.                              (L1)
+```
 
 If an orbit has two sites, they are `pm` and `qm`. Their gcd is `m`, their unshared primes are exactly `p,q`, and
-[
-mu(pm)mu(qm)=mu(m)^2mu(p)mu(q)=+1.
-]
+```text
+mu(pm)*mu(qm) = mu(m)^2*mu(p)*mu(q) = +1.
+```
 In the complete ancestry tensor merged in #974, such a pair lies at
-[
-(k,l,j)=(omega(m)+1,omega(m)+1,omega(m)),
-]
+```text
+(k,l,j) = (omega(m)+1, omega(m)+1, omega(m)),
+```
 so `k+l-2j=2`. The two-site within-orbit cross term is therefore always positive. This preserves the complete physical pair and explains the obstruction directly in the requested gcd/unshared-prime coordinates.
 
 Example: in `I_10={101,...,120}`, with `p=17,q=19,m=6`, the two sites are `102=17*6` and `114=19*6`; both have Mobius sign `-1`.
@@ -120,34 +113,33 @@ Example: in `I_10={101,...,120}`, with `p=17,q=19,m=6`, the two sites are `102=1
 ## E. Three-prime threshold is genuinely different
 
 The two-prime conclusion does not extend to arbitrary antichains. With
-[
-r=10,qquad Q=2cdot3cdot7=42,qquad m=17,
-]
+```text
+r = 10,  Q = 2*3*7 = 42,  m = 17,
+```
 the active divisors are `6` and `7`, producing the sites
-[
-102=6cdot17,qquad119=7cdot17
-]
+```text
+102 = 6*17,  119 = 7*17
+```
 inside `I_10`. They are incomparable, but have opposite divisor parity:
-[
-mu(6)=+1,qquadmu(7)=-1.
-]
-Since `mu(17)=-1`, the two physical site signs are `mu(102)=-1` and `mu(119)=+1`; this one three-prime orbit cancels exactly.
+```text
+mu(6) = +1,  mu(7) = -1.
+```
 
 This witness is a falsifier against overextending (SC). Three prime faces are the first Boolean complexity at which one orbit can contain incomparable divisors of opposite parity. It does not imply aggregate shell cancellation: every cross-orbit and energy interaction must still be restored.
 
 ## F. Exact finite regression
 
 A fresh exact-integer enumerator used a Mobius sieve, retained only genuine nonzero sites, and grouped each site by the unique pair
-[
-(d,m)=(gcd(n,pq),n/gcd(n,pq)).
-]
+```text
+(d,m) = (gcd(n,pq), n/gcd(n,pq)).
+```
 It checked every shell `1<=r<=300` and every one of the 105 prime pairs with `p,q<=47`:
 
-[
-5,783,041	ext{ nonempty orbits},qquad
-44	ext{ two-site orbits},qquad
-0	ext{ violations}.
-]
+```text
+5,783,041 nonempty orbits
+44 two-site orbits
+0 violations
+```
 
 For every orbit it checked: at most two active divisors; a two-site orbit is exactly `{p,q}`; all active divisor signs agree; and the orbit absolute signed mass equals its population. Boundary cases `r=1` and sites adjacent to both square endpoints were included.
 
@@ -170,10 +162,9 @@ The result does not bridge raw shell pairs to #915's weights, first-bad mask, cl
 ## H. Quantitative consequence and campaign decision
 
 For the target shell input
-[
-sum_{Hle r<2H}Delta_r^2
- ll_eta H^{5/2-kappa+eta},
-]
+```text
+sum_{H <= r < 2H} Delta_r^2 <<_eta H^(5/2-kappa+eta).
+```
 Claim `20261018-wheel-1` supplies no `kappa`. Instead it locates the first possible cancellation:
 
 1. no one-prime local toggle can pay the target, by Coordinator Claim `20261017-coordinator-1`;
