@@ -412,3 +412,10 @@ For a direct original-VF consumer, the first structural lemma is narrower and pr
 - Strongest obstruction: translated-window copies cannot be spent as distinct original physical occurrences, and mixed orientations defeat local cone aggregation unless the two global margins are sign-coupled.
 - Highest-value next step: Referee audit of owner-3/-4, followed by either an analytic attack on literal MW3 or an exact construction of the native #915 quadratic kernel for comparison. Do not rerun the five-block kernel regression without a new hypothesis.
 - No canonical bound, Mertens exponent gain, finite A/C, or RH proof.
+
+
+## O. Continuation publication verification
+
+Early continuation checkpoint commit: 7f08ad4a5a9afe5b0cf0fb1fb88f057ac9a3a25c; readback blob be6a5731f7bab8ad310c592e11feaa165125e04a.
+
+Substantive continuation commit: f2fff6eb684bb509136c45971fe4a08c6881cabe. Immediate readback blob b1f1a3ddd5e44e9b8c9cc5d4014135a7f25b2d8e was 28,415 characters and contained COMPLETED status, both new claim IDs, and the final main SHA. This metadata update is verified by a further readback after publication.
