@@ -29,7 +29,17 @@ theorem vf919FiniteFieldGauss_squaredNorm
     (hχ : χ ≠ 1) (hψ : ψ.IsPrimitive) :
     ‖gaussSum χ ψ‖ ^ 2 = (Fintype.card F : ℝ) := by
   have hmul := gaussSum_mul_gaussSum_eq_card hχ hψ
-  rw [← star_gaussSum_eq χ ψ] at hmul
+  -- Pinned Mathlib 4.24 does not yet expose star_gaussSum_eq.
+  -- Prove the conjugation identity directly from the native
+  -- multiplicative/additive character involutions.
+  have hstar : star (gaussSum χ ψ) = gaussSum χ⁻¹ ψ⁻¹ := by
+    calc
+      _ = ∑ x : F, star (ψ x) * χ⁻¹ x := by
+        simp [gaussSum, star_mul, MulChar.star_apply']
+      _ = ∑ x : F, ψ⁻¹ x * χ⁻¹ x := by
+        simp [← starRingEnd_apply, map_neg_eq_conj]
+      _ = _ := by simp [mul_comm, gaussSum]
+  rw [← hstar] at hmul
   have hnorm := congrArg (fun z : ℂ => ‖z‖) hmul
   simpa [norm_mul, pow_two] using hnorm
 
