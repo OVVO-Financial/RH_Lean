@@ -2,7 +2,7 @@
 
 **2026-10-19, user-directed priority:** FULLY REPRODUCE THE MECHANISM THAT PROVES THE 7/8 ZERO-FREE LINE. Do not prioritize extrapolated 5/6, finite A/C, or RH-strength conditional gates until the new seven-eighths mechanism itself has been reconstructed and independently proved on a true arithmetic carrier. The original canonical \(\pi-VF_{\mathrm{can}}\) / von Koch target is unchanged; other historical attacks remain available but are secondary.
 
-**Honest status:** This file is a research plan and source-verified dependency DAG, **not** an independent 7/8 theorem. The initial native Lean file \`research/NATIVE_SEVEN_EIGHTHS_LOCAL_COMPENSATION_20261019.lean\` targets the *exact algebraic* local cancellation in paper equation (5.13b), with the full Euler row series and actual phases as explicit assumptions. Real coefficient identification, nonprincipal phase extraction, error majorants, inverse/plain moments and the final detector are still OPEN in RH_Lean. Do NOT call the local algebra itself a new power saving.
+**Honest status:** This file is a research plan and source-verified dependency DAG, **not** an independent 7/8 theorem. The initial native Lean file \`research/NATIVE_SEVEN_EIGHTHS_LOCAL_COMPENSATION_20261019.lean\` records one exact local identity, but has **no standalone acceptance status**. The ONLY acceptable output is a kernel-checked full source-to-nonvanishing proof; no intermediate artifact is counted as achieving the user's objective. Real coefficient identification, nonprincipal phase extraction, error majorants, inverse/plain moments and final detector are all required.
 
 ## Precise upstream source and expected toolchains
 
@@ -107,13 +107,11 @@ Only after this completed 7/8 baseline should the team spend primary effort on m
 
 Every agent must read BOTH current and previous calendar day's research reports on its next authorized run, and retain the one-run-per-day usage cap. A GitHub PR or AGENTS.md edit **does not** update saved Agent Studio configuration or trigger the agents.
 
-## Acceptance gates
+## ONE acceptance condition: the entire proof, end to end
 
-- **G0 PROVED?** Native scalar local cancellation, verified without importing \`OAI.*.nonzero\`; source masks and local phase hypotheses visibly explicit.
-- **G1 OPEN** Physical marked/rescaled probe \(\leftrightarrow\) actual Euler source with \(\chi_p(u)\), correct zeros, fixed slot scales.
-- **G2 OPEN** Stage I 11/12 with both independent detector inequalities, principal and exceptional rows.
-- **G3 OPEN** Stage II real inverse and plain moment bounds sufficient to pay the complete high spectrum at the 7/8 rational margins.
-- **G4 OPEN** Honest principal/nonprincipal high correction + low theta probe + analytic-continuation contradiction.
-- **G5 OPEN** Full native terminal 7/8 theorem and Lean 4.34.1 compatibility, kernel axioms, source comparison. First improve only after G5.
+**COMPLETE** means the fully native source-to-theorem closure reproduces BOTH stages and yields a kernel-verified statement of zero-freeness for \(\Re s>7/8\), with no unproved Mertens hypothesis, no reliance on \`OAI.riemannZeta_ne_zero_of_seven_eighths_lt_re\` as a premise, no \`sorry\` or custom axioms, complete actual-phase/error/moment/exceptional-row bounds, warning-fatal compilation and all-original-sources numerical/mask checks. Prefer all Dirichlet characters as upstream proves. Until every part exists in that same proof dependency chain, the project must report only **INCOMPLETE; NO INDEPENDENT 7/8 PROOF**.
 
-No task should report "replicated 7/8" on the strength of G0, a compile green local identity, a borrowed external theorem, a finite census or the conditional Mertens 7/8 consequence.
+The new workflow \`.github/workflows/full-seven-eighths-proof-replay.yml\` replays the WHOLE upstream OpenAI proof at pinned commit \`1581d4cbdd69a0faf34b2089614fe2a814316a6a\` under Lean 4.34.1, compiling \`OAI.NumberTheory.DirichletL.Nonvanishing\`, rechecking both terminal theorem types and their Lean axioms. Its success is *complete external-source replay* and provides a dependable reference while porting, **not** an independent RH_Lean derivation. That distinction remains mandatory even after the replay is green.
+
+Intermediate source files, experimental root tables, scripts and exact local lemmas are implementation artifacts **only**. Do not celebrate, mark complete, or present them to the user as proof milestones. The true deliverable is the entire independently reconstructed mechanism and terminal theorem; if unavailable, clearly report the blocker and refrain from claims of a 7/8 replication.
+
