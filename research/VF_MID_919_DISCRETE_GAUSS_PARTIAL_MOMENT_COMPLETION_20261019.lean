@@ -129,11 +129,19 @@ theorem vf919PrimitiveCharacterGaussCompletion
         ∑ r : ZMod N, χ⁻¹ (-r) * ZMod.dft g (-r) := by
   rw [vf919DiscreteCharacterFourierCompletion]
   simp_rw [hχ.fourierTransform_eq_inv_mul_gaussSum]
-  rw [← Finset.mul_sum]
-  congr 1
-  apply Finset.sum_congr rfl
-  intro r _
-  ring
+  calc
+    (N : ℂ)⁻¹ *
+      (∑ r : ZMod N,
+        χ⁻¹ (-r) * gaussSum χ ZMod.stdAddChar * ZMod.dft g (-r)) =
+      (N : ℂ)⁻¹ *
+        (gaussSum χ ZMod.stdAddChar *
+          ∑ r : ZMod N, χ⁻¹ (-r) * ZMod.dft g (-r)) := by
+      congr 1
+      rw [Finset.mul_sum]
+      apply Finset.sum_congr rfl
+      intro r _
+      ring
+    _ = _ := by ring
 
 /-- **Quantitative finite Fourier completion**, in a form that can be
     instantiated by a true sextic Gauss bound. Crucially the hgauss
