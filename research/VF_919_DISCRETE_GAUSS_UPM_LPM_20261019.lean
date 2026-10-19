@@ -32,14 +32,8 @@ noncomputable section
 
 namespace RHLean.Analysis
 
-/-- Unnormalized zero-target first upper partial moment on any finite
-    source carrier (including genuine ideal generators). -/
-def vf919DiscreteUPM1 {ι : Type*} (S : Finset ι) (f : ι → ℝ) : ℝ :=
-  ∑ x ∈ S, partialUpper (f x) 0
-
-/-- Unnormalized zero-target first lower partial moment, same carrier. -/
-def vf919DiscreteLPM1 {ι : Type*} (S : Finset ι) (f : ι → ℝ) : ℝ :=
-  ∑ x ∈ S, partialLower (f x) 0
+/-! The native finite Gauss import already DEFINES vf919DiscreteUPM1 and
+vf919DiscreteLPM1. Reuse those declarations rather than redeclare them. -/
 
 /-- The EXACT signed sum is UPM_1 - LPM_1. No approximation
     or quadrature, and no cancellation assumed. -/
