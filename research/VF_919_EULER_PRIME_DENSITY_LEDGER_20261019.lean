@@ -123,7 +123,7 @@ def vf919EulerPrimeSquareHandoff (p : ℕ) : ℝ :=
 theorem vf919EulerPrimeSquareHandoff_eq_neg_parent
     (p : ℕ) (hp : p.Prime) :
     vf919EulerPrimeSquareHandoff p = -realMertensLength p := by
-  have hle : 1 ≤ p := by omega
+  have hle : 1 ≤ p := hp.pos
   have hzero : realMertensLength 1 = 0 := by
     simp [realMertensLength, realMoebiusStep]
   have hIco :
@@ -149,7 +149,7 @@ theorem vf919EulerPrimeSquareHandoff_diagonal_eq_parent
     (p : ℕ) (hp : p.Prime) :
     (∑ c ∈ Finset.Ico 1 p, realMoebiusStep (p * c) ^ 2) =
       realMertensDiagonal p := by
-  have hle : 1 ≤ p := by omega
+  have hle : 1 ≤ p := hp.pos
   have hzero : realMertensDiagonal 1 = 0 := by
     simp [realMertensDiagonal, realMoebiusStep]
   have hIco :
