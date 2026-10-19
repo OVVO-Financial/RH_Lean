@@ -163,9 +163,6 @@ theorem vf919SexticFourWits_markedMinusRescaledMainTotals :
     vf919SexticSelectedMainFourIdealTotal [3, 1, 5, 3] = (1, 0) := by
   decide
 
-/-- Four roots all have coefficient +1 under the original actual
-    integer Moebius sign. This is independent of their sextic
-    ideal-labelled phases. -/
 /-- Existing native Möbius first-prime law applied at the unit
     gives the correct sign of ANY prime, without evaluating a generic
     squarefree/cardFactors expression by computation. -/
@@ -190,6 +187,8 @@ private theorem vf919SexticRealMoebius_distinctPrimePair
     vf919SexticRealMoebius_prime q hq]
   norm_num
 
+/-- Four original actual integer Möbius sites have sign +1, as proved
+    by the native fresh-prime multiplication law. -/
 theorem vf919SexticFourWits_originalIntegerMobius :
     realMoebiusStep 133 = 1 ∧
     realMoebiusStep 259 = 1 ∧
