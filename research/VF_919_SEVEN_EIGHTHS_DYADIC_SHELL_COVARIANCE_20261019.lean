@@ -58,7 +58,7 @@ theorem vf919DyadicSquareShell_signedGreenKubo (H : ℕ) :
 /-- Every diagonal contributes at most the literal odd shell width. -/
 theorem vf919DyadicSquareShell_diagonal_le_widthSum (H : ℕ) :
     vf919DyadicSquareShellDiagonal H ≤
-      ∑ R ∈ Finset.Ico H (2 * H), (2 : ℝ) * R + 1 := by
+      ∑ R ∈ Finset.Ico H (2 * H), ((2 : ℝ) * R + 1) := by
   unfold vf919DyadicSquareShellDiagonal
   exact Finset.sum_le_sum (s := Finset.Ico H (2 * H))
     (f := vf919SquareShellDiagonal) (g := fun R => (2 : ℝ) * R + 1)
