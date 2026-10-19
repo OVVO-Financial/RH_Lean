@@ -143,6 +143,30 @@ theorem vf919EulerPrimeSquareHandoff_eq_neg_parent
       rw [Finset.sum_neg_distrib]
     _ = -realMertensLength p := by rw [hIco, hzero]; ring
 
+/-- The same p*c handoff preserves the diagonal contribution:
+the transferred squarefree mass is EXACTLY the earlier parent diagonal. -/
+theorem vf919EulerPrimeSquareHandoff_diagonal_eq_parent
+    (p : ℕ) (hp : p.Prime) :
+    (∑ c ∈ Finset.Ico 1 p, realMoebiusStep (p * c) ^ 2) =
+      realMertensDiagonal p := by
+  have hle : 1 ≤ p := by omega
+  have hzero : realMertensDiagonal 1 = 0 := by
+    simp [realMertensDiagonal, realMoebiusStep]
+  have hIco :
+      (∑ c ∈ Finset.Ico 1 p, realMoebiusStep c ^ 2) =
+        realMertensDiagonal p - realMertensDiagonal 1 := by
+    simpa [realMertensDiagonal] using
+      (Finset.sum_Ico_eq_sub (fun c : ℕ => realMoebiusStep c ^ 2) hle)
+  calc
+    (∑ c ∈ Finset.Ico 1 p, realMoebiusStep (p * c) ^ 2) =
+        ∑ c ∈ Finset.Ico 1 p, realMoebiusStep c ^ 2 := by
+      apply Finset.sum_congr rfl
+      intro c hc
+      rw [realMoebiusStep_prime_mul_of_lt hp
+        (Finset.mem_Ico.mp hc).2]
+      ring
+    _ = realMertensDiagonal p := by rw [hIco, hzero]; ring
+
 /-- Reclassifying a signed mass t and diagonal d from HIGH to LOW changes
 the three pair covariance components but leaves their sum invariant.
 The mass of an already admitted integer is NOT created a second time. -/
@@ -161,6 +185,7 @@ theorem vf919EulerHandoff_conserves_threeCovariances
 #print axioms vf919EulerAllPairs_eq_model_residual_nonprime
 #print axioms vf919EulerXOverLogX_exactSignedCovariance
 #print axioms vf919EulerPrimeSquareHandoff_eq_neg_parent
+#print axioms vf919EulerPrimeSquareHandoff_diagonal_eq_parent
 #print axioms vf919EulerHandoff_conserves_threeCovariances
 
 end RHLean.Analysis
