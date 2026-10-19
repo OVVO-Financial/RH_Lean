@@ -161,6 +161,45 @@ theorem vf919EulerSquareShell_eq_composites_sub_primes (R : ℕ) :
   · simp [vf919EulerPrimeIndicator, hp, vf919EulerPrimeMobius n hp]
   · simp [vf919EulerPrimeIndicator, hp]
 
+/-- Actual cumulative number of admitted primes strictly below K. -/
+def vf919EulerPrimePrefix (K : ℕ) : ℝ :=
+  ∑ n ∈ Finset.range K, vf919EulerPrimeIndicator n
+
+/-- The true prime flow into each square shell is a prefix DIFFERENCE. -/
+theorem vf919EulerShellPrimeCount_eq_prefixDifference (R : ℕ) :
+    vf919EulerShellPrimeCount R =
+      vf919EulerPrimePrefix ((R + 1) ^ 2) -
+        vf919EulerPrimePrefix (R ^ 2) := by
+  have hle : R ^ 2 ≤ (R + 1) ^ 2 :=
+    Nat.pow_le_pow_left (by omega) 2
+  simpa [vf919EulerShellPrimeCount, vf919EulerPrimePrefix] using
+    (Finset.sum_Ico_eq_sub vf919EulerPrimeIndicator hle)
+
+/-- Prime arrivals partition ALL integer sites up to the square cutoff.
+This is an exact count, not a PNT average or local density assumption. -/
+theorem vf919EulerPrimeSquareShells_telescope (K : ℕ) :
+    (∑ R ∈ Finset.range K, vf919EulerShellPrimeCount R) =
+      vf919EulerPrimePrefix (K ^ 2) := by
+  induction K with
+  | zero =>
+      simp [vf919EulerPrimePrefix]
+  | succ K ih =>
+      rw [Finset.sum_range_succ, ih,
+        vf919EulerShellPrimeCount_eq_prefixDifference]
+      ring
+
+/-- The H consecutive root shells together see EVERY new prime in
+[H²,(2H)²) exactly once. This is where the GLOBAL PNT can legitimately
+be applied, unlike a claimed pointwise shell PNT. -/
+theorem vf919EulerDyadicPrimeArrivals_eq_prefixDifference (H : ℕ) :
+    (∑ R ∈ Finset.Ico H (2 * H),
+        vf919EulerShellPrimeCount R) =
+      vf919EulerPrimePrefix ((2 * H) ^ 2) -
+        vf919EulerPrimePrefix (H ^ 2) := by
+  rw [Finset.sum_Ico_eq_sub _ (show H ≤ 2 * H by omega)]
+  rw [vf919EulerPrimeSquareShells_telescope,
+    vf919EulerPrimeSquareShells_telescope]
+
 /-- Difference of the *cumulative* x/log x baseline across the exact
 half-open square shell: [R²,(R+1)²). -/
 def vf919EulerShellPNTBaseline (R : ℕ) : ℝ :=
@@ -271,6 +310,9 @@ theorem vf919EulerDyadicEnergy_of_growthErrorBudgets
 #print axioms vf919EulerLowHigh_totalDiagonal
 #print axioms vf919EulerMovingCovariance_exact
 #print axioms vf919EulerSquareShell_eq_composites_sub_primes
+#print axioms vf919EulerShellPrimeCount_eq_prefixDifference
+#print axioms vf919EulerPrimeSquareShells_telescope
+#print axioms vf919EulerDyadicPrimeArrivals_eq_prefixDifference
 #print axioms vf919EulerShell_growthDifference_exact
 #print axioms vf919EulerShell_energy_decomposition
 #print axioms vf919EulerDyadicEnergy_eq_growthDifference
