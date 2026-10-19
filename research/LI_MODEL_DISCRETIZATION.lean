@@ -474,7 +474,7 @@ theorem squareRootTransportRaw_sub_liDisc_eq_discrepancy
             if q.Prime then (1 : ℂ) else 0 := by
     rw [Finset.range_eq_Ico, ← Finset.sum_Ico_consecutive _
       (Nat.zero_le (R + 1)) (by omega : R + 1 ≤ squareRootEndpoint R / c + 1)]
-    rw [htail]
+    rw [htail, ← Finset.range_eq_Ico]
   unfold primeCountLiDiscrepancy squareRootTransportLiDiscWeight
   rw [hsplit]
   push_cast

@@ -72,8 +72,14 @@ theorem reciprocal_stretchedLog_of_local_data
     have hout0 := houter 0 (by simpa using! hR20.le)
     have hprod : D * T ≤ 0 := mul_nonpos_of_nonneg_of_nonpos hD0.le hnonpos
     exact (not_le_of_gt (norm_pos_iff.mpr hF0)) (hout0.trans hprod)
-  obtain ⟨J, hJ, hJ0, _hJderiv, hJre⟩ :=
-    log_of_analytic hR20 h23 h34 h4 hF hne
+  -- PNT+ proves the modern analytic-log theorem on the larger open disk.
+  obtain ⟨J, hJopen, hJ0, _hJderiv, hJreOpen⟩ :=
+    LogOfAnalyticFunction' hR20 h23 h34 hF hne
+  have hJ : AnalyticOnNhd ℂ J (Metric.closedBall (0 : ℂ) R₂) :=
+    hJopen.mono (Metric.closedBall_subset_ball h23)
+  have hJre (w : ℂ) (hw : w ∈ Metric.closedBall (0 : ℂ) R₂) :
+      Real.log ‖F w‖ - Real.log ‖F 0‖ = (J w).re :=
+    hJreOpen w (Metric.closedBall_subset_ball h23 hw)
   have hJanalytic (S : ℝ) (hS : 0 < S) (hSR : S ≤ R₂) :
       AnalyticOn ℂ J (closure (ballDR S)) := by
     rw [lem_ballDR S hS]
