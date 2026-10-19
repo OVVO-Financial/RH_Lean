@@ -139,6 +139,20 @@ def run(R, smallest, mu, outdir):
     assert [sum(row) for row in signed] == expected
     s = sum(mu[n] for n in active)
     assert sum(map(sum, signed)) == (s * s - len(active)) // 2
+    # Exact globally valid odd-carrier reduction, at this square cutoff.
+    full_mertens = sum(mu[1:X + 1])
+    odd_prefix = sum(mu[1:X + 1:2])
+    odd_half_prefix = sum(mu[1:X // 2 + 1:2])
+    assert full_mertens == odd_prefix - odd_half_prefix, (
+        R, full_mertens, odd_prefix, odd_half_prefix)
+    # PP + AP + HP are one signed algebraic bill; do not bound PP alone.
+    assert P == -KP
+    prime_rows = sum(sum(signed[i]) for i in (2, 4, 5))
+    composite_rows = sum(sum(signed[i]) for i in (0, 1, 3))
+    assert prime_rows == -(KP * (KP + 1)) // 2 - KP * s, (
+        R, prime_rows, KP, s)
+    assert composite_rows + prime_rows == sum(map(sum, signed))
+    # These exact cancellations do not supply an asymptotic bound.
     vf_site = [vfr - (kind[n] == "P") for n in active]
     vf_total = ((sum(vf_site) ** 2) -
                 sum(v * v for v in vf_site)) / 2
@@ -154,6 +168,12 @@ def run(R, smallest, mu, outdir):
         "shared_occurrences": seen, "unmatched_even_occurrences": missing,
         "full_euler_pair_covariance": fullcov,
         "active_euler_pair_covariance": subsetcov,
+        "composite_row_covariance": composite_rows,
+        "prime_row_covariance": prime_rows,
+        "prime_row_reduced_formula": -(KP * (KP + 1)) // 2 - KP * s,
+        "full_mertens_at_X": full_mertens,
+        "odd_mertens_at_X": odd_prefix,
+        "odd_mertens_at_half_X": odd_half_prefix,
         "unmatched_signed_euler_covariance": fullcov - subsetcov,
         "original_VF_active_pair_covariance": vf_total,
         "nonzero_columns": [COLS[j] for j in (0, 3, 4)],
