@@ -203,3 +203,5 @@ This carrier is genuine unweighted Mobius moving-window energy. It is not the or
 ## I. Publication verification
 
 The substantive report was created on `agent-reports` by commit `ae2aac212315b3f8c00382d52259dfe66734eb6d`. Immediate readback returned blob `f73ca0fa0e56d6d0b54c3d27ea2122a512cbb635`, `COMPLETED` status, and both claim IDs. The branch head equaled that commit at readback. Final `main` remained `28a270195167530615c2b182f8c9ffd86855b1f6`; no main-source, PR, review, workflow, merge, schedule or permission state was mutated by this agent.
+
+Post-publication live verification: draft PR #982 remained open/unmerged at exact head `dd182118350f0cfcf1532e71da34ab9d6cd6777f`; all ten returned workflows had completed successfully, including Targeted Lean iteration, Lean source audits, Proof inventory, Documentation checks, Public export verification, and the five legacy VF suites. This verifies that PR head only; it does not promote its open complete-smoothed-energy premise or the Wheel paper claims in this report to a theorem on main.
