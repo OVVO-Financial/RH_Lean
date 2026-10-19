@@ -152,6 +152,35 @@ def run(R, smallest, mu, outdir):
     assert prime_rows == -(KP * (KP + 1)) // 2 - KP * s, (
         R, prime_rows, KP, s)
     assert composite_rows + prime_rows == sum(map(sum, signed))
+    # Unique greatest-prime-factor decomposition n=m*q, with q>P+(m).
+    # This is a distinct counting coordinate from the six historical sectors.
+    prime_fibers = defaultdict(list)
+    for n in active:
+        q = max(factor[n])
+        m = n // q
+        assert q > 1 and smallest[q] == q
+        assert m > 0 and (m & 1) and n == m * q and mu[n] == -mu[m]
+        if m > 1:
+            assert max(factors(m, smallest)) < q
+        assert R * R < m * q < (R + 1) ** 2
+        prime_fibers[m].append(q)
+    assert all(len(qs) == len(set(qs)) for qs in prime_fibers.values())
+    assert len(prime_fibers.get(1, [])) == KP
+    odd_fiber_sum = -sum(mu[m] * len(qs) for m, qs in prime_fibers.items())
+    assert odd_fiber_sum == s
+    composite_fiber_sum = -sum(
+        mu[m] * len(qs) for m, qs in prime_fibers.items() if m > 1)
+    assert composite_fiber_sum == A + H
+    assert sum(signed[4]) == -A * KP
+    assert sum(signed[5]) == -H * KP
+    assert sum(signed[4]) + sum(signed[5]) == KP * sum(
+        mu[m] * len(qs) for m, qs in prime_fibers.items() if m > 1)
+    # Non-circular rank-one drift removal; it changes no square energy.
+    baseline = R / math.log(R)
+    centered_composite = A + H - baseline
+    centered_primes = KP - baseline
+    assert abs((centered_composite - centered_primes) - s) < 1e-9
+    assert abs((centered_composite - centered_primes) ** 2 - s ** 2) < 1e-8
     # These exact cancellations do not supply an asymptotic bound.
     vf_site = [vfr - (kind[n] == "P") for n in active]
     vf_total = ((sum(vf_site) ** 2) -
@@ -171,6 +200,13 @@ def run(R, smallest, mu, outdir):
         "composite_row_covariance": composite_rows,
         "prime_row_covariance": prime_rows,
         "prime_row_reduced_formula": -(KP * (KP + 1)) // 2 - KP * s,
+        "odd_gpf_fiber_count": len(prime_fibers),
+        "odd_gpf_signed_sum": odd_fiber_sum,
+        "odd_gpf_composite_sum": composite_fiber_sum,
+        "odd_gpf_prime_fiber": len(prime_fibers.get(1, [])),
+        "centered_drift": baseline,
+        "centered_composite": centered_composite,
+        "centered_prime": centered_primes,
         "full_mertens_at_X": full_mertens,
         "odd_mertens_at_X": odd_prefix,
         "odd_mertens_at_half_X": odd_half_prefix,
