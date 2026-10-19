@@ -268,6 +268,72 @@ theorem odd_shell_high_tail_dual_by_gpf (R M : ℕ) (hR : 2 ≤ R) :
           intro q _
           rfl
 
+
+/-! ## Exact extension to the FULL finite dyadic cofactor carrier -/
+
+/-- The paired support lies in every large enough complete integer range.
+We never assume the set of actually nonzero prime fibers is pair-closed. -/
+theorem vf919ThreeDipoleCarrier_subset_range
+    (M U : ℕ) (hMU : 3 * M < U) :
+    vf919ThreeDipoleCarrier M ⊆ Finset.range U := by
+  intro x hx
+  rcases Finset.mem_union.mp hx with hparent | hchild
+  · have hxM : x ≤ M :=
+      (Finset.mem_Icc.mp (Finset.mem_filter.mp hparent).1).2
+    exact Finset.mem_range.mpr (by omega)
+  · rcases Finset.mem_image.mp hchild with ⟨d, hd, rfl⟩
+    have hdM : d ≤ M :=
+      (Finset.mem_Icc.mp (Finset.mem_filter.mp hd).1).2
+    exact Finset.mem_range.mpr (by omega)
+
+/-- Exactly ZERO defect on the FULL cofactor carrier, since alpha is
+supported on a pair-complete subset and zero off that subset. -/
+theorem three_adic_dipole_full_defect_eq_zero
+    (M U : ℕ) (hMU : 3 * M < U) :
+    vf919EulerGpfDefect (Finset.range U) (vf919ThreeDipoleAlpha M) = 0 := by
+  have hsub := vf919ThreeDipoleCarrier_subset_range M U hMU
+  have hvanish : ∀ x ∈ Finset.range U,
+      x ∉ vf919ThreeDipoleCarrier M →
+      realMoebiusStep x * vf919ThreeDipoleAlpha M x = 0 := by
+    intro x _hx hnot
+    have hnotD : x ∉ vf919ThreeDipoleParents M := by
+      intro hd
+      exact hnot (Finset.mem_union.mpr (Or.inl hd))
+    have hnotC : x ∉ vf919ThreeDipoleChildren M := by
+      intro hc
+      exact hnot (Finset.mem_union.mpr (Or.inr hc))
+    simp [vf919ThreeDipoleAlpha, hnotD, hnotC]
+  calc
+    vf919EulerGpfDefect (Finset.range U) (vf919ThreeDipoleAlpha M) =
+      vf919EulerGpfDefect (vf919ThreeDipoleCarrier M)
+        (vf919ThreeDipoleAlpha M) := by
+          unfold vf919EulerGpfDefect
+          exact (Finset.sum_subset hsub hvanish).symm
+    _ = 0 := three_adic_dipole_defect_eq_zero M
+
+/-- Full-root-band cofactor support U=(2H)^2 contains the paired weights
+when 3M<H. This is the ACTUAL full signed quadratic, not its
+artificially truncated C_M principal submatrix. -/
+theorem three_adic_dipole_full_dyadic_kernel_exact
+    (H M : ℕ) (hM : 3 * M < H) :
+    (∑ m ∈ Finset.range ((2 * H) ^ 2),
+      ∑ n ∈ Finset.range ((2 * H) ^ 2),
+        realMoebiusStep m * realMoebiusStep n *
+          vf919EulerGpfKernel H m n) =
+      ∑ m ∈ Finset.range ((2 * H) ^ 2),
+        ∑ n ∈ Finset.range ((2 * H) ^ 2),
+          realMoebiusStep m * realMoebiusStep n *
+            vf919EulerGpfDeltaKernel H m n (vf919ThreeDipoleAlpha M) := by
+  have hMU : 3 * M < (2 * H) ^ 2 := by
+    have hH : 0 < H := by omega
+    nlinarith
+  exact dyadic_kernel_double_difference_of_zero_defect
+    H (Finset.range ((2 * H) ^ 2)) (vf919ThreeDipoleAlpha M)
+    (three_adic_dipole_full_defect_eq_zero M ((2 * H) ^ 2) hMU)
+
+#print axioms vf919ThreeDipoleCarrier_subset_range
+#print axioms three_adic_dipole_full_defect_eq_zero
+#print axioms three_adic_dipole_full_dyadic_kernel_exact
 #print axioms vf919ThreeDipole_disjoint
 #print axioms vf919ThreeDipoleAlpha_parent
 #print axioms vf919ThreeDipoleAlpha_child
