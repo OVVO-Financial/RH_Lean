@@ -132,6 +132,34 @@ The long-lag term is negative throughout these sampled powers of two and offsets
 
 The brute-force *divisor-witness* count for large gcd (overcounting actual pairs) is \(2,472,647,025,770\) at H=8192, about \(4.498H^3\), below the elementary \(8H^3\) bound. There is no inference from finite data to (7).
 
+## 8. A second exact simplification: remove the moving prime-root cutoff
+
+For any translated half-open shell with \(r\ge2\), \(0\le k\le2T\), and \(T\le r-2\), write
+\[
+L_{r,T,k}=r^2-T+k,\qquad U_{r,T,k}=(r+1)^2-T+k.
+\]
+An admitted positive product \(L_{r,T,k}<pc\le U_{r,T,k}\) satisfies the exact factor-orientation equivalence
+\[
+\boxed{(p>r\ \wedge\ c\le r)\quad\Longleftrightarrow\quad p>c.}\tag{8}
+\]
+**Elementary proof:** If \(p\le r\) and \(p>c\), then \(pc\le r(r-1)<L_{r,T,k}\), impossible. If \(c>r\) and \(p>c\), then \(pc\ge(r+1)(r+2)>U_{r,T,k}\), impossible. The reverse implication is immediate. The strict margins use \(T\le r-2\) and \(k\le2T\), not prime distribution. Numerical regression checked 82,730 exact actual-prime/cofactor cases for \(3\le r\le54\).
+
+The native theorem is \`shellTrapezoidAdmitted_owner_iff_factorOrder\`, and \`shellTrapezoidMovingOwner_eq_fixedTriangle\` retains the *same actual signed Möbius cofactor*. This eliminates the root-dependent \(p>r\) restriction from the **local high-prime source**; it becomes the fixed triangular factor ordering \(p>c\). The identical translated shells for \(H\le r<H+K\) partition the complete physical interval \((H^2+t,(H+K)^2+t]\), so at paper level the entire signed high-cofactor source simplifies to
+\[
+\boxed{\frac1{2T+1}\sum_{t=-T}^T
+\sum_{c>T}\mu(c)
+\sum_{\substack{p\text{ prime}>c\\H^2+t<pc\le(H+K)^2+t}}1.}\tag{9}
+\]
+Equation (9) is an exact finite reindexing once the adjacent-shell partition is imported to Lean. It does **not** estimate the bilinear sum. The actual \(p>c\) condition also ensures the fresh prime \(p\nmid c\), so \(\mu(pc)=-\mu(c)\) when \(p\) is prime.
+
+**Practical scale change:** at \(T=\lfloor0.8H\rfloor\) and \(H\) sufficiently large for \(T\le H-2\), the difficult \(c>T\) band has \(c\asymp H\), and
+\[
+p\le\frac{(2H)^2+T}{T+1}=O(H).
+\]
+This is a *balanced* prime-by-Möbius Type II triangle \(p,c\asymp H\), rather than the earlier asymmetric \(p\ll H^{4/3}\), \(c\gtrsim H^{2/3}\). The low-\(c\) sector and the entire smooth high-prime compensation remain in the analysis. No bound is claimed solely from balanced geometry.
+
+A serious next analytic step is to use this fixed \(p>c\) triangle, the genuinely separated long-lag small-gcd pairs and the signed compensation \(S=A-T\) in one source-preserving Type II estimate. Do not infer a power saving from the Fubini swap or the order condition itself.
+
 ## 7. Acceptance and agent attack seam
 
 1. **Lean / geometry:** certify the sharp-to-smoothed *endpoint* telescope, near-lag Green--Kubo and **uniform prefix K<=H**, not just the earlier L2 shell theorem. Specialize to genuine \(\mu\), then import the high-gcd count with a telescoping finite rational bound.
