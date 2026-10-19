@@ -26,9 +26,20 @@ namespace RHLean.Analysis
 private theorem sum_difference_Ico
     (F : ℕ → ℝ) {a b : ℕ} (hab : a ≤ b) :
     (∑ r ∈ Finset.Ico a b, (F r - F (r + 1))) = F a - F b := by
-  rw [Finset.sum_Ico_eq_sub _ hab,
-    Finset.sum_range_sub F b, Finset.sum_range_sub F a]
-  ring
+  have hforward :
+      (∑ r ∈ Finset.Ico a b, (F (r + 1) - F r)) = F b - F a := by
+    rw [Finset.sum_Ico_eq_sub _ hab,
+      Finset.sum_range_sub F b, Finset.sum_range_sub F a]
+    ring
+  calc
+    (∑ r ∈ Finset.Ico a b, (F r - F (r + 1))) =
+        -(∑ r ∈ Finset.Ico a b, (F (r + 1) - F r)) := by
+          rw [← Finset.sum_neg_distrib]
+          apply Finset.sum_congr rfl
+          intro r hr
+          ring
+    _ = -(F b - F a) := by rw [hforward]
+    _ = F a - F b := by ring
 
 /-- Exact two-wall cancellation: all interior sawtooths disappear. -/
 theorem shellTrapezoidResidual_sum_eq_endpoint_saws
@@ -66,9 +77,20 @@ theorem shellTrapezoidSharp_sum_eq_prefix_difference
       P (shellTrapezoidSquare b) - P (shellTrapezoidSquare a) := by
   have h := sum_difference_Ico
     (fun r => P (shellTrapezoidSquare r)) hab
-  unfold shellTrapezoidSharp
-  simp_rw [← neg_sub]
-  linarith [h]
+  calc
+    (∑ r ∈ Finset.Ico a b, shellTrapezoidSharp P r) =
+        -(∑ r ∈ Finset.Ico a b,
+          (P (shellTrapezoidSquare r) -
+            P (shellTrapezoidSquare (r + 1)))) := by
+          rw [← Finset.sum_neg_distrib]
+          apply Finset.sum_congr rfl
+          intro r hr
+          unfold shellTrapezoidSharp
+          ring
+    _ = -(P (shellTrapezoidSquare a) -
+          P (shellTrapezoidSquare b)) := by rw [h]
+    _ = P (shellTrapezoidSquare b) -
+          P (shellTrapezoidSquare a) := by ring
 
 /-- Sum of all smoothed shells is the same endpoint prefix difference with
 only the two endpoint sawtooths restored. There is NO interior error sum. -/
