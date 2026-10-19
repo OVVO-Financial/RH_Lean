@@ -108,7 +108,6 @@ theorem vf919FirstOwnerChild_sum_eq_returnedParents
       _ = m := Nat.mul_div_cancel' hmDvd
   · intro a ha
     refine ⟨p * a, lowOwnerFirstOwner_mul_mem_child_of_admitted hp ha, ?_⟩
-    change (p * a) / p = a
     simpa [Nat.mul_comm] using! Nat.mul_div_left a hp.pos
   · intro n hn
     have hnDvd := (Finset.mem_filter.mp hn).2.2
