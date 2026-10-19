@@ -94,8 +94,21 @@ theorem lowOwnerFirstOwnerRawParentBranchCarrier_eq_equalKeyProduct
   rcases mn with ⟨m, n⟩
   simp only [lowOwnerFirstOwnerRawParentBranchCarrier,
     lowOwnerFirstOwnerRawParentBranchSiteCarrier,
-    lowOwnerRawParentRevealedKey, Finset.mem_filter, Finset.mem_product]
-  tauto
+    lowOwnerRawParentRevealedKey, Finset.mem_filter]
+  constructor
+  · rintro ⟨hprod, hkey, hm, hn⟩
+    have hb := Finset.mem_product.mp hprod
+    apply Finset.mem_filter.mpr
+    refine ⟨Finset.mem_product.mpr ?_, hkey⟩
+    exact ⟨Finset.mem_filter.mpr ⟨hb.1, hm⟩,
+      Finset.mem_filter.mpr ⟨hb.2, hn⟩⟩
+  · intro h
+    rcases Finset.mem_filter.mp h with ⟨hprod, hkey⟩
+    rcases Finset.mem_product.mp hprod with ⟨hm, hn⟩
+    rcases Finset.mem_filter.mp hm with ⟨hmbase, hmnodiv⟩
+    rcases Finset.mem_filter.mp hn with ⟨hnbase, hnnodiv⟩
+    exact ⟨Finset.mem_product.mpr ⟨hmbase, hnbase⟩,
+      hkey, hmnodiv, hnnodiv⟩
 
 /-- The tail pair carrier is exactly the equal-key square of tail sites. -/
 theorem lowOwnerFirstOwnerRawParentTailCarrier_eq_equalKeyProduct
@@ -108,13 +121,33 @@ theorem lowOwnerFirstOwnerRawParentTailCarrier_eq_equalKeyProduct
             lowOwnerRawParentRevealedKey R r mn.2) := by
   ext mn
   rcases mn with ⟨m, n⟩
-  simp only [lowOwnerFirstOwnerRawParentTailCarrier,
-    lowOwnerFirstOwnerRawParentBranchCarrier,
-    lowOwnerFirstOwnerRawParentTailSiteCarrier,
-    lowOwnerFirstOwnerRawParentBranchSiteCarrier,
-    lowOwnerRawParentRevealedKey, Finset.mem_filter, Finset.mem_product,
-    not_or, not_le]
-  tauto
+  unfold lowOwnerFirstOwnerRawParentTailCarrier
+  rw [lowOwnerFirstOwnerRawParentBranchCarrier_eq_equalKeyProduct]
+  constructor
+  · intro h
+    rcases Finset.mem_filter.mp h with ⟨hbranch, htail⟩
+    rcases Finset.mem_filter.mp hbranch with ⟨hprod, hkey⟩
+    rcases Finset.mem_product.mp hprod with ⟨hm, hn⟩
+    have hmTail : squareRootEndpoint R < r * m := by omega
+    have hnTail : squareRootEndpoint R < r * n := by omega
+    change (m, n) ∈
+      ((lowOwnerFirstOwnerRawParentTailSiteCarrier R p sig r).product
+        (lowOwnerFirstOwnerRawParentTailSiteCarrier R p sig r)).filter
+        (fun mn => lowOwnerRawParentRevealedKey R r mn.1 =
+          lowOwnerRawParentRevealedKey R r mn.2)
+    apply Finset.mem_filter.mpr
+    refine ⟨Finset.mem_product.mpr ?_, hkey⟩
+    exact ⟨Finset.mem_filter.mpr ⟨hm, hmTail⟩,
+      Finset.mem_filter.mpr ⟨hn, hnTail⟩⟩
+  · intro h
+    rcases Finset.mem_filter.mp h with ⟨hprod, hkey⟩
+    rcases Finset.mem_product.mp hprod with ⟨hm, hn⟩
+    rcases Finset.mem_filter.mp hm with ⟨hmbase, hmTail⟩
+    rcases Finset.mem_filter.mp hn with ⟨hnbase, hnTail⟩
+    apply Finset.mem_filter.mpr
+    refine ⟨Finset.mem_filter.mpr
+      ⟨Finset.mem_product.mpr ⟨hmbase, hnbase⟩, hkey⟩, ?_⟩
+    omega
 
 /-- One key fibre of an equal-key pair carrier is a Cartesian square. -/
 private theorem equalKeyPair_filter_eq_fiberProduct

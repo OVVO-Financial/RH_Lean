@@ -120,8 +120,8 @@ physical clock. -/
 theorem lowOwnerStokesWheelArithmeticCertificate
     (R : ℕ) (hR : 2 ≤ R) :
     (lowOwnerStokesWheelSystem R hR).ArithmeticCertificate := by
-  apply PrimeWheelFiniteSystem.ArithmeticCertificate.mk
-    intro n hnpos hnupper
+  refine ⟨?_⟩
+  intro n hnpos hnupper
     change correctedPrimeWheelSite
       (lowOwnerStokesWheelPrimes R) (squareRootEndpoint R) n = μ n
     exact correctedPrimeWheelSite_eq_moebius

@@ -110,9 +110,21 @@ theorem signatureCell_56_three_straddles_high_q7_threshold :
     · norm_num [lowOwnerFirstOwnerSignatureCellCarrier,
         lowOwnerNonzeroMobiusCarrier, squarefreeLowerPrimeSignature,
         squarefreePrimeFace, realMoebiusStep, squareRootEndpoint]
+      intro x hx hxone
+      have htwo := hx.two_le
+      omega
     · norm_num [lowOwnerFirstOwnerSignatureCellCarrier,
         lowOwnerNonzeroMobiusCarrier, squarefreeLowerPrimeSignature,
         squarefreePrimeFace, realMoebiusStep, squareRootEndpoint]
+      constructor
+      · exact (ArithmeticFunction.moebius_ne_zero_iff_squarefree).2
+          (by decide : Squarefree 65)
+      · intro x hx hxdiv
+        by_contra hlt
+        have htwo : 2 ≤ x := hx.two_le
+        have hx2 : x = 2 := by omega
+        subst x
+        norm_num at hxdiv
   refine ⟨hcell.1, hcell.2, ?_⟩
   rw [lowOwnerReciprocalDaughterWeight_56_one]
   have h65 :
@@ -139,7 +151,7 @@ theorem firstOwner_three_edge_zero_weightGradient_nonzero_siteProduct :
       (by norm_num : Nat.Prime 3)
       (by norm_num : 0 < (1 : ℕ))
       (by norm_num : 0 < (3 : ℕ))
-    · norm_num [squarefreeLowerPrimeSignature, squarefreePrimeFace]
+    · norm_num [squarefreeLowerPrimeSignature, squarefreePrimeFace] <;> simp
     · exact Or.inr ⟨by norm_num, by norm_num⟩
   have hthree :
       lowOwnerReciprocalDaughterWeight 56 3 = (71 : ℝ) / 105 := by
