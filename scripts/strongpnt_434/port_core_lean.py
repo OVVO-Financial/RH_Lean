@@ -23,6 +23,26 @@ PATCHES = [
     "RHLean/Proof/ActualForcingEstimates.lean",
     "‖actualBoundaryNonresonant data.boundary M‖ := by\n      exact add_le_add_right (norm_add_le _ _) _",
     "‖actualBoundaryNonresonant data.boundary M‖ := by\n      exact add_le_add_left\n        (norm_add_le\n          (actualLowHeightNonresonant data.lowHeight M)\n          (actualEndpointNonresonant data.endpoint M))\n        (‖actualBoundaryNonresonant data.boundary M‖)"
+  ],
+  [
+    "RHLean/Analysis/SquarePrefixMertensBridge.lean",
+    "add_le_add_left (norm_mertensSummatory_sub_le a x hax) _",
+    "add_le_add_right (norm_mertensSummatory_sub_le a x hax) _"
+  ],
+  [
+    "RHLean/Analysis/SquarePrefixMertensBridge.lean",
+    "exact add_le_add_left hgap _",
+    "exact add_le_add_right hgap _"
+  ],
+  [
+    "RHLean/Analysis/SquarePrefixMertensBridge.lean",
+    "add_le_add_right hendpoint _",
+    "add_le_add_left hendpoint _"
+  ],
+  [
+    "RHLean/Analysis/SquarePrefixMertensBridge.lean",
+    "simpa only [Real.rpow_one] using",
+    "simpa only [Real.rpow_eq_pow, Real.rpow_one] using"
   ]
 ]
 
