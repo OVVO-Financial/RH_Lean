@@ -42,6 +42,7 @@ jobs:
           python3 -m py_compile scripts/strongpnt_434/use_modern_pnt.py
           python3 -m py_compile scripts/strongpnt_434/port_imports.py
           python3 -m py_compile scripts/strongpnt_434/port_pnt1.py
+          python3 -m py_compile scripts/strongpnt_434/port_core_lean.py
 
       - name: Install candidate compiler without forcing old-package caches
         uses: leanprover/lean-action@v1
@@ -156,6 +157,12 @@ jobs:
         run: |
           set -euo pipefail
           python3 scripts/strongpnt_434/use_modern_pnt.py 2>&1 | tee lean-434-modern-adapter.log
+
+      - name: Repair two source-verified RHLean elaboration APIs for Lean 4.34
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 scripts/strongpnt_434/port_core_lean.py 2>&1 | tee lean-434-core-patches.log
 
       - name: Compile the zero-free corridor against modern theorems
         shell: bash
