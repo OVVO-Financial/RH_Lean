@@ -71,7 +71,7 @@ for every nonnegative envelope (F(H)) paying (HT(H)^2),
 \mathcal E_{\rm sharp}(H)=O(F(H))
 \iff\mathcal E_{\rm smooth}(H,T(H))=O(F(H)).
 ]
-This statement concerns the **complete smoothed signed shell**. A general `ShellTrapezoidIndependentSignedDispersion` is merely a named `Prop` for its still-unproved bound, with a conditional formal consumer. The explicit real-power-floor specialization is an elementary separate bridge; no deep arithmetic input is hidden in it.
+This statement concerns the **complete smoothed signed shell**. The named target is **not** an independently derived arithmetic inequality and must never be advertised as one. A general `ShellTrapezoidCompleteSmoothedEnergyTarget` is a named, target-equivalent `Prop` for its still-unproved bound, with a conditional formal consumer. The explicit real-power-floor specialization is an elementary separate bridge; no deep arithmetic input is hidden in it.
 
 ## 4. Exact small-cofactor arithmetic and what is still unpaid
 
@@ -96,7 +96,7 @@ The exact (G_Da=b_D) normal equation from `SQUARE_SHELL_INCIDENCE_COMPENSATION_2
 
 ## 5. Acceptance, reproducibility, and limits
 
-- Lean: `research/SQUARE_SHELL_TRAPEZOID_CORRECTED_20261018.lean`, warning-fatal research-iteration workflow, standard kernel axiom audit.
+- Lean: `research/SQUARE_SHELL_TRAPEZOID_CORRECTED_20261018.lean` and `research/SQUARE_SHELL_TRAPEZOID_FINITE_COFACTOR_20261018.lean`, warning-fatal research-iteration workflow, standard kernel axiom audit.
 - Arithmetic test: `python3 scripts/square_shell_trapezoid_regression.py`; it uses only exact integer/Fraction arithmetic, checks 678 genuine Mobius shifted-shell windows, the signed sawtooth, collar bounds, and the falsifying unsigned-saw witness. Such finite tests **never** certify a uniform exponent.
 - Next Lean specialization: attach `P` explicitly to genuine (M(n)), prove the per-atom 1-Lipschitz property and (\mu(j^2)=0), and prove the exact floor power choice (T(H)=\lfloor H^{2/3}\rfloor).
 - Next analytic theorem: an **independent** uniform signed estimate on the *entire* smoothed `S=A-T` carrier, preserving (c=1) prime population, the smooth-model term, cofactor bands and all mixed products.
