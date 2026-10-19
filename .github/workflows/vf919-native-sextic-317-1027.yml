@@ -1,0 +1,36 @@
+name: Native 317 1027 sextic ideal witnesses
+
+on:
+  pull_request:
+    paths:
+      - 'scripts/vf919_native_sextic_317_1027.py'
+      - 'research/VF_919_NATIVE_SEXTIC_IDEAL_FIBER_20261019.lean'
+      - '.github/workflows/vf919-native-sextic-317-1027.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  exact-ideal-rows:
+    name: All four exact sixth-root spectra and Möbius cutoffs
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Reproduce all four split-ideal fiber censuses without dependencies
+        run: |
+          set -euo pipefail
+          python3 scripts/vf919_native_sextic_317_1027.py | tee vf919-native-sextic-four-cases.log
+          grep -q 'x=317 ' vf919-native-sextic-four-cases.log
+          grep -q 'x=1027 ' vf919-native-sextic-four-cases.log
+          grep -q 'R=317 ' vf919-native-sextic-four-cases.log
+          grep -q 'R=1027 ' vf919-native-sextic-four-cases.log
+      - name: Publish exact witness log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: vf919-native-sextic-317-1027
+          path: vf919-native-sextic-four-cases.log
+          if-no-files-found: ignore
+          retention-days: 30
