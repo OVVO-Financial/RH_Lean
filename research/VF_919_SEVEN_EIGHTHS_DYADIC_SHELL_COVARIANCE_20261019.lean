@@ -98,6 +98,102 @@ theorem vf919DyadicSquareShell_energy_of_signedCovariance
   have hK := vf919DyadicSquareShell_diagonal_le_rough H
   linarith
 
+/-! ## Source-faithful finite dyadic Cauchy--Schwarz / telescoping -/
+
+/-- The H square shells exactly telescope over [H^2,(2H)^2).
+No Hecke ideal, Fourier transformation or smoothing is used. -/
+theorem vf919DyadicSquareShell_increment_eq_sum (H : ℕ) :
+    realMertensLength ((2 * H) ^ 2) - realMertensLength (H ^ 2) =
+      ∑ R ∈ Finset.Ico H (2 * H), vf919SquareShellSum R := by
+  have hle : H ≤ 2 * H := by omega
+  rw [Finset.sum_Ico_eq_sub _ hle]
+  rw [vf919SquareShell_telescope, vf919SquareShell_telescope]
+
+/-- Exactly H sign-bearing square shells are present, even when their
+individual lengths are not equal. -/
+theorem vf919DyadicSquareShell_count (H : ℕ) :
+    (Finset.Ico H (2 * H)).card = H := by
+  simp [Finset.card_Ico]
+  omega
+
+/-- The precise finite H-point Cauchy--Schwarz inequality. This keeps the
+entire SIGNED sum inside the square and all actual shell amplitudes
+in the diagonal energy. -/
+theorem vf919DyadicSquareShell_cauchy (H : ℕ) :
+    (∑ R ∈ Finset.Ico H (2 * H), vf919SquareShellSum R) ^ 2 ≤
+      (H : ℝ) * vf919DyadicSquareShellEnergy H := by
+  have hcs := Finset.sum_mul_sq_le_sq_mul_sq
+      (Finset.Ico H (2 * H))
+      (fun _R => (1 : ℝ)) vf919SquareShellSum
+  simpa [vf919DyadicSquareShellEnergy, vf919DyadicSquareShell_count H]
+    using hcs
+
+/-- Native dyadic Mertens increment has a squared bound with exactly
+the cost H, and NO loss from pairwise absolute values. -/
+theorem vf919DyadicSquareShell_increment_sq_le_energy (H : ℕ) :
+    ‖realMertensLength ((2 * H) ^ 2) -
+        realMertensLength (H ^ 2)‖ ^ 2 ≤
+      (H : ℝ) * vf919DyadicSquareShellEnergy H := by
+  have hcs := vf919DyadicSquareShell_cauchy H
+  rw [← vf919DyadicSquareShell_increment_eq_sum] at hcs
+  simpa [Real.norm_eq_abs, sq_abs] using hcs
+
+/-- Partial dyadic shell bands cost at most the WHOLE dyadic energy.
+This is needed for an arbitrary square-prefix endpoint, not only 2H. -/
+theorem vf919DyadicSquareShell_partial_cauchy
+    (H K : ℕ) (hHK : H ≤ K) (hK : K ≤ 2 * H) :
+    (∑ R ∈ Finset.Ico H K, vf919SquareShellSum R) ^ 2 ≤
+      (H : ℝ) * vf919DyadicSquareShellEnergy H := by
+  have hsubset : Finset.Ico H K ⊆ Finset.Ico H (2 * H) := by
+    intro R hR
+    simp only [Finset.mem_Ico] at hR ⊢
+    exact ⟨hR.1, lt_of_lt_of_le hR.2 hK⟩
+  have hpart :
+      (∑ R ∈ Finset.Ico H K, vf919SquareShellSum R ^ 2) ≤
+        vf919DyadicSquareShellEnergy H := by
+    unfold vf919DyadicSquareShellEnergy
+    apply Finset.sum_le_sum_of_subset_of_nonneg hsubset
+    intro R _ _
+    positivity
+  have hsize : (((Finset.Ico H K).card : ℕ) : ℝ) ≤ (H : ℝ) := by
+    rw [Finset.card_Ico]
+    exact_mod_cast (show K - H ≤ H by omega)
+  have hpartialNonneg :
+      0 ≤ ∑ R ∈ Finset.Ico H K, vf919SquareShellSum R ^ 2 := by
+    positivity
+  have hcs := Finset.sum_mul_sq_le_sq_mul_sq
+      (Finset.Ico H K) (fun _R => (1 : ℝ)) vf919SquareShellSum
+  have hcs' :
+      (∑ R ∈ Finset.Ico H K, vf919SquareShellSum R) ^ 2 ≤
+        ((Finset.Ico H K).card : ℝ) *
+          (∑ R ∈ Finset.Ico H K, vf919SquareShellSum R ^ 2) := by
+    simpa using hcs
+  exact hcs'.trans (mul_le_mul hsize hpart hpartialNonneg
+    (Nat.cast_nonneg H))
+
+/-- The exact Cauchy--Schwarz payment for any dyadic partial square
+block, telescoped back to a genuine Mertens difference. -/
+theorem vf919DyadicSquareShell_partial_increment_sq
+    (H K : ℕ) (hHK : H ≤ K) (hK : K ≤ 2 * H) :
+    ‖realMertensLength (K ^ 2) -
+        realMertensLength (H ^ 2)‖ ^ 2 ≤
+      (H : ℝ) * vf919DyadicSquareShellEnergy H := by
+  have hsum :
+      (∑ R ∈ Finset.Ico H K, vf919SquareShellSum R) =
+        realMertensLength (K ^ 2) -
+          realMertensLength (H ^ 2) := by
+    rw [Finset.sum_Ico_eq_sub _ hHK]
+    rw [vf919SquareShell_telescope, vf919SquareShell_telescope]
+  have hcs := vf919DyadicSquareShell_partial_cauchy H K hHK hK
+  rw [hsum] at hcs
+  simpa [Real.norm_eq_abs, sq_abs] using hcs
+
+#print axioms vf919DyadicSquareShell_increment_eq_sum
+#print axioms vf919DyadicSquareShell_count
+#print axioms vf919DyadicSquareShell_cauchy
+#print axioms vf919DyadicSquareShell_increment_sq_le_energy
+#print axioms vf919DyadicSquareShell_partial_cauchy
+#print axioms vf919DyadicSquareShell_partial_increment_sq
 #print axioms vf919DyadicSquareShell_signedGreenKubo
 #print axioms vf919DyadicSquareShell_diagonal_le_widthSum
 #print axioms vf919DyadicSquareShell_diagonal_le_rough
