@@ -36,7 +36,7 @@ theorem shellLagPrefixLift_row (f : ℕ → ℝ) (H K : ℕ) :
     shellLagDyadicRow (shellLagPrefixLift f H K) K =
       fun j => f (H + j) := by
   funext j
-  simp [shellLagDyadicRow, shellLagPrefixLift, Nat.add_sub_cancel_left]
+  simp [shellLagDyadicRow, shellLagPrefixLift]
 
 theorem shellLagPrefixFar_eq_physical
     (f : ℕ → ℝ) (H K L : ℕ) :
@@ -117,7 +117,7 @@ theorem shellLag_realSquareBlockMass_abs_le_length (r : ℕ) :
 /-- Genuine Mobius shells throughout every partial block
 H <= r < H+K <= 2H have the unconditional uniform 4H envelope. -/
 theorem shellLag_actualMobius_partialAtomsBounded
-    (H K : ℕ) (hK : K ≤ H) (hH : 1 ≤ H) :
+    (H K : ℕ) (hK : K ≤ H) (_hH : 1 ≤ H) :
     ShellLagPrefixAtomsBounded realSquareBlockMass H K (4 * (H : ℝ)) := by
   intro j hj
   have hlen := shellLag_realSquareBlockMass_abs_le_length (H + j)
@@ -137,7 +137,8 @@ theorem shellLag_actualMobius_partial_sq_le_far
   have hb := shellLag_actualMobius_partialAtomsBounded H K hK hH
   have h := shellLagPrefix_sq_le_far_pay realSquareBlockMass
     H K L (4 * (H : ℝ)) (by positivity) hb
-  convert h using 1 <;> ring
+  convert h using 1
+  ring
 
 #print axioms shellLagPrefix_sq_eq_diagonal_near_far
 #print axioms shellLagPrefix_sq_le_far_pay
