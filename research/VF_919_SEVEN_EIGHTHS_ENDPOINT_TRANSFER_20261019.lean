@@ -51,8 +51,10 @@ theorem vf919SquarePrefix_realComplex_exact (K : ℕ) (hK : 1 ≤ K) :
   have hpow : 1 ≤ K ^ 2 := by nlinarith
   have hsub : (K ^ 2 - 1) + 1 = K ^ 2 :=
     Nat.sub_add_cancel hpow
-  simpa only [hsub] using
+  have hcast :=
     realMertensLength_cast_eq_mertensSummatory (K ^ 2 - 1)
+  rw [hsub] at hcast
+  exact hcast
 
 /-- For X>=1 the full exact endpoint wrapper takes the native dyadic
 square-prefix sum plus at most 2K+1 arbitrary-interval error sites.
