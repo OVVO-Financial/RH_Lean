@@ -37,7 +37,7 @@ theorem vf919FiniteFieldGauss_squaredNorm
       _ = ∑ x : F, star (ψ x) * χ⁻¹ x := by
         simp [gaussSum, star_mul, MulChar.star_apply']
       _ = ∑ x : F, ψ⁻¹ x * χ⁻¹ x := by
-        simp [← starRingEnd_apply, map_neg_eq_conj]
+        simp [← starRingEnd_apply, AddChar.map_neg_eq_conj]
       _ = _ := by simp [mul_comm, gaussSum]
   rw [← hstar] at hmul
   have hnorm := congrArg (fun z : ℂ => ‖z‖) hmul
@@ -54,7 +54,7 @@ theorem vf919SplitPrimeGauss_squaredNorm
   letI : Fact p.Prime := ⟨hp⟩
   have h := vf919FiniteFieldGauss_squaredNorm χ
     (ZMod.stdAddChar (N := p)) hχ
-    (AddChar.isPrimitive_stdAddChar p)
+    (ZMod.isPrimitive_stdAddChar p)
   simpa using h
 
 #print axioms vf919FiniteFieldGauss_squaredNorm
