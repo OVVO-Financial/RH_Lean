@@ -1,55 +1,45 @@
-# Lean v4.34.1 / Quasi-Riemann Tracker compatibility migration
+# Lean v4.34.1 upgrade for Quasi-Riemann Tracker
 
-**State: WORK IN PROGRESS — isolated migration branch; do not merge or report a passed full Lean build.**
+**Draft migration, not yet a completed upgrade.** PR #983 is a compatibility program toward the tracker-pinned Lean v4.34.1. No RH proof or new zero-free region follows merely from changing compiler versions.
 
-- Branch: `chore/lean-4.34.1-tracker-compat`.
-- Base `main` commit when branched: `28a270195167530615c2b182f8c9ffd86855b1f6`.
-- Tracker source: [QuasiRiemannTracker verifier pins](https://github.com/GTimG/QuasiRiemannTracker/blob/main/verifier/pins.json) and its [verified Lake manifest](https://github.com/GTimG/QuasiRiemannTracker/blob/main/verifier/standard/lake-manifest.json).
-- Scope: **toolchain/dependency migration only**. No change to RHLean's arithmetic definitions, proof statements, canonical VF, Mertens-zero correspondence, or original physical source.
+## Why the migration is staged
 
-## Target pins and what has been staged
+The first revision directly changed RHLean's checked-in `lean-toolchain` and Mathlib/PNT+ pins. That triggered the old v4.24 StrongPNT patch in more than a dozen legacy CI jobs, causing a wave of **pre-compilation failures**, plus one inconsistent Mathlib dependency-cache failure. One specialized compilation job also reported unresolved typeclass elaboration in `ActualForcingEstimates.lean`. These failures must be distinguished, not treated as failures of established theorems.
 
-| Component | Previous `main` | Staged on this branch | Status |
-| --- | --- | --- | --- |
-| Lean | `v4.24.0` | `v4.34.1` | `lean-toolchain` updated; build not certified |
-| Mathlib | `v4.24.0` | `d13f23b723b8a846827a245b89c10fc7d3f11612` (`v4.34.1`) | `lakefile.lean` and lock staged |
-| PrimeNumberTheoremAnd | `7f3cd7c3e1c85d60478ed8934be42a06b07de374` | `c39a751132c88b6e8080b74c74023fd95b3d8be0` (tracker source) | dependency update staged; API port pending |
-| StrongPNT | `2f5835c322314f55f1026ec2f139d704b7c45c69` | same historical source | **new Mathlib port required** |
+The migration now stores **candidate-only** toolchain and dependency files under `.github/lean434/`:
 
-The staged `lake-manifest.json` contains the tracker's exact dependency revisions plus RHLean's additional pinned StrongPNT package. **This manifest was assembled from authenticated committed manifests; it is not yet a Lake-regenerated or build-tested lock.** Regenerate it with `lake update` on the new compiler, inspect the dependency diff, and commit the verified generated lock before declaring this step complete. Do not silently accept a downgrade of Mathlib or PNT+.
+- `lean-toolchain`: exact tracker compiler `leanprover/lean4:v4.34.1`
+- `lakefile.lean`: original StrongPNT source, then tracker PNT+, then tracker Mathlib **last** to override old transitive versions
+- `lake-manifest.json`: initially staged tracker lock plus StrongPNT, **not yet proven to match a freshly generated Lake lock**
 
-The tracker's Lean compiler pin is v4.34.1, but matching the compiler alone does **not** guarantee a proof is accepted there. Its submission must use the canonical all-Dirichlet-character theorem and pass Comparator, Lean, NanoDa, and con-ron against their pinned inputs.
+The checked-in root project remains at Lean v4.24.0 while the port is incomplete. `.github/workflows/lean-434-upgrade.yml` overlays the candidate files **inside the temporary CI checkout only**. Existing root proof checks remain fully enabled and unweakened; only the new candidate build uses 4.34.1. Once all dependencies and repository modules compile, the final step of this **same draft PR** will promote the validated candidate files to the root.
 
-## Known compatibility boundary
+## Exact source pins
 
-The current [StrongPNT 4.24 port scripts](../scripts/strongpnt_424/) perform exact source replacements for the old external files. They were explicitly written for Mathlib v4.24 and **must not be regarded as a 4.34.1 port**. The new PrimeNumberTheoremAnd revision also has changed imports and transitive dependencies. The historical StrongPNT file remains pinned to preserve theorem provenance until a source-exact port is proved. This is the anticipated first substantive migration gate.
+| Package | Required revision |
+| --- | --- |
+| Lean | `v4.34.1` |
+| Mathlib | `d13f23b723b8a846827a245b89c10fc7d3f11612` |
+| PrimeNumberTheoremAnd | `c39a751132c88b6e8080b74c74023fd95b3d8be0` |
+| StrongPNT (preserved historical source) | `2f5835c322314f55f1026ec2f139d704b7c45c69` |
 
-No proof in this branch is upgraded merely because its toolchain file changed.
+The first three target pins match the Quasi-Riemann Tracker; StrongPNT is RHLean's additional dependency.
 
-## Acceptance sequence (all required before merging)
+## Mandatory validation gates
 
-1. On the migration branch, install the pinned compiler and run `lake update`. Review `git diff -- lake-manifest.json` against the tracker pins and commit the Lake-generated dependency graph.
-2. Restore Mathlib caches with `lake exe cache get`; compile a small Mathlib-only module to prove the new toolchain actually runs.
-3. Compile the pinned PrimeNumberTheoremAnd source with v4.34.1. Repair exact API changes in separate, reviewed patches, without modifying mathematical premises.
-4. Port StrongPNT separately to v4.34.1. Do not blindly run `scripts/strongpnt_424`; create and test a new version-specific compatibility patch with a source hash/expected-text guard. Verify `StrongPNT.PNT5_Strong` and `#print axioms Strong_PNT`.
-5. Build `RHLean` and its research import closure with the new dependency graph, preserve warning-as-error for repository-owned sources, and audit forbidden axioms and placeholder proofs. Keep existing CI intact.
-6. Compile and compare public declarations including `research/MERTENS_CONVERSE_IDENTIFICATION.lean`, the canonical `VFCanonicalSquareVonKochStatement`, and the original #915 physical source/consumers. Check theorem **statements and assumptions**, not just names or successfully generated `.olean` files.
-7. Run old and new toolchain regression comparisons. Require every relevant full build and source audit green at the **same exact commit**, before making a PR ready for human review or merging.
+1. In the isolated 4.34.1 CI runner, regenerate `lake-manifest.json` and check every Mathlib transitive dependency. Commit the **generated** candidate lock when differences are observed.
+2. Confirm an actual Mathlib smoke test passes under Lean v4.34.1.
+3. Compile the tracker PNT+ interface without changing its mathematical statement.
+4. Port historical StrongPNT into a **new** source-exact `scripts/strongpnt_434` layer. Do not reuse the v4.24 patch as-is, remove hypotheses, or add axioms. Revalidate `Strong_PNT`.
+5. Compile all RHLean modules and research imports; repair Lean 4.34 API/elaborator changes with theorem statements and premises invariant.
+6. Recheck the Mertens/rightmost-zero correspondence, canonical VF statements, #915 source and returned-boundary consumers.
+7. Check `#print axioms` and forbidden-admission audit. Require CI green at the exact commit.
+8. **Only then** move the candidate compiler/Lake configuration into the root project, run the full legacy and new CI suite, and obtain human review before merging.
 
-Minimal local commands to start the dependency-port diagnosis (not assertions that these currently succeed):
+A red **isolated migration gate** accurately signals incomplete compatibility. It does not require turning dozens of existing proof checks red just to produce that diagnostic.
 
-```sh
-lake update
-git diff -- lake-manifest.json
-lake exe cache get
-lake build PrimeNumberTheoremAnd.SmoothExistence
-lake build StrongPNT.PNT5_Strong
-lake build RHLean
-bash scripts/audit_assumptions.sh
-```
+## What this does not prove
 
-## Distinct follow-on: tracker admission
+The ordinary Mertens exponent right-wall equivalence is already formalized in `research/MERTENS_CONVERSE_IDENTIFICATION.lean`. The tracker additionally quantifies over **all Dirichlet characters** and independently checks proof artifacts with Comparator, Lean, NanoDa and con-ron. A qualifying tracker proof requires independent Dirichlet-character estimates; the compiler migration alone is infrastructure work.
 
-RH_Lean already formalizes the ordinary Möbius-exponent/zeta-right-wall equivalence in [MERTENS_CONVERSE_IDENTIFICATION.lean](../research/MERTENS_CONVERSE_IDENTIFICATION.lean). The Quasi-Riemann Tracker demands nonvanishing of **all** Dirichlet L-functions for the common bound `theta`. Upgrading Lean is necessary for convenient proof transport, but it does not supply a new unconditional exponent or generalize the analytic estimate to twisted Möbius sums `sum_(n<=x) mu(n) chi(n)`.
-
-Only after an independently established qualifying theorem should a separate tracker submission implement `Candidate.bound`, match the exact challenge, and undergo independent multi-kernel verification. Keep arithmetic research and build-system compatibility as separate proof-status categories.
+Sources: [tracker pins](https://github.com/GTimG/QuasiRiemannTracker/blob/main/verifier/pins.json) and [tracker lock](https://github.com/GTimG/QuasiRiemannTracker/blob/main/verifier/standard/lake-manifest.json).

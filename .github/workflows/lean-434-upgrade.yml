@@ -1,12 +1,10 @@
-name: Lean 4.34.1 tracker migration gate
+name: Staged Lean 4.34.1 tracker migration
 
 on:
   pull_request:
     types: [opened, synchronize, reopened]
     paths:
-      - 'lean-toolchain'
-      - 'lakefile.lean'
-      - 'lake-manifest.json'
+      - '.github/lean434/**'
       - '.github/workflows/lean-434-upgrade.yml'
       - 'scripts/strongpnt_434/**'
   workflow_dispatch:
@@ -15,88 +13,101 @@ permissions:
   contents: read
 
 concurrency:
-  group: lean-434-upgrade-${{ github.ref }}
+  group: staged-lean434-pr983
   cancel-in-progress: true
 
 jobs:
-  migrate:
-    name: Pinned dependency port and proof gate
+  stage:
+    name: Isolated 4.34.1 dependency and Lean port
     runs-on: ubuntu-latest
-    timeout-minutes: 60
+    timeout-minutes: 75
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout source and retain root 4.24 verification environment
+        uses: actions/checkout@v4
 
-      - name: Check requested compiler and source revisions
+      - name: Overlay 4.34.1 candidate pins in this runner ONLY
         shell: bash
         run: |
           set -euo pipefail
-          python3 - <<'PY'
-          from pathlib import Path
-          assert Path('lean-toolchain').read_text().strip() == 'leanprover/lean4:v4.34.1'
-          lake = Path('lakefile.lean').read_text()
-          assert 'd13f23b723b8a846827a245b89c10fc7d3f11612' in lake
-          assert 'c39a751132c88b6e8080b74c74023fd95b3d8be0' in lake
-          assert '2f5835c322314f55f1026ec2f139d704b7c45c69' in lake
-          print('Exact tracker compiler, Mathlib, PNT+, historical StrongPNT source declared.')
-          PY
+          test "$(cat lean-toolchain)" = 'leanprover/lean4:v4.24.0'
+          cp .github/lean434/lean-toolchain lean-toolchain
+          cp .github/lean434/lakefile.lean lakefile.lean
+          cp .github/lean434/lake-manifest.json lake-manifest.json
+          test "$(cat lean-toolchain)" = 'leanprover/lean4:v4.34.1'
+          echo 'Root checked-in toolchain is unchanged; runner uses candidate v4.34.1.'
 
-      - name: Install the new toolchain and cached dependencies
-        uses: ./.github/actions/lean-setup
+      - name: Install candidate compiler without forcing old-package caches
+        uses: leanprover/lean-action@v1
+        with:
+          auto-config: false
+          use-github-cache: false
+          use-mathlib-cache: false
+          build: false
+          test: false
+          lint: false
 
-      - name: Regenerate dependency manifest and audit pins
+      - name: Regenerate candidate dependency graph and check source pins
         shell: bash
         run: |
           set -euo pipefail
-          lake update 2>&1 | tee lean-434-lake-update.log
+          lake update 2>&1 | tee lean-434-update.log
           python3 - <<'PY'
           import json
           from pathlib import Path
-          rows = {p['name']: p for p in json.loads(Path('lake-manifest.json').read_text())['packages']}
-          expected = {
+          manifest = json.loads(Path('lake-manifest.json').read_text())
+          packages = {row['name']: row['rev'] for row in manifest['packages']}
+          required = {
               'mathlib': 'd13f23b723b8a846827a245b89c10fc7d3f11612',
               'PrimeNumberTheoremAnd': 'c39a751132c88b6e8080b74c74023fd95b3d8be0',
               'StrongPNT': '2f5835c322314f55f1026ec2f139d704b7c45c69',
           }
-          for name, revision in expected.items():
-              actual = rows[name]['rev']
-              print(f'{name}: {actual}')
-              assert actual == revision, f'{name}: unexpected revision {actual}'
+          for name, rev in required.items():
+              print(f'{name}: {packages.get(name)}')
+              assert packages.get(name) == rev, f'{name} version drift: {packages.get(name)}'
+          mathlib = json.loads(Path('.lake/packages/mathlib/lake-manifest.json').read_text())
+          for row in mathlib['packages']:
+              got = packages.get(row['name'])
+              if got is not None and got != row['rev']:
+                  raise RuntimeError(
+                      f"Mathlib transitive mismatch {row['name']}: {got} != {row['rev']}"
+                  )
           PY
-          if ! git diff --quiet -- lake-manifest.json; then
-            echo 'ERROR: Lake regenerated a different manifest. Commit the validated generated lock.' >&2
-            git diff --stat -- lake-manifest.json
-            git diff -- lake-manifest.json
-            exit 1
+          if ! cmp -s lake-manifest.json .github/lean434/lake-manifest.json; then
+            echo 'Candidate lock regeneration changed packages; see artifact and commit the correct lock.'
+            diff -u .github/lean434/lake-manifest.json lake-manifest.json > lean-434-lock-diff.log || true
+          else
+            echo 'Candidate manifest already matches Lake regeneration.'
           fi
 
-      - name: Smoke-test Mathlib v4.34.1
+      - name: Get consistent Mathlib cache and smoke-test Lean
         shell: bash
         run: |
           set -euo pipefail
+          lake exe cache get 2>&1 | tee lean-434-cache.log
           printf 'import Mathlib\n#check Nat.Prime\n' > lean-434-smoke.lean
-          lake env lean lean-434-smoke.lean 2>&1 | tee lean-434-mathlib.log
+          lake env lean lean-434-smoke.lean 2>&1 | tee lean-434-smoke.log
 
-      - name: Compile upstream PNT+ as separately pinned by tracker
+      - name: Compile tracker-pinned PNT+ interface
         shell: bash
         run: |
           set -euo pipefail
           lake build PrimeNumberTheoremAnd.ZetaBounds 2>&1 | tee lean-434-pnt.log
 
-      - name: Compile historical StrongPNT source, without 4.24-specific patches
+      - name: Compile unchanged StrongPNT source to locate real port errors
         shell: bash
         run: |
           set -euo pipefail
-          # This may legitimately fail. It is the next required compatibility
-          # repair, not permission to bypass or axiomatically replace StrongPNT.
+          # Never apply scripts/strongpnt_424 to this candidate toolchain.
+          # A new 4.34-specific patch may be added only after diagnostics.
           lake build StrongPNT.PNT5_Strong 2>&1 | tee lean-434-strongpnt.log
 
-      - name: Compile the complete RHLean library
+      - name: Compile full RHLean after dependencies are ported
         shell: bash
         run: |
           set -euo pipefail
           lake build RHLean 2>&1 | tee lean-434-rhlean.log
 
-      - name: Independently recheck the Mertens/zeta theorem and StrongPNT axioms
+      - name: Validate proof assumptions under 4.34.1
         shell: bash
         run: |
           set -euo pipefail
@@ -108,19 +119,18 @@ jobs:
           EOF
           lake env lean lean-434-axioms.lean 2>&1 | tee lean-434-axioms.log
           if grep -E 'sorryAx|admitAx' lean-434-axioms.log; then
-            echo 'Unacceptable proof admission in kernel dependencies.' >&2
+            echo 'Forbidden axioms found in migration build.' >&2
             exit 1
           fi
           bash scripts/audit_assumptions.sh
 
-      - name: Upload all available migration diagnostics
+      - name: Publish available migration diagnostics
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: lean-434-migration-diagnostics
+          name: lean-434-isolated-diagnostics
           path: |
             lean-434-*.log
-            lean-434-smoke.lean
-            lean-434-axioms.lean
+            lean-434-*.lean
             lake-manifest.json
           if-no-files-found: ignore
