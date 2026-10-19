@@ -29,7 +29,8 @@ def shellTrapezoidUpper (r T k : ℕ) : ℕ :=
 /-- Correct ordering of translated half-open walls. -/
 theorem shellTrapezoidLower_le_upper (r T k : ℕ) :
     shellTrapezoidLower r T k ≤ shellTrapezoidUpper r T k := by
-  have hr : r ^ 2 ≤ (r + 1) ^ 2 := by nlinarith
+  have hexpand : (r + 1) ^ 2 = r ^ 2 + 2 * r + 1 := by ring
+  have hr : r ^ 2 ≤ (r + 1) ^ 2 := by omega
   unfold shellTrapezoidLower shellTrapezoidUpper
   omega
 
@@ -76,7 +77,7 @@ def shellTrapezoidPrimeCofactorCount (r T k c : ℕ) : ℝ :=
 
 /-- Exact finite prime-fibre equality with both floor endpoints. -/
 theorem shellTrapezoidPrimeCofactorCount_eq_Ioc
-    (r T k c : ℕ) (hc : 0 < c) :
+    (r T k c : ℕ) :
     shellTrapezoidPrimeCofactorCount r T k c =
       ∑ p ∈ Finset.Ioc
         (shellTrapezoidLower r T k / c)
@@ -135,9 +136,10 @@ theorem shellTrapezoidLowCofactor_mean_pi_eq_model_add_error
 /-- An actual prime P times a cofactor C contributes only on admitted sites.
 Keeping this expression as a genuine prime indicator prevents an implicit
 replacement by Li and preserves zero/squareful factors. -/
-def shellTrapezoidPrimeProductIndicator
-    (r T k p c : ℕ) : ℝ :=
-  if p.Prime ∧ shellTrapezoidProductAdmitted r T k p c then 1 else 0
+noncomputable def shellTrapezoidPrimeProductIndicator
+    (r T k p c : ℕ) : ℝ := by
+  classical
+  exact if p.Prime ∧ shellTrapezoidProductAdmitted r T k p c then 1 else 0
 
 /-- High-cofactor sum in cofactor-first order. -/
 def shellTrapezoidHighCofactorFirst
