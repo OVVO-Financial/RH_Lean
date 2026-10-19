@@ -58,7 +58,8 @@ int main(int argc, char** argv) {
     << "H,L,T,energy,block_sum,near,far,energy_over_H_7_3,"
        "abs_block_sum_over_H_5_3,near_over_H_10_3,far_over_H_10_3,"
        "smoothed_energy_over_H_7_3,smoothed_block_minus_sharp,"
-       "large_gcd_unordered_witnesses\n";
+       "large_gcd_unordered_witnesses,positive_far_prefixes,"
+       "max_positive_far_prefix,max_positive_far_K\n";
 
   for (int H = 128; H <= Hmax; H *= 2) {
     std::vector<int> d(H);
@@ -79,6 +80,25 @@ int main(int argc, char** argv) {
     const std::int64_t far = (S * S - E) / 2 - near;
     if (S * S != E + 2 * near + 2 * far)
       throw std::runtime_error("Green-Kubo identity failed");
+
+    // Test uniform prefixes; a negative far covariance is NOT automatic.
+    std::vector<std::int64_t> prefix(H + 1, 0);
+    for (int j = 0; j < H; ++j) prefix[j + 1] = prefix[j] + d[j];
+    std::int64_t prefixDiagonal = 0, prefixNear = 0, maxPositiveFar = 0;
+    int maxPositiveK = 0, positivePrefixCount = 0;
+    for (int K = 1; K <= H; ++K) {
+      const int j = K - 1;
+      prefixDiagonal += std::int64_t(d[j]) * d[j];
+      prefixNear += std::int64_t(d[j]) *
+        (prefix[j] - prefix[std::max(0, j - L)]);
+      const std::int64_t farK =
+        (prefix[K] * prefix[K] - prefixDiagonal) / 2 - prefixNear;
+      if (farK > 0) ++positivePrefixCount;
+      if (farK > maxPositiveFar) {
+        maxPositiveFar = farK;
+        maxPositiveK = K;
+      }
+    }
 
     // An upper-bound witness count for ALL pairs with gcd > H, whether or
     // not the pair lies in separate shells. True pair count is no greater.
@@ -115,7 +135,8 @@ int main(int argc, char** argv) {
         << far / std::pow(H, 10.0/3.0) << ','
         << smoothedEnergy / std::pow(H, 7.0/3.0) << ','
         << smoothedBlock - S << ','
-        << largeGcdWitnesses << "\n";
+        << largeGcdWitnesses << ',' << positivePrefixCount << ','
+        << maxPositiveFar << ',' << maxPositiveK << "\n";
     }
   }
 }
