@@ -88,7 +88,7 @@ theorem strongMertens_smoothedMobius_aux_tsum_integral
           simp only [coe_nnnorm, NNReal.coe_rpow, NNReal.coe_natCast]
           rw [norm_div, Complex.norm_natCast_cpow_of_pos (by omega), Complex.ofReal_re]
       exact lt_top_iff_ne_top.mpr
-        ((ENNReal.tsum_coe_ne_top_iff_summable).mpr hsumm
+        ((ENNReal.tsum_coe_ne_top_iff_summable).mpr hsumm)
     · exact MeasureTheory.hasFiniteIntegral_iff_enorm.mp
         (SmoothedChebyshevDirichlet_aux_integrable diffF nonnegF suppF massF
           eps_pos eps_lt_one sigma_gt sigma_le).hasFiniteIntegral
