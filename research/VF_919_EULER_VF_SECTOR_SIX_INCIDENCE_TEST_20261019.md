@@ -340,3 +340,70 @@ for R>=2, closing the earlier requested base-fiber specialization.
 enough for sum_{H<=R<2H}(S_R^odd)^2
 =O_epsilon(H^(5/2+epsilon)). No pointwise Poisson variance,
 short-interval PNT, or square-root saving is claimed.
+
+
+## 10. Exact 3-dipole zero defect and physical cofactor hyperbola (2026-10-19)
+
+New Lean file: VF_919_EULER_THREE_ADIC_HYPERBOLA_20261019.lean.
+Nine new theorem footprints raise the dedicated CI gate to 76.
+
+**Finite rational defect.** Take D_M to be the odd squarefree
+integers d in [1,M] not divisible by 3, and C_M = D_M union 3*D_M.
+The parent and child sets are disjoint and the map d -> 3d injective.
+Define alpha(d)=1/d, alpha(3d)=1/d and zero elsewhere.
+The theorem three_adic_dipole_defect_eq_zero proves the literal
+existing kernel defect, with NO asymptotic assumption:
+
+\[
+\sum_{m\in C_M}\mu(m)\alpha(m)
+=\sum_{d\in D_M}\frac{\mu(d)+\mu(3d)}d=0.
+\]
+
+The zero-defect instance of the existing double-difference theorem
+then applies to **C_M only**; an arbitrary clipped active cofactor
+carrier may omit one member of a pair. Critically, alpha(3d)=1/d
+is NOT the natural 1/(3d) relative prime-density coefficient:
+zero defect does not imply small compensated variance. The base
+pair {1,3} does not share a greatest-prime cutoff, since P+(1)=1
+and P+(3)=3. That is handled separately by the small-cofactor
+automatic cutoff, not the parent-child invariance lemma.
+
+**Automatic small-cofactor cutoff.** If 3M<H<=R, 0<m<=3M,
+q is prime and R²<=mq<(R+1)², then q>m, so P+(m)<q
+and P+(mq)=q. The unrestricted pi-difference therefore represents
+Q_R(m) when m is **odd and squarefree**; even or squareful m
+are excluded from the true odd-squarefree carrier despite the
+possibility of primes in the corresponding dilated interval.
+
+**Exact hyperbola and high-owner Fubini.** The Lean theorem
+odd_shell_hyperbola_split_eq partitions actual odd squarefree
+shell sites into cofactor m<=3M and m>3M. The theorem
+odd_shell_high_tail_dual_by_gpf regroups the latter by the unique
+greatest prime q, retaining the signed cofactor mu(m) and
+the genuine P+(m)<q cutoff in every term:
+
+\[
+S^{odd}_{R,high}(M)
+=-\sum_{q<(R+1)^2}
+ \sum_{\substack{R^2\le n<(R+1)^2\\
+ n\ {\rm odd\ squarefree}\\
+ P^+(n)=q,\ n/q>3M}}\mu(n/q).
+\]
+
+This is exact q-owner site-indexed Fubini, not an analytic estimate.
+
+**Unproved analytic step and two corrections.**
+No unconditional sieve estimate of the required centered prime
+variance or signed smooth-cofactor moment is established.
+The proposed illustration M² H² is H³ when M~H^(1/2);
+only M<=H^(1/4) would attain H^(5/2) by that budget.
+And m>3M with M~H^(1/2) gives only q<O(H^(3/2)),
+not q<=H: the corresponding m-window length H/q may be
+less than one. Thus neither half automatically has sufficient
+interval length for prime or Möbius square-root cancellation.
+For a genuinely fixed small q, squarefree m with P+(m)<q
+divides a finite primorial, so m cannot grow like H².
+
+The Python 6x6 verifier additionally asserts the rational
+pair-complete defect, physical low/high mass identity,
+low-cofactor q>m, and exact high q-owner regrouping.
