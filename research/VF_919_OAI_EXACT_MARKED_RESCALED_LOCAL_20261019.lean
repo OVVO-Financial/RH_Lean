@@ -241,6 +241,83 @@ theorem vf919OAI_marked_rescaled_physical_pairing
   intro x _
   rw [vf919SixExcludedSiteWeight_sub]
 
+
+/-! ## The ORIGINAL OpenAI subset expansion and unit-phase substitution -/
+
+/-- Explicit source-faithful finite difference. OAI's subset J indexes
+    the RESCALED slots, while the complement is MARKED. The alternating
+    sign (-1)^|J| is never replaced with an unsigned incidence count. -/
+theorem vf919OAI_original_subset_marked_minus_rescaled
+    {ι : Type*} [DecidableEq ι]
+    (slots : Finset ι) (marked rescaled : ι → ℂ) :
+    (∑ J ∈ slots.powerset,
+      (-1 : ℂ) ^ J.card *
+        (∏ p ∈ slots \ J, marked p) *
+        (∏ p ∈ J, rescaled p)) =
+      ∏ p ∈ slots, (marked p - rescaled p) := by
+  simpa using (Finset.prod_sub marked rescaled slots).symm
+
+/-- Source equation (5.13c), but as a true selected-prime OPERATION
+    rather than merely a definition of G. No inversion of P or H,
+    so the identity survives their zeros and the full source mask. -/
+theorem vf919OAI_selected_local_operation
+    (A B V W D E : ℂ)
+    (hV : 1 - V ≠ 0) (hW : 1 - W ≠ 0)
+    (hD : 1 - D ≠ 0) :
+    (1 - V) * (1 - W) *
+        (A * (E - D) - B * vf919OAIlocalP V W D E) =
+      (1 - D) * vf919OAIlocalG A B V W D (E - D) := by
+  rw [vf919OAImarkedMinusRescaled_numerator A B V W D E hV hW]
+  unfold vf919OAIlocalG
+  field_simp [hD]
+
+/-- Derive both OAI phase equalities from unit character, zero-extended
+    nonzero good-prime phase v, and nonzero complex norm power Q^x.
+    etaInv is the conjugate of eta on unit characters; all products
+    retain their original complex phases. -/
+theorem vf919OAI_unit_character_phase_facts
+    (etaInv eta v Qx Qw : ℂ)
+    (hEta : etaInv * eta = 1) (hv : v ≠ 0) (hQx : Qx ≠ 0) :
+    (etaInv * Qx) * (eta * v⁻¹ * Qx⁻¹) = v⁻¹ ∧
+      v⁻¹ * (v * Qw) = Qw := by
+  constructor
+  · calc
+      (etaInv * Qx) * (eta * v⁻¹ * Qx⁻¹) =
+          (etaInv * eta) * (Qx * Qx⁻¹) * v⁻¹ := by ring
+      _ = v⁻¹ := by simp [hEta, hQx]
+  · field_simp [hv]
+    <;> ring
+
+/-- OpenAI (5.13b) with A, B, D, W and u INSTANTIATED from the
+    ACTUAL character and norm-power expressions, not separately
+    hypothesized zero-defect/dipole parameters. -/
+theorem vf919OAI_exact_good_character_compensation
+    (etaInv eta v Qx Qw V E : ℂ)
+    (hEta : etaInv * eta = 1) (hv : v ≠ 0) (hQx : Qx ≠ 0)
+    (hV : 1 - V ≠ 0) (hW : 1 - v * Qw ≠ 0)
+    (hD : 1 - (eta * v⁻¹ * Qx⁻¹) ≠ 0) :
+    vf919OAIlocalG
+        (etaInv * Qx) Qw V (v * Qw)
+        (eta * v⁻¹ * Qx⁻¹)
+        (E - eta * v⁻¹ * Qx⁻¹) +
+      v⁻¹ * vf919OAIlocalH
+        V (v * Qw) (eta * v⁻¹ * Qx⁻¹)
+        (vf919OAIlocalP V (v * Qw) (eta * v⁻¹ * Qx⁻¹) E) =
+      vf919OAIlocalError
+        (etaInv * Qx) Qw v⁻¹ V (v * Qw)
+        (eta * v⁻¹ * Qx⁻¹) E := by
+  obtain ⟨hAD, hBW⟩ :=
+    vf919OAI_unit_character_phase_facts etaInv eta v Qx Qw hEta hv hQx
+  exact vf919OAI_exact_local_compensation
+    (etaInv * Qx) Qw v⁻¹ V (v * Qw)
+    (eta * v⁻¹ * Qx⁻¹) E
+    hV hW hD hAD hBW
+
+#print axioms vf919OAI_original_subset_marked_minus_rescaled
+#print axioms vf919OAI_selected_local_operation
+#print axioms vf919OAI_unit_character_phase_facts
+#print axioms vf919OAI_exact_good_character_compensation
+
 #print axioms vf919OAIlocalP_unrestricted_two_terms
 #print axioms vf919OAImarkedMinusRescaled_numerator
 #print axioms vf919OAIphase_scalar_cancellation
