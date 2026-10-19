@@ -21,16 +21,43 @@ runs:
         else
           echo 'ready=false' >> "$GITHUB_OUTPUT"
         fi
-    - name: Install Lean and restore missing Mathlib artifacts
-      id: setup
-      uses: leanprover/lean-action@v1
+    - name: Restore exact pinned Lean compiler cache
+      id: lean_toolchain_cache
+      uses: actions/cache/restore@v5
       with:
-        auto-config: false
-        use-github-cache: false
-        use-mathlib-cache: ${{ steps.packages.outputs.cache-hit != 'true' || steps.complete.outputs.ready != 'true' }}
-        build: false
-        test: false
-        lint: false
+        path: ~/.elan/toolchains
+        key: lean-toolchains-v1-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain') }}
+    - name: Install exact pinned Lean with bounded TLS retries
+      id: setup
+      shell: bash
+      run: bash scripts/ci/install_pinned_lean_retry.sh
+    - name: Save verified pinned Lean compiler before any proof work
+      if: >-
+        !cancelled()
+        && steps.setup.outcome == 'success'
+        && steps.lean_toolchain_cache.outputs.cache-hit != 'true'
+      uses: actions/cache/save@v5
+      with:
+        path: ~/.elan/toolchains
+        key: lean-toolchains-v1-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain') }}
+    - name: Restore missing Mathlib artifacts with bounded retries
+      id: mathlib
+      if: ${{ steps.packages.outputs.cache-hit != 'true' || steps.complete.outputs.ready != 'true' }}
+      shell: bash
+      run: |
+        set -euo pipefail
+        for attempt in 1 2 3; do
+          echo "::group::Mathlib cache retrieval attempt $attempt/3"
+          if lake exe cache get; then
+            echo "::endgroup::"
+            exit 0
+          fi
+          echo "::endgroup::"
+          echo "::warning::Mathlib cache retrieval attempt $attempt failed."
+          if [[ "$attempt" -lt 3 ]]; then sleep $((attempt * 8)); fi
+        done
+        echo "::error::Pinned Mathlib cache retrieval failed after three attempts." >&2
+        exit 1
     - name: Mark successful dependency setup
       shell: bash
       run: touch .lake/packages/.rhlean-mathlib-complete-v2
@@ -39,6 +66,7 @@ runs:
         !cancelled()
         && steps.packages.outcome == 'success'
         && steps.setup.outcome == 'success'
+        && (steps.mathlib.outcome == 'success' || steps.mathlib.outcome == 'skipped')
         && steps.packages.outputs.cache-hit != 'true'
       uses: actions/cache/save@v5
       with:

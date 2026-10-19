@@ -1,0 +1,138 @@
+name: Native seven-eighths signed covariance acceptance
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/vf919-seven-eighths-signed-covariance.yml'
+      - 'research/VF_919_SEVEN_EIGHTHS_SIGNED_COVARIANCE_20261019.lean'
+      - 'research/VF_919_SEVEN_EIGHTHS_SQUARE_SHELL_BRIDGE_20261019.lean'
+      - 'research/VF_919_SEVEN_EIGHTHS_SHELL_EXCLUDED_NORM_20261019.lean'
+      - 'research/VF_919_SEVEN_EIGHTHS_DYADIC_SHELL_COVARIANCE_20261019.lean'
+      - 'research/VF_919_SEVEN_EIGHTHS_ENDPOINT_TRANSFER_20261019.lean'
+      - 'research/VF_919_MARKED_FIRST_OWNER_SHELL_20261019.lean'
+      - 'research/VF_919_MARKED_SAME_OWNER_CAPACITY_20261019.lean'
+      - 'scripts/vf919_seven_eighths_signed_covariance_census.py'
+      - 'research/MERTENS_CONVERSE_*.lean'
+      - 'RHLean/Analysis/MathlibMertensHook.lean'
+      - 'lean-toolchain'
+      - 'lake-manifest.json'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: vf919-seven-eighths-covariance-${{ github.head_ref || github.ref_name }}
+  cancel-in-progress: true
+
+jobs:
+  covariance:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - name: Exact native pair/UPM/LPM census
+        run: python3 scripts/vf919_seven_eighths_signed_covariance_census.py
+      - uses: ./.github/actions/lean-setup
+      - name: Apply pinned StrongPNT compatibility patches
+        run: |
+          set -euo pipefail
+          python3 scripts/strongpnt_424/apply.py
+          python3 scripts/strongpnt_424/apply_post.py
+          python3 scripts/strongpnt_424/apply_pnt5_mid.py
+          python3 scripts/strongpnt_424/apply_pnt5_strong.py
+          python3 scripts/strongpnt_424/apply_lint.py
+      - name: Restore patched StrongPNT boundary
+        uses: actions/cache/restore@v5
+        with:
+          path: |
+            .lake/packages/PrimeNumberTheoremAnd/.lake/build
+            .lake/packages/StrongPNT/.lake/build
+          key: strongpnt-port-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-${{ hashFiles('scripts/strongpnt_424/*.py') }}
+      - name: Restore native library artifacts
+        uses: actions/cache/restore@v5
+        with:
+          path: .lake/build
+          key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py') }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py', 'RHLean.lean', 'RHLean/**/*.lean') }}
+          restore-keys: |
+            rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py') }}-
+      - name: Kernel-compile exact signed seven-eighths covariance proof, warnings fatal
+        uses: ./.github/actions/research-compile
+        with:
+          targets: research/VF_919_SEVEN_EIGHTHS_SIGNED_COVARIANCE_20261019.lean
+      - name: Kernel-compile physical square-shell signed Gram and finite norm expansion
+        uses: ./.github/actions/research-compile
+        with:
+          targets: >-
+            research/VF_919_SEVEN_EIGHTHS_SQUARE_SHELL_BRIDGE_20261019.lean
+            research/VF_919_SEVEN_EIGHTHS_SHELL_EXCLUDED_NORM_20261019.lean
+            research/VF_919_SEVEN_EIGHTHS_DYADIC_SHELL_COVARIANCE_20261019.lean
+            research/VF_919_SEVEN_EIGHTHS_ENDPOINT_TRANSFER_20261019.lean
+            research/VF_919_MARKED_FIRST_OWNER_SHELL_20261019.lean
+            research/VF_919_MARKED_SAME_OWNER_CAPACITY_20261019.lean
+      - name: Verify signed square-shell and norm-expansion standard-axiom footprints
+        shell: bash
+        run: |
+          set -euo pipefail
+          lake env lean -DwarningAsError=true research/VF_919_SEVEN_EIGHTHS_SQUARE_SHELL_BRIDGE_20261019.lean > vf919-shell-axioms.log 2>&1
+          lake env lean -DwarningAsError=true research/VF_919_SEVEN_EIGHTHS_SHELL_EXCLUDED_NORM_20261019.lean >> vf919-shell-axioms.log 2>&1
+          lake env lean -DwarningAsError=true research/VF_919_SEVEN_EIGHTHS_DYADIC_SHELL_COVARIANCE_20261019.lean >> vf919-shell-axioms.log 2>&1
+          lake env lean -DwarningAsError=true research/VF_919_SEVEN_EIGHTHS_ENDPOINT_TRANSFER_20261019.lean >> vf919-shell-axioms.log 2>&1
+          lake env lean -DwarningAsError=true research/VF_919_MARKED_FIRST_OWNER_SHELL_20261019.lean >> vf919-shell-axioms.log 2>&1
+          lake env lean -DwarningAsError=true research/VF_919_MARKED_SAME_OWNER_CAPACITY_20261019.lean >> vf919-shell-axioms.log 2>&1
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+          sources = [
+              'research/VF_919_SEVEN_EIGHTHS_SQUARE_SHELL_BRIDGE_20261019.lean',
+              'research/VF_919_SEVEN_EIGHTHS_SHELL_EXCLUDED_NORM_20261019.lean',
+              'research/VF_919_SEVEN_EIGHTHS_DYADIC_SHELL_COVARIANCE_20261019.lean',
+              'research/VF_919_SEVEN_EIGHTHS_ENDPOINT_TRANSFER_20261019.lean',
+              'research/VF_919_MARKED_FIRST_OWNER_SHELL_20261019.lean',
+              'research/VF_919_MARKED_SAME_OWNER_CAPACITY_20261019.lean',
+          ]
+          wanted = [name for src in sources
+                    for name in re.findall(r'^#print axioms\s+(\S+)', Path(src).read_text(), re.M)]
+          log = Path('vf919-shell-axioms.log').read_text()
+          got = re.findall(r"'([^']+)' depends on axioms:\s*\[([^\]]*)\]", log)
+          assert len(wanted) == 45, wanted
+          assert len(got) == len(wanted), (wanted, got)
+          assert {name for name, _ in got} == {'RHLean.Analysis.' + name for name in wanted}, got
+          allowed = {'propext', 'Classical.choice', 'Quot.sound'}
+          for name, footprint in got:
+              used = {a.strip() for a in footprint.split(',') if a.strip()}
+              assert used <= allowed, (name, used - allowed)
+          print(f'PASS: {len(got)} actual square-shell and rational shell-source theorems')
+          PY
+      - name: Native no-axiom footprint audit
+        shell: bash
+        run: |
+          set -euo pipefail
+          lake env lean -DwarningAsError=true research/VF_919_SEVEN_EIGHTHS_SIGNED_COVARIANCE_20261019.lean > vf919-covariance-axioms.log 2>&1
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+          source = Path('research/VF_919_SEVEN_EIGHTHS_SIGNED_COVARIANCE_20261019.lean').read_text()
+          printed = Path('vf919-covariance-axioms.log').read_text()
+          wanted = re.findall(r'^#print axioms\s+(\S+)', source, re.M)
+          got = re.findall(r"'([^']+)' depends on axioms:\s*\[([^\]]*)\]", printed)
+          assert len(wanted) == 5, wanted
+          assert len(got) == len(wanted), (wanted, got)
+          assert {name for name, _ in got} == {'RHLean.Analysis.' + name for name in wanted}, got
+          allowed = {'propext', 'Classical.choice', 'Quot.sound'}
+          for name, footprint in got:
+              actual = {x.strip() for x in footprint.split(',') if x.strip()}
+              assert actual <= allowed, (name, actual - allowed)
+          print('PASS: all five native covariance/strip implication axiom footprints are standard')
+          PY
+      - name: Reverify exact closure on cached artifacts
+        run: |
+          set -euo pipefail
+          python3 scripts/compile_research_import_closure.py \
+            research/VF_919_SEVEN_EIGHTHS_SIGNED_COVARIANCE_20261019.lean \
+            research/VF_919_SEVEN_EIGHTHS_SQUARE_SHELL_BRIDGE_20261019.lean \
+            research/VF_919_SEVEN_EIGHTHS_SHELL_EXCLUDED_NORM_20261019.lean \
+            research/VF_919_SEVEN_EIGHTHS_DYADIC_SHELL_COVARIANCE_20261019.lean \
+            research/VF_919_SEVEN_EIGHTHS_ENDPOINT_TRANSFER_20261019.lean \
+            research/VF_919_MARKED_FIRST_OWNER_SHELL_20261019.lean \
+            research/VF_919_MARKED_SAME_OWNER_CAPACITY_20261019.lean
