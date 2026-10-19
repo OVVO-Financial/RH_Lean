@@ -87,7 +87,7 @@ jobs:
             research/VF_919_EULER_ODD_CARRIER_PRIME_ROW_20261019.lean
             research/VF_919_EULER_RANK_ONE_GPF_FIBERS_20261019.lean
             research/VF_919_EULER_THREE_ADIC_HYPERBOLA_20261019.lean
-      - name: Verify all 76 Euler, phase-gram and original VF sector-support axioms
+      - name: Verify all 79 Euler, phase-gram and original VF sector-support axioms
         shell: bash
         run: |
           set -euo pipefail
@@ -116,7 +116,7 @@ jobs:
                     for name in re.findall(r'^#print axioms\s+(\S+)', Path(src).read_text(), re.M)]
           log = Path('vf919-euler-axioms.log').read_text()
           got = re.findall(r"'([^']+)' depends on axioms:\s*\[([^\]]*)\]", log)
-          assert len(wanted) == 76, wanted
+          assert len(wanted) == 79, wanted
           assert len(got) == len(wanted), (wanted, got)
           assert {name for name, _ in got} == {'RHLean.Analysis.' + name for name in wanted}, got
           allowed = {'propext', 'Classical.choice', 'Quot.sound'}
