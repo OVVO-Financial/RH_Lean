@@ -86,11 +86,47 @@ jobs:
           printf 'import Mathlib\n#check Nat.Prime\n' > lean-434-smoke.lean
           lake env lean lean-434-smoke.lean 2>&1 | tee lean-434-smoke.log
 
+      - name: Check explicit real-power/natural-power bridge on Lean 4.34
+        shell: bash
+        run: |
+          set -euo pipefail
+          cat > lean-434-pow-smoke.lean <<'EOF'
+          import Mathlib
+          example (t : ℝ) :
+              Real.log |t| ^ (9 : ℝ) = Real.log |t| ^ (9 : ℕ) := by
+            exact Real.rpow_natCast _ 9
+          example (t : ℝ) :
+              Real.log |t| ^ (1 : ℝ) = Real.log |t| ^ (1 : ℕ) := by
+            exact Real.rpow_natCast _ 1
+          example (A sigma t : ℝ)
+              (h : sigma ∈ Set.Ico (1 - A / Real.log |t| ^ (9 : ℕ)) 1) :
+              sigma ∈ Set.Ico (1 - A / Real.log |t| ^ (9 : ℝ)) 1 := by
+            have hp : Real.log |t| ^ (9 : ℝ) = Real.log |t| ^ (9 : ℕ) :=
+              Real.rpow_natCast _ 9
+            simpa only [hp] using h
+          EOF
+          lake env lean lean-434-pow-smoke.lean 2>&1 | tee lean-434-pow-smoke.log
+
+      - name: Restore compiled modern PNT+ artifacts
+        id: modern_pnt_cache
+        uses: actions/cache/restore@v5
+        with:
+          path: .lake/packages/PrimeNumberTheoremAnd/.lake/build
+          key: pnt-plus-434-v1-${{ runner.os }}-${{ hashFiles('.github/lean434/lean-toolchain', '.github/lean434/lake-manifest.json') }}
+
       - name: Compile modern PNT+ StrongPNT and zero-free source
+        id: modern_pnt_build
         shell: bash
         run: |
           set -euo pipefail
           lake build PrimeNumberTheoremAnd.StrongPNT 2>&1 | tee lean-434-modern-pnt.log
+
+      - name: Save compiled modern PNT+ artifacts for subsequent 4.34 repairs
+        if: steps.modern_pnt_build.outcome == 'success' && steps.modern_pnt_cache.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v5
+        with:
+          path: .lake/packages/PrimeNumberTheoremAnd/.lake/build
+          key: pnt-plus-434-v1-${{ runner.os }}-${{ hashFiles('.github/lean434/lean-toolchain', '.github/lean434/lake-manifest.json') }}
 
       - name: Audit the modern strong PNT and zero-free axioms
         shell: bash
