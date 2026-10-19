@@ -285,7 +285,7 @@ theorem strongMertensSmoothedIntegrand_integrable_right_line
       · exact riemannZeta_ne_zero_of_one_lt_re (by simp [hsigma0gt])
     · exact ContinuousAt.comp
         (continuousAt_const_cpow (by exact_mod_cast (show 0 < X by linarith).ne')) hg
-  -- `Integrable.bdd_mul` wants a genuine uniform bound, not an a.e. one.
+  -- `Integrable.bdd_mul` takes an a.e. bound; `hbdd` holds everywhere.
   have key := hMint.bdd_mul hmeas (Filter.Eventually.of_forall hbdd)
   apply key.congr
   filter_upwards with t

@@ -87,10 +87,35 @@ Every change below reproduces the 4.24 meaning of the proof it touches.
   (`linter.defProp`); `letI` inside theorem proofs is `let`
   (`linter.style.haveILetI`); simp arguments and tactics that became no-ops
   under the new simp set were removed.
+- **`Integrable.bdd_mul` takes an almost-everywhere bound.** The uniform
+  bound in `StrongMertensZetaKernel` is passed as
+  `Filter.Eventually.of_forall hbdd`.
+- **`Finset.product` versus `×ˢ`.** `Finset.mem_product` is stated for
+  `s ×ˢ t`; carriers written with `.product` need `Finset.product_eq_sprod`
+  (or explicit membership lemmas) before it applies.
+- **Structure-instance syntax.** Lean 4.34 rejects some
+  `{ field := … }` literals for Prop-valued structures inside proofs; these
+  now use anonymous constructors `⟨…⟩` or a `where` clause.
+- **`simp [h]` with simp-tagged projections.** When a `@[simp]` projection
+  lemma (for example `lowOwnerStokesNaturalWheelSystem_modulus`) rewrites a
+  term that an `if` condition depends on, `simp [hne]` no longer discharges
+  that `if`. Those branches use `simp only [ite_eq_right hne, …]`.
+- **`ring` fallback.** A `ring` that only closed its goal through the
+  `ring_nf` fallback now reports it, which the warning-fatal build rejects;
+  those steps use the exact rewrite (`rw [sub_add_cancel]`).
+- **No `native_decide` on noncomputable data.** Goals over `Classical`
+  definitions are closed by `norm_num`, `decide` on explicit finite sets, or
+  explicit arithmetic.
+- **Superseded local developments.** The 4.24-era local power-series ring hom
+  is replaced by Mathlib's `ArithmeticFunction.ofPowerSeries`, keeping the
+  RHLean application and coefficient API. The historical StrongPNT disk
+  helpers in `MERTENS_CONVERSE_LOG_INTERPOLATION` are thin adapters over PNT+
+  `borelCaratheodory'`, with the same interface.
 - **Individual proof repairs** where a lemma's form changed:
   `ContinuousAt.mul` is now stated point-free (`fun_mul` gives the
   pointwise form), a derivative bound now passes its constant explicitly,
-  and a few `simp` calls were replaced by the exact rewrites they performed.
+  `field_simp` leaves reduced goals that are finished explicitly, and a few
+  `simp` calls were replaced by the exact rewrites they performed.
 
 ## CI changes
 
