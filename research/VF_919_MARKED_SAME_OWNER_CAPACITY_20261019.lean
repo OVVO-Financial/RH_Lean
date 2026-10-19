@@ -139,7 +139,9 @@ theorem vf919FirstMarkedSquareShell_norm_le_widthDiv
     (P : Finset ℕ) (p R : ℕ) (hp : 0 < p) :
     ‖vf919FirstMarkedSquareShell P p R‖ ≤
       ((((2 * R + 1) / p + 2 : ℕ) : ℝ)) := by
-  have hle : R ^ 2 ≤ (R + 1) ^ 2 := by nlinarith
+  have hle : R ^ 2 ≤ (R + 1) ^ 2 := by
+    have hsq : (R + 1) ^ 2 = R ^ 2 + (2 * R + 1) := by ring
+    omega
   have hcount :=
     vf919DivisibleIntervalSites_card_le_width
       (R ^ 2) ((R + 1) ^ 2) p hp hle
