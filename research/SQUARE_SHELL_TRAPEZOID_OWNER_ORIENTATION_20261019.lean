@@ -48,6 +48,9 @@ theorem shellTrapezoidUpper_lt_next_factor_product
     (hk : k ≤ 2 * T) :
     shellTrapezoidUpper r T k < (r + 1) * (r + 2) := by
   have hfactor : (r + 1) * (r + 2) = (r + 1) ^ 2 + (r + 1) := by ring
+  have hsqexpand : (r + 1) ^ 2 = r ^ 2 + 2 * r + 1 := by ring
+  have hsquare : T ≤ (r + 1) ^ 2 := by omega
+  have hmargin : T < r + 1 := by omega
   unfold shellTrapezoidUpper
   omega
 
