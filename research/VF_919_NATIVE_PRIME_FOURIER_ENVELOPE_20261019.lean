@@ -38,9 +38,18 @@ theorem vf919SplitPrimeFourier_norm_le_sqrt
     simpa using (Real.sqrt_nonneg (p : ℝ))
   · have hnonzero : (-v : ZMod p) ≠ 0 :=
       neg_ne_zero.mpr hv
+    have hψnontrivial :
+        (ZMod.stdAddChar (N := p)).mulShift (-v) ≠ 1 := by
+      intro htrivial
+      have heval := congrArg
+        (fun ψ : AddChar (ZMod p) ℂ => ψ (1 : ZMod p)) htrivial
+      have hchar : (ZMod.stdAddChar (N := p)) (-v) = 1 := by
+        simpa [AddChar.mulShift_apply] using heval
+      have hz : (-v : ZMod p) = 0 :=
+        ZMod.injective_stdAddChar (by simpa using hchar)
+      exact hnonzero hz
     have hψ : ((ZMod.stdAddChar (N := p)).mulShift (-v)).IsPrimitive :=
-      AddChar.IsPrimitive.of_ne_one
-        ((AddChar.isPrimitive_stdAddChar p) hnonzero)
+      AddChar.IsPrimitive.of_ne_one hψnontrivial
     have hfourier :
         ZMod.dft (fun x : ZMod p => χ x) v =
           gaussSum χ ((ZMod.stdAddChar (N := p)).mulShift (-v)) := by
