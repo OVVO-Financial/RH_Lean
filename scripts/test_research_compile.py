@@ -19,7 +19,6 @@ class ResearchCacheTests(unittest.TestCase):
         self.root = Path(self.temp.name)
         (self.root / 'research').mkdir()
         (self.root / 'RHLean').mkdir()
-        (self.root / 'scripts' / 'strongpnt_424').mkdir(parents=True)
         for name in ('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'RHLean.lean'):
             (self.root / name).write_text(name)
         self.write('D', 'import Mathlib.Data.Nat.Basic\ndef d := 1\n')
@@ -84,10 +83,10 @@ class ResearchCacheTests(unittest.TestCase):
         (self.root / 'RHLean' / 'Native.lean').write_text('def native := 1\n')
         self.assertEqual(self.compile()[0], (3, 0))
 
-    def test_toolchain_manifest_lakefile_and_patch_changes(self):
+    def test_toolchain_manifest_and_lakefile_changes(self):
         self.compile()
         for path in [self.root / 'lean-toolchain', self.root / 'lake-manifest.json',
-                     self.root / 'lakefile.lean', self.root / 'scripts/strongpnt_424/apply.py']:
+                     self.root / 'lakefile.lean']:
             with self.subTest(path=path.name):
                 path.write_text('changed')
                 self.assertEqual(self.compile()[0], (3, 0))
@@ -188,7 +187,7 @@ class ResearchCacheTests(unittest.TestCase):
         _, plan = self.compile()
         for source in ['research/A.lean', 'research/B.lean', 'research/D.lean',
                        'RHLean/Native.lean', 'lakefile.lean', 'lean-toolchain',
-                       'scripts/strongpnt_424/apply.py', '.github/actions/lean-setup/action.yml']:
+                       'scripts/compile_research_import_closure.py', '.github/actions/lean-setup/action.yml']:
             with self.subTest(source=source):
                 self.assertTrue(cc.affected(plan, [source]))
         for source in ['research/C.lean', 'docs/example.md', 'export_other/Lean.lean']:

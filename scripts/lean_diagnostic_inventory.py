@@ -9,8 +9,8 @@ after a red run: *which source positions are still noisy?*
 This script groups every `warning:`/`error:`/`info:` diagnostic by the source
 file it points at, deduplicates identical `file:line:col` positions, and prints
 one sorted line per position.  With `--gate PREFIX` it exits non-zero when any
-diagnostic points into a source tree whose path starts with `PREFIX`, which is
-how the workflow keeps the repository-owned StrongPNT 4.24 port silent.
+diagnostic points into a source tree whose path starts with `PREFIX`, for
+keeping a repository-owned source tree silent.
 
 Lean and Lake have emitted diagnostics in more than one shape over the years:
 
@@ -49,7 +49,7 @@ def normalize(path: str) -> str:
         index = cleaned.find(marker)
         if index != -1:
             cleaned = cleaned[index + len(marker) :]
-            # `.lake/packages/StrongPNT/StrongPNT/PNT5_Strong.lean` names the
+            # `.lake/packages/PrimeNumberTheoremAnd/PrimeNumberTheoremAnd/StrongPNT.lean` names the
             # package once as a directory and once as the module root.  Drop
             # the outer package directory so the key reads as the module path.
             head, _, tail = cleaned.partition("/")
@@ -171,8 +171,8 @@ def main() -> int:
         print(f"Diagnostics remain in gated sources ({joined}):")
         report(offending)
         print(
-            "\nThese sources are rewritten by scripts/strongpnt_424/, so each "
-            "position above is fixed by extending those patches."
+            "\nThese sources are repository-owned, so each position above "
+            "is fixed in the source itself."
         )
         return 1
     print(f"No diagnostics in gated sources ({', '.join(args.gate)}).")

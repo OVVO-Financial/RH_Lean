@@ -15,7 +15,6 @@ out = root / 'mertens-converse-sources.zip'
 roots = [
     ('project', root, ['RHLean', 'research', 'scripts', '.github', 'docs']),
     ('mathlib', root / '.lake/packages/mathlib', ['Mathlib']),
-    ('StrongPNT', root / '.lake/packages/StrongPNT', ['StrongPNT']),
     ('PrimeNumberTheoremAnd', root / '.lake/packages/PrimeNumberTheoremAnd', ['PrimeNumberTheoremAnd']),
 ]
 count = 0
@@ -23,7 +22,7 @@ with zipfile.ZipFile(out, 'w', zipfile.ZIP_DEFLATED, compresslevel=6) as archive
     archive.writestr('source_manifest.json', json.dumps({
         'checkout_sha': subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=root, text=True).strip(),
         'dependencies': json.loads((root / 'lake-manifest.json').read_text()),
-        'note': 'StrongPNT sources include the repository compatibility patches.'
+        'note': 'Pinned upstream sources; no repository compatibility patches are applied.'
     }, indent=2))
     for label, base, directories in roots:
         for directory in directories:

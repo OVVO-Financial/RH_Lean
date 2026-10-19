@@ -68,6 +68,10 @@ jobs:
           build: false
           test: false
           lint: false
+      - name: Build RHLean modules imported by these research checks
+        run: >-
+          python3 scripts/compile_research_import_closure.py --library-only
+          research/VF_WILES_ARITHMETIC_STABILITY_KERNEL.lean
       - name: Compile independent universal stability theorem
         run: |
           mkdir -p .lake/build/lib/lean

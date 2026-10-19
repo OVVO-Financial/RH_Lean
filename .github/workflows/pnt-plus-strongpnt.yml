@@ -1,0 +1,113 @@
+name: PNT+ strong PNT gate
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    paths:
+      - 'lean-toolchain'
+      - 'lakefile.lean'
+      - 'lake-manifest.json'
+      - '.github/workflows/pnt-plus-strongpnt.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pnt-plus-strongpnt-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  strongpnt:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      # RHLean's strong-Mertens layer and the Quasi-Riemann Tracker verifier
+      # must see the same compiler, Mathlib and PNT+ sources.
+      - name: Check tracker-pinned compiler and dependency revisions
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(cat lean-toolchain)" = 'leanprover/lean4:v4.34.1'
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          pins = {p['name']: p['rev'] for p in json.loads(Path('lake-manifest.json').read_text())['packages']}
+          required = {
+              'mathlib': 'd13f23b723b8a846827a245b89c10fc7d3f11612',
+              'PrimeNumberTheoremAnd': 'c39a751132c88b6e8080b74c74023fd95b3d8be0',
+          }
+          for name, rev in required.items():
+              print(f'{name}: {pins.get(name)}')
+              assert pins.get(name) == rev, f'{name} drifted from the tracker pin {rev}'
+          assert 'StrongPNT' not in pins, 'the retired historical StrongPNT package is back in the lock'
+          PY
+
+      - name: Set up Lean and cached Mathlib
+        uses: ./.github/actions/lean-setup
+
+      - name: Restore PNT+ build cache
+        id: pntcache
+        uses: actions/cache/restore@v5
+        with:
+          path: |
+            .lake/packages/PrimeNumberTheoremAnd/.lake/build
+          key: pntplus-build-v1-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
+
+      - name: Build PNT+ StrongPNT module
+        id: strongbuild
+        continue-on-error: true
+        run: lake build PrimeNumberTheoremAnd.StrongPNT > strongpnt-build.log 2>&1
+
+      - name: Save PNT+ build cache
+        if: >-
+          !cancelled()
+          && steps.strongbuild.outcome == 'success'
+          && steps.pntcache.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v5
+        with:
+          path: |
+            .lake/packages/PrimeNumberTheoremAnd/.lake/build
+          key: pntplus-build-v1-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
+
+      - name: Print PNT+ build log
+        if: always()
+        run: cat strongpnt-build.log
+
+      # Every upstream theorem the RHLean strong-Mertens corridor consumes.
+      - name: Audit consumed PNT+ theorem axioms
+        if: steps.strongbuild.outcome == 'success'
+        shell: bash
+        run: |
+          set -euo pipefail
+          cat > StrongPNTAxiomAudit.lean <<'LEAN'
+          import PrimeNumberTheoremAnd.StrongPNT
+          #print axioms StrongPNT
+          #print axioms ZetaZeroFree1
+          #print axioms ZetaNoZerosInBox
+          #print axioms ZetaInvBnd
+          #print axioms SmoothedChebyshevDirichlet_aux_integrable
+          LEAN
+          lake env lean StrongPNTAxiomAudit.lean | tee strongpnt-axioms.log
+          test "$(grep -c 'depends on axioms' strongpnt-axioms.log)" = 5
+          if grep -E 'sorryAx|admitAx' strongpnt-axioms.log; then
+            echo 'A consumed PNT+ theorem depends on an unfinished proof.' >&2
+            exit 1
+          fi
+
+      - name: Upload diagnostic logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pnt-plus-strongpnt-diagnostics
+          path: |
+            strongpnt-build.log
+            strongpnt-axioms.log
+          if-no-files-found: ignore
+
+      - name: Fail if PNT+ StrongPNT build failed
+        if: steps.strongbuild.outcome == 'failure'
+        run: exit 1
