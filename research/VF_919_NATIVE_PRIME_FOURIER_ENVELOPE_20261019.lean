@@ -35,7 +35,7 @@ theorem vf919SplitPrimeFourier_norm_le_sqrt
     have hz : (∑ x : ZMod p, χ x) = 0 :=
       MulChar.sum_eq_zero_of_ne_one hχ
     rw [ZMod.dft_apply_zero, hz]
-    simpa using (Real.sqrt_nonneg (p : ℝ))
+    simp [Real.sqrt_nonneg]
   · have hnonzero : (-v : ZMod p) ≠ 0 :=
       neg_ne_zero.mpr hv
     have hψnontrivial :
@@ -58,7 +58,7 @@ theorem vf919SplitPrimeFourier_norm_le_sqrt
     have hsq :
         ‖ZMod.dft (fun x : ZMod p => χ x) v‖ ^ 2 = (p : ℝ) := by
       rw [hfourier]
-      exact vf919FiniteFieldGauss_squaredNorm χ _ hχ hψ
+      simpa using (vf919FiniteFieldGauss_squaredNorm χ _ hχ hψ)
     have hp0 : 0 ≤ (p : ℝ) := by positivity
     have hsqrt := Real.sq_sqrt hp0
     have hsqrt0 := Real.sqrt_nonneg (p : ℝ)
