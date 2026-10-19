@@ -8,6 +8,8 @@ RHLean's direct old StrongPNT consumers need only:
 
 The two zero-free statements have the same logical parameters as the historical
 imports, and the strong PNT theorem is already proven in the modern PNT+ module.
+The original corridor uses natural powers where the modern PNT+ interfaces
+carry equivalent real powers. Real.rpow_natCast performs this exact conversion.
 Each substitution is source-exact and scoped to the disposable CI checkout;
 do NOT change statements or introduce axioms.
 """
@@ -51,6 +53,21 @@ PATCHES = [
     "StrongMertensLogNineCorridor",
     "ZetaNoZerosInBox' 3",
     "ZetaNoZerosInBox 3"
+  ],
+  [
+    "StrongMertensLogNineCorridor",
+    "exact hZF s.re s.im hlarge hmem",
+    "exact hZF s.re s.im hlarge (by simpa only [Real.rpow_natCast] using hmem)"
+  ],
+  [
+    "StrongMertensLogNineCorridor",
+    "exact hInv sigma t ht ⟨hlower, hupper⟩",
+    "exact hInv sigma t ht ⟨(by simpa only [Real.rpow_natCast] using hlower),\n      (by simpa only [Real.rpow_natCast] using hupper)⟩"
+  ],
+  [
+    "StrongMertensLogNineCorridor",
+    "exact hInv (strongMertensLogNineShift A T) t ht ⟨hlower, hupper⟩",
+    "exact hInv (strongMertensLogNineShift A T) t ht\n      ⟨(by simpa only [Real.rpow_natCast] using hlower),\n       (by simpa only [Real.rpow_natCast] using hupper)⟩"
   ]
 ]
 def main():
