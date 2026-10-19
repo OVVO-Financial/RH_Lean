@@ -94,7 +94,7 @@ theorem vf919TwoPrimeAlignedPhysicalSite_zero_q_phase
 four-site signed Mobius source, with no independent site-by-site norms. -/
 theorem vf919TwoPrimeAlignedPhysicalSite_principal
     (R p q a : ℕ) :
-    vf919TwoPrimeAlignedPhysicalSite R p q (fun _ => 1) =
+    vf919TwoPrimeAlignedPhysicalSite R p q (fun _ => 1) a =
       ((lowOwnerZeroFrequencyMobiusSite R a +
         lowOwnerZeroFrequencyMobiusSite R (p * a) +
         lowOwnerZeroFrequencyMobiusSite R (q * a) +
