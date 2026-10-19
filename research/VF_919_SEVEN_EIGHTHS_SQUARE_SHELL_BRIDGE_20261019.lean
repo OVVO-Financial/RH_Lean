@@ -87,7 +87,9 @@ theorem vf919Diagonal_interval_le (a b : ℕ) (hab : a ≤ b) :
 /-- UNCONDITIONAL square-shell diagonal K_R ≤ 2R+1. -/
 theorem vf919SquareShell_diagonal_le_width (R : ℕ) :
     vf919SquareShellDiagonal R ≤ (2 : ℝ) * R + 1 := by
-  have hle : R ^ 2 ≤ (R + 1) ^ 2 := by nlinarith
+  have hle : R ^ 2 ≤ (R + 1) ^ 2 := by
+    have hsq : (R + 1) ^ 2 = R ^ 2 + (2 * R + 1) := by ring
+    omega
   have hbound := vf919Diagonal_interval_le (R ^ 2) ((R + 1) ^ 2) hle
   rw [vf919SquareShell_width] at hbound
   unfold vf919SquareShellDiagonal
@@ -105,7 +107,10 @@ theorem vf919SquareShell_signedGreenKubo (R : ℕ) :
   have hlow :=
     realMertensLength_sq_eq_diagonal_add_two_mul_positiveLagPairSum
       (R ^ 2)
-  unfold vf919SquareShellSum vf919SquareShellDiagonal vf919SquareShellCovariance
+  -- Unfold covariance FIRST: it contains a nested square-shell sum.
+  -- Otherwise the mixed product is opaque to nonlinear arithmetic.
+  unfold vf919SquareShellCovariance vf919SquareShellSum
+    vf919SquareShellDiagonal
   nlinarith [hhigh, hlow]
 
 /-- ALL signed covariance lies in a single scalar inequality.
