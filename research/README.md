@@ -38,3 +38,7 @@ the freeze is not a theorem excluding all future elementary approaches.
 Research modules are outside the generated `RHLean.lean` surface and must be
 checked through the workflow that builds their dependency closure. Merely
 placing a `.lean` file in this directory does not give it kernel-checked status.
+
+## October 18 localized moving-window numerical evidence
+
+The [localized Mobius moving-window census](LOCALIZED_MOBIUS_MOVING_WINDOW_CENSUS_20261018.md) records exact H<=8192 finite data, the constant-mode and covariance diagnostics, randomized controls, and explicit no-proof caveats. [Reproduction and validation](../experiments/mobius_moving_windows/README.md) are diagnostic, not a new RH/Mertens/VF bound.
