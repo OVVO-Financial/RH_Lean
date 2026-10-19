@@ -91,7 +91,7 @@ theorem lowOwnerStokesNaturalPeriodicJointConductorResponse_eq_corrected
   · simp only [hc, ite_true]
     exact lowOwnerStokesNaturalPeriodicJointSpectralAtom_eq_raw_sub_two_smooth
       R hR x r
-  · simp [hc]
+  · simp only [ite_eq_right hc, mul_zero, sub_zero]
 
 /-- The complete natural periodic spectral prefix is the sum of its frequency
 atoms. -/
@@ -142,7 +142,7 @@ theorem lowOwnerStokesNaturalPeriodicRawSpectralPrefix_eq_sum_conductorResponses
   rw [Finset.sum_eq_single (reducedAdditiveConductor r)]
   · simp
   · intro c _hc hne
-    simp [hne]
+    simp only [ite_eq_right hne]
   · intro hnot
     exact (hnot hmem).elim
 
