@@ -8,6 +8,7 @@ on:
       - 'research/VF_919_EULER_MOVING_COVARIANCE_GROWTH_20261019.lean'
       - 'research/VF_919_EULER_FIXED_WHEEL_SIX_CHANNEL_20261019.lean'
       - 'research/VF_919_EULER_PRIME_DENSITY_TEST_20261019.md'
+      - 'research/VF_919_FIXED_WHEEL_COVARIANCE_CENSUS_20261019.md'
       - 'research/VF_919_MOVING_EULER_COVARIANCE_CENSUS_317_1027_20261019.md'
       - 'scripts/vf919_euler_prime_response_census.cpp'
       - 'research/data/VF_919_EULER_DYADIC_CENSUS_20261019.csv'
