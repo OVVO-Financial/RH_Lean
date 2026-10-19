@@ -214,9 +214,6 @@ private theorem postRootSmooth_sourceScale_represented
   have hzSecond : z ∈ lowWheelCanonicalRepeatedFrozenSecondContactPart R := by
     apply Finset.mem_filter.mpr
     refine ⟨hzFrozen, ?_⟩
-    change squareRootEndpoint R <
-      lowWheelFrozenCofactorTopPrime z *
-        primeFaceProduct (lowWheelCanonicalRepeatedFrozenProductOneFace z)
     rw [htopZ, lowWheelCanonicalRepeatedFrozenProductOneFace_product hzFrozen]
     rw [hzPivot]
     dsimp [z]

@@ -56,28 +56,28 @@ structure SpectralEndpointGramData {E : Type*}
       (orthogonalPacketBoundary packet v u hv)
 
 /-- Spectral Gram data instantiate the projection bridge from #110. -/
-def endpointProjectionOfSpectralGram
+theorem endpointProjectionOfSpectralGram
     {E : Type*} [NormedAddCommGroup E] [InnerProductSpace ℂ E]
     (packet : ℕ → E) (v u : E) (hv : v ≠ 0)
     (spectral : SpectralEndpointGramData packet v u hv) :
     EndpointProjectionDecomposition
       (packetBoundary packet u)
       (coherentPacketBoundary packet v u hv)
-      (orthogonalPacketBoundary packet v u hv) where
-  pointwise_decomposition :=
+      (orthogonalPacketBoundary packet v u hv) := by
+  exact { pointwise_decomposition :=
     packetBoundary_eq_coherent_add_orthogonal packet v u hv
-  local_energy_decomposition := spectral.local_energy_separation
+  local_energy_decomposition := spectral.local_energy_separation }
 
 /-- Spectral alignment and orthogonal-complement control give projection estimates. -/
-def endpointProjectionEstimatesOfSpectralGram
+theorem endpointProjectionEstimatesOfSpectralGram
     {E : Type*} [NormedAddCommGroup E] [InnerProductSpace ℂ E]
     (packet : ℕ → E) (v u : E) (hv : v ≠ 0)
     (spectral : SpectralEndpointGramData packet v u hv) :
     EndpointProjectionEstimates
       (coherentPacketBoundary packet v u hv)
-      (orthogonalPacketBoundary packet v u hv) where
-  coherent_bound := spectral.coherent_alignment_control
-  residual_bound := spectral.orthogonal_operator_control
+      (orthogonalPacketBoundary packet v u hv) := by
+  exact { coherent_bound := spectral.coherent_alignment_control
+  residual_bound := spectral.orthogonal_operator_control }
 
 /-- Spectral endpoint-Gram control yields the endpoint-boundary estimate. -/
 theorem endpointBoundary_of_spectralGram

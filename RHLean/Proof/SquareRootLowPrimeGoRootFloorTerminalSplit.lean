@@ -65,12 +65,7 @@ theorem squareRootLowPrimeGoFullFaceDefectRootFloorSource_mem_downcross
   refine ⟨hphysicalData.2, ?_, ?_⟩
   · rw [hpivot]
     exact hq.not_dvd_one
-  · change primeFaceProduct
-        (squareRootLowPrimeGoFullFaceDefectSourceTag ((r, q), d)).1 *
-        ((squareRootLowPrimeGoFullFaceDefectSourceTag ((r, q), d)).2.2 /
-          lowWheelCanonicalCofactorQuotientPivot
-            (squareRootLowPrimeGoFullFaceDefectSourceTag ((r, q), d)).2) ≤ R
-    rw [hpivot]
+  · rw [hpivot]
     change primeFaceProduct
         (squareRootLowPrimeGoFullFaceDefectSourceTag ((r, q), d)).1 *
         (q / q) ≤ R

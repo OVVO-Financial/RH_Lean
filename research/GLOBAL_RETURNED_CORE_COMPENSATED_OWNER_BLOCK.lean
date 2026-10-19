@@ -177,7 +177,6 @@ theorem lowOwnerFirstOwnerChildAmplitude_eq_neg_returnedAdmitted
       _ = m := Nat.mul_div_cancel' hmDvd
   · intro a ha
     refine ⟨p * a, lowOwnerFirstOwner_mul_mem_child_of_admitted hp ha, ?_⟩
-    change (p * a) / p = a
     simpa [Nat.mul_comm] using! Nat.mul_div_left a hp.pos
   · intro n hn
     have hbase := lowOwnerFirstOwner_div_mem_base_of_child hp hn

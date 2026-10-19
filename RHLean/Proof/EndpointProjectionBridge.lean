@@ -55,12 +55,12 @@ theorem endpointBoundary_of_projectionEstimates
     _ = (Cc + Cr) * (H : ℝ) * Real.rpow (N : ℝ) (2 + ε) := by ring
 
 /-- Projection estimates close the existing endpoint-cube signed-Gram schema. -/
-def endpointCubeSignedGramControlOfProjection
+theorem endpointCubeSignedGramControlOfProjection
     {boundary coherent residual : ℕ → ℂ}
     (decomp : EndpointProjectionDecomposition boundary coherent residual)
     (estimates : EndpointProjectionEstimates coherent residual) :
-    EndpointCubeSignedGramControl boundary coherent residual where
-  smoothResidualControl := {
+    EndpointCubeSignedGramControl boundary coherent residual := by
+  exact { smoothResidualControl := {
     exact_decomposition := decomp.pointwise_decomposition
     smooth_uniform_local := by
       intro ε hε
@@ -70,7 +70,7 @@ def endpointCubeSignedGramControlOfProjection
       exact estimates.residual_bound ε hε
     signed_recombination_closure :=
       endpointBoundary_of_projectionEstimates decomp estimates
-  }
+  } }
 
 /-- The complete abstract projection route from exact realization to RH. -/
 theorem riemannHypothesis_of_endpointProjection

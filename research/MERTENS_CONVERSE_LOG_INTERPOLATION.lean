@@ -18,6 +18,37 @@ namespace RHLean.Analysis.MertensExponent
 open Complex Filter Set
 open scoped Topology
 
+-- The historical StrongPNT disk helpers are replaced by the pinned PNT+
+-- Borel-Caratheodory theorem. These helpers preserve their exact old interface.
+private def ballDR (R : ℝ) : Set ℂ := Metric.ball (0 : ℂ) R
+
+private theorem lem_ballDR (R : ℝ) (hR : 0 < R) :
+    closure (ballDR R) = Metric.closedBall (0 : ℂ) R := by
+  unfold ballDR
+  exact closure_ball 0 (ne_of_gt hR)
+
+private theorem lem_BCI (R M : ℝ) (hR : 0 < R) (hM : 0 < M)
+    (f : ℂ → ℂ)
+    (hAnalytic : AnalyticOn ℂ f (closure (ballDR R)))
+    (hZero : f 0 = 0)
+    (hRe : ∀ w : ℂ, w ∈ closure (ballDR R) → (f w).re ≤ M)
+    (r : ℝ) (_hr : 0 < r) (hrR : r < R)
+    (z : ℂ) (hz : ‖z‖ ≤ r) :
+    ‖f z‖ ≤ (2 * r / (R - r)) * M := by
+  have hc : closure (ballDR R) = Metric.closedBall (0 : ℂ) R :=
+    lem_ballDR R hR
+  have ha : AnalyticOn ℂ f (Metric.ball 0 R) := by
+    apply hAnalytic.mono
+    rw [hc]
+    exact Metric.ball_subset_closedBall
+  have hb : ∀ w ∈ Metric.ball (0 : ℂ) R, (f w).re ≤ M := by
+    intro w hw
+    exact hRe w (by rw [hc]; exact Metric.ball_subset_closedBall hw)
+  have hpoint : z ∈ Metric.closedBall (0 : ℂ) r := by
+    simpa only [Metric.mem_closedBall, dist_zero_right] using hz
+  have hbc := borelCaratheodory' hM hR hrR ha hZero hb hpoint
+  convert hbc using 1 <;> ring
+
 /-- The exponent in the three-circle estimate. -/
 def logInterpolationExponent (r R : ℝ) : ℝ :=
   (Real.log r - Real.log (1 / 16)) / (Real.log R - Real.log (1 / 16))
