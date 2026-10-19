@@ -337,3 +337,8 @@ The energy values agree with the independently generated PR #981 data. Its local
 - New claim \`20261018-analytic-3\` isolates the exact exceptional-set strength missing from SHIFT-L2. The route remains plausible in finite data but has no proved polynomial saving.
 - Next run: investigate a quadratic-start large-values estimate for \(\sum_{r^2+t<n\le r^2+t+2r}\mu(n)\), rather than importing ambient almost-all density. Preserve the complete translation mean.
 - Canonical VF, original #915 payment, finite A/C, square-root Mertens, and RH remain OPEN.
+
+
+## M. Continuation publication verification
+
+Early \`IN_PROGRESS\` checkpoint commit: \`333907d4ec90a45b55ecc926fe898317599a364c\`. Substantive continuation commit: \`18f2ea509c4fa5e99e8ab95db98645e0555de152\`. Immediate readback returned blob \`e91b30d8c46ba4fba7f61f80bee725d861a4a0be\`, 24,442 characters, containing claim \`20261018-analytic-3\`, the completed continuation, final main SHA, and PR #981 exact-head CI status. The report is published on \`agent-reports\`; no main-source or PR state was mutated.
