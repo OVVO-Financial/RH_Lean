@@ -55,7 +55,6 @@ theorem shellLagCrossCovariance_eq_near_add_far
   rw [← Finset.sum_add_distrib]
   apply Finset.sum_congr rfl
   intro j hj
-  rw [← Finset.sum_add_distrib]
   have hsplit :=
     Finset.sum_range_add_sum_Ico
       (f := fun i => f (H + i) * f (H + j))
