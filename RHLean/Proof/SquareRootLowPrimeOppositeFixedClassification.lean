@@ -93,6 +93,7 @@ theorem finiteOthelloStablePart_processedSeatNoLibertyMate_eq_descendingFrontier
         (squareRootLowPrimeFreshPrimeListDescending K U)
         (squareRootLowPrimeProcessedSeatCarrier R K j U)
   rw [Finset.mem_filter]
+  simp only [signMatchingFixedPart, Finset.mem_filter] at h
   exact h
 
 /-- Finite cancellation identifies the stable mass with the running imbalance. -/
