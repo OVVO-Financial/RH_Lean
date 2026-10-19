@@ -139,6 +139,27 @@ theorem vf919SexticFourWits_twistedIdealTotals :
     vf919SexticExactFourIdealPhaseTotal [3, 1, 5, 3] = (-1, 0) := by
   decide
 
+/-- OpenAI's actual marked-minus-rescaled MAIN high-row coefficient is
+    -chi_P(u)^{-1}. In the exact Eisenstein sixth-root basis this is
+    zeta6^(3-e) when chi_P(u)=zeta6^e. The nonunit / local-error branch is
+    deliberately NOT identified with this coefficient. -/
+def vf919SexticSelectedMainPhaseBasis (e : ℕ) : ℤ × ℤ :=
+  vf919SexticPhaseBasis ((3 + 6 - e % 6) % 6)
+
+def vf919SexticSelectedMainFourIdealTotal (es : List ℕ) : ℤ × ℤ :=
+  ((es.map fun e => (vf919SexticSelectedMainPhaseBasis e).1).sum,
+   (es.map fun e => (vf919SexticSelectedMainPhaseBasis e).2).sum)
+
+/-- A source-faithful numerical dictionary for the actual selected-prime
+    PHASE in all four original owner coordinate systems. The four sums
+    are -2,+1,-1,+1 rather than a fixed scalar Euler term. -/
+theorem vf919SexticFourWits_markedMinusRescaledMainTotals :
+    vf919SexticSelectedMainFourIdealTotal [5, 5, 1, 1] = (-2, 0) ∧
+    vf919SexticSelectedMainFourIdealTotal [1, 3, 3, 5] = (1, 0) ∧
+    vf919SexticSelectedMainFourIdealTotal [0, 4, 2, 0] = (-1, 0) ∧
+    vf919SexticSelectedMainFourIdealTotal [3, 1, 5, 3] = (1, 0) := by
+  decide
+
 /-- Four roots all have coefficient +1 under the original actual
     integer Moebius sign. This is independent of their sextic
     ideal-labelled phases. -/
@@ -154,6 +175,7 @@ theorem vf919SexticFourWits_originalIntegerMobius :
 #print axioms vf919Sextic_x317_sameNativeSeat_differentIdealPhase
 #print axioms vf919Sextic_x317_noOwnerOnlyCharacter
 #print axioms vf919SexticFourWits_twistedIdealTotals
+#print axioms vf919SexticFourWits_markedMinusRescaledMainTotals
 #print axioms vf919SexticFourWits_originalIntegerMobius
 
 end RHLean.Proof
