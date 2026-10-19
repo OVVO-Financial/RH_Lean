@@ -1,0 +1,29 @@
+name: Localized Mobius finite evidence
+
+on:
+  pull_request:
+    paths:
+      - 'experiments/mobius_moving_windows/**'
+      - 'research/LOCALIZED_MOBIUS_MOVING_WINDOW_CENSUS_20261018.md'
+      - '.github/workflows/mobius-moving-window-evidence.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'experiments/mobius_moving_windows/**'
+      - 'research/LOCALIZED_MOBIUS_MOVING_WINDOW_CENSUS_20261018.md'
+      - '.github/workflows/mobius-moving-window-evidence.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  finite-census:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build independent integer reproducer
+        run: g++ -O3 -std=c++17 -Wall -Wextra -Werror experiments/mobius_moving_windows/reproduce_one_block.cpp -o /tmp/mw_census
+      - name: Check frozen data and C++ smoke reproduction
+        run: python3 experiments/mobius_moving_windows/check_data.py --binary /tmp/mw_census
