@@ -175,6 +175,41 @@ def run(R, smallest, mu, outdir):
     assert sum(signed[5]) == -H * KP
     assert sum(signed[4]) + sum(signed[5]) == KP * sum(
         mu[m] * len(qs) for m, qs in prime_fibers.items() if m > 1)
+    # Exact rank-one double-difference, including BOTH defect cross bills.
+    # alpha(m)=1/m is a deterministic reference, not a PNT approximation.
+    carrier = set(prime_fibers) | {1, 3}
+    rel = {m: 1.0 / m for m in carrier}
+    defect = sum(mu[m] * rel[m] for m in carrier)
+    raw = sum(mu[m] * len(prime_fibers.get(m, [])) for m in carrier)
+    centered = sum(mu[m] * (
+        len(prime_fibers.get(m, [])) - rel[m] * KP) for m in carrier)
+    assert raw == -s
+    assert abs(raw - (centered + defect * KP)) < 1.e-8
+    assert abs(raw ** 2 -
+               (centered ** 2 + 2 * defect * KP * centered +
+                defect ** 2 * KP ** 2)) < 1.e-7
+    # An exact zero-defect choice exists even if it gives NO variance gain:
+    # alpha(1)=alpha(3)=1, and alpha(m)=0 elsewhere, so 1-mu(3)=0.
+    alpha_zero = {m: 1.0 if m in (1, 3) else 0.0 for m in carrier}
+    assert sum(mu[m] * alpha_zero[m] for m in carrier) == 0.0
+    centered_zero = sum(mu[m] * (
+        len(prime_fibers.get(m, [])) - alpha_zero[m] * KP)
+        for m in carrier)
+    assert centered_zero == raw
+    # True p=3 sign/threshold invariance, NOT membership closure in this shell.
+    parents_3 = [m for m in prime_fibers if m >= 5 and m % 3 != 0]
+    parent_without_child = 0
+    for d in parents_3:
+        child = 3 * d
+        if child > X:
+            parent_without_child += 1
+            continue
+        assert max(factors(d, smallest)) == max(factors(child, smallest))
+        assert mu[d] and mu[child] == -mu[d]
+        if child not in prime_fibers:
+            parent_without_child += 1
+    # Even when gpf is invariant, q-shell supports of d and 3d differ.
+    # In particular Q_R(d) and Q_R(3d) need not be simultaneously nonzero.
     # Non-circular rank-one drift removal; it changes no square energy.
     baseline = R / math.log(R)
     centered_composite = A + H - baseline
@@ -204,6 +239,11 @@ def run(R, smallest, mu, outdir):
         "odd_gpf_signed_sum": odd_fiber_sum,
         "odd_gpf_composite_sum": composite_fiber_sum,
         "odd_gpf_prime_fiber": len(prime_fibers.get(1, [])),
+        "gpf_double_diff_defect_one_over_m": defect,
+        "gpf_double_diff_centered_one_over_m": centered,
+        "gpf_double_diff_zero_defect_energy": centered_zero ** 2,
+        "gpf_three_dipole_parents": len(parents_3),
+        "gpf_three_dipole_parent_without_child": parent_without_child,
         "centered_drift": baseline,
         "centered_composite": centered_composite,
         "centered_prime": centered_primes,
