@@ -307,8 +307,8 @@ theorem primorialWheel_residualBounded_iff_mertensEnergy :
 
 /-- Canonical, fully proved global transfer package for the concrete primorial
 wheel family. -/
-def primorialWheelMertensBridge :
-    PrimeWheelMertensBridge primorialWheelFamily where
-  residual_iff_mertensEnergy := primorialWheel_residualBounded_iff_mertensEnergy
+theorem primorialWheelMertensBridge :
+    PrimeWheelMertensBridge primorialWheelFamily := by
+  exact ⟨primorialWheel_residualBounded_iff_mertensEnergy⟩
 
 end RHLean.Analysis

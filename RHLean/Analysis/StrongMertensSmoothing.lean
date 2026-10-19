@@ -75,8 +75,7 @@ theorem strongMertens_smoothedMobius_aux_tsum_integral
       rw [MeasureTheory.lintegral_const_mul' (hr := by simp)]
     rw [ENNReal.tsum_mul_right]
     apply WithTop.mul_lt_top
-    · rw [lt_top_iff_ne_top]
-      have hsumm : Summable (fun i : ℕ => ‖(μ i : ℂ)‖₊ / (i : NNReal) ^ sigma) := by
+    · have hsumm : Summable (fun i : ℕ => ‖(μ i : ℂ)‖₊ / (i : NNReal) ^ sigma) := by
         apply NNReal.summable_coe.mp
         have h := (strongMertens_lseriesSummable_moebius (s := sigma)
           (by simp; linarith)).norm
@@ -88,7 +87,8 @@ theorem strongMertens_smoothedMobius_aux_tsum_integral
         · rw [NNReal.coe_div]
           simp only [coe_nnnorm, NNReal.coe_rpow, NNReal.coe_natCast]
           rw [norm_div, Complex.norm_natCast_cpow_of_pos (by omega), Complex.ofReal_re]
-      exact (ENNReal.tsum_coe_ne_top_iff_summable).mpr hsumm
+      exact lt_top_iff_ne_top.mpr
+        ((ENNReal.tsum_coe_ne_top_iff_summable).mpr hsumm
     · exact MeasureTheory.hasFiniteIntegral_iff_enorm.mp
         (SmoothedChebyshevDirichlet_aux_integrable diffF nonnegF suppF massF
           eps_pos eps_lt_one sigma_gt sigma_le).hasFiniteIntegral

@@ -150,7 +150,6 @@ theorem endpointSquarefreePrimeMass_eq_endpointCofactorFiber
   refine Finset.sum_bij
     (fun m _hm => canonicalCofactor m) ?_ ?_ ?_ ?_
   · intro m hm
-    change canonicalCofactor m ∈ primorialMinimalWheelEndpointCofactorSet k q
     rcases Finset.mem_filter.mp hm with ⟨hmIoc, hsq, hpq⟩
     rcases Finset.mem_Ioc.mp hmIoc with ⟨hmLower, hmUpper⟩
     have hLowerPos : 0 < primorialBlockLower k := primorialEndpoint_pos k
@@ -204,8 +203,7 @@ theorem endpointSquarefreePrimeMass_eq_endpointCofactorFiber
     · apply Finset.mem_filter.mpr
       exact ⟨Finset.mem_Ioc.mpr ⟨hLower, hUpper⟩,
         hsqProd, hcoords.1⟩
-    · change canonicalCofactor (c * q) = c
-      exact hcoords.2
+    · exact hcoords.2
   · intro m hm
     rcases Finset.mem_filter.mp hm with ⟨hmIoc, hsq, _hpq⟩
     rcases Finset.mem_Ioc.mp hmIoc with ⟨hmLower, _hmUpper⟩

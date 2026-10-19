@@ -285,9 +285,9 @@ theorem finiteWheelRestrictedFloorIdentity
 
 /-- The restricted floor certificate exists for every genuine finite prime
 wheel. -/
-def finiteWheelRestrictedFloorCertificate
+theorem finiteWheelRestrictedFloorCertificate
     (P : Finset ℕ) (hprime : ∀ p ∈ P, p.Prime) :
-    FiniteWheelRestrictedFloorCertificate P where
-  floor_identity := finiteWheelRestrictedFloorIdentity P hprime
+    FiniteWheelRestrictedFloorCertificate P := by
+  exact ⟨finiteWheelRestrictedFloorIdentity P hprime⟩
 
 end RHLean.Analysis
