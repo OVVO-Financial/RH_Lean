@@ -21,10 +21,25 @@ runs:
         else
           echo 'ready=false' >> "$GITHUB_OUTPUT"
         fi
+    - name: Restore exact pinned Lean compiler cache
+      id: lean_toolchain_cache
+      uses: actions/cache/restore@v5
+      with:
+        path: ~/.elan/toolchains
+        key: lean-toolchains-v1-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain') }}
     - name: Install exact pinned Lean with bounded TLS retries
       id: setup
       shell: bash
       run: bash scripts/ci/install_pinned_lean_retry.sh
+    - name: Save verified pinned Lean compiler before any proof work
+      if: >-
+        !cancelled()
+        && steps.setup.outcome == 'success'
+        && steps.lean_toolchain_cache.outputs.cache-hit != 'true'
+      uses: actions/cache/save@v5
+      with:
+        path: ~/.elan/toolchains
+        key: lean-toolchains-v1-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain') }}
     - name: Restore missing Mathlib artifacts with bounded retries
       id: mathlib
       if: ${{ steps.packages.outputs.cache-hit != 'true' || steps.complete.outputs.ready != 'true' }}
