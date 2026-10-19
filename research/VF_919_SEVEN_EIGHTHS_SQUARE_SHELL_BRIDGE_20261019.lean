@@ -40,6 +40,29 @@ def vf919SquareShellCovariance (R : ℕ) : ℝ :=
     realMertensPositiveLagPairSum (R ^ 2) -
       realMertensLength (R ^ 2) * vf919SquareShellSum R
 
+/-- Exact square telescoping, not a statistical assumption:
+the sum of all shells below R equals the COMPLETE physical Mobius
+prefix immediately preceding R^2. -/
+theorem vf919SquareShell_telescope (R : ℕ) :
+    (∑ r ∈ Finset.range R, vf919SquareShellSum r) =
+      realMertensLength (R ^ 2) := by
+  induction R with
+  | zero =>
+      simp [realMertensLength]
+  | succ R ih =>
+      rw [Finset.sum_range_succ, ih]
+      unfold vf919SquareShellSum
+      ring
+
+/-- An independent signed bound on individual shells would transfer
+to the whole square-prefix sum without a complex-analytic detector.
+The right side still contains the ACTUAL signed-shell amplitudes. -/
+theorem vf919SquareShell_prefixNorm_le_shellNorms (R : ℕ) :
+    ‖realMertensLength (R ^ 2)‖ ≤
+      ∑ r ∈ Finset.range R, ‖vf919SquareShellSum r‖ := by
+  rw [← vf919SquareShell_telescope R]
+  exact norm_sum_le _ _
+
 /-- There are exactly 2R+1 integer sites in a completed square shell. -/
 theorem vf919SquareShell_width (R : ℕ) :
     (R + 1) ^ 2 - R ^ 2 = 2 * R + 1 := by
@@ -103,6 +126,8 @@ theorem vf919SquareShell_energy_of_signedCovariance (R : ℕ) (T : ℝ)
   have hK := vf919SquareShell_diagonal_le_width R
   linarith
 
+#print axioms vf919SquareShell_telescope
+#print axioms vf919SquareShell_prefixNorm_le_shellNorms
 #print axioms vf919SquareShell_width
 #print axioms vf919Diagonal_interval_le
 #print axioms vf919SquareShell_diagonal_le_width
