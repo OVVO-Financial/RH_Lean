@@ -1800,12 +1800,8 @@ theorem allScaleLiState_diagonal_eq_hardCoreProductCumulative
     primeSievePNTDensity (X - 1) X hX
 
 
-/-! ## Local backport: power series to arithmetic coefficients -/
+/-! ## Pinned Mathlib power-series to arithmetic coefficients -/
 
-/-- The antidiagonal of exponents embeds into the divisor antidiagonal of
-`q^k`.  This is the only divisor lemma needed by the local power-series
-embedding below; it is present in newer Mathlib but not in the revision pinned
-by this repository. -/
 /-- Preserve RHLean's historical local power-series embedding API by using
 the complete, kernel-checked Mathlib v4.34.1 construction. The upstream
 arithmetic power-series algebra homomorphism proves all additive and
