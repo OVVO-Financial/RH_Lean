@@ -118,7 +118,11 @@ theorem signatureCell_56_three_straddles_high_q7_threshold :
         squarefreePrimeFace, realMoebiusStep, squareRootEndpoint]
       constructor
       · exact (ArithmeticFunction.moebius_ne_zero_iff_squarefree).2
-          (by decide : Squarefree 65)
+          (by
+            have h : Squarefree (65 : ℕ) ∧ (65 : ℕ).primeFactors.card = 2 :=
+              (Nat.squarefree_and_primeFactors_card_eq_two_iff 65).2
+                ⟨5, 13, by norm_num, by norm_num, by norm_num, by norm_num⟩
+            exact h.1)
       · intro x hx hxdiv
         by_contra hlt
         have htwo : 2 ≤ x := hx.two_le
@@ -151,7 +155,8 @@ theorem firstOwner_three_edge_zero_weightGradient_nonzero_siteProduct :
       (by norm_num : Nat.Prime 3)
       (by norm_num : 0 < (1 : ℕ))
       (by norm_num : 0 < (3 : ℕ))
-    · norm_num [squarefreeLowerPrimeSignature, squarefreePrimeFace] <;> simp
+    · simp [squarefreeLowerPrimeSignature, squarefreePrimeFace,
+        (show Nat.Prime 3 by norm_num).primeFactors]
     · exact Or.inr ⟨by norm_num, by norm_num⟩
   have hthree :
       lowOwnerReciprocalDaughterWeight 56 3 = (71 : ℝ) / 105 := by
