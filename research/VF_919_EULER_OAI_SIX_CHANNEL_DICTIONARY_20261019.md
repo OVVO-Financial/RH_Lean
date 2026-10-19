@@ -29,6 +29,22 @@ The public OAI mechanism and native limitations are documented in
 \`research/VF_MID_919_OAI_STAGE_SAVINGS_AND_BOOTSTRAP.md\` and
 \`research/VF_MID_919_OAI_C_TO_R_CANCELLATION_WELD.md\`.
 
+### A third, historically distinct “six”: the original VF Sector Six
+
+RH_Lean also has a *different* exact six-sector boundary:
+\[
+\{\mathrm{first},\mathrm{next},\mathrm{returned}\}\times
+\{\mathrm{left},\mathrm{right}\},
+\]
+under \`vfMidActiveScaledReturnedClippedCellMass_eq_sixOrientedSectors\`
+in \`research/VF_MID_FIRST_BAD_ACTIVE_RAW_PARENT_SPLICE.lean\`.
+
+That is six **oriented historical owner/clip populations**, while the current six real signed Euler covariance channels are the symmetric pair classes \`AA,HH,PP,AH,AP,HP\`. The OpenAI sextic phases are a third independent sixfold carrier.
+
+A full correspondence, if possible, must be an **occurrence-preserving incidence/Fubini operator** from specific physical Möbius/prime-weighted pair atoms to owner+orientation cells and ultimately to genuine Hecke ideal phase-weights. It need not be a bijection between six aggregate labels; in fact, reindexing historical owner paths by a single shell's six real totals would generally lose origin/age and phase metadata.
+
+**Practical falsification test:** build a tagged \(6\times6\) incidence ledger between *Euler pair-class label* and *VF six-sector orientation* on common genuine physical cells, retain source weights, and test whether its row and column marginals reproduce the existing exact six-Gram and original Sector Six separately. Do not postulate full rank or invertibility; report any unmatched atoms, duplicate charges, and nonzero weighted residual.
+
 ## 2. The genuine phase-preserving functor
 
 Let w(n) be **any** complex weights attached to physical integer sites — including a hypothetical true OAI-compatible spectral probe. Define A_w, H_w, P_w by summing the original signed rational Möbius source of each site times w(n), with P_w recording +w(p), so the prime mass is -P_w. No phase replacement is made.
