@@ -6,6 +6,8 @@ on:
       - '.github/workflows/vf919-discrete-gauss-proof.yml'
       - 'research/VF_919_NATIVE_DISCRETE_GAUSS_PARTIAL_MOMENTS_20261019.lean'
       - 'research/VF_919_DISCRETE_GAUSS_UPM_LPM_20261019.lean'
+      - 'research/VF_MID_919_DISCRETE_GAUSS_PARTIAL_MOMENT_COMPLETION_20261019.lean'
+      - 'research/VF_MID_919_DISCRETE_SPLIT_PRIME_GAUSS_NORM_20261019.lean'
       - 'research/VF_919_NATIVE_FINITE_GAUSS_GEOMETRIC_BOUND_20261019.lean'
       - 'research/VF_919_NATIVE_PRIME_GAUSS_NORM_20261019.lean'
       - 'research/VF_919_NATIVE_PRIME_FOURIER_ENVELOPE_20261019.lean'
@@ -48,7 +50,7 @@ jobs:
           key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py') }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py', 'RHLean.lean', 'RHLean/**/*.lean') }}
           restore-keys: |
             rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py') }}-
-      - name: Kernel-compile all six native Gauss and local error modules, warnings fatal
+      - name: Kernel-compile all eight native Gauss and local error modules, warnings fatal
         uses: ./.github/actions/research-compile
         with:
           targets: >-
@@ -58,7 +60,9 @@ jobs:
             research/VF_919_NATIVE_PRIME_FOURIER_ENVELOPE_20261019.lean
             research/VF_919_NATIVE_LOCAL_COMPENSATION_ERROR_BOUND_20261019.lean
             research/VF_919_DISCRETE_GAUSS_UPM_LPM_20261019.lean
-      - name: Reverify same six-module closure using content-addressed cache
+            research/VF_MID_919_DISCRETE_GAUSS_PARTIAL_MOMENT_COMPLETION_20261019.lean
+            research/VF_MID_919_DISCRETE_SPLIT_PRIME_GAUSS_NORM_20261019.lean
+      - name: Reverify same eight-module closure using content-addressed cache
         run: |
           set -euo pipefail
           python3 scripts/compile_research_import_closure.py \
@@ -67,4 +71,6 @@ jobs:
             research/VF_919_NATIVE_PRIME_GAUSS_NORM_20261019.lean \
             research/VF_919_NATIVE_PRIME_FOURIER_ENVELOPE_20261019.lean \
             research/VF_919_NATIVE_LOCAL_COMPENSATION_ERROR_BOUND_20261019.lean \
-            research/VF_919_DISCRETE_GAUSS_UPM_LPM_20261019.lean
+            research/VF_919_DISCRETE_GAUSS_UPM_LPM_20261019.lean \
+            research/VF_MID_919_DISCRETE_GAUSS_PARTIAL_MOMENT_COMPLETION_20261019.lean \
+            research/VF_MID_919_DISCRETE_SPLIT_PRIME_GAUSS_NORM_20261019.lean
