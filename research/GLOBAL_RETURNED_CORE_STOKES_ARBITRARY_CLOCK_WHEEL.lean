@@ -122,13 +122,13 @@ theorem lowOwnerStokesWheelArithmeticCertificate
     (lowOwnerStokesWheelSystem R hR).ArithmeticCertificate := by
   refine ⟨?_⟩
   intro n hnpos hnupper
-    change correctedPrimeWheelSite
-      (lowOwnerStokesWheelPrimes R) (squareRootEndpoint R) n = μ n
-    exact correctedPrimeWheelSite_eq_moebius
-      (lowOwnerStokesWheelPrimes R)
-      (fun p hp => lowOwnerStokesWheelPrimes_prime hp)
-      (lowOwnerStokesWheelPrimes_sqrtCoverage R)
-      hnpos hnupper
+  change correctedPrimeWheelSite
+    (lowOwnerStokesWheelPrimes R) (squareRootEndpoint R) n = μ n
+  exact correctedPrimeWheelSite_eq_moebius
+    (lowOwnerStokesWheelPrimes R)
+    (fun p hp => lowOwnerStokesWheelPrimes_prime hp)
+    (lowOwnerStokesWheelPrimes_sqrtCoverage R)
+    hnpos hnupper
 
 /-- The pinned interval `(0,x]` is exactly the positive integer interval
 `[1,x]`. -/
