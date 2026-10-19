@@ -1,8 +1,12 @@
-import «research.VF_MID_919_DISCRETE_GAUSS_PARTIAL_MOMENT_COMPLETION_20261019»
 import «research.VF_919_NATIVE_PRIME_GAUSS_NORM_20261019»
 
 /-!
 # Exact Gauss magnitude on genuine split prime residue fields
+
+Import only the native finite-field norm dependency. The independently
+compiled finite-character completion module also declares discrete UPM/LPM
+helpers under the same namespace and must not be joined through an
+unnecessary import diamond.
 
 No Lebesgue integration or OpenAI proof import. Reuse the native
 finite-field conjugation and Gauss-product theorem already verified
