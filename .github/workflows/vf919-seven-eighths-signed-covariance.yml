@@ -83,7 +83,7 @@ jobs:
                     for name in re.findall(r'^#print axioms\s+(\S+)', Path(src).read_text(), re.M)]
           log = Path('vf919-shell-axioms.log').read_text()
           got = re.findall(r"'([^']+)' depends on axioms:\s*\[([^\]]*)\]", log)
-          assert len(wanted) == 25, wanted
+          assert len(wanted) == 26, wanted
           assert len(got) == len(wanted), (wanted, got)
           assert {name for name, _ in got} == {'RHLean.Analysis.' + name for name in wanted}, got
           allowed = {'propext', 'Classical.choice', 'Quot.sound'}
