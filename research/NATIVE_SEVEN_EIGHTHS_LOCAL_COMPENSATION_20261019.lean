@@ -126,7 +126,6 @@ theorem nativeLocalCompensation_equation_5_13b
       V * (1 - W) - D * T := by
     dsimp [T]
     field_simp [hV]
-    ring
   unfold nativeSelectedEulerFactor nativeUnselectedEulerFactor
   calc
     ((A - Qw) * (1 - V) * (1 - W) * Ps -
