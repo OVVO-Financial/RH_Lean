@@ -98,6 +98,7 @@ jobs:
         run: |
           set -euo pipefail
           python3 scripts/strongpnt_434/port_imports.py 2>&1 | tee lean-434-imports.log
+          python3 scripts/strongpnt_434/port_pnt1.py 2>&1 | tee lean-434-pnt1-patch.log
 
       - name: Compile first StrongPNT complex-analysis module
         shell: bash
