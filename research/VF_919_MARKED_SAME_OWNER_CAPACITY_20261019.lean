@@ -32,7 +32,7 @@ def vf919DivisibleIntervalSites (a b p : ℕ) : Finset ℕ :=
 Therefore the number of multiples in [a,b) is bounded by the number
 of possible quotient values, without assuming a prime distribution. -/
 theorem vf919DivisibleIntervalSites_card_le_quotient
-    (a b p : ℕ) (hp : 0 < p) (hab : a ≤ b) :
+    (a b p : ℕ) (_hp : 0 < p) (_hab : a ≤ b) :
     (vf919DivisibleIntervalSites a b p).card ≤
       b / p + 1 - a / p := by
   let S := vf919DivisibleIntervalSites a b p
