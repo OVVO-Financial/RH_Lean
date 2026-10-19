@@ -31,6 +31,21 @@ attribute [local instance] Classical.propDecidable
 def vf919EulerStrictLow (X n : ℕ) : Prop :=
   ∀ p : ℕ, p.Prime → p ∣ n → p ^ 2 < X
 
+/-- A prime stays HIGH at X=p² and becomes strictly LOW
+at X=p²+1. This is the literal arithmetic clock, not a heuristic. -/
+theorem vf919EulerPrime_strictLow_crossing
+    (p : ℕ) (hp : p.Prime) :
+    ¬ vf919EulerStrictLow (p ^ 2) p ∧
+      vf919EulerStrictLow (p ^ 2 + 1) p := by
+  constructor
+  · intro h
+    have hb := h p hp (dvd_refl p)
+    omega
+  · intro q hq hd
+    have hqp : q = p := (Nat.prime_dvd_prime_iff_eq hq hp).mp hd
+    rw [hqp]
+    omega
+
 def vf919EulerLowSite (X n : ℕ) : ℝ :=
   if vf919EulerStrictLow X n then realMoebiusStep n else 0
 
@@ -212,6 +227,7 @@ theorem vf919EulerDyadicEnergy_of_growthErrorBudgets
   have h := vf919EulerDyadicEnergy_le_two_growthErrors H
   linarith
 
+#print axioms vf919EulerPrime_strictLow_crossing
 #print axioms vf919EulerLowHigh_sitePartition
 #print axioms vf919EulerLowHigh_siteDiagonal
 #print axioms vf919EulerLowHigh_totalMass
