@@ -185,6 +185,7 @@ theorem vf919Sextic_R1027_primaryNorms :
       vf919EisensteinCoordNorm 19 6 = 283 := by
   norm_num [vf919EisensteinCoordNorm]
 
+set_option maxRecDepth 16384 in
 theorem vf919Sextic_R1027_exactFourIdealPhases :
     vf919SplitSexticResidue 3727 (1188 : ZMod 3727) 13 (-6) =
       (1 + (1188 : ZMod 3727)) ^ 3 ∧
