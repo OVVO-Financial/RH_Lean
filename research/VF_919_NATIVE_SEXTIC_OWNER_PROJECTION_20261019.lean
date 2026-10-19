@@ -85,8 +85,8 @@ theorem vf919Sextic_x317_sameNativeSeat_differentIdealPhase
       vf919SplitSexticResidue 19 (7 : ZMod 19) (-2) (-3) := by
   constructor
   · apply vf919SexticSameNorm_sameNativeAMP
-    exact vf919SexticX_primaryNorms.2.symm.trans
-      vf919SexticX_primaryNorms.1
+    exact vf919SexticX_primaryNorms.2.trans
+      vf919SexticX_primaryNorms.1.symm
   · decide
 
 /-- An explicit impossibility proof for a scalar owner-only character.
@@ -100,8 +100,8 @@ theorem vf919Sextic_x317_noOwnerOnlyCharacter :
   have hs : vf919SexticOwnerProjection 19 1 3 =
       vf919SexticOwnerProjection 19 (-2) (-3) :=
     vf919SexticSameNorm_samePhysicalSite 19
-      (vf919SexticX_primaryNorms.2.symm.trans
-        vf919SexticX_primaryNorms.1)
+      (vf919SexticX_primaryNorms.2.trans
+        vf919SexticX_primaryNorms.1.symm)
   have hdiff :
       vf919SplitSexticResidue 19 (7 : ZMod 19) 1 3 ≠
         vf919SplitSexticResidue 19 (7 : ZMod 19) (-2) (-3) := by
