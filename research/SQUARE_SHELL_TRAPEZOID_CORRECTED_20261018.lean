@@ -309,26 +309,29 @@ theorem shellTrapezoidSharpBounded_iff_smoothedBounded
     have hbudget' := hBudget H hH
     nlinarith
 
-/-- The missing arithmetic estimate is a named Prop, not an axiom. It concerns
-the whole signed smoothed shell source, including smooth/high mixed products.
-It must NOT be silently replaced by separate estimates on C and high off-diagonal. -/
-def ShellTrapezoidIndependentSignedDispersion
+/-- The complete smoothed shell energy TARGET is a named Prop, not an axiom or
+an independently established arithmetic input. It is equivalent to the sharp
+target after the deterministic collar payment. A future source-level theorem
+must PROVE this target from genuinely narrower signed arithmetic information.
+No estimate on C and the high off-diagonal alone is asserted here. -/
+def ShellTrapezoidCompleteSmoothedEnergyTarget
     (P : ℤ → ℝ) (T : ℕ → ℕ) (B : ℕ → ℝ) : Prop :=
   ShellTrapezoidSmoothedBounded P T B
 
-/-- The correctly scoped conditional consumer. -/
-theorem shellTrapezoidSharpBound_of_independentSignedDispersion
+/-- A logically conditional consumer only: this does not supply the target
+and is not itself an independent dispersion mechanism. -/
+theorem shellTrapezoidSharpBound_of_completeSmoothedEnergyTarget
     (P : ℤ → ℝ) (hLip : ShellTrapezoidUnitLipschitz P)
     (T : ℕ → ℕ) (B : ℕ → ℝ)
     (hBudget : ∀ H : ℕ, 1 ≤ H →
       (H : ℝ) * (T H : ℝ) ^ 2 ≤ B H)
-    (hSigned : ShellTrapezoidIndependentSignedDispersion P T B) :
+    (hSigned : ShellTrapezoidCompleteSmoothedEnergyTarget P T B) :
     ShellTrapezoidSharpBounded P B :=
   (shellTrapezoidSharpBounded_iff_smoothedBounded P hLip T B hBudget).2 hSigned
 
 #print axioms shellTrapezoidResidual_eq_saw_difference
 #print axioms shellTrapezoidResidual_energy_le
 #print axioms shellTrapezoidSharpBounded_iff_smoothedBounded
-#print axioms shellTrapezoidSharpBound_of_independentSignedDispersion
+#print axioms shellTrapezoidSharpBound_of_completeSmoothedEnergyTarget
 
 end RHLean.Analysis
