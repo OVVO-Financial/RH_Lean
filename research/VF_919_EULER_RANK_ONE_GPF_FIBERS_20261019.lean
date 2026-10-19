@@ -265,4 +265,319 @@ theorem vf919EulerOddShell_compositePrime_viaGpf
 #print axioms vf919EulerOddShell_gpfFiberDecomposition
 #print axioms vf919EulerOddShell_compositePrime_viaGpf
 
+
+/-! ## m = 1 is precisely the actual prime shell -/
+
+/-- The largest-prime-factor-one fiber contains exactly the primes in the
+true square shell. The prime 2 is absent for R >= 2. -/
+theorem gpf_one_fiber_eq_prime_count (R : ℕ) (hR : 2 ≤ R) :
+    vf919EulerOddGpfPrimeCount R 1 = vf919EulerOddShellPrimes R := by
+  classical
+  have hfiber :
+      vf919EulerOddGpfFiber R 1 =
+        (Finset.Ico (R ^ 2) ((R + 1) ^ 2)).filter Nat.Prime := by
+    ext n
+    constructor
+    · intro hn
+      rcases vf919EulerOddGpfFiber_prime_owner hR hn with
+        ⟨q, hq, _hrough, hprod, hlo, hhi⟩
+      have hnq : n = q := by simpa using hprod.symm
+      exact Finset.mem_filter.mpr
+        ⟨Finset.mem_Ico.mpr ⟨hlo, hhi⟩, hnq.symm ▸ hq⟩
+    · intro hn
+      rcases Finset.mem_filter.mp hn with ⟨hnI, hprime⟩
+      have hlo := (Finset.mem_Ico.mp hnI).1
+      have hn2 : n ≠ 2 := by nlinarith
+      have hnodd : Odd n := hprime.odd_of_ne_two hn2
+      have hqprime : (RHLean.Proof.canonicalLargestPrimeFactor n).Prime :=
+        RHLean.Proof.canonicalLargestPrimeFactor_prime hprime.one_lt
+      have hqdvd : RHLean.Proof.canonicalLargestPrimeFactor n ∣ n :=
+        RHLean.Proof.canonicalLargestPrimeFactor_dvd hprime.one_lt
+      have hq : RHLean.Proof.canonicalLargestPrimeFactor n = n :=
+        (Nat.prime_dvd_prime_iff_eq hqprime hprime).mp hqdvd
+      have hcofactor : RHLean.Proof.canonicalCofactor n = 1 := by
+        unfold RHLean.Proof.canonicalCofactor
+        rw [hq]
+        simp [hprime.ne_zero]
+      exact Finset.mem_filter.mpr
+        ⟨Finset.mem_filter.mpr ⟨hnI, hnodd, hprime.squarefree⟩,
+          hcofactor⟩
+  unfold vf919EulerOddGpfPrimeCount vf919EulerOddShellPrimes
+    vf919EulerOddBlockQ
+  rw [hfiber]
+  calc
+    (((Finset.Ico (R ^ 2) ((R + 1) ^ 2)).filter Nat.Prime).card : ℝ) =
+      ∑ n ∈ Finset.Ico (R ^ 2) ((R + 1) ^ 2),
+        if n.Prime then (1 : ℝ) else 0 := by
+          rw [Finset.sum_boole]
+    _ = ∑ n ∈ Finset.Ico (R ^ 2) ((R + 1) ^ 2),
+          if Odd n then vf919EulerPrimeIndicator n else 0 := by
+          apply Finset.sum_congr rfl
+          intro n hn
+          by_cases hp : n.Prime
+          · have hnlow := (Finset.mem_Ico.mp hn).1
+            have hn2 : n ≠ 2 := by nlinarith
+            have ho : Odd n := hp.odd_of_ne_two hn2
+            simp [hp, ho, vf919EulerPrimeIndicator]
+          · simp [hp, vf919EulerPrimeIndicator]
+
+/-! ## Signed finite double-difference kernel: no moment estimate inserted -/
+
+/-- Exact dyadic fiber collision kernel for the true greatest-prime carrier. -/
+def vf919EulerGpfKernel (H m n : ℕ) : ℝ :=
+  ∑ R ∈ Finset.Ico H (2 * H),
+    vf919EulerOddGpfPrimeCount R m * vf919EulerOddGpfPrimeCount R n
+
+/-- Fluctuation of the canonical m-fiber relative to the m=1 prime shell.
+The reference alpha need not be positive or an asymptotic prime-density model. -/
+def vf919EulerGpfDelta (R m : ℕ) (alpha : ℕ → ℝ) : ℝ :=
+  vf919EulerOddGpfPrimeCount R m -
+    alpha m * vf919EulerOddGpfPrimeCount R 1
+
+/-- Double-difference kernel: two independent fiber-coordinate subtractions
+inside the product, before any absolute values are used. -/
+def vf919EulerGpfDeltaKernel (H m n : ℕ) (alpha : ℕ → ℝ) : ℝ :=
+  ∑ R ∈ Finset.Ico H (2 * H),
+    vf919EulerGpfDelta R m alpha * vf919EulerGpfDelta R n alpha
+
+/-- Finite signed density defect. Setting this equal to zero is a separate
+explicit hypothesis, not an unconditional Euler-product theorem. -/
+def vf919EulerGpfDefect (M : Finset ℕ) (alpha : ℕ → ℝ) : ℝ :=
+  ∑ m ∈ M, realMoebiusStep m * alpha m
+
+def vf919EulerGpfWeightedResponse (M : Finset ℕ) (R : ℕ) : ℝ :=
+  ∑ m ∈ M, realMoebiusStep m * vf919EulerOddGpfPrimeCount R m
+
+def vf919EulerGpfCenteredResponse
+    (M : Finset ℕ) (alpha : ℕ → ℝ) (R : ℕ) : ℝ :=
+  ∑ m ∈ M, realMoebiusStep m * vf919EulerGpfDelta R m alpha
+
+/-- The exact vector decomposition whose square gives the drift, the
+mixed covariance, and the fully compensated signed quadratic form. -/
+theorem vf919EulerGpf_weightedResponse_eq_delta_add_defect
+    (M : Finset ℕ) (alpha : ℕ → ℝ) (R : ℕ) :
+    vf919EulerGpfWeightedResponse M R =
+      vf919EulerGpfCenteredResponse M alpha R +
+        vf919EulerGpfDefect M alpha *
+          vf919EulerOddGpfPrimeCount R 1 := by
+  unfold vf919EulerGpfWeightedResponse
+    vf919EulerGpfCenteredResponse vf919EulerGpfDefect
+  calc
+    (∑ m ∈ M, realMoebiusStep m * vf919EulerOddGpfPrimeCount R m) =
+      ∑ m ∈ M,
+        (realMoebiusStep m * vf919EulerGpfDelta R m alpha +
+          (realMoebiusStep m * alpha m) *
+            vf919EulerOddGpfPrimeCount R 1) := by
+            apply Finset.sum_congr rfl
+            intro m _
+            unfold vf919EulerGpfDelta
+            ring
+    _ = (∑ m ∈ M, realMoebiusStep m * vf919EulerGpfDelta R m alpha) +
+        (∑ m ∈ M, (realMoebiusStep m * alpha m) *
+          vf919EulerOddGpfPrimeCount R 1) := by
+            rw [Finset.sum_add_distrib]
+    _ = _ := by rw [← Finset.sum_mul]
+
+/-- Purely finite Fubini/Gram identity; applies to any real fiber field.
+No PNT, variance, or square-root cancellation hypothesis is present. -/
+private theorem vf919EulerGpf_finiteKernel_quad
+    (H : ℕ) (M : Finset ℕ) (F : ℕ → ℕ → ℝ) :
+    (∑ m ∈ M, ∑ n ∈ M,
+      realMoebiusStep m * realMoebiusStep n *
+        (∑ R ∈ Finset.Ico H (2 * H), F R m * F R n)) =
+      ∑ R ∈ Finset.Ico H (2 * H),
+        (∑ m ∈ M, realMoebiusStep m * F R m) ^ 2 := by
+  calc
+    (∑ m ∈ M, ∑ n ∈ M,
+      realMoebiusStep m * realMoebiusStep n *
+        (∑ R ∈ Finset.Ico H (2 * H), F R m * F R n)) =
+        ∑ m ∈ M, ∑ n ∈ M, ∑ R ∈ Finset.Ico H (2 * H),
+          (realMoebiusStep m * F R m) * (realMoebiusStep n * F R n) := by
+            apply Finset.sum_congr rfl
+            intro m _
+            apply Finset.sum_congr rfl
+            intro n _
+            rw [Finset.mul_sum]
+            apply Finset.sum_congr rfl
+            intro R _
+            ring
+    _ = ∑ m ∈ M, ∑ R ∈ Finset.Ico H (2 * H), ∑ n ∈ M,
+          (realMoebiusStep m * F R m) * (realMoebiusStep n * F R n) := by
+            apply Finset.sum_congr rfl
+            intro m _
+            exact Finset.sum_comm
+    _ = ∑ R ∈ Finset.Ico H (2 * H), ∑ m ∈ M, ∑ n ∈ M,
+          (realMoebiusStep m * F R m) * (realMoebiusStep n * F R n) :=
+            Finset.sum_comm
+    _ = ∑ R ∈ Finset.Ico H (2 * H),
+          (∑ m ∈ M, realMoebiusStep m * F R m) ^ 2 := by
+            apply Finset.sum_congr rfl
+            intro R _
+            rw [pow_two, Finset.sum_mul_sum]
+
+theorem vf919EulerGpfKernel_quadratic
+    (H : ℕ) (M : Finset ℕ) :
+    (∑ m ∈ M, ∑ n ∈ M,
+      realMoebiusStep m * realMoebiusStep n *
+        vf919EulerGpfKernel H m n) =
+      ∑ R ∈ Finset.Ico H (2 * H),
+        (vf919EulerGpfWeightedResponse M R) ^ 2 := by
+  simpa [vf919EulerGpfKernel, vf919EulerGpfWeightedResponse] using
+    vf919EulerGpf_finiteKernel_quad H M
+      (fun R m => vf919EulerOddGpfPrimeCount R m)
+
+theorem vf919EulerGpfDeltaKernel_quadratic
+    (H : ℕ) (M : Finset ℕ) (alpha : ℕ → ℝ) :
+    (∑ m ∈ M, ∑ n ∈ M,
+      realMoebiusStep m * realMoebiusStep n *
+        vf919EulerGpfDeltaKernel H m n alpha) =
+      ∑ R ∈ Finset.Ico H (2 * H),
+        (vf919EulerGpfCenteredResponse M alpha R) ^ 2 := by
+  simpa [vf919EulerGpfDeltaKernel, vf919EulerGpfCenteredResponse] using
+    vf919EulerGpf_finiteKernel_quad H M
+      (fun R m => vf919EulerGpfDelta R m alpha)
+
+/-- Exact compensated kernel decomposition. In particular, killing the
+rank-one term inside each K^Delta(m,n) does NOT remove the scalar defect
+or the signed mixed term unless additional hypotheses are supplied. -/
+theorem dyadic_kernel_double_difference_eq
+    (H : ℕ) (M : Finset ℕ) (alpha : ℕ → ℝ) :
+    (∑ m ∈ M, ∑ n ∈ M,
+        realMoebiusStep m * realMoebiusStep n *
+          vf919EulerGpfKernel H m n) =
+      (∑ m ∈ M, ∑ n ∈ M,
+        realMoebiusStep m * realMoebiusStep n *
+          vf919EulerGpfDeltaKernel H m n alpha) +
+      2 * vf919EulerGpfDefect M alpha *
+        (∑ R ∈ Finset.Ico H (2 * H),
+          vf919EulerOddGpfPrimeCount R 1 *
+            vf919EulerGpfCenteredResponse M alpha R) +
+      vf919EulerGpfDefect M alpha ^ 2 *
+        (∑ R ∈ Finset.Ico H (2 * H),
+          vf919EulerOddGpfPrimeCount R 1 ^ 2) := by
+  rw [vf919EulerGpfKernel_quadratic,
+    vf919EulerGpfDeltaKernel_quadratic]
+  calc
+    (∑ R ∈ Finset.Ico H (2 * H),
+        vf919EulerGpfWeightedResponse M R ^ 2) =
+      ∑ R ∈ Finset.Ico H (2 * H),
+        (vf919EulerGpfCenteredResponse M alpha R +
+          vf919EulerGpfDefect M alpha *
+            vf919EulerOddGpfPrimeCount R 1) ^ 2 := by
+            apply Finset.sum_congr rfl
+            intro R _
+            rw [vf919EulerGpf_weightedResponse_eq_delta_add_defect]
+    _ = _ := by
+      simp only [Finset.mul_sum, ← Finset.sum_add_distrib]
+      apply Finset.sum_congr rfl
+      intro R _
+      ring
+
+/-- The normalized base coordinate has identically zero compensated row
+and column, even before summing over R. -/
+theorem vf919EulerGpfDeltaKernel_one_zero
+    (H : ℕ) (alpha : ℕ → ℝ) (hbase : alpha 1 = 1) (m : ℕ) :
+    vf919EulerGpfDeltaKernel H 1 m alpha = 0 ∧
+      vf919EulerGpfDeltaKernel H m 1 alpha = 0 := by
+  simp [vf919EulerGpfDeltaKernel, vf919EulerGpfDelta, hbase]
+
+/-- If (and only if explicitly assumed) the finite density defect vanishes,
+the entire signed covariance becomes the pure compensated kernel. -/
+theorem dyadic_kernel_double_difference_of_zero_defect
+    (H : ℕ) (M : Finset ℕ) (alpha : ℕ → ℝ)
+    (hzero : vf919EulerGpfDefect M alpha = 0) :
+    (∑ m ∈ M, ∑ n ∈ M,
+        realMoebiusStep m * realMoebiusStep n *
+          vf919EulerGpfKernel H m n) =
+      ∑ m ∈ M, ∑ n ∈ M,
+        realMoebiusStep m * realMoebiusStep n *
+          vf919EulerGpfDeltaKernel H m n alpha := by
+  rw [dyadic_kernel_double_difference_eq]
+  simp [hzero]
+
+/-! ## Genuine greatest-prime preserving local parent/child compensation -/
+
+/-- Multiplying a positive cofactor d by a prime p below its GREATEST
+prime factor does not alter the greatest prime factor. No false condition
+d < p is used. This statement remains true if p divides d, although the
+Möbius sign reversal requires the additional fresh-prime condition. -/
+theorem gpf_mul_prime_of_lt_gpf
+    {d p : ℕ} (hd : 1 < d) (hp : p.Prime)
+    (hplt : p < RHLean.Proof.canonicalLargestPrimeFactor d) :
+    RHLean.Proof.canonicalLargestPrimeFactor (p * d) =
+      RHLean.Proof.canonicalLargestPrimeFactor d := by
+  let q := RHLean.Proof.canonicalLargestPrimeFactor d
+  have hqprime : q.Prime := RHLean.Proof.canonicalLargestPrimeFactor_prime hd
+  have hqdvd : q ∣ d := RHLean.Proof.canonicalLargestPrimeFactor_dvd hd
+  have hdne : d ≠ 0 := by omega
+  have hprodne : p * d ≠ 0 := Nat.mul_ne_zero hp.ne_zero hdne
+  have hprodgt : 1 < p * d := by nlinarith [hp.two_le]
+  have hqprod : q ∣ p * d := by
+    rcases hqdvd with ⟨k, hk⟩
+    refine ⟨p * k, ?_⟩
+    rw [hk]
+    ring
+  have hqmem : q ∈ (p * d).primeFactors :=
+    Nat.mem_primeFactors.mpr ⟨hqprime, hqprod, hprodne⟩
+  have hmax_d : ∀ r ∈ d.primeFactors, r ≤ q := by
+    intro r hr
+    dsimp [q]
+    unfold RHLean.Proof.canonicalLargestPrimeFactor
+    rw [dif_pos hd]
+    exact Finset.le_max' d.primeFactors r hr
+  have hmax_prod : ∀ r ∈ (p * d).primeFactors, r ≤ q := by
+    intro r hr
+    have hrprime : r.Prime := Nat.prime_of_mem_primeFactors hr
+    have hrdiv : r ∣ p * d := Nat.dvd_of_mem_primeFactors hr
+    rcases hrprime.dvd_mul.mp hrdiv with hrp | hrd
+    · have heq : r = p := (Nat.prime_dvd_prime_iff_eq hrprime hp).mp hrp
+      exact heq.le.trans hplt.le
+    · exact hmax_d r (Nat.mem_primeFactors.mpr ⟨hrprime, hrd, hdne⟩)
+  have hres : RHLean.Proof.canonicalLargestPrimeFactor (p * d) = q := by
+    unfold RHLean.Proof.canonicalLargestPrimeFactor
+    rw [dif_pos hprodgt]
+    exact ((p * d).primeFactors.max'_eq_iff
+      (Nat.nonempty_primeFactors.mpr hprodgt) q).2
+        ⟨hqmem, hmax_prod⟩
+  exact hres
+
+/-- Both the parent d and child p*d use exactly the same strict admissibility
+threshold q > P+(d) in every prime window and every shell. -/
+theorem vf919EulerGpfDipole_commonThreshold
+    {d p : ℕ} (hd : 1 < d) (hp : p.Prime)
+    (hplt : p < RHLean.Proof.canonicalLargestPrimeFactor d) (q : ℕ) :
+    RHLean.Proof.canonicalLargestPrimeFactor (p * d) < q ↔
+      RHLean.Proof.canonicalLargestPrimeFactor d < q := by
+  rw [gpf_mul_prime_of_lt_gpf hd hp hplt]
+
+/-- The local signs reverse ONLY when p is fresh in d. Without this
+hypothesis p*d is nonsquarefree and its Möbius weight is zero. -/
+theorem vf919EulerGpfDipole_moebius
+    {d p : ℕ} (hp : p.Prime) (hfresh : ¬ p ∣ d) :
+    realMoebiusStep (p * d) = -realMoebiusStep d := by
+  have hcop : Nat.Coprime p d := hp.coprime_iff_not_dvd.mpr hfresh
+  have hmu := ArithmeticFunction.isMultiplicative_moebius.map_mul_of_coprime hcop
+  unfold realMoebiusStep
+  rw [hmu, ArithmeticFunction.moebius_apply_prime hp]
+  push_cast
+  ring
+
+/-- The cutoff-matched local relative fiber fluctuation. It has no
+asserted pointwise/squared cancellation estimate. -/
+def vf919EulerGpfLocalDipole
+    (R d p : ℕ) (beta : ℝ) : ℝ :=
+  vf919EulerOddGpfPrimeCount R (p * d) -
+    beta * vf919EulerOddGpfPrimeCount R d
+
+#print axioms gpf_one_fiber_eq_prime_count
+#print axioms vf919EulerGpf_weightedResponse_eq_delta_add_defect
+#print axioms vf919EulerGpfKernel_quadratic
+#print axioms vf919EulerGpfDeltaKernel_quadratic
+#print axioms dyadic_kernel_double_difference_eq
+#print axioms vf919EulerGpfDeltaKernel_one_zero
+#print axioms dyadic_kernel_double_difference_of_zero_defect
+#print axioms gpf_mul_prime_of_lt_gpf
+#print axioms vf919EulerGpfDipole_commonThreshold
+#print axioms vf919EulerGpfDipole_moebius
+
 end RHLean.Analysis
