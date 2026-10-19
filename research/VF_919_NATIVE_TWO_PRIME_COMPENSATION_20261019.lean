@@ -101,8 +101,6 @@ theorem vf919TwoPrimeAlignedPhysicalSite_principal
         lowOwnerZeroFrequencyMobiusSite R (p * (q * a)) : ℝ) : ℂ) := by
   rw [vf919TwoPrimeAlignedPhysicalSite_fourTerms]
   simp [vf919CharacterMobiusSite]
-  push_cast
-  ring
 
 /-- The FULL finite double-prime source from genuine physical sites. -/
 def vf919TwoPrimePhysicalPopulation (R p q : ℕ)
