@@ -93,12 +93,24 @@ jobs:
           set -euo pipefail
           lake build PrimeNumberTheoremAnd.ZetaBounds 2>&1 | tee lean-434-pnt.log
 
-      - name: Compile unchanged StrongPNT source to locate real port errors
+      - name: Apply source-exact StrongPNT module relocations
         shell: bash
         run: |
           set -euo pipefail
-          # Never apply scripts/strongpnt_424 to this candidate toolchain.
-          # A new 4.34-specific patch may be added only after diagnostics.
+          python3 scripts/strongpnt_434/port_imports.py 2>&1 | tee lean-434-imports.log
+
+      - name: Compile first StrongPNT complex-analysis module
+        shell: bash
+        run: |
+          set -euo pipefail
+          # Isolate real Lean 4.34 theorem API/elaboration errors.
+          # Do not invoke the 4.24 patch or weaken the theorem statements.
+          lake build StrongPNT.PNT1_ComplexAnalysis 2>&1 | tee lean-434-pnt1.log
+
+      - name: Compile historical StrongPNT terminal theorem
+        shell: bash
+        run: |
+          set -euo pipefail
           lake build StrongPNT.PNT5_Strong 2>&1 | tee lean-434-strongpnt.log
 
       - name: Compile full RHLean after dependencies are ported
