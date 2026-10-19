@@ -56,7 +56,7 @@ jobs:
             research/VF_919_NATIVE_FINITE_GAUSS_GEOMETRIC_BOUND_20261019.lean
             research/VF_919_NATIVE_PRIME_GAUSS_NORM_20261019.lean
             research/VF_919_NATIVE_PRIME_FOURIER_ENVELOPE_20261019.lean
-            research/VF_919_NATIVE_LOCAL_COMPENSATION_ERROR_BOUND_20261019.lean
+            research/VF_919_NATIVE_LOCAL_COMPENSATION_ERROR_BOUND_20261019.lean \
             research/VF_919_DISCRETE_GAUSS_UPM_LPM_20261019.lean
       - name: Reverify same six-module closure using content-addressed cache
         run: |
