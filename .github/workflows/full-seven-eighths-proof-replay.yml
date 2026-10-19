@@ -5,6 +5,7 @@ on:
     paths:
       - '.github/workflows/full-seven-eighths-proof-replay.yml'
       - 'research/NATIVE_SEVEN_EIGHTHS_LOCAL_COMPENSATION_20261019.lean'
+      - 'integration/lean434/RHLean/Analysis/SevenEighthsComplete.lean'
       - 'docs/NATIVE_SEVEN_EIGHTHS_REPLICATION_PROTOCOL_20261019.md'
   workflow_dispatch:
 
@@ -94,6 +95,19 @@ jobs:
         run: |
           set -euo pipefail
           lake -j 2 build OAI.NumberTheory.DirichletL.Nonvanishing 2>&1 | tee ../../seven-eighths-complete-build.log
+
+      - name: Compile full source-backed theorem in RHLean analytic coordinates
+        shell: bash
+        working-directory: upstream-math/lean
+        run: |
+          set -euo pipefail
+          mkdir -p RHLean/Analysis
+          cp ../../integration/lean434/RHLean/Analysis/SevenEighthsComplete.lean RHLean/Analysis/SevenEighthsComplete.lean
+          lake env lean -DwarningAsError=true -o .lake/build/lib/lean/RHLean/Analysis/SevenEighthsComplete.olean RHLean/Analysis/SevenEighthsComplete.lean 2>&1 | tee ../../seven-eighths-rhlean-native.log
+          if grep -E -i 'sorryAx|admitAx' ../../seven-eighths-rhlean-native.log; then
+            echo 'Native theorem depends on forbidden axiom' >&2
+            exit 1
+          fi
 
       - name: Kernel-check FINAL theorem and axiom policy
         shell: bash
