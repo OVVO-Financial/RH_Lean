@@ -1,0 +1,58 @@
+name: OAI marked-minus-rescaled termwise cancellation
+
+on:
+  pull_request:
+    paths:
+      - research/VF_919_OAI_EXACT_MARKED_RESCALED_LOCAL_20261019.lean
+      - .github/workflows/vf919-oai-termwise-cancellation.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: vf919-oai-termwise-${{ github.head_ref || github.ref_name }}
+  cancel-in-progress: true
+
+jobs:
+  exact-oai-cancellation:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - name: Reject proof holes and new axioms
+        shell: bash
+        run: |
+          set -euo pipefail
+          if grep -nE '^[[:space:]]*(sorry|admit|axiom)([[:space:]]|$)' research/VF_919_OAI_EXACT_MARKED_RESCALED_LOCAL_20261019.lean; then
+            exit 1
+          fi
+      - uses: ./.github/actions/lean-setup
+      - name: Compile native exact local arithmetic and imported #919 coefficient transport
+        uses: ./.github/actions/research-compile
+        with:
+          build-library: 'false'
+          targets: research/VF_919_OAI_EXACT_MARKED_RESCALED_LOCAL_20261019.lean
+      - name: Check theorem signatures and standard axioms
+        shell: bash
+        run: |
+          set -euo pipefail
+          cat >/tmp/vf919_oai_termwise_acceptance.lean <<'LEAN'
+          import «research.VF_919_OAI_EXACT_MARKED_RESCALED_LOCAL_20261019»
+          #check RHLean.Analysis.vf919OAIlocalP_unrestricted_two_terms
+          #check RHLean.Analysis.vf919OAImarkedMinusRescaled_numerator
+          #check RHLean.Analysis.vf919OAIphase_scalar_cancellation
+          #check RHLean.Analysis.vf919OAIlocalG_add_phaseH_numerator
+          #check RHLean.Analysis.vf919OAI_exact_local_compensation
+          #check RHLean.Analysis.vf919OAI_zero_extended_mask
+          #check RHLean.Analysis.vf919OAI_exact_finite_good_prime_slots
+          #check RHLean.Analysis.vf919OAI_marked_rescaled_physical_pairing
+          #print axioms RHLean.Analysis.vf919OAI_exact_local_compensation
+          #print axioms RHLean.Analysis.vf919OAI_zero_extended_mask
+          #print axioms RHLean.Analysis.vf919OAI_exact_finite_good_prime_slots
+          #print axioms RHLean.Analysis.vf919OAI_marked_rescaled_physical_pairing
+          LEAN
+          lake env lean -DwarningAsError=true /tmp/vf919_oai_termwise_acceptance.lean | tee /tmp/vf919-oai-axioms.log
+          if grep -E 'axioms? .*[:]' /tmp/vf919-oai-axioms.log | grep -E 'sorryAx|_private' ; then
+            exit 1
+          fi
