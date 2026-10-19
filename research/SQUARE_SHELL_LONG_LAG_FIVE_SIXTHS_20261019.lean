@@ -52,14 +52,23 @@ theorem shellLagCrossCovariance_eq_near_add_far
       shellLagNear f H L + shellLagFar f H L := by
   rw [signedBlockCrossCovariance_eq_doubleSum]
   unfold shellLagDyadicRow shellLagNear shellLagFar
-  rw [← Finset.sum_add_distrib]
-  apply Finset.sum_congr rfl
-  intro j hj
-  have hsplit :=
-    Finset.sum_range_add_sum_Ico
-      (f := fun i => f (H + i) * f (H + j))
-      (Nat.sub_le j L)
-  simpa only [add_comm] using hsplit.symm
+  calc
+    (∑ j ∈ Finset.range H, ∑ i ∈ Finset.range j,
+      f (H + i) * f (H + j)) =
+        ∑ j ∈ Finset.range H,
+          ((∑ i ∈ Finset.Ico (j - L) j, f (H + i) * f (H + j)) +
+           (∑ i ∈ Finset.range (j - L), f (H + i) * f (H + j))) := by
+            apply Finset.sum_congr rfl
+            intro j hj
+            have hsplit := Finset.sum_range_add_sum_Ico
+              (f := fun i => f (H + i) * f (H + j))
+              (Nat.sub_le j L)
+            simpa only [add_comm] using hsplit.symm
+    _ = (∑ j ∈ Finset.range H, ∑ i ∈ Finset.Ico (j - L) j,
+           f (H + i) * f (H + j)) +
+          (∑ j ∈ Finset.range H, ∑ i ∈ Finset.range (j - L),
+           f (H + i) * f (H + j)) := by
+            rw [Finset.sum_add_distrib]
 
 /-- Exact dyadic Green--Kubo decomposition with the near / far cutoff. -/
 theorem shellLagDyadicBlock_sq_eq_diagonal_add_near_add_far
