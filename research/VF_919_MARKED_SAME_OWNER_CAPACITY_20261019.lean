@@ -49,7 +49,9 @@ theorem vf919DivisibleIntervalSites_card_le_quotient
     have hnp : p ∣ n := (Finset.mem_filter.mp hn).2
     calc
       m = p * (m / p) := (Nat.mul_div_cancel' hmp).symm
-      _ = p * (n / p) := by rw [heq]
+      _ = p * (n / p) := by
+        change m / p = n / p at heq
+        rw [heq]
       _ = n := Nat.mul_div_cancel' hnp
   have hcard := Finset.card_le_card_of_injOn
     (fun n : ℕ => n / p) hmap hinj
@@ -64,18 +66,18 @@ two incomplete residue cells. -/
 theorem vf919QuotientInterval_width_le
     (a b p : ℕ) (hp : 0 < p) (hab : a ≤ b) :
     b / p + 1 - a / p ≤ (b - a) / p + 2 := by
+  -- The exact floor-division addition formula pays at most one
+  -- carry. This avoids nonlinear reasoning with truncated Nat subtraction.
+  have hcarry :
+      (if p ≤ a % p + (b - a) % p then 1 else 0) ≤ 1 := by
+    split <;> omega
+  have hsum : (a + (b - a)) / p ≤
+      a / p + (b - a) / p + 1 := by
+    rw [Nat.add_div hp]
+    omega
+  have hsub : a + (b - a) = b := Nat.add_sub_of_le hab
+  rw [hsub] at hsum
   have hquot : a / p ≤ b / p := Nat.div_le_div_right hab
-  have hgap : b / p ≤ a / p + (b - a) / p + 1 := by
-    by_contra hh
-    have hlarge : a / p + (b - a) / p + 2 ≤ b / p := by omega
-    have hmul := Nat.mul_le_mul_right p hlarge
-    have hm1 := Nat.mod_lt a hp
-    have hm2 := Nat.mod_lt (b - a) hp
-    have hmodA := Nat.mod_add_div a p
-    have hmodD := Nat.mod_add_div (b - a) p
-    have hmodB := Nat.mod_add_div b p
-    have hadd : a + (b - a) = b := by omega
-    nlinarith
   omega
 
 /-- Source-independent exact integer bound on the count of multiples
@@ -103,8 +105,10 @@ theorem vf919FirstMarkedPhysicalSite_abs_le_divisible
     have hstep : |realMoebiusStep n| ≤ 1 := by
       have hsq := realMoebiusStep_sq_le_one n
       nlinarith [sq_abs (realMoebiusStep n), abs_nonneg (realMoebiusStep n)]
-    simpa [vf919FirstMarkedPhysicalSite, hown, hpd] using hstep
-  · simp [vf919FirstMarkedPhysicalSite, hown]
+    simpa only [vf919FirstMarkedPhysicalSite, if_pos hown, if_pos hpd]
+      using hstep
+  · simp only [vf919FirstMarkedPhysicalSite, if_neg hown]
+    split_ifs <;> norm_num
 
 /-- Unconditional pointwise same-owner shell norm is paid by the number
 of multiples of that marked prime in the original integer square shell. -/
