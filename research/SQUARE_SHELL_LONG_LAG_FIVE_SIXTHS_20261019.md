@@ -126,7 +126,9 @@ The shared gcd sign has disappeared (it is squared). The residual phase is deter
 | 4,096 | 30,291,950 | +118 | -42,191 | -15,096,822 |
 | 8,192 | 126,589,560 | -2,032 | -4,299,221 | -56,931,047 |
 
-The long-lag term is negative throughout these sampled powers of two and offsets most of the unsigned shell energy, but this follows algebraically from the observed small dyadic endpoint sum; it is **not** numerical proof of a uniform upper bound or a prediction about all larger H. At \(H=8192\), the larger average \(T=\lfloor0.8H\rfloor=6553\) changes the entire coherent block sum by only \(-18.209735\), versus the original block sum \(-2032\).
+The long-lag term is negative throughout these sampled powers of two and offsets most of the unsigned shell energy, but this follows algebraically from the observed small dyadic endpoint sum; it is **not** numerical proof of a uniform upper bound or a prediction about all larger H.
+
+**Crucial prefix falsifier:** the long-lag covariance is *not* always negative when the partial-root endpoint varies. With H=8192 and L=20, the exact running prefix scan has **521 positive** far-covariance instances for 1<=K<=8192, with maximum **+4,798,239 at K=527**. At H=4096, there are 57 positive partial prefixes, with maximum +336,666 at K=382. Hence an attack that assumes a negative far term for *every K* is refuted by genuine Möbius data; the correct one-sided upper bound still permits positive excursions. The C++ census now records these falsifiers. At \(H=8192\), the larger average \(T=\lfloor0.8H\rfloor=6553\) changes the entire coherent block sum by only \(-18.209735\), versus the original block sum \(-2032\).
 
 The brute-force *divisor-witness* count for large gcd (overcounting actual pairs) is \(2,472,647,025,770\) at H=8192, about \(4.498H^3\), below the elementary \(8H^3\) bound. There is no inference from finite data to (7).
 
