@@ -49,7 +49,5 @@ jobs:
         with:
           path: .lake/build
           key: rhlean-repeated-parent-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'RHLean/Proof/LowWheelCanonicalRepeatedParentClassification.lean') }}
-          restore-keys: |
-            rhlean-build-${{ runner.os }}-${{ runner.arch }}-
       - name: Build repeated-parent classification
         run: lake build RHLean.Proof.LowWheelCanonicalRepeatedParentClassification

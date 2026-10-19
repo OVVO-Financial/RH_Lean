@@ -63,7 +63,6 @@ jobs:
           key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'RHLean.lean', 'RHLean/**/*.lean') }}
           restore-keys: |
             rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-
-            rhlean-build-${{ runner.os }}-${{ runner.arch }}-
 
       - name: Compile the complete quantitative chain
         id: build

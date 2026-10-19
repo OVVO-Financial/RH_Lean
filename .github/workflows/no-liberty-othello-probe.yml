@@ -34,8 +34,6 @@ jobs:
         with:
           path: .lake/build
           key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'RHLean.lean', 'RHLean/**/*.lean') }}
-          restore-keys: |
-            rhlean-build-${{ runner.os }}-${{ runner.arch }}-
       - name: Kernel-check processed-seat no-liberty Othello
         run: lake build RHLean.Proof.SquareRootLowPrimeOppositeFixedClassification
       - name: Kernel-check finite equivalence interface

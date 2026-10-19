@@ -49,7 +49,6 @@ jobs:
           key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'RHLean.lean', 'RHLean/**/*.lean') }}
           restore-keys: |
             rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-
-            rhlean-build-${{ runner.os }}-
       - name: Build RHLean modules imported by these research checks
         run: >-
           python3 scripts/compile_research_import_closure.py --library-only

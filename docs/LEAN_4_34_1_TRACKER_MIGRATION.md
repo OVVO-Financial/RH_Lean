@@ -46,14 +46,29 @@ PNT+'s `ZetaInvBnd` now states its log-nine window with real powers
 `log t ^ (9 : ℝ)`. `StrongMertensLogNineCorridor` converts both power forms
 with `Real.rpow_natCast`; the corridor structure it produces is unchanged.
 
-## Source changes forced by Mathlib v4.34.1
+## Source changes forced by Lean and Mathlib v4.34.1
 
+Every change below reproduces the 4.24 meaning of the proof it touches.
+
+- **`simpa … using e` closes at reducible transparency.** Lean 4.34 checks the
+  simplified `e` against the simplified goal with `withReducible`; 4.24 used
+  default transparency. Lean provides `simpa … using! e` for the old check, so
+  every `simpa … using` became `using!` (core uses the same spelling).
 - **Swapped order-lemma names.** Mathlib #30242 renamed `mul_le_mul_left'` to
   `mul_le_mul_right` and reused the old names with the other side:
   `add_le_add_left h a` now proves `b + a ≤ c + a`. Every use of
   `add_le_add_left`, `add_le_add_right`, `add_lt_add_left`, `add_lt_add_right`
   and the primed `mul_` versions was renamed to its counterpart, so each proof
   still cites the lemma with its 4.24 statement.
+- **The `₀` convention (Mathlib #39692).** Ordered-semiring lemmas gained a
+  `₀` suffix and their old names now denote the ordered-monoid lemmas:
+  `Finset.prod_le_prod` (with nonnegativity hypotheses) is
+  `Finset.prod_le_prod₀`, and `Finset.prod_le_prod_of_subset_of_one_le'` is
+  `Finset.prod_le_prod_of_subset_of_one_le`.
+- **Core deprecations.** `if_pos`, `if_neg`, `dif_pos`, `dif_neg`, `if_true`
+  and `if_false` are `ite_eq_left`, `ite_eq_right`, `dite_eq_left`,
+  `dite_eq_right`, `ite_true` and `ite_false`, with identical statements.
+- **`push_neg` is deprecated** in favour of `push Not`.
 - **`List.Sorted` removed.** It was a reducible alias of `List.Pairwise`; uses
   now name `List.Pairwise`, and `Finset.sort_sorted r s` is
   `Finset.pairwise_sort s r`.
@@ -61,12 +76,21 @@ with `Real.rpow_natCast`; the corridor structure it produces is unchanged.
   `mellin_inversion` by `mellinInv_mellin_eq`,
   `Real.rpow_le_rpow_of_exponent_nonpos` by `Real.rpow_le_rpow_of_nonpos`,
   `Nat.factorization_prod_pow_eq_self` by `Nat.prod_factorization_pow_eq_self`,
-  and `Finset.prod_le_prod_of_subset_of_one_le'` by
-  `Finset.prod_le_prod_of_subset_of_one_le`.
-- **Deprecated without replacement.** `mul_lt_one_of_nonneg_of_lt_one_left`
-  is replaced by `mul_le_of_le_one_right` followed by `trans_lt`.
-- **`Finset.product` versus `×ˢ`.** `Finset.sum_product` is now stated with
-  `×ˢ`; `Finset.product_eq_sprod` bridges the two spellings.
+  `Prime.dvd_finset_prod_iff` by `Prime.dvd_finsetProd_iff`,
+  `tendsto_finset_sum` by `tendsto_finsetSum`,
+  `Nat.infinite_setOf_prime` by `Nat.infinite_setOfPred_prime`,
+  `primorial_le_4_pow` by `primorial_le_four_pow` and
+  `Set.diff_subset_diff_left` by `Set.sdiff_subset_sdiff_left`.
+  `mul_lt_one_of_nonneg_of_lt_one_left`, deprecated without replacement, is
+  `mul_le_of_le_one_right` followed by `trans_lt`.
+- **New linters.** Four proofs declared with `def` are now `theorem`
+  (`linter.defProp`); `letI` inside theorem proofs is `let`
+  (`linter.style.haveILetI`); simp arguments and tactics that became no-ops
+  under the new simp set were removed.
+- **Individual proof repairs** where a lemma's form changed:
+  `ContinuousAt.mul` is now stated point-free (`fun_mul` gives the
+  pointwise form), a derivative bound now passes its constant explicitly,
+  and a few `simp` calls were replaced by the exact rewrites they performed.
 
 ## CI changes
 

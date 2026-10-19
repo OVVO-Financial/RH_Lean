@@ -44,7 +44,6 @@ jobs:
           key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'RHLean.lean', 'RHLean/**/*.lean') }}
           restore-keys: |
             rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-
-            rhlean-build-${{ runner.os }}-
       - name: Build native upper-divisor inversion
         run: lake build RHLean.Analysis.DivisorUpperMobius
       - name: Check algebraic compensation with warnings fatal

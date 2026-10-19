@@ -69,7 +69,6 @@ jobs:
           key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'RHLean.lean', 'RHLean/**/*.lean') }}
           restore-keys: |
             rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-
-            rhlean-build-${{ runner.os }}-${{ runner.arch }}-
       - name: Kernel-check finite interval counting
         run: lake build RHLean.Analysis.RoughWheelFiniteCounting --wfail
       - name: Kernel-check generic floor-width lemma

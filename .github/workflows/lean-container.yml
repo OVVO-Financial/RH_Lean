@@ -120,7 +120,6 @@ jobs:
           key: rhlean-container-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'RHLean.lean', 'RHLean/**/*.lean') }}
           restore-keys: |
             rhlean-container-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-
-            rhlean-container-build-${{ runner.os }}-${{ runner.arch }}-
 
       - name: Build Lean project
         id: directbuild

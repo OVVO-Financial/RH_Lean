@@ -39,8 +39,6 @@ jobs:
         with:
           path: .lake/build
           key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'RHLean.lean', 'RHLean/**/*.lean') }}
-          restore-keys: |
-            rhlean-build-${{ runner.os }}-
       - name: Audit repository assumptions
         run: bash scripts/audit_assumptions.sh
       - name: Build exact library dependencies
