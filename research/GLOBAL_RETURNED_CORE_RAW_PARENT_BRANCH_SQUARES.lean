@@ -92,10 +92,10 @@ theorem lowOwnerFirstOwnerRawParentBranchCarrier_eq_equalKeyProduct
             lowOwnerRawParentRevealedKey R r mn.2) := by
   ext mn
   rcases mn with ⟨m, n⟩
-  simp [lowOwnerFirstOwnerRawParentBranchCarrier,
+  simp only [lowOwnerFirstOwnerRawParentBranchCarrier,
     lowOwnerFirstOwnerRawParentBranchSiteCarrier,
-    lowOwnerRawParentRevealedKey, Finset.mem_filter, Finset.mem_product,
-    and_assoc, and_left_comm, and_comm] <;> tauto
+    lowOwnerRawParentRevealedKey, Finset.mem_filter, Finset.mem_product]
+  tauto
 
 /-- The tail pair carrier is exactly the equal-key square of tail sites. -/
 theorem lowOwnerFirstOwnerRawParentTailCarrier_eq_equalKeyProduct
@@ -108,13 +108,13 @@ theorem lowOwnerFirstOwnerRawParentTailCarrier_eq_equalKeyProduct
             lowOwnerRawParentRevealedKey R r mn.2) := by
   ext mn
   rcases mn with ⟨m, n⟩
-  simp [lowOwnerFirstOwnerRawParentTailCarrier,
+  simp only [lowOwnerFirstOwnerRawParentTailCarrier,
     lowOwnerFirstOwnerRawParentBranchCarrier,
     lowOwnerFirstOwnerRawParentTailSiteCarrier,
     lowOwnerFirstOwnerRawParentBranchSiteCarrier,
-    lowOwnerRawParentRevealedKey,
-    not_or, Finset.mem_filter, Finset.mem_product,
-    and_assoc, and_left_comm, and_comm] <;> tauto
+    lowOwnerRawParentRevealedKey, Finset.mem_filter, Finset.mem_product,
+    not_or, not_le]
+  tauto
 
 /-- One key fibre of an equal-key pair carrier is a Cartesian square. -/
 private theorem equalKeyPair_filter_eq_fiberProduct
