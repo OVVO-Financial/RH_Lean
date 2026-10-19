@@ -11,6 +11,9 @@ on:
       - 'research/VF_919_SEVEN_EIGHTHS_ENDPOINT_TRANSFER_20261019.lean'
       - 'research/VF_919_MARKED_FIRST_OWNER_SHELL_20261019.lean'
       - 'research/VF_919_MARKED_SAME_OWNER_CAPACITY_20261019.lean'
+      - 'research/VF_919_EULER_PRIME_DENSITY_LEDGER_20261019.lean'
+      - 'research/VF_919_EULER_MOVING_COVARIANCE_GROWTH_20261019.lean'
+      - 'scripts/vf919_euler_prime_response_census.cpp'
       - 'scripts/vf919_seven_eighths_signed_covariance_census.py'
       - 'research/MERTENS_CONVERSE_*.lean'
       - 'RHLean/Analysis/MathlibMertensHook.lean'
@@ -31,8 +34,12 @@ jobs:
     timeout-minutes: 45
     steps:
       - uses: actions/checkout@v4
-      - name: Exact native pair/UPM/LPM census
-        run: python3 scripts/vf919_seven_eighths_signed_covariance_census.py
+      - name: Exact native pair/UPM/LPM and evolving Euler density censuses
+        run: |
+          set -euo pipefail
+          python3 scripts/vf919_seven_eighths_signed_covariance_census.py
+          g++ -O3 -std=c++17 -Wall -Wextra -Werror scripts/vf919_euler_prime_response_census.cpp -o /tmp/vf919-euler-census
+          /tmp/vf919-euler-census 2048
       - uses: ./.github/actions/lean-setup
       - name: Apply pinned StrongPNT compatibility patches
         run: |
@@ -70,6 +77,8 @@ jobs:
             research/VF_919_SEVEN_EIGHTHS_ENDPOINT_TRANSFER_20261019.lean
             research/VF_919_MARKED_FIRST_OWNER_SHELL_20261019.lean
             research/VF_919_MARKED_SAME_OWNER_CAPACITY_20261019.lean
+            research/VF_919_EULER_PRIME_DENSITY_LEDGER_20261019.lean
+            research/VF_919_EULER_MOVING_COVARIANCE_GROWTH_20261019.lean
       - name: Verify signed square-shell and norm-expansion standard-axiom footprints
         shell: bash
         run: |
@@ -104,6 +113,32 @@ jobs:
               assert used <= allowed, (name, used - allowed)
           print(f'PASS: {len(got)} actual square-shell and rational shell-source theorems')
           PY
+      - name: Exact moving Euler density/covariance standard-axiom audit
+        shell: bash
+        run: |
+          set -euo pipefail
+          lake env lean -DwarningAsError=true research/VF_919_EULER_PRIME_DENSITY_LEDGER_20261019.lean > vf919-euler-axioms.log 2>&1
+          lake env lean -DwarningAsError=true research/VF_919_EULER_MOVING_COVARIANCE_GROWTH_20261019.lean >> vf919-euler-axioms.log 2>&1
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+          sources = [
+              'research/VF_919_EULER_PRIME_DENSITY_LEDGER_20261019.lean',
+              'research/VF_919_EULER_MOVING_COVARIANCE_GROWTH_20261019.lean',
+          ]
+          wanted = [name for src in sources
+                    for name in re.findall(r'^#print axioms\s+(\S+)', Path(src).read_text(), re.M)]
+          log = Path('vf919-euler-axioms.log').read_text()
+          got = re.findall(r"'([^']+)' depends on axioms:\s*\[([^\]]*)\]", log)
+          assert len(wanted) == 19, wanted
+          assert len(got) == len(wanted), (wanted, got)
+          assert {name for name, _ in got} == {'RHLean.Analysis.' + name for name in wanted}, got
+          allowed = {'propext', 'Classical.choice', 'Quot.sound'}
+          for name, footprint in got:
+              used = {a.strip() for a in footprint.split(',') if a.strip()}
+              assert used <= allowed, (name, used - allowed)
+          print('PASS: 19 true Euler density, moving Gram and growth-error lemmas')
+          PY
       - name: Native no-axiom footprint audit
         shell: bash
         run: |
@@ -135,4 +170,6 @@ jobs:
             research/VF_919_SEVEN_EIGHTHS_DYADIC_SHELL_COVARIANCE_20261019.lean \
             research/VF_919_SEVEN_EIGHTHS_ENDPOINT_TRANSFER_20261019.lean \
             research/VF_919_MARKED_FIRST_OWNER_SHELL_20261019.lean \
-            research/VF_919_MARKED_SAME_OWNER_CAPACITY_20261019.lean
+            research/VF_919_MARKED_SAME_OWNER_CAPACITY_20261019.lean \
+            research/VF_919_EULER_PRIME_DENSITY_LEDGER_20261019.lean \
+            research/VF_919_EULER_MOVING_COVARIANCE_GROWTH_20261019.lean
