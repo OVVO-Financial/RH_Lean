@@ -57,7 +57,6 @@ int main(int argc,char **argv) {
     if(prime)++s.q;else s.b+=a;
     if(!prime && smooth){s.lowB+=a;s.kLow+=a*a;}
     if(!prime && !smooth){s.highB+=a;s.kHigh+=a*a;}
-    if(n==1){s.lowB+=a;s.kLow+=a*a;}
     const i64 A=s.lowB,H=s.highB,Q=s.q,S=A+H-Q;
     if(S!=oldS+a || s.k!=oldK+a*a || s.k!=s.kLow+s.kHigh+Q)
       throw std::runtime_error("Fixed-wheel signed source/diagonal mismatch at n="+std::to_string(n));
