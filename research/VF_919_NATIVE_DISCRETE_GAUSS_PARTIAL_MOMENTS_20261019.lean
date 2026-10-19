@@ -50,7 +50,7 @@ theorem vf919DiscreteUPM1_sub_LPM1_eq_sum
   rw [← Finset.sum_sub_distrib]
   apply Finset.sum_congr rfl
   intro x _
-  exact partialUpper_sub_partialLower (f x) 0
+  simpa only [sub_zero] using partialUpper_sub_partialLower (f x) 0
 
 /-- The two first partial moments also reconstruct the genuine l1 mass. -/
 theorem vf919DiscreteUPM1_add_LPM1_eq_absSum
