@@ -14,6 +14,7 @@ import csv
 import json
 import math
 from collections import defaultdict
+from fractions import Fraction
 from pathlib import Path
 
 ROWS = ("AA", "HH", "PP", "AH", "AP", "HP")
@@ -210,6 +211,61 @@ def run(R, smallest, mu, outdir):
             parent_without_child += 1
     # Even when gpf is invariant, q-shell supports of d and 3d differ.
     # In particular Q_R(d) and Q_R(3d) need not be simultaneously nonzero.
+    # Exact paired 3-adic alpha, finite cofactor hyperbola, and q-owner duality.
+    # M is the largest power of 3 satisfying M^2 <= R and 3*M < R.
+    if R > 3:
+        M = 1
+        while (M * 3) ** 2 <= R and 3 * (M * 3) < R:
+            M *= 3
+        assert M ** 2 <= R and 3 * M < R
+        dipole_parents = [d for d in range(1, M + 1)
+                          if d % 2 and d % 3 and mu[d] != 0]
+        alpha3 = {}
+        for d in dipole_parents:
+            assert mu[3 * d] == -mu[d]
+            assert d not in alpha3 and 3 * d not in alpha3
+            alpha3[d] = Fraction(1, d)
+            alpha3[3 * d] = Fraction(1, d)
+        assert max(alpha3) <= 3 * M
+        assert sum(mu[m] * a for m, a in alpha3.items()) == 0
+        assert alpha3[1] == alpha3[3] == 1
+        # The pair-complete carrier need NOT be the shell's active fibers.
+        pair_inactive = sum((not prime_fibers.get(d) or
+                             not prime_fibers.get(3 * d))
+                            for d in dipole_parents)
+        odd_low = -sum(mu[m] * len(qs)
+                       for m, qs in prime_fibers.items() if m <= 3 * M)
+        odd_high = -sum(mu[m] * len(qs)
+                        for m, qs in prime_fibers.items() if m > 3 * M)
+        assert odd_low + odd_high == s
+        prime_owner_high = defaultdict(int)
+        q_high_over_R = 0
+        for m, qs in prime_fibers.items():
+            if m <= 3 * M:
+                for q in qs:
+                    assert q > m, (R, M, m, q)
+                    assert q > (max(factors(m, smallest)) if m > 1 else 1)
+            else:
+                for q in qs:
+                    assert max(factors(m, smallest)) < q
+                    prime_owner_high[q] += -mu[m]
+                    if q > R:
+                        q_high_over_R += 1
+        assert sum(prime_owner_high.values()) == odd_high
+        # Exact zero-defect substitution keeps the FULL signed response,
+        # not an automatic variance saving or estimate of the tail.
+        centered3 = sum(
+            mu[m] * (len(prime_fibers.get(m, [])) -
+                     float(alpha3.get(m, 0)) * KP)
+            for m in (set(prime_fibers) | set(alpha3)))
+        assert abs(centered3 + s) < 1.e-8
+    else:
+        M = 0
+        dipole_parents = []
+        pair_inactive = 0
+        odd_low = 0
+        odd_high = s
+        q_high_over_R = 0
     # Non-circular rank-one drift removal; it changes no square energy.
     baseline = R / math.log(R)
     centered_composite = A + H - baseline
@@ -244,6 +300,12 @@ def run(R, smallest, mu, outdir):
         "gpf_double_diff_zero_defect_energy": centered_zero ** 2,
         "gpf_three_dipole_parents": len(parents_3),
         "gpf_three_dipole_parent_without_child": parent_without_child,
+        "exact_three_adic_M": M,
+        "exact_three_adic_pair_count": len(dipole_parents),
+        "exact_three_adic_pair_inactive": pair_inactive,
+        "exact_hyperbola_low_signed": odd_low,
+        "exact_hyperbola_high_signed": odd_high,
+        "exact_high_owner_q_over_root_count": q_high_over_R,
         "centered_drift": baseline,
         "centered_composite": centered_composite,
         "centered_prime": centered_primes,
