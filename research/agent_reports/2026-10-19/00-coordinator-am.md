@@ -360,6 +360,10 @@ performed by the Coordinator.
 ## Publication verification
 
 The report is published once with byte-identical AM/PM compatibility paths.
-Successful commit and immediate readback SHAs are recorded after publication;
-no mathematical status is marked complete merely because report publication
+The final PM replacement committed as
+`7eb84cdcf2352e52875a4e5c00864dfe67b8aaee`; the AM mirror committed as
+`63acb8cd8312e0cfd5116645ae7e0cc9721957c3`. Immediate readback returned the
+same blob `a812245cc1b89da17476b08c24be11f5e2e96336`, 17,629 characters and
+`COMPLETED` status at both paths; branch head equaled the AM mirror commit.
+No mathematical status is marked complete merely because publication
 succeeds.
