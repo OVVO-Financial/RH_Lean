@@ -81,7 +81,9 @@ theorem vf919MarkedPrioritySite_partition (P : Finset ℕ) (n : ℕ) :
 theorem vf919SquareShellSum_eq_physicalIco (R : ℕ) :
     vf919SquareShellSum R =
       ∑ n ∈ Finset.Ico (R ^ 2) ((R + 1) ^ 2), realMoebiusStep n := by
-  have hle : R ^ 2 ≤ (R + 1) ^ 2 := by nlinarith
+  have hle : R ^ 2 ≤ (R + 1) ^ 2 := by
+    have hsq : (R + 1) ^ 2 = R ^ 2 + (2 * R + 1) := by ring
+    omega
   unfold vf919SquareShellSum realMertensLength
   exact (Finset.sum_Ico_eq_sub _ hle).symm
 
