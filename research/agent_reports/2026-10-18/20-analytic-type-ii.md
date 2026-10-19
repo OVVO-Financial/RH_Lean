@@ -232,3 +232,108 @@ Early `IN_PROGRESS` checkpoint commit: `16afdce40725d13a10cefba5e2eb18fc988ae741
 **Status:** IN_PROGRESS. This scheduled continuation refreshed live authority to `main@c2b075fca8a02079ebab7464a16e1fb58c2b5c7a` and re-read the current proof contract, PNT-first contract, two-scale plan, today/yesterday specialist reports, and external handoffs. The on-main raw transfer cone is now `PROVED_IN_LEAN_ON_MAIN`; it remains a scalar obstruction and supplies neither the original #915 occurrence bridge nor a quantitative saving.
 
 The active analytic question is the first genuinely missing cross-shell theorem left by claims `20261018-analytic-1/-2`: determine whether the exact complete compensated response admits an independently provable cancellation/variation mechanism after the shellwise rank-one mode, Li main term, endpoints, and all cofactor bands are restored. Same-shell outer-prime dispersion remains rejected at its proved scope. No new estimate is claimed at this checkpoint.
+
+
+## L. Final authorized continuation - localized short-interval exceptional-set barrier
+
+**Status:** COMPLETED. **Result classes:** \`PAPER_PROOF\` (new localized exceptional-set budget), \`LITERATURE_SCOPE_NO_GO\` (the strongest verified almost-all theorem cannot control the square-track sample), \`FINITE_COMPUTATION\` (independent genuine-Mobius check), and \`NO_NEW_BOUND\` on shell energy, Mertens, canonical VF, or RH.
+
+### Claim \`20261018-analytic-3\` - exact exceptional-set budget for localized moving windows
+
+For integers \`H>=2\` and \`1<=T<=H/2\`, retain the literal genuine-Mobius windows
+\[
+ S_r(t)=\sum_{j=1}^{2r}\mu(r^2+t+j),\qquad
+ W(H;T)=\sum_{H\le r<2H}\sum_{|t|\le T}|S_r(t)|^2.
+\]
+There are exactly \`N_H(T)=H(2T+1)\` labelled windows. Let \(\mathcal B\) be any exceptional subset of these labels, of size \(B\), and suppose \(|S_r(t)|\le G\) off \(\mathcal B\). Since \(|S_r(t)|\le2r<4H\) everywhere,
+\[
+ \boxed{W(H;T)\le H(2T+1)G^2+16H^2B.}\tag{EB}
+\]
+This is a complete finite partition, with no probabilistic assumption.
+
+Combine (EB) with the exact localized Lipschitz-envelope inequality recorded on open PR #981,
+\[
+ \mathcal E(H)\le W(H;T)/T+\frac43H(T^2-1).\tag{LE}
+\]
+To obtain \(\mathcal E(H)\ll H^{5/2-\eta+\epsilon}\), choose
+\[
+ T\asymp H^{3/4-\eta/2}.
+\]
+The required moving-window estimate is then
+\[
+ W(H;T)\ll H^{13/4-3\eta/2+\epsilon}.\tag{MW3loc}
+\]
+A sufficient good/exceptional theorem, with constants uniform in the displayed dyadic range, is
+\[
+ \boxed{G\ll H^{3/4-\eta/2+\epsilon},\qquad
+ B\ll H^{5/4-3\eta/2+\epsilon}.}\tag{EBudget}
+\]
+Indeed, the two terms of (EB) then have the MW3loc exponent. At the baseline \(\eta=0\), one needs square-root-length Mobius sums at most \(H^{3/4+\epsilon}\) outside at most \(H^{5/4+\epsilon}\) of the \(H^{7/4+o(1)}\) square-track labels.
+
+**Classification:** \`PAPER_PROOF / NEW QUANTITATIVE ACCEPTANCE THRESHOLD / NO_NEW_ARITHMETIC_BOUND\`.
+
+### Verified literature comparison
+
+At ambient scale \(X\asymp H^2\), these intervals have length \(h\asymp H=X^{1/2}\). The 2026 Matomaki-Radziwill-Shao-Tao-Teravainen almost-all theorem gives, for each fixed \(A\), Mobius cancellation \(h\log^{-A}X\) outside an exceptional set of ambient starts of measure \(O_A(X\log^{-A}X)\) in a range including \(h=X^{1/2}\). Source: https://doi.org/10.1007/s00222-026-01408-6, Corollary 1.2(i).
+
+This does **not** imply MW3loc:
+
+1. The allowed ambient exceptional set is \(O_A(H^2\log^{-A}H)\), whereas (EBudget) permits only \(H^{5/4-3\eta/2+\epsilon}\) bad square-track labels.
+2. More sharply, for every fixed \(A\),
+   \[
+   H(2T+1)\asymp H^{7/4-\eta/2}
+   =o(H^2\log^{-A}H).
+   \]
+   Thus the published exceptional set can contain the **entire localized square-track sample**. Restricting an almost-all-\(x\) theorem to these quadratic starts is invalid.
+3. Even if one artificially assumed all selected labels were in its good set, \(h\log^{-A}X\) is larger than the required \(H^{3/4-\eta/2+\epsilon}\) by a fixed power for small epsilon.
+4. The all-interval Matomaki-Teravainen theorem, https://arxiv.org/abs/1911.09076 (Theorem 1.1), begins at length \(h\ge X^{0.55+\epsilon}\), strictly above the present \(X^{1/2}\) scale, and supplies only logarithmic cancellation there.
+
+Choosing \(A\) depending on \(H\) is not licensed: the theorems quantify fixed \(A\), with \(A\)-dependent constants. Hence current short-interval results provide important machinery but no valid transfer to (MW3loc). The genuinely new analytic object is a **quadratic-start exceptional-set theorem** or a direct selected-start second moment, not another unrestricted almost-all statement.
+
+**Classification:** \`LITERATURE_SCOPE_NO_GO\`, not a refutation of MW3loc.
+
+### Independent exact finite check
+
+An independent Eratosthenes Mobius sieve and integer prefix sums evaluated the original Coordinator full-radius carrier with \(|t|\le\lfloor r/2\rfloor\). A fixed-seed divisor-sum audit checked \(\sum_{d\mid n}\mu(d)=0\) for 1,000 sampled \(2\le n<200000\). Results:
+
+| H | \(\mathcal E(H)\) | full-radius \(W(H)\) | \(W/H^3\) | \(W/H^{13/4}\) |
+|---:|---:|---:|---:|---:|
+| 256 | 110,216 | 43,048,579 | 2.5659 | 0.6415 |
+| 512 | 486,935 | 389,403,153 | 2.9013 | 0.6099 |
+| 1024 | 1,723,387 | 2,848,256,681 | 2.6526 | 0.4689 |
+| 2048 | 7,380,415 | 23,100,434,969 | 2.6892 | 0.3998 |
+
+The energy values agree with the independently generated PR #981 data. Its localized carrier instead uses one common radius \(T=\lfloor H^{3/4}\rfloor\), so its \(W\)-values are intentionally different. Both finite datasets are consistent with a natural diagonal-scale law and with the required upper bounds; neither proves an exponent.
+
+**Classification:** \`FINITE_COMPUTATION\`.
+
+### Falsification and relevance
+
+- (EBudget) is sufficient, not claimed necessary; a direct signed second-moment proof may bypass pointwise good/bad control.
+- The argument does not assume Mertens, Chowla, RH, shell energy, or the desired MW3loc estimate.
+- Ambient exceptional measure cannot be treated as randomly distributed over quadratic starts.
+- The dominant constant translation mode measured on PR #981 remains part of \(W\); centering it would delete the load-bearing term.
+- The localized Mobius carrier has no automatic occurrence-preserving map to original #915. Owner claim \`20261018-owner-4\` shows translated labels clone physical sites and cross adjacent square blocks.
+- The raw native/Mobius cone now compiled on main remains a scalar obstruction, not a bridge.
+
+### Strategy decision and handoffs
+
+**Continue SHIFT-L2 only in localized form.** The first independently missing theorem is now precise: prove MW3loc directly on the selected quadratic-start set, or prove a theorem at least as strong as (EBudget), with the complete constant mode and every exceptional label retained. Generic almost-all short-interval results are quantitatively and geometrically insufficient.
+
+- **Coordinator:** replace the earlier qualitative literature caveat by the explicit (EBudget) node. Keep localized \(T\asymp H^{3/4-\eta/2}\), not the costlier full radius, as the principal conditional consumer.
+- **Owner:** preserve the overlap-kernel and once-only veto; no translated-label theorem transfers to #915 without a separate compensated kernel comparison.
+- **Wheel:** seek arithmetic structure specific to starts \(r^2+t\), \(|t|\le T\), that can prevent the complete selected set from lying in an ambient exceptional set.
+- **Census:** PR #981 supplies the stronger held-out finite experiment through \(H=8192\); retain its constant-mode and sign-flip diagnostics and do not infer an exponent.
+- **Referee:** audit (EB), the exponents in (EBudget), and the fixed-\(A\) quantifiers in the 2026 theorem. In particular challenge any density-transfer assumption from ambient starts to square-track starts.
+- **Lean:** (EB) is elementary and formalizable only after independent review; attach no arithmetic consumer asserting MW3loc.
+
+### Authority, PRs, CI, and resume capsule
+
+- Final live main: \`c2b075fca8a02079ebab7464a16e1fb58c2b5c7a\`.
+- Authority blobs: \`AGENTS.md\` \`4c66a1d462df98c84deebf0069ad11f904039858\`; \`CURRENT_PROOF_CONTRACT.md\` \`2fa9931dcdc1fc8a816aefb8aa348db12ee9a384\`; PNT-first contract \`e8acbeff24942d1f8ee0079f715afff2ddda2c33\`; two-scale plan \`0606d764ffebb4639cc0abb52ccbef30546b7764\`; external inbox \`038018145c0fddb2f6306c0712373adf9cd1ea52\`.
+- Material on-main source: \`research/RAW_TRANSFER_CONE_20261018.lean\` blob \`b47db297c6b9e9eaee5d6d884a27bb211b9053ff\`. Proof head \`c1d261e2a265f7ada3c6abf1e0b1a128009a4979\` has ten returned workflows, all completed successfully, including warning-fatal Raw transfer cone Lean and source audits.
+- Today reports consumed at final blobs: Coordinator \`4510607938e185534ba6074f58b2c3bb51a0f368\`; Owner \`84fdf8ec488848eb033e7ac3d882ec43051d5b88\`; earlier Analytic \`f7b981952037bffa17c67b518edb0c5638f01f05\`; Wheel \`1f2e83a07d2d277f1137fd0239109f3abea5cbee\`; Census \`701b74c281d01f6727669808566d76b1e8758b26\`; Referee \`c0360eaa56c34198f21f9387113fd565a19b542f\`; Lean \`bff111a9448b17061f4dc2be760ea8422245a3f6\`. October 17 set remains \`YESTERDAY=CARRY_FORWARD\`.
+- Open PR #981 appeared during this run at head \`b3a248b2a1c16e8da040ad67c102f6bcd91d3df5\`. It is \`FINITE_COMPUTATION\`, not main authority; all three returned exact-head workflows succeeded. No merge or PR mutation was performed.
+- New claim \`20261018-analytic-3\` isolates the exact exceptional-set strength missing from SHIFT-L2. The route remains plausible in finite data but has no proved polynomial saving.
+- Next run: investigate a quadratic-start large-values estimate for \(\sum_{r^2+t<n\le r^2+t+2r}\mu(n)\), rather than importing ambient almost-all density. Preserve the complete translation mean.
+- Canonical VF, original #915 payment, finite A/C, square-root Mertens, and RH remain OPEN.
