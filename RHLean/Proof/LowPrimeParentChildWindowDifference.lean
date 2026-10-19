@@ -231,14 +231,10 @@ theorem erase_freshPrime_mem_parentFaces
     have hqNeP : q ≠ p := hqData.1
     have hqLt : q < p := lt_of_le_of_ne hqLeP hqNeP
     exact mem_primesUpTo.mpr ⟨hqPrime, by omega⟩
-  have hpNotErase : p ∉ v.erase p := Finset.notMem_erase p v
   have hprod : primeFaceProduct v =
       p * primeFaceProduct (v.erase p) := by
-    calc
-      primeFaceProduct v = primeFaceProduct (insert p (v.erase p)) := by
-        rw [Finset.insert_erase hpMem]
-      _ = p * primeFaceProduct (v.erase p) := by
-        simp [primeFaceProduct, hpNotErase]
+    change v.prod id = p * (v.erase p).prod id
+    exact (Finset.mul_prod_erase v id hpMem).symm
   have hchildB : p * primeFaceProduct (v.erase p) ≤ B := by
     rw [← hprod]
     exact (mem_admissiblePrimeFaces.mp hvAdm).2

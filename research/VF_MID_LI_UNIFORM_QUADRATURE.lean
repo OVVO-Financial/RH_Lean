@@ -33,7 +33,7 @@ theorem deriv_invLog_eq_vfInvLogDeriv
     {x : ℝ} (hx : 1 < x) :
     deriv (fun t : ℝ => (Real.log t)⁻¹) x =
       vfInvLogDeriv x := by
-  simpa [vfInvLogDeriv] using! deriv_inv_log_formula hx
+  simp [vfInvLogDeriv, deriv_inv_log_formula hx]
 
 /-- Exact derivative of the first derivative of the inverse-log density. -/
 theorem hasDerivAt_vfInvLogDeriv
@@ -357,7 +357,7 @@ theorem abs_vfMidBandQuadratureError_le_logHarmonic
       convert
         (((hasDerivAt_id z).sub_const m).pow 2).const_mul d |>.div_const 2
         using 1
-      all_goals (simp [id_eq]; ring_nf)
+      all_goals simp [id_eq]
     have hlinI' :
         IntervalIntegrable (fun z : ℝ => d * (z - m))
           MeasureTheory.volume a b :=
