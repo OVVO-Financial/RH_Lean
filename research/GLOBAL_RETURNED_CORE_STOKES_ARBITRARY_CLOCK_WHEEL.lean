@@ -117,10 +117,10 @@ theorem lowOwnerStokesWheelRawSite_periodic
 
 /-- Exact arithmetic certificate: the corrected field is Moebius on the entire
 physical clock. -/
-def lowOwnerStokesWheelArithmeticCertificate
+theorem lowOwnerStokesWheelArithmeticCertificate
     (R : ℕ) (hR : 2 ≤ R) :
-    (lowOwnerStokesWheelSystem R hR).ArithmeticCertificate where
-  corrected_eq_moebius := by
+    (lowOwnerStokesWheelSystem R hR).ArithmeticCertificate := by
+  refine ⟨?_⟩
     intro n hnpos hnupper
     change correctedPrimeWheelSite
       (lowOwnerStokesWheelPrimes R) (squareRootEndpoint R) n = μ n

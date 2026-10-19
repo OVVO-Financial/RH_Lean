@@ -118,7 +118,6 @@ theorem sum_Icc_filter_prime_dvd_realMoebiusStep
     · intro a _ha
       exact Nat.mul_div_cancel_left a hp.pos
     · intro n hn
-      change realMoebiusStep n = realMoebiusStep (p * (n / p))
       rw [Nat.mul_div_cancel' (Finset.mem_filter.mp hn).2]
   have hset :
       (Finset.Icc 1 (Y / p)).filter (fun a => ¬ p ∣ a) =
