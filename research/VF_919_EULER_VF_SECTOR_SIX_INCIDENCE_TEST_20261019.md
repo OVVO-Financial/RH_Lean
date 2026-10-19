@@ -283,3 +283,60 @@ by one. The required savings remain genuinely analytic.
 The finite test asserts `Q_R(1)=Q_R`, signed Fubini, one-to-one
 prime ownership, `\mu(mq)=-\mu(m)`, the exact composite-only identity,
 and centered energy with `L_R=R/\log R`.
+
+
+## 9. Finite double-difference kernel and strict-cutoff local dipoles
+
+The Lean module research/VF_919_EULER_RANK_ONE_GPF_FIBERS_20261019.lean
+now adds gpf_one_fiber_eq_prime_count, dyadic_kernel_double_difference_eq,
+and gpf_mul_prime_of_lt_gpf, plus seven supporting theorem footprints.
+The dedicated CI checks 67 Lean theorem footprints.
+
+For any finite cofactor set M and deterministic alpha, let
+Delta_R(m)=Q_R(m)-alpha(m)*Q_R(1),
+c_M=sum_{m in M} mu(m)*alpha(m), and
+B_R=sum_{m in M} mu(m)*Delta_R(m).
+Then A_R=sum_m mu(m)*Q_R(m)=B_R+c_M*Q_R(1).
+The exact finite double-kernel identity is:
+
+\[
+\sum_{m,n\in M}\mu(m)\mu(n)K_H(m,n)
+=\sum_{m,n\in M}\mu(m)\mu(n)K_H^\Delta(m,n)
++2c_M\sum_R Q_R(1)B_R+c_M^2\sum_R Q_R(1)^2.
+\]
+
+Here K_H(m,n)=sum_R Q_R(m)Q_R(n), and
+K_H^Delta(m,n)=sum_R Delta_R(m)Delta_R(n).
+If alpha(1)=1, K_H^Delta(1,m)=K_H^Delta(m,1)=0.
+The defect-zero corollary is conditional on c_M=0.
+
+**Defect zero is not the analytic estimate.**
+A simple purely algebraic choice alpha(1)=alpha(3)=1 and alpha(m)=0
+otherwise on a carrier containing 1 and 3 gives c_M=0 but
+B_R=A_R, with no variance saving. The verifier independently checks
+the full three-term identity with alpha(m)=1/m, as well as this
+zero-defect/no-saving example.
+
+**Exact greatest-prime cutoff:** for d>1, p prime,
+p<P+(d) implies P+(p*d)=P+(d). This is true even for d>p and
+does not require p to be fresh. The Möbius sign reversal
+mu(p*d)=-mu(d) additionally requires p not dividing d.
+Both fiber counts then use the same prime lower threshold
+q>P+(d), but different dilated physical intervals.
+
+For p=3, the globally defined odd-squarefree cofactors with P+>=5
+pair as {d,3d}, 3 not dividing d, with opposite signs.
+**The finite active cofactor set in a given shell or dyadic band is
+not generally closed under d -> 3d.** One fiber can be present when
+the other is absent. This is a genuine boundary contribution,
+not a counterexample to greatest-prime cutoff preservation.
+The Python verifier checks exact sign/cutoff invariance and records
+unmatched finite-shell parents.
+
+The prime-only identity Q_R(1)=Q_R is now explicitly a Lean theorem
+for R>=2, closing the earlier requested base-fiber specialization.
+
+**Open:** A signed analytic moment/compensation estimate strong
+enough for sum_{H<=R<2H}(S_R^odd)^2
+=O_epsilon(H^(5/2+epsilon)). No pointwise Poisson variance,
+short-interval PNT, or square-root saving is claimed.
