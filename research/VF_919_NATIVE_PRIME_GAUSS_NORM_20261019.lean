@@ -51,7 +51,7 @@ theorem vf919SplitPrimeGauss_squaredNorm
     (χ : DirichletCharacter ℂ p)
     (hχ : χ ≠ 1) :
     ‖gaussSum χ (ZMod.stdAddChar (N := p))‖ ^ 2 = (p : ℝ) := by
-  letI : Fact p.Prime := ⟨hp⟩
+  let : Fact p.Prime := ⟨hp⟩
   have h := vf919FiniteFieldGauss_squaredNorm χ
     (ZMod.stdAddChar (N := p)) hχ
     (ZMod.isPrimitive_stdAddChar p)
