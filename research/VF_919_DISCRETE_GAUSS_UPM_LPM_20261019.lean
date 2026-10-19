@@ -1,5 +1,6 @@
 import «research.VF_MID_919_OAI_PARTIAL_MOMENT_TAILS»
 import RHLean.Analysis.FiniteTorusFourierPairing
+import «research.VF_919_NATIVE_PRIME_GAUSS_NORM_20261019»
 
 /-!
 # Native finite Gauss/Fourier cancellation in zero-target NNS partial moments
@@ -181,18 +182,10 @@ theorem vf919FiniteFieldPrimitiveGauss_norm_sq
     (χ : MulChar F ℂ) (ψ : AddChar F ℂ)
     (hχ : χ ≠ 1) (hψ : ψ.IsPrimitive) :
     ‖gaussSum χ ψ‖ ^ 2 = (Fintype.card F : ℝ) := by
-  have hprod :
-      gaussSum χ ψ * gaussSum χ⁻¹ ψ⁻¹ =
-        (Fintype.card F : ℂ) :=
-    gaussSum_mul_gaussSum_eq_card hχ hψ
-  calc
-    ‖gaussSum χ ψ‖ ^ 2 =
-      ‖gaussSum χ ψ * star (gaussSum χ ψ)‖ := by
-        rw [norm_mul, norm_star]
-        ring
-    _ = ‖(Fintype.card F : ℂ)‖ := by
-      rw [star_gaussSum_eq, hprod]
-    _ = (Fintype.card F : ℝ) := by simp
+  -- Reuse the already warning-fatal, standard-axiom-verified native theorem.
+  -- Its explicit conjugation argument works with pinned Mathlib 4.24,
+  -- which has no star_gaussSum_eq.
+  exact vf919FiniteFieldGauss_squaredNorm χ ψ hχ hψ
 
 #print axioms vf919DiscreteUPM1_sub_LPM1
 #print axioms vf919DiscreteComplexUPMLPM
