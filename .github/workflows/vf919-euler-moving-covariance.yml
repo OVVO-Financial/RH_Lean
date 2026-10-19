@@ -18,6 +18,7 @@ on:
       - 'research/VF_919_EULER_SECTOR_SIX_ACTIVE_SUPPORT_20261019.lean'
       - 'research/VF_919_EULER_ODD_CARRIER_PRIME_ROW_20261019.lean'
       - 'research/VF_919_EULER_RANK_ONE_GPF_FIBERS_20261019.lean'
+      - 'research/VF_919_EULER_THREE_ADIC_HYPERBOLA_20261019.lean'
       - 'research/data/VF_919_EULER_DYADIC_CENSUS_20261019.csv'
       - 'lean-toolchain'
       - 'lake-manifest.json'
@@ -85,7 +86,8 @@ jobs:
             research/VF_919_EULER_SECTOR_SIX_ACTIVE_SUPPORT_20261019.lean
             research/VF_919_EULER_ODD_CARRIER_PRIME_ROW_20261019.lean
             research/VF_919_EULER_RANK_ONE_GPF_FIBERS_20261019.lean
-      - name: Verify all 67 Euler, phase-gram and original VF sector-support axioms
+            research/VF_919_EULER_THREE_ADIC_HYPERBOLA_20261019.lean
+      - name: Verify all 76 Euler, phase-gram and original VF sector-support axioms
         shell: bash
         run: |
           set -euo pipefail
@@ -96,6 +98,7 @@ jobs:
           lake env lean -DwarningAsError=true research/VF_919_EULER_SECTOR_SIX_ACTIVE_SUPPORT_20261019.lean >> vf919-euler-axioms.log 2>&1
           lake env lean -DwarningAsError=true research/VF_919_EULER_ODD_CARRIER_PRIME_ROW_20261019.lean >> vf919-euler-axioms.log 2>&1
           lake env lean -DwarningAsError=true research/VF_919_EULER_RANK_ONE_GPF_FIBERS_20261019.lean >> vf919-euler-axioms.log 2>&1
+          lake env lean -DwarningAsError=true research/VF_919_EULER_THREE_ADIC_HYPERBOLA_20261019.lean >> vf919-euler-axioms.log 2>&1
           python3 - <<'PY'
           from pathlib import Path
           import re
@@ -107,12 +110,13 @@ jobs:
               'research/VF_919_EULER_SECTOR_SIX_ACTIVE_SUPPORT_20261019.lean',
               'research/VF_919_EULER_ODD_CARRIER_PRIME_ROW_20261019.lean',
               'research/VF_919_EULER_RANK_ONE_GPF_FIBERS_20261019.lean',
+              'research/VF_919_EULER_THREE_ADIC_HYPERBOLA_20261019.lean',
           ]
           wanted = [name for src in sources
                     for name in re.findall(r'^#print axioms\s+(\S+)', Path(src).read_text(), re.M)]
           log = Path('vf919-euler-axioms.log').read_text()
           got = re.findall(r"'([^']+)' depends on axioms:\s*\[([^\]]*)\]", log)
-          assert len(wanted) == 67, wanted
+          assert len(wanted) == 76, wanted
           assert len(got) == len(wanted), (wanted, got)
           assert {name for name, _ in got} == {'RHLean.Analysis.' + name for name in wanted}, got
           allowed = {'propext', 'Classical.choice', 'Quot.sound'}
@@ -132,4 +136,5 @@ jobs:
             research/VF_919_EULER_OAI_PHASE_PRESERVING_SIX_GRAM_20261019.lean \
             research/VF_919_EULER_SECTOR_SIX_ACTIVE_SUPPORT_20261019.lean \
             research/VF_919_EULER_ODD_CARRIER_PRIME_ROW_20261019.lean \
-            research/VF_919_EULER_RANK_ONE_GPF_FIBERS_20261019.lean
+            research/VF_919_EULER_RANK_ONE_GPF_FIBERS_20261019.lean \
+            research/VF_919_EULER_THREE_ADIC_HYPERBOLA_20261019.lean
