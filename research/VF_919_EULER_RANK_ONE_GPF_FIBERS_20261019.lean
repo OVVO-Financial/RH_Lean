@@ -246,9 +246,14 @@ theorem vf919EulerOddShell_compositePrime_viaGpf
           vf919EulerOddShellPrimes R) := by
   have hsource := vf919EulerOddBlock_source_partition R ((R + 1) ^ 2)
   have hfiber := vf919EulerOddShell_gpfFiberDecomposition R hR
-  dsimp [vf919EulerOddShellPrimes, vf919EulerOddShellComposite]
-  dsimp [vf919EulerOddShellPrimes, vf919EulerOddShellComposite] at *
-  nlinarith
+  have hT : vf919EulerOddShellComposite R =
+      vf919EulerOddShellPrimes R -
+        (∑ m ∈ Finset.range ((R + 1) ^ 2),
+          realMoebiusStep m * vf919EulerOddGpfPrimeCount R m) := by
+    dsimp [vf919EulerOddShellPrimes, vf919EulerOddShellComposite]
+    linarith [hsource, hfiber]
+  rw [hT]
+  ring
 
 #print axioms vf919EulerOddDyadic_centeredEnergy_exact
 #print axioms vf919EulerOddDyadic_crossEnergy_rankOne
