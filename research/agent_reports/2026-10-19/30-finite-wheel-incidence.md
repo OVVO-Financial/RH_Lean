@@ -199,3 +199,7 @@ This carrier is genuine unweighted Mobius moving-window energy. It is not the or
 - First missing lemma: a genuine signed estimate for the full low-gcd complement with exact overlap, squarefree gates, boundaries and unshared parity.
 - Live draft #982 is non-authoritative and was CI-pending at the observed head; refresh before using it.
 - No shell-energy gain, Mertens exponent improvement, finite A/C, original #915 payment, canonical VF bound or RH proof.
+
+## I. Publication verification
+
+The substantive report was created on `agent-reports` by commit `ae2aac212315b3f8c00382d52259dfe66734eb6d`. Immediate readback returned blob `f73ca0fa0e56d6d0b54c3d27ea2122a512cbb635`, `COMPLETED` status, and both claim IDs. The branch head equaled that commit at readback. Final `main` remained `28a270195167530615c2b182f8c9ffd86855b1f6`; no main-source, PR, review, workflow, merge, schedule or permission state was mutated by this agent.
