@@ -7,6 +7,7 @@ on:
       - 'research/VF_919_SEVEN_EIGHTHS_SIGNED_COVARIANCE_20261019.lean'
       - 'research/VF_919_SEVEN_EIGHTHS_SQUARE_SHELL_BRIDGE_20261019.lean'
       - 'research/VF_919_SEVEN_EIGHTHS_SHELL_EXCLUDED_NORM_20261019.lean'
+      - 'research/VF_919_SEVEN_EIGHTHS_DYADIC_SHELL_COVARIANCE_20261019.lean'
       - 'scripts/vf919_seven_eighths_signed_covariance_census.py'
       - 'research/MERTENS_CONVERSE_*.lean'
       - 'RHLean/Analysis/MathlibMertensHook.lean'
@@ -62,24 +63,27 @@ jobs:
           targets: >-
             research/VF_919_SEVEN_EIGHTHS_SQUARE_SHELL_BRIDGE_20261019.lean
             research/VF_919_SEVEN_EIGHTHS_SHELL_EXCLUDED_NORM_20261019.lean
+            research/VF_919_SEVEN_EIGHTHS_DYADIC_SHELL_COVARIANCE_20261019.lean
       - name: Verify signed square-shell and norm-expansion standard-axiom footprints
         shell: bash
         run: |
           set -euo pipefail
           lake env lean -DwarningAsError=true research/VF_919_SEVEN_EIGHTHS_SQUARE_SHELL_BRIDGE_20261019.lean > vf919-shell-axioms.log 2>&1
           lake env lean -DwarningAsError=true research/VF_919_SEVEN_EIGHTHS_SHELL_EXCLUDED_NORM_20261019.lean >> vf919-shell-axioms.log 2>&1
+          lake env lean -DwarningAsError=true research/VF_919_SEVEN_EIGHTHS_DYADIC_SHELL_COVARIANCE_20261019.lean >> vf919-shell-axioms.log 2>&1
           python3 - <<'PY'
           from pathlib import Path
           import re
           sources = [
               'research/VF_919_SEVEN_EIGHTHS_SQUARE_SHELL_BRIDGE_20261019.lean',
               'research/VF_919_SEVEN_EIGHTHS_SHELL_EXCLUDED_NORM_20261019.lean',
+              'research/VF_919_SEVEN_EIGHTHS_DYADIC_SHELL_COVARIANCE_20261019.lean',
           ]
           wanted = [name for src in sources
                     for name in re.findall(r'^#print axioms\s+(\S+)', Path(src).read_text(), re.M)]
           log = Path('vf919-shell-axioms.log').read_text()
           got = re.findall(r"'([^']+)' depends on axioms:\s*\[([^\]]*)\]", log)
-          assert len(wanted) == 10, wanted
+          assert len(wanted) == 14, wanted
           assert len(got) == len(wanted), (wanted, got)
           assert {name for name, _ in got} == {'RHLean.Analysis.' + name for name in wanted}, got
           allowed = {'propext', 'Classical.choice', 'Quot.sound'}
@@ -115,4 +119,5 @@ jobs:
           python3 scripts/compile_research_import_closure.py \
             research/VF_919_SEVEN_EIGHTHS_SIGNED_COVARIANCE_20261019.lean \
             research/VF_919_SEVEN_EIGHTHS_SQUARE_SHELL_BRIDGE_20261019.lean \
-            research/VF_919_SEVEN_EIGHTHS_SHELL_EXCLUDED_NORM_20261019.lean
+            research/VF_919_SEVEN_EIGHTHS_SHELL_EXCLUDED_NORM_20261019.lean \
+            research/VF_919_SEVEN_EIGHTHS_DYADIC_SHELL_COVARIANCE_20261019.lean
