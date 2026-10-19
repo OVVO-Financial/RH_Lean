@@ -251,7 +251,8 @@ theorem q2EnergyStep_implies_linear_of_fixedPointBudget
       by_cases hX : X = 0
       · subst X
         have hs := hstep 0
-        simpa using! hs
+        have hempty : primesUpTo 0 = ∅ := by decide
+        simpa [hempty] using hs
       · have hXpos : 0 < X := Nat.pos_of_ne_zero hX
         have hchildren :
             (∑ q ∈ primesUpTo X, E (X / (q * q))) ≤
@@ -302,7 +303,8 @@ theorem q2EnergyStep_implies_linear
       by_cases hX : X = 0
       · subst X
         have hs := hstep 0
-        simpa using! hs
+        have hempty : primesUpTo 0 = ∅ := by decide
+        simpa [hempty] using hs
       · have hXpos : 0 < X := Nat.pos_of_ne_zero hX
         have hchildren :
             (∑ q ∈ primesUpTo X, E (X / (q * q))) ≤

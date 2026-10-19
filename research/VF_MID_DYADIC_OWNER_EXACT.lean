@@ -157,7 +157,6 @@ theorem vfMidPrefixWheelIntervalCounting_square_eq_block_add_root
     rw [hsquareExpand]
     ext n
     simp
-    omega
   have hrootIoc :
       Finset.Ioc R (R + 1) = {R + 1} := by
     ext n
@@ -1071,7 +1070,7 @@ theorem vfMidPrefixWheelCounting_two_cast (N : ℕ) :
       (∅ : Finset ℕ) ∉ ({{2}} : Finset (Finset ℕ)) := by
     intro h
     have heq : (∅ : Finset ℕ) = {2} := by
-      simpa using! h
+      exact Finset.mem_singleton.mp h
     have hcard := congrArg Finset.card heq
     norm_num at hcard
   rw [Finset.sum_insert hempty, Finset.sum_singleton]

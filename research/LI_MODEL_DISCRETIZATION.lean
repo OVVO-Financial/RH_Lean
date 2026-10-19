@@ -460,6 +460,12 @@ theorem squareRootTransportRaw_sub_liDisc_eq_discrepancy
         primeCountLiDiscrepancy R := by
   have hRa : R ≤ squareRootEndpoint R / c := le_squareRootEndpoint_div hc1 hcR
   rw [squareRootTransportRawWeight_eq_primeCountDifference hc1]
+  have htail :
+      Finset.Ico (R + 1) (squareRootEndpoint R / c + 1) =
+        Finset.Ioc R (squareRootEndpoint R / c) := by
+    ext q
+    simp only [Finset.mem_Ico, Finset.mem_Ioc]
+    omega
   have hsplit :
       (∑ q ∈ Finset.range (squareRootEndpoint R / c + 1),
           if q.Prime then (1 : ℂ) else 0) =
@@ -468,11 +474,7 @@ theorem squareRootTransportRaw_sub_liDisc_eq_discrepancy
             if q.Prime then (1 : ℂ) else 0 := by
     rw [Finset.range_eq_Ico, ← Finset.sum_Ico_consecutive _
       (Nat.zero_le (R + 1)) (by omega : R + 1 ≤ squareRootEndpoint R / c + 1)]
-    congr 1
-    refine Finset.sum_congr ?_ (fun _ _ => rfl)
-    ext q
-    simp only [Finset.mem_Ico, Finset.mem_Ioc]
-    omega
+    rw [htail]
   unfold primeCountLiDiscrepancy squareRootTransportLiDiscWeight
   rw [hsplit]
   push_cast
