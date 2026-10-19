@@ -6,6 +6,7 @@ on:
       - '.github/workflows/vf919-euler-moving-covariance.yml'
       - 'research/VF_919_EULER_PRIME_DENSITY_LEDGER_20261019.lean'
       - 'research/VF_919_EULER_MOVING_COVARIANCE_GROWTH_20261019.lean'
+      - 'research/VF_919_EULER_FIXED_WHEEL_SIX_CHANNEL_20261019.lean'
       - 'research/VF_919_EULER_PRIME_DENSITY_TEST_20261019.md'
       - 'research/VF_919_MOVING_EULER_COVARIANCE_CENSUS_317_1027_20261019.md'
       - 'scripts/vf919_euler_prime_response_census.cpp'
@@ -27,12 +28,16 @@ jobs:
     timeout-minutes: 45
     steps:
       - uses: actions/checkout@v4
-      - name: Exact Euler prime/composite census at 317 and 1027
+      - name: Full exact 317/1027 six-channel fixed-wheel census through 100 million
         shell: bash
         run: |
           set -euo pipefail
           g++ -O3 -std=c++17 -Wall -Wextra -Werror scripts/vf919_euler_prime_response_census.cpp -o /tmp/vf919-euler-census
           /tmp/vf919-euler-census 2048
+          /tmp/vf919-euler-census 10000 | tee /tmp/vf919-euler-full.log
+          grep -F 'BAND 4096 energy=30291950' /tmp/vf919-euler-full.log
+          grep -F 'prime_square_handoffs=1229' /tmp/vf919-euler-full.log
+          grep -F 'M=1928 squarefree diagonal=60792694' /tmp/vf919-euler-full.log
       - uses: ./.github/actions/lean-setup
       - name: Apply pinned StrongPNT compatibility patches
         run: |
@@ -62,24 +67,27 @@ jobs:
           targets: >-
             research/VF_919_EULER_PRIME_DENSITY_LEDGER_20261019.lean
             research/VF_919_EULER_MOVING_COVARIANCE_GROWTH_20261019.lean
-      - name: Verify all 25 exact Euler theorem standard-axiom footprints
+            research/VF_919_EULER_FIXED_WHEEL_SIX_CHANNEL_20261019.lean
+      - name: Verify all 36 exact Euler theorem standard-axiom footprints
         shell: bash
         run: |
           set -euo pipefail
           lake env lean -DwarningAsError=true research/VF_919_EULER_PRIME_DENSITY_LEDGER_20261019.lean > vf919-euler-axioms.log 2>&1
           lake env lean -DwarningAsError=true research/VF_919_EULER_MOVING_COVARIANCE_GROWTH_20261019.lean >> vf919-euler-axioms.log 2>&1
+          lake env lean -DwarningAsError=true research/VF_919_EULER_FIXED_WHEEL_SIX_CHANNEL_20261019.lean >> vf919-euler-axioms.log 2>&1
           python3 - <<'PY'
           from pathlib import Path
           import re
           sources = [
               'research/VF_919_EULER_PRIME_DENSITY_LEDGER_20261019.lean',
               'research/VF_919_EULER_MOVING_COVARIANCE_GROWTH_20261019.lean',
+              'research/VF_919_EULER_FIXED_WHEEL_SIX_CHANNEL_20261019.lean',
           ]
           wanted = [name for src in sources
                     for name in re.findall(r'^#print axioms\s+(\S+)', Path(src).read_text(), re.M)]
           log = Path('vf919-euler-axioms.log').read_text()
           got = re.findall(r"'([^']+)' depends on axioms:\s*\[([^\]]*)\]", log)
-          assert len(wanted) == 25, wanted
+          assert len(wanted) == 36, wanted
           assert len(got) == len(wanted), (wanted, got)
           assert {name for name, _ in got} == {'RHLean.Analysis.' + name for name in wanted}, got
           allowed = {'propext', 'Classical.choice', 'Quot.sound'}
