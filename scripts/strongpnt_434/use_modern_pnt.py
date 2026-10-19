@@ -57,26 +57,17 @@ PATCHES = [
   [
     "StrongMertensLogNineCorridor",
     "exact hZF s.re s.im hlarge hmem",
-    "have hpow1 : Real.log |s.im| ^ (1 : ℝ) = Real.log |s.im| ^ (1 : ℕ) :=
-          Real.rpow_natCast _ 1
-        exact hZF s.re s.im hlarge (by simpa only [hpow1] using hmem)"
+    "have hpow1 : Real.log |s.im| ^ (1 : ℝ) = Real.log |s.im| ^ (1 : ℕ) := by\n          simp\n        exact hZF s.re s.im hlarge (by simpa only [hpow1] using hmem)"
   ],
   [
     "StrongMertensLogNineCorridor",
     "exact hInv sigma t ht ⟨hlower, hupper⟩",
-    "have hpow9 : Real.log |t| ^ (9 : ℝ) = Real.log |t| ^ (9 : ℕ) :=
-      Real.rpow_natCast _ 9
-    exact hInv sigma t ht ⟨(by simpa only [hpow9] using hlower),
-      (by simpa only [hpow9] using hupper)⟩"
+    "have hpow9 : Real.log |t| ^ (9 : ℝ) = Real.log |t| ^ (9 : ℕ) :=\n      Real.rpow_natCast _ 9\n    exact hInv sigma t ht ⟨(by simpa only [hpow9] using hlower),\n      (by simpa only [hpow9] using hupper)⟩"
   ],
   [
     "StrongMertensLogNineCorridor",
     "exact hInv (strongMertensLogNineShift A T) t ht ⟨hlower, hupper⟩",
-    "have hpow9 : Real.log |t| ^ (9 : ℝ) = Real.log |t| ^ (9 : ℕ) :=
-      Real.rpow_natCast _ 9
-    exact hInv (strongMertensLogNineShift A T) t ht
-      ⟨(by simpa only [hpow9] using hlower),
-       (by simpa only [hpow9] using hupper)⟩"
+    "have hpow9 : Real.log |t| ^ (9 : ℝ) = Real.log |t| ^ (9 : ℕ) :=\n      Real.rpow_natCast _ 9\n    exact hInv (strongMertensLogNineShift A T) t ht\n      ⟨(by simpa only [hpow9] using hlower),\n       (by simpa only [hpow9] using hupper)⟩"
   ]
 ]
 def main():

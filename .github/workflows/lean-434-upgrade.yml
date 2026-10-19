@@ -36,6 +36,13 @@ jobs:
           test "$(cat lean-toolchain)" = 'leanprover/lean4:v4.34.1'
           echo 'Root checked-in toolchain is unchanged; runner uses candidate v4.34.1.'
 
+      - name: Validate source adapter syntax before expensive Lean setup
+        shell: bash
+        run: |
+          python3 -m py_compile scripts/strongpnt_434/use_modern_pnt.py
+          python3 -m py_compile scripts/strongpnt_434/port_imports.py
+          python3 -m py_compile scripts/strongpnt_434/port_pnt1.py
+
       - name: Install candidate compiler without forcing old-package caches
         uses: leanprover/lean-action@v1
         with:
@@ -97,7 +104,7 @@ jobs:
             exact Real.rpow_natCast _ 9
           example (t : ℝ) :
               Real.log |t| ^ (1 : ℝ) = Real.log |t| ^ (1 : ℕ) := by
-            exact Real.rpow_natCast _ 1
+            simp
           example (A sigma t : ℝ)
               (h : sigma ∈ Set.Ico (1 - A / Real.log |t| ^ (9 : ℕ)) 1) :
               sigma ∈ Set.Ico (1 - A / Real.log |t| ^ (9 : ℝ)) 1 := by
