@@ -85,7 +85,8 @@ theorem vf919EulerOddDyadic_squareDifference_centered
           (vf919EulerOddShellPrimes R - L R) := by
   rw [vf919EulerOddDyadic_centeredEnergy_exact H L]
   unfold vf919EulerOddDyadicCenteredEnergy
-  rw [← Finset.sum_sub_distrib, ← Finset.sum_add_distrib]
+  simp only [Finset.mul_sum]
+  rw [← Finset.sum_add_distrib, ← Finset.sum_sub_distrib]
   apply Finset.sum_congr rfl
   intro R _
   ring
@@ -136,15 +137,19 @@ theorem vf919EulerOddGpfFiber_unique_prime
     (hq : RHLean.Proof.canonicalLargestPrimeFactor n₁ =
       RHLean.Proof.canonicalLargestPrimeFactor n₂) :
     n₁ = n₂ := by
-  rcases vf919EulerOddGpfFiber_prime_owner hR h₁ with
-    ⟨q₁, _hqp₁, _hr₁, hp₁, _hlo₁, _hhi₁⟩
-  rcases vf919EulerOddGpfFiber_prime_owner hR h₂ with
-    ⟨q₂, _hqp₂, _hr₂, hp₂, _hlo₂, _hhi₂⟩
-  have hq₁ : q₁ = RHLean.Proof.canonicalLargestPrimeFactor n₁ := rfl
-  have hq₂ : q₂ = RHLean.Proof.canonicalLargestPrimeFactor n₂ := rfl
+  have hmem₁ := Finset.mem_filter.mp (Finset.mem_filter.mp h₁).1
+  have hmem₂ := Finset.mem_filter.mp (Finset.mem_filter.mp h₂).1
+  have hlow₁ := (Finset.mem_Ico.mp hmem₁.1).1
+  have hlow₂ := (Finset.mem_Ico.mp hmem₂.1).1
+  have hn₁ : 1 < n₁ := by nlinarith
+  have hn₂ : 1 < n₂ := by nlinarith
+  have hp₁ := RHLean.Proof.canonicalCofactor_mul_largestPrimeFactor hn₁
+  have hp₂ := RHLean.Proof.canonicalCofactor_mul_largestPrimeFactor hn₂
+  rw [(Finset.mem_filter.mp h₁).2] at hp₁
+  rw [(Finset.mem_filter.mp h₂).2] at hp₂
   calc
-    n₁ = m * q₁ := hp₁.symm
-    _ = m * q₂ := by rw [hq₁, hq₂, hq]
+    n₁ = m * RHLean.Proof.canonicalLargestPrimeFactor n₁ := hp₁.symm
+    _ = m * RHLean.Proof.canonicalLargestPrimeFactor n₂ := by rw [hq]
     _ = n₂ := hp₂
 
 /-- At the true odd squarefree sites, the canonical signed-parent relation
@@ -226,7 +231,7 @@ theorem vf919EulerOddShell_gpfFiberDecomposition
     _ = -(∑ m ∈ Finset.range ((R + 1) ^ 2),
         realMoebiusStep m * vf919EulerOddGpfPrimeCount R m) := by
           dsimp [T]
-          rw [Finset.sum_neg_distrib]
+          simp only [neg_mul, Finset.sum_neg_distrib]
 
 /-- Composite/prime cross term in *canonical prime/cofactor coordinates*.
 The -Q² correction explicitly removes the prime-only m=1 source.
