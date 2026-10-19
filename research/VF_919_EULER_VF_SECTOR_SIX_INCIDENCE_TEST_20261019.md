@@ -87,3 +87,81 @@ python3 scripts/vf919_euler_historical_six_by_six.py --roots 2 3 5 7 13 31 56 10
 The test writes signed, occurrence-count, and original VF charge 6x6 CSVs and a JSON audit summary. It checks the complete row-marginal Gram, independent diagonal, unique prime-owner assignments, complete historical exit classification, exact historical 317/1027 6x6 reference entries, 3x3 minor nonvanishing and all excluded even-site charges. New CI compiles the two original-predicate Lean obstruction lemmas warnings fatal with standard axiom footprints.
 
 **Next test:** attempt an **augmented carrier** including the even and other historical populations, with separate explicit source-tag and sign coordinates. The resulting operator is expected to be rectangular and occurrence/multiplicity preserving, not a 6x6 permutation.
+
+## 7. Exact odd-carrier sufficiency and prime-row compression (2026-10-19)
+
+**Lean:** `research/VF_919_EULER_ODD_CARRIER_PRIME_ROW_20261019.lean`.
+The proof REUSES `RHLean/Arithmetic/MoebiusDoubling.lean` and the existing
+`sum_Icc_eq_odd_add_even`, `sum_evenCofactorPrefix_eq_neg_odd_half`,
+and `cofactorMobiusPrefixMass_eq_mertensSummatory` theorems. It neither
+defines a new even-site incidence matrix nor assumes a cancellation estimate.
+
+Write (O(X)=\sum_{1\le n\le X,\;n\text{ odd}}\mu(n)). The exact identity is
+
+\[
+M(X)=O(X)-O(\lfloor X/2\rfloor).
+\]
+
+It follows that proving an odd-prefix (O_\varepsilon(X^{7/8+\varepsilon}))
+bound suffices for the full Mertens bound. The reduction itself proves NO
+such bound. The Lean module records the exact complex canonical equality,
+its real-part equality, and an explicit norm envelope using both odd prefixes.
+The named existing `mertensSummatory` is the actual physical Möbius sum.
+
+For the actual odd-carrier shell, let (A,H\) be the signed smooth and
+high-prime composite masses, (Q\) the integer number of new primes,
+and (S=A+H-Q\). Then, identically,
+
+\[
+\underbrace{PP+AP+HP}_{C_{\mathrm{prime}}}
+=\tfrac12Q(Q-1)-AQ-HQ
+=-\tfrac12Q(Q+1)-QS.
+\]
+
+Let (C_{\mathrm{comp}}=AA+HH+AH\). The *fully signed* shell covariance
+becomes (C_{\mathrm{odd}}=C_{\mathrm{comp}}+C_{\mathrm{prime}}\);
+this is a two-bill reorganization of six exact source rows, NOT an
+inequality or a sixfold incidence isomorphism.
+
+| R | Q | S odd | AA+HH+AH | PP+AP+HP | total odd C |
+|---:|---:|---:|---:|---:|---:|
+| 317 | 54 | +6 | +1698 | -1809 | -111 |
+| 1027 | 144 | -2 | +9739 | -10152 | -413 |
+
+The reproducible 6x6 Python census now asserts the prime-row formula,
+the composite-plus-prime reassembly, and the *global* odd-prefix identity
+at the exact (X=(R+1)^2-1\) cutoff for EVERY tested root.
+
+**Important PNT correction:** Ordinary PNT does NOT give
+(Q_R\sim R/\log R\) uniformly in each individual square shell. Those
+intervals have length about (\sqrt x\), shorter than a directly
+PNT-controlled relative interval. But PNT DOES give, on the dyadic range
+(H\le R<2H\),
+
+\[
+\sum_{R=H}^{2H-1}Q_R\sim\frac{3H^2}{2\log H}.
+\]
+
+By Cauchy--Schwarz and (PP_R=\binom{Q_R}{2}\),
+
+\[
+\sum_{R=H}^{2H-1}PP_R
+\ge \frac1{2H}\Big(\sum_R Q_R\Big)^2
+-\frac12\sum_R Q_R
+\gg\frac{H^3}{(\log H)^2}.
+\]
+
+Thus a strategy bounding positive prime-pair cells separately cannot
+supply the desired dyadic (H^{5/2+\varepsilon}\) signed-energy scale
+(for any fixed (\varepsilon<1/2\)); cancellation with other signed rows
+is **mathematically necessary**, not merely a numerical observation.
+The (H^{5/2+\varepsilon}\) dyadic energy gate is already recorded in
+`VF_919_SEVEN_EIGHTHS_DYADIC_SHELL_COVARIANCE_20261019.lean`.
+
+**Outstanding analytic step:** prove a genuinely unconditional
+signed dyadic control of (\sum_{H\le R<2H}(S_R^{\mathrm{odd}})^2\)
+at (O_\varepsilon(H^{5/2+\varepsilon})\), or an equivalent
+one-sided signed covariance budget. The current identity still contains
+(S\) on the right, so a bound derived by merely rearranging
+(C_{\mathrm{prime}}\) would be circular. The VF fractional charges
+must also remain distinct from the true Möbius signs.
