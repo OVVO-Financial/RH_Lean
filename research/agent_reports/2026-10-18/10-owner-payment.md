@@ -1,6 +1,6 @@
 # RH_Lean agent daily report - 2026-10-18 / RH | Owner Payment
 
-**Status:** COMPLETED EARLIER RUN / IN_PROGRESS AUTHORIZED CONTINUATION
+**Status:** COMPLETED / AUTHORIZED CONTINUATION COMPLETE
 **Run ID:** 2026-10-18T12:07:47-04:00, scheduled invocation
 **Canonical objective:** `VFCanonicalSquareVonKochStatement` remains OPEN
 **Result classes:** `PAPER_PROOF` (new exact three-sector transfer cone and PNT lower obstruction), `FINITE_COMPUTATION`, `REFUTED` (scalar Mobius-to-native occurrence transfer), `NO_NEW_QUANTITATIVE_RESULT`
@@ -210,3 +210,205 @@ left(sum_jlambda_j(2A_j+Z_j)ight)
 left(sum_jlambda_j(2B_j+Z_j)ight).
 ]
 This restores all diagonal and cross-sector interactions. I am checking the exact inverse condition for failure, whether nonnegative masks are the maximal unconditional cone-preserving class, and whether the result supplies a genuine #915 restriction or only a sharp no-go. No quantitative target claim is made at this checkpoint.
+
+
+## N. Final authorized continuation - signed aggregation and moving-window source audit
+
+**Continuation completed:** 2026-10-18T21:18-04:00  
+**Live authority:** main@c2b075fca8a02079ebab7464a16e1fb58c2b5c7a; no open or draft PR returned at final refresh.  
+**New result classes:** IDENTITY_ONLY / PAPER_PROOF structural classification; FINITE_COMPUTATION; REFUTED literal once-only W(H)-to-#915 transfer; NO_NEW_QUANTITATIVE_RESULT.
+
+### A. Most important mathematical development
+
+#### Claim 20261018-owner-3: exact signed aggregation cone and inverse classification
+
+Let J be finite. For every j in J let A_j,B_j,Z_j be nonnegative sector masses, and let lambda_j be an arbitrary real admission/orientation/clipping coefficient. Define
+
+~~~
+V_lambda = sum_j lambda_j (A_j+B_j+Z_j),
+W_lambda = sum_j lambda_j (B_j-A_j),
+U_lambda = sum_j lambda_j (2A_j+Z_j),
+L_lambda = sum_j lambda_j (2B_j+Z_j).
+~~~
+
+Then, with every diagonal and cross-j interaction retained,
+
+~~~
+V_lambda-W_lambda = U_lambda,
+V_lambda+W_lambda = L_lambda,
+V_lambda^2-W_lambda^2 = U_lambda L_lambda.              (SAC)
+~~~
+
+Therefore
+
+~~~
+W_lambda^2 > V_lambda^2
+iff U_lambda L_lambda < 0,
+~~~
+
+so failure of native-square domination forces the two oriented parity/squareful margins to have opposite signs. This is an exact inverse theorem, not a covariance estimate.
+
+Moreover, a coefficient family lambda preserves V_lambda^2 >= W_lambda^2 for **every** choice of nonnegative A_j,B_j,Z_j if and only if all nonzero lambda_j have one common sign.
+
+Proof of sufficiency: if every lambda_j is nonnegative, both U_lambda and L_lambda are nonnegative; if every lambda_j is nonpositive, both are nonpositive. In either case their product is nonnegative.
+
+Proof of necessity: if lambda_i>0 and lambda_j<0, choose only A_i>0 and B_j>0, with every other sector zero. Then U_lambda>0 and L_lambda<0, so the defect is negative. The concrete choice lambda=(1,-2), (A_1,B_1,Z_1)=(1,0,0), (A_2,B_2,Z_2)=(0,1,0) gives V=-1, W=-3 and V^2-W^2=-8.
+
+**Interpretation.** Ordinary 0/1 masking, and more generally any common-sign weighting, preserves the on-main raw cone. Signed historical orientations do not inherit it automatically. A #915 proof using mixed orientations must prove the exact sign coupling U_lambda L_lambda>=0 on its admitted carrier or compensate the negative product elsewhere. Local cone inequalities cannot simply be summed after squaring.
+
+Classification: IDENTITY_ONLY / SHARP STRUCTURAL NO-GO. This strictly extends the raw single-aggregate algebra to complete signed aggregation, but supplies no favorable sign for the actual original coefficients.
+
+#### Claim 20261018-owner-4: exact translated-window overlap kernel and once-only obstruction
+
+Consume Coordinator claim 20261018-coordinator-2. For r>=2 put m_r=floor(r/2), and for |t|<=m_r define the genuine translated interval
+
+~~~
+I_(r,t) = {n : r^2+t+1 <= n <= r^2+t+2r},
+S_r(t)  = sum_(n in I_(r,t)) mu(n).
+~~~
+
+For x=n-r^2, the exact multiplicity of physical integer n in the r-family is
+
+~~~
+nu_r(n) =
+ max(0,
+   min(m_r,x-1)-max(-m_r,x-2r)+1).
+~~~
+
+For integers n,n', the complete pair kernel is
+
+~~~
+kappa_r(n,n') =
+ max(0,
+   min(m_r,x-1,x'-1)
+   - max(-m_r,x-2r,x'-2r)+1).
+~~~
+
+Finite Fubini gives the exact Gram expansion
+
+~~~
+sum_(|t|<=m_r) |S_r(t)|^2
+ = sum_(n,n') kappa_r(n,n') mu(n)mu(n').                (MWK)
+~~~
+
+The support is r^2-m_r+1 <= n <= r^2+2r+m_r. Thus t<0 imports the late edge of the preceding physical square block and t>0 imports the early edge of the following block. The diagonal is kappa_r(n,n)=nu_r(n), which can be 2m_r+1.
+
+This gives a minimal actual-arithmetic obstruction to a literal once-only image in original #915. At r=4 the genuine squarefree integer n=21 has mu(21)=+1 and belongs to every shift t=-2,-1,0,1,2. Its diagonal coefficient in (MWK) is five, although it is one physical occurrence in the native square-block source. Treating the five labels (r,t,21) as five independent returned cells clones history. Collapsing them changes both diagonal and off-diagonal coefficients to kappa_r and still does not produce the original native weight, masks, compressed anchor, squareful restoration, global residual, or NNS denominator.
+
+The generic fact that a window energy is an overlap Gram already exists on main in RHLean/Proof/LifetimeOverlapKernel.lean. The new content here is the explicit kernel for Coordinator's rigid integer windows, its neighboring-square support, and the direct once-only source-admission obstruction. Hence W(H) remains a legitimate separate Mertens/shell-energy analytic carrier, but it has no literal occurrence-preserving #915 transfer.
+
+Classification: PAPER_PROOF / EXACT SOURCE-AUDIT NO-GO; finite witness independently checked.
+
+### B. Current authoritative objective and sources
+
+The canonical objective remains
+
+~~~
+exists C>=0, forall R>=2,
+ |pi(R^2)-vfMidFinishedMass(R)-sqrt(2)| <= C R log R.
+~~~
+
+It is OPEN. The PNT-first M=S-L-E identity, signed shell identities, Wheel triangular cofactor profile, Coordinator moving-window reduction, and raw transfer cone do not prove an all-root signed estimate.
+
+Final source record:
+
+- main c2b075fca8a02079ebab7464a16e1fb58c2b5c7a, merge of #980;
+- AGENTS.md blob 4c66a1d462df98c84deebf0069ad11f904039858;
+- CURRENT_PROOF_CONTRACT.md blob 2fa9931dcdc1fc8a816aefb8aa348db12ee9a384;
+- PNT-first contract e8acbeff24942d1f8ee0079f715afff2ddda2c33;
+- two-scale plan 0606d764ffebb4639cc0abb52ccbef30546b7764;
+- external inbox 038018145c0fddb2f6306c0712373adf9cd1ea52;
+- raw cone source b47db297c6b9e9eaee5d6d884a27bb211b9053ff;
+- #975 source-admission obstruction fa48f7d4d400302084600dc4f554057cac6a93e7;
+- #975 global residual source 6fa7df64926bb6ec86f636734f44b8c9a020fd76;
+- generic lifetime overlap kernel 22cab57fb65110494d47c97c9e8777b371e04a6a;
+- TwoABScaleTransfer fae76878063583322a48a329810cc1cc7b037ee7;
+- SquareRootMatchedTransport e9ab3bff6b8819182c39721f92859679d250002e.
+
+Today's Coordinator, Analytic, Wheel, Census, Referee and Lean reports were consumed at blobs 4510607938e185534ba6074f58b2c3bb51a0f368, f7b981952037bffa17c67b518edb0c5638f01f05, 1f2e83a07d2d277f1137fd0239109f3abea5cbee, 701b74c281d01f6727669808566d76b1e8758b26, c0360eaa56c34198f21f9387113fd565a19b542f, and bff111a9448b17061f4dc2be760ea8422245a3f6. October 17 Owner blob and its recorded complete day set remain YESTERDAY=CARRY_FORWARD. EXT-20261018-PNT-1..3 were retained with their original classifications.
+
+### C. Derivation, falsification and numerical verification
+
+The proof of (SAC) is the difference-of-squares identity after finite linearity. The common-sign classification is both necessary and sufficient, so there is no larger coefficient class on which the cone holds without extra arithmetic restrictions.
+
+For (MWK), an integer n occurs at shift t exactly when
+
+~~~
+x-2r <= t <= x-1
+and
+-m_r <= t <= m_r.
+~~~
+
+Intersecting these integer intervals gives nu_r. Intersecting the corresponding conditions for n and n' gives kappa_r. Expanding each square and interchanging finite sums proves (MWK), retaining every cross term.
+
+An independent exact sieve checked the direct window-square sum against the kernel expansion:
+
+| H | direct W(H) | kernel expansion | largest observed diagonal |
+|---:|---:|---:|---:|
+| 2 | 3 | 3 | 3 |
+| 4 | 43 | 43 | 7 |
+| 8 | 2,335 | 2,335 | 15 |
+| 16 | 10,723 | 10,723 | 31 |
+| 32 | 100,443 | 100,443 | 63 |
+
+The r=4,n=21 five-shift witness was checked separately. This is finite verification of endpoints and expansion, not an all-scale estimate; the displayed formulas provide the paper proof.
+
+Adversarial review:
+
+- **Sum the local cone over signed groups:** false; the two-group defect -8 is a counterexample.
+- **A mask always breaks the cone:** false; every common-sign mask preserves it.
+- **W(H) is a once-only enlargement of the square source:** false; nu_r can be order r and the support crosses neighboring blocks.
+- **Overlap duplication invalidates W(H) as an analytic quantity:** false; it is a valid positive semidefinite Gram and Coordinator's MW1-MW2 remain untouched.
+- **The kernel estimate proves MW3:** false; no cancellation or upper bound is obtained.
+- **The witness alone disproves every possible VF bridge:** false; it disproves a literal occurrence-preserving identification. A new normalized kernel comparison with all complements could still be proved.
+- **Circularity:** neither claim assumes shell energy, a Mertens estimate, original payment, the canonical endpoint, or RH.
+
+### D. Quantitative consequence
+
+There is no new exponent or global upper bound.
+
+The exact consequences are restrictions:
+
+1. Any signed masked use of the native/Mobius cone must control both complete oriented margins; checking local sector cones is insufficient.
+2. Any direct use of MW3 in #915 requires a nontrivial bridge from the overlap kernel kappa to the original once-only native quadratic, including the large diagonal multiplicities, adjacent-block imports, actual weights and historical normalization.
+3. The raw PNT-sized cone slack from claims owner-1/-2 remains real, but (SAC) shows that mixed orientations can reverse its sign through cross-group terms. No unconditional global obstruction or payment follows.
+
+### E. Competing mechanisms and decisions
+
+- **SHIFT-L2 / MW3:** CONTINUE as the highest-priority separate Mertens experiment. Claims owner-4 show it is not directly the original VF source.
+- **Signed aggregate cone:** CONTINUE only as an exact source-audit language and inverse test; it is not itself a payment mechanism.
+- **COFACTOR-PROFILE:** CONTINUE as the multiplicative alternative, retaining d=1 and all bands.
+- **Direct scalar Mobius-to-native transfer:** REJECT, now both locally and under arbitrary mixed aggregation.
+- **Original #915 route:** CONTINUE only through a literal masked native reconstruction with anchor and residual. A kernel comparison, if proposed, must be stated separately from occurrence identity.
+- **Within-shell outer-prime dispersion:** RETIRED at the current rank-one carrier.
+
+### F. Specialist handoffs
+
+- **Coordinator:** insert MWK as the source-admission veto beneath MW3. The analytic implication to shell energy is valid; a direct arrow from W(H) to #915 is not.
+- **Analytic:** attack MW3 on its genuine duplicated-window Gram. Do not normalize away nu_r without bounding the altered off-diagonal kernel and boundary support.
+- **Wheel:** if a multiplicative decomposition of kappa is attempted, preserve the exact interval-intersection kernel and both adjacent-square boundary pieces.
+- **Census:** on the preregistered W(H) run, report maximal nu_r and boundary-import contributions in addition to W, cubic ratio and worst S_r(t). This tests whether a proposed normalized bridge deletes load-bearing mass.
+- **Referee:** audit the common-sign iff classification and distinguish literal occurrence transfer from a possible inequality between quadratic kernels.
+- **Lean Verification:** after independent acceptance, the finite-family signed aggregation identity/common-sign theorem and generic interval-intersection multiplicity formula are small formalization candidates. Attach no MW3 or VF quantitative consumer.
+- **Coordinator/Proof Architect strategic note:** the strongest new concept is that both surviving routes are kernel problems: signed native transfer requires parity-margin sign coupling, while SHIFT-L2 requires an overlap-kernel estimate. They are not the same carrier and should not be merged without an exact bridge.
+
+### G. First independently missing lemma
+
+For the SHIFT-L2 route, the first quantitative lemma remains Coordinator's genuine all-start estimate
+
+~~~
+W(H) <<_epsilon H^(13/4-3 eta/2+epsilon)
+~~~
+
+for some eta>0, proved on the literal translated Möbius intervals. This is independent but stronger than the desired shell energy and no applicable theorem has been verified.
+
+For a direct original-VF consumer, the first structural lemma is narrower and prior to any bound: write the actual #915 quadratic as an exact once-only native kernel, then exhibit a proved comparison or compensated identity with the kappa-weighted translated-window Gram, restoring masks, w_r, squareful terms, compressed history, global residual, and denominator. An occurrence bijection is impossible by owner-4; any valid bridge must be a genuine quadratic-kernel theorem.
+
+### H. Next-run resume capsule
+
+- Authority: main@c2b075fca8a02079ebab7464a16e1fb58c2b5c7a; #980 merged; no open PR.
+- New claims: 20261018-owner-3 signed aggregation factorization/common-sign iff; 20261018-owner-4 exact moving-window overlap kernel and once-only obstruction.
+- Accepted prior claims: owner-1/-2 raw cone and PNT slack, now with raw cone PROVED_IN_LEAN_ON_MAIN; Coordinator MW1-MW2 PAPER_PROOF; MW3 OPEN.
+- Strongest obstruction: translated-window copies cannot be spent as distinct original physical occurrences, and mixed orientations defeat local cone aggregation unless the two global margins are sign-coupled.
+- Highest-value next step: Referee audit of owner-3/-4, followed by either an analytic attack on literal MW3 or an exact construction of the native #915 quadratic kernel for comparison. Do not rerun the five-block kernel regression without a new hypothesis.
+- No canonical bound, Mertens exponent gain, finite A/C, or RH proof.
