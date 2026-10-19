@@ -64,6 +64,39 @@ theorem vf919DyadicSquareShell_diagonal_le_widthSum (H : ℕ) :
   intro R _
   exact vf919SquareShell_diagonal_le_width R
 
+/-- Literal dyadic square-shell diagonals telescope to the endpoint
+difference. This is a genuine squarefree-site count, not a density model. -/
+theorem vf919DyadicSquareShell_diagonal_telescope (H : ℕ) :
+    vf919DyadicSquareShellDiagonal H =
+      realMertensDiagonal ((2 * H) ^ 2) -
+        realMertensDiagonal (H ^ 2) := by
+  have hfull (K : ℕ) :
+      (∑ R ∈ Finset.range K, vf919SquareShellDiagonal R) =
+        realMertensDiagonal (K ^ 2) := by
+    induction K with
+    | zero => simp [realMertensDiagonal]
+    | succ K ih =>
+        rw [Finset.sum_range_succ, ih]
+        unfold vf919SquareShellDiagonal
+        ring
+  unfold vf919DyadicSquareShellDiagonal
+  rw [Finset.sum_Ico_eq_sub _ (show H ≤ 2 * H by omega)]
+  rw [hfull, hfull]
+
+/-- SHARP unconditional H-shell diagonal: the union of all square shells
+[H^2,(2H)^2) has exactly 3H^2 integer positions. -/
+theorem vf919DyadicSquareShell_diagonal_le_three_sq (H : ℕ) :
+    vf919DyadicSquareShellDiagonal H ≤ 3 * (H : ℝ) ^ 2 := by
+  have hle : H ^ 2 ≤ (2 * H) ^ 2 := by nlinarith
+  have hbound :=
+    vf919Diagonal_interval_le (H ^ 2) ((2 * H) ^ 2) hle
+  have hgap : (2 * H) ^ 2 - H ^ 2 = 3 * H ^ 2 := by
+    nlinarith
+  rw [hgap] at hbound
+  rw [vf919DyadicSquareShell_diagonal_telescope]
+  push_cast at hbound
+  nlinarith
+
 /-- An unconditional rough diagonal budget of order H^2, even with no
 squarefree density theorem: each of H shells has at most 4H+1 sites. -/
 theorem vf919DyadicSquareShell_diagonal_le_rough (H : ℕ) :
@@ -194,6 +227,8 @@ theorem vf919DyadicSquareShell_partial_increment_sq
 #print axioms vf919DyadicSquareShell_increment_sq_le_energy
 #print axioms vf919DyadicSquareShell_partial_cauchy
 #print axioms vf919DyadicSquareShell_partial_increment_sq
+#print axioms vf919DyadicSquareShell_diagonal_telescope
+#print axioms vf919DyadicSquareShell_diagonal_le_three_sq
 #print axioms vf919DyadicSquareShell_signedGreenKubo
 #print axioms vf919DyadicSquareShell_diagonal_le_widthSum
 #print axioms vf919DyadicSquareShell_diagonal_le_rough
