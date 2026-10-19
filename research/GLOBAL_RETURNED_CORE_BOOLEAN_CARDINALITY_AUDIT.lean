@@ -72,19 +72,20 @@ theorem canonicalRoughLowQ2Owners_56 :
 daughter windows, hence weight 1/3 + 1/5 + 1/7 = 71/105. -/
 theorem lowOwnerReciprocalDaughterWeight_56_one :
     lowOwnerReciprocalDaughterWeight 56 1 = (71 : ℝ) / 105 := by
-  rw [canonicalRoughLowQ2Owners_56]
-  norm_num [lowOwnerReciprocalDaughterWeight, rawQ2ChildCutoff,
+  norm_num [lowOwnerReciprocalDaughterWeight,
+    canonicalRoughLowQ2Owners_56, rawQ2ChildCutoff,
     squareRootEndpoint]
 
 /-- Since mu(1)=1 and the far-tail indicator is zero at n=1<R, the actual
 zero-frequency AMP site is 71/105, not a member of {-1,0,1}. -/
 theorem lowOwnerZeroFrequencyMobiusSite_56_one :
     lowOwnerZeroFrequencyMobiusSite 56 1 = (71 : ℝ) / 105 := by
+  unfold lowOwnerZeroFrequencyMobiusSite
   rw [show lowOwnerZeroFrequencyMobiusWeight 56 1 = (71 : ℝ) / 105 by
     unfold lowOwnerZeroFrequencyMobiusWeight
     rw [lowOwnerReciprocalDaughterWeight_56_one]
     norm_num [lowOwnerFarTailWeight]]
-  simp [lowOwnerZeroFrequencyMobiusSite, realMoebiusStep]
+  simp [realMoebiusStep]
 
 theorem lowOwnerZeroFrequencyMobiusSite_56_one_not_boolean :
     lowOwnerZeroFrequencyMobiusSite 56 1 ≠ -1 ∧
@@ -105,13 +106,19 @@ theorem signatureCell_56_three_straddles_high_q7_threshold :
   have hcell :
       1 ∈ lowOwnerFirstOwnerSignatureCellCarrier 56 3 (∅ : Finset ℕ) ∧
         65 ∈ lowOwnerFirstOwnerSignatureCellCarrier 56 3 (∅ : Finset ℕ) := by
-    native_decide
+    constructor
+    · norm_num [lowOwnerFirstOwnerSignatureCellCarrier,
+        lowOwnerNonzeroMobiusCarrier, squarefreeLowerPrimeSignature,
+        squarefreePrimeFace, realMoebiusStep, squareRootEndpoint]
+    · norm_num [lowOwnerFirstOwnerSignatureCellCarrier,
+        lowOwnerNonzeroMobiusCarrier, squarefreeLowerPrimeSignature,
+        squarefreePrimeFace, realMoebiusStep, squareRootEndpoint]
   refine ⟨hcell.1, hcell.2, ?_⟩
   rw [lowOwnerReciprocalDaughterWeight_56_one]
   have h65 :
       lowOwnerReciprocalDaughterWeight 56 65 = (8 : ℝ) / 15 := by
-    rw [canonicalRoughLowQ2Owners_56]
-    norm_num [lowOwnerReciprocalDaughterWeight, rawQ2ChildCutoff,
+    norm_num [lowOwnerReciprocalDaughterWeight,
+      canonicalRoughLowQ2Owners_56, rawQ2ChildCutoff,
       squareRootEndpoint]
   rw [h65]
   norm_num
@@ -128,11 +135,16 @@ theorem firstOwner_three_edge_zero_weightGradient_nonzero_siteProduct :
       lowOwnerZeroFrequencyMobiusSite 56 1 *
           lowOwnerZeroFrequencyMobiusSite 56 3 ≠ 0 := by
   have howner : IsSquarefreePairFreshPrimeOwner 3 1 3 := by
-    native_decide
+    apply firstOwner_of_lowerSignature_eq_and_dvd_xor
+      (by norm_num : Nat.Prime 3)
+      (by norm_num : 0 < (1 : ℕ))
+      (by norm_num : 0 < (3 : ℕ))
+    · norm_num [squarefreeLowerPrimeSignature, squarefreePrimeFace]
+    · exact Or.inr ⟨by norm_num, by norm_num⟩
   have hthree :
       lowOwnerReciprocalDaughterWeight 56 3 = (71 : ℝ) / 105 := by
-    rw [canonicalRoughLowQ2Owners_56]
-    norm_num [lowOwnerReciprocalDaughterWeight, rawQ2ChildCutoff,
+    norm_num [lowOwnerReciprocalDaughterWeight,
+      canonicalRoughLowQ2Owners_56, rawQ2ChildCutoff,
       squareRootEndpoint]
   have hweight1 :
       lowOwnerZeroFrequencyMobiusWeight 56 1 = (71 : ℝ) / 105 := by
