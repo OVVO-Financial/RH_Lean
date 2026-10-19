@@ -24,13 +24,12 @@ character orthogonality applies; at a nonzero frequency, the
 shifted additive character is primitive on the field ZMod p,
 and the exact finite Gauss-product gives squared norm p. -/
 theorem vf919SplitPrimeFourier_norm_le_sqrt
-    (p : ℕ) (hp : p.Prime)
+    (p : ℕ) [NeZero p] (hp : p.Prime)
     (χ : DirichletCharacter ℂ p) (hχ : χ ≠ 1)
     (v : ZMod p) :
     ‖ZMod.dft (fun x : ZMod p => χ x) v‖ ≤
       Real.sqrt (p : ℝ) := by
   letI : Fact p.Prime := ⟨hp⟩
-  letI : NeZero p := ⟨hp.ne_zero⟩
   by_cases hv : v = 0
   · subst v
     have hz : (∑ x : ZMod p, χ x) = 0 :=
@@ -63,14 +62,13 @@ prime ideal: for ANY incomplete window, the character Fourier
 side costs exactly the proven sqrt(p) Gauss envelope times the
 actual finite Fourier l1 mass of that window. -/
 theorem vf919SplitPrimeIncompleteCharacter_sqrtGauss
-    (p : ℕ) (hp : p.Prime)
+    (p : ℕ) [NeZero p] (hp : p.Prime)
     (χ : DirichletCharacter ℂ p) (hχ : χ ≠ 1)
     (g : ZMod p → ℂ) :
     ‖∑ x : ZMod p, χ x * g x‖ ≤
       ‖(p : ℂ)⁻¹‖ * Real.sqrt (p : ℝ) *
         (∑ v : ZMod p, ‖ZMod.dft g (-v)‖) := by
   letI : Fact p.Prime := ⟨hp⟩
-  letI : NeZero p := ⟨hp.ne_zero⟩
   exact vf919IncompleteCharacter_FourierEnvelope χ g
     (Real.sqrt (p : ℝ))
     (vf919SplitPrimeFourier_norm_le_sqrt p hp χ hχ)
