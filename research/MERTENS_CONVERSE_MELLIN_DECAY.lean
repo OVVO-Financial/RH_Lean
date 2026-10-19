@@ -105,7 +105,7 @@ theorem interpolate_simple_and_quadratic_decay {y C ε n q : ℝ}
   have hbound : y ≤ C * n⁻¹ * (ε * n) ^ (-q) := by
     by_cases hsmall : ε * n ≤ 1
     · have hpow : 1 ≤ (ε * n) ^ (-q) := by
-        simpa only [Real.one_rpow] using
+        simpa only [Real.one_rpow] using!
           Real.rpow_le_rpow_of_nonpos hepn hsmall (neg_nonpos.mpr hq0)
       exact h0.trans (le_mul_of_one_le_right hcoef hpow)
     · have hlarge : 1 ≤ ε * n := (lt_of_not_ge hsmall).le
@@ -119,7 +119,7 @@ theorem interpolate_simple_and_quadratic_decay {y C ε n q : ℝ}
   have hfactor : C * n⁻¹ * (ε * n) ^ (-q) = C * ε ^ (-q) * n ^ (-1 - q) := by
     rw [Real.mul_rpow hε.le hn.le]
     have hp : n ^ (-1 : ℝ) * n ^ (-q) = n ^ (-1 - q) := by
-      simpa only [sub_eq_add_neg] using (Real.rpow_add hn (-1) (-q)).symm
+      simpa only [sub_eq_add_neg] using! (Real.rpow_add hn (-1) (-q)).symm
     calc
       C * n⁻¹ * (ε ^ (-q) * n ^ (-q)) =
           C * ε ^ (-q) * (n ^ (-1 : ℝ) * n ^ (-q)) := by

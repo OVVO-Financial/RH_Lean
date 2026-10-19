@@ -114,7 +114,7 @@ theorem lowOwnerGlobalFirstOwnerPDivFirstFiber_eq_swapImage
     rcases Finset.mem_image.mp h with ⟨ab, hab, habEq⟩
     rcases ab with ⟨a, b⟩
     have hpair : (m, n) = (b, a) := by
-      simpa using habEq.symm
+      simpa using! habEq.symm
     have hmEq : m = b := congrArg Prod.fst hpair
     have hnEq : n = a := congrArg Prod.snd hpair
     rcases Finset.mem_filter.mp hab with ⟨hprod, hdata⟩
@@ -122,7 +122,7 @@ theorem lowOwnerGlobalFirstOwnerPDivFirstFiber_eq_swapImage
     have hne : b ≠ a := by
       intro hba
       have hpdivA : p ∣ a := by
-        simpa [hba] using hdata.2.2
+        simpa [hba] using! hdata.2.2
       exact hdata.2.1 hpdivA
     have howner :
         IsSquarefreePairFreshPrimeOwner p b a := by
@@ -139,7 +139,7 @@ theorem lowOwnerGlobalFirstOwnerPDivFirstFiber_eq_swapImage
             ⟨Finset.mem_product.mpr ⟨hb, ha⟩, hne⟩,
             howner⟩,
           hdata.2.2⟩
-    simpa [hmEq, hnEq] using hba
+    simpa [hmEq, hnEq] using! hba
 
 /-- The two orientation halves partition the global first-owner fibre. -/
 theorem lowOwnerGlobalFirstOwnerPairMassWith_eq_orientation_halves
@@ -157,7 +157,7 @@ theorem lowOwnerGlobalFirstOwnerPairMassWith_eq_orientation_halves
   have h :=
     Finset.sum_filter_add_sum_filter_not
       (s := S) (p := fun mn : ℕ × ℕ => p ∣ mn.1) (f := f)
-  simpa [S, f, add_comm] using h.symm
+  simpa [S, f, add_comm] using! h.symm
 
 /-- Swapping the two coordinates preserves an arbitrary scalar site product. -/
 theorem sum_swapImage_siteProduct_eq
@@ -171,7 +171,7 @@ theorem sum_swapImage_siteProduct_eq
     simp [mul_comm]
   · intro a _ha b _hb hab
     have := congrArg Prod.swap hab
-    simpa using this
+    simpa using! this
 
 /-- **Ordered least-owner mass = twice the oriented raw-parent carrier mass.** -/
 theorem lowOwnerGlobalFirstOwnerPairMassWith_eq_two_oriented
@@ -231,7 +231,7 @@ theorem sum_lowOwnerFirstOwnerCellGramWith_eq_oriented
         rw [show S.filter (fun ab => g ab = sig) =
             (lowOwnerFirstOwnerBaseFiber R p sig).product
               (lowOwnerFirstOwnerChildFiber R p sig) by
-          simpa [S, g] using hset]
+          simpa [S, g] using! hset]
     _ = ∑ ab ∈ S, f ab := hfiber
     _ = _ := rfl
 

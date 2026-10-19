@@ -131,8 +131,8 @@ theorem zeroTargetCriticalFourCorner_parentChild_doubleCorner_eq_neg_reciprocal
   have hlcm := lowOwner_lcm_parent_child c u
   apply zeroTargetCriticalFourCorner_eq_neg_reciprocal_of_clippedFirstCrossing
     hr hru hruChild hu_cu hcuW hruW
-  · simpa [hlcm] using hcuW
-  · simpa [hlcm] using hdouble
+  · simpa [hlcm] using! hcuW
+  · simpa [hlcm] using! hdouble
   · exact hdouble
 
 /-- Active double-corner indicator gives the hypotheses of the reciprocal

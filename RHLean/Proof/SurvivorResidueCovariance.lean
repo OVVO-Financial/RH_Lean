@@ -228,7 +228,7 @@ theorem survivorResidueFullCofactorGram_eq_diagonal_add_offDiagonal
     Finset.sum_erase_add
       (s := survivorResidueCofactorRange t)
       (f := fun c' => survivorResidueCofactorGramBlock Λ t s c c') hc
-  simpa [add_comm] using hsplit.symm
+  simpa [add_comm] using! hsplit.symm
 
 /-- Therefore the signed cross-cofactor covariance is literally the explicit
 sum over unequal cofactors. -/

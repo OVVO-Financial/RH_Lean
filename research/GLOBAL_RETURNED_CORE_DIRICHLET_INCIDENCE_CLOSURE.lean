@@ -125,7 +125,7 @@ theorem lowOwnerFirstOwnerDirichletIncidenceAmplitude_eq_admitted_add_clipped
         lowOwnerPhysicalDirichletIncidenceWeight R p a * realMoebiusStep a := by
   unfold lowOwnerFirstOwnerDirichletIncidenceAmplitude
     lowOwnerFirstOwnerAdmittedBaseFiber lowOwnerFirstOwnerClippedBaseFiber
-  simpa only [not_le] using
+  simpa only [not_le] using!
     (Finset.sum_filter_add_sum_filter_not
       (s := lowOwnerFirstOwnerBaseFiber R p sig)
       (p := fun a => p * a ≤ squareRootEndpoint R)

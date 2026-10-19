@@ -219,7 +219,7 @@ theorem physicalCompleteCell_fourFrame_elevenStep_implies_linear
           calc
             mertensEnergy Y ≤
                 (5 : ℚ) / 4 * mertensEnergy (4 * J) + 45 := by
-                  simpa [J] using hend
+                  simpa [J] using! hend
             _ ≤ (5 : ℚ) / 4 * (A * (J : ℚ)) + 45 := by
                   gcongr
             _ = (5 : ℚ) / 4 * A * (J : ℚ) + 45 := by ring
@@ -301,7 +301,7 @@ theorem threeSlotDegreeOneEnergy_of_completeCellMertensLinear
     have hmono :
         (((K + 1 : ℕ) : ℝ)) ≤
           Real.rpow ((K + 1 : ℕ) : ℝ) (1 + ε) := by
-      simpa only [Real.rpow_one] using
+      simpa only [Real.rpow_one] using!
         Real.rpow_le_rpow_of_exponent_le hbase
           (by linarith : (1 : ℝ) ≤ 1 + ε)
     have hKle : (K : ℝ) ≤ (((K + 1 : ℕ) : ℝ)) := by
@@ -323,7 +323,7 @@ theorem riemannHypothesis_of_physicalCompleteCell_fourFrame_elevenStep
     dsimp [A]
     nlinarith [hC, elevenWeightOneEnergyFactor_nonneg]
   have hlinear : ∀ K : ℕ, mertensEnergy (4 * K) ≤ A * (K : ℚ) := by
-    simpa [A] using
+    simpa [A] using!
       physicalCompleteCell_fourFrame_elevenStep_implies_linear hC hstep
   exact riemannHypothesis_of_threeSlotDegreeOneEnergy
     (threeSlotDegreeOneEnergy_of_completeCellMertensLinear hA hlinear)

@@ -37,7 +37,7 @@ theorem zeroTargetNormalizedDegreeOne_eq_degreeTwo_of_eqAbs
   · have hfzero : ∀ x ∈ s, f x = 0 := by
       intro x hx
       apply abs_eq_zero.mp
-      simpa [hc] using habs x hx
+      simpa [hc] using! habs x hx
     have hsumF : (∑ x ∈ s, f x) = 0 := by
       apply Finset.sum_eq_zero
       intro x hx

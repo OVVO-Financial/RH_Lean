@@ -137,7 +137,7 @@ theorem squareWheelSurvivorEndpointPair_product_le
   unfold squareWheelSurvivorEndpointPairSet at hcq
   unfold survivorZeroModePairSet at hcq
   have hpair := (Finset.mem_filter.mp hcq).2
-  simpa [squarePrefixEndpoint_pred_eq_squareRootEndpoint R hR] using hpair.2.1
+  simpa [squarePrefixEndpoint_pred_eq_squareRootEndpoint R hR] using! hpair.2.1
 
 /-- Canonical source data forces the displayed prime to lie above every prime
 factor of its cofactor, hence above the cofactor's canonical largest prime. -/
@@ -147,7 +147,7 @@ theorem canonicalLargestPrimeFactor_lt_of_sourceData
   rcases hdata with ⟨hq, hc1, _hsq, _hcop, hdom⟩
   by_cases hc : c = 1
   · subst c
-    simpa [canonicalLargestPrimeFactor] using hq.one_lt
+    simpa [canonicalLargestPrimeFactor] using! hq.one_lt
   · have hcgt : 1 < c := by omega
     exact hdom (canonicalLargestPrimeFactor c)
       (canonicalLargestPrimeFactor_prime hcgt)
@@ -394,6 +394,6 @@ theorem survivorZeroMode_re_eq_processedSeatCarrierMass_add_endpointResiduals
     survivorZeroMode_eq_processedRunningImbalance_add_endpointResiduals
       R K j hR hK hKR hj
   have hre := congrArg Complex.re h
-  simpa [squareRootLowPrimeRunningImbalanceReal] using hre
+  simpa [squareRootLowPrimeRunningImbalanceReal] using! hre
 
 end RHLean.Proof

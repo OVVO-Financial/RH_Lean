@@ -55,7 +55,7 @@ theorem sum_squareBlocks_eq_sum_range_squarePrefix
       rw [ih]
       have hle : (n + 1) ^ 2 ≤ (n + 2) ^ 2 := by
         exact Nat.pow_le_pow_left (by omega) 2
-      simpa [canonicalSquareBlock, Nat.add_assoc] using
+      simpa [canonicalSquareBlock, Nat.add_assoc] using!
         (Finset.sum_range_add_sum_Ico f hle)
 
 /-- For a nonnegative cutoff parameter, the birth-high atoms still alive at

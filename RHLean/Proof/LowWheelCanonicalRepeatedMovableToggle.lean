@@ -81,7 +81,7 @@ private theorem lowWheelTaggedDowncrossFaceTailToggleAt_product_of_tail
         y.2.2 / lowWheelTaggedDowncrossPivot y :=
     Nat.mul_div_cancel' hqm
   simp only [lowWheelTaggedDowncrossFaceTailToggleAt,
-    lowWheelFaceTailToggleAt, hqt, if_false, hqm, if_true]
+    lowWheelFaceTailToggleAt, hqt, ite_false, hqm, ite_true]
   calc
     q * (y.2.1 *
         (lowWheelTaggedDowncrossPivot y *
@@ -124,14 +124,14 @@ theorem lowWheelTaggedDowncrossFaceTailToggleAt_pivot
     ⟨hpRaw, _hpc, hpkRaw, _hdown, _hup⟩
   let p := lowWheelTaggedDowncrossPivot y
   have hp : p.Prime := by
-    simpa [p, lowWheelTaggedDowncrossPivot] using hpRaw
+    simpa [p, lowWheelTaggedDowncrossPivot] using! hpRaw
   have hpk : p ∣ y.2.2 := by
-    simpa [p, lowWheelTaggedDowncrossPivot] using hpkRaw
+    simpa [p, lowWheelTaggedDowncrossPivot] using! hpkRaw
   have hexpand :
       y.2.1 * (p * (y.2.2 / p)) = y.2.1 * y.2.2 := by
     rw [Nat.mul_div_cancel' hpk]
   have hpDvdOrig : p ∣ y.2.1 * y.2.2 := by
-    simpa [p, lowWheelTaggedDowncrossPivot] using
+    simpa [p, lowWheelTaggedDowncrossPivot] using!
       lowWheelCanonicalCofactorQuotientPivot_dvd y.2.1 y.2.2
   have hOrigMin :
       ∀ r : ℕ, r.Prime → r ∣ y.2.1 * y.2.2 → p ≤ r := by
@@ -154,7 +154,7 @@ theorem lowWheelTaggedDowncrossFaceTailToggleAt_pivot
           q * (y.2.1 * y.2.2) := by
       calc
         _ = q * (y.2.1 *
-            (p * (y.2.2 / p))) := by simpa [p] using hnew
+            (p * (y.2.2 / p))) := by simpa [p] using! hnew
         _ = q * (y.2.1 * y.2.2) := by rw [hexpand]
     have hNewMin :
         ∀ r : ℕ, r.Prime →
@@ -184,7 +184,7 @@ theorem lowWheelTaggedDowncrossFaceTailToggleAt_pivot
           y.2.1 * y.2.2 := by
       calc
         _ = y.2.1 *
-            (p * (y.2.2 / p)) := by simpa [p] using hrel
+            (p * (y.2.2 / p)) := by simpa [p] using! hrel
         _ = y.2.1 * y.2.2 := hexpand
     have hNewMin :
         ∀ r : ℕ, r.Prime →
@@ -214,7 +214,7 @@ theorem lowWheelTaggedDowncrossFaceTailToggleAt_parent
   have hp : (lowWheelTaggedDowncrossPivot y).Prime := by
     have hyData := mem_lowWheelCanonicalTaggedDowncrossCarrier.mp hy
     have hshell := lowWheelCanonicalDowncrossPart_adjacent_shell hyData.2
-    simpa [lowWheelTaggedDowncrossPivot] using hshell.1
+    simpa [lowWheelTaggedDowncrossPivot] using! hshell.1
   have hprod := lowWheelFaceTailToggleAt_product q
     (y.1, y.2.2 / lowWheelTaggedDowncrossPivot y)
   unfold lowWheelCanonicalDowncrossParent
@@ -249,7 +249,7 @@ theorem lowWheelTaggedDowncrossFaceTailToggleAt_parent
           (lowWheelFaceTailToggleAt q
             (y.1, y.2.2 / lowWheelTaggedDowncrossPivot y)).2) /
           lowWheelTaggedDowncrossPivot y = a by
-        simpa [a] using hdiv]
-  simpa using hprod
+        simpa [a] using! hdiv]
+  simpa using! hprod
 
 end RHLean.Proof

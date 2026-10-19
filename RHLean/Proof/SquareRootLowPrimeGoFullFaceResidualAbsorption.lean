@@ -80,7 +80,7 @@ theorem squareRootLowPrimeGoFullFaceDefect_oppositePrime_lt_interior
       Nat.mem_primeFactors.mpr ⟨haPrime, haProd, hrdNe⟩
     simpa [s, squareRootLowPrimeGoFullFaceDefectSourceTag,
       squareRootLowPrimeGoSecondBoundaryFullFaceSource,
-      squarefreePrimeFace] using haFactors
+      squarefreePrimeFace] using! haFactors
   have haGlobal : a ∈ primesUpTo R :=
     mem_primesUpTo.mpr ⟨haPrime, by omega⟩
   have haActive : a ∈ lowWheelFullActivePrimeSet R s :=
@@ -89,7 +89,7 @@ theorem squareRootLowPrimeGoFullFaceDefect_oppositePrime_lt_interior
   have hpLeA : p ≤ a := by
     dsimp only [p]
     unfold lowWheelFullOppositePrime
-    rw [dif_pos hnonempty]
+    rw [dite_eq_left hnonempty]
     exact Finset.min'_le _ _ haActive
   have hpr : p < r := hpLeA.trans_lt har
   have hpData := lowWheelFullOppositePrime_data hnonempty
@@ -135,18 +135,18 @@ theorem squareRootLowPrimeGoFullFaceDefectMateTag_exists_facePrime_gt_pivot
       Nat.mem_primeFactors.mpr ⟨hr, hrDvd, hrdNe⟩
     simpa [s, squareRootLowPrimeGoFullFaceDefectSourceTag,
       squareRootLowPrimeGoSecondBoundaryFullFaceSource,
-      squarefreePrimeFace] using hrFactors
+      squarefreePrimeFace] using! hrFactors
   have hprNe : p ≠ r := ne_of_lt hpr
   have hrMate :
       r ∈ (squareRootLowPrimeGoFullFaceDefectMateTag R ((r, q), d)).1 := by
     change r ∈ (lowWheelFullFaceQuotientMate R s).1
     unfold lowWheelFullFaceQuotientMate
-    rw [dif_pos hnonempty]
+    rw [dite_eq_left hnonempty]
     change r ∈ (lowWheelFullFaceQuotientToggleAt p s).1
     unfold lowWheelFullFaceQuotientToggleAt
     dsimp only
     unfold lowWheelFaceTailToggleAt
-    rw [if_pos hpFace]
+    rw [ite_eq_left hpFace]
     exact Finset.mem_erase.mpr ⟨hprNe.symm, hrFace⟩
   have hpDvdMate :
       p ∣ (squareRootLowPrimeGoFullFaceDefectMateTag R ((r, q), d)).2.1 *
@@ -154,13 +154,13 @@ theorem squareRootLowPrimeGoFullFaceDefectMateTag_exists_facePrime_gt_pivot
     change p ∣ (lowWheelFullFaceQuotientMate R s).2.1 *
       (lowWheelFullFaceQuotientMate R s).2.2
     unfold lowWheelFullFaceQuotientMate
-    rw [dif_pos hnonempty]
+    rw [dite_eq_left hnonempty]
     change p ∣ (lowWheelFullFaceQuotientToggleAt p s).2.1 *
       (lowWheelFullFaceQuotientToggleAt p s).2.2
     unfold lowWheelFullFaceQuotientToggleAt
     dsimp only
     unfold lowWheelFaceTailToggleAt
-    rw [if_pos hpFace]
+    rw [ite_eq_left hpFace]
     exact ⟨s.2.1 * s.2.2, by ring⟩
   have hpivotLe :
       lowWheelCanonicalCofactorQuotientPivot
@@ -187,12 +187,12 @@ theorem squareRootLowPrimeGoFullFaceDefectMateTag_quotient_two_le
       (squareRootLowPrimeGoFullFaceDefectMateTag R ((r, q), d)).2.2 = p * q := by
     change (lowWheelFullFaceQuotientMate R s).2.2 = p * q
     unfold lowWheelFullFaceQuotientMate
-    rw [dif_pos hnonempty]
+    rw [dite_eq_left hnonempty]
     change (lowWheelFullFaceQuotientToggleAt p s).2.2 = p * q
     unfold lowWheelFullFaceQuotientToggleAt
     dsimp only
     unfold lowWheelFaceTailToggleAt
-    rw [if_pos hpFace]
+    rw [ite_eq_left hpFace]
     rfl
   rw [hquot]
   exact hpPrime.two_le.trans (Nat.le_mul_of_pos_right p hq.pos)
@@ -318,7 +318,7 @@ theorem squareRootLowPrimeGoFullFaceDefectMateTag_far
   have hprod : lowWheelTaggedHighProduct
       (squareRootLowPrimeGoFullFaceDefectMateTag R ((r, q), d)) = (r * d) * q := by
     unfold squareRootLowPrimeGoFullFaceDefectMateTag lowWheelFullFaceQuotientMate
-    rw [dif_pos hp.1]
+    rw [dite_eq_left hp.1]
     unfold lowWheelTaggedHighProduct
     rw [lowWheelFullFaceQuotientToggleAt_highProduct]
     change primeFaceProduct

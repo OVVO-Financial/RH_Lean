@@ -32,9 +32,9 @@ def logWeightedEndpointFiber (n : ℕ) : ℝ :=
 theorem logWeightedEndpointFiber_eq (n : ℕ) :
     logWeightedEndpointFiber n = -moebiusReal n * Real.log n := by
   by_cases hs : Squarefree n
-  · simp only [logWeightedEndpointFiber, if_pos hs]
+  · simp only [logWeightedEndpointFiber, ite_eq_left hs]
     exact sum_log_p_mu_parent_eq_neg_mu_log n hs
-  · simp only [logWeightedEndpointFiber, if_neg hs]
+  · simp only [logWeightedEndpointFiber, ite_eq_right hs]
     have hmu : μ n = 0 :=
       ArithmeticFunction.moebius_eq_zero_of_not_squarefree hs
     simp [moebiusReal, hmu]
@@ -101,14 +101,14 @@ theorem logPrimeExtensionPrimeFirst_eq_primeScaleIncrementSum (N : ℕ) :
   apply Finset.sum_congr rfl
   intro p _hpRange
   by_cases hpPrime : p.Prime
-  · rw [if_pos hpPrime]
+  · rw [ite_eq_left hpPrime]
     unfold logPrimeExtensionTerm primeScaleIncrement
     simp only [hpPrime, true_and]
     rw [← Finset.sum_filter]
     rw [logPrimeExtension_cofactor_filter_eq_scaleInterval N hpPrime]
     rw [← Finset.sum_mul]
     ring
-  · rw [if_neg hpPrime]
+  · rw [ite_eq_right hpPrime]
     unfold logPrimeExtensionTerm
     simp [hpPrime]
 

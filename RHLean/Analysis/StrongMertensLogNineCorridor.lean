@@ -247,7 +247,7 @@ theorem nonempty_strongMertensLogNineCorridor :
         rw [← re_add_im s]
         have hpow1 : Real.log |s.im| ^ (1 : ℝ) = Real.log |s.im| ^ (1 : ℕ) := by
           simp
-        exact hZF s.re s.im hlarge (by simpa only [hpow1] using hmem)
+        exact hZF s.re s.im hlarge (by simpa only [hpow1] using! hmem)
 
   have hinvwindow : ∀ (sigma t : ℝ), 3 < |t| →
       sigma ∈ Set.Ico
@@ -267,8 +267,8 @@ theorem nonempty_strongMertensLogNineCorridor :
       linarith [hsigma.2, hfrac]
     have hpow9 : Real.log |t| ^ (9 : ℝ) = Real.log |t| ^ (9 : ℕ) :=
       Real.rpow_natCast _ 9
-    exact hInv sigma t ht ⟨(by simpa only [hpow9] using hlower),
-      (by simpa only [hpow9] using hupper)⟩
+    exact hInv sigma t ht ⟨(by simpa only [hpow9] using! hlower),
+      (by simpa only [hpow9] using! hupper)⟩
 
   have hinvshift : ∀ (T t : ℝ), 3 < T → 3 < |t| → |t| ≤ T →
       1 / ‖zeta (strongMertensLogNineShift A T + t * I)‖ ≤
@@ -293,8 +293,8 @@ theorem nonempty_strongMertensLogNineCorridor :
     have hpow9 : Real.log |t| ^ (9 : ℝ) = Real.log |t| ^ (9 : ℕ) :=
       Real.rpow_natCast _ 9
     exact hInv (strongMertensLogNineShift A T) t ht
-      ⟨(by simpa only [hpow9] using hlower),
-       (by simpa only [hpow9] using hupper)⟩
+      ⟨(by simpa only [hpow9] using! hlower),
+       (by simpa only [hpow9] using! hupper)⟩
 
   exact
     ⟨{ A := A

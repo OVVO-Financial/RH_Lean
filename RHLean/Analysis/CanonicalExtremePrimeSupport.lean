@@ -111,7 +111,7 @@ theorem canonicalSquareBlock_largePrimeTransportData
     simp at hprod0
     omega
   have hmBlock : j ^ 2 ≤ m ∧ m < (j + 1) ^ 2 := by
-    simpa [canonicalSquareBlock, Finset.mem_Ico] using hm
+    simpa [canonicalSquareBlock, Finset.mem_Ico] using! hm
   have hcLt : canonicalCofactor m < j + 1 := by
     by_contra hnot
     have hcut : j + 1 ≤ canonicalCofactor m := by omega

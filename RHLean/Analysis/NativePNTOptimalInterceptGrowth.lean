@@ -20,7 +20,7 @@ theorem nativePNTCubicOptimalIntercept_onset_log_lower (n : ℕ) :
   have h := nativePNTCubicStepOnset_log_lower
     (nativePNTCubicSlope n) (nativePNTCubicOptimalIntercept n)
     hspec.1 hspec.2.1 henv.1
-  simpa [nativePNTCubicStepC0, nativePNTCubicStepDelta_eq] using h
+  simpa [nativePNTCubicStepC0, nativePNTCubicStepDelta_eq] using! h
 
 /-- At the first contraction the present proof already requires an enormous
 onset: `log M_0 >= 36,400,000,000`. -/

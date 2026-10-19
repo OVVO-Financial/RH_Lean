@@ -234,7 +234,7 @@ theorem centeredWindowEnergy_sub_sub
     funext r
     unfold centeredWindowPath
     ring
-  simpa [centeredWindowEnergy, centeredWindowCrossEnergy, hpath] using
+  simpa [centeredWindowEnergy, centeredWindowCrossEnergy, hpath] using!
     windowPathEnergy_sub_sub H
       (centeredWindowPath H a)
       (centeredWindowPath H b)

@@ -45,7 +45,7 @@ def doubledHeight (u d : ℕ) : ℕ :=
 theorem factor_sum_ge_two_n {n u d : ℕ} (hblock : InSquareBlock n u d) :
     2 * n ≤ 2 * u + d := by
   by_contra hcon
-  push_neg at hcon
+  push Not at hcon
   have hamgm : 4 * (u * (u + d)) ≤ (2 * u + d) ^ 2 := by
     nlinarith
   nlinarith [hblock.1]
@@ -121,7 +121,7 @@ theorem prime_dvd_right_le_left {u d p : ℕ} (hu : 1 ≤ u)
   have hpne : p ≠ u + d := by
     intro heq
     apply hcomp
-    simpa [heq] using hp
+    simpa [heq] using! hp
   obtain ⟨k, hk⟩ := hpdvd
   have hk2 : 2 ≤ k := by
     by_contra hnot

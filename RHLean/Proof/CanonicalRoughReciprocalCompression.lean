@@ -84,7 +84,7 @@ theorem squareRootCanonicalRoughResponseCenteredReciprocalSummand_add_mul_freshP
       squareRootCanonicalRoughResponseCenteredSummand R c +
           squareRootCanonicalRoughResponseCenteredSummand R (c * p) =
         canonicalMoebiusWeight c * D := by
-    simpa [D] using
+    simpa [D] using!
       (squareRootCanonicalRoughResponseCenteredSummand_add_mul_freshPrime_eq_threshold_add_topEscape_sub_birth
         hR hc hp hfresh)
   have hchild :
@@ -227,7 +227,7 @@ theorem sum_squareRootCanonicalRoughResponseCenteredReciprocal_eq_compressed_add
           squareRootCanonicalRoughResponseCenteredReciprocalSummand R n) =
         ∑ n ∈ U,
           squareRootCanonicalRoughResponseCenteredReciprocalSummand R n := by
-    simpa [squareRootCanonicalRoughFreshPrimeSurvivorsOn] using
+    simpa [squareRootCanonicalRoughFreshPrimeSurvivorsOn] using!
       (Finset.sum_sdiff hsub
         (f := squareRootCanonicalRoughResponseCenteredReciprocalSummand R))
   rw [sum_squareRootCanonicalRoughFreshPrimePairedOn_reciprocal_eq_compressed_add_defect

@@ -36,12 +36,12 @@ theorem criticalClippedCompanion_iff_quotientCut
   · intro hclip
     constructor
     · apply (Nat.le_div_iff_mul_le hp.pos).2
-      simpa [Nat.mul_comm] using hpaW
+      simpa [Nat.mul_comm] using! hpaW
     · apply (Nat.div_lt_iff_lt_mul hp.pos).2
-      simpa [Nat.mul_comm] using hclip
+      simpa [Nat.mul_comm] using! hclip
   · rintro ⟨_haQ, hbQ⟩
     have h := (Nat.div_lt_iff_lt_mul hp.pos).1 hbQ
-    simpa [Nat.mul_comm] using h
+    simpa [Nat.mul_comm] using! h
 
 private theorem covarianceOrderedPair_max_eq (a b : ℕ) :
     max (covarianceOrderedPair a b).1 (covarianceOrderedPair a b).2 =
@@ -91,7 +91,7 @@ theorem postRootCovarianceFixedOwnerChildFiber_card_le_one_of_clipped
     (postRootCovarianceFixedOwnerChildFiber W parent p).card ≤ 1 := by
   have hcard := Finset.card_le_card
     (postRootCovarianceFixedOwnerChildFiber_subset_singleton_of_clipped hclip)
-  simpa using hcard
+  simpa using! hcard
 
 /-- Multiplicity form of the one-child clipped fibre bound. -/
 theorem postRootCovarianceFixedOwnerChildMultiplicity_le_one_of_clipped
@@ -126,7 +126,7 @@ theorem criticalClippedOwnerFactor_mul_fixedOwnerEnergy_le_one_over_p_sq
       calc
         postRootCovarianceCriticalClippedOwnerFactor W parent p * (M : ℝ) ≤
             1 * (M : ℝ) := mul_le_mul_of_nonneg_right hfac hM0
-        _ ≤ 1 := by simpa using hM
+        _ ≤ 1 := by simpa using! hM
     change
       postRootCovarianceCriticalClippedOwnerFactor W parent p *
           ((M : ℝ) / (p : ℝ) ^ 2 * E) ≤
@@ -142,7 +142,7 @@ theorem criticalClippedOwnerFactor_mul_fixedOwnerEnergy_le_one_over_p_sq
   · have hfac0 : postRootCovarianceCriticalClippedOwnerFactor W parent p = 0 := by
       simp [postRootCovarianceCriticalClippedOwnerFactor, hclip]
     rw [hfac0]
-    simpa using hscale
+    simpa using! hscale
 
 /-- **Sharpened clipped contraction.**  Companion clipping deletes one of the
 two generic mixed children, so the exact prime reciprocal-square budget is
@@ -177,9 +177,9 @@ theorem postRootCovarianceCriticalClippedOutgoingEnergy_le_79_over_162
       norm_num at hbudgetCast ⊢
       have hbudgetR :
           (∑ p ∈ primesUpTo W, (1 : ℝ) / (p : ℝ) ^ 2) ≤ 79 / 162 := by
-        simpa [Nat.cast_pow] using hbudgetCast
+        simpa [Nat.cast_pow] using! hbudgetCast
       have hmul := mul_le_mul_of_nonneg_right hbudgetR
         (postRootCovarianceReciprocalPairEnergy_nonneg parent)
-      simpa [one_div] using hmul
+      simpa [one_div] using! hmul
 
 end RHLean.Proof

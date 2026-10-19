@@ -42,7 +42,7 @@ theorem k2MobiusLogSqLSeries_re_tendsto_of_moment_tendsto
     intro n hn
     have hnclose := hN0 n (hN0N.trans hn)
     have : |k2MobiusLogMoment 2 n - A| < delta := by
-      simpa [Real.dist_eq] using hnclose
+      simpa [Real.dist_eq] using! hnclose
     exact this.le
   have hheadNhds := k2A2AbelHead_tendsto_zero A N
   have hheadRight :
@@ -57,13 +57,13 @@ theorem k2MobiusLogSqLSeries_re_tendsto_of_moment_tendsto
   rw [Metric.tendsto_nhds] at hheadRight
   have hheadEv := hheadRight delta hdelta
   filter_upwards [hheadEv, self_mem_nhdsWithin] with sigma hhead hsigma
-  have hsigma : 1 < sigma := by simpa using hsigma
+  have hsigma : 1 < sigma := by simpa using! hsigma
   have hheadAbs :
       |∑ n ∈ Finset.Ico 1 N,
         (k2MobiusLogMoment 2 n - A) *
           (k2AbelBoundaryWeight sigma n -
             k2AbelBoundaryWeight sigma (n + 1))| < delta := by
-    simpa [Real.dist_eq] using hhead
+    simpa [Real.dist_eq] using! hhead
   have hprefix := k2A2AbelPrefix_tendsto_LSeries_re hsigma
   have habs :
       Tendsto
@@ -71,7 +71,7 @@ theorem k2MobiusLogSqLSeries_re_tendsto_of_moment_tendsto
         atTop
         (𝓝 |(LSeries (LSeries.logMul^[2] (fun n : ℕ => (μ n : ℂ)))
           (sigma : ℂ)).re - A|) := by
-    simpa using (hprefix.sub tendsto_const_nhds).abs
+    simpa using! (hprefix.sub tendsto_const_nhds).abs
   have hfinite :
       ∀ᶠ M : ℕ in atTop,
         |k2A2AbelPrefix sigma M - A| ≤ 2 * delta := by
@@ -89,7 +89,7 @@ theorem k2MobiusLogSqLSeries_re_tendsto_of_moment_tendsto
         (sigma : ℂ)).re - A| < eps := by
     dsimp [delta] at hlimit ⊢
     linarith
-  simpa [Real.dist_eq] using hstrict
+  simpa [Real.dist_eq] using! hstrict
 
 /-- The order-two Abel constant is exactly the second reciprocal-zeta Taylor
 coefficient `-2 * gammaE`. -/
@@ -110,9 +110,9 @@ theorem k2MertensAbelTerm_two_tsum_eq_neg_two_gamma :
             (sigma : ℂ)).re)
         (𝓝[>] (1 : ℝ)) (𝓝 (-2 * gammaE)) := by
     have h := Complex.continuous_re.continuousAt.tendsto.comp hgammaComplex
-    simpa using h
+    simpa using! h
   have hA : A = -2 * gammaE := tendsto_nhds_unique habel hgammaRe
-  simpa [A] using hA
+  simpa [A] using! hA
 
 /-- The centered second reciprocal moment tends to zero with the analytic
 center now identified exactly. -/
@@ -122,7 +122,7 @@ theorem k2r_tendsto_zero_from_strongMertens :
     k2MertensAbelTerm_two_summable
     (k2StrongMertens_logRecip_endpoint_tendsto_zero 2)
   rw [k2MertensAbelTerm_two_tsum_eq_neg_two_gamma] at h
-  simpa using h
+  simpa using! h
 
 /-- The cubic reciprocal moment converges from the same Strong Mertens input. -/
 theorem k2C3_tendsto_from_strongMertens :

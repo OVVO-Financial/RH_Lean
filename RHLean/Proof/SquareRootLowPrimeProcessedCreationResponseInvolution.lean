@@ -85,7 +85,7 @@ theorem squareRootLowPrimeProcessedCreationResponseEncode_mem
   · simp [squareRootLowPrimeProcessedCreationResponseEncode,
       squareRootLowPrimeProcessedCreationResponseTaggedCarrier]
   · have hzAtom : z ∈ squareRootLowPrimeProcessedSeatAtoms R K j U := by
-      simpa [squareRootLowPrimeProcessedSeatCarrier] using hx
+      simpa [squareRootLowPrimeProcessedSeatCarrier] using! hx
     by_cases hshallow : canonicalLargestPrimeFactor z.1 ≤ K
     · have hzShallow :
           z ∈ squareRootLowPrimeProcessedShallowSeatAtoms R K j U :=
@@ -95,7 +95,7 @@ theorem squareRootLowPrimeProcessedCreationResponseEncode_mem
         squareRootLowPrimeProcessedShallowSeatToCreation_mem hR hKU hzShallow
       simpa [squareRootLowPrimeProcessedCreationResponseEncode, hshallow,
         squareRootLowPrimeProcessedCreationResponseTaggedCarrier,
-        creationResponseOthelloCarrier] using
+        creationResponseOthelloCarrier] using!
           (Finset.mem_erase.mp hcreation)
     · have hdeep : K < canonicalLargestPrimeFactor z.1 := by omega
       have hresponse :
@@ -120,17 +120,17 @@ theorem squareRootLowPrimeProcessedCreationResponseDecode_mem
     · have hc :
           c ∈ (squareRootLowPrimeCreationCarrierExact R K j).erase none := by
         simpa [squareRootLowPrimeProcessedCreationResponseTaggedCarrier,
-          creationResponseOthelloCarrier] using hy
+          creationResponseOthelloCarrier] using! hy
       have hz :=
         squareRootLowPrimeCreationToProcessedShallowSeat_mem hR hKU hc
       have hzAtom :=
         (mem_squareRootLowPrimeProcessedShallowSeatAtoms.mp hz).1
       simpa [squareRootLowPrimeProcessedCreationResponseDecode,
-        squareRootLowPrimeProcessedSeatCarrier] using hzAtom
+        squareRootLowPrimeProcessedSeatCarrier] using! hzAtom
     · have hzResponse :
           z ∈ squareRootLowPrimeOwnedResponseSeatCarrier R K j U := by
         simpa [squareRootLowPrimeProcessedCreationResponseTaggedCarrier,
-          creationResponseOthelloCarrier] using hy
+          creationResponseOthelloCarrier] using! hy
       have hzDeep :
           z ∈ squareRootLowPrimeProcessedDeepSeatAtoms R K j U := by
         rw [squareRootLowPrimeProcessedDeepSeatAtoms_eq_ownedResponseSeatCarrier hK]
@@ -138,7 +138,7 @@ theorem squareRootLowPrimeProcessedCreationResponseDecode_mem
       have hzAtom :=
         (mem_squareRootLowPrimeProcessedDeepSeatAtoms.mp hzDeep).1
       simpa [squareRootLowPrimeProcessedCreationResponseDecode,
-        squareRootLowPrimeProcessedSeatCarrier] using hzAtom
+        squareRootLowPrimeProcessedSeatCarrier] using! hzAtom
 
 /-- Decode after encode is literally the identity on the processed carrier. -/
 theorem squareRootLowPrimeProcessedCreationResponseDecode_encode
@@ -150,14 +150,14 @@ theorem squareRootLowPrimeProcessedCreationResponseDecode_encode
   rcases x with _ | z
   · rfl
   · have hzAtom : z ∈ squareRootLowPrimeProcessedSeatAtoms R K j U := by
-      simpa [squareRootLowPrimeProcessedSeatCarrier] using hx
+      simpa [squareRootLowPrimeProcessedSeatCarrier] using! hx
     by_cases hshallow : canonicalLargestPrimeFactor z.1 ≤ K
     · have hzShallow :
           z ∈ squareRootLowPrimeProcessedShallowSeatAtoms R K j U :=
         mem_squareRootLowPrimeProcessedShallowSeatAtoms.mpr
           ⟨hzAtom, hshallow⟩
       simp only [squareRootLowPrimeProcessedCreationResponseEncode, hshallow,
-        if_true, squareRootLowPrimeProcessedCreationResponseDecode]
+        ite_true, squareRootLowPrimeProcessedCreationResponseDecode]
       apply congrArg some
       exact squareRootLowPrimeCreationToProcessedShallowSeat_toCreation
         hR hKU hzShallow
@@ -178,20 +178,20 @@ theorem squareRootLowPrimeProcessedCreationResponseEncode_decode
     · have hc :
           c ∈ (squareRootLowPrimeCreationCarrierExact R K j).erase none := by
         simpa [squareRootLowPrimeProcessedCreationResponseTaggedCarrier,
-          creationResponseOthelloCarrier] using hy
+          creationResponseOthelloCarrier] using! hy
       have hz :=
         squareRootLowPrimeCreationToProcessedShallowSeat_mem hR hKU hc
       have hshallow :=
         (mem_squareRootLowPrimeProcessedShallowSeatAtoms.mp hz).2
       simp only [squareRootLowPrimeProcessedCreationResponseDecode,
-        squareRootLowPrimeProcessedCreationResponseEncode, hshallow, if_true]
+        squareRootLowPrimeProcessedCreationResponseEncode, hshallow, ite_true]
       congr 2
       exact squareRootLowPrimeProcessedShallowSeatToCreation_fromCreation
         hR hKU hc
     · have hzResponse :
           z ∈ squareRootLowPrimeOwnedResponseSeatCarrier R K j U := by
         simpa [squareRootLowPrimeProcessedCreationResponseTaggedCarrier,
-          creationResponseOthelloCarrier] using hy
+          creationResponseOthelloCarrier] using! hy
       have hzDeep :
           z ∈ squareRootLowPrimeProcessedDeepSeatAtoms R K j U := by
         rw [squareRootLowPrimeProcessedDeepSeatAtoms_eq_ownedResponseSeatCarrier hK]
@@ -227,7 +227,7 @@ theorem squareRootLowPrimeProcessedCreationResponseTaggedMate_mem
       y ∈ creationResponseOthelloCarrier
         ((squareRootLowPrimeCreationCarrierExact R K j).erase none)
         (squareRootLowPrimeOwnedResponseSeatCarrier R K j U) := by
-      simpa [squareRootLowPrimeProcessedCreationResponseTaggedCarrier] using hy
+      simpa [squareRootLowPrimeProcessedCreationResponseTaggedCarrier] using! hy
     have hmate := creationResponseOthelloMate_mem
       ((squareRootLowPrimeCreationCarrierExact R K j).erase none)
       (squareRootLowPrimeMatchedCreationStates R K j U)
@@ -237,7 +237,7 @@ theorem squareRootLowPrimeProcessedCreationResponseTaggedMate_mem
       (fun c hc => squareRootLowPrimeCanonicalCreationToResponse_mem hc)
       hyCR
     simpa [squareRootLowPrimeProcessedCreationResponseTaggedMate,
-      squareRootLowPrimeProcessedCreationResponseTaggedCarrier] using hmate
+      squareRootLowPrimeProcessedCreationResponseTaggedCarrier] using! hmate
 
 /-- The tagged mate is involutive. -/
 theorem squareRootLowPrimeProcessedCreationResponseTaggedMate_involutive
@@ -272,7 +272,7 @@ theorem squareRootLowPrimeProcessedCreationResponseEncode_weight
   rcases x with _ | z
   · rfl
   · have hzAtom : z ∈ squareRootLowPrimeProcessedSeatAtoms R K j U := by
-      simpa [squareRootLowPrimeProcessedSeatCarrier] using hx
+      simpa [squareRootLowPrimeProcessedSeatCarrier] using! hx
     by_cases hshallow : canonicalLargestPrimeFactor z.1 ≤ K
     · have hzShallow :
           z ∈ squareRootLowPrimeProcessedShallowSeatAtoms R K j U :=
@@ -284,7 +284,7 @@ theorem squareRootLowPrimeProcessedCreationResponseEncode_weight
         hR hKU zs
       simpa [squareRootLowPrimeProcessedCreationResponseEncode, hshallow,
         squareRootLowPrimeProcessedCreationResponseTaggedWeight,
-        squareRootLowPrimeProcessedShallowSeatCreationEquiv, zs] using hw
+        squareRootLowPrimeProcessedShallowSeatCreationEquiv, zs] using! hw
     · simp [squareRootLowPrimeProcessedCreationResponseEncode, hshallow,
         squareRootLowPrimeProcessedCreationResponseTaggedWeight,
         squareRootLowPrimeResponseSeatWeightReal,
@@ -318,7 +318,7 @@ theorem squareRootLowPrimeProcessedCreationResponseTaggedMate_weight_neg
       creationResponseOthelloMate
           (squareRootLowPrimeMatchedCreationStates R K j U)
           (squareRootLowPrimeCanonicalCreationToResponse R K j U) y ≠ y := by
-      simpa [squareRootLowPrimeProcessedCreationResponseTaggedMate] using hne
+      simpa [squareRootLowPrimeProcessedCreationResponseTaggedMate] using! hne
     have h := creationResponseOthelloMate_weight_neg
       (squareRootLowPrimeMatchedCreationStates R K j U)
       (squareRootLowPrimeCanonicalCreationToResponse R K j U)

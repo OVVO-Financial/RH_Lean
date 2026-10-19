@@ -152,7 +152,7 @@ theorem vfMidProcessedOwnerChild_prior_energy_inside
     (abs_nonneg _).trans hprior
   have hsquare :=
     (sq_le_sq₀ (abs_nonneg _) hwall0).2 hprior
-  simpa [sq_abs] using hsquare
+  simpa [sq_abs] using! hsquare
 
 /-- The same legal square-energy conversion for a live post-frozen #887 child.
 Again the bound is applied only to the complete endpoint defect at the child's
@@ -176,7 +176,7 @@ theorem vfMidFrozenOwnerPrimeChild_prior_energy_inside
     (abs_nonneg _).trans hprior
   have hsquare :=
     (sq_le_sq₀ (abs_nonneg _) hwall0).2 hprior
-  simpa [sq_abs] using hsquare
+  simpa [sq_abs] using! hsquare
 
 /-- Exact reassembly of the #888 two-sector charge in endpoint-depth
 currency.  This is the identity that must remain visible in the terminal

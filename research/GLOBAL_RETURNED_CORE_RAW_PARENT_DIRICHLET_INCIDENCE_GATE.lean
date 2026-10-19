@@ -126,7 +126,7 @@ theorem lowOwnerFirstOwnerRawParentDirichletIncidenceMass_eq_completed_add_incom
     lowOwnerFirstOwnerCompletedPolarizationRawParentSet
     lowOwnerFirstOwnerIncompleteDirichletIncidenceMass
     lowOwnerFirstOwnerIncompletePolarizationRawParentSet
-  simpa only using
+  simpa only using!
     (Finset.sum_filter_add_sum_filter_not
       (s := lowOwnerFirstOwnerPolarizationRawParentSet R p sig r)
       (p := fun parent : ℕ × ℕ =>

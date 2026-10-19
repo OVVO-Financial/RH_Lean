@@ -126,7 +126,7 @@ theorem degreeOneProjection_fiberwise
           intro i hi
           simp [mul_comm]
     _ = ∑ k ∈ Finset.range K, χ (threeSlotState k) := by
-      simpa using
+      simpa using!
         (Finset.sum_fiberwise_of_maps_to'
           (s := Finset.range K)
           (t := (Finset.univ : Finset (Fin 27)))
@@ -226,21 +226,21 @@ theorem threeSlotSignedFieldPrefix_eq_moebius
     (primesUpTo_sqrtCoverage (4 * K))
     le_rfl hjpos hjle
   simpa [threeSlotSignedFieldPrefix, threeSlotR, threeSlotH,
-    primeWheelRecoveredSlotPrefix] using h
+    primeWheelRecoveredSlotPrefix] using! h
 
 @[simp] theorem threeSlotSignedFieldPrefix_one_eq_Wa (K : ℕ) :
     threeSlotSignedFieldPrefix 1 K = threeSlotWa K := by
-  simpa [threeSlotWa] using
+  simpa [threeSlotWa] using!
     threeSlotSignedFieldPrefix_eq_moebius 1 K (by omega) (by omega)
 
 @[simp] theorem threeSlotSignedFieldPrefix_two_eq_Wb (K : ℕ) :
     threeSlotSignedFieldPrefix 2 K = threeSlotWb K := by
-  simpa [threeSlotWb] using
+  simpa [threeSlotWb] using!
     threeSlotSignedFieldPrefix_eq_moebius 2 K (by omega) (by omega)
 
 @[simp] theorem threeSlotSignedFieldPrefix_three_eq_Wc (K : ℕ) :
     threeSlotSignedFieldPrefix 3 K = threeSlotWc K := by
-  simpa [threeSlotWc] using
+  simpa [threeSlotWc] using!
     threeSlotSignedFieldPrefix_eq_moebius 3 K (by omega) (by omega)
 
 /-- Coordinatewise degree-one Walsh mass and physical `R - 2H` mass are the
@@ -546,7 +546,7 @@ theorem moebiusPositivePrefix_eq_primeCoordinateComplementSmooth
     (∅ : Finset ℕ) T (by simp) hT (by simp)
     moebiusPositivePrefix
     (by simp [moebiusPositivePrefix, positivePrefix]) x
-  simpa using h
+  simpa using! h
 
 /-- **Exact prime-coordinate to physical-transition pushforward seam.**  For
 any finite prime set `T`, the complement-smooth recovery of the degree-one

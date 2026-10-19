@@ -58,7 +58,7 @@ theorem lowOwnerFirstOwnerRawParentOrbitInert_not_dvd_owner
       exact squarefreePrimeFamilyParent_not_dvd hr hnSq
     have hnEq : r * un = n := by
       dsimp [un, squarefreePrimeFamilyParent]
-      rw [if_pos hrn]
+      rw [ite_eq_left hrn]
       exact Nat.mul_div_cancel' hrn
     have hsigMoved :
         lowOwnerRevealedPrimeSignature

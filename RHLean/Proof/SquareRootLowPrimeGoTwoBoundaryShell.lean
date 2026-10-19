@@ -167,12 +167,12 @@ theorem squareRootLowPrimeGoFullBirthBoundaryFaces_eq_filter
   constructor
   · rintro ⟨hu, hupper, hlower⟩
     have hlower' : q - 1 < primeFaceProduct u * r := by
-      simpa [Nat.mul_comm] using hlower
+      simpa [Nat.mul_comm] using! hlower
     exact ⟨hu, (Nat.div_lt_iff_lt_mul hr.pos).2 hlower', hupper⟩
   · rintro ⟨hu, hlower, hupper⟩
     have hlower' : q - 1 < primeFaceProduct u * r :=
       (Nat.div_lt_iff_lt_mul hr.pos).1 hlower
-    exact ⟨hu, hupper, by simpa [Nat.mul_comm] using hlower'⟩
+    exact ⟨hu, hupper, by simpa [Nat.mul_comm] using! hlower'⟩
 
 /-- The native low-wheel smooth shell is precisely this one first-failure face
 population when the pivot itself is used as the fresh coordinate. -/
@@ -228,11 +228,11 @@ theorem squareRootLowPrimeGoFullBirthBoundaryCofactors_eq_parents
       ⟨hd1, hdupper, hsq, hrough, hdlower⟩
     let u := squarefreePrimeFace d
     have hprod : primeFaceProduct u = d := by
-      simpa [u] using primeFaceProduct_squarefreePrimeFace hsq
+      simpa [u] using! primeFaceProduct_squarefreePrimeFace hsq
     have huSub : u ⊆ primesUpTo (r - 1) := by
       intro p hp
       have hpData : p ∈ d.primeFactors := by
-        simpa [u, squarefreePrimeFace] using hp
+        simpa [u, squarefreePrimeFace] using! hp
       have hpPrime : p.Prime := (Nat.mem_primeFactors.mp hpData).1
       have hpDvd : p ∣ d := (Nat.mem_primeFactors.mp hpData).2.1
       have hdPos : 0 < d := by omega
@@ -240,7 +240,7 @@ theorem squareRootLowPrimeGoFullBirthBoundaryCofactors_eq_parents
       have hdGt : 1 < d := lt_of_lt_of_le hpPrime.one_lt hpLeD
       have hpLeLpf : p ≤ canonicalLargestPrimeFactor d := by
         unfold canonicalLargestPrimeFactor
-        rw [dif_pos hdGt]
+        rw [dite_eq_left hdGt]
         exact Finset.le_max' d.primeFactors p hpData
       exact mem_primesUpTo.mpr ⟨hpPrime, by omega⟩
     have huFilter :
@@ -249,8 +249,8 @@ theorem squareRootLowPrimeGoFullBirthBoundaryCofactors_eq_parents
             primeFaceProduct t ≤ q - 1 := by
       apply Finset.mem_filter.mpr
       exact ⟨Finset.mem_powerset.mpr huSub,
-        by simpa [hprod] using hdlower,
-        by simpa [hprod] using hdupper⟩
+        by simpa [hprod] using! hdlower,
+        by simpa [hprod] using! hdupper⟩
     have huFace : u ∈ squareRootLowPrimeGoFullBirthBoundaryFaces q r := by
       rw [squareRootLowPrimeGoFullBirthBoundaryFaces_eq_filter hr]
       exact huFilter
@@ -313,7 +313,7 @@ theorem squareRootLowPrimeGoFullBirthBoundary_outer_le_child
     (mem_squareRootLowPrimeGoFullBirthBoundaryParents.mp hd).2.2.2.2
   have hlt : q - 1 < d * r :=
     (Nat.div_lt_iff_lt_mul hr.pos).1 hlower
-  simpa [Nat.mul_comm] using (show q ≤ d * r by omega)
+  simpa [Nat.mul_comm] using! (show q ≤ d * r by omega)
 
 /-- With `r<q`, every full birth-boundary child lies strictly below `q^2`. -/
 theorem squareRootLowPrimeGoFullBirthBoundary_child_lt_ownerSquare
@@ -360,7 +360,7 @@ theorem squareRootLowPrimeGoSecondBoundaryDefect_secondContact_gt
     (Nat.div_lt_iff_lt_mul hr.pos).1 hdefect
   have hX : X < (d * r) * (q * q) :=
     (Nat.div_lt_iff_lt_mul hq2Pos).1 hqr
-  simpa [Nat.mul_comm, Nat.mul_left_comm, Nat.mul_assoc] using hX
+  simpa [Nat.mul_comm, Nat.mul_left_comm, Nat.mul_assoc] using! hX
 
 /-- **The second-boundary defect is exactly a second-contact endpoint shell.**
 No triangle inequality is involved: every defect atom has endpoint crossing
@@ -396,7 +396,7 @@ theorem squareRootLowPrimeGoTerminalParent_endpointCrossing_eq_zero
     (Nat.le_div_iff_mul_le hr.pos).1 hdCut
   have hsecondLe : q * q * (r * d) ≤ X := by
     have h := (Nat.le_div_iff_mul_le hq2Pos).1 hsecondLe0
-    simpa [Nat.mul_comm, Nat.mul_left_comm, Nat.mul_assoc] using h
+    simpa [Nat.mul_comm, Nat.mul_left_comm, Nat.mul_assoc] using! h
   rw [lowWheelEndpointCrossingDifference_eq_primeShell hq.one_le]
   have hnot : ¬ X < q * q * (r * d) := Nat.not_lt_of_ge hsecondLe
   simp [hnot]

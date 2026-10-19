@@ -176,7 +176,7 @@ theorem actualJointGramSum_eq_fintypeSum
       intro index
       have hindex :
           (index : ℕ) < Fintype.card (ActualJointGramIndex data) := by
-        simpa [actualJointGramCard] using index.isLt
+        simpa [actualJointGramCard] using! index.isLt
       unfold actualJointGramEnumeratedEntry
       split
       · apply congrArg (actualJointGramEntry skeleton M data)
@@ -231,7 +231,7 @@ theorem actualJointGramFintypeSum_eq_actualResidual
         (f := fun denominatorMode =>
           actualResidualPacket data shell channel denominatorMode)]
     _ = actualResidual data := by
-      simpa [actualResidual, heightShellSum] using
+      simpa [actualResidual, heightShellSum] using!
         (Fin.sum_univ_eq_sum_range
           (actualResidualShell data) data.shellCount)
 

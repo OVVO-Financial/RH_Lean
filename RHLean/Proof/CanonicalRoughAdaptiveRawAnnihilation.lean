@@ -62,7 +62,7 @@ theorem squareRootCanonicalRoughRawCorrelationSummand_add_mul_freshPrime
           squareRootCanonicalRoughPrimePartnerCount R (c * p) =
         ((squareRootCanonicalRoughFreshLossBoundary R c p).card : ℂ) -
           ((squareRootCanonicalRoughFreshBirthBoundary R c p).card : ℂ) := by
-    simpa [Nat.mul_comm] using hdiff
+    simpa [Nat.mul_comm] using! hdiff
   calc
     canonicalMoebiusWeight c * squareRootCanonicalRoughPrimePartnerCount R c +
         -canonicalMoebiusWeight c *
@@ -195,7 +195,7 @@ theorem adaptiveRawWeightedMass_eq_next_add_boundary_add_mismatch
     unfold squareRootCanonicalRoughAdaptiveRawWeightedMass
     have hs := Finset.sum_sdiff hchildrenSubset
       (f := fun n => a n * squareRootCanonicalRoughRawCorrelationSummand R n)
-    simpa [add_comm] using hs.symm
+    simpa [add_comm] using! hs.symm
   rw [hsplit, sum_adaptiveRawWeighted_children_eq_parents R U a hp]
   have hnextSet :
       U \ squareRootCanonicalRoughFreshPrimeChildrenOn p U =
@@ -230,7 +230,7 @@ theorem adaptiveRawWeightedMass_eq_next_add_boundary_add_mismatch
       ⟨_hcU, hcpos, hcrough, _hchildU⟩
     have hpEq := weighted_rawPair_eq_boundary_add_mismatch
       (R := R) a hR hcpos hp hcrough
-    simpa [add_comm] using hpEq
+    simpa [add_comm] using! hpEq
   rw [hnext]
   calc
     (∑ c ∈ squareRootCanonicalRoughFreshPrimeParentsOn p U,
@@ -304,7 +304,7 @@ theorem adaptiveRawWeightedMass_eq_final_add_ledger
             squareRootCanonicalRoughAdaptiveRawWeightedMass R U' a' +
               squareRootCanonicalRoughAdaptiveRawBoundaryMass R p U a +
               squareRootCanonicalRoughAdaptiveRawMismatchMass R p U a := by
-          simpa [U', a'] using hone
+          simpa [U', a'] using! hone
         _ = (squareRootCanonicalRoughAdaptiveRawWeightedMass R
               (squareRootCanonicalRoughAdaptiveCarrier ps U')
               (squareRootCanonicalRoughAdaptiveRawCoefficient ps U' a') +
@@ -334,6 +334,6 @@ theorem sum_rawCorrelation_eq_adaptiveRawFinal_add_ledger
       squareRootCanonicalRoughAdaptiveRawLedger R ps U (fun _ => (1 : ℂ)) := by
   have h := adaptiveRawWeightedMass_eq_final_add_ledger
     R hR ps U (fun _ => (1 : ℂ)) hprime
-  simpa [squareRootCanonicalRoughAdaptiveRawWeightedMass] using h
+  simpa [squareRootCanonicalRoughAdaptiveRawWeightedMass] using! h
 
 end RHLean.Proof

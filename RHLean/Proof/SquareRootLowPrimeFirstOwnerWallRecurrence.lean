@@ -90,7 +90,7 @@ theorem squareRootLowPrimeWall_child_not_mem_processedCarrier
   intro hchild
   have hchildAtom :
       (r * c, s) ∈ squareRootLowPrimeProcessedSeatAtoms R K j U := by
-    simpa [squareRootLowPrimeProcessedSeatCarrier] using hchild
+    simpa [squareRootLowPrimeProcessedSeatCarrier] using! hchild
   have hrcSigned :=
     (mem_squareRootLowPrimeProcessedSeatAtoms.mp hchildAtom).1
   have hrcRange := (Finset.mem_filter.mp hrcSigned).1
@@ -117,12 +117,12 @@ theorem squareRootLowPrimeFirstOwnerAbove_split_of_le_shallowCutoff
           rw [hsplit]
           simp
         have hqSet : q ∈ squareRootLowPrimeFreshPrimeSet K U := by
-          simpa [squareRootLowPrimeFreshPrimeList] using hqList
+          simpa [squareRootLowPrimeFreshPrimeList] using! hqList
         have hKq := (Finset.mem_Ioc.mp (Finset.mem_filter.mp hqSet).1).1
         omega
   subst pre
   refine ⟨post, ?_⟩
-  simpa using hsplit
+  simpa using! hsplit
 
 /-- Therefore first owners above any two cutoffs already below `K` coincide.
 This is the precise single-fresh-owner statement used for the wall population. -/
@@ -158,7 +158,7 @@ theorem squareRootLowPrimeFirstOwnerWall_mem_laterFalloff
     (hcPos : 0 < c) :
     some (c, s) ∈ squareRootLowPrimeProcessedSeatCanonicalOwnerFalloff S r := by
   have hrSet : r ∈ squareRootLowPrimeFreshPrimeSet K U := by
-    simpa [squareRootLowPrimeFreshPrimeList] using hrList
+    simpa [squareRootLowPrimeFreshPrimeList] using! hrList
   have hrData := Finset.mem_filter.mp hrSet
   have hrPrime : r.Prime := hrData.2
   have hKr : K < r := (Finset.mem_Ioc.mp hrData.1).1
@@ -174,12 +174,12 @@ theorem squareRootLowPrimeFirstOwnerWall_mem_laterFalloff
     have hwallR : squareRootEndpoint R < r * c :=
       squareRootLowPrimeWall_mono hpr hwall
     apply squareRootLowPrimeWall_child_not_mem_processedCarrier hwallR
-    simpa [squareRootLowPrimeProcessedSeatExtend] using hchildCarrier
+    simpa [squareRootLowPrimeProcessedSeatExtend] using! hchildCarrier
   exact mem_squareRootLowPrimeProcessedSeatCanonicalOwnerFalloff.mpr
     ⟨hxS, by simp,
-      by simpa [squareRootLowPrimeProcessedStateCofactor] using hrFresh,
+      by simpa [squareRootLowPrimeProcessedStateCofactor] using! hrFresh,
       hchildMissing,
-      by simpa [squareRootLowPrimeProcessedStateCofactor] using hrough⟩
+      by simpa [squareRootLowPrimeProcessedStateCofactor] using! hrough⟩
 
 /-- Once the first wall owner has been processed, the wall state survives every
 remaining canonical Euler coordinate. -/
@@ -200,7 +200,7 @@ theorem squareRootLowPrimeFirstOwnerWall_survives_tail
       squareRootLowPrimeProcessedSeatCanonicalMatchingFrontier post S := by
   induction post generalizing S with
   | nil =>
-      simpa [squareRootLowPrimeProcessedSeatCanonicalMatchingFrontier] using hxS
+      simpa [squareRootLowPrimeProcessedSeatCanonicalMatchingFrontier] using! hxS
   | cons r rs ih =>
       have hrList : r ∈ squareRootLowPrimeFreshPrimeList K U :=
         hpost r (by simp)
@@ -247,7 +247,7 @@ theorem squareRootLowPrimeFirstOwnerWall_mem_canonicalTerminal
     ⟨hxCarrier, hxHead, _hpFresh, _hchildMissing, _hrough⟩
   have hxAtom :
       (c, s) ∈ squareRootLowPrimeProcessedSeatAtoms R K j U := by
-    simpa [squareRootLowPrimeProcessedSeatCarrier] using hxCarrier
+    simpa [squareRootLowPrimeProcessedSeatCarrier] using! hxCarrier
   have hcSigned := (mem_squareRootLowPrimeProcessedSeatAtoms.mp hxAtom).1
   have hcRange := (Finset.mem_filter.mp hcSigned).1
   have hcOne := (Finset.mem_Icc.mp hcRange).1
@@ -272,7 +272,7 @@ theorem squareRootLowPrimeFirstOwnerWall_mem_canonicalTerminal
     hstepSubset hxStep
   unfold squareRootLowPrimeProcessedSeatCanonicalTerminalFrontier
   rw [hsplit]
-  simpa [squareRootLowPrimeProcessedSeatCanonicalMatchingFrontier] using htail
+  simpa [squareRootLowPrimeProcessedSeatCanonicalMatchingFrontier] using! htail
 
 /-- A first-owner wall state is not one of the explicit terminal heads. -/
 theorem squareRootLowPrimeFirstOwnerWall_mem_assignedTerminal
@@ -501,10 +501,10 @@ theorem mem_squareRootLowPrimeOldPrimeWallWindowCofactors_iff
   · rintro ⟨hsq, hlpf, hlow, hupp⟩
     let t := squarefreePrimeFace c
     have hprod : primeFaceProduct t = c := by
-      simpa [t] using primeFaceProduct_squarefreePrimeFace hsq
+      simpa [t] using! primeFaceProduct_squarefreePrimeFace hsq
     have htSub : t ⊆ primesUpTo (q - 1) := by
       intro r hr
-      have hrData := Nat.mem_primeFactors.mp (by simpa [t, squarefreePrimeFace] using hr)
+      have hrData := Nat.mem_primeFactors.mp (by simpa [t, squarefreePrimeFace] using! hr)
       have hrPrime : r.Prime := hrData.1
       have hrDvd : r ∣ c := hrData.2.1
       have hcPos : 0 < c := Nat.pos_of_ne_zero hsq.ne_zero
@@ -514,14 +514,14 @@ theorem mem_squareRootLowPrimeOldPrimeWallWindowCofactors_iff
         omega
       have hrLeLpf : r ≤ canonicalLargestPrimeFactor c := by
         unfold canonicalLargestPrimeFactor
-        rw [dif_pos hcGt]
-        exact Finset.le_max' c.primeFactors r (by simpa [t, squarefreePrimeFace] using hr)
+        rw [dite_eq_left hcGt]
+        exact Finset.le_max' c.primeFactors r (by simpa [t, squarefreePrimeFace] using! hr)
       exact mem_primesUpTo.mpr ⟨hrPrime, by omega⟩
     have htWin : t ∈ squareRootLowPrimeOldPrimeWallWindowFaces R p q := by
       apply mem_frozenPrimeUniverseWindowFaces.mpr
       refine ⟨Finset.mem_powerset.mpr htSub, ?_, ?_⟩
-      · simpa [hprod] using hlow
-      · simpa [hprod] using hupp
+      · simpa [hprod] using! hlow
+      · simpa [hprod] using! hupp
     exact Finset.mem_image.mpr ⟨t, htWin, hprod⟩
 
 /-- Cofactors whose first-fresh-owner child crosses the square wall. -/
@@ -566,7 +566,7 @@ theorem squareRootLowPrimeWall_forces_root_le_cofactor_of_owner_lt_root
       p * c < R * c := Nat.mul_lt_mul_of_pos_right hpR hcPos
       _ < R * R := Nat.mul_lt_mul_of_pos_left hcR (by omega)
   have hprod' : p * c < R ^ 2 := by
-    simpa [pow_two] using hprod
+    simpa [pow_two] using! hprod
   unfold squareRootEndpoint at hwall
   omega
 
@@ -603,7 +603,7 @@ theorem squareRootLowPrimeWallPairCarrierCofactorFirst_eq_oldPrimeFirst
       ArithmeticFunction.moebius_ne_zero_iff_squarefree.mp hcData.2.2
     have hlow : squareRootEndpoint R / p < c := by
       apply (Nat.div_lt_iff_lt_mul hp.pos).2
-      simpa [Nat.mul_comm] using hwall
+      simpa [Nat.mul_comm] using! hwall
     have hupp : c ≤ squareRootEndpoint R / q := by
       exact (Nat.le_div_iff_mul_le hqPrime.pos).2 hproduct
     apply Finset.mem_biUnion.mpr
@@ -626,7 +626,7 @@ theorem squareRootLowPrimeWallPairCarrierCofactorFirst_eq_oldPrimeFirst
       ⟨hsq, hrough, hlow, hupp⟩
     have hwall' := (Nat.div_lt_iff_lt_mul hp.pos).1 hlow
     have hwall : squareRootEndpoint R < p * c := by
-      simpa [Nat.mul_comm] using hwall'
+      simpa [Nat.mul_comm] using! hwall'
     have hcR := squareRootLowPrimeWall_forces_root_le_cofactor_of_owner_lt_root
       hR hpR hwall
     have hcPos : 0 < c := by omega
@@ -689,7 +689,7 @@ theorem squareRootLowPrimeOldPrimeWallPairFibers_pairwiseDisjoint
   rcases Finset.mem_image.mp hzr with ⟨d, _hd, hdz⟩
   have hsnd : q = r := by
     have h := congrArg Prod.snd (hcz.trans hdz.symm)
-    simpa using h
+    simpa using! h
   exact hqr hsnd
 
 /-- The signed mass of the literal pair carrier is exactly the sum of its
@@ -759,7 +759,7 @@ theorem frozenPrimeUniverse_upperColumn_telescope
           simp
         have hpred : K + 1 - 1 = K := by omega
         have hset : primesUpTo (K + 1) = insert (K + 1) (primesUpTo K) := by
-          simpa [hpred] using primesUpTo_eq_insert_pred_of_prime hq
+          simpa [hpred] using! primesUpTo_eq_insert_pred_of_prime hq
         calc
           (∑ q ∈ primesUpTo (K + 1),
               frozenPrimeUniverseMass (primesUpTo (q - 1)) (X / q)) =

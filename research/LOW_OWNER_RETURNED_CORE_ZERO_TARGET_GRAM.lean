@@ -171,7 +171,7 @@ theorem criticalPhysicalMellinStencil_superwall_eq_propagated_add_clipped
     calc
       W < Nat.lcm a b := hSuper
       _ ≤ p * Nat.lcm a b := by
-        simpa using Nat.mul_le_mul_right (Nat.lcm a b) hpOne
+        simpa using! Nat.mul_le_mul_right (Nat.lcm a b) hpOne
   simp [hSuper, hWall]
 
 /-- **First admitted-wall critical split.**  Once the stripped owner parent is

@@ -52,10 +52,10 @@ private theorem nativePNTSignedK2FactorFour_inner_set
       Nat.lt_of_le_of_lt (Nat.zero_le ((N / 4) / d)) hlow
     have hlow' : N / 4 < d * k := by
       have h := (Nat.div_lt_iff_lt_mul hdpos).1 hlow
-      simpa [Nat.mul_comm] using h
+      simpa [Nat.mul_comm] using! h
     have hup' : d * k ≤ N := by
       have h := (Nat.le_div_iff_mul_le hdpos).1 hup
-      simpa [Nat.mul_comm] using h
+      simpa [Nat.mul_comm] using! h
     have hkN : k ≤ N := by
       calc
         k = 1 * k := by simp
@@ -65,9 +65,9 @@ private theorem nativePNTSignedK2FactorFour_inner_set
   · rintro ⟨⟨_hk1, _hkN⟩, hlow, hup⟩
     constructor
     · apply (Nat.div_lt_iff_lt_mul hdpos).2
-      simpa [Nat.mul_comm] using hlow
+      simpa [Nat.mul_comm] using! hlow
     · apply (Nat.le_div_iff_mul_le hdpos).2
-      simpa [Nat.mul_comm] using hup
+      simpa [Nat.mul_comm] using! hup
 
 /-- The nested quotient Fubini shell and the physical-pair shell are identical. -/
 theorem nativePNTSignedK2RecipDoubleShell_eq_pairMass
@@ -107,7 +107,7 @@ theorem nativePNTSignedK2RecipDoubleShell_eq_pairMass
     _ = ∑ a ∈ (Finset.Icc 1 N).product (Finset.Icc 1 N),
         if N / 4 < a.1 * a.2 ∧ a.1 * a.2 ≤ N then
           nativePNTSignedK2RecipFubiniAtom a.1 a.2 else 0 := by
-      simpa using hprod.symm
+      simpa using! hprod.symm
 
 /-- Odd-divisor part of the physical pair set. -/
 def nativePNTSignedK2FactorFourOddPairSet (N : ℕ) : Finset (ℕ × ℕ) := by
@@ -223,7 +223,7 @@ private theorem factorFour_odd_sum_eq_oddOdd_add_oddEven
       ∑ dk ∈ nativePNTSignedK2FactorFourOddEvenSet N,
         nativePNTSignedK2RecipFubiniAtom dk.1 dk.2 := by
   simpa [nativePNTSignedK2FactorFourOddOddSet,
-    nativePNTSignedK2FactorFourOddEvenSet] using
+    nativePNTSignedK2FactorFourOddEvenSet] using!
     factorFour_sum_eq_odd2_add_even2
       (nativePNTSignedK2FactorFourOddPairSet N)
       (fun dk => nativePNTSignedK2RecipFubiniAtom dk.1 dk.2)
@@ -254,8 +254,8 @@ private theorem factorFour_oddEven_sum_eq_parent_right
     · apply Finset.mem_filter.mpr
       exact ⟨mem_nativePNTSignedK2FactorFourPairSet.mpr
         ⟨hmI, Finset.mem_Icc.mpr ⟨by omega, h2kN⟩,
-          by simpa [Nat.mul_assoc, Nat.mul_comm, Nat.mul_left_comm] using hlow,
-          by simpa [Nat.mul_assoc, Nat.mul_comm, Nat.mul_left_comm] using hup⟩,
+          by simpa [Nat.mul_assoc, Nat.mul_comm, Nat.mul_left_comm] using! hlow,
+          by simpa [Nat.mul_assoc, Nat.mul_comm, Nat.mul_left_comm] using! hup⟩,
         hmodd⟩
     · exact even_two_mul mk.2
   · intro a _ha b _hb hab
@@ -278,8 +278,8 @@ private theorem factorFour_oddEven_sum_eq_parent_right
     refine ⟨(dk.1, dk.2 / 2), ?_, ?_⟩
     · apply mem_nativePNTSignedK2FactorFourPrimeTwoParentSet.mpr
       exact ⟨hdI, Finset.mem_Icc.mpr ⟨hhalf1, hhalfN⟩,
-        by simpa [hdouble, Nat.mul_assoc, Nat.mul_comm, Nat.mul_left_comm] using hlow,
-        by simpa [hdouble, Nat.mul_assoc, Nat.mul_comm, Nat.mul_left_comm] using hup,
+        by simpa [hdouble, Nat.mul_assoc, Nat.mul_comm, Nat.mul_left_comm] using! hlow,
+        by simpa [hdouble, Nat.mul_assoc, Nat.mul_comm, Nat.mul_left_comm] using! hup,
         hdodd⟩
     · apply Prod.ext <;> simp [hdouble]
   · intro mk _hmk
@@ -329,8 +329,8 @@ private theorem factorFour_even_sum_eq_parentAll_left
     refine ⟨(dk.1 / 2, dk.2), ?_, ?_⟩
     · apply mem_nativePNTSignedK2FactorFourPrimeTwoParentAllSet.mpr
       exact ⟨Finset.mem_Icc.mpr ⟨hhalf1, hhalfN⟩, hkI,
-        by simpa [hdouble] using hlow,
-        by simpa [hdouble] using hup⟩
+        by simpa [hdouble] using! hlow,
+        by simpa [hdouble] using! hup⟩
     · apply Prod.ext <;> simp [hdouble]
   · intro mk _hmk
     rfl
@@ -425,7 +425,7 @@ theorem nativePNTSignedK2FactorFourPairMass_eq_oddOdd_add_primeTwo
       have hk1 := (Finset.mem_Icc.mp hkI).1
       have hpair := nativePNTSignedK2RecipFubiniAtom_two_sameProduct
         mk.1 mk.2 hmodd hk1
-      simpa [Nat.mul_comm, add_comm] using hpair
+      simpa [Nat.mul_comm, add_comm] using! hpair
 
 /-- The original factor-four interval inherits the exact prime-two fold. -/
 theorem nativePNTSignedK2RecipInterval_four_eq_oddOdd_add_primeTwo

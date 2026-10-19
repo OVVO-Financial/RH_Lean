@@ -149,7 +149,7 @@ theorem weighted_correlationPair_eq_eulerParent_add_defect_add_mismatch
     apply mem_squareRootCanonicalRoughFreshPrimeParentsOn.mpr
     simp [hc, hfresh]
   unfold squareRootCanonicalRoughAdaptiveNextCoefficient
-  rw [if_pos hparent]
+  rw [ite_eq_left hparent]
   calc
     a c * squareRootCanonicalRoughCorrelationReciprocalSummand R c +
         a (c * p) *
@@ -237,7 +237,7 @@ theorem adaptiveWeightedMass_eq_next_add_physicalDefect_add_mismatch
     unfold squareRootCanonicalRoughAdaptiveWeightedMass
     have hs := Finset.sum_sdiff hpairedSubset
       (f := fun n => a n * squareRootCanonicalRoughCorrelationReciprocalSummand R n)
-    simpa [squareRootCanonicalRoughFreshPrimeSurvivorsOn, add_comm] using hs.symm
+    simpa [squareRootCanonicalRoughFreshPrimeSurvivorsOn, add_comm] using! hs.symm
   rw [hsplit, sum_weighted_freshPrimePairedOn_eq_pairs R U a hp]
   have hpair :
       (∑ c ∈ squareRootCanonicalRoughFreshPrimeParentsOn p U,

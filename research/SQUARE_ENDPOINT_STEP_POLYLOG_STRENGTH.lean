@@ -184,7 +184,7 @@ theorem lowerMertensCriticalEnvelope_doubleExponential_of_amplification
   refine ⟨2 * A + 8, by linarith, ?_⟩
   intro j
   induction j with
-  | zero => simpa using lowerMertensCriticalEnvelope_two_one_kernel
+  | zero => simpa using! lowerMertensCriticalEnvelope_two_one_kernel
   | succ j ih =>
       have hR : 2 ≤ 2 ^ 2 ^ j := by
         have hj : 1 ≤ 2 ^ j := Nat.one_le_two_pow

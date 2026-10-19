@@ -70,7 +70,7 @@ theorem vfMid915PrefixSurvivor_prime_iff
   · rintro ⟨hprev, hnpd⟩ q hq
     have hqdata := mem_primesUpTo.mp hq
     by_cases hqp : q = p
-    · simpa [hqp] using hnpd
+    · simpa [hqp] using! hnpd
     · apply hprev q
       exact mem_primesUpTo.mpr ⟨hqdata.1, by omega⟩
 

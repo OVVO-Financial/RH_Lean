@@ -96,7 +96,7 @@ theorem primeSieveDyadicPacketIntervalLevelRelativeEnvelope_nonneg
       | succ depth =>
           rw [primeSieveDyadicPacketIntervalLevelRelativeEnvelope_zero_succ]
           by_cases hsplit : a + 1 < b
-          · simp only [hsplit, if_true]
+          · simp only [hsplit, ite_true]
             exact primeSieveDyadicPacketRelativeResidual_nonneg _ _ _ _ _
           · simp [hsplit]
   | succ level ih =>
@@ -105,7 +105,7 @@ theorem primeSieveDyadicPacketIntervalLevelRelativeEnvelope_nonneg
       | succ depth =>
           rw [primeSieveDyadicPacketIntervalLevelRelativeEnvelope_succ_succ]
           by_cases hsplit : a + 1 < b
-          · simp only [hsplit, if_true]
+          · simp only [hsplit, ite_true]
             let m := dyadicPacketMidpoint a b
             exact (ih depth a m).trans (le_max_left _ _)
           · simp [hsplit]
@@ -132,7 +132,7 @@ theorem primeSieveDyadicPacketIntervalDeepRelativeEnvelope_eq_max_level_succ
               primeSieveDyadicPacketIntervalRelativeEnvelope_succ,
               primeSieveDyadicPacketIntervalLevelRelativeEnvelope_zero_succ,
               primeSieveDyadicPacketIntervalDeepRelativeEnvelope_succ]
-            simp only [hsplit, if_true]
+            simp only [hsplit, ite_true]
             simp [primeSieveDyadicPacketIntervalDeepRelativeEnvelope_cutoff_zero]
           · simp [primeSieveDyadicPacketIntervalDeepRelativeEnvelope_cutoff_zero,
               primeSieveDyadicPacketIntervalRelativeEnvelope_succ,
@@ -147,7 +147,7 @@ theorem primeSieveDyadicPacketIntervalDeepRelativeEnvelope_eq_max_level_succ
           · rw [primeSieveDyadicPacketIntervalDeepRelativeEnvelope_succ,
               primeSieveDyadicPacketIntervalLevelRelativeEnvelope_succ_succ,
               primeSieveDyadicPacketIntervalDeepRelativeEnvelope_succ]
-            simp only [hsplit, if_true]
+            simp only [hsplit, ite_true]
             let m := dyadicPacketMidpoint a b
             rw [ih depth a m, ih depth m b]
             simp only [m, max_assoc, max_left_comm, max_comm]

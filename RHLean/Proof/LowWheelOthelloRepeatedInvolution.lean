@@ -79,12 +79,12 @@ theorem lowWheelOthelloParentToggleAt_involutive
   have hk :
       lowWheelOthelloDowncrossPivot y * lowWheelOthelloDowncrossTail y =
         y.2.2 := by
-    simpa [lowWheelOthelloDowncrossPivot, lowWheelOthelloDowncrossTail] using
+    simpa [lowWheelOthelloDowncrossPivot, lowWheelOthelloDowncrossTail] using!
       Nat.mul_div_cancel' hpk
   have hk'' :
       lowWheelOthelloDowncrossPivot y'' * lowWheelOthelloDowncrossTail y'' =
         y''.2.2 := by
-    simpa [lowWheelOthelloDowncrossPivot, lowWheelOthelloDowncrossTail] using
+    simpa [lowWheelOthelloDowncrossPivot, lowWheelOthelloDowncrossTail] using!
       Nat.mul_div_cancel' hpk''
   have hquotient : y''.2.2 = y.2.2 := by
     calc
@@ -105,7 +105,7 @@ theorem lowWheelOthelloRepeatedOppositeMate_mem
   have hyCarrier := (Finset.mem_filter.mp hy).1
   unfold lowWheelOthelloRepeatedOppositeMate
   by_cases h : (lowWheelOthelloMovablePrimeSet R y).Nonempty
-  · rw [dif_pos h]
+  · rw [dite_eq_left h]
     let q := lowWheelOthelloOppositePrime R y
     have hq : LowWheelOthelloMovablePrime y q :=
       (lowWheelOthelloOppositePrime_data h).2
@@ -120,7 +120,7 @@ theorem lowWheelOthelloRepeatedOppositeMate_mem
     have hyEq : y = lowWheelOthelloParentToggleAt q y :=
       hunique y hyCarrier hparent.symm
     exact hne hyEq.symm
-  · rw [dif_neg h]
+  · rw [dite_eq_right h]
     exact hy
 
 /-- The total repeated-parent opposite mate is involutive. -/
@@ -132,7 +132,7 @@ theorem lowWheelOthelloRepeatedOppositeMate_involutive
   have hyCarrier := (Finset.mem_filter.mp hy).1
   unfold lowWheelOthelloRepeatedOppositeMate
   by_cases h : (lowWheelOthelloMovablePrimeSet R y).Nonempty
-  · rw [dif_pos h]
+  · rw [dite_eq_left h]
     let q := lowWheelOthelloOppositePrime R y
     have hq : LowWheelOthelloMovablePrime y q :=
       (lowWheelOthelloOppositePrime_data h).2
@@ -142,11 +142,11 @@ theorem lowWheelOthelloRepeatedOppositeMate_involutive
           (lowWheelOthelloParentToggleAt q y)).Nonempty := by
       rw [hset]
       exact h
-    rw [dif_pos htarget]
+    rw [dite_eq_left htarget]
     have hqSame := lowWheelOthelloOppositePrime_parentToggleAt hyCarrier hq
     rw [hqSame]
     exact lowWheelOthelloParentToggleAt_involutive hyCarrier hq
-  · rw [dif_neg h, dif_neg h]
+  · rw [dite_eq_right h, dite_eq_right h]
 
 /-- Every moved opposite edge reverses the tagged weight. -/
 theorem lowWheelOthelloRepeatedOppositeMate_weight_neg
@@ -157,10 +157,10 @@ theorem lowWheelOthelloRepeatedOppositeMate_weight_neg
       -lowWheelOthelloWeight y := by
   unfold lowWheelOthelloRepeatedOppositeMate at hne ⊢
   by_cases h : (lowWheelOthelloMovablePrimeSet R y).Nonempty
-  · rw [dif_pos h] at hne ⊢
+  · rw [dite_eq_left h] at hne ⊢
     exact lowWheelOthelloParentToggleAt_weight_neg
       (lowWheelOthelloOppositePrime_data h).2
-  · rw [dif_neg h] at hne
+  · rw [dite_eq_right h] at hne
     exact (hne rfl).elim
 
 /-- No movable prime exists exactly at the frozen first-crossing shape. -/
@@ -205,7 +205,7 @@ theorem finiteOthelloStablePart_lowWheelOthelloRepeated_eq_frozen
     have hnone : ¬ (lowWheelOthelloMovablePrimeSet R y).Nonempty := by
       intro h
       unfold lowWheelOthelloRepeatedOppositeMate at hfix
-      rw [dif_pos h] at hfix
+      rw [dite_eq_left h] at hfix
       exact lowWheelOthelloParentToggleAt_ne
         (lowWheelOthelloOppositePrime_data h).2 hfix
     exact Finset.mem_filter.mpr
@@ -219,7 +219,7 @@ theorem finiteOthelloStablePart_lowWheelOthelloRepeated_eq_frozen
     have hnone :=
       (lowWheelOthelloMovablePrimeSet_not_nonempty_iff_frozen hyCarrier).2 hfrozen
     unfold lowWheelOthelloRepeatedOppositeMate
-    rw [dif_neg hnone]
+    rw [dite_eq_right hnone]
 
 /-- Signed repeated-parent mass. -/
 def lowWheelOthelloRepeatedLedger (R : ℕ) : ℂ :=

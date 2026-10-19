@@ -121,7 +121,7 @@ theorem postCrossingPrimeOwnerReciprocalSquareBudgetReal_le_inv
         (((1 / (K : ℚ) : ℚ)) : ℝ) := by
     exact_mod_cast hQ
   push_cast at hcast
-  simpa [Nat.cast_pow] using hcast
+  simpa [Nat.cast_pow] using! hcast
 
 /-- Fixed-coefficient reciprocal energy carried by all greatest-owner children
 whose owner lies strictly above `K`. -/

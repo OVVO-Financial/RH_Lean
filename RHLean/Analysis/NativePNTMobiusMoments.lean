@@ -82,7 +82,7 @@ theorem nativeMobiusRecipHarmonic_eq_one
           have hmpos : 0 < m := by omega
           have hmulpos : 0 < d * m := Nat.mul_pos hdpos hmpos
           have hmulN' : m * d ≤ N := (Nat.le_div_iff_mul_le hdpos).1 hmN
-          have hmulN : d * m ≤ N := by simpa [Nat.mul_comm] using hmulN'
+          have hmulN : d * m ≤ N := by simpa [Nat.mul_comm] using! hmulN'
           exact ⟨⟨Nat.one_le_iff_ne_zero.mpr (Nat.ne_of_gt hmulpos), hmulN⟩,
             dvd_mul_right d m⟩
       rw [hmap, Finset.sum_image]
@@ -161,12 +161,12 @@ theorem nativeHarmonicLogError_bounds
   have hupperGamma := Real.eulerMascheroniConstant_lt_eulerMascheroniSeq' q
   have hlowerGamma := Real.eulerMascheroniSeq_lt_eulerMascheroniConstant q
   have hq0 : q ≠ 0 := Nat.one_le_iff_ne_zero.mp hq
-  simp only [Real.eulerMascheroniSeq', hq0, if_false] at hupperGamma
+  simp only [Real.eulerMascheroniSeq', hq0, ite_false] at hupperGamma
   simp only [Real.eulerMascheroniSeq] at hlowerGamma
   have hinc := nativeLogSucc_sub_log_le_inv q hq
   have hinc' :
       Real.log ((q : ℝ) + 1) - Real.log (q : ℝ) ≤ 1 / (q : ℝ) := by
-    simpa [Nat.cast_add, Nat.cast_one] using hinc
+    simpa [Nat.cast_add, Nat.cast_one] using! hinc
   unfold nativeHarmonicLogError
   constructor
   · linarith
@@ -191,7 +191,7 @@ private theorem nativeReciprocalDivisorProduct_le_two_over
   have hq1 : 1 ≤ N / d := (Nat.one_le_div_iff hdpos).2 hdN
   have hrem : N % d < d := Nat.mod_lt N hdpos
   have hdle : d ≤ d * (N / d) := by
-    simpa using Nat.mul_le_mul_left d hq1
+    simpa using! Nat.mul_le_mul_left d hq1
   have hremle : N % d ≤ d * (N / d) :=
     (Nat.le_of_lt hrem).trans hdle
   have hdecomp := Nat.mod_add_div N d

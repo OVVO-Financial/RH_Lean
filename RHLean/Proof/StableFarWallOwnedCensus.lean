@@ -48,8 +48,8 @@ theorem lowWheelCanonicalRepeatedFrozen_mem_orderedEulerCutCarrier
   intro r hr
   rw [hparent] at hr
   have hrData := Nat.mem_primeFactors.mp hr
-  have hrDvd : r ∣ y.1.prod id := by simpa [primeFaceProduct] using hrData.2.1
-  rcases (Prime.dvd_finset_prod_iff hrData.1.prime id).mp hrDvd with ⟨s, hs, hrs⟩
+  have hrDvd : r ∣ y.1.prod id := by simpa [primeFaceProduct] using! hrData.2.1
+  rcases (Prime.dvd_finsetProd_iff hrData.1.prime id).mp hrDvd with ⟨s, hs, hrs⟩
   have hsPrime := prime_of_mem_primesUpTo ((Finset.mem_powerset.mp ht) hs)
   have heq : r = s := (Nat.prime_dvd_prime_iff_eq hrData.1 hsPrime).mp hrs
   subst r
@@ -184,8 +184,8 @@ theorem lowWheelFarPrimeUnitProducts_disjoint_owned (R : ℕ) :
   have hfac : canonicalLargestPrimeFactor p = p := by
     have h := canonicalLargestPrimeFactor_mul_prime_eq_of_rough
       (by norm_num : 0 < (1 : ℕ)) hd.1 (by
-        simpa [canonicalLargestPrimeFactor] using hd.1.one_lt)
-    simpa using h
+        simpa [canonicalLargestPrimeFactor] using! hd.1.one_lt)
+    simpa using! h
   rw [hfac] at hl
   omega
 
@@ -358,7 +358,7 @@ theorem lowWheelFarPrimeUnitProduct_has_crossingOwner
     omega
   have hqXp : q * p ≤ squareRootEndpoint R := by
     apply (Nat.le_div_iff_mul_le hpPrime.pos).1
-    simpa [n] using hqN
+    simpa [n] using! hqN
   have hRpos : 0 < R := by
     by_contra hnot
     have hR0 : R = 0 := by omega
@@ -368,7 +368,7 @@ theorem lowWheelFarPrimeUnitProduct_has_crossingOwner
   have hXltR2 : squareRootEndpoint R < R * R := by
     unfold squareRootEndpoint
     have hne : R ^ 2 ≠ 0 := pow_ne_zero 2 (Nat.ne_of_gt hRpos)
-    simpa [pow_two] using Nat.pred_lt hne
+    simpa [pow_two] using! Nat.pred_lt hne
   have hRp : R ≤ p := by omega
   have hXltRp : squareRootEndpoint R < R * p :=
     hXltR2.trans_le (Nat.mul_le_mul_left R hRp)
@@ -384,7 +384,7 @@ theorem lowWheelFarPrimeUnitProduct_has_crossingOwner
   have hnltqq : n < q * q := hnlt2q.trans_le h2qleqq
   have hcross : squareRootEndpoint R < (q * q) * p := by
     apply (Nat.div_lt_iff_lt_mul hpPrime.pos).1
-    simpa [n] using hnltqq
+    simpa [n] using! hnltqq
   have htriple : (q,(1,p)) ∈ lowWheelFarPrimeLowCofactorTriples R := by
     apply lowWheelFarPrimeLowCofactorTriple_mem_of_data
     · exact hqPrime
@@ -393,12 +393,12 @@ theorem lowWheelFarPrimeUnitProduct_has_crossingOwner
     · exact hpPrime
     · exact hpFar
     · norm_num
-    · simpa [canonicalLargestPrimeFactor] using hqPrime.one_lt
-    · simpa using hqXp
+    · simpa [canonicalLargestPrimeFactor] using! hqPrime.one_lt
+    · simpa using! hqXp
   have hcrossTriple : (q,(1,p)) ∈ lowWheelFarPrimeQ2CrossingTriples R := by
     apply Finset.mem_filter.mpr
     refine ⟨htriple, ?_⟩
-    simpa [Nat.mul_assoc] using hcross
+    simpa [Nat.mul_assoc] using! hcross
   refine ⟨q, Finset.mem_image.mpr ⟨(q,(1,p)), hcrossTriple, ?_⟩⟩
   simp [lowWheelFarPrimeProductKey]
 
@@ -473,7 +473,7 @@ theorem lowWheelFarWallCrossingMultiplicity_eq_zero_of_owned
   rcases Finset.mem_filter.mp hx with ⟨hxCross, hxn⟩
   have hnot := lowWheelFarPrimeCrossingProduct_not_owned hxCross
   apply hnot
-  simpa [hxn] using hn
+  simpa [hxn] using! hn
 
 /-- Integer multiplicity left after deleting one genuine crossing occurrence
 for every cancellable unit prime.  The preceding existence theorem guarantees

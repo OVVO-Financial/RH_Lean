@@ -223,7 +223,7 @@ theorem post789SignedRemainder_finiteRange_two_q2_add_rootEnvelope
       (8 * (N : ℝ) ^ 2) * (R : ℝ) ^ 2 ≤
         (8 * (N : ℝ) ^ 2) * (R : ℝ) ^ 2 * K := by
     have hmul := mul_le_mul_of_nonneg_left hK1 hcoef
-    simpa using hmul
+    simpa using! hmul
   nlinarith [hstep, hscale]
 
 /-- Finite-horizon FinalStokes form at the sharpened coefficient `9/4`. -/
@@ -261,7 +261,7 @@ theorem finalStokes_finiteRange_nineQuarters_q2_add_rootEnvelope
       (8 * (N : ℝ) ^ 2) * (R : ℝ) ^ 2 ≤
         (8 * (N : ℝ) ^ 2) * (R : ℝ) ^ 2 * K := by
     have hmul := mul_le_mul_of_nonneg_left hK1 hcoef
-    simpa using hmul
+    simpa using! hmul
   nlinarith [hstep, hscale]
 
 end RHLean.Proof

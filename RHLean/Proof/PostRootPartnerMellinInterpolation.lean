@@ -92,7 +92,7 @@ theorem squareRootCanonicalRoughRawPair_add_eq_boundaryCharge
     squareRootCanonicalRoughRawCorrelationSummand R c +
         squareRootCanonicalRoughRawCorrelationSummand R (c * p) =
       squareRootCanonicalRoughRawPairBoundaryCharge R c p := by
-  simpa [squareRootCanonicalRoughRawPairBoundaryCharge] using
+  simpa [squareRootCanonicalRoughRawPairBoundaryCharge] using!
     squareRootCanonicalRoughRawCorrelationSummand_add_mul_freshPrime
       hR hc hp hfresh
 
@@ -154,8 +154,8 @@ theorem weightedRawPair_ratio_one_eq_boundary
       w c * squareRootCanonicalRoughRawPairBoundaryCharge R c p := by
   have h :=
     weightedRawPair_eq_one_sub_ratio_parent_add_ratio_boundary
-      w (1 : ℂ) hR hc hp hfresh (by simpa using hscale)
-  simpa using h
+      w (1 : ℂ) hR hc hp hfresh (by simpa using! hscale)
+  simpa using! h
 
 /-- Mellin-weighted form of the evolved coefficient-mismatch ledger. -/
 def squareRootCanonicalRoughEvolvedMellinMismatchMass
@@ -195,7 +195,7 @@ theorem squareRootCanonicalRoughEvolvedMellinMismatchMass_eq_zero_of_completeDes
     have hqProd : q ≤ q * (c * p) := Nat.le_mul_of_pos_right q hcpPos
     have hqUpper : q ≤ squareRootEndpoint R := by
       have hqProd' : q ≤ (c * p) * q := by
-        simpa [Nat.mul_comm] using hqProd
+        simpa [Nat.mul_comm] using! hqProd
       exact hqProd'.trans hupper
     rcases hcomplete.2 q hqPrime hpq hqUpper with
       ⟨pre, post, hsplit, hprePrime, hpreLarger⟩

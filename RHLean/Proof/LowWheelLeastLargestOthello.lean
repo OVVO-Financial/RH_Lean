@@ -91,7 +91,7 @@ theorem lowWheelLargestCofactorQuotientPivot_prime
     (hne : x.1 * x.2 ≠ 1) :
     (lowWheelLargestCofactorQuotientPivot x).Prime := by
   have hgt := lowWheelPhysicalState_product_gt_one_of_ne ht hx hne
-  simpa [lowWheelLargestCofactorQuotientPivot] using
+  simpa [lowWheelLargestCofactorQuotientPivot] using!
     canonicalLargestPrimeFactor_prime hgt
 
 /-- Largest pivot is active in either cofactor or quotient. -/
@@ -105,7 +105,7 @@ theorem lowWheelLargestCofactorQuotientPivot_active
   have hgt := lowWheelPhysicalState_product_gt_one_of_ne ht hx hne
   have hp := lowWheelLargestCofactorQuotientPivot_prime ht hx hne
   have hdvd : lowWheelLargestCofactorQuotientPivot x ∣ x.1 * x.2 := by
-    simpa [lowWheelLargestCofactorQuotientPivot] using
+    simpa [lowWheelLargestCofactorQuotientPivot] using!
       canonicalLargestPrimeFactor_dvd hgt
   exact hp.dvd_mul.mp hdvd
 
@@ -242,7 +242,7 @@ theorem lowWheelLeastOthelloMate_weight_neg
   · simp only [hprod] at hne ⊢
     by_cases hmate : lowWheelCanonicalCofactorQuotientToggle x ∈
         lowWheelCanonicalPhysicalStateSet R t
-    · simp only [hmate, if_true]
+    · simp only [hmate, ite_true]
       exact lowWheelCanonicalCofactorQuotientToggle_weight_neg
         (lowWheelCanonicalPhysicalStateSet_squarefree x hx) hprod
     · simp [hmate] at hne
@@ -262,7 +262,7 @@ theorem lowWheelLargestOthelloMate_weight_neg
   · simp only [hprod] at hne ⊢
     by_cases hmate : lowWheelLargestCofactorQuotientToggle x ∈
         lowWheelCanonicalPhysicalStateSet R t
-    · simp only [hmate, if_true]
+    · simp only [hmate, ite_true]
       exact lowWheelLargestCofactorQuotientToggle_weight_neg ht hx hprod
     · simp [hmate] at hne
 

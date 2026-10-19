@@ -206,15 +206,15 @@ theorem physicalLeastOddSquarePrime_eq_five_iff_mod (k : ℕ) :
   · rintro ⟨h5, h3⟩
     rw [physicalTwentyFiveChannelResidues, Finset.mem_filter]
     refine ⟨Finset.mem_range.mpr (Nat.mod_lt _ (by norm_num)), ?_⟩
-    simpa [h25, h9] using (show
+    simpa [h25, h9] using! (show
       k % 25 ∈ physicalTwentyFiveHitResidues ∧
         k % 9 ∉ physicalNineChannelResidues from ⟨h5, h3⟩)
   · intro h
     rw [physicalTwentyFiveChannelResidues, Finset.mem_filter] at h
     rcases h with ⟨_, h5, h3⟩
     constructor
-    · simpa [h25] using h5
-    · simpa [h9] using h3
+    · simpa [h25] using! h5
+    · simpa [h9] using! h3
 
 /-- CRT form of the least-`7` mask, with period `11025`. -/
 theorem physicalLeastOddSquarePrime_eq_seven_iff_mod (k : ℕ) :
@@ -234,7 +234,7 @@ theorem physicalLeastOddSquarePrime_eq_seven_iff_mod (k : ℕ) :
   · rintro ⟨h7, h5, h3⟩
     rw [physicalFortyNineChannelResidues, Finset.mem_filter]
     refine ⟨Finset.mem_range.mpr (Nat.mod_lt _ (by norm_num)), ?_⟩
-    simpa [h49, h25, h9] using (show
+    simpa [h49, h25, h9] using! (show
       k % 49 ∈ physicalFortyNineHitResidues ∧
         k % 25 ∉ physicalTwentyFiveHitResidues ∧
         k % 9 ∉ physicalNineChannelResidues from ⟨h7, h5, h3⟩)
@@ -242,10 +242,10 @@ theorem physicalLeastOddSquarePrime_eq_seven_iff_mod (k : ℕ) :
     rw [physicalFortyNineChannelResidues, Finset.mem_filter] at h
     rcases h with ⟨_, h7, h5, h3⟩
     constructor
-    · simpa [h49] using h7
+    · simpa [h49] using! h7
     · constructor
-      · simpa [h25] using h5
-      · simpa [h9] using h3
+      · simpa [h25] using! h5
+      · simpa [h9] using! h3
 
 /-- Exact residue-mask form of the `5^2` least channel. -/
 theorem physicalD25_eq_residueSum (K : ℕ) :
@@ -326,7 +326,7 @@ theorem physicalD25_225_step_fourSlot_recurrence (L : ℕ) :
   rw [physicalD25_225_step_recurrence]
   apply Finset.sum_congr rfl
   intro r hr
-  simpa using physicalDefectEdgeValue_eq_fourSlotCellSum (225 * L + r)
+  simpa using! physicalDefectEdgeValue_eq_fourSlotCellSum (225 * L + r)
 
 /-- **Exact `7^2` recurrence.**  One full `11025`-edge CRT period is the signed
 sum over the fixed least-`7` mask. -/
@@ -370,6 +370,6 @@ theorem physicalD49_11025_step_fourSlot_recurrence (L : ℕ) :
   rw [physicalD49_11025_step_recurrence]
   apply Finset.sum_congr rfl
   intro r hr
-  simpa using physicalDefectEdgeValue_eq_fourSlotCellSum (11025 * L + r)
+  simpa using! physicalDefectEdgeValue_eq_fourSlotCellSum (11025 * L + r)
 
 end RHLean.Analysis

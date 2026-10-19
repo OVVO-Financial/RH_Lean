@@ -79,7 +79,7 @@ theorem vfMid915_middleFull_2q_exists
     B < q ∧ 2 * q ≤ B ^ 2 := by
   have hdouble : q * 2 ≤ B ^ 2 :=
     (Nat.le_div_iff_mul_le (by norm_num : 0 < (2 : ℕ))).mp hhalf
-  exact ⟨hroot, by simpa [Nat.mul_comm] using hdouble⟩
+  exact ⟨hroot, by simpa [Nat.mul_comm] using! hdouble⟩
 
 /-- Above X/3 but below X/2, the ONLY proper integer multiple <=X
 is 2*q. In the native odd-seat carrier this entire middle slice
@@ -140,11 +140,11 @@ theorem vfMid915_boundedWindow_lowWheel_iff_prime
       simp [hqone] at hqB
     let p := q.minFac
     have hpprime : p.Prime := by
-      simpa [p] using Nat.minFac_prime hqone
+      simpa [p] using! Nat.minFac_prime hqone
     have hpdvd : p ∣ q := by
-      simpa [p] using Nat.minFac_dvd q
+      simpa [p] using! Nat.minFac_dvd q
     have hpsq : p ^ 2 ≤ q := by
-      simpa [p] using Nat.minFac_sq_le_self hqpos hcomp
+      simpa [p] using! Nat.minFac_sq_le_self hqpos hcomp
     have hpB : p ≤ B := by
       by_contra hnot
       have hpLarge : B + 1 ≤ p := by omega
@@ -209,7 +209,7 @@ theorem vfMid915_currentSquareSite_is_aboveHalf
     {R q : ℕ} (hR : 2 ≤ R) (hq : R ^ 2 < q) :
     (R + 1) ^ 2 < 2 * q := by
   have h2R : 2 * R ≤ R * R := by
-    simpa [Nat.mul_comm] using Nat.mul_le_mul_left R hR
+    simpa [Nat.mul_comm] using! Nat.mul_le_mul_left R hR
   have hqnat : R ^ 2 + 1 ≤ q := by omega
   have htwice := Nat.mul_le_mul_left 2 hqnat
   nlinarith
@@ -222,7 +222,7 @@ theorem vfMid915_middlePrimeFactor_precedes_currentSquare
     (hq : q ≤ (R + 1) ^ 2 / 2) :
     q < R ^ 2 := by
   have h3R : 3 * R ≤ R * R := by
-    simpa [Nat.mul_comm] using Nat.mul_le_mul_left R hR
+    simpa [Nat.mul_comm] using! Nat.mul_le_mul_left R hR
   have hdouble : q * 2 ≤ (R + 1) ^ 2 :=
     (Nat.le_div_iff_mul_le (by norm_num : 0 < (2 : ℕ))).mp hq
   nlinarith

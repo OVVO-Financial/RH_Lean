@@ -108,7 +108,7 @@ theorem survivorSixteenFarUpperPrimeMass_pred_eq_neg_farTransport
   have h := survivorSixteenFarUpperPrimeMass_eq_neg_mertensTransform
     (R - 1) ht
   unfold squareRootFarPrimeTransport
-  simpa [hpred, hend] using h
+  simpa [hpred, hend] using! h
 
 /-- Exact cross-region recombination: all but the bounded root strip of the
 transport is already present with the opposite sign in the far-upper survivor. -/
@@ -142,7 +142,7 @@ private theorem norm_nearPrimeTransportTerm_le
         RHLean.Analysis.mertensSummatory (squareRootEndpoint R / q)
       else 0‖ ≤ (R : ℝ) := by
   by_cases hqPrime : q.Prime
-  · simp only [hqPrime, if_true]
+  · simp only [hqPrime, ite_true]
     have hBlt : squareRootEndpoint R / q < R :=
       squareRootEndpoint_div_lt hR hRq hqPrime.pos
     have hm := RHLean.Analysis.norm_mertensSummatory_sub_le
@@ -275,7 +275,7 @@ theorem squareRootNearPrimeTransport_logSq_div_RSq_tendsto_zero :
   have hupper :
       Tendsto (fun R : ℕ => 7 * ((Real.log (R : ℝ)) ^ 2 / (R : ℝ)))
         atTop (𝓝 0) := by
-    simpa using (tendsto_const_nhds.mul log_sq_div_natCast_atTop :
+    simpa using! (tendsto_const_nhds.mul log_sq_div_natCast_atTop :
       Tendsto (fun R : ℕ =>
         (7 : ℝ) * ((Real.log (R : ℝ)) ^ 2 / (R : ℝ))) atTop (𝓝 (7 * 0)))
   refine squeeze_zero' ?_ ?_ hupper

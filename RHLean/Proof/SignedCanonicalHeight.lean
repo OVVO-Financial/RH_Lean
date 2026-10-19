@@ -123,7 +123,7 @@ def Admissible (n H u d : ℕ) : Prop :=
 theorem two_mul_le {n H u d : ℕ} (h : Admissible n H u d) : 2 * n ≤ 2 * u + d := by
   obtain ⟨-, hlo, -, -⟩ := h
   by_contra hcon
-  push_neg at hcon
+  push Not at hcon
   have hsq : 4 * (u * (u + d)) ≤ (2 * u + d) ^ 2 := by nlinarith
   nlinarith
 
@@ -167,7 +167,7 @@ theorem card_le {n H : ℕ} (hn : 1 ≤ n) (S : Finset (ℕ × ℕ))
     have h1 : Admissible n H p.1 p'.2 := by rw [← hEq]; exact hS p hp
     exact Prod.ext (u_unique h1 (hS p' hp')) hEq
   have := Finset.card_le_card_of_injOn (fun p : ℕ × ℕ => p.2) hmap hinj
-  simpa using this
+  simpa using! this
 
 /-! ## The low-band energy consequence -/
 

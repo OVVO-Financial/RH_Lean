@@ -75,7 +75,7 @@ theorem abs_realCanonicalTotalIncrement_le (j : ℕ) :
   calc
     |∑ m ∈ canonicalSquareBlock j, realCanonicalMoebiusWeight m| ≤
         ∑ m ∈ canonicalSquareBlock j, |realCanonicalMoebiusWeight m| := by
-      simpa only [Real.norm_eq_abs] using
+      simpa only [Real.norm_eq_abs] using!
         (norm_sum_le (canonicalSquareBlock j) realCanonicalMoebiusWeight)
     _ ≤ ∑ _m ∈ canonicalSquareBlock j, (1 : ℝ) := by
       exact Finset.sum_le_sum fun m _ => abs_realCanonicalMoebiusWeight_le_one m

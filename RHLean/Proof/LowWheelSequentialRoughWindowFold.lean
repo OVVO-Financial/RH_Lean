@@ -44,13 +44,13 @@ theorem freshPrime_not_dvd_pred_primeFaceProduct
   intro hdiv
   have htSub := Finset.mem_powerset.mp ht
   have hdiv' : p ∣ t.prod id := by
-    simpa [primeFaceProduct] using hdiv
-  rcases (Prime.dvd_finset_prod_iff hp.prime id).mp hdiv' with
+    simpa [primeFaceProduct] using! hdiv
+  rcases (Prime.dvd_finsetProd_iff hp.prime id).mp hdiv' with
     ⟨r, hrt, hpr⟩
   have hrData := mem_primesUpTo.mp (htSub hrt)
   have hprEq : p = r :=
     (Nat.prime_dvd_prime_iff_eq hp hrData.1).mp hpr
-  have hle : p ≤ p - 1 := by simpa [hprEq] using hrData.2
+  have hle : p ≤ p - 1 := by simpa [hprEq] using! hrData.2
   have hlt : p - 1 < p := Nat.sub_lt hp.pos (by norm_num)
   exact (Nat.not_lt_of_ge hle) hlt
 
@@ -116,7 +116,7 @@ theorem card_lowWheelPrimeWindowFreeMultiplier_eq_faceDivisor
       exact dvd_mul_of_dvd_right hpk' (primeFaceProduct t)
     refine ⟨k, mem_lowWheelPrimeWindowFreeMultiplierSet.mpr
       ⟨mem_lowWheelPrimeWindowMultiplierSet.mpr
-        ⟨hk1, hkX, by simpa [hcancel] using hwindow⟩, hpk⟩, hcancel⟩
+        ⟨hk1, hkX, by simpa [hcancel] using! hwindow⟩, hpk⟩, hcancel⟩
 
 /-- Survivor population in one reciprocal window after all prime coordinates
 through `p` have been processed. -/
@@ -162,7 +162,7 @@ theorem lowWheelPredFaceDivisorSum_eq_survivorIndicator
   · have hstep := lowWheelHighSurvivor_prime_iff_pred_and_not_dvd
       (p := p) (q := q) hp
     have hiff : lowWheelHighSurvivor p q ↔ lowWheelHighSurvivor (p - 1) q := by
-      simpa [hpq] using hstep
+      simpa [hpq] using! hstep
     calc
       (∑ t ∈ (primesUpTo (p - 1)).powerset,
           if ¬ p ∣ q ∧ primeFaceProduct t ∣ q then

@@ -146,17 +146,17 @@ theorem deepDefect_sourceIndex_eq_canonicalSeed
   have hts : t = s := by
     apply Prod.ext
     · apply Fin.ext
-      simpa [sourcePrime] using htq.trans hsq.symm
+      simpa [sourcePrime] using! htq.trans hsq.symm
     · apply Fin.ext
-      simpa [sourceCore] using htc.trans hsc.symm
+      simpa [sourceCore] using! htc.trans hsc.symm
   subst t
   refine ⟨s, ⟨hs, hsq, hsc, hweight⟩, ?_⟩
   intro u hu
   apply Prod.ext
   · apply Fin.ext
-    simpa [sourcePrime] using hu.2.1.trans hsq.symm
+    simpa [sourcePrime] using! hu.2.1.trans hsq.symm
   · apply Fin.ext
-    simpa [sourceCore] using hu.2.2.1.trans hsc.symm
+    simpa [sourceCore] using! hu.2.2.1.trans hsc.symm
 
 /-- Deep Go seeds, now literally a subset of the canonical saturated seed
 carrier rather than a separately added physical ledger. -/
@@ -262,7 +262,7 @@ theorem roughPrefixPartners_are_already_existing_population (R : ℕ) :
       have hyData := Finset.mem_filter.mp hyA
       apply Finset.mem_image.mpr
       refine ⟨y, Finset.mem_filter.mpr ⟨hyData.1, ?_⟩, rfl⟩
-      simpa [hyData.2] using hA
+      simpa [hyData.2] using! hA
     · intro hz
       rcases Finset.mem_image.mp hz with ⟨y, hy, rfl⟩
       have hyData := Finset.mem_filter.mp hy
@@ -567,8 +567,8 @@ theorem prime_unit_mem_stableFarWallCarrier
   constructor
   · exact lowWheelFarTaggedPhysicalStable_of_prime hR
       (Finset.mem_Ico.mpr ⟨by omega, by omega⟩) (by simp)
-      hq hfar hqX (by simpa using hqX)
-  · simpa [lowWheelTaggedHighProduct, primeFaceProduct] using
+      hq hfar hqX (by simpa using! hqX)
+  · simpa [lowWheelTaggedHighProduct, primeFaceProduct] using!
       farPrime_not_mem_combinedAccountedHighProducts hR hq hfar
 
 /-- **Outcome 6c is inhabited for every `R ≥ 56`.**  Bertrand supplies one
@@ -600,8 +600,8 @@ private theorem stableFar_highProduct_geometry
   have hR : 2 ≤ R := by omega
   have hgeom := lowWheelFarTaggedPhysicalStable_geometry hR hz
   exact ⟨hR, by simpa [lowWheelTaggedHighProduct, hgeom.1, primeFaceProduct]
-    using hgeom.2.2.1, by
-      simpa [lowWheelTaggedHighProduct, hgeom.1, primeFaceProduct] using hgeom.2.1⟩
+    using! hgeom.2.2.1, by
+      simpa [lowWheelTaggedHighProduct, hgeom.1, primeFaceProduct] using! hgeom.2.1⟩
 
 /-- Exact membership in the existing filter, with its far-prime geometry
 made explicit.  `lowWheelTaggedHighProduct` omits the low cofactor and equals

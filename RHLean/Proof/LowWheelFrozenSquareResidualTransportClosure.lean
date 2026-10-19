@@ -41,7 +41,7 @@ theorem lowWheelFrozenSecondContactSourceMass_eq_one_sub_smooth_sub_rootFloored
   have hcolumn := lowWheelFrozenSecondContactRootFlooredColumn_eq_goOrRoot R
   unfold lowWheelFrozenSquareResidualRootFlooredColumn
   rw [hcolumn]
-  simpa [lowWheelTaggedDowncrossWeight] using hsource
+  simpa [lowWheelTaggedDowncrossWeight] using! hsource
 
 /-- **Historical transport closure.**  The actual matching fixed-transport mass
 attached to represented source scales is exactly the old-root smooth mass plus

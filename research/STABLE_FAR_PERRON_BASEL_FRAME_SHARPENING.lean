@@ -124,7 +124,7 @@ theorem oddPrimeOwnerReciprocalSquareBudgetReal_le_twoTermBasel (N : ℕ) :
     exact_mod_cast hQ
   push_cast at hcast
   norm_num at hcast ⊢
-  simpa [Nat.cast_pow] using hcast
+  simpa [Nat.cast_pow] using! hcast
 
 /-- The Perron forward frame inherits the same improved reciprocal-square
 coefficient. -/

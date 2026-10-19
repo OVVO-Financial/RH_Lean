@@ -52,11 +52,11 @@ theorem vfMidThirtyCandidates_eq_prefixFive (R : ℕ) :
   · rintro ⟨hn, hcop⟩
     refine ⟨hn, ?_⟩
     apply (lowWheelHighSurvivor_iff_coprime_prefixWheel 5 n).2
-    simpa only [vfMidPrefixWheelModulus_five_eq_thirty] using hcop
+    simpa only [vfMidPrefixWheelModulus_five_eq_thirty] using! hcop
   · rintro ⟨hn, hsurv⟩
     refine ⟨hn, ?_⟩
     have hcop := (lowWheelHighSurvivor_iff_coprime_prefixWheel 5 n).1 hsurv
-    simpa only [vfMidPrefixWheelModulus_five_eq_thirty] using hcop
+    simpa only [vfMidPrefixWheelModulus_five_eq_thirty] using! hcop
 
 /-- Fixed 2,3,5 wheel is an exact 30-cycle with 8 admissible
 residue classes.  This equality is FINITE and unconditional. -/
@@ -202,7 +202,7 @@ theorem vfMidThirtyFactorCovered_mem_iff_not_fullWheel
       intro hsurv
       exact hnotFull (Finset.mem_filter.mpr ⟨hnSite, hsurv⟩)
     unfold lowWheelHighSurvivor at hnotSurv
-    push_neg at hnotSurv
+    push Not at hnotSurv
     obtain ⟨p, hpMem, hpDvd⟩ := hnotSurv
     have hpPrime : p.Prime := prime_of_mem_primesUpTo hpMem
     have hpLe : p ≤ R := (mem_primesUpTo.mp hpMem).2
@@ -532,7 +532,7 @@ theorem vfMidThirtyFirstLowerBreach_forces_factorRunOverrun
           (A : ℝ) * Real.log (A : ℝ)) := by
   unfold VFMidThirtyLowerFactorSafe at hbad
   unfold vfMidThirtyLowerHistoricalSlack
-  push_neg at hbad
+  push Not at hbad
   linarith
 
 /-- A first-bad LOWER wall in pure divisor-range coordinates FORCES the

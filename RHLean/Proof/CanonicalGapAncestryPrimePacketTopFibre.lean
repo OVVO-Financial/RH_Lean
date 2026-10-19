@@ -64,7 +64,7 @@ theorem sourceHighField_zero_eq_weight (B : ℕ) :
       exact mul_pos hgapR (add_pos_of_nonneg_of_pos (by positivity) hhiR)
     have hhigh :
         IsCanonicalHighHeight 0 (sourceClock B s) (sourceProduct s) := by
-      simpa [IsCanonicalHighHeight, IsCanonicalLowHeight] using
+      simpa [IsCanonicalHighHeight, IsCanonicalLowHeight] using!
         (not_le_of_gt hheight)
     simp [sourceHighField, sourceHighProjector, boundedSourceFlow, hhigh]
   · simp [sourceHighField, sourceHighProjector, boundedSourceFlow,
@@ -84,11 +84,11 @@ theorem sourceCore_eq_one_of_active_topQScale
     change 2 ^ Nat.log 2 (sourcePrime s) ≤ sourcePrime s
     exact Nat.pow_log_le_self 2 hadm.1.ne_zero
   have hqpow : 2 ^ sourceTopQScale x ≤ sourcePrime s := by
-    simpa [hscale] using hqpow0
+    simpa [hscale] using! hqpow0
   have hXlt :
       RHLean.Analysis.squarePrefixEndpoint x <
         2 ^ (sourceTopQScale x + 1) := by
-    simpa [sourceTopQScale, Nat.succ_eq_add_one] using
+    simpa [sourceTopQScale, Nat.succ_eq_add_one] using!
       (Nat.lt_pow_succ_log_self (by norm_num : 1 < (2 : ℕ))
         (RHLean.Analysis.squarePrefixEndpoint x))
   have hprodle :
@@ -96,7 +96,7 @@ theorem sourceCore_eq_one_of_active_topQScale
     (sourceClock_le_iff_sourceProduct_le_endpoint (x := x) s).1 hclock
   have hpowle : 2 ^ (sourceTopQScale x + 1) ≤ sourceProduct s := by
     change 2 ^ (sourceTopQScale x + 1) ≤ sourcePrime s * sourceCore s
-    simpa [pow_succ] using Nat.mul_le_mul hqpow hcore2
+    simpa [pow_succ] using! Nat.mul_le_mul hqpow hcore2
   omega
 
 /-- Active admissible sources in the top distinguished-prime scale. -/
@@ -179,13 +179,13 @@ theorem sourceHighTopQPacketPrefix_zero_eq_neg_sourceTopPrimeBandCard
         have hsdata :
             SourceAdmissible s ∧ sourceClock B s ≤ x ∧
               sourcePrimeDyadicScale s = sourceTopQScale x := by
-          simpa [activeSourceTopQSet] using hs
+          simpa [activeSourceTopQSet] using! hs
         have hcore := sourceCore_eq_one_of_active_topQScale
           s hsdata.1 hsdata.2.1 hsdata.2.2
         have hprod : sourceProduct s = sourcePrime s := by
           simp [sourceProduct, hcore]
         have hp : (sourceProduct s).Prime := by
-          simpa [hprod] using hsdata.1.1
+          simpa [hprod] using! hsdata.1.1
         have hupper :
             sourceProduct s ≤ RHLean.Analysis.squarePrefixEndpoint x :=
           (sourceClock_le_iff_sourceProduct_le_endpoint (x := x) s).1
@@ -196,7 +196,7 @@ theorem sourceHighTopQPacketPrefix_zero_eq_neg_sourceTopPrimeBandCard
           exact Nat.pow_log_le_self 2 hsdata.1.1.ne_zero
         have hlower : 2 ^ sourceTopQScale x ≤ sourceProduct s := by
           rw [hsdata.2.2] at hlower0
-          simpa [hprod] using hlower0
+          simpa [hprod] using! hlower0
         simp only [sourceTopPrimeBand, Finset.mem_filter, Finset.mem_Ico]
         exact ⟨⟨hlower, Nat.lt_succ_of_le hupper⟩, hp⟩
       · intro s₁ hs₁ s₂ hs₂ heq
@@ -204,20 +204,20 @@ theorem sourceHighTopQPacketPrefix_zero_eq_neg_sourceTopPrimeBandCard
           have h :
               SourceAdmissible s₁ ∧ sourceClock B s₁ ≤ x ∧
                 sourcePrimeDyadicScale s₁ = sourceTopQScale x := by
-            simpa [activeSourceTopQSet] using hs₁
+            simpa [activeSourceTopQSet] using! hs₁
           exact h.1
         have hs₂data : SourceAdmissible s₂ := by
           have h :
               SourceAdmissible s₂ ∧ sourceClock B s₂ ≤ x ∧
                 sourcePrimeDyadicScale s₂ = sourceTopQScale x := by
-            simpa [activeSourceTopQSet] using hs₂
+            simpa [activeSourceTopQSet] using! hs₂
           exact h.1
         exact sourceProduct_injective_on_admissible hs₁data hs₂data heq
       · intro p hp
         have hpdata :
             (2 ^ sourceTopQScale x ≤ p ∧
               p < RHLean.Analysis.squarePrefixEndpoint x + 1) ∧ p.Prime := by
-          simpa [sourceTopPrimeBand, Finset.mem_Ico] using hp
+          simpa [sourceTopPrimeBand, Finset.mem_Ico] using! hp
         have hpUpper : p ≤ RHLean.Analysis.squarePrefixEndpoint x :=
           Nat.lt_succ_iff.mp hpdata.1.2
         have hpB : p ≤ B := hpUpper.trans hB
@@ -236,20 +236,20 @@ theorem sourceHighTopQPacketPrefix_zero_eq_neg_sourceTopPrimeBandCard
           norm_num at hr
         have hclock : sourceClock B s ≤ x := by
           apply (sourceClock_le_iff_sourceProduct_le_endpoint (x := x) s).2
-          simpa [s, sourceProduct, sourcePrime, sourceCore] using hpUpper
+          simpa [s, sourceProduct, sourcePrime, sourceCore] using! hpUpper
         have hXlt :
             RHLean.Analysis.squarePrefixEndpoint x <
               2 ^ (sourceTopQScale x + 1) := by
-          simpa [sourceTopQScale, Nat.succ_eq_add_one] using
+          simpa [sourceTopQScale, Nat.succ_eq_add_one] using!
             (Nat.lt_pow_succ_log_self (by norm_num : 1 < (2 : ℕ))
               (RHLean.Analysis.squarePrefixEndpoint x))
         have hlog : Nat.log 2 p = sourceTopQScale x :=
           Nat.log_eq_of_pow_le_of_lt_pow hpdata.1.1
             (lt_of_le_of_lt hpUpper hXlt)
         have hscale : sourcePrimeDyadicScale s = sourceTopQScale x := by
-          simpa [sourcePrimeDyadicScale, sourcePrime, s] using hlog
+          simpa [sourcePrimeDyadicScale, sourcePrime, s] using! hlog
         refine ⟨s, ?_, ?_⟩
-        · simpa [activeSourceTopQSet] using
+        · simpa [activeSourceTopQSet] using!
             (show SourceAdmissible s ∧ sourceClock B s ≤ x ∧
               sourcePrimeDyadicScale s = sourceTopQScale x from
               ⟨hadm, hclock, hscale⟩)
@@ -258,15 +258,15 @@ theorem sourceHighTopQPacketPrefix_zero_eq_neg_sourceTopPrimeBandCard
         have hsdata :
             SourceAdmissible s ∧ sourceClock B s ≤ x ∧
               sourcePrimeDyadicScale s = sourceTopQScale x := by
-          simpa [activeSourceTopQSet] using hs
+          simpa [activeSourceTopQSet] using! hs
         have hcore := sourceCore_eq_one_of_active_topQScale
           s hsdata.1 hsdata.2.1 hsdata.2.2
         have hprod : sourceProduct s = sourcePrime s := by
           simp [sourceProduct, hcore]
         have hp : (sourceProduct s).Prime := by
-          simpa [hprod] using hsdata.1.1
+          simpa [hprod] using! hsdata.1.1
         rw [sourceWeight_of_admissible s hsdata.1]
-        simpa using ArithmeticFunction.moebius_apply_prime hp
+        simpa using! ArithmeticFunction.moebius_apply_prime hp
     _ = -((sourceTopPrimeBand x).card : ℤ) := by simp
 
 /-- Expanded prime-band form of the top-fibre gatekeeper identity. -/
@@ -279,7 +279,7 @@ theorem sourceHighTopQPacketPrefix_zero_eq_neg_primeBandCard
           (2 ^ Nat.log 2 (RHLean.Analysis.squarePrefixEndpoint x))
           (RHLean.Analysis.squarePrefixEndpoint x + 1)).filter
         Nat.Prime).card : ℤ) := by
-  simpa [sourceTopQScale, sourceTopPrimeBand] using
+  simpa [sourceTopQScale, sourceTopPrimeBand] using!
     (sourceHighTopQPacketPrefix_zero_eq_neg_sourceTopPrimeBandCard
       (B := B) (x := x) hB)
 
@@ -309,7 +309,7 @@ theorem sourceHighRootTopQPacketPrefix_zero_eq_neg_primeBandCard
         (Nat.log 2 (RHLean.Analysis.squarePrefixEndpoint x)) x =
         sourceHighQPacketPrefix 0 B
           (Nat.log 2 (RHLean.Analysis.squarePrefixEndpoint x)) x := by
-      simpa [sourceTopQScale] using hrenew.symm
+      simpa [sourceTopQScale] using! hrenew.symm
     _ = -(((Finset.Ico
           (2 ^ Nat.log 2 (RHLean.Analysis.squarePrefixEndpoint x))
           (RHLean.Analysis.squarePrefixEndpoint x + 1)).filter
@@ -339,7 +339,7 @@ theorem sourceHighTopQPacketPrefix_zero_gatekeeper
   refine ⟨sourceHighTopQPacketPrefix_zero_eq_neg_primeBandCard hB,
     sourceHighRootTopQPacketPrefix_zero_eq_neg_primeBandCard hB, ?_⟩
   intro j
-  simpa [sourceTopQScale] using
+  simpa [sourceTopQScale] using!
     (sourceProjectedSuccessorPQPacketPrefix_topQScale_eq_zero 0 B j x)
 
 end CanonicalGapAncestryPrimePackets

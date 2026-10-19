@@ -39,7 +39,7 @@ theorem outsidePrimeFeasibleGenericWheels_nonempty
   refine ⟨∅, ?_⟩
   apply Finset.mem_filter.mpr
   refine ⟨by simp, ?_⟩
-  simpa using hbase
+  simpa using! hbase
 
 /-- Every member of a feasible wheel is a generic prime. -/
 theorem outsidePrimeFeasibleGenericWheel_generic
@@ -51,7 +51,7 @@ theorem outsidePrimeFeasibleGenericWheel_generic
     Finset.mem_powerset.mp (Finset.mem_filter.mp hP).1
   have hpPool := hsub hp
   have hpData : p ∈ primesUpTo (2 * R + 2) ∧ 11 ≤ p := by
-    simpa [outsidePrimeGenericWheelPool] using hpPool
+    simpa [outsidePrimeGenericWheelPool] using! hpPool
   exact ⟨(mem_primesUpTo.mp hpData.1).1, hpData.2⟩
 
 /-- Every feasible wheel obeys the reserved-period bound. -/
@@ -107,7 +107,7 @@ theorem exists_outsidePrimeGenericBlockerCertificate
       apply Finset.mem_filter.mpr
       refine ⟨Finset.mem_powerset.mpr hInsertSub, ?_⟩
       rw [hprodInsert]
-      simpa [Nat.mul_assoc] using hfeas
+      simpa [Nat.mul_assoc] using! hfeas
     have hInsertCardMem : (insert q P).card ∈ cards := by
       exact Finset.mem_image.mpr ⟨insert q P, hInsertC, rfl⟩
     have hle : (insert q P).card ≤ m := Finset.le_max' cards _ hInsertCardMem

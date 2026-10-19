@@ -126,7 +126,7 @@ theorem postRootPrimeFamilyCovarianceRowTotal_eq_zero_of_primeSquare
         exact (Nat.prime_dvd_prime_iff_eq hqPrime hp).mp h
     rw [hqp, ← hsq, Nat.sqrt_eq] at hqRoot
     exact lt_irrefl _ hqRoot
-  rw [postRootLowerCovarianceRow_eq_ite, if_neg hnd]
+  rw [postRootLowerCovarianceRow_eq_ite, ite_eq_right hnd]
 
 /-- Splitting a positive part along a summand that is known to vanish costs
 nothing.  This is the only place the wall split could have lost sign
@@ -153,7 +153,7 @@ theorem postRootCovariancePowerLocalInnovationBudget_eq_outerRow_add_departure
         postRootPrimeFamilyCovarianceRowTotal_eq_zero_of_primeSquare hp hpsq]
       ring
     · right
-      push_neg at hsq
+      push Not at hsq
       exact postRootPrimeFamilyCovarianceDeparture_eq_zero_of_not_primeSquare hsq
   unfold postRootCovariancePowerLocalInnovationBudget postRootRecordOuterRowSeat
     postRootRecordDepartureSeat
@@ -178,12 +178,12 @@ theorem postRootRecordOuterRowNumerator_eq_complementaryPrefix
   have hc : (W + 1) / p < p := (Nat.div_lt_iff_lt_mul hp.pos).2 hlt
   have hmul : p * ((W + 1) / p) = W + 1 := Nat.mul_div_cancel' hdvd
   have hquot : W / p + 1 = (W + 1) / p := by
-    rw [Nat.succ_div, if_pos hdvd]
+    rw [Nat.succ_div, ite_eq_left hdvd]
   have hrow :
       postRootPrimeFamilyCovarianceRowTotal W =
         realMoebiusStep ((W + 1) / p) * realMertensLength ((W + 1) / p) := by
     rw [postRootPrimeFamilyCovarianceRowTotal_eq_single_of_dvd hmem hdvd,
-      postRootLowerCovarianceRow_eq_ite, if_pos hdvd, hquot]
+      postRootLowerCovarianceRow_eq_ite, ite_eq_left hdvd, hquot]
   have hfresh := freshPrimePhysicalRow_sub_inherited_eq_complementaryPrefix hp hc
   rw [hmul] at hfresh
   rw [hrow]
@@ -197,7 +197,7 @@ private theorem envelope_lt_seat_of_recordExcess_pos
       postRootCovariancePowerSeat ε (N + 1) := by
   unfold postRootCovariancePowerRecordExcess at hrec
   by_contra hle
-  push_neg at hle
+  push Not at hle
   rw [max_eq_left (sub_nonpos.mpr hle)] at hrec
   exact lt_irrefl 0 hrec
 
@@ -211,7 +211,7 @@ private theorem seat_succ_eq_of_recordExcess_pos
   have hpos : 0 < postRootCovariancePowerSeat ε (N + 1) :=
     lt_of_le_of_lt (postRootCovariancePowerEnvelope_nonneg ε N) hgt
   unfold postRootCovariancePowerSeat at hpos ⊢
-  rw [if_pos (show 2 ≤ N + 1 by omega)] at hpos ⊢
+  rw [ite_eq_left (show 2 ≤ N + 1 by omega)] at hpos ⊢
   rcases le_or_gt
       (postRootCovarianceRemainder (N + 1) /
         Real.rpow ((N + 1 : ℕ) : ℝ) (1 + ε)) 0 with h | h
@@ -411,7 +411,7 @@ theorem neg_postRootPrimeFamilyCovarianceRowTotal_le_endpoint (N : ℕ) :
   by_cases hex : ∃ p ∈ postRootPrimeFamilySet (N + 1), p ∣ N + 1
   · obtain ⟨p, hp, hdvd⟩ := hex
     rw [postRootPrimeFamilyCovarianceRowTotal_eq_single_of_dvd hp hdvd,
-      postRootLowerCovarianceRow_eq_ite, if_pos hdvd]
+      postRootLowerCovarianceRow_eq_ite, ite_eq_left hdvd]
     exact neg_row_le_endpoint_of_index
       (Nat.succ_le_succ (Nat.div_le_self N p))
   · have hzero : postRootPrimeFamilyCovarianceRowTotal N = 0 := by
@@ -419,7 +419,7 @@ theorem neg_postRootPrimeFamilyCovarianceRowTotal_le_endpoint (N : ℕ) :
       apply Finset.sum_eq_zero
       intro p hp
       have hnd : ¬ (p ∣ N + 1) := fun hdvd => hex ⟨p, hp, hdvd⟩
-      rw [postRootLowerCovarianceRow_eq_ite, if_neg hnd]
+      rw [postRootLowerCovarianceRow_eq_ite, ite_eq_right hnd]
     rw [hzero, neg_zero]
     exact Nat.cast_nonneg _
 
@@ -427,7 +427,7 @@ theorem neg_postRootPrimeFamilyCovarianceRowTotal_le_endpoint (N : ℕ) :
 
 private theorem nat_mul_self_inj {a b : ℕ} (h : a * a = b * b) : a = b := by
   have hs := congrArg Nat.sqrt h
-  simpa only [Nat.sqrt_eq] using hs
+  simpa only [Nat.sqrt_eq] using! hs
 
 theorem postRootRecordDepartureSeat_eq_zero_of_not_primeSquare
     (ε : ℝ) {N : ℕ} (h : ∀ p : ℕ, p.Prime → p * p ≠ N + 1) :
@@ -551,7 +551,7 @@ theorem postRootPrimeFamilyCovarianceDeparture_le_endpoint (N : ℕ) :
     have hnn : (0 : ℝ) ≤ ((N + 1 : ℕ) : ℝ) := Nat.cast_nonneg _
     rw [hpN] at hsqbound
     linarith
-  · push_neg at hex
+  · push Not at hex
     rw [postRootPrimeFamilyCovarianceDeparture_eq_zero_of_not_primeSquare hex]
     exact Nat.cast_nonneg _
 
@@ -626,7 +626,7 @@ theorem postRootCovariancePowerEnvelope_le_subEndpoint
               postRootCovariancePowerEnvelope ε (N + 1) ≤
                 3 * Real.rpow (X : ℝ) (1 - ε) := by linarith
           exact le_trans hfinal (le_max_right _ _)
-        · push_neg at hrec
+        · push Not at hrec
           have hzero : postRootCovariancePowerRecordExcess ε N = 0 :=
             le_antisymm hrec (postRootCovariancePowerRecordExcess_nonneg ε N)
           rw [postRootCovariancePowerEnvelope_succ_eq_add_recordExcess, hzero,
@@ -826,11 +826,11 @@ theorem postRootCovariancePowerRecordExcess_le_absorptionEnvelope
       postRootCovariancePowerSeat ε (N + 1)
   · have hval : postRootRecordAbsorptionEnvelope ε N =
         postRootRecordOuterRowSeat ε N + postRootRecordDepartureSeat ε N :=
-      if_pos hrec
+      ite_eq_left hrec
     rw [hval, ←
       postRootCovariancePowerLocalInnovationBudget_eq_outerRow_add_departure]
     exact postRootCovariancePowerRecordExcess_le_localInnovationBudget ε hε hN
-  · have hval : postRootRecordAbsorptionEnvelope ε N = 0 := if_neg hrec
+  · have hval : postRootRecordAbsorptionEnvelope ε N = 0 := ite_eq_right hrec
     rw [hval]
     exact le_of_eq
       (postRootCovariancePowerRecordExcess_eq_zero_of_not_record ε
@@ -845,12 +845,12 @@ theorem postRootRecordAbsorptionEnvelope_le_recordOuterRow_add_departure
       postRootCovariancePowerSeat ε (N + 1)
   · have h1 : postRootRecordAbsorptionEnvelope ε N =
         postRootRecordOuterRowSeat ε N + postRootRecordDepartureSeat ε N :=
-      if_pos h
+      ite_eq_left h
     have h2 : postRootRecordOuterRowRecordSeat ε N =
-        postRootRecordOuterRowSeat ε N := if_pos h
+        postRootRecordOuterRowSeat ε N := ite_eq_left h
     exact le_of_eq (by rw [h1, h2])
-  · have h1 : postRootRecordAbsorptionEnvelope ε N = 0 := if_neg h
-    have h2 : postRootRecordOuterRowRecordSeat ε N = 0 := if_neg h
+  · have h1 : postRootRecordAbsorptionEnvelope ε N = 0 := ite_eq_right h
+    have h2 : postRootRecordOuterRowRecordSeat ε N = 0 := ite_eq_right h
     rw [h1, h2, zero_add]
     exact postRootRecordDepartureSeat_nonneg ε N
 
@@ -924,7 +924,7 @@ theorem mertensSquarePowerEnvelopeBounded_iff_mertensEnergyBounded :
     refine ⟨C, hC, ?_⟩
     intro W
     induction W with
-    | zero => simpa [mertensSquarePowerEnvelope] using hC
+    | zero => simpa [mertensSquarePowerEnvelope] using! hC
     | succ W ih =>
         rw [mertensSquarePowerEnvelope]
         refine max_le ih ?_
@@ -952,7 +952,7 @@ theorem postRootCovariancePowerEnvelopeBounded_of_recordAbsorptionSummable
     by_cases hN : N ≤ 2
     · have hmono := postRootCovariancePowerEnvelope_mono ε hN
       linarith
-    · push_neg at hN
+    · push Not at hN
       have h2N : 2 ≤ N := le_of_lt hN
       rw [postRootCovariancePowerEnvelope_eq_anchor_add_tailRecordExcess ε h2N]
       have htail :
@@ -1012,7 +1012,7 @@ theorem postRootCovariancePowerEnvelopeBounded_of_recordInnovationPowerBounded
                 D * Real.rpow ((N + 1 : ℕ) : ℝ) ε :=
             lt_of_lt_of_le hkey (hbound N h2N hrec)
           exact le_trans (lt_of_mul_lt_mul_right hmul hpos.le).le (le_max_right _ _)
-        · push_neg at hrec
+        · push Not at hrec
           have hzero : postRootCovariancePowerRecordExcess ε N = 0 :=
             le_antisymm hrec (postRootCovariancePowerRecordExcess_nonneg ε N)
           rw [postRootCovariancePowerEnvelope_succ_eq_add_recordExcess, hzero,
@@ -1023,7 +1023,7 @@ theorem postRootCovariancePowerEnvelopeBounded_of_recordInnovationPowerBounded
   · intro N
     by_cases hN : 2 ≤ N
     · exact key N hN
-    · push_neg at hN
+    · push Not at hN
       exact le_trans (postRootCovariancePowerEnvelope_mono ε (le_of_lt hN))
         (le_max_left _ _)
 

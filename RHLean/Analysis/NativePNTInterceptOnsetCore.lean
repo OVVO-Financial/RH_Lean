@@ -37,7 +37,7 @@ theorem nativePNTAffineEnvelopeAt_six_zero :
     linarith
   have hN0 : 0 ≤ (N : ℝ) := by positivity
   have hmul := mul_le_mul_of_nonneg_right hC hN0
-  simpa using herr.trans hmul
+  simpa using! herr.trans hmul
 
 /-- Calibrated good-fibre threshold. -/
 def nativePNTCubicStepBeta (alpha : ℝ) : ℝ := alpha / 6
@@ -100,7 +100,7 @@ theorem nativePNTCubicStepReady_exists
       c * (Real.log (N : ℝ)) ^ 2 ≤
         nativeLambdaTwoGoodRecipMass N beta := by
     simpa [c, beta, nativePNTCubicStepGoodCoeff,
-      nativePNTCubicStepBeta] using
+      nativePNTCubicStepBeta] using!
       nativeLambdaTwoGoodRecipMass_eventually_quadratic_rate
         beta hbeta hbeta1
   have hlogTop :
@@ -125,7 +125,7 @@ theorem nativePNTCubicStepReady_exists
   refine ⟨M, ?_⟩
   intro N hMN
   have h := hM N hMN
-  simpa [nativePNTCubicStepReady, c, beta, delta, C0] using h
+  simpa [nativePNTCubicStepReady, c, beta, delta, C0] using! h
 
 /-- Least onset for the sufficient conditions of the current cubic step. -/
 noncomputable def nativePNTCubicStepOnset (alpha D : ℝ) : ℕ := by
@@ -141,7 +141,7 @@ theorem nativePNTCubicStepOnset_spec
     nativePNTCubicStepReady alpha D
       (nativePNTCubicStepOnset alpha D) := by
   classical
-  rw [nativePNTCubicStepOnset, dif_pos ⟨halpha, halpha6, hD⟩]
+  rw [nativePNTCubicStepOnset, dite_eq_left ⟨halpha, halpha6, hD⟩]
   exact Nat.find_spec
     (nativePNTCubicStepReady_exists alpha D halpha halpha6)
 

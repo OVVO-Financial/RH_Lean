@@ -68,7 +68,7 @@ theorem spectralPrefix_eq_sum_coconductorComponents
       additiveCoconductor r ∈
         (Finset.range (W.modulus + 1)).filter
           (fun d => d ∣ W.modulus) := by
-    simp [Finset.mem_range, Nat.lt_succ_iff, hle, hdvd]
+    simp [Finset.mem_range, hle, hdvd]
   simp [hmem]
 
 /-- Full interaction between two co-conductor components.  No cross-packet
@@ -147,7 +147,7 @@ theorem primeWheelCoconductorComponent_eq_ramanujanKernel
       apply Finset.sum_congr rfl
       intro r hr
       by_cases hcond : d = additiveCoconductor r
-      · simp only [hcond, if_true]
+      · simp only [hcond, ite_true]
         rw [Finset.sum_mul]
         apply Finset.sum_congr rfl
         intro a ha
@@ -181,7 +181,7 @@ theorem primeWheelCoconductorComponent_eq_ramanujanKernel
       apply Finset.sum_congr rfl
       intro r hr
       by_cases hcond : d = additiveCoconductor r
-      · simp only [hcond, if_true]
+      · simp only [hcond, ite_true]
         have hchar :
             ZMod.stdAddChar (-(a * r)) *
                 ZMod.stdAddChar (-(b * (-r))) =

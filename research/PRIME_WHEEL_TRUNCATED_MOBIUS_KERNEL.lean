@@ -82,10 +82,10 @@ theorem primeWheelTruncatedMoebiusKernel_insert
       constructor
       · intro h
         apply (Nat.le_div_iff_mul_le hp.pos).2
-        simpa [Nat.mul_comm] using h
+        simpa [Nat.mul_comm] using! h
       · intro h
         have hm := (Nat.le_div_iff_mul_le hp.pos).1 h
-        simpa [Nat.mul_comm] using hm
+        simpa [Nat.mul_comm] using! hm
     by_cases hdX : d ≤ X / p
     · have hpdX : p * d ≤ X := hcut.mpr hdX
       simp [hdX, hpdX, hmu]
@@ -236,8 +236,8 @@ theorem roughMertens_one_eq_primeWheel_kernelCorrelation
               have hcut : n ≤ B / d ↔ d ≤ B / n := by
                 rw [Nat.le_div_iff_mul_le hdpos,
                   Nat.le_div_iff_mul_le hnpos]
-                exact ⟨fun h => by simpa [Nat.mul_comm] using h,
-                  fun h => by simpa [Nat.mul_comm] using h⟩
+                exact ⟨fun h => by simpa [Nat.mul_comm] using! h,
+                  fun h => by simpa [Nat.mul_comm] using! h⟩
               by_cases hdn : d ≤ B / n
               · have hnd : n ≤ B / d := hcut.mpr hdn
                 simp [hdn, hnd]
@@ -321,7 +321,7 @@ theorem roughMertens_one_eq_primeWheel_roughSeatCorrelation
       ∀ n ∈ A, ¬ B / RHLean.Arithmetic.primorial S < n → f n = 0 := by
     intro n hn hnot
     have hnmem : n ∈ roughWheelInterval (RHLean.Arithmetic.primorial S) 0 B := by
-      simpa [A] using hn
+      simpa [A] using! hn
     have hnIoc := (Finset.mem_filter.mp hnmem).1
     have hnpos : 0 < n := (Finset.mem_Ioc.mp hnIoc).1
     have hnle : n ≤ B / RHLean.Arithmetic.primorial S := by omega
@@ -329,7 +329,7 @@ theorem roughMertens_one_eq_primeWheel_roughSeatCorrelation
       (Nat.le_div_iff_mul_le hWpos).1 hnle
     have hWcut : RHLean.Arithmetic.primorial S ≤ B / n := by
       apply (Nat.le_div_iff_mul_le hnpos).2
-      simpa [Nat.mul_comm] using hmul
+      simpa [Nat.mul_comm] using! hmul
     have hkzero :=
       primeWheelTruncatedMoebiusKernel_eq_zero_of_primorial_le
         S hprime hWne hWcut

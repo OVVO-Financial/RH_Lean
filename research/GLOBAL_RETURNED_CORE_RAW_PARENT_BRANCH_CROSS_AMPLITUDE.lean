@@ -165,7 +165,7 @@ private theorem sum_product_cross_factor
     calc
       (∑ ab ∈ s.product s, f ab.1 * g ab.2) =
           ∑ a ∈ s, ∑ b ∈ s, f a * g b := by
-        simpa only using
+        simpa only using!
           (Finset.sum_product
             (s := s) (t := s)
             (f := fun ab : ℕ × ℕ => f ab.1 * g ab.2))
@@ -180,7 +180,7 @@ private theorem sum_product_cross_factor
     calc
       (∑ ab ∈ s.product s, g ab.1 * f ab.2) =
           ∑ a ∈ s, ∑ b ∈ s, g a * f b := by
-        simpa only using
+        simpa only using!
           (Finset.sum_product
             (s := s) (t := s)
             (f := fun ab : ℕ × ℕ => g ab.1 * f ab.2))
@@ -229,7 +229,7 @@ theorem sum_lowOwnerFirstOwnerBranchNextPolarization_eq_neg_two_sum_base_mul_ret
   rw [show P.filter (fun parent => key parent.1 = tau) =
       (lowOwnerFirstOwnerRawParentBranchSignatureFiber R p sig tau r).product
         (lowOwnerFirstOwnerRawParentBranchSignatureFiber R p sig tau r) by
-      simpa [P, key] using hset]
+      simpa [P, key] using! hset]
   have hpoint :
       ∀ parent ∈
         (lowOwnerFirstOwnerRawParentBranchSignatureFiber R p sig tau r).product
@@ -273,7 +273,7 @@ theorem sum_lowOwnerFirstOwnerBranchNextPolarization_eq_neg_two_sum_base_mul_ret
       exact hpoint parent hparent
     _ = _ := by
       simpa [lowOwnerFirstOwnerBranchBaseDifferenceAmplitude,
-        lowOwnerFirstOwnerBranchReturnedDifferenceAmplitude] using
+        lowOwnerFirstOwnerBranchReturnedDifferenceAmplitude] using!
         sum_product_cross_factor
           (lowOwnerFirstOwnerRawParentBranchSignatureFiber R p sig tau r)
           (lowOwnerBranchBaseDifferenceSignedSite R r)
@@ -353,7 +353,7 @@ private theorem lowOwnerFirstOwnerBranchDirichletIncidenceDifferenceAmplitude_sq
           rw [Finset.mul_sum]
     _ = _ := by
       symm
-      simpa only using
+      simpa only using!
         (Finset.sum_product
           (s := lowOwnerFirstOwnerRawParentBranchSignatureFiber R p sig tau r)
           (t := lowOwnerFirstOwnerRawParentBranchSignatureFiber R p sig tau r)
@@ -414,7 +414,7 @@ theorem lowOwnerFirstOwnerBranchDirichletIncidenceDifferenceEnergy_eq_pairSum
           rw [show P.filter (fun parent => key parent.1 = tau) =
               (lowOwnerFirstOwnerRawParentBranchSignatureFiber R p sig tau r).product
                 (lowOwnerFirstOwnerRawParentBranchSignatureFiber R p sig tau r) by
-            simpa [P, key] using hset]
+            simpa [P, key] using! hset]
     _ = ∑ parent ∈ P, F parent := hfiber
 
 /-- A physical Dirichlet-incidence four-corner on the full branch is the

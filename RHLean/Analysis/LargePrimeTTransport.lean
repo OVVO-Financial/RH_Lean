@@ -234,7 +234,7 @@ theorem uniformTKernel_iterate_tCellObservable_succ (n : Nat) :
     tKernelIterate uniformTKernel (n + 1) tCellObservable = 0 := by
   induction n with
   | zero =>
-      simpa [tKernelIterate] using uniformTKernel_annihilates_tCellObservable
+      simpa [tKernelIterate] using! uniformTKernel_annihilates_tCellObservable
   | succ n ih =>
       change tKernelApply uniformTKernel
         (tKernelIterate uniformTKernel (n + 1) tCellObservable) = 0
@@ -248,7 +248,7 @@ def uniformTLagCovariance (h : Nat) : Rat :=
 
 @[simp] theorem uniformTLagCovariance_zero :
     uniformTLagCovariance 0 = 3 := by
-  simpa [uniformTLagCovariance, tKernelIterate, pow_two] using
+  simpa [uniformTLagCovariance, tKernelIterate, pow_two] using!
     uniformTExpectation_tCellObservable_sq_eq_three
 
 @[simp] theorem uniformTLagCovariance_succ (h : Nat) :

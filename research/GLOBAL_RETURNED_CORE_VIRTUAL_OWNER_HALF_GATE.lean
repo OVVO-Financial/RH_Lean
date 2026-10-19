@@ -79,7 +79,7 @@ private theorem lowOwnerPhysicalDirichletIncidenceWeight_virtualChild_eq_zero
   have hrPos : 0 < r := by omega
   have hrnPos : 0 < r * n := Nat.mul_pos hrPos hnPos
   have hrle : r ≤ r * n := by
-    simpa [Nat.mul_comm] using Nat.le_mul_of_pos_left r hnPos
+    simpa [Nat.mul_comm] using! Nat.le_mul_of_pos_left r hnPos
   have hrnX : squareRootEndpoint R < r * n := hXr.trans_le hrle
   have hprn : r * n ≤ p * (r * n) := Nat.le_mul_of_pos_left (r * n) hp.pos
   have hprnX : squareRootEndpoint R < p * (r * n) := hrnX.trans_le hprn
@@ -137,9 +137,9 @@ private theorem lowOwnerFirstOwnerBranchDirichletIncidenceDifferenceEnergy_eq_ce
       · intro htau
         rcases Finset.mem_image.mp htau with ⟨n, _hn, hntau⟩
         rw [hkey n] at hntau
-        simpa using hntau.symm
+        simpa using! hntau.symm
       · intro htau
-        have htau0 : tau = ∅ := by simpa using htau
+        have htau0 : tau = ∅ := by simpa using! htau
         subst tau
         rcases hne with ⟨n, hn⟩
         exact Finset.mem_image.mpr ⟨n, hn, hkey n⟩

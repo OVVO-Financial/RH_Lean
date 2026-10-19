@@ -57,7 +57,7 @@ private theorem one_lt_of_mem_squareRootHighTransportSourceSet
   by_contra hnot
   have hP : canonicalLargestPrimeFactor m = 1 := by
     unfold canonicalLargestPrimeFactor
-    rw [dif_neg hnot]
+    rw [dite_eq_right hnot]
   omega
 
 private theorem highTransportSource_to_pair_mem
@@ -70,7 +70,7 @@ private theorem highTransportSource_to_pair_mem
     one_lt_of_mem_squareRootHighTransportSourceSet hR hm
   have hpred : R - 1 + 1 = R := Nat.sub_add_cancel hR
   have hmLt : m < R ^ 2 := by
-    simpa [cumulativeSquarePrefixSet, hpred] using hmPrefix
+    simpa [cumulativeSquarePrefixSet, hpred] using! hmPrefix
   have hprod :
       canonicalCofactor m * canonicalLargestPrimeFactor m = m :=
     canonicalCofactor_mul_largestPrimeFactor hmgt
@@ -111,7 +111,7 @@ private theorem highTransportSource_to_pair_mem
   · exact Finset.mem_product.mpr
       ⟨Finset.mem_Ico.mpr ⟨Nat.succ_le_iff.mpr hcPos, hcR⟩,
         Finset.mem_Ioc.mpr ⟨hhigh, hqX⟩⟩
-  · exact ⟨hqPrime, by simpa [hprod] using hmX⟩
+  · exact ⟨hqPrime, by simpa [hprod] using! hmX⟩
 
 private theorem highTransportSource_pair_injective
     {R m n : ℕ} (hR : 1 ≤ R)
@@ -167,7 +167,7 @@ private theorem transportPair_surjective
     simp only [cumulativeSquarePrefixSet, Finset.mem_range, hpred]
     exact lt_of_le_of_lt hmulX hXlt
   have hmHigh : R < canonicalLargestPrimeFactor (cq.1 * cq.2) := by
-    simpa only [hlargest] using hRq
+    simpa only [hlargest] using! hRq
   refine ⟨cq.1 * cq.2, Finset.mem_filter.mpr ⟨hmPrefix, hmHigh⟩, ?_⟩
   apply Prod.ext
   · exact hcofactor
@@ -186,7 +186,7 @@ theorem sum_squareRootHighTransportSourceSet_eq_pairProducts
     (fun m hm => highTransportSource_to_pair_mem hR hm)
     (fun m hm n hn hmn => highTransportSource_pair_injective hR hm hn hmn)
     (fun cq hcq => by
-      simpa using (transportPair_surjective hR cq hcq))
+      simpa using! (transportPair_surjective hR cq hcq))
     ?_
   intro m hm
   have hmgt : 1 < m :=
@@ -224,7 +224,7 @@ theorem squareRootTransportPairSourceMass_eq_cofactorFirst
           if q.Prime ∧ c * q ≤ squareRootEndpoint R then
             -canonicalMoebiusWeight (c * q)
           else 0 := by
-      simpa only using
+      simpa only using!
         (Finset.sum_product
           (s := Finset.Ico 1 R)
           (t := Finset.Ioc R (squareRootEndpoint R))
@@ -267,7 +267,7 @@ theorem squareRootTransportMass_pred_eq_cofactorFirst
       have hsum :=
         sum_squareRootHighTransportSourceSet_eq_pairProducts R hR
       have hneg := congrArg Neg.neg hsum
-      simpa [squareRootTransportPairSourceMass] using hneg
+      simpa [squareRootTransportPairSourceMass] using! hneg
     _ = squareRootTransportCofactorFirst R :=
       squareRootTransportPairSourceMass_eq_cofactorFirst R
 

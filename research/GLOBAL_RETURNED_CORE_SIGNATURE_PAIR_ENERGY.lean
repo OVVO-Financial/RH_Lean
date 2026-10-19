@@ -54,7 +54,7 @@ theorem lowOwnerFirstOwnerSignatureCellAmplitude_sq_eq_pairSum
       rw [Finset.mul_sum]
     _ = _ := by
       symm
-      simpa only using
+      simpa only using!
         (Finset.sum_product
           (s := lowOwnerFirstOwnerSignatureCellCarrier R p sig)
           (t := lowOwnerFirstOwnerSignatureCellCarrier R p sig)
@@ -138,7 +138,7 @@ theorem lowOwnerFirstOwnerSignatureEnergy_eq_pairCarrier
           rw [show S.filter (fun mn => g mn = sig) =
               (lowOwnerFirstOwnerSignatureCellCarrier R p sig).product
                 (lowOwnerFirstOwnerSignatureCellCarrier R p sig) by
-            simpa [S, g] using hset]
+            simpa [S, g] using! hset]
     _ = ∑ mn ∈ S, f mn := hfiber
     _ = _ := rfl
 
@@ -248,7 +248,7 @@ theorem lowOwnerFirstOwnerSplitCellEnergy_eq_sameBranchPairSum
         rw [Finset.mul_sum]
       _ = _ := by
         symm
-        simpa only using
+        simpa only using!
           (Finset.sum_product
             (s := lowOwnerFirstOwnerBaseFiber R p sig)
             (t := lowOwnerFirstOwnerBaseFiber R p sig)
@@ -279,7 +279,7 @@ theorem lowOwnerFirstOwnerSplitCellEnergy_eq_sameBranchPairSum
         rw [Finset.mul_sum]
       _ = _ := by
         symm
-        simpa only using
+        simpa only using!
           (Finset.sum_product
             (s := lowOwnerFirstOwnerChildFiber R p sig)
             (t := lowOwnerFirstOwnerChildFiber R p sig)
@@ -342,7 +342,7 @@ theorem lowOwnerFirstOwnerSignatureSplitEnergy_eq_pairCarrier
                   (lowOwnerFirstOwnerBaseFiber R p sig)) ∪
                 ((lowOwnerFirstOwnerChildFiber R p sig).product
                   (lowOwnerFirstOwnerChildFiber R p sig)) by
-            simpa [S, g] using hset]
+            simpa [S, g] using! hset]
     _ = ∑ mn ∈ S, f mn := hfiber
     _ = _ := rfl
 

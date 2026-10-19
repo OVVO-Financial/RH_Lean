@@ -33,7 +33,7 @@ theorem resonantQuadraticMode_shift_modulus
     (mode : ResonantModeIndex cutoff M) (u : ℤ) :
     resonantQuadraticMode mode (u + resonantModeModulus mode) =
       resonantQuadraticMode mode u := by
-  simpa [resonantQuadraticMode, resonantModeModulus] using
+  simpa [resonantQuadraticMode, resonantModeModulus] using!
     RHLean.QuadraticPrimePhase.quadraticPhase_shift_two_mul_r
       mode.numerator (mode.denominator : ℤ) u
 
@@ -76,7 +76,7 @@ theorem resonantComponent_mem_resonantSubspace
     [NormedAddCommGroup E] [InnerProductSpace 𝕜 E]
     (skeleton : ResonantProjectionSkeleton 𝕜 E) (M : ℕ) (x : E) :
     resonantComponent skeleton M x ∈ resonantSubspace skeleton M := by
-  simpa [resonantComponent, resonantSubspace] using
+  simpa [resonantComponent, resonantSubspace] using!
     skeleton.extraction_mem_span M x
 
 /--

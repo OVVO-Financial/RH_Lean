@@ -222,7 +222,7 @@ theorem squareRootLowPrimeCrossingSeat_no_fresh_descendant
     squareRootEndpoint R < (p * a) * q := by
   have hXlt : squareRootEndpoint R < (K + 1) * q := by
     have h := (Nat.div_lt_iff_lt_mul (Nat.succ_pos K)).1 hqTop
-    simpa [Nat.mul_comm] using h
+    simpa [Nat.mul_comm] using! h
   have hKp' : K + 1 ≤ p := Nat.succ_le_iff.mpr hKp
   have hpa : p ≤ p * a := Nat.le_mul_of_pos_right p (by omega)
   have hKpa : K + 1 ≤ p * a := hKp'.trans hpa

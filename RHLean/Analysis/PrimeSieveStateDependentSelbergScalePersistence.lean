@@ -82,7 +82,7 @@ theorem primeSieveStateDependentSelberg_finite_cubic_scale_chain_persists
       rcases hgain with ⟨hprev, hstepGain⟩
       have htailn := ih hprev
       have hnext : 0 < a n - c * (a n) ^ 3 := by
-        simpa [hrec n] using hpos (n + 1)
+        simpa [hrec n] using! hpos (n + 1)
       have hstep := primeSieveStateDependentSelberg_cubicGainFromTo_step
         (M n) (M (n + 1)) (a n) c htailn hstepGain hnext
       rw [hrec n]
@@ -188,7 +188,7 @@ theorem nativePNTError_abs_le_sqrt_of_quadraticTailScaleLaw
         ring
       _ <= K * (N : Real) := hmul
   have hKM' : (M : Real) * K <= (N : Real) * K := by
-    simpa [mul_comm] using hKM
+    simpa [mul_comm] using! hKM
   have hMNreal : (M : Real) <= (N : Real) :=
     (mul_le_mul_iff_left₀ hK).mp hKM'
   have hMN : M <= N := by exact_mod_cast hMNreal

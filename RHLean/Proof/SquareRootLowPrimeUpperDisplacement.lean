@@ -64,7 +64,7 @@ theorem squareRootLowPrimeProcessedSeatTerminal_upper_has_earlier_blocker
         (squareRootLowPrimeProcessedSeatFrontierStep
           (squareRootLowPrimeProcessedSeatMatchingFrontier pre S) p) := by
     rw [squareRootLowPrimeProcessedSeatMatchingFrontier_append] at hx
-    simpa [squareRootLowPrimeProcessedSeatMatchingFrontier] using hx
+    simpa [squareRootLowPrimeProcessedSeatMatchingFrontier] using! hx
   have hxStep :
       x ∈ squareRootLowPrimeProcessedSeatFrontierStep
         (squareRootLowPrimeProcessedSeatMatchingFrontier pre S) p :=
@@ -79,7 +79,7 @@ theorem squareRootLowPrimeProcessedSeatTerminal_upper_has_earlier_blocker
         y ∈ squareRootLowPrimeProcessedSeatPairLower
           (squareRootLowPrimeProcessedSeatMatchingFrontier pre S) p :=
       mem_squareRootLowPrimeProcessedSeatPairLower.mpr
-        ⟨hyPre, hyHead, hpFresh, by simpa [hxy] using hxPre⟩
+        ⟨hyPre, hyHead, hpFresh, by simpa [hxy] using! hxPre⟩
     have hxUpper :
         x ∈ squareRootLowPrimeProcessedSeatPairUpper
           (squareRootLowPrimeProcessedSeatMatchingFrontier pre S) p := by

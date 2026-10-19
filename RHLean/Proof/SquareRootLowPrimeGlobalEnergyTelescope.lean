@@ -72,10 +72,10 @@ theorem squareRootLowPrimeGlobalEnergyTelescope
         have hKp := (Finset.mem_Ioc.mp hpIoc).1
         omega
       by_cases hpPrime : p.Prime
-      · rw [if_pos hpPrime]
+      · rw [ite_eq_left hpPrime]
         exact
           (squareRootLowPrimeRunningEnergyReal_step R K j p hpPrime).symm
-      · rw [if_neg hpPrime,
+      · rw [ite_eq_right hpPrime,
           squareRootLowPrimeRunningImbalanceReal_eq_pred_of_not_prime
             R K j p hpGt hpPrime]
         ring

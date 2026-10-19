@@ -75,7 +75,7 @@ theorem squareRootBornPostTailHighResponse_sub_child_eq_clipped_sub_transitionSe
       squareRootBornPostTailHighResponse_sub_child_eq_zero_of_child_le_K
         (R := R) (j := j) hp hchildK
     simpa [squareRootBornPostTailClippedHighResponse,
-      max_eq_left haK, max_eq_left hchildK, haK, hnotChildGt] using hzero
+      max_eq_left haK, max_eq_left hchildK, haK, hnotChildGt] using! hzero
   · have hchildGt : K < p * a := Nat.lt_of_not_ge hchildK
     by_cases haK : a ≤ K
     · have htransition :=
@@ -85,11 +85,11 @@ theorem squareRootBornPostTailHighResponse_sub_child_eq_clipped_sub_transitionSe
       simpa [squareRootBornPostTailHighTransitionDifference,
         squareRootBornPostTailClippedHighResponse,
         max_eq_left haK, max_eq_right hchildGt.le,
-        haK, hchildGt] using htransition
+        haK, hchildGt] using! htransition
     · have haGt : K < a := Nat.lt_of_not_ge haK
       unfold squareRootBornPostTailClippedHighResponse
         squareRootBornPostTailHighResponse
-      rw [if_neg haK, if_neg hchildK,
+      rw [ite_eq_right haK, ite_eq_right hchildK,
         squareRootPostRootPrimePrefixCard_cast,
         squareRootPostRootPrimePrefixCard_cast,
         max_eq_right haGt.le, max_eq_right hchildGt.le]
@@ -133,10 +133,10 @@ theorem squareRootBornPostTailTransitionFaceMass_eq_smoothShell
     constructor
     · intro h
       have h' := (Nat.div_lt_iff_lt_mul hp).1 h
-      simpa [Nat.mul_comm] using h'
+      simpa [Nat.mul_comm] using! h'
     · intro h
       apply (Nat.div_lt_iff_lt_mul hp).2
-      simpa [Nat.mul_comm] using h
+      simpa [Nat.mul_comm] using! h
   simp [hdiv, and_comm]
 
 /-- Every transition face lies in the complete square-endpoint parent cube.

@@ -54,7 +54,7 @@ theorem stableFar_ownerFirst_returnedWindows_eq_unitWindow_sub_parent
   let A : ℕ := X / (q * q * p)
   let B : ℕ := X / (q * p)
   have hqq : q ≤ q * q := by
-    simpa using Nat.mul_le_mul_left q hq.one_le
+    simpa using! Nat.mul_le_mul_left q hq.one_le
   have hden : q * p ≤ q * q * p := by
     exact Nat.mul_le_mul_right p hqq
   have hdenPos : 0 < q * p := Nat.mul_pos hq.pos hp.pos
@@ -79,7 +79,7 @@ theorem stableFar_ownerFirst_returnedWindows_eq_unitWindow_sub_parent
     exact hstep.symm
   rw [hwindow] at htel
   simpa [A, B, Nat.div_div_eq_div_mul, Nat.mul_assoc,
-    Nat.mul_comm, Nat.mul_left_comm] using htel
+    Nat.mul_comm, Nat.mul_left_comm] using! htel
 
 /-! ## The same collapse on the literal physical crossing fibre -/
 
@@ -101,7 +101,7 @@ theorem stableFarOldOwnerCrossingCofactors_lower_subset_upper
       squareRootLowPrimeGoSmoothCofactors q
         (squareRootEndpoint R / (q * p)) := by
   have hqq : q ≤ q * q := by
-    simpa using Nat.mul_le_mul_left q hq.one_le
+    simpa using! Nat.mul_le_mul_left q hq.one_le
   have hden : q * p ≤ q * q * p := Nat.mul_le_mul_right p hqq
   have hdenPos : 0 < q * p := Nat.mul_pos hq.pos hp.pos
   have hcut :
@@ -130,7 +130,7 @@ theorem mem_stableFarOldOwnerCrossingCofactors_iff_crossingTriple
     have hcutRaw : d * (q * p) ≤ squareRootEndpoint R :=
       (Nat.le_div_iff_mul_le hdenPos).1 hdCut
     have hcut : q * d * p ≤ squareRootEndpoint R := by
-      simpa [Nat.mul_assoc, Nat.mul_left_comm, Nat.mul_comm] using hcutRaw
+      simpa [Nat.mul_assoc, Nat.mul_left_comm, Nat.mul_comm] using! hcutRaw
     have hbase : (q, (d, p)) ∈ lowWheelFarPrimeLowCofactorTriples R :=
       lowWheelFarPrimeLowCofactorTriple_mem_of_data
         hq hqR hd1 hp hpR hdSq hdRough hcut
@@ -141,7 +141,7 @@ theorem mem_stableFarOldOwnerCrossingCofactors_iff_crossingTriple
       have hle : q * q * d * p ≤ squareRootEndpoint R :=
         Nat.le_of_not_gt hnot
       have hleRaw : d * (q * q * p) ≤ squareRootEndpoint R := by
-        simpa [Nat.mul_assoc, Nat.mul_left_comm, Nat.mul_comm] using hle
+        simpa [Nat.mul_assoc, Nat.mul_left_comm, Nat.mul_comm] using! hle
       have hdLowerCut : d ≤ squareRootEndpoint R / (q * q * p) :=
         (Nat.le_div_iff_mul_le hden2Pos).2 hleRaw
       have hLower :
@@ -157,7 +157,7 @@ theorem mem_stableFarOldOwnerCrossingCofactors_iff_crossingTriple
       ⟨_hq, _hqR, hd1, _hp, _hpR, hdSq, hdRough, hcut⟩
     have hdenPos : 0 < q * p := Nat.mul_pos hq.pos hp.pos
     have hcutRaw : d * (q * p) ≤ squareRootEndpoint R := by
-      simpa [Nat.mul_assoc, Nat.mul_left_comm, Nat.mul_comm] using hcut
+      simpa [Nat.mul_assoc, Nat.mul_left_comm, Nat.mul_comm] using! hcut
     have hdUpperCut : d ≤ squareRootEndpoint R / (q * p) :=
       (Nat.le_div_iff_mul_le hdenPos).2 hcutRaw
     have hUpper :
@@ -176,7 +176,7 @@ theorem mem_stableFarOldOwnerCrossingCofactors_iff_crossingTriple
       have hleRaw : d * (q * q * p) ≤ squareRootEndpoint R :=
         (Nat.le_div_iff_mul_le hden2Pos).1 hdLowerCut
       have hle : q * q * d * p ≤ squareRootEndpoint R := by
-        simpa [Nat.mul_assoc, Nat.mul_left_comm, Nat.mul_comm] using hleRaw
+        simpa [Nat.mul_assoc, Nat.mul_left_comm, Nat.mul_comm] using! hleRaw
       exact (Nat.not_lt_of_ge hle) hcross
     exact Finset.mem_sdiff.mpr ⟨hUpper, hNotLower⟩
 

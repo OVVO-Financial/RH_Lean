@@ -57,7 +57,7 @@ theorem canonicalSmoothPrimeExtension_childData
   · exact hdomQ r hr hra
   · have hrEq : r = p :=
       (Nat.prime_dvd_prime_iff_eq hr hpmax.prime).mp hrp
-    simpa [hrEq] using hpq
+    simpa [hrEq] using! hpq
 
 /-- In a generic smooth extension, the adjoined prime is the canonical largest
 prime of the new core. -/
@@ -170,7 +170,7 @@ theorem squareRootLegalExtensionPrime_lt_distinguished_lt_root
   have hRq : R ≤ q := Nat.le_of_not_gt hnot
   have hRcore : R ≤ a * p := hRq.trans h.1.entersSmooth.le
   have hsq : R ^ 2 ≤ q * (a * p) := by
-    simpa [pow_two] using Nat.mul_le_mul hRq hRcore
+    simpa [pow_two] using! Nat.mul_le_mul hRq hRcore
   have hendlt : squareRootEndpoint R < R ^ 2 := by
     unfold squareRootEndpoint
     have hpos : 0 < R ^ 2 := by positivity
@@ -188,14 +188,14 @@ theorem activeSmoothSource_yields_legalExtensionPrime
       (canonicalCofactor (sourceCore s))
       (canonicalLargestPrimeFactor (sourceCore s)) := by
   have hs : SmoothOriented s ∧ sourceClock B s ≤ R - 1 := by
-    simpa [activeSmoothSourceSet] using hactive
+    simpa [activeSmoothSourceSet] using! hactive
   have hext := smoothSource_has_canonicalSmoothPrimeExtension s hs.1
   refine ⟨hext, ?_⟩
   have hprod : sourceProduct s ≤ squareRootEndpoint R := by
     have h :=
       (sourceClock_le_iff_sourceProduct_le_endpoint
         (x := R - 1) s).1 hs.2
-    simpa [squarePrefixEndpoint_pred_eq_squareRootEndpoint R (by omega)] using h
+    simpa [squarePrefixEndpoint_pred_eq_squareRootEndpoint R (by omega)] using! h
   have hcore :=
     canonicalCofactor_mul_largestPrimeFactor
       (lt_trans hs.1.1.1.one_lt hs.1.2)

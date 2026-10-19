@@ -217,7 +217,7 @@ theorem survivorSixteenFarUpperPrimeMass_eq_neg_mertensTransform
   intro q hqmem
   have hqFar : t + 9 ≤ q := (Finset.mem_Icc.mp hqmem).1
   by_cases hqPrime : q.Prime
-  · simp only [hqPrime, if_true]
+  · simp only [hqPrime, ite_true]
     rw [survivorFixedPrimeCofactorMass_sixteen_eq_neg_mertensSummatory
       t q ht hqPrime hqFar]
   · simp [hqPrime]

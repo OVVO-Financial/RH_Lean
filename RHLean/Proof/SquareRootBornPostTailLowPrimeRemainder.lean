@@ -111,7 +111,7 @@ theorem squareRootBornPostTailHighComplement_prime
     ⟨hc1, hcR, hcP⟩
   let P := squareRootBornPostTailLowPrimeCutoff R
   have hRP : R < 2 * P := by
-    simpa [P] using squareRootBornPostTailLowPrimeCutoff_two_mul_gt_root hR
+    simpa [P] using! squareRootBornPostTailLowPrimeCutoff_two_mul_gt_root hR
   have hP1 : 1 < P := by omega
   have hcgt : 1 < c := by
     by_contra h
@@ -130,11 +130,11 @@ theorem squareRootBornPostTailHighComplement_prime
     have hpLtC : canonicalLargestPrimeFactor c < c := by omega
     have h2p : 2 * canonicalLargestPrimeFactor c ≤ c :=
       two_mul_canonicalLargestPrimeFactor_le_of_lt hcgt hpLtC
-    have hPp : P < canonicalLargestPrimeFactor c := by simpa [P] using hcP
+    have hPp : P < canonicalLargestPrimeFactor c := by simpa [P] using! hcP
     have hR2p : R < 2 * canonicalLargestPrimeFactor c := by omega
     omega
-  have hcPrime : c.Prime := by simpa [hpEq] using hpPrime
-  exact ⟨hcPrime, by simpa [hpEq] using hcP, by omega⟩
+  have hcPrime : c.Prime := by simpa [hpEq] using! hpPrime
+  exact ⟨hcPrime, by simpa [hpEq] using! hcP, by omega⟩
 
 /-- The reciprocal cutoff of every unprocessed cofactor is already at most
 `R + floor(sqrt R)`. -/
@@ -148,7 +148,7 @@ theorem squareRootBornPostTail_reciprocalCutoff_le_root_add_sqrt
   have hPs : P + s = R := by
     dsimp [P, squareRootBornPostTailLowPrimeCutoff, s]
     omega
-  have hd : P + 1 ≤ d := by simpa [P] using hdP
+  have hd : P + 1 ≤ d := by simpa [P] using! hdP
   have hbase : R ^ 2 ≤ (R + s) * (P + 1) := by
     nlinarith [Nat.sqrt_le' R]
   have hmono : (R + s) * (P + 1) ≤ (R + s) * d :=
@@ -161,7 +161,7 @@ theorem squareRootBornPostTail_reciprocalCutoff_le_root_add_sqrt
   have hdpos : 0 < d := by omega
   apply (Nat.div_le_iff_le_mul hdpos).2
   have hX' : squareRootEndpoint R ≤ d * (R + Nat.sqrt R) := by
-    simpa [s, Nat.mul_comm] using hX
+    simpa [s, Nat.mul_comm] using! hX
   have htail :
       d * (R + Nat.sqrt R) ≤ (R + Nat.sqrt R) * d + d - 1 := by
     rw [Nat.mul_comm d (R + Nat.sqrt R)]
@@ -195,7 +195,7 @@ theorem squareRootPostRootPrimePrefixCard_le_sqrt_of_lowPrimeCutoff_lt
       (Finset.Ioc R (R + Nat.sqrt R)).card = Nat.sqrt R := by
     rw [Nat.card_Ioc]
     omega
-  simpa [hIoc] using hcard
+  simpa [hIoc] using! hcard
 
 /-- Natural Abel telescope: one reciprocal layer plus the deeper post-root
 prefix is exactly the prefix at the current reciprocal depth. -/
@@ -230,7 +230,7 @@ theorem squareRootBornPostTailHighResponse_le_sqrt
     squareRootBornPostTailHighResponse R K j c ≤ Nat.sqrt R := by
   unfold squareRootBornPostTailHighResponse
   by_cases hcK : c ≤ K
-  · rw [if_pos hcK]
+  · rw [ite_eq_left hcK]
     have hPK : squareRootBornPostTailLowPrimeCutoff R < K :=
       hcP.trans_le hcK
     have hprefix :=
@@ -240,7 +240,7 @@ theorem squareRootBornPostTailHighResponse_le_sqrt
       squareRootReciprocalPrimeLayerCard_add_postRootPrimePrefixCard
         R K (by omega) hK hKR
     omega
-  · rw [if_neg hcK]
+  · rw [ite_eq_right hcK]
     exact squareRootPostRootPrimePrefixCard_le_sqrt_of_lowPrimeCutoff_lt
       hR hcP
 
@@ -259,7 +259,7 @@ theorem squareRootBornPostTailHighComplementCofactors_card_le_sqrt
     intro c hc
     have hrigid := squareRootBornPostTailHighComplement_prime hR hc
     have hmem := mem_squareRootBornPostTailHighComplementCofactors.mp hc
-    exact Finset.mem_Ioc.mpr ⟨by simpa [P] using hrigid.2.1, hmem.2.1⟩
+    exact Finset.mem_Ioc.mpr ⟨by simpa [P] using! hrigid.2.1, hmem.2.1⟩
   have hcard := Finset.card_le_card hsub
   have hsR : Nat.sqrt R ≤ R := by nlinarith [Nat.sqrt_le' R]
   have hPs : P + Nat.sqrt R = R := by
@@ -303,7 +303,7 @@ theorem squareRootBornPostTailNearRootRemainderCount_le_root
       simp
     _ ≤ Nat.sqrt R * Nat.sqrt R :=
       Nat.mul_le_mul_right (Nat.sqrt R) hcard
-    _ ≤ R := by simpa [pow_two] using Nat.sqrt_le' R
+    _ ≤ R := by simpa [pow_two] using! Nat.sqrt_le' R
 
 private theorem canonicalMoebiusWeight_eq_neg_one_of_mem_highComplement
     {R c : ℕ} (hR : 16 ≤ R)
@@ -358,7 +358,7 @@ theorem squareRootBornPostTailNearRootRemainder_norm_le_root
       (squareRootBornPostTailNearRootRemainderCount R K j : ℝ) ≤ (R : ℝ) := by
     exact_mod_cast hcount
   unfold squareRootBornPostTailNearRootRemainder
-  simpa using hreal
+  simpa using! hreal
 
 /-! ## Exact processed-response split -/
 
@@ -400,7 +400,7 @@ private theorem squareRootBornPostTailBornWeighted_eq_lowPrimeProcessed
     simp
   have hres : (∑ c ∈ S, f c) = ∑ c ∈ S.filter pred, f c := by
     rw [← hsplit, hzero, add_zero]
-  simpa [S, pred, f] using hres
+  simpa [S, pred, f] using! hres
 
 private theorem squareRootBornPostTailHighWeighted_eq_processed_add_complement
     (R K j : ℕ) :
@@ -433,7 +433,7 @@ private theorem squareRootBornPostTailHighWeighted_eq_processed_add_complement
         (∑ c ∈ S.filter pred, f c) +
           ∑ c ∈ squareRootBornPostTailHighComplementCofactors R, f c := by
     rw [← hsplit, hcomp]
-  simpa [S, pred, f] using hres
+  simpa [S, pred, f] using! hres
 
 /-- **Low-prime collapse of the BornPostTail gate.**  After every largest-prime
 coordinate through `P_R = R - floor(sqrt R)` is retained in one processed

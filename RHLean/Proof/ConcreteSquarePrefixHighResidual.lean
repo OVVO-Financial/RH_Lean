@@ -64,7 +64,7 @@ theorem squarePrefixHighHeightExpansion_eq_pairSum
           normalizedChannelAmplitude (actualChannelOfPair p) := by
   have hrat := squarePrefixHighHeightExpansionRat_eq_pairSum Λ n
   have hcast := congrArg (fun x : ℚ => (x : ℂ)) hrat
-  simpa [squarePrefixHighHeightExpansion, normalizedChannelAmplitude] using hcast
+  simpa [squarePrefixHighHeightExpansion, normalizedChannelAmplitude] using! hcast
 
 /-- Reindex the exact high ordered-pair sum by the injective concrete channel map. -/
 theorem squarePrefixHighHeightExpansion_eq_channelSum
@@ -226,7 +226,7 @@ theorem squarePrefixHighModeSum_eq
         0 := by
   classical
   by_cases hshell : shell = squarePrefixHighShell channel
-  · rw [if_pos hshell]
+  · rw [ite_eq_left hshell]
     rw [Finset.sum_eq_single zeroFareyModeLabel]
     · rw [squarePrefixHighResidualPacket_eq]
       simp [hshell]
@@ -235,7 +235,7 @@ theorem squarePrefixHighModeSum_eq
       simp [hshell, hne]
     · intro hnot
       exact (hnot (zeroFareyModeLabel_mem (cutoff M) hcutoff)).elim
-  · rw [if_neg hshell]
+  · rw [ite_eq_right hshell]
     apply Finset.sum_eq_zero
     intro modeLabel _
     rw [squarePrefixHighResidualPacket_eq]

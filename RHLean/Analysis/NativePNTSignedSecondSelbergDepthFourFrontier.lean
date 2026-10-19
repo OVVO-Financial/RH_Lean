@@ -40,7 +40,7 @@ theorem partialPrimeWheel_nonzero_error_depth_four_classification
   have ha0 : 0 < a := by
     by_contra ha
     have haz : a = 0 := Nat.eq_zero_of_not_pos ha
-    have hd0 : d = 0 := by simpa [haz] using hdFactor
+    have hd0 : d = 0 := by simpa [haz] using! hdFactor
     exact (Nat.ne_of_gt hdpos) hd0
   have haCases : a = 1 ∨ a = 2 ∨ a = 3 := by omega
   have hquot1 : 1 ≤ N / d :=
@@ -70,7 +70,7 @@ theorem partialPrimeWheel_depth_four_frontier_prime_lt_four_mul
         _ ≤ a * (q * r) := Nat.mul_le_mul_right (q * r) ha
         _ = a * q * r := by ring_nf
     have hadlt : a * q * r < 4 * y ^ 2 := by
-      simpa [hd] using hdlt
+      simpa [hd] using! hdlt
     exact hle.trans_lt hadlt
   constructor
   · by_contra hnot

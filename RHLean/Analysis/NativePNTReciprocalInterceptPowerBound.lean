@@ -197,9 +197,9 @@ theorem exists_nativePNTError_abs_le_two_sqrt_on_finite_window
     exact Real.sq_sqrt hratio.le
   have henvAlpha := nativePNTAffineEnvelopeAt_reciprocal_window_of_base
     eta A D heta hetaA hA ⟨hD, hpoint⟩ alpha
-    (by simpa [alpha] using hlow) (by simpa [alpha] using hhigh)
+    (by simpa [alpha] using! hlow) (by simpa [alpha] using! hhigh)
   have henvAlpha' : NativePNTAffineEnvelopeAt alpha (K / alpha) := by
-    simpa [K] using henvAlpha
+    simpa [K] using! henvAlpha
   exact nativePNTError_abs_le_two_sqrt_of_reciprocalEnvelopeAt
     K alpha hK halpha N hN halpha_sq henvAlpha'
 

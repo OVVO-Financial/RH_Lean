@@ -70,14 +70,14 @@ theorem lowWheelCanonicalCofactorQuotientPivot_toggle
 theorem lowWheelCanonicalCofactorQuotientPivot_prime
     {c k : ℕ} (hne : c * k ≠ 1) :
     (lowWheelCanonicalCofactorQuotientPivot (c, k)).Prime := by
-  simpa [lowWheelCanonicalCofactorQuotientPivot] using
+  simpa [lowWheelCanonicalCofactorQuotientPivot] using!
     Nat.minFac_prime hne
 
 /-- The canonical pivot divides the invariant physical product. -/
 theorem lowWheelCanonicalCofactorQuotientPivot_dvd
     (c k : ℕ) :
     lowWheelCanonicalCofactorQuotientPivot (c, k) ∣ c * k := by
-  simpa [lowWheelCanonicalCofactorQuotientPivot] using
+  simpa [lowWheelCanonicalCofactorQuotientPivot] using!
     Nat.minFac_dvd (c * k)
 
 /-- On a nontrivial state, the canonical prime is active in either the cofactor
@@ -135,18 +135,18 @@ theorem lowWheelCanonicalCofactorQuotientToggle_preserves_or_boundary
           (k / lowWheelCanonicalCofactorQuotientPivot (c, k)) ≤ R := by
   let p := lowWheelCanonicalCofactorQuotientPivot (c, k)
   have hp : p.Prime := by
-    simpa [p] using lowWheelCanonicalCofactorQuotientPivot_prime hne
+    simpa [p] using! lowWheelCanonicalCofactorQuotientPivot_prime hne
   have hactive : p ∣ c ∨ p ∣ k := by
-    simpa [p] using lowWheelCanonicalCofactorQuotientPivot_active hne
+    simpa [p] using! lowWheelCanonicalCofactorQuotientPivot_active hne
   by_cases hpc : p ∣ c
   · left
     unfold lowWheelCanonicalCofactorQuotientToggle
-    simpa [p] using
+    simpa [p] using!
       lowWheelCofactorQuotientToggleAt_preserves_of_dvd_cofactor
         hp hcarrier hpc
   · have hpk : p ∣ k := hactive.resolve_left hpc
     unfold lowWheelCanonicalCofactorQuotientToggle
-    simpa [p] using
+    simpa [p] using!
       lowWheelCofactorQuotientToggleAt_preserves_or_boundary_of_dvd_quotient
         hp hcarrier hpc hpk
 
@@ -162,18 +162,18 @@ theorem lowWheelCanonicalCofactorQuotientToggle_preserves_or_downcross
           (k / lowWheelCanonicalCofactorQuotientPivot (c, k)) ≤ R := by
   let p := lowWheelCanonicalCofactorQuotientPivot (c, k)
   have hp : p.Prime := by
-    simpa [p] using lowWheelCanonicalCofactorQuotientPivot_prime hne
+    simpa [p] using! lowWheelCanonicalCofactorQuotientPivot_prime hne
   have hactive : p ∣ c ∨ p ∣ k := by
-    simpa [p] using lowWheelCanonicalCofactorQuotientPivot_active hne
+    simpa [p] using! lowWheelCanonicalCofactorQuotientPivot_active hne
   by_cases hpc : p ∣ c
   · left
     unfold lowWheelCanonicalCofactorQuotientToggle
-    simpa [p] using
+    simpa [p] using!
       lowWheelCofactorQuotientToggleAt_preserves_of_dvd_cofactor
         hp hcarrier hpc
   · have hpk : p ∣ k := hactive.resolve_left hpc
     unfold lowWheelCanonicalCofactorQuotientToggle
-    simpa [p] using
+    simpa [p] using!
       lowWheelCofactorQuotientToggleAt_preserves_or_downcross_of_dvd_quotient
         hp hcarrier hpc hpk
 

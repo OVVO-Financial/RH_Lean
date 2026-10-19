@@ -32,7 +32,7 @@ theorem mellin_eq_moebius_LSeries {s : ℂ} (hs : 1 < s.re) :
       (fun n : ℕ => ∑ k ∈ Finset.Icc 1 n,
         ((ArithmeticFunction.moebius k : ℤ) : ℂ)) =O[atTop]
         (fun n : ℕ => (n : ℝ) ^ (1 : ℝ)) := by
-    simpa only [sum_Icc_one_moebius_eq_mertensSummatory] using
+    simpa only [sum_Icc_one_moebius_eq_mertensSummatory] using!
       powerBound_isBigO powerBound_one
   have hS : LSeriesSummable (↗ArithmeticFunction.moebius) s :=
     ArithmeticFunction.LSeriesSummable_moebius_iff.mpr hs
@@ -60,7 +60,7 @@ theorem mellin_differentiable_of_powerBound {a : ℝ} (ha : 0 ≤ a)
   have hmellin : DifferentiableAt ℂ (mellin mertensStep) (-s) := by
     apply mellin_differentiableAt_of_isBigO_rpow
       (a := -a) (b := -s.re - 1) mertensStep_locallyIntegrableOn
-    · simpa only [neg_neg] using htop
+    · simpa only [neg_neg] using! htop
     · simp only [neg_re]
       linarith
     · convert hbot using 1
@@ -68,9 +68,9 @@ theorem mellin_differentiable_of_powerBound {a : ℝ} (ha : 0 ≤ a)
     · simp only [neg_re]
       linarith
   have hcomp : DifferentiableAt ℂ (fun z : ℂ => mellin mertensStep (-z)) s := by
-    simpa only [Function.comp_apply] using
+    simpa only [Function.comp_apply] using!
       hmellin.comp s (differentiableAt_id.neg)
-  simpa [mertensMellinContinuation] using differentiableAt_id.mul hcomp
+  simpa [mertensMellinContinuation] using! differentiableAt_id.mul hcomp
 
 private def product (s : ℂ) : ℂ := riemannZeta s * mertensMellinContinuation s
 private def upper (a : ℝ) : Set ℂ :=
@@ -229,7 +229,7 @@ theorem nontrivialZero_one_sub {ρ : ℂ} (hρ : NontrivialZetaZero ρ) :
   have hc : completedRiemannZeta ρ = 0 := by
     have hd : completedRiemannZeta ρ / Gammaℝ ρ = 0 := by
       rw [← riemannZeta_def_of_ne_zero hρ0, hz]
-    simpa [hGamma] using hd
+    simpa [hGamma] using! hd
   have hrc : completedRiemannZeta (1 - ρ) = 0 := by
     rw [completedRiemannZeta_one_sub ρ, hc]
   refine ⟨?_, ?_, ?_⟩
@@ -292,7 +292,7 @@ theorem not_powerBound_of_zero_left {a : ℝ} (ha : 0 ≤ a)
     {ρ : ℂ} (hρ : NontrivialZetaZero ρ) (hgap : a < 1 - ρ.re) :
     ¬ MertensPowerBound a := by
   apply not_powerBound_of_zero_right ha (nontrivialZero_one_sub hρ)
-  simpa only [sub_re, one_re] using hgap
+  simpa only [sub_re, one_re] using! hgap
 
 /-- A zero outside the predicted strip contradicts exponent-level control. -/
 theorem not_growthAtMost_of_zero_outside {a : ℝ} (ha : 0 ≤ a)

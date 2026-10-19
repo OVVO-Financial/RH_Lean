@@ -71,7 +71,7 @@ theorem squareRootLowPrimeGo_crossing_forces_root_le_product
     Nat.pow_lt_pow_left hprod (by norm_num : 2 ≠ 0)
   have hle : (r * q) ^ 2 ≤ R ^ 2 - 1 := by omega
   have hle' : (q * r) ^ 2 ≤ squareRootEndpoint R := by
-    simpa [squareRootEndpoint, Nat.mul_comm] using hle
+    simpa [squareRootEndpoint, Nat.mul_comm] using! hle
   omega
 
 /-- An ordered factorization of one integer into two distinct increasing primes
@@ -96,7 +96,7 @@ theorem squareRootLowPrimeGo_rootEquality_primePair_unique
     subst t
     have hprod : r * q = s * r := hrqR.trans hstR.symm
     have hprod' : q * r = s * r := by
-      simpa [Nat.mul_comm] using hprod
+      simpa [Nat.mul_comm] using! hprod
     have hqs : q = s := Nat.mul_right_cancel hr.pos hprod'
     omega
 
@@ -154,7 +154,7 @@ theorem squareRootLowPrimeGoRootEqualityDefectCarrier_card_le_root
   let encode : ((ℕ × ℕ) × ℕ) → ℕ := fun z => z.2
   have hinj : Set.InjOn encode
       (squareRootLowPrimeGoRootEqualityDefectCarrier R) := by
-    simpa [encode] using
+    simpa [encode] using!
       squareRootLowPrimeGoRootEquality_parentProjection_injOn R
   have himage :
       (squareRootLowPrimeGoRootEqualityDefectCarrier R).image encode ⊆
@@ -169,7 +169,7 @@ theorem squareRootLowPrimeGoRootEqualityDefectCarrier_card_le_root
         (squareRootLowPrimeGoRootEqualityDefectCarrier R).card :=
     Finset.card_image_iff.mpr hinj
   rw [← hcard]
-  simpa using Finset.card_le_card himage
+  simpa using! Finset.card_le_card himage
 
 /-- Signed Go source mass on the only crossing population left after global
 transport pairing. -/

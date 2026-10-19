@@ -11,7 +11,7 @@ noncomputable def firstHitHeight (p r : ℝ) : ℝ :=
 /-- The first-hit height is exactly the imaginary coordinate of the squared Fermat point. -/
 theorem firstHitHeight_eq (p r : ℝ) :
     firstHitHeight p r = (r ^ 2 - p ^ 2) / 2 := by
-  simpa [firstHitHeight] using square_imaginary_coordinate p r
+  simpa [firstHitHeight] using! square_imaginary_coordinate p r
 
 /-- Fixed least factor `p` gives the first-hit parabola in the product coordinate `n = p*r`. -/
 theorem firstHitHeight_eq_parabola (p r n : ℝ) (hp : p ≠ 0) (hn : n = p * r) :

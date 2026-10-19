@@ -157,10 +157,10 @@ theorem squareRootBornPostTailHighResponse_cast
         squareRootPostRootPrimePrefix R c := by
   unfold squareRootBornPostTailHighResponse
   by_cases hcK : c ≤ K
-  · rw [if_pos hcK, if_pos hcK]
+  · rw [ite_eq_left hcK, ite_eq_left hcK]
     rw [Nat.cast_add, Nat.cast_sub hj,
       squareRootPostRootPrimePrefixCard_cast]
-  · rw [if_neg hcK, if_neg hcK,
+  · rw [ite_eq_right hcK, ite_eq_right hcK,
       squareRootPostRootPrimePrefixCard_cast]
 
 /-! ## Born side in cofactor-response form -/
@@ -188,7 +188,7 @@ theorem squareRootBornSmoothPairSourceMass_eq_neg_weighted_partnerCount
               q ≤ c ∧ c * q ≤ squareRootEndpoint R then
             canonicalMoebiusWeight (c * q)
           else 0 := by
-      simpa only using
+      simpa only using!
         (Finset.sum_product
           (s := Finset.Icc 2 R)
           (t := Finset.Icc 1 (squareRootEndpoint R))
@@ -300,7 +300,7 @@ theorem squareRootPostCrossingRawTransportTail_eq_neg_weighted_highResponse
           apply Finset.sum_congr rfl
           intro c hc
           have hcK : c ≤ K := (Finset.mem_Icc.mp hc).2
-          rw [squareRootBornPostTailHighResponse_cast hj, if_pos hcK]
+          rw [squareRootBornPostTailHighResponse_cast hj, ite_eq_left hcK]
       _ = mertensSummatory K *
           (((squareRootReciprocalPrimeLayerCard R K : ℕ) : ℂ) - (j : ℂ) +
             squareRootPostRootPrimePrefix R (K + 1)) := by
@@ -316,7 +316,7 @@ theorem squareRootPostCrossingRawTransportTail_eq_neg_weighted_highResponse
     have hcK : ¬ c ≤ K := by
       have := (Finset.mem_Icc.mp hc).1
       omega
-    rw [squareRootBornPostTailHighResponse_cast hj, if_neg hcK]
+    rw [squareRootBornPostTailHighResponse_cast hj, ite_eq_right hcK]
   rw [squareRootPostCrossingRawTransportTail_eq_remainingAbelCap
     R K j hR hK hKR]
   unfold squareRootPostCrossingRemainingAbelCap
@@ -378,8 +378,8 @@ theorem squareRootBornPostTailLowPrimeCutoff_two_sq_gt_endpoint
       2 * (squareRootBornPostTailLowPrimeCutoff R) ^ 2 := by
   let s := Nat.sqrt R
   let P := squareRootBornPostTailLowPrimeCutoff R
-  have hs4 : 4 ≤ s := by simpa [s] using sqrt_ge_four_of_sixteen_le hR
-  have h4s : 4 * s ≤ R := by simpa [s] using four_mul_sqrt_le hR
+  have hs4 : 4 ≤ s := by simpa [s] using! sqrt_ge_four_of_sixteen_le hR
+  have h4s : 4 * s ≤ R := by simpa [s] using! four_mul_sqrt_le hR
   have hsR : s ≤ R := by nlinarith [Nat.sqrt_le' R]
   have hPs : P + s = R := by
     dsimp [P, squareRootBornPostTailLowPrimeCutoff, s]
@@ -405,11 +405,11 @@ theorem squareRootBornPostTailLowPrimeCutoff_two_mul_root_gt_endpoint
       2 * squareRootBornPostTailLowPrimeCutoff R * R := by
   let P := squareRootBornPostTailLowPrimeCutoff R
   have hroot : R < 2 * P := by
-    simpa [P] using squareRootBornPostTailLowPrimeCutoff_two_mul_gt_root hR
+    simpa [P] using! squareRootBornPostTailLowPrimeCutoff_two_mul_gt_root hR
   have hRpos : 0 < R := by omega
   have hmul := Nat.mul_lt_mul_of_pos_right hroot hRpos
   have htarget : R ^ 2 < 2 * P * R := by
-    simpa [pow_two, Nat.mul_assoc] using hmul
+    simpa [pow_two, Nat.mul_assoc] using! hmul
   have hXlt : squareRootEndpoint R < R ^ 2 := by
     unfold squareRootEndpoint
     exact Nat.sub_lt (by positivity) (by norm_num)

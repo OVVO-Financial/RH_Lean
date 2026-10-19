@@ -59,7 +59,7 @@ theorem mem_squareRootLowPrimeProcessedSeatCarrier_some
   constructor
   · intro h
     have hatom : (a, s) ∈ squareRootLowPrimeProcessedSeatAtoms R K j U := by
-      simpa [squareRootLowPrimeProcessedSeatCarrier] using h
+      simpa [squareRootLowPrimeProcessedSeatCarrier] using! h
     have hdata := mem_squareRootLowPrimeProcessedSeatAtoms.mp hatom
     have hfilter := Finset.mem_filter.mp hdata.1
     have hIcc := Finset.mem_Icc.mp hfilter.1
@@ -68,7 +68,7 @@ theorem mem_squareRootLowPrimeProcessedSeatCarrier_some
     have hatom : (a, s) ∈ squareRootLowPrimeProcessedSeatAtoms R K j U :=
       mem_squareRootLowPrimeProcessedSeatAtoms.mpr
         ⟨Finset.mem_filter.mpr ⟨Finset.mem_Icc.mpr ⟨ha1, haW⟩, hlpf, hmu⟩, hs⟩
-    simpa [squareRootLowPrimeProcessedSeatCarrier] using hatom
+    simpa [squareRootLowPrimeProcessedSeatCarrier] using! hatom
 
 /-! ## The four possible causes -/
 
@@ -100,7 +100,7 @@ theorem squareRootLowPrimeProcessedSeatOutwardSquareDefect_cause
     · exact h
   have hone : 1 ≤ q * (p * c) := Nat.mul_pos hq hpc.1
   by_contra hcon
-  push_neg at hcon
+  push Not at hcon
   obtain ⟨hend, hcut, hmu, hseat⟩ := hcon
   exact hqpxNot'
     (mem_squareRootLowPrimeProcessedSeatCarrier_some.mpr

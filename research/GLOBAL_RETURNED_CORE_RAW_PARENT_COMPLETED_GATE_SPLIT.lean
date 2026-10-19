@@ -63,7 +63,7 @@ theorem sum_lowOwnerFirstOwnerRawParentNextPolarization_eq_completed_add_incompl
         lowOwnerFirstOwnerRawParentNextPolarizationTerm R p r parent := by
   unfold lowOwnerFirstOwnerCompletedPolarizationRawParentSet
     lowOwnerFirstOwnerIncompletePolarizationRawParentSet
-  simpa only using
+  simpa only using!
     (Finset.sum_filter_add_sum_filter_not
       (s := lowOwnerFirstOwnerPolarizationRawParentSet R p sig r)
       (p := fun parent : ℕ × ℕ =>

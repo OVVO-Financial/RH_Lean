@@ -237,7 +237,7 @@ private theorem vfMidSameTag_prime_interval_twelve_card_le_four
     have heq : a + (p - a) = p := Nat.add_sub_of_le hlo
     change p - a ∈ T
     simp only [T, Finset.mem_filter, Finset.mem_range]
-    exact ⟨by omega, by simpa [heq] using hres⟩
+    exact ⟨by omega, by simpa [heq] using! hres⟩
   have hinj : Set.InjOn (fun p : ℕ => p - a) (S : Set ℕ) := by
     intro p hp p' hp' heq
     have hpLo : a ≤ p :=
@@ -269,7 +269,7 @@ def vfMidSameTagWindow (q A B : ℕ) : Finset ℕ :=
     have hqBound : vfMidHistoricalOwnerThreshold * p ≤ q := by
       have h := (Nat.le_div_iff_mul_le
         (by norm_num [vfMidHistoricalOwnerThreshold])).1 hpDiv
-      simpa [Nat.mul_comm] using h
+      simpa [Nat.mul_comm] using! h
     exact ⟨hp, hp3,
       (vfMidHistoricalOwner_sqrt_iff (by omega : 0 < p)).mpr hqBound,
       hA, hB⟩
@@ -279,7 +279,7 @@ def vfMidSameTagWindow (q A B : ℕ) : Finset ℕ :=
     have hpDiv : p ≤ q / vfMidHistoricalOwnerThreshold := by
       apply (Nat.le_div_iff_mul_le
         (by norm_num [vfMidHistoricalOwnerThreshold])).2
-      simpa [Nat.mul_comm] using hqBound
+      simpa [Nat.mul_comm] using! hqBound
     exact ⟨⟨hp, hp3, hpDiv⟩, hA, hB⟩
 
 /-- The optimal four-owner capacity in an arbitrary 6144-root window.
@@ -378,7 +378,7 @@ private theorem vfMidSameTag_current_charge_eq
     rcases (Nat.dvd_prime h).mp hdiv with h1 | heq
     · exact hpPrime.ne_one h1
     · have hm : 2 * p ≤ p * q := by
-        simpa [Nat.mul_comm] using Nat.mul_le_mul_left p hq.two_le
+        simpa [Nat.mul_comm] using! Nat.mul_le_mul_left p hq.two_le
       have hp2 := hpPrime.two_le
       nlinarith
   exact vfMidOddSignedSeatCharge_of_not_prime

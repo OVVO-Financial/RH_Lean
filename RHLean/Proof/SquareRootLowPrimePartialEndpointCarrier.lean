@@ -175,7 +175,7 @@ theorem squareRootLowPrimeShallowDescendingEndpointCarrier_sign_cases
   | none => exact absurd rfl hnone
   | some z =>
       have hatom : z ∈ squareRootLowPrimeProcessedSeatAtoms R K j U := by
-        simpa [squareRootLowPrimeProcessedSeatCarrier] using hcarrier
+        simpa [squareRootLowPrimeProcessedSeatCarrier] using! hcarrier
       have hsigned := (mem_squareRootLowPrimeProcessedSeatAtoms.mp hatom).1
       have hmuNe : μ z.1 ≠ 0 := (Finset.mem_filter.mp hsigned).2.2
       rcases ArithmeticFunction.moebius_ne_zero_iff_eq_or.mp hmuNe with hmu | hmu
@@ -484,7 +484,7 @@ theorem squareRootLowPrimePartialBranchMap_mem
       squareRootLowPrimeProcessedSeatNoLibertyBoundary R K j U := by
   simpa [squareRootLowPrimePartialBranchMap, squareRootLowPrimePartialBoundaryTag,
     squareRootLowPrimeProcessedSeatNoLibertyBoundary,
-    squareRootLowPrimePartialPacketBoundary] using
+    squareRootLowPrimePartialPacketBoundary] using!
       squareRootLowPrimePartialRank_lt hbudget x
 
 theorem squareRootLowPrimePartialBranchMap_injective
@@ -493,7 +493,7 @@ theorem squareRootLowPrimePartialBranchMap_injective
   intro x y hxy
   apply squareRootLowPrimePartialRank_injective R K j U
   simpa [squareRootLowPrimePartialBranchMap, squareRootLowPrimePartialBoundaryTag]
-    using hxy
+    using! hxy
 
 /-- **Exact weight preservation on the `Partial` branch.** -/
 theorem squareRootLowPrimePartialBranchMap_weight_eq
@@ -588,7 +588,7 @@ theorem squareRootLowPrimeGoRootEqualityDefectCarrier_eq_empty_of_prime
   rcases hR.eq_one_or_self_of_dvd r hrdvd with h1 | hrR
   · exact hr.one_lt.ne' h1
   · rw [hrR] at hprod
-    have hq1 : R * q = R * 1 := by simpa using hprod
+    have hq1 : R * q = R * 1 := by simpa using! hprod
     exact hq.one_lt.ne' (Nat.eq_of_mul_eq_mul_left hR.pos hq1)
 
 /-- At such a root the tagged boundary loses its whole fourth class, so the

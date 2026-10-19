@@ -74,7 +74,7 @@ private theorem squareRootLowPrimeProcessedSeatCanonicalStepInvolution_of_lower
     squareRootLowPrimeProcessedSeatCanonicalStepInvolution S p x =
       squareRootLowPrimeProcessedSeatExtend p x := by
   dsimp only [squareRootLowPrimeProcessedSeatCanonicalStepInvolution]
-  rw [if_pos hx]
+  rw [ite_eq_left hx]
 
 private theorem squareRootLowPrimeProcessedSeatCanonicalStepInvolution_of_upper
     {S : Finset SquareRootLowPrimeProcessedState} {p : ℕ}
@@ -85,7 +85,7 @@ private theorem squareRootLowPrimeProcessedSeatCanonicalStepInvolution_of_upper
     squareRootLowPrimeProcessedSeatCanonicalStepInvolution S p x =
       squareRootLowPrimeProcessedSeatCanonicalPairPreimage S p x hupper := by
   dsimp only [squareRootLowPrimeProcessedSeatCanonicalStepInvolution]
-  rw [if_neg hx, dif_pos hupper]
+  rw [ite_eq_right hx, dite_eq_left hupper]
 
 private theorem squareRootLowPrimeProcessedSeatCanonicalStepInvolution_of_unpaired
     {S : Finset SquareRootLowPrimeProcessedState} {p : ℕ}
@@ -95,7 +95,7 @@ private theorem squareRootLowPrimeProcessedSeatCanonicalStepInvolution_of_unpair
       squareRootLowPrimeProcessedSeatExtend p y = x) :
     squareRootLowPrimeProcessedSeatCanonicalStepInvolution S p x = x := by
   dsimp only [squareRootLowPrimeProcessedSeatCanonicalStepInvolution]
-  rw [if_neg hx, dif_neg hupper]
+  rw [ite_eq_right hx, dite_eq_right hupper]
 
 /-- One canonical Euler step preserves the ambient finite carrier. -/
 theorem squareRootLowPrimeProcessedSeatCanonicalStepInvolution_mem
@@ -276,11 +276,11 @@ theorem squareRootLowPrimeProcessedSeatCanonicalMatchingInvolution_mem
     squareRootLowPrimeProcessedSeatCanonicalMatchingInvolution ps S x ∈ S := by
   induction ps generalizing S x with
   | nil =>
-      simpa [squareRootLowPrimeProcessedSeatCanonicalMatchingInvolution] using hxS
+      simpa [squareRootLowPrimeProcessedSeatCanonicalMatchingInvolution] using! hxS
   | cons p ps ih =>
       by_cases hxPaired : x ∈ squareRootLowPrimeProcessedSeatCanonicalPaired S p
       · rw [squareRootLowPrimeProcessedSeatCanonicalMatchingInvolution]
-        simp only [hxPaired, if_true]
+        simp only [hxPaired, ite_true]
         exact squareRootLowPrimeProcessedSeatCanonicalStepInvolution_mem S p hxS
       · have hxFrontier :
           x ∈ squareRootLowPrimeProcessedSeatCanonicalFrontierStep S p :=
@@ -288,7 +288,7 @@ theorem squareRootLowPrimeProcessedSeatCanonicalMatchingInvolution_mem
         have hrec := ih
           (S := squareRootLowPrimeProcessedSeatCanonicalFrontierStep S p) hxFrontier
         rw [squareRootLowPrimeProcessedSeatCanonicalMatchingInvolution]
-        simp only [hxPaired, if_false]
+        simp only [hxPaired, ite_false]
         exact squareRootLowPrimeProcessedSeatCanonicalFrontierStep_subset S p hrec
 
 /-- The complete canonical Euler chronology is an involution. -/
@@ -325,11 +325,11 @@ theorem squareRootLowPrimeProcessedSeatCanonicalMatchingInvolution_involutive
           rw [hyFixed] at hback
           exact hnot (hback.symm ▸ hxPaired)
         rw [squareRootLowPrimeProcessedSeatCanonicalMatchingInvolution]
-        simp only [hxPaired, if_true]
+        simp only [hxPaired, ite_true]
         change squareRootLowPrimeProcessedSeatCanonicalMatchingInvolution
           (p :: ps) S y = x
         rw [squareRootLowPrimeProcessedSeatCanonicalMatchingInvolution]
-        simp only [hyPaired, if_true]
+        simp only [hyPaired, ite_true]
         exact squareRootLowPrimeProcessedSeatCanonicalStepInvolution_involutive
           S hp x
       · have hxFrontier :
@@ -348,11 +348,11 @@ theorem squareRootLowPrimeProcessedSeatCanonicalMatchingInvolution_involutive
           (S := squareRootLowPrimeProcessedSeatCanonicalFrontierStep S p)
           hrest hxFrontier
         rw [squareRootLowPrimeProcessedSeatCanonicalMatchingInvolution]
-        simp only [hxPaired, if_false]
+        simp only [hxPaired, ite_false]
         change squareRootLowPrimeProcessedSeatCanonicalMatchingInvolution
           (p :: ps) S y = x
         rw [squareRootLowPrimeProcessedSeatCanonicalMatchingInvolution]
-        simp only [hyNotPaired, if_false]
+        simp only [hyNotPaired, ite_false]
         exact hrec
 
 /-- Moved states of the complete canonical chronology reverse signed weight. -/
@@ -379,14 +379,14 @@ theorem squareRootLowPrimeProcessedSeatCanonicalMatchingInvolution_weight_neg
             (squareRootLowPrimeProcessedSeatCanonicalStepInvolution_eq_self_iff
               S p).mp h hxPaired
         rw [squareRootLowPrimeProcessedSeatCanonicalMatchingInvolution]
-        simp only [hxPaired, if_true]
+        simp only [hxPaired, ite_true]
         exact squareRootLowPrimeProcessedSeatCanonicalStepInvolution_weight_neg
           S hp x hstepNe
       · have hxFrontier :
           x ∈ squareRootLowPrimeProcessedSeatCanonicalFrontierStep S p :=
           Finset.mem_sdiff.mpr ⟨hxS, hxPaired⟩
         rw [squareRootLowPrimeProcessedSeatCanonicalMatchingInvolution] at hne ⊢
-        simp only [hxPaired, if_false] at hne ⊢
+        simp only [hxPaired, ite_false] at hne ⊢
         exact ih
           (S := squareRootLowPrimeProcessedSeatCanonicalFrontierStep S p)
           hrest hxFrontier hne
@@ -428,7 +428,7 @@ theorem signMatchingFixedPart_processedSeatCanonicalMatching_eq_frontier
                 ps (squareRootLowPrimeProcessedSeatCanonicalFrontierStep S p) hx
             exact (Finset.mem_sdiff.mp hxStep).2 hxPaired
           rw [squareRootLowPrimeProcessedSeatCanonicalMatchingInvolution]
-          simp only [hxPaired, if_true]
+          simp only [hxPaired, ite_true]
           exact ⟨fun h => (hstepNe h.2).elim,
             fun h => (hxNotFrontier h).elim⟩
         · have hxStep :
@@ -449,7 +449,7 @@ theorem signMatchingFixedPart_processedSeatCanonicalMatching_eq_frontier
             · intro hfront
               exact (hih.mpr hfront).2
           rw [squareRootLowPrimeProcessedSeatCanonicalMatchingInvolution]
-          simp only [hxPaired, if_false]
+          simp only [hxPaired, ite_false]
           change (x ∈ S ∧
               squareRootLowPrimeProcessedSeatCanonicalMatchingInvolution ps
                 (squareRootLowPrimeProcessedSeatCanonicalFrontierStep S p) x = x) ↔
@@ -468,7 +468,7 @@ theorem signMatchingFixedPart_processedSeatCanonicalMatching_eq_frontier
           fun hx => hxS
             (squareRootLowPrimeProcessedSeatCanonicalPaired_subset S p hx)
         rw [squareRootLowPrimeProcessedSeatCanonicalMatchingInvolution]
-        simp only [hxNotPaired, if_false]
+        simp only [hxNotPaired, ite_false]
         exact ⟨fun h => (hxS h.1).elim, fun h => (hxNotFrontier h).elim⟩
 
 /-- The canonical Euler Othello mate on the actual processed carrier. -/

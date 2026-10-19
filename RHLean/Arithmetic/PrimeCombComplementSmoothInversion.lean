@@ -108,7 +108,7 @@ theorem exists_pow_of_mem_primeSetSmoothIcc_singleton
     (by omega) ?_⟩
   intro d hd hdvd
   have : d ∈ e.primeFactors := Nat.mem_primeFactors.mpr ⟨hd, hdvd, by omega⟩
-  simpa using hfac d this
+  simpa using! hfac d this
 
 /-! ## Single-prime inversion -/
 
@@ -139,7 +139,7 @@ theorem eq_sum_freshPrimeDifference_of_apply_zero
             obtain ⟨r, hr⟩ := Nat.exists_prime_and_dvd (by omega : e ≠ 1)
             have : r ∈ e.primeFactors :=
               Nat.mem_primeFactors.mpr ⟨hr.1, hr.2, hne⟩
-            have hrq : r = q := by simpa using hfac r this
+            have hrq : r = q := by simpa using! hfac r this
             exact hrq ▸ hr.2
           obtain ⟨e', rfl⟩ := hqe
           refine Or.inr ⟨e', ⟨?_, ?_, ?_⟩, rfl⟩
@@ -160,7 +160,7 @@ theorem eq_sum_freshPrimeDifference_of_apply_zero
           · intro r hr
             rw [Nat.primeFactors_mul hq.ne_zero (by omega)] at hr
             rcases Finset.mem_union.mp hr with hr | hr
-            · simpa using (by simpa [hq.primeFactors] using hr : r = q)
+            · simpa using! (by simpa [hq.primeFactors] using! hr : r = q)
             · exact he'fac r hr
     have hnotmem : (1 : ℕ) ∉
         (primeSetSmoothIcc {q} (x / q)).image (fun e => q * e) := by
@@ -272,7 +272,7 @@ theorem finiteDifferenceOperator_eq_sum_complementSmooth
           rw [Nat.primeFactors_mul (by omega) (by omega)] at hr
           rcases Finset.mem_union.mp hr with hr | hr
           · exact Finset.mem_insert_of_mem (hnfac r hr)
-          · have : r = q := by simpa using hefac r hr
+          · have : r = q := by simpa using! hefac r hr
             exact this ▸ Finset.mem_insert_self q T
       · intro m hm
         obtain ⟨hm1, hmx, hmfac⟩ := mem_primeSetSmoothIcc.mp hm

@@ -57,10 +57,10 @@ theorem collisionExponentStateInvolution_mem_pairable
   apply Finset.mem_filter.mpr
   refine ⟨hdata.2.1, ?_⟩
   constructor
-  · simpa using hdata.1
+  · simpa using! hdata.1
   · intro hfix
     have heq : s = collisionExponentStateInvolution s := by
-      simpa using hfix
+      simpa using! hfix
     exact hdata.2.2 heq.symm
 
 /-- Every separately proved sign-reversing physical weight cancels exactly on

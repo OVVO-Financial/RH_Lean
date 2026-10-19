@@ -202,9 +202,9 @@ private theorem divisorResidueCount_complete_period
     omega
   have himage :
       Finset.image (fun m : ℕ => m % d) S = Finset.range d := by
-    simpa [S] using Nat.image_Ico_mod (upper + 1) d
+    simpa [S] using! Nat.image_Ico_mod (upper + 1) d
   have hinj : Set.InjOn (fun m : ℕ => m % d) ↑S := by
-    simpa [S] using Nat.mod_injOn_Ico (upper + 1) d
+    simpa [S] using! Nat.mod_injOn_Ico (upper + 1) d
   have haRange : a % d ∈ Finset.range d :=
     Finset.mem_range.mpr (Nat.mod_lt a hd)
   have haImage : a % d ∈ Finset.image (fun m : ℕ => m % d) S := by

@@ -69,7 +69,7 @@ theorem finiteNonemptyFaceAlternatingSum_eq_neg_singleton
           unfold booleanCubeSign
           rw [Finset.card_insert_of_notMem hau, pow_succ]
           ring
-        simp only [huNonempty, hinsNonempty, if_true]
+        simp only [huNonempty, hinsNonempty, ite_true]
         rw [hginv, hsign]
         simp [huEmpty]
     _ = -g {a} := by simp
@@ -98,9 +98,9 @@ theorem finiteFaceMaxPayload_insert_least
     ⟨a, Finset.mem_insert_self _ _⟩
   have hmaxEq :
       (insert a u).max' hinsNonempty = max a (u.max' huNonempty) := by
-    simpa using (Finset.max'_insert a u huNonempty)
+    simpa using! (Finset.max'_insert a u huNonempty)
   unfold finiteFaceMaxPayload
-  rw [dif_pos hinsNonempty, dif_pos huNonempty, hmaxEq,
+  rw [dite_eq_left hinsNonempty, dite_eq_left huNonempty, hmaxEq,
     max_eq_right haMax]
 
 /-- **Largest-coordinate / least-coordinate duality.**  On a finite ordered

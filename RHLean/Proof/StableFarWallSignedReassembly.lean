@@ -58,7 +58,7 @@ theorem lowWheelFarPrimeLowCofactorTriple_mem_of_data
   have hXlt : squareRootEndpoint R < R * R := by
     unfold squareRootEndpoint
     have hne : R ^ 2 ≠ 0 := pow_ne_zero 2 (Nat.ne_of_gt hRpos)
-    simpa [pow_two] using Nat.pred_lt hne
+    simpa [pow_two] using! Nat.pred_lt hne
   have hcR : q * d < R := by
     by_contra hnot
     have hRc : R ≤ q * d := Nat.le_of_not_gt hnot
@@ -66,7 +66,7 @@ theorem lowWheelFarPrimeLowCofactorTriple_mem_of_data
     exact (Nat.not_lt_of_ge ((Nat.mul_le_mul hRc hRp).trans hcut)) hXlt
   have hpX : p ≤ squareRootEndpoint R := by
     have hle : p ≤ (q * d) * p := by
-      simpa using Nat.mul_le_mul_right p (show 1 ≤ q * d by omega)
+      simpa using! Nat.mul_le_mul_right p (show 1 ≤ q * d by omega)
     exact hle.trans hcut
   have hpair : (q * d,p) ∈ lowWheelFarPrimeNonUnitPairSet R := by
     apply Finset.mem_filter.mpr
@@ -75,10 +75,10 @@ theorem lowWheelFarPrimeLowCofactorTriple_mem_of_data
       ⟨Finset.mem_Ico.mpr ⟨by omega, hcR⟩,
         Finset.mem_Icc.mpr ⟨hpR, hpX⟩, hp, hcut⟩
   have hqEq : canonicalLargestPrimeFactor (q * d) = q := by
-    simpa [Nat.mul_comm] using
+    simpa [Nat.mul_comm] using!
       canonicalLargestPrimeFactor_mul_prime_eq_of_rough hd1 hq hdq
   have hdEq : canonicalCofactor (q * d) = d := by
-    simpa [Nat.mul_comm] using canonicalCofactor_mul_prime_eq_of_rough hd1 hq hdq
+    simpa [Nat.mul_comm] using! canonicalCofactor_mul_prime_eq_of_rough hd1 hq hdq
   exact Finset.mem_image.mpr ⟨(q * d,p), hpair, by
     simp [lowWheelFarPrimeLowCofactorTag, hqEq, hdEq]⟩
 
@@ -152,8 +152,8 @@ theorem lowWheelFarPrimeProduct_geometry
   have hcop : Nat.Coprime t.2.1 t.2.2 :=
     ((hp.coprime_iff_not_dvd).2 hnot).symm
   refine ⟨(Nat.squarefree_mul hcop).2 ⟨hsq, hp.squarefree⟩, ?_, ?_, ?_⟩
-  · exact hpR.trans (by simpa using Nat.mul_le_mul_right t.2.2 hd1)
-  · simpa [lowWheelFarPrimeProductKey, Nat.mul_assoc] using hcut
+  · exact hpR.trans (by simpa using! Nat.mul_le_mul_right t.2.2 hd1)
+  · simpa [lowWheelFarPrimeProductKey, Nat.mul_assoc] using! hcut
   · rw [(lowWheelFarPrimeProduct_coordinates ht).1]
     exact hpR
 

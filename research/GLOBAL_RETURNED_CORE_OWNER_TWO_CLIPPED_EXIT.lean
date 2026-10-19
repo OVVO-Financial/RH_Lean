@@ -225,7 +225,7 @@ theorem lowOwnerZeroFrequencyMobiusWeight_eq_one_of_ownerTwo_clipped
       omega
     simp [hnot]
   unfold lowOwnerZeroFrequencyMobiusWeight lowOwnerFarTailWeight
-  rw [if_pos hRa, hrec]
+  rw [ite_eq_left hRa, hrec]
   norm_num
 
 /-- **The owner-two clipped exit is the top Mertens value.** -/
@@ -246,7 +246,7 @@ theorem lowOwnerFirstOwnerClippedAmplitude_two_eq_topMertens
     by_cases hmu : realMoebiusStep a = 0
     · simp [hmu]
     · simp [hP, hmu, hw, lowOwnerZeroFrequencyMobiusSite]
-  · rw [if_neg hP, if_neg]
+  · rw [ite_eq_right hP, ite_eq_right]
     intro h
     apply hP
     tauto

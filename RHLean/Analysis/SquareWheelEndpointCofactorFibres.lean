@@ -80,12 +80,12 @@ private theorem canonicalCoordinates_mul_of_sourceData
   have hp := sourcePrime_eq_canonicalLargestPrimeFactor s hs
   have hc := sourceCore_eq_canonicalCofactor s hs
   have hp' : q = canonicalLargestPrimeFactor (q * c) := by
-    simpa [s, sourcePrime, sourceProduct, sourceCore] using hp
+    simpa [s, sourcePrime, sourceProduct, sourceCore] using! hp
   have hc' : c = canonicalCofactor (q * c) := by
-    simpa [s, sourcePrime, sourceProduct, sourceCore] using hc
+    simpa [s, sourcePrime, sourceProduct, sourceCore] using! hc
   constructor
-  · simpa [Nat.mul_comm] using hp'.symm
-  · simpa [Nat.mul_comm] using hc'.symm
+  · simpa [Nat.mul_comm] using! hp'.symm
+  · simpa [Nat.mul_comm] using! hc'.symm
 
 /-- Source data gives the integer Möbius sign flip on the represented product.
 This is the cofactor sign convention shared by endpoint and survivor fibres. -/
@@ -157,18 +157,18 @@ theorem endpointSquarefreePrimeMass_eq_endpointCofactorFiber
     have hmgt : 1 < m := by omega
     have hdata0 := canonicalSourceData_of_squarefree hsq hmgt
     have hdata : CanonicalSourceData q (canonicalCofactor m) := by
-      simpa [hpq] using hdata0
+      simpa [hpq] using! hdata0
     have hclem : canonicalCofactor m ≤ m :=
       Nat.le_of_dvd (by omega) (canonicalCofactor_dvd hmgt)
     have hprod := canonicalCofactor_mul_largestPrimeFactor hmgt
     have hprodq : canonicalCofactor m * q = m := by
-      simpa [hpq] using hprod
+      simpa [hpq] using! hprod
     unfold primorialMinimalWheelEndpointCofactorSet
     apply Finset.mem_filter.mpr
     refine ⟨Finset.mem_Icc.mpr
       ⟨canonicalCofactor_pos hmgt, hclem.trans hmUpper⟩, hdata, ?_, ?_⟩
-    · simpa [hprodq] using hmLower
-    · simpa [hprodq] using hmUpper
+    · simpa [hprodq] using! hmLower
+    · simpa [hprodq] using! hmUpper
   · intro m₁ hm₁ m₂ hm₂ hcof
     change canonicalCofactor m₁ = canonicalCofactor m₂ at hcof
     rcases Finset.mem_filter.mp hm₁ with ⟨hm₁Ioc, _hsq₁, hpq₁⟩

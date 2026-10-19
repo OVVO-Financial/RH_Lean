@@ -238,7 +238,7 @@ theorem primorialMinimalSquareWheelNonzeroResponse_eq_expansionReindexed
         (squarePrefixEndpoint n) : ℤ) : ℂ)) =
         (((primorialMinimalWheelSystem k).modulus : ℂ)⁻¹) *
           primorialExpansionReindexedNumerator k (squarePrefixEndpoint n) := by
-    simpa [primorialExpansionReindexedNumerator] using
+    simpa [primorialExpansionReindexedNumerator] using!
       (primorialPeriodicRawResidual_eq_expansionReindexed
         k hk hlower hupper)
   have hupperExpansion :
@@ -246,7 +246,7 @@ theorem primorialMinimalSquareWheelNonzeroResponse_eq_expansionReindexed
         (primorialBlockUpper k) : ℤ) : ℂ)) =
         (((primorialMinimalWheelSystem k).modulus : ℂ)⁻¹) *
           primorialExpansionReindexedNumerator k (primorialBlockUpper k) := by
-    simpa [primorialExpansionReindexedNumerator] using
+    simpa [primorialExpansionReindexedNumerator] using!
       (primorialPeriodicRawResidual_eq_expansionReindexed
         k hk hlowerUpper le_rfl)
   rw [hminSample, hminUpper, hsampleExpansion, hupperExpansion] at hsample

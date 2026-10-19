@@ -36,14 +36,14 @@ def heightShellOffDiagonalGram {𝕜 E : Type*} [RCLike 𝕜]
 theorem heightShellSum_succ {E : Type*} [AddCommMonoid E]
     (shell : ℕ → E) (n : ℕ) :
     heightShellSum shell (n + 1) = heightShellSum shell n + shell n := by
-  simpa [heightShellSum] using Finset.sum_range_succ shell n
+  simpa [heightShellSum] using! Finset.sum_range_succ shell n
 
 /-- Appending one shell adds exactly its diagonal energy. -/
 theorem heightShellDiagonalEnergy_succ {E : Type*} [SeminormedAddCommGroup E]
     (shell : ℕ → E) (n : ℕ) :
     heightShellDiagonalEnergy shell (n + 1) =
       heightShellDiagonalEnergy shell n + ‖shell n‖ ^ 2 := by
-  simpa [heightShellDiagonalEnergy] using
+  simpa [heightShellDiagonalEnergy] using!
     Finset.sum_range_succ (fun i => ‖shell i‖ ^ 2) n
 
 /-- Appending shell `n` adds all and only the cross terms with earlier shells. -/
@@ -55,7 +55,7 @@ theorem heightShellOffDiagonalGram_succ
       heightShellOffDiagonalGram (𝕜 := 𝕜) shell n +
         ∑ i ∈ Finset.range n,
           shellReInner (𝕜 := 𝕜) (shell i) (shell n) := by
-  simpa [heightShellOffDiagonalGram] using
+  simpa [heightShellOffDiagonalGram] using!
     Finset.sum_range_succ
       (fun j => ∑ i ∈ Finset.range j,
         shellReInner (𝕜 := 𝕜) (shell i) (shell j)) n

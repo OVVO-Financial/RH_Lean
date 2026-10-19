@@ -105,7 +105,7 @@ theorem lowOwnerFirstOwnerGreatestOwnerFixedParentCellFiber_subset_graph
   have hgraph :=
     lowOwnerFirstOwnerGreatestOwnerPositivePair_mem_fixedParentChildFiber
       hp hpos
-  simpa [hparent] using hgraph
+  simpa [hparent] using! hgraph
 
 /-- Cell-specific fixed-parent multiplicity is at most two. -/
 theorem lowOwnerFirstOwnerGreatestOwnerFixedParentCellFiber_card_le_two

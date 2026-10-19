@@ -64,7 +64,7 @@ theorem mem_vfMidHistoricalPrimeOwnerFibre_iff
     have hpDiv : p ≤ q / vfMidHistoricalOwnerThreshold := by
       apply (Nat.le_div_iff_mul_le
         (by norm_num [vfMidHistoricalOwnerThreshold])).2
-      simpa [Nat.mul_comm] using hbound
+      simpa [Nat.mul_comm] using! hbound
     exact ⟨hpPrime, hp3, hpDiv⟩
   · rintro ⟨hpPrime, hp3, hpDiv⟩
     have hpq : p ≤ q :=
@@ -73,7 +73,7 @@ theorem mem_vfMidHistoricalPrimeOwnerFibre_iff
         vfMidHistoricalOwnerThreshold * p ≤ q := by
       have h := (Nat.le_div_iff_mul_le
         (by norm_num [vfMidHistoricalOwnerThreshold])).1 hpDiv
-      simpa [Nat.mul_comm] using h
+      simpa [Nat.mul_comm] using! h
     exact ⟨⟨hp3, hpq⟩, hpPrime,
       (vfMidHistoricalOwner_sqrt_iff (by omega : 0 < p)).mpr hbound⟩
 
@@ -117,7 +117,7 @@ theorem vfMidHistoricalPrimeOwnerFibre_card_eq_pi_sub_one
     dsimp [N]
     apply (Nat.le_div_iff_mul_le
       (by norm_num [vfMidHistoricalOwnerThreshold])).2
-    simpa [Nat.mul_comm] using hq
+    simpa [Nat.mul_comm] using! hq
   have h2not : 2 ∉ ((Finset.Icc 3 N).filter Nat.Prime) := by simp
   have hsplit :
       ((Finset.Icc 2 N).filter Nat.Prime) =
@@ -163,7 +163,7 @@ theorem vfMidHistoricalPrimeOwnerFibre_covers_bounded_primes (T : ℕ) :
   have hpDiv : p ≤ q / vfMidHistoricalOwnerThreshold := by
     apply (Nat.le_div_iff_mul_le
       (by norm_num [vfMidHistoricalOwnerThreshold])).2
-    simpa [Nat.mul_comm] using hscaled
+    simpa [Nat.mul_comm] using! hscaled
   exact ⟨hpPrime, hp3, hpDiv⟩
 
 /-- Strict square-block membership at the canonical integer root of an

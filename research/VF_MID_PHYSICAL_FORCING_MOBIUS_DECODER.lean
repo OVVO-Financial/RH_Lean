@@ -54,7 +54,7 @@ theorem vfMidActualPrimeIndicatorInt_eq_moebiusSq_mul_roughConvolution
       (μ n) ^ 2 * roughGEMobiusGTConvolution p n := by
   rw [roughGE_convolution_roughGT_moebius_eq_primePowers hp n]
   have hn0 : n ≠ 0 := by omega
-  rw [if_neg hn0]
+  rw [ite_eq_right hn0]
   by_cases hnPrime : n.Prime
   · have hpn : p = n :=
       (Nat.prime_dvd_prime_iff_eq hp hnPrime).mp hpd
@@ -65,7 +65,7 @@ theorem vfMidActualPrimeIndicatorInt_eq_moebiusSq_mul_roughConvolution
         (Nat.prime_dvd_prime_iff_eq hqData.1 hnPrime).mp hqData.2.1
       subst q
       simp [hpn]
-    rw [if_pos hsub, ArithmeticFunction.moebius_apply_prime hnPrime]
+    rw [ite_eq_left hsub, ArithmeticFunction.moebius_apply_prime hnPrime]
     simp [hnPrime]
   · by_cases hsq : Squarefree n
     · have hcard :
@@ -77,7 +77,7 @@ theorem vfMidActualPrimeIndicatorInt_eq_moebiusSq_mul_roughConvolution
         have hle := Finset.card_le_card hsub
         simp at hle
         omega
-      rw [if_neg hnot]
+      rw [ite_eq_right hnot]
       simp [hnPrime]
     · have hmu :
           μ n = 0 :=
@@ -204,7 +204,7 @@ theorem primeSievePrimeIndicator_eq_half_sub_half_moebius_of_cube
         (1 / 2 : ℂ) * (((μ n : ℤ) : ℂ)) := by
   by_cases hp : n.Prime
   · rw [primeSievePrimeIndicator]
-    simp only [hp, if_true]
+    simp only [hp, ite_true]
     rw [ArithmeticFunction.moebius_apply_prime hp]
     norm_num
   · have hsplit :=
@@ -224,7 +224,7 @@ theorem primeSievePrimeIndicator_eq_half_sub_half_moebius_of_cube
       vfMidSquareBandPrefixComposite_moebius_eq_one_of_cube
         hA hAR hcube hnComp
     rw [primeSievePrimeIndicator]
-    simp only [hp, if_false]
+    simp only [hp, ite_false]
     rw [hmu]
     norm_num
 
@@ -472,12 +472,12 @@ theorem vfMidPrimeCube_le_iff_owner_le_squareDaughter
   constructor
   · intro hcube
     apply (Nat.le_div_iff_mul_le (Nat.mul_pos hq.pos hq.pos)).2
-    simpa [pow_succ, Nat.mul_assoc, Nat.mul_comm, Nat.mul_left_comm] using hcube
+    simpa [pow_succ, Nat.mul_assoc, Nat.mul_comm, Nat.mul_left_comm] using! hcube
   · intro hchild
     have hmul :
         q * (q * q) ≤ X :=
       (Nat.le_div_iff_mul_le (Nat.mul_pos hq.pos hq.pos)).1 hchild
-    simpa [pow_succ, Nat.mul_assoc, Nat.mul_comm, Nat.mul_left_comm] using hmul
+    simpa [pow_succ, Nat.mul_assoc, Nat.mul_comm, Nat.mul_left_comm] using! hmul
 
 /-- **Exact cubic frontier activation.**
 The depth-two completion condition is equivalent to the q^2 daughter still

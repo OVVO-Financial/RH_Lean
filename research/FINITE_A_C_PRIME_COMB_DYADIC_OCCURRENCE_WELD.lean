@@ -68,7 +68,7 @@ theorem primeCombPostRootSignedDeltaTotal_eq_primeNumber_add_dyadicSurvivor
   by_cases hp : p.Prime
   · have hpRoot : Nat.sqrt W < p := (Finset.mem_Ioc.mp hpRange).1
     have hpW : p ≤ W := (Finset.mem_Ioc.mp hpRange).2
-    simp only [hp, if_true]
+    simp only [hp, ite_true]
     rw [primeCombTailSignedDelta_eq_two_plus_dyadicSurvivor hp hpRoot hpW]
     ring
   · simp [hp]
@@ -94,7 +94,7 @@ theorem squareRootEndpoint_natSqrt_eq_pred
   have hsqLower : (R - 1) ^ 2 ≤ squareRootEndpoint R := by
     nlinarith
   have hrootLower : R - 1 ≤ Nat.sqrt (squareRootEndpoint R) :=
-    (Nat.le_sqrt).2 (by simpa only [pow_two] using hsqLower)
+    (Nat.le_sqrt).2 (by simpa only [pow_two] using! hsqLower)
   have hrootUpper : Nat.sqrt (squareRootEndpoint R) < R :=
     (Nat.sqrt_lt').2 (by omega)
   omega

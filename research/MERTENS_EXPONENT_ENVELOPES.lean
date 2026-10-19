@@ -45,7 +45,7 @@ theorem mertens_norm_le (n : ℕ) : ‖mertensSummatory n‖ ≤ (n : ℝ) := by
 /-- The exponent-one bound holds with C = 1, not merely on a finite census. -/
 theorem powerBound_one : MertensPowerBound 1 := by
   refine ⟨1, zero_le_one, fun n _hn => ?_⟩
-  simpa using mertens_norm_le n
+  simpa using! mertens_norm_le n
 
 /-- Enlarging an exponent preserves an admissible envelope. -/
 theorem powerBound_mono {a b : ℝ} (hab : a ≤ b)
@@ -118,7 +118,7 @@ theorem powerBound_of_growthExponent_lt {a : ℝ}
     (ha : mertensGrowthExponent < a) : MertensPowerBound a := by
   have hex : ∃ b ∈ admissibleExponents, b < a := by
     by_contra hnot
-    push_neg at hnot
+    push Not at hnot
     have hle : a ≤ mertensGrowthExponent :=
       le_csInf admissibleExponents_nonempty hnot
     exact (not_le_of_gt ha) hle

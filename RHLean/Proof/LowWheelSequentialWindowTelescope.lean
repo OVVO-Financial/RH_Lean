@@ -96,11 +96,11 @@ theorem card_lowWheelPrimeWindowDilated_eq_divisible
       ⟨hk1, _hkX, hwindow⟩
     have hwindow' :
         b * (p * k) ∈ primeDilateCofactorWindow p R X a := by
-      simpa [Nat.mul_comm, Nat.mul_left_comm, Nat.mul_assoc] using hwindow
+      simpa [Nat.mul_comm, Nat.mul_left_comm, Nat.mul_assoc] using! hwindow
     have hqRange := primeDilateCofactorWindow_subset_Ioc p R X a ha hwindow'
     have hpkLeQ : p * k ≤ b * (p * k) := by
       have hb1 : 1 ≤ b := by omega
-      simpa using Nat.mul_le_mul_right (p * k) hb1
+      simpa using! Nat.mul_le_mul_right (p * k) hb1
     have hpkX : p * k ≤ X :=
       hpkLeQ.trans (Finset.mem_Ioc.mp hqRange).2
     have hkpos : 0 < k := by omega

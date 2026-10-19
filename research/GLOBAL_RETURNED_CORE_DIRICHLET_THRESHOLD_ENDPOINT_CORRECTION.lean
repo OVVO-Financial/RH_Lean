@@ -66,7 +66,7 @@ theorem lowOwnerPhysicalDirichletIncidenceWeight_eq_threshold_add_endpointClip
           intro h
           exact (Nat.not_lt_of_ge hpn) h.2
         unfold lowOwnerDirichletEndpointClip lowOwnerThresholdCrossingIndicator
-        rw [if_neg hnot]
+        rw [ite_eq_right hnot]
       unfold lowOwnerPhysicalDirichletIncidenceWeight
         lowOwnerThresholdOwnerIncidenceWeight
       rw [hDn, hDpn,
@@ -82,7 +82,7 @@ theorem lowOwnerPhysicalDirichletIncidenceWeight_eq_threshold_add_endpointClip
             n ≤ squareRootEndpoint R ∧ squareRootEndpoint R < p * n :=
           ⟨hn, hpnlt⟩
         unfold lowOwnerDirichletEndpointClip lowOwnerThresholdCrossingIndicator
-        rw [if_pos hcond]
+        rw [ite_eq_left hcond]
       unfold lowOwnerPhysicalDirichletIncidenceWeight
         lowOwnerThresholdOwnerIncidenceWeight
       rw [hDn, hDpn,
@@ -105,7 +105,7 @@ theorem lowOwnerPhysicalDirichletIncidenceWeight_eq_threshold_add_endpointClip
         intro h
         exact hn h.1
       unfold lowOwnerDirichletEndpointClip lowOwnerThresholdCrossingIndicator
-      rw [if_neg hnot]
+      rw [ite_eq_right hnot]
     unfold lowOwnerPhysicalDirichletIncidenceWeight
       lowOwnerThresholdOwnerIncidenceWeight
     rw [hDn, hDpn, hTn, hTpn, hcross]

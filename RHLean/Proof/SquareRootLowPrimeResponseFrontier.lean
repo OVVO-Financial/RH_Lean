@@ -171,12 +171,12 @@ theorem squareRootLowPrimeBornFrontier_reciprocalUpper_le_root_add_sqrt
   let s := Nat.sqrt R
   let P := squareRootBornPostTailLowPrimeCutoff R
   have hsR : s ≤ R := by
-    simpa [s] using Nat.sqrt_le_self R
+    simpa [s] using! Nat.sqrt_le_self R
   have hPs : P + s = R := by
     dsimp [P, squareRootBornPostTailLowPrimeCutoff, s]
     omega
   have hsSq : s ^ 2 ≤ R := by
-    simpa [s] using Nat.sqrt_le' R
+    simpa [s] using! Nat.sqrt_le' R
   have hden : 0 < P + 1 := Nat.succ_pos P
   have hidentity :
       (R + s + 1) * (P + 1) + s ^ 2 = (R + 1) ^ 2 := by
@@ -195,7 +195,7 @@ theorem squareRootLowPrimeBornFrontier_reciprocalUpper_le_root_add_sqrt
   have hlt :
       squareRootEndpoint R / (P + 1) < R + s + 1 :=
     (Nat.div_lt_iff_lt_mul hden).2 hprod
-  simpa [P, s] using (Nat.le_of_lt_succ hlt)
+  simpa [P, s] using! (Nat.le_of_lt_succ hlt)
 
 /-- **Linear terminal born-frontier bound.**  Every born response atom that
 escapes the processed interval at `P_R` lies in a rectangle of at most `2R`
@@ -207,7 +207,7 @@ theorem squareRootLowPrimeBornFrontierAtoms_card_le_two_root
   let s := Nat.sqrt R
   let P := squareRootBornPostTailLowPrimeCutoff R
   have hsR : s ≤ R := by
-    simpa [s] using Nat.sqrt_le_self R
+    simpa [s] using! Nat.sqrt_le_self R
   have hPs : P + s = R := by
     dsimp [P, squareRootBornPostTailLowPrimeCutoff, s]
     omega
@@ -215,7 +215,7 @@ theorem squareRootLowPrimeBornFrontierAtoms_card_le_two_root
     squareRootLowPrimeBornFrontier_reciprocalUpper_le_root_add_sqrt R
   have hupperP :
       squareRootEndpoint R / (P + 1) ≤ R + s := by
-    simpa [P, s] using hupper
+    simpa [P, s] using! hupper
   have hwidthC :
       squareRootEndpoint R / (P + 1) - P ≤ 2 * s := by
     omega

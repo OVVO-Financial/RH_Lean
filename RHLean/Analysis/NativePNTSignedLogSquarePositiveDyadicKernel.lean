@@ -57,12 +57,12 @@ private theorem nativePNTMobiusReal_two_mul (m : ℕ) :
     (μ : ArithmeticFunction ℝ) (2 * m) =
       if Odd m then -(μ : ArithmeticFunction ℝ) m else 0 := by
   by_cases hm : Odd m
-  · rw [if_pos hm]
+  · rw [ite_eq_left hm]
     change (((μ (2 * m) : ℤ) : ℝ)) = -(((μ m : ℤ) : ℝ))
     rw [moebius_two_mul_of_odd m hm]
     push_cast
     rfl
-  · rw [if_neg hm]
+  · rw [ite_eq_right hm]
     have heven : Even m := Nat.not_odd_iff_even.mp hm
     have hzero : μ (2 * m) = 0 := by
       apply ArithmeticFunction.moebius_eq_zero_of_not_squarefree
@@ -161,13 +161,13 @@ theorem nativePNTLambdaTwoEvenMobiusPart_eq_neg_half
         (μ : ArithmeticFunction ℝ) (2 * r) *
           (Real.log ((d / (2 * r) : ℕ) : ℝ)) ^ 2
     by_cases hodd : Odd r
-    · rw [if_pos hodd]
-      rw [if_pos hodd] at hmu
+    · rw [ite_eq_left hodd]
+      rw [ite_eq_left hodd] at hmu
       rw [hmu]
       rw [Nat.div_div_eq_div_mul]
       ring
-    · rw [if_neg hodd]
-      rw [if_neg hodd] at hmu
+    · rw [ite_eq_right hodd]
+      rw [ite_eq_right hodd] at hmu
       rw [hmu]
       simp
 
@@ -217,10 +217,10 @@ theorem nativeLambdaTwo_eq_oddKernel_sub_evenHalf
       nativePNTLambdaTwoOddMobiusKernel d -
         (if Even d then nativePNTLambdaTwoOddMobiusKernel (d / 2) else 0) := by
   by_cases heven : Even d
-  · rw [if_pos heven]
+  · rw [ite_eq_left heven]
     exact nativeLambdaTwo_eq_oddKernel_sub_half_of_even d (by omega) heven
   · have hodd : Odd d := Nat.not_even_iff_odd.mp heven
-    rw [if_neg heven, sub_zero]
+    rw [ite_eq_right heven, sub_zero]
     exact (nativePNTLambdaTwoOddMobiusKernel_eq_lambdaTwo_of_odd d hodd).symm
 
 /-- Signed error mass with the positive odd-Mobius coefficient before the even
@@ -270,9 +270,9 @@ theorem nativeLambdaTwoSignedErrorMass_eq_oddKernel_sub_evenIndex
   have hn1 : 1 ≤ n := (Finset.mem_Icc.mp hn).1
   rw [nativeLambdaTwo_eq_oddKernel_sub_evenHalf n hn1]
   by_cases heven : Even n
-  · simp only [if_pos heven]
+  · simp only [ite_eq_left heven]
     ring
-  · simp only [if_neg heven]
+  · simp only [ite_eq_right heven]
     ring
 
 /-- The even-index correction is exactly the dyadic child row after the
@@ -297,7 +297,7 @@ theorem nativePNTLambdaTwoOddKernelEvenIndexCorrectionMass_eq_child
     have hdN2 : d * 2 ≤ N :=
       (Nat.le_div_iff_mul_le (by norm_num : 0 < 2)).1 hdI.2
     exact Finset.mem_filter.mpr
-      ⟨Finset.mem_Icc.mpr ⟨h2d1, by simpa [Nat.mul_comm] using hdN2⟩,
+      ⟨Finset.mem_Icc.mpr ⟨h2d1, by simpa [Nat.mul_comm] using! hdN2⟩,
         even_two_mul d⟩
   · intro a _ha b _hb hab
     change 2 * a = 2 * b at hab

@@ -114,7 +114,7 @@ theorem vfMidFirstBadNNSNormalizedCovariance_le_half_of_sourceToSectorSixInlet
             (vfMidOddSignedSeatCharge R)
             (vfMidActualPrimeEndpointDefect R) = 0
   · unfold nnsZeroTargetNormalizedCovariance
-    rw [if_pos hzero]
+    rw [ite_eq_left hzero]
     norm_num
   · have hco :
         0 ≤ vfMidAnchoredZeroTargetCoPartialGram
@@ -140,7 +140,7 @@ theorem vfMidFirstBadNNSNormalizedCovariance_le_half_of_sourceToSectorSixInlet
               (vfMidActualPrimeEndpointDefect R) :=
       lt_of_le_of_ne (add_nonneg hco hdiv) (Ne.symm hzero)
     unfold nnsZeroTargetNormalizedCovariance
-    rw [if_neg hzero]
+    rw [ite_eq_right hzero]
     apply (div_le_iff₀ hden).2
     linarith only [hcodiv]
 

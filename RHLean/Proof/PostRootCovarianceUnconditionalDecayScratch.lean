@@ -58,7 +58,7 @@ theorem realMertensLength_succ_eq_oddDyadicAnnulus (B : ℕ) :
   have h := mertensSummatory_eq_dyadicCofactorBoundaryMass B
   have hre := congrArg Complex.re h
   simpa [RHLean.Analysis.mertensSummatory, dyadicCofactorBoundaryMass,
-    canonicalMoebiusWeight, realMertensLength, realMoebiusStep] using hre
+    canonicalMoebiusWeight, realMertensLength, realMoebiusStep] using! hre
 
 /-! ## Iterating the wheel: `2` then `3`, then every finite prime set
 
@@ -83,7 +83,7 @@ theorem roughMertens_one_eq_sixWheel_twoBands (B : ℕ) :
       roughInterval 6 (B / 2) B -
         roughInterval 6 (B / 6) (B / 3) := by
   have hsq6 : Squarefree 6 := by
-    simpa using
+    simpa using!
       (Nat.squarefree_mul (by norm_num : Nat.Coprime 2 3)).2
         ⟨Nat.prime_two.squarefree, (show Nat.Prime 3 by norm_num).squarefree⟩
   have h2 :=
@@ -121,11 +121,11 @@ theorem roughMertens_one_eq_thirtyWheel_fourBands (B : ℕ) :
         roughInterval 30 (B / 6) (B / 3) +
         roughInterval 30 (B / 30) (B / 15) := by
   have hsq6 : Squarefree 6 := by
-    simpa using
+    simpa using!
       (Nat.squarefree_mul (by norm_num : Nat.Coprime 2 3)).2
         ⟨Nat.prime_two.squarefree, (show Nat.Prime 3 by norm_num).squarefree⟩
   have hsq30 : Squarefree 30 := by
-    simpa using
+    simpa using!
       (Nat.squarefree_mul (by norm_num : Nat.Coprime 5 6)).2
         ⟨(show Nat.Prime 5 by norm_num).squarefree, hsq6⟩
   have htop :=
@@ -139,12 +139,12 @@ theorem roughMertens_one_eq_thirtyWheel_fourBands (B : ℕ) :
       roughInterval 6 (B / 2) B =
         roughInterval 30 (B / 2) B -
           roughInterval 30 (B / 10) (B / 5) := by
-    simpa [Nat.div_div_eq_div_mul] using htop
+    simpa [Nat.div_div_eq_div_mul] using! htop
   have hlow' :
       roughInterval 6 (B / 6) (B / 3) =
         roughInterval 30 (B / 6) (B / 3) -
           roughInterval 30 (B / 30) (B / 15) := by
-    simpa [Nat.div_div_eq_div_mul] using hlow
+    simpa [Nat.div_div_eq_div_mul] using! hlow
   rw [roughMertens_one_eq_sixWheel_twoBands B, htop', hlow']
   ring
 
@@ -165,7 +165,7 @@ private theorem primorial_squarefree_of_primes
         prime_coprime_primorial S p hp hpS hprimeS
       have hsq : Squarefree (p * RHLean.Arithmetic.primorial S) :=
         (Nat.squarefree_mul hcop).2 ⟨hp.squarefree, hsqS⟩
-      simpa [RHLean.Arithmetic.primorial_insert S p hpS] using hsq
+      simpa [RHLean.Arithmetic.primorial_insert S p hpS] using! hsq
 
 /-- **Full finite prime-wheel recovery of ordinary Mertens.**  Every selected
 prime contributes exactly one multiplicative difference, and after all of them
@@ -204,7 +204,7 @@ theorem finiteDifferenceOperator_roughMertens_primorial
             RHLean.Arithmetic.primorial S :=
           Nat.mul_div_cancel_left (RHLean.Arithmetic.primorial S) hp.pos
         rw [hdiv] at h
-        simpa [freshPrimeDifference, multDiff] using h
+        simpa [freshPrimeDifference, multDiff] using! h
       rw [RHLean.Arithmetic.primorial_insert S p hpS]
       rw [finiteDifferenceOperator_insert_eq_freshPrimeDifference
         S p hp hpS hprimeS]
@@ -225,7 +225,7 @@ theorem roughMertens_one_eq_primeWheel_divisorDifference
         (μ d : ℤ) * roughMertens (RHLean.Arithmetic.primorial S) (B / d) := by
   have h := congrFun (finiteDifferenceOperator_roughMertens_primorial S hprime) B
   rw [finiteDifferenceOperator_apply] at h
-  simpa using h.symm
+  simpa using! h.symm
 
 /-- **Prime adjoining is an exact refinement, not a new estimate.**  If `p` is
 fresh, the recovered physical Mertens prefix is unchanged when the wheel grows
@@ -322,7 +322,7 @@ theorem postRootCovarianceRemainder_le_of_mertensMajorant
     calc
       realMertensLength (W + 1) ^ 2 =
           |realMertensLength (W + 1)| ^ 2 := (sq_abs _).symm
-      _ ≤ A ^ 2 := by simpa [pow_two] using hsqMul
+      _ ≤ A ^ 2 := by simpa [pow_two] using! hsqMul
   exact (postRootCovarianceRemainder_le_half_mertensSquare W).trans
     (div_le_div_of_nonneg_right hsq (by norm_num : (0 : ℝ) ≤ 2))
 
@@ -368,7 +368,7 @@ theorem realMertensPositiveLagPairSum_succ_le_half_endpoint_sq
     calc
       realMertensLength (q + 1) ^ 2 =
           |realMertensLength (q + 1)| ^ 2 := (sq_abs _).symm
-      _ ≤ (q : ℝ) ^ 2 := by simpa [pow_two] using hsqMul
+      _ ≤ (q : ℝ) ^ 2 := by simpa [pow_two] using! hsqMul
   exact hcov.trans
     (div_le_div_of_nonneg_right hsq (by norm_num : (0 : ℝ) ≤ 2))
 
@@ -397,7 +397,7 @@ theorem postRootPrimeFamilyCovarianceTotal_le_half_sqrt_mul_endpoint (W : ℕ) :
           (q := W / p) (by omega)
       have hqroot : W / p ≤ Nat.sqrt W := by
         apply (Nat.le_sqrt).2
-        simpa [pow_two] using postRootPrimeFamily_quotient_sq_le hp
+        simpa [pow_two] using! postRootPrimeFamily_quotient_sq_le hp
       have hqrootR : ((W / p : ℕ) : ℝ) ≤ (Nat.sqrt W : ℝ) := by
         exact_mod_cast hqroot
       have hqnonneg : 0 ≤ ((W / p : ℕ) : ℝ) := by positivity
@@ -456,7 +456,7 @@ theorem postRootCovarianceRemainder_le_strongMertensSubexp :
     C * (W : ℝ) *
       Real.exp (-c * (Real.log (W : ℝ)) ^ ((1 : ℝ) / 10))
   have hbound : |nativeMertensSummatory W| ≤ R := by
-    simpa [R] using hM W hW
+    simpa [R] using! hM W hW
   rw [← realMertensLength_succ_eq_nativeMertensSummatory] at hbound
   exact postRootCovarianceRemainder_le_of_mertensMajorant hbound
 
@@ -475,14 +475,14 @@ theorem postRootCovarianceRemainder_posPart_div_sq_tendsto_zero :
       Tendsto
         (fun W : ℕ => realMertensLength (W + 1) / (W : ℝ))
         atTop (𝓝 0) := by
-    simpa only [realMertensLength_succ_eq_nativeMertensSummatory] using
+    simpa only [realMertensLength_succ_eq_nativeMertensSummatory] using!
       RHLean.Analysis.nativeMertens_div_atTop_zero
   have hsq :
       Tendsto
         (fun W : ℕ =>
           (realMertensLength (W + 1) / (W : ℝ)) ^ 2 / 2)
         atTop (𝓝 0) := by
-    simpa using (hM.pow 2).div_const 2
+    simpa using! (hM.pow 2).div_const 2
   refine squeeze_zero' ?_ ?_ hsq
   · filter_upwards [eventually_ge_atTop 1] with W hW
     have hWpos : (0 : ℝ) < (W : ℝ) := by
@@ -550,7 +550,7 @@ theorem abs_postRootCovarianceRemainder_le_twoSidedUnconditionalEnvelope :
       Real.exp (-c * (Real.log (W : ℝ)) ^ ((1 : ℝ) / 10))) ^ 2 / 2
   let B : ℝ := ((W : ℝ) + (Nat.sqrt W : ℝ) * (W : ℝ)) / 2
   have hu : postRootCovarianceRemainder W ≤ U := by
-    simpa [U] using hupper W hW
+    simpa [U] using! hupper W hW
   have hl :=
     neg_half_endpoint_add_sqrt_mul_endpoint_le_postRootCovarianceRemainder W
   have hl' : -B ≤ postRootCovarianceRemainder W := by
@@ -563,6 +563,6 @@ theorem abs_postRootCovarianceRemainder_le_twoSidedUnconditionalEnvelope :
     hu.trans (le_max_left _ _)
   have habs : |postRootCovarianceRemainder W| ≤ max U B :=
     abs_le.mpr ⟨hleft, hright⟩
-  simpa [U, B] using habs
+  simpa [U, B] using! habs
 
 end RHLean.Proof

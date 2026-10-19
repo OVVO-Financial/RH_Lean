@@ -50,7 +50,7 @@ theorem signedVerticalLineEventStep_sq_le_moebius_sq
   · by_cases ha : n ∈ orderedEulerCutActiveChildren a
     · have hsq : 0 ≤ realMoebiusStep n ^ 2 := sq_nonneg _
       simpa [signedVerticalLineEventStep,
-        orderedEulerCutChildEndpointChargeReal, hb, ha] using hsq
+        orderedEulerCutChildEndpointChargeReal, hb, ha] using! hsq
     · simp [signedVerticalLineEventStep,
         orderedEulerCutChildEndpointChargeReal,
         orderedEulerCutChildChargeReal, realMoebiusStep, hb, ha]
@@ -60,7 +60,7 @@ theorem signedVerticalLineEventStep_sq_le_moebius_sq
         orderedEulerCutChildChargeReal, realMoebiusStep, hb, ha]
     · have hsq : 0 ≤ realMoebiusStep n ^ 2 := sq_nonneg _
       simpa [signedVerticalLineEventStep,
-        orderedEulerCutChildEndpointChargeReal, hb, ha] using hsq
+        orderedEulerCutChildEndpointChargeReal, hb, ha] using! hsq
 
 /-- **Exact finite squarefree diagonal bound.**  The line-event diagonal is
 bounded by the ordinary deterministic Mertens diagonal on the same physical
@@ -281,11 +281,11 @@ private theorem fivePrimeSquareBonferroni_le_zeroIndicator (n : ℕ) :
       intro hsq
       rw [Nat.squarefree_iff_prime_squarefree] at hsq
       rcases hhit with h4 | h9 | h25 | h49 | h121
-      · exact (hsq 2 (by norm_num)) (by simpa using h4)
-      · exact (hsq 3 (by norm_num)) (by simpa using h9)
-      · exact (hsq 5 (by norm_num)) (by simpa using h25)
-      · exact (hsq 7 (by norm_num)) (by simpa using h49)
-      · exact (hsq 11 (by norm_num)) (by simpa using h121)
+      · exact (hsq 2 (by norm_num)) (by simpa using! h4)
+      · exact (hsq 3 (by norm_num)) (by simpa using! h9)
+      · exact (hsq 5 (by norm_num)) (by simpa using! h25)
+      · exact (hsq 7 (by norm_num)) (by simpa using! h49)
+      · exact (hsq 11 (by norm_num)) (by simpa using! h121)
     have hmu : μ n = 0 :=
       ArithmeticFunction.moebius_eq_zero_of_not_squarefree hnsq
     by_cases h4 : 4 ∣ n <;>
@@ -456,11 +456,11 @@ theorem orderedEulerCutActiveChild_squarefree
   have hlow := orderedEulerCut_lowSourceData hshape
   have hhighLow := orderedEulerCut_highCofactor_coprime_lowProduct hshape
   have hp : (orderedEulerCutPivot y).Prime := by
-    simpa [orderedEulerCutPivot] using hshape.1
+    simpa [orderedEulerCutPivot] using! hshape.1
   have hcsq : Squarefree (orderedEulerCutHighCofactor y) := by
-    simpa [orderedEulerCutHighCofactor] using hshape.2.2.1
+    simpa [orderedEulerCutHighCofactor] using! hshape.2.2.1
   have hpc : ¬ orderedEulerCutPivot y ∣ orderedEulerCutHighCofactor y := by
-    simpa [orderedEulerCutPivot, orderedEulerCutHighCofactor] using
+    simpa [orderedEulerCutPivot, orderedEulerCutHighCofactor] using!
       hshape.2.2.2.1
   have hcp : Nat.Coprime (orderedEulerCutHighCofactor y)
       (orderedEulerCutPivot y) :=
@@ -487,11 +487,11 @@ theorem orderedEulerCutActiveChild_root_lt
   have hocc := mem_orderedEulerCutCarrier.mp hy
   have hfactor := orderedEulerCutOccursAt_factor_window hshape hocc
   have hc1 : 1 ≤ orderedEulerCutHighCofactor y := by
-    simpa [orderedEulerCutHighCofactor] using hshape.2.1
+    simpa [orderedEulerCutHighCofactor] using! hshape.2.1
   have hle : orderedEulerCutUpperFactor y ≤ orderedEulerCutChildInteger y := by
     have hmul := Nat.mul_le_mul_right (orderedEulerCutUpperFactor y) hc1
     simpa [orderedEulerCutUpperFactor, orderedEulerCutDeathRoot,
-      orderedEulerCutChildInteger, orderedEulerCutHighCofactor] using hmul
+      orderedEulerCutChildInteger, orderedEulerCutHighCofactor] using! hmul
   exact hfactor.2.trans_le hle
 
 /-- **Squarefree shell realization.**  Every squarefree integer strictly between
@@ -508,18 +508,18 @@ theorem orderedEulerCutActiveChild_of_squarefree_shell
       let p := canonicalLargestPrimeFactor n
       let m := canonicalCofactor n
       have hdata : CanonicalSourceData p m := by
-        simpa [p, m] using canonicalSourceData_of_squarefree hsq hn1
+        simpa [p, m] using! canonicalSourceData_of_squarefree hsq hn1
       rcases hdata with ⟨hp, hm1, hmsq, hcop, hdom⟩
       have hmp : m * p = n := by
-        simpa [m, p] using canonicalCofactor_mul_largestPrimeFactor hn1
+        simpa [m, p] using! canonicalCofactor_mul_largestPrimeFactor hn1
       have hmLt : m < n := by
-        simpa [m] using canonicalCofactor_lt_self hn1
+        simpa [m] using! canonicalCofactor_lt_self hn1
       have hsqrt : Nat.sqrt n < R := (Nat.sqrt_lt').2 hnR
       by_cases hmR : m ≤ R
       · have htprod : primeFaceProduct m.primeFactors = m := by
-          simpa [primeFaceProduct] using Nat.prod_primeFactors_of_squarefree hmsq
+          simpa [primeFaceProduct] using! Nat.prod_primeFactors_of_squarefree hmsq
         have hpn : p * m = n := by
-          simpa [Nat.mul_comm] using hmp
+          simpa [Nat.mul_comm] using! hmp
         have hshape : OrderedEulerCutShape (m.primeFactors, (1, p)) := by
           change p.Prime ∧ 1 ≤ (1 : ℕ) ∧ Squarefree 1 ∧ ¬ p ∣ 1 ∧
             (∀ q ∈ m.primeFactors, q.Prime ∧ q < p) ∧ RoughAbove p 1
@@ -593,7 +593,7 @@ theorem orderedEulerCutActiveChild_of_squarefree_shell
             exact hrough r hrMem
           · have hre : r = p :=
               (Nat.prime_dvd_prime_iff_eq hrPrime hp).mp hrp
-            simpa [hre] using hqp
+            simpa [hre] using! hqp
         have hzShape : OrderedEulerCutShape (t, (c * p, q)) := by
           change q.Prime ∧ 1 ≤ c * p ∧ Squarefree (c * p) ∧
             ¬ q ∣ c * p ∧
@@ -617,12 +617,12 @@ theorem orderedEulerCutActiveChild_of_squarefree_shell
                 (Nat.sqrt (c * (q * primeFaceProduct t)) + 1)) ≤ R := by
           simpa [orderedEulerCutBirthRoot, orderedEulerCutLowProduct,
             orderedEulerCutHighCofactor, orderedEulerCutChildInteger,
-            orderedEulerCutPivot] using hyLife.1
+            orderedEulerCutPivot] using! hyLife.1
         have hlowR : primeFaceProduct t ≤ R :=
           (Nat.max_le.mp hyBirthRaw).1
         have hdeathOld : R < q * primeFaceProduct t := by
           simpa [orderedEulerCutDeathRoot, orderedEulerCutPivot,
-            orderedEulerCutLowProduct] using hyLife.2
+            orderedEulerCutLowProduct] using! hyLife.2
         have hnewHighLt : c * p < R := by
           by_contra hnot
           have hhigh : R ≤ c * p := Nat.le_of_not_gt hnot
@@ -643,7 +643,7 @@ theorem orderedEulerCutActiveChild_of_squarefree_shell
           refine ⟨hlowR, Nat.max_le.mpr ⟨?_, ?_⟩⟩ <;> omega
         have hdeath : R < orderedEulerCutDeathRoot (t, (c * p, q)) := by
           simpa [orderedEulerCutDeathRoot, orderedEulerCutPivot,
-            orderedEulerCutLowProduct] using hdeathOld
+            orderedEulerCutLowProduct] using! hdeathOld
         have hmem : (t, (c * p, q)) ∈ orderedEulerCutCarrier R :=
           mem_orderedEulerCutCarrier_iff_shape_lifetime.mpr
             ⟨hzShape, hbirth, hdeath⟩
@@ -698,7 +698,7 @@ theorem orderedEulerCutPrime_inactive_to_active_iff_birth
   have hnpos : 0 < n := Nat.pos_of_ne_zero hsq.ne_zero
   have hnle : n ≤ p * n := by
     have hp1 : 1 ≤ p := hp.one_le
-    simpa [one_mul, Nat.mul_comm] using Nat.mul_le_mul_right n hp1
+    simpa [one_mul, Nat.mul_comm] using! Nat.mul_le_mul_right n hp1
   constructor
   · rintro ⟨hpnActive, hnInactive⟩
     have hpData :=
@@ -733,7 +733,7 @@ theorem orderedEulerCutPrime_active_to_inactive_iff_topEscape
       ⟨hp.squarefree, hsq⟩
   have hnle : n ≤ p * n := by
     have hp1 : 1 ≤ p := hp.one_le
-    simpa [one_mul, Nat.mul_comm] using Nat.mul_le_mul_right n hp1
+    simpa [one_mul, Nat.mul_comm] using! Nat.mul_le_mul_right n hp1
   constructor
   · rintro ⟨hnActive, hpnInactive⟩
     have hnData :=

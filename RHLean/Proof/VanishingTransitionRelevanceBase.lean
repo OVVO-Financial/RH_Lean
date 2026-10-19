@@ -244,17 +244,17 @@ theorem eulerFiniteDifferenceResponse_insert
       constructor
       · intro hle
         apply (Nat.le_div_iff_mul_le hpPrime.pos).2
-        simpa [Nat.mul_comm] using hle
+        simpa [Nat.mul_comm] using! hle
       · intro hle
         have hmul := (Nat.le_div_iff_mul_le hpPrime.pos).1 hle
-        simpa [Nat.mul_comm] using hmul
+        simpa [Nat.mul_comm] using! hmul
     have hdiv :
         X / primeFaceProduct (insert p t) =
           (X / p) / primeFaceProduct t := by
       rw [hprod, Nat.div_div_eq_div_mul]
     by_cases hle : primeFaceProduct t ≤ B / p
     · have hchild : primeFaceProduct (insert p t) ≤ B := hcut.mpr hle
-      simp only [hchild, hle, if_true]
+      simp only [hchild, hle, ite_true]
       rw [hsign, hdiv]
       ring
     · have hchild : ¬primeFaceProduct (insert p t) ≤ B := by
@@ -374,7 +374,7 @@ theorem lowWheelCanonicalDowncrossOrientedLedger_eq_sqrtDense_add_signedLive
       (∑ x ∈ lowWheelCanonicalDowncrossOrientedStateCarrier R,
         lowWheelCanonicalDowncrossOrientedSqrtDenseStateFibre R x) +
         signedLiveFirstJumpAggregate R := by
-  simpa [signedLiveFirstJumpAggregate] using
+  simpa [signedLiveFirstJumpAggregate] using!
     lowWheelCanonicalDowncrossOrientedLedger_eq_sqrtDense_add_firstJump R
 
 end RHLean.Proof

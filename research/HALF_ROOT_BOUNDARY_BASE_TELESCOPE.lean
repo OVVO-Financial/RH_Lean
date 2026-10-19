@@ -84,7 +84,7 @@ theorem abs_halfRoot_base_sub_middleBoundary_sub_rootBase_le_root_add_one
       frozenPrimeUniverseMass (primesUpTo R) (squareRootEndpoint R)| ≤
         (R + 1 : ℤ) := by
   rw [halfRoot_base_sub_middleBoundary_eq_rootBase_add_squareCorrection R hR]
-  simpa using abs_halfRootPrimeSquareCorrection_le_root_add_one R hR
+  simpa using! abs_halfRootPrimeSquareCorrection_le_root_add_one R hR
 
 /-- No unfinished middle frozen state remains.  The complete coupled core is
 the root frozen base minus the ordinary high-prime Mertens band, plus the
@@ -192,7 +192,7 @@ theorem stableFar_ownerWindow_base_sub_boundary_eq_advanced_add_squares
   let T := lowWheelFarPrimeQ2CrossingOwnerDepth R y
   let Y := lowWheelFarPrimeQ2CrossingOwnerLower R y
   let K := lowWheelFarPrimeQ2CrossingOwnerUpper R y
-  have hYK : Y ≤ K := by simpa [Y, K] using hLU
+  have hYK : Y ≤ K := by simpa [Y, K] using! hLU
   have hKX : K ≤ T := by
     dsimp [K, T]
     unfold lowWheelFarPrimeQ2CrossingOwnerUpper
@@ -215,6 +215,6 @@ theorem stableFar_ownerWindow_base_sub_boundary_eq_advanced_add_squares
     hrootSquare.trans_le (hsquareMono.trans hsquareCube)
   have htel := properSubwheel_base_sub_boundaryPrefix_eq_advancedBase_add_squares
     T Y K hYK hKX hcubic
-  simpa [T, Y, K] using htel
+  simpa [T, Y, K] using! htel
 
 end RHLean.Proof

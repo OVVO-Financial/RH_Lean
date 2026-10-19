@@ -198,7 +198,7 @@ theorem vfMidDirect_abs_deriv_log_le_squareTile
     exact hsq0.trans_le ht.1
   rw [(Real.hasDerivAt_log ht0.ne').deriv]
   rw [abs_of_pos (inv_pos.mpr ht0)]
-  simpa [one_div] using
+  simpa [one_div] using!
     (one_div_le_one_div_of_le (sq_pos_of_pos hR0) ht.1)
 
 /-- Every prime in a complete square band has log within 3/R of the
@@ -240,7 +240,7 @@ theorem abs_vfMidDirect_logMidpoint_sub_log_prime_le
           exact hsq0.trans_le hu.1
         exact (Real.hasDerivAt_log hu0.ne').differentiableAt)
       (fun u hu => by
-        simpa [Real.norm_eq_abs] using
+        simpa [Real.norm_eq_abs] using!
           (vfMidDirect_abs_deriv_log_le_squareTile hR hu))
       (convex_Icc _ _) hmTile hpTile
   have hwidth :
@@ -270,7 +270,7 @@ theorem abs_vfMidDirect_logMidpoint_sub_log_prime_le
       |Real.log (p : ℝ) - Real.log (vfMidBandMidpoint R)| ≤
         (1 / ((R : ℝ) ^ 2)) *
           |(p : ℝ) - vfMidBandMidpoint R| := by
-    simpa [Real.norm_eq_abs] using hLip
+    simpa [Real.norm_eq_abs] using! hLip
   rw [abs_sub_comm]
   calc
     |Real.log (p : ℝ) - Real.log (vfMidBandMidpoint R)|

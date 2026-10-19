@@ -146,7 +146,7 @@ theorem post789SignedRemainder_le_correlationSq_young
     exact hsq
   have hcross : 0 ≤ a * G ^ 2 + b * E - 2 * Q * G := by
     by_contra hneg
-    push_neg at hneg
+    push Not at hneg
     have h4a : (0 : ℝ) < 4 * a := by linarith
     have := mul_neg_of_pos_of_neg h4a hneg
     linarith
@@ -314,7 +314,7 @@ private theorem root_sq_le_lowerEnvelope_scale_corrEquiv
     rw [hm0] at h0
     norm_num at h0
     exact h0
-  simpa only [mul_one] using
+  simpa only [mul_one] using!
     (mul_le_mul_of_nonneg_left hK1 (sq_nonneg (R : ℝ)))
 
 /-- Sharpened remainder transfer: `A` maps to `4*(A+1)/3`, with boundary

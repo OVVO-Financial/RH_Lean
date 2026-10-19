@@ -45,11 +45,11 @@ private theorem GammaR_ne_zero_of_not_trivial
   cases n with
   | zero =>
       apply hs0
-      simpa using hn
+      simpa using! hn
   | succ n =>
       apply htriv
       refine ⟨n, ?_⟩
-      simpa [Nat.cast_succ] using hn
+      simpa [Nat.cast_succ] using! hn
 
 /-- The repository's squared Mertens-energy criterion implies Mathlib's formal
 Riemann hypothesis. -/
@@ -75,7 +75,7 @@ theorem riemannHypothesis_of_mertensEnergy
     have hdef := riemannZeta_def_of_ne_zero hs0
     have hdiv : completedRiemannZeta s / Gammaℝ s = 0 := by
       rw [← hdef, hz]
-    simpa [hGamma] using hdiv
+    simpa [hGamma] using! hdiv
   have hrefCompleted : completedRiemannZeta (1 - s) = 0 := by
     rw [completedRiemannZeta_one_sub s, hcompleted]
   have href0 : 1 - s ≠ 0 := by
@@ -403,7 +403,7 @@ private theorem complexHeightShellEnergy_le_card_mul_diagonal
   have hcauchy' :
       (∑ i ∈ Finset.range n, ‖shell i‖) ^ 2 ≤
         (n : ℝ) * ∑ i ∈ Finset.range n, ‖shell i‖ ^ 2 := by
-    simpa using hcauchy
+    simpa using! hcauchy
   exact hsq.trans hcauchy'
 
 /-- **Unconditional global signed Gram baseline.**  The complete `q` family is
@@ -484,7 +484,7 @@ theorem globalCenteredDistinguishedPrimeEnergyAt_le_square_mul_diagonal
   have hendpoint : squareRootEndpoint R + 1 = R ^ 2 := by
     unfold squareRootEndpoint
     exact Nat.sub_add_cancel hRsqOne
-  simpa [hendpoint] using hbound
+  simpa [hendpoint] using! hbound
 
 /-- The same result written directly on the already-formalized exact signed
 cross-prime Gram.  No absolute value appears on the off-diagonal sum. -/
@@ -547,7 +547,7 @@ theorem squarePrefixEnergyBounded_of_centeredDistinguishedPrimeGlobalGram
   intro n
   by_cases hn : n = 0
   · subst n
-    simpa [squarePrefixMertens, squarePrefixEndpoint, mertensSummatory] using hC
+    simpa [squarePrefixMertens, squarePrefixEndpoint, mertensSummatory] using! hC
   · have hn1 : 1 ≤ n := Nat.one_le_iff_ne_zero.mpr hn
     have hR : 2 ≤ n + 1 := by omega
     rw [← hrecon.energy_eq_squarePrefix n hn1]

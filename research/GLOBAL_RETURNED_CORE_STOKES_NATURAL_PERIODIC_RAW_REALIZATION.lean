@@ -169,7 +169,7 @@ theorem lowOwnerStokesNaturalPeriodicRawSpectrum_eq_rawConductorArithmeticCoeffi
         (lowOwnerStokesNaturalWheelSystem R hR).modulus
         (addOrderOf r) := by
   let W := lowOwnerStokesNaturalWheelSystem R hR
-  letI : NeZero W.modulus := ⟨Nat.ne_of_gt W.modulus_pos⟩
+  let : NeZero W.modulus := ⟨Nat.ne_of_gt W.modulus_pos⟩
   unfold lowOwnerStokesNaturalPeriodicRawSpectrum
     lowOwnerStokesNaturalPeriodicRawTorusField
   change
@@ -181,7 +181,7 @@ theorem lowOwnerStokesNaturalPeriodicRawSpectrum_eq_rawConductorArithmeticCoeffi
     (lowOwnerStokesWheelPrimes R)
     (fun p hp => lowOwnerStokesWheelPrimes_prime hp)
     (fun p hp => by
-      simpa [W, lowOwnerStokesNaturalWheelSystem] using
+      simpa [W, lowOwnerStokesNaturalWheelSystem] using!
         prime_sq_dvd_lowOwnerStokesNaturalWheelModulus hR hp)
     r
 

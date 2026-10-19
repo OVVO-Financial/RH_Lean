@@ -94,7 +94,7 @@ theorem root_sq_over_eighteen_le_frameMajorant
   have hmass :
       (1 / 9 : ℝ) ≤
         ∑ p ∈ S, ((1 : ℝ) / (p : ℝ)) ^ 2 := by
-    simpa [S] using one_ninth_le_reciprocalSquareMass hR
+    simpa [S] using! one_ninth_le_reciprocalSquareMass hR
   have hoff :
       0 ≤ primePeriodReciprocalOffDiagonalMajorant W X S := by
     unfold primePeriodReciprocalOffDiagonalMajorant
@@ -212,15 +212,15 @@ theorem secondPrime_schedule_eq_single_top
   let s := secondPrime R hR
   let t := topPrime R hR
   have hst : s < t := by
-    simpa [s, t] using secondPrime_lt_topPrime hR
+    simpa [s, t] using! secondPrime_lt_topPrime hR
   have htMem : t ∈ primesUpTo (squareRootEndpoint R) := by
-    simpa [t] using topPrime_mem hR
+    simpa [t] using! topPrime_mem hR
   have htFull : t ∈ squareRootCanonicalRoughDescendingPrimeSchedule R := by
     unfold squareRootCanonicalRoughDescendingPrimeSchedule
     exact (Finset.mem_sort (fun a b : ℕ => a ≥ b)).2 htMem
   have htSched :
       t ∈ lowOwnerFirstOwnerCanonicalStokesSchedule R s := by
-    simpa [lowOwnerFirstOwnerCanonicalStokesSchedule] using
+    simpa [lowOwnerFirstOwnerCanonicalStokesSchedule] using!
       (show t ∈ squareRootCanonicalRoughDescendingPrimeSchedule R ∧ s < t
         from ⟨htFull, hst⟩)
   have huniq :
@@ -228,7 +228,7 @@ theorem secondPrime_schedule_eq_single_top
     intro q hq
     have hqData :
         q ∈ squareRootCanonicalRoughDescendingPrimeSchedule R ∧ s < q := by
-      simpa [lowOwnerFirstOwnerCanonicalStokesSchedule] using hq
+      simpa [lowOwnerFirstOwnerCanonicalStokesSchedule] using! hq
     have hqMem : q ∈ primesUpTo (squareRootEndpoint R) := by
       unfold squareRootCanonicalRoughDescendingPrimeSchedule at hqData
       exact (Finset.mem_sort (fun a b : ℕ => a ≥ b)).1 hqData.1
@@ -237,7 +237,7 @@ theorem secondPrime_schedule_eq_single_top
         q ∈ (primesUpTo (squareRootEndpoint R)).erase t :=
       Finset.mem_erase.mpr ⟨hqt, hqMem⟩
     have hqLeS : q ≤ s := by
-      simpa [s, t] using
+      simpa [s, t] using!
         Finset.le_max'
           ((primesUpTo (squareRootEndpoint R)).erase t) q hqErase
     omega
@@ -294,7 +294,7 @@ theorem topPrime_schedule_eq_nil
   have hqLe :
       q ≤ topPrime R hR :=
     Finset.le_max' _ q hqMem
-  simpa only [decide_eq_true_eq] using (Nat.not_lt_of_ge hqLe)
+  simpa only [decide_eq_true_eq] using! (Nat.not_lt_of_ge hqLe)
 
 theorem topTerminalOwnerSet_subset_top_two
     {R : ℕ} (hR : 56 ≤ R) :
@@ -310,22 +310,22 @@ theorem topTerminalOwnerSet_subset_top_two
   · simp [hps, s]
   exfalso
   have htS : t ∈ primesUpTo (squareRootEndpoint R) := by
-    simpa [t] using topPrime_mem hR
+    simpa [t] using! topPrime_mem hR
   have hsErase :
       s ∈ (primesUpTo (squareRootEndpoint R)).erase t := by
-    simpa [s, t] using secondPrime_mem_erase hR
+    simpa [s, t] using! secondPrime_mem_erase hR
   have hsS : s ∈ primesUpTo (squareRootEndpoint R) :=
     (Finset.mem_erase.mp hsErase).2
   have hst : s ≠ t := (Finset.mem_erase.mp hsErase).1
   have hptLe : p ≤ t := by
-    simpa [t] using Finset.le_max'
+    simpa [t] using! Finset.le_max'
       (primesUpTo (squareRootEndpoint R)) p hpS
   have hptLt : p < t := by omega
   have hpErase :
       p ∈ (primesUpTo (squareRootEndpoint R)).erase t :=
     Finset.mem_erase.mpr ⟨hpt, hpS⟩
   have hpsLe : p ≤ s := by
-    simpa [s, t] using Finset.le_max'
+    simpa [s, t] using! Finset.le_max'
       ((primesUpTo (squareRootEndpoint R)).erase t) p hpErase
   have hpsLt : p < s := by omega
   have htFull :
@@ -338,12 +338,12 @@ theorem topTerminalOwnerSet_subset_top_two
     exact (Finset.mem_sort (fun a b : ℕ => a ≥ b)).2 hsS
   have htSched :
       t ∈ lowOwnerFirstOwnerCanonicalStokesSchedule R p := by
-    simpa [lowOwnerFirstOwnerCanonicalStokesSchedule] using
+    simpa [lowOwnerFirstOwnerCanonicalStokesSchedule] using!
       (show t ∈ squareRootCanonicalRoughDescendingPrimeSchedule R ∧ p < t
         from ⟨htFull, hptLt⟩)
   have hsSched :
       s ∈ lowOwnerFirstOwnerCanonicalStokesSchedule R p := by
-    simpa [lowOwnerFirstOwnerCanonicalStokesSchedule] using
+    simpa [lowOwnerFirstOwnerCanonicalStokesSchedule] using!
       (show s ∈ squareRootCanonicalRoughDescendingPrimeSchedule R ∧ p < s
         from ⟨hsFull, hpsLt⟩)
   generalize hsched :
@@ -387,7 +387,7 @@ theorem topPrime_admittedBase_eq_one
   have ha2 : 2 ≤ a := by omega
   have hmul :
       2 * topPrime R hR ≤ topPrime R hR * a := by
-    simpa [Nat.mul_comm] using
+    simpa [Nat.mul_comm] using!
       Nat.mul_le_mul_right (topPrime R hR) ha2
   omega
 
@@ -495,7 +495,7 @@ private theorem one_mem_secondPrime_emptyBase
     1 ∈ lowOwnerFirstOwnerBaseFiber R (secondPrime R hR) ∅ := by
   let s := secondPrime R hR
   have hsPrime : s.Prime := by
-    simpa [s] using secondPrime_prime hR
+    simpa [s] using! secondPrime_prime hR
   have hX1 : 1 ≤ squareRootEndpoint R := by
     unfold squareRootEndpoint
     have hsq : 2 ≤ R ^ 2 := by nlinarith
@@ -520,20 +520,20 @@ private theorem top_mem_secondPrime_emptyBase
   let s := secondPrime R hR
   let t := topPrime R hR
   have hsPrime : s.Prime := by
-    simpa [s] using secondPrime_prime hR
+    simpa [s] using! secondPrime_prime hR
   have htPrime : t.Prime := by
-    simpa [t] using topPrime_prime hR
+    simpa [t] using! topPrime_prime hR
   have hst : s < t := by
-    simpa [s, t] using secondPrime_lt_topPrime hR
+    simpa [s, t] using! secondPrime_lt_topPrime hR
   have htMem : t ∈ primesUpTo (squareRootEndpoint R) := by
-    simpa [t] using topPrime_mem hR
+    simpa [t] using! topPrime_mem hR
   have htX : t ≤ squareRootEndpoint R :=
     (mem_primesUpTo.mp htMem).2
   have hsig : squarefreeLowerPrimeSignature s t = ∅ := by
     have h :=
       squarefreeLowerPrimeSignature_mul_larger_prime
         (p := s) (r := t) (a := 1) htPrime hst (by norm_num)
-    simpa [squarefreeLowerPrimeSignature, squarefreePrimeFace] using h
+    simpa [squarefreeLowerPrimeSignature, squarefreePrimeFace] using! h
   have hsNotDvd : ¬ s ∣ t := by
     intro hdiv
     have heq : s = t :=
@@ -559,22 +559,22 @@ theorem secondPrime_topInterior_eq_pair
   let s := secondPrime R hR
   let t := topPrime R hR
   have htPrime : t.Prime := by
-    simpa [t] using topPrime_prime hR
+    simpa [t] using! topPrime_prime hR
   apply Finset.Subset.antisymm
-  · simpa [s, t] using
+  · simpa [s, t] using!
       (secondPrime_topInterior_subset_pair (R := R) hR (sig := ∅))
   · intro n hn
     have h1Base :
         1 ∈ lowOwnerFirstOwnerBaseFiber R s ∅ := by
-      simpa [s] using one_mem_secondPrime_emptyBase hR
+      simpa [s] using! one_mem_secondPrime_emptyBase hR
     have htBase :
         t ∈ lowOwnerFirstOwnerBaseFiber R s ∅ := by
-      simpa [s, t] using top_mem_secondPrime_emptyBase hR
+      simpa [s, t] using! top_mem_secondPrime_emptyBase hR
     have htNotDvdOne : ¬ t ∣ 1 := by
       intro hdiv
       exact htPrime.ne_one (Nat.dvd_one.mp hdiv)
     have htoggleOne : primeCarrierToggle t 1 = t := by
-      simpa using (primeCarrierToggle_of_not_dvd htNotDvdOne)
+      simpa using! (primeCarrierToggle_of_not_dvd htNotDvdOne)
     have htSq : ¬ t ^ 2 ∣ t := by
       intro hdiv
       have hle : t ^ 2 ≤ t := Nat.le_of_dvd htPrime.pos hdiv
@@ -604,9 +604,9 @@ theorem secondPrime_topInterior_eq_empty_of_sig_ne_empty
   let s := secondPrime R hR
   let t := topPrime R hR
   have htPrime : t.Prime := by
-    simpa [t] using topPrime_prime hR
+    simpa [t] using! topPrime_prime hR
   have hst : s < t := by
-    simpa [s, t] using secondPrime_lt_topPrime hR
+    simpa [s, t] using! secondPrime_lt_topPrime hR
   apply Finset.eq_empty_iff_forall_notMem.mpr
   intro n hn
   have hsub :=
@@ -628,7 +628,7 @@ theorem secondPrime_topInterior_eq_empty_of_sig_ne_empty
       have h :=
         squarefreeLowerPrimeSignature_mul_larger_prime
           (p := s) (r := t) (a := 1) htPrime hst (by norm_num)
-      simpa [squarefreeLowerPrimeSignature, squarefreePrimeFace] using h
+      simpa [squarefreeLowerPrimeSignature, squarefreePrimeFace] using! h
     rw [htopSig] at hdata
     exact hsig hdata.symm
 
@@ -637,7 +637,7 @@ private theorem topPrime_reciprocalDaughterWeight_eq_zero
     lowOwnerReciprocalDaughterWeight R (topPrime R hR) = 0 := by
   let t := topPrime R hR
   have htTop : squareRootEndpoint R / 2 < t := by
-    simpa [t] using endpoint_half_lt_topPrime hR
+    simpa [t] using! endpoint_half_lt_topPrime hR
   unfold lowOwnerReciprocalDaughterWeight
   apply Finset.sum_eq_zero
   intro q hq
@@ -663,11 +663,11 @@ private theorem topPrime_baseCoefficient_eq_one
     lowOwnerDirichletBaseCoefficient R (topPrime R hR) = 1 := by
   let t := topPrime R hR
   have htMem : t ∈ primesUpTo (squareRootEndpoint R) := by
-    simpa [t] using topPrime_mem hR
+    simpa [t] using! topPrime_mem hR
   have htX : t ≤ squareRootEndpoint R :=
     (mem_primesUpTo.mp htMem).2
   have htTop : squareRootEndpoint R / 2 < t := by
-    simpa [t] using endpoint_half_lt_topPrime hR
+    simpa [t] using! endpoint_half_lt_topPrime hR
   have hmul : R * 2 ≤ squareRootEndpoint R := by
     unfold squareRootEndpoint
     apply Nat.le_sub_of_add_le
@@ -677,11 +677,11 @@ private theorem topPrime_baseCoefficient_eq_one
   have hRt : R ≤ t := hhalf.trans (Nat.le_of_lt htTop)
   have hqzero :
       lowOwnerReciprocalDaughterWeight R t = 0 := by
-    simpa [t] using topPrime_reciprocalDaughterWeight_eq_zero hR
+    simpa [t] using! topPrime_reciprocalDaughterWeight_eq_zero hR
   unfold lowOwnerDirichletBaseCoefficient lowOwnerPhysicalDirichletWeight
-  rw [if_pos htX]
+  rw [ite_eq_left htX]
   unfold lowOwnerZeroFrequencyMobiusWeight lowOwnerFarTailWeight
-  rw [if_pos hRt, hqzero]
+  rw [ite_eq_left hRt, hqzero]
   norm_num
 
 private theorem one_baseCoefficient_eq_reciprocal
@@ -694,9 +694,9 @@ private theorem one_baseCoefficient_eq_reciprocal
     omega
   have hR1 : ¬ R ≤ 1 := by omega
   unfold lowOwnerDirichletBaseCoefficient lowOwnerPhysicalDirichletWeight
-  rw [if_pos hX1]
+  rw [ite_eq_left hX1]
   unfold lowOwnerZeroFrequencyMobiusWeight lowOwnerFarTailWeight
-  rw [if_neg hR1]
+  rw [ite_eq_right hR1]
   ring
 
 private theorem reciprocalDaughterWeight_le_at_one
@@ -727,12 +727,12 @@ private theorem secondPrime_baseCoefficient_le_one_add_H
   have hd :=
     reciprocalDaughterWeight_le_at_one (R := R) (n := s) hsOne
   unfold lowOwnerDirichletBaseCoefficient lowOwnerPhysicalDirichletWeight
-  rw [if_pos hsX]
+  rw [ite_eq_left hsX]
   unfold lowOwnerZeroFrequencyMobiusWeight lowOwnerFarTailWeight
   by_cases hRs : R ≤ s
-  · rw [if_pos hRs]
+  · rw [ite_eq_left hRs]
     linarith
-  · rw [if_neg hRs]
+  · rw [ite_eq_right hRs]
     linarith
 
 private theorem secondPrime_returned_top_eq_zero
@@ -742,15 +742,15 @@ private theorem secondPrime_returned_top_eq_zero
   let s := secondPrime R hR
   let t := topPrime R hR
   have hsPrime : s.Prime := by
-    simpa [s] using secondPrime_prime hR
+    simpa [s] using! secondPrime_prime hR
   have htTop : squareRootEndpoint R / 2 < t := by
-    simpa [t] using endpoint_half_lt_topPrime hR
+    simpa [t] using! endpoint_half_lt_topPrime hR
   have hX2t : squareRootEndpoint R < 2 * t := by omega
   have h2st : 2 * t ≤ s * t :=
     Nat.mul_le_mul_right t hsPrime.two_le
   have hout : squareRootEndpoint R < s * t := hX2t.trans_le h2st
   unfold lowOwnerDirichletReturnedCoefficient lowOwnerPhysicalDirichletWeight
-  rw [if_neg (Nat.not_le_of_lt hout)]
+  rw [ite_eq_right (Nat.not_le_of_lt hout)]
 
 private theorem secondPrime_returned_one_eq_base
     {R : ℕ} (hR : 56 ≤ R) :
@@ -768,7 +768,7 @@ private theorem secondPrime_empty_baseDifferenceAmplitude
       2 * (lowOwnerReciprocalDaughterWeight R 1 - 1) := by
   let t := topPrime R hR
   have htPrime : t.Prime := by
-    simpa [t] using topPrime_prime hR
+    simpa [t] using! topPrime_prime hR
   have htNotDvdOne : ¬ t ∣ 1 := by
     intro hdiv
     exact htPrime.ne_one (Nat.dvd_one.mp hdiv)
@@ -777,7 +777,7 @@ private theorem secondPrime_empty_baseDifferenceAmplitude
     have hle : t ^ 2 ≤ t := Nat.le_of_dvd htPrime.pos hdiv
     nlinarith [htPrime.two_le]
   have htoggleOne : primeCarrierToggle t 1 = t := by
-    simpa using (primeCarrierToggle_of_not_dvd htNotDvdOne)
+    simpa using! (primeCarrierToggle_of_not_dvd htNotDvdOne)
   have htoggleTop : primeCarrierToggle t t = 1 := by
     rw [primeCarrierToggle_of_dvd (dvd_refl t) htSq]
     exact Nat.div_self htPrime.pos
@@ -802,7 +802,7 @@ private theorem secondPrime_empty_returnedDifferenceAmplitude
       2 * lowOwnerDirichletBaseCoefficient R (secondPrime R hR) := by
   let t := topPrime R hR
   have htPrime : t.Prime := by
-    simpa [t] using topPrime_prime hR
+    simpa [t] using! topPrime_prime hR
   have htNotDvdOne : ¬ t ∣ 1 := by
     intro hdiv
     exact htPrime.ne_one (Nat.dvd_one.mp hdiv)
@@ -811,7 +811,7 @@ private theorem secondPrime_empty_returnedDifferenceAmplitude
     have hle : t ^ 2 ≤ t := Nat.le_of_dvd htPrime.pos hdiv
     nlinarith [htPrime.two_le]
   have htoggleOne : primeCarrierToggle t 1 = t := by
-    simpa using (primeCarrierToggle_of_not_dvd htNotDvdOne)
+    simpa using! (primeCarrierToggle_of_not_dvd htNotDvdOne)
   have htoggleTop : primeCarrierToggle t t = 1 := by
     rw [primeCarrierToggle_of_dvd (dvd_refl t) htSq]
     exact Nat.div_self htPrime.pos
@@ -836,7 +836,7 @@ theorem secondPrimeTerminal_eq_two_one_sub_H_mul_L
   let t := topPrime R hR
   have hsched :
       lowOwnerFirstOwnerCanonicalStokesSchedule R s = [t] := by
-    simpa [s, t] using secondPrime_schedule_eq_single_top hR
+    simpa [s, t] using! secondPrime_schedule_eq_single_top hR
   rw [sum_lowOwnerFirstOwnerTopTerminal_eq_neg_half_interiorDifferenceProduct_of_schedule_single
     hsched]
   have hEmptyMem :
@@ -844,7 +844,7 @@ theorem secondPrimeTerminal_eq_two_one_sub_H_mul_L
     unfold lowOwnerFirstOwnerSignatureSet
     have h1Base :
         1 ∈ lowOwnerFirstOwnerBaseFiber R s ∅ := by
-      simpa [s] using one_mem_secondPrime_emptyBase hR
+      simpa [s] using! one_mem_secondPrime_emptyBase hR
     have h1Car := (Finset.mem_filter.mp h1Base).1
     refine Finset.mem_image.mpr ⟨1, h1Car, ?_⟩
     simp [squarefreeLowerPrimeSignature, squarefreePrimeFace]
@@ -952,7 +952,7 @@ def ExceptionalTerminalFrameDomination (C : ℝ) : Prop :=
 theorem lowOwnerStokesExceptionalTerminalFrameDomination_one :
     ExceptionalTerminalFrameDomination 1 := by
   intro R hR
-  simpa using exceptionalTerminalBoundary_le_frame hR
+  simpa using! exceptionalTerminalBoundary_le_frame hR
 
 end StokesTerminalFrame
 end RHLean.Proof

@@ -58,7 +58,7 @@ private theorem squareRootEndpoint_lt_square
     squareRootEndpoint R < R * R := by
   unfold squareRootEndpoint
   have hne : R ^ 2 ≠ 0 := pow_ne_zero 2 (Nat.ne_of_gt hR)
-  simpa [pow_two] using Nat.pred_lt hne
+  simpa [pow_two] using! Nat.pred_lt hne
 
 private theorem freshPrime_mul_squarefree
     {q d : ℕ} (hq : q.Prime) (hd1 : 1 ≤ d)
@@ -78,9 +78,9 @@ private theorem freshPrime_canonical_coordinates
   have hdpos : 0 < d := by omega
   constructor
   · have h := canonicalLargestPrimeFactor_mul_prime_eq_of_rough hdpos hq hrough
-    simpa [Nat.mul_comm] using h
+    simpa [Nat.mul_comm] using! h
   · have h := canonicalCofactor_mul_prime_eq_of_rough hdpos hq hrough
-    simpa [Nat.mul_comm] using h
+    simpa [Nat.mul_comm] using! h
 
 /-- **Exact ownerwise carrier identification.**  Forgetting the fixed owner tag
 maps the descended far-wall triples bijectively onto the literal far-prime
@@ -96,7 +96,7 @@ theorem lowWheelFarPrimeQ2DescendedOwner_image_eq_childFarSlice
     rcases Finset.mem_image.mp hdp with ⟨t, htOwner, htEq⟩
     rcases t with ⟨r,⟨e,s⟩⟩
     have hpair : (e,s) = (d,p) := by
-      simpa using htEq
+      simpa using! htEq
     rcases hpair with ⟨rfl, rfl⟩
     rcases Finset.mem_filter.mp htOwner with ⟨htDesc, hrq⟩
     have hrq' : r = q := hrq
@@ -126,24 +126,24 @@ theorem lowWheelFarPrimeQ2DescendedOwner_image_eq_childFarSlice
       rw [← hdEq]
       exact hdcPos
     have hdsq : Squarefree d := by
-      simpa [hqEq, hdEq, hpEq] using hdata.2.2.2.2.1
+      simpa [hqEq, hdEq, hpEq] using! hdata.2.2.2.2.1
     have hrough : canonicalLargestPrimeFactor d < q := by
-      simpa [hqEq, hdEq, hpEq] using hdata.2.2.2.2.2.1
+      simpa [hqEq, hdEq, hpEq] using! hdata.2.2.2.2.2.1
     have hpRange : p ∈ Finset.Icc (R + 8) (squareRootEndpoint R) := by
       have hpair0 := (mem_lowWheelFarPrimeSquarefreePairSet.mp
         (Finset.mem_filter.mp hcp).1).1
       have hu := (mem_lowWheelFarPrimePairSet.mp hpair0).2.1
-      simpa [hpEq] using hu
+      simpa [hpEq] using! hu
     have hpPrime : p.Prime := by
-      simpa [hpEq] using hdata.2.2.2.1
+      simpa [hpEq] using! hdata.2.2.2.1
     have hqqpos : 0 < q * q := Nat.mul_pos hq.pos hq.pos
     have hdpCut : d * p ≤ squareRootEndpoint R / (q * q) := by
       apply (Nat.le_div_iff_mul_le hqqpos).2
-      simpa [Nat.mul_assoc, Nat.mul_left_comm, Nat.mul_comm] using hq2
+      simpa [Nat.mul_assoc, Nat.mul_left_comm, Nat.mul_comm] using! hq2
     have hdCut : d ≤ squareRootEndpoint R / (q * q) := by
       have hdpGe : d ≤ d * p := by
         have h := Nat.mul_le_mul_left d hpPrime.one_le
-        simpa using h
+        simpa using! h
       exact hdpGe.trans hdpCut
     exact mem_lowWheelFarPrimeQ2ChildFarSlice.mpr
       ⟨mem_squareRootLowPrimeGoSmoothCofactors.mpr
@@ -160,7 +160,7 @@ theorem lowWheelFarPrimeQ2DescendedOwner_image_eq_childFarSlice
     have hqqpos : 0 < q * q := Nat.mul_pos hq.pos hq.pos
     have hq2 : q * q * d * p ≤ squareRootEndpoint R := by
       have h := (Nat.le_div_iff_mul_le hqqpos).1 hdpCut
-      simpa [Nat.mul_assoc, Nat.mul_left_comm, Nat.mul_comm] using h
+      simpa [Nat.mul_assoc, Nat.mul_left_comm, Nat.mul_comm] using! h
     have hRpos : 0 < R := by omega
     have hcR : q * d < R := by
       by_contra hnot
@@ -172,14 +172,14 @@ theorem lowWheelFarPrimeQ2DescendedOwner_image_eq_childFarSlice
       have hq1 : 1 ≤ q := hq.one_le
       have hcpq : (q * d) * p ≤ q * q * d * p := by
         have h := Nat.mul_le_mul_right ((q * d) * p) hq1
-        simpa [Nat.mul_assoc, Nat.mul_left_comm, Nat.mul_comm] using h
+        simpa [Nat.mul_assoc, Nat.mul_left_comm, Nat.mul_comm] using! h
       have hXlt := squareRootEndpoint_lt_square hRpos
       exact (Nat.not_lt_of_ge (hR2cp.trans (hcpq.trans hq2))) hXlt
     have hcpX : (q * d) * p ≤ squareRootEndpoint R := by
       have hq1 : 1 ≤ q := hq.one_le
       have hle : (q * d) * p ≤ q * q * d * p := by
         have h := Nat.mul_le_mul_right ((q * d) * p) hq1
-        simpa [Nat.mul_assoc, Nat.mul_left_comm, Nat.mul_comm] using h
+        simpa [Nat.mul_assoc, Nat.mul_left_comm, Nat.mul_comm] using! h
       exact hle.trans hq2
     have hcgt : 1 < q * d := by
       have hq2' := hq.two_le

@@ -84,7 +84,7 @@ theorem stableFarWall_primeSquare_daughterScale_eq_zero
   have hfar := ((mem_stableFarWallCarrier_iff_primeInsertion hR).mp hz).2.2.1
   have hRq : R ≤ z.2.2 := by omega
   have hsq : R ^ 2 ≤ z.2.2 * z.2.2 := by
-    simpa only [pow_two] using Nat.mul_le_mul hRq hRq
+    simpa only [pow_two] using! Nat.mul_le_mul hRq hRq
   have hpos : 0 < R ^ 2 := pow_pos (by omega : 0 < R) 2
   apply Nat.div_eq_of_lt
   exact (Nat.sub_lt hpos (by omega : 0 < 1)).trans_le hsq
@@ -133,7 +133,7 @@ theorem stableFarWallLedger_eq_sum_lowCofactorFibres
       omega
     have hmass := primeDilatedLowCofactorMass_eq_mertensSummatory
       R q (by omega) hRq hprime.pos
-    simp only [hprime, if_true]
+    simp only [hprime, ite_true]
     rw [← hmass]
     rfl
   · simp [hprime]
@@ -155,7 +155,7 @@ theorem stableFarWallLedger_eq_sum_squarefree_lowCofactorFibres
   apply Finset.sum_congr rfl
   intro q _hq
   by_cases hprime : q.Prime
-  · simp only [hprime, if_true]
+  · simp only [hprime, ite_true]
     apply Finset.sum_congr rfl
     intro c _hc
     by_cases hsq : Squarefree c
@@ -219,7 +219,7 @@ theorem farPrimeTransport_eq_lowerFibres_add_topHalf
     omega
   have hhalf : R + 8 ≤ squareRootEndpoint R / 2 := by
     apply (Nat.le_div_iff_mul_le (by norm_num : 0 < 2)).2
-    simpa [Nat.mul_comm] using htwo
+    simpa [Nat.mul_comm] using! htwo
   have hhalfX : squareRootEndpoint R / 2 ≤ squareRootEndpoint R :=
     Nat.div_le_self _ _
   have hset :
@@ -419,7 +419,7 @@ theorem farPrimeTransport_eq_smoothMobiusMass_sub_fullMertens
   rw [primeSieveReciprocalMertensSignedSum_eq_mertensPrimeTail,
     ← squareRootFarPrimeTransport_eq_primeSieveMertensPrimeTail R] at hsmooth
   rw [eq_sub_iff_add_eq]
-  simpa [add_comm] using hsmooth.symm
+  simpa [add_comm] using! hsmooth.symm
 
 /-- The literal physical wall carries the same stopping identity. -/
 theorem stableFarWallLedger_eq_smoothMobiusMass_sub_fullMertens

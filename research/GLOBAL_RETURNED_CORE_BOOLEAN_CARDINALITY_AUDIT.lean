@@ -154,7 +154,7 @@ theorem firstOwner_three_edge_zero_weightGradient_nonzero_siteProduct :
     have hmu1 : realMoebiusStep 1 = 1 := by
       norm_num [realMoebiusStep]
     have hmu3 : realMoebiusStep 3 = -1 := by
-      simpa [hmu1] using hflip
+      simpa [hmu1] using! hflip
     rw [hmu3]
     ring
   refine ⟨howner, ?_, ?_⟩

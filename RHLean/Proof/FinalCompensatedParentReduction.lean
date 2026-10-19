@@ -227,7 +227,7 @@ theorem lowWheelFrozenSecondContactSquareResidualMass_eq_rootReassembly_sub_goCo
           lowWheelTaggedDowncrossWeight y) =
         (((RHLean.Analysis.goCompensatedRootBoundary R -
           squareEndpointQ2GoColumn R : ℤ) : ℂ)) := by
-    simpa [lowWheelTaggedDowncrossWeight, squareEndpointQ2GoColumn] using hsource
+    simpa [lowWheelTaggedDowncrossWeight, squareEndpointQ2GoColumn] using! hsource
   have hcomp :=
     lowWheelFrozenSecondContactSource_add_matchingFixedTransport_eq_squareResidual R
   rw [hsource'] at hcomp
@@ -376,7 +376,7 @@ theorem squareEndpointQ2MertensColumn_eq_oddColumn_add_two
       mertensSummatoryInt (squareRootEndpoint R / 4) := by
   have htwo : 2 ∈ primesUpTo (R - 1) :=
     mem_primesUpTo.mpr ⟨Nat.prime_two, by omega⟩
-  simpa only [squareEndpointQ2MertensColumn] using
+  simpa only [squareEndpointQ2MertensColumn] using!
     (Finset.sum_erase_add (s := primesUpTo (R - 1))
       (f := fun q => mertensSummatoryInt (squareRootEndpoint R / (q * q))) htwo).symm
 

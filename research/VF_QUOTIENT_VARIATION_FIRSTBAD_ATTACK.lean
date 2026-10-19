@@ -329,7 +329,7 @@ theorem vfVarSquareLongNorm_eq_signed_lowVariation
     (vf919QuotientBucket (R ^ 2 - 1))
   have hsucc : R - 1 + 1 = R := by omega
   rw [hsucc, vfVarSquareDiagonalBucket_zero R hR] at hab
-  simpa using hab
+  simpa using! hab
 
 /-- Only the LOW quotient variation needs the factor-four primitive
 bound. The HIGH quotient sector costs at most twice the short norm mass. -/

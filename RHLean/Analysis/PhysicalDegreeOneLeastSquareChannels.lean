@@ -101,7 +101,7 @@ theorem physicalLeastOddSquarePrime_some_spec
   classical
   by_cases hex : ∃ q, physicalSquarePrimeAtEdge k q
   · have hfind : Nat.find hex = p := by
-      simpa [physicalLeastOddSquarePrime, hex] using h
+      simpa [physicalLeastOddSquarePrime, hex] using! h
     rw [← hfind]
     exact Nat.find_spec hex
   · simp [physicalLeastOddSquarePrime, hex] at h
@@ -114,7 +114,7 @@ theorem physicalLeastOddSquarePrime_le
   classical
   have hex : ∃ r, physicalSquarePrimeAtEdge k r := ⟨q, hq⟩
   have hfind : Nat.find hex = p := by
-    simpa [physicalLeastOddSquarePrime, hex] using hp
+    simpa [physicalLeastOddSquarePrime, hex] using! hp
   rw [← hfind]
   exact Nat.find_min' hex hq
 
@@ -386,7 +386,7 @@ theorem physicalLeastSquarePrime_mem_spec
   | none => exact (hne hleast).elim
   | some q =>
       have hspec := physicalLeastOddSquarePrime_some_spec hleast
-      simpa [hleast] using
+      simpa [hleast] using!
         (show Nat.Prime q ∧ q % 2 = 1 from
           ⟨hspec.1, physicalSquarePrimeAtEdge_odd hspec⟩)
 

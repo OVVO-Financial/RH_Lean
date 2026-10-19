@@ -96,7 +96,7 @@ theorem vfMidSquareEndpointVonKochBounded_of_actualPrimeOwnerEscapeAdmissible
   have hbounded' :
       VFMidSyntheticRadialBounded
         (fun R => vfMidPrimeError ((R : ℝ) ^ 2)) := by
-    simpa [vfMidActualPrimeEndpointDefect] using hbounded
+    simpa [vfMidActualPrimeEndpointDefect] using! hbounded
   exact
     vfMidActualRadialBounded_iff_squareEndpoint.mp hbounded'
 

@@ -138,7 +138,7 @@ theorem lowWheelFarPrimeQ2ReciprocalNextChildIncidence_eq_fiberWeights
           have heq := (Finset.mem_filter.mp ht).2
           have hc := congrArg (fun z : ℕ × (ℕ × ℕ) => z.2.1) heq
           simpa [lowWheelFarPrimeQ2CrossingNextFiber,
-            lowWheelFarPrimeQ2CrossingNextChild] using
+            lowWheelFarPrimeQ2CrossingNextChild] using!
             congrArg (fun z : ℂ => ((1 : ℂ) / (t.1 : ℂ)) * z)
               (congrArg canonicalMoebiusWeight hc)
     _ = lowWheelFarPrimeQ2CrossingNextReciprocalWeight R y *

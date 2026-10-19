@@ -86,7 +86,7 @@ theorem lowWheelFullFaceQuotientToggleAt_highProduct
     primeFaceProduct (lowWheelFullFaceQuotientToggleAt q y).1 *
         (lowWheelFullFaceQuotientToggleAt q y).2.2 =
       primeFaceProduct y.1 * y.2.2 := by
-  simpa [lowWheelFullFaceQuotientToggleAt] using
+  simpa [lowWheelFullFaceQuotientToggleAt] using!
     (lowWheelFaceTailToggleAt_product q (y.1, y.2.2))
 
 /-- A fixed low-prime transfer keeps the Boolean face inside the same low-prime
@@ -103,11 +103,11 @@ theorem lowWheelFullFaceQuotientToggleAt_face_mem
   dsimp
   unfold lowWheelFaceTailToggleAt
   by_cases hqt : q ∈ y.1
-  · simp only [hqt, if_true]
+  · simp only [hqt, ite_true]
     exact Finset.mem_powerset.mpr
       ((Finset.erase_subset q y.1).trans (Finset.mem_powerset.mp ht))
   · have hqk : q ∣ y.2.2 := hactive.resolve_left hqt
-    simp only [hqt, if_false, hqk, if_true]
+    simp only [hqt, ite_false, hqk, ite_true]
     apply Finset.mem_powerset.mpr
     intro r hr
     rcases Finset.mem_insert.mp hr with rfl | hr
@@ -127,8 +127,8 @@ theorem lowWheelFullFaceQuotientToggleAt_physicalCarrier
   rcases hcarrier with ⟨hc1, hcR, hhigh, htop⟩
   have hprod := lowWheelFullFaceQuotientToggleAt_highProduct q y
   refine ⟨?_, ?_, ?_, ?_⟩
-  · simpa using hc1
-  · simpa using hcR
+  · simpa using! hc1
+  · simpa using! hcR
   · rw [hprod]
     exact hhigh
   · rw [lowWheelFullFaceQuotientToggleAt_cofactor]
@@ -158,7 +158,7 @@ theorem lowWheelFullFaceQuotientToggleAt_mem
   have hsq := (mem_lowWheelCanonicalPhysicalStateSet.mp hx).2.2.1
   apply mem_lowWheelFullTaggedPhysicalCarrier.mpr
   refine ⟨hface, mem_lowWheelCanonicalPhysicalStateSet.mpr ?_⟩
-  exact ⟨hrange.1, hrange.2, by simpa using hsq, hcarrier⟩
+  exact ⟨hrange.1, hrange.2, by simpa using! hsq, hcarrier⟩
 
 /-- A genuinely active fixed-prime transfer is nontrivial. -/
 theorem lowWheelFullFaceQuotientToggleAt_ne
@@ -170,13 +170,13 @@ theorem lowWheelFullFaceQuotientToggleAt_ne
   unfold lowWheelFullFaceQuotientToggleAt at hfaceEq
   dsimp at hfaceEq
   by_cases hqt : q ∈ y.1
-  · simp only [lowWheelFaceTailToggleAt, hqt, if_true] at hfaceEq
+  · simp only [lowWheelFaceTailToggleAt, hqt, ite_true] at hfaceEq
     have hbad : q ∈ y.1.erase q := by
       rw [hfaceEq]
       exact hqt
     exact (Finset.notMem_erase q y.1) hbad
   · have hqk : q ∣ y.2.2 := hactive.resolve_left hqt
-    simp only [lowWheelFaceTailToggleAt, hqt, if_false, hqk, if_true] at hfaceEq
+    simp only [lowWheelFaceTailToggleAt, hqt, ite_false, hqk, ite_true] at hfaceEq
     apply hqt
     rw [← hfaceEq]
     exact Finset.mem_insert_self q y.1
@@ -240,13 +240,13 @@ theorem lowWheelFullActivePrimeSet_toggleAt
     have hrPrime := prime_of_mem_primesUpTo hrGlobal
     have hsupp := lowWheelFaceTailToggleAt_prime_active_iff
       (x := (y.1, y.2.2)) hqPrime hrPrime hactive
-    exact ⟨hrGlobal, hsupp.mp (by simpa [lowWheelFullFaceQuotientToggleAt] using hrActive)⟩
+    exact ⟨hrGlobal, hsupp.mp (by simpa [lowWheelFullFaceQuotientToggleAt] using! hrActive)⟩
   · rintro ⟨hrGlobal, hrActive⟩
     have hrPrime := prime_of_mem_primesUpTo hrGlobal
     have hsupp := lowWheelFaceTailToggleAt_prime_active_iff
       (x := (y.1, y.2.2)) hqPrime hrPrime hactive
     exact ⟨hrGlobal, by
-      simpa [lowWheelFullFaceQuotientToggleAt] using hsupp.mpr hrActive⟩
+      simpa [lowWheelFullFaceQuotientToggleAt] using! hsupp.mpr hrActive⟩
 
 /-- Least active low prime, with irrelevant default one at a stable state. -/
 def lowWheelFullOppositePrime
@@ -263,7 +263,7 @@ theorem lowWheelFullOppositePrime_data
       (lowWheelFullOppositePrime R y ∈ y.1 ∨
         lowWheelFullOppositePrime R y ∣ y.2.2) := by
   unfold lowWheelFullOppositePrime
-  rw [dif_pos h]
+  rw [dite_eq_left h]
   exact mem_lowWheelFullActivePrimeSet.mp (Finset.min'_mem _ h)
 
 /-- Because active support is invariant, the least active prime is the same at
@@ -294,10 +294,10 @@ theorem lowWheelFullFaceQuotientMate_mem
     lowWheelFullFaceQuotientMate R y ∈ lowWheelFullTaggedPhysicalCarrier R := by
   unfold lowWheelFullFaceQuotientMate
   by_cases h : (lowWheelFullActivePrimeSet R y).Nonempty
-  · rw [dif_pos h]
+  · rw [dite_eq_left h]
     have hq := lowWheelFullOppositePrime_data h
     exact lowWheelFullFaceQuotientToggleAt_mem hy hq.1 hq.2
-  · rw [dif_neg h]
+  · rw [dite_eq_right h]
     exact hy
 
 /-- The total second mate is involutive on the complete physical carrier. -/
@@ -307,7 +307,7 @@ theorem lowWheelFullFaceQuotientMate_involutive
     lowWheelFullFaceQuotientMate R (lowWheelFullFaceQuotientMate R y) = y := by
   unfold lowWheelFullFaceQuotientMate
   by_cases h : (lowWheelFullActivePrimeSet R y).Nonempty
-  · rw [dif_pos h]
+  · rw [dite_eq_left h]
     let q := lowWheelFullOppositePrime R y
     have hq := lowWheelFullOppositePrime_data h
     have hset := lowWheelFullActivePrimeSet_toggleAt
@@ -317,13 +317,13 @@ theorem lowWheelFullFaceQuotientMate_involutive
           (lowWheelFullFaceQuotientToggleAt q y)).Nonempty := by
       rw [hset]
       exact h
-    rw [dif_pos htarget]
+    rw [dite_eq_left htarget]
     have hqSame := lowWheelFullOppositePrime_toggleAt
       (R := R) hq.1 hq.2
     rw [hqSame]
     exact lowWheelFullFaceQuotientToggleAt_involutive
       (prime_of_mem_primesUpTo hq.1) y
-  · rw [dif_neg h, dif_neg h]
+  · rw [dite_eq_right h, dite_eq_right h]
 
 /-- Every moved second-Othello edge reverses signed weight. -/
 theorem lowWheelFullFaceQuotientMate_weight_neg
@@ -333,10 +333,10 @@ theorem lowWheelFullFaceQuotientMate_weight_neg
       -lowWheelFullTaggedPhysicalWeight y := by
   unfold lowWheelFullFaceQuotientMate at hne ⊢
   by_cases h : (lowWheelFullActivePrimeSet R y).Nonempty
-  · rw [dif_pos h] at hne ⊢
+  · rw [dite_eq_left h] at hne ⊢
     exact lowWheelFullFaceQuotientToggleAt_weight_neg
       (lowWheelFullOppositePrime_data h).2
-  · rw [dif_neg h] at hne
+  · rw [dite_eq_right h] at hne
     exact (hne rfl).elim
 
 /-- A stable full-carrier state has empty Boolean face. -/
@@ -348,7 +348,7 @@ theorem lowWheelFullStable_face_eq_empty
   have hnone : ¬ (lowWheelFullActivePrimeSet R y).Nonempty := by
     intro h
     unfold lowWheelFullFaceQuotientMate at hstable
-    rw [dif_pos h] at hstable
+    rw [dite_eq_left h] at hstable
     exact lowWheelFullFaceQuotientToggleAt_ne
       (lowWheelFullOppositePrime_data h).2 hstable
   apply Finset.eq_empty_iff_forall_notMem.mpr
@@ -368,7 +368,7 @@ theorem lowWheelFullStable_survivor
   have hnone : ¬ (lowWheelFullActivePrimeSet R y).Nonempty := by
     intro h
     unfold lowWheelFullFaceQuotientMate at hstable
-    rw [dif_pos h] at hstable
+    rw [dite_eq_left h] at hstable
     exact lowWheelFullFaceQuotientToggleAt_ne
       (lowWheelFullOppositePrime_data h).2 hstable
   intro q hqGlobal hqDvd
@@ -393,7 +393,7 @@ theorem lowWheelFullStable_geometry
   have hsurv := lowWheelFullStable_survivor hstable
   have hhigh' : R < y.2.2 := by
     rw [hface] at hhigh
-    simpa [primeFaceProduct] using hhigh
+    simpa [primeFaceProduct] using! hhigh
   exact ⟨hface, hhigh', hqX, hsurv⟩
 
 end RHLean.Proof

@@ -70,9 +70,9 @@ theorem lowOwnerFirstOwnerCompletedPolarizationRawParent_data
   have hcell' :
       parent.1 ∈ lowOwnerFirstOwnerBaseFiber R p sig ∧
         parent.2 ∈ lowOwnerFirstOwnerBaseFiber R p sig := by
-    simpa [hrawEq] using hcell
+    simpa [hrawEq] using! hcell
   have hfree' : ¬ r ∣ parent.1 ∧ ¬ r ∣ parent.2 := by
-    simpa [hrawEq] using hfree
+    simpa [hrawEq] using! hfree
   have hpaCar := (Finset.mem_filter.mp hcell'.1).1
   have hpbCar := (Finset.mem_filter.mp hcell'.2).1
   have haPos := (lowOwnerNonzeroMobiusCarrier_squarefree_pos hpaCar).2
@@ -157,7 +157,7 @@ theorem lowOwnerFirstOwnerCompletedIncidenceGateSquareMass_eq_ownerParentEnergy
   intro parent hparent
   rcases lowOwnerFirstOwnerCompletedPolarizationRawParent_data hp hparent with
     ⟨hr, _hpr, hra, hrb, haPos, hbPos⟩
-  simpa [lowOwnerCompletedIncidenceFourCornerMass] using
+  simpa [lowOwnerCompletedIncidenceFourCornerMass] using!
     (lowOwnerThresholdIncidence_fourCorner_sq_eq_eulerParentEnergy
       (R := R) (p := p) (r := r)
       (a := parent.1) (b := parent.2)
@@ -187,7 +187,7 @@ theorem lowOwnerFirstOwnerCompletedInheritedReciprocalEnergy_le_two_ninths_gateS
   intro parent hparent
   rcases lowOwnerFirstOwnerCompletedPolarizationRawParent_data hp hparent with
     ⟨hr, hpr, hra, hrb, haPos, hbPos⟩
-  simpa [lowOwnerCompletedIncidenceFourCornerMass] using
+  simpa [lowOwnerCompletedIncidenceFourCornerMass] using!
     (sum_lowOwnerThresholdEulerInheritedGreatestChildEnergy_le_two_ninths_fourCorner
       (R := R) (p := p) (r := r)
       (a := parent.1) (b := parent.2)

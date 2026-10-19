@@ -238,7 +238,7 @@ theorem squareRootRootSuccessorCrossLedger_real_eq_lowWheelOperator
   have h :=
     squareRootRootSuccessorCrossLedger_cast_eq_lowWheelDoubleCube hR hB
   have hre := congrArg Complex.re h
-  simpa [lowWheelSequentialRootSuccessorCrossOperatorReal] using hre
+  simpa [lowWheelSequentialRootSuccessorCrossOperatorReal] using! hre
 
 /-- The fixed-amplification coercivity target can therefore be stated directly
 on the real sequential low-wheel operator. -/

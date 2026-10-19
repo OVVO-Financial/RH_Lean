@@ -103,7 +103,7 @@ theorem lowOwnerThresholdWall_allPrimeListCrossMass_eq_empty_sub_diagonal
   have hnod : (primesUpTo y).toList.Nodup := Finset.nodup_toList _
   have hprime : ∀ r ∈ (primesUpTo y).toList, r.Prime := by
     intro r hr
-    have hrMem : r ∈ primesUpTo y := by simpa using hr
+    have hrMem : r ∈ primesUpTo y := by simpa using! hr
     exact (mem_primesUpTo.mp hrMem).1
   have hfresh : ∀ r ∈ (primesUpTo y).toList, r ∉ (∅ : Finset ℕ) := by
     simp

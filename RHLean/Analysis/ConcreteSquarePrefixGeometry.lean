@@ -54,7 +54,7 @@ private theorem concrete_norm_sq_add_le_two (x y : ℂ) :
 
 private theorem concrete_norm_sq_sub_le_two (x y : ℂ) :
     ‖x - y‖ ^ 2 ≤ 2 * ‖x‖ ^ 2 + 2 * ‖y‖ ^ 2 := by
-  simpa [sub_eq_add_neg] using concrete_norm_sq_add_le_two x (-y)
+  simpa [sub_eq_add_neg] using! concrete_norm_sq_add_le_two x (-y)
 
 /-- The concrete low sector has the elementary translated-window `H N^2` bound. -/
 theorem squarePrefix_localLowEnergy_le
@@ -198,7 +198,7 @@ theorem squarePrefix_currentPointwise_of_uniformLocalBounded
   refine ⟨C, hC, ?_⟩
   intro N hN
   have h := hbound N 1 (by simp) hN
-  simpa [localSequenceEnergy] using h
+  simpa [localSequenceEnergy] using! h
 
 /-- The current pointwise square-prefix criterion implies the concrete local criterion. -/
 theorem squarePrefix_uniformLocalBounded_of_currentPointwise

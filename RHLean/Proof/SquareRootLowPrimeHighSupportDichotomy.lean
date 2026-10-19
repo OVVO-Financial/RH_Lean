@@ -79,7 +79,7 @@ theorem squareRootLowPrimePostRootAtom_of_squarefreeCofactor
   have hqData := Finset.mem_filter.mp hzPost
   have hdUpper : d ≤ squareRootEndpoint R := by
     have hdLeProd : d ≤ d * q := by
-      simpa using Nat.mul_le_mul_left d hqData.2.1.pos
+      simpa using! Nat.mul_le_mul_left d hqData.2.1.pos
     exact hdLeProd.trans hdq
   have hdOwned :=
     squareRootLowPrimeSquarefreeCofactor_mem_ownedResponseCofactors

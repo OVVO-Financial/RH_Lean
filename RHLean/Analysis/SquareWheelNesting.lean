@@ -210,7 +210,7 @@ theorem canonicalTotalIncrement_eq_primorialResidual_sub
         (RHLean.Analysis.squarePrefixEndpoint j) : ℤ) : ℂ)) -
       ((((primorialWheelSystem k).residual
         (RHLean.Analysis.squarePrefixEndpoint (j - 1)) : ℤ) : ℂ)) := by
-  simpa using
+  simpa using!
     (sum_canonicalTotalIncrement_Ico_eq_primorialResidual_sub
       k j j hj (by omega) hleftLower hleftUpper hrightLower hrightUpper)
 
@@ -267,7 +267,7 @@ theorem norm_canonicalTotalIncrement_le_two_mul_of_wheelResidual_bound
       primorialBlockLower k ≤ x → x ≤ primorialBlockUpper k →
       ‖((((primorialWheelSystem k).residual x : ℤ) : ℂ))‖ ≤ B) :
     ‖canonicalTotalIncrement j‖ ≤ 2 * B := by
-  simpa using
+  simpa using!
     (norm_sum_canonicalTotalIncrement_Ico_le_two_mul_of_wheelResidual_bound
       k j j hj (by omega) hleftLower hleftUpper hrightLower hrightUpper
       B hresidual)

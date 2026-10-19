@@ -51,11 +51,11 @@ theorem lowWheelHighSurvivor_iff_prime
     have hq1 : q ≠ 1 := by omega
     let p := q.minFac
     have hpPrime : p.Prime := by
-      simpa [p] using Nat.minFac_prime hq1
+      simpa [p] using! Nat.minFac_prime hq1
     have hpDvd : p ∣ q := by
-      simpa [p] using Nat.minFac_dvd q
+      simpa [p] using! Nat.minFac_dvd q
     have hpSqLe : p ^ 2 ≤ q := by
-      simpa [p] using Nat.minFac_sq_le_self hqpos hqPrime
+      simpa [p] using! Nat.minFac_sq_le_self hqpos hqPrime
     have hqLtSq : q < R ^ 2 := by
       unfold squareRootEndpoint at hqX
       have hsqpos : 0 < R ^ 2 := by positivity
@@ -118,7 +118,7 @@ theorem squareRootHighPrimeCofactorSet_eq_lowWheelHighSurvivorSet
   · rintro ⟨hqI, hprime, hmul⟩
     have hqDiv : q ≤ squareRootEndpoint R / c := by
       apply (Nat.le_div_iff_mul_le hcpos).2
-      simpa [Nat.mul_comm] using hmul
+      simpa [Nat.mul_comm] using! hmul
     have hqSurv : lowWheelHighSurvivor R q :=
       (lowWheelHighSurvivor_iff_prime hR
         (Finset.mem_Ioc.mp hqI).1 (Finset.mem_Ioc.mp hqI).2).2 hprime
@@ -133,7 +133,7 @@ theorem squareRootHighPrimeCofactorSet_eq_lowWheelHighSurvivorSet
     have hmul : c * q ≤ squareRootEndpoint R := by
       have hqc : q * c ≤ squareRootEndpoint R :=
         (Nat.le_div_iff_mul_le hcpos).1 (Finset.mem_Ioc.mp hqI).2
-      simpa [Nat.mul_comm] using hqc
+      simpa [Nat.mul_comm] using! hqc
     exact ⟨Finset.mem_Ioc.mpr ⟨(Finset.mem_Ioc.mp hqI).1, hqX⟩,
       hprime, hmul⟩
 

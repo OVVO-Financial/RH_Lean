@@ -84,7 +84,7 @@ theorem canonicalPrefixPopulationMass_eq_sum_parentFiberMass
     have hxBlock := hxdata.1
     have hsq := hxdata.2
     have hxBounds : R ^ 2 ≤ x ∧ x < (R + 1) ^ 2 := by
-      simpa [squareBlockInterval, Finset.mem_Ico] using hxBlock
+      simpa [squareBlockInterval, Finset.mem_Ico] using! hxBlock
     have hx1 : 1 < x := by
       have h9 : 9 ≤ R ^ 2 := by nlinarith
       omega
@@ -206,7 +206,7 @@ theorem squareRootCanonicalRoughCorrelation_energy_step_oneBlock
           (canonicalMoebiusWeight R - canonicalTotalIncrement R) := by
     have h :=
       (sub_eq_iff_eq_add.mp hdiff)
-    simpa [add_comm] using h
+    simpa [add_comm] using! h
   rw [hstep, norm_add_sq (𝕜 := ℂ)]
   ring
 

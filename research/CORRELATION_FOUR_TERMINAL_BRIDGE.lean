@@ -107,7 +107,7 @@ private theorem squareEndpointEnergy_le_root_fourth_corrFour (R : ℕ) :
   let X : ℕ := squareRootEndpoint R
   have hnorm0 := norm_mertensSummatory_sub_le 0 X (Nat.zero_le X)
   have hnorm : ‖RHLean.Analysis.mertensSummatory X‖ ≤ (X : ℝ) := by
-    simpa using hnorm0
+    simpa using! hnorm0
   have hnorm0' : 0 ≤ ‖RHLean.Analysis.mertensSummatory X‖ := norm_nonneg _
   have hsq :
       ‖RHLean.Analysis.mertensSummatory X‖ ^ 2 ≤ (X : ℝ) ^ 2 := by

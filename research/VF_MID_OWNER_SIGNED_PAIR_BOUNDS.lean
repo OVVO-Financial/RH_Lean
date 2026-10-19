@@ -175,7 +175,7 @@ theorem vfMidSmallOwner_original_seat_charge_gap
     rcases (Nat.dvd_prime h).mp hdiv with hp1 | heq
     · exact hp.ne_one hp1
     · have hm : 2 * p ≤ p * q := by
-        simpa [Nat.mul_comm] using Nat.mul_le_mul_left p hq.two_le
+        simpa [Nat.mul_comm] using! Nat.mul_le_mul_left p hq.two_le
       omega
   rw [vfMidOddSignedSeatCharge_of_not_prime R (p * q) hnNotPrime,
     vfMidOddSignedSeatCharge_of_prime (Nat.sqrt q) q hq]

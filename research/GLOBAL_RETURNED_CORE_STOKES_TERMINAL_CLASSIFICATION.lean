@@ -221,7 +221,7 @@ theorem lowOwnerFirstOwnerCanonicalStokesSchedule_head_gt_half
     simp
   have hqData :
       q ∈ squareRootCanonicalRoughDescendingPrimeSchedule R ∧ p < q := by
-    simpa [lowOwnerFirstOwnerCanonicalStokesSchedule] using hqMem
+    simpa [lowOwnerFirstOwnerCanonicalStokesSchedule] using! hqMem
   by_cases hpt : p < t
   · have htFull : t ∈ squareRootCanonicalRoughDescendingPrimeSchedule R := by
       unfold squareRootCanonicalRoughDescendingPrimeSchedule
@@ -231,7 +231,7 @@ theorem lowOwnerFirstOwnerCanonicalStokesSchedule_head_gt_half
       have htData :
           t ∈ squareRootCanonicalRoughDescendingPrimeSchedule R ∧ p < t :=
         ⟨htFull, hpt⟩
-      simpa [lowOwnerFirstOwnerCanonicalStokesSchedule] using htData
+      simpa [lowOwnerFirstOwnerCanonicalStokesSchedule] using! htData
     have hsorted := lowOwnerFirstOwnerCanonicalStokesSchedule_sorted R p
     rw [hps] at hsorted htSched
     simp only [List.mem_cons] at htSched
@@ -330,7 +330,7 @@ theorem lowOwnerFirstOwnerCanonicalStokesResidual_eq_topTerminalBoundary
             lowOwnerFirstOwnerCanonicalStokesResidual_eq_zero_of_twoOwners
               (sig := sig) hR hps
           simpa [lowOwnerFirstOwnerCanonicalStokesTopTerminalBoundary, hps]
-            using hz
+            using! hz
 
 /-- Global signed terminal-boundary ledger. -/
 def lowOwnerCanonicalSignedStokesTopTerminalBoundary (R : ℕ) : ℝ :=

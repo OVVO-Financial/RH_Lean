@@ -102,7 +102,7 @@ theorem lowOwnerFirstOwnerAdmittedGreatestOwner_nextOwner_lt_current
           (squarefreePrimeFamilyParent r m)
           (squarefreePrimeFamilyParent r n) =
         (squarefreePairFreshPrimeSet m n).erase r := by
-    simpa using freshPrimeSet_stripped_eq_erase
+    simpa using! freshPrimeSet_stripped_eq_erase
       hrPrime hmSq hnSq hmPos hnPos hrOwner.1
   have hsParentFresh :
       s ∈ squarefreePairFreshPrimeSet

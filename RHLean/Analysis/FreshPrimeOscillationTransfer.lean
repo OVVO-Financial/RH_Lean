@@ -73,7 +73,7 @@ theorem freshPrimeUpdate_energy_decomposition
     ‖freshPrimeUpdate parent compressedCopy‖ ^ 2 =
       ‖oscillatoryPart P (freshPrimeUpdate parent compressedCopy) hP‖ ^ 2 +
         ‖constantModePart P (freshPrimeUpdate parent compressedCopy) hP‖ ^ 2 := by
-  simpa [oscillatoryPart, constantModePart] using
+  simpa [oscillatoryPart, constantModePart] using!
     orthogonalResidual_energy_decomposition (𝕜 := ℝ) P
       (freshPrimeUpdate parent compressedCopy) hP
 
@@ -93,7 +93,7 @@ theorem freshPrimeUpdate_energy_transfer
   rw [show ‖parent‖ ^ 2 =
       ‖oscillatoryPart P parent hP‖ ^ 2 +
         ‖constantModePart P parent hP‖ ^ 2 by
-    simpa [oscillatoryPart, constantModePart] using
+    simpa [oscillatoryPart, constantModePart] using!
       orthogonalResidual_energy_decomposition (𝕜 := ℝ) P parent hP]
   ring
 

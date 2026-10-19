@@ -70,7 +70,7 @@ theorem largePrimeEndpointIndicator_sub_mul_eq_strip
         largePrimeEndpointIndicator X R (q * m) p =
       if R < p ∧ p.Prime ∧ m * p ≤ X ∧ X < (q * m) * p then 1 else 0 := by
   have hm : m ≤ q * m := by
-    simpa using Nat.mul_le_mul_right m hq
+    simpa using! Nat.mul_le_mul_right m hq
   have hmono : m * p ≤ (q * m) * p :=
     Nat.mul_le_mul_right p hm
   by_cases hlarge : R < p ∧ p.Prime
@@ -268,7 +268,7 @@ theorem coupledLargePrimeEulerResidual_insert
     apply Finset.sum_congr rfl
     intro p _hp
     by_cases hpLarge : R < p ∧ p.Prime
-    · simp only [hpLarge, if_true]
+    · simp only [hpLarge, ite_true]
       rw [frozenPrimeUniverseMass_insert hq hqPrime]
       rw [div_div_comm Y p q]
     · simp [hpLarge]
@@ -282,7 +282,7 @@ example :
       coupledLargePrimeEulerResidual 30 5 30 ({2} : Finset ℕ) -
         coupledLargePrimeEulerResidual 30 5 10 ({2} : Finset ℕ) := by
   have h3 : 3 ∉ ({2} : Finset ℕ) := by norm_num
-  simpa [Finset.insert_comm] using
+  simpa [Finset.insert_comm] using!
     (coupledLargePrimeEulerResidual_insert
       (U := 30) (R := 5) (Y := 30) (q := 3)
       (S := ({2} : Finset ℕ)) h3 (by norm_num : Nat.Prime 3))
@@ -447,7 +447,7 @@ theorem coupledLargePrimeEulerSeed_eq_sum_smooth
     coupledLargePrimeEulerSeed U R Y =
       ∑ n ∈ RHLean.Arithmetic.primeSetSmoothIcc T Y,
         coupledLargePrimeEulerResidual U R (Y / n) T := by
-  simpa [coupledLargePrimeEulerSeed] using
+  simpa [coupledLargePrimeEulerSeed] using!
     (coupledLargePrimeEulerResidual_eq_sum_complementSmooth
       U R Y ∅ T (by simp) hT (by simp : Disjoint (∅ : Finset ℕ) T))
 /-! ## Exact recovery of ordinary Mertens below the square wall -/
@@ -565,13 +565,13 @@ theorem squareRootLargePrimeEulerCubeAggregate_eq_mertensTransform
   apply Finset.sum_congr rfl
   intro p hpI
   by_cases hp : p.Prime
-  · simp only [hp, if_true]
+  · simp only [hp, ite_true]
     have hRp : R < p := (Finset.mem_Ioc.mp hpI).1
     have hcut :
         squareRootEndpoint R / p ≤ R := by
       exact Nat.le_of_lt
         (squareRootEndpoint_div_lt_root_of_postRoot (by omega) hRp)
-    simpa using
+    simpa using!
       (largePrimeEulerCubeAt_cast_eq_mertens
         (X := squareRootEndpoint R) (R := R) (m := 1) (p := p) hcut)
   · simp [hp]

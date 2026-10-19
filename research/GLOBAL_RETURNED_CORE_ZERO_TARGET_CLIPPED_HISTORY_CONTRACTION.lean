@@ -109,7 +109,7 @@ theorem lowOwnerZeroTargetHistoryClippedOutgoingEnergy_le_reciprocal
       apply Finset.sum_le_sum
       intro p hpMem
       by_cases hclip : squareRootEndpoint R < p * parent.2
-      · simp only [hclip, if_true]
+      · simp only [hclip, ite_true]
         apply Finset.sum_le_sum
         intro child _hchild
         have hchild0 :
@@ -118,7 +118,7 @@ theorem lowOwnerZeroTargetHistoryClippedOutgoingEnergy_le_reciprocal
           exact mul_nonneg
             (sq_nonneg (lowOwnerZeroTargetHistoryReciprocalScale history parent))
             (postRootCovarianceReciprocalPairEnergy_nonneg child)
-        simpa only [one_mul] using
+        simpa only [one_mul] using!
           (mul_le_mul_of_nonneg_right
             (critical_one_sub_reciprocal_sq_le_one
               (mem_primesUpTo.mp hpMem).1)
@@ -135,7 +135,7 @@ theorem lowOwnerZeroTargetHistoryClippedOutgoingEnergy_le_reciprocal
       apply Finset.sum_congr rfl
       intro p _hp
       by_cases hclip : squareRootEndpoint R < p * parent.2
-      · simp only [hclip, if_true]
+      · simp only [hclip, ite_true]
         rw [Finset.mul_sum]
         apply Finset.sum_congr rfl
         intro child _hchild
@@ -313,7 +313,7 @@ theorem lowOwnerGreatestOwnerAboveFirstClippedOutgoingEnergy_le_quarter
         have hrPrime : r.Prime :=
           (mem_primesUpTo.mp (Finset.mem_filter.mp hr).1).1
         by_cases hclip : squareRootEndpoint R < r * parent.2
-        · simp only [hclip, if_true]
+        · simp only [hclip, ite_true]
           rw [sum_lowOwnerGreatestOwnerFixedParentChild_energy_eq
             hrPrime parent]
           have hmultNat :=
@@ -331,7 +331,7 @@ theorem lowOwnerGreatestOwnerAboveFirstClippedOutgoingEnergy_le_quarter
             div_le_div_of_nonneg_right hmult (by positivity)
           exact mul_le_mul_of_nonneg_right hscale
             (postRootCovarianceReciprocalPairEnergy_nonneg parent)
-        · simp only [hclip, if_false]
+        · simp only [hclip, ite_false]
           exact mul_nonneg (by positivity)
             (postRootCovarianceReciprocalPairEnergy_nonneg parent)
     _ =
@@ -398,7 +398,7 @@ theorem lowOwnerZeroTargetHistoryAboveFirstClippedOutgoingEnergy_le_quarter
             have hrPrime : r.Prime :=
               (mem_primesUpTo.mp (Finset.mem_filter.mp hr).1).1
             by_cases hclip : squareRootEndpoint R < r * parent.2
-            · simp only [hclip, if_true]
+            · simp only [hclip, ite_true]
               apply Finset.sum_le_sum
               intro child _hchild
               have hchild0 :
@@ -409,7 +409,7 @@ theorem lowOwnerZeroTargetHistoryAboveFirstClippedOutgoingEnergy_le_quarter
                   (sq_nonneg
                     (lowOwnerZeroTargetHistoryReciprocalScale history parent))
                   (postRootCovarianceReciprocalPairEnergy_nonneg child)
-              simpa only [one_mul] using
+              simpa only [one_mul] using!
                 (mul_le_mul_of_nonneg_right
                   (critical_one_sub_reciprocal_sq_le_one hrPrime)
                   hchild0)
@@ -425,7 +425,7 @@ theorem lowOwnerZeroTargetHistoryAboveFirstClippedOutgoingEnergy_le_quarter
               apply Finset.sum_congr rfl
               intro r _hr
               by_cases hclip : squareRootEndpoint R < r * parent.2
-              · simp only [hclip, if_true]
+              · simp only [hclip, ite_true]
                 rw [Finset.mul_sum]
                 apply Finset.sum_congr rfl
                 intro child _hchild
@@ -553,7 +553,7 @@ theorem lowOwnerZeroTargetHistoryAboveFirstRecursiveOutgoingEnergy_le_half
               (sq_nonneg (lowOwnerZeroTargetHistoryReciprocalScale
                 history parent))
               (postRootCovarianceReciprocalPairEnergy_nonneg child)
-          simpa only [one_mul] using
+          simpa only [one_mul] using!
             (mul_le_mul_of_nonneg_right
               (critical_one_sub_reciprocal_fourth_le_one hrPrime)
               hchild0)

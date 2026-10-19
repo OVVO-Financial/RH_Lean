@@ -53,7 +53,7 @@ theorem mem_squareRootPostRootPrimePartnerProductBoundary_iff_thresholdCrosses
       (Nat.le_div_iff_mul_le hrPrime.pos).2 harX
     have hDivCross : squareRootEndpoint R / r < p * a :=
       (Nat.div_lt_iff_lt_mul hrPrime.pos).2 <| by
-        simpa [Nat.mul_assoc, Nat.mul_comm, Nat.mul_left_comm] using hcross
+        simpa [Nat.mul_assoc, Nat.mul_comm, Nat.mul_left_comm] using! hcross
     exact ⟨hrLower, haDiv, hDivCross⟩
   · rintro ⟨hrLower, haDiv, hDivCross⟩
     have hrPrime :=
@@ -62,7 +62,7 @@ theorem mem_squareRootPostRootPrimePartnerProductBoundary_iff_thresholdCrosses
       (Nat.div_lt_iff_lt_mul hrPrime.pos).1 hDivCross
     apply mem_squareRootPostRootPrimePartnerProductBoundary.mpr
     exact ⟨hrLower, by
-      simpa [Nat.mul_assoc, Nat.mul_comm, Nat.mul_left_comm] using hcross⟩
+      simpa [Nat.mul_assoc, Nat.mul_comm, Nat.mul_left_comm] using! hcross⟩
 
 /-- **Born birth defects are predecessor-threshold crossings.** -/
 theorem mem_squareRootBornPartnerBirthBoundary_iff_thresholdCrosses

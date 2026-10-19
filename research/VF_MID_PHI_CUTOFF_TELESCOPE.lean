@@ -188,8 +188,8 @@ theorem vfMidSquareBandLateOwnerCards_cast_eq_actualWeightedPhiRemoval
     have howner :=
       vfMidSquareBandCompositeOwner_card_eq_actualPhiDifference
         hActual hR hqOwner
-    simp only [hp, if_true, primeSievePrimeIndicator]
-    simpa [vfMidPhiOwnerChildInterval] using howner
+    simp only [hp, ite_true, primeSievePrimeIndicator]
+    simpa [vfMidPhiOwnerChildInterval] using! howner
   · simp [hp, primeSievePrimeIndicator]
 
 /-- **One-block transfer compression.**

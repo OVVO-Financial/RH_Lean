@@ -79,9 +79,9 @@ theorem squareRootLowPrimeGoFullFaceDefect_depthOneAncestry
   have hrdX : r * d ≤ squareRootEndpoint R := by
     have hqOne : 1 ≤ q := hq.one_le
     have hle : r * d ≤ q * (r * d) := by
-      simpa using Nat.mul_le_mul_right (r * d) hqOne
+      simpa using! Nat.mul_le_mul_right (r * d) hqOne
     exact hle.trans (by
-      simpa [Nat.mul_assoc] using hfirst)
+      simpa [Nat.mul_assoc] using! hfirst)
   let parent : SourceIndex (squareRootEndpoint R) :=
     (⟨q, Nat.lt_succ_of_le hqX⟩, ⟨d, Nat.lt_succ_of_le hdX⟩)
   let child : SourceIndex (squareRootEndpoint R) :=
@@ -129,7 +129,7 @@ theorem squareRootLowPrimeGoFullFaceDefect_depthOneAncestry
     hparentTransport, hchildSmooth, hchildParent, ?_⟩
   rw [hgen, hparentWeight]
   simpa [squareRootLowPrimeGoFullFaceDefectSourceTag,
-    canonicalMoebiusWeight] using hsource
+    canonicalMoebiusWeight] using! hsource
 
 /-- The same statement with the sign reversal exposed.  Generation one is the
 root-parent weight; the actual smooth child source has the opposite weight. -/

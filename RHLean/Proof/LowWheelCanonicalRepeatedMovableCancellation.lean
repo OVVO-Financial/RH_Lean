@@ -122,7 +122,7 @@ theorem lateParentCondition_iff_othelloMovable
     have hqPrime : q.Prime := hqData.1
     have hqDvd : q ∣ lowWheelCanonicalDowncrossParent y := by
       simpa [LowWheelCanonicalDowncrossOwnership.lowWheelCanonicalDowncrossParent,
-        lowWheelCanonicalDowncrossParent] using hqData.2.1
+        lowWheelCanonicalDowncrossParent] using! hqData.2.1
     have hqLeParent : q ≤ lowWheelCanonicalDowncrossParent y :=
       Nat.le_of_dvd hparentPos hqDvd
     have hqR : q ≤ R :=
@@ -131,15 +131,15 @@ theorem lateParentCondition_iff_othelloMovable
       apply mem_lowWheelCanonicalDowncrossMovablePrimeSet.mpr
       refine ⟨mem_primesUpTo.mpr ⟨hqPrime, hqR⟩, ?_, hqDvd⟩
       simpa [lowWheelTaggedDowncrossPivot,
-        LowWheelCanonicalDowncrossOwnership.lowWheelCanonicalDowncrossPivot] using hpq
+        LowWheelCanonicalDowncrossOwnership.lowWheelCanonicalDowncrossPivot] using! hpq
     have hmov := lowWheelDowncrossMovablePrime_of_mem_candidateSet hy hcand
     refine ⟨q, ?_⟩
     simpa [LowWheelDowncrossMovablePrime, LowWheelOthelloMovablePrime,
-      lowWheelTaggedDowncrossPivot, lowWheelOthelloDowncrossPivot] using hmov
+      lowWheelTaggedDowncrossPivot, lowWheelOthelloDowncrossPivot] using! hmov
   · rintro ⟨q, hmovO⟩
     have hmov : LowWheelDowncrossMovablePrime y q := by
       simpa [LowWheelDowncrossMovablePrime, LowWheelOthelloMovablePrime,
-        lowWheelTaggedDowncrossPivot, lowWheelOthelloDowncrossPivot] using hmovO
+        lowWheelTaggedDowncrossPivot, lowWheelOthelloDowncrossPivot] using! hmovO
     have hcand := lowWheelDowncrossMovablePrime_mem_candidateSet hy hmov
     rcases mem_lowWheelCanonicalDowncrossMovablePrimeSet.mp hcand with
       ⟨hqGlobal, hpq, hqDvd⟩
@@ -151,9 +151,9 @@ theorem lateParentCondition_iff_othelloMovable
         ⟨hqPrime, hqDvd, Nat.ne_of_gt hparentPos⟩
     refine ⟨q, ?_, ?_⟩
     · simpa [LowWheelCanonicalDowncrossOwnership.lowWheelCanonicalDowncrossParent,
-        lowWheelCanonicalDowncrossParent] using hqFactors
+        lowWheelCanonicalDowncrossParent] using! hqFactors
     · simpa [lowWheelTaggedDowncrossPivot,
-        LowWheelCanonicalDowncrossOwnership.lowWheelCanonicalDowncrossPivot] using hpq
+        LowWheelCanonicalDowncrossOwnership.lowWheelCanonicalDowncrossPivot] using! hpq
 
 /-- A movable Othello state is automatically repeated: its opposite face/tail
 mate is distinct and has the same parent. -/
@@ -260,7 +260,7 @@ theorem sum_lowWheelOthelloRepeatedMovablePart_eq_zero
   unfold lowWheelOthelloRepeatedLedger at hcompress
   rw [lowWheelOthelloRepeatedParent_eq_movable_union_frozen R,
     Finset.sum_union (lowWheelOthelloRepeatedMovable_disjoint_frozen R)] at hcompress
-  simpa using hcompress
+  simpa using! hcompress
 
 /-- **Exact late-parent cancellation.**  No estimate is taken. -/
 theorem lateParentLedger_eq_zero
@@ -268,7 +268,7 @@ theorem lateParentLedger_eq_zero
     LowWheelCanonicalDowncrossOwnership.lowWheelCanonicalDowncrossLateParentLedger R = 0 := by
   rw [lowWheelCanonicalDowncrossLateParentLedger_eq_tagged,
     lowWheelCanonicalTaggedLateParentPart_eq_othelloRepeatedMovable]
-  simpa [lowWheelTaggedDowncrossWeight, lowWheelOthelloWeight] using
+  simpa [lowWheelTaggedDowncrossWeight, lowWheelOthelloWeight] using!
     sum_lowWheelOthelloRepeatedMovablePart_eq_zero R
 
 /-- The complete canonical downcross ledger is therefore exactly the oriented

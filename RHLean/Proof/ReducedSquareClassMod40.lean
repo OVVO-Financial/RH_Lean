@@ -29,8 +29,8 @@ theorem prime_squareResidueMod40_isReduced
     (hq5 : q ≠ 5) :
     IsReducedSquareClassMod40 (squareResidueMod40 q) := by
   rcases prime_sq_modEq_one_or_nine_40 hq hq2 hq5 with h1 | h9
-  · exact Or.inl (by simpa [squareResidueMod40, Nat.ModEq] using h1)
-  · exact Or.inr (by simpa [squareResidueMod40, Nat.ModEq] using h9)
+  · exact Or.inl (by simpa [squareResidueMod40, Nat.ModEq] using! h1)
+  · exact Or.inr (by simpa [squareResidueMod40, Nat.ModEq] using! h9)
 
 /-- A square congruence modulo `40` gives exact equality with its complex class mode. -/
 theorem quadraticPhaseMod40_eq_squareClassMode_of_modEq
@@ -41,8 +41,8 @@ theorem quadraticPhaseMod40_eq_squareClassMode_of_modEq
   apply additiveCharacter_eq_of_sub_dvd
   have hdvd :
       (40 : ℤ) ∣ ((q ^ 2 : ℕ) : ℤ) - (s : ℤ) := by
-    simpa only [neg_sub] using h.dvd.neg_right
-  simpa only [Nat.cast_pow, mul_sub] using hdvd.mul_left a
+    exact_mod_cast h.symm.dvd
+  simpa only [Nat.cast_pow, mul_sub] using! hdvd.mul_left a
 
 /-- Reducing the square numerator modulo `40` leaves the complex phase unchanged. -/
 theorem quadraticPhaseMod40_eq_squareResidueMode

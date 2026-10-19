@@ -36,17 +36,17 @@ theorem lowWheelCanonicalDowncrossLateMate_pivot_dvd_quotient
   have hdown := (mem_lowWheelCanonicalDowncrossLateParentPart.mp hlate).1
   have hgeom := lowWheelCanonicalDowncross_firstFailure_geometry hdown
   dsimp only at hgeom
-  have hpk : p ∣ k := by simpa [p] using hgeom.2.2.1
+  have hpk : p ∣ k := by simpa [p] using! hgeom.2.2.1
   unfold lowWheelCanonicalDowncrossLateMate
   dsimp only
   by_cases hqt : q ∈ t
-  · rw [if_pos hqt]
+  · rw [ite_eq_left hqt]
     exact dvd_mul_of_dvd_right hpk q
-  · rw [if_neg hqt]
+  · rw [ite_eq_right hqt]
     have hqu : q ∣ k / p := by
-      simpa [p, q] using
+      simpa [p, q] using!
         lowWheelCanonicalDowncrossLatePrime_dvd_quotient_of_not_mem_face
-          hy (by simpa [q] using hqt)
+          hy (by simpa [q] using! hqt)
     rcases hqu with ⟨u, hu⟩
     have hkEq : k = q * (p * u) := by
       calc
@@ -55,7 +55,7 @@ theorem lowWheelCanonicalDowncrossLateMate_pivot_dvd_quotient
         _ = q * (p * u) := by ring
     have hkDivEq : k / q = p * u := by
       have hqPrime : q.Prime := by
-        simpa [q] using lowWheelCanonicalDowncrossLatePrime_prime hy
+        simpa [q] using! lowWheelCanonicalDowncrossLatePrime_prime hy
       rw [hkEq]
       simp [hqPrime.ne_zero]
     exact ⟨u, hkDivEq⟩
@@ -96,7 +96,7 @@ theorem lowWheelCanonicalDowncrossLateMate_parent_eq
       (mem_lowWheelCanonicalDowncrossLateTaggedCarrier.mp hy).2.2
     have hdown := (mem_lowWheelCanonicalDowncrossLateParentPart.mp hlate).1
     have hgeom := lowWheelCanonicalDowncross_firstFailure_geometry hdown
-    simpa [p] using hgeom.1
+    simpa [p] using! hgeom.1
   have hpivotEq := lowWheelCanonicalDowncrossLateMate_pivot_eq hy
   have hpDvdMate := lowWheelCanonicalDowncrossLateMate_pivot_dvd_quotient hy
   have hlate :=
@@ -131,7 +131,7 @@ theorem lowWheelCanonicalDowncrossLateMate_parent_eq
           (lowWheelCanonicalDowncrossLateMate (t, (c, k))).2.2 := hnew
       _ = primeFaceProduct t * k := hhigh
       _ = p * lowWheelCanonicalDowncrossTaggedParent (t, (c, k)) := by
-        simpa [p, lowWheelCanonicalDowncrossTaggedParent] using hold.symm
+        simpa [p, lowWheelCanonicalDowncrossTaggedParent] using! hold.symm
   exact Nat.eq_of_mul_eq_mul_left hpivotPrime.pos hmul
 
 /-- Hence the canonical late-parent prime selected for the second move is the

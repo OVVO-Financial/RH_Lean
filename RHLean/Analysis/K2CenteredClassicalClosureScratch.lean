@@ -51,7 +51,7 @@ theorem k2LogCenteredWeightSum_tendsto (h : K2ClassicalMomentInput) :
       Tendsto
         (fun N : ℕ => k2r N * Real.log (N : ℝ) - k2C3 N)
         atTop (𝓝 (-ell)) := by
-    simpa using h.r_mul_log_tendsto_zero.sub hell
+    simpa using! h.r_mul_log_tendsto_zero.sub hell
   refine hlim.congr' ?_
   filter_upwards [eventually_ge_atTop 1] with N hN
   exact (k2LogCenteredWeightSum_eq N hN).symm
@@ -125,7 +125,7 @@ theorem k2QuotientLogError_le_inv (N d : ℕ) (hd : 1 ≤ d) (hdN : d ≤ N) :
   have hxpos : (0 : ℝ) < (N : ℝ) / (d : ℝ) := by positivity
   have hfloor :
       Nat.floor ((N : ℝ) / (d : ℝ)) = N / d := by
-    simpa using (Nat.floor_div_eq_div (K := ℝ) N d)
+    simpa using! (Nat.floor_div_eq_div (K := ℝ) N d)
   have hxlt :
       (N : ℝ) / (d : ℝ) < ((N / d : ℕ) : ℝ) + 1 := by
     have hx := Nat.lt_floor_add_one ((N : ℝ) / (d : ℝ))
@@ -139,7 +139,7 @@ theorem k2QuotientLogError_le_inv (N d : ℕ) (hd : 1 ≤ d) (hdN : d ≤ N) :
       Real.log (((N / d : ℕ) : ℝ) + 1) -
           Real.log ((N / d : ℕ) : ℝ) ≤
         1 / ((N / d : ℕ) : ℝ) := by
-    simpa [Nat.cast_add, Nat.cast_one] using k2LogStep_le_inv (N / d) hq1
+    simpa [Nat.cast_add, Nat.cast_one] using! k2LogStep_le_inv (N / d) hq1
   unfold k2QuotientLogError
   linarith
 

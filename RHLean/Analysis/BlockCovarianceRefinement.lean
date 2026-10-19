@@ -378,7 +378,7 @@ theorem freshPrimePrefixPairCubeBoundaryMass_eq_positiveLag
     have hm1 : 1 ≤ m := hmpos
     have hp_le_pm : p ≤ p * m := by
       have hmul := Nat.mul_le_mul_left p hm1
-      simpa using hmul
+      simpa using! hmul
     have htop : K ≤ p * m := hK.trans hp_le_pm
     rw [hpair]
     simp [hnK, htop]

@@ -105,7 +105,7 @@ theorem nativeMertensM3_logNine_bound_for
       ring
     rw [hnormsq] at hM
     have hz' : 1 / ‖zetaC s‖ ≤ Cz * (1 + (Real.log T)^7) := by
-      simpa [s, sigmaLeft] using hz
+      simpa [s, sigmaLeft] using! hz
     rw [nativeSmoothedMobiusIntegrand_norm_eq,
       Complex.norm_cpow_eq_rpow_re_of_pos (by linarith), hsre]
     have hprod := mul_le_mul hz' hM (norm_nonneg _) hZnonneg
@@ -125,7 +125,7 @@ theorem nativeMertensM3_logNine_bound_for
       · simp only [add_re, ofReal_re, mul_re, I_re, mul_zero, ofReal_im,
           I_im, mul_one, sub_self, add_zero]
         exact ⟨le_rfl, by linarith [corridor.shift_lt_one T hT.le]⟩
-      · simpa using ht
+      · simpa using! ht
     · intro heq
       have hre := congrArg Complex.re heq
       simp only [add_re, ofReal_re, mul_re, I_re, mul_zero, ofReal_im,
@@ -187,7 +187,7 @@ theorem nativeMertensM3_logNine_bound_for
                           (Filter.Eventually.of_forall fun t =>
                             inv_nonneg.mpr (by positivity))
                     _ = Real.pi / sigmaLeft := by
-                      simpa [abs_of_pos hsigpos] using hfull
+                      simpa [abs_of_pos hsigpos] using! hfull
                 have hcoeff : 0 ≤
                     Cz * (1 + (Real.log T)^7) * Cm / eps * X^sigmaLeft := by
                   exact mul_nonneg

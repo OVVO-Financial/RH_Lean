@@ -101,7 +101,7 @@ theorem canonicalLargestPrimeFactor_mul_prime_eq
     · exact (Nat.le_of_dvd hc hpc).trans hcq.le
     · exact ((Nat.prime_dvd_prime_iff_eq hpPrime hq).mp hpq).le
   unfold canonicalLargestPrimeFactor
-  rw [dif_pos hm1]
+  rw [dite_eq_left hm1]
   exact ((c * q).primeFactors.max'_eq_iff
     (Nat.nonempty_primeFactors.mpr hm1) q).2 ⟨hqmem, hall⟩
 
@@ -112,7 +112,7 @@ theorem canonicalCofactor_mul_prime_eq
     canonicalCofactor (c * q) = c := by
   unfold canonicalCofactor
   rw [canonicalLargestPrimeFactor_mul_prime_eq hc hcq hq]
-  simpa [Nat.mul_comm] using Nat.mul_div_right c hq.pos
+  simpa [Nat.mul_comm] using! Nat.mul_div_right c hq.pos
 
 /-- Full canonical coordinate certificate for every retained dyadic high source. -/
 theorem canonicalCoordinates_of_isDyadicCanonicalHighSource
@@ -201,7 +201,7 @@ theorem squareRootTransportCofactorFirst_eq_neg_dyadicCanonicalHighSourceMass
             intro q hqmem
             by_cases hqPrime : q.Prime
             · have hRq : R < q := (Finset.mem_Ioc.mp hqmem).1
-              simp only [hqPrime, if_true]
+              simp only [hqPrime, ite_true]
               exact dyadicPrimeFiberBoundaryMass_eq_neg_sourceMass
                 R q hR hRq hqPrime
             · simp [hqPrime]

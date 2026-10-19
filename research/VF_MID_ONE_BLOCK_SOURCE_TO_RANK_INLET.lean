@@ -121,7 +121,7 @@ theorem vfMidOneBlockProcessedOwnerCharge_eq_squarefree_add_squareful
   rw [vfMidOneBlockProcessedOwnerAtom_eq_siteSum]
   unfold vfMidSquarefreeProcessedOwnerSites
     vfMidSquarefulProcessedOwnerSites
-  simpa only using
+  simpa only using!
     (Finset.sum_filter_add_sum_filter_not
       (s := vfMidSquareBandCompositeOwner R p)
       (p := Squarefree)
@@ -320,7 +320,7 @@ theorem vfMidOneBlockProcessedOwnerChildCharge_eq_active_add_dead
   rw [← Finset.sum_add_distrib]
   apply Finset.sum_congr rfl
   intro p _hp
-  simpa only using
+  simpa only using!
     (Finset.sum_filter_add_sum_filter_not
       (s := vfMidSquareBandCompositeOwnerChildren R p)
       (p := Squarefree)
@@ -945,7 +945,7 @@ theorem vfMidSyntheticRadialScale_sq_increment_gt_25_div_3_mul
       (5 / 3 : ℝ) * (R : ℝ) <
         vfMidSyntheticRadialScale R := by
     unfold vfMidSyntheticRadialScale
-    simpa [mul_comm] using
+    simpa [mul_comm] using!
       (mul_lt_mul_of_pos_left hlogR hR0)
   have hrhoRp :
       (5 / 3 : ℝ) * (R : ℝ) <
@@ -1351,7 +1351,7 @@ theorem vfMidOneBlockProcessedOwnerChildCharge_eq_active_add_squareful
       vfMidOneBlockProcessedActiveChildCharge R +
         vfMidOneBlockProcessedSquarefulChildCharge R := by
   simpa [vfMidOneBlockProcessedActiveChildCharge,
-    vfMidOneBlockProcessedSquarefulChildCharge] using
+    vfMidOneBlockProcessedSquarefulChildCharge] using!
       vfMidOneBlockProcessedOwnerChildCharge_eq_active_add_dead R
 
 

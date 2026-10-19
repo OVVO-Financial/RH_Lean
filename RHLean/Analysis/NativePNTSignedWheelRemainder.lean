@@ -94,7 +94,7 @@ theorem partialPrimeWheelSite_eq_moebius_of_endpoint_le_cutoff
     y N hmpos hmI.2
   have hzero :
       μ m - RHLean.Arithmetic.partialPrimeWheelSite y N m = 0 := by
-    simpa [hunres] using herr
+    simpa [hunres] using! herr
   exact (sub_eq_zero.mp hzero).symm
 
 theorem nativePNTWheelResidualSignedMass_eq_zero_of_endpoint_le_cutoff
@@ -138,15 +138,15 @@ theorem nativePNTWheelResidualSignedMass_eq_zero_of_lt_two_mul_sq
     have hyq1 : y + 1 ≤ q := by omega
     have hyr1 : y + 1 ≤ r := by omega
     have hsqStep : (y + 1) ^ 2 ≤ q * r := by
-      simpa [pow_two] using Nat.mul_le_mul hyq1 hyr1
+      simpa [pow_two] using! Nat.mul_le_mul hyq1 hyr1
     have hySqLtSuccSq : y ^ 2 < (y + 1) ^ 2 :=
       Nat.pow_lt_pow_left (by omega) (by omega)
     have hySqLtM : y ^ 2 < m := by
       rw [hmqr]
       exact hySqLtSuccSq.trans_le hsqStep
     have hNltTwoM : N < 2 * m := by omega
-    have hlo : 1 * m ≤ N := by simpa using hmI.2
-    have hhi : N < (1 + 1) * m := by simpa using hNltTwoM
+    have hlo : 1 * m ≤ N := by simpa using! hmI.2
+    have hhi : N < (1 + 1) * m := by simpa using! hNltTwoM
     have hdiv : N / m = 1 := Nat.div_eq_of_lt_le hlo hhi
     have hfiber :
         nativePNTMobiusLogReciprocalFiber N m
@@ -175,6 +175,6 @@ theorem nativePNTError_mul_log_add_squareRootWheel_eq_remainder
       nativePNTSignedSelbergRemainder N := by
   have h := nativePNTError_mul_log_add_wheel_eq_remainder_sub_residual y N
   rw [nativePNTWheelResidualSignedMass_eq_zero_of_lt_two_mul_sq y N hscale] at h
-  simpa using h
+  simpa using! h
 
 end RHLean.Analysis

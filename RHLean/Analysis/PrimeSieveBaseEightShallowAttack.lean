@@ -73,12 +73,12 @@ theorem mem_primeSieveExactActivityReciprocalPrimeBand_iff
       (Nat.div_lt_iff_lt_mul h2c).1 hparts.2
     have hmul :
         (t + 1) ^ 2 - 1 < 2 * (c * q) := by
-      simpa [Nat.mul_assoc, Nat.mul_comm, Nat.mul_left_comm] using hmul0
+      simpa [Nat.mul_assoc, Nat.mul_comm, Nat.mul_left_comm] using! hmul0
     have hmiddle : (t + 1) ^ 2 ≤ 2 * (c * q) := by omega
     have hupmul : q * c ≤ (t + 1) ^ 2 - 1 :=
       (Nat.le_div_iff_mul_le hc).1 hup
     have hprodle : c * q ≤ (t + 1) ^ 2 - 1 := by
-      simpa [Nat.mul_comm] using hupmul
+      simpa [Nat.mul_comm] using! hupmul
     have hprod : c * q < (t + 1) ^ 2 := hprodle.trans_lt hpredlt
     exact ⟨hprime, htq, hmiddle, hprod⟩
   · rintro ⟨hprime, htq, hmiddle, hprod⟩
@@ -89,10 +89,10 @@ theorem mem_primeSieveExactActivityReciprocalPrimeBand_iff
       apply (Nat.div_lt_iff_lt_mul h2c).2
       have hpred : (t + 1) ^ 2 - 1 < 2 * (c * q) :=
         hpredlt.trans_le hmiddle
-      simpa [Nat.mul_assoc, Nat.mul_comm, Nat.mul_left_comm] using hpred
+      simpa [Nat.mul_assoc, Nat.mul_comm, Nat.mul_left_comm] using! hpred
     · apply (Nat.le_div_iff_mul_le hc).2
       have hle : c * q ≤ (t + 1) ^ 2 - 1 := Nat.le_pred_of_lt hprod
-      simpa [Nat.mul_comm] using hle
+      simpa [Nat.mul_comm] using! hle
 
 /-- The exact active-prime interval is literally the reciprocal prime band at
 the associated square stage. -/
@@ -278,7 +278,7 @@ theorem primeSieveBaseEightShallowSquareFunction_eq_shallowEnergy
       primeSieveDyadicPacketShallowEnergy
         (primorialPNTPrimeSieveCutoff k) x
         (dyadicPacketBaseEightCutoff k x + 1) := by
-  simpa [primeSieveBaseEightShallowSquareFunction] using
+  simpa [primeSieveBaseEightShallowSquareFunction] using!
     primeSieveReciprocalLowFrequencySquareFunction_eq_shallowEnergy
       (primorialPNTPrimeSieveCutoff k) x
       (dyadicPacketBaseEightCutoff k x + 1)
@@ -352,7 +352,7 @@ theorem dyadicPrimeReciprocalLowFrequencySquareFunctionBlockBounded_implies_root
       primeSieveReciprocalRootSiblingSquareFunction y x ≤
         primeSieveDyadicPacketShallowEnergy y x 1 := by
     rw [primeSieveReciprocalRootSiblingSquareFunction_eq_levelEnergy_zero]
-    simpa using primeSieveDyadicPacketLevelEnergy_le_shallow_succ y x 0
+    simpa using! primeSieveDyadicPacketLevelEnergy_le_shallow_succ y x 0
   have hmono :
       primeSieveDyadicPacketShallowEnergy y x 1 ≤
         primeSieveDyadicPacketShallowEnergy y x (J + 1) :=
@@ -366,7 +366,7 @@ theorem dyadicPrimeReciprocalLowFrequencySquareFunctionBlockBounded_implies_root
     _ ≤ primeSieveDyadicPacketShallowEnergy y x (J + 1) := hmono
     _ = primeSieveBaseEightShallowSquareFunction k x := by
       symm
-      simpa [y, J] using
+      simpa [y, J] using!
         primeSieveBaseEightShallowSquareFunction_eq_shallowEnergy k x
     _ ≤ C * Real.rpow ((x : ℝ) + 1) (1 + ε) := hfull
 
@@ -383,14 +383,14 @@ theorem dyadicPrimeReciprocalLowFrequencySquareFunctionBlockBounded_iff_baseEigh
     intro k x hk hlow hup
     have hs := hCb k x hk hlow hup
     rw [primeSieveBaseEightShallowSquareFunction_eq_shallowEnergy] at hs
-    simpa [dyadicPacketSuccCutoff] using hs
+    simpa [dyadicPacketSuccCutoff] using! hs
   · intro h ε hε
     obtain ⟨C, hC, hCb⟩ := h ε hε
     refine ⟨C, hC, ?_⟩
     intro k x hk hlow hup
     have hs := hCb k x hk hlow hup
     rw [primeSieveBaseEightShallowSquareFunction_eq_shallowEnergy]
-    simpa [dyadicPacketSuccCutoff] using hs
+    simpa [dyadicPacketSuccCutoff] using! hs
 
 /-- RH can now be stated with the packet-side shallow input entirely in the
 reciprocal-discrepancy square-function coordinate exposed above. -/

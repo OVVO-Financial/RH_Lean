@@ -54,7 +54,7 @@ theorem squareBlockCoherentGramMass_le_absoluteRowMass (N : ℕ) :
     _ = |∑ i ∈ Finset.range (N + 1), squareBlockGramRowSum N i| := by
       rw [← squareBlockCoherentGramMass_eq_sum_rowSums]
     _ ≤ ∑ i ∈ Finset.range (N + 1), |squareBlockGramRowSum N i| := by
-      simpa only [Real.norm_eq_abs] using
+      simpa only [Real.norm_eq_abs] using!
         (norm_sum_le (Finset.range (N + 1)) (squareBlockGramRowSum N))
     _ = squareBlockGramAbsoluteRowMass N := rfl
 

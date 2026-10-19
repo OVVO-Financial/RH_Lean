@@ -140,7 +140,7 @@ theorem nativePNTLambdaConvolutionSignedErrorMass_eq_double
           have hmulN' : m * d ≤ N :=
             (Nat.le_div_iff_mul_le hdpos).1 hmN
           have hmulN : d * m ≤ N := by
-            simpa [Nat.mul_comm] using hmulN'
+            simpa [Nat.mul_comm] using! hmulN'
           have hmpos : 0 < m := by omega
           exact ⟨⟨Nat.one_le_iff_ne_zero.mpr
             (Nat.ne_of_gt (Nat.mul_pos hdpos hmpos)), hmulN⟩,

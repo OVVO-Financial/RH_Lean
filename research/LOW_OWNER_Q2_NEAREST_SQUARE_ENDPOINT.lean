@@ -163,7 +163,7 @@ theorem norm_lowOwnerNearestSquareShellAtom_le_roundedRoot
   unfold lowOwnerNearestSquareShellAtom
     lowOwnerRawMertensAmplitude lowOwnerNearestSquareMertensAmplitude
   rw [mertensSummatoryInt_cast, mertensSummatoryInt_cast]
-  simpa [roundedQ2ChildRoot, rawQ2ChildCutoff] using
+  simpa [roundedQ2ChildRoot, rawQ2ChildCutoff] using!
     norm_mertensSummatory_sub_nearestSquareEndpoint_le_sqrt
       (rawQ2ChildCutoff R q)
 

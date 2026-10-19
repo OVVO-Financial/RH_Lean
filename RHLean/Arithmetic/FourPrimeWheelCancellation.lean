@@ -41,7 +41,8 @@ theorem fourPrimeWheelSign_eq_one_or_neg_one (n : ℕ) :
 /-- Exact `210`-periodicity. -/
 @[simp] theorem fourPrimeWheelSign_add_period (n : ℕ) :
     fourPrimeWheelSign (n + fourPrimeWheelPeriod) = fourPrimeWheelSign n := by
-  simp [fourPrimeWheelSign, fourPrimeWheelPeriod]
+  unfold fourPrimeWheelSign
+  rw [Nat.add_mod_right]
 
 /-- The first complete four-prime wheel has zero signed mass. -/
 theorem fourPrimeWheel_completeCell_zero :
@@ -57,7 +58,7 @@ theorem fourPrimeWheel_translatedCell_zero (q : ℕ) :
       fourPrimeWheelSign (q * fourPrimeWheelPeriod + r) = fourPrimeWheelSign r := by
     intro r
     unfold fourPrimeWheelSign
-    simp [fourPrimeWheelPeriod, Nat.add_mod]
+    rw [Nat.mul_add_mod_self_right]
   calc
     ∑ r ∈ Finset.range fourPrimeWheelPeriod,
         fourPrimeWheelSign (q * fourPrimeWheelPeriod + r) =

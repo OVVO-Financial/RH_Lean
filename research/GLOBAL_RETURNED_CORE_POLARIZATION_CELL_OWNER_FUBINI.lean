@@ -37,7 +37,7 @@ private theorem sum_symmetric_square_eq_diag_add_two_positive
         (∑ ab ∈ (s.product s).filter (fun ab => ab.1 = ab.2), f ab) +
         ∑ ab ∈ off, f ab := by
     dsimp [off]
-    simpa only [not_not] using
+    simpa only [not_not] using!
       (Finset.sum_filter_add_sum_filter_not
         (s := s.product s) (p := fun ab => ab.1 = ab.2) (f := f)).symm
   have hdiag :
@@ -47,7 +47,7 @@ private theorem sum_symmetric_square_eq_diag_add_two_positive
       (∑ ab ∈ (s.product s).filter (fun ab => ab.1 = ab.2), f ab) =
           ∑ a ∈ s, ∑ b ∈ s, if a = b then f (a, b) else 0 := by
             rw [Finset.sum_filter]
-            simpa only using
+            simpa only using!
               (Finset.sum_product
                 (s := s) (t := s)
                 (f := fun ab : ℕ × ℕ => if ab.1 = ab.2 then f ab else 0))
@@ -103,7 +103,7 @@ private theorem sum_symmetric_square_eq_diag_add_two_positive
       exact Finset.mem_filter.mpr
         ⟨Finset.mem_product.mpr ⟨hb, ha⟩, hlt⟩
     · intro ab _hab
-      simpa using hsym ab.1 ab.2
+      simpa using! hsym ab.1 ab.2
   rw [hpartition, hdiag, hoff_partition, hneg_eq_pos]
   dsimp [pos]
   ring
@@ -128,7 +128,7 @@ theorem lowOwnerFirstOwnerSignedCellTelescope_eq_diagonal_add_ownerFibers
     sum_lowOwnerFirstOwnerBasePositive_eq_sum_polarizationOwnerFibers
       (R := R) (p := p) (sig := sig) hp
       (lowOwnerFirstOwnerDirichletPolarizationAtom R p)
-  simpa [lowOwnerFirstOwnerBasePositivePairCarrier] using
+  simpa [lowOwnerFirstOwnerBasePositivePairCarrier] using!
     congrArg
       (fun x : ℝ =>
         (∑ a ∈ lowOwnerFirstOwnerBaseFiber R p sig,

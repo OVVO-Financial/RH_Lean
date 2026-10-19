@@ -38,7 +38,7 @@ theorem lowWheelFaceTailToggleAt_prime_active_iff
       (r ∈ t ∨ r ∣ m)
   unfold lowWheelFaceTailToggleAt
   by_cases hqt : q ∈ t
-  · simp only [hqt, if_true]
+  · simp only [hqt, ite_true]
     constructor
     · intro h
       rcases h with hre | hdiv
@@ -57,7 +57,7 @@ theorem lowWheelFaceTailToggleAt_prime_active_iff
         · exact Or.inl (Finset.mem_erase.mpr ⟨hrq, hrt⟩)
       · exact Or.inr (dvd_mul_of_dvd_right hrm q)
   · have hqm : q ∣ m := hqactive.resolve_left hqt
-    simp only [hqt, if_false, hqm, if_true]
+    simp only [hqt, ite_false, hqm, ite_true]
     constructor
     · intro h
       rcases h with hins | hdiv
@@ -67,7 +67,7 @@ theorem lowWheelFaceTailToggleAt_prime_active_iff
         · exact Or.inl hrt
       · have htailDvd : m / q ∣ m := by
           refine ⟨q, ?_⟩
-          simpa [Nat.mul_comm] using (Nat.div_mul_cancel hqm).symm
+          simpa [Nat.mul_comm] using! (Nat.div_mul_cancel hqm).symm
         exact Or.inr (hdiv.trans htailDvd)
     · intro h
       rcases h with hrt | hrm
@@ -82,7 +82,7 @@ theorem lowWheelFaceTailToggleAt_prime_active_iff
             exact hrq heq
           have hmEq : q * (m / q) = m := Nat.mul_div_cancel' hqm
           have hrProd : r ∣ q * (m / q) := by
-            simpa [hmEq] using hrm
+            simpa [hmEq] using! hrm
           rcases hr.dvd_mul.mp hrProd with hrd | htail
           · exact (hrNotDvdQ hrd).elim
           · exact Or.inr htail

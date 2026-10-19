@@ -234,10 +234,10 @@ theorem norm_nonzeroResponseRun_sub_survivorRunCentered_globalBound
   norm_num [canonicalLowIncrementControl] at hlowAraw hlowBraw
   have hlowA :
       ‖canonicalLowPrefix 16 a‖ ≤ ((a + 1 : ℕ) : ℝ) * 17 := by
-    simpa only [Nat.cast_add, Nat.cast_one] using hlowAraw
+    simpa only [Nat.cast_add, Nat.cast_one] using! hlowAraw
   have hlowB :
       ‖canonicalLowPrefix 16 b‖ ≤ ((b + 1 : ℕ) : ℝ) * 17 := by
-    simpa only [Nat.cast_add, Nat.cast_one] using hlowBraw
+    simpa only [Nat.cast_add, Nat.cast_one] using! hlowBraw
   have hlowDiff :
       ‖canonicalLowPrefix 16 b - canonicalLowPrefix 16 a‖ ≤
         ((b + 1 : ℕ) : ℝ) * 17 + ((a + 1 : ℕ) : ℝ) * 17 := by
@@ -339,7 +339,7 @@ private theorem squareRun_linear_le_rpow
     exact_mod_cast hone
   have h := Real.rpow_le_rpow_of_exponent_le hbase
     (by linarith : (1 : ℝ) ≤ 1 + ε)
-  simpa using h
+  simpa using! h
 
 private theorem squareRun_rpow_mono
     {ε : ℝ} (hε : 0 < ε) {a b : ℕ} (hab : a ≤ b) :
@@ -385,7 +385,7 @@ theorem squareRunEnergyBounded_of_primorialResidualBounded
       have hrpow : (0 : ℝ) ≤
           Real.rpow (((squarePrefixEndpoint b + 1 : ℕ) : ℝ)) (1 + ε) :=
         Real.rpow_nonneg (by positivity) _
-      simpa using mul_nonneg hC hrpow
+      simpa using! mul_nonneg hC hrpow
   rw [RHLean.Proof.sum_canonicalTotalIncrement_Ico_eq_primorialResidual_sub
     k a b ha (by omega) hleftLower hleftUpper hrightLower.le hrightUpper]
   have htwo := squareRun_norm_sq_add_le_two
@@ -565,7 +565,7 @@ theorem primorialResidualBounded_of_squareRunEnergyBounded
               mertensSummatory (squarePrefixEndpoint (m + 1))‖ ^ 2 ≤
             C * Real.rpow (((squarePrefixEndpoint n + 1 : ℕ) : ℝ))
               (1 + ε) := by
-        simpa [squarePrefixMertens] using hrunRaw
+        simpa [squarePrefixMertens] using! hrunRaw
       have hmiddleMono := squareRun_rpow_mono hε hnLower
       have hmiddleX :
           ‖mertensSummatory (squarePrefixEndpoint n) -

@@ -24,6 +24,6 @@ theorem nativeTailReciprocalIco_le
       (harmonic B : ℝ) = ∑ n ∈ Finset.Icc 1 B, (1 : ℝ) / n := by
     simp_rw [harmonic_eq_sum_Icc, Rat.cast_sum, Rat.cast_inv,
       Rat.cast_natCast, one_div]
-  simpa [hh] using hsum
+  simpa [hh] using! hsum
 
 end RHLean.Analysis

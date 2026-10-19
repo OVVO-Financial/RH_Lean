@@ -83,7 +83,7 @@ theorem nativePNTNormalizedRecipWeight_le_floorWeight_add
       1 / (d : ℝ) ≤ (((N / d : ℕ) : ℝ) + 1) / (N : ℝ) := by
     have hlt : 1 / (d : ℝ) < (((N / d : ℕ) : ℝ) + 1) / (N : ℝ) := by
       rw [div_lt_div_iff₀ hdRpos hNpos]
-      simpa [mul_comm] using hNltR
+      simpa [mul_comm] using! hNltR
     exact hlt.le
   have hLambda0 : 0 ≤ Λ d := ArithmeticFunction.vonMangoldt_nonneg
   have hmul :
@@ -133,7 +133,7 @@ theorem nativePNTNormalizedRecipMass_sub_floor_sum_bounds
           nativePsi N / (N : ℝ) := by
       rw [← Finset.sum_div]
       rfl
-    simpa [hLambda] using hupPoint
+    simpa [hLambda] using! hupPoint
   constructor
   · linarith
   · linarith
@@ -151,7 +151,7 @@ theorem nativePNTNormalizedRecipMass_sub_floor_sum_le_const
   have hpsi := nativePsi_le_const_mul N
   have hpsiDiv : nativePsi N / (N : ℝ) ≤ Real.log 4 + 2 := by
     apply (div_le_iff₀ hNpos).2
-    simpa [mul_assoc] using hpsi
+    simpa [mul_assoc] using! hpsi
   exact hdef.trans hpsiDiv
 
 /-- Replacing exact floor weights by fixed reciprocal weights changes the

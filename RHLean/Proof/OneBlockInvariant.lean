@@ -28,7 +28,7 @@ theorem primeFactor_le_canonicalLargestPrimeFactor
     {n p : ℕ} (hn : 1 < n) (hp : p ∈ n.primeFactors) :
     p ≤ canonicalLargestPrimeFactor n := by
   unfold canonicalLargestPrimeFactor
-  rw [dif_pos hn]
+  rw [dite_eq_left hn]
   exact Finset.le_max' n.primeFactors p hp
 
 /-- Above `2`, the canonical largest prime factor is at least `3`. -/
@@ -51,9 +51,9 @@ theorem three_le_canonicalLargestPrimeFactor
       have hpEq : p = 2 := by omega
       simp [hpEq]
     · intro hp
-      have hpEq : p = 2 := by simpa using hp
+      have hpEq : p = 2 := by simpa using! hp
       subst p
-      simpa [hqEq] using canonicalLargestPrimeFactor_mem_primeFactors hn1
+      simpa [hqEq] using! canonicalLargestPrimeFactor_mem_primeFactors hn1
   have hprod := Nat.prod_primeFactors_of_squarefree hsq
   rw [hfaces] at hprod
   simp at hprod
@@ -65,7 +65,7 @@ theorem canonicalCofactor_le_oldParentCutoff_three
     (hsq : Squarefree n) (hn1 : 1 < n) :
     canonicalCofactor n ≤ oldParentCutoff 3 := by
   have hnBounds : 9 ≤ n ∧ n < 16 := by
-    simpa [squareBlockInterval, Finset.mem_Ico] using hn
+    simpa [squareBlockInterval, Finset.mem_Ico] using! hn
   have hn2 : 2 < n := by omega
   have hq3 : 3 ≤ canonicalLargestPrimeFactor n :=
     three_le_canonicalLargestPrimeFactor hsq hn2
@@ -96,7 +96,7 @@ theorem canonicalCofactor_le_oldParentCutoff_four
     (hsq : Squarefree n) (hn1 : 1 < n) :
     canonicalCofactor n ≤ oldParentCutoff 4 := by
   have hnBounds : 16 ≤ n ∧ n < 25 := by
-    simpa [squareBlockInterval, Finset.mem_Ico] using hn
+    simpa [squareBlockInterval, Finset.mem_Ico] using! hn
   have hn2 : 2 < n := by omega
   have hq3 : 3 ≤ canonicalLargestPrimeFactor n :=
     three_le_canonicalLargestPrimeFactor hsq hn2
@@ -131,7 +131,7 @@ theorem canonicalCofactor_le_oldParentCutoff
     · exact canonicalCofactor_le_oldParentCutoff_four hn hsq hn1
   · subst a
     have hnBounds : 5 ^ 2 ≤ n ∧ n < (5 + 1) ^ 2 := by
-      simpa [squareBlockInterval, Finset.mem_Ico] using hn
+      simpa [squareBlockInterval, Finset.mem_Ico] using! hn
     have hn2 : 2 < n := by omega
     have hq3 : 3 ≤ canonicalLargestPrimeFactor n :=
       three_le_canonicalLargestPrimeFactor hsq hn2
@@ -146,7 +146,7 @@ theorem canonicalCofactor_le_oldParentCutoff
     omega
   · have ha5 : 5 ≤ a := by omega
     have hnBounds : a ^ 2 ≤ n ∧ n < (a + 1) ^ 2 := by
-      simpa [squareBlockInterval, Finset.mem_Ico] using hn
+      simpa [squareBlockInterval, Finset.mem_Ico] using! hn
     have hn2 : 2 < n := by
       have : 9 ≤ a ^ 2 := by nlinarith
       omega

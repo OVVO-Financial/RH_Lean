@@ -69,7 +69,7 @@ theorem vfMidLiAllRealUniformBounded :
   refine ⟨vfMidLiAllRealUniformConstant,
     vfMidLiAllRealUniformConstant_nonneg, ?_⟩
   intro x hx
-  simpa [vfMidLiError] using
+  simpa [vfMidLiError] using!
     abs_vfMidLiError_le_uniform_allReal hx
 
 end RHLean.Analysis

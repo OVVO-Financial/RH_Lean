@@ -43,14 +43,14 @@ private theorem primeCombFrameAlive_of_no_square
     (hnoSquare : ¬ PrimeCombFrameSquareHit S n) :
     PrimeCombFrameAlive S n := by
   unfold PrimeCombFrameAlive primeCombFrameSite
-  rw [if_neg hn0, if_neg hn1, if_neg hnoSquare]
+  rw [ite_eq_right hn0, ite_eq_right hn1, ite_eq_right hnoSquare]
   dsimp
   by_cases hdiv : primeCombFrameDivisors S n = ∅
-  · rw [if_pos (Finset.card_eq_zero.mpr hdiv)]
+  · rw [ite_eq_left (Finset.card_eq_zero.mpr hdiv)]
     norm_num
   · have hcard : (primeCombFrameDivisors S n).card ≠ 0 :=
       Finset.card_ne_zero.mpr (Finset.nonempty_iff_ne_empty.mpr hdiv)
-    rw [if_neg hcard]
+    rw [ite_eq_right hcard]
     exact pow_ne_zero _ (by norm_num : (-1 : ℤ) ≠ 0)
 
 private theorem primeCombFrameDivisors_prime_eq_empty
@@ -127,7 +127,7 @@ theorem primeCombAnimationStepSite_eq_insert
   · have hpdiv : p ∣ n := by
       rcases hPSquare with ⟨k, hk⟩
       refine ⟨p * k, ?_⟩
-      simpa [pow_two, Nat.mul_assoc] using hk
+      simpa [pow_two, Nat.mul_assoc] using! hk
     have hp2le : p ^ 2 ≤ n := Nat.le_of_dvd hnpos hPSquare
     have hplt : p < n := by
       have hpp : p < p ^ 2 := by
@@ -160,21 +160,21 @@ theorem primeCombAnimationStepSite_eq_insert
             primeCombFrameSite S n =
               (-1 : ℤ) ^ (primeCombFrameDivisors S n).card := by
           unfold primeCombFrameSite
-          rw [if_neg hn0, if_neg hn1, if_neg hOldSquare]
+          rw [ite_eq_right hn0, ite_eq_right hn1, ite_eq_right hOldSquare]
           dsimp
-          rw [if_neg hOldCardNe]
+          rw [ite_eq_right hOldCardNe]
         have hNewCard :
             (primeCombFrameDivisors (insert p S) n).card =
               (primeCombFrameDivisors S n).card + 1 := by
-          rw [primeCombFrameDivisors_insert S p n, if_pos hpdiv,
+          rw [primeCombFrameDivisors_insert S p n, ite_eq_left hpdiv,
             Finset.card_insert_of_notMem hpNotOldDivisor]
         have hNew :
             primeCombFrameSite (insert p S) n =
               (-1 : ℤ) ^ ((primeCombFrameDivisors S n).card + 1) := by
           unfold primeCombFrameSite
-          rw [if_neg hn0, if_neg hn1, if_neg hNewNoSquare]
+          rw [ite_eq_right hn0, ite_eq_right hn1, ite_eq_right hNewNoSquare]
           dsimp
-          rw [hNewCard, if_neg (by omega)]
+          rw [hNewCard, ite_eq_right (by omega)]
         rw [primeCombAnimationStepSite_eq_neg_of_flipped S hflipped,
           hOld, hNew, pow_succ]
         ring
@@ -190,16 +190,16 @@ theorem primeCombAnimationStepSite_eq_insert
           ⟨hAlive, hproper, hProperTouched, hPSquare⟩
         have hOld : primeCombFrameSite S n = -1 := by
           unfold primeCombFrameSite
-          rw [if_neg hn0, if_neg hn1, if_neg hOldSquare]
+          rw [ite_eq_right hn0, ite_eq_right hn1, ite_eq_right hOldSquare]
           dsimp
-          rw [if_pos hOldCardZero]
+          rw [ite_eq_left hOldCardZero]
         have hNewCard :
             (primeCombFrameDivisors (insert p S) n).card = 1 := by
-          rw [primeCombFrameDivisors_insert S p n, if_pos hpdiv,
+          rw [primeCombFrameDivisors_insert S p n, ite_eq_left hpdiv,
             Finset.card_insert_of_notMem hpNotOldDivisor, hOldCardZero]
         have hNew : primeCombFrameSite (insert p S) n = -1 := by
           unfold primeCombFrameSite
-          rw [if_neg hn0, if_neg hn1, if_neg hNewNoSquare]
+          rw [ite_eq_right hn0, ite_eq_right hn1, ite_eq_right hNewNoSquare]
           dsimp
           rw [hNewCard]
           norm_num
@@ -221,20 +221,20 @@ theorem primeCombAnimationStepSite_eq_insert
         exact hNotProper h.2.1
       have hOld : primeCombFrameSite S p = -1 := by
         unfold primeCombFrameSite
-        rw [if_neg hpPrime.ne_zero, if_neg hpPrime.ne_one,
-          if_neg hOldSquare]
+        rw [ite_eq_right hpPrime.ne_zero, ite_eq_right hpPrime.ne_one,
+          ite_eq_right hOldSquare]
         dsimp
         rw [hOldDivisors]
         norm_num
       have hNewCard :
           (primeCombFrameDivisors (insert p S) p).card = 1 := by
-        rw [primeCombFrameDivisors_insert S p p, if_pos (dvd_refl p),
+        rw [primeCombFrameDivisors_insert S p p, ite_eq_left (dvd_refl p),
           hOldDivisors]
         simp
       have hNew : primeCombFrameSite (insert p S) p = -1 := by
         unfold primeCombFrameSite
-        rw [if_neg hpPrime.ne_zero, if_neg hpPrime.ne_one,
-          if_neg hNewNoSquare]
+        rw [ite_eq_right hpPrime.ne_zero, ite_eq_right hpPrime.ne_one,
+          ite_eq_right hNewNoSquare]
         dsimp
         rw [hNewCard]
         norm_num
@@ -250,7 +250,7 @@ theorem primeCombAnimationStepSite_eq_insert
       exact hNotProper h.2.1
     have hFrameEq :
         primeCombFrameSite (insert p S) n = primeCombFrameSite S n := by
-      simp only [primeCombFrameSite, hn0, hn1, if_false,
+      simp only [primeCombFrameSite, hn0, hn1, ite_false,
         hNewNoSquare, hOldSquare, primeCombFrameDivisors_insert,
         hpdiv]
     rw [hFrameEq]

@@ -95,7 +95,7 @@ theorem vfMidSquareBandPrefixComposite_moebius_eq_one_of_cube
   have hnComp := (Finset.mem_filter.mp hn).1
   have hnSite := (Finset.mem_filter.mp hnComp).1
   have hband : R ^ 2 < n ∧ n < (R + 1) ^ 2 := by
-    simpa [vfMidSquareBandSites] using hnSite
+    simpa [vfMidSquareBandSites] using! hnSite
   have hpqNe : p ≠ q := by
     intro hpqEq
     subst q
@@ -443,7 +443,7 @@ theorem vfMidDyadicVFTrackingDefect_eq_frozenWheel_add_half_moebius
     vfMidDyadicVFTrackingDefect A B =
         ∑ r ∈ Finset.Ico A B, vfMidOddCompositeTrackingDefect r := by
           symm
-          simpa [vfMidOddDyadicCompositeTrackingDefect] using htrack
+          simpa [vfMidOddDyadicCompositeTrackingDefect] using! htrack
     _ = ∑ r ∈ Finset.Ico A B,
           (vfMidBandMass r -
             (1 / 2 : ℝ) *
@@ -495,7 +495,7 @@ theorem vfMidDyadicVFTrackingDefect_eq_frozenWheel_add_half_moebius_of_cubeRun
     vfMidDyadicVFTrackingDefect A B =
         ∑ r ∈ Finset.Ico A B, vfMidOddCompositeTrackingDefect r := by
           symm
-          simpa [vfMidOddDyadicCompositeTrackingDefect] using htrack
+          simpa [vfMidOddDyadicCompositeTrackingDefect] using! htrack
     _ = ∑ r ∈ Finset.Ico A B,
           (vfMidBandMass r -
             (1 / 2 : ℝ) *

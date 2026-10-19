@@ -145,7 +145,7 @@ theorem majorant_summable (ε : ℝ) (hε : 0 < ε) :
   have hs : Summable
       (fun n : ℕ => (Real.rpow (n : ℝ) (1 + 2 * ε))⁻¹) :=
     Real.summable_nat_rpow_inv.mpr hp
-  simpa only [majorant] using
+  simpa only [majorant] using!
     (summable_nat_add_iff 1 (G := ℝ)).2 hs
 
 /-- The diagonal is UNCONDITIONALLY uniformly bounded for each ε>0.

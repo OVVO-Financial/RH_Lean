@@ -67,7 +67,7 @@ theorem squareMapY_common_shift_eq (c q h : ℝ) :
 theorem squareMapY_even_common_shift_displacement (c q n : ℝ) :
     squareMapY (c + 2 * n) (q + 2 * n) - squareMapY c q =
       2 * n * (q - c) := by
-  simpa using squareMapY_common_shift_displacement c q (2 * n)
+  simpa using! squareMapY_common_shift_displacement c q (2 * n)
 
 /-- With ordered factors and a nonnegative scan, the vertical displacement is nonnegative. -/
 theorem squareMapY_common_shift_displacement_nonneg

@@ -201,12 +201,12 @@ theorem signedVerticalLineEventStep_sq_le_one
     · simpa [signedVerticalLineEventStep,
         orderedEulerCutChildEndpointChargeReal,
         orderedEulerCutChildChargeReal, realMoebiusStep, hb, ha]
-        using hmu
+        using! hmu
   · by_cases ha : n ∈ orderedEulerCutActiveChildren a
     · simpa [signedVerticalLineEventStep,
         orderedEulerCutChildEndpointChargeReal,
         orderedEulerCutChildChargeReal, realMoebiusStep, hb, ha]
-        using hmu
+        using! hmu
     · simp [signedVerticalLineEventStep,
         orderedEulerCutChildEndpointChargeReal, hb, ha]
 

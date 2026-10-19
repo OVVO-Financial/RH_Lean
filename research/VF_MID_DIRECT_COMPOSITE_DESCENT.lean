@@ -110,9 +110,9 @@ theorem vfMidSquareBandCompositeOwner_prime_le_root
     omega
   have hn1 : n ≠ 1 := by omega
   have hpPrime : p.Prime := by
-    simpa [hmin] using Nat.minFac_prime hn1
+    simpa [hmin] using! Nat.minFac_prime hn1
   have hpSq : p ^ 2 ≤ n := by
-    simpa [hmin] using Nat.minFac_sq_le_self hnpos hnNotPrime
+    simpa [hmin] using! Nat.minFac_sq_le_self hnpos hnNotPrime
   have hpR : p ≤ R := by
     by_contra hnot
     have hRp : R + 1 ≤ p := by omega
@@ -127,7 +127,7 @@ theorem vfMidSquareBandCompositeOwner_mul_div
     p * (n / p) = n := by
   rcases vfMidSquareBandCompositeOwner_mem hn with ⟨_hnComp, hmin⟩
   have hpDvd : p ∣ n := by
-    simpa [hmin] using Nat.minFac_dvd n
+    simpa [hmin] using! Nat.minFac_dvd n
   exact Nat.mul_div_cancel' hpDvd
 
 /-- The stripped child of any owned composite is at least its owner. -/
@@ -141,7 +141,7 @@ theorem vfMidSquareBandCompositeOwner_le_child
     rcases Finset.mem_Ioo.mp hnBand with ⟨hnLow, _⟩
     omega
   have h := Nat.minFac_le_div hnpos hnNotPrime
-  simpa [hmin] using h
+  simpa [hmin] using! h
 
 /-- **Strict reciprocal descent.**  Removing any least-prime owner from a
 square-band composite sends the child below R^2. -/
@@ -186,11 +186,11 @@ theorem vfMidSquareBandCompositeOwner_child_prime_of_upperSquare_le_cube
   have hsDvdQ : q.minFac ∣ q := Nat.minFac_dvd q
   have hqDvdN : q ∣ n := by
     refine ⟨p, ?_⟩
-    simpa [q, mul_comm] using hmul.symm
+    simpa [q, mul_comm] using! hmul.symm
   have hsDvdN : q.minFac ∣ n := dvd_trans hsDvdQ hqDvdN
   have hpLeS : p ≤ q.minFac := by
     have h := Nat.minFac_le_of_dvd hsPrime.two_le hsDvdN
-    simpa [hmin] using h
+    simpa [hmin] using! h
   have hsSq : q.minFac ^ 2 ≤ q :=
     Nat.minFac_sq_le_self hqpos hqPrime
   have hpSq : p ^ 2 ≤ q := by
@@ -199,7 +199,7 @@ theorem vfMidSquareBandCompositeOwner_child_prime_of_upperSquare_le_cube
     calc
       p ^ 3 = p * p ^ 2 := by ring
       _ ≤ p * q := Nat.mul_le_mul_left p hpSq
-      _ = n := by simpa [q] using hmul
+      _ = n := by simpa [q] using! hmul
   omega
 
 end RHLean.Analysis

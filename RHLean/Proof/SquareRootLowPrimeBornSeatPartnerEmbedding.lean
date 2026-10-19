@@ -93,7 +93,7 @@ theorem squareRootLowPrimeSeatBornPartner_mem
     {R c s : ℕ} (hs : s < squareRootBornPartnerCount R c) :
     squareRootLowPrimeSeatBornPartner R c s ∈ squareRootBornPartnerSet R c := by
   unfold squareRootLowPrimeSeatBornPartner squareRootLowPrimeBornPartnerEnum
-  rw [dif_pos hs]
+  rw [dite_eq_left hs]
   exact Finset.orderEmbOfFin_mem _ _ _
 
 /-- Distinct born-range seat indices name distinct partners. -/
@@ -105,10 +105,10 @@ theorem squareRootLowPrimeSeatBornPartner_injOn
       squareRootLowPrimeSeatBornPartner R c t) :
     s = t := by
   unfold squareRootLowPrimeSeatBornPartner at h
-  rw [dif_pos hs, dif_pos ht] at h
+  rw [dite_eq_left hs, dite_eq_left ht] at h
   have hfin : (⟨s, hs⟩ : Fin (squareRootBornPartnerCount R c)) = ⟨t, ht⟩ :=
     (squareRootLowPrimeBornPartnerEnum R c).injective h
-  simpa using congrArg Fin.val hfin
+  simpa using! congrArg Fin.val hfin
 
 /-! ## Arithmetic of the coordinate change -/
 
@@ -202,7 +202,7 @@ theorem squareRootLowPrimeSeat_lt_root_of_not_bornRange
     c ≤ R - 1 := by
   by_contra hc
   unfold squareRootLowPrimeCombinedFreshResponse at hs
-  rw [if_neg hc] at hs
+  rw [ite_eq_right hc] at hs
   omega
 
 /-! ## Canonical terminal first-owner geometry -/
@@ -240,7 +240,7 @@ theorem squareRootLowPrimeCanonicalAssigned_firstOwner_wall_or_seatTail
       hxTerminal (by simp) hfirst
   have hpList := squareRootLowPrimeFirstOwnerAbove_mem_freshPrimeList hfirst
   have hpSet : p ∈ squareRootLowPrimeFreshPrimeSet K U := by
-    simpa [squareRootLowPrimeFreshPrimeList] using hpList
+    simpa [squareRootLowPrimeFreshPrimeList] using! hpList
   have hpData := Finset.mem_filter.mp hpSet
   have hpPrime : p.Prime := hpData.2
   have hpU : p ≤ U := (Finset.mem_Ioc.mp hpData.1).2
@@ -288,14 +288,14 @@ theorem squareRootLowPrimeCanonicalAssigned_wall_bornSeat_oldPartner
       (squareRootLowPrimeProcessedSeatCarrier R K j U) hxTerminal
   have hseat : s < squareRootLowPrimeCombinedFreshResponse R K j c := by
     have hatom : (c, s) ∈ squareRootLowPrimeProcessedSeatAtoms R K j U := by
-      simpa [squareRootLowPrimeProcessedSeatCarrier] using hxCarrier
+      simpa [squareRootLowPrimeProcessedSeatCarrier] using! hxCarrier
     exact (mem_squareRootLowPrimeProcessedSeatAtoms.mp hatom).2
   have hcR := squareRootLowPrimeFirstOwnerWall_forces_root_le_cofactor
     hR hUR hfirst hwall
   have hborn := squareRootLowPrimeCombinedFreshResponse_eq_born_of_root_le
     (K := K) (j := j) (by omega) hcR
   have hsBorn : s < squareRootBornPartnerCount R c := by
-    simpa [hborn] using hseat
+    simpa [hborn] using! hseat
   refine ⟨hsBorn, ?_⟩
   exact squareRootLowPrimeFirstOwnerWall_bornPartner_le_shallowCutoff
     hfirst hwall (squareRootLowPrimeSeatBornPartner_mem hsBorn)
@@ -319,7 +319,7 @@ theorem squareRootLowPrimeCanonicalAssigned_not_bornRange_lt_root
       (squareRootLowPrimeProcessedSeatCarrier R K j U) hxTerminal
   have hseat : s < squareRootLowPrimeCombinedFreshResponse R K j c := by
     have hatom : (c, s) ∈ squareRootLowPrimeProcessedSeatAtoms R K j U := by
-      simpa [squareRootLowPrimeProcessedSeatCarrier] using hxCarrier
+      simpa [squareRootLowPrimeProcessedSeatCarrier] using! hxCarrier
     exact (mem_squareRootLowPrimeProcessedSeatAtoms.mp hatom).2
   exact squareRootLowPrimeSeat_lt_root_of_not_bornRange hseat hnb
 

@@ -109,7 +109,7 @@ theorem squareRootBornPartnerCount_sub_child_eq_primeIntervalDifference
   have haR : a < R := lt_of_le_of_lt haLe hchildR
   have hlpfChild : canonicalLargestPrimeFactor (p * a) = p := by
     have h := canonicalLargestPrimeFactor_mul_prime_eq_of_rough ha hp hrough
-    simpa [Nat.mul_comm] using h
+    simpa [Nat.mul_comm] using! h
   rw [squareRootBornPartnerCount_eq_primeIntervalCount_of_lt_root haR,
     squareRootBornPartnerCount_eq_primeIntervalCount_of_lt_root hchildR,
     hlpfChild]
@@ -156,15 +156,15 @@ theorem squareRootBornPostTailCombinedParentChildDifference_trichotomy
     squareRootBornPrimeIntervalDifference
   rw [hborn]
   by_cases hchildK : p * a ≤ K
-  · rw [if_pos hchildK]
+  · rw [ite_eq_left hchildK]
     rw [squareRootBornPostTailHighResponse_sub_child_eq_zero_of_child_le_K
       hp hchildK]
     ring
-  · rw [if_neg hchildK]
+  · rw [ite_eq_right hchildK]
     by_cases haK : a ≤ K
-    · rw [if_pos haK]
+    · rw [ite_eq_left haK]
       rfl
-    · rw [if_neg haK]
+    · rw [ite_eq_right haK]
       rw [squareRootBornPostTailHighResponse_sub_child_eq_completedPartnerMixedFold
         hp hpR hR ha (by omega)]
 
@@ -318,7 +318,7 @@ theorem squareRootBornPostTailHighTransitionDifference_eq_prefixWindow_sub_admit
       (by omega : 1 ≤ R) hK hKR
   unfold squareRootBornPostTailHighTransitionDifference
     squareRootBornPostTailHighResponse
-  rw [if_pos haK, if_neg hchildNot]
+  rw [ite_eq_left haK, ite_eq_right hchildNot]
   rw [Nat.cast_add, Nat.cast_sub hj,
     squareRootPostRootPrimePrefixCard_cast,
     squareRootPostRootPrimePrefixCard_cast, hN]
@@ -459,7 +459,7 @@ theorem squareRootBornPostTailHighResponse_eq_zero_of_root_le
     squareRootBornPostTailHighResponse R K j c = 0 := by
   have hcK : ¬ c ≤ K := by omega
   unfold squareRootBornPostTailHighResponse
-  rw [if_neg hcK,
+  rw [ite_eq_right hcK,
     squareRootPostRootPrimePrefixCard_eq_zero_of_root_le hR hc]
 
 /-- The only nonzero part of the cutoff discrepancy has an old parent below

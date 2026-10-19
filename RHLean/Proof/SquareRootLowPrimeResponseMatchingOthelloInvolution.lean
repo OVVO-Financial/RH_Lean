@@ -60,7 +60,7 @@ private theorem squareRootLowPrimeResponseStepInvolution_of_lower
     (hx : x ∈ squareRootLowPrimeResponsePairLower S ell) :
     squareRootLowPrimeResponseStepInvolution S ell x = ell * x := by
   dsimp only [squareRootLowPrimeResponseStepInvolution]
-  rw [if_pos hx]
+  rw [ite_eq_left hx]
 
 private theorem squareRootLowPrimeResponseStepInvolution_of_upper
     {S : Finset ℕ} {ell x : ℕ}
@@ -69,7 +69,7 @@ private theorem squareRootLowPrimeResponseStepInvolution_of_upper
     squareRootLowPrimeResponseStepInvolution S ell x =
       squareRootLowPrimeResponsePairPreimage S ell x hupper := by
   dsimp only [squareRootLowPrimeResponseStepInvolution]
-  rw [if_neg hx, dif_pos hupper]
+  rw [ite_eq_right hx, dite_eq_left hupper]
 
 private theorem squareRootLowPrimeResponseStepInvolution_of_unpaired
     {S : Finset ℕ} {ell x : ℕ}
@@ -77,7 +77,7 @@ private theorem squareRootLowPrimeResponseStepInvolution_of_unpaired
     (hupper : ¬ ∃ y ∈ squareRootLowPrimeResponsePairLower S ell, ell * y = x) :
     squareRootLowPrimeResponseStepInvolution S ell x = x := by
   dsimp only [squareRootLowPrimeResponseStepInvolution]
-  rw [if_neg hx, dif_neg hupper]
+  rw [ite_eq_right hx, dite_eq_right hupper]
 
 /-- One response-child involution preserves its ambient carrier. -/
 theorem squareRootLowPrimeResponseStepInvolution_mem
@@ -117,7 +117,7 @@ theorem squareRootLowPrimeResponseStepInvolution_involutive
     have hspec := squareRootLowPrimeResponsePairPreimage_spec hpre
     have hmul :
         ell * squareRootLowPrimeResponsePairPreimage S ell y hpre = ell * x := by
-      simpa [y] using hspec.2
+      simpa [y] using! hspec.2
     have hback : squareRootLowPrimeResponsePairPreimage S ell y hpre = x :=
       Nat.mul_left_cancel hell hmul
     rw [squareRootLowPrimeResponseStepInvolution_of_lower hxLower]
@@ -218,17 +218,17 @@ theorem squareRootLowPrimeResponseMatchingInvolution_mem
     (ells : List ℕ) (S : Finset ℕ) {x : ℕ} (hxS : x ∈ S) :
     squareRootLowPrimeResponseMatchingInvolution ells S x ∈ S := by
   induction ells generalizing S x with
-  | nil => simpa [squareRootLowPrimeResponseMatchingInvolution] using hxS
+  | nil => simpa [squareRootLowPrimeResponseMatchingInvolution] using! hxS
   | cons ell ells ih =>
       by_cases hxPaired : x ∈ squareRootLowPrimeResponsePaired S ell
       · rw [squareRootLowPrimeResponseMatchingInvolution]
-        simp only [hxPaired, if_true]
+        simp only [hxPaired, ite_true]
         exact squareRootLowPrimeResponseStepInvolution_mem S ell hxS
       · have hxFrontier : x ∈ squareRootLowPrimeResponseFrontierStep S ell :=
           Finset.mem_sdiff.mpr ⟨hxS, hxPaired⟩
         have hrec := ih (S := squareRootLowPrimeResponseFrontierStep S ell) hxFrontier
         rw [squareRootLowPrimeResponseMatchingInvolution]
-        simp only [hxPaired, if_false]
+        simp only [hxPaired, ite_false]
         exact squareRootLowPrimeResponseFrontierStep_subset S ell hrec
 
 /-- The global response-child chronology is involutive. -/
@@ -259,10 +259,10 @@ theorem squareRootLowPrimeResponseMatchingInvolution_involutive
           rw [hyFixed] at hback
           exact hnot (hback.symm ▸ hxPaired)
         rw [squareRootLowPrimeResponseMatchingInvolution]
-        simp only [hxPaired, if_true]
+        simp only [hxPaired, ite_true]
         change squareRootLowPrimeResponseMatchingInvolution (ell :: ells) S y = x
         rw [squareRootLowPrimeResponseMatchingInvolution]
-        simp only [hyPaired, if_true]
+        simp only [hyPaired, ite_true]
         exact squareRootLowPrimeResponseStepInvolution_involutive S hell x
       · have hxFrontier : x ∈ squareRootLowPrimeResponseFrontierStep S ell :=
           Finset.mem_sdiff.mpr ⟨hxS, hxPaired⟩
@@ -276,10 +276,10 @@ theorem squareRootLowPrimeResponseMatchingInvolution_involutive
         have hrec := ih
           (S := squareRootLowPrimeResponseFrontierStep S ell) hrest hxFrontier
         rw [squareRootLowPrimeResponseMatchingInvolution]
-        simp only [hxPaired, if_false]
+        simp only [hxPaired, ite_false]
         change squareRootLowPrimeResponseMatchingInvolution (ell :: ells) S y = x
         rw [squareRootLowPrimeResponseMatchingInvolution]
-        simp only [hyNotPaired, if_false]
+        simp only [hyNotPaired, ite_false]
         exact hrec
 
 /-- Every moved global response child reverses Möbius sign. -/
@@ -301,12 +301,12 @@ theorem squareRootLowPrimeResponseMatchingInvolution_weight_neg
           fun h =>
             (squareRootLowPrimeResponseStepInvolution_eq_self_iff S ell).mp h hxPaired
         rw [squareRootLowPrimeResponseMatchingInvolution]
-        simp only [hxPaired, if_true]
+        simp only [hxPaired, ite_true]
         exact squareRootLowPrimeResponseStepInvolution_weight_neg S hell x hstepNe
       · have hxFrontier : x ∈ squareRootLowPrimeResponseFrontierStep S ell :=
           Finset.mem_sdiff.mpr ⟨hxS, hxPaired⟩
         rw [squareRootLowPrimeResponseMatchingInvolution] at hne ⊢
-        simp only [hxPaired, if_false] at hne ⊢
+        simp only [hxPaired, ite_false] at hne ⊢
         exact ih (S := squareRootLowPrimeResponseFrontierStep S ell)
           hrest hxFrontier hne
 
@@ -341,7 +341,7 @@ theorem signMatchingFixedPart_responseMatching_eq_frontier
               (squareRootLowPrimeResponseFrontierStep S ell) hx
             exact (Finset.mem_sdiff.mp hxStep).2 hxPaired
           rw [squareRootLowPrimeResponseMatchingInvolution]
-          simp only [hxPaired, if_true]
+          simp only [hxPaired, ite_true]
           exact ⟨fun h => (hstepNe h.2).elim,
             fun h => (hxNotFrontier h).elim⟩
         · have hxStep : x ∈ squareRootLowPrimeResponseFrontierStep S ell :=
@@ -360,7 +360,7 @@ theorem signMatchingFixedPart_responseMatching_eq_frontier
             · intro hfront
               exact (hih.mpr hfront).2
           rw [squareRootLowPrimeResponseMatchingInvolution]
-          simp only [hxPaired, if_false]
+          simp only [hxPaired, ite_false]
           change (x ∈ S ∧
               squareRootLowPrimeResponseMatchingInvolution ells
                 (squareRootLowPrimeResponseFrontierStep S ell) x = x) ↔
@@ -375,7 +375,7 @@ theorem signMatchingFixedPart_responseMatching_eq_frontier
         have hxNotPaired : x ∉ squareRootLowPrimeResponsePaired S ell :=
           fun hx => hxS (squareRootLowPrimeResponsePaired_subset S ell hx)
         rw [squareRootLowPrimeResponseMatchingInvolution]
-        simp only [hxNotPaired, if_false]
+        simp only [hxNotPaired, ite_false]
         exact ⟨fun h => (hxS h.1).elim, fun h => (hxNotFrontier h).elim⟩
 
 /-- Canonical response-child Othello mate on the complete owned child carrier. -/

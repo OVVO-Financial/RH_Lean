@@ -111,9 +111,9 @@ theorem lowWheelFarPrimeQ2CrossingNextFiber_fst_image_eq_ownerSet
     apply Finset.mem_filter.mpr
     refine ⟨mem_primesUpTo.mpr ⟨htPrime, Nat.le_pred_of_lt htR⟩, ?_⟩
     refine ⟨?_, ?_, ?_⟩
-    · simpa [hlpf] using hdq
-    · simpa [hcoord.1, hcoord.2, Nat.mul_assoc] using hcut
-    · simpa [hcoord.1, hcoord.2, Nat.mul_assoc] using hcross
+    · simpa [hlpf] using! hdq
+    · simpa [hcoord.1, hcoord.2, Nat.mul_assoc] using! hcut
+    · simpa [hcoord.1, hcoord.2, Nat.mul_assoc] using! hcross
   · intro hqOwner
     rcases Finset.mem_filter.mp hqOwner with ⟨hqOld, hrq, hcut, hcross⟩
     have hqData := mem_primesUpTo.mp hqOld
@@ -135,11 +135,11 @@ theorem lowWheelFarPrimeQ2CrossingNextFiber_fst_image_eq_ownerSet
     have hlpf : canonicalLargestPrimeFactor (y.1 * y.2.1) = y.1 := by
       have h := canonicalLargestPrimeFactor_mul_prime_eq_of_rough
         (by omega : 0 < y.2.1) hrPrime her
-      simpa [Nat.mul_comm] using h
+      simpa [Nat.mul_comm] using! h
     have hcof : canonicalCofactor (y.1 * y.2.1) = y.2.1 := by
       have h := canonicalCofactor_mul_prime_eq_of_rough
         (by omega : 0 < y.2.1) hrPrime her
-      simpa [Nat.mul_comm] using h
+      simpa [Nat.mul_comm] using! h
     have hdq : canonicalLargestPrimeFactor (y.1 * y.2.1) < q := by
       rw [hlpf]
       exact hrq
@@ -147,11 +147,11 @@ theorem lowWheelFarPrimeQ2CrossingNextFiber_fst_image_eq_ownerSet
         (q, (y.1 * y.2.1, y.2.2)) ∈ lowWheelFarPrimeLowCofactorTriples R := by
       apply lowWheelFarPrimeLowCofactorTriple_mem_of_data
         hqData.1 hqR hd1 hpPrime hpR hdSq hdq
-      simpa [Nat.mul_assoc] using hcut
+      simpa [Nat.mul_assoc] using! hcut
     have hcrossTriple :
         (q, (y.1 * y.2.1, y.2.2)) ∈ lowWheelFarPrimeQ2CrossingTriples R :=
       Finset.mem_filter.mpr ⟨htriple, by
-        simpa [Nat.mul_assoc] using hcross⟩
+        simpa [Nat.mul_assoc] using! hcross⟩
     have hdgt : 1 < y.1 * y.2.1 := by
       have hr2 := hrPrime.two_le
       nlinarith
@@ -243,16 +243,16 @@ theorem lowWheelFarPrimeQ2CrossingOuterOwnerSet_eq_primeInterval
     have hqDepth : q ≤ lowWheelFarPrimeQ2CrossingOwnerDepth R y := by
       unfold lowWheelFarPrimeQ2CrossingOwnerDepth
       apply (Nat.le_div_iff_mul_le hApos).2
-      simpa [A, Nat.mul_assoc] using hcut
+      simpa [A, Nat.mul_assoc] using! hcut
     have hdepthSq :
         lowWheelFarPrimeQ2CrossingOwnerDepth R y < q * q := by
       unfold lowWheelFarPrimeQ2CrossingOwnerDepth
       apply (Nat.div_lt_iff_lt_mul hApos).2
-      simpa [A, Nat.mul_assoc] using hcross
+      simpa [A, Nat.mul_assoc] using! hcross
     have hsqrt :
         Nat.sqrt (lowWheelFarPrimeQ2CrossingOwnerDepth R y) < q := by
       apply (Nat.sqrt_lt').2
-      simpa [pow_two] using hdepthSq
+      simpa [pow_two] using! hdepthSq
     apply Finset.mem_filter.mpr
     refine ⟨Finset.mem_Ioc.mpr ⟨?_, ?_⟩, hqPrime⟩
     · unfold lowWheelFarPrimeQ2CrossingOwnerLower
@@ -272,14 +272,14 @@ theorem lowWheelFarPrimeQ2CrossingOuterOwnerSet_eq_primeInterval
     have hqDepth : q ≤ lowWheelFarPrimeQ2CrossingOwnerDepth R y := hqBounds.2
     have hcut : q * y.1 * y.2.1 * y.2.2 ≤ squareRootEndpoint R := by
       have hmul := (Nat.le_div_iff_mul_le hApos).1 hqDepth
-      simpa [lowWheelFarPrimeQ2CrossingOwnerDepth, A, Nat.mul_assoc] using hmul
+      simpa [lowWheelFarPrimeQ2CrossingOwnerDepth, A, Nat.mul_assoc] using! hmul
     have hdepthSq :
         lowWheelFarPrimeQ2CrossingOwnerDepth R y < q * q := by
       have hs := (Nat.sqrt_lt').1 hsqrt
-      simpa [pow_two] using hs
+      simpa [pow_two] using! hs
     have hcross : squareRootEndpoint R < q * q * y.1 * y.2.1 * y.2.2 := by
       have hmul := (Nat.div_lt_iff_lt_mul hApos).1 hdepthSq
-      simpa [lowWheelFarPrimeQ2CrossingOwnerDepth, A, Nat.mul_assoc] using hmul
+      simpa [lowWheelFarPrimeQ2CrossingOwnerDepth, A, Nat.mul_assoc] using! hmul
     apply Finset.mem_filter.mpr
     exact ⟨mem_primesUpTo.mpr ⟨hqPrime, hqR⟩, hrq, hcut, hcross⟩
 
@@ -331,14 +331,14 @@ theorem lowWheelFarPrimeQ2CrossingOwnerDepth_lt_root
   have hXlt : squareRootEndpoint R < R * R := by
     unfold squareRootEndpoint
     have hne : R ^ 2 ≠ 0 := pow_ne_zero 2 (Nat.ne_of_gt hRpos)
-    simpa [pow_two] using Nat.pred_lt hne
+    simpa [pow_two] using! Nat.pred_lt hne
   have hre : 1 ≤ y.1 * y.2.1 := by
     exact Nat.one_le_iff_ne_zero.mpr
       (Nat.mul_ne_zero hrPrime.ne_zero (by omega))
   have hpLeA : y.2.2 ≤ A := by
     dsimp [A]
     have h := Nat.mul_le_mul_right y.2.2 hre
-    simpa [Nat.mul_comm, Nat.mul_left_comm, Nat.mul_assoc] using h
+    simpa [Nat.mul_comm, Nat.mul_left_comm, Nat.mul_assoc] using! h
   have hRA : R < A := by
     have hRp : R < y.2.2 := by omega
     exact hRp.trans_le hpLeA
@@ -377,7 +377,7 @@ theorem lowWheelFarPrimeQ2CrossingOwnerLower_le_depth
   have hrDepth : y.1 ≤ lowWheelFarPrimeQ2CrossingOwnerDepth R y := by
     unfold lowWheelFarPrimeQ2CrossingOwnerDepth
     apply (Nat.le_div_iff_mul_le hApos).2
-    simpa [A, Nat.mul_assoc] using hdesc
+    simpa [A, Nat.mul_assoc] using! hdesc
   have hsqrtDepth :
       Nat.sqrt (lowWheelFarPrimeQ2CrossingOwnerDepth R y) ≤
         lowWheelFarPrimeQ2CrossingOwnerDepth R y :=
@@ -470,6 +470,6 @@ theorem lowWheelFarPrimeQ2CrossingOwnerWindow_telescope
     properSubwheel_base_sub_boundaryPrefix_eq_advancedBase_add_squares
       T Y T hYT le_rfl hcubic
   rw [frozenPrimeUniverseMass_primesUpTo_self_eq_mertensSummatoryInt] at htel
-  simpa [T, Y] using htel
+  simpa [T, Y] using! htel
 
 end RHLean.Proof

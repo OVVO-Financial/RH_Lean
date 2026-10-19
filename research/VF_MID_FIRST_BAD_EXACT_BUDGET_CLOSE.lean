@@ -109,7 +109,7 @@ theorem descendingGreatestOwner_retainedScalar_pointwiseCoDivExcess_pair_eq_heat
       hp hcross coefficient
   dsimp only at hflip ⊢
   rw [hflip, abs_neg]
-  simpa only [add_comm] using
+  simpa only [add_comm] using!
     (vfMidPointwiseCoDivExcess_add_neg
       (coefficient *
         postRootZeroTargetPairExcess
@@ -160,8 +160,8 @@ theorem vfMidActiveReturnedPairWeight_eq_retainedScalar_mul_zeroTarget
       vfMidActiveReturnedPairRetainedScalar R p sig ab *
         postRootZeroTargetPairExcess ab := by
   by_cases hmem : ab ∈ vfMidActiveReturnedPairCarrier R p sig
-  · rw [vfMidActiveReturnedPairWeight, if_pos hmem,
-      vfMidActiveReturnedPairRetainedScalar, if_pos hmem,
+  · rw [vfMidActiveReturnedPairWeight, ite_eq_left hmem,
+      vfMidActiveReturnedPairRetainedScalar, ite_eq_left hmem,
       lowOwnerFirstOwnerDirichletPolarizationAtom_eq_scalar,
       postRootZeroTargetPairExcess_eq_weight]
     ring
@@ -955,7 +955,7 @@ theorem vfMidActualPrimeFirstBadAt_two_succ_halfScaleAnchor_sq_inside
     (abs_nonneg _).trans hprior
   have hsquare :=
     (sq_le_sq₀ (abs_nonneg _) hwall0).2 hprior
-  simpa [sq_abs] using hsquare
+  simpa [sq_abs] using! hsquare
 
 /-- The stripped-parent transport is not fresh capacity.  With the exact heat
 identity retained, the sharp residual comparison is equivalent to the original

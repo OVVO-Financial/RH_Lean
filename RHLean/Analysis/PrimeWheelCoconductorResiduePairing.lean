@@ -74,7 +74,7 @@ private theorem sum_neg_reindex
     (f : ZMod W.modulus → ℂ) :
     (∑ r : ZMod W.modulus, f (-r)) =
       ∑ r : ZMod W.modulus, f r := by
-  simpa using
+  simpa using!
     (Equiv.sum_comp (Equiv.neg (ZMod W.modulus)) f)
 
 /-- The complete paired `d`-packet sum. -/
@@ -104,7 +104,7 @@ theorem primeWheelCoconductorPairedSum_eq_two_mul_component
         if d = additiveCoconductor r then
           W.spectralPrefixAtom x r
         else 0 := by
-    simpa using
+    simpa using!
       (sum_neg_reindex W
         (fun r : ZMod W.modulus =>
           if d = additiveCoconductor r then
@@ -132,7 +132,7 @@ private theorem coconductorAtom_eq_reducedModulusSupport
           reducedAdditiveConductor r :=
       (reducedAdditiveConductor_eq_reducedModulus_of_coconductor
         W r hr hdlt).symm
-    rw [if_pos hr, if_pos hq]
+    rw [ite_eq_left hr, ite_eq_left hq]
   · simp [hr]
 
 /-- On a proper packet, every active half of the paired summand carries the

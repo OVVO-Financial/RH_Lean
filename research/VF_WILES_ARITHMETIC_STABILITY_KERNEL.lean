@@ -71,7 +71,7 @@ theorem vfWilesReversibleCells_sum_mirror
   · intro i hi j hj h
     have h' := congrArg c.mirror h
     simpa [c.mirror_involutive i hi,
-      c.mirror_involutive j hj] using h'
+      c.mirror_involutive j hj] using! h'
   · intro j hj
     exact ⟨c.mirror j, c.mirror_mem j hj,
       c.mirror_involutive j hj⟩
@@ -501,7 +501,7 @@ theorem vfWilesOddBandNextRightClip_noIntermediate
       have hbLe : b ≤ R := by omega
       have h1 : p * b ≤ R * b := Nat.mul_le_mul_right b hpR
       have h2 : R * b ≤ R * R := Nat.mul_le_mul_left R hbLe
-      have hcl : R * R < p * b := by simpa only [pow_two] using hc
+      have hcl : R * R < p * b := by simpa only [pow_two] using! hc
       omega
     have hmul : (p + 2) * b ≤ r * b :=
       Nat.mul_le_mul_right b hgap

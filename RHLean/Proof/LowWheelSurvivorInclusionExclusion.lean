@@ -51,14 +51,14 @@ private theorem prime_finset_prod_dvd_of_all_dvd
       have hcop : Nat.Coprime p (t.prod id) := by
         rw [hpPrime.coprime_iff_not_dvd]
         intro hpdiv
-        rcases (Prime.dvd_finset_prod_iff hpPrime.prime id).mp hpdiv with
+        rcases (Prime.dvd_finsetProd_iff hpPrime.prime id).mp hpdiv with
           ⟨r, hrt, hpr⟩
         rcases (htPrime r hrt).eq_one_or_self_of_dvd p hpr with hpOne | hpeq
         · exact hpPrime.ne_one hpOne
         · exact hp (hpeq ▸ hrt)
       have hmul : p * t.prod id ∣ q :=
         hcop.mul_dvd_of_dvd_of_dvd hpq htprod
-      simpa [Finset.prod_insert hp] using hmul
+      simpa [Finset.prod_insert hp] using! hmul
 
 /-- A face of distinct prime coordinates divides `q` exactly when each of its
 prime coordinates divides `q`. -/
@@ -146,7 +146,7 @@ theorem lowWheelDivisorFaceSum_eq_survivorIndicator
     simp [hsurv]
   · have hne : (lowWheelDividingPrimeSet R q).Nonempty := by
       unfold lowWheelHighSurvivor at hsurv
-      push_neg at hsurv
+      push Not at hsurv
       rcases hsurv with ⟨p, hpR, hpq⟩
       exact ⟨p, Finset.mem_filter.mpr ⟨hpR, hpq⟩⟩
     rw [booleanCubeAlternatingSum_eq_zero hne]

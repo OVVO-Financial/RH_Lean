@@ -67,16 +67,16 @@ theorem lowWheelTransportPhysicalKSet_eq_quotientInterval
   · rintro ⟨⟨_hk1, _hkX⟩, hlow, hup⟩
     constructor
     · apply (Nat.div_lt_iff_lt_mul hdpos).2
-      simpa [Nat.mul_comm] using hlow
+      simpa [Nat.mul_comm] using! hlow
     · apply (Nat.le_div_iff_mul_le hcdpos).2
-      simpa [Nat.mul_comm, Nat.mul_left_comm, Nat.mul_assoc] using hup
+      simpa [Nat.mul_comm, Nat.mul_left_comm, Nat.mul_assoc] using! hup
   · rintro ⟨hlow, hup⟩
     have hlow' : R < primeFaceProduct t * k := by
       have h := (Nat.div_lt_iff_lt_mul hdpos).1 hlow
-      simpa [Nat.mul_comm] using h
+      simpa [Nat.mul_comm] using! h
     have hup' : (c * primeFaceProduct t) * k ≤ squareRootEndpoint R := by
       have h := (Nat.le_div_iff_mul_le hcdpos).1 hup
-      simpa [Nat.mul_comm, Nat.mul_left_comm, Nat.mul_assoc] using h
+      simpa [Nat.mul_comm, Nat.mul_left_comm, Nat.mul_assoc] using! h
     have hkpos : 0 < k := by
       by_contra hk0
       have hkz : k = 0 := Nat.eq_zero_of_not_pos hk0
@@ -228,7 +228,7 @@ theorem lowWheelPhysical_imp_cofactorFace_lt_root
     Nat.mul_le_mul huR hy
   have hupper :
       primeFaceProduct u * (primeFaceProduct t * k) ≤ squareRootEndpoint R := by
-    simpa [Nat.mul_assoc] using hup
+    simpa [Nat.mul_assoc] using! hup
   have hsqLt : R ^ 2 < R * (R + 1) := by
     rw [pow_two]
     nlinarith
@@ -339,7 +339,7 @@ theorem admissibleDoubleFace_eq_fullDoubleCube
   by_cases hlt : primeFaceProduct u < R
   · simp [hlt]
   · have hge : R ≤ primeFaceProduct u := Nat.le_of_not_gt hlt
-    simp only [hlt, if_false]
+    simp only [hlt, ite_false]
     symm
     apply Finset.sum_eq_zero
     intro t _ht

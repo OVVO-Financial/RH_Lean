@@ -140,7 +140,7 @@ theorem sourceHighWindowPath_real_eq_primePacketRenewal
   have h := congrArg (fun z : ℤ => (z : ℝ))
     (congrFun (sourceHighWindowPath_eq_primePacketRenewal Λ B N) r)
   simpa [sourceHighRootQPacketRealWindowPath,
-    sourceProjectedSuccessorPQPacketRealWindowPath] using h
+    sourceProjectedSuccessorPQPacketRealWindowPath] using! h
 
 /-- Fully exact partial-baseline decomposition.  The model is fixed by the
 caller; no estimate and no existence claim is included. -/

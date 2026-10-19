@@ -26,7 +26,7 @@ private theorem squarePrefixEndpoint_pred_add_one
     (R : ℕ) (hR : 1 ≤ R) :
     squarePrefixEndpoint (R - 1) + 1 = R ^ 2 := by
   have hpred : R - 1 + 1 = R := Nat.sub_add_cancel hR
-  simpa [hpred] using squarePrefixEndpoint_add_one (R - 1)
+  simpa [hpred] using! squarePrefixEndpoint_add_one (R - 1)
 
 private theorem squarePrefixEndpoint_eq_pred_add_two_mul_add_one
     (R : ℕ) (hR : 1 ≤ R) :
@@ -58,7 +58,7 @@ theorem norm_mertensSummatory_le_max_nearestSquareEndpoint_add_root
     have hgap' :
         ‖mertensSummatory x - squarePrefixMertens (R - 1)‖ ≤
           ((x - squarePrefixEndpoint (R - 1) : ℕ) : ℝ) := by
-      simpa [squarePrefixMertens] using hgap
+      simpa [squarePrefixMertens] using! hgap
     have hnearR :
         ((x - squarePrefixEndpoint (R - 1) : ℕ) : ℝ) ≤ (R : ℝ) := by
       exact_mod_cast hnear

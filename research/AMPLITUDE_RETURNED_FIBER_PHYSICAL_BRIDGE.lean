@@ -88,14 +88,14 @@ theorem amplitudeReciprocalDropLedger_evolved_eq_physicalDefectLedger
               (squareRootCanonicalRoughAdaptiveRawCoefficient pre
                 (Finset.Icc 1 (squareRootEndpoint R)) (fun _ => (1 : ℂ))) =
             amplitudePhysicalDefectStep R p pre := by
-        simpa using hhead
+        simpa using! hhead
       have htailEq := ih (pre := pre ++ [p]) htail
       simp only [amplitudeReciprocalDropLedger, amplitudePhysicalDefectLedger]
       rw [hhead']
       simpa [squareRootCanonicalRoughAdaptiveCarrier_append,
         squareRootCanonicalRoughAdaptiveRawCoefficient_append,
         squareRootCanonicalRoughAdaptiveCarrier,
-        squareRootCanonicalRoughAdaptiveRawCoefficient] using htailEq
+        squareRootCanonicalRoughAdaptiveRawCoefficient] using! htailEq
 
 /-- On a repository-complete descending schedule, the abstract AMP drop ledger
 is therefore the literal unscaled physical-defect chronology. -/
@@ -112,7 +112,7 @@ theorem correlationReciprocalDropLedger_eq_physicalDefectLedger
       R [] ps hR hstep
   unfold correlationReciprocalDropLedger
   simpa [squareRootCanonicalRoughAdaptiveCarrier,
-    squareRootCanonicalRoughAdaptiveRawCoefficient] using h
+    squareRootCanonicalRoughAdaptiveRawCoefficient] using! h
 
 /-- The Euler-memory ledger on the same evolved raw chronology is exactly the
 chronological `(p-1)`-weighted physical-defect ledger. -/
@@ -140,14 +140,14 @@ theorem amplitudeEulerMemoryLedger_evolved_eq_physicalMemoryLedger
               (squareRootCanonicalRoughAdaptiveRawCoefficient pre
                 (Finset.Icc 1 (squareRootEndpoint R)) (fun _ => (1 : ℂ))) =
             ((p : ℂ) - 1) * amplitudePhysicalDefectStep R p pre := by
-        simpa using hhead
+        simpa using! hhead
       have htailEq := ih (pre := pre ++ [p]) htail
       simp only [amplitudeEulerMemoryLedger, amplitudePhysicalMemoryLedger]
       rw [hhead']
       simpa [squareRootCanonicalRoughAdaptiveCarrier_append,
         squareRootCanonicalRoughAdaptiveRawCoefficient_append,
         squareRootCanonicalRoughAdaptiveCarrier,
-        squareRootCanonicalRoughAdaptiveRawCoefficient] using htailEq
+        squareRootCanonicalRoughAdaptiveRawCoefficient] using! htailEq
 
 /-- Hence complete-schedule Euler memory is the literal physical memory ledger. -/
 theorem correlationEulerMemoryLedger_eq_physicalMemoryLedger
@@ -163,7 +163,7 @@ theorem correlationEulerMemoryLedger_eq_physicalMemoryLedger
       R [] ps hR hstep
   unfold correlationEulerMemoryLedger
   simpa [squareRootCanonicalRoughAdaptiveCarrier,
-    squareRootCanonicalRoughAdaptiveRawCoefficient] using h
+    squareRootCanonicalRoughAdaptiveRawCoefficient] using! h
 
 /-- **Exact AMP frontier on literal physical ledgers.**  The only discrepancy
 left after #718/#719 is the signed finite-Fubini identification of physical
@@ -221,7 +221,7 @@ theorem lowOwnerPhysicalAmplitudeRemainder_zero_eq_canonicalDefect_add_memoryGap
         (canonicalAmplitudePhysicalMemoryLedger R -
           lowOwnerReciprocalMertensColumn R) := by
   simpa [canonicalAmplitudePhysicalDefectLedger,
-    canonicalAmplitudePhysicalMemoryLedger] using
+    canonicalAmplitudePhysicalMemoryLedger] using!
     lowOwnerPhysicalAmplitudeRemainder_zero_eq_physicalDefectLedger_add_memoryGap
       R hR (squareRootCanonicalRoughDescendingPrimeSchedule R)
       (squareRootCanonicalRoughDescendingPrimeSchedule_complete R)

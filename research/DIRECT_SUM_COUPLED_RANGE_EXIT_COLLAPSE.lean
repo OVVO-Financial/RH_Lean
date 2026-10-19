@@ -42,7 +42,7 @@ theorem evolvedRawCoefficient_eq_zero_of_larger_partner_of_completeDescendingPre
         (fun _ => (1 : ℂ)) c = 0 := by
   have hqUpper : q ≤ squareRootEndpoint R := by
     have hq_le_cq : q ≤ c * q := by
-      simpa [Nat.mul_comm] using Nat.le_mul_of_pos_right q hc
+      simpa [Nat.mul_comm] using! Nat.le_mul_of_pos_right q hc
     exact hq_le_cq.trans hcqUpper
   rcases hcomplete.2 q hq hpq hqUpper with
     ⟨pre, post, hsplit, hprePrime, hpreLarger⟩
@@ -50,7 +50,7 @@ theorem evolvedRawCoefficient_eq_zero_of_larger_partner_of_completeDescendingPre
   let V : Finset ℕ := squareRootCanonicalRoughAdaptiveCarrier pre U0
   have hroughQ : canonicalLargestPrimeFactor c < q := hrough.trans hpq
   have hc_le_cq : c ≤ c * q := by
-    simpa [Nat.mul_comm] using Nat.le_mul_of_pos_right c hq.pos
+    simpa [Nat.mul_comm] using! Nat.le_mul_of_pos_right c hq.pos
   have hcU0 : c ∈ U0 := by
     apply Finset.mem_Icc.mpr
     exact ⟨by omega, hc_le_cq.trans hcqUpper⟩
@@ -120,7 +120,7 @@ theorem directSumCoupledGeometricRangeExitStepMass_evolved_eq_zero_of_completeDe
             hR hcpos hp hrough).1 hqBirth with
         ⟨hqPrime, hpq, _hcqRoot, _hchildRoot, hchildUpper⟩
       have hc_le_pc : c ≤ p * c := by
-        simpa [Nat.mul_comm] using Nat.le_mul_of_pos_right c hp.pos
+        simpa [Nat.mul_comm] using! Nat.le_mul_of_pos_right c hp.pos
       have hcq_le_pcq : c * q ≤ (p * c) * q :=
         Nat.mul_le_mul_right q hc_le_pc
       have hcqUpper : c * q ≤ squareRootEndpoint R :=

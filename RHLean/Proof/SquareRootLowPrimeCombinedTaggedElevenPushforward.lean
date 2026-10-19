@@ -145,7 +145,7 @@ theorem squareRootLowPrimeGoFullFaceDefectArithmeticChild_largestPrime
       (canonicalLargestPrimeFactor_dvd hrdgt)
   have htop := canonicalLargestPrimeFactor_mul_prime_eq_of_rough
     (by omega : 0 < r * d) hq hrough
-  simpa [squareRootLowPrimeGoFullFaceDefectArithmeticChild, Nat.mul_comm] using htop
+  simpa [squareRootLowPrimeGoFullFaceDefectArithmeticChild, Nat.mul_comm] using! htop
 
 /-- **Positive splice.**  Above the root floor, the represented full-face Go
 source integer is literally a member of the independent saturated second-contact
@@ -180,15 +180,15 @@ theorem squareRootLowPrimeGoFullFaceDefectArithmeticChild_mem_saturatedCarrier
   · have hqle : q ≤ q * (r * d) :=
       Nat.le_mul_of_pos_right q (by omega)
     exact hq.two_le.trans hqle
-  · simpa [squareRootLowPrimeGoFullFaceDefectArithmeticChild] using hfirst
-  · simpa [hlpf] using hqR
+  · simpa [squareRootLowPrimeGoFullFaceDefectArithmeticChild] using! hfirst
+  · simpa [hlpf] using! hqR
   · rw [hlpf]
     simpa [squareRootLowPrimeGoFullFaceDefectArithmeticChild,
-      Nat.mul_assoc, Nat.mul_comm, Nat.mul_left_comm] using hsecond
+      Nat.mul_assoc, Nat.mul_comm, Nat.mul_left_comm] using! hsecond
   · rw [hlpf]
     have hmul := Nat.mul_lt_mul_of_pos_right hroot hq.pos
     simpa [squareRootLowPrimeGoFullFaceDefectArithmeticChild,
-      Nat.mul_assoc, Nat.mul_comm, Nat.mul_left_comm] using hmul
+      Nat.mul_assoc, Nat.mul_comm, Nat.mul_left_comm] using! hmul
 
 /-- Below the root floor the same arithmetic integer is *not* in the saturated
 carrier: the failed condition is exactly `R*q < n`. -/
@@ -210,7 +210,7 @@ theorem squareRootLowPrimeGoFullFaceDefectArithmeticChild_not_mem_saturatedCarri
       squareRootLowPrimeGoFullFaceDefectArithmeticChild ((r, q), d) <= R * q := by
     have := Nat.mul_le_mul_right q hroot
     simpa [squareRootLowPrimeGoFullFaceDefectArithmeticChild,
-      Nat.mul_assoc, Nat.mul_comm, Nat.mul_left_comm] using this
+      Nat.mul_assoc, Nat.mul_comm, Nat.mul_left_comm] using! this
   omega
 
 /-- The source sign is exactly the saturated-source orientation: it is the
@@ -238,7 +238,7 @@ theorem squareRootLowPrimeGoFullFaceDefectSource_weight_eq_neg_child
     lowWheelFullTaggedPhysicalWeight
         (squareRootLowPrimeGoFullFaceDefectSourceTag ((r, q), d)) =
       canonicalMoebiusWeight (q * d) := by
-        simpa [squareRootLowPrimeGoFullFaceDefectSourceTag] using hsource
+        simpa [squareRootLowPrimeGoFullFaceDefectSourceTag] using! hsource
     _ = -canonicalMoebiusWeight (q * (r * d)) := by
       unfold canonicalMoebiusWeight
       exact_mod_cast hmu'
@@ -315,7 +315,7 @@ theorem squareRootLowPrimeGoFullFaceDefectArithmeticChild_injOn_saturated
   have hrd : r * d = s * e := by
     have hqpos : 0 < q := hq.pos
     apply Nat.eq_of_mul_eq_mul_left hqpos
-    simpa [squareRootLowPrimeGoFullFaceDefectArithmeticChild] using hab
+    simpa [squareRootLowPrimeGoFullFaceDefectArithmeticChild] using! hab
   have hfullD :=
     (mem_squareRootLowPrimeGoSecondBoundaryDefectParents.mp hd).1
   have hfullE :=
@@ -327,11 +327,11 @@ theorem squareRootLowPrimeGoFullFaceDefectArithmeticChild_injOn_saturated
   have hrTop : canonicalLargestPrimeFactor (r * d) = r := by
     have h := canonicalLargestPrimeFactor_mul_prime_eq_of_rough
       hdPos hr hdData.2.2.2.1
-    simpa [Nat.mul_comm] using h
+    simpa [Nat.mul_comm] using! h
   have hsTop : canonicalLargestPrimeFactor (s * e) = s := by
     have h := canonicalLargestPrimeFactor_mul_prime_eq_of_rough
       hePos hs heData.2.2.2.1
-    simpa [Nat.mul_comm] using h
+    simpa [Nat.mul_comm] using! h
   have hrs : r = s := by
     calc
       r = canonicalLargestPrimeFactor (r * d) := hrTop.symm

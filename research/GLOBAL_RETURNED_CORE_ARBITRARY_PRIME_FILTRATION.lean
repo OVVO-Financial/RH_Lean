@@ -88,12 +88,12 @@ theorem prime_mem_squarefreePrimeFace_iff_dvd_public
   constructor
   · intro hmem
     have hpf : p ∈ n.primeFactors := by
-      simpa [squarefreePrimeFace] using hmem
+      simpa [squarefreePrimeFace] using! hmem
     exact Nat.dvd_of_mem_primeFactors hpf
   · intro hdiv
     have hpf : p ∈ n.primeFactors :=
       Nat.mem_primeFactors.mpr ⟨hp, hdiv, hn.ne'⟩
-    simpa [squarefreePrimeFace] using hpf
+    simpa [squarefreePrimeFace] using! hpf
 
 /-- Revealing a fresh coordinate either inserts p into the old signature or
 leaves the old signature unchanged. -/
@@ -132,7 +132,7 @@ theorem insert_owner_revealedSignature_inj
   · subst q
     simp [owner_not_mem_revealedSignature_of_not_mem hpS]
   · have hmem := congrArg (fun T : Finset ℕ => q ∈ T) h
-    simpa [hqp] using hmem
+    simpa [hqp] using! hmem
 
 /-- **Fresh-coordinate equality criterion.**  Equality after revealing p is
 exactly old-signature equality plus agreement on p-divisibility. -/
@@ -154,7 +154,7 @@ theorem lowOwnerRevealedPrimeSignature_insert_eq_iff
   · have hpFaceM := hpmem.mpr hpm
     by_cases hpn : p ∣ n
     · have hpFaceN := hpnmem.mpr hpn
-      simp only [hpFaceM, hpFaceN, if_true]
+      simp only [hpFaceM, hpFaceN, ite_true]
       constructor
       · intro h
         exact ⟨insert_owner_revealedSignature_inj hpS h, by simp [hpm, hpn]⟩
@@ -163,7 +163,7 @@ theorem lowOwnerRevealedPrimeSignature_insert_eq_iff
     · have hpFaceN : p ∉ squarefreePrimeFace n := by
         intro h
         exact hpn (hpnmem.mp h)
-      simp only [hpFaceM, hpFaceN, if_true, if_false]
+      simp only [hpFaceM, hpFaceN, ite_true, ite_false]
       constructor
       · intro h
         have hpMem : p ∈ lowOwnerRevealedPrimeSignature S n := by
@@ -178,7 +178,7 @@ theorem lowOwnerRevealedPrimeSignature_insert_eq_iff
       exact hpm (hpmem.mp h)
     by_cases hpn : p ∣ n
     · have hpFaceN := hpnmem.mpr hpn
-      simp only [hpFaceM, hpFaceN, if_false, if_true]
+      simp only [hpFaceM, hpFaceN, ite_false, ite_true]
       constructor
       · intro h
         have hpMem : p ∈ lowOwnerRevealedPrimeSignature S m := by
@@ -191,7 +191,7 @@ theorem lowOwnerRevealedPrimeSignature_insert_eq_iff
     · have hpFaceN : p ∉ squarefreePrimeFace n := by
         intro h
         exact hpn (hpnmem.mp h)
-      simp only [hpFaceM, hpFaceN, if_false]
+      simp only [hpFaceM, hpFaceN, ite_false]
       constructor
       · intro h
         exact ⟨h, by simp [hpm, hpn]⟩

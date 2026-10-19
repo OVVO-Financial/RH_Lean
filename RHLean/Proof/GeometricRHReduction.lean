@@ -69,7 +69,7 @@ private theorem norm_sq_add_le_two (x y : ℂ) :
 
 private theorem norm_sq_sub_le_two (x y : ℂ) :
     ‖x - y‖ ^ 2 ≤ 2 * ‖x‖ ^ 2 + 2 * ‖y‖ ^ 2 := by
-  simpa [sub_eq_add_neg] using norm_sq_add_le_two x (-y)
+  simpa [sub_eq_add_neg] using! norm_sq_add_le_two x (-y)
 
 /-- The pointwise linear low-sector bound gives a translated-window `H N^2` bound. -/
 theorem actualStart_localLowEnergy_le

@@ -85,7 +85,7 @@ theorem lowWheelFrozenCofactorTopToggle_eq
           lowWheelFrozenCofactorTopPrime y * y.2.2)) := by
   rcases lowWheelFrozenCofactorTopPrime_data hy with ⟨_hqPrime, hqDvd, _hpq⟩
   unfold lowWheelFrozenCofactorTopToggle lowWheelCofactorQuotientToggleAt
-  simp only [hqDvd, if_true]
+  simp only [hqDvd, ite_true]
 
 /-- The frozen shape puts the quotient exactly at the canonical pivot. -/
 theorem lowWheelFrozenCofactor_quotient_eq_pivot
@@ -105,7 +105,7 @@ theorem lowWheelFrozenCofactor_pivot_prime
   have hcarrier := (Finset.mem_filter.mp hrepeated).1
   rcases mem_lowWheelCanonicalTaggedDowncrossCarrier.mp hcarrier with ⟨_ht, hx⟩
   have hshell := lowWheelCanonicalDowncrossPart_adjacent_shell hx
-  simpa [lowWheelTaggedDowncrossPivot] using hshell.1
+  simpa [lowWheelTaggedDowncrossPivot] using! hshell.1
 
 /-- **Exact inversion.**  The explicit untoggle recovers the frozen state. -/
 theorem lowWheelFrozenCofactorTopUntoggle_toggle
@@ -254,7 +254,7 @@ theorem sum_lowWheelCanonicalRepeatedMovablePart_eq_zero
     (∑ y ∈ lowWheelCanonicalRepeatedMovablePart R,
         lowWheelTaggedDowncrossWeight y) = 0 := by
   rw [lowWheelCanonicalRepeatedMovablePart_eq_othello]
-  simpa [lowWheelTaggedDowncrossWeight, lowWheelOthelloWeight] using
+  simpa [lowWheelTaggedDowncrossWeight, lowWheelOthelloWeight] using!
     LateParentCancellation.sum_lowWheelOthelloRepeatedMovablePart_eq_zero R
 
 /-- Movable and frozen canonical repeated populations are disjoint. -/
@@ -274,7 +274,7 @@ theorem lowWheelCanonicalRepeatedMovable_disjoint_frozen
       have hrepeated := (Finset.mem_filter.mp hfrozen).1
       have hcarrier := (Finset.mem_filter.mp hrepeated).1
       rcases mem_lowWheelCanonicalTaggedDowncrossCarrier.mp hcarrier with ⟨_ht, hx⟩
-      simpa [lowWheelTaggedDowncrossPivot] using
+      simpa [lowWheelTaggedDowncrossPivot] using!
         (lowWheelCanonicalDowncrossPart_adjacent_shell hx).1
     have hone : y.2.2 / lowWheelTaggedDowncrossPivot y = 1 := by
       rw [hfrozenData.1]

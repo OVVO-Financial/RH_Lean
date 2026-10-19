@@ -46,7 +46,7 @@ theorem lowWheelCanonicalRepeatedFrozenCofactor_source_data
   have hphys := mem_lowWheelCanonicalPhysicalStateSet.mp hdown.1
   have hp : (lowWheelTaggedDowncrossPivot y).Prime := by
     have hshell := lowWheelCanonicalDowncrossPart_adjacent_shell htag.2
-    simpa [lowWheelTaggedDowncrossPivot] using hshell.1
+    simpa [lowWheelTaggedDowncrossPivot] using! hshell.1
   exact ⟨hshape.1, hp, hdown.2.1, hphys.2.2.1, hcgt,
     (Finset.mem_Ico.mp hphys.1).2⟩
 
@@ -65,9 +65,9 @@ theorem lowWheelCanonicalRepeatedFrozenCofactor_pivot_lt_primeFactor
   have hqDvdProd : q ∣ y.2.1 * y.2.2 := dvd_mul_of_dvd_left hqDvdC _
   have hpLe : lowWheelTaggedDowncrossPivot y ≤ q := by
     have h := Nat.minFac_le_of_dvd hqPrime.two_le hqDvdProd
-    simpa [lowWheelTaggedDowncrossPivot] using h
+    simpa [lowWheelTaggedDowncrossPivot] using! h
   exact hpLe.lt_of_ne fun heq =>
-    hdata.2.2.1 (by simpa [heq] using hqDvdC)
+    hdata.2.2.1 (by simpa [heq] using! hqDvdC)
 
 /-- Every prime factor of the frozen cofactor is an actual low-wheel coordinate
 strictly below the root cutoff. -/
@@ -101,9 +101,9 @@ theorem lowWheelCanonicalRepeatedFrozenCofactor_pivot_lt_root
   have hdata := lowWheelCanonicalRepeatedFrozenCofactor_source_data hy
   let q := Nat.minFac y.2.1
   have hqPrime : q.Prime := by
-    simpa [q] using Nat.minFac_prime (by omega : y.2.1 ≠ 1)
+    simpa [q] using! Nat.minFac_prime (by omega : y.2.1 ≠ 1)
   have hqDvd : q ∣ y.2.1 := by
-    simpa [q] using Nat.minFac_dvd y.2.1
+    simpa [q] using! Nat.minFac_dvd y.2.1
   have hqMem : q ∈ y.2.1.primeFactors :=
     Nat.mem_primeFactors.mpr ⟨hqPrime, hqDvd, by omega⟩
   exact (lowWheelCanonicalRepeatedFrozenCofactor_pivot_lt_primeFactor hy hqMem).trans
@@ -141,7 +141,7 @@ theorem lowWheelCanonicalRepeatedFrozenCofactor_face_disjoint_cofactorFace
   intro q hqt hqc
   have hlt := lowWheelCanonicalRepeatedFrozenCofactor_facePrime_lt_pivot hy hqt
   have hgt := lowWheelCanonicalRepeatedFrozenCofactor_pivot_lt_primeFactor hy
-    (by simpa [squarefreePrimeFace] using hqc)
+    (by simpa [squarefreePrimeFace] using! hqc)
   omega
 
 /-- The pivot belongs to neither side of the union used by the product-one
@@ -159,7 +159,7 @@ theorem lowWheelCanonicalRepeatedFrozenCofactor_pivot_not_mem_face_union
   · rcases lowWheelCanonicalRepeatedFrozenCofactor_source_data hy with
       ⟨_hk, _hpPrime, hpNotC, _hsq, _hcgt, _hcR⟩
     have hpData := Nat.mem_primeFactors.mp
-      (by simpa [squarefreePrimeFace] using hpC)
+      (by simpa [squarefreePrimeFace] using! hpC)
     exact hpNotC hpData.2.1
 
 /-- Final Boolean face after absorbing the pivot and the complete signed
@@ -193,7 +193,7 @@ theorem lowWheelCanonicalRepeatedFrozenProductOneFace_mem_powerset
   · rcases Finset.mem_union.mp hq with hqt | hqc
     · exact (Finset.mem_powerset.mp htag.1) hqt
     · exact lowWheelCanonicalRepeatedFrozenCofactor_primeFactors_subset_primesUpTo
-        hy (by simpa [squarefreePrimeFace] using hqc)
+        hy (by simpa [squarefreePrimeFace] using! hqc)
 
 /-- The absorbed face represents exactly the old complete physical product. -/
 theorem lowWheelCanonicalRepeatedFrozenProductOneFace_product
@@ -245,11 +245,11 @@ theorem lowWheelCanonicalRepeatedFrozenProductOneMate_mem_physical
     hcarrier.2.2.2
   have hrootOld' :
       R < primeFaceProduct y.1 * lowWheelTaggedDowncrossPivot y := by
-    simpa [hk] using hrootOld
+    simpa [hk] using! hrootOld
   have htopOld' :
       (y.2.1 * primeFaceProduct y.1) * lowWheelTaggedDowncrossPivot y ≤
         squareRootEndpoint R := by
-    simpa [hk] using htopOld
+    simpa [hk] using! htopOld
   have hprod := lowWheelCanonicalRepeatedFrozenProductOneFace_product hy
   have hrootFinal :
       R < primeFaceProduct (lowWheelCanonicalRepeatedFrozenProductOneFace y) := by
@@ -263,7 +263,7 @@ theorem lowWheelCanonicalRepeatedFrozenProductOneMate_mem_physical
       primeFaceProduct (lowWheelCanonicalRepeatedFrozenProductOneFace y) ≤
         squareRootEndpoint R := by
     rw [hprod]
-    simpa [Nat.mul_comm, Nat.mul_left_comm, Nat.mul_assoc] using htopOld'
+    simpa [Nat.mul_comm, Nat.mul_left_comm, Nat.mul_assoc] using! htopOld'
   have hXOne : 1 ≤ squareRootEndpoint R := by
     have hR2 : 2 ≤ R := by omega
     have hsq : 4 ≤ R ^ 2 := by nlinarith
@@ -273,8 +273,8 @@ theorem lowWheelCanonicalRepeatedFrozenProductOneMate_mem_physical
       LowWheelTransportPairCarrier R
         (lowWheelCanonicalRepeatedFrozenProductOneFace y) (1, 1) := by
     refine ⟨by norm_num, hRgt, ?_, ?_⟩
-    · simpa using hrootFinal
-    · simpa using htopFinal
+    · simpa using! hrootFinal
+    · simpa using! htopFinal
   exact mem_lowWheelCanonicalPhysicalStateSet.mpr
     ⟨Finset.mem_Ico.mpr ⟨by norm_num, hRgt⟩,
       Finset.mem_Icc.mpr ⟨by norm_num, hXOne⟩,
@@ -292,15 +292,15 @@ theorem lowWheelCanonicalRepeatedFrozenProductOneMate_weight_neg
     ⟨_hk, _hpPrime, _hpNotC, hsq, _hcgt, _hcR⟩
   let u := squarefreePrimeFace y.2.1
   have hdisj : Disjoint y.1 u := by
-    simpa [u] using
+    simpa [u] using!
       lowWheelCanonicalRepeatedFrozenCofactor_face_disjoint_cofactorFace hy
   have hpNot : lowWheelTaggedDowncrossPivot y ∉ y.1 ∪ u := by
-    simpa [u] using
+    simpa [u] using!
       lowWheelCanonicalRepeatedFrozenCofactor_pivot_not_mem_face_union hy
   have hmuU : μ y.2.1 = booleanCubeSign u := by
     have hprime : ∀ q ∈ u, q.Prime := by
       intro q hq
-      exact (Nat.mem_primeFactors.mp (by simpa [u, squarefreePrimeFace] using hq)).1
+      exact (Nat.mem_primeFactors.mp (by simpa [u, squarefreePrimeFace] using! hq)).1
     have hmu := moebius_primeFaceProduct_eq_booleanCubeSign u hprime
     rw [primeFaceProduct_squarefreePrimeFace hsq] at hmu
     exact hmu

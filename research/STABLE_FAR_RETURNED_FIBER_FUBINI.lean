@@ -36,12 +36,12 @@ theorem stableFarReturnedDescendedCofactor_mem_physical
   have hq2raw : e * (r * r * p) ≤ squareRootEndpoint R :=
     (Nat.le_div_iff_mul_le hdenPos).1 heCut
   have hq2 : r * r * e * p ≤ squareRootEndpoint R := by
-    simpa [Nat.mul_assoc, Nat.mul_left_comm, Nat.mul_comm] using hq2raw
+    simpa [Nat.mul_assoc, Nat.mul_left_comm, Nat.mul_comm] using! hq2raw
   have hr1 : 1 ≤ r := hr.one_le
   have hbaseCut : r * e * p ≤ squareRootEndpoint R := by
     have hle : r * e * p ≤ r * r * e * p := by
       have h := Nat.mul_le_mul_right (r * e * p) hr1
-      simpa [Nat.mul_assoc, Nat.mul_left_comm, Nat.mul_comm] using h
+      simpa [Nat.mul_assoc, Nat.mul_left_comm, Nat.mul_comm] using! h
     exact hle.trans hq2
   have hbase : (r, (e, p)) ∈ lowWheelFarPrimeLowCofactorTriples R :=
     lowWheelFarPrimeLowCofactorTriple_mem_of_data
@@ -64,7 +64,7 @@ theorem lowWheelFarPrimeQ2CrossingOuterOwnerSet_eq_returnedFilter
   have hXlt : squareRootEndpoint R < R * R := by
     unfold squareRootEndpoint
     have hne : R ^ 2 ≠ 0 := pow_ne_zero 2 (Nat.ne_of_gt hRpos)
-    simpa [pow_two] using Nat.pred_lt hne
+    simpa [pow_two] using! Nat.pred_lt hne
   ext q
   constructor
   · intro hqPhys
@@ -75,7 +75,7 @@ theorem lowWheelFarPrimeQ2CrossingOuterOwnerSet_eq_returnedFilter
       Nat.mul_pos (Nat.mul_pos hqData.1.pos hr.pos) hp.pos
     have heUpperCut : e ≤ squareRootEndpoint R / (q * r * p) := by
       apply (Nat.le_div_iff_mul_le hdenPos).2
-      simpa [Nat.mul_assoc, Nat.mul_left_comm, Nat.mul_comm] using hcut
+      simpa [Nat.mul_assoc, Nat.mul_left_comm, Nat.mul_comm] using! hcut
     have heUpper :
         e ∈ squareRootLowPrimeGoSmoothCofactors r
           (squareRootEndpoint R / (q * r * p)) :=
@@ -93,7 +93,7 @@ theorem lowWheelFarPrimeQ2CrossingOuterOwnerSet_eq_returnedFilter
       have hleRaw : e * (q * q * r * p) ≤ squareRootEndpoint R :=
         (Nat.le_div_iff_mul_le hden2Pos).1 heLowerCut
       have hle : q * q * r * e * p ≤ squareRootEndpoint R := by
-        simpa [Nat.mul_assoc, Nat.mul_left_comm, Nat.mul_comm] using hleRaw
+        simpa [Nat.mul_assoc, Nat.mul_left_comm, Nat.mul_comm] using! hleRaw
       exact (Nat.not_lt_of_ge hle) hcross
     have hcrossMem : e ∈ stableFarReturnedCrossingCofactors R r p q :=
       Finset.mem_sdiff.mpr ⟨heUpper, heNotLower⟩
@@ -101,12 +101,12 @@ theorem lowWheelFarPrimeQ2CrossingOuterOwnerSet_eq_returnedFilter
       have heOne : 1 ≤ e := he1
       have hle : q * r * p ≤ q * r * e * p := by
         have h := Nat.mul_le_mul_left (q * r) (Nat.mul_le_mul_right p heOne)
-        simpa [Nat.mul_assoc, Nat.mul_left_comm, Nat.mul_comm] using h
+        simpa [Nat.mul_assoc, Nat.mul_left_comm, Nat.mul_comm] using! h
       exact hle.trans hcut
     have hqUpper : q ≤ squareRootEndpoint R / (r * p) := by
       have hrpPos : 0 < r * p := Nat.mul_pos hr.pos hp.pos
       apply (Nat.le_div_iff_mul_le hrpPos).2
-      simpa [Nat.mul_assoc, Nat.mul_left_comm, Nat.mul_comm] using hqrp
+      simpa [Nat.mul_assoc, Nat.mul_left_comm, Nat.mul_comm] using! hqrp
     have hqReturned : q ∈ stableFarReturnedOldOwners R r p :=
       mem_frozenPrimeUniverseHighPrimeSet.mpr
         ⟨hqData.1, hrq, hqUpper⟩
@@ -123,7 +123,7 @@ theorem lowWheelFarPrimeQ2CrossingOuterOwnerSet_eq_returnedFilter
     have hcutRaw : e * (q * r * p) ≤ squareRootEndpoint R :=
       (Nat.le_div_iff_mul_le hdenPos).1 heUpperCut
     have hcut : q * r * e * p ≤ squareRootEndpoint R := by
-      simpa [Nat.mul_assoc, Nat.mul_left_comm, Nat.mul_comm] using hcutRaw
+      simpa [Nat.mul_assoc, Nat.mul_left_comm, Nat.mul_comm] using! hcutRaw
     have hden2Pos : 0 < q * q * r * p :=
       Nat.mul_pos
         (Nat.mul_pos (Nat.mul_pos hqPrime.pos hqPrime.pos) hr.pos) hp.pos
@@ -132,7 +132,7 @@ theorem lowWheelFarPrimeQ2CrossingOuterOwnerSet_eq_returnedFilter
       have hle : q * q * r * e * p ≤ squareRootEndpoint R :=
         Nat.le_of_not_gt hnot
       have hleRaw : e * (q * q * r * p) ≤ squareRootEndpoint R := by
-        simpa [Nat.mul_assoc, Nat.mul_left_comm, Nat.mul_comm] using hle
+        simpa [Nat.mul_assoc, Nat.mul_left_comm, Nat.mul_comm] using! hle
       have heLowerCut : e ≤ squareRootEndpoint R / (q * q * r * p) :=
         (Nat.le_div_iff_mul_le hden2Pos).2 hleRaw
       have heLower :
@@ -145,7 +145,7 @@ theorem lowWheelFarPrimeQ2CrossingOuterOwnerSet_eq_returnedFilter
       have heOne : 1 ≤ e := he1
       have hle : q * r * p ≤ q * r * e * p := by
         have h := Nat.mul_le_mul_left (q * r) (Nat.mul_le_mul_right p heOne)
-        simpa [Nat.mul_assoc, Nat.mul_left_comm, Nat.mul_comm] using h
+        simpa [Nat.mul_assoc, Nat.mul_left_comm, Nat.mul_comm] using! h
       exact hle.trans hcut
     have hqR : q < R := by
       by_contra hnot
@@ -155,7 +155,7 @@ theorem lowWheelFarPrimeQ2CrossingOuterOwnerSet_eq_returnedFilter
       have hrOne : 1 ≤ r := hr.one_le
       have hqp : q * p ≤ q * r * p := by
         have h := Nat.mul_le_mul_left q (Nat.mul_le_mul_right p hrOne)
-        simpa [Nat.mul_assoc, Nat.mul_left_comm, Nat.mul_comm] using h
+        simpa [Nat.mul_assoc, Nat.mul_left_comm, Nat.mul_comm] using! h
       exact (Nat.not_lt_of_ge (hRR.trans (hqp.trans hqrp))) hXlt
     exact Finset.mem_filter.mpr
       ⟨mem_primesUpTo.mpr ⟨hqPrime, Nat.le_pred_of_lt hqR⟩,

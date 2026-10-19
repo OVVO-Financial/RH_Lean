@@ -153,7 +153,7 @@ private theorem largestPrime_lt_iff_all_primeFactors_lt
     {q d : ℕ} (hq : q.Prime) (hd : 1 ≤ d) :
     canonicalLargestPrimeFactor d < q ↔ ∀ p ∈ d.primeFactors, p < q := by
   by_cases hd1 : 1 < d
-  · rw [canonicalLargestPrimeFactor, dif_pos hd1]
+  · rw [canonicalLargestPrimeFactor, dite_eq_left hd1]
     constructor
     · intro h p hp
       exact (Finset.le_max' d.primeFactors p hp).trans_lt h
@@ -338,7 +338,7 @@ theorem elevenRecoveredMobiusPacket_q2_closed
   have h := finiteDifferenceOperator_eleven_squareShift_intertwining
     T q moebiusPositivePrefix
   have hx := congrArg (fun f : ℕ → ℤ => f x) h
-  simpa [shift] using hx
+  simpa [shift] using! hx
 
 /-- **Full signed-reconstruction closure.**  Under square-root prime coverage,
 start with the actual recovered field `raw - 2*smooth`, apply the prime-11 Euler

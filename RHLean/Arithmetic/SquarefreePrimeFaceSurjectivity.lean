@@ -13,7 +13,7 @@ def squarefreePrimeFace (n : ℕ) : Finset ℕ :=
 theorem primeFaceProduct_squarefreePrimeFace
     {n : ℕ} (hn : Squarefree n) :
     primeFaceProduct (squarefreePrimeFace n) = n := by
-  simpa [squarefreePrimeFace, primeFaceProduct] using
+  simpa [squarefreePrimeFace, primeFaceProduct] using!
     Nat.prod_primeFactors_of_squarefree hn
 
 /-- For `n ≤ X`, every coordinate in the canonical squarefree face lies in the

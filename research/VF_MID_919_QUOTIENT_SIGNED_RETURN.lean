@@ -54,7 +54,7 @@ theorem vf919Mertens_eq_exact_quotient_buckets (X : ℕ) (hX : 12 ≤ X) :
   have hquotient : X / m ∈ Finset.Icc 1 X := by
     apply Finset.mem_Icc.mpr
     constructor
-    · exact (Nat.le_div_iff_mul_le hmpos).2 (by simpa using hmX)
+    · exact (Nat.le_div_iff_mul_le hmpos).2 (by simpa using! hmX)
     · exact Nat.div_le_self X m
   have hsingle :
       (∑ t ∈ Finset.Icc 1 X,
@@ -132,7 +132,7 @@ theorem vf919QuotientKernel36_signed_abel (N : ℕ) (b : ℕ → ℂ) :
             (vf919QuotientKernelPrimitive36 (N + 1) : ℂ) -
               (vf919QuotientKernelPrimitive36 N : ℂ) := by
         have h := vf919QuotientKernelPrimitive36_step (N + 1) (by omega)
-        simpa using congrArg (fun z : ℤ => (z : ℂ)) h.symm
+        simpa using! congrArg (fun z : ℤ => (z : ℂ)) h.symm
       change
         (∑ t ∈ Finset.Icc 1 (N + 1),
           (vf919SharpQuotientKernel36 t : ℂ) * b t) =
@@ -184,7 +184,7 @@ theorem vf919QuotientKernel36_all_start_zero (a : ℕ) :
     (∑ j ∈ Finset.range 36, vf919SharpQuotientKernel36 (a + j)) = 0 := by
   induction a with
   | zero =>
-      simpa only [Nat.zero_add] using vf919SharpQuotientKernel36_mean_zero
+      simpa only [Nat.zero_add] using! vf919SharpQuotientKernel36_mean_zero
   | succ a ih =>
       have hshift := vf919Kernel36_shift_range_sum
         (fun j => vf919SharpQuotientKernel36 (a + j)) 36
@@ -200,7 +200,7 @@ theorem vf919QuotientKernel36_all_start_zero (a : ℕ) :
         _ = (∑ j ∈ Finset.range 36, vf919SharpQuotientKernel36 (a + j)) -
               vf919SharpQuotientKernel36 a +
               vf919SharpQuotientKernel36 (a + 36) := by
-                simpa using hshift
+                simpa using! hshift
         _ = (∑ j ∈ Finset.range 36, vf919SharpQuotientKernel36 (a + j)) := by
               rw [hper]
               ring

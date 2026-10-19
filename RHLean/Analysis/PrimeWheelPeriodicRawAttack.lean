@@ -265,7 +265,7 @@ theorem physicalCombinedLinearChannels_eq_destinationFourSlotSum
         (∑ k ∈ Finset.range K with physicalLeastOddSquarePrime k ≠ none,
           physicalDefectEdgeValue k) =
       ∑ k ∈ Finset.range K, physicalDefectEdgeValue k := by
-        simpa using hpart
+        simpa using! hpart
     _ = ∑ k ∈ Finset.range K, fourSlotCellSum (k + 1) := by
       apply Finset.sum_congr rfl
       intro k hk

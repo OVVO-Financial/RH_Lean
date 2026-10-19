@@ -347,7 +347,7 @@ abbrev vfMidAdvancedLowerRightCornerChannel := vfMidLowerCornerChannel
 arithmetic expressions. -/
 @[simp] theorem vfMidCornerParameter_right_cast (R : ℕ) :
     vfMidCornerParameter R (((R : ℝ) + 1) ^ 2) = 1 := by
-  simpa only [Nat.cast_add, Nat.cast_one] using
+  simpa only [Nat.cast_add, Nat.cast_one] using!
     (vfMidCornerParameter_right R)
 
 /-- Prime count at a real square endpoint is exactly the natural prime count
@@ -404,19 +404,19 @@ theorem vfMidCornerParameter_mem_unit
 @[simp] theorem vfMidUpperCornerChannel_right_cast (R : ℕ) :
     vfMidUpperCornerChannel R (((R : ℝ) + 1) ^ 2) =
       vfMidFinishedMass (R + 1) := by
-  simpa only [Nat.cast_add, Nat.cast_one] using
+  simpa only [Nat.cast_add, Nat.cast_one] using!
     (vfMidUpperCornerChannel_right R)
 
 @[simp] theorem vfMidLowerCornerChannel_right_cast (R : ℕ) :
     vfMidLowerCornerChannel R (((R : ℝ) + 1) ^ 2) =
       vfMidFinishedMass R := by
-  simpa only [Nat.cast_add, Nat.cast_one] using
+  simpa only [Nat.cast_add, Nat.cast_one] using!
     (vfMidLowerCornerChannel_right R)
 
 @[simp] theorem vfMidPrimeCount_succ_sq_exact (R : ℕ) :
     vfMidPrimeCount (((R : ℝ) + 1) ^ 2) =
       (Nat.primeCounting ((R + 1) ^ 2) : ℝ) := by
-  simpa only [Nat.cast_add, Nat.cast_one] using
+  simpa only [Nat.cast_add, Nat.cast_one] using!
     (vfMidPrimeCount_sq_exact (R + 1))
 
 /-- Exact black-channel width: a convex combination of the two neighboring
@@ -482,7 +482,7 @@ theorem vfMidIntegerBlockCaptured_of_cornerChannel
     hchan (((R + 1 : ℕ) : ℝ) ^ 2) hsq le_rfl
   have hpiF :
       (Nat.primeCounting (R ^ 2) : ℝ) ≤ vfMidFinishedMass R := by
-    simpa using hleft.2
+    simpa using! hleft.2
   have hlow :
       Nat.primeCounting (R ^ 2) ≤ vfMidIntegerBlockLevel R := by
     unfold vfMidIntegerBlockLevel
@@ -490,7 +490,7 @@ theorem vfMidIntegerBlockCaptured_of_cornerChannel
   have hFpi :
       vfMidFinishedMass R ≤
         (Nat.primeCounting ((R + 1) ^ 2) : ℝ) := by
-    simpa using hright.1
+    simpa using! hright.1
   have hKpi :
       (vfMidIntegerBlockLevel R : ℝ) ≤
         (Nat.primeCounting ((R + 1) ^ 2) : ℝ) :=
@@ -595,7 +595,7 @@ theorem vfMidOuterCornerEndpointBracket_of_channel
     exact_mod_cast hsqNat
   have h :=
     hchan R hR ((R : ℝ) ^ 2) le_rfl hsq
-  simpa using h
+  simpa using! h
 
 /-! ## Intrinsic VF width estimates -/
 
@@ -780,7 +780,7 @@ theorem vfMidCanonicalOuterCorners_rhSafe
     exact vfMidCanonicalCornerOffset_cast_le hA R
   have h :=
     vfMidFinishedMass_offset_excursions_le_rhScale R L hR hhalf hlag
-  simpa [vfMidOuterLowerCorner, vfMidOuterUpperCorner, L] using h
+  simpa [vfMidOuterLowerCorner, vfMidOuterUpperCorner, L] using! h
 
 /-! ## Endpoint inclusion closes the RH-scale target -/
 
@@ -845,7 +845,7 @@ theorem vfMidBackwardForwardCornerEndpointBracket_of_shiftedChannel
     exact_mod_cast hsqNat
   have h :=
     hchan R hR ((R : ℝ) ^ 2) le_rfl hsq
-  simpa using h
+  simpa using! h
 
 /-- The symmetric index-offset bracket is the diagonal special case of the
 asymmetric backward/forward bracket. -/
@@ -891,14 +891,14 @@ theorem vfMidSquareEndpointVonKochBoundedFromFour_of_backwardForwardCornerBracke
     have hcoef : 5 * Aminus ≤ 5 * (Aminus + Aplus) := by
       nlinarith
     have hm := mul_le_mul_of_nonneg_right hcoef hscale0
-    simpa [mul_assoc] using hm
+    simpa [mul_assoc] using! hm
   have hplusC :
       5 * Aplus * (R : ℝ) * Real.log (R : ℝ) ≤
         5 * (Aminus + Aplus) * (R : ℝ) * Real.log (R : ℝ) := by
     have hcoef : 5 * Aplus ≤ 5 * (Aminus + Aplus) := by
       nlinarith
     have hm := mul_le_mul_of_nonneg_right hcoef hscale0
-    simpa [mul_assoc] using hm
+    simpa [mul_assoc] using! hm
   have herr :
       vfMidPrimeError ((R : ℝ) ^ 2) =
         (Nat.primeCounting (R ^ 2) : ℝ) - vfMidFinishedMass R := by
@@ -1019,7 +1019,7 @@ theorem vfMidSquareEndpointVonKochBounded_of_fromFour
           e2 = (e2 / w2) * w2 := heq.symm
           _ ≤ D * w2 := mul_le_mul_of_nonneg_right hcoef hw2.le
       norm_num [e2, w2] at hsmall2 ⊢
-      simpa [mul_assoc] using hsmall2
+      simpa [mul_assoc] using! hsmall2
     · have hcoef : e3 / w3 ≤ D := by
         dsimp [D]
         linarith
@@ -1030,7 +1030,7 @@ theorem vfMidSquareEndpointVonKochBounded_of_fromFour
           e3 = (e3 / w3) * w3 := heq.symm
           _ ≤ D * w3 := mul_le_mul_of_nonneg_right hcoef hw3.le
       norm_num [e3, w3] at hsmall3 ⊢
-      simpa [mul_assoc] using hsmall3
+      simpa [mul_assoc] using! hsmall3
 
 /-- The asymmetric backward/forward VF-block formulation is sufficient for
 the full square-endpoint target after absorbing the finite initial scales. -/

@@ -72,7 +72,7 @@ private theorem sum_product_symmetric_eq_diag_add_two_pos
       (∑ ab ∈ s.product s, diagTerm ab) =
           ∑ a ∈ s, ∑ b ∈ s,
             if a = b then f (a, b) else 0 := by
-              simpa [diagTerm] using
+              simpa [diagTerm] using!
                 (Finset.sum_product
                   (s := s) (t := s)
                   (f := fun ab : ℕ × ℕ => diagTerm ab))
@@ -110,7 +110,7 @@ private theorem sum_product_symmetric_eq_diag_add_two_pos
         (∑ ab ∈ s.product s, gtTerm ab) =
             ∑ a ∈ s, ∑ b ∈ s,
               if b < a then f (a, b) else 0 := by
-                simpa [gtTerm] using
+                simpa [gtTerm] using!
                   (Finset.sum_product
                     (s := s) (t := s)
                     (f := fun ab : ℕ × ℕ => gtTerm ab))
@@ -140,7 +140,7 @@ private theorem sum_product_symmetric_eq_diag_add_two_pos
             if ab.1 < ab.2 then f ab else 0 := Finset.sum_filter _ _
       _ = ∑ a ∈ s, ∑ b ∈ s,
             if a < b then f (a, b) else 0 := by
-              simpa only using
+              simpa only using!
                 (Finset.sum_product
                   (s := s) (t := s)
                   (f := fun ab : ℕ × ℕ =>

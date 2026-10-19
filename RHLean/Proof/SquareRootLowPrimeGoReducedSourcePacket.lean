@@ -99,7 +99,7 @@ theorem squareRootLowPrimeGoFullFaceDefectSource_not_qSquareContact
       primeFaceProduct
           (squareRootLowPrimeGoFullFaceDefectSourceTag ((r, q), d)).1 =
         r * d := by
-    simpa [squareRootLowPrimeGoFullFaceDefectSourceTag] using
+    simpa [squareRootLowPrimeGoFullFaceDefectSourceTag] using!
       (squareRootLowPrimeGoSecondBoundaryFullFaceSource_faceProduct
         hq hr hrq hfull)
   have hnot :
@@ -128,7 +128,7 @@ theorem squareRootLowPrimeGoFullFaceDefectSource_not_qSquareContact
     exact Nat.eq_of_mul_eq_mul_right hq.pos hcancel
   simpa [lowWheelTaggedHighProduct,
     squareRootLowPrimeGoFullFaceDefectSourceTag,
-    squareRootLowPrimeGoSecondBoundaryFullFaceSource] using hsq
+    squareRootLowPrimeGoSecondBoundaryFullFaceSource] using! hsq
 
 /-- The missing second copy of `q` is exactly the next failed boundary:
 multiplying the surviving represented high product once more by `q` crosses the
@@ -146,7 +146,7 @@ theorem squareRootLowPrimeGoFullFaceDefectSource_next_q_crosses
       primeFaceProduct
           (squareRootLowPrimeGoFullFaceDefectSourceTag ((r, q), d)).1 =
         r * d := by
-    simpa [squareRootLowPrimeGoFullFaceDefectSourceTag] using
+    simpa [squareRootLowPrimeGoFullFaceDefectSourceTag] using!
       (squareRootLowPrimeGoSecondBoundaryFullFaceSource_faceProduct
         hq hr hrq hfull)
   have hsecond :=
@@ -226,7 +226,7 @@ theorem squareRootLowPrimeGoFullFaceDefectSourceImage_disjoint_topImage
       lowWheelFrozenCofactorTopPrime y * y.2.2 = q := by
     rw [lowWheelFrozenCofactorTopToggle_eq hy] at hquot
     simpa [squareRootLowPrimeGoFullFaceDefectSourceTag,
-      squareRootLowPrimeGoSecondBoundaryFullFaceSource] using hquot
+      squareRootLowPrimeGoSecondBoundaryFullFaceSource] using! hquot
   have hdiv : lowWheelFrozenCofactorTopPrime y ∣ q :=
     ⟨y.2.2, hquotEq.symm⟩
   have htopEq : lowWheelFrozenCofactorTopPrime y = q :=
@@ -255,12 +255,12 @@ theorem squareRootLowPrimeGoFullFaceDefectMateTag_quotient_eq
   rcases hpData with ⟨hnonempty, _hpPrime, _hpr, hpFace⟩
   change (lowWheelFullFaceQuotientMate R s).2.2 = p * q
   unfold lowWheelFullFaceQuotientMate
-  rw [dif_pos hnonempty]
+  rw [dite_eq_left hnonempty]
   change (lowWheelFullFaceQuotientToggleAt p s).2.2 = p * q
   unfold lowWheelFullFaceQuotientToggleAt
   dsimp only
   unfold lowWheelFaceTailToggleAt
-  rw [if_pos hpFace]
+  rw [ite_eq_left hpFace]
   rfl
 
 /-- Source and mate images are disjoint.  A source quotient is prime, while a
@@ -291,10 +291,10 @@ theorem squareRootLowPrimeGoFullFaceDefectSourceImage_disjoint_mateImage
   have hquot' :
       (squareRootLowPrimeGoFullFaceDefectMateTag R ((s, t), e)).2.2 = q := by
     simpa [squareRootLowPrimeGoFullFaceDefectSourceTag,
-      squareRootLowPrimeGoSecondBoundaryFullFaceSource] using hquot
+      squareRootLowPrimeGoSecondBoundaryFullFaceSource] using! hquot
   have hprod : p * t = q := by
     rw [hmateQuot] at hquot'
-    simpa [p] using hquot'
+    simpa [p] using! hquot'
   have hpDvd : p ∣ q := ⟨t, hprod.symm⟩
   have hpEq : p = q :=
     (Nat.prime_dvd_prime_iff_eq hpPrime hqPrime).mp hpDvd
@@ -374,7 +374,7 @@ theorem squareRootLowPrimeGoReducedPhysicalResidualLedger_eq_source_add_remainde
   simpa [squareRootLowPrimeGoReducedPhysicalResidualLedger,
     squareRootLowPrimeGoReducedPhysicalResidualRemainderLedger,
     squareRootLowPrimeGoReducedPhysicalResidualRemainderCarrier,
-    add_comm] using hs.symm
+    add_comm] using! hs.symm
 
 /-- Same decomposition with the source packet returned to its arithmetic Go
 mass. -/
@@ -399,12 +399,12 @@ theorem squareRootLowPrimeGoReducedPhysicalResidualRemainderLedger_eq_oldResidua
   have h643 :
       lowWheelFrozenTopFarPhysicalResidualLedger R + D =
         squareRootLowPrimeGoReducedPhysicalResidualLedger R := by
-    simpa [D] using squareRootLowPrimeGo_physicalResidual_add_defect_eq_reduced
+    simpa [D] using! squareRootLowPrimeGo_physicalResidual_add_defect_eq_reduced
       (R := R) hR
   have hsplit :
       squareRootLowPrimeGoReducedPhysicalResidualLedger R =
         D + squareRootLowPrimeGoReducedPhysicalResidualRemainderLedger R := by
-    simpa [D] using
+    simpa [D] using!
       squareRootLowPrimeGoReducedPhysicalResidualLedger_eq_defectMass_add_remainder
         (R := R) hR
   calc

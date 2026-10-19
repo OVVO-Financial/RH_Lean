@@ -42,7 +42,7 @@ theorem zeroTargetMellinPhysicalSuperLcmFourCorner_critical_eq_neg_firstCrossing
           physicalSuperLcmMellinEdge W p (1 / (p : ℝ)) a b := by
   have hpR : (0 : ℝ) < (p : ℝ) := by exact_mod_cast hp.pos
   have hr : (0 : ℝ) ≤ 1 / (p : ℝ) := by positivity
-  simpa [zeroTargetCriticalOwnerRatio] using
+  simpa [zeroTargetCriticalOwnerRatio] using!
     zeroTargetMellinPhysicalSuperLcmFourCorner_eq_neg_firstCrossing_add_edge_of_mul_le
       (W := W) (p := p) (a := a) (b := b) (r := 1 / (p : ℝ))
       hr hp hpa hpb hab hbW hpaW

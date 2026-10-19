@@ -230,7 +230,7 @@ theorem finiteDifferenceOperator_primeWheelRecovery_general
           primeWheelRawPositivePrefix P y -
             2 * primeWheelSmoothPositivePrefix P upper y) x =
       shift d moebiusPositivePrefix x by
-        simpa [shift] using hprefix]
+        simpa [shift] using! hprefix]
 
 /-- The same all-prime recovery after a multiplicative daughter shift. -/
 theorem finiteDifferenceOperator_primeWheelRecovery_squareShift
@@ -248,7 +248,7 @@ theorem finiteDifferenceOperator_primeWheelRecovery_squareShift
     finiteDifferenceOperator_shift_comm]
   have hchild : x / (q * q) ≤ upper :=
     (Nat.div_le_self x (q * q)).trans hx
-  simpa [shift] using
+  simpa [shift] using!
     finiteDifferenceOperator_primeWheelRecovery_general
       P T upper (x / (q * q)) hprime hcover hchild
 
@@ -297,7 +297,7 @@ theorem finiteDifferenceOperator_recoveredMobius_eleven_q2_intertwining
     finiteDifferenceOperator_eleven_squareShift_intertwining]
   have hchild : x / (q * q) ≤ upper :=
     (Nat.div_le_self x (q * q)).trans hx
-  simpa [shift] using
+  simpa [shift] using!
     finiteDifferenceOperator_primeWheelRecovery_freshDifference
       P T upper (x / (q * q)) 11 hprime hcover hchild
 

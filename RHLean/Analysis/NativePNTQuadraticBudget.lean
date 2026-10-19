@@ -23,7 +23,7 @@ theorem nativePNTCubicSlope_inv_sq_rate (n : ℕ) :
     (fun m => (nativePNTCubicSlope_spec m).1)
     (fun m => nativePNTCubicSlope_succ m) n
   have h6 : (6 : ℝ) ^ 2 = 36 := by norm_num
-  simpa [nativePNTCubicSlope_zero, h6] using h
+  simpa [nativePNTCubicSlope_zero, h6] using! h
 
 /-- Equivalent direct rate: `2 C n a_n^2 <= 1`. -/
 theorem nativePNTCubicSlope_quadratic_rate (n : ℕ) :
@@ -44,7 +44,7 @@ theorem nativePNTCubicSlope_quadratic_rate (n : ℕ) :
           (nativePNTCubicSlope n) ^ 2 ≤
         (1 / (nativePNTCubicSlope n) ^ 2) *
           (nativePNTCubicSlope n) ^ 2 := by
-      simpa [mul_assoc] using hmul
+      simpa [mul_assoc] using! hmul
     _ = 1 := by
       field_simp [ne_of_gt hslope]
 

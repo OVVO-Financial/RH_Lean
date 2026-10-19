@@ -33,10 +33,10 @@ theorem nativePNTAffineEnvelopeAt_cubic_step
   by_cases hMN : M ≤ N
   · have htail := nativePNTError_abs_le_cubicStep_tail
       alpha D halpha halpha6 ⟨hD, henv⟩ N
-      (by simpa [M] using hMN)
+      (by simpa [M] using! hMN)
     have htail' :
         |nativePNTError N| ≤ (alpha - delta) * (N : ℝ) := by
-      simpa [delta] using htail
+      simpa [delta] using! htail
     have hintercept0 : 0 ≤ D + delta * (M : ℝ) :=
       add_nonneg hD (mul_nonneg hdelta.le (by positivity))
     exact htail'.trans (le_add_of_nonneg_right hintercept0)

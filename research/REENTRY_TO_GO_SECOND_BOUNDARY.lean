@@ -72,7 +72,7 @@ theorem squareRootLowPrimeReentryBirthBoundary_mem_goFullBirthBoundary
   · omega
   · apply (Nat.div_lt_iff_lt_mul hq.pos).2
     have htqc' : t ≤ c * q := by
-      simpa [Nat.mul_comm] using htqc
+      simpa [Nat.mul_comm] using! htqc
     omega
 
 /-- Every re-entry birth witness has exactly the two physical Go outcomes:
@@ -121,7 +121,7 @@ theorem squareRootLowPrimeNonBornFalloutReentry_goTerminal_or_secondBoundary
     (mem_squareRootLowPrimeProcessedSeatCanonicalOwnerFalloff.mp hfall).1
   have hseat :
       (c, s) ∈ squareRootLowPrimeProcessedSeatAtoms R K j U := by
-    simpa [squareRootLowPrimeProcessedSeatCarrier] using hparent
+    simpa [squareRootLowPrimeProcessedSeatCarrier] using! hparent
   have hcProcessed :
       c ∈ squareRootLowPrimeProcessedSignedCofactors R U :=
     (mem_squareRootLowPrimeProcessedSeatAtoms.mp hseat).1
@@ -217,7 +217,7 @@ theorem squareRootLowPrimeMassTransfer_iff_responseForestRootShallowIdentity
           (squareRootLowPrimeOwnedResponseCofactorMass R K U).re -
           (squareRootLowPrimeBornFrontierChildMass R K U).re -
           (squareRootLowPrimePostRootChildMass R K U).re := by
-    simpa using squareRootLowPrimeRunningImbalanceReal_sub_eq_responseForestBoundary
+    simpa using! squareRootLowPrimeRunningImbalanceReal_sub_eq_responseForestBoundary
       (R := R) (K := K) (j := j) (U := U) hR hK hKU hUR
   have hborn :
       (squareRootLowPrimeBornFrontierChildMass R K U).re =
@@ -452,12 +452,12 @@ theorem lowWheelFarPrimeLowCofactorTriple_partnerColumn_eq_scaledReciprocalDefec
               R (t.1 * t.2.1) t.2.2).card : ℂ) -
             ((squareRootCanonicalRoughFreshBirthBoundary
               R (t.1 * t.2.1) t.2.2).card : ℂ)) := by
-    simpa using
+    simpa using!
       (natCast_mul_cofactorWeightedReciprocalDefect_eq_rawBoundary
         (R := R) (c := t.1 * t.2.1) (p := t.2.2)
         (fun _ => (1 : ℂ)) hcpos hpPrime)
   rw [← hraw] at hscale
-  simpa [mul_assoc] using hscale.symm
+  simpa [mul_assoc] using! hscale.symm
 
 /-! ## Channel Euler characteristic -/
 
@@ -652,7 +652,7 @@ theorem squareRootLowPrimeCanonicalTerminal_mass_eq_creationResponseStableMass
       finiteOthelloStablePart S
           (squareRootLowPrimeProcessedSeatCanonicalMate R K j U) =
         squareRootLowPrimeProcessedSeatCanonicalTerminalFrontier R K j U := by
-    simpa [S, finiteOthelloStablePart, signMatchingFixedPart] using
+    simpa [S, finiteOthelloStablePart, signMatchingFixedPart] using!
       signMatchingFixedPart_processedSeatCanonicalMate_eq_terminalFrontier
         R K j U
   rw [hcanon] at hstable
@@ -740,7 +740,7 @@ theorem squareRootLowPrimeNonBornFalloutScheduledReentry_birthAtom_internal_or_e
       some (c, s) ∈ squareRootLowPrimeProcessedSeatCarrier R K j U :=
     (mem_squareRootLowPrimeProcessedSeatCanonicalOwnerFalloff.mp hfall).1
   have hseat : (c, s) ∈ squareRootLowPrimeProcessedSeatAtoms R K j U := by
-    simpa [squareRootLowPrimeProcessedSeatCarrier] using hparent
+    simpa [squareRootLowPrimeProcessedSeatCarrier] using! hparent
   have hcProcessed :
       c ∈ squareRootLowPrimeProcessedSignedCofactors R U :=
     (mem_squareRootLowPrimeProcessedSeatAtoms.mp hseat).1
@@ -759,14 +759,14 @@ theorem squareRootLowPrimeNonBornFalloutScheduledReentry_birthAtom_internal_or_e
   have hmuQC : μ (q * c) ≠ 0 :=
     ArithmeticFunction.moebius_ne_zero_iff_squarefree.mpr hsqQC
   have hlpfQC : canonicalLargestPrimeFactor (q * c) = q := by
-    simpa [Nat.mul_comm] using
+    simpa [Nat.mul_comm] using!
       canonicalLargestPrimeFactor_mul_prime_eq_of_rough hc hqPrime hqRough
   have hqcProcessed :
       q * c ∈ squareRootLowPrimeProcessedSignedCofactors R U := by
     unfold squareRootLowPrimeProcessedSignedCofactors
     apply Finset.mem_filter.mpr
     refine ⟨Finset.mem_Icc.mpr ⟨Nat.mul_pos hqPrime.pos hc, hqcX⟩, ?_, hmuQC⟩
-    simpa [hlpfQC] using hqU
+    simpa [hlpfQC] using! hqU
   have hqcSeat :
       (q * c, s) ∈ squareRootLowPrimeProcessedSeatAtoms R K j U :=
     mem_squareRootLowPrimeProcessedSeatAtoms.mpr ⟨hqcProcessed, hqAlive⟩
@@ -776,7 +776,7 @@ theorem squareRootLowPrimeNonBornFalloutScheduledReentry_birthAtom_internal_or_e
     exact Finset.mem_insert.mpr
       (Or.inr (Finset.mem_image.mpr ⟨(q * c, s), hqcSeat, rfl⟩))
   have hdeep : K < canonicalLargestPrimeFactor (q * c) := by
-    simpa [hlpfQC] using hKq
+    simpa [hlpfQC] using! hKq
   have hownedSeat :
       (q * c, s) ∈ squareRootLowPrimeOwnedResponseSeatCarrier R K j U :=
     squareRootLowPrimeProcessedSeat_mem_ownedResponseSeatCarrier_of_deep
@@ -999,7 +999,7 @@ theorem squareRootLowPrimeTerminalNoReentryFiber_weight_sum
         squareRootLowPrimeProcessedSeatWeightReal (some (c, s)) := by
       apply Finset.sum_image
       intro a _ha b _hb hab
-      simpa using hab
+      simpa using! hab
     _ = ∑ _s ∈ squareRootLowPrimeTerminalNoReentrySeatIndices R K j U p c,
         ((-μ c : ℤ) : ℝ) := by
       rfl
@@ -1034,7 +1034,7 @@ theorem squareRootLowPrimeRunningImbalanceReal_sub_eq_responseForestBoundary
   have h := congrArg Complex.re
     (squareRootLowPrimeFreshIncrement_sum_eq_responseForestBoundary
       (R := R) (K := K) (j := j) (U := U) hR hUR)
-  simpa [squareRootLowPrimeFreshIncrementReal] using h
+  simpa [squareRootLowPrimeFreshIncrementReal] using! h
 
 /-! ## Global terminal no-reentry ledger -/
 
@@ -1074,7 +1074,7 @@ theorem squareRootLowPrimeProcessedSeatIntrinsicFirstOwner_eq_firstOwnerAbove_of
         intro r hr
         exact hpreNo r (by simp [hr])
       simp only [List.cons_append,
-        squareRootLowPrimeProcessedSeatIntrinsicFirstOwner, if_neg hqNo]
+        squareRootLowPrimeProcessedSeatIntrinsicFirstOwner, ite_eq_right hqNo]
       exact ih hrest
 
 /-- On an actual assigned terminal, the intrinsic owner is therefore the
@@ -1139,7 +1139,7 @@ theorem squareRootLowPrimeCanonicalAssigned_firstOwnerAbove_eq_of_intrinsicOwner
           hx hfirst
       rw [howner] at hqOwner
       have hpq : p = q := Option.some.inj hqOwner
-      simpa [hpq] using hfirst
+      simpa [hpq] using! hfirst
 
 /-- **A shallow genuine NoLater terminal is fixed by the first
 creation/response Othello matching.**  Its lower terminal endpoint already
@@ -1170,7 +1170,7 @@ theorem squareRootLowPrimeFirstOwnerTerminalNoReentry_shallow_not_matchedCreatio
             (squareRootLowPrimeLaterResponseCeiling R K j U p c)) ≤ s ∧
         s < squareRootLowPrimeCombinedFreshResponse R K j c := by
     simpa [squareRootLowPrimeTerminalNoReentrySeatIndices,
-      squareRootLowPrimeTerminalNoReentryLower] using hsTerminal
+      squareRootLowPrimeTerminalNoReentryLower] using! hsTerminal
   have hbornLe : squareRootBornPartnerCount R c ≤ s :=
     (le_max_left _ _).trans hbounds.1
   have hinner :
@@ -1205,9 +1205,9 @@ theorem squareRootLowPrimeFirstOwnerTerminalNoReentry_shallow_not_matchedCreatio
     (mem_squareRootLowPrimeOwnedResponseSeatCarrier_iff.mp hqSeat).2
   have hqAlive :
       s < squareRootLowPrimeCombinedFreshResponse R K j (q * c) := by
-    simpa [x, hxCof, hxSeat] using hqAliveRaw
+    simpa [x, hxCof, hxSeat] using! hqAliveRaw
   have hqList : q ∈ squareRootLowPrimeFreshPrimeList K U := by
-    simpa [squareRootLowPrimeFreshPrimeList] using hqSet
+    simpa [squareRootLowPrimeFreshPrimeList] using! hqSet
   have hKq : K < q := (Finset.mem_Ioc.mp (Finset.mem_filter.mp hqSet).1).1
   have hlpfq : canonicalLargestPrimeFactor c < q := by omega
   have hpqLe :=
@@ -1268,7 +1268,7 @@ theorem squareRootLowPrimeFirstOwnerTerminalNoReentrySeatIndices_data
         (squareRootLowPrimeFreshPrimeList K U)
         (squareRootLowPrimeProcessedSeatCarrier R K j U)
         (some (c, s)) = some p := by
-  simpa [squareRootLowPrimeFirstOwnerTerminalNoReentrySeatIndices] using
+  simpa [squareRootLowPrimeFirstOwnerTerminalNoReentrySeatIndices] using!
     Finset.mem_filter.mp hs
 
 /-- Each first-owner/cofactor no-reentry slice has one native Möbius sign, so
@@ -1292,7 +1292,7 @@ theorem squareRootLowPrimeFirstOwnerTerminalNoReentryFiber_weight_sum
         squareRootLowPrimeProcessedSeatWeightReal (some (c, s)) := by
       apply Finset.sum_image
       intro a _ha b _hb hab
-      simpa using hab
+      simpa using! hab
     _ = ∑ _s ∈ squareRootLowPrimeFirstOwnerTerminalNoReentrySeatIndices
           R K j U p c, ((-μ c : ℤ) : ℝ) := by
       rfl
@@ -1401,7 +1401,7 @@ theorem squareRootLowPrimeFirstOwnerTerminalNoReentry_product_le_endpoint
             hopt hrFall
         rw [hIntrinsic] at hrIntrinsic
         have : p = r := Option.some.inj hrIntrinsic
-        exact hne (by simpa [this] using hopt)
+        exact hne (by simpa [this] using! hopt)
   by_contra hwallNot
   have hwall : squareRootEndpoint R < p * c := Nat.lt_of_not_ge hwallNot
   have hborn : s < squareRootBornPartnerCount R c :=
@@ -1555,7 +1555,7 @@ theorem squareRootLowPrimeGlobalTerminalNoReentryShallowCreationImage_weight_sum
   have hweight :=
     squareRootLowPrimeProcessedShallowSeatCreationEquiv_weight_eq
       hR hKU zz
-  simpa [zz, squareRootLowPrimeProcessedShallowSeatCreationEquiv] using hweight
+  simpa [zz, squareRootLowPrimeProcessedShallowSeatCreationEquiv] using! hweight
 
 /-- The global ledger is literally the signed mass of its disjoint
 first-owner/cofactor fibres. -/
@@ -1639,7 +1639,7 @@ theorem squareRootLowPrimeCanonicalAssigned_weight_sum_eq_noReentry_add_compleme
     (f := squareRootLowPrimeProcessedSeatWeightReal)
   rw [squareRootLowPrimeGlobalTerminalNoReentryCarrier_weight_sum] at hsplit
   simpa [squareRootLowPrimeFirstOwnerNonNoReentryComplementCarrier,
-    add_comm] using hsplit.symm
+    add_comm] using! hsplit.symm
 
 
 /-- Born-range part of the literal complement carrier. -/
@@ -1734,7 +1734,7 @@ theorem squareRootLowPrimeComplement_born_or_responseForestCancel_or_bornExit
       squareRootLowPrimeFirstOwnerAbove
           (squareRootLowPrimeFreshPrimeList K U)
           (canonicalLargestPrimeFactor c) = some p := by
-    simpa [owner] using hfirst
+    simpa [owner] using! hfirst
   have hfall :
       some (c, s) ∈
         squareRootLowPrimeProcessedSeatCanonicalOwnerFalloff
@@ -1745,7 +1745,7 @@ theorem squareRootLowPrimeComplement_born_or_responseForestCancel_or_bornExit
     ⟨hxCarrier, _hxHead, _hpFresh, _hmissing, hrough⟩
   have hxAtom :
       (c, s) ∈ squareRootLowPrimeProcessedSeatAtoms R K j U := by
-    simpa [squareRootLowPrimeProcessedSeatCarrier] using hxCarrier
+    simpa [squareRootLowPrimeProcessedSeatCarrier] using! hxCarrier
   have hxAtomData := mem_squareRootLowPrimeProcessedSeatAtoms.mp hxAtom
   have hcSigned : c ∈ squareRootLowPrimeProcessedSignedCofactors R U :=
     hxAtomData.1
@@ -1758,7 +1758,7 @@ theorem squareRootLowPrimeComplement_born_or_responseForestCancel_or_bornExit
   have hpList :=
     squareRootLowPrimeFirstOwnerAbove_mem_freshPrimeList hfirst'
   have hpSet : p ∈ squareRootLowPrimeFreshPrimeSet K U := by
-    simpa [squareRootLowPrimeFreshPrimeList] using hpList
+    simpa [squareRootLowPrimeFreshPrimeList] using! hpList
   have hpData := Finset.mem_filter.mp hpSet
   have hpPrime : p.Prime := hpData.2
   have hpU : p ≤ U := (Finset.mem_Ioc.mp hpData.1).2
@@ -1775,7 +1775,7 @@ theorem squareRootLowPrimeComplement_born_or_responseForestCancel_or_bornExit
           (by omega) hpPrime hpU hUR hs hborn hfall).mp hno
       have hsTerminal :
           s ∈ squareRootLowPrimeTerminalNoReentrySeatIndices R K j U p c := by
-        simpa using hxTerminalFiber
+        simpa using! hxTerminalFiber
       have hIntrinsic :
           squareRootLowPrimeProcessedSeatIntrinsicFirstOwner
               (squareRootLowPrimeFreshPrimeList K U)
@@ -1791,7 +1791,7 @@ theorem squareRootLowPrimeComplement_born_or_responseForestCancel_or_bornExit
       have hxLabelled :
           some (c, s) ∈
             squareRootLowPrimeFirstOwnerTerminalNoReentryFiber R K j U p c := by
-        simpa using hsLabelled
+        simpa using! hsLabelled
       have hpc :
           (p, c) ∈ squareRootLowPrimeFirstOwnerTerminalNoReentryIndex
             R K j U := by
@@ -2003,7 +2003,7 @@ theorem squareRootLowPrimeNonBornFallout_noLater_or_goShell
           p < q ∧
           s < squareRootLowPrimeCombinedFreshResponse R K j (q * c) := by
       by_contra h
-      push_neg at h
+      push Not at h
       apply hno
       intro q hq hpq
       exact Nat.le_of_not_gt (h q hq hpq)
@@ -2062,7 +2062,7 @@ theorem squareRootLowPrimeNonBornFallout_noLater_or_responseForestCancel_or_born
           p < q ∧
           s < squareRootLowPrimeCombinedFreshResponse R K j (q * c) := by
       by_contra h
-      push_neg at h
+      push Not at h
       apply hno
       intro q hq hpq
       exact Nat.le_of_not_gt (h q hq hpq)

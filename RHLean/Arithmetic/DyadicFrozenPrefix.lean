@@ -34,7 +34,7 @@ theorem moebius_eq_neg_sum_properDivisors {n : ℕ} (hn : 1 < n) :
       ArithmeticFunction.moebius_mul_coe_zeta
   have hsum : ∑ d ∈ n.divisors, μ d = 0 := by
     rw [ArithmeticFunction.coe_mul_zeta_apply] at hconv
-    rw [ArithmeticFunction.one_apply, if_neg hn.ne'] at hconv
+    rw [ArithmeticFunction.one_apply, ite_eq_right hn.ne'] at hconv
     exact hconv
   have hnmem : n ∈ n.divisors := Nat.mem_divisors.mpr ⟨dvd_rfl, by omega⟩
   have hsplit : (∑ d ∈ n.divisors.erase n, μ d) + μ n = 0 := by

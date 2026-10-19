@@ -60,8 +60,8 @@ theorem unitTriple_mem_q2Crossing_iff_owner
     have hqR : q ≤ R - 1 := Nat.le_pred_of_lt hdata.2.1
     exact mem_lowWheelFarPrimeUnitCrossingOwners.mpr
       ⟨hdata.1, hqR,
-        by simpa using hdata.2.2.2.2.2.2.2,
-        by simpa using (Finset.mem_filter.mp hcross).2⟩
+        by simpa using! hdata.2.2.2.2.2.2.2,
+        by simpa using! (Finset.mem_filter.mp hcross).2⟩
   · intro hq
     rcases mem_lowWheelFarPrimeUnitCrossingOwners.mp hq with
       ⟨hqPrime, hqRpred, hqp, hq2p⟩
@@ -70,9 +70,9 @@ theorem unitTriple_mem_q2Crossing_iff_owner
     have htriple : (q,(1,p)) ∈ lowWheelFarPrimeLowCofactorTriples R := by
       apply lowWheelFarPrimeLowCofactorTriple_mem_of_data
         hqPrime hqR (by norm_num) hp hpFar squarefree_one
-      · simpa [canonicalLargestPrimeFactor] using hqPrime.one_lt
-      · simpa using hqp
-    exact Finset.mem_filter.mpr ⟨htriple, by simpa using hq2p⟩
+      · simpa [canonicalLargestPrimeFactor] using! hqPrime.one_lt
+      · simpa using! hqp
+    exact Finset.mem_filter.mpr ⟨htriple, by simpa using! hq2p⟩
 
 /-- A unit terminal branch returns to the literal stable-wall state `(empty,1,p)`.
 The returned state no longer depends on the incoming owner `q`; this isolates
@@ -89,10 +89,10 @@ theorem unitCrossing_stableState_eq
   -- are retained so the statement stays pinned to the unit-owner terminal
   -- carrier instead of becoming a bare arithmetic identity about primes.
   have htop : canonicalLargestPrimeFactor p = p := by
-    simpa using canonicalLargestPrimeFactor_mul_prime_eq
+    simpa using! canonicalLargestPrimeFactor_mul_prime_eq
       (c := 1) (q := p) (by decide) hp.one_lt hp
   have hcore : canonicalCofactor p = 1 := by
-    simpa using canonicalCofactor_mul_prime_eq
+    simpa using! canonicalCofactor_mul_prime_eq
       (c := 1) (q := p) (by decide) hp.one_lt hp
   simp [lowWheelFarPrimeCrossingStableState, htop, hcore]
 

@@ -33,7 +33,7 @@ def liFloorPrimeCountProxy (x : ℝ) : ℝ :=
 theorem liFloorPrimeCountProxy_le_li (x : ℝ) :
     liFloorPrimeCountProxy x ≤ vfMidLogarithmicIntegralFromTwo x := by
   unfold liFloorPrimeCountProxy
-  simpa using (Int.floor_le (vfMidLogarithmicIntegralFromTwo x))
+  simpa using! (Int.floor_le (vfMidLogarithmicIntegralFromTwo x))
 
 /-- Li is strictly below the next integer after its floor. -/
 theorem li_lt_liFloorPrimeCountProxy_add_one (x : ℝ) :
@@ -135,12 +135,12 @@ theorem abs_li_at_floor_sub_li_le_inv_log_four
     exact Nat.floor_le hx0
   have hn4 : 4 ≤ n := by
     dsimp [n]
-    exact Nat.le_floor (by simpa using hx)
+    exact Nat.le_floor (by simpa using! hx)
   have hn4r : (4 : ℝ) ≤ (n : ℝ) := by
     exact_mod_cast hn4
   have hxlt : x < (n : ℝ) + 1 := by
     dsimp [n]
-    simpa using Nat.lt_floor_add_one x
+    simpa using! Nat.lt_floor_add_one x
   have hwidth : x - (n : ℝ) ≤ 1 := by
     linarith
   have hraw :=
@@ -153,7 +153,7 @@ theorem abs_li_at_floor_sub_li_le_inv_log_four
         (x - (n : ℝ)) / Real.log 4 := by
     norm_num at hraw
     simpa [vfMidLogarithmicIntegralFromTwo,
-      logarithmicIntegralFromTwo] using hraw
+      logarithmicIntegralFromTwo] using! hraw
   have hlog4 : 0 ≤ Real.log 4 :=
     (Real.log_pos (by norm_num)).le
   calc

@@ -78,8 +78,8 @@ theorem lowWheelFrozenTopFarSmoothShellFaces_image_eq_smoothShell
       have hpPrime : p.Prime := hpData.1
       have hpDiv : p ∣ primeFaceProduct t := hpData.2.1
       have hpDivProd : p ∣ t.prod id := by
-        simpa [primeFaceProduct] using hpDiv
-      rcases (Prime.dvd_finset_prod_iff hpPrime.prime id).mp hpDivProd with
+        simpa [primeFaceProduct] using! hpDiv
+      rcases (Prime.dvd_finsetProd_iff hpPrime.prime id).mp hpDivProd with
         ⟨q, hqt, hpq⟩
       have hqPrime := hprime q hqt
       rcases hqPrime.eq_one_or_self_of_dvd p hpq with hpOne | hpEq
@@ -104,7 +104,7 @@ theorem lowWheelFrozenTopFarSmoothShellFaces_image_eq_smoothShell
     refine ⟨t, ?_, hprod⟩
     apply mem_frozenPrimeUniverseWindowFaces.mpr
     refine ⟨Finset.mem_powerset.mpr htSub, ?_, ?_⟩
-    · simpa [hprod] using hlow
+    · simpa [hprod] using! hlow
     · rw [hprod]
       unfold squareRootEndpoint
       exact Nat.le_sub_of_add_le (Nat.succ_le_iff.mpr hupp)

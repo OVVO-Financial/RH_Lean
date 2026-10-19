@@ -23,8 +23,8 @@ theorem primeFaceProduct_eq_iff
         exact Finset.dvd_prod_of_mem id hpt
       rw [hprod] at hpdiv
       have hpdiv' : p ∣ u.prod id := by
-        simpa [primeFaceProduct] using hpdiv
-      rcases (Prime.dvd_finset_prod_iff hpPrime.prime id).mp hpdiv' with
+        simpa [primeFaceProduct] using! hpdiv
+      rcases (Prime.dvd_finsetProd_iff hpPrime.prime id).mp hpdiv' with
         ⟨q, hqu, hpq⟩
       rcases (huPrime q hqu).eq_one_or_self_of_dvd p hpq with hpOne | hpqEq
       · exact (hpPrime.ne_one hpOne).elim
@@ -36,8 +36,8 @@ theorem primeFaceProduct_eq_iff
         exact Finset.dvd_prod_of_mem id hpu
       rw [← hprod] at hpdiv
       have hpdiv' : p ∣ t.prod id := by
-        simpa [primeFaceProduct] using hpdiv
-      rcases (Prime.dvd_finset_prod_iff hpPrime.prime id).mp hpdiv' with
+        simpa [primeFaceProduct] using! hpdiv
+      rcases (Prime.dvd_finsetProd_iff hpPrime.prime id).mp hpdiv' with
         ⟨q, hqt, hpq⟩
       rcases (htPrime q hqt).eq_one_or_self_of_dvd p hpq with hpOne | hpqEq
       · exact (hpPrime.ne_one hpOne).elim

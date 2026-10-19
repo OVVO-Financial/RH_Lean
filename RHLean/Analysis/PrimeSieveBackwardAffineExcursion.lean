@@ -94,7 +94,7 @@ theorem primeSieveCanonicalPin_backward_stable (y t : ℕ) (ht : t ≤ y) :
 theorem primeSieveCanonicalPin_div (y : ℕ) :
     primeSieveCanonicalPin y / (y + 1) = y := by
   have h := primeSieveCanonicalPin_backward_stable y 0 (Nat.zero_le y)
-  simpa using h
+  simpa using! h
 
 /-- The backward step stays inside the square block. -/
 theorem primeSieveCanonicalPin_lt_sq (y : ℕ) :

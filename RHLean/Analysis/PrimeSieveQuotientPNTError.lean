@@ -82,11 +82,11 @@ theorem primeSieveQuotientFiber_eq_reciprocalInterval
     have hleft : x / (d + 1) < q := by
       apply (Nat.div_lt_iff_lt_mul (by omega : 0 < d + 1)).2
       have h := Nat.lt_mul_div_succ x hqpos
-      simpa [hdiv, Nat.mul_comm] using h
+      simpa [hdiv, Nat.mul_comm] using! h
     have hright : q ≤ x / d := by
       apply (Nat.le_div_iff_mul_le hd).2
       have h := Nat.mul_div_le x q
-      simpa [hdiv, Nat.mul_comm] using h
+      simpa [hdiv, Nat.mul_comm] using! h
     exact ⟨max_lt hyq hleft, hright⟩
   · rintro ⟨hlower, hupper⟩
     have hyq : y < q :=
@@ -96,10 +96,10 @@ theorem primeSieveQuotientFiber_eq_reciprocalInterval
     have hqpos : 0 < q := by omega
     have hlo : d * q ≤ x := by
       have h := (Nat.le_div_iff_mul_le hd).1 hupper
-      simpa [Nat.mul_comm] using h
+      simpa [Nat.mul_comm] using! h
     have hhi : x < (d + 1) * q := by
       have h := (Nat.div_lt_iff_lt_mul (by omega : 0 < d + 1)).1 hleft
-      simpa [Nat.mul_comm] using h
+      simpa [Nat.mul_comm] using! h
     have hdiv : x / q = d := Nat.div_eq_of_lt_le hlo hhi
     have hd1 : 1 ≤ d := by omega
     have hqx : q ≤ x := by
@@ -377,7 +377,7 @@ theorem norm_primorialMinimalSquareWheelNonzeroResponse_le_reciprocalPNT
         2 * ‖primorialReciprocalPNTErrorCenteredResponse k n‖ := by
   rw [primorialMinimalSquareWheelNonzeroResponse_eq_pntCorrected_sub_two_reciprocalError
     k n hlower hupper]
-  simpa [norm_mul] using
+  simpa [norm_mul] using!
     (norm_sub_le
       (primorialPNTCorrectedCombCenteredResponse k n)
       (2 * primorialReciprocalPNTErrorCenteredResponse k n))

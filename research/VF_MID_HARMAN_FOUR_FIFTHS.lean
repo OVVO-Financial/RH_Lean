@@ -101,7 +101,7 @@ theorem vfMidGlobalHalfPhaseDiscrepancy_fourFifths
   have hG :
       |vfMidGlobalHalfPhaseDiscrepancy R| ≤
         C * Real.rpow (((R ^ 2 : ℕ) : ℝ)) ((4 : ℝ) / 5 + ε) := by
-    simpa [vfMidGlobalHalfPhaseDiscrepancy] using hhalf
+    simpa [vfMidGlobalHalfPhaseDiscrepancy] using! hhalf
   rw [vfMid_rpow_square_fourFifths] at hG
   exact hG
 

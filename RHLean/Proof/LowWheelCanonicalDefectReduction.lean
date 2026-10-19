@@ -59,18 +59,18 @@ theorem lowWheelCanonicalToggle_eq_self_iff_product_eq_one
     by_contra hprod
     let p := lowWheelCanonicalCofactorQuotientPivot (c, k)
     have hp : p.Prime := by
-      simpa [p] using lowWheelCanonicalCofactorQuotientPivot_prime hprod
+      simpa [p] using! lowWheelCanonicalCofactorQuotientPivot_prime hprod
     have hactive : p ∣ c ∨ p ∣ k := by
-      simpa [p] using lowWheelCanonicalCofactorQuotientPivot_active hprod
+      simpa [p] using! lowWheelCanonicalCofactorQuotientPivot_active hprod
     change lowWheelCofactorQuotientToggleAt p (c, k) = (c, k) at hfix
     unfold lowWheelCofactorQuotientToggleAt at hfix
     by_cases hpc : p ∣ c
-    · simp only [hpc, if_true] at hfix
+    · simp only [hpc, ite_true] at hfix
       have hfirst : c / p = c := congrArg Prod.fst hfix
       have hlt : c / p < c := Nat.div_lt_self hc hp.one_lt
       omega
     · have hpk : p ∣ k := hactive.resolve_left hpc
-      simp only [hpc, if_false, hpk, if_true] at hfix
+      simp only [hpc, ite_false, hpk, ite_true] at hfix
       have hfirst : c * p = c := congrArg Prod.fst hfix
       have hp2 : 2 ≤ p := hp.two_le
       nlinarith
@@ -90,7 +90,7 @@ theorem lowWheelCanonicalPhysicalFixedPart_eq_singleton_or_empty
   classical
   by_cases hgeom :
       R < primeFaceProduct t ∧ primeFaceProduct t ≤ squareRootEndpoint R
-  · rw [if_pos hgeom]
+  · rw [ite_eq_left hgeom]
     ext x
     rcases x with ⟨c, k⟩
     constructor
@@ -110,14 +110,14 @@ theorem lowWheelCanonicalPhysicalFixedPart_eq_singleton_or_empty
       have hcLe : c ≤ 1 := by
         have hmul : c * 1 ≤ c * k :=
           Nat.mul_le_mul_left c (by omega : 1 ≤ k)
-        simpa [hprod] using hmul
+        simpa [hprod] using! hmul
       have hcEq : c = 1 := by omega
       subst c
-      have hkEq : k = 1 := by simpa using hprod
+      have hkEq : k = 1 := by simpa using! hprod
       subst k
       simp
     · intro hx
-      have hxone : (c, k) = (1, 1) := by simpa using hx
+      have hxone : (c, k) = (1, 1) := by simpa using! hx
       cases hxone
       apply Finset.mem_filter.mpr
       constructor
@@ -127,10 +127,10 @@ theorem lowWheelCanonicalPhysicalFixedPart_eq_singleton_or_empty
           constructor
           · norm_num
           · omega
-        · exact ⟨by norm_num, by omega, by simpa using hgeom.1,
-            by simpa using hgeom.2⟩
+        · exact ⟨by norm_num, by omega, by simpa using! hgeom.1,
+            by simpa using! hgeom.2⟩
       · exact lowWheelCanonicalToggle_eq_self_of_product_eq_one (by norm_num)
-  · rw [if_neg hgeom]
+  · rw [ite_eq_right hgeom]
     ext x
     constructor
     · intro hx
@@ -149,17 +149,17 @@ theorem lowWheelCanonicalPhysicalFixedPart_eq_singleton_or_empty
       have hcLe : x.1 ≤ 1 := by
         have hmul : x.1 * 1 ≤ x.1 * x.2 :=
           Nat.mul_le_mul_left x.1 (by omega : 1 ≤ x.2)
-        simpa [hprod] using hmul
+        simpa [hprod] using! hmul
       have hcEq : x.1 = 1 := by omega
-      have hkEq : x.2 = 1 := by simpa [hcEq] using hprod
+      have hkEq : x.2 = 1 := by simpa [hcEq] using! hprod
       have hxone : x = (1, 1) := Prod.ext hcEq hkEq
       subst x
       have hcarrier := hmem.2.2.2
       exfalso
       apply hgeom
       constructor
-      · simpa [LowWheelTransportPairCarrier] using hcarrier.2.2.1
-      · simpa [LowWheelTransportPairCarrier] using hcarrier.2.2.2
+      · simpa [LowWheelTransportPairCarrier] using! hcarrier.2.2.1
+      · simpa [LowWheelTransportPairCarrier] using! hcarrier.2.2.2
     · simp
 
 /-- Fixed mass in one Boolean face. -/
@@ -464,7 +464,7 @@ theorem lowWheelCanonicalDefectPart_eq_downcrossPart
       (lowWheelCofactorQuotientToggleAt
         (lowWheelCanonicalCofactorQuotientPivot (c, k)) (c, k)) at hmateCarrier
     unfold lowWheelCofactorQuotientToggleAt at hmateCarrier
-    simp only [hpc, if_false, hpk, if_true] at hmateCarrier
+    simp only [hpc, ite_false, hpk, ite_true] at hmateCarrier
     exact (Nat.not_lt_of_ge hdown) hmateCarrier.2.2.1
 
 /-- Every explicit downcross state is literally an adjacent multiplicative

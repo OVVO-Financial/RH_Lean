@@ -58,7 +58,7 @@ theorem k2KernelComparisonHigh_abs_le
     |∑ d ∈ Finset.Ico (Nat.sqrt N) N, k2r d * k2WeightError N d|
         ≤ ∑ d ∈ Finset.Ico (Nat.sqrt N) N,
             |k2r d * k2WeightError N d| := by
-          simpa only [Real.norm_eq_abs] using
+          simpa only [Real.norm_eq_abs] using!
             (norm_sum_le (Finset.Ico (Nat.sqrt N) N)
               (fun d : ℕ => k2r d * k2WeightError N d))
     _ ≤ ∑ d ∈ Finset.Ico (Nat.sqrt N) N,
@@ -73,7 +73,7 @@ theorem k2KernelComparisonHigh_abs_le
         have hlogle := Real.log_le_log hspos hcast
         have hr0 := hr d hds hdN
         have hr1 : |k2r d| * Real.log (d : ℝ) ≤ eta := by
-          simpa [abs_mul, abs_of_nonneg hlogd] using hr0
+          simpa [abs_mul, abs_of_nonneg hlogd] using! hr0
         have hrs : |k2r d| * Real.log (Nat.sqrt N : ℝ) ≤ eta :=
           (mul_le_mul_of_nonneg_left hlogle (abs_nonneg _)).trans hr1
         have hrdiv : |k2r d| ≤ eta / Real.log (Nat.sqrt N : ℝ) :=
@@ -111,7 +111,7 @@ theorem k2KernelComparisonHigh_tendsto_zero (h : K2ClassicalMomentInput) :
   have hrEv : ∀ᶠ d : ℕ in atTop,
       |k2r d * Real.log (d : ℝ)| < eta := by
     have hraw := (Metric.tendsto_nhds.1 h.r_mul_log_tendsto_zero) eta heta
-    simpa [Real.dist_eq] using hraw
+    simpa [Real.dist_eq] using! hraw
   rcases eventually_atTop.1 hrEv with ⟨K, hK⟩
   have hsEv : ∀ᶠ N : ℕ in atTop, max K 2 ≤ Nat.sqrt N :=
     k2Sqrt_tendsto_atTop.eventually (eventually_ge_atTop (max K 2))
@@ -123,7 +123,7 @@ theorem k2KernelComparisonHigh_tendsto_zero (h : K2ClassicalMomentInput) :
   have hsmall : 8 * eta < eps := by
     dsimp [eta]
     linarith
-  simpa [Real.dist_eq] using hbound.trans_lt hsmall
+  simpa [Real.dist_eq] using! hbound.trans_lt hsmall
 
 /-- Full harmonic-floor/logarithmic kernel comparison. -/
 def k2KernelComparisonSum (N : ℕ) : ℝ :=
@@ -151,7 +151,7 @@ theorem k2KernelComparisonSum_tendsto_zero (h : K2ClassicalMomentInput) :
     filter_upwards [hsEv] with N hs
     exact k2KernelComparisonSum_split N hs
   have hconv := hsum.congr' heq
-  simpa using hconv
+  simpa using! hconv
 
 /-- Harmonic-floor weighted centered moment sum. -/
 def k2HarmonicCenteredWeightSum (N : ℕ) : ℝ :=
@@ -175,7 +175,7 @@ theorem k2HarmonicCenteredWeightSum_tendsto (h : K2ClassicalMomentInput) :
   rcases k2LogCenteredWeightSum_tendsto h with ⟨ell, hell⟩
   refine ⟨ell, ?_⟩
   have hsum := hell.add (k2KernelComparisonSum_tendsto_zero h)
-  simpa only [add_zero] using hsum.congr' (Eventually.of_forall fun N =>
+  simpa only [add_zero] using! hsum.congr' (Eventually.of_forall fun N =>
     (k2HarmonicCenteredWeightSum_eq N).symm)
 
 /-- The finite K2 centered harmonic expression converges. -/
@@ -204,7 +204,7 @@ theorem k2CenteredHarmonic_tendsto (h : K2ClassicalMomentInput) :
     unfold k2HarmonicCenteredWeightSum k2HarmonicWeight
     exact hF.symm
   have hconv := hsum.congr' heq
-  simpa using hconv
+  simpa using! hconv
 
 /-- **Classical centered K2 closure.**  The three reciprocal moment limits imply
 convergence of the centered reciprocal K2 mass. -/
@@ -222,7 +222,7 @@ theorem k2ClassicalMomentInput_to_centered_converges
         (fun N : ℕ => 2 * gammaE *
           ((harmonic N : ℝ) - Real.log (N : ℝ)))
         atTop (𝓝 (2 * gammaE * gammaE)) := by
-    simpa using (tendsto_const_nhds.mul hEuler :
+    simpa using! (tendsto_const_nhds.mul hEuler :
       Tendsto
         (fun N : ℕ => (2 * gammaE) *
           ((harmonic N : ℝ) - Real.log (N : ℝ)))

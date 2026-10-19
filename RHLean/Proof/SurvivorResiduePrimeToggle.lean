@@ -288,7 +288,7 @@ theorem survivorPrimeFaceResidueHigh_alternatingMass_decomposition
                 survivorPrimeFaceHigh_indicator_decomposition Λ t q u hΛ
               unfold survivorPrimeFaceIndicator at hind
               have hscaled := congrArg (fun z : ℤ => z * booleanCubeSign u) hind
-              simpa [hr, add_mul, sub_mul] using hscaled
+              simpa [hr, add_mul, sub_mul] using! hscaled
             · simp [hr]
     _ =
       (∑ u ∈ (survivorPrimeFaceAmbient q).powerset,

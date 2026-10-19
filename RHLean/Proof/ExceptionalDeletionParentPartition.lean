@@ -201,7 +201,7 @@ theorem squareBlockOutsidePrimeLeastCompleteSource_eq_exceptionalSourcePackets
 
 private theorem abs_threeSlotDegreeOneValue_state_le_three (k : ℕ) :
     |threeSlotDegreeOneValue (threeSlotState k)| ≤ 3 := by
-  simpa [RHLean.Analysis.physicalTCellValue] using
+  simpa [RHLean.Analysis.physicalTCellValue] using!
     RHLean.Analysis.abs_physicalTCellValue_le_three k
 
 private theorem abs_trueSource_sum_le_three_mul_card

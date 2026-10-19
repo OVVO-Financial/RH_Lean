@@ -56,7 +56,7 @@ cofactor times its distinguished prime. -/
 theorem vf919TwistedFermatProduct_one (c q : ℝ) :
     vf919TwistedFermatProduct c q 1 = c * q := by
   unfold vf919TwistedFermatProduct
-  simpa using fermatPoint_sq_re c q
+  simpa using! fermatPoint_sq_re c q
 
 /-- The squared-Fermat scalar projection IDENTIFIES opposite
 complex phases: m and -m have the same physical real value.

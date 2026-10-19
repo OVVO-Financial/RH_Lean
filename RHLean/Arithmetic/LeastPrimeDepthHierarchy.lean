@@ -29,7 +29,7 @@ theorem card_primeFactors_le_of_lt_minFac_pow
     n.primeFactors.card ≤ r := by
   classical
   by_contra hcon
-  push_neg at hcon
+  push Not at hcon
   -- Every prime factor is at least the least prime factor.
   have hle : ∀ p ∈ n.primeFactors, n.minFac ≤ p := by
     intro p hp
@@ -44,7 +44,7 @@ theorem card_primeFactors_le_of_lt_minFac_pow
       n.minFac ^ n.primeFactors.card
           = ∏ _p ∈ n.primeFactors, n.minFac := by rw [Finset.prod_const]
       _ ≤ ∏ p ∈ n.primeFactors, p :=
-          Finset.prod_le_prod (fun _ _ => Nat.zero_le _) hle
+          Finset.prod_le_prod₀ (fun _ _ => Nat.zero_le _) hle
       _ = n := hprod
   -- and `minFac^{r+1} ≤ minFac^{card}` because `r+1 ≤ card`.
   have hstep : n.minFac ^ (r + 1) ≤ n.minFac ^ n.primeFactors.card :=
@@ -82,7 +82,7 @@ theorem card_primeFactors_eq_two_of_composite_lt_minFac_cube
     (hnX : n ≤ X) (hlt : X < n.minFac ^ 3) :
     n.primeFactors.card = 2 := by
   have hle : n.primeFactors.card ≤ 2 :=
-    card_primeFactors_le_of_lt_minFac_pow hsq hnX (by simpa using hlt)
+    card_primeFactors_le_of_lt_minFac_pow hsq hnX (by simpa using! hlt)
   have hge : 2 ≤ n.primeFactors.card :=
     two_le_card_primeFactors_of_not_prime hsq hn1 hcomp
   omega

@@ -37,7 +37,7 @@ theorem lowWheelFrozenSecondContact_parentFaceProduct_eq_sourceScale_mul_canonic
     (lowWheelCanonicalRepeatedFrozenCofactor_source_data hyFrozen).2.2.2.2.1
   have hfactor :
       canonicalCofactor y.2.1 * lowWheelFrozenCofactorTopPrime y = y.2.1 := by
-    simpa [lowWheelFrozenCofactorTopPrime] using
+    simpa [lowWheelFrozenCofactorTopPrime] using!
       (canonicalCofactor_mul_largestPrimeFactor hcgt)
   have heq :
       lowWheelFrozenCofactorTopPrime y *
@@ -76,7 +76,7 @@ theorem lowWheelFrozenSecondContact_sourceWeight_eq_scale_mul_canonicalCofactor
   have hstrip :
       canonicalMoebiusWeight (canonicalCofactor y.2.1) =
         -canonicalMoebiusWeight y.2.1 := by
-    simpa [canonicalCofactor, lowWheelFrozenCofactorTopPrime] using
+    simpa [canonicalCofactor, lowWheelFrozenCofactorTopPrime] using!
       (canonicalMoebiusWeight_div_prime hqPrime hsq hqDvd)
   calc
     canonicalMoebiusWeight y.2.1 * (booleanCubeSign y.1 : ℂ) =
@@ -142,7 +142,7 @@ theorem lowWheelFrozenSecondContact_physicalGo_intertwining
     lowWheelFrozenSecondContact_sourceWeight_eq_scale_mul_canonicalCofactor hy,
     ?_⟩
   have h := lowWheelFrozenSecondContact_source_lowerScaleSecondContact hy
-  simpa [lowWheelFrozenSecondContactSourceScale] using h
+  simpa [lowWheelFrozenSecondContactSourceScale] using! h
 
 /-- **Fixed-owner carrier equivalence.**  On the genuine saturated
 second-contact population, erasing the owner is not merely an injection into a
@@ -167,7 +167,7 @@ theorem lowWheelFrozenSecondContactParentFace_bijOn_highOwnerWindow
     have hyOwner := (Finset.mem_filter.mp hy).2
     change lowWheelFrozenSecondContactParentFace y ∈
       lowWheelFrozenSecondContactHighOwnerWindow R q
-    simpa [hyOwner] using
+    simpa [hyOwner] using!
       lowWheelFrozenSecondContactParentFace_mem_highOwnerWindow hySource
   · intro y hy z hz hface
     change y ∈ (lowWheelCanonicalRepeatedFrozenSecondContactPart R).filter
@@ -249,7 +249,7 @@ theorem sum_qSquareContactIndicator_eq_one
     {q a : ℕ} [NeZero (q ^ 2)] (hq : q.Prime) (hq2 : q ≠ 2) :
     (∑ z : ZMod (q ^ 2), qSquareContactIndicator q a z) = 1 := by
   have hcop : Nat.Coprime (q ^ 2) 4 := by
-    simpa using
+    simpa using!
       (Nat.coprime_pow_primes (p := q) (q := 2) 2 2
         hq Nat.prime_two hq2)
   let e : ZMod (q ^ 2) ≃ ZMod (q ^ 2) :=
@@ -298,7 +298,7 @@ theorem qSquareContact_coprimeTensor_firstMoment
   have htensor := coprimeZMod_sum_tensor (q ^ 2) M hcop
     (qSquareContactIndicator q a) g
   rw [sum_qSquareContactIndicator_eq_one hq hq2] at htensor
-  simpa using htensor
+  simpa using! htensor
 
 /-- Rank-one energy is exactly preserved by the q-square contact/daughter
 bijection before the independent 11 layer is applied. -/
@@ -358,7 +358,7 @@ theorem qSquareContact_eleven_coprimeTensor_firstMoment
       (∑ w : ZMod (121 * M), Gsigned w) =
         onePrimeWalshFactor 11 1 *
           (∑ w : ZMod (121 * M), Gzero w) := by
-    simpa [Gsigned, Gzero] using h11
+    simpa [Gsigned, Gzero] using! h11
   calc
     (∑ z : ZMod ((q ^ 2) * (121 * M)),
         qSquareContactIndicator q a
@@ -369,7 +369,7 @@ theorem qSquareContact_eleven_coprimeTensor_firstMoment
             g ((ZMod.chineseRemainder h11cop)
                 ((ZMod.chineseRemainder hqcop) z).2).2)) =
       ∑ w : ZMod (121 * M), Gsigned w := by
-        simpa [Gsigned] using hqSigned
+        simpa [Gsigned] using! hqSigned
     _ = onePrimeWalshFactor 11 1 *
         (∑ w : ZMod (121 * M), Gzero w) := h11'
     _ = onePrimeWalshFactor 11 1 *
@@ -448,7 +448,7 @@ theorem squareRootLowPrimeGoWallSquareResidual_cast_eq_roughCofactorMobiusPrefix
   apply Finset.sum_congr rfl
   intro c hc
   by_cases hrough : canonicalLargestPrimeFactor c < q
-  · rw [if_pos hrough]
+  · rw [ite_eq_left hrough]
     by_cases hsq : Squarefree c
     · simp [hsq, hrough, canonicalMoebiusWeight]
     · have hmu : μ c = 0 :=
@@ -490,11 +490,11 @@ theorem lowWheelFrozenSecondContactRootFlooredColumn_eq_goOrRoot
   apply Finset.sum_congr rfl
   intro q hq
   by_cases hdeep : R ≤ squareRootEndpoint R / (q * q)
-  · rw [if_pos hdeep, max_eq_right hdeep,
+  · rw [ite_eq_left hdeep, max_eq_right hdeep,
       squareRootLowPrimeGoWallSquareResidual_eq_squareCutoff]
   · have hle : squareRootEndpoint R / (q * q) ≤ R :=
       Nat.le_of_lt (Nat.lt_of_not_ge hdeep)
-    rw [if_neg hdeep, max_eq_left hle]
+    rw [ite_eq_right hdeep, max_eq_left hle]
 
 /-- **Global signed physical/Go equivalence with boundary bookkeeping.**  The
 entire saturated physical second-contact source ledger is exactly one root

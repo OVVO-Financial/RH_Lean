@@ -43,7 +43,7 @@ theorem normalized_tripling_scaling
     (c q : ℕ) (h3 : ¬ 3 ∣ c * q) :
     normalizedCofactorWeight (3 * c) q =
       -(1 / 2 : ℂ) * normalizedCofactorWeight c q := by
-  simpa [normalizedCofactorWeight] using
+  simpa [normalizedCofactorWeight] using!
     congrArg (fun x : ℚ => (x : ℂ))
       (normalized_tripling_scaling_rat c q h3)
 
@@ -60,7 +60,7 @@ theorem normalized_cancellation_identity
     (c q : ℕ) (h3 : ¬ 3 ∣ c * q) :
     normalizedCofactorWeight c q +
         2 * normalizedCofactorWeight (3 * c) q = 0 := by
-  simpa [normalizedCofactorWeight] using
+  simpa [normalizedCofactorWeight] using!
     congrArg (fun x : ℚ => (x : ℂ))
       (normalized_cancellation_identity_rat c q h3)
 

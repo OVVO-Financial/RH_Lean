@@ -39,7 +39,7 @@ def primorialCommonTorusModulus (k : ℕ) : ℕ :=
 
 /-- Every indexed wheel prime is prime. -/
 theorem wheelPrime_prime (k : ℕ) : Nat.Prime (wheelPrime k) := by
-  exact Nat.nth_mem_of_infinite Nat.infinite_setOf_prime k
+  exact Nat.nth_mem_of_infinite Nat.infinite_setOfPred_prime k
 
 @[simp] theorem primorialEndpoint_zero : primorialEndpoint 0 = 1 := by
   simp [primorialEndpoint]
@@ -91,7 +91,7 @@ theorem primorialBlockUpper_lt_commonTorusModulus (k : ℕ) :
   calc
     primorialBlockUpper k < primorialBlockUpper k + 1 := Nat.lt_succ_self _
     _ ≤ (primorialBlockUpper k + 1) * primorialSquareSensitiveModulus k := by
-      simpa using Nat.mul_le_mul_left (primorialBlockUpper k + 1) hQ
+      simpa using! Nat.mul_le_mul_left (primorialBlockUpper k + 1) hQ
 
 /-- Concrete finite wheel system attached to the `k`th primorial block. -/
 def primorialWheelSystem (k : ℕ) : PrimeWheelFiniteSystem where

@@ -147,7 +147,7 @@ lemma localPrimeComb_resolvedPart
   have hfac :
       (primeWheelResolvedPart y n).factorization p = n.factorization p := by
     rw [primeWheelResolvedPart_factorization, primeWheelResolvedFactorization,
-      Finsupp.filter_apply, if_pos hpLe]
+      Finsupp.filter_apply, ite_eq_left hpLe]
   have ha0 := primeWheelResolvedPart_ne_zero y n
   have hsq : p ^ 2 ∣ n ↔ p ^ 2 ∣ primeWheelResolvedPart y n := by
     rw [hpPrime.pow_dvd_iff_le_factorization hn,
@@ -188,7 +188,7 @@ theorem seededPrimeComb_primesUpTo_eq_neg_moebius_resolvedPart
       ((primeWheelResolvedPart_isSmooth y n).2 hsq)
   · have hmu := ArithmeticFunction.moebius_eq_zero_of_not_squarefree hsq
     rw [Nat.squarefree_iff_prime_squarefree] at hsq
-    push_neg at hsq
+    push Not at hsq
     rcases hsq with ⟨p, hpPrime, hpSq⟩
     have hpDvd : p ∣ primeWheelResolvedPart y n :=
       dvd_trans (dvd_mul_right p p) hpSq
@@ -216,7 +216,7 @@ lemma unresolvedPart_eq_one_iff_all_primeFactors_le
     have hfac :
         (primeWheelUnresolvedPart y n).factorization p = n.factorization p := by
       rw [primeWheelUnresolvedPart_factorization, primeWheelUnresolvedFactorization,
-        Finsupp.filter_apply, if_pos hpLe]
+        Finsupp.filter_apply, ite_eq_left hpLe]
     rw [hb, Nat.factorization_one] at hfac
     simp at hfac
     exact hpNe hfac.symm
@@ -275,7 +275,7 @@ theorem partialPrimeWheel_error_eq
   have hraw := seededPrimeComb_primesUpTo_eq_neg_moebius_resolvedPart y hn
   by_cases hb : primeWheelUnresolvedPart y n = 1
   · have ha : primeWheelResolvedPart y n = n := by
-      simpa [hb] using hab
+      simpa [hb] using! hab
     have hnSmooth : ∀ p ∈ n.primeFactors, p ≤ y :=
       (unresolvedPart_eq_one_iff_all_primeFactors_le y).1 hb
     have hcorrect : partialPrimeWheelSite y upper n = μ n := by
@@ -286,7 +286,7 @@ theorem partialPrimeWheel_error_eq
           intro p hp
           exact mem_primesUpTo.mpr ⟨Nat.prime_of_mem_primeFactors hp, hnSmooth p hp⟩
         have hrawN : seededPrimeComb (primesUpTo y) n = -μ n := by
-          simpa [ha] using hraw
+          simpa [ha] using! hraw
         simp [correctedPrimeWheelSite, primeWheelSmoothCoreSite,
           hnupper, hsmooth, hrawN]
         ring
@@ -294,7 +294,7 @@ theorem partialPrimeWheel_error_eq
           fun h => hsq h.1
         have hmu0 := ArithmeticFunction.moebius_eq_zero_of_not_squarefree hsq
         have hrawN : seededPrimeComb (primesUpTo y) n = 0 := by
-          simpa [ha, hmu0] using hraw
+          simpa [ha, hmu0] using! hraw
         simp [correctedPrimeWheelSite, primeWheelSmoothCoreSite,
           hnupper, hnonsmooth, hrawN, hmu0]
     simp [hb, hcorrect]

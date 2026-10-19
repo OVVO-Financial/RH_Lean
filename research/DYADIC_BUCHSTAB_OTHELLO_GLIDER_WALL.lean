@@ -82,7 +82,7 @@ theorem primeTwoCutoffWall_eq_dyadicCofactorBoundary (B : ℕ) :
         omega
       · exact hodd
     exact mem_dyadicCofactorBoundary.mpr
-      ⟨by omega, hnBounds.2, hodd, by simpa [Nat.mul_comm] using hcut⟩
+      ⟨by omega, hnBounds.2, hodd, by simpa [Nat.mul_comm] using! hcut⟩
   · intro hn
     rcases mem_dyadicCofactorBoundary.mp hn with
       ⟨hn1, hnB, hodd, hcut⟩
@@ -93,7 +93,7 @@ theorem primeTwoCutoffWall_eq_dyadicCofactorBoundary (B : ℕ) :
       omega
     exact mem_primeCarrierCutoffWall.mpr
       ⟨Finset.mem_Ioc.mpr ⟨by omega, hnB⟩, h2n,
-        by simpa [Nat.mul_comm] using hcut⟩
+        by simpa [Nat.mul_comm] using! hcut⟩
 
 /-- Prime-two glider set: the entire escape part of (0,B] is exactly the odd
 dyadic annulus. -/
@@ -121,7 +121,7 @@ theorem sum_canonicalMoebiusWeight_eq_sum_iteratedPrimeEscapePart
   have h := sum_moebius_eq_sum_iteratedPrimeEscapePart ps hps S
   have hc := congrArg (fun z : ℤ => (z : ℂ)) h
   push_cast at hc
-  simpa [canonicalMoebiusWeight] using hc
+  simpa [canonicalMoebiusWeight] using! hc
 
 /-- The iterated survivor/glider boundary obtained by replaying Othello on the
 prime-two dyadic wall. -/
@@ -153,7 +153,7 @@ theorem squarefree_dyadicAtom_toggle_not_mem
     (hn : n ∈ dyadicCofactorBoundary B) (hsf : Squarefree n) :
     primeCarrierToggle p n ∉ dyadicCofactorBoundary B := by
   have hsq : ¬ p ^ 2 ∣ n := by
-    simpa [pow_two] using
+    simpa [pow_two] using!
       (Nat.squarefree_iff_prime_squarefree.mp hsf p hp)
   rcases mem_dyadicCofactorBoundary.mp hn with
     ⟨hn1, hnB, _hnOdd, hB2n⟩
@@ -172,7 +172,7 @@ theorem squarefree_dyadicAtom_toggle_not_mem
     have hlt : 2 * n < n * p := by
       have h :=
         Nat.mul_lt_mul_of_pos_left hp2 (by omega : 0 < n)
-      simpa [Nat.mul_comm] using h
+      simpa [Nat.mul_comm] using! h
     omega
 
 /-- The same escape statement on any subcarrier of the dyadic wall. -/
@@ -198,7 +198,7 @@ theorem squarefree_dyadicAtom_mem_iteratedEscape_of_subset
     n ∈ iteratedPrimeEscapePart ps S := by
   induction ps generalizing S with
   | nil =>
-      simpa using hn
+      simpa using! hn
   | cons p ps ih =>
       have hpData : p.Prime ∧ 2 < p := hps p (by simp)
       have htail : ∀ q ∈ ps, q.Prime ∧ 2 < q := by
@@ -266,7 +266,7 @@ theorem dyadicCofactorBoundary_div_eq_one
     (Nat.one_le_div_iff hnpos).2 hnB
   have hhi : B / n < 2 :=
     (Nat.div_lt_iff_lt_mul hnpos).2
-      (by simpa [Nat.mul_comm] using hB2n)
+      (by simpa [Nat.mul_comm] using! hB2n)
   omega
 
 /-- Every live top-wall atom lies in the replacement fibre \`z = 1\`.
@@ -546,7 +546,7 @@ theorem squareRootCanonicalRoughCofactorResponse_56_six :
       hgt (by norm_num) (by norm_num)
   have hlpf : canonicalLargestPrimeFactor 6 = 3 := by
     have hprodDvd : canonicalLargestPrimeFactor 6 ∣ 2 * 3 := by
-      simpa using hlpfDvd
+      simpa using! hlpfDvd
     rcases hlpfPrime.dvd_mul.mp hprodDvd with htwo | hthree
     · have heq : canonicalLargestPrimeFactor 6 = 2 :=
         (Nat.prime_dvd_prime_iff_eq hlpfPrime (by norm_num)).mp htwo
@@ -565,7 +565,7 @@ theorem squareRootCanonicalRoughCofactorResponse_56_six :
     constructor
     · rintro ⟨hqPrime, h3q, hroot, hupper⟩
       have hupper' : 6 * q ≤ 3135 := by
-        simpa [squareRootEndpoint] using hupper
+        simpa [squareRootEndpoint] using! hupper
       exact ⟨⟨by omega, by omega⟩, hqPrime⟩
     · rintro ⟨⟨h10, h522⟩, hqPrime⟩
       refine ⟨hqPrime, by omega, by omega, ?_⟩
@@ -602,9 +602,9 @@ private theorem divisors_mul_prime_eq_union_image
   · intro hn
     rcases Finset.mem_mul.mp hn with ⟨a, ha, b, hb, hab⟩
     have ha' : a = 1 ∨ a = p := by
-      simpa using ha
+      simpa using! ha
     rcases ha' with rfl | rfl
-    · have hbn : b = n := by simpa using hab
+    · have hbn : b = n := by simpa using! hab
       exact Finset.mem_union.mpr (Or.inl (hbn ▸ hb))
     · exact Finset.mem_union.mpr
         (Or.inr (Finset.mem_image.mpr ⟨b, hb, hab⟩))
@@ -663,7 +663,7 @@ theorem squareRootReplacementKernel_mul_freshPrime_eq_crossingShell
     rw [ArithmeticFunction.moebius_apply_prime hp]
     ring
   have hdp : d ≤ p * d := by
-    simpa using Nat.mul_le_mul_right d hp.one_le
+    simpa using! Nat.mul_le_mul_right d hp.one_le
   by_cases hdR : d < R
   · by_cases hpdR : p * d < R
     · have hnot : ¬ R ≤ p * d := Nat.not_le_of_gt hpdR
@@ -693,7 +693,7 @@ theorem squareRootReplacementKernel_of_distinct_low_primes
   have h1R : 1 < R := hp.one_lt.trans hpR
   have hqNot : ¬ R ≤ q := by omega
   have hqpCross : R ≤ q * p := by
-    simpa [Nat.mul_comm] using hprod
+    simpa [Nat.mul_comm] using! hprod
   simp [squareRootReplacementCrossingShell, hp.divisors, h1R, hpR,
     hqNot, hqpCross, ArithmeticFunction.moebius_apply_prime hp]
 
@@ -928,11 +928,11 @@ theorem squareRootReplacementCrossingShell_squarefree_eq_finiteDifferenceOperato
     intro hpMem
     exact hfresh (Nat.mem_primeFactors.mp hpMem).2.1
   have hcWheel : RHLean.Arithmetic.primorial c.primeFactors = c := by
-    simpa [RHLean.Arithmetic.primorial] using Nat.prod_primeFactors_of_squarefree hsq
+    simpa [RHLean.Arithmetic.primorial] using! Nat.prod_primeFactors_of_squarefree hsq
   have h :=
     squareRootReplacementCrossingShell_primorial_eq_finiteDifferenceOperator
       c.primeFactors R p hR hp hpS hprime
-  simpa [hcWheel] using h
+  simpa [hcWheel] using! h
 
 /-- Presentation-free expanded insertion law for every squarefree parent. -/
 theorem squareRootReplacementCrossingShell_squarefree_eq_old_sub_shift
@@ -951,11 +951,11 @@ theorem squareRootReplacementCrossingShell_squarefree_eq_old_sub_shift
     intro hpMem
     exact hfresh (Nat.mem_primeFactors.mp hpMem).2.1
   have hcWheel : RHLean.Arithmetic.primorial c.primeFactors = c := by
-    simpa [RHLean.Arithmetic.primorial] using Nat.prod_primeFactors_of_squarefree hsq
+    simpa [RHLean.Arithmetic.primorial] using! Nat.prod_primeFactors_of_squarefree hsq
   have h :=
     squareRootReplacementCrossingShell_primorial_eq_old_sub_shift
       c.primeFactors R p hR hp hpS hprime
-  simpa [hcWheel] using h
+  simpa [hcWheel] using! h
 
 /-- Literal divisor-edge carrier of the crossing shell. -/
 def squareRootReplacementCrossingShellCarrier
@@ -1000,7 +1000,7 @@ theorem squareRootReplacementCrossingShellCarrier_selfPrime_mem_thresholdLoss
     · subst c
       have hdEq : d = 1 := Nat.dvd_one.mp hdc
       subst d
-      simpa [canonicalLargestPrimeFactor] using hp.one_lt
+      simpa [canonicalLargestPrimeFactor] using! hp.one_lt
     · have hcGt : 1 < c := by omega
       exact (canonicalLargestPrimeFactor_le_of_dvd hdpos hcGt hdc).trans_lt
         hrough
@@ -1008,7 +1008,7 @@ theorem squareRootReplacementCrossingShellCarrier_selfPrime_mem_thresholdLoss
     (mem_squareRootCanonicalRoughFreshThresholdLossBoundary_iff
       hR hdpos hp hdrough).2
   refine ⟨hp, hdrough, ?_, ?_, le_rfl⟩
-  · simpa [Nat.mul_comm] using hcross
+  · simpa [Nat.mul_comm] using! hcross
   · calc
       d * p ≤ c * p := Nat.mul_le_mul_right p hdle
       _ ≤ squareRootEndpoint R := hupper
@@ -1045,7 +1045,7 @@ theorem squareRootReplacementCrossingShellCarrier_handoff_to_fourCorner
     · subst c
       have hdEq : d = 1 := Nat.dvd_one.mp hdc
       subst d
-      simpa [canonicalLargestPrimeFactor] using hp.one_lt
+      simpa [canonicalLargestPrimeFactor] using! hp.one_lt
     · have hcGt : 1 < c := by omega
       exact (canonicalLargestPrimeFactor_le_of_dvd hdpos hcGt hdc).trans_lt
         hrough

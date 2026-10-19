@@ -312,7 +312,7 @@ private theorem abs_nnsOneBlockSquareUpdateEvent_eq_sq (m : ℕ) :
       (realCanonicalMoebiusWeight m) ^ 2 := by
   unfold nnsOneBlockSquareUpdateEvent
   rw [abs_neg]
-  simpa [realCanonicalMoebiusWeight, realMoebiusStep] using
+  simpa [realCanonicalMoebiusWeight, realMoebiusStep] using!
     abs_realMoebiusStep_eq_sq_nnsOneBlock m
 
 /-- **Closed denominator formula.**  The total target-zero NNS mass of the
@@ -476,8 +476,8 @@ theorem nnsOneBlockNormalizedCovariance_eq_alpha_mul_beta (R : ℕ) :
           nnsOneBlockOldSquarefreeMass R *
               nnsOneBlockUpdateSquarefreeMass R ≠ 0 :=
         mul_ne_zero hOld hNew
-      rw [if_neg hprod]
-      simp only [nnsOneBlockAlpha, nnsOneBlockBeta, hOld, hNew, if_false]
+      rw [ite_eq_right hprod]
+      simp only [nnsOneBlockAlpha, nnsOneBlockBeta, hOld, hNew, ite_false]
       field_simp
 
 /-- The oriented real old-tail sum casts exactly to the repository's hard
@@ -522,7 +522,7 @@ theorem nnsOneBlockSquareUpdateEvent_eq_parent
   have hsq := hm.2.1
   have hparent := hm.2.2
   have hmBounds : R ^ 2 ≤ m ∧ m < (R + 1) ^ 2 := by
-    simpa [squareBlockInterval, Finset.mem_Ico] using hmBlock
+    simpa [squareBlockInterval, Finset.mem_Ico] using! hmBlock
   have hm1 : 1 < m := by
     have h9 : 9 ≤ R ^ 2 := by nlinarith
     omega
@@ -710,7 +710,7 @@ theorem nnsOneBlockUnresolvedCrossParentRemainder_eq_zeroTargetParentLedger
       realCanonicalTotalIncrement R =
         ((canonicalPrefixPopulationMass R : ℤ) : ℝ) := by
     have h := congrArg Complex.re hprefComplex
-    simpa using h
+    simpa using! h
   have hparentInt :=
     canonicalPrefixPopulationMass_eq_sum_neg_mobius_mul_parentFiberCard R hR
   have hparentReal :=
@@ -722,7 +722,7 @@ theorem nnsOneBlockUnresolvedCrossParentRemainder_eq_zeroTargetParentLedger
           -realMoebiusStep c *
             ((canonicalParentFiber R c).card : ℝ) := by
     rw [hprefReal]
-    simpa [realMoebiusStep] using hparentReal
+    simpa [realMoebiusStep] using! hparentReal
   have htail :
       nnsOneBlockOldTailMass R =
         -(∑ n ∈ nnsOneBlockOldTailCarrier R, realMoebiusStep n) := by
@@ -821,7 +821,7 @@ theorem abs_nnsOneBlockUpdateMass_le_three_root
   have hRreal : (2 : ℝ) ≤ (R : ℝ) := by exact_mod_cast hR
   have hblock' :
       |realCanonicalTotalIncrement R| ≤ 2 * (R : ℝ) + 1 := by
-    simpa [Nat.cast_add, Nat.cast_mul] using hblock
+    simpa [Nat.cast_add, Nat.cast_mul] using! hblock
   linarith
 
 /-- Hence the positive diagonal update energy in #877 costs only 9 R^2. -/
@@ -846,7 +846,7 @@ theorem oneBlockCorrelationInner_eq_nnsCrossExcess
   rw [← nnsOneBlockOldTailMass_cast_eq_correlation R hR,
     ← nnsOneBlockUpdateMass_cast_eq_update R]
   rw [RCLike.inner_apply']
-  simpa using (nnsOneBlockCrossExcess_eq_tail_mul_update R).symm
+  simpa using! (nnsOneBlockCrossExcess_eq_tail_mul_update R).symm
 
 /-- **Exact #877 energy step after extracting the physical dissipative
 diagonal.**  The only unsolved signed object is now the cross-parent remainder. -/

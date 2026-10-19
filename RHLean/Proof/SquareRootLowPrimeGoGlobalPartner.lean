@@ -113,9 +113,9 @@ theorem squareRootLowPrimeGoStrictCrossing_mem_transport
     Finset.mem_Icc.mpr ⟨hq.one_le, hqR.le.trans hRX⟩,
     hsq, ?_⟩
   refine ⟨hd1, by omega, ?_, ?_⟩
-  · simpa [primeFaceProduct, Nat.mul_comm] using hroot
+  · simpa [primeFaceProduct, Nat.mul_comm] using! hroot
   · simpa [primeFaceProduct, Nat.mul_comm, Nat.mul_left_comm,
-      Nat.mul_assoc] using hfirst
+      Nat.mul_assoc] using! hfirst
 
 /-- The singleton face of a strict Go crossing is one of the actual low-wheel
 faces in the global transport ledger. -/
@@ -127,7 +127,7 @@ theorem squareRootLowPrimeGoStrictCrossing_face_mem_global
   have hqR : q < R := squareRootLowPrimeGo_liveOwner_lt_root hR hq hcube
   apply Finset.mem_powerset.mpr
   intro p hp
-  have hpr : p = r := by simpa using hp
+  have hpr : p = r := by simpa using! hp
   subst p
   exact mem_primesUpTo.mpr ⟨hr, by omega⟩
 
@@ -152,7 +152,7 @@ theorem squareRootLowPrimeGoFullBirthBoundary_canonicalPivot_dvd_parent
       lowWheelCanonicalCofactorQuotientPivot (d, q) ≤
         canonicalLargestPrimeFactor d := by
     have h := Nat.minFac_le_of_dvd hsPrime.two_le hsDvdProd
-    simpa [lowWheelCanonicalCofactorQuotientPivot] using h
+    simpa [lowWheelCanonicalCofactorQuotientPivot] using! h
   have hpLtQ : lowWheelCanonicalCofactorQuotientPivot (d, q) < q :=
     lt_of_le_of_lt hpLe (hrough.trans hrq)
   have hne : d * q ≠ 1 := by nlinarith [hdgt, hq.two_le]
@@ -209,7 +209,7 @@ theorem squareRootLowPrimeGoStrictCrossing_mem_transport_pairable
     have hsecond := congrArg Prod.snd heq
     unfold lowWheelCanonicalCofactorQuotientToggle
       lowWheelCofactorQuotientToggleAt at hsecond
-    rw [if_pos hpDvd] at hsecond
+    rw [ite_eq_left hpDvd] at hsecond
     have hlt :
         q < lowWheelCanonicalCofactorQuotientPivot (d, q) * q := by
       calc

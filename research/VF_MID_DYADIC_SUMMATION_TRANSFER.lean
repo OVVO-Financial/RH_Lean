@@ -96,7 +96,7 @@ theorem vfMidSquareEndpointVonKochBounded_of_dyadicIncrement
             E2 / (2 * ell) * (2 * ell) = E2 := by
           field_simp [hell.ne']
         rw [hcancel] at hmul
-        simpa [mul_assoc] using hmul
+        simpa [mul_assoc] using! hmul
       · have hR3 : 3 ≤ R := by omega
         let A : ℕ := (R + 1) / 2
         have hA2 : 2 ≤ A := by

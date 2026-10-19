@@ -27,13 +27,13 @@ theorem horizontalIntegral_tendsto_zero_of_bound
       ‖f ((x : ℂ) + (y T : ℂ) * I)‖ ≤ B T) :
     Tendsto (fun T : ℝ => HIntegral f l r (y T)) atTop (𝓝 0) := by
   have hlim : Tendsto (fun T : ℝ => B T * |r - l|) atTop (𝓝 0) := by
-    simpa only [zero_mul] using hB.mul_const |r - l|
+    simpa only [zero_mul] using! hB.mul_const |r - l|
   apply squeeze_zero_norm' _ hlim
   filter_upwards [hbound] with T hT
   unfold HIntegral
   apply intervalIntegral.norm_integral_le_of_norm_le_const
   intro x hx
-  have hx' : x ∈ Set.Ioc l r := by simpa only [Set.uIoc_of_le hlr] using hx
+  have hx' : x ∈ Set.Ioc l r := by simpa only [Set.uIoc_of_le hlr] using! hx
   exact hT x ⟨hx'.1.le, hx'.2⟩
 
 /-- Shift the full vertical integral across a closed strip. There is no
@@ -57,24 +57,24 @@ theorem verticalIntegral_eq_of_holomorphic_and_horizontal_limits
         {z : ℂ | l ≤ z.re ∧ z.re ≤ r} := by
       intro z hz
       have hreal := (Complex.mem_reProdIm.mp hz).1
-      simpa [Set.uIcc_of_le hlr] using hreal
+      simpa [Set.uIcc_of_le hlr] using! hreal
     have h := hfOn.vanishesOnRectangle hsub
-    simpa [RectangleIntegral] using h
+    simpa [RectangleIntegral] using! h
   have heq (T : ℝ) : VIntegral f l (-T) T - VIntegral f r (-T) T =
       HIntegral f l r (-T) - HIntegral f l r T := by
     have h := hrect T
     linear_combination -h
   have hl : Tendsto (fun T : ℝ => VIntegral f l (-T) T)
       atTop (𝓝 (VerticalIntegral f l)) := by
-    simpa only [VIntegral, VerticalIntegral] using
+    simpa only [VIntegral, VerticalIntegral] using!
       (intervalIntegral_tendsto_integral hil tendsto_neg_atTop_atBot tendsto_id).const_smul I
   have hr : Tendsto (fun T : ℝ => VIntegral f r (-T) T)
       atTop (𝓝 (VerticalIntegral f r)) := by
-    simpa only [VIntegral, VerticalIntegral] using
+    simpa only [VIntegral, VerticalIntegral] using!
       (intervalIntegral_tendsto_integral hir tendsto_neg_atTop_atBot tendsto_id).const_smul I
   have hzero : VerticalIntegral f l - VerticalIntegral f r = 0 := by
     exact tendsto_nhds_unique ((hl.sub hr).congr heq)
-      (by simpa only [sub_zero] using hminus.sub hplus)
+      (by simpa only [sub_zero] using! hminus.sub hplus)
   exact congrArg (fun z : ℂ => (1 / (2 * Real.pi * I)) • z) (sub_eq_zero.mp hzero)
 
 end RHLean.Analysis.MertensExponent

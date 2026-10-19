@@ -215,9 +215,9 @@ theorem compatible_fixedPrime_transition_admissible
   rcases t with _ | ⟨j, sign'⟩
   · exact Or.inr rfl
   have hcur : q ∣ threeSlotValue k i := by
-    simpa [SourcePrimeHitCompatible] using hs
+    simpa [SourcePrimeHitCompatible] using! hs
   have hnext : q ∣ threeSlotValue (k + 1) j := by
-    simpa [DestinationPrimeHitCompatible] using ht
+    simpa [DestinationPrimeHitCompatible] using! ht
   exact (largeDivisor_current_next_threeSlot_impossible
     q k i j hq i.isLt j.isLt hcur hnext).elim
 
@@ -795,13 +795,13 @@ theorem restrictedPrimeTwoScalarContraction_iff_realPair
             (complexRealPair a) beta gamma r uPair vPair =
           2 * restrictedPrimeTwoScalarOutputEnergy
             a beta gamma r (complexOfRealPair uPair) (complexOfRealPair vPair) := by
-      simpa using restrictedPrimeRealPairOutputEnergy_complexRealPair
+      simpa using! restrictedPrimeRealPairOutputEnergy_complexRealPair
         a (complexOfRealPair uPair) (complexOfRealPair vPair) beta gamma r
     have hin :
         restrictedPrimeRealPairInputEnergy r uPair vPair =
           2 * restrictedPrimeTwoScalarInputEnergy
             r (complexOfRealPair uPair) (complexOfRealPair vPair) := by
-      simpa using restrictedPrimeRealPairInputEnergy_complexRealPair
+      simpa using! restrictedPrimeRealPairInputEnergy_complexRealPair
         r (complexOfRealPair uPair) (complexOfRealPair vPair)
     rw [hout, hin]
     nlinarith

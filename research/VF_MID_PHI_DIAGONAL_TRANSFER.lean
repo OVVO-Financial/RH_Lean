@@ -86,7 +86,7 @@ theorem vfMidOddLiSquareInterval_two_eq_prefixWheelCard
     vfMidOddLiCumulativeTransform_two_eq_prefixWheelCounting hL]
   dsimp [U] at hsplitC ⊢
   apply sub_eq_iff_eq_add.mpr
-  simpa [add_comm] using hsplitC.symm
+  simpa [add_comm] using! hsplitC.symm
 
 /-- Summing the cutoff-two odd-Li intervals reproduces the exact #843 prefix
 supply. -/
@@ -178,7 +178,7 @@ theorem vfMidPrimeError_sq_sub_sq_cast_eq_oddLiDiagonalError_add_displacement
         (vfMidDyadicOddLiWeightedRemoval L A B -
           (vfMidDyadicLateReference 2 A B : ℂ)) -
         vfMidDyadicOddLiDisplacementBoundary Actual L A B := by
-    simpa only [Complex.ofReal_sub] using hlate
+    simpa only [Complex.ofReal_sub] using! hlate
   push_cast at herrC
   rw [hlate', hodd] at herrC
   unfold vfMidDyadicLateReference at herrC

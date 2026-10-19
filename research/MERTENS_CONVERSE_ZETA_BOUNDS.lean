@@ -21,7 +21,7 @@ theorem zeta_bounded_right_halfPlane {u : ℝ} (hu : 1 < u) :
     ∃ C : ℝ, 1 ≤ C ∧ ∀ s : ℂ, u ≤ s.re → ‖riemannZeta s‖ ≤ C := by
   have hU : LSeriesSummable (1 : ℕ → ℂ) (u : ℂ) :=
     LSeriesSummable_of_bounded_of_one_lt_re (m := 1)
-      (fun _n _hn => by simp) (by simpa using hu)
+      (fun _n _hn => by simp) (by simpa using! hu)
   let C : ℝ := (∑' n, ‖LSeries.term (1 : ℕ → ℂ) (u : ℂ) n‖) + 1
   have hC : 1 ≤ C := by
     have hnonneg : 0 ≤ ∑' n, ‖LSeries.term (1 : ℕ → ℂ) (u : ℂ) n‖ :=
@@ -39,7 +39,7 @@ theorem zeta_bounded_right_halfPlane {u : ℝ} (hu : 1 < u) :
     ‖LSeries (1 : ℕ → ℂ) s‖ ≤ ∑' n, ‖LSeries.term (1 : ℕ → ℂ) s n‖ :=
       norm_tsum_le_tsum_norm hS.norm
     _ ≤ ∑' n, ‖LSeries.term (1 : ℕ → ℂ) (u : ℂ) n‖ :=
-      Summable.tsum_le_tsum (fun n => LSeries.norm_term_le_of_re_le_re _ (by simpa using hs) n)
+      Summable.tsum_le_tsum (fun n => LSeries.norm_term_le_of_re_le_re _ (by simpa using! hs) n)
         hS.norm hU.norm
     _ ≤ C := by dsimp [C]; linarith
 
@@ -55,7 +55,7 @@ theorem zeta_norm_le_positive_strip {b : ℝ} (hb : 0 < b) {s : ℂ}
     (⌊x⌋ + 1 / 2 - x) / (x : ℂ) ^ (s + 1)
   have hJ : ‖J‖ ≤ 1 / s.re := by
     have h := ZetaBnd_aux1b 1 (by norm_num) (σ := s.re) (t := s.im) hspos
-    simpa only [Nat.cast_one, Real.one_rpow, Complex.re_add_im] using h
+    simpa only [Nat.cast_one, Real.one_rpow, Complex.re_add_im] using! h
   have hrepr : riemannZeta s =
       (1 : ℂ) + (-1) / (1 - s) + (-1) / 2 + s * J := by
     rw [← Zeta0EqZeta (N := 1) (by norm_num) hspos hs1]
@@ -67,14 +67,14 @@ theorem zeta_norm_le_positive_strip {b : ℝ} (hb : 0 < b) {s : ℂ}
   have hden : ‖(-1 : ℂ) / (1 - s)‖ ≤ 1 := by
     rw [norm_div]
     norm_num only [norm_neg, norm_one]
-    exact (div_le_iff₀ (by linarith : 0 < ‖(1 : ℂ) - s‖)).mpr (by simpa using hden1)
+    exact (div_le_iff₀ (by linarith : 0 < ‖(1 : ℂ) - s‖)).mpr (by simpa using! hden1)
   have hhalf : ‖(-1 : ℂ) / 2‖ ≤ 1 := by norm_num
   have hnorm : ‖s‖ ≤ 4 + |s.im| := by
     have h := Complex.norm_le_abs_re_add_abs_im s
     rw [abs_of_pos hspos] at h
     linarith
   have hinv : 1 / s.re ≤ 1 / b := one_div_le_one_div_of_le hb hbs
-  have hJb : ‖J‖ ≤ b⁻¹ := by simpa only [one_div] using hJ.trans hinv
+  have hJb : ‖J‖ ≤ b⁻¹ := by simpa only [one_div] using! hJ.trans hinv
   have hprod : ‖s * J‖ ≤ (4 + |s.im|) / b := by
     rw [norm_mul, div_eq_mul_inv]
     exact mul_le_mul hnorm hJb (norm_nonneg J) (by positivity)

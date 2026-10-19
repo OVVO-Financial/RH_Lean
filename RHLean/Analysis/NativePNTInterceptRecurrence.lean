@@ -66,14 +66,14 @@ theorem nativePNTCubicIntercept_envelope :
   intro n
   induction n with
   | zero =>
-      simpa using nativePNTAffineEnvelopeAt_six_zero
+      simpa using! nativePNTAffineEnvelopeAt_six_zero
   | succ n ih =>
       have hspec := nativePNTCubicSlope_spec n
       have hstep := nativePNTAffineEnvelopeAt_cubic_step
         (nativePNTCubicSlope n) (nativePNTCubicIntercept n)
         hspec.1 hspec.2.1 ih
       simpa [nativePNTCubicIntercept_succ,
-        nativePNTCubicSlope_succ, nativePNTCubicStepDelta_eq] using hstep
+        nativePNTCubicSlope_succ, nativePNTCubicStepDelta_eq] using! hstep
 
 /-- The explicit intercept also witnesses the original existential affine
 envelope. -/

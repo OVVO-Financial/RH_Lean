@@ -83,7 +83,7 @@ theorem squarePrefixPNT_of_squareBlockDiscrepancyVanishes
   have hhead :
       |∑ n ∈ Finset.range K, (squareBlockMoebius n : ℝ)| ≤ A := by
     dsimp [A]
-    simpa only [Real.norm_eq_abs] using
+    simpa only [Real.norm_eq_abs] using!
       (norm_sum_le (Finset.range K) (fun n : ℕ => (squareBlockMoebius n : ℝ)))
   have htailPoint : ∀ n ∈ Finset.Ico K (N + 1),
       |(squareBlockMoebius n : ℝ)| ≤ (ε / 4) * (n : ℝ) := by
@@ -101,7 +101,7 @@ theorem squarePrefixPNT_of_squareBlockDiscrepancyVanishes
     calc
       |∑ n ∈ Finset.Ico K (N + 1), (squareBlockMoebius n : ℝ)| ≤
           ∑ n ∈ Finset.Ico K (N + 1), |(squareBlockMoebius n : ℝ)| := by
-            simpa only [Real.norm_eq_abs] using
+            simpa only [Real.norm_eq_abs] using!
               (norm_sum_le (Finset.Ico K (N + 1))
                 (fun n : ℕ => (squareBlockMoebius n : ℝ)))
       _ ≤ ∑ _n ∈ Finset.Ico K (N + 1),
@@ -136,7 +136,7 @@ theorem squarePrefixPNT_of_squareBlockDiscrepancyVanishes
     have hmul : 4 * A < (((N + 1 : ℕ) : ℝ) ^ 2) * ε :=
       (div_lt_iff₀ hε).mp hquot
     have hmul' : 4 * A < ε * (((N + 1 : ℕ) : ℝ) ^ 2) := by
-      simpa [mul_comm] using hmul
+      simpa [mul_comm] using! hmul
     linarith
   have hprefAbs :
       |realCanonicalTotalPrefix N| ≤
@@ -185,7 +185,7 @@ private theorem four_mul_le_of_sq_le_of_lt
   have hstep : (4 * a) ^ 2 < (ε * X) ^ 2 := by
     nlinarith [hsq, mul_lt_mul_of_pos_right hbig hX]
   by_contra hcon
-  push_neg at hcon
+  push Not at hcon
   have hlt : (ε * X) * (ε * X) < (4 * a) * (4 * a) :=
     mul_self_lt_mul_self hεX hcon
   nlinarith [hstep, hlt]
@@ -218,7 +218,7 @@ theorem mertensPNT_of_squarePrefixPNT
   have hn0 : N0 ≤ n := by
     have hN0sq : (N0 + 1) ^ 2 ≤ x := le_trans (le_max_left _ _) hx
     have hN0r : N0 + 1 ≤ r := by
-      exact (Nat.le_sqrt).2 (by simpa [pow_two] using hN0sq)
+      exact (Nat.le_sqrt).2 (by simpa [pow_two] using! hN0sq)
     omega
   have hendpoint : RHLean.Analysis.squarePrefixEndpoint n = r ^ 2 - 1 := by
     unfold RHLean.Analysis.squarePrefixEndpoint
@@ -244,7 +244,7 @@ theorem mertensPNT_of_squarePrefixPNT
   have hsampleR :
       ‖RHLean.Analysis.squarePrefixMertens n‖ ≤
         (ε / 2) * (r : ℝ) ^ 2 := by
-    simpa only [hn1] using hsampleN
+    simpa only [hn1] using! hsampleN
   have hrSqR : (r : ℝ) ^ 2 ≤ ((x + 1 : ℕ) : ℝ) := by
     exact_mod_cast (hr_sq_le.trans (Nat.le_succ x))
   have hsampleFinal :
@@ -274,7 +274,7 @@ theorem mertensPNT_of_squarePrefixPNT
         mul_le_mul_of_nonneg_right hxcast (sq_nonneg ε)
       have hchain : 64 < ((x + 1 : ℕ) : ℝ) * ε ^ 2 :=
         lt_of_lt_of_le hxlargeRaw hmono
-      simpa [mul_comm] using hchain
+      simpa [mul_comm] using! hchain
     have hlinear := four_mul_le_of_sq_le_of_lt hε hXpos haSq hxlarge
     linarith
   calc

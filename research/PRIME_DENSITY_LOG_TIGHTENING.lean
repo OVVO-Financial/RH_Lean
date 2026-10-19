@@ -78,7 +78,7 @@ theorem norm_densityWeightedTransport_le_harmonic_tail
       rw [norm_mul]
       exact (mul_le_mul (hd q hq) (densityTight_mertens_norm_le (x / q))
         (norm_nonneg _) hL).trans (by
-          simpa only [div_eq_mul_inv] using mul_le_mul_of_nonneg_left hdiv hL)
+          simpa only [div_eq_mul_inv] using! mul_le_mul_of_nonneg_left hdiv hL)
     _ = L * (x : ℝ) * ∑ q ∈ Finset.Ioc y x, (q : ℝ)⁻¹ := by
       rw [Finset.mul_sum]
       apply Finset.sum_congr rfl
@@ -171,10 +171,10 @@ theorem primeSieveUnitDensityBulk_eq_cofactor_sum (y x : ℕ) :
     simp only [Finset.mem_filter, Finset.mem_Ioc]
     constructor
     · rintro ⟨⟨hyq, _⟩, hmq⟩
-      exact ⟨hyq, (Nat.le_div_iff_mul_le hmp).mpr (by simpa [Nat.mul_comm] using hmq)⟩
+      exact ⟨hyq, (Nat.le_div_iff_mul_le hmp).mpr (by simpa [Nat.mul_comm] using! hmq)⟩
     · rintro ⟨hyq, hqdiv⟩
       exact ⟨⟨hyq, hqdiv.trans (Nat.div_le_self x m)⟩,
-        by simpa [Nat.mul_comm] using (Nat.le_div_iff_mul_le hmp).mp hqdiv⟩
+        by simpa [Nat.mul_comm] using! (Nat.le_div_iff_mul_le hmp).mp hqdiv⟩
   rw [← Finset.sum_filter, hf, Finset.sum_const, Nat.card_Ioc, nsmul_eq_mul]
   push_cast [Nat.cast_sub hydiv]
   ring
@@ -195,7 +195,7 @@ theorem norm_primeSieveUnitDensityBulk_le_two_mul (y x : ℕ) :
     have hhi : (x : ℝ) / (m : ℝ) < ((x / m : ℕ) : ℝ) + 1 := by
       apply (div_lt_iff₀ hmr).mpr
       have hh : x < (x / m + 1) * m := by
-        simpa only [Nat.mul_comm] using Nat.lt_mul_div_succ x hmp
+        simpa only [Nat.mul_comm] using! Nat.lt_mul_div_succ x hmp
       exact_mod_cast hh
     dsimp [r]
     constructor <;> linarith
@@ -219,7 +219,7 @@ theorem norm_primeSieveUnitDensityBulk_le_two_mul (y x : ℕ) :
         apply Finset.sum_le_sum
         intro m hm
         rw [norm_mul, Complex.norm_real, Real.norm_eq_abs, abs_of_nonneg (hr m hm).1]
-        exact (mul_le_mul_of_nonneg_right (norm_canonicalMoebiusWeight_le_one m) (hr m hm).1).trans (by simpa using (hr m hm).2)
+        exact (mul_le_mul_of_nonneg_right (norm_canonicalMoebiusWeight_le_one m) (hr m hm).1).trans (by simpa using! (hr m hm).2)
       _ = (n : ℝ) * ((y : ℝ) + 1) := by simp; ring
       _ ≤ (x : ℝ) := by exact_mod_cast Nat.div_mul_le_self x (y + 1)
   rw [hid]

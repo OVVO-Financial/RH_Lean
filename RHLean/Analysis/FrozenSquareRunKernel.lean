@@ -64,7 +64,7 @@ theorem frozenFloorWeight_eq_div_sub_div
   have hbase : 1 ≤ a ^ 2 := by nlinarith
   have hNL : a ^ 2 ≤ (b + 1) ^ 2 :=
     Nat.pow_le_pow_left (by omega) 2
-  simpa [frozenFloorWeight] using
+  simpa [frozenFloorWeight] using!
     (RHLean.Arithmetic.frozenRunDivisorWeight_eq_div_sub_div
       (N := a ^ 2) (L := (b + 1) ^ 2) (d := d) hbase hNL)
 
@@ -91,11 +91,11 @@ theorem frozenSquareRunKernel_eq_staticCorrelation_cast
           (frozenRunDivisorWeight (a ^ 2) ((b + 1) ^ 2) d : ℤ) * μ d) =
         ∑ d ∈ Finset.range (a ^ 2),
           (frozenRunDivisorWeight (a ^ 2) ((b + 1) ^ 2) d : ℤ) * μ d := by
-    simpa using hsplit
+    simpa using! hsplit
   have hcast := congrArg (fun z : ℤ => (z : ℂ)) hIco
   push_cast at hcast
   unfold frozenSquareRunKernel RHLean.Arithmetic.squareFrozenRunCorrelation
-  simpa [frozenFloorWeight, mul_comm] using hcast
+  simpa [frozenFloorWeight, mul_comm] using! hcast
 
 /-- Square-prefix Mertens is the complex cast of the half-open integer prefix at
 the following square. -/
@@ -231,7 +231,7 @@ theorem frozenSquareRunKernel_energy_eq_diagonal_add_two_covariance
     signedBlockPrefix_sub_sq_eq_energy_sub_add_two_mul_inner
       (frozenSquareRunKernelTerm a b) 1 (a ^ 2)
   rw [hreal, Complex.norm_real, Real.norm_eq_abs, sq_abs, hpref]
-  simpa [frozenSquareRunKernelDiagonal, frozenSquareRunKernelCovariance] using hGK
+  simpa [frozenSquareRunKernelDiagonal, frozenSquareRunKernelCovariance] using! hGK
 
 /-! ## Reciprocal-band coordinates for the floor kernel -/
 
@@ -251,10 +251,10 @@ theorem frozenReciprocalBand_div_eq
   rcases mem_frozenReciprocalBand.mp hd with ⟨hlower, hupper⟩
   have hlo : z * d ≤ W := by
     have h := (Nat.le_div_iff_mul_le hz).1 hupper
-    simpa [Nat.mul_comm] using h
+    simpa [Nat.mul_comm] using! h
   have hhi : W < (z + 1) * d := by
     have h := (Nat.div_lt_iff_lt_mul (by omega : 0 < z + 1)).1 hlower
-    simpa [Nat.mul_comm] using h
+    simpa [Nat.mul_comm] using! h
   exact Nat.div_eq_of_lt_le hlo hhi
 
 /-- Compatibility with the already-formalized prime-comb reciprocal geometry. -/
@@ -286,7 +286,7 @@ private theorem norm_sq_add_le_five_quarter (x y : ℂ) :
 private theorem norm_sq_sub_le_two_frozen (x y : ℂ) :
     ‖x - y‖ ^ 2 ≤ 2 * ‖x‖ ^ 2 + 2 * ‖y‖ ^ 2 := by
   have hnorm : ‖x - y‖ ≤ ‖x‖ + ‖y‖ := by
-    simpa [sub_eq_add_neg] using norm_add_le x (-y)
+    simpa [sub_eq_add_neg] using! norm_add_le x (-y)
   have hx : 0 ≤ ‖x‖ := norm_nonneg x
   have hy : 0 ≤ ‖y‖ := norm_nonneg y
   have hxy : 0 ≤ ‖x - y‖ := norm_nonneg (x - y)
@@ -381,7 +381,7 @@ theorem frozenSquareRunEnergyBounded_of_mertensEnergyBounded
     have hrhs :
         0 ≤ 4 * C * Real.rpow (((b + 1) ^ 2 : ℕ) : ℝ) (1 + ε) :=
       mul_nonneg (mul_nonneg (by norm_num) hC) hp0
-    simpa using hrhs
+    simpa using! hrhs
 
 /-- A fixed three-quarter anchor.  It is above the `1/sqrt 2` freezing
 threshold, while from scale `14` onward it is at most four-fifths of the
@@ -516,7 +516,7 @@ theorem squarePrefixEnergyBounded_of_frozenSquareRunEnergyBounded
           ‖squarePrefixMertens b‖ ^ 2 ≤ B := hsingle
           _ ≤ D := hBD
           _ ≤ D * Real.rpow ((b + 1 : ℕ) : ℝ) (2 + ε) := by
-            simpa using mul_le_mul_of_nonneg_left hp hD0
+            simpa using! mul_le_mul_of_nonneg_left hp hD0
       · have hb14 : 14 ≤ b := by omega
         let a := frozenSquareAnchor b
         have ha1 : 1 ≤ a := by dsimp [a]; exact frozenSquareAnchor_pos b
@@ -624,7 +624,7 @@ theorem frozenTruncatedFloorTransform_squarePred_eq_one
   push_cast at hc
   unfold frozenTruncatedFloorTransform
   rw [hset]
-  simpa using hc
+  simpa using! hc
 
 /-- The frozen kernel is exactly the difference of two signed reciprocal-floor
 transforms on the same frozen divisor carrier. -/
@@ -718,11 +718,11 @@ theorem primeCombReciprocalBand_familyPairCovariance_eq
     largePrimeFamilyPairSum p (z + 1) =
       frozenReciprocalBandCovarianceKernel z := by
   have hsq : W < p ^ 2 := (Nat.sqrt_lt').1 hpRoot
-  have hW : W < p * p := by simpa [pow_two] using hsq
+  have hW : W < p * p := by simpa [pow_two] using! hsq
   have h := largePrimeFamilyPairSum_postRoot
     (primeCombReciprocalBand_prime hp) hW
   rw [primeCombReciprocalBand_div_eq hz hp] at h
-  simpa [frozenReciprocalBandCovarianceKernel] using h
+  simpa [frozenReciprocalBandCovarianceKernel] using! h
 
 /-- Total post-root family covariance in one reciprocal band. -/
 def primeCombPostRootReciprocalBandPairCovariance (W z : ℕ) : ℝ :=

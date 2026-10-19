@@ -63,13 +63,13 @@ theorem freshPrime_of_nonzeroPhysicalPair
     Finset.mem_sdiff] at hq
   rcases hq with hq | hq
   · have hqpf : q ∈ m.primeFactors := by
-      simpa [squarefreePrimeFace] using hq.1
+      simpa [squarefreePrimeFace] using! hq.1
     have hqPrime := Nat.prime_of_mem_primeFactors hqpf
     have hqDvd := Nat.dvd_of_mem_primeFactors hqpf
     have hqle : q ≤ m := Nat.le_of_dvd hmPos hqDvd
     exact ⟨hqPrime, hqle.trans hmX⟩
   · have hqpf : q ∈ n.primeFactors := by
-      simpa [squarefreePrimeFace] using hq.1
+      simpa [squarefreePrimeFace] using! hq.1
     have hqPrime := Nat.prime_of_mem_primeFactors hqpf
     have hqDvd := Nat.dvd_of_mem_primeFactors hqpf
     have hqle : q ≤ n := Nat.le_of_dvd hnPos hqDvd
@@ -88,7 +88,7 @@ theorem revealedAbove_signature_eq_implies_face_eq
     (q ∈ squarefreePrimeFace m ↔ q ∈ squarefreePrimeFace n) := by
   have hmem := congrArg (fun T : Finset ℕ => q ∈ T) hsig
   simpa [lowOwnerRevealedPrimeSignature, lowOwnerRevealedPrimesAbove,
-    hqPrime, hpq, hqX] using hmem
+    hqPrime, hpq, hqX] using! hmem
 
 /-- **Descending crossing implies greatest fresh-prime owner.** -/
 theorem descendingCrossPair_greatestFreshOwner

@@ -94,7 +94,7 @@ theorem postRootCovarianceRecursivePair_continuation_has_no_residual_class
   dsimp only at hdesc ⊢
   let parent := squarefreePairFreshPrimeOrderedParent m n
   have hparentMem : parent ∈ postRootCovarianceRemainderPhysicalPairCarrier W := by
-    simpa [parent] using hdesc.1
+    simpa [parent] using! hdesc.1
   have hparentPhysical :=
     (mem_postRootCovarianceRemainderPhysicalPairCarrier.mp hparentMem).1
   rcases mem_mertensPositivePhysicalPairCarrier.mp hparentPhysical with
@@ -121,7 +121,7 @@ theorem postRootCovarianceRecursivePair_continuation_has_no_residual_class
         have hrank :
             (squarefreePairFreshPrimeSet parent.1 parent.2).card + 1 =
               (squarefreePairFreshPrimeSet m n).card := by
-          simpa [parent] using hdesc.2.2.1
+          simpa [parent] using! hdesc.2.2.1
         exact Or.inr (Or.inr (Or.inr ⟨hrecursive, hrank⟩))
     · exact Or.inr (Or.inl hfamily)
 

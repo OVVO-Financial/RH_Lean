@@ -136,10 +136,10 @@ private theorem prime_of_mem_squarefreePairFreshPrimeSet_inherited
     Finset.mem_sdiff] at hq
   rcases hq with hq | hq
   · have hpf : q ∈ a.primeFactors := by
-      simpa [squarefreePrimeFace] using hq.1
+      simpa [squarefreePrimeFace] using! hq.1
     exact Nat.prime_of_mem_primeFactors hpf
   · have hpf : q ∈ b.primeFactors := by
-      simpa [squarefreePrimeFace] using hq.1
+      simpa [squarefreePrimeFace] using! hq.1
     exact Nat.prime_of_mem_primeFactors hpf
 
 /-- Membership in the fresh set of the ordered stripped parent is, up to the
@@ -157,11 +157,11 @@ theorem mem_rawStrippedFresh_of_mem_primeOrderedParentFresh
   dsimp only at hq
   by_cases hlt : squarefreePrimeFamilyParent r m <
       squarefreePrimeFamilyParent r n
-  · simpa [hlt] using hq
+  · simpa [hlt] using! hq
   · have hswap : q ∈ squarefreePairFreshPrimeSet
         (squarefreePrimeFamilyParent r n)
         (squarefreePrimeFamilyParent r m) := by
-      simpa [hlt] using hq
+      simpa [hlt] using! hq
     rw [squarefreePairFreshPrimeSet_comm]
     exact hswap
 
@@ -251,7 +251,7 @@ private theorem lowOwnerInheritedReciprocalSquareBudget_le_quarter (R : ℕ) :
       intro q _hq _hnot
       positivity
     _ ≤ 1 / 4 := by
-      simpa [div_pow] using
+      simpa [div_pow] using!
         (oddPrimeOwnerReciprocalSquareBudgetReal_le_quarter (R - 1))
 
 /-- **Quarter-budget daughter square.**  Cauchy--Schwarz costs exactly the
@@ -338,7 +338,7 @@ theorem lowOwnerThresholdSecondOwnerDifference_sq_le_activity
   let B : ℝ := lowOwnerThresholdClippedDifference p r n (R - 1)
   have hrewrite :
       lowOwnerThresholdSecondOwnerDifference R p r n = A - B := by
-    simpa [A, B] using
+    simpa [A, B] using!
       (lowOwnerThresholdSecondOwnerDifference_eq_clippedFubini
         hR hp.one_le hr.one_le)
   have hA : A ^ 2 ≤
@@ -348,7 +348,7 @@ theorem lowOwnerThresholdSecondOwnerDifference_sq_le_activity
               p n (rawQ2ChildCutoff R q) +
             lowOwnerThresholdCrossingIndicator
               p (r * n) (rawQ2ChildCutoff R q))) := by
-    simpa [A] using
+    simpa [A] using!
       (lowOwnerThresholdDaughterClippedSum_sq_le_quarter_activity
         (R := R) hp hr hpr hn)
   have hB : B ^ 2 =
@@ -492,11 +492,11 @@ theorem lowOwnerDaughterCrossingWeight_le_reciprocalDaughterWeight
   intro q hq
   by_cases hcross :
       n ≤ rawQ2ChildCutoff R q ∧ rawQ2ChildCutoff R q < p * n
-  · rw [if_pos hcross, if_pos hcross.1]
+  · rw [ite_eq_left hcross, ite_eq_left hcross.1]
   · by_cases hn : n ≤ rawQ2ChildCutoff R q
-    · rw [if_neg hcross, if_pos hn]
+    · rw [ite_eq_right hcross, ite_eq_left hn]
       exact div_nonneg zero_le_one (Nat.cast_nonneg q)
-    · rw [if_neg hcross, if_neg hn]
+    · rw [ite_eq_right hcross, ite_eq_right hn]
 
 /-- The reciprocal daughter-crossing field is nonnegative. -/
 theorem lowOwnerDaughterCrossingWeight_nonneg

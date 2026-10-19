@@ -108,7 +108,7 @@ theorem squareRootLowPrimeOwnedResponseAtom_of_ownedCofactor
   apply mem_squareRootLowPrimeOwnedResponseAtoms_iff.mpr
   constructor
   · simpa [squareRootLowPrimeOwnedResponseCofactors,
-      squareRootLowPrimeOwnedSignedCofactors] using hc
+      squareRootLowPrimeOwnedSignedCofactors] using! hc
   · exact hq
 
 /-- **Arbitrary-divisor post-root closure.** -/
@@ -140,7 +140,7 @@ theorem squareRootLowPrimePostRootDivisorAtom_mem
   have hqData := Finset.mem_filter.mp hzPost
   have hcUpper : c ≤ squareRootEndpoint R := by
     have hcLeProd : c ≤ c * q := by
-      simpa using Nat.mul_le_mul_left c hqData.2.1.pos
+      simpa using! Nat.mul_le_mul_left c hqData.2.1.pos
     exact hcLeProd.trans hqData.2.2
   have hdOwned :=
     squareRootLowPrimeResponseDivisor_mem_ownedResponseCofactors

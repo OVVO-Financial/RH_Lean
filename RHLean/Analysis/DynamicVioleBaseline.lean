@@ -340,7 +340,7 @@ theorem nativePNTNormalizedFloorSquareBlockResponse_endpoint_of_subdoubling
       apply Finset.sum_congr rfl
       intro d hd
       have hdI := Finset.mem_Ioc.mp hd
-      have hlo : 1 * d ≤ L := by simpa using hdI.2
+      have hlo : 1 * d ≤ L := by simpa using! hdI.2
       have hhi : L < (1 + 1) * d := by
         have htwo : 2 * M < 2 * d := by omega
         omega
@@ -390,7 +390,7 @@ theorem violeClockCutoff_succ_lt_two_mul
   calc
     (r + 1) ^ 2 + (r + 1) = r ^ 2 + 2 * r + (r + 2) := by ring
     _ < r ^ 2 + 2 * r + r ^ 2 := by
-      simpa [pow_two] using Nat.add_lt_add_left hrr (r ^ 2 + 2 * r)
+      simpa [pow_two] using! Nat.add_lt_add_left hrr (r ^ 2 + 2 * r)
     _ = 2 * (r ^ 2 + r) := by ring
 
 /-- At a Viole adjacent-square endpoint the new signed divisor block is
@@ -526,13 +526,13 @@ theorem nativePNTReciprocalSquareSlope_le
   have hins : 1 ≤ 1 + delta * alpha ^ 2 := by
     nlinarith [mul_nonneg hdelta (sq_nonneg alpha)]
   have hsqrt : 1 ≤ Real.sqrt (1 + delta * alpha ^ 2) := by
-    simpa using Real.sqrt_le_sqrt hins
+    simpa using! Real.sqrt_le_sqrt hins
   have hsqrtPos : 0 < Real.sqrt (1 + delta * alpha ^ 2) :=
     lt_of_lt_of_le zero_lt_one hsqrt
   unfold nativePNTReciprocalSquareSlope
   apply (div_le_iff₀ hsqrtPos).2
   have hmul := mul_le_mul_of_nonneg_left hsqrt halpha.le
-  simpa using hmul
+  simpa using! hmul
 
 /-- Exact reciprocal-square gain of the scalar update. -/
 theorem nativePNTReciprocalSquareSlope_inv_sq_sub
@@ -553,9 +553,9 @@ theorem nativePNTReciprocalSquareSlope_inv_sq_sub
   have hsqrtSq' :
       (Real.sqrt (1 + alpha ^ 2 * delta)) ^ 2 =
         1 + alpha ^ 2 * delta := by
-    simpa [mul_comm] using hsqrtSq
+    simpa [mul_comm] using! hsqrtSq
   have hsqrt0' : Real.sqrt (1 + alpha ^ 2 * delta) ≠ 0 := by
-    simpa [mul_comm] using hsqrt0
+    simpa [mul_comm] using! hsqrt0
   unfold nativePNTReciprocalSquareSlope
   field_simp [halpha0, hsqrt0, hsqrt0']
   nlinarith [hsqrtSq, hsqrtSq']
@@ -614,20 +614,20 @@ theorem violeClockReciprocalSquareCoupling_of_signedSquareBlockDirectCutoffLaw
       (violeClockCutoff r) (violeClockCutoff (r + 1)) alpha htail hML
   let delta : Real := violeClockBlockReciprocalSquareGain c eps r
   by_cases hdelta : 0 < delta
-  · have hexcl := hlaw r alpha hr htail (by simpa [delta] using hdelta)
+  · have hexcl := hlaw r alpha hr htail (by simpa [delta] using! hdelta)
     have hstep := nativePNTReciprocalSquareSignedBlockDirectCutoff_step
       (violeClockCutoff r) (violeClockCutoff (r + 1)) alpha delta htail
-      hdelta.le (by simpa [delta] using hexcl)
+      hdelta.le (by simpa [delta] using! hexcl)
     refine ⟨nativePNTReciprocalSquareSlope alpha delta, hstep.1, hstep.2.1, ?_⟩
     have hgain := hstep.2.2
-    simpa [delta, violeClockCutoff, violeClockBlockReciprocalSquareGain] using
+    simpa [delta, violeClockCutoff, violeClockBlockReciprocalSquareGain] using!
       hgain.ge
   · have hdeltaNonpos : delta ≤ 0 := le_of_not_gt hdelta
     refine ⟨alpha, ?_, le_rfl, ?_⟩
-    · simpa [violeClockCutoff] using htailCut
+    · simpa [violeClockCutoff] using! htailCut
     · have hzero : 1 / alpha ^ 2 - 1 / alpha ^ 2 = 0 := by ring
       rw [hzero]
-      simpa [delta, violeClockBlockReciprocalSquareGain] using hdeltaNonpos
+      simpa [delta, violeClockBlockReciprocalSquareGain] using! hdeltaNonpos
 
 /-! ## Möbius-correlation realization of the block socket -/
 

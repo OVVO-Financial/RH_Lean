@@ -29,9 +29,9 @@ theorem canonicalPrefixAssignedSign_eq_moebius
     {x : ℕ} (hx : 1 < x) :
     canonicalPrefixAssignedSign x = μ x := by
   by_cases hsq : Squarefree x
-  · simp only [canonicalPrefixAssignedSign, if_pos hsq]
+  · simp only [canonicalPrefixAssignedSign, ite_eq_left hsq]
     exact (canonicalSignedParent_moebius hsq hx).symm
-  · simp only [canonicalPrefixAssignedSign, if_neg hsq]
+  · simp only [canonicalPrefixAssignedSign, ite_eq_right hsq]
     have hzero : μ x = 0 := by
       by_contra hne
       exact hsq (ArithmeticFunction.moebius_ne_zero_iff_squarefree.mp hne)
@@ -43,7 +43,7 @@ theorem exact_prefix_population_pointwise
     canonicalPrefixAssignedSign x = μ x ∧
       (Squarefree x → canonicalCofactor x ≤ oldParentCutoff a) := by
   have hxBounds : a ^ 2 ≤ x ∧ x < (a + 1) ^ 2 := by
-    simpa [squareBlockInterval, Finset.mem_Ico] using hxBlock
+    simpa [squareBlockInterval, Finset.mem_Ico] using! hxBlock
   have hx1 : 1 < x := by
     have : 9 ≤ a ^ 2 := by nlinarith
     omega
@@ -85,7 +85,7 @@ theorem canonicalParentFiberMass_eq
           have hsq := hx.2.1
           have hparent := hx.2.2
           have hxBounds : a ^ 2 ≤ x ∧ x < (a + 1) ^ 2 := by
-            simpa [squareBlockInterval, Finset.mem_Ico] using hxBlock
+            simpa [squareBlockInterval, Finset.mem_Ico] using! hxBlock
           have hx1 : 1 < x := by
             have : 9 ≤ a ^ 2 := by nlinarith
             omega
@@ -101,7 +101,7 @@ theorem canonicalParentFiberMass_eq_zero_iff
   constructor
   · intro h
     have hmul : μ c = 0 ∨ ((canonicalParentFiber a c).card : ℤ) = 0 := by
-      exact mul_eq_zero.mp (by simpa using h)
+      exact mul_eq_zero.mp (by simpa using! h)
     rcases hmul with hmu | hcard
     · exact Or.inl hmu
     · right

@@ -140,11 +140,11 @@ theorem lowWheelCanonicalPostRootDowncross_rigid
   let p := lowWheelCanonicalCofactorQuotientPivot (c, k)
   rcases lowWheelCanonicalDowncrossPart_adjacent_shell hx with
     ⟨hp0, _hpc0, hpk0, hdown0, _hhigh0⟩
-  have hp : p.Prime := by simpa [p] using hp0
-  have hpk : p ∣ k := by simpa [p] using hpk0
+  have hp : p.Prime := by simpa [p] using! hp0
+  have hpk : p ∣ k := by simpa [p] using! hpk0
   have hdown : primeFaceProduct t * (k / p) ≤ R := by
-    simpa [p] using hdown0
-  have hRp' : R < p := by simpa [p] using hRp
+    simpa [p] using! hdown0
+  have hRp' : R < p := by simpa [p] using! hRp
   have hxPhys := (mem_lowWheelCanonicalDowncrossPart.mp hx).1
   have hmem := mem_lowWheelCanonicalPhysicalStateSet.mp hxPhys
   have hcI := Finset.mem_Ico.mp hmem.1
@@ -156,13 +156,13 @@ theorem lowWheelCanonicalPostRootDowncross_rigid
     have hcgt : 1 < c := by omega
     let q := Nat.minFac c
     have hqPrime : q.Prime := by
-      simpa [q] using Nat.minFac_prime (by omega : c ≠ 1)
+      simpa [q] using! Nat.minFac_prime (by omega : c ≠ 1)
     have hqDvdC : q ∣ c := by
-      simpa [q] using Nat.minFac_dvd c
+      simpa [q] using! Nat.minFac_dvd c
     have hqDvdProd : q ∣ c * k := dvd_mul_of_dvd_left hqDvdC k
     have hpLeQ : p ≤ q := by
       have h := Nat.minFac_le_of_dvd hqPrime.two_le hqDvdProd
-      simpa [p, lowWheelCanonicalCofactorQuotientPivot] using h
+      simpa [p, lowWheelCanonicalCofactorQuotientPivot] using! h
     have hqLeC : q ≤ c := Nat.le_of_dvd hcpos hqDvdC
     omega
   let j := k / p
@@ -176,28 +176,28 @@ theorem lowWheelCanonicalPostRootDowncross_rigid
     unfold j
     exact (Nat.one_le_div_iff hp.pos).2 hpLeK
   have hkCancel : p * j = k := by
-    simpa [j] using Nat.mul_div_cancel' hpk
+    simpa [j] using! Nat.mul_div_cancel' hpk
   have hjEq : j = 1 := by
     by_contra hjne
     have hjgt : 1 < j := by omega
     let q := Nat.minFac j
     have hqPrime : q.Prime := by
-      simpa [q] using Nat.minFac_prime (by omega : j ≠ 1)
+      simpa [q] using! Nat.minFac_prime (by omega : j ≠ 1)
     have hqDvdJ : q ∣ j := by
-      simpa [q] using Nat.minFac_dvd j
+      simpa [q] using! Nat.minFac_dvd j
     have hqDvdK : q ∣ k := by
       rw [← hkCancel]
       exact dvd_mul_of_dvd_right hqDvdJ p
     have hqDvdProd : q ∣ c * k := dvd_mul_of_dvd_right hqDvdK c
     have hpLeQ : p ≤ q := by
       have h := Nat.minFac_le_of_dvd hqPrime.two_le hqDvdProd
-      simpa [p, lowWheelCanonicalCofactorQuotientPivot] using h
+      simpa [p, lowWheelCanonicalCofactorQuotientPivot] using! h
     have hqLeJ : q ≤ j := Nat.le_of_dvd (by omega) hqDvdJ
     omega
   have hkEq : k = p := by
     rw [← hkCancel, hjEq]
     simp
-  exact ⟨hcEq, by simpa [p] using hkEq⟩
+  exact ⟨hcEq, by simpa [p] using! hkEq⟩
 
 /-- Prime candidates in the exact post-root fibre attached to one low-wheel
 face. -/
@@ -242,7 +242,7 @@ theorem mem_lowWheelCanonicalPostRootDowncrossPart_iff
     refine ⟨Finset.mem_Ioc.mpr ⟨?_, hkRange.2⟩, hkPrime, ?_⟩
     · rw [hkPivot]
       exact hRp
-    · simpa [hcEq, Nat.one_mul] using hcarrier.2.2.2
+    · simpa [hcEq, Nat.one_mul] using! hcarrier.2.2.2
   · rintro ⟨rfl, hk⟩
     rcases Finset.mem_filter.mp hk with ⟨hkI, hkPrime, htop⟩
     rcases Finset.mem_Ioc.mp hkI with ⟨hRk, hkX⟩
@@ -254,8 +254,8 @@ theorem mem_lowWheelCanonicalPostRootDowncrossPart_iff
     have hfaceLt : primeFaceProduct t < R := by
       have h := lowWheelPhysical_imp_cofactorFace_lt_root
         (R := R) (k := k) (u := t) (t := ∅) (by omega)
-        (by simpa [primeFaceProduct] using hRk)
-        (by simpa [primeFaceProduct] using htop)
+        (by simpa [primeFaceProduct] using! hRk)
+        (by simpa [primeFaceProduct] using! htop)
       exact h
     have hpivot : lowWheelCanonicalCofactorQuotientPivot (1, k) = k :=
       lowWheelCanonicalPivot_one_prime hkPrime
@@ -263,7 +263,7 @@ theorem mem_lowWheelCanonicalPostRootDowncrossPart_iff
       apply mem_lowWheelCanonicalPhysicalStateSet.mpr
       refine ⟨Finset.mem_Ico.mpr ⟨by norm_num, by omega⟩,
         Finset.mem_Icc.mpr ⟨hkPrime.one_le, hkX⟩, by simp, ?_⟩
-      exact ⟨by norm_num, by omega, hhigh, by simpa using htop⟩
+      exact ⟨by norm_num, by omega, hhigh, by simpa using! htop⟩
     have hnot : ¬ lowWheelCanonicalCofactorQuotientPivot (1, k) ∣ 1 := by
       rw [hpivot]
       intro hd
@@ -272,7 +272,7 @@ theorem mem_lowWheelCanonicalPostRootDowncrossPart_iff
     have hdown : primeFaceProduct t *
         (k / lowWheelCanonicalCofactorQuotientPivot (1, k)) ≤ R := by
       rw [hpivot, Nat.div_self hkPrime.pos]
-      simpa only [Nat.mul_one] using hfaceLt.le
+      simpa only [Nat.mul_one] using! hfaceLt.le
     apply mem_lowWheelCanonicalPostRootDowncrossPart.mpr
     refine ⟨mem_lowWheelCanonicalDowncrossPart.mpr ⟨hxPhys, hnot, hdown⟩, ?_⟩
     rw [hpivot]
@@ -378,7 +378,7 @@ theorem lowWheelCanonicalPostRootDowncrossLedger_eq_mertensTransform
       apply Finset.sum_congr rfl
       intro q hqI
       by_cases hq : q.Prime
-      · simp only [hq, true_and, if_true]
+      · simp only [hq, true_and, ite_true]
         have hRq := (Finset.mem_Ioc.mp hqI).1
         calc
           (∑ t ∈ (primesUpTo R).powerset,

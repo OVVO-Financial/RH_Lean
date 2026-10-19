@@ -77,10 +77,10 @@ theorem vfMidDyadicPrefixSurvivor_realMoebiusStep_eq
     (hn : n ∈ vfMidDyadicPrefixSurvivorCarrier A B) :
     realMoebiusStep n = if n.Prime then -1 else 1 := by
   by_cases hnPrime : n.Prime
-  · rw [if_pos hnPrime, realMoebiusStep,
+  · rw [ite_eq_left hnPrime, realMoebiusStep,
       ArithmeticFunction.moebius_apply_prime hnPrime]
     norm_num
-  · rw [if_neg hnPrime]
+  · rw [ite_eq_right hnPrime]
     rcases Finset.mem_biUnion.mp hn with ⟨R, hR, hnSurv⟩
     rcases Finset.mem_Ico.mp hR with ⟨hAR, hRB⟩
     have hR2 : 2 ≤ R := by omega
@@ -135,14 +135,14 @@ theorem vfMidDyadicPrefixSurvivor_div_prime_eq_one_or_prime
         · exact hpqEq
       right
       subst p
-      simpa [hq.ne_zero] using hr
+      simpa [hq.ne_zero] using! hr
     · have hpEqR : p = r := by
         rcases (Nat.dvd_prime hr).mp hpr with hp1 | hprEq
         · exact False.elim (hp.ne_one hp1)
         · exact hprEq
       right
       subst p
-      simpa [hr.ne_zero] using hq
+      simpa [hr.ne_zero] using! hq
 
 /-- **Every composite survivor descends in one strip to a prime below the
 frozen square scale.**
@@ -596,7 +596,7 @@ theorem vfMidSquareBandCompositeOwnerChildren_eq_primeInterval_of_subdoubling
     Nat.mul_le_mul hpLeR hpLeR
   have hpLeLower : p ≤ R ^ 2 / p := by
     apply (Nat.le_div_iff_mul_le hpPrime.pos).2
-    simpa [pow_two] using hpSqLe
+    simpa [pow_two] using! hpSqLe
   ext q
   constructor
   · intro hq
@@ -721,7 +721,7 @@ theorem vfMidFrozenOwnerRunChildren_eq_primeHyperbolaInterval
       Nat.mul_le_mul hpLeR hpLeR
     have hpLeFloor : p ≤ R ^ 2 / p := by
       apply (Nat.le_div_iff_mul_le hp.pos).2
-      simpa [pow_two] using hpSqLe
+      simpa [pow_two] using! hpSqLe
     have hpLtQ : p < q := hpLeFloor.trans_lt hqLower
     have hR1B : R + 1 ≤ B := by omega
     have hsq : (R + 1) ^ 2 ≤ B ^ 2 :=
@@ -748,7 +748,7 @@ theorem vfMidFrozenOwnerRunChildren_eq_primeHyperbolaInterval
     have hnB : n ≤ B ^ 2 - 1 := by
       have hmul := (Nat.le_div_iff_mul_le hp.pos).1 hqB
       dsimp [n]
-      simpa [Nat.mul_comm] using hmul
+      simpa [Nat.mul_comm] using! hmul
     have hnBsq : n < B ^ 2 := by
       have hBpos : 0 < B := by omega
       have hBsqPos : 0 < B ^ 2 := pow_pos hBpos 2
@@ -797,13 +797,13 @@ theorem vfMidFrozenOwnerRunChildren_eq_primeHyperbolaInterval
     have hqLower : R ^ 2 / p < q := by
       apply (Nat.div_lt_iff_lt_mul hp.pos).2
       dsimp [n] at hRsqLt
-      simpa [Nat.mul_comm] using hRsqLt
+      simpa [Nat.mul_comm] using! hRsqLt
     have hqUpper : q ≤ ((R + 1) ^ 2 - 1) / p := by
       apply (Nat.le_div_iff_mul_le hp.pos).2
       have hmul : p * q ≤ (R + 1) ^ 2 - 1 := by
         dsimp [n] at hnNext
         omega
-      simpa [Nat.mul_comm] using hmul
+      simpa [Nat.mul_comm] using! hmul
     have hRlt : R < 2 * A := hRB.trans_le hBA
     have hchildEq :=
       vfMidSquareBandCompositeOwnerChildren_eq_primeInterval_of_subdoubling
@@ -968,7 +968,7 @@ theorem vfMidFrozenOwnerHyperbolaCard_add_primeCounting
     have hBpos : 0 < B := by omega
     have hBsqPos : 0 < B ^ 2 := pow_pos hBpos 2
     have hpSqLt' : p * p < B ^ 2 := by
-      simpa [pow_two] using hpSqLt
+      simpa [pow_two] using! hpSqLt
     omega
   have hpLe : p ≤ (B ^ 2 - 1) / p := by
     apply (Nat.le_div_iff_mul_le hpPrime.pos).2
@@ -1136,7 +1136,7 @@ theorem vfMidDyadicFrozenCompositeOwnerChild_prime_below_frozenSquare
   have hnComp := vfMidSquareBandCompositeOwner_mem hnOwner
   have hnSite := (Finset.mem_filter.mp hnComp.1).1
   have hnUpper : n < (R + 1) ^ 2 := by
-    simpa [vfMidSquareBandSites] using (Finset.mem_Ioo.mp hnSite).2
+    simpa [vfMidSquareBandSites] using! (Finset.mem_Ioo.mp hnSite).2
   have hR1B : R + 1 ≤ B := by omega
   have hR2B2 : (R + 1) ^ 2 ≤ B ^ 2 :=
     Nat.pow_le_pow_left hR1B 2
@@ -1218,7 +1218,7 @@ theorem vfMidSquareBandCompositeOwnerChildren_eq_primeInterval_of_frozen
       Nat.mul_le_mul hpLeR hpLeR
     have hpLeFloor : p ≤ R ^ 2 / p := by
       apply (Nat.le_div_iff_mul_le hpPrime.pos).2
-      simpa [pow_two] using hpSqLe
+      simpa [pow_two] using! hpSqLe
     have hpLtQ : p < q := hpLeFloor.trans_lt hqI.1
     omega
 
@@ -1505,7 +1505,7 @@ theorem vfMidDyadicFrozenCompositePrimeIntervalSupply_eq_sum_fixedOwner
           if p ≤ R then atom R p else 0 := by
             apply Finset.sum_congr rfl
             intro R hR
-            simpa [atom] using hblock R hR
+            simpa [atom] using! hblock R hR
     _ = ∑ p ∈ (Finset.Ioo A B).filter Nat.Prime,
         ∑ R ∈ Finset.Ico A B,
           if p ≤ R then atom R p else 0 := by
@@ -1653,7 +1653,7 @@ theorem vfMidSurvivorChildAmplitude_eq_neg_returnedParents
       Nat.mul_div_cancel' hbDvd
     unfold vfMidSurvivorReturnedParentFiber
     exact Finset.mem_filter.mpr
-      ⟨hcAdm, by simpa [hcancel] using hbCar⟩
+      ⟨hcAdm, by simpa [hcancel] using! hbCar⟩
   · intro b hb d hd heq
     have hbChild := (Finset.mem_filter.mp hb).1
     have hdChild := (Finset.mem_filter.mp hd).1
@@ -1673,7 +1673,7 @@ theorem vfMidSurvivorChildAmplitude_eq_neg_returnedParents
     have hpcChild :=
       lowOwnerFirstOwner_mul_mem_child_of_admitted hp hcAdm
     refine ⟨p * c, Finset.mem_filter.mpr ⟨hpcChild, hpcCar⟩, ?_⟩
-    simpa [Nat.mul_comm] using Nat.mul_div_left c hp.pos
+    simpa [Nat.mul_comm] using! Nat.mul_div_left c hp.pos
   · intro b hb
     have hbChild := (Finset.mem_filter.mp hb).1
     have hcBase :=
@@ -1723,7 +1723,7 @@ theorem sum_base_vfMidSurvivorSignedSite_eq_clipped
           vfMidDyadicPrefixSurvivorSignedSite A B a := by
     unfold lowOwnerFirstOwnerAdmittedBaseFiber
       lowOwnerFirstOwnerClippedBaseFiber
-    simpa only [not_le] using
+    simpa only [not_le] using!
       (Finset.sum_filter_add_sum_filter_not
         (s := lowOwnerFirstOwnerBaseFiber B p sig)
         (p := fun a => p * a ≤ squareRootEndpoint B)
@@ -1754,7 +1754,7 @@ theorem lowOwnerFirstOwnerCellGramWith_vfMidSurvivor_eq_clipped_mul_child
         ∑ b ∈ lowOwnerFirstOwnerChildFiber B p sig,
           vfMidDyadicPrefixSurvivorSignedSite A B a *
             vfMidDyadicPrefixSurvivorSignedSite A B b := by
-          simpa only using
+          simpa only using!
             (Finset.sum_product
               (s := lowOwnerFirstOwnerBaseFiber B p sig)
               (t := lowOwnerFirstOwnerChildFiber B p sig)

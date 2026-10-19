@@ -128,7 +128,7 @@ theorem partialPrimeWheel_nonzero_error_depth_four_shell
           _ = d := hab)
   have hquarter : N / 4 < y ^ 2 := by
     exact (Nat.div_lt_iff_lt_mul (by omega : 0 < 4)).2 (by
-      simpa [Nat.mul_comm] using hscale)
+      simpa [Nat.mul_comm] using! hscale)
   exact ⟨hquarter.trans hysq, hquot1, hdepth⟩
 
 end RHLean.Analysis

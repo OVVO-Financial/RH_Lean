@@ -87,7 +87,7 @@ theorem newtonLift_agrees_below_square {B : Nat} {a : ArithmeticFunction Int}
     have hk0 : k = 0 := by omega
     subst k
     simp
-  have hthree := mul_zero_below htwo hz (by simpa using hn)
+  have hthree := mul_zero_below htwo hz (by simpa using! hn)
   rw [newtonLift_eq_moebius_sub_tail]
   change ArithmeticFunction.moebius n -
     ((ArithmeticFunction.moebius - a) * (ArithmeticFunction.moebius - a) * zetaInt) n =
@@ -140,7 +140,7 @@ theorem newtonIterates_agree (j : Nat) :
   | zero =>
     intro n hn
     have hn2 : n < 2 := hn
-    interval_cases n <;> simp [newtonIterates, ArithmeticFunction.one_apply]
+    interval_cases n <;> simp [newtonIterates]
   | succ j ih => exact newtonLift_agrees_below_square ih
 
 theorem precisionCutoff_ge (j : Nat) : j + 2 <= precisionCutoff j := by
@@ -204,7 +204,7 @@ theorem inverseDefect_prefix_prime {N p : Nat}
     inverseDefect (mobiusPrefix N) p = -1 := by
   have hsum : Finset.sum p.divisors (mobiusPrefix N) = (1 : Int) := by
     have h := Nat.sum_divisors_prime_pow (k := 1) (f := mobiusPrefix N) hp
-    simpa [Finset.sum_range_succ, mobiusPrefix, hN, hNp.not_ge] using h
+    simpa [Finset.sum_range_succ, mobiusPrefix, hN, hNp.not_ge] using! h
   unfold inverseDefect
   change (1 : ArithmeticFunction Int) p - (mobiusPrefix N * zetaInt) p = -1
   rw [ArithmeticFunction.one_apply_ne hp.ne_one]

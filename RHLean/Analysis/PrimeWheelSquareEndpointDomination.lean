@@ -73,7 +73,7 @@ theorem norm_sqrtWheelRecoveredPrefix_le_max_nearestSquareEndpoint_add_root
     ← sqrtWheelRecoveredPrefix_squarePrefixEndpoint_cast_eq_squarePrefixMertens
       (R - 1),
     ← sqrtWheelRecoveredPrefix_squarePrefixEndpoint_cast_eq_squarePrefixMertens R]
-    using h
+    using! h
 
 /-- Squared prime-wheel nearest-endpoint domination. The only extra interior
 energy beyond the adjacent completed-square states is the explicit `2 * R^2`
@@ -98,7 +98,7 @@ theorem norm_sqrtWheelRecoveredPrefix_sq_le_two_max_nearestSquareEndpoint_sq_add
     ← sqrtWheelRecoveredPrefix_squarePrefixEndpoint_cast_eq_squarePrefixMertens
       (R - 1),
     ← sqrtWheelRecoveredPrefix_squarePrefixEndpoint_cast_eq_squarePrefixMertens R]
-    using h
+    using! h
 
 /-- Critical energy control of the fully recovered prime-wheel state only at
 completed-square crossings. -/
@@ -121,14 +121,14 @@ theorem sqrtWheelSquareEndpointEnergyBounded_iff_squarePrefixEnergyBounded :
     intro n
     simpa only [
       sqrtWheelRecoveredPrefix_squarePrefixEndpoint_cast_eq_squarePrefixMertens]
-      using hbound n
+      using! hbound n
   · intro h ε hε
     rcases h ε hε with ⟨C, hC, hbound⟩
     refine ⟨C, hC, ?_⟩
     intro n
     simpa only [
       sqrtWheelRecoveredPrefix_squarePrefixEndpoint_cast_eq_squarePrefixMertens]
-      using hbound n
+      using! hbound n
 
 /-- Sampling the fully recovered wheel only at completed squares loses no
 critical-energy information relative to the global Mertens criterion. -/

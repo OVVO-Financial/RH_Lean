@@ -139,10 +139,10 @@ theorem adjacent_threeSlot_exponentFlip_forces_square_hits
         exact hv
       omega
     have hmstate : localPrimeExponentState p m = 1 := by
-      simpa [hn0, primeCombExponentFlip] using hflip
+      simpa [hn0, primeCombExponentFlip] using! hflip
     exact hm1 hmstate
   have hm2 : localPrimeExponentState p m = 2 := by
-    simpa [hn2, primeCombExponentFlip] using hflip
+    simpa [hn2, primeCombExponentFlip] using! hflip
   exact ⟨
     square_hit_of_localPrimeExponentState_eq_two p n hn2,
     square_hit_of_localPrimeExponentState_eq_two p m hm2⟩

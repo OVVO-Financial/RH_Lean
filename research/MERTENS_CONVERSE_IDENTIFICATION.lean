@@ -38,7 +38,7 @@ theorem powerBound_of_strip_interior
   have hdiff : ContDiff ℝ 1 ν := hνdiff.of_le (by simp)
   have hnonneg : ∀ x > 0, 0 ≤ ν x := fun x _ => hνnonneg x
   have hmass : ∫ x in Set.Ioi (0 : ℝ), ν x / x = 1 := by
-    simpa only [integral_Ici_eq_integral_Ioi] using hνmass
+    simpa only [integral_Ici_eq_integral_Ioi] using! hνmass
   obtain ⟨Cm, hCm, hsmoothed⟩ := smoothedMobius_bound_of_strip
     ha haσ hσ hstrip hq hq1 hdiff hsupp hnonneg hmass
   obtain ⟨Ce, hCe, hclose⟩ := strongMertens_smoothed_close_eps
@@ -194,7 +194,7 @@ asserted: the two conditions themselves are proved equivalent. -/
 theorem growthAtMost_sevenEighths_iff_strip :
     MertensGrowthAtMost ((7 : ℝ) / 8) ↔
       ∀ ρ : ℂ, NontrivialZetaZero ρ → (1 : ℝ) / 8 ≤ ρ.re ∧ ρ.re ≤ (7 : ℝ) / 8 := by
-  simpa only [ZerosInSymmetricStrip, show (1 : ℝ) - 7 / 8 = 1 / 8 by norm_num] using
+  simpa only [ZerosInSymmetricStrip, show (1 : ℝ) - 7 / 8 = 1 / 8 by norm_num] using!
     growthAtMost_iff_strip (by norm_num : (0 : ℝ) ≤ 7 / 8)
 
 end RHLean.Analysis.MertensExponent

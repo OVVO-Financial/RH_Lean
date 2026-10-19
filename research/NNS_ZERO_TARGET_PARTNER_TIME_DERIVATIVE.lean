@@ -117,8 +117,8 @@ theorem squareRootCanonicalRoughTimeDeath_identifies_root
   have hcof :=
     canonicalCofactor_mul_prime_eq_of_rough hc hqPrime hrough
   constructor
-  · simpa [hroot] using hlpf
-  · simpa [hroot] using hcof
+  · simpa [hroot] using! hlpf
+  · simpa [hroot] using! hcof
 
 /-- **The lower-wall death has exactly the opposite Möbius sign of the root.**
 
@@ -142,7 +142,7 @@ theorem squareRootCanonicalRoughTimeDeath_rootWeight_eq_neg_parent
     omega
   have hflip :=
     realMoebiusStep_mul_prime_eq_neg hqPrime hnotdvd
-  simpa [Nat.mul_comm, hroot] using hflip
+  simpa [Nat.mul_comm, hroot] using! hflip
 
 /-- The signed lower-wall loss `-mu(c)` is literally the #877 root update. -/
 theorem squareRootCanonicalRoughTimeDeath_signedLoss_eq_rootUpdate
@@ -190,7 +190,7 @@ theorem squareRootCanonicalRoughTimeBirth_product_mem_squareBlock
     c * q ∈ canonicalSquareBlock R := by
   have h :=
     (mem_squareRootCanonicalRoughTimeBirthBoundary_iff hR hc).1 hq
-  simpa [canonicalSquareBlock, Finset.mem_Ico] using h.2.2
+  simpa [canonicalSquareBlock, Finset.mem_Ico] using! h.2.2
 
 /-- If the parent is squarefree, a time-birth is exactly a fresh squarefree
 prime extension with canonical parent c. -/
@@ -219,7 +219,7 @@ theorem squareRootCanonicalRoughTimeBirth_product_mem_parentFiber
     have hq2 := hqPrime.two_le
     nlinarith
   have hlpf : canonicalLargestPrimeFactor (c * q) = q := by
-    simpa [Nat.mul_comm] using
+    simpa [Nat.mul_comm] using!
       canonicalLargestPrimeFactor_mul_prime_eq_of_rough hc hqPrime hrough
   have hparent : canonicalCofactor (c * q) = c := by
     have hprod := canonicalCofactor_mul_largestPrimeFactor hcq1
@@ -240,7 +240,7 @@ theorem canonicalParentFiber_largestPrimeFactor_mem_timeBirth
   rw [canonicalParentFiber, Finset.mem_filter] at hm
   rcases hm with ⟨hmBlock, hmsq, hparent⟩
   have hmBounds : R ^ 2 ≤ m ∧ m < (R + 1) ^ 2 := by
-    simpa [squareBlockInterval, Finset.mem_Ico] using hmBlock
+    simpa [squareBlockInterval, Finset.mem_Ico] using! hmBlock
   have hm1 : 1 < m := by
     have h9 : 9 ≤ R ^ 2 := by nlinarith
     omega
@@ -250,7 +250,7 @@ theorem canonicalParentFiber_largestPrimeFactor_mem_timeBirth
     · rw [h0, zero_mul] at hmul
       omega
     · exact h0
-  have hcpos : 0 < c := by simpa [hparent] using hcpos0
+  have hcpos : 0 < c := by simpa [hparent] using! hcpos0
   have hqPrime : (canonicalLargestPrimeFactor m).Prime :=
     canonicalLargestPrimeFactor_prime hm1
   have hrough0 :
@@ -259,15 +259,15 @@ theorem canonicalParentFiber_largestPrimeFactor_mem_timeBirth
     canonicalLargestPrimeFactor_canonicalCofactor_lt_of_squarefree hm1 hmsq
   have hrough :
       canonicalLargestPrimeFactor c < canonicalLargestPrimeFactor m := by
-    simpa [hparent] using hrough0
+    simpa [hparent] using! hrough0
   have hprod0 := canonicalCofactor_mul_largestPrimeFactor hm1
   have hprod :
       c * canonicalLargestPrimeFactor m = m := by
-    simpa [hparent] using hprod0
+    simpa [hparent] using! hprod0
   apply (mem_squareRootCanonicalRoughTimeBirthBoundary_iff
     (by omega : 2 ≤ R) hcpos).2
-  exact ⟨hqPrime, hrough, by simpa [hprod] using hmBounds.1,
-    by simpa [hprod] using hmBounds.2⟩
+  exact ⟨hqPrime, hrough, by simpa [hprod] using! hmBounds.1,
+    by simpa [hprod] using! hmBounds.2⟩
 
 /-- Birth-prime multiplication and largest-prime extraction are inverse on the
 squarefree parent fibre. -/
@@ -309,11 +309,11 @@ theorem card_timeBirthBoundary_eq_parentFiber
     have hm1 : 1 < m := by
       have hmBlock := hm.1
       have hmBounds : R ^ 2 ≤ m ∧ m < (R + 1) ^ 2 := by
-        simpa [squareBlockInterval, Finset.mem_Ico] using hmBlock
+        simpa [squareBlockInterval, Finset.mem_Ico] using! hmBlock
       have hmLow : R ^ 2 ≤ m := hmBounds.1
       have h9 : 9 ≤ R ^ 2 := by nlinarith
       omega
     have hprod := canonicalCofactor_mul_largestPrimeFactor hm1
-    simpa [hm.2.2] using hprod
+    simpa [hm.2.2] using! hprod
 
 end RHLean.Proof

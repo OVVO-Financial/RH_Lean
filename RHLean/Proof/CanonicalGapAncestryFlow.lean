@@ -91,7 +91,7 @@ theorem parent_canonicalPair {q a p : ℕ} (h : BornSmoothChild q a p) :
   have haq : a ≤ q := by omega
   have hadd : a + (q - a) = q := Nat.add_sub_of_le haq
   unfold CanonicalPair
-  simpa [hadd] using
+  simpa [hadd] using!
     (And.intro h.parent.coprime.symm (Or.inl h.parent.dominant))
 
 /-- The extended child lies in the balanced gap region. -/
@@ -158,7 +158,7 @@ theorem smoothParent_unique {q c a a' p p' : ℕ}
   have hp : p = p' :=
     coreMaxPrime_unique_factor h.2.extension.coreMax
       h'.2.extension.coreMax hprod
-  have ha_mul : a * p = a' * p := by simpa [hp] using hprod
+  have ha_mul : a * p = a' * p := by simpa [hp] using! hprod
   have ha : a = a' :=
     Nat.mul_right_cancel h.2.extension.coreMax.prime.pos ha_mul
   exact ⟨ha, hp⟩
@@ -368,7 +368,7 @@ def alternatingTail (S : M →+ M) (V : M) : ℕ → M
 theorem renewal_eq_root_add_smooth {S : M →+ M} {U V : M}
     (hrenew : V = U - S V) :
     V = U + successorSmoothField S V := by
-  simpa [successorSmoothField, sub_eq_add_neg] using hrenew
+  simpa [successorSmoothField, sub_eq_add_neg] using! hrenew
 
 /-- Exact finite renewal identity with its unresolved terminal generation. -/
 theorem alternatingPrefix_add_tail {S : M →+ M} {U V : M}

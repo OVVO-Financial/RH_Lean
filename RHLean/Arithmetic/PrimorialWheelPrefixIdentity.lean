@@ -35,7 +35,7 @@ theorem moebius_Ioc_cast_eq_mertens_sub
     omega
   rw [hinterval]
   apply (eq_sub_iff_add_eq).2
-  simpa [add_comm] using hsplit
+  simpa [add_comm] using! hsplit
 
 /-- Exact complex prefix residual identity in the form used by the harmonic
 reduction. -/

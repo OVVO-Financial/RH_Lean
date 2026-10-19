@@ -277,7 +277,7 @@ private theorem natCast_le_rpow_one_add {ε : ℝ} (hε : 0 < ε) (x : ℕ) :
     exact_mod_cast hone
   have h := Real.rpow_le_rpow_of_exponent_le hbase
     (by linarith : (1 : ℝ) ≤ 1 + ε)
-  simpa using h
+  simpa using! h
 
 theorem sum_canonicalTotalIncrement_eq_squareRunMass_cast
     (a b : ℕ) (ha : 1 ≤ a) (hab : a ≤ b + 1) :

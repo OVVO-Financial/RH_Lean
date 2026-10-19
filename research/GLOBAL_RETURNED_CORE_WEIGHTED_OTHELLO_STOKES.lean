@@ -59,20 +59,20 @@ theorem sum_weightedMoebius_eq_escape_add_half_interiorDifference
 
   have hmem : ∀ x ∈ I, tau x ∈ I := by
     intro x hx
-    have hx' : x ∈ primeInteriorPart p S := by simpa [I] using hx
+    have hx' : x ∈ primeInteriorPart p S := by simpa [I] using! hx
     obtain ⟨hxS, hmate⟩ := mem_primeInteriorPart.mp hx'
     have hback : tau (tau x) = x := by
-      simpa [tau] using primeCarrierToggle_involutive hp x
+      simpa [tau] using! primeCarrierToggle_involutive hp x
     have hmem' : tau x ∈ primeInteriorPart p S := by
       apply mem_primeInteriorPart.mpr
       refine ⟨?_, ?_⟩
-      · simpa [tau] using hmate
-      · simpa [tau, hback] using hxS
-    simpa [I] using hmem'
+      · simpa [tau] using! hmate
+      · simpa [tau, hback] using! hxS
+    simpa [I] using! hmem'
 
   have hinv : ∀ x ∈ I, tau (tau x) = x := by
     intro x _hx
-    simpa [tau] using primeCarrierToggle_involutive hp x
+    simpa [tau] using! primeCarrierToggle_involutive hp x
 
   let g : ℕ → ℝ := fun x => muR x * (f x + f (tau x))
 
@@ -81,9 +81,9 @@ theorem sum_weightedMoebius_eq_escape_add_half_interiorDifference
     have hsq : ¬ p ^ 2 ∣ x := by
       intro hsq
       apply hne
-      simpa [tau] using primeCarrierToggle_of_sq_dvd hsq
+      simpa [tau] using! primeCarrierToggle_of_sq_dvd hsq
     have hmu : muR (tau x) = -muR x := by
-      simpa [muR, tau] using othelloRealMoebius_primeCarrierToggle hp hsq
+      simpa [muR, tau] using! othelloRealMoebius_primeCarrierToggle hp hsq
     have hback : tau (tau x) = x := hinv x hx
     simp only [g]
     rw [hmu, hback]
@@ -96,12 +96,12 @@ theorem sum_weightedMoebius_eq_escape_add_half_interiorDifference
     have hfix : tau x = x := (Finset.mem_filter.mp hx).2
     have hsq : p ^ 2 ∣ x := by
       apply sq_dvd_of_primeCarrierToggle_eq_self hp
-      simpa [tau] using hfix
+      simpa [tau] using! hfix
     have hmu : μ x = 0 := by
       refine ArithmeticFunction.moebius_eq_zero_of_not_squarefree ?_
       intro hsf
       exact (Nat.squarefree_iff_prime_squarefree.mp hsf p hp)
-        (by simpa [pow_two] using hsq)
+        (by simpa [pow_two] using! hsq)
     simp [g, muR, othelloRealMoebius, hmu]
 
   have hzero : (∑ x ∈ I, g x) = 0 := by
@@ -146,26 +146,26 @@ theorem sum_weightedMoebius_eq_escape_add_half_interiorDifference
     constructor
     · intro hn
       rcases Finset.mem_union.mp hn with h | h
-      · exact (mem_primeInteriorPart.mp (by simpa [I] using h)).1
-      · exact (mem_primeEscapePart.mp (by simpa [E] using h)).1
+      · exact (mem_primeInteriorPart.mp (by simpa [I] using! h)).1
+      · exact (mem_primeEscapePart.mp (by simpa [E] using! h)).1
     · intro hn
       by_cases hm : tau n ∈ S
       · apply Finset.mem_union.mpr
         left
         have : n ∈ primeInteriorPart p S :=
-          mem_primeInteriorPart.mpr ⟨hn, by simpa [tau] using hm⟩
-        simpa [I] using this
+          mem_primeInteriorPart.mpr ⟨hn, by simpa [tau] using! hm⟩
+        simpa [I] using! this
       · apply Finset.mem_union.mpr
         right
         have : n ∈ primeEscapePart p S :=
-          mem_primeEscapePart.mpr ⟨hn, by simpa [tau] using hm⟩
-        simpa [E] using this
+          mem_primeEscapePart.mpr ⟨hn, by simpa [tau] using! hm⟩
+        simpa [E] using! this
 
   have hdisj : Disjoint I E := by
     rw [Finset.disjoint_left]
     intro n hn hn'
-    have hInt : n ∈ primeInteriorPart p S := by simpa [I] using hn
-    have hEsc : n ∈ primeEscapePart p S := by simpa [E] using hn'
+    have hInt : n ∈ primeInteriorPart p S := by simpa [I] using! hn
+    have hEsc : n ∈ primeEscapePart p S := by simpa [E] using! hn'
     exact (mem_primeEscapePart.mp hEsc).2 (mem_primeInteriorPart.mp hInt).2
 
   change

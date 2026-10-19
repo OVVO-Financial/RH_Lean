@@ -61,7 +61,7 @@ theorem squareRootLowPrimeProcessedSeatTerminal_mem_canonicalOwnerFalloff
         (squareRootLowPrimeProcessedSeatFrontierStep
           (squareRootLowPrimeProcessedSeatMatchingFrontier pre S) p) := by
     rw [squareRootLowPrimeProcessedSeatMatchingFrontier_append] at hx
-    simpa [squareRootLowPrimeProcessedSeatMatchingFrontier] using hx
+    simpa [squareRootLowPrimeProcessedSeatMatchingFrontier] using! hx
   have hxStep :
       x ∈ squareRootLowPrimeProcessedSeatFrontierStep
         (squareRootLowPrimeProcessedSeatMatchingFrontier pre S) p :=
@@ -129,7 +129,7 @@ theorem squareRootLowPrimeProcessedSeatIntrinsicFirstOwner_eq_none_iff
           exfalso
           exact (hall p (by simp)) hp
       · rw [squareRootLowPrimeProcessedSeatIntrinsicFirstOwner]
-        simp only [if_neg hp]
+        simp only [ite_eq_right hp]
         rw [ih]
         constructor
         · intro htail q hq
@@ -154,12 +154,12 @@ theorem squareRootLowPrimeProcessedSeatIntrinsicFirstOwner_some_mem
           x ∈ squareRootLowPrimeProcessedSeatCanonicalOwnerFalloff S q
       · have hqp : q = p := by
           apply Option.some.inj
-          simpa [squareRootLowPrimeProcessedSeatIntrinsicFirstOwner, hq] using hp
+          simpa [squareRootLowPrimeProcessedSeatIntrinsicFirstOwner, hq] using! hp
         subst p
         exact ⟨by simp, hq⟩
       · have hpTail :
             squareRootLowPrimeProcessedSeatIntrinsicFirstOwner qs S x = some p := by
-          simpa [squareRootLowPrimeProcessedSeatIntrinsicFirstOwner, hq] using hp
+          simpa [squareRootLowPrimeProcessedSeatIntrinsicFirstOwner, hq] using! hp
         rcases ih hpTail with ⟨hpMem, hpFall⟩
         exact ⟨by simp [hpMem], hpFall⟩
 
@@ -228,7 +228,7 @@ theorem squareRootLowPrimeProcessedSeatIntrinsicFirstOwner_existsUnique
       p ∈ ps ∧
         x ∈ squareRootLowPrimeProcessedSeatIntrinsicFirstOwnerSlice ps S T p := by
   rcases Finset.mem_biUnion.mp hx with ⟨p, hpList, hxp⟩
-  refine ⟨p, ⟨by simpa using hpList, hxp⟩, ?_⟩
+  refine ⟨p, ⟨by simpa using! hpList, hxp⟩, ?_⟩
   intro q hq
   have hpEq :=
     (mem_squareRootLowPrimeProcessedSeatIntrinsicFirstOwnerSlice.mp hxp).2
@@ -263,7 +263,7 @@ theorem squareRootLowPrimeProcessedSeatIntrinsicFirstOwnerSupport_union_residual
         apply Finset.mem_union.mpr
         left
         apply Finset.mem_biUnion.mpr
-        refine ⟨p, by simpa using hpData.1, ?_⟩
+        refine ⟨p, by simpa using! hpData.1, ?_⟩
         exact mem_squareRootLowPrimeProcessedSeatIntrinsicFirstOwnerSlice.mpr
           ⟨hxT, howner⟩
 
@@ -452,7 +452,7 @@ theorem squareRootLowPrimeProcessedSeatTerminalIntrinsicResidual_has_earlier_blo
   have hxResidual' :
       x ∈ squareRootLowPrimeProcessedSeatIntrinsicFirstOwnerResidual ps S
         (squareRootLowPrimeProcessedSeatNonHeadTerminalTarget ps S) := by
-    simpa [squareRootLowPrimeProcessedSeatNonHeadTerminalIntrinsicResidual] using
+    simpa [squareRootLowPrimeProcessedSeatNonHeadTerminalIntrinsicResidual] using!
       hxResidual
   have hxResidualData :=
     mem_squareRootLowPrimeProcessedSeatIntrinsicFirstOwnerResidual.mp hxResidual'

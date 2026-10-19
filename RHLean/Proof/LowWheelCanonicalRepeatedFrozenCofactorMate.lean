@@ -56,9 +56,9 @@ theorem lowWheelCanonicalRepeatedFrozenCofactorPrime_spec
   have hcgt := (Finset.mem_filter.mp hy).2
   have hcne : y.2.1 ≠ 1 := by omega
   constructor
-  · simpa only [lowWheelCanonicalRepeatedFrozenCofactorPrime] using
+  · simpa only [lowWheelCanonicalRepeatedFrozenCofactorPrime] using!
       Nat.minFac_prime hcne
-  · simpa only [lowWheelCanonicalRepeatedFrozenCofactorPrime] using
+  · simpa only [lowWheelCanonicalRepeatedFrozenCofactorPrime] using!
       Nat.minFac_dvd y.2.1
 
 /-- Frozen shape turns the abstract mate into the requested concrete formula
@@ -74,14 +74,14 @@ theorem lowWheelCanonicalRepeatedFrozenCofactorMate_eq
   let q := Nat.minFac c
   have hfrozen := (Finset.mem_filter.mp hy).1
   have hshape := (Finset.mem_filter.mp hfrozen).2
-  have hk : k = p := by simpa only [p] using hshape.1
+  have hk : k = p := by simpa only [p] using! hshape.1
   have hqd : q ∣ c := by
-    simpa only [q, lowWheelCanonicalRepeatedFrozenCofactorPrime] using
+    simpa only [q, lowWheelCanonicalRepeatedFrozenCofactorPrime] using!
       (lowWheelCanonicalRepeatedFrozenCofactorPrime_spec hy).2
   change (t, lowWheelCofactorQuotientToggleAt q (c, k)) =
     (t, (c / q, q * p))
   unfold lowWheelCofactorQuotientToggleAt
-  simp only [hqd, if_true]
+  simp only [hqd, ite_true]
   rw [hk]
 
 /-- The frozen `c>1` mate is a literal occurrence of the already-existing
@@ -114,7 +114,7 @@ theorem lowWheelCanonicalRepeatedFrozenCofactorMate_mem_transport
   have hmateSq' :
       Squarefree (lowWheelCofactorQuotientToggleAt q (c, k)).1 := by
     unfold lowWheelCofactorQuotientToggleAt
-    simp only [hqc, if_true]
+    simp only [hqc, ite_true]
     exact hmateSq
   have hmatePhysical : lowWheelCofactorQuotientToggleAt q (c, k) ∈
       lowWheelCanonicalPhysicalStateSet R t := by
@@ -145,7 +145,7 @@ theorem lowWheelCanonicalRepeatedFrozenCofactorMate_weight_neg
   have hphys := (mem_lowWheelCanonicalDowncrossPart.mp htag.2).1
   have hsq := (mem_lowWheelCanonicalPhysicalStateSet.mp hphys).2.2.1
   simpa only [lowWheelCanonicalRepeatedFrozenCofactorMate,
-    lowWheelTaggedCanonicalWeight, q] using
+    lowWheelTaggedCanonicalWeight, q] using!
     (lowWheelCofactorQuotientToggleAt_weight_neg
       (t := t) hqPrime hsq (Or.inl hqc))
 
@@ -172,7 +172,7 @@ theorem lowWheelCanonicalRepeatedFrozenCofactorMate_ne
   have hcofactor := congrArg Prod.fst hstate
   change (lowWheelCofactorQuotientToggleAt q (c, k)).1 = c at hcofactor
   unfold lowWheelCofactorQuotientToggleAt at hcofactor
-  simp only [hqc, if_true] at hcofactor
+  simp only [hqc, ite_true] at hcofactor
   have hqdSource : q ∣ c := hqc
   rw [← hcofactor] at hqdSource
   exact hnot hqdSource
@@ -209,13 +209,13 @@ theorem lowWheelCanonicalRepeatedFrozenCofactor_facePivot_crosses_root
   have hshell := lowWheelCanonicalDowncrossPart_adjacent_shell htag.2
   rcases hshell with ⟨hpRaw, _hpNotC, _hpDvdK, _hdown, hup⟩
   have hp : (lowWheelTaggedDowncrossPivot y).Prime := by
-    simpa [lowWheelTaggedDowncrossPivot] using hpRaw
+    simpa [lowWheelTaggedDowncrossPivot] using! hpRaw
   have hdata := lowWheelCanonicalRepeatedFrozenCofactor_source_data hy
   change R < primeFaceProduct y.1 *
       (lowWheelTaggedDowncrossPivot y *
         (y.2.2 / lowWheelTaggedDowncrossPivot y)) at hup
   rw [hdata.1, Nat.div_self hp.pos, Nat.mul_one] at hup
-  simpa [Nat.mul_comm] using hup
+  simpa [Nat.mul_comm] using! hup
 
 /-- The original Boolean face is the below-pivot part of the final face. -/
 theorem lowWheelCanonicalRepeatedFrozenProductOneFace_filter_lt_pivot
@@ -234,7 +234,7 @@ theorem lowWheelCanonicalRepeatedFrozenProductOneFace_filter_lt_pivot
     · rcases Finset.mem_union.mp hqu with hqt | hqc
       · exact hqt
       · have hgt := lowWheelCanonicalRepeatedFrozenCofactor_pivot_lt_primeFactor hy
-          (by simpa [squarefreePrimeFace] using hqc)
+          (by simpa [squarefreePrimeFace] using! hqc)
         omega
   · intro hqt
     apply Finset.mem_filter.mpr
@@ -269,7 +269,7 @@ theorem lowWheelCanonicalRepeatedFrozenProductOneFace_filter_pivot_lt
       exact Finset.mem_insert.mpr <| Or.inr <|
         Finset.mem_union.mpr <| Or.inr hqc
     · exact lowWheelCanonicalRepeatedFrozenCofactor_pivot_lt_primeFactor hy
-        (by simpa [squarefreePrimeFace] using hqc)
+        (by simpa [squarefreePrimeFace] using! hqc)
 
 private theorem lowWheelCanonicalRepeatedFrozenCofactor_face_mem_powerset
     {R : ℕ} {y : LowWheelTaggedDowncrossState}
@@ -459,7 +459,7 @@ theorem lowWheelCanonicalRepeatedFrozenProductOneMate_taggedWeight_neg
       -lowWheelTaggedDowncrossWeight y := by
   simpa [lowWheelTaggedCanonicalWeight,
     lowWheelTaggedDowncrossWeight,
-    lowWheelCanonicalRepeatedFrozenProductOneMate] using
+    lowWheelCanonicalRepeatedFrozenProductOneMate] using!
       lowWheelCanonicalRepeatedFrozenProductOneMate_weight_neg hy
 
 /-- Injectivity turns the source-indexed mate ledger into the literal image

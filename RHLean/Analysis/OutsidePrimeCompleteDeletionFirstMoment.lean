@@ -72,7 +72,7 @@ theorem physicalOffsetSquareHit_modeq
   have hfour : 4 * k ≡ 4 * r [MOD q ^ 2] :=
     Nat.ModEq.add_right_cancel' a hsamed
   have hcop : Nat.Coprime (q ^ 2) 4 := by
-    simpa using
+    simpa using!
       (Nat.coprime_pow_primes (p := q) (q := 2) 2 2
         hq Nat.prime_two hq2)
   exact Nat.ModEq.cancel_left_of_coprime hcop.gcd_eq_one hfour
@@ -150,7 +150,7 @@ theorem mem_physicalSquareHitCells_of_squarePrimeAtEdge
   apply Finset.mem_biUnion.mpr
   refine ⟨a, ha, ?_⟩
   apply Finset.mem_filter.mpr
-  exact ⟨Finset.mem_range.mpr hkK, by simpa [pow_two] using hdiv⟩
+  exact ⟨Finset.mem_range.mpr hkK, by simpa [pow_two] using! hdiv⟩
 
 /-- Across all six active offsets, a complete `q^2` prefix contains at most
 `6 * (K/q^2)` q-square-hit cells. -/
@@ -203,7 +203,7 @@ theorem outsidePrimeLeastDeletionChannelCells_subset_squareHit
   | none => exact (hne hleast).elim
   | some p =>
       have hpq : p = q := by
-        simpa [hleast] using hkowner
+        simpa [hleast] using! hkowner
       subst p
       have hhit : physicalSquarePrimeAtEdge k q :=
         physicalLeastOddSquarePrime_some_spec hleast
@@ -264,7 +264,7 @@ theorem abs_outsidePrimeLeastDeletionChannel_le_eighteen_completePeriods
   rw [outsidePrimeLeastDeletionChannel_eq_cells_sum]
   let C := outsidePrimeLeastDeletionChannelCells P (Finset.range K) q
   have hcardNat : C.card ≤ 6 * (K / q ^ 2) := by
-    simpa [C] using
+    simpa [C] using!
       outsidePrimeLeastDeletionChannelCells_card_le_six_completePeriods
         (P := P) hq hq2 hcomplete
   have hcardReal : (C.card : ℝ) ≤ 6 * ((K / q ^ 2 : ℕ) : ℝ) := by
@@ -300,7 +300,7 @@ theorem abs_outsidePrimeLeastDeletionChannel_le_eighteen_periods_add_one
   rw [outsidePrimeLeastDeletionChannel_eq_cells_sum]
   let C := outsidePrimeLeastDeletionChannelCells P (Finset.range K) q
   have hcardNat : C.card ≤ 6 * (K / q ^ 2 + 1) := by
-    simpa [C] using
+    simpa [C] using!
       outsidePrimeLeastDeletionChannelCells_card_le_six_periods_add_one
         (P := P) hq hq2
   have hcardReal : (C.card : ℝ) ≤ 6 * (((K / q ^ 2 + 1 : ℕ) : ℝ)) := by

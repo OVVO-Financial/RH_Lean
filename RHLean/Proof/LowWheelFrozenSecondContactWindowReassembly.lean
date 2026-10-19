@@ -289,7 +289,7 @@ theorem lowWheelFrozenSecondContactChildOwnerColumns_eq_crossColumnChildMass
           canonicalMoebiusWeight n) := by
     exact hcols.symm.trans hchild
   have h := congrArg (fun z : ℂ => -z) hneg
-  simpa using h
+  simpa using! h
 
 /-- Integer-valued form of the same exact reassembly. -/
 theorem lowWheelFrozenSecondContactChildOwnerColumns_eq_crossColumnMobiusSum
@@ -303,7 +303,7 @@ theorem lowWheelFrozenSecondContactChildOwnerColumns_eq_crossColumnMobiusSum
           lowWheelFrozenSecondContactChildOwnerColumn R r) : ℤ) : ℂ) =
         (((∑ n ∈ lowWheelFrozenSecondContactCrossColumnChildCarrier R,
           μ n) : ℤ) : ℂ) := by
-    simpa [canonicalMoebiusWeight] using h
+    simpa [canonicalMoebiusWeight] using! h
   exact_mod_cast hcast
 
 /-! ## Independent arithmetic form of the cross-column carrier -/
@@ -355,12 +355,12 @@ theorem lowWheelFrozenSecondContactCrossColumnChildCarrier_eq_arithmetic
         lowWheelFrozenCofactorTopPrime y *
             primeFaceProduct (lowWheelFrozenSecondContactParentFace y) ≤
           squareRootEndpoint R := by
-      simpa [lowWheelFrozenSecondContactParentMap] using hmap.2.2.2.2.1
+      simpa [lowWheelFrozenSecondContactParentMap] using! hmap.2.2.2.2.1
     have hhigh :
         squareRootEndpoint R <
           lowWheelFrozenCofactorTopPrime y * lowWheelFrozenCofactorTopPrime y *
             primeFaceProduct (lowWheelFrozenSecondContactParentFace y) := by
-      simpa [lowWheelFrozenSecondContactParentMap] using hmap.2.2.2.2.2
+      simpa [lowWheelFrozenSecondContactParentMap] using! hmap.2.2.2.2.2
     have hroot := lowWheelFrozenSecondContactParentFace_root_lt hyFrozen
     apply Finset.mem_filter.mpr
     refine ⟨Finset.mem_Icc.mpr ⟨by omega, ?_⟩, hshell.2.2, ?_, ?_, ?_⟩
@@ -369,10 +369,10 @@ theorem lowWheelFrozenSecondContactCrossColumnChildCarrier_eq_arithmetic
     · rw [← hqLargest]
       exact hqR
     · rw [← hqLargest, hchild]
-      simpa [Nat.mul_assoc, Nat.mul_comm, Nat.mul_left_comm] using hhigh
+      simpa [Nat.mul_assoc, Nat.mul_comm, Nat.mul_left_comm] using! hhigh
     · rw [← hqLargest, hchild]
       have hmul := (Nat.mul_lt_mul_left hqPrime.pos).2 hroot
-      simpa [Nat.mul_assoc, Nat.mul_comm, Nat.mul_left_comm] using hmul
+      simpa [Nat.mul_assoc, Nat.mul_comm, Nat.mul_left_comm] using! hmul
   · intro hn
     rcases Finset.mem_filter.mp hn with
       ⟨hnIcc, hsq, hqR0, hsecond0, hrootWall0⟩
@@ -382,19 +382,19 @@ theorem lowWheelFrozenSecondContactCrossColumnChildCarrier_eq_arithmetic
     let c := canonicalCofactor n
     let V := squarefreePrimeFace c
     have hdata : CanonicalGapAncestryBridge.CanonicalSourceData q c := by
-      simpa [q, c] using
+      simpa [q, c] using!
         CanonicalGapAncestryBridge.canonicalSourceData_of_squarefree hsq hn1
     rcases hdata with ⟨hqPrime, hc1, hcsq, _hcop, hdom⟩
-    have hqR : q < R := by simpa [q] using hqR0
+    have hqR : q < R := by simpa [q] using! hqR0
     have hprod : c * q = n := by
-      simpa [c, q] using canonicalCofactor_mul_largestPrimeFactor hn1
+      simpa [c, q] using! canonicalCofactor_mul_largestPrimeFactor hn1
     have hVprod : primeFaceProduct V = c := by
-      simpa [V] using primeFaceProduct_squarefreePrimeFace hcsq
+      simpa [V] using! primeFaceProduct_squarefreePrimeFace hcsq
     have hVpred : V ∈ (primesUpTo (q - 1)).powerset := by
       apply Finset.mem_powerset.mpr
       intro p hp
       have hpFactors : p ∈ c.primeFactors := by
-        simpa [V, squarefreePrimeFace] using hp
+        simpa [V, squarefreePrimeFace] using! hp
       have hpData := Nat.mem_primeFactors.mp hpFactors
       exact mem_primesUpTo.mpr
         ⟨hpData.1, by
@@ -405,13 +405,13 @@ theorem lowWheelFrozenSecondContactCrossColumnChildCarrier_eq_arithmetic
     rw [← hprod] at hrootWall
     have hroot : R < c := by
       apply (Nat.mul_lt_mul_left hqPrime.pos).1
-      simpa [Nat.mul_comm] using hrootWall
+      simpa [Nat.mul_comm] using! hrootWall
     have hsecond := hsecond0
     change squareRootEndpoint R < n * q at hsecond
     rw [← hprod] at hsecond
     have hann : squareRootEndpoint R / (q * q) < c := by
       apply (Nat.div_lt_iff_lt_mul (Nat.mul_pos hqPrime.pos hqPrime.pos)).2
-      simpa [Nat.mul_assoc, Nat.mul_comm, Nat.mul_left_comm] using hsecond
+      simpa [Nat.mul_assoc, Nat.mul_comm, Nat.mul_left_comm] using! hsecond
     have hnUpper : c * q ≤ squareRootEndpoint R := by
       rw [hprod]
       exact hnUpperRaw
@@ -436,12 +436,12 @@ theorem lowWheelFrozenSecondContactCrossColumnChildCarrier_eq_arithmetic
     refine ⟨y, hy, ?_⟩
     have hyFrozen := (Finset.mem_filter.mp hy).1
     have howner : lowWheelFrozenCofactorTopPrime y = q := by
-      simpa [lowWheelFrozenSecondContactParentMap] using congrArg Prod.fst hmap
+      simpa [lowWheelFrozenSecondContactParentMap] using! congrArg Prod.fst hmap
     have hface : lowWheelFrozenSecondContactParentFace y = V := by
-      simpa [lowWheelFrozenSecondContactParentMap] using congrArg Prod.snd hmap
+      simpa [lowWheelFrozenSecondContactParentMap] using! congrArg Prod.snd hmap
     rw [lowWheelFrozenSecondContact_child_eq_owner_mul_parentProduct hyFrozen,
       howner, hface, hVprod]
-    simpa [Nat.mul_comm] using hprod
+    simpa [Nat.mul_comm] using! hprod
 
 /-- The #629 child-owner sum in the independent arithmetic coordinates. -/
 theorem lowWheelFrozenSecondContactChildOwnerColumns_eq_arithmeticMobiusSum
@@ -486,18 +486,18 @@ theorem lowWheelFrozenSecondContactArithmeticChild_bornTail_data
   let q := canonicalLargestPrimeFactor n
   let c := canonicalCofactor n
   have hdata : CanonicalGapAncestryBridge.CanonicalSourceData q c := by
-    simpa [q, c] using
+    simpa [q, c] using!
       CanonicalGapAncestryBridge.canonicalSourceData_of_squarefree hsq hn1
   rcases hdata with ⟨hqPrime, _hc1, _hcsq, _hcop, hdom⟩
-  have hqR : q < R := by simpa [q] using hqR0
+  have hqR : q < R := by simpa [q] using! hqR0
   have hprod : c * q = n := by
-    simpa [c, q] using canonicalCofactor_mul_largestPrimeFactor hn1
+    simpa [c, q] using! canonicalCofactor_mul_largestPrimeFactor hn1
   have hrootWall := hrootWall0
   change R * q < n at hrootWall
   rw [← hprod] at hrootWall
   have hroot : R < c := by
     apply (Nat.mul_lt_mul_left hqPrime.pos).1
-    simpa [Nat.mul_comm] using hrootWall
+    simpa [Nat.mul_comm] using! hrootWall
   have hcgt : 1 < c := by
     have hqTwo := hqPrime.two_le
     omega
@@ -520,7 +520,7 @@ theorem lowWheelFrozenSecondContactArithmeticChild_bornTail_data
   change squareRootEndpoint R < n * q at hsecond
   rw [← hprod] at hsecond
   have hsecond' : squareRootEndpoint R < q * q * c := by
-    simpa [Nat.mul_assoc, Nat.mul_comm, Nat.mul_left_comm] using hsecond
+    simpa [Nat.mul_assoc, Nat.mul_comm, Nat.mul_left_comm] using! hsecond
   exact ⟨hborn, hroot, hsecond', hprod⟩
 
 /-! ## Whole-carrier Othello pairing and terminal boundary -/

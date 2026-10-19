@@ -26,7 +26,7 @@ def squarePrefixMertens (n : ℕ) : ℂ :=
     mertensSummatory (x + 1) =
       mertensSummatory x + (((μ (x + 1) : ℤ) : ℂ)) := by
   unfold mertensSummatory
-  simpa only [Nat.add_assoc] using
+  simpa only [Nat.add_assoc] using!
     (Finset.sum_range_succ
       (f := fun m : ℕ => (((μ m : ℤ) : ℂ))) (x + 1))
 
@@ -290,7 +290,7 @@ theorem mertensEnergyBounded_of_squarePrefixEnergyBounded
   intro x
   by_cases hx0 : x = 0
   · subst x
-    simpa [mertensSummatory] using hconstant
+    simpa [mertensSummatory] using! hconstant
   · let r := Nat.sqrt x
     have hr : 1 ≤ r := by
       dsimp [r]
@@ -334,7 +334,7 @@ theorem mertensEnergyBounded_of_squarePrefixEnergyBounded
     have hsampleR :
         ‖squarePrefixMertens n‖ ^ 2 ≤
           C * Real.rpow (r : ℝ) (2 + 2 * ε) := by
-      simpa only [hn1] using hsample
+      simpa only [hn1] using! hsample
     have hexp : 0 ≤ 1 + ε := by linarith
     have hrpowSample :
         Real.rpow (r : ℝ) (2 + 2 * ε) ≤
@@ -357,7 +357,7 @@ theorem mertensEnergyBounded_of_squarePrefixEnergyBounded
       have hbase : (1 : ℝ) ≤ ((x + 1 : ℕ) : ℝ) := by
         exact_mod_cast (Nat.succ_le_succ (Nat.zero_le x))
       have hone : (1 : ℝ) ≤ 1 + ε := by linarith
-      simpa only [Real.rpow_eq_pow, Real.rpow_one] using
+      simpa only [Real.rpow_eq_pow, Real.rpow_one] using!
         Real.rpow_le_rpow_of_exponent_le hbase hone
     have hsampleFinal :
         ‖squarePrefixMertens n‖ ^ 2 ≤
@@ -436,7 +436,7 @@ theorem squarePrefixEnergyBounded_iff_currentPointwise :
           ‖squarePrefixMertens 0‖ ^ 2 ≤
             C + ‖squarePrefixMertens 0‖ ^ 2 :=
         le_add_of_nonneg_left hC
-      simpa [Z] using hzle
+      simpa [Z] using! hzle
     · have hn : 1 ≤ n := Nat.pos_of_ne_zero hn0
       have h := hbound n hn
       have hbase : (n : ℝ) ≤ ((n + 1 : ℕ) : ℝ) := by exact_mod_cast Nat.le_succ n

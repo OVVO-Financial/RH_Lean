@@ -153,7 +153,7 @@ theorem frozenSquareRunKernel_eq_mertensGap_add_canonicalDowncrossRunDifference
   have hB :
       squarePrefixMertens b =
         mertensSummatory (b + 1) - lowWheelCanonicalDowncrossLedger (b + 1) := by
-    simpa using hBraw
+    simpa using! hBraw
   rw [hk, hA, hB]
   unfold canonicalDowncrossRunDifference
   ring
@@ -301,7 +301,7 @@ private theorem rootLength_sq_le_endpoint_rpow
     (((b + 1 - a : ℕ) : ℝ)) ^ 2 ≤ (((b + 1 : ℕ) : ℝ)) ^ 2 := hsq
     _ = ((((b + 1) ^ 2 : ℕ) : ℝ)) := hendpoint
     _ ≤ Real.rpow ((((b + 1) ^ 2 : ℕ) : ℝ)) (1 + ε) := by
-      simpa using hrpow
+      simpa using! hrpow
 
 /-- **RH-scale downcross-run seam.**  This asks only for the energy of the
 change `D_{b+1}-D_a` on forward subdoubling runs.  It does not ask for any
@@ -370,9 +370,9 @@ theorem frozenSquareRunEnergyBounded_of_canonicalDowncrossRunDifferenceEnergyBou
       dsimp [P]
       exact Real.rpow_nonneg (by positivity) _
     have hDab' : ‖canonicalDowncrossRunDifference a b‖ ^ 2 ≤ C * P := by
-      simpa [P] using hDab
+      simpa [P] using! hDab
     have hlen' : (((b + 1 - a : ℕ) : ℝ)) ^ 2 ≤ P := by
-      simpa [P] using hlen
+      simpa [P] using! hlen
     calc
       ‖frozenSquareRunKernel a b‖ ^ 2 ≤
           2 * (((b + 1 - a : ℕ) : ℝ)) ^ 2 +
@@ -391,7 +391,7 @@ theorem frozenSquareRunEnergyBounded_of_canonicalDowncrossRunDifferenceEnergyBou
         0 ≤ (2 + 2 * C) *
           Real.rpow ((((b + 1) ^ 2 : ℕ) : ℝ)) (1 + ε) :=
       mul_nonneg hcoef hP0
-    simpa using hrhs
+    simpa using! hrhs
 
 /-- Conversely, the frozen square-run criterion controls the energy of every
 canonical downcross-frontier change on the same forward subdoubling window. -/
@@ -412,9 +412,9 @@ theorem canonicalDowncrossRunDifferenceEnergyBounded_of_frozenSquareRunEnergyBou
     dsimp [P]
     exact Real.rpow_nonneg (by positivity) _
   have hK' : ‖frozenSquareRunKernel a b‖ ^ 2 ≤ C * P := by
-    simpa [P] using hK
+    simpa [P] using! hK
   have hlen' : (((b + 1 - a : ℕ) : ℝ)) ^ 2 ≤ P := by
-    simpa [P] using hlen
+    simpa [P] using! hlen
   calc
     ‖canonicalDowncrossRunDifference a b‖ ^ 2 ≤
         2 * ‖frozenSquareRunKernel a b‖ ^ 2 +

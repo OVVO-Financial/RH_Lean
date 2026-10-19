@@ -291,11 +291,11 @@ theorem primeCombPostRootReciprocalBand_eq_quotient_filter
     · apply (Nat.div_lt_iff_lt_mul (by omega : 0 < z + 1)).2
       have h := (Nat.div_lt_iff_lt_mul hpPrime.pos).1
         (show W / p < z + 1 by omega)
-      simpa [Nat.mul_comm] using h
+      simpa [Nat.mul_comm] using! h
     · apply (Nat.le_div_iff_mul_le hz).2
       have h := Nat.div_mul_le_self W p
       rw [hquot] at h
-      simpa [Nat.mul_comm] using h
+      simpa [Nat.mul_comm] using! h
 
 theorem sum_postRootReciprocalBand_lower_square_eq_card_mul
     (W z : ℕ) (hz : 0 < z) :
@@ -348,7 +348,7 @@ theorem postRootFamilyMertensSquareEnergy_eq_reciprocalBands (W : ℕ) :
       have hqpos : 0 < W / p := Nat.div_pos hpData.2.1 hpData.2.2.pos
       have hqroot : W / p ≤ Nat.sqrt W := by
         apply (Nat.le_sqrt).2
-        simpa [pow_two] using postRootPrimeFamily_quotient_sq_le hp
+        simpa [pow_two] using! postRootPrimeFamily_quotient_sq_le hp
       have hqmem : W / p ∈ Finset.Icc 1 (Nat.sqrt W) :=
         Finset.mem_Icc.mpr ⟨hqpos, hqroot⟩
       simp [hqmem]
@@ -384,7 +384,7 @@ theorem realMertensLength_quotient_sq_eq_one_of_upperHalf
     {W p : ℕ} (hp : p ∈ (Finset.Ioc (W / 2) W).filter Nat.Prime) :
     realMertensLength (W / p + 1) ^ 2 = 1 := by
   have hpBand : p ∈ primeCombReciprocalBand W 1 := by
-    simpa [primeCombReciprocalBand] using hp
+    simpa [primeCombReciprocalBand] using! hp
   rw [primeCombReciprocalBand_div_eq (by norm_num : 0 < 1) hpBand]
   norm_num [realMertensLength, realMoebiusStep, Finset.sum_range_succ]
 
@@ -463,7 +463,7 @@ theorem postRootCovariancePowerRecordExcess_le_squareRecordBudget
     nlinarith
   unfold postRootCovariancePowerRecordExcess postRootCovariancePowerSeat
     postRootCovariancePowerSquareRecordBudget
-  rw [if_pos hW,
+  rw [ite_eq_left hW,
     max_zero_sub_max_zero_eq (postRootCovariancePowerEnvelope_nonneg ε N)]
   exact max_le_max le_rfl (sub_le_sub_right hratio _)
 

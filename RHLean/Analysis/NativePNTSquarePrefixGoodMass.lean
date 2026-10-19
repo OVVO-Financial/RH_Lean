@@ -67,7 +67,7 @@ theorem nativePNTSquarePrefixSearchLower_le_upper
     have hp2 : 2 ≤ 2 ^ K := by
       have hp : 2 ^ 1 ≤ 2 ^ K :=
         (Nat.pow_le_pow_iff_right Nat.one_lt_two).2 hK
-      simpa using hp
+      simpa using! hp
     calc
       A + 1 = (A + 1) * 1 := by omega
       _ < (A + 1) * 2 ^ K :=
@@ -143,10 +143,10 @@ private theorem nativePNTSquarePrefixRecipSuccInterval_log_lower
       ∑ n ∈ Finset.Icc A B, 1 / (((n + 1 : ℕ) : ℝ)) := by
   rw [nativePNTSquarePrefixRecipSuccInterval_eq_harmonic_sub A B hAB]
   have hlo : Real.log ((B + 2 : ℕ) : ℝ) ≤ (harmonic (B + 1) : ℝ) := by
-    simpa [show B + 2 = (B + 1) + 1 by omega] using
+    simpa [show B + 2 = (B + 1) + 1 by omega] using!
       (log_add_one_le_harmonic (B + 1))
   have hup : (harmonic A : ℝ) ≤ 1 + Real.log (A : ℝ) := by
-    simpa using (harmonic_le_one_add_log A)
+    simpa using! (harmonic_le_one_add_log A)
   linarith
 
 /-- A complete-square span has twice the reciprocal logarithmic depth of its
@@ -275,7 +275,7 @@ theorem nativePNT_exists_small_error_squarePrefix
     exact one_le_pow₀ (by omega : 1 ≤ A + 1)
   have hLU : L ≤ U := nativePNTSquarePrefixSearchLower_le_upper A K hK
   by_contra hno
-  push_neg at hno
+  push Not at hno
   have haway : ∀ n ∈ Finset.Icc L U,
       ε * (n : ℝ) ≤ |nativePNTError n| := by
     intro n hn
@@ -421,7 +421,7 @@ theorem nativePNT_exists_squarePrefix_depth_quantitative
   have hxK : x < (K : ℝ) := by
     dsimp [K]
     push_cast
-    simpa using Nat.lt_floor_add_one x
+    simpa using! Nat.lt_floor_add_one x
   have hfloor : (⌊x⌋₊ : ℝ) ≤ x := Nat.floor_le hx0
   have hKupper0 : (K : ℝ) ≤ x + 1 := by
     dsimp [K]
@@ -432,7 +432,7 @@ theorem nativePNT_exists_squarePrefix_depth_quantitative
     have hmul := mul_le_mul_of_nonneg_left hloglow
       (show (0 : ℝ) ≤ 2 * (K : ℝ) by positivity)
     have hKlarge : 96 / eps + 1 < (K : ℝ) := by
-      simpa [x] using hxK
+      simpa [x] using! hxK
     nlinarith
   have hscaled := mul_lt_mul_of_pos_left hKlog
     (show (0 : ℝ) < eps / 4 by positivity)
@@ -495,7 +495,7 @@ private theorem nativePNTSquarePrefix_scale_bound
   have ha0 : 0 < a := lt_of_lt_of_le zero_lt_one ha
   have hepsa : eps * a ≤ a := by
     have h := mul_le_mul_of_nonneg_right heps1 ha0.le
-    simpa using h
+    simpa using! h
   have hka : 16 * (k + 2) < a := hlarge.trans_le hepsa
   have hlhs : 2 * (a + 1) + 2 * k < 3 * a := by
     nlinarith
@@ -575,7 +575,7 @@ theorem nativePNT_exists_good_radius_squarePrefix_eventually
       2200 ≤ eps * Real.log (nativePNTSquarePrefixSearchLower A : ℝ) := by
     have htailA : 2200 ≤ eps * Real.log (A : ℝ) := by
       have h := (div_le_iff₀ heps).mp htail0
-      simpa [mul_comm] using h
+      simpa [mul_comm] using! h
     rw [hlogL]
     have hmul := mul_le_mul_of_nonneg_left hlogA1mono heps.le
     nlinarith
@@ -591,7 +591,7 @@ theorem nativePNT_exists_good_radius_squarePrefix_eventually
   have hlarge : 16 * ((K : ℝ) + 2) < eps * (A : ℝ) := by
     have htmp := lt_of_lt_of_le hTreal hAre
     have hmul := (div_lt_iff₀ heps).mp htmp
-    simpa [mul_comm] using hmul
+    simpa [mul_comm] using! hmul
   have hupperLog := nativePNTSquarePrefixSearchUpper_log_le A K hA1 hK
   have hLcast :
       (nativePNTSquarePrefixSearchLower A : ℝ) = ((A + 1 : ℕ) : ℝ) ^ 2 := by
@@ -626,7 +626,7 @@ theorem nativePNT_exists_good_radius_squarePrefix_eventually
             2 * (K : ℝ) * Real.log 2) - 1 := sub_le_sub_right hupperLog 1
       _ ≤ 2 * ((A + 1 : ℕ) : ℝ) + 2 * (K : ℝ) := by linarith
       _ < (eps / 2) * (((A + 1 : ℕ) : ℝ) ^ 2) := by
-        simpa [Nat.cast_add, Nat.cast_one] using hscale
+        simpa [Nat.cast_add, Nat.cast_one] using! hscale
       _ ≤ (eps / 4) *
           (2 * (nativePNTSquarePrefixSearchLower A : ℝ) + 1) := by
         rw [hLcast]

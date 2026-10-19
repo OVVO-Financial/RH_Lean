@@ -95,7 +95,7 @@ theorem lowWheelCanonicalDowncrossOrientedFirstJumpStateFibre_eq_sum_cofactorRes
         Nat.prime_two hstate.2 hBR hAB
     unfold lowWheelCanonicalDowncrossOrientedFirstJumpStateFibre
       firstJumpStateCofactorResponse
-    simp only [if_pos hstate]
+    simp only [ite_eq_left hstate]
     rw [hJ, Finset.mul_sum]
     apply Finset.sum_congr rfl
     intro d _hd
@@ -289,7 +289,7 @@ theorem pntFiniteDifferenceLiveExposureBound_of_cofactorColumnPacking
     ring
   have hharmBound :
       (harmonic R : ℝ) ≤ 1 + Real.log (R : ℝ) := by
-    simpa using harmonic_le_one_add_log R
+    simpa using! harmonic_le_one_add_log R
   have hRnonneg : (0 : ℝ) ≤ (R : ℝ) := by positivity
   calc
     ‖∑ d ∈ Finset.Icc 1 (Nat.sqrt R),
@@ -308,7 +308,7 @@ theorem pntFiniteDifferenceLiveExposureBound_of_cofactorColumnPacking
       have hc := hcol R d hR hd
       rw [norm_mul]
       have hmul := mul_le_mul hmu hc (norm_nonneg _) (by norm_num : (0 : ℝ) ≤ 1)
-      simpa using hmul
+      simpa using! hmul
     _ ≤ ∑ d ∈ Finset.Icc 1 R, (R : ℝ) / (d : ℝ) := hsumSubset
     _ = (R : ℝ) * (harmonic R : ℝ) := hsumHarm
     _ ≤ (R : ℝ) * (1 + Real.log (R : ℝ)) :=

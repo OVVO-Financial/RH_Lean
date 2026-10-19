@@ -46,7 +46,7 @@ attribute [local instance] Classical.propDecidable
     zeroTargetCoPartialPair x x = x ^ 2 := by
   have h := zeroTargetCoPartial_sub_divergent_eq_mul x x
   rw [zeroTargetDivergentPair_self] at h
-  simpa [pow_two] using h
+  simpa [pow_two] using! h
 
 /-- The one-amplitude diagonal is literally the sum of target-zero co-partial
 self masses. -/

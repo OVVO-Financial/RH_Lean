@@ -94,7 +94,7 @@ theorem vfMidActualPrimeUpperEscape_forces_subdoublingMobiusTrigger
       vfMidDyadicVFTrackingDefect A B =
         -(vfMidActualPrimeEndpointDefect B -
           vfMidActualPrimeEndpointDefect A) := by
-    simpa [vfMidActualPrimeEndpointDefect] using htrack
+    simpa [vfMidActualPrimeEndpointDefect] using! htrack
   rw [htrack'] at hdict
   linarith
 
@@ -145,7 +145,7 @@ theorem vfMidActualPrimeLowerEscape_forces_subdoublingMobiusTrigger
       vfMidDyadicVFTrackingDefect A B =
         -(vfMidActualPrimeEndpointDefect B -
           vfMidActualPrimeEndpointDefect A) := by
-    simpa [vfMidActualPrimeEndpointDefect] using htrack
+    simpa [vfMidActualPrimeEndpointDefect] using! htrack
   rw [htrack'] at hdict
   linarith
 
@@ -176,7 +176,7 @@ theorem vfMidActualPrimeFirstBadAt_forces_subdoublingMobiusTrigger
   · have hupper :
         K * vfMidSyntheticRadialScale B <
           vfMidActualPrimeEndpointDefect B := by
-      simpa [abs_of_nonneg hsign] using hbad
+      simpa [abs_of_nonneg hsign] using! hbad
     exact Or.inr
       (vfMidActualPrimeUpperEscape_forces_subdoublingMobiusTrigger
         hA hABlt.le hBA hAinside hupper)

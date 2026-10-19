@@ -73,7 +73,7 @@ theorem replacementRootGeometric_cofactor_lt_root
     hRc.trans horient.le
   have hsqle : R ^ 2 ≤
       canonicalCofactor n * canonicalLargestPrimeFactor n := by
-    simpa [pow_two] using Nat.mul_le_mul hRc hRq
+    simpa [pow_two] using! Nat.mul_le_mul hRc hRq
   have hXlt : squareRootEndpoint R < R ^ 2 := by
     unfold squareRootEndpoint
     have hpos : 0 < R ^ 2 := by positivity
@@ -187,7 +187,7 @@ theorem replacementFibreRootGeometricSourceMass_eq_pairMass
     (fun n _hn => (canonicalCofactor n, canonicalLargestPrimeFactor n))
     (fun n hn => rootGeometricSource_to_pair_mem hR hn)
     (fun m hm n hn hmn => rootGeometricSource_pair_injective hR hm hn hmn)
-    (fun cq hcq => by simpa using rootPair_surjective hR hz hzR cq hcq)
+    (fun cq hcq => by simpa using! rootPair_surjective hR hz hzR cq hcq)
     ?_
   intro n hn
   rcases Finset.mem_Icc.mp (Finset.mem_filter.mp hn).1 with ⟨hnR, _hnX⟩
@@ -258,7 +258,7 @@ theorem replacementFibreRootPairMass_eq_neg_cofactorPrimeWindows
           if q.Prime ∧ c < q ∧ squareRootEndpoint R / (c * q) = z then
             canonicalMoebiusWeight (c * q)
           else 0 := by
-      simpa only using
+      simpa only using!
         (Finset.sum_product
           (s := Finset.Icc 1 (R - 1))
           (t := Finset.Icc 2 (squareRootEndpoint R))
@@ -327,7 +327,7 @@ private theorem replacementPrimeFactor_le_canonicalLargestPrimeFactor
     {n p : ℕ} (hn : 1 < n) (hp : p ∈ n.primeFactors) :
     p ≤ canonicalLargestPrimeFactor n := by
   unfold canonicalLargestPrimeFactor
-  rw [dif_pos hn]
+  rw [dite_eq_left hn]
   exact Finset.le_max' n.primeFactors p hp
 
 /-- In a squarefree source, the largest prime of the canonical cofactor is
@@ -341,7 +341,7 @@ theorem canonicalLargestPrimeFactor_canonicalCofactor_lt_of_squarefree
   · have hp1 : canonicalLargestPrimeFactor (canonicalCofactor n) = 1 := by
       rw [hc1]
       unfold canonicalLargestPrimeFactor
-      rw [dif_neg (by omega)]
+      rw [dite_eq_right (by omega)]
     rw [hp1]
     exact hqPrime.one_lt
   · have hcpos := CanonicalGapAncestryBridge.canonicalCofactor_pos hn
@@ -533,7 +533,7 @@ theorem replacementFibreSmoothGeometricSourceMass_eq_pairMass
     (fun n _hn => (canonicalCofactor n, canonicalLargestPrimeFactor n))
     (fun n hn => smoothGeometricSource_to_pair_mem hR hn)
     (fun m hm n hn hmn => smoothGeometricSource_pair_injective hR hm hn hmn)
-    (fun cq hcq => by simpa using smoothPair_surjective hR hz hzR cq hcq)
+    (fun cq hcq => by simpa using! smoothPair_surjective hR hz hzR cq hcq)
     ?_
   intro n hn
   rcases Finset.mem_Icc.mp (Finset.mem_filter.mp hn).1 with ⟨hnR, _hnX⟩
@@ -627,7 +627,7 @@ theorem replacementFibreSmoothPairMass_eq_neg_cofactorPrimeWindows
               squareRootEndpoint R / (c * q) = z then
             canonicalMoebiusWeight (c * q)
           else 0 := by
-      simpa only using
+      simpa only using!
         (Finset.sum_product
           (s := Finset.Icc 1 (squareRootEndpoint R))
           (t := Finset.Icc 2 (R - 1))

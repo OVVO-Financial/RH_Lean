@@ -171,7 +171,7 @@ theorem liCoefficientGap_abs_le
         -weightedCoreExtensionDefect (liWindowCoreSupport N H)
             (liComplementaryMain L N H) liActivityIncrement N H /
           localWindowEnergy (liWindowPrediction N H) N H := by
-    simpa [liWindowPrediction, liComplementaryMain] using
+    simpa [liWindowPrediction, liComplementaryMain] using!
       one_sub_optimalCoefficient_eq_weightedCoreExtension
         (liWindowCoreSupport N H) L liActivityIncrement N H
         (ne_of_gt henergy)

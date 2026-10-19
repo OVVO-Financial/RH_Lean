@@ -271,14 +271,14 @@ theorem squareRootTransportDiscretePNTMain_eq_oddPaired (R : ℕ) :
   apply Finset.sum_congr rfl
   intro c _hc
   by_cases ho : Odd c
-  · simp only [ho, if_true]
+  · simp only [ho, ite_true]
     unfold liPairedIntervalMass liPairedLower
     by_cases h2 : 2 * c < R
-    · simp only [h2, if_true, hw]
+    · simp only [h2, ite_true, hw]
       unfold squareRootTransportLiDiscWeight
       push_cast
       ring
-    · simp only [h2, if_false, hw]
+    · simp only [h2, ite_false, hw]
       unfold squareRootTransportLiDiscWeight
       push_cast
       ring
@@ -378,7 +378,7 @@ theorem norm_liHybridGridModel_sub_liHybridModel_le_card (R : ℕ) :
         else 0) := by
       intro c _hc
       by_cases ho : Odd c
-      · simp only [ho, if_true]
+      · simp only [ho, ite_true]
         push_cast
         ring
       · simp [ho]

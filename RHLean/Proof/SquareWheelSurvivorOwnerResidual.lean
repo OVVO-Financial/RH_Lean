@@ -378,7 +378,7 @@ theorem squareWheelSurvivorAboveCutoffMatchedPairSet_subset_boundingBox
   have hcpos : 0 < c := hcRigid.1.pos
   have hqDiv : q ≤ squareRootEndpoint R / c := by
     apply (Nat.le_div_iff_mul_le hcpos).2
-    simpa [Nat.mul_comm] using hprod
+    simpa [Nat.mul_comm] using! hprod
   have hdiv :=
     squareRootBornPostTail_reciprocalCutoff_le_root_add_sqrt hR hcRigid.2.1
   unfold squareWheelSurvivorAboveCutoffBoundingBox
@@ -400,13 +400,13 @@ theorem squareWheelSurvivorAboveCutoffMatchedPairSet_card_le_root
       (squareWheelSurvivorAboveCutoffMatchedPairSet R
         (squareRootBornPostTailLowPrimeCutoff R)).card ≤
         (squareRootBornPostTailHighComplementCofactors R).card * Nat.sqrt R := by
-    simpa [squareWheelSurvivorAboveCutoffBoundingBox, hIoc] using hsub
+    simpa [squareWheelSurvivorAboveCutoffBoundingBox, hIoc] using! hsub
   have hrect :
       (squareRootBornPostTailHighComplementCofactors R).card * Nat.sqrt R ≤
         Nat.sqrt R * Nat.sqrt R :=
     Nat.mul_le_mul_right (Nat.sqrt R) hcof
   have hsqrt : Nat.sqrt R * Nat.sqrt R ≤ R := by
-    simpa [pow_two] using Nat.sqrt_le' R
+    simpa [pow_two] using! Nat.sqrt_le' R
   exact hsub'.trans (hrect.trans hsqrt)
 
 /-- The above-cutoff matched survivor mass is exactly its cardinality. -/

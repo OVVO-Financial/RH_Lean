@@ -84,7 +84,7 @@ theorem squareRootEndpoint_lt_lowOwnerStokesCommonTorusModulus
     squareRootEndpoint R < squareRootEndpoint R + 1 := Nat.lt_succ_self _
     _ ≤ (squareRootEndpoint R + 1) *
         lowOwnerStokesSquareSensitivePeriod R := by
-      simpa using Nat.mul_le_mul_left (squareRootEndpoint R + 1) hP
+      simpa using! Nat.mul_le_mul_left (squareRootEndpoint R + 1) hP
     _ = lowOwnerStokesCommonTorusModulus R := rfl
 
 /-- One finite corrected wheel carrying the entire physical Stokes clock. -/
@@ -109,7 +109,7 @@ theorem lowOwnerStokesWheelRawSite_periodic
     Function.Periodic
       (lowOwnerStokesWheelSystem R _hR).rawSite
       (lowOwnerStokesSquareSensitivePeriod R) := by
-  simpa [PrimeWheelFiniteSystem.rawSite, lowOwnerStokesWheelSystem] using
+  simpa [PrimeWheelFiniteSystem.rawSite, lowOwnerStokesWheelSystem] using!
     (seededPrimeComb_periodic_of_squarePeriods_dvd
       (lowOwnerStokesWheelPrimes R)
       (lowOwnerStokesSquareSensitivePeriod R)

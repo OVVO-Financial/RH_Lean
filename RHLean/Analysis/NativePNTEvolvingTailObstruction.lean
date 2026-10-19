@@ -139,7 +139,7 @@ theorem nativePNTEvolvingTailCost_ge_canonical_obstruction
   have hsecond' :
       ((N : ℝ) - 1 - Real.log (N : ℝ)) * Real.log (N : ℝ) ≤
         nativePNTSecondRemainderFrom nativePNTFirstRemainder N := by
-    simpa [nativePNTSecondRemainder] using hsecond
+    simpa [nativePNTSecondRemainder] using! hsecond
   have htail := nativeLambdaTwoTailRecipMass_nonneg N M
   have hsmall := nativeLambdaTwoSmallQuotientErrorMass_nonneg N M
   have halphaN : 0 ≤ alpha * (N : ℝ) :=
@@ -186,7 +186,7 @@ theorem nativeLambdaTwoGoodTailRecipMass_eq_zero_of_lt_two_mul
       (Nat.le_div_iff_mul_le (by omega : 0 < n)).1 hMdiv
     have h2Mn : 2 * M ≤ M * n := by
       have h := Nat.mul_le_mul_left M hn2
-      simpa [Nat.mul_comm] using h
+      simpa [Nat.mul_comm] using! h
     omega
   subst n
   simp [nativeLambdaTwo_one]

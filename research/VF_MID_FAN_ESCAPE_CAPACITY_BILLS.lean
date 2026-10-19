@@ -92,7 +92,7 @@ theorem vfMidLowerWallCompositeRunBill_hits
     VFMidLowerWallHorizontalHit lower x0 y0
       (vfMidLowerWallCompositeRunBill lower x0 y0) := by
   unfold vfMidLowerWallCompositeRunBill
-  rw [dif_pos hex]
+  rw [dite_eq_left hex]
   exact Nat.find_spec hex
 
 /-- No shorter horizontal run can hit the lower wall. -/
@@ -103,7 +103,7 @@ theorem vfMidLowerWallCompositeRunBill_minimal
     (hh : h < vfMidLowerWallCompositeRunBill lower x0 y0) :
     ¬ VFMidLowerWallHorizontalHit lower x0 y0 h := by
   unfold vfMidLowerWallCompositeRunBill at hh
-  rw [dif_pos hex] at hh
+  rw [dite_eq_left hex] at hh
   exact Nat.find_min hex hh
 
 /-- `q` unit prime jumps across horizontal displacement `h` strictly clear

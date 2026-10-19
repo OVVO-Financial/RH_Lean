@@ -45,7 +45,7 @@ theorem vfMidOpenSquare_partialPrimeWheel_exact
   have hrLower : R + 1 ≤ r := by omega
   have hprod :
       (R + 1) ^ 2 ≤ q * r := by
-    simpa [pow_two] using Nat.mul_le_mul hqLower hrLower
+    simpa [pow_two] using! Nat.mul_le_mul hqLower hrLower
   rw [hnqr] at hnI
   omega
 
@@ -73,7 +73,7 @@ theorem vfMidSquareWheelSites_disjoint_adjacentSecondSelbergFrontier
   have hrLower : R + 1 ≤ r := by omega
   have hprod :
       (R + 1) ^ 2 ≤ q * r := by
-    simpa [pow_two] using Nat.mul_le_mul hqLower hrLower
+    simpa [pow_two] using! Nat.mul_le_mul hqLower hrLower
   rw [hnqr] at hnI
   omega
 
@@ -109,7 +109,7 @@ theorem vfMidAdjacentSquareSecondSelbergFrontierSite_iff
         omega
       have hqEq : q = R + 1 := by omega
       subst q
-      exact ⟨by simpa using hnq, hqPrime⟩
+      exact ⟨by simpa using! hnq, hqPrime⟩
     · rcases hmix with
         ⟨q, r, _hqPrime, _hrPrime, hqr, hRq, hRr,
           hnqr, _herr, _hkernel⟩
@@ -178,12 +178,12 @@ theorem vfMidAdjacentSquareSecondSelbergFrontierSite_iff
           primeWheelResolvedPart_mul_unresolvedPart
             R (n := (R + 1) ^ 2) (by positivity)
         rw [ha] at hab
-        simpa using hab
+        simpa using! hab
       have hb1 : (R + 1) ^ 2 ≠ 1 := by
         nlinarith
       have hnsq : ¬ Squarefree ((R + 1) ^ 2) := by
         rw [Nat.squarefree_iff_prime_squarefree]
-        push_neg
+        push Not
         exact ⟨R + 1, hPrime, by simp [pow_two]⟩
       have hmu0 :
           μ ((R + 1) ^ 2) = 0 :=
@@ -193,7 +193,7 @@ theorem vfMidAdjacentSquareSecondSelbergFrontierSite_iff
           R ((R + 1) ^ 2)
           (n := (R + 1) ^ 2)
           (by positivity) le_rfl
-      rw [hb, if_neg hb1, ha, hmu0] at herr
+      rw [hb, ite_eq_right hb1, ha, hmu0] at herr
       norm_num at herr
       intro hzero
       rw [hmu0] at hzero

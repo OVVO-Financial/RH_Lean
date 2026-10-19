@@ -61,7 +61,7 @@ theorem vfMidSquareLi2MinusVF_abs_le_uniform
   unfold vfMidLiError at hquad
   rw [vfMid_sq hR] at hquad
   unfold vfMidSquareLi2MinusVF
-  simpa only [abs_sub_comm] using hquad
+  simpa only [abs_sub_comm] using! hquad
 
 /-- Any proved pi-Li_2 error bound transfers DIRECTLY to the
 original actual pi-VF error with only a FIXED uniform additive cost. -/
@@ -88,7 +88,7 @@ theorem vfMidSquareActualPrimeLi2_abs_le_primeVF_abs_add_uniform
           vfMidSquareLi2MinusVF R| ≤
         |vfMidDirectSquareEndpointError R| +
           |vfMidSquareLi2MinusVF R| := by
-    simpa only [sub_eq_add_neg, abs_neg] using
+    simpa only [sub_eq_add_neg, abs_neg] using!
       (abs_add_le (vfMidDirectSquareEndpointError R)
         (-vfMidSquareLi2MinusVF R))
   have hcancel :

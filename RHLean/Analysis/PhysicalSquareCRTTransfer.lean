@@ -193,18 +193,18 @@ theorem finitePrimeCRTOrbit_subset_Ico_of_margin
   intro j hj
   let M := finitePrimeCRTPeriod P
   have hM : 0 < M := by
-    simpa [M] using finitePrimeCRTPeriod_pos P
+    simpa [M] using! finitePrimeCRTPeriod_pos P
   have hjBounds := Finset.mem_Ico.mp hj
   have hmod : k % M < M := Nat.mod_lt k hM
   have hdecomp : (k / M) * M + k % M = k := by
-    simpa [Nat.mul_comm, Nat.add_comm] using Nat.mod_add_div k M
+    simpa [Nat.mul_comm, Nat.add_comm] using! Nat.mod_add_div k M
   have hstartL : L ≤ (k / M) * M := by
     change L + M ≤ k at hleft
     omega
   have hstartK : (k / M) * M ≤ k := Nat.div_mul_le_self k M
   have hendK : (k / M + 1) * M ≤ k + M := by
     rw [Nat.add_mul]
-    simpa using Nat.add_le_add_right hstartK M
+    simpa using! Nat.add_le_add_right hstartK M
   apply Finset.mem_Ico.mpr
   constructor
   · exact hstartL.trans hjBounds.1
@@ -220,7 +220,7 @@ theorem physicalSquareCRTGeometricBoundary_card_le_two_period
   let U := threeSlotSquareBlockUpper R
   let M := finitePrimeCRTPeriod P
   have hGeom : threeSlotSquareBlockTransitionCells R = Finset.Ico L U := by
-    simpa [L, U] using threeSlotSquareBlockTransitionCells_eq_Ico R
+    simpa [L, U] using! threeSlotSquareBlockTransitionCells_eq_Ico R
   have hsubset :
       physicalSquareCRTGeometricBoundaryCells P R ⊆
         Finset.Ico L (L + M) ∪ Finset.Ico (U - M) U := by

@@ -61,7 +61,7 @@ private theorem sum_branchSignatureFibers_eq_branch
     (s := S) (t := T) (g := key) hmaps f
   simpa [S, T, key,
     lowOwnerFirstOwnerRawParentBranchSignatureSet,
-    lowOwnerFirstOwnerRawParentBranchSignatureFiber] using hfiber
+    lowOwnerFirstOwnerRawParentBranchSignatureFiber] using! hfiber
 
 /-- **Pre-square tau collapse for every clipped threshold.** -/
 theorem sum_lowOwnerFirstOwnerBranchClippedDifferenceAmplitude_eq_total

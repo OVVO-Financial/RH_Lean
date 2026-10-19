@@ -169,7 +169,7 @@ theorem sum_roundedQ2ChildRoot_sq_le_seventeen_over_seventy_two
         (↑((17 / 72 : ℚ) * (R : ℚ) ^ 2) : ℝ) := by
     exact (Rat.cast_le (K := ℝ)).2 hQ
   push_cast at hQreal
-  simpa [S] using hQreal
+  simpa [S] using! hQreal
 
 /-- **Square-endpoint factor four closes at fixed amplification.**
 
@@ -278,7 +278,7 @@ theorem squareEndpointRoundedOddQ2EnergyStep_implies_endpointAmplification
     exact h0
   let m : ℝ := ((mertensSummatoryInt (squareRootEndpoint R) : ℤ) : ℝ)
   have hM' : m ^ 2 ≤ A * (R : ℝ) ^ 2 * K := by
-    simpa [m, squareEndpointMertensEnergyReal] using hM
+    simpa [m, squareEndpointMertensEnergyReal] using! hM
   have hshift : (m - 1) ^ 2 ≤ 2 * m ^ 2 + 2 := by
     nlinarith [sq_nonneg (m + 1)]
   have hscale : 2 ≤ (R : ℝ) ^ 2 * K := by
@@ -322,7 +322,7 @@ private theorem rawQ2Child_shell_gap_le
     rawQ2ChildCutoff R q - squareRootEndpoint (roundedQ2ChildRoot R q) ≤
       2 * (roundedQ2ChildRoot R q + 1) := by
   simpa [rawQ2ChildCutoff, roundedQ2ChildRoot, squareRootEndpoint,
-    canonicalSquareAnchor] using
+    canonicalSquareAnchor] using!
       canonicalSquareAnchor_gap_le (rawQ2ChildCutoff R q)
 
 /-- **Unsigned shell interpolation.**  The `37/36` coefficient is obtained only
@@ -397,6 +397,6 @@ theorem rawQ2ChildEnergyReal_le_thirtySeven_thirtySix_rounded_add_shell
         148 * ((s : ℝ) + 1) ^ 2
   rw [← norm_mertensSummatory_sq_eq_realInt_sq Y,
     ← norm_mertensSummatory_sq_eq_realInt_sq (squareRootEndpoint s)]
-  simpa [u, a] using hmain
+  simpa [u, a] using! hmain
 
 end RHLean.Proof

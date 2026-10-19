@@ -234,7 +234,7 @@ theorem physicalDistinguishedPrimeTransportHit_iff_pair
     · exact Finset.mem_product.mpr
         ⟨Finset.mem_Ico.mpr ⟨hc1, hcR⟩,
           Finset.mem_Ioc.mpr ⟨hRq, hqX⟩⟩
-    · exact ⟨hq, by simpa [hprod] using hnX⟩
+    · exact ⟨hq, by simpa [hprod] using! hnX⟩
   · rintro ⟨hpair, hprod⟩
     unfold squareRootTransportPairSet at hpair
     rcases Finset.mem_filter.mp hpair with ⟨hbase, hdata⟩
@@ -242,9 +242,9 @@ theorem physicalDistinguishedPrimeTransportHit_iff_pair
     rcases Finset.mem_Ico.mp hcMem with ⟨hc1, hcR⟩
     have hdiv : q ∣ n := by
       refine ⟨n / q, ?_⟩
-      simpa [Nat.mul_comm] using hprod.symm
+      simpa [Nat.mul_comm] using! hprod.symm
     have hnX : n ≤ squareRootEndpoint R := by
-      simpa [hprod] using hdata.2
+      simpa [hprod] using! hdata.2
     exact ⟨hdiv, hc1, hcR, hnX⟩
 
 /-- Bool encoding of the visible Möbius sign.  `true` is `+1` and `false` is
@@ -361,7 +361,7 @@ theorem physicalDistinguishedPrimeRawKernel_isRestricted
       (physicalDistinguishedPrimeRawKernel R q hq hRq) := by
   intro s t
   have hq6 : 6 < q := lt_of_le_of_lt hR6 hRq
-  simpa [physicalDistinguishedPrimeRawKernel] using
+  simpa [physicalDistinguishedPrimeRawKernel] using!
     physicalDistinguishedPrimeTransitionMass_some_some_eq_zero R q hq6 s t
 
 /-- Direct arithmetic inactive-to-inactive signed coefficient. -/

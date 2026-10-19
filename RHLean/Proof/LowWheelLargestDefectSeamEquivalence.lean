@@ -118,7 +118,7 @@ private theorem lowWheelCofactorQuotientToggleAt_mem_physical_of_carrier
         ⟨p, (Nat.div_mul_cancel hpc).symm⟩
       have hsqd : Squarefree (c / p) := hsq.squarefree_of_dvd hd
       unfold lowWheelCofactorQuotientToggleAt
-      rw [if_pos hpc]
+      rw [ite_eq_left hpc]
       exact hsqd
     · have hpk : p ∣ k := hactive.resolve_left hpc
       have hmuC : μ c ≠ 0 :=
@@ -130,8 +130,8 @@ private theorem lowWheelCofactorQuotientToggleAt_mem_physical_of_carrier
       have hsqp : Squarefree (p * c) :=
         ArithmeticFunction.moebius_ne_zero_iff_squarefree.mp hmuNe
       unfold lowWheelCofactorQuotientToggleAt
-      rw [if_neg hpc, if_pos hpk]
-      simpa [Nat.mul_comm] using hsqp
+      rw [ite_eq_right hpc, ite_eq_left hpk]
+      simpa [Nat.mul_comm] using! hsqp
   have hrange := lowWheelTransportPairCarrier_mem_ranges hmate
   apply mem_lowWheelCanonicalPhysicalStateSet.mpr
   exact ⟨hrange.1, hrange.2, hsquare, hmate⟩
@@ -311,7 +311,7 @@ theorem lowWheelLargestDefectLow_geometry
     CanonicalGapAncestryBridge.prime_dvd_le_canonicalLargestPrimeFactor
       hprodGt hp hpdvd
   have hpQ : p ≤ lowWheelLargestCofactorQuotientPivot x := by
-    simpa [lowWheelLargestCofactorQuotientPivot] using hpTop
+    simpa [lowWheelLargestCofactorQuotientPivot] using! hpTop
   exact hpQ.trans hqR
 
 /-- **High-side geometry on the existing high-transport coordinate system.**
@@ -456,29 +456,29 @@ theorem lowWheelCanonicalDowncross_postRootLargest_imp_postRootLeast
     intro hone
     have hbad : R < 1 := by
       simpa [q, lowWheelLargestCofactorQuotientPivot, hone,
-        canonicalLargestPrimeFactor] using hhigh
+        canonicalLargestPrimeFactor] using! hhigh
     omega
   have hprodgt : 1 < c * k := by omega
   have hqPrime : q.Prime := by
-    simpa [q] using lowWheelLargestCofactorQuotientPivot_prime ht hphys hprodne
+    simpa [q] using! lowWheelLargestCofactorQuotientPivot_prime ht hphys hprodne
   have hqDvdProd : q ∣ c * k := by
-    simpa [q, lowWheelLargestCofactorQuotientPivot] using
+    simpa [q, lowWheelLargestCofactorQuotientPivot] using!
       canonicalLargestPrimeFactor_dvd hprodgt
   have hqNotC : ¬ q ∣ c := by
     intro hqc
     have hqLeC := Nat.le_of_dvd hcpos hqc
-    have hRq : R < q := by simpa [q] using hhigh
+    have hRq : R < q := by simpa [q] using! hhigh
     omega
   have hqK : q ∣ k := (hqPrime.dvd_mul.mp hqDvdProd).resolve_left hqNotC
   rcases lowWheelCanonicalDowncrossPart_adjacent_shell hx with
     ⟨hp0, _hpc0, hpk0, hdown0, _hup0⟩
-  have hpPrime : p.Prime := by simpa [p] using hp0
-  have hpk : p ∣ k := by simpa [p] using hpk0
+  have hpPrime : p.Prime := by simpa [p] using! hp0
+  have hpk : p ∣ k := by simpa [p] using! hpk0
   have hdown : primeFaceProduct t * (k / p) ≤ R := by
-    simpa [p] using hdown0
+    simpa [p] using! hdown0
   by_contra hnot
   have hpR : p ≤ R := Nat.le_of_not_gt hnot
-  have hRq : R < q := by simpa [q] using hhigh
+  have hRq : R < q := by simpa [q] using! hhigh
   have hqp : q ≠ p := by omega
   have hkCancel : p * (k / p) = k := Nat.mul_div_cancel' hpk
   have hqDvdPJ : q ∣ p * (k / p) := by
@@ -515,8 +515,8 @@ theorem lowWheelCanonicalPostRootDowncross_largestPivot_postRoot
   rcases lowWheelCanonicalDowncrossPart_adjacent_shell hdown with
     ⟨hpPrime, _hpc, hpk, _hparent, _hchild⟩
   let p := lowWheelCanonicalCofactorQuotientPivot x
-  have hpPrime' : p.Prime := by simpa [p] using hpPrime
-  have hpk' : p ∣ x.2 := by simpa [p] using hpk
+  have hpPrime' : p.Prime := by simpa [p] using! hpPrime
+  have hpk' : p ∣ x.2 := by simpa [p] using! hpk
   have hpLeK : p ≤ x.2 := Nat.le_of_dvd hkpos hpk'
   have hp2 : 2 ≤ p := hpPrime'.two_le
   have hprodgt : 1 < x.1 * x.2 := by nlinarith
@@ -525,8 +525,8 @@ theorem lowWheelCanonicalPostRootDowncross_largestPivot_postRoot
     CanonicalGapAncestryBridge.prime_dvd_le_canonicalLargestPrimeFactor
       hprodgt hpPrime' hpDvdProd
   have hpLeLargest : p ≤ lowWheelLargestCofactorQuotientPivot x := by
-    simpa [lowWheelLargestCofactorQuotientPivot] using hpLeTop
-  have hRp : R < p := by simpa [p] using hpR
+    simpa [lowWheelLargestCofactorQuotientPivot] using! hpLeTop
+  have hRp : R < p := by simpa [p] using! hpR
   exact hRp.trans_le hpLeLargest
 
 /-- On the post-root-largest-pivot region, the stable set of the largest-prime
@@ -554,7 +554,7 @@ theorem finiteOthelloStablePart_largest_postRoot_eq_highDefect
     · have hprod := (Finset.mem_filter.mp hone).2
       have hbad : R < 1 := by
         simpa [lowWheelLargestCofactorQuotientPivot, hprod,
-          canonicalLargestPrimeFactor] using hhigh
+          canonicalLargestPrimeFactor] using! hhigh
       omega
     · exact mem_lowWheelLargestDefectHighPart.mpr ⟨hdefect, hhigh⟩
   · intro hxHigh
@@ -594,7 +594,7 @@ theorem finiteOthelloStablePart_least_postRoot_eq_postRootDowncross
     · have hprod := (Finset.mem_filter.mp hone).2
       have hbad : R < 1 := by
         simpa [lowWheelLargestCofactorQuotientPivot, hprod,
-          canonicalLargestPrimeFactor] using hhigh
+          canonicalLargestPrimeFactor] using! hhigh
       omega
     · have hdown : x ∈ lowWheelCanonicalDowncrossPart R t := by
         rw [← lowWheelCanonicalDefectPart_eq_downcrossPart R t]

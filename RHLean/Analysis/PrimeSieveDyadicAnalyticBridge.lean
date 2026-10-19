@@ -238,7 +238,7 @@ private theorem dyadic_rpow_anti_base {a b c : ℝ}
   simp only [dyadic_rpow_eq]
   rw [show c = -(-c) by ring, Real.rpow_neg ha.le, Real.rpow_neg hb.le]
   have h := one_div_le_one_div_of_le ha' h1
-  simpa [one_div] using h
+  simpa [one_div] using! h
 
 /-- Absorb one factor of the positive base into a real exponent. -/
 private theorem dyadic_base_mul_rpow_sub_one {a σ : ℝ} (ha : 0 < a) :
@@ -345,13 +345,13 @@ theorem dyadicWaveletCenteredRHScale_of_blockRHScale
   have hU0 := hQb k (primorialBlockUpper k) hk hblock le_rfl
   have hX : ‖WX‖ ≤
       Q * Real.rpow ((squarePrefixEndpoint n : ℝ) + 1) σ := by
-    simpa [WX, hσdef] using hX0
+    simpa [WX, hσdef] using! hX0
   have hL : ‖WL‖ ≤
       Q * Real.rpow ((primorialBlockLower k : ℝ) + 1) σ := by
-    simpa [WL, hσdef] using hL0
+    simpa [WL, hσdef] using! hL0
   have hU : ‖WU‖ ≤
       Q * Real.rpow ((primorialBlockUpper k : ℝ) + 1) σ := by
-    simpa [WU, hσdef] using hU0
+    simpa [WU, hσdef] using! hU0
   have hLX : (primorialBlockLower k : ℝ) + 1 ≤
       (squarePrefixEndpoint n : ℝ) + 1 := by
     have : (primorialBlockLower k : ℝ) ≤ (squarePrefixEndpoint n : ℝ) := by
@@ -395,7 +395,7 @@ theorem dyadicWaveletCenteredRHScale_of_blockRHScale
       (((squarePrefixEndpoint n : ℝ) + 1) /
           (3 * ((primorialBlockUpper k : ℝ) + 1))) *
         (2 * Q * Real.rpow ((primorialBlockUpper k : ℝ) + 1) σ) := by
-    simpa [ρ] using
+    simpa [ρ] using!
       (mul_le_mul hρfine hsecondRaw (norm_nonneg _) (by positivity))
   have hUpos : (0 : ℝ) < (primorialBlockUpper k : ℝ) + 1 := by positivity
   have hXpos : (0 : ℝ) < (squarePrefixEndpoint n : ℝ) + 1 := by positivity

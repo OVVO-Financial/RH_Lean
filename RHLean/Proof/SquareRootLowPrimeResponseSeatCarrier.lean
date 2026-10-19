@@ -158,7 +158,7 @@ theorem squareRootLowPrimeOwnedResponseSeatCarrier_weight_sum
         squareRootLowPrimeFreshIncrementReal R K j p) =
         -(squareRootLowPrimeGlobalDeletionMass R K j K U : ℝ) +
           (squareRootLowPrimeGlobalBadMass R K j K U : ℝ) := by
-    simpa [squareRootLowPrimeFreshIncrementReal] using hincRe
+    simpa [squareRootLowPrimeFreshIncrementReal] using! hincRe
   linarith [hincReal]
 
 /-- Every response seat has unit real weight. -/
@@ -167,7 +167,7 @@ theorem abs_squareRootLowPrimeResponseSeatWeightReal_le_one
     |squareRootLowPrimeResponseSeatWeightReal z| ≤ 1 := by
   unfold squareRootLowPrimeResponseSeatWeightReal
   have hInt : |(-μ z.1 : ℤ)| ≤ 1 := by
-    simpa using (ArithmeticFunction.abs_moebius_le_one (n := z.1))
+    simpa using! (ArithmeticFunction.abs_moebius_le_one (n := z.1))
   exact_mod_cast hInt
 
 /-- Recover the cofactor of a non-head creation state. -/

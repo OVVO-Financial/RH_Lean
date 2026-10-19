@@ -221,12 +221,12 @@ theorem exists_not_covers {c : ℝ} (hc : c ≠ 0) : ∃ y : ℝ, ¬ Covers c y 
   rcases lt_trichotomy c 0 with h | h | h
   · refine ⟨c - 1, ?_⟩
     unfold Covers
-    push_neg
+    push Not
     nlinarith
   · exact absurd h hc
   · refine ⟨c + 1, ?_⟩
     unfold Covers
-    push_neg
+    push Not
     nlinarith
 
 /-- **Sharpness for positive same-sign anchors.**  The uncovered set is exactly the
@@ -321,7 +321,7 @@ normalized bottleneck of the block is exactly a point the completed endpoint fai
 to orient. -/
 theorem bottleneck_not_covered_right : ¬ Covers mTwentyNine mBottleneck := by
   unfold Covers mTwentyNine mBottleneck
-  push_neg
+  push Not
   norm_num
 
 /-- The two exact cross-term values at the bottleneck. -/

@@ -78,7 +78,7 @@ private theorem primeFactor_le_canonicalLargestPrimeFactor'
     {n p : ℕ} (hn : 1 < n) (hp : p ∈ n.primeFactors) :
     p ≤ canonicalLargestPrimeFactor n := by
   unfold canonicalLargestPrimeFactor
-  rw [dif_pos hn]
+  rw [dite_eq_left hn]
   exact Finset.le_max' n.primeFactors p hp
 
 private theorem canonicalLargestPrimeFactor_le_self
@@ -89,7 +89,7 @@ private theorem canonicalLargestPrimeFactor_le_self
     subst hc0
     have hnot : ¬ (1 : ℕ) < 1 := by omega
     unfold canonicalLargestPrimeFactor
-    rw [dif_neg hnot]
+    rw [dite_eq_right hnot]
 
 /-- Below `q` the roughness restriction is vacuous, so the rough prefix is the
 plain lower-scale Möbius prefix. -/
@@ -102,7 +102,7 @@ theorem roughCofactorMobiusPrefixMass_eq_cofactorMobiusPrefixMass
   rcases Finset.mem_Icc.mp hc with ⟨hc1, hcB⟩
   have hrough : canonicalLargestPrimeFactor c < q :=
     lt_of_le_of_lt ((canonicalLargestPrimeFactor_le_self hc1).trans hcB) hB
-  rw [if_pos hrough]
+  rw [ite_eq_left hrough]
 
 /-- The rough window above the turning point `q` is the difference of the rough
 prefix at `B` and the plain Möbius prefix at `q-1`. -/
@@ -165,7 +165,7 @@ theorem canonicalLargestPrimeFactor_mul_prime_eq_of_rough
       omega
     · exact ((Nat.prime_dvd_prime_iff_eq hpPrime hq).mp hpq).le
   unfold canonicalLargestPrimeFactor
-  rw [dif_pos hm1]
+  rw [dite_eq_left hm1]
   exact ((c * q).primeFactors.max'_eq_iff
     (Nat.nonempty_primeFactors.mpr hm1) q).2 ⟨hqmem, hall⟩
 
@@ -176,7 +176,7 @@ theorem canonicalCofactor_mul_prime_eq_of_rough
     canonicalCofactor (c * q) = c := by
   unfold canonicalCofactor
   rw [canonicalLargestPrimeFactor_mul_prime_eq_of_rough hc hq hrough]
-  simpa [Nat.mul_comm] using Nat.mul_div_right c hq.pos
+  simpa [Nat.mul_comm] using! Nat.mul_div_right c hq.pos
 
 /-- A prime above every prime factor of a positive cofactor flips the source
 Möbius weight. -/
@@ -318,11 +318,11 @@ private theorem bornSmoothIndicator_sum_eq_sourceMass (R : ℕ) :
       (canonicalLargestPrimeFactor_lt_of_bornOrientation hm1 hmX hborn).le
     by_cases hrough : canonicalLargestPrimeFactor (canonicalCofactor m) <
         canonicalLargestPrimeFactor m
-    · rw [if_pos ⟨hsmooth, hborn⟩, if_pos ⟨hrough, hborn⟩]
-    · rw [if_pos ⟨hsmooth, hborn⟩,
-        if_neg (fun hcon => hrough hcon.1)]
+    · rw [ite_eq_left ⟨hsmooth, hborn⟩, ite_eq_left ⟨hrough, hborn⟩]
+    · rw [ite_eq_left ⟨hsmooth, hborn⟩,
+        ite_eq_right (fun hcon => hrough hcon.1)]
       exact canonicalMoebiusWeight_eq_zero_of_cofactor_not_rough hm1 hrough hborn
-  · rw [if_neg (fun hcon => hborn hcon.2), if_neg (fun hcon => hborn hcon.2)]
+  · rw [ite_eq_right (fun hcon => hborn hcon.2), ite_eq_right (fun hcon => hborn hcon.2)]
 
 /-- Peeling the two degenerate sources.  The zero source carries no Möbius mass
 and fails the born orientation; the unit source carries mass `1` and passes it.
@@ -337,11 +337,11 @@ theorem squareRootBornSmoothMass_eq_one_add_sourceMass
   have hzeroP : canonicalLargestPrimeFactor 0 = 1 := by
     have hnot : ¬ (1 : ℕ) < 0 := by omega
     unfold canonicalLargestPrimeFactor
-    rw [dif_neg hnot]
+    rw [dite_eq_right hnot]
   have honeP : canonicalLargestPrimeFactor 1 = 1 := by
     have hnot : ¬ (1 : ℕ) < 1 := by omega
     unfold canonicalLargestPrimeFactor
-    rw [dif_neg hnot]
+    rw [dite_eq_right hnot]
   have hzeroC : canonicalCofactor 0 = 0 := by
     unfold canonicalCofactor
     rw [hzeroP]
@@ -370,7 +370,7 @@ theorem squareRootBornSmoothMass_eq_one_add_sourceMass
     omega
   unfold squareRootBornSmoothMass
   rw [hins, Finset.sum_insert (by simp), Finset.sum_insert (by simp),
-    if_neg hcond0, if_pos hcond1, hmu1,
+    ite_eq_right hcond0, ite_eq_left hcond1, hmu1,
     bornSmoothIndicator_sum_eq_sourceMass R]
   ring
 
@@ -459,7 +459,7 @@ theorem squareRootBornSmoothSourceMass_eq_pairSourceMass (R : ℕ) :
     (fun m _hm => (canonicalLargestPrimeFactor m, canonicalCofactor m))
     (fun m hm => bornSource_to_pair_mem hm)
     (fun m hm n hn hmn => bornSource_pair_injective hm hn hmn)
-    (fun qc hqc => by simpa using bornPair_surjective qc hqc)
+    (fun qc hqc => by simpa using! bornPair_surjective qc hqc)
     ?_
   intro m hm
   rcases Finset.mem_Icc.mp (Finset.mem_filter.mp hm).1 with ⟨hm2, _⟩
@@ -500,7 +500,7 @@ theorem squareRootBornSmoothPairSourceMass_eq_neg_reciprocalTransform
               q ≤ c ∧ c * q ≤ squareRootEndpoint R then
             canonicalMoebiusWeight (c * q)
           else 0 := by
-      simpa only using
+      simpa only using!
         (Finset.sum_product
           (s := Finset.Icc 2 R)
           (t := Finset.Icc 1 (squareRootEndpoint R))
@@ -514,7 +514,7 @@ theorem squareRootBornSmoothPairSourceMass_eq_neg_reciprocalTransform
       refine Finset.sum_congr rfl ?_
       intro q hqMem
       by_cases hqPrime : q.Prime
-      · simp only [hqPrime, true_and, if_true]
+      · simp only [hqPrime, true_and, ite_true]
         have hqpos : 0 < q := hqPrime.pos
         have hq2 : 2 ≤ q := hqPrime.two_le
         have hset :
@@ -565,10 +565,10 @@ theorem squareRootBornSmoothPairSourceMass_eq_neg_reciprocalTransform
           intro c hc
           rcases Finset.mem_Icc.mp hc with ⟨hqc, _⟩
           by_cases hrough : canonicalLargestPrimeFactor c < q
-          · rw [if_pos hrough, if_pos hrough]
+          · rw [ite_eq_left hrough, ite_eq_left hrough]
             exact canonicalMoebiusWeight_mul_prime_eq_neg_of_rough
               (by omega) hqPrime hrough
-          · rw [if_neg hrough, if_neg hrough, neg_zero]
+          · rw [ite_eq_right hrough, ite_eq_right hrough, neg_zero]
         unfold squareRootBornSmoothPrimeFibre
         rw [hstep, roughCofactorMobiusWindowMass_eq_prefix_sub_prefix
           (by omega) hqB]
@@ -619,7 +619,7 @@ theorem squareRootTransportPrimeFirst_eq_reciprocalRoughTransform
     have hdivR : squareRootEndpoint R / q < R :=
       squareRootEndpoint_div_lt (by omega) hRq hqPrime.pos
     have hdivlt : squareRootEndpoint R / q < q := lt_trans hdivR hRq
-    rw [if_pos hqPrime, if_pos hqPrime,
+    rw [ite_eq_left hqPrime, ite_eq_left hqPrime,
       roughCofactorMobiusPrefixMass_eq_cofactorMobiusPrefixMass hdivlt,
       cofactorMobiusPrefixMass_eq_mertensSummatory]
   · simp [hqPrime]
@@ -676,7 +676,7 @@ theorem squareRootBornSmoothReciprocalTransform_eq_low_sub_primeMertens
   refine Finset.sum_congr rfl ?_
   intro q _hqMem
   by_cases hqPrime : q.Prime
-  · rw [if_pos hqPrime, if_pos hqPrime, if_pos hqPrime]
+  · rw [ite_eq_left hqPrime, ite_eq_left hqPrime, ite_eq_left hqPrime]
     unfold squareRootBornSmoothPrimeFibre
     rw [cofactorMobiusPrefixMass_eq_mertensSummatory]
     ring

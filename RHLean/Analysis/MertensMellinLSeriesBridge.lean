@@ -35,7 +35,7 @@ theorem mellin_mertensStep_neg_eq_integral_Ioi_one (s : ℂ) :
     ← integral_indicator measurableSet_Ioi]
   apply integral_congr_ae
   filter_upwards [(countable_singleton (1 : ℝ)).ae_notMem volume] with t ht1
-  have ht1' : t ≠ 1 := by simpa using ht1
+  have ht1' : t ≠ 1 := by simpa using! ht1
   by_cases h1 : 1 < t
   · have h0 : 0 < t := zero_lt_one.trans h1
     have ht0 : t ∈ Set.Ioi (0 : ℝ) := h0
@@ -75,7 +75,7 @@ theorem mertensMellinContinuation_eq_LSeries_moebius
         ∑ k ∈ Finset.Icc 1 n,
           (((ArithmeticFunction.moebius k : ℤ) : ℂ))) =O[atTop]
         (fun n : ℕ => (n : ℝ) ^ r) := by
-    simpa only [sum_Icc_one_moebius_eq_mertensSummatory] using
+    simpa only [sum_Icc_one_moebius_eq_mertensSummatory] using!
       mertensSummatory_isBigO_rpow hM hhalf
   have hS : LSeriesSummable (↗ArithmeticFunction.moebius) s :=
     ArithmeticFunction.LSeriesSummable_moebius_iff.mpr hs

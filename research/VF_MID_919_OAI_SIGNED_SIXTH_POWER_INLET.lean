@@ -101,9 +101,9 @@ theorem vf919FiniteIdealRow_sixthPower_column
     ext p
     by_cases hp : p ∈ A
     · have hh := Finset.ext_iff.mp hi p
-      simpa [hp] using hh
+      simpa [hp] using! hh
     · have hh := Finset.ext_iff.mp hd p
-      simpa [hp] using hh
+      simpa [hp] using! hh
   · intro x hx
     rcases Finset.mem_product.mp hx with ⟨hxd, hxm⟩
     have hd : x.1 ⊆ A := Finset.mem_powerset.mp hxd

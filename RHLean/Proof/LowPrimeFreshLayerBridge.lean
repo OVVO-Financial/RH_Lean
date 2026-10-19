@@ -130,7 +130,7 @@ theorem canonicalMoebiusWeighted_Icc_eq_admissibleFaceSum
     simp only [Finset.mem_Ico, Finset.mem_Icc]
     omega
   rw [hset] at h
-  simpa using h
+  simpa using! h
 
 /-- Boolean-face form of the fresh LPR layer.  The condition `P+(P(u))=p`
 selects exactly the squarefree faces born at prime coordinate `p`; the

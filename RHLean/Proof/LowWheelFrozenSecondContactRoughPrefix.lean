@@ -213,7 +213,7 @@ theorem lowWheelFrozenSourceScale_root_lt
   have h := lowWheelCanonicalRepeatedFrozenCofactor_facePivot_crosses_root
     (Finset.mem_filter.mp hy).1
   change R < lowWheelFrozenSecondContactSourceScale y at h
-  simpa [hyA] using h
+  simpa [hyA] using! h
 
 /-- Its reciprocal cutoff is strictly below the old root. -/
 theorem lowWheelFrozenSourceScale_cutoff_lt_root
@@ -222,7 +222,7 @@ theorem lowWheelFrozenSourceScale_cutoff_lt_root
   rcases Finset.mem_image.mp hA with ⟨y, hy, hyA⟩
   have h := (lowWheelFrozenSecondContact_source_lowerScaleExit hy).2.2
   change squareRootEndpoint R / lowWheelFrozenSecondContactSourceScale y < R at h
-  simpa [hyA] using h
+  simpa [hyA] using! h
 
 /-- The actual full source fibre exhausts the independently defined rough
 prefix. The reverse direction reconstructs an ordered physical cut. -/
@@ -250,7 +250,7 @@ theorem lowWheelFrozenCofactorSourceScaleFiber_image_eq_roughPrefix
     rw [frozenSource_productOne_eq_scale_mul_cofactor hy, hyA] at hprod
     have hcB : y.2.1 ≤ squareRootEndpoint R / A := by
       apply (Nat.le_div_iff_mul_le hApos).2
-      simpa [Nat.mul_comm] using hprod
+      simpa [Nat.mul_comm] using! hprod
     exact Finset.mem_filter.mpr ⟨Finset.mem_Icc.mpr ⟨by omega, hcB⟩,
       hs.2.2.2.1, hrough⟩
   · intro hc
@@ -266,7 +266,7 @@ theorem lowWheelFrozenCofactorSourceScaleFiber_image_eq_roughPrefix
     have hp : canonicalLargestPrimeFactor A = p := by
       rw [← hyA]
       exact frozenSource_scale_largestPrime hy
-    have hrough : RoughAbove p c := by simpa [hp] using hcrough
+    have hrough : RoughAbove p c := by simpa [hp] using! hcrough
     have hcOne : 1 ≤ c :=
       (show 1 ≤ 2 by norm_num).trans hc2
     have hzShape : OrderedEulerCutShape z := by
@@ -338,7 +338,7 @@ theorem lowWheelFrozenSecondContactSourceScaleCofactors_eq_roughPrefix_filter
       change squareRootEndpoint R < canonicalLargestPrimeFactor y.2.1 *
         primeFaceProduct (lowWheelCanonicalRepeatedFrozenProductOneFace y)
       rw [frozenSource_productOne_eq_scale_mul_cofactor hy, hyA]
-      simpa [Nat.mul_comm, Nat.mul_left_comm, Nat.mul_assoc] using hwallX
+      simpa [Nat.mul_comm, Nat.mul_left_comm, Nat.mul_assoc] using! hwallX
     exact Finset.mem_image.mpr ⟨y,
       mem_lowWheelFrozenSecondContactSourceScaleFiber.mpr ⟨hySecond, hyA⟩, rfl⟩
 
@@ -354,7 +354,7 @@ theorem lowWheelFrozenSourceRoughPrefix_sum_eq_secondContact_add_residual
           (squareRootEndpoint R / A), g c := by
   rw [lowWheelFrozenSecondContactSourceScaleCofactors_eq_roughPrefix_filter hA]
   symm
-  simpa only [lowWheelFrozenSourceSquareResidual, Nat.not_lt] using
+  simpa only [lowWheelFrozenSourceSquareResidual, Nat.not_lt] using!
     (Finset.sum_filter_add_sum_filter_not
       (lowWheelFrozenSourceRoughPrefix (canonicalLargestPrimeFactor A)
         (squareRootEndpoint R / A))
@@ -371,7 +371,7 @@ theorem lowWheelFrozenSourceSquareResidual_subset_halfScale (p B : ℕ) :
   have htwo : 2 * c ≤ B := (Nat.mul_le_mul_right c hq2).trans hcontact
   exact Finset.mem_Icc.mpr ⟨by omega,
     (Nat.le_div_iff_mul_le (by norm_num : 0 < (2 : ℕ))).2
-      (by simpa [Nat.mul_comm] using htwo)⟩
+      (by simpa [Nat.mul_comm] using! htwo)⟩
 
 /-! ## Signed rough-prefix cancellation inside the endpoint identity -/
 
@@ -502,7 +502,7 @@ theorem lowWheelFrozenSecondContactSourceScale_add_transport_eq_squareResidual
           lowWheelTaggedDowncrossWeight y) =
         -(canonicalMoebiusWeight A *
           lowWheelFrozenSecondContactSourceScaleCofactorMass R A) := by
-    simpa [lowWheelTaggedDowncrossWeight] using
+    simpa [lowWheelTaggedDowncrossWeight] using!
       (lowWheelFrozenSecondContactSourceScaleFiber_sum_eq R A)
   have htransport := lowWheelFrozenSourceScaleTransportMass_eq_roughPrefix hA
   have hpartition :
@@ -511,7 +511,7 @@ theorem lowWheelFrozenSecondContactSourceScale_add_transport_eq_squareResidual
         lowWheelFrozenSecondContactSourceScaleCofactorMass R A +
           ∑ c ∈ lowWheelFrozenSourceSquareResidual (canonicalLargestPrimeFactor A)
             (squareRootEndpoint R / A), canonicalMoebiusWeight c := by
-    simpa [lowWheelFrozenSecondContactSourceScaleCofactorMass] using
+    simpa [lowWheelFrozenSecondContactSourceScaleCofactorMass] using!
       (lowWheelFrozenSourceRoughPrefix_sum_eq_secondContact_add_residual
         hA canonicalMoebiusWeight)
   rw [hsource, htransport, hpartition]
@@ -545,7 +545,7 @@ theorem lowWheelFrozenSecondContactSource_add_matchingFixedTransport_eq_squareRe
         ∑ A ∈ lowWheelFrozenSecondContactSourceScaleSet R,
           ∑ y ∈ lowWheelFrozenSecondContactSourceScaleFiber R A,
             lowWheelTaggedDowncrossWeight y := by
-    simpa [lowWheelTaggedDowncrossWeight] using
+    simpa [lowWheelTaggedDowncrossWeight] using!
       (lowWheelFrozenSecondContactSource_sum_eq_sourceScaleFibers R)
   rw [hsource]
   unfold lowWheelFrozenSecondContactMatchingFixedTransportMass

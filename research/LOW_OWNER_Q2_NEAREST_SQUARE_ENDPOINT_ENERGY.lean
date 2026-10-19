@@ -106,7 +106,7 @@ theorem norm_sq_lowOwnerNearestSquareReciprocalColumn_le_quarter_endpointEnergy
     _ ≤ (∑ q ∈ canonicalRoughLowQ2Owners R,
           ((1 : ℝ) / (q : ℝ)) ^ 2) *
         lowOwnerNearestSquareEndpointEnergy R := by
-      simpa [lowOwnerNearestSquareEndpointEnergy] using hcs
+      simpa [lowOwnerNearestSquareEndpointEnergy] using! hcs
     _ = (∑ q ∈ canonicalRoughLowQ2Owners R,
           (1 : ℝ) / (q : ℝ) ^ 2) *
         lowOwnerNearestSquareEndpointEnergy R := by
@@ -131,7 +131,7 @@ theorem lowOwnerQ2NearestSquareRoot_le_rounded_add_one
     (R q : ℕ) :
     q2NearestSquareRoot (rawQ2ChildCutoff R q) ≤
       roundedQ2ChildRoot R q + 1 := by
-  simpa [roundedQ2ChildRoot, rawQ2ChildCutoff] using
+  simpa [roundedQ2ChildRoot, rawQ2ChildCutoff] using!
     q2NearestSquareRoot_le_sqrt_add_one (rawQ2ChildCutoff R q)
 
 /-- **Selected-root square budget.**  Across all genuine low q² owners, the
@@ -167,7 +167,7 @@ theorem sum_lowOwnerQ2NearestSquareRoot_sq_le_two_root_sq
       intro q _hq _hnot
       positivity
     _ ≤ 2 * (R : ℝ) ^ 2 := by
-      simpa [T] using sum_roundedQ2ChildRoot_succ_sq_le_two_root_sq R hR
+      simpa [T] using! sum_roundedQ2ChildRoot_succ_sq_le_two_root_sq R hR
 
 /-- Per-daughter endpoint envelope consumed by the nearest-square reciprocal
 column.  `K` is deliberately an external lower-scale envelope parameter. -/

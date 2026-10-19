@@ -180,7 +180,7 @@ theorem primeSieveDyadicBlockAbelPotential_forwardDifference
         primeSieveDyadicBlockAbelPotential y x j (d + 1) =
       primeSieveDyadicBlockWaveletMask y x j d := by
   have hdIcc : d ∈ Finset.Icc 1 (x / (y + 1)) := by
-    simpa [primeSieveQuotientSupport] using hd
+    simpa [primeSieveQuotientSupport] using! hd
   have hd1 : 1 ≤ d := (Finset.mem_Icc.mp hdIcc).1
   have hpred : d - 1 + 1 = d := Nat.sub_add_cancel hd1
   have hsum :
@@ -207,7 +207,7 @@ theorem primeSieveDyadicBlockAbelPotential_top_eq_zero
   have hsum :
       (∑ t ∈ Finset.Icc 1 (x / (y + 1)),
         primeSieveDyadicBlockWaveletMask y x j t) = 0 := by
-    simpa [primeSieveQuotientSupport] using hzero
+    simpa [primeSieveQuotientSupport] using! hzero
   unfold primeSieveDyadicBlockAbelPotential
   simp only [Nat.add_sub_cancel]
   rw [hsum]
@@ -245,7 +245,7 @@ theorem primeSieveDyadicBlockWaveletMertensContribution_eq_boundaryFreeAbel
           apply Finset.sum_congr rfl
           intro d hd
           have hds : d ∈ primeSieveQuotientSupport y x := by
-            simpa [primeSieveQuotientSupport, K] using hd
+            simpa [primeSieveQuotientSupport, K] using! hd
           rw [primeSieveDyadicBlockAbelPotential_forwardDifference hds]
           ring
     _ = (∑ d ∈ Finset.Icc 1 K, (((μ d : ℤ) : ℂ)) * F d) -

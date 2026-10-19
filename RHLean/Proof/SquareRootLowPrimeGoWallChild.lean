@@ -155,7 +155,7 @@ theorem squareRootLowPrimeGoWallChildren_subset_endpoint
     unfold squareRootLowPrimeGoWallChild
     exact Nat.mul_pos hcPos hqPrime.pos
   exact Finset.mem_Icc.mpr ⟨by omega, by
-    simpa [squareRootLowPrimeGoWallChild] using hprod⟩
+    simpa [squareRootLowPrimeGoWallChild] using! hprod⟩
 
 /-- Every physical wall child has old-prime canonical owner at most `K`. -/
 theorem squareRootLowPrimeGoWallChild_owner_le
@@ -185,7 +185,7 @@ theorem squareRootLowPrimeGoWallChild_parent_gt_cutoff
     omega
   have hdiv : squareRootEndpoint R / p < z.1 :=
     (Nat.div_lt_iff_lt_mul hpPos).2 (by
-      simpa [Nat.mul_comm] using hwall)
+      simpa [Nat.mul_comm] using! hwall)
   rw [← hzn, hcoords.1]
   exact hdiv
 
@@ -214,7 +214,7 @@ theorem mem_squareRootLowPrimeGoWallChildren_iff_parentAbove
     rw [hlist]
     simp
   have hpSet : p ∈ squareRootLowPrimeFreshPrimeSet K U := by
-    simpa [squareRootLowPrimeFreshPrimeList] using hpList
+    simpa [squareRootLowPrimeFreshPrimeList] using! hpList
   have hpData := Finset.mem_filter.mp hpSet
   have hpPrime : p.Prime := hpData.2
   have hpIoc := Finset.mem_Ioc.mp hpData.1
@@ -241,7 +241,7 @@ theorem mem_squareRootLowPrimeGoWallChildren_iff_parentAbove
       exact neg_ne_zero.mpr hmuC
     have hsq : Squarefree n := by
       apply ArithmeticFunction.moebius_ne_zero_iff_squarefree.mp
-      simpa [hzn] using hmuChild
+      simpa [hzn] using! hmuChild
     exact ⟨hn2, hnIcc.2, hsq,
       squareRootLowPrimeGoWallChild_parent_gt_cutoff hn⟩
   · rintro ⟨hn2, hnX, hsq, hparent⟩
@@ -251,31 +251,31 @@ theorem mem_squareRootLowPrimeGoWallChildren_iff_parentAbove
     have hsource :=
       CanonicalGapAncestryBridge.canonicalSourceData_of_squarefree hsq hn1
     have hqPrime : q.Prime := by
-      simpa [q] using hsource.1
+      simpa [q] using! hsource.1
     have hcOne : 1 ≤ c := by
-      simpa [c] using hsource.2.1
+      simpa [c] using! hsource.2.1
     have hcSq : Squarefree c := by
-      simpa [c] using hsource.2.2.1
+      simpa [c] using! hsource.2.2.1
     have hprod : c * q = n := by
-      simpa [c, q] using canonicalCofactor_mul_largestPrimeFactor hn1
+      simpa [c, q] using! canonicalCofactor_mul_largestPrimeFactor hn1
     have hrough : canonicalLargestPrimeFactor c < q := by
       by_cases hcEq : c = 1
-      · simpa [canonicalLargestPrimeFactor, hcEq] using hqPrime.one_lt
+      · simpa [canonicalLargestPrimeFactor, hcEq] using! hqPrime.one_lt
       · have hcGt : 1 < c := by omega
         exact hsource.2.2.2.2
           (canonicalLargestPrimeFactor c)
           (canonicalLargestPrimeFactor_prime hcGt)
           (canonicalLargestPrimeFactor_dvd hcGt)
     have hwall' : squareRootEndpoint R < c * p :=
-      (Nat.div_lt_iff_lt_mul hpPrime.pos).1 (by simpa [c] using hparent)
+      (Nat.div_lt_iff_lt_mul hpPrime.pos).1 (by simpa [c] using! hparent)
     have hwall : squareRootEndpoint R < p * c := by
-      simpa [Nat.mul_comm] using hwall'
+      simpa [Nat.mul_comm] using! hwall'
     have hqLtP : q < p := by
       by_contra hnot
       have hpq : p ≤ q := Nat.le_of_not_gt hnot
       have hpcq : p * c ≤ q * c := Nat.mul_le_mul_right c hpq
-      have hqc : q * c = n := by simpa [Nat.mul_comm] using hprod
-      have hpn : p * c ≤ n := by simpa [hqc] using hpcq
+      have hqc : q * c = n := by simpa [Nat.mul_comm] using! hprod
+      have hpn : p * c ≤ n := by simpa [hqc] using! hpcq
       omega
     have hqK : q ≤ K := by
       by_contra hnot
@@ -286,17 +286,17 @@ theorem mem_squareRootLowPrimeGoWallChildren_iff_parentAbove
         exact Finset.mem_filter.mpr
           ⟨Finset.mem_Ioc.mpr ⟨hKq, hqU⟩, hqPrime⟩
       have hqList : q ∈ squareRootLowPrimeFreshPrimeList K U := by
-        simpa [squareRootLowPrimeFreshPrimeList] using hqSet
+        simpa [squareRootLowPrimeFreshPrimeList] using! hqSet
       have hpLeq := squareRootLowPrimeFirstOwnerAbove_le_of_mem
         hfirst hqList hKq
       omega
     have hupp : c ≤ squareRootEndpoint R / q := by
       apply (Nat.le_div_iff_mul_le hqPrime.pos).2
-      simpa [hprod] using hnX
+      simpa [hprod] using! hnX
     have hcWin :
         c ∈ squareRootLowPrimeOldPrimeWallWindowCofactors R p q := by
       exact (mem_squareRootLowPrimeOldPrimeWallWindowCofactors_iff hqPrime).2
-        ⟨hcSq, hrough, by simpa [c] using hparent, hupp⟩
+        ⟨hcSq, hrough, by simpa [c] using! hparent, hupp⟩
     have hqOld : q ∈ squareRootLowPrimeWallOldPrimeSet K :=
       mem_squareRootLowPrimeWallOldPrimeSet.mpr ⟨hqPrime, hqK⟩
     have hpairOld :
@@ -313,6 +313,6 @@ theorem mem_squareRootLowPrimeGoWallChildren_iff_parentAbove
     unfold squareRootLowPrimeGoWallChildren
     apply Finset.mem_image.mpr
     refine ⟨(c, q), hpair, ?_⟩
-    simpa [squareRootLowPrimeGoWallChild] using hprod
+    simpa [squareRootLowPrimeGoWallChild] using! hprod
 
 end RHLean.Proof

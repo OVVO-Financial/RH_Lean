@@ -155,7 +155,7 @@ theorem lowWheelFrozenTopFarResidual_eq_farFourDescended_add_cancelled
     (R : ℕ) (hR : 56 ≤ R) :
     lowWheelFrozenTopFarResidual R =
       farFourDescendedPacket R + farFourCancelledBoundaryPacket R := by
-  simpa [farFourDescendedPacket, farFourCancelledBoundaryPacket] using
+  simpa [farFourDescendedPacket, farFourCancelledBoundaryPacket] using!
     lowWheelFrozenTopFarResidual_eq_descended_add_cancelledBoundary R hR
 
 /-- **Canonical final carrier.**  After #688 there is no opaque boundary packet:
@@ -372,14 +372,14 @@ theorem farFourOwnerwiseSignedSynthesis_iff_frozenTopFarFourEnergy :
     have hs := hsynth R K hR hK
     rw [lowWheelFrozenTopFarResidual_eq_oddMertensColumn_add_ownerwiseError
       R hR]
-    simpa [farFourOddQ2DaughterEnergy] using hs
+    simpa [farFourOddQ2DaughterEnergy] using! hs
   · rintro ⟨CF, hCF, hfar⟩
     refine ⟨CF, hCF, ?_⟩
     intro R K hR hK
     have hf := hfar R K hR hK
     rw [lowWheelFrozenTopFarResidual_eq_oddMertensColumn_add_ownerwiseError
       R hR] at hf
-    simpa [farFourOddQ2DaughterEnergy] using hf
+    simpa [farFourOddQ2DaughterEnergy] using! hf
 
 /-! ## Euler chronology / q² owner correspondence
 

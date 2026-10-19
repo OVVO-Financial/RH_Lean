@@ -223,7 +223,7 @@ private theorem squareRun_endpoint_le_rpow
     exact_mod_cast hbaseNat
   have h := Real.rpow_le_rpow_of_exponent_le hbase
     (by linarith : (1 : ℝ) ≤ 1 + ε)
-  simpa using h
+  simpa using! h
 
 /-- Mertens energy control bounds the natural prime-leaf escape.  The leaf costs
 only one linear window term, so all critical-scale content remains in the
@@ -259,7 +259,7 @@ theorem squareRunPrimeLeafTopEscapeBounded_of_mertensEnergy
       have hP : 0 ≤ P := by
         dsimp [P]
         exact Real.rpow_nonneg (by positivity) _
-      simpa [realMertensLength] using mul_nonneg hC hP
+      simpa [realMertensLength] using! mul_nonneg hC hP
     · have ha1 : 1 ≤ a := Nat.one_le_iff_ne_zero.mpr ha0
       have haB : a ≤ b + 1 := by omega
       have haBase : (((a : ℕ) : ℝ)) ≤ (((b + 1 : ℕ) : ℝ)) := by exact_mod_cast haB

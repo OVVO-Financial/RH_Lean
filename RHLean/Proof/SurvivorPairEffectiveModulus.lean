@@ -66,13 +66,13 @@ private theorem div_gcd_dvd_iff_dvd_mul
   constructor
   · intro h
     have hprod := Nat.mul_dvd_mul h hgn
-    simpa [Nat.div_mul_cancel hgm] using hprod
+    simpa [Nat.div_mul_cancel hgm] using! hprod
   · intro h
     have hmul :
         Nat.gcd m n * (m / Nat.gcd m n) ∣
           Nat.gcd m n * (d * (n / Nat.gcd m n)) := by
       simpa [Nat.mul_div_cancel' hgm, Nat.mul_div_cancel' hgn,
-        Nat.mul_assoc, Nat.mul_comm, Nat.mul_left_comm] using h
+        Nat.mul_assoc, Nat.mul_comm, Nat.mul_left_comm] using! h
     have hred :
         m / Nat.gcd m n ∣ d * (n / Nat.gcd m n) :=
       (Nat.mul_dvd_mul_iff_left hgpos).mp hmul
@@ -89,7 +89,7 @@ theorem survivorPairEffectiveModulus_dvd_24_iff_roughDenominator_dvd
   have heff :
       survivorPairEffectiveModulus a r Δ ∣ 24 ↔
         2 * r ∣ 24 * (a * Δ) := by
-    simpa [survivorPairEffectiveModulus, Nat.gcd_comm] using
+    simpa [survivorPairEffectiveModulus, Nat.gcd_comm] using!
       (div_gcd_dvd_iff_dvd_mul
         (m := 2 * r) (n := a * Δ) (d := 24) h2r)
   have htwo :
@@ -101,14 +101,14 @@ theorem survivorPairEffectiveModulus_dvd_24_iff_roughDenominator_dvd
     constructor
     · intro h
       have h' : r ∣ (12 * Δ) * a := by
-        simpa [Nat.mul_assoc, Nat.mul_comm, Nat.mul_left_comm] using h
+        simpa [Nat.mul_assoc, Nat.mul_comm, Nat.mul_left_comm] using! h
       exact hcop.symm.dvd_of_dvd_mul_right h'
     · intro h
       have h' : r ∣ (12 * Δ) * a := dvd_mul_of_dvd_left h a
-      simpa [Nat.mul_assoc, Nat.mul_comm, Nat.mul_left_comm] using h'
+      simpa [Nat.mul_assoc, Nat.mul_comm, Nat.mul_left_comm] using! h'
   have hrough :
       survivorFareyRoughDenominator r ∣ Δ ↔ r ∣ Δ * 12 := by
-    simpa [survivorFareyRoughDenominator] using
+    simpa [survivorFareyRoughDenominator] using!
       (div_gcd_dvd_iff_dvd_mul (m := r) (n := 12) (d := Δ) hr)
   calc
     survivorPairEffectiveModulus a r Δ ∣ 24 ↔

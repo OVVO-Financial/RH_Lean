@@ -96,7 +96,7 @@ theorem upperPartialMomentNat_add_lowerPartialMomentNat
 /-- Degree one signed power is the original value. -/
 @[simp] theorem signedPowerNat_one (x : ℝ) :
     signedPowerNat 1 x = x := by
-  simpa [signedPowerNat] using positivePart_sub_negativePart x
+  simpa [signedPowerNat] using! positivePart_sub_negativePart x
 
 /-- The ordinary finite signed sum. -/
 def finiteSignedSum {ι : Type*} (s : Finset ι) (x : ι → ℝ) : ℝ :=
@@ -123,7 +123,7 @@ theorem upperPartialMass_sub_lowerPartialMass_eq_finiteSignedSum
   rw [← Finset.sum_sub_distrib]
   apply Finset.sum_congr rfl
   intro i hi
-  simpa using positivePart_sub_negativePart (x i)
+  simpa using! positivePart_sub_negativePart (x i)
 
 /-- Degree-one upper plus lower mass is the ordinary absolute mass. -/
 theorem upperPartialMass_add_lowerPartialMass_eq_finiteAbsoluteMass
@@ -134,7 +134,7 @@ theorem upperPartialMass_add_lowerPartialMass_eq_finiteAbsoluteMass
   rw [← Finset.sum_add_distrib]
   apply Finset.sum_congr rfl
   intro i hi
-  simpa using positivePart_add_negativePart (x i)
+  simpa using! positivePart_add_negativePart (x i)
 
 /-- Denominator-free degree-one balance numerator. -/
 def degreeOneBalanceNumerator {ι : Type*}

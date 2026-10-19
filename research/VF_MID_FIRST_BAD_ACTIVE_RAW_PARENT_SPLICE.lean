@@ -107,9 +107,9 @@ theorem vfMidActiveScaledReturnedClippedCellMass_eq_offDiagonal
       intro ab hab
       have hmem :
           ab ∈ vfMidActiveReturnedPairCarrier R p sig := by
-        simpa only [vfMidActiveReturnedPairCarrier] using hab
+        simpa only [vfMidActiveReturnedPairCarrier] using! hab
       unfold vfMidActiveReturnedPairWeight
-      rw [if_pos hmem]
+      rw [ite_eq_left hmem]
     _ = ∑ ab ∈ lowOwnerFirstOwnerBaseOffDiagonalPairCarrier (R + 1) p sig,
           vfMidActiveReturnedPairWeight R p sig ab :=
       Finset.sum_subset hsub hzero
@@ -167,7 +167,7 @@ theorem sum_vfMidRawParents_eq_completed_add_incomplete
         f parent := by
   unfold lowOwnerFirstOwnerCompletedPolarizationRawParentSet
     lowOwnerFirstOwnerIncompletePolarizationRawParentSet
-  simpa only using
+  simpa only using!
     (Finset.sum_filter_add_sum_filter_not
       (s := lowOwnerFirstOwnerPolarizationRawParentSet R p sig r)
       (p := fun parent : ℕ × ℕ =>
@@ -214,7 +214,7 @@ theorem vfMidActiveReturnedPairWeight_secondMixed_eq_zero_of_completed
     (Finset.mem_filter.mp hcompleted).2
   have hpLeft :
       p * parent.1 ≤ squareRootEndpoint (R + 1) := by
-    simpa [LowOwnerCompletedPolarizationBlock] using hblock.2.2.2.2.1
+    simpa [LowOwnerCompletedPolarizationBlock] using! hblock.2.2.2.2.1
   have hnot :
       (parent.1, r * parent.2) ∉
         vfMidActiveReturnedPairCarrier R p sig := by
@@ -244,7 +244,7 @@ theorem vfMidActiveReturnedPairWeight_firstMixed_eq_zero_of_completed
     (Finset.mem_filter.mp hcompleted).2
   have hprLeft :
       p * (r * parent.1) ≤ squareRootEndpoint (R + 1) := by
-    simpa [LowOwnerCompletedPolarizationBlock] using
+    simpa [LowOwnerCompletedPolarizationBlock] using!
       hblock.2.2.2.2.2.2.1
   have hnot :
       (r * parent.1, parent.2) ∉

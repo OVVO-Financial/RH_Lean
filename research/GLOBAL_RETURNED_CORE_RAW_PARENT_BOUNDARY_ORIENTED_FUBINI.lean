@@ -115,7 +115,7 @@ theorem sum_lowOwnerFirstOwnerIncompleteFirstClip_eq_left_add_right
         f parent := by
   unfold lowOwnerFirstOwnerIncompleteFirstClipLeftSet
     lowOwnerFirstOwnerIncompleteFirstClipRightSet
-  simpa only using
+  simpa only using!
     (Finset.sum_filter_add_sum_filter_not
       (s := lowOwnerFirstOwnerIncompleteFirstClipSet R p sig r)
       (p := fun parent : ℕ × ℕ => squareRootEndpoint R < p * parent.1)
@@ -132,7 +132,7 @@ theorem sum_lowOwnerFirstOwnerIncompleteNextClip_eq_left_add_right
         f parent := by
   unfold lowOwnerFirstOwnerIncompleteNextClipLeftSet
     lowOwnerFirstOwnerIncompleteNextClipRightSet
-  simpa only using
+  simpa only using!
     (Finset.sum_filter_add_sum_filter_not
       (s := lowOwnerFirstOwnerIncompleteNextClipSet R p sig r)
       (p := fun parent : ℕ × ℕ => squareRootEndpoint R < r * parent.1)
@@ -149,7 +149,7 @@ theorem sum_lowOwnerFirstOwnerIncompleteReturnedClip_eq_left_add_right
         f parent := by
   unfold lowOwnerFirstOwnerIncompleteReturnedClipLeftSet
     lowOwnerFirstOwnerIncompleteReturnedClipRightSet
-  simpa only using
+  simpa only using!
     (Finset.sum_filter_add_sum_filter_not
       (s := lowOwnerFirstOwnerIncompleteReturnedClipSet R p sig r)
       (p := fun parent : ℕ × ℕ =>

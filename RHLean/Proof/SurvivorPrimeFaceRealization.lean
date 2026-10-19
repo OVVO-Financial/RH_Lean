@@ -78,27 +78,27 @@ theorem canonicalSourceData_primeFaceProduct
   have hnotdvd : ¬ q ∣ primeFaceProduct u := by
     intro hqd
     have hqd' : q ∣ u.prod id := by
-      simpa [primeFaceProduct] using hqd
-    rcases (Prime.dvd_finset_prod_iff hq.prime id).mp hqd' with
+      simpa [primeFaceProduct] using! hqd
+    rcases (Prime.dvd_finsetProd_iff hq.prime id).mp hqd' with
       ⟨p, hpu, hqp⟩
     have hpPrime := hprime p hpu
     rcases hpPrime.eq_one_or_self_of_dvd q hqp with hq1 | hqeq
     · exact hq.ne_one hq1
     · have hpBound := (mem_primesUpTo.mp (hu hpu)).2
-      have hpLe : p ≤ p - 1 := by simpa only [hqeq] using hpBound
+      have hpLe : p ≤ p - 1 := by simpa only [hqeq] using! hpBound
       have hp2 : 2 ≤ p := hpPrime.two_le
       omega
   refine ⟨hq, hcpos, hsq, hq.coprime_iff_not_dvd.mpr hnotdvd, ?_⟩
   intro p hp hpd
   have hpd' : p ∣ u.prod id := by
-    simpa [primeFaceProduct] using hpd
-  rcases (Prime.dvd_finset_prod_iff hp.prime id).mp hpd' with
+    simpa [primeFaceProduct] using! hpd
+  rcases (Prime.dvd_finsetProd_iff hp.prime id).mp hpd' with
     ⟨r, hru, hpr⟩
   have hrPrime := hprime r hru
   rcases hrPrime.eq_one_or_self_of_dvd p hpr with hp1 | hpeq
   · exact (hp.ne_one hp1).elim
   · have hrBound := (mem_primesUpTo.mp (hu hru)).2
-    have hpBound : p ≤ q - 1 := by simpa only [hpeq] using hrBound
+    have hpBound : p ≤ q - 1 := by simpa only [hpeq] using! hrBound
     have hq2 : 2 ≤ q := hq.two_le
     omega
 
@@ -160,7 +160,7 @@ theorem survivorPrimeFaceHighSet_bij_activeCofactors
       primeFaceProduct_squarefreePrimeFace hsq
     have huHigh : survivorPrimeFaceHigh Λ t q u := by
       apply (survivorPrimeFaceHigh_iff_isSurvivorZeroModePair Λ t hq huSub).mpr
-      simpa [hprod] using hpair
+      simpa [hprod] using! hpair
     refine ⟨u, ?_, hprod⟩
     exact Finset.mem_filter.mpr
       ⟨Finset.mem_powerset.mpr huSub, huHigh⟩

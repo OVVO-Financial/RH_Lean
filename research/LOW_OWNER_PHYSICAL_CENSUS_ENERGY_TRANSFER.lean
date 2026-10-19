@@ -87,7 +87,7 @@ theorem physicalCensusQ2Energy_implies_correlationLowQ2Energy
     ‖lowOwnerPhysicalFarCensus R - frozenTopFarRoughRootCorrection R‖ ^ 2 ≤
         2 * (‖lowOwnerPhysicalFarCensus R‖ ^ 2 +
           ‖frozenTopFarRoughRootCorrection R‖ ^ 2) := by
-            simpa [sub_eq_add_neg] using htwo
+            simpa [sub_eq_add_neg] using! htwo
     _ ≤ 2 * ((A * canonicalRoughLowQ2DaughterEnergy R +
           C * (R : ℝ) ^ 2 * K) + 64 * (R : ℝ) ^ 2) := by
             gcongr

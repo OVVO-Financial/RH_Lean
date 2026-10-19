@@ -55,9 +55,9 @@ existing Fermat complex point directly back to its original real factor pair. -/
 theorem stableFarComplexToRealPair_fermatPoint (c q : ℝ) :
     stableFarComplexToRealPair (RHLean.Geometry.fermatPoint c q) = (c, q) := by
   apply Prod.ext
-  · simpa [stableFarComplexToRealPair, RHLean.Geometry.fermatPoint] using
+  · simpa [stableFarComplexToRealPair, RHLean.Geometry.fermatPoint] using!
       RHLean.Geometry.fermatA_sub_fermatB c q
-  · simpa [stableFarComplexToRealPair, RHLean.Geometry.fermatPoint] using
+  · simpa [stableFarComplexToRealPair, RHLean.Geometry.fermatPoint] using!
       RHLean.Geometry.fermatA_add_fermatB c q
 
 /-- Conversely, the inverse realification of `(c,q)` is exactly the Fermat
@@ -66,7 +66,7 @@ theorem stableFarRealPairToComplex_factorPair (c q : ℝ) :
     stableFarRealPairToComplex (c, q) = RHLean.Geometry.fermatPoint c q := by
   have h := congrArg stableFarRealPairToComplex
     (stableFarComplexToRealPair_fermatPoint c q)
-  simpa using h.symm
+  simpa using! h.symm
 
 /-- Real arithmetic is exactly the diagonal in the realified coordinate. -/
 @[simp] theorem stableFarComplexToRealPair_ofReal (r : ℝ) :
@@ -295,7 +295,7 @@ theorem stableFarCriticalQ2RealGramKernel_self
     rw [Complex.normSq_eq_norm_sq]
     exact norm_sq_stableFarCriticalQ2LogMultiplier tau hq
   simpa [stableFarCriticalQ2RealGramKernel, Complex.normSq_apply,
-    pow_two] using hm
+    pow_two] using! hm
 
 /-- The realified returned-fibre Perron projection. -/
 def stableFarReturnedLogFrequencyCenteredRealPair

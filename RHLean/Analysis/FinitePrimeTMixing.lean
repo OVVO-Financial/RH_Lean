@@ -311,7 +311,7 @@ theorem onePrimeWalshFactor_lt_one
     onePrimeWalshFactor p s < 1 := by
   rw [onePrimeWalshFactor_eq hp]
   have hden : (0 : ℚ) < (p : ℚ) ^ 2 - 6 := by
-    simpa [onePrimeZeroFreeWeight] using onePrimeZeroFreeWeight_pos hp
+    simpa [onePrimeZeroFreeWeight] using! onePrimeZeroFreeWeight_pos hp
   have hsq : (0 : ℚ) < (s : ℚ) := by
     exact_mod_cast (show 0 < s by omega)
   have hpq : (1 : ℚ) < (p : ℚ) := by
@@ -477,7 +477,7 @@ theorem abs_finitePrimeWalshProduct_le_firstGenericTRadius
   have htail : |finitePrimeWalshProduct (P.erase 11) s| <= 1 :=
     abs_finitePrimeWalshProduct_le_one (P.erase 11) hPrest hs1 hs6
   have hhead : |onePrimeWalshFactor 11 s| <= firstGenericTRadius := by
-    simpa [firstGenericTRadius] using abs_onePrimeWalshFactor_eleven_le hs1 hs6
+    simpa [firstGenericTRadius] using! abs_onePrimeWalshFactor_eleven_le hs1 hs6
   have h11erase : 11 ∉ P.erase 11 := Finset.notMem_erase 11 P
   have hprod := finitePrimeWalshProduct_insert (s := s) h11erase
   rw [Finset.insert_erase h11] at hprod

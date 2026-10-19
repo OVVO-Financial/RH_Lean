@@ -40,7 +40,7 @@ theorem lowOwnerFirstOwnerCanonicalStokesSchedule_prime
   intro r hr
   have hrPair :
       r ∈ squareRootCanonicalRoughDescendingPrimeSchedule R ∧ p < r := by
-    simpa [lowOwnerFirstOwnerCanonicalStokesSchedule] using hr
+    simpa [lowOwnerFirstOwnerCanonicalStokesSchedule] using! hr
   exact
     (squareRootCanonicalRoughDescendingPrimeSchedule_complete R).1 r hrPair.1
 

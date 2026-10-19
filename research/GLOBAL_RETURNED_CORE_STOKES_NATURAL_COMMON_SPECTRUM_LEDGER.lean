@@ -88,7 +88,7 @@ theorem lowOwnerStokesNaturalPeriodicJointConductorResponse_eq_corrected
   apply Finset.sum_congr rfl
   intro r _hr
   by_cases hc : c = reducedAdditiveConductor r
-  · simp only [hc, if_true]
+  · simp only [hc, ite_true]
     exact lowOwnerStokesNaturalPeriodicJointSpectralAtom_eq_raw_sub_two_smooth
       R hR x r
   · simp [hc]

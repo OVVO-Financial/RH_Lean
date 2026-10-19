@@ -42,8 +42,8 @@ theorem inv_sq_add_two_mul_le_inv_sq_cubic_step
   rw [heq]
   let x : ℝ := C * a ^ 2
   change (1 + 2 * x) * (1 - x) ^ 2 ≤ 1
-  have hx0' : 0 ≤ x := by simpa [x] using hx0
-  have hx1' : x ≤ 1 := by simpa [x] using hx1
+  have hx0' : 0 ≤ x := by simpa [x] using! hx0
+  have hx1' : x ≤ 1 := by simpa [x] using! hx1
   have hrem : 0 ≤ x ^ 2 * (3 - 2 * x) :=
     mul_nonneg (sq_nonneg x) (by linarith)
   nlinarith
@@ -72,6 +72,6 @@ theorem inv_sq_rate_of_exact_cubic_recurrence
           ring
         _ ≤ 1 / (a n) ^ 2 + 2 * C := add_le_add_left ih _
         _ ≤ 1 / (a (n + 1)) ^ 2 := by
-          simpa [hrec n] using hstep
+          simpa [hrec n] using! hstep
 
 end RHLean.Analysis

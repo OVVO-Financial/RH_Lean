@@ -109,7 +109,7 @@ theorem postRootCovarianceReciprocalOutgoingEnergy_le_218_over_225
       (∑ p ∈ primesUpTo W,
         (postRootCovarianceFixedOwnerChildMultiplicity W parent p : ℝ) /
           (p : ℝ) ^ 2) ≤ 218 / 225 := by
-    simpa [Nat.cast_pow] using hcast
+    simpa [Nat.cast_pow] using! hcast
   exact mul_le_mul_of_nonneg_right hcongR
     (postRootCovarianceReciprocalPairEnergy_nonneg parent)
 

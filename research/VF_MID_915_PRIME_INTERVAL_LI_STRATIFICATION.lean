@@ -56,10 +56,10 @@ theorem vfMid915PhysicalPrimeCofactorFiber_mem_iff
       exact (max_lt_iff.mp hlow)
     have hstart : R ^ 2 < c * q := by
       have h := (Nat.div_lt_iff_lt_mul hc).mp hbounds.2
-      simpa [Nat.mul_comm] using h
+      simpa [Nat.mul_comm] using! h
     have hend : c * q ≤ (R + 1) ^ 2 - 1 := by
       have h := (Nat.le_div_iff_mul_le hc).mp hupp
-      simpa [Nat.mul_comm] using h
+      simpa [Nat.mul_comm] using! h
     exact ⟨hqprime, hbounds.1, hstart, hend⟩
   · rintro ⟨hqprime, hroot, hstart, hend⟩
     refine ⟨⟨?_, ?_⟩, hqprime⟩
@@ -67,9 +67,9 @@ theorem vfMid915PhysicalPrimeCofactorFiber_mem_iff
       constructor
       · exact hroot
       · apply (Nat.div_lt_iff_lt_mul hc).mpr
-        simpa [Nat.mul_comm] using hstart
+        simpa [Nat.mul_comm] using! hstart
     · apply (Nat.le_div_iff_mul_le hc).mpr
-      simpa [Nat.mul_comm] using hend
+      simpa [Nat.mul_comm] using! hend
 
 /-- The cofactor of a large-prime-factor site lies at or below R.
 No new prime owner can be introduced by a cofactor above this root. -/
@@ -260,10 +260,10 @@ theorem vfMid915PrimeCofactorSquareBand_iff_physical
   · rintro ⟨hqPrime, hlow, hupp⟩
     have hstart : r ^ 2 < c * q := by
       have h := (Nat.div_lt_iff_lt_mul hc).mp hlow
-      simpa [Nat.mul_comm] using h
+      simpa [Nat.mul_comm] using! h
     have hupper : c * q ≤ (r + 1) ^ 2 := by
       have h := (Nat.le_div_iff_mul_le hc).mp hupp
-      simpa [Nat.mul_comm] using h
+      simpa [Nat.mul_comm] using! h
     have hroot : r < q := by
       by_contra hnot
       have hqle : q ≤ r := by omega
@@ -276,10 +276,10 @@ theorem vfMid915PrimeCofactorSquareBand_iff_physical
   · rintro ⟨hqPrime, hroot, hstart, hupper⟩
     refine ⟨hqPrime, ?_, ?_⟩
     · apply (Nat.div_lt_iff_lt_mul hc).mpr
-      simpa [Nat.mul_comm] using hstart
+      simpa [Nat.mul_comm] using! hstart
     · apply (Nat.le_div_iff_mul_le hc).mpr
       have hle : c * q ≤ (r + 1) ^ 2 := by omega
-      simpa [Nat.mul_comm] using hle
+      simpa [Nat.mul_comm] using! hle
 
 /-! ## Cofactor-first historical Fubini and exact retained-weight Abel -/
 

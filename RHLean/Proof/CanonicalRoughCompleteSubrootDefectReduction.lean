@@ -64,7 +64,7 @@ theorem primeFaceProduct_le_full_primesUpTo
   have hle := primeFaceProduct_le_primorialWheelProduct hu (by
     intro q hq
     exact (prime_of_mem_primesUpTo hq).one_le)
-  simpa [primorialWheelProduct, primeFaceProduct] using hle
+  simpa [primorialWheelProduct, primeFaceProduct] using! hle
 
 /-- A partner strictly above the canonical largest prime factor of an old face
 cannot already be one of that face's coordinates. -/
@@ -212,7 +212,7 @@ theorem squareRootCanonicalRoughFreshTopEscapeBoundary_subset_postRoot_of_comple
       squareRootCanonicalRoughFreshTopEscapeBoundary_partner_gt_root_of_completeWheel
         hR hp hu hWheel hq, ?_⟩, hqPrime⟩
   exact (Nat.le_div_iff_mul_le hcpos).2 (by
-    simpa [Nat.mul_comm] using hupper)
+    simpa [Nat.mul_comm] using! hupper)
 
 /-- Births remain on the opposite side of the root: their fresh child cofactor
 is strictly below `R`. -/
@@ -226,7 +226,7 @@ theorem squareRootCanonicalRoughFreshBirthBoundary_child_lt_root_on_completeWhee
     primeFaceProduct_pos_of_mem_powerset hu
   have hfresh :=
     canonicalLargestPrimeFactor_primeFaceProduct_lt_freshPrime hp hu
-  simpa [Nat.mul_comm] using
+  simpa [Nat.mul_comm] using!
     (squareRootCanonicalRoughFreshBirthBoundary_child_lt_root
       hR hcpos hp hfresh hq)
 

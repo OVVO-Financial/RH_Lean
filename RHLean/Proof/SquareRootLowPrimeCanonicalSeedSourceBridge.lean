@@ -36,12 +36,12 @@ theorem lowWheelFrozenSecondContactCanonicalSeed_existsUnique_source
   rcases hadm with ⟨hq, hc1, hsq, _hcop, hdom⟩
   let V := squarefreePrimeFace (sourceCore s)
   have hprod : primeFaceProduct V = sourceCore s := by
-    simpa [V] using primeFaceProduct_squarefreePrimeFace hsq
+    simpa [V] using! primeFaceProduct_squarefreePrimeFace hsq
   have hpred : V ∈ (primesUpTo (sourcePrime s - 1)).powerset := by
     apply Finset.mem_powerset.mpr
     intro p hp
     have hpFactors : p ∈ (sourceCore s).primeFactors := by
-      simpa [V, squarefreePrimeFace] using hp
+      simpa [V, squarefreePrimeFace] using! hp
     have hpData := Nat.mem_primeFactors.mp hpFactors
     have hpLt : p < sourcePrime s := hdom p hpData.1 hpData.2.1
     exact mem_primesUpTo.mpr ⟨hpData.1, by omega⟩
@@ -57,7 +57,7 @@ theorem lowWheelFrozenSecondContactCanonicalSeed_existsUnique_source
       hq hseed.2.1 hV with ⟨y, hy, hmap⟩
   have hmap' : lowWheelFrozenSecondContactParentMap y =
       (sourcePrime s, squarefreePrimeFace (sourceCore s)) := by
-    simpa [V] using hmap
+    simpa [V] using! hmap
   refine ⟨y, ⟨hy, hmap'⟩, ?_⟩
   intro z hz
   exact (lowWheelFrozenSecondContactParentMap_injOn R)
@@ -76,7 +76,7 @@ theorem squareRootLowPrimeGoFullFaceDefectSaturated_existsUnique_frozenSource
   rcases squareRootLowPrimeGoFullFaceDefectSaturated_exists_canonicalSeed hz with
     ⟨child, hseed, hcq, hcc, _hgen⟩
   have h := lowWheelFrozenSecondContactCanonicalSeed_existsUnique_source hseed
-  simpa [hcq, hcc] using h
+  simpa [hcq, hcc] using! h
 
 /-- The overlap is same-sign, not a cancellation.  The unique frozen source
 attached to a deep Go defect carries exactly the full-face Go source weight. -/

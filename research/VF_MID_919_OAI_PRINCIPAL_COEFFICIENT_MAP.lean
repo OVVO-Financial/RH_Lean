@@ -54,10 +54,13 @@ theorem vf919ArithmeticTwist_mul (g : ℕ → ℂ)
     vf919ArithmeticTwist g (f * h) =
       vf919ArithmeticTwist g f * vf919ArithmeticTwist g h := by
   ext n
-  simp only [vf919ArithmeticTwist, ArithmeticFunction.coe_mk,
-    ArithmeticFunction.mul_apply, Finset.mul_sum]
+  have happly : ∀ (u : ArithmeticFunction ℂ) (k : ℕ),
+      vf919ArithmeticTwist g u k = g k * u k := fun _ _ => rfl
+  rw [happly, ArithmeticFunction.mul_apply, ArithmeticFunction.mul_apply,
+    Finset.mul_sum]
   apply Finset.sum_congr rfl
   intro x hx
+  rw [happly, happly]
   have hprod := (Nat.mem_divisorsAntidiagonal.mp hx).1
   rw [← hprod, hg]
   ring
@@ -117,7 +120,7 @@ theorem vf919DirichletDelta_mul_apply (k : ℕ) (hk : 0 < k)
   · simp [hn]
   rw [ArithmeticFunction.mul_apply]
   by_cases hkn : k ∣ n
-  · rw [if_pos hkn]
+  · rw [ite_eq_left hkn]
     rw [Finset.sum_eq_single (k, n / k)]
     · simp [vf919DirichletDelta, hk.ne']
     · intro x hx hne
@@ -131,13 +134,13 @@ theorem vf919DirichletDelta_mul_apply (k : ℕ) (hk : 0 < k)
     · intro hnot
       exact (hnot (Nat.mem_divisorsAntidiagonal.mpr
         ⟨Nat.mul_div_cancel' hkn, hn⟩)).elim
-  · rw [if_neg hkn]
+  · rw [ite_eq_right hkn]
     apply Finset.sum_eq_zero
     intro x hx
     have hxk : x.1 ≠ k := by
       intro h
       apply hkn
-      exact ⟨x.2, by simpa [h] using (Nat.mem_divisorsAntidiagonal.mp hx).1.symm⟩
+      exact ⟨x.2, by simpa [h] using! (Nat.mem_divisorsAntidiagonal.mp hx).1.symm⟩
     simp [vf919DirichletDelta, hxk]
 
 theorem vf919DirichletDelta_mul (a b : ℕ) (ha : 0 < a) (hb : 0 < b) :
@@ -197,7 +200,7 @@ private theorem vf919MaskedZeta_eq_deletedFactors :
     simp only [vf919ArithmeticTwist, ArithmeticFunction.coe_mk,
       vf919PrimeToSixMask, vf919RationalZeta, ArithmeticFunction.natCoe_apply,
       ArithmeticFunction.zeta_apply, h₆iff, h2, h3, h₂, h₃, h₆, hn,
-      or_true, or_false, and_true, and_false, if_true, if_false,
+      or_true, or_false, and_true, and_false, ite_true, ite_false,
       Nat.cast_one, zero_mul, one_mul] <;> norm_num
 
 private theorem vf919MaskedCharacter_eq_deletedFactor :
@@ -304,12 +307,12 @@ theorem vf919Smooth_sub_transport_eq_sharp (R X : ℕ) :
     vf919SharpPhysicalWeight
   by_cases hn : n ≤ X
   · by_cases hs : ∀ p : ℕ, p.Prime → p ∣ n → p ≤ R
-    · rw [if_pos ⟨hn, hs⟩, if_neg (by rintro ⟨_, h⟩; exact h hs), if_pos hn]
+    · rw [ite_eq_left ⟨hn, hs⟩, ite_eq_right (by rintro ⟨_, h⟩; exact h hs), ite_eq_left hn]
       norm_num
-    · rw [if_neg (by rintro ⟨_, h⟩; exact hs h), if_pos ⟨hn, hs⟩, if_pos hn]
+    · rw [ite_eq_right (by rintro ⟨_, h⟩; exact hs h), ite_eq_left ⟨hn, hs⟩, ite_eq_left hn]
       norm_num
-  · rw [if_neg (by rintro ⟨h, _⟩; exact hn h),
-      if_neg (by rintro ⟨h, _⟩; exact hn h), if_neg hn]
+  · rw [ite_eq_right (by rintro ⟨h, _⟩; exact hn h),
+      ite_eq_right (by rintro ⟨h, _⟩; exact hn h), ite_eq_right hn]
     norm_num
 
 /-- The original low/high mask cancellation commutes with conversion at
@@ -406,9 +409,9 @@ private theorem vf919DivisorAntidiagonal_eq_box (N n : ℕ)
       simp [hz] at hprod
       omega
     have hleft : x.1 ≤ x.1 * x.2 := by
-      simpa using Nat.mul_le_mul_left x.1 hx2
+      simpa using! Nat.mul_le_mul_left x.1 hx2
     have hright : x.2 ≤ x.1 * x.2 := by
-      simpa using Nat.mul_le_mul_right x.2 hx1
+      simpa using! Nat.mul_le_mul_right x.2 hx1
     exact ⟨⟨⟨hx1, by omega⟩, ⟨hx2, by omega⟩⟩, hprod⟩
   · rintro ⟨_hbox, hprod⟩
     exact ⟨hprod, by omega⟩
@@ -534,7 +537,7 @@ private theorem vf919CharacterSum_sharp_dilation (N X m : ℕ)
       Finset.Icc 1 (X / m) := by
     ext d
     have hiff : m * d ≤ X ↔ d ≤ X / m := by
-      simpa [Nat.mul_comm] using (Nat.le_div_iff_mul_le hm).symm
+      simpa [Nat.mul_comm] using! (Nat.le_div_iff_mul_le hm).symm
     simp only [Finset.mem_filter, Finset.mem_Icc, hiff]
     omega
   rw [← Finset.sum_filter, hfilter]

@@ -47,7 +47,7 @@ theorem squareBlock_prime_iff_lowWheel
     {R n : ℕ} (hR : 2 ≤ R) (hn : n ∈ canonicalSquareBlock R) :
     n.Prime ↔ ∀ p ∈ primesUpTo R, ¬ p ∣ n := by
   have hnI : R ^ 2 ≤ n ∧ n < (R + 1) ^ 2 := by
-    simpa [canonicalSquareBlock, Finset.mem_Ico] using hn
+    simpa [canonicalSquareBlock, Finset.mem_Ico] using! hn
   have hnR : R < n := by nlinarith
   constructor
   · intro hnPrime p hpWheel hpd
@@ -60,11 +60,11 @@ theorem squareBlock_prime_iff_lowWheel
     have hn1 : n ≠ 1 := by omega
     let p := n.minFac
     have hpPrime : p.Prime := by
-      simpa [p] using Nat.minFac_prime hn1
+      simpa [p] using! Nat.minFac_prime hn1
     have hpd : p ∣ n := by
-      simpa [p] using Nat.minFac_dvd n
+      simpa [p] using! Nat.minFac_dvd n
     have hpSquare : p ^ 2 ≤ n := by
-      simpa [p] using Nat.minFac_sq_le_self hnpos hnPrime
+      simpa [p] using! Nat.minFac_sq_le_self hnpos hnPrime
     have hpR : p ≤ R := by
       by_contra h
       have hlarge : R + 1 ≤ p := by omega
@@ -83,7 +83,7 @@ theorem squareBlock_atMostOneHighPrime
     (n.primeFactors \ primesUpTo R).card ≤ 1 := by
   let U : ℕ := (R + 1) ^ 2 - 1
   have hblock : R ^ 2 ≤ n ∧ n < (R + 1) ^ 2 := by
-    simpa [canonicalSquareBlock, Finset.mem_Ico] using hn
+    simpa [canonicalSquareBlock, Finset.mem_Ico] using! hn
   have hUlow : R ^ 2 ≤ U := by
     have hsquare : (R + 1) ^ 2 = R ^ 2 + 2 * R + 1 := by ring
     dsimp [U]
@@ -143,14 +143,14 @@ theorem squareBlock_highPrimeOwnerSign
     (hhigh : R < canonicalLargestPrimeFactor n) :
     μ n = -μ (canonicalCofactor n) := by
   have hnI : R ^ 2 ≤ n ∧ n < (R + 1) ^ 2 := by
-    simpa [canonicalSquareBlock, Finset.mem_Ico] using hn
+    simpa [canonicalSquareBlock, Finset.mem_Ico] using! hn
   have hn1 : 1 < n := by nlinarith
   have hp : (canonicalLargestPrimeFactor n).Prime :=
     canonicalLargestPrimeFactor_prime hn1
   have hpDvd : canonicalLargestPrimeFactor n ∣ n :=
     canonicalLargestPrimeFactor_dvd hn1
   have hc : canonicalCofactor n ≤ R := by
-    simpa only [canonicalCofactor] using
+    simpa only [canonicalCofactor] using!
       squareBlock_highPrimeCofactor_le hn hhigh hpDvd
   have hprod := canonicalCofactor_mul_largestPrimeFactor hn1
   have hcpos : 0 < canonicalCofactor n := by
@@ -324,10 +324,10 @@ theorem ancestryCell_signedMass (x : ℕ) (v : ℕ × ℕ × ℕ) :
     have hb : Squarefree mn.2 :=
       ArithmeticFunction.moebius_ne_zero_iff_squarefree.mp hmuB
     have hka : mn.1.primeFactors.card = v.1 := by
-      simpa [ancestryLabel] using
+      simpa [ancestryLabel] using!
         congrArg (fun t : ℕ × ℕ × ℕ => t.1) hlabel
     have hkb : mn.2.primeFactors.card = v.2.1 := by
-      simpa [ancestryLabel] using
+      simpa [ancestryLabel] using!
         congrArg (fun t : ℕ × ℕ × ℕ => t.2.1) hlabel
     rw [moebius_eq_negOnePow_primeFactors_card ha,
         moebius_eq_negOnePow_primeFactors_card hb,

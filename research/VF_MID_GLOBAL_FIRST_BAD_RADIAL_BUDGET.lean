@@ -70,7 +70,7 @@ theorem vfMidActualPrimeFirstBadAt_succ_anchorEnergySlack_nonneg
   have hsq :
       vfMidActualPrimeEndpointDefect R ^ 2 ≤
         (K * vfMidSyntheticRadialScale R) ^ 2 := by
-    simpa [sq_abs] using hsquare
+    simpa [sq_abs] using! hsquare
   unfold vfMidFirstBadQuadraticAnchorSlack
   linarith
 
@@ -109,7 +109,7 @@ theorem vfMidCorrelationEnergy_le_upperFirstBadSourceBill
     2 * vfMidSquareEndpointAccumulationCorrelation R +
         vfMidSquareBandError R ^ 2 ≤
       vfMidUpperFirstBadSourceBill R := by
-  simpa [vfMidUpperFirstBadSourceBill] using
+  simpa [vfMidUpperFirstBadSourceBill] using!
     vfMidCorrelationEnergy_le_upperActive_of_endpoint_nonneg hR hupper
 
 /-- Lower endpoint sign removes the prime restoring sector before the global
@@ -120,7 +120,7 @@ theorem vfMidCorrelationEnergy_le_lowerFirstBadSourceBill
     2 * vfMidSquareEndpointAccumulationCorrelation R +
         vfMidSquareBandError R ^ 2 ≤
       vfMidLowerFirstBadSourceBill R := by
-  simpa [vfMidLowerFirstBadSourceBill] using
+  simpa [vfMidLowerFirstBadSourceBill] using!
     vfMidCorrelationEnergy_le_lowerComposite_of_endpoint_nonpos hR hlower
 
 /-- **Direct terminal consumer for the two genuine global packing bounds.**

@@ -35,7 +35,7 @@ theorem k2A2AbelPrefix_centered_abs_le_head_add
   have hsplit :
       (∑ n ∈ Finset.Ico 1 N, f n) + (∑ n ∈ Finset.Ico N M, f n) =
         ∑ n ∈ Finset.Ico 1 M, f n := by
-    simpa only using (Finset.sum_Ico_consecutive (f := f) hN hNM)
+    simpa only using! (Finset.sum_Ico_consecutive (f := f) hN hNM)
   have htail :
       |∑ n ∈ Finset.Ico N M, f n| ≤
         eps * ∑ n ∈ Finset.Ico N M,

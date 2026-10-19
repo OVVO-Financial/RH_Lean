@@ -46,7 +46,7 @@ theorem strongMertens_smoothedMobius_aux_tsum_integral
   rw [MeasureTheory.integral_tsum]
   · intro i
     by_cases hi : i = 0
-    · simpa [hi] using aestronglyMeasurable_const
+    · simpa [hi] using! aestronglyMeasurable_const
     · apply Continuous.aestronglyMeasurable
       have hcont : Continuous fun a : ℝ =>
           mellin (fun x => (Smooth1 SmoothingF eps x : ℂ))

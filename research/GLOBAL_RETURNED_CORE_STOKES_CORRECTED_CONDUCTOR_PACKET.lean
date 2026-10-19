@@ -79,13 +79,13 @@ theorem lowOwnerStokesPeriodicRawConductorResponse_eq_coefficient_mul_ramanujanW
   apply Finset.sum_congr rfl
   intro r _hr
   by_cases hc : c = reducedAdditiveConductor r
-  · simp only [hc, if_true]
+  · simp only [hc, ite_true]
     have hraw :=
       lowOwnerStokesPeriodicRawSpectrum_eq_rawConductorArithmeticCoefficient
         R hR r
     rw [← reducedAdditiveConductor_eq_addOrderOf W r] at hraw
     have hconst : lowOwnerStokesPeriodicRawSpectrum R hR r = C := by
-      simpa [C, lowOwnerStokesRawConductorCoefficient, W, hc] using hraw
+      simpa [C, lowOwnerStokesRawConductorCoefficient, W, hc] using! hraw
     rw [hconst]
     ring
   · simp [hc]

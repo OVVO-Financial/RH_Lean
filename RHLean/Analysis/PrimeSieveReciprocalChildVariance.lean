@@ -115,7 +115,7 @@ theorem primeSieveSignedSiblingNodeEnergy_le_two_childIntervalVariance
     rw [primeSieveSignedSiblingPacketResidual_eq_reciprocalSiblingContrast
       ha ham hmb hb]
     unfold primeSieveReciprocalSiblingContrast
-    simpa [L, R] using
+    simpa [L, R] using!
       (normalizedWeightedSibling_norm_le
         (l := m - a) (r := b - m) (w := b - a)
         hwidth hwidthPos R L)
@@ -194,7 +194,7 @@ theorem primeSieveReciprocalLowFrequencyChildIntervalVariance_nonneg
   | succ depth ih =>
       by_cases hsplit : a + 1 < b
       · simp only [primeSieveReciprocalLowFrequencyChildIntervalVariance,
-          hsplit, if_true]
+          hsplit, ite_true]
         have hnode :
             0 ≤ primeSieveReciprocalChildIntervalVariance y x a
               (dyadicPacketMidpoint a b) b := by
@@ -235,7 +235,7 @@ theorem primeSieveDyadicPacketIntervalTreeEnergy_le_two_childIntervalVariance
         have hleft := ih a m ha hmB
         have hright := ih m b hm1 hb
         simp only [primeSieveReciprocalLowFrequencyChildIntervalVariance,
-          hsplit, if_true]
+          hsplit, ite_true]
         calc
           ((b - a : ℕ) : ℝ) *
                 ‖primeSieveSignedSiblingPacketResidual y x a m b‖ ^ 2 +
@@ -285,7 +285,7 @@ theorem primeSieveReciprocalLowFrequencySquareFunction_le_two_childIntervalVaria
       apply Finset.sum_le_sum
       intro j hj
       have hleft1 : 1 ≤ primeSieveDyadicBlockLeft j := by
-        simpa [primeSieveDyadicBlockLeft] using (Nat.one_le_pow' j 1)
+        simpa [primeSieveDyadicBlockLeft] using! (Nat.one_le_pow' j 1)
       have hright :
           primeSieveDyadicBlockRight y x j + 1 ≤ x / (y + 1) + 1 := by
         unfold primeSieveDyadicBlockRight
@@ -319,7 +319,7 @@ theorem primeSieveReciprocalRootSiblingSquareFunction_le_two_childIntervalVarian
     primeSieveReciprocalRootSiblingSquareFunction y x ≤
       2 * primeSieveReciprocalRootChildIntervalVariance y x := by
   simpa [primeSieveReciprocalRootSiblingSquareFunction,
-    primeSieveReciprocalRootChildIntervalVariance] using
+    primeSieveReciprocalRootChildIntervalVariance] using!
     primeSieveReciprocalLowFrequencySquareFunction_le_two_childIntervalVariance
       y x 1
 
@@ -337,7 +337,7 @@ theorem primeSieveBaseEightShallowSquareFunction_le_two_childIntervalVariance
     primeSieveBaseEightShallowSquareFunction k x ≤
       2 * primeSieveBaseEightChildIntervalVarianceSquareFunction k x := by
   simpa [primeSieveBaseEightShallowSquareFunction,
-    primeSieveBaseEightChildIntervalVarianceSquareFunction] using
+    primeSieveBaseEightChildIntervalVarianceSquareFunction] using!
     primeSieveReciprocalLowFrequencySquareFunction_le_two_childIntervalVariance
       (primorialPNTPrimeSieveCutoff k) x
       (dyadicPacketBaseEightCutoff k x + 1)
@@ -437,11 +437,11 @@ private theorem reciprocalChildVariance_log_succ_sq_le_subpolynomial
   intro x
   let M : ℕ := Nat.log 2 (x + 1)
   have hpowOne : 1 ≤ 2 ^ M := by
-    simpa using (Nat.one_le_pow' M 1)
+    simpa using! (Nat.one_le_pow' M 1)
   have hdiv := hlin (2 ^ M) hpowOne
   have hcard : (2 ^ M).divisors.card = M + 1 := by
     have h := congrArg Finset.card (Nat.divisors_prime_pow Nat.prime_two M)
-    simpa using h
+    simpa using! h
   rw [hcard] at hdiv
   have hpowNat : 2 ^ M ≤ x + 1 := by
     dsimp [M]
@@ -462,7 +462,7 @@ private theorem reciprocalChildVariance_log_succ_sq_le_subpolynomial
   let P : ℝ := Real.rpow B (ε / 2)
   have hL0 : 0 ≤ L := by dsimp [L]; positivity
   have hlinear' : L ≤ C * P := by
-    simpa [L, B, P] using hlinear
+    simpa [L, B, P] using! hlinear
   have hsquare : L ^ 2 ≤ (C * P) ^ 2 :=
     pow_le_pow_left₀ hL0 hlinear' 2
   have hBpos : 0 < B := by dsimp [B]; positivity
@@ -501,7 +501,7 @@ theorem dyadicPacketSuccBaseEightCutoff_deepTailBlockBounded :
   have hdeep := primeSieveDyadicPacketDeepEnergy_baseEight_succ_le
     (k := k) (x := x) hk hup
   have hlogx : L ^ 2 ≤ C * Real.rpow B ε := by
-    simpa [L, B] using hlog x
+    simpa [L, B] using! hlog x
   have hB0 : 0 ≤ B := by dsimp [B]; positivity
   have hscaled : K * L ^ 2 * B ≤ K * (C * Real.rpow B ε) * B := by
     exact mul_le_mul_of_nonneg_right
@@ -516,7 +516,7 @@ theorem dyadicPacketSuccBaseEightCutoff_deepTailBlockBounded :
   change D ≤ (K * C) * Real.rpow B (1 + ε)
   calc
     D ≤ K * L ^ 2 * B := by
-      simpa [D, K, L, B] using hdeep
+      simpa [D, K, L, B] using! hdeep
     _ ≤ K * (C * Real.rpow B ε) * B := hscaled
     _ = (K * C) * (B * Real.rpow B ε) := by ring
     _ = (K * C) * Real.rpow B (1 + ε) := by rw [hrpow]

@@ -134,7 +134,7 @@ theorem squareRootCanonicalRoughStepwiseComplete_of_completeDescendingSchedule
     | nil =>
         simp [SquareRootCanonicalRoughStepwiseComplete]
     | cons p tail ih =>
-        have hfull : ps = pre ++ p :: tail := by simpa using hsplit
+        have hfull : ps = pre ++ p :: tail := by simpa using! hsplit
         have hp : p.Prime := by
           apply hsched.1 p
           rw [hfull]
@@ -145,7 +145,7 @@ theorem squareRootCanonicalRoughStepwiseComplete_of_completeDescendingSchedule
         have htail :
             SquareRootCanonicalRoughStepwiseComplete R (pre ++ [p]) tail := by
           apply ih (pre := pre ++ [p])
-          simpa [List.append_assoc] using hfull
+          simpa [List.append_assoc] using! hfull
         exact ⟨hp, hprefix, htail⟩
   exact aux [] ps (by simp)
 
@@ -175,7 +175,7 @@ theorem directSumCoupledRangeExitLedger_eq_zero_of_stepwiseComplete
       simpa [squareRootCanonicalRoughAdaptiveCarrier_append,
         squareRootCanonicalRoughAdaptiveRawCoefficient_append,
         squareRootCanonicalRoughAdaptiveCarrier,
-        squareRootCanonicalRoughAdaptiveRawCoefficient] using htailZero
+        squareRootCanonicalRoughAdaptiveRawCoefficient] using! htailZero
 
 /-- Therefore the complete raw ledger is exactly the fresh-prime threshold
 ledger on any stepwise-complete chronology. -/
@@ -211,7 +211,7 @@ theorem directSumCoupledRangeExitLedger_eq_zero_of_completeDescendingSchedule
     directSumCoupledRangeExitLedger_eq_zero_of_stepwiseComplete
       R [] ps hR hstep
   simpa [squareRootCanonicalRoughAdaptiveCarrier,
-    squareRootCanonicalRoughAdaptiveRawCoefficient] using hzero
+    squareRootCanonicalRoughAdaptiveRawCoefficient] using! hzero
 
 /-- **Global fresh-prime normal form.** On every complete descending schedule,
 the whole canonical rough critical correlation is exactly the signed

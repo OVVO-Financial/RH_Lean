@@ -212,7 +212,7 @@ theorem nativePNTError_abs_log_sq_le_lambdaTwo_firstRemainder
     (N : ℕ) (hN : 1 ≤ N) :
     |nativePNTError N| * (Real.log (N : ℝ)) ^ 2 ≤
       nativeLambdaTwoErrorMass N + nativePNTSecondRemainder N := by
-  simpa [nativePNTSecondRemainder] using
+  simpa [nativePNTSecondRemainder] using!
     nativePNTError_abs_log_sq_le_lambdaTwo_profile
       nativePNTFirstRemainder nativePNTFirstRemainder_profile N hN
 

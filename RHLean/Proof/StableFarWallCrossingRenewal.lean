@@ -54,20 +54,20 @@ theorem lowWheelFarPrimeCrossingStableState_mem
   have hcoords := lowWheelFarPrimeProduct_coordinates ht
   have hlpf :
       canonicalLargestPrimeFactor (t.2.1 * t.2.2) = t.2.2 := by
-    simpa [lowWheelFarPrimeProductKey] using hcoords.1
+    simpa [lowWheelFarPrimeProductKey] using! hcoords.1
   have hcofactor :
       canonicalCofactor (t.2.1 * t.2.2) = t.2.1 := by
-    simpa [lowWheelFarPrimeProductKey] using hcoords.2
+    simpa [lowWheelFarPrimeProductKey] using! hcoords.2
   have hq1 : 1 ≤ t.1 := hq.one_le
   have hdpCut : t.2.1 * t.2.2 ≤ squareRootEndpoint R := by
     have hle : t.2.1 * t.2.2 ≤ t.1 * (t.2.1 * t.2.2) := by
-      simpa using Nat.mul_le_mul_right (t.2.1 * t.2.2) hq1
-    exact hle.trans (by simpa [Nat.mul_assoc] using hcut)
+      simpa using! Nat.mul_le_mul_right (t.2.1 * t.2.2) hq1
+    exact hle.trans (by simpa [Nat.mul_assoc] using! hcut)
   have hRpos : 0 < R := by omega
   have hXlt : squareRootEndpoint R < R * R := by
     unfold squareRootEndpoint
     have hne : R ^ 2 ≠ 0 := pow_ne_zero 2 (Nat.ne_of_gt hRpos)
-    simpa [pow_two] using Nat.pred_lt hne
+    simpa [pow_two] using! Nat.pred_lt hne
   have hpGeR : R ≤ t.2.2 := by omega
   have hdR : t.2.1 < R := by
     by_contra hnot
@@ -87,7 +87,7 @@ theorem lowWheelFarPrimeCrossingStableState_mem
   rw [hlpf, hcofactor]
   refine ⟨rfl, hp, hpR, ?_, Finset.mem_Ico.mpr ⟨hd1, hdR⟩, hdsq, hdpCut⟩
   have hle : t.2.2 ≤ t.2.1 * t.2.2 := by
-    simpa using Nat.mul_le_mul_right t.2.2 hd1
+    simpa using! Nat.mul_le_mul_right t.2.2 hd1
   exact hle.trans hdpCut
 
 /-- Pointwise renewal sign: the returned stable-wall occurrence has exactly the
@@ -105,7 +105,7 @@ theorem lowWheelFarPrimeCrossingStableState_weight_eq_neg_product
     have ht := (Finset.mem_filter.mp htCross).1
     have hfar := (lowWheelFarPrimeProduct_geometry ht).2.1
     have hfarx : R + 8 ≤ x.2 := by
-      simpa [htx] using hfar
+      simpa [htx] using! hfar
     omega
   have hprod := canonicalCofactor_mul_largestPrimeFactor hxgt
   unfold lowWheelFarPrimeCrossingStableState at hweight
@@ -194,7 +194,7 @@ theorem lowWheelFarPrimeDescendedProductMass_eq_neg_sum_childFarSlices
   have hchild := lowWheelFarPrimeQ2DescendedMass_eq_sum_childFarSlices R
   rw [hchild] at hprod
   have hneg := congrArg Neg.neg hprod
-  simpa using hneg.symm
+  simpa using! hneg.symm
 
 /-- The four-term #672 boundary in renewal form: all strict crossing mass is now
 shown on the literal stable far wall, while the already-owned terminal product
@@ -280,20 +280,20 @@ theorem lowWheelFarPrimeQ2Crossing_returned_nonUnit_descends
     dsimp [e]
     exact squarefree_canonicalCofactor hdsq hd
   have hrq : r < q := by
-    simpa [r] using hdq
+    simpa [r] using! hdq
   have hrR : r < R := hrq.trans hqR
   have her : canonicalLargestPrimeFactor e < r := by
     dsimp [r, e]
     exact canonicalLargestPrimeFactor_canonicalCofactor_lt_of_squarefree hd hdsq
   have hprod : r * e = d := by
     dsimp [r, e]
-    simpa [Nat.mul_comm] using canonicalCofactor_mul_largestPrimeFactor hd
+    simpa [Nat.mul_comm] using! canonicalCofactor_mul_largestPrimeFactor hd
   have hnextCut : r * e * p ≤ squareRootEndpoint R := by
     rw [hprod]
     have hq1 : 1 ≤ q := hqPrime.one_le
     have hle : d * p ≤ q * (d * p) := by
-      simpa using Nat.mul_le_mul_right (d * p) hq1
-    exact hle.trans (by simpa [Nat.mul_assoc] using hcut)
+      simpa using! Nat.mul_le_mul_right (d * p) hq1
+    exact hle.trans (by simpa [Nat.mul_assoc] using! hcut)
   have hnextBase :
       (r, (e, p)) ∈ lowWheelFarPrimeLowCofactorTriples R :=
     lowWheelFarPrimeLowCofactorTriple_mem_of_data
@@ -305,7 +305,7 @@ theorem lowWheelFarPrimeQ2Crossing_returned_nonUnit_descends
     r * r * e * p = r * (r * e) * p := by ring
     _ = r * d * p := by rw [hprod]
     _ ≤ q * d * p := by
-      simpa [Nat.mul_assoc] using Nat.mul_le_mul_right (d * p) hrleq
+      simpa [Nat.mul_assoc] using! Nat.mul_le_mul_right (d * p) hrleq
     _ ≤ squareRootEndpoint R := hcut
 
 /-- The returned nonunit state therefore lands in the literal next-owner
@@ -412,7 +412,7 @@ theorem lowWheelFarPrimeQ2CrossingNextChild_mem_descended
       lowWheelFarPrimeQ2DescendedTriples R := by
   rcases t with ⟨q, ⟨d, p⟩⟩
   rcases Finset.mem_filter.mp ht with ⟨hcross, hd⟩
-  simpa [lowWheelFarPrimeQ2CrossingNextChild] using
+  simpa [lowWheelFarPrimeQ2CrossingNextChild] using!
     lowWheelFarPrimeQ2Crossing_returned_nonUnit_descends hcross hd
 
 /-- Number of outer crossing owners returning to one descended child state. -/
@@ -444,7 +444,7 @@ theorem lowWheelFarPrimeQ2NonUnitReturnedRenewalMass_eq_neg_nextChildIncidence
   intro t ht
   rcases t with ⟨q, ⟨d, p⟩⟩
   rcases Finset.mem_filter.mp ht with ⟨hcross, hd⟩
-  simpa using
+  simpa using!
     lowWheelFarPrimeQ2Crossing_returnedWeight_eq_neg_nextChildWeight hcross hd
 
 /-- **Finite Fubini onto the descended carrier.**  The only price of forgetting
@@ -487,7 +487,7 @@ theorem lowWheelFarPrimeQ2NextChildIncidenceMass_eq_multiplicity
           intro t ht
           have heq := (Finset.mem_filter.mp ht).2
           have hc := congrArg (fun z : ℕ × (ℕ × ℕ) => z.2.1) heq
-          simpa [lowWheelFarPrimeQ2CrossingNextChild] using
+          simpa [lowWheelFarPrimeQ2CrossingNextChild] using!
             congrArg canonicalMoebiusWeight hc
     _ = (lowWheelFarPrimeQ2CrossingNextMultiplicity R y : ℂ) *
         canonicalMoebiusWeight y.2.1 := by

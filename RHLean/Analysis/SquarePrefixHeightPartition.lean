@@ -66,9 +66,9 @@ noncomputable def squarePrefixHighHeightChannels (Λ : ℝ) (n : ℕ) :
 theorem actualChannelOfPair_injective : Function.Injective actualChannelOfPair := by
   intro p q h
   apply Prod.ext
-  · simpa using
+  · simpa using!
       congrArg RHLean.Analysis.ActualCofactorChannel.lowerCofactor h
-  · simpa using
+  · simpa using!
       congrArg RHLean.Analysis.ActualCofactorChannel.upperFactor h
 
 /-- Every pair in an individual product fiber belongs to the complete square-prefix
@@ -198,6 +198,6 @@ theorem squarePrefixMertens_eq_lowHeight_add_highHeight
   have hrat := squarePrefixCofactorExpansionRat_eq_low_add_high Λ n
   have hcast := congrArg (fun x : ℚ => (x : ℂ)) hrat
   rw [← squarePrefixCofactorExpansion_cast_eq_squarePrefixMertens]
-  simpa [squarePrefixLowHeightExpansion, squarePrefixHighHeightExpansion] using hcast
+  simpa [squarePrefixLowHeightExpansion, squarePrefixHighHeightExpansion] using! hcast
 
 end RHLean.Proof

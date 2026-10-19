@@ -367,11 +367,11 @@ theorem violeClockCutoff_lt_two_mul_sq
     violeClockCutoff r < 2 * r ^ 2 := by
   have hrpos : 0 < r := by omega
   have hrr : r < r * r := by
-    simpa using Nat.mul_lt_mul_of_pos_right (by omega : 1 < r) hrpos
+    simpa using! Nat.mul_lt_mul_of_pos_right (by omega : 1 < r) hrpos
   unfold violeClockCutoff
   calc
     r ^ 2 + r < r ^ 2 + r ^ 2 := by
-      simpa [pow_two] using Nat.add_lt_add_left hrr (r ^ 2)
+      simpa [pow_two] using! Nat.add_lt_add_left hrr (r ^ 2)
     _ = 2 * r ^ 2 := by ring
 
 /-- From `r>=4`, the next Viole endpoint is also below `2*r^2`; hence one and
@@ -387,7 +387,7 @@ theorem violeClockCutoff_succ_lt_two_mul_sq
   calc
     (r + 1) ^ 2 + (r + 1) = r ^ 2 + (3 * r + 2) := by ring
     _ < r ^ 2 + r ^ 2 := by
-      simpa [pow_two] using Nat.add_lt_add_left htail (r ^ 2)
+      simpa [pow_two] using! Nat.add_lt_add_left htail (r ^ 2)
     _ = 2 * r ^ 2 := by ring
 
 /-- The one Euler forcing for the literal Viole adjacent-square step. -/
@@ -491,7 +491,7 @@ theorem violeClockError_energyChange_eq_eulerForcing
   have hM : 1 <= violeClockCutoff r := by
     unfold violeClockCutoff
     nlinarith
-  simpa [violeClockSequentialEulerForcing] using
+  simpa [violeClockSequentialEulerForcing] using!
     (nativePNTError_sq_sub_sq_eq_two_mul_error_mul_eulerForcing_add_sq
       r (violeClockCutoff r) (violeClockCutoff (r + 1))
       hM (violeClockCutoff_le_succ r)
@@ -516,7 +516,7 @@ theorem nativePNTSignedSquareBlockEulerFactor_pos
   unfold nativePNTSignedSquareBlockEulerFactor
   apply sub_pos.mpr
   apply (div_lt_iff₀ hpRpos).2
-  simpa using hpR
+  simpa using! hpR
 
 /-- The child is an opposite-sign `1/p` copy of its parent plus the explicit
 physical response defect. -/

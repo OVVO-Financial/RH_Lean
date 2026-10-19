@@ -90,7 +90,7 @@ theorem canonicalRoughCorrelation_rootBound_of_endpointAmplificationWith
       (R := R) (by omega)]
   unfold lowOwnerPost789EndpointGapReal
   norm_num
-  simpa [sub_eq_add_neg, add_comm, add_left_comm, add_assoc] using hGap
+  simpa [sub_eq_add_neg, add_comm, add_left_comm, add_assoc] using! hGap
 
 /-- **Explicit post-789 universal bound from endpoint amplification.**
 

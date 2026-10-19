@@ -204,7 +204,7 @@ theorem properSubwheel_partialWheelError_smallCofactor_semiprime
       a < Y ∧ q.Prime ∧ r.Prime ∧ Y < q ∧ Y < r ∧
         n = a * q * r ∧ X / n < Y := by
   have hscale' : X < Y * Y ^ 2 := by
-    simpa [pow_succ, Nat.mul_comm, Nat.mul_left_comm, Nat.mul_assoc] using hscale
+    simpa [pow_succ, Nat.mul_comm, Nat.mul_left_comm, Nat.mul_assoc] using! hscale
   exact partialPrimeWheel_nonzero_error_smallCofactor_semiprime
     Y Y X hY le_rfl hscale' hnpos hnX herr
 
@@ -277,7 +277,7 @@ theorem squareRootEndpoint_div_lt_owner_of_root_lt
     omega
   have hpow : R ^ 2 < p ^ 2 := Nat.pow_lt_pow_left hRp (by omega)
   have hXp : squareRootEndpoint R < p ^ 2 := hXRsq.trans hpow
-  simpa [pow_two] using hXp
+  simpa [pow_two] using! hXp
 
 /-- The entire top boundary `p > R` is already the existing high-prime Mertens
 band.  The only unfinished frozen boundary states are therefore in the middle

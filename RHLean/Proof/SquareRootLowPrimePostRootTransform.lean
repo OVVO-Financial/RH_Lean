@@ -152,7 +152,7 @@ theorem squareRootLowPrimePostRootParentMass_eq_cofactorTransform
           if c * q ≤ squareRootEndpoint R then
             canonicalMoebiusWeight c
           else 0 := by
-            simpa only using
+            simpa only using!
               (Finset.sum_product
                 (s := squareRootLowPrimeOwnedResponseCofactors R K U)
                 (t := squareRootLowPrimePostRootPrimeSet R)
@@ -242,14 +242,14 @@ theorem squareRootLowPrimePostRoot_quotient_mem_Icc
   rcases mem_squareRootLowPrimePostRootPrimeSet.mp hq with
     ⟨hRq, hqX, hqPrime⟩
   have hlow : 1 ≤ squareRootEndpoint R / q :=
-    (Nat.le_div_iff_mul_le hqPrime.pos).2 (by simpa using hqX)
+    (Nat.le_div_iff_mul_le hqPrime.pos).2 (by simpa using! hqX)
   have hRpos : 0 < R := by omega
   have hXltSquare : squareRootEndpoint R < R ^ 2 := by
     unfold squareRootEndpoint
     have hsqpos : 0 < R ^ 2 := by positivity
     exact Nat.sub_lt hsqpos (by norm_num)
   have hSquareLt : R ^ 2 < R * q := by
-    simpa [pow_two] using Nat.mul_lt_mul_of_pos_left hRq hRpos
+    simpa [pow_two] using! Nat.mul_lt_mul_of_pos_left hRq hRpos
   have hXlt : squareRootEndpoint R < R * q :=
     hXltSquare.trans hSquareLt
   have hdivlt : squareRootEndpoint R / q < R :=
@@ -281,7 +281,7 @@ theorem squareRootLowPrimePostRootCofactorTransform_eq_quotientShellSum
             squareRootEndpoint R / _q = B,
           squareRootLowPrimeRestrictedOwnedCofactorPrefixMass R K U B := by
             symm
-            simpa using
+            simpa using!
               (Finset.sum_fiberwise_of_maps_to'
                 (s := squareRootLowPrimePostRootPrimeSet R)
                 (t := Finset.Icc 1 (R - 1))

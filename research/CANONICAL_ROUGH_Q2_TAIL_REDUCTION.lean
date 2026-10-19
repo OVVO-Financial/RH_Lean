@@ -122,7 +122,7 @@ theorem card_canonicalRoughHighQ2Owners_le_root (R : ℕ) :
       have hqpos : 0 < q := hqPrime.pos
       omega
     exact Finset.mem_range.mpr hqR
-  simpa using Finset.card_le_card hsub
+  simpa using! Finset.card_le_card hsub
 
 /-- **Milestone-2 tail theorem.**  The entire q^2 owner tail with `q^2 >= R`
 is globally absorbable into the permitted root-scale envelope. -/
@@ -173,7 +173,7 @@ theorem canonicalRoughLow_add_high_Q2Energy_eq_full (R : ℕ) :
     (f := fun q => rawQ2ChildEnergyReal R q)
   simpa [canonicalRoughLowQ2DaughterEnergy,
     canonicalRoughHighQ2DaughterEnergy, canonicalRoughLowQ2Owners,
-    farFourOddQ2DaughterEnergy] using hs
+    farFourOddQ2DaughterEnergy] using! hs
 
 /-- Both sectors carry nonnegative energy. -/
 theorem canonicalRoughHighQ2DaughterEnergy_nonneg (R : ℕ) :

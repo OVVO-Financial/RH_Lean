@@ -187,7 +187,7 @@ theorem physicalCompleteCell_fourFrameStep_implies_linear
             apply (Nat.div_lt_iff_lt_mul hden).2
             have hmul : 4 * K < (q * q) * K :=
               Nat.mul_lt_mul_of_pos_right hqSq hKpos
-            simpa [Nat.mul_comm, Nat.mul_left_comm, Nat.mul_assoc] using hmul
+            simpa [Nat.mul_comm, Nat.mul_left_comm, Nat.mul_assoc] using! hmul
           have hJlt : J < K :=
             (Nat.div_le_self Y 4).trans_lt hYlt
           have hcomplete := ih J hJlt
@@ -197,7 +197,7 @@ theorem physicalCompleteCell_fourFrameStep_implies_linear
           calc
             mertensEnergy Y <=
                 (36 : ℚ) / 35 * mertensEnergy (4 * J) + 324 := by
-                  simpa [J] using hend
+                  simpa [J] using! hend
             _ <= (36 : ℚ) / 35 * (A * (J : ℚ)) + 324 := by
                   gcongr
             _ = (36 : ℚ) / 35 * A * (J : ℚ) + 324 := by ring
@@ -259,7 +259,7 @@ theorem riemannHypothesis_of_physicalCompleteCell_fourFrameStep
     dsimp [A]
     nlinarith [hC]
   have hlinear : ∀ K : ℕ, mertensEnergy (4 * K) <= A * (K : ℚ) := by
-    simpa [A] using physicalCompleteCell_fourFrameStep_implies_linear hC hstep
+    simpa [A] using! physicalCompleteCell_fourFrameStep_implies_linear hC hstep
   exact riemannHypothesis_of_threeSlotDegreeOneEnergy
     (threeSlotDegreeOneEnergy_of_completeCellMertensLinear hA hlinear)
 

@@ -70,13 +70,13 @@ theorem two_mul_postRootRecordOuterRowNumerator_eq_squareStep_sub_lower
     (Nat.div_lt_iff_lt_mul hp.pos).2 hlt
   have hmul : p * ((W + 1) / p) = W + 1 := Nat.mul_div_cancel' hdvd
   have hquot : W / p + 1 = (W + 1) / p := by
-    rw [Nat.succ_div, if_pos hdvd]
+    rw [Nat.succ_div, ite_eq_left hdvd]
   have hrow :
       postRootPrimeFamilyCovarianceRowTotal W =
         realMoebiusStep ((W + 1) / p) *
           realMertensLength ((W + 1) / p) := by
     rw [postRootPrimeFamilyCovarianceRowTotal_eq_single_of_dvd hmem hdvd,
-      postRootLowerCovarianceRow_eq_ite, if_pos hdvd, hquot]
+      postRootLowerCovarianceRow_eq_ite, ite_eq_left hdvd, hquot]
   have hmuMul :
       realMoebiusStep (p * ((W + 1) / p)) =
         -realMoebiusStep ((W + 1) / p) :=
@@ -387,7 +387,7 @@ theorem postRootCovariancePowerSeat_le_rpow_one_sub
   have hpowpos : 0 < Real.rpow (W : ℝ) (1 + ε) :=
     Real.rpow_pos_of_pos (by exact_mod_cast hWpos) _
   unfold postRootCovariancePowerSeat
-  rw [if_pos hW]
+  rw [ite_eq_left hW]
   apply max_le
   · exact Real.rpow_nonneg (Nat.cast_nonneg W) _
   · calc

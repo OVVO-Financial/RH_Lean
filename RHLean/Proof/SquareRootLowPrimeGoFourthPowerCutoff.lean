@@ -105,7 +105,7 @@ theorem squareRootLowPrimeGoSecondBoundaryDefect_parentSource_coordinates
   constructor
   · have howner :=
       canonicalLargestPrimeFactor_mul_prime_eq_of_rough hdPos hq hroughQ
-    simpa [Nat.mul_comm] using howner
+    simpa [Nat.mul_comm] using! howner
   · rw [pow_two]
     exact Nat.mul_lt_mul_of_pos_left hroot.2 hq.pos
 
@@ -122,7 +122,7 @@ theorem squareRootLowPrimeGoSecondBoundaryDefect_parentSource_contactShell
   have hparentClock :=
     squareRootLowPrimeGoFullBirthBoundary_parentClock_le hq hcube hfull
   have hparent : q * (q * d) ≤ X := by
-    simpa [squareRootLowPrimeGoAncestryClock, Nat.mul_assoc] using hparentClock
+    simpa [squareRootLowPrimeGoAncestryClock, Nat.mul_assoc] using! hparentClock
   have hsecond :=
     squareRootLowPrimeGoSecondBoundaryDefect_secondContact_gt hq hr hd
   have hdPos : 0 < d := by
@@ -162,7 +162,7 @@ theorem squareRootLowPrimeGoSecondBoundaryDefect_parentCore_interval
   have hq3Pos : 0 < q ^ 3 := pow_pos hq.pos 3
   constructor
   · apply (Nat.div_lt_iff_lt_mul hq3Pos).2
-    simpa [pow_succ, Nat.mul_assoc, Nat.mul_comm, Nat.mul_left_comm] using hcontact.2
+    simpa [pow_succ, Nat.mul_assoc, Nat.mul_comm, Nat.mul_left_comm] using! hcontact.2
   · exact hdlt
 
 /-- The finite fixed-owner parent-core slice itself. -/
@@ -223,7 +223,7 @@ theorem squareRootLowPrimeGoDefectPrimeFiber_eq_primeGap
       (Nat.div_lt_iff_lt_mul hq2Pos).1 hXdiv
     have hgap : X / (q * q * d) < r := by
       apply (Nat.div_lt_iff_lt_mul hq2dPos).2
-      simpa [Nat.mul_assoc, Nat.mul_comm, Nat.mul_left_comm] using hX
+      simpa [Nat.mul_assoc, Nat.mul_comm, Nat.mul_left_comm] using! hX
     apply Finset.mem_filter.mpr
     refine ⟨Finset.mem_Ioo.mpr ⟨?_, hrq⟩, hrPrime⟩
     exact (max_lt_iff).2 ⟨hrough, hgap⟩
@@ -241,7 +241,7 @@ theorem squareRootLowPrimeGoDefectPrimeFiber_eq_primeGap
       (Nat.div_lt_iff_lt_mul hq2dPos).1 hgap
     have hXdiv : X / (q * q) < d * r := by
       apply (Nat.div_lt_iff_lt_mul hq2Pos).2
-      simpa [Nat.mul_assoc, Nat.mul_comm, Nat.mul_left_comm] using hX
+      simpa [Nat.mul_assoc, Nat.mul_comm, Nat.mul_left_comm] using! hX
     have hphysical : X / (q * q) / r < d :=
       (Nat.div_lt_iff_lt_mul hrPrime.pos).2 hXdiv
     have hqleCut : q ≤ X / (q * q) := by

@@ -163,7 +163,7 @@ theorem sum_primeIndicator_sub_density_Ioc_eq_discrepancy_sub
         (∑ q ∈ Finset.Ioc 0 x, primeSievePrimeIndicator q) -
           ∑ q ∈ Finset.Ioc 0 y, primeSievePrimeIndicator q := by
     apply (eq_sub_iff_add_eq).2
-    simpa [add_comm] using hprime
+    simpa [add_comm] using! hprime
   unfold primeSievePrimeDiscrepancy primeSievePrefixPrimeCount
   rw [Finset.sum_sub_distrib, hli, hprimeDiff]
   push_cast
@@ -229,7 +229,7 @@ theorem primeFlipPNTError_eq_moebiusAtoms
   rw [primeFlipPNTError_eq_endpoint_sub_moebiusDiscrepancy_add_boundary hxy]
   have hK1 : 1 ≤ x / (y + 1) := by
     apply (Nat.le_div_iff_mul_le (by omega : 0 < y + 1)).2
-    simpa [Nat.mul_comm] using hstep
+    simpa [Nat.mul_comm] using! hstep
   have hset :
       Finset.Icc 1 (x / (y + 1)) =
         ({1} : Finset ℕ) ∪ Finset.Icc 2 (x / (y + 1)) := by

@@ -157,19 +157,19 @@ theorem squarePrefixEnergyBounded_iff_recoveredMatchedTransportBounded :
     intro R hR
     rw [squareRootMatched_sub_positivePrimeTransform_eq_squarePrefixMertens
       R (by omega)]
-    simpa only [Nat.sub_add_cancel (by omega : 1 ≤ R)] using hbound (R - 1)
+    simpa only [Nat.sub_add_cancel (by omega : 1 ≤ R)] using! hbound (R - 1)
   · intro h ε hε
     obtain ⟨C, hC, hbound⟩ := h ε hε
     refine ⟨C, hC, ?_⟩
     intro n
     by_cases hn : n = 0
     · subst n
-      simpa [squarePrefixMertens, squarePrefixEndpoint, mertensSummatory] using hC
+      simpa [squarePrefixMertens, squarePrefixEndpoint, mertensSummatory] using! hC
     · have hR : 2 ≤ n + 1 := by omega
       have hb := hbound (n + 1) hR
       rw [squareRootMatched_sub_positivePrimeTransform_eq_squarePrefixMertens
         (n + 1) (by omega)] at hb
-      simpa only [Nat.add_sub_cancel] using hb
+      simpa only [Nat.add_sub_cancel] using! hb
 
 /-- A bound on the recovered signed difference supplies the three-slot energy
 criterion.  The ancestral correction is retained inside the norm. -/
@@ -253,7 +253,7 @@ theorem norm_squareRootRecoveredMatchedTransport_add_frozenTopFar_le_ten_root
   rw [squareRootRecoveredMatchedTransport_add_frozenTopFar_eq_rootTerms R hR]
   have hMstep := norm_mertensSummatory_sub_le 0 R (Nat.zero_le R)
   have hM : ‖mertensSummatory R‖ ≤ (R : ℝ) := by
-    simpa using hMstep
+    simpa using! hMstep
   have hU := norm_lowWheelCanonicalDowncrossUniqueParentLedger_le_root R
   have hN := norm_squareRootNearPrimeTransport_le R hR
   have hE := norm_squareRootERuniq_le_root R

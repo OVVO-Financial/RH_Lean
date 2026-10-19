@@ -46,7 +46,7 @@ theorem squareRootLowPrimeRunningImbalanceReal_step_eq_freshIncrementReal
     (squareRootLowPrimeRunningImbalance_step_eq_freshIncrement
       R K j p hp)
   simpa [squareRootLowPrimeRunningImbalanceReal,
-    squareRootLowPrimeFreshIncrementReal] using h
+    squareRootLowPrimeFreshIncrementReal] using! h
 
 theorem squareRootLowPrimeRunningEnergyReal_step
     (R K j p : ℕ) (hp : p.Prime) :
@@ -79,12 +79,12 @@ theorem squareRootLowPrimeFreshIncrementReal_sum_eq_neg_ownedResponseChildrenMas
   have h := congrArg Complex.re
     (squareRootLowPrimeFreshIncrement_sum_eq_neg_ownedResponseChildrenMass
       (R := R) (K := K) (j := j) (U := U) hR hUR)
-  simpa [squareRootLowPrimeFreshIncrementReal] using h
+  simpa [squareRootLowPrimeFreshIncrementReal] using! h
 
 private theorem abs_re_sub_le_norm_sub (z w : ℂ) :
     |z.re - w.re| ≤ ‖z - w‖ := by
   have h := Complex.abs_re_le_norm (z - w)
-  simpa using h
+  simpa using! h
 
 theorem squareRootLowPrimeRunningImbalanceReal_sub_canonicalCore_abs_le_root
     (R K j : ℕ) (hR : 16 ≤ R) (hK : 1 ≤ K) (hKR : K < R)

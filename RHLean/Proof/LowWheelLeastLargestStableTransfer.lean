@@ -67,7 +67,7 @@ private theorem lowWheelLargestRawToggle_ne
   unfold lowWheelLargestCofactorQuotientToggle
   unfold lowWheelCofactorQuotientToggleAt
   by_cases hpc : lowWheelLargestCofactorQuotientPivot x ∣ x.1
-  · simp only [hpc, if_true]
+  · simp only [hpc, ite_true]
     intro heq
     have hfirst : x.1 / lowWheelLargestCofactorQuotientPivot x = x.1 :=
       congrArg Prod.fst heq
@@ -76,7 +76,7 @@ private theorem lowWheelLargestRawToggle_ne
       Nat.div_lt_self hcPos hp.one_lt
     omega
   · have hpk := hactive.resolve_left hpc
-    simp only [hpc, if_false, hpk, if_true]
+    simp only [hpc, ite_false, hpk, ite_true]
     intro heq
     have hfirst : x.1 * lowWheelLargestCofactorQuotientPivot x = x.1 :=
       congrArg Prod.fst heq
@@ -110,7 +110,7 @@ theorem finiteOthelloStablePart_least_eq_productOne_union_defect
       refine ⟨hx, ?_⟩
       intro hmate
       unfold lowWheelLeastOthelloMate at hfix
-      simp only [hprod, hmate, if_true] at hfix
+      simp only [hprod, hmate, ite_true] at hfix
       have hxData := mem_lowWheelCanonicalPhysicalStateSet.mp hx
       have hcPos : 0 < x.1 := by
         have hc1 := (Finset.mem_Ico.mp hxData.1).1
@@ -157,7 +157,7 @@ theorem finiteOthelloStablePart_largest_eq_productOne_union_defect
       refine ⟨hx, hprod, ?_⟩
       intro hmate
       unfold lowWheelLargestOthelloMate at hfix
-      simp only [hprod, hmate, if_true] at hfix
+      simp only [hprod, hmate, ite_true] at hfix
       exact (lowWheelLargestRawToggle_ne ht hx hprod) hfix
   · intro hxUnion
     rcases Finset.mem_union.mp hxUnion with h1 | hd
@@ -247,7 +247,7 @@ theorem lowWheelLargestCofactorQuotientPivot_eq_frozenTopPrime
   rcases mem_lowWheelCanonicalTaggedDowncrossCarrier.mp hcarrier with ⟨_ht, hx⟩
   have hshell := lowWheelCanonicalDowncrossPart_adjacent_shell hx
   have hpPrime : (lowWheelTaggedDowncrossPivot y).Prime := by
-    simpa [lowWheelTaggedDowncrossPivot] using hshell.1
+    simpa [lowWheelTaggedDowncrossPivot] using! hshell.1
   rcases lowWheelFrozenCofactorTopPrime_data hy with
     ⟨hqPrime, hqDvd, hpq⟩
   have hprodgt :
@@ -272,7 +272,7 @@ theorem lowWheelLargestCofactorQuotientPivot_eq_frozenTopPrime
           (y.2.1 * lowWheelTaggedDowncrossPivot y) ≤
         lowWheelFrozenCofactorTopPrime y := by
     rcases htopPrime.dvd_mul.mp htopDvd with hdivC | hdivP
-    · simpa [lowWheelFrozenCofactorTopPrime] using
+    · simpa [lowWheelFrozenCofactorTopPrime] using!
         (CanonicalGapAncestryBridge.prime_dvd_le_canonicalLargestPrimeFactor
           hcgt htopPrime hdivC)
     · have heq :
@@ -293,7 +293,7 @@ theorem lowWheelLargestCofactorQuotientPivot_eq_frozenTopPrime
           (y.2.1 * lowWheelTaggedDowncrossPivot y) =
         lowWheelFrozenCofactorTopPrime y :=
     le_antisymm htopLe hqLe
-  simpa [lowWheelLargestCofactorQuotientPivot, hshape.1] using htopEq
+  simpa [lowWheelLargestCofactorQuotientPivot, hshape.1] using! htopEq
 
 /-- The previously separate frozen top toggle is exactly the raw largest-prime
 Othello toggle on every repeated frozen `c > 1` source. -/

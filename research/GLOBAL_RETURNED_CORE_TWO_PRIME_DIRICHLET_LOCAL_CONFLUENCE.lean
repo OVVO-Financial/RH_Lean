@@ -92,12 +92,12 @@ theorem squarefreePrimeFamilyParent_comm_of_prime_ne
         have h :=
           (prime_dvd_squarefreePrimeFamilyParent_iff_of_ne_public
             (p := s) (q := r) (n := n) hs hr hrs).2 hrn
-        simpa [squarefreePrimeFamilyParent, hsn] using h
+        simpa [squarefreePrimeFamilyParent, hsn] using! h
       have hsDiv : s ∣ n / r := by
         have h :=
           (prime_dvd_squarefreePrimeFamilyParent_iff_of_ne_public
             (p := r) (q := s) (n := n) hr hs hsr).2 hsn
-        simpa [squarefreePrimeFamilyParent, hrn] using h
+        simpa [squarefreePrimeFamilyParent, hrn] using! h
       simp [squarefreePrimeFamilyParent, hrn, hsn, hrDiv, hsDiv,
         Nat.div_div_eq_div_mul, Nat.mul_comm]
     · have hsNot : ¬ s ∣ n / r := by
@@ -105,7 +105,7 @@ theorem squarefreePrimeFamilyParent_comm_of_prime_ne
         have h :=
           (prime_dvd_squarefreePrimeFamilyParent_iff_of_ne_public
             (p := r) (q := s) (n := n) hr hs hsr).1
-            (by simpa [squarefreePrimeFamilyParent, hrn] using hdiv)
+            (by simpa [squarefreePrimeFamilyParent, hrn] using! hdiv)
         exact hsn h
       simp [squarefreePrimeFamilyParent, hrn, hsn, hsNot]
   · by_cases hsn : s ∣ n
@@ -114,7 +114,7 @@ theorem squarefreePrimeFamilyParent_comm_of_prime_ne
         have h :=
           (prime_dvd_squarefreePrimeFamilyParent_iff_of_ne_public
             (p := s) (q := r) (n := n) hs hr hrs).1
-            (by simpa [squarefreePrimeFamilyParent, hsn] using hdiv)
+            (by simpa [squarefreePrimeFamilyParent, hsn] using! hdiv)
         exact hrn h
       simp [squarefreePrimeFamilyParent, hrn, hsn, hrNot]
     · simp [squarefreePrimeFamilyParent, hrn, hsn]
@@ -323,7 +323,7 @@ theorem completedOwnerRewrite_twoPrime_localConfluent
     (S : LowOwnerCompletedSignedEnergyState) :
     completedOwnerRewrite R p t s (completedOwnerRewrite R p t r S) =
       completedOwnerRewrite R p t r (completedOwnerRewrite R p t s S) := by
-  simpa [completedOwnerRewrite, lowOwnerTwoPrimeParent] using
+  simpa [completedOwnerRewrite, lowOwnerTwoPrimeParent] using!
     (lowOwnerCompletedSignedEnergyState_twoPrime_comm
       (R := R) (p := p) (t := t) hr hs hrs S.parent)
 
@@ -344,7 +344,7 @@ theorem completedPrimeOwnerRewrite_rightCommutative
   · have hrs' : r = s := Subtype.ext hrs
     subst s
     rfl
-  · simpa [completedPrimeOwnerRewrite] using
+  · simpa [completedPrimeOwnerRewrite] using!
       (completedOwnerRewrite_twoPrime_localConfluent
         (R := R) (p := p) (t := t) r.property s.property hrs S)
 
@@ -363,7 +363,7 @@ theorem completedOwnerRewrite_normalForm_unique
     (S : LowOwnerCompletedSignedEnergyState) :
     completedOwnerRewriteNormalForm R p t owners₁ S =
       completedOwnerRewriteNormalForm R p t owners₂ S := by
-  letI : RightCommutative (completedPrimeOwnerRewrite R p t) :=
+  let : RightCommutative (completedPrimeOwnerRewrite R p t) :=
     completedPrimeOwnerRewrite_rightCommutative R p t
   unfold completedOwnerRewriteNormalForm
   exact hperm.foldl_eq S

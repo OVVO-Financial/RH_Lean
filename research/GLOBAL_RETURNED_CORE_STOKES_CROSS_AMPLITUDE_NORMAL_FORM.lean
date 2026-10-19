@@ -35,7 +35,7 @@ private theorem sum_product_cross_factor
     calc
       (∑ ab ∈ s.product s, f ab.1 * g ab.2) =
           ∑ a ∈ s, ∑ b ∈ s, f a * g b := by
-            simpa only using
+            simpa only using!
               (Finset.sum_product
                 (s := s) (t := s)
                 (f := fun ab : ℕ × ℕ => f ab.1 * g ab.2))
@@ -51,7 +51,7 @@ private theorem sum_product_cross_factor
     calc
       (∑ ab ∈ s.product s, g ab.1 * f ab.2) =
           ∑ a ∈ s, ∑ b ∈ s, g a * f b := by
-            simpa only using
+            simpa only using!
               (Finset.sum_product
                 (s := s) (t := s)
                 (f := fun ab : ℕ × ℕ => g ab.1 * f ab.2))
@@ -106,12 +106,12 @@ theorem lowOwnerFirstOwnerSignedCellTelescope_eq_neg_two_base_mul_returned
         lowOwnerFirstOwnerReturnedChildParentAmplitude R p sig := by
           rw [show (∑ a ∈ s, lowOwnerFirstOwnerDirichletBaseSite R a) =
               lowOwnerFirstOwnerBaseAmplitude R p sig by
-                simpa [s] using
+                simpa [s] using!
                   sum_lowOwnerFirstOwnerDirichletBaseSite_eq_amplitude R p sig,
             show (∑ b ∈ s,
                 lowOwnerFirstOwnerDirichletReturnedChildSite R p b) =
               lowOwnerFirstOwnerReturnedChildParentAmplitude R p sig by
-                simpa [s] using
+                simpa [s] using!
                   (sum_lowOwnerFirstOwnerDirichletReturnedChildSite_eq_returned
                     (R := R) (p := p) (sig := sig))]
 

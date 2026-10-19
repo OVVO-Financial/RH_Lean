@@ -309,7 +309,7 @@ theorem squareRootLowPrimeLibertySource_add_target_weight_sum_eq_zero
       (∑ x ∈ S, squareRootLowPrimeProcessedSeatWeightReal x) =
         ∑ x ∈ squareRootLowPrimeNoLibertyBoundary ps S,
           squareRootLowPrimeProcessedSeatWeightReal x := by
-    simpa [squareRootLowPrimeNoLibertyBoundary] using hmatch
+    simpa [squareRootLowPrimeNoLibertyBoundary] using! hmatch
   rw [hdecomp] at hmatch'
   linarith
 
@@ -382,7 +382,7 @@ theorem squareRootLowPrimeCanonicalRawNoLibertyFrontier_weight_sum_eq_terminal
   unfold squareRootLowPrimeCanonicalRawNoLibertyFrontier
     squareRootLowPrimeCanonicalLibertyCutoff
     squareRootLowPrimeNoLibertyBoundary
-  simpa [squareRootLowPrimeProcessedSeatTerminalFrontier] using
+  simpa [squareRootLowPrimeProcessedSeatTerminalFrontier] using!
     (squareRootLowPrimeProcessedSeatTerminalFrontier_weight_sum
       (R := R) (K := K) (j := j)
       (U := squareRootBornPostTailLowPrimeCutoff R) hR)

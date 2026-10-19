@@ -275,7 +275,7 @@ theorem norm_primorialMinimalSquareWheelNonzeroResponse_le_pntCentered
         2 * ‖primorialPNTErrorCenteredResponse k n‖ := by
   rw [primorialMinimalSquareWheelNonzeroResponse_eq_pntCorrected_sub_two_error
     k n hlower hupper]
-  simpa [norm_mul] using
+  simpa [norm_mul] using!
     (norm_sub_le
       (primorialPNTCorrectedCombCenteredResponse k n)
       (2 * primorialPNTErrorCenteredResponse k n))

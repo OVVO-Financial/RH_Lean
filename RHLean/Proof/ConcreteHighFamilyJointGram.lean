@@ -47,7 +47,7 @@ theorem squarePrefixHighTransportModeSum_eq
   by_cases hshell : shell = squarePrefixHighShell channel
   · subst shell
     simp [squarePrefixHighChannelModeContribution]
-  · rw [if_neg hshell]
+  · rw [ite_eq_right hshell]
     apply Finset.sum_eq_zero
     intro modeLabel _
     exact actualResidualPacket_squarePrefixHighTransportData_offShell

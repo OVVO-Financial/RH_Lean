@@ -76,7 +76,7 @@ private theorem localFullRangeCharacterSum_eq
     (p : ℕ) (hp : Nat.Prime p) (r : ZMod (p ^ 2)) :
     localFullRangeCharacterSum p hp r =
       if r = 0 then (((p ^ 2 : ℕ) : ℂ)) else 0 := by
-  letI : NeZero (p ^ 2) := ⟨pow_ne_zero 2 hp.ne_zero⟩
+  let : NeZero (p ^ 2) := ⟨pow_ne_zero 2 hp.ne_zero⟩
   let F : ZMod (p ^ 2) → ℂ := fun z =>
     ZMod.stdAddChar (z * (-r))
   have horth :
@@ -84,7 +84,7 @@ private theorem localFullRangeCharacterSum_eq
         if r = 0 then (((p ^ 2 : ℕ) : ℂ)) else 0 := by
     have h := AddChar.sum_mulShift
       (-r) (ZMod.isPrimitive_stdAddChar (p ^ 2))
-    simpa [F, ZMod.card] using h
+    simpa [F, ZMod.card] using! h
   unfold localFullRangeCharacterSum
   calc
     (∑ n ∈ Finset.range (p ^ 2),
@@ -118,7 +118,7 @@ least representative of that frequency is divisible by `p`. -/
 private theorem primeMulFrequency_eq_zero_iff
     (p : ℕ) (hp : Nat.Prime p) (r : ZMod (p ^ 2)) :
     (((p : ℕ) : ZMod (p ^ 2)) * r = 0) ↔ p ∣ r.val := by
-  letI : NeZero (p ^ 2) := ⟨pow_ne_zero 2 hp.ne_zero⟩
+  let : NeZero (p ^ 2) := ⟨pow_ne_zero 2 hp.ne_zero⟩
   constructor
   · intro h
     have hcast :
@@ -128,13 +128,13 @@ private theorem primeMulFrequency_eq_zero_iff
     have hdvd : p ^ 2 ∣ p * r.val :=
       (ZMod.natCast_eq_zero_iff (p * r.val) (p ^ 2)).mp hcast
     have hmul : p * p ∣ p * r.val := by
-      simpa [pow_two] using hdvd
+      simpa [pow_two] using! hdvd
     exact (Nat.mul_dvd_mul_iff_left hp.pos).mp hmul
   · intro hdvd
     have hmul : p * p ∣ p * r.val :=
       (Nat.mul_dvd_mul_iff_left hp.pos).mpr hdvd
     have hsq : p ^ 2 ∣ p * r.val := by
-      simpa [pow_two] using hmul
+      simpa [pow_two] using! hmul
     have hcast :
         (((p * r.val : ℕ) : ZMod (p ^ 2))) = 0 :=
       (ZMod.natCast_eq_zero_iff (p * r.val) (p ^ 2)).mpr hsq
@@ -179,7 +179,7 @@ private theorem localPrimeMultipleCharacterSum_eq
     (p : ℕ) (hp : Nat.Prime p) (r : ZMod (p ^ 2)) :
     localPrimeMultipleCharacterSum p hp r =
       if p ∣ r.val then (p : ℂ) else 0 := by
-  letI : NeZero (p ^ 2) := ⟨pow_ne_zero 2 hp.ne_zero⟩
+  let : NeZero (p ^ 2) := ⟨pow_ne_zero 2 hp.ne_zero⟩
   let b : ZMod (p ^ 2) :=
     -(((p : ℕ) : ZMod (p ^ 2)) * r)
   have hinj : Set.InjOn (fun a : ℕ => p * a) (Finset.range p : Set ℕ) := by
@@ -197,9 +197,6 @@ private theorem localPrimeMultipleCharacterSum_eq
       (ZMod.stdAddChar : AddChar (ZMod (p ^ 2)) ℂ) a b
     rw [← hpow]
     congr 1
-    change
-      -((((p * a : ℕ) : ZMod (p ^ 2))) * r) =
-        a • b
     dsimp [b]
     simp [nsmul_eq_mul]
     ring
@@ -211,18 +208,18 @@ private theorem localPrimeMultipleCharacterSum_eq
       dsimp [b]
       rw [hmul]
       simp
-    rw [if_pos hdiv]
+    rw [ite_eq_left hdiv]
     simp [hb]
   · have hmul : (((p : ℕ) : ZMod (p ^ 2)) * r) ≠ 0 := by
       intro h
       exact hdiv ((primeMulFrequency_eq_zero_iff p hp r).mp h)
     have hb : b ≠ 0 := by
       dsimp [b]
-      simpa using hmul
+      simpa using! hmul
     have hchar : ZMod.stdAddChar b ≠ 1 := by
       intro h
       have hzero : b = 0 :=
-        ZMod.injective_stdAddChar (by simpa using h)
+        ZMod.injective_stdAddChar (by simpa using! h)
       exact hb hzero
     have hbsmul : p • b = 0 := by
       dsimp [b]
@@ -244,7 +241,7 @@ private theorem localPrimeMultipleCharacterSum_eq
             (ZMod.stdAddChar : AddChar (ZMod (p ^ 2)) ℂ) p b
         _ = ZMod.stdAddChar 0 := by rw [hbsmul]
         _ = 1 := AddChar.map_zero_eq_one _
-    rw [if_neg hdiv, geom_sum_eq hchar p, hpow]
+    rw [ite_eq_right hdiv, geom_sum_eq hchar p, hpow]
     simp
 
 /-- Within `0 <= n < p^2`, the only multiple of `p^2` is zero. -/
@@ -276,7 +273,7 @@ private def localSquareMultipleCharacterSum
 private theorem localSquareMultipleCharacterSum_eq_one
     (p : ℕ) (hp : Nat.Prime p) (r : ZMod (p ^ 2)) :
     localSquareMultipleCharacterSum p hp r = 1 := by
-  letI : NeZero (p ^ 2) := ⟨pow_ne_zero 2 hp.ne_zero⟩
+  let : NeZero (p ^ 2) := ⟨pow_ne_zero 2 hp.ne_zero⟩
   unfold localSquareMultipleCharacterSum
   rw [← Finset.sum_filter,
     squareMultiplesBelowSquare_eq_singleton p hp]
@@ -298,7 +295,7 @@ private theorem localPrimeMultipleCharacterIteSum_eq
     (p : ℕ) (hp : Nat.Prime p) (r : ZMod (p ^ 2)) :
     localPrimeMultipleCharacterIteSum p hp r =
       if p ∣ r.val then (p : ℂ) else 0 := by
-  letI : NeZero (p ^ 2) := ⟨pow_ne_zero 2 hp.ne_zero⟩
+  let : NeZero (p ^ 2) := ⟨pow_ne_zero 2 hp.ne_zero⟩
   have h := localPrimeMultipleCharacterSum_eq p hp r
   unfold localPrimeMultipleCharacterSum at h
   unfold localPrimeMultipleCharacterIteSum
@@ -312,7 +309,7 @@ theorem localPrimeCombNaturalSpectrum_eq_explicit
       if r = 0 then (((p - 1) ^ 2 : ℕ) : ℂ)
       else if p ∣ r.val then 1 - 2 * (p : ℂ)
       else 1 := by
-  letI : NeZero (p ^ 2) := ⟨pow_ne_zero 2 hp.ne_zero⟩
+  let : NeZero (p ^ 2) := ⟨pow_ne_zero 2 hp.ne_zero⟩
   let χ : ℕ → ℂ := fun n =>
     ZMod.stdAddChar
       (-(((n : ℕ) : ZMod (p ^ 2)) * r))
@@ -389,7 +386,7 @@ theorem localPrimeCombCRTSpectrum_eq_explicit
       if s.val = 0 then (((p - 1) ^ 2 : ℕ) : ℂ)
       else if p ∣ s.val then 1 - 2 * (p : ℂ)
       else 1 := by
-  letI : NeZero (p ^ 2) := ⟨pow_ne_zero 2 hp.ne_zero⟩
+  let : NeZero (p ^ 2) := ⟨pow_ne_zero 2 hp.ne_zero⟩
   let r : ZMod (p ^ 2) := (s.val : ZMod (p ^ 2))
   have hbridge :
       localPrimeCombNaturalSpectrum p hp r =
@@ -399,7 +396,7 @@ theorem localPrimeCombCRTSpectrum_eq_explicit
   have hzero : r = 0 ↔ s.val = 0 := by
     dsimp [r]
     have h := (ZMod.val_eq_zero ((s.val : ℕ) : ZMod (p ^ 2))).symm
-    simpa [ZMod.val_natCast_of_lt s.isLt] using h
+    simpa [ZMod.val_natCast_of_lt s.isLt] using! h
   have hval : r.val = s.val := by
     dsimp [r]
     exact ZMod.val_natCast_of_lt s.isLt
@@ -431,13 +428,10 @@ theorem localPrimeCombNaturalSpectrum_eq_typeCoefficient
   · simp [hr]
   · by_cases hdiv : p ∣ r.val
     · simp [hr, hdiv, hp.ne_one]
-    · have hpSqNeOne : p ^ 2 ≠ 1 := by
+    · have hpSqNeP : p ^ 2 ≠ p := by
         have hp2le := hp.two_le
         nlinarith
-      have hpSqNeP : p ^ 2 ≠ p := by
-        have hp2le := hp.two_le
-        nlinarith
-      simp [hr, hdiv, hpSqNeOne, hpSqNeP]
+      simp [hr, hdiv, hp.ne_one, hpSqNeP]
 
 /-- The complete raw CRT spectrum is an explicit product of the local
 three-case coefficients.  No norm has been taken and all local signs remain. -/

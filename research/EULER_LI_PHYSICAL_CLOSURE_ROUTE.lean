@@ -105,7 +105,7 @@ theorem eulerLiDescendingPrimeSchedule_complete
       have hrS : r ∈ S := by
         dsimp [ps] at hrps
         exact (Finset.mem_sort (fun a b : ℕ => a ≥ b)).mp hrps
-      simpa [S] using hrS
+      simpa [S] using! hrS
     · intro r hr
       rw [hsplit] at hsorted hnodup
       exact eulerLi_sorted_ge_nodup_prefix_before_current hsorted hnodup r hr

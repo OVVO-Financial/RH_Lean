@@ -86,7 +86,7 @@ theorem replacementRootOriented_cofactor_lt_root
     hRc.trans hroot.2.le
   have hsqle : R ^ 2 ≤
       canonicalCofactor n * canonicalLargestPrimeFactor n := by
-    simpa [pow_two] using Nat.mul_le_mul hRc hRq
+    simpa [pow_two] using! Nat.mul_le_mul hRc hRq
   have hXlt : squareRootEndpoint R < R ^ 2 := by
     unfold squareRootEndpoint
     have hpos : 0 < R ^ 2 := by positivity
@@ -114,13 +114,13 @@ theorem squareRootEndpoint_div_eq_iff_mem_replacementFibre
       (Nat.div_lt_iff_lt_mul hnpos).1 hlt
     have hlower : squareRootEndpoint R / (z + 1) < n :=
       (Nat.div_lt_iff_lt_mul hzp).2
-        (by simpa [Nat.mul_comm] using hxlt)
+        (by simpa [Nat.mul_comm] using! hxlt)
     have hle : z ≤ squareRootEndpoint R / n := by omega
     have hmul : z * n ≤ squareRootEndpoint R :=
       (Nat.le_div_iff_mul_le hnpos).1 hle
     have hupper : n ≤ squareRootEndpoint R / z :=
       (Nat.le_div_iff_mul_le hzpos).2
-        (by simpa [Nat.mul_comm] using hmul)
+        (by simpa [Nat.mul_comm] using! hmul)
     exact Finset.mem_Icc.mpr ⟨by omega, hupper⟩
   · intro hmem
     rcases Finset.mem_Icc.mp hmem with ⟨hlower, hupper⟩
@@ -129,12 +129,12 @@ theorem squareRootEndpoint_div_eq_iff_mem_replacementFibre
       (Nat.div_lt_iff_lt_mul hzp).1 hlower'
     have hlt : squareRootEndpoint R / n < z + 1 :=
       (Nat.div_lt_iff_lt_mul hnpos).2
-        (by simpa [Nat.mul_comm] using hxlt)
+        (by simpa [Nat.mul_comm] using! hxlt)
     have hmul : n * z ≤ squareRootEndpoint R :=
       (Nat.le_div_iff_mul_le hzpos).1 hupper
     have hle : z ≤ squareRootEndpoint R / n :=
       (Nat.le_div_iff_mul_le hnpos).2
-        (by simpa [Nat.mul_comm] using hmul)
+        (by simpa [Nat.mul_comm] using! hmul)
     omega
 
 /-- Root-oriented Möbius mass carried by reciprocal fibre `z`. -/
@@ -205,7 +205,7 @@ theorem squareRootReplacementTailMoebiusCoefficient_eq_root_add_smooth
   apply Finset.sum_congr rfl
   intro n hn
   by_cases hq : squareRootEndpoint R / n = z
-  · simp only [hq, if_true]
+  · simp only [hq, ite_true]
     have hnR : R ≤ n := (Finset.mem_Icc.mp hn).1
     have hn2 : 2 ≤ n := hR.trans hnR
     have hn1 : 1 < n := by omega
@@ -471,7 +471,7 @@ theorem ancestrySmoothMass_cast_eq_replacementFullSmoothMass
       rcases Finset.mem_filter.mp hn with ⟨hnRange, hn2, hsq, horient⟩
       have hnlt : n < R ^ 2 := by
         simpa [cumulativeSquarePrefixSet,
-          Nat.sub_add_cancel (by omega : 1 ≤ R)] using hnRange
+          Nat.sub_add_cancel (by omega : 1 ≤ R)] using! hnRange
       have hnX : n ≤ squareRootEndpoint R := by
         unfold squareRootEndpoint
         omega
@@ -488,7 +488,7 @@ theorem ancestrySmoothMass_cast_eq_replacementFullSmoothMass
       apply Finset.mem_filter.mpr
       refine ⟨?_, hn2, hsq, horient⟩
       simpa [cumulativeSquarePrefixSet,
-        Nat.sub_add_cancel (by omega : 1 ≤ R)] using hnlt
+        Nat.sub_add_cancel (by omega : 1 ≤ R)] using! hnlt
   unfold squareRootAncestrySmoothMassInt replacementFullSmoothMass
   push_cast
   rw [hset, Finset.sum_filter]
@@ -550,10 +550,10 @@ theorem ancestrySmoothMass_cast_eq_low_add_fibres
 theorem prime_replacementRootOriented {q : ℕ} (hq : q.Prime) :
     ReplacementRootOriented q := by
   have htop : canonicalLargestPrimeFactor q = q := by
-    simpa using canonicalLargestPrimeFactor_mul_prime_eq
+    simpa using! canonicalLargestPrimeFactor_mul_prime_eq
       (c := 1) (q := q) (by decide) hq.one_lt hq
   have hcore : canonicalCofactor q = 1 := by
-    simpa using canonicalCofactor_mul_prime_eq
+    simpa using! canonicalCofactor_mul_prime_eq
       (c := 1) (q := q) (by decide) hq.one_lt hq
   refine ⟨hq.squarefree, ?_⟩
   rw [htop, hcore]
@@ -613,7 +613,7 @@ theorem replacementFibrePrimeFaceMass_eq_neg_primeCount
           apply Finset.sum_congr rfl
           intro q _hq
           by_cases hprime : q.Prime
-          · rw [if_pos hprime, if_pos hprime,
+          · rw [ite_eq_left hprime, ite_eq_left hprime,
               ArithmeticFunction.moebius_apply_prime hprime]
             norm_num
           · simp [hprime]
@@ -652,13 +652,13 @@ theorem squareRootEndpoint_div_mul_eq_iff_mem_dilatedFibre
     have hlower : squareRootEndpoint R / ((z + 1) * c) < q := by
       rw [← Nat.div_div_eq_div_mul]
       apply (Nat.div_lt_iff_lt_mul hcpos).2
-      simpa [Nat.mul_comm] using hlower0
+      simpa [Nat.mul_comm] using! hlower0
     have hupper0 : c * q ≤ squareRootEndpoint R / z := by
-      simpa [squareRootReplacementFibreUpper] using hupperProd
+      simpa [squareRootReplacementFibreUpper] using! hupperProd
     have hupper : q ≤ squareRootEndpoint R / (z * c) := by
       rw [← Nat.div_div_eq_div_mul]
       apply (Nat.le_div_iff_mul_le hcpos).2
-      simpa [Nat.mul_comm] using hupper0
+      simpa [Nat.mul_comm] using! hupper0
     exact Finset.mem_Icc.mpr ⟨by omega, hupper⟩
   · intro hmem
     rcases Finset.mem_Icc.mp hmem with ⟨hlower, hupper⟩
@@ -676,10 +676,10 @@ theorem squareRootEndpoint_div_mul_eq_iff_mem_dilatedFibre
     constructor
     · unfold squareRootReplacementFibreLower
       have h : squareRootEndpoint R / (z + 1) < c * q := by
-        simpa [Nat.mul_comm] using hlower0
+        simpa [Nat.mul_comm] using! hlower0
       omega
     · unfold squareRootReplacementFibreUpper
-      simpa [Nat.mul_comm] using hupper0
+      simpa [Nat.mul_comm] using! hupper0
 
 /-- A nonempty dilated window forces the elementary endpoint-scale cofactor
 constraint. This is geometry of the incidence, not an estimate. -/

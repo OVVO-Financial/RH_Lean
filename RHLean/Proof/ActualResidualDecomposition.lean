@@ -43,7 +43,7 @@ theorem actualCofactorChannel_mem_bothParabolas
         (channel.upperFactor : ℝ)
         (actualCofactorSquareX channel)
         (actualCofactorSquareY channel) := by
-  simpa [actualCofactorSquareX, actualCofactorSquareY] using
+  simpa [actualCofactorSquareX, actualCofactorSquareY] using!
     RHLean.Geometry.squareMap_mem_bothCofactorParabolas
       (channel.lowerCofactor : ℝ) (channel.upperFactor : ℝ)
 
@@ -147,7 +147,7 @@ theorem resonantActualResidual_mem_resonantSubspace
     (skeleton : ResonantProjectionSkeleton ℂ ℂ) (M : ℕ)
     (data : ActualResidualData skeleton.cutoff M) :
     resonantActualResidual skeleton M data ∈ resonantSubspace skeleton M := by
-  simpa [resonantActualResidual] using
+  simpa [resonantActualResidual] using!
     resonantComponent_mem_resonantSubspace skeleton M (actualResidual data)
 
 /--
@@ -196,7 +196,7 @@ theorem actualResidual_eq_state_sum
     actualResidual data =
       (actualResidualState skeleton M data).resonant +
         (actualResidualState skeleton M data).nonresonant := by
-  simpa [actualResidualState] using
+  simpa [actualResidualState] using!
     actualResidual_eq_resonant_add_nonresonant skeleton M data
 
 end RHLean.Analysis

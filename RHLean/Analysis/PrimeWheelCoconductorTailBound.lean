@@ -48,7 +48,7 @@ private theorem stdAddChar_nat_mul
     (W : PrimeWheelFiniteSystem) (r : ZMod W.modulus) (j : ℕ) :
     ZMod.stdAddChar (((j : ℕ) : ZMod W.modulus) * r) =
       ZMod.stdAddChar r ^ j := by
-  simpa [nsmul_eq_mul] using
+  simpa [nsmul_eq_mul] using!
     (AddChar.map_nsmul_eq_pow
       (ZMod.stdAddChar : AddChar (ZMod W.modulus) ℂ) j r)
 
@@ -76,7 +76,7 @@ theorem norm_primeWheelDirichletKernel_le_geometric
   have hchar : ZMod.stdAddChar r ≠ 1 := by
     intro h
     have hzero : r = 0 :=
-      ZMod.injective_stdAddChar (by simpa using h)
+      ZMod.injective_stdAddChar (by simpa using! h)
     exact hr hzero
   have hsum :
       primeWheelDirichletKernel W N r =
@@ -107,7 +107,7 @@ theorem norm_primeWheelDirichletKernel_le_pointBound
   by_cases hr : r = 0
   · subst r
     simp [primeWheelDirichletKernel]
-  · simp only [hr, if_false]
+  · simp only [hr, ite_false]
     exact le_min
       (norm_primeWheelDirichletKernel_le_length W N r)
       (norm_primeWheelDirichletKernel_le_geometric W N r hr)
@@ -123,7 +123,7 @@ private theorem prefixWindow_char_sum_eq_phase_mul_dirichlet
   have h := prefixWindowSpectrum_neg_eq_phase_mul_dirichlet W N r hupper
   unfold PrimeWheelFiniteSystem.prefixWindowSpectrum at h
   rw [ZMod.dft_apply] at h
-  simpa only [smul_eq_mul, mul_neg, neg_neg, mul_comm] using h
+  simpa only [smul_eq_mul, mul_neg, neg_neg, mul_comm] using! h
 
 private theorem shifted_prefixWindow_char_sum_eq_phase_mul_dirichlet
     (W : PrimeWheelFiniteSystem) (N : ℕ)
@@ -216,7 +216,7 @@ theorem primeWheelCoconductorTailWindowResponse_eq_frequencySum
       apply Finset.sum_congr rfl
       intro r hr
       by_cases htail : D < additiveCoconductor r
-      · simp only [htail, if_true]
+      · simp only [htail, ite_true]
         rw [shifted_prefixWindow_char_sum_eq_phase_mul_dirichlet
           W N a r hupper]
       · simp [htail]
@@ -253,7 +253,7 @@ theorem norm_primeWheelCoconductorTailWindowResponse_le_geometricBound
       apply Finset.sum_le_sum
       intro r hr
       by_cases htail : D < additiveCoconductor r
-      · simpa [htail] using
+      · simpa [htail] using!
           (norm_primeWheelDirichletKernel_le_pointBound W N r)
       · simp [htail]
 

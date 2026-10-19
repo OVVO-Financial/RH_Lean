@@ -92,12 +92,12 @@ theorem mem_primeDilateCofactorWindow_iff_prefixBoundary
       lt_of_le_of_lt (le_max_right y (x / (p * c))) hlower
     have hparent : c * q ≤ x := by
       have h := (Nat.le_div_iff_mul_le hc).1 hupper
-      simpa [Nat.mul_comm] using h
+      simpa [Nat.mul_comm] using! h
     have hden : 0 < p * c := Nat.mul_pos hp.pos hc
     have hchild : x < primeDilateChildCofactor p c * q := by
       have h := (Nat.div_lt_iff_lt_mul hden).1 hdiv
       simpa [primeDilateChildCofactor, Nat.mul_assoc, Nat.mul_comm,
-        Nat.mul_left_comm] using h
+        Nat.mul_left_comm] using! h
     have hqx : q ≤ x := hupper.trans (Nat.div_le_self x c)
     exact ⟨Finset.mem_Ioc.mpr ⟨hyq, hqx⟩, ⟨hparent, hchild⟩⟩
   · rintro ⟨hqmem, hboundary⟩
@@ -105,12 +105,12 @@ theorem mem_primeDilateCofactorWindow_iff_prefixBoundary
     rcases hboundary with ⟨hparent, hchild⟩
     have hupper : q ≤ x / c := by
       apply (Nat.le_div_iff_mul_le hc).2
-      simpa [Nat.mul_comm] using hparent
+      simpa [Nat.mul_comm] using! hparent
     have hden : 0 < p * c := Nat.mul_pos hp.pos hc
     have hdiv : x / (p * c) < q := by
       apply (Nat.div_lt_iff_lt_mul hden).2
       simpa [primeDilateChildCofactor, Nat.mul_assoc, Nat.mul_comm,
-        Nat.mul_left_comm] using hchild
+        Nat.mul_left_comm] using! hchild
     exact ⟨max_lt hyq hdiv, hupper⟩
 
 /-- Every explicit cofactor window is contained in the original unresolved
@@ -216,7 +216,7 @@ theorem sum_weight_mul_mertens_div_eq_primeDilateCofactorWindowTransform
                 RHLean.Analysis.mertensSummatory (x / q) =
                   ∑ c ∈ primeDilatePrefixReciprocalShell p x q,
                     canonicalMoebiusWeight c := by
-              simpa only [primeDilatePrefixCutoff] using
+              simpa only [primeDilatePrefixCutoff] using!
                 (mertensSummatory_primeDilatePrefixCutoff_eq_shellMass
                   p x q hp)
             rw [hmass,
@@ -470,7 +470,7 @@ theorem sum_weight_mul_mertens_square_eq_squarePrimeDilateCofactorWindowTransfor
                   ∑ c ∈ primeDilatePrefixReciprocalShell
                     p (squareRootEndpoint R) q,
                     canonicalMoebiusWeight c := by
-              simpa only [primeDilatePrefixCutoff] using
+              simpa only [primeDilatePrefixCutoff] using!
                 (mertensSummatory_primeDilatePrefixCutoff_eq_shellMass
                   p (squareRootEndpoint R) q hp)
             rw [hmass,

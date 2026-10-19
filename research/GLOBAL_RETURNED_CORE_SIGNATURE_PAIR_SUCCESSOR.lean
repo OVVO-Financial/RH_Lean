@@ -56,7 +56,7 @@ theorem insert_owner_lowerSignature_inj
   · subst q
     simp [owner_not_mem_lowerPrimeSignature]
   · have hmem := congrArg (fun s : Finset ℕ => q ∈ s) h
-    simpa [hqp] using hmem
+    simpa [hqp] using! hmem
 
 /-- **Successor equality criterion.**  Between consecutive primes, equality of
 successor signatures is exactly old-signature equality plus agreement on the

@@ -78,7 +78,7 @@ theorem optimalLogBase_tendsto_e
     Tendsto (optimalLogBase P) atTop (𝓝 (Real.exp 1)) := by
   have hExp : ContinuousAt Real.exp (1 : ℝ) := by
     fun_prop
-  simpa [optimalLogBase, Function.comp_def] using hExp.tendsto.comp hPNT
+  simpa [optimalLogBase, Function.comp_def] using! hExp.tendsto.comp hPNT
 
 /-- Equivalent formulation using the normalized ratio as a named function. -/
 def normalizedCountingRatio (P : ℝ → ℝ) (x : ℝ) : ℝ :=
@@ -95,7 +95,7 @@ theorem optimalLogBase_tendsto_e_of_normalizedCountingRatio
     (hPNT : Tendsto (normalizedCountingRatio P) atTop (𝓝 1)) :
     Tendsto (optimalLogBase P) atTop (𝓝 (Real.exp 1)) := by
   apply optimalLogBase_tendsto_e P
-  simpa [normalizedCountingRatio] using hPNT
+  simpa [normalizedCountingRatio] using! hPNT
 
 /-! ## Sequential cross energy for adjacent Viole blocks
 
@@ -152,7 +152,7 @@ theorem nativePNTSequentialCrossEnergy_seed_contraction
     have habsSq :
         |nativePNTError M| ^ 2 <= (alpha * (M : Real)) ^ 2 :=
       (sq_le_sq₀ (abs_nonneg _) hMtarget0).2 hold
-    simpa [sq_abs] using habsSq
+    simpa [sq_abs] using! habsSq
   have henergy :=
     nativePNTError_sq_sub_sq_eq_two_mul_crossEnergy_add_discrepancy_sq M L
   have hLsq :
@@ -160,7 +160,7 @@ theorem nativePNTSequentialCrossEnergy_seed_contraction
     nlinarith
   have habsLsq :
       |nativePNTError L| ^ 2 <= (alpha' * (L : Real)) ^ 2 := by
-    simpa [sq_abs] using hLsq
+    simpa [sq_abs] using! hLsq
   exact (sq_le_sq₀ (abs_nonneg _) hLtarget0).1 habsLsq
 
 /-- Signed PNT-error increment of one Viole clock block. -/
@@ -287,7 +287,7 @@ theorem nativePNTSequentialNewFiberMass_endpoint_of_subdoubling
       apply Finset.sum_congr rfl
       intro d hd
       have hdI := Finset.mem_Ioc.mp hd
-      have hlo : 1 * d <= L := by simpa using hdI.2
+      have hlo : 1 * d <= L := by simpa using! hdI.2
       have hhi : L < (1 + 1) * d := by
         have htwo : 2 * M < 2 * d := by omega
         omega
@@ -343,7 +343,7 @@ theorem nativePNTSequentialSharedFiberDrift_eq_mobiusReciprocalMass
       nativePNTSequentialSharedMobiusReciprocalMass M L := by
   unfold nativePNTSequentialSharedFiberDrift
     nativePNTSequentialSharedMobiusReciprocalMass
-  simpa using
+  simpa using!
     (nativeLambdaWeighted_eq_mobiusLogReciprocalMass M
       (fun d => nativePNTError (L / d) - nativePNTError (M / d)))
 

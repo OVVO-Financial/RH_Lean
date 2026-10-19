@@ -9,7 +9,7 @@ noncomputable def fermatPoint (c q : ℝ) : ℂ :=
 /-- Squaring the Fermat point places the factor product on the real axis. -/
 theorem fermatPoint_sq_re (c q : ℝ) :
     ((fermatPoint c q) ^ 2).re = c * q := by
-  simpa [fermatPoint, pow_two] using square_real_coordinate c q
+  simpa [fermatPoint, pow_two] using! square_real_coordinate c q
 
 /-- The imaginary coordinate of the squared Fermat point is the factor imbalance. -/
 theorem fermatPoint_sq_im (c q : ℝ) :

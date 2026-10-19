@@ -83,7 +83,7 @@ theorem primeSieveReciprocalLowFrequencyChildIntervalVariance_eq_clippedQuadrati
         have hright := ih m b hm1 hb
         simp only [primeSieveReciprocalLowFrequencyChildIntervalVariance,
           primeSieveClippedDiscrepancyLowFrequencyQuadraticVariation,
-          hsplit, if_true]
+          hsplit, ite_true]
         change
           primeSieveReciprocalChildIntervalVariance y x a m b +
               primeSieveReciprocalLowFrequencyChildIntervalVariance
@@ -125,7 +125,7 @@ theorem primeSieveClippedDiscrepancyLowFrequencyQuadraticVariationSquareFunction
   apply Finset.sum_congr rfl
   intro j _hj
   have hleft1 : 1 ≤ primeSieveDyadicBlockLeft j := by
-    simpa [primeSieveDyadicBlockLeft] using (Nat.one_le_pow' j 1)
+    simpa [primeSieveDyadicBlockLeft] using! (Nat.one_le_pow' j 1)
   have hright :
       primeSieveDyadicBlockRight y x j + 1 ≤ x / (y + 1) + 1 := by
     unfold primeSieveDyadicBlockRight
@@ -151,7 +151,7 @@ theorem primeSieveBaseEightClippedDiscrepancyQuadraticVariationSquareFunction_eq
     primeSieveBaseEightClippedDiscrepancyQuadraticVariationSquareFunction k x =
       primeSieveBaseEightChildIntervalVarianceSquareFunction k x := by
   simpa [primeSieveBaseEightClippedDiscrepancyQuadraticVariationSquareFunction,
-    primeSieveBaseEightChildIntervalVarianceSquareFunction] using
+    primeSieveBaseEightChildIntervalVarianceSquareFunction] using!
     primeSieveClippedDiscrepancyLowFrequencyQuadraticVariationSquareFunction_eq_childIntervalVariance
       (primorialPNTPrimeSieveCutoff k) x
       (dyadicPacketBaseEightCutoff k x + 1)
@@ -291,7 +291,7 @@ private theorem classicalVariation_dyadicIndex_le_log_succ
       _ ≤ x := Nat.div_le_self _ _
       _ ≤ x + 1 := by omega
   rw [← hidx]
-  simpa [primeSieveDyadicIndex, Nat.log2_eq_log_two] using
+  simpa [primeSieveDyadicIndex, Nat.log2_eq_log_two] using!
     (Nat.log_mono_right hdx)
 
 private theorem classicalVariation_dyadicBlockIndices_card_le_log_succ
@@ -302,9 +302,9 @@ private theorem classicalVariation_dyadicBlockIndices_card_le_log_succ
       primeSieveDyadicBlockIndices y x ⊆ Finset.range (M + 1) := by
     intro j hj
     have hjM : j ≤ M := by
-      simpa [M] using classicalVariation_dyadicIndex_le_log_succ hj
+      simpa [M] using! classicalVariation_dyadicIndex_le_log_succ hj
     exact Finset.mem_range.mpr (Nat.lt_succ_of_le hjM)
-  simpa using Finset.card_le_card hsubset
+  simpa using! Finset.card_le_card hsubset
 
 private theorem classicalVariation_dyadicBlockIndices_card_le_subpolynomial
     {ε : ℝ} (hε : 0 < ε) :
@@ -318,16 +318,16 @@ private theorem classicalVariation_dyadicBlockIndices_card_le_subpolynomial
   intro y x
   let M := Nat.log 2 (x + 1)
   have hcardNat : (primeSieveDyadicBlockIndices y x).card ≤ M + 1 := by
-    simpa [M] using classicalVariation_dyadicBlockIndices_card_le_log_succ y x
+    simpa [M] using! classicalVariation_dyadicBlockIndices_card_le_log_succ y x
   have hcard :
       ((primeSieveDyadicBlockIndices y x).card : ℝ) ≤ (((M + 1 : ℕ) : ℝ)) := by
     exact_mod_cast hcardNat
   have hpowOne : 1 ≤ 2 ^ M := by
-    simpa using (Nat.one_le_pow' M 1)
+    simpa using! (Nat.one_le_pow' M 1)
   have hdiv := hCb (2 ^ M) hpowOne
   have hdivCard : (2 ^ M).divisors.card = M + 1 := by
     have h := congrArg Finset.card (Nat.divisors_prime_pow Nat.prime_two M)
-    simpa using h
+    simpa using! h
   rw [hdivCard] at hdiv
   have hpowNat : 2 ^ M ≤ x + 1 := by
     dsimp [M]
@@ -358,7 +358,7 @@ private theorem norm_finset_sum_sq_le_card_mul_sum_norm_sq
     ‖∑ i ∈ s, f i‖ ^ 2 ≤ (∑ i ∈ s, ‖f i‖) ^ 2 := hsq
     _ ≤ (∑ i ∈ s, (1 : ℝ) ^ 2) *
         (∑ i ∈ s, ‖f i‖ ^ 2) := by
-      simpa using hcauchy
+      simpa using! hcauchy
     _ = (s.card : ℝ) * ∑ i ∈ s, ‖f i‖ ^ 2 := by simp
 
 /-- A block-local dispersion estimate implies the original global Mobius
@@ -387,7 +387,7 @@ theorem dyadicMobiusDispersionBlockBounded_of_blockwise
     unfold primeSieveDyadicAbelPotentialEnergy
     positivity
   have hcount : (S.card : ℝ) ≤ CN * P := by
-    simpa [S, y, B, P] using hNb y x
+    simpa [S, y, B, P] using! hNb y x
   have hsum :
       (∑ j ∈ S,
         ‖primeSieveDyadicBlockWaveletMertensContribution y x j‖ ^ 2) ≤
@@ -400,8 +400,8 @@ theorem dyadicMobiusDispersionBlockBounded_of_blockwise
             apply Finset.sum_le_sum
             intro j hj
             have hb := hBb k x j hk hlow hup
-            have hlocal := hb (by simpa [S, y] using hj)
-            simpa [y, B, P] using hlocal
+            have hlocal := hb (by simpa [S, y] using! hj)
+            simpa [y, B, P] using! hlocal
       _ = CB * P *
           (∑ j ∈ S, primeSieveDyadicBlockAbelPotentialEnergy y x j) := by
             rw [Finset.mul_sum]
@@ -414,7 +414,7 @@ theorem dyadicMobiusDispersionBlockBounded_of_blockwise
           (∑ j ∈ S,
             ‖primeSieveDyadicBlockWaveletMertensContribution y x j‖ ^ 2) := by
     rw [primeSieveDyadicWaveletPNTError_eq_sum_blockContributions]
-    simpa [S] using
+    simpa [S] using!
       norm_finset_sum_sq_le_card_mul_sum_norm_sq S
         (fun j => primeSieveDyadicBlockWaveletMertensContribution y x j)
   have hright0 : 0 ≤ CB * P * E :=

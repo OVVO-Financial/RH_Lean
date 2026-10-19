@@ -50,7 +50,7 @@ theorem mem_lowWheelFarPrimeQ2DescendedTriples_iff_returnedCofactor
       Nat.mul_pos (Nat.mul_pos hr.pos hr.pos) hp.pos
     have heCut : e ≤ squareRootEndpoint R / (r * r * p) := by
       apply (Nat.le_div_iff_mul_le hdenPos).2
-      simpa [Nat.mul_assoc, Nat.mul_left_comm, Nat.mul_comm] using hq2
+      simpa [Nat.mul_assoc, Nat.mul_left_comm, Nat.mul_comm] using! hq2
     refine ⟨hr, hrR, hp, hpR, ?_⟩
     exact mem_squareRootLowPrimeGoSmoothCofactors.mpr
       ⟨he1, heCut, heSq, her⟩
@@ -181,7 +181,7 @@ theorem farFourQ2CenteredTower_eq_sum_returnedPhysicalCenteredMass
         ∑ y ∈ stableFarReturnedCoordinateFiber R rp, f y := by
     rfl
   rw [hfiberEq]
-  simpa [f] using stableFarReturnedCoordinateFiber_centeredMass hrp
+  simpa [f] using! stableFarReturnedCoordinateFiber_centeredMass hrp
 
 /-- **Global reciprocal/memory split of the centered q² tower.**  After the
 finite Fubini, every returned packet splits exactly into the physical reciprocal

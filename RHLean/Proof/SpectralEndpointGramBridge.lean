@@ -35,7 +35,7 @@ theorem packetBoundary_eq_coherent_add_orthogonal
   have hsum := congrArg (fun x : E => inner ℂ x (packet N))
     (orthogonalResidual_add_projection (𝕜 := ℂ) v u hv)
   simpa [packetBoundary, coherentPacketBoundary, orthogonalPacketBoundary,
-    inner_add_left, add_comm] using hsum.symm
+    inner_add_left, add_comm] using! hsum.symm
 
 /--
 Spectral data for a packet family.  The coherent direction is projected exactly,

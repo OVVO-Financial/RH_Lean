@@ -35,9 +35,9 @@ theorem postRootCovariancePowerSeat_nonneg (ε : ℝ) (W : ℕ) :
     0 ≤ postRootCovariancePowerSeat ε W := by
   unfold postRootCovariancePowerSeat
   by_cases hW : 2 ≤ W
-  · rw [if_pos hW]
+  · rw [ite_eq_left hW]
     exact le_max_left _ _
-  · rw [if_neg hW]
+  · rw [ite_eq_right hW]
 
 theorem postRootCovariancePowerEnvelope_nonneg (ε : ℝ) (N : ℕ) :
     0 ≤ postRootCovariancePowerEnvelope ε N := by
@@ -134,7 +134,7 @@ theorem postRootCovariancePowerEnvelope_eq_sum_recordExcess
   | zero => simp [postRootCovariancePowerEnvelope]
   | succ N ih =>
       rw [Finset.sum_range_succ, ← ih]
-      simpa only [Nat.succ_eq_add_one] using
+      simpa only [Nat.succ_eq_add_one] using!
         postRootCovariancePowerEnvelope_succ_eq_add_recordExcess ε N
 
 /-- **Anchored tail form of the tether.**  Any verified finite prefix can be
@@ -201,7 +201,7 @@ theorem postRootCovarianceRemainder_le_endpoint_sq (W : ℕ) :
   have hcard :
       (postRootCovarianceRemainderPhysicalPairCarrier W).card ≤ W * W := by
     have h := Finset.card_le_card hsubset
-    simpa [Nat.card_Icc] using h
+    simpa [Nat.card_Icc] using! h
   rw [postRootCovarianceRemainder_eq_physicalPairCarrier]
   calc
     (∑ mn ∈ postRootCovarianceRemainderPhysicalPairCarrier W,
@@ -220,7 +220,7 @@ theorem postRootCovariancePowerSeat_le_endpoint
     postRootCovariancePowerSeat ε W ≤ (W : ℝ) := by
   unfold postRootCovariancePowerSeat
   by_cases hW : 2 ≤ W
-  · rw [if_pos hW]
+  · rw [ite_eq_left hW]
     apply max_le
     · positivity
     · have hWpos : (0 : ℝ) < (W : ℝ) := by
@@ -231,7 +231,7 @@ theorem postRootCovariancePowerSeat_le_endpoint
           (W : ℝ) ≤ Real.rpow (W : ℝ) (1 + ε) := by
         have h := Real.rpow_le_rpow_of_exponent_le hbase
           (by linarith : (1 : ℝ) ≤ 1 + ε)
-        simpa only [Real.rpow_one] using h
+        simpa only [Real.rpow_one] using! h
       have hpowpos : 0 < Real.rpow (W : ℝ) (1 + ε) :=
         Real.rpow_pos_of_pos hWpos _
       apply (div_le_iff₀ hpowpos).2
@@ -241,7 +241,7 @@ theorem postRootCovariancePowerSeat_le_endpoint
         _ = (W : ℝ) * (W : ℝ) := by ring
         _ ≤ (W : ℝ) * Real.rpow (W : ℝ) (1 + ε) :=
           mul_le_mul_of_nonneg_left hpow (by positivity)
-  · rw [if_neg hW]
+  · rw [ite_eq_right hW]
     positivity
 
 /-- The explicit running envelope therefore has an unconditional linear
@@ -258,7 +258,7 @@ theorem postRootCovariancePowerEnvelope_le_endpoint
       · have hcast : (N : ℝ) ≤ ((N + 1 : ℕ) : ℝ) := by
           exact_mod_cast Nat.le_succ N
         exact ih.trans hcast
-      · simpa only [Nat.succ_eq_add_one] using
+      · simpa only [Nat.succ_eq_add_one] using!
           postRootCovariancePowerSeat_le_endpoint ε hε (N + 1)
 
 /-- **Finite-horizon tether.** Every signed remainder up to `N` is bounded by
@@ -280,7 +280,7 @@ theorem postRootCovarianceRemainder_le_powerEnvelope
           Real.rpow (W : ℝ) (1 + ε) ≤
         postRootCovariancePowerSeat ε W := by
     unfold postRootCovariancePowerSeat
-    rw [if_pos hW]
+    rw [ite_eq_left hW]
     exact le_max_right _ _
   have hratio :
       postRootCovarianceRemainder W /
@@ -314,13 +314,13 @@ theorem postRootCovariancePowerEnvelopeBounded_of_powerRemainder
   refine ⟨D, hD, ?_⟩
   intro N
   induction N with
-  | zero => simpa [postRootCovariancePowerEnvelope] using hD
+  | zero => simpa [postRootCovariancePowerEnvelope] using! hD
   | succ N ih =>
       rw [postRootCovariancePowerEnvelope]
       apply max_le ih
       unfold postRootCovariancePowerSeat
       by_cases hW : 2 ≤ N + 1
-      · rw [if_pos hW]
+      · rw [ite_eq_left hW]
         apply max_le hD
         have hWpos : (0 : ℝ) < ((N + 1 : ℕ) : ℝ) := by
           exact_mod_cast (show 0 < N + 1 by omega)
@@ -328,7 +328,7 @@ theorem postRootCovariancePowerEnvelopeBounded_of_powerRemainder
             0 < Real.rpow ((N + 1 : ℕ) : ℝ) (1 + ε) :=
           Real.rpow_pos_of_pos hWpos _
         exact (div_le_iff₀ hpowpos).2 (hrem (N + 1) hW)
-      · rw [if_neg hW]
+      · rw [ite_eq_right hW]
         exact hD
 
 /-- Conversely, a uniform bound on the concrete running envelope supplies the
@@ -413,7 +413,7 @@ theorem endpoint_le_postRootPowerScale
     exact_mod_cast (show 1 ≤ W by omega)
   have h := Real.rpow_le_rpow_of_exponent_le hbase
     (by linarith : (1 : ℝ) ≤ 1 + ε)
-  simpa only [Real.rpow_one] using h
+  simpa only [Real.rpow_one] using! h
 
 /-! ## New-record one-step innovation -/
 
@@ -427,7 +427,7 @@ private theorem max_zero_normalized_jump_le_raw_increment
   by_cases ha : a ≤ 0
   · have haDiv : a / S ≤ 0 := by
       rw [div_le_iff₀ hS]
-      simpa using ha
+      simpa using! ha
     have hab : b ≤ b - a := by linarith
     have hdiv : b / T ≤ (b - a) / T := by
       rw [div_le_div_iff₀ hT hT]
@@ -445,7 +445,7 @@ private theorem max_zero_normalized_jump_le_raw_increment
     by_cases hb : b ≤ 0
     · have hbDiv : b / T ≤ 0 := by
         rw [div_le_iff₀ hT]
-        simpa using hb
+        simpa using! hb
       rw [max_eq_left hbDiv]
       have hleft : 0 - a / S ≤ 0 := by linarith
       rw [max_eq_left hleft]
@@ -520,7 +520,7 @@ theorem postRootCovariancePowerRecordExcess_le_rawIncrementBudget
             (postRootCovarianceRemainder N /
               Real.rpow (N : ℝ) (1 + ε))) := by
         unfold postRootCovariancePowerSeat
-        rw [if_pos hNext, if_pos hN]
+        rw [ite_eq_left hNext, ite_eq_left hN]
     _ ≤ max 0
         ((postRootCovarianceRemainder (N + 1) -
             postRootCovarianceRemainder N) /
@@ -566,14 +566,14 @@ theorem postRootLowerCovariance_succQuotient_sub (W p : ℕ) :
       else 0 := by
   by_cases hdvd : p ∣ W + 1
   · have hdiv : (W + 1) / p = W / p + 1 := by
-      rw [Nat.succ_div, if_pos hdvd]
-    rw [if_pos hdvd, hdiv]
+      rw [Nat.succ_div, ite_eq_left hdvd]
+    rw [ite_eq_left hdvd, hdiv]
     have hsucc := realMertensPositiveLagPairSum_succ (W / p + 1)
     rw [hsucc]
     ring
   · have hdiv : (W + 1) / p = W / p := by
-      rw [Nat.succ_div, if_neg hdvd, add_zero]
-    rw [if_neg hdvd, hdiv]
+      rw [Nat.succ_div, ite_eq_right hdvd, add_zero]
+    rw [ite_eq_right hdvd, hdiv]
     ring
 
 /-- A post-root prime coordinate that appears for the first time at a unit
@@ -613,7 +613,7 @@ theorem postRootPrimeFamilySet_succ_removed_eq_square
     Nat.le_of_not_gt hpRootNextNot
   have hWlt : W < p * p := (Nat.sqrt_lt).1 hpRootOld
   have hpSqLe : p * p ≤ W + 1 := by
-    simpa [pow_two] using (Nat.le_sqrt).1 hpLeRootNext
+    simpa [pow_two] using! (Nat.le_sqrt).1 hpLeRootNext
   omega
 
 /-- At a fixed endpoint there is at most one active post-root prime divisor.
@@ -789,7 +789,7 @@ theorem postRootCovariancePowerRecordExcess_le_outerBoundaryRecordBudget
         fullLcmBoundaryKernel (N + 1) /
             Real.rpow ((N + 1 : ℕ) : ℝ) (1 + ε) + 1 := by
     unfold postRootCovariancePowerSeat
-    rw [if_pos hW]
+    rw [ite_eq_left hW]
     apply max_le
     · have hboundary : 0 ≤ fullLcmBoundaryKernel (N + 1) :=
         fullLcmBoundaryKernel_nonneg (N + 1)

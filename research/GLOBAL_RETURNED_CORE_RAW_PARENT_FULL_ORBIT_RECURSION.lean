@@ -75,7 +75,7 @@ theorem lowOwnerFirstOwnerPolarizationRawParent_fresh_lt_owner
         hr hqPrime hqr (Nat.mul_pos hr.pos haPos) hbPos
     apply hiff.mp
     simpa [squarefreePrimeFamilyParent, hrb,
-      Nat.mul_div_cancel_left parent.1 hr.pos] using hqFresh
+      Nat.mul_div_cancel_left parent.1 hr.pos] using! hqFresh
   have hqle := howner.2 q hqMixed
   omega
 
@@ -203,7 +203,7 @@ theorem lowOwnerFirstOwnerPolarizationRawParent_mem_evenFixedFiber
   have hraw := lowOwnerFirstOwnerPolarizationRawParent_eq_self hp hparent
   have heven : parent ∈ lowOwnerFirstOwnerRawParentOrbitEvenCarrier
       R p sig (lowOwnerRevealedPrimesAbove R r) r := by
-    exact Finset.mem_filter.mpr ⟨hcell, by simpa [hraw] using hparent⟩
+    exact Finset.mem_filter.mpr ⟨hcell, by simpa [hraw] using! hparent⟩
   exact Finset.mem_filter.mpr ⟨heven, hraw⟩
 
 /-- Local physical closure under multiplying by a larger fresh prime. -/

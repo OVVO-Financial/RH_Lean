@@ -230,7 +230,7 @@ theorem vfMidAnchoredZeroTargetNNSNormalizedCovariance_nonneg
         0 < vfMidAnchoredZeroTargetCoPartialGram s a D +
           vfMidAnchoredZeroTargetDivergentGram s a D :=
       lt_of_le_of_ne (add_nonneg hco hdiv) (Ne.symm hzero)
-    rw [nnsZeroTargetNormalizedCovariance, if_neg hzero]
+    rw [nnsZeroTargetNormalizedCovariance, ite_eq_right hzero]
     apply div_nonneg
     · rw [vfMidAnchoredZeroTarget_excess_eq_sub_sq s a D]
       exact sq_nonneg _
@@ -384,7 +384,7 @@ theorem vfMidActualPrimeFirstBadAt_two_succ_half_totalMass_le_radial
   have habsD :
       |vfMidActualPrimeEndpointDefect R| ≤
         2 * vfMidSyntheticRadialScale R := by
-    simpa using hprior
+    simpa using! hprior
   have hseat := vfMidOddSignedSeatCharge_absSum_le_root (R := R) (by omega)
   have hroot :
       2 * (R : ℝ) ≤ vfMidSyntheticRadialScale R :=

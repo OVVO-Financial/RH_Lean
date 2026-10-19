@@ -98,7 +98,7 @@ theorem k2LogRecipWeight_two_diff_abs_le
     ring
   rw [hba, mul_one] at hseg
   rw [abs_sub_comm]
-  simpa [k2LogRecipRealTwo, k2LogRecipWeight, a, b, C] using hseg
+  simpa [k2LogRecipRealTwo, k2LogRecipWeight, a, b, C] using! hseg
 
 private def k2LogRecipRealThree (x : ℝ) : ℝ :=
   (Real.log x) ^ 3 / x
@@ -201,6 +201,6 @@ theorem k2LogRecipWeight_three_diff_abs_le
     ring
   rw [hba, mul_one] at hseg
   rw [abs_sub_comm]
-  simpa [k2LogRecipRealThree, k2LogRecipWeight, a, b, C] using hseg
+  simpa [k2LogRecipRealThree, k2LogRecipWeight, a, b, C] using! hseg
 
 end RHLean.Analysis

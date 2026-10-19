@@ -121,12 +121,12 @@ theorem lowOwnerFirstOwner_primeParent_mem_same_admitted
       have heq : r * (a / r) = a := Nat.mul_div_cancel' hra
       intro hz
       have hzdiv : realMoebiusStep (a / r) = 0 := by
-        simpa [huEq] using hz
+        simpa [huEq] using! hz
       apply hmuA
       rw [← heq, hsign, hzdiv, neg_zero]
     · have huEq : u = a := by
         simp [u, squarefreePrimeFamilyParent, hra]
-      simpa [huEq] using hmuA
+      simpa [huEq] using! hmuA
   have huCar : u ∈ lowOwnerNonzeroMobiusCarrier R :=
     Finset.mem_filter.mpr
       ⟨Finset.mem_Icc.mpr ⟨by omega, huX⟩, hmuU⟩
@@ -146,7 +146,7 @@ theorem lowOwnerFirstOwner_primeParent_mem_same_admitted
         _ = sig := haData.1
     · have huEq : u = a := by
         simp [u, squarefreePrimeFamilyParent, hra]
-      simpa [huEq] using haData.1
+      simpa [huEq] using! haData.1
   have hpne : p ≠ r := by omega
   have hpFreeU : ¬ p ∣ u := by
     intro hpu

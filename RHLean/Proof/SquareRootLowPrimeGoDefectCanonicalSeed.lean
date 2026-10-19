@@ -54,14 +54,14 @@ theorem squareRootLowPrimeGoFullFaceDefectSaturated_exists_canonicalSeed
   have hdeep : squareRootEndpoint R / (q * q) < r * d := by
     have h := (Nat.div_lt_iff_lt_mul hr.pos).1 hphysical
     simpa [Nat.div_div_eq_div_mul, Nat.mul_assoc, Nat.mul_comm,
-      Nat.mul_left_comm] using h
+      Nat.mul_left_comm] using! h
   have hupper : r * d ≤ squareRootEndpoint R / q := by
     apply (Nat.le_div_iff_mul_le hq.pos).2
-    simpa [Nat.mul_assoc, Nat.mul_comm, Nat.mul_left_comm] using hfirst
+    simpa [Nat.mul_assoc, Nat.mul_comm, Nat.mul_left_comm] using! hfirst
   have hseed : child ∈ lowWheelFrozenSecondContactCanonicalSeeds R := by
     rw [mem_lowWheelFrozenSecondContactCanonicalSeeds_iff]
     refine ⟨hsmooth.1, ?_, ?_, ?_⟩
-    · simpa [hcq] using hqR
+    · simpa [hcq] using! hqR
     · rw [hcq, hcc]
       exact max_lt hroot hdeep
     · rw [hcq, hcc]

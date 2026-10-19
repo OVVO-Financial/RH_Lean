@@ -74,7 +74,7 @@ theorem arbitraryFreshPrime_left_parent_data
     a = r * u ∧ b = v := by
   dsimp only
   unfold squarefreePrimeFamilyParent
-  rw [if_pos hra, if_neg hrb]
+  rw [ite_eq_left hra, ite_eq_right hrb]
   exact ⟨(Nat.mul_div_cancel' hra).symm, rfl⟩
 
 /-- Right-oriented fresh-prime parent identities. -/
@@ -85,7 +85,7 @@ theorem arbitraryFreshPrime_right_parent_data
     a = u ∧ b = r * v := by
   dsimp only
   unfold squarefreePrimeFamilyParent
-  rw [if_neg hra, if_pos hrb]
+  rw [ite_eq_right hra, ite_eq_left hrb]
   exact ⟨rfl, (Nat.mul_div_cancel' hrb).symm⟩
 
 /-- **Signed descent, owner inserted in the first endpoint.** -/
@@ -111,9 +111,9 @@ theorem lowOwnerThresholdIncidencePairMass_add_parent_eq_leftDifference
   have hsignUV :
       realMoebiusStep a * realMoebiusStep b =
         -(realMoebiusStep u * realMoebiusStep v) := by
-    simpa [u, v] using hsign
-  have haEq : a = r * u := by simpa [u, v] using hdata.1
-  have hbEq : b = v := by simpa [u, v] using hdata.2
+    simpa [u, v] using! hsign
+  have haEq : a = r * u := by simpa [u, v] using! hdata.1
+  have hbEq : b = v := by simpa [u, v] using! hdata.2
   have hga :
       lowOwnerThresholdOwnerIncidenceWeight R p a =
         lowOwnerThresholdOwnerIncidenceWeight R p (r * u) :=
@@ -159,9 +159,9 @@ theorem lowOwnerThresholdIncidencePairMass_add_parent_eq_rightDifference
   have hsignUV :
       realMoebiusStep a * realMoebiusStep b =
         -(realMoebiusStep u * realMoebiusStep v) := by
-    simpa [u, v] using hsign
-  have haEq : a = u := by simpa [u, v] using hdata.1
-  have hbEq : b = r * v := by simpa [u, v] using hdata.2
+    simpa [u, v] using! hsign
+  have haEq : a = u := by simpa [u, v] using! hdata.1
+  have hbEq : b = r * v := by simpa [u, v] using! hdata.2
   have hga :
       lowOwnerThresholdOwnerIncidenceWeight R p a =
         lowOwnerThresholdOwnerIncidenceWeight R p u :=

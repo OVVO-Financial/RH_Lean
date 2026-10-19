@@ -251,7 +251,7 @@ theorem squareRootBornPostTailHighResponse_cast_eq_postRootPrefix_sub_j
           squareRootPostRootPrimePrefix R (K + 1) := by
     rw [← squareRootReciprocalPrimeCount_eq_layerCard]
     exact squareRoot_reciprocalPrimeCount_eq_postRootPrefix_diff hR hK hKR
-  rw [squareRootBornPostTailHighResponse_cast hj, if_pos hcK, hlayer]
+  rw [squareRootBornPostTailHighResponse_cast hj, ite_eq_left hcK, hlayer]
   ring
 
 /-- The bounded high-creation mass is one common remaining prefix multiplied by

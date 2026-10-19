@@ -207,7 +207,7 @@ theorem primorialMinimalSquareWheelNonzeroResponse_sub_pred_eq_increment_sub_dri
           ((((primorialMinimalWheelSystem k).residual
             (primorialBlockUpper k) : ℤ) : ℂ)) := by
   simpa [primorialMinimalSquareWheelCenteredIncrement,
-    primorialMinimalSquareWheelEndpointDrift] using
+    primorialMinimalSquareWheelEndpointDrift] using!
       primorialMinimalSquareWheelNonzeroResponse_sub_pred_eq_centeredIncrement
         k n hn hleftLower hleftUpper hrightUpper
 

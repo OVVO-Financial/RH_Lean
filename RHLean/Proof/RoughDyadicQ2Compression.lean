@@ -84,7 +84,7 @@ private theorem roughDyadicWeight_two_mul
     roughDyadicWeight q (2 * d) =
       if Odd d then -roughDyadicWeight q d else 0 := by
   by_cases hd : Odd d
-  · rw [if_pos hd]
+  · rw [ite_eq_left hd]
     by_cases hsq : Squarefree d
     · have hd1 : 1 ≤ d := by
         rcases hd with ⟨k, hk⟩
@@ -95,25 +95,25 @@ private theorem roughDyadicWeight_two_mul
       · have hrough2 : canonicalLargestPrimeFactor (2 * d) < q :=
           hroughIff.mpr hrough
         unfold roughDyadicWeight
-        rw [if_pos hrough, if_pos hrough2,
-          canonicalMoebiusWeight_two_mul, if_pos hd]
+        rw [ite_eq_left hrough, ite_eq_left hrough2,
+          canonicalMoebiusWeight_two_mul, ite_eq_left hd]
       · have hrough2 : ¬ canonicalLargestPrimeFactor (2 * d) < q := by
           intro h
           exact hrough (hroughIff.mp h)
         unfold roughDyadicWeight
-        rw [if_neg hrough, if_neg hrough2]
+        rw [ite_eq_right hrough, ite_eq_right hrough2]
         ring
     · have hmuZ : μ d = 0 :=
         ArithmeticFunction.moebius_eq_zero_of_not_squarefree hsq
       have hmu : canonicalMoebiusWeight d = 0 := by
         simp [canonicalMoebiusWeight, hmuZ]
       have hmu2 : canonicalMoebiusWeight (2 * d) = 0 := by
-        rw [canonicalMoebiusWeight_two_mul, if_pos hd, hmu, neg_zero]
+        rw [canonicalMoebiusWeight_two_mul, ite_eq_left hd, hmu, neg_zero]
       unfold roughDyadicWeight
       split_ifs <;> simp [hmu, hmu2]
-  · rw [if_neg hd]
+  · rw [ite_eq_right hd]
     have hmu2 : canonicalMoebiusWeight (2 * d) = 0 := by
-      rw [canonicalMoebiusWeight_two_mul, if_neg hd]
+      rw [canonicalMoebiusWeight_two_mul, ite_eq_right hd]
     unfold roughDyadicWeight
     split_ifs <;> simp [hmu2]
 
@@ -152,7 +152,7 @@ private theorem rough_sum_even_eq_sum_double
     rcases Finset.mem_Icc.mp he with ⟨he1, heB⟩
     have h2eB : 2 * e ≤ B := by
       have hmul := (Nat.le_div_iff_mul_le (by omega : 0 < 2)).1 heB
-      simpa [Nat.mul_comm] using hmul
+      simpa [Nat.mul_comm] using! hmul
     have hePos : 0 < e := by omega
     have h2ePos : 0 < 2 * e := Nat.mul_pos (by norm_num) hePos
     exact mem_evenCofactorPrefix.mpr
@@ -171,7 +171,7 @@ private theorem rough_sum_even_eq_sum_double
       omega
     · apply (Nat.le_div_iff_mul_le (by omega : 0 < 2)).2
       have hmul : d / 2 * 2 = d := by
-        simpa [Nat.mul_comm] using hdouble
+        simpa [Nat.mul_comm] using! hdouble
       rw [hmul]
       exact hdB
   · intro e _he
@@ -282,7 +282,7 @@ private theorem rough_weighted_sum_even_eq_sum_double
     rcases Finset.mem_Icc.mp he with ⟨he1, heB⟩
     have h2eB : 2 * e ≤ B := by
       have hmul := (Nat.le_div_iff_mul_le (by omega : 0 < 2)).1 heB
-      simpa [Nat.mul_comm] using hmul
+      simpa [Nat.mul_comm] using! hmul
     have hePos : 0 < e := by omega
     have h2ePos : 0 < 2 * e :=
       Nat.mul_pos (by norm_num) hePos
@@ -302,7 +302,7 @@ private theorem rough_weighted_sum_even_eq_sum_double
       omega
     · apply (Nat.le_div_iff_mul_le (by omega : 0 < 2)).2
       have hmul : d / 2 * 2 = d := by
-        simpa [Nat.mul_comm] using hdouble
+        simpa [Nat.mul_comm] using! hdouble
       rw [hmul]
       exact hdB
   · intro e _he
@@ -420,7 +420,7 @@ theorem frozenPrimeUniverseMass_cast_eq_roughCofactorMobiusPrefixMass
   apply Finset.sum_congr rfl
   intro d hd
   by_cases hrough : canonicalLargestPrimeFactor d < q
-  · rw [if_pos hrough]
+  · rw [ite_eq_left hrough]
     by_cases hsq : Squarefree d
     · simp [hsq, hrough, canonicalMoebiusWeight]
     · have hmu : μ d = 0 :=
@@ -496,7 +496,7 @@ theorem roughDyadicQ2FarAtom_mem_topBoundary
     (Nat.le_div_iff_mul_le hq2Pos).1 hdp
   have hupper :
       q * q * d * p ≤ squareRootEndpoint R := by
-    simpa [Nat.mul_assoc, Nat.mul_left_comm, Nat.mul_comm] using hupper0
+    simpa [Nat.mul_assoc, Nat.mul_left_comm, Nat.mul_comm] using! hupper0
   have hchildHalf :
       squareRootEndpoint R / (q * q) < (2 * d) * p :=
     (Nat.div_lt_iff_lt_mul hp.pos).1 hhalf
@@ -505,7 +505,7 @@ theorem roughDyadicQ2FarAtom_mem_topBoundary
     (Nat.div_lt_iff_lt_mul hq2Pos).1 hchildHalf
   have hlower :
       squareRootEndpoint R < 2 * (q * q * d * p) := by
-    simpa [Nat.mul_assoc, Nat.mul_left_comm, Nat.mul_comm] using hlower0
+    simpa [Nat.mul_assoc, Nat.mul_left_comm, Nat.mul_comm] using! hlower0
   have hqOdd : Odd q := hq.odd_of_ne_two (by omega)
   have hpOdd : Odd p := hp.odd_of_ne_two (by omega)
   have hnOdd : Odd (q * q * d * p) :=

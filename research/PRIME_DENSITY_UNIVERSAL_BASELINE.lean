@@ -90,7 +90,7 @@ theorem norm_densityWeightedTransport_le_harmonic
           mul_le_mul (hd q hq) (densityBaseline_mertens_norm_le (x / q))
             (norm_nonneg _) hL
         _ ≤ L * ((x : ℝ) * (q : ℝ)⁻¹) := by
-          simpa only [div_eq_mul_inv] using mul_le_mul_of_nonneg_left hdiv hL
+          simpa only [div_eq_mul_inv] using! mul_le_mul_of_nonneg_left hdiv hL
     _ = L * (x : ℝ) * ∑ q ∈ Finset.Ioc y x, (q : ℝ)⁻¹ := by
       rw [Finset.mul_sum]
       apply Finset.sum_congr rfl
@@ -208,7 +208,7 @@ theorem norm_primeSievePNTDensity_le_inv_log
     rw [show (q : ℝ) - ((q - 1 : ℕ) : ℝ) = 1 by linarith]
     norm_num
   rw [hlen, mul_one] at hbound
-  simpa only [primeSievePNTDensity, hdiff, Complex.norm_real, Real.norm_eq_abs] using hbound
+  simpa only [primeSievePNTDensity, hdiff, Complex.norm_real, Real.norm_eq_abs] using! hbound
 
 /-- Universal bound on the existing, non-redefined Li-density transport. -/
 theorem norm_primeSievePNTBulk_le_four_mul
@@ -303,7 +303,7 @@ theorem primeDensity_squareEndpoint_universal (R : ℕ) (hR : 2 ≤ R) :
   have hroot : Nat.sqrt (R ^ 2 - 1) < R := by
     apply Nat.sqrt_lt.mpr
     have hp : 0 < R * R := Nat.mul_pos (by omega) (by omega)
-    simpa only [pow_two] using Nat.sub_lt hp (by norm_num : 0 < 1)
+    simpa only [pow_two] using! Nat.sub_lt hp (by norm_num : 0 < 1)
   have hxr : ((R ^ 2 - 1 : ℕ) : ℝ) ≤ (R : ℝ) ^ 2 := by exact_mod_cast hx
   have hxx := mul_self_le_mul_self (Nat.cast_nonneg (R ^ 2 - 1) : (0 : ℝ) ≤ _) hxr
   have heq := primeSieveEqualDensityBulk_energy_le_sixteen hR hx

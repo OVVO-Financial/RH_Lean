@@ -92,9 +92,9 @@ theorem squareRootLowPrimeGoSmallerOwnerChild_parent_mem
       have hpDvd := canonicalLargestPrimeFactor_dvd hparentGt
       have hlt := hsource.2.2.2.2
         (canonicalLargestPrimeFactor (canonicalCofactor c)) hpPrime hpDvd
-      simpa [howner] using hlt
+      simpa [howner] using! hlt
   have hprod : canonicalCofactor c * r = c := by
-    simpa [howner] using canonicalCofactor_mul_largestPrimeFactor hcgt
+    simpa [howner] using! canonicalCofactor_mul_largestPrimeFactor hcgt
   have hparentB : canonicalCofactor c ≤ B / r := by
     apply (Nat.le_div_iff_mul_le hrPrime.pos).2
     rw [hprod]
@@ -117,7 +117,7 @@ theorem squareRootLowPrimeGoSmallerOwnerChild_eq_owner_mul_parent
     ⟨_hcSmooth, hqc, howner⟩
   have hcgt : 1 < c := lt_of_lt_of_le hq.one_lt hqc
   have hprod := canonicalCofactor_mul_largestPrimeFactor hcgt
-  simpa [howner, Nat.mul_comm] using hprod
+  simpa [howner, Nat.mul_comm] using! hprod
 
 /-- Stripping the unique smaller owner reverses the Möbius sign. -/
 theorem squareRootLowPrimeGoSmallerOwnerChild_moebius
@@ -144,7 +144,7 @@ theorem squareRootLowPrimeGoSmallerOwnerParent_child_mem
   have howner : canonicalLargestPrimeFactor (r * d) = r := by
     have h := canonicalLargestPrimeFactor_mul_prime_eq_of_rough
       hdPos hr hrough
-    simpa [Nat.mul_comm] using h
+    simpa [Nat.mul_comm] using! h
   have hrNotDvd : ¬ r ∣ d := by
     intro hrd
     by_cases hdOne : d = 1
@@ -165,11 +165,11 @@ theorem squareRootLowPrimeGoSmallerOwnerParent_child_mem
     ArithmeticFunction.moebius_ne_zero_iff_squarefree.mp hmuChild
   have hchildB : r * d ≤ B := by
     have h := (Nat.le_div_iff_mul_le hr.pos).1 hdB
-    simpa [Nat.mul_comm] using h
+    simpa [Nat.mul_comm] using! h
   have hchildLower : q ≤ r * d := by
     have hlt : q - 1 < d * r :=
       (Nat.div_lt_iff_lt_mul hr.pos).1 hlower
-    simpa [Nat.mul_comm] using (show q ≤ d * r by omega)
+    simpa [Nat.mul_comm] using! (show q ≤ d * r by omega)
   apply mem_squareRootLowPrimeGoSmallerOwnerChildren.mpr
   refine ⟨mem_squareRootLowPrimeGoSmoothCofactors.mpr
       ⟨?_, hchildB, hsqChild, ?_⟩,
@@ -188,7 +188,7 @@ theorem squareRootLowPrimeGoSmallerOwnerParent_child_cofactor
   have hsmooth := mem_squareRootLowPrimeGoSmoothCofactors.mp hdData.1
   have hdPos : 0 < d := by omega
   have h := canonicalCofactor_mul_prime_eq_of_rough hdPos hr hsmooth.2.2.2
-  simpa [Nat.mul_comm] using h
+  simpa [Nat.mul_comm] using! h
 
 /-- Distinct smaller owners have disjoint child fibres because the owner is
 encoded by `P+(c)`. -/

@@ -100,9 +100,9 @@ theorem lowWheelFrozenSourceSquareResidualOwnerFiber_data
   have hcgt : 1 < c := by omega
   have hc0 : c ≠ 0 := by omega
   have hqPrime : q.Prime := by
-    simpa [howner] using canonicalLargestPrimeFactor_prime hcgt
+    simpa [howner] using! canonicalLargestPrimeFactor_prime hcgt
   have hqDvd : q ∣ c := by
-    simpa [howner] using canonicalLargestPrimeFactor_dvd hcgt
+    simpa [howner] using! canonicalLargestPrimeFactor_dvd hcgt
   have hqPF : q ∈ c.primeFactors :=
     Nat.mem_primeFactors.mpr ⟨hqPrime, hqDvd, hc0⟩
   have hpq : p < q := hrough q hqPF
@@ -110,7 +110,7 @@ theorem lowWheelFrozenSourceSquareResidualOwnerFiber_data
       canonicalCofactor c * canonicalLargestPrimeFactor c = c :=
     canonicalCofactor_mul_largestPrimeFactor hcgt
   have hfactor : q * canonicalCofactor c = c := by
-    simpa [howner, Nat.mul_comm] using hfactor0
+    simpa [howner, Nat.mul_comm] using! hfactor0
   have hdDvd : canonicalCofactor c ∣ c := canonicalCofactor_dvd hcgt
   have hdSq : Squarefree (canonicalCofactor c) :=
     hsq.squarefree_of_dvd hdDvd
@@ -125,7 +125,7 @@ theorem lowWheelFrozenSourceSquareResidualOwnerFiber_data
   have hdLt : canonicalLargestPrimeFactor (canonicalCofactor c) < q := by
     have hlt :=
       canonicalLargestPrimeFactor_canonicalCofactor_lt_of_squarefree hcgt hsq
-    simpa [howner] using hlt
+    simpa [howner] using! hlt
   have hq2 : q * q * canonicalCofactor c ≤ B := by
     have hqmul : q * (q * canonicalCofactor c) = q * c :=
       congrArg (fun n : ℕ => q * n) hfactor
@@ -137,7 +137,7 @@ theorem lowWheelFrozenSourceSquareResidualOwnerFiber_data
   have hweightD :
       canonicalMoebiusWeight (canonicalCofactor c) =
         -canonicalMoebiusWeight c := by
-    simpa [canonicalCofactor, howner] using
+    simpa [canonicalCofactor, howner] using!
       (canonicalMoebiusWeight_div_prime hqPrime hsq hqDvd)
   have hweight :
       canonicalMoebiusWeight c =
@@ -171,7 +171,7 @@ theorem canonicalCofactor_mem_lowWheelFrozenSourceSquareResidualDaughterWindow
   have hqqPos : 0 < q * q := Nat.mul_pos hqPrime.pos hqPrime.pos
   have hdUpper : canonicalCofactor c ≤ B / (q * q) := by
     apply (Nat.le_div_iff_mul_le hqqPos).2
-    simpa [Nat.mul_assoc, Nat.mul_left_comm, Nat.mul_comm] using hq2
+    simpa [Nat.mul_assoc, Nat.mul_left_comm, Nat.mul_comm] using! hq2
   apply Finset.mem_filter.mpr
   exact ⟨Finset.mem_Icc.mpr ⟨hdPos, hdUpper⟩, hdSq, hdRough, hdLt⟩
 
@@ -187,7 +187,7 @@ theorem lowWheelFrozenSourceSquareResidualDaughter_child_mem
   have hd0 : d ≠ 0 := Nat.ne_of_gt hdPos
   have howner : canonicalLargestPrimeFactor (q * d) = q := by
     have h := canonicalLargestPrimeFactor_mul_prime_eq_of_rough hdPos hq hdLt
-    simpa [Nat.mul_comm] using h
+    simpa [Nat.mul_comm] using! h
   have hqNotDvd : ¬ q ∣ d := by
     intro hdiv
     by_cases hdOne : d = 1
@@ -205,21 +205,21 @@ theorem lowWheelFrozenSourceSquareResidualDaughter_child_mem
     rcases hrPrime.dvd_mul.mp hrDvd with hrq | hrd
     · have hrEq : r = q :=
         (Nat.prime_dvd_prime_iff_eq hrPrime hq).mp hrq
-      simpa [hrEq] using hpq
+      simpa [hrEq] using! hpq
     · have hrMem : r ∈ d.primeFactors :=
         Nat.mem_primeFactors.mpr ⟨hrPrime, hrd, hd0⟩
       exact hdRough r hrMem
   have hqqPos : 0 < q * q := Nat.mul_pos hq.pos hq.pos
   have hq2 : q * q * d ≤ B := by
     have h := (Nat.le_div_iff_mul_le hqqPos).1 hdUpper
-    simpa [Nat.mul_assoc, Nat.mul_left_comm, Nat.mul_comm] using h
+    simpa [Nat.mul_assoc, Nat.mul_left_comm, Nat.mul_comm] using! h
   have hchildLower : 2 ≤ q * d := by
-    simpa using Nat.mul_le_mul hq.two_le hd1
+    simpa using! Nat.mul_le_mul hq.two_le hd1
   have hqLeQ2 : q ≤ q * q := by
     nlinarith [hq.two_le]
   have hchildB : q * d ≤ B := by
     have hmul : q * d ≤ (q * q) * d := Nat.mul_le_mul_right d hqLeQ2
-    exact hmul.trans (by simpa [Nat.mul_assoc] using hq2)
+    exact hmul.trans (by simpa [Nat.mul_assoc] using! hq2)
   apply mem_lowWheelFrozenSourceSquareResidualOwnerFiber.mpr
   refine ⟨?_, howner⟩
   apply Finset.mem_filter.mpr
@@ -244,7 +244,7 @@ theorem lowWheelFrozenSourceSquareResidualDaughter_child_cofactor
     have h := (Finset.mem_Icc.mp hdIcc).1
     omega
   have h := canonicalCofactor_mul_prime_eq_of_rough hdPos hq hdLt
-  simpa [Nat.mul_comm] using h
+  simpa [Nat.mul_comm] using! h
 
 /-- The canonical cofactor map gives the exact fixed-owner carrier bijection. -/
 theorem lowWheelFrozenSourceSquareResidualOwnerFiber_image_cofactor
@@ -290,7 +290,7 @@ theorem lowWheelFrozenSourceSquareResidualOwnerFiber_mass_eq_neg_daughterMass
   let S := lowWheelFrozenSourceSquareResidualOwnerFiber p B q
   let D := lowWheelFrozenSourceSquareResidualDaughterWindow p B q
   have himage : S.image canonicalCofactor = D := by
-    simpa [S, D] using
+    simpa [S, D] using!
       lowWheelFrozenSourceSquareResidualOwnerFiber_image_cofactor hq hpq
   have hsumImage :
       (∑ d ∈ S.image canonicalCofactor, canonicalMoebiusWeight d) =

@@ -64,7 +64,7 @@ theorem k2A2AbelPrefix_ofReal_eq_sum_range (sigma : ℝ) (M : ℕ) :
           have hsplit := Finset.sum_Ico_consecutive
             (f := fun n : ℕ => LSeries.term k2MobiusLogSqCoeff (sigma : ℂ) n)
             (show 0 ≤ 1 by omega) (show 1 ≤ M + 1 by omega)
-          simpa using hsplit
+          simpa using! hsplit
     _ = ∑ n ∈ Finset.range (M + 1),
         LSeries.term k2MobiusLogSqCoeff (sigma : ℂ) n := by
           simp
@@ -93,6 +93,6 @@ theorem k2A2AbelPrefix_tendsto_LSeries_re
     filter_upwards with M
     exact (k2A2AbelPrefix_ofReal_eq_sum_range sigma M).symm
   have hre := Complex.continuous_re.continuousAt.tendsto.comp hcomplex
-  simpa using hre
+  simpa using! hre
 
 end RHLean.Analysis

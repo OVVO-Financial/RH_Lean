@@ -168,7 +168,7 @@ theorem nativeMobiusLambdaSummatory_eq_reciprocalPsi (N : ℕ) :
           have hmulN' : m * d ≤ N :=
             (Nat.le_div_iff_mul_le hdpos).1 hmN
           have hmulN : d * m ≤ N := by
-            simpa [Nat.mul_comm] using hmulN'
+            simpa [Nat.mul_comm] using! hmulN'
           have hmpos : 0 < m := by omega
           exact ⟨⟨Nat.one_le_iff_ne_zero.mpr
             (Nat.ne_of_gt (Nat.mul_pos hdpos hmpos)), hmulN⟩,
@@ -219,7 +219,7 @@ theorem nativeMobiusLogSum_eq_neg_one_sub_error
         (μ : ArithmeticFunction ℝ) d * ((N / d : ℕ) : ℝ)) = 1 := by
     have hcast := congrArg (fun z : ℤ => (z : ℝ)) hfloorZ
     push_cast at hcast
-    simpa using hcast
+    simpa using! hcast
   rw [nativeMobiusLogSum_eq_neg_reciprocalPsi]
   have hsplit :
       (∑ d ∈ Finset.Icc 1 N,
@@ -329,7 +329,7 @@ theorem nativePNTAxerErrorMass_le_of_affineEnvelope
         simp
       · have hharm :
             (harmonic N : ℝ) ≤ 1 + Real.log (N : ℝ) := by
-          simpa using harmonic_le_one_add_log N
+          simpa using! harmonic_le_one_add_log N
         exact add_le_add_left
           (mul_le_mul_of_nonneg_left hharm
             (mul_nonneg halpha (by positivity))) _
@@ -356,7 +356,7 @@ theorem nativeMobiusLogSum_abs_le_of_affineEnvelope
       have h := abs_add_le (-1 : ℝ)
         (-(∑ d ∈ Finset.Icc 1 N,
           (μ : ArithmeticFunction ℝ) d * nativePNTError (N / d)))
-      simpa [abs_neg] using h
+      simpa [abs_neg] using! h
     _ ≤ 1 + nativePNTAxerErrorMass N := add_le_add_right hsum 1
     _ ≤ 1 +
         (alpha * (N : ℝ) * (1 + Real.log (N : ℝ)) + D * (N : ℝ)) :=
@@ -414,7 +414,7 @@ theorem nativeMertensLogTail_abs_le
         have hnNreal : (n : ℝ) ≤ (N : ℝ) := by exact_mod_cast hnN
         have hratio : (1 : ℝ) ≤ (N : ℝ) / (n : ℝ) := by
           rw [le_div_iff₀ hnpos]
-          simpa using hnNreal
+          simpa using! hnNreal
         have hlog : 0 ≤ Real.log ((N : ℝ) / (n : ℝ)) :=
           Real.log_nonneg hratio
         rw [abs_mul, abs_of_nonneg hlog]

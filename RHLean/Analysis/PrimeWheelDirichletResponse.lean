@@ -140,7 +140,7 @@ theorem primorialWheel_dirichletPrefix_eq_mertens_sub
     Nat.lt_add_of_pos_right hNpos
   have hlowerSys :
       (primorialWheelSystem k).lower < (primorialWheelSystem k).lower + N := by
-    simpa [primorialWheelSystem] using hlower
+    simpa [primorialWheelSystem] using! hlower
   have hupperSys :
       (primorialWheelSystem k).lower + N ≤ (primorialWheelSystem k).upper := by
     change primorialBlockLower k + N ≤ primorialBlockUpper k

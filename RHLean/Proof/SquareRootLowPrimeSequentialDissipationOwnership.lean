@@ -127,7 +127,7 @@ theorem squareRootLowPrimeSequentialDissipation_runningImbalance
         ((squareRootLowPrimeBadMass R K j p : ℕ) : ℂ)) ∧
       (0 : ℤ) ≤ (squareRootLowPrimeDeletionMass R K j p : ℤ) ∧
       (0 : ℤ) ≤ (squareRootLowPrimeBadMass R K j p : ℤ) := by
-  simpa [squareRootLowPrimeRunningImbalance] using
+  simpa [squareRootLowPrimeRunningImbalance] using!
     (squareRootLowPrimeSequentialDissipation
       (R := R) (K := K) (j := j) (p := p) hR hp hpR)
 

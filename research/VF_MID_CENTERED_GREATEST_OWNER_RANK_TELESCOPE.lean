@@ -120,7 +120,7 @@ private theorem sum_eq_filter_add_filter_not
     (∑ x ∈ s, f x) =
       (∑ x ∈ s.filter P, f x) +
         ∑ x ∈ s.filter (fun x => ¬ P x), f x := by
-  simpa only using
+  simpa only using!
     (Finset.sum_filter_add_sum_filter_not
       (s := s) (p := P) (f := f)).symm
 

@@ -134,7 +134,7 @@ theorem lowWheelFrozenSecondContactArithmeticChild_canonicalCofactor_not_mem
   let c := canonicalCofactor n
   have hborn : q ∈ squareRootBornPartnerSet R c ∧
       R < c ∧ squareRootEndpoint R < q * q * c ∧ c * q = n := by
-    simpa [q, c] using
+    simpa [q, c] using!
       lowWheelFrozenSecondContactArithmeticChild_bornTail_data hn
   rcases Finset.mem_filter.mp hborn.1 with
     ⟨_hqRange, _hqPrime, hrough, _hqLeC, _hupper⟩
@@ -150,7 +150,7 @@ theorem lowWheelFrozenSecondContactArithmeticChild_canonicalCofactor_not_mem
     calc
       squareRootEndpoint R <
           c * canonicalLargestPrimeFactor c := by
-            simpa [c] using hcSecond
+            simpa [c] using! hcSecond
       _ < c * q := hnewGrow
       _ = n := hborn.2.2.2
   omega
@@ -176,7 +176,7 @@ theorem lowWheelFrozenSecondContactArithmeticChild_fresh_mul_mem_forces_lt_owner
   have hdiv : canonicalLargestPrimeFactor n ∣ n :=
     canonicalLargestPrimeFactor_dvd hn1
   apply hfresh
-  simpa [heq] using hdiv
+  simpa [heq] using! hdiv
 
 /-! ## Reciprocal-depth descent coordinate -/
 
@@ -192,7 +192,7 @@ theorem lowWheelFrozenSecondContactArithmeticChild_reciprocalDepth_lt_owner
     have hnLower := (Finset.mem_Icc.mp hnIcc).1
     omega
   apply (Nat.div_lt_iff_lt_mul hnPos).2
-  simpa [Nat.mul_comm] using hsecond
+  simpa [Nat.mul_comm] using! hsecond
 
 /-- The stronger hyperbolic localization: owner times reciprocal depth is still
 strictly below the root.  This combines the post-root cofactor wall
@@ -219,11 +219,11 @@ theorem lowWheelFrozenSecondContactArithmeticChild_owner_mul_reciprocalDepth_lt_
         (R * canonicalLargestPrimeFactor n) * k < n * k :=
       Nat.mul_lt_mul_of_pos_right hroot hkPos
     have hnk : n * k ≤ squareRootEndpoint R := by
-      simpa [k, Nat.mul_comm] using Nat.div_mul_le_self (squareRootEndpoint R) n
+      simpa [k, Nat.mul_comm] using! Nat.div_mul_le_self (squareRootEndpoint R) n
     have hXlt : squareRootEndpoint R < R * R := by
       unfold squareRootEndpoint
       have hsqNe : R ^ 2 ≠ 0 := pow_ne_zero 2 (Nat.ne_of_gt hRPos)
-      simpa [pow_two] using Nat.pred_lt hsqNe
+      simpa [pow_two] using! Nat.pred_lt hsqNe
     have hmul :
         R * (canonicalLargestPrimeFactor n * k) < R * R := by
       calc
@@ -234,7 +234,7 @@ theorem lowWheelFrozenSecondContactArithmeticChild_owner_mul_reciprocalDepth_lt_
         _ < R * R := hXlt
     have hkRoot : canonicalLargestPrimeFactor n * k < R :=
       Nat.lt_of_mul_lt_mul_left hmul
-    simpa [k] using hkRoot
+    simpa [k] using! hkRoot
 
 /-- The child itself lies beyond the geometric mean of the root and square
 endpoint: `R*X_R < n^2`.  This is the product form of the two #630 walls. -/
@@ -269,14 +269,14 @@ theorem lowWheelFrozenSecondContactArithmeticChild_reciprocalDepth_sq_lt_root
     (squareRootEndpoint R / n) * (squareRootEndpoint R / n) < R := by
   let k := squareRootEndpoint R / n
   have hkq : k < canonicalLargestPrimeFactor n := by
-    simpa [k] using
+    simpa [k] using!
       lowWheelFrozenSecondContactArithmeticChild_reciprocalDepth_lt_owner hn
   have hqk : canonicalLargestPrimeFactor n * k < R := by
-    simpa [k] using
+    simpa [k] using!
       lowWheelFrozenSecondContactArithmeticChild_owner_mul_reciprocalDepth_lt_root hn
   by_cases hk : k = 0
   · have hkZero : squareRootEndpoint R / n = 0 := by
-      simpa [k] using hk
+      simpa [k] using! hk
     rw [hkZero]
     have hn1 : 1 < n := by
       have hnLower :=
@@ -285,7 +285,7 @@ theorem lowWheelFrozenSecondContactArithmeticChild_reciprocalDepth_sq_lt_root
     have hqR := (Finset.mem_filter.mp hn).2.2.1
     have hqPrime := canonicalLargestPrimeFactor_prime hn1
     have hRPos : 0 < R := hqPrime.pos.trans hqR
-    simpa using hRPos
+    simpa using! hRPos
   · have hkPos : 0 < k := Nat.pos_of_ne_zero hk
     have hkk : k * k < canonicalLargestPrimeFactor n * k :=
       Nat.mul_lt_mul_of_pos_right hkq hkPos
@@ -338,7 +338,7 @@ theorem lowWheelFrozenSecondContact_source_lowerScaleExit
   let B := squareRootEndpoint R / A
   let q := lowWheelFrozenCofactorTopPrime y
   have hAroot : R < A := by
-    simpa [A] using
+    simpa [A] using!
       lowWheelCanonicalRepeatedFrozenCofactor_facePivot_crosses_root hyFrozen
   have hApos : 0 < A := by omega
   rcases lowWheelCanonicalRepeatedFrozenCofactor_source_data hyFrozen with
@@ -367,7 +367,7 @@ theorem lowWheelFrozenSecondContact_source_lowerScaleExit
       squareRootEndpoint R <
           q * primeFaceProduct
             (lowWheelCanonicalRepeatedFrozenProductOneFace y) := by
-        simpa [q] using hsecond
+        simpa [q] using! hsecond
       _ = (q * y.2.1) * A := by
         rw [hprod]
         simp [A]
@@ -378,7 +378,7 @@ theorem lowWheelFrozenSecondContact_source_lowerScaleExit
   have hXltRR : squareRootEndpoint R < R * R := by
     unfold squareRootEndpoint
     have hsqNe : R ^ 2 ≠ 0 := pow_ne_zero 2 (Nat.ne_of_gt hRpos)
-    simpa [pow_two] using Nat.pred_lt hsqNe
+    simpa [pow_two] using! Nat.pred_lt hsqNe
   have hRRltRA : R * R < R * A :=
     Nat.mul_lt_mul_of_pos_left hAroot hRpos
   have hXltRA : squareRootEndpoint R < R * A :=
@@ -414,24 +414,24 @@ theorem lowWheelFrozenSecondContact_source_lowerScaleSecondContact
   let q := lowWheelFrozenCofactorTopPrime y
   let d := canonicalCofactor c
   have hexit : c ≤ B ∧ B < q * c ∧ B < R := by
-    simpa [A, B, c, q] using
+    simpa [A, B, c, q] using!
       (lowWheelFrozenSecondContact_source_lowerScaleExit hy)
   rcases lowWheelCanonicalRepeatedFrozenCofactor_source_data hyFrozen with
     ⟨_hk, _hpPrime, _hpNotC, hcsqRaw, hcgtRaw, _hcR⟩
-  have hcsq : Squarefree c := by simpa [c] using hcsqRaw
-  have hcgt : 1 < c := by simpa [c] using hcgtRaw
+  have hcsq : Squarefree c := by simpa [c] using! hcsqRaw
+  have hcgt : 1 < c := by simpa [c] using! hcgtRaw
   have hqPrime : q.Prime := by
-    simpa [q] using (lowWheelFrozenCofactorTopPrime_data hyFrozen).1
+    simpa [q] using! (lowWheelFrozenCofactorTopPrime_data hyFrozen).1
   have hfactor0 : d * q = c := by
-    simpa [d, q, c, lowWheelFrozenCofactorTopPrime] using
+    simpa [d, q, c, lowWheelFrozenCofactorTopPrime] using!
       (canonicalCofactor_mul_largestPrimeFactor hcgt)
   have hfactor : q * d = c := by
-    simpa [Nat.mul_comm] using hfactor0
+    simpa [Nat.mul_comm] using! hfactor0
   have hdSq : Squarefree d := by
     apply hcsq.squarefree_of_dvd
     exact ⟨q, hfactor0.symm⟩
   have hrough : canonicalLargestPrimeFactor d < q := by
-    simpa [d, q, c, lowWheelFrozenCofactorTopPrime] using
+    simpa [d, q, c, lowWheelFrozenCofactorTopPrime] using!
       (canonicalLargestPrimeFactor_canonicalCofactor_lt_of_squarefree hcgt hcsq)
   have hqdB : q * d ≤ B := by
     calc
@@ -537,7 +537,7 @@ theorem lowWheelFrozenSecondContactSourceScale_moebius_eq_neg_faceSign
         rw [lowWheelFrozenSecondContactSourceScale_eq_insertPivotFaceProduct hy]
       _ = booleanCubeSign (insert (lowWheelTaggedDowncrossPivot y) y.1) := hmu
       _ = -booleanCubeSign y.1 := hsign
-  simpa [canonicalMoebiusWeight] using
+  simpa [canonicalMoebiusWeight] using!
     congrArg (fun z : ℤ => (z : ℂ)) hmuZ
 
 /-- The complete source charge at fixed scale is the cofactor Möbius weight
@@ -578,7 +578,7 @@ theorem lowWheelFrozenSecondContactSourceScaleFiber_cofactor_injOn
       (lowWheelFrozenSecondContactSourceScaleFiber R A :
         Set LowWheelTaggedDowncrossState) := by
   intro y hy z hz hcofactor
-  have hcofactor' : y.2.1 = z.2.1 := by simpa using hcofactor
+  have hcofactor' : y.2.1 = z.2.1 := by simpa using! hcofactor
   have hyd := mem_lowWheelFrozenSecondContactSourceScaleFiber.mp hy
   have hzd := mem_lowWheelFrozenSecondContactSourceScaleFiber.mp hz
   have hchild : orderedEulerCutChildInteger y = orderedEulerCutChildInteger z := by
@@ -662,7 +662,7 @@ theorem lowWheelFrozenSecondContactSource_sum_eq_sourceScaleFibers
     exact Finset.mem_image.mpr ⟨y, hy, rfl⟩
   have hfib := Finset.sum_fiberwise_of_maps_to hmaps
     (fun y => canonicalMoebiusWeight y.2.1 * (booleanCubeSign y.1 : ℂ))
-  simpa [lowWheelFrozenSecondContactSourceScaleFiber] using hfib.symm
+  simpa [lowWheelFrozenSecondContactSourceScaleFiber] using! hfib.symm
 
 /-- **Global strict-scale signed reassembly.**  The entire frozen second-contact
 source ledger is a signed sum of cofactor masses indexed by the arithmetic
@@ -705,8 +705,8 @@ theorem lowWheelFrozenSecondContactSourceScaleCofactor_lowerScaleSecondContact
   have hyd := mem_lowWheelFrozenSecondContactSourceScaleFiber.mp hyFiber
   have hscale :
       lowWheelTaggedDowncrossPivot y * primeFaceProduct y.1 = A := by
-    simpa [lowWheelFrozenSecondContactSourceScale] using hyd.2
+    simpa [lowWheelFrozenSecondContactSourceScale] using! hyd.2
   have h := lowWheelFrozenSecondContact_source_lowerScaleSecondContact hyd.1
-  simpa [lowWheelFrozenCofactorTopPrime, hscale] using h
+  simpa [lowWheelFrozenCofactorTopPrime, hscale] using! h
 
 end RHLean.Proof

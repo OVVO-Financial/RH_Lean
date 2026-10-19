@@ -84,7 +84,7 @@ theorem primorialSignedContractionFactor_toFinset_eq_primeListEulerProduct
   | cons p ps ih =>
       rcases List.nodup_cons.mp hnodup with ⟨hpNotList, htailNodup⟩
       have hpNot : p ∉ ps.toFinset := by
-        simpa using hpNotList
+        simpa using! hpNotList
       simp only [List.toFinset_cons, canonicalRoughPrimeListEulerProduct]
       unfold primorialSignedContractionFactor
       rw [Finset.prod_insert hpNot]
@@ -133,7 +133,7 @@ theorem primorialTruncatedTransportedShellLedger_eq_boundary
         exact hprime q (by simp [hq])
       rcases List.nodup_cons.mp hnodup with ⟨hpNotList, htailNodup⟩
       have hpNot : p ∉ ps.toFinset := by
-        simpa using hpNotList
+        simpa using! hpNotList
       have hstep :=
         primorialTruncatedSignedReciprocalCube_shell_div_prime_eq_insert_sub_euler
           (P := ps.toFinset) (p := p) (N := N) hpNot hp
@@ -170,7 +170,7 @@ theorem primorialTruncatedTransportedShellLedger_eq_zero_of_complete
     primorialTruncatedSignedReciprocalCube_eq_factor ps.toFinset N
       (by
         intro p hp
-        exact hprime p (by simpa using hp)) hcomplete
+        exact hprime p (by simpa using! hp)) hcomplete
   rw [hfactor,
     primorialSignedContractionFactor_toFinset_eq_primeListEulerProduct ps hnodup]
   ring
@@ -229,7 +229,7 @@ theorem primorialTruncatedBoundary_upperColumn_telescope
         have hpred : K + 1 - 1 = K := by omega
         have hset :
             primesUpTo (K + 1) = insert (K + 1) (primesUpTo K) := by
-          simpa [hpred] using (insert_freshPrime_primesUpTo_pred_eq hq).symm
+          simpa [hpred] using! (insert_freshPrime_primesUpTo_pred_eq hq).symm
         have htrunc :=
           primorialTruncatedSignedReciprocalCube_insert
             (P := primesUpTo K) (p := K + 1) (X := X) hnotMem hq

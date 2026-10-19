@@ -85,13 +85,13 @@ theorem lifetimeActivity_eq_zero_of_lt_birth {β δ t : ℕ} (h : t < β) :
     lifetimeActivity β δ t = 0 := by
   have hnot : ¬ (β ≤ t ∧ t < δ) := by omega
   unfold lifetimeActivity
-  exact if_neg hnot
+  exact ite_eq_right hnot
 
 theorem lifetimeActivity_eq_zero_of_death_le {β δ t : ℕ} (h : δ ≤ t) :
     lifetimeActivity β δ t = 0 := by
   have hnot : ¬ (β ≤ t ∧ t < δ) := by omega
   unfold lifetimeActivity
-  exact if_neg hnot
+  exact ite_eq_right hnot
 
 /-- The activity of one atom telescopes across a run. -/
 theorem sum_lifetimeActivity_increment_Ico (β δ : ℕ) {a b : ℕ} (hab : a ≤ b) :
@@ -157,7 +157,7 @@ theorem sum_population_lifetimeIncrement_Ico_eq_endpointPopulation
       lifetimeActivity (β s) (δ s) a ≠ 0) := by
     intro hor
     exact hsNot (Finset.mem_filter.mpr ⟨hsP, hor⟩)
-  push_neg at hzero
+  push Not at hzero
   rw [hzero.1, hzero.2]
   ring
 

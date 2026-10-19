@@ -195,7 +195,7 @@ theorem hasLiberty_Ioc_of_squarefree
     have hsq : ¬ (Nat.minFac n) ^ 2 ∣ n := by
       intro hd
       exact (Nat.squarefree_iff_prime_squarefree.mp hsf _ hp)
-        (by simpa [pow_two] using hd)
+        (by simpa [pow_two] using! hd)
     refine ⟨Nat.minFac n, hp, ?_, ?_⟩
     · rw [primeCarrierToggle_of_dvd hdvd hsq]
       exact Nat.ne_of_lt (Nat.div_lt_self hpos hp.one_lt)

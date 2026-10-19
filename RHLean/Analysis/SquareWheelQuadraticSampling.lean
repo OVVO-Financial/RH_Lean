@@ -51,7 +51,7 @@ private theorem squareWheel_stdAddChar_nat_mul
     (W : PrimeWheelFiniteSystem) (r : ZMod W.modulus) (j : ℕ) :
     ZMod.stdAddChar (((j : ℕ) : ZMod W.modulus) * r) =
       ZMod.stdAddChar r ^ j := by
-  simpa [nsmul_eq_mul] using
+  simpa [nsmul_eq_mul] using!
     (AddChar.map_nsmul_eq_pow
       (ZMod.stdAddChar : AddChar (ZMod W.modulus) ℂ) j r)
 
@@ -85,7 +85,7 @@ theorem primeWheelDirichletKernel_eq_geom_of_ne_zero
   have hchar : ZMod.stdAddChar r ≠ 1 := by
     intro h
     have hzero : r = 0 :=
-      ZMod.injective_stdAddChar (by simpa using h)
+      ZMod.injective_stdAddChar (by simpa using! h)
     exact hr hzero
   have hsum :
       primeWheelDirichletKernel W N r =
@@ -303,7 +303,7 @@ theorem primeWheelDirichletPrefix_sample_eq_squareWheelSampleResponse
   by_cases hr0 : r = 0
   · subst r
     unfold squareWheelSampleFrequencyAtom
-    rw [if_pos rfl]
+    rw [ite_eq_left rfl]
     exact primeWheel_zeroFrequencyPrefixContribution
       W (squareWheelSampleLength W n)
   · rw [primeWheelPinnedAtom_sample_eq_quadraticAtom W n r hr0 hlower]

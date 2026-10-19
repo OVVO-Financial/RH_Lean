@@ -238,7 +238,7 @@ theorem squareRootLowPrimeShallowBornCreationStates_weight_sum
   unfold squareRootLowPrimeShallowBornCreationStates
   apply Finset.sum_image
   intro a _ha b _hb hab
-  simpa using hab
+  simpa using! hab
 
 /-- Reindexing the high tagged states loses no signed mass. -/
 theorem squareRootLowPrimeShallowHighCreationStates_weight_sum
@@ -250,7 +250,7 @@ theorem squareRootLowPrimeShallowHighCreationStates_weight_sum
   unfold squareRootLowPrimeShallowHighCreationStates
   apply Finset.sum_image
   intro a _ha b _hb hab
-  simpa using hab
+  simpa using! hab
 
 private theorem shallowBornSeatMass_eq_neg_runningBorn
     (R K : ℕ) :
@@ -323,7 +323,7 @@ theorem squareRootLowPrimeCreationCarrierExact_realWeight_sum
   have h := congrArg Complex.re
     (squareRootLowPrimeCreationCarrierExact_weight_sum R K j)
   simpa [squareRootLowPrimeCreationWeightReal,
-    squareRootLowPrimeRunningImbalanceReal] using h
+    squareRootLowPrimeRunningImbalanceReal] using! h
 
 /-- Every shallow creation state has real weight of absolute value at most one. -/
 theorem abs_squareRootLowPrimeCreationWeightReal_le_one
@@ -357,7 +357,7 @@ theorem squareRootLowPrimeOwnedResponseAtoms_realWeight_sum
         -(∑ z ∈ squareRootLowPrimeOwnedResponseAtoms R K U,
           squareRootLowPrimeResponseAtomWeightReal z) := by
     simpa [squareRootLowPrimeResponseAtomWeightReal,
-      squareRootLowPrimeFreshIncrementReal] using h
+      squareRootLowPrimeFreshIncrementReal] using! h
   linarith
 
 /-- Every deep response atom has real weight of absolute value at most one. -/

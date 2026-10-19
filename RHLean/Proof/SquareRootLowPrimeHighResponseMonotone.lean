@@ -56,7 +56,7 @@ theorem squareRootBornPostTailHighResponse_antitone
   · have hKb : K < b := Nat.lt_of_not_ge hbK
     by_cases haK : a ≤ K
     · have hK1b : K + 1 ≤ b := by omega
-      rw [if_neg hbK, if_pos haK]
+      rw [ite_eq_right hbK, ite_eq_left haK]
       have hprefix :
           squareRootPostRootPrimePrefixCard R b ≤
             squareRootPostRootPrimePrefixCard R (K + 1) :=
@@ -64,7 +64,7 @@ theorem squareRootBornPostTailHighResponse_antitone
           (Nat.succ_pos K) hK1b
       exact hprefix.trans (Nat.le_add_left _ _)
     · have hKa : K < a := Nat.lt_of_not_ge haK
-      rw [if_neg hbK, if_neg haK]
+      rw [ite_eq_right hbK, ite_eq_right haK]
       exact squareRootPostRootPrimePrefixCard_antitone ha hab
 
 /-- Multiplying by a positive factor can only decrease the high response. -/

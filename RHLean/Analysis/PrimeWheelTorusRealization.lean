@@ -73,7 +73,7 @@ theorem torusPrefixPairing_eq_corrected_sum
 
 /-- Every finite system with `upper < modulus` has a canonical lossless torus
 realization certificate. -/
-def canonicalTorusRealizationCertificate
+theorem canonicalTorusRealizationCertificate
     (W : PrimeWheelFiniteSystem) : W.TorusRealizationCertificate where
   pairing_eq_residual := by
     intro x hlower hupper

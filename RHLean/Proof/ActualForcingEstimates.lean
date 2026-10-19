@@ -49,7 +49,7 @@ theorem lowHeight_count_le_cutoff_succ
     intro i j hij
     apply (lowHeight_height_strictMono spacing M).injective
     exact congrArg Fin.val hij
-  simpa using Fintype.card_le_of_injective embed hinjective
+  simpa using! Fintype.card_le_of_injective embed hinjective
 
 /-- A reusable norm estimate for a finite complex family with a uniform envelope. -/
 theorem norm_fin_sum_le_card_mul

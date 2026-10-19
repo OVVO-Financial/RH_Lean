@@ -235,22 +235,22 @@ theorem vf919SixExcludedSharpQuotientKernel_periodic (N : ℕ) :
       vf919SixExcludedSharpQuotientKernel N := by
   have h1 : vf919MinusThreeCharacterPrefix (N + 36) =
       vf919MinusThreeCharacterPrefix N := by
-    simpa using vf919MinusThreeCharacterPrefix_add_triple N 12
+    simpa using! vf919MinusThreeCharacterPrefix_add_triple N 12
   have h3div : (N + 36) / 3 = N / 3 + 12 := by omega
   have h4div : (N + 36) / 4 = N / 4 + 9 := by omega
   have h12div : (N + 36) / 12 = N / 12 + 3 := by omega
   have h3 : vf919MinusThreeCharacterPrefix ((N + 36) / 3) =
       vf919MinusThreeCharacterPrefix (N / 3) := by
     rw [h3div]
-    simpa using vf919MinusThreeCharacterPrefix_add_triple (N / 3) 4
+    simpa using! vf919MinusThreeCharacterPrefix_add_triple (N / 3) 4
   have h4 : vf919MinusThreeCharacterPrefix ((N + 36) / 4) =
       vf919MinusThreeCharacterPrefix (N / 4) := by
     rw [h4div]
-    simpa using vf919MinusThreeCharacterPrefix_add_triple (N / 4) 3
+    simpa using! vf919MinusThreeCharacterPrefix_add_triple (N / 4) 3
   have h12 : vf919MinusThreeCharacterPrefix ((N + 36) / 12) =
       vf919MinusThreeCharacterPrefix (N / 12) := by
     rw [h12div]
-    simpa using vf919MinusThreeCharacterPrefix_add_triple (N / 12) 1
+    simpa using! vf919MinusThreeCharacterPrefix_add_triple (N / 12) 1
   simp only [vf919SixExcludedSharpQuotientKernel, h1, h3, h4, h12]
 
 /-- Finite exact signed mass across one complete period. -/

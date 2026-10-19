@@ -48,11 +48,11 @@ theorem strongMertens_inv_zeta_small_height_bdd
   let s : ℂ := (sigma : ℂ) + t * I
   have hsK : s ∈ K := by
     constructor
-    · simpa [s, sigma] using
+    · simpa [s, sigma] using!
         ⟨corridor.shift_ge_small T hT,
           (corridor.shift_lt_one T hT).le⟩
     · have htlr := abs_le.mp ht
-      simpa [s] using htlr
+      simpa [s] using! htlr
   have hsne : s ≠ 1 := by
     intro hs1
     have hre := congrArg Complex.re hs1

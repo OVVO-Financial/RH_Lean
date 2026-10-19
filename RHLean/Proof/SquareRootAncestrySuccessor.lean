@@ -104,13 +104,13 @@ theorem activeSmoothSource_sum_eq_smoothIntegerMass
   refine Finset.sum_bij (fun s _hs => sourceProduct s) ?_ ?_ ?_ ?_
   · intro s hs
     have hsdata : SmoothOriented s ∧ sourceClock B s ≤ R - 1 := by
-      simpa [activeSmoothSourceSet] using hs
+      simpa [activeSmoothSourceSet] using! hs
     have hadm : SourceAdmissible s := hsdata.1.1
     have hprodle : sourceProduct s ≤ squareRootEndpoint R := by
       have hclock :=
         (sourceClock_le_iff_sourceProduct_le_endpoint
           (x := R - 1) s).1 hsdata.2
-      simpa [squarePrefixEndpoint_pred_eq_squareRootEndpoint R (by omega)] using hclock
+      simpa [squarePrefixEndpoint_pred_eq_squareRootEndpoint R (by omega)] using! hclock
     have hprodgt : 1 < sourceProduct s :=
       one_lt_sourceProduct_of_admissible hadm
     have hprod2 : 2 ≤ sourceProduct s := by omega
@@ -133,20 +133,20 @@ theorem activeSmoothSource_sum_eq_smoothIntegerMass
     exact Finset.mem_range.mpr (lt_of_le_of_lt hprodle hXlt)
   · intro s₁ hs₁ s₂ hs₂ heq
     have h₁ : SmoothOriented s₁ ∧ sourceClock B s₁ ≤ R - 1 := by
-      simpa [activeSmoothSourceSet] using hs₁
+      simpa [activeSmoothSourceSet] using! hs₁
     have h₂ : SmoothOriented s₂ ∧ sourceClock B s₂ ≤ R - 1 := by
-      simpa [activeSmoothSourceSet] using hs₂
+      simpa [activeSmoothSourceSet] using! hs₂
     exact sourceProduct_injective_on_admissible h₁.1.1 h₂.1.1 heq
   · intro m hm
     have hmdata :
         m ∈ cumulativeSquarePrefixSet (R - 1) ∧
           2 ≤ m ∧ Squarefree m ∧
             canonicalLargestPrimeFactor m < canonicalCofactor m := by
-      simpa [squareRootAncestrySmoothIntegerSet] using hm
+      simpa [squareRootAncestrySmoothIntegerSet] using! hm
     have hmgt : 1 < m := by omega
     have hm_lt_sq : m < R ^ 2 := by
       simpa [cumulativeSquarePrefixSet,
-        Nat.sub_add_cancel (by omega : 1 ≤ R)] using hmdata.1
+        Nat.sub_add_cancel (by omega : 1 ≤ R)] using! hmdata.1
     have hmend : m ≤ squareRootEndpoint R := by
       unfold squareRootEndpoint
       have hsqpos : 0 < R ^ 2 := by positivity
@@ -173,7 +173,7 @@ theorem activeSmoothSource_sum_eq_smoothIntegerMass
     simp [activeSmoothSourceSet, hsmooth, hclock]
   · intro s hs
     have hsdata : SmoothOriented s ∧ sourceClock B s ≤ R - 1 := by
-      simpa [activeSmoothSourceSet] using hs
+      simpa [activeSmoothSourceSet] using! hs
     exact sourceWeight_of_admissible s hsdata.1.1
 
 /-- Integer version of the square-root born-smooth mass. -/
@@ -215,7 +215,7 @@ private theorem bornSmooth_iff_smoothOrientation
     refine ⟨?_, hqc.le⟩
     have hm_lt : m < R * R := by
       simpa [cumulativeSquarePrefixSet,
-        Nat.sub_add_cancel (by omega : 1 ≤ R), pow_two] using hm
+        Nat.sub_add_cancel (by omega : 1 ≤ R), pow_two] using! hm
     have hprod := canonicalCofactor_mul_largestPrimeFactor hmgt
     by_contra hnot
     have hRq : R < canonicalLargestPrimeFactor m := Nat.lt_of_not_ge hnot
@@ -319,7 +319,7 @@ theorem sourceRootPrefix_cast_eq_positiveSmooth_sub_transport
   have hrenew := sourcePrefix_renewal B (R - 1)
   have hsource := sourcePrefix_add_one_eq_squarePrefixMertens
     (B := B) (x := R - 1) (by omega)
-    (by simpa [squarePrefixEndpoint_pred_eq_squareRootEndpoint R (by omega)] using hB)
+    (by simpa [squarePrefixEndpoint_pred_eq_squareRootEndpoint R (by omega)] using! hB)
   have hsucc := sourceSuccessorPrefix_cast_eq_one_sub_bornSmooth hR hB
   have hsquare := squarePrefixMertens_eq_positiveSmooth_add_matched R (by omega)
   have hmatched :

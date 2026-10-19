@@ -62,7 +62,7 @@ private theorem exactAddOrderIndicator_eq_moebius
     · have hmem : addOrderOf r ∈ n.divisors := by
         exact Nat.mem_divisors.mpr ⟨hdiv, Nat.ne_of_gt hn⟩
       dsimp [f, g]
-      rw [if_pos hdiv]
+      rw [ite_eq_left hdiv]
       rw [Finset.sum_eq_single (addOrderOf r)]
       · simp
       · intro b hb hne
@@ -70,7 +70,7 @@ private theorem exactAddOrderIndicator_eq_moebius
       · intro hnot
         exact (hnot hmem).elim
     · dsimp [f, g]
-      rw [if_neg hdiv]
+      rw [ite_eq_right hdiv]
       apply Finset.sum_eq_zero
       intro i hi
       have hidvd : i ∣ n := Nat.dvd_of_mem_divisors hi
@@ -84,7 +84,7 @@ private theorem exactAddOrderIndicator_eq_moebius
     (ArithmeticFunction.sum_eq_iff_sum_mul_moebius_eq.mp hsum) q hq
   rw [Nat.sum_divisorsAntidiagonal'
     (fun a b : ℕ => (((μ a : ℤ) : ℂ)) * g b)] at hinv
-  simpa [f, g] using hinv.symm
+  simpa [f, g] using! hinv.symm
 
 /-- For `d | N`, the equation `d • r = 0` says exactly that the least
 representative of `r` is divisible by `N / d`. -/
@@ -151,7 +151,7 @@ private theorem quotient_mul_eq_zero_iff_dvd_val
     have hNdiv : N ∣ (N / d) * z.val :=
       (ZMod.natCast_eq_zero_iff ((N / d) * z.val) N).mp hcast
     have hprod' : (N / d) * d = N := by
-      simpa [Nat.mul_comm] using hprod
+      simpa [Nat.mul_comm] using! hprod
     have hfactor : (N / d) * d ∣ N := by
       rw [hprod']
     have hmul : (N / d) * d ∣ (N / d) * z.val :=
@@ -161,7 +161,7 @@ private theorem quotient_mul_eq_zero_iff_dvd_val
     have hmul : (N / d) * d ∣ (N / d) * z.val :=
       (Nat.mul_dvd_mul_iff_left hqpos).mpr hdiv
     have hprod' : (N / d) * d = N := by
-      simpa [Nat.mul_comm] using hprod
+      simpa [Nat.mul_comm] using! hprod
     rw [hprod'] at hmul
     have hcast : ((((N / d) * z.val : ℕ) : ZMod N)) = 0 :=
       (ZMod.natCast_eq_zero_iff ((N / d) * z.val) N).mpr hmul
@@ -241,9 +241,9 @@ private theorem zmod_torsion_character_sum
             exact h
           by_cases hzero : d • ((n : ℕ) : ZMod N) = 0
           · have hdiv : N / d ∣ n := hiff.mp hzero
-            rw [if_pos hzero, if_pos hdiv]
+            rw [ite_eq_left hzero, ite_eq_left hdiv]
           · have hdiv : ¬ N / d ∣ n := fun h => hzero (hiff.mpr h)
-            rw [if_neg hzero, if_neg hdiv]
+            rw [ite_eq_right hzero, ite_eq_right hdiv]
     _ = ∑ a ∈ Finset.range d,
         ZMod.stdAddChar
           (z * ((((N / d) * a : ℕ) : ZMod N))) := by
@@ -275,18 +275,18 @@ private theorem zmod_torsion_character_sum
       · have hb : b = 0 := by
           dsimp [b]
           have hz := (quotient_mul_eq_zero_iff_dvd_val hd z).mpr hdiv
-          simpa [mul_comm] using hz
-        rw [if_pos hdiv]
+          simpa [mul_comm] using! hz
+        rw [ite_eq_left hdiv]
         simp [hb]
       · have hb : b ≠ 0 := by
           intro hb0
           apply hdiv
           apply (quotient_mul_eq_zero_iff_dvd_val hd z).mp
-          simpa [b, mul_comm] using hb0
+          simpa [b, mul_comm] using! hb0
         have hchar : ZMod.stdAddChar b ≠ 1 := by
           intro h
           have hzero : b = 0 :=
-            ZMod.injective_stdAddChar (by simpa using h)
+            ZMod.injective_stdAddChar (by simpa using! h)
           exact hb hzero
         have hdb : d • b = 0 := by
           dsimp [b]
@@ -304,7 +304,7 @@ private theorem zmod_torsion_character_sum
               exact AddChar.map_nsmul_eq_pow
                 (ZMod.stdAddChar : AddChar (ZMod N) ℂ) d b
             _ = 1 := by rw [hdb]; simp
-        rw [if_neg hdiv, geom_sum_eq hchar d, hpowd]
+        rw [ite_eq_right hdiv, geom_sum_eq hchar d, hpowd]
         simp
 
 /-- Möbius inversion turns an exact reduced-conductor shell into a signed sum of
@@ -332,9 +332,9 @@ theorem primeWheelReducedConductorKernel_eq_torsionSums
             rw [reducedAdditiveConductor_eq_addOrderOf W r]
             by_cases hord : addOrderOf r = q
             · have hrev : q = addOrderOf r := hord.symm
-              rw [if_pos hrev, if_pos hord, one_mul]
+              rw [ite_eq_left hrev, ite_eq_left hord, one_mul]
             · have hrev : q ≠ addOrderOf r := fun h => hord h.symm
-              rw [if_neg hrev, if_neg hord, zero_mul]
+              rw [ite_eq_right hrev, ite_eq_right hord, zero_mul]
     _ =
       ∑ r : ZMod W.modulus,
         (∑ d ∈ q.divisors,
@@ -358,11 +358,11 @@ theorem primeWheelReducedConductorKernel_eq_torsionSums
                 addOrderOf_dvd_iff_nsmul_eq_zero
               by_cases hzero : d • r = 0
               · have hdiv : addOrderOf r ∣ d := hiff.mpr hzero
-                rw [if_pos hdiv, if_pos hzero]
+                rw [ite_eq_left hdiv, ite_eq_left hzero]
                 ring
               · have hdiv : ¬ addOrderOf r ∣ d :=
                   fun h => hzero (hiff.mp h)
-                rw [if_neg hdiv, if_neg hzero]
+                rw [ite_eq_right hdiv, ite_eq_right hzero]
                 ring
     _ =
       ∑ d ∈ q.divisors,

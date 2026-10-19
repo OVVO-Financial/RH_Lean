@@ -292,7 +292,7 @@ theorem squareRootLowPrimeGoOwnerRawDefectMass_eq_sum_primeSlices
   apply Finset.sum_congr rfl
   intro r _hrange
   by_cases hr : r.Prime
-  · simp only [hr, true_and, if_true]
+  · simp only [hr, true_and, ite_true]
     unfold squareRootLowPrimeGoDefectPrimeSliceSourceMass
     rw [← Finset.sum_filter,
       squareRootLowPrimeGo_range_filter_defectParents_eq q X r]
@@ -329,7 +329,7 @@ theorem squareRootLowPrimeGoOwnerWeightedBoundaryMass_eq_frozenLibertyStrips
     have hs :=
       squareRootLowPrimeGoDefectPrimeSliceSourceMass_eq_neg_frozenStrip
         hq hr hrq hcube
-    rw [if_pos hr, if_pos hr]
+    rw [ite_eq_left hr, ite_eq_left hr]
     exact hs
   · simp [hr]
 

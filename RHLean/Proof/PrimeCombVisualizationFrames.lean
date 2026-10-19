@@ -129,7 +129,7 @@ theorem primeCombFrameSeed
   classical
   ext q
   by_cases hpn : p ∣ n
-  · simp only [hpn, if_true, primeCombFrameDivisors,
+  · simp only [hpn, ite_true, primeCombFrameDivisors,
       Finset.mem_filter, Finset.mem_insert]
     constructor
     · rintro ⟨hqp | hqS, hqdiv⟩
@@ -139,7 +139,7 @@ theorem primeCombFrameSeed
       · subst q
         exact ⟨Or.inl rfl, hpn⟩
       · exact ⟨Or.inr hqS, hqdiv⟩
-  · simp only [hpn, if_false, primeCombFrameDivisors,
+  · simp only [hpn, ite_false, primeCombFrameDivisors,
       Finset.mem_filter, Finset.mem_insert]
     constructor
     · rintro ⟨hqp | hqS, hqdiv⟩
@@ -204,14 +204,14 @@ theorem primeCombProperMultiplierSet_subset_two_of_third_lt
   have hkData := (mem_primeCombProperMultiplierSet_iff hp).1 hk
   have hWlt : W < p * 3 :=
     (Nat.div_lt_iff_lt_mul (by omega : 0 < 3)).1 hpThird
-  have hWlt' : W < 3 * p := by simpa [Nat.mul_comm] using hWlt
+  have hWlt' : W < 3 * p := by simpa [Nat.mul_comm] using! hWlt
   have hdivlt : W / p < 3 :=
     (Nat.div_lt_iff_lt_mul hp).2 hWlt'
   have hkLe : k ≤ W / p :=
     (Nat.le_div_iff_mul_le hp).2 hkData.2
   have hkLt3 : k < 3 := hkLe.trans_lt hdivlt
   have hkLe2 : k ≤ 2 := by
-    exact Nat.lt_succ_iff.mp (by simpa using hkLt3)
+    exact Nat.lt_succ_iff.mp (by simpa using! hkLt3)
   have hkEq : k = 2 := Nat.le_antisymm hkLe2 hkData.1
   simp [hkEq]
 
@@ -236,7 +236,7 @@ theorem primeCombProperMultiplierSet_eq_empty_of_half_lt
   rw [card_primeCombProperMultiplierSet]
   have hWlt : W < p * 2 :=
     (Nat.div_lt_iff_lt_mul (by omega : 0 < 2)).1 hpHalf
-  have hWlt' : W < 2 * p := by simpa [Nat.mul_comm] using hWlt
+  have hWlt' : W < 2 * p := by simpa [Nat.mul_comm] using! hWlt
   have hdivlt : W / p < 2 :=
     (Nat.div_lt_iff_lt_mul hp).2 hWlt'
   omega
@@ -277,7 +277,7 @@ private theorem no_frameSquareHit_of_squarefree
   rcases hhit with ⟨p, hpS, hp2⟩
   have hpPrime := hprime p hpS
   have hnot : ¬ p ^ 2 ∣ n := by
-    simpa [pow_two] using
+    simpa [pow_two] using!
       (Nat.squarefree_iff_prime_squarefree.mp hsq p hpPrime)
   exact hnot hp2
 
@@ -301,13 +301,13 @@ theorem primeCombFrameSite_eq_allPlus_of_squarefree_touched
   have hseed' :
       seededPrimeComb S n =
         -((-1 : ℤ) ^ (primeCombFrameDivisors S n).card) := by
-    simpa [primeCombFrameDivisors] using hseed
+    simpa [primeCombFrameDivisors] using! hseed
   unfold primeCombFrameSite
-  rw [if_neg (Nat.ne_of_gt hnpos), if_neg hn1, if_neg hnoSquare]
+  rw [ite_eq_right (Nat.ne_of_gt hnpos), ite_eq_right hn1, ite_eq_right hnoSquare]
   dsimp
-  rw [if_neg hcard]
+  rw [ite_eq_right hcard]
   unfold allPlusPrimeCombSite
-  rw [if_neg (Nat.ne_of_gt hnpos), hseed']
+  rw [ite_eq_right (Nat.ne_of_gt hnpos), hseed']
   ring
 
 /-! ## The square-root seam -/
@@ -323,7 +323,7 @@ theorem largePrime_cannot_squareKill
   have hp2le : p ^ 2 ≤ n := Nat.le_of_dvd hnpos hsq
   have hpLe : p ≤ Nat.sqrt W :=
     Nat.le_sqrt.mpr (by
-      simpa [pow_two] using hp2le.trans hnW)
+      simpa [pow_two] using! hp2le.trans hnW)
   omega
 
 /-- Conversely, every prime-square kill visible in the block is caused by an
@@ -418,7 +418,7 @@ theorem primeCombSqrtFrame_eq_zero_of_not_squarefree
     subst n
     exact hnsq (by simp)
   rw [Nat.squarefree_iff_prime_squarefree] at hnsq
-  push_neg at hnsq
+  push Not at hnsq
   rcases hnsq with ⟨p, hpPrime, hpSq⟩
   have hpSqLeN : p * p ≤ n := Nat.le_of_dvd hnpos hpSq
   have hpLe : p ≤ Nat.sqrt W :=
@@ -427,7 +427,7 @@ theorem primeCombSqrtFrame_eq_zero_of_not_squarefree
     mem_primesUpTo.mpr ⟨hpPrime, hpLe⟩
   have hhit : PrimeCombFrameSquareHit (primesUpTo (Nat.sqrt W)) n := by
     refine ⟨p, hpS, ?_⟩
-    simpa [pow_two] using hpSq
+    simpa [pow_two] using! hpSq
   simp [primeCombFrameSite, Nat.ne_of_gt hnpos, hn1, hhit]
 
 /-- In particular every site `n <= sqrt W` is already exact after the small
@@ -451,7 +451,7 @@ theorem primeCombSqrtFrame_eq_moebius_of_le_sqrt
   · have hzero := primeCombSqrtFrame_eq_zero_of_not_squarefree
       hnpos (hnRoot.trans (Nat.sqrt_le_self W)) hsq
     have hmu := ArithmeticFunction.moebius_eq_zero_of_not_squarefree hsq
-    simpa [hmu] using hzero
+    simpa [hmu] using! hzero
 
 /-! ## Tail seats: the small-prime writing is already complete -/
 
@@ -573,7 +573,7 @@ theorem primeCombSqrtFrame_largePrimeSeat_eq_neg_one
     have hqdiv : q ∣ p := by
       rcases hq2 with ⟨k, hk⟩
       refine ⟨q * k, ?_⟩
-      simpa [pow_two, Nat.mul_assoc] using hk
+      simpa [pow_two, Nat.mul_assoc] using! hk
     have hmem : q ∈ primeCombFrameDivisors (primesUpTo (Nat.sqrt W)) p :=
       Finset.mem_filter.mpr ⟨hqS, hqdiv⟩
     rw [hdiv] at hmem

@@ -38,8 +38,8 @@ theorem primeFactor_lt_successor_eq_lt_or_eq
     (hqr : q < r) :
     q < p ∨ q = p := by
   have hqPrime : q.Prime := by
-    simpa [squarefreePrimeFace] using Nat.prime_of_mem_primeFactors
-      (show q ∈ n.primeFactors by simpa [squarefreePrimeFace] using hq)
+    simpa [squarefreePrimeFace] using! Nat.prime_of_mem_primeFactors
+      (show q ∈ n.primeFactors by simpa [squarefreePrimeFace] using! hq)
   by_cases hqp : q < p
   · exact Or.inl hqp
   · have hpq : p ≤ q := Nat.le_of_not_gt hqp
@@ -64,9 +64,9 @@ theorem squarefreeLowerPrimeSignature_successor_of_not_dvd
     · exact Finset.mem_filter.mpr ⟨hqFace, hqp⟩
     · subst q
       have hpdvd : p ∣ n := by
-        simpa [squarefreePrimeFace] using
+        simpa [squarefreePrimeFace] using!
           Nat.dvd_of_mem_primeFactors
-            (show p ∈ n.primeFactors by simpa [squarefreePrimeFace] using hqFace)
+            (show p ∈ n.primeFactors by simpa [squarefreePrimeFace] using! hqFace)
       exact False.elim (hpn hpdvd)
   · intro hq
     rcases Finset.mem_filter.mp hq with ⟨hqFace, hqp⟩
@@ -94,7 +94,7 @@ theorem squarefreeLowerPrimeSignature_successor_of_dvd
       have hpFace : p ∈ squarefreePrimeFace n := by
         have hpf : p ∈ n.primeFactors :=
           Nat.mem_primeFactors.mpr ⟨hpr.1, hpn, hn.ne'⟩
-        simpa [squarefreePrimeFace] using hpf
+        simpa [squarefreePrimeFace] using! hpf
       exact Finset.mem_filter.mpr ⟨hpFace, hpr.2.2.1⟩
     · rcases Finset.mem_filter.mp hqOld with ⟨hqFace, hqp⟩
       exact Finset.mem_filter.mpr ⟨hqFace, hqp.trans hpr.2.2.1⟩
@@ -144,8 +144,8 @@ theorem base_child_successor_signatures_distinct
     hpr hbPos hbData.2
   have hpnot := owner_not_mem_occupied_lowerSignature hsig
   refine ⟨?_, ?_, ?_⟩
-  · simpa [haData.1] using haSucc
-  · simpa [hbData.1] using hbSucc
+  · simpa [haData.1] using! haSucc
+  · simpa [hbData.1] using! hbSucc
   · intro heq
     have : p ∈ sig := by
       rw [heq]

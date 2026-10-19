@@ -90,7 +90,7 @@ theorem lowWheelCanonicalDowncrossOrientedChargingFaces_eq_frozenWindow
   let p := lowWheelCanonicalDowncrossPivot (c, k)
   have hkPivot : k = lowWheelCanonicalDowncrossPivot (c, k) :=
     lowWheelCanonicalDowncrossOrientedChargingFaces_quotient_eq_pivot hne
-  have hk : k = p := by simpa [p] using hkPivot
+  have hk : k = p := by simpa [p] using! hkPivot
   have hcharging :
       (lowWheelCanonicalDowncrossChargingFaces R (c, k)).Nonempty :=
     lowWheelCanonicalDowncrossChargingFaces_nonempty_of_oriented hne
@@ -100,9 +100,9 @@ theorem lowWheelCanonicalDowncrossOrientedChargingFaces_eq_frozenWindow
   have hdown0 := (mem_lowWheelCanonicalDowncrossOrientedPart.mp hx0).1
   have hgeom0 := lowWheelCanonicalDowncross_firstFailure_geometry hdown0
   dsimp only at hgeom0
-  have hp : p.Prime := by simpa [p] using hgeom0.1
+  have hp : p.Prime := by simpa [p] using! hgeom0.1
   have hpivotPos : 0 < lowWheelCanonicalDowncrossPivot (c, k) := by
-    simpa [p] using hp.pos
+    simpa [p] using! hp.pos
   have hquotient :
       k / lowWheelCanonicalDowncrossPivot (c, k) = 1 := by
     calc
@@ -130,7 +130,7 @@ theorem lowWheelCanonicalDowncrossOrientedChargingFaces_eq_frozenWindow
     have hqPrime : q.Prime :=
       prime_of_mem_primesUpTo ((Finset.mem_powerset.mp htPow) hqt)
     have hqLt : q < p := by
-      simpa [p] using
+      simpa [p] using!
         lowWheelCanonicalDowncrossOriented_facePrime_lt_pivot htPow hx hqt
     exact mem_primesUpTo.mpr ⟨hqPrime, by omega⟩
   · intro ht
@@ -197,7 +197,7 @@ theorem lowWheelCanonicalDowncrossOrientedChargingFaces_eq_frozenWindow
     have hqData := Nat.mem_primeFactors.mp hqParent
     rcases hqData with ⟨hqPrime, hqDvd, _hprodNe⟩
     change q ∣ t.prod id at hqDvd
-    rcases (Prime.dvd_finset_prod_iff hqPrime.prime id).mp hqDvd with
+    rcases (Prime.dvd_finsetProd_iff hqPrime.prime id).mp hqDvd with
       ⟨r, hrt, hqr⟩
     have hrPrime : r.Prime :=
       prime_of_mem_primesUpTo (hpredSub hrt)

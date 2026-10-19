@@ -86,7 +86,7 @@ theorem lowWheelCanonicalRepeatedExternalTerminal_highPrime_data
   have htop :
       primeFaceProduct y.1 * lowWheelTaggedDowncrossPivot y ≤
         squareRootEndpoint R := by
-    simpa using htop0
+    simpa using! htop0
   have hcRange := hphysicalData.1
   rw [hc] at hcRange
   have hRpos : 0 < R := by
@@ -103,7 +103,7 @@ theorem lowWheelCanonicalRepeatedExternalTerminal_highPrime_data
       Nat.le_antisymm hdown hRleP
     have hSquareLt :
         R ^ 2 < R * lowWheelTaggedDowncrossPivot y := by
-      simpa [pow_two] using Nat.mul_lt_mul_of_pos_left hpR hRpos
+      simpa [pow_two] using! Nat.mul_lt_mul_of_pos_left hpR hRpos
     have hbad :
         squareRootEndpoint R < R * lowWheelTaggedDowncrossPivot y :=
       hXltSquare.trans hSquareLt

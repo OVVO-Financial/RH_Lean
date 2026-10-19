@@ -71,7 +71,7 @@ theorem moebius_eq_core (d : EndpointCoreDecomposition n) :
 theorem product_eq_of_core_eq_one
     (d : EndpointCoreDecomposition n) (hcore : d.core = 1) :
     d.lower * d.upper = n := by
-  simpa [hcore] using d.product_eq
+  simpa [hcore] using! d.product_eq
 
 /-- A nontrivial core cannot contain either endpoint as a prime divisor. -/
 theorem endpoints_not_dvd_core (d : EndpointCoreDecomposition n) :

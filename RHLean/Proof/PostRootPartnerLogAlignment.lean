@@ -407,7 +407,7 @@ private theorem q2FarBasePairCarrier_eq_childFarSlice
     have hd1 : 1 ≤ d :=
       (mem_squareRootLowPrimeGoSmoothCofactors.mp hd).1
     have hpLeDp : p ≤ d * p := by
-      simpa using Nat.mul_le_mul_right p hd1
+      simpa using! Nat.mul_le_mul_right p hd1
     have hpUpper : p ≤ squareRootEndpoint R / (q * q) :=
       hpLeDp.trans hdpCut
     have hpLower : R + 8 ≤ p := (Finset.mem_Icc.mp hpRange).1
@@ -459,7 +459,7 @@ private theorem q2DaughterFarBaseColumn_eq_pairCarrierMass
           (frozenPrimeUniverseHighPrimeSet (R + 7) Y),
         if dp.1 * dp.2 ≤ Y then μ dp.1 else 0 := by
           symm
-          simpa only using
+          simpa only using!
             (Finset.sum_product
               (s := squareRootLowPrimeGoSmoothCofactors q Y)
               (t := frozenPrimeUniverseHighPrimeSet (R + 7) Y)
@@ -483,7 +483,7 @@ theorem q2DaughterFarBaseColumn_cast_eq_childFarSliceMass
   rw [q2FarBasePairCarrier_eq_childFarSlice R q] at h
   have hcast := congrArg (fun z : ℤ => (z : ℂ)) h
   push_cast at hcast
-  simpa [canonicalMoebiusWeight] using hcast
+  simpa [canonicalMoebiusWeight] using! hcast
 
 /-- **The local bridge left after the failed full-support splice is true.**
 Summing the ownerwise carrier identity proves the named common-base/child-far

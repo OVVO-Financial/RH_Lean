@@ -37,7 +37,7 @@ theorem farPrime_reciprocalCutoff_lt_root
   have hXlt : squareRootEndpoint R < R * R := by
     unfold squareRootEndpoint
     have hpos : 0 < R ^ 2 := by positivity
-    simpa [pow_two] using Nat.sub_lt hpos (by norm_num : 0 < 1)
+    simpa [pow_two] using! Nat.sub_lt hpos (by norm_num : 0 < 1)
   have hRp : R < p := by omega
   have hRRp : R * R < R * p := Nat.mul_lt_mul_of_pos_left hRp (by omega)
   exact hXlt.trans hRRp
@@ -60,10 +60,10 @@ theorem mem_lowWheelFarPrimeUnitCrossingOwners_iff_reciprocalPrimeInterval
       (Nat.le_div_iff_mul_le hpPos).2 hqp
     have hAq2 : squareRootEndpoint R / p < q * q :=
       (Nat.div_lt_iff_lt_mul hpPos).2 (by
-        simpa [Nat.mul_assoc] using hq2p)
+        simpa [Nat.mul_assoc] using! hq2p)
     have hsqrt : Nat.sqrt (squareRootEndpoint R / p) < q := by
       apply (Nat.sqrt_lt').2
-      simpa [pow_two] using hAq2
+      simpa [pow_two] using! hAq2
     exact Finset.mem_filter.mpr
       ⟨Finset.mem_Ioc.mpr ⟨hsqrt, hqLe⟩, hqPrime⟩
   · intro hq
@@ -76,7 +76,7 @@ theorem mem_lowWheelFarPrimeUnitCrossingOwners_iff_reciprocalPrimeInterval
       (Nat.sqrt_lt').1 hsqrt
     have hq2p : squareRootEndpoint R < q * q * p := by
       have := (Nat.div_lt_iff_lt_mul hpPos).1 hAq2
-      simpa [pow_two, Nat.mul_assoc] using this
+      simpa [pow_two, Nat.mul_assoc] using! this
     exact mem_lowWheelFarPrimeUnitCrossingOwners.mpr
       ⟨hqPrime, hqR, hqp, hq2p⟩
 

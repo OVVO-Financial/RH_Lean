@@ -142,7 +142,7 @@ theorem shiftedMertensEnergyBounded_of_squareRootEndpointAmplification
       have hexp : (1 : ℝ) ≤ 1 + ε := by linarith
       have hbasePow :
           ((x + 1 : ℕ) : ℝ) ≤ Real.rpow ((x + 1 : ℕ) : ℝ) (1 + ε) := by
-        simpa only [Real.rpow_one] using
+        simpa only [Real.rpow_one] using!
           Real.rpow_le_rpow_of_exponent_le hbase hexp
       by_cases hxbase : x < R0 ^ 2
       · have hnorm := norm_shiftedMertens_le_succ x
@@ -355,7 +355,7 @@ theorem mertensEnergyBounded_of_squareRootEndpointAmplification
   calc
     ‖RHLean.Analysis.mertensSummatory x‖ ^ 2 ≤
         2 * shiftedMertensEnergy x + 2 := by
-      simpa [shiftedMertensEnergy] using hsq
+      simpa [shiftedMertensEnergy] using! hsq
     _ ≤ 2 * (C * Real.rpow ((x + 1 : ℕ) : ℝ) (1 + ε)) + 2 := by
       linarith [hshift x]
     _ ≤ (2 * C + 2) * Real.rpow ((x + 1 : ℕ) : ℝ) (1 + ε) := by

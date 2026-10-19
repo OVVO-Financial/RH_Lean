@@ -70,7 +70,7 @@ theorem vfMidCompletedGatePMDegreeTwoDenominator_eq_selectedParentEnergy
   rcases lowOwnerFirstOwnerCompletedPolarizationRawParent_data hp hcompleted with
     ⟨hr, _hpr, hra, hrb, haPos, hbPos⟩
   rw [sq_abs]
-  simpa [lowOwnerCompletedIncidenceFourCornerMass] using
+  simpa [lowOwnerCompletedIncidenceFourCornerMass] using!
     (lowOwnerThresholdIncidence_fourCorner_sq_eq_eulerParentEnergy
       (R := R) (p := p) (r := r)
       (a := parent.1) (b := parent.2)

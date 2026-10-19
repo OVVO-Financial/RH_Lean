@@ -83,7 +83,7 @@ theorem canonicalLargestPrimeFactor_le_iff_forall_primeFactors_le
     · intro hle p hp
       have hmax : p ≤ canonicalLargestPrimeFactor n := by
         unfold canonicalLargestPrimeFactor
-        rw [dif_pos hn1]
+        rw [dite_eq_left hn1]
         exact Finset.le_max' n.primeFactors p hp
       exact hmax.trans hle
     · intro hall

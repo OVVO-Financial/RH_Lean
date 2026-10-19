@@ -57,7 +57,7 @@ theorem squareRootLowPrimeProcessedSeatTerminal_neighbor_has_prefix_blocker
         (squareRootLowPrimeProcessedSeatFrontierStep
           (squareRootLowPrimeProcessedSeatMatchingFrontier pre S) p) := by
     rw [squareRootLowPrimeProcessedSeatMatchingFrontier_append] at hx
-    simpa [squareRootLowPrimeProcessedSeatMatchingFrontier] using hx
+    simpa [squareRootLowPrimeProcessedSeatMatchingFrontier] using! hx
   have hxStep :
       x ∈ squareRootLowPrimeProcessedSeatFrontierStep
         (squareRootLowPrimeProcessedSeatMatchingFrontier pre S) p :=
@@ -110,7 +110,7 @@ theorem squareRootLowPrimeProcessedSeatTerminalIntrinsicResidual_has_prefix_bloc
   have hxResidual' :
       x ∈ squareRootLowPrimeProcessedSeatIntrinsicFirstOwnerResidual ps S
         (squareRootLowPrimeProcessedSeatNonHeadTerminalTarget ps S) := by
-    simpa [squareRootLowPrimeProcessedSeatNonHeadTerminalIntrinsicResidual] using
+    simpa [squareRootLowPrimeProcessedSeatNonHeadTerminalIntrinsicResidual] using!
       hxResidual
   have hxResidualData :=
     mem_squareRootLowPrimeProcessedSeatIntrinsicFirstOwnerResidual.mp hxResidual'
@@ -238,7 +238,7 @@ theorem squareRootLowPrimeProcessedSeat_exists_structuralEndpoint
       cases hfirst : squareRootLowPrimeFirstOwnerAbove ps L with
       | none =>
           refine ⟨ps, x, le_rfl, hsub, hx, ?_, rfl⟩
-          exact Or.inr (Or.inr (by simpa [L] using hfirst))
+          exact Or.inr (Or.inr (by simpa [L] using! hfirst))
       | some p =>
           rcases squareRootLowPrimeFirstOwnerAbove_some_split hfirst with
             ⟨pre, post, hps, _hpre, hLp⟩
@@ -258,7 +258,7 @@ theorem squareRootLowPrimeProcessedSeat_exists_structuralEndpoint
             · exact (hxHead rfl).elim
             · have hzAtom :
                   z ∈ squareRootLowPrimeProcessedSeatAtoms R K j U := by
-                simpa [squareRootLowPrimeProcessedSeatCarrier] using hxCarrier
+                simpa [squareRootLowPrimeProcessedSeatCarrier] using! hxCarrier
               have hcSigned :=
                 (mem_squareRootLowPrimeProcessedSeatAtoms.mp hzAtom).1
               have hcRange := (Finset.mem_filter.mp hcSigned).1
@@ -268,7 +268,7 @@ theorem squareRootLowPrimeProcessedSeat_exists_structuralEndpoint
           have hpFresh :
               ¬ p ∣ squareRootLowPrimeProcessedStateCofactor x :=
             squareRootLowPrimePrime_fresh_of_lpf_lt hcPos hpData.1
-              (by simpa [L] using hLp)
+              (by simpa [L] using! hLp)
           have hxTarget :
               x ∈ squareRootLowPrimeProcessedSeatNonHeadTerminalTarget ps
                 (squareRootLowPrimeProcessedSeatCarrier R K j U) := by
@@ -283,7 +283,7 @@ theorem squareRootLowPrimeProcessedSeat_exists_structuralEndpoint
           rcases
               squareRootLowPrimeProcessedSeatTerminalIntrinsicResidual_has_prefix_blocker
                 ps pre post (squareRootLowPrimeProcessedSeatCarrier R K j U)
-                hxResidual hps hpFresh (by simpa [L] using hLp) with
+                hxResidual hps hpFresh (by simpa [L] using! hLp) with
             ⟨pre', q, post', z, hpreSplit, hz, hedge⟩
           have hpreLt : pre'.length < ps.length := by
             have h₁ := squareRootLowPrimeProcessedSeat_prefixBlocker_length_lt

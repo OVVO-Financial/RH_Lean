@@ -168,7 +168,7 @@ theorem lowOwnerFirstOwnerRawParentBranchThresholdAmplitude_sq_eq_pairSum
       rw [Finset.mul_sum]
     _ = _ := by
       symm
-      simpa only using
+      simpa only using!
         (Finset.sum_product
           (s := lowOwnerFirstOwnerRawParentBranchSignatureFiber R p sig tau r)
           (t := lowOwnerFirstOwnerRawParentBranchSignatureFiber R p sig tau r)
@@ -203,7 +203,7 @@ theorem lowOwnerFirstOwnerRawParentTailThresholdAmplitude_sq_eq_pairSum
       rw [Finset.mul_sum]
     _ = _ := by
       symm
-      simpa only using
+      simpa only using!
         (Finset.sum_product
           (s := lowOwnerFirstOwnerRawParentTailSignatureFiber R p sig tau r)
           (t := lowOwnerFirstOwnerRawParentTailSignatureFiber R p sig tau r)
@@ -241,7 +241,7 @@ theorem lowOwnerFirstOwnerRawParentBranchThresholdEnergy_eq_sum_fiberSquares
   rw [hset]
   symm
   simpa [S, T, key, P, f,
-    lowOwnerFirstOwnerRawParentBranchSignatureFiber] using
+    lowOwnerFirstOwnerRawParentBranchSignatureFiber] using!
     lowOwnerFirstOwnerRawParentBranchThresholdAmplitude_sq_eq_pairSum
       R p sig tau r
 
@@ -275,7 +275,7 @@ theorem lowOwnerFirstOwnerRawParentTailThresholdEnergy_eq_sum_fiberSquares
   rw [hset]
   symm
   simpa [S, T, key, P, f,
-    lowOwnerFirstOwnerRawParentTailSignatureFiber] using
+    lowOwnerFirstOwnerRawParentTailSignatureFiber] using!
     lowOwnerFirstOwnerRawParentTailThresholdAmplitude_sq_eq_pairSum
       R p sig tau r
 

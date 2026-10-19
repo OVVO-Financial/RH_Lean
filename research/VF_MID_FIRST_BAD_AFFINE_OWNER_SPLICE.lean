@@ -168,7 +168,7 @@ theorem vfMidSelectedClippedOutgoingEnergy_le_quarter
     sq_nonneg (coefficient parent)
   have hscaled :=
     mul_le_mul_of_nonneg_left hquarter hcoeff
-  simpa [mul_assoc, mul_left_comm, mul_comm] using hscaled
+  simpa [mul_assoc, mul_left_comm, mul_comm] using! hscaled
 
 
 /-! ## Exact affine seat mass = already-processed least-owner sector -/

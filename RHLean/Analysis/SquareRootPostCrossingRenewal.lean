@@ -221,7 +221,7 @@ theorem mertensSquareRootEndpoint_eq_one_sub_unifiedReciprocalTransform
   rw [squareRootMatchedBornSmoothTransport_eq_unifiedReciprocalForm R hR]
     at hsquare
   have hpred : R - 1 + 1 = R := Nat.sub_add_cancel (by omega : 1 ≤ R)
-  simpa [squarePrefixMertens, squarePrefixEndpoint, hpred] using hsquare
+  simpa [squarePrefixMertens, squarePrefixEndpoint, hpred] using! hsquare
 
 /-- Unified reciprocal form of the post-crossing tail.  The shallow residual
 is subtracted only after the complete prime-indexed reciprocal transform has
@@ -334,16 +334,16 @@ theorem replacementFibreRootPrimeWindowCount_eq_reciprocalPrimeCount
   constructor
   · rintro ⟨⟨hlower, hupper⟩, hprime, hcq⟩
     refine ⟨⟨max_lt hcq ?_, ?_⟩, hprime⟩
-    · simpa [Nat.mul_comm, Nat.mul_left_comm] using
+    · simpa [Nat.mul_comm, Nat.mul_left_comm] using!
         (show squareRootEndpoint R / ((z + 1) * c) < q by omega)
-    · simpa [Nat.mul_comm, Nat.mul_left_comm] using hupper
+    · simpa [Nat.mul_comm, Nat.mul_left_comm] using! hupper
   · rintro ⟨⟨hlower, hupper⟩, hprime⟩
     rcases max_lt_iff.mp hlower with ⟨hcq, hquot⟩
     refine ⟨⟨?_, ?_⟩, hprime, hcq⟩
     · have : squareRootEndpoint R / ((z + 1) * c) < q := by
-        simpa [Nat.mul_comm, Nat.mul_left_comm] using hquot
+        simpa [Nat.mul_comm, Nat.mul_left_comm] using! hquot
       omega
-    · simpa [Nat.mul_comm, Nat.mul_left_comm] using hupper
+    · simpa [Nat.mul_comm, Nat.mul_left_comm] using! hupper
 
 /-- Smooth-oriented reciprocal prime count at the contracted endpoint.  The
 canonical largest prime of the cofactor is the lower cutoff, while `q < c`
@@ -373,16 +373,16 @@ theorem replacementFibreSmoothPrimeWindowCount_eq_reciprocalPrimeCount
   constructor
   · rintro ⟨⟨hlower, hupper⟩, hprime, hrough, hqc⟩
     refine ⟨⟨max_lt hrough ?_, ?_⟩, hprime, hqc⟩
-    · simpa [Nat.mul_comm, Nat.mul_left_comm] using
+    · simpa [Nat.mul_comm, Nat.mul_left_comm] using!
         (show squareRootEndpoint R / ((z + 1) * c) < q by omega)
-    · simpa [Nat.mul_comm, Nat.mul_left_comm] using hupper
+    · simpa [Nat.mul_comm, Nat.mul_left_comm] using! hupper
   · rintro ⟨⟨hlower, hupper⟩, hprime, hqc⟩
     rcases max_lt_iff.mp hlower with ⟨hrough, hquot⟩
     refine ⟨⟨?_, ?_⟩, hprime, hrough, hqc⟩
     · have : squareRootEndpoint R / ((z + 1) * c) < q := by
-        simpa [Nat.mul_comm, Nat.mul_left_comm] using hquot
+        simpa [Nat.mul_comm, Nat.mul_left_comm] using! hquot
       omega
-    · simpa [Nat.mul_comm, Nat.mul_left_comm] using hupper
+    · simpa [Nat.mul_comm, Nat.mul_left_comm] using! hupper
 
 private theorem canonicalLargestPrimeFactor_le_self_of_two
     {c : ℕ} (hc : 2 ≤ c) :
@@ -427,7 +427,7 @@ theorem rootReciprocalPrimeCount_add_smooth_eq_roughPrimeCount
           (le_max_left (canonicalLargestPrimeFactor c)
             ((squareRootEndpoint R / c) / (z + 1))) hlower
       have hPeq : canonicalLargestPrimeFactor c = c := by
-        simpa using canonicalLargestPrimeFactor_mul_prime_eq
+        simpa using! canonicalLargestPrimeFactor_mul_prime_eq
           (c := 1) (q := c) (by omega) hprime.one_lt hprime
       omega
     rcases lt_or_gt_of_ne hqne with hqc | hcq
@@ -447,7 +447,7 @@ theorem rootReciprocalPrimeCount_eq_zero_of_root_le_cofactor
       have hpos : 0 < R ^ 2 := by positivity
       omega
     have hpow : R ^ 2 ≤ c ^ 2 := Nat.pow_le_pow_left hc 2
-    simpa [pow_two] using hrootLt.trans_le hpow
+    simpa [pow_two] using! hrootLt.trans_le hpow
   have hcontracted : squareRootEndpoint R / c < c :=
     (Nat.div_lt_iff_lt_mul hcpos).2 hendpointLt
   have hupper :
@@ -957,7 +957,7 @@ theorem sum_tailMoebius_mul_quotientKernel_eq_diagonal_add_strict
           squareRootReplacementQuotientKernel z y) =
         (∑ z ∈ Finset.range (y + 1), f z) +
           ∑ z ∈ Finset.Ico (y + 1) R, f z := by
-            simpa [f] using
+            simpa [f] using!
               (Finset.sum_range_add_sum_Ico f
                 (Nat.succ_le_of_lt hyR)).symm
     _ = ((∑ z ∈ Finset.range y, f z) + f y) +

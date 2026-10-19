@@ -62,7 +62,7 @@ theorem smoothedMobius_bound_of_strip
   have hc1 : 1 < c := by dsimp [c]; exact lt_add_of_pos_right _ (inv_pos.mpr hlog0)
   have hc2 : c ≤ 2 := by
     have hinv : (Real.log X)⁻¹ ≤ 1 := by
-      simpa only [one_div, inv_one] using one_div_le_one_div_of_le zero_lt_one hlog.le
+      simpa only [one_div, inv_one] using! one_div_le_one_div_of_le zero_lt_one hlog.le
     dsimp [c]
     linarith
   have hσc : σ ≤ c := (hσ.trans hc1).le
@@ -72,16 +72,16 @@ theorem smoothedMobius_bound_of_strip
       ‖f ((u : ℂ) + t * I)‖ ≤
         (K * ε ^ (-q) * X ^ u) * converseHeightWeight q t := by
     have h := hbound ε X hε hε1 hX ((u : ℂ) + t * I)
-      (by simpa using huσ) (by simpa using hu2)
+      (by simpa using! huσ) (by simpa using! hu2)
     simpa only [f, Complex.add_re, Complex.ofReal_re, Complex.mul_re,
       Complex.ofReal_im, Complex.I_re, Complex.I_im, mul_zero, zero_mul,
-      sub_zero, add_zero, Complex.add_im, Complex.mul_im, mul_one, zero_add] using h
+      sub_zero, add_zero, Complex.add_im, Complex.mul_im, mul_one, zero_add] using! h
   have hlineContinuous (u : ℝ) (hau : a < u) :
       Continuous (fun t : ℝ => f ((u : ℂ) + t * I)) := by
     apply continuous_iff_continuousAt.mpr
     intro t
     have hd := regularizedSmoothedIntegrand_differentiableAt ha hstrip hdiff hsupp
-      hnonneg hmass hε hε1 hX (s := (u : ℂ) + t * I) (by simpa using hau)
+      hnonneg hmass hε hε1 hX (s := (u : ℂ) + t * I) (by simpa using! hau)
     have hpath : ContinuousAt (fun v : ℝ => (u : ℂ) + (v : ℂ) * I) t := by
       fun_prop
     exact ContinuousAt.comp (f := fun v : ℝ => (u : ℂ) + (v : ℂ) * I)
@@ -104,7 +104,7 @@ theorem smoothedMobius_bound_of_strip
   have hB : Tendsto
       (fun T : ℝ => (K * ε ^ (-q) * X ^ (2 : ℝ)) * converseHeightWeight q T)
       atTop (𝓝 0) := by
-    simpa only [mul_zero] using
+    simpa only [mul_zero] using!
       (converseHeightWeight_tendsto_zero hq).const_mul (K * ε ^ (-q) * X ^ (2 : ℝ))
   have hplus : Tendsto (fun T : ℝ => HIntegral f σ c T) atTop (𝓝 0) := by
     apply horizontalIntegral_tendsto_zero_of_bound hσc hB
@@ -113,7 +113,7 @@ theorem smoothedMobius_bound_of_strip
     apply horizontalIntegral_tendsto_zero_of_bound hσc hB
     apply Filter.Eventually.of_forall
     intro T x hx
-    simpa only [converseHeightWeight, abs_neg] using hheight (-T) x hx
+    simpa only [converseHeightWeight, abs_neg] using! hheight (-T) x hx
   have hshift : VerticalIntegral' f σ = VerticalIntegral' f c := by
     apply verticalIntegral_eq_of_holomorphic_and_horizontal_limits hσc
       (fun z hz _ => regularizedSmoothedIntegrand_differentiableAt
@@ -127,12 +127,12 @@ theorem smoothedMobius_bound_of_strip
     apply regularizedSmoothedIntegrand_eq_native
     intro heq
     have hreal := congrArg Complex.re heq
-    have hcEq : c = 1 := by simpa using hreal
+    have hcEq : c = 1 := by simpa using! hreal
     linarith
   rw [hclassical, ← hshift]
   have h := verticalIntegral_norm_le_heightBound hq
     (mul_nonneg hcoef0 (Real.rpow_nonneg hX.le σ))
     (hlineBound σ le_rfl (by linarith))
-  simpa only [mul_assoc] using h
+  simpa only [mul_assoc] using! h
 
 end RHLean.Analysis.MertensExponent

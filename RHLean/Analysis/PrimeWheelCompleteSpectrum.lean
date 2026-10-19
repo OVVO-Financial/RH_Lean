@@ -127,7 +127,7 @@ theorem primeWheelCRTMass_eq_neg_prod_localSums (S : Finset ℕ) :
   rw [Finset.sum_neg_distrib]
   apply congrArg Neg.neg
   symm
-  simpa using
+  simpa using!
     (Finset.prod_univ_sum
       (t := fun p : {p // p ∈ S} =>
         (Finset.univ : Finset (Fin (p.val ^ 2))))
@@ -182,7 +182,7 @@ theorem primeWheelCRTSpectrum_eq_neg_prod_local
   rw [Finset.sum_neg_distrib]
   apply congrArg Neg.neg
   symm
-  simpa using
+  simpa using!
     (Finset.prod_univ_sum
       (t := fun p : {p // p ∈ S} =>
         (Finset.univ : Finset (Fin (p.val ^ 2))))

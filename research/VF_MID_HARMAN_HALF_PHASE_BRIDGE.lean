@@ -282,7 +282,7 @@ theorem abs_sum_vfMidSquareBlockMidpointBias_le_of_globalBound
           (1 / 2 : ℝ) * (primeCountUpTo ((R + n) ^ 2) : ℝ)| +
       |(squareRootPrimePhaseWindowCount (R ^ 2) 0 (1 / 2 : ℝ) : ℝ) -
           (1 / 2 : ℝ) * (primeCountUpTo (R ^ 2) : ℝ)| := by
-            simpa only [sub_zero, zero_sub, abs_neg] using
+            simpa only [sub_zero, zero_sub, abs_neg] using!
               (abs_sub_le
                 ((squareRootPrimePhaseWindowCount ((R + n) ^ 2) 0 (1 / 2 : ℝ) : ℝ) -
                   (1 / 2 : ℝ) * (primeCountUpTo ((R + n) ^ 2) : ℝ))
@@ -308,7 +308,7 @@ theorem vfMidGlobalHalfPhaseDiscrepancy_small_of_equidistribution
     have hX0R : X0 <= R := (le_max_right 1 X0).trans hR
     have hRR : R <= R ^ 2 := by nlinarith
     exact hX0R.trans hRR
-  simpa [vfMidGlobalHalfPhaseDiscrepancy] using hX0 (R ^ 2) hX
+  simpa [vfMidGlobalHalfPhaseDiscrepancy] using! hX0 (R ^ 2) hX
 
 /-- Therefore the cumulative midpoint bias over a long block run is exactly a
 difference of two globally equidistributed half-phase discrepancies. -/
@@ -331,7 +331,7 @@ theorem abs_sum_vfMidSquareBlockMidpointBias_le_of_equidistribution
         vfMidGlobalHalfPhaseDiscrepancy R| ≤
       |vfMidGlobalHalfPhaseDiscrepancy (R + n)| +
         |vfMidGlobalHalfPhaseDiscrepancy R| := by
-          simpa using
+          simpa using!
             (abs_sub_le
               (vfMidGlobalHalfPhaseDiscrepancy (R + n))
               0

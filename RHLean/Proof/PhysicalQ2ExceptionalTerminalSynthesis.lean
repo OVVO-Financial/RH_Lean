@@ -138,7 +138,7 @@ theorem physicalCompleteCell_exceptionalFactorThreeStep_implies_linear
           calc
             mertensEnergy Y ≤
                 (5 : ℚ) / 4 * mertensEnergy (4 * J) + 45 := by
-                  simpa [J] using hend
+                  simpa [J] using! hend
             _ ≤ (5 : ℚ) / 4 * (A * (J : ℚ)) + 45 := by
                   gcongr
             _ = (5 : ℚ) / 4 * A * (J : ℚ) + 45 := by ring
@@ -204,7 +204,7 @@ theorem riemannHypothesis_of_physicalCompleteCell_exceptionalFactorThreeStep
     dsimp [A]
     positivity
   have hlinear : ∀ K : ℕ, mertensEnergy (4 * K) ≤ A * (K : ℚ) := by
-    simpa [A] using
+    simpa [A] using!
       physicalCompleteCell_exceptionalFactorThreeStep_implies_linear hC hstep
   exact riemannHypothesis_of_threeSlotDegreeOneEnergy
     (threeSlotDegreeOneEnergy_of_completeCellMertensLinear hA hlinear)
@@ -241,7 +241,7 @@ private theorem rawOddQ2Owner_card_le_root (R : ℕ) :
     have hqle := (mem_primesUpTo.mp hq').2
     have hq2 : 2 ≤ q := hqPrime.two_le
     exact Finset.mem_range.mpr (by omega)
-  simpa [S] using Finset.card_le_card hsub
+  simpa [S] using! Finset.card_le_card hsub
 
 /-- The total deterministic shell width has root-energy scale. -/
 theorem sum_roundedQ2ChildRoot_succ_sq_le_two_root_sq
@@ -272,7 +272,7 @@ theorem sum_roundedQ2ChildRoot_succ_sq_le_two_root_sq
   change (∑ q ∈ S, ((roundedQ2ChildRoot R q : ℕ) : ℝ) ^ 2) ≤
     (17 : ℝ) / 72 * (R : ℝ) ^ 2 at hscale
   have hcardNat : S.card ≤ R := by
-    simpa [S] using rawOddQ2Owner_card_le_root R
+    simpa [S] using! rawOddQ2Owner_card_le_root R
   have hcard : (S.card : ℝ) ≤ (R : ℝ) := by exact_mod_cast hcardNat
   calc
     (∑ q ∈ S, (((roundedQ2ChildRoot R q : ℕ) : ℝ) + 1) ^ 2) ≤
@@ -446,7 +446,7 @@ theorem squareEndpointRawOddQ2EnergyStepWith_implies_unshifted_amplification
                 have hrem : 296 * a * (R : ℝ) ^ 2 ≤
                     296 * a * (R : ℝ) ^ 2 * K := by
                   have hnonneg : 0 ≤ 296 * a * (R : ℝ) ^ 2 := by positivity
-                  simpa only [mul_one] using
+                  simpa only [mul_one] using!
                     mul_le_mul_of_nonneg_left hK1 hnonneg
                 nlinarith
         _ = A * (R : ℝ) ^ 2 * K := by rw [hfixed]; ring
@@ -484,7 +484,7 @@ theorem squareEndpointRawOddQ2EnergyStepWith_implies_endpointAmplification
     exact h0
   let m : ℝ := ((mertensSummatoryInt (squareRootEndpoint R) : ℤ) : ℝ)
   have hM' : m ^ 2 ≤ A * (R : ℝ) ^ 2 * K := by
-    simpa [m, squareEndpointMertensEnergyReal] using hM
+    simpa [m, squareEndpointMertensEnergyReal] using! hM
   have hshift : (m - 1) ^ 2 ≤ 2 * m ^ 2 + 2 := by
     nlinarith [sq_nonneg (m + 1)]
   have hmshift :
@@ -558,7 +558,7 @@ theorem squareRootEndpointAmplification_implies_exists_rawOddQ2EnergyStep
   have hparent :
       squareEndpointMertensEnergyReal R ≤
         (2 * A + 1) * (R : ℝ) ^ 2 * K := by
-    simpa [m, squareEndpointMertensEnergyReal] using hmBound
+    simpa [m, squareEndpointMertensEnergyReal] using! hmBound
   have hchildren0 :
       0 ≤ ∑ q ∈ (primesUpTo (R - 1)).erase 2,
         rawQ2ChildEnergyReal R q := by
@@ -647,7 +647,7 @@ private theorem squarePrefix_shifted_norm_sq_eq_realInt_sq
       (((mertensSummatoryInt (squareRootEndpoint R) - 1 : ℤ) : ℝ) ^ 2) := by
   unfold squarePrefixMertens
   rw [squarePrefixEndpoint_pred_eq_squareRootEndpoint R hR]
-  simpa [shiftedMertensEnergy] using
+  simpa [shiftedMertensEnergy] using!
     shiftedMertensEnergy_eq_intSquare (squareRootEndpoint R)
 
 private theorem norm_sub_sq_le_two (u v : ℂ) :
@@ -671,7 +671,7 @@ private theorem squareEndpointMertensEnergyReal_le_root_fourth (R : ℕ) :
   let X : ℕ := squareRootEndpoint R
   have hnorm0 := norm_mertensSummatory_sub_le 0 X (Nat.zero_le X)
   have hnorm : ‖RHLean.Analysis.mertensSummatory X‖ ≤ (X : ℝ) := by
-    simpa using hnorm0
+    simpa using! hnorm0
   have hX0 : 0 ≤ (X : ℝ) := by positivity
   have hnorm0' : 0 ≤ ‖RHLean.Analysis.mertensSummatory X‖ := norm_nonneg _
   have hsq :

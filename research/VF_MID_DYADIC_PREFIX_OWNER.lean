@@ -93,7 +93,7 @@ theorem vfMidPrefixWheelCounting_cast_real_eq_faceFloorSum
           ((N / primeFaceProduct t : ℕ) : ℝ) := by
   have h := vfMidPrefixWheelCounting_cast_int_eq_faceFloorSum z N
   have hR := congrArg (fun x : ℤ => (x : ℝ)) h
-  simpa using hR
+  simpa using! hR
 
 /-- Natural Euler density of the fixed prefix wheel. -/
 def vfMidPrefixWheelDensity (z : ℕ) : ℝ :=
@@ -112,7 +112,7 @@ theorem vfMidPrefixWheelDensity_eq_faceReciprocalSum
       (fun p : ℕ => (p : ℝ)⁻¹)
       (primesUpTo z)
   simpa [vfMidPrefixWheelDensity, booleanCubeSign, primeFaceProduct,
-    div_eq_mul_inv] using h
+    div_eq_mul_inv] using! h
 
 /-- A natural floor differs from the corresponding real quotient by less
 than one. -/
@@ -245,21 +245,21 @@ theorem abs_vfMidDyadicPrefixSupply_sub_density_le_four_pow
     convert abs_vfMidPrefixWheelCounting_sub_density_mul_le z (A ^ 2) using 1; norm_num
   have hB : |eB| ≤ M := by
     dsimp [eB, M]
-    simpa using abs_vfMidPrefixWheelCounting_sub_density_mul_le z B
+    simpa using! abs_vfMidPrefixWheelCounting_sub_density_mul_le z B
   have hA : |eA| ≤ M := by
     dsimp [eA, M]
-    simpa using abs_vfMidPrefixWheelCounting_sub_density_mul_le z A
+    simpa using! abs_vfMidPrefixWheelCounting_sub_density_mul_le z A
   change |eB2 - eA2 - eB + eA| ≤ 4 * M
   calc
     |eB2 - eA2 - eB + eA| ≤
         |eB2 - eA2 - eB| + |eA| := by
-          simpa using abs_add_le (eB2 - eA2 - eB) eA
+          simpa using! abs_add_le (eB2 - eA2 - eB) eA
     _ ≤ (|eB2 - eA2| + |eB|) + |eA| := by
           gcongr
-          simpa [sub_eq_add_neg] using abs_add_le (eB2 - eA2) (-eB)
+          simpa [sub_eq_add_neg] using! abs_add_le (eB2 - eA2) (-eB)
     _ ≤ ((|eB2| + |eA2|) + |eB|) + |eA| := by
           gcongr
-          simpa [sub_eq_add_neg] using abs_add_le eB2 (-eA2)
+          simpa [sub_eq_add_neg] using! abs_add_le eB2 (-eA2)
     _ ≤ 4 * M := by linarith
 
 /-- User-scale form of the prefix theorem.  If the complete Boolean cube has
@@ -456,7 +456,7 @@ theorem abs_vfMidPrimeError_sq_sub_sq_le_of_signedLateCorrection
               vfMidPrefixWheelDensity 2 * vfMidDyadicInteriorLength A B)
             (-(vfMidDyadicLateRemoval 2 A B -
               vfMidDyadicLateReference 2 A B))
-        simpa only [sub_eq_add_neg, abs_neg] using htri
+        simpa only [sub_eq_add_neg, abs_neg] using! htri
     _ ≤ 4 * (A : ℝ) + C * (A : ℝ) * Real.log A :=
       add_le_add hprefix hlate
 

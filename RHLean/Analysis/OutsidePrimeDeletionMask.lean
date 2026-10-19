@@ -82,7 +82,7 @@ private theorem moebius_eq_zero_of_prime_sq_dvd
     μ n = 0 := by
   apply ArithmeticFunction.moebius_eq_zero_of_not_squarefree
   intro hsq
-  have hunit := hsq p (by simpa [pow_two] using hdiv)
+  have hunit := hsq p (by simpa [pow_two] using! hdiv)
   rw [Nat.isUnit_iff] at hunit
   have hpTwo : 2 ≤ p := hp.two_le
   omega
@@ -122,12 +122,12 @@ theorem outsidePrimeActualZeroFreeAt_implies_selected
   · apply hsrc.1
     rw [chiA_threeSlotState]
     apply moebius_eq_zero_of_prime_sq_dvd hpPrime
-    simpa [tTransitionForm] using hdiv
+    simpa [tTransitionForm] using! hdiv
   · apply hsrc.2.1
     rw [chiB_threeSlotState]
     apply moebius_eq_zero_of_prime_sq_dvd hpPrime
     have hsmall : p ^ 2 ∣ 2 * k + 1 := by
-      simpa [tTransitionForm] using hdiv
+      simpa [tTransitionForm] using! hdiv
     have htwo : p ^ 2 ∣ 2 * (2 * k + 1) :=
       prime_sq_dvd_two_mul hsmall
     have heq : 2 * (2 * k + 1) = 4 * k + 2 := by ring
@@ -135,19 +135,19 @@ theorem outsidePrimeActualZeroFreeAt_implies_selected
   · apply hsrc.2.2
     rw [chiC_threeSlotState]
     apply moebius_eq_zero_of_prime_sq_dvd hpPrime
-    simpa [tTransitionForm] using hdiv
+    simpa [tTransitionForm] using! hdiv
   · apply hdst.1
     rw [chiA_threeSlotState]
     apply moebius_eq_zero_of_prime_sq_dvd hpPrime
     have hsmall : p ^ 2 ∣ 4 * k + 5 := by
-      simpa [tTransitionForm] using hdiv
+      simpa [tTransitionForm] using! hdiv
     have heq : 4 * (k + 1) + 1 = 4 * k + 5 := by omega
     rwa [heq]
   · apply hdst.2.1
     rw [chiB_threeSlotState]
     apply moebius_eq_zero_of_prime_sq_dvd hpPrime
     have hsmall : p ^ 2 ∣ 2 * k + 3 := by
-      simpa [tTransitionForm] using hdiv
+      simpa [tTransitionForm] using! hdiv
     have htwo : p ^ 2 ∣ 2 * (2 * k + 3) :=
       prime_sq_dvd_two_mul hsmall
     have heq : 4 * (k + 1) + 2 = 2 * (2 * k + 3) := by ring
@@ -156,7 +156,7 @@ theorem outsidePrimeActualZeroFreeAt_implies_selected
     rw [chiC_threeSlotState]
     apply moebius_eq_zero_of_prime_sq_dvd hpPrime
     have hsmall : p ^ 2 ∣ 4 * k + 7 := by
-      simpa [tTransitionForm] using hdiv
+      simpa [tTransitionForm] using! hdiv
     have heq : 4 * (k + 1) + 3 = 4 * k + 7 := by omega
     rwa [heq]
 

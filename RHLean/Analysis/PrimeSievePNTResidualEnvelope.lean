@@ -169,14 +169,14 @@ theorem logarithmicIntegralFromTwo_abs_div_succ_atTop_zero :
     have hCsmall : C < (b / 2) * ((N : ℝ) + 1) := by
       have hraw0 := (div_lt_iff₀ hb).mp hM
       have hraw : 2 * C < b * (M : ℝ) := by
-        simpa [mul_comm] using hraw0
+        simpa [mul_comm] using! hraw0
       have hrawN : 2 * C < b * (N : ℝ) :=
         hraw.trans_le (mul_le_mul_of_nonneg_left hMreal hb.le)
       nlinarith
     have hfactor : 1 < (b / 2) * Real.log (A : ℝ) := by
       have hraw0 := (div_lt_iff₀ hb).mp hlogA
       have hraw : (2 : ℝ) < b * Real.log (A : ℝ) := by
-        simpa [mul_comm] using hraw0
+        simpa [mul_comm] using! hraw0
       nlinarith
     have hvar :
         (N : ℝ) / Real.log (A : ℝ) < (b / 2) * (N : ℝ) := by
@@ -283,7 +283,7 @@ private theorem packetNatCast_ratio_norm_le_one
   rw [norm_mul, norm_inv, Complex.norm_natCast, Complex.norm_natCast]
   have hqR : (0 : ℝ) < q := by exact_mod_cast hq
   have hpqR : (p : ℝ) ≤ q := by exact_mod_cast hpq
-  simpa [div_eq_mul_inv] using (div_le_one hqR).2 hpqR
+  simpa [div_eq_mul_inv] using! (div_le_one hqR).2 hpqR
 
 private theorem primeSieveSignedSiblingPacketResidual_eq_affine_left
     {y x a m b : ℕ}
@@ -373,7 +373,7 @@ theorem primeSieveSignedSiblingPacketResidual_norm_le_four
     subst b
     subst m
     simpa [primeSieveSignedSiblingPacketResidual, primeSieveSignedSiblingPacket]
-      using hH
+      using! hH
 
 /-- Dimensionless root residual of one midpoint node.  The global scale is
 chosen deliberately: it is uniform over every descendant and therefore makes a
@@ -457,7 +457,7 @@ theorem primeSieveDyadicPacketIntervalRelativeEnvelope_le_four
       intro a b
       rw [primeSieveDyadicPacketIntervalRelativeEnvelope_succ]
       by_cases hsplit : a + 1 < b
-      · simp only [hsplit, if_true]
+      · simp only [hsplit, ite_true]
         let m := dyadicPacketMidpoint a b
         have hm : a ≤ m ∧ m ≤ b := by
           dsimp [m, dyadicPacketMidpoint]
@@ -540,7 +540,7 @@ theorem primeSieveDyadicPacketIntervalDeepRelativeEnvelope_le_four
       | succ depth =>
           rw [primeSieveDyadicPacketIntervalDeepRelativeEnvelope_succ]
           by_cases hsplit : a + 1 < b
-          · simp only [hsplit, if_true]
+          · simp only [hsplit, ite_true]
             exact max_le (ih _ _ _) (ih _ _ _)
           · simp [hsplit]
             positivity

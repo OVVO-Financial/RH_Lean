@@ -35,7 +35,7 @@ theorem farFourQ2CenteredTower_eq_globalReturnedReciprocal_add_memory
       stableFarGlobalReturnedReciprocalMass R +
         stableFarGlobalReturnedEulerMemoryMass R := by
   simpa [stableFarGlobalReturnedReciprocalMass,
-    stableFarGlobalReturnedEulerMemoryMass] using
+    stableFarGlobalReturnedEulerMemoryMass] using!
     farFourQ2CenteredTower_eq_sum_reciprocal_add_memory R
 
 theorem lowWheelFrozenTopFarResidual_eq_neg_globalReturnedReciprocal_sub_memory_sub_terminal

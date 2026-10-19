@@ -71,14 +71,14 @@ theorem lowOwnerFirstOwnerPolarizationRawParentSet_subset_prefixStar
       have hmCar := (Finset.mem_filter.mp hmBase).1
       have hmX := (Finset.mem_Icc.mp (Finset.mem_filter.mp hmCar).1).2
       left
-      simpa [hleft] using hmX
+      simpa [hleft] using! hmX
     · have hprod :=
         (Finset.mem_filter.mp (Finset.mem_filter.mp hchild).1).1
       have hnBase := (Finset.mem_product.mp hprod).2
       have hnCar := (Finset.mem_filter.mp hnBase).1
       have hnX := (Finset.mem_Icc.mp (Finset.mem_filter.mp hnCar).1).2
       right
-      simpa [hright] using hnX
+      simpa [hright] using! hnX
   exact Finset.mem_filter.mpr
     ⟨Finset.mem_product.mpr ⟨haBase, hbBase⟩,
       ⟨hsigAbove, hra, hrb, hphysical⟩⟩

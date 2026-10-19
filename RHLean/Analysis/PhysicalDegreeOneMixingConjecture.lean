@@ -57,7 +57,7 @@ theorem moebiusPositivePrefix_four_mul_succ_eq_physicalDegreeOne
     moebiusPositivePrefix (4 * (K + 1)) =
       threeSlotDegreeOneValue (threeSlotState 0) +
         physicalDegreeOneT K + physicalDegreeOneD K := by
-  simpa [physicalDegreeOneT, physicalDegreeOneD] using
+  simpa [physicalDegreeOneT, physicalDegreeOneD] using!
     moebiusPositivePrefix_four_mul_succ_eq_transitionMass_add_defect K
 
 /-- Analytic form of the same exact pushforward. -/
@@ -66,7 +66,7 @@ theorem mertensSummatory_four_mul_succ_eq_physicalDegreeOne
     mertensSummatory (4 * (K + 1)) =
       (((threeSlotDegreeOneValue (threeSlotState 0) +
           physicalDegreeOneT K + physicalDegreeOneD K : ℤ)) : ℂ) := by
-  simpa [physicalDegreeOneT, physicalDegreeOneD] using
+  simpa [physicalDegreeOneT, physicalDegreeOneD] using!
     mertensSummatory_four_mul_succ_eq_transitionMass_add_defect K
 
 /-- One source row of the `1/8` centering identity. -/
@@ -154,7 +154,7 @@ theorem threeSlotDegreeOneEnergy_of_physicalDegreeOneMixingConjecture
   · intro K
     cases K with
     | zero =>
-        simpa [threeSlotWa, threeSlotWb, threeSlotWc, Real.one_rpow] using
+        simpa [threeSlotWa, threeSlotWb, threeSlotWc, Real.one_rpow] using!
           (sq_nonneg (C + G))
     | succ K =>
         let a : ℝ := (1 : ℝ) / 2 + ε / 2
@@ -172,7 +172,7 @@ theorem threeSlotDegreeOneEnergy_of_physicalDegreeOneMixingConjecture
           have hbaseone : (1 : ℝ) ≤ (((K + 1) + 1 : ℕ) : ℝ) := by
             exact_mod_cast (show 1 ≤ (K + 1) + 1 by omega)
           have hr := Real.rpow_le_rpow zero_le_one hbaseone ha.le
-          simpa [R, Real.one_rpow] using hr
+          simpa [R, Real.one_rpow] using! hr
         have hmixK :
             |((physicalDegreeOneT K : ℤ) : ℝ)| +
                 |((physicalDegreeOneD K : ℤ) : ℝ)| ≤ C * R := by
@@ -180,14 +180,14 @@ theorem threeSlotDegreeOneEnergy_of_physicalDegreeOneMixingConjecture
             |((physicalDegreeOneT K : ℤ) : ℝ)| +
                   |((physicalDegreeOneD K : ℤ) : ℝ)|
                 ≤ C * Real.rpow (K : ℝ) a := by
-                    simpa [a] using hmix K
+                    simpa [a] using! hmix K
             _ ≤ C * R := mul_le_mul_of_nonneg_left hscale hC.le
         have hdecomp :
             threeSlotWa (K + 1) + threeSlotWb (K + 1) +
                 threeSlotWc (K + 1) =
               threeSlotDegreeOneValue (threeSlotState 0) +
                 physicalDegreeOneT K + physicalDegreeOneD K := by
-          simpa [physicalDegreeOneT, physicalDegreeOneD] using
+          simpa [physicalDegreeOneT, physicalDegreeOneD] using!
             threeSlotCombinedDegreeOne_succ_eq_transitionMass_add_defect K
         let w : ℝ :=
           ((threeSlotWa (K + 1) + threeSlotWb (K + 1) +
@@ -217,10 +217,10 @@ theorem threeSlotDegreeOneEnergy_of_physicalDegreeOneMixingConjecture
                       ‖(physicalDegreeOneD K : ℝ)‖ := by
                     gcongr
                     exact norm_add_le _ _
-          simpa [Real.norm_eq_abs] using htri
+          simpa [Real.norm_eq_abs] using! htri
         have hGR : G ≤ G * R := by
           have := mul_le_mul_of_nonneg_left hone hG
-          simpa using this
+          simpa using! this
         have hwlinear : |w| ≤ (C + G) * R := by
           calc
             |w| ≤ G + |((physicalDegreeOneT K : ℤ) : ℝ)| +

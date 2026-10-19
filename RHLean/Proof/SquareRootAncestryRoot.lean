@@ -168,13 +168,13 @@ theorem sourceRootPrefix_eq_pairMass
   · intro s hs
     have hsdata :
         SourceAdmissible s ∧ sourceClock B s ≤ R - 1 ∧ TransportOriented s := by
-      simpa [activeRootSourceSet] using hs
+      simpa [activeRootSourceSet] using! hs
     rcases hsdata.1 with ⟨hqPrime, hc1, hsq, _hcop, hdom⟩
     have hprod : sourceProduct s ≤ squareRootEndpoint R := by
       have hclock :=
         (CanonicalGapAncestryEnergyBridge.sourceClock_le_iff_sourceProduct_le_endpoint
           (x := R - 1) s).1 hsdata.2.1
-      simpa [squarePrefixEndpoint_pred_eq_squareRootEndpoint R (by omega)] using hclock
+      simpa [squarePrefixEndpoint_pred_eq_squareRootEndpoint R (by omega)] using! hclock
     have hcq : sourceCore s < sourcePrime s := by
       have hle := hsdata.2.2.2
       by_contra hnot
@@ -188,23 +188,23 @@ theorem sourceRootPrefix_eq_pairMass
       have hRc : R ≤ sourceCore s := Nat.le_of_not_gt hnot
       have hRq : R ≤ sourcePrime s := hRc.trans hsdata.2.2.2
       have hRR : R ^ 2 ≤ sourceCore s * sourcePrime s := by
-        simpa [pow_two] using Nat.mul_le_mul hRc hRq
+        simpa [pow_two] using! Nat.mul_le_mul hRc hRq
       have hRsqpos : 0 < R ^ 2 := by positivity
       have hXlt : squareRootEndpoint R < R ^ 2 := by
         unfold squareRootEndpoint
         omega
       have hmul : sourceCore s * sourcePrime s ≤ squareRootEndpoint R := by
-        simpa [sourceProduct, Nat.mul_comm] using hprod
+        simpa [sourceProduct, Nat.mul_comm] using! hprod
       exact (not_le_of_gt (lt_of_lt_of_le hXlt hRR)) hmul
     have hqX : sourcePrime s ≤ squareRootEndpoint R := by
       have hqleprod : sourcePrime s ≤ sourceCore s * sourcePrime s := by
-        simpa using Nat.mul_le_mul_right (sourcePrime s) hc1
-      exact hqleprod.trans (by simpa [sourceProduct, Nat.mul_comm] using hprod)
+        simpa using! Nat.mul_le_mul_right (sourcePrime s) hc1
+      exact hqleprod.trans (by simpa [sourceProduct, Nat.mul_comm] using! hprod)
     apply Finset.mem_filter.mpr
     refine ⟨Finset.mem_product.mpr ?_, ?_⟩
     · exact ⟨Finset.mem_Ico.mpr ⟨hc1, hcR⟩,
         Finset.mem_Icc.mpr ⟨hqPrime.two_le, hqX⟩⟩
-    · exact ⟨hqPrime, hsq, hcq, by simpa [sourceProduct, Nat.mul_comm] using hprod⟩
+    · exact ⟨hqPrime, hsq, hcq, by simpa [sourceProduct, Nat.mul_comm] using! hprod⟩
   · intro s₁ hs₁ s₂ hs₂ heq
     apply Prod.ext
     · apply Fin.ext
@@ -222,30 +222,30 @@ theorem sourceRootPrefix_eq_pairMass
       have hcX : c ≤ squareRootEndpoint R := by
         have hqpos : 0 < q := hpair.1.pos
         have hcle : c ≤ c * q := by
-          simpa using Nat.mul_le_mul_left c hqpos
+          simpa using! Nat.mul_le_mul_left c hqpos
         exact hcle.trans hprod
       exact hcX.trans hB
     have hqB : q ≤ B := hqX.trans hB
     let s : SourceIndex B :=
       (⟨q, by omega⟩, ⟨c, by omega⟩)
     have hadm : SourceAdmissible s := by
-      simpa [s, sourcePrime, sourceCore] using hdata
+      simpa [s, sourcePrime, sourceCore] using! hdata
     have htrans : TransportOriented s := by
       refine ⟨hadm, ?_⟩
-      simpa [s, sourcePrime, sourceCore] using hpair.2.2.1.le
+      simpa [s, sourcePrime, sourceCore] using! hpair.2.2.1.le
     have hclock : sourceClock B s ≤ R - 1 := by
       apply (CanonicalGapAncestryEnergyBridge.sourceClock_le_iff_sourceProduct_le_endpoint
         (x := R - 1) s).2
       rw [squarePrefixEndpoint_pred_eq_squareRootEndpoint R (by omega)]
-      simpa [s, sourceProduct, sourcePrime, sourceCore, Nat.mul_comm] using hprod
+      simpa [s, sourceProduct, sourcePrime, sourceCore, Nat.mul_comm] using! hprod
     refine ⟨s, ?_, ?_⟩
     · simp [activeRootSourceSet, hadm, hclock, htrans]
     · rfl
   · intro s hs
     have hsdata :
         SourceAdmissible s ∧ sourceClock B s ≤ R - 1 ∧ TransportOriented s := by
-      simpa [activeRootSourceSet] using hs
-    simpa [sourceProduct, Nat.mul_comm] using
+      simpa [activeRootSourceSet] using! hs
+    simpa [sourceProduct, Nat.mul_comm] using!
       (sourceWeight_of_admissible s hsdata.1)
 
 /-- Removing the distinguished prime flips every squarefree cofactor weight;
@@ -270,7 +270,7 @@ theorem squareRootAncestryRootPairMass_eq_cofactorMass (R : ℕ) :
               c * q ≤ squareRootEndpoint R then
             μ (c * q)
           else 0 := by
-      simpa only using
+      simpa only using!
         (Finset.sum_product
           (s := Finset.Ico 1 R)
           (t := Finset.Icc 2 (squareRootEndpoint R))
@@ -321,7 +321,7 @@ theorem squareRootAncestryRootCofactorMass_eq_primeMass
   apply Finset.sum_congr rfl
   intro q hqmem
   by_cases hprime : q.Prime
-  · simp only [hprime, true_and, if_true]
+  · simp only [hprime, true_and, ite_true]
     let K := min (q - 1) (squareRootEndpoint R / q)
     have hqpos : 0 < q := hprime.pos
     have hKlt : K < R := by
