@@ -157,6 +157,13 @@ theorem firstOwner_three_edge_zero_weightGradient_nonzero_siteProduct :
       (by norm_num : 0 < (3 : ℕ))
     · simp [squarefreeLowerPrimeSignature, squarefreePrimeFace,
         (show Nat.Prime 3 by norm_num).primeFactors]
+      ext q
+      simp only [Finset.mem_empty, Finset.mem_filter, Finset.mem_singleton]
+      constructor
+      · intro h
+        exact False.elim h
+      · rintro ⟨rfl, hlt⟩
+        omega
     · exact Or.inr ⟨by norm_num, by norm_num⟩
   have hthree :
       lowOwnerReciprocalDaughterWeight 56 3 = (71 : ℝ) / 105 := by
