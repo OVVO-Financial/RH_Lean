@@ -60,9 +60,9 @@ theorem vf919DyadicSquareShell_diagonal_le_widthSum (H : ℕ) :
     vf919DyadicSquareShellDiagonal H ≤
       ∑ R ∈ Finset.Ico H (2 * H), (2 : ℝ) * R + 1 := by
   unfold vf919DyadicSquareShellDiagonal
-  apply Finset.sum_le_sum
-  intro R _
-  exact vf919SquareShell_diagonal_le_width R
+  exact Finset.sum_le_sum (s := Finset.Ico H (2 * H))
+    (f := vf919SquareShellDiagonal) (g := fun R => (2 : ℝ) * R + 1)
+    (fun R _ => vf919SquareShell_diagonal_le_width R)
 
 /-- Literal dyadic square-shell diagonals telescope to the endpoint
 difference. This is a genuine squarefree-site count, not a density model. -/
@@ -91,7 +91,8 @@ theorem vf919DyadicSquareShell_diagonal_le_three_sq (H : ℕ) :
   have hbound :=
     vf919Diagonal_interval_le (H ^ 2) ((2 * H) ^ 2) hle
   have hgap : (2 * H) ^ 2 - H ^ 2 = 3 * H ^ 2 := by
-    nlinarith
+    have hexpand : (2 * H) ^ 2 = H ^ 2 + 3 * H ^ 2 := by ring
+    omega
   rw [hgap] at hbound
   rw [vf919DyadicSquareShell_diagonal_telescope]
   push_cast at hbound
@@ -102,23 +103,11 @@ squarefree density theorem: each of H shells has at most 4H+1 sites. -/
 theorem vf919DyadicSquareShell_diagonal_le_rough (H : ℕ) :
     vf919DyadicSquareShellDiagonal H ≤
       (H : ℝ) * (4 * (H : ℝ) + 1) := by
-  have hcard : (Finset.Ico H (2 * H)).card = H := by
-    simp only [Finset.card_Ico]
-    omega
-  calc
-    vf919DyadicSquareShellDiagonal H ≤
-        ∑ R ∈ Finset.Ico H (2 * H), (2 : ℝ) * R + 1 :=
-      vf919DyadicSquareShell_diagonal_le_widthSum H
-    _ ≤ ∑ _R ∈ Finset.Ico H (2 * H), (4 : ℝ) * H + 1 := by
-      apply Finset.sum_le_sum
-      intro R hR
-      have hN : R < 2 * H := (Finset.mem_Ico.mp hR).2
-      have hReal : (R : ℝ) ≤ (2 * H : ℕ) := by
-        exact_mod_cast hN.le
-      push_cast at hReal
-      linarith
-    _ = (H : ℝ) * (4 * (H : ℝ) + 1) := by
-      simp [hcard, nsmul_eq_mul]
+  -- The stronger physical-capacity bound already pays the whole diagonal.
+  -- Avoid a redundant sum estimate and its fragile constant-sum simp.
+  have hsharp := vf919DyadicSquareShell_diagonal_le_three_sq H
+  have hH : 0 ≤ (H : ℝ) := Nat.cast_nonneg H
+  nlinarith [sq_nonneg (H : ℝ)]
 
 /-- The dyadic signed-covariance gate is the ONLY nontrivial part of the
 sufficient dyadic energy criterion; the diagonal has already been paid. -/
@@ -219,7 +208,7 @@ theorem vf919DyadicSquareShell_increment_eq_sum (H : ℕ) :
 individual lengths are not equal. -/
 theorem vf919DyadicSquareShell_count (H : ℕ) :
     (Finset.Ico H (2 * H)).card = H := by
-  simp [Finset.card_Ico]
+  simp [Nat.card_Ico]
   omega
 
 /-- The precise finite H-point Cauchy--Schwarz inequality. This keeps the
@@ -262,7 +251,7 @@ theorem vf919DyadicSquareShell_partial_cauchy
     intro R _ _
     positivity
   have hsize : (((Finset.Ico H K).card : ℕ) : ℝ) ≤ (H : ℝ) := by
-    rw [Finset.card_Ico]
+    rw [Nat.card_Ico]
     exact_mod_cast (show K - H ≤ H by omega)
   have hpartialNonneg :
       0 ≤ ∑ R ∈ Finset.Ico H K, vf919SquareShellSum R ^ 2 := by
