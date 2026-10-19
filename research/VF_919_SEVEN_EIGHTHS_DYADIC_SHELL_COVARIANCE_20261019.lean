@@ -232,6 +232,35 @@ theorem vf919DyadicSquareShell_partial_increment_sq
   rw [hsum] at hcs
   simpa [Real.norm_eq_abs, sq_abs] using hcs
 
+/-- The quantitative dyadic reduction with no unsourced cancellation:
+a proved one-sided covariance budget T controls the GENUINE Mobius
+increment on the physical interval [H^2,(2H)^2). -/
+theorem vf919DyadicSquareShell_increment_sq_of_signedCovariance
+    (H : ℕ) (T : ℝ)
+    (hC : 2 * vf919DyadicSquareShellCovariance H ≤ T) :
+    ‖realMertensLength ((2 * H) ^ 2) -
+        realMertensLength (H ^ 2)‖ ^ 2 ≤
+      (H : ℝ) * (3 * (H : ℝ) ^ 2 + T) := by
+  have hCS := vf919DyadicSquareShell_increment_sq_le_energy H
+  have henergy :=
+    vf919DyadicSquareShell_energy_of_signedCovariance_sharp H T hC
+  exact hCS.trans (mul_le_mul_of_nonneg_left henergy (Nat.cast_nonneg H))
+
+/-- Same signed covariance budget controls every PARTIAL dyadic Mertens
+increment (essential when K is not the dyadic right endpoint). -/
+theorem vf919DyadicSquareShell_partial_increment_sq_of_signedCovariance
+    (H K : ℕ) (hHK : H ≤ K) (hK : K ≤ 2 * H)
+    (T : ℝ) (hC : 2 * vf919DyadicSquareShellCovariance H ≤ T) :
+    ‖realMertensLength (K ^ 2) -
+        realMertensLength (H ^ 2)‖ ^ 2 ≤
+      (H : ℝ) * (3 * (H : ℝ) ^ 2 + T) := by
+  have hCS := vf919DyadicSquareShell_partial_increment_sq H K hHK hK
+  have henergy :=
+    vf919DyadicSquareShell_energy_of_signedCovariance_sharp H T hC
+  exact hCS.trans (mul_le_mul_of_nonneg_left henergy (Nat.cast_nonneg H))
+
+#print axioms vf919DyadicSquareShell_increment_sq_of_signedCovariance
+#print axioms vf919DyadicSquareShell_partial_increment_sq_of_signedCovariance
 #print axioms vf919DyadicSquareShell_increment_eq_sum
 #print axioms vf919DyadicSquareShell_count
 #print axioms vf919DyadicSquareShell_cauchy
