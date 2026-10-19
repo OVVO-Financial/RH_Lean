@@ -94,7 +94,7 @@ jobs:
         working-directory: upstream-math/lean
         run: |
           set -euo pipefail
-          lake -j 2 build OAI.NumberTheory.DirichletL.Nonvanishing 2>&1 | tee ../../seven-eighths-complete-build.log
+          lake build OAI.NumberTheory.DirichletL.Nonvanishing 2>&1 | tee ../../seven-eighths-complete-build.log
 
       - name: Compile full source-backed theorem in RHLean analytic coordinates
         shell: bash
