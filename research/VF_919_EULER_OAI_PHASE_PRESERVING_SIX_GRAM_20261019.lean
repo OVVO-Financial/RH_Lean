@@ -55,7 +55,7 @@ theorem vf919EulerPhaseTotal_eq_threeSources
           vf919EulerPhasePrime w R X := by
   unfold vf919EulerPhaseTotal vf919EulerPhaseSmooth
     vf919EulerPhaseHighComposite vf919EulerPhasePrime
-  rw [← Finset.sum_sub_distrib, ← Finset.sum_add_distrib]
+  rw [← Finset.sum_add_distrib, ← Finset.sum_sub_distrib]
   apply Finset.sum_congr rfl
   intro n _
   have hreal := vf919EulerFixedWheel_site_partition R n
@@ -71,19 +71,19 @@ theorem vf919EulerPhaseTotal_eq_threeSources
 /-- Hermitian (not plain symmetric) six-source Gram, with ALL complex
 phase information retained; cross terms come in conjugate pairs. -/
 def vf919EulerPhaseSixGram (A H P : ℂ) : ℂ :=
-  A * Complex.conj A + H * Complex.conj H +
-    P * Complex.conj P +
-    (A * Complex.conj H + H * Complex.conj A) -
-    (A * Complex.conj P + P * Complex.conj A) -
-    (H * Complex.conj P + P * Complex.conj H)
+  A * star A + H * star H +
+    P * star P +
+    (A * star H + H * star A) -
+    (A * star P + P * star A) -
+    (H * star P + P * star H)
 
 /-- The exact six-channel Hermitian expansion for arbitrary complex rows. -/
 theorem vf919EulerPhaseSixGram_identity (A H P : ℂ) :
-    (A + H - P) * Complex.conj (A + H - P) =
+    (A + H - P) * star (A + H - P) =
       vf919EulerPhaseSixGram A H P := by
   have hconj :
-      Complex.conj (A + H - P) =
-        Complex.conj A + Complex.conj H - Complex.conj P := by
+      star (A + H - P) =
+        star A + star H - star P := by
     simp
   rw [hconj]
   unfold vf919EulerPhaseSixGram
@@ -95,7 +95,7 @@ be identified with OpenAI's Hecke theta/marked amplifier weight. -/
 theorem vf919EulerPhaseTotal_hermitian_sixChannel
     (w : ℕ → ℂ) (R X : ℕ) :
     vf919EulerPhaseTotal w R X *
-        Complex.conj (vf919EulerPhaseTotal w R X) =
+        star (vf919EulerPhaseTotal w R X) =
       vf919EulerPhaseSixGram
         (vf919EulerPhaseSmooth w R X)
         (vf919EulerPhaseHighComposite w R X)
