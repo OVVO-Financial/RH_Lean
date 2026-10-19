@@ -120,3 +120,24 @@ The finite empirical maximum |M(x)|/sqrt(x) for **all x>=100,489** in this scan 
 **Interpretation:** prime density itself declines, but its weighted signed covariance contribution changes sign across x; the x/log x weighted residual exceeds the net covariance in absolute value at this terminal sample. It cannot be discarded or bounded by first-order PNT alone. The net cancellation involves genuine nonprime response and dynamic low/high pair cross-terms.
 
 The complete moving-ledger CSV (integer-time samples), all 1,229 handoff rows, and independent exact full-shell C++/CSV audits are supplied in the conversation artifacts. They are evidence, not a kernel theorem or unconditional exponent gain.
+
+
+## 7. Important exact dyadic-PNT scale correction
+
+Using the native theorem \`vf919EulerDyadicPrimeArrivals_eq_prefixDifference\` and PNT on the **complete aggregate** (rather than pretending each short shell has a PNT asymptotic), one gets
+
+\[
+\sum_{H\le R<2H} Q_R
+=\pi((2H)^2-1)-\pi(H^2-1)
+\sim\frac{3H^2}{2\log H}.
+\]
+
+Meanwhile the count of prime coordinates already below each root satisfies, using PNT and integral comparison,
+
+\[
+\sum_{H\le R<2H}\pi(R)
+\sim\sum_{H\le R<2H}\frac{R}{\log R}
+\sim\frac{3H^2}{2\log H}.
+\]
+
+Thus the aggregate new-prime arrivals and cumulative low-prime *counts* have the **same leading growth**, and their ratio approaches one on dyadic bands. Falling fraction Q_R/(2R+1) is a different statement and DOES NOT bound the signed Möbius response B_R-Q_R. The hypothetical signed composite B_R≈Q_R is an additional arithmetic cancellation claim; it cannot be deduced from these unsigned first-order counts.
