@@ -6,6 +6,8 @@ on:
       - '.github/workflows/vf919-discrete-gauss-proof.yml'
       - 'research/VF_919_NATIVE_DISCRETE_GAUSS_PARTIAL_MOMENTS_20261019.lean'
       - 'research/VF_919_NATIVE_FINITE_GAUSS_GEOMETRIC_BOUND_20261019.lean'
+      - 'research/VF_919_NATIVE_PRIME_GAUSS_NORM_20261019.lean'
+      - 'research/VF_919_NATIVE_PRIME_FOURIER_ENVELOPE_20261019.lean'
   workflow_dispatch:
 
 permissions:
@@ -44,15 +46,19 @@ jobs:
           key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py') }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py', 'RHLean.lean', 'RHLean/**/*.lean') }}
           restore-keys: |
             rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py') }}-
-      - name: Kernel-compile only the two new native Gauss modules, warnings fatal
+      - name: Kernel-compile all four native discrete/Gauss/Fourier modules, warnings fatal
         uses: ./.github/actions/research-compile
         with:
           targets: >-
             research/VF_919_NATIVE_DISCRETE_GAUSS_PARTIAL_MOMENTS_20261019.lean
             research/VF_919_NATIVE_FINITE_GAUSS_GEOMETRIC_BOUND_20261019.lean
-      - name: Reverify same two-module closure using content-addressed cache
+            research/VF_919_NATIVE_PRIME_GAUSS_NORM_20261019.lean
+            research/VF_919_NATIVE_PRIME_FOURIER_ENVELOPE_20261019.lean
+      - name: Reverify same four-module closure using content-addressed cache
         run: |
           set -euo pipefail
           python3 scripts/compile_research_import_closure.py \
             research/VF_919_NATIVE_DISCRETE_GAUSS_PARTIAL_MOMENTS_20261019.lean \
-            research/VF_919_NATIVE_FINITE_GAUSS_GEOMETRIC_BOUND_20261019.lean
+            research/VF_919_NATIVE_FINITE_GAUSS_GEOMETRIC_BOUND_20261019.lean \
+            research/VF_919_NATIVE_PRIME_GAUSS_NORM_20261019.lean \
+            research/VF_919_NATIVE_PRIME_FOURIER_ENVELOPE_20261019.lean
