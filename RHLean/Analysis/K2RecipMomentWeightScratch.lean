@@ -17,8 +17,11 @@ private theorem k2LogRecipRealTwo_hasDerivAt {x : ℝ} (hx : x ≠ 0) :
       ((2 * Real.log x - (Real.log x) ^ 2) / x ^ 2) x := by
   have h := ((Real.hasDerivAt_log hx).pow 2).div (hasDerivAt_id x) hx
   convert h using 1
-  try field_simp [hx]
-  ring
+  · funext t
+    rfl
+  · change (2 * Real.log x - (Real.log x) ^ 2) / x ^ 2 =
+        (2 * Real.log x ^ (2 - 1) * x⁻¹ * x - Real.log x ^ 2 * 1) / x ^ 2
+    field_simp [hx] <;> ring
 
 /-- Adjacent order-two reciprocal-log weights differ by at most the natural
 `log^2(n) / n^2` derivative scale. -/
@@ -107,8 +110,11 @@ private theorem k2LogRecipRealThree_hasDerivAt {x : ℝ} (hx : x ≠ 0) :
       ((3 * (Real.log x) ^ 2 - (Real.log x) ^ 3) / x ^ 2) x := by
   have h := ((Real.hasDerivAt_log hx).pow 3).div (hasDerivAt_id x) hx
   convert h using 1
-  try field_simp [hx]
-  ring
+  · funext t
+    rfl
+  · change (3 * (Real.log x) ^ 2 - (Real.log x) ^ 3) / x ^ 2 =
+        (3 * Real.log x ^ (3 - 1) * x⁻¹ * x - Real.log x ^ 3 * 1) / x ^ 2
+    field_simp [hx] <;> ring
 
 /-- Adjacent order-three reciprocal-log weights differ by at most the natural
 `log^3(n) / n^2` derivative scale. -/

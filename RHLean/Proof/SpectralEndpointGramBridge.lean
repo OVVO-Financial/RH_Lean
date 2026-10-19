@@ -64,9 +64,8 @@ theorem endpointProjectionOfSpectralGram
       (packetBoundary packet u)
       (coherentPacketBoundary packet v u hv)
       (orthogonalPacketBoundary packet v u hv) := by
-  exact { pointwise_decomposition :=
-    packetBoundary_eq_coherent_add_orthogonal packet v u hv,
-    local_energy_decomposition := spectral.local_energy_separation }
+  exact ⟨packetBoundary_eq_coherent_add_orthogonal packet v u hv,
+    spectral.local_energy_separation⟩
 
 /-- Spectral alignment and orthogonal-complement control give projection estimates. -/
 theorem endpointProjectionEstimatesOfSpectralGram
@@ -76,8 +75,8 @@ theorem endpointProjectionEstimatesOfSpectralGram
     EndpointProjectionEstimates
       (coherentPacketBoundary packet v u hv)
       (orthogonalPacketBoundary packet v u hv) := by
-  exact { coherent_bound := spectral.coherent_alignment_control,
-    residual_bound := spectral.orthogonal_operator_control }
+  exact ⟨spectral.coherent_alignment_control,
+    spectral.orthogonal_operator_control⟩
 
 /-- Spectral endpoint-Gram control yields the endpoint-boundary estimate. -/
 theorem endpointBoundary_of_spectralGram
