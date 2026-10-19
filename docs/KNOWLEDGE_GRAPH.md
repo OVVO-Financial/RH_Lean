@@ -441,17 +441,16 @@ value, keeping the two apart.  Several ecosystem tools do this, among them
 [lean4export](https://github.com/leanprover/lean4export).
 
 The reason `scripts/lean/DeclGraph.lean` exists anyway is the toolchain pin.
-This project is on `leanprover/lean4:v4.24.0` with a deliberately overridden
-`PrimeNumberTheoremAnd` snapshot and a fixed StrongPNT commit -- an arrangement
-`lakefile.lean` documents at length.  Adding an external extractor means adding
+This project is on `leanprover/lean4:v4.34.1` with Mathlib and
+`PrimeNumberTheoremAnd` pinned to the Quasi-Riemann Tracker revisions -- an
+arrangement `lakefile.lean` documents.  Adding an external extractor means adding
 a `require` to `lake-manifest.json` and building it against exactly that
 dependency set.  `DeclGraph.lean` is 140 lines, imports only `Lean`, and is not
 a build target, so it cannot perturb the pin at all.  That trade is worth
 revisiting if the toolchain ever moves; it is not worth the churn today.
 
 The same reasoning applies to migrating the project wholesale to an external
-orchestration platform pinned to a newer Lean.  Porting 230k+ lines plus the
-StrongPNT compatibility boundary to gain orchestration would be a large amount
-of change unrelated to the mathematics.  Adopting the *architecture* -- a
+orchestration platform.  Porting 230k+ lines to gain orchestration would be a
+large amount of change unrelated to the mathematics.  Adopting the *architecture* -- a
 statement DAG, statements separated from proofs, a description on every node --
 costs nothing and is what these layers do.

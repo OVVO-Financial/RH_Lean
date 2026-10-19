@@ -12,7 +12,7 @@ Every PR must preserve all of the following:
 
 - no `sorry`, `admit`, new axioms, line-leading opaque constants, or theorem substitutes;
 - no weakened statements, changed indexing, hidden assumptions, or circular RH premises;
-- use Lean 4 and mathlib `v4.24.0` and inspect version-sensitive APIs before proof work;
+- use Lean `v4.34.1` and mathlib `v4.34.1` and inspect version-sensitive APIs before proof work;
 - use modulus `2 * r`, never `r`, for the quadratic prime phase;
 - keep prime-3 rational cell-mask energy separate from the complex quadratic phase;
 - keep the full signed shell sum inside the norm and retain every cross-shell Gram term;
@@ -53,7 +53,7 @@ Copy this task list into the PR description and prepopulate it before merge-gati
 - [ ] Read the canonical sequence and checklist.
 - [ ] Select exactly one dependency-bounded theorem or corrective layer.
 - [ ] State what the PR proves, what it corrects, what it excludes, and what remains.
-- [ ] Inspect exact theorem names and signatures at mathlib `v4.24.0`.
+- [ ] Inspect exact theorem names and signatures at mathlib `v4.34.1`.
 - [ ] Branch from current `main` as `agent/<focused-description>`.
 - [ ] Implement the smallest stable module or correction.
 - [ ] Import new library modules from the generated `RHLean.lean`; register research modules outside `RHLean/` in their explicit warning-fatal workflow closures.

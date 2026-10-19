@@ -448,7 +448,7 @@ A later phase may be reordered only when its imports and theorem statements do n
 For every phase:
 
 - branch from current green `main`;
-- inspect the pinned mathlib `v4.24.0` APIs before implementation;
+- inspect the pinned mathlib `v4.34.1` APIs before implementation;
 - update `FORMALIZATION_SEQUENCE.md`, `FORMALIZATION_CHECKLIST.md`, and the PR body before merge-gating CI;
 - run `bash scripts/audit_assumptions.sh`;
 - run `lake build RHLean --wfail`;

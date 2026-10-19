@@ -1,45 +1,92 @@
-# Lean v4.34.1 upgrade for Quasi-Riemann Tracker
+# Lean v4.34.1 migration for the Quasi-Riemann Tracker
 
-**Draft migration, not yet a completed upgrade.** PR #983 is a compatibility program toward the tracker-pinned Lean v4.34.1. No RH proof or new zero-free region follows merely from changing compiler versions.
+RHLean builds on the compiler and dependency revisions pinned by the
+[Quasi-Riemann Tracker verifier](https://github.com/GTimG/QuasiRiemannTracker/blob/main/verifier/pins.json).
+Changing the compiler proves nothing new: this migration changes the build
+environment and the least source needed to compile on it. No RHLean theorem
+statement, hypothesis or axiom footprint changes.
 
-## Why the migration is staged
+## Pins
 
-The first revision directly changed RHLean's checked-in `lean-toolchain` and Mathlib/PNT+ pins. That triggered the old v4.24 StrongPNT patch in more than a dozen legacy CI jobs, causing a wave of **pre-compilation failures**, plus one inconsistent Mathlib dependency-cache failure. One specialized compilation job also reported unresolved typeclass elaboration in `ActualForcingEstimates.lean`. These failures must be distinguished, not treated as failures of established theorems.
-
-The migration now stores **candidate-only** toolchain and dependency files under `.github/lean434/`:
-
-- `lean-toolchain`: exact tracker compiler `leanprover/lean4:v4.34.1`
-- `lakefile.lean`: original StrongPNT source, then tracker PNT+, then tracker Mathlib **last** to override old transitive versions
-- `lake-manifest.json`: initially staged tracker lock plus StrongPNT, **not yet proven to match a freshly generated Lake lock**
-
-The checked-in root project remains at Lean v4.24.0 while the port is incomplete. `.github/workflows/lean-434-upgrade.yml` overlays the candidate files **inside the temporary CI checkout only**. Existing root proof checks remain fully enabled and unweakened; only the new candidate build uses 4.34.1. Once all dependencies and repository modules compile, the final step of this **same draft PR** will promote the validated candidate files to the root.
-
-## Exact source pins
-
-| Package | Required revision |
+| Package | Revision |
 | --- | --- |
-| Lean | `v4.34.1` |
-| Mathlib | `d13f23b723b8a846827a245b89c10fc7d3f11612` |
-| PrimeNumberTheoremAnd | `c39a751132c88b6e8080b74c74023fd95b3d8be0` |
-| StrongPNT (preserved historical source) | `2f5835c322314f55f1026ec2f139d704b7c45c69` |
+| Lean | `leanprover/lean4:v4.34.1` |
+| Mathlib | `d13f23b723b8a846827a245b89c10fc7d3f11612` (tag `v4.34.1`) |
+| PrimeNumberTheoremAnd (PNT+) | `c39a751132c88b6e8080b74c74023fd95b3d8be0` |
 
-The first three target pins match the Quasi-Riemann Tracker; StrongPNT is RHLean's additional dependency.
+These three match the
+[tracker lock](https://github.com/GTimG/QuasiRiemannTracker/blob/main/verifier/standard/lake-manifest.json).
+Every other entry of `lake-manifest.json` is transitive and is exactly what
+`lake update` resolves from these pins: Mathlib's dependencies follow Mathlib's
+lock, and LeanArchitect, checkdecls, PrimeCert and leancert follow PNT+'s lock.
+The tracker lock differs only in PrimeCert and leancert, which no PNT+ module
+imported by RHLean uses, and in its own extra requirements (rellich-kondrachov,
+doc-gen4).
 
-## Mandatory validation gates
+`.github/workflows/pnt-plus-strongpnt.yml` fails if the compiler, Mathlib or
+PNT+ pin drifts, compiles `PrimeNumberTheoremAnd.StrongPNT`, and audits the
+axioms of every PNT+ theorem the strong-Mertens layer consumes.
 
-1. In the isolated 4.34.1 CI runner, regenerate `lake-manifest.json` and check every Mathlib transitive dependency. Commit the **generated** candidate lock when differences are observed.
-2. Confirm an actual Mathlib smoke test passes under Lean v4.34.1.
-3. Compile the tracker PNT+ interface without changing its mathematical statement.
-4. Port historical StrongPNT into a **new** source-exact `scripts/strongpnt_434` layer. Do not reuse the v4.24 patch as-is, remove hypotheses, or add axioms. Revalidate `Strong_PNT`.
-5. Compile all RHLean modules and research imports; repair Lean 4.34 API/elaborator changes with theorem statements and premises invariant.
-6. Recheck the Mertens/rightmost-zero correspondence, canonical VF statements, #915 source and returned-boundary consumers.
-7. Check `#print axioms` and forbidden-admission audit. Require CI green at the exact commit.
-8. **Only then** move the candidate compiler/Lake configuration into the root project, run the full legacy and new CI suite, and obtain human review before merging.
+## Historical StrongPNT replaced by PNT+
 
-A red **isolated migration gate** accurately signals incomplete compatibility. It does not require turning dozens of existing proof checks red just to produce that diagnostic.
+The 4.24 project required `math-inc/strongpnt@2f5835c` and patched it at CI
+time with `scripts/strongpnt_424/`. That source does not compile against
+Mathlib 4.34 (removed `EMetric.ball`, `continuous_iff_continuousOn_univ`,
+`Algebra.id.smul_eq_mul`, `derivWithin_fderivWithin` and more), and the pinned
+PNT+ already proves the same theorems. The package is gone from the lock.
 
-## What this does not prove
+| RHLean consumes | Historical StrongPNT | PNT+ `c39a751` | Relation |
+| --- | --- | --- | --- |
+| strong prime number theorem | `Strong_PNT` | `StrongPNT` | identical statement |
+| `1/log` zero-free region | `ZetaZeroFree_p` | `ZetaZeroFree1` | identical up to `log t ^ (1 : ℕ)` versus `log t ^ (1 : ℝ)` |
+| finite-height zero-free box | `ZetaNoZerosInBox'` | `ZetaNoZerosInBox` | identical statement |
+| smoothing integrability | `SmoothedChebyshevDirichlet_aux_integrable` | same name, `MediumPNT` | identical statement |
 
-The ordinary Mertens exponent right-wall equivalence is already formalized in `research/MERTENS_CONVERSE_IDENTIFICATION.lean`. The tracker additionally quantifies over **all Dirichlet characters** and independently checks proof artifacts with Comparator, Lean, NanoDa and con-ron. A qualifying tracker proof requires independent Dirichlet-character estimates; the compiler migration alone is infrastructure work.
+PNT+'s `ZetaInvBnd` now states its log-nine window with real powers
+`log t ^ (9 : ℝ)`. `StrongMertensLogNineCorridor` converts both power forms
+with `Real.rpow_natCast`; the corridor structure it produces is unchanged.
 
-Sources: [tracker pins](https://github.com/GTimG/QuasiRiemannTracker/blob/main/verifier/pins.json) and [tracker lock](https://github.com/GTimG/QuasiRiemannTracker/blob/main/verifier/standard/lake-manifest.json).
+## Source changes forced by Mathlib v4.34.1
+
+- **Swapped order-lemma names.** Mathlib #30242 renamed `mul_le_mul_left'` to
+  `mul_le_mul_right` and reused the old names with the other side:
+  `add_le_add_left h a` now proves `b + a ≤ c + a`. Every use of
+  `add_le_add_left`, `add_le_add_right`, `add_lt_add_left`, `add_lt_add_right`
+  and the primed `mul_` versions was renamed to its counterpart, so each proof
+  still cites the lemma with its 4.24 statement.
+- **`List.Sorted` removed.** It was a reducible alias of `List.Pairwise`; uses
+  now name `List.Pairwise`, and `Finset.sort_sorted r s` is
+  `Finset.pairwise_sort s r`.
+- **Renamed or removed lemmas**, each replaced by its exact successor:
+  `mellin_inversion` by `mellinInv_mellin_eq`,
+  `Real.rpow_le_rpow_of_exponent_nonpos` by `Real.rpow_le_rpow_of_nonpos`,
+  `Nat.factorization_prod_pow_eq_self` by `Nat.prod_factorization_pow_eq_self`,
+  and `Finset.prod_le_prod_of_subset_of_one_le'` by
+  `Finset.prod_le_prod_of_subset_of_one_le`.
+- **Deprecated without replacement.** `mul_lt_one_of_nonneg_of_lt_one_left`
+  is replaced by `mul_le_of_le_one_right` followed by `trans_lt`.
+- **`Finset.product` versus `×ˢ`.** `Finset.sum_product` is now stated with
+  `×ˢ`; `Finset.product_eq_sprod` bridges the two spellings.
+
+## CI changes
+
+- Every workflow dropped the StrongPNT patch steps. The PNT+ build is cached
+  under `pntplus-build-v1-…` and prebuilt with
+  `lake build PrimeNumberTheoremAnd.StrongPNT`.
+- Workflows that compile research files directly first build the RHLean
+  modules those files import
+  (`scripts/compile_research_import_closure.py --library-only …`), so a build
+  cache from another compiler can never be loaded in place of a fresh one.
+- `strongpnt-424-port.yml` became `pnt-plus-strongpnt.yml`. The staging lane
+  (`lean-434-upgrade.yml`, `.github/lean434/`, `scripts/strongpnt_434/`) is
+  retired: its candidate configuration is now the root configuration.
+
+## What this does not change
+
+- The `export_*` packages are standalone published Lake projects with their own
+  `lean-toolchain` and lock. CI audits their sources but does not build them;
+  moving them to v4.34.1 is separate work.
+- The ordinary Mertens/right-wall equivalence was already formalized in
+  `research/MERTENS_CONVERSE_IDENTIFICATION.lean`. The tracker quantifies over
+  **all Dirichlet characters**; a qualifying submission still needs
+  independent Dirichlet-character estimates.
