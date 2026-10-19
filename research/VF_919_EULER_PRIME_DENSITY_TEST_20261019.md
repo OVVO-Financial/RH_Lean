@@ -89,3 +89,34 @@ Tracked standalone census:
 The richer complete-shell CSVs and plots with all 9,998 roots are supplied as conversation artifacts. Their underlying full-census program euler_prime_response_test.cpp and analysis script were run under the same warning-fatal C++ compiler.
 
 **Novel required theorem:** a uniform arithmetic restriction on the *joint* prime-model error and the signed composite response, or preferably on their compensated cross-term, strong enough to yield E(H)=O_epsilon(H^(5/2+epsilon)) and ultimately an all-scale power saving. It cannot be obtained by substituting x/log x into one-shell prime counts while discarding its signed residual.
+
+
+## 6. Full moving covariance extension through x=99,999,999
+
+The already-established strict sqrt(x) Euler ledger C++ executable was rerun at **N=99,999,999**, independently of the complete-shell density census above. It verified the signed moving low/high decomposition after **every** integer admission and every one of the **1,229** prime-square handoffs (all handoffs had delta total covariance exactly zero).
+
+Terminal exact integer arithmetic:
+
+| Quantity | At x=99,999,999 |
+|---|---:|
+| π(x) | 5,761,455 |
+| M(x) | +1,928 |
+| squarefree K | 60,792,694 |
+| signed LOW mass L | −354,099 |
+| signed HIGH mass H | +356,027 |
+| C_LL | +62,684,984,482 |
+| C_HH | +63,355,282,436 |
+| C_LH | −126,068,804,673 |
+| C_total | −28,537,755 |
+| true prime-arrival C_prime | −668,067,313 |
+| prime-model C_model (x/log x increments) | −629,018,218.7683 |
+| weighted prime-model C_residual | **−39,049,094.2317** |
+| genuine nonprime-arrival C_comp | +639,529,558 |
+
+Arithmetic checks: L+H=+1,928; C_LL+C_HH+C_LH=−28,537,755=(1,928²−60,792,694)/2; C_prime+C_comp=−28,537,755; C_model+C_residual=C_prime.
+
+The finite empirical maximum |M(x)|/sqrt(x) for **all x>=100,489** in this scan was 0.462728690117 at x=30,919,091. The finite maximum |M(x)|/x^(7/8) for all x>=100,489 remained 0.00476139204361 at x=119,545. No extrapolation is claimed.
+
+**Interpretation:** prime density itself declines, but its weighted signed covariance contribution changes sign across x; the x/log x weighted residual exceeds the net covariance in absolute value at this terminal sample. It cannot be discarded or bounded by first-order PNT alone. The net cancellation involves genuine nonprime response and dynamic low/high pair cross-terms.
+
+The complete moving-ledger CSV (integer-time samples), all 1,229 handoff rows, and independent exact full-shell C++/CSV audits are supplied in the conversation artifacts. They are evidence, not a kernel theorem or unconditional exponent gain.
