@@ -164,6 +164,46 @@ theorem vf919SquareShell_prefixCauchy (K : ℕ) :
   rw [vf919SquareShell_telescope] at hcs'
   simpa [Real.norm_eq_abs, sq_abs] using hcs'
 
+/-- Exact decomposition of full-prefix square-shell energy into lower
+prefix plus one dyadic band. No covariance upper bound is used. -/
+theorem vf919SquareShellPrefixEnergy_double (H : ℕ) :
+    vf919SquareShellPrefixEnergy (2 * H) =
+      vf919SquareShellPrefixEnergy H +
+        vf919DyadicSquareShellEnergy H := by
+  have h :=
+    Finset.sum_Ico_eq_sub
+      (fun R => vf919SquareShellSum R ^ 2)
+      (show H ≤ 2 * H by omega)
+  unfold vf919DyadicSquareShellEnergy vf919SquareShellPrefixEnergy
+  linarith
+
+/-- ALL powers-of-two shell energies aggregate by an exact finite
+telescoping identity; this is the discrete skeleton of the dyadic-to-
+global route. A uniform 5/2+epsilon bound still needs to be supplied
+before estimating the sum on the right. -/
+theorem vf919SquareShellPrefixEnergy_powTwo (k : ℕ) :
+    vf919SquareShellPrefixEnergy (2 ^ k) =
+      vf919SquareShellPrefixEnergy 1 +
+        ∑ j ∈ Finset.range k, vf919DyadicSquareShellEnergy (2 ^ j) := by
+  induction k with
+  | zero =>
+      simp
+  | succ k ih =>
+      calc
+        vf919SquareShellPrefixEnergy (2 ^ (k + 1)) =
+            vf919SquareShellPrefixEnergy (2 * 2 ^ k) := by
+              congr 1
+              rw [pow_succ]
+              ring
+        _ = vf919SquareShellPrefixEnergy (2 ^ k) +
+              vf919DyadicSquareShellEnergy (2 ^ k) :=
+          vf919SquareShellPrefixEnergy_double (2 ^ k)
+        _ = vf919SquareShellPrefixEnergy 1 +
+              ∑ j ∈ Finset.range (k + 1),
+                vf919DyadicSquareShellEnergy (2 ^ j) := by
+            rw [Finset.sum_range_succ, ih]
+            ring
+
 /-! ## Source-faithful finite dyadic Cauchy--Schwarz / telescoping -/
 
 /-- The H square shells exactly telescope over [H^2,(2H)^2).
@@ -283,6 +323,8 @@ theorem vf919DyadicSquareShell_partial_increment_sq_of_signedCovariance
 
 #print axioms vf919DyadicSquareShell_increment_sq_of_signedCovariance
 #print axioms vf919DyadicSquareShell_partial_increment_sq_of_signedCovariance
+#print axioms vf919SquareShellPrefixEnergy_double
+#print axioms vf919SquareShellPrefixEnergy_powTwo
 #print axioms vf919SquareShell_prefixCauchy
 #print axioms vf919DyadicSquareShell_increment_eq_sum
 #print axioms vf919DyadicSquareShell_count
