@@ -13,7 +13,7 @@ Since \(\mu((r+1)^2)=0\), this equals the strictly open square-shell sum. For a 
 
 The local second moment \(\sum\Delta_r^2\ll_\varepsilon H^{7/3+\varepsilon}\) implies \(|S_H|\ll_\varepsilon H^{5/3+\varepsilon}\) by Cauchy--Schwarz. The converse is *false for bounded integer sequences*: alternating coherent signs between successive entire square shells can make each \(|\Delta_r|\asymp H\) (energy \(\asymp H^3\)) while the dyadic *endpoint* sum remains much smaller. Thus the per-shell energy hypothesis is stronger than the target needs. Our next theorem should not force it.
 
-For every dyadic \(H=2^j\), an independent \(|S_H|\ll_\varepsilon H^{5/3+\varepsilon}\) implies \(M(x)\ll_\varepsilon x^{5/6+\varepsilon}\) by telescoping \(M(4H^2)-M(H^2)\) over dyadic root blocks. For arbitrary \(x\) between neighboring square endpoints, the residual physical shell has \(O(\sqrt x)\) integers with \(|\mu|\le1\); it is affordable. Conversely a global \(5/6\) bound implies this dyadic signed block estimate. This equivalence is an endpoint arithmetic *target*, not new analytical input.
+**Essential quantifier correction:** controlling only the completed dyadic blocks \(S_H\) does *not* control arbitrary roots inside \([H,2H]\). One must establish the same estimate **uniformly over every partial block** \(S_{H,K}=\sum_{r=H}^{H+K-1}\Delta_r\), \(0\le K\le H\), for each dyadic \(H=2^j\). Then \(M(R^2)-M(H^2)=S_{H,R-H}\) is controlled at every square root \(R\in[H,2H]\); the completed blocks telescope over dyadic \(H\), and the residual from \(R^2\) to arbitrary \(x<(R+1)^2\) costs only \(O(\sqrt x)\). This *uniform-prefix* criterion is equivalent to the full Mertens \(5/6\) growth statement up to epsilon renaming; a completed-block-only criterion is not.
 
 ## 2. The corrected trapezoid has a stronger endpoint telescope
 
@@ -43,7 +43,7 @@ The exact identity is
 \[
 \boxed{S_H^2=D_H+2N_{H,L}+2F_{H,L}.}\tag{1}
 \]
-The Lean module \`research/SQUARE_SHELL_LONG_LAG_FIVE_SIXTHS_20261019.lean\` uses the existing \`signedBlockCrossCovariance_eq_doubleSum\`, splits the preceding index row \(i<j\) into \(i<j-L\) versus \(j-L\le i<j\), and proves the exact identity (1).
+The Lean module \`research/SQUARE_SHELL_LONG_LAG_FIVE_SIXTHS_20261019.lean\` uses the existing \`signedBlockCrossCovariance_eq_doubleSum\`, splits the preceding index row \(i<j\) into \(i<j-L\) versus \(j-L\le i<j\), and proves the exact identity (1). A companion \`research/SQUARE_SHELL_LONG_LAG_UNIFORM_PREFIX_20261019.lean\` resets the prefix index to arbitrary \(H\) and \(K\le H\), and proves the same near/diagonal payment for literal \`realSquareBlockMass\` without hypothesizing any Mobius cancellation.
 
 Every \(|\Delta_r|\le 2r+1<4H\), so without a single arithmetic cancellation,
 \[
@@ -89,14 +89,14 @@ Combining (1)--(5),
 S_H^2\le 32H^3+32H^3L+2U_{H,L}^{\gcd\le H}.
 }\tag{6}
 \]
-Thus the **only unpaid scalar input** for the direct \(5/6\) program is the one-sided uniform upper bound
+For every \(0\le K\le H\), the identical proof applies with all shell-pair sums restricted to \(H\le r<s<H+K\). The crude bounds \(D_{H,K}\le16H^3\), \(|N_{H,K,L}|\le16H^3L\), and \(|F_{H,K,L}^{\gcd>H}|\le8H^3\) remain uniform in \(K\). Define \(U_{H,K,L}^{\gcd\le H}\) by the same physical small-gcd long-lag restriction. **The only unpaid scalar input for a genuinely global \(5/6\) result is uniform in every partial length**:
 \[
 \boxed{
-U_{H,\lfloor H^{1/3}\rfloor}^{\gcd\le H}
+\sup_{0\le K\le H}\,U_{H,K,\lfloor H^{1/3}\rfloor}^{\gcd\le H}
 \ll_\varepsilon H^{10/3+\varepsilon}.
 }\tag{7 OPEN}
 \]
-A signed upper bound is enough; no absolute-value estimate on this large double sum is needed. Equation (7) remains an RH-adjacent arithmetic hypothesis, **not** a consequence of the established identities. Conversely a \(5/6\) bound implies it up to \(\varepsilon\)-renaming, by (1)--(5); it is not an independent achievement until proved from genuinely different prime/cofactor input.
+A signed upper bound is enough; no absolute-value estimate on this large double sum is needed. Equation (7) remains an RH-adjacent arithmetic hypothesis, **not** a consequence of the established identities. Conversely a global \(5/6\) bound implies this **uniform-prefix** version up to \(\varepsilon\)-renaming, by (1)--(5); it is not an independent achievement until proved from genuinely different prime/cofactor input.
 
 ## 5. The remaining physical pairs are genuinely separated and unshared
 
@@ -132,9 +132,9 @@ The brute-force *divisor-witness* count for large gcd (overcounting actual pairs
 
 ## 7. Acceptance and agent attack seam
 
-1. **Lean / geometry:** certify the sharp-to-smoothed *endpoint* telescope and near-lag Green--Kubo, not just the earlier L2 shell theorem. Specialize to genuine \(\mu\), then import the high-gcd count with a telescoping finite rational bound.
+1. **Lean / geometry:** certify the sharp-to-smoothed *endpoint* telescope, near-lag Green--Kubo and **uniform prefix K<=H**, not just the earlier L2 shell theorem. Specialize to genuine \(\mu\), then import the high-gcd count with a telescoping finite rational bound.
 2. **Owner / finite wheel:** match the remaining sector (long lag \(>H^{1/3}\), small gcd \(\le H\)) to actual-prime \(p>r\) and smooth \(P^+\le r\) with once-only source ownership. Pay same-prime-owner families from (4) before any diagonal estimate.
-3. **Analytic Type II:** build an independently bounded shifted/cofactor bilinear sum for \(m-n\ge2H L+1\), \(g\le H\), \((a,b)=1\), \((g,ab)=1\), with genuine \(\mu(a)\mu(b)\). A large sieve is admissible only with a proved coefficient-to-character phase map and enough scale saving to imply (7).
+3. **Analytic Type II:** build an independently bounded shifted/cofactor bilinear sum for \(m-n\ge2H L+1\), \(g\le H\), **uniformly in partial K**, \((a,b)=1\), \((g,ab)=1\), with genuine \(\mu(a)\mu(b)\). A large sieve is admissible only with a proved coefficient-to-character phase map and enough scale saving to imply (7).
 4. **Adversarial referee:** disallow taking absolute values before the full signed sum, treating the source equivalent to \(M\) as independent, or claiming the spectral collar cutoff itself bounds the low-frequency part. Keep all historical restoring terms, fixed versus moving root cutoffs, and original VF canonical statement intact.
 
 **Research conclusion:** A stronger deterministic result and a more promising *weaker* analytic target have been located; \(5/6\) is **still unproved**.
