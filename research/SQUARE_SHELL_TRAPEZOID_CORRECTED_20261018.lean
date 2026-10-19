@@ -108,7 +108,7 @@ theorem shellTrapezoidShift_abs_le
     have := Finset.mem_range.mp hk
     omega
   have hki : (k : ℤ) ≤ 2 * (T : ℤ) := by exact_mod_cast hk'
-  have hk0 : 0 ≤ (k : ℤ) := Int.ofNat_nonneg _
+  have hk0 : 0 ≤ (k : ℤ) := Int.natCast_nonneg _
   unfold shellTrapezoidShift
   apply abs_le.mpr
   constructor <;> omega
@@ -156,7 +156,7 @@ theorem shellTrapezoidSaw_abs_le_radius
       _ = (((2 * T + 1 : ℕ) : ℝ)) * (T : ℝ) := by simp
   unfold shellTrapezoidSaw shellTrapezoidMean
   rw [abs_div, abs_of_pos hN]
-  exact (div_le_iff₀ hN).2 hsum
+  exact (div_le_iff₀ hN).2 (by simpa [mul_comm] using hsum)
 
 theorem shellTrapezoidResidual_sq_le
     (P : ℤ → ℝ) (hLip : ShellTrapezoidUnitLipschitz P)
@@ -179,6 +179,7 @@ theorem shellTrapezoidResidual_sq_le
     (sq_le_sq₀ (abs_nonneg _)
       (by positivity : 0 ≤ 2 * (T : ℝ))).2 htri
   rw [shellTrapezoidResidual_eq_saw_difference]
+  rw [sq_abs] at hsq
   nlinarith [hsq]
 
 /-- Second moment over the `H` consecutive square shells `H <= r < 2H`. -/
@@ -260,7 +261,15 @@ theorem shellTrapezoidSmoothedEnergy_le_sharp
   have h := shellTrapezoidEnergy_add_le
     (shellTrapezoidSharp P)
     (fun r => -shellTrapezoidResidual P r T) H
-  simpa only [sub_eq_add_neg, neg_sq] using h
+  have hneg :
+      shellTrapezoidEnergy (fun r => -shellTrapezoidResidual P r T) H =
+        shellTrapezoidEnergy (fun r => shellTrapezoidResidual P r T) H := by
+    unfold shellTrapezoidEnergy
+    apply Finset.sum_congr rfl
+    intro k hk
+    ring
+  rw [hneg] at h
+  simpa only [sub_eq_add_neg] using h
 
 /-- Exact quantitative equivalence in the useful form: any envelope `B H`
 which pays `H*(T H)^2` pays the sharp moment iff it pays the complete smoothed
