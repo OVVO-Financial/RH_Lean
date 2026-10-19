@@ -47,7 +47,8 @@ private theorem lem_BCI (R M : ℝ) (hR : 0 < R) (hM : 0 < M)
   have hpoint : z ∈ Metric.closedBall (0 : ℂ) r := by
     simpa only [Metric.mem_closedBall, dist_zero_right] using hz
   have hbc := borelCaratheodory' hM hR hrR ha hZero hb hpoint
-  convert hbc using 1 <;> ring
+  convert hbc using 1
+  ring
 
 /-- The exponent in the three-circle estimate. -/
 def logInterpolationExponent (r R : ℝ) : ℝ :=
