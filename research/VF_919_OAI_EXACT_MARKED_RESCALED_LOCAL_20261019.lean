@@ -70,7 +70,7 @@ theorem vf919OAIlocalP_unrestricted_two_terms
     (1 - V) * (1 - W) *
       ((1 - V)⁻¹ + W / (1 - W)) = 1 - V * W := by
   field_simp [hV, hW]
-  <;> ring
+  ring
 
 /-- The full unrestricted row with the local error E and reciprocal D. -/
 theorem vf919OAIlocalP_polynomial
@@ -178,7 +178,6 @@ theorem vf919OAI_exact_local_compensation
           ((u - B) * (V / (1 - V) - D) +
             (A + u - B) * E) := by
           field_simp [hV, hD]
-          <;> ring
 
 /-- The p|row zero-extension: W=D=0, so the nonunit character inverse
     does not exist. The selected row obeys G=A*(1-V)*E-B*H exactly. -/
@@ -193,6 +192,7 @@ theorem vf919OAI_zero_extended_mask
   have hP' : (1 - V) * vf919OAIlocalP V 0 0 E =
       1 + (1 - V) * E := by
     simpa using hP
+  simp only [sub_zero, mul_zero, zero_mul, one_mul, mul_one, div_one] at *
   rw [hP']
   ring
 
@@ -286,7 +286,6 @@ theorem vf919OAI_unit_character_phase_facts
           (etaInv * eta) * (Qx * Qx⁻¹) * v⁻¹ := by ring
       _ = v⁻¹ := by simp [hEta, hQx]
   · field_simp [hv]
-    <;> ring
 
 /-- OpenAI (5.13b) with A, B, D, W and u INSTANTIATED from the
     ACTUAL character and norm-power expressions, not separately
