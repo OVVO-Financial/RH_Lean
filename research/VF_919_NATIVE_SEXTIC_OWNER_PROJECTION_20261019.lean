@@ -73,7 +73,10 @@ theorem vf919SexticFourWits_ownerProjections :
       vf919SexticOwnerProjection 439 (-5) 12 = 100531) ∧
     (vf919SexticOwnerProjection 3727 13 (-6) = 1054741 ∧
       vf919SexticOwnerProjection 3727 19 6 = 1054741) := by
-  norm_num [vf919SexticOwnerProjection, vf919EisensteinCoordNorm]
+  -- The defining Eisenstein norm and Int.toNat are fully reducible for
+  -- these four exact primary generators: discharge the arithmetic in the
+  -- kernel without assuming any prime-ideal source identities.
+  decide
 
 /-- Same source n=133, same literal physical AMP weight, but provably
     DIFFERENT canonical sextic Hecke-row phases. -/
@@ -163,12 +166,50 @@ theorem vf919SexticFourWits_markedMinusRescaledMainTotals :
 /-- Four roots all have coefficient +1 under the original actual
     integer Moebius sign. This is independent of their sextic
     ideal-labelled phases. -/
+/-- Existing native Möbius first-prime law applied at the unit
+    gives the correct sign of ANY prime, without evaluating a generic
+    squarefree/cardFactors expression by computation. -/
+private theorem vf919SexticRealMoebius_prime
+    (p : ℕ) (hp : p.Prime) : realMoebiusStep p = -1 := by
+  have hunit : realMoebiusStep 1 = 1 := by
+    norm_num [realMoebiusStep]
+  have hnew : ¬ p ∣ 1 := by
+    simpa using hp.ne_one
+  have hflip := realMoebiusStep_mul_prime_eq_neg
+    (p := p) (n := 1) hp hnew
+  simpa [hunit] using hflip
+
+/-- Fresh multiplication by a second prime flips -1 back to +1.
+    This supplies the actual Möbius signs at every one of our four
+    semiprime witnesses, using RH_Lean's general theorem. -/
+private theorem vf919SexticRealMoebius_distinctPrimePair
+    (p q : ℕ) (hp : p.Prime) (hq : q.Prime)
+    (hnew : ¬ p ∣ q) :
+    realMoebiusStep (p * q) = 1 := by
+  rw [realMoebiusStep_mul_prime_eq_neg hp hnew,
+    vf919SexticRealMoebius_prime q hq]
+  norm_num
+
 theorem vf919SexticFourWits_originalIntegerMobius :
     realMoebiusStep 133 = 1 ∧
     realMoebiusStep 259 = 1 ∧
     realMoebiusStep 100531 = 1 ∧
     realMoebiusStep 1054741 = 1 := by
-  norm_num [realMoebiusStep, ArithmeticFunction.moebius]
+  constructor
+  · simpa only [show 19 * 7 = 133 by norm_num] using
+      (vf919SexticRealMoebius_distinctPrimePair 19 7
+        (by norm_num) (by norm_num) (by norm_num))
+  constructor
+  · simpa only [show 37 * 7 = 259 by norm_num] using
+      (vf919SexticRealMoebius_distinctPrimePair 37 7
+        (by norm_num) (by norm_num) (by norm_num))
+  constructor
+  · simpa only [show 439 * 229 = 100531 by norm_num] using
+      (vf919SexticRealMoebius_distinctPrimePair 439 229
+        (by norm_num) (by norm_num) (by norm_num))
+  · simpa only [show 3727 * 283 = 1054741 by norm_num] using
+      (vf919SexticRealMoebius_distinctPrimePair 3727 283
+        (by norm_num) (by norm_num) (by norm_num))
 
 #print axioms vf919SexticSameNorm_samePhysicalSite
 #print axioms vf919SexticFourWits_ownerProjections
