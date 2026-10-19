@@ -37,12 +37,11 @@ theorem vf919FiniteFieldGauss_squaredNorm
 residue field is F_p. Its nontrivial sextic character has exact Gauss
 magnitude sqrt(p), independently of the rational norm projection. -/
 theorem vf919SplitPrimeGauss_squaredNorm
-    (p : ℕ) (hp : p.Prime)
+    (p : ℕ) [NeZero p] (hp : p.Prime)
     (χ : DirichletCharacter ℂ p)
     (hχ : χ ≠ 1) :
     ‖gaussSum χ (ZMod.stdAddChar (N := p))‖ ^ 2 = (p : ℝ) := by
   letI : Fact p.Prime := ⟨hp⟩
-  letI : NeZero p := ⟨hp.ne_zero⟩
   have h := vf919FiniteFieldGauss_squaredNorm χ
     (ZMod.stdAddChar (N := p)) hχ
     (AddChar.isPrimitive_stdAddChar p)
