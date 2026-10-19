@@ -128,13 +128,12 @@ theorem lowOwnerFirstOwnerRawParentTailCarrier_eq_equalKeyProduct
     rcases Finset.mem_filter.mp h with ⟨hbranch, htail⟩
     rcases Finset.mem_filter.mp hbranch with ⟨hprod, hkey⟩
     rcases Finset.mem_product.mp hprod with ⟨hm, hn⟩
-    have hmTail : squareRootEndpoint R < r * m := by omega
-    have hnTail : squareRootEndpoint R < r * n := by omega
-    change (m, n) ∈
-      ((lowOwnerFirstOwnerRawParentTailSiteCarrier R p sig r).product
-        (lowOwnerFirstOwnerRawParentTailSiteCarrier R p sig r)).filter
-        (fun mn => lowOwnerRawParentRevealedKey R r mn.1 =
-          lowOwnerRawParentRevealedKey R r mn.2)
+    change ¬ (r * m ≤ squareRootEndpoint R ∨
+      r * n ≤ squareRootEndpoint R) at htail
+    have ⟨hmTail, hnTail⟩ :
+        squareRootEndpoint R < r * m ∧
+          squareRootEndpoint R < r * n := by
+      simpa only [not_or, not_le] using htail
     apply Finset.mem_filter.mpr
     refine ⟨Finset.mem_product.mpr ?_, hkey⟩
     exact ⟨Finset.mem_filter.mpr ⟨hm, hmTail⟩,
@@ -147,7 +146,9 @@ theorem lowOwnerFirstOwnerRawParentTailCarrier_eq_equalKeyProduct
     apply Finset.mem_filter.mpr
     refine ⟨Finset.mem_filter.mpr
       ⟨Finset.mem_product.mpr ⟨hmbase, hnbase⟩, hkey⟩, ?_⟩
-    omega
+    change ¬ (r * m ≤ squareRootEndpoint R ∨
+      r * n ≤ squareRootEndpoint R)
+    simpa only [not_or, not_le] using And.intro hmTail hnTail
 
 /-- One key fibre of an equal-key pair carrier is a Cartesian square. -/
 private theorem equalKeyPair_filter_eq_fiberProduct
