@@ -32,7 +32,9 @@ theorem finiteWheelRoughMoebius_mul_zeta_apply
       if n = 0 then 0 else if n.primeFactors ⊆ P then 1 else 0 := by
   induction n using Nat.recOnPosPrimePosCoprime with
   | zero => simp
-  | one => simp [finiteWheelRoughMoebius]
+  | one =>
+      rw [ArithmeticFunction.mul_apply_one]
+      simp [finiteWheelRoughMoebius]
   | prime_pow p k hp hk =>
       rw [ArithmeticFunction.coe_mul_zeta_apply,
         Nat.sum_divisors_prime_pow hp, Finset.sum_range_succ']

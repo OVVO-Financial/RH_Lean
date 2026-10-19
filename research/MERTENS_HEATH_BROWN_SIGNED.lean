@@ -146,7 +146,7 @@ theorem inverseDefect_prefix_one {N : Nat} (hN : 1 <= N) :
     inverseDefect (mobiusPrefix N) 1 = 0 := by
   change (1 : ArithmeticFunction Int) 1 - (mobiusPrefix N * zetaInt) 1 = 0
   rw [ArithmeticFunction.mul_apply_one]
-  simp [ArithmeticFunction.one_apply, mobiusPrefix, zetaInt, hN]
+  simp [ArithmeticFunction.one_apply, mobiusPrefix, zetaInt]
 
 /-- Two unprocessed prime defects reinforce rather than cancel in each product. -/
 theorem fresh_prime_defect_product {N p q : Nat} (hN : 1 <= N)

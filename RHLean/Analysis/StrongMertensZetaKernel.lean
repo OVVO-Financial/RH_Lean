@@ -286,7 +286,7 @@ theorem strongMertensSmoothedIntegrand_integrable_right_line
     · exact ContinuousAt.comp
         (continuousAt_const_cpow (by exact_mod_cast (show 0 < X by linarith).ne')) hg
   -- `Integrable.bdd_mul` wants a genuine uniform bound, not an a.e. one.
-  have key := hMint.bdd_mul hmeas ⟨c, hbdd⟩
+  have key := hMint.bdd_mul hmeas (Filter.Eventually.of_forall hbdd)
   apply key.congr
   filter_upwards with t
   unfold strongMertensSmoothedIntegrand

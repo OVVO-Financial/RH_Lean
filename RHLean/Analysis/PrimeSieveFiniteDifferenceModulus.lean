@@ -101,7 +101,7 @@ theorem logarithmicIntegralFromTwo_one :
     logarithmicIntegralFromTwo_one]
   have hIoc : Finset.Ioc 0 1 = {1} := by decide
   rw [hIoc]
-  simp [primeSievePrimeIndicator]
+  simp [primeSievePrimeIndicator] <;> decide
 
 /-! ## Möbius norm and shift commutation -/
 
