@@ -56,6 +56,13 @@ jobs:
         run: bash scripts/audit_assumptions.sh
       - name: Build unchanged dependencies
         run: lake build RHLean.Analysis.PrimeSieveQuotientPNTError RHLean.Analysis.NativePNTMertens
+      - name: Build RHLean modules imported by these research checks
+        run: >-
+          python3 scripts/compile_research_import_closure.py --library-only
+          research/PRIME_DENSITY_INTEGRAL_TIGHTENING.lean
+          research/PRIME_DENSITY_LOG_TIGHTENING.lean
+          research/PRIME_DENSITY_PNT_LOG_BOUND.lean
+          research/PRIME_DENSITY_UNIVERSAL_BASELINE.lean
       - name: Kernel-check baseline and reciprocal tightening
         run: |
           mkdir -p .lake/build/lib/lean

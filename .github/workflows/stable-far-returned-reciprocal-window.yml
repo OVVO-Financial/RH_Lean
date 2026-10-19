@@ -59,6 +59,13 @@ jobs:
           lake build RHLean.Proof.StableFarWallCrossingOwnerWindow
           lake build RHLean.Proof.StableFarWallQ2ChildFarSlice
 
+      - name: Build RHLean modules imported by these research checks
+        run: >-
+          python3 scripts/compile_research_import_closure.py --library-only
+          research/STABLE_FAR_RECIPROCAL_OWNER_FUBINI.lean
+          research/STABLE_FAR_RETURNED_FIBER_PRODUCTION.lean
+          research/STABLE_FAR_RETURNED_RECIPROCAL_FROZEN_WINDOW.lean
+
       - name: Emit research prerequisites
         run: |
           lake env lean -DwarningAsError=true \

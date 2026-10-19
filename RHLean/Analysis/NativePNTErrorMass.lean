@@ -120,7 +120,6 @@ theorem nativeHarmonic_succ_sub_log_bounds
   have hratio : (N : ℝ) + 1 ≤ 2 * (N : ℝ) := by
     linarith
   have hlogratio : Real.log (N + 1 : ℝ) ≤ Real.log 2 + Real.log N := by
-    change Real.log ((N : ℝ) + 1) ≤ Real.log 2 + Real.log (N : ℝ)
     calc
       Real.log ((N : ℝ) + 1) ≤ Real.log (2 * (N : ℝ)) := by
         apply Real.log_le_log

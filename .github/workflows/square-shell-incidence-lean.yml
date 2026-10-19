@@ -46,6 +46,10 @@ jobs:
             rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-
       - name: Build native upper-divisor inversion
         run: lake build RHLean.Analysis.DivisorUpperMobius
+      - name: Build RHLean modules imported by these research checks
+        run: >-
+          python3 scripts/compile_research_import_closure.py --library-only
+          research/SQUARE_SHELL_INCIDENCE_COMPENSATION_LEAN.lean
       - name: Check algebraic compensation with warnings fatal
         run: |
           mkdir -p .lake/build/lib/lean

@@ -49,6 +49,10 @@ jobs:
             mertens-converse-sources.zip
             mertens-converse-interfaces.log
           retention-days: 7
+      - name: Build RHLean modules imported by these research checks
+        run: >-
+          python3 scripts/compile_research_import_closure.py --library-only
+          research/MERTENS_CONVERSE_ACCEPTANCE.lean
       - name: Compile converse closure with warnings fatal
         uses: ./.github/actions/research-compile
         with:

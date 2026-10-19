@@ -48,6 +48,10 @@ jobs:
         run: |
           lake build RHLean.Analysis.MobiusRenewalTelescope
           lake build RHLean.Analysis.NativePNTSignedSecondSelbergFactorFourMoments
+      - name: Build RHLean modules imported by these research checks
+        run: >-
+          python3 scripts/compile_research_import_closure.py --library-only
+          research/PNT_FIRST_LAMBDA_HYPERBOLA_ANCHOR_20261018.lean
       - name: Check PNT-first exact interfaces with warnings fatal
         run: |
           mkdir -p .lake/build/lib/lean

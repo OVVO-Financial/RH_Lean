@@ -68,6 +68,11 @@ jobs:
         with:
           path: .lake/build/lib/lean/research.*
           key: vf915-research-base-${{ runner.os }}-${{ runner.arch }}-${{ github.event.pull_request.base.sha || github.sha }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
+      - name: Build RHLean modules imported by these research checks
+        run: >-
+          python3 scripts/compile_research_import_closure.py --library-only
+          research/VF_MID_FIRST_BAD_EXACT_BUDGET_CLOSE.lean
+          research/VF_MID_FIRST_BAD_FINAL_AGGREGATE_CONTRACTION.lean
       - name: Compile stable #914 research closure
         if: steps.research-cache.outputs.cache-hit != 'true'
         run: |

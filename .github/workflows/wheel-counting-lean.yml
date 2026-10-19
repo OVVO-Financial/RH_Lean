@@ -71,6 +71,15 @@ jobs:
             rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-
       - name: Kernel-check finite interval counting
         run: lake build RHLean.Analysis.RoughWheelFiniteCounting --wfail
+      - name: Build RHLean modules imported by these research checks
+        run: >-
+          python3 scripts/compile_research_import_closure.py --library-only
+          research/NAT_DIV_INTERVAL_WIDTH_SCRATCH.lean
+          research/PRIME_WHEEL_ROUGH_SEAT_FROZEN_BRIDGE.lean
+          research/PRIME_WHEEL_ROUGH_SEAT_SQRT_SPECIALIZATION.lean
+          research/PRIME_WHEEL_SIGNED_INTERVAL_AGGREGATE.lean
+          research/PRIME_WHEEL_TRUNCATED_MOBIUS_KERNEL.lean
+          research/WHEEL_2310_TWO_OVERLAP_IDENTITY.lean
       - name: Kernel-check generic floor-width lemma
         run: lake env lean research/NAT_DIV_INTERVAL_WIDTH_SCRATCH.lean
       - name: Kernel-check 210 wheel staircase

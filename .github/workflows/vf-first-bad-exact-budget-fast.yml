@@ -104,6 +104,24 @@ jobs:
           path: .lake/build/lib/lean/research.*
           key: vf915-research-base-${{ runner.os }}-${{ runner.arch }}-${{ github.event.pull_request.base.sha || github.sha }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
 
+      - name: Build RHLean modules imported by these research checks
+        run: >-
+          python3 scripts/compile_research_import_closure.py --library-only
+          research/VF_MID_915_CENTERED_OWNER_TRIANGULAR.lean
+          research/VF_MID_915_COMPRESSED_HISTORY_SINK.lean
+          research/VF_MID_915_EXACT_HISTORICAL_NNS_COMPRESSION.lean
+          research/VF_MID_915_FIXED17_ACTUAL_SIGNED_INLET.lean
+          research/VF_MID_915_FLOOR_LI_TRANSPORT_BOUNDARY.lean
+          research/VF_MID_915_LATE_PREFIX_WEIGHTED_DYADIC.lean
+          research/VF_MID_915_MIDDLE_PRIME_COMPOSITE_CAPACITY.lean
+          research/VF_MID_915_PARITY_REFINEMENT_EXACT_PRICE.lean
+          research/VF_MID_915_PRIME_INTERVAL_LI_STRATIFICATION.lean
+          research/VF_MID_915_TERMINAL_TOP_THIRD_TRANSPORT.lean
+          research/VF_MID_915_TWO_OWNER_CLIPPED_FLUX.lean
+          research/VF_MID_FIRST_BAD_EXACT_BUDGET_CLOSE.lean
+          research/VF_MID_FIRST_BAD_FINAL_AGGREGATE_CONTRACTION.lean
+          research/VF_MID_FLOOR_LI_TRANSPORT_CANCELLATION.lean
+
       - name: Build stable #914 research closure on cache miss
         if: steps.research-cache.outputs.cache-hit != 'true'
         run: |

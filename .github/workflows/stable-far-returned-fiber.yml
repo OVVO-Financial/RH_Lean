@@ -44,5 +44,10 @@ jobs:
       - name: Build owner-window production module
         run: lake build RHLean.Proof.StableFarWallCrossingOwnerWindow --wfail
 
+      - name: Build RHLean modules imported by these research checks
+        run: >-
+          python3 scripts/compile_research_import_closure.py --library-only
+          research/STABLE_FAR_RETURNED_FIBER_PRODUCTION.lean
+
       - name: Kernel-check returned-fiber Fubini
         run: lake env lean -DwarningAsError=true -o .lake/build/lib/lean/research.STABLE_FAR_RETURNED_FIBER_PRODUCTION.olean research/STABLE_FAR_RETURNED_FIBER_PRODUCTION.lean

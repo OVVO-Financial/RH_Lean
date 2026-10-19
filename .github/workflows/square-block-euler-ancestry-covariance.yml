@@ -67,6 +67,12 @@ jobs:
           lake build RHLean.Proof.CanonicalGapAncestryHighRealization
           lake build RHLean.Analysis.MathlibMertensHook
           lake build RHLean.Arithmetic.PrimeWheelMobiusRecovery
+      - name: Build RHLean modules imported by these research checks
+        run: >-
+          python3 scripts/compile_research_import_closure.py --library-only
+          research/SQUARE_BLOCK_EULER_ANCESTRY_COVARIANCE_20261017.lean
+          research/VF974_FIRST_BAD_BOUNDARY_DESCENT_OBSTRUCTION_20261018.lean
+          research/VF974_ORIGINAL_FIRSTBAD_GLOBAL_RESIDUAL_DOMINANCE_20261018.lean
       - name: Check new theorems with warnings fatal and inspect axioms
         run: |
           mkdir -p .lake/build/lib/lean

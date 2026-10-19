@@ -78,6 +78,22 @@ jobs:
       - name: Kernel-check stable-far owner-window Euler telescope
         run: lake build RHLean.Proof.StableFarWallCrossingOwnerWindow --wfail
 
+      - name: Build RHLean modules imported by these research checks
+        run: >-
+          python3 scripts/compile_research_import_closure.py --library-only
+          research/HALF_ROOT_BOUNDARY_BASE_TELESCOPE.lean
+          research/HALF_ROOT_PAIR_COLUMN_CANCELLATION.lean
+          research/HALF_ROOT_PRIME_PAIR_DISCREPANCY.lean
+          research/HALF_ROOT_PRIME_PAIR_FIRST_JUMP.lean
+          research/HALF_ROOT_PRIME_PAIR_WEIGHT.lean
+          research/HALF_ROOT_RECOUPLED_FIRST_JUMP.lean
+          research/HALF_ROOT_SQUARE_CORRECTION_BOUND.lean
+          research/HALF_ROOT_WEIGHTED_FIRST_JUMP.lean
+          research/PROPER_SUBWHEEL_DEPTH_TWO_REASSEMBLY.lean
+          research/PROPER_SUBWHEEL_OUTER_PARITY_REASSEMBLY.lean
+          research/STABLE_FAR_RETURNED_FIBER_FUBINI.lean
+          research/STABLE_FAR_RETURNED_FIBER_PRODUCTION.lean
+
       - name: Kernel-check all-Mertens depth-two reassembly
         run: lake env lean research/PROPER_SUBWHEEL_DEPTH_TWO_REASSEMBLY.lean
 

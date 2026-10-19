@@ -54,6 +54,11 @@ jobs:
       - name: Build exact dyadic transport dependencies
         run: lake build RHLean.Analysis.SquareRootTransportRealization
 
+      - name: Build RHLean modules imported by these research checks
+        run: >-
+          python3 scripts/compile_research_import_closure.py --library-only
+          research/DYADIC_SMOOTH_HIGH_JOINT_PACKET.lean
+
       - name: Kernel-check joint dyadic packet
         run: lake env lean -DwarningAsError=true research/DYADIC_SMOOTH_HIGH_JOINT_PACKET.lean
 

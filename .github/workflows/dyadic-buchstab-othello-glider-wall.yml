@@ -51,6 +51,13 @@ jobs:
           restore-keys: |
             rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-
 
+      - name: Build RHLean modules imported by these research checks
+        run: >-
+          python3 scripts/compile_research_import_closure.py --library-only
+          research/DYADIC_BUCHSTAB_OTHELLO_GLIDER_WALL.lean
+          research/DYADIC_LONG_RANGE_TETHER_AUDIT.lean
+          research/DYADIC_SMOOTH_HIGH_JOINT_PACKET.lean
+
       - name: Build dependencies
         run: |
           lake build RHLean.Analysis.SquareRootPrimeCountGap

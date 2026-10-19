@@ -221,6 +221,11 @@ jobs:
         with:
           path: .lake/build
           key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}
+      - name: Build RHLean modules imported by these research checks
+        run: >-
+          python3 scripts/compile_research_import_closure.py --library-only
+          research/VF_MID_FIRST_BAD_ACTUAL_ADMISSIBILITY_CERTIFICATE.lean
+          research/VF_MID_FIRST_BAD_PAYMENT_V2_NATIVE_CONSUMER.lean
       - name: Build main native library and compile consumer import closure
         run: |
           lake build RHLean

@@ -59,6 +59,10 @@ jobs:
           lake build RHLean.Analysis.SquareRootTransportRealization
           lake build RHLean.Analysis.PrimeSieveLipschitzExcursion
           lake build RHLean.Analysis.CanonicalLowOccupancy
+      - name: Build RHLean modules imported by these research checks
+        run: >-
+          python3 scripts/compile_research_import_closure.py --library-only
+          research/LI_MODEL_DISCRETIZATION.lean
       - name: Kernel-check Li model discretization
         run: |
           mkdir -p .lake/build/lib/lean

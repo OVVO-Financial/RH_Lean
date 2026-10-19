@@ -65,6 +65,11 @@ jobs:
           build: false
           test: false
           lint: false
+      - name: Build RHLean modules imported by these research checks
+        run: >-
+          python3 scripts/compile_research_import_closure.py --library-only
+          research/FINITE_A_C_PRIME_COMB_DYADIC_OCCURRENCE_WELD.lean
+          research/VF_MID_932_ORIGINAL_VF_CARRIER_DISJOINT.lean
       - name: Build the exact native and research import closure
         run: |
           python3 scripts/compile_research_import_closure.py \

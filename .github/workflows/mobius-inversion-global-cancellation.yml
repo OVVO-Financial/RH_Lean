@@ -52,6 +52,10 @@ jobs:
           lake build RHLean.Analysis.SquareRootPositiveSmoothCollapse
           lake build RHLean.Proof.MatchedFarSurvivorBridge
           lake build RHLean.Proof.SquareRootAncestryRoot
+      - name: Build RHLean modules imported by these research checks
+        run: >-
+          python3 scripts/compile_research_import_closure.py --library-only
+          research/MOBIUS_INVERSION_GLOBAL_CANCELLATION.lean
       - name: Kernel-check Mobius inversion global cancellation
         run: |
           mkdir -p .lake/build/lib/lean

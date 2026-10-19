@@ -109,6 +109,12 @@ jobs:
       - uses: actions/checkout@v4
       - name: Set up Lean and cached Mathlib
         uses: ./.github/actions/lean-setup
+      - name: Build RHLean modules imported by these research checks
+        run: >-
+          python3 scripts/compile_research_import_closure.py --library-only
+          research/VF_CANONICAL_ALL_REAL_LI_O_ONE.lean
+          research/VF_CANONICAL_SQRT_TWO.lean
+          research/VF_CANONICAL_SQRT_TWO_VON_KOCH.lean
       - name: Strict native and research import-closure compile
         run: |
           python3 scripts/compile_research_import_closure.py --build-library \
