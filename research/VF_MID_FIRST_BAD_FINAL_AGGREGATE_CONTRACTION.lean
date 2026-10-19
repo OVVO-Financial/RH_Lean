@@ -710,7 +710,6 @@ theorem vfMidActiveWeightedCellExcess_eq_returnedCoDivExcess
       _ = d := Nat.mul_div_cancel' hdDvd
   · intro d hd
     refine ⟨p * d, lowOwnerFirstOwner_mul_mem_child_of_admitted hp hd, ?_⟩
-    change (p * d) / p = d
     simpa [Nat.mul_comm] using! Nat.mul_div_left d hp.pos
   · intro b hb
     have hcAdm :=

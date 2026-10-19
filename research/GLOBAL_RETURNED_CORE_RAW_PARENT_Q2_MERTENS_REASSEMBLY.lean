@@ -107,7 +107,6 @@ private theorem sum_pDivisible_realMoebius_mul_eq_neg_admittedParent
       _ = m := Nat.mul_div_cancel' hmdiv
   · intro a ha
     refine ⟨p * a, globalAdmitted_mul_mem_pDivisible hp ha, ?_⟩
-    change (p * a) / p = a
     simpa [Nat.mul_comm] using! Nat.mul_div_left a hp.pos
   · intro n hn
     have hchild := globalPDivisible_mem_childCell hn
