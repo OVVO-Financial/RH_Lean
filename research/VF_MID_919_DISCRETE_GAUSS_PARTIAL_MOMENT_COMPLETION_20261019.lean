@@ -125,7 +125,7 @@ theorem vf919PrimitiveCharacterGaussCompletion
     (χ : DirichletCharacter ℂ N) (hχ : χ.IsPrimitive)
     (g : ZMod N → ℂ) :
     (∑ x : ZMod N, χ x * g x) =
-      (N : ℂ)⁻¹ * DirichletCharacter.gaussSum χ ZMod.stdAddChar *
+      (N : ℂ)⁻¹ * gaussSum χ ZMod.stdAddChar *
         ∑ r : ZMod N, χ⁻¹ (-r) * ZMod.dft g (-r) := by
   rw [vf919DiscreteCharacterFourierCompletion]
   simp_rw [hχ.fourierTransform_eq_inv_mul_gaussSum]
