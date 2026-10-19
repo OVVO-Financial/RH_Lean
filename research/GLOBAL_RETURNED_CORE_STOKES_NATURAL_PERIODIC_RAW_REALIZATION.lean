@@ -69,11 +69,11 @@ theorem lowOwnerStokesNaturalPeriodicRawJoint_mul_prefixWindow_eq
       ⟨hwin.1, hwin.2.trans (by simpa [W, lowOwnerStokesNaturalWheelSystem] using hx)⟩
     have hraw : W.torusRawBlockField z =
         (((W.rawSite z.val : ℤ) : ℂ)) := by
-      simp only [PrimeWheelFiniteSystem.torusRawBlockField, if_pos hblock]
+      simp [PrimeWheelFiniteSystem.torusRawBlockField, hblock]
     rw [hraw]
     rfl
   · have hzero : W.torusPrefixWindow x z = 0 := by
-      simp only [PrimeWheelFiniteSystem.torusPrefixWindow, if_neg hwin]
+      simp [PrimeWheelFiniteSystem.torusPrefixWindow, hwin]
     rw [hzero]
     simp only [mul_zero]
 
