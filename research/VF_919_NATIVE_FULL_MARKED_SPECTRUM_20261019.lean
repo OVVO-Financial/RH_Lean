@@ -114,7 +114,7 @@ theorem vf919NativeFullMarkedSpectrum_signedHermitianEnergy
       (vf919MarkedNativeSmoothSource R X)
       (vf919MarkedNativeHighSource R X)
   rw [vf919MarkedNativeSmooth_sub_high_eq_sharp R X] at hsource
-  rw [← hsource]
+  rw [hsource]
   simpa only [Complex.sq_norm] using
     Complex.normSq_sub
       (vf919FiniteIdealRow P norm phase
