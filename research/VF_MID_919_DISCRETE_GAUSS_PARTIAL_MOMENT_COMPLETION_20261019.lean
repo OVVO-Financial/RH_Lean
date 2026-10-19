@@ -1,6 +1,7 @@
 import Mathlib.Analysis.Fourier.ZMod
 import RHLean.Analysis.FiniteTorusFourierPairing
 import «research.VF_MID_919_OAI_PARTIAL_MOMENT_TAILS»
+import «research.VF_919_NATIVE_DISCRETE_GAUSS_PARTIAL_MOMENTS_20261019»
 
 /-!
 # Discrete character completion in native NNS UPM/LPM coordinates
@@ -28,15 +29,8 @@ open scoped BigOperators
 noncomputable section
 namespace RHLean.Analysis
 
-/-- Exact degree-one upper partial sum, with NO division by sample size. -/
-def vf919DiscreteUPM1 {ι : Type*} (S : Finset ι)
-    (f : ι → ℝ) : ℝ :=
-  ∑ x ∈ S, partialUpper (f x) 0
-
-/-- Exact degree-one lower partial sum, with NO division by sample size. -/
-def vf919DiscreteLPM1 {ι : Type*} (S : Finset ι)
-    (f : ι → ℝ) : ℝ :=
-  ∑ x ∈ S, partialLower (f x) 0
+/-! Canonical native zero-target UPM1/LPM1 definitions are imported above.
+     Reuse them instead of introducing distinct same-named declarations. -/
 
 /-- Literal cancellation: the signed sum is UPM(1)-LPM(1).
     It is an EXACT sum, rather than a numerical quadrature. -/
