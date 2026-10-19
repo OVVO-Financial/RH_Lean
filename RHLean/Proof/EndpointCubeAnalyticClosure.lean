@@ -290,7 +290,7 @@ theorem sum_mertensPositivePhysicalPairCarrier_eq_positiveLagPairSum
   classical
   have houter : Finset.Icc 1 W = Finset.Ico 1 (W + 1) := by
     ext n
-    simp
+    simp only [Finset.mem_Icc, Finset.mem_Ico]
     omega
   calc
     (∑ mn ∈ mertensPositivePhysicalPairCarrier W,

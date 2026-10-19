@@ -721,7 +721,7 @@ theorem primeSieveDyadicPacketIntervalLevelEnergy_dyadic_scaled
         primeSieveDyadicBlock y x j := by
     rw [primeSieveDyadicBlock_eq_explicitIcc]
     ext d
-    simp
+    simp only [Finset.mem_Icc, Finset.mem_Ico]
     omega
   have hfib : ∀ d ∈ Finset.Ico (primeSieveDyadicBlockLeft j)
       (primeSieveDyadicBlockRight y x j + 1),

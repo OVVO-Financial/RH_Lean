@@ -43,7 +43,7 @@ theorem k2A2AbelPrefix_ofReal_eq_sum_range (sigma : ℝ) (M : ℕ) :
         LSeries.term k2MobiusLogSqCoeff (sigma : ℂ) n := by
   have hIcc : Finset.Icc 1 M = Finset.Ico 1 (M + 1) := by
     ext n
-    simp
+    simp only [Finset.mem_Icc, Finset.mem_Ico]
     omega
   unfold k2A2AbelPrefix
   rw [hIcc]

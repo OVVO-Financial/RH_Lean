@@ -39,7 +39,7 @@ theorem lowOwnerZeroFrequencyFirstOwnerGram_eq_positivePairCarrier
       Finset.Icc 1 (squareRootEndpoint R) =
         Finset.Ico 1 (squareRootEndpoint R + 1) := by
     ext n
-    simp
+    simp only [Finset.mem_Icc, Finset.mem_Ico]
     omega
   symm
   calc

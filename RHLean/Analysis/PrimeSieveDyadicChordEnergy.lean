@@ -187,7 +187,7 @@ theorem card_primeSieveDyadicBlock
         Finset.Ico (primeSieveDyadicBlockLeft j)
           (primeSieveDyadicBlockRight y x j + 1) := by
     ext d
-    simp
+    simp only [Finset.mem_Icc, Finset.mem_Ico]
     omega
   rw [hset, Nat.card_Ico]
 
@@ -212,7 +212,7 @@ theorem sum_primeSieveReciprocalPrimeDiscrepancy_dyadicBlock_eq
         Finset.Ico (primeSieveDyadicBlockLeft j)
           (primeSieveDyadicBlockRight y x j + 1) := by
     ext d
-    simp
+    simp only [Finset.mem_Icc, Finset.mem_Ico]
     omega
   rw [hset]
   exact sum_primeSieveReciprocalPrimeDiscrepancy_Ico_eq

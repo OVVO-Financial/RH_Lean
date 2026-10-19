@@ -90,7 +90,7 @@ theorem tendsto_zero_of_cubic_recurrence
   have hcube : L ^ 3 = 0 :=
     (mul_eq_zero.mp hprod_zero).resolve_left (ne_of_gt hC)
   have hL : L = 0 := by
-    exact pow_eq_zero hcube
+    exact eq_zero_of_pow_eq_zero hcube
   simpa [hL] using! hconv
 
 /-- The cubic recurrence also retains an explicit finite-step budget.  Since
@@ -1141,7 +1141,7 @@ private theorem nativeLogRecipIco_le_mass
   unfold nativeLogRecipMass
   have hset : Finset.Icc 1 N = Finset.Ico 1 (N + 1) := by
     ext n
-    simp
+    simp only [Finset.mem_Icc, Finset.mem_Ico]
     omega
   rw [hset, Finset.sum_Ico_succ_top hN]
   have hlog0 : 0 ≤ Real.log (N : ℝ) :=
@@ -1157,7 +1157,7 @@ private theorem nativeRecipIco_le_harmonic
   rw [hharm]
   have hset : Finset.Icc 1 N = Finset.Ico 1 (N + 1) := by
     ext n
-    simp
+    simp only [Finset.mem_Icc, Finset.mem_Ico]
     omega
   rw [hset, Finset.sum_Ico_succ_top hN]
   exact le_add_of_nonneg_right (by positivity)

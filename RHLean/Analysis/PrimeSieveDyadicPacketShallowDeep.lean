@@ -717,7 +717,7 @@ private theorem genericChordEnergy_eq_blockChordEnergy
         primeSieveDyadicBlock y x j := by
     rw [primeSieveDyadicBlock_eq_explicitIcc]
     ext d
-    simp
+    simp only [Finset.mem_Icc, Finset.mem_Ico]
     omega
   unfold genericChordEnergy
   rw [hset]
