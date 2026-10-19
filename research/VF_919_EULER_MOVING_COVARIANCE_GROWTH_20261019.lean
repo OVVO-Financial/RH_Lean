@@ -46,6 +46,28 @@ theorem vf919EulerPrime_strictLow_crossing
     rw [hqp]
     omega
 
+/-- EVERY already-present descendant p*c with 1<=c<p is HIGH
+at x=p² and LOW at x=p²+1. Other prime factors are below p.
+This is the exact square-root Euler renewal orbit. -/
+theorem vf919EulerPrimeChild_strictLow_crossing
+    {p c : ℕ} (hp : p.Prime) (hc : 0 < c) (hclt : c < p) :
+    ¬ vf919EulerStrictLow (p ^ 2) (p * c) ∧
+      vf919EulerStrictLow (p ^ 2 + 1) (p * c) := by
+  have hpdiv : p ∣ p * c := ⟨c, rfl⟩
+  constructor
+  · intro h
+    have hbad := h p hp hpdiv
+    omega
+  · intro q hq hd
+    rcases hq.dvd_mul.mp hd with hqp | hqc
+    · have heq : q = p := (Nat.prime_dvd_prime_iff_eq hq hp).mp hqp
+      rw [heq]
+      omega
+    · have hqle : q ≤ c := Nat.le_of_dvd hc hqc
+      have hqp : q ≤ p := hqle.trans hclt.le
+      have hpow : q ^ 2 ≤ p ^ 2 := Nat.pow_le_pow_left hqp 2
+      omega
+
 def vf919EulerLowSite (X n : ℕ) : ℝ :=
   if vf919EulerStrictLow X n then realMoebiusStep n else 0
 
@@ -242,6 +264,7 @@ theorem vf919EulerDyadicEnergy_of_growthErrorBudgets
   linarith
 
 #print axioms vf919EulerPrime_strictLow_crossing
+#print axioms vf919EulerPrimeChild_strictLow_crossing
 #print axioms vf919EulerLowHigh_sitePartition
 #print axioms vf919EulerLowHigh_siteDiagonal
 #print axioms vf919EulerLowHigh_totalMass
