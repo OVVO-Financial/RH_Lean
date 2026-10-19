@@ -131,6 +131,17 @@ theorem vf919DyadicSquareShell_energy_of_signedCovariance
   have hK := vf919DyadicSquareShell_diagonal_le_rough H
   linarith
 
+/-- Tight dyadic energy envelope: the actual diagonal costs only 3H^2.
+No sign estimate has been made; the signed covariance premise is EXPLICIT. -/
+theorem vf919DyadicSquareShell_energy_of_signedCovariance_sharp
+    (H : ℕ) (T : ℝ)
+    (hC : 2 * vf919DyadicSquareShellCovariance H ≤ T) :
+    vf919DyadicSquareShellEnergy H ≤
+      3 * (H : ℝ) ^ 2 + T := by
+  have hGram := vf919DyadicSquareShell_signedGreenKubo H
+  have hDiag := vf919DyadicSquareShell_diagonal_le_three_sq H
+  linarith
+
 /-! ## Source-faithful finite dyadic Cauchy--Schwarz / telescoping -/
 
 /-- The H square shells exactly telescope over [H^2,(2H)^2).
@@ -227,6 +238,7 @@ theorem vf919DyadicSquareShell_partial_increment_sq
 #print axioms vf919DyadicSquareShell_increment_sq_le_energy
 #print axioms vf919DyadicSquareShell_partial_cauchy
 #print axioms vf919DyadicSquareShell_partial_increment_sq
+#print axioms vf919DyadicSquareShell_energy_of_signedCovariance_sharp
 #print axioms vf919DyadicSquareShell_diagonal_telescope
 #print axioms vf919DyadicSquareShell_diagonal_le_three_sq
 #print axioms vf919DyadicSquareShell_signedGreenKubo
