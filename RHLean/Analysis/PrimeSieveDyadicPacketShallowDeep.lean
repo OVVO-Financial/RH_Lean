@@ -346,7 +346,7 @@ private theorem genericChordEnergy_split_weighted
             have ht := left_tent_energy_le c ham
             have hcoef : 0 ≤ (q : ℝ) * ((q + 1 : ℕ) : ℝ) := by positivity
             have hs := mul_le_mul_of_nonneg_left ht hcoef
-            convert add_le_add_left hs
+            convert add_le_add_right hs
               (((q + 1 : ℕ) : ℝ) * (∑ d ∈ Finset.Ico a m,
                 ‖genericSignedSiblingResidual f a d m‖ ^ 2)) using 1
             all_goals ring
@@ -386,7 +386,7 @@ private theorem genericChordEnergy_split_weighted
             have ht := right_tent_energy_le c hmb
             have hcoef : 0 ≤ (q : ℝ) * ((q + 1 : ℕ) : ℝ) := by positivity
             have hs := mul_le_mul_of_nonneg_left ht hcoef
-            convert add_le_add_left hs
+            convert add_le_add_right hs
               (((q + 1 : ℕ) : ℝ) * (∑ d ∈ Finset.Ico m b,
                 ‖genericSignedSiblingResidual f m d b‖ ^ 2)) using 1
             all_goals ring
@@ -447,7 +447,7 @@ private theorem genericMidpointPacketTreeEnergy_mono_succ
       simp only [genericMidpointPacketTreeEnergy]
       by_cases hsplit : a + 1 < b
       · simp [hsplit]
-        exact add_le_add (add_le_add_left (ih _ _) _) (ih _ _)
+        exact add_le_add (add_le_add_right (ih _ _) _) (ih _ _)
       · simp [hsplit]
 
 private theorem genericMidpointPacketTreeEnergy_mono
@@ -553,7 +553,7 @@ private theorem genericChordEnergy_le_midpointPacketTreeEnergy
                 simpa [root, mul_assoc] using hw
               _ ≤ (((depth : ℝ) + 1) * (2 * (depth : ℝ) * kids) +
                     (depth : ℝ) * (((depth : ℝ) + 1) * root)) := by
-                exact add_le_add_right hchildScaled _
+                exact add_le_add_left hchildScaled _
               _ ≤ (depth : ℝ) *
                     (2 * ((depth : ℝ) + 1) * (root + kids)) := by
                 have hextra :

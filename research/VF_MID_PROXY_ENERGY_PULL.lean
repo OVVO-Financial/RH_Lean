@@ -1024,7 +1024,7 @@ theorem vfMidFullScaleViolation_forces_thetaEndpointViolation
         rw [abs_div, abs_of_pos hlog]
       _ ≤ (vfMidThetaBarrierRadius C S + vfMidThetaBarrierRadius C (S + 1)) /
           Real.log (vfMidBandMidpoint S) + |vfMidDirectLogPositionError S| :=
-        add_le_add_right (div_le_div_of_nonneg_right hband hlog.le) _
+        add_le_add_left (div_le_div_of_nonneg_right hband hlog.le) _
   exact (not_lt_of_ge hfull) hviolation
 
 /-- Uniform local VF charge sufficient to force one of the two theta
@@ -1471,7 +1471,7 @@ theorem vfMidProtectedBlockReciprocalPair_abs_le_parent
           |nativePNTSignedSquareBlockCorrelationReciprocalSummand L M L m| +
         (1 / (p : ℝ)) *
           |nativePNTSignedSquareBlockCorrelationReciprocalSummand L M L m| :=
-            add_le_add_left hdef _
+            add_le_add_right hdef _
     _ = |nativePNTSignedSquareBlockCorrelationReciprocalSummand L M L m| := by
           ring
 

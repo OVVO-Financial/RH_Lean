@@ -73,7 +73,7 @@ theorem norm_mertensSummatory_le_max_nearestSquareEndpoint_add_root
         norm_add_le _ _
       _ ≤ ‖squarePrefixMertens (R - 1)‖ +
             ((x - squarePrefixEndpoint (R - 1) : ℕ) : ℝ) :=
-        add_le_add_left hgap' _
+        add_le_add_right hgap' _
       _ ≤ max ‖squarePrefixMertens (R - 1)‖ ‖squarePrefixMertens R‖ +
             (R : ℝ) :=
         add_le_add (le_max_left _ _) hnearR
@@ -106,7 +106,7 @@ theorem norm_mertensSummatory_le_max_nearestSquareEndpoint_add_root
         norm_add_le _ _
       _ ≤ ‖squarePrefixMertens R‖ +
             ((squarePrefixEndpoint R - x : ℕ) : ℝ) :=
-        add_le_add_left hgap' _
+        add_le_add_right hgap' _
       _ ≤ max ‖squarePrefixMertens (R - 1)‖ ‖squarePrefixMertens R‖ +
             (R : ℝ) :=
         add_le_add (le_max_right _ _) hnearUpperR

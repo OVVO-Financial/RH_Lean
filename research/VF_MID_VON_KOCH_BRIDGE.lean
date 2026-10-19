@@ -814,7 +814,7 @@ theorem primeLiVonKochBounded_of_vfMid
         C * Real.sqrt x * Real.log x + B * Real.sqrt x
             ≤ C * Real.sqrt x * Real.log x +
                 (B / ell) * Real.sqrt x * Real.log x :=
-          add_le_add_left hroot _
+          add_le_add_right hroot _
         _ = (C + B / ell) * Real.sqrt x * Real.log x := by ring
 
 /-- Conversely, the classical prime-minus-Li von-Koch bound and the proved
@@ -858,7 +858,7 @@ theorem vfMidVonKochBounded_of_primeLi
         C * Real.sqrt x * Real.log x + B * Real.sqrt x
             ≤ C * Real.sqrt x * Real.log x +
                 (B / ell) * Real.sqrt x * Real.log x :=
-          add_le_add_left hroot _
+          add_le_add_right hroot _
         _ = (C + B / ell) * Real.sqrt x * Real.log x := by ring
 
 /-- With the unconditional midpoint quadrature theorem installed, the direct

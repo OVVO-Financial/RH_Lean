@@ -402,7 +402,7 @@ theorem correlationFour_of_finalStokesQ2EnergyBound
       (1 / 2 + 2 * B) * farFourOddQ2DaughterEnergy R ≤
         4 * farFourOddQ2DaughterEnergy R :=
     mul_le_mul_of_nonneg_right hCoeff hE
-  exact h.trans (add_le_add_right hMono _)
+  exact h.trans (add_le_add_left hMono _)
 
 /-- A `7/4` signed-cell q^2 assembly bound is already sufficient for RH. -/
 theorem riemannHypothesis_of_signedCellQ2EnergyAssemblyBound
@@ -583,7 +583,7 @@ theorem correlationFour_of_post789SignedRemainderBound
       (2 * A + 1) * farFourOddQ2DaughterEnergy R ≤
         4 * farFourOddQ2DaughterEnergy R :=
     mul_le_mul_of_nonneg_right hCoeff hE
-  exact h.trans (add_le_add_right hMono _)
+  exact h.trans (add_le_add_left hMono _)
 
 /-- In the relaxed corridor the post-#789 signed remainder already implies RH.
 No complete cancellation of the recursive q^2 daughter energy is required. -/

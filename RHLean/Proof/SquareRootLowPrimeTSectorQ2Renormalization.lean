@@ -89,11 +89,11 @@ theorem reciprocalSquarePrefix_le_one_sub_inv
             (1 : ℚ) / ((k + 3 : ℕ) : ℚ) ^ 2 ≤
           (1 - 1 / ((k + 2 : ℕ) : ℚ)) +
             (1 : ℚ) / ((k + 3 : ℕ) : ℚ) ^ 2 :=
-              add_le_add_right ih _
+              add_le_add_left ih _
         _ ≤ (1 - 1 / ((k + 2 : ℕ) : ℚ)) +
             (1 / (((k + 3 : ℕ) : ℚ) - 1) -
               1 / ((k + 3 : ℕ) : ℚ)) :=
-              add_le_add_left hterm _
+              add_le_add_right hterm _
         _ = 1 - 1 / ((k + 3 : ℕ) : ℚ) := by
           have hkcast : (((k + 3 : ℕ) : ℚ) - 1) =
               ((k + 2 : ℕ) : ℚ) := by
@@ -282,7 +282,7 @@ theorem q2EnergyStep_implies_linear_of_fixedPointBudget
           E X ≤ C * (X : ℚ) +
               lambda * ∑ q ∈ primesUpTo X, E (X / (q * q)) := hstep X
           _ ≤ C * (X : ℚ) + lambda * (K * (X : ℚ)) :=
-            add_le_add_left hweighted _
+            add_le_add_right hweighted _
           _ = (C + lambda * K) * (X : ℚ) := by ring
           _ ≤ K * (X : ℚ) :=
             mul_le_mul_of_nonneg_right hfixed (by positivity)
@@ -347,7 +347,7 @@ theorem q2EnergyStep_implies_linear
                 ∑ q ∈ primesUpTo X, E (X / (q * q)) := hs
           _ ≤ C * (X : ℚ) +
               ((3 : ℚ) / 4) * (4 * C * (X : ℚ)) :=
-                add_le_add_left hweighted _
+                add_le_add_right hweighted _
           _ = 4 * C * (X : ℚ) := by ring
 
 /-- **Subcritical energy induction with the exact prime-11 factor.** -/

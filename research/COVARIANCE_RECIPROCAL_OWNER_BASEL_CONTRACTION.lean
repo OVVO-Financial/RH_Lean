@@ -50,7 +50,7 @@ theorem primeOwnerReciprocalSquareBudget_le_109_over_225 (N : ℕ) :
       (∑ q ∈ primesUpTo N, (1 : ℚ) / (q : ℚ) ^ 2) =
           (∑ q ∈ (primesUpTo N).erase 2,
             (1 : ℚ) / (q : ℚ) ^ 2) + 1 / 4 := hsplit'.symm
-      _ ≤ (211 / 900 : ℚ) + 1 / 4 := add_le_add_right hodd _
+      _ ≤ (211 / 900 : ℚ) + 1 / 4 := add_le_add_left hodd _
       _ = 109 / 225 := by norm_num
   · have heq : (primesUpTo N).erase 2 = primesUpTo N :=
       Finset.erase_eq_of_notMem htwo

@@ -103,7 +103,7 @@ theorem nativeAbelBoundMonotone_general
             (b n - b (n + 1))| := abs_add_le _ _
     _ ≤ P * B + P * (b M - b 1) := add_le_add hend htail
     _ ≤ P * B + P * (2 * B) :=
-      add_le_add_left (mul_le_mul_of_nonneg_left hdiffBound hP) _
+      add_le_add_right (mul_le_mul_of_nonneg_left hdiffBound hP) _
     _ = 3 * P * B := by ring
 
 /-- Reciprocal integer mass equals the harmonic number. -/

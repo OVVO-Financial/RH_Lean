@@ -272,7 +272,7 @@ theorem prod_pow_factorization_eq (s : FullFactorizationState)
     (hn : s.value ≠ 0) :
     s.factorization.prod (fun p e => p ^ e) = s.value := by
   rw [s.is_canonical]
-  exact Nat.factorization_prod_pow_eq_self hn
+  exact Nat.prod_factorization_pow_eq_self hn
 
 /-- `bigOmega` is exactly `cardFactors`. -/
 theorem bigOmega_eq_cardFactors (s : FullFactorizationState) :

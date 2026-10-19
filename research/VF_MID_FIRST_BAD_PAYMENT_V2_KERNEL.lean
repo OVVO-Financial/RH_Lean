@@ -4,7 +4,7 @@ import Mathlib
 # First-bad minimal payment — exact parity-compressed algebra
 
 This is a SMALL, warning-fatal, Mathlib-only kernel test. It does not import
-the expensive native StrongPNT/research graph. The native definitions are
+the expensive native PNT+/research graph. The native definitions are
 w_R = V_R / R, C_R = R - P_R and D_R = pi(R^2)-VF_mid(R^2).
 
 The ONLY open mathematical requirement is to establish the final balance

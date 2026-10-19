@@ -168,7 +168,7 @@ theorem physicalCompleteCell_exceptionalFactorThreeStep_implies_linear
                     ((((4 * K / 49) / 4 : ℕ) : ℚ))) + 135 := by ring
             _ ≤ (5 : ℚ) / 4 * A *
                   ((1891 : ℚ) / 11025 * (K : ℚ)) + 135 := by
-                    exact add_le_add_right
+                    exact add_le_add_left
                       (mul_le_mul_of_nonneg_left hscale hcoef) 135
             _ ≤ (5 : ℚ) / 4 * A *
                   ((1891 : ℚ) / 11025 * (K : ℚ)) +
@@ -186,7 +186,7 @@ theorem physicalCompleteCell_exceptionalFactorThreeStep_implies_linear
                   mertensEnergy (4 * K / 49)) := hs
           _ ≤ C * (K : ℚ) +
                 3 * ((((5 : ℚ) / 4 * (1891 : ℚ) / 11025 * A) + 135) *
-                  (K : ℚ)) := add_le_add_left hweighted _
+                  (K : ℚ)) := add_le_add_right hweighted _
           _ = (C + 405 + (1891 : ℚ) / 2940 * A) * (K : ℚ) := by ring
           _ ≤ A * (K : ℚ) :=
                 mul_le_mul_of_nonneg_right hfixed (by positivity)
@@ -438,7 +438,7 @@ theorem squareEndpointRawOddQ2EnergyStepWith_implies_unshifted_amplification
         _ ≤ C * (R : ℝ) ^ 2 * K +
               a * (((37 : ℝ) / 36 * A * K) *
                   ((17 : ℝ) / 72 * (R : ℝ) ^ 2) +
-                148 * (2 * (R : ℝ) ^ 2)) := add_le_add_left hweighted _
+                148 * (2 * (R : ℝ) ^ 2)) := add_le_add_right hweighted _
         _ = (C + (a * ((37 : ℝ) / 36) * ((17 : ℝ) / 72)) * A) * ((R : ℝ) ^ 2 * K) +
               296 * a * (R : ℝ) ^ 2 := by ring
         _ ≤ (C + 296 * a + (a * ((37 : ℝ) / 36) * ((17 : ℝ) / 72)) * A) *

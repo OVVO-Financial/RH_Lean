@@ -414,7 +414,7 @@ theorem abs_vfMidDirectThetaEndpointError_le_psi_add_primePower
           rw [abs_of_nonneg hq0]
     _ ≤ |nativePNTError (R ^ 2)| +
           (R : ℝ) * Real.log ((R ^ 2 : ℕ) : ℝ) := by
-          exact add_le_add_left hq _
+          exact add_le_add_right hq _
 
 /-- Square-endpoint psi envelope in the exact scale needed for the VF Abel
 consumer after the lower-order prime-power correction is removed. -/

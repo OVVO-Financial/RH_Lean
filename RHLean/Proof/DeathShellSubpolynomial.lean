@@ -230,7 +230,7 @@ theorem card_divisors_pow_le_constant_mul
         (∏ p ∈ n.primeFactors, p ^ n.factorization p) =
             n.factorization.prod (fun p a => p ^ a) := by
           rw [Nat.prod_factorization_eq_prod_primeFactors]
-        _ = n := Nat.factorization_prod_pow_eq_self hn
+        _ = n := Nat.prod_factorization_pow_eq_self hn
     calc
       (∏ p ∈ n.primeFactors, (n.factorization p + 1) ^ k) ≤
           ∏ p ∈ n.primeFactors,
@@ -557,7 +557,7 @@ theorem norm_lifetimeDeathMass_le_rpow
         ∑ t ∈ Finset.range n, deathShellDivisorMajorant Λ t := by
       simpa [D0] using hraw
     _ ≤ D0 + (n : ℝ) * (Cinc * Real.rpow B ε) :=
-      add_le_add_left hsum D0
+      add_le_add_right hsum D0
     _ ≤ D0 * Real.rpow B (1 + ε) +
         Cinc * Real.rpow B (1 + ε) := by
       have hD0 : D0 ≤ D0 * Real.rpow B (1 + ε) := by

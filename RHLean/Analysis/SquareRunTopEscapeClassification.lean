@@ -315,7 +315,7 @@ theorem squareRunPrimeLeafTopEscapeBounded_of_mertensEnergy
     squareRunCovariance a b - squareRunPrimeLeafCovariance p a b ≤
         2 * C * P + (-squareRunPrimeLeafCovariance p a b) := by linarith
     _ ≤ 2 * C * P + ((((b + 1) ^ 2 - a ^ 2 : ℕ) : ℝ)) :=
-      add_le_add_left hleaf _
+      add_le_add_right hleaf _
     _ ≤ 2 * C * P + P := by
       gcongr
       exact hwindow.trans hlin

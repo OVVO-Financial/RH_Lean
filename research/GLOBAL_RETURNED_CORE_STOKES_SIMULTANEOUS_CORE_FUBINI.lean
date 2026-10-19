@@ -540,7 +540,7 @@ theorem lowOwnerCanonicalStokesSchedule_eq_top_second_cons_of_lower_owner
             simpa [u, t] using
               Finset.le_max'
                 ((primesUpTo (squareRootEndpoint R)).erase t) b hbErase
-          have htailSorted : List.Sorted (fun x y : ℕ => x ≥ y) (b :: rest) :=
+          have htailSorted : List.Pairwise (fun x y : ℕ => x ≥ y) (b :: rest) :=
             (List.pairwise_cons.mp hsorted).2
           have hbGeU : u ≤ b := by
             simp only [List.mem_cons] at huTail

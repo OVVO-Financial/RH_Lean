@@ -650,7 +650,7 @@ theorem norm_squareRootHierarchicalTerminalCorrectionMass_le_eulerForcedSignCapa
             mertensSummatory d‖ := norm_sub_le _ _
     _ ≤ ‖squareRootMiddleTopPrimeCountGapMass R‖ +
         squareRootHierarchicalEulerDeepAtomCapacity R pivot :=
-      add_le_add_left hsum _
+      add_le_add_right hsum _
     _ = squareRootHierarchicalEulerForcedSignCapacity R pivot := rfl
 
 /-- Algebraic off-diagonal covariance left after the exact hierarchy and the

@@ -218,7 +218,7 @@ theorem polarizationSignedLedgerQ2EnergyBound_of_topTwoStokesClip
         C * (R : ℝ) ^ 2 * K) + 4 := add_le_add hclip hterm
     _ ≤ (B * canonicalRoughLowQ2DaughterEnergy R +
         C * (R : ℝ) ^ 2 * K) + (R : ℝ) ^ 2 * K :=
-      add_le_add_left hscale _
+      add_le_add_right hscale _
     _ = B * canonicalRoughLowQ2DaughterEnergy R +
         (C + 1) * (R : ℝ) ^ 2 * K := by ring
 

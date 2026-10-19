@@ -119,7 +119,7 @@ theorem nativePNTError_abs_le_cubicStep_tail
       _ ≤ alpha * (N : ℝ) * L ^ 2 -
             delta * (N : ℝ) * L ^ 2 := by
         simpa [sub_eq_add_neg] using
-          (add_le_add_left htail (alpha * (N : ℝ) * L ^ 2))
+          (add_le_add_right htail (alpha * (N : ℝ) * L ^ 2))
       _ = (alpha - delta) * (N : ℝ) * L ^ 2 := by ring
   have hLsq : 0 < L ^ 2 := sq_pos_of_pos hLpos
   have hsq' :

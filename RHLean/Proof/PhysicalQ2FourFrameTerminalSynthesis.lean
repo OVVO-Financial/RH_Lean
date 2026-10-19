@@ -244,7 +244,7 @@ theorem physicalCompleteCell_fourFrameStep_implies_linear
                 4 * ∑ q ∈ S, mertensEnergy ((4 * K) / (q * q)) := hs
           _ <= C * (K : ℚ) +
                 4 * (((17 : ℚ) / 70 * A + 1620) * (K : ℚ)) :=
-                  add_le_add_left hweighted _
+                  add_le_add_right hweighted _
           _ = (C + 6480 + (34 : ℚ) / 35 * A) * (K : ℚ) := by ring
           _ <= A * (K : ℚ) :=
                 mul_le_mul_of_nonneg_right hfixed (by positivity)

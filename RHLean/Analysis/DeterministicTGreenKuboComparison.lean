@@ -364,7 +364,7 @@ theorem mertensEnergyBounded_of_positiveLagUpperBounded
         (K : ℝ) + 2 * C * Real.rpow (K : ℝ) (1 + ε) := hprefix
     _ ≤ Real.rpow (K : ℝ) (1 + ε) +
         2 * C * Real.rpow (K : ℝ) (1 + ε) := by
-      exact add_le_add_right hlinear _
+      exact add_le_add_left hlinear _
     _ = D * Real.rpow (K : ℝ) (1 + ε) := by
       dsimp [D]
       ring

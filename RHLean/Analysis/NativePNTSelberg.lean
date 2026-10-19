@@ -164,10 +164,10 @@ theorem nativeLogFactorial_lower :
             ring
           _ ≤ Real.log ((n + 1 : ℕ) : ℝ) +
                 ((n : ℝ) * Real.log (n : ℝ) - (n : ℝ) + 1) :=
-            add_le_add_left hstep _
+            add_le_add_right hstep _
           _ ≤ Real.log ((n + 1 : ℕ) : ℝ) +
                 Real.log ((Nat.factorial n : ℕ) : ℝ) :=
-            add_le_add_left ih' _
+            add_le_add_right ih' _
           _ = Real.log ((Nat.factorial (n + 1) : ℕ) : ℝ) := hfac.symm
 
 /-- Mertens' first theorem in bounded-error form, proved only from the finite

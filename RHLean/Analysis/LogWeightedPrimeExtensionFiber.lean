@@ -28,7 +28,7 @@ theorem prod_primeFactors_eq_self_of_squarefree
           rw [Nat.factorization_eq_one_of_squarefree hs hpPrime hpDvd, pow_one]
     _ = n.factorization.prod (fun p k => p ^ k) := by
           rw [Nat.prod_factorization_eq_prod_primeFactors]
-    _ = n := Nat.factorization_prod_pow_eq_self hs.ne_zero
+    _ = n := Nat.prod_factorization_pow_eq_self hs.ne_zero
 
 theorem log_nat_finset_prod
     (s : Finset ℕ) (hpos : ∀ x ∈ s, 0 < x) :
@@ -236,7 +236,7 @@ theorem logFreshPrimeExtensionMass_eq_sourcePairSum (N : ℕ) :
               cp.1 * cp.2 ≤ 2 * N ∧ ¬cp.2 ∣ cp.1 then
             moebiusReal cp.1 * Real.log cp.2 else 0 := by
               symm
-              simpa only using
+              simpa only [Finset.product_eq_sprod] using
                 (Finset.sum_product
                   (s := Finset.Icc 1 (2 * N))
                   (t := Finset.Icc 2 (2 * N))
@@ -270,7 +270,7 @@ theorem childPairSum_eq_logFreshChildFiberMass (N : ℕ) :
         ∑ p ∈ Finset.Icc 2 (2 * N),
           if p ∈ freshPrimeDivisors n then
             moebiusReal (n / p) * Real.log p else 0 := by
-              simpa only using
+              simpa only [Finset.product_eq_sprod] using
                 (Finset.sum_product
                   (s := Finset.Ioc N (2 * N))
                   (t := Finset.Icc 2 (2 * N))

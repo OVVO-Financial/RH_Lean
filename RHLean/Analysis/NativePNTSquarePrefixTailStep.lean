@@ -85,7 +85,7 @@ theorem nativePNTError_tail_pointwise_improve
       _ ≤ alpha * (N : ℝ) * L ^ 2 -
             4 * delta * (N : ℝ) * L ^ 2 +
             (N : ℝ) * (3 * delta * L ^ 2) := by
-        exact add_le_add_left
+        exact add_le_add_right
           (mul_le_mul_of_nonneg_left hcost' hN0) _
       _ = (alpha - delta) * (N : ℝ) * L ^ 2 := by ring
   have hL : 0 < L := by

@@ -25,7 +25,7 @@ theorem primeProductAdmissible_downward
   intro u v huv hv
   refine ⟨huv.trans hv.1, ?_⟩
   exact le_trans
-    (Finset.prod_le_prod_of_subset_of_one_le' huv (by
+    (Finset.prod_le_prod_of_subset_of_one_le huv (by
       intro p hpv hpu
       exact (hprime p (hv.1 hpv)).one_le))
     hv.2

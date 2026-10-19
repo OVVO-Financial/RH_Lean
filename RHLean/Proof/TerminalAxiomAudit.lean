@@ -174,7 +174,7 @@ silently weakening the claim. -/
 /-- **Native Chebyshev prime number theorem, unconditional.**  `psi(N)/N -> 1`, with no
 hypothesis.  The underlying contraction is this repository's own elementary argument:
 `NativePNTErdosContraction` imports Mathlib and one project file, so this does not route
-through the vendored StrongPNT port. -/
+through PNT+. -/
 theorem nativeChebyshevPrimeNumberTheorem_unconditional :
     Filter.Tendsto (fun N : ℕ => RHLean.Analysis.nativePsi N / (N : ℝ))
       Filter.atTop (nhds 1) :=

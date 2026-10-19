@@ -347,10 +347,10 @@ theorem norm_primorialHighConductorReindexError_le_eight
           6 * (R + 1 : ℝ) * (R : ℝ) ^ 3 := hbase
     _ ≤ 2 * (R + 1 : ℝ) * (R : ℝ) ^ 2 +
           6 * (R + 1 : ℝ) * (R : ℝ) ^ 3 := by
-      exact add_le_add_right hraw _
+      exact add_le_add_left hraw _
     _ ≤ 2 * (R + 1 : ℝ) * (R : ℝ) ^ 3 +
           6 * (R + 1 : ℝ) * (R : ℝ) ^ 3 := by
-      exact add_le_add_right
+      exact add_le_add_left
         (mul_le_mul_of_nonneg_left hpow (by positivity)) _
     _ = 8 * (R + 1 : ℝ) * (R : ℝ) ^ 3 := by ring
 
@@ -417,7 +417,7 @@ theorem norm_sq_primorialHighConductorWithZeroSector_le_core_add_512_mul
           2 * ‖primorialHighConductorReindexError k x R‖ ^ 2 := hgram
     _ ≤ 2 * ‖primorialHighCollapsedCore k x R‖ ^ 2 +
           2 * (256 * (U : ℝ)) := by
-      exact add_le_add_left (mul_le_mul_of_nonneg_left herr (by positivity)) _
+      exact add_le_add_right (mul_le_mul_of_nonneg_left herr (by positivity)) _
     _ = 2 * ‖primorialHighCollapsedCore k x R‖ ^ 2 +
           512 * (U : ℝ) := by ring
 

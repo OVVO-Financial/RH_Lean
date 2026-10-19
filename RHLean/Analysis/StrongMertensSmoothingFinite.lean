@@ -1,9 +1,6 @@
 import Mathlib
 import Mathlib.NumberTheory.LSeries.Dirichlet
--- See the note in `StrongMertensZetaKernel`: `StrongPNT.PNT5_Strong` and
--- `PrimeNumberTheoremAnd.MediumPNT` cannot both be imported, and this route
--- takes the StrongPNT side.
-import StrongPNT.PNT5_Strong
+import PrimeNumberTheoremAnd.StrongPNT
 import RHLean.Analysis.StrongMertensLogNineEnvelope
 
 /-!
@@ -77,7 +74,7 @@ theorem strongMertens_smoothed_close_aux
     simp only [Nat.ceil_pos, n0]
     subst C_eq
     have hprod : c1 * eps < 1 :=
-      mul_lt_one_of_nonneg_of_lt_one_left c1_pos.le c1_lt eps_lt_one.le
+      (mul_le_of_le_one_right c1_pos.le eps_lt_one.le).trans_lt c1_lt
     have : (0 : ℝ) < 1 - c1 * eps := by linarith
     positivity
   have n0_inside_le_X : X * (1 - c1 * eps) ≤ X := by

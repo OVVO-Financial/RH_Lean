@@ -452,10 +452,10 @@ private theorem nativeReciprocalSqrtMass_le :
               1 / Real.sqrt ((N + 1 : ℕ) : ℝ) ≤
               2 * Real.sqrt (N : ℝ) +
                 1 / Real.sqrt ((N + 1 : ℕ) : ℝ) :=
-            add_le_add_right ih _
+            add_le_add_left ih _
           _ ≤ 2 * Real.sqrt (N : ℝ) +
                 2 * (Real.sqrt ((N + 1 : ℕ) : ℝ) - Real.sqrt (N : ℝ)) :=
-            add_le_add_left hstep _
+            add_le_add_right hstep _
           _ = 2 * Real.sqrt ((N + 1 : ℕ) : ℝ) := by ring
 
 private theorem nativeFloorLogSquareMass_le (N : ℕ) :
@@ -532,7 +532,7 @@ private theorem nativeFloorLogMass_le (N : ℕ) :
         rw [Nat.card_Icc]
         norm_num
       _ ≤ 32 * (N : ℝ) + (N : ℝ) :=
-        add_le_add_right (nativeFloorLogSquareMass_le N) _
+        add_le_add_left (nativeFloorLogSquareMass_le N) _
       _ = 33 * (N : ℝ) := by ring
 
 private def nativeMobiusFloorLogSquareCorrection (N : ℕ) : ℝ :=
@@ -765,7 +765,7 @@ private theorem nativeLambdaTwoLogSquareRemainderMass_abs_le
         rw [Nat.card_Icc]
         norm_num
       _ ≤ 32 * (N : ℝ) + 2 * (N : ℝ) :=
-        add_le_add_right (nativeFloorLogSquareMass_le N) _
+        add_le_add_left (nativeFloorLogSquareMass_le N) _
       _ = 34 * (N : ℝ) := by ring
 
 private theorem nativeLambdaTwoSummatory_eq_main_add_remainder (N : ℕ) :

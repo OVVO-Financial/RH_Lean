@@ -189,10 +189,10 @@ theorem guarded_interval_extension {B L U : Nat} {a : ArithmeticFunction Int}
     _ <= norm (mertensSummatory L) +
         norm (mertensSummatory x - mertensSummatory L) := norm_add_le _ _
     _ <= norm (mertensSummatory L) + ((x - L : Nat) : Real) :=
-      add_le_add_left (norm_mertensSummatory_sub_le L x hLx) _
+      add_le_add_right (norm_mertensSummatory_sub_le L x hLx) _
     _ = norm (liftSummatory a L) + ((x - L : Nat) : Real) := by
       rw [liftSummatory_eq_mertens ha hL]
-    _ <= norm (liftSummatory a L) + ((U - L : Nat) : Real) := add_le_add_left hgap _
+    _ <= norm (liftSummatory a L) + ((U - L : Nat) : Real) := add_le_add_right hgap _
     _ <= C * (L : Real) ^ sigma := hbudget
     _ <= C * (x : Real) ^ sigma := mul_le_mul_of_nonneg_left
       (Real.rpow_le_rpow (Nat.cast_nonneg L) (by exact_mod_cast hLx) hsigma) hC

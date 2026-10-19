@@ -401,7 +401,7 @@ theorem vfMidFirstBadAnchoredCoDivExcess_le_activeResidual_add_threeBoundary
       vfMidActiveGlobalResidualExcess R +
         2 * vfMidActiveThreeBoundaryMass R := by
   rw [vfMidFirstBadAnchoredCoDivExcess_eq_activeResidual_add_weightedCells hR]
-  exact add_le_add_left
+  exact add_le_add_right
     (sum_vfMidActiveWeightedCellExcess_le_two_threeBoundaryMass hR)
     (vfMidActiveGlobalResidualExcess R)
 

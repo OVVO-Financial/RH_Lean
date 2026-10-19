@@ -269,7 +269,7 @@ theorem nativePNTDirectCutoffInductionLaw_of_signedHistoryBudget
               _ <= (|nativePNTDirectCutoffSignedHistoryResidual N M| +
                     |nativePNTDirectCutoffRecursiveAverage N L|) +
                   |nativePNTDirectCutoffTransitionAverage N M L| :=
-                add_le_add_right (abs_sub _ _) _
+                add_le_add_left (abs_sub _ _) _
               _ = _ := by ring
       _ <= |nativePNTDirectCutoffSignedHistoryResidual N M| +
           alpha' * nativePNTDirectCutoffRecursiveWeight N L +

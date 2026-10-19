@@ -533,7 +533,7 @@ theorem nativeLambdaLogRecip_sub_half_logSq_abs_le
           (nativeLambdaRecip n - Real.log n) *
             (Real.log (n : ℝ) - Real.log ((n + 1 : ℕ) : ℝ))| := by
       exact (abs_add_le _ _).trans
-        (add_le_add_right (abs_add_le _ _) _)
+        (add_le_add_left (abs_add_le _ _) _)
     _ ≤ (1 / 2 : ℝ) * Real.log N +
         (Real.log 4 + 2) * Real.log N +
         (Real.log 4 + 2) * Real.log N := by
@@ -556,7 +556,7 @@ theorem nativePNTError_abs_le_chebyshev (N : ℕ) :
     _ = nativePsi N + (N : ℝ) := by
       rw [abs_of_nonneg hpsi0, abs_of_nonneg (by positivity)]
     _ ≤ (Real.log 4 + 2) * (N : ℝ) + (N : ℝ) :=
-      add_le_add_right hpsi _
+      add_le_add_left hpsi _
     _ = (Real.log 4 + 3) * (N : ℝ) := by ring
 
 private theorem nativePNTFirstErrorConstant_le_thousand :
@@ -913,7 +913,7 @@ private theorem nativeLambdaErrorMass_mul_log_le_lambdaTwo
           (1000 + (Real.log 4 + 3)) * ((N : ℝ) * Real.log N) := by
         have hcoef : 0 ≤ 1000 + (Real.log 4 + 3) :=
           add_nonneg (by norm_num) hC0
-        exact add_le_add_left
+        exact add_le_add_right
           (mul_le_mul_of_nonneg_left (nativeLambdaFloorMass_le_Nlog N hN) hcoef)
           (nativeLambdaLogErrorMass N + nativeLambdaConvolutionErrorMass N)
       _ ≤ nativeLambdaLogErrorMass N + nativeLambdaConvolutionErrorMass N +
@@ -922,7 +922,7 @@ private theorem nativeLambdaErrorMass_mul_log_le_lambdaTwo
           linarith [hC6]
         have hNlog0 : 0 ≤ (N : ℝ) * Real.log N :=
           mul_nonneg (by positivity) hlog0
-        exact add_le_add_left
+        exact add_le_add_right
           (mul_le_mul_of_nonneg_right hcoef hNlog0)
           (nativeLambdaLogErrorMass N + nativeLambdaConvolutionErrorMass N)
       _ = nativeLambdaLogErrorMass N + nativeLambdaConvolutionErrorMass N +
@@ -943,7 +943,7 @@ private theorem nativeLambdaErrorMass_mul_log_le_lambdaTwo
           _ ≤ 2000 * ((N : ℝ) * Real.log N) :=
             mul_le_mul_of_nonneg_right (by norm_num) hNlog0
           _ = 2000 * (N : ℝ) * Real.log N := by ring
-      exact add_le_add_left hcoef
+      exact add_le_add_right hcoef
         (nativeLambdaLogErrorMass N + nativeLambdaConvolutionErrorMass N)
 
 /-- **Squared absolute Selberg recurrence in the native architecture.**
@@ -971,7 +971,7 @@ theorem nativePNTError_abs_log_sq_le_lambdaTwo
     _ = (∑ d ∈ Finset.Icc 1 N, Λ d * |nativePNTError (N / d)|) * Real.log N +
           1000 * (N : ℝ) * Real.log N := by ring
     _ ≤ nativeLambdaTwoErrorMass N + 2000 * (N : ℝ) * Real.log N +
-          1000 * (N : ℝ) * Real.log N := add_le_add_right hinner _
+          1000 * (N : ℝ) * Real.log N := add_le_add_left hinner _
     _ = nativeLambdaTwoErrorMass N + 3000 * (N : ℝ) * Real.log N := by ring
 
 end RHLean.Analysis

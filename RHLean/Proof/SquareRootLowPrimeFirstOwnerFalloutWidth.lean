@@ -349,10 +349,10 @@ theorem squareRootLowPrimeFirstOwnerAbove_le_of_mem
   rcases squareRootLowPrimeFirstOwnerAbove_some_split hfirst with
     ⟨pre, post, hsplit, hpre, _hLp⟩
   have hsorted :
-      List.Sorted (fun a b : ℕ => a ≤ b)
+      List.Pairwise (fun a b : ℕ => a ≤ b)
         (squareRootLowPrimeFreshPrimeList K U) := by
     unfold squareRootLowPrimeFreshPrimeList
-    exact Finset.sort_sorted (· ≤ ·) _
+    exact Finset.pairwise_sort _ (· ≤ ·)
   rw [hsplit] at hq hsorted
   rcases List.mem_append.mp hq with hqPre | hqTail
   · have hqLe := hpre q hqPre
@@ -360,7 +360,7 @@ theorem squareRootLowPrimeFirstOwnerAbove_le_of_mem
   · rcases List.mem_cons.mp hqTail with rfl | hqPost
     · exact le_rfl
     · have htailSorted :
-          List.Sorted (fun a b : ℕ => a ≤ b) (p :: post) :=
+          List.Pairwise (fun a b : ℕ => a ≤ b) (p :: post) :=
         (List.pairwise_append.mp hsorted).2.1
       exact (List.pairwise_cons.mp htailSorted).1 q hqPost
 

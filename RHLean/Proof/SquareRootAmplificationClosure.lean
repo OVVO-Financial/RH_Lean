@@ -57,7 +57,7 @@ theorem norm_shiftedMertens_le_succ (x : ℕ) :
     ‖RHLean.Analysis.mertensSummatory x - 1‖ ≤
         ‖RHLean.Analysis.mertensSummatory x‖ + ‖(1 : ℂ)‖ := norm_sub_le _ _
     _ = ‖RHLean.Analysis.mertensSummatory x‖ + 1 := by norm_num
-    _ ≤ (x : ℝ) + 1 := add_le_add_right hM 1
+    _ ≤ (x : ℝ) + 1 := add_le_add_left hM 1
     _ = ((x + 1 : ℕ) : ℝ) := by norm_cast
 
 private theorem shifted_norm_sq_add_le_two (u v : ℂ) :

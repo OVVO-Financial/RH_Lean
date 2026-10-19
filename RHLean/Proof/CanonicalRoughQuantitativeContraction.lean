@@ -294,7 +294,7 @@ theorem squareRootCanonicalRoughCompressedProfile_norm_le
     _ ≤ canonicalRoughEulerProduct steps * ‖z‖ +
         (1 - canonicalRoughEulerProduct steps) *
           squareRootCanonicalRoughScaledSignedDefectFloor R steps :=
-      add_le_add_left hledger _
+      add_le_add_right hledger _
 
 /-! ## Finite Abel return to the unweighted covariance numerator -/
 

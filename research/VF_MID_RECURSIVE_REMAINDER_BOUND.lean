@@ -1113,7 +1113,7 @@ theorem abs_vfMidNativeDescentRemainder_le_linear
             |vfMidRecursiveAggregateRemainder R|) +
           |vfMidOriginalPrimeCharge R| := by
           rw [abs_neg]
-          exact add_le_add_right (abs_add_le _ _) _
+          exact add_le_add_left (abs_add_le _ _) _
     _ ≤ (3 / Real.log 4) * (R : ℝ) +
           (1 + 3 / Real.log 4) * (R : ℝ) +
           (3 / Real.log 4) * (R : ℝ) := by

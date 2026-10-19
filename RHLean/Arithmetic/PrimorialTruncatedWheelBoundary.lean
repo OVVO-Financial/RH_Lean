@@ -76,7 +76,7 @@ theorem primeFaceProduct_le_primorialWheelProduct
     {P t : Finset ℕ} (ht : t ⊆ P) (hpos : ∀ p ∈ P, 1 ≤ p) :
     primeFaceProduct t ≤ primorialWheelProduct P := by
   unfold primeFaceProduct primorialWheelProduct
-  exact Finset.prod_le_prod_of_subset_of_one_le' ht (by
+  exact Finset.prod_le_prod_of_subset_of_one_le ht (by
     intro p hpP _hpt
     exact hpos p hpP)
 

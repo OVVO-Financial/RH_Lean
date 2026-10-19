@@ -412,7 +412,7 @@ private theorem nativePrimeCounting_mul_log_le_scaledTheta_add_small
       ((((nativePrimeSet N).filter (fun p => K * p ≤ N)).card : ℕ) : ℝ) ≤
         (Nat.primeCounting (N / K) : ℝ) := by exact_mod_cast hsmallCard
   have hlogN : 0 ≤ Real.log (N : ℝ) := Real.log_nonneg (by exact_mod_cast hN)
-  exact hsum.trans (add_le_add_left
+  exact hsum.trans (add_le_add_right
     (mul_le_mul_of_nonneg_right hsmallReal hlogN) (A * nativeTheta N))
 
 /-- **Prime Number Theorem.**  The native Selberg--Erdos proof gives

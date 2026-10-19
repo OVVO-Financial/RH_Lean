@@ -204,7 +204,7 @@ theorem matchedShiftedAmplificationAbove56_of_farSurvivorCore
     _ ≤ 2 * (A * (R : ℝ) ^ 2 * K) + 98 * (R : ℝ) ^ 2 := by
       nlinarith
     _ ≤ 2 * (A * (R : ℝ) ^ 2 * K) +
-          98 * (R : ℝ) ^ 2 * K := add_le_add_left hnearAbsorb _
+          98 * (R : ℝ) ^ 2 * K := add_le_add_right hnearAbsorb _
     _ = (2 * A + 98) * (R : ℝ) ^ 2 * K := by ring
 
 end RHLean.Proof

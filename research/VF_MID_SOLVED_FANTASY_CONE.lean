@@ -243,10 +243,10 @@ theorem vfMidSolvedFantasyCone_vonKoch_safe
     calc
       (K * Real.log (R : ℝ)) * vfMidSolvedFantasyConeRadius R + C0
           ≤ (K * Real.log (R : ℝ)) * (B * (R : ℝ)) + C0 :=
-            add_le_add_right hmul C0
+            add_le_add_left hmul C0
       _ ≤ (K * Real.log (R : ℝ)) * (B * (R : ℝ)) +
             (C0 / Real.log 2) * (R : ℝ) * Real.log (R : ℝ) :=
-          add_le_add_left hphase _
+          add_le_add_right hphase _
       _ = C * (R : ℝ) * Real.log (R : ℝ) := by
           dsimp [C]
           ring

@@ -86,7 +86,7 @@ theorem postRootCovariancePowerRecordExcess_le_lowSquareCharge_of_no_active_divi
     postRootCovariancePowerRecordExcess_le_localInnovationBudget ε hε hW
   rw [postRootCovariancePowerLocalInnovationBudget_eq_outerRow_add_departure] at hlocal
   exact hlocal.trans
-    (add_le_add_right
+    (add_le_add_left
       (postRootRecordOuterRowSeat_le_physicalSquareStepSeat_of_no_active_divisor
         ε hno)
       (postRootRecordDepartureSeat ε W))

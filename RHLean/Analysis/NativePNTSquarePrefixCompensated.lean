@@ -262,7 +262,7 @@ theorem nativePNTSquarePrefix_lambdaErrorMass_mul_log_le_lambdaTwo
           (1000 + (Real.log 4 + 3)) * ((N : ℝ) * Real.log N) := by
         have hcoef : 0 ≤ 1000 + (Real.log 4 + 3) :=
           add_nonneg (by norm_num) hC0
-        exact add_le_add_left
+        exact add_le_add_right
           (mul_le_mul_of_nonneg_left
             (nativePNTSquarePrefix_lambdaFloorMass_le_Nlog N hN) hcoef)
           (nativeLambdaLogErrorMass N + nativeLambdaConvolutionErrorMass N)
@@ -272,7 +272,7 @@ theorem nativePNTSquarePrefix_lambdaErrorMass_mul_log_le_lambdaTwo
           linarith [hC6]
         have hNlog0 : 0 ≤ (N : ℝ) * Real.log N :=
           mul_nonneg (by positivity) hlog0
-        exact add_le_add_left
+        exact add_le_add_right
           (mul_le_mul_of_nonneg_right hcoef hNlog0)
           (nativeLambdaLogErrorMass N + nativeLambdaConvolutionErrorMass N)
       _ = nativeLambdaLogErrorMass N + nativeLambdaConvolutionErrorMass N +
@@ -293,7 +293,7 @@ theorem nativePNTSquarePrefix_lambdaErrorMass_mul_log_le_lambdaTwo
           _ ≤ 2000 * ((N : ℝ) * Real.log N) :=
             mul_le_mul_of_nonneg_right (by norm_num) hNlog0
           _ = 2000 * (N : ℝ) * Real.log N := by ring
-      exact add_le_add_left hcoef
+      exact add_le_add_right hcoef
         (nativeLambdaLogErrorMass N + nativeLambdaConvolutionErrorMass N)
 
 /-- Squared absolute Selberg recurrence obtained by self-composing the
@@ -316,7 +316,7 @@ theorem nativePNTError_abs_log_sq_le_lambdaTwo_mobius_rederived
     _ = (∑ d ∈ Finset.Icc 1 N, Λ d * |nativePNTError (N / d)|) * Real.log N +
           1000 * (N : ℝ) * Real.log N := by ring
     _ ≤ nativeLambdaTwoErrorMass N + 2000 * (N : ℝ) * Real.log N +
-          1000 * (N : ℝ) * Real.log N := add_le_add_right hinner _
+          1000 * (N : ℝ) * Real.log N := add_le_add_left hinner _
     _ = nativeLambdaTwoErrorMass N + 3000 * (N : ℝ) * Real.log N := by ring
 
 /-! ## Rebuilt compensation and affine improvement -/
@@ -393,7 +393,7 @@ theorem nativePNTError_abs_log_sq_le_affine_compensated_mobius_rederived
             nativeLambdaTwoGoodRecipMass N beta +
           D * (2 * (N : ℝ) * Real.log N + 182 * (N : ℝ) + 600)) +
           3000 * (N : ℝ) * Real.log N :=
-      add_le_add_right hmass _
+      add_le_add_left hmass _
     _ = _ := by ring
 
 /-- Strict affine-envelope improvement rebuilt from the newly rederived
@@ -564,7 +564,7 @@ theorem nativePNTSquarePrefixHasAffineEnvelope_improve_of_goodMass
                   nativeLambdaTwoGoodRecipMass N beta)) := hrec'
         _ ≤ alpha * (N : ℝ) * L ^ 2 - delta * (N : ℝ) * L ^ 2 := by
           simpa [sub_eq_add_neg] using
-            (add_le_add_left htail (alpha * (N : ℝ) * L ^ 2))
+            (add_le_add_right htail (alpha * (N : ℝ) * L ^ 2))
         _ = (alpha - delta) * (N : ℝ) * L ^ 2 := by ring
     have hLsq : 0 < L ^ 2 := sq_pos_of_pos hLpos
     have hsq' :

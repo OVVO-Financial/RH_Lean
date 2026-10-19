@@ -299,7 +299,7 @@ theorem nativePNTAxerErrorMass_le_of_affineEnvelope
       exact_mod_cast (Finset.mem_Icc.mp hd).1
     have hdiv : ((N / d : ℕ) : ℝ) ≤ (N : ℝ) / (d : ℝ) :=
       Nat.cast_div_le
-    exact add_le_add_right (mul_le_mul_of_nonneg_left hdiv halpha) D
+    exact add_le_add_left (mul_le_mul_of_nonneg_left hdiv halpha) D
   calc
     (∑ d ∈ Finset.Icc 1 N, |nativePNTError (N / d)|) ≤
         ∑ d ∈ Finset.Icc 1 N,
@@ -330,7 +330,7 @@ theorem nativePNTAxerErrorMass_le_of_affineEnvelope
       · have hharm :
             (harmonic N : ℝ) ≤ 1 + Real.log (N : ℝ) := by
           simpa using harmonic_le_one_add_log N
-        exact add_le_add_right
+        exact add_le_add_left
           (mul_le_mul_of_nonneg_left hharm
             (mul_nonneg halpha (by positivity))) _
 
@@ -357,10 +357,10 @@ theorem nativeMobiusLogSum_abs_le_of_affineEnvelope
         (-(∑ d ∈ Finset.Icc 1 N,
           (μ : ArithmeticFunction ℝ) d * nativePNTError (N / d)))
       simpa [abs_neg] using h
-    _ ≤ 1 + nativePNTAxerErrorMass N := add_le_add_left hsum 1
+    _ ≤ 1 + nativePNTAxerErrorMass N := add_le_add_right hsum 1
     _ ≤ 1 +
         (alpha * (N : ℝ) * (1 + Real.log (N : ℝ)) + D * (N : ℝ)) :=
-      add_le_add_left (hmass N) 1
+      add_le_add_right (hmass N) 1
     _ = 1 + alpha * (N : ℝ) * (1 + Real.log (N : ℝ)) + D * (N : ℝ) := by
       ring
 

@@ -19,8 +19,7 @@ namespace RHLean.Analysis
 
 local notation "zetaC" => riemannZeta
 
--- `StrongPNT.PNT1_ComplexAnalysis` declares a root-level `def I := Complex.I`,
--- so with `Complex` open the bare token `I` resolves two ways.
+-- Keep the bare token `I` pinned to `Complex.I` under `open Complex`.
 local notation "I" => Complex.I
 
 /-- Uniform reciprocal-zeta bound on the bounded-height part of every shifted

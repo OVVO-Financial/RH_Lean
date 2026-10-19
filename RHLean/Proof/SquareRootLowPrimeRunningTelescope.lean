@@ -188,6 +188,6 @@ theorem abs_squareRootLowPrimeRunningImbalanceReal_le_shallow_add_frontierCard
                 squareRootLowPrimeRunningImbalanceReal R K j U)
     _ ≤ |squareRootLowPrimeRunningImbalanceReal R K j K| +
         ((squareRootLowPrimeOwnedResponseMatchingFrontier R K U).card : ℝ) :=
-      add_le_add_left hdiff _
+      add_le_add_right hdiff _
 
 end RHLean.Proof

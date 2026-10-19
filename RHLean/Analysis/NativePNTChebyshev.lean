@@ -257,7 +257,7 @@ theorem nativePsi_le_theta_add_sqrt_log
         ((nativeSmallPrimeSet N).card : ℝ) * Real.log N := by
       rw [hsmallSum]
     _ ≤ nativeTheta N + (Nat.sqrt N : ℝ) * Real.log N := by
-      exact add_le_add_left (mul_le_mul_of_nonneg_right hcard hlogN) _
+      exact add_le_add_right (mul_le_mul_of_nonneg_right hcard hlogN) _
 
 /-- The square-root correction is at most `2N`; this uses only the elementary
 inequality `log x <= 2 sqrt x`. -/

@@ -201,7 +201,7 @@ theorem norm_squareRootLowPrimeRunningImbalance_le_matched_add_root_add_depth
         ‖squareRootMatchedBornSmoothTransport R‖ := norm_add_le _ _
     _ ≤ ((R : ℝ) + (K : ℝ)) +
         ‖squareRootMatchedBornSmoothTransport R‖ :=
-      add_le_add_right hdiff _
+      add_le_add_left hdiff _
     _ = ‖squareRootMatchedBornSmoothTransport R‖ +
         ((R : ℝ) + (K : ℝ)) := by ring
 

@@ -142,7 +142,7 @@ theorem dyadicPacketDeepTailBlockBounded_of_additiveDescendantPersistence
         CA * P *
           (primeSieveDyadicPacketShallowEnergy y x (J + 1) + B) := by
     exact ha.trans (mul_le_mul_of_nonneg_left
-      (add_le_add_right hlevel B) hfac0)
+      (add_le_add_left hlevel B) hfac0)
   have hCSU : CS * T ≤ CS * U :=
     mul_le_mul_of_nonneg_left hTU hCS
   have hCAPS :

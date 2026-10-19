@@ -215,7 +215,7 @@ theorem squareRootLowPrimeRunningImbalance_sub_farSurvivorCore_norm_le
     _ ≤ (‖squareRootNearPrimeTransport R‖ +
           ‖((squareRootCrossingLayerPartialPacketInt R K j : ℤ) : ℂ)‖) +
         ‖squareRootBornPostTailNearRootRemainder R K j‖ :=
-      add_le_add_right hfirst _
+      add_le_add_left hfirst _
     _ ≤ (7 * (R : ℝ) + (K : ℝ)) + (R : ℝ) :=
       add_le_add (add_le_add htransport hpartial) hnear
     _ = 8 * (R : ℝ) + (K : ℝ) := by ring

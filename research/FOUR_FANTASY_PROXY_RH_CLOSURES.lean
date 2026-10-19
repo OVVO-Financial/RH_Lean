@@ -161,7 +161,7 @@ theorem primeLiVonKochBounded_of_proxyTracking
       add_le_add (hA x hx) (hB x hx)
     _ ≤ A * Real.sqrt x * Real.log x +
         (B / ell) * Real.sqrt x * Real.log x :=
-      add_le_add_left hrootScale _
+      add_le_add_right hrootScale _
     _ = (A + B / ell) * Real.sqrt x * Real.log x := by ring
 
 /-- Converse generic transfer: the classical prime-minus-Li von-Koch
@@ -211,7 +211,7 @@ theorem proxyTracking_of_primeLiVonKochBounded
       add_le_add (hA x hx) (hB x hx)
     _ ≤ A * Real.sqrt x * Real.log x +
         (B / ell) * Real.sqrt x * Real.log x :=
-      add_le_add_left hrootScale _
+      add_le_add_right hrootScale _
     _ = (A + B / ell) * Real.sqrt x * Real.log x := by ring
 
 /-- For every root-close deterministic proxy, actual-to-proxy tracking at

@@ -176,13 +176,13 @@ theorem iteratedPairWeightedStokesResidual_empty :
 larger than the first owner. -/
 theorem lowOwnerFirstOwnerCanonicalStokesSchedule_sorted
     (R p : ℕ) :
-    List.Sorted (fun a b : ℕ => a ≥ b)
+    List.Pairwise (fun a b : ℕ => a ≥ b)
       (lowOwnerFirstOwnerCanonicalStokesSchedule R p) := by
   have hfull :
-      List.Sorted (fun a b : ℕ => a ≥ b)
+      List.Pairwise (fun a b : ℕ => a ≥ b)
         (squareRootCanonicalRoughDescendingPrimeSchedule R) := by
     unfold squareRootCanonicalRoughDescendingPrimeSchedule
-    exact Finset.sort_sorted (· ≥ ·) _
+    exact Finset.pairwise_sort _ (· ≥ ·)
   unfold lowOwnerFirstOwnerCanonicalStokesSchedule
   exact hfull.filter _
 

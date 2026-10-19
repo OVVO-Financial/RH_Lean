@@ -414,7 +414,7 @@ theorem norm_lowWheelFrozenTopFarResidual_le_physicalResidual_add_seven
         ‖lowWheelCanonicalRepeatedTerminalInternalMateNearLedger R‖ :=
       norm_sub_le _ _
     _ ≤ ‖lowWheelFrozenTopFarPhysicalResidualLedger R‖ + 7 :=
-      add_le_add_left
+      add_le_add_right
         (norm_lowWheelCanonicalRepeatedTerminalInternalMateNearLedger_le_seven R) _
 
 end RHLean.Proof

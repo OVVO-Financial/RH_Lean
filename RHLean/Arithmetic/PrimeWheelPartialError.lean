@@ -90,7 +90,7 @@ theorem primeWheelResolvedPart_mul_unresolvedPart
       n.factorization.prod (fun p e => p ^ e) := by
         exact Finsupp.prod_filter_mul_prod_filter_not
           (fun p : ℕ => p ≤ y) n.factorization (fun p e => p ^ e)
-    _ = n := Nat.factorization_prod_pow_eq_self hn
+    _ = n := Nat.prod_factorization_pow_eq_self hn
 
 lemma primeWheelResolvedPart_primeFactor_le
     {y n p : ℕ} (hp : p ∈ (primeWheelResolvedPart y n).primeFactors) :

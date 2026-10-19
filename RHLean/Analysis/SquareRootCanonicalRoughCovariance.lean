@@ -468,7 +468,7 @@ theorem squareRootCanonicalRoughCorrelationBounded_of_squarePrefixEnergyBounded
         (mul_le_mul_of_nonneg_left hMendpoint (by norm_num))
     _ ≤ 2 * Real.rpow (R : ℝ) (2 + ε) +
           2 * (C * Real.rpow (R : ℝ) (2 + ε)) :=
-      add_le_add_right (mul_le_mul_of_nonneg_left hpow (by norm_num)) _
+      add_le_add_left (mul_le_mul_of_nonneg_left hpow (by norm_num)) _
     _ = D * Real.rpow (R : ℝ) (2 + ε) := by
       dsimp [D]
       ring
@@ -536,7 +536,7 @@ theorem squarePrefixEnergyBounded_of_squareRootCanonicalRoughCorrelationBounded
           (mul_le_mul_of_nonneg_left hcorrBound (by norm_num))
       _ ≤ 2 * Real.rpow (R : ℝ) (2 + ε) +
             2 * (C * Real.rpow (R : ℝ) (2 + ε)) :=
-        add_le_add_right (mul_le_mul_of_nonneg_left hpow (by norm_num)) _
+        add_le_add_left (mul_le_mul_of_nonneg_left hpow (by norm_num)) _
       _ = D * Real.rpow ((n + 1 : ℕ) : ℝ) (2 + ε) := by
         rw [hbase]
         dsimp [D]

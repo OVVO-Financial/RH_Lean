@@ -1103,9 +1103,9 @@ theorem mertensPositiveLagUpperBounded_of_postRootCovariancePowerRemainder
             _ = postRootPrimeFamilyCovarianceTotal W + D * ((W : ℝ) * T) := by
               rw [hhalfTarget]
             _ ≤ A * ((W : ℝ) * T) + D * ((W : ℝ) * T) :=
-              add_le_add_right hfamily' _
+              add_le_add_left hfamily' _
             _ ≤ A * ((W : ℝ) * T) + A * ((W : ℝ) * T) :=
-              add_le_add_left hDW _
+              add_le_add_right hDW _
             _ = A * (W : ℝ) * (2 * T) := by ring
             _ ≤ A * (W : ℝ) * T ^ 2 :=
               mul_le_mul_of_nonneg_left hTplus hAWnn

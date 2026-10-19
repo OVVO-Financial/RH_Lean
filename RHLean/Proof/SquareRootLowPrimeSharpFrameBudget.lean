@@ -101,7 +101,7 @@ theorem primeOwnerReciprocalSquareBudget_le_half (N : ℕ) :
     calc
       (∑ q ∈ primesUpTo N, (1 : ℚ) / (q : ℚ) ^ 2) =
           (∑ q ∈ (primesUpTo N).erase 2, (1 : ℚ) / (q : ℚ) ^ 2) + 1 / 4 := hs'.symm
-      _ ≤ 1 / 4 + 1 / 4 := add_le_add_right h _
+      _ ≤ 1 / 4 + 1 / 4 := add_le_add_left h _
       _ = 1 / 2 := by norm_num
   · have heq : (primesUpTo N).erase 2 = primesUpTo N :=
       Finset.erase_eq_of_notMem htwo

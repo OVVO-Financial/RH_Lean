@@ -145,7 +145,7 @@ theorem vfMidSevenEighthsVFEndpointBounded_of_primeLi
         |vfMidPrimeLiError x| + |vfMidLiError x| := htriangle
     _ ≤ C * w + Q := add_le_add hsourceR hquad
     _ ≤ C * w + (Q / Real.log (2 : ℝ)) * w :=
-      add_le_add_left hboundQ _
+      add_le_add_right hboundQ _
     _ = (C + Q / Real.log (2 : ℝ)) * w := by ring
 
 /-- A published zero-free theorem PLUS the explicitly identified

@@ -117,7 +117,7 @@ theorem outsidePrimeLeastSuperPeriod_ge_blocker
   have hprod :
       (∏ p ∈ outsidePrimeBlockerSeed P q, p ^ 2) ≤
         ∏ p ∈ outsidePrimeLeastSuperPrimeSet P q, p ^ 2 := by
-    exact Finset.prod_le_prod_of_subset_of_one_le' hsub (by
+    exact Finset.prod_le_prod_of_subset_of_one_le hsub (by
       intro p hpSuper _hpSeed
       have hpPrime := outsidePrimeLeastSuperPrimeSet_prime hP hq hpSuper
       nlinarith [hpPrime.two_le])

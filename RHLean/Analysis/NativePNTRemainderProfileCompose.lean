@@ -197,7 +197,7 @@ theorem nativePNTError_abs_log_sq_le_lambdaTwo_profile
           R N * Real.log (N : ℝ) := by ring
     _ ≤ (nativeLambdaTwoErrorMass N + nativeLambdaErrorMass N +
           nativeLambdaRemainderMass R N) +
-          R N * Real.log (N : ℝ) := add_le_add_right hinner _
+          R N * Real.log (N : ℝ) := add_le_add_left hinner _
     _ = nativeLambdaTwoErrorMass N + nativePNTSecondRemainderFrom R N := by
       unfold nativePNTSecondRemainderFrom
       ring

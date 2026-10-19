@@ -207,7 +207,7 @@ theorem squareRootLowPrimeRunningImbalance_sub_integratedCore_norm_le
     _ ≤ (‖squareRootERuniq R‖ +
           ‖((squareRootCrossingLayerPartialPacketInt R K j : ℤ) : ℂ)‖) +
         ‖squareRootBornPostTailNearRootRemainder R K j‖ :=
-      add_le_add_right hfirst _
+      add_le_add_left hfirst _
     _ ≤ ((R : ℝ) + (K : ℝ)) + (R : ℝ) :=
       add_le_add (add_le_add huniq hpartial) hnear
     _ = 2 * (R : ℝ) + (K : ℝ) := by ring
@@ -317,9 +317,9 @@ theorem squareRootLowPrimeRunningImbalanceReal_abs_le_of_integratedCore
       abs_add_le _ _
     _ ≤ (2 * (R : ℝ) + (K : ℝ)) +
           |squareRootLowPrimeIntegratedTerminalCoreReal R| :=
-      add_le_add_right hdiff _
+      add_le_add_left hdiff _
     _ ≤ (2 * (R : ℝ) + (K : ℝ)) + B :=
-      add_le_add_left hcore _
+      add_le_add_right hcore _
     _ = B + (2 * (R : ℝ) + (K : ℝ)) := by ring
 
 /-- Squared terminal-state transfer.  This is again only endpoint bookkeeping:

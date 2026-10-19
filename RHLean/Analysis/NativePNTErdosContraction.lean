@@ -1858,7 +1858,7 @@ theorem nativePNTHasAffineEnvelope_mono
   intro N
   have hscale : alpha * (N : ℝ) ≤ beta * (N : ℝ) :=
     mul_le_mul_of_nonneg_right hab (by positivity)
-  exact (henv N).trans (add_le_add_right hscale D)
+  exact (henv N).trans (add_le_add_left hscale D)
 
 
 /-- An affine endpoint envelope automatically controls every reciprocal fibre
@@ -1876,7 +1876,7 @@ theorem nativePNTAffineEnvelope_on_fiber
     rw [le_div_iff₀ hnpos]
     exact_mod_cast Nat.div_mul_le_self N n
   have hscale := mul_le_mul_of_nonneg_left hfloor halpha
-  exact (henv (N / n)).trans (add_le_add_right hscale D)
+  exact (henv (N / n)).trans (add_le_add_left hscale D)
 
 /-- **Compensated squared Selberg recurrence.**  This is the quantitative
 interface between an affine error envelope and the good-fibre packing.  The
@@ -1939,7 +1939,7 @@ theorem nativePNTError_abs_log_sq_le_affine_compensated
             nativeLambdaTwoGoodRecipMass N beta +
           D * (2 * (N : ℝ) * Real.log N + 182 * (N : ℝ) + 600)) +
           3000 * (N : ℝ) * Real.log N :=
-      add_le_add_right hmass _
+      add_le_add_left hmass _
     _ = _ := by ring
 
 
@@ -2115,7 +2115,7 @@ theorem nativePNTHasAffineEnvelope_improve_of_goodMass
                   nativeLambdaTwoGoodRecipMass N beta)) := hrec'
         _ ≤ alpha * (N : ℝ) * L ^ 2 - delta * (N : ℝ) * L ^ 2 := by
           simpa [sub_eq_add_neg] using
-            (add_le_add_left htail (alpha * (N : ℝ) * L ^ 2))
+            (add_le_add_right htail (alpha * (N : ℝ) * L ^ 2))
         _ = (alpha - delta) * (N : ℝ) * L ^ 2 := by ring
     have hLsq : 0 < L ^ 2 := sq_pos_of_pos hLpos
     have hsq' :

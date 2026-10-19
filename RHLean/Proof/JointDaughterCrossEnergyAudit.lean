@@ -83,7 +83,7 @@ It supplies no physical source-to-daughter comparison. -/
 theorem jointDaughter_norm_sq_le_three (u v w : V) :
     ‖u + v + w‖ ^ 2 ≤ 3 * jointDaughterDiagonalEnergy u v w := by
   have htri : ‖u + v + w‖ ≤ ‖u‖ + ‖v‖ + ‖w‖ :=
-    (norm_add_le (u + v) w).trans (add_le_add_right (norm_add_le u v) _)
+    (norm_add_le (u + v) w).trans (add_le_add_left (norm_add_le u v) _)
   have hs : ‖u + v + w‖ ^ 2 ≤ (‖u‖ + ‖v‖ + ‖w‖) ^ 2 :=
     (sq_le_sq₀ (norm_nonneg _) (by positivity)).2 htri
   unfold jointDaughterDiagonalEnergy

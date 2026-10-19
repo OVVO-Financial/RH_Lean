@@ -63,7 +63,7 @@ theorem nativePNTError_abs_log_sq_le_tail_compensated_mobius_rederived
           (6 - alpha) * (N : ℝ) *
             nativeLambdaTwoSmallQuotientRecipMass N M := by
     exact hmass.trans
-      (add_le_add_right
+      (add_le_add_left
         (sub_le_sub_right hrecMul
           ((alpha - beta) * (N : ℝ) *
             nativeLambdaTwoGoodTailRecipMass N M beta))
@@ -79,7 +79,7 @@ theorem nativePNTError_abs_log_sq_le_tail_compensated_mobius_rederived
             nativeLambdaTwoGoodTailRecipMass N M beta +
           (6 - alpha) * (N : ℝ) *
             nativeLambdaTwoSmallQuotientRecipMass N M) +
-          3000 * (N : ℝ) * Real.log N := add_le_add_right hmass' _
+          3000 * (N : ℝ) * Real.log N := add_le_add_left hmass' _
     _ = _ := by ring
 
 end RHLean.Analysis

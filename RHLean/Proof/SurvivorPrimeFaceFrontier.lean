@@ -88,7 +88,7 @@ private theorem survivorPrimeFaceProduct_mono
     {q : ℕ} {u v : Finset ℕ}
     (huv : u ⊆ v) (hv : v ⊆ survivorPrimeFaceAmbient q) :
     primeFaceProduct u ≤ primeFaceProduct v := by
-  exact Finset.prod_le_prod_of_subset_of_one_le' huv (by
+  exact Finset.prod_le_prod_of_subset_of_one_le huv (by
     intro p hpv _hpu
     have hpAmbient : p ∈ primesUpTo (q - 1) := hv hpv
     exact (prime_of_mem_primesUpTo hpAmbient).one_le)

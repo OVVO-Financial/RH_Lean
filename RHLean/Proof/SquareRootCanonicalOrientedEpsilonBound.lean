@@ -466,9 +466,9 @@ theorem frozenTopFarResidualEpsilon_of_canonicalOrientedEpsilon
     ‖lowWheelFrozenTopFarResidual R‖ ≤
         ‖lowWheelCanonicalDowncrossLedger R‖ + 9 * (R : ℝ) := hcomp
     _ ≤ C * Real.rpow (R : ℝ) (1 + ε) + 9 * (R : ℝ) :=
-      add_le_add_right hD _
+      add_le_add_left hD _
     _ ≤ C * Real.rpow (R : ℝ) (1 + ε) +
-        9 * Real.rpow (R : ℝ) (1 + ε) := add_le_add_left h9 _
+        9 * Real.rpow (R : ℝ) (1 + ε) := add_le_add_right h9 _
     _ = (C + 9) * Real.rpow (R : ℝ) (1 + ε) := by ring
 
 /-- Conversely, the frozen/top/far target gives the complete canonical oriented
@@ -502,9 +502,9 @@ theorem canonicalOrientedEpsilon_of_frozenTopFarResidualEpsilon
       ‖lowWheelCanonicalDowncrossLedger R‖ ≤
           ‖lowWheelFrozenTopFarResidual R‖ + 9 * (R : ℝ) := hcomp
       _ ≤ C * Real.rpow (R : ℝ) (1 + ε) + 9 * (R : ℝ) :=
-        add_le_add_right hbound _
+        add_le_add_left hbound _
       _ ≤ C * Real.rpow (R : ℝ) (1 + ε) +
-          9 * Real.rpow (R : ℝ) (1 + ε) := add_le_add_left h9 _
+          9 * Real.rpow (R : ℝ) (1 + ε) := add_le_add_right h9 _
       _ = (C + 9) * Real.rpow (R : ℝ) (1 + ε) := by ring
       _ ≤ C' * Real.rpow (R : ℝ) (1 + ε) :=
         mul_le_mul_of_nonneg_right hcoeff hrpowNonneg

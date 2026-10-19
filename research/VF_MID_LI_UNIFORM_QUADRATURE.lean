@@ -623,9 +623,9 @@ theorem sum_vfLogHarmonicKernel_Ico_le
         ≤ vfLogHarmonicKernel 2 +
             (∫ x in (2 : ℝ)..((R - 1 : ℕ) : ℝ),
               vfLogHarmonicKernel x) :=
-      add_le_add_left htail _
+      add_le_add_right htail _
     _ ≤ vfLogHarmonicKernel 2 + (Real.log 2)⁻¹ :=
-      add_le_add_left hintle _
+      add_le_add_right hintle _
 
 theorem sum_abs_vfMidBandQuadratureError_le_uniform
     (R : ℕ) (hR : 2 ≤ R) :
@@ -722,7 +722,7 @@ theorem abs_vfMidLiError_sq_le_uniform
           108 *
             (vfLogHarmonicKernel 2 +
               (Real.log 2)⁻¹) := by
-      exact add_le_add_left
+      exact add_le_add_right
         (sum_abs_vfMidBandQuadratureError_le_uniform R hR) _
     _ = vfMidLiSquareEndpointUniformConstant := rfl
 

@@ -245,7 +245,7 @@ theorem recombinedCanonicalDefectLogBound_of_criticalReciprocalPrefixRootBound
         C * (R : ℝ) * (Real.log (R : ℝ) + 1) + 1 ≤
             C * (R : ℝ) * (Real.log (R : ℝ) + 1) +
               (R : ℝ) * (Real.log (R : ℝ) + 1) :=
-          add_le_add_left hscaleOne _
+          add_le_add_right hscaleOne _
         _ = (C + 1) * (R : ℝ) * (Real.log (R : ℝ) + 1) := by ring
 
 /-! ## Post-root covariance descent on reciprocal bands

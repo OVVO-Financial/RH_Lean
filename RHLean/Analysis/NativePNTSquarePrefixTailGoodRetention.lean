@@ -61,7 +61,7 @@ theorem nativeLambdaTwoGoodRecipMass_le_goodTail_add_small
   unfold nativeLambdaTwoGoodRecipMass nativePNTGoodFiberSet
   dsimp [G, good, w] at hsplit
   rw [← hsplit, hGT]
-  exact add_le_add_left hGS _
+  exact add_le_add_right hGS _
 
 /-- Any global quadratic good-mass lower bound survives on the contracted tail
 once the explicit finite-prefix carry consumes at most half of it. -/

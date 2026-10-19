@@ -263,7 +263,7 @@ theorem physicalCompleteCell_fourFrame_elevenStep_implies_linear
                 lambda * ∑ q ∈ S, mertensEnergy ((4 * K) / (q * q)) := hs
           _ ≤ C * (K : ℚ) +
                 lambda * (((5 : ℚ) / 16 * A + 225) * (K : ℚ)) :=
-                  add_le_add_left hweighted _
+                  add_le_add_right hweighted _
           _ = (C + 225 * lambda + (5 : ℚ) / 16 * lambda * A) * (K : ℚ) := by
                 ring
           _ ≤ A * (K : ℚ) :=

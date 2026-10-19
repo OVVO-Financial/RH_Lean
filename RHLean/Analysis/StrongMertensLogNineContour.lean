@@ -1,6 +1,6 @@
 import Mathlib
 import PrimeNumberTheoremAnd.ResidueCalcOnRectangles
-import StrongPNT.PNT5_Strong
+import PrimeNumberTheoremAnd.StrongPNT
 import RHLean.Analysis.StrongMertensZetaKernel
 
 /-!
@@ -19,8 +19,7 @@ open scoped BigOperators ArithmeticFunction.Moebius LSeries.notation
 
 namespace RHLean.Analysis
 
--- `StrongPNT.PNT1_ComplexAnalysis` declares a root-level `def I := Complex.I`,
--- so with `Complex` open the bare token `I` resolves two ways.
+-- Keep the bare token `I` pinned to `Complex.I` under `open Complex`.
 local notation "I" => Complex.I
 
 /-- Lower far tail on the right Perron line. -/

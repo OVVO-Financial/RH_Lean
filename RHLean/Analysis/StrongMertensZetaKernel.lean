@@ -1,11 +1,8 @@
 import Mathlib
 import Mathlib.NumberTheory.LSeries.Dirichlet
--- `StrongPNT.PNT5_Strong` is a fork of `PrimeNumberTheoremAnd.MediumPNT` and
--- redeclares 55 of its 57 names, so no Lean environment can hold both.  This
--- route is the StrongPNT one, and the only name it needs from either --
--- `SmoothedChebyshevDirichlet_aux_integrable` -- is common to the two with the
--- same signature.
-import StrongPNT.PNT5_Strong
+-- `PrimeNumberTheoremAnd.StrongPNT` re-exports `MediumPNT`, the source of the
+-- one smoothing name this route needs: `SmoothedChebyshevDirichlet_aux_integrable`.
+import PrimeNumberTheoremAnd.StrongPNT
 import PrimeNumberTheoremAnd.MellinCalculus
 import PrimeNumberTheoremAnd.ResidueCalcOnRectangles
 import RHLean.Analysis.NativePNTAxer
@@ -30,9 +27,7 @@ namespace RHLean.Analysis
 
 local notation "zetaC" => riemannZeta
 
--- `StrongPNT.PNT1_ComplexAnalysis` declares a root-level `def I := Complex.I`,
--- so with `Complex` open the bare token `I` resolves two ways.  Fix it the way
--- the corridor and StrongPNT's own PNT5 do.
+-- Keep the bare token `I` pinned to `Complex.I` under `open Complex`.
 local notation "I" => Complex.I
 
 /-- The Mobius Dirichlet series is reciprocal zeta on `Re s > 1`. -/

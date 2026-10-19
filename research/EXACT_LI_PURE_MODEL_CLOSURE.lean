@@ -1303,7 +1303,7 @@ theorem criticalLiLocalCorrectionVariation_le
   have hz0 : 0 ≤ ‖criticalLiFrequencyWeight q‖ := norm_nonneg _
   have hz1 : ‖criticalLiFrequencyWeight q‖ ≤ 1 :=
     norm_criticalLiFrequencyWeight_le_one hq
-  exact add_le_add_left
+  exact add_le_add_right
     (tsum_hardCorePoissonCorrectionTailTerm_le_three_sq hz0 hz1) 1
 
 /-- The quadratic coefficient-variation estimate in fact holds at every site
@@ -1316,7 +1316,7 @@ theorem criticalLiLocalCorrectionVariation_le_of_two_le
   have hz0 : 0 ≤ ‖criticalLiFrequencyWeight q‖ := norm_nonneg _
   have hz1 : ‖criticalLiFrequencyWeight q‖ ≤ 1 :=
     norm_criticalLiFrequencyWeight_le_one_of_two_le hq
-  exact add_le_add_left
+  exact add_le_add_right
     (tsum_hardCorePoissonCorrectionTailTerm_le_three_sq hz0 hz1) 1
 
 /-- The local coefficient variation is nonnegative. -/
@@ -5975,7 +5975,7 @@ theorem allScaleLiSquareRootBounded_of_criticalPoisson_uniform
       ‖exactLiCriticalPoissonIntegerReference N - 1‖ ≤
           ‖exactLiCriticalPoissonIntegerReference N‖ + ‖(1 : ℂ)‖ :=
         norm_sub_le _ _
-      _ ≤ B + 1 := by simpa using add_le_add_right (hbound N) 1
+      _ ≤ B + 1 := by simpa using add_le_add_left (hbound N) 1
   · exact exactLiCorrectionKernel_uniformVariation
   · intro L X hX hL
     exact allScaleLiState_diagonal_eq_poissonConvolution hX hL

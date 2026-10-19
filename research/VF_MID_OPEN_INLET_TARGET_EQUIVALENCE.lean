@@ -162,7 +162,7 @@ theorem abs_vfMidPrimeError_sq_sub_sq_le_of_squareEndpointBound
     _ ≤ C * (B : ℝ) * Real.log B + C * (A : ℝ) * Real.log A :=
       add_le_add hEB hEA
     _ ≤ 4 * (C * (A : ℝ) * Real.log A) + C * (A : ℝ) * Real.log A :=
-      add_le_add_right hCB _
+      add_le_add_left hCB _
     _ = 5 * C * (A : ℝ) * Real.log A := by ring
 
 /-- **Reverse implication (new).**  The square-endpoint von-Koch statement

@@ -30,7 +30,7 @@ theorem nativePNTReciprocalInterceptLaw_of_tailCutoffLaw
   · exact div_nonneg hK.le halpha.le
   · intro N
     exact (henv.2 N).trans
-      (add_le_add_left hMcost (alpha * (N : Real)))
+      (add_le_add_right hMcost (alpha * (N : Real)))
 
 theorem nativePNTError_abs_le_two_sqrt_of_reciprocalInterceptLaw
     (K : Real) (hlaw : NativePNTReciprocalInterceptLaw K)

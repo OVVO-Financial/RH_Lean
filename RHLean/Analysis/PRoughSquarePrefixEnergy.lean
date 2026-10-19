@@ -153,7 +153,7 @@ theorem pRoughPowerGrowth_of_energy
           _ ≤ K * Real.rpow ((x + 1 : ℕ) : ℝ) r +
                 D * (q * Real.rpow ((x + 1 : ℕ) : ℝ) r) := by
             dsimp [q] at hscale ⊢
-            exact add_le_add_left (mul_le_mul_of_nonneg_left hscale hD0) _
+            exact add_le_add_right (mul_le_mul_of_nonneg_left hscale hD0) _
           _ = (K + q * D) * Real.rpow ((x + 1 : ℕ) : ℝ) r := by ring
           _ = D * Real.rpow ((x + 1 : ℕ) : ℝ) r := by rw [hDrel]
 

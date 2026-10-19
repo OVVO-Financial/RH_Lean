@@ -90,7 +90,7 @@ theorem powerBound_of_strip_interior
       _ ≤ (Cm * (4 : ℝ) ^ (-q)) * X ^ (σ + q) + 4 * Ce :=
         add_le_add hsm' hcl
       _ ≤ (Cm * (4 : ℝ) ^ (-q)) * X ^ (σ + q) + (4 * Ce) * X ^ (σ + q) :=
-        add_le_add_left (le_mul_of_one_le_right (by positivity) hXp) _
+        add_le_add_right (le_mul_of_one_le_right (by positivity) hXp) _
       _ = (Cm * (4 : ℝ) ^ (-q) + 4 * Ce) * X ^ (σ + q) := by ring
       _ ≤ B * X ^ (σ + q) :=
         mul_le_mul_of_nonneg_right (by dsimp [B]; linarith) hXp0

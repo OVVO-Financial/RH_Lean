@@ -283,7 +283,7 @@ theorem nativeLogSquareMass_bounds (N : ℕ) (hN : 1 ≤ N) :
             (Real.log (N : ℝ)) ^ 2 := htop
       _ ≤ (∫ x in (1 : ℝ)..(N : ℝ), (Real.log x) ^ 2) +
             (Real.log (N : ℝ)) ^ 2 := by
-          simpa using (add_le_add_right hupperInt ((Real.log (N : ℝ)) ^ 2))
+          simpa using (add_le_add_left hupperInt ((Real.log (N : ℝ)) ^ 2))
       _ = nativeLogSquareMain N - 2 + (Real.log (N : ℝ)) ^ 2 := by rw [hI]
 
 /-- **Quadratic logarithmic summatory estimate.**

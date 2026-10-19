@@ -216,7 +216,7 @@ theorem norm_nonzeroResponseIncrement_sub_survivorCentered_le_control_add_death
         ‖lifetimeDeathMass 16 n - lifetimeDeathMass 16 (n - 1)‖ := by
   exact (norm_nonzeroResponseIncrement_sub_survivorCentered_le_low_add_death
     k n hn hleftLower hleftUpper hrightUpper).trans
-      (add_le_add_right (control.norm_increment_le n) _)
+      (add_le_add_left (control.norm_increment_le n) _)
 
 /-- The predecessor death-mass difference is exactly the existing one-step
 death increment. -/

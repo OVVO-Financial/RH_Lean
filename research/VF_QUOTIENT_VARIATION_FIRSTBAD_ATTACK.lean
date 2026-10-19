@@ -270,7 +270,7 @@ theorem vfVarSquareMertens_norm_le_longPlus_shortMass
           ‖vf919ExcludedNormCoefficients m‖) := by
   rw [vfVarMertens_squareHyperbola_exact_split R hR]
   exact (norm_add_le _ _).trans
-    (add_le_add_left (vfVarSquareShortNorm_norm_le_two_coeffMass R) _)
+    (add_le_add_right (vfVarSquareShortNorm_norm_le_two_coeffMass R) _)
 
 
 /-! ## The missing diagonal bucket and improved one-sided low/high budget -/

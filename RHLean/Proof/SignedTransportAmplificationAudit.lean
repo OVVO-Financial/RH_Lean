@@ -252,7 +252,7 @@ theorem squareEndpointRoundedOddQ2EnergyStep_implies_unshifted_amplification
                 squareEndpointMertensEnergyReal (roundedQ2ChildRoot R q) := hs
         _ ≤ C * (R : ℝ) ^ 2 * K +
               4 * (A * K * ((17 : ℝ) / 72 * (R : ℝ) ^ 2)) :=
-                add_le_add_left hweighted _
+                add_le_add_right hweighted _
         _ = (C + (17 : ℝ) / 18 * A) * ((R : ℝ) ^ 2 * K) := by ring
         _ = A * (R : ℝ) ^ 2 * K := by rw [hfixed]; ring
 

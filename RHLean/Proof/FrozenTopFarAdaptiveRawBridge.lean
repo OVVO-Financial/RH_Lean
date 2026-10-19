@@ -150,7 +150,7 @@ theorem norm_lowWheelFrozenTopFarResidual_le_adaptiveRawPacket_add_ten_root
           (Finset.Icc 1 (squareRootEndpoint R))
           (fun _ => (1 : ℂ))‖ +
         ‖frozenTopFarRoughRootCorrection R‖ := norm_add_le _ _
-    _ ≤ _ := add_le_add_left
+    _ ≤ _ := add_le_add_right
       (norm_frozenTopFarRoughRootCorrection_le_ten_root R hR) _
 
 end RHLean.Proof

@@ -692,7 +692,7 @@ theorem vf919HalfIncrement_norm_le_lowVariation_add_boundary (X : ℕ) :
     _ ≤ (∑ t ∈ Finset.Icc 1 (Nat.sqrt X),
             ‖vf919QuotientBucket X t - vf919QuotientBucket X (t + 1)‖) +
           ‖vf919QuotientBucket X (Nat.sqrt X + 1)‖ :=
-      add_le_add_right (norm_sum_le _ _) _
+      add_le_add_left (norm_sum_le _ _) _
 
 /-- The boundary bucket `B_X(r+1)` holds at most one norm, and its size is at
 most `sqrt X`. -/

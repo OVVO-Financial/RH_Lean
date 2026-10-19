@@ -167,7 +167,7 @@ theorem abs_canonicalCore_sub_shallow_le_childMass_add_root
                   squareRootLowPrimeRunningImbalanceReal R K j K))
     _ ≤ |squareRootLowPrimeOwnedResponseChildMassReal R K
           (squareRootBornPostTailLowPrimeCutoff R)| + (R : ℝ) :=
-      add_le_add_left hdiff _
+      add_le_add_right hdiff _
 
 /-- The child-to-far-survivor discrepancy is bounded by `8R+K`. -/
 theorem abs_squareRootLowPrimeOwnedResponseChildMassReal_sub_farSurvivorCore_sub_shallow_le

@@ -286,7 +286,7 @@ theorem primeOwnerReciprocalSquareBudget_le_79_over_162 (N : ℕ) :
       (∑ q ∈ primesUpTo N, (1 : ℚ) / (q : ℚ) ^ 2) =
           (∑ q ∈ (primesUpTo N).erase 2,
             (1 : ℚ) / (q : ℚ) ^ 2) + 1 / 4 := hsplit'.symm
-      _ ≤ (1 / 4 - 1 / 81) + 1 / 4 := add_le_add_right hodd _
+      _ ≤ (1 / 4 - 1 / 81) + 1 / 4 := add_le_add_left hodd _
       _ = 79 / 162 := by norm_num
 
 /-! ## Strict fixed-parent reciprocal-square congestion -/

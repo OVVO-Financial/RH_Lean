@@ -28,7 +28,7 @@ theorem k2AbelBoundaryWeight_succ_le
     {sigma : ℝ} (hsigma : 1 < sigma) {n : ℕ} (hn : 1 ≤ n) :
     k2AbelBoundaryWeight sigma (n + 1) ≤ k2AbelBoundaryWeight sigma n := by
   unfold k2AbelBoundaryWeight
-  apply Real.rpow_le_rpow_of_exponent_nonpos
+  apply Real.rpow_le_rpow_of_nonpos
   · exact_mod_cast (by omega : 0 < n)
   · exact_mod_cast (show n ≤ n + 1 by omega)
   · linarith

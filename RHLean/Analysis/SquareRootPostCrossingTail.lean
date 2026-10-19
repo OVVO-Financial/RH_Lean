@@ -356,7 +356,7 @@ theorem postCrossingCoupledTailBounded_of_squarePrefixEnergyBounded
         (mul_le_mul_of_nonneg_left hVsq (by norm_num))
     _ ≤ 2 * (C * Real.rpow (R : ℝ) (2 + ε)) +
           2 * (K₀ : ℝ) ^ 2 * Real.rpow (R : ℝ) (2 + ε) :=
-      add_le_add_left hconst _
+      add_le_add_right hconst _
     _ = D * Real.rpow (R : ℝ) (2 + ε) := by
       dsimp [D]
       ring
@@ -427,7 +427,7 @@ theorem squarePrefixEnergyBounded_of_postCrossingCoupledTailBounded
             (mul_le_mul_of_nonneg_left htailR (by norm_num))
         _ ≤ 2 * (K₀ : ℝ) ^ 2 * Real.rpow (R : ℝ) (2 + ε) +
               2 * (C * Real.rpow (R : ℝ) (2 + ε)) :=
-          add_le_add_right hconst _
+          add_le_add_left hconst _
         _ ≤ D * Real.rpow (R : ℝ) (2 + ε) := by
           have hpowNonneg : 0 ≤ Real.rpow (R : ℝ) (2 + ε) :=
             Real.rpow_nonneg (by positivity) _

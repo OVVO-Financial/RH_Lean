@@ -218,7 +218,7 @@ theorem finiteWheelRoughMertensRecip_abs_le
               Int.fract ((X : ℝ) / (m : ℝ))| := by
         rw [abs_of_nonneg]
         positivity
-      _ ≤ _ := add_le_add_left hfract _
+      _ ≤ _ := add_le_add_right hfract _
   rw [abs_mul, abs_of_pos (by positivity : (0 : ℝ) < X)] at hmul
   exact (le_div_iff₀' (by positivity : (0 : ℝ) < X)).2 hmul
 

@@ -373,7 +373,7 @@ theorem norm_sum_squareRootCanonicalRoughCorrelationReciprocal_le_manyPrimeCompr
           (squareRootCanonicalRoughCompressionRunSteps ps U)‖ +
         ‖squareRootCanonicalRoughCorrelationTransportedSurvivorLedger R ps U‖ := by
       exact (norm_add_le _ _).trans
-        (add_le_add_right (norm_add_le _ _) _)
+        (add_le_add_left (norm_add_le _ _) _)
     _ = canonicalRoughEulerProduct
           (squareRootCanonicalRoughCompressionRunSteps ps U) *
           ‖∑ n ∈ squareRootCanonicalRoughCompressionFinalParents ps U,
@@ -391,7 +391,7 @@ theorem norm_sum_squareRootCanonicalRoughCorrelationReciprocal_le_manyPrimeCompr
           squareRootCanonicalRoughScaledSignedDefectFloor R
             (squareRootCanonicalRoughCompressionRunSteps ps U) +
         ‖squareRootCanonicalRoughCorrelationTransportedSurvivorLedger R ps U‖ := by
-      exact add_le_add_right (add_le_add_left hledger _) _
+      exact add_le_add_left (add_le_add_right hledger _) _
 
 /-! ## Finite Abel return directly to the RH-equivalent correlation -/
 

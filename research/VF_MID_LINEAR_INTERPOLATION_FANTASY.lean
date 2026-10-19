@@ -299,8 +299,8 @@ private theorem abs_vfMidLinearMidpointSegment_sub_li_le
     _ ≤ (B * Real.sqrt x + (3 / Real.log 4) * Real.sqrt x) +
         (2 * B * Real.sqrt x + (3 / Real.log 4) * Real.sqrt x) := by
       exact add_le_add
-        (add_le_add_left hwidthDiv _)
-        (add_le_add_left hwidthDiv _)
+        (add_le_add_right hwidthDiv _)
+        (add_le_add_right hwidthDiv _)
     _ = (3 * B + 6 / Real.log 4) * Real.sqrt x := by ring
 
 set_option maxHeartbeats 200000

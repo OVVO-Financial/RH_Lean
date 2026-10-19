@@ -190,7 +190,7 @@ theorem upperHalfFirstJumpFrozenWindowSlice_eq_singleton
           exact hrData.1
       have hprodLower : p * r ≤ primeFaceProduct t := by
         unfold primeFaceProduct
-        have hle := Finset.prod_le_prod_of_subset_of_one_le' hsub (by
+        have hle := Finset.prod_le_prod_of_subset_of_one_le hsub (by
           intro z hzt _hzsmall
           exact (prime_of_mem_primesUpTo (htSub hzt)).one_le)
         have hne : p ≠ r := by omega

@@ -2420,7 +2420,7 @@ theorem riemannHypothesis_of_topTwoStokesClipCriticalEnvelopeBound
         lowOwnerCanonicalSignedStokesTopTerminalBoundary R ≤
       C * (R : ℝ) ^ 2 * K + 4 := add_le_add hclip hterm
     _ ≤ C * (R : ℝ) ^ 2 * K + (R : ℝ) ^ 2 * K :=
-      add_le_add_left hscale _
+      add_le_add_right hscale _
     _ = (C + 1) * (R : ℝ) ^ 2 * K := by ring
 
 end RHLean.Proof

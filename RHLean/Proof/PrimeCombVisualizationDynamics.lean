@@ -177,7 +177,7 @@ theorem frozenPrimeUniverseMass_eq_zero_of_complete_old_cube
         have htS : t ⊆ S := Finset.mem_powerset.mp ht
         have hprodLe : primeFaceProduct t ≤ primeFaceProduct S := by
           unfold primeFaceProduct
-          exact Finset.prod_le_prod_of_subset_of_one_le' htS (by
+          exact Finset.prod_le_prod_of_subset_of_one_le htS (by
             intro q hqS _hqt
             exact (hprime q hqS).one_le)
         simp [hprodLe.trans hfit]
