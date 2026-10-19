@@ -58,7 +58,8 @@ theorem vf919SplitPrimeFourier_norm_le_sqrt
     have hsq :
         ‖ZMod.dft (fun x : ZMod p => χ x) v‖ ^ 2 = (p : ℝ) := by
       rw [hfourier]
-      simpa using (vf919FiniteFieldGauss_squaredNorm χ _ hχ hψ)
+      simpa only [ZMod.card] using
+        (vf919FiniteFieldGauss_squaredNorm χ _ hχ hψ)
     have hp0 : 0 ≤ (p : ℝ) := by positivity
     have hsqrt := Real.sq_sqrt hp0
     have hsqrt0 := Real.sqrt_nonneg (p : ℝ)
