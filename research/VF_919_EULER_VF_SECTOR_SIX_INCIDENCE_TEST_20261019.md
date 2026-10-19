@@ -345,7 +345,7 @@ short-interval PNT, or square-root saving is claimed.
 ## 10. Exact 3-dipole zero defect and physical cofactor hyperbola (2026-10-19)
 
 New Lean file: VF_919_EULER_THREE_ADIC_HYPERBOLA_20261019.lean.
-Nine new theorem footprints raise the dedicated CI gate to 76.
+Twelve new theorem footprints raise the dedicated CI gate to 79.
 
 **Finite rational defect.** Take D_M to be the odd squarefree
 integers d in [1,M] not divisible by 3, and C_M = D_M union 3*D_M.
@@ -367,6 +367,26 @@ zero defect does not imply small compensated variance. The base
 pair {1,3} does not share a greatest-prime cutoff, since P+(1)=1
 and P+(3)=3. That is handled separately by the small-cofactor
 automatic cutoff, not the parent-child invariance lemma.
+
+**Full-carrier extension (the essential closure).**
+The initial pair-complete identity alone cannot be substituted into the
+global kernel over all cofactor indices. The new theorems
+vf919ThreeDipoleCarrier_subset_range and
+three_adic_dipole_full_defect_eq_zero prove that when 3M<U,
+alpha is supported on C_M inside the FULL Finset.range U and vanishes
+identically outside C_M. Thus
+\[
+\sum_{m<U}\mu(m)\alpha_M(m)=0
+\]
+as an exact identity on the actual large finite ambient cofactor set.
+The theorem three_adic_dipole_full_dyadic_kernel_exact then applies
+the double-difference identity on the FULL cofactor range
+U=(2H)^2 for H<=R<2H, assuming 3M<H. This removes the scalar defect
+and both drift-error terms from the complete finite signed kernel;
+it does NOT establish a bound for the remaining centered energy.
+It does not require the NONZERO-FIBER active subset to be pair-closed:
+absent fibers contribute Q_R(m)=0 and alpha is still defined on the
+ambient carrier.
 
 **Automatic small-cofactor cutoff.** If 3M<H<=R, 0<m<=3M,
 q is prime and R²<=mq<(R+1)², then q>m, so P+(m)<q
