@@ -67,7 +67,7 @@ jobs:
         with:
           targets: >-
             research/VF_919_EULER_PRIME_DENSITY_LEDGER_20261019.lean
-            research/VF_919_EULER_MOVING_COVARIANCE_GROWTH_20261019.lean
+            research/VF_919_EULER_MOVING_COVARIANCE_GROWTH_20261019.lean \
             research/VF_919_EULER_FIXED_WHEEL_SIX_CHANNEL_20261019.lean
       - name: Verify all 36 exact Euler theorem standard-axiom footprints
         shell: bash
