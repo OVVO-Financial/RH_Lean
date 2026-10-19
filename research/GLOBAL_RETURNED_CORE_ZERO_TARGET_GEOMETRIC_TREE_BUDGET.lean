@@ -70,7 +70,6 @@ theorem lowOwnerZeroTargetGenerationBudget_invariant
       have hx := hexit n
       have hr := hrec n
       rw [Finset.sum_range_succ]
-      norm_num at ih ⊢
       nlinarith
 
 /-- Every finite prefix of positive exits costs at most one half of the initial

@@ -1806,124 +1806,28 @@ theorem allScaleLiState_diagonal_eq_hardCoreProductCumulative
 `q^k`.  This is the only divisor lemma needed by the local power-series
 embedding below; it is present in newer Mathlib but not in the revision pinned
 by this repository. -/
-private theorem li_antidiagonal_map_subset_divisorsAntidiagonal_pow
-    {q : ℕ} (hq : 1 < q) (k : ℕ) :
-    let ι : ℕ ↪ ℕ :=
-      ⟨fun j ↦ q ^ j, Nat.pow_right_injective hq⟩
-    (Finset.antidiagonal k).map (.prodMap ι ι) ⊆
-      (q ^ k).divisorsAntidiagonal := by
-  intro x hx
-  obtain ⟨i, hi, rfl⟩ := Finset.mem_map.mp hx
-  simp [Nat.mem_divisorsAntidiagonal,
-    ← Finset.mem_antidiagonal.mp hi, pow_add, ne_zero_of_lt hq]
-
-/-- Local ring-hom backport of the newer Mathlib power-series embedding.
-For a fixed genuine site `q > 1`, it sends the coefficient of `T^k` to the
-arithmetic site `q^k`.  A ring hom is sufficient here; the newer Mathlib
-`Algebra` instance for arithmetic functions is not available at the revision
-pinned by this repository. -/
+/-- Preserve RHLean's historical local power-series embedding API by using
+the complete, kernel-checked Mathlib v4.34.1 construction. The upstream
+arithmetic power-series algebra homomorphism proves all additive and
+multiplicative/Dirichlet-convolution obligations. -/
 private noncomputable def liArithmeticOfPowerSeries
-    {q : ℕ} (hq : 1 < q) :
-    PowerSeries ℂ →+* ArithmeticFunction ℂ where
-  toFun F :=
-    ⟨Function.extend (q ^ ·) (F.coeff ·) 0,
-      by simp [Nat.ne_zero_of_lt hq]⟩
-  map_zero' := by
-    ext n
-    by_cases hn : ∃ k, q ^ k = n
-    · obtain ⟨k, rfl⟩ := hn
-      simp [(Nat.pow_right_injective hq).extend_apply]
-    · change
-        Function.extend (q ^ ·)
-            ((0 : PowerSeries ℂ).coeff ·) 0 n = 0
-      rw [Function.extend_apply' _ _ _ hn, Pi.zero_apply]
-  map_one' := by
-    ext n
-    by_cases hn : ∃ k, q ^ k = n
-    · obtain ⟨k, rfl⟩ := hn
-      simp [(Nat.pow_right_injective hq).extend_apply,
-        ArithmeticFunction.one_apply, hq.ne']
-    · change
-        Function.extend (q ^ ·)
-            ((1 : PowerSeries ℂ).coeff ·) 0 n =
-          (1 : ArithmeticFunction ℂ) n
-      rw [Function.extend_apply' _ _ _ hn, Pi.zero_apply]
-      have hn1 : n ≠ 1 := by
-        intro hn1
-        apply hn
-        exact ⟨0, by simp [hn1]⟩
-      simp [hn1]
-  map_add' F G := by
-    ext n
-    by_cases hn : ∃ k, q ^ k = n
-    · obtain ⟨k, rfl⟩ := hn
-      simp [(Nat.pow_right_injective hq).extend_apply]
-    · simp [Function.extend_apply' _ _ _ hn]
-  map_mul' F G := by
-    ext n
-    rw [ArithmeticFunction.mul_apply]
-    change
-      Function.extend (q ^ ·) ((F * G).coeff ·) 0 n =
-        ∑ p ∈ n.divisorsAntidiagonal,
-          Function.extend (q ^ ·) (F.coeff ·) 0 p.1 *
-            Function.extend (q ^ ·) (G.coeff ·) 0 p.2
-    by_cases hn : ∃ k, q ^ k = n
-    · obtain ⟨k, rfl⟩ := hn
-      rw [(Nat.pow_right_injective hq).extend_apply]
-      have hs :
-          (Finset.antidiagonal k).map
-              (.prodMap
-                ⟨fun j ↦ q ^ j, Nat.pow_right_injective hq⟩
-                ⟨fun j ↦ q ^ j, Nat.pow_right_injective hq⟩) ⊆
-            (q ^ k).divisorsAntidiagonal :=
-        li_antidiagonal_map_subset_divisorsAntidiagonal_pow hq k
-      rw [PowerSeries.coeff_mul k F G, ← Finset.sum_subset hs]
-      · simp [(Nat.pow_right_injective hq).extend_apply]
-      · intro p hp hnot
-        rcases p with ⟨a, b⟩
-        obtain ⟨hab, -⟩ := Nat.mem_divisorsAntidiagonal.mp hp
-        by_cases ha : ∃ i, q ^ i = a
-        · by_cases hb : ∃ j, q ^ j = b
-          · obtain ⟨i, rfl⟩ := ha
-            obtain ⟨j, rfl⟩ := hb
-            have hij : i + j = k := by
-              apply Nat.pow_right_injective hq
-              simpa [pow_add] using! hab
-            exfalso
-            apply hnot
-            apply Finset.mem_map.mpr
-            refine ⟨(i, j), ?_, ?_⟩
-            · simpa [Finset.mem_antidiagonal] using! hij
-            · rfl
-          · rw [Function.extend_apply' _ _ _ hb, Pi.zero_apply, mul_zero]
-        · rw [Function.extend_apply' _ _ _ ha, Pi.zero_apply, zero_mul]
-    · rw [Function.extend_apply' _ _ _ hn, Pi.zero_apply,
-        Finset.sum_eq_zero]
-      intro p hp
-      rcases p with ⟨a, b⟩
-      obtain ⟨hab, -⟩ := Nat.mem_divisorsAntidiagonal.mp hp
-      by_cases ha : ∃ i, q ^ i = a
-      · by_cases hb : ∃ j, q ^ j = b
-        · obtain ⟨i, rfl⟩ := ha
-          obtain ⟨j, rfl⟩ := hb
-          exfalso
-          apply hn
-          refine ⟨i + j, ?_⟩
-          simpa [pow_add] using! hab
-        · rw [Function.extend_apply' _ _ _ hb, Pi.zero_apply, mul_zero]
-      · rw [Function.extend_apply' _ _ _ ha, Pi.zero_apply, zero_mul]
+    {q : ℕ} (_hq : 1 < q) :
+    PowerSeries ℂ →+* ArithmeticFunction ℂ :=
+  (ArithmeticFunction.ofPowerSeries q).toRingHom
 
 private theorem liArithmeticOfPowerSeries_apply
     {q : ℕ} (hq : 1 < q) (F : PowerSeries ℂ) (n : ℕ) :
     liArithmeticOfPowerSeries hq F n =
       Function.extend (q ^ ·) (F.coeff ·) 0 n := by
-  rfl
+  change ArithmeticFunction.ofPowerSeries q F n =
+    Function.extend (q ^ ·) (F.coeff ·) 0 n
+  exact ArithmeticFunction.ofPowerSeries_apply hq F n
 
 private theorem liArithmeticOfPowerSeries_apply_pow
     {q : ℕ} (hq : 1 < q) (F : PowerSeries ℂ) (k : ℕ) :
     liArithmeticOfPowerSeries hq F (q ^ k) = F.coeff k := by
-  rw [liArithmeticOfPowerSeries_apply hq,
-    (Nat.pow_right_injective hq).extend_apply]
+  change ArithmeticFunction.ofPowerSeries q F (q ^ k) = F.coeff k
+  exact ArithmeticFunction.ofPowerSeries_apply_pow hq F k
 
 /-! ## Transport the formal local factorization to Dirichlet convolution -/
 
@@ -3483,7 +3387,7 @@ private theorem criticalWeightedVariation_arithmetic_one_le_one
   · have hmem : 1 ∈ Finset.Icc 1 X :=
       Finset.mem_Icc.mpr ⟨le_rfl, hX⟩
     rw [Finset.sum_eq_single 1]
-    · simp [ArithmeticFunction.one_apply]
+    · simp
     · intro n hn hn1
       simp [hn1]
     · intro hnot
