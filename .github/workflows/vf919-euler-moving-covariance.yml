@@ -7,6 +7,7 @@ on:
       - 'research/VF_919_EULER_PRIME_DENSITY_LEDGER_20261019.lean'
       - 'research/VF_919_EULER_MOVING_COVARIANCE_GROWTH_20261019.lean'
       - 'research/VF_919_EULER_FIXED_WHEEL_SIX_CHANNEL_20261019.lean'
+      - 'research/VF_919_EULER_OAI_PHASE_PRESERVING_SIX_GRAM_20261019.lean'
       - 'research/VF_919_EULER_PRIME_DENSITY_TEST_20261019.md'
       - 'research/VF_919_FIXED_WHEEL_COVARIANCE_CENSUS_20261019.md'
       - 'research/VF_919_MOVING_EULER_COVARIANCE_CENSUS_317_1027_20261019.md'
@@ -69,13 +70,15 @@ jobs:
             research/VF_919_EULER_PRIME_DENSITY_LEDGER_20261019.lean
             research/VF_919_EULER_MOVING_COVARIANCE_GROWTH_20261019.lean \
             research/VF_919_EULER_FIXED_WHEEL_SIX_CHANNEL_20261019.lean
-      - name: Verify all 36 exact Euler theorem standard-axiom footprints
+            research/VF_919_EULER_OAI_PHASE_PRESERVING_SIX_GRAM_20261019.lean
+      - name: Verify all 39 Euler and phase-gram standard-axiom footprints
         shell: bash
         run: |
           set -euo pipefail
           lake env lean -DwarningAsError=true research/VF_919_EULER_PRIME_DENSITY_LEDGER_20261019.lean > vf919-euler-axioms.log 2>&1
           lake env lean -DwarningAsError=true research/VF_919_EULER_MOVING_COVARIANCE_GROWTH_20261019.lean >> vf919-euler-axioms.log 2>&1
           lake env lean -DwarningAsError=true research/VF_919_EULER_FIXED_WHEEL_SIX_CHANNEL_20261019.lean >> vf919-euler-axioms.log 2>&1
+          lake env lean -DwarningAsError=true research/VF_919_EULER_OAI_PHASE_PRESERVING_SIX_GRAM_20261019.lean >> vf919-euler-axioms.log 2>&1
           python3 - <<'PY'
           from pathlib import Path
           import re
@@ -83,12 +86,13 @@ jobs:
               'research/VF_919_EULER_PRIME_DENSITY_LEDGER_20261019.lean',
               'research/VF_919_EULER_MOVING_COVARIANCE_GROWTH_20261019.lean',
               'research/VF_919_EULER_FIXED_WHEEL_SIX_CHANNEL_20261019.lean',
+              'research/VF_919_EULER_OAI_PHASE_PRESERVING_SIX_GRAM_20261019.lean',
           ]
           wanted = [name for src in sources
                     for name in re.findall(r'^#print axioms\s+(\S+)', Path(src).read_text(), re.M)]
           log = Path('vf919-euler-axioms.log').read_text()
           got = re.findall(r"'([^']+)' depends on axioms:\s*\[([^\]]*)\]", log)
-          assert len(wanted) == 36, wanted
+          assert len(wanted) == 39, wanted
           assert len(got) == len(wanted), (wanted, got)
           assert {name for name, _ in got} == {'RHLean.Analysis.' + name for name in wanted}, got
           allowed = {'propext', 'Classical.choice', 'Quot.sound'}
@@ -103,5 +107,6 @@ jobs:
           set -euo pipefail
           python3 scripts/compile_research_import_closure.py \
             research/VF_919_EULER_PRIME_DENSITY_LEDGER_20261019.lean \
-            research/VF_919_EULER_MOVING_COVARIANCE_GROWTH_20261019.lean
-            research/VF_919_EULER_FIXED_WHEEL_SIX_CHANNEL_20261019.lean
+            research/VF_919_EULER_MOVING_COVARIANCE_GROWTH_20261019.lean \
+            research/VF_919_EULER_FIXED_WHEEL_SIX_CHANNEL_20261019.lean \
+            research/VF_919_EULER_OAI_PHASE_PRESERVING_SIX_GRAM_20261019.lean
