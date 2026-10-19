@@ -142,6 +142,28 @@ theorem vf919DyadicSquareShell_energy_of_signedCovariance_sharp
   have hDiag := vf919DyadicSquareShell_diagonal_le_three_sq H
   linarith
 
+/-! ## Global square-prefix energy: exact algebraic consumer -/
+
+/-- Nonnegative full-prefix shell energy. The dyadic 5/2 arithmetic gate
+must later be used to bound this object with a geometric dyadic cover. -/
+def vf919SquareShellPrefixEnergy (K : ℕ) : ℝ :=
+  ∑ R ∈ Finset.range K, vf919SquareShellSum R ^ 2
+
+/-- Full-prefix Mertens is controlled by the TRUE full-prefix shell energy.
+No dyadic bound is claimed by this theorem: it is the deterministic
+Cauchy--Schwarz consumer to be fed by the dyadic geometric aggregation. -/
+theorem vf919SquareShell_prefixCauchy (K : ℕ) :
+    ‖realMertensLength (K ^ 2)‖ ^ 2 ≤
+      (K : ℝ) * vf919SquareShellPrefixEnergy K := by
+  have hcs := Finset.sum_mul_sq_le_sq_mul_sq
+    (Finset.range K) (fun _R => (1 : ℝ)) vf919SquareShellSum
+  have hcs' :
+      (∑ R ∈ Finset.range K, vf919SquareShellSum R) ^ 2 ≤
+      (K : ℝ) * vf919SquareShellPrefixEnergy K := by
+    simpa [vf919SquareShellPrefixEnergy] using hcs
+  rw [vf919SquareShell_telescope] at hcs'
+  simpa [Real.norm_eq_abs, sq_abs] using hcs'
+
 /-! ## Source-faithful finite dyadic Cauchy--Schwarz / telescoping -/
 
 /-- The H square shells exactly telescope over [H^2,(2H)^2).
@@ -261,6 +283,7 @@ theorem vf919DyadicSquareShell_partial_increment_sq_of_signedCovariance
 
 #print axioms vf919DyadicSquareShell_increment_sq_of_signedCovariance
 #print axioms vf919DyadicSquareShell_partial_increment_sq_of_signedCovariance
+#print axioms vf919SquareShell_prefixCauchy
 #print axioms vf919DyadicSquareShell_increment_eq_sum
 #print axioms vf919DyadicSquareShell_count
 #print axioms vf919DyadicSquareShell_cauchy
