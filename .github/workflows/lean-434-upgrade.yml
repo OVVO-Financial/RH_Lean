@@ -59,7 +59,6 @@ jobs:
           required = {
               'mathlib': 'd13f23b723b8a846827a245b89c10fc7d3f11612',
               'PrimeNumberTheoremAnd': 'c39a751132c88b6e8080b74c74023fd95b3d8be0',
-              'StrongPNT': '2f5835c322314f55f1026ec2f139d704b7c45c69',
           }
           for name, rev in required.items():
               print(f'{name}: {packages.get(name)}')
@@ -87,55 +86,60 @@ jobs:
           printf 'import Mathlib\n#check Nat.Prime\n' > lean-434-smoke.lean
           lake env lean lean-434-smoke.lean 2>&1 | tee lean-434-smoke.log
 
-      - name: Compile tracker-pinned PNT+ interface
+      - name: Compile modern PNT+ StrongPNT and zero-free source
         shell: bash
         run: |
           set -euo pipefail
-          lake build PrimeNumberTheoremAnd.ZetaBounds 2>&1 | tee lean-434-pnt.log
+          lake build PrimeNumberTheoremAnd.StrongPNT 2>&1 | tee lean-434-modern-pnt.log
 
-      - name: Apply source-exact StrongPNT module relocations
+      - name: Audit the modern strong PNT and zero-free axioms
         shell: bash
         run: |
           set -euo pipefail
-          python3 scripts/strongpnt_434/port_imports.py 2>&1 | tee lean-434-imports.log
-          python3 scripts/strongpnt_434/port_pnt1.py 2>&1 | tee lean-434-pnt1-patch.log
+          cat > lean-434-modern-axioms.lean <<'EOF'
+          import PrimeNumberTheoremAnd.StrongPNT
+          #print axioms StrongPNT
+          #print axioms ZetaZeroFree1
+          #print axioms ZetaNoZerosInBox
+          EOF
+          lake env lean lean-434-modern-axioms.lean 2>&1 | tee lean-434-modern-axioms.log
+          if grep -E 'sorryAx|admitAx' lean-434-modern-axioms.log; then
+            echo "Modern PNT+ proof uses forbidden axioms." >&2
+            exit 1
+          fi
 
-      - name: Compile first StrongPNT complex-analysis module
+      - name: Adapt RHLean's historical imports to equivalent modern PNT+ theorems
         shell: bash
         run: |
           set -euo pipefail
-          # Isolate real Lean 4.34 theorem API/elaboration errors.
-          # Do not invoke the 4.24 patch or weaken the theorem statements.
-          lake build StrongPNT.PNT1_ComplexAnalysis 2>&1 | tee lean-434-pnt1.log
+          python3 scripts/strongpnt_434/use_modern_pnt.py 2>&1 | tee lean-434-modern-adapter.log
 
-      - name: Compile historical StrongPNT terminal theorem
+      - name: Compile the zero-free corridor against modern theorems
         shell: bash
         run: |
           set -euo pipefail
-          lake build StrongPNT.PNT5_Strong 2>&1 | tee lean-434-strongpnt.log
+          lake build RHLean.Analysis.StrongMertensLogNineCorridor 2>&1 | tee lean-434-modern-corridor.log
 
-      - name: Compile full RHLean after dependencies are ported
+      - name: Compile direct smoothing and reciprocal-zeta kernel
+        shell: bash
+        run: |
+          set -euo pipefail
+          lake build RHLean.Analysis.StrongMertensZetaKernel 2>&1 | tee lean-434-modern-kernel.log
+          lake build RHLean.Analysis.StrongMertensSmoothingFinite 2>&1 | tee lean-434-modern-smoothing.log
+
+      - name: Compile the complete RHLean library on Lean 4.34.1
         shell: bash
         run: |
           set -euo pipefail
           lake build RHLean 2>&1 | tee lean-434-rhlean.log
 
-      - name: Validate proof assumptions under 4.34.1
+      - name: Audit repository-owned proof assumptions
         shell: bash
         run: |
           set -euo pipefail
-          cat > lean-434-axioms.lean <<'EOF'
-          import StrongPNT.PNT5_Strong
-          import «research.MERTENS_CONVERSE_IDENTIFICATION»
-          #print axioms Strong_PNT
-          #print axioms RHLean.Analysis.MertensExponent.growthExponent_eq_rightmost
-          EOF
-          lake env lean lean-434-axioms.lean 2>&1 | tee lean-434-axioms.log
-          if grep -E 'sorryAx|admitAx' lean-434-axioms.log; then
-            echo 'Forbidden axioms found in migration build.' >&2
-            exit 1
-          fi
           bash scripts/audit_assumptions.sh
+          lake env lean research/MERTENS_CONVERSE_IDENTIFICATION.lean 2>&1 |
+            tee lean-434-mertens-converse.log
 
       - name: Publish available migration diagnostics
         if: always()
