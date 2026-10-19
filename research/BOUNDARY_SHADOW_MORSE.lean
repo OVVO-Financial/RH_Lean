@@ -293,8 +293,7 @@ theorem squareRootLowPrime_creationResponseStableMass_eq_head_add_shallow_add_de
     Finset.sum_union
       (squareRootLowPrimeCreationResponseStableShallow_disjoint_deep R K j U)]
     at hmass
-  simp only [squareRootLowPrimeProcessedSeatWeightReal] at hmass
-  linarith
+  simpa only [squareRootLowPrimeProcessedSeatWeightReal, add_assoc] using hmass.symm
 
 
 end RHLean.Proof
