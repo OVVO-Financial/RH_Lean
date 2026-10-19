@@ -1,6 +1,6 @@
 # RH_Lean agent daily report - 2026-10-18 / RH | Owner Payment
 
-**Status:** COMPLETED
+**Status:** COMPLETED EARLIER RUN / IN_PROGRESS AUTHORIZED CONTINUATION
 **Run ID:** 2026-10-18T12:07:47-04:00, scheduled invocation
 **Canonical objective:** `VFCanonicalSquareVonKochStatement` remains OPEN
 **Result classes:** `PAPER_PROOF` (new exact three-sector transfer cone and PNT lower obstruction), `FINITE_COMPUTATION`, `REFUTED` (scalar Mobius-to-native occurrence transfer), `NO_NEW_QUANTITATIVE_RESULT`
@@ -192,3 +192,21 @@ Only after that identity is established is the first quantitative question legit
 ## L. Publication verification
 
 Early `IN_PROGRESS` commit: `7a1f53ffcc2751f70596001a27b5d0729c550e2a`; readback blob `c859a6d1afc6eb260ca028d110e3cc7b083d3e4a`. Substantive final commit `23dbafabbb78f96c971c226d118740ec55168b41` was fetched successfully; immediate readback blob `822316bf64ba8bf8a53cd73489789cce0714981e` was 13,731 characters and contained both claim IDs and `COMPLETED` status. The metadata-only publication commit and its final readback are verified externally after this line.
+
+
+## M. Authorized continuation checkpoint - 2026-10-18T20:43-04:00
+
+**Status:** IN_PROGRESS. Live authority refreshed to `main@c2b075fca8a02079ebab7464a16e1fb58c2b5c7a` (merged PR #980). The raw cone is now `PROVED_IN_LEAN_ON_MAIN` in `research/RAW_TRANSFER_CONE_20261018.lean`; its occurrence-level and masked historical bridges remain open.
+
+The continuation tests a signed aggregation law omitted by the raw scalar cone. For indexed admitted sectors ((A_j,B_j,Z_j)) and real orientation/clipping coefficients (lambda_j), set
+[
+V_lambda=sum_jlambda_j(A_j+B_j+Z_j),qquad
+W_lambda=sum_jlambda_j(B_j-A_j).
+]
+Candidate exact law:
+[
+V_lambda^2-W_lambda^2=
+left(sum_jlambda_j(2A_j+Z_j)ight)
+left(sum_jlambda_j(2B_j+Z_j)ight).
+]
+This restores all diagonal and cross-sector interactions. I am checking the exact inverse condition for failure, whether nonnegative masks are the maximal unconditional cone-preserving class, and whether the result supplies a genuine #915 restriction or only a sharp no-go. No quantitative target claim is made at this checkpoint.
