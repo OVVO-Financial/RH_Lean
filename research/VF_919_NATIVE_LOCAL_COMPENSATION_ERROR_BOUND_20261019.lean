@@ -34,8 +34,9 @@ private theorem vf919_norm_inv_one_sub_le_two
   have hn : 0 < ‖1 - z‖ := by linarith
   have hb : (1 : ℝ) ≤ 2 * ‖1 - z‖ := by linarith
   rw [norm_inv]
-  change (1 : ℝ) / ‖1 - z‖ ≤ 2
-  exact (div_le_iff₀ hn).mpr (by nlinarith)
+  have hdiv : (1 : ℝ) / ‖1 - z‖ ≤ 2 :=
+    (div_le_iff₀ hn).mpr (by nlinarith)
+  simpa only [one_div] using hdiv
 
 /-- Quantitative form of the compensated local cancellation (OAI 5.13b).
 Unlike the finite polynomial identity, this is a REAL norm inequality.
