@@ -165,3 +165,121 @@ one-sided signed covariance budget. The current identity still contains
 (S\) on the right, so a bound derived by merely rearranging
 (C_{\mathrm{prime}}\) would be circular. The VF fractional charges
 must also remain distinct from the true Möbius signs.
+
+## 8. Rank-one drift and canonical greatest-prime fibers (2026-10-19)
+
+**Source:** `research/VF_919_EULER_RANK_ONE_GPF_FIBERS_20261019.lean`;
+the numerical script now also checks all distinct greatest-prime-factor fibers.
+The new file imports the existing canonical cofactor factorization infrastructure
+and contains nine additional native theorem footprints, raising the dedicated
+CI gate from 48 to **57**.
+
+Set `T_R = A_R+H_R`, `Q_R=#P_R` and `S_R^{odd}=T_R-Q_R`.
+For ANY real deterministic reference function `L_R`, put
+`t_R=T_R-L_R`, `q_R=Q_R-L_R`. There are **two independent exact
+algebraic facts** (no new hypothesis or positivity assertion):
+
+```math
+\sum_{H\le R<2H}(T_R-Q_R)^2
+=\sum_{H\le R<2H}(t_R-q_R)^2,
+```
+
+```math
+2\sum_R T_RQ_R
+=2\sum_R L_R^2+2\sum_R L_Rt_R
+ +2\sum_R L_Rq_R+2\sum_R t_Rq_R.
+```
+
+The drift terms in the second identity are **not automatically negligible**
+and no inequality has been gained. A choice
+`L_R=\lambda_H(2R+1)` with
+`\lambda_H=\sum_R Q_R/(3H^2)` gives
+`\sum_R(Q_R-L_R)=0` and by ordinary PNT
+`\lambda_H\sim 1/(2\log H)` (since the original root band
+`H\le R<2H` has `\sum_RQ_R\sim 3H^2/(2\log H)`).
+This provides an exact, auditable choice of baseline, not a variance bound.
+(Using `L_R=R/\log R` is a close finite illustration, not an assumption.)
+
+### The true prime/cofactor incidence
+
+For `R>=2`, every admitted odd squarefree `n` belongs to precisely
+one canonical fiber with `m=n/P^+(n)` and `q=P^+(n)`, satisfying
+`q` prime, `P^+(m)<q`, and `n=mq`.
+Write `Q_R(m)` for the **number of distinct greatest-prime-owner
+occurrences** in that fiber. The Lean file proves that the prime-owner
+coordinate is injective in each fiber, and proves finite canonical Fubini:
+
+```math
+S_R^{odd}=-\sum_{m\ge1}\mu(m)Q_R(m),
+\qquad
+T_R-Q_R=-\sum_{m\ge1}\mu(m)Q_R(m).
+```
+
+All sums are finite (the code uses `m<(R+1)^2`). The cofactor
+`m` need NOT be smaller than `q`: `n=105=15\cdot7`, for
+example, has `P^+(15)=5<7` but `15>7`. Replacing `P^+(m)<q`
+with `m<q` would silently exclude valid composite fibers. Conversely,
+dropping the greatest-prime condition entirely would double-count
+composites. The `m=1` fiber counts actual odd primes; all remaining
+fibers are genuine odd composites.
+
+The cross row has the exact cofactor form
+
+```math
+AP_R+HP_R=-Q_RT_R
+=Q_R\left[\sum_{m\ge1}\mu(m)Q_R(m)-Q_R\right]
+=Q_R\sum_{m>1}\mu(m)Q_R(m).
+```
+
+The last equality uses `Q_R(1)=Q_R`; the Lean file proves the first
+two expressions by canonical Fubini, while the finite census checks
+the final prime-only specialization at every tested root.
+
+For each fiber, `Q_R(m)` is the number of primes `q>P^+(m)` with
+`R^2\le mq<(R+1)^2`, **not** merely the unrestricted number of
+primes in `[R^2/m,(R+1)^2/m)`. Therefore a small-cofactor
+heuristic `Q_R(m)\approx Q_R(1)/m` is not a uniform consequence of
+PNT: the individual dilated intervals may be shorter than any interval
+for which a useful relative PNT remainder is known. The conditionally
+convergent identity `\sum_{m\,odd}\mu(m)/m=0` is a global statement,
+not a license to interchange the short-interval and cofactor sums.
+
+### The signed analytic acceptance criterion
+
+For `Q_R(m)` with the true greatest-prime cutoff, the remaining
+quantity is the *full signed cofactor-collision* form:
+
+```math
+\sum_{H\le R<2H}
+ \sum_{m_1,m_2\ge1}\mu(m_1)\mu(m_2)
+ Q_R(m_1)Q_R(m_2)
+=\sum_{H\le R<2H}(S_R^{odd})^2.
+```
+
+The desired independent estimate is
+`O_\varepsilon(H^{5/2+\varepsilon})`. No proof of this estimate is
+claimed. Summing `Q_R(m_1)Q_R(m_2)` absolutely loses the necessary
+Möbius cancellation and is the wrong inequality direction.
+
+**PNT inference guardrail:** Ordinary PNT proves
+`\sum_RQ_R\sim 3H^2/(2\log H)` and therefore
+`\sum_RQ_R^2\gg H^3/(\log H)^2`. It does *not* independently prove
+`\sum_RT_R^2\sim\sum_RQ_R^2` or a matching cross energy.
+If the desired dyadic energy bound is assumed, Cauchy gives
+`|\sum_RQ_R(T_R-Q_R)|\le
+ (\sum_R Q_R^2)^{1/2}(\sum_RS_R^2)^{1/2}`, with an error
+of order `H^{11/4+\varepsilon/2}/\log H` if one also has
+the expected prime-square second moment. That is generally **larger**
+than an `H^{5/2+\varepsilon}` error and must not be silently replaced
+by one. The required savings remain genuinely analytic.
+
+**Exact independent numerical audit, reproduced on the true odd sites:**
+
+| R | T_R | Q_R | S_R | distinct canonical m-fibers | composite-prime AP+HP |
+|---:|---:|---:|---:|---:|---:|
+| 317 | 60 | 54 | +6 | 112 | -3240 |
+| 1027 | 142 | 144 | -2 | 368 | -20448 |
+
+The finite test asserts `Q_R(1)=Q_R`, signed Fubini, one-to-one
+prime ownership, `\mu(mq)=-\mu(m)`, the exact composite-only identity,
+and centered energy with `L_R=R/\log R`.
