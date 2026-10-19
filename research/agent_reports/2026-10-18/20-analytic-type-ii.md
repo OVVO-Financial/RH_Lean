@@ -225,3 +225,10 @@ No RH proof claim.
 ## J. Publication verification
 
 Early `IN_PROGRESS` checkpoint commit: `16afdce40725d13a10cefba5e2eb18fc988ae741`. Substantive final commit: `f0f410bfca0ba775d23db43a9267421f324a7b0e`. Immediate readback returned blob `ce59751e02ffde8f6711dd17f2e0da8f68c71c36`, 14,120 characters, with `COMPLETED` status and both claim IDs present. Final live-main refresh remained `5ae5a524ca447d1936e351bbbe4b134c068a1a13`; open PR search remained empty.
+
+
+## K. Authorized continuation checkpoint - 2026-10-18T22:26-04:00
+
+**Status:** IN_PROGRESS. This scheduled continuation refreshed live authority to `main@c2b075fca8a02079ebab7464a16e1fb58c2b5c7a` and re-read the current proof contract, PNT-first contract, two-scale plan, today/yesterday specialist reports, and external handoffs. The on-main raw transfer cone is now `PROVED_IN_LEAN_ON_MAIN`; it remains a scalar obstruction and supplies neither the original #915 occurrence bridge nor a quantitative saving.
+
+The active analytic question is the first genuinely missing cross-shell theorem left by claims `20261018-analytic-1/-2`: determine whether the exact complete compensated response admits an independently provable cancellation/variation mechanism after the shellwise rank-one mode, Li main term, endpoints, and all cofactor bands are restored. Same-shell outer-prime dispersion remains rejected at its proved scope. No new estimate is claimed at this checkpoint.
