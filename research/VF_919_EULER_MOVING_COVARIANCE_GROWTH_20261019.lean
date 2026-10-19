@@ -214,8 +214,22 @@ theorem vf919EulerDyadicEnergy_le_two_growthErrors (H : ℕ) :
            vf919EulerShellCompositeResponseError R ^ 2) +
         (∑ R ∈ Finset.Ico H (2 * H),
            vf919EulerShellPrimeCountError R ^ 2)) := by
-      simp only [Finset.mul_sum, Finset.sum_add_distrib]
-      ring
+      calc
+        (∑ R ∈ Finset.Ico H (2 * H),
+          2 * (vf919EulerShellCompositeResponseError R ^ 2 +
+            vf919EulerShellPrimeCountError R ^ 2)) =
+          ∑ R ∈ Finset.Ico H (2 * H),
+            (2 * vf919EulerShellCompositeResponseError R ^ 2 +
+              2 * vf919EulerShellPrimeCountError R ^ 2) := by
+                apply Finset.sum_congr rfl
+                intro R _
+                ring
+        _ = 2 * ((∑ R ∈ Finset.Ico H (2 * H),
+              vf919EulerShellCompositeResponseError R ^ 2) +
+            (∑ R ∈ Finset.Ico H (2 * H),
+              vf919EulerShellPrimeCountError R ^ 2)) := by
+                rw [Finset.sum_add_distrib, mul_add]
+                rw [Finset.mul_sum, Finset.mul_sum]
 
 /-- Named acceptance gate: both density-response error energies must
 be bounded BY ARITHMETIC, not by an assumed Mertens theorem. -/
