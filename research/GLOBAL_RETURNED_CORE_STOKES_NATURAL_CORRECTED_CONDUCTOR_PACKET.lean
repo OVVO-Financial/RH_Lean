@@ -79,7 +79,7 @@ theorem lowOwnerStokesNaturalPeriodicRawConductorResponse_eq_coefficient_mul_ram
       simpa [C, lowOwnerStokesNaturalRawConductorCoefficient, W, hc] using! hraw
     rw [hconst]
     ring
-  · exact if_neg hc
+  · simp only [ite_eq_right hc, mul_zero]
 
 /-- Signed boundary numerator of one natural corrected conductor packet. -/
 def lowOwnerStokesNaturalCorrectedConductorBoundaryNumerator
