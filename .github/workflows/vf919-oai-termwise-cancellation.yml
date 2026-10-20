@@ -5,6 +5,7 @@ on:
     paths:
       - research/VF_919_OAI_EXACT_MARKED_RESCALED_LOCAL_20261019.lean
       - research/VF_919_OAI_EXACT_LABELED_NATIVE_SEATS_20261019.lean
+      - research/VF_919_OAI_INTEGER_MOBIUS_HECKE_TWO_LEGS_20261019.lean
       - .github/workflows/vf919-oai-termwise-cancellation.yml
   workflow_dispatch:
 
@@ -25,7 +26,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          if grep -nE '^[[:space:]]*(sorry|admit|axiom)([[:space:]]|$)' research/VF_919_OAI_EXACT_MARKED_RESCALED_LOCAL_20261019.lean research/VF_919_OAI_EXACT_LABELED_NATIVE_SEATS_20261019.lean; then
+          if grep -nE '^[[:space:]]*(sorry|admit|axiom)([[:space:]]|$)' research/VF_919_OAI_EXACT_MARKED_RESCALED_LOCAL_20261019.lean research/VF_919_OAI_EXACT_LABELED_NATIVE_SEATS_20261019.lean research/VF_919_OAI_INTEGER_MOBIUS_HECKE_TWO_LEGS_20261019.lean; then
             exit 1
           fi
       - uses: ./.github/actions/lean-setup
@@ -52,12 +53,17 @@ jobs:
           targets: >-
             research/VF_919_OAI_EXACT_MARKED_RESCALED_LOCAL_20261019.lean
             research/VF_919_OAI_EXACT_LABELED_NATIVE_SEATS_20261019.lean
+            research/VF_919_OAI_INTEGER_MOBIUS_HECKE_TWO_LEGS_20261019.lean
       - name: Check theorem signatures and standard axioms
         shell: bash
         run: |
           set -euo pipefail
           cat >/tmp/vf919_oai_termwise_acceptance.lean <<'LEAN'
           import «research.VF_919_OAI_EXACT_LABELED_NATIVE_SEATS_20261019»
+          import «research.VF_919_OAI_INTEGER_MOBIUS_HECKE_TWO_LEGS_20261019»
+          #check RHLean.Analysis.vf919OAI_actualMobius_Hecke_two_legs_at_site
+          #check RHLean.Analysis.vf919OAI_actualMobius_Hecke_two_legs_all_sites
+          #check RHLean.Analysis.vf919OAI_actualMobius_full_mixed_mark_rescale_gram
           #check RHLean.Analysis.vf919OAI_original_native_seat_term_by_term
           #check RHLean.Analysis.vf919OAI_original_native_seat_full_mixed_gram
           #check RHLean.Analysis.vf919OAIlocalP_unrestricted_two_terms
@@ -72,6 +78,9 @@ jobs:
           #check RHLean.Analysis.vf919OAI_unit_character_phase_facts
           #check RHLean.Analysis.vf919OAI_exact_good_character_compensation
           #check RHLean.Analysis.vf919OAI_marked_rescaled_physical_pairing
+          #print axioms RHLean.Analysis.vf919OAI_actualMobius_Hecke_two_legs_at_site
+          #print axioms RHLean.Analysis.vf919OAI_actualMobius_Hecke_two_legs_all_sites
+          #print axioms RHLean.Analysis.vf919OAI_actualMobius_full_mixed_mark_rescale_gram
           #print axioms RHLean.Analysis.vf919OAI_original_native_seat_term_by_term
           #print axioms RHLean.Analysis.vf919OAI_original_native_seat_full_mixed_gram
           #print axioms RHLean.Analysis.vf919OAI_exact_local_compensation
