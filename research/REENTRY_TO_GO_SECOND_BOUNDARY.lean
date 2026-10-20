@@ -1207,7 +1207,7 @@ fresh prime can carry the corresponding shallow creation seat into the owned
 response carrier. -/
 theorem squareRootLowPrimeFirstOwnerTerminalNoReentry_shallow_not_matchedCreation
     {R K j U p c s : ℕ}
-    (hR : 1 ≤ R) (hKU : K ≤ U)
+    (_hR : 1 ≤ R) (_hKU : K ≤ U)
     (hshallow : canonicalLargestPrimeFactor c ≤ K)
     (hs : s ∈ squareRootLowPrimeFirstOwnerTerminalNoReentrySeatIndices
       R K j U p c) :
