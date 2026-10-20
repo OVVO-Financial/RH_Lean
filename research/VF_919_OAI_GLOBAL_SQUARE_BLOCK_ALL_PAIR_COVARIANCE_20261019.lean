@@ -40,9 +40,9 @@ theorem vf919OAIGlobalOriginalBlockSource_eq_trueShell (R : ℕ) :
       (vf919SquareShellSum R : ℂ) := by
   by_cases h : R < 4
   · simp [vf919OAIGlobalOriginalBlockSource, h]
-  · simp only [vf919OAIGlobalOriginalBlockSource, if_neg h]
-    exact vf919OAIExactSquareNormSource_eq_originalSquareShell
-      R (Nat.le_of_not_gt h)
+  · simpa [vf919OAIGlobalOriginalBlockSource, h] using
+      (vf919OAIExactSquareNormSource_eq_originalSquareShell
+        R (Nat.le_of_not_gt h))
 
 /-- NO prefix condition: every complete shell from zero through K-1,
     including the original 0/1/2/3 lower-prefix contribution, sums to
