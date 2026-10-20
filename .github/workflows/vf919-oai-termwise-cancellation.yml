@@ -10,6 +10,7 @@ on:
       - research/VF_919_EXACT_INTEGER_NATIVE_COVARIANCE_BRIDGE_20261019.lean
       - research/VF_919_OAI_SQUARE_BLOCK_FOUR_INDEX_COVARIANCE_20261019.lean
       - research/VF_919_OAI_SQUARE_BLOCK_EXCLUDED_NORM_BOUNDARIES_20261019.lean
+      - research/VF_919_OAI_SQUARE_BLOCK_ONE_SOURCE_FULL_NORM_GRAM_20261019.lean
       - scripts/vf919_oai_square_block_four_index_acceptance.py
       - .github/workflows/vf919-oai-termwise-cancellation.yml
   workflow_dispatch:
@@ -33,7 +34,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          if grep -nE '^[[:space:]]*(sorry|admit|axiom)([[:space:]]|$)' research/VF_919_OAI_EXACT_MARKED_RESCALED_LOCAL_20261019.lean research/VF_919_OAI_EXACT_LABELED_NATIVE_SEATS_20261019.lean research/VF_919_OAI_INTEGER_MOBIUS_HECKE_TWO_LEGS_20261019.lean research/VF_919_EXACT_INTEGER_BY_INTEGER_317_1027_20261019.lean research/VF_919_EXACT_INTEGER_NATIVE_COVARIANCE_BRIDGE_20261019.lean research/VF_919_OAI_SQUARE_BLOCK_FOUR_INDEX_COVARIANCE_20261019.lean research/VF_919_OAI_SQUARE_BLOCK_EXCLUDED_NORM_BOUNDARIES_20261019.lean; then
+          if grep -nE '^[[:space:]]*(sorry|admit|axiom)([[:space:]]|$)' research/VF_919_OAI_EXACT_MARKED_RESCALED_LOCAL_20261019.lean research/VF_919_OAI_EXACT_LABELED_NATIVE_SEATS_20261019.lean research/VF_919_OAI_INTEGER_MOBIUS_HECKE_TWO_LEGS_20261019.lean research/VF_919_EXACT_INTEGER_BY_INTEGER_317_1027_20261019.lean research/VF_919_EXACT_INTEGER_NATIVE_COVARIANCE_BRIDGE_20261019.lean research/VF_919_OAI_SQUARE_BLOCK_FOUR_INDEX_COVARIANCE_20261019.lean research/VF_919_OAI_SQUARE_BLOCK_EXCLUDED_NORM_BOUNDARIES_20261019.lean research/VF_919_OAI_SQUARE_BLOCK_ONE_SOURCE_FULL_NORM_GRAM_20261019.lean; then
             exit 1
           fi
       - uses: ./.github/actions/lean-setup
@@ -72,6 +73,7 @@ jobs:
             research/VF_919_EXACT_INTEGER_NATIVE_COVARIANCE_BRIDGE_20261019.lean
             research/VF_919_OAI_SQUARE_BLOCK_FOUR_INDEX_COVARIANCE_20261019.lean
             research/VF_919_OAI_SQUARE_BLOCK_EXCLUDED_NORM_BOUNDARIES_20261019.lean
+            research/VF_919_OAI_SQUARE_BLOCK_ONE_SOURCE_FULL_NORM_GRAM_20261019.lean
       - name: Check theorem signatures and standard axioms
         shell: bash
         run: |
@@ -81,7 +83,9 @@ jobs:
           import «research.VF_919_OAI_INTEGER_MOBIUS_HECKE_TWO_LEGS_20261019»
           import «research.VF_919_EXACT_INTEGER_BY_INTEGER_317_1027_20261019»
           import «research.VF_919_EXACT_INTEGER_NATIVE_COVARIANCE_BRIDGE_20261019»
-          import «research.VF_919_OAI_SQUARE_BLOCK_EXCLUDED_NORM_BOUNDARIES_20261019»
+          import «research.VF_919_OAI_SQUARE_BLOCK_ONE_SOURCE_FULL_NORM_GRAM_20261019»
+          #check RHLean.Analysis.vf919OAIExactSquareNormSource_eq_originalSquareShell
+          #check RHLean.Analysis.vf919SquareShell_original_signed_covariance_eq_fullNormGram
           #check RHLean.Analysis.vf919OAIExcludedNormSharpPrefix_eq_actualMertens
           #check RHLean.Analysis.vf919SquareShellSum_eq_OAI_excludedNorm_high_sub_low
           #check RHLean.Analysis.vf919SquareShell_original_covariance_eq_OAI_norm_doubleBoundary
@@ -130,6 +134,8 @@ jobs:
           #check RHLean.Analysis.vf919OAI_unit_character_phase_facts
           #check RHLean.Analysis.vf919OAI_exact_good_character_compensation
           #check RHLean.Analysis.vf919OAI_marked_rescaled_physical_pairing
+          #print axioms RHLean.Analysis.vf919OAIExactSquareNormSource_eq_originalSquareShell
+          #print axioms RHLean.Analysis.vf919SquareShell_original_signed_covariance_eq_fullNormGram
           #print axioms RHLean.Analysis.vf919OAIExcludedNormSharpPrefix_eq_actualMertens
           #print axioms RHLean.Analysis.vf919SquareShellSum_eq_OAI_excludedNorm_high_sub_low
           #print axioms RHLean.Analysis.vf919SquareShell_original_covariance_eq_OAI_norm_doubleBoundary
