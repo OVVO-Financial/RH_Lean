@@ -1,4 +1,5 @@
 import «research.VF_MID_919_OAI_EXCLUDED_SIX_SIGNED_KERNEL»
+import «research.NATIVE_SEVEN_EIGHTHS_LOCAL_COMPENSATION_20261019»
 
 /-!
 # The actual OpenAI marked-minus-rescaled local Euler cancellation
@@ -61,6 +62,51 @@ def vf919OAIlocalError (A B u V W D E : ℂ) : ℂ :=
   ((1 - V) * (1 - W) / (1 - D)) *
     ((u - B) * (V / (1 - V) - D) +
       (A + u - B) * E)
+
+/-! ## Exact crosswalk to the already proved native OAI local lemma
+
+This deliberately REUSES the original native (5.13b) declaration rather
+than treating an independently retyped Euler factor as a second result. -/
+
+/-- Our marked-minus-rescaled G IS the existing native selected Euler
+    factor, with identical numerator, denominator and all source terms. -/
+theorem vf919OAIlocalG_eq_preexisting_native
+    (A B V W D Ps : ℂ) :
+    vf919OAIlocalG A B V W D Ps =
+      nativeSelectedEulerFactor A B V W D Ps := rfl
+
+/-- Our unchanged local H IS the original normalized unselected factor. -/
+theorem vf919OAIlocalH_eq_preexisting_native
+    (V W D P : ℂ) :
+    vf919OAIlocalH V W D P =
+      nativeUnselectedEulerFactor P V W D := by
+  unfold vf919OAIlocalH nativeUnselectedEulerFactor
+  ring
+
+/-- The termwise local cancellation is *exactly the theorem RH_Lean had
+    already verified*: both local factors and the residual agree before
+    ANY character-moment inequality is applied. -/
+theorem vf919OAI_exact_from_preexisting_native_5_13b
+    (A B u V W D E : ℂ)
+    (hV : 1 - V ≠ 0) (hW : 1 - W ≠ 0)
+    (hAD : A * D = u) (huW : u * W = B) :
+    vf919OAIlocalG A B V W D (E - D) +
+      u * vf919OAIlocalH V W D (vf919OAIlocalP V W D E) =
+      vf919OAIlocalError A B u V W D E := by
+  have hnative :=
+    nativeLocalCompensation_equation_5_13b
+      A u B V W D E (vf919OAIlocalP V W D E) (E - D)
+      hV hW hAD huW rfl rfl
+  calc
+    vf919OAIlocalG A B V W D (E - D) +
+        u * vf919OAIlocalH V W D (vf919OAIlocalP V W D E) =
+      nativeSelectedEulerFactor A B V W D (E - D) +
+        u * nativeUnselectedEulerFactor
+          (vf919OAIlocalP V W D E) V W D := by
+            rw [vf919OAIlocalG_eq_preexisting_native,
+              vf919OAIlocalH_eq_preexisting_native]
+    _ = vf919OAIlocalError A B u V W D E := by
+      simpa only [vf919OAIlocalError] using hnative
 
 /-- Exact 1/(1-V) and W/(1-W) contribution:
     (1-V)(1-W)[1/(1-V)+W/(1-W)] = 1-VW.
@@ -317,6 +363,9 @@ theorem vf919OAI_exact_good_character_compensation
 #print axioms vf919OAI_unit_character_phase_facts
 #print axioms vf919OAI_exact_good_character_compensation
 
+#print axioms vf919OAIlocalG_eq_preexisting_native
+#print axioms vf919OAIlocalH_eq_preexisting_native
+#print axioms vf919OAI_exact_from_preexisting_native_5_13b
 #print axioms vf919OAIlocalP_unrestricted_two_terms
 #print axioms vf919OAImarkedMinusRescaled_numerator
 #print axioms vf919OAIphase_scalar_cancellation
