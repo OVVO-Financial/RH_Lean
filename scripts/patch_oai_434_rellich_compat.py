@@ -285,7 +285,7 @@ patch("Analysis/FunctionalSpaces/Sobolev/Euclidean/Rellich.lean", [
         "      have hxDist : dist (x : H1vol) 0 ≤ (1 : ℝ) := by\n"
         "        simpa only [Metric.mem_closedBall, Subtype.dist_eq,\n"
         "          Submodule.coe_zero] using hx\n"
-        "      simpa only [dist_zero_right] using hxDist",
+        "      simpa only [dist_zero_right, Submodule.norm_coe] using hxDist",
         2,
     ),
 ])
