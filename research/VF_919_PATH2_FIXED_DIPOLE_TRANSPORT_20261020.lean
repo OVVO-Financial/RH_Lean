@@ -21,7 +21,7 @@ identity below similarly puts all k,t dependence into the scale.
 -/
 
 noncomputable section
-open scoped BigOperators
+open scoped Classical BigOperators
 open MeasureTheory
 
 namespace RHLean.Analysis.VF919Path2
@@ -109,8 +109,7 @@ theorem fixed_profile_dipole (W : ℝ → ℝ) (hW : Differentiable ℝ W)
     have he : (q + t) * z = q * z + t * z := by ring
     unfold logDipole
     rw [he]
-    field_simp
-    <;> ring
+    field_simp [hqt] <;> ring
   have heq : (∫ t : ℝ in 0..1, (q + t)⁻¹ * logDipole W ((q + t) * z)) =
       -z * (∫ t : ℝ in 0..1, deriv W (q * z + t * z)) := by
     rw [← intervalIntegral.integral_const_mul]
@@ -132,7 +131,7 @@ theorem fixed_profile_cofactor_dipole
   apply intervalIntegral.integral_congr
   intro t _
   congr 2
-  simp only [div_div, div_eq_mul_inv]
+  simp only [div_eq_mul_inv, mul_inv_rev, inv_inv]
   ring
 
 section ActualMoebius
@@ -146,11 +145,10 @@ def normSource (N : A →* ℕ) (s : Finset A) (W : ℝ → ℂ) (Y : ℝ) : ℂ
 is explicit so no two labelled children are merged by a norm projection. -/
 theorem marked_norm_source (N : A →* ℕ) (s : Finset A) (p : A)
     (hp : Prime p) (hinj : Function.Injective (fun b : A => p * b))
-    (hcop : ∀ b ∈ s, IsRelPrime p b) (hNp : (N p : ℝ) ≠ 0)
+    (hcop : ∀ b ∈ s, IsRelPrime p b)
     (W : ℝ → ℂ) (Y : ℝ) :
     normSource N (s.image (fun b => p * b)) W Y =
       -normSource N s W (Y / (N p : ℝ)) := by
-  classical
   unfold normSource
   rw [Finset.sum_image (fun a _ b _ h => hinj h), ← Finset.sum_neg_distrib]
   apply Finset.sum_congr rfl
@@ -158,7 +156,7 @@ theorem marked_norm_source (N : A →* ℕ) (s : Finset A) (p : A)
   rw [(hcop b hb).moebius_mul, hp.irreducible.moebius_eq, Int.cast_mul]
   simp only [Int.cast_neg, Int.cast_one, neg_one_mul, map_mul, Nat.cast_mul]
   have he : (N p : ℝ) * (N b : ℝ) / Y = (N b : ℝ) / (Y / (N p : ℝ)) := by
-    rw [div_div, div_eq_mul_inv, div_eq_mul_inv]
+    simp only [div_eq_mul_inv, mul_inv_rev, inv_inv]
     ring
   rw [he]
   ring
