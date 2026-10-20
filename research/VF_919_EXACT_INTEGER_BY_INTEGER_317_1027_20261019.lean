@@ -24,7 +24,7 @@ open scoped BigOperators
 
 namespace RHLean.Analysis
 
-/-- Genuine integer Mobius, not a synthetic 0/+1/-1 stream. -/
+/-- Genuine integer Mobius, not a synthetic 0 or +1 or -1 stream. -/
 def vf919ExactSiteMu (n : ℕ) : ℤ :=
   ArithmeticFunction.moebius n
 
