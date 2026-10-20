@@ -288,6 +288,98 @@ theorem vf919OAI_marked_rescaled_physical_pairing
   rw [vf919SixExcludedSiteWeight_sub]
 
 
+/-! ## OAI continued Euler factors: no division by the raw P or H
+
+OpenAI's actual detector uses its continued holomorphic local correction.
+This is the robust (5.13b) version across the contours. It does NOT require
+the raw 1-W inverse. The only inverse retained is 1-D, and the error formula
+uses V/(1-V), so hV and hD are the precise denominator conditions. -/
+
+/-- Literal OAI ProbeLocal.continuedCorrection in native complex coordinates.
+    It is polynomial in W and the restricted Pstar, with no inverse of
+    the raw P, H, or 1-W. -/
+def vf919OAIcontinuedH (V W D Ps : ℂ) : ℂ :=
+  ((1 - V * W) + (1 - V) * (1 - W) * Ps) / (1 - D)
+
+/-- On its initial domain, continuedH agrees with the raw correction H. -/
+theorem vf919OAIcontinuedH_eq_rawH
+    (V W D Ps : ℂ)
+    (hV : 1 - V ≠ 0) (hW : 1 - W ≠ 0) :
+    vf919OAIcontinuedH V W D Ps =
+      vf919OAIlocalH V W D
+        ((1 - V)⁻¹ + W / (1 - W) + Ps) := by
+  unfold vf919OAIcontinuedH vf919OAIlocalH
+  have hbase :=
+    vf919OAIlocalP_unrestricted_two_terms V W hV hW
+  have hprod :
+      (1 - V) * (1 - W) *
+          ((1 - V)⁻¹ + W / (1 - W) + Ps) =
+        (1 - V * W) + (1 - V) * (1 - W) * Ps := by
+    calc
+      (1 - V) * (1 - W) *
+          ((1 - V)⁻¹ + W / (1 - W) + Ps) =
+        (1 - V) * (1 - W) *
+            ((1 - V)⁻¹ + W / (1 - W)) +
+          (1 - V) * (1 - W) * Ps := by ring
+      _ = _ := by rw [hbase]
+  rw [hprod]
+
+/-- The EXACT OpenAI continued cancellation without any hypothesis about
+    1-W (or P or H). This is ProbeLocal.continued_normalized_cancellation:
+    the phase identities cancel the unwanted scalar Euler mass term by term.
+    It is NOT a claim that an analytic moment is automatically small. -/
+theorem vf919OAI_exact_continued_local_compensation
+    (A B u V W D Ps : ℂ)
+    (hV : 1 - V ≠ 0) (hD : 1 - D ≠ 0)
+    (hAD : A * D = u) (huW : u * W = B) :
+    vf919OAIlocalG A B V W D Ps +
+      u * vf919OAIcontinuedH V W D Ps =
+    ((1 - V) * (1 - W)) / (1 - D) *
+      ((u - B) * (V / (1 - V) - D) +
+        (A + u - B) * (Ps + D)) := by
+  unfold vf919OAIlocalG vf919OAIcontinuedH
+  field_simp [hV, hD]
+  linear_combination -(1 - V) * (1 - W) * hAD +
+    (1 - V) * huW
+
+/-- The true zero-on-nonunit branch also survives analytic continuation:
+    at a prime dividing the row, W=D=0; there is no v^-1 term. -/
+theorem vf919OAI_exact_continued_zero_mask
+    (A B V Ps : ℂ) :
+    vf919OAIlocalG A B V 0 0 Ps =
+      A * (1 - V) * Ps -
+        B * vf919OAIcontinuedH V 0 0 Ps := by
+  unfold vf919OAIlocalG vf919OAIcontinuedH
+  ring
+
+/-- The phase relations are derived from *actual* complex character
+    units and norm powers, then applied to the continued detector factor.
+    No condition on 1-W and no generic density-level approximation. -/
+theorem vf919OAI_exact_continued_good_character
+    (etaInv eta v Qx Qw V E : ℂ)
+    (hEta : etaInv * eta = 1) (hv : v ≠ 0) (hQx : Qx ≠ 0)
+    (hV : 1 - V ≠ 0)
+    (hD : 1 - eta * v⁻¹ * Qx⁻¹ ≠ 0) :
+    vf919OAIlocalG (etaInv * Qx) Qw V (v * Qw)
+        (eta * v⁻¹ * Qx⁻¹) (E - eta * v⁻¹ * Qx⁻¹) +
+      v⁻¹ * vf919OAIcontinuedH V (v * Qw)
+        (eta * v⁻¹ * Qx⁻¹) (E - eta * v⁻¹ * Qx⁻¹) =
+      vf919OAIlocalError
+        (etaInv * Qx) Qw v⁻¹ V (v * Qw)
+        (eta * v⁻¹ * Qx⁻¹) E := by
+  obtain ⟨hAD, hBW⟩ :=
+    vf919OAI_unit_character_phase_facts etaInv eta v Qx Qw hEta hv hQx
+  have hOAI := vf919OAI_exact_continued_local_compensation
+      (etaInv * Qx) Qw v⁻¹ V (v * Qw)
+      (eta * v⁻¹ * Qx⁻¹) (E - eta * v⁻¹ * Qx⁻¹)
+      hV hD hAD hBW
+  simpa only [vf919OAIlocalError, sub_add_cancel] using hOAI
+
+#print axioms vf919OAIcontinuedH_eq_rawH
+#print axioms vf919OAI_exact_continued_local_compensation
+#print axioms vf919OAI_exact_continued_zero_mask
+#print axioms vf919OAI_exact_continued_good_character
+
 /-! ## The ORIGINAL OpenAI subset expansion and unit-phase substitution -/
 
 /-- Explicit source-faithful finite difference. OAI's subset J indexes
