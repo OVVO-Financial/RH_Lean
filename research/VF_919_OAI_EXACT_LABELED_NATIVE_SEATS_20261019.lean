@@ -77,6 +77,16 @@ def vf919OAIOriginalIdealLabeledSeat
     (R : ℕ) (i : VF919OAIPhysicalIdealLabel) : ℂ :=
   (RHLean.Proof.vf919SexticNativeAMPSite R i.1 i.2.2.1 i.2.2.2 : ℂ)
 
+/-- Distinct x=317 split ideals remain TWO terms, but their underlying
+    original RH_Lean integer Möbius source at n=133 is the SAME physical
+    site. This is the exact many-to-one phase/source projection; it must
+    not be mistaken for a once-only sum over the original integers. -/
+theorem vf919OAI_x317_split_labels_same_original_weight (R : ℕ) :
+    vf919OAIOriginalIdealLabeledSeat R
+      (19, (7, ((-2 : ℤ), (-3 : ℤ)))) =
+    vf919OAIOriginalIdealLabeledSeat R
+      (19, (11, ((-2 : ℤ), (-3 : ℤ)))) := rfl
+
 /-- The actual selected Euler correction at an ideal label, multiplied
     by the original integer physical site weight. -/
 def vf919OAIGoodSelectedPhysicalSum
@@ -278,6 +288,7 @@ theorem vf919OAI_original_native_continued_full_gram
 #print axioms vf919OAI_original_native_continued_term_by_term
 #print axioms vf919OAI_original_native_continued_full_gram
 
+#print axioms vf919OAI_x317_split_labels_same_original_weight
 #print axioms vf919OAI_x317_split_ideal_labels_distinct
 #print axioms vf919OAI_x317_both_actual_sextic_residues
 #print axioms vf919OAI_original_native_seat_term_by_term
