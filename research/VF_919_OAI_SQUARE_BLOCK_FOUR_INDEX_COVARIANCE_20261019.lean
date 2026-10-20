@@ -73,6 +73,7 @@ theorem vf919SquareShellCovariance_eq_true_ordered_physical_pairs
   have hab : a ≤ b := by
     have hs : (R + 1) ^ 2 = R ^ 2 + (2 * R + 1) := by ring
     dsimp [a, b]
+    rw [hs]
     omega
   have hC :
       (∑ n ∈ Finset.Ico a b,
