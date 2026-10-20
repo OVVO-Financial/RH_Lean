@@ -234,4 +234,4 @@ No PR, review, workflow rerun, merge, schedule or permission change was performe
 
 ## Publication verification
 
-An early IN_PROGRESS checkpoint was published as PM commit f01e2c50d2665c0ca642ea61842ac0e212f00693 and AM mirror commit 489f866c85cd54b4546e7685236014e9a8f3109d, with identical checkpoint blob 5aefcebf96427fab412cd26cd4655a8675c72b4c. The completion commits and final identical-blob readback are recorded after this replacement. Publication success does not change any mathematical or PR status.
+An early IN_PROGRESS checkpoint was published as PM commit f01e2c50d2665c0ca642ea61842ac0e212f00693 and AM mirror commit 489f866c85cd54b4546e7685236014e9a8f3109d, with identical checkpoint blob 5aefcebf96427fab412cd26cd4655a8675c72b4c. The first completed replacement committed as PM bf98143b43b903cbf213577691b7b2c2ab72a0fd and AM mirror c02cbeafb9dc1f2754696d2d71ffc5688fdc5d53; both returned identical content blob ecc8a1b29e02fa3af1e9696e0e1b6821666c60ef. A final metadata-only replacement records those identifiers. Publication success does not change any mathematical or PR status.
