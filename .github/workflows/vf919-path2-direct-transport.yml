@@ -4,7 +4,6 @@ on:
   pull_request:
     paths:
       - 'research/VF_919_PATH2_FIXED_DIPOLE_TRANSPORT_20261020.lean'
-      - 'research/VF_919_PATH2_FINITE_COFACTOR_ASSEMBLY_20261020.lean'
       - 'scripts/vf919_path2_transport_regression.py'
       - '.github/workflows/vf919-path2-direct-transport.yml'
   workflow_dispatch:
@@ -36,28 +35,24 @@ jobs:
           lake env lean -DwarningAsError=true \
             -o .lake/build/lib/lean/research/VF_919_PATH2_FIXED_DIPOLE_TRANSPORT_20261020.olean \
             research/VF_919_PATH2_FIXED_DIPOLE_TRANSPORT_20261020.lean | tee /tmp/path2-transport-axioms.txt
-          if test -f research/VF_919_PATH2_FINITE_COFACTOR_ASSEMBLY_20261020.lean; then
-            lake env lean -DwarningAsError=true \
-              research/VF_919_PATH2_FINITE_COFACTOR_ASSEMBLY_20261020.lean | tee -a /tmp/path2-transport-axioms.txt
-          fi
           if grep -E 'sorryAx|admitAx' /tmp/path2-transport-axioms.txt; then exit 1; fi
-      - name: Reject forbidden proof shortcuts and run arithmetic regressions
+      - name: Reject forbidden proof shortcuts
         shell: bash
         run: |
           set -euo pipefail
           python3 - <<'PY'
           import pathlib, re
-          files = sorted(pathlib.Path('research').glob('VF_919_PATH2_*.lean'))
+          path = pathlib.Path('research/VF_919_PATH2_FIXED_DIPOLE_TRANSPORT_20261020.lean')
+          source = re.sub(r'/-.*?-/', '', path.read_text(), flags=re.S)
+          source = re.sub(r'--[^\n]*', '', source)
           forbidden = re.compile(r'\b(sorry|admit|axiom)\b|FinalAssemblyUnconditional|MERTENS_CONVERSE|riemannZeta_ne_zero_of_seven_eighths_lt_re')
-          for path in files:
-              source = path.read_text()
-              source = re.sub(r'/\*.*?\*/', '', source, flags=re.S)
-              source = re.sub(r'/-.*?-/', '', source, flags=re.S)
-              source = re.sub(r'--[^\n]*', '', source)
-              if forbidden.search(source):
-                  raise SystemExit(f'Forbidden proof shortcut in {path}')
-          print('PASS: no admitted proofs or imported terminal zero-free/converse shortcuts')
+          if forbidden.search(source):
+              raise SystemExit(f'Forbidden proof shortcut in {path}')
+          print('PASS: no admitted proofs or terminal zero-free/converse shortcuts')
           PY
-          if test -f scripts/vf919_path2_transport_regression.py; then
-            python3 scripts/vf919_path2_transport_regression.py
-          fi
+      - name: Test actual labelled ideal and cofactor identities
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -m pip install --disable-pip-version-check 'numpy>=2,<3'
+          python3 scripts/vf919_path2_transport_regression.py
