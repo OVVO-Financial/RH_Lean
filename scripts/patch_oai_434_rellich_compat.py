@@ -278,11 +278,11 @@ patch("Analysis/FunctionalSpaces/Sobolev/Euclidean/Rellich.lean", [
         "    exact (h1ToL2 (μ := (volume : Measure E)) (E := E)).opNorm_nonneg",
         "  have hCnonneg : 0 ≤ C := by\n"
         "    dsimp [C]\n"
-        "    exact norm_nonneg _",
+        "    exact norm_nonneg (h1ToL2 (μ := (volume : Measure E)) (E := E))",
     ),
     (
         "      exact (mem_closedBall_zero_iff.mp hx)",
-        "      simpa only [mem_closedBall_zero_iff] using hx",
+        "      simp only [Metric.mem_closedBall, dist_zero_right] at hx\n"\n        "      exact hx",
         2,
     ),
 ])
