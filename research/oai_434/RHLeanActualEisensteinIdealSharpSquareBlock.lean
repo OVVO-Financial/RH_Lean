@@ -149,7 +149,8 @@ theorem rhlean_actual_ideal_exponential_source_eq_VF919
   unfold normFiberExpSum
   apply tsum_congr
   intro n
-  rw [← rhlean_actual_ideal_all_coefficients_eq_VF919]
+  change rhleanActualEisensteinIdealNormFiber n * _ = _
+  rw [congrFun rhlean_actual_ideal_all_coefficients_eq_VF919 n]
 
 /-- An EXACT genuinely analytic translation through the ORIGINAL OAI
     norm-fiber Mellin source: no hypothetical source coefficient or
