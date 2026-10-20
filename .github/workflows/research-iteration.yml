@@ -58,7 +58,7 @@ jobs:
             # real-ideal-fiber workflows, which install the upstream OAI DAG.
             # They cannot compile in the generic native-only import closure.
             # This exclusion is NOT proof acceptance for those dedicated gates.
-            changed="$(grep -E '^research/.+\\.lean
+            changed="$(grep -E '^research/.+[.]lean$' /tmp/research-target-changes.txt | grep -vE '^research/(oai_434/|VF_919_OPENAI_434_UNCONDITIONAL_SQUARE_BLOCK_COVARIANCE_20261019[.]lean$|VF_919_OPENAI_CERTIFIED_ORIGINAL_SQUARE_COVARIANCE_20261019[.]lean$)' | sort -u | paste -sd ' ' - || true)"
             targets="$changed"
             if [[ -z "$targets" ]]; then
               targets="research/VF_MID_LI_UNIFORM_QUADRATURE.lean"
