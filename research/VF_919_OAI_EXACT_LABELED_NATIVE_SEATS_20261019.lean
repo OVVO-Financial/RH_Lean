@@ -63,8 +63,11 @@ theorem vf919OAI_x317_both_actual_sextic_residues :
     vf919OAIlabelSexticResidue
       (19, (11, ((-2 : ℤ), (-3 : ℤ)))) =
         (1 + (11 : ZMod 19)) ^ 5 := by
-  simpa [vf919OAIlabelSexticResidue] using
-    (vf919Sextic_x317_exactFourIdealPhases).1
+  constructor
+  · simpa [vf919OAIlabelSexticResidue] using
+      (vf919Sextic_x317_exactFourIdealPhases).1
+  · simpa [vf919OAIlabelSexticResidue] using
+      (vf919Sextic_x317_exactFourIdealPhases).2.1
 
 
 
