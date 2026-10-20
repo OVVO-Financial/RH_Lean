@@ -43,6 +43,7 @@ theorem vf919OAITrueSquareBlockMask_eq_two_exact_prefixes
     unfold vf919OAITrueSquareL
     have h : 0 < R^2 := by nlinarith
     omega
+  have hSquare : R ^ 2 ≤ (R + 1) ^ 2 := by nlinarith
   by_cases hnlow : n < R^2
   · have hlow : ¬ R^2 ≤ n := by omega
     have hhi : n ≤ vf919OAITrueSquareU R := by omega
