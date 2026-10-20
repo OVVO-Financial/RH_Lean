@@ -87,6 +87,7 @@ theorem rhlean_invCharAF_principal_eq_rationalMoebius :
     simp [invCharAF, toArithmeticFunction]
   · rw [invCharAF_apply (1 : DirichletCharacter ℂ 1) hn]
     rw [rhlean_principal_mod_one_is_one, one_mul]
+    rfl
 
 /-- OpenAI base-change of principal norm coefficients is EXACTLY the
     quadratic conductor-three character χ_{-3}. The conductor and
