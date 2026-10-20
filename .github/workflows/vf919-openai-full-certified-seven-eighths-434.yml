@@ -1,0 +1,86 @@
+name: Original OpenAI full certified 7/8 into RHLean square-block covariance
+
+on:
+  pull_request:
+    paths:
+      - 'research/VF_919_OPENAI_CERTIFIED_ORIGINAL_SQUARE_COVARIANCE_20261019.lean'
+      - '.github/workflows/vf919-openai-full-certified-seven-eighths-434.yml'
+      - 'scripts/patch_oai_434_rellich_compat.py'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: openai-original-complete-434-${{ github.head_ref || github.ref_name }}
+  cancel-in-progress: true
+
+jobs:
+  full-original-oai-proof-and-native-covariance:
+    runs-on: ubuntu-latest
+    timeout-minutes: 150
+    steps:
+      - name: Checkout actual RHLean source on Lean 4.34.1
+        uses: actions/checkout@v4
+      - name: Enforce compiler and pinned tracker Mathlib
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(cat lean-toolchain)" = "leanprover/lean4:v4.34.1"
+          grep -q 'd13f23b723b8a846827a245b89c10fc7d3f11612' lakefile.lean
+      - name: Reject sorry/admit/axiom in the final theorem
+        shell: bash
+        run: |
+          set -euo pipefail
+          ! grep -nE '^[[:space:]]*(sorry|admit|axiom)([[:space:]]|$)' \
+            research/VF_919_OPENAI_CERTIFIED_ORIGINAL_SQUARE_COVARIANCE_20261019.lean
+      - uses: ./.github/actions/lean-setup
+      - name: Compile RHLean original Green-Kubo and all-square coefficient pairs
+        uses: ./.github/actions/research-compile
+        with:
+          build-library: 'true'
+          targets: >-
+            research/VF_919_SEVEN_EIGHTHS_SIGNED_COVARIANCE_20261019.lean
+            research/VF_919_OAI_GLOBAL_SQUARE_BLOCK_ALL_PAIR_COVARIANCE_20261019.lean
+            research/VF_919_OAI_GENUINE_IDEAL_ORDERED_PHYSICAL_PAIRS_20261019.lean
+      - name: Checkout pinned ORIGINAL complete OpenAI theorem and dependencies
+        uses: actions/checkout@v4
+        with:
+          repository: openai/math
+          ref: 1581d4cbdd69a0faf34b2089614fe2a814316a6a
+          path: oai-upstream
+          persist-credentials: false
+      - name: Acquire original OpenAI dependencies (same Lean and Mathlib pins)
+        shell: bash
+        working-directory: oai-upstream/lean
+        run: |
+          set -euo pipefail
+          test "$(cat lean-toolchain)" = "leanprover/lean4:v4.34.1"
+          lake exe cache get
+      - name: Fix upstream Rellich pointwise elaboration without new axioms
+        run: python3 scripts/patch_oai_434_rellich_compat.py
+      - name: KERNEL BUILD THE ACTUAL COMPLETE OpenAI 7/8 CERTIFICATE
+        shell: bash
+        working-directory: oai-upstream/lean
+        run: |
+          set -euo pipefail
+          lake build OAI.NumberTheory.DirichletL.Detector.FinalAssemblyUnconditional
+      - name: Compile original OpenAI full theorem against native RHLean covariance
+        shell: bash
+        run: |
+          set -euo pipefail
+          OAI_PATH="$(cd oai-upstream/lean && lake env printenv LEAN_PATH)"
+          RH_PATH="$(lake env printenv LEAN_PATH)"
+          env LEAN_PATH="$RH_PATH:$OAI_PATH" lean -DwarningAsError=true \
+            research/VF_919_OPENAI_CERTIFIED_ORIGINAL_SQUARE_COVARIANCE_20261019.lean \
+            | tee /tmp/rhlean-original-openai-full-proof-axioms.log
+          if grep -E 'sorryAx|admitAx|_private' /tmp/rhlean-original-openai-full-proof-axioms.log; then
+            exit 1
+          fi
+      - name: Report exact original OpenAI certificate and covariance acceptance
+        shell: bash
+        run: |
+          set -euo pipefail
+          printf '%s\n' 'ACTUAL OpenAI terminal theorem kernel checked.'
+          printf '%s\n' 'ACTUAL RHLean native signed covariance 7/8 kernel checked.'
+          printf '%s\n' 'ACTUAL within- and cross-square-block global source bound kernel checked.'
