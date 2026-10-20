@@ -176,7 +176,7 @@ The complete-character identity has its own sharp obstruction: if (m) equal coef
 
 Open PRs were #983, #985, #986 and #987.
 
-- Draft #987, head `73fb6304baa37980d6236c66cfecc884b880dbc7`, is stacked on draft migration #983. Its public-export check succeeded; six material proof/source workflows were still in progress. It does not yet establish an independent native moment theorem.
+- Draft #987 advanced during final verification to head `6408d50728af71f92b3d105f2236f85df6e15b8f`, stacked on draft migration #983. Public export succeeded; seven material proof/source workflows were still in progress. It does not yet establish an independent native moment theorem.
 - #986, head `4345260a58f1c14f4018e46292469767c54cd908`, had an exact-head failure in the actual Eisenstein ideal norm-fiber sharp-square bridge and several workflows still running.
 - #985, head `8f51ddcb62c805ef19104399ede62d93731f6fca`, had failed its native Euler prime-density workflow and targeted iteration.
 - Draft #983, head `9811d5db79cfa5dc69cd642779d80e18eaf9ffb5`, was partially green with several workflows still in progress.
@@ -198,3 +198,5 @@ No status is inferred from workflow names. In particular, â€œfull certified 7/8â
 The early `IN_PROGRESS` checkpoint committed as `227e1ae5292cc40045c8d935ebab88ac948e4189`; immediate readback returned blob `9ce51a71bda79cecad8880cf3e3973a60a4a8f67`.
 
 Substantive completion committed as `d66e41952b8468887b5888b51d240c9c11c8da5e`; immediate readback returned blob `243b26eeec3c00eef12259dca213e396f524d0ec`, 13,375 characters, `COMPLETED` status, and both new claim IDs. The later metadata-only publication commit did not change that content blob. No main source, PR, review, workflow, merge, schedule, or permission state was mutated.
+
+Final live refresh retained `main@976cfdf5808eee7e36b35bf16074c8915ff8fc4d`. Draft #987 had advanced to head `6408d50728af71f92b3d105f2236f85df6e15b8f`; its material workflows remained in progress, so no proof status was promoted.
