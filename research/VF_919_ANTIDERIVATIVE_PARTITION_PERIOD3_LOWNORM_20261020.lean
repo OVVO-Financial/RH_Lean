@@ -185,8 +185,10 @@ theorem vf919LogWindow_finite_partition
         | succ k =>
             simpa only [Nat.succ_eq_add_one, Nat.add_sub_cancel_right] using
               vf919LogWindow_succ d u k
-    _ = _ := vf919LogSequence_telescope
-      (fun j => d.F ((((5 : ℝ) / 4) ^ j) * u)) J hJ
+    _ = _ := by
+      simpa only [pow_one] using
+        (vf919LogSequence_telescope
+          (fun j => d.F ((((5 : ℝ) / 4) ^ j) * u)) J hJ)
 
 theorem vf919LogWindow_partition_eq_terminal
     (d : VF919LogAntiderivativeData) (u : ℝ)
