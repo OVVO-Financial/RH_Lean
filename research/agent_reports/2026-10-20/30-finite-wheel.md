@@ -193,3 +193,13 @@ Formalization should reuse `vf919SplitIdealResidue_norm`; it must not claim a mo
 - First structural blocker: construct the labelled-to-physical pushforward with the (2^s) ideal-fiber multiplicities and zero masks.
 - First analytic blocker after that: uniform inverse second/plain refined fourth moments on the genuine labelled source.
 - Canonical VF, native independent 7/8, original #915 payment, and RH remain OPEN.
+
+## I. Publication verification
+
+The report was created on `agent-reports` by commit
+`cc679db62bf19499c5458830c738d86308ad8c2a`. Immediate readback returned
+blob `412020c04a8b013026704a75bbfd517e915a269f`, 11,426 characters,
+`COMPLETED` status, and claim ID `20261020-wheel-1`. This verifies
+publication only; it does not promote the paper theorem to Lean or prove an
+analytic estimate. No main-source, PR, review, CI, merge, schedule, or
+permission state was mutated.
