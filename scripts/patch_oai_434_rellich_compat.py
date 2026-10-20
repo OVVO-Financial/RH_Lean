@@ -227,3 +227,21 @@ patch("Analysis/FunctionalSpaces/Sobolev/Euclidean/TranslationEstimateL2.lean", 
         "        simpa only [F, Function.comp_def] using (hpow.comp hbase).aemeasurable",
     ),
 ])
+
+
+# Original OAI CompensationActual depends on H1 translation closedness.
+# Lean 4.34.1 needs the pointwise Pi and composition evaluation made explicit.
+patch("Analysis/FunctionalSpaces/Sobolev/Euclidean/TranslationEstimateH1.lean", [
+    (
+        "        simpa [sub_eq_add_neg] using htr.sub hfst",
+        "        simpa only [Pi.sub_apply] using htr.sub hfst",
+    ),
+    (
+        "      simpa using (continuous_norm.comp hsub)",
+        "      simpa only [Function.comp_def] using (continuous_norm.comp hsub)",
+    ),
+    (
+        "      simpa [mul_assoc] using (continuous_const.mul hnorm)",
+        "      simpa only [Pi.mul_apply] using (continuous_const.mul hnorm)",
+    ),
+])
