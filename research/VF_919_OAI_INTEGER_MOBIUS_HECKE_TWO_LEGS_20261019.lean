@@ -72,7 +72,7 @@ theorem vf919OAI_actualMobius_full_mixed_mark_rescale_gram
       ‖∑ n ∈ ns, vf919RationalMobius n * marked n‖ ^ 2 +
       ‖∑ n ∈ ns, vf919RationalMobius n * rescaled n‖ ^ 2 -
       2 * ((∑ n ∈ ns, vf919RationalMobius n * marked n) *
-        star (∑ n ∈ ns, vf919RationalMobius n * rescaled n)).re := by
+        (starRingEnd ℂ) (∑ n ∈ ns, vf919RationalMobius n * rescaled n)).re := by
   have hsource :
       (∑ n ∈ ns, vf919RationalMobius n *
         (marked n - rescaled n)) =
