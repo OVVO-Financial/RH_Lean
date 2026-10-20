@@ -66,6 +66,9 @@ jobs:
           #check RHLean.Analysis.vf919OAI_actualMobius_full_mixed_mark_rescale_gram
           #check RHLean.Analysis.vf919OAI_original_native_seat_term_by_term
           #check RHLean.Analysis.vf919OAI_original_native_seat_full_mixed_gram
+          #check RHLean.Analysis.vf919OAIlocalG_eq_preexisting_native
+          #check RHLean.Analysis.vf919OAIlocalH_eq_preexisting_native
+          #check RHLean.Analysis.vf919OAI_exact_from_preexisting_native_5_13b
           #check RHLean.Analysis.vf919OAIlocalP_unrestricted_two_terms
           #check RHLean.Analysis.vf919OAImarkedMinusRescaled_numerator
           #check RHLean.Analysis.vf919OAIphase_scalar_cancellation
@@ -83,6 +86,9 @@ jobs:
           #print axioms RHLean.Analysis.vf919OAI_actualMobius_full_mixed_mark_rescale_gram
           #print axioms RHLean.Analysis.vf919OAI_original_native_seat_term_by_term
           #print axioms RHLean.Analysis.vf919OAI_original_native_seat_full_mixed_gram
+          #print axioms RHLean.Analysis.vf919OAIlocalG_eq_preexisting_native
+          #print axioms RHLean.Analysis.vf919OAIlocalH_eq_preexisting_native
+          #print axioms RHLean.Analysis.vf919OAI_exact_from_preexisting_native_5_13b
           #print axioms RHLean.Analysis.vf919OAI_exact_local_compensation
           #print axioms RHLean.Analysis.vf919OAI_zero_extended_mask
           #print axioms RHLean.Analysis.vf919OAI_exact_finite_good_prime_slots
