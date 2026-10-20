@@ -122,7 +122,7 @@ theorem physicalTransitionLinearMoment_eq_centeredDiscrepancy
 theorem physicalTransitionTa_eq_centeredDiscrepancy (K : ℕ) :
     ((physicalTransitionTa K : ℤ) : ℝ) =
       physicalTransitionCenteredDiscrepancy K chiA := by
-  simpa [physicalTransitionTa] using
+  simpa [physicalTransitionTa] using!
     physicalTransitionLinearMoment_eq_centeredDiscrepancy
       K chiA threeSlotNonzeroCharacterMass_chiA
 
@@ -130,7 +130,7 @@ theorem physicalTransitionTa_eq_centeredDiscrepancy (K : ℕ) :
 theorem physicalTransitionTb_eq_centeredDiscrepancy (K : ℕ) :
     ((physicalTransitionTb K : ℤ) : ℝ) =
       physicalTransitionCenteredDiscrepancy K chiB := by
-  simpa [physicalTransitionTb] using
+  simpa [physicalTransitionTb] using!
     physicalTransitionLinearMoment_eq_centeredDiscrepancy
       K chiB threeSlotNonzeroCharacterMass_chiB
 
@@ -138,7 +138,7 @@ theorem physicalTransitionTb_eq_centeredDiscrepancy (K : ℕ) :
 theorem physicalTransitionTc_eq_centeredDiscrepancy (K : ℕ) :
     ((physicalTransitionTc K : ℤ) : ℝ) =
       physicalTransitionCenteredDiscrepancy K chiC := by
-  simpa [physicalTransitionTc] using
+  simpa [physicalTransitionTc] using!
     physicalTransitionLinearMoment_eq_centeredDiscrepancy
       K chiC threeSlotNonzeroCharacterMass_chiC
 
@@ -244,7 +244,7 @@ private theorem abs_physicalDegreeOneT_le_linearTransitionMoments
             ‖((physicalTransitionTc K : ℤ) : ℝ)‖ := by
           gcongr
           exact norm_add_le _ _
-  simpa [Real.norm_eq_abs] using htri
+  simpa [Real.norm_eq_abs] using! htri
 
 /-- **The open arithmetic estimate.**  Only the three Mertens-visible linear
 transition moments and the structured zero-sector defect are required at
@@ -281,7 +281,7 @@ theorem physicalDegreeOneMixingConjecture_of_transitionEstimate
         rw [physicalDegreeOneT_eq_linearTransitionMoments]
         simp [physicalTransitionTa, physicalTransitionTb, physicalTransitionTc]
       have hD0 : physicalDegreeOneD 0 = 0 := by
-        simpa [physicalTransitionD] using physicalTransitionD_zero
+        simpa [physicalTransitionD] using! physicalTransitionD_zero
       rw [hT0, hD0]
       simp only [Int.cast_zero, abs_zero, zero_add]
       exact mul_nonneg
@@ -294,7 +294,7 @@ theorem physicalDegreeOneMixingConjecture_of_transitionEstimate
               |((physicalTransitionTc (K + 1) : ℤ) : ℝ)| +
               |((physicalDegreeOneD (K + 1) : ℤ) : ℝ)| ≤
             C * Real.rpow (((K + 1) + 1 : ℕ) : ℝ) a := by
-        simpa [physicalTransitionD, a] using hbound (K + 1)
+        simpa [physicalTransitionD, a] using! hbound (K + 1)
       have hT := abs_physicalDegreeOneT_le_linearTransitionMoments (K + 1)
       have hTD :
           |((physicalDegreeOneT (K + 1) : ℤ) : ℝ)| +

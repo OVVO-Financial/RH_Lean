@@ -156,13 +156,13 @@ theorem squareRootLowPrimeNoLibertyBoundaryHome_mem
   · rcases x with s | x
     · simpa [squareRootLowPrimeProcessedSeatNoLibertyBoundary,
         squareRootLowPrimeNoLibertyBoundaryHome,
-        squareRootLowPrimeNoLibertyBoundaryHomeSpace] using hx
+        squareRootLowPrimeNoLibertyBoundaryHomeSpace] using! hx
     · rcases x with z | w
       · simpa [squareRootLowPrimeProcessedSeatNoLibertyBoundary,
           squareRootLowPrimeNoLibertyBoundaryHome,
-          squareRootLowPrimeNoLibertyBoundaryHomeSpace] using hx
+          squareRootLowPrimeNoLibertyBoundaryHomeSpace] using! hx
       · have hw : w ∈ squareRootLowPrimeGoRootEqualityDefectCarrier R := by
-          simpa [squareRootLowPrimeProcessedSeatNoLibertyBoundary] using hx
+          simpa [squareRootLowPrimeProcessedSeatNoLibertyBoundary] using! hx
         rcases w with ⟨⟨r, q⟩, d⟩
         rcases mem_squareRootLowPrimeGoRootEqualityDefectCarrier.mp hw with
           ⟨_hrR, _hqR, hdR, _hr, _hq, _hrq, _heq, _hcube, _hd⟩
@@ -200,7 +200,7 @@ theorem squareRootLowPrimeNoLibertyBoundaryHome_injOn
       · simp [squareRootLowPrimeNoLibertyBoundaryHome] at hxy
       · rcases y with ys | y
         · have hs : xs = ys := by
-            simpa [squareRootLowPrimeNoLibertyBoundaryHome] using hxy
+            simpa [squareRootLowPrimeNoLibertyBoundaryHome] using! hxy
           subst ys
           rfl
         · rcases y with yz | yw
@@ -213,7 +213,7 @@ theorem squareRootLowPrimeNoLibertyBoundaryHome_injOn
           · simp [squareRootLowPrimeNoLibertyBoundaryHome] at hxy
           · rcases y with yz | yw
             · have hz : xz = yz := by
-                simpa [squareRootLowPrimeNoLibertyBoundaryHome] using hxy
+                simpa [squareRootLowPrimeNoLibertyBoundaryHome] using! hxy
               subst yz
               rfl
             · simp [squareRootLowPrimeNoLibertyBoundaryHome] at hxy
@@ -224,11 +224,11 @@ theorem squareRootLowPrimeNoLibertyBoundaryHome_injOn
           · rcases y with yz | yw
             · simp [squareRootLowPrimeNoLibertyBoundaryHome] at hxy
             · have hxw : xw ∈ squareRootLowPrimeGoRootEqualityDefectCarrier R := by
-                simpa [squareRootLowPrimeProcessedSeatNoLibertyBoundary] using hx
+                simpa [squareRootLowPrimeProcessedSeatNoLibertyBoundary] using! hx
               have hyw : yw ∈ squareRootLowPrimeGoRootEqualityDefectCarrier R := by
-                simpa [squareRootLowPrimeProcessedSeatNoLibertyBoundary] using hy
+                simpa [squareRootLowPrimeProcessedSeatNoLibertyBoundary] using! hy
               have hparent : xw.2 = yw.2 := by
-                simpa [squareRootLowPrimeNoLibertyBoundaryHome] using hxy
+                simpa [squareRootLowPrimeNoLibertyBoundaryHome] using! hxy
               have hroot : xw = yw :=
                 squareRootLowPrimeGoRootEquality_parentProjection_injOn
                   R hxw hyw hparent
@@ -248,12 +248,12 @@ theorem squareRootLowPrimeProcessedSeatNoLibertyBoundary_card_le_four_root
   let H := squareRootLowPrimeNoLibertyBoundaryHomeSpace R K j
   let home := squareRootLowPrimeNoLibertyBoundaryHome R K j
   have hinj : Set.InjOn home B := by
-    simpa [B, home] using
+    simpa [B, home] using!
       squareRootLowPrimeNoLibertyBoundaryHome_injOn R K j
   have himage : B.image home ⊆ H := by
     intro h hh
     rcases Finset.mem_image.mp hh with ⟨x, hx, rfl⟩
-    simpa [B, H, home] using
+    simpa [B, H, home] using!
       squareRootLowPrimeNoLibertyBoundaryHome_mem (R := R) (K := K) (j := j) hx
   have hcardImage : (B.image home).card = B.card :=
     Finset.card_image_iff.mpr hinj
@@ -263,6 +263,6 @@ theorem squareRootLowPrimeProcessedSeatNoLibertyBoundary_card_le_four_root
   calc
     B.card = (B.image home).card := hcardImage.symm
     _ ≤ H.card := Finset.card_le_card himage
-    _ ≤ 4 * R := by simpa [H] using hhome
+    _ ≤ 4 * R := by simpa [H] using! hhome
 
 end RHLean.Proof

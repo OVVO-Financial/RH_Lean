@@ -104,7 +104,7 @@ theorem squareRootCanonicalRoughFreshBoundary_chain_telescope
         exact hedge.symm
     _ = squareRootCanonicalRoughPrimePartnerCount R (c 0) -
         squareRootCanonicalRoughPrimePartnerCount R (c n) := by
-      simpa using complex_sum_range_forwardDifference
+      simpa using! complex_sum_range_forwardDifference
         (fun i => squareRootCanonicalRoughPrimePartnerCount R (c i)) n
 
 /-- On a chain segment whose fresh-prime children have all reached the root,
@@ -160,7 +160,7 @@ theorem squareRootCanonicalRoughFreshLossBoundary_chain_telescope_of_root_reache
         exact hedge.symm
     _ = squareRootCanonicalRoughPrimePartnerCount R (c 0) -
         squareRootCanonicalRoughPrimePartnerCount R (c n) := by
-      simpa using complex_sum_range_forwardDifference
+      simpa using! complex_sum_range_forwardDifference
         (fun i => squareRootCanonicalRoughPrimePartnerCount R (c i)) n
 
 end CanonicalRoughPartnerAncestryBoundary

@@ -95,10 +95,10 @@ theorem nnsZeroTargetNormalizedCovariance_bounds
   · have hden : 0 < co + div :=
       lt_of_le_of_ne (add_nonneg hco hdiv) (Ne.symm hzero)
     constructor
-    · rw [nnsZeroTargetNormalizedCovariance, if_neg hzero]
+    · rw [nnsZeroTargetNormalizedCovariance, ite_eq_right hzero]
       apply (le_div_iff₀ hden).2
       linarith
-    · rw [nnsZeroTargetNormalizedCovariance, if_neg hzero]
+    · rw [nnsZeroTargetNormalizedCovariance, ite_eq_right hzero]
       apply (div_le_iff₀ hden).2
       linarith
 
@@ -109,7 +109,7 @@ theorem nnsZeroTargetNormalizedCovariance_mul_total
   · have hco0 : co = 0 := by nlinarith
     have hdiv0 : div = 0 := by nlinarith
     simp [nnsZeroTargetNormalizedCovariance, hco0, hdiv0]
-  · rw [nnsZeroTargetNormalizedCovariance, if_neg hzero]
+  · rw [nnsZeroTargetNormalizedCovariance, ite_eq_right hzero]
     field_simp
 
 theorem nnsZeroTargetNormalizedCovariance_nonpos_iff
@@ -121,12 +121,12 @@ theorem nnsZeroTargetNormalizedCovariance_nonpos_iff
     simp [nnsZeroTargetNormalizedCovariance, hco0, hdiv0]
   · have hden : 0 < co + div :=
       lt_of_le_of_ne (add_nonneg hco hdiv) (Ne.symm hzero)
-    rw [nnsZeroTargetNormalizedCovariance, if_neg hzero]
+    rw [nnsZeroTargetNormalizedCovariance, ite_eq_right hzero]
     constructor
     · intro h
       have hnum : co - div ≤ 0 := by
         have h' := (div_le_iff₀ hden).mp h
-        simpa using h'
+        simpa using! h'
       linarith
     · intro h
       apply (div_le_iff₀ hden).2

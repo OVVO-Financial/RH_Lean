@@ -43,7 +43,7 @@ theorem prime_of_mem_squareRootLowPrimeFreshPrimeListDescending
     (hp : p ∈ squareRootLowPrimeFreshPrimeListDescending K U) :
     p.Prime := by
   apply prime_of_mem_squareRootLowPrimeFreshPrimeList
-  simpa [squareRootLowPrimeFreshPrimeListDescending] using hp
+  simpa [squareRootLowPrimeFreshPrimeListDescending] using! hp
 
 /-- Complete processed-seat frontier formed in descending prime order. -/
 def squareRootLowPrimeProcessedSeatDescendingTerminalFrontier

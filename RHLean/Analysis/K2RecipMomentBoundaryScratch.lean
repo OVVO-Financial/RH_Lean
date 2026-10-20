@@ -25,14 +25,14 @@ theorem k2MobiusLogSqLSeries_tendsto_right_one :
     simp [show (2 : ℕ) = 1 + 1 by norm_num, iteratedDeriv_succ]
   have hval :
       deriv (deriv k2InvZetaRegular) (1 : ℂ) = (-2 * gammaE : ℂ) := by
-    simpa [show (2 : ℕ) = 1 + 1 by norm_num, iteratedDeriv_succ] using
+    simpa [show (2 : ℕ) = 1 + 1 by norm_num, iteratedDeriv_succ] using!
       k2InvZetaRegular_iteratedDeriv_two
   have hcomplex :
       Tendsto (fun s : ℂ => iteratedDeriv 2 k2InvZetaRegular s)
         (𝓝 (1 : ℂ)) (𝓝 (-2 * gammaE : ℂ)) := by
     rw [hfun]
     have h := (k2InvZetaRegular_analyticAt_one.iterated_deriv 2).continuousAt.tendsto
-    simpa [hval] using h
+    simpa [hval] using! h
   have hreal :
       Tendsto (fun sigma : ℝ => (sigma : ℂ))
         (𝓝[>] (1 : ℝ)) (𝓝 (1 : ℂ)) := by
@@ -40,10 +40,10 @@ theorem k2MobiusLogSqLSeries_tendsto_right_one :
       RCLike.continuous_ofReal.continuousAt.tendsto
   apply (hcomplex.comp hreal).congr'
   filter_upwards [self_mem_nhdsWithin] with sigma hsigma
-  have hs : 1 < sigma := by simpa using hsigma
-  simpa using
+  have hs : 1 < sigma := by simpa using! hsigma
+  simpa using!
     (k2InvZetaRegular_iteratedDeriv_two_eq_moebiusLogSqLSeries
-      (s := (sigma : ℂ)) (by simpa using hs))
+      (s := (sigma : ℂ)) (by simpa using! hs))
 
 /-- Strong Mertens kills every fixed logarithmic reciprocal endpoint.  This is
 the endpoint term in Abel summation for the order-two and order-three K2
@@ -69,7 +69,7 @@ theorem k2StrongMertens_logRecip_endpoint_tendsto_zero (m : ℕ) :
           C * (strongMertensScale (N : ℝ) ^ (10 * m) *
             Real.exp (-c * strongMertensScale (N : ℝ))))
         atTop (𝓝 0) := by
-    simpa using tendsto_const_nhds.mul (hpolyexp.comp hscaleN)
+    simpa using! tendsto_const_nhds.mul (hpolyexp.comp hscaleN)
   rw [tendsto_zero_iff_norm_tendsto_zero]
   refine squeeze_zero' (Eventually.of_forall fun N => norm_nonneg _) ?_ hmajor
   filter_upwards [eventually_ge_atTop 3] with N hN

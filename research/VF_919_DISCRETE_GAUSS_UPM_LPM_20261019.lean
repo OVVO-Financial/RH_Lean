@@ -177,8 +177,8 @@ theorem vf919FiniteFieldPrimitiveGauss_norm_sq
     (hχ : χ ≠ 1) (hψ : ψ.IsPrimitive) :
     ‖gaussSum χ ψ‖ ^ 2 = (Fintype.card F : ℝ) := by
   -- Reuse the already warning-fatal, standard-axiom-verified native theorem.
-  -- Its explicit conjugation argument works with pinned Mathlib 4.24,
-  -- which has no star_gaussSum_eq.
+  -- Its explicit conjugation argument does not depend on Mathlib's
+  -- star_gaussSum_eq.
   exact vf919FiniteFieldGauss_squaredNorm χ ψ hχ hψ
 
 #print axioms vf919DiscreteUPM1_sub_LPM1

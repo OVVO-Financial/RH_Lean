@@ -103,7 +103,7 @@ theorem nativeAbelBoundMonotone_general
             (b n - b (n + 1))| := abs_add_le _ _
     _ ≤ P * B + P * (b M - b 1) := add_le_add hend htail
     _ ≤ P * B + P * (2 * B) :=
-      add_le_add_left (mul_le_mul_of_nonneg_left hdiffBound hP) _
+      add_le_add_right (mul_le_mul_of_nonneg_left hdiffBound hP) _
     _ = 3 * P * B := by ring
 
 /-- Reciprocal integer mass equals the harmonic number. -/
@@ -125,14 +125,14 @@ theorem nativeLambdaRecip_sub_harmonic_abs_le
     |nativeLambdaRecip N - (harmonic N : ℝ)| ≤ Real.log 4 + 3 := by
   have hL := nativeLambdaRecip_sub_log_abs_le N hN
   have hHup : (harmonic N : ℝ) ≤ 1 + Real.log (N : ℝ) := by
-    simpa using harmonic_le_one_add_log N
+    simpa using! harmonic_le_one_add_log N
   have hlogNpos : (0 : ℝ) < (N : ℝ) := by exact_mod_cast (show 0 < N by omega)
   have hlogMono : Real.log (N : ℝ) ≤ Real.log ((N + 1 : ℕ) : ℝ) := by
     apply Real.log_le_log hlogNpos
     exact_mod_cast (show N ≤ N + 1 by omega)
   have hHlo : Real.log (N : ℝ) ≤ (harmonic N : ℝ) := by
     exact hlogMono.trans (by
-      simpa [show N + 1 = N + 1 by rfl] using log_add_one_le_harmonic N)
+      simpa [show N + 1 = N + 1 by rfl] using! log_add_one_le_harmonic N)
   rw [abs_le] at hL ⊢
   constructor
   · have hlog4 : 0 ≤ Real.log 4 := Real.log_nonneg (by norm_num)
@@ -288,7 +288,7 @@ theorem nativePNTLambdaConvolutionRecipMass_eq
         · rintro ⟨m, ⟨hm1, hmN⟩, rfl⟩
           have hmpos : 0 < m := by omega
           have hmulN' : m * d ≤ N := (Nat.le_div_iff_mul_le hdpos).1 hmN
-          have hmulN : d * m ≤ N := by simpa [Nat.mul_comm] using hmulN'
+          have hmulN : d * m ≤ N := by simpa [Nat.mul_comm] using! hmulN'
           exact ⟨⟨Nat.one_le_iff_ne_zero.mpr
             (Nat.ne_of_gt (Nat.mul_pos hdpos hmpos)), hmulN⟩,
             dvd_mul_right d m⟩
@@ -312,7 +312,7 @@ theorem nativePNT_log_floor_defect_bounds
   have hNpos : 0 < N := hdpos.trans_le hdI.2
   have hq1 : 1 ≤ N / d := (Nat.one_le_div_iff hdpos).2 hdI.2
   have hmulLe : d * (N / d) ≤ N := by
-    simpa [Nat.mul_comm] using Nat.div_mul_le_self N d
+    simpa [Nat.mul_comm] using! Nat.div_mul_le_self N d
   have hprodPos : (0 : ℝ) < (d * (N / d) : ℕ) := by positivity
   have hlogLe :
       Real.log ((d * (N / d) : ℕ) : ℝ) ≤ Real.log (N : ℝ) := by
@@ -415,7 +415,7 @@ theorem nativePNTLambdaConvolutionRecipMass_sub_model_abs_le
             (nativeLambdaRecip (N / d) -
               (Real.log (N : ℝ) - Real.log (d : ℝ))) := by ring
     rw [heq, abs_mul, abs_of_nonneg hw0]
-    simpa [mul_comm] using mul_le_mul_of_nonneg_left hinner hw0
+    simpa [mul_comm] using! mul_le_mul_of_nonneg_left hinner hw0
   have hmodel :
       ∑ d ∈ Finset.Icc 1 N,
           (Λ d / (d : ℝ)) *
@@ -516,7 +516,7 @@ theorem nativePNTSignedSecondSelbergKernelRecipMass_abs_le
           2 * (3 * (Real.log 4 + 3) * Real.log (N : ℝ) + 4) := by
         have hLA :
             |nativeLambdaRecip N - Real.log (N : ℝ)| ≤ A := by
-          simpa [A] using hL
+          simpa [A] using! hL
         exact add_le_add
           (mul_le_mul_of_nonneg_left hLA hlog0)
           (mul_le_mul_of_nonneg_left hD (by norm_num))

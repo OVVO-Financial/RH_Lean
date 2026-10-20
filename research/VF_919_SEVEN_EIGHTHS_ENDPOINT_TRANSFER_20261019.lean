@@ -78,12 +78,12 @@ theorem vf919MertensNorm_le_squarePrefix_add_lastShell
   calc
     ‖mertensSummatory X‖ =
       ‖(mertensSummatory X - mertensSummatory (K ^ 2 - 1)) +
-        mertensSummatory (K ^ 2 - 1)‖ := by ring
+        mertensSummatory (K ^ 2 - 1)‖ := by rw [sub_add_cancel]
     _ ≤ ‖mertensSummatory X - mertensSummatory (K ^ 2 - 1)‖ +
           ‖mertensSummatory (K ^ 2 - 1)‖ := norm_add_le _ _
     _ ≤ ((2 * K + 1 : ℕ) : ℝ) +
           ‖mertensSummatory (K ^ 2 - 1)‖ := by
-      exact add_le_add_right hres _
+      exact add_le_add hres le_rfl
     _ = ‖realMertensLength (K ^ 2)‖ +
           ((2 * K + 1 : ℕ) : ℝ) := by
       rw [← hcast, Complex.norm_real]

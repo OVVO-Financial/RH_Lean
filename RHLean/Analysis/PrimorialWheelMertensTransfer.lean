@@ -88,7 +88,7 @@ theorem primorialWheel_residualBounded_of_mertensEnergy
   have hlowerNegBound :
       ‖-mertensSummatory (primorialBlockLower k)‖ ^ 2 ≤
         C * Real.rpow ((x + 1 : ℕ) : ℝ) (1 + ε) := by
-    simpa only [norm_neg] using hlowerBound
+    simpa only [norm_neg] using! hlowerBound
   have hxBound := hbound x
   calc
     ‖mertensSummatory x - mertensSummatory (primorialBlockLower k)‖ ^ 2 =
@@ -150,7 +150,7 @@ theorem primorialWheel_endpointEnergyBounded_of_residualBounded
           ‖mertensSummatory (primorialEndpoint 0)‖ ^ 2 = B0 := rfl
           _ ≤ D := hBD
           _ ≤ D * Real.rpow ((primorialEndpoint 0 + 1 : ℕ) : ℝ) (1 + ε) := by
-            simpa using mul_le_mul_of_nonneg_left hpow hD0
+            simpa using! mul_le_mul_of_nonneg_left hpow hD0
       by_cases hk1 : k = 1
       · subst k
         have hbase :
@@ -162,7 +162,7 @@ theorem primorialWheel_endpointEnergyBounded_of_residualBounded
           ‖mertensSummatory (primorialEndpoint 1)‖ ^ 2 = B1 := rfl
           _ ≤ D := hBD
           _ ≤ D * Real.rpow ((primorialEndpoint 1 + 1 : ℕ) : ℝ) (1 + ε) := by
-            simpa using mul_le_mul_of_nonneg_left hpow hD0
+            simpa using! mul_le_mul_of_nonneg_left hpow hD0
       have hkge : 2 ≤ k := by omega
       let j := k - 1
       have hj1 : 1 ≤ j := by dsimp [j]; omega
@@ -181,7 +181,7 @@ theorem primorialWheel_endpointEnergyBounded_of_residualBounded
       have hinc :
           ‖(((primorialWheelSystem j).residual (primorialBlockUpper j) : ℤ) : ℂ)‖ ^ 2 ≤
             C * Real.rpow ((primorialEndpoint (j + 1) + 1 : ℕ) : ℝ) (1 + ε) := by
-        simpa [primorialWheelFamily, primorialBlockUpper] using hinc0
+        simpa [primorialWheelFamily, primorialBlockUpper] using! hinc0
       have hres := primorialWheel_endpointResidual_cast_eq_mertens_sub j
       have hsum :
           mertensSummatory (primorialEndpoint k) =
@@ -225,7 +225,7 @@ theorem primorialWheel_endpointEnergyBounded_of_residualBounded
             (1 + ε)
           have hlast := mul_le_mul_of_nonneg_right hcontract hpownonneg
           have hjk' : j + 1 = k := by dsimp [j]; omega
-          simpa [hjk'] using hlast
+          simpa [hjk'] using! hlast
 
 /-- The primorial residual criterion is exactly the ordinary global
 Mertens-energy criterion.  No prime-number theorem or asymptotic prime estimate
@@ -244,13 +244,13 @@ theorem primorialWheel_residualBounded_iff_mertensEnergy :
     intro x
     by_cases hx0 : x = 0
     · subst x
-      simpa [mertensSummatory] using hK0
+      simpa [mertensSummatory] using! hK0
     by_cases hx1 : x = 1
     · subst x
       have h := hendpoint 0
       have hDK : D ≤ K := by dsimp [K]; nlinarith
       have hp := Real.rpow_nonneg (by positivity : (0 : ℝ) ≤ 2) (1 + ε)
-      simpa [primorialEndpoint_zero, K] using
+      simpa [primorialEndpoint_zero, K] using!
         h.trans (mul_le_mul_of_nonneg_right hDK hp)
     have hx2 : 2 ≤ x := by omega
     let k := primorialBlockIndex x
@@ -270,7 +270,7 @@ theorem primorialWheel_residualBounded_iff_mertensEnergy :
     have hendpointLower :
         ‖mertensSummatory (primorialBlockLower k)‖ ^ 2 ≤
           D * Real.rpow ((primorialBlockLower k + 1 : ℕ) : ℝ) (1 + ε) := by
-      simpa [primorialBlockLower] using hendpoint k
+      simpa [primorialBlockLower] using! hendpoint k
     have hbaseNat : primorialBlockLower k + 1 ≤ x + 1 := by omega
     have hbase :
         ((primorialBlockLower k + 1 : ℕ) : ℝ) ≤ ((x + 1 : ℕ) : ℝ) := by
@@ -288,7 +288,7 @@ theorem primorialWheel_residualBounded_iff_mertensEnergy :
     have hresidualX :
         ‖(((primorialWheelSystem k).residual x : ℤ) : ℂ)‖ ^ 2 ≤
           C * Real.rpow ((x + 1 : ℕ) : ℝ) (1 + ε) := by
-      simpa [primorialWheelFamily] using hresidual0
+      simpa [primorialWheelFamily] using! hresidual0
     rw [hsum]
     calc
       ‖mertensSummatory (primorialBlockLower k) +
@@ -307,8 +307,8 @@ theorem primorialWheel_residualBounded_iff_mertensEnergy :
 
 /-- Canonical, fully proved global transfer package for the concrete primorial
 wheel family. -/
-def primorialWheelMertensBridge :
-    PrimeWheelMertensBridge primorialWheelFamily where
-  residual_iff_mertensEnergy := primorialWheel_residualBounded_iff_mertensEnergy
+theorem primorialWheelMertensBridge :
+    PrimeWheelMertensBridge primorialWheelFamily := by
+  exact ⟨primorialWheel_residualBounded_iff_mertensEnergy⟩
 
 end RHLean.Analysis

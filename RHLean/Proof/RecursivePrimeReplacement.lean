@@ -123,7 +123,7 @@ theorem squareRootEndpoint_div_lt_root_of_root_le
   have hsqpos : 0 < R ^ 2 := by positivity
   have hsub : R ^ 2 - 1 < R ^ 2 := Nat.sub_lt hsqpos (by norm_num)
   have hXlt : squareRootEndpoint R < R * R := by
-    simpa [squareRootEndpoint, pow_two] using hsub
+    simpa [squareRootEndpoint, pow_two] using! hsub
   have hmul : R * R ≤ R * n := Nat.mul_le_mul_left R hn
   exact hXlt.trans_le hmul
 
@@ -184,7 +184,7 @@ theorem mertensEndpoint_eq_pred_sub_recursiveResidual
     RHLean.Analysis.mertensSummatory (squareRootEndpoint R) =
       RHLean.Analysis.mertensSummatory (R - 1) -
         squareRootRecursiveReplacementResidual R := by
-  simpa [squareRootRecursiveReplacementResidual] using
+  simpa [squareRootRecursiveReplacementResidual] using!
     mertensEndpoint_eq_pred_sub_recursiveReplacement R hR
 
 /-! ## Recombination by reciprocal quotient -/
@@ -347,7 +347,7 @@ theorem div_mul_prime_lt_div_of_mul_le
   have hp1 : 1 < p := hp.one_lt
   have hpone : 1 ≤ p := by omega
   have hn_mul_le : n ≤ n * p := by
-    simpa using Nat.mul_le_mul_left n hpone
+    simpa using! Nat.mul_le_mul_left n hpone
   have hnX : n ≤ X := hn_mul_le.trans hfit
   have hq1 : 1 ≤ X / n :=
     (Nat.one_le_div_iff hnpos).2 hnX
@@ -508,7 +508,7 @@ private theorem squareRootReplacementKernel_eq_neg_tailSeedSum
       -(∑ d ∈ n.divisors, squareRootReplacementTailSeed R d) := by
   have hn1 : n ≠ 1 := by omega
   have hfull := RHLean.Analysis.sum_divisors_moebius_eq_ite n
-  rw [if_neg hn1] at hfull
+  rw [ite_eq_right hn1] at hfull
   unfold squareRootReplacementKernel squareRootReplacementSeed
     squareRootReplacementTailSeed
   have hzero :
@@ -554,11 +554,11 @@ private theorem sum_squareRootReplacementTailSeed_divisors_eq_ite
     (∑ d ∈ n.divisors, squareRootReplacementTailSeed R d) =
       if R ≤ n then -squareRootReplacementKernel R n else 0 := by
   by_cases hnR : R ≤ n
-  · rw [if_pos hnR]
+  · rw [ite_eq_left hnR]
     have h := squareRootReplacementKernel_eq_neg_tailSeedSum hR hnR
     rw [h]
     ring
-  · rw [if_neg hnR]
+  · rw [ite_eq_right hnR]
     apply Finset.sum_eq_zero
     intro d hd
     unfold squareRootReplacementTailSeed
@@ -798,7 +798,7 @@ theorem sum_squareRootReplacementTailMoebiusCoefficient_eq_mertens_sub_pred
       (∑ z ∈ Finset.range R,
         squareRootReplacementTailMoebiusCoefficient R z) =
       ∑ n ∈ Finset.Icc R (squareRootEndpoint R),
-        (((μ n : ℤ) : ℂ)) := by simpa using hgroup
+        (((μ n : ℤ) : ℂ)) := by simpa using! hgroup
   have hRX : R ≤ squareRootEndpoint R := by
     unfold squareRootEndpoint
     have hsq : R + 1 ≤ R ^ 2 := by nlinarith
@@ -943,7 +943,7 @@ theorem squareRootReplacementTailCoefficient_eq_neg_tailMoebiusKernel
         (((μ d : ℤ) : ℂ)) *
           squareRootReplacementQuotientKernel
             (squareRootEndpoint R / d) y) := by
-      simpa [f, squareRootReplacementQuotientKernel] using htype
+      simpa [f, squareRootReplacementQuotientKernel] using! htype
     _ = -(∑ z ∈ Finset.range R,
         squareRootReplacementTailMoebiusCoefficient R z *
           squareRootReplacementQuotientKernel z y) := by
@@ -972,7 +972,7 @@ theorem sum_replacementTailCoefficient_mul_shiftedMertens_eq_tailFirstMoment
           (RHLean.Analysis.mertensSummatory y - 1)) =
       ∑ n ∈ Finset.Icc R (squareRootEndpoint R),
         squareRootReplacementKernel R n *
-          f (squareRootEndpoint R / n) := by simpa [f] using hfibre
+          f (squareRootEndpoint R / n) := by simpa [f] using! hfibre
     _ = -(∑ d ∈ Finset.Icc R (squareRootEndpoint R),
         (((μ d : ℤ) : ℂ)) *
           ∑ k ∈ Finset.Icc 1 (squareRootEndpoint R / d),
@@ -990,7 +990,7 @@ theorem sum_replacementTailCoefficient_mul_shiftedMertens_eq_tailFirstMoment
       rw [show (∑ k ∈ Finset.Icc 1 (squareRootEndpoint R / d),
           f (squareRootEndpoint R / d / k)) =
         1 - ((squareRootEndpoint R / d : ℕ) : ℂ) by
-          simpa [f] using sum_shiftedMertens_div_eq_one_sub hz1]
+          simpa [f] using! sum_shiftedMertens_div_eq_one_sub hz1]
     _ = ∑ d ∈ Finset.Icc R (squareRootEndpoint R),
         (((μ d : ℤ) : ℂ)) *
           (((squareRootEndpoint R / d : ℕ) : ℂ) - 1) := by
@@ -1104,8 +1104,8 @@ theorem squareRootReplacementBoundaryMass_eq_neg_tailMoebiusMoment
     calc
       P - squareRootReplacementBoundaryMass R =
         RHLean.Analysis.mertensSummatory (squareRootEndpoint R) - 1 := by
-          simpa [P] using hsplit.symm
-      _ = P + Q := by simpa [P, Q] using hjoint.symm
+          simpa [P] using! hsplit.symm
+      _ = P + Q := by simpa [P, Q] using! hjoint.symm
   calc
     squareRootReplacementBoundaryMass R =
       P - (P - squareRootReplacementBoundaryMass R) := by ring

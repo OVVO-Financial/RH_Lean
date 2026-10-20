@@ -58,11 +58,11 @@ theorem lowWheelCanonicalRepeatedTerminalInternalMate_mem_transport
   let p := lowWheelTaggedDowncrossPivot y
   have hterminal := (Finset.mem_filter.mp hy).1
   have hgeom := lowWheelCanonicalRepeatedTerminalBoundary_geometry hterminal
-  have hp : p.Prime := by simpa [p] using hgeom.2.2.1
+  have hp : p.Prime := by simpa [p] using! hgeom.2.2.1
   have hpMem : p ∈ primesUpTo R := by
-    simpa [p] using lowWheelCanonicalRepeatedTerminalInternal_pivot_mem_primesUpTo hy
+    simpa [p] using! lowWheelCanonicalRepeatedTerminalInternal_pivot_mem_primesUpTo hy
   have hpNotFace : p ∉ y.1 := by
-    simpa [p] using lowWheelCanonicalRepeatedTerminalInternal_pivot_not_mem_face hy
+    simpa [p] using! lowWheelCanonicalRepeatedTerminalInternal_pivot_not_mem_face hy
   have hfrozen := (Finset.mem_filter.mp hterminal).1
   have hrepeated := (Finset.mem_filter.mp hfrozen).1
   have htagged := (Finset.mem_filter.mp hrepeated).1
@@ -75,24 +75,24 @@ theorem lowWheelCanonicalRepeatedTerminalInternalMate_mem_transport
     (mem_lowWheelCanonicalPhysicalStateSet.mp hphysSource).2.2.2
   have hRgt : 1 < R := by
     have hcR := hsourceCarrier.2.1
-    simpa [hgeom.1] using hcR
+    simpa [hgeom.1] using! hcR
   have hprodInsert : primeFaceProduct (insert p y.1) = p * primeFaceProduct y.1 := by
     simp [primeFaceProduct, hpNotFace]
   have hmateCarrier : LowWheelTransportPairCarrier R (insert p y.1) (1, 1) := by
     refine ⟨by simp, hRgt, ?_, ?_⟩
     · rw [hprodInsert]
-      simpa [Nat.mul_comm] using hgeom.2.2.2.2.2
+      simpa [Nat.mul_comm] using! hgeom.2.2.2.2.2
     · have htop := hsourceCarrier.2.2.2
       rw [hgeom.1, hgeom.2.1] at htop
       rw [hprodInsert]
-      simpa [Nat.mul_comm, Nat.mul_left_comm, Nat.mul_assoc] using htop
+      simpa [Nat.mul_comm, Nat.mul_left_comm, Nat.mul_assoc] using! htop
   have hranges := lowWheelTransportPairCarrier_mem_ranges hmateCarrier
   have hmatePhysical : (1, 1) ∈
       lowWheelCanonicalPhysicalStateSet R (insert p y.1) := by
     exact mem_lowWheelCanonicalPhysicalStateSet.mpr
       ⟨hranges.1, hranges.2, squarefree_one, hmateCarrier⟩
   apply mem_lowWheelCanonicalTaggedPhysicalCarrier.mpr
-  simpa [lowWheelCanonicalRepeatedTerminalInternalMate, p] using
+  simpa [lowWheelCanonicalRepeatedTerminalInternalMate, p] using!
     And.intro hfaceMate hmatePhysical
 
 /-- Moving the fresh prime into the Boolean face reverses exactly one Boolean
@@ -107,7 +107,7 @@ theorem lowWheelCanonicalRepeatedTerminalInternalMate_weight_neg
   have hterminal := (Finset.mem_filter.mp hy).1
   have hgeom := lowWheelCanonicalRepeatedTerminalBoundary_geometry hterminal
   have hpNotFace : p ∉ y.1 := by
-    simpa [p] using lowWheelCanonicalRepeatedTerminalInternal_pivot_not_mem_face hy
+    simpa [p] using! lowWheelCanonicalRepeatedTerminalInternal_pivot_not_mem_face hy
   have hc : y.2.1 = 1 := hgeom.1
   have hsign : booleanCubeSign (insert p y.1) = -booleanCubeSign y.1 := by
     simp [booleanCubeSign, hpNotFace, pow_succ]
@@ -122,7 +122,7 @@ theorem lowWheelCanonicalRepeatedTerminalInternalMate_ne
     lowWheelCanonicalRepeatedTerminalInternalMate y ≠ (y.1, y.2) := by
   let p := lowWheelTaggedDowncrossPivot y
   have hpNotFace : p ∉ y.1 := by
-    simpa [p] using lowWheelCanonicalRepeatedTerminalInternal_pivot_not_mem_face hy
+    simpa [p] using! lowWheelCanonicalRepeatedTerminalInternal_pivot_not_mem_face hy
   intro heq
   have hface := congrArg Prod.fst heq
   change insert p y.1 = y.1 at hface
@@ -147,11 +147,11 @@ theorem lowWheelCanonicalRepeatedTerminalInternalMate_injOn
   have hyGeom := lowWheelCanonicalRepeatedTerminalBoundary_geometry hyTerminal
   have hzGeom := lowWheelCanonicalRepeatedTerminalBoundary_geometry hzTerminal
   have hpNot : p ∉ y.1 := by
-    simpa [p] using lowWheelCanonicalRepeatedTerminalInternal_pivot_not_mem_face hy
+    simpa [p] using! lowWheelCanonicalRepeatedTerminalInternal_pivot_not_mem_face hy
   have hqNot : q ∉ z.1 := by
-    simpa [q] using lowWheelCanonicalRepeatedTerminalInternal_pivot_not_mem_face hz
+    simpa [q] using! lowWheelCanonicalRepeatedTerminalInternal_pivot_not_mem_face hz
   have hface : insert p y.1 = insert q z.1 := by
-    simpa [lowWheelCanonicalRepeatedTerminalInternalMate, p, q] using
+    simpa [lowWheelCanonicalRepeatedTerminalInternalMate, p, q] using!
       congrArg Prod.fst heq
   have hpRight : p ∈ insert q z.1 := by
     rw [← hface]
@@ -165,23 +165,23 @@ theorem lowWheelCanonicalRepeatedTerminalInternalMate_injOn
     · rcases Finset.mem_insert.mp hqLeft with hqp | hqy
       · exact hqp.symm
       · have hpLtQ : p < q := by
-          simpa [q] using hzGeom.2.2.2.1 p hpz
+          simpa [q] using! hzGeom.2.2.2.1 p hpz
         have hqLtP : q < p := by
-          simpa [p] using hyGeom.2.2.2.1 q hqy
+          simpa [p] using! hyGeom.2.2.2.1 q hqy
         omega
   have hfaceSame : insert p y.1 = insert p z.1 := by
-    simpa [hpq] using hface
+    simpa [hpq] using! hface
   have hbase : y.1 = z.1 := by
     have herase := congrArg (fun s : Finset ℕ => s.erase p) hfaceSame
-    have hpNotZ : p ∉ z.1 := by simpa [hpq] using hqNot
-    simpa [hpNot, hpNotZ] using herase
+    have hpNotZ : p ∉ z.1 := by simpa [hpq] using! hqNot
+    simpa [hpNot, hpNotZ] using! herase
   have hstate : y.2 = z.2 := by
     apply Prod.ext
     · exact hyGeom.1.trans hzGeom.1.symm
     · calc
-        y.2.2 = p := by simpa [p] using hyGeom.2.1
+        y.2.2 = p := by simpa [p] using! hyGeom.2.1
         _ = q := hpq
-        _ = z.2.2 := by simpa [q] using hzGeom.2.1.symm
+        _ = z.2.2 := by simpa [q] using! hzGeom.2.1.symm
   exact Prod.ext hbase hstate
 
 /-- Image of the internal repeated terminal boundary inside the existing tagged
@@ -321,7 +321,7 @@ theorem lowWheelFrozenCofactorTopImage_highProduct_ge_far
   rcases mem_lowWheelFrozenCofactorTopImage.mp hz with ⟨y, hy, rfl⟩
   let q := lowWheelFrozenCofactorTopPrime y
   have hqPrime : q.Prime := by
-    simpa [q] using (lowWheelFrozenCofactorTopPrime_data hy).1
+    simpa [q] using! (lowWheelFrozenCofactorTopPrime_data hy).1
   have hqTwo : 2 ≤ q := hqPrime.two_le
   have hfrozen := (Finset.mem_filter.mp hy).1
   have hrepeated := (Finset.mem_filter.mp hfrozen).1
@@ -342,7 +342,7 @@ theorem lowWheelFrozenCofactorTopImage_highProduct_ge_far
     exact hfirst.trans hdouble
   rw [lowWheelFrozenCofactorTopToggle_eq hy]
   simpa [lowWheelTaggedHighProduct, q, Nat.mul_comm, Nat.mul_left_comm,
-    Nat.mul_assoc] using hfar
+    Nat.mul_assoc] using! hfar
 
 /-- Hence the complete frozen top image is a subcarrier of the far physical
 region. -/
@@ -425,7 +425,7 @@ theorem lowWheelFrozenCofactorTopImage_quotient_two_le
   rcases mem_lowWheelFrozenCofactorTopImage.mp hz with ⟨y, hy, rfl⟩
   let q := lowWheelFrozenCofactorTopPrime y
   have hqPrime : q.Prime := by
-    simpa [q] using (lowWheelFrozenCofactorTopPrime_data hy).1
+    simpa [q] using! (lowWheelFrozenCofactorTopPrime_data hy).1
   have hfrozen := (Finset.mem_filter.mp hy).1
   have hrepeated := (Finset.mem_filter.mp hfrozen).1
   have htagged := (Finset.mem_filter.mp hrepeated).1
@@ -495,11 +495,11 @@ theorem lowWheelFullFaceQuotientMate_highProduct
       lowWheelTaggedHighProduct z := by
   unfold lowWheelFullFaceQuotientMate
   by_cases h : (lowWheelFullActivePrimeSet R z).Nonempty
-  · rw [dif_pos h]
-    simpa [lowWheelTaggedHighProduct] using
+  · rw [dite_eq_left h]
+    simpa [lowWheelTaggedHighProduct] using!
       (lowWheelFullFaceQuotientToggleAt_highProduct
         (lowWheelFullOppositePrime R z) z)
-  · rw [dif_neg h]
+  · rw [dite_eq_right h]
 
 /-- Hence the existing Othello mate preserves the far filtered physical
 region, not only the complete unfiltered carrier. -/
@@ -553,14 +553,14 @@ theorem lowWheelFarTaggedPhysicalStable_geometry
     (lowWheelHighSurvivor_iff_prime hR hgeom.2.1 hgeom.2.2.1).mp
       hgeom.2.2.2
   have hfarQ : R + 8 ≤ z.2.2 := by
-    simpa [lowWheelTaggedHighProduct, hgeom.1, primeFaceProduct] using hfar
+    simpa [lowWheelTaggedHighProduct, hgeom.1, primeFaceProduct] using! hfar
   have hphys := (mem_lowWheelFullTaggedPhysicalCarrier.mp hzFull).2
   have hdata := mem_lowWheelCanonicalPhysicalStateSet.mp hphys
   have hcarrier := hdata.2.2.2
   have htop : z.2.1 * z.2.2 ≤ squareRootEndpoint R := by
     have h := hcarrier.2.2.2
     rw [hgeom.1] at h
-    simpa [primeFaceProduct] using h
+    simpa [primeFaceProduct] using! h
   exact ⟨hgeom.1, hprime, hfarQ, hgeom.2.2.1,
     hdata.1, hdata.2.2.1, htop⟩
 
@@ -582,8 +582,8 @@ theorem lowWheelFarTaggedPhysicalStable_of_prime
   have hcData := Finset.mem_Ico.mp hc
   have hpair : LowWheelTransportPairCarrier R (∅ : Finset ℕ) (c, q) := by
     refine ⟨hcData.1, hcData.2, ?_, ?_⟩
-    · simpa [primeFaceProduct] using hRq
-    · simpa [primeFaceProduct] using hcq
+    · simpa [primeFaceProduct] using! hRq
+    · simpa [primeFaceProduct] using! hcq
   have hphys : (c, q) ∈ lowWheelCanonicalPhysicalStateSet R (∅ : Finset ℕ) :=
     mem_lowWheelCanonicalPhysicalStateSet.mpr ⟨hc, hqI, hsq, hpair⟩
   have hfull : ((∅ : Finset ℕ), (c, q)) ∈ lowWheelFullTaggedPhysicalCarrier R :=
@@ -591,7 +591,7 @@ theorem lowWheelFarTaggedPhysicalStable_of_prime
   have hfar : ((∅ : Finset ℕ), (c, q)) ∈ lowWheelFarTaggedPhysicalCarrier R := by
     apply mem_lowWheelFarTaggedPhysicalCarrier.mpr
     refine ⟨hfull, ?_⟩
-    simpa [lowWheelTaggedHighProduct, primeFaceProduct] using hqFar
+    simpa [lowWheelTaggedHighProduct, primeFaceProduct] using! hqFar
   have hactiveEmpty :
       ¬ (lowWheelFullActivePrimeSet R ((∅ : Finset ℕ), (c, q))).Nonempty := by
     intro hne
@@ -604,7 +604,7 @@ theorem lowWheelFarTaggedPhysicalStable_of_prime
       lowWheelFullFaceQuotientMate R ((∅ : Finset ℕ), (c, q)) =
         ((∅ : Finset ℕ), (c, q)) := by
     unfold lowWheelFullFaceQuotientMate
-    rw [dif_neg hactiveEmpty]
+    rw [dite_eq_right hactiveEmpty]
   exact mem_lowWheelFarTaggedPhysicalStableCarrier.mpr ⟨hfar, hstable⟩
 
 end RHLean.Proof

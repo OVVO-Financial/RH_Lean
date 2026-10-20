@@ -156,6 +156,6 @@ theorem actualStart_signedFrame_of_localSignedFrame
         4 * actualStartPredictionFrameEnergy start H := by
   intro H
   simpa [actualStartLocalFrameEnergy, actualStartLocalPredictionFrameEnergy,
-    actualStartFrameEnergy, actualStartPredictionFrameEnergy] using hlocal 0 H
+    actualStartFrameEnergy, actualStartPredictionFrameEnergy] using! hlocal 0 H
 
 end RHLean.Analysis

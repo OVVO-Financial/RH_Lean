@@ -124,7 +124,7 @@ theorem lowWheelFrozenSecondContact_owner_mem_productOneFace
   right
   apply Finset.mem_union.mpr
   right
-  simpa [squarefreePrimeFace] using hqFactors
+  simpa [squarefreePrimeFace] using! hqFactors
 
 /-- Erasing the owner is an exact factorization of the old physical integer. -/
 theorem lowWheelFrozenSecondContact_owner_mul_parentFaceProduct
@@ -163,14 +163,14 @@ theorem lowWheelFrozenSecondContactParentFace_prime_lt_owner
       have hpq := (lowWheelFrozenCofactorTopPrime_data hy).2.2
       exact ⟨hrPrime, hrp.trans hpq⟩
     · have hrFactors : r ∈ y.2.1.primeFactors := by
-        simpa [squarefreePrimeFace] using hcofactor
+        simpa [squarefreePrimeFace] using! hcofactor
       have hrPrime := (Nat.mem_primeFactors.mp hrFactors).1
       have hcgt :=
         (lowWheelCanonicalRepeatedFrozenCofactor_source_data hy).2.2.2.2.1
       have hrLe : r ≤ canonicalLargestPrimeFactor y.2.1 :=
         primeFactor_le_canonicalLargestPrimeFactor hcgt hrFactors
       have hrLeOwner : r ≤ lowWheelFrozenCofactorTopPrime y := by
-        simpa [lowWheelFrozenCofactorTopPrime] using hrLe
+        simpa [lowWheelFrozenCofactorTopPrime] using! hrLe
       exact ⟨hrPrime, by omega⟩
 
 /-- The predecessor face belongs to the frozen prime universe immediately
@@ -194,7 +194,7 @@ theorem lowWheelFrozenProductOneFace_le_endpoint
   have hm := lowWheelCanonicalRepeatedFrozenProductOneMate_mem_physical hy
   have hdata := mem_lowWheelCanonicalPhysicalStateSet.mp hm
   have hpair := hdata.2.2.2
-  simpa using hpair.2.2.2
+  simpa using! hpair.2.2.2
 
 /-- A frozen source is already an oriented Euler cut.  This bridge lets the
 existing uniqueness theorem certify injectivity of the smaller-scale map rather
@@ -223,15 +223,15 @@ theorem lowWheelCanonicalRepeatedFrozenCofactor_mem_orderedEulerCutCarrier
   rw [hparent] at hr
   have hrData := Nat.mem_primeFactors.mp hr
   have hrDvd : r ∣ y.1.prod id := by
-    simpa [primeFaceProduct] using hrData.2.1
-  rcases (Prime.dvd_finset_prod_iff hrData.1.prime id).mp hrDvd with
+    simpa [primeFaceProduct] using! hrData.2.1
+  rcases (Prime.dvd_finsetProd_iff hrData.1.prime id).mp hrDvd with
     ⟨s, hs, hrs⟩
   have hsGlobal := (Finset.mem_powerset.mp ht) hs
   have hsPrime := prime_of_mem_primesUpTo hsGlobal
   have hre : r = s :=
     (Nat.prime_dvd_prime_iff_eq hrData.1 hsPrime).mp hrs
   subst r
-  simpa [lowWheelTaggedDowncrossPivot] using
+  simpa [lowWheelTaggedDowncrossPivot] using!
     (lowWheelCanonicalRepeatedFrozenCofactor_facePrime_lt_pivot hy hs)
 
 /-- The physical child of the frozen source is exactly `owner * predecessor`. -/
@@ -323,7 +323,7 @@ theorem lowWheelFrozenSecondContactParentMap_weight_eq_source
       (booleanCubeSign
           (lowWheelCanonicalRepeatedFrozenProductOneFace y) : ℂ) =
         -(canonicalMoebiusWeight y.2.1 * (booleanCubeSign y.1 : ℂ)) := by
-    simpa [canonicalMoebiusWeight] using
+    simpa [canonicalMoebiusWeight] using!
       (lowWheelCanonicalRepeatedFrozenProductOneMate_weight_neg hy)
   unfold lowWheelFrozenSecondContactParentWeight
     lowWheelFrozenSecondContactParentMap
@@ -352,7 +352,7 @@ theorem lowWheelFrozenSecondContactParentMap_injOn (R : ℕ) :
           primeFaceProduct (lowWheelFrozenSecondContactParentFace y) =
         lowWheelFrozenCofactorTopPrime z *
           primeFaceProduct (lowWheelFrozenSecondContactParentFace z) := by
-    simpa [lowWheelFrozenSecondContactParentMap] using
+    simpa [lowWheelFrozenSecondContactParentMap] using!
       congrArg
         (fun a : LowWheelFrozenSecondContactParentState =>
           a.1 * primeFaceProduct a.2) hmap
@@ -383,17 +383,17 @@ theorem lowWheelFrozenSecondContactParentMap_division_annulus
       lowWheelFrozenCofactorTopPrime y *
           primeFaceProduct (lowWheelFrozenSecondContactParentFace y) ≤
         squareRootEndpoint R := by
-    simpa [lowWheelFrozenSecondContactParentMap] using hmem.2.2.2.2.1
+    simpa [lowWheelFrozenSecondContactParentMap] using! hmem.2.2.2.2.1
   have hhigh :
       squareRootEndpoint R <
         lowWheelFrozenCofactorTopPrime y * lowWheelFrozenCofactorTopPrime y *
           primeFaceProduct (lowWheelFrozenSecondContactParentFace y) := by
-    simpa [lowWheelFrozenSecondContactParentMap] using hmem.2.2.2.2.2
+    simpa [lowWheelFrozenSecondContactParentMap] using! hmem.2.2.2.2.2
   constructor
   · apply (Nat.div_lt_iff_lt_mul (Nat.mul_pos hqPrime.pos hqPrime.pos)).2
-    simpa [Nat.mul_assoc, Nat.mul_left_comm, Nat.mul_comm] using hhigh
+    simpa [Nat.mul_assoc, Nat.mul_left_comm, Nat.mul_comm] using! hhigh
   · apply (Nat.le_div_iff_mul_le hqPrime.pos).2
-    simpa [Nat.mul_comm] using hlow
+    simpa [Nat.mul_comm] using! hlow
 
 /-- **Strict endpoint descent.**  Both reciprocal cutoffs used by the target are
 strictly below the source endpoint, and the square-dilated cutoff is strictly
@@ -414,7 +414,7 @@ theorem lowWheelFrozenSecondContactParentMap_strict_endpoint_descent
     have hlow : lowWheelFrozenCofactorTopPrime y *
         primeFaceProduct (lowWheelFrozenSecondContactParentFace y) ≤
         squareRootEndpoint R := by
-      simpa [lowWheelFrozenSecondContactParentMap] using hmem.2.2.2.2.1
+      simpa [lowWheelFrozenSecondContactParentMap] using! hmem.2.2.2.2.1
     have hfacePos :=
       primeFaceProduct_pos_of_mem_powerset
         (lowWheelFrozenSecondContactParentFace_mem_predecessor hyFrozen)
@@ -467,9 +467,9 @@ theorem mem_lowWheelFrozenSecondContactParentCarrier_iff_ownerWindow
     apply mem_frozenPrimeUniverseWindowFaces.mpr
     refine ⟨hpred, ?_, ?_⟩
     · apply (Nat.div_lt_iff_lt_mul (Nat.mul_pos hq.pos hq.pos)).2
-      simpa [Nat.mul_assoc, Nat.mul_left_comm, Nat.mul_comm] using hlowerMul
+      simpa [Nat.mul_assoc, Nat.mul_left_comm, Nat.mul_comm] using! hlowerMul
     · apply (Nat.le_div_iff_mul_le hq.pos).2
-      simpa [Nat.mul_comm] using hupperMul
+      simpa [Nat.mul_comm] using! hupperMul
   · intro hV
     rcases mem_frozenPrimeUniverseWindowFaces.mp hV with
       ⟨hpred, hlower, hupper⟩
@@ -483,10 +483,10 @@ theorem mem_lowWheelFrozenSecondContactParentCarrier_iff_ownerWindow
       exact mem_primesUpTo.mpr ⟨hrPrime, by omega⟩
     have hupperMul : q * primeFaceProduct V ≤ squareRootEndpoint R := by
       have h := (Nat.le_div_iff_mul_le hq.pos).1 hupper
-      simpa [Nat.mul_comm] using h
+      simpa [Nat.mul_comm] using! h
     have hlowerMul : squareRootEndpoint R < q * q * primeFaceProduct V := by
       have h := (Nat.div_lt_iff_lt_mul (Nat.mul_pos hq.pos hq.pos)).1 hlower
-      simpa [Nat.mul_assoc, Nat.mul_left_comm, Nat.mul_comm] using h
+      simpa [Nat.mul_assoc, Nat.mul_left_comm, Nat.mul_comm] using! h
     apply mem_lowWheelFrozenSecondContactParentCarrier.mpr
     exact ⟨hqRange, hVR, hq, hpred, hupperMul, hlowerMul⟩
 
@@ -504,11 +504,11 @@ theorem lowWheelFrozenSecondContactParentFace_mem_ownerWindow
   have hqR : lowWheelFrozenCofactorTopPrime y < R := by
     have hqRange := Finset.mem_Icc.mp hdata.1
     have hqLe : lowWheelFrozenCofactorTopPrime y ≤ R - 1 := by
-      simpa [lowWheelFrozenSecondContactParentMap] using hqRange.2
+      simpa [lowWheelFrozenSecondContactParentMap] using! hqRange.2
     omega
   apply (mem_lowWheelFrozenSecondContactParentCarrier_iff_ownerWindow
     hqPrime hqR).mp
-  simpa [lowWheelFrozenSecondContactParentMap] using hparent
+  simpa [lowWheelFrozenSecondContactParentMap] using! hparent
 
 /-- Exact signed mass of the complete native owner window. -/
 def lowWheelFrozenSecondContactOwnerWindowMass (R q : ℕ) : ℤ :=
@@ -546,6 +546,6 @@ theorem lowWheelFrozenSecondContactOwnerWindow_lower_strict
   have hdrop :
       (squareRootEndpoint R / q) / q < squareRootEndpoint R / q :=
     Nat.div_lt_self hpos hq.one_lt
-  simpa [Nat.div_div_eq_div_mul] using hdrop
+  simpa [Nat.div_div_eq_div_mul] using! hdrop
 
 end RHLean.Proof

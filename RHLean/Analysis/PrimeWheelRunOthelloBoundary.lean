@@ -285,7 +285,7 @@ theorem squarefreePairFreshPrimeSet_nonempty
   apply hmn
   have hprod := congrArg primeFaceProduct hfaces
   simpa [primeFaceProduct_squarefreePrimeFace hm,
-    primeFaceProduct_squarefreePrimeFace hn] using hprod
+    primeFaceProduct_squarefreePrimeFace hn] using! hprod
 
 /-- Canonical chronological owner: the least prime at which the two faces
 separate.  The default `1` is unreachable on a contributing distinct squarefree
@@ -301,7 +301,7 @@ theorem squarefreePairFreshPrimeOwner_mem
     squarefreePairFreshPrimeOwner m n ∈ squarefreePairFreshPrimeSet m n := by
   have hne := squarefreePairFreshPrimeSet_nonempty hm hn hmn
   unfold squarefreePairFreshPrimeOwner
-  rw [dif_pos hne]
+  rw [dite_eq_left hne]
   exact Finset.min'_mem _ hne
 
 /-- The owner occurs in exactly one of the two endpoint faces. -/
@@ -312,7 +312,7 @@ theorem squarefreePairFreshPrimeOwner_xor
     (squarefreePairFreshPrimeOwner m n ∈ squarefreePrimeFace n ∧
       squarefreePairFreshPrimeOwner m n ∉ squarefreePrimeFace m) := by
   have hmem := squarefreePairFreshPrimeOwner_mem hm hn hmn
-  simpa [squarefreePairFreshPrimeSet] using hmem
+  simpa [squarefreePairFreshPrimeSet] using! hmem
 
 /-- The owner is a genuine prime. -/
 theorem squarefreePairFreshPrimeOwner_prime
@@ -320,9 +320,9 @@ theorem squarefreePairFreshPrimeOwner_prime
     (squarefreePairFreshPrimeOwner m n).Prime := by
   rcases squarefreePairFreshPrimeOwner_xor hm hn hmn with h | h
   · exact (Nat.mem_primeFactors.mp (by
-      simpa [squarefreePrimeFace] using h.1)).1
+      simpa [squarefreePrimeFace] using! h.1)).1
   · exact (Nat.mem_primeFactors.mp (by
-      simpa [squarefreePrimeFace] using h.1)).1
+      simpa [squarefreePrimeFace] using! h.1)).1
 
 /-- Every earlier prime coordinate agrees in the two faces. -/
 theorem squarefreePairFreshPrimeOwner_chronology
@@ -331,7 +331,7 @@ theorem squarefreePairFreshPrimeOwner_chronology
     (q ∈ squarefreePrimeFace m ↔ q ∈ squarefreePrimeFace n) := by
   have hne := squarefreePairFreshPrimeSet_nonempty hm hn hmn
   unfold squarefreePairFreshPrimeOwner at hq
-  rw [dif_pos hne] at hq
+  rw [dite_eq_left hne] at hq
   by_contra hiff
   have hdiff : q ∈ squarefreePairFreshPrimeSet m n := by
     by_cases hqm : q ∈ squarefreePrimeFace m
@@ -361,7 +361,7 @@ theorem squarefreePairFreshPrimeOwner_isOwner
   · exact squarefreePairFreshPrimeOwner_mem hm hn hmn
   · intro q hq
     unfold squarefreePairFreshPrimeOwner
-    rw [dif_pos hne]
+    rw [dite_eq_left hne]
     exact Finset.min'_le _ _ hq
 
 /-- **Unique chronological ownership.**  Every distinct squarefree pair has one
@@ -429,11 +429,11 @@ private theorem primeFace_mem_iff_dvd
   constructor
   · intro h
     exact (Nat.mem_primeFactors.mp (by
-      simpa [squarefreePrimeFace] using h)).2.1
+      simpa [squarefreePrimeFace] using! h)).2.1
   · intro h
     have hmem : p ∈ n.primeFactors :=
       Nat.mem_primeFactors.mpr ⟨hp, h, hn.ne'⟩
-    simpa [squarefreePrimeFace] using hmem
+    simpa [squarefreePrimeFace] using! hmem
 
 /-- The owner divides exactly one endpoint. -/
 theorem squarefreePairFreshPrimeOwner_dvd_xor
@@ -518,14 +518,14 @@ theorem squarefreePairFreshPrimeOwnerExpansion_eq_pairWeight
   have hpP : p ∈ primesUpTo X := mem_primesUpTo.mpr ⟨hp, hpX⟩
   unfold squarefreePairFreshPrimeOwnerExpansion
   rw [Finset.sum_eq_single p]
-  · rw [if_pos hpown]
+  · rw [ite_eq_left hpown]
   · intro q _hqP hqp
     have hnot : ¬ IsSquarefreePairFreshPrimeOwner q m n := by
       intro hqown
       have hq_le : q ≤ p := hqown.2 p hpown.1
       have hp_le : p ≤ q := hpown.2 q hqown.1
       exact hqp (by omega)
-    rw [if_neg hnot]
+    rw [ite_eq_right hnot]
   · exact fun hnot => (hnot hpP).elim
 
 /-- Sum every physical run pair after projecting it to its unique owner prime. -/

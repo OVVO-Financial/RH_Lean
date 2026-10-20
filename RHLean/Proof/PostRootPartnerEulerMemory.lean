@@ -100,7 +100,7 @@ theorem rawCoefficient_eq_zero_of_nonzero_rawCorrelation_completeSchedule
   rcases (mem_squareRootCanonicalRoughPrimePartnerSet_iff hR hnpos).mp hqSet with
     ⟨hqPrime, hrough, _hroot, hupper⟩
   have hqleProd : q ≤ n * q := by
-    simpa [Nat.mul_comm] using Nat.le_mul_of_pos_right q hnpos
+    simpa [Nat.mul_comm] using! Nat.le_mul_of_pos_right q hnpos
   have hqUpper : q ≤ squareRootEndpoint R := hqleProd.trans hupper
   rcases hsched.2 q hqPrime hqUpper with
     ⟨pre, post, hsplit, hprePrime, hpreLarger⟩
@@ -281,6 +281,6 @@ theorem evolvedEulerNext_sub_rawNext_eq_one_sub_inv_mul_boundary
   have hp0 : (p : ℂ) ≠ 0 := by
     exact_mod_cast hp.ne_zero
   field_simp [hp0] at hscaled ⊢
-  simpa [sub_eq_add_neg] using hscaled
+  simpa [sub_eq_add_neg] using! hscaled
 
 end RHLean.Proof

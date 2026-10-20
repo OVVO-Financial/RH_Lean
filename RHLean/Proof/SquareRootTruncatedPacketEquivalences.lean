@@ -67,14 +67,14 @@ theorem squareRootTruncatedPrimeCutoff_inverse
       _ = (K + 1) * squareRootTruncatedPrimeCutoff R K := by ring
       _ ≤ squareRootEndpoint R := by
         unfold squareRootTruncatedPrimeCutoff
-        simpa [Nat.mul_comm] using
+        simpa [Nat.mul_comm] using!
           Nat.div_mul_le_self (squareRootEndpoint R) (K + 1)
   have hhi :
       squareRootEndpoint R <
         (K + 1) * (squareRootTruncatedPrimeCutoff R K + 1) := by
     have h :=
       Nat.lt_mul_div_succ (squareRootEndpoint R) (by omega : 0 < K + 1)
-    simpa [squareRootTruncatedPrimeCutoff, Nat.mul_comm] using h
+    simpa [squareRootTruncatedPrimeCutoff, Nat.mul_comm] using! h
   exact Nat.div_eq_of_lt_le hlo hhi
 
 /-- The quotient support at the truncated high-prime cutoff is literally the

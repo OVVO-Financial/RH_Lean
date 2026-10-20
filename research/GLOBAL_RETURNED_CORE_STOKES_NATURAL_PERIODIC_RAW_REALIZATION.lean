@@ -65,15 +65,17 @@ theorem lowOwnerStokesNaturalPeriodicRawJoint_mul_prefixWindow_eq
     congrFun (W.torusJointField_eq_raw_sub_two_smooth) z
   rw [hjoint]
   by_cases hwin : W.lower < z.val ∧ z.val ≤ x
-  · have hblock : W.lower < z.val ∧ z.val ≤ W.upper := by
-      dsimp [W, lowOwnerStokesNaturalWheelSystem] at hwin ⊢
-      exact ⟨hwin.1, hwin.2.trans hx⟩
-    simp [lowOwnerStokesNaturalPeriodicRawJointTorusField,
-      lowOwnerStokesNaturalPeriodicRawTorusField,
-      PrimeWheelFiniteSystem.torusPrefixWindow,
-      PrimeWheelFiniteSystem.torusRawBlockField,
-      W, hwin, hblock]
-  · simp [PrimeWheelFiniteSystem.torusPrefixWindow, W, hwin]
+  · have hblock : W.lower < z.val ∧ z.val ≤ W.upper :=
+      ⟨hwin.1, hwin.2.trans (by simpa [W, lowOwnerStokesNaturalWheelSystem] using hx)⟩
+    have hraw : W.torusRawBlockField z =
+        (((W.rawSite z.val : ℤ) : ℂ)) := by
+      simp [PrimeWheelFiniteSystem.torusRawBlockField, hblock]; rfl
+    rw [hraw]
+    rfl
+  · have hzero : W.torusPrefixWindow x z = 0 := by
+      simp [PrimeWheelFiniteSystem.torusPrefixWindow, hwin]
+    rw [hzero]
+    simp only [mul_zero]
 
 /-- The natural periodic-raw prefix pairing equals the canonical torus pairing. -/
 theorem lowOwnerStokesNaturalPeriodicRawPrefixPairing_eq_torusPrefixPairing
@@ -169,7 +171,7 @@ theorem lowOwnerStokesNaturalPeriodicRawSpectrum_eq_rawConductorArithmeticCoeffi
         (lowOwnerStokesNaturalWheelSystem R hR).modulus
         (addOrderOf r) := by
   let W := lowOwnerStokesNaturalWheelSystem R hR
-  letI : NeZero W.modulus := ⟨Nat.ne_of_gt W.modulus_pos⟩
+  let : NeZero W.modulus := ⟨Nat.ne_of_gt W.modulus_pos⟩
   unfold lowOwnerStokesNaturalPeriodicRawSpectrum
     lowOwnerStokesNaturalPeriodicRawTorusField
   change
@@ -181,7 +183,7 @@ theorem lowOwnerStokesNaturalPeriodicRawSpectrum_eq_rawConductorArithmeticCoeffi
     (lowOwnerStokesWheelPrimes R)
     (fun p hp => lowOwnerStokesWheelPrimes_prime hp)
     (fun p hp => by
-      simpa [W, lowOwnerStokesNaturalWheelSystem] using
+      simpa [W, lowOwnerStokesNaturalWheelSystem] using!
         prime_sq_dvd_lowOwnerStokesNaturalWheelModulus hR hp)
     r
 

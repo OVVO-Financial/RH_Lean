@@ -117,7 +117,7 @@ theorem primorialPeriodicRawJointConductorResponse_eq_raw_sub_two_smooth
   apply Finset.sum_congr rfl
   intro r hr
   by_cases hq : q = reducedAdditiveConductor r
-  · simp only [hq, if_true]
+  · simp only [hq, ite_true]
     exact primorialPeriodicRawJointSpectralAtom_eq_raw_sub_two_smooth k x r
   · simp [hq]
 
@@ -239,7 +239,7 @@ theorem primeWheelReducedConductor_prefixSpectrumSum_eq_kernelPairing
           apply Finset.sum_congr rfl
           intro r hr
           by_cases hq : q = reducedAdditiveConductor r
-          · simp only [hq, if_true]
+          · simp only [hq, ite_true]
             rw [primeWheelPrefixWindowSpectrum_neg W x r]
           · simp [hq]
     _ =
@@ -356,7 +356,7 @@ theorem primorialPeriodicRawConductorResponse_eq_constant_mul_ramanujanWindow
   apply Finset.sum_congr rfl
   intro r hr
   by_cases hq : q = reducedAdditiveConductor r
-  · simp only [hq, if_true]
+  · simp only [hq, ite_true]
     rw [hconst r hq]
     ring
   · simp [hq]

@@ -90,8 +90,8 @@ theorem tendsto_zero_of_cubic_recurrence
   have hcube : L ^ 3 = 0 :=
     (mul_eq_zero.mp hprod_zero).resolve_left (ne_of_gt hC)
   have hL : L = 0 := by
-    exact pow_eq_zero hcube
-  simpa [hL] using hconv
+    exact eq_zero_of_pow_eq_zero hcube
+  simpa [hL] using! hconv
 
 /-- The cubic recurrence also retains an explicit finite-step budget.  Since
 the sequence is decreasing, every previous cubic decrement dominates the
@@ -552,10 +552,10 @@ private theorem nativePNTRecipSuccInterval_log_lower
       ∑ n ∈ Finset.Icc A B, 1 / (((n + 1 : ℕ) : ℝ)) := by
   rw [nativePNTRecipSuccInterval_eq_harmonic_sub A B hAB]
   have hlo : Real.log ((B + 2 : ℕ) : ℝ) ≤ (harmonic (B + 1) : ℝ) := by
-    simpa [show B + 2 = (B + 1) + 1 by omega] using
+    simpa [show B + 2 = (B + 1) + 1 by omega] using!
       (log_add_one_le_harmonic (B + 1))
   have hup : (harmonic A : ℝ) ≤ 1 + Real.log (A : ℝ) := by
-    simpa using (harmonic_le_one_add_log A)
+    simpa using! (harmonic_le_one_add_log A)
   linarith
 
 /-- On the dyadic span `[A, A*2^K]`, the reciprocal interval mass is at least
@@ -657,7 +657,7 @@ theorem nativePNT_exists_small_error_dyadic
     calc A = A * 1 := by omega
       _ ≤ A * 2 ^ K := Nat.mul_le_mul_left A hpow1
   by_contra hno
-  push_neg at hno
+  push Not at hno
   have haway : ∀ n ∈ Finset.Icc A (A * 2 ^ K),
       ε * (n : ℝ) ≤ |nativePNTError n| := by
     intro n hn
@@ -827,7 +827,7 @@ theorem nativePNTError_good_forward_interval
   · have hlow : -ε * ((A + h : ℕ) : ℝ) ≤ nativePNTError (A + h) := by
       push_cast
       nlinarith [hlowerStep, hsmall'.1]
-    simpa only [neg_mul] using hlow
+    simpa only [neg_mul] using! hlow
   · rw [hupperRel]
     push_cast
     nlinarith [hsmall'.2, hpsi]
@@ -853,7 +853,7 @@ theorem nativeLambdaTwoRecipMass_abel (N : ℕ) :
   have h := nativeAbelIccOne nativeLambdaTwo
     (fun n : ℕ => 1 / (n : ℝ)) N
   unfold nativeLambdaTwoRecipMass nativeLambdaTwoSummatory
-  simpa [div_eq_mul_inv] using h
+  simpa [div_eq_mul_inv] using! h
 
 /-- The reciprocal second-kernel mass is nonnegative. -/
 theorem nativeLambdaTwoRecipMass_nonneg (N : ℕ) :
@@ -1062,7 +1062,7 @@ private theorem nativeLambdaTwoSummatory_upper_all (N : ℕ) :
             2 * (3 : ℝ) * Real.log 3 +
               (2 * (Real.log 4 + 2) + 172) * (3 : ℝ) := by
           have h := (sub_le_iff_le_add.mp h3.2)
-          simpa [add_comm] using h
+          simpa [add_comm] using! h
         _ ≤ 12 + 546 := add_le_add hlogpart hC3
         _ ≤ 600 := by norm_num
     have hlogN0 : 0 ≤ Real.log (N : ℝ) := by
@@ -1141,7 +1141,7 @@ private theorem nativeLogRecipIco_le_mass
   unfold nativeLogRecipMass
   have hset : Finset.Icc 1 N = Finset.Ico 1 (N + 1) := by
     ext n
-    simp
+    simp only [Finset.mem_Icc, Finset.mem_Ico]
     omega
   rw [hset, Finset.sum_Ico_succ_top hN]
   have hlog0 : 0 ≤ Real.log (N : ℝ) :=
@@ -1157,7 +1157,7 @@ private theorem nativeRecipIco_le_harmonic
   rw [hharm]
   have hset : Finset.Icc 1 N = Finset.Ico 1 (N + 1) := by
     ext n
-    simp
+    simp only [Finset.mem_Icc, Finset.mem_Ico]
     omega
   rw [hset, Finset.sum_Ico_succ_top hN]
   exact le_add_of_nonneg_right (by positivity)
@@ -1512,11 +1512,11 @@ theorem nativePNT_quotient_mem_of_reciprocal_interval
     (Nat.div_lt_iff_lt_mul hdenpos).1 hlower
   have hquotUpper : N / n < t + H + 1 := by
     apply (Nat.div_lt_iff_lt_mul hnpos).2
-    simpa [Nat.mul_comm] using hNlt
+    simpa [Nat.mul_comm] using! hNlt
   have htpos : 0 < t := by omega
   have htn : t * n ≤ N := by
     have h := (Nat.le_div_iff_mul_le htpos).1 hnI.2
-    simpa [Nat.mul_comm] using h
+    simpa [Nat.mul_comm] using! h
   have hquotLower : t ≤ N / n :=
     (Nat.le_div_iff_mul_le hnpos).2 htn
   exact ⟨hquotLower, Nat.lt_succ_iff.mp hquotUpper⟩
@@ -1764,7 +1764,7 @@ theorem nativePNTError_good_on_forward_radius
   have heq : t + h = q := by
     dsimp [h]
     omega
-  simpa [heq] using hforward h hh
+  simpa [heq] using! hforward h hh
 
 /-- The combined PNT1/PNT2 theorem with its forward radius discretized. -/
 theorem nativePNT_exists_good_radius_dyadic
@@ -1820,7 +1820,7 @@ theorem nativeLambdaTwoGoodRecipMass_packed_quotient_intervals
         N (t j) (H j) (t i) (H i) (hsep j i hjilt hi)).symm
   have hpacked := nativeLambdaTwoGoodRecipMass_packed_blocks
     N J beta block hsub hdisj
-  simpa [block, nativeLambdaTwoRecipIntervalMass] using hpacked
+  simpa [block, nativeLambdaTwoRecipIntervalMass] using! hpacked
 
 
 /-! ## Affine envelopes and the compensated squared recurrence -/
@@ -1845,7 +1845,7 @@ theorem nativePNTHasAffineEnvelope_six :
     linarith
   have hN0 : 0 ≤ (N : ℝ) := by positivity
   have hmul := mul_le_mul_of_nonneg_right hC hN0
-  simpa using herr.trans hmul
+  simpa using! herr.trans hmul
 
 /-- Weakening an affine slope preserves the envelope after enlarging only the
 linear coefficient. -/
@@ -1858,7 +1858,7 @@ theorem nativePNTHasAffineEnvelope_mono
   intro N
   have hscale : alpha * (N : ℝ) ≤ beta * (N : ℝ) :=
     mul_le_mul_of_nonneg_right hab (by positivity)
-  exact (henv N).trans (add_le_add_right hscale D)
+  exact (henv N).trans (add_le_add_left hscale D)
 
 
 /-- An affine endpoint envelope automatically controls every reciprocal fibre
@@ -1876,7 +1876,7 @@ theorem nativePNTAffineEnvelope_on_fiber
     rw [le_div_iff₀ hnpos]
     exact_mod_cast Nat.div_mul_le_self N n
   have hscale := mul_le_mul_of_nonneg_left hfloor halpha
-  exact (henv (N / n)).trans (add_le_add_right hscale D)
+  exact (henv (N / n)).trans (add_le_add_left hscale D)
 
 /-- **Compensated squared Selberg recurrence.**  This is the quantitative
 interface between an affine error envelope and the good-fibre packing.  The
@@ -1939,7 +1939,7 @@ theorem nativePNTError_abs_log_sq_le_affine_compensated
             nativeLambdaTwoGoodRecipMass N beta +
           D * (2 * (N : ℝ) * Real.log N + 182 * (N : ℝ) + 600)) +
           3000 * (N : ℝ) * Real.log N :=
-      add_le_add_right hmass _
+      add_le_add_left hmass _
     _ = _ := by ring
 
 
@@ -1968,7 +1968,7 @@ theorem nativePNTHasAffineEnvelope_improve_of_goodMass
   have hable : alpha - beta ≤ alpha := by linarith
   have hmul : (alpha - beta) * c ≤ alpha := by
     have := mul_le_mul hable hc1 hc.le halpha.le
-    simpa using this
+    simpa using! this
   have hdeltale : delta ≤ alpha / 4 := by
     dsimp [delta]
     nlinarith
@@ -1994,21 +1994,21 @@ theorem nativePNTHasAffineEnvelope_improve_of_goodMass
     have hNR0 : 0 ≤ (N : ℝ) := by positivity
     have hN1R : (1 : ℝ) ≤ (N : ℝ) := by exact_mod_cast hN1
     let L : ℝ := Real.log (N : ℝ)
-    have hL1' : (1 : ℝ) ≤ L := by simpa [L] using hL1
+    have hL1' : (1 : ℝ) ≤ L := by simpa [L] using! hL1
     have hL0 : 0 ≤ L := le_trans (by norm_num) hL1'
     have hLpos : 0 < L := lt_of_lt_of_le (by norm_num) hL1'
     have hden : 0 < 3 * delta := by positivity
     have hCLe0 : C0 ≤ L * (3 * delta) := by
       apply (div_le_iff₀ hden).mp
-      simpa [L] using hLC
+      simpa [L] using! hLC
     have hCLe : C0 ≤ 3 * delta * L := by
-      simpa [mul_comm, mul_left_comm, mul_assoc] using hCLe0
+      simpa [mul_comm, mul_left_comm, mul_assoc] using! hCLe0
     have hB0 : 0 ≤ 2000 * alpha + 782 * D := by positivity
     have hBLe :
         2000 * alpha + 782 * D ≤
           (2000 * alpha + 782 * D) * L := by
       have h := mul_le_mul_of_nonneg_left hL1' hB0
-      simpa using h
+      simpa using! h
     have hleft :
         alpha * (1000 * L + 2000) +
             D * (2 * L + 782) + 3000 * L ≤ C0 * L := by
@@ -2028,7 +2028,7 @@ theorem nativePNTHasAffineEnvelope_improve_of_goodMass
     have hD600 : D * 600 ≤ D * 600 * (N : ℝ) := by
       have h600D : 0 ≤ D * 600 := by positivity
       have h := mul_le_mul_of_nonneg_left hN1R h600D
-      simpa [mul_assoc] using h
+      simpa [mul_assoc] using! h
     have hinnerN := mul_le_mul_of_nonneg_left hinner hNR0
     have hoverhead :
         alpha * (N : ℝ) * (1000 * L + 2000) +
@@ -2055,7 +2055,7 @@ theorem nativePNTHasAffineEnvelope_improve_of_goodMass
     have hcoef0 : 0 ≤ (alpha - beta) * (N : ℝ) :=
       mul_nonneg habpos.le hNR0
     have hgoodN' : c * L ^ 2 ≤ nativeLambdaTwoGoodRecipMass N beta := by
-      simpa [L] using hgoodN
+      simpa [L] using! hgoodN
     have hgoodMul := mul_le_mul_of_nonneg_left hgoodN' hcoef0
     have hdeficit :
         -(alpha - beta) * (N : ℝ) * nativeLambdaTwoGoodRecipMass N beta ≤
@@ -2104,7 +2104,7 @@ theorem nativePNTHasAffineEnvelope_improve_of_goodMass
                   3000 * (N : ℝ) * L) +
                 (-(alpha - beta) * (N : ℝ) *
                   nativeLambdaTwoGoodRecipMass N beta)) := by
-        simpa [L, hrearrange] using hrec
+        simpa [L, hrearrange] using! hrec
       calc
         |nativePNTError N| * L ^ 2 ≤
             alpha * (N : ℝ) * L ^ 2 +
@@ -2114,14 +2114,14 @@ theorem nativePNTHasAffineEnvelope_improve_of_goodMass
                 (-(alpha - beta) * (N : ℝ) *
                   nativeLambdaTwoGoodRecipMass N beta)) := hrec'
         _ ≤ alpha * (N : ℝ) * L ^ 2 - delta * (N : ℝ) * L ^ 2 := by
-          simpa [sub_eq_add_neg] using
-            (add_le_add_left htail (alpha * (N : ℝ) * L ^ 2))
+          simpa [sub_eq_add_neg] using!
+            (add_le_add_right htail (alpha * (N : ℝ) * L ^ 2))
         _ = (alpha - delta) * (N : ℝ) * L ^ 2 := by ring
     have hLsq : 0 < L ^ 2 := sq_pos_of_pos hLpos
     have hsq' :
         |nativePNTError N| * L ^ 2 ≤
           ((alpha - delta) * (N : ℝ)) * L ^ 2 := by
-      simpa [mul_assoc] using hsq
+      simpa [mul_assoc] using! hsq
     exact (mul_le_mul_iff_left₀ hLsq).mp hsq'
   rcases (eventually_atTop.1 hlarge) with ⟨M, hM⟩
   refine ⟨D + delta * (M : ℝ), ?_, ?_⟩
@@ -2158,10 +2158,10 @@ theorem nativePNT_reciprocal_radius_gap
   let d : ℕ := t + H + 1
   have htpos : 0 < t := by omega
   have htRpos : (0 : ℝ) < (t : ℝ) := by exact_mod_cast htpos
-  have hB' : 32 ≤ eps * B := by simpa [B] using hB
+  have hB' : 32 ≤ eps * B := by simpa [B] using! hB
   have hrad : eps * (t : ℝ) / 8 < (H : ℝ) + 1 := by
     dsimp [H, nativePNTGoodForwardRadius]
-    simpa using (Nat.lt_floor_add_one (eps * (t : ℝ) / 8))
+    simpa using! (Nat.lt_floor_add_one (eps * (t : ℝ) / 8))
   have hdR : (1 + eps / 8) * (t : ℝ) < (d : ℝ) := by
     dsimp [d]
     push_cast
@@ -2202,11 +2202,11 @@ theorem nativePNT_reciprocal_radius_gap
   have hquot :
       (N : ℝ) / (d : ℝ) < (1 - eps / 32) * B := by
     rw [div_lt_iff₀ hdRpos]
-    simpa [mul_comm] using hNtarget
+    simpa [mul_comm] using! hNtarget
   have hfloor : ((N / d : ℕ) : ℝ) ≤ (N : ℝ) / (d : ℝ) := by
     rw [le_div_iff₀ hdRpos]
     exact_mod_cast Nat.div_mul_le_self N d
-  simpa [d, H, B] using hfloor.trans hquot.le
+  simpa [d, H, B] using! hfloor.trans hquot.le
 
 /-- The reciprocal interval attached to one sufficiently deep PNT2 radius has
 a positive `Lambda_2/n` mass of size `eps * log(N/t)`. -/
@@ -2297,7 +2297,7 @@ theorem nativePNT_exists_dyadic_depth_quantitative
   have hxK : x < (K : ℝ) := by
     dsimp [K]
     push_cast
-    simpa using (Nat.lt_floor_add_one x)
+    simpa using! (Nat.lt_floor_add_one x)
   have hfloor : (⌊x⌋₊ : ℝ) ≤ x := Nat.floor_le hx0
   have hKupper0 : (K : ℝ) ≤ x + 1 := by
     dsimp [K]
@@ -2349,7 +2349,7 @@ theorem nativePNT_exists_dyadic_depth
     exact_mod_cast hKnat
   have hmul : 4 * C / eps + 1 < (K : ℝ) * Real.log 2 := by
     have h := (div_lt_iff₀ hlog2).mp hK
-    simpa [mul_comm] using h
+    simpa [mul_comm] using! h
   have hsub : 4 * C / eps < (K : ℝ) * Real.log 2 - 1 := by
     linarith
   have hscaled :=
@@ -2357,7 +2357,7 @@ theorem nativePNT_exists_dyadic_depth
   have hcancel : (eps / 4) * (4 * C / eps) = C := by
     field_simp [ne_of_gt heps]
   rw [hcancel] at hscaled
-  exact ⟨K, by simpa [C] using hscaled⟩
+  exact ⟨K, by simpa [C] using! hscaled⟩
 
 /-- Once the dyadic depth is fixed, all auxiliary endpoint hypotheses in the
 PNT1/PNT2 good-interval theorem hold on every sufficiently large shell.  The
@@ -2397,12 +2397,12 @@ theorem nativePNT_exists_good_radius_dyadic_eventually
   have hARpos : (0 : ℝ) < (A : ℝ) := by exact_mod_cast hApos
   have htailA : 2200 ≤ eps * Real.log (A : ℝ) := by
     have h := (div_le_iff₀ heps).mp htail
-    simpa [mul_comm] using h
+    simpa [mul_comm] using! h
   have hlogSmall :
       Real.log (A : ℝ) ≤ (eps / 8) * (A : ℝ) := by
     have hlognn : 0 ≤ Real.log (A : ℝ) := Real.log_natCast_nonneg A
     have hAnn : 0 ≤ (A : ℝ) := by positivity
-    simpa [Real.norm_eq_abs, abs_of_nonneg hlognn, abs_of_nonneg hAnn] using hsmall
+    simpa [Real.norm_eq_abs, abs_of_nonneg hlognn, abs_of_nonneg hAnn] using! hsmall
   have hlogLeA : Real.log (A : ℝ) ≤ (A : ℝ) :=
     Real.log_le_self hARpos.le
   have hepsA : 2200 ≤ eps * (A : ℝ) := by
@@ -2412,7 +2412,7 @@ theorem nativePNT_exists_good_radius_dyadic_eventually
     nlinarith
   have hAA : A * 2 ^ K ≤ A ^ 2 := by
     have h := Nat.mul_le_mul_left A hpowA
-    simpa [pow_two] using h
+    simpa [pow_two] using! h
   have hprodPos : 0 < A * 2 ^ K := mul_pos hApos (pow_pos (by norm_num) K)
   have hlogProd :
       Real.log ((A * 2 ^ K : ℕ) : ℝ) ≤ 2 * Real.log (A : ℝ) := by
@@ -2523,7 +2523,7 @@ theorem nativePNT_exists_good_power_shell_selector
   · intro j
     have hu := (Finset.mem_Icc.mp (hspec j).1).2
     dsimp [shell] at hu
-    simpa [pow_add] using hu
+    simpa [pow_add] using! hu
   · intro j q hq
     exact (hspec j).2.2 q hq
 
@@ -2650,17 +2650,17 @@ theorem nativeLambdaTwoGoodRecipMass_eventually_quadratic_with_rate
     have hnonneg : 0 ≤ Real.log (2 : ℝ) := hlog2pos.le
     have h := mul_le_mul heps1 hlog2le hnonneg
       (show (0 : ℝ) ≤ 1 by norm_num)
-    simpa using h
+    simpa using! h
   have hc1 : c ≤ 1 := by
     dsimp [c]
     have hdenpos : (0 : ℝ) < 16384 * (L : ℝ) := lt_of_lt_of_le (by norm_num) hden1
     rw [div_le_one hdenpos]
     exact hnum1.trans hden1
   have hLupper : (L : ℝ) ≤ 197 / eps := by
-    simpa [L] using hKupper
+    simpa [L] using! hKupper
   have hepsL : eps * (L : ℝ) ≤ 197 := by
     have h := (le_div_iff₀ heps).mp hLupper
-    simpa [mul_comm] using h
+    simpa [mul_comm] using! h
   have hepsSqL : eps ^ 2 * (L : ℝ) ≤ 197 * eps := by
     have h := mul_le_mul_of_nonneg_left hepsL heps.le
     nlinarith
@@ -2684,7 +2684,7 @@ theorem nativeLambdaTwoGoodRecipMass_eventually_quadratic_with_rate
     dsimp [c]
     rw [div_le_div_iff₀ (by norm_num : (0 : ℝ) < 6500000)
       (by positivity : (0 : ℝ) < 16384 * (L : ℝ))]
-    simpa [mul_assoc, mul_left_comm, mul_comm] using hcross
+    simpa [mul_assoc, mul_left_comm, mul_comm] using! hcross
   refine ⟨c, hcrate, hc1, ?_⟩
   have hqTop : Tendsto (fun N : ℕ => Nat.log 2 N) atTop atTop := by
     refine Filter.tendsto_atTop.2 ?_
@@ -2721,9 +2721,9 @@ theorem nativeLambdaTwoGoodRecipMass_eventually_quadratic_with_rate
       (le_trans (le_max_right _ _) (le_trans (le_max_right _ _) hqQ)))
   have hq4two : 2 ≤ q / 4 := by omega
   have hMBq : M_B ≤ q / 4 := by
-    exact (Nat.le_div_iff_mul_le (by norm_num : 0 < 4)).2 (by simpa [Nat.mul_comm] using hqMB)
+    exact (Nat.le_div_iff_mul_le (by norm_num : 0 < 4)).2 (by simpa [Nat.mul_comm] using! hqMB)
   have hMlogq : M_log ≤ q / 4 := by
-    exact (Nat.le_div_iff_mul_le (by norm_num : 0 < 4)).2 (by simpa [Nat.mul_comm] using hqMlog)
+    exact (Nat.le_div_iff_mul_le (by norm_num : 0 < 4)).2 (by simpa [Nat.mul_comm] using! hqMlog)
   have hMfour : 4 ≤ M := by
     dsimp [M]
     have := (Nat.pow_le_pow_iff_right Nat.one_lt_two).2 hq4two
@@ -2736,21 +2736,21 @@ theorem nativeLambdaTwoGoodRecipMass_eventually_quadratic_with_rate
     intro j _hj
     have hpowpos : 0 < 2 ^ (E + j * L) := by positivity
     have hlow : 2 ^ (E + j * L) ≤ t j := by
-      simpa [L] using htLower j
+      simpa [L] using! htLower j
     omega
   have hsep : ∀ i j, i < j → j < J →
       t i + nativePNTGoodForwardRadius (t i) eps < t j := by
     intro i j hij _hjJ
     have hrad := nativePNTGoodForwardRadius_le_self (t i) eps heps.le heps1
     have hui : t i ≤ 2 ^ (E + i * L + K) := by
-      simpa [L] using htUpper i
+      simpa [L] using! htUpper i
     have hlj : 2 ^ (E + j * L) ≤ t j := by
-      simpa [L] using htLower j
+      simpa [L] using! htLower j
     have hexp : E + i * L + K + 1 < E + j * L := by
       have hji : i + 1 ≤ j := by omega
       have hmul : (i + 1) * L ≤ j * L := Nat.mul_le_mul_right L hji
       have hstep : E + i * L + K + 1 < E + (i + 1) * L := by
-        simpa [L] using nativePNT_shell_step_lt E K i
+        simpa [L] using! nativePNT_shell_step_lt E K i
       exact hstep.trans_le (Nat.add_le_add_left hmul E)
     have hp : 2 ^ (E + i * L + K + 1) < 2 ^ (E + j * L) :=
       Nat.pow_lt_pow_right Nat.one_lt_two hexp
@@ -2792,7 +2792,7 @@ theorem nativeLambdaTwoGoodRecipMass_eventually_quadratic_with_rate
     have hud : t j + nativePNTGoodForwardRadius (t j) eps + 1 ≤ 4 * t j := by
       omega
     have hut : t j ≤ 2 ^ (E + j * L + K) := by
-      simpa [L] using htUpper j
+      simpa [L] using! htUpper j
     have hdPow :
         t j + nativePNTGoodForwardRadius (t j) eps + 1 ≤
           2 ^ (E + j * L + K + 2) := by
@@ -2824,7 +2824,7 @@ theorem nativeLambdaTwoGoodRecipMass_eventually_quadratic_with_rate
         _ ≤ N := hpowq
     have hdpos : 0 < t j + nativePNTGoodForwardRadius (t j) eps + 1 := by omega
     exact (Nat.le_div_iff_mul_le hdpos).2 (by
-      simpa [Nat.mul_comm] using hdM)
+      simpa [Nat.mul_comm] using! hdM)
   have hLocalB : ∀ j < J, M ≤ N / t j := by
     intro j hjJ
     have hd := hLocalQuot j hjJ
@@ -2845,7 +2845,7 @@ theorem nativeLambdaTwoGoodRecipMass_eventually_quadratic_with_rate
     have hMBreal : (M_B : ℝ) ≤ (M : ℝ) := by exact_mod_cast hMBpow
     have h32MB : 32 < eps * (M_B : ℝ) := by
       have h := (div_lt_iff₀ heps).mp hM_B
-      simpa [mul_comm] using h
+      simpa [mul_comm] using! h
     have hmul := mul_le_mul_of_nonneg_left hMBreal heps.le
     linarith
   have hB : ∀ j < J, 32 ≤ eps * ((N / t j : ℕ) : ℝ) := by
@@ -2862,7 +2862,7 @@ theorem nativeLambdaTwoGoodRecipMass_eventually_quadratic_with_rate
     have hdenpos : 0 < eps * Real.log 2 := mul_pos heps hlog2pos
     have hCML : 64 * C < (M_log : ℝ) * (eps * Real.log 2) := by
       have h := (div_lt_iff₀ hdenpos).mp hM_log
-      simpa [mul_comm, mul_left_comm, mul_assoc] using h
+      simpa [mul_comm, mul_left_comm, mul_assoc] using! h
     have hMLq : (M_log : ℝ) ≤ ((q / 4 : ℕ) : ℝ) := by exact_mod_cast hMlogpow
     have hmul := mul_le_mul_of_nonneg_right hMLq hdenpos.le
     rw [← hlogM]
@@ -2919,7 +2919,7 @@ theorem nativeLambdaTwoGoodRecipMass_eventually_quadratic_with_rate
     exact hqJL
   have hJone : 1 ≤ J := by omega
   have hdJ : 8 * L ≤ (8 * L) * J := by
-    simpa using Nat.mul_le_mul_left (8 * L) hJone
+    simpa using! Nat.mul_le_mul_left (8 * L) hJone
   have hremJ : q % (8 * L) ≤ (8 * L) * J :=
     (Nat.le_of_lt hmod).trans hdJ
   have hJlowerNat : q ≤ 16 * L * J := by
@@ -2937,7 +2937,7 @@ theorem nativeLambdaTwoGoodRecipMass_eventually_quadratic_with_rate
     have hJreal : (q : ℝ) / (16 * (L : ℝ)) ≤ (J : ℝ) := by
       have hden : (0 : ℝ) < 16 * (L : ℝ) := by positivity
       apply (div_le_iff₀ hden).2
-      simpa [mul_assoc, mul_left_comm, mul_comm] using hJlower
+      simpa [mul_assoc, mul_left_comm, mul_comm] using! hJlower
     have hprod :
         eps * Real.log 2 / (4096 * (L : ℝ)) * (q : ℝ) ^ 2 ≤
           ((J : ℕ) : ℝ) *
@@ -2955,7 +2955,7 @@ theorem nativeLambdaTwoGoodRecipMass_eventually_quadratic_with_rate
       _ ≤ nativeLambdaTwoGoodRecipMass N eps := hpacked
   have hNpow : N < 2 ^ (q + 1) := by
     dsimp [q]
-    simpa [Nat.succ_eq_add_one] using Nat.lt_pow_succ_log_self Nat.one_lt_two N
+    simpa [Nat.succ_eq_add_one] using! Nat.lt_pow_succ_log_self Nat.one_lt_two N
   have hlogNnonneg : 0 ≤ Real.log (N : ℝ) :=
     Real.log_nonneg (by exact_mod_cast hN1)
   have hq1nat : 1 ≤ q := by omega
@@ -3043,7 +3043,7 @@ theorem nativePNTHasAffineEnvelope_cubic_step
   have hgood : ∀ᶠ N : ℕ in atTop,
       c * (Real.log (N : ℝ)) ^ 2 ≤
         nativeLambdaTwoGoodRecipMass N beta := by
-    simpa [c] using
+    simpa [c] using!
       nativeLambdaTwoGoodRecipMass_eventually_quadratic_rate
         beta hbeta hbeta1
   have himp := nativePNTHasAffineEnvelope_improve_of_goodMass
@@ -3118,8 +3118,8 @@ theorem nativePNTCubicSlope_spec :
           nativePNTCubicSlope (n + 1) ≤ nativePNTCubicSlope n := by
         rw [nativePNTCubicSlope_succ]
         exact sub_le_self _ hdrop
-      exact ⟨by simpa using hnextpos, hnextle.trans hle6,
-        by simpa using hnextenv⟩
+      exact ⟨by simpa using! hnextpos, hnextle.trans hle6,
+        by simpa using! hnextenv⟩
 
 /-- The prime-specific iteration is routed through the abstract cubic
 recurrence theorem proved at the start of this file. -/
@@ -3148,7 +3148,7 @@ theorem nativePNTCubicSlope_rate (n : ℕ) :
           nativePNTCubicConstant * (nativePNTCubicSlope m) ^ 3 := by
     intro m
     rw [nativePNTCubicSlope_succ]
-  simpa using
+  simpa using!
     (cubic_recurrence_rate nativePNTCubicSlope nativePNTCubicConstant
       hC hnonneg hrec n)
 
@@ -3243,7 +3243,7 @@ theorem nativePsi_div_atTop_one :
   have hsum : Tendsto
       (fun N : ℕ => nativePNTError N / (N : ℝ) + 1)
       atTop (𝓝 1) := by
-    simpa using nativePNTError_div_atTop_zero.add tendsto_const_nhds
+    simpa using! nativePNTError_div_atTop_zero.add tendsto_const_nhds
   refine hsum.congr' ?_
   filter_upwards [eventually_ge_atTop 1] with N hN
   have hNne : (N : ℝ) ≠ 0 := by

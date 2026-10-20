@@ -20,7 +20,11 @@ including complex separable phases absorbed into the four factors. -/
 theorem vf919CenteredRectangle_det_eq_zero
     (f g u v : Fin 3 → ℂ) :
     Matrix.det (fun i j => f i * g j - u i * v j) = 0 := by
+  let A : Matrix (Fin 3) (Fin 3) ℂ :=
+    fun i j => f i * g j - u i * v j
+  change Matrix.det A = 0
   rw [Matrix.det_fin_three]
+  dsimp [A]
   ring
 
 /-- The literal native low reciprocal owners at the witness root. -/

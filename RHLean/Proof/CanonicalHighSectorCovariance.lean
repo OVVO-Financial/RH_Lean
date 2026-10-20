@@ -197,7 +197,7 @@ theorem canonicalHighUniformLocalBounded_iff_coherentMean_and_centeredCovariance
   simpa [CanonicalHighUniformLocalBoundedStatement,
     CanonicalHighCoherentMeanUniformLocalBoundedStatement,
     CanonicalHighCenteredCovarianceUniformLocalBoundedStatement,
-    SequenceUniformLocalBoundedStatement] using
+    SequenceUniformLocalBoundedStatement] using!
       sequenceUniformLocalBounded_iff_coherentMean_and_centeredCovariance
         (canonicalHighPrefix Λ)
 

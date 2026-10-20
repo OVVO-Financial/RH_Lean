@@ -54,7 +54,7 @@ theorem nativeTheta_eq_log_primorial (N : ℕ) :
   exact_mod_cast hpPrime.ne_zero
 
 /-- Chebyshev's elementary upper bound on the prime layer, inherited only from
-the finite central-binomial proof of `primorial_le_4_pow`. -/
+the finite central-binomial proof of `primorial_le_four_pow`. -/
 theorem nativeTheta_le_log4_mul (N : ℕ) :
     nativeTheta N ≤ Real.log 4 * (N : ℝ) := by
   rw [nativeTheta_eq_log_primorial]
@@ -62,7 +62,7 @@ theorem nativeTheta_le_log4_mul (N : ℕ) :
     Real.log (primorial N) ≤ Real.log (4 ^ N) := by
       apply Real.log_le_log
       · exact_mod_cast primorial_pos N
-      · exact_mod_cast primorial_le_4_pow N
+      · exact_mod_cast primorial_le_four_pow N
     _ = Real.log 4 * (N : ℝ) := by
       rw [Real.log_pow]
       ring
@@ -175,7 +175,7 @@ theorem nativePrime_log_eq_one_of_sqrt_lt
   apply Nat.log_eq_one_iff'.2
   refine ⟨hpN, ?_⟩
   have hsq : N < p ^ 2 := (Nat.sqrt_lt').1 hsqrt
-  simpa [pow_two] using hsq
+  simpa [pow_two] using! hsq
 
 /-- Pointwise square-root split of a prime-power fibre.  Large primes contribute
 only their prime term; all repeated-power mass is confined to primes at most
@@ -257,7 +257,7 @@ theorem nativePsi_le_theta_add_sqrt_log
         ((nativeSmallPrimeSet N).card : ℝ) * Real.log N := by
       rw [hsmallSum]
     _ ≤ nativeTheta N + (Nat.sqrt N : ℝ) * Real.log N := by
-      exact add_le_add_left (mul_le_mul_of_nonneg_right hcard hlogN) _
+      exact add_le_add_right (mul_le_mul_of_nonneg_right hcard hlogN) _
 
 /-- The square-root correction is at most `2N`; this uses only the elementary
 inequality `log x <= 2 sqrt x`. -/

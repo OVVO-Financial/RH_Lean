@@ -47,7 +47,7 @@ theorem actualStart_uniformLocalBounded_of_endpointBoundary
   refine ⟨C, hC, ?_⟩
   intro N H hH hHN
   simpa [endpointBoundaryLocalEnergy, actualStartLocalFrameEnergy,
-    realization.boundary_eq_actual] using hbound N H hH hHN
+    realization.boundary_eq_actual] using! hbound N H hH hHN
 
 /-- Endpoint-cube local boundary control implies RH through the explicit existing bridge. -/
 theorem riemannHypothesis_of_endpointCubeBoundary
@@ -226,7 +226,7 @@ theorem no_common_distinct_postRootPrime_divisors
     · have hq_le_p : q ≤ p := Nat.le_of_not_ge hp_le_q
       have hWqq : W < q * q := (Nat.sqrt_lt).1 hqRoot
       have hqqp : q * q ≤ q * p := Nat.mul_le_mul_left q hq_le_p
-      simpa [Nat.mul_comm] using hWqq.trans_le hqqp
+      simpa [Nat.mul_comm] using! hWqq.trans_le hqqp
   omega
 
 /-- **Distinct post-root family pair carriers are disjoint.**  Hence the scalar
@@ -290,7 +290,7 @@ theorem sum_mertensPositivePhysicalPairCarrier_eq_positiveLagPairSum
   classical
   have houter : Finset.Icc 1 W = Finset.Ico 1 (W + 1) := by
     ext n
-    simp
+    simp only [Finset.mem_Icc, Finset.mem_Ico]
     omega
   calc
     (∑ mn ∈ mertensPositivePhysicalPairCarrier W,
@@ -304,7 +304,7 @@ theorem sum_mertensPositivePhysicalPairCarrier_eq_positiveLagPairSum
     _ = ∑ m ∈ Finset.Icc 1 W,
         ∑ n ∈ Finset.Icc 1 W,
           if m < n then realMoebiusStep m * realMoebiusStep n else 0 := by
-      simpa only using
+      simpa only using!
         (Finset.sum_product
           (s := Finset.Icc 1 W) (t := Finset.Icc 1 W)
           (f := fun mn : ℕ × ℕ =>
@@ -378,7 +378,7 @@ theorem postRootPrimePhysicalPairCarrier_eq_dilated_image
       (Nat.one_le_div_iff hp.pos).2 hpnle,
       Nat.div_le_div_right hnW, ?_⟩
     apply (Nat.mul_lt_mul_left hp.pos).mp
-    simpa only [hmEq, hnEq] using hmnlt
+    simpa only [hmEq, hnEq] using! hmnlt
   · intro hmn
     rcases Finset.mem_image.mp hmn with ⟨cd, hcd, hcdEq⟩
     rw [← hcdEq]
@@ -393,9 +393,9 @@ theorem postRootPrimePhysicalPairCarrier_eq_dilated_image
     refine ⟨hpcpos, ?_, hpdpos, ?_,
       (Nat.mul_lt_mul_left hp.pos).2 hcdlt, ⟨c, rfl⟩, ⟨d, rfl⟩⟩
     · have hmul := (Nat.le_div_iff_mul_le hp.pos).1 hcW
-      simpa [Nat.mul_comm] using hmul
+      simpa [Nat.mul_comm] using! hmul
     · have hmul := (Nat.le_div_iff_mul_le hp.pos).1 hdW
-      simpa [Nat.mul_comm] using hmul
+      simpa [Nat.mul_comm] using! hmul
 
 /-- The actual Möbius weight on one post-root family is exactly its lower-scale
 positive-lag covariance.  Both fresh-prime signs reverse, so their product is
@@ -482,7 +482,7 @@ private theorem endpointCube_squarefreePrimeFamilyParent_dvd
     (p n : ℕ) : squarefreePrimeFamilyParent p n ∣ n := by
   unfold squarefreePrimeFamilyParent
   by_cases hpn : p ∣ n
-  · rw [if_pos hpn]
+  · rw [ite_eq_left hpn]
     exact ⟨p, (Nat.div_mul_cancel hpn).symm⟩
   · simp [hpn]
 
@@ -491,9 +491,9 @@ private theorem endpointCube_squarefreePrimeFamilyParent_pos
     0 < squarefreePrimeFamilyParent p n := by
   unfold squarefreePrimeFamilyParent
   by_cases hpn : p ∣ n
-  · rw [if_pos hpn]
+  · rw [ite_eq_left hpn]
     exact Nat.div_pos (Nat.le_of_dvd hn hpn) hp.pos
-  · simpa [hpn] using hn
+  · simpa [hpn] using! hn
 
 /-- Downward closure of the post-root complement: replacing the two endpoints
 by positive divisors, in either orientation, cannot create a common post-root
@@ -567,14 +567,14 @@ theorem squarefreePairFreshPrimeOrderedParent_mem_postRootRemainder
     dsimp [un]
     exact endpointCube_squarefreePrimeFamilyParent_dvd p n
   have hne : um ≠ un := by
-    simpa [p, um, un] using hparentNe
+    simpa [p, um, un] using! hparentNe
   change (if um < un then (um, un) else (un, um)) ∈
     postRootCovarianceRemainderPhysicalPairCarrier W
   by_cases humlt : um < un
-  · rw [if_pos humlt]
+  · rw [ite_eq_left humlt]
     exact postRootCovarianceRemainderPhysicalPairCarrier_of_dvd hpair
       (Or.inl ⟨humdvd, hundvd⟩) humpos hunpos humlt
-  · rw [if_neg humlt]
+  · rw [ite_eq_right humlt]
     have hunlt : un < um := by omega
     exact postRootCovarianceRemainderPhysicalPairCarrier_of_dvd hpair
       (Or.inr ⟨hundvd, humdvd⟩) hunpos humpos hunlt
@@ -1055,7 +1055,7 @@ theorem mertensPositiveLagUpperBounded_of_postRootCovariancePowerRemainder
             unfold postRootCovarianceRemainder at hr
             linarith
           let T : ℝ := Real.rpow (W : ℝ) (ε / 2)
-          have hTtwo' : 2 ≤ T := by simpa [T] using hTtwo
+          have hTtwo' : 2 ≤ T := by simpa [T] using! hTtwo
           have hTplus : 2 * T ≤ T ^ 2 := by
             nlinarith [sq_nonneg (T - 2)]
           have hhalfTarget :
@@ -1091,7 +1091,7 @@ theorem mertensPositiveLagUpperBounded_of_postRootCovariancePowerRemainder
               _ = (W : ℝ) * T ^ 2 := by ring
           have hfamily' :
               postRootPrimeFamilyCovarianceTotal W ≤ A * ((W : ℝ) * T) := by
-            simpa [T] using hfamily
+            simpa [T] using! hfamily
           have hTnn : 0 ≤ T := by linarith
           have hDW : D * ((W : ℝ) * T) ≤ A * ((W : ℝ) * T) :=
             mul_le_mul_of_nonneg_right hDA (mul_nonneg hWnn hTnn)
@@ -1103,9 +1103,9 @@ theorem mertensPositiveLagUpperBounded_of_postRootCovariancePowerRemainder
             _ = postRootPrimeFamilyCovarianceTotal W + D * ((W : ℝ) * T) := by
               rw [hhalfTarget]
             _ ≤ A * ((W : ℝ) * T) + D * ((W : ℝ) * T) :=
-              add_le_add_right hfamily' _
+              add_le_add_left hfamily' _
             _ ≤ A * ((W : ℝ) * T) + A * ((W : ℝ) * T) :=
-              add_le_add_left hDW _
+              add_le_add_right hDW _
             _ = A * (W : ℝ) * (2 * T) := by ring
             _ ≤ A * (W : ℝ) * T ^ 2 :=
               mul_le_mul_of_nonneg_left hTplus hAWnn
@@ -1118,7 +1118,7 @@ theorem mertensPositiveLagUpperBounded_of_postRootCovariancePowerRemainder
   | succ W =>
       by_cases hWzero : W = 0
       · subst W
-        simpa [realMertensPositiveLagPairSum] using hA
+        simpa [realMertensPositiveLagPairSum] using! hA
       · have hW1 : 1 ≤ W := by omega
         have hbound := hendpoint W hW1
         have hbase : (W : ℝ) ≤ ((W + 1 : ℕ) : ℝ) := by exact_mod_cast Nat.le_succ W

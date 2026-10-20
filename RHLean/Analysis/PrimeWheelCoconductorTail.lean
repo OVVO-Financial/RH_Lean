@@ -94,7 +94,7 @@ theorem primeWheelCoconductorTail_eq_ramanujanTailKernel
       apply Finset.sum_congr rfl
       intro r hr
       by_cases htail : D < additiveCoconductor r
-      · simp only [htail, if_true]
+      · simp only [htail, ite_true]
         rw [Finset.sum_mul]
         apply Finset.sum_congr rfl
         intro a ha
@@ -128,7 +128,7 @@ theorem primeWheelCoconductorTail_eq_ramanujanTailKernel
       apply Finset.sum_congr rfl
       intro r hr
       by_cases htail : D < additiveCoconductor r
-      · simp only [htail, if_true]
+      · simp only [htail, ite_true]
         have hchar :
             ZMod.stdAddChar (-(a * r)) *
                 ZMod.stdAddChar (-(b * (-r))) =

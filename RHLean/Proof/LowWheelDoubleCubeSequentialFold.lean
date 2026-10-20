@@ -165,7 +165,7 @@ theorem lowWheelMixedPrimeCell_eq_neg_secondContact_of_three_live
     lowWheelMixedPrimeCell p R X q n =
       if X < p * p * n then -1 else 0 := by
   have hpq : q ≤ p * q := by
-    simpa [one_mul] using Nat.mul_le_mul_right q hp
+    simpa [one_mul] using! Nat.mul_le_mul_right q hp
   have hrootChild : R < p * q := hq.trans_le hpq
   unfold lowWheelMixedPrimeCell lowWheelTransportIndicator
     lowWheelRootHighIndicator lowWheelEndpointIndicator

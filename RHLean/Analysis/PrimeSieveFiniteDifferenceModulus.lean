@@ -101,7 +101,7 @@ theorem logarithmicIntegralFromTwo_one :
     logarithmicIntegralFromTwo_one]
   have hIoc : Finset.Ioc 0 1 = {1} := by decide
   rw [hIoc]
-  simp [primeSievePrimeIndicator]
+  simp [primeSievePrimeIndicator]; decide
 
 /-! ## Möbius norm and shift commutation -/
 
@@ -161,7 +161,7 @@ theorem finiteDifferenceOperator_increment_norm_le_activeOn
       have hb := hmod (x / d) ((x + h) / d - x / d) (hwindow d hd).1
         (by rw [hsum]; exact (hwindow d hd).2) hδpos
       rw [hsum] at hb
-      rw [if_pos hmove]
+      rw [ite_eq_left hmove]
       calc ‖((μ d : ℤ) : ℂ)‖ * ‖f ((x + h) / d) - f (x / d)‖
           ≤ 1 * (A * ((((x + h) / d - x / d : ℕ) : ℝ)) + B) :=
             mul_le_mul (norm_moebius_le_one d) hb (norm_nonneg _)
@@ -171,7 +171,7 @@ theorem finiteDifferenceOperator_increment_norm_le_activeOn
         Nat.div_le_div_right (by omega)
       have heq : (x + h) / d = x / d := by omega
       have hδ0 : ((x + h) / d - x / d : ℕ) = 0 := by omega
-      rw [if_neg hmove, hδ0, heq, sub_self, norm_zero, mul_zero]
+      rw [ite_eq_right hmove, hδ0, heq, sub_self, norm_zero, mul_zero]
       simp
   refine le_trans (Finset.sum_le_sum hterm) (le_of_eq ?_)
   rw [Finset.sum_add_distrib, ← Finset.mul_sum, ← Finset.mul_sum,

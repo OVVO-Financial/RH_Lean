@@ -105,7 +105,7 @@ theorem squareRootTransportPrimeFirst_eq_mertensTransform
   intro q hqmem
   by_cases hprime : q.Prime
   · have hRq : R < q := (Finset.mem_Ioc.mp hqmem).1
-    simp only [hprime, if_true]
+    simp only [hprime, ite_true]
     exact primeDilatedLowCofactorMass_eq_mertensSummatory
       R q hR hRq hprime.pos
   · simp [hprime]
@@ -191,7 +191,7 @@ theorem squareRootTransportRawWeight_eq_primeCountDifference
       rcases Finset.mem_Ioc.mp hqmem with ⟨hRq, _hqX⟩
       have hqdiv : q ≤ squareRootEndpoint R / c := by
         apply (Nat.le_div_iff_mul_le hcpos).2
-        simpa [Nat.mul_comm] using hcond.2
+        simpa [Nat.mul_comm] using! hcond.2
       exact Finset.mem_filter.mpr
         ⟨Finset.mem_Ioc.mpr ⟨hRq, hqdiv⟩, hcond.1⟩
     · intro h
@@ -200,7 +200,7 @@ theorem squareRootTransportRawWeight_eq_primeCountDifference
       have hqmul : q * c ≤ squareRootEndpoint R :=
         (Nat.le_div_iff_mul_le hcpos).1 hqdiv
       have hmul : c * q ≤ squareRootEndpoint R := by
-        simpa [Nat.mul_comm] using hqmul
+        simpa [Nat.mul_comm] using! hqmul
       have hqX : q ≤ squareRootEndpoint R :=
         hqdiv.trans (Nat.div_le_self _ _)
       exact Finset.mem_filter.mpr

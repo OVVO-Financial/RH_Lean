@@ -83,7 +83,7 @@ theorem vfMidSquareBand_prime_card_add_composite_card (R : ℕ) :
   have hcard := congrArg Finset.card (vfMidSquareBand_prime_composite_partition R)
   rw [Finset.card_union_of_disjoint
     (vfMidSquareBand_prime_composite_disjoint R)] at hcard
-  simpa [vfMidSquareBandSites_card] using hcard
+  simpa [vfMidSquareBandSites_card] using! hcard
 
 /-- Prime-count increment across consecutive square endpoints is exactly the
 prime population of the intervening square band. -/

@@ -98,6 +98,6 @@ theorem farFour_of_coupledPacketDispersion
   intro R K hR hK
   have h := hBb R K hR hK
   rw [← directSumCoupledFarPacket_eq_frozenTopFarResidual R]
-  simpa [directSumCoupledFarPacket] using h
+  simpa [directSumCoupledFarPacket] using! h
 
 end RHLean.Proof

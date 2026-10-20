@@ -96,14 +96,14 @@ theorem squareRootLowPrimeGoSecondBoundaryFullFaceSource_mem_transport
   have hqR : q < R :=
     squareRootLowPrimeGoFullFace_liveOwner_lt_root hR hq hcube
   have hfaceProd : primeFaceProduct y.1 = r * d := by
-    simpa [y, squareRootLowPrimeGoSecondBoundaryFullFaceSource] using
+    simpa [y, squareRootLowPrimeGoSecondBoundaryFullFaceSource] using!
       primeFaceProduct_squarefreePrimeFace hsqChild
   have hface : y.1 ∈ (primesUpTo R).powerset := by
     apply Finset.mem_powerset.mpr
     intro p hp
     have hpFactors : p ∈ (r * d).primeFactors := by
       simpa [y, squareRootLowPrimeGoSecondBoundaryFullFaceSource,
-        squarefreePrimeFace] using hp
+        squarefreePrimeFace] using! hp
     have hpData := Nat.mem_primeFactors.mp hpFactors
     have hpLtQ : p < q := hdom p hpData.1 hpData.2.1
     exact mem_primesUpTo.mpr ⟨hpData.1, by omega⟩
@@ -133,7 +133,7 @@ theorem squareRootLowPrimeGoSecondBoundaryFullFaceSource_mem_transport
     · rw [hfaceProd]
       exact hroot
     · rw [hfaceProd]
-      simpa [Nat.mul_comm, Nat.mul_left_comm, Nat.mul_assoc] using hfirst
+      simpa [Nat.mul_comm, Nat.mul_left_comm, Nat.mul_assoc] using! hfirst
   have hranges := lowWheelTransportPairCarrier_mem_ranges hcarrier
   apply mem_lowWheelFullTaggedPhysicalCarrier.mpr
   refine ⟨hface, mem_lowWheelCanonicalPhysicalStateSet.mpr ?_⟩
@@ -155,7 +155,7 @@ theorem squareRootLowPrimeGoSecondBoundaryFullFaceSource_weight_eq
   have hfacePrime : ∀ p ∈ squarefreePrimeFace (r * d), p.Prime := by
     intro p hp
     have hpFactors : p ∈ (r * d).primeFactors := by
-      simpa only [squarefreePrimeFace] using hp
+      simpa only [squarefreePrimeFace] using! hp
     exact (Nat.mem_primeFactors.mp hpFactors).1
   have hfaceMu :=
     moebius_primeFaceProduct_eq_booleanCubeSign
@@ -202,7 +202,7 @@ theorem squareRootLowPrimeGoSecondBoundaryFullFaceSource_mate_cancel
           (squareRootLowPrimeGoSecondBoundaryFullFaceSource r q d)) = 0 := by
   let y := squareRootLowPrimeGoSecondBoundaryFullFaceSource r q d
   have hy : y ∈ lowWheelFullTaggedPhysicalCarrier R := by
-    simpa [y] using
+    simpa [y] using!
       squareRootLowPrimeGoSecondBoundaryFullFaceSource_mem_transport
         hR hq hr hrq hcube hd
   have hfull :=
@@ -216,7 +216,7 @@ theorem squareRootLowPrimeGoSecondBoundaryFullFaceSource_mate_cancel
     have hrFactors : r ∈ (r * d).primeFactors :=
       Nat.mem_primeFactors.mpr ⟨hr, hrDvd, hrdNe⟩
     simpa [y, squareRootLowPrimeGoSecondBoundaryFullFaceSource,
-      squarefreePrimeFace] using hrFactors
+      squarefreePrimeFace] using! hrFactors
   have hne : lowWheelFullFaceQuotientMate R y ≠ y := by
     intro hfix
     have hempty := lowWheelFullStable_face_eq_empty hy hfix
@@ -308,13 +308,13 @@ theorem squareRootLowPrimeGoFullFaceDefectSourceTag_injOn
     have h := congrArg
       (fun y : LowWheelFullTaggedPhysicalState => y.2.2) hab
     simpa [squareRootLowPrimeGoFullFaceDefectSourceTag,
-      squareRootLowPrimeGoSecondBoundaryFullFaceSource] using h
+      squareRootLowPrimeGoSecondBoundaryFullFaceSource] using! h
   have hface :
       squarefreePrimeFace (r * d) = squarefreePrimeFace (s * e) := by
     have h := congrArg
       (fun y : LowWheelFullTaggedPhysicalState => y.1) hab
     simpa [squareRootLowPrimeGoFullFaceDefectSourceTag,
-      squareRootLowPrimeGoSecondBoundaryFullFaceSource] using h
+      squareRootLowPrimeGoSecondBoundaryFullFaceSource] using! h
   have hsqD : Squarefree (r * d) :=
     (squareRootLowPrimeGoFullBirthBoundary_child_canonicalSmooth
       hq hr hrq hfullD).1.2.2.1
@@ -324,7 +324,7 @@ theorem squareRootLowPrimeGoFullFaceDefectSourceTag_injOn
   have hprod : r * d = s * e := by
     have hp := congrArg primeFaceProduct hface
     simpa [primeFaceProduct_squarefreePrimeFace hsqD,
-      primeFaceProduct_squarefreePrimeFace hsqE] using hp
+      primeFaceProduct_squarefreePrimeFace hsqE] using! hp
   have hdPos : 0 < d := by
     have hd1 := (mem_squareRootLowPrimeGoFullBirthBoundaryParents.mp hfullD).1
     omega
@@ -338,11 +338,11 @@ theorem squareRootLowPrimeGoFullFaceDefectSourceTag_injOn
   have htopD : canonicalLargestPrimeFactor (r * d) = r := by
     have h := canonicalLargestPrimeFactor_mul_prime_eq_of_rough
       hdPos hr hroughD
-    simpa [Nat.mul_comm] using h
+    simpa [Nat.mul_comm] using! h
   have htopE : canonicalLargestPrimeFactor (s * e) = s := by
     have h := canonicalLargestPrimeFactor_mul_prime_eq_of_rough
       hePos hs hroughE
-    simpa [Nat.mul_comm] using h
+    simpa [Nat.mul_comm] using! h
   have hrs : r = s := by
     calc
       r = canonicalLargestPrimeFactor (r * d) := htopD.symm
@@ -370,7 +370,7 @@ theorem squareRootLowPrimeGoFullFaceDefectMateTag_injOn
           (squareRootLowPrimeGoFullFaceDefectSourceTag a) =
         lowWheelFullFaceQuotientMate R
           (squareRootLowPrimeGoFullFaceDefectSourceTag b) := by
-    simpa [squareRootLowPrimeGoFullFaceDefectMateTag] using hab
+    simpa [squareRootLowPrimeGoFullFaceDefectMateTag] using! hab
   have hsource :
       squareRootLowPrimeGoFullFaceDefectSourceTag a =
         squareRootLowPrimeGoFullFaceDefectSourceTag b := by
@@ -431,7 +431,7 @@ theorem squareRootLowPrimeGoFullFaceDefectSourceLedger_eq_mass
   have hfull :=
     (mem_squareRootLowPrimeGoSecondBoundaryDefectParents.mp hd).1
   simpa [squareRootLowPrimeGoFullFaceDefectSourceTag,
-      canonicalMoebiusWeight] using
+      canonicalMoebiusWeight] using!
     squareRootLowPrimeGoSecondBoundaryFullFaceSource_weight_eq
       hq hr hrq hfull
 
@@ -450,7 +450,7 @@ theorem squareRootLowPrimeGoFullFaceDefectSource_add_mate_eq_zero
   rcases mem_squareRootLowPrimeGoFullFaceDefectCarrier.mp hz with
     ⟨_hrR, _hqR, _hdR, hr, hq, hrq, hcube, hd⟩
   simpa [squareRootLowPrimeGoFullFaceDefectSourceTag,
-      squareRootLowPrimeGoFullFaceDefectMateTag] using
+      squareRootLowPrimeGoFullFaceDefectMateTag] using!
     squareRootLowPrimeGoSecondBoundaryFullFaceSource_mate_cancel
       hR hq hr hrq hcube hd
 

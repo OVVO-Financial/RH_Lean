@@ -44,7 +44,7 @@ theorem primeProductFrontierMobiusMass_eq_mertensSummatory
     (prime_of_mem_primesUpTo hell) (mem_primesUpTo.mp hell).2
   have hc := congrArg (fun z : ℤ => (z : ℂ)) h
   push_cast at hc
-  simpa [primeProductFrontierMobiusMass, mertensSummatory] using hc.symm
+  simpa [primeProductFrontierMobiusMass, mertensSummatory] using! hc.symm
 
 /-- Total mean-square mass over all fresh-prime frontier coordinates. -/
 def primeAveragedFrontierEnergy (X : ℕ) : ℝ :=
@@ -103,16 +103,16 @@ theorem mertensEnergyBounded_of_primeAveragedFrontierEnergy
     rw [primeAveragedFrontierEnergy_eq_card_mul_mertensEnergy] at hraw
     have hscaled :
         P * ‖mertensSummatory X‖ ^ 2 ≤ P * (C * Q) := by
-      simpa [P, Q, mul_assoc, mul_left_comm, mul_comm] using hraw
+      simpa [P, Q, mul_assoc, mul_left_comm, mul_comm] using! hraw
     have hmain : ‖mertensSummatory X‖ ^ 2 ≤ C * Q :=
       (mul_le_mul_iff_right₀ hP).mp hscaled
     have hCD : C ≤ D := by dsimp [D]; linarith
     have hraise : C * Q ≤ D * Q :=
       mul_le_mul_of_nonneg_right hCD hQ0
-    simpa [D, Q] using hmain.trans hraise
+    simpa [D, Q] using! hmain.trans hraise
   · have hsmall : X = 0 ∨ X = 1 := by omega
     rcases hsmall with rfl | rfl
-    · simpa [mertensSummatory] using hD0
+    · simpa [mertensSummatory] using! hD0
     · have hpow :
           (1 : ℝ) ≤ Real.rpow (2 : ℝ) (1 + ε) :=
         Real.one_le_rpow (by norm_num) (by linarith)
@@ -122,8 +122,8 @@ theorem mertensEnergyBounded_of_primeAveragedFrontierEnergy
         calc
           (1 : ℝ) ≤ D := hD1
           _ ≤ D * Real.rpow (2 : ℝ) (1 + ε) := by
-            simpa using mul_le_mul_of_nonneg_left hpow hD0
-      simpa [mertensSummatory, Finset.sum_range_succ] using hone
+            simpa using! mul_le_mul_of_nonneg_left hpow hD0
+      simpa [mertensSummatory, Finset.sum_range_succ] using! hone
 
 /-- Conversely, Mertens energy immediately bounds the scalar frontier energy by
 the exact collapse theorem. -/

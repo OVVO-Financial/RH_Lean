@@ -99,7 +99,7 @@ theorem norm_squarePrefixMertens_le_of_canonicalDowncrossLinear
     ‖squarePrefixMertens (R - 1)‖ ≤ (C + 1) * (R : ℝ) := by
   have hMstep := norm_mertensSummatory_sub_le 0 R (Nat.zero_le R)
   have hM : ‖mertensSummatory R‖ ≤ (R : ℝ) := by
-    simpa using hMstep
+    simpa using! hMstep
   rw [squarePrefixMertens_eq_mertens_sub_canonicalDowncross R hR]
   calc
     ‖mertensSummatory R - lowWheelCanonicalDowncrossLedger R‖ ≤
@@ -123,12 +123,12 @@ theorem squarePrefixCurrentPointwiseBounded_of_canonicalDowncrossLinear
       norm_mertensSummatory_sub_le 0 (squarePrefixEndpoint 1)
         (Nat.zero_le (squarePrefixEndpoint 1))
     have hnorm : ‖squarePrefixMertens 1‖ ≤ 3 := by
-      simpa [squarePrefixMertens, squarePrefixEndpoint] using hinterval
+      simpa [squarePrefixMertens, squarePrefixEndpoint] using! hinterval
     have hsq : ‖squarePrefixMertens 1‖ ^ 2 ≤ 9 := by
       nlinarith [norm_nonneg (squarePrefixMertens 1)]
     have hcoef : 9 ≤ 4 * (C + 1) ^ 2 + 9 := by
       nlinarith [sq_nonneg (C + 1)]
-    simpa using hsq.trans hcoef
+    simpa using! hsq.trans hcoef
   · have hN2 : 2 ≤ N := by omega
     have hR : 3 ≤ N + 1 := by omega
     have hlin :=
@@ -137,7 +137,7 @@ theorem squarePrefixCurrentPointwiseBounded_of_canonicalDowncrossLinear
     have hlinN :
         ‖squarePrefixMertens N‖ ≤
           (C + 1) * (((N + 1 : ℕ) : ℝ)) := by
-      simpa using hlin
+      simpa using! hlin
     have hC1 : 0 ≤ C + 1 := by linarith
     have hNplus : (((N + 1 : ℕ) : ℝ)) ≤ 2 * (N : ℝ) := by
       exact_mod_cast (by omega : N + 1 ≤ 2 * N)

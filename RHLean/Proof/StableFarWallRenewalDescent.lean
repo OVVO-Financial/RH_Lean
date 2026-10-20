@@ -67,7 +67,7 @@ theorem lowWheelFarPrimeCrossingRenewalLowCofactor_lt_parent
     ⟨hq, _hqR, hd1, _hp, _hpR, _hdsq, _hdq, _hcut⟩
   have hcoords := lowWheelFarPrimeProduct_coordinates ht
   have hcof : canonicalCofactor (t.2.1 * t.2.2) = t.2.1 := by
-    simpa [lowWheelFarPrimeProductKey] using hcoords.2
+    simpa [lowWheelFarPrimeProductKey] using! hcoords.2
   simp only [lowWheelFarPrimeCrossingRenewalLowCofactor,
     lowWheelFarPrimeCrossingParentLowCofactor, lowWheelFarPrimeProductKey]
   rw [hcof]
@@ -96,19 +96,19 @@ theorem lowWheelFarPrimeCrossing_nested_owner_lt
   have hcoordsX := lowWheelFarPrimeProduct_coordinates htx
   have hcoordsY := lowWheelFarPrimeProduct_coordinates hty
   have hcofX : canonicalCofactor (tx.2.1 * tx.2.2) = tx.2.1 := by
-    simpa [lowWheelFarPrimeProductKey] using hcoordsX.2
+    simpa [lowWheelFarPrimeProductKey] using! hcoordsX.2
   have hcofY : canonicalCofactor (ty.2.1 * ty.2.2) = ty.2.1 := by
-    simpa [lowWheelFarPrimeProductKey] using hcoordsY.2
+    simpa [lowWheelFarPrimeProductKey] using! hcoordsY.2
   have hchain' : ty.1 * ty.2.1 = tx.2.1 := by
     rw [← htxEq, ← htyEq] at hchain
     simpa [lowWheelFarPrimeCrossingParentLowCofactor,
       lowWheelFarPrimeCrossingRenewalLowCofactor, lowWheelFarPrimeProductKey,
-      hcofX, hcofY] using hchain
+      hcofX, hcofY] using! hchain
   have hdyPos : 0 < ty.2.1 := by omega
   have hlpfY : canonicalLargestPrimeFactor (ty.1 * ty.2.1) = ty.1 := by
     have h := canonicalLargestPrimeFactor_mul_prime_eq_of_rough
       hdyPos hqy hdyq
-    simpa [Nat.mul_comm] using h
+    simpa [Nat.mul_comm] using! h
   have hownerEq : ty.1 = canonicalLargestPrimeFactor tx.2.1 := by
     have h := congrArg canonicalLargestPrimeFactor hchain'
     rw [hlpfY] at h
@@ -117,7 +117,7 @@ theorem lowWheelFarPrimeCrossing_nested_owner_lt
     rw [hownerEq]
     exact hdxq
   rw [← htxEq, ← htyEq]
-  simpa [lowWheelFarPrimeProductKey] using hlt
+  simpa [lowWheelFarPrimeProductKey] using! hlt
 
 /-- A crossing product has positive renewal cofactor and positive far-prime
 coordinate. -/
@@ -133,9 +133,9 @@ private theorem crossingProduct_positive_coordinates
     ⟨hq, _hqR, hd1, hp, _hpR, _hdsq, _hdq, _hcut⟩
   have hcoords := lowWheelFarPrimeProduct_coordinates ht
   have hcof : canonicalCofactor (t.2.1 * t.2.2) = t.2.1 := by
-    simpa [lowWheelFarPrimeProductKey] using hcoords.2
+    simpa [lowWheelFarPrimeProductKey] using! hcoords.2
   have hfar : canonicalLargestPrimeFactor (t.2.1 * t.2.2) = t.2.2 := by
-    simpa [lowWheelFarPrimeProductKey] using hcoords.1
+    simpa [lowWheelFarPrimeProductKey] using! hcoords.1
   rw [← htx]
   simp only [lowWheelFarPrimeCrossingRenewalLowCofactor,
     lowWheelFarPrimeProductKey]

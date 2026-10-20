@@ -37,7 +37,7 @@ theorem k2_abel_Icc_one
       (∑ n ∈ Finset.Icc 1 N, a n) * b N +
         ∑ n ∈ Finset.Ico 1 N,
           (∑ k ∈ Finset.Icc 1 n, a k) * (b n - b (n + 1)) := by
-  simpa using nativeAbelIccOne a b N
+  simpa using! nativeAbelIccOne a b N
 
 /-- The raw cube prefix is `Σ μ(n) log(n)^3 / n`. -/
 theorem k2C3_eq (N : ℕ) :
@@ -86,7 +86,7 @@ theorem k2F_eq_hyperbola (N : ℕ) :
     nativePNTSignedSecondSelbergKernelRecipMass N =
       ∑ d ∈ Finset.Icc 1 N,
         nativeMobiusLogSquareRecipWeight d * k2H N d := by
-  simpa [k2H] using
+  simpa [k2H] using!
     nativePNTSignedSecondSelbergKernelRecipMass_eq_mobius_harmonic N
 
 /-- Generic finite difference telescope on `Ico 1 N`. -/

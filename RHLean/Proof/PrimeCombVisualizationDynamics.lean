@@ -145,10 +145,10 @@ theorem frozenPrimeUniverseMass_insert
       constructor
       · intro hle
         apply (Nat.le_div_iff_mul_le hpPrime.pos).2
-        simpa [Nat.mul_comm] using hle
+        simpa [Nat.mul_comm] using! hle
       · intro hle
         have hmul := (Nat.le_div_iff_mul_le hpPrime.pos).1 hle
-        simpa [Nat.mul_comm] using hmul
+        simpa [Nat.mul_comm] using! hmul
     by_cases hle : primeFaceProduct t ≤ X / p
     · have hchildFit := hcut.mpr hle
       simp [hle, hchildFit, hsign]
@@ -177,7 +177,7 @@ theorem frozenPrimeUniverseMass_eq_zero_of_complete_old_cube
         have htS : t ⊆ S := Finset.mem_powerset.mp ht
         have hprodLe : primeFaceProduct t ≤ primeFaceProduct S := by
           unfold primeFaceProduct
-          exact Finset.prod_le_prod_of_subset_of_one_le' htS (by
+          exact Finset.prod_le_prod_of_subset_of_one_le htS (by
             intro q hqS _hqt
             exact (hprime q hqS).one_le)
         simp [hprodLe.trans hfit]
@@ -222,14 +222,14 @@ theorem neg_frozenPrimeUniverseMass_div_eq_missingParentMass
     · have hmul : primeFaceProduct t * p ≤ X :=
         (Nat.le_div_iff_mul_le hpPrime.pos).1 hfit
       have hmul' : p * primeFaceProduct t ≤ X := by
-        simpa [Nat.mul_comm] using hmul
+        simpa [Nat.mul_comm] using! hmul
       have hnotmiss : ¬ X < p * primeFaceProduct t :=
         Nat.not_lt.mpr hmul'
       simp [hfit, hnotmiss]
     · have hlt : X / p < primeFaceProduct t := Nat.lt_of_not_ge hfit
       have hmiss : X < p * primeFaceProduct t := by
         have h := (Nat.div_lt_iff_lt_mul hpPrime.pos).1 hlt
-        simpa [Nat.mul_comm] using h
+        simpa [Nat.mul_comm] using! h
       simp [hfit, hmiss]
   have hzero := booleanCubeAlternatingSum_eq_zero hS
   rw [hzero] at hpartition
@@ -349,12 +349,12 @@ theorem primeComb_inert_div_eq_one
   have hWlt0 : W < p * 2 :=
     (Nat.div_lt_iff_lt_mul (by omega : 0 < 2)).1 hpHalf
   have hWlt : W < 2 * p := by
-    simpa [Nat.mul_comm] using hWlt0
+    simpa [Nat.mul_comm] using! hWlt0
   have hlt : W / p < 2 :=
     (Nat.div_lt_iff_lt_mul hp.pos).2 hWlt
   have hle : 1 ≤ W / p := by
     apply (Nat.le_div_iff_mul_le hp.pos).2
-    simpa using hpW
+    simpa using! hpW
   omega
 
 private theorem primeComb_mertensSummatory_one :
@@ -446,7 +446,7 @@ theorem primeCombTailChannelMass_eq_mertens_sub_one
       RHLean.Analysis.mertensSummatory (W / p) - 1 := by
   have hK1 : 1 ≤ W / p := by
     apply (Nat.le_div_iff_mul_le hp).2
-    simpa using hpW
+    simpa using! hpW
   have hset :
       Finset.Icc 1 (W / p) = insert 1 (Finset.Icc 2 (W / p)) := by
     ext c

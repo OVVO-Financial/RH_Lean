@@ -118,7 +118,7 @@ theorem mul_twoPrime_mem_squarefreeIntersection_iff_mem_cofactor
       simp at hm1
     have hmLe : m ≤ X / (q * s) := by
       apply (Nat.le_div_iff_mul_le hprodPos).2
-      simpa [Nat.mul_comm, Nat.mul_left_comm, Nat.mul_assoc] using hmX
+      simpa [Nat.mul_comm, Nat.mul_left_comm, Nat.mul_assoc] using! hmX
     have hsplit :=
       (squarefree_twoPrime_mul_cofactor_iff hq hs hqs).mp hmSq
     exact mem_lowOwnerTwoPrimeSquarefreeCofactorCarrier.mpr
@@ -129,7 +129,7 @@ theorem mul_twoPrime_mem_squarefreeIntersection_iff_mem_cofactor
     have hmPos : 0 < m := by omega
     have hX : q * s * m ≤ X := by
       have h := (Nat.le_div_iff_mul_le hprodPos).1 hmLe
-      simpa [Nat.mul_comm, Nat.mul_left_comm, Nat.mul_assoc] using h
+      simpa [Nat.mul_comm, Nat.mul_left_comm, Nat.mul_assoc] using! h
     have hSq : Squarefree (q * s * m) :=
       (squarefree_twoPrime_mul_cofactor_iff hq hs hqs).2 ⟨hmSq, hrel⟩
     have h1 : 1 ≤ q * s * m := by

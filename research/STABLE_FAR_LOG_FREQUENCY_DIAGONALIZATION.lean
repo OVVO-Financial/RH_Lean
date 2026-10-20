@@ -89,7 +89,7 @@ theorem stableFarLogFrequencyMode_q2_shift
         (t - 2 * Real.log (q : ℝ)) =
       stableFarQ2LogFrequencyMultiplier tau q *
         stableFarLogFrequencyMode tau t := by
-  simpa [stableFarQ2LogFrequencyMultiplier] using
+  simpa [stableFarQ2LogFrequencyMultiplier] using!
     stableFarLogFrequencyMode_shift tau t (2 * Real.log (q : ℝ))
 
 /-! ## The ownerwise q^2 Mertens column as a frequency family -/
@@ -244,7 +244,7 @@ theorem frozenPrimeUniverse_zeroFrequency_telescope
       stableFarFrozenWindowProfile A B 0 -
         stableFarFrozenWindowProfile A B K := by
   have h := frozenPrimeUniverse_logFrequency_telescope 0 A B K hK hAB
-  simpa using h
+  simpa using! h
 
 /-! ## Specialize to the owner-first stable-far geometry -/
 
@@ -286,7 +286,7 @@ theorem stableFar_ownerFirst_logFrequency_decomposition
   have hq2 : 2 ≤ q := hq.two_le
   have hK : 1 ≤ q - 1 := by omega
   have hqq : q ≤ q * q := by
-    simpa using Nat.mul_le_mul_left q hq.one_le
+    simpa using! Nat.mul_le_mul_left q hq.one_le
   have hden : q * p ≤ q * q * p := Nat.mul_le_mul_right p hqq
   have hdenPos : 0 < q * p := Nat.mul_pos hq.pos hp.pos
   have hAB : X / (q * q * p) ≤ X / (q * p) :=
@@ -294,6 +294,6 @@ theorem stableFar_ownerFirst_logFrequency_decomposition
   have hfreq := frozenPrimeUniverse_logFrequency_telescope tau
     (X / (q * q * p)) (X / (q * p)) (q - 1) hK hAB
   rw [frozenPrimeUniverseHighPrimeSet_one_eq_primesUpTo]
-  simpa [Nat.div_div_eq_div_mul, Nat.mul_assoc] using hfreq
+  simpa [Nat.div_div_eq_div_mul, Nat.mul_assoc] using! hfreq
 
 end RHLean.Proof

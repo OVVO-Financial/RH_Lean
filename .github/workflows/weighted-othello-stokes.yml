@@ -35,6 +35,12 @@ jobs:
           lint: false
       - name: Build Othello dependency
         run: lake build RHLean.Proof.GlobalPrefixCarrierOthello
+      - name: Build RHLean modules imported by these research checks
+        run: >-
+          python3 scripts/compile_research_import_closure.py --library-only
+          research/GLOBAL_RETURNED_CORE_ITERATED_PAIR_STOKES.lean
+          research/GLOBAL_RETURNED_CORE_PAIR_WEIGHTED_OTHELLO_STOKES.lean
+          research/GLOBAL_RETURNED_CORE_WEIGHTED_OTHELLO_STOKES.lean
       - name: Kernel-check and emit weighted Othello Stokes identity
         shell: bash
         run: |

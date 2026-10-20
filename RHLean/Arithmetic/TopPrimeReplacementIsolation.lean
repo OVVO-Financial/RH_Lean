@@ -95,7 +95,7 @@ theorem topPrimeSingleton_admissible_toggle_neighbor_eq_empty
   · rcases hup with ⟨hpnot, hv_eq⟩
     subst v
     have hpq : p ≠ q := by
-      simpa using hpnot
+      simpa using! hpnot
     exfalso
     exact (topPrimeSingleton_insert_prime_not_admissible
       (S := S) hq_top hp hpq) hv
@@ -103,10 +103,10 @@ theorem topPrimeSingleton_admissible_toggle_neighbor_eq_empty
     have hcard : ({q} : Finset ℕ).card = (insert p v).card :=
       congrArg Finset.card heq
     have hcard' : 1 = v.card + 1 := by
-      simpa [hpnot] using hcard
+      simpa [hpnot] using! hcard
     have hzero : 0 = v.card := by
       apply Nat.succ.inj
-      simpa [Nat.succ_eq_add_one] using hcard'
+      simpa [Nat.succ_eq_add_one] using! hcard'
     exact Finset.card_eq_zero.mp hzero.symm
 
 /-- Two distinct top-prime singleton faces cannot both be sent to admissible
@@ -134,7 +134,7 @@ theorem no_injective_singlePrimeToggle_pairing_of_two_topPrimes
     rw [hf₁empty, hf₂empty]
   have hsingle : ({q₁} : Finset ℕ) = {q₂} := hinj himage
   have hqeq : q₁ = q₂ := by
-    simpa using hsingle
+    simpa using! hsingle
   exact hne hqeq
 
 /-- In particular, no involution can pair two distinct top-prime singleton faces

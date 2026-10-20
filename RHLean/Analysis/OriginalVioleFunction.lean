@@ -103,7 +103,7 @@ theorem originalVFImpliedBase_tendsto_e
     atTop (𝓝 (Real.exp 1))
   have htarget : Real.exp (1 / (1 - (0 : ℝ))) = Real.exp 1 := by
     norm_num
-  simpa only [Function.comp_apply, htarget] using hcont.tendsto.comp hRatio
+  simpa only [Function.comp_apply, htarget] using! hcont.tendsto.comp hRatio
 
 /-! ## Abel return for the dynamic Viole square-block correlation
 
@@ -177,12 +177,12 @@ theorem nativePNTSignedSquareBlockMobiusCorrelation_eq_abel_reciprocalPrefix
       intro m hm
       have hm0 : m ≠ 0 := by
         have hmnot : m ∉ ({0} : Finset Nat) := (Finset.mem_sdiff.mp hm).2
-        simpa using hmnot
+        simpa using! hmnot
       rw [← natCast_mul_nativePNTSignedSquareBlockCorrelationReciprocalSummand
         N M L (Nat.pos_of_ne_zero hm0)]
       ring
     rw [hweighted] at hsplit
-    simpa [v] using hsplit
+    simpa [v] using! hsplit
   rw [hleft, habel]
   unfold nativePNTSignedSquareBlockCorrelationReciprocalPrefix
   simp only [inclusivePrefix]
@@ -394,7 +394,7 @@ theorem nativePNTDirectCutoffTransitionDivisorSet_endpoint_eq_empty_of_subdoubli
     (hM.trans hML) hML]
   have hLL : L / L = 1 := Nat.div_self (by omega)
   have hLM : L / M = 1 := by
-    exact Nat.div_eq_of_lt_le (by simpa using hML) (by simpa using hsub)
+    exact Nat.div_eq_of_lt_le (by simpa using! hML) (by simpa using! hsub)
   rw [hLL, hLM]
   simp
 

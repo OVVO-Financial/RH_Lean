@@ -113,7 +113,7 @@ theorem vfSevenEighthsWeightedIncrement_abs_le_twice_initial
         ∑ r ∈ Finset.Ico a b,
           |(w r - w (r + 1)) * E r| := by
           apply add_le_add
-          · simpa only [sub_zero, zero_sub, abs_neg] using
+          · simpa only [sub_zero, zero_sub, abs_neg] using!
               (abs_sub_le (w b * E b) 0 (w a * E a))
           · exact Finset.abs_sum_le_sum_abs _ _
     _ ≤ (w b * M + w a * M) + (w a - w b) * M := by

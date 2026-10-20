@@ -48,7 +48,7 @@ theorem primeOwnerReciprocalSquareBudgetReal_le_109_over_225 (N : ℕ) :
     exact_mod_cast hbudgetQ
   push_cast at hcast
   norm_num at hcast ⊢
-  simpa [Nat.cast_pow] using hcast
+  simpa [Nat.cast_pow] using! hcast
 
 /-- **Basel-sharpened contraction on the reversed greatest-owner graph.** -/
 theorem lowOwnerGreatestOwnerReciprocalOutgoingEnergy_le_218_over_225

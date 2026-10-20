@@ -56,7 +56,7 @@ theorem vfMidSquareWheel_composite_floor_centered_iff
     (2 * (R : ℝ) - Q - E ≤
         ((vfMidSquareWheelComposites R).card : ℝ)) ↔
       (((vfMidSquareWheelPrimes R).card : ℝ) ≤ Q + E) := by
-  simpa [sub_sub] using
+  simpa [sub_sub] using!
     (vfMidSquareWheel_composite_floor_iff_prime_ceiling R (Q + E))
 
 /-- **Real VF-mid reverse bridge.**  A composite floor at the midpoint-demand
@@ -180,7 +180,7 @@ private theorem vfMidSquareWheelPrime_coprime_six
     (R := R) (n := n) (p := 2) (by omega) (by omega) Nat.prime_two hn
   have h3 := vfMidSquareWheelPrime_coprime_smallPrime
     (R := R) (n := n) (p := 3) (by omega) (by omega) (by norm_num) hn
-  simpa using Nat.Coprime.mul_right h2 h3
+  simpa using! Nat.Coprime.mul_right h2 h3
 
 private theorem vfMidSquareWheelPrime_coprime_thirty
     {R n : ℕ} (hR : 5 ≤ R)
@@ -190,7 +190,7 @@ private theorem vfMidSquareWheelPrime_coprime_thirty
     (by omega) hn
   have h5 := vfMidSquareWheelPrime_coprime_smallPrime
     (R := R) (n := n) (p := 5) (by omega) (by omega) (by norm_num) hn
-  simpa using Nat.Coprime.mul_right h6 h5
+  simpa using! Nat.Coprime.mul_right h6 h5
 
 private theorem vfMidSquareWheelPrime_coprime_twoTen
     {R n : ℕ} (hR : 7 ≤ R)
@@ -200,7 +200,7 @@ private theorem vfMidSquareWheelPrime_coprime_twoTen
     (by omega) hn
   have h7 := vfMidSquareWheelPrime_coprime_smallPrime
     (R := R) (n := n) (p := 7) (by omega) (by omega) (by norm_num) hn
-  simpa using Nat.Coprime.mul_right h30 h7
+  simpa using! Nat.Coprime.mul_right h30 h7
 
 /-- The 6-wheel leaves at most 2R/3 + 4 possible prime sites. -/
 theorem vfMidSquareWheelPrime_card_le_six

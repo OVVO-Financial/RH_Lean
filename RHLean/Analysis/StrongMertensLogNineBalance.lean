@@ -110,7 +110,7 @@ theorem nativeMertensSharpReal_logNine_subexp_eventually_for
           ≤ Cc * X * Real.exp (-c * strongMertensScale X) +
             Cs * X * Real.exp (-c * strongMertensScale X) := add_le_add hclose' hs
         _ = (Cc + Cs) * X * Real.exp (-c * strongMertensScale X) := by ring
-  simpa [c, Complex.norm_real, Real.norm_eq_abs] using hfinal
+  simpa [c, Complex.norm_real, Real.norm_eq_abs] using! hfinal
 
 /-- The sharp real estimate transfers exactly to natural Mertens endpoints. -/
 theorem nativeMertensSummatory_logNine_subexp_eventually
@@ -131,7 +131,7 @@ theorem nativeMertensSummatory_logNine_subexp_eventually
   refine ⟨C, hC, ?_⟩
   have hnat := tendsto_natCast_atTop_atTop.eventually hreal
   filter_upwards [hnat] with N hN
-  simpa using hN
+  simpa using! hN
 
 /-- The global natural-endpoint target follows from the canonical log-nine
 corridor and finite-prefix absorption. -/
@@ -166,7 +166,7 @@ theorem strongNativeMertensSubexp : StrongNativeMertensSubexp := by
   by_cases hMN : M ≤ N
   · have htail := hM N hMN
     have htailD : |nativeMertensSummatory N| ≤ C0 * D N := by
-      simpa [D, c, mul_assoc] using htail
+      simpa [D, c, mul_assoc] using! htail
     calc
       |nativeMertensSummatory N| ≤ C0 * D N := htailD
       _ ≤ (C0 + S) * D N := by

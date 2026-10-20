@@ -95,7 +95,7 @@ theorem critical_one_sub_mul_edge_eq_quadratic_add_reciprocalBoundary
           (if W < p * Nat.lcm a b then 1 else 0) +
         (1 / (p : ℝ)) * (1 - 1 / (p : ℝ)) *
           (if W < p * Nat.lcm a b ∧ W < p * b then 1 else 0) := by
-  simpa using
+  simpa using!
     one_sub_mul_physicalSuperLcmMellinEdge_eq_quadratic_add_clippedBoundary
       (W := W) (p := p) (a := a) (b := b) (r := 1 / (p : ℝ))
       hp hpa hpb hab hbW hpaW
@@ -104,7 +104,7 @@ theorem critical_clippedBoundary_reciprocal_sq_eq_perronEnergy
     (tau : ℝ) {p : ℕ} (hp : p.Prime) :
     (1 / (p : ℝ)) ^ 2 =
       ‖stableFarCriticalQ2LogMultiplier tau p‖ ^ 2 := by
-  simpa [div_pow] using
+  simpa [div_pow] using!
     zeroTarget_reciprocalSquare_eq_norm_sq_criticalQ2Multiplier tau hp.pos
 
 end RHLean.Proof

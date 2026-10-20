@@ -97,7 +97,7 @@ theorem squareRootTopFibrePrimes_subset_negative
     (Nat.le_div_iff_mul_le (by norm_num : 0 < 2)).2 hmul
   apply Finset.mem_filter.mpr
   refine ⟨Finset.mem_Ioc.mpr ⟨hhalf.trans_lt hqHalf, hqX⟩, ?_⟩
-  simpa using ArithmeticFunction.moebius_apply_prime hqPrime
+  simpa using! ArithmeticFunction.moebius_apply_prime hqPrime
 
 /-- **Top-prime isolation.**  A top-half prime has no opposite-sign neighbor
 obtained by inserting or deleting one prime while remaining in the tail. -/
@@ -117,7 +117,7 @@ theorem squareRootTopFibrePrimes_neighbors_eq_empty
   rcases hrel with hqeq | hmeq
   · have hmdvd : m ∣ q := by
       refine ⟨p, ?_⟩
-      simpa [Nat.mul_comm] using hqeq
+      simpa [Nat.mul_comm] using! hqeq
     rcases hqPrime.eq_one_or_self_of_dvd m hmdvd with hm1 | hmq
     · omega
     · subst m
@@ -127,9 +127,9 @@ theorem squareRootTopFibrePrimes_neighbors_eq_empty
   · have hXlt2q : squareRootEndpoint R < 2 * q := by
       have h :=
         (Nat.div_lt_iff_lt_mul (by norm_num : 0 < 2)).1 hqHalf
-      simpa [Nat.mul_comm] using h
+      simpa [Nat.mul_comm] using! h
     have h2q_le_pq : 2 * q ≤ p * q := by
-      simpa [Nat.mul_comm] using Nat.mul_le_mul_right q hpPrime.two_le
+      simpa [Nat.mul_comm] using! Nat.mul_le_mul_right q hpPrime.two_le
     have hXltm : squareRootEndpoint R < m := by
       rw [hmeq]
       exact hXlt2q.trans_le h2q_le_pq
@@ -634,7 +634,7 @@ theorem sum_squareRootCanonicalRoughResponseCentered_eq_boundaryMass_add_survivo
         (∑ n ∈ squareRootCanonicalRoughFreshPrimePairedOn p U,
           squareRootCanonicalRoughResponseCenteredSummand R n) =
         ∑ n ∈ U, squareRootCanonicalRoughResponseCenteredSummand R n := by
-    simpa [squareRootCanonicalRoughFreshPrimeSurvivorsOn] using
+    simpa [squareRootCanonicalRoughFreshPrimeSurvivorsOn] using!
       (Finset.sum_sdiff hsub
         (f := squareRootCanonicalRoughResponseCenteredSummand R))
   rw [sum_squareRootCanonicalRoughFreshPrimePairedOn_eq_boundaryMass

@@ -52,7 +52,7 @@ theorem exactLiDickmanSegment_continuousOn (n : ℕ) :
       (Icc ((n : ℕ) : ℝ) (((n + 1 : ℕ) : ℝ))) := by
   induction n with
   | zero =>
-      simpa [exactLiDickmanSegment] using
+      simpa [exactLiDickmanSegment] using!
         (continuousOn_const : ContinuousOn (fun _ : ℝ => (1 : ℝ)) (Icc 0 1))
   | succ n ih =>
       let a : ℝ := ((n + 1 : ℕ) : ℝ)
@@ -64,7 +64,7 @@ theorem exactLiDickmanSegment_continuousOn (n : ℕ) :
       have hmap :
           MapsTo (fun v : ℝ => v - 1) (Icc a b)
             (Icc ((n : ℕ) : ℝ) (((n + 1 : ℕ) : ℝ))) := by
-        simpa [a, b] using exactLiDickman_shift_mapsTo n
+        simpa [a, b] using! exactLiDickman_shift_mapsTo n
       have hprev :
           ContinuousOn (fun v : ℝ => exactLiDickmanSegment n (v - 1))
             (Icc a b) :=
@@ -85,7 +85,7 @@ theorem exactLiDickmanSegment_continuousOn (n : ℕ) :
         dsimp [a, b]
         norm_num
       have hfu : ContinuousOn f [[a, b]] := by
-        simpa [uIcc_of_le hab] using hf
+        simpa [uIcc_of_le hab] using! hf
       have hfint : IntervalIntegrable f MeasureTheory.volume a b :=
         hfu.intervalIntegrable
       have hprim :
@@ -94,7 +94,7 @@ theorem exactLiDickmanSegment_continuousOn (n : ℕ) :
         have ha_mem : a ∈ [[a, b]] := left_mem_uIcc
         have hp :=
           intervalIntegral.continuousOn_primitive_interval' hfint ha_mem
-        simpa [uIcc_of_le hab] using hp
+        simpa [uIcc_of_le hab] using! hp
       have hconst :
           ContinuousOn (fun _ : ℝ =>
             exactLiDickmanSegment n (n + 1 : ℕ)) (Icc a b) :=
@@ -106,7 +106,7 @@ theorem exactLiDickmanSegment_continuousOn (n : ℕ) :
                 ∫ v in a..u, f v)
             (Icc a b) :=
         hconst.sub hprim
-      convert hout using 1
+      simpa only [exactLiDickmanSegment, a, f] using hout
 
 /-- The delay integrand on one successor segment is interval-integrable. -/
 theorem exactLiDickmanSegment_delay_intervalIntegrable
@@ -123,7 +123,7 @@ theorem exactLiDickmanSegment_delay_intervalIntegrable
   have hmap :
       MapsTo (fun v : ℝ => v - 1) (Icc a b)
         (Icc ((n : ℕ) : ℝ) (((n + 1 : ℕ) : ℝ))) := by
-    simpa [a, b] using exactLiDickman_shift_mapsTo n
+    simpa [a, b] using! exactLiDickman_shift_mapsTo n
   have hprev :
       ContinuousOn (fun v : ℝ => exactLiDickmanSegment n (v - 1))
         (Icc a b) :=
@@ -147,8 +147,8 @@ theorem exactLiDickmanSegment_delay_intervalIntegrable
       ContinuousOn
         (fun v : ℝ => exactLiDickmanSegment n (v - 1) / v)
         [[a, b]] := by
-    simpa [uIcc_of_le hab] using hf
-  simpa [a, b] using hfu.intervalIntegrable
+    simpa [uIcc_of_le hab] using! hf
+  simpa [a, b] using! hfu.intervalIntegrable
 
 
 /-- **Dickman delay differential equation on each open successor segment.**
@@ -164,14 +164,14 @@ theorem exactLiDickmanSegment_succ_hasDerivAt
   let b : ℝ := ((n + 2 : ℕ) : ℝ)
   let g : ℝ → ℝ := fun v => exactLiDickmanSegment n (v - 1) / v
   have hu' : u ∈ Ioo a b := by
-    simpa [a, b] using hu
+    simpa [a, b] using! hu
   have hshift :
       ContinuousOn (fun v : ℝ => v - 1) (Icc a b) := by
     fun_prop
   have hmap :
       MapsTo (fun v : ℝ => v - 1) (Icc a b)
         (Icc ((n : ℕ) : ℝ) (((n + 1 : ℕ) : ℝ))) := by
-    simpa [a, b] using exactLiDickman_shift_mapsTo n
+    simpa [a, b] using! exactLiDickman_shift_mapsTo n
   have hprev :
       ContinuousOn (fun v : ℝ => exactLiDickmanSegment n (v - 1))
         (Icc a b) :=
@@ -187,7 +187,7 @@ theorem exactLiDickmanSegment_succ_hasDerivAt
     dsimp [g]
     exact hprev.div continuousOn_id hne
   have hgint : IntervalIntegrable g MeasureTheory.volume a b := by
-    simpa [a, b, g] using
+    simpa [a, b, g] using!
       exactLiDickmanSegment_delay_intervalIntegrable n
   have hgAt : ContinuousAt g u :=
     (hgcont u (Ioo_subset_Icc_self hu')).continuousAt
@@ -212,7 +212,7 @@ theorem exactLiDickmanSegment_succ_hasDerivAt
         (fun _ : ℝ => exactLiDickmanSegment n (n + 1 : ℕ)) 0 u :=
     hasDerivAt_const u _
   have hsub := hconst.sub hint
-  simpa [exactLiDickmanSegment, a, g, neg_div] using hsub
+  simpa [exactLiDickmanSegment, a, g, neg_div] using! hsub
 
 
 /-- **Dickman unit-interval endpoint identity.**
@@ -236,7 +236,7 @@ theorem exactLiDickmanSegment_endpoint_identity (n : ℕ) :
         dsimp [a, b]
         norm_num
       have hrcont : ContinuousOn r (Icc a b) := by
-        simpa [r, a, b, Nat.cast_add, Nat.cast_one, add_assoc] using
+        simpa [r, a, b, Nat.cast_add, Nat.cast_one, add_assoc] using!
           exactLiDickmanSegment_continuousOn (n + 1)
       have hshift :
           ContinuousOn (fun u : ℝ => u - 1) (Icc a b) := by
@@ -244,7 +244,7 @@ theorem exactLiDickmanSegment_endpoint_identity (n : ℕ) :
       have hmap :
           MapsTo (fun u : ℝ => u - 1) (Icc a b)
             (Icc ((n : ℕ) : ℝ) (((n + 1 : ℕ) : ℝ))) := by
-        simpa [a, b] using exactLiDickman_shift_mapsTo n
+        simpa [a, b] using! exactLiDickman_shift_mapsTo n
       have hpcont :
           ContinuousOn (fun u : ℝ => p (u - 1)) (Icc a b) := by
         dsimp [p]
@@ -264,9 +264,9 @@ theorem exactLiDickmanSegment_endpoint_identity (n : ℕ) :
           exact ne_of_gt (lt_of_lt_of_le (by norm_num) (ha1.trans hu.1.le))
         have hrder :
             HasDerivAt r (-p (u - 1) / u) u := by
-          simpa [r, p, a, b] using
+          simpa [r, p, a, b] using!
             exactLiDickmanSegment_succ_hasDerivAt n
-              (by simpa [a, b] using hu)
+              (by simpa [a, b] using! hu)
         have hmul := (hasDerivAt_id u).mul hrder
         have hcoef :
             r u + u * (-p (u - 1) / u) =
@@ -276,14 +276,14 @@ theorem exactLiDickmanSegment_endpoint_identity (n : ℕ) :
         have hmul' :
             HasDerivAt (fun t : ℝ => t * r t)
               (r u + u * (-p (u - 1) / u)) u := by
-          simpa using hmul
+          simpa using! hmul
         rw [hcoef] at hmul'
         exact hmul'.hasDerivWithinAt
       have hr_uIcc : ContinuousOn r [[a, b]] := by
-        simpa [uIcc_of_le hab] using hrcont
+        simpa [uIcc_of_le hab] using! hrcont
       have hp_uIcc :
           ContinuousOn (fun u : ℝ => p (u - 1)) [[a, b]] := by
-        simpa [uIcc_of_le hab] using hpcont
+        simpa [uIcc_of_le hab] using! hpcont
       have hrint : IntervalIntegrable r MeasureTheory.volume a b :=
         hr_uIcc.intervalIntegrable
       have hpint :
@@ -309,17 +309,17 @@ theorem exactLiDickmanSegment_endpoint_identity (n : ℕ) :
         congr 1 <;> dsimp [a, b] <;> push_cast <;> ring
       have ih' :
           a * p a = ∫ u in (n : ℝ)..a, p u := by
-        simpa [a, p] using ih
+        simpa [a, p] using! ih
       have hpIntegral :
           (∫ u in a..b, p (u - 1)) = a * p a := by
         rw [hpShift, ← ih']
       have hglue : r a = p a := by
-        simpa [r, p, a] using exactLiDickmanSegment_succ_left n
+        simpa [r, p, a] using! exactLiDickmanSegment_succ_left n
       rw [hpIntegral, hglue] at hFTC
       have htarget :
           b * r b = ∫ u in a..b, r u := by
         linarith
-      simpa [a, b, r, Nat.cast_add, Nat.cast_one, add_assoc] using htarget
+      simpa [a, b, r, Nat.cast_add, Nat.cast_one, add_assoc] using! htarget
 
 
 
@@ -359,7 +359,7 @@ theorem exactLiDickmanSegment_succ_antitoneOn_of_prev_nonneg
     have hneg :
         -(exactLiDickmanSegment n (u - 1) / u) ≤ 0 :=
       neg_nonpos.mpr hdiv
-    simpa [neg_div] using hneg
+    simpa [neg_div] using! hneg
 
 /-- If the previous Dickman segment is nonnegative, then the successor segment
 is nonnegative as well.  The key endpoint step uses the exact endpoint-average
@@ -378,11 +378,11 @@ theorem exactLiDickmanSegment_succ_nonneg_of_prev_nonneg
     dsimp [a, b]
     norm_num
   have hanti : AntitoneOn f (Icc a b) := by
-    simpa [a, b, f] using
+    simpa [a, b, f] using!
       exactLiDickmanSegment_succ_antitoneOn_of_prev_nonneg n hprev
   have hcont : ContinuousOn f [[a, b]] := by
     have hc := exactLiDickmanSegment_continuousOn (n + 1)
-    simpa [a, b, f, uIcc_of_le hab, Nat.cast_add, Nat.cast_one, add_assoc] using hc
+    simpa [a, b, f, uIcc_of_le hab, Nat.cast_add, Nat.cast_one, add_assoc] using! hc
   have hfint : IntervalIntegrable f MeasureTheory.volume a b :=
     hcont.intervalIntegrable
   have hconstint :
@@ -405,7 +405,7 @@ theorem exactLiDickmanSegment_succ_nonneg_of_prev_nonneg
   have hid := exactLiDickmanSegment_endpoint_identity (n + 1)
   have hid' :
       b * f b = ∫ x in a..b, f x := by
-    simpa [a, b, f, Nat.cast_add, Nat.cast_one, add_assoc] using hid
+    simpa [a, b, f, Nat.cast_add, Nat.cast_one, add_assoc] using! hid
   rw [← hid'] at hmono
   have hbgt : (1 : ℝ) < b := by
     dsimp [b]
@@ -468,7 +468,7 @@ theorem exactLiDickmanSegment_le_inv_factorial (n : ℕ) :
           ContinuousOn p
             [[((n : ℕ) : ℝ), a]] := by
         have hc := exactLiDickmanSegment_continuousOn n
-        simpa [p, a, uIcc_of_le hna] using hc
+        simpa [p, a, uIcc_of_le hna] using! hc
       have hpint :
           IntervalIntegrable p MeasureTheory.volume ((n : ℕ) : ℝ) a :=
         hpcont.intervalIntegrable
@@ -487,14 +487,14 @@ theorem exactLiDickmanSegment_le_inv_factorial (n : ℕ) :
                   (Nat.factorial n : ℝ)⁻¹ := by
                 apply intervalIntegral.integral_mono_on hna hpint hcint
                 intro x hx
-                exact ih x (by simpa [a] using hx)
+                exact ih x (by simpa [a] using! hx)
           _ = (Nat.factorial n : ℝ)⁻¹ := by
                 simp [a]
       have hid := exactLiDickmanSegment_endpoint_identity n
       have hid' :
           a * p a =
             ∫ x in ((n : ℕ) : ℝ)..a, p x := by
-        simpa [a, p] using hid
+        simpa [a, p] using! hid
       have hprod :
           a * p a ≤ (Nat.factorial n : ℝ)⁻¹ := by
         rw [hid']
@@ -505,7 +505,7 @@ theorem exactLiDickmanSegment_le_inv_factorial (n : ℕ) :
       have hpa :
           p a ≤ (Nat.factorial n : ℝ)⁻¹ / a := by
         apply (le_div_iff₀ hapos).2
-        simpa [mul_comm] using hprod
+        simpa [mul_comm] using! hprod
       have hfac :
           (Nat.factorial (n + 1) : ℝ) =
             a * (Nat.factorial n : ℝ) := by
@@ -521,11 +521,11 @@ theorem exactLiDickmanSegment_le_inv_factorial (n : ℕ) :
       have hleft :
           f a ≤ (Nat.factorial (n + 1) : ℝ)⁻¹ := by
         have hglue : f a = p a := by
-          simpa [f, p, a] using exactLiDickmanSegment_succ_left n
+          simpa [f, p, a] using! exactLiDickmanSegment_succ_left n
         rw [hglue, ← hratio]
         exact hpa
       have hanti : AntitoneOn f (Icc a b) := by
-        simpa [f, a, b, Nat.cast_add, Nat.cast_one, add_assoc] using
+        simpa [f, a, b, Nat.cast_add, Nat.cast_one, add_assoc] using!
           exactLiDickmanSegment_antitoneOn (n + 1)
       intro u hu
       have hamem : a ∈ Icc a b := ⟨le_rfl, hab⟩
@@ -544,7 +544,7 @@ theorem exactLiDickmanFactorialMajorant_summable :
   let f : ℕ → ℝ := fun n =>
     (2 : ℝ) ^ n / (Nat.factorial n : ℝ)
   have hs : Summable f := by
-    simpa [f] using Real.summable_pow_div_factorial 2
+    simpa [f] using! Real.summable_pow_div_factorial 2
   have hshift : Summable (fun n : ℕ => f (n + 1)) :=
     (summable_nat_add_iff 1 (G := ℝ)).2 hs
   have hpoint :
@@ -566,7 +566,7 @@ theorem tsum_exactLiDickmanFactorialMajorant :
   let f : ℕ → ℝ := fun n =>
     (2 : ℝ) ^ n / (Nat.factorial n : ℝ)
   have hs : Summable f := by
-    simpa [f] using Real.summable_pow_div_factorial 2
+    simpa [f] using! Real.summable_pow_div_factorial 2
   have hsplit := hs.sum_add_tsum_nat_add 1
   have hsum : (∑' n : ℕ, f n) = Real.exp 2 := by
     dsimp [f]
@@ -644,9 +644,9 @@ theorem exactLiDickmanVariationIntegrand_le_majorant
         (((n + 2 : ℕ) : ℝ)) * Real.log 2 := by
     apply mul_le_mul_of_nonneg_right _ hlog2.le
     have huupper : u ≤ (n : ℝ) + 1 := by
-      simpa [Nat.cast_add, Nat.cast_one] using hu.2
+      simpa [Nat.cast_add, Nat.cast_one] using! hu.2
     have hshift : u + 1 ≤ (n : ℝ) + 2 := by linarith
-    simpa [Nat.cast_add, Nat.cast_one, add_assoc] using hshift
+    simpa [Nat.cast_add, Nat.cast_one, add_assoc] using! hshift
   have hexp :
       Real.exp ((u + 1) * Real.log 2) ≤
         (2 : ℝ) ^ (n + 2) := by
@@ -659,7 +659,7 @@ theorem exactLiDickmanVariationIntegrand_le_majorant
   have hdenle :
       ((n + 1 : ℕ) : ℝ) ≤ u + 1 := by
     have hshift : (n : ℝ) + 1 ≤ u + 1 := by linarith [hu.1]
-    simpa [Nat.cast_add, Nat.cast_one] using hshift
+    simpa [Nat.cast_add, Nat.cast_one] using! hshift
   have hfrac :
       Real.exp ((u + 1) * Real.log 2) / (u + 1) ≤
         (2 : ℝ) ^ (n + 2) / ((n + 1 : ℕ) : ℝ) := by
@@ -720,7 +720,7 @@ theorem exactLiDickmanVariationSegment_le_majorant (n : ℕ) :
     have hu :
         ContinuousOn (exactLiDickmanVariationIntegrand n)
           [[(n : ℝ), (((n + 1 : ℕ) : ℝ))]] := by
-      simpa [uIcc_of_le hab] using hcont
+      simpa [uIcc_of_le hab] using! hcont
     exact hu.intervalIntegrable
   have hconst : IntervalIntegrable
       (fun _ : ℝ => exactLiDickmanFactorialMajorant n)
@@ -802,7 +802,7 @@ theorem exactLiDickmanVariationPartial_le_majorant
     have hucc :
         ContinuousOn (exactLiDickmanVariationIntegrand N)
           [[(N : ℝ), (((N + 1 : ℕ) : ℝ))]] := by
-      simpa [uIcc_of_le hab] using hc
+      simpa [uIcc_of_le hab] using! hc
     exact hucc.intervalIntegrable
   have hnonneg :
       0 ≤ᵐ[MeasureTheory.volume.restrict
@@ -931,7 +931,7 @@ theorem exactLiDickmanLogCoordinate_nonneg
   have hdiv :
       (1 : ℝ) ≤ Real.log (x : ℝ) / Real.log 2 := by
     rw [le_div_iff₀ hlog2]
-    simpa using hlogle
+    simpa using! hlogle
   unfold exactLiDickmanLogCoordinate
   linarith
 
@@ -955,7 +955,7 @@ theorem exactLiDickmanLogCoordinate_mem_native
   constructor
   · exact hlow
   · have : u ≤ (N : ℝ) + 1 := hhigh.le
-    simpa [Nat.cast_add, Nat.cast_one] using this
+    simpa [Nat.cast_add, Nat.cast_one] using! this
 
 /-- Concrete integer-sampled continuous exact-Li Dickman reference. -/
 def exactLiDickmanIntegerReference (x : ℕ) : ℂ :=
@@ -971,11 +971,11 @@ theorem norm_exactLiDickmanIntegerReference_le (x : ℕ) :
     ‖exactLiDickmanIntegerReference x‖ ≤
       2 * Real.exp 2 - 1 := by
   by_cases hx : 2 ≤ x
-  · rw [exactLiDickmanIntegerReference, if_pos hx]
+  · rw [exactLiDickmanIntegerReference, ite_eq_left hx]
     exact norm_exactLiDickmanCumulativeReferenceC_le
       (exactLiDickmanLogSegment x)
       (exactLiDickmanLogCoordinate_mem_native hx)
-  · rw [exactLiDickmanIntegerReference, if_neg hx, norm_one]
+  · rw [exactLiDickmanIntegerReference, ite_eq_right hx, norm_one]
     have hexp : (1 : ℝ) ≤ Real.exp 2 :=
       Real.one_le_exp_iff.mpr (by norm_num)
     nlinarith
@@ -1022,7 +1022,7 @@ theorem exactLiContinuousLogCoordinate_nonneg
     Real.log_le_log (by norm_num) hx
   have hdiv : (1 : ℝ) ≤ Real.log x / Real.log 2 := by
     rw [le_div_iff₀ hlog2]
-    simpa using hlogle
+    simpa using! hlogle
   unfold exactLiContinuousLogCoordinate
   linarith
 
@@ -1047,7 +1047,7 @@ theorem exactLiContinuousLogCoordinate_mem_native
   constructor
   · exact hlow
   · have : u ≤ (N : ℝ) + 1 := hhigh.le
-    simpa [Nat.cast_add, Nat.cast_one] using this
+    simpa [Nat.cast_add, Nat.cast_one] using! this
 
 /-- Fully continuous exact-Li cumulative model. For x >= 2 this is the
 continuous Li/Dickman cumulative state evaluated at the real logarithmic
@@ -1067,11 +1067,11 @@ theorem abs_exactLiContinuousCumulative_le (x : ℝ) :
     |exactLiContinuousCumulative x| ≤
       2 * Real.exp 2 - 1 := by
   by_cases hx : 2 ≤ x
-  · rw [exactLiContinuousCumulative, if_pos hx]
+  · rw [exactLiContinuousCumulative, ite_eq_left hx]
     exact abs_exactLiDickmanCumulativeReference_le
       (exactLiContinuousLogSegment x)
       (exactLiContinuousLogCoordinate_mem_native hx)
-  · rw [exactLiContinuousCumulative, if_neg hx, abs_one]
+  · rw [exactLiContinuousCumulative, ite_eq_right hx, abs_one]
     have hexp : (1 : ℝ) ≤ Real.exp 2 :=
       Real.one_le_exp_iff.mpr (by norm_num)
     nlinarith
@@ -1103,13 +1103,13 @@ theorem exactLiContinuousCumulative_sq_le_rootScale
     nlinarith
   have habs :
       |exactLiContinuousCumulative x| ≤ B := by
-    simpa [B] using abs_exactLiContinuousCumulative_le x
+    simpa [B] using! abs_exactLiContinuousCumulative_le x
   have hsqAbs :
       |exactLiContinuousCumulative x| ^ 2 ≤ B ^ 2 :=
     pow_le_pow_left₀ (abs_nonneg _) habs 2
   have hsq :
       exactLiContinuousCumulative x ^ 2 ≤ B ^ 2 := by
-    simpa only [sq_abs] using hsqAbs
+    simpa only [sq_abs] using! hsqAbs
   have hscale : B ^ 2 ≤ B ^ 2 * x := by
     nlinarith [sq_nonneg B]
   calc

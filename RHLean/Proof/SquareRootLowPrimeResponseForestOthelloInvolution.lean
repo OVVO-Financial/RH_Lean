@@ -94,7 +94,7 @@ theorem squareRootLowPrimeResponseForestOthelloMate_weight_neg
       creationResponseOthelloMate
           (squareRootLowPrimeBornInternalAtoms R K U)
           squareRootLowPrimeBadAtomChild x ≠ x := by
-    simpa [squareRootLowPrimeResponseForestOthelloMate] using hne
+    simpa [squareRootLowPrimeResponseForestOthelloMate] using! hne
   have h := creationResponseOthelloMate_weight_neg
     (squareRootLowPrimeBornInternalAtoms R K U)
     squareRootLowPrimeBadAtomChild
@@ -113,7 +113,7 @@ theorem squareRootLowPrimeResponseForestOthelloMate_weight_neg
     funext y
     rcases y with z | c <;> rfl
   rw [hweight]
-  simpa only [squareRootLowPrimeResponseForestOthelloMate] using h
+  simpa only [squareRootLowPrimeResponseForestOthelloMate] using! h
 
 /-- Explicit stable boundary of the response forest. -/
 def squareRootLowPrimeResponseForestOthelloBoundary

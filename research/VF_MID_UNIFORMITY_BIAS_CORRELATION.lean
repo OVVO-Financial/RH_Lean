@@ -153,7 +153,7 @@ theorem vfMidSquareBlock_leftVFError_eq_half_of_unbiased
     vfMidSquareBlockLeftVFError R = vfMidSquareBandError R / 2 := by
   rw [vfMidSquareBlock_leftVFError_eq_half_band_add_bias]
   have hb : vfMidSquareBlockMidpointBias R = 0 := by
-    simpa [VFMidSquareBlockMidpointUnbiased] using hU
+    simpa [VFMidSquareBlockMidpointUnbiased] using! hU
   rw [hb]
   ring
 
@@ -163,7 +163,7 @@ theorem vfMidSquareBlock_rightVFError_eq_half_of_unbiased
     vfMidSquareBlockRightVFError R = vfMidSquareBandError R / 2 := by
   rw [vfMidSquareBlock_rightVFError_eq_half_band_sub_bias]
   have hb : vfMidSquareBlockMidpointBias R = 0 := by
-    simpa [VFMidSquareBlockMidpointUnbiased] using hU
+    simpa [VFMidSquareBlockMidpointUnbiased] using! hU
   rw [hb]
   ring
 
@@ -245,7 +245,7 @@ theorem vfMidSquareBlockBiasLagCorrelation_eq_zero_of_unbiased
   intro k hk
   have hklt : k < n := Finset.mem_range.mp hk
   have hb : vfMidSquareBlockMidpointBias (R + k) = 0 := by
-    simpa [VFMidSquareBlockMidpointUnbiased] using hU k hklt
+    simpa [VFMidSquareBlockMidpointUnbiased] using! hU k hklt
   rw [hb]
   ring
 

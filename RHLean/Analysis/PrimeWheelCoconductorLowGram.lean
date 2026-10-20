@@ -38,13 +38,13 @@ theorem primeWheelCoconductorLowPart_eq_sum_coconductorComponents
         additiveCoconductor r ∈
           ((Finset.range (W.modulus + 1)).filter
             (fun d => d ∣ W.modulus)).filter (fun d => d ≤ D) := by
-      simp [Finset.mem_range, Nat.lt_succ_iff, hle, hdvd, hlow]
+      simp [Finset.mem_range, hle, hdvd, hlow]
     simp [hlow, hmem]
   · have hnotmem :
         additiveCoconductor r ∉
           ((Finset.range (W.modulus + 1)).filter
             (fun d => d ∣ W.modulus)).filter (fun d => d ≤ D) := by
-      simp [Finset.mem_range, Nat.lt_succ_iff, hle, hdvd, hlow]
+      simp [Finset.mem_range, hle, hdvd, hlow]
     simp [hlow, hnotmem]
 
 /-- Signed Gram energy of the complete low co-conductor sector. -/

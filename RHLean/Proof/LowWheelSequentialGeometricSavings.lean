@@ -132,7 +132,7 @@ theorem lowWheelEndpointCrossingDifference_eq_primeShell
       if p * n ≤ X ∧ X < p * p * n then 1 else 0 := by
   unfold lowWheelEndpointCrossingDifference lowWheelEndpointIndicator
   have hnle : n ≤ p * n := by
-    simpa [one_mul] using Nat.mul_le_mul_right n hp
+    simpa [one_mul] using! Nat.mul_le_mul_right n hp
   have hple : p * n ≤ p * p * n := by
     calc
       p * n ≤ p * (p * n) := Nat.mul_le_mul_left p hnle
@@ -148,7 +148,7 @@ theorem lowWheelEndpointSecondDifference_eq_twoPrimeShells
         (if p * n ≤ X ∧ X < p * p * n then 1 else 0) := by
   unfold lowWheelEndpointSecondDifference lowWheelEndpointIndicator
   have hnle : n ≤ p * n := by
-    simpa [one_mul] using Nat.mul_le_mul_right n hp
+    simpa [one_mul] using! Nat.mul_le_mul_right n hp
   have hple : p * n ≤ p * p * n := by
     calc
       p * n ≤ p * (p * n) := Nat.mul_le_mul_left p hnle
@@ -162,7 +162,7 @@ theorem lowWheelRootCrossingDifference_eq_primeShell
       if q ≤ R ∧ R < p * q then -1 else 0 := by
   unfold lowWheelRootCrossingDifference lowWheelRootHighIndicator
   have hqle : q ≤ p * q := by
-    simpa [one_mul] using Nat.mul_le_mul_right q hp
+    simpa [one_mul] using! Nat.mul_le_mul_right q hp
   split_ifs <;> omega
 
 /-- **Sequential geometric localization of one mixed low-wheel coordinate.**
@@ -179,13 +179,13 @@ theorem lowWheelMixedPrimeCell_eq_sequentialShellDifference
   unfold lowWheelMixedPrimeCell lowWheelTransportIndicator
     lowWheelRootHighIndicator lowWheelEndpointIndicator
   have hnle : n ≤ p * n := by
-    simpa [one_mul] using Nat.mul_le_mul_right n hp
+    simpa [one_mul] using! Nat.mul_le_mul_right n hp
   have hple : p * n ≤ p * p * n := by
     calc
       p * n ≤ p * (p * n) := Nat.mul_le_mul_left p hnle
       _ = p * p * n := by ring
   have hqle : q ≤ p * q := by
-    simpa [one_mul] using Nat.mul_le_mul_right q hp
+    simpa [one_mul] using! Nat.mul_le_mul_right q hp
   split_ifs <;> omega
 
 /-- Support form: a nonzero mixed cell must lie in one of the two sequential

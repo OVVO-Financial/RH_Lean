@@ -57,7 +57,7 @@ private theorem eulerLi_exists_split_of_mem
 
 private theorem eulerLi_sorted_ge_nodup_prefix_before_current
     {pre post : List ℕ} {q : ℕ}
-    (hsorted : List.Sorted (fun a b : ℕ => a ≥ b) (pre ++ q :: post))
+    (hsorted : List.Pairwise (fun a b : ℕ => a ≥ b) (pre ++ q :: post))
     (hnodup : (pre ++ q :: post).Nodup) :
     ∀ r ∈ pre, q < r := by
   have hge := (List.pairwise_append.mp hsorted).2.2
@@ -75,9 +75,9 @@ theorem eulerLiDescendingPrimeSchedule_complete
   let S := primesUpTo (squareRootEndpoint R)
   let ps := S.sort (fun a b : ℕ => a ≥ b)
   change SquareRootCanonicalRoughCompleteDescendingSchedule R ps
-  have hsorted : List.Sorted (fun a b : ℕ => a ≥ b) ps := by
+  have hsorted : List.Pairwise (fun a b : ℕ => a ≥ b) ps := by
     dsimp [ps]
-    exact Finset.sort_sorted (· ≥ ·) _
+    exact Finset.pairwise_sort _ (· ≥ ·)
   have hnodup : ps.Nodup := by
     dsimp [ps]
     exact Finset.sort_nodup _ _
@@ -105,7 +105,7 @@ theorem eulerLiDescendingPrimeSchedule_complete
       have hrS : r ∈ S := by
         dsimp [ps] at hrps
         exact (Finset.mem_sort (fun a b : ℕ => a ≥ b)).mp hrps
-      simpa [S] using hrS
+      simpa [S] using! hrS
     · intro r hr
       rw [hsplit] at hsorted hnodup
       exact eulerLi_sorted_ge_nodup_prefix_before_current hsorted hnodup r hr

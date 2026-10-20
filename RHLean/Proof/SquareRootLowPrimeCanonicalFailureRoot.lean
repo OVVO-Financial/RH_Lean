@@ -55,7 +55,7 @@ theorem squareRootLowPrimeCanonicalFailurePrime_mem
     squareRootLowPrimeCanonicalFailurePrime K U B n ∈
       squareRootLowPrimeFailurePrimeCandidates K U B n := by
   unfold squareRootLowPrimeCanonicalFailurePrime
-  rw [dif_pos h]
+  rw [dite_eq_left h]
   exact Finset.min'_mem _ h
 
 /-- Complete arithmetic data of the canonical least failing prime. -/
@@ -90,7 +90,7 @@ theorem squareRootLowPrimeCanonicalFailurePrime_ne_lpf
   by_cases hnOne : n = 1
   · subst n
     have haOne : squareRootLowPrimeCanonicalFailurePrime K U B 1 = 1 := by
-      simpa [canonicalLargestPrimeFactor] using heq
+      simpa [canonicalLargestPrimeFactor] using! heq
     exact haPrime.ne_one haOne
   · have hnGt : 1 < n := by omega
     apply haFresh

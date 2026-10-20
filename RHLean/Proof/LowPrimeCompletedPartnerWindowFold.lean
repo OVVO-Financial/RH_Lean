@@ -77,13 +77,13 @@ theorem freshPrime_not_dvd_completedPartnerFaceProduct
     ¬ p ∣ primeFaceProduct t := by
   intro hdiv
   have hdiv' : p ∣ t.prod id := by
-    simpa [primeFaceProduct] using hdiv
-  rcases (Prime.dvd_finset_prod_iff hp.prime id).mp hdiv' with
+    simpa [primeFaceProduct] using! hdiv
+  rcases (Prime.dvd_finsetProd_iff hp.prime id).mp hdiv' with
     ⟨r, hrt, hpr⟩
   have htSub := Finset.mem_powerset.mp ht
   have hrCoord : r ∈ lowPrimeCompletedPartnerCoordinates p R := htSub hrt
   have hrData : r ≠ p ∧ r ∈ primesUpTo R := by
-    simpa [lowPrimeCompletedPartnerCoordinates] using
+    simpa [lowPrimeCompletedPartnerCoordinates] using!
       (Finset.mem_erase.mp hrCoord)
   have hrPrime : r.Prime := prime_of_mem_primesUpTo hrData.2
   have hprEq : p = r :=
@@ -121,7 +121,7 @@ theorem lowPrimeCompletedPartnerDivisorSum_eq_survivorIndicator
     simp [lowPrimeCompletedPartnerCoordinates]
   have hdecomp :
       insert p (lowPrimeCompletedPartnerCoordinates p R) = primesUpTo R := by
-    simpa [lowPrimeCompletedPartnerCoordinates] using
+    simpa [lowPrimeCompletedPartnerCoordinates] using!
       (Finset.insert_erase hpMem)
   calc
     (∑ t ∈ (lowPrimeCompletedPartnerCoordinates p R).powerset,
@@ -258,7 +258,7 @@ theorem card_lowWheelPrimeWindowFreeMultiplier_eq_completedFaceDivisor
       exact dvd_mul_of_dvd_right hpk' (primeFaceProduct t)
     refine ⟨k, mem_lowWheelPrimeWindowFreeMultiplierSet.mpr
       ⟨mem_lowWheelPrimeWindowMultiplierSet.mpr
-        ⟨hk1, hkX, by simpa [hcancel] using hwindow⟩, hpk⟩, hcancel⟩
+        ⟨hk1, hkX, by simpa [hcancel] using! hwindow⟩, hpk⟩, hcancel⟩
 
 /-- Completed partner-side mixed-cell fold in one reciprocal window. -/
 def lowPrimeCompletedPartnerMixedFold

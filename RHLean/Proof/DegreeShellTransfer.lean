@@ -138,7 +138,7 @@ theorem supported_shellSteps :
       Supported E n → Supported (shellSteps ops E) (n + ops.length) := by
   intro ops
   induction ops with
-  | nil => intro E n hE; simpa [shellSteps] using hE
+  | nil => intro E n hE; simpa [shellSteps] using! hE
   | cons p ps ih =>
     intro E n hE
     have h : Supported (shellStep p.1 p.2 (shellSteps ps E)) (n + ps.length + 1) :=

@@ -109,7 +109,7 @@ theorem squareRootLowPrimePrime_fresh_of_lpf_lt
       Nat.mem_primeFactors.mpr ⟨hp, hdiv, by omega⟩
     have hle : p ≤ canonicalLargestPrimeFactor c := by
       unfold canonicalLargestPrimeFactor
-      rw [dif_pos hcGt]
+      rw [dite_eq_left hcGt]
       exact Finset.le_max' c.primeFactors p hmem
     omega
 
@@ -137,7 +137,7 @@ theorem squareRootLowPrimeProcessedSeatCanonicalOwnerFalloff_iff_seatIndex
       ⟨hparent, _hhead, _hpFresh, _hmissing, _hrough⟩
     have hparentAtom :
         (c, s) ∈ squareRootLowPrimeProcessedSeatAtoms R K j U := by
-      simpa [squareRootLowPrimeProcessedSeatCarrier] using hparent
+      simpa [squareRootLowPrimeProcessedSeatCarrier] using! hparent
     have hsParent :
         s < squareRootLowPrimeCombinedFreshResponse R K j c :=
       (mem_squareRootLowPrimeProcessedSeatAtoms.mp hparentAtom).2
@@ -146,18 +146,18 @@ theorem squareRootLowPrimeProcessedSeatCanonicalOwnerFalloff_iff_seatIndex
         hp hpU hfall
     by_cases hwall : squareRootEndpoint R < p * c
     · simpa [squareRootLowPrimeCanonicalOwnerFalloutSeatIndices, hwall]
-        using hsParent
+        using! hsParent
     · have hseat :
           squareRootLowPrimeCombinedFreshResponse R K j (p * c) ≤ s :=
         hobs.resolve_left hwall
-      simpa [squareRootLowPrimeCanonicalOwnerFalloutSeatIndices, hwall] using
+      simpa [squareRootLowPrimeCanonicalOwnerFalloutSeatIndices, hwall] using!
         (Finset.mem_Ico.mpr ⟨hseat, hsParent⟩)
   · intro hsLost
     by_cases hwall : squareRootEndpoint R < p * c
     · have hsParent :
           s < squareRootLowPrimeCombinedFreshResponse R K j c := by
         simpa [squareRootLowPrimeCanonicalOwnerFalloutSeatIndices, hwall]
-          using hsLost
+          using! hsLost
       have hparentAtom :
           (c, s) ∈ squareRootLowPrimeProcessedSeatAtoms R K j U :=
         mem_squareRootLowPrimeProcessedSeatAtoms.mpr ⟨hcSigned, hsParent⟩
@@ -172,10 +172,10 @@ theorem squareRootLowPrimeProcessedSeatCanonicalOwnerFalloff_iff_seatIndex
         intro hchild
         have hchild' :
             some (p * c, s) ∈ squareRootLowPrimeProcessedSeatCarrier R K j U := by
-          simpa [squareRootLowPrimeProcessedSeatExtend] using hchild
+          simpa [squareRootLowPrimeProcessedSeatExtend] using! hchild
         have hchildAtom :
             (p * c, s) ∈ squareRootLowPrimeProcessedSeatAtoms R K j U := by
-          simpa [squareRootLowPrimeProcessedSeatCarrier] using hchild'
+          simpa [squareRootLowPrimeProcessedSeatCarrier] using! hchild'
         have hpcSigned :=
           (mem_squareRootLowPrimeProcessedSeatAtoms.mp hchildAtom).1
         have hpcRange := (Finset.mem_filter.mp hpcSigned).1
@@ -189,7 +189,7 @@ theorem squareRootLowPrimeProcessedSeatCanonicalOwnerFalloff_iff_seatIndex
           squareRootLowPrimeCombinedFreshResponse R K j (p * c) ≤ s ∧
             s < squareRootLowPrimeCombinedFreshResponse R K j c := by
         simpa [squareRootLowPrimeCanonicalOwnerFalloutSeatIndices, hwall]
-          using hsLost
+          using! hsLost
       have hparentAtom :
           (c, s) ∈ squareRootLowPrimeProcessedSeatAtoms R K j U :=
         mem_squareRootLowPrimeProcessedSeatAtoms.mpr ⟨hcSigned, hsData.2⟩
@@ -204,10 +204,10 @@ theorem squareRootLowPrimeProcessedSeatCanonicalOwnerFalloff_iff_seatIndex
         intro hchild
         have hchild' :
             some (p * c, s) ∈ squareRootLowPrimeProcessedSeatCarrier R K j U := by
-          simpa [squareRootLowPrimeProcessedSeatExtend] using hchild
+          simpa [squareRootLowPrimeProcessedSeatExtend] using! hchild
         have hchildAtom :
             (p * c, s) ∈ squareRootLowPrimeProcessedSeatAtoms R K j U := by
-          simpa [squareRootLowPrimeProcessedSeatCarrier] using hchild'
+          simpa [squareRootLowPrimeProcessedSeatCarrier] using! hchild'
         have hsChild :
             s < squareRootLowPrimeCombinedFreshResponse R K j (p * c) :=
           (mem_squareRootLowPrimeProcessedSeatAtoms.mp hchildAtom).2
@@ -253,11 +253,11 @@ theorem squareRootLowPrimeProcessedSeatCanonicalOwnerFalloff_eq_biUnion
     · rcases z with ⟨c, s⟩
       have hparentAtom :
           (c, s) ∈ squareRootLowPrimeProcessedSeatAtoms R K j U := by
-        simpa [squareRootLowPrimeProcessedSeatCarrier] using hparent
+        simpa [squareRootLowPrimeProcessedSeatCarrier] using! hparent
       have hcSigned :=
         (mem_squareRootLowPrimeProcessedSeatAtoms.mp hparentAtom).1
       have hrough : canonicalLargestPrimeFactor c < p := by
-        simpa [squareRootLowPrimeProcessedStateCofactor] using hrough0
+        simpa [squareRootLowPrimeProcessedStateCofactor] using! hrough0
       have hsLost :=
         (squareRootLowPrimeProcessedSeatCanonicalOwnerFalloff_iff_seatIndex
           hp hpU hcSigned hrough).mp hfall
@@ -293,7 +293,7 @@ theorem squareRootLowPrimeCanonicalOwnerFalloutFiber_weight_sum
         squareRootLowPrimeProcessedSeatWeightReal (some (c, s)) := by
       apply Finset.sum_image
       intro a _ha b _hb hab
-      simpa using hab
+      simpa using! hab
     _ = ∑ _s ∈ squareRootLowPrimeCanonicalOwnerFalloutSeatIndices R K j p c,
         ((-μ c : ℤ) : ℝ) := by
       rfl
@@ -349,10 +349,10 @@ theorem squareRootLowPrimeFirstOwnerAbove_le_of_mem
   rcases squareRootLowPrimeFirstOwnerAbove_some_split hfirst with
     ⟨pre, post, hsplit, hpre, _hLp⟩
   have hsorted :
-      List.Sorted (fun a b : ℕ => a ≤ b)
+      List.Pairwise (fun a b : ℕ => a ≤ b)
         (squareRootLowPrimeFreshPrimeList K U) := by
     unfold squareRootLowPrimeFreshPrimeList
-    exact Finset.sort_sorted (· ≤ ·) _
+    exact Finset.pairwise_sort _ (· ≤ ·)
   rw [hsplit] at hq hsorted
   rcases List.mem_append.mp hq with hqPre | hqTail
   · have hqLe := hpre q hqPre
@@ -360,7 +360,7 @@ theorem squareRootLowPrimeFirstOwnerAbove_le_of_mem
   · rcases List.mem_cons.mp hqTail with rfl | hqPost
     · exact le_rfl
     · have htailSorted :
-          List.Sorted (fun a b : ℕ => a ≤ b) (p :: post) :=
+          List.Pairwise (fun a b : ℕ => a ≤ b) (p :: post) :=
         (List.pairwise_append.mp hsorted).2.1
       exact (List.pairwise_cons.mp htailSorted).1 q hqPost
 
@@ -397,7 +397,7 @@ theorem squareRootLowPrimeFirstOwnerFalloff_product_le_of_deepOwner
     ⟨hparent, _hhead, _hpFresh, _hmissing, _hrough⟩
   have hparentAtom :
       (c, s) ∈ squareRootLowPrimeProcessedSeatAtoms R K j U := by
-    simpa [squareRootLowPrimeProcessedSeatCarrier] using hparent
+    simpa [squareRootLowPrimeProcessedSeatCarrier] using! hparent
   have hcSigned :=
     (mem_squareRootLowPrimeProcessedSeatAtoms.mp hparentAtom).1
   have hsParent :
@@ -410,7 +410,7 @@ theorem squareRootLowPrimeFirstOwnerFalloff_product_le_of_deepOwner
   have hKc : K < c := by
     by_cases hcEq : c = 1
     · subst c
-      simpa [canonicalLargestPrimeFactor] using hKOwner
+      simpa [canonicalLargestPrimeFactor] using! hKOwner
     · have hcGt : 1 < c := by omega
       have hdiv := canonicalLargestPrimeFactor_dvd hcGt
       have hle : canonicalLargestPrimeFactor c ≤ c :=
@@ -441,7 +441,7 @@ theorem squareRootLowPrimeFirstOwnerFalloff_product_le_of_deepOwner
     rw [hsplit]
     simp
   have hpSet : p ∈ squareRootLowPrimeFreshPrimeSet K U := by
-    simpa [squareRootLowPrimeFreshPrimeList] using hpList
+    simpa [squareRootLowPrimeFreshPrimeList] using! hpList
   have hpIoc := Finset.mem_Ioc.mp (Finset.mem_filter.mp hpSet).1
   have hpU : p ≤ U := hpIoc.2
   have hpq : p ≤ q := by
@@ -451,7 +451,7 @@ theorem squareRootLowPrimeFirstOwnerFalloff_product_le_of_deepOwner
         exact ⟨Finset.mem_Ioc.mpr
           ⟨hKOwner.trans hOwnerQ, hqU⟩, hqPrime⟩
       have hqList : q ∈ squareRootLowPrimeFreshPrimeList K U := by
-        simpa [squareRootLowPrimeFreshPrimeList] using hqSet
+        simpa [squareRootLowPrimeFreshPrimeList] using! hqSet
       exact squareRootLowPrimeFirstOwnerAbove_le_of_mem hfirst hqList hOwnerQ
     · have hUq : U < q := Nat.lt_of_not_ge hqU
       exact hpU.trans (Nat.le_of_lt hUq)
@@ -492,7 +492,7 @@ theorem squareRootLowPrimeFirstOwnerWall_forces_root_le_cofactor
     R ≤ c := by
   have hpList := squareRootLowPrimeFirstOwnerAbove_mem_freshPrimeList hfirst
   have hpSet : p ∈ squareRootLowPrimeFreshPrimeSet K U := by
-    simpa [squareRootLowPrimeFreshPrimeList] using hpList
+    simpa [squareRootLowPrimeFreshPrimeList] using! hpList
   have hpData := Finset.mem_filter.mp hpSet
   have hpPrime : p.Prime := hpData.2
   have hpU : p ≤ U := (Finset.mem_Ioc.mp hpData.1).2
@@ -509,7 +509,7 @@ theorem squareRootLowPrimeFirstOwnerWall_forces_root_le_cofactor
       p * c < R * c := Nat.mul_lt_mul_of_pos_right hpR hcPos
       _ < R * R := Nat.mul_lt_mul_of_pos_left hcR (by omega)
   have hprod' : p * c < R ^ 2 := by
-    simpa [pow_two] using hprod
+    simpa [pow_two] using! hprod
   unfold squareRootEndpoint at hwall
   omega
 
@@ -544,20 +544,20 @@ theorem squareRootLowPrimeFirstOwnerWall_bornPartner_le_shallowCutoff
     have hpq : p ≤ q := Nat.le_of_not_gt hnot
     have hmul : p * c ≤ q * c := Nat.mul_le_mul_right c hpq
     have hmul' : p * c ≤ c * q := by
-      simpa [Nat.mul_comm] using hmul
+      simpa [Nat.mul_comm] using! hmul
     omega
   by_contra hnotK
   have hKq : K < q := Nat.lt_of_not_ge hnotK
   have hpList := squareRootLowPrimeFirstOwnerAbove_mem_freshPrimeList hfirst
   have hpSet : p ∈ squareRootLowPrimeFreshPrimeSet K U := by
-    simpa [squareRootLowPrimeFreshPrimeList] using hpList
+    simpa [squareRootLowPrimeFreshPrimeList] using! hpList
   have hpU : p ≤ U := (Finset.mem_Ioc.mp (Finset.mem_filter.mp hpSet).1).2
   have hqU : q ≤ U := (Nat.le_of_lt hqp).trans hpU
   have hqSet : q ∈ squareRootLowPrimeFreshPrimeSet K U := by
     exact Finset.mem_filter.mpr
       ⟨Finset.mem_Ioc.mpr ⟨hKq, hqU⟩, hqPrime⟩
   have hqList : q ∈ squareRootLowPrimeFreshPrimeList K U := by
-    simpa [squareRootLowPrimeFreshPrimeList] using hqSet
+    simpa [squareRootLowPrimeFreshPrimeList] using! hqSet
   have hpq := squareRootLowPrimeFirstOwnerAbove_le_of_mem
     hfirst hqList hrough
   omega
@@ -592,7 +592,7 @@ theorem squareRootLowPrimeFirstOwnerWall_falloutWidth_eq_born
   have hcR := squareRootLowPrimeFirstOwnerWall_forces_root_le_cofactor
     hR hUR hfirst hwall
   unfold squareRootLowPrimeCanonicalOwnerFalloutWidth
-  rw [if_pos hwall,
+  rw [ite_eq_left hwall,
     squareRootLowPrimeCombinedFreshResponse_eq_born_of_root_le (by omega) hcR]
 
 end RHLean.Proof

@@ -123,7 +123,7 @@ private theorem primeFactor_le_canonicalLargestPrimeFactor
     {n p : ℕ} (hn : 1 < n) (hp : p ∈ n.primeFactors) :
     p ≤ canonicalLargestPrimeFactor n := by
   unfold canonicalLargestPrimeFactor
-  rw [dif_pos hn]
+  rw [dite_eq_left hn]
   exact Finset.le_max' n.primeFactors p hp
 
 /-- On squarefree support, smoothness for the complete prime set through `y` is
@@ -240,7 +240,7 @@ private theorem cofactor_lt_largePrime_of_sqrt_lt
       _ ≤ c * q := Nat.mul_le_mul_right q hqc
       _ ≤ x := hmul
   have hqSqrt : q ≤ Nat.sqrt x :=
-    Nat.le_sqrt.mpr (by simpa [pow_two] using hqq)
+    Nat.le_sqrt.mpr (by simpa [pow_two] using! hqq)
   omega
 
 private theorem primeSieveHighSource_to_pair_mem
@@ -282,7 +282,7 @@ private theorem primeSieveHighSource_to_pair_mem
   · exact Finset.mem_product.mpr
       ⟨Finset.mem_Icc.mpr ⟨Nat.succ_le_iff.mpr hcPos, hcLeM.trans hmx⟩,
         Finset.mem_Ioc.mpr ⟨hhigh, hqLeM.trans hmx⟩⟩
-  · exact ⟨hqPrime, by simpa [hprod] using hmx⟩
+  · exact ⟨hqPrime, by simpa [hprod] using! hmx⟩
 
 private theorem primeSieveHighSource_pair_injective
     {y x m n : ℕ} (hroot : Nat.sqrt x < y)
@@ -346,7 +346,7 @@ private theorem primeSievePair_surjective
       (Nat.mul_ne_zero (Nat.ne_of_gt hcPos) hqPrime.ne_zero)
   have hmSource : cq.1 * cq.2 ∈ primeSieveHighSourceSet y x := by
     apply Finset.mem_filter.mpr
-    exact ⟨Finset.mem_Icc.mpr ⟨hm1, hmul⟩, by simpa [hlargest] using hyq⟩
+    exact ⟨Finset.mem_Icc.mpr ⟨hm1, hmul⟩, by simpa [hlargest] using! hyq⟩
   refine ⟨cq.1 * cq.2, hmSource, ?_⟩
   apply Prod.ext
   · exact hcofactor
@@ -364,7 +364,7 @@ theorem sum_primeSieveHighSourceSet_eq_pairProducts
     (fun m _hm => (canonicalCofactor m, canonicalLargestPrimeFactor m))
     (fun m hm => primeSieveHighSource_to_pair_mem hroot hm)
     (fun m hm n hn hmn => primeSieveHighSource_pair_injective hroot hm hn hmn)
-    (fun cq hcq => by simpa using primeSievePair_surjective hroot cq hcq)
+    (fun cq hcq => by simpa using! primeSievePair_surjective hroot cq hcq)
     ?_
   intro m hm
   have hmBase := (Finset.mem_filter.mp hm).1
@@ -401,7 +401,7 @@ theorem sum_primeSieveTransportPairSet_eq_neg_cofactorMass
             canonicalMoebiusWeight (c * q)
           else
             0 := by
-        simpa only using
+        simpa only using!
           (Finset.sum_product
             (s := Finset.Icc 1 x)
             (t := Finset.Ioc y x)
@@ -455,7 +455,7 @@ theorem primeSieveTransportCofactorMass_eq_mertensPrimeTail
   intro q _hq
   by_cases hprime : q.Prime
   · have hqPos : 0 < q := hprime.pos
-    simp only [hprime, true_and, if_true]
+    simp only [hprime, true_and, ite_true]
     have hset :
         (Finset.Icc 1 x).filter (fun c => c * q ≤ x) =
           Finset.Icc 1 (x / q) := by

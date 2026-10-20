@@ -139,7 +139,7 @@ theorem lowOwnerFirstOwnerGreatestOwnerFixedParentCellFiber_parent_rank_add_one
   have hrank :=
     lowOwnerFirstOwnerGreatestOwnerPositivePair_parent_rank_add_one
       hp howner
-  simpa [hparent] using hrank
+  simpa [hparent] using! hrank
 
 /-- In particular every fixed-parent block is genuinely lower rank than each
 child it contains. -/

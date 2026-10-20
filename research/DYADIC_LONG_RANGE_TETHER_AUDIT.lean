@@ -57,7 +57,7 @@ theorem one_lt_of_mem_squareRootHighTransportSourceSet_public
   by_contra hnot
   have hP : canonicalLargestPrimeFactor m = 1 := by
     unfold canonicalLargestPrimeFactor
-    rw [dif_neg hnot]
+    rw [dite_eq_right hnot]
   omega
 
 /-- Exact long-range tether. Every high source lands in the canonical
@@ -72,7 +72,7 @@ theorem squareRootLongRangeTether_mem_pairSet
     one_lt_of_mem_squareRootHighTransportSourceSet_public hR hm
   have hpred : R - 1 + 1 = R := Nat.sub_add_cancel hR
   have hmLt : m < R ^ 2 := by
-    simpa [cumulativeSquarePrefixSet, hpred] using hmPrefix
+    simpa [cumulativeSquarePrefixSet, hpred] using! hmPrefix
   have hprod :
       canonicalCofactor m * canonicalLargestPrimeFactor m = m :=
     canonicalCofactor_mul_largestPrimeFactor hmgt
@@ -114,7 +114,7 @@ theorem squareRootLongRangeTether_mem_pairSet
   · exact Finset.mem_product.mpr
       ⟨Finset.mem_Ico.mpr ⟨Nat.succ_le_iff.mpr hcPos, hcR⟩,
         Finset.mem_Ioc.mpr ⟨hhigh, hqX⟩⟩
-  · exact ⟨hqPrime, by simpa [hprod] using hmX⟩
+  · exact ⟨hqPrime, by simpa [hprod] using! hmX⟩
 
 /-- The long-range tether retains the exact source product. -/
 theorem squareRootLongRangeTether_product_eq
@@ -124,7 +124,7 @@ theorem squareRootLongRangeTether_product_eq
         (squareRootLongRangeTether m).2 = m := by
   have hmgt :=
     one_lt_of_mem_squareRootHighTransportSourceSet_public hR hm
-  simpa [squareRootLongRangeTether] using
+  simpa [squareRootLongRangeTether] using!
     canonicalCofactor_mul_largestPrimeFactor hmgt
 
 /-- The full long-range coordinate is injective on high sources. This is the
@@ -173,11 +173,11 @@ theorem squareRootTopFibrePrime_longRangeTether_eq_unit
     squareRootLongRangeTether q = (1, q) := by
   have hqPrime : q.Prime := (Finset.mem_filter.mp hq).2
   have hlpf : canonicalLargestPrimeFactor q = q := by
-    simpa using
+    simpa using!
       (canonicalLargestPrimeFactor_mul_prime_eq
         (c := 1) (q := q) (by norm_num) hqPrime.one_lt hqPrime)
   have hcofactor : canonicalCofactor q = 1 := by
-    simpa using
+    simpa using!
       (canonicalCofactor_mul_prime_eq
         (c := 1) (q := q) (by norm_num) hqPrime.one_lt hqPrime)
   simp [squareRootLongRangeTether, hlpf, hcofactor]
@@ -202,17 +202,17 @@ theorem squareRootTopFibrePrime_mem_dyadicAnnulusHigh
   have htwice' : squareRootEndpoint R < q * 2 :=
     (Nat.div_lt_iff_lt_mul (by norm_num : 0 < (2 : ℕ))).1 hhalfq
   have htwice : squareRootEndpoint R < 2 * q := by
-    simpa [Nat.mul_comm] using htwice'
+    simpa [Nat.mul_comm] using! htwice'
   have hboundary :
       q ∈ dyadicCofactorBoundary (squareRootEndpoint R) :=
     mem_dyadicCofactorBoundary.mpr
       ⟨hqPrime.one_le, hqX, hodd, htwice⟩
   have hlpf : canonicalLargestPrimeFactor q = q := by
-    simpa using
+    simpa using!
       (canonicalLargestPrimeFactor_mul_prime_eq
         (c := 1) (q := q) (by norm_num) hqPrime.one_lt hqPrime)
   unfold squareRootDyadicAnnulusHighSet
-  exact Finset.mem_filter.mpr ⟨hboundary, by simpa [hlpf] using hRq⟩
+  exact Finset.mem_filter.mpr ⟨hboundary, by simpa [hlpf] using! hRq⟩
 
 /-- Concrete kernel witness: two distinct high top-annulus atoms at R=56 have
 the same root endpoint 1. Thus forgetting the prime label destroys

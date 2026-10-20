@@ -71,7 +71,7 @@ theorem nativeLambdaTwo_mul_distinct_primes
     norm_num
   have hpdiv : p * q / p = q := Nat.mul_div_cancel_left q hp.pos
   have hqdiv : p * q / q = p := by
-    simpa [Nat.mul_comm] using (Nat.mul_div_cancel_left p hq.pos)
+    simpa [Nat.mul_comm] using! (Nat.mul_div_cancel_left p hq.pos)
   have hpqpos : 0 < p * q := Nat.mul_pos hp.pos hq.pos
   have hself : p * q / (p * q) = 1 := Nat.div_self hpqpos
   have hp0 : ((p : ℕ) : ℝ) ≠ 0 := by exact_mod_cast hp.ne_zero
@@ -84,11 +84,11 @@ theorem nativeLambdaTwo_mul_distinct_primes
     exact hp.ne_one (Nat.dvd_one.mp hpDvdOne)
   have hpq_ne_p : p * q ≠ p := by
     intro h
-    have h' : p * q = p * 1 := by simpa using h
+    have h' : p * q = p * 1 := by simpa using! h
     exact hq.ne_one (Nat.mul_left_cancel hp.pos h')
   have hpq_ne_q : p * q ≠ q := by
     intro h
-    have h' : q * p = q * 1 := by simpa [Nat.mul_comm] using h
+    have h' : q * p = q * 1 := by simpa [Nat.mul_comm] using! h
     exact hp.ne_one (Nat.mul_left_cancel hq.pos h')
   have h1q : 1 ≠ q := hq.ne_one.symm
   have h1p : 1 ≠ p := hp.ne_one.symm

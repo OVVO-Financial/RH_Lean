@@ -44,6 +44,10 @@ jobs:
           path = Path('research/VF_QUOTIENT_VARIATION_FIRSTBAD_ATTACK.lean')
           assert not re.search(r'(?m)^\s*(sorry|admit|axiom)\b', path.read_text())
           PY
+      - name: Build RHLean modules imported by these research checks
+        run: >-
+          python3 scripts/compile_research_import_closure.py --library-only
+          research/VF_QUOTIENT_VARIATION_FIRSTBAD_ATTACK.lean
       - name: Warning-fatal compile of complete quotient-return import closure
         run: |
           set -o pipefail

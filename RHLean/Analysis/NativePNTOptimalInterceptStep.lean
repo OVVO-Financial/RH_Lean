@@ -29,10 +29,10 @@ theorem nativePNTCubicOptimalIntercept_le_canonical (n : ℕ) :
 @[simp] theorem nativePNTCubicOptimalIntercept_zero :
     nativePNTCubicOptimalIntercept 0 = 0 := by
   apply le_antisymm
-  · simpa [nativePNTCubicOptimalIntercept, nativePNTCubicSlope_zero] using
+  · simpa [nativePNTCubicOptimalIntercept, nativePNTCubicSlope_zero] using!
       (nativePNTAffineOptimalIntercept_le_of_envelope
         nativePNTAffineEnvelopeAt_six_zero)
-  · simpa [nativePNTCubicOptimalIntercept, nativePNTCubicSlope_zero] using
+  · simpa [nativePNTCubicOptimalIntercept, nativePNTCubicSlope_zero] using!
       (nativePNTAffineOptimalIntercept_envelope
         nativePNTAffineEnvelopeAt_six_zero).1
 
@@ -51,6 +51,6 @@ theorem nativePNTCubicOptimalIntercept_succ_le (n : ℕ) :
     hspec.1 hspec.2.1 henv
   have hmin := nativePNTAffineOptimalIntercept_le_of_envelope hstep
   simpa [nativePNTCubicOptimalIntercept, nativePNTCubicSlope_succ,
-    nativePNTCubicStepDelta_eq, mul_assoc] using hmin
+    nativePNTCubicStepDelta_eq, mul_assoc] using! hmin
 
 end RHLean.Analysis

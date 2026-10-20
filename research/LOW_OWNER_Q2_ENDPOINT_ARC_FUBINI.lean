@@ -112,7 +112,7 @@ theorem primeWheelDirichletPrefix_add_sub_eq_zero_add_reducedNonzero
             (if r = 0 then 0 else f r)) := by
       apply Finset.sum_congr rfl
       intro r _hrmem
-      simpa [f] using hsplitPointwise r
+      simpa [f] using! hsplitPointwise r
     _ = (∑ r : ZMod W.modulus, if r = 0 then f 0 else 0) +
         ∑ r : ZMod W.modulus, if r = 0 then 0 else f r := by
       rw [Finset.sum_add_distrib]
@@ -132,7 +132,7 @@ theorem primeWheelDirichletPrefix_add_sub_eq_zero_add_reducedNonzero
       intro r _hrmem
       by_cases hr : r = 0
       · simp [hr]
-      · simp only [hr, if_false]
+      · simp only [hr, ite_false]
         exact primeWheelForwardArcFrequencyAtom_eq_reducedDistance W A d r hr
 
 
@@ -290,7 +290,7 @@ theorem primeWheelShiftedArcGram_eq_physicalOverlap
         ZMod.dft (primeWheelForwardArcWindow W A d) r =
           primeWheelPinnedPhase W (-r) *
             primeWheelShiftedArcKernel W A d (-r) := by
-      simpa only [neg_neg] using hAf
+      simpa only [neg_neg] using! hAf
     have hphase := primeWheelPinnedPhase_neg_mul_self W r
     change
       ZMod.dft f r * ZMod.dft g (-r) =

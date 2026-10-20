@@ -70,7 +70,6 @@ theorem lowOwnerZeroTargetGenerationBudget_invariant
       have hx := hexit n
       have hr := hrec n
       rw [Finset.sum_range_succ]
-      norm_num at ih ⊢
       nlinarith
 
 /-- Every finite prefix of positive exits costs at most one half of the initial
@@ -192,7 +191,7 @@ theorem lowOwnerRetainedCoefficientTreeEnergy_le_eightyOneOverTwo
           lowOwnerRetainedCoefficientParentEnergy coefficient parent +
             (81 / 2 : ℝ) *
               lowOwnerRetainedCoefficientOutgoingEnergy R parent coefficient :=
-                add_le_add_left hchildren _
+                add_le_add_right hchildren _
         _ ≤ (81 / 2 : ℝ) *
             lowOwnerRetainedCoefficientParentEnergy coefficient parent := by
               nlinarith
@@ -241,7 +240,7 @@ theorem lowOwnerRetainedCoefficientTreeEnergy_le_twoHundredTwentyFiveOverSeven
           lowOwnerRetainedCoefficientParentEnergy coefficient parent +
             (225 / 7 : ℝ) *
               lowOwnerRetainedCoefficientOutgoingEnergy R parent coefficient :=
-                add_le_add_left hchildren _
+                add_le_add_right hchildren _
         _ ≤ (225 / 7 : ℝ) *
             lowOwnerRetainedCoefficientParentEnergy coefficient parent := by
               nlinarith
@@ -380,7 +379,7 @@ theorem lowOwnerRetainedCoefficientAboveFirstTreeEnergy_le_two
           lowOwnerRetainedCoefficientParentEnergy coefficient parent +
             2 * lowOwnerRetainedCoefficientAboveFirstOutgoingEnergy
               R first parent coefficient :=
-                add_le_add_left hchildren _
+                add_le_add_right hchildren _
         _ ≤ 2 * lowOwnerRetainedCoefficientParentEnergy
               coefficient parent := by
                 nlinarith

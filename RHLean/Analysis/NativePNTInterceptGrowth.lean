@@ -25,7 +25,7 @@ theorem nativePNTCubicIntercept_onset_log_lower (n : ℕ) :
   have h := nativePNTCubicStepOnset_log_lower
     (nativePNTCubicSlope n) (nativePNTCubicIntercept n)
     hspec.1 hspec.2.1 hD
-  simpa [nativePNTCubicStepC0, nativePNTCubicStepDelta_eq] using h
+  simpa [nativePNTCubicStepC0, nativePNTCubicStepDelta_eq] using! h
 
 /-- Exponentiated form of the onset condition. -/
 theorem nativePNTCubicIntercept_onset_exp_lower (n : ℕ) :
@@ -40,7 +40,7 @@ theorem nativePNTCubicIntercept_onset_exp_lower (n : ℕ) :
   have h := nativePNTCubicStepOnset_exp_lower
     (nativePNTCubicSlope n) (nativePNTCubicIntercept n)
     hspec.1 hspec.2.1 hD
-  simpa [nativePNTCubicStepC0, nativePNTCubicStepDelta_eq] using h
+  simpa [nativePNTCubicStepC0, nativePNTCubicStepDelta_eq] using! h
 
 /-- The current proof's intercept increment is at least the cubic decrement
 multiplied by the exponential absorption scale. -/
@@ -58,6 +58,6 @@ theorem nativePNTCubicInterceptIncrement_exp_lower (n : ℕ) :
       (by norm_num [nativePNTCubicConstant])
       (pow_nonneg (nativePNTCubicSlope_spec n).1.le 3)
   have hmul := mul_le_mul_of_nonneg_left hscale hcoef
-  simpa [nativePNTCubicInterceptIncrement, mul_assoc] using hmul
+  simpa [nativePNTCubicInterceptIncrement, mul_assoc] using! hmul
 
 end RHLean.Analysis

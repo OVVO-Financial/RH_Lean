@@ -68,10 +68,10 @@ theorem lowWheelFrozenCofactorTopPrime_data
   rcases mem_lowWheelCanonicalDowncrossPart.mp hx with
     ⟨_hphysical, hpNotC, _hdown⟩
   have hqPrime : (lowWheelFrozenCofactorTopPrime y).Prime := by
-    simpa [lowWheelFrozenCofactorTopPrime] using
+    simpa [lowWheelFrozenCofactorTopPrime] using!
       canonicalLargestPrimeFactor_prime hcgt
   have hqDvd : lowWheelFrozenCofactorTopPrime y ∣ y.2.1 := by
-    simpa [lowWheelFrozenCofactorTopPrime] using
+    simpa [lowWheelFrozenCofactorTopPrime] using!
       canonicalLargestPrimeFactor_dvd hcgt
   have hqDvdProd :
       lowWheelFrozenCofactorTopPrime y ∣ y.2.1 * y.2.2 :=
@@ -85,8 +85,8 @@ theorem lowWheelFrozenCofactorTopPrime_data
     intro heq
     apply hpNotC
     have hpDvd : lowWheelTaggedDowncrossPivot y ∣ y.2.1 := by
-      simpa [heq] using hqDvd
-    simpa [lowWheelTaggedDowncrossPivot] using hpDvd
+      simpa [heq] using! hqDvd
+    simpa [lowWheelTaggedDowncrossPivot] using! hpDvd
   have hpLtQ :
       lowWheelTaggedDowncrossPivot y < lowWheelFrozenCofactorTopPrime y := by
     omega
@@ -131,7 +131,7 @@ theorem lowWheelFrozenCofactorTopToggle_mem_physical
         (lowWheelCofactorQuotientToggleAt
           (lowWheelFrozenCofactorTopPrime y) y.2).1 := by
     unfold lowWheelCofactorQuotientToggleAt
-    simp only [hqDvd, if_true]
+    simp only [hqDvd, ite_true]
     exact hsq.squarefree_of_dvd hdivisor
   apply mem_lowWheelCanonicalPhysicalStateSet.mpr
   exact ⟨hranges.1, hranges.2, hsqNew, hpairNew⟩
@@ -152,7 +152,7 @@ theorem lowWheelFrozenCofactorTopToggle_parent_gt_root
   have hshell := lowWheelCanonicalDowncrossPart_adjacent_shell hx
   rcases hshell with ⟨hpRaw, _hpc, _hpk, _hdown, hup⟩
   have hp : (lowWheelTaggedDowncrossPivot y).Prime := by
-    simpa [lowWheelTaggedDowncrossPivot] using hpRaw
+    simpa [lowWheelTaggedDowncrossPivot] using! hpRaw
   rcases lowWheelFrozenCofactorTopPrime_data hy with
     ⟨_hqPrime, hqDvd, hpq⟩
   have hPpos : 0 < primeFaceProduct y.1 :=
@@ -174,7 +174,7 @@ theorem lowWheelFrozenCofactorTopToggle_parent_gt_root
   rw [lowWheelFrozenCofactorTopToggle_pivot]
   unfold lowWheelFrozenCofactorTopToggle
   unfold lowWheelCofactorQuotientToggleAt
-  simp only [hqDvd, if_true]
+  simp only [hqDvd, ite_true]
   rw [hshape.1]
   have hdiv :
       (lowWheelFrozenCofactorTopPrime y * lowWheelTaggedDowncrossPivot y) /

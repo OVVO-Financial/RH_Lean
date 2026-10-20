@@ -270,7 +270,7 @@ theorem vfVarSquareMertens_norm_le_longPlus_shortMass
           ‖vf919ExcludedNormCoefficients m‖) := by
   rw [vfVarMertens_squareHyperbola_exact_split R hR]
   exact (norm_add_le _ _).trans
-    (add_le_add_left (vfVarSquareShortNorm_norm_le_two_coeffMass R) _)
+    (add_le_add_right (vfVarSquareShortNorm_norm_le_two_coeffMass R) _)
 
 
 /-! ## The missing diagonal bucket and improved one-sided low/high budget -/
@@ -329,7 +329,7 @@ theorem vfVarSquareLongNorm_eq_signed_lowVariation
     (vf919QuotientBucket (R ^ 2 - 1))
   have hsucc : R - 1 + 1 = R := by omega
   rw [hsucc, vfVarSquareDiagonalBucket_zero R hR] at hab
-  simpa using hab
+  simpa using! hab
 
 /-- Only the LOW quotient variation needs the factor-four primitive
 bound. The HIGH quotient sector costs at most twice the short norm mass. -/

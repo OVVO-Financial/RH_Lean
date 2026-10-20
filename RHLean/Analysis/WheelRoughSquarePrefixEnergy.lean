@@ -79,7 +79,7 @@ theorem wheelRoughMertensSummatory_prime_extension
   have h := roughMertens_prime_extension (W := W) hp hWp x
   have hc := congrArg (fun z : ℤ => (z : ℂ)) h
   push_cast at hc
-  simpa [wheelRoughMertensSummatory] using hc
+  simpa [wheelRoughMertensSummatory] using! hc
 
 private theorem wheelRough_div_scale
     (p x : ℕ) (hp : p.Prime) (hx : p ≤ x)
@@ -183,7 +183,7 @@ theorem wheelRoughPowerGrowth_prime_extension
           _ ≤ K * Real.rpow ((x + 1 : ℕ) : ℝ) r +
                 D * (q * Real.rpow ((x + 1 : ℕ) : ℝ) r) := by
             dsimp [q] at hscale ⊢
-            exact add_le_add_left (mul_le_mul_of_nonneg_left hscale hD0) _
+            exact add_le_add_right (mul_le_mul_of_nonneg_left hscale hD0) _
           _ = (K + q * D) * Real.rpow ((x + 1 : ℕ) : ℝ) r := by ring
           _ = D * Real.rpow ((x + 1 : ℕ) : ℝ) r := by rw [hDrel]
           _ = (K * wheelRoughPrimeLoss r) *
@@ -199,10 +199,10 @@ private theorem prime_dvd_primorialWheelProduct_iff_local
   unfold primorialWheelProduct
   constructor
   · intro h
-    rcases (Prime.dvd_finset_prod_iff hp.prime id).mp h with ⟨q, hq, hpq⟩
+    rcases (Prime.dvd_finsetProd_iff hp.prime id).mp h with ⟨q, hq, hpq⟩
     rcases (hprime q hq).eq_one_or_self_of_dvd p hpq with hpOne | hpEq
     · exact (hp.ne_one hpOne).elim
-    · simpa [hpEq] using hq
+    · simpa [hpEq] using! hq
   · intro hpP
     exact Finset.dvd_prod_of_mem id hpP
 
@@ -226,7 +226,7 @@ private theorem primorialWheelProduct_squarefree
         hp.coprime_iff_not_dvd.mpr hpndvd
       have hsqmul : Squarefree (p * primorialWheelProduct P) :=
         (Nat.squarefree_mul hcop).2 ⟨hp.squarefree, hsqP⟩
-      simpa [primorialWheelProduct, hpP] using hsqmul
+      simpa [primorialWheelProduct, hpP] using! hsqmul
 
 /-- Explicit finite-wheel iteration of the fresh-prime power-growth step.
 If ordinary Mertens has a power bound with constant `K`, the wheel-rough sum has
@@ -246,7 +246,7 @@ theorem wheelRoughPowerGrowth_of_mertensPowerBound
   | empty =>
       intro x
       simpa [primorialWheelProduct, wheelRoughFiniteLoss,
-        wheelRoughMertensSummatory_one_eq_mertensSummatory] using hM x
+        wheelRoughMertensSummatory_one_eq_mertensSummatory] using! hM x
   | @insert p P hpP ih =>
       have hp : p.Prime := hprime p (by simp)
       have hprimeP : ∀ q ∈ P, q.Prime := by
@@ -272,7 +272,7 @@ theorem wheelRoughPowerGrowth_of_mertensPowerBound
             wheelRoughFiniteLoss P r * wheelRoughPrimeLoss r := by
         unfold wheelRoughFiniteLoss
         rw [hcard, pow_succ]
-      simpa [primorialWheelProduct, hpP, hloss, mul_assoc] using hx
+      simpa [primorialWheelProduct, hpP, hloss, mul_assoc] using! hx
 
 /-- A finite genuine prime wheel preserves every Mertens power exponent
 `r > 1/2`, with an explicit finite product loss. -/
@@ -313,7 +313,7 @@ theorem wheelRoughSquarePrefixEnergyBounded_of_squarePrefixEnergyBounded
   have hsample :
       ‖wheelRoughSquarePrefixMertens P n‖ ≤
         D * Real.rpow ((squarePrefixEndpoint n + 1 : ℕ) : ℝ) r := by
-    simpa [wheelRoughSquarePrefixMertens, D] using hbound (squarePrefixEndpoint n)
+    simpa [wheelRoughSquarePrefixMertens, D] using! hbound (squarePrefixEndpoint n)
   have hsample0 : 0 ≤ ‖wheelRoughSquarePrefixMertens P n‖ := norm_nonneg _
   have hright0 :
       0 ≤ D * Real.rpow ((squarePrefixEndpoint n + 1 : ℕ) : ℝ) r :=

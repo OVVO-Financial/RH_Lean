@@ -122,7 +122,7 @@ theorem squareRootLowPrimeRunningImbalance_sub_canonicalCore_norm_le_root
     R K j hR hK hKR hj]
   have hnear := squareRootBornPostTailNearRootRemainder_norm_le_root
     R K j hR hK hKR hj
-  simpa using hnear
+  simpa using! hnear
 
 /-! ## The same complete terminal response in far-survivor coordinates -/
 
@@ -194,7 +194,7 @@ theorem squareRootLowPrimeRunningImbalance_sub_farSurvivorCore_norm_le
           ((squareRootCrossingLayerPartialPacketInt R K j : ℤ) : ℂ)‖ ≤
         ‖squareRootNearPrimeTransport R‖ +
           ‖((squareRootCrossingLayerPartialPacketInt R K j : ℤ) : ℂ)‖ := by
-    simpa only [norm_neg] using
+    simpa only [norm_neg] using!
       norm_sub_le (-squareRootNearPrimeTransport R)
         (((squareRootCrossingLayerPartialPacketInt R K j : ℤ) : ℂ))
   calc
@@ -215,7 +215,7 @@ theorem squareRootLowPrimeRunningImbalance_sub_farSurvivorCore_norm_le
     _ ≤ (‖squareRootNearPrimeTransport R‖ +
           ‖((squareRootCrossingLayerPartialPacketInt R K j : ℤ) : ℂ)‖) +
         ‖squareRootBornPostTailNearRootRemainder R K j‖ :=
-      add_le_add_right hfirst _
+      add_le_add_left hfirst _
     _ ≤ (7 * (R : ℝ) + (K : ℝ)) + (R : ℝ) :=
       add_le_add (add_le_add htransport hpartial) hnear
     _ = 8 * (R : ℝ) + (K : ℝ) := by ring

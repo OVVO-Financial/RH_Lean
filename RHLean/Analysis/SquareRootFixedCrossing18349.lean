@@ -48,7 +48,7 @@ theorem squareRootPacketReciprocalWeightReal_pos_of_boundaryRat_pos
     exact_mod_cast hK
   rw [← squareRootPacketReciprocalWeightRat_eq_boundary] at hcast
   simpa only [Rat.cast_sum, Rat.cast_mul, Rat.cast_sub, Rat.cast_div,
-    Rat.cast_one, Rat.cast_intCast, Rat.cast_natCast] using hcast
+    Rat.cast_one, Rat.cast_intCast, Rat.cast_natCast] using! hcast
 
 /-- A positive fixed-depth coefficient forces the square-root packet to be
 strictly negative eventually.  This is the sign-dual of the existing
@@ -67,7 +67,7 @@ theorem eventually_squareRootTruncatedUpperMiddlePacketInt_neg_of_coefficient_po
       (squareRootMertensInt d : ℝ) *
         ((1 : ℝ) / (d : ℝ) -
           (1 : ℝ) / ((d + 1 : ℕ) : ℝ))
-  have hS : 0 < S := by simpa [S] using hcoeff
+  have hS : 0 < S := by simpa [S] using! hcoeff
   have hlimit :
       Tendsto
         (fun R : ℕ =>
@@ -75,7 +75,7 @@ theorem eventually_squareRootTruncatedUpperMiddlePacketInt_neg_of_coefficient_po
             Real.log (squareRootEndpoint R : ℝ) /
               (squareRootEndpoint R : ℝ))
         atTop (𝓝 (-S)) := by
-    simpa [S] using squareRootTruncatedUpperMiddlePacketInt_mul_log_div_tendsto K
+    simpa [S] using! squareRootTruncatedUpperMiddlePacketInt_mul_log_div_tendsto K
   have hnormNeg :
       ∀ᶠ R : ℕ in atTop,
         (squareRootTruncatedUpperMiddlePacketInt R K : ℝ) *
@@ -113,7 +113,7 @@ theorem eventually_squareRootTruncatedUpperMiddlePacketInt_18349_pos :
   have hcoeff :=
     squareRootPacketReciprocalWeightReal_neg_of_boundaryRat_neg 18349
       squareRootPacketReciprocalBoundaryRat_18349_neg
-  simpa only [endpointTruncatedUpperMiddlePacketInt_squareRootEndpoint] using
+  simpa only [endpointTruncatedUpperMiddlePacketInt_squareRootEndpoint] using!
     (eventually_endpointTruncatedUpperMiddlePacketInt_pos_of_coefficient_neg
       (fun R : ℕ => R) squareRootEndpoint 18349
       squareRootEndpoint_tendsto_atTop
@@ -200,7 +200,7 @@ theorem squareRootCanonicalRoughCovarianceNativePNT
   have hMdiv :
       |nativeMertensSummatory (squareRootEndpoint R)| /
           (squareRootEndpoint R : ℝ) < η := by
-    simpa [abs_div, abs_of_pos hXpos] using hsmallR
+    simpa [abs_div, abs_of_pos hXpos] using! hsmallR
   have hMreal :
       |nativeMertensSummatory (squareRootEndpoint R)| ≤
         η * (squareRootEndpoint R : ℝ) := by
@@ -348,7 +348,7 @@ theorem eventually_exists_squareRootCanonicalRoughCovarianceNativePNT_18349_twen
   have hMdiv :
       |nativeMertensSummatory (squareRootEndpoint R)| /
           (squareRootEndpoint R : ℝ) < η := by
-    simpa [abs_div, abs_of_pos hXpos] using hsmallR
+    simpa [abs_div, abs_of_pos hXpos] using! hsmallR
   have hM :
       ‖mertensSummatory (squareRootEndpoint R)‖ ≤
         η * (squareRootEndpoint R : ℝ) := by
@@ -366,7 +366,7 @@ theorem eventually_exists_squareRootCanonicalRoughCovarianceNativePNT_18349_twen
   have hV :
       ‖((squareRootCrossingLayerPartialPacketInt R 18349 j : ℤ) : ℂ)‖ ≤
         (21 : ℝ) := by
-    simpa [Complex.norm_intCast, abs_of_nonneg hVNonnegReal] using hVReal
+    simpa [Complex.norm_intCast, abs_of_nonneg hVNonnegReal] using! hVReal
   have htail :
       ‖squareRootPostCrossingCoupledTail R 18349 j‖ ≤
         η * (squareRootEndpoint R : ℝ) + 21 := by

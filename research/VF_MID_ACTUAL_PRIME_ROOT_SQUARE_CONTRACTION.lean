@@ -106,7 +106,7 @@ theorem not_dvd_square_of_root_lt_prime
     ¬ q ∣ R ^ 2 := by
   intro hdiv
   have hdiv' : q ∣ R * R := by
-    simpa [pow_two] using hdiv
+    simpa [pow_two] using! hdiv
   have hqR : q ∣ R :=
     (hqPrime.dvd_mul.mp hdiv').elim id id
   have hqLe : q ≤ R :=
@@ -130,12 +130,12 @@ theorem squareRootEndpoint_div_eq_square_div_of_root_lt_prime
     exact (Nat.div_lt_iff_lt_mul hqPos).1 (Nat.lt_add_one _)
   have hlower0 : q * k ≤ R ^ 2 := by
     dsimp [k]
-    simpa [Nat.mul_comm] using Nat.div_mul_le_self (R ^ 2) q
+    simpa [Nat.mul_comm] using! Nat.div_mul_le_self (R ^ 2) q
   have hlowerNe : q * k ≠ R ^ 2 := by
     intro heq
     have hdvd : q ∣ R ^ 2 := by
       refine ⟨k, ?_⟩
-      simpa [Nat.mul_comm] using heq.symm
+      simpa [Nat.mul_comm] using! heq.symm
     exact not_dvd_square_of_root_lt_prime hRpos hqPrime hRq hdvd
   have hlower : q * k ≤ squareRootEndpoint R := by
     unfold squareRootEndpoint
@@ -154,7 +154,7 @@ theorem squareRootEndpoint_div_eq_square_div_of_root_lt_prime
     · rw [Nat.mul_comm]
       exact hlower
     · exact hupper
-  simpa [k] using hdiv
+  simpa [k] using! hdiv
 
 /-- Prime-list Euler products are strictly positive. -/
 theorem canonicalRoughPrimeListEulerProduct_pos
@@ -206,7 +206,7 @@ theorem canonicalRoughPrimeListEulerProduct_le_one
         canonicalRoughEulerFactor p * canonicalRoughPrimeListEulerProduct ps
             ≤ 1 * canonicalRoughPrimeListEulerProduct ps :=
           mul_le_mul_of_nonneg_right hfactor1 htail0
-        _ ≤ 1 := by simpa using htail1
+        _ ≤ 1 := by simpa using! htail1
 
 /-- **Strict actual-prime Euler-hazard budget.**
 Unlike the raw transport sum, the chronological hazard-normalized prime ledger
@@ -743,7 +743,7 @@ theorem vfMidSquareBlock_rightEndpoint_div_eq_one
     (hd : d ∈ Finset.Ioc (R ^ 2) ((R + 1) ^ 2)) :
     (R + 1) ^ 2 / d = 1 := by
   rcases Finset.mem_Ioc.mp hd with ⟨hdlo, hdhi⟩
-  have hlo : 1 * d ≤ (R + 1) ^ 2 := by simpa using hdhi
+  have hlo : 1 * d ≤ (R + 1) ^ 2 := by simpa using! hdhi
   have hsub : (R + 1) ^ 2 < 2 * R ^ 2 := by
     nlinarith
   have hhi : (R + 1) ^ 2 < (1 + 1) * d := by
@@ -1144,7 +1144,7 @@ theorem abs_sum_vfMidActualHighPrimeProtectedChildren_lt_parent
           |nativePNTSignedSquareBlockCorrelationReciprocalSummand
             ((R + 1) ^ 2) (R ^ 2) ((R + 1) ^ 2) m| :=
     mul_lt_mul_of_pos_right hmass hparent
-  exact htail.trans_lt (by simpa using hstrict)
+  exact htail.trans_lt (by simpa using! hstrict)
 
 /-- The fixed VF alignment phase never changes square-block increments.  This is
 restated here only to keep the endpoint conclusion adjacent to the actual-prime

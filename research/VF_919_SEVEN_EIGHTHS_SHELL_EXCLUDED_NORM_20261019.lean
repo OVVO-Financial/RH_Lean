@@ -33,7 +33,7 @@ theorem vf919NativeSquareShellSharpWeight_supported (R n : ℕ)
   have hnot : ¬ (R ^ 2 ≤ n ∧ n < (R + 1) ^ 2) := by
     intro h
     omega
-  simp only [if_neg hnot]
+  exact ite_eq_right hnot
 
 /-- Fully exact native rational-to-constructed-norm coefficient identity
 for the physical square shell. The weighted Mobius left-hand side is

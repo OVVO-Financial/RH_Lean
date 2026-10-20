@@ -51,7 +51,7 @@ theorem frozenPrimeUniverseMass_primesUpTo_eq_mertens_add_highOwnerMertens
       have hkq2 : k < q ^ 2 := hk.trans hp2q2
       have hdiv : k / q < q := by
         apply (Nat.div_lt_iff_lt_mul hqData.1.pos).2
-        simpa [pow_two] using hkq2
+        simpa [pow_two] using! hkq2
       exact frozenPrimeUniverseMass_eq_mertensSummatoryInt_of_lt_owner
         hqData.1 hdiv
     rw [hterms] at htel
@@ -83,7 +83,7 @@ theorem properSubwheel_boundaryState_eq_mertens_add_semiprimeLayer
     properSubwheelHighPrime_owner_cube_gt hp hcubic
   have hkSq : X / p < p ^ 2 := by
     apply (Nat.div_lt_iff_lt_mul hpData.1.pos).2
-    simpa [pow_succ, Nat.mul_assoc] using hcube
+    simpa [pow_succ, Nat.mul_assoc] using! hcube
   have h :=
     frozenPrimeUniverseMass_primesUpTo_eq_mertens_add_highOwnerMertens
       hpData.1 hkSq

@@ -138,9 +138,9 @@ theorem norm_squareRootRenewalBoundary_le_root (t : ℕ) :
     ‖squareRootRenewalBoundary t‖ ≤ (t : ℝ) := by
   have hM := norm_mertensSummatory_sub_le 0 t (Nat.zero_le t)
   have hMt : ‖mertensSummatory t‖ ≤ (t : ℝ) := by
-    simpa using hM
+    simpa using! hM
   by_cases hp : (t + 1).Prime
-  · simpa [squareRootRenewalBoundary, hp] using hMt
+  · simpa [squareRootRenewalBoundary, hp] using! hMt
   · simp [squareRootRenewalBoundary, hp]
 
 /-- The exact obstruction to identifying the original one-copy square-root
@@ -216,7 +216,7 @@ theorem squarePrefixMertens_eq_smooth_add_centeredRenewal_iff_twoCopyMismatch_eq
       squarePrefixMertens t =
           squareRootSmoothMass t -
             2 * (primeWheelSquareRenewal t - primeWheelSquarePrimeCountMass t) := by
-        simpa using hexact
+        simpa using! hexact
       _ = squareRootSmoothMass t +
           2 * primeWheelSquarePrimeCountMass t -
           2 * primeWheelSquareRenewal t := by ring

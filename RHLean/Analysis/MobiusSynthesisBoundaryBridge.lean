@@ -75,12 +75,12 @@ private theorem wheelPrime_one_eq : wheelPrime 1 = 3 := by
 private theorem primorialEndpoint_one_eq : primorialEndpoint 1 = 2 := by
   have h := primorialEndpoint_succ 0
   rw [primorialEndpoint_zero, wheelPrime_zero_eq] at h
-  simpa using h
+  simpa using! h
 
 private theorem primorialEndpoint_two_eq : primorialEndpoint 2 = 6 := by
   have h := primorialEndpoint_succ 1
   rw [primorialEndpoint_one_eq, wheelPrime_one_eq] at h
-  simpa using h
+  simpa using! h
 
 private theorem six_le_primorialBlockLower {k : ℕ} (hk : 2 ≤ k) :
     6 ≤ primorialBlockLower k := by
@@ -153,7 +153,7 @@ private theorem rpow_anti_base {a b c : ℝ} (ha : 0 < a) (hab : a ≤ b)
   simp only [rpow_eq]
   rw [show c = -(-c) by ring, Real.rpow_neg ha.le, Real.rpow_neg hb.le]
   have h := one_div_le_one_div_of_le ha' h1
-  simpa [one_div] using h
+  simpa [one_div] using! h
 
 /-- Absorb one factor of the base into the exponent. -/
 private theorem base_mul_rpow_sub_one {a σ : ℝ} (ha : 0 < a) :
@@ -258,7 +258,7 @@ private theorem norm_endpoint_block_residual_le
   -- the selected sample lies strictly inside the block
   have hLX : primorialBlockLower k < squarePrefixEndpoint m := by
     by_contra hcon
-    push_neg at hcon
+    push Not at hcon
     have h1 := squarePrefixEndpoint_add_one m
     have h2 := squarePrefixEndpoint_add_one (m + 1)
     have hexp : (m + 1 + 1) ^ 2 = (m + 1) ^ 2 + (2 * m + 3) := by ring
@@ -502,7 +502,7 @@ private theorem norm_block_residual_le
         linarith
       _ = (K + 2 / 5 * (K + 3) + 3) * Real.rpow ((x : ℝ) + 1) σ := by ring
   · -- the whole pinned interval lies inside one square gap
-    push_neg at hcase
+    push Not at hcase
     have hMxL :
         ‖mertensSummatory x - mertensSummatory (primorialBlockLower k)‖ ≤
           ((x - primorialBlockLower k : ℕ) : ℝ) :=
@@ -584,7 +584,7 @@ theorem primeWheelResidualBounded_of_nonzeroResponseRHScale
         rw [hKDdef]; linarith
       exact h.trans hstep
     · -- the two initial blocks are finite: `x ≤ 6`
-      push_neg at hk
+      push Not at hk
       have hUsmall : primorialBlockUpper k ≤ 6 := by
         have hmono : primorialEndpoint (k + 1) ≤ primorialEndpoint 2 :=
           primorialEndpoint_strictMono.monotone (by omega)

@@ -56,7 +56,7 @@ theorem primorialTruncatedSignedReciprocalCube_eq_moebius
   apply Finset.sum_congr rfl
   intro t ht
   by_cases hcut : primeFaceProduct t ≤ X
-  · simp only [hcut, if_true]
+  · simp only [hcut, ite_true]
     rw [moebius_primeFaceProduct_eq_booleanCubeSign t]
     intro p hp
     exact hprime p ((Finset.mem_powerset.mp ht) hp)
@@ -76,7 +76,7 @@ theorem primeFaceProduct_le_primorialWheelProduct
     {P t : Finset ℕ} (ht : t ⊆ P) (hpos : ∀ p ∈ P, 1 ≤ p) :
     primeFaceProduct t ≤ primorialWheelProduct P := by
   unfold primeFaceProduct primorialWheelProduct
-  exact Finset.prod_le_prod_of_subset_of_one_le' ht (by
+  exact Finset.prod_le_prod_of_subset_of_one_le ht (by
     intro p hpP _hpt
     exact hpos p hpP)
 
@@ -150,13 +150,13 @@ theorem primorialTruncatedSignedReciprocalCube_insert
       constructor
       · intro hle
         apply (Nat.le_div_iff_mul_le hpPrime.pos).2
-        simpa [Nat.mul_comm] using hle
+        simpa [Nat.mul_comm] using! hle
       · intro hle
         have hmul := (Nat.le_div_iff_mul_le hpPrime.pos).1 hle
-        simpa [Nat.mul_comm] using hmul
+        simpa [Nat.mul_comm] using! hmul
     by_cases hle : primeFaceProduct t ≤ X / p
     · have hchild : primeFaceProduct (insert p t) ≤ X := hcut.mpr hle
-      simp only [hle, hchild, if_true]
+      simp only [hle, hchild, ite_true]
       rw [hprod, hsign]
       push_cast
       field_simp [hpR0]

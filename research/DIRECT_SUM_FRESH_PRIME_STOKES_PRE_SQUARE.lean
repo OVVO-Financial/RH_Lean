@@ -127,7 +127,7 @@ theorem directSumFreshPrimeScaledReciprocalDropLedger_eq_freshPacket_of_complete
       R [] ps hR hstep
   unfold directSumCoupledFreshPrimePacket
   simpa [squareRootCanonicalRoughAdaptiveCarrier,
-    squareRootCanonicalRoughAdaptiveRawCoefficient] using h
+    squareRootCanonicalRoughAdaptiveRawCoefficient] using! h
 
 /-- **Global pre-square Stokes normal form.**  The canonical rough critical
 correlation is exactly the sum of the prime-weighted reciprocal Euler drops

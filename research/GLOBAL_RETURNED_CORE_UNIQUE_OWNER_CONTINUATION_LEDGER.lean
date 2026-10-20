@@ -202,7 +202,7 @@ theorem lowOwnerFirstOwnerGreatestOwnerPositivePair_namedContinuation
   dsimp only
   let W := squareRootEndpoint R
   have hphys : (m, n) ∈ mertensPositivePhysicalPairCarrier W := by
-    simpa [W] using lowOwnerFirstOwnerGreatestOwnerPositivePair_mem_physical hmn
+    simpa [W] using! lowOwnerFirstOwnerGreatestOwnerPositivePair_mem_physical hmn
   by_cases hfamily : (m, n) ∈ postRootPrimePhysicalPairUnion W
   · exact Or.inl hfamily
   · right

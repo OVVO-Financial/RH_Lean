@@ -70,7 +70,7 @@ theorem squareRootLowPrimeRunningImbalanceReal_step_eq_freshIncrementReal
     (squareRootLowPrimeRunningImbalance_step_eq_freshIncrement
       R K j p hp)
   simpa [squareRootLowPrimeRunningImbalanceReal,
-    squareRootLowPrimeFreshIncrementReal] using h
+    squareRootLowPrimeFreshIncrementReal] using! h
 
 /-- Exact real quadratic energy decrement at one fresh prime. -/
 theorem squareRootLowPrimeRunningEnergyReal_step
@@ -98,13 +98,13 @@ theorem squareRootLowPrimeFreshIncrementReal_sum_eq_neg_ownedResponseChildrenMas
   have h := congrArg Complex.re
     (squareRootLowPrimeFreshIncrement_sum_eq_neg_ownedResponseChildrenMass
       (R := R) (K := K) (j := j) (U := U) hR hUR)
-  simpa [squareRootLowPrimeFreshIncrementReal] using h
+  simpa [squareRootLowPrimeFreshIncrementReal] using! h
 
 /-- Taking real parts of a complex difference costs at most its complex norm. -/
 private theorem abs_re_sub_le_norm_sub (z w : ℂ) :
     |z.re - w.re| ≤ ‖z - w‖ := by
   have h := Complex.abs_re_le_norm (z - w)
-  simpa using h
+  simpa using! h
 
 /-- **Canonical-core real reduction.**  The actual terminal real state differs
 from the explicit canonical core by at most `R`. -/
@@ -145,7 +145,7 @@ theorem squareRootLowPrimeRunningImbalanceReal_abs_le_canonicalCore_add_root
       abs_add_le _ _
     _ ≤ (R : ℝ) +
           |squareRootLowPrimeCanonicalTerminalCoreReal R K j| :=
-      add_le_add_right hdiff _
+      add_le_add_left hdiff _
     _ = |squareRootLowPrimeCanonicalTerminalCoreReal R K j| +
           (R : ℝ) := by ring
 
@@ -161,7 +161,7 @@ theorem squareRootLowPrimeRunningImbalanceReal_abs_le_of_canonicalCore
   exact
     (squareRootLowPrimeRunningImbalanceReal_abs_le_canonicalCore_add_root
       R K j hR hK hKR hj).trans
-      (add_le_add_right hcore _)
+      (add_le_add_left hcore _)
 
 /-- Squared terminal bound transferred from a canonical-core absolute bound. -/
 theorem squareRootLowPrimeRunningImbalanceReal_sq_le_of_canonicalCore
@@ -184,7 +184,7 @@ theorem squareRootLowPrimeRunningImbalanceReal_sq_le_of_canonicalCore
     nlinarith [abs_nonneg
       (squareRootLowPrimeRunningImbalanceReal R K j
         (squareRootBornPostTailLowPrimeCutoff R))]
-  simpa [sq_abs] using hsquare
+  simpa [sq_abs] using! hsquare
 
 /-- The corresponding endpoint energy decrement lower bound. -/
 theorem squareRootLowPrimeEndpointEnergyReal_ge_of_canonicalCore
@@ -249,7 +249,7 @@ theorem squareRootLowPrimeRunningImbalanceReal_abs_le_farSurvivorCore_add_bounda
       abs_add_le _ _
     _ ≤ (8 * (R : ℝ) + (K : ℝ)) +
           |squareRootLowPrimeFarSurvivorTerminalCoreReal R| :=
-      add_le_add_right hdiff _
+      add_le_add_left hdiff _
     _ = |squareRootLowPrimeFarSurvivorTerminalCoreReal R| +
           (8 * (R : ℝ) + (K : ℝ)) := by ring
 

@@ -70,10 +70,10 @@ theorem vfMidSameTagWindow_sharp_four_witness :
     intro p hp
     simp only [Finset.mem_insert, Finset.mem_singleton] at hp
     rcases hp with h | h | h | h
-    · simpa [h] using h3
-    · simpa [h] using h5
-    · simpa [h] using h7
-    · simpa [h] using h11
+    · simpa [h] using! h3
+    · simpa [h] using! h5
+    · simpa [h] using! h7
+    · simpa [h] using! h11
   have hfour : 4 ≤ (vfMidSameTagWindow 11534351 5882 11265).card := by
     have hcard := Finset.card_le_card hsub
     norm_num at hcard ⊢

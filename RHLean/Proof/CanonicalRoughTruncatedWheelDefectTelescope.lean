@@ -134,7 +134,7 @@ theorem squareRootCanonicalRoughCompleteWheelTopEscapePartnerFaceMass_eq_truncat
     freshPrime_mul_oldFace_lt_root_of_completeWheel hp hu hWheel
   have hpq : p < q := by
     have hpLe : p ≤ p * primeFaceProduct u := by
-      simpa using Nat.mul_le_mul_left p (Nat.succ_le_iff.mpr hcpos)
+      simpa using! Nat.mul_le_mul_left p (Nat.succ_le_iff.mpr hcpos)
     exact hpLe.trans_lt (hpcLt.trans hqR)
   have hqRough : canonicalLargestPrimeFactor (primeFaceProduct u) < q :=
     hcfresh.trans hpq
@@ -153,11 +153,11 @@ theorem squareRootCanonicalRoughCompleteWheelTopEscapePartnerFaceMass_eq_truncat
         (Nat.le_div_iff_mul_le hq.pos).2 hupper
       have hfirst : squareRootEndpoint R / q < primeFaceProduct u * p := by
         apply (Nat.div_lt_iff_lt_mul hq.pos).2
-        simpa [Nat.mul_assoc, Nat.mul_comm, Nat.mul_left_comm] using hwall
+        simpa [Nat.mul_assoc, Nat.mul_comm, Nat.mul_left_comm] using! hwall
       have hlower :
           (squareRootEndpoint R / q) / p < primeFaceProduct u :=
         (Nat.div_lt_iff_lt_mul hp.pos).2 <| by
-          simpa [Nat.mul_comm] using hfirst
+          simpa [Nat.mul_comm] using! hfirst
       exact ⟨hlower, hupper'⟩
     · rintro ⟨hlower, hupper⟩
       have hupper' : primeFaceProduct u * q ≤ squareRootEndpoint R :=
@@ -167,7 +167,7 @@ theorem squareRootCanonicalRoughCompleteWheelTopEscapePartnerFaceMass_eq_truncat
       have hwall :
           squareRootEndpoint R < (p * primeFaceProduct u) * q := by
         have := (Nat.div_lt_iff_lt_mul hq.pos).1 hfirst
-        simpa [Nat.mul_assoc, Nat.mul_comm, Nat.mul_left_comm] using this
+        simpa [Nat.mul_assoc, Nat.mul_comm, Nat.mul_left_comm] using! this
       have hroot : R ≤ primeFaceProduct u * q := by
         have hqLe : q ≤ primeFaceProduct u * q := by
           calc
@@ -188,7 +188,7 @@ theorem squareRootCanonicalRoughCompleteWheelTopEscapePartnerFaceMass_eq_truncat
       have hnotMem :
           q ∉ squareRootCanonicalRoughFreshTopEscapeBoundary
             R (primeFaceProduct u) p := by
-        simpa [hmem] using hnotShell
+        simpa [hmem] using! hnotShell
       simp [hnotMem, hupper, hlowerCut]
     · have hlower :
           (squareRootEndpoint R / q) / p < primeFaceProduct u :=
@@ -205,7 +205,7 @@ theorem squareRootCanonicalRoughCompleteWheelTopEscapePartnerFaceMass_eq_truncat
     have hnotMem :
         q ∉ squareRootCanonicalRoughFreshTopEscapeBoundary
           R (primeFaceProduct u) p := by
-      simpa [hmem] using hnotShell
+      simpa [hmem] using! hnotShell
     have hnotLowerCut :
         ¬ primeFaceProduct u ≤ (squareRootEndpoint R / q) / p := by
       intro hlowerCut
@@ -255,10 +255,10 @@ theorem squareRootCanonicalRoughCompleteWheelBirthPartnerFaceMass_eq_truncatedSh
       have hfirst : (R - 1) / q < primeFaceProduct u * p := by
         apply (Nat.div_lt_iff_lt_mul hq.pos).2
         have : R - 1 < (p * primeFaceProduct u) * q := by omega
-        simpa [Nat.mul_assoc, Nat.mul_comm, Nat.mul_left_comm] using this
+        simpa [Nat.mul_assoc, Nat.mul_comm, Nat.mul_left_comm] using! this
       have hlower : ((R - 1) / q) / p < primeFaceProduct u :=
         (Nat.div_lt_iff_lt_mul hp.pos).2 <| by
-          simpa [Nat.mul_comm] using hfirst
+          simpa [Nat.mul_comm] using! hfirst
       exact ⟨hlower, hupper'⟩
     · rintro ⟨hlower, hupper⟩
       have hbelowLe : primeFaceProduct u * q ≤ R - 1 :=
@@ -268,7 +268,7 @@ theorem squareRootCanonicalRoughCompleteWheelBirthPartnerFaceMass_eq_truncatedSh
         (Nat.div_lt_iff_lt_mul hp.pos).1 hlower
       have hrootPred : R - 1 < (p * primeFaceProduct u) * q := by
         have := (Nat.div_lt_iff_lt_mul hq.pos).1 hfirst
-        simpa [Nat.mul_assoc, Nat.mul_comm, Nat.mul_left_comm] using this
+        simpa [Nat.mul_assoc, Nat.mul_comm, Nat.mul_left_comm] using! this
       have hroot : R ≤ (p * primeFaceProduct u) * q := by omega
       have hprod1 : (p * primeFaceProduct u) * q < R * q :=
         Nat.mul_lt_mul_of_pos_right hpcLt hq.pos
@@ -293,7 +293,7 @@ theorem squareRootCanonicalRoughCompleteWheelBirthPartnerFaceMass_eq_truncatedSh
       have hnotMem :
           q ∉ squareRootCanonicalRoughFreshBirthBoundary
             R (primeFaceProduct u) p := by
-        simpa [hmem] using hnotShell
+        simpa [hmem] using! hnotShell
       simp [hnotMem, hupper, hlowerCut]
     · have hlower : ((R - 1) / q) / p < primeFaceProduct u :=
         Nat.lt_of_not_ge hlowerCut
@@ -309,7 +309,7 @@ theorem squareRootCanonicalRoughCompleteWheelBirthPartnerFaceMass_eq_truncatedSh
     have hnotMem :
         q ∉ squareRootCanonicalRoughFreshBirthBoundary
           R (primeFaceProduct u) p := by
-      simpa [hmem] using hnotShell
+      simpa [hmem] using! hnotShell
     have hnotLowerCut :
         ¬ primeFaceProduct u ≤ ((R - 1) / q) / p := by
       intro hlowerCut

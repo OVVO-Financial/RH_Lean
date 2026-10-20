@@ -58,7 +58,7 @@ theorem q2DaughterFarHighTransport_eq_zero_of_mem_highQ2Owners
     have hpLower : R + 7 < p := hpData.2.1
     have hpUpper : p ≤ squareRootEndpoint R / (q * q) := hpData.2.2
     have hY' : squareRootEndpoint R / (q * q) < R := by
-      simpa [rawQ2ChildCutoff] using hY
+      simpa [rawQ2ChildCutoff] using! hY
     omega
   unfold q2DaughterFarHighTransport
   rw [hempty]
@@ -81,7 +81,7 @@ theorem q2DaughterFarIntermediatePrimeTower_eq_zero_of_mem_highQ2Owners
     have hpLower : R + 7 < p := hpData.2.1
     have hpUpper : p ≤ squareRootEndpoint R / (q * q) := hpData.2.2
     have hY' : squareRootEndpoint R / (q * q) < R := by
-      simpa [rawQ2ChildCutoff] using hY
+      simpa [rawQ2ChildCutoff] using! hY
     omega
   unfold q2DaughterFarIntermediatePrimeTower
   rw [hempty]
@@ -136,7 +136,7 @@ theorem farFourQ2OwnerSynthesisAtom_eq_zero_of_mem_highQ2Owners
     q2DaughterFarIntermediatePrimeTower_eq_zero_of_mem_highQ2Owners hR hq
   unfold farFourQ2OwnerSynthesisAtom
   rw [htower]
-  simpa only [Int.cast_zero, sub_zero] using hmain
+  simpa only [Int.cast_zero, sub_zero] using! hmain
 
 /-- The complete nonrecursive odd-owner scalar tail is therefore zero before
 energy. -/
@@ -176,7 +176,7 @@ theorem sum_odd_q2OwnerAtoms_eq_low_add_high (R : ℕ) :
   have hsub := canonicalRoughHighQ2Owners_subset_oddOwners R
   have hs := Finset.sum_sdiff hsub
     (f := fun q => farFourQ2OwnerSynthesisAtom R q)
-  simpa [canonicalRoughLowQ2Owners] using hs.symm
+  simpa [canonicalRoughLowQ2Owners] using! hs.symm
 
 /-- **Low-owner signed normal form.**  At every square endpoint `R >= 56`, all
 odd owners with `q^2 >= R` disappear algebraically.  The entire hard scalar is

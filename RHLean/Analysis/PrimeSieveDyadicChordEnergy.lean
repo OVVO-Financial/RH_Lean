@@ -72,7 +72,7 @@ theorem primeSieveDyadicBlock_eq_explicitIcc (y x j : ℕ) :
   · rintro ⟨⟨hd1, hdK⟩, hidx⟩
     have hdne : d ≠ 0 := by omega
     have hlog : Nat.log 2 d = j := by
-      simpa [primeSieveDyadicIndex, Nat.log2_eq_log_two] using hidx
+      simpa [primeSieveDyadicIndex, Nat.log2_eq_log_two] using! hidx
     have hspec : 2 ^ j ≤ d ∧ d < 2 ^ (j + 1) :=
       (Nat.log_eq_iff (b := 2) (m := j) (n := d)
         (Or.inr ⟨by norm_num, hdne⟩)).mp hlog
@@ -85,7 +85,7 @@ theorem primeSieveDyadicBlock_eq_explicitIcc (y x j : ℕ) :
     have hdPow : d ≤ 2 ^ (j + 1) - 1 :=
       hright.trans (min_le_right _ _)
     have hpowOne : 1 ≤ 2 ^ j := by
-      simpa using (Nat.one_le_pow' j 1)
+      simpa using! (Nat.one_le_pow' j 1)
     have hd1 : 1 ≤ d := hpowOne.trans hleft
     have hdlt : d < 2 ^ (j + 1) := by
       have hp : 0 < 2 ^ (j + 1) := by positivity
@@ -93,7 +93,7 @@ theorem primeSieveDyadicBlock_eq_explicitIcc (y x j : ℕ) :
     have hlog : Nat.log 2 d = j :=
       Nat.log_eq_of_pow_le_of_lt_pow hleft hdlt
     have hidx : primeSieveDyadicIndex d = j := by
-      simpa [primeSieveDyadicIndex, Nat.log2_eq_log_two] using hlog
+      simpa [primeSieveDyadicIndex, Nat.log2_eq_log_two] using! hlog
     exact ⟨⟨hd1, hdK⟩, hidx⟩
 
 /-- Occupancy is exactly the assertion that the explicit dyadic interval is
@@ -187,7 +187,7 @@ theorem card_primeSieveDyadicBlock
         Finset.Ico (primeSieveDyadicBlockLeft j)
           (primeSieveDyadicBlockRight y x j + 1) := by
     ext d
-    simp
+    simp only [Finset.mem_Icc, Finset.mem_Ico]
     omega
   rw [hset, Nat.card_Ico]
 
@@ -204,7 +204,7 @@ theorem sum_primeSieveReciprocalPrimeDiscrepancy_dyadicBlock_eq
   have hrightK : primeSieveDyadicBlockRight y x j ≤ x / (y + 1) :=
     min_le_left _ _
   have hleft1 : 1 ≤ primeSieveDyadicBlockLeft j := by
-    simpa [primeSieveDyadicBlockLeft] using (Nat.one_le_pow' j 1)
+    simpa [primeSieveDyadicBlockLeft] using! (Nat.one_le_pow' j 1)
   rw [primeSieveDyadicBlock_eq_explicitIcc]
   have hset :
       Finset.Icc (primeSieveDyadicBlockLeft j)
@@ -212,7 +212,7 @@ theorem sum_primeSieveReciprocalPrimeDiscrepancy_dyadicBlock_eq
         Finset.Ico (primeSieveDyadicBlockLeft j)
           (primeSieveDyadicBlockRight y x j + 1) := by
     ext d
-    simp
+    simp only [Finset.mem_Icc, Finset.mem_Ico]
     omega
   rw [hset]
   exact sum_primeSieveReciprocalPrimeDiscrepancy_Ico_eq
@@ -251,7 +251,7 @@ theorem sum_primeSieveDyadicWavelet_Ico_left_eq
   rw [primeSieveDyadicBlock_eq_explicitIcc] at hdE
   rcases Finset.mem_Icc.mp hdE with ⟨hleftd, hdright⟩
   have hleft1 : 1 ≤ primeSieveDyadicBlockLeft j := by
-    simpa [primeSieveDyadicBlockLeft] using (Nat.one_le_pow' j 1)
+    simpa [primeSieveDyadicBlockLeft] using! (Nat.one_le_pow' j 1)
   have hdK : d ≤ x / (y + 1) := by
     exact (mem_primeSieveDyadicBlock.mp hdB).1 |> Finset.mem_Icc.mp |>.2
   have hrewrite :
@@ -297,7 +297,7 @@ theorem primeSieveDyadicBlockAbelPotential_eq_chordResidual
   rw [primeSieveDyadicBlock_eq_explicitIcc] at hdE
   rcases Finset.mem_Icc.mp hdE with ⟨hleftd, hdright⟩
   have hleft1 : 1 ≤ primeSieveDyadicBlockLeft j := by
-    simpa [primeSieveDyadicBlockLeft] using (Nat.one_le_pow' j 1)
+    simpa [primeSieveDyadicBlockLeft] using! (Nat.one_le_pow' j 1)
   have hfilter :
       (Finset.Icc 1 (d - 1)).filter
           (fun t => t ∈ primeSieveDyadicBlock y x j) =

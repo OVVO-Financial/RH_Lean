@@ -67,7 +67,7 @@ theorem vfMidRecursiveChildCarrier_card_eq_sum
   have h := Finset.sum_biUnion
     (vfMidRecursiveChildFibers_pairwiseDisjoint R hR)
     (f := fun _ : ℕ => (1 : ℕ))
-  simpa using h
+  simpa using! h
 
 /-- Descended children from R which land in the repository square block
 (S^2,(S+1)^2].  This convention covers square children at the previous block's
@@ -127,11 +127,11 @@ theorem vfMidRecursiveChildrenInBlock_sum_card_le_carrier
   let I : Finset ℕ := Finset.Ico 2 R
   let F : ℕ → Finset ℕ := vfMidRecursiveChildrenInBlock R
   have hpair : Set.PairwiseDisjoint (↑I) F := by
-    simpa [I, F] using vfMidRecursiveChildrenInBlock_pairwiseDisjoint R
+    simpa [I, F] using! vfMidRecursiveChildrenInBlock_pairwiseDisjoint R
   have hunion :
       (I.biUnion F).card = ∑ S ∈ I, (F S).card := by
     have h := Finset.sum_biUnion hpair (f := fun _ : ℕ => (1 : ℕ))
-    simpa using h
+    simpa using! h
   have hsubset : I.biUnion F ⊆ vfMidRecursiveChildCarrier R := by
     intro m hm
     rcases Finset.mem_biUnion.mp hm with ⟨S, _hS, hmF⟩
@@ -209,13 +209,13 @@ theorem vfMidRecursiveChildrenInBlock_sum_card_eq_carrier
   let I : Finset ℕ := Finset.Ico 2 R
   let F : ℕ → Finset ℕ := vfMidRecursiveChildrenInBlock R
   have hpair : Set.PairwiseDisjoint (↑I) F := by
-    simpa [I, F] using vfMidRecursiveChildrenInBlock_pairwiseDisjoint R
+    simpa [I, F] using! vfMidRecursiveChildrenInBlock_pairwiseDisjoint R
   have hunion :
       (I.biUnion F).card = ∑ S ∈ I, (F S).card := by
     have h := Finset.sum_biUnion hpair (f := fun _ : ℕ => (1 : ℕ))
-    simpa using h
+    simpa using! h
   have heq : I.biUnion F = vfMidRecursiveChildCarrier R := by
-    simpa [I, F] using vfMidRecursiveChildBlocks_biUnion_eq_carrier R hR
+    simpa [I, F] using! vfMidRecursiveChildBlocks_biUnion_eq_carrier R hR
   calc
     (∑ S ∈ Finset.Ico 2 R,
       (vfMidRecursiveChildrenInBlock R S).card) =
@@ -1113,7 +1113,7 @@ theorem abs_vfMidNativeDescentRemainder_le_linear
             |vfMidRecursiveAggregateRemainder R|) +
           |vfMidOriginalPrimeCharge R| := by
           rw [abs_neg]
-          exact add_le_add_right (abs_add_le _ _) _
+          exact add_le_add_left (abs_add_le _ _) _
     _ ≤ (3 / Real.log 4) * (R : ℝ) +
           (1 + 3 / Real.log 4) * (R : ℝ) +
           (3 / Real.log 4) * (R : ℝ) := by

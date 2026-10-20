@@ -83,7 +83,7 @@ theorem nativePNTSignedSecondSelbergKernelRecipMass_eq_mobius_harmonic
         · rintro ⟨m, ⟨hm1, hmN⟩, rfl⟩
           have hmpos : 0 < m := by omega
           have hmulN' : m * d ≤ N := (Nat.le_div_iff_mul_le hdpos).1 hmN
-          have hmulN : d * m ≤ N := by simpa [Nat.mul_comm] using hmulN'
+          have hmulN : d * m ≤ N := by simpa [Nat.mul_comm] using! hmulN'
           exact ⟨⟨Nat.one_le_iff_ne_zero.mpr
             (Nat.ne_of_gt (Nat.mul_pos hdpos hmpos)), hmulN⟩,
             dvd_mul_right d m⟩

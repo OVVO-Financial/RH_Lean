@@ -350,7 +350,7 @@ theorem primeSieveMoebiusPrefixSum_increment_norm_le (y x h : ℕ) (hy : 1 ≤ y
           + ((((x + h) / d : ℕ) : ℝ) - ((x / d : ℕ) : ℝ)) / Real.log ((y : ℝ) + 1) := by
     intro d hd
     have hmem : d ∈ primeSieveQuotientSupport y x := by
-      simpa [primeSieveQuotientSupport] using hd
+      simpa [primeSieveQuotientSupport] using! hd
     have hylt : y < x / d := lt_div_of_mem_primeSieveQuotientSupport hmem
     have hmono : x / d ≤ (x + h) / d := Nat.div_le_div_right (Nat.le_add_right x h)
     have hbase := primeSievePrimeDiscrepancy_sub_norm_le (y := y) (a := x / d)
@@ -440,7 +440,7 @@ theorem primeSieveQuotientTop_stable (y x h : ℕ) (hmod : x % (y + 1) + h < y +
   have hhm : h % (y + 1) = h := Nat.mod_eq_of_lt (by omega)
   rw [hhd, hhm] at hadd
   have : ¬ (y + 1 ≤ x % (y + 1) + h) := by omega
-  rw [if_neg this] at hadd
+  rw [ite_eq_right this] at hadd
   omega
 
 /-- **The Lipschitz bound for the Abel face.**

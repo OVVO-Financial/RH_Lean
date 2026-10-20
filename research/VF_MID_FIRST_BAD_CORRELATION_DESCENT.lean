@@ -143,7 +143,7 @@ theorem vfMidActualPrimeFirstBadAt_two_succ_nnsNormalized_gt_half
   · have htotalPos : 0 < vfMidFirstBadZeroTargetTotalMass R :=
       lt_of_le_of_ne htotal0 (Ne.symm htotalZero)
     exact (mul_lt_mul_iff_left₀ htotalPos).mp (by
-      simpa [mul_assoc] using hprod)
+      simpa [mul_assoc] using! hprod)
 
 /-- Deterministic affine center of one VF odd-seat field. -/
 def vfMidCubeSeatAffineCenter (R : ℕ) : ℝ :=
@@ -275,7 +275,7 @@ theorem exists_half_excess_of_sum_gt_half
         ∑ i ∈ s, num i) :
     ∃ i ∈ s, (1 / 2 : ℝ) * den i < num i := by
   by_contra hnone
-  push_neg at hnone
+  push Not at hnone
   have hle :
       (∑ i ∈ s, num i) ≤
         ∑ i ∈ s, (1 / 2 : ℝ) * den i := by
@@ -326,7 +326,7 @@ theorem no_bad_of_strict_rank_descent
   | h k ih =>
       intro hbad
       obtain ⟨y, hyrank, hybad⟩ := hdesc x hbad
-      have hylt : rank y < k := by simpa [hx] using hyrank
+      have hylt : rank y < k := by simpa [hx] using! hyrank
       exact (ih (rank y) hylt y rfl) hybad
 
 /-- A nonpositive stopped sector with nonnegative denominator cannot be the

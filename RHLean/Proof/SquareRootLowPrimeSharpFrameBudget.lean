@@ -101,7 +101,7 @@ theorem primeOwnerReciprocalSquareBudget_le_half (N : ℕ) :
     calc
       (∑ q ∈ primesUpTo N, (1 : ℚ) / (q : ℚ) ^ 2) =
           (∑ q ∈ (primesUpTo N).erase 2, (1 : ℚ) / (q : ℚ) ^ 2) + 1 / 4 := hs'.symm
-      _ ≤ 1 / 4 + 1 / 4 := add_le_add_right h _
+      _ ≤ 1 / 4 + 1 / 4 := add_le_add_left h _
       _ = 1 / 2 := by norm_num
   · have heq : (primesUpTo N).erase 2 = primesUpTo N :=
       Finset.erase_eq_of_notMem htwo
@@ -125,7 +125,7 @@ theorem sum_squareDilatedCutoffs_le_scale_mul_budget
   have hpos : (0 : ℚ) < ((q * q : ℕ) : ℚ) := by
     exact_mod_cast Nat.mul_pos hp.pos hp.pos
   have hdiv := (le_div_iff₀ hpos).2 hmul
-  simpa [Nat.cast_mul, pow_two, div_eq_mul_inv] using hdiv
+  simpa [Nat.cast_mul, pow_two, div_eq_mul_inv] using! hdiv
 
 /-- A half-parent budget on the literal integer daughter cutoffs. -/
 theorem sum_primeOwner_squareDilatedCutoffs_le_half_parent (N X : ℕ) :
@@ -218,7 +218,7 @@ theorem q2EnergyStep_implies_linear_of_ownerScaleBudget
         have hp := mem_primesUpTo.mp (howners 0 hq)
         have := hp.1.two_le
         omega
-      simpa [hempty] using hstep 0
+      simpa [hempty] using! hstep 0
     · have hchildren : (∑ q ∈ owners X, E (X / (q * q))) ≤
           K * (∑ q ∈ owners X, ((X / (q * q) : ℕ) : ℚ)) := by
         rw [Finset.mul_sum]
@@ -248,7 +248,7 @@ theorem elevenQ2_bulk_boundary_twoFrame_implies_linear
     (fun _ => Finset.Subset.refl _) (by nlinarith [hB])
       (mul_nonneg (by norm_num) elevenWeightOneEnergyFactor_nonneg)
   · intro X
-    simpa [div_eq_mul_inv, mul_comm] using
+    simpa [div_eq_mul_inv, mul_comm] using!
       sum_primeOwner_squareDilatedCutoffs_le_half_parent X X
   · rw [elevenWeightOneEnergyFactor_eq]
     nlinarith
@@ -277,7 +277,7 @@ theorem elevenQ2_bulk_boundary_fourFrame_oddOwners_implies_linear
     (fun _ => Finset.erase_subset _ _) (by nlinarith [hB])
       (mul_nonneg (by norm_num) elevenWeightOneEnergyFactor_nonneg)
   · intro X
-    simpa [div_eq_mul_inv, mul_comm] using
+    simpa [div_eq_mul_inv, mul_comm] using!
       sum_oddPrimeOwner_squareDilatedCutoffs_le_quarter_parent X X
   · rw [elevenWeightOneEnergyFactor_eq]
     nlinarith

@@ -190,14 +190,14 @@ theorem mertensEnergyBounded_of_pntSpacedPrimeFlipClosure
   have hbasePow :
       ((x + 1 : ℕ) : ℝ) ≤
         Real.rpow ((x + 1 : ℕ) : ℝ) (1 + ε) := by
-    simpa only [Real.rpow_one] using
+    simpa only [Real.rpow_one] using!
       Real.rpow_le_rpow_of_exponent_le hbase hexp
   calc
     ‖mertensSummatory x‖ ^ 2 ≤ (Nat.sqrt x : ℝ) ^ 2 := hsq
     _ ≤ (x : ℝ) := hsqrtReal
     _ ≤ ((x + 1 : ℕ) : ℝ) := hxsucc
     _ ≤ 1 * Real.rpow ((x + 1 : ℕ) : ℝ) (1 + ε) := by
-      simpa using hbasePow
+      simpa using! hbasePow
 
 /-! ## Worst-case midpoint between consecutive PNT-spaced primes
 
@@ -292,7 +292,7 @@ theorem reciprocalPrimeMidpointDelay_le_root_gap
   have hqR : (q : ℝ) ≤ (Nat.sqrt x : ℝ) := by exact_mod_cast hq
   have hgapCast : (((pHi - pLo : ℕ) : ℝ)) ≤ (G : ℝ) := by exact_mod_cast hgap
   have hgapR : (pHi : ℝ) - (pLo : ℝ) ≤ (G : ℝ) := by
-    simpa [Nat.cast_sub hlohi] using hgapCast
+    simpa [Nat.cast_sub hlohi] using! hgapCast
   have hdiff0 : (0 : ℝ) ≤ (pHi : ℝ) - (pLo : ℝ) := by
     exact sub_nonneg.mpr (by exact_mod_cast hlohi)
   have hroot0 : (0 : ℝ) ≤ (Nat.sqrt x : ℝ) := by positivity
@@ -376,11 +376,11 @@ theorem pntWorstCaseSquareOverlap_sq_le_subpolynomial
   intro x
   let M : ℕ := Nat.log 2 (x + 1)
   have hpowOne : 1 ≤ 2 ^ M := by
-    simpa using (Nat.one_le_pow' M 1)
+    simpa using! (Nat.one_le_pow' M 1)
   have hdiv := hlin (2 ^ M) hpowOne
   have hcard : (2 ^ M).divisors.card = M + 1 := by
     have h := congrArg Finset.card (Nat.divisors_prime_pow Nat.prime_two M)
-    simpa using h
+    simpa using! h
   rw [hcard] at hdiv
   have hpowNat : 2 ^ M ≤ x + 1 := by
     dsimp [M]
@@ -401,7 +401,7 @@ theorem pntWorstCaseSquareOverlap_sq_le_subpolynomial
   let P : ℝ := Real.rpow B (ε / 2)
   have hL0 : 0 ≤ L := by dsimp [L]; positivity
   have hlinear' : L ≤ C * P := by
-    simpa [L, B, P] using hlinear
+    simpa [L, B, P] using! hlinear
   have hsquare : L ^ 2 ≤ (C * P) ^ 2 :=
     pow_le_pow_left₀ hL0 hlinear' 2
   have hBpos : 0 < B := by dsimp [B]; positivity
@@ -434,7 +434,7 @@ theorem mertensEnergyBounded_of_pntSpacedWorstCasePrimeFlipClosure
   have hnorm :=
     norm_mertensSummatory_le_sqrt_mul_log_of_pntWorstCaseClosure h x
   have hnorm' : ‖mertensSummatory x‖ ≤ R * L := by
-    simpa [R, L] using hnorm
+    simpa [R, L] using! hnorm
   have hnorm0 : 0 ≤ ‖mertensSummatory x‖ := norm_nonneg _
   have hRL0 : 0 ≤ R * L := by dsimp [R, L]; positivity
   have hsq : ‖mertensSummatory x‖ ^ 2 ≤ (R * L) ^ 2 := by
@@ -445,7 +445,7 @@ theorem mertensEnergyBounded_of_pntSpacedWorstCasePrimeFlipClosure
     have hcast : (Nat.sqrt x : ℝ) ^ 2 ≤ (x : ℝ) := by exact_mod_cast hrootNat
     nlinarith
   have hover : L ^ 2 ≤ C * Real.rpow B ε := by
-    simpa [L, B] using hlog x
+    simpa [L, B] using! hlog x
   have hmul :
       R ^ 2 * L ^ 2 ≤ B * (C * Real.rpow B ε) := by
     exact mul_le_mul hroot hover (sq_nonneg L) (by dsimp [B]; positivity)

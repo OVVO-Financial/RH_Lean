@@ -67,7 +67,7 @@ theorem lowWheelFarPrimeLowCofactorTriple_rawCoefficient_pair_eq_zero_at_farPrim
   have hdpos : 0 < t.2.1 := by omega
   have hqp : t.1 < t.2.2 := by omega
   have hupper : (t.2.1 * t.1) * t.2.2 ≤ squareRootEndpoint R := by
-    simpa [Nat.mul_comm, Nat.mul_left_comm, Nat.mul_assoc] using hcut
+    simpa [Nat.mul_comm, Nat.mul_left_comm, Nat.mul_assoc] using! hcut
   exact
     squareRootCanonicalRoughAdaptiveRawCoefficient_pair_eq_zero_of_larger_extension_split
       pre post hdpos hq hp hdq hqp hupper hprePrime hpreLarger
@@ -106,7 +106,7 @@ theorem lowWheelFarPrimeQ2CrossingTriple_has_larger_extension
     ⟨hq, hqR, hd1, hp, hpR, _hdsq, hdq, hcut⟩
   refine ⟨t.2.2, hp, ?_, ?_⟩
   · omega
-  · simpa [Nat.mul_comm, Nat.mul_left_comm, Nat.mul_assoc] using hcut
+  · simpa [Nat.mul_comm, Nat.mul_left_comm, Nat.mul_assoc] using! hcut
 
 /-- **The actual lower-owner raw pair has zero evolved amplitude after the far
 prime is processed.**  This is stronger than killing only the mismatch term:
@@ -285,7 +285,7 @@ theorem lowWheelFarPrimeLowCofactorTriple_farPrime_mem_partnerSet
     ⟨hqPrime, hqR, hd1, hpPrime, hpR, _hdsq, hdq, hcut⟩
   have hcpos : 0 < t.1 * t.2.1 := Nat.mul_pos hqPrime.pos (by omega)
   have hlpf : canonicalLargestPrimeFactor (t.1 * t.2.1) = t.1 := by
-    simpa [Nat.mul_comm] using
+    simpa [Nat.mul_comm] using!
       canonicalLargestPrimeFactor_mul_prime_eq_of_rough hd1 hqPrime hdq
   apply (mem_squareRootCanonicalRoughPrimePartnerSet_iff hR hcpos).2
   refine ⟨hpPrime, ?_, ?_, ?_⟩
@@ -297,7 +297,7 @@ theorem lowWheelFarPrimeLowCofactorTriple_farPrime_mem_partnerSet
       R ≤ t.2.2 := hpR'
       _ = 1 * t.2.2 := by simp
       _ ≤ (t.1 * t.2.1) * t.2.2 := Nat.mul_le_mul_right t.2.2 hc1
-  · simpa [Nat.mul_assoc] using hcut
+  · simpa [Nat.mul_assoc] using! hcut
 
 /-- **Stable-far post-root boundary transposition.**  On every actual stripped
 stable-far triple, the complete physical raw boundary generated at its far prime
@@ -316,7 +316,7 @@ theorem lowWheelFarPrimeLowCofactorTriple_farPrimeRawBoundary_eq_partnerIncidenc
     ⟨hqPrime, hqR, hd1, hpPrime, hpR, _hdsq, hdq, _hcut⟩
   have hcpos : 0 < t.1 * t.2.1 := Nat.mul_pos hqPrime.pos (by omega)
   have hlpf : canonicalLargestPrimeFactor (t.1 * t.2.1) = t.1 := by
-    simpa [Nat.mul_comm] using
+    simpa [Nat.mul_comm] using!
       canonicalLargestPrimeFactor_mul_prime_eq_of_rough hd1 hqPrime hdq
   have hfresh : canonicalLargestPrimeFactor (t.1 * t.2.1) < t.2.2 := by
     rw [hlpf]

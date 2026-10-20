@@ -1,6 +1,7 @@
 import «research.GLOBAL_RETURNED_CORE_BOOLEAN_CARDINALITY_AUDIT»
 import «research.AMPLITUDE_RETURNED_FIBER_PHYSICAL_BRIDGE»
 import RHLean.Proof.StableFarWallExactQ2Split
+import RHLean.Proof.LowWheelCanonicalPrimeSplit
 import RHLean.Proof.StableFarAdaptiveLedgerCollapse
 import «research.AMPLITUDE_GLOBAL_PHYSICAL_DEFECT_LEDGER»
 import RHLean.Proof.PostRootPartnerReciprocalCompression
@@ -72,7 +73,7 @@ theorem squareRootLowPrimeReentryBirthBoundary_mem_goFullBirthBoundary
   · omega
   · apply (Nat.div_lt_iff_lt_mul hq.pos).2
     have htqc' : t ≤ c * q := by
-      simpa [Nat.mul_comm] using htqc
+      simpa [Nat.mul_comm] using! htqc
     omega
 
 /-- Every re-entry birth witness has exactly the two physical Go outcomes:
@@ -121,7 +122,7 @@ theorem squareRootLowPrimeNonBornFalloutReentry_goTerminal_or_secondBoundary
     (mem_squareRootLowPrimeProcessedSeatCanonicalOwnerFalloff.mp hfall).1
   have hseat :
       (c, s) ∈ squareRootLowPrimeProcessedSeatAtoms R K j U := by
-    simpa [squareRootLowPrimeProcessedSeatCarrier] using hparent
+    simpa [squareRootLowPrimeProcessedSeatCarrier] using! hparent
   have hcProcessed :
       c ∈ squareRootLowPrimeProcessedSignedCofactors R U :=
     (mem_squareRootLowPrimeProcessedSeatAtoms.mp hseat).1
@@ -164,9 +165,9 @@ theorem squareRootLowPrimeBornFrontierChildMass_re_eq_bornExitBoundaryMassReal_o
     {R K U : ℕ} (hUR : U < R) :
     (squareRootLowPrimeBornFrontierChildMass R K U).re =
       squareRootLowPrimeBornExitBoundaryMassReal R K U := by
-  rw [squareRootLowPrimeBornNoSuccessorAtoms_eq_frontier hUR]
   unfold squareRootLowPrimeBornFrontierChildMass
     squareRootLowPrimeBornExitBoundaryMassReal
+  rw [squareRootLowPrimeBornNoSuccessorAtoms_eq_frontier hUR]
   simp [canonicalMoebiusWeight]
 
 /-- At the canonical cutoff the response forest's born frontier is exactly the
@@ -182,10 +183,34 @@ theorem squareRootLowPrimeBornFrontierChildMass_re_eq_bornExitBoundaryMassReal
     unfold squareRootBornPostTailLowPrimeCutoff
     have hsqrtPos : 0 < Nat.sqrt R := Nat.sqrt_pos.2 (by omega)
     omega
-  rw [squareRootLowPrimeBornNoSuccessorAtoms_eq_frontier hcut]
   unfold squareRootLowPrimeBornFrontierChildMass
     squareRootLowPrimeBornExitBoundaryMassReal
+  rw [squareRootLowPrimeBornNoSuccessorAtoms_eq_frontier hcut]
   simp [canonicalMoebiusWeight]
+
+/-! ## Exact forest/telescope normal form -/
+
+/-- **Exact global response cancellation before any estimate.**
+The whole running-state change across the processed prime interval is the real
+part of the response-forest stable boundary. Internal born edges have already
+cancelled algebraically; only response roots, complete cofactor mass, BornExit
+frontier mass, and post-root ancestry-root mass remain. -/
+theorem squareRootLowPrimeRunningImbalanceReal_sub_eq_responseForestBoundary
+    {R K j U : ℕ}
+    (hR : 2 ≤ R) (hK : 1 ≤ K) (hKU : K ≤ U) (hUR : U < R) :
+    squareRootLowPrimeRunningImbalanceReal R K j K -
+        squareRootLowPrimeRunningImbalanceReal R K j U =
+      (squareRootLowPrimeResponseRootCofactorMass R K U -
+        squareRootLowPrimeOwnedResponseCofactorMass R K U -
+          squareRootLowPrimeBornFrontierChildMass R K U -
+            squareRootLowPrimePostRootChildMass R K U).re := by
+  rw [squareRootLowPrimeRunningImbalanceReal_sub_eq_freshIncrement_sum
+    hK hKU]
+  have h := congrArg Complex.re
+    (squareRootLowPrimeFreshIncrement_sum_eq_responseForestBoundary
+      (R := R) (K := K) (j := j) (U := U) hR hUR)
+  simpa [squareRootLowPrimeFreshIncrementReal] using! h
+
 
 /-- **Response-forest elimination of BornExit.**
 
@@ -217,7 +242,7 @@ theorem squareRootLowPrimeMassTransfer_iff_responseForestRootShallowIdentity
           (squareRootLowPrimeOwnedResponseCofactorMass R K U).re -
           (squareRootLowPrimeBornFrontierChildMass R K U).re -
           (squareRootLowPrimePostRootChildMass R K U).re := by
-    simpa using squareRootLowPrimeRunningImbalanceReal_sub_eq_responseForestBoundary
+    simpa using! squareRootLowPrimeRunningImbalanceReal_sub_eq_responseForestBoundary
       (R := R) (K := K) (j := j) (U := U) hR hK hKU hUR
   have hborn :
       (squareRootLowPrimeBornFrontierChildMass R K U).re =
@@ -253,7 +278,7 @@ theorem squareRootLowPrimeMassTransfer_iff_responseChildEulerIdentity
   have hsplit := congrArg Complex.re
     (squareRootLowPrimeOwnedResponseCofactorMass_eq_root_add_internal
       (R := R) (K := K) (U := U) hUR)
-  simp only [map_add] at hsplit
+  simp only [Complex.add_re] at hsplit
   constructor <;> intro h <;> linarith
 
 /-- Same criterion with `T(K)` replaced by the literal complete shallow
@@ -325,7 +350,7 @@ theorem amplitudeScaledPhysicalDefectLedger_eq_unitFace_sub_routed_sub_rootCorre
         lowWheelFarPrimeQ2DescendedMass R -
         lowWheelFarPrimeQ2CrossingMass R -
         lowWheelCanonicalRepeatedTerminalInternalMateLedger R -
-        lowWheelFrozenCofactorTopImageLedger R -
+        FrozenCofactorTopBottom.lowWheelFrozenCofactorTopImageLedger R -
         frozenTopFarRoughRootCorrection R := by
   have hwall :=
     lowWheelFrozenTopFarResidual_eq_unit_sub_descended_sub_crossing_sub_owned
@@ -346,7 +371,7 @@ theorem amplitudeScaledPhysicalDefectLedger_eq_unitFace_sub_routed_sub_rootAtom_
         lowWheelFarPrimeQ2DescendedMass R -
         lowWheelFarPrimeQ2CrossingMass R -
         lowWheelCanonicalRepeatedTerminalInternalMateLedger R -
-        lowWheelFrozenCofactorTopImageLedger R -
+        FrozenCofactorTopBottom.lowWheelFrozenCofactorTopImageLedger R -
         canonicalMoebiusWeight R + squareRootNearPrimeTransport R := by
   rw [amplitudeScaledPhysicalDefectLedger_eq_unitFace_sub_routed_sub_rootCorrection
       R hR ps hsched,
@@ -367,7 +392,7 @@ theorem canonicalAmplitudeDefect_add_memory_eq_unitFace_sub_routed_sub_rootCorre
         lowWheelFarPrimeQ2DescendedMass R -
         lowWheelFarPrimeQ2CrossingMass R -
         lowWheelCanonicalRepeatedTerminalInternalMateLedger R -
-        lowWheelFrozenCofactorTopImageLedger R -
+        FrozenCofactorTopBottom.lowWheelFrozenCofactorTopImageLedger R -
         frozenTopFarRoughRootCorrection R := by
   let ps := squareRootCanonicalRoughDescendingPrimeSchedule R
   have hsched : SquareRootCanonicalRoughCompleteDescendingSchedule R ps :=
@@ -378,7 +403,7 @@ theorem canonicalAmplitudeDefect_add_memory_eq_unitFace_sub_routed_sub_rootCorre
           lowWheelFarPrimeQ2DescendedMass R -
           lowWheelFarPrimeQ2CrossingMass R -
           lowWheelCanonicalRepeatedTerminalInternalMateLedger R -
-          lowWheelFrozenCofactorTopImageLedger R -
+          FrozenCofactorTopBottom.lowWheelFrozenCofactorTopImageLedger R -
           frozenTopFarRoughRootCorrection R :=
     amplitudeScaledPhysicalDefectLedger_eq_unitFace_sub_routed_sub_rootCorrection
       R hR ps hsched
@@ -404,12 +429,12 @@ theorem lowWheelFarPrimeUnitFaceMass_eq_canonicalAmplitudeDefect_add_memory_add_
         lowWheelFarPrimeQ2DescendedMass R +
         lowWheelFarPrimeQ2CrossingMass R +
         lowWheelCanonicalRepeatedTerminalInternalMateLedger R +
-        lowWheelFrozenCofactorTopImageLedger R +
+        FrozenCofactorTopBottom.lowWheelFrozenCofactorTopImageLedger R +
         frozenTopFarRoughRootCorrection R := by
   have h :=
     canonicalAmplitudeDefect_add_memory_eq_unitFace_sub_routed_sub_rootCorrection
       R hR
-  linear_combination h
+  linear_combination -h
 
 /-! ## Stable-far entry into the reciprocal Euler coordinate -/
 
@@ -452,12 +477,12 @@ theorem lowWheelFarPrimeLowCofactorTriple_partnerColumn_eq_scaledReciprocalDefec
               R (t.1 * t.2.1) t.2.2).card : ℂ) -
             ((squareRootCanonicalRoughFreshBirthBoundary
               R (t.1 * t.2.1) t.2.2).card : ℂ)) := by
-    simpa using
+    simpa using!
       (natCast_mul_cofactorWeightedReciprocalDefect_eq_rawBoundary
         (R := R) (c := t.1 * t.2.1) (p := t.2.2)
         (fun _ => (1 : ℂ)) hcpos hpPrime)
-  rw [← hraw] at hscale
-  simpa [mul_assoc] using hscale.symm
+  rw [hraw] at hscale
+  simpa [mul_assoc] using! hscale.symm
 
 /-! ## Channel Euler characteristic -/
 
@@ -478,7 +503,7 @@ theorem squareRootLowPrimeCreationCarrierExact_realWeight_sum_eq_head_add_channe
     Finset.sum_union
       (squareRootLowPrimeShallowBornCreationStates_disjoint_high R K j)]
   simp [squareRootLowPrimeCreationWeightReal,
-    squareRootLowPrimeCreationWeightComplex]
+    squareRootLowPrimeCreationWeightComplex, add_assoc]
 
 /-- **Two-channel form of the remaining exact seam.**  After response-forest
 cancellation and removal of the head, mass transfer is equivalent to the sum
@@ -652,7 +677,7 @@ theorem squareRootLowPrimeCanonicalTerminal_mass_eq_creationResponseStableMass
       finiteOthelloStablePart S
           (squareRootLowPrimeProcessedSeatCanonicalMate R K j U) =
         squareRootLowPrimeProcessedSeatCanonicalTerminalFrontier R K j U := by
-    simpa [S, finiteOthelloStablePart, signMatchingFixedPart] using
+    simpa [S, finiteOthelloStablePart, signMatchingFixedPart] using!
       signMatchingFixedPart_processedSeatCanonicalMate_eq_terminalFrontier
         R K j U
   rw [hcanon] at hstable
@@ -740,7 +765,7 @@ theorem squareRootLowPrimeNonBornFalloutScheduledReentry_birthAtom_internal_or_e
       some (c, s) ∈ squareRootLowPrimeProcessedSeatCarrier R K j U :=
     (mem_squareRootLowPrimeProcessedSeatCanonicalOwnerFalloff.mp hfall).1
   have hseat : (c, s) ∈ squareRootLowPrimeProcessedSeatAtoms R K j U := by
-    simpa [squareRootLowPrimeProcessedSeatCarrier] using hparent
+    simpa [squareRootLowPrimeProcessedSeatCarrier] using! hparent
   have hcProcessed :
       c ∈ squareRootLowPrimeProcessedSignedCofactors R U :=
     (mem_squareRootLowPrimeProcessedSeatAtoms.mp hseat).1
@@ -759,14 +784,14 @@ theorem squareRootLowPrimeNonBornFalloutScheduledReentry_birthAtom_internal_or_e
   have hmuQC : μ (q * c) ≠ 0 :=
     ArithmeticFunction.moebius_ne_zero_iff_squarefree.mpr hsqQC
   have hlpfQC : canonicalLargestPrimeFactor (q * c) = q := by
-    simpa [Nat.mul_comm] using
+    simpa [Nat.mul_comm] using!
       canonicalLargestPrimeFactor_mul_prime_eq_of_rough hc hqPrime hqRough
   have hqcProcessed :
       q * c ∈ squareRootLowPrimeProcessedSignedCofactors R U := by
     unfold squareRootLowPrimeProcessedSignedCofactors
     apply Finset.mem_filter.mpr
     refine ⟨Finset.mem_Icc.mpr ⟨Nat.mul_pos hqPrime.pos hc, hqcX⟩, ?_, hmuQC⟩
-    simpa [hlpfQC] using hqU
+    simpa [hlpfQC] using! hqU
   have hqcSeat :
       (q * c, s) ∈ squareRootLowPrimeProcessedSeatAtoms R K j U :=
     mem_squareRootLowPrimeProcessedSeatAtoms.mpr ⟨hqcProcessed, hqAlive⟩
@@ -776,7 +801,7 @@ theorem squareRootLowPrimeNonBornFalloutScheduledReentry_birthAtom_internal_or_e
     exact Finset.mem_insert.mpr
       (Or.inr (Finset.mem_image.mpr ⟨(q * c, s), hqcSeat, rfl⟩))
   have hdeep : K < canonicalLargestPrimeFactor (q * c) := by
-    simpa [hlpfQC] using hKq
+    simpa [hlpfQC] using! hKq
   have hownedSeat :
       (q * c, s) ∈ squareRootLowPrimeOwnedResponseSeatCarrier R K j U :=
     squareRootLowPrimeProcessedSeat_mem_ownedResponseSeatCarrier_of_deep
@@ -999,7 +1024,7 @@ theorem squareRootLowPrimeTerminalNoReentryFiber_weight_sum
         squareRootLowPrimeProcessedSeatWeightReal (some (c, s)) := by
       apply Finset.sum_image
       intro a _ha b _hb hab
-      simpa using hab
+      simpa using! hab
     _ = ∑ _s ∈ squareRootLowPrimeTerminalNoReentrySeatIndices R K j U p c,
         ((-μ c : ℤ) : ℝ) := by
       rfl
@@ -1012,29 +1037,6 @@ theorem squareRootLowPrimeTerminalNoReentryFiber_weight_sum
       rw [card_squareRootLowPrimeTerminalNoReentrySeatIndices]
 
 
-
-/-! ## Exact forest/telescope normal form -/
-
-/-- **Exact global response cancellation before any estimate.**
-The whole running-state change across the processed prime interval is the real
-part of the response-forest stable boundary. Internal born edges have already
-cancelled algebraically; only response roots, complete cofactor mass, BornExit
-frontier mass, and post-root ancestry-root mass remain. -/
-theorem squareRootLowPrimeRunningImbalanceReal_sub_eq_responseForestBoundary
-    {R K j U : ℕ}
-    (hR : 2 ≤ R) (hK : 1 ≤ K) (hKU : K ≤ U) (hUR : U < R) :
-    squareRootLowPrimeRunningImbalanceReal R K j K -
-        squareRootLowPrimeRunningImbalanceReal R K j U =
-      (squareRootLowPrimeResponseRootCofactorMass R K U -
-        squareRootLowPrimeOwnedResponseCofactorMass R K U -
-          squareRootLowPrimeBornFrontierChildMass R K U -
-            squareRootLowPrimePostRootChildMass R K U).re := by
-  rw [squareRootLowPrimeRunningImbalanceReal_sub_eq_freshIncrement_sum
-    hK hKU]
-  have h := congrArg Complex.re
-    (squareRootLowPrimeFreshIncrement_sum_eq_responseForestBoundary
-      (R := R) (K := K) (j := j) (U := U) hR hUR)
-  simpa [squareRootLowPrimeFreshIncrementReal] using h
 
 /-! ## Global terminal no-reentry ledger -/
 
@@ -1060,22 +1062,28 @@ theorem squareRootLowPrimeProcessedSeatIntrinsicFirstOwner_eq_firstOwnerAbove_of
     rcases mem_squareRootLowPrimeProcessedSeatCanonicalOwnerFalloff.mp hqFall with
       ⟨_hxS, _hxHead, _hqFresh, _hqMissing, hqRough⟩
     exact (Nat.not_lt_of_ge (hpre q hq)) hqRough
+  have hprefix (xs : List ℕ)
+      (hno : ∀ q ∈ xs,
+        x ∉ squareRootLowPrimeProcessedSeatCanonicalOwnerFalloff S q) :
+      squareRootLowPrimeProcessedSeatIntrinsicFirstOwner (xs ++ p :: post) S x =
+        some p := by
+    induction xs with
+    | nil =>
+        simp [squareRootLowPrimeProcessedSeatIntrinsicFirstOwner, hfall]
+    | cons q qs ih =>
+        have hqNo :
+            x ∉ squareRootLowPrimeProcessedSeatCanonicalOwnerFalloff S q :=
+          hno q (by simp)
+        have hrest :
+            ∀ r ∈ qs,
+              x ∉ squareRootLowPrimeProcessedSeatCanonicalOwnerFalloff S r := by
+          intro r hr
+          exact hno r (by simp [hr])
+        simp only [List.cons_append,
+          squareRootLowPrimeProcessedSeatIntrinsicFirstOwner, ite_eq_right hqNo]
+        exact ih hrest
   rw [hsplit]
-  induction pre with
-  | nil =>
-      simp [squareRootLowPrimeProcessedSeatIntrinsicFirstOwner, hfall]
-  | cons q qs ih =>
-      have hqNo :
-          x ∉ squareRootLowPrimeProcessedSeatCanonicalOwnerFalloff S q :=
-        hpreNo q (by simp)
-      have hrest :
-          ∀ r ∈ qs,
-            x ∉ squareRootLowPrimeProcessedSeatCanonicalOwnerFalloff S r := by
-        intro r hr
-        exact hpreNo r (by simp [hr])
-      simp only [List.cons_append,
-        squareRootLowPrimeProcessedSeatIntrinsicFirstOwner, if_neg hqNo]
-      exact ih hrest
+  exact hprefix pre hpreNo
 
 /-- On an actual assigned terminal, the intrinsic owner is therefore the
 cofactor-level first eligible owner.  This recovers the cofactor-first picture
@@ -1139,87 +1147,8 @@ theorem squareRootLowPrimeCanonicalAssigned_firstOwnerAbove_eq_of_intrinsicOwner
           hx hfirst
       rw [howner] at hqOwner
       have hpq : p = q := Option.some.inj hqOwner
-      simpa [hpq] using hfirst
-
-/-- **A shallow genuine NoLater terminal is fixed by the first
-creation/response Othello matching.**  Its lower terminal endpoint already
-dominates the first-owner response and every later response ceiling, so no
-fresh prime can carry the corresponding shallow creation seat into the owned
-response carrier. -/
-theorem squareRootLowPrimeFirstOwnerTerminalNoReentry_shallow_not_matchedCreation
-    {R K j U p c s : ℕ}
-    (hR : 1 ≤ R) (hKU : K ≤ U)
-    (hshallow : canonicalLargestPrimeFactor c ≤ K)
-    (hs : s ∈ squareRootLowPrimeFirstOwnerTerminalNoReentrySeatIndices
-      R K j U p c) :
-    squareRootLowPrimeProcessedShallowSeatToCreation R (c, s) ∉
-      squareRootLowPrimeMatchedCreationStates R K j U := by
-  classical
-  have hsData :=
-    squareRootLowPrimeFirstOwnerTerminalNoReentrySeatIndices_data hs
-  have hsTerminal := hsData.1
-  have hxAssigned := hsData.2.1
-  have hIntrinsic := hsData.2.2
-  have hfirst :=
-    squareRootLowPrimeCanonicalAssigned_firstOwnerAbove_eq_of_intrinsicOwner
-      hxAssigned hIntrinsic
-  have hbounds :
-      max (squareRootBornPartnerCount R c)
-          (max
-            (squareRootLowPrimeCombinedFreshResponse R K j (p * c))
-            (squareRootLowPrimeLaterResponseCeiling R K j U p c)) ≤ s ∧
-        s < squareRootLowPrimeCombinedFreshResponse R K j c := by
-    simpa [squareRootLowPrimeTerminalNoReentrySeatIndices,
-      squareRootLowPrimeTerminalNoReentryLower] using hsTerminal
-  have hbornLe : squareRootBornPartnerCount R c ≤ s :=
-    (le_max_left _ _).trans hbounds.1
-  have hinner :
-      max
-          (squareRootLowPrimeCombinedFreshResponse R K j (p * c))
-          (squareRootLowPrimeLaterResponseCeiling R K j U p c) ≤ s :=
-    (le_max_right _ _).trans hbounds.1
-  have hpChildLe :
-      squareRootLowPrimeCombinedFreshResponse R K j (p * c) ≤ s :=
-    (le_max_left _ _).trans hinner
-  have hceilingLe :
-      squareRootLowPrimeLaterResponseCeiling R K j U p c ≤ s :=
-    (le_max_right _ _).trans hinner
-  have hnotBorn : ¬ s < squareRootBornPartnerCount R c := by omega
-  let x := squareRootLowPrimeProcessedShallowSeatToCreation R (c, s)
-  have hxCof :
-      squareRootLowPrimeCreationStateCofactor x = c := by
-    simp [x, squareRootLowPrimeProcessedShallowSeatToCreation, hnotBorn,
-      squareRootLowPrimeCreationStateCofactor]
-  have hxSeat :
-      squareRootLowPrimeCreationStateAbsoluteSeat R x = s := by
-    simp [x, squareRootLowPrimeProcessedShallowSeatToCreation, hnotBorn,
-      squareRootLowPrimeCreationStateAbsoluteSeat, Nat.add_sub_of_le hbornLe]
-  intro hmatched
-  have hmData := mem_squareRootLowPrimeMatchedCreationStates.mp hmatched
-  obtain ⟨q, hqEligible⟩ := hmData.2.2
-  have hqData :=
-    mem_squareRootLowPrimeEligibleResponseOwners.mp hqEligible
-  have hqSet := hqData.1
-  have hqSeat := hqData.2
-  have hqAliveRaw :=
-    (mem_squareRootLowPrimeOwnedResponseSeatCarrier_iff.mp hqSeat).2
-  have hqAlive :
-      s < squareRootLowPrimeCombinedFreshResponse R K j (q * c) := by
-    simpa [x, hxCof, hxSeat] using hqAliveRaw
-  have hqList : q ∈ squareRootLowPrimeFreshPrimeList K U := by
-    simpa [squareRootLowPrimeFreshPrimeList] using hqSet
-  have hKq : K < q := (Finset.mem_Ioc.mp (Finset.mem_filter.mp hqSet).1).1
-  have hlpfq : canonicalLargestPrimeFactor c < q := by omega
-  have hpqLe :=
-    squareRootLowPrimeFirstOwnerAbove_le_of_mem hfirst hqList hlpfq
-  by_cases hpqEq : p = q
-  · subst q
-    omega
-  · have hpq : p < q := by omega
-    have hqCeiling :=
-      squareRootLowPrimeCombinedFreshResponse_le_laterResponseCeiling
-        hqSet hpq
-    omega
+      subst p
+      rfl
 
 /-- Seat-level no-reentry indices after imposing the actual terminal target and
 the unique intrinsic first-owner assignment.  The first owner is a property of
@@ -1268,8 +1197,92 @@ theorem squareRootLowPrimeFirstOwnerTerminalNoReentrySeatIndices_data
         (squareRootLowPrimeFreshPrimeList K U)
         (squareRootLowPrimeProcessedSeatCarrier R K j U)
         (some (c, s)) = some p := by
-  simpa [squareRootLowPrimeFirstOwnerTerminalNoReentrySeatIndices] using
+  simpa [squareRootLowPrimeFirstOwnerTerminalNoReentrySeatIndices] using!
     Finset.mem_filter.mp hs
+
+/-- **A shallow genuine NoLater terminal is fixed by the first
+creation/response Othello matching.**  Its lower terminal endpoint already
+dominates the first-owner response and every later response ceiling, so no
+fresh prime can carry the corresponding shallow creation seat into the owned
+response carrier. -/
+theorem squareRootLowPrimeFirstOwnerTerminalNoReentry_shallow_not_matchedCreation
+    {R K j U p c s : ℕ}
+    (_hR : 1 ≤ R) (_hKU : K ≤ U)
+    (hshallow : canonicalLargestPrimeFactor c ≤ K)
+    (hs : s ∈ squareRootLowPrimeFirstOwnerTerminalNoReentrySeatIndices
+      R K j U p c) :
+    squareRootLowPrimeProcessedShallowSeatToCreation R (c, s) ∉
+      squareRootLowPrimeMatchedCreationStates R K j U := by
+  classical
+  have hsData :=
+    squareRootLowPrimeFirstOwnerTerminalNoReentrySeatIndices_data hs
+  have hsTerminal := hsData.1
+  have hxAssigned := hsData.2.1
+  have hIntrinsic := hsData.2.2
+  have hfirst :=
+    squareRootLowPrimeCanonicalAssigned_firstOwnerAbove_eq_of_intrinsicOwner
+      hxAssigned hIntrinsic
+  have hbounds :
+      max (squareRootBornPartnerCount R c)
+          (max
+            (squareRootLowPrimeCombinedFreshResponse R K j (p * c))
+            (squareRootLowPrimeLaterResponseCeiling R K j U p c)) ≤ s ∧
+        s < squareRootLowPrimeCombinedFreshResponse R K j c := by
+    simpa [squareRootLowPrimeTerminalNoReentrySeatIndices,
+      squareRootLowPrimeTerminalNoReentryLower] using! hsTerminal
+  have hbornLe : squareRootBornPartnerCount R c ≤ s :=
+    (le_max_left _ _).trans hbounds.1
+  have hinner :
+      max
+          (squareRootLowPrimeCombinedFreshResponse R K j (p * c))
+          (squareRootLowPrimeLaterResponseCeiling R K j U p c) ≤ s :=
+    (le_max_right _ _).trans hbounds.1
+  have hpChildLe :
+      squareRootLowPrimeCombinedFreshResponse R K j (p * c) ≤ s :=
+    (le_max_left _ _).trans hinner
+  have hceilingLe :
+      squareRootLowPrimeLaterResponseCeiling R K j U p c ≤ s :=
+    (le_max_right _ _).trans hinner
+  have hnotBorn : ¬ s < squareRootBornPartnerCount R c := by omega
+  let x := squareRootLowPrimeProcessedShallowSeatToCreation R (c, s)
+  have hxCof :
+      squareRootLowPrimeCreationStateCofactor x = c := by
+    simp [x, squareRootLowPrimeProcessedShallowSeatToCreation, hnotBorn,
+      squareRootLowPrimeCreationStateCofactor]
+  have hxSeat :
+      squareRootLowPrimeCreationStateAbsoluteSeat R x = s := by
+    simp [x, squareRootLowPrimeProcessedShallowSeatToCreation, hnotBorn,
+      squareRootLowPrimeCreationStateAbsoluteSeat, Nat.add_sub_of_le hbornLe]
+  intro hmatched
+  have hmData := mem_squareRootLowPrimeMatchedCreationStates.mp hmatched
+  obtain ⟨q, hqEligible⟩ := hmData.2.2
+  have hqData :=
+    mem_squareRootLowPrimeEligibleResponseOwners.mp hqEligible
+  have hqSet := hqData.1
+  have hqSeat := hqData.2
+  have hqAliveRaw :=
+    (mem_squareRootLowPrimeOwnedResponseSeatCarrier_iff.mp hqSeat).2
+  have hqAlive :
+      s < squareRootLowPrimeCombinedFreshResponse R K j (q * c) := by
+    simpa [x, hxCof, hxSeat] using! hqAliveRaw
+  have hqList : q ∈ squareRootLowPrimeFreshPrimeList K U := by
+    simpa [squareRootLowPrimeFreshPrimeList] using! hqSet
+  have hKq : K < q := (Finset.mem_Ioc.mp (Finset.mem_filter.mp hqSet).1).1
+  have hlpfq : canonicalLargestPrimeFactor c < q := by omega
+  have hpqLe :=
+    squareRootLowPrimeFirstOwnerAbove_le_of_mem hfirst hqList hlpfq
+  by_cases hpqEq : p = q
+  · subst q
+    omega
+  · have hpq : p < q := by omega
+    have hqCeiling :
+        squareRootLowPrimeCombinedFreshResponse R K j (q * c) ≤
+          squareRootLowPrimeLaterResponseCeiling R K j U p c :=
+      squareRootLowPrimeCombinedFreshResponse_le_laterResponseCeiling
+        (R := R) (K := K) (j := j) (U := U) (p := p) (c := c)
+        hqSet hpq
+    omega
+
 
 /-- Each first-owner/cofactor no-reentry slice has one native Möbius sign, so
 its exact signed mass is sign times width. -/
@@ -1292,7 +1305,7 @@ theorem squareRootLowPrimeFirstOwnerTerminalNoReentryFiber_weight_sum
         squareRootLowPrimeProcessedSeatWeightReal (some (c, s)) := by
       apply Finset.sum_image
       intro a _ha b _hb hab
-      simpa using hab
+      simpa using! hab
     _ = ∑ _s ∈ squareRootLowPrimeFirstOwnerTerminalNoReentrySeatIndices
           R K j U p c, ((-μ c : ℤ) : ℝ) := by
       rfl
@@ -1314,7 +1327,7 @@ theorem squareRootLowPrimeFirstOwnerTerminalNoReentryFiber_disjoint
   intro x hx hy
   rcases Finset.mem_image.mp hx with ⟨s, hs, rfl⟩
   rcases Finset.mem_image.mp hy with ⟨t, ht, hEq⟩
-  have hpair : (c, s) = (d, t) := Option.some.inj hEq
+  have hpair : (c, s) = (d, t) := Option.some.inj hEq.symm
   have hcd : c = d := congrArg Prod.fst hpair
   have hst : s = t := congrArg Prod.snd hpair
   subst d
@@ -1328,7 +1341,7 @@ theorem squareRootLowPrimeFirstOwnerTerminalNoReentryFiber_disjoint
 
 /-- Index set for the global no-reentry ledger. -/
 def squareRootLowPrimeFirstOwnerTerminalNoReentryIndex
-    (R K j U : ℕ) : Finset (ℕ × ℕ) :=
+    (R K _j U : ℕ) : Finset (ℕ × ℕ) :=
   (squareRootLowPrimeFreshPrimeList K U).toFinset ×ˢ
     squareRootLowPrimeProcessedSignedCofactors R U
 
@@ -1360,48 +1373,12 @@ theorem squareRootLowPrimeFirstOwnerTerminalNoReentry_product_le_endpoint
   have hbornLe : squareRootBornPartnerCount R c ≤ s := by
     have hmem := Finset.mem_Ico.mp hsTerm
     exact le_trans (le_max_left _ _) hmem.1
-  have hxTerminal :
-      some (c, s) ∈
-        squareRootLowPrimeProcessedSeatCanonicalTerminalFrontier R K j U :=
-    (Finset.mem_sdiff.mp hxAssigned).1
-  have hcovered :=
-    squareRootLowPrimeProcessedSeatCanonicalAssigned_covered hxAssigned
-  rcases hcovered with ⟨q, _hqList, hqOwner⟩
-  have hpq : p = q := by
-    have hpOwner := hIntrinsic
-    rw [hqOwner] at hpOwner
-    exact Option.some.inj hpOwner
-  subst q
   have hfirst :
       squareRootLowPrimeFirstOwnerAbove
           (squareRootLowPrimeFreshPrimeList K U)
-          (canonicalLargestPrimeFactor c) = some p := by
-    by_contra hne
-    cases hopt : squareRootLowPrimeFirstOwnerAbove
-        (squareRootLowPrimeFreshPrimeList K U)
-        (canonicalLargestPrimeFactor c) with
-    | none =>
-        have hhead : some (c, s) ∈
-            squareRootLowPrimeProcessedSeatCanonicalTerminalHeads R K j U := by
-          apply Finset.mem_filter.mpr
-          exact ⟨hxTerminal, Or.inr hopt⟩
-        exact (Finset.mem_sdiff.mp hxAssigned).2 hhead
-    | some r =>
-        have hrFall :
-            some (c, s) ∈ squareRootLowPrimeProcessedSeatCanonicalOwnerFalloff
-              (squareRootLowPrimeProcessedSeatCarrier R K j U) r :=
-          squareRootLowPrimeProcessedSeatCanonicalTerminal_firstOwnerAbove_mem_falloff
-            hxTerminal (by simp) hopt
-        have hrIntrinsic :
-            squareRootLowPrimeProcessedSeatIntrinsicFirstOwner
-                (squareRootLowPrimeFreshPrimeList K U)
-                (squareRootLowPrimeProcessedSeatCarrier R K j U)
-                (some (c, s)) = some r :=
-          squareRootLowPrimeProcessedSeatIntrinsicFirstOwner_eq_firstOwnerAbove_of_falloff
-            hopt hrFall
-        rw [hIntrinsic] at hrIntrinsic
-        have : p = r := Option.some.inj hrIntrinsic
-        exact hne (by simpa [this] using hopt)
+          (canonicalLargestPrimeFactor c) = some p :=
+    squareRootLowPrimeCanonicalAssigned_firstOwnerAbove_eq_of_intrinsicOwner
+      hxAssigned hIntrinsic
   by_contra hwallNot
   have hwall : squareRootEndpoint R < p * c := Nat.lt_of_not_ge hwallNot
   have hborn : s < squareRootBornPartnerCount R c :=
@@ -1409,6 +1386,66 @@ theorem squareRootLowPrimeFirstOwnerTerminalNoReentry_product_le_endpoint
       hR hUR hxAssigned hfirst hwall).1
   omega
 
+
+/-- The global ledger is literally the signed mass of its disjoint
+first-owner/cofactor fibres. -/
+theorem squareRootLowPrimeGlobalTerminalNoReentryLedger_eq_fiberMass
+    (R K j U : ℕ) :
+    squareRootLowPrimeGlobalTerminalNoReentryLedger R K j U =
+      ∑ pc ∈ squareRootLowPrimeFirstOwnerTerminalNoReentryIndex R K j U,
+        ∑ x ∈ squareRootLowPrimeFirstOwnerTerminalNoReentryFiber
+          R K j U pc.1 pc.2,
+          squareRootLowPrimeProcessedSeatWeightReal x := by
+  unfold squareRootLowPrimeGlobalTerminalNoReentryLedger
+  apply Finset.sum_congr rfl
+  intro pc _hpc
+  rw [squareRootLowPrimeFirstOwnerTerminalNoReentryFiber_weight_sum]
+
+
+/-- Literal union of all genuine terminal no-reentry first-owner/cofactor
+fibres.  Pairwise disjointness of the labelled fibres makes this a true carrier,
+not merely a support upper bound. -/
+def squareRootLowPrimeGlobalTerminalNoReentryCarrier
+    (R K j U : ℕ) : Finset SquareRootLowPrimeProcessedState :=
+  (squareRootLowPrimeFirstOwnerTerminalNoReentryIndex R K j U).biUnion fun pc =>
+    squareRootLowPrimeFirstOwnerTerminalNoReentryFiber
+      R K j U pc.1 pc.2
+
+/-- The labelled fibre family used in the global carrier is pairwise disjoint. -/
+theorem squareRootLowPrimeFirstOwnerTerminalNoReentryFiber_pairwiseDisjoint
+    (R K j U : ℕ) :
+    Set.PairwiseDisjoint
+      (↑(squareRootLowPrimeFirstOwnerTerminalNoReentryIndex R K j U) :
+        Set (ℕ × ℕ))
+      (fun pc : ℕ × ℕ => squareRootLowPrimeFirstOwnerTerminalNoReentryFiber
+        R K j U pc.1 pc.2) := by
+  intro a _ha b _hb hab
+  exact squareRootLowPrimeFirstOwnerTerminalNoReentryFiber_disjoint hab
+
+/-- The literal global no-reentry carrier has exactly the compiled ledger mass. -/
+theorem squareRootLowPrimeGlobalTerminalNoReentryCarrier_weight_sum
+    (R K j U : ℕ) :
+    (∑ x ∈ squareRootLowPrimeGlobalTerminalNoReentryCarrier R K j U,
+        squareRootLowPrimeProcessedSeatWeightReal x) =
+      squareRootLowPrimeGlobalTerminalNoReentryLedger R K j U := by
+  unfold squareRootLowPrimeGlobalTerminalNoReentryCarrier
+  rw [Finset.sum_biUnion
+    (squareRootLowPrimeFirstOwnerTerminalNoReentryFiber_pairwiseDisjoint
+      R K j U)]
+  exact (squareRootLowPrimeGlobalTerminalNoReentryLedger_eq_fiberMass
+    R K j U).symm
+
+/-- Every state in the global no-reentry carrier is an actual assigned
+canonical terminal. -/
+theorem squareRootLowPrimeGlobalTerminalNoReentryCarrier_subset_assigned
+    (R K j U : ℕ) :
+    squareRootLowPrimeGlobalTerminalNoReentryCarrier R K j U ⊆
+      squareRootLowPrimeProcessedSeatCanonicalAssignedTerminal R K j U := by
+  intro x hx
+  rcases Finset.mem_biUnion.mp hx with ⟨pc, _hpc, hxpc⟩
+  rcases Finset.mem_image.mp hxpc with ⟨s, hs, rfl⟩
+  exact
+    (squareRootLowPrimeFirstOwnerTerminalNoReentrySeatIndices_data hs).2.1
 
 /-! ## Shallow NoLater pushforward to the first Othello frontier -/
 
@@ -1555,66 +1592,8 @@ theorem squareRootLowPrimeGlobalTerminalNoReentryShallowCreationImage_weight_sum
   have hweight :=
     squareRootLowPrimeProcessedShallowSeatCreationEquiv_weight_eq
       hR hKU zz
-  simpa [zz, squareRootLowPrimeProcessedShallowSeatCreationEquiv] using hweight
+  simpa [zz, squareRootLowPrimeProcessedShallowSeatCreationEquiv] using! hweight
 
-/-- The global ledger is literally the signed mass of its disjoint
-first-owner/cofactor fibres. -/
-theorem squareRootLowPrimeGlobalTerminalNoReentryLedger_eq_fiberMass
-    (R K j U : ℕ) :
-    squareRootLowPrimeGlobalTerminalNoReentryLedger R K j U =
-      ∑ pc ∈ squareRootLowPrimeFirstOwnerTerminalNoReentryIndex R K j U,
-        ∑ x ∈ squareRootLowPrimeFirstOwnerTerminalNoReentryFiber
-          R K j U pc.1 pc.2,
-          squareRootLowPrimeProcessedSeatWeightReal x := by
-  unfold squareRootLowPrimeGlobalTerminalNoReentryLedger
-  apply Finset.sum_congr rfl
-  intro pc _hpc
-  rw [squareRootLowPrimeFirstOwnerTerminalNoReentryFiber_weight_sum]
-
-
-/-- Literal union of all genuine terminal no-reentry first-owner/cofactor
-fibres.  Pairwise disjointness of the labelled fibres makes this a true carrier,
-not merely a support upper bound. -/
-def squareRootLowPrimeGlobalTerminalNoReentryCarrier
-    (R K j U : ℕ) : Finset SquareRootLowPrimeProcessedState :=
-  (squareRootLowPrimeFirstOwnerTerminalNoReentryIndex R K j U).biUnion fun pc =>
-    squareRootLowPrimeFirstOwnerTerminalNoReentryFiber
-      R K j U pc.1 pc.2
-
-/-- The labelled fibre family used in the global carrier is pairwise disjoint. -/
-theorem squareRootLowPrimeFirstOwnerTerminalNoReentryFiber_pairwiseDisjoint
-    (R K j U : ℕ) :
-    Set.PairwiseDisjoint
-      (↑(squareRootLowPrimeFirstOwnerTerminalNoReentryIndex R K j U))
-      (fun pc => squareRootLowPrimeFirstOwnerTerminalNoReentryFiber
-        R K j U pc.1 pc.2) := by
-  intro a _ha b _hb hab
-  exact squareRootLowPrimeFirstOwnerTerminalNoReentryFiber_disjoint hab
-
-/-- The literal global no-reentry carrier has exactly the compiled ledger mass. -/
-theorem squareRootLowPrimeGlobalTerminalNoReentryCarrier_weight_sum
-    (R K j U : ℕ) :
-    (∑ x ∈ squareRootLowPrimeGlobalTerminalNoReentryCarrier R K j U,
-        squareRootLowPrimeProcessedSeatWeightReal x) =
-      squareRootLowPrimeGlobalTerminalNoReentryLedger R K j U := by
-  unfold squareRootLowPrimeGlobalTerminalNoReentryCarrier
-  rw [Finset.sum_biUnion
-    (squareRootLowPrimeFirstOwnerTerminalNoReentryFiber_pairwiseDisjoint
-      R K j U)]
-  exact (squareRootLowPrimeGlobalTerminalNoReentryLedger_eq_fiberMass
-    R K j U).symm
-
-/-- Every state in the global no-reentry carrier is an actual assigned
-canonical terminal. -/
-theorem squareRootLowPrimeGlobalTerminalNoReentryCarrier_subset_assigned
-    (R K j U : ℕ) :
-    squareRootLowPrimeGlobalTerminalNoReentryCarrier R K j U ⊆
-      squareRootLowPrimeProcessedSeatCanonicalAssignedTerminal R K j U := by
-  intro x hx
-  rcases Finset.mem_biUnion.mp hx with ⟨pc, _hpc, hxpc⟩
-  rcases Finset.mem_image.mp hxpc with ⟨s, hs, rfl⟩
-  exact
-    (squareRootLowPrimeFirstOwnerTerminalNoReentrySeatIndices_data hs).2.1
 
 /-- The remaining assigned-terminal carrier after deleting genuine no-reentry
 states.  This is the concrete population to which the response-forest/BornExit
@@ -1639,7 +1618,7 @@ theorem squareRootLowPrimeCanonicalAssigned_weight_sum_eq_noReentry_add_compleme
     (f := squareRootLowPrimeProcessedSeatWeightReal)
   rw [squareRootLowPrimeGlobalTerminalNoReentryCarrier_weight_sum] at hsplit
   simpa [squareRootLowPrimeFirstOwnerNonNoReentryComplementCarrier,
-    add_comm] using hsplit.symm
+    add_comm] using! hsplit.symm
 
 
 /-- Born-range part of the literal complement carrier. -/
@@ -1677,6 +1656,116 @@ theorem squareRootLowPrimeComplementCarrier_weight_sum_eq_born_add_nonBorn
       | none => False
       | some z => z.2 < squareRootBornPartnerCount R z.1)
     (f := squareRootLowPrimeProcessedSeatWeightReal)
+
+/-- **Exact dynamic exhaustiveness.**  A non-born first-owner fallout either
+never re-enters at any later processed prime, or the first witnessed re-entry
+routes pointwise into the already-compiled Go two-boundary shell.
+
+No count, norm, or asymptotic input is used. -/
+theorem squareRootLowPrimeNonBornFallout_noLater_or_goShell
+    {R K j U p c s : ℕ}
+    (hR : 1 ≤ R) (hc : 0 < c)
+    (hp : p.Prime)
+    (hrough : canonicalLargestPrimeFactor c < p)
+    (hpU : p ≤ U) (hUR : U ≤ squareRootBornPostTailLowPrimeCutoff R)
+    (hs : s < squareRootLowPrimeCombinedFreshResponse R K j c)
+    (hnb : ¬ s < squareRootBornPartnerCount R c)
+    (hfall : some (c, s) ∈ squareRootLowPrimeProcessedSeatCanonicalOwnerFalloff
+      (squareRootLowPrimeProcessedSeatCarrier R K j U) p) :
+    squareRootLowPrimeNoLaterSeatReentry R K j U p c s ∨
+      ∃ q t,
+        q ∈ squareRootLowPrimeFreshPrimeSet K U ∧
+        p < q ∧
+        t.Prime ∧ q < t ∧ p * c < t ∧
+          (c ∈ squareRootLowPrimeGoSmallerOwnerBirthBoundaryParents
+                t (squareRootEndpoint R / (t * t)) q ∨
+            c ∈ squareRootLowPrimeGoSecondBoundaryDefectParents
+                t (squareRootEndpoint R) q) := by
+  classical
+  by_cases hno : squareRootLowPrimeNoLaterSeatReentry R K j U p c s
+  · exact Or.inl hno
+  · right
+    have hex :
+        ∃ q,
+          q ∈ squareRootLowPrimeFreshPrimeSet K U ∧
+          p < q ∧
+          s < squareRootLowPrimeCombinedFreshResponse R K j (q * c) := by
+      by_contra h
+      push Not at h
+      apply hno
+      intro q hq hpq
+      exact h q hq hpq
+    obtain ⟨q, hqSet, hpq, hqAlive⟩ := hex
+    have hqPrime : q.Prime := (Finset.mem_filter.mp hqSet).2
+    obtain ⟨t, htPrime, hqt, hpct, hsplit⟩ :=
+      squareRootLowPrimeNonBornFalloutReentry_goTerminal_or_secondBoundary
+        hR hc hp hqPrime hrough hpq hpU hUR hs hnb hfall hqAlive
+    exact ⟨q, t, hqSet, hpq, htPrime, hqt, hpct, hsplit⟩
+
+/-- **Re-entry is completely consumed by the existing response forest.**
+After a non-born first-owner fallout, there are only three possibilities:
+
+* the seat never re-enters at a later processed owner;
+* a later re-entry produces an internal born atom, paired pointwise with its
+  arithmetic child by the response-forest Othello involution;
+* a later re-entry produces a born no-successor atom, i.e. the existing
+  BornExit frontier.
+
+Thus no re-entry term needs the Go cube hypothesis or a new quantitative
+estimate. -/
+theorem squareRootLowPrimeNonBornFallout_noLater_or_responseForestCancel_or_bornExit
+    {R K j U p c s : ℕ}
+    (hR : 2 ≤ R) (hK : 1 ≤ K) (hc : 0 < c)
+    (hp : p.Prime)
+    (hrough : canonicalLargestPrimeFactor c < p)
+    (hpU : p ≤ U) (hUR : U ≤ squareRootBornPostTailLowPrimeCutoff R)
+    (hs : s < squareRootLowPrimeCombinedFreshResponse R K j c)
+    (hnb : ¬ s < squareRootBornPartnerCount R c)
+    (hfall : some (c, s) ∈ squareRootLowPrimeProcessedSeatCanonicalOwnerFalloff
+      (squareRootLowPrimeProcessedSeatCarrier R K j U) p) :
+    squareRootLowPrimeNoLaterSeatReentry R K j U p c s ∨
+      ∃ q t,
+        q ∈ squareRootLowPrimeFreshPrimeSet K U ∧
+        p < q ∧
+        t.Prime ∧ q < t ∧ p * c < t ∧
+          (((q * c, t) ∈ squareRootLowPrimeBornInternalAtoms R K U ∧
+              squareRootLowPrimeResponseForestOthelloWeight
+                  (Sum.inl (q * c, t)) +
+                squareRootLowPrimeResponseForestOthelloWeight
+                  (squareRootLowPrimeResponseForestOthelloMate R K U
+                    (Sum.inl (q * c, t))) = 0) ∨
+            (q * c, t) ∈ squareRootLowPrimeBornNoSuccessorAtoms R K U) := by
+  classical
+  have hcut : squareRootBornPostTailLowPrimeCutoff R < R := by
+    unfold squareRootBornPostTailLowPrimeCutoff
+    have hsqrtPos : 0 < Nat.sqrt R := Nat.sqrt_pos.2 (by omega)
+    omega
+  have hURlt : U < R := lt_of_le_of_lt hUR hcut
+  by_cases hno : squareRootLowPrimeNoLaterSeatReentry R K j U p c s
+  · exact Or.inl hno
+  · right
+    have hex :
+        ∃ q,
+          q ∈ squareRootLowPrimeFreshPrimeSet K U ∧
+          p < q ∧
+          s < squareRootLowPrimeCombinedFreshResponse R K j (q * c) := by
+      by_contra h
+      push Not at h
+      apply hno
+      intro q hq hpq
+      exact h q hq hpq
+    obtain ⟨q, hqSet, hpq, hqAlive⟩ := hex
+    obtain ⟨t, htPrime, hqt, hpct, hroute⟩ :=
+      squareRootLowPrimeNonBornFalloutScheduledReentry_birthAtom_internal_or_exit
+        hR hK hc hp hqSet hrough hpq hpU hUR hs hnb hfall hqAlive
+    refine ⟨q, t, hqSet, hpq, htPrime, hqt, hpct, ?_⟩
+    rcases hroute with hInternal | hExit
+    · exact Or.inl
+        ⟨hInternal,
+          (squareRootLowPrimeBornInternalAtom_responseForest_cancel
+            hURlt hInternal).2⟩
+    · exact Or.inr hExit
+
 
 /-- **Concrete complement classification.**  Every assigned-terminal state
 outside the genuine no-reentry carrier is either still in the born prefix, or
@@ -1729,12 +1818,12 @@ theorem squareRootLowPrimeComplement_born_or_responseForestCancel_or_bornExit
   obtain ⟨p, hfirst⟩ : ∃ p, owner = some p := by
     cases h : owner with
     | none => exact (hownerNe h).elim
-    | some p => exact ⟨p, h⟩
+    | some p => exact ⟨p, rfl⟩
   have hfirst' :
       squareRootLowPrimeFirstOwnerAbove
           (squareRootLowPrimeFreshPrimeList K U)
           (canonicalLargestPrimeFactor c) = some p := by
-    simpa [owner] using hfirst
+    simpa [owner] using! hfirst
   have hfall :
       some (c, s) ∈
         squareRootLowPrimeProcessedSeatCanonicalOwnerFalloff
@@ -1745,7 +1834,7 @@ theorem squareRootLowPrimeComplement_born_or_responseForestCancel_or_bornExit
     ⟨hxCarrier, _hxHead, _hpFresh, _hmissing, hrough⟩
   have hxAtom :
       (c, s) ∈ squareRootLowPrimeProcessedSeatAtoms R K j U := by
-    simpa [squareRootLowPrimeProcessedSeatCarrier] using hxCarrier
+    simpa [squareRootLowPrimeProcessedSeatCarrier] using! hxCarrier
   have hxAtomData := mem_squareRootLowPrimeProcessedSeatAtoms.mp hxAtom
   have hcSigned : c ∈ squareRootLowPrimeProcessedSignedCofactors R U :=
     hxAtomData.1
@@ -1758,7 +1847,7 @@ theorem squareRootLowPrimeComplement_born_or_responseForestCancel_or_bornExit
   have hpList :=
     squareRootLowPrimeFirstOwnerAbove_mem_freshPrimeList hfirst'
   have hpSet : p ∈ squareRootLowPrimeFreshPrimeSet K U := by
-    simpa [squareRootLowPrimeFreshPrimeList] using hpList
+    simpa [squareRootLowPrimeFreshPrimeList] using! hpList
   have hpData := Finset.mem_filter.mp hpSet
   have hpPrime : p.Prime := hpData.2
   have hpU : p ≤ U := (Finset.mem_Ioc.mp hpData.1).2
@@ -1775,7 +1864,7 @@ theorem squareRootLowPrimeComplement_born_or_responseForestCancel_or_bornExit
           (by omega) hpPrime hpU hUR hs hborn hfall).mp hno
       have hsTerminal :
           s ∈ squareRootLowPrimeTerminalNoReentrySeatIndices R K j U p c := by
-        simpa using hxTerminalFiber
+        simpa using! hxTerminalFiber
       have hIntrinsic :
           squareRootLowPrimeProcessedSeatIntrinsicFirstOwner
               (squareRootLowPrimeFreshPrimeList K U)
@@ -1791,12 +1880,13 @@ theorem squareRootLowPrimeComplement_born_or_responseForestCancel_or_bornExit
       have hxLabelled :
           some (c, s) ∈
             squareRootLowPrimeFirstOwnerTerminalNoReentryFiber R K j U p c := by
-        simpa using hsLabelled
+        simpa using! hsLabelled
       have hpc :
           (p, c) ∈ squareRootLowPrimeFirstOwnerTerminalNoReentryIndex
             R K j U := by
         simp [squareRootLowPrimeFirstOwnerTerminalNoReentryIndex,
           hpList, hcSigned]
+      exfalso
       apply hxNotNoLater
       apply Finset.mem_biUnion.mpr
       exact ⟨(p, c), hpc, hxLabelled⟩
@@ -1968,115 +2058,6 @@ theorem lowWheelCanonicalPostRootDowncrossLedger_add_transport_eq_two_transport
   rw [lowWheelCanonicalPostRootDowncrossLedger_eq_transport R hR]
   ring
 
-
-/-- **Exact dynamic exhaustiveness.**  A non-born first-owner fallout either
-never re-enters at any later processed prime, or the first witnessed re-entry
-routes pointwise into the already-compiled Go two-boundary shell.
-
-No count, norm, or asymptotic input is used. -/
-theorem squareRootLowPrimeNonBornFallout_noLater_or_goShell
-    {R K j U p c s : ℕ}
-    (hR : 1 ≤ R) (hc : 0 < c)
-    (hp : p.Prime)
-    (hrough : canonicalLargestPrimeFactor c < p)
-    (hpU : p ≤ U) (hUR : U ≤ squareRootBornPostTailLowPrimeCutoff R)
-    (hs : s < squareRootLowPrimeCombinedFreshResponse R K j c)
-    (hnb : ¬ s < squareRootBornPartnerCount R c)
-    (hfall : some (c, s) ∈ squareRootLowPrimeProcessedSeatCanonicalOwnerFalloff
-      (squareRootLowPrimeProcessedSeatCarrier R K j U) p) :
-    squareRootLowPrimeNoLaterSeatReentry R K j U p c s ∨
-      ∃ q t,
-        q ∈ squareRootLowPrimeFreshPrimeSet K U ∧
-        p < q ∧
-        t.Prime ∧ q < t ∧ p * c < t ∧
-          (c ∈ squareRootLowPrimeGoSmallerOwnerBirthBoundaryParents
-                t (squareRootEndpoint R / (t * t)) q ∨
-            c ∈ squareRootLowPrimeGoSecondBoundaryDefectParents
-                t (squareRootEndpoint R) q) := by
-  classical
-  by_cases hno : squareRootLowPrimeNoLaterSeatReentry R K j U p c s
-  · exact Or.inl hno
-  · right
-    have hex :
-        ∃ q,
-          q ∈ squareRootLowPrimeFreshPrimeSet K U ∧
-          p < q ∧
-          s < squareRootLowPrimeCombinedFreshResponse R K j (q * c) := by
-      by_contra h
-      push_neg at h
-      apply hno
-      intro q hq hpq
-      exact Nat.le_of_not_gt (h q hq hpq)
-    obtain ⟨q, hqSet, hpq, hqAlive⟩ := hex
-    have hqPrime : q.Prime := (Finset.mem_filter.mp hqSet).2
-    obtain ⟨t, htPrime, hqt, hpct, hsplit⟩ :=
-      squareRootLowPrimeNonBornFalloutReentry_goTerminal_or_secondBoundary
-        hR hc hp hqPrime hrough hpq hpU hUR hs hnb hfall hqAlive
-    exact ⟨q, t, hqSet, hpq, htPrime, hqt, hpct, hsplit⟩
-
-/-- **Re-entry is completely consumed by the existing response forest.**
-After a non-born first-owner fallout, there are only three possibilities:
-
-* the seat never re-enters at a later processed owner;
-* a later re-entry produces an internal born atom, paired pointwise with its
-  arithmetic child by the response-forest Othello involution;
-* a later re-entry produces a born no-successor atom, i.e. the existing
-  BornExit frontier.
-
-Thus no re-entry term needs the Go cube hypothesis or a new quantitative
-estimate. -/
-theorem squareRootLowPrimeNonBornFallout_noLater_or_responseForestCancel_or_bornExit
-    {R K j U p c s : ℕ}
-    (hR : 2 ≤ R) (hK : 1 ≤ K) (hc : 0 < c)
-    (hp : p.Prime)
-    (hrough : canonicalLargestPrimeFactor c < p)
-    (hpU : p ≤ U) (hUR : U ≤ squareRootBornPostTailLowPrimeCutoff R)
-    (hs : s < squareRootLowPrimeCombinedFreshResponse R K j c)
-    (hnb : ¬ s < squareRootBornPartnerCount R c)
-    (hfall : some (c, s) ∈ squareRootLowPrimeProcessedSeatCanonicalOwnerFalloff
-      (squareRootLowPrimeProcessedSeatCarrier R K j U) p) :
-    squareRootLowPrimeNoLaterSeatReentry R K j U p c s ∨
-      ∃ q t,
-        q ∈ squareRootLowPrimeFreshPrimeSet K U ∧
-        p < q ∧
-        t.Prime ∧ q < t ∧ p * c < t ∧
-          (((q * c, t) ∈ squareRootLowPrimeBornInternalAtoms R K U ∧
-              squareRootLowPrimeResponseForestOthelloWeight
-                  (Sum.inl (q * c, t)) +
-                squareRootLowPrimeResponseForestOthelloWeight
-                  (squareRootLowPrimeResponseForestOthelloMate R K U
-                    (Sum.inl (q * c, t))) = 0) ∨
-            (q * c, t) ∈ squareRootLowPrimeBornNoSuccessorAtoms R K U) := by
-  classical
-  have hcut : squareRootBornPostTailLowPrimeCutoff R < R := by
-    unfold squareRootBornPostTailLowPrimeCutoff
-    have hsqrtPos : 0 < Nat.sqrt R := Nat.sqrt_pos.2 (by omega)
-    omega
-  have hURlt : U < R := lt_of_le_of_lt hUR hcut
-  by_cases hno : squareRootLowPrimeNoLaterSeatReentry R K j U p c s
-  · exact Or.inl hno
-  · right
-    have hex :
-        ∃ q,
-          q ∈ squareRootLowPrimeFreshPrimeSet K U ∧
-          p < q ∧
-          s < squareRootLowPrimeCombinedFreshResponse R K j (q * c) := by
-      by_contra h
-      push_neg at h
-      apply hno
-      intro q hq hpq
-      exact Nat.le_of_not_gt (h q hq hpq)
-    obtain ⟨q, hqSet, hpq, hqAlive⟩ := hex
-    obtain ⟨t, htPrime, hqt, hpct, hroute⟩ :=
-      squareRootLowPrimeNonBornFalloutScheduledReentry_birthAtom_internal_or_exit
-        hR hK hc hp hqSet hrough hpq hpU hUR hs hnb hfall hqAlive
-    refine ⟨q, t, hqSet, hpq, htPrime, hqt, hpct, ?_⟩
-    rcases hroute with hInternal | hExit
-    · exact Or.inl
-        ⟨hInternal,
-          (squareRootLowPrimeBornInternalAtom_responseForest_cancel
-            hURlt hInternal).2⟩
-    · exact Or.inr hExit
 
 /-- The old root-equality exception is no longer exceptional once the complete
 Boolean face is used: every such incidence is already a genuine second-boundary

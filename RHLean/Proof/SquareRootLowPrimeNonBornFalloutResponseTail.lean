@@ -50,7 +50,7 @@ theorem squareRootLowPrimeFreshPrimeList_le_cutoff
     {K U p : ℕ} (hp : p ∈ squareRootLowPrimeFreshPrimeList K U) :
     p ≤ U := by
   have hset : p ∈ squareRootLowPrimeFreshPrimeSet K U := by
-    simpa [squareRootLowPrimeFreshPrimeList] using hp
+    simpa [squareRootLowPrimeFreshPrimeList] using! hp
   have hdata := Finset.mem_filter.mp hset
   exact (Finset.mem_Ioc.mp hdata.1).2
 

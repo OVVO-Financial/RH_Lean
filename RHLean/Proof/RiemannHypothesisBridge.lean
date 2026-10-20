@@ -57,7 +57,7 @@ theorem actualStart_pointwiseSquareBounded_of_uniformLocalBounded
   refine ⟨C, hC, ?_⟩
   intro N hN
   have h := hbound N 1 (by simp) hN
-  simpa [actualStartLocalFrameEnergy] using h
+  simpa [actualStartLocalFrameEnergy] using! h
 
 /--
 The corrected explicit analytic bridge. The elementary localization step

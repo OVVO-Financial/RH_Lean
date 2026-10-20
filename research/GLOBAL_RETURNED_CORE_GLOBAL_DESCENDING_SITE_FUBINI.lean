@@ -176,7 +176,7 @@ theorem lowOwnerGlobalDiagonalPairMassWith_nonneg
   intro mn hmn
   have heq := (Finset.mem_filter.mp hmn).2
   rw [heq]
-  simpa [pow_two] using sq_nonneg (v mn.2)
+  simpa [pow_two] using! sq_nonneg (v mn.2)
 
 /-- Empty revealed state is the full ordered carrier, split into diagonal and
 off-diagonal parts. -/
@@ -199,7 +199,7 @@ theorem lowOwnerRevealedPairMassWith_empty_eq_diagonal_add_offDiagonal
     lowOwnerGlobalOffDiagonalPairCarrier
     lowOwnerRevealedPairCarrier
     lowOwnerRevealedPrimeSignature
-  simpa [P] using hpart.symm
+  simpa [P] using! hpart.symm
 
 /-- The physical diagonal carrier is the image of the one-dimensional clock. -/
 theorem lowOwnerGlobalDiagonalPairCarrier_eq_image
@@ -218,9 +218,9 @@ theorem lowOwnerGlobalDiagonalPairCarrier_eq_image
   · intro h
     rcases Finset.mem_image.mp h with ⟨a, ha, hEq⟩
     have hm : m = a := by
-      simpa using congrArg Prod.fst hEq.symm
+      simpa using! congrArg Prod.fst hEq.symm
     have hn : n = a := by
-      simpa using congrArg Prod.snd hEq.symm
+      simpa using! congrArg Prod.snd hEq.symm
     subst m
     subst n
     exact Finset.mem_filter.mpr
@@ -261,7 +261,7 @@ theorem lowOwnerRevealedPairMassWith_empty_eq_sum_sq
   calc
     (∑ mn ∈ S.product S, v mn.1 * v mn.2) =
       ∑ m ∈ S, ∑ n ∈ S, v m * v n := by
-        simpa only using
+        simpa only using!
           (Finset.sum_product
             (s := S) (t := S)
             (f := fun mn : ℕ × ℕ => v mn.1 * v mn.2))

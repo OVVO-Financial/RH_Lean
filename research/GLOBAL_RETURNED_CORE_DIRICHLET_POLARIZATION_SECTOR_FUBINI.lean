@@ -52,7 +52,7 @@ private theorem sum_product_mul_factor_sector
   calc
     (∑ ab ∈ s.product t, f ab.1 * g ab.2) =
       ∑ a ∈ s, ∑ b ∈ t, f a * g b := by
-        simpa only using
+        simpa only using!
           (Finset.sum_product
             (s := s) (t := t)
             (f := fun ab : ℕ × ℕ => f ab.1 * g ab.2))

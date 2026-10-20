@@ -162,7 +162,7 @@ theorem primeFlipPNTReplacementEffectBound_zero_of_perfectLiMultiplicity
   have hquarter :
       0 ≤ (1 / 4 : ℝ) * canonicalRoughLowQ2DaughterEnergy R :=
     mul_nonneg (by norm_num) hE
-  simpa using hquarter
+  simpa using! hquarter
 
 /-- Under the idealized exact-Li multiplicity statement, the only remaining
 condition is the deterministic Li-model Stokes bound. -/

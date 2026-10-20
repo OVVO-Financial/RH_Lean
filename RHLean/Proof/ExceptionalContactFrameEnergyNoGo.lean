@@ -125,7 +125,7 @@ theorem card_activeOffsetsOfResidue (r : ℕ) (hr : r < 4) :
 
 private theorem sum_pair_int (a b : ℕ) (hab : a ≠ b) (f : ℕ → ℤ) :
     ∑ x ∈ ({a, b} : Finset ℕ), f x = f a + f b := by
-  rw [Finset.sum_insert (by simpa using hab), Finset.sum_singleton]
+  rw [Finset.sum_insert (by simpa using! hab), Finset.sum_singleton]
 
 /-- Two-term Cauchy-Schwarz: the entire content of the frame bound. -/
 private theorem sq_add_le_two_mul_sq_add_sq (x y : ℤ) :
@@ -435,7 +435,7 @@ theorem q5FullContactPeriodCells_hit
   have hrlt : r < 25 := by
     simp [physicalTwentyFiveHitResidues] at hr
     omega
-  simpa [Nat.add_mod, Nat.mul_mod, Nat.mod_eq_of_lt hrlt] using hr
+  simpa [Nat.add_mod, Nat.mul_mod, Nat.mod_eq_of_lt hrlt] using! hr
 
 /-- Every displayed `7^2` period cell is a genuine `7^2` contact. -/
 theorem q7FullContactPeriodCells_hit
@@ -446,7 +446,7 @@ theorem q7FullContactPeriodCells_hit
   have hrlt : r < 49 := by
     simp [physicalFortyNineHitResidues] at hr
     omega
-  simpa [Nat.add_mod, Nat.mul_mod, Nat.mod_eq_of_lt hrlt] using hr
+  simpa [Nat.add_mod, Nat.mul_mod, Nat.mod_eq_of_lt hrlt] using! hr
 
 /-- Reindex the existing owner-5 full-contact unit descent onto physical cells. -/
 theorem q5_fullContactPeriodCells_q2Daughter_eq_lowerFourSlotCell (L : ℕ) :
@@ -556,7 +556,7 @@ theorem physicalQ2Daughter_nonzero_implies_squarePrimeAtEdge
         dsimp [lo]
         omega
       have h := (Nat.div_lt_iff_lt_mul hQpos).1 hdiv
-      simpa [Nat.mul_comm] using h
+      simpa [Nat.mul_comm] using! h
     have hsumlt : 4 * (k + 1) < Q * (lo + 2) := by
       calc
         4 * (k + 1) = 4 * k + 4 := by omega
@@ -579,7 +579,7 @@ theorem physicalQ2Daughter_nonzero_implies_squarePrimeAtEdge
   have hstep : hi = lo + 1 := by
     omega
   have hD' : moebiusPositivePrefix hi - moebiusPositivePrefix lo ≠ 0 := by
-    simpa [physicalQ2DaughterCellIncrement_eq, hi, lo] using hD
+    simpa [physicalQ2DaughterCellIncrement_eq, hi, lo] using! hD
   rw [hstep, moebiusPositivePrefix_succ_sub_self] at hD'
   have hsfStep : Squarefree (lo + 1) :=
     ArithmeticFunction.moebius_ne_zero_iff_squarefree.mp hD'
@@ -617,7 +617,7 @@ theorem physicalQ2Daughter_nonzero_implies_squarePrimeAtEdge
   have hcop2q : Nat.Coprime 2 q := hqodd.coprime_two_left
   have hcop4Q : Nat.Coprime 4 Q := by
     dsimp [Q]
-    simpa [pow_two] using hcop2q.pow 2 2
+    simpa [pow_two] using! hcop2q.pow 2 2
   have hane4 : a ≠ 4 := by
     intro haeq
     have h4prod : 4 ∣ Q * hi := by
@@ -625,7 +625,7 @@ theorem physicalQ2Daughter_nonzero_implies_squarePrimeAtEdge
       rw [Nat.mul_comm Q hi, ← hsum, haeq]
       omega
     have h4hi : 4 ∣ hi := hcop4Q.dvd_of_dvd_mul_left h4prod
-    have h22 : 2 * 2 ∣ hi := by simpa using h4hi
+    have h22 : 2 * 2 ∣ hi := by simpa using! h4hi
     have hunit : IsUnit (2 : ℕ) := hsf 2 h22
     norm_num at hunit
   have ha3 : a ≤ 3 := by omega
@@ -702,7 +702,7 @@ theorem q3_ownedPrefix_q2Daughter_eq_mertens (K : ℕ) :
       physicalQ2DaughterCellIncrement 3 k) =
       mertensSummatoryInt (4 * K / 9) := by
   rw [q3_squareHitCells_eq_ownerThree]
-  simpa using physicalQ2Daughter_squareHit_sum_eq_mertens
+  simpa using! physicalQ2Daughter_squareHit_sum_eq_mertens
     (q := 3) (K := K) (by norm_num) (by norm_num)
 
 /-- **Exact owner-5 reassembly at arbitrary cutoff.**  The least-owner-5 packet
@@ -727,7 +727,7 @@ theorem q5_reassembledPrefix_q2Daughter_eq_mertens (K : ℕ) :
       (fiveHitCarrier_sum_reassemble (physicalSquareHitCells K 5) hcontact
         (physicalQ2DaughterCellIncrement 5)).symm
     _ = mertensSummatoryInt (4 * K / 25) := by
-      simpa using physicalQ2Daughter_squareHit_sum_eq_mertens
+      simpa using! physicalQ2Daughter_squareHit_sum_eq_mertens
         (q := 5) (K := K) (by norm_num) (by norm_num)
 
 /-- **Exact owner-7 reassembly at arbitrary cutoff.**  The least-owner-7 packet
@@ -756,5 +756,5 @@ theorem q7_reassembledPrefix_q2Daughter_eq_mertens (K : ℕ) :
       (sevenHitCarrier_sum_reassemble (physicalSquareHitCells K 7) hcontact
         (physicalQ2DaughterCellIncrement 7)).symm
     _ = mertensSummatoryInt (4 * K / 49) := by
-      simpa using physicalQ2Daughter_squareHit_sum_eq_mertens
+      simpa using! physicalQ2Daughter_squareHit_sum_eq_mertens
         (q := 7) (K := K) (by norm_num) (by norm_num)

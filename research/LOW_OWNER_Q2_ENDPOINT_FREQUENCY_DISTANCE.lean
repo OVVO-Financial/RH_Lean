@@ -113,9 +113,9 @@ theorem q2NearestSquareDistance_le_sqrt (x : ℕ) :
     q2NearestSquareDistance x ≤ Nat.sqrt x := by
   let s := Nat.sqrt x
   have hs2 : s ^ 2 ≤ x := by
-    simpa [s] using Nat.sqrt_le' x
+    simpa [s] using! Nat.sqrt_le' x
   have hxlt : x < (s + 1) ^ 2 := by
-    simpa [s] using Nat.lt_succ_sqrt' x
+    simpa [s] using! Nat.lt_succ_sqrt' x
   by_cases hmid : x < s ^ 2 + s
   · have hdist :
         q2NearestSquareDistance x = x - squareRootEndpoint s := by
@@ -124,7 +124,7 @@ theorem q2NearestSquareDistance_le_sqrt (x : ℕ) :
     have hgap : x - squareRootEndpoint s ≤ s := by
       unfold squareRootEndpoint
       omega
-    simpa [s] using hgap
+    simpa [s] using! hgap
   · have hmid' : s ^ 2 + s ≤ x := Nat.le_of_not_gt hmid
     have hdist :
         q2NearestSquareDistance x = squareRootEndpoint (s + 1) - x := by
@@ -135,7 +135,7 @@ theorem q2NearestSquareDistance_le_sqrt (x : ℕ) :
       unfold squareRootEndpoint
       rw [hsquare]
       omega
-    simpa [s] using hgap
+    simpa [s] using! hgap
 
 /-- Backward frequency response from a completed-square endpoint `S²-1` by a
 known distance `d`.  The first factor is the known endpoint phase at `S²`; the

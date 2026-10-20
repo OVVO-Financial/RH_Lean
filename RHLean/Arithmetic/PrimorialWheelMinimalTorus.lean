@@ -121,7 +121,7 @@ theorem primorialMinimalWheel_correctedSite_eq_moebius
   · exact hupper
 
 /-- Canonical arithmetic certificate for the minimal-torus wheel. -/
-def primorialMinimalWheelArithmeticCertificate (k : ℕ) :
+theorem primorialMinimalWheelArithmeticCertificate (k : ℕ) :
     (primorialMinimalWheelSystem k).ArithmeticCertificate where
   corrected_eq_moebius := by
     intro n hlower hupper

@@ -1,11 +1,8 @@
 import Mathlib
 import Mathlib.NumberTheory.LSeries.Dirichlet
--- `StrongPNT.PNT5_Strong` is a fork of `PrimeNumberTheoremAnd.MediumPNT` and
--- redeclares 55 of its 57 names, so no Lean environment can hold both.  This
--- route is the StrongPNT one, and the only name it needs from either --
--- `SmoothedChebyshevDirichlet_aux_integrable` -- is common to the two with the
--- same signature.
-import StrongPNT.PNT5_Strong
+-- `PrimeNumberTheoremAnd.StrongPNT` re-exports `MediumPNT`, the source of the
+-- one smoothing name this route needs: `SmoothedChebyshevDirichlet_aux_integrable`.
+import PrimeNumberTheoremAnd.StrongPNT
 import PrimeNumberTheoremAnd.MellinCalculus
 import PrimeNumberTheoremAnd.ResidueCalcOnRectangles
 import RHLean.Analysis.NativePNTAxer
@@ -30,9 +27,7 @@ namespace RHLean.Analysis
 
 local notation "zetaC" => riemannZeta
 
--- `StrongPNT.PNT1_ComplexAnalysis` declares a root-level `def I := Complex.I`,
--- so with `Complex` open the bare token `I` resolves two ways.  Fix it the way
--- the corridor and StrongPNT's own PNT5 do.
+-- Keep the bare token `I` pinned to `Complex.I` under `open Complex`.
 local notation "I" => Complex.I
 
 /-- The Mobius Dirichlet series is reciprocal zeta on `Re s > 1`. -/
@@ -72,11 +67,11 @@ theorem strongMertens_inv_zeta_tendsto_zero_near_one :
     riemannZeta_residue_one
   have hinv : Tendsto (fun s => ((s - 1) * zetaC s)⁻¹) (𝓝[≠] 1) (𝓝 1) := by
     have h := hres.inv₀ (by norm_num : (1 : ℂ) ≠ 0)
-    simpa using h
+    simpa using! h
   have hsub : Tendsto (fun s : ℂ => s - 1) (𝓝[≠] 1) (𝓝 0) := by
     have h : Tendsto (fun s : ℂ => s - 1) (𝓝 1) (𝓝 (1 - 1)) :=
       (continuous_id.sub continuous_const).tendsto 1
-    simpa using h.mono_left nhdsWithin_le_nhds
+    simpa using! h.mono_left nhdsWithin_le_nhds
   have hprod : Tendsto
       (fun s : ℂ => (s - 1) * ((s - 1) * zetaC s)⁻¹)
       (𝓝[≠] 1) (𝓝 (0 * 1)) := hsub.mul hinv
@@ -104,10 +99,10 @@ theorem nativeInvZetaRegularized_continuousOn {K : Set ℂ}
   · have hbase : ContinuousAt (fun z => (zetaC z)⁻¹) s :=
       ((differentiableAt_riemannZeta hs1).inv (hzero s hs hs1)).continuousAt
     have hneighborhood : ({(1 : ℂ)}ᶜ : Set ℂ) ∈ 𝓝 s :=
-      isOpen_compl_singleton.mem_nhds (by simpa using hs1)
+      isOpen_compl_singleton.mem_nhds (by simpa using! hs1)
     have hev : nativeInvZetaRegularized =ᶠ[𝓝 s] (fun z => (zetaC z)⁻¹) := by
       filter_upwards [hneighborhood] with z hz
-      have hz1 : z ≠ (1 : ℂ) := by simpa using hz
+      have hz1 : z ≠ (1 : ℂ) := by simpa using! hz
       exact Function.update_of_ne hz1 0 (fun w => (zetaC w)⁻¹)
     exact (hbase.congr_of_eventuallyEq hev).continuousWithinAt
 
@@ -214,7 +209,7 @@ theorem strongMertens_inv_zeta_bdd_on_vertical_line_gt_one
     rcases Nat.eq_zero_or_pos n with rfl | hn
     · simp [LSeries.term]
     · rw [LSeries.term_def _ _ _, LSeries.term_def _ _ _]
-      simp only [hn.ne', if_neg, not_false_eq_true]
+      simp only [hn.ne', ite_eq_right, not_false_eq_true]
       rw [norm_div, norm_div, Complex.norm_natCast_cpow_of_pos hn,
         Complex.norm_natCast_cpow_of_pos hn, hsre, Complex.ofReal_re]
   calc
@@ -278,7 +273,7 @@ theorem strongMertensSmoothedIntegrand_integrable_right_line
       intro h
       have : sigma0 = 1 := by
         have := congrArg Complex.re h
-        simpa using this
+        simpa using! this
       linarith
     apply ContinuousAt.continuousWithinAt
     have hg : ContinuousAt (fun x : ℝ => (sigma0 : ℂ) + (x : ℂ) * I) t := by
@@ -290,8 +285,8 @@ theorem strongMertensSmoothedIntegrand_integrable_right_line
       · exact riemannZeta_ne_zero_of_one_lt_re (by simp [hsigma0gt])
     · exact ContinuousAt.comp
         (continuousAt_const_cpow (by exact_mod_cast (show 0 < X by linarith).ne')) hg
-  -- `Integrable.bdd_mul` wants a genuine uniform bound, not an a.e. one.
-  have key := hMint.bdd_mul hmeas ⟨c, hbdd⟩
+  -- `Integrable.bdd_mul` takes an a.e. bound; `hbdd` holds everywhere.
+  have key := hMint.bdd_mul hmeas (Filter.Eventually.of_forall hbdd)
   apply key.congr
   filter_upwards with t
   unfold strongMertensSmoothedIntegrand

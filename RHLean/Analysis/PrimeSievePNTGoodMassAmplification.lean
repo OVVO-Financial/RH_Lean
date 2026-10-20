@@ -103,7 +103,7 @@ theorem dyadicPacketDeepTailBlockBounded_of_additiveDescendantPersistence
       have hx : (0 : ℝ) ≤ (x : ℝ) := by positivity
       linarith
     have h := Real.rpow_le_rpow (by norm_num : (0 : ℝ) ≤ 1) hbase hhalf.le
-    simpa using h
+    simpa using! h
   have hT0 : 0 ≤ T := by
     dsimp [T]
     exact Real.rpow_nonneg hBpos.le _
@@ -128,13 +128,13 @@ theorem dyadicPacketDeepTailBlockBounded_of_additiveDescendantPersistence
       _ = U := hPT
   have hs :
       primeSieveDyadicPacketShallowEnergy y x (J + 1) ≤ CS * T := by
-    simpa [y, J, B, T, dyadicPacketSuccCutoff] using
+    simpa [y, J, B, T, dyadicPacketSuccCutoff] using!
       hSb k x hk hlow hup
   have ha :
       primeSieveDyadicPacketDeepEnergy y x (J + 1) ≤
         CA * P *
           (primeSieveDyadicPacketLevelEnergy y x J + B) := by
-    simpa [y, J, B, P] using hAb k x hk hlow hup
+    simpa [y, J, B, P] using! hAb k x hk hlow hup
   have hlevel := primeSieveDyadicPacketLevelEnergy_le_shallow_succ y x J
   have hfac0 : 0 ≤ CA * P := mul_nonneg hCA hP0
   have ha' :
@@ -142,7 +142,7 @@ theorem dyadicPacketDeepTailBlockBounded_of_additiveDescendantPersistence
         CA * P *
           (primeSieveDyadicPacketShallowEnergy y x (J + 1) + B) := by
     exact ha.trans (mul_le_mul_of_nonneg_left
-      (add_le_add_right hlevel B) hfac0)
+      (add_le_add_left hlevel B) hfac0)
   have hCSU : CS * T ≤ CS * U :=
     mul_le_mul_of_nonneg_left hTU hCS
   have hCAPS :
@@ -232,13 +232,13 @@ theorem dyadicPacketAdditiveDescendantPersistence_of_pntGoodMassCharge
   have hN0le : N0 ≤ N := by dsimp [N]; omega
   have hlower : (1 / 6600000 : ℝ) * Q ≤
       nativeLambdaTwoGoodRecipMass N 1 := by
-    simpa [N, Q] using hN0 N hN0le
+    simpa [N, Q] using! hN0 N hN0le
   have hD0 : 0 ≤ D := by
     dsimp [D]
     exact primeSieveDyadicPacketDeepEnergy_nonneg y x (J + 1)
   have hcharge :
       nativeLambdaTwoGoodRecipMass N 1 * D ≤ C * Q * P * A := by
-    simpa [y, J, N, Q, P, A, D] using hCb k x hk hlow hup
+    simpa [y, J, N, Q, P, A, D] using! hCb k x hk hlow hup
   have hmul : (1 / 6600000 : ℝ) * Q * D ≤
       nativeLambdaTwoGoodRecipMass N 1 * D :=
     mul_le_mul_of_nonneg_right hlower hD0
@@ -266,7 +266,7 @@ theorem dyadicPacketAdditiveDescendantPersistence_of_pntGoodMassCharge
       _ ≤ 6600000 * (C * P * A) :=
         mul_le_mul_of_nonneg_left hcancel (by norm_num)
       _ = (6600000 * C) * P * A := by ring
-  simpa [y, J, P, A, D] using hfinal
+  simpa [y, J, P, A, D] using! hfinal
 
 /-- The PNT good-mass charge therefore supplies the critical deep-tail bound
 when paired with the existing successor-shallow estimate. -/

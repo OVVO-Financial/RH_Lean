@@ -165,7 +165,7 @@ theorem norm_correlation_le_half_sqrt_lowEnergy_add_physicalRemainder
     have hnon := Real.sqrt_nonneg (canonicalRoughLowQ2DaughterEnergy R)
     nlinarith [norm_nonneg (lowOwnerCriticalMertensSynthesis R tau)]
   rw [squareRootCanonicalRoughCorrelation_eq_criticalSynthesis_add_physicalRemainder R hR tau]
-  exact (norm_add_le _ _).trans (add_le_add_right hnorm _)
+  exact (norm_add_le _ _).trans (add_le_add_left hnorm _)
 
 /-- Energy is an immediate corollary only after the exact full remainder is
 retained. No ownerwise norm of a physical population enters the proof. -/

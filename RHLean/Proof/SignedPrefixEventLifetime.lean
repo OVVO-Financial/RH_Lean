@@ -112,7 +112,7 @@ theorem canonicalOrientedRunDifference_eq_sum_eventLifetimeResiduals
     canonicalOrientedRunDifference a b =
       ∑ x ∈ canonicalOrientedRunStateCarrier a b,
         signedPrefixEventLifetimeResidual a b x := by
-  simpa [signedPrefixEventLifetimeResidual, signedPrefixEndpointEventMass] using
+  simpa [signedPrefixEventLifetimeResidual, signedPrefixEndpointEventMass] using!
     canonicalOrientedRunDifference_eq_sum_frozenStateFibreDifferences a b
 
 /-- The total lifetime residual is literally the canonical oriented run
@@ -177,7 +177,7 @@ theorem canonicalOrientedRunDifference_eq_sum_stepArrivals_sub_completions
     canonicalOrientedRunDifference a b =
       ∑ R ∈ Finset.Ico a (b + 1),
         (signedPrefixStepArrivalMass R - signedPrefixStepCompletionMass R) := by
-  simpa [signedPrefixStepIncrement] using
+  simpa [signedPrefixStepIncrement] using!
     canonicalOrientedRunDifference_eq_sum_signedPrefixStepIncrements hab
 
 /-! ## One completed Euler pair -/
@@ -232,7 +232,7 @@ theorem signedPrefixEulerPairResidualAt_eq_zero_of_completed
     unfold signedPrefixEulerArrivalTime signedPrefixEulerCompletionTime
     have hpOne : 1 ≤ p := hpPrime.one_le
     have hmul := Nat.mul_le_mul_right (primeFaceProduct t) hpOne
-    simpa using hmul
+    simpa using! hmul
   have hparent : signedPrefixEulerArrivalTime t ≤ X :=
     hparentLeCompletion.trans hcomplete
   have hsign := signedPrefixFreshEulerChildSign hpFresh

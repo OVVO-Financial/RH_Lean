@@ -125,7 +125,7 @@ theorem abs_weightedDegreeOneLowerMass_sub_le_transport
           intro i hi
           apply mul_le_mul_of_nonneg_left _ (hw i hi)
           have h := abs_negativePart_sub_negativePart_le (x i - t) (y i - t)
-          simpa [sub_sub_sub_cancel_right] using h
+          simpa [sub_sub_sub_cancel_right] using! h
 
 
 
@@ -221,7 +221,7 @@ theorem zeroTargetDegreeOneErrorMass_sq_le_card_mul_degreeTwoErrorEnergy
   rw [zeroTargetDegreeOneErrorMass_eq_finiteAbsoluteMass,
     zeroTargetDegreeTwoErrorEnergy_eq_sum_sq]
   unfold finiteAbsoluteMass
-  simpa only [sq_abs] using
+  simpa only [sq_abs] using!
     (sq_sum_le_card_mul_sum_sq
       (s := s) (f := fun i => |e i|))
 
@@ -415,7 +415,7 @@ theorem exactLi_norm_pntDensity_le_inv_log
     norm_num
   rw [hlen, mul_one] at hbound
   simpa only [primeSievePNTDensity, hdiff, Complex.norm_real,
-    Real.norm_eq_abs] using hbound
+    Real.norm_eq_abs] using! hbound
 
 /-- Critical freshness correction is absolutely summable.
 For the repository's exact singleton Li masses w_q, the second-order
@@ -495,7 +495,7 @@ theorem weightedForwardDifferencePrefix_floor_div
       rw [weightedForwardDifferencePrefix_succ, ih]
       by_cases hdvd : q ∣ N + 1
       · have hdiv : (N + 1) / q = N / q + 1 := by
-          rw [Nat.succ_div, if_pos hdvd]
+          rw [Nat.succ_div, ite_eq_left hdvd]
         have hmul : N + 1 = q * ((N + 1) / q) := by
           symm
           exact Nat.mul_div_cancel' hdvd
@@ -504,7 +504,7 @@ theorem weightedForwardDifferencePrefix_floor_div
         rw [hdiv]
         ring
       · have hdiv : (N + 1) / q = N / q := by
-          rw [Nat.succ_div, if_neg hdvd, add_zero]
+          rw [Nat.succ_div, ite_eq_right hdvd, add_zero]
         rw [hdiv]
         simp
 
@@ -624,7 +624,7 @@ theorem activatedFloorChild_comp
         _ ≤ x := hqr
     have hrdiv : r ≤ x / q := by
       apply (Nat.le_div_iff_mul_le hqpos).2
-      simpa [Nat.mul_comm] using hqr
+      simpa [Nat.mul_comm] using! hqr
     simp [activatedFloorChild, hqx, hrdiv, hqr,
       Nat.div_div_eq_div_mul]
   · by_cases hqx : q ≤ x
@@ -632,7 +632,7 @@ theorem activatedFloorChild_comp
         intro hrdiv
         have hmul := (Nat.le_div_iff_mul_le hqpos).1 hrdiv
         apply hqr
-        simpa [Nat.mul_comm] using hmul
+        simpa [Nat.mul_comm] using! hmul
       simp [activatedFloorChild, hqx, hrnot, hqr]
     · simp [activatedFloorChild, hqx, hqr]
 
@@ -862,7 +862,7 @@ theorem weightedForwardDifferencePrefix_primeFrequencyState
       w q * activatedFloorChild (fun m => S m (q - 1)) q n
   have hpoint : ∀ n, n ≤ x → S n y = 1 - A n := by
     intro n hnx
-    simpa [owners, A] using
+    simpa [owners, A] using!
       primeFrequencyState_eq_fixedAmbientActivated hS hnx
   have hpref :
       weightedForwardDifferencePrefix r (fun n => S n y) x =
@@ -1112,7 +1112,7 @@ theorem hardCorePoissonCorrectionTailTerm_summable
     Summable (hardCorePoissonCorrectionTailTerm a) := by
   have hfact :
       Summable (fun m : ℕ => 1 / (Nat.factorial m : ℝ)) := by
-    simpa using Real.summable_pow_div_factorial 1
+    simpa using! Real.summable_pow_div_factorial 1
   have hmajor :
       Summable
         (fun m : ℕ => a ^ 2 * (1 / (Nat.factorial m : ℝ))) :=
@@ -1129,7 +1129,7 @@ private theorem tsum_one_div_factorial_eq_exp_one :
       (∑' m : ℕ, (1 : ℝ) ^ m / (Nat.factorial m : ℝ)) =
         Real.exp 1 := by
     rw [Real.exp_eq_exp_ℝ, NormedSpace.exp_eq_tsum_div]
-  simpa using h
+  simpa using! h
 
 /-- **Coefficient-level quadratic correction bound.**
 For 0 <= a <= 1, the complete absolute tail of
@@ -1144,7 +1144,7 @@ theorem tsum_hardCorePoissonCorrectionTailTerm_le_three_sq
     hardCorePoissonCorrectionTailTerm_summable ha0 ha1
   have hfact :
       Summable (fun m : ℕ => 1 / (Nat.factorial m : ℝ)) := by
-    simpa using Real.summable_pow_div_factorial 1
+    simpa using! Real.summable_pow_div_factorial 1
   have hmajor :
       Summable
         (fun m : ℕ => a ^ 2 * (1 / (Nat.factorial m : ℝ))) :=
@@ -1188,7 +1188,7 @@ theorem norm_criticalSqrtWeight_le_one
   have hqR : (1 : ℝ) ≤ (q : ℝ) := by exact_mod_cast hq
   have hinv : 1 / (q : ℝ) ≤ 1 := by
     have h := inv_le_one_of_one_le₀ hqR
-    simpa [one_div] using h
+    simpa [one_div] using! h
   have hnonneg := norm_nonneg (criticalSqrtWeight q)
   nlinarith
 
@@ -1303,7 +1303,7 @@ theorem criticalLiLocalCorrectionVariation_le
   have hz0 : 0 ≤ ‖criticalLiFrequencyWeight q‖ := norm_nonneg _
   have hz1 : ‖criticalLiFrequencyWeight q‖ ≤ 1 :=
     norm_criticalLiFrequencyWeight_le_one hq
-  exact add_le_add_left
+  exact add_le_add_right
     (tsum_hardCorePoissonCorrectionTailTerm_le_three_sq hz0 hz1) 1
 
 /-- The quadratic coefficient-variation estimate in fact holds at every site
@@ -1316,7 +1316,7 @@ theorem criticalLiLocalCorrectionVariation_le_of_two_le
   have hz0 : 0 ≤ ‖criticalLiFrequencyWeight q‖ := norm_nonneg _
   have hz1 : ‖criticalLiFrequencyWeight q‖ ≤ 1 :=
     norm_criticalLiFrequencyWeight_le_one_of_two_le hq
-  exact add_le_add_left
+  exact add_le_add_right
     (tsum_hardCorePoissonCorrectionTailTerm_le_three_sq hz0 hz1) 1
 
 /-- The local coefficient variation is nonnegative. -/
@@ -1354,7 +1354,7 @@ theorem norm_criticalLiScalarCorrection_le
     _ ≤ ‖hardCorePoissonScalarCorrection (criticalLiFrequencyWeight q) - 1‖ +
           ‖(1 : ℂ)‖ := norm_add_le _ _
     _ ≤ 3 * ‖criticalLiFrequencyWeight q‖ ^ 2 + 1 := by
-          simpa using add_le_add hquad (le_refl (‖(1 : ℂ)‖))
+          simpa using! add_le_add hquad (le_refl (‖(1 : ℂ)‖))
     _ = 1 + 3 * ‖criticalLiFrequencyWeight q‖ ^ 2 := by ring
 
 /-- Finite Euler product bound for the quadratic local correction envelopes. -/
@@ -1371,7 +1371,7 @@ private theorem criticalLi_prod_one_add_three_sq_le_exp_sum
       have hfac :
           1 + 3 * ‖criticalLiFrequencyWeight q‖ ^ 2 ≤
             Real.exp (3 * ‖criticalLiFrequencyWeight q‖ ^ 2) := by
-        simpa [add_comm] using
+        simpa [add_comm] using!
           (Real.add_one_le_exp (3 * ‖criticalLiFrequencyWeight q‖ ^ 2))
       exact mul_le_mul hfac ih (by positivity) (by positivity)
 
@@ -1525,7 +1525,7 @@ private theorem criticalLi_prod_one_add_sq_le_exp_sum
       have hfac :
           1 + ‖criticalLiFrequencyWeight q‖ ^ 2 ≤
             Real.exp (‖criticalLiFrequencyWeight q‖ ^ 2) := by
-        simpa [add_comm] using
+        simpa [add_comm] using!
           (Real.add_one_le_exp (‖criticalLiFrequencyWeight q‖ ^ 2))
       exact mul_le_mul hfac ih (by positivity) (by positivity)
 
@@ -1676,7 +1676,7 @@ def arithmeticSiteAtom (q : ℕ) (a : ℂ) : ArithmeticFunction ℂ :=
     have hfalse : ¬((0 : ℕ) = q ∧ q ≠ 0) := by
       rintro ⟨h0q, hq0⟩
       exact hq0 h0q.symm
-    rw [if_neg hfalse]⟩
+    rw [ite_eq_right hfalse]⟩
 
 @[simp] theorem arithmeticSiteAtom_apply_of_pos
     {q : ℕ} (hq : 1 ≤ q) (a : ℂ) (n : ℕ) :
@@ -1800,130 +1800,30 @@ theorem allScaleLiState_diagonal_eq_hardCoreProductCumulative
     primeSievePNTDensity (X - 1) X hX
 
 
-/-! ## Local backport: power series to arithmetic coefficients -/
+/-! ## Pinned Mathlib power-series to arithmetic coefficients -/
 
-/-- The antidiagonal of exponents embeds into the divisor antidiagonal of
-`q^k`.  This is the only divisor lemma needed by the local power-series
-embedding below; it is present in newer Mathlib but not in the revision pinned
-by this repository. -/
-private theorem li_antidiagonal_map_subset_divisorsAntidiagonal_pow
-    {q : ℕ} (hq : 1 < q) (k : ℕ) :
-    letI ι : ℕ ↪ ℕ :=
-      ⟨fun j ↦ q ^ j, Nat.pow_right_injective hq⟩
-    (Finset.antidiagonal k).map (.prodMap ι ι) ⊆
-      (q ^ k).divisorsAntidiagonal := by
-  intro x hx
-  obtain ⟨i, hi, rfl⟩ := Finset.mem_map.mp hx
-  simp [Nat.mem_divisorsAntidiagonal,
-    ← Finset.mem_antidiagonal.mp hi, pow_add, ne_zero_of_lt hq]
-
-/-- Local ring-hom backport of the newer Mathlib power-series embedding.
-For a fixed genuine site `q > 1`, it sends the coefficient of `T^k` to the
-arithmetic site `q^k`.  A ring hom is sufficient here; the newer Mathlib
-`Algebra` instance for arithmetic functions is not available at the revision
-pinned by this repository. -/
+/-- Preserve RHLean's historical local power-series embedding API by using
+the complete, kernel-checked Mathlib v4.34.1 construction. The upstream
+arithmetic power-series algebra homomorphism proves all additive and
+multiplicative/Dirichlet-convolution obligations. -/
 private noncomputable def liArithmeticOfPowerSeries
-    {q : ℕ} (hq : 1 < q) :
-    PowerSeries ℂ →+* ArithmeticFunction ℂ where
-  toFun F :=
-    ⟨Function.extend (q ^ ·) (F.coeff ·) 0,
-      by simp [Nat.ne_zero_of_lt hq]⟩
-  map_zero' := by
-    ext n
-    by_cases hn : ∃ k, q ^ k = n
-    · obtain ⟨k, rfl⟩ := hn
-      simp [(Nat.pow_right_injective hq).extend_apply]
-    · change
-        Function.extend (q ^ ·)
-            ((0 : PowerSeries ℂ).coeff ·) 0 n = 0
-      rw [Function.extend_apply' _ _ _ hn, Pi.zero_apply]
-  map_one' := by
-    ext n
-    by_cases hn : ∃ k, q ^ k = n
-    · obtain ⟨k, rfl⟩ := hn
-      simp [(Nat.pow_right_injective hq).extend_apply,
-        ArithmeticFunction.one_apply, hq.ne']
-    · change
-        Function.extend (q ^ ·)
-            ((1 : PowerSeries ℂ).coeff ·) 0 n =
-          (1 : ArithmeticFunction ℂ) n
-      rw [Function.extend_apply' _ _ _ hn, Pi.zero_apply]
-      have hn1 : n ≠ 1 := by
-        intro hn1
-        apply hn
-        exact ⟨0, by simp [hn1]⟩
-      simp [hn1]
-  map_add' F G := by
-    ext n
-    by_cases hn : ∃ k, q ^ k = n
-    · obtain ⟨k, rfl⟩ := hn
-      simp [(Nat.pow_right_injective hq).extend_apply]
-    · simp [Function.extend_apply' _ _ _ hn]
-  map_mul' F G := by
-    ext n
-    rw [ArithmeticFunction.mul_apply]
-    change
-      Function.extend (q ^ ·) ((F * G).coeff ·) 0 n =
-        ∑ p ∈ n.divisorsAntidiagonal,
-          Function.extend (q ^ ·) (F.coeff ·) 0 p.1 *
-            Function.extend (q ^ ·) (G.coeff ·) 0 p.2
-    by_cases hn : ∃ k, q ^ k = n
-    · obtain ⟨k, rfl⟩ := hn
-      rw [(Nat.pow_right_injective hq).extend_apply]
-      have hs :
-          (Finset.antidiagonal k).map
-              (.prodMap
-                ⟨fun j ↦ q ^ j, Nat.pow_right_injective hq⟩
-                ⟨fun j ↦ q ^ j, Nat.pow_right_injective hq⟩) ⊆
-            (q ^ k).divisorsAntidiagonal :=
-        li_antidiagonal_map_subset_divisorsAntidiagonal_pow hq k
-      rw [PowerSeries.coeff_mul k F G, ← Finset.sum_subset hs]
-      · simp [(Nat.pow_right_injective hq).extend_apply]
-      · intro p hp hnot
-        rcases p with ⟨a, b⟩
-        obtain ⟨hab, -⟩ := Nat.mem_divisorsAntidiagonal.mp hp
-        by_cases ha : ∃ i, q ^ i = a
-        · by_cases hb : ∃ j, q ^ j = b
-          · obtain ⟨i, rfl⟩ := ha
-            obtain ⟨j, rfl⟩ := hb
-            have hij : i + j = k := by
-              apply Nat.pow_right_injective hq
-              simpa [pow_add] using hab
-            exfalso
-            apply hnot
-            apply Finset.mem_map.mpr
-            refine ⟨(i, j), ?_, ?_⟩
-            · simpa [Finset.mem_antidiagonal] using hij
-            · rfl
-          · rw [Function.extend_apply' _ _ _ hb, Pi.zero_apply, mul_zero]
-        · rw [Function.extend_apply' _ _ _ ha, Pi.zero_apply, zero_mul]
-    · rw [Function.extend_apply' _ _ _ hn, Pi.zero_apply,
-        Finset.sum_eq_zero]
-      intro p hp
-      rcases p with ⟨a, b⟩
-      obtain ⟨hab, -⟩ := Nat.mem_divisorsAntidiagonal.mp hp
-      by_cases ha : ∃ i, q ^ i = a
-      · by_cases hb : ∃ j, q ^ j = b
-        · obtain ⟨i, rfl⟩ := ha
-          obtain ⟨j, rfl⟩ := hb
-          exfalso
-          apply hn
-          refine ⟨i + j, ?_⟩
-          simpa [pow_add] using hab
-        · rw [Function.extend_apply' _ _ _ hb, Pi.zero_apply, mul_zero]
-      · rw [Function.extend_apply' _ _ _ ha, Pi.zero_apply, zero_mul]
+    {q : ℕ} (_hq : 1 < q) :
+    PowerSeries ℂ →+* ArithmeticFunction ℂ :=
+  (ArithmeticFunction.ofPowerSeries q).toRingHom
 
 private theorem liArithmeticOfPowerSeries_apply
     {q : ℕ} (hq : 1 < q) (F : PowerSeries ℂ) (n : ℕ) :
     liArithmeticOfPowerSeries hq F n =
       Function.extend (q ^ ·) (F.coeff ·) 0 n := by
-  rfl
+  change ArithmeticFunction.ofPowerSeries q F n =
+    Function.extend (q ^ ·) (F.coeff ·) 0 n
+  exact ArithmeticFunction.ofPowerSeries_apply hq F n
 
 private theorem liArithmeticOfPowerSeries_apply_pow
     {q : ℕ} (hq : 1 < q) (F : PowerSeries ℂ) (k : ℕ) :
     liArithmeticOfPowerSeries hq F (q ^ k) = F.coeff k := by
-  rw [liArithmeticOfPowerSeries_apply hq,
-    (Nat.pow_right_injective hq).extend_apply]
+  change ArithmeticFunction.ofPowerSeries q F (q ^ k) = F.coeff k
+  exact ArithmeticFunction.ofPowerSeries_apply_pow hq F k
 
 /-! ## Transport the formal local factorization to Dirichlet convolution -/
 
@@ -1944,7 +1844,7 @@ theorem arithmeticSiteAtom_eq_liArithmeticOfPowerSeries_C_mul_X
         PowerSeries.coeff k
             (PowerSeries.C a * PowerSeries.X : PowerSeries ℂ) =
           if k = 1 then a else 0 := by
-      simpa using (PowerSeries.coeff_C_mul_X_pow a 1 k)
+      simpa using! (PowerSeries.coeff_C_mul_X_pow a 1 k)
     rw [hcoeff]
     by_cases hk : k = 1
     · subst k
@@ -1953,7 +1853,7 @@ theorem arithmeticSiteAtom_eq_liArithmeticOfPowerSeries_C_mul_X
         intro h
         have : k = 1 := by
           apply Nat.pow_right_injective hq
-          simpa using h
+          simpa using! h
         exact hk this
       simp [hk, hpow]
   · rw [Function.extend_apply' _ _ _ hn, Pi.zero_apply]
@@ -2119,7 +2019,7 @@ private theorem norm_hardCorePoissonCorrectionCoeff_eq_variationTerm
       | succ m =>
           simpa [hardCorePoissonCorrectionVariationTerm,
             hardCorePoissonCorrectionTailTerm,
-            Nat.succ_eq_add_one, Nat.add_assoc] using
+            Nat.succ_eq_add_one, Nat.add_assoc] using!
             norm_hardCorePoissonCorrectionCoeff_add_two z m
 
 private theorem hardCorePoissonCorrectionVariationTerm_nonneg
@@ -2134,7 +2034,7 @@ private theorem hardCorePoissonCorrectionVariationTerm_nonneg
           simp [hardCorePoissonCorrectionVariationTerm]
       | succ m =>
           simpa [hardCorePoissonCorrectionVariationTerm,
-            Nat.succ_eq_add_one, Nat.add_assoc] using
+            Nat.succ_eq_add_one, Nat.add_assoc] using!
             hardCorePoissonCorrectionTailTerm_nonneg
               (a := ‖z‖) (norm_nonneg z) m
 
@@ -2143,7 +2043,7 @@ private theorem hardCorePoissonCorrectionVariationTerm_summable
     Summable (hardCorePoissonCorrectionVariationTerm z) := by
   rw [← summable_nat_add_iff 2 (G := ℝ)]
   simpa [hardCorePoissonCorrectionVariationTerm,
-    Nat.add_assoc] using
+    Nat.add_assoc] using!
     hardCorePoissonCorrectionTailTerm_summable
       (a := ‖z‖) (norm_nonneg z) hz
 
@@ -2307,7 +2207,7 @@ theorem norm_hardCorePoissonCorrectionCoeff_div_sqrt_pow_eq
       (Real.sqrt ((q ^ m : ℕ) : ℝ))⁻¹ =
           ‖criticalSqrtWeight (q ^ m)‖ := by
             symm
-            simpa [one_div] using
+            simpa [one_div] using!
               (norm_criticalSqrtWeight_eq_inv_sqrt (q := q ^ m) hqpow)
       _ = ‖criticalSqrtWeight q ^ m‖ := by
             rw [criticalSqrtWeight_pow]
@@ -2337,7 +2237,7 @@ theorem norm_hardCorePoissonCorrectionCoeff_summable_of_norm_le_one
         (fun m : ℕ =>
           ‖hardCorePoissonCorrectionCoeff z (m + 2)‖) := by
     simpa only [hardCorePoissonCorrectionTailTerm,
-      norm_hardCorePoissonCorrectionCoeff_add_two] using htail
+      norm_hardCorePoissonCorrectionCoeff_add_two] using! htail
   exact (summable_nat_add_iff 2).mp hshift
 
 /-- The total absolute coefficient variation is exactly the already-defined
@@ -2368,7 +2268,7 @@ theorem tsum_norm_hardCorePoissonCorrectionCoeff_eq_localVariation
         hardCorePoissonCorrectionTailTerm ‖z‖ m := by
     apply tsum_congr
     intro m
-    simpa [hardCorePoissonCorrectionTailTerm] using
+    simpa [hardCorePoissonCorrectionTailTerm] using!
       (norm_hardCorePoissonCorrectionCoeff_add_two z m)
   calc
     (∑' m : ℕ, ‖hardCorePoissonCorrectionCoeff z m‖) =
@@ -2416,7 +2316,7 @@ theorem criticalWeightedVariation_liCorrectionFactor_le_localVariation
           (criticalLiFrequencyWeight q) m‖ := by
           apply Finset.sum_congr rfl
           intro m hm
-          simpa [criticalLiFrequencyWeight] using
+          simpa [criticalLiFrequencyWeight] using!
             (norm_hardCorePoissonCorrectionCoeff_div_sqrt_pow_eq
               (q := q) hq1 (primeSievePNTDensity q) m)
     _ ≤ ∑' m : ℕ,
@@ -2466,7 +2366,7 @@ theorem criticalWeightedVariation_liCorrectionFactor_le_localVariation_of_two_le
                 =
               ‖hardCorePoissonCorrectionCoeff
                 (criticalLiFrequencyWeight q) m‖ := by
-                  simpa [criticalLiFrequencyWeight] using
+                  simpa [criticalLiFrequencyWeight] using!
                     (norm_hardCorePoissonCorrectionCoeff_div_sqrt_pow_eq
                       (q := q) hq1 (primeSievePNTDensity q) m)
             _ = hardCorePoissonCorrectionVariationTerm
@@ -2656,7 +2556,7 @@ private theorem arithmeticHardCorePoissonCorrectionFactor_apply_of_pos_lt
       if n = 1 then 1 else 0 := by
   by_cases hn1 : n = 1
   · subst n
-    simpa using
+    simpa using!
       (arithmeticHardCorePoissonCorrectionFactor_apply_pow hq a 0)
   · have hnot := pow_site_not_eq_of_pos_lt hq hnq hn1
     rw [arithmeticHardCorePoissonCorrectionFactor_apply_eq_zero_of_not_pow
@@ -2670,7 +2570,7 @@ private theorem arithmeticPoissonLocalFactor_apply_of_pos_lt
       if n = 1 then 1 else 0 := by
   by_cases hn1 : n = 1
   · subst n
-    simpa using (arithmeticPoissonLocalFactor_apply_pow hq a 0)
+    simpa using! (arithmeticPoissonLocalFactor_apply_pow hq a 0)
   · have hnot := pow_site_not_eq_of_pos_lt hq hnq hn1
     rw [arithmeticPoissonLocalFactor_apply_eq_zero_of_not_pow hq a hnot]
     simp [hn1]
@@ -2812,7 +2712,7 @@ private theorem
     have hcum :=
       arithmeticHardCorePoissonCorrectionProduct_cumulative_stable
         w (Y := 1) (X := X) (by omega) hnX
-    simpa [arithmeticCoefficientCumulative] using hcum
+    simpa [arithmeticCoefficientCumulative] using! hcum
   · have hnm1 : 1 ≤ n - 1 := by omega
     rw [arithmeticFunction_apply_eq_cumulative_sub _ hn,
       arithmeticFunction_apply_eq_cumulative_sub _ hn]
@@ -2833,7 +2733,7 @@ private theorem arithmeticPoissonProduct_apply_stable
     have hcum :=
       arithmeticPoissonProduct_cumulative_stable
         w (Y := 1) (X := X) (by omega) hnX
-    simpa [arithmeticCoefficientCumulative] using hcum
+    simpa [arithmeticCoefficientCumulative] using! hcum
   · have hnm1 : 1 ≤ n - 1 := by omega
     rw [arithmeticFunction_apply_eq_cumulative_sub _ hn,
       arithmeticFunction_apply_eq_cumulative_sub _ hn]
@@ -2957,7 +2857,7 @@ theorem tsum_norm_poissonCoeff_critical_add_two_le_collision
         (Real.sqrt ((q ^ (m + 2) : ℕ) : ℝ))⁻¹ =
             ‖criticalSqrtWeight (q ^ (m + 2))‖ := by
               symm
-              simpa [one_div] using
+              simpa [one_div] using!
                 (norm_criticalSqrtWeight_eq_inv_sqrt
                   (q := q ^ (m + 2)) hqpow)
         _ = ‖criticalSqrtWeight q ^ (m + 2)‖ := by
@@ -3004,7 +2904,7 @@ theorem tsum_norm_exactLiPoissonCoeff_critical_add_two_le_collision
   have h :=
     tsum_norm_poissonCoeff_critical_add_two_le_collision
       (q := q) (by omega : 1 ≤ q) (primeSievePNTDensity q) hz
-  simpa [norm_criticalLiFrequencyWeight_sq] using h
+  simpa [norm_criticalLiFrequencyWeight_sq] using! h
 
 /-- **Exact one-site Poisson cumulative recurrence.**
 Multiplying a coefficient sequence by the Poisson exponential at site `q`
@@ -3111,7 +3011,7 @@ theorem arithmeticPoissonProduct_cumulative_succ_eq_linear_add_tail
   have h1E : 1 ∈ E := by
     dsimp [E, liCorrectionExponentSet]
     exact Finset.mem_filter.mpr
-      ⟨Finset.mem_range.mpr (by omega), by simpa using hqX⟩
+      ⟨Finset.mem_range.mpr (by omega), by simpa using! hqX⟩
   have hsplit : E = insert 0 (insert 1 H) := by
     ext m
     constructor
@@ -3166,7 +3066,7 @@ theorem exactLiPoissonCoefficient_eq_cutoff
     {n X : ℕ} (hn : 1 ≤ n) (hnX : n ≤ X) :
     exactLiPoissonCoefficient n =
       arithmeticPoissonProduct primeSievePNTDensity (X - 1) n := by
-  simp only [exactLiPoissonCoefficient, if_pos hn]
+  simp only [exactLiPoissonCoefficient, ite_eq_left hn]
   exact
     (arithmeticPoissonProduct_apply_stable
       primeSievePNTDensity hn hnX).symm
@@ -3194,7 +3094,7 @@ theorem exactLiPoissonIntegerReference_eq_coefficientCumulative
     {X : ℕ} (hX : 1 ≤ X) :
     exactLiPoissonIntegerReference X =
       ∑ n ∈ Finset.Icc 1 X, exactLiPoissonCoefficient n := by
-  simp only [exactLiPoissonIntegerReference, if_pos hX]
+  simp only [exactLiPoissonIntegerReference, ite_eq_left hX]
   unfold arithmeticCoefficientCumulative
   apply Finset.sum_congr rfl
   intro n hnmem
@@ -3216,8 +3116,8 @@ theorem criticalScale_exactLiPoissonCoefficient
     arithmeticPoissonProduct
       (fun q => primeSievePNTDensity q * criticalSqrtWeight q)
       (n - 1) n at h
-  simpa [exactLiPoissonCoefficient, if_pos hn,
-    criticalLiFrequencyWeight] using h
+  simpa [exactLiPoissonCoefficient, ite_eq_left hn,
+    criticalLiFrequencyWeight] using! h
 
 /-- At any larger visible cutoff, the critically rescaled stabilized
 coefficient is read from the transformed-owner Poisson product. -/
@@ -3230,7 +3130,7 @@ theorem exactLiPoissonCoefficient_div_sqrt_eq_critical_cutoff
     arithmeticPoissonProduct_apply_stable
       criticalLiFrequencyWeight hn hnX
   rw [hstable]
-  simpa [criticalSqrtWeight, div_eq_mul_inv, mul_comm] using hscale
+  simpa [criticalSqrtWeight, div_eq_mul_inv, mul_comm] using! hscale
 
 /-- The cumulative Poisson reference after the exact critical n^(-1/2)
 coefficient transform. -/
@@ -3251,7 +3151,7 @@ theorem exactLiCorrectionKernel_eq_cutoff
     exactLiCorrectionKernel n =
       arithmeticHardCorePoissonCorrectionProduct
         primeSievePNTDensity (X - 1) n := by
-  simp only [exactLiCorrectionKernel, if_pos hn]
+  simp only [exactLiCorrectionKernel, ite_eq_left hn]
   exact
     (arithmeticHardCorePoissonCorrectionProduct_apply_stable
       primeSievePNTDensity hn hnX).symm
@@ -3263,7 +3163,7 @@ theorem exactLiPoissonIntegerReference_eq_child
     exactLiPoissonIntegerReference Y =
       arithmeticCoefficientCumulative
         (arithmeticPoissonProduct primeSievePNTDensity (X - 1)) Y := by
-  simp only [exactLiPoissonIntegerReference, if_pos hY]
+  simp only [exactLiPoissonIntegerReference, ite_eq_left hY]
   exact
     (arithmeticPoissonProduct_cumulative_stable
       primeSievePNTDensity hY hYX).symm
@@ -3278,11 +3178,11 @@ theorem exactLiPoissonIntegerReference_sub_pred_eq_coefficient
       exactLiPoissonCoefficient n := by
   have hn1 : 1 ≤ n := by omega
   have hnm1 : 1 ≤ n - 1 := by omega
-  rw [exactLiPoissonIntegerReference, if_pos hn1]
+  rw [exactLiPoissonIntegerReference, ite_eq_left hn1]
   rw [exactLiPoissonIntegerReference_eq_child hnm1
     (by omega : n - 1 ≤ n)]
   symm
-  simpa [exactLiPoissonCoefficient, if_pos hn1] using
+  simpa [exactLiPoissonCoefficient, ite_eq_left hn1] using!
     (arithmeticFunction_apply_eq_cumulative_sub
       (arithmeticPoissonProduct primeSievePNTDensity (n - 1)) hn1)
 
@@ -3483,7 +3383,7 @@ private theorem criticalWeightedVariation_arithmetic_one_le_one
   · have hmem : 1 ∈ Finset.Icc 1 X :=
       Finset.mem_Icc.mpr ⟨le_rfl, hX⟩
     rw [Finset.sum_eq_single 1]
-    · simp [ArithmeticFunction.one_apply]
+    · simp
     · intro n hn hn1
       simp [hn1]
     · intro hnot
@@ -3506,7 +3406,7 @@ theorem criticalWeightedVariation_liCorrectionProduct_le_localProduct
         criticalLiLocalCorrectionVariation q := by
   induction k with
   | zero =>
-      simpa [arithmeticHardCorePoissonCorrectionProduct] using
+      simpa [arithmeticHardCorePoissonCorrectionProduct] using!
         criticalWeightedVariation_arithmetic_one_le_one X
   | succ k ih =>
       let F : ArithmeticFunction ℂ :=
@@ -3539,7 +3439,7 @@ theorem criticalWeightedVariation_liCorrectionProduct_le_localProduct
           criticalWeightedVariation (fun n => P n) X ≤
             ∏ q ∈ Finset.Icc 2 (k + 1),
               criticalLiLocalCorrectionVariation q := by
-        simpa [P] using ih
+        simpa [P] using! ih
       have hP0 :
           0 ≤ criticalWeightedVariation (fun n => P n) X :=
         criticalWeightedVariation_nonneg _ X
@@ -3661,7 +3561,7 @@ theorem norm_finiteMultiplicativeConvolution_squareRootEndpoint_le
   · have hRpos : (0 : ℝ) ≤ R := by positivity
     have hH : 0 ≤ H := by
       have h0 := hvar 0
-      simpa [criticalWeightedVariation] using h0
+      simpa [criticalWeightedVariation] using! h0
     have hXle :
         (squareRootEndpoint R : ℝ) ≤ (R : ℝ) ^ 2 := by
       exact_mod_cast (Nat.sub_le (R ^ 2) 1)
@@ -3704,7 +3604,7 @@ theorem norm_finiteMultiplicativeConvolution_le_sqrt_of_sqrtRef
       B * Real.sqrt (X : ℝ) * H := by
   have hH : 0 ≤ H := by
     have h0 := hvar 0
-    simpa [criticalWeightedVariation] using h0
+    simpa [criticalWeightedVariation] using! h0
   unfold finiteMultiplicativeConvolution
   calc
     ‖∑ n ∈ Finset.Icc 1 X, h n * M (X / n)‖
@@ -3776,10 +3676,10 @@ theorem norm_finiteMultiplicativeConvolution_squareRootEndpoint_of_sqrtRef
       B * H * (R : ℝ) := by
   have hH : 0 ≤ H := by
     have h0 := hvar 0
-    simpa [criticalWeightedVariation] using h0
+    simpa [criticalWeightedVariation] using! h0
   by_cases hX0 : squareRootEndpoint R = 0
   · have hnonneg : 0 ≤ B * H * (R : ℝ) := by positivity
-    simpa [hX0, finiteMultiplicativeConvolution] using hnonneg
+    simpa [hX0, finiteMultiplicativeConvolution] using! hnonneg
   have hX1 : 1 ≤ squareRootEndpoint R := by omega
   have hRpos : (0 : ℝ) ≤ R := by positivity
   have hXle :
@@ -3864,7 +3764,7 @@ theorem exactLiCorrectionKernel_uniformVariation :
   intro X
   by_cases hX0 : X = 0
   · subst X
-    simpa [criticalWeightedVariation] using
+    simpa [criticalWeightedVariation] using!
       (Real.exp_pos (3 * criticalLiCollisionBudget)).le
   · have hX : 1 ≤ X := by omega
     calc
@@ -3912,7 +3812,7 @@ theorem allScaleLiSquareRootBounded_of_sqrtReference_convolution
     mul_self_le_mul_self
       (norm_nonneg (L (squareRootEndpoint R) (squareRootEndpoint R)))
       hconv
-  simpa [pow_two, mul_assoc, mul_left_comm, mul_comm] using hsquare
+  simpa [pow_two, mul_assoc, mul_left_comm, mul_comm] using! hsquare
 
 /-- **Correction-kernel pure-model closure.**
 A uniformly bounded reference, a correction kernel with uniformly bounded
@@ -3944,7 +3844,7 @@ theorem allScaleLiSquareRootBounded_of_convolutionReference
     mul_self_le_mul_self
       (norm_nonneg (L (squareRootEndpoint R) (squareRootEndpoint R)))
       hconv
-  simpa [pow_two, mul_assoc, mul_left_comm, mul_comm] using hsquare
+  simpa [pow_two, mul_assoc, mul_left_comm, mul_comm] using! hsquare
 
 /-- Critical transform of an all-scale Li state. -/
 def allScaleLiCriticalState
@@ -4508,7 +4408,7 @@ theorem sum_Ico_sqrt_step {N : ℕ} (hN : 1 ≤ N) :
       Real.sqrt (N : ℝ) - 1 := by
   have h := sum_Ico_forwardDiff_real
     (fun n : ℕ => Real.sqrt (n : ℝ)) hN
-  simpa using h
+  simpa using! h
 
 /-- Quantitative square-root Abel return.  A uniform bound B on the
 half-weighted prefix profile costs at most 2 B sqrt(N) in the unweighted
@@ -4875,7 +4775,7 @@ theorem allScaleLiSquareRootBounded_of_criticalPrefixBounded
       ‖L X X‖ = ‖(L X X - 1) + 1‖ := by ring_nf
       _ ≤ ‖L X X - 1‖ + ‖(1 : ℂ)‖ := norm_add_le _ _
       _ ≤ 2 * Real.sqrt (X : ℝ) * B + 1 := by
-        simpa using add_le_add habel (le_refl (1 : ℝ))
+        simpa using! add_le_add habel (le_refl (1 : ℝ))
       _ ≤ 2 * (R : ℝ) * B + 1 := by
         nlinarith [mul_nonneg hB (sub_nonneg.mpr hsqrtXleR)]
       _ ≤ (2 * B + 1) * (R : ℝ) := by
@@ -5097,7 +4997,7 @@ theorem sampledCriticalPrefix_exactLiPoissonIntegerReference_eq_critical
       (by omega) hnN
   rw [hterms]
   unfold exactLiCriticalPoissonIntegerReference
-  rw [if_pos hN]
+  rw [ite_eq_left hN]
   unfold arithmeticCoefficientCumulative
   have hset :
       Finset.Icc 1 N = insert 1 (Finset.Icc 2 N) := by
@@ -5113,7 +5013,7 @@ theorem sampledCriticalPrefix_exactLiPoissonIntegerReference_eq_critical
     have hs :=
       arithmeticPoissonProduct_apply_stable
         criticalLiFrequencyWeight (n := 1) (X := N) (by omega) hN
-    simpa [arithmeticPoissonProduct] using hs
+    simpa [arithmeticPoissonProduct] using! hs
   rw [hset, Finset.sum_insert hnot, hone]
   ring
 
@@ -5473,7 +5373,7 @@ theorem allScaleLiZeroTargetDegreeTwoTransfer_of_incrementErrorEnergyBounded
     have hR2 : 4 ≤ R ^ 2 := by nlinarith
     omega
   refine ⟨Finset.Icc 1 X, allScaleLiDickmanIncrementError L, ?_, ?_, ?_⟩
-  · simpa [X] using (sum_allScaleLiDickmanIncrementError_eq X hL).symm
+  · simpa [X] using! (sum_allScaleLiDickmanIncrementError_eq X hL).symm
   · rw [Nat.card_Icc]
     have hcard : X + 1 - 1 = X := by omega
     rw [hcard]
@@ -5539,7 +5439,7 @@ theorem allScaleLiSquareRootBounded_of_uniformReference_linearTransfer
   have hsquare :=
     mul_self_le_mul_self (norm_nonneg
       (L (squareRootEndpoint R) (squareRootEndpoint R))) hnorm
-  simpa [pow_two, mul_assoc, mul_left_comm, mul_comm] using hsquare
+  simpa [pow_two, mul_assoc, mul_left_comm, mul_comm] using! hsquare
 
 
 /-! ## Exact residual propagation for a reference model -/
@@ -5678,7 +5578,7 @@ theorem complexArithmeticLogWeight_poissonLocalFactor
             (-a) ^ m / (Nat.factorial m : ℂ) := by
           have h := arithmeticPoissonLocalFactor_apply_pow hq a m
           simpa only [arithmeticPoissonLocalFactor,
-            liArithmeticOfPowerSeries_apply_pow] using h
+            liArithmeticOfPowerSeries_apply_pow] using! h
         rw [hcoeff]
         rw [Nat.factorial_succ, Nat.cast_mul, Nat.cast_add, Nat.cast_one,
           pow_succ]
@@ -5756,7 +5656,7 @@ theorem exactLiCriticalPoissonIntegerReference_eq_child
     exactLiCriticalPoissonIntegerReference Y =
       arithmeticCoefficientCumulative
         (arithmeticPoissonProduct criticalLiFrequencyWeight (X - 1)) Y := by
-  simp only [exactLiCriticalPoissonIntegerReference, if_pos hY]
+  simp only [exactLiCriticalPoissonIntegerReference, ite_eq_left hY]
   exact (arithmeticPoissonProduct_cumulative_stable
     criticalLiFrequencyWeight hY hYX).symm
 
@@ -5820,7 +5720,7 @@ theorem exactLiLogKernelDefect_nonneg {q : ℕ} (hq : 3 ≤ q) :
         have hlt : 0 < Real.log t := Real.log_pos (by linarith)
         exact (inv_le_inv₀ hl hlt).2
           (Real.log_le_log (by linarith) ht.2))
-    simpa [intervalIntegral.integral_const, hlen] using hmono
+    simpa [intervalIntegral.integral_const, hlen] using! hmono
   have hmul := mul_le_mul_of_nonneg_left hlow hl.le
   rw [mul_inv_cancel₀ (ne_of_gt hl)] at hmul
   exact sub_nonneg.mpr hmul
@@ -5848,7 +5748,7 @@ theorem exactLiLogKernelDefect_le {q : ℕ} (hq : 3 ≤ q) :
   rw [norm_primeSievePNTDensity_eq_densityTightLiWeight hq] at hw2
   have hwp : Real.log p * densityTightLiWeight q ≤ 1 := by
     have h := mul_le_mul_of_nonneg_left hw hlp.le
-    simpa [p, mul_inv_cancel₀ (ne_of_gt hlp)] using h
+    simpa [p, mul_inv_cancel₀ (ne_of_gt hlp)] using! h
   have hlog : Real.log (q : ℝ) - Real.log p ≤ 1 / p := by
     have h := Real.log_le_sub_one_of_pos (div_pos hqpos hp)
     rw [Real.log_div (ne_of_gt hqpos) (ne_of_gt hp)] at h
@@ -5951,7 +5851,7 @@ theorem norm_exactLiCriticalLogKernelDefect_children_le
         Real.norm_eq_abs, Real.norm_eq_abs,
         abs_of_nonneg (exactLiLogKernelDefect_nonneg (by omega)),
         abs_of_nonneg (Real.sqrt_nonneg _)]
-      simpa [mul_comm] using
+      simpa [mul_comm] using!
         mul_le_mul_of_nonneg_left (hA n hn) (hnonneg n)
     _ = B * ∑ n ∈ s, exactLiLogKernelDefect (n + 3) /
         Real.sqrt ((n + 3 : ℕ) : ℝ) := by rw [Finset.mul_sum]
@@ -5975,7 +5875,7 @@ theorem allScaleLiSquareRootBounded_of_criticalPoisson_uniform
       ‖exactLiCriticalPoissonIntegerReference N - 1‖ ≤
           ‖exactLiCriticalPoissonIntegerReference N‖ + ‖(1 : ℂ)‖ :=
         norm_sub_le _ _
-      _ ≤ B + 1 := by simpa using add_le_add_right (hbound N) 1
+      _ ≤ B + 1 := by simpa using! add_le_add_left (hbound N) 1
   · exact exactLiCorrectionKernel_uniformVariation
   · intro L X hX hL
     exact allScaleLiState_diagonal_eq_poissonConvolution hX hL

@@ -71,7 +71,7 @@ theorem coprime_factors_of_squarefree
     Nat.Coprime c q := by
   apply Nat.coprime_iff_isRelPrime.mpr
   apply IsRelPrime.of_squarefree_mul
-  simpa [hprod] using hsq
+  simpa [hprod] using! hsq
 
 /-- For squarefree products, the coprimality filter on the divisor antidiagonal is redundant. -/
 theorem orderedCoprimeFactorPairs_eq_divisorsAntidiagonal
@@ -112,7 +112,7 @@ theorem moebius_mul_cast_rat_of_coprime
     (hcop : Nat.Coprime c q) :
     (((μ c : ℤ) : ℚ)) * (((μ q : ℤ) : ℚ)) =
       (((μ (c * q) : ℤ) : ℚ)) := by
-  simpa using
+  simpa using!
     congrArg (fun z : ℤ => (z : ℚ))
       (ArithmeticFunction.isMultiplicative_moebius.map_mul_of_coprime hcop).symm
 

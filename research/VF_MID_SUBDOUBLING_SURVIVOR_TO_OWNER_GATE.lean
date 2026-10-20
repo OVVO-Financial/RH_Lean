@@ -118,8 +118,8 @@ theorem vfMidActualPrimeFirstBadAt_forces_signedSeatRunTrigger
         vfMidOddRunSeatMass A B :=
     hdict.symm.trans hrun
   rcases htrigger with hlow | hupp
-  · exact Or.inl (by simpa only [hpacket] using hlow)
-  · exact Or.inr (by simpa only [hpacket] using hupp)
+  · exact Or.inl (by simpa only [hpacket] using! hlow)
+  · exact Or.inr (by simpa only [hpacket] using! hupp)
 
 /-! ## Exact affine split on the frozen survivor carrier -/
 
@@ -145,7 +145,7 @@ theorem vfMidOddCompositeTrackingDefect_eq_prefixSurvivorCharge_add_removedSeats
   have hmass' :
       vfMidBandMass R =
         vfMidOddFractionalPrimeSeatWeight R * (R : ℝ) := by
-    simpa [mul_comm] using hmass.symm
+    simpa [mul_comm] using! hmass.symm
   rw [hmass']
   ring
 
@@ -161,7 +161,7 @@ theorem vfMidSquarePrefixWheelSurvivors_card_le_root
   have hcard' :
       (vfMidSquarePrefixWheelSurvivors A R).card ≤
         (vfMidOddCandidateSeats R).card := by
-    simpa [vfMidOddCandidateSeats] using hcard
+    simpa [vfMidOddCandidateSeats] using! hcard
   rw [vfMidOddCandidateSeats_card] at hcard'
   exact hcard'
 
@@ -212,7 +212,7 @@ theorem vfMidDyadicPrefixSurvivor_firstOwner_gt_frozen
   rcases Finset.mem_union.mp howner.1 with hleft | hright
   · rcases Finset.mem_sdiff.mp hleft with ⟨hpFace, _hpNot⟩
     have hpData : p.Prime ∧ p ∣ m ∧ m ≠ 0 := by
-      simpa [squarefreePrimeFace] using (Nat.mem_primeFactors.mp hpFace)
+      simpa [squarefreePrimeFace] using! (Nat.mem_primeFactors.mp hpFace)
     by_contra hnot
     have hpLe : p ≤ A := Nat.le_of_not_gt hnot
     have hpMem : p ∈ primesUpTo A :=
@@ -220,7 +220,7 @@ theorem vfMidDyadicPrefixSurvivor_firstOwner_gt_frozen
     exact hmAvoid p hpMem hpData.2.1
   · rcases Finset.mem_sdiff.mp hright with ⟨hpFace, _hpNot⟩
     have hpData : p.Prime ∧ p ∣ n ∧ n ≠ 0 := by
-      simpa [squarefreePrimeFace] using (Nat.mem_primeFactors.mp hpFace)
+      simpa [squarefreePrimeFace] using! (Nat.mem_primeFactors.mp hpFace)
     by_contra hnot
     have hpLe : p ≤ A := Nat.le_of_not_gt hnot
     have hpMem : p ∈ primesUpTo A :=

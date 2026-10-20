@@ -227,14 +227,14 @@ theorem squareRootMiddleHarmonicBand_two_eq_zero (R : ℕ) :
       apply (Nat.le_div_iff_mul_le hqpos).2
       have hmul : q * 2 ≤ squareRootEndpoint R :=
         (Nat.le_div_iff_mul_le (by norm_num : 0 < 2)).1 hhigh
-      simpa [Nat.mul_comm] using hmul
+      simpa [Nat.mul_comm] using! hmul
     have hthree : squareRootEndpoint R / q < 3 := by
       apply (Nat.div_lt_iff_lt_mul hqpos).2
       have hmul : squareRootEndpoint R < q * 3 :=
         (Nat.div_lt_iff_lt_mul (by norm_num : 0 < 3)).1 hlow
-      simpa [Nat.mul_comm] using hmul
+      simpa [Nat.mul_comm] using! hmul
     have hdiv : squareRootEndpoint R / q = 2 := by omega
-    rw [if_pos hqPrime, hdiv, mertensSummatory_two]
+    rw [ite_eq_left hqPrime, hdiv, mertensSummatory_two]
   · simp [hqPrime]
 
 /-- **One-layer harmonic peel.**  For `2 <= j < R`, the difference between the
@@ -275,7 +275,7 @@ theorem squareRootMiddleHarmonicTail_peel
       apply (Nat.le_div_iff_mul_le hqpos).2
       have hmul : q * j ≤ X :=
         (Nat.le_div_iff_mul_le hjpos).1 hqbigUpper
-      simpa [Nat.mul_comm] using hmul
+      simpa [Nat.mul_comm] using! hmul
     have hsmallLower : X / (j + 1) < q := by
       by_contra hnot
       apply hqnotSmall
@@ -284,7 +284,7 @@ theorem squareRootMiddleHarmonicTail_peel
       apply (Nat.div_lt_iff_lt_mul hqpos).2
       have hmul : X < q * (j + 1) :=
         (Nat.div_lt_iff_lt_mul hj1pos).1 hsmallLower
-      simpa [Nat.mul_comm] using hmul
+      simpa [Nat.mul_comm] using! hmul
     omega
   have hlayer :
       (∑ q ∈ big \ small, f q) =
@@ -371,8 +371,8 @@ theorem squareRootMiddleMertensTail_eq_swappedPrimeCounting
           change q ∈ Finset.Ioc R X at hq
           have hqX := (Finset.mem_Ioc.mp hq).2
           by_cases hqPrime : q.Prime
-          · rw [if_pos ⟨hqPrime, by simpa using hqX⟩, if_pos hqPrime, hmu1]
-          · rw [if_neg (by intro h; exact hqPrime h.1), if_neg hqPrime]
+          · rw [ite_eq_left ⟨hqPrime, by simpa using! hqX⟩, ite_eq_left hqPrime, hmu1]
+          · rw [ite_eq_right (by intro h; exact hqPrime h.1), ite_eq_right hqPrime]
       _ = ∑ q ∈ fullQ.filter Nat.Prime, (1 : ℂ) := by
         rw [Finset.sum_filter]
       _ = (((fullQ.filter Nat.Prime).card : ℕ) : ℂ) := by simp
@@ -389,7 +389,7 @@ theorem squareRootMiddleMertensTail_eq_swappedPrimeCounting
       rcases Finset.mem_Ioc.mp hqfull with ⟨hRq, _hqX⟩
       have hqhalf : q ≤ X / 2 := by
         apply (Nat.le_div_iff_mul_le (by norm_num : 0 < 2)).2
-        simpa [Nat.mul_comm] using htwo
+        simpa [Nat.mul_comm] using! htwo
       exact ⟨Finset.mem_Ioc.mpr ⟨hRq, hqhalf⟩, hqPrime⟩
     · rintro ⟨hqmid, hqPrime⟩
       rcases Finset.mem_Ioc.mp hqmid with ⟨hRq, hqhalf⟩
@@ -397,7 +397,7 @@ theorem squareRootMiddleMertensTail_eq_swappedPrimeCounting
         (Nat.le_div_iff_mul_le (by norm_num : 0 < 2)).1 hqhalf
       have hqX : q ≤ X := hqhalf.trans (Nat.div_le_self X 2)
       exact ⟨Finset.mem_Ioc.mpr ⟨hRq, hqX⟩, hqPrime,
-        by simpa [Nat.mul_comm] using htwo⟩
+        by simpa [Nat.mul_comm] using! htwo⟩
   have hc2 : inner 2 = -((squareRootMiddleFibrePrimes R).card : ℂ) := by
     unfold inner
     calc
@@ -479,7 +479,7 @@ theorem squareRootMiddleMertensTail_eq_swappedPrimeCounting
         rcases Finset.mem_Ioc.mp hqfull with ⟨hRq, _hqX⟩
         have hqB : q ≤ X / c := by
           apply (Nat.le_div_iff_mul_le hcpos).2
-          simpa [Nat.mul_comm] using hmul
+          simpa [Nat.mul_comm] using! hmul
         exact ⟨Finset.mem_Ioc.mpr ⟨hRq, hqB⟩, hqPrime⟩
       · rintro ⟨hqBmem, hqPrime⟩
         rcases Finset.mem_Ioc.mp hqBmem with ⟨hRq, hqB⟩
@@ -487,7 +487,7 @@ theorem squareRootMiddleMertensTail_eq_swappedPrimeCounting
           (Nat.le_div_iff_mul_le hcpos).1 hqB
         have hqX : q ≤ X := hqB.trans (Nat.div_le_self X c)
         exact ⟨Finset.mem_Ioc.mpr ⟨hRq, hqX⟩, hqPrime,
-          by simpa [Nat.mul_comm] using hmul⟩
+          by simpa [Nat.mul_comm] using! hmul⟩
     have hcount := primeCard_Ioc_add_primeCounting_eq hRc
     have hcountC :
         (((Finset.Ioc R (X / c)).filter Nat.Prime).card : ℂ) +

@@ -82,18 +82,18 @@ theorem reciprocalSquarePrefix_le_one_sub_inv
         unfold reciprocalSquarePrefix
         rw [show k + 3 + 1 = (k + 2 + 1) + 1 by omega,
           Finset.sum_range_succ]
-        simp only [show 2 ≤ k + 3 by omega, if_true]
+        simp only [show 2 ≤ k + 3 by omega, ite_true]
       rw [hsplit]
       calc
         reciprocalSquarePrefix (k + 2) +
             (1 : ℚ) / ((k + 3 : ℕ) : ℚ) ^ 2 ≤
           (1 - 1 / ((k + 2 : ℕ) : ℚ)) +
             (1 : ℚ) / ((k + 3 : ℕ) : ℚ) ^ 2 :=
-              add_le_add_right ih _
+              add_le_add_left ih _
         _ ≤ (1 - 1 / ((k + 2 : ℕ) : ℚ)) +
             (1 / (((k + 3 : ℕ) : ℚ) - 1) -
               1 / ((k + 3 : ℕ) : ℚ)) :=
-              add_le_add_left hterm _
+              add_le_add_right hterm _
         _ = 1 - 1 / ((k + 3 : ℕ) : ℚ) := by
           have hkcast : (((k + 3 : ℕ) : ℚ) - 1) =
               ((k + 2 : ℕ) : ℚ) := by
@@ -251,7 +251,8 @@ theorem q2EnergyStep_implies_linear_of_fixedPointBudget
       by_cases hX : X = 0
       · subst X
         have hs := hstep 0
-        simpa using hs
+        have hempty : primesUpTo 0 = ∅ := by decide
+        simpa [hempty] using hs
       · have hXpos : 0 < X := Nat.pos_of_ne_zero hX
         have hchildren :
             (∑ q ∈ primesUpTo X, E (X / (q * q))) ≤
@@ -282,7 +283,7 @@ theorem q2EnergyStep_implies_linear_of_fixedPointBudget
           E X ≤ C * (X : ℚ) +
               lambda * ∑ q ∈ primesUpTo X, E (X / (q * q)) := hstep X
           _ ≤ C * (X : ℚ) + lambda * (K * (X : ℚ)) :=
-            add_le_add_left hweighted _
+            add_le_add_right hweighted _
           _ = (C + lambda * K) * (X : ℚ) := by ring
           _ ≤ K * (X : ℚ) :=
             mul_le_mul_of_nonneg_right hfixed (by positivity)
@@ -302,7 +303,8 @@ theorem q2EnergyStep_implies_linear
       by_cases hX : X = 0
       · subst X
         have hs := hstep 0
-        simpa using hs
+        have hempty : primesUpTo 0 = ∅ := by decide
+        simpa [hempty] using hs
       · have hXpos : 0 < X := Nat.pos_of_ne_zero hX
         have hchildren :
             (∑ q ∈ primesUpTo X, E (X / (q * q))) ≤
@@ -347,7 +349,7 @@ theorem q2EnergyStep_implies_linear
                 ∑ q ∈ primesUpTo X, E (X / (q * q)) := hs
           _ ≤ C * (X : ℚ) +
               ((3 : ℚ) / 4) * (4 * C * (X : ℚ)) :=
-                add_le_add_left hweighted _
+                add_le_add_right hweighted _
           _ = 4 * C * (X : ℚ) := by ring
 
 /-- **Subcritical energy induction with the exact prime-11 factor.** -/
@@ -399,7 +401,7 @@ theorem elevenQ2_bulk_boundary_implies_linear
     (mul_nonneg (by norm_num) elevenWeightOneEnergyFactor_nonneg)
     elevenQ2_boundary_inflated_factor_le_three_quarters hstep
   intro X
-  simpa only [show (4 : ℚ) * (13 * B) = 52 * B by ring] using h X
+  simpa only [show (4 : ℚ) * (13 * B) = 52 * B by ring] using! h X
 
 /-- Optimized Young absorption for the exact `19/23` daughter amplitude.  This
 spends the entire strict subunit margin rather than rounding the recurrence down

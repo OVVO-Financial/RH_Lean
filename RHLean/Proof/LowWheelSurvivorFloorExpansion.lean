@@ -57,9 +57,9 @@ theorem card_Ioc_filter_dvd_eq_div_sub_div
       · apply Finset.mem_Ioc.mpr
         constructor
         · have h := (Nat.div_lt_iff_lt_mul hd).1 hlow
-          simpa [Nat.mul_comm] using h
+          simpa [Nat.mul_comm] using! h
         · have h := (Nat.le_div_iff_mul_le hd).1 hupp
-          simpa [Nat.mul_comm] using h
+          simpa [Nat.mul_comm] using! h
       · exact ⟨k, rfl⟩
     · intro a _ha b _hb hab
       exact Nat.eq_of_mul_eq_mul_left hd hab
@@ -70,10 +70,10 @@ theorem card_Ioc_filter_dvd_eq_div_sub_div
       apply Finset.mem_Ioc.mpr
       constructor
       · apply (Nat.div_lt_iff_lt_mul hd).2
-        simpa [Nat.mul_comm] using (Finset.mem_Ioc.mp hqIoc).1
+        simpa [Nat.mul_comm] using! (Finset.mem_Ioc.mp hqIoc).1
       · apply (Nat.le_div_iff_mul_le hd).2
-        simpa [Nat.mul_comm] using (Finset.mem_Ioc.mp hqIoc).2
-  simpa using hbij.symm
+        simpa [Nat.mul_comm] using! (Finset.mem_Ioc.mp hqIoc).2
+  simpa using! hbij.symm
 
 /-- Every Boolean-cube prime-face product is positive. -/
 theorem primeFaceProduct_pos_of_mem_powerset
@@ -229,12 +229,12 @@ theorem sum_mertensSummatory_Ioc_eq_moebius_floorDiff
             · rintro ⟨⟨hTq, _hqN⟩, hmul⟩
               have hqdiv : q ≤ N / c := by
                 apply (Nat.le_div_iff_mul_le hcpos).2
-                simpa [Nat.mul_comm] using hmul
+                simpa [Nat.mul_comm] using! hmul
               exact ⟨hTq, hqdiv⟩
             · rintro ⟨hTq, hqdiv⟩
               have hmul : c * q ≤ N := by
                 have := (Nat.le_div_iff_mul_le hcpos).1 hqdiv
-                simpa [Nat.mul_comm] using this
+                simpa [Nat.mul_comm] using! this
               have hqN : q ≤ N := hqdiv.trans (Nat.div_le_self N c)
               exact ⟨⟨hTq, hqN⟩, hmul⟩
           have hfilterOne :
@@ -416,7 +416,7 @@ theorem canonicalIncidence_eq_one_sub_mertens_of_half_lt
     (Nat.div_lt_iff_lt_mul (by norm_num : 0 < (2 : ℕ))).1 hhalf
   have hlt2 : R / n < 2 := by
     apply (Nat.div_lt_iff_lt_mul hnpos).2
-    simpa [Nat.mul_comm] using hRlt
+    simpa [Nat.mul_comm] using! hRlt
   have hge1 : 1 ≤ R / n := (Nat.one_le_div_iff hnpos).2 hnR
   have hdiv : R / n = 1 := by omega
   simp [canonicalFrontierIncidence, hdiv]
@@ -579,7 +579,7 @@ theorem frontierBootstrapRHS_eq_fullHyperbola
       exact (Nat.div_lt_iff_lt_mul (by norm_num : 0 < (2 : ℕ))).1 hHn
     have hlt2 : R / n < 2 := by
       apply (Nat.div_lt_iff_lt_mul hnpos).2
-      simpa [Nat.mul_comm] using hRlt
+      simpa [Nat.mul_comm] using! hRlt
     have hge1 : 1 ≤ R / n := (Nat.one_le_div_iff hnpos).2 hnR
     have hdiv : R / n = 1 := by omega
     simp [hdiv]
@@ -619,7 +619,7 @@ theorem frontier_bootstrap_self_consistency
     mertensSummatory (squareRootEndpoint R) = frontierBootstrapRHS R := by
   rw [frontierBootstrapRHS_eq_fullHyperbola R]
   symm
-  simpa using mobius_hyperbola_double_sum_eq_head
+  simpa using! mobius_hyperbola_double_sum_eq_head
     (F := fun m => mertensSummatory (squareRootEndpoint R / m))
     (R := R) (by omega)
 

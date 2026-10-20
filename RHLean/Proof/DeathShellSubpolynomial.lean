@@ -63,12 +63,12 @@ private theorem factorization_succ_le_two_pow_div
   have hkpos : 0 < k := by omega
   have hqThreshold : max 4 (2 * k) ≤ q := by
     apply (Nat.le_div_iff_mul_le hkpos).2
-    simpa [divisorExponentThreshold, q, Nat.mul_comm] using ha
+    simpa [divisorExponentThreshold, q, Nat.mul_comm] using! ha
   have hq4 : 4 ≤ q := le_trans (le_max_left 4 (2 * k)) hqThreshold
   have htwoK : 2 * k ≤ q :=
     le_trans (le_max_right 4 (2 * k)) hqThreshold
   have ha_lt : a < k * (q + 1) := by
-    simpa [q] using Nat.lt_mul_div_succ a hkpos
+    simpa [q] using! Nat.lt_mul_div_succ a hkpos
   have ha_succ : a + 1 ≤ k * (q + 1) := by omega
   have hqOne : 1 ≤ q := by omega
   have hqSucc : q + 1 ≤ 2 * q := by omega
@@ -94,9 +94,9 @@ private theorem divisor_factor_pow_le_exception_mul
   have hpPrime : p.Prime := Nat.prime_of_mem_primeFactors hp
   have hpDvd : p ∣ n := Nat.dvd_of_mem_primeFactors hp
   have haPos : 0 < a := by
-    simpa [a] using hpPrime.factorization_pos_of_dvd hn hpDvd
+    simpa [a] using! hpPrime.factorization_pos_of_dvd hn hpDvd
   by_cases hbad : p < P ∧ a < A
-  · rw [if_pos]
+  · rw [ite_eq_left]
     · have hbase : a + 1 ≤ A := by omega
       have hpow : (a + 1) ^ k ≤ A ^ k :=
         Nat.pow_le_pow_left hbase k
@@ -107,12 +107,12 @@ private theorem divisor_factor_pow_le_exception_mul
         _ = divisorExponentThreshold k ^ k * 1 := by simp
         _ ≤ divisorExponentThreshold k ^ k * p ^ n.factorization p :=
           Nat.mul_le_mul_left _ hpPowOne
-    · simpa [A, P, a] using hbad
-  · rw [if_neg]
+    · simpa [A, P, a] using! hbad
+  · rw [ite_eq_right]
     · by_cases hlargeExponent : A ≤ a
       · have hfactor : a + 1 ≤ 2 ^ (a / k) := by
           apply factorization_succ_le_two_pow_div k a hk
-          simpa [A] using hlargeExponent
+          simpa [A] using! hlargeExponent
         have htwoPrime : 2 ^ (a / k) ≤ p ^ (a / k) :=
           Nat.pow_le_pow_left hpPrime.two_le (a / k)
         have hbase : a + 1 ≤ p ^ (a / k) := hfactor.trans htwoPrime
@@ -133,7 +133,7 @@ private theorem divisor_factor_pow_le_exception_mul
         have hpow : (a + 1) ^ k ≤ A ^ k :=
           Nat.pow_le_pow_left hbase k
         have hPp : A ^ k ≤ p := by
-          simpa [P, divisorPrimeThreshold, A] using hpLarge
+          simpa [P, divisorPrimeThreshold, A] using! hpLarge
         have hpSelf : p ≤ p ^ a :=
           Nat.le_self_pow (Nat.ne_of_gt haPos) p
         calc
@@ -141,7 +141,7 @@ private theorem divisor_factor_pow_le_exception_mul
           _ ≤ p := hPp
           _ ≤ p ^ a := hpSelf
           _ = 1 * p ^ a := by simp
-    · simpa [A, P, a] using hbad
+    · simpa [A, P, a] using! hbad
 
 private theorem badPrimeFactors_card_le
     (k n : ℕ) :
@@ -178,7 +178,7 @@ private theorem divisor_exception_product_le
   let C := divisorExceptionalConstant k
   have hcard :
       ((n.primeFactors).filter fun p => p < P ∧ n.factorization p < A).card ≤ P := by
-    simpa [A, P] using badPrimeFactors_card_le k n
+    simpa [A, P] using! badPrimeFactors_card_le k n
   have hApos : 0 < A := by
     dsimp [A, divisorExponentThreshold]
     have hmax : 0 < max 4 (2 * k) :=
@@ -230,7 +230,7 @@ theorem card_divisors_pow_le_constant_mul
         (∏ p ∈ n.primeFactors, p ^ n.factorization p) =
             n.factorization.prod (fun p a => p ^ a) := by
           rw [Nat.prod_factorization_eq_prod_primeFactors]
-        _ = n := Nat.factorization_prod_pow_eq_self hn
+        _ = n := Nat.prod_factorization_pow_eq_self hn
     calc
       (∏ p ∈ n.primeFactors, (n.factorization p + 1) ^ k) ≤
           ∏ p ∈ n.primeFactors,
@@ -269,8 +269,8 @@ theorem card_divisors_le_subpolynomial
     have hmul : 1 < (k : ℝ) * ε := by
       exact (div_lt_iff₀ hε).mp hkLarge
     have hdiv : 1 / (k : ℝ) < ε :=
-      (div_lt_iff₀ hkRealPos).2 (by simpa [mul_comm] using hmul)
-    simpa [one_div] using hdiv.le
+      (div_lt_iff₀ hkRealPos).2 (by simpa [mul_comm] using! hmul)
+    simpa [one_div] using! hdiv.le
   let Cn := divisorExceptionalConstant k
   refine ⟨(Cn : ℝ), by positivity, ?_⟩
   intro n hn
@@ -283,7 +283,7 @@ theorem card_divisors_le_subpolynomial
       (by positivity : 0 ≤ (n.divisors.card : ℝ))
       (by positivity : 0 ≤ (((Cn ^ k) * n : ℕ) : ℝ))
       hkRealPos).2
-    simpa only [Real.rpow_natCast, Nat.cast_pow, Nat.cast_mul] using
+    simpa only [Real.rpow_natCast, Nat.cast_pow, Nat.cast_mul] using!
       (show ((n.divisors.card ^ k : ℕ) : ℝ) ≤
           (((Cn ^ k) * n : ℕ) : ℝ) by exact_mod_cast hpowNat)
   have hrootEq :
@@ -328,7 +328,7 @@ theorem card_deathShellIntegerWindow_le_width
   have ha0 : 0 ≤ a := by dsimp [a]; positivity
   have hLReal : 2 * Λ < (L : ℝ) := by
     dsimp [L, deathShellIntegerWindowWidth]
-    simpa only [Nat.cast_add, Nat.cast_one] using Nat.lt_floor_add_one (2 * Λ)
+    simpa only [Nat.cast_add, Nat.cast_one] using! Nat.lt_floor_add_one (2 * Λ)
   have hsubset :
       deathShellIntegerWindow Λ t ⊆
         Finset.Ioc (Nat.floor a) (Nat.floor a + L) := by
@@ -347,7 +347,7 @@ theorem card_deathShellIntegerWindow_le_width
       hmUpperCast.trans (Nat.floor_le hUpperNonneg)
     have hmLower : Nat.floor a < m := by
       have hmLowerReal : (Nat.floor a : ℝ) < (m : ℝ) := by
-        have hmStrict : a < (m : ℝ) := by simpa [a] using hmData.2
+        have hmStrict : a < (m : ℝ) := by simpa [a] using! hmData.2
         have hFloorLower : (Nat.floor a : ℝ) ≤ a := Nat.floor_le ha0
         exact lt_of_le_of_lt hFloorLower hmStrict
       exact_mod_cast hmLowerReal
@@ -388,7 +388,7 @@ theorem deathShellIntegerWindow_element_le_width_mul
   have hWidth :
       2 * Λ < (deathShellIntegerWindowWidth Λ : ℝ) := by
     unfold deathShellIntegerWindowWidth
-    simpa only [Nat.cast_add, Nat.cast_one] using Nat.lt_floor_add_one (2 * Λ)
+    simpa only [Nat.cast_add, Nat.cast_one] using! Nat.lt_floor_add_one (2 * Λ)
   have htPos : 0 < ((t + 1 : ℕ) : ℝ) := by positivity
   have hmLt :
       (m : ℝ) <
@@ -555,9 +555,9 @@ theorem norm_lifetimeDeathMass_le_rpow
   calc
     ‖lifetimeDeathMass Λ n‖ ≤ D0 +
         ∑ t ∈ Finset.range n, deathShellDivisorMajorant Λ t := by
-      simpa [D0] using hraw
+      simpa [D0] using! hraw
     _ ≤ D0 + (n : ℝ) * (Cinc * Real.rpow B ε) :=
-      add_le_add_left hsum D0
+      add_le_add_right hsum D0
     _ ≤ D0 * Real.rpow B (1 + ε) +
         Cinc * Real.rpow B (1 + ε) := by
       have hD0 : D0 ≤ D0 * Real.rpow B (1 + ε) := by

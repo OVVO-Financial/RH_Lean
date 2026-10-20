@@ -103,14 +103,14 @@ theorem abs_squareRootMatchedBornSmoothTransport_re_le_of_coreRealBound
       (squareRootMatchedBornSmoothTransport R).re =
         (squareRootLowPrimeMatchedCore R).re -
           (squareRootNearPrimeTransport R).re := by
-    simpa using heq
+    simpa using! heq
   rw [hre]
   have htri :
       |(squareRootLowPrimeMatchedCore R).re -
           (squareRootNearPrimeTransport R).re| ≤
         |(squareRootLowPrimeMatchedCore R).re| +
           |(squareRootNearPrimeTransport R).re| := by
-    simpa [sub_eq_add_neg, abs_neg] using
+    simpa [sub_eq_add_neg, abs_neg] using!
       (abs_add_le (squareRootLowPrimeMatchedCore R).re
         (-(squareRootNearPrimeTransport R).re))
   calc

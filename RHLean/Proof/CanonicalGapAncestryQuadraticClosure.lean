@@ -58,7 +58,7 @@ theorem sourceHighWindowEnergy_eq_projectedRenewalGramValue
     (Λ : ℝ) (B N H : ℕ) :
     windowPathEnergy H (sourceHighWindowPath Λ B N) =
       projectedRenewalGramValue Λ B N H := by
-  simpa [projectedRenewalGramValue] using
+  simpa [projectedRenewalGramValue] using!
     sourceHighWindowEnergy_eq_projectedRenewalGram Λ B N H
 
 /-- Squared complex norm of an integer cast, expressed in the native integer
@@ -80,7 +80,7 @@ theorem localSequenceEnergy_sourceHighPrefix_eq_windowPathEnergy
   push_cast
   apply Finset.sum_congr rfl
   intro r _hr
-  simpa using norm_intCast_complex_sq (sourceHighPrefix Λ B (N + r))
+  simpa using! norm_intCast_complex_sq (sourceHighPrefix Λ B (N + r))
 
 /-- Exact local-energy realization by the complete projected-renewal Gram value. -/
 theorem localSequenceEnergy_sourceHighPrefix_eq_projectedRenewalGramValue

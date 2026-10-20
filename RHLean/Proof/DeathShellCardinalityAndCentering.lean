@@ -74,10 +74,10 @@ theorem norm_lifetimeDeathMass_le_initial_add_sum_majorant
         ‖∑ t ∈ Finset.range n, lifetimeDeathIncrement Λ t‖ := norm_add_le _ _
     _ ≤ ‖lifetimeDeathMass Λ 0‖ +
         ∑ t ∈ Finset.range n, ‖lifetimeDeathIncrement Λ t‖ := by
-      exact add_le_add_left (norm_sum_le _ _) _
+      exact add_le_add_right (norm_sum_le _ _) _
     _ ≤ ‖lifetimeDeathMass Λ 0‖ +
         ∑ t ∈ Finset.range n, control.majorant t := by
-      exact add_le_add_left
+      exact add_le_add_right
         (Finset.sum_le_sum fun t _ =>
           norm_lifetimeDeathIncrement_le_majorant hΛ control t) _
 

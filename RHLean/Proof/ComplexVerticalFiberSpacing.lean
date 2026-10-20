@@ -97,7 +97,7 @@ theorem orderedEulerPivotVerticalHeight_add_displacement_ge_lowProduct_sq
     (a : ℝ) ^ 2 ≤
         (a : ℝ) ^ 2 *
           ((h : ℝ) * (2 * (p : ℝ) + (h : ℝ)) / 2) := by
-      simpa using (mul_le_mul_of_nonneg_left hcoef ha2)
+      simpa using! (mul_le_mul_of_nonneg_left hcoef ha2)
     _ = (a : ℝ) ^ 2 * (h : ℝ) *
           (2 * (p : ℝ) + (h : ℝ)) / 2 := by ring
 
@@ -264,8 +264,8 @@ theorem orderedEulerCut_prime_mem_face_of_dvd_child_lt_pivot
         (Nat.prime_dvd_prime_iff_eq hrPrime hp).mp hrp
       omega
     · have hra' : r ∣ t.prod id := by
-        simpa [primeFaceProduct] using hra
-      rcases (Prime.dvd_finset_prod_iff hrPrime.prime id).mp hra' with
+        simpa [primeFaceProduct] using! hra
+      rcases (Prime.dvd_finsetProd_iff hrPrime.prime id).mp hra' with
         ⟨q, hqt, hrq⟩
       have hqPrime := (hfaces q hqt).1
       have hre : r = q :=
@@ -315,7 +315,7 @@ theorem orderedEulerCutUpperFactor_dvd_lowProduct_of_same_child_of_pivot_lt
     simp [primeFaceProduct, orderedEulerCutUpperFactor,
       orderedEulerCutDeathRoot, orderedEulerCutLowProduct, hpNot]
   rw [hleft] at hprod
-  simpa [orderedEulerCutLowProduct] using hprod
+  simpa [orderedEulerCutLowProduct] using! hprod
 
 /-- Divisibility gives the corresponding threshold order. -/
 theorem orderedEulerCutUpperFactor_le_lowProduct_of_same_child_of_pivot_lt
@@ -372,13 +372,13 @@ theorem orderedEulerCutFace_eq_of_same_child_same_pivot
     apply orderedEulerCut_prime_mem_face_of_dvd_child_lt_pivot hz hdata.1
     · rw [← hchild]
       exact hdata.2.1
-    · simpa [hpivot] using hdata.2.2
+    · simpa [hpivot] using! hdata.2.2
   · intro hrz
     have hdata := orderedEulerCut_facePrime_dvd_child_lt_pivot hz hrz
     apply orderedEulerCut_prime_mem_face_of_dvd_child_lt_pivot hy hdata.1
     · rw [hchild]
       exact hdata.2.1
-    · simpa [hpivot] using hdata.2.2
+    · simpa [hpivot] using! hdata.2.2
 
 /-- **One active atom per physical vertical line.**  On the finite ordered-cut
 carrier at a fixed root, the physical child integer is injective. -/
@@ -404,7 +404,7 @@ theorem orderedEulerCutChildInteger_injective_on_carrier
   have hright : 0 < p * primeFaceProduct t := by
     have hpPrime : p.Prime := hy.1
     have haPos : 0 < primeFaceProduct t := by
-      simpa [orderedEulerCutLowProduct] using orderedEulerCutLowProduct_pos hy
+      simpa [orderedEulerCutLowProduct] using! orderedEulerCutLowProduct_pos hy
     exact Nat.mul_pos hpPrime.pos haPos
   have hcd : c = d := Nat.mul_right_cancel hright hchild
   subst d
@@ -513,7 +513,7 @@ theorem signedVerticalIntervalEndpointMass_eq_sum_activeChildCharges
       have hshape := orderedEulerCutShape_of_mem_carrier hyMem
       have hsign := orderedEulerCutChildWeight_eq_neg hshape
       have hneg := congrArg Neg.neg hsign
-      simpa using hneg.symm
+      simpa using! hneg.symm
     _ = ∑ n ∈ (orderedEulerCutCarrier R).image orderedEulerCutChildInteger,
         -canonicalMoebiusWeight n := by
       symm

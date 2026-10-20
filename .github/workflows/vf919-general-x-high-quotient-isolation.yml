@@ -44,6 +44,10 @@ jobs:
           assert not re.search(r'(?m)^\s*(sorry|admit|axiom)\b', path.read_text())
           assert not re.search(r'\b(sorry|admit)\b', path.read_text())
           PY
+      - name: Build RHLean modules imported by these research checks
+        run: >-
+          python3 scripts/compile_research_import_closure.py --library-only
+          research/VF_MID_919_GENERAL_X_HIGH_QUOTIENT_ISOLATION.lean
       - name: Warning-fatal compile of the complete import closure
         run: |
           set -o pipefail

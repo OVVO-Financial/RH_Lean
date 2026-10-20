@@ -260,7 +260,7 @@ theorem primeWheelBandSupportCoefficient_ge_one_sixth
   have hprod : (∏ p ∈ T, (1 - 1 / (p : ℝ) ^ 2)) ≤
       ∏ p ∈ T.filter (fun p => p ∈ P), (1 - 1 / (p : ℝ) ^ 2) := by
     rw [Finset.prod_filter]
-    apply Finset.prod_le_prod
+    apply Finset.prod_le_prod₀
     · intro p hp
       have hpR : (3 : ℝ) ≤ p := by exact_mod_cast (Finset.mem_Icc.mp hp).1
       apply sub_nonneg.mpr

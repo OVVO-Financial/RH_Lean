@@ -96,7 +96,7 @@ private theorem norm_sq_le_two_shifted_add_two (z : ℂ) :
     ‖z‖ ^ 2 ≤ 2 * ‖z - 1‖ ^ 2 + 2 := by
   have hnorm : ‖z‖ ≤ ‖z - 1‖ + 1 := by
     have h := norm_add_le (z - 1) (1 : ℂ)
-    simpa only [sub_add_cancel, norm_one] using h
+    simpa only [sub_add_cancel, norm_one] using! h
   have hz : 0 ≤ ‖z‖ := norm_nonneg _
   have hshift : 0 ≤ ‖z - 1‖ := norm_nonneg _
   nlinarith [sq_nonneg (‖z - 1‖ - 1)]
@@ -116,7 +116,7 @@ theorem squarePrefixEnergyBounded_of_rootSmoothCrossRegionEnergyBound
   · subst n
     have hconst : 0 ≤ 2 * C + 2 := by positivity
     simpa [RHLean.Analysis.squarePrefixMertens,
-      RHLean.Analysis.squarePrefixEndpoint] using hconst
+      RHLean.Analysis.squarePrefixEndpoint] using! hconst
   · have hR : 2 ≤ n + 1 := by omega
     have hshift := hbound (n + 1) hR
     rw [rootSmoothCrossRegionGram_eq_shiftedSquarePrefixEnergy (n + 1) hR] at hshift
@@ -328,24 +328,24 @@ private theorem nat_div_eq_iff_reciprocal_interval
     have hxlt : X < (z + 1) * n :=
       (Nat.div_lt_iff_lt_mul hnpos).1 hlt
     have hlower : X / (z + 1) < n :=
-      (Nat.div_lt_iff_lt_mul hzp).2 (by simpa [Nat.mul_comm] using hxlt)
+      (Nat.div_lt_iff_lt_mul hzp).2 (by simpa [Nat.mul_comm] using! hxlt)
     have hle : z ≤ X / n := by omega
     have hmul : z * n ≤ X :=
       (Nat.le_div_iff_mul_le hnpos).1 hle
     have hupper : n ≤ X / z :=
-      (Nat.le_div_iff_mul_le hzpos).2 (by simpa [Nat.mul_comm] using hmul)
+      (Nat.le_div_iff_mul_le hzpos).2 (by simpa [Nat.mul_comm] using! hmul)
     exact ⟨hlower, hupper⟩
   · rintro ⟨hlower, hupper⟩
     have hmulUpper : n * z ≤ X :=
       (Nat.le_div_iff_mul_le hzpos).1 hupper
     have hzle : z ≤ X / n :=
       (Nat.le_div_iff_mul_le hnpos).2
-        (by simpa [Nat.mul_comm] using hmulUpper)
+        (by simpa [Nat.mul_comm] using! hmulUpper)
     have hxlt : X < n * (z + 1) :=
       (Nat.div_lt_iff_lt_mul hzp).1 hlower
     have hlt : X / n < z + 1 :=
       (Nat.div_lt_iff_lt_mul hnpos).2
-        (by simpa [Nat.mul_comm] using hxlt)
+        (by simpa [Nat.mul_comm] using! hxlt)
     omega
 
 private theorem squareRoot_pred_mul_root_le_endpoint
@@ -396,7 +396,7 @@ theorem squareRoot_replacementFibreLower_le_upper
   have hdiv : X / (z + 1) + 1 ≤ X / z :=
     (Nat.le_div_iff_mul_le (by omega : 0 < z)).2 htoX
   simpa [squareRootReplacementFibreLower,
-    squareRootReplacementFibreUpper, X] using hdiv
+    squareRootReplacementFibreUpper, X] using! hdiv
 
 /-- The physical reciprocal fibre is exactly its ordinary hyperbola interval. -/
 theorem replacementTailFibre_mem_iff
@@ -461,7 +461,7 @@ theorem squareRootReplacementTailMoebiusCoefficient_eq_mertensIncrement
     omega
   have hL1 : 1 ≤ L := by
     have hroot : R ≤ L := by
-      simpa [L] using squareRoot_root_le_replacementFibreLower R z hR hzR
+      simpa [L] using! squareRoot_root_le_replacementFibreLower R z hR hzR
     omega
   have hprefix : Finset.Icc 1 H =
       Finset.Icc 1 (L - 1) ∪ Finset.Icc L H := by

@@ -174,7 +174,7 @@ theorem postRootCovarianceFixedOwnerChild_energy_eq
           (squarefreePrimeFamilyParent p m)
           (squarefreePrimeFamilyParent p n) = parent := by
     unfold squarefreePairFreshPrimeOrderedParent at hparent
-    simpa [howner] using hparent
+    simpa [howner] using! hparent
   rw [hparent'] at henergy
   exact henergy
 
@@ -244,7 +244,7 @@ theorem postRootCovarianceReciprocalOutgoingEnergy_le_79_over_81
       (∑ p ∈ primesUpTo W,
         (postRootCovarianceFixedOwnerChildMultiplicity W parent p : ℝ) /
           (p : ℝ) ^ 2) ≤ 79 / 81 := by
-    simpa [Nat.cast_pow] using hcast
+    simpa [Nat.cast_pow] using! hcast
   exact mul_le_mul_of_nonneg_right hcongR
     (postRootCovarianceReciprocalPairEnergy_nonneg parent)
 

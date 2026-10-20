@@ -58,9 +58,9 @@ theorem lowOwnerThresholdOwnerSignedSite_eq_zero_of_endpoint_lt
   unfold lowOwnerThresholdOwnerSignedSite
   have hzero :
       lowOwnerThresholdOwnerIncidenceWeight R p n = 0 := by
-    simpa using
+    simpa using!
       (lowOwnerThresholdOwnerIncidenceWeight_eq_zero_of_next_clipped
-        (R := R) (p := p) (r := 1) (n := n) hR hp (by simpa using hn))
+        (R := R) (p := p) (r := 1) (n := n) hR hp (by simpa using! hn))
   rw [hzero]
   ring
 

@@ -155,7 +155,7 @@ theorem nativeLambdaWeighted_eq_mobiusLogReciprocalMass
           have hmulN' : k * m ≤ N :=
             (Nat.le_div_iff_mul_le hmpos).1 hkN
           have hmulN : m * k ≤ N := by
-            simpa [Nat.mul_comm] using hmulN'
+            simpa [Nat.mul_comm] using! hmulN'
           have hkpos : 0 < k := by omega
           exact ⟨⟨Nat.one_le_iff_ne_zero.mpr
             (Nat.ne_of_gt (Nat.mul_pos hmpos hkpos)), hmulN⟩,
@@ -188,7 +188,7 @@ theorem nativeLambdaSignedErrorMass_eq_mobiusReciprocal
     (N : ℕ) :
     (∑ d ∈ Finset.Icc 1 N, Λ d * nativePNTError (N / d)) =
       nativePNTMobiusReciprocalSignedErrorMass N := by
-  simpa [nativePNTMobiusReciprocalSignedErrorMass] using
+  simpa [nativePNTMobiusReciprocalSignedErrorMass] using!
     (nativeLambdaWeighted_eq_mobiusLogReciprocalMass N
       (fun d => nativePNTError (N / d)))
 
@@ -198,7 +198,7 @@ theorem nativeLambdaAbsoluteErrorMass_eq_mobiusReciprocal
     (N : ℕ) :
     (∑ d ∈ Finset.Icc 1 N, Λ d * |nativePNTError (N / d)|) =
       nativePNTMobiusReciprocalAbsoluteErrorMass N := by
-  simpa [nativePNTMobiusReciprocalAbsoluteErrorMass] using
+  simpa [nativePNTMobiusReciprocalAbsoluteErrorMass] using!
     (nativeLambdaWeighted_eq_mobiusLogReciprocalMass N
       (fun d => |nativePNTError (N / d)|))
 
@@ -288,7 +288,7 @@ theorem nativePNTError_abs_log_le_mobiusReciprocal
         gcongr
       _ = nativePNTMobiusReciprocalAbsoluteErrorMass N +
           (3 * (Real.log 4 + 2) + 173) * (N : ℝ) := by ring
-  simpa [abs_mul, abs_of_nonneg hlog0] using hmain
+  simpa [abs_mul, abs_of_nonneg hlog0] using! hmain
 
 /-! ## Native square-prefix block decomposition -/
 
@@ -376,7 +376,7 @@ theorem nativePNTError_abs_log_le_squarePrefixMobiusFiber
         Real.log (squarePrefixEndpoint n : ℝ) ≤
       nativePNTSquarePrefixMobiusAbsoluteErrorMass n +
         (3 * (Real.log 4 + 2) + 173) * (squarePrefixEndpoint n : ℝ) := by
-  simpa [nativePNTSquarePrefixMobiusAbsoluteErrorMass] using
+  simpa [nativePNTSquarePrefixMobiusAbsoluteErrorMass] using!
     (nativePNTError_abs_log_le_mobiusReciprocal
       (squarePrefixEndpoint n) hN)
 

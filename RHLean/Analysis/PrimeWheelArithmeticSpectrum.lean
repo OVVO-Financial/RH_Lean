@@ -35,11 +35,11 @@ theorem isPrimeWheelSmooth_iff_squarefree_dvd_coordinateProduct
     have hpDvdProduct : p ∣ primeWheelCoordinateProduct S :=
       dvd_trans hpData.2.1 hdvd
     unfold primeWheelCoordinateProduct at hpDvdProduct
-    rcases (Prime.dvd_finset_prod_iff hpData.1.prime id).mp hpDvdProduct with
+    rcases (Prime.dvd_finsetProd_iff hpData.1.prime id).mp hpDvdProduct with
       ⟨q, hqS, hpq⟩
     rcases (hprime q hqS).eq_one_or_self_of_dvd p hpq with hpOne | hpEq
     · exact (hpData.1.ne_one hpOne).elim
-    · simpa [hpEq] using hqS
+    · simpa [hpEq] using! hqS
 
 /-- Explicit unnormalized raw arithmetic coefficient on the common torus. -/
 def primeWheelRawArithmeticCoefficient

@@ -103,7 +103,7 @@ theorem outsidePrimeDeletionT_eq_sum_leastSquareChannels
     hmaps
     (selectedDegreeOneProjection P)
   simpa [E, owner, outsidePrimeDeletionT,
-    outsidePrimeLeastDeletionChannel] using hfiber.symm
+    outsidePrimeLeastDeletionChannel] using! hfiber.symm
 
 /-! ## Least-square super-orbits -/
 

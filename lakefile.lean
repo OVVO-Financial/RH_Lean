@@ -4,16 +4,14 @@ open Lake DSL
 package «RHLean» where
   version := v!"0.1.0"
 
-require mathlib from git
-  "https://github.com/leanprover-community/mathlib4.git" @ "v4.24.0"
-
--- StrongPNT pins an older PrimeNumberTheoremAnd snapshot built against Mathlib 4.21.
--- Override that transitive dependency with the upstream snapshot that was explicitly
--- bumped to Mathlib 4.24, while keeping the completed StrongPNT theorem source fixed.
+-- Compiler, Mathlib and PNT+ match the Quasi-Riemann Tracker verifier pins.
+-- PNT+ supplies the strong prime number theorem, the 1/log zero-free region
+-- and the finite-height zero-free box that the strong-Mertens layer consumes.
 require PrimeNumberTheoremAnd from git
-  "https://github.com/AlexKontorovich/PrimeNumberTheoremAnd.git" @ "7f3cd7c3e1c85d60478ed8934be42a06b07de374"
+  "https://github.com/AlexKontorovich/PrimeNumberTheoremAnd.git" @ "c39a751132c88b6e8080b74c74023fd95b3d8be0"
 
-require StrongPNT from git
-  "https://github.com/math-inc/strongpnt.git" @ "2f5835c322314f55f1026ec2f139d704b7c45c69"
+-- Mathlib comes last so its pin overrides the one PNT+ inherits transitively.
+require mathlib from git
+  "https://github.com/leanprover-community/mathlib4.git" @ "d13f23b723b8a846827a245b89c10fc7d3f11612"
 
 lean_lib RHLean

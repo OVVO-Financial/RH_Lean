@@ -34,7 +34,7 @@ theorem realMoebiusCovarianceRow_sq_le_lowerMertensEnergy (c : ℕ) :
     (realMoebiusStep c * realMertensLength c) ^ 2 ≤ realMertensLength c ^ 2 := by
   have h := mul_le_mul_of_nonneg_right (realMoebiusStep_sq_le_one c)
     (sq_nonneg (realMertensLength c))
-  simpa only [mul_pow, one_mul] using h
+  simpa only [mul_pow, one_mul] using! h
 
 /-- The inherited covariance increment on one fixed quotient coordinate. -/
 def postRootLowerCovarianceRow (W p : ℕ) : ℝ :=
@@ -56,9 +56,9 @@ theorem postRootLowerCovarianceRow_sq_le_lowerMertensEnergy (W p : ℕ) :
       realMertensLength (W / p + 1) ^ 2 := by
   rw [postRootLowerCovariance_succQuotient_sub]
   by_cases hdvd : p ∣ W + 1
-  · rw [if_pos hdvd]
+  · rw [ite_eq_left hdvd]
     exact realMoebiusCovarianceRow_sq_le_lowerMertensEnergy _
-  · rw [if_neg hdvd, zero_pow (by norm_num : 2 ≠ 0)]
+  · rw [ite_eq_right hdvd, zero_pow (by norm_num : 2 ≠ 0)]
     exact sq_nonneg _
 
 /-! ## A finite envelope of cumulative Mertens energy -/
@@ -131,7 +131,7 @@ theorem postRootLowerCovarianceRow_sq_le_powerEnvelope_halfPower
   by_cases hdvd : p ∣ W + 1
   · have hpPos : 0 < p := (Nat.zero_le _).trans_lt hpRoot
     have hdiv : (W + 1) / p = W / p + 1 := by
-      rw [Nat.succ_div, if_pos hdvd]
+      rw [Nat.succ_div, ite_eq_left hdvd]
     have hquot : (W + 1) / p < p :=
       (Nat.div_lt_iff_lt_mul hpPos).2 ((Nat.sqrt_lt).1 hpRoot)
     have hsq : (W / p + 1) ^ 2 ≤ W + 1 := by
@@ -145,10 +145,10 @@ theorem postRootLowerCovarianceRow_sq_le_powerEnvelope_halfPower
       _ ≤ mertensSquarePowerEnvelope ε W *
           Real.rpow ((W / p + 1 : ℕ) : ℝ) (1 + ε) := hprefix
       _ ≤ _ := mul_le_mul_of_nonneg_left hpower henv
-  · rw [postRootLowerCovarianceRow_eq_ite, if_neg hdvd]
+  · rw [postRootLowerCovarianceRow_eq_ite, ite_eq_right hdvd]
     have hpow := Real.rpow_nonneg (show (0 : ℝ) ≤ ((W + 1 : ℕ) : ℝ) by positivity)
       ((1 + ε) / 2)
-    simpa only [zero_pow (by norm_num : 2 ≠ 0)] using mul_nonneg henv hpow
+    simpa only [zero_pow (by norm_num : 2 ≠ 0)] using! mul_nonneg henv hpow
 
 private theorem normalized_le_inverse_halfPower
     {r A x ε : ℝ} (hx : 0 < x)
@@ -195,7 +195,7 @@ theorem postRootPrimeFamilyCovarianceRowTotal_eq_single_of_dvd
   unfold postRootPrimeFamilyCovarianceRowTotal
   apply Finset.sum_eq_single p
   · intro q hq hqp
-    rw [postRootLowerCovarianceRow_eq_ite, if_neg]
+    rw [postRootLowerCovarianceRow_eq_ite, ite_eq_right]
     intro hqdvd
     exact hqp (postRootPrimeFamily_divisor_unique hq hp hqdvd hdvd)
   · intro hnot
@@ -217,14 +217,14 @@ theorem postRootPrimeFamilyCovarianceRowTotal_sq_le_powerEnvelope_halfPower
       unfold postRootPrimeFamilyCovarianceRowTotal
       apply Finset.sum_eq_zero
       intro p hp
-      rw [postRootLowerCovarianceRow_eq_ite, if_neg]
+      rw [postRootLowerCovarianceRow_eq_ite, ite_eq_right]
       intro hdvd
       exact hex ⟨p, hp, hdvd⟩
     rw [hzero]
     have henv := mertensSquarePowerEnvelope_nonneg ε W
     have hpow := Real.rpow_nonneg (show (0 : ℝ) ≤ ((W + 1 : ℕ) : ℝ) by positivity)
       ((1 + ε) / 2)
-    simpa only [zero_pow (by norm_num : 2 ≠ 0)] using mul_nonneg henv hpow
+    simpa only [zero_pow (by norm_num : 2 ≠ 0)] using! mul_nonneg henv hpow
 
 theorem postRootPrimeFamilyCovarianceRowTotal_sq_div_power_le_envelope_div_halfPower
     (ε : ℝ) (hε : 0 ≤ ε) (W : ℕ) :
@@ -329,11 +329,11 @@ theorem postRootLowerCovarianceRow_eq_zero_of_upperHalf
   have hpPos : 0 < p := (Nat.zero_le _).trans_lt hp
   by_cases hdvd : p ∣ W + 1
   · have hdiv : (W + 1) / p = W / p + 1 := by
-      rw [Nat.succ_div, if_pos hdvd]
+      rw [Nat.succ_div, ite_eq_left hdvd]
     have hsmall : (W + 1) / p < 2 := by
       apply (Nat.div_lt_iff_lt_mul hpPos).2
       have h := (Nat.div_lt_iff_lt_mul (by norm_num : 0 < 2)).1 hp
-      simpa [Nat.mul_comm] using h
+      simpa [Nat.mul_comm] using! h
     rw [hdiv] at hsmall
     have hzero : W / p = 0 := by
       apply Nat.eq_zero_of_not_pos
@@ -341,9 +341,9 @@ theorem postRootLowerCovarianceRow_eq_zero_of_upperHalf
       have hone : 1 ≤ W / p := hpos
       have htwo : 2 ≤ W / p + 1 := Nat.succ_le_succ hone
       exact (Nat.not_le_of_gt hsmall) htwo
-    rw [postRootLowerCovarianceRow_eq_ite, if_pos hdvd, hzero]
+    rw [postRootLowerCovarianceRow_eq_ite, ite_eq_left hdvd, hzero]
     simp [realMertensLength, realMoebiusStep]
-  · rw [postRootLowerCovarianceRow_eq_ite, if_neg hdvd]
+  · rw [postRootLowerCovarianceRow_eq_ite, ite_eq_right hdvd]
 
 /-- At a new prime, inherited rows and square-wall departures vanish, but the
 global covariance row is still `-M(W)`.  Its effect is not only a diagonal unit. -/
@@ -360,7 +360,7 @@ theorem postRootCovarianceLocalInnovation_eq_neg_prefix_of_prime
       subst p
       apply postRootLowerCovarianceRow_eq_zero_of_upperHalf
       exact Nat.div_lt_self (Nat.succ_pos W) (by norm_num : 1 < 2)
-    · rw [postRootLowerCovarianceRow_eq_ite, if_neg hdvd]
+    · rw [postRootLowerCovarianceRow_eq_ite, ite_eq_right hdvd]
   have hdepart : postRootPrimeFamilyCovarianceDeparture W = 0 := by
     unfold postRootPrimeFamilyCovarianceDeparture
     apply Finset.sum_eq_zero

@@ -39,7 +39,7 @@ private theorem lowOwnerInheritedReciprocalSquareBudget_le_twoTermBasel
       intro q _hq _hnot
       positivity
     _ ≤ (211 / 900 : ℝ) := by
-      simpa [div_pow] using
+      simpa [div_pow] using!
         (oddPrimeOwnerReciprocalSquareBudgetReal_le_twoTermBasel (R - 1))
 
 /-- **Basel-budget daughter square.** -/
@@ -124,7 +124,7 @@ theorem lowOwnerThresholdSecondOwnerDifference_sq_le_twoTermBasel_activity
   let B : ℝ := lowOwnerThresholdClippedDifference p r n (R - 1)
   have hrewrite :
       lowOwnerThresholdSecondOwnerDifference R p r n = A - B := by
-    simpa [A, B] using
+    simpa [A, B] using!
       (lowOwnerThresholdSecondOwnerDifference_eq_clippedFubini
         hR hp.one_le hr.one_le)
   have hA : A ^ 2 ≤
@@ -134,7 +134,7 @@ theorem lowOwnerThresholdSecondOwnerDifference_sq_le_twoTermBasel_activity
               p n (rawQ2ChildCutoff R q) +
             lowOwnerThresholdCrossingIndicator
               p (r * n) (rawQ2ChildCutoff R q))) := by
-    simpa [A] using
+    simpa [A] using!
       (lowOwnerThresholdDaughterClippedSum_sq_le_twoTermBasel_activity
         (R := R) hp hr hpr hn)
   have hB : B ^ 2 =

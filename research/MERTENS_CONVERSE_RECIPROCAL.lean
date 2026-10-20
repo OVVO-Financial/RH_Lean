@@ -66,7 +66,7 @@ theorem regularizedReciprocal_differentiableAt_of_strip {a : ℝ}
     apply (Complex.analyticAt_of_differentiable_on_punctured_nhds_of_continuousAt
       ?_ hc).differentiableAt
     filter_upwards [mem_nhdsWithin_of_mem_nhds hH, self_mem_nhdsWithin] with z hz hz1
-    have hz1' : z ≠ (1 : ℂ) := by simpa using hz1
+    have hz1' : z ≠ (1 : ℂ) := by simpa using! hz1
     exact regularizedReciprocal_differentiableAt_off_pole hz1'
       (zeta_ne_zero_of_strip ha hstrip hz hz1')
   · exact regularizedReciprocal_differentiableAt_off_pole hs1

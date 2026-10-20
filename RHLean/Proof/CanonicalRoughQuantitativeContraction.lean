@@ -107,7 +107,7 @@ theorem canonicalRoughEulerFactor_nonneg
     exact_mod_cast hp.one_le
   have hdiv : 1 / (p : ℝ) ≤ 1 := by
     apply (div_le_iff₀ hpPos).2
-    simpa using hpOne
+    simpa using! hpOne
   unfold canonicalRoughEulerFactor
   linarith
 
@@ -157,7 +157,7 @@ theorem canonicalRoughEulerProduct_le_one
         canonicalRoughEulerFactor step.1 * canonicalRoughEulerProduct steps ≤
             1 * canonicalRoughEulerProduct steps :=
           mul_le_mul_of_nonneg_right ha1 hP0
-        _ ≤ 1 := by simpa using hP1
+        _ ≤ 1 := by simpa using! hP1
 
 /-- The scaled signed defect floor is nonnegative. -/
 theorem squareRootCanonicalRoughScaledSignedDefectFloor_nonneg
@@ -191,7 +191,7 @@ theorem squareRootCanonicalRoughPhysicalStepDefect_norm_le_floor_div_prime
   have hpPos : 0 < (step.1 : ℝ) := by
     exact_mod_cast hp.pos
   apply (le_div_iff₀ hpPos).2
-  simpa [mul_comm] using hscaled
+  simpa [mul_comm] using! hscaled
 
 /-- **Many-prime signed defect ledger contraction.**
 
@@ -294,7 +294,7 @@ theorem squareRootCanonicalRoughCompressedProfile_norm_le
     _ ≤ canonicalRoughEulerProduct steps * ‖z‖ +
         (1 - canonicalRoughEulerProduct steps) *
           squareRootCanonicalRoughScaledSignedDefectFloor R steps :=
-      add_le_add_left hledger _
+      add_le_add_right hledger _
 
 /-! ## Finite Abel return to the unweighted covariance numerator -/
 
@@ -351,12 +351,12 @@ theorem sum_squareRootCanonicalRoughResponseCentered_eq_abel_reciprocalPrefix
       intro c hc
       have hc0 : c ≠ 0 := by
         have hcnot : c ∉ ({0} : Finset ℕ) := (Finset.mem_sdiff.mp hc).2
-        simpa using hcnot
+        simpa using! hcnot
       rw [← natCast_mul_squareRootCanonicalRoughResponseCenteredReciprocalSummand
         R (Nat.pos_of_ne_zero hc0)]
       ring
     rw [hweighted] at hsplit
-    simpa [v] using hsplit
+    simpa [v] using! hsplit
   rw [hleft]
   rw [habel]
   unfold squareRootCanonicalRoughReciprocalPrefix

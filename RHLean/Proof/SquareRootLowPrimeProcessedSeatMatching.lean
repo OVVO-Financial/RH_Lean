@@ -154,7 +154,7 @@ theorem squareRootLowPrimeProcessedSeatExtend_weight_eq_neg
   rcases x with _ | z
   · exact (hxData.2.1 rfl).elim
   · have hnot : ¬ p ∣ z.1 := by
-      simpa [squareRootLowPrimeProcessedStateCofactor] using hxData.2.2.1
+      simpa [squareRootLowPrimeProcessedStateCofactor] using! hxData.2.2.1
     have hmu : μ (p * z.1) = -μ z.1 :=
       moebius_prime_mul_eq_neg_of_not_dvd hp hnot
     change (((-μ (p * z.1) : ℤ) : ℝ)) =
@@ -239,7 +239,7 @@ theorem squareRootLowPrimeProcessedSeat_weight_sum_eq_frontierStep
     Finset.sum_sdiff hsubset
   rw [squareRootLowPrimeProcessedSeat_sdiff_frontierStep_eq_paired,
     squareRootLowPrimeProcessedSeatPaired_weight_sum_eq_zero S hp] at hsplit
-  simpa using hsplit.symm
+  simpa using! hsplit.symm
 
 /-- Iterate processed-seat matching through an explicit prime list. -/
 def squareRootLowPrimeProcessedSeatMatchingFrontier :

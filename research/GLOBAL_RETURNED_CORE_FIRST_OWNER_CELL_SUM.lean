@@ -94,7 +94,7 @@ theorem lowOwnerFirstOwnerCellGram_eq_sum_product
         lowOwnerZeroFrequencyMobiusSite R ab.1 *
           lowOwnerZeroFrequencyMobiusSite R ab.2 := by
       symm
-      simpa only using
+      simpa only using!
         (Finset.sum_product
           (s := lowOwnerFirstOwnerBaseFiber R p sig)
           (t := lowOwnerFirstOwnerChildFiber R p sig)
@@ -149,7 +149,7 @@ theorem sum_lowOwnerFirstOwnerCellGram_eq_orientedCrossPairs
           rw [show S.filter (fun ab => g ab = sig) =
               (lowOwnerFirstOwnerBaseFiber R p sig).product
                 (lowOwnerFirstOwnerChildFiber R p sig) by
-            simpa [S, g] using hfiberSet]
+            simpa [S, g] using! hfiberSet]
     _ = ∑ ab ∈ S, f ab := hfiber
     _ = _ := rfl
 

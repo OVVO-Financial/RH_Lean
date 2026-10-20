@@ -62,7 +62,7 @@ theorem sum_squareRootLowPrimeBoundaryShadowCarrier_eq_frontier_sub_boundary
   unfold squareRootLowPrimeBoundaryShadowCarrier
     squareRootLowPrimeBoundaryShadowWeight
   rw [Finset.sum_disjSum]
-  simp only [Finset.sum_neg_distrib]
+  simp only [Finset.sum_neg_distrib, sub_eq_add_neg]
 
 /-- Exact finite-Morse/Othello target.  Acyclicity is not a separate hypothesis:
 a fixed-point-free involution with sign reversal already annihilates the finite
@@ -97,6 +97,7 @@ theorem sum_squareRootLowPrimeBoundaryShadowCarrier_eq_zero_of_matching
       exact (Finset.mem_filter.mp hx).1
     · intro hx
       exact Finset.mem_filter.mpr ⟨hx, M.nofix x hx⟩
+  change (∑ x ∈ S, w x) = 0
   rw [← hmove]
   exact sum_finiteOthelloMovingPart_eq_zero
     S M.mate w
@@ -174,20 +175,25 @@ theorem finiteOthelloStablePart_creationResponse_eq_head_union_shallow_union_dee
   constructor
   · intro hx
     by_cases hxHead : x = none
-    · subst x
-      simp
+    · exact Finset.mem_insert.mpr (Or.inl hxHead)
     · by_cases hsh : SquareRootLowPrimeProcessedStateShallow K x
-      · apply Finset.mem_insert_of_mem
-        (Finset.mem_union_left _ ?_)
-        exact Finset.mem_filter.mpr ⟨hx, hxHead, hsh⟩
-      · apply Finset.mem_insert_of_mem
-        (Finset.mem_union_right _ ?_)
-        exact Finset.mem_filter.mpr ⟨hx, hxHead, hsh⟩
+      · apply Finset.mem_insert.mpr
+        right
+        apply Finset.mem_union.mpr
+        left
+        exact Finset.mem_filter.mpr ⟨hx, ⟨hxHead, hsh⟩⟩
+      · apply Finset.mem_insert.mpr
+        right
+        apply Finset.mem_union.mpr
+        right
+        exact Finset.mem_filter.mpr ⟨hx, ⟨hxHead, hsh⟩⟩
   · intro hx
     rcases Finset.mem_insert.mp hx with hxHead | hxTail
     · subst x
+      change none ∈ (squareRootLowPrimeProcessedSeatCarrier R K j U).filter
+        (fun y => squareRootLowPrimeProcessedSeatCreationResponseMate R K j U y = y)
       apply Finset.mem_filter.mpr
-      refine ⟨?_, squareRootLowPrimeProcessedSeatCreationResponseMate_head _ _ _ _⟩
+      refine ⟨?_, squareRootLowPrimeProcessedSeatCreationResponseMate_head R K j U⟩
       simp [squareRootLowPrimeProcessedSeatCarrier]
     · rcases Finset.mem_union.mp hxTail with hxSh | hxDeep
       · exact (Finset.mem_filter.mp hxSh).1
@@ -202,30 +208,6 @@ theorem none_not_mem_squareRootLowPrimeCreationResponseStableTail
   rcases Finset.mem_union.mp h with h | h
   · exact (Finset.mem_filter.mp h).2.1 rfl
   · exact (Finset.mem_filter.mp h).2.1 rfl
-
-/-- Exact critical-mass normal form:
-running imbalance = Head + unmatched shallow creation + unmatched deep response.
-This uses only the two Othello involutions and the shallow/deep dichotomy. -/
-theorem squareRootLowPrime_creationResponseStableMass_eq_head_add_shallow_add_deep
-    {R K j U : ℕ} (hR : 2 ≤ R) (hK : 1 ≤ K) (hKU : K ≤ U) :
-    squareRootLowPrimeRunningImbalanceReal R K j U =
-      1 +
-        (∑ x ∈ squareRootLowPrimeCreationResponseStableShallow R K j U,
-          squareRootLowPrimeProcessedSeatWeightReal x) +
-        (∑ x ∈ squareRootLowPrimeCreationResponseStableDeep R K j U,
-          squareRootLowPrimeProcessedSeatWeightReal x) := by
-  have hmass :=
-    squareRootLowPrime_creationResponseStableMass_eq_runningImbalance
-      (R := R) (K := K) (j := j) (U := U) hR hK hKU
-  rw [finiteOthelloStablePart_creationResponse_eq_head_union_shallow_union_deep]
-    at hmass
-  rw [Finset.sum_insert
-      (none_not_mem_squareRootLowPrimeCreationResponseStableTail R K j U),
-    Finset.sum_union
-      (squareRootLowPrimeCreationResponseStableShallow_disjoint_deep R K j U)]
-    at hmass
-  simp only [squareRootLowPrimeProcessedSeatWeightReal] at hmass
-  linarith
 
 /-! ## Replace the descending critical set by the creation-response critical set
 
@@ -289,5 +271,29 @@ theorem squareRootLowPrime_creationResponseStableMass_eq_runningImbalance
           (by omega) hK hKU
     _ = squareRootLowPrimeRunningImbalanceReal R K j U :=
       squareRootLowPrimeProcessedSeatNoLibertyMate_stableMass_eq_runningImbalance hR
+
+/-- Exact critical-mass normal form:
+running imbalance = Head + unmatched shallow creation + unmatched deep response.
+This uses only the two Othello involutions and the shallow/deep dichotomy. -/
+theorem squareRootLowPrime_creationResponseStableMass_eq_head_add_shallow_add_deep
+    {R K j U : ℕ} (hR : 2 ≤ R) (hK : 1 ≤ K) (hKU : K ≤ U) :
+    squareRootLowPrimeRunningImbalanceReal R K j U =
+      1 +
+        (∑ x ∈ squareRootLowPrimeCreationResponseStableShallow R K j U,
+          squareRootLowPrimeProcessedSeatWeightReal x) +
+        (∑ x ∈ squareRootLowPrimeCreationResponseStableDeep R K j U,
+          squareRootLowPrimeProcessedSeatWeightReal x) := by
+  have hmass :=
+    squareRootLowPrime_creationResponseStableMass_eq_runningImbalance
+      (R := R) (K := K) (j := j) (U := U) hR hK hKU
+  rw [finiteOthelloStablePart_creationResponse_eq_head_union_shallow_union_deep]
+    at hmass
+  rw [Finset.sum_insert
+      (none_not_mem_squareRootLowPrimeCreationResponseStableTail R K j U),
+    Finset.sum_union
+      (squareRootLowPrimeCreationResponseStableShallow_disjoint_deep R K j U)]
+    at hmass
+  simpa only [squareRootLowPrimeProcessedSeatWeightReal, add_assoc] using hmass.symm
+
 
 end RHLean.Proof

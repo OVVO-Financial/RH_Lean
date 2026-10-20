@@ -25,7 +25,7 @@ theorem additiveCharacter_eq_of_sub_dvd
     additiveCharacter modulus x = additiveCharacter modulus y := by
   by_cases hm : modulus = 0
   · subst modulus
-    have hsub : x - y = 0 := by simpa using h
+    have hsub : x - y = 0 := by simpa using! h
     have hxy : x = y := sub_eq_zero.mp hsub
     subst x
     rfl
@@ -51,7 +51,7 @@ theorem quadraticPhase_eq_of_congruent
     quadraticPhase a r u = quadraticPhase a r v := by
   unfold quadraticPhase
   apply additiveCharacter_eq_of_sub_dvd
-  simpa [QuadraticExponentCongruent] using h
+  simpa [QuadraticExponentCongruent] using! h
 
 /-- Inputs congruent modulo `2 * r` give the same quadratic phase. -/
 theorem quadraticPhase_eq_of_input_dvd

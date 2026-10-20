@@ -26,7 +26,7 @@ theorem primeSieveStateDependentSelberg_slopeUpdate_le
           ((N : Real) * (Real.log (N : Real)) ^ 2) := by
     apply (le_div_iff₀ hden).2
     unfold PrimeSieveStateDependentSelbergStateHasPowerGain at hgain
-    simpa [mul_assoc] using hgain
+    simpa [mul_assoc] using! hgain
   unfold nativePNTEvolvingTailSlopeUpdate nativePNTEvolvingTailSlopeGain
   linarith
 

@@ -165,7 +165,7 @@ private theorem positiveSmoothPair_surjective
     have h1 : qc.2 * qc.1 < R * qc.1 :=
       Nat.mul_lt_mul_of_pos_right hcR hqPrime.pos
     have h2 : R * qc.1 ≤ R * R := Nat.mul_le_mul_left R hqR
-    simpa [pow_two] using lt_of_lt_of_le h1 h2
+    simpa [pow_two] using! lt_of_lt_of_le h1 h2
   have hmulX : qc.2 * qc.1 ≤ squareRootEndpoint R := by
     unfold squareRootEndpoint
     omega
@@ -176,7 +176,7 @@ private theorem positiveSmoothPair_surjective
   · apply Finset.mem_filter.mpr
     constructor
     · exact Finset.mem_Icc.mpr ⟨hm1, hmulX⟩
-    · simpa only [hlargest, hcofactor] using And.intro hqR hcq
+    · simpa only [hlargest, hcofactor] using! And.intro hqR hcq
   · apply Prod.ext
     · exact hlargest
     · exact hcofactor
@@ -191,7 +191,7 @@ theorem squareRootPositiveSmoothSourceMass_eq_pairSourceMass (R : ℕ) :
     (fun m _hm => (canonicalLargestPrimeFactor m, canonicalCofactor m))
     (fun m hm => positiveSmoothSource_to_pair_mem hm)
     (fun m hm n hn hmn => positiveSmoothSource_pair_injective hm hn hmn)
-    (fun qc hcq => by simpa using positiveSmoothPair_surjective qc hcq)
+    (fun qc hcq => by simpa using! positiveSmoothPair_surjective qc hcq)
     ?_
   intro m hm
   have hmgt : 1 < m := one_lt_of_mem_squareRootPositiveSmoothSourceSet hm
@@ -215,7 +215,7 @@ theorem squareRootPositiveSmoothPairSourceMass_eq_neg_primeMertensTransform
       ∑ q ∈ Finset.Icc 2 R,
         ∑ c ∈ Finset.Ico 1 R,
           if q.Prime ∧ c < q then canonicalMoebiusWeight (c * q) else 0 := by
-      simpa only using
+      simpa only using!
         (Finset.sum_product
           (s := Finset.Icc 2 R)
           (t := Finset.Ico 1 R)
@@ -228,7 +228,7 @@ theorem squareRootPositiveSmoothPairSourceMass_eq_neg_primeMertensTransform
       apply Finset.sum_congr rfl
       intro q hqMem
       by_cases hqPrime : q.Prime
-      · simp only [hqPrime, true_and, if_true]
+      · simp only [hqPrime, true_and, ite_true]
         have hqR : q ≤ R := (Finset.mem_Icc.mp hqMem).2
         have hset :
             (Finset.Ico 1 R).filter (fun c => c < q) =

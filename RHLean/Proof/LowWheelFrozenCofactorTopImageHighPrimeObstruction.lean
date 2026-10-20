@@ -260,7 +260,7 @@ def lowWheelFarPrimePairTag (cq : ℕ × ℕ) : LowWheelFullTaggedPhysicalState 
 theorem lowWheelFarPrimePairTag_injective :
     Function.Injective lowWheelFarPrimePairTag := by
   intro a b hab
-  simpa [lowWheelFarPrimePairTag] using congrArg Prod.snd hab
+  simpa [lowWheelFarPrimePairTag] using! congrArg Prod.snd hab
 
 /-- The Othello-stable far physical states are precisely the squarefree
 low-cofactor / far-prime pairs. -/
@@ -343,7 +343,7 @@ theorem lowWheelFarPrimePairMass_eq_farPrimeTransport
         ∑ q ∈ Finset.Icc (R + 8) (squareRootEndpoint R),
           if q.Prime ∧ c * q ≤ squareRootEndpoint R then
             canonicalMoebiusWeight c else 0 := by
-      simpa only using
+      simpa only using!
         (Finset.sum_product
           (s := Finset.Ico 1 R)
           (t := Finset.Icc (R + 8) (squareRootEndpoint R))

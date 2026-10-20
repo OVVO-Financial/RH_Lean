@@ -60,7 +60,7 @@ theorem lowOwnerReciprocalThresholdWallSignedSite_eq
       else 0 := by
   unfold lowOwnerReciprocalThresholdWallSignedSite
   by_cases hrn : ¬ r ∣ n
-  · simp only [if_pos hrn]
+  · simp only [ite_eq_left hrn]
     rw [lowOwnerDaughterCrossingWeight_eq_threshold_sum]
     rw [Finset.sum_mul]
     apply Finset.sum_congr rfl
@@ -309,12 +309,12 @@ theorem lowOwnerReciprocalThresholdWall_diagonal_le_sixteenth_endpoint
     intro n hn
     rw [lowOwnerReciprocalThresholdWallSignedSite_eq]
     by_cases hfree : ¬ r ∣ n
-    · rw [if_pos hfree]
+    · rw [ite_eq_left hfree]
       have hmu := (Finset.mem_filter.mp hn).2
       rcases ArithmeticFunction.moebius_eq_or n with h | h | h <;>
         simp [realMoebiusStep, h] at hmu ⊢
-    · rw [if_neg hfree]
-      simpa using sq_nonneg (lowOwnerDaughterCrossingWeight R r n)
+    · rw [ite_eq_right hfree]
+      simpa using! sq_nonneg (lowOwnerDaughterCrossingWeight R r n)
   calc
     (∑ n ∈ lowOwnerNonzeroMobiusCarrier R,
       lowOwnerReciprocalThresholdWallSignedSite R r n ^ 2) ≤

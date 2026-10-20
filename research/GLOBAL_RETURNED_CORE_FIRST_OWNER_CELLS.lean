@@ -35,12 +35,12 @@ private theorem prime_mem_squarefreePrimeFace_iff_dvd
   constructor
   · intro hmem
     have hpf : p ∈ n.primeFactors := by
-      simpa [squarefreePrimeFace] using hmem
+      simpa [squarefreePrimeFace] using! hmem
     exact Nat.dvd_of_mem_primeFactors hpf
   · intro hdiv
     have hpf : p ∈ n.primeFactors :=
       Nat.mem_primeFactors.mpr ⟨hp, hdiv, hn.ne'⟩
-    simpa [squarefreePrimeFace] using hpf
+    simpa [squarefreePrimeFace] using! hpf
 
 /-- An intrinsic first owner forces equality of every lower-prime signature. -/
 theorem squarefreeLowerPrimeSignature_eq_of_firstOwner
@@ -56,7 +56,7 @@ theorem squarefreeLowerPrimeSignature_eq_of_firstOwner
   ext q
   by_cases hqp : q < p
   · have hqcanon : q < squarefreePairFreshPrimeOwner m n := by
-      simpa [← hpEq] using hqp
+      simpa [← hpEq] using! hqp
     have hchron := squarefreePairFreshPrimeOwner_chronology hm hn hmn hqcanon
     simp [squarefreeLowerPrimeSignature, hqp, hchron]
   · simp [squarefreeLowerPrimeSignature, hqp]
@@ -101,7 +101,7 @@ theorem firstOwner_of_lowerSignature_eq_and_dvd_xor
   have hqdiff :
       (q ∈ squarefreePrimeFace m ∧ q ∉ squarefreePrimeFace n) ∨
         (q ∈ squarefreePrimeFace n ∧ q ∉ squarefreePrimeFace m) := by
-    simpa [squarefreePairFreshPrimeSet] using hq
+    simpa [squarefreePairFreshPrimeSet] using! hq
   rcases hqdiff with h | h
   · exact h.2 (hsame.mp h.1)
   · exact h.2 (hsame.mpr h.1)
@@ -158,6 +158,6 @@ the complete two-branch amplitude `A+B`. -/
 theorem mul_le_quarter_add_sq_of_second_neg
     (A P : ℝ) :
     A * (-P) ≤ (1 / 4 : ℝ) * (A - P) ^ 2 := by
-  simpa using neg_mul_le_quarter_sub_sq A P
+  simpa using! neg_mul_le_quarter_sub_sq A P
 
 end RHLean.Proof

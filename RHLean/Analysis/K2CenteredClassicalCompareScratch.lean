@@ -11,7 +11,7 @@ namespace RHLean.Analysis
 theorem k2Log_le_four_log_sqrt (N : ℕ) (hs : 2 ≤ Nat.sqrt N) :
     Real.log (N : ℝ) ≤ 4 * Real.log (Nat.sqrt N : ℝ) := by
   let s := Nat.sqrt N
-  have hs2 : 2 ≤ s := by simpa [s] using hs
+  have hs2 : 2 ≤ s := by simpa [s] using! hs
   have hsposNat : 0 < s := by omega
   have hNposNat : 0 < N := (Nat.sqrt_pos).1 hsposNat
   have hNpos : (0 : ℝ) < (N : ℝ) := by exact_mod_cast hNposNat
@@ -24,7 +24,7 @@ theorem k2Log_le_four_log_sqrt (N : ℕ) (hs : 2 ≤ Nat.sqrt N) :
   have hcast : (N : ℝ) ≤ (s : ℝ) ^ 4 := by exact_mod_cast hNle
   have hlog := Real.log_le_log hNpos hcast
   rw [Real.log_pow] at hlog
-  simpa [s] using hlog
+  simpa [s] using! hlog
 
 /-- Low-divisor part of the harmonic-floor/logarithmic comparison. -/
 def k2KernelComparisonLow (N : ℕ) : ℝ :=
@@ -46,7 +46,7 @@ theorem k2KernelComparisonLow_abs_le (N : ℕ) (hN : 1 ≤ N) :
     |∑ d ∈ Finset.Ico 1 (Nat.sqrt N), k2r d * k2WeightError N d|
         ≤ ∑ d ∈ Finset.Ico 1 (Nat.sqrt N),
             |k2r d * k2WeightError N d| := by
-          simpa only [Real.norm_eq_abs] using
+          simpa only [Real.norm_eq_abs] using!
             (norm_sum_le (Finset.Ico 1 (Nat.sqrt N))
               (fun d : ℕ => k2r d * k2WeightError N d))
     _ ≤ ∑ d ∈ Finset.Ico 1 (Nat.sqrt N),
@@ -77,12 +77,12 @@ theorem k2KernelComparisonLow_abs_le (N : ℕ) (hN : 1 ≤ N) :
 theorem k2KernelComparisonLow_tendsto_zero (h : K2ClassicalMomentInput) :
     Tendsto k2KernelComparisonLow atTop (𝓝 0) := by
   have habs : Tendsto (fun n : ℕ => |k2r n|) atTop (𝓝 0) := by
-    simpa using h.r_tendsto_zero.abs
+    simpa using! h.r_tendsto_zero.abs
   have hces :
       Tendsto
         (fun n : ℕ => (n : ℝ)⁻¹ * ∑ i ∈ Finset.range n, |k2r i|)
         atTop (𝓝 0) := by
-    simpa using habs.cesaro
+    simpa using! habs.cesaro
   have hcesS := hces.comp k2Sqrt_tendsto_atTop
   have hbound :
       Tendsto
@@ -90,7 +90,7 @@ theorem k2KernelComparisonLow_tendsto_zero (h : K2ClassicalMomentInput) :
           2 * ((Nat.sqrt N : ℝ)⁻¹ *
             ∑ d ∈ Finset.range (Nat.sqrt N), |k2r d|))
         atTop (𝓝 0) := by
-    simpa using (tendsto_const_nhds.mul hcesS :
+    simpa using! (tendsto_const_nhds.mul hcesS :
       Tendsto
         (fun N : ℕ =>
           2 * ((Nat.sqrt N : ℝ)⁻¹ *
@@ -99,6 +99,6 @@ theorem k2KernelComparisonLow_tendsto_zero (h : K2ClassicalMomentInput) :
   rw [tendsto_zero_iff_norm_tendsto_zero]
   refine squeeze_zero' (Eventually.of_forall fun N => norm_nonneg _) ?_ hbound
   filter_upwards [eventually_ge_atTop 1] with N hN
-  simpa [Real.norm_eq_abs] using k2KernelComparisonLow_abs_le N hN
+  simpa [Real.norm_eq_abs] using! k2KernelComparisonLow_abs_le N hN
 
 end RHLean.Analysis

@@ -151,7 +151,7 @@ theorem vfMid915CurrentOddWeight_dyadicOverlap_zero
         _ ≤ (R + 1) ^ 2 - 1 := hfit.2
         _ < (R + 1) ^ 2 :=
           Nat.sub_lt (by positivity) (by norm_num)
-    rw [if_pos hfit,
+    rw [ite_eq_left hfit,
       vfMid915CurrentOddWeight_zero_of_double_fits hR h2,
       show (2 * c) * q = 2 * (c * q) by ring,
       vfMid915CurrentOddWeight_even_zero]
@@ -271,7 +271,7 @@ theorem vfMid915HalfScaleOddCofactor_eq_three
     rcases hcOdd with ⟨k, hk⟩
     omega
   have hmul : 5 * a ^ 2 ≤ c * q :=
-    Nat.mul_le_mul hc5 (by simpa [a] using hq)
+    Nat.mul_le_mul hc5 (by simpa [a] using! hq)
   have ha : 0 < a ^ 2 := by
     dsimp [a]
     positivity
@@ -322,6 +322,6 @@ theorem vfMid915TripleCurrentParent_in_halfRun
     omega
   have hfinal : a ^ 2 ≤ q := by
     nlinarith
-  simpa [a] using hfinal
+  simpa [a] using! hfinal
 
 end RHLean.Analysis

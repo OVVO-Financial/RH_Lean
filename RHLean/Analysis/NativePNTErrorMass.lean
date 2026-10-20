@@ -114,13 +114,12 @@ theorem nativeHarmonic_succ_sub_log_bounds
         convert (log_add_one_le_harmonic (N + 1)) using 1
   have hupper0 :
       (harmonic (N + 1) : ℝ) ≤ 1 + Real.log (N + 1 : ℝ) := by
-    simpa using harmonic_le_one_add_log (N + 1)
+    simpa using! harmonic_le_one_add_log (N + 1)
   have hNpos : (0 : ℝ) < N := by exact_mod_cast (by omega : 0 < N)
   have hNone : (1 : ℝ) ≤ (N : ℝ) := by exact_mod_cast hN
   have hratio : (N : ℝ) + 1 ≤ 2 * (N : ℝ) := by
     linarith
   have hlogratio : Real.log (N + 1 : ℝ) ≤ Real.log 2 + Real.log N := by
-    change Real.log ((N : ℝ) + 1) ≤ Real.log 2 + Real.log (N : ℝ)
     calc
       Real.log ((N : ℝ) + 1) ≤ Real.log (2 * (N : ℝ)) := by
         apply Real.log_le_log
@@ -290,7 +289,7 @@ theorem nativePNTError_abs_log_le_weighted
       _ =
         (∑ d ∈ Finset.Icc 1 N, Λ d * |nativePNTError (N / d)|) +
           (3 * (Real.log 4 + 2) + 173) * (N : ℝ) := by ring
-  simpa [abs_mul, abs_of_nonneg hlog0] using hmain
+  simpa [abs_mul, abs_of_nonneg hlog0] using! hmain
 
 
 /-! ## Reciprocal logarithmic von Mangoldt moment -/
@@ -333,7 +332,7 @@ private theorem nativePNTLogIncrement_sum
     (∑ n ∈ Finset.Ico 1 N,
       (Real.log ((n + 1 : ℕ) : ℝ) - Real.log (n : ℝ))) = Real.log N := by
   have h := nativePNTTelescopeIco (fun n => Real.log (n : ℝ)) N hN
-  simpa using h
+  simpa using! h
 
 private theorem nativePNTLogSquareIncrement_sum
     (N : ℕ) (hN : 1 ≤ N) :
@@ -342,7 +341,7 @@ private theorem nativePNTLogSquareIncrement_sum
         (Real.log (n : ℝ)) ^ 2)) = (Real.log N) ^ 2 := by
   have h := nativePNTTelescopeIco
     (fun n => (Real.log (n : ℝ)) ^ 2) N hN
-  simpa using h
+  simpa using! h
 
 /-- Abel form of the reciprocal log-weighted von Mangoldt mass. -/
 theorem nativeLambdaLogRecip_abel (N : ℕ) :
@@ -354,7 +353,7 @@ theorem nativeLambdaLogRecip_abel (N : ℕ) :
   have h := nativeAbelIccOne
     (fun n => Λ n / (n : ℝ))
     (fun n => Real.log (n : ℝ)) N
-  simpa [nativeLambdaLogRecip, nativeLambdaRecip] using h
+  simpa [nativeLambdaLogRecip, nativeLambdaRecip] using! h
 
 /-- **Reciprocal log von Mangoldt moment.**  Mertens' first theorem and finite
 Abel summation give the coefficient `1/2` without any prime-distribution
@@ -378,7 +377,7 @@ theorem nativeLambdaLogRecip_sub_half_logSq_abs_le
     exact nativePNTLogIncrement_le_one n (Finset.mem_Ico.mp hn).1
   have hsumdelta :
       (∑ n ∈ Finset.Ico 1 N, delta n) = Real.log N := by
-    simpa [delta] using nativePNTLogIncrement_sum N hN
+    simpa [delta] using! nativePNTLogIncrement_sum N hN
   have hsquares0 :
       0 ≤ ∑ n ∈ Finset.Ico 1 N, (delta n) ^ 2 := by
     exact Finset.sum_nonneg fun n _hn => sq_nonneg (delta n)
@@ -533,7 +532,7 @@ theorem nativeLambdaLogRecip_sub_half_logSq_abs_le
           (nativeLambdaRecip n - Real.log n) *
             (Real.log (n : ℝ) - Real.log ((n + 1 : ℕ) : ℝ))| := by
       exact (abs_add_le _ _).trans
-        (add_le_add_right (abs_add_le _ _) _)
+        (add_le_add_left (abs_add_le _ _) _)
     _ ≤ (1 / 2 : ℝ) * Real.log N +
         (Real.log 4 + 2) * Real.log N +
         (Real.log 4 + 2) * Real.log N := by
@@ -556,7 +555,7 @@ theorem nativePNTError_abs_le_chebyshev (N : ℕ) :
     _ = nativePsi N + (N : ℝ) := by
       rw [abs_of_nonneg hpsi0, abs_of_nonneg (by positivity)]
     _ ≤ (Real.log 4 + 2) * (N : ℝ) + (N : ℝ) :=
-      add_le_add_right hpsi _
+      add_le_add_left hpsi _
     _ = (Real.log 4 + 3) * (N : ℝ) := by ring
 
 private theorem nativePNTFirstErrorConstant_le_thousand :
@@ -746,7 +745,7 @@ theorem nativeLambdaConvolutionErrorMass_eq_double (N : ℕ) :
           exact ⟨hq1, Nat.div_le_div_right hnN⟩
         · rintro ⟨m, ⟨hm1, hmN⟩, rfl⟩
           have hmulN' : m * d ≤ N := (Nat.le_div_iff_mul_le hdpos).1 hmN
-          have hmulN : d * m ≤ N := by simpa [Nat.mul_comm] using hmulN'
+          have hmulN : d * m ≤ N := by simpa [Nat.mul_comm] using! hmulN'
           have hmpos : 0 < m := by omega
           exact ⟨⟨Nat.one_le_iff_ne_zero.mpr
             (Nat.ne_of_gt (Nat.mul_pos hdpos hmpos)), hmulN⟩, dvd_mul_right d m⟩
@@ -913,7 +912,7 @@ private theorem nativeLambdaErrorMass_mul_log_le_lambdaTwo
           (1000 + (Real.log 4 + 3)) * ((N : ℝ) * Real.log N) := by
         have hcoef : 0 ≤ 1000 + (Real.log 4 + 3) :=
           add_nonneg (by norm_num) hC0
-        exact add_le_add_left
+        exact add_le_add_right
           (mul_le_mul_of_nonneg_left (nativeLambdaFloorMass_le_Nlog N hN) hcoef)
           (nativeLambdaLogErrorMass N + nativeLambdaConvolutionErrorMass N)
       _ ≤ nativeLambdaLogErrorMass N + nativeLambdaConvolutionErrorMass N +
@@ -922,7 +921,7 @@ private theorem nativeLambdaErrorMass_mul_log_le_lambdaTwo
           linarith [hC6]
         have hNlog0 : 0 ≤ (N : ℝ) * Real.log N :=
           mul_nonneg (by positivity) hlog0
-        exact add_le_add_left
+        exact add_le_add_right
           (mul_le_mul_of_nonneg_right hcoef hNlog0)
           (nativeLambdaLogErrorMass N + nativeLambdaConvolutionErrorMass N)
       _ = nativeLambdaLogErrorMass N + nativeLambdaConvolutionErrorMass N +
@@ -943,7 +942,7 @@ private theorem nativeLambdaErrorMass_mul_log_le_lambdaTwo
           _ ≤ 2000 * ((N : ℝ) * Real.log N) :=
             mul_le_mul_of_nonneg_right (by norm_num) hNlog0
           _ = 2000 * (N : ℝ) * Real.log N := by ring
-      exact add_le_add_left hcoef
+      exact add_le_add_right hcoef
         (nativeLambdaLogErrorMass N + nativeLambdaConvolutionErrorMass N)
 
 /-- **Squared absolute Selberg recurrence in the native architecture.**
@@ -971,7 +970,7 @@ theorem nativePNTError_abs_log_sq_le_lambdaTwo
     _ = (∑ d ∈ Finset.Icc 1 N, Λ d * |nativePNTError (N / d)|) * Real.log N +
           1000 * (N : ℝ) * Real.log N := by ring
     _ ≤ nativeLambdaTwoErrorMass N + 2000 * (N : ℝ) * Real.log N +
-          1000 * (N : ℝ) * Real.log N := add_le_add_right hinner _
+          1000 * (N : ℝ) * Real.log N := add_le_add_left hinner _
     _ = nativeLambdaTwoErrorMass N + 3000 * (N : ℝ) * Real.log N := by ring
 
 end RHLean.Analysis

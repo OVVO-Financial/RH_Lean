@@ -87,7 +87,7 @@ private theorem prime_le_canonicalLargestPrimeFactor_of_dvd
   have hmem : q ∈ n.primeFactors :=
     Nat.mem_primeFactors.mpr ⟨hq, hqdvd, by omega⟩
   unfold canonicalLargestPrimeFactor
-  rw [dif_pos hn]
+  rw [dite_eq_left hn]
   exact Finset.le_max' n.primeFactors q hmem
 
 /-- Every old face is genuinely rough below the fresh prime.  The product can
@@ -107,8 +107,8 @@ theorem canonicalLargestPrimeFactor_primeFaceProduct_lt_freshPrime
         primeFaceProduct u := canonicalLargestPrimeFactor_dvd huOne
     have hqDvdProd : canonicalLargestPrimeFactor (primeFaceProduct u) ∣
         u.prod id := by
-      simpa [primeFaceProduct] using hqDvd
-    rcases (Prime.dvd_finset_prod_iff hqPrime.prime id).mp hqDvdProd with
+      simpa [primeFaceProduct] using! hqDvd
+    rcases (Prime.dvd_finsetProd_iff hqPrime.prime id).mp hqDvdProd with
       ⟨r, hru, hqr⟩
     have hrOld : r ∈ primesUpTo (p - 1) :=
       (Finset.mem_powerset.mp hu) hru
@@ -126,7 +126,7 @@ theorem canonicalLargestPrimeFactor_primeFaceProduct_lt_freshPrime
     rw [hprodOne]
     have hnot : ¬ (1 : ℕ) < 1 := by omega
     unfold canonicalLargestPrimeFactor
-    rw [dif_neg hnot]
+    rw [dite_eq_right hnot]
     exact hp.one_lt
 
 /-- Inserting the fresh prime into an old face gives a face whose represented
@@ -176,7 +176,7 @@ theorem insert_freshPrime_mem_childFaces
     simp [primeFaceProduct, hpNot]
   apply mem_lowPrimeFreshChildFaces.mpr
   refine ⟨mem_admissiblePrimeFaces.mpr ⟨hsub, ?_⟩, ?_⟩
-  · simpa [hprod] using hchildB
+  · simpa [hprod] using! hchildB
   · exact canonicalLargestPrimeFactor_insert_freshPrime hp huOld
 
 /-- Removing `p` from a fresh child recovers an old parent and reinserting it is
@@ -197,7 +197,7 @@ theorem erase_freshPrime_mem_parentFaces
     have hlpfOne : canonicalLargestPrimeFactor (primeFaceProduct v) = 1 := by
       rw [hOne]
       unfold canonicalLargestPrimeFactor
-      rw [dif_neg hnot]
+      rw [dite_eq_right hnot]
     rw [hvLpf] at hlpfOne
     exact hp.ne_one hlpfOne
   have hvOneLe : 1 ≤ primeFaceProduct v := hvPos
@@ -207,15 +207,15 @@ theorem erase_freshPrime_mem_parentFaces
     rw [← hvLpf]
     exact canonicalLargestPrimeFactor_dvd hvGt
   have hpDvdProd : p ∣ v.prod id := by
-    simpa [primeFaceProduct] using hpDvd
-  rcases (Prime.dvd_finset_prod_iff hp.prime id).mp hpDvdProd with
+    simpa [primeFaceProduct] using! hpDvd
+  rcases (Prime.dvd_finsetProd_iff hp.prime id).mp hpDvdProd with
     ⟨r, hrv, hpr⟩
   have hrPrime : r.Prime :=
     (prime_of_mem_admissibleFace_primesUpTo
       (mem_admissiblePrimeFaces.mp hvAdm) hrv).1
   have hprEq : p = r :=
     (Nat.prime_dvd_prime_iff_eq hp hrPrime).mp hpr
-  have hpMem : p ∈ v := by simpa [hprEq] using hrv
+  have hpMem : p ∈ v := by simpa [hprEq] using! hrv
   have hOldSub : v.erase p ⊆ primesUpTo (p - 1) := by
     intro q hq
     have hqData := Finset.mem_erase.mp hq
@@ -227,18 +227,14 @@ theorem erase_freshPrime_mem_parentFaces
       exact Finset.dvd_prod_of_mem id hqData.2
     have hqLe : q ≤ canonicalLargestPrimeFactor (primeFaceProduct v) :=
       prime_le_canonicalLargestPrimeFactor_of_dvd hvGt hqPrime hqDvd
-    have hqLeP : q ≤ p := by simpa [hvLpf] using hqLe
+    have hqLeP : q ≤ p := by simpa [hvLpf] using! hqLe
     have hqNeP : q ≠ p := hqData.1
     have hqLt : q < p := lt_of_le_of_ne hqLeP hqNeP
     exact mem_primesUpTo.mpr ⟨hqPrime, by omega⟩
-  have hpNotErase : p ∉ v.erase p := Finset.notMem_erase p v
   have hprod : primeFaceProduct v =
       p * primeFaceProduct (v.erase p) := by
-    calc
-      primeFaceProduct v = primeFaceProduct (insert p (v.erase p)) := by
-        rw [Finset.insert_erase hpMem]
-      _ = p * primeFaceProduct (v.erase p) := by
-        simp [primeFaceProduct, hpNotErase]
+    change v.prod id = p * (v.erase p).prod id
+    exact (Finset.mul_prod_erase v id hpMem).symm
   have hchildB : p * primeFaceProduct (v.erase p) ≤ B := by
     rw [← hprod]
     exact (mem_admissiblePrimeFaces.mp hvAdm).2
@@ -283,7 +279,7 @@ theorem lowPrimeFreshChildFaceMass_eq_parentIndexed
       Finset.notMem_of_mem_powerset_of_notMem h2Old
         (freshPrime_not_mem_primesUpTo_pred hp)
     have hErase := congrArg (fun s : Finset ℕ => s.erase p) hEq
-    simpa [hpNot1, hpNot2] using hErase
+    simpa [hpNot1, hpNot2] using! hErase
   · intro v hv
     rcases erase_freshPrime_mem_parentFaces hp hv with ⟨hu, hInv⟩
     exact ⟨v.erase p, hu, hInv⟩
@@ -424,19 +420,19 @@ theorem card_squareRootPostRootPrimePartnerSet_eq_prefixCard
   · rintro ⟨⟨hRq, hqX⟩, hqPrime, hdq⟩
     have hqDiv : q ≤ squareRootEndpoint R / d := by
       apply (Nat.le_div_iff_mul_le hd).2
-      simpa [Nat.mul_comm] using hdq
+      simpa [Nat.mul_comm] using! hdq
     exact ⟨⟨hRq, hqDiv.trans (le_max_right _ _)⟩, hqPrime⟩
   · rintro ⟨⟨hRq, hqMax⟩, hqPrime⟩
     have hqDiv : q ≤ squareRootEndpoint R / d := by
       by_cases hRD : R ≤ squareRootEndpoint R / d
-      · simpa [max_eq_right hRD] using hqMax
+      · simpa [max_eq_right hRD] using! hqMax
       · have hDR : squareRootEndpoint R / d ≤ R := Nat.le_of_not_ge hRD
         have hmaxR : max R (squareRootEndpoint R / d) = R :=
           max_eq_left hDR
         rw [hmaxR] at hqMax
         omega
     have hdq : d * q ≤ squareRootEndpoint R := by
-      simpa [Nat.mul_comm] using (Nat.le_div_iff_mul_le hd).1 hqDiv
+      simpa [Nat.mul_comm] using! (Nat.le_div_iff_mul_le hd).1 hqDiv
     have hqX : q ≤ squareRootEndpoint R := by
       exact hqDiv.trans (Nat.div_le_self _ _)
     exact ⟨⟨hRq, hqX⟩, hqPrime, hdq⟩
@@ -548,7 +544,7 @@ theorem squareRootBornPostTailHighResponse_sub_child_eq_zero_of_child_le_K
   have haLe : a ≤ p * a := Nat.le_mul_of_pos_left a hp.pos
   have haK : a ≤ K := haLe.trans hchildK
   unfold squareRootBornPostTailHighResponse
-  rw [if_pos haK, if_pos hchildK]
+  rw [ite_eq_left haK, ite_eq_left hchildK]
   ring
 
 /-- Beyond `K`, the high-response parent/child finite difference is exactly the
@@ -563,7 +559,7 @@ theorem squareRootBornPostTailHighResponse_sub_child_eq_primeDilateWindow
   have haLe : a ≤ p * a := Nat.le_mul_of_pos_left a hp.pos
   have hchildNot : ¬ p * a ≤ K := by omega
   unfold squareRootBornPostTailHighResponse
-  rw [if_neg haNot, if_neg hchildNot]
+  rw [ite_eq_right haNot, ite_eq_right hchildNot]
   exact squareRootPostRootPrimePrefix_sub_child_eq_primeDilateWindow
     (p := p) (R := R) (a := a) hp ha
 
@@ -581,14 +577,14 @@ theorem squareRootBornPostTailHighResponse_sub_child_trichotomy
         primeDilateCofactorWindowPrimeCount
           p R (squareRootEndpoint R) a := by
   by_cases hchildK : p * a ≤ K
-  · rw [if_pos hchildK]
+  · rw [ite_eq_left hchildK]
     exact squareRootBornPostTailHighResponse_sub_child_eq_zero_of_child_le_K
       hp hchildK
-  · rw [if_neg hchildK]
+  · rw [ite_eq_right hchildK]
     by_cases haK : a ≤ K
-    · rw [if_pos haK]
+    · rw [ite_eq_left haK]
       rfl
-    · rw [if_neg haK]
+    · rw [ite_eq_right haK]
       exact squareRootBornPostTailHighResponse_sub_child_eq_primeDilateWindow
         hp ha (by omega)
 

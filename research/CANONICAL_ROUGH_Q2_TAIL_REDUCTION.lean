@@ -122,7 +122,7 @@ theorem card_canonicalRoughHighQ2Owners_le_root (R : ℕ) :
       have hqpos : 0 < q := hqPrime.pos
       omega
     exact Finset.mem_range.mpr hqR
-  simpa using Finset.card_le_card hsub
+  simpa using! Finset.card_le_card hsub
 
 /-- **Milestone-2 tail theorem.**  The entire q^2 owner tail with `q^2 >= R`
 is globally absorbable into the permitted root-scale envelope. -/
@@ -173,7 +173,7 @@ theorem canonicalRoughLow_add_high_Q2Energy_eq_full (R : ℕ) :
     (f := fun q => rawQ2ChildEnergyReal R q)
   simpa [canonicalRoughLowQ2DaughterEnergy,
     canonicalRoughHighQ2DaughterEnergy, canonicalRoughLowQ2Owners,
-    farFourOddQ2DaughterEnergy] using hs
+    farFourOddQ2DaughterEnergy] using! hs
 
 /-- Both sectors carry nonnegative energy. -/
 theorem canonicalRoughHighQ2DaughterEnergy_nonneg (R : ℕ) :
@@ -223,7 +223,7 @@ theorem correlationLowQ2Energy_implies_full
         A * farFourOddQ2DaughterEnergy R := by
     apply mul_le_mul_of_nonneg_left _ hA
     linarith
-  exact h.trans (add_le_add_right hmono _)
+  exact h.trans (add_le_add_left hmono _)
 
 /-- Conversely, a full estimate with coefficient `A` localizes to the low-owner
 sector with the *same A*; the entire high-owner tail merely adds `3*A` to the
@@ -247,7 +247,7 @@ theorem correlationFullQ2Energy_implies_low
     _ ≤ A * canonicalRoughLowQ2DaughterEnergy R +
           A * (3 * (R : ℝ) ^ 2 * K) +
           C * (R : ℝ) ^ 2 * K := by
-            exact add_le_add_right (add_le_add_left hweighted _) _
+            exact add_le_add_left (add_le_add_right hweighted _) _
     _ = A * canonicalRoughLowQ2DaughterEnergy R +
           (C + 3 * A) * (R : ℝ) ^ 2 * K := by ring
 

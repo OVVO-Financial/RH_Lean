@@ -91,10 +91,10 @@ theorem nativeMertensFiveLeg_logNine_bound_for
       heps.1.le
   have h1' : ‖nativeMertensContourM1 f eps X T‖ ≤
       C1 * strongMertensFarEnvelope eps X T := by
-    simpa [strongMertensFarEnvelope] using h1
+    simpa [strongMertensFarEnvelope] using! h1
   have h5' : ‖nativeMertensContourM5 f eps X T‖ ≤
       C5 * strongMertensFarEnvelope eps X T := by
-    simpa [strongMertensFarEnvelope] using h5
+    simpa [strongMertensFarEnvelope] using! h5
   have hh' :
       ‖nativeMertensContourM2 f eps X T
           (strongMertensLogNineShift corridor.A T)‖ +

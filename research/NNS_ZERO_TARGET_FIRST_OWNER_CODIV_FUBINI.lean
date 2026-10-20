@@ -127,7 +127,7 @@ theorem zeroTargetCoPartialGram_lowOwner_eq_diagonal_add_firstOwners
           zeroTargetCoPartialPair (v mn.1) (v mn.2) := by
     unfold zeroTargetCoPartialGram
     symm
-    simpa only using
+    simpa only using!
       (Finset.sum_product
         (s := S) (t := S)
         (f := fun mn : ℕ × ℕ =>
@@ -170,7 +170,7 @@ theorem zeroTargetDivergentGram_lowOwner_eq_sum_firstOwners
           zeroTargetDivergentPair (v mn.1) (v mn.2) := by
     unfold zeroTargetDivergentGram
     symm
-    simpa only using
+    simpa only using!
       (Finset.sum_product
         (s := S) (t := S)
         (f := fun mn : ℕ × ℕ =>

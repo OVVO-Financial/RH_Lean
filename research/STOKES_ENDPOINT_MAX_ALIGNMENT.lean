@@ -55,12 +55,12 @@ theorem reducedAdditiveConductor_primePeriodFrequency
     Nat.mul_div_cancel' hpmod
   have hquotdvd : W.modulus / p ∣ W.modulus := by
     refine ⟨p, ?_⟩
-    simpa [Nat.mul_comm] using hprod.symm
+    simpa [Nat.mul_comm] using! hprod.symm
   rw [Nat.gcd_eq_right_iff_dvd.mpr hquotdvd]
   have hquotpos : 0 < W.modulus / p :=
     Nat.pos_of_dvd_of_pos hquotdvd W.modulus_pos
   apply Nat.div_eq_of_eq_mul_right hquotpos
-  simpa [Nat.mul_comm] using hprod.symm
+  simpa [Nat.mul_comm] using! hprod.symm
 
 /-- Distinct divisor periods give distinct canonical frequencies. -/
 theorem primePeriodFrequency_ne_of_ne

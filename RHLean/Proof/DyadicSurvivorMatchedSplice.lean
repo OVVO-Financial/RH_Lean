@@ -99,7 +99,7 @@ theorem norm_bornSmooth_add_dyadicSurvivor_sub_bornSmooth_add_farSurvivor_le
       7 * (R : ℝ) := by
   rw [squareRootDyadicSurvivorMass_eq_farSurvivor_sub_near R hR]
   have hnear := norm_squareRootNearPrimeTransport_le R hR
-  simpa [sub_eq_add_neg, add_assoc, add_left_comm, add_comm] using hnear
+  simpa [sub_eq_add_neg, add_assoc, add_left_comm, add_comm] using! hnear
 
 
 /-- The physical survivor mass from the x=210 autopsy is exactly the
@@ -137,7 +137,7 @@ theorem squareRootPositiveSmooth_add_bornSmooth_add_dyadicHigh_eq_squarePrefixMe
       R (by omega)
   have hsquare := squarePrefixMertens_eq_positiveSmooth_add_matched R hR
   rw [hmatched] at hsquare
-  simpa [add_assoc] using hsquare.symm
+  simpa [add_assoc] using! hsquare.symm
 
 /-- Equivalently, the hard matched channel is exactly the square-prefix value
 minus the positive-orientation smooth packet. -/

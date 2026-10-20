@@ -101,13 +101,13 @@ theorem lowWheelCanonicalDowncrossOrientedFirstJumpStateFibre_eq_sum_primeSlices
     have hcast := congrArg (fun z : ℤ => (z : ℂ)) hmass
     push_cast at hcast
     unfold lowWheelCanonicalDowncrossOrientedFirstJumpStateFibre
-    rw [if_pos hstate]
+    rw [ite_eq_left hstate]
     change canonicalMoebiusWeight c *
         ((predecessorFirstJumpFrozenWindowMass
           3 (Nat.sqrt R) S A B : ℤ) : ℂ) = _
     rw [hcast, Finset.mul_sum]
     have hsubset : S ⊆ firstJumpPrimeUniverse R := by
-      simpa [S] using
+      simpa [S] using!
         (predecessorPrimeSet_subset_firstJumpPrimeUniverse (R := R)
           (x := (c, k)) hx)
     calc
@@ -274,7 +274,7 @@ theorem signedLiveFirstJumpAggregate_eq_sum_postRootPrimeSlices
   · have hpHigh : Nat.sqrt R < p := Nat.lt_of_not_ge hpLow
     have hpNotData : ¬(p.Prime ∧ Nat.sqrt R < p ∧ p ≤ R) := by
       simpa [signedFirstJumpPostRootPrimeSet,
-        mem_frozenPrimeUniverseHighPrimeSet] using hpNot
+        mem_frozenPrimeUniverseHighPrimeSet] using! hpNot
     have hRp : R < p := by
       by_contra hnot
       have hpR : p ≤ R := Nat.le_of_not_gt hnot
@@ -409,12 +409,12 @@ theorem sum_signedFirstJumpPostRootPrimeSeatCounts_le_root
   let S := signedFirstJumpPostRootPrimeSet R
   let F := signedFirstJumpPrimeSeatProductSet R
   have hpair : Set.PairwiseDisjoint (↑S) F := by
-    simpa [S, F] using signedFirstJumpPrimeSeatProductSet_pairwiseDisjoint R
+    simpa [S, F] using! signedFirstJumpPrimeSeatProductSet_pairwiseDisjoint R
   have hunion : (S.biUnion F).card = ∑ p ∈ S, (F p).card := by
     have h := Finset.sum_biUnion hpair (f := fun _ : ℕ => (1 : ℕ))
-    simpa using h
+    simpa using! h
   have hsubset : S.biUnion F ⊆ Finset.Icc 1 R := by
-    simpa [S, F] using signedFirstJumpPrimeSeatProductUnion_subset_Icc R
+    simpa [S, F] using! signedFirstJumpPrimeSeatProductUnion_subset_Icc R
   calc
     (∑ p ∈ signedFirstJumpPostRootPrimeSet R, R / p) =
         ∑ p ∈ S, (F p).card := by
@@ -422,7 +422,7 @@ theorem sum_signedFirstJumpPostRootPrimeSeatCounts_le_root
       intro p hp
       have hpAsHigh :
           p ∈ frozenPrimeUniverseHighPrimeSet (Nat.sqrt R) R := by
-        simpa [S, signedFirstJumpPostRootPrimeSet] using hp
+        simpa [S, signedFirstJumpPostRootPrimeSet] using! hp
       have hpPrime := (mem_frozenPrimeUniverseHighPrimeSet.mp hpAsHigh).1
       exact (signedFirstJumpPrimeSeatProductSet_card hpPrime).symm
     _ = (S.biUnion F).card := hunion.symm
@@ -498,10 +498,10 @@ theorem highOwner_orientedState_shape
   have hdown := (mem_lowWheelCanonicalDowncrossOrientedPart.mp hpart).1
   have hgeom := lowWheelCanonicalDowncross_firstFailure_geometry hdown
   have hkPrime : k.Prime := by
-    simpa only [← hkPivot] using hgeom.1
+    simpa only [← hkPivot] using! hgeom.1
   have hroughPivot := lowWheelCanonicalDowncrossOriented_cofactor_roughAbove hpart
   have hrough : RoughAbove k c := by
-    simpa only [← hkPivot] using hroughPivot
+    simpa only [← hkPivot] using! hroughPivot
   have hphys :=
     mem_lowWheelCanonicalPhysicalStateSet.mp
       (mem_lowWheelCanonicalDowncrossPart.mp hdown).1
@@ -525,12 +525,12 @@ theorem highOwner_orientedState_shape
         dsimp [q]
         exact Nat.minFac_prime hcOne
       have hqDvd : q ∣ c := by
-        simpa [q] using Nat.minFac_dvd c
+        simpa [q] using! Nat.minFac_dvd c
       have hqPF : q ∈ c.primeFactors :=
         Nat.mem_primeFactors.mpr ⟨hqPrime, hqDvd, hc0⟩
       have hkq : k < q := hrough q hqPF
       have hqSqLe : q ^ 2 ≤ c := by
-        simpa [q] using Nat.minFac_sq_le_self hcpos hcPrime
+        simpa [q] using! Nat.minFac_sq_le_self hcpos hcPrime
       have hsQ : Nat.sqrt R + 1 ≤ q := by omega
       have hRlt : R < (Nat.sqrt R + 1) ^ 2 := Nat.lt_succ_sqrt' R
       have hpow : (Nat.sqrt R + 1) ^ 2 ≤ q ^ 2 :=

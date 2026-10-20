@@ -62,7 +62,7 @@ theorem sum_activatedFloorChild_quotients
         (Nat.le_div_iff_mul_le hkpos).1 hqdiv
       have hkdiv : k ≤ N / q :=
         (Nat.le_div_iff_mul_le hqpos).2 (by
-          simpa [Nat.mul_comm] using hmul)
+          simpa [Nat.mul_comm] using! hmul)
       exact ⟨hk1, hkdiv⟩
     · rintro ⟨hk1, hkdiv⟩
       have hkpos : 0 < k := by omega
@@ -72,7 +72,7 @@ theorem sum_activatedFloorChild_quotients
         (Nat.le_div_iff_mul_le hqpos).1 hkdiv
       have hqdiv : q ≤ N / k :=
         (Nat.le_div_iff_mul_le hkpos).2 (by
-          simpa [Nat.mul_comm] using hmul)
+          simpa [Nat.mul_comm] using! hmul)
       exact ⟨⟨hk1, hkN⟩, hqdiv⟩
   calc
     (∑ k ∈ Finset.Icc 1 N,
@@ -131,7 +131,7 @@ theorem primeFrequencyCumulativeTransform_cutoff_step
   have h :=
     primeFrequencyCumulativeTransform_cutoff_succ
       hS N (q - 1) (by omega : 1 ≤ q - 1)
-  simpa only [hpred] using h
+  simpa only [hpred] using! h
 
 /-! ## The actual-prime transform is exactly the positive survivor count -/
 
@@ -234,7 +234,7 @@ theorem vfMidPrefixWheelCounting_cast_complex_step
   by_cases hp : q.Prime
   · have hZ := vfMidPrefixWheelCounting_cast_int_prime_step hp N
     have hC := congrArg (fun z : ℤ => (z : ℂ)) hZ
-    simpa [primeSievePrimeIndicator, hp] using hC
+    simpa [primeSievePrimeIndicator, hp] using! hC
   · have hset :=
       primesUpTo_eq_pred_of_not_prime (q := q) (by omega) hp
     have hcount :
@@ -284,7 +284,7 @@ theorem actualPrimeCumulativeTransform_eq_prefixWheelCounting
     induction k with
     | zero =>
         intro M
-        simpa using hbase M
+        simpa using! hbase M
     | succ k ih =>
         intro M
         have hstep :=
@@ -298,17 +298,17 @@ theorem actualPrimeCumulativeTransform_eq_prefixWheelCounting
               primeFrequencyCumulativeTransform A M (k + 1) -
                 primeSievePrimeIndicator (k + 2) *
                   primeFrequencyCumulativeTransform A (M / (k + 2)) (k + 1) := by
-                    simpa [Nat.succ_eq_add_one, Nat.add_assoc] using hstep
+                    simpa [Nat.succ_eq_add_one, Nat.add_assoc] using! hstep
           _ = (vfMidPrefixWheelCounting (k + 1) M : ℂ) -
                 primeSievePrimeIndicator (k + 2) *
                   (vfMidPrefixWheelCounting (k + 1) (M / (k + 2)) : ℂ) := by
                     rw [ih M, ih (M / (k + 2))]
           _ = (vfMidPrefixWheelCounting (Nat.succ k + 1) M : ℂ) := by
-                    simpa [Nat.succ_eq_add_one, Nat.add_assoc] using hprefix.symm
+                    simpa [Nat.succ_eq_add_one, Nat.add_assoc] using! hprefix.symm
   cases y with
   | zero => omega
   | succ k =>
-      simpa [Nat.succ_eq_add_one] using hmain k N
+      simpa [Nat.succ_eq_add_one] using! hmain k N
 
 /-! ## Exact owner endpoints in Phi coordinates -/
 
@@ -359,13 +359,13 @@ theorem vfMidSquareBandCompositeOwnerChildren_eq_prefixChildren
     have hm0 : m ≠ 0 := by omega
     have hlower : R ^ 2 / p < m := by
       apply (Nat.div_lt_iff_lt_mul hpPrime.pos).2
-      simpa [Nat.mul_comm] using hlo
+      simpa [Nat.mul_comm] using! hlo
     have hupperMul : p * m ≤ (R + 1) ^ 2 - 1 := by
       have hUpos : 0 < (R + 1) ^ 2 := by positivity
       omega
     have hupper : m ≤ ((R + 1) ^ 2 - 1) / p := by
       apply (Nat.le_div_iff_mul_le hpPrime.pos).2
-      simpa [Nat.mul_comm] using hupperMul
+      simpa [Nat.mul_comm] using! hupperMul
     have hsurv :=
       (roughAbove_pred_iff_lowWheelHighSurvivor hm0).1 hrough
     exact Finset.mem_filter.mpr
@@ -381,19 +381,19 @@ theorem vfMidSquareBandCompositeOwnerChildren_eq_prefixChildren
     have hloMul : R ^ 2 < m * p :=
       (Nat.div_lt_iff_lt_mul hpPrime.pos).1 hlower
     have hlo : R ^ 2 < p * m := by
-      simpa [Nat.mul_comm] using hloMul
+      simpa [Nat.mul_comm] using! hloMul
     have hupperMul : m * p ≤ (R + 1) ^ 2 - 1 :=
       (Nat.le_div_iff_mul_le hpPrime.pos).1 hupper
     have hhi : p * m < (R + 1) ^ 2 := by
       have hUpos : 0 < (R + 1) ^ 2 := by positivity
       have : p * m ≤ (R + 1) ^ 2 - 1 := by
-        simpa [Nat.mul_comm] using hupperMul
+        simpa [Nat.mul_comm] using! hupperMul
       omega
     have hpSqLe : p * p ≤ R * R :=
       Nat.mul_le_mul hpLeR hpLeR
     have hpLeDiv : p ≤ R ^ 2 / p := by
       apply (Nat.le_div_iff_mul_le hpPrime.pos).2
-      simpa [pow_two] using hpSqLe
+      simpa [pow_two] using! hpSqLe
     have hpm : p ≤ m := by omega
     have hmTop : m ≤ R ^ 2 - 1 := by
       by_contra hnot

@@ -73,10 +73,10 @@ theorem prime_dvd_primorialWheelProduct_iff
   unfold primorialWheelProduct
   constructor
   · intro h
-    rcases (Prime.dvd_finset_prod_iff hp.prime id).mp h with ⟨q, hq, hpq⟩
+    rcases (Prime.dvd_finsetProd_iff hp.prime id).mp h with ⟨q, hq, hpq⟩
     rcases (hprime q hq).eq_one_or_self_of_dvd p hpq with hpOne | hpEq
     · exact (hp.ne_one hpOne).elim
-    · simpa [hpEq] using hq
+    · simpa [hpEq] using! hq
   · intro hpP
     exact Finset.dvd_prod_of_mem id hpP
 
@@ -194,7 +194,7 @@ theorem finiteWheelRoughMertensRecip_abs_le
           rw [abs_of_nonneg (Int.fract_nonneg _)]
           exact le_of_lt (Int.fract_lt_one _)
         rw [abs_mul]
-        simpa using
+        simpa using!
           (mul_le_mul hmu hfr (abs_nonneg _) (by norm_num : (0 : ℝ) ≤ 1))
       _ = (finiteWheelCoprimeCount P X : ℝ) := by
         simp [finiteWheelCoprimeCount, finiteWheelCoprimeSet]
@@ -218,7 +218,7 @@ theorem finiteWheelRoughMertensRecip_abs_le
               Int.fract ((X : ℝ) / (m : ℝ))| := by
         rw [abs_of_nonneg]
         positivity
-      _ ≤ _ := add_le_add_left hfract _
+      _ ≤ _ := add_le_add_right hfract _
   rw [abs_mul, abs_of_pos (by positivity : (0 : ℝ) < X)] at hmul
   exact (le_div_iff₀' (by positivity : (0 : ℝ) < X)).2 hmul
 

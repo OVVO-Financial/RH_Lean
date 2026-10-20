@@ -175,7 +175,7 @@ theorem norm_finiteAmplitude_sq_le_of_shell_bounds
               ‖∑ k ∈ activeHeightShells s height shell,
                 heightShellEnergy s w height shell k‖ := by
           exact le_trans (norm_add_le _ _)
-            (add_le_add_right (norm_add_le _ _) _)
+            (add_le_add_left (norm_add_le _ _) _)
     _ ≤ diagonalBound + equalHeightBound +
           ∑ k ∈ activeHeightShells s height shell,
             ‖heightShellEnergy s w height shell k‖ := by
@@ -184,7 +184,7 @@ theorem norm_finiteAmplitude_sq_le_of_shell_bounds
             (norm_sum_le _ _)
     _ ≤ diagonalBound + equalHeightBound +
           ∑ k ∈ activeHeightShells s height shell, shellBound k := by
-          exact add_le_add_left
+          exact add_le_add_right
             (Finset.sum_le_sum fun k hk => hshell k hk)
             (diagonalBound + equalHeightBound)
 

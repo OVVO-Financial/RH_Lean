@@ -36,7 +36,7 @@ private theorem terminal_altPivot_mem_taggedDowncross
     primeFaceProduct_pos_of_mem_powerset ht
   have hqX : q ≤ squareRootEndpoint R := by
     have hqle : q ≤ q * primeFaceProduct t := by
-      simpa using Nat.mul_le_mul_left q (Nat.succ_le_iff.mpr hmpos)
+      simpa using! Nat.mul_le_mul_left q (Nat.succ_le_iff.mpr hmpos)
     exact hqle.trans htop
   have hphysical :
       (1, q) ∈ lowWheelCanonicalPhysicalStateSet R t := by
@@ -45,8 +45,8 @@ private theorem terminal_altPivot_mem_taggedDowncross
       Finset.mem_Icc.mpr ⟨hq.one_le, hqX⟩, squarefree_one, ?_⟩
     unfold LowWheelTransportPairCarrier
     refine ⟨by norm_num, by omega, ?_, ?_⟩
-    · simpa [Nat.mul_comm] using hroot
-    · simpa [Nat.mul_comm, Nat.mul_left_comm, Nat.mul_assoc] using htop
+    · simpa [Nat.mul_comm] using! hroot
+    · simpa [Nat.mul_comm, Nat.mul_left_comm, Nat.mul_assoc] using! htop
   have hpivot : lowWheelCanonicalCofactorQuotientPivot (1, q) = q := by
     simp [lowWheelCanonicalCofactorQuotientPivot, hq.minFac_eq]
   have hnot : ¬ lowWheelCanonicalCofactorQuotientPivot (1, q) ∣ 1 := by
@@ -79,11 +79,11 @@ theorem orderedEulerCut_mem_repeatedTerminalInternal_of_cofactor_one
     primeFaceProduct_pos_of_mem_powerset ht
   have hmR0 := orderedEulerCutOccursAt_lowProduct_le hshape hocc
   have hmR : primeFaceProduct t ≤ R := by
-    simpa [orderedEulerCutLowProduct] using hmR0
+    simpa [orderedEulerCutLowProduct] using! hmR0
   have hlife := (mem_orderedEulerCutCarrier_iff_shape_lifetime.mp hy).2
   have hroot : R < p * primeFaceProduct t := by
     simpa [orderedEulerCutDeathRoot, orderedEulerCutPivot,
-      orderedEulerCutLowProduct] using hlife.2
+      orderedEulerCutLowProduct] using! hlife.2
   have hchildTop : p * primeFaceProduct t ≤ squareRootEndpoint R := by
     have hb := hlife.1
     change max (primeFaceProduct t)
@@ -91,12 +91,12 @@ theorem orderedEulerCut_mem_repeatedTerminalInternal_of_cofactor_one
         (Nat.sqrt (1 * (p * primeFaceProduct t)) + 1)) ≤ R at hb
     have hsqrtSucc := (Nat.max_le.mp (Nat.max_le.mp hb).2).2
     have hsqrt : Nat.sqrt (p * primeFaceProduct t) < R := by
-      simpa using Nat.lt_of_succ_le hsqrtSucc
+      simpa using! Nat.lt_of_succ_le hsqrtSucc
     have h := (orderedEulerCutChild_le_endpoint_iff (R := R) hshape).2
       (by simpa [orderedEulerCutChildInteger, orderedEulerCutHighCofactor,
-        orderedEulerCutPivot, orderedEulerCutLowProduct] using hsqrt)
+        orderedEulerCutPivot, orderedEulerCutLowProduct] using! hsqrt)
     simpa [orderedEulerCutChildInteger, orderedEulerCutHighCofactor,
-      orderedEulerCutPivot, orderedEulerCutLowProduct] using h
+      orderedEulerCutPivot, orderedEulerCutLowProduct] using! h
   have htag : (t, (1, p)) ∈ lowWheelCanonicalTaggedDowncrossCarrier R := by
     exact mem_lowWheelCanonicalTaggedDowncrossCarrier.mpr
       ⟨ht, (LowWheelCanonicalDowncrossOwnership.mem_lowWheelCanonicalDowncrossOrientedPart.mp
@@ -195,7 +195,7 @@ theorem orderedEulerCut_mem_repeatedTerminalInternal_of_cofactor_one
   have hfrozenShape : LowWheelDowncrossFrozenShape (t, (1, p)) := by
     refine ⟨hpivot.symm, ?_⟩
     intro q hqt
-    simpa [lowWheelTaggedDowncrossPivot, hpivot] using (hshape.2.2.2.2.1 q hqt).2
+    simpa [lowWheelTaggedDowncrossPivot, hpivot] using! (hshape.2.2.2.2.1 q hqt).2
   have hfrozen :
       (t, (1, p)) ∈ lowWheelCanonicalRepeatedFrozenPart R :=
     Finset.mem_filter.mpr ⟨hrep, hfrozenShape⟩
@@ -204,6 +204,6 @@ theorem orderedEulerCut_mem_repeatedTerminalInternal_of_cofactor_one
     Finset.mem_filter.mpr ⟨hfrozen, rfl⟩
   apply Finset.mem_filter.mpr
   refine ⟨hterminal, ?_⟩
-  simpa [lowWheelTaggedDowncrossPivot, hpivot] using hpR
+  simpa [lowWheelTaggedDowncrossPivot, hpivot] using! hpR
 
 end RHLean.Proof

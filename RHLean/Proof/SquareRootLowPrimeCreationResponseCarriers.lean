@@ -144,7 +144,7 @@ theorem squareRootLowPrimeCreationCarrier_weight_sum
         ∑ z ∈ squareRootLowPrimeCreationSeatAtoms R K j, -μ z.1 := by
     apply Finset.sum_image
     intro a _ha b _hb hab
-    simpa using hab
+    simpa using! hab
   rw [himage, squareRootLowPrimeCreationSeatAtoms_weight_sum]
   simp [squareRootLowPrimeCreationWeight]
 
@@ -177,7 +177,7 @@ theorem squareRootLowPrimeResponseAtomWeight_eq_child_moebius
   have hcastReal :
       ((-μ z.1 : ℤ) : ℝ) =
         ((μ (squareRootLowPrimeBadAtomChild z) : ℤ) : ℝ) := by
-    simpa [canonicalMoebiusWeight] using hcast.symm
+    simpa [canonicalMoebiusWeight] using! hcast.symm
   unfold squareRootLowPrimeResponseAtomWeight
   exact_mod_cast hcastReal
 
@@ -206,7 +206,7 @@ theorem squareRootLowPrimeOwnedResponseAtoms_weight_sum_eq_neg_freshIncrementRea
     intro z hz
     have h := squareRootLowPrimeResponseAtomWeight_eq_child_moebius
       hUR hz
-    simpa [canonicalMoebiusWeight] using congrArg (fun a : ℤ => (a : ℝ)) h
+    simpa [canonicalMoebiusWeight] using! congrArg (fun a : ℤ => (a : ℝ)) h
   calc
     ((∑ z ∈ squareRootLowPrimeOwnedResponseAtoms R K U,
       squareRootLowPrimeResponseAtomWeight z : ℤ) : ℝ) =
@@ -215,7 +215,7 @@ theorem squareRootLowPrimeOwnedResponseAtoms_weight_sum_eq_neg_freshIncrementRea
             (squareRootLowPrimeBadAtomChild z)).re := hweight
     _ = ∑ n ∈ squareRootLowPrimeOwnedResponseChildren R K U,
           (canonicalMoebiusWeight n).re := by
-      simpa using hatomsRe.symm
+      simpa using! hatomsRe.symm
     _ = -(∑ p ∈ squareRootLowPrimeFreshPrimeSet K U,
           squareRootLowPrimeFreshIncrementReal R K j p) := by
       linarith [hresponse]

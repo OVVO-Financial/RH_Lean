@@ -113,7 +113,7 @@ theorem squareRootEndpointAmplification_of_crossRegion
   have hendEnergy :
       ‖RHLean.Analysis.mertensSummatory (squareRootEndpoint R) - 1‖ ^ 2 =
         (((mertensSummatoryInt (squareRootEndpoint R) - 1 : ℤ) : ℝ) ^ 2) := by
-    simpa [shiftedMertensEnergy] using
+    simpa [shiftedMertensEnergy] using!
       shiftedMertensEnergy_eq_intSquare (squareRootEndpoint R)
   rw [hendEnergy] at hsum
   calc
@@ -181,7 +181,7 @@ theorem matchedShiftedAmplificationAbove56_of_farSurvivorCore
   have hnearAbsorb :
       98 * (R : ℝ) ^ 2 ≤ 98 * (R : ℝ) ^ 2 * K := by
     have hnonneg : 0 ≤ 98 * (R : ℝ) ^ 2 := by positivity
-    simpa [mul_assoc] using mul_le_mul_of_nonneg_left hK1 hnonneg
+    simpa [mul_assoc] using! mul_le_mul_of_nonneg_left hK1 hnonneg
   have hsplit :
       squareRootMatchedBornSmoothTransport R - 1 =
         squareRootMatchedFarSurvivorCore R - squareRootNearPrimeTransport R := by
@@ -196,7 +196,7 @@ theorem matchedShiftedAmplificationAbove56_of_farSurvivorCore
         2 * ‖squareRootMatchedFarSurvivorCore R‖ ^ 2 +
           2 * ‖squareRootNearPrimeTransport R‖ ^ 2 := by
     rw [hsplit]
-    simpa [sub_eq_add_neg] using hsum
+    simpa [sub_eq_add_neg] using! hsum
   calc
     ‖squareRootMatchedBornSmoothTransport R - 1‖ ^ 2 ≤
         2 * ‖squareRootMatchedFarSurvivorCore R‖ ^ 2 +
@@ -204,7 +204,7 @@ theorem matchedShiftedAmplificationAbove56_of_farSurvivorCore
     _ ≤ 2 * (A * (R : ℝ) ^ 2 * K) + 98 * (R : ℝ) ^ 2 := by
       nlinarith
     _ ≤ 2 * (A * (R : ℝ) ^ 2 * K) +
-          98 * (R : ℝ) ^ 2 * K := add_le_add_left hnearAbsorb _
+          98 * (R : ℝ) ^ 2 * K := add_le_add_right hnearAbsorb _
     _ = (2 * A + 98) * (R : ℝ) ^ 2 * K := by ring
 
 end RHLean.Proof

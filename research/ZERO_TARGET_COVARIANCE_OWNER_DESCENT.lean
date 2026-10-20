@@ -68,7 +68,7 @@ theorem postRootCovarianceRemainderRecursivePair_zeroTargetExcess_owner_descent
   have hdesc :=
     postRootCovarianceRemainderRecursivePair_owner_descent hpair hweight
   dsimp only at hdesc ⊢
-  simpa using hdesc.2.2.2
+  simpa using! hdesc.2.2.2
 
 /-- Every equal-parent terminal pair is on the helpful/nonpositive side of the
 zero-target co-minus-divergent decomposition. -/
@@ -98,7 +98,7 @@ theorem sum_postRootCovarianceRemainderRecursive_zeroTargetExcess_eq_neg_parentM
       -∑ parent ∈ postRootCovarianceRemainderPhysicalPairCarrier W,
         (postRootCovarianceRemainderOwnerChildMultiplicity W parent : ℝ) *
           postRootZeroTargetPairExcess parent := by
-  simpa using sum_postRootCovarianceRemainderRecursive_eq_neg_parentMultiplicity W
+  simpa using! sum_postRootCovarianceRemainderRecursive_eq_neg_parentMultiplicity W
 
 /-- **Exact remainder in zero-target currency.**  The physical covariance
 remainder is a nonpositive terminal excess minus the multiplicity-weighted
@@ -111,7 +111,7 @@ theorem postRootCovarianceRemainder_eq_terminalZeroTarget_sub_parentMultiplicity
       ∑ parent ∈ postRootCovarianceRemainderPhysicalPairCarrier W,
         (postRootCovarianceRemainderOwnerChildMultiplicity W parent : ℝ) *
           postRootZeroTargetPairExcess parent := by
-  simpa using postRootCovarianceRemainder_eq_terminal_sub_parentMultiplicity W
+  simpa using! postRootCovarianceRemainder_eq_terminal_sub_parentMultiplicity W
 
 /-- **One-sided zero-target reduction.**  Terminal pairs can only help, so every
 positive remainder is forced by multiplicity-weighted reversal of the parent

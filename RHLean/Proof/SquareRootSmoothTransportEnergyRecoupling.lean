@@ -105,7 +105,7 @@ theorem squareRootLowPrimeTerminal_sq_le_two_matched_sq_add_eight_root_sq
         (squareRootMatchedBornSmoothTransport R).re -
           (((squareRootCrossingLayerPartialPacketInt R K j : ℤ) : ℂ)).re -
           (squareRootBornPostTailNearRootRemainder R K j).re := by
-    simpa [squareRootLowPrimeRunningImbalanceReal] using hterminalR
+    simpa [squareRootLowPrimeRunningImbalanceReal] using! hterminalR
   have hboundary :=
     abs_squareRootLowPrimeMatchedTerminalBoundary_lt_two_root
       R K j hR hK hKR hj hV0 hVK
@@ -146,7 +146,7 @@ theorem squareRootLowPrimeTerminal_sq_le_two_matched_sq_add_eight_root_sq
       squareRootLowPrimeRunningImbalanceReal R K j
           (squareRootBornPostTailLowPrimeCutoff R) ^ 2 ≤
         (‖squareRootMatchedBornSmoothTransport R‖ + 2 * (R : ℝ)) ^ 2 := by
-    simpa [sq_abs] using hsquare
+    simpa [sq_abs] using! hsquare
   have hsplit :
       (‖squareRootMatchedBornSmoothTransport R‖ + 2 * (R : ℝ)) ^ 2 ≤
         2 * ‖squareRootMatchedBornSmoothTransport R‖ ^ 2 +

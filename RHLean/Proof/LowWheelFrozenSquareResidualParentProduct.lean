@@ -59,7 +59,7 @@ theorem lowWheelFrozenSquareResidualDaughter_realizedCut
     rw [← hyA]
     exact lowWheelFrozenSecondContact_sourceScale_largestPrime hySecond
   have hrough : RoughAbove p d := by
-    simpa [hpA] using hdRough
+    simpa [hpA] using! hdRough
   have hzShape : OrderedEulerCutShape z := by
     refine ⟨hs.2.1, hd1, hdSq,
       RoughAbove.not_dvd hs.2.1 hd1 hrough, ?_, hrough⟩
@@ -71,7 +71,7 @@ theorem lowWheelFrozenSquareResidualDaughter_realizedCut
   have hzA : lowWheelFrozenSecondContactSourceScale z = A := by
     change lowWheelTaggedDowncrossPivot z * primeFaceProduct y.1 = A
     rw [hpivot]
-    simpa [p, lowWheelFrozenSecondContactSourceScale] using hyA
+    simpa [p, lowWheelFrozenSecondContactSourceScale] using! hyA
   have hApos : 0 < A :=
     (Nat.zero_le R).trans_lt (lowWheelFrozenSourceScale_root_lt hA)
   have hBroot := lowWheelFrozenSourceScale_cutoff_lt_root hA
@@ -80,7 +80,7 @@ theorem lowWheelFrozenSquareResidualDaughter_realizedCut
   have hzChild : orderedEulerCutChildInteger z ≤ squareRootEndpoint R := by
     change d * (p * primeFaceProduct y.1) ≤ squareRootEndpoint R
     have hbase : p * primeFaceProduct y.1 = A := by
-      simpa [p, lowWheelFrozenSecondContactSourceScale] using hyA
+      simpa [p, lowWheelFrozenSecondContactSourceScale] using! hyA
     rw [hbase]
     exact (Nat.le_div_iff_mul_le hApos).1 hdB
   have hzSqrt := (orderedEulerCutChild_le_endpoint_iff hzShape).1 hzChild
@@ -94,7 +94,7 @@ theorem lowWheelFrozenSquareResidualDaughter_realizedCut
     change R < p * primeFaceProduct y.1
     have hroot := lowWheelFrozenSourceScale_root_lt hA
     have hbase : p * primeFaceProduct y.1 = A := by
-      simpa [p, lowWheelFrozenSecondContactSourceScale] using hyA
+      simpa [p, lowWheelFrozenSecondContactSourceScale] using! hyA
     rw [hbase]
     exact hroot
   have hzCarrier : z ∈ orderedEulerCutCarrier R :=
@@ -103,7 +103,7 @@ theorem lowWheelFrozenSquareResidualDaughter_realizedCut
   have hchildEq : orderedEulerCutChildInteger z = A * d := by
     change d * (p * primeFaceProduct y.1) = A * d
     have hbase : p * primeFaceProduct y.1 = A := by
-      simpa [p, lowWheelFrozenSecondContactSourceScale] using hyA
+      simpa [p, lowWheelFrozenSecondContactSourceScale] using! hyA
     rw [hbase]
     ac_rfl
   exact ⟨z, hzCarrier, hzA, rfl, hchildEq⟩
@@ -131,7 +131,7 @@ theorem lowWheelFrozenSquareResidualDaughter_productWeight
     rw [← hyA]
     exact lowWheelFrozenSecondContact_sourceScale_largestPrime hySecond
   have hrough : RoughAbove p d := by
-    simpa [hpA] using hdRough
+    simpa [hpA] using! hdRough
   have hzShape : OrderedEulerCutShape z := by
     refine ⟨hs.2.1, hd1, hdSq,
       RoughAbove.not_dvd hs.2.1 hd1 hrough, ?_, hrough⟩
@@ -141,14 +141,14 @@ theorem lowWheelFrozenSquareResidualDaughter_productWeight
   have hchild : orderedEulerCutChildInteger z = A * d := by
     change d * (p * primeFaceProduct y.1) = A * d
     have hbase : p * primeFaceProduct y.1 = A := by
-      simpa [p, lowWheelFrozenSecondContactSourceScale] using hyA
+      simpa [p, lowWheelFrozenSecondContactSourceScale] using! hyA
     rw [hbase]
     ac_rfl
   have hflip := orderedEulerCutChildWeight_eq_neg hzShape
   have hscale :=
     lowWheelFrozenSecondContactSourceScale_moebius_eq_neg_faceSign hySecond
   have hscaleA : canonicalMoebiusWeight A = -(booleanCubeSign y.1 : ℂ) := by
-    simpa [hyA] using hscale
+    simpa [hyA] using! hscale
   calc
     canonicalMoebiusWeight (A * d) =
         canonicalMoebiusWeight (orderedEulerCutChildInteger z) := by rw [hchild]
@@ -169,7 +169,7 @@ theorem lowWheelFrozenSquareResidualDaughter_product_root_lt
   have hd1 : 1 ≤ d :=
     (Finset.mem_Icc.mp (Finset.mem_filter.mp hd).1).1
   have hle : A ≤ A * d := by
-    simpa using Nat.mul_le_mul_left A hd1
+    simpa using! Nat.mul_le_mul_left A hd1
   exact hroot.trans_le hle
 
 /-- The same product lies at the genuine square-dilated owner cutoff. -/
@@ -187,12 +187,12 @@ theorem lowWheelFrozenSquareResidualDaughter_ownerSquare_mul_product_le_endpoint
   have hqqPos : 0 < q * q := Nat.mul_pos hqPos hqPos
   have hq2d : q * q * d ≤ squareRootEndpoint R / A := by
     have h := (Nat.le_div_iff_mul_le hqqPos).1 hdUpper
-    simpa [Nat.mul_assoc, Nat.mul_left_comm, Nat.mul_comm] using h
+    simpa [Nat.mul_assoc, Nat.mul_left_comm, Nat.mul_comm] using! h
   have hmul : A * (q * q * d) ≤ squareRootEndpoint R := by
     have hdiv := Nat.div_mul_le_self (squareRootEndpoint R) A
     have hscaled := Nat.mul_le_mul_left A hq2d
-    exact hscaled.trans (by simpa [Nat.mul_comm] using hdiv)
-  simpa [Nat.mul_assoc, Nat.mul_left_comm, Nat.mul_comm] using hmul
+    exact hscaled.trans (by simpa [Nat.mul_comm] using! hdiv)
+  simpa [Nat.mul_assoc, Nat.mul_left_comm, Nat.mul_comm] using! hmul
 
 /-- For a fixed square owner `q`, two source-scale/daughter pairs cannot map to
 the same arithmetic product.  The proof is physical: both products are genuine

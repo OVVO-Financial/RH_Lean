@@ -105,7 +105,7 @@ theorem squareRootLowPrimeGoFullBirthBoundary_child_canonicalSmooth
   have hlpfChild : canonicalLargestPrimeFactor (r * d) = r := by
     have h := canonicalLargestPrimeFactor_mul_prime_eq_of_rough
       hdPos hr hroughR
-    simpa [Nat.mul_comm] using h
+    simpa [Nat.mul_comm] using! h
   have hroughQ : canonicalLargestPrimeFactor (r * d) < q := by
     rw [hlpfChild]
     exact hrq
@@ -140,7 +140,7 @@ theorem squareRootLowPrimeGoFullBirthBoundary_child_canonicalCofactor
     ⟨hd1, _hdq1, _hsq, hroughR, _hlower⟩
   have hdPos : 0 < d := by omega
   have h := canonicalCofactor_mul_prime_eq_of_rough hdPos hr hroughR
-  simpa [Nat.mul_comm] using h
+  simpa [Nat.mul_comm] using! h
 
 /-- The source weights on the ancestry root/child edge are exact opposites. -/
 theorem squareRootLowPrimeGoFullBirthBoundary_source_moebius_cancel
@@ -158,7 +158,7 @@ theorem squareRootLowPrimeGoFullBirthBoundary_source_moebius_cancel
   have hsqChild := hchild.1.2.2.1
   have hchildGt : 1 < r * d := lt_trans hq.one_lt hchild.2
   have hstrip : (μ (r * d) : ℤ) = -(μ d : ℤ) := by
-    simpa [hcofactor] using canonicalSignedParent_moebius hsqChild hchildGt
+    simpa [hcofactor] using! canonicalSignedParent_moebius hsqChild hchildGt
   calc
     (μ (q * (r * d)) : ℤ) = μ q * μ (r * d) :=
       ArithmeticFunction.isMultiplicative_moebius.map_mul_of_coprime hqCopChild
@@ -202,10 +202,10 @@ theorem squareRootLowPrimeGoTerminalParent_childClock_le
   have hq2Pos : 0 < q * q := Nat.mul_pos hq.pos hq.pos
   have hrdCut : r * d ≤ X / (q * q) := by
     have h := (Nat.le_div_iff_mul_le hr.pos).1 hdCut
-    simpa [Nat.mul_comm] using h
+    simpa [Nat.mul_comm] using! h
   have h := (Nat.le_div_iff_mul_le hq2Pos).1 hrdCut
   simpa [squareRootLowPrimeGoAncestryClock,
-    Nat.mul_comm, Nat.mul_left_comm, Nat.mul_assoc] using h
+    Nat.mul_comm, Nat.mul_left_comm, Nat.mul_assoc] using! h
 
 /-- The complementary two-boundary defect is exactly a smooth child entering
 after the second-contact clock cutoff. -/
@@ -215,7 +215,7 @@ theorem squareRootLowPrimeGoSecondBoundaryDefect_childClock_gt
     X < squareRootLowPrimeGoAncestryClock q (r * d) := by
   have h := squareRootLowPrimeGoSecondBoundaryDefect_secondContact_gt
     hq hr hd
-  simpa [squareRootLowPrimeGoAncestryClock, Nat.mul_assoc] using h
+  simpa [squareRootLowPrimeGoAncestryClock, Nat.mul_assoc] using! h
 
 /-- One full stopping ancestry edge evaluated at the second-contact clock. -/
 def squareRootLowPrimeGoAncestryEdgeValue

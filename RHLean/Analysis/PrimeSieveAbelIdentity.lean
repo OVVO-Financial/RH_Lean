@@ -132,7 +132,7 @@ reciprocal endpoint has already dropped to or below the prime cutoff. -/
 theorem div_succ_quotientSupportTop_le (y x : ℕ) :
     x / (x / (y + 1) + 1) ≤ y := by
   by_contra hcon
-  push_neg at hcon
+  push Not at hcon
   have h1 : (y + 1) * (x / (y + 1) + 1) ≤ x :=
     (Nat.le_div_iff_mul_le (Nat.succ_pos _)).1 hcon
   have h2 : (x / (y + 1) + 1) * (y + 1) ≤ x := by
@@ -201,7 +201,7 @@ theorem primeSievePNTError_eq_moebiusDiscrepancySum_sub_abelBoundary
     intro d hd
     have hy : y < x / d :=
       lt_div_of_mem_primeSieveQuotientSupport
-        (y := y) (x := x) (d := d) (by simpa [primeSieveQuotientSupport] using hd)
+        (y := y) (x := x) (d := d) (by simpa [primeSieveQuotientSupport] using! hd)
     have hmaxd : max y (x / d) = x / d := max_eq_right hy.le
     have hle : primeSieveReciprocalLower y x d ≤
         primeSieveReciprocalUpper x d := by
@@ -228,7 +228,7 @@ theorem primeSievePNTError_eq_moebiusDiscrepancySum_sub_abelBoundary
     intro d hd
     have hy : y < x / d :=
       lt_div_of_mem_primeSieveQuotientSupport
-        (y := y) (x := x) (d := d) (by simpa [primeSieveQuotientSupport] using hd)
+        (y := y) (x := x) (d := d) (by simpa [primeSieveQuotientSupport] using! hd)
     simp only [primeSieveClippedDiscrepancy, max_eq_right hy.le]
   rw [primeSievePNTError_eq_reciprocalPNTError, hstep,
     sum_mertensSummatory_mul_forwardDifference, hboundary, hvalues,

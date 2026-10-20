@@ -212,7 +212,7 @@ theorem vfMidSquareThetaEnvelope_of_protectedPullBarrier
   have habsSq :
       |vfMidDirectThetaEndpointError R| ^ 2 ≤
         (C * (R : ℝ) * (Real.log (R : ℝ)) ^ 2) ^ 2 := by
-    simpa [sq_abs, vfMidThetaEnvelopeEnergy] using hsq
+    simpa [sq_abs, vfMidThetaEnvelopeEnergy] using! hsq
   exact
     (sq_le_sq₀ (abs_nonneg _) hbar0).1 habsSq
 
@@ -271,7 +271,7 @@ theorem vfMidSquareThetaEnvelope_of_protectedPullInvariant
   have habsSq :
       |vfMidDirectThetaEndpointError R| ^ 2 ≤
         (C * (R : ℝ) * (Real.log (R : ℝ)) ^ 2) ^ 2 := by
-    simpa [sq_abs, vfMidThetaEnvelopeEnergy] using hsq
+    simpa [sq_abs, vfMidThetaEnvelopeEnergy] using! hsq
   exact (sq_le_sq₀ (abs_nonneg _) hbar0).1 habsSq
 
 /-- Conversely, a proved square-theta envelope automatically satisfies the
@@ -292,7 +292,7 @@ theorem protectedPullInvariant_of_vfMidSquareThetaEnvelope
       positivity
     have hsq :=
       (sq_le_sq₀ (abs_nonneg _) hbar0).2 habs
-    simpa [sq_abs, vfMidThetaEnvelopeEnergy] using hsq
+    simpa [sq_abs, vfMidThetaEnvelopeEnergy] using! hsq
   · intro R hR _hcurrent
     have habs := hC (R + 1) (by omega)
     have hlog0 : 0 ≤ Real.log ((R + 1 : ℕ) : ℝ) := by
@@ -307,7 +307,7 @@ theorem protectedPullInvariant_of_vfMidSquareThetaEnvelope
     have hnextSq :
         vfMidDirectThetaEndpointError (R + 1) ^ 2 ≤
           vfMidThetaEnvelopeEnergy C (R + 1) := by
-      simpa [sq_abs, vfMidThetaEnvelopeEnergy] using hnextSqRaw
+      simpa [sq_abs, vfMidThetaEnvelopeEnergy] using! hnextSqRaw
     have hinc := vfMidDirectThetaEndpointError_energy_step R
     linarith
 
@@ -375,7 +375,7 @@ theorem vfMidSquareThetaProtectedPull_eq_coupledOwnerPacket
     (R : ℕ) (hR : 7 ≤ R) :
     vfMidSquareThetaProtectedPull R =
       Real.log (vfMidBandMidpoint R) * vfMidCoupledOwnerPacket R := by
-  simpa [vfMidCoupledOwnerPacket] using
+  simpa [vfMidCoupledOwnerPacket] using!
     vfMidSquareThetaProtectedPull_eq_nativeVFDescent R hR
 
 /-- Unsquared RH-scale theta barrier. -/
@@ -437,15 +437,15 @@ theorem vfMidThetaNextInside_iff_coupledPacketWindow_normalized
   · rintro ⟨hlo, hhi⟩
     constructor
     · apply (div_le_iff₀ hlog).2
-      simpa [mul_comm] using hlo
+      simpa [mul_comm] using! hlo
     · apply (le_div_iff₀ hlog).2
-      simpa [mul_comm] using hhi
+      simpa [mul_comm] using! hhi
   · rintro ⟨hlo, hhi⟩
     constructor
     · have h := (div_le_iff₀ hlog).1 hlo
-      simpa [mul_comm] using h
+      simpa [mul_comm] using! h
     · have h := (le_div_iff₀ hlog).1 hhi
-      simpa [mul_comm] using h
+      simpa [mul_comm] using! h
 
 /-- At the exact upper barrier, preventing outward escape is equivalent to the
 one-sided coupled-packet threshold -delta_R/log(m_R). -/
@@ -470,7 +470,7 @@ theorem vfMidThetaUpperBarrier_noEscape_iff_coupledPacket
             vfMidThetaBarrierRadius C R) ≤
           Real.log (vfMidBandMidpoint R) * vfMidCoupledOwnerPacket R := by
       linarith
-    simpa [mul_comm] using this
+    simpa [mul_comm] using! this
   · intro h
     have h' := (div_le_iff₀ hlog).1 h
     unfold vfMidThetaBarrierIncrement at h'
@@ -478,7 +478,7 @@ theorem vfMidThetaUpperBarrier_noEscape_iff_coupledPacket
         -(vfMidThetaBarrierRadius C (R + 1) -
             vfMidThetaBarrierRadius C R) ≤
           Real.log (vfMidBandMidpoint R) * vfMidCoupledOwnerPacket R := by
-      simpa [mul_comm] using h'
+      simpa [mul_comm] using! h'
     linarith
 
 /-- At the exact lower barrier, preventing outward escape is equivalent to the
@@ -504,7 +504,7 @@ theorem vfMidThetaLowerBarrier_noEscape_iff_coupledPacket
           vfMidThetaBarrierRadius C (R + 1) -
             vfMidThetaBarrierRadius C R := by
       linarith
-    simpa [mul_comm] using this
+    simpa [mul_comm] using! this
   · intro h
     have h' := (le_div_iff₀ hlog).1 h
     unfold vfMidThetaBarrierIncrement at h'
@@ -512,7 +512,7 @@ theorem vfMidThetaLowerBarrier_noEscape_iff_coupledPacket
         Real.log (vfMidBandMidpoint R) * vfMidCoupledOwnerPacket R ≤
           vfMidThetaBarrierRadius C (R + 1) -
             vfMidThetaBarrierRadius C R := by
-      simpa [mul_comm] using h'
+      simpa [mul_comm] using! h'
     linarith
 
 
@@ -935,7 +935,7 @@ theorem vfMidSquareThetaEnvelope_of_boundaryDescent
       |vfMidDirectThetaEndpointError R| ≤
         vfMidThetaBarrierRadius C R :=
     (abs_le).2 hinside
-  simpa [vfMidThetaBarrierRadius] using habs
+  simpa [vfMidThetaBarrierRadius] using! habs
 
 /-- The same single forcing statement therefore feeds the already-compiled
 direct VF endpoint consumer. -/
@@ -1024,7 +1024,7 @@ theorem vfMidFullScaleViolation_forces_thetaEndpointViolation
         rw [abs_div, abs_of_pos hlog]
       _ ≤ (vfMidThetaBarrierRadius C S + vfMidThetaBarrierRadius C (S + 1)) /
           Real.log (vfMidBandMidpoint S) + |vfMidDirectLogPositionError S| :=
-        add_le_add_right (div_le_div_of_nonneg_right hband hlog.le) _
+        add_le_add_left (div_le_div_of_nonneg_right hband hlog.le) _
   exact (not_lt_of_ge hfull) hviolation
 
 /-- Uniform local VF charge sufficient to force one of the two theta
@@ -1232,7 +1232,7 @@ theorem vfMidSquareThetaEnvelope_of_minimalBoundaryDescent
       |vfMidDirectThetaEndpointError R| ≤
         vfMidThetaBarrierRadius C R :=
     (abs_le).2 hinside
-  simpa [vfMidThetaBarrierRadius] using habs
+  simpa [vfMidThetaBarrierRadius] using! habs
 
 /-- A recursive-child lower violation is therefore already sufficient for the
 full theta envelope. -/
@@ -1271,7 +1271,7 @@ theorem vfMidProtectedBlockCofactorResponse_endpoint_eq_neg_logSum
           apply Finset.sum_congr rfl
           intro d hd
           have hdI := Finset.mem_Ioc.mp (Finset.mem_filter.mp hd).1
-          have hlo : 1 * d ≤ L := by simpa using hdI.2
+          have hlo : 1 * d ≤ L := by simpa using! hdI.2
           have hhi : L < (1 + 1) * d := by
             have htwo : 2 * M < 2 * d := by omega
             omega
@@ -1308,7 +1308,7 @@ theorem vfMidProtectedBlockCofactorLogSum_freshPrime_le
         Real.log ((d / m : ℕ) : ℝ) := by
   have hmp : 0 < m * p := Nat.mul_pos hm hp.pos
   have hden : m ≤ m * p := by
-    simpa using Nat.mul_le_mul_left m hp.one_le
+    simpa using! Nat.mul_le_mul_left m hp.one_le
   have hsubset :
       (Finset.Ioc M L).filter (fun d => m * p ∣ d) ⊆
         (Finset.Ioc M L).filter (fun d => m ∣ d) := by
@@ -1432,7 +1432,7 @@ theorem vfMidProtectedBlockFreshPrimePhysicalDefect_abs_le_inv_mul_parent
     nativePNTSignedSquareBlockCorrelationReciprocalSummand
   rw [abs_div, abs_mul, abs_div, abs_mul]
   push_cast
-  simpa [abs_of_pos hmR, abs_of_pos hpR, abs_of_pos hmpR] using hcalc
+  simpa [abs_of_pos hmR, abs_of_pos hpR, abs_of_pos hmpR] using! hcalc
 
 /-- Direct protected-pull fresh-prime contraction.
 At a subdoubling endpoint, pairing one reciprocal parent with a fresh-prime
@@ -1453,7 +1453,7 @@ theorem vfMidProtectedBlockReciprocalPair_abs_le_parent
   have hp1R : (1 : ℝ) ≤ (p : ℝ) := by exact_mod_cast hp.one_le
   have hinv0 : 0 ≤ (1 / (p : ℝ)) := by positivity
   have hinv1 : (1 / (p : ℝ)) ≤ 1 := by
-    exact (div_le_iff₀ hpR).2 (by simpa using hp1R)
+    exact (div_le_iff₀ hpR).2 (by simpa using! hp1R)
   have hfactor : 0 ≤ 1 - 1 / (p : ℝ) := sub_nonneg.mpr hinv1
   calc
     |(1 - 1 / (p : ℝ)) *
@@ -1471,7 +1471,7 @@ theorem vfMidProtectedBlockReciprocalPair_abs_le_parent
           |nativePNTSignedSquareBlockCorrelationReciprocalSummand L M L m| +
         (1 / (p : ℝ)) *
           |nativePNTSignedSquareBlockCorrelationReciprocalSummand L M L m| :=
-            add_le_add_left hdef _
+            add_le_add_right hdef _
     _ = |nativePNTSignedSquareBlockCorrelationReciprocalSummand L M L m| := by
           ring
 

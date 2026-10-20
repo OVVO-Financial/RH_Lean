@@ -43,7 +43,7 @@ theorem abs_channelRate_sub_target_le
         |∑ c ∈ parents, (phase c - α * mass c)| ≤
           ∑ c ∈ parents, |phase c - α * mass c| := by
       exact Finset.abs_sum_le_sum_abs _ _
-    simpa [phaseMass, channelMass, channelDiscrepancy, Finset.mul_sum] using habs
+    simpa [phaseMass, channelMass, channelDiscrepancy, Finset.mul_sum] using! habs
   have hrate :
       channelRate parents mass phase - α =
         (phaseMass parents phase - α * channelMass parents mass) /
@@ -144,7 +144,7 @@ theorem abs_parity_channelRate_sub_le_two_mul
         ε * channelMass parentsMinus mass) :
     |channelRate parentsPlus mass phase -
         channelRate parentsMinus mass phase| ≤ 2 * ε := by
-  simpa [two_mul] using
+  simpa [two_mul] using!
     abs_parity_channelRate_sub_le_of_relative_discrepancy
       parentsPlus parentsMinus mass phase α ε ε
       hplus hminus hdiscPlus hdiscMinus

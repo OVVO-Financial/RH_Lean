@@ -211,8 +211,8 @@ theorem abs_divisorIntervalBoundary_le_modulus_of_short
     intro m hm n hn
     have hmData := Finset.mem_filter.mp hm
     have hnData := Finset.mem_filter.mp hn
-    have hmI : m ∈ Finset.Ioc lower upper := by simpa [I] using hmData.1
-    have hnI : n ∈ Finset.Ioc lower upper := by simpa [I] using hnData.1
+    have hmI : m ∈ Finset.Ioc lower upper := by simpa [I] using! hmData.1
+    have hnI : n ∈ Finset.Ioc lower upper := by simpa [I] using! hnData.1
     have hmBounds := Finset.mem_Ioc.mp hmI
     have hnBounds := Finset.mem_Ioc.mp hnI
     have hmBig : m ∈ Finset.Ico (lower + 1) (lower + 1 + d) := by
@@ -222,16 +222,16 @@ theorem abs_divisorIntervalBoundary_le_modulus_of_short
       apply Finset.mem_Ico.mpr
       omega
     have hmrem : m % d = a % d := by
-      simpa [Nat.ModEq] using hmData.2
+      simpa [Nat.ModEq] using! hmData.2
     have hnrem : n % d = a % d := by
-      simpa [Nat.ModEq] using hnData.2
+      simpa [Nat.ModEq] using! hnData.2
     have hrem : m % d = n % d := hmrem.trans hnrem.symm
     have hinj : Set.InjOn (fun z : ℕ => z % d)
         (↑(Finset.Ico (lower + 1) (lower + 1 + d))) := by
-      simpa using Nat.mod_injOn_Ico (lower + 1) d
+      simpa using! Nat.mod_injOn_Ico (lower + 1) d
     exact hinj hmBig hnBig hrem
   have hcount : divisorResidueCount I d a = (F.card : ℤ) := by
-    simpa [F] using divisorResidueCount_eq_filterCard_sharp I d a
+    simpa [F] using! divisorResidueCount_eq_filterCard_sharp I d a
   have hc0 : (0 : ℤ) ≤ divisorResidueCount I d a := by
     rw [hcount]
     positivity

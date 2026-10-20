@@ -59,16 +59,7 @@ private theorem high_rawExpansionDivisor_factorization_apply
   classical
   rw [high_rawExpansionDivisor_factorization S hprime e]
   simp [Finsupp.single_apply]
-  calc
-    (∑ x ∈ S.attach, if x.val = p.val then (e x).val else 0) =
-        (if p.val = p.val then (e p).val else 0) := by
-          apply Finset.sum_eq_single_of_mem p
-          · simp
-          · intro q _ hqp
-            rw [if_neg]
-            intro hval
-            exact hqp (Subtype.ext hval)
-    _ = (e p).val := by simp
+
 
 private theorem high_rawExpansionDivisor_injective
     (S : Finset ℕ)
@@ -92,7 +83,7 @@ private theorem norm_localPrimeCombExpansionWeight_le_primePow
   fin_cases e
   · norm_num [localPrimeCombExpansionWeight]
   · have hp2 : (2 : ℝ) ≤ (p : ℝ) := by exact_mod_cast hp.two_le
-    simpa [localPrimeCombExpansionWeight] using hp2
+    simpa [localPrimeCombExpansionWeight] using! hp2
   · have hpNat : 1 ≤ p := hp.one_le
     norm_num [localPrimeCombExpansionWeight]
     omega
@@ -111,7 +102,7 @@ private theorem norm_primeWheelRawExpansionWeight_le_divisor
     push_cast
     rfl
   rw [hcast, norm_prod]
-  apply Finset.prod_le_prod
+  apply Finset.prod_le_prod₀
   · intro p hp
     positivity
   · intro p hp
@@ -161,7 +152,7 @@ theorem norm_primorialRawUpperMobiusTransform_le_modulus
     have hw0 := norm_primeWheelRawExpansionWeight_le_divisor
       S (fun p hp => prime_of_mem_primesUpTo hp) e0
     have hw : ‖primeWheelRawExpansionWeight S e0‖ ≤ (d : ℝ) := by
-      simpa [← he0] using hw0
+      simpa [← he0] using! hw0
     have hprod : d * (Q / d) = Q := Nat.mul_div_cancel' hdvd
     calc
       ‖primeWheelRawExpansionWeight S e0‖ *
@@ -230,7 +221,7 @@ theorem abs_divisorIntervalBoundary_le_two_mul_sq
   exact abs_divisorIntervalBoundary_le_two_mul_sq_of_short
     d a lower (lower + r) d le_rfl
     (Nat.one_le_iff_ne_zero.mpr (Nat.ne_of_gt hd))
-    (by simpa using hrlt)
+    (by simpa using! hrlt)
 
 private def primorialSmallRawBoundaryDivisors
     (k R : ℕ) : Finset ℕ :=
@@ -318,7 +309,7 @@ theorem norm_primorialNormalizedRawSmallBoundary_le
         exact Finset.mem_range.mpr (Nat.lt_succ_of_le hddata.2)
       have hcard0 := Finset.card_le_card hsubset
       have hcardNat : (primorialSmallRawBoundaryDivisors k R).card ≤ R + 1 := by
-        simpa using hcard0
+        simpa using! hcard0
       have hcard : ((primorialSmallRawBoundaryDivisors k R).card : ℝ) ≤ R + 1 := by
         exact_mod_cast hcardNat
       exact mul_le_mul_of_nonneg_right hcard (by positivity)
@@ -347,10 +338,10 @@ theorem norm_primorialHighConductorReindexError_le_eight
           6 * (R + 1 : ℝ) * (R : ℝ) ^ 3 := hbase
     _ ≤ 2 * (R + 1 : ℝ) * (R : ℝ) ^ 2 +
           6 * (R + 1 : ℝ) * (R : ℝ) ^ 3 := by
-      exact add_le_add_right hraw _
+      exact add_le_add_left hraw _
     _ ≤ 2 * (R + 1 : ℝ) * (R : ℝ) ^ 3 +
           6 * (R + 1 : ℝ) * (R : ℝ) ^ 3 := by
-      exact add_le_add_right
+      exact add_le_add_left
         (mul_le_mul_of_nonneg_left hpow (by positivity)) _
     _ = 8 * (R + 1 : ℝ) * (R : ℝ) ^ 3 := by ring
 
@@ -408,7 +399,7 @@ theorem norm_sq_primorialHighConductorWithZeroSector_le_core_add_512_mul
   have hlower : (primorialMinimalWheelSystem k).lower ≤ x := by
     exact Nat.le_of_lt hlowerStrict
   have hupper : x ≤ (primorialMinimalWheelSystem k).upper := by
-    simpa using hupperBlock
+    simpa using! hupperBlock
   have herr := norm_sq_primorialHighConductorReindexError_le_256_mul
     k x R U hk hR hlower hupper hscale
   calc
@@ -417,7 +408,7 @@ theorem norm_sq_primorialHighConductorWithZeroSector_le_core_add_512_mul
           2 * ‖primorialHighConductorReindexError k x R‖ ^ 2 := hgram
     _ ≤ 2 * ‖primorialHighCollapsedCore k x R‖ ^ 2 +
           2 * (256 * (U : ℝ)) := by
-      exact add_le_add_left (mul_le_mul_of_nonneg_left herr (by positivity)) _
+      exact add_le_add_right (mul_le_mul_of_nonneg_left herr (by positivity)) _
     _ = 2 * ‖primorialHighCollapsedCore k x R‖ ^ 2 +
           512 * (U : ℝ) := by ring
 

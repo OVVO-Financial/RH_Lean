@@ -133,7 +133,7 @@ theorem canonicalTotalPrefix_eq_squarePrefixMertens (n : ℕ) :
       rw [RHLean.Analysis.squarePrefixEndpoint_add_one]
       have hle : (n + 1) ^ 2 ≤ (n + 2) ^ 2 := by
         exact Nat.pow_le_pow_left (by omega) 2
-      simpa [canonicalMoebiusWeight, Nat.add_assoc] using
+      simpa [canonicalMoebiusWeight, Nat.add_assoc] using!
         (Finset.sum_range_add_sum_Ico
           (fun m : ℕ => canonicalMoebiusWeight m) hle)
 

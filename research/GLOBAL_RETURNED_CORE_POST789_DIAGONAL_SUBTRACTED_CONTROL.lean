@@ -268,7 +268,7 @@ theorem finalStokesQ2EnergyBound_of_returnedCoreThreeHalves
           (7 / 6 : ℝ) * ‖lowOwnerReturnedAmplitudeCore R‖ ^ 2 +
             7 * ‖frozenTopFarRoughRootCorrection R‖ ^ 2 := by
       rw [hAmpRepr]
-      simpa [sub_eq_add_neg] using hYoung
+      simpa [sub_eq_add_neg] using! hYoung
     have hR2 : 0 ≤ (R : ℝ) ^ 2 := sq_nonneg _
     nlinarith
   have hdiag0 : 0 ≤ lowOwnerZeroFrequencyMobiusDiagonal R := by
@@ -383,7 +383,7 @@ theorem correlationFour_of_finalStokesQ2EnergyBound
   have hFull :
       CanonicalRoughCorrelationQ2EnergyStatementWith
         (1 / 2 + 2 * B) C0 := by
-    simpa [C0] using correlationLowQ2Energy_implies_full hCoeff0 hLow
+    simpa [C0] using! correlationLowQ2Energy_implies_full hCoeff0 hLow
   have hC0 : 0 ≤ C0 := by
     dsimp [C0]
     nlinarith
@@ -402,7 +402,7 @@ theorem correlationFour_of_finalStokesQ2EnergyBound
       (1 / 2 + 2 * B) * farFourOddQ2DaughterEnergy R ≤
         4 * farFourOddQ2DaughterEnergy R :=
     mul_le_mul_of_nonneg_right hCoeff hE
-  exact h.trans (add_le_add_right hMono _)
+  exact h.trans (add_le_add_left hMono _)
 
 /-- A `7/4` signed-cell q^2 assembly bound is already sufficient for RH. -/
 theorem riemannHypothesis_of_signedCellQ2EnergyAssemblyBound
@@ -564,7 +564,7 @@ theorem correlationFour_of_post789SignedRemainderBound
     correlationLowQ2Energy_of_post789SignedRemainderBound hRem
   have hFull :
       CanonicalRoughCorrelationQ2EnergyStatementWith (2 * A + 1) C0 := by
-    simpa [C0] using correlationLowQ2Energy_implies_full hCoeff0 hLow
+    simpa [C0] using! correlationLowQ2Energy_implies_full hCoeff0 hLow
   have hC0 : 0 ≤ C0 := by
     dsimp [C0]
     nlinarith
@@ -583,7 +583,7 @@ theorem correlationFour_of_post789SignedRemainderBound
       (2 * A + 1) * farFourOddQ2DaughterEnergy R ≤
         4 * farFourOddQ2DaughterEnergy R :=
     mul_le_mul_of_nonneg_right hCoeff hE
-  exact h.trans (add_le_add_right hMono _)
+  exact h.trans (add_le_add_left hMono _)
 
 /-- In the relaxed corridor the post-#789 signed remainder already implies RH.
 No complete cancellation of the recursive q^2 daughter energy is required. -/

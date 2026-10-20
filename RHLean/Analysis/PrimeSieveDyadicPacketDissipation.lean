@@ -74,12 +74,12 @@ theorem primeSieveDyadicPacketIntervalLevelEnergy_nonneg
   induction level generalizing a b with
   | zero =>
       by_cases hsplit : a + 1 < b
-      · simp only [primeSieveDyadicPacketIntervalLevelEnergy, hsplit, if_true]
+      · simp only [primeSieveDyadicPacketIntervalLevelEnergy, hsplit, ite_true]
         positivity
       · simp [primeSieveDyadicPacketIntervalLevelEnergy, hsplit]
   | succ level ih =>
       by_cases hsplit : a + 1 < b
-      · simp only [primeSieveDyadicPacketIntervalLevelEnergy, hsplit, if_true]
+      · simp only [primeSieveDyadicPacketIntervalLevelEnergy, hsplit, ite_true]
         exact add_nonneg (ih a (dyadicPacketMidpoint a b))
           (ih (dyadicPacketMidpoint a b) b)
       · simp [primeSieveDyadicPacketIntervalLevelEnergy, hsplit]
@@ -103,9 +103,9 @@ theorem primeSieveDyadicPacketIntervalTreeEnergy_succ_sub_eq_levelEnergy
       rw [primeSieveDyadicPacketIntervalTreeEnergy_succ,
         primeSieveDyadicPacketIntervalTreeEnergy_succ]
       by_cases hsplit : a + 1 < b
-      · simp only [hsplit, if_true]
+      · simp only [hsplit, ite_true]
         rw [primeSieveDyadicPacketIntervalLevelEnergy]
-        simp only [hsplit, if_true]
+        simp only [hsplit, ite_true]
         rw [← ih a (dyadicPacketMidpoint a b),
           ← ih (dyadicPacketMidpoint a b) b]
         ring
@@ -128,7 +128,7 @@ theorem primeSieveDyadicPacketLevelEnergy_eq_sum_intervalLevelEnergy
   apply Finset.sum_congr rfl
   intro j _hj
   by_cases hJ : J < j
-  · simp only [hJ, if_true]
+  · simp only [hJ, ite_true]
     have hmin : min J j = J := min_eq_left hJ.le
     have hminSucc : min (J + 1) j = J + 1 := min_eq_left (by omega)
     rw [hmin, hminSucc]
@@ -136,7 +136,7 @@ theorem primeSieveDyadicPacketLevelEnergy_eq_sum_intervalLevelEnergy
     exact primeSieveDyadicPacketIntervalTreeEnergy_succ_sub_eq_levelEnergy
       y x J (primeSieveDyadicBlockLeft j)
         (primeSieveDyadicBlockRight y x j + 1)
-  · simp only [hJ, if_false]
+  · simp only [hJ, ite_false]
     have hjJ : j ≤ J := Nat.le_of_not_gt hJ
     have hmin : min J j = j := min_eq_right hjJ
     have hminSucc : min (J + 1) j = j := min_eq_right (by omega)
@@ -157,7 +157,7 @@ theorem primeSieveDyadicPacketShallowEnergy_nonneg
     y x (r := 0) (s := min J j)
       (a := primeSieveDyadicBlockLeft j)
       (b := primeSieveDyadicBlockRight y x j + 1) (Nat.zero_le _)
-  simpa using hmono
+  simpa using! hmono
 
 /-- Advancing the common cutoff by one adds exactly the deleted level energy to
 the shallow side.  Together with #326 this gives the two exact identities
@@ -254,7 +254,7 @@ theorem dyadicPacketShallowEnergyBlockBounded_of_succ
   have hmono := primeSieveDyadicPacketShallowEnergy_le_succ
     (primorialPNTPrimeSieveCutoff k) x (cutoff k x)
   have hs := hSb k x hk hlow hup
-  simpa [dyadicPacketSuccCutoff] using hmono.trans hs
+  simpa [dyadicPacketSuccCutoff] using! hmono.trans hs
 
 /-- A uniform positive level fraction converts a critical shallow estimate at
 `J+1` into a critical bound for the deep tail at `J`.  No iteration in tree
@@ -275,11 +275,11 @@ theorem dyadicPacketDeepTailBlockBounded_of_levelFraction
   have hs :
       primeSieveDyadicPacketShallowEnergy y x (J + 1) ≤
         CS * Real.rpow ((x : ℝ) + 1) (1 + ε) := by
-    simpa [y, J, dyadicPacketSuccCutoff] using hSb k x hk hlow hup
+    simpa [y, J, dyadicPacketSuccCutoff] using! hSb k x hk hlow hup
   have hfrac :
       κ * primeSieveDyadicPacketDeepEnergy y x J ≤
         primeSieveDyadicPacketLevelEnergy y x J := by
-    simpa [y, J] using hFrac k x hk hlow hup
+    simpa [y, J] using! hFrac k x hk hlow hup
   have hlevel := primeSieveDyadicPacketLevelEnergy_le_shallow_succ y x J
   have hκdeep :
       κ * primeSieveDyadicPacketDeepEnergy y x J ≤
@@ -289,7 +289,7 @@ theorem dyadicPacketDeepTailBlockBounded_of_levelFraction
       primeSieveDyadicPacketDeepEnergy y x J ≤
         primeSieveDyadicPacketShallowEnergy y x (J + 1) / κ := by
     apply (le_div_iff₀ hκ).2
-    simpa [mul_comm] using hκdeep
+    simpa [mul_comm] using! hκdeep
   calc
     primeSieveDyadicPacketDeepEnergy y x J ≤
         primeSieveDyadicPacketShallowEnergy y x (J + 1) / κ := hdeep
@@ -318,12 +318,12 @@ theorem dyadicPacketDeepTailBlockBounded_of_reverseCarleson
   have hs :
       primeSieveDyadicPacketShallowEnergy y x (J + 1) ≤
         CS * Real.rpow ((x : ℝ) + 1) (1 + ε / 2) := by
-    simpa [y, J, dyadicPacketSuccCutoff] using hSb k x hk hlow hup
+    simpa [y, J, dyadicPacketSuccCutoff] using! hSb k x hk hlow hup
   have hr :
       primeSieveDyadicPacketDeepEnergy y x J ≤
         CR * Real.rpow ((x : ℝ) + 1) (ε / 2) *
           primeSieveDyadicPacketLevelEnergy y x J := by
-    simpa [y, J] using hRb k x hk hlow hup
+    simpa [y, J] using! hRb k x hk hlow hup
   have hlevel := primeSieveDyadicPacketLevelEnergy_le_shallow_succ y x J
   have hbase : 0 < (x : ℝ) + 1 := by positivity
   have hfac0 :

@@ -46,7 +46,7 @@ theorem squareRootLowPrimeRunningImbalanceReal_step_eq_freshIncrementReal
     (squareRootLowPrimeRunningImbalance_step_eq_freshIncrement
       R K j p hp)
   simpa [squareRootLowPrimeRunningImbalanceReal,
-    squareRootLowPrimeFreshIncrementReal] using h
+    squareRootLowPrimeFreshIncrementReal] using! h
 
 theorem squareRootLowPrimeRunningEnergyReal_step
     (R K j p : ℕ) (hp : p.Prime) :
@@ -79,12 +79,12 @@ theorem squareRootLowPrimeFreshIncrementReal_sum_eq_neg_ownedResponseChildrenMas
   have h := congrArg Complex.re
     (squareRootLowPrimeFreshIncrement_sum_eq_neg_ownedResponseChildrenMass
       (R := R) (K := K) (j := j) (U := U) hR hUR)
-  simpa [squareRootLowPrimeFreshIncrementReal] using h
+  simpa [squareRootLowPrimeFreshIncrementReal] using! h
 
 private theorem abs_re_sub_le_norm_sub (z w : ℂ) :
     |z.re - w.re| ≤ ‖z - w‖ := by
   have h := Complex.abs_re_le_norm (z - w)
-  simpa using h
+  simpa using! h
 
 theorem squareRootLowPrimeRunningImbalanceReal_sub_canonicalCore_abs_le_root
     (R K j : ℕ) (hR : 16 ≤ R) (hK : 1 ≤ K) (hKR : K < R)
@@ -122,9 +122,9 @@ theorem squareRootLowPrimeRunningImbalanceReal_abs_le_canonicalCore_add_root
       |squareRootLowPrimeRunningImbalanceReal R K j
         (squareRootBornPostTailLowPrimeCutoff R) -
         squareRootLowPrimeCanonicalTerminalCoreReal R K j| +
-        |squareRootLowPrimeCanonicalTerminalCoreReal R K j| := abs_add _ _
+        |squareRootLowPrimeCanonicalTerminalCoreReal R K j| := abs_add_le _ _
     _ ≤ (R : ℝ) + |squareRootLowPrimeCanonicalTerminalCoreReal R K j| :=
-      add_le_add_right hdiff _
+      add_le_add_left hdiff _
     _ = |squareRootLowPrimeCanonicalTerminalCoreReal R K j| + (R : ℝ) := by ring
 
 theorem squareRootLowPrimeRunningImbalanceReal_abs_le_of_canonicalCore
@@ -136,7 +136,7 @@ theorem squareRootLowPrimeRunningImbalanceReal_abs_le_of_canonicalCore
         (squareRootBornPostTailLowPrimeCutoff R)| ≤ B + (R : ℝ) := by
   exact
     (squareRootLowPrimeRunningImbalanceReal_abs_le_canonicalCore_add_root
-      R K j hR hK hKR hj).trans (add_le_add_right hcore _)
+      R K j hR hK hKR hj).trans (add_le_add_left hcore _)
 
 theorem squareRootLowPrimeRunningImbalanceReal_sq_le_of_canonicalCore
     (R K j : ℕ) (B : ℝ)
@@ -210,10 +210,10 @@ theorem squareRootLowPrimeRunningImbalanceReal_abs_le_farSurvivorCore_add_bounda
       |squareRootLowPrimeRunningImbalanceReal R K j
         (squareRootBornPostTailLowPrimeCutoff R) -
         squareRootLowPrimeFarSurvivorTerminalCoreReal R| +
-        |squareRootLowPrimeFarSurvivorTerminalCoreReal R| := abs_add _ _
+        |squareRootLowPrimeFarSurvivorTerminalCoreReal R| := abs_add_le _ _
     _ ≤ (8 * (R : ℝ) + (K : ℝ)) +
         |squareRootLowPrimeFarSurvivorTerminalCoreReal R| :=
-      add_le_add_right hdiff _
+      add_le_add_left hdiff _
     _ = |squareRootLowPrimeFarSurvivorTerminalCoreReal R| +
         (8 * (R : ℝ) + (K : ℝ)) := by ring
 

@@ -122,7 +122,7 @@ theorem finiteDifferenceOperator_primeWheelRecovery
           primeWheelRawPositivePrefix S y -
             2 * primeWheelSmoothPositivePrefix S upper y) x =
       shift d moebiusPositivePrefix x by
-        simpa [shift] using hprefix]
+        simpa [shift] using! hprefix]
 
 /-- The positive-prefix convention agrees with the repository's standard
 Möbius prefix because the zero Möbius value contributes nothing. -/

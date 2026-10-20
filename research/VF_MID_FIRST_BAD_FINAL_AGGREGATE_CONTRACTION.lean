@@ -401,7 +401,7 @@ theorem vfMidFirstBadAnchoredCoDivExcess_le_activeResidual_add_threeBoundary
       vfMidActiveGlobalResidualExcess R +
         2 * vfMidActiveThreeBoundaryMass R := by
   rw [vfMidFirstBadAnchoredCoDivExcess_eq_activeResidual_add_weightedCells hR]
-  exact add_le_add_left
+  exact add_le_add_right
     (sum_vfMidActiveWeightedCellExcess_le_two_threeBoundaryMass hR)
     (vfMidActiveGlobalResidualExcess R)
 
@@ -615,7 +615,7 @@ theorem descendingGreatestOwner_retained_pointwiseCoDivExcess_pair_eq_heat
       hp hcross coefficient
   dsimp only at hflip ⊢
   rw [hflip, abs_neg]
-  simpa only [add_comm] using
+  simpa only [add_comm] using!
     (vfMidPointwiseCoDivExcess_add_neg
       (coefficient ^ 2 *
         postRootZeroTargetPairExcess
@@ -672,13 +672,13 @@ theorem vfMidActiveReturnedPairWeight_eq_physical
     vfMidActivePhysicalPair_eq_scaledDirichletPolarizationAtom
       hR hp haBase hbChild
   have hdiv : (p * c) / p = c := by
-    simpa [Nat.mul_comm] using Nat.mul_div_left c hp.pos
+    simpa [Nat.mul_comm] using! Nat.mul_div_left c hp.pos
   rw [hdiv] at hphys
   have hmem :
       (a, c) ∈ vfMidActiveReturnedPairCarrier R p sig := by
     exact Finset.mem_product.mpr ⟨haClip, hcAdm⟩
   unfold vfMidActiveReturnedPairWeight
-  rw [if_pos hmem]
+  rw [ite_eq_left hmem]
   exact hphys.symm
 
 /-- Exact child-to-returned-parent reindexing for the full pointwise Co/Div
@@ -710,8 +710,7 @@ theorem vfMidActiveWeightedCellExcess_eq_returnedCoDivExcess
       _ = d := Nat.mul_div_cancel' hdDvd
   · intro d hd
     refine ⟨p * d, lowOwnerFirstOwner_mul_mem_child_of_admitted hp hd, ?_⟩
-    change (p * d) / p = d
-    simpa [Nat.mul_comm] using Nat.mul_div_left d hp.pos
+    simpa [Nat.mul_comm] using! Nat.mul_div_left d hp.pos
   · intro b hb
     have hcAdm :=
       lowOwnerFirstOwner_div_mem_admitted_of_child hp hb

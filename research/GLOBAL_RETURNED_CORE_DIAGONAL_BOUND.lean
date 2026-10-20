@@ -60,7 +60,7 @@ theorem lowOwnerReciprocalDaughterWeight_sq_le_quarter_activeCount
       (∑ q ∈ S, ((1 : ℝ) / (q : ℝ)) ^ 2) ≤ 1 / 4 := by
     change (∑ q ∈ canonicalRoughLowQ2Owners R,
       ((1 : ℝ) / (q : ℝ)) ^ 2) ≤ 1 / 4
-    simpa [div_pow] using lowOwnerReciprocalSquareBudget_le_quarter R
+    simpa [div_pow] using! lowOwnerReciprocalSquareBudget_le_quarter R
   have hb0 : 0 ≤ ∑ q ∈ S, b q := by
     apply Finset.sum_nonneg
     intro q _hq
@@ -206,7 +206,7 @@ theorem lowOwnerZeroFrequencyMobiusDiagonal_le_three_endpoint (R : ℕ) :
           lowOwnerZeroFrequencyMobiusWeight R n ^ 2 := by
       have h := mul_le_mul_of_nonneg_left hmu
         (sq_nonneg (lowOwnerZeroFrequencyMobiusWeight R n))
-      simpa using h
+      simpa using! h
     exact hprod.trans hweight
   have htail :
       (∑ n ∈ Finset.Icc 1 X, lowOwnerFarTailWeight R n ^ 2) ≤ (X : ℝ) := by
