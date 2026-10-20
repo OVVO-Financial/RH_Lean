@@ -82,14 +82,12 @@ theorem vf919ExactSiteLedger_mass_eq_actualMuPrefix (n : ℕ) :
 /-- Exact finite full prefix certificate. Every 1<=n<=317 contributes its
     *actual* Mobius sign and its complete pairs with all earlier integers.
     Here M=-4, diagonal=194, signed pair=-89. -/
-set_option maxRecDepth 16384 in
 theorem vf919ExactSiteLedger_317 :
     vf919ExactSiteLedger 317 = ((-4 : ℤ), 194, -89) := by
   native_decide
 
 /-- Same, without selecting only the high-prime/Eisenstein sector:
     every 1<=n<=1027 is admitted. M=-3, diagonal=625, signed pair=-308. -/
-set_option maxRecDepth 16384 in
 theorem vf919ExactSiteLedger_1027 :
     vf919ExactSiteLedger 1027 = ((-3 : ℤ), 625, -308) := by
   native_decide
