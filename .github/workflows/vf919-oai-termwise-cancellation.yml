@@ -30,6 +30,13 @@ jobs:
             exit 1
           fi
       - uses: ./.github/actions/lean-setup
+      - name: Fast warning-fatal compile of source-compatible algebra and literal Mobius coefficient
+        uses: ./.github/actions/research-compile
+        with:
+          build-library: 'false'
+          targets: >-
+            research/VF_919_OAI_EXACT_MARKED_RESCALED_LOCAL_20261019.lean
+            research/VF_919_OAI_INTEGER_MOBIUS_HECKE_TWO_LEGS_20261019.lean
       - name: Apply pinned StrongPNT Lean 4.24 compatibility patches
         shell: bash
         run: |
