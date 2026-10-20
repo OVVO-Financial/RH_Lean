@@ -209,3 +209,21 @@ patch("Analysis/FunctionalSpaces/Sobolev/Euclidean/L2Compactness/Transfer.lean",
     ("        simpa [Pi.sub_apply] using hsub.trans (hu.sub hv)", "        filter_upwards [hsub.trans (hu.sub hv)] with x hx\n        simpa only [Pi.sub_apply] using hx"),
     ("        simpa [s] using", "        simpa [s, Kψ] using", 2),
 ])
+
+# Lean 4.34.1: preserve the actual MemLp source measurability rather than
+# demanding separability of the arbitrary inner-product target E.
+# Also unfold function composition in the product-measure Tonelli witness.
+patch("Analysis/FunctionalSpaces/Sobolev/Euclidean/TranslationEstimateL2.lean", [
+    (
+        "    have hgrad : AEStronglyMeasurable\n"
+        "        (fun x : E => grad (E := E) f.1 x) μ :=\n"
+        "      (continuous_grad (E := E) (f := f.1) f.2.1).aestronglyMeasurable",
+        "    have hgrad : AEStronglyMeasurable\n"
+        "        (fun x : E => grad (E := E) f.1 x) μ :=\n"
+        "      (memLp_grad_of_mem_C1c (μ := μ) (E := E) f.2).aestronglyMeasurable",
+    ),
+    (
+        "        simpa [F] using (hpow.comp hbase).aemeasurable",
+        "        simpa only [F, Function.comp_def] using (hpow.comp hbase).aemeasurable",
+    ),
+])
