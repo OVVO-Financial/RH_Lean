@@ -119,7 +119,7 @@ patch("Analysis/FunctionalSpaces/Sobolev/Euclidean/Translation.lean", [
     ),
     (
         "simp [grad]\n"
-        "  -- Reduce to the standard \`fderiv\` translation lemma.\n"
+        "  -- Reduce to the standard `fderiv` translation lemma.\n"
         "  simpa [translate] using (fderiv_comp_add_right (𝕜 := ℝ) (f := f) (x := x) a)",
         "change (InnerProductSpace.toDual ℝ E).symm\n"
         "    (fderiv ℝ (fun y : E => f (y + a)) x) =\n"
