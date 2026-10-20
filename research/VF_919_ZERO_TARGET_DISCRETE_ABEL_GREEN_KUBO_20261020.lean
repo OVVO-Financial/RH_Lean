@@ -181,8 +181,12 @@ private theorem vf919_square_prefix_as_increments
   | base => simp
   | succ b hb ih =>
       simp only [Finset.sum_Ico_succ_top hb]
-      rw [ih]
-      ring
+      calc
+        ((∑ n ∈ Finset.Ico a b, f n) + f b) ^ 2 =
+            (∑ n ∈ Finset.Ico a b, f n) ^ 2 +
+              (f b) ^ 2 + 2 * f b * (∑ n ∈ Finset.Ico a b, f n) := by
+                ring
+        _ = _ := by rw [ih]; ring
 
 /-- Theorem 2a: exact signed weighted Green--Kubo equality for the
     original physical finite prefix and every pair in the exterior. -/
@@ -226,7 +230,7 @@ theorem vf919ExteriorAbelEnergy_eq_diagonal_add_covariance
     _ = vf919ExteriorDiagonal X B f H +
           2 * vf919ExteriorPositiveLag X B f H := by
           unfold vf919ExteriorDiagonal vf919ExteriorPositiveLag
-          rw [vf919_Ioo_eq_Ico_succ, vf919_Ioo_eq_Ico_succ]
+          rw [vf919_Ioo_eq_Ico_succ]
           calc
             (∑ n ∈ Finset.Ico (X + 1) B, g n * H n) =
               (∑ n ∈ Finset.Ico (X + 1) B, (f n) ^ 2 * H n) +
@@ -264,11 +268,17 @@ theorem vf919ExteriorSpill_sq_le_AbelEnergy
     apply Finset.sum_sq_le_sum_mul_sum_of_sq_le_mul s
       (fun n hn => hnu n hn)
       (fun n hn => mul_nonneg (hnu n hn) (sq_nonneg _))
-      (fun n hn => by dsimp; ring)
+      (fun n hn => by ring)
   have htotal : (∑ n ∈ s, nu n) = H (X + 1) :=
     vf919ExteriorAbelWeight_mass X B hXB H hB
-  change (∑ n ∈ s, nu n * D n) ^ 2 ≤
+  have hsum_swap :
+      (∑ n ∈ s, D n * nu n) = (∑ n ∈ s, nu n * D n) := by
+    apply Finset.sum_congr rfl
+    intro n hn
+    ring
+  change (∑ n ∈ s, D n * nu n) ^ 2 ≤
     ∑ n ∈ s, nu n * (D n) ^ 2
+  rw [hsum_swap]
   calc
     (∑ n ∈ s, nu n * D n) ^ 2 ≤
         (∑ n ∈ s, nu n) *
