@@ -3,48 +3,36 @@ import Mathlib
 /-!
 # Path 2: actual parent-child reindexing and a fixed logarithmic dipole
 
-These are source identities, NOT a seven-eighths estimate. There is no
-import of an OpenAI nonvanishing theorem, no Mertens converse, and no
-assumed moment or power-bound hypothesis.
+Source identities only, NOT a seven-eighths estimate. No OpenAI final
+nonvanishing theorem, Mertens converse, or moment bound is an input.
 
-Unlike multiplying an unchanged sharp site by a local Euler identity,
-`marked_norm_source` changes the summation index from parents b to children
-p*b and changes the scale to Y/N(p). It uses the genuine UFD Moebius
-function, so it specializes to actual Eisenstein ideals, without assigning
-new signs or identifying different ideals having the same norm.
-
-The logarithmic antiderivative construction needs no arbitrary positive
-majorant: for W(u)=F(u)-F(c*u), its dipole is exactly
-  -(u * W'(u)) = (c*u)*F'(c*u) - u*F'(u).
-Both components are dilations of the SAME density. The cofactor FTC
-identity below similarly puts all k,t dependence into the scale.
+The marked theorem changes the summation index b -> p*b and the scale
+Y -> Y/N(p), using the genuine UFD Moebius function on distinct labels.
+For W(u)=F(u)-F(c*u), the positive-channel candidate densities are exact
+dilations of the SAME function u*F'(u), not nonsmooth positive parts.
 -/
 
 noncomputable section
-open scoped Classical BigOperators
+open scoped Classical BigOperators ContDiff
 open MeasureTheory
-
 namespace RHLean.Analysis.VF919Path2
 
-/-- One fixed signed profile; the arithmetic scale is a separate argument. -/
 def logDipole (W : ℝ → ℝ) (u : ℝ) : ℝ := -u * deriv W u
-
 def logDensity (F : ℝ → ℝ) (u : ℝ) : ℝ := u * deriv F u
 
-/-- For the #990 logarithmic window the two channels are dilations of one
-nonnegative density, not nonsmooth positive and negative parts. -/
 theorem logDipole_antiderivative_window
     (F : ℝ → ℝ) (hF : Differentiable ℝ F) (c u : ℝ) :
     logDipole (fun v => F v - F (c * v)) u =
       logDensity F (c * u) - logDensity F u := by
   have hd := (hF u).hasDerivAt.sub
     ((hF (c * u)).hasDerivAt.comp u ((hasDerivAt_id u).const_mul c))
+  have hd' : HasDerivAt (fun v => F v - F (c * v))
+      (deriv F u - deriv F (c * u) * c) u := by
+    simpa only [Function.comp_def, Pi.sub_apply, mul_one] using hd
   unfold logDipole logDensity
-  rw [hd.deriv]
+  rw [hd'.deriv]
   ring
 
-/-- The two density channels are individually in [0,1] with one fixed
-normalizing constant. No cancellation estimate is a premise. -/
 theorem density_channels_bounds (eta : ℝ → ℝ) (C c : ℝ)
     (hC : 0 < C) (hEta : ∀ v, 0 ≤ eta v ∧ eta v ≤ C) (u : ℝ) :
     (0 ≤ eta (c * u) / C ∧ eta (c * u) / C ≤ 1) ∧
@@ -55,13 +43,11 @@ theorem density_channels_bounds (eta : ℝ → ℝ) (C c : ℝ)
   · exact div_nonneg (hEta _).1 hC.le
   · exact (div_le_one hC).mpr (hEta _).2
 
-/-- Recover the signed density without changing its absolute scale. -/
 theorem density_channels_reconstruct (eta : ℝ → ℝ) (C c u : ℝ)
     (hC : C ≠ 0) :
     C * (eta (c * u) / C - eta u / C) = eta (c * u) - eta u := by
   field_simp
 
-/-- The positive profiles are smooth without taking max(.,0). -/
 theorem density_channels_smooth (eta : ℝ → ℝ)
     (hEta : ContDiff ℝ ∞ eta) (C c : ℝ) :
     ContDiff ℝ ∞ (fun u => eta (c * u) / C) ∧
@@ -69,8 +55,6 @@ theorem density_channels_smooth (eta : ℝ → ℝ)
   exact ⟨(hEta.comp (contDiff_const.mul contDiff_id)).div_const C,
     hEta.div_const C⟩
 
-/-- The #990 density support (5/4,8/5) makes BOTH profiles admissible in
-(1,2), using c=4/5. All constants and support margins are fixed. -/
 theorem density_channels_support (eta : ℝ → ℝ)
     (hEta : Function.support eta ⊆ Set.Ioo ((5 : ℝ) / 4) ((8 : ℝ) / 5))
     (C : ℝ) :
@@ -90,8 +74,8 @@ theorem density_channels_support (eta : ℝ → ℝ)
     have hh := hEta he
     constructor <;> linarith [hh.1, hh.2]
 
-/-- Actual FTC dipole, including k=0. The SAME profile logDipole W
-is used for all q>0; the variable t enters the scale, not its derivatives. -/
+/-- Exact FTC; all q,t dependence is in the scale, never in derivatives
+of a family of sharper and sharper profiles. Includes the q=1 dipole. -/
 theorem fixed_profile_dipole (W : ℝ → ℝ) (hW : Differentiable ℝ W)
     (hWd : Continuous (deriv W)) (q z : ℝ) (hq : 0 < q) :
     W (q * z) - W ((q + 1) * z) =
@@ -104,7 +88,7 @@ theorem fixed_profile_dipole (W : ℝ → ℝ) (hW : Differentiable ℝ W)
   have hpoint (t : ℝ) (ht : t ∈ Set.uIcc (0 : ℝ) 1) :
       (q + t)⁻¹ * logDipole W ((q + t) * z) =
         -z * deriv W (q * z + t * z) := by
-    have ht0 : 0 ≤ t := (Set.uIcc_of_le zero_le_one ▸ ht).1
+    have ht0 : 0 ≤ t := (Set.uIcc_of_le (α := ℝ) zero_le_one ▸ ht).1
     have hqt : q + t ≠ 0 := ne_of_gt (by linarith)
     have he : (q + t) * z = q * z + t * z := by ring
     unfold logDipole
@@ -119,8 +103,6 @@ theorem fixed_profile_dipole (W : ℝ → ℝ) (hW : Differentiable ℝ W)
   rw [he] at hftc
   linarith
 
-/-- The cofactor substitution at physical norm m and external scale P.
-No small-scale or k=0 term is discarded. -/
 theorem fixed_profile_cofactor_dipole
     (W : ℝ → ℝ) (hW : Differentiable ℝ W) (hWd : Continuous (deriv W))
     (P m : ℝ) (q : ℝ) (hq : 0 < q) :
@@ -130,23 +112,44 @@ theorem fixed_profile_cofactor_dipole
   rw [fixed_profile_dipole W hW hWd q (m / P) hq]
   apply intervalIntegral.integral_congr
   intro t _
-  congr 2
-  simp only [div_eq_mul_inv, mul_inv_rev, inv_inv]
-  ring
+  have he : (q + t) * (m / P) = m / (P / (q + t)) := by
+    simp only [div_eq_mul_inv, mul_inv_rev, inv_inv]
+    ring
+  rw [he]
+
+/-- Every cofactor pair and EVERY original label remains present. This
+is finite, so no unproved exchange of infinite sums is being invoked. -/
+theorem finite_labelled_cofactor_transport {A : Type*}
+    (s : Finset A) (coeff : A → ℝ) (N : A → ℝ) (K : ℕ)
+    (W : ℝ → ℝ) (hW : Differentiable ℝ W) (hWd : Continuous (deriv W)) (P : ℝ) :
+    (∑ a ∈ s, coeff a * ∑ k ∈ Finset.range K,
+      (W ((3 * (k : ℝ) + 1) * (N a / P)) -
+        W ((3 * (k : ℝ) + 2) * (N a / P)))) =
+    ∑ a ∈ s, coeff a * ∑ k ∈ Finset.range K,
+      ∫ t : ℝ in 0..1, (3 * (k : ℝ) + 1 + t)⁻¹ *
+        logDipole W (N a / (P / (3 * (k : ℝ) + 1 + t))) := by
+  apply Finset.sum_congr rfl
+  intro a _
+  congr 1
+  apply Finset.sum_congr rfl
+  intro k _
+  have hq : 0 < 3 * (k : ℝ) + 1 := by positivity
+  have h := fixed_profile_cofactor_dipole W hW hWd P (N a)
+    (3 * (k : ℝ) + 1) hq
+  have he : (3 * (k : ℝ) + 1) + 1 = 3 * (k : ℝ) + 2 := by ring
+  simpa only [he] using h
 
 section ActualMoebius
 variable {A : Type*} [CommMonoidWithZero A] [UniqueFactorizationMonoid A]
 
-/-- Genuine Moebius coefficients on labelled objects, never norm-collapsed. -/
 def normSource (N : A →* ℕ) (s : Finset A) (W : ℝ → ℂ) (Y : ℝ) : ℂ :=
   ∑ a ∈ s, (UniqueFactorizationMonoid.moebius a : ℂ) * W ((N a : ℝ) / Y)
 
-/-- Reindex a complete finite set of parent labels to p*b. The injection
-is explicit so no two labelled children are merged by a norm projection. -/
+/-- Complete finite parent-to-child reindexing. Equal norms NEVER merge
+labels. This uses actual UFD Moebius signs, not a postulated sign rule. -/
 theorem marked_norm_source (N : A →* ℕ) (s : Finset A) (p : A)
     (hp : Prime p) (hinj : Function.Injective (fun b : A => p * b))
-    (hcop : ∀ b ∈ s, IsRelPrime p b)
-    (W : ℝ → ℂ) (Y : ℝ) :
+    (hcop : ∀ b ∈ s, IsRelPrime p b) (W : ℝ → ℂ) (Y : ℝ) :
     normSource N (s.image (fun b => p * b)) W Y =
       -normSource N s W (Y / (N p : ℝ)) := by
   unfold normSource
@@ -161,6 +164,19 @@ theorem marked_norm_source (N : A →* ℕ) (s : Finset A) (p : A)
   rw [he]
   ring
 
+/-- A dilation of a fixed density is the SAME source at a new scale,
+not the difference of two independently normalized nonlinear probes. -/
+theorem density_dilation_same_source (N : A →* ℕ) (s : Finset A)
+    (eta : ℝ → ℂ) (c Y : ℝ) :
+    normSource N s (fun u => eta (c * u)) Y = normSource N s eta (Y / c) := by
+  unfold normSource
+  apply Finset.sum_congr rfl
+  intro a _
+  have he : c * ((N a : ℝ) / Y) = (N a : ℝ) / (Y / c) := by
+    simp only [div_eq_mul_inv, mul_inv_rev, inv_inv]
+    ring
+  rw [he]
+
 end ActualMoebius
 
 #print axioms logDipole_antiderivative_window
@@ -170,6 +186,7 @@ end ActualMoebius
 #print axioms density_channels_support
 #print axioms fixed_profile_dipole
 #print axioms fixed_profile_cofactor_dipole
+#print axioms finite_labelled_cofactor_transport
 #print axioms marked_norm_source
-
+#print axioms density_dilation_same_source
 end RHLean.Analysis.VF919Path2
