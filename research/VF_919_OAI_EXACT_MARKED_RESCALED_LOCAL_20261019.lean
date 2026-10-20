@@ -238,7 +238,7 @@ theorem vf919OAI_zero_extended_mask
   have hP' : (1 - V) * vf919OAIlocalP V 0 0 E =
       1 + (1 - V) * E := by
     simpa using hP
-  simp only [sub_zero, mul_zero, zero_mul, one_mul, mul_one, div_one] at *
+  simp only [sub_zero, mul_zero, mul_one, div_one] at *
   rw [hP']
   ring
 
