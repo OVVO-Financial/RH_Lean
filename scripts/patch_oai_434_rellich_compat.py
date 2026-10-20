@@ -282,7 +282,7 @@ patch("Analysis/FunctionalSpaces/Sobolev/Euclidean/Rellich.lean", [
     ),
     (
         "      exact (mem_closedBall_zero_iff.mp hx)",
-        "      simpa only [Metric.mem_closedBall, dist_eq_norm, sub_zero] using hx",
+        "      simpa only [mem_closedBall_zero_iff] using hx",
         2,
     ),
 ])
