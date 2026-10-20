@@ -131,7 +131,7 @@ def vf919OAIGoodSelectedPhysicalSum
     phase and the original source weight at EVERY label. -/
 def vf919OAIGoodReturnedPhysicalSum
     (R : ℕ) (labels : Finset VF919OAIPhysicalIdealLabel)
-    (etaInv Qx Qw v V E eta : VF919OAIPhysicalIdealLabel → ℂ) : ℂ :=
+    (_etaInv Qx Qw v V E eta : VF919OAIPhysicalIdealLabel → ℂ) : ℂ :=
   ∑ i ∈ labels,
     vf919OAIOriginalIdealLabeledSeat R i * (v i)⁻¹ *
       vf919OAIlocalH
@@ -220,7 +220,7 @@ theorem vf919OAI_original_native_seat_full_mixed_gram
       ‖vf919OAIGoodSelectedPhysicalSum R labels etaInv Qx Qw v V E eta‖ ^ 2 +
       ‖vf919OAIGoodReturnedPhysicalSum R labels etaInv Qx Qw v V E eta‖ ^ 2 +
       2 * (vf919OAIGoodSelectedPhysicalSum R labels etaInv Qx Qw v V E eta *
-        star (vf919OAIGoodReturnedPhysicalSum R labels etaInv Qx Qw v V E eta)).re := by
+        (starRingEnd ℂ) (vf919OAIGoodReturnedPhysicalSum R labels etaInv Qx Qw v V E eta)).re := by
   rw [← vf919OAI_original_native_seat_term_by_term R labels
     etaInv Qx Qw v V E eta hEta hv hQx hV hW hD]
   simpa only [Complex.sq_norm] using
@@ -238,7 +238,7 @@ and genuine distinct ideal labels remain on BOTH terms. -/
     raw meromorphic factor. No division by an ill-defined local P. -/
 def vf919OAIContinuedReturnedPhysicalSum
     (R : ℕ) (labels : Finset VF919OAIPhysicalIdealLabel)
-    (etaInv Qx Qw v V E eta : VF919OAIPhysicalIdealLabel → ℂ) : ℂ :=
+    (_etaInv Qx Qw v V E eta : VF919OAIPhysicalIdealLabel → ℂ) : ℂ :=
   ∑ i ∈ labels,
     vf919OAIOriginalIdealLabeledSeat R i * (v i)⁻¹ *
       vf919OAIcontinuedH (V i) (v i * Qw i)
@@ -305,7 +305,7 @@ theorem vf919OAI_original_native_continued_full_gram
       ‖vf919OAIGoodSelectedPhysicalSum R labels etaInv Qx Qw v V E eta‖ ^ 2 +
       ‖vf919OAIContinuedReturnedPhysicalSum R labels etaInv Qx Qw v V E eta‖ ^ 2 +
       2 * (vf919OAIGoodSelectedPhysicalSum R labels etaInv Qx Qw v V E eta *
-        star (vf919OAIContinuedReturnedPhysicalSum R labels etaInv Qx Qw v V E eta)).re := by
+        (starRingEnd ℂ) (vf919OAIContinuedReturnedPhysicalSum R labels etaInv Qx Qw v V E eta)).re := by
   rw [← vf919OAI_original_native_continued_term_by_term R labels
     etaInv Qx Qw v V E eta hEta hv hQx hV hD]
   simpa only [Complex.sq_norm] using
