@@ -71,6 +71,7 @@ jobs:
           #check RHLean.Analysis.vf919OAI_actualMobius_Hecke_two_legs_at_site
           #check RHLean.Analysis.vf919OAI_actualMobius_Hecke_two_legs_all_sites
           #check RHLean.Analysis.vf919OAI_actualMobius_full_mixed_mark_rescale_gram
+          #check RHLean.Analysis.vf919OAI_x317_split_labels_same_original_weight
           #check RHLean.Analysis.vf919OAI_x317_split_ideal_labels_distinct
           #check RHLean.Analysis.vf919OAI_x317_both_actual_sextic_residues
           #check RHLean.Analysis.vf919OAI_original_native_continued_term_by_term
@@ -100,6 +101,7 @@ jobs:
           #print axioms RHLean.Analysis.vf919OAI_actualMobius_Hecke_two_legs_at_site
           #print axioms RHLean.Analysis.vf919OAI_actualMobius_Hecke_two_legs_all_sites
           #print axioms RHLean.Analysis.vf919OAI_actualMobius_full_mixed_mark_rescale_gram
+          #print axioms RHLean.Analysis.vf919OAI_x317_split_labels_same_original_weight
           #print axioms RHLean.Analysis.vf919OAI_x317_split_ideal_labels_distinct
           #print axioms RHLean.Analysis.vf919OAI_x317_both_actual_sextic_residues
           #print axioms RHLean.Analysis.vf919OAI_original_native_continued_term_by_term
