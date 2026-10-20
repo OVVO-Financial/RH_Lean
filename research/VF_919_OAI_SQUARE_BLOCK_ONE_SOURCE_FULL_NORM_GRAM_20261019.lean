@@ -59,7 +59,8 @@ theorem vf919OAIExactSquareNormSource_eq_originalSquareShell
   have hle :
       vf919OAIlowSquareEndpoint R ≤ vf919OAIhighSquareEndpoint R := by
     unfold vf919OAIlowSquareEndpoint vf919OAIhighSquareEndpoint
-    nlinarith
+    have hsquare : R ^ 2 ≤ (R + 1) ^ 2 := by nlinarith
+    omega
   have hsubset :
       Finset.Icc 1 (vf919OAIlowSquareEndpoint R) ⊆
         Finset.Icc 1 (vf919OAIhighSquareEndpoint R) := by
