@@ -258,3 +258,31 @@ patch("Analysis/FunctionalSpaces/Sobolev/Euclidean/TranslationEstimateH1.lean", 
         "      exact continuous_const.mul hnorm",
     ),
 ])
+
+
+# Lean 4.34.1: Rellich compactness closes via the SAME local normed inclusion.
+# The old implicit mem_closedBall_zero_iff application has an unconstrained
+# metavariable; rewrite the actual hypothesis instead. The CLM norm is the
+# operator norm by the pinned Mathlib NormedSpace instance, so express the
+# local bookkeeping constant with its kernel-definitional norm.
+patch("Analysis/FunctionalSpaces/Sobolev/Euclidean/Rellich.lean", [
+    (
+        "  let C : ℝ :=\n"
+        "    (h1ToL2 (μ := (volume : Measure E)) (E := E)).opNorm",
+        "  let C : ℝ :=\n"
+        "    ‖h1ToL2 (μ := (volume : Measure E)) (E := E)‖",
+    ),
+    (
+        "  have hCnonneg : 0 ≤ C := by\n"
+        "    dsimp [C]\n"
+        "    exact (h1ToL2 (μ := (volume : Measure E)) (E := E)).opNorm_nonneg",
+        "  have hCnonneg : 0 ≤ C := by\n"
+        "    dsimp [C]\n"
+        "    exact norm_nonneg _",
+    ),
+    (
+        "      exact (mem_closedBall_zero_iff.mp hx)",
+        "      simpa only [mem_closedBall_zero_iff] using hx",
+        2,
+    ),
+])
