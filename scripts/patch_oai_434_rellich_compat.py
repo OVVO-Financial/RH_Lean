@@ -18,10 +18,13 @@ ROOT = Path("oai-upstream/lean/.lake/packages/rellich-kondrachov/RellichKondrach
 def patch(rel, changes):
     path = ROOT / rel
     text = path.read_text()
-    for old, new in changes:
+    for change in changes:
+        old, new = change[:2]
+        expected_count = change[2] if len(change) == 3 else 1
         count = text.count(old)
-        if count != 1:
-            raise RuntimeError(f"{path}: expected once, found {count}: {old!r}")
+        if count != expected_count:
+            raise RuntimeError(
+                f"{path}: expected {expected_count} occurrence(s), found {count}: {old!r}")
         text = text.replace(old, new)
     path.write_text(text)
     print(f"Lean 4.34 pointwise compatibility: {path} ({len(changes)} rewrites)")
@@ -144,7 +147,8 @@ patch("Analysis/FunctionalSpaces/Sobolev/Euclidean/Translation.lean", [
         "        (Measure.QuasiMeasurePreserving.ae_eq_comp\n"
         "          (MeasureTheory.measurePreserving_add_right μ a).quasiMeasurePreserving hf)\n"
         "      filter_upwards [h] with x hx\n"
-        "      exact hx"
+        "      exact hx",
+        2
     ),
     (
         "simpa [translateC1c, translate] using\n"
