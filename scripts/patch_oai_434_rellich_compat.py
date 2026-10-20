@@ -98,3 +98,73 @@ patch("Analysis/FunctionalSpaces/Sobolev/Euclidean/L2Compactness/Kernels.lean", 
         "    exact HasCompactSupport.smul_left (f := fun _x : E => I⁻¹) (f' := f) hf_cs"
     )
 ])
+
+
+# The downstream translation and compactness files use exactly the same
+# pointwise eta convention. Make the actual term at each x explicit rather
+# than relying on Lean 4.34's simplifier to normalize function wrappers.
+patch("Analysis/FunctionalSpaces/Sobolev/Euclidean/Translation.lean", [
+    (
+        "simpa [translate] using hf.comp (contDiff_id.add contDiff_const)",
+        "change ContDiff ℝ 1 (fun x : E => f (x + a))\n"
+        "  exact hf.comp (contDiff_id.add contDiff_const)"
+    ),
+    (
+        "simpa [translate] using hf.comp_homeomorph (Homeomorph.addRight a)",
+        "change HasCompactSupport (f ∘ fun x : E => x + a)\n"
+        "  exact hf.comp_homeomorph (Homeomorph.addRight a)"
+    ),
+    (
+        "simp [grad]\n"
+        "  -- Reduce to the standard \`fderiv\` translation lemma.\n"
+        "  simpa [translate] using (fderiv_comp_add_right (𝕜 := ℝ) (f := f) (x := x) a)",
+        "change (InnerProductSpace.toDual ℝ E).symm\n"
+        "    (fderiv ℝ (fun y : E => f (y + a)) x) =\n"
+        "      (InnerProductSpace.toDual ℝ E).symm (fderiv ℝ f (x + a))\n"
+        "  exact congrArg\n"
+        "    (fun v : E →L[ℝ] ℝ => (InnerProductSpace.toDual ℝ E).symm v)\n"
+        "    (fderiv_comp_add_right (𝕜 := ℝ) (f := f) (x := x) a)"
+    ),
+    (
+        "simpa [translateL2] using\n"
+        "    (MeasureTheory.Lp.coeFn_compMeasurePreserving (g := (g : MeasureTheory.Lp F (2 : ENNReal) μ))\n"
+        "      (hf := MeasureTheory.measurePreserving_add_right μ a))",
+        "have h :=\n"
+        "    (MeasureTheory.Lp.coeFn_compMeasurePreserving\n"
+        "      (g := (g : MeasureTheory.Lp F (2 : ENNReal) μ))\n"
+        "      (hf := MeasureTheory.measurePreserving_add_right μ a))\n"
+        "  filter_upwards [h] with x hx\n"
+        "  exact hx"
+    ),
+    (
+        "simpa [Function.comp, Pi.add_apply] using\n"
+        "        (Measure.QuasiMeasurePreserving.ae_eq_comp\n"
+        "          (MeasureTheory.measurePreserving_add_right μ a).quasiMeasurePreserving hf)",
+        "have h :=\n"
+        "        (Measure.QuasiMeasurePreserving.ae_eq_comp\n"
+        "          (MeasureTheory.measurePreserving_add_right μ a).quasiMeasurePreserving hf)\n"
+        "      filter_upwards [h] with x hx\n"
+        "      exact hx"
+    ),
+    (
+        "simpa [translateC1c, translate] using\n"
+        "      (memLp_of_mem_C1c (μ := μ) (E := E) (translateC1c (E := E) a f).2).coeFn_toLp",
+        "have h :=\n"
+        "      (memLp_of_mem_C1c (μ := μ) (E := E)\n"
+        "        (translateC1c (E := E) a f).2).coeFn_toLp\n"
+        "    filter_upwards [h] with x hx\n"
+        "    exact hx"
+    ),
+    (
+        "simpa [translate] using grad_translate (E := E) a f.1 x",
+        "exact grad_translate (E := E) a f.1 x"
+    )
+])
+
+patch("Analysis/FunctionalSpaces/Sobolev/Euclidean/L2Compactness/Compactness.lean", [
+    (
+        "simpa using this.comp continuous_subtype_val",
+        "change Continuous ((smoothFun (E := E) (K := K) ψ u) ∘ Subtype.val)\n"
+        "    exact this.comp continuous_subtype_val"
+    )
+])
