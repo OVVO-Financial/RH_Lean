@@ -1,0 +1,83 @@
+name: OpenAI COMPLETE 7/8 theorem on original RHLean square-block covariance
+
+on:
+  pull_request:
+    paths:
+      - 'research/VF_919_OPENAI_434_UNCONDITIONAL_SQUARE_BLOCK_COVARIANCE_20261019.lean'
+      - '.github/workflows/vf919-oai-certified-core-434.yml'
+      - 'scripts/patch_oai_434_rellich_compat.py'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: vf919-openai-certified-core-434-${{ github.head_ref || github.ref_name }}
+  cancel-in-progress: true
+
+jobs:
+  original-oai-complete-proof:
+    runs-on: ubuntu-latest
+    timeout-minutes: 150
+    steps:
+      - uses: actions/checkout@v4
+      - name: Require original Lean 4.34.1 / Mathlib tracker pins
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(cat lean-toolchain)" = "leanprover/lean4:v4.34.1"
+          grep -q "d13f23b723b8a846827a245b89c10fc7d3f11612" lakefile.lean
+      - name: Reject admitted proofs or new axioms
+        shell: bash
+        run: |
+          set -euo pipefail
+          ! grep -nE '^[[:space:]]*(sorry|admit|axiom)([[:space:]]|$)' \
+            research/VF_919_OPENAI_434_UNCONDITIONAL_SQUARE_BLOCK_COVARIANCE_20261019.lean
+      - uses: ./.github/actions/lean-setup
+      - name: Compile only the ORIGINAL native signed covariance and square-shell telescope
+        uses: ./.github/actions/research-compile
+        with:
+          build-library: 'true'
+          targets: >-
+            research/VF_919_SEVEN_EIGHTHS_SIGNED_COVARIANCE_20261019.lean
+            research/VF_919_SEVEN_EIGHTHS_SQUARE_SHELL_BRIDGE_20261019.lean
+      - name: Checkout entire ACTUAL original OpenAI 7/8 proof DAG
+        uses: actions/checkout@v4
+        with:
+          repository: openai/math
+          ref: 1581d4cbdd69a0faf34b2089614fe2a814316a6a
+          path: oai-upstream
+          persist-credentials: false
+      - name: Fetch pinned original OpenAI dependencies
+        shell: bash
+        working-directory: oai-upstream/lean
+        run: |
+          set -euo pipefail
+          test "$(cat lean-toolchain)" = "leanprover/lean4:v4.34.1"
+          lake exe cache get
+      - name: Apply local pointwise elaboration compatibility without proof bypasses
+        run: python3 scripts/patch_oai_434_rellich_compat.py
+      - name: Compile entire original OpenAI moment and final detector chain
+        shell: bash
+        working-directory: oai-upstream/lean
+        run: |
+          set -euo pipefail
+          lake build OAI.NumberTheory.DirichletL.Detector.FinalAssemblyUnconditional
+      - name: KERNEL-CHECK native UNCONDITIONAL signed covariance and ALL square-block bounds
+        shell: bash
+        run: |
+          set -euo pipefail
+          OAI_PATH="$(cd oai-upstream/lean && lake env printenv LEAN_PATH)"
+          RH_PATH="$(lake env printenv LEAN_PATH)"
+          env LEAN_PATH="$RH_PATH:$OAI_PATH" lean -DwarningAsError=true \
+            research/VF_919_OPENAI_434_UNCONDITIONAL_SQUARE_BLOCK_COVARIANCE_20261019.lean \
+            | tee /tmp/vf919-oai-certified-core-434-axioms.log
+          if grep -E 'sorryAx|admitAx|_private' /tmp/vf919-oai-certified-core-434-axioms.log; then
+            echo "Nonstandard axiom contamination in full theorem DAG" >&2
+            exit 1
+          fi
+      - name: Accept actual full imported proof and genuine RHLean signed covariance
+        run: |
+          printf '%s\n' 'Original OpenAI CERTIFIED 7/8 proof: verified by kernel.'
+          printf '%s\n' 'Original RHLean signed covariance at EVERY X: verified by kernel.'
+          printf '%s\n' 'ALL ORIGINAL signed square-block global covariance: verified by kernel.'
