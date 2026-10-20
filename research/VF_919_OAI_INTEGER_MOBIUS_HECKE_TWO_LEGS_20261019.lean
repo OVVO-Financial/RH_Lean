@@ -72,7 +72,7 @@ theorem vf919OAI_actualMobius_full_mixed_mark_rescale_gram
       ‖∑ n ∈ ns, vf919RationalMobius n * marked n‖ ^ 2 +
       ‖∑ n ∈ ns, vf919RationalMobius n * rescaled n‖ ^ 2 -
       2 * ((∑ n ∈ ns, vf919RationalMobius n * marked n) *
-        (starRingEnd ℂ) (∑ n ∈ ns, vf919RationalMobius n * rescaled n)).re := by
+        star (∑ n ∈ ns, vf919RationalMobius n * rescaled n)).re := by
   have hsource :
       (∑ n ∈ ns, vf919RationalMobius n *
         (marked n - rescaled n)) =
@@ -83,7 +83,7 @@ theorem vf919OAI_actualMobius_full_mixed_mark_rescale_gram
     intro n _
     ring
   rw [hsource]
-  simpa only [Complex.sq_norm] using
+  simpa [Complex.sq_norm] using
     Complex.normSq_sub
       (∑ n ∈ ns, vf919RationalMobius n * marked n)
       (∑ n ∈ ns, vf919RationalMobius n * rescaled n)
