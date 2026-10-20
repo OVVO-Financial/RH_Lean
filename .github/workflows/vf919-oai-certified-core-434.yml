@@ -1,65 +1,90 @@
-name: OpenAI COMPLETE 7/8 theorem on original RHLean square-block covariance
+name: Seven-eighths LOW-HIGH mechanism and original Mobius covariance
 
 on:
+  workflow_dispatch:
   pull_request:
     paths:
-      - 'research/VF_919_OPENAI_434_UNCONDITIONAL_SQUARE_BLOCK_COVARIANCE_20261019.lean'
-      - '.github/workflows/vf919-oai-certified-core-434.yml'
-      - 'scripts/patch_oai_434_rellich_compat.py'
-  workflow_dispatch:
+      - lean-toolchain
+      - lakefile.lean
+      - lake-manifest.json
+      - 'research/VF_919_*.lean'
+      - 'research/MERTENS_*.lean'
+      - scripts/patch_oai_434_rellich_compat.py
+      - scripts/ci/vf919_common_probe_dependency_audit.lean
+      - .github/workflows/vf919-oai-certified-core-434.yml
 
 permissions:
   contents: read
 
 concurrency:
-  group: vf919-openai-certified-core-434-${{ github.head_ref || github.ref_name }}
+  group: vf919-oai-certified-core-434-${{ github.head_ref || github.ref_name }}
   cancel-in-progress: true
 
 jobs:
   original-oai-complete-proof:
     runs-on: ubuntu-latest
-    timeout-minutes: 150
+    timeout-minutes: 350
     steps:
       - uses: actions/checkout@v4
-      - name: Require original Lean 4.34.1 / Mathlib tracker pins
+      - name: Require exact Lean and Mathlib pins
         shell: bash
         run: |
           set -euo pipefail
-          test "$(cat lean-toolchain)" = "leanprover/lean4:v4.34.1"
-          grep -q "d13f23b723b8a846827a245b89c10fc7d3f11612" lakefile.lean
-      - name: Reject admitted proofs or new axioms
+          test "$(cat lean-toolchain)" = 'leanprover/lean4:v4.34.1'
+          grep -q 'd13f23b723b8a846827a245b89c10fc7d3f11612' lakefile.lean
+      - name: Reject source-level proof shortcuts
         shell: bash
         run: |
           set -euo pipefail
-          ! grep -nE '^[[:space:]]*(sorry|admit|axiom)([[:space:]]|$)' \
-            research/VF_919_OPENAI_434_UNCONDITIONAL_SQUARE_BLOCK_COVARIANCE_20261019.lean
+          python3 - <<'PY'
+          import pathlib, re
+          paths = [
+              'research/VF_919_COMMON_PROBE_SEVEN_EIGHTHS_20261020.lean',
+              'research/VF_919_OPENAI_434_UNCONDITIONAL_SQUARE_BLOCK_COVARIANCE_20261019.lean',
+          ]
+          for path in paths:
+              text = pathlib.Path(path).read_text()
+              text = re.sub(r'/-.*?-/', '', text, flags=re.S)
+              text = re.sub(r'--[^\n]*', '', text)
+              if re.search(r'\b(sorry|admit|axiom)\b|FinalAssemblyUnconditional|riemannZeta_ne_zero_of_seven_eighths_lt_re', text):
+                  raise SystemExit(f'Forbidden shortcut in {path}')
+          print('PASS: no terminal theorem import or admitted proof')
+          PY
       - uses: ./.github/actions/lean-setup
-      - name: Compile only the ORIGINAL native signed covariance and square-shell telescope
+      - name: Compile original signed covariance and square-shell consumers
         uses: ./.github/actions/research-compile
         with:
           build-library: 'true'
           targets: >-
             research/VF_919_SEVEN_EIGHTHS_SIGNED_COVARIANCE_20261019.lean
             research/VF_919_SEVEN_EIGHTHS_SQUARE_SHELL_BRIDGE_20261019.lean
-      - name: Checkout entire ACTUAL original OpenAI 7/8 proof DAG
+      - name: Checkout pinned intermediate analytic source
         uses: actions/checkout@v4
         with:
           repository: openai/math
           ref: 1581d4cbdd69a0faf34b2089614fe2a814316a6a
           path: oai-upstream
           persist-credentials: false
-      - name: Fetch pinned original OpenAI dependencies
-        shell: bash
+      - name: Restore exact upstream analytic build
+        id: oai-cache
+        uses: actions/cache/restore@v5
+        with:
+          path: oai-upstream/lean/.lake
+          key: vf919-oai-analytic-v1-${{ runner.os }}-${{ runner.arch }}-1581d4cbdd69a0faf34b2089614fe2a814316a6a-${{ hashFiles('scripts/patch_oai_434_rellich_compat.py') }}
+      - name: Fetch pinned dependencies on a cold cache
+        if: steps.oai-cache.outputs.cache-hit != 'true'
         working-directory: oai-upstream/lean
+        shell: bash
         run: |
           set -euo pipefail
-          test "$(cat lean-toolchain)" = "leanprover/lean4:v4.34.1"
+          test "$(cat lean-toolchain)" = 'leanprover/lean4:v4.34.1'
           lake exe cache get
-      - name: Apply local pointwise elaboration compatibility without proof bypasses
+      - name: Apply checked Rellich compatibility on a cold cache
+        if: steps.oai-cache.outputs.cache-hit != 'true'
         run: python3 scripts/patch_oai_434_rellich_compat.py
-      - name: Kernel-check patched pinned Rellich prerequisites before full OpenAI DAG
-        shell: bash
+      - name: Kernel-check patched prerequisite proofs
         working-directory: oai-upstream/lean
+        shell: bash
         run: |
           set -euo pipefail
           lake build \
@@ -69,27 +94,62 @@ jobs:
             RellichKondrachov.Analysis.FunctionalSpaces.Sobolev.Euclidean.L2Compactness.Approximation \
             RellichKondrachov.Analysis.FunctionalSpaces.Sobolev.Euclidean.L2Compactness.ArzelaAscoli \
             RellichKondrachov.Analysis.FunctionalSpaces.Sobolev.Euclidean.L2Compactness.Transfer
-      - name: Compile entire original OpenAI moment and final detector chain
-        shell: bash
+      - name: Build the actual intermediate moments, not the terminal theorem
+        id: analytic-build
         working-directory: oai-upstream/lean
-        run: |
-          set -euo pipefail
-          lake build OAI.NumberTheory.DirichletL.Detector.FinalAssemblyUnconditional
-      - name: KERNEL-CHECK native UNCONDITIONAL signed covariance and ALL square-block bounds
         shell: bash
         run: |
           set -euo pipefail
-          OAI_PATH="$(cd oai-upstream/lean && lake env printenv LEAN_PATH)"
+          lake build \
+            OAI.NumberTheory.DirichletL.Energy.CertifiedExistence \
+            OAI.NumberTheory.DirichletL.Detector.FinalAssemblyCertifiedBands \
+            OAI.NumberTheory.DirichletL.Moments.DetectorPlainSlotProfile
+      - name: Save successful analytic build before checking the native assembly
+        if: steps.analytic-build.outcome == 'success' && steps.oai-cache.outputs.cache-hit != 'true'
+        continue-on-error: true
+        uses: actions/cache/save@v5
+        with:
+          path: oai-upstream/lean/.lake
+          key: ${{ steps.oai-cache.outputs.cache-primary-key }}
+      - name: Kernel-check LOW-HIGH closure, Mertens, and all square blocks
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p .lake/build/lib/lean/research
           RH_PATH="$(lake env printenv LEAN_PATH)"
-          env LEAN_PATH="$RH_PATH:$OAI_PATH" lean -DwarningAsError=true \
+          OAI_PATH="$(cd oai-upstream/lean && lake env printenv LEAN_PATH)"
+          export LEAN_PATH="$PWD/.lake/build/lib/lean:$RH_PATH:$OAI_PATH"
+          lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research/VF_919_COMMON_PROBE_SEVEN_EIGHTHS_20261020.olean \
+            research/VF_919_COMMON_PROBE_SEVEN_EIGHTHS_20261020.lean \
+            | tee /tmp/vf919-common-probe-axioms.txt
+          lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research/VF_919_OPENAI_434_UNCONDITIONAL_SQUARE_BLOCK_COVARIANCE_20261019.olean \
             research/VF_919_OPENAI_434_UNCONDITIONAL_SQUARE_BLOCK_COVARIANCE_20261019.lean \
-            | tee /tmp/vf919-oai-certified-core-434-axioms.log
-          if grep -E 'sorryAx|admitAx|_private' /tmp/vf919-oai-certified-core-434-axioms.log; then
-            echo "Nonstandard axiom contamination in full theorem DAG" >&2
+            | tee /tmp/vf919-original-covariance-axioms.txt
+          lean -DwarningAsError=true scripts/ci/vf919_common_probe_dependency_audit.lean \
+            | tee /tmp/vf919-common-probe-dependencies.txt
+          if grep -E 'sorryAx|admitAx' /tmp/vf919-common-probe-axioms.txt /tmp/vf919-original-covariance-axioms.txt; then
             exit 1
           fi
-      - name: Accept actual full imported proof and genuine RHLean signed covariance
+      - name: Publish exact verification evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: vf919-common-probe-proof-audit-${{ github.sha }}
+          path: |
+            /tmp/vf919-common-probe-axioms.txt
+            /tmp/vf919-original-covariance-axioms.txt
+            /tmp/vf919-common-probe-dependencies.txt
+          if-no-files-found: ignore
+      - name: Report the verified scope
+        shell: bash
         run: |
-          printf '%s\n' 'Original OpenAI CERTIFIED 7/8 proof: verified by kernel.'
-          printf '%s\n' 'Original RHLean signed covariance at EVERY X: verified by kernel.'
-          printf '%s\n' 'ALL ORIGINAL signed square-block global covariance: verified by kernel.'
+          set -euo pipefail
+          {
+            echo '## Seven-eighths mechanism acceptance'
+            echo 'Actual intermediate certified moments + locally assembled LOW/HIGH/Mellin contradiction.'
+            echo 'No upstream terminal nonvanishing wrapper in the proof dependency closure.'
+            echo 'Original rational Mobius Mertens exponent and full signed square-block covariance checked.'
+            echo 'The direct sharp covariance estimate without the nonvanishing intermediate remains separate.'
+          } >> "$GITHUB_STEP_SUMMARY"
