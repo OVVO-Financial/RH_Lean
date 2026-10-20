@@ -172,3 +172,27 @@ patch("Analysis/FunctionalSpaces/Sobolev/Euclidean/L2Compactness/Compactness.lea
         "    exact this.comp continuous_subtype_val"
     )
 ])
+
+
+# Proof-preserving upgrades for the remaining pinned Rellich 4.34.1 DAG.
+# Each rewrite is checked against the exact original dependency text.
+# Keep all real functional-analytic proof obligations intact.
+patch("Analysis/FunctionalSpaces/Sobolev/Euclidean/TranslationEstimateL2.lean", [
+    ("        simpa [Function.comp, Pi.add_apply] using\n          (Measure.QuasiMeasurePreserving.ae_eq_comp\n            (MeasureTheory.measurePreserving_add_right μ a).quasiMeasurePreserving hf)", "        have h :=\n          (Measure.QuasiMeasurePreserving.ae_eq_comp\n            (MeasureTheory.measurePreserving_add_right μ a).quasiMeasurePreserving hf)\n        filter_upwards [h] with x hx\n        exact hx"),
+    ("    simp_rw [MeasureTheory.eLpNorm_eq_lintegral_rpow_enorm_toReal\n      h2_ne0 h2_netop, ENNReal.toReal_ofNat] at *", "    simp only [MeasureTheory.eLpNorm_eq_lintegral_rpow_enorm_toReal\n      h2_ne0 h2_netop, ENNReal.toReal_ofNat]"),
+])
+
+patch("Analysis/FunctionalSpaces/Sobolev/Euclidean/L2Compactness/Approximation.lean", [
+    ("local instance instIsProbabilityMeasure_kernelMeasure", "private lemma instIsProbabilityMeasure_kernelMeasure"),
+    ("    simpa [Function.comp] using (hmp.quasiMeasurePreserving.ae_eq_comp hF_ae)", "    have h := hmp.quasiMeasurePreserving.ae_eq_comp hF_ae\n    filter_upwards [h] with x hx\n    exact hx"),
+    ("      simpa using hdiff.pow_const 2", "      filter_upwards [hdiff] with x hx\n      exact congrArg (fun z : ℝ => z ^ 2) hx"),
+    ("    simpa [sub_eq_add_neg, add_comm, add_left_comm, add_assoc] using hadd.comp hneg", "    have hfun : (fun t : E => x - t) =\n        ((fun y : E => y + x) ∘ (Neg.neg : E → E)) := by\n      funext t\n      simp [Function.comp_def, sub_eq_add_neg, add_comm]\n    rw [hfun]\n    exact hadd.comp hneg"),
+    ("      simpa using hSF_ae.pow_const 2", "      filter_upwards [hSF_ae] with x hx\n      exact congrArg (fun z : ℝ => z ^ 2) hx"),
+    ("    simpa [Function.comp] using this", "    exact this", 2),
+    ("      simpa [Measure.map_fst_prod] using hf_mem.1", "      simpa [Measure.map_fst_prod] using hf_mem.aestronglyMeasurable"),
+    ("    simpa [h] using (hsub'.pow 2)", "    have heq : h = (fun z : E × E => f (z.1 - z.2) - f z.1) ^ (2 : ℕ) := by\n      funext z\n      simp only [h, Pi.pow_apply]\n    rw [heq]\n    exact hsub'.pow 2"),
+])
+
+patch("Analysis/FunctionalSpaces/Sobolev/Euclidean/L2Compactness/ArzelaAscoli.lean", [
+    ("            simpa [sub_eq_add_neg, add_assoc] using hxy", "            simpa only [dist_sub_right, Subtype.dist_eq] using hxy"),
+])
