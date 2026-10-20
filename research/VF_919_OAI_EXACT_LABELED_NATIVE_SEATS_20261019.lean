@@ -1,5 +1,6 @@
 import «research.VF_919_OAI_EXACT_MARKED_RESCALED_LOCAL_20261019»
 import «research.VF_919_NATIVE_SEXTIC_OWNER_PROJECTION_20261019»
+import «research.VF_919_NATIVE_FULL_MARKED_SPECTRUM_20261019»
 
 /-!
 # One physical occurrence at a time: OAI local compensation on native owner seats
@@ -86,6 +87,33 @@ theorem vf919OAI_x317_split_labels_same_original_weight (R : ℕ) :
       (19, (7, ((-2 : ℤ), (-3 : ℤ)))) =
     vf919OAIOriginalIdealLabeledSeat R
       (19, (11, ((-2 : ℤ), (-3 : ℤ)))) := rfl
+
+/-! ## Existing complete signed native prime-subset spectrum
+
+Instead of rebuilding the marked physical source, this instantiates the
+repository's ALREADY PROVED vf919NativeFullMarkedSpectrum_sourceIdentity
+on the ideal-labelled (p,root,a,b) carrier. Every physical S=A-T source
+weight is unchanged, every subset and mark/return sign retained, and
+split ideals of the same rational norm remain distinct prime labels. -/
+
+/-- Exact existing full subset theorem, now specialized to OAI's TRUE
+    prime-ideal LABEL type and rational absolute norm p. It is a source
+    equality, NOT a statement that theta-cubic coefficients equal mu_Z. -/
+theorem vf919OAI_existing_native_full_marked_spectrum
+    (R X : ℕ) (P A : Finset VF919OAIPhysicalIdealLabel)
+    (hA : A ⊆ P) (phase : VF919OAIPhysicalIdealLabel → ℂ) :
+    vf919FiniteIdealRow P (fun i => i.1) phase
+        (RHLean.Proof.vf919MarkedNativeSmoothSource R X) -
+      vf919FiniteIdealRow P (fun i => i.1) phase
+        (RHLean.Proof.vf919MarkedNativeHighSource R X) =
+      ∑ d ∈ A.powerset, vf919IdealLabelCoefficient phase d *
+        vf919SixthPowerMaskedRow P A (fun i => i.1) phase
+          (vf919NormDilatedWeight (fun i => i.1) d
+            (RHLean.Proof.vf919MarkedNativeSharpSource R X)) := by
+  exact RHLean.Proof.vf919NativeFullMarkedSpectrum_sourceIdentity
+    P A hA (fun i => i.1) phase R X
+
+#print axioms vf919OAI_existing_native_full_marked_spectrum
 
 /-- The actual selected Euler correction at an ideal label, multiplied
     by the original integer physical site weight. -/
