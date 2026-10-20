@@ -241,6 +241,56 @@ theorem rhlean_actual_ideal_sharp_block_ALL_norm_pairs
       rhlean_actual_ideal_sharp_block_term_by_term
         R U n (Finset.mem_Icc.mp hn).1]
 
+/-! ## STRICT physical within-shell covariance with both TRUE ideal fibers -/
+
+/-- Every original physical ordered pair R^2 <= m < n < (R+1)^2,
+    and BOTH complete genuine Eisenstein ideal-norm fibers, before
+    absolute-value bounds, norm aggregation or character averaging. -/
+def rhleanOAIActualIdealOrderedSquareCovariance (R : ℕ) : ℂ :=
+  ∑ n ∈ Finset.Ico (R ^ 2) ((R + 1) ^ 2),
+    ∑ m ∈ Finset.Ico (R ^ 2) n,
+      ∑ s ∈ Nat.divisorsAntidiagonal m,
+        ∑ t ∈ Nat.divisorsAntidiagonal n,
+          (chiMinusThree s.1 *
+            rhleanActualEisensteinIdealNormFiber s.2) *
+          (chiMinusThree t.1 *
+            rhleanActualEisensteinIdealNormFiber t.2)
+
+/-- The EXACT same pair, original strict square-block order and
+    cofactor weights, written in the RH_Lean μ*(χμ) coefficient. -/
+def rhleanOAIConstructedOrderedSquareCovariance (R : ℕ) : ℂ :=
+  ∑ n ∈ Finset.Ico (R ^ 2) ((R + 1) ^ 2),
+    ∑ m ∈ Finset.Ico (R ^ 2) n,
+      ∑ s ∈ Nat.divisorsAntidiagonal m,
+        ∑ t ∈ Nat.divisorsAntidiagonal n,
+          (chiMinusThree s.1 *
+            rhleanVf919ConstructedNormAF s.2) *
+          (chiMinusThree t.1 *
+            rhleanVf919ConstructedNormAF t.2)
+
+/-- True Eisenstein ideal norm fibers reconstruct EACH original
+    ordered covariance term at ALL R, not only 317 or 1027.
+    This theorem needs NO hypothesis hcoeff: the exact norm-fiber
+    identification is already proved upstream. -/
+theorem rhlean_actual_ideal_ordered_physical_square_pairs_eq_VF919
+    (R : ℕ) :
+    rhleanOAIActualIdealOrderedSquareCovariance R =
+      rhleanOAIConstructedOrderedSquareCovariance R := by
+  unfold rhleanOAIActualIdealOrderedSquareCovariance
+    rhleanOAIConstructedOrderedSquareCovariance
+  apply Finset.sum_congr rfl
+  intro n _
+  apply Finset.sum_congr rfl
+  intro m _
+  apply Finset.sum_congr rfl
+  intro s _
+  apply Finset.sum_congr rfl
+  intro t _
+  rw [congrFun rhlean_actual_ideal_all_coefficients_eq_VF919 s.2,
+    congrFun rhlean_actual_ideal_all_coefficients_eq_VF919 t.2]
+
+#print axioms rhlean_actual_ideal_ordered_physical_square_pairs_eq_VF919
+
 #print axioms rhlean_actual_ideal_all_coefficients_eq_VF919
 #print axioms rhlean_actual_ideal_exponential_source_eq_VF919
 #print axioms rhlean_actual_ideal_Mellin_eq_VF919_norm_LSeries
