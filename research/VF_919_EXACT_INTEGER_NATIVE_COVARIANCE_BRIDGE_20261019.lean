@@ -64,9 +64,18 @@ theorem vf919ExactNativeMertens_317 :
         realMertensPositiveLagPairSum 318 = -89 := by
   obtain ⟨hm, hk, hc⟩ := vf919ExactIntegerLedger_eq_nativeMertens 317
   refine ⟨?_, ?_, ?_⟩
-  · simpa [vf919ExactSiteLedger_317] using hm.symm
-  · simpa [vf919ExactSiteLedger_317] using hk.symm
-  · simpa [vf919ExactSiteLedger_317] using hc.symm
+  · have hh := hm.symm
+    rw [vf919ExactSiteLedger_317] at hh
+    norm_num at hh ⊢
+    exact hh
+  · have hh := hk.symm
+    rw [vf919ExactSiteLedger_317] at hh
+    norm_num at hh ⊢
+    exact hh
+  · have hh := hc.symm
+    rw [vf919ExactSiteLedger_317] at hh
+    norm_num at hh ⊢
+    exact hh
 
 /-- Exact native 1027: all physical sign reversals, not an ideal subrow. -/
 theorem vf919ExactNativeMertens_1027 :
@@ -75,22 +84,33 @@ theorem vf919ExactNativeMertens_1027 :
         realMertensPositiveLagPairSum 1028 = -308 := by
   obtain ⟨hm, hk, hc⟩ := vf919ExactIntegerLedger_eq_nativeMertens 1027
   refine ⟨?_, ?_, ?_⟩
-  · simpa [vf919ExactSiteLedger_1027] using hm.symm
-  · simpa [vf919ExactSiteLedger_1027] using hk.symm
-  · simpa [vf919ExactSiteLedger_1027] using hc.symm
+  · have hh := hm.symm
+    rw [vf919ExactSiteLedger_1027] at hh
+    norm_num at hh ⊢
+    exact hh
+  · have hh := hk.symm
+    rw [vf919ExactSiteLedger_1027] at hh
+    norm_num at hh ⊢
+    exact hh
+  · have hh := hc.symm
+    rw [vf919ExactSiteLedger_1027] at hh
+    norm_num at hh ⊢
+    exact hh
 
 /-- The same result in the repository's original COMPLEX Mertens function. -/
 theorem vf919ExactNativeMertensSummatory_317 :
     mertensSummatory 317 = (-4 : ℂ) := by
   have h := realMertensLength_cast_eq_mertensSummatory 317
   rw [vf919ExactNativeMertens_317.1] at h
-  simpa using h.symm
+  change (-4 : ℂ) = mertensSummatory 317 at h
+  exact h.symm
 
 theorem vf919ExactNativeMertensSummatory_1027 :
     mertensSummatory 1027 = (-3 : ℂ) := by
   have h := realMertensLength_cast_eq_mertensSummatory 1027
   rw [vf919ExactNativeMertens_1027.1] at h
-  simpa using h.symm
+  change (-3 : ℂ) = mertensSummatory 1027 at h
+  exact h.symm
 
 #print axioms vf919ExactIntegerLedger_eq_nativeMertens
 #print axioms vf919ExactNativeMertens_317
