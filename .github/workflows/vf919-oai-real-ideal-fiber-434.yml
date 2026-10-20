@@ -1,0 +1,66 @@
+name: Actual OpenAI Eisenstein ideal norm-fiber sharp-square bridge
+
+on:
+  pull_request:
+    paths:
+      - research/oai_434/RHLeanActualEisensteinIdealSharpSquareBlock.lean
+      - .github/workflows/vf919-oai-real-ideal-fiber-434.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: vf919-oai-real-ideal-${{ github.head_ref || github.ref_name }}
+  cancel-in-progress: true
+
+jobs:
+  exact-real-ideal-fiber:
+    runs-on: ubuntu-latest
+    timeout-minutes: 95
+    steps:
+      - name: Checkout RH_Lean source to be kernel checked
+        uses: actions/checkout@v4
+      - name: Checkout pinned ORIGINAL OpenAI Lean source
+        uses: actions/checkout@v4
+        with:
+          repository: openai/math
+          ref: 1581d4cbdd69a0faf34b2089614fe2a814316a6a
+          path: oai-upstream
+          persist-credentials: false
+      - name: Install Lean Elan
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl -fsSL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+      - name: Verify original OAI 4.34.1 toolchain
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(cat oai-upstream/lean/lean-toolchain)" = "leanprover/lean4:v4.34.1"
+          cd oai-upstream/lean
+          lake --version
+      - name: Fetch the pinned original OAI Mathlib cache
+        shell: bash
+        working-directory: oai-upstream/lean
+        run: |
+          set -euo pipefail
+          lake exe cache get
+      - name: Compile ORIGINAL proved norm-fiber theorem and all ideal semantics
+        shell: bash
+        working-directory: oai-upstream/lean
+        run: |
+          set -euo pipefail
+          lake build OAI.NumberTheory.DirichletL.Hecke.LocalEulerIdentities
+      - name: Compile actual-ideal sharp square-block termwise bridge
+        shell: bash
+        run: |
+          set -euo pipefail
+          cp research/oai_434/RHLeanActualEisensteinIdealSharpSquareBlock.lean \
+            oai-upstream/lean/RHLeanActualEisensteinIdealSharpSquareBlock.lean
+          cd oai-upstream/lean
+          lake env lean -DwarningAsError=true RHLeanActualEisensteinIdealSharpSquareBlock.lean | tee /tmp/oai-real-ideal-axioms.txt
+          if grep -E 'sorryAx|_private' /tmp/oai-real-ideal-axioms.txt; then
+            exit 1
+          fi
