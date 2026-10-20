@@ -268,7 +268,7 @@ theorem vf919ExteriorSpill_sq_le_AbelEnergy
     apply Finset.sum_sq_le_sum_mul_sum_of_sq_le_mul s
       (fun n hn => hnu n hn)
       (fun n hn => mul_nonneg (hnu n hn) (sq_nonneg _))
-      (fun n hn => by ring)
+      (fun n hn => by nlinarith)
   have htotal : (∑ n ∈ s, nu n) = H (X + 1) :=
     vf919ExteriorAbelWeight_mass X B hXB H hB
   have hsum_swap :
