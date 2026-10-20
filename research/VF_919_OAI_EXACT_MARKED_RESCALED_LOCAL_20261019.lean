@@ -151,6 +151,20 @@ theorem vf919OAImarkedMinusRescaled_numerator
           rw [hP]
     _ = _ := by ring
 
+/-- THE UNCANCELED SCALAR DEFECT, with every Euler/phase term visible.
+    This is the exact local obstruction BEFORE applying the two true OAI
+    character relations. It is not a zero-by-definition operation:
+      difference = (1-V)*(A*D*W - A*D - B + u).
+    Once AD=u and uW=B the defect is literally zero. -/
+theorem vf919OAIphase_exact_uncancelled_defect
+    (A B u V W D E : ℂ) :
+    ((A + u - B) * (1 - V) * (1 - W) * (E - D) +
+      (u - B) * (1 - V * W)) -
+    ((1 - W) * ((u - B) * (V - D * (1 - V)) +
+      (A + u - B) * (1 - V) * E)) =
+      (1 - V) * (A * D * W - A * D - B + u) := by
+  ring
+
 /-- OAI's scalar cancellation on the physically unramified phase.
     Every one of A, B, u, V, W, D and E is present. This is polynomial,
     with no nonzero assumption on P, H, or the main row. -/
@@ -460,6 +474,7 @@ theorem vf919OAI_exact_continued_good_character
 #print axioms vf919OAI_exact_from_preexisting_native_5_13b
 #print axioms vf919OAIlocalP_unrestricted_two_terms
 #print axioms vf919OAImarkedMinusRescaled_numerator
+#print axioms vf919OAIphase_exact_uncancelled_defect
 #print axioms vf919OAIphase_scalar_cancellation
 #print axioms vf919OAIlocalG_add_phaseH_numerator
 #print axioms vf919OAI_exact_local_compensation
