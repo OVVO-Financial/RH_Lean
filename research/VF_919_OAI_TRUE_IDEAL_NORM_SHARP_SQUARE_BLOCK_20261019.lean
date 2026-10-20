@@ -166,8 +166,10 @@ theorem vf919OAITrueSquareIdealNormSource_full_signed_covariance
       (vf919SquareShellDiagonal R : ℂ) +
         2 * (vf919SquareShellCovariance R : ℂ) := by
   rw [vf919OAITrueSquareIdealNormSource_eq_originalShell R hR]
-  have h := vf919SquareShell_signedGreenKubo R
-  exact (congrArg (fun x : ℝ => (x : ℂ)) h)
+  have h := congrArg (fun x : ℝ => (x : ℂ))
+    (vf919SquareShell_signedGreenKubo R)
+  push_cast at h
+  exact h
 
 #print axioms vf919OAITrueSquareMu_at_integer
 #print axioms vf919OAITrueSquareIdealNormSource_eq_originalShell
