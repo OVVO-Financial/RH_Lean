@@ -30,8 +30,11 @@ def patch(rel, changes):
 patch("Analysis/FunctionalSpaces/Sobolev/Euclidean/H1.lean", [
     (
         "simpa using (HasCompactSupport.smul_left (f := fun _ : E => c) hf.2)",
-        "simpa only [Pi.smul_apply, smul_eq_mul, Pi.mul_apply] using\n"
-        "      (HasCompactSupport.smul_left (f := fun _ : E => c) hf.2)"
+        "have heq : c • f = (fun _ : E => c) * f := by\n"
+        "      funext x\n"
+        "      simp only [Pi.smul_apply, Pi.mul_apply, smul_eq_mul]\n"
+        "    rw [heq]\n"
+        "    exact HasCompactSupport.smul_left (f := fun _ : E => c) hf.2"
     ),
     (
         "simpa [grad] using this",
@@ -64,23 +67,34 @@ patch("Analysis/FunctionalSpaces/Sobolev/Euclidean/H1.lean", [
 patch("MeasureTheory/Function/LpSpace/Restrict.lean", [
     (
         "simpa using (Lp.coeFn_add (μ := μ.restrict s) f g)",
-        "simpa only [Pi.add_apply] using (Lp.coeFn_add (μ := μ.restrict s) f g)"
+        "have h := Lp.coeFn_add (μ := μ.restrict s) f g\n"
+        "      filter_upwards [h] with x hx\n"
+        "      simpa only [Pi.add_apply] using hx"
     ),
     (
         "simpa using (Lp.coeFn_smul (μ := μ.restrict s) c f)",
-        "simpa only [Pi.smul_apply] using (Lp.coeFn_smul (μ := μ.restrict s) c f)"
+        "have h := Lp.coeFn_smul (μ := μ.restrict s) c f\n"
+        "      filter_upwards [h] with x hx\n"
+        "      simpa only [Pi.smul_apply] using hx"
     )
 ])
 
 patch("Analysis/FunctionalSpaces/Sobolev/Euclidean/L2Compactness/Kernels.lean", [
     (
         "simpa [ψ] using (continuous_const.mul hf_cont)",
-        "simpa only [ψ, Pi.mul_apply] using (continuous_const.mul hf_cont)"
+        "have heq : ψ = (fun _x : E => I⁻¹) * f := by\n"
+        "      funext x\n"
+        "      simp only [ψ, Pi.mul_apply]\n"
+        "    rw [heq]\n"
+        "    exact continuous_const.mul hf_cont"
     ),
     (
         "simpa [ψ, smul_eq_mul] using\n"
         "      (HasCompactSupport.smul_left (f := fun _x : E => I⁻¹) (f' := f) hf_cs)",
-        "simpa only [ψ, Pi.mul_apply, Pi.smul_apply, smul_eq_mul] using\n"
-        "      (HasCompactSupport.smul_left (f := fun _x : E => I⁻¹) (f' := f) hf_cs)"
+        "have heq : ψ = (fun _x : E => I⁻¹) * f := by\n"
+        "      funext x\n"
+        "      simp only [ψ, Pi.mul_apply]\n"
+        "    rw [heq]\n"
+        "    exact HasCompactSupport.smul_left (f := fun _x : E => I⁻¹) (f' := f) hf_cs"
     )
 ])
