@@ -196,3 +196,16 @@ patch("Analysis/FunctionalSpaces/Sobolev/Euclidean/L2Compactness/Approximation.l
 patch("Analysis/FunctionalSpaces/Sobolev/Euclidean/L2Compactness/ArzelaAscoli.lean", [
     ("            simpa [sub_eq_add_neg, add_assoc] using hxy", "            simpa only [dist_sub_right, Subtype.dist_eq] using hxy"),
 ])
+
+
+# Explicit AEMeasurable witnesses for the pinned L2 exponent rewrite;
+# function-valued subtraction and transparent Kpsi support transport.
+patch("Analysis/FunctionalSpaces/Sobolev/Euclidean/TranslationEstimateL2.lean", [
+    ("    simp only [MeasureTheory.eLpNorm_eq_lintegral_rpow_enorm_toReal\n      h2_ne0 h2_netop, ENNReal.toReal_ofNat]", "    have hfn : AEStronglyMeasurable\n        (fun x : E => f.1 (x + a) - f.1 x) μ := by\n      have hfcont : Continuous (f.1) := f.2.1.continuous\n      have hshift : Continuous (fun x : E => x + a) :=\n        continuous_id.add continuous_const\n      exact ((hfcont.comp hshift).sub hfcont).aestronglyMeasurable\n    have hgrad : AEStronglyMeasurable\n        (fun x : E => grad (E := E) f.1 x) μ :=\n      (continuous_grad (E := E) (f := f.1) f.2.1).aestronglyMeasurable\n    rw [MeasureTheory.eLpNorm_eq_lintegral_rpow_enorm_toReal\n        h2_ne0 h2_netop hfn,\n      MeasureTheory.eLpNorm_eq_lintegral_rpow_enorm_toReal\n        h2_ne0 h2_netop hgrad]\n    simp only [ENNReal.toReal_ofNat]"),
+])
+
+patch("Analysis/FunctionalSpaces/Sobolev/Euclidean/L2Compactness/Transfer.lean", [
+    ("          simpa [Pi.sub_apply] using hsub.trans (hu.sub hv)", "          filter_upwards [hsub.trans (hu.sub hv)] with x hx\n          simpa only [Pi.sub_apply] using hx"),
+    ("        simpa [Pi.sub_apply] using hsub.trans (hu.sub hv)", "        filter_upwards [hsub.trans (hu.sub hv)] with x hx\n        simpa only [Pi.sub_apply] using hx"),
+    ("        simpa [s] using", "        simpa [s, Kψ] using", 2),
+])
