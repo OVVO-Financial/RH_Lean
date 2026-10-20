@@ -5,6 +5,7 @@ on:
     paths:
       - research/oai_434/RHLeanActualEisensteinIdealSharpSquareBlock.lean
       - research/oai_434/RHLeanActualEisensteinCompensatedSharpSquareBlock.lean
+      - scripts/patch_oai_434_rellich_compat.py
       - .github/workflows/vf919-oai-real-ideal-fiber-434.yml
   workflow_dispatch:
 
@@ -48,13 +49,15 @@ jobs:
         run: |
           set -euo pipefail
           lake exe cache get
+      - name: Apply kernel-preserving Rellich function-eta compatibility fixes
+        shell: bash
+        run: python3 scripts/patch_oai_434_rellich_compat.py
       - name: Compile ORIGINAL proved norm-fiber theorem and all ideal semantics
         shell: bash
         working-directory: oai-upstream/lean
         run: |
           set -euo pipefail
           lake build OAI.NumberTheory.DirichletL.Hecke.LocalEulerIdentities
-          lake build OAI.NumberTheory.DirichletL.Detector.CompensationActual
       - name: Compile actual-ideal sharp square-block termwise bridge
         shell: bash
         run: |
@@ -66,6 +69,12 @@ jobs:
           if grep -E 'sorryAx|_private' /tmp/oai-real-ideal-axioms.txt; then
             exit 1
           fi
+      - name: Compile actual ORIGINAL OpenAI physical compensation
+        shell: bash
+        working-directory: oai-upstream/lean
+        run: |
+          set -euo pipefail
+          lake build OAI.NumberTheory.DirichletL.Detector.CompensationActual
       - name: Compile actual ideal and prime-ideal marked-rescaled sharp source
         shell: bash
         run: |
