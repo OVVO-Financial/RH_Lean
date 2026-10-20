@@ -35,13 +35,44 @@ open scoped BigOperators
 namespace RHLean.Analysis
 
 /-- Ideal label with the exact Eisenstein coordinate of its cofactor. -/
-abbrev VF919OAIPhysicalIdealLabel := ℕ × (ℤ × ℤ)
+abbrev VF919OAIPhysicalIdealLabel := ℕ × (ℕ × (ℤ × ℤ))
+
+/-- The second index is the SPLIT PRIME-IDEAL ROOT r (mod p), not an
+    integer owner or a second rational prime. Distinct roots r,r' yield
+    distinct phase labels even at identical rational n = p*N(a+b*omega). -/
+def vf919OAIlabelSexticResidue
+    (i : VF919OAIPhysicalIdealLabel) : ZMod i.1 :=
+  vf919SplitSexticResidue i.1 (i.2.1 : ZMod i.1) i.2.2.1 i.2.2.2
+
+/-- At x=317 the SAME p=19 and SAME Eisenstein cofactor alpha are
+    present as two different split-prime-ideal labels: their phases
+    must be kept separately, before projecting to integer n=133. -/
+theorem vf919OAI_x317_split_ideal_labels_distinct :
+    ((19, (7, ((-2 : ℤ), (-3 : ℤ)))) :
+       VF919OAIPhysicalIdealLabel) ≠
+      ((19, (11, ((-2 : ℤ), (-3 : ℤ)))) :
+       VF919OAIPhysicalIdealLabel) := by
+  decide
+
+/-- Genuine finite-field sextic character residues for the above two
+    distinct p=19 prime-ideal roots, reused from the native 317 proof. -/
+theorem vf919OAI_x317_both_actual_sextic_residues :
+    vf919OAIlabelSexticResidue
+      (19, (7, ((-2 : ℤ), (-3 : ℤ)))) =
+        (1 + (7 : ZMod 19)) ^ 5 ∧
+    vf919OAIlabelSexticResidue
+      (19, (11, ((-2 : ℤ), (-3 : ℤ)))) =
+        (1 + (11 : ZMod 19)) ^ 5 := by
+  simpa [vf919OAIlabelSexticResidue] using
+    (vf919Sextic_x317_exactFourIdealPhases).1
+
+
 
 /-- The physical integer Möbius owner charge: no artificial sign or
     norm-only character replaces RH_Lean's literal source occurrence. -/
 def vf919OAIOriginalIdealLabeledSeat
     (R : ℕ) (i : VF919OAIPhysicalIdealLabel) : ℂ :=
-  (RHLean.Proof.vf919SexticNativeAMPSite R i.1 i.2.1 i.2.2 : ℂ)
+  (RHLean.Proof.vf919SexticNativeAMPSite R i.1 i.2.2.1 i.2.2.2 : ℂ)
 
 /-- The actual selected Euler correction at an ideal label, multiplied
     by the original integer physical site weight. -/
@@ -244,6 +275,8 @@ theorem vf919OAI_original_native_continued_full_gram
 #print axioms vf919OAI_original_native_continued_term_by_term
 #print axioms vf919OAI_original_native_continued_full_gram
 
+#print axioms vf919OAI_x317_split_ideal_labels_distinct
+#print axioms vf919OAI_x317_both_actual_sextic_residues
 #print axioms vf919OAI_original_native_seat_term_by_term
 #print axioms vf919OAI_original_native_seat_full_mixed_gram
 
