@@ -6,6 +6,7 @@ on:
       - research/VF_919_OAI_EXACT_MARKED_RESCALED_LOCAL_20261019.lean
       - research/VF_919_OAI_EXACT_LABELED_NATIVE_SEATS_20261019.lean
       - research/VF_919_OAI_INTEGER_MOBIUS_HECKE_TWO_LEGS_20261019.lean
+      - research/VF_919_EXACT_INTEGER_BY_INTEGER_317_1027_20261019.lean
       - .github/workflows/vf919-oai-termwise-cancellation.yml
   workflow_dispatch:
 
@@ -26,7 +27,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          if grep -nE '^[[:space:]]*(sorry|admit|axiom)([[:space:]]|$)' research/VF_919_OAI_EXACT_MARKED_RESCALED_LOCAL_20261019.lean research/VF_919_OAI_EXACT_LABELED_NATIVE_SEATS_20261019.lean research/VF_919_OAI_INTEGER_MOBIUS_HECKE_TWO_LEGS_20261019.lean; then
+          if grep -nE '^[[:space:]]*(sorry|admit|axiom)([[:space:]]|$)' research/VF_919_OAI_EXACT_MARKED_RESCALED_LOCAL_20261019.lean research/VF_919_OAI_EXACT_LABELED_NATIVE_SEATS_20261019.lean research/VF_919_OAI_INTEGER_MOBIUS_HECKE_TWO_LEGS_20261019.lean research/VF_919_EXACT_INTEGER_BY_INTEGER_317_1027_20261019.lean; then
             exit 1
           fi
       - uses: ./.github/actions/lean-setup
@@ -37,6 +38,7 @@ jobs:
           targets: >-
             research/VF_919_OAI_EXACT_MARKED_RESCALED_LOCAL_20261019.lean
             research/VF_919_OAI_INTEGER_MOBIUS_HECKE_TWO_LEGS_20261019.lean
+            research/VF_919_EXACT_INTEGER_BY_INTEGER_317_1027_20261019.lean
       - name: Apply pinned StrongPNT Lean 4.24 compatibility patches
         shell: bash
         run: |
@@ -68,6 +70,13 @@ jobs:
           cat >/tmp/vf919_oai_termwise_acceptance.lean <<'LEAN'
           import «research.VF_919_OAI_EXACT_LABELED_NATIVE_SEATS_20261019»
           import «research.VF_919_OAI_INTEGER_MOBIUS_HECKE_TWO_LEGS_20261019»
+          import «research.VF_919_EXACT_INTEGER_BY_INTEGER_317_1027_20261019»
+          #check RHLean.Analysis.vf919ExactSiteLedger_greenKubo
+          #check RHLean.Analysis.vf919ExactSiteLedger_mass_eq_actualMuPrefix
+          #check RHLean.Analysis.vf919ExactSiteLedger_317
+          #check RHLean.Analysis.vf919ExactSiteLedger_1027
+          #check RHLean.Analysis.vf919ExactSiteLedger_317_1027_sevenEighths
+          #check RHLean.Analysis.vf919ExactSiteLedger_317_1027_covariance_payment
           #check RHLean.Analysis.vf919OAI_actualMobius_Hecke_two_legs_at_site
           #check RHLean.Analysis.vf919OAI_actualMobius_Hecke_two_legs_all_sites
           #check RHLean.Analysis.vf919OAI_actualMobius_full_mixed_mark_rescale_gram
@@ -99,6 +108,10 @@ jobs:
           #check RHLean.Analysis.vf919OAI_unit_character_phase_facts
           #check RHLean.Analysis.vf919OAI_exact_good_character_compensation
           #check RHLean.Analysis.vf919OAI_marked_rescaled_physical_pairing
+          #print axioms RHLean.Analysis.vf919ExactSiteLedger_greenKubo
+          #print axioms RHLean.Analysis.vf919ExactSiteLedger_317
+          #print axioms RHLean.Analysis.vf919ExactSiteLedger_1027
+          #print axioms RHLean.Analysis.vf919ExactSiteLedger_317_1027_sevenEighths
           #print axioms RHLean.Analysis.vf919OAI_actualMobius_Hecke_two_legs_at_site
           #print axioms RHLean.Analysis.vf919OAI_actualMobius_Hecke_two_legs_all_sites
           #print axioms RHLean.Analysis.vf919OAI_actualMobius_full_mixed_mark_rescale_gram
