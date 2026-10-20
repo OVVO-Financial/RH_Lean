@@ -156,7 +156,7 @@ theorem shellTrapezoidSaw_abs_le_radius
       _ = (((2 * T + 1 : ℕ) : ℝ)) * (T : ℝ) := by simp
   unfold shellTrapezoidSaw shellTrapezoidMean
   rw [abs_div, abs_of_pos hN]
-  exact (div_le_iff₀ hN).2 (by simpa [mul_comm] using hsum)
+  exact (div_le_iff₀ hN).2 (by simpa [mul_comm] using! hsum)
 
 theorem shellTrapezoidResidual_sq_le
     (P : ℤ → ℝ) (hLip : ShellTrapezoidUnitLipschitz P)
@@ -269,7 +269,7 @@ theorem shellTrapezoidSmoothedEnergy_le_sharp
     intro k hk
     ring
   rw [hneg] at h
-  simpa only [sub_eq_add_neg] using h
+  simpa only [sub_eq_add_neg] using! h
 
 /-- Exact quantitative equivalence in the useful form: any envelope `B H`
 which pays `H*(T H)^2` pays the sharp moment iff it pays the complete smoothed

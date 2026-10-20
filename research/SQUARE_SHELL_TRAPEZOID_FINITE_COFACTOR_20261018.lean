@@ -54,7 +54,7 @@ theorem shellTrapezoidPrimePi_Ioc
     (Nat.zero_le a) hab
   unfold shellTrapezoidPrimePi
   apply (eq_sub_iff_add_eq).2
-  simpa [add_comm] using hsum
+  simpa [add_comm] using! hsum
 
 /-- Integer division translates the strict lower and weak upper inequalities
 without introducing an erroneous lower-endpoint -1 correction. -/

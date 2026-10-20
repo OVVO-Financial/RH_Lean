@@ -59,7 +59,7 @@ theorem shellCofactorShiftedPrimeIncrement_sum_eq_broadInterval
   have h := shellCofactor_history_telescope
     (fun r => F (shellTrapezoidLower r T k / c)) hab
   unfold shellCofactorShiftedPrimeIncrement
-  simpa only [shellCofactorShiftedWalls_adjoin] using h
+  simpa only [shellCofactorShiftedWalls_adjoin] using! h
 
 /-- The *fixed-cofactor population* carries genuine Mobius signs.
 The cutoff C is held fixed across the history; moving physical owner

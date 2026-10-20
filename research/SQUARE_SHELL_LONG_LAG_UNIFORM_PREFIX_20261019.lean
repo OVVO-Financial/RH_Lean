@@ -83,10 +83,10 @@ theorem shellLagPrefix_sq_le_far_pay
   have hbLift :
       ShellLagAtomsBounded (shellLagPrefixLift f H K) K C := by
     intro j hj
-    simpa [shellLagPrefixLift, Nat.add_sub_cancel_left] using hb j hj
+    simpa [shellLagPrefixLift, Nat.add_sub_cancel_left] using! hb j hj
   have h := shellLagDyadicBlock_sq_le_far_pay
     (shellLagPrefixLift f H K) K L C hC hbLift
-  simpa only [shellLagPrefixLift_row, shellLagPrefixFar] using h
+  simpa only [shellLagPrefixLift_row, shellLagPrefixFar] using! h
 
 /-- Every true Mobius atom is absolutely at most 1. -/
 private theorem shellLag_moebius_atom_abs_le_one (n : ℕ) :

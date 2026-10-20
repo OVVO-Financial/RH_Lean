@@ -63,7 +63,7 @@ theorem shellLagCrossCovariance_eq_near_add_far
             have hsplit := Finset.sum_range_add_sum_Ico
               (f := fun i => f (H + i) * f (H + j))
               (Nat.sub_le j L)
-            simpa only [add_comm] using hsplit.symm
+            simpa only [add_comm] using! hsplit.symm
     _ = (∑ j ∈ Finset.range H, ∑ i ∈ Finset.Ico (j - L) j,
            f (H + i) * f (H + j)) +
           (∑ j ∈ Finset.range H, ∑ i ∈ Finset.range (j - L),
@@ -105,7 +105,7 @@ theorem shellLagDiagonal_le
       intro j hj
       have h := hb j (Finset.mem_range.mp hj)
       have hs := (sq_le_sq₀ (abs_nonneg _) hK).2 h
-      simpa only [sq_abs] using hs
+      simpa only [sq_abs] using! hs
     _ = (H : ℝ) * K ^ 2 := by simp
 
 /-- Uniform absolute bound on each nonzero near pair. -/

@@ -171,10 +171,10 @@ private theorem vf919SexticRealMoebius_prime
   have hunit : realMoebiusStep 1 = 1 := by
     norm_num [realMoebiusStep]
   have hnew : ¬ p ∣ 1 := by
-    simpa using hp.ne_one
+    simpa using! hp.ne_one
   have hflip := realMoebiusStep_mul_prime_eq_neg
     (p := p) (n := 1) hp hnew
-  simpa [hunit] using hflip
+  simpa [hunit] using! hflip
 
 /-- Fresh multiplication by a second prime flips -1 back to +1.
     This supplies the actual Möbius signs at every one of our four
@@ -195,18 +195,18 @@ theorem vf919SexticFourWits_originalIntegerMobius :
     realMoebiusStep 100531 = 1 ∧
     realMoebiusStep 1054741 = 1 := by
   constructor
-  · simpa only [show 19 * 7 = 133 by norm_num] using
+  · simpa only [show 19 * 7 = 133 by norm_num] using!
       (vf919SexticRealMoebius_distinctPrimePair 19 7
         (by norm_num) (by norm_num) (by norm_num))
   constructor
-  · simpa only [show 37 * 7 = 259 by norm_num] using
+  · simpa only [show 37 * 7 = 259 by norm_num] using!
       (vf919SexticRealMoebius_distinctPrimePair 37 7
         (by norm_num) (by norm_num) (by norm_num))
   constructor
-  · simpa only [show 439 * 229 = 100531 by norm_num] using
+  · simpa only [show 439 * 229 = 100531 by norm_num] using!
       (vf919SexticRealMoebius_distinctPrimePair 439 229
         (by norm_num) (by norm_num) (by norm_num))
-  · simpa only [show 3727 * 283 = 1054741 by norm_num] using
+  · simpa only [show 3727 * 283 = 1054741 by norm_num] using!
       (vf919SexticRealMoebius_distinctPrimePair 3727 283
         (by norm_num) (by norm_num) (by norm_num))
 
