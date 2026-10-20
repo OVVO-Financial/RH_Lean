@@ -116,6 +116,69 @@ theorem rhlean_actual_ideal_norm_fiber_eq_VF919_constructedAF
     rhlean_baseChange_principal_eq_chiMinusThree]
   rfl
 
+/-! ## The ACTUAL ideal exponential/Mellin source equals the VF919 norm series -/
+
+/-- The true OAI ideal-norm source has exactly the same coefficient at
+    n=0 as the RHLean arithmetic function (namely zero). -/
+theorem rhlean_actual_ideal_normFiber_zero :
+    rhleanActualEisensteinIdealNormFiber 0 =
+      rhleanVf919ConstructedNormAF 0 := by
+  simp [rhleanActualEisensteinIdealNormFiber,
+    normFiberCoeff_baseChangeWeight_zero]
+
+/-- The full coefficient function equality for EVERY n, INCLUDING zero,
+    not an ad hoc equality on a handful of physically sampled primes. -/
+theorem rhlean_actual_ideal_all_coefficients_eq_VF919 :
+    (fun n : ℕ => rhleanActualEisensteinIdealNormFiber n) =
+      (fun n : ℕ => rhleanVf919ConstructedNormAF n) := by
+  funext n
+  by_cases hn : n = 0
+  · subst n
+    exact rhlean_actual_ideal_normFiber_zero
+  · exact rhlean_actual_ideal_norm_fiber_eq_VF919_constructedAF n hn
+
+/-- The genuine OAI inverse-ideal Möbius exponential series IS the
+    complete native VF919 quadratic-norm source term by term, for
+    every heat parameter t (no asymptotic approximation). -/
+theorem rhlean_actual_ideal_exponential_source_eq_VF919
+    (t : ℝ) :
+    normFiberExpSum (baseChangeWeight
+      (1 : DirichletCharacter ℂ 1)) t =
+      ∑' n : ℕ, rhleanVf919ConstructedNormAF n *
+        Real.exp (-(n : ℝ) * t) := by
+  unfold normFiberExpSum
+  apply tsum_congr
+  intro n
+  rw [← rhlean_actual_ideal_all_coefficients_eq_VF919]
+
+/-- An EXACT genuinely analytic translation through the ORIGINAL OAI
+    norm-fiber Mellin source: no hypothetical source coefficient or
+    assumed uniform Mertens estimate. Re(s)>1 is the actual initial
+    Dirichlet-series domain; continuation estimates are distinct. -/
+theorem rhlean_actual_ideal_Mellin_eq_VF919_norm_LSeries
+    (s : ℂ) (hs : 1 < s.re) :
+    normFiberMellin (baseChangeWeight
+      (1 : DirichletCharacter ℂ 1)) s =
+      LSeries (fun n : ℕ => rhleanVf919ConstructedNormAF n) s := by
+  have hcoeff (n : ℕ) (hn : n ≠ 0) :
+      normFiberCoeff (baseChangeWeight
+        (1 : DirichletCharacter ℂ 1)) n =
+      pairInverseCoeff (1 : DirichletCharacter ℂ 1)
+        (baseChangeChar (1 : DirichletCharacter ℂ 1)) n :=
+    normFiberCoeff_baseChange_eq_pairInverseCoeff
+      (1 : DirichletCharacter ℂ 1) n hn
+  have h0 := normFiberCoeff_baseChangeWeight_zero
+    (1 : DirichletCharacter ℂ 1)
+  have hm := normFiberMellin_eq_LSeries_of_coeff
+    (1 : DirichletCharacter ℂ 1)
+    (baseChangeChar (1 : DirichletCharacter ℂ 1))
+    (baseChangeWeight (1 : DirichletCharacter ℂ 1))
+    hcoeff h0 s hs
+  rw [hm]
+  change LSeries (fun n : ℕ => rhleanActualEisensteinIdealNormFiber n) s =
+    LSeries (fun n : ℕ => rhleanVf919ConstructedNormAF n) s
+  rw [rhlean_actual_ideal_all_coefficients_eq_VF919]
+
 /-- The ORIGINAL half-open sharp square-block mask, in the complete
     TRUE ideal-fiber source. No smooth OAI probe is pretended equal. -/
 def rhleanOriginalSquareBlockMask (R n : ℕ) : ℂ :=
@@ -177,6 +240,9 @@ theorem rhlean_actual_ideal_sharp_block_ALL_norm_pairs
       rhlean_actual_ideal_sharp_block_term_by_term
         R U n (Finset.mem_Icc.mp hn).1]
 
+#print axioms rhlean_actual_ideal_all_coefficients_eq_VF919
+#print axioms rhlean_actual_ideal_exponential_source_eq_VF919
+#print axioms rhlean_actual_ideal_Mellin_eq_VF919_norm_LSeries
 #print axioms rhlean_principal_mod_one_is_one
 #print axioms rhlean_invCharAF_principal_eq_rationalMoebius
 #print axioms rhlean_baseChange_principal_eq_chiMinusThree
