@@ -41,7 +41,10 @@ permissions:
 jobs:
   fast-check:
     runs-on: ubuntu-latest
-    timeout-minutes: 12
+    # A cold `vf915-research-base` cache (new toolchain or base commit) compiles
+    # the 240-module #914 closure before the cache is saved; 12 minutes could
+    # never finish that build, so the cache was never written.
+    timeout-minutes: 45
     steps:
       - uses: actions/checkout@v4
         with:
