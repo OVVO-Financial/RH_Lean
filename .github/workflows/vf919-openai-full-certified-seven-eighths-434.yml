@@ -59,6 +59,16 @@ jobs:
           lake exe cache get
       - name: Fix upstream Rellich pointwise elaboration without new axioms
         run: python3 scripts/patch_oai_434_rellich_compat.py
+      - name: Kernel-check patched pinned Rellich prerequisites before full OpenAI DAG
+        shell: bash
+        working-directory: oai-upstream/lean
+        run: |
+          set -euo pipefail
+          lake build \
+            RellichKondrachov.Analysis.FunctionalSpaces.Sobolev.Euclidean.TranslationEstimateL2 \
+            RellichKondrachov.Analysis.FunctionalSpaces.Sobolev.Euclidean.L2Compactness.Approximation \
+            RellichKondrachov.Analysis.FunctionalSpaces.Sobolev.Euclidean.L2Compactness.ArzelaAscoli \
+            RellichKondrachov.Analysis.FunctionalSpaces.Sobolev.Euclidean.L2Compactness.Transfer
       - name: KERNEL BUILD THE ACTUAL COMPLETE OpenAI 7/8 CERTIFICATE
         shell: bash
         working-directory: oai-upstream/lean
