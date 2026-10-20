@@ -66,16 +66,13 @@ theorem vf919ExactNativeMertens_317 :
   refine ⟨?_, ?_, ?_⟩
   · have hh := hm.symm
     rw [vf919ExactSiteLedger_317] at hh
-    norm_num at hh ⊢
-    exact hh
+    simpa only [Prod.fst, Prod.snd, Int.cast_neg, Int.cast_ofNat] using hh
   · have hh := hk.symm
     rw [vf919ExactSiteLedger_317] at hh
-    norm_num at hh ⊢
-    exact hh
+    simpa only [Prod.fst, Prod.snd, Int.cast_neg, Int.cast_ofNat] using hh
   · have hh := hc.symm
     rw [vf919ExactSiteLedger_317] at hh
-    norm_num at hh ⊢
-    exact hh
+    simpa only [Prod.fst, Prod.snd, Int.cast_neg, Int.cast_ofNat] using hh
 
 /-- Exact native 1027: all physical sign reversals, not an ideal subrow. -/
 theorem vf919ExactNativeMertens_1027 :
@@ -86,31 +83,26 @@ theorem vf919ExactNativeMertens_1027 :
   refine ⟨?_, ?_, ?_⟩
   · have hh := hm.symm
     rw [vf919ExactSiteLedger_1027] at hh
-    norm_num at hh ⊢
-    exact hh
+    simpa only [Prod.fst, Prod.snd, Int.cast_neg, Int.cast_ofNat] using hh
   · have hh := hk.symm
     rw [vf919ExactSiteLedger_1027] at hh
-    norm_num at hh ⊢
-    exact hh
+    simpa only [Prod.fst, Prod.snd, Int.cast_neg, Int.cast_ofNat] using hh
   · have hh := hc.symm
     rw [vf919ExactSiteLedger_1027] at hh
-    norm_num at hh ⊢
-    exact hh
+    simpa only [Prod.fst, Prod.snd, Int.cast_neg, Int.cast_ofNat] using hh
 
 /-- The same result in the repository's original COMPLEX Mertens function. -/
 theorem vf919ExactNativeMertensSummatory_317 :
     mertensSummatory 317 = (-4 : ℂ) := by
   have h := realMertensLength_cast_eq_mertensSummatory 317
   rw [vf919ExactNativeMertens_317.1] at h
-  change (-4 : ℂ) = mertensSummatory 317 at h
-  exact h.symm
+  simpa only [Complex.ofReal_neg, Complex.ofReal_ofNat] using h.symm
 
 theorem vf919ExactNativeMertensSummatory_1027 :
     mertensSummatory 1027 = (-3 : ℂ) := by
   have h := realMertensLength_cast_eq_mertensSummatory 1027
   rw [vf919ExactNativeMertens_1027.1] at h
-  change (-3 : ℂ) = mertensSummatory 1027 at h
-  exact h.symm
+  simpa only [Complex.ofReal_neg, Complex.ofReal_ofNat] using h.symm
 
 #print axioms vf919ExactIntegerLedger_eq_nativeMertens
 #print axioms vf919ExactNativeMertens_317
