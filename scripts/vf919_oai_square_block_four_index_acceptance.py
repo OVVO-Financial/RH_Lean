@@ -6,6 +6,7 @@ No native analytic character-moment estimate is claimed. This checks:
   each 317/1027 prefix and the EXACT 317/1027 square-block boundaries;
   explicit signed off-diagonal pair summation (not independent signs);
   split-prime a_F(pq)=4 versus the original mu_Z(pq)=+1.
+  original period-36 (1,3,4,12) full-norm square-boundary reassembly.
 
 The coefficient a_F uses the exact local Euler polynomial:
     (1-t)(1-chi_{-3}(p)*t)
@@ -90,6 +91,30 @@ def audit_interval(title, a, b, true_mu, recovered, expected):
           f"K={diagonal}, C={covariance}, K+2C={diagonal+2*covariance}")
 
 
+
+def q36(t):
+    """Native period-36 restored Euler character/floor kernel."""
+    c = lambda k: int(k % 3 == 1)
+    return c(t) - c(t // 3) - c(t // 4) + c(t // 12)
+
+
+def periodic_excluded_norm_prefix(X, norm_coeff):
+    """Exactly vf919OAIExcludedNormSharpPrefix(X), not an Mertens shortcut."""
+    return sum(norm_coeff[m] * q36(X // m)
+               for m in range(1, X + 1)
+               if m % 2 and m % 3)
+
+
+def audit_periodic_double_square_boundary(R, norm_coeff, mu, expected):
+    lo = R * R - 1
+    hi = (R + 1) ** 2 - 1
+    mlo = periodic_excluded_norm_prefix(lo, norm_coeff)
+    mhi = periodic_excluded_norm_prefix(hi, norm_coeff)
+    assert (mlo, mhi) == expected, (R, mlo, mhi, expected)
+    assert (mlo, mhi) == (sum(mu[1:lo+1]), sum(mu[1:hi+1]))
+    print(f"R={R} periodic36: M({lo})={mlo}, M({hi})={mhi}, "
+          f"true sharp shell increment={mhi-mlo}")
+
 def main():
     N = 1028 ** 2 - 1
     least, mu = complete_mu(N)
@@ -112,6 +137,8 @@ def main():
                    mu, recovered, (11, 387, -133))
     audit_interval("R=1027 original square block", 1027**2, 1028**2,
                    mu, recovered, (-20, 1252, -426))
+    audit_periodic_double_square_boundary(317, norm_coeff, mu, (-28, -17))
+    audit_periodic_double_square_boundary(1027, norm_coeff, mu, (367, 347))
     print("PASS: every original Mobius coefficient through 1028^2-1; "
           "original complete ordered covariance at 317/1027 "
           "and both 317/1027 square blocks")
