@@ -8,6 +8,7 @@ on:
       - research/VF_919_OAI_INTEGER_MOBIUS_HECKE_TWO_LEGS_20261019.lean
       - research/VF_919_EXACT_INTEGER_BY_INTEGER_317_1027_20261019.lean
       - research/VF_919_EXACT_INTEGER_NATIVE_COVARIANCE_BRIDGE_20261019.lean
+      - research/VF_919_OAI_SQUARE_BLOCK_FOUR_INDEX_COVARIANCE_20261019.lean
       - .github/workflows/vf919-oai-termwise-cancellation.yml
   workflow_dispatch:
 
@@ -28,7 +29,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          if grep -nE '^[[:space:]]*(sorry|admit|axiom)([[:space:]]|$)' research/VF_919_OAI_EXACT_MARKED_RESCALED_LOCAL_20261019.lean research/VF_919_OAI_EXACT_LABELED_NATIVE_SEATS_20261019.lean research/VF_919_OAI_INTEGER_MOBIUS_HECKE_TWO_LEGS_20261019.lean research/VF_919_EXACT_INTEGER_BY_INTEGER_317_1027_20261019.lean research/VF_919_EXACT_INTEGER_NATIVE_COVARIANCE_BRIDGE_20261019.lean; then
+          if grep -nE '^[[:space:]]*(sorry|admit|axiom)([[:space:]]|$)' research/VF_919_OAI_EXACT_MARKED_RESCALED_LOCAL_20261019.lean research/VF_919_OAI_EXACT_LABELED_NATIVE_SEATS_20261019.lean research/VF_919_OAI_INTEGER_MOBIUS_HECKE_TWO_LEGS_20261019.lean research/VF_919_EXACT_INTEGER_BY_INTEGER_317_1027_20261019.lean research/VF_919_EXACT_INTEGER_NATIVE_COVARIANCE_BRIDGE_20261019.lean research/VF_919_OAI_SQUARE_BLOCK_FOUR_INDEX_COVARIANCE_20261019.lean; then
             exit 1
           fi
       - uses: ./.github/actions/lean-setup
@@ -65,6 +66,7 @@ jobs:
             research/VF_919_OAI_EXACT_LABELED_NATIVE_SEATS_20261019.lean
             research/VF_919_OAI_INTEGER_MOBIUS_HECKE_TWO_LEGS_20261019.lean
             research/VF_919_EXACT_INTEGER_NATIVE_COVARIANCE_BRIDGE_20261019.lean
+            research/VF_919_OAI_SQUARE_BLOCK_FOUR_INDEX_COVARIANCE_20261019.lean
       - name: Check theorem signatures and standard axioms
         shell: bash
         run: |
@@ -74,6 +76,10 @@ jobs:
           import «research.VF_919_OAI_INTEGER_MOBIUS_HECKE_TWO_LEGS_20261019»
           import «research.VF_919_EXACT_INTEGER_BY_INTEGER_317_1027_20261019»
           import «research.VF_919_EXACT_INTEGER_NATIVE_COVARIANCE_BRIDGE_20261019»
+          import «research.VF_919_OAI_SQUARE_BLOCK_FOUR_INDEX_COVARIANCE_20261019»
+          #check RHLean.Analysis.vf919SquareShell_actual_signed_covariance_eq_fourIndexHecke
+          #check RHLean.Analysis.vf919SquareShell_original_energy_eq_fourIndexHecke
+          #check RHLean.Analysis.vf919SquareShellCovariance_eq_true_ordered_physical_pairs
           #check RHLean.Analysis.vf919ExactIntegerLedger_eq_nativeMertens
           #check RHLean.Analysis.vf919ExactNativeMertens_317
           #check RHLean.Analysis.vf919ExactNativeMertens_1027
@@ -116,6 +122,9 @@ jobs:
           #check RHLean.Analysis.vf919OAI_unit_character_phase_facts
           #check RHLean.Analysis.vf919OAI_exact_good_character_compensation
           #check RHLean.Analysis.vf919OAI_marked_rescaled_physical_pairing
+          #print axioms RHLean.Analysis.vf919SquareShell_actual_signed_covariance_eq_fourIndexHecke
+          #print axioms RHLean.Analysis.vf919SquareShell_original_energy_eq_fourIndexHecke
+          #print axioms RHLean.Analysis.vf919SquareShellCovariance_eq_true_ordered_physical_pairs
           #print axioms RHLean.Analysis.vf919ExactIntegerLedger_eq_nativeMertens
           #print axioms RHLean.Analysis.vf919ExactNativeMertensSummatory_317
           #print axioms RHLean.Analysis.vf919ExactNativeMertensSummatory_1027
