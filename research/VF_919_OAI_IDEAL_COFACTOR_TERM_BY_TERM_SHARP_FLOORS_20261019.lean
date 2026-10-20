@@ -106,7 +106,8 @@ theorem vf919OAITrueSquareBlockCharacterWeight_eq_floorDifference
           (vf919OAITrueSquareL R / m) : ℤ) : ℂ) := by
   have hX : vf919OAITrueSquareL R ≤ vf919OAITrueSquareU R := by
     unfold vf919OAITrueSquareL vf919OAITrueSquareU
-    nlinarith
+    have hsquare : R ^ 2 ≤ (R + 1) ^ 2 := by nlinarith
+    omega
   simp_rw [vf919OAITrueSquareBlockMask_eq_two_exact_prefixes R hR]
   simp_rw [mul_sub]
   rw [Finset.sum_sub_distrib]
