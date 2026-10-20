@@ -20,7 +20,7 @@ This file does not assert the missing 7/8 signed covariance bound.
 -/
 
 noncomputable section
-open scoped BigOperators
+open scoped BigOperators ContDiff
 
 namespace RHLean.Analysis
 
@@ -219,7 +219,7 @@ theorem vf919LogWindow_partition_at_integer
   have hDiv : ((8 : ℝ) / 5) ≤
       (((5 : ℝ) / 4) ^ J * (n : ℝ)) / (X : ℝ) :=
     (le_div_iff₀ hXr).mpr hMul
-  convert hDiv using 1 <;> ring
+  simpa only [mul_div_assoc] using hDiv
 
 /-- Exact interior plateau at physical integer n <= X. -/
 theorem vf919LogTerminal_inside
