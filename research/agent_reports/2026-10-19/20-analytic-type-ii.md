@@ -196,3 +196,5 @@ No status is inferred from workflow names. In particular, â€œfull certified 7/8â
 ## J. Publication verification
 
 The early `IN_PROGRESS` checkpoint committed as `227e1ae5292cc40045c8d935ebab88ac948e4189`; immediate readback returned blob `9ce51a71bda79cecad8880cf3e3973a60a4a8f67`.
+
+Substantive completion committed as `d66e41952b8468887b5888b51d240c9c11c8da5e`; immediate readback returned blob `243b26eeec3c00eef12259dca213e396f524d0ec`, 13,375 characters, `COMPLETED` status, and both new claim IDs. The later metadata-only publication commit did not change that content blob. No main source, PR, review, workflow, merge, schedule, or permission state was mutated.
