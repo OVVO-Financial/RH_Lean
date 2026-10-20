@@ -434,7 +434,7 @@ theorem lowWheelFarPrimeUnitFaceMass_eq_canonicalAmplitudeDefect_add_memory_add_
   have h :=
     canonicalAmplitudeDefect_add_memory_eq_unitFace_sub_routed_sub_rootCorrection
       R hR
-  linear_combination h
+  linear_combination -h
 
 /-! ## Stable-far entry into the reciprocal Euler coordinate -/
 
@@ -1148,7 +1148,7 @@ theorem squareRootLowPrimeCanonicalAssigned_firstOwnerAbove_eq_of_intrinsicOwner
       rw [howner] at hqOwner
       have hpq : p = q := Option.some.inj hqOwner
       subst p
-      exact hfirst
+      rfl
 
 /-- Seat-level no-reentry indices after imposing the actual terminal target and
 the unique intrinsic first-owner assignment.  The first owner is a property of
@@ -1275,8 +1275,11 @@ theorem squareRootLowPrimeFirstOwnerTerminalNoReentry_shallow_not_matchedCreatio
   · subst q
     omega
   · have hpq : p < q := by omega
-    have hqCeiling :=
+    have hqCeiling :
+        squareRootLowPrimeCombinedFreshResponse R K j (q * c) ≤
+          squareRootLowPrimeLaterResponseCeiling R K j U p c :=
       squareRootLowPrimeCombinedFreshResponse_le_laterResponseCeiling
+        (R := R) (K := K) (j := j) (U := U) (p := p) (c := c)
         hqSet hpq
     omega
 
@@ -1883,6 +1886,7 @@ theorem squareRootLowPrimeComplement_born_or_responseForestCancel_or_bornExit
             R K j U := by
         simp [squareRootLowPrimeFirstOwnerTerminalNoReentryIndex,
           hpList, hcSigned]
+      exfalso
       apply hxNotNoLater
       apply Finset.mem_biUnion.mpr
       exact ⟨(p, c), hpc, hxLabelled⟩
