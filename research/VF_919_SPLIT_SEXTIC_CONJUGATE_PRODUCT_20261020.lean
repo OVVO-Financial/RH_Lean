@@ -12,6 +12,9 @@ rational Eisenstein norm residue raised to the same sextic exponent.
 This preserves both ideal-labelled phases while recording the exact
 norm invariant that survives their product. It is a structural identity,
 not a pointwise cancellation or analytic moment bound.
+
+The Lean 4.34.1 statement uses the native ZMod p polynomial root hypothesis;
+it does not need to assume p prime because the equality is algebraic.
 -/
 
 noncomputable section
