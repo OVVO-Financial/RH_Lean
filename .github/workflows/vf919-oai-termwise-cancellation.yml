@@ -71,8 +71,14 @@ jobs:
           #check RHLean.Analysis.vf919OAI_actualMobius_Hecke_two_legs_at_site
           #check RHLean.Analysis.vf919OAI_actualMobius_Hecke_two_legs_all_sites
           #check RHLean.Analysis.vf919OAI_actualMobius_full_mixed_mark_rescale_gram
+          #check RHLean.Analysis.vf919OAI_original_native_continued_term_by_term
+          #check RHLean.Analysis.vf919OAI_original_native_continued_full_gram
           #check RHLean.Analysis.vf919OAI_original_native_seat_term_by_term
           #check RHLean.Analysis.vf919OAI_original_native_seat_full_mixed_gram
+          #check RHLean.Analysis.vf919OAIcontinuedH_eq_rawH
+          #check RHLean.Analysis.vf919OAI_exact_continued_local_compensation
+          #check RHLean.Analysis.vf919OAI_exact_continued_zero_mask
+          #check RHLean.Analysis.vf919OAI_exact_continued_good_character
           #check RHLean.Analysis.vf919OAIlocalG_eq_preexisting_native
           #check RHLean.Analysis.vf919OAIlocalH_eq_preexisting_native
           #check RHLean.Analysis.vf919OAI_exact_from_preexisting_native_5_13b
@@ -91,8 +97,14 @@ jobs:
           #print axioms RHLean.Analysis.vf919OAI_actualMobius_Hecke_two_legs_at_site
           #print axioms RHLean.Analysis.vf919OAI_actualMobius_Hecke_two_legs_all_sites
           #print axioms RHLean.Analysis.vf919OAI_actualMobius_full_mixed_mark_rescale_gram
+          #print axioms RHLean.Analysis.vf919OAI_original_native_continued_term_by_term
+          #print axioms RHLean.Analysis.vf919OAI_original_native_continued_full_gram
           #print axioms RHLean.Analysis.vf919OAI_original_native_seat_term_by_term
           #print axioms RHLean.Analysis.vf919OAI_original_native_seat_full_mixed_gram
+          #print axioms RHLean.Analysis.vf919OAIcontinuedH_eq_rawH
+          #print axioms RHLean.Analysis.vf919OAI_exact_continued_local_compensation
+          #print axioms RHLean.Analysis.vf919OAI_exact_continued_zero_mask
+          #print axioms RHLean.Analysis.vf919OAI_exact_continued_good_character
           #print axioms RHLean.Analysis.vf919OAIlocalG_eq_preexisting_native
           #print axioms RHLean.Analysis.vf919OAIlocalH_eq_preexisting_native
           #print axioms RHLean.Analysis.vf919OAI_exact_from_preexisting_native_5_13b
