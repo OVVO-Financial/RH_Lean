@@ -4,6 +4,7 @@ on:
   pull_request:
     paths:
       - research/oai_434/RHLeanActualEisensteinIdealSharpSquareBlock.lean
+      - research/oai_434/RHLeanActualEisensteinCompensatedSharpSquareBlock.lean
       - .github/workflows/vf919-oai-real-ideal-fiber-434.yml
   workflow_dispatch:
 
@@ -53,6 +54,7 @@ jobs:
         run: |
           set -euo pipefail
           lake build OAI.NumberTheory.DirichletL.Hecke.LocalEulerIdentities
+          lake build OAI.NumberTheory.DirichletL.Detector.CompensationActual
       - name: Compile actual-ideal sharp square-block termwise bridge
         shell: bash
         run: |
@@ -62,5 +64,16 @@ jobs:
           cd oai-upstream/lean
           lake env lean -DwarningAsError=true RHLeanActualEisensteinIdealSharpSquareBlock.lean | tee /tmp/oai-real-ideal-axioms.txt
           if grep -E 'sorryAx|_private' /tmp/oai-real-ideal-axioms.txt; then
+            exit 1
+          fi
+      - name: Compile actual ideal and prime-ideal marked-rescaled sharp source
+        shell: bash
+        run: |
+          set -euo pipefail
+          cp research/oai_434/RHLeanActualEisensteinCompensatedSharpSquareBlock.lean \
+            oai-upstream/lean/RHLeanActualEisensteinCompensatedSharpSquareBlock.lean
+          cd oai-upstream/lean
+          lake env lean -DwarningAsError=true RHLeanActualEisensteinCompensatedSharpSquareBlock.lean | tee /tmp/oai-real-ideal-compensation-axioms.txt
+          if grep -E 'sorryAx|_private' /tmp/oai-real-ideal-compensation-axioms.txt; then
             exit 1
           fi
