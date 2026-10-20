@@ -70,7 +70,10 @@ theorem vf919SquareShellCovariance_eq_true_ordered_physical_pairs
           realMoebiusStep m * realMoebiusStep n := by
   let a : ℕ := R ^ 2
   let b : ℕ := (R + 1) ^ 2
-  have hab : a ≤ b := by dsimp [a, b]; nlinarith
+  have hab : a ≤ b := by
+    have hs : (R + 1) ^ 2 = R ^ 2 + (2 * R + 1) := by ring
+    dsimp [a, b]
+    omega
   have hC :
       (∑ n ∈ Finset.Ico a b,
         realMoebiusStep n * realMertensLength n) =
@@ -109,7 +112,9 @@ theorem vf919SquareShellCovariance_eq_true_ordered_physical_pairs
       apply Finset.sum_congr rfl
       intro n hn
       have hna : a ≤ n := (Finset.mem_Ico.mp hn).1
-      rw [← hinner n hna, Finset.sum_mul]
+      rw [← hinner n hna, Finset.mul_sum]
+      apply Finset.sum_congr rfl
+      intro m _hm
       ring
 
 /-- Term-for-term complex pair identity before the expansion of either
@@ -125,12 +130,21 @@ theorem vf919SquareShellFourIndexHeckeCovariance_eq_actualMuPairs
   intro n _hn
   apply Finset.sum_congr rfl
   intro m _hm
-  rw [← Finset.mul_sum, ← Finset.sum_mul]
-  change vf919SquareShellCompleteHeckeCoefficient m *
-      vf919SquareShellCompleteHeckeCoefficient n =
-        vf919RationalMobius m * vf919RationalMobius n
-  rw [vf919SquareShellCompleteHeckeCoefficient_eq_actualMu,
-    vf919SquareShellCompleteHeckeCoefficient_eq_actualMu]
+  calc
+    (∑ s ∈ Nat.divisorsAntidiagonal m,
+      ∑ t ∈ Nat.divisorsAntidiagonal n,
+        (vf919ChiMinusThree s.1 * vf919EisensteinNormCoefficients s.2) *
+          (vf919ChiMinusThree t.1 * vf919EisensteinNormCoefficients t.2)) =
+      vf919SquareShellCompleteHeckeCoefficient m *
+        vf919SquareShellCompleteHeckeCoefficient n := by
+          unfold vf919SquareShellCompleteHeckeCoefficient
+          rw [Finset.sum_mul]
+          apply Finset.sum_congr rfl
+          intro s _hs
+          rw [Finset.mul_sum]
+    _ = vf919RationalMobius m * vf919RationalMobius n := by
+      rw [vf919SquareShellCompleteHeckeCoefficient_eq_actualMu,
+        vf919SquareShellCompleteHeckeCoefficient_eq_actualMu]
 
 /-- Rational Möbius coefficient = the original integer sign complexified:
     no extra ideal multiplicity is introduced by source conversion. -/
