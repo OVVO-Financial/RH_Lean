@@ -9,6 +9,7 @@ on:
       - research/VF_919_EXACT_INTEGER_BY_INTEGER_317_1027_20261019.lean
       - research/VF_919_EXACT_INTEGER_NATIVE_COVARIANCE_BRIDGE_20261019.lean
       - research/VF_919_OAI_SQUARE_BLOCK_FOUR_INDEX_COVARIANCE_20261019.lean
+      - scripts/vf919_oai_square_block_four_index_acceptance.py
       - .github/workflows/vf919-oai-termwise-cancellation.yml
   workflow_dispatch:
 
@@ -25,6 +26,8 @@ jobs:
     timeout-minutes: 35
     steps:
       - uses: actions/checkout@v4
+      - name: Every original integer and explicit signed physical square-block pair
+        run: python3 scripts/vf919_oai_square_block_four_index_acceptance.py
       - name: Reject proof holes and new axioms
         shell: bash
         run: |
