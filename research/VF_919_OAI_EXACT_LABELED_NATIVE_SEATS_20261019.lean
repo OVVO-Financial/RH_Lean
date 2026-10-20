@@ -156,6 +156,94 @@ theorem vf919OAI_original_native_seat_full_mixed_gram
       (vf919OAIGoodSelectedPhysicalSum R labels etaInv Qx Qw v V E eta)
       (vf919OAIGoodReturnedPhysicalSum R labels etaInv Qx Qw v V E eta)
 
+/-! ## Full source with OAI's CONTINUED holomorphic selected-prime factor
+
+This is the actual version needed after contour continuation: 1-W can
+vanish, so no raw P or H is inverted. Original native signed weights
+and genuine distinct ideal labels remain on BOTH terms. -/
+
+/-- The unselected return is the continued OAI correction, not the
+    raw meromorphic factor. No division by an ill-defined local P. -/
+def vf919OAIContinuedReturnedPhysicalSum
+    (R : ℕ) (labels : Finset VF919OAIPhysicalIdealLabel)
+    (etaInv Qx Qw v V E eta : VF919OAIPhysicalIdealLabel → ℂ) : ℂ :=
+  ∑ i ∈ labels,
+    vf919OAIOriginalIdealLabeledSeat R i * (v i)⁻¹ *
+      vf919OAIcontinuedH (V i) (v i * Qw i)
+        (eta i * (v i)⁻¹ * (Qx i)⁻¹)
+        (E i - eta i * (v i)⁻¹ * (Qx i)⁻¹)
+
+/-- Full original weighted integer-site termwise compensated identity
+    with the precise OAI continued factor and complete residual E.
+    Unlike the initial-Euler proof, NO (1-W) nonvanishing assumption. -/
+theorem vf919OAI_original_native_continued_term_by_term
+    (R : ℕ) (labels : Finset VF919OAIPhysicalIdealLabel)
+    (etaInv Qx Qw v V E eta : VF919OAIPhysicalIdealLabel → ℂ)
+    (hEta : ∀ i ∈ labels, etaInv i * eta i = 1)
+    (hv : ∀ i ∈ labels, v i ≠ 0)
+    (hQx : ∀ i ∈ labels, Qx i ≠ 0)
+    (hV : ∀ i ∈ labels, 1 - V i ≠ 0)
+    (hD : ∀ i ∈ labels,
+      1 - eta i * (v i)⁻¹ * (Qx i)⁻¹ ≠ 0) :
+    vf919OAIGoodSelectedPhysicalSum R labels etaInv Qx Qw v V E eta +
+      vf919OAIContinuedReturnedPhysicalSum R labels etaInv Qx Qw v V E eta =
+      vf919OAIGoodResidualPhysicalSum R labels etaInv Qx Qw v V E eta := by
+  unfold vf919OAIGoodSelectedPhysicalSum
+    vf919OAIContinuedReturnedPhysicalSum
+    vf919OAIGoodResidualPhysicalSum
+  rw [← Finset.sum_add_distrib]
+  apply Finset.sum_congr rfl
+  intro i hi
+  have hlocal :=
+    vf919OAI_exact_continued_good_character
+      (etaInv i) (eta i) (v i) (Qx i) (Qw i) (V i) (E i)
+      (hEta i hi) (hv i hi) (hQx i hi) (hV i hi) (hD i hi)
+  calc
+    vf919OAIOriginalIdealLabeledSeat R i *
+        vf919OAIlocalG (etaInv i * Qx i) (Qw i)
+          (V i) (v i * Qw i)
+          (eta i * (v i)⁻¹ * (Qx i)⁻¹)
+          (E i - eta i * (v i)⁻¹ * (Qx i)⁻¹) +
+      vf919OAIOriginalIdealLabeledSeat R i * (v i)⁻¹ *
+        vf919OAIcontinuedH (V i) (v i * Qw i)
+          (eta i * (v i)⁻¹ * (Qx i)⁻¹)
+          (E i - eta i * (v i)⁻¹ * (Qx i)⁻¹) =
+      vf919OAIOriginalIdealLabeledSeat R i *
+        (vf919OAIlocalG (etaInv i * Qx i) (Qw i)
+          (V i) (v i * Qw i)
+          (eta i * (v i)⁻¹ * (Qx i)⁻¹)
+          (E i - eta i * (v i)⁻¹ * (Qx i)⁻¹) +
+        (v i)⁻¹ * vf919OAIcontinuedH (V i) (v i * Qw i)
+          (eta i * (v i)⁻¹ * (Qx i)⁻¹)
+          (E i - eta i * (v i)⁻¹ * (Qx i)⁻¹)) := by ring
+    _ = _ := by rw [hlocal]
+
+/-- Complete Hermitian covariance including the PLUS selected/returned
+    cross bill: no absolute-value or independence error from continuation. -/
+theorem vf919OAI_original_native_continued_full_gram
+    (R : ℕ) (labels : Finset VF919OAIPhysicalIdealLabel)
+    (etaInv Qx Qw v V E eta : VF919OAIPhysicalIdealLabel → ℂ)
+    (hEta : ∀ i ∈ labels, etaInv i * eta i = 1)
+    (hv : ∀ i ∈ labels, v i ≠ 0)
+    (hQx : ∀ i ∈ labels, Qx i ≠ 0)
+    (hV : ∀ i ∈ labels, 1 - V i ≠ 0)
+    (hD : ∀ i ∈ labels,
+      1 - eta i * (v i)⁻¹ * (Qx i)⁻¹ ≠ 0) :
+    ‖vf919OAIGoodResidualPhysicalSum R labels etaInv Qx Qw v V E eta‖ ^ 2 =
+      ‖vf919OAIGoodSelectedPhysicalSum R labels etaInv Qx Qw v V E eta‖ ^ 2 +
+      ‖vf919OAIContinuedReturnedPhysicalSum R labels etaInv Qx Qw v V E eta‖ ^ 2 +
+      2 * (vf919OAIGoodSelectedPhysicalSum R labels etaInv Qx Qw v V E eta *
+        star (vf919OAIContinuedReturnedPhysicalSum R labels etaInv Qx Qw v V E eta)).re := by
+  rw [← vf919OAI_original_native_continued_term_by_term R labels
+    etaInv Qx Qw v V E eta hEta hv hQx hV hD]
+  simpa only [Complex.sq_norm] using
+    Complex.normSq_add
+      (vf919OAIGoodSelectedPhysicalSum R labels etaInv Qx Qw v V E eta)
+      (vf919OAIContinuedReturnedPhysicalSum R labels etaInv Qx Qw v V E eta)
+
+#print axioms vf919OAI_original_native_continued_term_by_term
+#print axioms vf919OAI_original_native_continued_full_gram
+
 #print axioms vf919OAI_original_native_seat_term_by_term
 #print axioms vf919OAI_original_native_seat_full_mixed_gram
 
