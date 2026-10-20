@@ -84,7 +84,10 @@ theorem largePrimeEndpointIndicator_sub_mul_eq_strip
         intro h
         exact hbase (hmono.trans h)
       simp [largePrimeEndpointIndicator, hlarge, hbase, hchild]
-  · simp [largePrimeEndpointIndicator, hlarge]
+  · have hstrip :
+        ¬ (R < p ∧ p.Prime ∧ m * p ≤ X ∧ X < (q * m) * p) := by
+        tauto
+    simp [largePrimeEndpointIndicator, hlarge, hstrip]
 
 /-- Summed one-prime cancellation:
     N_X(m) - N_X(qm) is exactly the displaced prime strip. -/
@@ -205,13 +208,30 @@ residual.  With cutoff 5 the saturated low-prime cube already has mass M(5)=-2.
 For example X=100, R=10, p=19 gives floor(100/19)=5, so one outer-prime cube
 carries two net boundary units after all exact interior cancellation. -/
 
-example :
+private theorem primesUpTo_ten_eq :
+    primesUpTo 10 = ({2, 3, 5, 7} : Finset ℕ) := by
+  ext p
+  simp only [mem_primesUpTo, Finset.mem_insert, Finset.mem_singleton]
+  constructor
+  · rintro ⟨hpPrime, hpLe⟩
+    have hpTwo : 2 ≤ p := hpPrime.two_le
+    interval_cases p <;> norm_num at *
+  · intro hp
+    rcases hp with rfl | rfl | rfl | rfl <;> norm_num
+
+private theorem frozenPrimeUniverseMass_primesUpTo_ten_five :
     frozenPrimeUniverseMass (primesUpTo 10) 5 = -2 := by
+  rw [primesUpTo_ten_eq, frozenPrimeUniverseMass_eq_cutoffSum]
   native_decide
 
 example :
+    frozenPrimeUniverseMass (primesUpTo 10) 5 = -2 :=
+  frozenPrimeUniverseMass_primesUpTo_ten_five
+
+example :
     largePrimeEulerCubeAt 100 1 19 (primesUpTo 10) = -2 := by
-  native_decide
+  simpa [largePrimeEulerCubeAt] using
+    frozenPrimeUniverseMass_primesUpTo_ten_five
 
 /-! ## Coupled smooth/large-prime Euler recurrence
 
@@ -268,7 +288,7 @@ theorem coupledLargePrimeEulerResidual_insert
     apply Finset.sum_congr rfl
     intro p _hp
     by_cases hpLarge : R < p ∧ p.Prime
-    · simp only [hpLarge, ite_true]
+    · simp only [hpLarge, true_and, ite_true]
       rw [frozenPrimeUniverseMass_insert hq hqPrime]
       rw [div_div_comm Y p q]
     · simp [hpLarge]
@@ -282,35 +302,47 @@ example :
       coupledLargePrimeEulerResidual 30 5 30 ({2} : Finset ℕ) -
         coupledLargePrimeEulerResidual 30 5 10 ({2} : Finset ℕ) := by
   have h3 : 3 ∉ ({2} : Finset ℕ) := by norm_num
-  simpa [Finset.insert_comm] using!
-    (coupledLargePrimeEulerResidual_insert
-      (U := 30) (R := 5) (Y := 30) (q := 3)
-      (S := ({2} : Finset ℕ)) h3 (by norm_num : Nat.Prime 3))
+  have hset :
+      ({2, 3} : Finset ℕ) = insert 3 ({2} : Finset ℕ) := by
+    ext x
+    simp only [Finset.mem_insert, Finset.mem_singleton]
+    tauto
+  rw [hset]
+  exact coupledLargePrimeEulerResidual_insert
+    (U := 30) (R := 5) (Y := 30) (q := 3)
+    (S := ({2} : Finset ℕ)) h3 (by norm_num : Nat.Prime 3)
 
 /-- Literal finite evolution at X=30.  The large-prime block starts at -6;
 the fresh primes 2, 3, 5 add the exact displaced corrections +2, +1, 0, and
 the fully processed coupled state is M(30) = -3. -/
 example : coupledLargePrimeEulerResidual 30 5 30 (∅ : Finset ℕ) = -6 := by
+  simp only [coupledLargePrimeEulerResidual, frozenPrimeUniverseMass_eq_cutoffSum]
   native_decide
 
 example : coupledLargePrimeEulerResidual 30 5 30 ({2} : Finset ℕ) = -4 := by
+  simp only [coupledLargePrimeEulerResidual, frozenPrimeUniverseMass_eq_cutoffSum]
   native_decide
 
 example : coupledLargePrimeEulerResidual 30 5 30 ({2, 3} : Finset ℕ) = -3 := by
+  simp only [coupledLargePrimeEulerResidual, frozenPrimeUniverseMass_eq_cutoffSum]
   native_decide
 
 example :
     coupledLargePrimeEulerResidual 30 5 30 ({2, 3, 5} : Finset ℕ) = -3 := by
+  simp only [coupledLargePrimeEulerResidual, frozenPrimeUniverseMass_eq_cutoffSum]
   native_decide
 
 example : coupledLargePrimeEulerResidual 30 5 15 (∅ : Finset ℕ) = -2 := by
+  simp only [coupledLargePrimeEulerResidual, frozenPrimeUniverseMass_eq_cutoffSum]
   native_decide
 
 example : coupledLargePrimeEulerResidual 30 5 10 ({2} : Finset ℕ) = -1 := by
+  simp only [coupledLargePrimeEulerResidual, frozenPrimeUniverseMass_eq_cutoffSum]
   native_decide
 
 example :
     coupledLargePrimeEulerResidual 30 5 6 ({2, 3} : Finset ℕ) = 0 := by
+  simp only [coupledLargePrimeEulerResidual, frozenPrimeUniverseMass_eq_cutoffSum]
   native_decide
 /-! ## Exact energy polarization of one fresh-prime step -/
 
@@ -402,6 +434,7 @@ example :
       intro q hq
       simp only [Finset.mem_insert, Finset.mem_singleton] at hq
       rcases hq with rfl | rfl | rfl <;> norm_num)]
+  simp only [coupledLargePrimeEulerResidual, frozenPrimeUniverseMass_eq_cutoffSum]
   native_decide
 /-- The coupled seed vanishes at cutoff zero, so the terminating
 complement-smooth inversion applies without a boundary-at-zero correction. -/
@@ -571,9 +604,11 @@ theorem squareRootLargePrimeEulerCubeAggregate_eq_mertensTransform
         squareRootEndpoint R / p ≤ R := by
       exact Nat.le_of_lt
         (squareRootEndpoint_div_lt_root_of_postRoot (by omega) hRp)
-    simpa using!
+    have hcut' : squareRootEndpoint R / (1 * p) ≤ R := by
+      simpa using hcut
+    simpa using
       (largePrimeEulerCubeAt_cast_eq_mertens
-        (X := squareRootEndpoint R) (R := R) (m := 1) (p := p) hcut)
+        (X := squareRootEndpoint R) (R := R) (m := 1) (p := p) hcut')
   · simp [hp]
 
 /-- The endpoint-truncated Euler-cube aggregate is not merely analogous to the
