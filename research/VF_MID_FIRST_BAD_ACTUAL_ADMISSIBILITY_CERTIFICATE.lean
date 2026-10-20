@@ -142,7 +142,7 @@ rough-Mobius balance. The frozen survivor count stays on the original
 arithmetic wheel; no artificial prime jumps or proxy counts enter.
 This is a TRUE arithmetic identity, not the missing estimate. -/
 theorem vfV2ActualPrimeFrozenRunMobiusDecoder
-    {A B : ℕ} (hA : 3 ≤ A) (hAB : A ≤ B)
+    {A B : ℕ} (hA : 3 ≤ A) (_hAB : A ≤ B)
     (hcube : ∀ r ∈ Finset.Ico A B, (r + 1) ^ 2 ≤ (A + 1) ^ 3) :
     (∑ r ∈ Finset.Ico A B,
       ((vfMidIntegerBlockPrimeSupply r : ℝ) - vfMidBandMass r)) =
@@ -466,7 +466,7 @@ theorem vfV2ActualHighPrimeAgeNativeMass_sum (R : ℕ) :
         (vfV2ActualHighPrimeOddCompositeSites R)
         (fun n => Nat.sqrt (vfV2ActualHighPrimeParent R n))
         (fun _ => vfMidOddFractionalPrimeSeatWeight R) bucket) =
-      ∑ n ∈ vfV2ActualHighPrimeOddCompositeSites R,
+      ∑ _n ∈ vfV2ActualHighPrimeOddCompositeSites R,
         vfMidOddFractionalPrimeSeatWeight R := by
   exact vfV2AgeCohortNativeMass_sum R
     (vfV2ActualHighPrimeOddCompositeSites R)
