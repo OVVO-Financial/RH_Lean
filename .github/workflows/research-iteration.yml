@@ -53,12 +53,15 @@ jobs:
               git fetch --no-tags --depth=1 origin "$PR_BASE_SHA"
             fi
             git diff --name-only --diff-filter=ACMR "$PR_BASE_SHA" HEAD -- research/ > /tmp/research-target-changes.txt
-            # These files import OAI from openai/math. They are kernel-checked
-            # in the mandatory certified-core, full-original-certificate, and
-            # real-ideal-fiber workflows, which install the upstream OAI DAG.
-            # They cannot compile in the generic native-only import closure.
-            # This exclusion is NOT proof acceptance for those dedicated gates.
-            changed="$(grep -E '^research/.+[.]lean$' /tmp/research-target-changes.txt | grep -vE '^research/(oai_434/|VF_919_OPENAI_434_UNCONDITIONAL_SQUARE_BLOCK_COVARIANCE_20261019[.]lean$|VF_919_OPENAI_CERTIFIED_ORIGINAL_SQUARE_COVARIANCE_20261019[.]lean$)' | sort -u | paste -sd ' ' - || true)"
+            # These OAI-dependent files are checked by the dedicated combined-
+            # environment gates. The common-probe file is compiled AND audited
+            # by vf919-oai-certified-core-434.yml with warnings fatal.
+            # This routing is not proof acceptance or an exemption from that gate.
+            if grep -qx 'research/VF_919_COMMON_PROBE_SEVEN_EIGHTHS_20261020.lean' /tmp/research-target-changes.txt; then
+              grep -q 'research/VF_919_COMMON_PROBE_SEVEN_EIGHTHS_20261020.lean' .github/workflows/vf919-oai-certified-core-434.yml
+              echo 'Common-probe theorem: mandatory LOW/HIGH combined-environment gate.' >> "$GITHUB_STEP_SUMMARY"
+            fi
+            changed="$(grep -E '^research/.+[.]lean$' /tmp/research-target-changes.txt | grep -vE '^research/(oai_434/|VF_919_COMMON_PROBE_SEVEN_EIGHTHS_20261020[.]lean$|VF_919_OPENAI_434_UNCONDITIONAL_SQUARE_BLOCK_COVARIANCE_20261019[.]lean$|VF_919_OPENAI_CERTIFIED_ORIGINAL_SQUARE_COVARIANCE_20261019[.]lean$)' | sort -u | paste -sd ' ' - || true)"
             targets="$changed"
             if [[ -z "$targets" ]]; then
               targets="research/VF_MID_LI_UNIFORM_QUADRATURE.lean"

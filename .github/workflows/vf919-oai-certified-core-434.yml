@@ -115,16 +115,18 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          mkdir -p .lake/build/lib/lean/research
+          mkdir -p .lake/build/lib/lean
           RH_PATH="$(lake env printenv LEAN_PATH)"
           OAI_PATH="$(cd oai-upstream/lean && lake env printenv LEAN_PATH)"
           export LEAN_PATH="$PWD/.lake/build/lib/lean:$RH_PATH:$OAI_PATH"
+          # Quoted research module names are flat identifiers containing dots.
+          # Match the output convention of compile_research_import_closure.py.
           lean -DwarningAsError=true \
-            -o .lake/build/lib/lean/research/VF_919_COMMON_PROBE_SEVEN_EIGHTHS_20261020.olean \
+            -o .lake/build/lib/lean/research.VF_919_COMMON_PROBE_SEVEN_EIGHTHS_20261020.olean \
             research/VF_919_COMMON_PROBE_SEVEN_EIGHTHS_20261020.lean \
             | tee /tmp/vf919-common-probe-axioms.txt
           lean -DwarningAsError=true \
-            -o .lake/build/lib/lean/research/VF_919_OPENAI_434_UNCONDITIONAL_SQUARE_BLOCK_COVARIANCE_20261019.olean \
+            -o .lake/build/lib/lean/research.VF_919_OPENAI_434_UNCONDITIONAL_SQUARE_BLOCK_COVARIANCE_20261019.olean \
             research/VF_919_OPENAI_434_UNCONDITIONAL_SQUARE_BLOCK_COVARIANCE_20261019.lean \
             | tee /tmp/vf919-original-covariance-axioms.txt
           lean -DwarningAsError=true scripts/ci/vf919_common_probe_dependency_audit.lean \
