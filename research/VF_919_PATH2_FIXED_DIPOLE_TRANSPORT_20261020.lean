@@ -26,11 +26,13 @@ theorem logDipole_antiderivative_window
       logDensity F (c * u) - logDensity F u := by
   have hd := (hF u).hasDerivAt.sub
     ((hF (c * u)).hasDerivAt.comp u ((hasDerivAt_id u).const_mul c))
-  have hd' : HasDerivAt (fun v => F v - F (c * v))
-      (deriv F u - deriv F (c * u) * c) u := by
-    simpa only [Function.comp_def, Pi.sub_apply, mul_one] using hd
+  have hfun : (F - F ∘ HMul.hMul c) = (fun v => F v - F (c * v)) := by
+    funext v
+    rfl
+  have hd0 := hd.deriv
+  rw [hfun] at hd0
   unfold logDipole logDensity
-  rw [hd'.deriv]
+  rw [hd0]
   ring
 
 theorem density_channels_bounds (eta : ℝ → ℝ) (C c : ℝ)
@@ -93,7 +95,7 @@ theorem fixed_profile_dipole (W : ℝ → ℝ) (hW : Differentiable ℝ W)
     have he : (q + t) * z = q * z + t * z := by ring
     unfold logDipole
     rw [he]
-    field_simp [hqt] <;> ring
+    field_simp [hqt]
   have heq : (∫ t : ℝ in 0..1, (q + t)⁻¹ * logDipole W ((q + t) * z)) =
       -z * (∫ t : ℝ in 0..1, deriv W (q * z + t * z)) := by
     rw [← intervalIntegral.integral_const_mul]
@@ -112,6 +114,7 @@ theorem fixed_profile_cofactor_dipole
   rw [fixed_profile_dipole W hW hWd q (m / P) hq]
   apply intervalIntegral.integral_congr
   intro t _
+  dsimp only
   have he : (q + t) * (m / P) = m / (P / (q + t)) := by
     simp only [div_eq_mul_inv, mul_inv_rev, inv_inv]
     ring
@@ -172,6 +175,7 @@ theorem density_dilation_same_source (N : A →* ℕ) (s : Finset A)
   unfold normSource
   apply Finset.sum_congr rfl
   intro a _
+  dsimp only
   have he : c * ((N a : ℝ) / Y) = (N a : ℝ) / (Y / c) := by
     simp only [div_eq_mul_inv, mul_inv_rev, inv_inv]
     ring
