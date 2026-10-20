@@ -234,7 +234,14 @@ patch("Analysis/FunctionalSpaces/Sobolev/Euclidean/TranslationEstimateL2.lean", 
 patch("Analysis/FunctionalSpaces/Sobolev/Euclidean/TranslationEstimateH1.lean", [
     (
         "        simpa [sub_eq_add_neg] using htr.sub hfst",
-        "        simpa only [Pi.sub_apply] using htr.sub hfst",
+        "        have hpoint :\n"
+        "            ((fun v : V => translateL2 (μ := μ) (F := ℝ) a v.1) -\n"
+        "              (fun v : V => v.1)) =\n"
+        "              (fun v : V => translateL2 (μ := μ) (F := ℝ) a v.1 - v.1) := by\n"
+        "          funext v\n"
+        "          simp only [Pi.sub_apply]\n"
+        "        rw [← hpoint]\n"
+        "        exact htr.sub hfst",
     ),
     (
         "      simpa using (continuous_norm.comp hsub)",
@@ -242,6 +249,12 @@ patch("Analysis/FunctionalSpaces/Sobolev/Euclidean/TranslationEstimateH1.lean", 
     ),
     (
         "      simpa [mul_assoc] using (continuous_const.mul hnorm)",
-        "      simpa only [Pi.mul_apply] using (continuous_const.mul hnorm)",
+        "      have hpoint :\n"
+        "          ((fun _ : V => ‖a‖) * (fun v : V => ‖v.2‖)) =\n"
+        "            (fun v : V => ‖a‖ * ‖v.2‖) := by\n"
+        "        funext v\n"
+        "        simp only [Pi.mul_apply]\n"
+        "      rw [← hpoint]\n"
+        "      exact continuous_const.mul hnorm",
     ),
 ])
