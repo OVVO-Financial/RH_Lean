@@ -58,6 +58,39 @@ jobs:
           targets: >-
             research/VF_919_SEVEN_EIGHTHS_SIGNED_COVARIANCE_20261019.lean
             research/VF_919_SEVEN_EIGHTHS_SQUARE_SHELL_BRIDGE_20261019.lean
+      # The final RHLean+OAI consumer imports PrimeNumberTheoremAnd.Wiener
+      # through the native Mertens converse. Research-only compilation may
+      # reuse earlier oleans without materializing this transitive dependency.
+      # Catch missing external oleans *before* restoring the large OAI DAG.
+      - name: Restore independently cached PNT+ Wiener prerequisites
+        id: pnt-wiener-cache
+        uses: actions/cache/restore@v5
+        with:
+          path: .lake/packages/PrimeNumberTheoremAnd/.lake/build
+          key: vf919-pnt-wiener-v2-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}
+          restore-keys: |
+            pntplus-build-v1-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
+      - name: Materialize and validate missing PNT+ transitive imports
+        id: pnt-build
+        shell: bash
+        run: |
+          set -euo pipefail
+          lake build PrimeNumberTheoremAnd.SmoothExistence PrimeNumberTheoremAnd.Wiener
+          test -s .lake/packages/PrimeNumberTheoremAnd/.lake/build/lib/lean/PrimeNumberTheoremAnd/SmoothExistence.olean
+          test -s .lake/packages/PrimeNumberTheoremAnd/.lake/build/lib/lean/PrimeNumberTheoremAnd/Wiener.olean
+          echo 'PASS: PNT+ SmoothExistence and Wiener oleans exist before OAI setup'
+          # Verify the same import chain that failed after the two-hour run.
+          # This cannot import OpenAI and therefore runs before OAI checkout.
+          lake env lean -DwarningAsError=true \
+            research/VF_919_SEVEN_EIGHTHS_SIGNED_COVARIANCE_20261019.lean \
+            > /tmp/vf919-pnt-native-import-preflight.log
+          echo 'PASS: full native Mertens/covariance import closure is loadable'
+      - name: Save complete PNT+ prerequisites for subsequent attempts
+        if: steps.pnt-build.outcome == 'success' && steps.pnt-wiener-cache.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v5
+        with:
+          path: .lake/packages/PrimeNumberTheoremAnd/.lake/build
+          key: ${{ steps.pnt-wiener-cache.outputs.cache-primary-key }}
       - name: Checkout pinned intermediate analytic source
         uses: actions/checkout@v4
         with:
