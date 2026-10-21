@@ -82,7 +82,7 @@ theorem vf919NNSPartialFourth_eq_pow (x : ℝ) :
   by_cases hx : 0 ≤ x
   · simp [partialUpper, partialLower, hx, not_lt_of_ge hx]
   · have hlt : x < 0 := lt_of_not_ge hx
-    simp [partialUpper, partialLower, hx, hlt] <;> ring
+    simp [partialUpper, partialLower, hx, hlt]; ring
 
 /-- Four unnormalized NNS directional 2-by-2 quadrants. -/
 def vf919NNSQuadrant22 (x y : ℝ) : ℝ :=
