@@ -251,6 +251,48 @@ theorem vf915GlobalDecoded_originalAnchoredExcess (R : ℕ) :
     _ = _ := by
       simp only [vf915GlobalDecodedPhysicalCharge_eq_original]
 
+/-- The full ALL-depth physical correction to the signed Mobius field.
+It is NOT assumed small. In particular it cancels the naive fresh-prime
+sign reversal on every composite physical VF seat. -/
+def vf915GlobalPhysicalRemainder (R n : ℕ) : ℝ :=
+  vfMidOddFractionalPrimeSeatWeight R -
+    vf915GlobalMuSq n / 2 - vf915GlobalMu n / 2 +
+      vf915GlobalNegativeComposite n
+
+theorem vf915GlobalDecoded_eq_mu_add_remainder (R n : ℕ) :
+    vf915GlobalDecodedPhysicalCharge R n =
+      vf915GlobalMu n + vf915GlobalPhysicalRemainder R n := by
+  unfold vf915GlobalDecodedPhysicalCharge vf915GlobalPhysicalRemainder
+  ring
+
+/-- EVERY pair of original VF physical sites, including arbitrary
+squareful and odd-factor-depth sources, evaluated at their OWN original
+age and multiplied by their OWN retained source coefficient.
+
+The full physical Gram is the Mobius/Mobius term PLUS both mixed terms
+PLUS the correction/correction term. Only the FULL sum represents the
+original masked physical observable. -/
+theorem vf915GlobalDecoded_fullyLabelledPairGramWeld
+    {ι : Type*} [DecidableEq ι] (s : Finset ι)
+    (leftAge rightAge leftSite rightSite : ι → ℕ)
+    (originalCoefficient : ι → ℝ) :
+    (∑ i ∈ s, originalCoefficient i *
+      (vf915GlobalDecodedPhysicalCharge (leftAge i) (leftSite i) *
+        vf915GlobalDecodedPhysicalCharge (rightAge i) (rightSite i))) =
+    ∑ i ∈ s, originalCoefficient i *
+      (vf915GlobalMu (leftSite i) * vf915GlobalMu (rightSite i) +
+        vf915GlobalMu (leftSite i) *
+          vf915GlobalPhysicalRemainder (rightAge i) (rightSite i) +
+        vf915GlobalPhysicalRemainder (leftAge i) (leftSite i) *
+          vf915GlobalMu (rightSite i) +
+        vf915GlobalPhysicalRemainder (leftAge i) (leftSite i) *
+          vf915GlobalPhysicalRemainder (rightAge i) (rightSite i)) := by
+  apply Finset.sum_congr rfl
+  intro i hi
+  rw [vf915GlobalDecoded_eq_mu_add_remainder,
+      vf915GlobalDecoded_eq_mu_add_remainder]
+  ring
+
 /-- The actual #915 physical global residual and the ACTUAL three
 clipped/returned boundary sectors sum to the decoder-based original Co/Div.
 Neither the G_R anchor nor the physical masks are replaced. -/
@@ -292,5 +334,6 @@ end RHLean.Analysis
 #print axioms RHLean.Analysis.vf915GlobalDecodedPhysicalCharge_eq_original
 #print axioms RHLean.Analysis.vf915GlobalNegativeComposite_freshPrime_normalForm
 #print axioms RHLean.Analysis.vf915GlobalDecoded_fullKeyWeightedOwnerWeld
+#print axioms RHLean.Analysis.vf915GlobalDecoded_fullyLabelledPairGramWeld
 #print axioms RHLean.Analysis.vf915GlobalDecoded_originalAnchoredExcess
 #print axioms RHLean.Analysis.vf915GlobalDecoded_originalResidualAndBoundary
