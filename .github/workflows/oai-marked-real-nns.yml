@@ -1,0 +1,77 @@
+name: OAI marked fourth moment real NNS
+on:
+  pull_request:
+    paths:
+      - 'research/VF_919_OAI_ACTUAL_MARKED_FOURTH_REAL_NNS_20261021.lean'
+      - 'research/VF_919_OAI_POLARIZED_SIGNED_NNS_EULER_20261021.lean'
+      - 'research/OAI_REFINED_MARKED_NNS_ATTACK_20261021.md'
+      - 'research/OAI_POLARIZED_RESONANCE_SOURCE_CONTRACT_20261021.md'
+      - 'scripts/oai_marked_phi_sextic_stress.py'
+      - 'scripts/oai_marked_polarized_source_audit.py'
+      - '.github/workflows/oai-marked-real-nns.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  finite-sextic-stress:
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify sextic phase, NNS quartic and width slack
+        run: |
+          python3 scripts/oai_marked_phi_sextic_stress.py
+          python3 scripts/oai_marked_polarized_source_audit.py
+
+  marked-real-nns-lean:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - uses: ./.github/actions/lean-setup
+      - name: Restore pinned StrongPNT cache
+        uses: actions/cache/restore@v5
+        with:
+          path: .lake/packages/PrimeNumberTheoremAnd/.lake/build
+          key: pntplus-build-v1-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
+      - name: Prebuild pinned StrongPNT
+        run: lake build PrimeNumberTheoremAnd.StrongPNT
+      - name: Restore RHLean artifacts
+        uses: actions/cache/restore@v5
+        with:
+          path: .lake/build
+          key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'RHLean.lean', 'RHLean/**/*.lean') }}
+          restore-keys: |
+            rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-
+      - name: Compile full verified native real-NNS import closure
+        uses: ./.github/actions/research-compile
+        with:
+          targets: |
+            research/VF_919_OAI_POLARIZED_SIGNED_NNS_EULER_20261021.lean
+            research/VF_919_OAI_ACTUAL_MARKED_FOURTH_REAL_NNS_20261021.lean
+      - name: Check original source equality and unnormalized quartic
+        run: |
+          cat > research/VF_919_MARKED_REAL_NNS_ACCEPTANCE_TEMP.lean <<'LEAN'
+          import «research.VF_919_OAI_ACTUAL_MARKED_FOURTH_REAL_NNS_20261021»
+          import «research.VF_919_OAI_POLARIZED_SIGNED_NNS_EULER_20261021»
+          #check RHLean.Analysis.vf919ActualMarkedIntegrand_eq_realEnergies
+          #check RHLean.Analysis.vf919ActualMarkedMoment_eq_realEnergies
+          #check RHLean.Analysis.vf919ActualMarkedFourth_eq_unnormalizedNNS
+          #check RHLean.Analysis.vf919ActualMarkedBound_to_realNNS
+          #check RHLean.Analysis.vf919MarkedActualWidthExponent
+          #check RHLean.Analysis.vf919ActualMarkedSharperOfRawWidth
+          #check RHLean.MarkedRealNNS.nns_fourth_moment_identity
+          #check RHLean.MarkedRealNNS.nns_polarized_fourth_moment_identity
+          #check RHLean.MarkedRealNNS.nns_weighted_polarized_fourth
+          #check RHLean.MarkedRealNNS.phase_correct_euler_pair_sum
+          #check RHLean.MarkedRealNNS.phase_correct_log_two
+          #check RHLean.MarkedRealNNS.restricted_character_resonance_not_floor
+          #print axioms RHLean.Analysis.vf919ActualMarkedFourth_eq_unnormalizedNNS
+          #print axioms RHLean.MarkedRealNNS.nns_weighted_polarized_fourth
+          #print axioms RHLean.MarkedRealNNS.phase_correct_euler_pair_sum
+          LEAN
+          lake env lean -DwarningAsError=true research/VF_919_MARKED_REAL_NNS_ACCEPTANCE_TEMP.lean
