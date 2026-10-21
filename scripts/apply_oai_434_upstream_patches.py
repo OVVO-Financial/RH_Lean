@@ -14,10 +14,16 @@ the checkout against the commit pinned in `lake-manifest.json`,
 skips a patch that is already applied, applies it otherwise, and verifies
 the result. Any mismatch or conflict is fatal. The patches are upstream's
 own files; nothing here edits proofs.
+
+`--keep-pinned PKG` leaves PKG exactly at its pinned upstream commit and
+fails if its checkout has any local change. The combined RH_Lean + OpenAI
+kernel checks use it for PrimeNumberTheoremAnd: RH_Lean pins the same
+commit unpatched, and Lean loads a package from a single build, so both
+sides must be compiled against identical PrimeNumberTheoremAnd sources.
 """
+import argparse
 import json
 import subprocess
-import sys
 from pathlib import Path
 
 # The package list of the `post_update` hook in openai/math lean/lakefile.lean.
@@ -34,7 +40,12 @@ def git(directory, *args):
 
 
 def main():
-    root = Path(sys.argv[1] if len(sys.argv) > 1 else "oai-upstream/lean").resolve()
+    parser = argparse.ArgumentParser()
+    parser.add_argument("root", nargs="?", default="oai-upstream/lean")
+    parser.add_argument("--keep-pinned", action="append", default=[],
+                        choices=POST_UPDATE_PACKAGES, metavar="PKG")
+    args = parser.parse_args()
+    root = Path(args.root).resolve()
     manifest = json.loads((root / "lake-manifest.json").read_text())
     pins = {p["name"].strip("«»"): p for p in manifest["packages"]}
     for label in POST_UPDATE_PACKAGES:
@@ -46,6 +57,15 @@ def main():
         head = git(directory, "rev-parse", "HEAD").stdout.strip()
         if head != pin["rev"]:
             raise SystemExit(f"{label}: expected commit {pin['rev']}, found {head!r}")
+        if label in args.keep_pinned:
+            status = git(directory, "status", "--porcelain", "--untracked-files=all")
+            changes = [line for line in status.stdout.splitlines()
+                       if not line[3:].startswith(".lake/")]
+            if status.returncode != 0 or changes:
+                raise SystemExit(f"{label}: must stay at pinned {pin['rev']} but has local changes:\n"
+                                 + "\n".join(changes))
+            print(f"{label}: kept unpatched at pinned commit {head}")
+            continue
         if git(directory, "apply", "--check", "--reverse", str(patch)).returncode == 0:
             print(f"{label}: upstream patch already applied")
             continue
