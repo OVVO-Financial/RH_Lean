@@ -6,6 +6,7 @@ on:
       - 'scripts/rhlean_317_1027_five_stage_witness.cpp'
       - 'research/FIVE_STAGE_OWNER_317_1027_NUMERICAL_WITNESSES_20261021.md'
       - 'research/FIVE_STAGE_JOINT_OWNER_PAYMENT_ATTACK_20261021.md'
+      - 'research/VF_MID_915_GLOBAL_MOBIUS_PHYSICAL_WELD_20261021.lean'
       - '.github/workflows/rhlean-joint-returned-owner-audit.yml'
   workflow_dispatch:
 
@@ -44,3 +45,45 @@ jobs:
           grep -F 'root=-9565 high_composite=10452 high=887 smooth=-915 positive_owner_A=9913' /tmp/rhlean_317_1027_witness.log
           grep -F 'root=-82290 high_composite=89259 high=6969 smooth=-6602 positive_owner_A=85539' /tmp/rhlean_317_1027_witness.log
           grep -F 'PASS exact independent sites, unique owner sums' /tmp/rhlean_317_1027_witness.log
+
+  lean-global-physical-weld:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Set up Lean 4.34.1 and verified dependency cache
+        uses: ./.github/actions/lean-setup
+      - name: Restore pinned StrongPNT cache
+        uses: actions/cache/restore@v5
+        with:
+          path: .lake/packages/PrimeNumberTheoremAnd/.lake/build
+          key: pntplus-build-v1-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
+      - name: Ensure StrongPNT dependency
+        run: lake build PrimeNumberTheoremAnd.StrongPNT
+      - name: Restore native RHLean artifacts
+        uses: actions/cache/restore@v5
+        with:
+          path: .lake/build
+          key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'RHLean.lean', 'RHLean/**/*.lean') }}
+          restore-keys: |
+            rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-
+      - name: Compile actual original VF and global Mobius decoder weld
+        uses: ./.github/actions/research-compile
+        with:
+          targets: research/VF_MID_915_GLOBAL_MOBIUS_PHYSICAL_WELD_20261021.lean
+      - name: Check key Lean theorems and axioms
+        run: |
+          cat > /tmp/VF915GlobalMobiusWeldAcceptance.lean <<'LEAN'
+          import «research.VF_MID_915_GLOBAL_MOBIUS_PHYSICAL_WELD_20261021»
+          #check RHLean.Analysis.vf915GlobalDecodedPhysicalCharge_eq_original
+          #check RHLean.Analysis.vf915GlobalDecoded_fullKeyWeightedOwnerWeld
+          #check RHLean.Analysis.vf915GlobalDecoded_originalNNSMass
+          #check RHLean.Analysis.vf915GlobalDecoded_originalAnchoredExcess
+          #check RHLean.Analysis.vf915GlobalDecoded_halfGate_iff_original
+          #print axioms RHLean.Analysis.vf915GlobalDecoded_originalAnchoredExcess
+          LEAN
+          lake env lean -DwarningAsError=true /tmp/VF915GlobalMobiusWeldAcceptance.lean
