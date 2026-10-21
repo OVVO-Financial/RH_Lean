@@ -1,0 +1,40 @@
+name: OAI marked polarized NNS and phase-correct Euler
+on:
+  pull_request:
+    paths:
+      - 'research/VF_919_OAI_POLARIZED_EULER_BRIDGE_20261021.lean'
+      - 'research/OAI_POLARIZED_PARSEVAL_EULER_OBSTRUCTION_20261021.md'
+      - 'scripts/oai_marked_polarized_euler_audit.py'
+      - '.github/workflows/oai-marked-polarized-euler.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  polarized-numerical:
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@v4
+      - name: Test all marked derivative pairs and exact character phases
+        run: python3 scripts/oai_marked_polarized_euler_audit.py
+
+  polarized-mathlib-lean:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - uses: ./.github/actions/lean-setup
+      - name: Compile standalone polarized NNS math (no full RHLean library)
+        run: |
+          lake env lean -DwarningAsError=true research/VF_919_OAI_POLARIZED_EULER_BRIDGE_20261021.lean
+      - name: Assert certified theorem signatures
+        run: |
+          cat > research/VF_919_POLAR_NNS_ACCEPTANCE_TEMP.lean <<'LEAN'
+          import Mathlib
+          #check max
+          LEAN
+          lake env lean -DwarningAsError=true research/VF_919_POLAR_NNS_ACCEPTANCE_TEMP.lean
