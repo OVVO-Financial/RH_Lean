@@ -1,6 +1,7 @@
 import Mathlib
 import «research.VF_MID_PHYSICAL_FORCING_MOBIUS_DECODER»
 import «research.VF_MID_915_SOURCE_PAYMENT_CONTENT_AUDIT»
+import «research.VF_MID_FIRST_BAD_FINAL_AGGREGATE_CONTRACTION»
 
 /-!
 # Global Mobius-to-actual-VF physical owner weld, without proxy replacement
@@ -90,7 +91,7 @@ theorem vf915GlobalDecoded_highPrimeCofactor
         (if c = 1 then (1 : ℝ) else 0) := by
   rw [vf915GlobalDecodedPhysicalCharge_eq_original]
   unfold vfMidOddSignedSeatCharge vfMidActualPrimeSeatMass
-  rw [vf915HighPrime_mul_is_prime_iff hq hc]
+  simp only [vf915HighPrime_mul_is_prime_iff hq hc]
 
 /-- Exact sign change in the Mobius cofactor source, distinct from
 the original VF physical charge. -/
