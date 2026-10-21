@@ -15,6 +15,37 @@ Date: 2026-10-21. This is an explicit relationship and audit, NOT a claim that r
 
 The prime-wheel parity phase is -1 on a new Boolean prime coordinate. A sextic Hecke phase theta need NOT equal -1. The finite algebra is shared; actual arithmetic sources and analytic bounds are not automatically identified.
 
+## 1B. The actual OpenAI source to place in the neighboring column
+
+This crosswalk must reuse the SOURCE-LEVEL OpenAI declarations already catalogued in [OAI_919_COMPENSATION_NNS_SIMULTANEOUS_CROSSWALK_20261021.md](OAI_919_COMPENSATION_NNS_SIMULTANEOUS_CROSSWALK_20261021.md), not a made-up Euler toy model:
+
+1. Detector/Compensation.lean (tupleOperation_one) and Detector/Physical.lean (compensatedTuple_one). For a single selected prime IDEAL p of norm Np, the ACTUAL terms are
+
+    A = conjugate(eta(p)) * markedPhysicalProbe(...,D=(p),X,Y,Z*Np)
+    B = Np^(-3/2) * physicalProbe(...,X/Np,Y/Np,Z),
+    compensatedTuple_one = A-B.
+
+   Observe the true conjugated Hecke character, the Np^(-3/2) scalar, and BOTH rescalings. An arbitrary a(T)-theta*a(Tp) is a reusable algebraic primitive, NOT the full physical probe.
+
+2. Detector/GaussianCompensation.lean (compensatedPhysicalProbe_eq_subsets). The complete selected-prime source expands over subsets J of selected prime slots with ORIGINAL coefficient
+
+    (-1)^|J| * N(p_J)^(-3/2) *
+       conjugate(eta(p_complement(J))),
+
+   multiplied by the original product of prime-slot windows and the correspondingly marked/rescaled probe. The alternating (-1)^|J| is the same Boolean-face parity operation visible in the frozen wheel; the conjugated character, norm weight, window and X/Y/Z modifications are the ADDITIONAL arithmetic structure of OpenAI's compensation.
+
+3. Detector/CompensatedTriple.lean (compensatedPhysicalProbe_eq_row_triples), Moments/DetectorDictionaryFiber.lean (fiber_plain_energy_eq), and Moments/DetectorPlainFiberSource.lean (detector_row_eq_source) are the ACTUAL already-proved OpenAI source/moment identifications. At each accepted row u, after finite-column reindexing,
+
+    detectorPositiveRow(u)
+      = D_U^(-1/2) * sum_(I in finiteColumns) c_(u,I),
+    D_U=(U^F.m)^2 * product_(slot s) U^F.widths(s).
+
+   The *original marked moment* equals D_U^(-1) times the sum of squared norms of these row sums under the source's original hypotheses.
+
+**Critical no-double-count distinction:** c_(u,I) ALREADY contains the actual selected physical W(u) through the source column construction. At the original polynomial expression the moment is sum_u |W(u)|² |P_j(u)P_k(u)|². After source reindexing it is D_U^(-1) sum_u |sum_I c_(u,I)|², WITHOUT a second external |W(u)|². The new native Lean theorem vf919NormalizedColumnSource_NNSCovariance handles THIS finite-column representation; vf919ActualMarkedMoment_eq_exactWeightedNNSCovariance handles the external-W expression under explicit raw source-atom admission. They are two coordinate expressions for an upstream-identified source, not two simultaneous physical costs.
+
+This means the OpenAI mathematical source identification ALREADY EXISTS in the upstream proof. What remains on the RH_Lean side is the concrete cross-repository Lean instantiation of the NNS covariance theorem on those very source-data declarations, and then the separate stronger arithmetic estimate.
+
 ## 2. The precise original Lean theorems: three distinct, not conflated, ledgers
 
 1. PrimeCombVisualizationRecurrence.lean proves primeCombAnimationStepSite_eq_insert for every n. The actual displayed frame J_S(n) has kill, first-hit and flip events.
