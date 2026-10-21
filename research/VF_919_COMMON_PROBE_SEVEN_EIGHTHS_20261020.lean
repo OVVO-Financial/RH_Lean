@@ -117,8 +117,8 @@ theorem beta_le_seven_eighths : HeckeZeroSupremum.beta ≤ (7/8 : ℝ) := by
       (by linarith) hχpole, hz, zero_mul]
   apply (HeckeSignal.nonzero_of_probe_bounds χ H J beta omegaLoss σ (-11/16)
     beta_le_one hω0 hω hσ hH hb ?_ ?_ hnear hχpole) hzχ
-  · convert hJ using 1 <;> ring_nf
-  · convert herr using 1 <;> ring_nf
+  · convert hJ using 1; ring_nf
+  · convert herr using 1; ring_nf
 
 /-- All actual Hecke characters, with the principal pole exception explicit.
 No hBeta, hMoment, or imported terminal zero-free theorem is supplied. -/
