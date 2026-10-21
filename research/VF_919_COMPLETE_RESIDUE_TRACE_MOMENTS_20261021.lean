@@ -20,6 +20,8 @@ no analytic moment estimate or seven-eighths conclusion.
 
 namespace RHLean.Analysis
 
+set_option maxRecDepth 100000
+
 /-- The real integral trace of a sixth root and its inverse, indexed by its
     exponent modulo six. -/
 def vf919CompleteResidueTau : Fin 6 → ℤ :=
@@ -32,7 +34,6 @@ def vf919CompleteResidueTrace (e f : Fin 6) : ℤ :=
 
 /-- Exact multiplicities of the trace values `-4, -3, ..., 4` on the 36
     complete phase buckets. -/
-set_option maxRecDepth 100000 in
 theorem vf919CompleteResidueTrace_distribution :
     ((Finset.univ.filter fun ef : Fin 6 × Fin 6 =>
         vf919CompleteResidueTrace ef.1 ef.2 = -4).card = 1) ∧
@@ -56,14 +57,12 @@ theorem vf919CompleteResidueTrace_distribution :
 
 /-- The exact unnormalized second moment on the 36 complete phase buckets.
     Equivalently, the uniform average is `144 / 36 = 4`. -/
-set_option maxRecDepth 100000 in
 theorem vf919CompleteResidueTrace_secondMoment :
     ∑ ef : Fin 6 × Fin 6, vf919CompleteResidueTrace ef.1 ef.2 ^ 2 = 144 := by
   decide
 
 /-- The exact unnormalized fourth moment on the 36 complete phase buckets.
     Equivalently, the uniform average is `1296 / 36 = 36`. -/
-set_option maxRecDepth 100000 in
 theorem vf919CompleteResidueTrace_fourthMoment :
     ∑ ef : Fin 6 × Fin 6, vf919CompleteResidueTrace ef.1 ef.2 ^ 4 = 1296 := by
   decide
