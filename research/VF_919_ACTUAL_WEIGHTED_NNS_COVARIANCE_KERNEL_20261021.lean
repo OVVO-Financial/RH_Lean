@@ -32,6 +32,48 @@ namespace RHLean.Analysis
 
 open RHLean.Proof
 
+/-- Finite ideal-product convolution, BEFORE taking any norm. This is the
+unconditional algebraic source-lift for each selected j,k pair once their
+ACTUAL OAI polynomial rows have been identified with their ideal sums. -/
+theorem vf919MarkedFiniteProductAtoms
+    {α β : Type*} (s : Finset α) (t : Finset β)
+    (a : α → ℂ) (b : β → ℂ) :
+    (∑ i ∈ s, a i) * (∑ j ∈ t, b j) =
+      ∑ ij ∈ s.product t, a ij.1 * b ij.2 := by
+  calc
+    (∑ i ∈ s, a i) * (∑ j ∈ t, b j) =
+      ∑ i ∈ s, a i * (∑ j ∈ t, b j) := by
+        rw [Finset.sum_mul]
+    _ = ∑ i ∈ s, ∑ j ∈ t, a i * b j := by
+      apply Finset.sum_congr rfl
+      intro i hi
+      rw [Finset.mul_sum]
+    _ = ∑ ij ∈ s.product t, a ij.1 * b ij.2 := by
+      rw [Finset.sum_product]
+
+/-- Phi is additive even on full finite ideal-labelled sums: no phase
+or multiplicity is lost in the REAL coordinate transfer. -/
+theorem vf919Phi_sum_idealAtoms
+    {α : Type*} (s : Finset α) (a : α → ℂ) :
+    stableFarComplexToRealPair (∑ i ∈ s, a i) =
+      ((∑ i ∈ s, (stableFarComplexToRealPair (a i)).1),
+       (∑ i ∈ s, (stableFarComplexToRealPair (a i)).2)) := by
+  classical
+  induction s using Finset.induction_on with
+  | empty =>
+      simp [stableFarComplexToRealPair]
+  | @insert i s hi ih =>
+      simp only [Finset.sum_insert hi]
+      have hadd (z w : ℂ) :
+          stableFarComplexToRealPair (z + w) =
+          ((stableFarComplexToRealPair z).1 +
+             (stableFarComplexToRealPair w).1,
+           (stableFarComplexToRealPair z).2 +
+             (stableFarComplexToRealPair w).2) := by
+        simp [stableFarComplexToRealPair]
+        constructor <;> ring
+      rw [hadd, ih]
+
 /-- Original finite row energy in Fred's invertible two-real-coordinate Phi
 representation. The row amplitude is the sum of all retained source atoms. -/
 def vf919WeightedPhiMarkedMoment
