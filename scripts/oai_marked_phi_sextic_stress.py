@@ -56,6 +56,35 @@ print('sixth_roots |1-zeta|^4:', ','.join(str(round(v)) for v in compensated))
 print(f'baseline_sum={sum(baseline):.0f}; actual_sum={sum(compensated):.0f};'
       f' positive_alignment={good:.2f}; negative_alignment={bad:.2f}')
 
+# Four genuine Eisenstein ideal-labelled finite phase families ALREADY proved
+# in RHLean's VF_919_NATIVE_SEXTIC_OWNER_PROJECTION_20261019.lean.
+# This is finite tagged ideal arithmetic, not an OAI global row family.
+native_witnesses=(
+    ('x317', (5,5,1,1), 2, -2),
+    ('x1027', (1,3,3,5), -1, 1),
+    ('R317', (0,4,2,0), 1, -1),
+    ('R1027',(3,1,5,3), -1, 1),
+)
+total_actual_quartic=0.
+total_norm_first_quartic=0.
+for name,exps,expected,expected_selected in native_witnesses:
+    actual=sum(zeta[e] for e in exps)
+    selected=sum(-zeta[(-e)%6] for e in exps)
+    assert near(actual.real,expected) and near(actual.imag,0)
+    assert near(selected.real,expected_selected) and near(selected.imag,0)
+    assert near(quartic(actual),abs(actual)**4)
+    assert near(quartic(selected),abs(selected)**4)
+    total_actual_quartic+=quartic(actual)
+    total_norm_first_quartic+=len(exps)**4
+    print(f'native_ideal_phase_{name}: labels={exps}, signed={expected}, '
+          f'selected={expected_selected}, fourth={quartic(actual):.0f}, '
+          f'positive_before_phase={len(exps)**4}')
+assert near(total_actual_quartic,19.)
+assert near(total_norm_first_quartic,1024.)
+print(f'FOUR native phase witnesses: signed fourth sum={total_actual_quartic:.0f}, '
+      f'norm-first quartic sum={total_norm_first_quartic:.0f}, '
+      f'finite ratio={total_norm_first_quartic/total_actual_quartic:.4f}')
+
 for t in (Fraction(1,100000),Fraction(1,10000),Fraction(1,4)):
     assert 1+t/4+t/4==1+t/2
     assert 1+t/2<1+t
