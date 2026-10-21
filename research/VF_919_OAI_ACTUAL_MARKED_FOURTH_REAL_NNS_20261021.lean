@@ -80,7 +80,7 @@ theorem vf919NNSPartialFourth_eq_pow (x : ℝ) :
     vf919NNSPartialFourth x = x ^ 4 := by
   unfold vf919NNSPartialFourth
   by_cases hx : 0 ≤ x
-  · simp [partialUpper, partialLower, hx, not_lt_of_ge hx] <;> ring
+  · simp [partialUpper, partialLower, hx, not_lt_of_ge hx]
   · have hlt : x < 0 := lt_of_not_ge hx
     simp [partialUpper, partialLower, hx, hlt] <;> ring
 
@@ -99,7 +99,7 @@ theorem vf919NNSQuadrant22_eq (x y : ℝ) :
   calc
     _ = ((partialUpper x 0)^2 + (partialLower x 0)^2) *
         ((partialUpper y 0)^2 + (partialLower y 0)^2) := by ring
-    _ = x^2 * y^2 := by rw [hx, hy]
+    _ = x^2 * y^2 := by rw [hx, hy]; simp only [sub_zero]
 
 /-- Full row quartic, retaining ALL four mixed physical quadrants. -/
 def vf919MarkedFourthNNS (z : ℂ) : ℝ :=
@@ -169,6 +169,8 @@ theorem vf919ActualMarkedSharperOfRawWidth
         vf919MarkedRealEnergy (physical u)) ≤
           C * U ^ (1 + t / 2) := by
   rw [←vf919ActualMarkedMoment_eq_realEnergies rows Pj Pk physical]
+  change (∑ u ∈ rows, ‖Pj u * Pk u * physical u‖ ^ 2) ≤
+    C * U ^ (1 + t / 2)
   simpa only [vf919MarkedActualWidthExponent] using hraw
 
 end RHLean.Analysis
