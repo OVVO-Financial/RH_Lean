@@ -83,7 +83,7 @@ theorem vf919OAI_actualMobius_full_mixed_mark_rescale_gram
     intro n _
     ring
   rw [hsource]
-  simpa only [Complex.sq_norm] using
+  simpa [Complex.sq_norm] using
     Complex.normSq_sub
       (∑ n ∈ ns, vf919RationalMobius n * marked n)
       (∑ n ∈ ns, vf919RationalMobius n * rescaled n)

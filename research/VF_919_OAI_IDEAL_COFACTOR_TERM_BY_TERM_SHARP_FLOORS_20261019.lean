@@ -43,6 +43,7 @@ theorem vf919OAITrueSquareBlockMask_eq_two_exact_prefixes
     unfold vf919OAITrueSquareL
     have h : 0 < R^2 := by nlinarith
     omega
+  have hSquare : R ^ 2 ≤ (R + 1) ^ 2 := by nlinarith
   by_cases hnlow : n < R^2
   · have hlow : ¬ R^2 ≤ n := by omega
     have hhi : n ≤ vf919OAITrueSquareU R := by omega
@@ -106,7 +107,8 @@ theorem vf919OAITrueSquareBlockCharacterWeight_eq_floorDifference
           (vf919OAITrueSquareL R / m) : ℤ) : ℂ) := by
   have hX : vf919OAITrueSquareL R ≤ vf919OAITrueSquareU R := by
     unfold vf919OAITrueSquareL vf919OAITrueSquareU
-    nlinarith
+    have hsquare : R ^ 2 ≤ (R + 1) ^ 2 := by nlinarith
+    omega
   simp_rw [vf919OAITrueSquareBlockMask_eq_two_exact_prefixes R hR]
   simp_rw [mul_sub]
   rw [Finset.sum_sub_distrib]

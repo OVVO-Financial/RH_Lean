@@ -67,12 +67,17 @@ theorem vf919SquareShellSum_eq_OAI_excludedNorm_high_sub_low
     (vf919SquareShellSum R : ℂ) =
       vf919OAIExcludedNormSharpPrefix (vf919OAIhighSquareEndpoint R) -
         vf919OAIExcludedNormSharpPrefix (vf919OAIlowSquareEndpoint R) := by
+  have hR2 : 16 ≤ R ^ 2 := by
+    calc
+      16 = (4 : ℕ) ^ 2 := by norm_num
+      _ ≤ R ^ 2 := by gcongr
+  have hR2upper : R ^ 2 ≤ (R + 1) ^ 2 := by nlinarith
   have hhi : 12 ≤ vf919OAIhighSquareEndpoint R := by
     unfold vf919OAIhighSquareEndpoint
-    nlinarith
+    omega
   have hlo : 12 ≤ vf919OAIlowSquareEndpoint R := by
     unfold vf919OAIlowSquareEndpoint
-    nlinarith
+    omega
   have hupper := realMertensLength_cast_eq_mertensSummatory
     (vf919OAIhighSquareEndpoint R)
   have hlower := realMertensLength_cast_eq_mertensSummatory
