@@ -1,0 +1,32 @@
+name: Native finite-history returned-owner audit
+on:
+  pull_request:
+    paths:
+      - 'scripts/rhlean_joint_returned_owner_attack.cpp'
+      - 'research/FIVE_STAGE_JOINT_OWNER_PAYMENT_ATTACK_20261021.md'
+      - '.github/workflows/rhlean-joint-returned-owner-audit.yml'
+  workflow_dispatch:
+
+jobs:
+  finite-history-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - name: Compile integer-exact sieve and owner-fiber audit
+        run: |
+          g++ -O3 -std=c++17 -Wall -Wextra -Werror \
+            scripts/rhlean_joint_returned_owner_attack.cpp \
+            -o /tmp/rhlean_joint_owner_audit
+      - name: Check full transport and frozen endpoint regressions
+        run: |
+          /tmp/rhlean_joint_owner_audit | tee /tmp/rhlean_joint_owner_audit.log
+          grep -F 'R=100 X=9999 M=-23' /tmp/rhlean_joint_owner_audit.log
+          grep -F 'R=317 X=100488 M=-28' /tmp/rhlean_joint_owner_audit.log
+          grep -F 'R=1027 X=1054728 M=367' /tmp/rhlean_joint_owner_audit.log
+          grep -F 'R=3162 X=9998243 M=1065' /tmp/rhlean_joint_owner_audit.log
+          grep -F 'positive_fiber_mass_A=689741 >= k1=316027' /tmp/rhlean_joint_owner_audit.log
+          grep -F 'high_prime_signed_H=-T=48331  smooth_signed_S=-47266  S-T=M=1065' /tmp/rhlean_joint_owner_audit.log
+          grep -F 'max_distinct_prime_factors=8 max_five_level_histories=56' /tmp/rhlean_joint_owner_audit.log
