@@ -33,22 +33,22 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: \${{ github.event.pull_request.head.sha || github.sha }}
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
       - uses: ./.github/actions/lean-setup
       - name: Restore pinned StrongPNT cache
         uses: actions/cache/restore@v5
         with:
           path: .lake/packages/PrimeNumberTheoremAnd/.lake/build
-          key: pntplus-build-v1-\${{ runner.os }}-\${{ runner.arch }}-\${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
+          key: pntplus-build-v1-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
       - name: Prebuild pinned StrongPNT
         run: lake build PrimeNumberTheoremAnd.StrongPNT
       - name: Restore native RHLean artifacts
         uses: actions/cache/restore@v5
         with:
           path: .lake/build
-          key: rhlean-build-\${{ runner.os }}-\${{ runner.arch }}-\${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'RHLean.lean', 'RHLean/**/*.lean') }}
+          key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'RHLean.lean', 'RHLean/**/*.lean') }}
           restore-keys: |
-            rhlean-build-\${{ runner.os }}-\${{ runner.arch }}-\${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-
+            rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-
       - name: Compile actual prime wheel + signed Hecke NNS kernel
         uses: ./.github/actions/research-compile
         with:
