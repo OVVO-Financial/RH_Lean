@@ -1,0 +1,104 @@
+name: Native finite-history returned-owner audit
+on:
+  pull_request:
+    paths:
+      - 'scripts/rhlean_joint_returned_owner_attack.cpp'
+      - 'scripts/rhlean_317_1027_five_stage_witness.cpp'
+      - 'research/FIVE_STAGE_OWNER_317_1027_NUMERICAL_WITNESSES_20261021.md'
+      - 'research/FIVE_STAGE_JOINT_OWNER_PAYMENT_ATTACK_20261021.md'
+      - 'research/VF_MID_915_GLOBAL_MOBIUS_PHYSICAL_WELD_20261021.lean'
+      - 'scripts/vf915_global_mobius_physical_weld_317_1027.py'
+      - 'research/VF_MID_915_GLOBAL_MOBIUS_PHYSICAL_WELD_20261021.md'
+      - '.github/workflows/rhlean-joint-returned-owner-audit.yml'
+  workflow_dispatch:
+
+jobs:
+  finite-history-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - name: Compile integer-exact sieve and owner-fiber audit
+        run: |
+          g++ -O3 -std=c++17 -Wall -Wextra -Werror \
+            scripts/rhlean_joint_returned_owner_attack.cpp \
+            -o /tmp/rhlean_joint_owner_audit
+      - name: Check full transport and frozen endpoint regressions
+        run: |
+          /tmp/rhlean_joint_owner_audit | tee /tmp/rhlean_joint_owner_audit.log
+          grep -F 'R=100 X=9999 M=-23' /tmp/rhlean_joint_owner_audit.log
+          grep -F 'R=317 X=100488 M=-28' /tmp/rhlean_joint_owner_audit.log
+          grep -F 'R=1027 X=1054728 M=367' /tmp/rhlean_joint_owner_audit.log
+          grep -F 'R=3162 X=9998243 M=1065' /tmp/rhlean_joint_owner_audit.log
+          grep -F 'positive_fiber_mass_A=689741 >= k1=316027' /tmp/rhlean_joint_owner_audit.log
+          grep -F 'high_prime_signed_H=-T=48331  smooth_signed_S=-47266  S-T=M=1065' /tmp/rhlean_joint_owner_audit.log
+          grep -F 'max_distinct_prime_factors=8 max_five_level_histories=56' /tmp/rhlean_joint_owner_audit.log
+
+      - name: Exact original 317/1027 VF site-to-Mobius decoder and NNS gate
+        run: |
+          python3 scripts/vf915_global_mobius_physical_weld_317_1027.py | tee /tmp/vf915_global_weld_317_1027.log
+          grep -F 'R=317 exact_odd_seats=317 prime=54 high_comp=192 smooth_comp=71' /tmp/vf915_global_weld_317_1027.log
+          grep -F 'R=1027 exact_odd_seats=1027 prime=144 high_comp=659 smooth_comp=224' /tmp/vf915_global_weld_317_1027.log
+          grep -F 'PASS: sitewise GLOBAL Mobius decoder' /tmp/vf915_global_weld_317_1027.log
+
+      - name: Independent integer-site owner and cofactor witnesses at 317 and 1027
+        run: |
+          g++ -O3 -std=c++17 -Wall -Wextra -Werror \
+            scripts/rhlean_317_1027_five_stage_witness.cpp \
+            -o /tmp/rhlean_317_1027_witness
+          /tmp/rhlean_317_1027_witness | tee /tmp/rhlean_317_1027_witness.log
+          grep -F 'R=317 X=100488 M=-28' /tmp/rhlean_317_1027_witness.log
+          grep -F 'R=1027 X=1054728 M=367' /tmp/rhlean_317_1027_witness.log
+          grep -F 'root=-9565 high_composite=10452 high=887 smooth=-915 positive_owner_A=9913' /tmp/rhlean_317_1027_witness.log
+          grep -F 'root=-82290 high_composite=89259 high=6969 smooth=-6602 positive_owner_A=85539' /tmp/rhlean_317_1027_witness.log
+          grep -F 'PASS exact independent sites, unique owner sums' /tmp/rhlean_317_1027_witness.log
+
+  lean-global-physical-weld:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Set up Lean 4.34.1 and verified dependency cache
+        uses: ./.github/actions/lean-setup
+      - name: Restore pinned StrongPNT cache
+        uses: actions/cache/restore@v5
+        with:
+          path: .lake/packages/PrimeNumberTheoremAnd/.lake/build
+          key: pntplus-build-v1-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
+      - name: Ensure StrongPNT dependency
+        run: lake build PrimeNumberTheoremAnd.StrongPNT
+      - name: Restore native RHLean artifacts
+        uses: actions/cache/restore@v5
+        with:
+          path: .lake/build
+          key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'RHLean.lean', 'RHLean/**/*.lean') }}
+          restore-keys: |
+            rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-
+      - name: Compile actual original VF and global Mobius decoder weld
+        uses: ./.github/actions/research-compile
+        with:
+          targets: research/VF_MID_915_GLOBAL_MOBIUS_PHYSICAL_WELD_20261021.lean
+      - name: Check key Lean theorems and axioms
+        run: |
+          cat > /tmp/VF915GlobalMobiusWeldAcceptance.lean <<'LEAN'
+          import «research.VF_MID_915_GLOBAL_MOBIUS_PHYSICAL_WELD_20261021»
+          #check RHLean.Analysis.vf915GlobalDecodedPhysicalCharge_eq_original
+          #check RHLean.Analysis.vf915GlobalDecoded_fullKeyWeightedOwnerWeld
+          #check RHLean.Analysis.vf915GlobalDecoded_originalNNSMass
+          #check RHLean.Analysis.vf915GlobalDecoded_originalAnchoredExcess
+          #check RHLean.Analysis.vf915GlobalDecoded_fullyLabelledPairGramWeld
+          #check RHLean.Analysis.vf915ActualReturnedPairWeight_eq_decodedPhysical
+          #check RHLean.Analysis.vf915ActualReturnedPairCarrier_sum_eq_fourChannels
+          #check RHLean.Analysis.vf915ActualReturnedPairCoDivExcess_eq_fourChannels
+          #check RHLean.Analysis.vf915GlobalNegativeComposite_freshPrime_normalForm
+          #check RHLean.Analysis.vf915GlobalDecoded_originalResidualAndBoundary
+          #check RHLean.Analysis.vf915GlobalDecoded_halfGate_iff_original
+          #print axioms RHLean.Analysis.vf915GlobalDecoded_originalAnchoredExcess
+          LEAN
+          lake env lean -DwarningAsError=true /tmp/VF915GlobalMobiusWeldAcceptance.lean
