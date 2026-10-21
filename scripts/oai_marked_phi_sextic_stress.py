@@ -1,0 +1,64 @@
+#!/usr/bin/env python3
+"""Finite exact-formula stress for the OAI marked-row real-NNS bridge.
+
+Sixth-root phases below are genuine unit sixth roots, NOT OpenAI's full
+Hecke ideal-labelled source. This checks all allowed derivative cases,
+realification, quadrants, and an obstruction to phase-only power savings.
+"""
+import cmath
+import math
+from fractions import Fraction
+
+zeta = [cmath.exp(2j*math.pi*r/6) for r in range(6)]
+def phi(z): return z.real-z.imag, z.real+z.imag
+def e(z):
+    x,y=phi(z)
+    return (x*x+y*y)/2
+def pos(t): return max(t,0.)
+def neg(t): return max(-t,0.)
+def quartic(z):
+    x,y=phi(z)
+    marginals=pos(x)**4+neg(x)**4+pos(y)**4+neg(y)**4
+    mixed=sum(a*a*b*b for a in (pos(x),neg(x))
+              for b in (pos(y),neg(y)))
+    return (marginals+2*mixed)/4
+def near(a,b): return math.isclose(a,b,rel_tol=1e-10,abs_tol=1e-9)
+
+for z in zeta+[2-3j,-.3+4.1j,0j]:
+    assert near(e(z),abs(z)**2)
+    assert near(quartic(z),abs(z)**4)
+for j,k in ((0,0),(0,1),(1,0),(1,1),(2,0),(0,2)):
+    original=0.
+    nns=0.
+    for i in range(1,79):
+        v=zeta[(i*i+i)%6]
+        base=(1+i/37)*v+(0.2+0.1j)*zeta[(i+1)%6]
+        pj=base*complex(math.log1p(i),0.03*i)**j
+        pk=base*complex(math.log1p(i),0.03*i)**k
+        # Explicit selected-slot test mask; NOT OAI's actual source mask.
+        physical=(0 if i%11==0 else zeta[i%6]/(1+i%8))
+        original+=abs(pj*pk*physical)**2
+        nns+=e(pj)*e(pk)*e(physical)
+    assert near(original,nns),(j,k,original,nns)
+    print(f'j={j} k={k} selected_weighted_moment={original:.10f} = realNNS')
+
+# Pure sextic phases alone do not force favourable marked/rescaled alignment.
+compensated=[abs(1-z)**4 for z in zeta]
+A=2
+C=[2*z.real for z in zeta]
+baseline=[A*A+c*c for c in C]
+good=sum(A*pos(c) for c in C)
+bad=sum(A*neg(c) for c in C)
+assert near(sum(compensated),36.)
+assert near(sum(baseline),36.)
+assert near(good,bad)
+print('sixth_roots |1-zeta|^4:', ','.join(str(round(v)) for v in compensated))
+print(f'baseline_sum={sum(baseline):.0f}; actual_sum={sum(compensated):.0f};'
+      f' positive_alignment={good:.2f}; negative_alignment={bad:.2f}')
+
+for t in (Fraction(1,100000),Fraction(1,10000),Fraction(1,4)):
+    assert 1+t/4+t/4==1+t/2
+    assert 1+t/2<1+t
+    print('width',str(t),'retained_exponent',str(1+t/2),
+          'published_exponent',str(1+t),'slack',str(t/2))
+print('PASS: exact real NNS row, fourth-order quadrants, sixth-phase obstruction, OAI width slack')
