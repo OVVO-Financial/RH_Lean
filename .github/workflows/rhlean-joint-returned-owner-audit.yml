@@ -7,6 +7,8 @@ on:
       - 'research/FIVE_STAGE_OWNER_317_1027_NUMERICAL_WITNESSES_20261021.md'
       - 'research/FIVE_STAGE_JOINT_OWNER_PAYMENT_ATTACK_20261021.md'
       - 'research/VF_MID_915_GLOBAL_MOBIUS_PHYSICAL_WELD_20261021.lean'
+      - 'scripts/vf915_global_mobius_physical_weld_317_1027.py'
+      - 'research/VF_MID_915_GLOBAL_MOBIUS_PHYSICAL_WELD_20261021.md'
       - '.github/workflows/rhlean-joint-returned-owner-audit.yml'
   workflow_dispatch:
 
@@ -33,6 +35,13 @@ jobs:
           grep -F 'positive_fiber_mass_A=689741 >= k1=316027' /tmp/rhlean_joint_owner_audit.log
           grep -F 'high_prime_signed_H=-T=48331  smooth_signed_S=-47266  S-T=M=1065' /tmp/rhlean_joint_owner_audit.log
           grep -F 'max_distinct_prime_factors=8 max_five_level_histories=56' /tmp/rhlean_joint_owner_audit.log
+
+      - name: Exact original 317/1027 VF site-to-Mobius decoder and NNS gate
+        run: |
+          python3 scripts/vf915_global_mobius_physical_weld_317_1027.py | tee /tmp/vf915_global_weld_317_1027.log
+          grep -F 'R=317 exact_odd_seats=317 prime=54 high_comp=192 smooth_comp=71' /tmp/vf915_global_weld_317_1027.log
+          grep -F 'R=1027 exact_odd_seats=1027 prime=144 high_comp=659 smooth_comp=224' /tmp/vf915_global_weld_317_1027.log
+          grep -F 'PASS: sitewise GLOBAL Mobius decoder' /tmp/vf915_global_weld_317_1027.log
 
       - name: Independent integer-site owner and cofactor witnesses at 317 and 1027
         run: |
