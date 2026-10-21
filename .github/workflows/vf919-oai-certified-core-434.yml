@@ -10,6 +10,7 @@ on:
       - 'research/VF_919_*.lean'
       - 'research/MERTENS_*.lean'
       - scripts/apply_oai_434_upstream_patches.py
+      - scripts/check_shared_lean_packages.py
       - scripts/ci/vf919_common_probe_dependency_audit.lean
       - .github/workflows/vf919-oai-certified-core-434.yml
 
@@ -103,10 +104,10 @@ jobs:
         uses: actions/cache/restore@v5
         with:
           path: oai-upstream/lean/.lake
-          key: vf919-oai-4341-v3-${{ runner.os }}-${{ runner.arch }}-1581d4cbdd69a0faf34b2089614fe2a814316a6a-${{ hashFiles('scripts/apply_oai_434_upstream_patches.py') }}-intermediate
+          key: vf919-oai-4341-pntnative-v4-${{ runner.os }}-${{ runner.arch }}-1581d4cbdd69a0faf34b2089614fe2a814316a6a-${{ hashFiles('scripts/apply_oai_434_upstream_patches.py') }}-intermediate
           restore-keys: |
-            vf919-oai-4341-v3-${{ runner.os }}-${{ runner.arch }}-1581d4cbdd69a0faf34b2089614fe2a814316a6a-${{ hashFiles('scripts/apply_oai_434_upstream_patches.py') }}-full
-            vf919-oai-4341-v3-${{ runner.os }}-${{ runner.arch }}-1581d4cbdd69a0faf34b2089614fe2a814316a6a-${{ hashFiles('scripts/apply_oai_434_upstream_patches.py') }}-
+            vf919-oai-4341-pntnative-v4-${{ runner.os }}-${{ runner.arch }}-1581d4cbdd69a0faf34b2089614fe2a814316a6a-${{ hashFiles('scripts/apply_oai_434_upstream_patches.py') }}-full
+            vf919-oai-4341-pntnative-v4-${{ runner.os }}-${{ runner.arch }}-1581d4cbdd69a0faf34b2089614fe2a814316a6a-${{ hashFiles('scripts/apply_oai_434_upstream_patches.py') }}-
       - name: Fetch pinned dependencies on a cold cache
         if: steps.oai-cache.outputs.cache-hit != 'true'
         working-directory: oai-upstream/lean
@@ -115,11 +116,16 @@ jobs:
           set -euo pipefail
           test "$(cat lean-toolchain)" = 'leanprover/lean4:v4.34.1'
           lake exe cache get
+      # RH_Lean pins the same PrimeNumberTheoremAnd commit unpatched, and the
+      # combined check loads each package from ONE search-path entry, so the
+      # OpenAI side is compiled against those identical PNT sources. OpenAI's
+      # PNT patch cannot be used on both sides: it removes SmoothExistence,
+      # which native MediumPNT needs. Every other upstream patch is applied.
       - name: Verify and apply the ORIGINAL OpenAI Lean 4.34.1 upstream patches
         shell: bash
         run: |
           set -euo pipefail
-          python3 scripts/apply_oai_434_upstream_patches.py oai-upstream/lean
+          python3 scripts/apply_oai_434_upstream_patches.py oai-upstream/lean --keep-pinned PrimeNumberTheoremAnd
       - name: Kernel-check patched prerequisite proofs
         working-directory: oai-upstream/lean
         shell: bash
@@ -132,6 +138,14 @@ jobs:
             RellichKondrachov.Analysis.FunctionalSpaces.Sobolev.Euclidean.L2Compactness.Approximation \
             RellichKondrachov.Analysis.FunctionalSpaces.Sobolev.Euclidean.L2Compactness.ArzelaAscoli \
             RellichKondrachov.Analysis.FunctionalSpaces.Sobolev.Euclidean.L2Compactness.Transfer
+      # PrimeCounting/Progressions imports only PNT Wiener and uses each
+      # Wiener declaration OpenAI needs; fail here, not after the full build.
+      - name: Preflight OpenAI's PNT Wiener consumers against native PNT
+        working-directory: oai-upstream/lean
+        shell: bash
+        run: |
+          set -euo pipefail
+          lake build OAI.NumberTheory.DirichletL.PrimeCounting.Progressions
       - name: Build the actual intermediate moments, not the terminal theorem
         id: analytic-build
         working-directory: oai-upstream/lean
@@ -157,6 +171,8 @@ jobs:
           RH_PATH="$(lake env printenv LEAN_PATH)"
           OAI_PATH="$(cd oai-upstream/lean && lake env printenv LEAN_PATH)"
           export LEAN_PATH="$PWD/.lake/build/lib/lean:$RH_PATH:$OAI_PATH"
+          test -s .lake/packages/PrimeNumberTheoremAnd/.lake/build/lib/lean/PrimeNumberTheoremAnd/Wiener.olean
+          python3 scripts/check_shared_lean_packages.py . oai-upstream/lean PrimeNumberTheoremAnd mathlib
           # Quoted research module names are flat identifiers containing dots.
           # Match the output convention of compile_research_import_closure.py.
           lean -DwarningAsError=true \

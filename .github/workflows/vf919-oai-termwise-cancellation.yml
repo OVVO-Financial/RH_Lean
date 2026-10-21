@@ -1,0 +1,208 @@
+name: OAI marked-minus-rescaled termwise cancellation
+
+on:
+  pull_request:
+    paths:
+      - research/VF_919_OAI_EXACT_MARKED_RESCALED_LOCAL_20261019.lean
+      - research/VF_919_OAI_EXACT_LABELED_NATIVE_SEATS_20261019.lean
+      - research/VF_919_OAI_INTEGER_MOBIUS_HECKE_TWO_LEGS_20261019.lean
+      - research/VF_919_EXACT_INTEGER_BY_INTEGER_317_1027_20261019.lean
+      - research/VF_919_EXACT_INTEGER_NATIVE_COVARIANCE_BRIDGE_20261019.lean
+      - research/VF_919_OAI_SQUARE_BLOCK_FOUR_INDEX_COVARIANCE_20261019.lean
+      - research/VF_919_OAI_SQUARE_BLOCK_EXCLUDED_NORM_BOUNDARIES_20261019.lean
+      - research/VF_919_OAI_SQUARE_BLOCK_ONE_SOURCE_FULL_NORM_GRAM_20261019.lean
+      - research/VF_919_OAI_GLOBAL_SQUARE_BLOCK_ALL_PAIR_COVARIANCE_20261019.lean
+      - research/VF_919_OAI_TRUE_IDEAL_NORM_SHARP_SQUARE_BLOCK_20261019.lean
+      - research/VF_919_OAI_IDEAL_COFACTOR_TERM_BY_TERM_SHARP_FLOORS_20261019.lean
+      - research/VF_919_OAI_GENUINE_IDEAL_ORDERED_PHYSICAL_PAIRS_20261019.lean
+      - scripts/vf919_oai_square_block_four_index_acceptance.py
+      - .github/workflows/vf919-oai-termwise-cancellation.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: vf919-oai-termwise-${{ github.head_ref || github.ref_name }}
+  cancel-in-progress: true
+
+jobs:
+  exact-oai-cancellation:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - name: Every original integer and explicit signed physical square-block pair
+        run: python3 scripts/vf919_oai_square_block_four_index_acceptance.py
+      - name: Reject proof holes and new axioms
+        shell: bash
+        run: |
+          set -euo pipefail
+          if grep -nE '^[[:space:]]*(sorry|admit|axiom)([[:space:]]|$)' research/VF_919_OAI_EXACT_MARKED_RESCALED_LOCAL_20261019.lean research/VF_919_OAI_EXACT_LABELED_NATIVE_SEATS_20261019.lean research/VF_919_OAI_INTEGER_MOBIUS_HECKE_TWO_LEGS_20261019.lean research/VF_919_EXACT_INTEGER_BY_INTEGER_317_1027_20261019.lean research/VF_919_EXACT_INTEGER_NATIVE_COVARIANCE_BRIDGE_20261019.lean research/VF_919_OAI_SQUARE_BLOCK_FOUR_INDEX_COVARIANCE_20261019.lean research/VF_919_OAI_SQUARE_BLOCK_EXCLUDED_NORM_BOUNDARIES_20261019.lean research/VF_919_OAI_SQUARE_BLOCK_ONE_SOURCE_FULL_NORM_GRAM_20261019.lean research/VF_919_OAI_GLOBAL_SQUARE_BLOCK_ALL_PAIR_COVARIANCE_20261019.lean research/VF_919_OAI_TRUE_IDEAL_NORM_SHARP_SQUARE_BLOCK_20261019.lean research/VF_919_OAI_IDEAL_COFACTOR_TERM_BY_TERM_SHARP_FLOORS_20261019.lean research/VF_919_OAI_GENUINE_IDEAL_ORDERED_PHYSICAL_PAIRS_20261019.lean; then
+            exit 1
+          fi
+      - uses: ./.github/actions/lean-setup
+      - name: Fast warning-fatal compile of source-compatible algebra and literal Mobius coefficient
+        uses: ./.github/actions/research-compile
+        with:
+          build-library: 'false'
+          targets: >-
+            research/VF_919_OAI_EXACT_MARKED_RESCALED_LOCAL_20261019.lean
+            research/VF_919_OAI_INTEGER_MOBIUS_HECKE_TWO_LEGS_20261019.lean
+            research/VF_919_EXACT_INTEGER_BY_INTEGER_317_1027_20261019.lean
+      - name: Restore pinned PNT+ boundary
+        uses: actions/cache/restore@v5
+        with:
+          path: |
+            .lake/packages/PrimeNumberTheoremAnd/.lake/build
+          key: pntplus-build-v1-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
+      - name: Restore RHLean native library artifacts
+        uses: actions/cache/restore@v5
+        with:
+          path: .lake/build
+          key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'RHLean.lean', 'RHLean/**/*.lean') }}
+          restore-keys: |
+            rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-
+      - name: Compile native exact local arithmetic and imported #919 coefficient transport
+        uses: ./.github/actions/research-compile
+        with:
+          build-library: 'true'
+          targets: >-
+            research/VF_919_OAI_EXACT_MARKED_RESCALED_LOCAL_20261019.lean
+            research/VF_919_OAI_EXACT_LABELED_NATIVE_SEATS_20261019.lean
+            research/VF_919_OAI_INTEGER_MOBIUS_HECKE_TWO_LEGS_20261019.lean
+            research/VF_919_EXACT_INTEGER_NATIVE_COVARIANCE_BRIDGE_20261019.lean
+            research/VF_919_OAI_SQUARE_BLOCK_FOUR_INDEX_COVARIANCE_20261019.lean
+            research/VF_919_OAI_SQUARE_BLOCK_EXCLUDED_NORM_BOUNDARIES_20261019.lean
+            research/VF_919_OAI_SQUARE_BLOCK_ONE_SOURCE_FULL_NORM_GRAM_20261019.lean
+            research/VF_919_OAI_GLOBAL_SQUARE_BLOCK_ALL_PAIR_COVARIANCE_20261019.lean
+            research/VF_919_OAI_TRUE_IDEAL_NORM_SHARP_SQUARE_BLOCK_20261019.lean
+            research/VF_919_OAI_IDEAL_COFACTOR_TERM_BY_TERM_SHARP_FLOORS_20261019.lean
+            research/VF_919_OAI_GENUINE_IDEAL_ORDERED_PHYSICAL_PAIRS_20261019.lean
+      - name: Check theorem signatures and standard axioms
+        shell: bash
+        run: |
+          set -euo pipefail
+          cat >/tmp/vf919_oai_termwise_acceptance.lean <<'LEAN'
+          import «research.VF_919_OAI_EXACT_LABELED_NATIVE_SEATS_20261019»
+          import «research.VF_919_OAI_INTEGER_MOBIUS_HECKE_TWO_LEGS_20261019»
+          import «research.VF_919_EXACT_INTEGER_BY_INTEGER_317_1027_20261019»
+          import «research.VF_919_EXACT_INTEGER_NATIVE_COVARIANCE_BRIDGE_20261019»
+          import «research.VF_919_OAI_GLOBAL_SQUARE_BLOCK_ALL_PAIR_COVARIANCE_20261019»
+          import «research.VF_919_OAI_IDEAL_COFACTOR_TERM_BY_TERM_SHARP_FLOORS_20261019»
+          import «research.VF_919_OAI_GENUINE_IDEAL_ORDERED_PHYSICAL_PAIRS_20261019»
+          #check RHLean.Analysis.vf919OAI_original_ordered_covariance_eq_any_real_ideal_fiber
+          #check RHLean.Analysis.vf919OAI_original_signed_greenKubo_eq_real_ideal_fiber
+          #check RHLean.Analysis.vf919OAITrueSquareBlockCharacterWeight_eq_floorDifference
+          #check RHLean.Analysis.vf919OAI_true_square_block_eq_sum_exact_ideal_norm_floors
+          #check RHLean.Analysis.vf919OAITrueSquareMu_at_integer
+          #check RHLean.Analysis.vf919OAITrueSquareIdealNormSource_eq_originalShell
+          #check RHLean.Analysis.vf919OAITrueSquareIdealNormSource_full_signed_covariance
+          #check RHLean.Analysis.vf919OAI_original_global_signed_covariance_eq_full_blockNormGram
+          #check RHLean.Analysis.vf919OAI_original_global_Mertens_eq_all_square_sources
+          #check RHLean.Analysis.vf919OAIExactSquareNormSource_eq_originalSquareShell
+          #check RHLean.Analysis.vf919SquareShell_original_signed_covariance_eq_fullNormGram
+          #check RHLean.Analysis.vf919OAIExcludedNormSharpPrefix_eq_actualMertens
+          #check RHLean.Analysis.vf919SquareShellSum_eq_OAI_excludedNorm_high_sub_low
+          #check RHLean.Analysis.vf919SquareShell_original_covariance_eq_OAI_norm_doubleBoundary
+          #check RHLean.Analysis.vf919SquareShell_actual_signed_covariance_eq_fourIndexHecke
+          #check RHLean.Analysis.vf919SquareShell_original_energy_eq_fourIndexHecke
+          #check RHLean.Analysis.vf919SquareShellCovariance_eq_true_ordered_physical_pairs
+          #check RHLean.Analysis.vf919ExactIntegerLedger_eq_nativeMertens
+          #check RHLean.Analysis.vf919ExactNativeMertens_317
+          #check RHLean.Analysis.vf919ExactNativeMertens_1027
+          #check RHLean.Analysis.vf919ExactNativeMertensSummatory_317
+          #check RHLean.Analysis.vf919ExactNativeMertensSummatory_1027
+          #check RHLean.Analysis.vf919ExactSiteLedger_greenKubo
+          #check RHLean.Analysis.vf919ExactSiteLedger_mass_eq_actualMuPrefix
+          #check RHLean.Analysis.vf919ExactSiteLedger_317
+          #check RHLean.Analysis.vf919ExactSiteLedger_1027
+          #check RHLean.Analysis.vf919ExactSiteLedger_317_1027_sevenEighths
+          #check RHLean.Analysis.vf919ExactSiteLedger_317_1027_covariance_payment
+          #check RHLean.Analysis.vf919OAI_actualMobius_Hecke_two_legs_at_site
+          #check RHLean.Analysis.vf919OAI_actualMobius_Hecke_two_legs_all_sites
+          #check RHLean.Analysis.vf919OAI_actualMobius_full_mixed_mark_rescale_gram
+          #check RHLean.Analysis.vf919OAI_existing_native_full_marked_spectrum
+          #check RHLean.Analysis.vf919OAI_x317_split_labels_same_original_weight
+          #check RHLean.Analysis.vf919OAI_x317_split_ideal_labels_distinct
+          #check RHLean.Analysis.vf919OAI_x317_both_actual_sextic_residues
+          #check RHLean.Analysis.vf919OAI_original_native_continued_term_by_term
+          #check RHLean.Analysis.vf919OAI_original_native_continued_full_gram
+          #check RHLean.Analysis.vf919OAI_original_native_seat_term_by_term
+          #check RHLean.Analysis.vf919OAI_original_native_seat_full_mixed_gram
+          #check RHLean.Analysis.vf919OAIcontinuedH_eq_rawH
+          #check RHLean.Analysis.vf919OAI_exact_continued_local_compensation
+          #check RHLean.Analysis.vf919OAI_exact_continued_zero_mask
+          #check RHLean.Analysis.vf919OAI_exact_continued_good_character
+          #check RHLean.Analysis.vf919OAIlocalG_eq_preexisting_native
+          #check RHLean.Analysis.vf919OAIlocalH_eq_preexisting_native
+          #check RHLean.Analysis.vf919OAI_exact_from_preexisting_native_5_13b
+          #check RHLean.Analysis.vf919OAIlocalP_unrestricted_two_terms
+          #check RHLean.Analysis.vf919OAImarkedMinusRescaled_numerator
+          #check RHLean.Analysis.vf919OAIphase_exact_uncancelled_defect
+          #check RHLean.Analysis.vf919OAIphase_scalar_cancellation
+          #check RHLean.Analysis.vf919OAIlocalG_add_phaseH_numerator
+          #check RHLean.Analysis.vf919OAI_exact_local_compensation
+          #check RHLean.Analysis.vf919OAI_zero_extended_mask
+          #check RHLean.Analysis.vf919OAI_exact_finite_good_prime_slots
+          #check RHLean.Analysis.vf919OAI_original_subset_marked_minus_rescaled
+          #check RHLean.Analysis.vf919OAI_selected_local_operation
+          #check RHLean.Analysis.vf919OAI_unit_character_phase_facts
+          #check RHLean.Analysis.vf919OAI_exact_good_character_compensation
+          #check RHLean.Analysis.vf919OAI_marked_rescaled_physical_pairing
+          #print axioms RHLean.Analysis.vf919OAI_original_ordered_covariance_eq_any_real_ideal_fiber
+          #print axioms RHLean.Analysis.vf919OAI_original_signed_greenKubo_eq_real_ideal_fiber
+          #print axioms RHLean.Analysis.vf919OAITrueSquareBlockCharacterWeight_eq_floorDifference
+          #print axioms RHLean.Analysis.vf919OAI_true_square_block_eq_sum_exact_ideal_norm_floors
+          #print axioms RHLean.Analysis.vf919OAITrueSquareMu_at_integer
+          #print axioms RHLean.Analysis.vf919OAITrueSquareIdealNormSource_eq_originalShell
+          #print axioms RHLean.Analysis.vf919OAITrueSquareIdealNormSource_full_signed_covariance
+          #print axioms RHLean.Analysis.vf919OAI_original_global_signed_covariance_eq_full_blockNormGram
+          #print axioms RHLean.Analysis.vf919OAI_original_global_Mertens_eq_all_square_sources
+          #print axioms RHLean.Analysis.vf919OAIExactSquareNormSource_eq_originalSquareShell
+          #print axioms RHLean.Analysis.vf919SquareShell_original_signed_covariance_eq_fullNormGram
+          #print axioms RHLean.Analysis.vf919OAIExcludedNormSharpPrefix_eq_actualMertens
+          #print axioms RHLean.Analysis.vf919SquareShellSum_eq_OAI_excludedNorm_high_sub_low
+          #print axioms RHLean.Analysis.vf919SquareShell_original_covariance_eq_OAI_norm_doubleBoundary
+          #print axioms RHLean.Analysis.vf919SquareShell_actual_signed_covariance_eq_fourIndexHecke
+          #print axioms RHLean.Analysis.vf919SquareShell_original_energy_eq_fourIndexHecke
+          #print axioms RHLean.Analysis.vf919SquareShellCovariance_eq_true_ordered_physical_pairs
+          #print axioms RHLean.Analysis.vf919ExactIntegerLedger_eq_nativeMertens
+          #print axioms RHLean.Analysis.vf919ExactNativeMertensSummatory_317
+          #print axioms RHLean.Analysis.vf919ExactNativeMertensSummatory_1027
+          #print axioms RHLean.Analysis.vf919ExactSiteLedger_greenKubo
+          #print axioms RHLean.Analysis.vf919ExactSiteLedger_317
+          #print axioms RHLean.Analysis.vf919ExactSiteLedger_1027
+          #print axioms RHLean.Analysis.vf919ExactSiteLedger_317_1027_sevenEighths
+          #print axioms RHLean.Analysis.vf919OAI_actualMobius_Hecke_two_legs_at_site
+          #print axioms RHLean.Analysis.vf919OAI_actualMobius_Hecke_two_legs_all_sites
+          #print axioms RHLean.Analysis.vf919OAI_actualMobius_full_mixed_mark_rescale_gram
+          #print axioms RHLean.Analysis.vf919OAI_existing_native_full_marked_spectrum
+          #print axioms RHLean.Analysis.vf919OAI_x317_split_labels_same_original_weight
+          #print axioms RHLean.Analysis.vf919OAI_x317_split_ideal_labels_distinct
+          #print axioms RHLean.Analysis.vf919OAI_x317_both_actual_sextic_residues
+          #print axioms RHLean.Analysis.vf919OAI_original_native_continued_term_by_term
+          #print axioms RHLean.Analysis.vf919OAI_original_native_continued_full_gram
+          #print axioms RHLean.Analysis.vf919OAI_original_native_seat_term_by_term
+          #print axioms RHLean.Analysis.vf919OAI_original_native_seat_full_mixed_gram
+          #print axioms RHLean.Analysis.vf919OAIcontinuedH_eq_rawH
+          #print axioms RHLean.Analysis.vf919OAI_exact_continued_local_compensation
+          #print axioms RHLean.Analysis.vf919OAI_exact_continued_zero_mask
+          #print axioms RHLean.Analysis.vf919OAI_exact_continued_good_character
+          #print axioms RHLean.Analysis.vf919OAIlocalG_eq_preexisting_native
+          #print axioms RHLean.Analysis.vf919OAIlocalH_eq_preexisting_native
+          #print axioms RHLean.Analysis.vf919OAI_exact_from_preexisting_native_5_13b
+          #print axioms RHLean.Analysis.vf919OAIphase_exact_uncancelled_defect
+          #print axioms RHLean.Analysis.vf919OAI_exact_local_compensation
+          #print axioms RHLean.Analysis.vf919OAI_zero_extended_mask
+          #print axioms RHLean.Analysis.vf919OAI_exact_finite_good_prime_slots
+          #print axioms RHLean.Analysis.vf919OAI_original_subset_marked_minus_rescaled
+          #print axioms RHLean.Analysis.vf919OAI_selected_local_operation
+          #print axioms RHLean.Analysis.vf919OAI_unit_character_phase_facts
+          #print axioms RHLean.Analysis.vf919OAI_exact_good_character_compensation
+          #print axioms RHLean.Analysis.vf919OAI_marked_rescaled_physical_pairing
+          LEAN
+          lake env lean -DwarningAsError=true /tmp/vf919_oai_termwise_acceptance.lean | tee /tmp/vf919-oai-axioms.log
+          if grep -E 'axioms? .*[:]' /tmp/vf919-oai-axioms.log | grep -E 'sorryAx|_private' ; then
+            exit 1
+          fi

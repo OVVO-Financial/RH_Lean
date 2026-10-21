@@ -1,0 +1,131 @@
+name: Native Euler prime-density moving covariance
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/vf919-euler-moving-covariance.yml'
+      - 'research/VF_919_EULER_PRIME_DENSITY_LEDGER_20261019.lean'
+      - 'research/VF_919_EULER_MOVING_COVARIANCE_GROWTH_20261019.lean'
+      - 'research/VF_919_EULER_FIXED_WHEEL_SIX_CHANNEL_20261019.lean'
+      - 'research/VF_919_EULER_OAI_PHASE_PRESERVING_SIX_GRAM_20261019.lean'
+      - 'research/VF_919_EULER_PRIME_DENSITY_TEST_20261019.md'
+      - 'research/VF_919_FIXED_WHEEL_COVARIANCE_CENSUS_20261019.md'
+      - 'research/VF_919_EULER_OAI_SIX_CHANNEL_DICTIONARY_20261019.md'
+      - 'research/VF_919_MOVING_EULER_COVARIANCE_CENSUS_317_1027_20261019.md'
+      - 'scripts/vf919_euler_prime_response_census.cpp'
+      - 'scripts/vf919_euler_historical_six_by_six.py'
+      - 'research/VF_919_EULER_VF_SECTOR_SIX_INCIDENCE_TEST_20261019.md'
+      - 'research/VF_919_EULER_SECTOR_SIX_ACTIVE_SUPPORT_20261019.lean'
+      - 'research/VF_919_EULER_ODD_CARRIER_PRIME_ROW_20261019.lean'
+      - 'research/VF_919_EULER_RANK_ONE_GPF_FIBERS_20261019.lean'
+      - 'research/VF_919_EULER_THREE_ADIC_HYPERBOLA_20261019.lean'
+      - 'research/data/VF_919_EULER_DYADIC_CENSUS_20261019.csv'
+      - 'lean-toolchain'
+      - 'lake-manifest.json'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: vf919-euler-moving-covariance-${{ github.head_ref || github.ref_name }}
+  cancel-in-progress: true
+
+jobs:
+  euler-covariance:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - name: Full exact 317/1027 six-channel fixed-wheel census through 100 million
+        shell: bash
+        run: |
+          set -euo pipefail
+          g++ -O3 -std=c++17 -Wall -Wextra -Werror scripts/vf919_euler_prime_response_census.cpp -o /tmp/vf919-euler-census
+          /tmp/vf919-euler-census 2048
+          /tmp/vf919-euler-census 10000 | tee /tmp/vf919-euler-full.log
+          grep -F 'BAND 4096 energy=30291950' /tmp/vf919-euler-full.log
+          grep -F 'prime_square_handoffs=1229' /tmp/vf919-euler-full.log
+          grep -F 'M=1928 squarefree diagonal=60792694' /tmp/vf919-euler-full.log
+      - name: Exact occurrence-preserving Euler versus original VF Sector Six 6x6 test
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 scripts/vf919_euler_historical_six_by_six.py --roots 2 3 5 7 13 31 56 101 317 439 1027 --out /tmp/vf919-six-by-six
+      - uses: ./.github/actions/lean-setup
+      - name: Restore pinned PNT+ boundary
+        uses: actions/cache/restore@v5
+        with:
+          path: |
+            .lake/packages/PrimeNumberTheoremAnd/.lake/build
+          key: pntplus-build-v1-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
+      - name: Restore native library artifacts
+        uses: actions/cache/restore@v5
+        with:
+          path: .lake/build
+          key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'RHLean.lean', 'RHLean/**/*.lean') }}
+          restore-keys: |
+            rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-
+      - name: Compile exact Euler prime-arrival and moving-covariance theorems
+        uses: ./.github/actions/research-compile
+        with:
+          targets: >-
+            research/VF_919_EULER_PRIME_DENSITY_LEDGER_20261019.lean
+            research/VF_919_EULER_MOVING_COVARIANCE_GROWTH_20261019.lean
+            research/VF_919_EULER_FIXED_WHEEL_SIX_CHANNEL_20261019.lean
+            research/VF_919_EULER_OAI_PHASE_PRESERVING_SIX_GRAM_20261019.lean
+            research/VF_919_EULER_SECTOR_SIX_ACTIVE_SUPPORT_20261019.lean
+            research/VF_919_EULER_ODD_CARRIER_PRIME_ROW_20261019.lean
+            research/VF_919_EULER_RANK_ONE_GPF_FIBERS_20261019.lean
+            research/VF_919_EULER_THREE_ADIC_HYPERBOLA_20261019.lean
+      - name: Verify all 79 Euler, phase-gram and original VF sector-support axioms
+        shell: bash
+        run: |
+          set -euo pipefail
+          lake env lean -DwarningAsError=true research/VF_919_EULER_PRIME_DENSITY_LEDGER_20261019.lean > vf919-euler-axioms.log 2>&1
+          lake env lean -DwarningAsError=true research/VF_919_EULER_MOVING_COVARIANCE_GROWTH_20261019.lean >> vf919-euler-axioms.log 2>&1
+          lake env lean -DwarningAsError=true research/VF_919_EULER_FIXED_WHEEL_SIX_CHANNEL_20261019.lean >> vf919-euler-axioms.log 2>&1
+          lake env lean -DwarningAsError=true research/VF_919_EULER_OAI_PHASE_PRESERVING_SIX_GRAM_20261019.lean >> vf919-euler-axioms.log 2>&1
+          lake env lean -DwarningAsError=true research/VF_919_EULER_SECTOR_SIX_ACTIVE_SUPPORT_20261019.lean >> vf919-euler-axioms.log 2>&1
+          lake env lean -DwarningAsError=true research/VF_919_EULER_ODD_CARRIER_PRIME_ROW_20261019.lean >> vf919-euler-axioms.log 2>&1
+          lake env lean -DwarningAsError=true research/VF_919_EULER_RANK_ONE_GPF_FIBERS_20261019.lean >> vf919-euler-axioms.log 2>&1
+          lake env lean -DwarningAsError=true research/VF_919_EULER_THREE_ADIC_HYPERBOLA_20261019.lean >> vf919-euler-axioms.log 2>&1
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+          sources = [
+              'research/VF_919_EULER_PRIME_DENSITY_LEDGER_20261019.lean',
+              'research/VF_919_EULER_MOVING_COVARIANCE_GROWTH_20261019.lean',
+              'research/VF_919_EULER_FIXED_WHEEL_SIX_CHANNEL_20261019.lean',
+              'research/VF_919_EULER_OAI_PHASE_PRESERVING_SIX_GRAM_20261019.lean',
+              'research/VF_919_EULER_SECTOR_SIX_ACTIVE_SUPPORT_20261019.lean',
+              'research/VF_919_EULER_ODD_CARRIER_PRIME_ROW_20261019.lean',
+              'research/VF_919_EULER_RANK_ONE_GPF_FIBERS_20261019.lean',
+              'research/VF_919_EULER_THREE_ADIC_HYPERBOLA_20261019.lean',
+          ]
+          wanted = [name for src in sources
+                    for name in re.findall(r'^#print axioms\s+(\S+)', Path(src).read_text(), re.M)]
+          log = Path('vf919-euler-axioms.log').read_text()
+          got = re.findall(r"'([^']+)' depends on axioms:\s*\[([^\]]*)\]", log)
+          assert len(wanted) == 79, wanted
+          assert len(got) == len(wanted), (wanted, got)
+          assert {name for name, _ in got} == {'RHLean.Analysis.' + name for name in wanted}, got
+          allowed = {'propext', 'Classical.choice', 'Quot.sound'}
+          for name, footprint in got:
+              used = {a.strip() for a in footprint.split(',') if a.strip()}
+              assert used <= allowed, (name, used - allowed)
+          print(f'PASS: {len(got)} exact Euler and moving covariance theorems have standard axiom footprints')
+          PY
+      - name: Verify exact Lean research dependency closure
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 scripts/compile_research_import_closure.py \
+            research/VF_919_EULER_PRIME_DENSITY_LEDGER_20261019.lean \
+            research/VF_919_EULER_MOVING_COVARIANCE_GROWTH_20261019.lean \
+            research/VF_919_EULER_FIXED_WHEEL_SIX_CHANNEL_20261019.lean \
+            research/VF_919_EULER_OAI_PHASE_PRESERVING_SIX_GRAM_20261019.lean \
+            research/VF_919_EULER_SECTOR_SIX_ACTIVE_SUPPORT_20261019.lean \
+            research/VF_919_EULER_ODD_CARRIER_PRIME_ROW_20261019.lean \
+            research/VF_919_EULER_RANK_ONE_GPF_FIBERS_20261019.lean \
+            research/VF_919_EULER_THREE_ADIC_HYPERBOLA_20261019.lean
