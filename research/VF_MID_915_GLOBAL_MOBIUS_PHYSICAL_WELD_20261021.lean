@@ -99,6 +99,37 @@ theorem vf915HighPrime_mobiusFlip
   have hle : q ≤ c := Nat.le_of_dvd hc hd
   omega
 
+/-- Fresh-prime factor reversal is valid for BOTH canonical orientations,
+not merely largest-prime high-owner cells. -/
+theorem vf915FreshPrime_mobiusFlip
+    {p c : ℕ} (hp : p.Prime) (hpc : ¬ p ∣ c) :
+    μ (p * c) = -μ c :=
+  moebius_mul_fresh_prime_eq_neg hp hpc
+
+/-- Exact global odd-depth composite correction over a fresh-prime child:
+the missing third/fifth/... factor-depth states exactly cancel the naive
+Mobius prime detector except for the genuine prime root c=1. -/
+theorem vf915GlobalNegativeComposite_freshPrime_normalForm
+    {p c : ℕ} (hp : p.Prime) (hc : 0 < c)
+    (hpc : ¬ p ∣ c) :
+    2 * vf915GlobalNegativeComposite (p * c) =
+      vf915GlobalMuSq c + vf915GlobalMu c -
+        2 * (if c = 1 then (1 : ℝ) else 0) := by
+  have hsite := vf915GlobalDecoded_highPrimeCofactor 0 hp hc
+  have hflip := vf915FreshPrime_mobiusFlip hp hpc
+  have hmu : vf915GlobalMu (p * c) = -vf915GlobalMu c := by
+    unfold vf915GlobalMu
+    rw [hflip]
+    push_cast
+    ring
+  have hsq : vf915GlobalMuSq (p * c) = vf915GlobalMuSq c := by
+    unfold vf915GlobalMuSq
+    rw [hflip]
+    ring
+  unfold vf915GlobalDecodedPhysicalCharge at hsite
+  rw [hmu, hsq] at hsite
+  linarith
+
 /-- The precise compensation missing from the naive "mu reverses, so
 VF charge reverses" argument. It retains both the physical w_R and the
 prime-root delta, so the owner transfer is exact BEFORE norming. -/
@@ -119,6 +150,20 @@ theorem vf915GlobalDecoded_highPrime_eq_mu_plus_correction
   push_cast
   ring
 
+/-- The same exact physical correction for EVERY fresh-prime factor,
+including small-owner daughters q<c. -/
+theorem vf915GlobalDecoded_freshPrime_eq_mu_plus_correction
+    (R : ℕ) {p c : ℕ} (hp : p.Prime)
+    (hc : 0 < c) (hpc : ¬ p ∣ c) :
+    vf915GlobalDecodedPhysicalCharge R (p * c) =
+      vf915GlobalMu (p * c) +
+        vf915HighPrimePhysicalCorrection R c := by
+  rw [vf915GlobalDecoded_highPrimeCofactor R hp hc]
+  unfold vf915GlobalMu vf915HighPrimePhysicalCorrection
+  rw [vf915FreshPrime_mobiusFlip hp hpc]
+  push_cast
+  ring
+
 /-- Full-key, arbitrary original-weight, occurrence-preserving Fubini inlet.
 The index type can include age, clip, owner, revealed prime, original raw
 parent and occurrence ID. No stripped-parent deduplication occurs. -/
@@ -127,7 +172,7 @@ theorem vf915GlobalDecoded_fullKeyWeightedOwnerWeld
     (R : ℕ) (s : Finset ι)
     (owner cofactor : ι → ℕ) (originalWeight : ι → ℝ)
     (hvalid : ∀ i ∈ s,
-      (owner i).Prime ∧ 0 < cofactor i ∧ cofactor i < owner i) :
+      (owner i).Prime ∧ 0 < cofactor i ∧ ¬ owner i ∣ cofactor i) :
     (∑ i ∈ s, originalWeight i *
       vf915GlobalDecodedPhysicalCharge R (owner i * cofactor i)) =
     ∑ i ∈ s, originalWeight i *
@@ -135,8 +180,8 @@ theorem vf915GlobalDecoded_fullKeyWeightedOwnerWeld
         vf915HighPrimePhysicalCorrection R (cofactor i)) := by
   apply Finset.sum_congr rfl
   intro i hi
-  rcases hvalid i hi with ⟨hp, hc, hlt⟩
-  rw [vf915GlobalDecoded_highPrime_eq_mu_plus_correction R hp hc hlt]
+  rcases hvalid i hi with ⟨hp, hc, hpc⟩
+  rw [vf915GlobalDecoded_freshPrime_eq_mu_plus_correction R hp hc hpc]
 
 /-- Original signed physical block mass, expressed only through the
 global decoder; no smooth model, cube restriction, or density heuristic. -/
@@ -206,6 +251,27 @@ theorem vf915GlobalDecoded_originalAnchoredExcess (R : ℕ) :
     _ = _ := by
       simp only [vf915GlobalDecodedPhysicalCharge_eq_original]
 
+/-- The actual #915 physical global residual and the ACTUAL three
+clipped/returned boundary sectors sum to the decoder-based original Co/Div.
+Neither the G_R anchor nor the physical masks are replaced. -/
+theorem vf915GlobalDecoded_originalResidualAndBoundary
+    (R : ℕ) (hR : 3 ≤ R) :
+    vfMidActiveGlobalResidualExcess R +
+      vfMidActiveThreeBoundaryExcess R =
+      2 * ((∑ n ∈ vfMidOddCandidateSeats R,
+        vf915GlobalDecodedPhysicalCharge R n) -
+        vfMidActualPrimeEndpointDefect R) ^ 2 -
+      (|vfMidActualPrimeEndpointDefect R| +
+        ∑ n ∈ vfMidOddCandidateSeats R,
+          |vf915GlobalDecodedPhysicalCharge R n|) ^ 2 := by
+  calc
+    vfMidActiveGlobalResidualExcess R +
+        vfMidActiveThreeBoundaryExcess R =
+      vfMidFirstBadAnchoredCoDivExcess R :=
+        (vfMidFirstBadAnchoredCoDivExcess_eq_activeResidual_add_threeBoundaryExcess
+          hR).symm
+    _ = _ := vf915GlobalDecoded_originalAnchoredExcess R
+
 /-- Algebraic half gate in the EXACT original physical currency.
 An independent proof of this inequality under actual first-badness is
 still equivalent to closing the original #915 gate, not a new free bound. -/
@@ -224,5 +290,7 @@ theorem vf915GlobalDecoded_halfGate_iff_original
 end RHLean.Analysis
 
 #print axioms RHLean.Analysis.vf915GlobalDecodedPhysicalCharge_eq_original
+#print axioms RHLean.Analysis.vf915GlobalNegativeComposite_freshPrime_normalForm
 #print axioms RHLean.Analysis.vf915GlobalDecoded_fullKeyWeightedOwnerWeld
 #print axioms RHLean.Analysis.vf915GlobalDecoded_originalAnchoredExcess
+#print axioms RHLean.Analysis.vf915GlobalDecoded_originalResidualAndBoundary
