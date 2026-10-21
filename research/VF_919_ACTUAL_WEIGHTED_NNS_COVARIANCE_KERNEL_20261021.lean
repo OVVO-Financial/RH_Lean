@@ -49,7 +49,7 @@ theorem vf919MarkedFiniteProductAtoms
       intro i hi
       rw [Finset.mul_sum]
     _ = ∑ ij ∈ s.product t, a ij.1 * b ij.2 := by
-      rw [Finset.sum_product]
+      rw [← Finset.sum_product]
 
 /-- Phi is additive even on full finite ideal-labelled sums: no phase
 or multiplicity is lost in the REAL coordinate transfer. -/
