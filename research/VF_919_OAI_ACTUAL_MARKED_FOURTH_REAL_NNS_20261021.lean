@@ -168,10 +168,12 @@ theorem vf919ActualMarkedSharperOfRawWidth
         vf919MarkedRealEnergy (Pk u) *
         vf919MarkedRealEnergy (physical u)) ≤
           C * U ^ (1 + t / 2) := by
-  rw [←vf919ActualMarkedMoment_eq_realEnergies rows Pj Pk physical]
-  change (∑ u ∈ rows, ‖Pj u * Pk u * physical u‖ ^ 2) ≤
-    C * U ^ (1 + t / 2)
-  simpa only [vf919ActualMarkedIntegrand, vf919MarkedActualWidthExponent] using hraw
+  calc
+    _ = (∑ u ∈ rows, ‖Pj u * Pk u * physical u‖ ^ 2) := by
+      simpa only [vf919ActualMarkedIntegrand] using
+        (vf919ActualMarkedMoment_eq_realEnergies rows Pj Pk physical).symm
+    _ ≤ C * U ^ (1 + t / 2) := by
+      simpa only [vf919MarkedActualWidthExponent] using hraw
 
 end RHLean.Analysis
 
