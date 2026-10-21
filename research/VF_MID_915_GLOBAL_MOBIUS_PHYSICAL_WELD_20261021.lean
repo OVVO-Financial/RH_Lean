@@ -58,7 +58,7 @@ theorem vf915GlobalDecodedPhysicalCharge_eq_original (R n : ℕ) :
     by_cases hp : n.Prime <;> simp [hp]
   unfold vf915GlobalDecodedPhysicalCharge vfMidOddSignedSeatCharge
   rw [← hindicator]
-  linear_combination hzReal / 2
+  linarith only [hzReal]
 
 /-- A prime q with positive cofactor c yields a prime precisely at c=1.
 This statement does not assert any Mobius parity rule for the original
