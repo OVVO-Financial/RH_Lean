@@ -45,9 +45,12 @@ theorem nativeM_step (n : ℕ) : |nativeM (n + 1) - nativeM n| ≤ 1 := by
     |nativeM (n + 1) - nativeM n| ≤
         ‖RHLean.Analysis.mertensSummatory (n + 1) -
           RHLean.Analysis.mertensSummatory n‖ := by
-      simpa [nativeM] using Complex.abs_re_le_norm
-        (RHLean.Analysis.mertensSummatory (n + 1) -
-          RHLean.Analysis.mertensSummatory n)
+      change
+        |(RHLean.Analysis.mertensSummatory (n + 1) -
+          RHLean.Analysis.mertensSummatory n).re| ≤
+            ‖RHLean.Analysis.mertensSummatory (n + 1) -
+              RHLean.Analysis.mertensSummatory n‖
+      exact Complex.abs_re_le_norm _
     _ ≤ 1 := by
       simpa using RHLean.Analysis.norm_mertensSummatory_sub_le n (n + 1) (by omega)
 
@@ -63,8 +66,8 @@ theorem native_decomposition (R : ℕ) (hR : 2 ≤ R) :
   have hpred : R - 1 + 1 = R := Nat.sub_add_cancel (by omega)
   simpa [nativeM, nativeA, endpoint, transport, primeOwners,
     RHLean.Analysis.squarePrefixMertens, RHLean.Analysis.squarePrefixEndpoint,
-    RHLean.Proof.squareRootEndpoint, hpred, Finset.sum_filter] using
-      congrArg Complex.re h
+    RHLean.Proof.squareRootEndpoint, hpred, Finset.sum_filter,
+    apply_ite Complex.re] using congrArg Complex.re h
 
 /-- Open arithmetic target on the original native source. -/
 def NativeOwnerBound (κ : ℝ) : Prop := OwnerBound nativeM nativeA κ
@@ -83,8 +86,9 @@ theorem native_diagonal_eq_ownerDiagonal (R : ℕ) :
   intro p _hp
   by_cases hprime : p.Prime
   · simp only [hprime, ite_true]
-    simpa only [sq_abs, endpoint, RHLean.Proof.squareRootEndpoint] using
-      congrArg (fun x : ℝ => x ^ 2) (nativeM_abs_eq_norm (endpoint R / p))
+    rw [← sq_abs]
+    exact congrArg (fun x : ℝ => x ^ 2)
+      (nativeM_abs_eq_norm (endpoint R / p))
   · simp [hprime]
 
 /-- The arithmetic premise in the consumer is the original complete signed
@@ -96,8 +100,8 @@ theorem native_compensation_eq_fullOwnerGamma (R : ℕ) (hR : 2 ≤ R) :
   have hnative := mertens_norm_sq_eq_diagonal_add_gamma R hR
   have hsq : nativeM (endpoint R) ^ 2 =
       ‖RHLean.Analysis.mertensSummatory (RHLean.Proof.squareRootEndpoint R)‖ ^ 2 := by
-    simpa only [sq_abs, endpoint, RHLean.Proof.squareRootEndpoint] using
-      congrArg (fun x : ℝ => x ^ 2) (nativeM_abs_eq_norm (endpoint R))
+    rw [← sq_abs]
+    exact congrArg (fun x : ℝ => x ^ 2) (nativeM_abs_eq_norm (endpoint R))
   rw [native_diagonal_eq_ownerDiagonal] at hreal
   linarith
 
@@ -142,7 +146,8 @@ theorem native_prefix_amplitude_recurrence
 
 theorem native_powerBound_iff (a : ℝ) :
     PowerBound nativeM a ↔ MertensExponent.MertensPowerBound a := by
-  simp only [PowerBound, MertensExponent.MertensPowerBound, nativeM_abs_eq_norm]
+  simp only [PowerBound, MertensExponent.MertensPowerBound, nativeM_abs_eq_norm,
+    Real.rpow_eq_pow]
 
 theorem native_growthAtMost_iff (a : ℝ) :
     GrowthAtMost nativeM a ↔ MertensExponent.MertensGrowthAtMost a := by
