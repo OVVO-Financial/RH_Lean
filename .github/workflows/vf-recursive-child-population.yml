@@ -108,6 +108,7 @@ jobs:
             RHLean.Analysis.VioleSequentialEulerClosure \
             RHLean.Analysis.NativePNTSignedSecondSelbergFrontierCharge
       - name: Build RHLean modules imported by these research checks
+        if: steps.affected.outputs.affected == 'true'
         run: >-
           python3 scripts/compile_research_import_closure.py --library-only
           research/VF_MID_PROXY_ENERGY_PULL.lean
