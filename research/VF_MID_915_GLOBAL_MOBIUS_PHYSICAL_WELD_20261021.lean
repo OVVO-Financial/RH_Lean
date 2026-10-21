@@ -72,7 +72,10 @@ theorem vf915HighPrime_mul_is_prime_iff
     have heq : q = q * c :=
       (Nat.prime_dvd_prime_iff_eq hq hprime).mp hd
     have hqpos : 1 < q := hq.one_lt
-    nlinarith
+    by_contra hne
+    have hc2 : 2 ≤ c := by omega
+    have hmul : q * 2 ≤ q * c := Nat.mul_le_mul_left q hc2
+    omega
   · intro h1
     subst c
     simpa using hq
@@ -145,7 +148,7 @@ theorem vf915GlobalDecoded_highPrime_eq_mu_plus_correction
         vf915HighPrimePhysicalCorrection R c := by
   rw [vf915GlobalDecoded_highPrimeCofactor R hq hc]
   have hflip := vf915HighPrime_mobiusFlip hq hc hlt
-  unfold vf915GlobalMu vf915HighPrimePhysicalCorrection
+  unfold vf915HighPrimePhysicalCorrection vf915GlobalMu
   rw [hflip]
   push_cast
   ring
@@ -159,7 +162,7 @@ theorem vf915GlobalDecoded_freshPrime_eq_mu_plus_correction
       vf915GlobalMu (p * c) +
         vf915HighPrimePhysicalCorrection R c := by
   rw [vf915GlobalDecoded_highPrimeCofactor R hp hc]
-  unfold vf915GlobalMu vf915HighPrimePhysicalCorrection
+  unfold vf915HighPrimePhysicalCorrection vf915GlobalMu
   rw [vf915FreshPrime_mobiusFlip hp hpc]
   push_cast
   ring
