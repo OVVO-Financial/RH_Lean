@@ -233,7 +233,7 @@ theorem full_owner_gamma_eq_norm_sq_sub_diagonal (R : ℕ) :
   unfold fullOwnerGamma
   rw [full_owner_gram_eq_difference, mul_conj_eq_cast_norm_sq,
     ← cast_owner_diagonal]
-  simp
+  simp only [Complex.sub_re, Complex.ofReal_re]
 
 theorem mertens_norm_sq_eq_diagonal_add_gamma
     (R : ℕ) (hR : 2 ≤ R) :
@@ -300,7 +300,7 @@ theorem owner_removed_replacement_gram_eq
                 intro z _hz
                 by_cases heq : y = z
                 · subst z
-                  simp only [if_pos (Eq.refl y), map_mul]
+                  simp only [ite_true, map_mul]
                   ring
                 · simp only [heq, ite_false, map_mul]
                   ring
