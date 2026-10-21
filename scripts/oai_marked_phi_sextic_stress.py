@@ -85,6 +85,71 @@ print(f'FOUR native phase witnesses: signed fourth sum={total_actual_quartic:.0f
       f'norm-first quartic sum={total_norm_first_quartic:.0f}, '
       f'finite ratio={total_norm_first_quartic/total_actual_quartic:.4f}')
 
+# PRE-NORM negative directional mixed-quadrant ledger for the four TRUE
+# native Eisenstein ideal-labelled phases (not a population estimate).
+total_K2=total_KP=total_KN=total_Q=0.
+for name,exps,expected,expected_selected in native_witnesses:
+    atoms=[zeta[q] for q in exps]
+    K=sum(abs(a)**2 for a in atoms)
+    grams=[(atoms[i]*atoms[j].conjugate()).real
+           for i in range(len(atoms)) for j in range(i+1,len(atoms))]
+    P=sum(pos(g) for g in grams)
+    N=sum(neg(g) for g in grams)
+    E=abs(sum(atoms))**2
+    assert near(E,K+2*(P-N))
+    assert near(E*E,K*K+4*K*P-4*K*N+4*(P-N)**2)
+    total_K2+=K*K; total_KP+=4*K*P
+    total_KN+=4*K*N;total_Q+=4*(P-N)**2
+    print(f'signed_NNS_{name}: K={K:.5g} P={P:.5g} N={N:.5g} fourth={E*E:.5g}')
+assert near(total_K2,64.) and near(total_KP,80.)
+assert near(total_KN,152.) and near(total_Q,27.)
+assert near(total_K2+total_KP-total_KN+total_Q,19.)
+print('signed NNS 317/1027 ledger: 19 = 64 + 80 - 152 + 27')
+
+# The actual mixed derivative M4 must polarize P_j and P_k separately,
+# not take a fourth power of the entire product.
+for j,k in ((0,0),(0,1),(1,0),(0,2),(2,0),(1,1)):
+    for _,exps,_,_ in native_witnesses:
+        lognorm=[math.log(13+i*7) for i in range(4)]
+        per=[]
+        for degree in (j,k):
+            atoms=[zeta[q]*lognorm[i]**degree for i,q in enumerate(exps)]
+            g=[(atoms[i]*atoms[h].conjugate()).real
+               for i in range(4) for h in range(i+1,4)]
+            per.append((sum(abs(z)**2 for z in atoms),
+                        sum(pos(v) for v in g),sum(neg(v) for v in g),
+                        abs(sum(atoms))**2))
+        Kj,Pj,Nj,Ej=per[0]
+        Kk,Pk,Nk,Ek=per[1]
+        pol=Kj*Kk+2*(Kj*Pk+Kk*Pj)-2*(Kj*Nk+Kk*Nj)+4*(Pj-Nj)*(Pk-Nk)
+        assert near(pol,Ej*Ek),(j,k,pol,Ej*Ek)
+print('PASS: six j+k<=2 mixed fourth degree polarized NNS identities')
+
+# Equal physical weights paired at a prime do NOT cancel if the character
+# phase at that prime is -1. Preserve phase before the character transform.
+for phase in (-1,1,cmath.exp(2j*math.pi/3)):
+    a0=a1=1+0j
+    assert near(abs(a0-phase*a1),
+                abs((a0-a1)+(1-phase)*a1))
+assert near(abs(1-(-1)*1),2)
+
+# Exact logarithmic discrete Leibniz remainders at degrees 0,1,2.
+for j in range(3):
+    a0,a1,phase=1.2-0.3j,0.7+0.6j,zeta[1]
+    x,l=4.2,1.3
+    direct=a0*x**j-phase*a1*(x+l)**j
+    leak=sum(math.comb(j,r)*x**r*l**(j-r) for r in range(j))
+    paired=(a0-phase*a1)*x**j-phase*a1*leak
+    assert near(abs(direct-paired),0.)
+print('PASS: phase-correct Euler toggling and j=0,1,2 log leakage')
+
+# A positive *resonant term* need not lower bound fourth moment over
+# restricted character rows. Trivial character, source +1 at 1, -1 at p.
+trivial_amplitude=1-1
+resonant_convolution_energy=1**2+(-2)**2+1**2
+assert trivial_amplitude**4==0 and resonant_convolution_energy==6
+print('restricted trivial-row fourth=0; equal-ideal resonant energy=6; nonres=-6')
+
 for t in (Fraction(1,100000),Fraction(1,10000),Fraction(1,4)):
     assert 1+t/4+t/4==1+t/2
     assert 1+t/2<1+t
