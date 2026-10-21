@@ -5,7 +5,7 @@ on:
     paths:
       - research/oai_434/RHLeanActualEisensteinIdealSharpSquareBlock.lean
       - research/oai_434/RHLeanActualEisensteinCompensatedSharpSquareBlock.lean
-      - scripts/patch_oai_434_rellich_compat.py
+      - scripts/apply_oai_434_upstream_patches.py
       - .github/workflows/vf919-oai-real-ideal-fiber-434.yml
   workflow_dispatch:
 
@@ -49,9 +49,8 @@ jobs:
         run: |
           set -euo pipefail
           lake exe cache get
-      - name: Apply kernel-preserving Rellich function-eta compatibility fixes
-        shell: bash
-        run: python3 scripts/patch_oai_434_rellich_compat.py
+      - name: Apply upstream OpenAI Lean 4.34.1 dependency patches (lake post_update)
+        run: python3 scripts/apply_oai_434_upstream_patches.py oai-upstream/lean
       - name: Kernel-check patched pinned Rellich prerequisites before full OpenAI DAG
         shell: bash
         working-directory: oai-upstream/lean

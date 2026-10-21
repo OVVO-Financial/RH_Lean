@@ -5,7 +5,7 @@ on:
     paths:
       - 'research/VF_919_OPENAI_434_UNCONDITIONAL_SQUARE_BLOCK_COVARIANCE_20261019.lean'
       - '.github/workflows/vf919-oai-certified-core-434.yml'
-      - 'scripts/patch_oai_434_rellich_compat.py'
+      - 'scripts/apply_oai_434_upstream_patches.py'
   workflow_dispatch:
 
 permissions:
@@ -55,8 +55,8 @@ jobs:
           set -euo pipefail
           test "$(cat lean-toolchain)" = "leanprover/lean4:v4.34.1"
           lake exe cache get
-      - name: Apply local pointwise elaboration compatibility without proof bypasses
-        run: python3 scripts/patch_oai_434_rellich_compat.py
+      - name: Apply upstream OpenAI Lean 4.34.1 dependency patches (lake post_update)
+        run: python3 scripts/apply_oai_434_upstream_patches.py oai-upstream/lean
       - name: Kernel-check patched pinned Rellich prerequisites before full OpenAI DAG
         shell: bash
         working-directory: oai-upstream/lean
