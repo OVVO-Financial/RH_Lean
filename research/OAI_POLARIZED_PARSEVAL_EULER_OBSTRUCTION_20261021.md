@@ -66,6 +66,14 @@ A prime toggle changes the physical norm MULTIPLICATIVELY. With a hard [U,2U] wi
 
 The first phase term may be O(1). Smoothness of f(log NT/log U) controls only the second via (log Np)/(log U), not necessarily a fixed power; for Np=U^c it can remain order 1.
 
+## Uniform sextic phases give another exact Parseval-type obstruction
+
+For fixed source amplitudes a,b and all six equally weighted roots of unity theta^6=1,
+
+    (1/6) sum_{theta^6=1} |a-theta*b|^2 = |a|^2+|b|^2.
+
+Indeed, |theta|=1 and sum theta=0, so the cross term averages to zero. Therefore the naive phase-correct Euler pair DOES NOT lower averaged coefficient energy for a complete uniform sixth-root ensemble. A genuine source norm gain must exploit the actual unequal admissibility weights, a mathematically verified countertwist/compensator, or specific structure beyond complete character orthogonality. Those same changes must still pay the actual source masks and dyadic partner losses. This is a falsifier for unsupported source-energy contraction, not a refutation of OAI's existing valid compensated source machinery.
+
 ## The new analytic bottleneck
 
 The unweighted Euler identity and PNT Möbius density do NOT imply weighted higher moments. Two possible SOURCE-FAITHFUL new theorems are:
