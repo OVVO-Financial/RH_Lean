@@ -82,7 +82,7 @@ theorem vf919NNSPartialFourth_eq_pow (x : ℝ) :
   by_cases hx : 0 ≤ x
   · simp [partialUpper, partialLower, hx, not_lt_of_ge hx]
   · have hlt : x < 0 := lt_of_not_ge hx
-    simp [partialUpper, partialLower, hx, hlt] <;> ring
+    simp [partialUpper, partialLower, hx, hlt]
 
 /-- Four unnormalized NNS directional 2-by-2 quadrants. -/
 def vf919NNSQuadrant22 (x y : ℝ) : ℝ :=
@@ -171,7 +171,7 @@ theorem vf919ActualMarkedSharperOfRawWidth
   rw [←vf919ActualMarkedMoment_eq_realEnergies rows Pj Pk physical]
   change (∑ u ∈ rows, ‖Pj u * Pk u * physical u‖ ^ 2) ≤
     C * U ^ (1 + t / 2)
-  simpa only [vf919MarkedActualWidthExponent] using hraw
+  simpa only [vf919ActualMarkedIntegrand, vf919MarkedActualWidthExponent] using hraw
 
 end RHLean.Analysis
 
