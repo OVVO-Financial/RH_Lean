@@ -43,6 +43,35 @@ jobs:
             research/VF_919_SEVEN_EIGHTHS_SIGNED_COVARIANCE_20261019.lean
             research/VF_919_OAI_GLOBAL_SQUARE_BLOCK_ALL_PAIR_COVARIANCE_20261019.lean
             research/VF_919_OAI_GENUINE_IDEAL_ORDERED_PHYSICAL_PAIRS_20261019.lean
+      # OAI's full proof is cached separately; this RHLean dependency was
+      # missing at the end of earlier two-hour runs. Fail BEFORE OAI checkout.
+      - name: Restore cached native PNT Wiener prerequisites
+        id: native-pnt-cache
+        uses: actions/cache/restore@v5
+        with:
+          path: .lake/packages/PrimeNumberTheoremAnd/.lake/build
+          key: vf919-pnt-wiener-v2-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}
+          restore-keys: |
+            pntplus-build-v1-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
+      - name: Build and preflight required native PNT Wiener imports
+        id: native-pnt-build
+        shell: bash
+        run: |
+          set -euo pipefail
+          lake build PrimeNumberTheoremAnd.SmoothExistence PrimeNumberTheoremAnd.Wiener
+          test -s .lake/packages/PrimeNumberTheoremAnd/.lake/build/lib/lean/PrimeNumberTheoremAnd/SmoothExistence.olean
+          test -s .lake/packages/PrimeNumberTheoremAnd/.lake/build/lib/lean/PrimeNumberTheoremAnd/Wiener.olean
+          lake env lean -DwarningAsError=true \
+            research/VF_919_SEVEN_EIGHTHS_SIGNED_COVARIANCE_20261019.lean \
+            > /tmp/vf919-original-native-pnt-preflight.log
+          echo 'PASS: complete native Mertens import closure, including PNT Wiener'
+      - name: Save independently verified native PNT prerequisites
+        if: steps.native-pnt-build.outcome == 'success' && steps.native-pnt-cache.outputs.cache-hit != 'true'
+        continue-on-error: true
+        uses: actions/cache/save@v5
+        with:
+          path: .lake/packages/PrimeNumberTheoremAnd/.lake/build
+          key: ${{ steps.native-pnt-cache.outputs.cache-primary-key }}
       - name: Checkout pinned ORIGINAL complete OpenAI theorem and dependencies
         uses: actions/checkout@v4
         with:
@@ -50,7 +79,23 @@ jobs:
           ref: 1581d4cbdd69a0faf34b2089614fe2a814316a6a
           path: oai-upstream
           persist-credentials: false
+      # These are exact Lean 4.34.1 / pinned OpenAI source / patch-hash
+      # caches. A successful upstream build is saved BEFORE native consumers.
+      - name: Restore kernel-checked complete OpenAI proof DAG
+        id: oai-full-cache
+        uses: actions/cache/restore@v5
+        with:
+          path: oai-upstream/lean/.lake
+          key: vf919-oai-full-proof-v2-${{ runner.os }}-${{ runner.arch }}-1581d4cbdd69a0faf34b2089614fe2a814316a6a-${{ hashFiles('scripts/patch_oai_434_rellich_compat.py') }}
+      - name: Restore previously compiled OpenAI intermediate analytic moments
+        id: oai-intermediate-cache
+        if: steps.oai-full-cache.outputs.cache-hit != 'true'
+        uses: actions/cache/restore@v5
+        with:
+          path: oai-upstream/lean/.lake
+          key: vf919-oai-analytic-v1-${{ runner.os }}-${{ runner.arch }}-1581d4cbdd69a0faf34b2089614fe2a814316a6a-${{ hashFiles('scripts/patch_oai_434_rellich_compat.py') }}
       - name: Acquire original OpenAI dependencies (same Lean and Mathlib pins)
+        if: steps.oai-full-cache.outputs.cache-hit != 'true' && steps.oai-intermediate-cache.outputs.cache-hit != 'true'
         shell: bash
         working-directory: oai-upstream/lean
         run: |
@@ -58,6 +103,7 @@ jobs:
           test "$(cat lean-toolchain)" = "leanprover/lean4:v4.34.1"
           lake exe cache get
       - name: Fix upstream Rellich pointwise elaboration without new axioms
+        if: steps.oai-full-cache.outputs.cache-hit != 'true' && steps.oai-intermediate-cache.outputs.cache-hit != 'true'
         run: python3 scripts/patch_oai_434_rellich_compat.py
       - name: Kernel-check patched pinned Rellich prerequisites before full OpenAI DAG
         shell: bash
@@ -72,11 +118,19 @@ jobs:
             RellichKondrachov.Analysis.FunctionalSpaces.Sobolev.Euclidean.L2Compactness.ArzelaAscoli \
             RellichKondrachov.Analysis.FunctionalSpaces.Sobolev.Euclidean.L2Compactness.Transfer
       - name: KERNEL BUILD THE ACTUAL COMPLETE OpenAI 7/8 CERTIFICATE
+        id: oai-full-build
         shell: bash
         working-directory: oai-upstream/lean
         run: |
           set -euo pipefail
           lake build OAI.NumberTheory.DirichletL.Detector.FinalAssemblyUnconditional
+      - name: Save completed original OpenAI full proof before native consumer
+        if: steps.oai-full-build.outcome == 'success' && steps.oai-full-cache.outputs.cache-hit != 'true'
+        continue-on-error: true
+        uses: actions/cache/save@v5
+        with:
+          path: oai-upstream/lean/.lake
+          key: ${{ steps.oai-full-cache.outputs.cache-primary-key }}
       - name: Compile original OpenAI full theorem against native RHLean covariance
         shell: bash
         run: |

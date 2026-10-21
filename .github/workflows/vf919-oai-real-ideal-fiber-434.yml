@@ -30,6 +30,19 @@ jobs:
           ref: 1581d4cbdd69a0faf34b2089614fe2a814316a6a
           path: oai-upstream
           persist-credentials: false
+      - name: Restore kernel-checked OpenAI sharp-ideal dependencies
+        id: oai-sharp-cache
+        uses: actions/cache/restore@v5
+        with:
+          path: oai-upstream/lean/.lake
+          key: vf919-oai-sharp-ideal-v1-${{ runner.os }}-${{ runner.arch }}-1581d4cbdd69a0faf34b2089614fe2a814316a6a-${{ hashFiles('scripts/patch_oai_434_rellich_compat.py') }}
+      - name: Seed sharp-ideal DAG from previously compiled analytic moments
+        id: oai-intermediate-cache
+        if: steps.oai-sharp-cache.outputs.cache-hit != 'true'
+        uses: actions/cache/restore@v5
+        with:
+          path: oai-upstream/lean/.lake
+          key: vf919-oai-analytic-v1-${{ runner.os }}-${{ runner.arch }}-1581d4cbdd69a0faf34b2089614fe2a814316a6a-${{ hashFiles('scripts/patch_oai_434_rellich_compat.py') }}
       - name: Install Lean Elan
         shell: bash
         run: |
@@ -44,12 +57,14 @@ jobs:
           cd oai-upstream/lean
           lake --version
       - name: Fetch the pinned original OAI Mathlib cache
+        if: steps.oai-sharp-cache.outputs.cache-hit != 'true' && steps.oai-intermediate-cache.outputs.cache-hit != 'true'
         shell: bash
         working-directory: oai-upstream/lean
         run: |
           set -euo pipefail
           lake exe cache get
       - name: Apply kernel-preserving Rellich function-eta compatibility fixes
+        if: steps.oai-sharp-cache.outputs.cache-hit != 'true' && steps.oai-intermediate-cache.outputs.cache-hit != 'true'
         shell: bash
         run: python3 scripts/patch_oai_434_rellich_compat.py
       - name: Kernel-check patched pinned Rellich prerequisites before full OpenAI DAG
@@ -82,11 +97,19 @@ jobs:
             exit 1
           fi
       - name: Compile actual ORIGINAL OpenAI physical compensation
+        id: oai-sharp-build
         shell: bash
         working-directory: oai-upstream/lean
         run: |
           set -euo pipefail
           lake build OAI.NumberTheory.DirichletL.Detector.CompensationActual
+      - name: Save kernel-checked OpenAI sharp compensation prerequisites
+        if: steps.oai-sharp-build.outcome == 'success' && steps.oai-sharp-cache.outputs.cache-hit != 'true'
+        continue-on-error: true
+        uses: actions/cache/save@v5
+        with:
+          path: oai-upstream/lean/.lake
+          key: ${{ steps.oai-sharp-cache.outputs.cache-primary-key }}
       - name: Compile actual ideal and prime-ideal marked-rescaled sharp source
         shell: bash
         run: |
