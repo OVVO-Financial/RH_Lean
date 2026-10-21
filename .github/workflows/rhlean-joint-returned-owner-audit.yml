@@ -95,6 +95,7 @@ jobs:
           #check RHLean.Analysis.vf915GlobalDecoded_fullyLabelledPairGramWeld
           #check RHLean.Analysis.vf915ActualReturnedPairWeight_eq_decodedPhysical
           #check RHLean.Analysis.vf915ActualReturnedPairCarrier_sum_eq_fourChannels
+          #check RHLean.Analysis.vf915ActualReturnedPairCoDivExcess_eq_fourChannels
           #check RHLean.Analysis.vf915GlobalNegativeComposite_freshPrime_normalForm
           #check RHLean.Analysis.vf915GlobalDecoded_originalResidualAndBoundary
           #check RHLean.Analysis.vf915GlobalDecoded_halfGate_iff_original
