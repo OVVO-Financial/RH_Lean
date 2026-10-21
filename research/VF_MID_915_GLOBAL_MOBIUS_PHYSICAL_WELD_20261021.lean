@@ -296,6 +296,96 @@ theorem vf915GlobalDecoded_fullyLabelledPairGramWeld
       vf915GlobalDecoded_eq_mu_add_remainder]
   ring
 
+/-! ## DIRECT actual production returned-pair source, with masks and clips -/
+
+/-- The actual production #915 active mask, carrying the globally decoded
+physical charge at each active original odd seat. Zero off the true carrier. -/
+def vf915DecodedActivePhysicalSite (R n : ℕ) : ℝ :=
+  if n ∈ vfMidOneBlockActivePhysicalCarrier R then
+    vf915GlobalDecodedPhysicalCharge R n else 0
+
+theorem vf915DecodedActivePhysicalSite_eq_original (R n : ℕ) :
+    vf915DecodedActivePhysicalSite R n =
+      vfMidOneBlockActivePhysicalSite R n := by
+  simp [vf915DecodedActivePhysicalSite, vfMidOneBlockActivePhysicalSite,
+        vf915GlobalDecodedPhysicalCharge_eq_original]
+
+/-- Keep the exact original production mask on EACH of the two Mobius channels. -/
+def vf915ActiveMu (R n : ℕ) : ℝ :=
+  if n ∈ vfMidOneBlockActivePhysicalCarrier R then vf915GlobalMu n else 0
+
+def vf915ActiveCorrection (R n : ℕ) : ℝ :=
+  if n ∈ vfMidOneBlockActivePhysicalCarrier R then
+    vf915GlobalPhysicalRemainder R n else 0
+
+theorem vf915DecodedActivePhysicalSite_eq_mu_add_correction (R n : ℕ) :
+    vf915DecodedActivePhysicalSite R n =
+      vf915ActiveMu R n + vf915ActiveCorrection R n := by
+  unfold vf915DecodedActivePhysicalSite vf915ActiveMu
+    vf915ActiveCorrection
+  split_ifs with h
+  · exact vf915GlobalDecoded_eq_mu_add_remainder R n
+  · simp
+
+/-- ACTUAL #913/#915 returned physical source:
+    - true clipped p-free left site a;
+    - true p-admitted cofactor c, actual physical child p*c;
+    - no altered original coefficient;
+    - no assumed substitute family.
+
+This is the exact #913 kernel theorem spliced with the global all-depth Mobius
+decoder, preserving the same individual site masks. -/
+theorem vf915ActualReturnedPairWeight_eq_decodedPhysical
+    {R p a c : ℕ} {sig : Finset ℕ}
+    (hR : 3 ≤ R) (hp : p.Prime)
+    (haClip : a ∈ lowOwnerFirstOwnerClippedBaseFiber (R + 1) p sig)
+    (hcAdm : c ∈ lowOwnerFirstOwnerAdmittedBaseFiber (R + 1) p sig) :
+    vfMidActiveReturnedPairWeight R p sig (a, c) =
+      vf915DecodedActivePhysicalSite R a *
+        vf915DecodedActivePhysicalSite R (p * c) := by
+  rw [vfMidActiveReturnedPairWeight_eq_physical hR hp haClip hcAdm]
+  simp only [vf915DecodedActivePhysicalSite_eq_original]
+
+/-- FULL four-channel Gram on one ACTUAL returned child occurrence.
+Positive, negative, mixed, and correction-square channels all survive with
+the TRUE parent and child masks; a Mobius-only term is not the VF source. -/
+theorem vf915ActualReturnedPairWeight_eq_fourChannels
+    {R p a c : ℕ} {sig : Finset ℕ}
+    (hR : 3 ≤ R) (hp : p.Prime)
+    (haClip : a ∈ lowOwnerFirstOwnerClippedBaseFiber (R + 1) p sig)
+    (hcAdm : c ∈ lowOwnerFirstOwnerAdmittedBaseFiber (R + 1) p sig) :
+    vfMidActiveReturnedPairWeight R p sig (a, c) =
+      vf915ActiveMu R a * vf915ActiveMu R (p * c) +
+        vf915ActiveMu R a * vf915ActiveCorrection R (p * c) +
+        vf915ActiveCorrection R a * vf915ActiveMu R (p * c) +
+        vf915ActiveCorrection R a *
+          vf915ActiveCorrection R (p * c) := by
+  rw [vf915ActualReturnedPairWeight_eq_decodedPhysical
+    hR hp haClip hcAdm,
+    vf915DecodedActivePhysicalSite_eq_mu_add_correction,
+    vf915DecodedActivePhysicalSite_eq_mu_add_correction]
+  ring
+
+/-- The entire ORIGINAL current first-owner clipped/admitted Fubini carrier
+obeys the four-channel identity. The index is the literal returned pair;
+no generic occurrence assignment or owner-history injection is hypothesized.
+-/
+theorem vf915ActualReturnedPairCarrier_sum_eq_fourChannels
+    {R p : ℕ} {sig : Finset ℕ}
+    (hR : 3 ≤ R) (hp : p.Prime) :
+    (∑ ac ∈ vfMidActiveReturnedPairCarrier R p sig,
+      vfMidActiveReturnedPairWeight R p sig ac) =
+      ∑ ac ∈ vfMidActiveReturnedPairCarrier R p sig,
+        (vf915ActiveMu R ac.1 * vf915ActiveMu R (p * ac.2) +
+          vf915ActiveMu R ac.1 * vf915ActiveCorrection R (p * ac.2) +
+          vf915ActiveCorrection R ac.1 * vf915ActiveMu R (p * ac.2) +
+          vf915ActiveCorrection R ac.1 *
+            vf915ActiveCorrection R (p * ac.2)) := by
+  apply Finset.sum_congr rfl
+  intro ac hac
+  rcases Finset.mem_product.mp hac with ⟨ha, hc⟩
+  exact vf915ActualReturnedPairWeight_eq_fourChannels hR hp ha hc
+
 /-- The actual #915 physical global residual and the ACTUAL three
 clipped/returned boundary sectors sum to the decoder-based original Co/Div.
 Neither the G_R anchor nor the physical masks are replaced. -/
@@ -339,4 +429,5 @@ end RHLean.Analysis
 #print axioms RHLean.Analysis.vf915GlobalDecoded_fullKeyWeightedOwnerWeld
 #print axioms RHLean.Analysis.vf915GlobalDecoded_fullyLabelledPairGramWeld
 #print axioms RHLean.Analysis.vf915GlobalDecoded_originalAnchoredExcess
+#print axioms RHLean.Analysis.vf915ActualReturnedPairCarrier_sum_eq_fourChannels
 #print axioms RHLean.Analysis.vf915GlobalDecoded_originalResidualAndBoundary
