@@ -386,6 +386,28 @@ theorem vf915ActualReturnedPairCarrier_sum_eq_fourChannels
   rcases Finset.mem_product.mp hac with ⟨ha, hc⟩
   exact vf915ActualReturnedPairWeight_eq_fourChannels hR hp ha hc
 
+/-- The literal clipped returned Co/Div atom (NOT merely the signed pair)
+in all four correct physical channels. The absolute term belongs to the
+ORIGINAL NNS population and is not substituted by a parent norm. -/
+theorem vf915ActualReturnedPairCoDivExcess_eq_fourChannels
+    {R p a c : ℕ} {sig : Finset ℕ}
+    (hR : 3 ≤ R) (hp : p.Prime)
+    (haClip : a ∈ lowOwnerFirstOwnerClippedBaseFiber (R + 1) p sig)
+    (hcAdm : c ∈ lowOwnerFirstOwnerAdmittedBaseFiber (R + 1) p sig) :
+    vfMidActiveReturnedPairCoDivExcess R p sig (a, c) =
+      4 * (vf915ActiveMu R a * vf915ActiveMu R (p * c) +
+        vf915ActiveMu R a * vf915ActiveCorrection R (p * c) +
+        vf915ActiveCorrection R a * vf915ActiveMu R (p * c) +
+        vf915ActiveCorrection R a *
+          vf915ActiveCorrection R (p * c)) -
+      2 * |vf915ActiveMu R a * vf915ActiveMu R (p * c) +
+        vf915ActiveMu R a * vf915ActiveCorrection R (p * c) +
+        vf915ActiveCorrection R a * vf915ActiveMu R (p * c) +
+        vf915ActiveCorrection R a *
+          vf915ActiveCorrection R (p * c)| := by
+  unfold vfMidActiveReturnedPairCoDivExcess vfMidPointwiseCoDivExcess
+  rw [vf915ActualReturnedPairWeight_eq_fourChannels hR hp haClip hcAdm]
+
 /-- The actual #915 physical global residual and the ACTUAL three
 clipped/returned boundary sectors sum to the decoder-based original Co/Div.
 Neither the G_R anchor nor the physical masks are replaced. -/
@@ -430,4 +452,5 @@ end RHLean.Analysis
 #print axioms RHLean.Analysis.vf915GlobalDecoded_fullyLabelledPairGramWeld
 #print axioms RHLean.Analysis.vf915GlobalDecoded_originalAnchoredExcess
 #print axioms RHLean.Analysis.vf915ActualReturnedPairCarrier_sum_eq_fourChannels
+#print axioms RHLean.Analysis.vf915ActualReturnedPairCoDivExcess_eq_fourChannels
 #print axioms RHLean.Analysis.vf915GlobalDecoded_originalResidualAndBoundary
