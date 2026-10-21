@@ -1,24 +1,21 @@
-import OAI.NumberTheory.DirichletL.Detector.FinalAssemblyUnconditional
+import «research.VF_919_COMMON_PROBE_SEVEN_EIGHTHS_20261020»
 import «research.VF_919_SEVEN_EIGHTHS_SIGNED_COVARIANCE_20261019»
 import «research.VF_919_SEVEN_EIGHTHS_SQUARE_SHELL_BRIDGE_20261019»
 
 /-!
-# Unconditional actual OpenAI certified 7/8 in RH_Lean's ORIGINAL square shells
+# Actual seven-eighths in RH_Lean's original Mobius sequence and square shells
 
-This file imports the COMPLETE original OpenAI Lean 4.34.1 analytic
-certificate. It does NOT introduce a new moment estimate, a zero-free
-assumption, an ideal-fibre hypothesis, or a random-sign approximation.
+The imported local common-probe module constructs the intermediate analytic
+certificate, assembles LOW and HIGH for one source, and discharges the beta-gap
+by the Mellin contradiction. It reuses the pinned OpenAI intermediate analytic
+lemmas, but does not import or call the upstream terminal nonvanishing theorem.
 
-1. OpenAI terminal_certificate -> detector_certified_bands -> zeta_nonzero.
-2. RH_Lean's separately proved zeta-strip / Mertens converse.
-3. RH_Lean's ORIGINAL global signed zero-target Green-Kubo covariance.
-4. RH_Lean's ORIGINAL square blocks, telescoped exactly at every K^2.
+This file then uses RH_Lean's proved Mertens converse and exact physical
+Green--Kubo identities. This is the requested FIRST-stage seven-eighths result.
+A direct sharp covariance estimate avoiding that analytic intermediate is a
+separate later task; it is not claimed here.
 
-This is a fully unconditional 7/8 theorem *for the exact original
-Möbius pair covariance* provided the original imported OpenAI
-certificate has only standard kernel axioms. It does NOT claim that an
-arbitrary smooth OAI theta probe equals a sharp single-block indicator.
-No new unproved analytic inequality is needed for THIS theorem.
+Existing exported names are preserved for downstream consumers.
 -/
 
 noncomputable section
@@ -26,25 +23,28 @@ open scoped BigOperators
 
 namespace RHLean.Analysis
 
-/-- The entire original, UNCONDITIONAL OpenAI proof DAG discharges
-    the native 7/8 zero-free proposition. The analytic proof is imported,
-    not re-postulated as hZ or hMoment. -/
+/-- The locally assembled common-probe argument supplies nonvanishing,
+not an imported terminal theorem or an unproved hZ hypothesis. -/
 theorem openai434_actual_zeta_nonzero
     (s : ℂ) (hs : (7 : ℝ) / 8 < s.re) :
     riemannZeta s ≠ 0 :=
-  OAI.SevenEighths.ProbeFinalAssemblyUnconditional.zeta_nonzero s hs
+  VF919SevenEighths.zeta_nonzero s hs
 
-/-- This is the ORIGINAL RHLean physical Mertens positive-lag
-    signed covariance bound, at EVERY integer X and EVERY epsilon,
-    obtained unconditionally from the genuine OpenAI analytic proof.
-    No smooth-to-sharp assumption or alternative carrier. -/
+/-- Original rational Mobius signed covariance at every integer. The
+analytic intermediate is explicit and proved, not suppressed. -/
 theorem openai434_actual_global_signed_covariance :
     VF919SevenEighthsSignedCovarianceBound :=
   vf919_sevenEighthsSignedCovariance_of_zetaNonzero
     (fun s hs => openai434_actual_zeta_nonzero s hs)
 
-/-- The original signed positive-lag covariance is paid with its
-    EXACT squarefree diagonal; no K_X <= X substitution. -/
+/-- In particular, for every positive epsilon the genuine Mertens function
+has a uniform power bound of exponent 7/8 + epsilon. -/
+theorem commonProbe_actual_mertens_growth :
+    MertensExponent.MertensGrowthAtMost ((7 : ℝ) / 8) :=
+  vf919_sevenEighthsSignedCovariance_iff_mertensGrowth.mp
+    openai434_actual_global_signed_covariance
+
+/-- Keep the exact squarefree diagonal and all signed pairs. -/
 theorem openai434_actual_global_signed_pairs
     (ε : ℝ) (hε : 0 < ε) :
     ∃ C : ℝ, 0 ≤ C ∧ ∀ X : ℕ, 1 ≤ X →
@@ -54,10 +54,8 @@ theorem openai434_actual_global_signed_pairs
   vf919_sevenEighthsSignedPair_upper_of_zetaNonzero
     (fun s hs => openai434_actual_zeta_nonzero s hs) ε hε
 
-/-- A direct complete-block version: the ACTUAL sum of ALL physical
-    square-block Möbius signs r=0,...,K-1 obeys the same certified
-    seven-eighths Mertens exponent. In particular all between-block
-    signed covariances remain inside the LHS square. -/
+/-- All complete physical square shells, including their cross-shell
+terms inside the squared cumulative signed sum. -/
 theorem openai434_actual_all_square_blocks_seven_eighths
     (ε : ℝ) (hε : 0 < ε) :
     ∃ C : ℝ, 0 ≤ C ∧ ∀ K : ℕ, 2 ≤ K →
@@ -83,9 +81,7 @@ theorem openai434_actual_all_square_blocks_seven_eighths
     _ ≤ (C * Real.rpow (((K ^ 2 - 1 : ℕ) : ℝ))
           ((7 : ℝ) / 8 + ε)) ^ 2 := hb
 
-/-- At every complete square endpoint, the ORIGINAL full Green--Kubo
-    diagonal plus all strictly ordered physical pairs, including
-    different square blocks, has the genuine unconditional 7/8 bound. -/
+/-- Exact original full pair covariance at every complete square endpoint. -/
 theorem openai434_actual_all_square_block_covariance
     (ε : ℝ) (hε : 0 < ε) :
     ∃ C : ℝ, 0 ≤ C ∧ ∀ K : ℕ, 2 ≤ K →
@@ -105,6 +101,7 @@ theorem openai434_actual_all_square_block_covariance
 
 #print axioms openai434_actual_zeta_nonzero
 #print axioms openai434_actual_global_signed_covariance
+#print axioms commonProbe_actual_mertens_growth
 #print axioms openai434_actual_global_signed_pairs
 #print axioms openai434_actual_all_square_blocks_seven_eighths
 #print axioms openai434_actual_all_square_block_covariance
