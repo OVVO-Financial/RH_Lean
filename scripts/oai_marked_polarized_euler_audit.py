@@ -35,6 +35,12 @@ for i in range(6):
         rhs={0:a-theta*b,1:L*(a-theta*b)-ell*theta*b,
              2:L*L*(a-theta*b)-(2*L*ell+ell*ell)*theta*b}[j]
         assert abs(lhs-rhs)<1e-12
+# Full equal sixth-root phase average has no unearned paired-source L2 saving:
+# E_theta |a-theta*b|² = |a|²+|b|², since E(theta)=0 and |theta|=1.
+for a,b in ((1+0j,1+0j),(2-3j,.5+1.5j),(-1.2+.3j,2.1-.9j)):
+    mean=sum(abs(a-t*b)**2 for t in zeta)/6
+    assert math.isclose(mean,abs(a)**2+abs(b)**2,rel_tol=1e-11,abs_tol=1e-10)
+
 # For a(1)=1, a(g)=-1 on Z/2:
 # only the trivial character: fourth moment 0 < resonant contribution 8.
 # both orthogonal characters: total fourth moment 16 = 2*8.
