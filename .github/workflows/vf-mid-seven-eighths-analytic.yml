@@ -61,7 +61,9 @@ jobs:
   mathlib-only:
     name: Seven-eighths bridge kernel (Mathlib only, no PNT+)
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    # The uncached RHLean import-closure build below takes about 16 minutes of
+    # an 18-20 minute job, so the old 20-minute limit cut runs off mid-build.
+    timeout-minutes: 45
     steps:
       - uses: actions/checkout@v4
       - name: Forbid proof holes and direct incompatible OAI imports
