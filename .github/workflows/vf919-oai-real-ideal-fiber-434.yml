@@ -5,7 +5,7 @@ on:
     paths:
       - research/oai_434/RHLeanActualEisensteinIdealSharpSquareBlock.lean
       - research/oai_434/RHLeanActualEisensteinCompensatedSharpSquareBlock.lean
-      - scripts/patch_oai_434_rellich_compat.py
+      - scripts/apply_oai_434_upstream_patches.py
       - .github/workflows/vf919-oai-real-ideal-fiber-434.yml
   workflow_dispatch:
 
@@ -35,14 +35,9 @@ jobs:
         uses: actions/cache/restore@v5
         with:
           path: oai-upstream/lean/.lake
-          key: vf919-oai-sharp-ideal-v1-${{ runner.os }}-${{ runner.arch }}-1581d4cbdd69a0faf34b2089614fe2a814316a6a-${{ hashFiles('scripts/patch_oai_434_rellich_compat.py') }}
-      - name: Seed sharp-ideal DAG from previously compiled analytic moments
-        id: oai-intermediate-cache
-        if: steps.oai-sharp-cache.outputs.cache-hit != 'true'
-        uses: actions/cache/restore@v5
-        with:
-          path: oai-upstream/lean/.lake
-          key: vf919-oai-analytic-v1-${{ runner.os }}-${{ runner.arch }}-1581d4cbdd69a0faf34b2089614fe2a814316a6a-${{ hashFiles('scripts/patch_oai_434_rellich_compat.py') }}
+          key: vf919-oai-4341-v3-${{ runner.os }}-${{ runner.arch }}-1581d4cbdd69a0faf34b2089614fe2a814316a6a-${{ hashFiles('scripts/apply_oai_434_upstream_patches.py') }}-sharp
+          restore-keys: |
+            vf919-oai-4341-v3-${{ runner.os }}-${{ runner.arch }}-1581d4cbdd69a0faf34b2089614fe2a814316a6a-${{ hashFiles('scripts/apply_oai_434_upstream_patches.py') }}-
       - name: Install Lean Elan
         shell: bash
         run: |
@@ -57,16 +52,14 @@ jobs:
           cd oai-upstream/lean
           lake --version
       - name: Fetch the pinned original OAI Mathlib cache
-        if: steps.oai-sharp-cache.outputs.cache-hit != 'true' && steps.oai-intermediate-cache.outputs.cache-hit != 'true'
+        if: steps.oai-sharp-cache.outputs.cache-hit != 'true'
         shell: bash
         working-directory: oai-upstream/lean
         run: |
           set -euo pipefail
           lake exe cache get
-      - name: Apply kernel-preserving Rellich function-eta compatibility fixes
-        if: steps.oai-sharp-cache.outputs.cache-hit != 'true' && steps.oai-intermediate-cache.outputs.cache-hit != 'true'
-        shell: bash
-        run: python3 scripts/patch_oai_434_rellich_compat.py
+      - name: Verify and apply original OpenAI upstream Lean 4.34.1 patches
+        run: python3 scripts/apply_oai_434_upstream_patches.py oai-upstream/lean
       - name: Kernel-check patched pinned Rellich prerequisites before full OpenAI DAG
         shell: bash
         working-directory: oai-upstream/lean

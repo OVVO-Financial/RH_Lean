@@ -5,7 +5,7 @@ on:
     paths:
       - 'research/VF_919_OPENAI_434_UNCONDITIONAL_SQUARE_BLOCK_COVARIANCE_20261019.lean'
       - '.github/workflows/vf919-oai-certified-core-434.yml'
-      - 'scripts/patch_oai_434_rellich_compat.py'
+      - 'scripts/apply_oai_434_upstream_patches.py'
   workflow_dispatch:
 
 permissions:
@@ -84,25 +84,19 @@ jobs:
         uses: actions/cache/restore@v5
         with:
           path: oai-upstream/lean/.lake
-          key: vf919-oai-full-proof-v2-${{ runner.os }}-${{ runner.arch }}-1581d4cbdd69a0faf34b2089614fe2a814316a6a-${{ hashFiles('scripts/patch_oai_434_rellich_compat.py') }}
-      - name: Restore previously compiled OpenAI intermediate analytic moments
-        id: oai-intermediate-cache
-        if: steps.oai-full-cache.outputs.cache-hit != 'true'
-        uses: actions/cache/restore@v5
-        with:
-          path: oai-upstream/lean/.lake
-          key: vf919-oai-analytic-v1-${{ runner.os }}-${{ runner.arch }}-1581d4cbdd69a0faf34b2089614fe2a814316a6a-${{ hashFiles('scripts/patch_oai_434_rellich_compat.py') }}
+          key: vf919-oai-4341-v3-${{ runner.os }}-${{ runner.arch }}-1581d4cbdd69a0faf34b2089614fe2a814316a6a-${{ hashFiles('scripts/apply_oai_434_upstream_patches.py') }}-full
+          restore-keys: |
+            vf919-oai-4341-v3-${{ runner.os }}-${{ runner.arch }}-1581d4cbdd69a0faf34b2089614fe2a814316a6a-${{ hashFiles('scripts/apply_oai_434_upstream_patches.py') }}-
       - name: Fetch pinned original OpenAI dependencies
-        if: steps.oai-full-cache.outputs.cache-hit != 'true' && steps.oai-intermediate-cache.outputs.cache-hit != 'true'
+        if: steps.oai-full-cache.outputs.cache-hit != 'true'
         shell: bash
         working-directory: oai-upstream/lean
         run: |
           set -euo pipefail
           test "$(cat lean-toolchain)" = "leanprover/lean4:v4.34.1"
           lake exe cache get
-      - name: Apply local pointwise elaboration compatibility without proof bypasses
-        if: steps.oai-full-cache.outputs.cache-hit != 'true' && steps.oai-intermediate-cache.outputs.cache-hit != 'true'
-        run: python3 scripts/patch_oai_434_rellich_compat.py
+      - name: Verify and apply original OpenAI upstream Lean 4.34.1 patches
+        run: python3 scripts/apply_oai_434_upstream_patches.py oai-upstream/lean
       - name: Kernel-check patched pinned Rellich prerequisites before full OpenAI DAG
         shell: bash
         working-directory: oai-upstream/lean
