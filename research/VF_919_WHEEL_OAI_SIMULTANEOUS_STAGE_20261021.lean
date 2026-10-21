@@ -69,11 +69,11 @@ theorem vf919WheelOAIHeckeStage_phase
 /-- Same native finite NNS payment for the two real Phi coordinates of
 a phase-correct matched pair. This is NOT a source-specific moment bound. -/
 theorem vf919WheelOAIHeckePair_realNNS
-    (ax ay bx by : ℝ) :
-    ((ax-bx)^2+(ay-by)^2)/2 =
-      (ax^2+ay^2+bx^2+by^2)/2 -
+    (ax ay bx byCoord : ℝ) :
+    ((ax-bx)^2+(ay-byCoord)^2)/2 =
+      (ax^2+ay^2+bx^2+byCoord^2)/2 -
       ((vf919WheelOAIAligned ax bx - vf919WheelOAIDivergent ax bx) +
-       (vf919WheelOAIAligned ay by - vf919WheelOAIDivergent ay by)) := by
+       (vf919WheelOAIAligned ay byCoord - vf919WheelOAIDivergent ay byCoord)) := by
   rw [vf919WheelOAIAligned_sub_divergent,
       vf919WheelOAIAligned_sub_divergent]
   ring
