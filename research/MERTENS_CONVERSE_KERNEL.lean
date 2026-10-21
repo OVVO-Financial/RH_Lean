@@ -55,7 +55,7 @@ theorem norm_ge_scaled_height {σ : ℝ} (hσ1 : σ ≤ 1)
   have hreal : σ ≤ ‖s‖ := hs.trans (Complex.re_le_norm s)
   have him : |s.im| ≤ ‖s‖ := Complex.abs_im_le_norm s
   have hmul : σ * |s.im| ≤ |s.im| := by
-    simpa only [one_mul] using mul_le_mul_of_nonneg_right hσ1 (abs_nonneg s.im)
+    simpa only [one_mul] using! mul_le_mul_of_nonneg_right hσ1 (abs_nonneg s.im)
   nlinarith
 
 /-- An integrable height weight for every positive fractional exponent. -/

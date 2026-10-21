@@ -54,8 +54,8 @@ open RHLean.Analysis
 theorem squareRootEndpoint_div_eq_one_of_top_fibre
     {X q : ℕ} (hq : 0 < q) (hlow : X < 2 * q) (hhigh : q ≤ X) :
     X / q = 1 := by
-  have h1 : 1 ≤ X / q := (Nat.le_div_iff_mul_le hq).2 (by simpa using hhigh)
-  have h2 : X / q < 2 := (Nat.div_lt_iff_lt_mul hq).2 (by simpa [Nat.mul_comm] using hlow)
+  have h1 : 1 ≤ X / q := (Nat.le_div_iff_mul_le hq).2 (by simpa using! hhigh)
+  have h2 : X / q < 2 := (Nat.div_lt_iff_lt_mul hq).2 (by simpa [Nat.mul_comm] using! hlow)
   omega
 
 /-- The rough Möbius prefix at cutoff `1` is the unit source alone. -/
@@ -64,13 +64,13 @@ theorem roughCofactorMobiusPrefixMass_one {q : ℕ} (hq : 2 ≤ q) :
   have hone : canonicalLargestPrimeFactor 1 = 1 := by
     have hnot : ¬ (1 : ℕ) < 1 := by omega
     unfold canonicalLargestPrimeFactor
-    rw [dif_neg hnot]
+    rw [dite_eq_right hnot]
   have hmu : canonicalMoebiusWeight 1 = 1 := by
     unfold canonicalMoebiusWeight
     rw [ArithmeticFunction.moebius_apply_one, Int.cast_one]
   unfold roughCofactorMobiusPrefixMass
   rw [show Finset.Icc 1 1 = ({1} : Finset ℕ) by decide]
-  rw [Finset.sum_singleton, hone, if_pos (by omega), hmu]
+  rw [Finset.sum_singleton, hone, ite_eq_left (by omega), hmu]
 
 /-- The primes at the top of the square-prefix range: those above half the
 endpoint.  Every one of these has reciprocal cutoff exactly `1`. -/
@@ -108,9 +108,9 @@ theorem squareRootTopFibreBlock_eq_card (R : ℕ) (hR : 2 ≤ R) :
     · have hq2 : 2 ≤ q := hqPrime.two_le
       have hdiv : squareRootEndpoint R / q = 1 :=
         squareRootEndpoint_div_eq_one_of_top_fibre (by omega) (by omega) hhigh
-      rw [if_pos hqPrime, if_pos hqPrime, hdiv,
+      rw [ite_eq_left hqPrime, ite_eq_left hqPrime, hdiv,
         roughCofactorMobiusPrefixMass_one hq2]
-    · rw [if_neg hqPrime, if_neg hqPrime]
+    · rw [ite_eq_right hqPrime, ite_eq_right hqPrime]
   calc
     squareRootTopFibreBlock R =
         ∑ q ∈ Finset.Ioc (squareRootEndpoint R / 2) (squareRootEndpoint R),
@@ -215,7 +215,7 @@ theorem two_le_squareRootEndpoint_div_of_middle
   apply (Nat.le_div_iff_mul_le hqpos).2
   have htwo : q * 2 ≤ squareRootEndpoint R :=
     (Nat.le_div_iff_mul_le (by norm_num : 0 < 2)).1 hqhalf
-  simpa [Nat.mul_comm] using htwo
+  simpa [Nat.mul_comm] using! htwo
 
 /-- Every middle reciprocal quotient is strictly below `R`.  Thus the middle
 section only samples Mertens values from the completed lower square-root scale. -/
@@ -264,8 +264,8 @@ theorem squareRootTopMertensTail_eq_card (R : ℕ) :
     by_cases hqPrime : q.Prime
     · have hdiv : squareRootEndpoint R / q = 1 :=
         squareRootEndpoint_div_eq_one_of_top_fibre hqPrime.pos (by omega) hhigh
-      rw [if_pos hqPrime, if_pos hqPrime, hdiv, mertensSummatory_one]
-    · rw [if_neg hqPrime, if_neg hqPrime]
+      rw [ite_eq_left hqPrime, ite_eq_left hqPrime, hdiv, mertensSummatory_one]
+    · rw [ite_eq_right hqPrime, ite_eq_right hqPrime]
   calc
     (∑ q ∈ Finset.Ioc (squareRootEndpoint R / 2) (squareRootEndpoint R),
         if q.Prime then

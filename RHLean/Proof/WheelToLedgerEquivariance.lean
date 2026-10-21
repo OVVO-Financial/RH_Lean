@@ -133,7 +133,7 @@ def Ordered {B : ℕ} (m : WheelFreshPrimeMove B) : Prop :=
 /-- The child is a legal smooth-oriented ancestry state. -/
 theorem child_smoothOriented {B : ℕ} (m : WheelFreshPrimeMove B) :
     SmoothOriented (wheelToSource m.child) := by
-  exact ⟨wheelToSource_admissible m.child, by simpa using m.child_smooth⟩
+  exact ⟨wheelToSource_admissible m.child, by simpa using! m.child_smooth⟩
 
 /-- Parent equivariance is equivalent to the ancestry cofactor being the wheel
 parent core. -/
@@ -149,7 +149,7 @@ theorem sourceParent_eq_parent_iff_cofactor {B : ℕ}
         parentIndex (wheelToSource m.child) hs = wheelToSource m.parent :=
       Option.some.inj h
     have hc := congrArg (fun s => sourceCore s) hidx
-    simpa using hc
+    simpa using! hc
   · intro hc
     apply congrArg some
     apply Prod.ext
@@ -292,9 +292,9 @@ def wheelFreshPrimeCounterexampleChild : WheelFactorConfiguration 70 where
     · have h2 : Squarefree 2 := (show Nat.Prime 2 by norm_num).squarefree
       have h5 : Squarefree 5 := (show Nat.Prime 5 by norm_num).squarefree
       have hcop : Nat.Coprime 2 5 := by norm_num
-      simpa using (Nat.squarefree_mul hcop).2 ⟨h2, h5⟩
+      simpa using! (Nat.squarefree_mul hcop).2 ⟨h2, h5⟩
     · intro p hp hpd
-      have hpd' : p ∣ 2 * 5 := by simpa using hpd
+      have hpd' : p ∣ 2 * 5 := by simpa using! hpd
       rcases hp.dvd_mul.mp hpd' with h2 | h5
       · rcases (Nat.dvd_prime (show Nat.Prime 2 by norm_num)).mp h2 with hp1 | hp2
         · exact (hp.ne_one hp1).elim

@@ -86,7 +86,7 @@ theorem sum_lowOwnerFirstOwnerBaseAmplitude_eq_pFreeCarrier
           intro sig _hsig
           rw [show S.filter (fun n => g n = sig) =
               lowOwnerFirstOwnerBaseFiber R p sig by
-            simpa [S, g] using
+            simpa [S, g] using!
               lowOwnerFirstOwnerPFreeCarrier_filter_signature_eq_baseFiber
                 R p sig]
     _ = ∑ n ∈ S, f n := hfiber
@@ -122,7 +122,7 @@ theorem sum_lowOwnerFirstOwnerChildAmplitude_eq_pDivisibleCarrier
           intro sig _hsig
           rw [show S.filter (fun n => g n = sig) =
               lowOwnerFirstOwnerChildFiber R p sig by
-            simpa [S, g] using
+            simpa [S, g] using!
               lowOwnerFirstOwnerPDivisibleCarrier_filter_signature_eq_childFiber
                 R p sig]
     _ = ∑ n ∈ S, f n := hfiber
@@ -142,7 +142,7 @@ theorem sum_pFree_add_pDivisible_eq_nonzeroCarrier
     (s := lowOwnerNonzeroMobiusCarrier R)
     (p := fun n => p ∣ n)
     (f := lowOwnerZeroFrequencyMobiusSite R)
-  simpa [add_comm] using h
+  simpa [add_comm] using! h
 
 /-- Removing the zero-Mobius sites does not change the AMP amplitude. -/
 theorem sum_lowOwnerNonzeroMobiusCarrier_eq_amplitude

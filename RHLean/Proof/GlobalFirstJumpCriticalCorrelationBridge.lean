@@ -101,10 +101,10 @@ theorem criticalReciprocalPrefix_unitPartnerSet
     Finset.mem_filter, Finset.mem_Icc]
   constructor
   · rintro ⟨hq, _hfresh, hlo, hhi⟩
-    exact ⟨⟨by simpa using hlo, by simpa using hhi⟩, hq⟩
+    exact ⟨⟨by simpa using! hlo, by simpa using! hhi⟩, hq⟩
   · rintro ⟨⟨hlo, hhi⟩, hq⟩
-    refine ⟨hq, ?_, by simpa using hlo, by simpa using hhi⟩
-    simpa [canonicalLargestPrimeFactor] using hq.one_lt
+    refine ⟨hq, ?_, by simpa using! hlo, by simpa using! hhi⟩
+    simpa [canonicalLargestPrimeFactor] using! hq.one_lt
 
 /-- Every prime root supplies a unit partner itself.  Consequently the first
 prefix stays at least one along an unbounded sequence of roots. -/
@@ -122,7 +122,7 @@ theorem one_le_norm_criticalReciprocalPrefix_one_of_prime
   have hcard : 1 ≤ (squareRootCanonicalRoughPrimePartnerSet R 1).card :=
     Finset.card_pos.mpr ⟨R, hmem⟩
   rw [criticalReciprocalPrefix_one_eq_partnerCard R hRtwo]
-  simpa using (show (1 : ℝ) ≤
+  simpa using! (show (1 : ℝ) ≤
     ((squareRootCanonicalRoughPrimePartnerSet R 1).card : ℝ) by exact_mod_cast hcard)
 
 /-- **The uniform small-prefix premise is false.**  Its right side tends to
@@ -135,7 +135,7 @@ theorem not_criticalReciprocalPrefixRootBound :
   have hlog : Filter.Tendsto
       (fun R : ℕ => Real.log (R : ℝ) / (R : ℝ))
       Filter.atTop (nhds 0) := by
-    simpa using
+    simpa using!
       Real.isLittleO_log_id_atTop.tendsto_div_nhds_zero.comp
         tendsto_natCast_atTop_atTop
   have hinv : Filter.Tendsto (fun R : ℕ => (1 : ℝ) / (R : ℝ))
@@ -144,7 +144,7 @@ theorem not_criticalReciprocalPrefixRootBound :
   have hlim : Filter.Tendsto
       (fun R : ℕ => C * (Real.log (R : ℝ) + 1) / (R : ℝ))
       Filter.atTop (nhds 0) := by
-    simpa only [add_div, mul_div_assoc, add_zero, mul_zero] using
+    simpa only [add_div, mul_div_assoc, add_zero, mul_zero] using!
       (hlog.add hinv).const_mul C
   have hsmall : ∀ᶠ R : ℕ in Filter.atTop,
       C * (Real.log (R : ℝ) + 1) / (R : ℝ) < 1 :=
@@ -178,7 +178,7 @@ theorem roughCorrelationLogBound_of_criticalReciprocalPrefixRootBound
   have hA : ∀ k ≤ squareRootEndpoint R,
       ‖squareRootCanonicalRoughCorrelationReciprocalPrefix R k‖ ≤ A := by
     intro k hk
-    simpa [A, L] using hprefix R hR k hk
+    simpa [A, L] using! hprefix R hR k hk
   have habel :=
     squareRootCanonicalRoughCorrelation_norm_le_two_endpoint_mul R A hA
   have hRpos : 0 < (R : ℝ) := by positivity
@@ -233,7 +233,7 @@ theorem recombinedCanonicalDefectLogBound_of_criticalReciprocalPrefixRootBound
       (1 : ℝ) ≤ (R : ℝ) * (Real.log (R : ℝ) + 1) := by
     have hmul := mul_le_mul hRone hLone (by norm_num : (0 : ℝ) ≤ 1)
       (by positivity : (0 : ℝ) ≤ (R : ℝ))
-    simpa using hmul
+    simpa using! hmul
   calc
     ‖squareRootCanonicalRoughCorrelation R + canonicalMoebiusWeight R‖ ≤
         ‖squareRootCanonicalRoughCorrelation R‖ +
@@ -245,7 +245,7 @@ theorem recombinedCanonicalDefectLogBound_of_criticalReciprocalPrefixRootBound
         C * (R : ℝ) * (Real.log (R : ℝ) + 1) + 1 ≤
             C * (R : ℝ) * (Real.log (R : ℝ) + 1) +
               (R : ℝ) * (Real.log (R : ℝ) + 1) :=
-          add_le_add_left hscaleOne _
+          add_le_add_right hscaleOne _
         _ = (C + 1) * (R : ℝ) * (Real.log (R : ℝ) + 1) := by ring
 
 /-! ## Post-root covariance descent on reciprocal bands
@@ -511,7 +511,7 @@ private theorem prime_dvd_squarefreePrimeFamilyParent_iff_of_ne
     q ∣ squarefreePrimeFamilyParent p n ↔ q ∣ n := by
   unfold squarefreePrimeFamilyParent
   by_cases hpn : p ∣ n
-  · rw [if_pos hpn]
+  · rw [ite_eq_left hpn]
     constructor
     · intro hqd
       rcases hqd with ⟨k, hk⟩
@@ -534,19 +534,19 @@ private theorem squarefreePrimeFamilyParent_pos
     0 < squarefreePrimeFamilyParent p n := by
   unfold squarefreePrimeFamilyParent
   by_cases hpn : p ∣ n
-  · rw [if_pos hpn]
+  · rw [ite_eq_left hpn]
     exact Nat.div_pos (Nat.le_of_dvd hn hpn) hp.pos
-  · simpa [hpn] using hn
+  · simpa [hpn] using! hn
 
 private theorem squarefree_squarefreePrimeFamilyParent
     {p n : ℕ} (hn : Squarefree n) :
     Squarefree (squarefreePrimeFamilyParent p n) := by
   unfold squarefreePrimeFamilyParent
   by_cases hpn : p ∣ n
-  · rw [if_pos hpn]
+  · rw [ite_eq_left hpn]
     exact hn.squarefree_of_dvd
       ⟨p, (Nat.div_mul_cancel hpn).symm⟩
-  · simpa [hpn] using hn
+  · simpa [hpn] using! hn
 
 private theorem mem_squarefreePrimeFace_parent_iff_of_ne
     {p q n : ℕ} (hp : p.Prime) (hq : q.Prime) (hqp : q ≠ p)
@@ -559,28 +559,28 @@ private theorem mem_squarefreePrimeFace_parent_iff_of_ne
   constructor
   · intro hface
     have hmem : q ∈ (squarefreePrimeFamilyParent p n).primeFactors := by
-      simpa [squarefreePrimeFace] using hface
+      simpa [squarefreePrimeFace] using! hface
     have hqdiv : q ∣ squarefreePrimeFamilyParent p n :=
       (Nat.mem_primeFactors.mp hmem).2.1
     have hqdivn : q ∣ n := hdvd.mp hqdiv
     have hmemn : q ∈ n.primeFactors :=
       Nat.mem_primeFactors.mpr ⟨hq, hqdivn, hn.ne'⟩
-    simpa [squarefreePrimeFace] using hmemn
+    simpa [squarefreePrimeFace] using! hmemn
   · intro hface
     have hmem : q ∈ n.primeFactors := by
-      simpa [squarefreePrimeFace] using hface
+      simpa [squarefreePrimeFace] using! hface
     have hqdiv : q ∣ n := (Nat.mem_primeFactors.mp hmem).2.1
     have hqdivp : q ∣ squarefreePrimeFamilyParent p n := hdvd.mpr hqdiv
     have hmemp : q ∈ (squarefreePrimeFamilyParent p n).primeFactors :=
       Nat.mem_primeFactors.mpr ⟨hq, hqdivp, hparentPos.ne'⟩
-    simpa [squarefreePrimeFace] using hmemp
+    simpa [squarefreePrimeFace] using! hmemp
 
 private theorem owner_not_mem_squarefreePrimeFace_parent
     {p n : ℕ} (hp : p.Prime) (hn : Squarefree n) :
     p ∉ squarefreePrimeFace (squarefreePrimeFamilyParent p n) := by
   intro hface
   have hmem : p ∈ (squarefreePrimeFamilyParent p n).primeFactors := by
-    simpa [squarefreePrimeFace] using hface
+    simpa [squarefreePrimeFace] using! hface
   exact (squarefreePrimeFamilyParent_not_dvd hp hn)
     ((Nat.mem_primeFactors.mp hmem).2.1)
 
@@ -620,7 +620,7 @@ theorem squarefreePairFreshPrimeOwner_lt_parentOwner
     dsimp [un]
     exact squarefreePrimeFamilyParent_pos hp hnpos
   have hne : um ≠ un := by
-    simpa [p, um, un] using hparentNe
+    simpa [p, um, un] using! hparentNe
   let q := squarefreePairFreshPrimeOwner um un
   have hqPrime : q.Prime := squarefreePairFreshPrimeOwner_prime humsq hunsq hne
   have hqXor := squarefreePairFreshPrimeOwner_xor humsq hunsq hne
@@ -664,12 +664,12 @@ private theorem prime_of_mem_squarefreePairFreshPrimeSet
   · have hface : q ∈ squarefreePrimeFace m :=
       (Finset.mem_sdiff.mp hq).1
     have hmem : q ∈ m.primeFactors := by
-      simpa [squarefreePrimeFace] using hface
+      simpa [squarefreePrimeFace] using! hface
     exact (Nat.mem_primeFactors.mp hmem).1
   · have hface : q ∈ squarefreePrimeFace n :=
       (Finset.mem_sdiff.mp hq).1
     have hmem : q ∈ n.primeFactors := by
-      simpa [squarefreePrimeFace] using hface
+      simpa [squarefreePrimeFace] using! hface
     exact (Nat.mem_primeFactors.mp hmem).1
 
 /-- **Exact owner-coordinate erasure.**  Stripping the least separating prime
@@ -723,7 +723,7 @@ theorem squarefreePairFreshPrimeSet_parent_eq_erase_owner
       apply Finset.mem_erase.mpr
       refine ⟨hqp, ?_⟩
       unfold squarefreePairFreshPrimeSet at hmem ⊢
-      simpa only [Finset.mem_union, Finset.mem_sdiff, hqm, hqn] using hmem
+      simpa only [Finset.mem_union, Finset.mem_sdiff, hqm, hqn] using! hmem
     · intro hmem
       have horig : q ∈ squarefreePairFreshPrimeSet m n :=
         (Finset.mem_erase.mp hmem).2
@@ -740,7 +740,7 @@ theorem squarefreePairFreshPrimeSet_parent_eq_erase_owner
         exact mem_squarefreePrimeFace_parent_iff_of_ne
           hp hqPrime hqp hnpos
       unfold squarefreePairFreshPrimeSet at horig ⊢
-      simpa only [Finset.mem_union, Finset.mem_sdiff, hqm, hqn] using horig
+      simpa only [Finset.mem_union, Finset.mem_sdiff, hqm, hqn] using! horig
 
 /-- Owner stripping is a strict finite descent: the differing-prime face loses
 exactly one coordinate at every step. -/

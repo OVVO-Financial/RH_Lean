@@ -61,7 +61,7 @@ theorem vfMidSquareLi2MinusVF_abs_le_uniform
   unfold vfMidLiError at hquad
   rw [vfMid_sq hR] at hquad
   unfold vfMidSquareLi2MinusVF
-  simpa only [abs_sub_comm] using hquad
+  simpa only [abs_sub_comm] using! hquad
 
 /-- Any proved pi-Li_2 error bound transfers DIRECTLY to the
 original actual pi-VF error with only a FIXED uniform additive cost. -/
@@ -72,7 +72,7 @@ theorem vfMidSquareActualPrimeVF_abs_le_primeLi2_abs_add_uniform
         vfMidLiSquareEndpointUniformConstant := by
   rw [vfMidSquareActualPrimeVF_eq_primeLi2_add_quadrature]
   exact (abs_add_le _ _).trans
-    (add_le_add_left (vfMidSquareLi2MinusVF_abs_le_uniform R hR) _)
+    (add_le_add_right (vfMidSquareLi2MinusVF_abs_le_uniform R hR) _)
 
 /-- Conversely an original VF arithmetic bound transfers to Li_2
 with exactly the same uniform deterministic quadrature cost. -/
@@ -88,7 +88,7 @@ theorem vfMidSquareActualPrimeLi2_abs_le_primeVF_abs_add_uniform
           vfMidSquareLi2MinusVF R| ≤
         |vfMidDirectSquareEndpointError R| +
           |vfMidSquareLi2MinusVF R| := by
-    simpa only [sub_eq_add_neg, abs_neg] using
+    simpa only [sub_eq_add_neg, abs_neg] using!
       (abs_add_le (vfMidDirectSquareEndpointError R)
         (-vfMidSquareLi2MinusVF R))
   have hcancel :
@@ -98,7 +98,7 @@ theorem vfMidSquareActualPrimeLi2_abs_le_primeVF_abs_add_uniform
     rw [heq]
     ring
   rw [hcancel] at htri
-  exact htri.trans (add_le_add_left hgap _)
+  exact htri.trans (add_le_add_right hgap _)
 
 /-- The exact distance comparison shows why observing VF closer in
 a finite numerical sample does NOT prove a universal sign theorem.
@@ -127,7 +127,7 @@ theorem vfMidSquareActualPrimeVF_abs_le_of_Li2_error
     |vfMidDirectSquareEndpointError R| ≤
       E + vfMidLiSquareEndpointUniformConstant := by
   exact (vfMidSquareActualPrimeVF_abs_le_primeLi2_abs_add_uniform
-    R hR).trans (add_le_add_right hLi _)
+    R hR).trans (add_le_add_left hLi _)
 
 /-- sqrt(2) chosen vertical *real* phase contributes only its
 bounded fixed constant to any direct Li_2 or VF discrepancy.

@@ -78,7 +78,7 @@ theorem sum_realMoebius_thresholdMertensCrossingCarrier_eq_mertens
       (p := p) (y := y) hp
   have hcast := congrArg (fun z : ℤ => (z : ℝ)) h
   push_cast at hcast
-  simpa [realMoebiusStep] using hcast
+  simpa [realMoebiusStep] using! hcast
 
 /-- On the p-free positive prefix, the half-open threshold indicator is exactly
 the cutoff-wall characteristic function. -/

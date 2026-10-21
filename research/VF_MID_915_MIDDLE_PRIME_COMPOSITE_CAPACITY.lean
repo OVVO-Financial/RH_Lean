@@ -51,12 +51,12 @@ theorem vfMid915MiddleEvenPrimeParent_window_iff_physical
       have hdiv : 2 * (R ^ 2 / 2) ≤ R ^ 2 := by omega
       omega
     constructor
-    · simpa [Nat.mul_comm] using hlow
+    · simpa [Nat.mul_comm] using! hlow
     · nlinarith
   · rintro ⟨hl, hu⟩
     have hl' : R ^ 2 / 2 < q :=
       (Nat.div_lt_iff_lt_mul
-        (by norm_num : 0 < (2 : ℕ))).mpr (by simpa [Nat.mul_comm] using hl)
+        (by norm_num : 0 < (2 : ℕ))).mpr (by simpa [Nat.mul_comm] using! hl)
     have hupper : 2 * q ≤ R ^ 2 + 2 * R := by
       nlinarith
     have hq : q ≤ R ^ 2 / 2 + R := by
@@ -84,7 +84,7 @@ theorem vfMid915MiddleEvenPrimeParent_inActualHalfRun
     nlinarith
   have hafloor : (R / 2 + 1) ^ 2 ≤ R ^ 2 / 2 := by
     apply (Nat.le_div_iff_mul_le (by norm_num : 0 < (2 : ℕ))).mpr
-    simpa [Nat.mul_comm] using hahlf
+    simpa [Nat.mul_comm] using! hahlf
   have hrfloor : 2 * (R ^ 2 / 2) ≤ R ^ 2 := by omega
   have hq2 : 2 * q ≤ R ^ 2 + 2 * R := by omega
   constructor
@@ -121,7 +121,7 @@ theorem vfMid915CurrentPrimeSupply_le_thirtyWheel
     vfMidIntegerBlockPrimeSupply_le_coprimeWheel R 30
       (by omega : 2 ≤ R) (by norm_num) hfac
   have htot : Nat.totient 30 = 8 := by decide
-  simpa [htot] using h
+  simpa [htot] using! h
 
 /-- The two INDEPENDENT elementary wheel bounds fit inside the original
 R odd physical seats for EVERY R >=62. This is pure arithmetic of

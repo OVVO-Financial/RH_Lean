@@ -30,38 +30,28 @@ jobs:
           build: false
           test: false
           lint: false
-      - name: Apply StrongPNT compatibility patch
-        run: |
-          python3 scripts/strongpnt_424/apply.py
-          python3 scripts/strongpnt_424/apply_post.py
-          python3 scripts/strongpnt_424/apply_pnt5_mid.py
-          python3 scripts/strongpnt_424/apply_pnt5_strong.py
-          python3 scripts/strongpnt_424/apply_lint.py
       - id: strongpnt-cache
         uses: actions/cache/restore@v5
         with:
           path: |
             .lake/packages/PrimeNumberTheoremAnd/.lake/build
-            .lake/packages/StrongPNT/.lake/build
-          key: strongpnt-port-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-${{ hashFiles('scripts/strongpnt_424/*.py') }}
-          restore-keys: |
-            strongpnt-port-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-
-      - name: Prebuild StrongPNT dependency
-        run: lake build StrongPNT.PNT5_Strong
-      - name: Save StrongPNT dependency cache
+          key: pntplus-build-v1-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
+      - name: Prebuild PNT+ StrongPNT dependency
+        run: lake build PrimeNumberTheoremAnd.StrongPNT
+      - name: Save PNT+ build cache
         if: steps.strongpnt-cache.outputs.cache-hit != 'true'
         uses: actions/cache/save@v5
         with:
           path: |
             .lake/packages/PrimeNumberTheoremAnd/.lake/build
-            .lake/packages/StrongPNT/.lake/build
-          key: strongpnt-port-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-${{ hashFiles('scripts/strongpnt_424/*.py') }}
+          key: pntplus-build-v1-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
       - uses: actions/cache/restore@v5
         with:
           path: .lake/build
-          key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py', 'RHLean.lean', 'RHLean/**/*.lean') }}
-          restore-keys: |
-            rhlean-build-${{ runner.os }}-${{ runner.arch }}-
+          key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'RHLean.lean', 'RHLean/**/*.lean') }}
+      - name: Build RHLean modules imported by these research checks
+        run: >-
+          python3 scripts/compile_research_import_closure.py --library-only
       - name: Kernel-check canonical Euler Othello module
         run: lake env lean RHLean/Proof/SquareRootLowPrimeCanonicalMatchingInvolution.lean
       - name: Build structural key module

@@ -52,7 +52,7 @@ theorem lowWheelFrozenSecondContactParentFace_root_lt
       (mem_lowWheelCanonicalTaggedDowncrossCarrier.mp htag).2).1
   have hroot : R < lowWheelTaggedDowncrossPivot y * primeFaceProduct y.1 := by
     have h := hphys.2.2.2.2.2.1
-    simpa [hs.1, Nat.mul_comm] using h
+    simpa [hs.1, Nat.mul_comm] using! h
   have hprod : lowWheelFrozenCofactorTopPrime y *
       primeFaceProduct (lowWheelFrozenSecondContactParentFace y) =
       y.2.1 * (lowWheelTaggedDowncrossPivot y * primeFaceProduct y.1) := by
@@ -192,7 +192,7 @@ theorem lowWheelFrozenSecondContactParentMap_surjOn_highOwnerWindow
   have hR : 2 ≤ R := by have := hq.two_le; omega
   have htop : primeFaceProduct (insert q V) ≤ squareRootEndpoint R := by
     rw [hprod]
-    simpa [Nat.mul_comm] using (Nat.le_div_iff_mul_le hq.pos).1 hupp
+    simpa [Nat.mul_comm] using! (Nat.le_div_iff_mul_le hq.pos).1 hupp
   have hRn : R < primeFaceProduct (insert q V) := by
     rw [hprod]
     exact hroot.trans_le (Nat.le_mul_of_pos_left _ hq.pos)
@@ -226,7 +226,7 @@ theorem lowWheelFrozenSecondContactParentMap_surjOn_highOwnerWindow
       exact hmax
     have hmul : q * primeFaceProduct y.1 = q * primeFaceProduct V := by
       simpa [orderedEulerCutChildInteger, orderedEulerCutHighCofactor,
-        orderedEulerCutPivot, orderedEulerCutLowProduct, hcOne, hpq, hprod] using hchild
+        orderedEulerCutPivot, orderedEulerCutLowProduct, hcOne, hpq, hprod] using! hchild
     have heq : primeFaceProduct y.1 = primeFaceProduct V := by nlinarith [hq.pos]
     have htR := orderedEulerCutOccursAt_lowProduct_le hs (mem_orderedEulerCutCarrier.mp hy)
     change primeFaceProduct y.1 ≤ R at htR
@@ -249,7 +249,7 @@ theorem lowWheelFrozenSecondContactParentMap_surjOn_highOwnerWindow
     refine ⟨hfrozen, ?_⟩
     rw [howner, hfull, hprod]
     have h := (Nat.div_lt_iff_lt_mul (Nat.mul_pos hq.pos hq.pos)).1 hann
-    simpa [Nat.mul_comm, Nat.mul_left_comm, Nat.mul_assoc] using h
+    simpa [Nat.mul_comm, Nat.mul_left_comm, Nat.mul_assoc] using! h
   refine ⟨y, hsecond, ?_⟩
   apply Prod.ext
   · exact howner
@@ -271,7 +271,7 @@ theorem mem_lowWheelFrozenSecondContactParentMap_image_iff_highOwnerWindow
     have hVeq := congrArg Prod.snd heq
     change lowWheelFrozenCofactorTopPrime y = q at hqeq
     change lowWheelFrozenSecondContactParentFace y = V at hVeq
-    simpa only [hqeq, hVeq] using hw
+    simpa only [hqeq, hVeq] using! hw
   · intro hV
     rcases lowWheelFrozenSecondContactParentMap_surjOn_highOwnerWindow hq hqR hV with
       ⟨y, hy, heq⟩
@@ -294,7 +294,7 @@ theorem lowWheelFrozenSecondContactSource_owner_sum_eq_highOwnerWindowMass
   refine Finset.sum_bij (fun y _hy => lowWheelFrozenSecondContactParentFace y) ?_ ?_ ?_ ?_
   · intro y hy
     have hd := Finset.mem_filter.mp hy
-    simpa only [hd.2] using lowWheelFrozenSecondContactParentFace_mem_highOwnerWindow hd.1
+    simpa only [hd.2] using! lowWheelFrozenSecondContactParentFace_mem_highOwnerWindow hd.1
   · intro y hy z hz heq
     have hyd := Finset.mem_filter.mp hy
     have hzd := Finset.mem_filter.mp hz
@@ -553,7 +553,7 @@ private theorem source_exists_of_highOwnerWindow_of_fourth_le
   rcases lowWheelFrozenSecondContactParentMap_surjOn_highOwnerWindow hq hqR hwin with
     ⟨y, hy, hm⟩
   have ho : lowWheelFrozenCofactorTopPrime y = q := congrArg Prod.fst hm
-  exact ⟨y, hy, ho, by simpa only [ho] using hfourth⟩
+  exact ⟨y, hy, ho, by simpa only [ho] using! hfourth⟩
 
 private theorem highOwnerWindow_122_contains_primorial7 :
     ({2, 3, 5, 7} : Finset ℕ) ∈ lowWheelFrozenSecondContactHighOwnerWindow 122 11 := by

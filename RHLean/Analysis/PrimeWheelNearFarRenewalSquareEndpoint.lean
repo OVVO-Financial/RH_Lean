@@ -107,7 +107,7 @@ theorem norm_primeWheelSquareProperFiber_le_root
   have hpPos : 0 < p := by omega
   have hB1 : 1 ≤ squarePrefixEndpoint t / p := by
     apply (Nat.le_div_iff_mul_le hpPos).2
-    simpa using hpX
+    simpa using! hpX
   have hM := norm_mertensSummatory_sub_le
     1 (squarePrefixEndpoint t / p) hB1
   rw [mertensSummatory_one] at hM
@@ -156,7 +156,7 @@ theorem norm_primeWheelSquareNearCombMass_le_sixteen_mul
         apply Finset.sum_le_sum
         intro p hp
         by_cases hprime : p.Prime
-        · simp only [hprime, if_true]
+        · simp only [hprime, ite_true]
           have hpData := Finset.mem_Icc.mp hp
           exact norm_primeWheelSquareProperFiber_le_root
             hpData.1 (hpData.2.trans hupper)
@@ -332,7 +332,7 @@ theorem primeWheelSquareRenewal_eq_pairMass (t : ℕ) :
   apply Finset.sum_congr rfl
   intro p hp
   by_cases hprime : p.Prime
-  · simp only [hprime, if_true]
+  · simp only [hprime, ite_true]
     have hpData := Finset.mem_Ioc.mp hp
     exact mertens_eq_bounded_cofactor_sum hpData.1
   · simp [hprime]
@@ -357,14 +357,14 @@ private theorem primeIndicator_mul_condition_sum_eq_fiberCount
     · rintro ⟨⟨htp, hpX⟩, hprime, hmul⟩
       have hpB : p ≤ squarePrefixEndpoint t / m := by
         apply (Nat.le_div_iff_mul_le hmPos).2
-        simpa [Nat.mul_comm] using hmul
+        simpa [Nat.mul_comm] using! hmul
       exact ⟨⟨htp, hpB⟩, hprime⟩
     · rintro ⟨⟨htp, hpB⟩, hprime⟩
       have hpX : p ≤ squarePrefixEndpoint t :=
         hpB.trans (Nat.div_le_self _ _)
       have hmul : m * p ≤ squarePrefixEndpoint t := by
         have h := (Nat.le_div_iff_mul_le hmPos).1 hpB
-        simpa [Nat.mul_comm] using h
+        simpa [Nat.mul_comm] using! h
       exact ⟨⟨htp, hpX⟩, hprime, hmul⟩
   calc
     (∑ p ∈ Finset.Ioc t (squarePrefixEndpoint t),
@@ -434,7 +434,7 @@ theorem squareRootTransportPrimeFirst_succ_eq_strictRenewal
       ∑ p ∈ Finset.Ioc (t + 1) (squarePrefixEndpoint t),
         if p.Prime then mertensSummatory (squarePrefixEndpoint t / p) else 0 := by
   have htPos : 0 < t + 1 := by omega
-  simpa using squareRootTransportPrimeFirst_eq_mertensTransform (t + 1) htPos
+  simpa using! squareRootTransportPrimeFirst_eq_mertensTransform (t + 1) htPos
 
 /-- Final algebraic interface for any noncircular pre-T background `A`. -/
 theorem squarePrefixMertens_eq_background_add_centeredRenewal_of_properFiber

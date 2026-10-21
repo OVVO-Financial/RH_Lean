@@ -42,7 +42,7 @@ theorem nativePNTSquarePrefixRederivedHasAffineEnvelope_cubic_step
   have hgood : ∀ᶠ N : ℕ in atTop,
       c * (Real.log (N : ℝ)) ^ 2 ≤
         nativeLambdaTwoGoodRecipMass N beta := by
-    simpa [c] using
+    simpa [c] using!
       nativeLambdaTwoGoodRecipMass_eventually_quadratic_squarePrefix_rate
         beta hbeta hbeta1
   have himp := nativePNTSquarePrefixHasAffineEnvelope_improve_of_goodMass
@@ -120,8 +120,8 @@ theorem nativePNTSquarePrefixRederivedCubicSlope_spec :
             nativePNTSquarePrefixRederivedCubicSlope n := by
         rw [nativePNTSquarePrefixRederivedCubicSlope_succ]
         exact sub_le_self _ hdrop
-      exact ⟨by simpa using hnextpos, hnextle.trans hle6,
-        by simpa using hnextenv⟩
+      exact ⟨by simpa using! hnextpos, hnextle.trans hle6,
+        by simpa using! hnextenv⟩
 
 /-- The fully rederived cubic slope tends to zero. -/
 theorem nativePNTSquarePrefixRederivedCubicSlope_tendsto_zero :
@@ -150,7 +150,7 @@ theorem nativePNTSquarePrefixRederivedCubicSlope_rate (n : ℕ) :
             (nativePNTSquarePrefixRederivedCubicSlope m) ^ 3 := by
     intro m
     rw [nativePNTSquarePrefixRederivedCubicSlope_succ]
-  simpa using
+  simpa using!
     (cubic_recurrence_rate nativePNTSquarePrefixRederivedCubicSlope
       nativePNTSquarePrefixRederivedCubicConstant hC hnonneg hrec n)
 

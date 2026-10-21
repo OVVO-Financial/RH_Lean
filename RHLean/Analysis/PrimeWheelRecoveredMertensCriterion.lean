@@ -78,7 +78,7 @@ theorem sqrtWheelRecoveredPrefix_cast_eq_squarePrefixMertens
     (n : ℕ) :
     ((sqrtWheelRecoveredPrefix (squarePrefixEndpoint n) : ℤ) : ℂ) =
       squarePrefixMertens n := by
-  simpa [squarePrefixMertens] using
+  simpa [squarePrefixMertens] using!
     sqrtWheelRecoveredPrefix_cast_eq_mertensSummatory
       (squarePrefixEndpoint n)
 
@@ -409,11 +409,11 @@ theorem physicalDistinguishedPrimeTransitionLedger_add_boundary_eq_two_cellLedge
   have htail :
       (∑ k ∈ Finset.range (K + 1), f k) =
         (∑ k ∈ Finset.range K, f k) + f K := by
-    simpa using (Finset.sum_range_succ f K)
+    simpa using! (Finset.sum_range_succ f K)
   have hhead :
       (∑ k ∈ Finset.range (K + 1), f k) =
         f 0 + ∑ k ∈ Finset.range K, f (k + 1) := by
-    simpa [add_comm] using (Finset.sum_range_succ' f K)
+    simpa [add_comm] using! (Finset.sum_range_succ' f K)
   change
     (∑ k ∈ Finset.range K, (f k + f (k + 1))) + (f 0 + f K) =
       2 * ∑ k ∈ Finset.range (K + 1), f k
@@ -473,7 +473,7 @@ private theorem canonicalMoebiusWeight_eq_zero_of_four_dvd
     intro hsq
     have hnot := (Nat.squarefree_iff_prime_squarefree.mp hsq) 2 Nat.prime_two
     apply hnot
-    simpa using h4
+    simpa using! h4
   simp [canonicalMoebiusWeight, hmu]
 
 /-- For an odd prime, a factor `4` in `c*q` must already occur in the cofactor. -/
@@ -483,7 +483,7 @@ private theorem four_dvd_cofactor_of_four_dvd_mul_prime
     4 ∣ c := by
   have hne : 2 ≠ q := by omega
   have hcop : Nat.Coprime 4 q := by
-    simpa using
+    simpa using!
       (Nat.coprime_pow_primes (p := 2) (q := q) 2 1
         Nat.prime_two hq hne)
   exact hcop.dvd_of_dvd_mul_right h4
@@ -594,7 +594,7 @@ private theorem sum_physicalCellFibre_indicator_eq_primeDilated_summand
       if c * q ≤ squareRootEndpoint R then canonicalMoebiusWeight c else 0 := by
   classical
   by_cases hmul : c * q ≤ squareRootEndpoint R
-  · rw [if_pos hmul]
+  · rw [ite_eq_left hmul]
     by_cases hweight : canonicalMoebiusWeight c = 0
     · simp [hmul, hweight]
     · have hcData := Finset.mem_Ico.mp hc

@@ -137,7 +137,7 @@ theorem card_lowWheelCanonicalDowncrossChargingFaces_le
   have hcard := Finset.card_le_card_of_injOn primeFaceProduct
     (fun _u hu => primeFaceProduct_mem_Ioc_of_mem_chargingFaces hu)
     (primeFaceProduct_injOn_chargingFaces R (c, k))
-  simpa [Nat.card_Ioc] using hcard
+  simpa [Nat.card_Ioc] using! hcard
 
 /-- The seat count of a boundary state never exceeds the root.  This is the
 proved form of the "fewer than `R` multiplier seats" geometry. -/
@@ -182,7 +182,7 @@ theorem primeFaceProduct_le_of_downcrossPart_nonempty
       primeFaceProduct t *
         (k / lowWheelCanonicalCofactorQuotientPivot (c, k)) := by
     have hmul := Nat.mul_le_mul (le_refl (primeFaceProduct t)) hjpos
-    simpa using hmul
+    simpa using! hmul
   exact le_trans hstep hdown
 
 /-- **Face collapse.**  At most `R` of the `2 ^ pi(R)` faces of the low-prime
@@ -211,7 +211,7 @@ theorem card_lowWheelCanonicalDowncrossContributingFaces_le
       (fun r hr => prime_of_mem_primesUpTo (huSub hr))
       (fun r hr => prime_of_mem_primesUpTo (hvSub hr))).mp hprod
   have hcard := Finset.card_le_card_of_injOn primeFaceProduct hmaps hinj
-  simpa using hcard
+  simpa using! hcard
 
 /-! ## Per-face window -/
 
@@ -325,7 +325,7 @@ theorem lowWheelCanonicalDowncrossUnsignedMass_le (R : ℕ) :
           (lowWheelCanonicalDowncrossPart R t).card ≤
         (lowWheelCanonicalDowncrossContributingFaces R).card *
           ((R - 1) * squareRootEndpoint R) := by
-    simpa [smul_eq_mul] using hbound
+    simpa [smul_eq_mul] using! hbound
   exact le_trans hbound' (Nat.mul_le_mul
     (card_lowWheelCanonicalDowncrossContributingFaces_le R) (le_refl _))
 
@@ -387,16 +387,16 @@ theorem lowWheelCanonicalDowncrossRootWitness_mem_emptyFace
       · show (1 : ℕ) < R
         omega
       · show R < primeFaceProduct (∅ : Finset ℕ) * k
-        simpa [hface] using hkR
+        simpa [hface] using! hkR
       · show 1 * primeFaceProduct (∅ : Finset ℕ) * k ≤ squareRootEndpoint R
-        simpa [hface] using hkW
+        simpa [hface] using! hkW
   · rw [hpivot]
     intro hdvd
     have hdvd1 : Nat.minFac k ∣ 1 := hdvd
     exact hminPrime.ne_one (Nat.dvd_one.mp hdvd1)
   · show primeFaceProduct (∅ : Finset ℕ) *
       (k / lowWheelCanonicalCofactorQuotientPivot ((1 : ℕ), k)) ≤ R
-    simpa [hpivot, hface] using hquot
+    simpa [hpivot, hface] using! hquot
 
 /-- The empty face alone already carries every root witness. -/
 theorem card_lowWheelCanonicalDowncrossRootWitnesses_le
@@ -407,7 +407,7 @@ theorem card_lowWheelCanonicalDowncrossRootWitnesses_le
   · intro k hk
     exact lowWheelCanonicalDowncrossRootWitness_mem_emptyFace hR hk
   · intro a _ha b _hb hab
-    simpa using hab
+    simpa using! hab
 
 /-- Every prime of the reciprocal band is a root witness: its least prime factor
 is itself, so its parent is `1`. -/

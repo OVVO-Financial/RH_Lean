@@ -19,8 +19,7 @@ namespace RHLean.Analysis
 
 local notation "zetaC" => riemannZeta
 
--- `StrongPNT.PNT1_ComplexAnalysis` declares a root-level `def I := Complex.I`,
--- so with `Complex` open the bare token `I` resolves two ways.
+-- Keep the bare token `I` pinned to `Complex.I` under `open Complex`.
 local notation "I" => Complex.I
 
 /-- Uniform reciprocal-zeta bound on the bounded-height part of every shifted
@@ -49,11 +48,11 @@ theorem strongMertens_inv_zeta_small_height_bdd
   let s : ℂ := (sigma : ℂ) + t * I
   have hsK : s ∈ K := by
     constructor
-    · simpa [s, sigma] using
+    · simpa [s, sigma] using!
         ⟨corridor.shift_ge_small T hT,
           (corridor.shift_lt_one T hT).le⟩
     · have htlr := abs_le.mp ht
-      simpa [s] using htlr
+      simpa [s] using! htlr
   have hsne : s ≠ 1 := by
     intro hs1
     have hre := congrArg Complex.re hs1

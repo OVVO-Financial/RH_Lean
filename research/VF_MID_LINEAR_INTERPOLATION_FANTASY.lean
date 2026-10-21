@@ -169,7 +169,7 @@ private theorem abs_vfMidLinearMidpointSegment_sub_li_le
             vfMidLogarithmicIntegralFromTwo a| ≤
           (x - a) / Real.log 4 := by
       simpa [vfMidLogarithmicIntegralFromTwo,
-        logarithmicIntegralFromTwo] using hLax0
+        logarithmicIntegralFromTwo] using! hLax0
     rw [abs_sub_comm]
     refine h0.trans ?_
     apply div_le_div_of_nonneg_right _ hlog4.le
@@ -195,7 +195,7 @@ private theorem abs_vfMidLinearMidpointSegment_sub_li_le
             vfMidLogarithmicIntegralFromTwo x| ≤
           (b - x) / Real.log 4 := by
       simpa [vfMidLogarithmicIntegralFromTwo,
-        logarithmicIntegralFromTwo] using hLbx0
+        logarithmicIntegralFromTwo] using! hLbx0
     refine h0.trans ?_
     apply div_le_div_of_nonneg_right _ hlog4.le
     rw [← hwidth]
@@ -299,8 +299,8 @@ private theorem abs_vfMidLinearMidpointSegment_sub_li_le
     _ ≤ (B * Real.sqrt x + (3 / Real.log 4) * Real.sqrt x) +
         (2 * B * Real.sqrt x + (3 / Real.log 4) * Real.sqrt x) := by
       exact add_le_add
-        (add_le_add_left hwidthDiv _)
-        (add_le_add_left hwidthDiv _)
+        (add_le_add_right hwidthDiv _)
+        (add_le_add_right hwidthDiv _)
     _ = (3 * B + 6 / Real.log 4) * Real.sqrt x := by ring
 
 set_option maxHeartbeats 200000
@@ -345,7 +345,7 @@ theorem vfMidLinearMidpoint_li_root_bounded :
     · have hRne : R ≠ 2 := by
         intro hR2
         have hge : vfMidBandMidpoint R ≤ x := by
-          simpa [hR2] using hm2x
+          simpa [hR2] using! hm2x
         exact (not_lt_of_ge hge) hleft
       have hR3 : 3 ≤ R := by omega
       have hr : 2 ≤ R - 1 := by omega
@@ -370,7 +370,7 @@ theorem vfMidLinearMidpoint_li_root_bounded :
             vfMidLinearMidpointSegment (R - 1) x := by
         simp [vfMidLinearMidpointInterpolant, hsmall, R, hleft]
       rw [hdef]
-      simpa [C] using hseg
+      simpa [C] using! hseg
     · have hmidL : vfMidBandMidpoint R ≤ x := le_of_not_gt hleft
       have hmidU : x ≤ vfMidBandMidpoint (R + 1) := by
         have hsquareMid :
@@ -388,7 +388,7 @@ theorem vfMidLinearMidpoint_li_root_bounded :
             vfMidLinearMidpointSegment R x := by
         simp [vfMidLinearMidpointInterpolant, hsmall, R, hleft]
       rw [hdef]
-      simpa [C] using hseg
+      simpa [C] using! hseg
 
 /-- Fantasy identification of the literal VF midpoint interpolant with actual
 prime count. -/

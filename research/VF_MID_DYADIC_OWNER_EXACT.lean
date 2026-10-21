@@ -44,9 +44,9 @@ theorem vfMidSquareBandSites_dvd_iff_eq
   · intro hdiv
     rcases hdiv with ⟨k, rfl⟩
     have hmBand : R ^ 2 < m ∧ m < (R + 1) ^ 2 := by
-      simpa [vfMidSquareBandSites] using hm
+      simpa [vfMidSquareBandSites] using! hm
     have hmkBand : R ^ 2 < m * k ∧ m * k < (R + 1) ^ 2 := by
-      simpa [vfMidSquareBandSites] using hn
+      simpa [vfMidSquareBandSites] using! hn
     have hmPos : 0 < m := by omega
     have hkPos : 0 < k := by
       by_contra hk
@@ -59,7 +59,7 @@ theorem vfMidSquareBandSites_dvd_iff_eq
     · have hk2 : 2 ≤ k := by omega
       have htwo : 2 * m ≤ m * k := by
         have h := Nat.mul_le_mul_left m hk2
-        simpa [Nat.mul_comm] using h
+        simpa [Nat.mul_comm] using! h
       have hthin : (R + 1) ^ 2 < 2 * m := by
         nlinarith [hmBand.1]
       omega
@@ -157,7 +157,6 @@ theorem vfMidPrefixWheelIntervalCounting_square_eq_block_add_root
     rw [hsquareExpand]
     ext n
     simp
-    omega
   have hrootIoc :
       Finset.Ioc R (R + 1) = {R + 1} := by
     ext n
@@ -183,11 +182,11 @@ theorem vfMidPrefixWheelIntervalCounting_square_eq_block_add_root
         exact (Finset.mem_filter.mp hn).1
       · intro hn
         have hnEq : n = R + 1 := by
-          simpa using hn
+          simpa using! hn
         subst n
         exact Finset.mem_filter.mpr ⟨by simp, hroot⟩
     rw [Finset.filter_insert]
-    simp only [hsquare, if_true]
+    simp only [hsquare, ite_true]
     rw [Finset.card_insert_of_notMem hupperNot, hrootFilter]
     simp
   · have hsquare :
@@ -202,13 +201,13 @@ theorem vfMidPrefixWheelIntervalCounting_square_eq_block_add_root
       · intro hn
         have hnData := Finset.mem_filter.mp hn
         have hnEq : n = R + 1 := by
-          simpa using hnData.1
+          simpa using! hnData.1
         subst n
         exact (hroot hnData.2).elim
       · intro hn
         simp at hn
     rw [Finset.filter_insert]
-    simp only [hsquare, if_false]
+    simp only [hsquare, ite_false]
     rw [hrootFilter]
     simp
 
@@ -537,7 +536,7 @@ theorem vfMidSquareBandPrefixComposite_card_eq_sum_lateOwnerCards
           have hs :
               lowWheelHighSurvivor z n :=
             (vfMidSquareBandComposite_survives_prefix_iff_minFac_gt
-              hR hnComp).2 (by simpa [hmin] using hpLate)
+              hR hnComp).2 (by simpa [hmin] using! hpLate)
           exact ⟨⟨hnComp, hs⟩, hmin⟩
       rw [Finset.card_eq_sum_ones, ← hset]
       rfl
@@ -668,7 +667,7 @@ theorem vfMidSquareBandLateOwner_card_le_four_of_subdoubling
     have hhi : p * m < (R + 1) ^ 2 := hdata.2.1
     have hmLower : R ^ 2 / p < m := by
       apply (Nat.div_lt_iff_lt_mul hpPos).2
-      simpa [Nat.mul_comm] using hlo
+      simpa [Nat.mul_comm] using! hlo
     have hfloor : R ^ 2 < (R ^ 2 / p + 1) * p := by
       apply (Nat.div_lt_iff_lt_mul hpPos).1
       omega
@@ -687,7 +686,7 @@ theorem vfMidSquareBandLateOwner_card_le_four_of_subdoubling
         rw [hexp, hq5]
         omega
       have hprodHi : m * p < (R + 1) ^ 2 := by
-        simpa [Nat.mul_comm] using hhi
+        simpa [Nat.mul_comm] using! hhi
       omega
     exact Finset.mem_Ioc.mpr ⟨hmLower, hmUpper⟩
   calc
@@ -723,7 +722,7 @@ theorem vfMidSquareBandLateOwnerRoughChild_prime_of_cube
     have hmul :
         (A + 1) * ((A + 1) ^ 2) ≤ p * (m.minFac ^ 2) :=
       Nat.mul_le_mul hA1p (Nat.pow_le_pow_left hA1q 2)
-    simpa [pow_succ, Nat.mul_comm, Nat.mul_left_comm, Nat.mul_assoc] using hmul
+    simpa [pow_succ, Nat.mul_comm, Nat.mul_left_comm, Nat.mul_assoc] using! hmul
   have hupper : (R + 1) ^ 2 ≤ p * (m.minFac ^ 2) :=
     hcube.trans hlower
   omega
@@ -802,7 +801,7 @@ theorem vfMidSquareBandPrefixComposite_moebius_eq_one_of_subdoubling
   have hnComp := (Finset.mem_filter.mp hn).1
   have hnSite := (Finset.mem_filter.mp hnComp).1
   have hband : R ^ 2 < n ∧ n < (R + 1) ^ 2 := by
-    simpa [vfMidSquareBandSites] using hnSite
+    simpa [vfMidSquareBandSites] using! hnSite
   have hpqNe : p ≠ q := by
     intro hpqEq
     subst q
@@ -952,7 +951,7 @@ theorem vfMidSquareBandPrefixComposite_start_card_le_four_mul_gap
   have hownerCard :
       (vfMidSquareBandLateOwnerPrimes A R).card ≤ R - A := by
     have hcard := Finset.card_le_card hownerSub
-    simpa using hcard
+    simpa using! hcard
   rw [howners]
   calc
     (∑ p ∈ vfMidSquareBandLateOwnerPrimes A R,
@@ -1071,7 +1070,7 @@ theorem vfMidPrefixWheelCounting_two_cast (N : ℕ) :
       (∅ : Finset ℕ) ∉ ({{2}} : Finset (Finset ℕ)) := by
     intro h
     have heq : (∅ : Finset ℕ) = {2} := by
-      simpa using h
+      exact Finset.mem_singleton.mp h
     have hcard := congrArg Finset.card heq
     norm_num at hcard
   rw [Finset.sum_insert hempty, Finset.sum_singleton]

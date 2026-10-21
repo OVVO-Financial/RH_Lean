@@ -104,7 +104,7 @@ theorem vfMidSquareBandCompositeOwnerChildren_subset_rough
   have hsite : n ∈ vfMidSquareBandSites R :=
     (Finset.mem_filter.mp hcomp).1
   have hband : R ^ 2 < n ∧ n < (R + 1) ^ 2 := by
-    simpa [vfMidSquareBandSites] using hsite
+    simpa [vfMidSquareBandSites] using! hsite
   have hrough := vfMidSquareBandCompositeOwner_child_roughAbove hn
   apply Finset.mem_filter.mpr
   refine ⟨Finset.mem_Icc.mpr ⟨hchildLow, ?_⟩, ?_⟩
@@ -137,7 +137,7 @@ theorem vfMidSquareBandOwnerRoughChildren_subset_children
     · exact hpPrime.ne_one hp1
     · have hmEq : m = 1 := by
         apply Nat.eq_of_mul_eq_mul_left hpPrime.pos
-        simpa using hpeq.symm
+        simpa using! hpeq.symm
       omega
   have hnComp : p * m ∈ vfMidSquareBandComposites R :=
     Finset.mem_filter.mpr ⟨hnSite, hnNotPrime⟩

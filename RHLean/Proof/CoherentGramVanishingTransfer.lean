@@ -51,7 +51,7 @@ theorem normalizedCumulativeSquareBlockDiscrepancy_sq
       normalizedSquareBlockCoherentGramMass N := by
   unfold normalizedCumulativeSquareBlockDiscrepancy
     normalizedSquareBlockCoherentGramMass
-  simpa [div_pow, sq_abs] using
+  simpa [div_pow, sq_abs] using!
     normalized_prefix_sq_eq_normalized_coherentGram N hN
 
 /-- Coherent all-ones Gram suppression forces vanishing normalized cumulative

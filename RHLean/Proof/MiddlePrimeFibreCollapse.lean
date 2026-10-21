@@ -130,7 +130,7 @@ theorem middlePrimeFibre_sum_moebius_eq_neg_mertens
               q_prime := hq
               cutoff_lt_q := hRq }
           have hflip := LargePrimeTransportData.moebius_mul_eq_neg D
-          simpa [Nat.mul_comm] using hflip
+          simpa [Nat.mul_comm] using! hflip
     _ = -(∑ c ∈ Finset.Icc 1 (squareRootEndpoint R / q),
         ArithmeticFunction.moebius c : ℤ) := by
           rw [Finset.sum_neg_distrib]
@@ -188,7 +188,7 @@ theorem middlePrime_mertens_sum_eq_count_mul_mertens
             squareRootEndpoint R / _q = k,
           nativeMertens k := by
             symm
-            simpa using
+            simpa using!
               (Finset.sum_fiberwise_of_maps_to'
                 (s := middlePrimeSet R)
                 (t := Finset.Ico 2 R)
@@ -224,7 +224,7 @@ theorem middlePrimeShell_sum_eq_neg_count_mul_mertens
         -nativeMertens (squareRootEndpoint R / q) := by
           apply Finset.sum_congr rfl
           intro q hq
-          simpa [middlePrimeFibreResidual] using
+          simpa [middlePrimeFibreResidual] using!
             (middlePrimeFibreResidual_eq_neg_mertens hq)
     _ = -(∑ q ∈ middlePrimeSet R,
         nativeMertens (squareRootEndpoint R / q) : ℤ) := by
@@ -260,7 +260,7 @@ theorem middlePrimeTop_quotient_eq_one
   have hXlt : squareRootEndpoint R < 2 * q := by
     have h :=
       (Nat.div_lt_iff_lt_mul (by norm_num : 0 < (2 : ℕ))).1 hlow
-    simpa [Nat.mul_comm] using h
+    simpa [Nat.mul_comm] using! h
   exact squareRootEndpoint_div_eq_one_of_top_fibre
     hqPrime.pos hXlt hhigh
 
@@ -650,7 +650,7 @@ theorem norm_squareRootHierarchicalTerminalCorrectionMass_le_eulerForcedSignCapa
             mertensSummatory d‖ := norm_sub_le _ _
     _ ≤ ‖squareRootMiddleTopPrimeCountGapMass R‖ +
         squareRootHierarchicalEulerDeepAtomCapacity R pivot :=
-      add_le_add_left hsum _
+      add_le_add_right hsum _
     _ = squareRootHierarchicalEulerForcedSignCapacity R pivot := rfl
 
 /-- Algebraic off-diagonal covariance left after the exact hierarchy and the
@@ -741,6 +741,6 @@ theorem norm_squareRootHierarchicalTerminalCorrectionMass_le_primeTwoEulerAtomCa
   intro d hd
   exact mem_primesUpTo.mpr ⟨Nat.prime_two, by
     have hd3 : 3 ≤ d := (Finset.mem_Icc.mp hd).1
-    simpa using (show 2 ≤ d by omega)⟩
+    simpa using! (show 2 ≤ d by omega)⟩
 
 end RHLean.Proof

@@ -102,7 +102,7 @@ theorem abs_squareRootLowPrimeRunningImbalanceReal_le_root_mul_seats_euler
     (fun x _hx => abs_squareRootLowPrimeCreationWeightReal_le_one x)
     (fun z _hz => abs_squareRootLowPrimeResponseSeatWeightReal_le_one z)
     hencodeInj hbox
-  simpa [card_squareRootLowPrimeRootSeatBox] using hbound
+  simpa [card_squareRootLowPrimeRootSeatBox] using! hbound
 
 /-- Squared terminal bound from the Eulerian map. -/
 theorem squareRootLowPrimeRunningImbalanceReal_sq_le_root_sq_mul_seats_sq_euler

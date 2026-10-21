@@ -94,7 +94,7 @@ theorem mem_squareRootLowPrimeOwnedResponseChildren_iff
     rcases Finset.mem_image.mp hn with ⟨z, hz, hzn⟩
     have hdata := mem_squareRootLowPrimeOwnedResponseAtoms_iff.mp hz
     refine ⟨z.1, hdata.1, z.2, hdata.2, ?_⟩
-    simpa [squareRootLowPrimeBadAtomChild] using hzn.symm
+    simpa [squareRootLowPrimeBadAtomChild] using! hzn.symm
   · rintro ⟨c, hc, q, hq, rfl⟩
     apply Finset.mem_image.mpr
     refine ⟨(c, q), ?_, ?_⟩

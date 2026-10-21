@@ -73,7 +73,7 @@ theorem vfMidIntegerBlockCrossed_of_captured
         omega
       have hmin := Nat.find_min' hex hPprev
       have hbad : x ≤ x - 1 := by
-        simpa [x] using hmin
+        simpa [x] using! hmin
       omega
     have hstep :=
       vfMid_primeCounting_add_le (x - 1) 1

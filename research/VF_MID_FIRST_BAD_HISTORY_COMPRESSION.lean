@@ -143,6 +143,6 @@ theorem abs_vfMidActualPrimeEndpointDefect_sub_primeLi_le_uniform
       vfMidLiSquareEndpointUniformConstant := by
   rw [vfMidActualPrimeEndpointDefect_eq_primeLi_sub_liError hR]
   have hquad := abs_vfMidLiError_sq_le_uniform (R := R) hR
-  simpa [sub_sub, abs_neg] using hquad
+  simpa [sub_sub, abs_neg] using! hquad
 
 end RHLean.Analysis

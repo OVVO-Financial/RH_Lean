@@ -212,7 +212,7 @@ theorem primorialPeriodicRawResidual_eq_mobiusReindexed
             (if q = 1 then 1 else 0) : ℤ) : ℂ)) =
         ((primorialSmoothCollapsedBoundaryBulk k x : ℤ) : ℂ) := by
     have h := congrArg (Int.castRingHom ℂ) hsmoothInt
-    simpa only [map_sum] using h
+    simpa only [map_sum] using! h
   have hsmooth :
       (∑ q ∈ (primorialMinimalWheelSystem k).modulus.divisors,
         2 * (Ninv *

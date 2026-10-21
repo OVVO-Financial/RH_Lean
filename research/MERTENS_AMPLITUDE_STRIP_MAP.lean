@@ -97,7 +97,7 @@ theorem mertens_eighth_crossing_iff {n : ℕ} (hn : 2 ≤ n)
       amplitudeCoordinate (n : ℝ) (reflectedAmplitude (n : ℝ) (mertensAmplitude n)) <
         (7 : ℝ) / 8 := by
   have hnR : (1 : ℝ) < (n : ℝ) := by exact_mod_cast (show 1 < n by omega)
-  simpa only [show (1 : ℝ) - 1 / 8 = 7 / 8 by norm_num] using
+  simpa only [show (1 : ℝ) - 1 / 8 = 7 / 8 by norm_num] using!
     (crossing_iff_reflected_coordinate (a := (1 : ℝ) / 8) hnR (mertensAmplitude_pos hM))
 
 /-- Away from M(n)=0, the existing clipped log slope agrees with the actual coordinate. -/

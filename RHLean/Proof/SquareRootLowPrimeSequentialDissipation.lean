@@ -253,7 +253,7 @@ theorem squareRootLowPrimePrimeDeletionCount_eq_postRootPrefix
       squareRootPostRootPrimePrefixCard R p := by
   unfold squareRootLowPrimePrimeDeletionCount
     squareRootBornPostTailHighResponse
-  rw [if_neg (by omega : ¬ p ≤ K)]
+  rw [ite_eq_right (by omega : ¬ p ≤ K)]
 
 /-- Later prime-atom deletions have no larger geometric post-root prefix than
 earlier ones. -/

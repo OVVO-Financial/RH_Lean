@@ -79,7 +79,7 @@ theorem squareRootPacketReciprocalWeightReal_neg_of_boundaryRat_neg
     exact_mod_cast hK
   rw [← squareRootPacketReciprocalWeightRat_eq_boundary] at hcast
   simpa only [Rat.cast_sum, Rat.cast_mul, Rat.cast_sub, Rat.cast_div,
-    Rat.cast_one, Rat.cast_intCast, Rat.cast_natCast] using hcast
+    Rat.cast_one, Rat.cast_intCast, Rat.cast_natCast] using! hcast
 
 /-- Real form of the concrete witness, retained only as a convenience
 corollary. -/
@@ -121,7 +121,7 @@ theorem natDiv_cast_div_cast_tendsto
   have hequiv' : Asymptotics.IsEquivalent atTop
       (fun N : ℕ => ((N / d : ℕ) : ℝ))
       (fun N : ℕ => (N : ℝ) / (d : ℝ)) := by
-    simpa [Function.comp_def, Nat.floor_div_eq_div] using hequiv
+    simpa [Function.comp_def, Nat.floor_div_eq_div] using! hequiv
   have hden : ∀ᶠ N : ℕ in atTop, (N : ℝ) / (d : ℝ) ≠ 0 := by
     filter_upwards [eventually_ge_atTop 1] with N hN
     positivity
@@ -141,7 +141,7 @@ theorem natDiv_cast_div_cast_tendsto
     have hN0 : (N : ℝ) ≠ 0 := by positivity
     have hd0 : (d : ℝ) ≠ 0 := by exact_mod_cast hd.ne'
     field_simp
-  simpa using hmul.congr' heq
+  simpa using! hmul.congr' heq
 
 /-- The logarithms of `N/d` and `N` are asymptotically equal for fixed `d`. -/
 theorem log_natDiv_div_log_tendsto_one
@@ -185,7 +185,7 @@ theorem log_natDiv_div_log_tendsto_one
       exact ne_of_gt (Real.log_pos (by exact_mod_cast hN))
     field_simp
     ring
-  simpa using hadd.congr' heq
+  simpa using! hadd.congr' heq
 
 /-- Native PNT at a fixed reciprocal dilation, normalized at the undilated
 endpoint. -/
@@ -223,7 +223,7 @@ theorem nativePrimeCounting_natDiv_mul_log_div_tendsto
     have hlog0 : Real.log ((N / d : ℕ) : ℝ) ≠ 0 := by
       exact ne_of_gt (Real.log_pos (by exact_mod_cast hdiv2))
     field_simp
-  simpa [Function.comp_def] using hprod.congr' heq
+  simpa [Function.comp_def] using! hprod.congr' heq
 
 /-! ## Endpoint- and cutoff-parametric packet -/
 
@@ -298,7 +298,7 @@ theorem endpointReciprocalPrimeLayerCard_mul_log_div_tendsto
           (Nat.primeCounting (x n / d) : ℝ) * Real.log (x n : ℝ) /
             (x n : ℝ))
         atTop (𝓝 ((1 : ℝ) / (d : ℝ))) := by
-    simpa [Function.comp_def] using
+    simpa [Function.comp_def] using!
       (nativePrimeCounting_natDiv_mul_log_div_tendsto d hd).comp hx
   have hl :
       Tendsto
@@ -306,7 +306,7 @@ theorem endpointReciprocalPrimeLayerCard_mul_log_div_tendsto
           (Nat.primeCounting (x n / (d + 1)) : ℝ) *
               Real.log (x n : ℝ) / (x n : ℝ))
         atTop (𝓝 ((1 : ℝ) / ((d + 1 : ℕ) : ℝ))) := by
-    simpa [Function.comp_def] using
+    simpa [Function.comp_def] using!
       (nativePrimeCounting_natDiv_mul_log_div_tendsto (d + 1) (by omega)).comp hx
   have hdiff := hu.sub hl
   apply hdiff.congr'
@@ -346,7 +346,7 @@ theorem endpointTruncatedUpperMiddlePacketInt_mul_log_div_tendsto
           (-(squareRootMertensInt d : ℝ)) *
             ((1 : ℝ) / (d : ℝ) -
               (1 : ℝ) / ((d + 1 : ℕ) : ℝ)))) := by
-    apply tendsto_finset_sum
+    apply tendsto_finsetSum
     intro d hdMem
     have hd : 0 < d := (Finset.mem_Icc.mp hdMem).1
     have hdK : d ≤ K := (Finset.mem_Icc.mp hdMem).2
@@ -367,7 +367,7 @@ theorem endpointTruncatedUpperMiddlePacketInt_mul_log_div_tendsto
           (squareRootMertensInt d : ℝ) *
             ((1 : ℝ) / (d : ℝ) -
               (1 : ℝ) / ((d + 1 : ℕ) : ℝ)))) := by
-    simpa only [neg_mul, Finset.sum_neg_distrib] using hsum
+    simpa only [neg_mul, Finset.sum_neg_distrib] using! hsum
   refine hsum'.congr' ?_
   filter_upwards with n
   unfold endpointTruncatedUpperMiddlePacketInt
@@ -414,14 +414,14 @@ theorem eventually_endpointTruncatedUpperMiddlePacketInt_pos_of_coefficient_neg
       (squareRootMertensInt d : ℝ) *
         ((1 : ℝ) / (d : ℝ) -
           (1 : ℝ) / ((d + 1 : ℕ) : ℝ))
-  have hS : S < 0 := by simpa [S] using hcoeff
+  have hS : S < 0 := by simpa [S] using! hcoeff
   have hlimit :
       Tendsto
         (fun n : ℕ =>
           (endpointTruncatedUpperMiddlePacketInt (y n) (x n) K₀ : ℝ) *
             Real.log (x n : ℝ) / (x n : ℝ))
         atTop (𝓝 (-S)) := by
-    simpa [S] using
+    simpa [S] using!
       endpointTruncatedUpperMiddlePacketInt_mul_log_div_tendsto y x K₀ hx hy
   have hnormPos :
       ∀ᶠ n : ℕ in atTop,
@@ -459,7 +459,7 @@ theorem endpointTruncatedUpperMiddlePacketInt_one_neg
       primeSieveReciprocalUpper
     rw [max_eq_right hy]
     exact Finset.mem_filter.mpr
-      ⟨Finset.mem_Ioc.mpr ⟨hplow, by simpa using hpX⟩, hpPrime⟩
+      ⟨Finset.mem_Ioc.mpr ⟨hplow, by simpa using! hpX⟩, hpPrime⟩
   have hM1 : squareRootMertensInt 1 = 1 := by
     simp [squareRootMertensInt]
   unfold endpointTruncatedUpperMiddlePacketInt
@@ -493,7 +493,7 @@ theorem exists_endpointPacketCrossesAt_le_of_one_neg_of_nonneg
     have hpredP : P (K - 1) :=
       ⟨by omega, (Nat.sub_le K 1).trans hK.2.1, hprevNonneg⟩
     have hmin := Nat.find_min' hex hpredP
-    have : K ≤ K - 1 := by simpa [K] using hmin
+    have : K ≤ K - 1 := by simpa [K] using! hmin
     omega
   exact ⟨K, hK.2.1, hK.1, hprev, hK.2.2⟩
 
@@ -582,7 +582,7 @@ theorem eventually_squareRoot_le_endpoint_div (K : ℕ) :
     R * (K + 1) ≤ R * (R - 1) := Nat.mul_le_mul_left R hKR
     _ ≤ R ^ 2 - 1 := by
       rw [pow_two, Nat.mul_sub_left_distrib]
-      simpa using Nat.sub_le_sub_left (by omega : 1 ≤ R) (R * R)
+      simpa using! Nat.sub_le_sub_left (by omega : 1 ≤ R) (R * R)
 
 /-- Any exact negative coefficient certificate gives an eventual square-root
 crossing bounded by its certified depth. -/
@@ -593,7 +593,7 @@ theorem eventually_exists_squareRootPacketCrossesAt_le_of_boundaryRat_neg
       ∃ K : ℕ, K ≤ K₀ ∧ SquareRootPacketCrossesAt R K := by
   have hreal :=
     squareRootPacketReciprocalWeightReal_neg_of_boundaryRat_neg K₀ hcoeff
-  simpa only [endpointPacketCrossesAt_squareRootEndpoint] using
+  simpa only [endpointPacketCrossesAt_squareRootEndpoint] using!
     (eventually_exists_endpointPacketCrossesAt_le_of_coefficient_neg
       (fun R : ℕ => R) squareRootEndpoint K₀ hK₀
       squareRootEndpoint_tendsto_atTop
@@ -614,7 +614,7 @@ theorem squareRootPacket_eventual_log_endpoint_crossing_of_boundaryRat_neg
         0 ≤ squareRootTruncatedUpperMiddlePacketInt R K := by
   have hreal :=
     squareRootPacketReciprocalWeightReal_neg_of_boundaryRat_neg K₀ hcoeff
-  simpa only [endpointTruncatedUpperMiddlePacketInt_squareRootEndpoint] using
+  simpa only [endpointTruncatedUpperMiddlePacketInt_squareRootEndpoint] using!
     (endpointPacket_eventual_log_crossing_of_coefficient_neg
       (fun R : ℕ => R) squareRootEndpoint K₀ hK₀
       squareRootEndpoint_tendsto_atTop
@@ -644,7 +644,7 @@ theorem nativePrimeCounting_squareRootEndpoint_div_mul_log_div_tendsto
           Real.log (squareRootEndpoint R : ℝ) /
             (squareRootEndpoint R : ℝ))
       atTop (𝓝 ((1 : ℝ) / (d : ℝ))) := by
-  simpa [Function.comp_def] using
+  simpa [Function.comp_def] using!
     (nativePrimeCounting_natDiv_mul_log_div_tendsto d hd).comp
       squareRootEndpoint_tendsto_atTop
 
@@ -728,7 +728,7 @@ theorem squareRootTruncatedUpperMiddlePacketInt_mul_log_div_tendsto
           (-(squareRootMertensInt d : ℝ)) *
             ((1 : ℝ) / (d : ℝ) -
               (1 : ℝ) / ((d + 1 : ℕ) : ℝ)))) := by
-    apply tendsto_finset_sum
+    apply tendsto_finsetSum
     intro d hdMem
     have hd : 0 < d := (Finset.mem_Icc.mp hdMem).1
     exact tendsto_const_nhds.mul
@@ -745,7 +745,7 @@ theorem squareRootTruncatedUpperMiddlePacketInt_mul_log_div_tendsto
           (squareRootMertensInt d : ℝ) *
             ((1 : ℝ) / (d : ℝ) -
               (1 : ℝ) / ((d + 1 : ℕ) : ℝ)))) := by
-    simpa only [neg_mul, Finset.sum_neg_distrib] using hsum
+    simpa only [neg_mul, Finset.sum_neg_distrib] using! hsum
   refine hsum'.congr' ?_
   filter_upwards with R
   unfold squareRootTruncatedUpperMiddlePacketInt
@@ -783,7 +783,7 @@ strictly positive there for every sufficiently large square endpoint. -/
 theorem eventually_squareRootTruncatedUpperMiddlePacketInt_18800_pos :
     ∀ᶠ R : ℕ in atTop,
       0 < squareRootTruncatedUpperMiddlePacketInt R 18800 := by
-  simpa only [endpointTruncatedUpperMiddlePacketInt_squareRootEndpoint] using
+  simpa only [endpointTruncatedUpperMiddlePacketInt_squareRootEndpoint] using!
     (eventually_endpointTruncatedUpperMiddlePacketInt_pos_of_coefficient_neg
       (fun R : ℕ => R) squareRootEndpoint 18800
       squareRootEndpoint_tendsto_atTop
@@ -856,7 +856,7 @@ theorem squareRootPacket_eventual_log_crossing :
   have hKreal : (K : ℝ) ≤ 18800 := by exact_mod_cast hK18800
   have hKlog : (K : ℝ) ≤ Real.log (R : ℝ) := hKreal.trans hlog
   exact ⟨K, hK18800.trans_lt h18800R,
-    by simpa using hKlog,
+    by simpa using! hKlog,
     hcrossK.2.1, hcrossK.2.2⟩
 
 end RHLean.Proof

@@ -47,7 +47,7 @@ theorem vf919RootMertens_sq_le_four_root_envelope
   have hroot' :
       ((((mertensSummatoryInt (R - 1) : ℤ) : ℝ) - 1) ^ 2) ≤
         K * (R : ℝ) := by
-    simpa only [Int.cast_sub, Int.cast_one] using hroot
+    simpa only [Int.cast_sub, Int.cast_one] using! hroot
   have hRreal : (1 : ℝ) ≤ (R : ℝ) := by
     exact_mod_cast (by omega : 1 ≤ R)
   have hRK : 1 ≤ K * (R : ℝ) := by

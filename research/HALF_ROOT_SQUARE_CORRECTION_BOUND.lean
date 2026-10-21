@@ -70,7 +70,7 @@ theorem card_halfRootMiddlePrimeSet_le_root_add_one
     have hpData := mem_frozenPrimeUniverseHighPrimeSet.mp hp
     exact Finset.mem_range.mpr (by omega)
   have hcard := Finset.card_le_card hsub
-  simpa using hcard
+  simpa using! hcard
 
 /-- **The collapsed square correction is root-scale.**
 

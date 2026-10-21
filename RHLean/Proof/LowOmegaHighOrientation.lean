@@ -91,7 +91,7 @@ theorem canonicalCofactor_lt_largestPrimeFactor
     have haM : a ∈ m.primeFactors := hsub hamem
     have hale : a ≤ canonicalLargestPrimeFactor m := by
       unfold canonicalLargestPrimeFactor
-      rw [dif_pos hm]
+      rw [dite_eq_left hm]
       exact Finset.le_max' _ a haM
     have hane : a ≠ canonicalLargestPrimeFactor m := fun h => hPnmem (h ▸ hamem)
     rw [hca]

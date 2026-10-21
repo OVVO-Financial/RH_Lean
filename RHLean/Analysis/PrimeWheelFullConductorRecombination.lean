@@ -85,7 +85,7 @@ theorem primorialPeriodicRawResidual_eq_sum_divisorConductorResponses
     Nat.ne_of_gt (primorialMinimalWheelSystem k).modulus_pos
   have hfilter :
       (Finset.range (N + 1)).filter (fun q => q ∣ N) = N.divisors := by
-    simpa [Nat.succ_eq_add_one] using (Nat.filter_dvd_eq_divisors hNne)
+    simpa [Nat.succ_eq_add_one] using! (Nat.filter_dvd_eq_divisors hNne)
   rw [primorialPeriodicRawResidual_eq_sum_conductorResponses
     k hlower hupper]
   rw [← hfilter, Finset.sum_filter]
@@ -95,7 +95,7 @@ theorem primorialPeriodicRawResidual_eq_sum_divisorConductorResponses
   · simp [hqdiv]
   · have hzero : primorialPeriodicRawJointConductorResponse k x q = 0 := by
       apply primorialPeriodicRawJointConductorResponse_eq_zero_of_not_dvd
-      simpa [N] using hqdiv
+      simpa [N] using! hqdiv
     simp [hqdiv, hzero]
 
 /-- Every divisor conductor is realized by the canonical residue `N / q`, so
@@ -113,12 +113,12 @@ private theorem reducedAdditiveConductor_natCast_quotient
     Nat.mul_div_cancel' hqmod
   have hquotdvd : W.modulus / q ∣ W.modulus := by
     refine ⟨q, ?_⟩
-    simpa [Nat.mul_comm] using hprod.symm
+    simpa [Nat.mul_comm] using! hprod.symm
   rw [Nat.gcd_eq_right_iff_dvd.mpr hquotdvd]
   have hquotpos : 0 < W.modulus / q :=
     Nat.pos_of_dvd_of_pos hquotdvd W.modulus_pos
   apply Nat.div_eq_of_eq_mul_right hquotpos
-  simpa [Nat.mul_comm] using hprod.symm
+  simpa [Nat.mul_comm] using! hprod.symm
 
 /-- Explicit arithmetic packet used for every nontrivial divisor conductor. -/
 def primorialPeriodicRawExplicitNontrivialConductorPacket
@@ -202,7 +202,7 @@ theorem primorialPeriodicRawResidual_eq_zeroConductor_add_nontrivialBoundary
             have hqpos : 0 < q := Nat.pos_of_mem_divisors hqmem
             have hqgt : 1 < q := by omega
             have hx : x ≤ (primorialMinimalWheelSystem k).upper := by
-              simpa using hupper
+              simpa using! hupper
             exact
               primorialPeriodicRawJointConductorResponse_eq_explicit_of_divisor
                 k x q hqmem hqgt hx

@@ -65,10 +65,10 @@ theorem primeCombReciprocalBand_div_eq
   rcases mem_primeCombReciprocalBand.mp hp with ⟨hlower, hupper, _hpPrime⟩
   have hlo : z * p ≤ W := by
     have h := (Nat.le_div_iff_mul_le hz).1 hupper
-    simpa [Nat.mul_comm] using h
+    simpa [Nat.mul_comm] using! h
   have hhi : W < (z + 1) * p := by
     have h := (Nat.div_lt_iff_lt_mul (by omega : 0 < z + 1)).1 hlower
-    simpa [Nat.mul_comm] using h
+    simpa [Nat.mul_comm] using! h
   exact Nat.div_eq_of_lt_le hlo hhi
 
 /-- Band membership already includes primality. -/
@@ -343,7 +343,7 @@ theorem sameSignNonzeroMobiusRun_sum
     (Finset.sum_subset hsub hvanish).symm
   calc
     (∑ n ∈ Finset.Ioc a b, μ n) = ∑ n ∈ T, μ n := by
-      simpa [S] using hrestrict
+      simpa [S] using! hrestrict
     _ = ∑ _n ∈ T, s := by
       apply Finset.sum_congr rfl
       intro n hnT

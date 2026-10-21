@@ -45,7 +45,7 @@ factorization depth. -/
 theorem moebius_eq_negOnePow_fullPrimeFactorDepth
     {n : ℕ} (hsq : Squarefree n) :
     μ n = (-1 : ℤ) ^ fullPrimeFactorDepth n := by
-  simpa [fullPrimeFactorDepth] using
+  simpa [fullPrimeFactorDepth] using!
     ArithmeticFunction.moebius_apply_of_squarefree hsq
 
 /-- Repeated prime factors force Möbius value zero. -/
@@ -60,7 +60,7 @@ fully expanded into primes before parity is read. -/
 theorem prod_fullPrimeSupport_eq
     {n : ℕ} (hsq : Squarefree n) :
     ∏ p ∈ fullPrimeSupport n, p = n := by
-  simpa [fullPrimeSupport] using Nat.prod_primeFactors_of_squarefree hsq
+  simpa [fullPrimeSupport] using! Nat.prod_primeFactors_of_squarefree hsq
 
 /-- On squarefree integers, complete factor depth and distinct-prime depth
 coincide. -/
@@ -69,7 +69,7 @@ theorem fullPrimeFactorDepth_eq_distinctPrimeFactorDepth
     fullPrimeFactorDepth n = distinctPrimeFactorDepth n := by
   have hn0 : n ≠ 0 := hsq.ne_zero
   symm
-  simpa [fullPrimeFactorDepth, distinctPrimeFactorDepth] using
+  simpa [fullPrimeFactorDepth, distinctPrimeFactorDepth] using!
     (ArithmeticFunction.cardDistinctFactors_eq_cardFactors_iff_squarefree hn0).2 hsq
 
 /-- A compressed product record is only a transport statement.  The parent and
@@ -168,7 +168,7 @@ theorem squareBlockMoebius_eq_fullDepthParity (m : ℕ) :
       apply Finset.sum_congr rfl
       intro n hn
       have hnData : n ∈ fullFactorSquareBlock m ∧ μ n ≠ 0 := by
-        simpa [fullFactorSquareBlockSupport] using hn
+        simpa [fullFactorSquareBlockSupport] using! hn
       have hsq : Squarefree n :=
         ArithmeticFunction.moebius_ne_zero_iff_squarefree.mp hnData.2
       exact moebius_eq_negOnePow_fullPrimeFactorDepth hsq
@@ -182,7 +182,7 @@ theorem squareBlockMoebius_eq_fullDepthParity (m : ℕ) :
             ∑ _n ∈ fullFactorSquareBlockSupport m with
                 fullPrimeFactorDepth _n = k,
               (-1 : ℤ) ^ k := by
-            simpa using
+            simpa using!
               (Finset.sum_fiberwise_of_maps_to'
                 (s := fullFactorSquareBlockSupport m)
                 (t := fullFactorSquareBlockDepthValues m)
@@ -272,7 +272,7 @@ theorem prod_pow_factorization_eq (s : FullFactorizationState)
     (hn : s.value ≠ 0) :
     s.factorization.prod (fun p e => p ^ e) = s.value := by
   rw [s.is_canonical]
-  exact Nat.factorization_prod_pow_eq_self hn
+  exact Nat.prod_factorization_pow_eq_self hn
 
 /-- `bigOmega` is exactly `cardFactors`. -/
 theorem bigOmega_eq_cardFactors (s : FullFactorizationState) :
@@ -298,10 +298,10 @@ theorem moebius_eq_moebiusSign (s : FullFactorizationState) :
     μ s.value = s.moebiusSign := by
   rw [moebiusSign]
   by_cases hsq : Squarefree s.value
-  · rw [if_pos hsq, omega,
+  · rw [ite_eq_left hsq, omega,
       ← fullPrimeFactorDepth_eq_distinctPrimeFactorDepth hsq]
     exact moebius_eq_negOnePow_fullPrimeFactorDepth hsq
-  · rw [if_neg hsq]
+  · rw [ite_eq_right hsq]
     exact moebius_eq_zero_of_not_squarefree_fullState hsq
 
 /-- Repeated prime exponents force Möbius value zero. -/

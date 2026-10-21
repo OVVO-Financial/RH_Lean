@@ -83,7 +83,7 @@ It supplies no physical source-to-daughter comparison. -/
 theorem jointDaughter_norm_sq_le_three (u v w : V) :
     ‖u + v + w‖ ^ 2 ≤ 3 * jointDaughterDiagonalEnergy u v w := by
   have htri : ‖u + v + w‖ ≤ ‖u‖ + ‖v‖ + ‖w‖ :=
-    (norm_add_le (u + v) w).trans (add_le_add_right (norm_add_le u v) _)
+    (norm_add_le (u + v) w).trans (add_le_add_left (norm_add_le u v) _)
   have hs : ‖u + v + w‖ ^ 2 ≤ (‖u‖ + ‖v‖ + ‖w‖) ^ 2 :=
     (sq_le_sq₀ (norm_nonneg _) (by positivity)).2 htri
   unfold jointDaughterDiagonalEnergy
@@ -275,7 +275,7 @@ theorem omittedFiveContact_q2Daughter_eq_ownerThreeSignedIncidence
       exact hnot5 ((physicalLeastOddSquarePrime_eq_five_iff k).2 ⟨h5, hnot3⟩)
     exact (physicalLeastOddSquarePrime_eq_three_iff k).2 h3
   refine ⟨howner, ?_⟩
-  simpa using physicalQ2DaughterCellIncrement_eq_signedPredecessor_q2Increment
+  simpa using! physicalQ2DaughterCellIncrement_eq_signedPredecessor_q2Increment
     (by norm_num : Nat.Prime 3) 5 k
 
 /-- A deleted `7²` contact has owner `3` or `5`; in either case its coefficient
@@ -293,7 +293,7 @@ theorem omittedSevenContact_q2Daughter_eq_earlierOwnerSignedIncidence
   · have howner : physicalLeastOddSquarePrime k = some 3 :=
       (physicalLeastOddSquarePrime_eq_three_iff k).2 h3
     refine ⟨3, Or.inl rfl, howner, ?_⟩
-    simpa using physicalQ2DaughterCellIncrement_eq_signedPredecessor_q2Increment
+    simpa using! physicalQ2DaughterCellIncrement_eq_signedPredecessor_q2Increment
       (by norm_num : Nat.Prime 3) 7 k
   · have h5 : physicalSquarePrimeAtEdge k 5 := by
       by_contra hnot5
@@ -302,7 +302,7 @@ theorem omittedSevenContact_q2Daughter_eq_earlierOwnerSignedIncidence
     have howner : physicalLeastOddSquarePrime k = some 5 :=
       (physicalLeastOddSquarePrime_eq_five_iff k).2 ⟨h5, h3⟩
     refine ⟨5, Or.inr rfl, howner, ?_⟩
-    simpa using physicalQ2DaughterCellIncrement_eq_signedPredecessor_q2Increment
+    simpa using! physicalQ2DaughterCellIncrement_eq_signedPredecessor_q2Increment
       (by norm_num : Nat.Prime 5) 7 k
 
 /-! ## Exact compensation on a complete least-owner source packet -/
@@ -454,7 +454,7 @@ private theorem q3Daughter_residue_four (L : ℕ) :
   have hlo : 4 * (9 * L + 4) / 9 = 4 * L + 1 := by omega
   have hhi : 4 * (9 * L + 4 + 1) / 9 = 4 * L + 2 := by omega
   rw [hlo, hhi]
-  simpa [Nat.add_assoc] using moebiusPositivePrefix_succ_sub_self (4 * L + 1)
+  simpa [Nat.add_assoc] using! moebiusPositivePrefix_succ_sub_self (4 * L + 1)
 
 private theorem q3Daughter_residue_five (L : ℕ) :
     physicalQ2DaughterCellIncrement 3 (9 * L + 5) = 0 := by
@@ -472,7 +472,7 @@ private theorem q3Daughter_residue_six (L : ℕ) :
   have hlo : 4 * (9 * L + 6) / 9 = 4 * L + 2 := by omega
   have hhi : 4 * (9 * L + 6 + 1) / 9 = 4 * L + 3 := by omega
   rw [hlo, hhi]
-  simpa [Nat.add_assoc] using moebiusPositivePrefix_succ_sub_self (4 * L + 2)
+  simpa [Nat.add_assoc] using! moebiusPositivePrefix_succ_sub_self (4 * L + 2)
 
 /-- Unit q=3 daughter normalization on one complete least-three period. -/
 theorem q3_completePeriod_q2Daughter_eq_lowerFourSlotCell (L : ℕ) :
@@ -522,7 +522,7 @@ private theorem q5Daughter_residue_twelve (L : ℕ) :
   have hlo : 4 * (25 * L + 12) / 25 = 4 * L + 1 := by omega
   have hhi : 4 * (25 * L + 12 + 1) / 25 = 4 * L + 2 := by omega
   rw [hlo, hhi]
-  simpa [Nat.add_assoc] using moebiusPositivePrefix_succ_sub_self (4 * L + 1)
+  simpa [Nat.add_assoc] using! moebiusPositivePrefix_succ_sub_self (4 * L + 1)
 
 private theorem q5Daughter_residue_seventeen (L : ℕ) :
     physicalQ2DaughterCellIncrement 5 (25 * L + 17) = 0 := by
@@ -540,7 +540,7 @@ private theorem q5Daughter_residue_eighteen (L : ℕ) :
   have hlo : 4 * (25 * L + 18) / 25 = 4 * L + 2 := by omega
   have hhi : 4 * (25 * L + 18 + 1) / 25 = 4 * L + 3 := by omega
   rw [hlo, hhi]
-  simpa [Nat.add_assoc] using moebiusPositivePrefix_succ_sub_self (4 * L + 2)
+  simpa [Nat.add_assoc] using! moebiusPositivePrefix_succ_sub_self (4 * L + 2)
 
 /-- Before least-owner deletion, one complete 5^2 contact period descends with
 exactly unit multiplicity to one ordinary lower four-cell. -/
@@ -586,7 +586,7 @@ private theorem q7Daughter_residue_twentyfour (L : ℕ) :
   have hlo : 4 * (49 * L + 24) / 49 = 4 * L + 1 := by omega
   have hhi : 4 * (49 * L + 24 + 1) / 49 = 4 * L + 2 := by omega
   rw [hlo, hhi]
-  simpa [Nat.add_assoc] using moebiusPositivePrefix_succ_sub_self (4 * L + 1)
+  simpa [Nat.add_assoc] using! moebiusPositivePrefix_succ_sub_self (4 * L + 1)
 
 private theorem q7Daughter_residue_thirtyfive (L : ℕ) :
     physicalQ2DaughterCellIncrement 7 (49 * L + 35) = 0 := by
@@ -604,7 +604,7 @@ private theorem q7Daughter_residue_thirtysix (L : ℕ) :
   have hlo : 4 * (49 * L + 36) / 49 = 4 * L + 2 := by omega
   have hhi : 4 * (49 * L + 36 + 1) / 49 = 4 * L + 3 := by omega
   rw [hlo, hhi]
-  simpa [Nat.add_assoc] using moebiusPositivePrefix_succ_sub_self (4 * L + 2)
+  simpa [Nat.add_assoc] using! moebiusPositivePrefix_succ_sub_self (4 * L + 2)
 
 /-- Before least-owner deletion, one complete 7^2 contact period descends with
 exactly unit multiplicity to one ordinary lower four-cell. -/

@@ -52,7 +52,7 @@ theorem collisionRoot_injective_of_lt
   have hcast : (a : ZMod m) = (b : ZMod m) := by
     exact neg_injective hneg
   have hmod := (ZMod.natCast_eq_natCast_iff' a b m).mp hcast
-  simpa [Nat.mod_eq_of_lt ha, Nat.mod_eq_of_lt hb] using hmod
+  simpa [Nat.mod_eq_of_lt ha, Nat.mod_eq_of_lt hb] using! hmod
 
 /-- Four is coprime to the square of every odd prime. -/
 theorem four_coprime_primeSquare

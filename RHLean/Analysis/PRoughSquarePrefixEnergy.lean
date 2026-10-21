@@ -59,11 +59,11 @@ theorem pRoughMertensSummatory_prime_extension
     pRoughMertensSummatory p x =
       mertensSummatory x + pRoughMertensSummatory p (x / p) := by
   have hsq : Squarefree (p * 1) := by
-    simpa using hp.squarefree
+    simpa using! hp.squarefree
   have h := roughMertens_prime_extension (W := 1) hp hsq x
   have hc := congrArg (fun z : ℤ => (z : ℂ)) h
   push_cast at hc
-  simpa [pRoughMertensSummatory, roughMertens_one_cast_eq_mertensSummatory] using hc
+  simpa [pRoughMertensSummatory, roughMertens_one_cast_eq_mertensSummatory] using! hc
 
 private theorem pRough_div_scale
     (p x : ℕ) (hp : p.Prime) (hx : p ≤ x)
@@ -153,7 +153,7 @@ theorem pRoughPowerGrowth_of_energy
           _ ≤ K * Real.rpow ((x + 1 : ℕ) : ℝ) r +
                 D * (q * Real.rpow ((x + 1 : ℕ) : ℝ) r) := by
             dsimp [q] at hscale ⊢
-            exact add_le_add_left (mul_le_mul_of_nonneg_left hscale hD0) _
+            exact add_le_add_right (mul_le_mul_of_nonneg_left hscale hD0) _
           _ = (K + q * D) * Real.rpow ((x + 1 : ℕ) : ℝ) r := by ring
           _ = D * Real.rpow ((x + 1 : ℕ) : ℝ) r := by rw [hDrel]
 
@@ -176,7 +176,7 @@ theorem pRoughSquarePrefixEnergyBounded_of_squarePrefixEnergyBounded
   have hsample :
       ‖pRoughSquarePrefixMertens p n‖ ≤
         D * Real.rpow ((squarePrefixEndpoint n + 1 : ℕ) : ℝ) r := by
-    simpa [pRoughSquarePrefixMertens] using hbound (squarePrefixEndpoint n)
+    simpa [pRoughSquarePrefixMertens] using! hbound (squarePrefixEndpoint n)
   have hsample0 : 0 ≤ ‖pRoughSquarePrefixMertens p n‖ := norm_nonneg _
   have hright0 :
       0 ≤ D * Real.rpow ((squarePrefixEndpoint n + 1 : ℕ) : ℝ) r :=

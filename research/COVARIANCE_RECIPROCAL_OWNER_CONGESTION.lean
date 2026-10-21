@@ -76,14 +76,14 @@ private theorem covariance_mixed_child_mem_candidates
   rw [← hparent]
   rcases hmix with hmix | hmix
   · rcases hmix with ⟨hm, hn⟩
-    have hmn' : p * um < un := by simpa [hm, hn] using hmn
+    have hmn' : p * um < un := by simpa [hm, hn] using! hmn
     rw [hm, hn]
     by_cases hum : um < un
     · simp [covarianceOwnerChildCandidates, covarianceOrderedPair, hum, hmn']
     · have hnot : ¬ un < p * um := by omega
       simp [covarianceOwnerChildCandidates, covarianceOrderedPair, hum, hnot]
   · rcases hmix with ⟨hm, hn⟩
-    have hmn' : um < p * un := by simpa [hm, hn] using hmn
+    have hmn' : um < p * un := by simpa [hm, hn] using! hmn
     rw [hm, hn]
     by_cases hum : um < un
     · simp [covarianceOwnerChildCandidates, covarianceOrderedPair, hum, hmn']
@@ -131,7 +131,7 @@ theorem postRootCovarianceFixedOwnerChildFiber_subset_candidates
           (squarefreePrimeFamilyParent (squarefreePairFreshPrimeOwner m n) n) =
         parent := by
     unfold squarefreePairFreshPrimeOrderedParent at hparent
-    simpa [covarianceOrderedPair] using hparent
+    simpa [covarianceOrderedPair] using! hparent
   have hcand := covariance_mixed_child_mem_candidates
     hmnlt hparent' hcube.2.2
   rw [howner] at hcand
@@ -145,7 +145,7 @@ theorem covarianceOwnerChildCandidates_card_le_two
   have h := Finset.card_insert_le
     (covarianceOrderedPair (p * parent.1) parent.2)
     ({covarianceOrderedPair parent.1 (p * parent.2)} : Finset (ℕ × ℕ))
-  simpa using h
+  simpa using! h
 
 /-- At most two children for one fixed parent/owner pair. -/
 theorem postRootCovarianceFixedOwnerChildFiber_card_le_two
@@ -235,7 +235,7 @@ theorem oddPrimeOwnerReciprocalSquareBudget_le_quarter_sub_one_over_81
       ∑ q ∈ covarianceOddIntegerEnvelope N,
         (1 : ℚ) / (q : ℚ) ^ 2 := by
     norm_num at herase
-    simpa [one_div] using herase
+    simpa [one_div] using! herase
   have hall := covarianceOddIntegerEnvelope_reciprocalSquareSum_le_quarter N
   rw [← herase'] at hall
   linarith
@@ -280,13 +280,13 @@ theorem primeOwnerReciprocalSquareBudget_le_79_over_162 (N : ℕ) :
           (1 : ℚ) / (q : ℚ) ^ 2) + 1 / 4 =
         ∑ q ∈ primesUpTo N, (1 : ℚ) / (q : ℚ) ^ 2 := by
       norm_num at hsplit
-      simpa [one_div] using hsplit
+      simpa [one_div] using! hsplit
     unfold primeOwnerReciprocalSquareBudget
     calc
       (∑ q ∈ primesUpTo N, (1 : ℚ) / (q : ℚ) ^ 2) =
           (∑ q ∈ (primesUpTo N).erase 2,
             (1 : ℚ) / (q : ℚ) ^ 2) + 1 / 4 := hsplit'.symm
-      _ ≤ (1 / 4 - 1 / 81) + 1 / 4 := add_le_add_right hodd _
+      _ ≤ (1 / 4 - 1 / 81) + 1 / 4 := add_le_add_left hodd _
       _ = 79 / 162 := by norm_num
 
 /-! ## Strict fixed-parent reciprocal-square congestion -/

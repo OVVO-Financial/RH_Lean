@@ -65,13 +65,13 @@ theorem lowWheelOthelloDowncross_movable_or_frozen
     · have hkCancel : p * (k / p) = k := Nat.mul_div_cancel' hpk
       have hmNe : k / p ≠ 1 := by
         intro hm
-        have : p = k := by simpa [hm] using hkCancel
+        have : p = k := by simpa [hm] using! hkCancel
         exact hkp this.symm
       let q := Nat.minFac (k / p)
       have hqPrime : q.Prime := by
-        simpa [q] using Nat.minFac_prime hmNe
+        simpa [q] using! Nat.minFac_prime hmNe
       have hqDvdM : q ∣ k / p := by
-        simpa [q] using Nat.minFac_dvd (k / p)
+        simpa [q] using! Nat.minFac_dvd (k / p)
       have hqDvdK : q ∣ k := by
         rcases hqDvdM with ⟨a, ha⟩
         refine ⟨p * a, ?_⟩
@@ -82,7 +82,7 @@ theorem lowWheelOthelloDowncross_movable_or_frozen
       have hqDvdProd : q ∣ c * k := dvd_mul_of_dvd_right hqDvdK c
       have hpLeQ : p ≤ q := by
         have hmin := Nat.minFac_le_of_dvd hqPrime.two_le hqDvdProd
-        simpa [p, lowWheelCanonicalCofactorQuotientPivot] using hmin
+        simpa [p, lowWheelCanonicalCofactorQuotientPivot] using! hmin
       left
       exact ⟨q, hqPrime, hpLeQ, Or.inr hqDvdM⟩
 
@@ -186,7 +186,7 @@ theorem lowWheelOthelloRepeatedTerminalBoundary_geometry
   have hshell := lowWheelOthelloDowncrossPart_adjacent_shell hx
   rcases hshell with ⟨hpRaw, _hpc, _hpk, hdown, hup⟩
   have hp : (lowWheelOthelloDowncrossPivot y).Prime := by
-    simpa [lowWheelOthelloDowncrossPivot] using hpRaw
+    simpa [lowWheelOthelloDowncrossPivot] using! hpRaw
   change primeFaceProduct y.1 *
       (y.2.2 / lowWheelOthelloDowncrossPivot y) ≤ R at hdown
   change R < primeFaceProduct y.1 *
@@ -202,6 +202,6 @@ theorem lowWheelOthelloRepeatedTerminalBoundary_geometry
     rw [hquot, Nat.mul_one] at hup
     exact hup
   refine ⟨hc, hshape.1, hp, hshape.2, hdown', ?_⟩
-  simpa [Nat.mul_comm] using hup'
+  simpa [Nat.mul_comm] using! hup'
 
 end RHLean.Proof

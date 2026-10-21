@@ -172,7 +172,7 @@ theorem moebiusLcmPairMass_eq_moebius (L : ℕ) :
     have hmu : ∀ n > 0, n ∈ (Set.univ : Set ℕ) →
         (∑ d ∈ n.divisors, μ d) = delta n := by
       intro n hn _hnU
-      simpa [delta] using
+      simpa [delta] using!
         RHLean.Analysis.sum_moebius_divisors_eq_one_or_zero n
     have hinvMass :=
       (ArithmeticFunction.sum_eq_iff_sum_mul_moebius_eq_on
@@ -254,10 +254,10 @@ private theorem sum_moebiusLcmInteriorOrderedCarrier_fiber
       exact mem_moebiusLcmInteriorOrderedCarrier.mpr ⟨
         Finset.mem_Icc.mpr ⟨hmpos, hmle.trans hLtop⟩,
         Finset.mem_Icc.mpr ⟨hnpos, hnle.trans hLtop⟩,
-        by simpa [← heq] using hLtop⟩
+        by simpa [← heq] using! hLtop⟩
   unfold moebiusLcmPairMass
   rw [hcarrier, Finset.sum_filter]
-  simpa only using
+  simpa only using!
     (Finset.sum_product
       (s := L.divisors) (t := L.divisors)
       (f := fun mn : ℕ × ℕ =>
@@ -371,7 +371,7 @@ theorem sum_moebiusLcmInteriorOrderedCarrier_eq_diagonal_add_two_mul_positive
             if Nat.lcm m n ≤ W then μ m * μ n else 0 := by
     unfold moebiusLcmInteriorOrderedCarrier
     rw [Finset.sum_filter]
-    simpa only using
+    simpa only using!
       (Finset.sum_product
         (s := Finset.Icc 1 W) (t := Finset.Icc 1 W)
         (f := fun mn : ℕ × ℕ =>
@@ -384,7 +384,7 @@ theorem sum_moebiusLcmInteriorOrderedCarrier_eq_diagonal_add_two_mul_positive
             if m < n ∧ Nat.lcm m n ≤ W then μ m * μ n else 0 := by
     unfold moebiusLcmInteriorPositiveCarrier
     rw [Finset.sum_filter]
-    simpa only using
+    simpa only using!
       (Finset.sum_product
         (s := Finset.Icc 1 W) (t := Finset.Icc 1 W)
         (f := fun mn : ℕ × ℕ =>

@@ -60,7 +60,7 @@ theorem upperHalfFirstJumpOwner_state_mem
     (hkSet : k ∈ upperHalfFirstJumpOwnerSet R p) :
     (1, k) ∈ lowWheelCanonicalDowncrossOrientedStateCarrier R := by
   have hpData : p.Prime ∧ Nat.sqrt R < p ∧ p ≤ R := by
-    simpa [signedFirstJumpPostRootPrimeSet] using
+    simpa [signedFirstJumpPostRootPrimeSet] using!
       (mem_frozenPrimeUniverseHighPrimeSet.mp hpSet)
   have hkData : k.Prime ∧ p < k ∧ k ≤ squareRootEndpoint R / p :=
     mem_upperHalfFirstJumpOwnerSet.mp hkSet
@@ -72,7 +72,7 @@ theorem upperHalfFirstJumpOwner_state_mem
       have hkOne : k = 1 := Nat.dvd_one.mp hdiv
       exact hkData.1.ne_one hkOne
     · intro q hq
-      have hqp : q = p := by simpa using hq
+      have hqp : q = p := by simpa using! hq
       subst q
       exact ⟨hpData.1, hkData.2.1⟩
     · simp [RoughAbove]
@@ -80,14 +80,14 @@ theorem upperHalfFirstJumpOwner_state_mem
     (Nat.le_div_iff_mul_le hpData.1.pos).1 hkData.2.2
   have hchild : orderedEulerCutChildInteger y ≤ squareRootEndpoint R := by
     simpa [y, orderedEulerCutChildInteger, orderedEulerCutHighCofactor,
-      orderedEulerCutPivot, orderedEulerCutLowProduct, primeFaceProduct] using hkp
+      orderedEulerCutPivot, orderedEulerCutLowProduct, primeFaceProduct] using! hkp
   have hsqrt : Nat.sqrt (orderedEulerCutChildInteger y) < R :=
     (orderedEulerCutChild_le_endpoint_iff (R := R) hshape).1 hchild
   have hbirth : orderedEulerCutBirthRoot y ≤ R := by
     unfold orderedEulerCutBirthRoot
     apply Nat.max_le.mpr
     constructor
-    · simpa [y, orderedEulerCutLowProduct, primeFaceProduct] using hpData.2.2
+    · simpa [y, orderedEulerCutLowProduct, primeFaceProduct] using! hpData.2.2
     · apply Nat.max_le.mpr
       constructor
       · dsimp [y, orderedEulerCutHighCofactor]
@@ -104,7 +104,7 @@ theorem upperHalfFirstJumpOwner_state_mem
       _ = k * p := Nat.mul_comm p k
   have hdeath : R < orderedEulerCutDeathRoot y := by
     simpa [y, orderedEulerCutDeathRoot, orderedEulerCutPivot,
-      orderedEulerCutLowProduct, primeFaceProduct] using hdeathNat
+      orderedEulerCutLowProduct, primeFaceProduct] using! hdeathNat
   have hocc : OrderedEulerCutOccursAt R y :=
     (orderedEulerCutOccursAt_iff_lifetime hshape).2 ⟨hbirth, hdeath⟩
   have hcharge :
@@ -135,10 +135,10 @@ theorem upperHalfFirstJumpFrozenWindowSlice_eq_singleton
     refine ⟨?_, ?_, ?_⟩
     · apply Finset.mem_powerset.mpr
       intro r hr
-      have hrp : r = p := by simpa using hr
-      simpa [hrp] using hpS
-    · simpa [primeFaceProduct] using hAp
-    · simpa [primeFaceProduct] using hpB
+      have hrp : r = p := by simpa using! hr
+      simpa [hrp] using! hpS
+    · simpa [primeFaceProduct] using! hAp
+    · simpa [primeFaceProduct] using! hpB
   have hfirst : IsPredecessorFirstJumpAt 3 (Nat.sqrt R) ({p} : Finset ℕ) p := by
     refine ⟨by simp, hpRoot, ?_, ?_⟩
     · have hpredProd :
@@ -150,7 +150,7 @@ theorem upperHalfFirstJumpFrozenWindowSlice_eq_singleton
       rw [hpredProd, Nat.mul_one]
       exact hpCube
     · intro r hr hrp _hrRoot
-      have hrEq : r = p := by simpa using hr
+      have hrEq : r = p := by simpa using! hr
       omega
   have hjump :
       ({p} : Finset ℕ) ∈
@@ -190,11 +190,11 @@ theorem upperHalfFirstJumpFrozenWindowSlice_eq_singleton
           exact hrData.1
       have hprodLower : p * r ≤ primeFaceProduct t := by
         unfold primeFaceProduct
-        have hle := Finset.prod_le_prod_of_subset_of_one_le' hsub (by
+        have hle := Finset.prod_le_prod_of_subset_of_one_le hsub (by
           intro z hzt _hzsmall
           exact (prime_of_mem_primesUpTo (htSub hzt)).one_le)
         have hne : p ≠ r := by omega
-        simpa [hne, Nat.mul_comm] using hle
+        simpa [hne, Nat.mul_comm] using! hle
       have hprodLeR : primeFaceProduct t ≤ R :=
         (mem_frozenPrimeUniverseWindowFaces.mp hwindowT).2.2.trans hBR
       have htwo : p * 2 ≤ p * r :=
@@ -244,7 +244,7 @@ theorem upperHalfFirstJumpPrimeStateSlice_eq_zero_of_cofactor_ne_one
     have hkPivot : k = lowWheelCanonicalDowncrossPivot (c, k) :=
       lowWheelCanonicalDowncrossOrientedChargingFaces_quotient_eq_pivot hne
     have hkRoot : Nat.sqrt R < k := by
-      simpa only [← hkPivot] using hstate.2
+      simpa only [← hkPivot] using! hstate.2
     have hshape := highOwner_orientedState_shape hx hkRoot
     rcases hshape.2 with hcOne | hcData
     · exact (hc hcOne).elim
@@ -294,7 +294,7 @@ theorem upperHalfFirstJumpOwner_stateSlice_eq_neg_one
     signedFirstJumpPrimeStateSlice R p (1, k) = -1 := by
   classical
   have hpData : p.Prime ∧ Nat.sqrt R < p ∧ p ≤ R := by
-    simpa [signedFirstJumpPostRootPrimeSet] using
+    simpa [signedFirstJumpPostRootPrimeSet] using!
       (mem_frozenPrimeUniverseHighPrimeSet.mp hpSet)
   have hkData : k.Prime ∧ p < k ∧ k ≤ squareRootEndpoint R / p :=
     mem_upperHalfFirstJumpOwnerSet.mp hkSet
@@ -308,7 +308,7 @@ theorem upperHalfFirstJumpOwner_stateSlice_eq_neg_one
       (lowWheelCanonicalDowncrossOrientedChargingFaces R (1, k)).Nonempty ∧
         Nat.sqrt R < lowWheelCanonicalDowncrossPivot (1, k) := by
     refine ⟨hne, ?_⟩
-    simpa only [← hkPivot] using hkRoot
+    simpa only [← hkPivot] using! hkRoot
   have hpMem : p ∈ primesUpTo (lowWheelCanonicalDowncrossPivot (1, k) - 1) := by
     apply mem_primesUpTo.mpr
     refine ⟨hpData.1, ?_⟩
@@ -322,7 +322,7 @@ theorem upperHalfFirstJumpOwner_stateSlice_eq_neg_one
   have hA : R / k < p :=
     (Nat.div_lt_iff_lt_mul hkData.1.pos).2 hRpk
   have hraw : lowWheelCanonicalCofactorQuotientPivot (1, k) = k := by
-    simpa [lowWheelCanonicalDowncrossPivot] using hkPivot.symm
+    simpa [lowWheelCanonicalDowncrossPivot] using! hkPivot.symm
   have hBform :
       lowWheelCanonicalDowncrossOwnershipUpper R 1 k =
         min R (squareRootEndpoint R / k) := by
@@ -333,7 +333,7 @@ theorem upperHalfFirstJumpOwner_stateSlice_eq_neg_one
     (Nat.le_div_iff_mul_le hpData.1.pos).1 hkData.2.2
   have hpXdiv : p ≤ squareRootEndpoint R / k := by
     apply (Nat.le_div_iff_mul_le hkData.1.pos).2
-    simpa [Nat.mul_comm] using hkp
+    simpa [Nat.mul_comm] using! hkp
   have hpB : p ≤ lowWheelCanonicalDowncrossOwnershipUpper R 1 k := by
     rw [hBform]
     exact le_min hpData.2.2 hpXdiv
@@ -341,7 +341,7 @@ theorem upperHalfFirstJumpOwner_stateSlice_eq_neg_one
     rw [hBform]
     exact min_le_left _ _
   have hpPivot : p < lowWheelCanonicalDowncrossPivot (1, k) := by
-    simpa only [← hkPivot] using hkData.2.1
+    simpa only [← hkPivot] using! hkData.2.1
   have hmass :
       predecessorFirstJumpFrozenWindowSliceMass
           3 (Nat.sqrt R)
@@ -371,12 +371,12 @@ theorem upperHalfFirstJumpPrimeStateSlice_eq_zero_unit_of_not_owner
     have hkPivot : k = lowWheelCanonicalDowncrossPivot (1, k) :=
       lowWheelCanonicalDowncrossOrientedChargingFaces_quotient_eq_pivot hne
     have hkRoot : Nat.sqrt R < k := by
-      simpa only [← hkPivot] using hstate.2
+      simpa only [← hkPivot] using! hstate.2
     have hshape := highOwner_orientedState_shape hx hkRoot
     have hpData := mem_primesUpTo.mp hpMem
     have hpLtK : p < k := by
       have hpLe : p ≤ k - 1 := by
-        simpa only [← hkPivot] using hpData.2
+        simpa only [← hkPivot] using! hpData.2
       omega
     have hkNotLe : ¬ k ≤ squareRootEndpoint R / p := by
       intro hkLe
@@ -388,9 +388,9 @@ theorem upperHalfFirstJumpPrimeStateSlice_eq_zero_unit_of_not_owner
       (Nat.div_lt_iff_lt_mul hpData.1.pos).1 hXpLtK
     have hdiv : squareRootEndpoint R / k < p := by
       apply (Nat.div_lt_iff_lt_mul hshape.1.pos).2
-      simpa [Nat.mul_comm] using hXlt
+      simpa [Nat.mul_comm] using! hXlt
     have hdiv' : squareRootEndpoint R / (1 * k) < p := by
-      simpa using hdiv
+      simpa using! hdiv
     have hupper : lowWheelCanonicalDowncrossOwnershipUpper R 1 k < p := by
       unfold lowWheelCanonicalDowncrossOwnershipUpper
       exact (min_le_right _ _).trans_lt hdiv'

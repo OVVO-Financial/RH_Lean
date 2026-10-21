@@ -46,7 +46,7 @@ theorem nativePNTError_tail_pointwise_improve_evolving
         (alpha - beta) * (N : Real) *
             nativeLambdaTwoGoodTailRecipMass N M beta -
           nativePNTEvolvingTailCost R N M alpha := by
-    simpa [nativePNTEvolvingTailNetGain, L] using hgain
+    simpa [nativePNTEvolvingTailNetGain, L] using! hgain
   have hbound :
       |nativePNTError N| * L ^ 2 <=
         (alpha - delta) * (N : Real) * L ^ 2 := by
@@ -56,7 +56,7 @@ theorem nativePNTError_tail_pointwise_improve_evolving
             (alpha - beta) * (N : Real) *
               nativeLambdaTwoGoodTailRecipMass N M beta +
             nativePNTEvolvingTailCost R N M alpha := by
-      simpa [L] using hrec
+      simpa [L] using! hrec
     calc
       |nativePNTError N| * L ^ 2 <=
           alpha * (N : Real) * L ^ 2 -
@@ -75,7 +75,7 @@ theorem nativePNTError_tail_pointwise_improve_evolving
   have hcancel := (mul_le_mul_iff_left₀ hLsq).mp
     (show |nativePNTError N| * L ^ 2 <=
       ((alpha - delta) * (N : Real)) * L ^ 2 by
-        simpa [mul_assoc] using hbound)
+        simpa [mul_assoc] using! hbound)
   exact hcancel
 
 /-- The exact state itself determines a valid next slope. -/

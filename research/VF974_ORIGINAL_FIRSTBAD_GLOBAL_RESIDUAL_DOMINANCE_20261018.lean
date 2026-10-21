@@ -163,7 +163,7 @@ theorem vf974_anchoredModel_ge_history_minus_budget
     have hXlower : -t ≤ X := by
       have habs := neg_le_abs X
       linarith
-    simpa only [neg_mul] using
+    simpa only [neg_mul] using!
       (mul_le_mul_of_nonneg_right hXlower hq)
   have hqt : t * q ≤ (t + q) ^ 2 := by
     nlinarith [sq_nonneg (t + q / 2), sq_nonneg q]

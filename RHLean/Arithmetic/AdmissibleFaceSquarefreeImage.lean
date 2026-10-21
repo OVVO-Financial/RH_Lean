@@ -30,7 +30,7 @@ def squarefreeUpTo (X : ℕ) : Finset ℕ :=
 
 @[simp] theorem mem_squarefreeUpTo {X n : ℕ} :
     n ∈ squarefreeUpTo X ↔ Squarefree n ∧ n ≤ X := by
-  simp [squarefreeUpTo, Nat.lt_succ_iff, and_comm]
+  simp [squarefreeUpTo, and_comm]
 
 /-- The product image of the admissible prime faces is exactly the set of
 squarefree integers up to the cutoff. -/

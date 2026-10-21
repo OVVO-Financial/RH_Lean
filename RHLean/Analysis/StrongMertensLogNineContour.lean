@@ -1,6 +1,6 @@
 import Mathlib
 import PrimeNumberTheoremAnd.ResidueCalcOnRectangles
-import StrongPNT.PNT5_Strong
+import PrimeNumberTheoremAnd.StrongPNT
 import RHLean.Analysis.StrongMertensZetaKernel
 
 /-!
@@ -19,8 +19,7 @@ open scoped BigOperators ArithmeticFunction.Moebius LSeries.notation
 
 namespace RHLean.Analysis
 
--- `StrongPNT.PNT1_ComplexAnalysis` declares a root-level `def I := Complex.I`,
--- so with `Complex` open the bare token `I` resolves two ways.
+-- Keep the bare token `I` pinned to `Complex.I` under `open Complex`.
 local notation "I" => Complex.I
 
 /-- Lower far tail on the right Perron line. -/
@@ -126,7 +125,7 @@ theorem nativeMertensContourPull_holds : NativeMertensContourPullProp := by
           ((1 : ℂ) + ((Real.log X)⁻¹ : ℂ) + (T : ℂ) * I).re
       rw [hzre, hwre, Set.uIoo,
         inf_eq_left.mpr (by linarith), sup_eq_right.mpr (by linarith)]
-      exact Set.mem_Ioo.mpr ⟨by simpa using hsigma1, by simp; linarith⟩
+      exact Set.mem_Ioo.mpr ⟨by simpa using! hsigma1, by simp; linarith⟩
     · show ((1 : ℂ)).im ∈
         Set.uIoo (sigmaLeft - (T : ℂ) * I).im
           ((1 : ℂ) + ((Real.log X)⁻¹ : ℂ) + (T : ℂ) * I).im
@@ -148,12 +147,12 @@ theorem nativeMertensContourPull_holds : NativeMertensContourPullProp := by
       hOneInterior
       ?_
       ?_
-    · simpa using hres
+    · simpa using! hres
     · have hsub :
           (Rectangle (sigmaLeft - (T : ℂ) * I)
               (1 + ((Real.log X)⁻¹ : ℂ) + (T : ℂ) * I) \ {(1 : ℂ)}) ⊆
             (((Set.Icc sigmaLeft 2) ×ℂ (Set.Icc (-T) T)) \ {(1 : ℂ)}) := by
-        apply Set.diff_subset_diff_left
+        apply Set.sdiff_subset_sdiff_left
         intro s hs
         rw [Rectangle, Complex.mem_reProdIm] at hs
         rw [Complex.mem_reProdIm]

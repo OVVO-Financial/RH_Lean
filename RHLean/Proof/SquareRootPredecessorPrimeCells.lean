@@ -191,7 +191,7 @@ theorem predecessorPrimeMass_eq_zero_of_predPrimeCube_complete
   · intro q hq
     exact prime_of_mem_primesUpTo hq
   · apply (Nat.le_div_iff_mul_le hp.pos).2
-    simpa [Nat.mul_comm] using hfit
+    simpa [Nat.mul_comm] using! hfit
 
 /-- The first predecessor-prime channel at `k=2` has unit mass. -/
 theorem predecessorPrimeMass_two_two : predecessorPrimeMass 2 2 = 1 := by

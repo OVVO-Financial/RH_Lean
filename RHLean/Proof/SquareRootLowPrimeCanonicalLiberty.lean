@@ -96,15 +96,15 @@ theorem squareRootLowPrimeProcessedSeatCanonicalOwnerFalloff_carrierObstruction
   rcases mem_squareRootLowPrimeProcessedSeatCanonicalOwnerFalloff.mp hfall with
     ⟨hparent, _hhead, hpFresh0, hchildMissing0, hrough0⟩
   have hpFresh : ¬ p ∣ c := by
-    simpa [squareRootLowPrimeProcessedStateCofactor] using hpFresh0
+    simpa [squareRootLowPrimeProcessedStateCofactor] using! hpFresh0
   have hrough : canonicalLargestPrimeFactor c < p := by
-    simpa [squareRootLowPrimeProcessedStateCofactor] using hrough0
+    simpa [squareRootLowPrimeProcessedStateCofactor] using! hrough0
   have hchildMissing :
       some (p * c, s) ∉ squareRootLowPrimeProcessedSeatCarrier R K j U := by
-    simpa [squareRootLowPrimeProcessedSeatExtend] using hchildMissing0
+    simpa [squareRootLowPrimeProcessedSeatExtend] using! hchildMissing0
   have hparentAtom :
       (c, s) ∈ squareRootLowPrimeProcessedSeatAtoms R K j U := by
-    simpa [squareRootLowPrimeProcessedSeatCarrier] using hparent
+    simpa [squareRootLowPrimeProcessedSeatCarrier] using! hparent
   have hcSigned : c ∈ squareRootLowPrimeProcessedSignedCofactors R U :=
     (mem_squareRootLowPrimeProcessedSeatAtoms.mp hparentAtom).1
   rcases Finset.mem_filter.mp hcSigned with
@@ -125,7 +125,7 @@ theorem squareRootLowPrimeProcessedSeatCanonicalOwnerFalloff_carrierObstruction
     Nat.lt_of_not_ge hseat
   have hlpfChild : canonicalLargestPrimeFactor (p * c) = p := by
     have h := canonicalLargestPrimeFactor_mul_prime_eq_of_rough hcPos hp hrough
-    simpa [Nat.mul_comm] using h
+    simpa [Nat.mul_comm] using! h
   have hmuChild : μ (p * c) ≠ 0 := by
     rw [moebius_prime_mul_eq_neg_of_not_dvd hp hpFresh]
     exact neg_ne_zero.mpr hcMu
@@ -182,12 +182,12 @@ theorem squareRootLowPrimeFirstOwnerAbove_some_split
       by_cases hLq : L < q
       · have hqp : q = p := by
           apply Option.some.inj
-          simpa [squareRootLowPrimeFirstOwnerAbove, hLq] using hfirst
+          simpa [squareRootLowPrimeFirstOwnerAbove, hLq] using! hfirst
         subst p
         exact ⟨[], qs, by simp, by simp, hLq⟩
       · have hqL : q ≤ L := Nat.le_of_not_gt hLq
         have htail : squareRootLowPrimeFirstOwnerAbove qs L = some p := by
-          simpa [squareRootLowPrimeFirstOwnerAbove, hLq] using hfirst
+          simpa [squareRootLowPrimeFirstOwnerAbove, hLq] using! hfirst
         rcases ih htail with ⟨pre, post, hsplit, hpre, hLp⟩
         refine ⟨q :: pre, post, ?_, ?_, hLp⟩
         · simp [hsplit]
@@ -205,7 +205,7 @@ private theorem squareRootLowPrimeProcessedSeatCofactor_pos_of_mem_carrier
   rcases x with _ | z
   · exact (hxHead rfl).elim
   · have hzAtom : z ∈ squareRootLowPrimeProcessedSeatAtoms R K j U := by
-      simpa [squareRootLowPrimeProcessedSeatCarrier] using hx
+      simpa [squareRootLowPrimeProcessedSeatCarrier] using! hx
     have hcSigned := (mem_squareRootLowPrimeProcessedSeatAtoms.mp hzAtom).1
     have hcRange := (Finset.mem_filter.mp hcSigned).1
     have hcOne := (Finset.mem_Icc.mp hcRange).1
@@ -227,7 +227,7 @@ private theorem squareRootLowPrimePrime_not_dvd_of_lpf_lt
       Nat.mem_primeFactors.mpr ⟨hp, hdiv, by omega⟩
     have hle : p ≤ canonicalLargestPrimeFactor c := by
       unfold canonicalLargestPrimeFactor
-      rw [dif_pos hcGt]
+      rw [dite_eq_left hcGt]
       exact Finset.le_max' c.primeFactors p hmem
     omega
 
@@ -345,14 +345,14 @@ theorem squareRootLowPrimeProcessedSeatTerminalIntrinsicResidual_noLaterOwner_or
         (squareRootLowPrimeFreshPrimeList K U) L with
   | none =>
       left
-      simpa [L] using
+      simpa [L] using!
         (squareRootLowPrimeFirstOwnerAbove_eq_none_iff
           (squareRootLowPrimeFreshPrimeList K U) L).mp hfirst
   | some p =>
       right
       have hblock :=
         squareRootLowPrimeProcessedSeatTerminalIntrinsicResidual_firstOwnerAbove_blocker
-          hxResidual (by simpa [L] using hfirst)
+          hxResidual (by simpa [L] using! hfirst)
       rcases hblock with
         ⟨pre, post, pre', q, post', z, hsplit, hpreSplit,
           hpPrime, hqPrime, hqLe, hqp, hz, hedge⟩
@@ -530,7 +530,7 @@ theorem squareRootLowPrimeProcessedSeat_weight_sum_eq_canonicalFrontierStep
   rw [squareRootLowPrimeProcessedSeat_sdiff_canonicalFrontierStep_eq_paired,
     squareRootLowPrimeProcessedSeatCanonicalPaired_weight_sum_eq_zero S hp]
     at hsplit
-  simpa using hsplit.symm
+  simpa using! hsplit.symm
 
 /-- Iterate only genuine Euler-oriented matching edges. -/
 def squareRootLowPrimeProcessedSeatCanonicalMatchingFrontier :
@@ -548,7 +548,7 @@ theorem squareRootLowPrimeProcessedSeatCanonicalMatchingFrontier_subset
   induction ps generalizing S with
   | nil =>
       intro x hx
-      simpa [squareRootLowPrimeProcessedSeatCanonicalMatchingFrontier] using hx
+      simpa [squareRootLowPrimeProcessedSeatCanonicalMatchingFrontier] using! hx
   | cons p ps ih =>
       exact
         (ih (S := squareRootLowPrimeProcessedSeatCanonicalFrontierStep S p)).trans
@@ -632,7 +632,7 @@ private theorem squareRootLowPrimeProcessedSeatExtend_lpf_of_rough
   · exact (hxHead rfl).elim
   · change canonicalLargestPrimeFactor (p * z.1) = p
     have h := canonicalLargestPrimeFactor_mul_prime_eq_of_rough hcPos hp hrough
-    simpa [Nat.mul_comm] using h
+    simpa [Nat.mul_comm] using! h
 
 /-- A canonical child owned by `p` cannot be consumed at an earlier canonical
 owner `q < p`.  Lower ownership would force `p < q`; upper ownership would give
@@ -695,7 +695,7 @@ theorem squareRootLowPrimeProcessedSeatCanonicalChild_survives_prefix
       squareRootLowPrimeProcessedSeatCanonicalMatchingFrontier pre S := by
   induction pre generalizing S with
   | nil =>
-      simpa [squareRootLowPrimeProcessedSeatCanonicalMatchingFrontier] using hchild
+      simpa [squareRootLowPrimeProcessedSeatCanonicalMatchingFrontier] using! hchild
   | cons q qs ih =>
       have hqPrime : q.Prime := hprime q (by simp)
       have hqLt : q < p := hlt q (by simp)
@@ -764,7 +764,7 @@ theorem squareRootLowPrimeProcessedSeatCanonicalTerminal_firstOwnerAbove_mem_fal
       x ∈ squareRootLowPrimeProcessedSeatCanonicalMatchingFrontier
         (pre ++ p :: post)
         (squareRootLowPrimeProcessedSeatCarrier R K j U) := by
-    simpa [squareRootLowPrimeProcessedSeatCanonicalTerminalFrontier, hsplit] using
+    simpa [squareRootLowPrimeProcessedSeatCanonicalTerminalFrontier, hsplit] using!
       hxTerminal
   rw [squareRootLowPrimeProcessedSeatCanonicalMatchingFrontier_append] at hxSplit
   have hxAfterP :
@@ -772,7 +772,7 @@ theorem squareRootLowPrimeProcessedSeatCanonicalTerminal_firstOwnerAbove_mem_fal
         (squareRootLowPrimeProcessedSeatCanonicalFrontierStep
           (squareRootLowPrimeProcessedSeatCanonicalMatchingFrontier pre
             (squareRootLowPrimeProcessedSeatCarrier R K j U)) p) := by
-    simpa [squareRootLowPrimeProcessedSeatCanonicalMatchingFrontier] using hxSplit
+    simpa [squareRootLowPrimeProcessedSeatCanonicalMatchingFrontier] using! hxSplit
   have hxStep :
       x ∈ squareRootLowPrimeProcessedSeatCanonicalFrontierStep
         (squareRootLowPrimeProcessedSeatCanonicalMatchingFrontier pre
@@ -821,7 +821,7 @@ theorem squareRootLowPrimeProcessedSeatCanonicalTerminal_firstOwnerAbove_mem_fal
             squareRootLowPrimeProcessedSeatCanonicalPaired
               (squareRootLowPrimeProcessedSeatCanonicalMatchingFrontier pre
                 (squareRootLowPrimeProcessedSeatCarrier R K j U)) p := by
-      simpa [squareRootLowPrimeProcessedSeatCanonicalFrontierStep] using hxStep
+      simpa [squareRootLowPrimeProcessedSeatCanonicalFrontierStep] using! hxStep
     exact (Finset.mem_sdiff.mp hxStepData).2
       (Finset.mem_union.mpr (Or.inl hxCanonicalLower))
   exact mem_squareRootLowPrimeProcessedSeatCanonicalOwnerFalloff.mpr
@@ -909,13 +909,13 @@ theorem squareRootLowPrimeProcessedSeatCanonicalAssigned_covered
       exfalso
       apply hxNotHeads
       exact Finset.mem_filter.mpr
-        ⟨hxTerminal, Or.inr (by simpa [L] using hfirst)⟩
+        ⟨hxTerminal, Or.inr (by simpa [L] using! hfirst)⟩
   | some p =>
       have hfall :=
         squareRootLowPrimeProcessedSeatCanonicalTerminal_firstOwnerAbove_mem_falloff
-          hxTerminal hxHead (by simpa [L] using hfirst)
+          hxTerminal hxHead (by simpa [L] using! hfirst)
       rcases squareRootLowPrimeFirstOwnerAbove_some_split
-          (by simpa [L] using hfirst) with
+          (by simpa [L] using! hfirst) with
         ⟨pre, post, hsplit, _hpre, _hLp⟩
       refine ⟨p, ?_, hfall⟩
       rw [hsplit]

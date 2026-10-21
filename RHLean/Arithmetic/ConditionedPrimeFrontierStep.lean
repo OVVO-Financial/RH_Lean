@@ -60,7 +60,7 @@ theorem firstFailureBoundary_conditioned_eq_ordered
         · exact hpA hpInA⟩
     · simpa [conditionedPrimeProductAdmissible,
         Finset.union_assoc, Finset.union_left_comm,
-        Finset.union_comm] using ht.2.2
+        Finset.union_comm] using! ht.2.2
   · intro ht
     refine ⟨?_, ht.2.1, ?_⟩
     · intro p hp
@@ -78,7 +78,7 @@ theorem firstFailureBoundary_conditioned_eq_ordered
         Finset.mem_sdiff.mpr ⟨hpS, hpA⟩⟩
     · simpa [conditionedPrimeProductAdmissible,
         Finset.union_assoc, Finset.union_left_comm,
-        Finset.union_comm] using ht.2.2
+        Finset.union_comm] using! ht.2.2
 
 /-- Exact one-step ordered frontier identity.
 

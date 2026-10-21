@@ -73,7 +73,7 @@ theorem PrimeCombUpdate.abs_after_le (u : PrimeCombUpdate) :
     _ ≤ ((|u.before| + |-(u.firstHits : ℤ)|)
           + |2 * u.collisionImbalance|) + |u.deathImbalance| := by
           gcongr
-          simpa [sub_eq_add_neg] using abs_add_le u.before (-(u.firstHits : ℤ))
+          simpa [sub_eq_add_neg] using! abs_add_le u.before (-(u.firstHits : ℤ))
     _ = |u.before| + (u.firstHits : ℤ)
           + 2 * |u.collisionImbalance| + |u.deathImbalance| := by
           simp [abs_mul]

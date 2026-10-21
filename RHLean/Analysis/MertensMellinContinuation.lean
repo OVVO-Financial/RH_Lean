@@ -41,7 +41,7 @@ theorem differentiableAt_mertensMellinContinuation
     apply mellin_differentiableAt_of_isBigO_rpow
       (a := -r) (b := -s.re - 1)
       mertensStep_locallyIntegrableOn
-    · simpa only [neg_neg] using htop
+    · simpa only [neg_neg] using! htop
     · simp only [neg_re]
       linarith
     · convert hbot using 1
@@ -52,8 +52,8 @@ theorem differentiableAt_mertensMellinContinuation
       DifferentiableAt ℂ (fun z : ℂ => mellin mertensStep (-z)) s := by
     have hneg : DifferentiableAt ℂ (fun z : ℂ => -z) s :=
       differentiableAt_id.neg
-    simpa only [Function.comp_apply] using hmellin.comp s hneg
-  simpa [mertensMellinContinuation] using differentiableAt_id.mul hcomp
+    simpa only [Function.comp_apply] using! hmellin.comp s hneg
+  simpa [mertensMellinContinuation] using! differentiableAt_id.mul hcomp
 
 /-- Holomorphy on the open half-plane `Re(s) > 1/2`. -/
 theorem differentiableOn_mertensMellinContinuation

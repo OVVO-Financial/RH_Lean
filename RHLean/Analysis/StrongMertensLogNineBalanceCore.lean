@@ -325,17 +325,17 @@ theorem strongMertens_balanced_envelopes_eventually
       X * strongMertensScale X ^ 10 *
           Real.exp (-(1 / 2 - corridor.A / 4) * strongMertensScale X) ≤
         X * Real.exp (-c * strongMertensScale X) := by
-    simpa [mul_assoc] using mul_le_mul_of_nonneg_left hfar hX0
+    simpa [mul_assoc] using! mul_le_mul_of_nonneg_left hfar hX0
   have hhorX :
       X * (1 + strongMertensScale X ^ 10) *
           Real.exp (-(2 - corridor.A / 4) * strongMertensScale X) ≤
         X * (2 * Real.exp (-c * strongMertensScale X)) := by
-    simpa [mul_assoc] using mul_le_mul_of_nonneg_left hhor hX0
+    simpa [mul_assoc] using! mul_le_mul_of_nonneg_left hhor hX0
   have hvertX :
       X * (1 + strongMertensScale X ^ 7) *
           Real.exp (-(3 * corridor.A / 4) * strongMertensScale X) ≤
         X * (2 * Real.exp (-c * strongMertensScale X)) := by
-    simpa [mul_assoc] using mul_le_mul_of_nonneg_left hvert hX0
+    simpa [mul_assoc] using! mul_le_mul_of_nonneg_left hvert hX0
   calc
     X * strongMertensScale X ^ 10 *
           Real.exp (-(1 / 2 - corridor.A / 4) * strongMertensScale X) +

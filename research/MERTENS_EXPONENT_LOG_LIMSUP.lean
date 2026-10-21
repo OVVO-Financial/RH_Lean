@@ -76,9 +76,9 @@ theorem eventually_logSlope_le_of_powerBound_lt {a b : ℝ}
   have hn0 : (0 : ℝ) < (n : ℝ) := lt_trans zero_lt_one hnR
   have hpow0 : 0 ≤ (n : ℝ) ^ a := Real.rpow_nonneg hn0.le a
   have hpow1 : 1 ≤ (n : ℝ) ^ a := by
-    simpa only [Real.rpow_zero] using Real.rpow_le_rpow_of_exponent_le hnR.le ha
+    simpa only [Real.rpow_zero] using! Real.rpow_le_rpow_of_exponent_le hnR.le ha
   have hprod1 : 1 ≤ D * (n : ℝ) ^ a := by
-    simpa only [one_mul] using mul_le_mul hD1 hpow1 zero_le_one hD0.le
+    simpa only [one_mul] using! mul_le_mul hD1 hpow1 zero_le_one hD0.le
   have hnorm : ‖mertensSummatory n‖ ≤ D * (n : ℝ) ^ a :=
     (hbound n hn1).trans (mul_le_mul_of_nonneg_right hCD hpow0)
   have hm : (0 : ℝ) < max 1 ‖mertensSummatory n‖ :=
@@ -106,14 +106,14 @@ theorem powerBound_of_eventually_logSlope_le {b : ℝ}
   have hnR : (1 : ℝ) ≤ (n : ℝ) := by exact_mod_cast hn
   have hpow0 : 0 ≤ (n : ℝ) ^ b := Real.rpow_nonneg (Nat.cast_nonneg n) b
   have hpow1 : 1 ≤ (n : ℝ) ^ b := by
-    simpa only [Real.rpow_zero] using Real.rpow_le_rpow_of_exponent_le hnR hb0
+    simpa only [Real.rpow_zero] using! Real.rpow_le_rpow_of_exponent_le hnR hb0
   by_cases hlarge : N ≤ n
   · exact (hN n hlarge).trans (by
-      simpa only [one_mul] using mul_le_mul_of_nonneg_right hC1 hpow0)
+      simpa only [one_mul] using! mul_le_mul_of_nonneg_right hC1 hpow0)
   · have hnN : (n : ℝ) ≤ (N : ℝ) + 1 := by
       exact_mod_cast (show n ≤ N + 1 by omega)
     exact ((mertens_norm_le n).trans hnN).trans (by
-      simpa only [mul_one] using mul_le_mul_of_nonneg_left hpow1 hC0)
+      simpa only [mul_one] using! mul_le_mul_of_nonneg_left hpow1 hC0)
 
 /-- Exact agreement with the user's logarithmic-limsup exponent on integers. -/
 theorem logLimsup_eq_growthExponent :

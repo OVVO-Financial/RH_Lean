@@ -201,7 +201,7 @@ theorem sourceMobius_parent {B : ℕ} (s : SourceIndex B)
   have hparent := parentIndex_admissible s h
   have hparentCop :
       Nat.Coprime (sourcePrime s) (canonicalCofactor (sourceCore s)) := by
-    simpa only [sourcePrime_parentIndex, sourceCore_parentIndex] using
+    simpa only [sourcePrime_parentIndex, sourceCore_parentIndex] using!
       hparent.2.2.2.1
   have hchild := canonicalSignedParent_moebius hsq hcgt
   change (μ (sourcePrime s * sourceCore s) : ℤ) =
@@ -234,7 +234,7 @@ theorem sourceWeight_signReversal {B : ℕ} (s t : SourceIndex B)
   classical
   by_cases h : SmoothOriented s
   · have ht : parentIndex s h = t := by
-      simpa [sourceParent, h] using hparent
+      simpa [sourceParent, h] using! hparent
     subst t
     exact sourceWeight_parentIndex s h
   · simp [sourceParent, h] at hparent
@@ -255,7 +255,7 @@ theorem prime_dvd_le_canonicalLargestPrimeFactor {m p : ℕ}
   have hmem : p ∈ m.primeFactors :=
     (Nat.mem_primeFactors_of_ne_zero hm0).2 ⟨hp, hpm⟩
   unfold canonicalLargestPrimeFactor
-  rw [dif_pos hm]
+  rw [dite_eq_left hm]
   exact Finset.le_max' m.primeFactors p hmem
 
 /-- Every squarefree `m > 1` produces admissible native source data
@@ -305,7 +305,7 @@ theorem canonicalSourceIndex_product {B m : ℕ}
     (hsq : Squarefree m) (hm : 1 < m) (hB : m ≤ B) :
     sourceProduct (canonicalSourceIndex B m hsq hm hB) = m := by
   change canonicalLargestPrimeFactor m * canonicalCofactor m = m
-  simpa [Nat.mul_comm] using canonicalCofactor_mul_largestPrimeFactor hm
+  simpa [Nat.mul_comm] using! canonicalCofactor_mul_largestPrimeFactor hm
 
 /-- The native source index carries the original Möbius weight. -/
 theorem canonicalSourceIndex_weight {B m : ℕ}
@@ -468,7 +468,7 @@ noncomputable def boundedSourceRankedFlow (B : ℕ) :
     intro s t hparent
     by_cases h : SmoothOriented s
     · have ht : parentIndex s h = t := by
-        simpa [boundedSourceFlow, sourceParent, h] using hparent
+        simpa [boundedSourceFlow, sourceParent, h] using! hparent
       subst t
       exact canonicalCofactor_lt_self (lt_trans h.1.1.one_lt h.2)
     · simp [boundedSourceFlow, sourceParent, h] at hparent

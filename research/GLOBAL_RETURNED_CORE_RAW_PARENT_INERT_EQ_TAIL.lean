@@ -65,7 +65,7 @@ theorem lowOwnerFirstOwnerRawParentOrbitInertCarrier_eq_tailCarrier
       have hself :=
         lowOwnerFirstOwnerRawParentOrbitInert_rawParent_eq_self
           hp hr hpr hinert
-      exact hnotRaw (by simpa [hself] using hraw)
+      exact hnotRaw (by simpa [hself] using! hraw)
     have hbranch : mn ∈
         lowOwnerFirstOwnerRawParentBranchCarrier R p sig r := by
       exact Finset.mem_filter.mpr
@@ -99,7 +99,7 @@ theorem lowOwnerFirstOwnerRawParentOrbitInertCarrier_eq_tailCarrier
       intro hraw
       have hmnRaw : mn ∈
           lowOwnerFirstOwnerPolarizationRawParentSet R p sig r := by
-        simpa [hself] using hraw
+        simpa [hself] using! hraw
       have hstar : mn ∈
           lowOwnerFirstOwnerRawParentPrefixStar R p sig r := by
         rw [← lowOwnerFirstOwnerPolarizationRawParentSet_eq_prefixStar

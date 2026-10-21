@@ -40,7 +40,7 @@ def PrimeWheelTorusCertificates (W : PrimeWheelFamily) : Prop :=
   ∀ k : ℕ, (W k).TorusRealizationCertificate
 
 /-- Canonical lossless torus certificates for every finite wheel family. -/
-def canonicalPrimeWheelTorusCertificates
+theorem canonicalPrimeWheelTorusCertificates
     (W : PrimeWheelFamily) : PrimeWheelTorusCertificates W :=
   fun k => (W k).canonicalTorusRealizationCertificate
 

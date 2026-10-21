@@ -92,9 +92,23 @@ theorem lowOwnerFirstOwnerRawParentBranchCarrier_eq_equalKeyProduct
             lowOwnerRawParentRevealedKey R r mn.2) := by
   ext mn
   rcases mn with ⟨m, n⟩
-  simp [lowOwnerFirstOwnerRawParentBranchCarrier,
+  simp only [lowOwnerFirstOwnerRawParentBranchCarrier,
     lowOwnerFirstOwnerRawParentBranchSiteCarrier,
-    lowOwnerRawParentRevealedKey, and_assoc, and_left_comm, and_comm]
+    lowOwnerRawParentRevealedKey, Finset.mem_filter]
+  constructor
+  · rintro ⟨hprod, hkey, hm, hn⟩
+    have hb := Finset.mem_product.mp hprod
+    apply Finset.mem_filter.mpr
+    refine ⟨Finset.mem_product.mpr ?_, hkey⟩
+    exact ⟨Finset.mem_filter.mpr ⟨hb.1, hm⟩,
+      Finset.mem_filter.mpr ⟨hb.2, hn⟩⟩
+  · intro h
+    rcases Finset.mem_filter.mp h with ⟨hprod, hkey⟩
+    rcases Finset.mem_product.mp hprod with ⟨hm, hn⟩
+    rcases Finset.mem_filter.mp hm with ⟨hmbase, hmnodiv⟩
+    rcases Finset.mem_filter.mp hn with ⟨hnbase, hnnodiv⟩
+    exact ⟨Finset.mem_product.mpr ⟨hmbase, hnbase⟩,
+      hkey, hmnodiv, hnnodiv⟩
 
 /-- The tail pair carrier is exactly the equal-key square of tail sites. -/
 theorem lowOwnerFirstOwnerRawParentTailCarrier_eq_equalKeyProduct
@@ -107,12 +121,34 @@ theorem lowOwnerFirstOwnerRawParentTailCarrier_eq_equalKeyProduct
             lowOwnerRawParentRevealedKey R r mn.2) := by
   ext mn
   rcases mn with ⟨m, n⟩
-  simp [lowOwnerFirstOwnerRawParentTailCarrier,
-    lowOwnerFirstOwnerRawParentBranchCarrier,
-    lowOwnerFirstOwnerRawParentTailSiteCarrier,
-    lowOwnerFirstOwnerRawParentBranchSiteCarrier,
-    lowOwnerRawParentRevealedKey,
-    not_or, and_assoc, and_left_comm, and_comm]
+  unfold lowOwnerFirstOwnerRawParentTailCarrier
+  rw [lowOwnerFirstOwnerRawParentBranchCarrier_eq_equalKeyProduct]
+  constructor
+  · intro h
+    rcases Finset.mem_filter.mp h with ⟨hbranch, htail⟩
+    rcases Finset.mem_filter.mp hbranch with ⟨hprod, hkey⟩
+    rcases Finset.mem_product.mp hprod with ⟨hm, hn⟩
+    change ¬ (r * m ≤ squareRootEndpoint R ∨
+      r * n ≤ squareRootEndpoint R) at htail
+    have ⟨hmTail, hnTail⟩ :
+        squareRootEndpoint R < r * m ∧
+          squareRootEndpoint R < r * n := by
+      simpa only [not_or, not_le] using htail
+    apply Finset.mem_filter.mpr
+    refine ⟨Finset.mem_product.mpr ?_, hkey⟩
+    exact ⟨Finset.mem_filter.mpr ⟨hm, hmTail⟩,
+      Finset.mem_filter.mpr ⟨hn, hnTail⟩⟩
+  · intro h
+    rcases Finset.mem_filter.mp h with ⟨hprod, hkey⟩
+    rcases Finset.mem_product.mp hprod with ⟨hm, hn⟩
+    rcases Finset.mem_filter.mp hm with ⟨hmbase, hmTail⟩
+    rcases Finset.mem_filter.mp hn with ⟨hnbase, hnTail⟩
+    apply Finset.mem_filter.mpr
+    refine ⟨Finset.mem_filter.mpr
+      ⟨Finset.mem_product.mpr ⟨hmbase, hnbase⟩, hkey⟩, ?_⟩
+    change ¬ (r * m ≤ squareRootEndpoint R ∨
+      r * n ≤ squareRootEndpoint R)
+    simpa only [not_or, not_le] using And.intro hmTail hnTail
 
 /-- One key fibre of an equal-key pair carrier is a Cartesian square. -/
 private theorem equalKeyPair_filter_eq_fiberProduct
@@ -168,7 +204,7 @@ theorem lowOwnerFirstOwnerRawParentBranchThresholdAmplitude_sq_eq_pairSum
       rw [Finset.mul_sum]
     _ = _ := by
       symm
-      simpa only using
+      simpa only using!
         (Finset.sum_product
           (s := lowOwnerFirstOwnerRawParentBranchSignatureFiber R p sig tau r)
           (t := lowOwnerFirstOwnerRawParentBranchSignatureFiber R p sig tau r)
@@ -203,7 +239,7 @@ theorem lowOwnerFirstOwnerRawParentTailThresholdAmplitude_sq_eq_pairSum
       rw [Finset.mul_sum]
     _ = _ := by
       symm
-      simpa only using
+      simpa only using!
         (Finset.sum_product
           (s := lowOwnerFirstOwnerRawParentTailSignatureFiber R p sig tau r)
           (t := lowOwnerFirstOwnerRawParentTailSignatureFiber R p sig tau r)
@@ -241,7 +277,7 @@ theorem lowOwnerFirstOwnerRawParentBranchThresholdEnergy_eq_sum_fiberSquares
   rw [hset]
   symm
   simpa [S, T, key, P, f,
-    lowOwnerFirstOwnerRawParentBranchSignatureFiber] using
+    lowOwnerFirstOwnerRawParentBranchSignatureFiber] using!
     lowOwnerFirstOwnerRawParentBranchThresholdAmplitude_sq_eq_pairSum
       R p sig tau r
 
@@ -275,7 +311,7 @@ theorem lowOwnerFirstOwnerRawParentTailThresholdEnergy_eq_sum_fiberSquares
   rw [hset]
   symm
   simpa [S, T, key, P, f,
-    lowOwnerFirstOwnerRawParentTailSignatureFiber] using
+    lowOwnerFirstOwnerRawParentTailSignatureFiber] using!
     lowOwnerFirstOwnerRawParentTailThresholdAmplitude_sq_eq_pairSum
       R p sig tau r
 

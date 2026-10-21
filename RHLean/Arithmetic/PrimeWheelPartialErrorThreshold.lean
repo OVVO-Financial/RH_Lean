@@ -22,13 +22,13 @@ theorem partialPrimeWheel_nonzero_error_factorization_of_two_mul_sq
   have hb1 : primeWheelUnresolvedPart y n ≠ 1 := by
     intro hb
     apply herr
-    rw [partialPrimeWheel_error_eq y upper hnpos hnupper, if_pos hb]
+    rw [partialPrimeWheel_error_eq y upper hnpos hnupper, ite_eq_left hb]
   have hfactorNonzero :
       μ (primeWheelResolvedPart y n) *
           (1 + μ (primeWheelUnresolvedPart y n)) ≠ 0 := by
     intro hzero
     apply herr
-    rw [partialPrimeWheel_error_eq y upper hnpos hnupper, if_neg hb1, hzero]
+    rw [partialPrimeWheel_error_eq y upper hnpos hnupper, ite_eq_right hb1, hzero]
   have hsecond : 1 + μ (primeWheelUnresolvedPart y n) ≠ 0 := by
     intro hzero
     apply hfactorNonzero
@@ -47,12 +47,12 @@ theorem partialPrimeWheel_nonzero_error_factorization_of_two_mul_sq
     dsimp [q]
     exact Nat.minFac_prime hb1
   have hqDvd : q ∣ primeWheelUnresolvedPart y n := by
-    simpa [q] using Nat.minFac_dvd (primeWheelUnresolvedPart y n)
+    simpa [q] using! Nat.minFac_dvd (primeWheelUnresolvedPart y n)
   have hqPF : q ∈ (primeWheelUnresolvedPart y n).primeFactors :=
     Nat.mem_primeFactors.mpr ⟨hqPrime, hqDvd, hb0⟩
   have hyq : y < q := primeWheelUnresolvedPart_primeFactor_gt hqPF
   have hqSqLe : q ^ 2 ≤ primeWheelUnresolvedPart y n := by
-    simpa [q] using Nat.minFac_sq_le_self hbpos hbNotPrime
+    simpa [q] using! Nat.minFac_sq_le_self hbpos hbNotPrime
   have hySqLtqSq : y ^ 2 < q ^ 2 :=
     Nat.pow_lt_pow_left hyq (by omega)
   have hySqLtb : y ^ 2 < primeWheelUnresolvedPart y n :=
@@ -74,18 +74,18 @@ theorem partialPrimeWheel_nonzero_error_factorization_of_two_mul_sq
       _ < 2 * y ^ 2 := hscale
     exact (Nat.lt_irrefl _ hcontr)
   have hbEqN : primeWheelUnresolvedPart y n = n := by
-    simpa [ha] using hab
+    simpa [ha] using! hab
   let r := primeWheelUnresolvedPart y n / q
   have hqr : q * r = primeWheelUnresolvedPart y n := by
     dsimp [r]
     exact Nat.mul_div_cancel' hqDvd
   have hqLeR : q ≤ r := by
-    simpa [q, r] using Nat.minFac_le_div hbpos hbNotPrime
+    simpa [q, r] using! Nat.minFac_le_div hbpos hbNotPrime
   have hr2 : 2 ≤ r := hqPrime.two_le.trans hqLeR
   have hrpos : 0 < r := by omega
   have hrDvdB : r ∣ primeWheelUnresolvedPart y n := by
     refine ⟨q, ?_⟩
-    simpa [mul_comm] using hqr.symm
+    simpa [mul_comm] using! hqr.symm
   have hrPrime : Nat.Prime r := by
     by_contra hrNotPrime
     have hr1 : r ≠ 1 := by omega
@@ -94,14 +94,14 @@ theorem partialPrimeWheel_nonzero_error_factorization_of_two_mul_sq
       dsimp [s]
       exact Nat.minFac_prime hr1
     have hsDvdR : s ∣ r := by
-      simpa [s] using Nat.minFac_dvd r
+      simpa [s] using! Nat.minFac_dvd r
     have hsDvdB : s ∣ primeWheelUnresolvedPart y n :=
       dvd_trans hsDvdR hrDvdB
     have hsPF : s ∈ (primeWheelUnresolvedPart y n).primeFactors :=
       Nat.mem_primeFactors.mpr ⟨hsPrime, hsDvdB, hb0⟩
     have hys : y < s := primeWheelUnresolvedPart_primeFactor_gt hsPF
     have hsSqLeR : s ^ 2 ≤ r := by
-      simpa [s] using Nat.minFac_sq_le_self hrpos hrNotPrime
+      simpa [s] using! Nat.minFac_sq_le_self hrpos hrNotPrime
     have hySqLtsSq : y ^ 2 < s ^ 2 :=
       Nat.pow_lt_pow_left hys (by omega)
     have hySqLtR : y ^ 2 < r := hySqLtsSq.trans_le hsSqLeR
@@ -142,24 +142,24 @@ theorem partialPrimeWheel_nonzero_error_classification_of_two_mul_sq
   have hb1 : primeWheelUnresolvedPart y n ≠ 1 := by
     intro hb
     apply herr
-    rw [partialPrimeWheel_error_eq y upper hnpos hnupper, if_pos hb]
+    rw [partialPrimeWheel_error_eq y upper hnpos hnupper, ite_eq_left hb]
   have hn : n ≠ 0 := Nat.ne_of_gt hnpos
   have hab := primeWheelResolvedPart_mul_unresolvedPart y hn
   have hbEqN : primeWheelUnresolvedPart y n = n := by
-    simpa [ha] using hab
+    simpa [ha] using! hab
   have herrFormula :
       μ n - partialPrimeWheelSite y upper n = 1 + μ n := by
-    rw [partialPrimeWheel_error_eq y upper hnpos hnupper, if_neg hb1]
+    rw [partialPrimeWheel_error_eq y upper hnpos hnupper, ite_eq_right hb1]
     simp [ha, hbEqN]
   by_cases hqrEq : q = r
   · left
     subst r
     have hnq2 : n = q ^ 2 := by
-      simpa [pow_two] using hnqr
+      simpa [pow_two] using! hnqr
     refine ⟨q, hqPrime, hyq, hnq2, ?_⟩
     have hnsq : ¬ Squarefree n := by
       rw [hnq2, Nat.squarefree_iff_prime_squarefree]
-      push_neg
+      push Not
       exact ⟨q, hqPrime, by simp [pow_two]⟩
     have hmu0 := ArithmeticFunction.moebius_eq_zero_of_not_squarefree hnsq
     rw [herrFormula, hmu0]

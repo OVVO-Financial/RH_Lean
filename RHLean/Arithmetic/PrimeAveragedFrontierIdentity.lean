@@ -28,6 +28,6 @@ theorem card_nsmul_moebiusPrefix_eq_sum_primeFrontiers
       ∑ ell ∈ primesUpTo X,
         ∑ t ∈ primeProductFirstFailureBoundary (primesUpTo X) X ell,
           μ (primeFaceProduct t) := by
-  simpa using sum_moebiusPrefix_eq_sum_primeFrontiers X
+  simpa using! sum_moebiusPrefix_eq_sum_primeFrontiers X
 
 end RHLean.Arithmetic

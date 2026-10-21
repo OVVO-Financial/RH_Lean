@@ -106,7 +106,7 @@ theorem adaptiveWeightedMass_eq_adaptiveCarrier_add_weightedLedger
             squareRootCanonicalRoughAdaptiveWeightedMass R U' a' +
               squareRootCanonicalRoughAdaptiveWeightedPhysicalDefectMass R p U a +
               squareRootCanonicalRoughAdaptiveCoefficientMismatchMass R p U a := by
-          simpa [U', a'] using hone
+          simpa [U', a'] using! hone
         _ = (squareRootCanonicalRoughAdaptiveWeightedMass R
               (squareRootCanonicalRoughAdaptiveCarrier ps U')
               (squareRootCanonicalRoughAdaptiveCoefficient ps U' a') +
@@ -137,7 +137,7 @@ theorem sum_correlationReciprocal_eq_adaptiveWeightedUnitCarrier_add_ledger
       squareRootCanonicalRoughAdaptiveWeightedLedger R ps U (fun _ => (1 : ℂ)) := by
   have h := adaptiveWeightedMass_eq_adaptiveCarrier_add_weightedLedger
     R hR ps U (fun _ => (1 : ℂ)) hprime
-  simpa [squareRootCanonicalRoughAdaptiveWeightedMass] using h
+  simpa [squareRootCanonicalRoughAdaptiveWeightedMass] using! h
 
 /-! ## Actual descending zero-factor coefficients -/
 
@@ -166,7 +166,7 @@ theorem squareRootCanonicalRoughAdaptiveRawCoefficient_eq_zero_of_eq_zero
     squareRootCanonicalRoughAdaptiveRawCoefficient ps U a n = 0 := by
   induction ps generalizing U a with
   | nil =>
-      simpa [squareRootCanonicalRoughAdaptiveRawCoefficient] using ha
+      simpa [squareRootCanonicalRoughAdaptiveRawCoefficient] using! ha
   | cons p ps ih =>
       apply ih
         (U := squareRootCanonicalRoughAdaptiveNextCarrier p U)
@@ -315,7 +315,7 @@ theorem squareRootCanonicalRoughAdaptiveRawMismatchMass_evolved_eq_zero_of_compl
     have hqProd : q ≤ q * (c * p) := Nat.le_mul_of_pos_right q hcpPos
     have hqUpper : q ≤ squareRootEndpoint R := by
       have hqProd' : q ≤ (c * p) * q := by
-        simpa [Nat.mul_comm] using hqProd
+        simpa [Nat.mul_comm] using! hqProd
       exact hqProd'.trans hupper
     rcases hcomplete.2 q hqPrime hpq hqUpper with
       ⟨pre, post, hsplit, hprePrime, hpreLarger⟩
@@ -352,7 +352,7 @@ theorem evolvedRawCoefficient_mul_childRaw_eq_zero_of_completeDescendingPrefix
     have hcpPos : 0 < c * p := Nat.mul_pos hc hp.pos
     have hqUpper : q ≤ squareRootEndpoint R := by
       have hqProd : q ≤ (c * p) * q := by
-        simpa [Nat.mul_comm] using (Nat.le_mul_of_pos_right q hcpPos)
+        simpa [Nat.mul_comm] using! (Nat.le_mul_of_pos_right q hcpPos)
       exact hqProd.trans hupper
     rcases hcomplete.2 q hqPrime hpq hqUpper with
       ⟨pre, post, hsplit, hprePrime, hpreLarger⟩

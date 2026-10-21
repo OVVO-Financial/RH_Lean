@@ -76,7 +76,7 @@ theorem k2MertensAbelTerm_two_mul_log_summable :
             |k2LogRecipWeight 2 N - k2LogRecipWeight 2 (N + 1)|) := by
         apply mul_le_mul_of_nonneg_left
         · apply mul_le_mul_of_nonneg_right
-          · simpa [r, strongMertensScale, one_div] using hM N hN
+          · simpa [r, strongMertensScale, one_div] using! hM N hN
           · exact abs_nonneg _
         · exact Real.log_nonneg hN1
     _ ≤ Real.log (N : ℝ) *
@@ -114,7 +114,7 @@ theorem k2MertensAbelTerm_two_tail_mul_log_tendsto_zero :
             ‖Real.log ((i + N : ℕ) : ℝ) *
               k2MertensAbelTerm 2 (i + N)‖)
         atTop (𝓝 0) := by
-    simpa [Nat.add_comm] using
+    simpa [Nat.add_comm] using!
       (tendsto_sum_nat_add
         (fun n : ℕ => ‖Real.log (n : ℝ) * k2MertensAbelTerm 2 n‖))
   rw [tendsto_zero_iff_norm_tendsto_zero]
@@ -171,7 +171,7 @@ theorem k2r_mul_log_tendsto_zero_from_strongMertens :
             Real.log (N : ℝ) *
               (∑' i : ℕ, k2MertensAbelTerm 2 (i + N)))
         atTop (𝓝 0) := by
-    simpa using hend3.sub htail
+    simpa using! hend3.sub htail
   refine hcombined.congr fun N => ?_
   have hsum := k2MertensAbelTerm_two_summable.sum_add_tsum_nat_add N
   have hmom := k2MobiusLogMoment_abel 2 N

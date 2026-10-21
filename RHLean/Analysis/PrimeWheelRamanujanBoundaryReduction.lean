@@ -64,10 +64,10 @@ theorem ramanujanDivisorKernel_sub_eq_shift
   have hiff := modEq_sub_val_zero_iff hdN a b
   by_cases hmod : Nat.ModEq d (b - a).val 0
   · have hshift : Nat.ModEq d b.val a.val := hiff.mp hmod
-    rw [if_pos hmod, if_pos hshift]
+    rw [ite_eq_left hmod, ite_eq_left hshift]
   · have hshift : ¬ Nat.ModEq d b.val a.val :=
       fun h => hmod (hiff.mpr h)
-    rw [if_neg hmod, if_neg hshift]
+    rw [ite_eq_right hmod, ite_eq_right hshift]
 
 /-- Any value-dependent sum over the pinned torus prefix is exactly the
 corresponding natural sum over `(lower,x]`. -/
@@ -295,7 +295,7 @@ theorem primeWheelSmoothConductorResponse_eq_kernelPairing
               apply Finset.sum_congr rfl
               intro r hr
               by_cases hcond : q = reducedAdditiveConductor r
-              · simp only [hcond, if_true]
+              · simp only [hcond, ite_true]
                 rw [Finset.sum_mul]
                 apply Finset.sum_congr rfl
                 intro a ha
@@ -329,7 +329,7 @@ theorem primeWheelSmoothConductorResponse_eq_kernelPairing
               apply Finset.sum_congr rfl
               intro r hr
               by_cases hcond : q = reducedAdditiveConductor r
-              · simp only [hcond, if_true]
+              · simp only [hcond, ite_true]
                 have hchar :
                     ZMod.stdAddChar (-(a * r)) *
                         ZMod.stdAddChar (-(b * (-r))) =
@@ -503,7 +503,7 @@ theorem reducedConductor_dvd_modulus
     (r : ZMod W.modulus) :
     reducedAdditiveConductor r ∣ W.modulus := by
   rw [reducedAdditiveConductor_eq_addOrderOf W r]
-  simpa using (addOrderOf_dvd_card (x := r))
+  simpa using! (addOrderOf_dvd_card (x := r))
 
 /-- Final exact signed arithmetic packet.  For every occupied nontrivial shell,
 the only remaining objects are the actual common raw shell coefficient and

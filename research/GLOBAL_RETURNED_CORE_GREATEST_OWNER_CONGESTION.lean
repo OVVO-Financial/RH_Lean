@@ -53,14 +53,14 @@ theorem arbitrary_mixed_child_mem_covarianceOwnerChildCandidates
   rw [← hparent]
   rcases hmix with hmix | hmix
   · rcases hmix with ⟨hm, hn⟩
-    have hmn' : p * um < un := by simpa [hm, hn] using hmn
+    have hmn' : p * um < un := by simpa [hm, hn] using! hmn
     rw [hm, hn]
     by_cases hum : um < un
     · simp [covarianceOwnerChildCandidates, covarianceOrderedPair, hum, hmn']
     · have hnot : ¬ un < p * um := by omega
       simp [covarianceOwnerChildCandidates, covarianceOrderedPair, hum, hnot]
   · rcases hmix with ⟨hm, hn⟩
-    have hmn' : um < p * un := by simpa [hm, hn] using hmn
+    have hmn' : um < p * un := by simpa [hm, hn] using! hmn
     rw [hm, hn]
     by_cases hum : um < un
     · simp [covarianceOwnerChildCandidates, covarianceOrderedPair, hum, hmn']
@@ -82,11 +82,11 @@ theorem revealedCrossPair_parentCube
   rcases hxor with h | h
   · left
     unfold squarefreePrimeFamilyParent
-    rw [if_pos h.1, if_neg h.2]
+    rw [ite_eq_left h.1, ite_eq_right h.2]
     exact ⟨(Nat.mul_div_cancel' h.1).symm, rfl⟩
   · right
     unfold squarefreePrimeFamilyParent
-    rw [if_neg h.2, if_pos h.1]
+    rw [ite_eq_right h.2, ite_eq_left h.1]
     exact ⟨rfl, (Nat.mul_div_cancel' h.1).symm⟩
 
 /-- Every fixed-parent greatest-owner child lies in the two mixed candidates. -/
@@ -102,7 +102,7 @@ theorem lowOwnerGreatestOwnerFixedParentChildFiber_subset_candidates
   let un := squarefreePrimeFamilyParent p n
   have hparent' : covarianceOrderedPair um un = parent := by
     simpa [squarefreePairPrimeOrderedParent, covarianceOrderedPair, um, un]
-      using hparent
+      using! hparent
   have hmix := revealedCrossPair_parentCube hcross
   dsimp only at hmix
   exact arbitrary_mixed_child_mem_covarianceOwnerChildCandidates
@@ -250,7 +250,7 @@ theorem lowOwnerGreatestOwnerReciprocalOutgoingEnergy_le_79_over_81
   have hbudgetR :
       (∑ p ∈ primesUpTo (squareRootEndpoint R),
         (1 : ℝ) / (p : ℝ) ^ 2) ≤ 79 / 162 := by
-    simpa [Nat.cast_pow] using hbudgetCast
+    simpa [Nat.cast_pow] using! hbudgetCast
   have hE := postRootCovarianceReciprocalPairEnergy_nonneg parent
   nlinarith
 
@@ -298,7 +298,7 @@ theorem lowOwnerGreatestOwnerFixedParentChildFiber_card_le_one_of_clipped
     (lowOwnerGreatestOwnerFixedParentChildFiber R parent p).card ≤ 1 := by
   have hcard := Finset.card_le_card
     (lowOwnerGreatestOwnerFixedParentChildFiber_subset_singleton_of_clipped hclip)
-  simpa using hcard
+  simpa using! hcard
 
 /-- Reciprocal energy on the clipped portion of the greatest-owner graph. -/
 def lowOwnerGreatestOwnerClippedOutgoingEnergy
@@ -327,7 +327,7 @@ theorem lowOwnerGreatestOwnerClippedOutgoingEnergy_le_79_over_162
       apply Finset.sum_le_sum
       intro p hpMem
       by_cases hclip : squareRootEndpoint R < p * parent.2
-      · simp only [hclip, if_true]
+      · simp only [hclip, ite_true]
         rw [sum_lowOwnerGreatestOwnerFixedParentChild_energy_eq
           (mem_primesUpTo.mp hpMem).1]
         have hmultNat :=
@@ -343,7 +343,7 @@ theorem lowOwnerGreatestOwnerClippedOutgoingEnergy_le_79_over_162
           exact div_le_div_of_nonneg_right hmult (by positivity)
         exact mul_le_mul_of_nonneg_right hscale
           (postRootCovarianceReciprocalPairEnergy_nonneg parent)
-      · simp only [hclip, if_false]
+      · simp only [hclip, ite_false]
         exact mul_nonneg
           (div_nonneg (by norm_num) (sq_nonneg (p : ℝ)))
           (postRootCovarianceReciprocalPairEnergy_nonneg parent)
@@ -365,7 +365,7 @@ theorem lowOwnerGreatestOwnerClippedOutgoingEnergy_le_79_over_162
       have hbudgetR :
           (∑ p ∈ primesUpTo (squareRootEndpoint R),
             (1 : ℝ) / (p : ℝ) ^ 2) ≤ 79 / 162 := by
-        simpa [Nat.cast_pow] using hbudgetCast
+        simpa [Nat.cast_pow] using! hbudgetCast
       exact mul_le_mul_of_nonneg_right hbudgetR
         (postRootCovarianceReciprocalPairEnergy_nonneg parent)
 

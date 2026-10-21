@@ -92,7 +92,7 @@ theorem abs_vfMidSquareEndpointError_le_of_optimalBase_radial_inside
       vfMidPrimeError ((R : ℝ) ^ 2)
     exact vfMidDirectSquareEndpointError_eq_vfMidPrimeError hR
   rw [heq]
-  simpa [vfMidRadialWallWidth, vfMidPrimeError] using hbound
+  simpa [vfMidRadialWallWidth, vfMidPrimeError] using! hbound
 
 /-- Crossing above the upper optimal-base wall is exactly a strict positive
 count-space error beyond that radial wall. -/
@@ -248,7 +248,7 @@ theorem vfMidOptimalBase_upperFirstEscape_forces_energy
         |vfMidSquareEndpointError R| ^ 2 ≤
           vfMidRadialWallWidth K R ^ 2 :=
       (sq_le_sq₀ (abs_nonneg _) hW0).2 hprev
-    simpa [sq_abs] using hs
+    simpa [sq_abs] using! hs
   have hnext0 :
       0 ≤ vfMidSquareEndpointError (R + 1) :=
     hW10.trans (le_of_lt hnext)
@@ -304,7 +304,7 @@ theorem vfMidActualLiCenteredCrossGram_eq_quarter_zeroTarget
       intro n hn
       apply Finset.sum_congr rfl
       intro m hm
-      simpa using
+      simpa using!
         (vfMidActualLiCenteredPair_eq_quarter_zeroTargetExcess_of_cube
           hA hAR hAS hcubeR hcubeS hn hm)
     _ =

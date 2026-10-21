@@ -68,7 +68,7 @@ theorem tCellObservableReal_sq_le_nine (s : TSignState) :
   have hInt := tCellObservableInt_sq_le_nine s
   have hReal : ((tCellObservableInt s : ℝ) ^ 2) ≤ 9 := by
     exact_mod_cast hInt
-  simpa [tCellObservableReal] using hReal
+  simpa [tCellObservableReal] using! hReal
 
 /-! ## Exact deterministic square expansion -/
 
@@ -354,7 +354,7 @@ theorem mertensEnergyBounded_of_positiveLagUpperBounded
   have hexp : (1 : ℝ) ≤ 1 + ε := by linarith
   have hlinear :
       (K : ℝ) ≤ Real.rpow (K : ℝ) (1 + ε) := by
-    simpa only [Real.rpow_one] using
+    simpa only [Real.rpow_eq_pow, Real.rpow_one] using!
       Real.rpow_le_rpow_of_exponent_le hbase hexp
   rw [norm_mertensSummatory_sq_eq_realMertensLength_sq]
   change realMertensLength K ^ 2 ≤
@@ -364,7 +364,7 @@ theorem mertensEnergyBounded_of_positiveLagUpperBounded
         (K : ℝ) + 2 * C * Real.rpow (K : ℝ) (1 + ε) := hprefix
     _ ≤ Real.rpow (K : ℝ) (1 + ε) +
         2 * C * Real.rpow (K : ℝ) (1 + ε) := by
-      exact add_le_add_right hlinear _
+      exact add_le_add_left hlinear _
     _ = D * Real.rpow (K : ℝ) (1 + ε) := by
       dsimp [D]
       ring
@@ -443,7 +443,7 @@ theorem realMoebiusStep_mul_prime_eq_neg
     rw [ArithmeticFunction.isMultiplicative_moebius.map_mul_of_coprime hcop]
     rw [ArithmeticFunction.moebius_apply_prime hp]
     simp
-  simpa [realMoebiusStep] using congrArg (fun z : ℤ => (z : ℝ)) hmu
+  simpa [realMoebiusStep] using! congrArg (fun z : ℤ => (z : ℝ)) hmu
 
 /-- **Fresh-prime four-corner cancellation with the physical cutoff retained.**
 All Möbius dependence factors into the old pair weight; the new geometry is the

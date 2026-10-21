@@ -266,17 +266,18 @@ theorem abs_vfMid_partialBandQuadratureError_le
     have htTile :
         t ∈ Icc ((r : ℝ) ^ 2) ((((r + 1 : ℕ) : ℝ) ^ 2)) := by
       constructor
-      · simpa [a] using ht.1
+      · simpa [a] using! ht.1
       · exact ht.2.trans hyu
     have hmTile :
         m ∈ Icc ((r : ℝ) ^ 2) ((((r + 1 : ℕ) : ℝ) ^ 2)) := by
       constructor
-      · simpa [a] using hm_mem.1
+      · simpa [a] using! hm_mem.1
       · exact hm_mem.2.trans hyu
     have hLip :=
       Convex.norm_image_sub_le_of_norm_deriv_le
         (s := Icc ((r : ℝ) ^ 2) ((((r + 1 : ℕ) : ℝ) ^ 2)))
         (f := fun u : ℝ => (Real.log u)⁻¹)
+        (C := (Real.log 4 ^ 2)⁻¹ * ((r : ℝ) ^ 2)⁻¹)
         (x := m) (y := t)
         (fun u hu => by
           have hu4 : (4 : ℝ) ≤ u := by
@@ -289,17 +290,17 @@ theorem abs_vfMid_partialBandQuadratureError_le
           have hlog0 : Real.log u ≠ 0 := ne_of_gt (Real.log_pos hu1)
           exact ((Real.hasDerivAt_log hu0).inv hlog0).differentiableAt)
         (fun u hu => by
-          simpa [K, a, Real.norm_eq_abs] using
-            abs_deriv_inv_log_le_squareTile hr hu)
+          rw [Real.norm_eq_abs]
+          exact (abs_deriv_inv_log_le_squareTile hr hu).trans (le_of_eq (by ring)))
         (convex_Icc _ _) hmTile htTile
     have hKnorm :
         (Real.log 4 ^ 2)⁻¹ * ((r : ℝ) ^ 2)⁻¹ = K := by
       dsimp [K, a]
       field_simp
     rw [hKnorm] at hLip
-    simpa [Real.norm_eq_abs, abs_sub_comm] using hLip
+    simpa [Real.norm_eq_abs, abs_sub_comm] using! hLip
   have hwidth : 0 ≤ h := by dsimp [h, a]; linarith
-  have hay : a ≤ y := by simpa [a] using hyl
+  have hay : a ≤ y := by simpa [a] using! hyl
   have hdist : ∀ t ∈ Icc a y, |t - m| ≤ h := by
     intro t ht
     rw [abs_le]
@@ -329,12 +330,12 @@ theorem abs_vfMid_partialBandQuadratureError_le
         (f := fun t : ℝ => (Real.log m)⁻¹ - (Real.log t)⁻¹)
         (fun t ht => by
           rw [uIoc_of_le hyl] at ht
-          simpa [Real.norm_eq_abs] using hpoint t (Ioc_subset_Icc_self ht))
-    simpa [h, abs_of_nonneg hwidth] using hnorm
+          simpa [Real.norm_eq_abs] using! hpoint t (Ioc_subset_Icc_self ht))
+    simpa [h, abs_of_nonneg hwidth] using! hnorm
   have hh : h ≤ 3 * (r : ℝ) := by
     dsimp [h, a]
     have hycast : y ≤ ((r : ℝ) + 1) ^ 2 := by
-      simpa [Nat.cast_add, Nat.cast_one] using hyu
+      simpa [Nat.cast_add, Nat.cast_one] using! hyu
     nlinarith
   have hrsq : 0 < (r : ℝ) ^ 2 := by positivity
   have hlog4sq : 0 < Real.log 4 ^ 2 := by
@@ -384,7 +385,7 @@ theorem abs_vfMidLiveQuadratureError_le
     (hxl : (R : ℝ) ^ 2 ≤ x)
     (hxu : x ≤ (((R + 1 : ℕ) : ℝ) ^ 2)) :
     |vfMidLiveQuadratureError R x| ≤ vfMidTileQuadratureBound := by
-  simpa [vfMidLiveQuadratureError, vfMidLiveIntegral] using
+  simpa [vfMidLiveQuadratureError, vfMidLiveIntegral] using!
     abs_vfMid_partialBandQuadratureError_le (r := R) hR hxl hxu
 
 
@@ -482,7 +483,7 @@ theorem vfMidLiError_eq_sq_add_live {x : ℝ} (hx : 4 ≤ x) :
   unfold vfMidLiError
   rw [vfMid_sq hR]
   unfold vfMid vfMidLiveMass vfMidLiveQuadratureError vfMidLiveIntegral
-  rw [if_neg (not_lt.mpr hx)]
+  rw [ite_eq_right (not_lt.mpr hx)]
   change
     vfMidFinishedMass R +
         (x - (R : ℝ) ^ 2) / Real.log (((R : ℝ) ^ 2 + x) / 2) -
@@ -514,7 +515,7 @@ theorem vfMidSquareRootIndex_bounds {x : ℝ} (hx : 4 ≤ x) :
     exact Nat.floor_le (Real.sqrt_nonneg x)
   have hsqrtlt : Real.sqrt x < (R : ℝ) + 1 := by
     dsimp [R, vfMidSquareRootIndex]
-    simpa [Nat.cast_add, Nat.cast_one] using
+    simpa [Nat.cast_add, Nat.cast_one] using!
       (Nat.lt_floor_add_one (Real.sqrt x))
   have hxl : (R : ℝ) ^ 2 ≤ x := by
     have hs := Real.sq_sqrt hx0
@@ -573,11 +574,11 @@ theorem vfMidLiRootBounded :
       dsimp [A]
       exact abs_nonneg _
     have hA : A ≤ A * Real.sqrt x := by
-      simpa using mul_le_mul_of_nonneg_left hsqrt1 hA0
+      simpa using! mul_le_mul_of_nonneg_left hsqrt1 hA0
     have hRQ : (R : ℝ) * Q ≤ Real.sqrt x * Q :=
       mul_le_mul_of_nonneg_right hRle hQ0
     have hQ : Q ≤ Q * Real.sqrt x := by
-      simpa [mul_comm] using mul_le_mul_of_nonneg_left hsqrt1 hQ0
+      simpa [mul_comm] using! mul_le_mul_of_nonneg_left hsqrt1 hQ0
     rw [hdecomp]
     calc
       |vfMidLiError ((R : ℝ) ^ 2) + vfMidLiveQuadratureError R x|
@@ -629,7 +630,7 @@ theorem abs_vfMidPrimeError_sub_square_le {x : ℝ} (hx : 4 ≤ x) :
   change x ≤ (((R + 1 : ℕ) : ℝ) ^ 2) at hxu
   have hRreal : (2 : ℝ) ≤ R := by exact_mod_cast hR
   have hx0 : 0 ≤ x := by linarith
-  have hfloor : R ^ 2 ≤ ⌊x⌋₊ := Nat.le_floor (by simpa using hxl)
+  have hfloor : R ^ 2 ≤ ⌊x⌋₊ := Nat.le_floor (by simpa using! hxl)
   have hp0 : (Nat.primeCounting (R ^ 2) : ℝ) ≤ Nat.primeCounting ⌊x⌋₊ := by
     exact_mod_cast Nat.monotone_primeCounting hfloor
   have hp := vfMid_primeCounting_add_le (R ^ 2) (⌊x⌋₊ - R ^ 2)
@@ -671,7 +672,7 @@ theorem abs_vfMidPrimeError_sub_square_le {x : ℝ} (hx : 4 ≤ x) :
         (Nat.primeCounting (R ^ 2) : ℝ) := by
       simp [vfMidPrimeCount, ← Nat.cast_pow]
     rw [hcount]
-    simp only [vfMid, if_neg (not_lt.mpr hx), vfMidPrimeCount]
+    simp only [vfMid, ite_eq_right (not_lt.mpr hx), vfMidPrimeCount]
     change _ - (Nat.primeCounting (R ^ 2) - vfMidFinishedMass R) = _
     ring
   change |vfMidPrimeError x - vfMidPrimeError ((R : ℝ) ^ 2)| ≤ _
@@ -738,7 +739,7 @@ theorem vfMidSquareEndpointVonKochBounded_iff :
   have hRreal : (2 : ℝ) ≤ R := by exact_mod_cast hR
   have hsq : (4 : ℝ) ≤ (R : ℝ) ^ 2 := by nlinarith
   have h := hC ((R : ℝ) ^ 2) hsq
-  simpa [Real.log_pow, mul_assoc, mul_left_comm, mul_comm] using h
+  simpa [Real.log_pow, mul_assoc, mul_left_comm, mul_comm] using! h
 
 /-- Classical prime-count form of the von-Koch scale, expressed using the same
 real prime-count staircase and the repository's logarithmicIntegralFromTwo. -/
@@ -814,7 +815,7 @@ theorem primeLiVonKochBounded_of_vfMid
         C * Real.sqrt x * Real.log x + B * Real.sqrt x
             ≤ C * Real.sqrt x * Real.log x +
                 (B / ell) * Real.sqrt x * Real.log x :=
-          add_le_add_left hroot _
+          add_le_add_right hroot _
         _ = (C + B / ell) * Real.sqrt x * Real.log x := by ring
 
 /-- Conversely, the classical prime-minus-Li von-Koch bound and the proved
@@ -858,7 +859,7 @@ theorem vfMidVonKochBounded_of_primeLi
         C * Real.sqrt x * Real.log x + B * Real.sqrt x
             ≤ C * Real.sqrt x * Real.log x +
                 (B / ell) * Real.sqrt x * Real.log x :=
-          add_le_add_left hroot _
+          add_le_add_right hroot _
         _ = (C + B / ell) * Real.sqrt x * Real.log x := by ring
 
 /-- With the unconditional midpoint quadrature theorem installed, the direct

@@ -108,8 +108,7 @@ theorem vf919FirstOwnerChild_sum_eq_returnedParents
       _ = m := Nat.mul_div_cancel' hmDvd
   · intro a ha
     refine ⟨p * a, lowOwnerFirstOwner_mul_mem_child_of_admitted hp ha, ?_⟩
-    change (p * a) / p = a
-    simpa [Nat.mul_comm] using Nat.mul_div_left a hp.pos
+    simpa [Nat.mul_comm] using! Nat.mul_div_left a hp.pos
   · intro n hn
     have hnDvd := (Finset.mem_filter.mp hn).2.2
     rw [Nat.mul_div_cancel' hnDvd]
@@ -122,7 +121,7 @@ theorem vf919FirstOwnerBase_sum_eq_admitted_add_clipped
       (∑ a ∈ lowOwnerFirstOwnerAdmittedBaseFiber R p sig, f a) +
         ∑ a ∈ lowOwnerFirstOwnerClippedBaseFiber R p sig, f a := by
   unfold lowOwnerFirstOwnerAdmittedBaseFiber lowOwnerFirstOwnerClippedBaseFiber
-  simpa only [not_le] using
+  simpa only [not_le] using!
     (Finset.sum_filter_add_sum_filter_not
       (s := lowOwnerFirstOwnerBaseFiber R p sig)
       (p := fun a => p * a ≤ squareRootEndpoint R) (f := f)).symm
@@ -252,7 +251,7 @@ theorem vf919CharacterAlignedCell_norm_sq_eq_full_physicalGram
   rw [vf919CharacterAlignedCell_eq_compensated_add_clipped chi hp hphase hmul]
   have hnorm (z w : ℂ) :
       ‖z + w‖ ^ 2 = ‖z‖ ^ 2 + ‖w‖ ^ 2 + 2 * (z * star w).re := by
-    simpa only [Complex.sq_norm] using Complex.normSq_add z w
+    simpa only [Complex.sq_norm] using! Complex.normSq_add z w
   rw [hnorm, vf919CharacterCompensatedInterior_norm_sq_eq_physicalGram chi hp]
 
 /-- Admitted parent branch, still with its complex phase attached. -/

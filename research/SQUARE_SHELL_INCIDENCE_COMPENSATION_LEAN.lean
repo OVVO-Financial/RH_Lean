@@ -75,7 +75,7 @@ private theorem shell_upper_divisor_delta
               · rintro ⟨⟨hcn, _hnzero⟩, hdc⟩
                 refine ⟨c / d, ⟨?_, hquot⟩, Nat.mul_div_cancel' hdc⟩
                 apply (Nat.dvd_div_iff_mul_dvd hdn).2
-                simpa [Nat.mul_div_cancel' hdc] using hcn
+                simpa [Nat.mul_div_cancel' hdc] using! hcn
               · rintro ⟨k, ⟨hk, _⟩, rfl⟩
                 exact ⟨⟨(Nat.dvd_div_iff_mul_dvd hdn).1 hk, by omega⟩,
                   dvd_mul_right d k⟩
@@ -113,7 +113,7 @@ private theorem shell_upper_divisor_delta
           · have hne : d ≠ n := by
               intro heq
               exact hdn (heq ▸ dvd_rfl)
-            rw [if_neg hne]
+            rw [ite_eq_right hne]
             apply Finset.sum_eq_zero
             intro c hc
             by_cases hdc : d ∣ c
@@ -247,7 +247,7 @@ theorem shellLowMoment_split_unit (R : ℕ) (F : ℕ → ℤ)
     (s := Finset.Icc 1 R)
     (f := fun d => (μ d : ℤ) * F d ^ 2) hmem
   rw [hset] at hsplit
-  simpa [add_comm] using hsplit.symm
+  simpa [add_comm] using! hsplit.symm
 
 
 /-- If one prime q>r owns two seats in the strict square shell, their

@@ -90,15 +90,15 @@ theorem nativePNTSignedSecondSelbergWheelFrontier_div_eq_one
   have hyq1 : y + 1 ≤ q := by omega
   have hyr1 : y + 1 ≤ r := by omega
   have hsqStep : (y + 1) ^ 2 ≤ q * r := by
-    simpa [pow_two] using Nat.mul_le_mul hyq1 hyr1
+    simpa [pow_two] using! Nat.mul_le_mul hyq1 hyr1
   have hySqLtSuccSq : y ^ 2 < (y + 1) ^ 2 :=
     Nat.pow_lt_pow_left (by omega) (by omega)
   have hySqLtN : y ^ 2 < n := by
     rw [hnqr]
     exact hySqLtSuccSq.trans_le hsqStep
   have hNltTwoN : N < 2 * n := by omega
-  have hlo : 1 * n ≤ N := by simpa using hnI.2
-  have hhi : N < (1 + 1) * n := by simpa using hNltTwoN
+  have hlo : 1 * n ≤ N := by simpa using! hnI.2
+  have hhi : N < (1 + 1) * n := by simpa using! hNltTwoN
   exact Nat.div_eq_of_lt_le hlo hhi
 
 @[simp] theorem nativePNTError_one : nativePNTError 1 = -1 := by
@@ -197,7 +197,7 @@ theorem nativePNTSquarePrefixHasAffineEnvelope_lowSlope_cubic_step
   have hgood : ∀ᶠ N : ℕ in atTop,
       c * (Real.log (N : ℝ)) ^ 2 ≤
         nativeLambdaTwoGoodRecipMass N beta := by
-    simpa [c] using
+    simpa [c] using!
       nativeLambdaTwoGoodRecipMass_eventually_quadratic_squarePrefix_rate
         beta hbeta hbeta1
   have himp := nativePNTSquarePrefixHasAffineEnvelope_improve_of_goodMass

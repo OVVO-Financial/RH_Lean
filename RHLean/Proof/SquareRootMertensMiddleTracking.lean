@@ -145,7 +145,7 @@ theorem squareRootMertensPositiveTracking_of_middleTracking
           (-(squareRootPositiveSmoothPrimeMertensTransform R).re -
             (squareRootNearPrimeTransport R).re)| +
         |(squareRootNearPrimeTransport R).re| := by
-          simpa [sub_eq_add_neg, abs_neg] using
+          simpa [sub_eq_add_neg, abs_neg] using!
             (abs_add_le
               ((squareRootMertensInt (squareRootEndpoint R) : ℝ) -
                 (-(squareRootPositiveSmoothPrimeMertensTransform R).re -

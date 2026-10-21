@@ -70,7 +70,7 @@ theorem nativePNT_exists_good_squarePrefix_power_shell_selector
     have hp : 2 ^ E0 ≤ 2 ^ (E0 + j * L) :=
       (Nat.pow_le_pow_iff_right Nat.one_lt_two).2 hexp
     have hA01 : A0 + 1 ≤ 2 ^ (E0 + j * L) := by
-      simpa [E0] using hE0pow.trans hp
+      simpa [E0] using! hE0pow.trans hp
     dsimp [base]
     omega
   have hExists : ∀ j : ℕ,
@@ -270,7 +270,7 @@ theorem nativeLambdaTwoGoodRecipMass_eventually_quadratic_of_squarePrefix_select
     have hnonneg : 0 ≤ Real.log (2 : ℝ) := hlog2pos.le
     have h := mul_le_mul heps1 hlog2le hnonneg
       (show (0 : ℝ) ≤ 1 by norm_num)
-    simpa using h
+    simpa using! h
   have hc1 : c ≤ 1 := by
     dsimp [c]
     have hdenpos : (0 : ℝ) < 16384 * (S : ℝ) :=
@@ -279,7 +279,7 @@ theorem nativeLambdaTwoGoodRecipMass_eventually_quadratic_of_squarePrefix_select
     exact hnum1.trans hden1
   have hepsS : eps * (S : ℝ) ≤ 200 := by
     have h := (le_div_iff₀ heps).mp hSupper
-    simpa [mul_comm] using h
+    simpa [mul_comm] using! h
   have hepsSqS : eps ^ 2 * (S : ℝ) ≤ 200 * eps := by
     have h := mul_le_mul_of_nonneg_left hepsS heps.le
     nlinarith
@@ -304,7 +304,7 @@ theorem nativeLambdaTwoGoodRecipMass_eventually_quadratic_of_squarePrefix_select
     dsimp [c]
     rw [div_le_div_iff₀ (by norm_num : (0 : ℝ) < 6600000)
       (by positivity : (0 : ℝ) < 16384 * (S : ℝ))]
-    simpa [mul_assoc, mul_left_comm, mul_comm] using hcross
+    simpa [mul_assoc, mul_left_comm, mul_comm] using! hcross
   refine ⟨c, hcrate, hc1, ?_⟩
   have hqTop : Tendsto (fun N : ℕ => Nat.log 2 N) atTop atTop := by
     refine Filter.tendsto_atTop.2 ?_
@@ -342,10 +342,10 @@ theorem nativeLambdaTwoGoodRecipMass_eventually_quadratic_of_squarePrefix_select
   have hq4two : 2 ≤ q / 4 := by omega
   have hMBq : M_B ≤ q / 4 := by
     exact (Nat.le_div_iff_mul_le (by norm_num : 0 < 4)).2
-      (by simpa [Nat.mul_comm] using hqMB)
+      (by simpa [Nat.mul_comm] using! hqMB)
   have hMlogq : M_log ≤ q / 4 := by
     exact (Nat.le_div_iff_mul_le (by norm_num : 0 < 4)).2
-      (by simpa [Nat.mul_comm] using hqMlog)
+      (by simpa [Nat.mul_comm] using! hqMlog)
   have hMfour : 4 ≤ M := by
     dsimp [M]
     have h := (Nat.pow_le_pow_iff_right Nat.one_lt_two).2 hq4two
@@ -441,7 +441,7 @@ theorem nativeLambdaTwoGoodRecipMass_eventually_quadratic_of_squarePrefix_select
         _ ≤ N := hpowq
     have hdpos : 0 < t j + nativePNTGoodForwardRadius (t j) eps + 1 := by omega
     exact (Nat.le_div_iff_mul_le hdpos).2 (by
-      simpa [Nat.mul_comm] using hdM)
+      simpa [Nat.mul_comm] using! hdM)
   have hLocalB : ∀ j < J, M ≤ N / t j := by
     intro j hjJ
     have hd := hLocalQuot j hjJ
@@ -462,7 +462,7 @@ theorem nativeLambdaTwoGoodRecipMass_eventually_quadratic_of_squarePrefix_select
     have hMBreal : (M_B : ℝ) ≤ (M : ℝ) := by exact_mod_cast hMBpow
     have h32MB : 32 < eps * (M_B : ℝ) := by
       have h := (div_lt_iff₀ heps).mp hM_B
-      simpa [mul_comm] using h
+      simpa [mul_comm] using! h
     have hmul := mul_le_mul_of_nonneg_left hMBreal heps.le
     linarith
   have hB : ∀ j < J, 32 ≤ eps * ((N / t j : ℕ) : ℝ) := by
@@ -480,7 +480,7 @@ theorem nativeLambdaTwoGoodRecipMass_eventually_quadratic_of_squarePrefix_select
     have hdenpos : 0 < eps * Real.log 2 := mul_pos heps hlog2pos
     have hCML : 64 * C < (M_log : ℝ) * (eps * Real.log 2) := by
       have h := (div_lt_iff₀ hdenpos).mp hM_log
-      simpa [mul_comm, mul_left_comm, mul_assoc] using h
+      simpa [mul_comm, mul_left_comm, mul_assoc] using! h
     have hMLq : (M_log : ℝ) ≤ ((q / 4 : ℕ) : ℝ) := by exact_mod_cast hMlogpow
     have hmul := mul_le_mul_of_nonneg_right hMLq hdenpos.le
     rw [← hlogM]
@@ -536,7 +536,7 @@ theorem nativeLambdaTwoGoodRecipMass_eventually_quadratic_of_squarePrefix_select
     exact hqJS
   have hJone : 1 ≤ J := by omega
   have hdJ : 8 * S ≤ (8 * S) * J := by
-    simpa using Nat.mul_le_mul_left (8 * S) hJone
+    simpa using! Nat.mul_le_mul_left (8 * S) hJone
   have hremJ : q % (8 * S) ≤ (8 * S) * J :=
     (Nat.le_of_lt hmod).trans hdJ
   have hJlowerNat : q ≤ 16 * S * J := by
@@ -554,7 +554,7 @@ theorem nativeLambdaTwoGoodRecipMass_eventually_quadratic_of_squarePrefix_select
     have hJreal : (q : ℝ) / (16 * (S : ℝ)) ≤ (J : ℝ) := by
       have hden : (0 : ℝ) < 16 * (S : ℝ) := by positivity
       apply (div_le_iff₀ hden).2
-      simpa [mul_assoc, mul_left_comm, mul_comm] using hJlower
+      simpa [mul_assoc, mul_left_comm, mul_comm] using! hJlower
     have hprod :
         eps * Real.log 2 / (4096 * (S : ℝ)) * (q : ℝ) ^ 2 ≤
           ((J : ℕ) : ℝ) *
@@ -572,7 +572,7 @@ theorem nativeLambdaTwoGoodRecipMass_eventually_quadratic_of_squarePrefix_select
       _ ≤ nativeLambdaTwoGoodRecipMass N eps := hpacked
   have hNpow : N < 2 ^ (q + 1) := by
     dsimp [q]
-    simpa [Nat.succ_eq_add_one] using Nat.lt_pow_succ_log_self Nat.one_lt_two N
+    simpa [Nat.succ_eq_add_one] using! Nat.lt_pow_succ_log_self Nat.one_lt_two N
   have hlogNnonneg : 0 ≤ Real.log (N : ℝ) :=
     Real.log_nonneg (by exact_mod_cast hN1)
   have hq1nat : 1 ≤ q := by omega
@@ -643,7 +643,7 @@ theorem nativePNTSquarePrefixHasAffineEnvelope_cubic_step
   have hgood : ∀ᶠ N : ℕ in atTop,
       c * (Real.log (N : ℝ)) ^ 2 ≤
         nativeLambdaTwoGoodRecipMass N beta := by
-    simpa [c] using
+    simpa [c] using!
       nativeLambdaTwoGoodRecipMass_eventually_quadratic_squarePrefix_rate
         beta hbeta hbeta1
   have himp := nativePNTHasAffineEnvelope_improve_of_goodMass
@@ -720,8 +720,8 @@ theorem nativePNTSquarePrefixCubicSlope_spec :
             nativePNTSquarePrefixCubicSlope n := by
         rw [nativePNTSquarePrefixCubicSlope_succ]
         exact sub_le_self _ hdrop
-      exact ⟨by simpa using hnextpos, hnextle.trans hle6,
-        by simpa using hnextenv⟩
+      exact ⟨by simpa using! hnextpos, hnextle.trans hle6,
+        by simpa using! hnextenv⟩
 
 /-- The square-prefix slope iteration uses the same abstract cubic theorem. -/
 theorem nativePNTSquarePrefixCubicSlope_tendsto_zero :
@@ -749,7 +749,7 @@ theorem nativePNTSquarePrefixCubicSlope_rate (n : ℕ) :
             (nativePNTSquarePrefixCubicSlope m) ^ 3 := by
     intro m
     rw [nativePNTSquarePrefixCubicSlope_succ]
-  simpa using
+  simpa using!
     (cubic_recurrence_rate nativePNTSquarePrefixCubicSlope
       nativePNTSquarePrefixCubicConstant hC hnonneg hrec n)
 

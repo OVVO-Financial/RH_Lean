@@ -92,7 +92,7 @@ theorem lowWheelCanonicalDowncross_firstFailure_geometry
     Nat.mul_div_cancel' hpk
   dsimp [lowWheelCanonicalDowncrossPivot, lowWheelCanonicalDowncrossParent]
   refine ⟨hp, hpc, hpk, hparent, ?_, ?_⟩
-  · simpa [Nat.mul_assoc, Nat.mul_left_comm, Nat.mul_comm] using hchild
+  · simpa [Nat.mul_assoc, Nat.mul_left_comm, Nat.mul_comm] using! hchild
   · calc
       c * (lowWheelCanonicalCofactorQuotientPivot (c, k) *
           (primeFaceProduct t *
@@ -237,13 +237,13 @@ theorem lowWheelCanonicalDowncrossOriented_quotient_eq_pivot
   dsimp only at hgeom
   let p := lowWheelCanonicalDowncrossPivot (c, k)
   let u := k / p
-  have hp : p.Prime := by simpa [p] using hgeom.1
-  have hpk : p ∣ k := by simpa [p] using hgeom.2.2.1
+  have hp : p.Prime := by simpa [p] using! hgeom.1
+  have hpk : p ∣ k := by simpa [p] using! hgeom.2.2.1
   have hkCancel : p * u = k := by
-    simpa [u, p] using Nat.mul_div_cancel' hpk
+    simpa [u, p] using! Nat.mul_div_cancel' hpk
   by_cases hu : u = 1
-  · have hpkEq : p = k := by simpa [hu] using hkCancel
-    simpa [p] using hpkEq.symm
+  · have hpkEq : p = k := by simpa [hu] using! hkCancel
+    simpa [p] using! hpkEq.symm
   · exfalso
     have hqPrime : (Nat.minFac u).Prime := Nat.minFac_prime hu
     have hqDvdU : Nat.minFac u ∣ u := Nat.minFac_dvd u
@@ -297,7 +297,7 @@ theorem lowWheelCanonicalDowncrossOriented_facePrime_lt_pivot
   have hqPrime : q.Prime :=
     prime_of_mem_primesUpTo ((Finset.mem_powerset.mp ht) hq)
   have hqDvdFace : q ∣ primeFaceProduct t := by
-    simpa [primeFaceProduct] using Finset.dvd_prod_of_mem id hq
+    simpa [primeFaceProduct] using! Finset.dvd_prod_of_mem id hq
   have hqDvdParent : q ∣ lowWheelCanonicalDowncrossParent t (c, k) := by
     rw [hparent]
     exact hqDvdFace

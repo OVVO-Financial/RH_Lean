@@ -102,7 +102,7 @@ theorem squareWheelSampleRatio_ne_one
       _ = (W.modulus : ℂ) := by ring
   have hreal :
       (squareWheelSampleLength W n : ℝ) = (W.modulus : ℝ) := by
-    simpa using congrArg Complex.re hcast
+    simpa using! congrArg Complex.re hcast
   have hnat : squareWheelSampleLength W n = W.modulus := by
     exact_mod_cast hreal
   exact (Nat.ne_of_lt hNlt) hnat

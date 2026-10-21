@@ -34,13 +34,13 @@ theorem partialPrimeWheel_nonzero_error_unresolved_semiprime_of_depth
   have hb1 : primeWheelUnresolvedPart y n ≠ 1 := by
     intro hb
     apply herr
-    rw [partialPrimeWheel_error_eq y upper hnpos hnupper, if_pos hb]
+    rw [partialPrimeWheel_error_eq y upper hnpos hnupper, ite_eq_left hb]
   have hfactorNonzero :
       μ (primeWheelResolvedPart y n) *
           (1 + μ (primeWheelUnresolvedPart y n)) ≠ 0 := by
     intro hzero
     apply herr
-    rw [partialPrimeWheel_error_eq y upper hnpos hnupper, if_neg hb1, hzero]
+    rw [partialPrimeWheel_error_eq y upper hnpos hnupper, ite_eq_right hb1, hzero]
   have hsecond : 1 + μ (primeWheelUnresolvedPart y n) ≠ 0 := by
     intro hzero
     apply hfactorNonzero
@@ -58,7 +58,7 @@ theorem partialPrimeWheel_nonzero_error_unresolved_semiprime_of_depth
     dsimp [q]
     exact Nat.minFac_prime hb1
   have hqDvd : q ∣ primeWheelUnresolvedPart y n := by
-    simpa [q] using Nat.minFac_dvd (primeWheelUnresolvedPart y n)
+    simpa [q] using! Nat.minFac_dvd (primeWheelUnresolvedPart y n)
   have hqPF : q ∈ (primeWheelUnresolvedPart y n).primeFactors :=
     Nat.mem_primeFactors.mpr ⟨hqPrime, hqDvd, hb0⟩
   have hyq : y < q := primeWheelUnresolvedPart_primeFactor_gt hqPF
@@ -67,12 +67,12 @@ theorem partialPrimeWheel_nonzero_error_unresolved_semiprime_of_depth
     dsimp [r]
     exact Nat.mul_div_cancel' hqDvd
   have hqLeR : q ≤ r := by
-    simpa [q, r] using Nat.minFac_le_div hbpos hbNotPrime
+    simpa [q, r] using! Nat.minFac_le_div hbpos hbNotPrime
   have hr2 : 2 ≤ r := hqPrime.two_le.trans hqLeR
   have hrpos : 0 < r := by omega
   have hrDvdB : r ∣ primeWheelUnresolvedPart y n := by
     refine ⟨q, ?_⟩
-    simpa [mul_comm] using hqr.symm
+    simpa [mul_comm] using! hqr.symm
   have hrPrime : Nat.Prime r := by
     by_contra hrNotPrime
     have hr1 : r ≠ 1 := by omega
@@ -81,20 +81,20 @@ theorem partialPrimeWheel_nonzero_error_unresolved_semiprime_of_depth
       dsimp [s]
       exact Nat.minFac_prime hr1
     have hsDvdR : s ∣ r := by
-      simpa [s] using Nat.minFac_dvd r
+      simpa [s] using! Nat.minFac_dvd r
     have hsDvdB : s ∣ primeWheelUnresolvedPart y n :=
       dvd_trans hsDvdR hrDvdB
     have hsPF : s ∈ (primeWheelUnresolvedPart y n).primeFactors :=
       Nat.mem_primeFactors.mpr ⟨hsPrime, hsDvdB, hb0⟩
     have hys : y < s := primeWheelUnresolvedPart_primeFactor_gt hsPF
     have hsSqLeR : s ^ 2 ≤ r := by
-      simpa [s] using Nat.minFac_sq_le_self hrpos hrNotPrime
+      simpa [s] using! Nat.minFac_sq_le_self hrpos hrNotPrime
     have hySqLtsSq : y ^ 2 < s ^ 2 :=
       Nat.pow_lt_pow_left hys (by omega)
     have hySqLtR : y ^ 2 < r := hySqLtsSq.trans_le hsSqLeR
     have hy3Ltqy2 : y ^ 3 < q * y ^ 2 := by
       have h := Nat.mul_lt_mul_of_pos_right hyq (pow_pos hypos 2)
-      simpa [pow_succ, Nat.mul_comm, Nat.mul_left_comm, Nat.mul_assoc] using h
+      simpa [pow_succ, Nat.mul_comm, Nat.mul_left_comm, Nat.mul_assoc] using! h
     have hqy2Ltqr : q * y ^ 2 < q * r :=
       Nat.mul_lt_mul_of_pos_left hySqLtR hqPrime.pos
     have hy3Ltb : y ^ 3 < primeWheelUnresolvedPart y n := by
@@ -115,7 +115,7 @@ theorem partialPrimeWheel_nonzero_error_unresolved_semiprime_of_depth
     have hy3LtN : y ^ 3 < n := hy3Ltb.trans_le hbLeN
     have hLySq : L * y ^ 2 ≤ y ^ 3 := by
       have h := Nat.mul_le_mul_right (y ^ 2) hLy
-      simpa [pow_succ, Nat.mul_comm, Nat.mul_left_comm, Nat.mul_assoc] using h
+      simpa [pow_succ, Nat.mul_comm, Nat.mul_left_comm, Nat.mul_assoc] using! h
     have hnlt : n < y ^ 3 := (hnupper.trans_lt hscale).trans_le hLySq
     exact Nat.lt_asymm hy3LtN hnlt
   have hrPF : r ∈ (primeWheelUnresolvedPart y n).primeFactors :=

@@ -153,7 +153,7 @@ theorem lowOwnerFirstOwner_div_mem_admitted_of_child
   have hnX := (Finset.mem_Icc.mp (Finset.mem_filter.mp hchildCar).1).2
   have hcancel : p * (n / p) = n :=
     Nat.mul_div_cancel' (Finset.mem_filter.mp hn).2.2
-  exact Finset.mem_filter.mpr ⟨hbase, by simpa [hcancel] using hnX⟩
+  exact Finset.mem_filter.mpr ⟨hbase, by simpa [hcancel] using! hnX⟩
 
 /-- The p-divisible child amplitude is exactly the returned admitted-parent
 sum with the fresh-prime sign reversal exposed. -/
@@ -177,8 +177,7 @@ theorem lowOwnerFirstOwnerChildAmplitude_eq_neg_returnedAdmitted
       _ = m := Nat.mul_div_cancel' hmDvd
   · intro a ha
     refine ⟨p * a, lowOwnerFirstOwner_mul_mem_child_of_admitted hp ha, ?_⟩
-    change (p * a) / p = a
-    simpa [Nat.mul_comm] using Nat.mul_div_left a hp.pos
+    simpa [Nat.mul_comm] using! Nat.mul_div_left a hp.pos
   · intro n hn
     have hbase := lowOwnerFirstOwner_div_mem_base_of_child hp hn
     have hnot := (Finset.mem_filter.mp hbase).2.2
@@ -205,7 +204,7 @@ theorem lowOwnerFirstOwnerBaseAmplitude_eq_admitted_add_clipped
         lowOwnerZeroFrequencyMobiusSite R a := by
   unfold lowOwnerFirstOwnerBaseAmplitude
     lowOwnerFirstOwnerAdmittedBaseFiber lowOwnerFirstOwnerClippedBaseFiber
-  simpa only [not_le] using
+  simpa only [not_le] using!
     (Finset.sum_filter_add_sum_filter_not
       (s := lowOwnerFirstOwnerBaseFiber R p sig)
       (p := fun a => p * a ≤ squareRootEndpoint R)

@@ -131,7 +131,7 @@ theorem vfMidActivePhysicalPair_eq_scaledDirichletPolarizationAtom
         vfMidAnchoredUpperMobiusScale,
         vfMidOneBlockAnchoredUpperPhysicalSite,
         vfMidOneBlockActivePhysicalSite,
-        haActive, hbActive, ha1, hb1] using h
+        haActive, hbActive, ha1, hb1] using! h
     · simp [vfMidActiveMobiusScale, vfMidOneBlockActivePhysicalSite,
         hbActive]
   · simp [vfMidActiveMobiusScale, vfMidOneBlockActivePhysicalSite,
@@ -234,7 +234,7 @@ theorem vfMidActiveCellGram_eq_scaledClippedBaseCellMass
           ∑ a ∈ lowOwnerFirstOwnerClippedBaseFiber (R + 1) p sig, F a := by
     unfold lowOwnerFirstOwnerAdmittedBaseFiber
       lowOwnerFirstOwnerClippedBaseFiber
-    simpa only [not_le] using
+    simpa only [not_le] using!
       (Finset.sum_filter_add_sum_filter_not
         (s := lowOwnerFirstOwnerBaseFiber (R + 1) p sig)
         (p := fun a => p * a ≤ squareRootEndpoint (R + 1))
@@ -295,8 +295,7 @@ theorem vfMidActiveScaledClippedBaseCellMass_eq_returned
       _ = d := Nat.mul_div_cancel' hdDvd
   · intro d hd
     refine ⟨p * d, lowOwnerFirstOwner_mul_mem_child_of_admitted hp hd, ?_⟩
-    change (p * d) / p = d
-    simpa [Nat.mul_comm] using Nat.mul_div_left d hp.pos
+    simpa [Nat.mul_comm] using! Nat.mul_div_left d hp.pos
   · intro b hb
     have hbDvd := (Finset.mem_filter.mp hb).2.2
     have hcancel : p * (b / p) = b := Nat.mul_div_cancel' hbDvd
@@ -355,7 +354,7 @@ theorem vfMidActiveCellGram_eq_clippedPhysicalPairMass
           ∑ a ∈ lowOwnerFirstOwnerClippedBaseFiber (R + 1) p sig, F a := by
     unfold lowOwnerFirstOwnerAdmittedBaseFiber
       lowOwnerFirstOwnerClippedBaseFiber
-    simpa only [not_le] using
+    simpa only [not_le] using!
       (Finset.sum_filter_add_sum_filter_not
         (s := lowOwnerFirstOwnerBaseFiber (R + 1) p sig)
         (p := fun a => p * a ≤ squareRootEndpoint (R + 1))
@@ -393,7 +392,7 @@ theorem vfMidActiveAbsCellGram_eq_clippedAbsolutePairMass
           ∑ a ∈ lowOwnerFirstOwnerClippedBaseFiber (R + 1) p sig, F a := by
     unfold lowOwnerFirstOwnerAdmittedBaseFiber
       lowOwnerFirstOwnerClippedBaseFiber
-    simpa only [not_le] using
+    simpa only [not_le] using!
       (Finset.sum_filter_add_sum_filter_not
         (s := lowOwnerFirstOwnerBaseFiber (R + 1) p sig)
         (p := fun a => p * a ≤ squareRootEndpoint (R + 1))

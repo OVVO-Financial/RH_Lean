@@ -57,7 +57,7 @@ theorem sourceAdmissible_not_low_zero
       (hdom (sourcePrime s) hqPrime hqdiv)
   intro hlow
   have habs : abs (canonicalHeightTwice (sourceProduct s)) ≤ 0 := by
-    simpa [IsCanonicalLowHeight] using hlow
+    simpa [IsCanonicalLowHeight] using! hlow
   have hheight : canonicalHeightTwice (sourceProduct s) = 0 :=
     abs_eq_zero.mp (le_antisymm habs (abs_nonneg _))
   unfold canonicalHeightTwice at hheight

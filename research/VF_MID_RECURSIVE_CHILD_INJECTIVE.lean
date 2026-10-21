@@ -140,14 +140,14 @@ theorem vfMidLateRecursiveOwner_child_owner_unique
   · have hstep : (p + 1) * m ≤ q * m :=
       Nat.mul_le_mul_right m (by omega)
     have hadd : p * m + m ≤ q * m := by
-      simpa [Nat.add_mul] using hstep
+      simpa [Nat.add_mul] using! hstep
     have hwidth : (R + 1) ^ 2 = R ^ 2 + 2 * R + 1 := by
       ring
     omega
   · have hstep : (q + 1) * m ≤ p * m :=
       Nat.mul_le_mul_right m (by omega)
     have hadd : q * m + m ≤ p * m := by
-      simpa [Nat.add_mul] using hstep
+      simpa [Nat.add_mul] using! hstep
     have hwidth : (R + 1) ^ 2 = R ^ 2 + 2 * R + 1 := by
       ring
     omega
@@ -194,7 +194,7 @@ theorem vfMidSquareBandCompositeOwnerChildren_gt_root
     rw [← hmul]
     exact hprod
   have hnGt : R * R < n := by
-    simpa [pow_two] using hnLow
+    simpa [pow_two] using! hnLow
   omega
 
 /-- **Cross-owner uniqueness for every parity-late owner.**
@@ -252,14 +252,14 @@ theorem vfMidLateOwner_child_owner_unique
     have hstep : (p + 2) * m ≤ q * m :=
       Nat.mul_le_mul_right m hgap
     have hadd : p * m + 2 * m ≤ q * m := by
-      simpa [Nat.add_mul] using hstep
+      simpa [Nat.add_mul] using! hstep
     rw [hmulP, hmulQ] at hadd
     omega
   · have hgap : q + 2 ≤ p := by omega
     have hstep : (q + 2) * m ≤ p * m :=
       Nat.mul_le_mul_right m hgap
     have hadd : q * m + 2 * m ≤ p * m := by
-      simpa [Nat.add_mul] using hstep
+      simpa [Nat.add_mul] using! hstep
     rw [hmulQ, hmulP] at hadd
     omega
 

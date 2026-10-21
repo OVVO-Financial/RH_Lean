@@ -24,7 +24,7 @@ namespace RHLean.Proof
 theorem canonicalLargestPrimeFactor_mem_primeFactors {m : ℕ} (h : 1 < m) :
     canonicalLargestPrimeFactor m ∈ m.primeFactors := by
   unfold canonicalLargestPrimeFactor
-  rw [dif_pos h]
+  rw [dite_eq_left h]
   exact Finset.max'_mem m.primeFactors (Nat.nonempty_primeFactors.mpr h)
 
 theorem canonicalLargestPrimeFactor_prime {m : ℕ} (h : 1 < m) :
@@ -100,13 +100,13 @@ theorem eq_of_canonicalAbsoluteGap_eq_in_block
   have hprod := canonicalPairLo_mul_pairHi hm1
   have hprod' := canonicalPairLo_mul_pairHi hm'1
   have hHiLo : canonicalPairLo m + d = canonicalPairHi m := by
-    simpa [hgap] using canonicalPairLo_add_absoluteGap m
+    simpa [hgap] using! canonicalPairLo_add_absoluteGap m
   have hHiLo' : canonicalPairLo m' + d = canonicalPairHi m' := by
-    simpa [hgap'] using canonicalPairLo_add_absoluteGap m'
+    simpa [hgap'] using! canonicalPairLo_add_absoluteGap m'
   have hjm : j ^ 2 ≤ m ∧ m < (j + 1) ^ 2 := by
-    simpa [canonicalSquareBlock, Finset.mem_Ico] using hm
+    simpa [canonicalSquareBlock, Finset.mem_Ico] using! hm
   have hjm' : j ^ 2 ≤ m' ∧ m' < (j + 1) ^ 2 := by
-    simpa [canonicalSquareBlock, Finset.mem_Ico] using hm'
+    simpa [canonicalSquareBlock, Finset.mem_Ico] using! hm'
   rcases lt_trichotomy (canonicalPairLo m) (canonicalPairLo m') with hlt | heq | hgt
   · have hmeq : m = canonicalPairLo m * (canonicalPairLo m + d) := by
       rw [hHiLo]
@@ -258,7 +258,7 @@ theorem canonicalAbsoluteGap_le_of_lowHeight
     (hlow : IsCanonicalLowHeight Λ j m) :
     (canonicalAbsoluteGap m : ℝ) ≤ Λ := by
   have hmIco : m ∈ Finset.Ico (j ^ 2) ((j + 1) ^ 2) := by
-    simpa [canonicalSquareBlock] using hm
+    simpa [canonicalSquareBlock] using! hm
   have hjm : j ^ 2 ≤ m := (Finset.mem_Ico.mp hmIco).1
   have hprod := canonicalPairLo_mul_pairHi hm1
   have hHiLo := canonicalPairLo_add_absoluteGap m
@@ -350,7 +350,7 @@ theorem card_canonicalLowSupport_le_floor_add_one
         exact Finset.mem_filter.mpr ⟨hmBlock, hm1, hμ, hlow⟩
       · apply Finset.mem_union_right
         have hmIco : m ∈ Finset.Ico (j ^ 2) ((j + 1) ^ 2) := by
-          simpa [canonicalSquareBlock] using hmBlock
+          simpa [canonicalSquareBlock] using! hmBlock
         have hmLower : j ^ 2 ≤ m := (Finset.mem_Ico.mp hmIco).1
         have hjSquare : 1 ≤ j ^ 2 := by nlinarith
         have hmEq : m = 1 := by omega
@@ -360,7 +360,7 @@ theorem card_canonicalLowSupport_le_floor_add_one
           (canonicalNontrivialLowSupport Λ j ∪ {1}).card :=
         Finset.card_le_card hsubset
       _ ≤ (canonicalNontrivialLowSupport Λ j).card + 1 := by
-        simpa using Finset.card_union_le (canonicalNontrivialLowSupport Λ j) {1}
+        simpa using! Finset.card_union_le (canonicalNontrivialLowSupport Λ j) {1}
       _ ≤ Nat.floor Λ + 1 := by
         exact Nat.add_le_add_right
           (card_canonicalNontrivialLowSupport_le_floor hj) 1
@@ -371,7 +371,7 @@ theorem card_canonicalLowSupport_le_floor_add_one
       intro m hm
       have hmData := Finset.mem_filter.mp hm
       have hmIco : m ∈ Finset.Ico 0 1 := by
-        simpa [canonicalSquareBlock] using hmData.1
+        simpa [canonicalSquareBlock] using! hmData.1
       have hmEq : m = 0 := by
         have := Finset.mem_Ico.mp hmIco
         omega
@@ -405,7 +405,7 @@ theorem norm_canonicalLowIncrement_le_floor_add_one
       by_cases hμ : μ m = 0
       · simp [hμ, canonicalMoebiusWeight]
       · by_cases hlow : IsCanonicalLowHeight Λ j m
-        · simpa [hμ, hlow] using norm_canonicalMoebiusWeight_le_one m
+        · simpa [hμ, hlow] using! norm_canonicalMoebiusWeight_le_one m
         · simp [hlow]
     _ = (canonicalLowSupport Λ j).card := by
       simp [canonicalLowSupport]

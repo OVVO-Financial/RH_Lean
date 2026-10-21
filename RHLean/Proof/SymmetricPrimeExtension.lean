@@ -26,7 +26,7 @@ theorem normalized_tripling_scaling_right_rat
       normalizedCofactorWeightRat_comm c (3 * q)
     _ = -(1 / 2 : ℚ) * normalizedCofactorWeightRat q c := by
       apply normalized_tripling_scaling_rat q c
-      simpa [Nat.mul_comm] using h3
+      simpa [Nat.mul_comm] using! h3
     _ = -(1 / 2 : ℚ) * normalizedCofactorWeightRat c q := by
       rw [normalizedCofactorWeightRat_comm q c]
 
@@ -35,7 +35,7 @@ theorem normalized_tripling_scaling_right
     (c q : ℕ) (h3 : ¬ 3 ∣ c * q) :
     normalizedCofactorWeight c (3 * q) =
       -(1 / 2 : ℂ) * normalizedCofactorWeight c q := by
-  simpa [normalizedCofactorWeight] using
+  simpa [normalizedCofactorWeight] using!
     congrArg (fun x : ℚ => (x : ℂ))
       (normalized_tripling_scaling_right_rat c q h3)
 
@@ -57,7 +57,7 @@ theorem normalized_two_child_tripling_cancellation
     normalizedCofactorWeight c q +
         normalizedCofactorWeight (3 * c) q +
         normalizedCofactorWeight c (3 * q) = 0 := by
-  simpa [normalizedCofactorWeight] using
+  simpa [normalizedCofactorWeight] using!
     congrArg (fun x : ℚ => (x : ℂ))
       (normalized_two_child_tripling_cancellation_rat c q h3)
 

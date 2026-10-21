@@ -30,7 +30,7 @@ theorem nativePNTCubicStep_overhead_le
       2000 * alpha + 782 * D ≤
         (2000 * alpha + 782 * D) * L := by
     have h := mul_le_mul_of_nonneg_left hL1 hB0
-    simpa using h
+    simpa using! h
   have hinner :
       alpha * (1000 * L + 2000) +
           D * (2 * L + 782) + 3000 * L ≤
@@ -50,7 +50,7 @@ theorem nativePNTCubicStep_overhead_le
   have hD600 : D * 600 ≤ D * 600 * x := by
     have h600D : 0 ≤ D * 600 := by positivity
     have h := mul_le_mul_of_nonneg_left hx1 h600D
-    simpa [mul_assoc] using h
+    simpa [mul_assoc] using! h
   have hinnerX := mul_le_mul_of_nonneg_left hinner hx0
   have hreshape :
       alpha * x * (1000 * L + 2000) +

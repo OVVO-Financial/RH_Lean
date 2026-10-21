@@ -88,7 +88,7 @@ theorem lowWheelCanonicalToggle_mem_pairable
   apply Finset.mem_filter.mpr
   refine ⟨hdata.2.1, ?_⟩
   constructor
-  · simpa [hinv] using hdata.1
+  · simpa [hinv] using! hdata.1
   · intro hfix
     rw [hinv] at hfix
     exact hdata.2.2 hfix.symm
@@ -252,15 +252,15 @@ theorem lowWheelCanonicalToggle_squarefree
     Squarefree (lowWheelCanonicalCofactorQuotientToggle (c, k)).1 := by
   let p := lowWheelCanonicalCofactorQuotientPivot (c, k)
   have hp : p.Prime := by
-    simpa [p] using lowWheelCanonicalCofactorQuotientPivot_prime hne
+    simpa [p] using! lowWheelCanonicalCofactorQuotientPivot_prime hne
   have hactive : p ∣ c ∨ p ∣ k := by
-    simpa [p] using lowWheelCanonicalCofactorQuotientPivot_active hne
+    simpa [p] using! lowWheelCanonicalCofactorQuotientPivot_active hne
   by_cases hpc : p ∣ c
   · have hd : c / p ∣ c := ⟨p, (Nat.div_mul_cancel hpc).symm⟩
     have hsqd : Squarefree (c / p) := hsq.squarefree_of_dvd hd
     change Squarefree (lowWheelCofactorQuotientToggleAt p (c, k)).1
     unfold lowWheelCofactorQuotientToggleAt
-    rw [if_pos hpc]
+    rw [ite_eq_left hpc]
     exact hsqd
   · have hpk : p ∣ k := hactive.resolve_left hpc
     have hmuC : μ c ≠ 0 :=
@@ -273,8 +273,8 @@ theorem lowWheelCanonicalToggle_squarefree
       ArithmeticFunction.moebius_ne_zero_iff_squarefree.mp hmuNe
     change Squarefree (lowWheelCofactorQuotientToggleAt p (c, k)).1
     unfold lowWheelCofactorQuotientToggleAt
-    rw [if_neg hpc, if_pos hpk]
-    simpa [Nat.mul_comm] using hsqp
+    rw [ite_eq_right hpc, ite_eq_left hpk]
+    simpa [Nat.mul_comm] using! hsqp
 
 /-- The physical carrier inequalities themselves force the ambient finite range
 for `c` and `k`. -/

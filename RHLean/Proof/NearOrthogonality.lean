@@ -185,7 +185,7 @@ theorem projectionDefect_finitePrediction_eq_abel
               (theoremPredictedResidual (𝕜 := 𝕜) betaPred
                 (finitePrediction a atom n) B) (k + 1)) := by
   rw [projectionDefect_finitePrediction_eq_sum]
-  simpa [finiteConjugateCoefficientPrefix, finiteDefectWeight] using
+  simpa [finiteConjugateCoefficientPrefix, finiteDefectWeight] using!
     (finite_abel_identity
       (fun k => (starRingEnd 𝕜) (a k))
       (fun k => inner 𝕜 (atom k)

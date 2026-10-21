@@ -129,7 +129,7 @@ private theorem externalTerminalTag_mem_repeatedExternal
     apply Finset.mem_filter.mpr
     refine ⟨hzRepeated, ?_⟩
     constructor
-    · simpa [squareRootExternalTerminalTag] using hpivot.symm
+    · simpa [squareRootExternalTerminalTag] using! hpivot.symm
     · exact hface
   have hterminal : squareRootExternalTerminalTag z ∈
       lowWheelCanonicalRepeatedTerminalBoundary R := by

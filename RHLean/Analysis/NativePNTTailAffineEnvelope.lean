@@ -37,7 +37,7 @@ theorem nativePNTAffineEnvelopeAt_of_tail_cutoff
     have haN : 0 <= alpha * (N : Real) := mul_nonneg halpha (by positivity)
     calc
       |nativePNTError N| <= nativePNTFinitePrefixCoeff * (N : Real) := by
-        simpa [nativePNTFinitePrefixCoeff] using hglobal
+        simpa [nativePNTFinitePrefixCoeff] using! hglobal
       _ <= nativePNTFinitePrefixCoeff * (M : Real) := hprefix
       _ <= alpha * (N : Real) + nativePNTFinitePrefixCoeff * (M : Real) :=
         le_add_of_nonneg_left haN

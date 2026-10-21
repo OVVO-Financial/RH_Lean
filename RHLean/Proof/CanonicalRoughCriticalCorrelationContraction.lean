@@ -210,7 +210,7 @@ theorem sum_squareRootCanonicalRoughCorrelationReciprocal_eq_compressed_add_defe
           squareRootCanonicalRoughCorrelationReciprocalSummand R n) =
         ∑ n ∈ U,
           squareRootCanonicalRoughCorrelationReciprocalSummand R n := by
-    simpa [squareRootCanonicalRoughFreshPrimeSurvivorsOn] using
+    simpa [squareRootCanonicalRoughFreshPrimeSurvivorsOn] using!
       (Finset.sum_sdiff hsub
         (f := squareRootCanonicalRoughCorrelationReciprocalSummand R))
   rw [sum_squareRootCanonicalRoughFreshPrimePairedOn_correlationReciprocal
@@ -373,7 +373,7 @@ theorem norm_sum_squareRootCanonicalRoughCorrelationReciprocal_le_manyPrimeCompr
           (squareRootCanonicalRoughCompressionRunSteps ps U)‖ +
         ‖squareRootCanonicalRoughCorrelationTransportedSurvivorLedger R ps U‖ := by
       exact (norm_add_le _ _).trans
-        (add_le_add_right (norm_add_le _ _) _)
+        (add_le_add_left (norm_add_le _ _) _)
     _ = canonicalRoughEulerProduct
           (squareRootCanonicalRoughCompressionRunSteps ps U) *
           ‖∑ n ∈ squareRootCanonicalRoughCompressionFinalParents ps U,
@@ -391,7 +391,7 @@ theorem norm_sum_squareRootCanonicalRoughCorrelationReciprocal_le_manyPrimeCompr
           squareRootCanonicalRoughScaledSignedDefectFloor R
             (squareRootCanonicalRoughCompressionRunSteps ps U) +
         ‖squareRootCanonicalRoughCorrelationTransportedSurvivorLedger R ps U‖ := by
-      exact add_le_add_right (add_le_add_left hledger _) _
+      exact add_le_add_left (add_le_add_right hledger _) _
 
 /-! ## Finite Abel return directly to the RH-equivalent correlation -/
 
@@ -451,12 +451,12 @@ theorem sum_squareRootCanonicalRoughCorrelation_eq_abel_reciprocalPrefix
       intro c hc
       have hc0 : c ≠ 0 := by
         have hcnot : c ∉ ({0} : Finset ℕ) := (Finset.mem_sdiff.mp hc).2
-        simpa using hcnot
+        simpa using! hcnot
       rw [← natCast_mul_squareRootCanonicalRoughCorrelationReciprocalSummand
         R (Nat.pos_of_ne_zero hc0)]
       ring
     rw [hweighted] at hsplit
-    simpa [v] using hsplit
+    simpa [v] using! hsplit
   rw [hleft]
   rw [habel]
   unfold squareRootCanonicalRoughCorrelationReciprocalPrefix

@@ -11,8 +11,7 @@ namespace RHLean.Analysis
 
 local notation "zetaC" => riemannZeta
 
--- `StrongPNT.PNT1_ComplexAnalysis` declares a root-level `def I := Complex.I`,
--- so with `Complex` open the bare token `I` resolves two ways.
+-- Keep the bare token `I` pinned to `Complex.I` under `open Complex`.
 local notation "I" => Complex.I
 
 theorem nativeMertensHorizontal_logNine_bound_for
@@ -99,7 +98,7 @@ theorem nativeMertensHorizontal_logNine_bound_for
       _ ≤ (1 : ℝ) / 2 := corridor.A_mem.2
       _ ≤ 1 := by norm_num
   have hTabs : 3 < |-T| := by
-    simpa [abs_of_pos (by linarith : 0 < T)] using hT
+    simpa [abs_of_pos (by linarith : 0 < T)] using! hT
   have hpoint : ∀ sigma ∈ Set.Icc sigmaLeft sigmaRight,
       ‖nativeSmoothedMobiusIntegrand f eps X (sigma - T * I)‖ ≤
         Cpoint * X * (1 + (Real.log T) ^ 10) / (eps * T ^ 2) := by
@@ -139,12 +138,12 @@ theorem nativeMertensHorizontal_logNine_bound_for
             (1 + corridor.A / (Real.log |-T|) ^ 9) := by
           rw [abs_neg, abs_of_pos (by linarith : 0 < T)]
           constructor
-          · simpa [sigmaLeft, strongMertensLogNineShift] using hsigma.1
-          · simpa [sigmaMid] using hleft
+          · simpa [sigmaLeft, strongMertensLogNineShift] using! hsigma.1
+          · simpa [sigmaMid] using! hleft
         have hzi := corridor.inv_window_large sigma (-T) hTabs hwindow
         have hzi' : 1 / ‖zetaC s‖ ≤ corridor.invConst * (Real.log T) ^ 7 := by
           simpa [s, sub_eq_add_neg, abs_of_pos (by linarith : 0 < T),
-            Real.rpow_natCast] using hzi
+            Real.rpow_natCast] using! hzi
         calc
           1 / ‖zetaC s‖ ≤ corridor.invConst * (Real.log T) ^ 7 := hzi'
           _ ≤ corridor.invConst * (Real.log T) ^ 10 :=
@@ -183,7 +182,7 @@ theorem nativeMertensHorizontal_logNine_bound_for
           have h0 : 1 / ‖zetaC s‖ ≤
               Cright * (sigma - 1) ^ (-(3 : ℝ) / 4) *
                 (Real.log T) ^ ((1 : ℝ) / 4) := by
-            simpa [s, sub_eq_add_neg, abs_of_pos (by linarith : 0 < T)] using hzr
+            simpa [s, sub_eq_add_neg, abs_of_pos (by linarith : 0 < T)] using! hzr
           calc
             1 / ‖zetaC s‖ ≤ Cright * (sigma - 1) ^ (-(3 : ℝ) / 4) *
                 (Real.log T) ^ ((1 : ℝ) / 4) := h0
@@ -270,7 +269,7 @@ theorem nativeMertensHorizontal_logNine_bound_for
       constructor
       · have hre : ((sigma : ℂ) - T * I).re = sigma := by simp
         rw [hre]
-        exact ⟨by simpa [sigmaLeft] using hsigma.1, hsigma.2.trans hsigRightLe2⟩
+        exact ⟨by simpa [sigmaLeft] using! hsigma.1, hsigma.2.trans hsigRightLe2⟩
       · have him : ((sigma : ℂ) - T * I).im = -T := by simp
         rw [him]
         exact ⟨le_rfl, by linarith⟩
@@ -374,7 +373,7 @@ theorem nativeMertensHorizontal_logNine_bound_for
       constructor
       · have hre : ((sigma : ℂ) + T * I).re = sigma := by simp
         rw [hre]
-        exact ⟨by simpa [sigmaLeft] using hsigma.1, hsigma.2.trans hsigRightLe2⟩
+        exact ⟨by simpa [sigmaLeft] using! hsigma.1, hsigma.2.trans hsigRightLe2⟩
       · have him : ((sigma : ℂ) + T * I).im = T := by simp
         rw [him]
         exact ⟨by linarith, le_rfl⟩
@@ -445,7 +444,7 @@ theorem nativeMertensHorizontal_logNine_bound_for
         ‖nativeMertensContourM4 f eps X T (strongMertensLogNineShift corridor.A T)‖
       ≤ (Cpoint / Real.pi * X * (1 + (Real.log T) ^ 10) / (eps * T ^ 2)) +
         (Cpoint / Real.pi * X * (1 + (Real.log T) ^ 10) / (eps * T ^ 2)) := by
-          simpa [sigmaLeft] using add_le_add hM2 hM4
+          simpa [sigmaLeft] using! add_le_add hM2 hM4
     _ = 2 * (Cpoint / Real.pi * X * (1 + (Real.log T) ^ 10) /
           (eps * T ^ 2)) := by ring
     _ ≤ 4 * (Cpoint / Real.pi * X * (1 + (Real.log T) ^ 10) /

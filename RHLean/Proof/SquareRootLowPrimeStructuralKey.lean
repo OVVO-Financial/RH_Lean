@@ -96,7 +96,7 @@ theorem squareRootLowPrimeShallowBase_eq_self_of_squarefree_lpf_le
           Nat.mem_primeFactors.mpr ⟨hp, hpc, hsq.ne_zero⟩
         have hpLeLpf : p ≤ canonicalLargestPrimeFactor c := by
           unfold canonicalLargestPrimeFactor
-          rw [dif_pos hcGt]
+          rw [dite_eq_left hcGt]
           exact Finset.le_max' c.primeFactors p hpMem
         have hpK : p ≤ K := hpLeLpf.trans hlpf
         rw [Nat.factorization_eq_one_of_squarefree hsq hp hpc]
@@ -129,7 +129,7 @@ theorem squareRootLowPrimeProcessedSeatStructuralKey_eq_state_of_shallow
     (hshallow : canonicalLargestPrimeFactor c ≤ K) :
     squareRootLowPrimeProcessedSeatStructuralKey K (some (c, s)) = (c, s) := by
   have hatom : (c, s) ∈ squareRootLowPrimeProcessedSeatAtoms R K j U := by
-    simpa [squareRootLowPrimeProcessedSeatCarrier] using hx
+    simpa [squareRootLowPrimeProcessedSeatCarrier] using! hx
   have hsigned := (mem_squareRootLowPrimeProcessedSeatAtoms.mp hatom).1
   have hmu : μ c ≠ 0 := (Finset.mem_filter.mp hsigned).2.2
   have hsq : Squarefree c :=
@@ -191,7 +191,7 @@ theorem squareRootLowPrimeProcessedSeatStructuralKey_stepInvolution
         squareRootLowPrimeProcessedSeatStepInvolution S p x =
           squareRootLowPrimeProcessedSeatExtend p x := by
       dsimp only [squareRootLowPrimeProcessedSeatStepInvolution]
-      rw [if_pos hxLower]
+      rw [ite_eq_left hxLower]
     rw [hstep]
     exact squareRootLowPrimeProcessedSeatStructuralKey_extend hp hKp x
   · by_cases hupper :
@@ -206,13 +206,13 @@ theorem squareRootLowPrimeProcessedSeatStructuralKey_stepInvolution
       have hstep :
           squareRootLowPrimeProcessedSeatStepInvolution S p x = y := by
         dsimp only [squareRootLowPrimeProcessedSeatStepInvolution]
-        rw [if_neg hxLower, dif_pos hupper]
+        rw [ite_eq_right hxLower, dite_eq_left hupper]
       rw [hstep, ← hy.2]
       exact (squareRootLowPrimeProcessedSeatStructuralKey_extend hp hKp y).symm
     · have hstep :
           squareRootLowPrimeProcessedSeatStepInvolution S p x = x := by
         dsimp only [squareRootLowPrimeProcessedSeatStepInvolution]
-        rw [if_neg hxLower, dif_neg hupper]
+        rw [ite_eq_right hxLower, dite_eq_right hupper]
       rw [hstep]
 
 /-- A complete chronology made only of primes above `K` preserves the
@@ -235,11 +235,11 @@ theorem squareRootLowPrimeProcessedSeatStructuralKey_matchingInvolution
         exact hprime q (by simp [hq])
       by_cases hxPaired : x ∈ squareRootLowPrimeProcessedSeatPaired S p
       · rw [squareRootLowPrimeProcessedSeatMatchingInvolution]
-        simp only [hxPaired, if_true]
+        simp only [hxPaired, ite_true]
         exact squareRootLowPrimeProcessedSeatStructuralKey_stepInvolution
           hpData.1 hpData.2 S x
       · rw [squareRootLowPrimeProcessedSeatMatchingInvolution]
-        simp only [hxPaired, if_false]
+        simp only [hxPaired, ite_false]
         exact ih (S := squareRootLowPrimeProcessedSeatFrontierStep S p)
           hrest x
 
@@ -249,7 +249,7 @@ theorem squareRootLowPrimeFreshPrimeList_prime_and_above
     {K U p : ℕ} (hp : p ∈ squareRootLowPrimeFreshPrimeList K U) :
     p.Prime ∧ K < p := by
   have hset : p ∈ squareRootLowPrimeFreshPrimeSet K U := by
-    simpa [squareRootLowPrimeFreshPrimeList] using hp
+    simpa [squareRootLowPrimeFreshPrimeList] using! hp
   have hdata := Finset.mem_filter.mp hset
   exact ⟨hdata.2, (Finset.mem_Ioc.mp hdata.1).1⟩
 
@@ -259,7 +259,7 @@ theorem squareRootLowPrimeFreshPrimeListDescending_prime_and_above
     (hp : p ∈ squareRootLowPrimeFreshPrimeListDescending K U) :
     p.Prime ∧ K < p := by
   have hpInc : p ∈ squareRootLowPrimeFreshPrimeList K U := by
-    simpa [squareRootLowPrimeFreshPrimeListDescending] using hp
+    simpa [squareRootLowPrimeFreshPrimeListDescending] using! hp
   exact squareRootLowPrimeFreshPrimeList_prime_and_above hpInc
 
 /-- The increasing-order Othello mate on the common processed carrier. -/

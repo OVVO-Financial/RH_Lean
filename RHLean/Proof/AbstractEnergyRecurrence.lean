@@ -88,7 +88,7 @@ theorem energy_le (A C E : ℕ → ℝ) (x B : ℝ) (j₀ : ℕ)
       E n ≤ inflation A j₀ n * (B * x) + additive A C j₀ n * x := by
   intro n hn
   induction n, hn using Nat.le_induction with
-  | base => simpa using hbase
+  | base => simpa using! hbase
   | succ n hn ih =>
     have h1 : E (n + 1) ≤ A n * E n + C n * x := hstep n hn
     have h2 : A n * E n ≤
@@ -150,7 +150,7 @@ theorem homogeneous_of_affine {f g A C : ℝ}
     (h : ∀ lam : ℝ, 1 ≤ lam → lam ^ 2 * f ≤ A * (lam ^ 2 * g) + C) :
     f ≤ A * g := by
   by_contra hcon
-  push_neg at hcon
+  push Not at hcon
   set d : ℝ := f - A * g with hdef
   have hd : 0 < d := by
     simp only [hdef]
@@ -265,7 +265,7 @@ theorem inflation_le_pow {A : ℕ → ℝ} {a : ℝ} (hA : ∀ r, 0 ≤ A r) (hl
     (s n : ℕ) : inflation A s n ≤ a ^ (n - s) := by
   unfold inflation
   calc ∏ r ∈ Finset.Ico s n, A r ≤ ∏ _r ∈ Finset.Ico s n, a :=
-        Finset.prod_le_prod (fun i _ => hA i) (fun i _ => hle i)
+        Finset.prod_le_prod₀ (fun i _ => hA i) (fun i _ => hle i)
     _ = a ^ (n - s) := by rw [Finset.prod_const, Nat.card_Ico]
 
 end EnergyRecurrence

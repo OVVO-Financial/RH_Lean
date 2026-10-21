@@ -45,7 +45,7 @@ theorem mem_fareyModeLabels
     have hunpair : Nat.unpair label = p := by
       rw [← hpair]
       simp
-    simpa [hunpair] using hp
+    simpa [hunpair] using! hp
   · intro hp
     apply Finset.mem_image.mpr
     refine ⟨Nat.unpair label, hp, ?_⟩

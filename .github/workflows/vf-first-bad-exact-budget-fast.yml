@@ -41,7 +41,10 @@ permissions:
 jobs:
   fast-check:
     runs-on: ubuntu-latest
-    timeout-minutes: 12
+    # A cold `vf915-research-base` cache (new toolchain or base commit) compiles
+    # the 240-module #914 closure before the cache is saved; 12 minutes could
+    # never finish that build, so the cache was never written.
+    timeout-minutes: 45
     steps:
       - uses: actions/checkout@v4
         with:
@@ -76,38 +79,26 @@ jobs:
           test: false
           lint: false
 
-      - name: Apply StrongPNT compatibility patch
-        run: |
-          python3 scripts/strongpnt_424/apply.py
-          python3 scripts/strongpnt_424/apply_post.py
-          python3 scripts/strongpnt_424/apply_pnt5_mid.py
-          python3 scripts/strongpnt_424/apply_pnt5_strong.py
-          python3 scripts/strongpnt_424/apply_lint.py
-
-      - name: Restore StrongPNT port build cache
+      - name: Restore PNT+ build cache
         uses: actions/cache/restore@v5
         with:
           path: |
             .lake/packages/PrimeNumberTheoremAnd/.lake/build
-            .lake/packages/StrongPNT/.lake/build
-          key: strongpnt-port-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-${{ hashFiles('scripts/strongpnt_424/*.py') }}
-          restore-keys: |
-            strongpnt-port-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-
+          key: pntplus-build-v1-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
 
-      - name: Ensure StrongPNT terminal dependency
+      - name: Ensure PNT+ StrongPNT dependency
         run: |
-          if [ ! -f .lake/packages/StrongPNT/.lake/build/lib/lean/StrongPNT/PNT5_Strong.olean ]; then
-            lake build StrongPNT.PNT5_Strong
+          if [ ! -f .lake/packages/PrimeNumberTheoremAnd/.lake/build/lib/lean/PrimeNumberTheoremAnd/StrongPNT.olean ]; then
+            lake build PrimeNumberTheoremAnd.StrongPNT
           fi
 
       - name: Restore RHLean build cache
         uses: actions/cache/restore@v5
         with:
           path: .lake/build
-          key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py', 'RHLean.lean', 'RHLean/**/*.lean') }}
+          key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'RHLean.lean', 'RHLean/**/*.lean') }}
           restore-keys: |
-            rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py') }}-
-            rhlean-build-${{ runner.os }}-
+            rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-
 
       - name: Restore stable #914 research closure
         id: research-cache
@@ -115,6 +106,24 @@ jobs:
         with:
           path: .lake/build/lib/lean/research.*
           key: vf915-research-base-${{ runner.os }}-${{ runner.arch }}-${{ github.event.pull_request.base.sha || github.sha }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
+
+      - name: Build RHLean modules imported by these research checks
+        run: >-
+          python3 scripts/compile_research_import_closure.py --library-only
+          research/VF_MID_915_CENTERED_OWNER_TRIANGULAR.lean
+          research/VF_MID_915_COMPRESSED_HISTORY_SINK.lean
+          research/VF_MID_915_EXACT_HISTORICAL_NNS_COMPRESSION.lean
+          research/VF_MID_915_FIXED17_ACTUAL_SIGNED_INLET.lean
+          research/VF_MID_915_FLOOR_LI_TRANSPORT_BOUNDARY.lean
+          research/VF_MID_915_LATE_PREFIX_WEIGHTED_DYADIC.lean
+          research/VF_MID_915_MIDDLE_PRIME_COMPOSITE_CAPACITY.lean
+          research/VF_MID_915_PARITY_REFINEMENT_EXACT_PRICE.lean
+          research/VF_MID_915_PRIME_INTERVAL_LI_STRATIFICATION.lean
+          research/VF_MID_915_TERMINAL_TOP_THIRD_TRANSPORT.lean
+          research/VF_MID_915_TWO_OWNER_CLIPPED_FLUX.lean
+          research/VF_MID_FIRST_BAD_EXACT_BUDGET_CLOSE.lean
+          research/VF_MID_FIRST_BAD_FINAL_AGGREGATE_CONTRACTION.lean
+          research/VF_MID_FLOOR_LI_TRANSPORT_CANCELLATION.lean
 
       - name: Build stable #914 research closure on cache miss
         if: steps.research-cache.outputs.cache-hit != 'true'

@@ -161,7 +161,7 @@ theorem primeLiVonKochBounded_of_proxyTracking
       add_le_add (hA x hx) (hB x hx)
     _ ≤ A * Real.sqrt x * Real.log x +
         (B / ell) * Real.sqrt x * Real.log x :=
-      add_le_add_left hrootScale _
+      add_le_add_right hrootScale _
     _ = (A + B / ell) * Real.sqrt x * Real.log x := by ring
 
 /-- Converse generic transfer: the classical prime-minus-Li von-Koch
@@ -211,7 +211,7 @@ theorem proxyTracking_of_primeLiVonKochBounded
       add_le_add (hA x hx) (hB x hx)
     _ ≤ A * Real.sqrt x * Real.log x +
         (B / ell) * Real.sqrt x * Real.log x :=
-      add_le_add_left hrootScale _
+      add_le_add_right hrootScale _
     _ = (A + B / ell) * Real.sqrt x * Real.log x := by ring
 
 /-- For every root-close deterministic proxy, actual-to-proxy tracking at
@@ -292,7 +292,7 @@ theorem vfMidSquareEndpointVonKochBounded_of_fractionalClusterTracking
   intro R hR
   have hbound := hC R hR
   rw [vfMidFractionalPrimeClusterMass_eq_vfMid_sq R hR] at hbound
-  simpa [vfMidPrimeError] using hbound
+  simpa [vfMidPrimeError] using! hbound
 
 theorem fractionalClusterTracking_of_vfMidSquareEndpointVonKochBounded
     (h : VFMidSquareEndpointVonKochBoundedStatement) :
@@ -302,7 +302,7 @@ theorem fractionalClusterTracking_of_vfMidSquareEndpointVonKochBounded
   intro R hR
   have hbound := hC R hR
   rw [vfMidFractionalPrimeClusterMass_eq_vfMid_sq R hR]
-  simpa [vfMidPrimeError] using hbound
+  simpa [vfMidPrimeError] using! hbound
 
 theorem vfMidFractionalClusterSquareTracking_iff_squareEndpoint :
     VFMidFractionalClusterSquareTrackingStatement ↔
@@ -333,7 +333,7 @@ def VFMidLinearProxyTrackingStatement : Prop :=
 theorem vfMidLinearProxy_li_root_bounded :
     PrimeProxyLiRootBoundedStatement vfMidLinearMidpointInterpolant := by
   simpa [PrimeProxyLiRootBoundedStatement,
-    VFMidLinearMidpointLiRootBoundedStatement] using
+    VFMidLinearMidpointLiRootBoundedStatement] using!
       vfMidLinearMidpoint_li_root_bounded
 
 theorem riemannHypothesis_of_vfMidLinearProxyTracking
@@ -372,7 +372,7 @@ theorem liFloorProxy_li_root_bounded :
   have hsqrt : (1 : ℝ) ≤ Real.sqrt x := by
     nlinarith
   have hscale : K ≤ K * Real.sqrt x := by
-    simpa using mul_le_mul_of_nonneg_left hsqrt hK0
+    simpa using! mul_le_mul_of_nonneg_left hsqrt hK0
   exact hround.trans hscale
 
 theorem riemannHypothesis_of_liFloorProxyTracking

@@ -31,7 +31,7 @@ theorem vf919HalfIntegerWindow_eq_sharp
       if m ≤ N then 1 else 0 := by
   have hx : (0 : ℝ) < (N : ℝ) + 1 / 2 := by positivity
   by_cases hm : m ≤ N
-  · rw [if_pos hm]
+  · rw [ite_eq_left hm]
     apply hone
     apply (div_le_iff₀ hx).2
     have hcast : (m : ℝ) ≤ (N : ℝ) := by exact_mod_cast hm
@@ -39,7 +39,7 @@ theorem vf919HalfIntegerWindow_eq_sharp
       (m : ℝ) ≤ (N : ℝ) := hcast
       _ ≤ ((N : ℝ) + 1 / 2) - h * ((N : ℝ) + 1 / 2) := by linarith
       _ = (1 - h) * ((N : ℝ) + 1 / 2) := by ring
-  · rw [if_neg hm]
+  · rw [ite_eq_right hm]
     apply hzero
     apply (le_div_iff₀ hx).2
     have hs : N + 1 ≤ m := by omega

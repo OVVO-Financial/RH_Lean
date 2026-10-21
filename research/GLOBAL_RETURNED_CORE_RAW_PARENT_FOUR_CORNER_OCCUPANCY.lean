@@ -106,14 +106,14 @@ theorem lowOwnerFirstOwnerRawParentOrbitEvenFixedFiber_child_even
   have hparent' :
       (squarefreePrimeFamilyParent r m,
         squarefreePrimeFamilyParent r n) = parent := by
-    simpa [lowOwnerFirstOwnerPolarizationRawParent] using hparent
+    simpa [lowOwnerFirstOwnerPolarizationRawParent] using! hparent
   by_cases hrm : r ∣ m
   · have hrn : r ∣ n := hiff.mp hrm
     right
     rcases parent with ⟨a, b⟩
     simp only [Prod.mk.injEq] at hparent' ⊢
     unfold squarefreePrimeFamilyParent at hparent'
-    simp only [hrm, hrn, if_true] at hparent'
+    simp only [hrm, hrn, ite_true] at hparent'
     rcases hparent' with ⟨ha, hb⟩
     exact ⟨
       (Nat.mul_div_cancel' hrm).symm.trans
@@ -125,7 +125,7 @@ theorem lowOwnerFirstOwnerRawParentOrbitEvenFixedFiber_child_even
       exact hrm (hiff.mpr h)
     left
     unfold squarefreePrimeFamilyParent at hparent'
-    simp only [hrm, hrn, if_false] at hparent'
+    simp only [hrm, hrn, ite_false] at hparent'
     exact hparent'
 
 /-- The odd and even physical points over one raw parent occupy only the four
@@ -267,7 +267,7 @@ theorem lowOwnerFirstOwnerPolarizationRawParent_mixedCorners_have_owner
   · have hleftOwner :
         IsSquarefreePairGreatestFreshPrimeOwner
           r (r * parent.1) parent.2 := by
-      simpa [hleft] using hchildOwner
+      simpa [hleft] using! hchildOwner
     refine ⟨hleftOwner, ?_⟩
     unfold IsSquarefreePairGreatestFreshPrimeOwner at hleftOwner ⊢
     rw [← hfresh]
@@ -275,7 +275,7 @@ theorem lowOwnerFirstOwnerPolarizationRawParent_mixedCorners_have_owner
   · have hrightOwner :
         IsSquarefreePairGreatestFreshPrimeOwner
           r parent.1 (r * parent.2) := by
-      simpa [hright] using hchildOwner
+      simpa [hright] using! hchildOwner
     refine ⟨?_, hrightOwner⟩
     unfold IsSquarefreePairGreatestFreshPrimeOwner at hrightOwner ⊢
     rw [hfresh]

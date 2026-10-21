@@ -80,7 +80,7 @@ theorem sq_sum_survivorResidueSignedMass_le_modulus_mul_energy
         (s : ℝ) *
           ∑ u : ZMod s,
             ((survivorResidueSignedMass Λ t s u : ℤ) : ℝ) ^ 2 := by
-    simpa [ZMod.card, nsmul_eq_mul, mul_comm] using hcs
+    simpa [ZMod.card, nsmul_eq_mul, mul_comm] using! hcs
   calc
     (((∑ u : ZMod s, survivorResidueSignedMass Λ t s u : ℤ) : ℝ)) ^ 2 =
         (∑ u : ZMod s,
@@ -173,7 +173,7 @@ theorem survivorZeroMode_eq_intCast_parityChannelSum
       (((survivorParityZeroMass Λ t + survivorParityOneMass Λ t : ℤ)) : ℂ) := by
   rw [survivorZeroMode_eq_intCast_sum_survivorResidueSignedMass Λ t 2]
   congr 1
-  simpa [survivorParityZeroMass, survivorParityOneMass] using
+  simpa [survivorParityZeroMass, survivorParityOneMass] using!
     (sum_zmod_two (fun u : ZMod 2 => survivorResidueSignedMass Λ t 2 u))
 
 /-- The true pointwise survivor energy is exactly the real cast of the signed
@@ -195,7 +195,7 @@ theorem norm_sq_survivorZeroMode_le_modulus_mul_residueEnergy
       (s : ℝ) * ((survivorResidueEnergy Λ t s : ℤ) : ℝ) := by
   rw [survivorZeroMode_eq_intCast_sum_survivorResidueSignedMass Λ t s]
   rw [survivor_norm_intCast_complex_sq]
-  simpa [pow_two] using
+  simpa [pow_two] using!
     sq_sum_survivorResidueSignedMass_le_modulus_mul_energy Λ t s
 
 /-- The same pointwise bridge written in the signed diagonal-plus-covariance
@@ -238,9 +238,9 @@ theorem norm_sq_survivorZeroMode_le_covarianceBudget
     (Λ : ℝ) (schedule : SurvivorResidueModulusSchedule) (t : ℕ) :
     ‖survivorZeroMode Λ t‖ ^ 2 ≤
       survivorResidueCovarianceBudget Λ schedule t := by
-  letI : NeZero (schedule.modulus t) :=
+  let : NeZero (schedule.modulus t) :=
     ⟨Nat.ne_of_gt (schedule.positive t)⟩
-  simpa [survivorResidueCovarianceBudget, survivorResidueCovarianceBudgetAt] using
+  simpa [survivorResidueCovarianceBudget, survivorResidueCovarianceBudgetAt] using!
     norm_sq_survivorZeroMode_le_modulus_mul_diagonal_add_crossCovariance
       Λ t (schedule.modulus t)
 

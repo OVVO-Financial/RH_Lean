@@ -70,12 +70,12 @@ theorem collisionCRT_prefix_eq_nine_fullPeriods_add_frontier
     (hpq : p ≠ q) :
     let Q := (p ^ 2) * (q ^ 2)
     let hcop := primeSquare_coprime_primeSquare p q hp hq hpq
-    letI : NeZero Q := ⟨(collisionModulus_pos p q hp hq).ne'⟩
+    let : NeZero Q := ⟨(collisionModulus_pos p q hp hq).ne'⟩
     residuePrefixCount Q K (collisionCRTResidues p q hcop) =
       9 * (K / Q) +
         (residuePrefixFrontier Q K (collisionCRTResidues p q hcop)).card := by
   dsimp only
-  letI : NeZero ((p ^ 2) * (q ^ 2)) :=
+  let : NeZero ((p ^ 2) * (q ^ 2)) :=
     ⟨(collisionModulus_pos p q hp hq).ne'⟩
   rw [residuePrefixCount_eq_fullPeriods_add_frontier
     ((p ^ 2) * (q ^ 2)) K (collisionModulus_pos p q hp hq)]
@@ -90,10 +90,10 @@ theorem collisionCRT_frontier_card_le_nine
     (hpq : p ≠ q) :
     let Q := (p ^ 2) * (q ^ 2)
     let hcop := primeSquare_coprime_primeSquare p q hp hq hpq
-    letI : NeZero Q := ⟨(collisionModulus_pos p q hp hq).ne'⟩
+    let : NeZero Q := ⟨(collisionModulus_pos p q hp hq).ne'⟩
     (residuePrefixFrontier Q K (collisionCRTResidues p q hcop)).card ≤ 9 := by
   dsimp only
-  letI : NeZero ((p ^ 2) * (q ^ 2)) :=
+  let : NeZero ((p ^ 2) * (q ^ 2)) :=
     ⟨(collisionModulus_pos p q hp hq).ne'⟩
   calc
     (residuePrefixFrontier ((p ^ 2) * (q ^ 2)) K

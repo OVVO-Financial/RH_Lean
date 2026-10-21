@@ -6,8 +6,8 @@ targets and warning-fatal research import closure. The standing full-library,
 declaration-graph, source, export and terminal-axiom gates still decide PR acceptance;
 this targeted check is compiler feedback, not a replacement for those audits.
 
-Locally, after installing the pinned toolchain, restoring Mathlib and applying
-the repository's StrongPNT patches, run:
+Locally, after installing the pinned toolchain and restoring Mathlib with
+`lake exe cache get`, run:
 
 ```bash
 python3 scripts/compile_research_import_closure.py --build-library \
@@ -16,7 +16,9 @@ python3 scripts/compile_research_import_closure.py --build-library \
 
 Multiple entry files share one traversal. `--plan /tmp/closure.json` lists the
 ordered source closure and native targets without installing Lean.
-`--force` recompiles every research prerequisite.
+`--force` recompiles every research prerequisite. `--library-only` builds the
+imported native targets and stops, for workflows that compile research files
+themselves.
 
 | Change | Research compilation |
 | --- | --- |
@@ -24,7 +26,7 @@ ordered source closure and native targets without installing Lean.
 | Leaf proof edit | Recompile the leaf and its dependent consumers |
 | Imported research edit | Recompile that module and its descendants |
 | Unrelated research edit | Reuse the selected closure |
-| Native sources, dependency pins, patch layer or compiler flags | Invalidate research reuse |
+| Native sources, dependency pins or compiler flags | Invalidate research reuse |
 | Missing, unverified or corrupt artifact | Recompile it |
 | Failed new proof | Keep completed prerequisites; discard its invalid output |
 

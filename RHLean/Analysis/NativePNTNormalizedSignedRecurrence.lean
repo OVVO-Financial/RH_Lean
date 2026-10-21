@@ -88,7 +88,7 @@ theorem nativePNTNormalizedError_abs_le_const
   unfold nativePNTNormalizedError
   rw [abs_div, abs_of_pos hNpos]
   apply (div_le_iff₀ hNpos).2
-  simpa [mul_assoc] using h
+  simpa [mul_assoc] using! h
 
 /-- The exact normalized reciprocal term is the barycentric transform of the
 normalized quotient errors.  No floor approximation is made. -/
@@ -178,7 +178,7 @@ theorem nativePNTNormalized_signed_first_recurrence_abs_le
     ring
   rw [hrearrange, abs_div, abs_of_pos hNpos]
   apply (div_le_iff₀ hNpos).2
-  simpa [nativePNTNormalizedSelbergConstant] using hsigned
+  simpa [nativePNTNormalizedSelbergConstant] using! hsigned
 
 /-- Barycentric form of the scale-free signed recurrence.  The entire recursive
 term is now a nonnegative weighted average of normalized quotient errors. -/

@@ -54,7 +54,7 @@ theorem nativePNTMobiusLogSquarePrimeTwoDivisorCellFiber_eq
           (m * 2) * (d / m) = 2 * (m * (d / m)) := by ring
           _ = 2 * d := by rw [hmul]
       rw [hmul, hmul2] at hcell
-      simpa [mul_assoc] using hcell
+      simpa [mul_assoc] using! hcell
     _ = nativeMobiusLogSquareDivisorFiber d *
         (nativePNTError (N / d) - nativePNTError (N / (2 * d))) := by
       unfold nativeMobiusLogSquareDivisorFiber
@@ -81,8 +81,8 @@ private theorem abs_pair_surplus_ge_two_common_lower
     2 * L ≤ |x| + |y| - |x - y| := by
   rcases hsign with hpos | hneg
   · rcases hpos with ⟨hx0, hy0⟩
-    have hxL : L ≤ x := by simpa [abs_of_nonneg hx0] using hx
-    have hyL : L ≤ y := by simpa [abs_of_nonneg hy0] using hy
+    have hxL : L ≤ x := by simpa [abs_of_nonneg hx0] using! hx
+    have hyL : L ≤ y := by simpa [abs_of_nonneg hy0] using! hy
     rw [abs_of_nonneg hx0, abs_of_nonneg hy0]
     by_cases hxy : x ≤ y
     · rw [abs_of_nonpos (sub_nonpos.mpr hxy)]
@@ -91,8 +91,8 @@ private theorem abs_pair_surplus_ge_two_common_lower
       rw [abs_of_nonneg (sub_nonneg.mpr hyx)]
       linarith
   · rcases hneg with ⟨hx0, hy0⟩
-    have hxL : L ≤ -x := by simpa [abs_of_nonpos hx0] using hx
-    have hyL : L ≤ -y := by simpa [abs_of_nonpos hy0] using hy
+    have hxL : L ≤ -x := by simpa [abs_of_nonpos hx0] using! hx
+    have hyL : L ≤ -y := by simpa [abs_of_nonpos hy0] using! hy
     rw [abs_of_nonpos hx0, abs_of_nonpos hy0]
     by_cases hxy : x ≤ y
     · rw [abs_of_nonpos (sub_nonpos.mpr hxy)]
@@ -206,15 +206,15 @@ theorem nativePNT_reciprocal_preimage_of_sq_le
   have hkLower : q ≤ k := by
     dsimp [k]
     apply (Nat.le_div_iff_mul_le hqpos).2
-    simpa [pow_two] using hsq
+    simpa [pow_two] using! hsq
   have hkN : k ≤ N := by dsimp [k]; exact Nat.div_le_self N q
   have hrem : N % q < k := (Nat.mod_lt N hqpos).trans_le hkLower
   have hdecomp : q * k + N % q = N := by
     dsimp [k]
-    simpa [Nat.mul_comm] using Nat.div_add_mod N q
+    simpa [Nat.mul_comm] using! Nat.div_add_mod N q
   have hlo : q * k ≤ N := by
     dsimp [k]
-    simpa [Nat.mul_comm] using Nat.div_mul_le_self N q
+    simpa [Nat.mul_comm] using! Nat.div_mul_le_self N q
   have hhi : N < (q + 1) * k := by
     rw [← hdecomp]
     calc
@@ -256,7 +256,7 @@ private theorem nativePNT_natCast_div_gt_sub_one
     exact_mod_cast hnat
   have hquot : (N : ℝ) / (d : ℝ) < ((N / d : ℕ) : ℝ) + 1 := by
     apply (div_lt_iff₀ hdR).2
-    simpa [mul_comm] using hreal
+    simpa [mul_comm] using! hreal
   linarith
 
 theorem nativePNTLogSquareUnitQuotientFiber_card_lower
@@ -307,15 +307,15 @@ theorem nativePNTLogSquareUnitQuotientFiber_log_sq_lower
     rw [← primeSieveQuotientFiber_eq_reciprocalInterval 0 N q hqpos]
     exact hkFiber
   have hdivLower : N / (q + 1) < k := by
-    simpa [primeSieveReciprocalLower] using
+    simpa [primeSieveReciprocalLower] using!
       (mem_primeSieveReciprocalInterval.mp hkRec).1
   have hqDiv : q + 1 ≤ N / (q + 1) := by
     apply (Nat.le_div_iff_mul_le (by omega : 0 < q + 1)).2
-    simpa [pow_two] using hsq
+    simpa [pow_two] using! hsq
   have hqk : q + 1 < k := hqDiv.trans_lt hdivLower
   have hNlt : N < k * (q + 1) := by
     have h := Nat.lt_mul_div_succ N hkpos
-    simpa [hdiv] using h
+    simpa [hdiv] using! h
   have hNkSq : N < k ^ 2 := by
     calc
       N < k * (q + 1) := hNlt

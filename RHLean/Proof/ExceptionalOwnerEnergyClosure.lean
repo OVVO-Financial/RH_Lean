@@ -76,7 +76,7 @@ theorem exceptionalOwnerEnergyStep_implies_linear_of_fixedPointBudget
         _ ≤ C * (X : ℚ) + alpha3 * (K * ((X : ℚ) / 9)) +
             alpha5 * (K * ((X : ℚ) / 25)) +
             alpha7 * (K * ((X : ℚ) / 49)) := by
-          exact add_le_add (add_le_add (add_le_add_left hw3 _) hw5) hw7
+          exact add_le_add (add_le_add (add_le_add_right hw3 _) hw5) hw7
         _ = (C + exceptionalOwnerEnergyBudget alpha3 alpha5 alpha7 * K) *
             (X : ℚ) := by
           unfold exceptionalOwnerEnergyBudget
@@ -211,7 +211,7 @@ theorem exceptionalOwner_weighted_synthesis_implies_linear
     (mul_nonneg hg0 (by positivity)) (mul_nonneg hg0 (by positivity))
     (mul_nonneg hg0 (by positivity))
     (by rw [exceptionalOwner_weighted_synthesis_budget]; exact hg2) hstep
-  simpa only [exceptionalOwner_weighted_synthesis_budget] using h
+  simpa only [exceptionalOwner_weighted_synthesis_budget] using! h
 
 /-- The scale-aware Cauchy bound is attained by the reciprocal-owner vector;
 the displayed equality uses arbitrary amplitude gains. -/

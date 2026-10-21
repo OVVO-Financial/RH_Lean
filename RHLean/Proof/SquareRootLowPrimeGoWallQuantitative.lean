@@ -30,7 +30,7 @@ theorem squareRootLowPrimeGo_squareCutoff_lt_owner_of_lt_cube
     X / (q * q) < q := by
   have hqqPos : 0 < q * q := Nat.mul_pos hq.pos hq.pos
   apply (Nat.div_lt_iff_lt_mul hqqPos).2
-  simpa [pow_succ, Nat.mul_assoc, Nat.mul_comm, Nat.mul_left_comm] using hXq
+  simpa [pow_succ, Nat.mul_assoc, Nat.mul_comm, Nat.mul_left_comm] using! hXq
 
 /-- Square-endpoint specialization of the cubic completion criterion. -/
 theorem squareRootLowPrimeGo_squareEndpointCutoff_lt_owner_of_lt_cube

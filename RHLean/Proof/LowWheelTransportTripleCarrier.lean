@@ -61,16 +61,16 @@ theorem mem_lowWheelTransport_quotientInterval_iff
     rcases Finset.mem_Ioc.mp hk with ⟨hlow, hupp⟩
     constructor
     · have h := (Nat.div_lt_iff_lt_mul hdpos).1 hlow
-      simpa [Nat.mul_comm] using h
+      simpa [Nat.mul_comm] using! h
     · have h := (Nat.le_div_iff_mul_le hcdpos).1 hupp
-      simpa [Nat.mul_comm, Nat.mul_left_comm, Nat.mul_assoc] using h
+      simpa [Nat.mul_comm, Nat.mul_left_comm, Nat.mul_assoc] using! h
   · rintro ⟨hlow, hupp⟩
     apply Finset.mem_Ioc.mpr
     constructor
     · apply (Nat.div_lt_iff_lt_mul hdpos).2
-      simpa [Nat.mul_comm] using hlow
+      simpa [Nat.mul_comm] using! hlow
     · apply (Nat.le_div_iff_mul_le hcdpos).2
-      simpa [Nat.mul_comm, Nat.mul_left_comm, Nat.mul_assoc] using hupp
+      simpa [Nat.mul_comm, Nat.mul_left_comm, Nat.mul_assoc] using! hupp
 
 /-- A constant signed weight summed over one quotient interval is exactly the
 corresponding floor-difference term from the Boolean-cube expansion. -/

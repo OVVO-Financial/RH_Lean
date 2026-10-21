@@ -99,11 +99,11 @@ theorem vfMidSquareBand_commonWheelSurvivor_iff_prime
     have hnOne : n ≠ 1 := by omega
     let p := n.minFac
     have hpPrime : p.Prime := by
-      simpa [p] using Nat.minFac_prime hnOne
+      simpa [p] using! Nat.minFac_prime hnOne
     have hpDvd : p ∣ n := by
-      simpa [p] using Nat.minFac_dvd n
+      simpa [p] using! Nat.minFac_dvd n
     have hpSqLe : p ^ 2 ≤ n := by
-      simpa [p] using Nat.minFac_sq_le_self hnPos hnPrime
+      simpa [p] using! Nat.minFac_sq_le_self hnPos hnPrime
     have hpLt : p < R + 1 := by
       by_contra hnot
       have hRp : R + 1 ≤ p := Nat.le_of_not_gt hnot
@@ -624,7 +624,7 @@ theorem abs_vfMidIntegerBlockBacklog_increment_add_bandError_lt_one
   rw [hcast]
   unfold vfMidDirectBandError vfMidDirectPrimeBandCount
     vfMidIntegerBlockPrimeSupply
-  simpa only [sub_add_sub_cancel] using hdemand
+  simpa only [sub_add_sub_cancel] using! hdemand
 
 /-- Immediate capture yields the deterministic one-block real discrepancy
 bound, with one additional count for flooring. -/
@@ -719,9 +719,9 @@ theorem vfMidPrimesUpTo_succ (R : ℕ) :
       if (R + 1).Prime then insert (R + 1) (primesUpTo R)
       else primesUpTo R := by
   by_cases hprime : (R + 1).Prime
-  · rw [if_pos hprime]
+  · rw [ite_eq_left hprime]
     exact vfMidPrimesUpTo_succ_eq_insert_of_prime R hprime
-  · rw [if_neg hprime]
+  · rw [ite_eq_right hprime]
     exact vfMidPrimesUpTo_succ_eq_of_not_prime R hprime
 
 end RHLean.Analysis

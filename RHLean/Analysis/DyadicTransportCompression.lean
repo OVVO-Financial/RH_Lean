@@ -91,7 +91,7 @@ theorem canonicalMoebiusWeight_dyadicChild
       -canonicalMoebiusWeight (c * q) := by
   have hodd : Odd (c * q) := hc.mul hq
   have hmu := RHLean.Arithmetic.moebius_two_mul_of_odd (c * q) hodd
-  simpa [dyadicChildCofactor, canonicalMoebiusWeight, Nat.mul_assoc] using
+  simpa [dyadicChildCofactor, canonicalMoebiusWeight, Nat.mul_assoc] using!
     congrArg (fun z : ℤ => (z : ℂ)) hmu
 
 /-- Prime-specialized form of the dyadic Möbius sign flip. -/
@@ -201,7 +201,7 @@ theorem no_finiteTransportActive_dyadicChild_iff
   constructor
   · intro hnone
     by_contra hnot
-    push_neg at hnot
+    push Not at hnot
     have hentryHorizon : Nat.sqrt (dyadicChildCofactor c * q) ≤ N := hnot.1
     have hentryTransition :
         Nat.sqrt (dyadicChildCofactor c * q) < q - 1 := hnot.2
@@ -285,11 +285,11 @@ theorem canonicalMoebiusWeight_two_mul (c : ℕ) :
     canonicalMoebiusWeight (2 * c) =
       if Odd c then -canonicalMoebiusWeight c else 0 := by
   by_cases hc : Odd c
-  · rw [if_pos hc]
-    simpa [dyadicChildCofactor] using
+  · rw [ite_eq_left hc]
+    simpa [dyadicChildCofactor] using!
       (canonicalMoebiusWeight_dyadicChild
         (c := c) (q := 1) hc (by norm_num : Odd 1))
-  · rw [if_neg hc]
+  · rw [ite_eq_right hc]
     have heven : Even c := Nat.not_odd_iff_even.mp hc
     have hzero : μ (2 * c) = 0 := by
       apply ArithmeticFunction.moebius_eq_zero_of_not_squarefree
@@ -313,7 +313,7 @@ theorem sum_double_eq_sum_evenCofactorPrefix (B : ℕ) :
     rcases Finset.mem_Icc.mp hd with ⟨hd1, hdB⟩
     have h2dB : 2 * d ≤ B := by
       have hmul := (Nat.le_div_iff_mul_le (by omega : 0 < 2)).1 hdB
-      simpa [Nat.mul_comm] using hmul
+      simpa [Nat.mul_comm] using! hmul
     have hpos : 1 ≤ 2 * d := by omega
     have heven : Even (2 * d) := even_two_mul d
     exact mem_evenCofactorPrefix.mpr ⟨hpos, h2dB, heven⟩
@@ -331,7 +331,7 @@ theorem sum_double_eq_sum_evenCofactorPrefix (B : ℕ) :
       omega
     · apply (Nat.le_div_iff_mul_le (by omega : 0 < 2)).2
       have hmul : c / 2 * 2 = c := by
-        simpa [Nat.mul_comm] using hdouble
+        simpa [Nat.mul_comm] using! hdouble
       rw [hmul]
       exact hcB
   · intro d hd
@@ -492,7 +492,7 @@ theorem squareRootTransportCofactorFirst_eq_dyadicBoundaryMass (R : ℕ) :
     by_cases hprime : q.Prime
     · have hRq : R < q := (Finset.mem_Ioc.mp hqmem).1
       have hqpos : 0 < q := hprime.pos
-      simp only [hprime, if_true]
+      simp only [hprime, ite_true]
       exact primeDilatedLowCofactorMass_eq_dyadicPrimeFiberBoundaryMass
         R q hR hRq hqpos
     · simp [hprime]

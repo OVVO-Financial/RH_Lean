@@ -45,7 +45,7 @@ theorem deathShellDivisorCode_injOn_positiveHeight :
       canonicalPairLo m + canonicalPairHi m =
         canonicalPairLo n + canonicalPairHi n := by
     apply Nat.eq_of_mul_eq_mul_left hgapPos
-    simpa [deathShellHeightNat, hgap] using hheight
+    simpa [deathShellHeightNat, hgap] using! hheight
   have hhi_m := canonicalPairLo_add_absoluteGap m
   have hhi_n := canonicalPairLo_add_absoluteGap n
   have hlo : canonicalPairLo m = canonicalPairLo n := by omega

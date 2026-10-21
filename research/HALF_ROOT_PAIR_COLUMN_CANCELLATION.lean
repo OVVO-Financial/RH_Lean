@@ -89,7 +89,7 @@ theorem squareRootEndpoint_div_square_halfRootHighPrime_lt_four
       _ = 4 * (p * p) := by ring
   apply (Nat.div_lt_iff_lt_mul
     (Nat.mul_pos hpData.1.pos hpData.1.pos)).2
-  simpa [Nat.mul_assoc] using hX4
+  simpa [Nat.mul_assoc] using! hX4
 
 /-- The completed square residual is exactly the four-state square weight. -/
 theorem mertensSummatoryInt_squareRootEndpoint_div_square_eq_halfRootPrimeSquareWeight
@@ -100,7 +100,7 @@ theorem mertensSummatoryInt_squareRootEndpoint_div_square_eq_halfRootPrimeSquare
       halfRootPrimeSquareWeight R p := by
   have hlt := squareRootEndpoint_div_square_halfRootHighPrime_lt_four hR hp
   let z := squareRootEndpoint R / (p * p)
-  have hzlt : z < 4 := by simpa [z] using hlt
+  have hzlt : z < 4 := by simpa [z] using! hlt
   by_cases hz0 : z = 0
   · simp [halfRootPrimeSquareWeight, z, hz0,
       halfRoot_mertensSummatoryInt_zero]
@@ -229,7 +229,7 @@ theorem squareRootProperSubwheelFrozenCorrelation_eq_halfRootBoundary_sub_square
     squareRootProperSubwheelFrozenCorrelation R (R / 2) =
       frozenPrimeUniverseMass (primesUpTo (R / 2)) (squareRootEndpoint R) -
         halfRootCommonPrimeColumn R + halfRootPrimePairShell R := by
-          simpa [halfRootCommonPrimeColumn, halfRootPrimePairShell] using h607
+          simpa [halfRootCommonPrimeColumn, halfRootPrimePairShell] using! h607
     _ = frozenPrimeUniverseMass (primesUpTo (R / 2)) (squareRootEndpoint R) -
         (halfRootCommonPrimeColumn R - halfRootPrimePairShell R) := by ring
     _ = frozenPrimeUniverseMass (primesUpTo (R / 2)) (squareRootEndpoint R) -
@@ -255,7 +255,7 @@ theorem halfRootPrimeSquareWeight_eq_zero_of_root_lt
   have hpow : R ^ 2 < p ^ 2 :=
     Nat.pow_lt_pow_left hRp (by omega)
   have hlt : squareRootEndpoint R < p * p := by
-    simpa [pow_two] using hX.trans hpow
+    simpa [pow_two] using! hX.trans hpow
   have hzero : squareRootEndpoint R / (p * p) = 0 := Nat.div_eq_of_lt hlt
   simp [halfRootPrimeSquareWeight, hzero]
 

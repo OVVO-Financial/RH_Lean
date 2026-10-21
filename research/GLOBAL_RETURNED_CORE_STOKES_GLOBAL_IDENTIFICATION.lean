@@ -73,7 +73,7 @@ theorem lowOwnerCanonicalSignedStokesFinalBoundary_eq_crossAmplitudeLedger
     lowOwnerCanonicalSignedStokesFinalBoundary R =
       lowOwnerCanonicalSignedStokesCrossAmplitudeLedger R := by
   rw [← sum_lowOwnerFirstOwnerSignedCellTelescope_eq_finalStokesBoundary hR]
-  simpa [lowOwnerCanonicalSignedStokesCrossAmplitudeLedger] using
+  simpa [lowOwnerCanonicalSignedStokesCrossAmplitudeLedger] using!
     (sum_signedCellTelescope_eq_neg_two_sum_base_mul_returned R)
 
 /-- The final boundary is, definitionally, the physically identified clip

@@ -112,7 +112,7 @@ theorem moebiusPositivePrefix_four_mul_eq_fourSlotCellSum (K : ℕ) :
       have ih' :
           (∑ n ∈ Finset.Icc 1 (4 * K), μ n) =
             ∑ k ∈ Finset.range K, fourSlotCellSum k := by
-        simpa [moebiusPositivePrefix, positivePrefix] using ih
+        simpa [moebiusPositivePrefix, positivePrefix] using! ih
       unfold moebiusPositivePrefix positivePrefix
       rw [show 4 * (K + 1) = 4 * K + 4 by omega]
       rw [Finset.sum_Icc_succ_top (by omega : 1 ≤ 4 * K + 4)]

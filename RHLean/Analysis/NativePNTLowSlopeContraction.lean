@@ -50,7 +50,7 @@ theorem nativePNTHasAffineEnvelope_improve_of_goodMass_half
   have hable : alpha - beta ≤ alpha := by linarith
   have hmul : (alpha - beta) * c ≤ alpha := by
     have := mul_le_mul hable hc1 hc.le halpha.le
-    simpa using this
+    simpa using! this
   have hdeltale : delta ≤ alpha / 2 := by
     dsimp [delta]
     nlinarith
@@ -76,21 +76,21 @@ theorem nativePNTHasAffineEnvelope_improve_of_goodMass_half
     have hNR0 : 0 ≤ (N : ℝ) := by positivity
     have hN1R : (1 : ℝ) ≤ (N : ℝ) := by exact_mod_cast hN1
     let L : ℝ := Real.log (N : ℝ)
-    have hL1' : (1 : ℝ) ≤ L := by simpa [L] using hL1
+    have hL1' : (1 : ℝ) ≤ L := by simpa [L] using! hL1
     have hL0 : 0 ≤ L := le_trans (by norm_num) hL1'
     have hLpos : 0 < L := lt_of_lt_of_le (by norm_num) hL1'
     have hden : 0 < delta := hdelta
     have hCLe0 : C0 ≤ L * delta := by
       apply (div_le_iff₀ hden).mp
-      simpa [L] using hLC
+      simpa [L] using! hLC
     have hCLe : C0 ≤ delta * L := by
-      simpa [mul_comm] using hCLe0
+      simpa [mul_comm] using! hCLe0
     have hB0 : 0 ≤ 2000 * alpha + 782 * D := by positivity
     have hBLe :
         2000 * alpha + 782 * D ≤
           (2000 * alpha + 782 * D) * L := by
       have h := mul_le_mul_of_nonneg_left hL1' hB0
-      simpa using h
+      simpa using! h
     have hleft :
         alpha * (1000 * L + 2000) +
             D * (2 * L + 782) + 3000 * L ≤ C0 * L := by
@@ -110,7 +110,7 @@ theorem nativePNTHasAffineEnvelope_improve_of_goodMass_half
     have hD600 : D * 600 ≤ D * 600 * (N : ℝ) := by
       have h600D : 0 ≤ D * 600 := by positivity
       have h := mul_le_mul_of_nonneg_left hN1R h600D
-      simpa [mul_assoc] using h
+      simpa [mul_assoc] using! h
     have hinnerN := mul_le_mul_of_nonneg_left hinner hNR0
     have hoverhead :
         alpha * (N : ℝ) * (1000 * L + 2000) +
@@ -137,7 +137,7 @@ theorem nativePNTHasAffineEnvelope_improve_of_goodMass_half
     have hcoef0 : 0 ≤ (alpha - beta) * (N : ℝ) :=
       mul_nonneg habpos.le hNR0
     have hgoodN' : c * L ^ 2 ≤ nativeLambdaTwoGoodRecipMass N beta := by
-      simpa [L] using hgoodN
+      simpa [L] using! hgoodN
     have hgoodMul := mul_le_mul_of_nonneg_left hgoodN' hcoef0
     have hdeficit :
         -(alpha - beta) * (N : ℝ) * nativeLambdaTwoGoodRecipMass N beta ≤
@@ -186,7 +186,7 @@ theorem nativePNTHasAffineEnvelope_improve_of_goodMass_half
                   3000 * (N : ℝ) * L) +
                 (-(alpha - beta) * (N : ℝ) *
                   nativeLambdaTwoGoodRecipMass N beta)) := by
-        simpa [L, hrearrange] using hrec
+        simpa [L, hrearrange] using! hrec
       calc
         |nativePNTError N| * L ^ 2 ≤
             alpha * (N : ℝ) * L ^ 2 +
@@ -196,14 +196,14 @@ theorem nativePNTHasAffineEnvelope_improve_of_goodMass_half
                 (-(alpha - beta) * (N : ℝ) *
                   nativeLambdaTwoGoodRecipMass N beta)) := hrec'
         _ ≤ alpha * (N : ℝ) * L ^ 2 - delta * (N : ℝ) * L ^ 2 := by
-          simpa [sub_eq_add_neg] using
-            (add_le_add_left htail (alpha * (N : ℝ) * L ^ 2))
+          simpa [sub_eq_add_neg] using!
+            (add_le_add_right htail (alpha * (N : ℝ) * L ^ 2))
         _ = (alpha - delta) * (N : ℝ) * L ^ 2 := by ring
     have hLsq : 0 < L ^ 2 := sq_pos_of_pos hLpos
     have hsq' :
         |nativePNTError N| * L ^ 2 ≤
           ((alpha - delta) * (N : ℝ)) * L ^ 2 := by
-      simpa [mul_assoc] using hsq
+      simpa [mul_assoc] using! hsq
     exact (mul_le_mul_iff_left₀ hLsq).mp hsq'
   rcases (eventually_atTop.1 hlarge) with ⟨M, hM⟩
   refine ⟨D + delta * (M : ℝ), ?_, ?_⟩
@@ -267,7 +267,7 @@ theorem nativePNTHasAffineEnvelope_lowSlope_cubic_step
   have hgood : ∀ᶠ N : ℕ in atTop,
       c * (Real.log (N : ℝ)) ^ 2 ≤
         nativeLambdaTwoGoodRecipMass N beta := by
-    simpa [c] using
+    simpa [c] using!
       nativeLambdaTwoGoodRecipMass_eventually_quadratic_rate
         beta hbeta hbeta1
   have himp := nativePNTHasAffineEnvelope_improve_of_goodMass_half

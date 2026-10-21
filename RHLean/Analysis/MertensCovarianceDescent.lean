@@ -142,7 +142,7 @@ private theorem mertensCovarianceExcursion_lt_one_aux
   | succ N ih =>
       intro K hKN hK
       by_contra hge
-      push_neg at hge
+      push Not at hge
       obtain ⟨d, hd1, hdK, hdex⟩ := h δ hδ K hK hge
       exact absurd hdex (not_le.mpr (ih d (by omega) hd1))
 
@@ -195,7 +195,7 @@ private theorem one_le_rpow_succ_cast {ε : ℝ} (hε : 0 < ε) (X : ℕ) :
     exact_mod_cast hone
   have h := Real.rpow_le_rpow_of_exponent_le hbase
     (by linarith : (0 : ℝ) ≤ 1 + ε)
-  simpa using h
+  simpa using! h
 
 private theorem rpow_half_sq {ε : ℝ} (B : ℝ) (hB : 0 ≤ B) :
     (Real.rpow B ((1 + ε) / 2)) ^ (2 : ℕ) = Real.rpow B (1 + ε) := by
@@ -293,8 +293,8 @@ private theorem card_admissiblePrimeFaces_eq_squarefreeUpTo (X : ℕ) :
   have hinj : Set.InjOn primeFaceProduct
       (↑(admissiblePrimeFaces X) : Set (Finset ℕ)) := by
     intro t ht u hu hprod
-    have ht' : t ∈ admissiblePrimeFaces X := by simpa using ht
-    have hu' : u ∈ admissiblePrimeFaces X := by simpa using hu
+    have ht' : t ∈ admissiblePrimeFaces X := by simpa using! ht
+    have hu' : u ∈ admissiblePrimeFaces X := by simpa using! hu
     exact primeFaceProduct_injective_on_admissible_primesUpTo
       (mem_admissiblePrimeFaces.mp ht')
       (mem_admissiblePrimeFaces.mp hu') hprod
@@ -471,7 +471,7 @@ theorem covarianceEnvelopeDominates_primeProductFrontier
   have h :=
     realMertensPositiveLagPairSum_le_primeProductFrontierSurvivingCovariance
       (K - 1) (pivot (K - 1))
-  simpa [Nat.sub_add_cancel hK] using h
+  simpa [Nat.sub_add_cancel hK] using! h
 
 /-- **Second arrow: capacity.**  The envelope itself is of RH scale. -/
 def CovarianceEnvelopeRootScale (E : ℕ → ℝ) : Prop :=

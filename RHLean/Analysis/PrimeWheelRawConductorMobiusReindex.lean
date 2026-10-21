@@ -69,7 +69,7 @@ theorem primeWheelRawUpperMobiusTransform_eq_exactExpansionDivisor
             apply Finset.sum_congr rfl
             intro q hq
             by_cases hdq : d ∣ q
-            · simp only [hdq, if_true]
+            · simp only [hdq, ite_true]
               rw [mul_neg, Finset.mul_sum]
             · simp [hdq]
     _ =

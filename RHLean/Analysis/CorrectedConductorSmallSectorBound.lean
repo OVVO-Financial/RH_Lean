@@ -92,7 +92,7 @@ theorem abs_divisorIntervalBoundary_le_two_mul_sq_of_short
       _ ≤ (q : ℤ) * (r : ℤ) :=
         mul_le_mul_of_nonneg_left hc hq0
   have hqr : (q : ℤ) * (r : ℤ) ≤ (q : ℤ) ^ 2 := by
-    simpa [pow_two] using mul_le_mul_of_nonneg_left hrq hq0
+    simpa [pow_two] using! mul_le_mul_of_nonneg_left hrq hq0
   have hq_sq : (q : ℤ) ≤ (q : ℤ) ^ 2 := by
     have hnonneg : (0 : ℤ) ≤ (q : ℤ) * ((q : ℤ) - 1) :=
       mul_nonneg hq0 (sub_nonneg.mpr hq1)
@@ -192,7 +192,7 @@ theorem abs_conductorBoundaryDefect_le_two_mul_cube
       have hbound := abs_divisorIntervalBoundary_le_two_mul_sq_of_short
         d a lower (lower + r) q hdq
         (Nat.one_le_iff_ne_zero.mpr (Nat.ne_of_gt hqpos))
-        (by simpa using hrlt)
+        (by simpa using! hrlt)
       rw [abs_mul]
       have hmu := ArithmeticFunction.abs_moebius_le_one (n := q / d)
       have hb0 : (0 : ℤ) ≤ |divisorIntervalBoundary d a lower (lower + r)| :=
@@ -201,7 +201,7 @@ theorem abs_conductorBoundaryDefect_le_two_mul_cube
         |μ (q / d)| * |divisorIntervalBoundary d a lower (lower + r)| ≤
             1 * |divisorIntervalBoundary d a lower (lower + r)| := by
               exact mul_le_mul_of_nonneg_right hmu hb0
-        _ ≤ 2 * (q : ℤ) ^ 2 := by simpa using hbound
+        _ ≤ 2 * (q : ℤ) ^ 2 := by simpa using! hbound
     _ = ((q.divisors.card : ℕ) : ℤ) * (2 * (q : ℤ) ^ 2) := by
       simp [Finset.sum_const]
     _ ≤ (q : ℤ) * (2 * (q : ℤ) ^ 2) := by
@@ -293,10 +293,10 @@ theorem norm_primorialRawConductorArithmeticCoefficient_le_modulus
   let r : ZMod Q := ((Q / q : ℕ) : ZMod Q)
   have hQdivq : Q / q = m := by
     rw [hm]
-    simpa [Nat.mul_comm] using Nat.mul_div_left m hqpos
+    simpa [Nat.mul_comm] using! Nat.mul_div_left m hqpos
   have hmdvd : m ∣ Q := by
     refine ⟨q, ?_⟩
-    simpa [Nat.mul_comm] using hm
+    simpa [Nat.mul_comm] using! hm
   have hgcd : Q.gcd (Q / q) = Q / q := by
     apply Nat.gcd_eq_right_iff_dvd.mpr
     rw [hQdivq]
@@ -305,7 +305,7 @@ theorem norm_primorialRawConductorArithmeticCoefficient_le_modulus
     dsimp [r]
     rw [ZMod.addOrderOf_coe (Q / q) hQne, hgcd, hQdivq]
     rw [hm]
-    simpa [Nat.mul_comm] using Nat.mul_div_left q hmpos
+    simpa [Nat.mul_comm] using! Nat.mul_div_left q hmpos
   have hred : reducedAdditiveConductor r = q := by
     rw [reducedAdditiveConductor_eq_addOrderOf
       (primorialMinimalWheelSystem k) r]
@@ -364,7 +364,7 @@ private theorem norm_smoothWeightedBoundarySum_le
             ‖(((conductorBoundaryDefect q a W.lower x : ℤ) : ℂ))‖ ≤
           1 * ‖(((conductorBoundaryDefect q a W.lower x : ℤ) : ℂ))‖ := by
             exact mul_le_mul_of_nonneg_right hmu hB0
-        _ ≤ 2 * (q : ℝ) ^ 3 := by simpa using hB
+        _ ≤ 2 * (q : ℝ) ^ 3 := by simpa using! hB
     _ = ((primeWheelSmoothDivisorSites W).card : ℝ) *
         (2 * (q : ℝ) ^ 3) := by
       simp [Finset.sum_const]

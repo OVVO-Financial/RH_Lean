@@ -59,15 +59,15 @@ theorem actualFiniteRangeJointGram_energy_le_baseBound
     ⟨_hcode, _hsource, _hdata, _hpayload, _hrange,
       hvalueDenominator, _hrhoDenominator, _hrho, hlength, _hrows⟩
   have hstart : certificate.rangeStart = 0 := by
-    simpa [certificate] using realization.rangeStart_eq_zero
+    simpa [certificate] using! realization.rangeStart_eq_zero
   have hMcertificate : M ≤ certificate.rangeEnd := by
-    simpa [certificate] using hM
+    simpa [certificate] using! hM
   have hlengthCertificate :
       certificate.rows.length =
         certificate.rangeEnd - certificate.rangeStart + 1 := by
-    simpa [certificate] using hlength
+    simpa [certificate] using! hlength
   have hlength' : certificate.rows.length = certificate.rangeEnd + 1 := by
-    simpa [hstart] using hlengthCertificate
+    simpa [hstart] using! hlengthCertificate
   have hindex : M < certificate.rows.length := by
     omega
   let index : Fin certificate.rows.length := ⟨M, hindex⟩
@@ -77,7 +77,7 @@ theorem actualFiniteRangeJointGram_energy_le_baseBound
       (certificate.valueDenominator : ℝ) *
           actualJointGramEnergy skeleton M (data M) =
         ((certificate.rows.get index).jointGram.claimedJointEnergy : ℝ) := by
-    simpa [certificate, index] using henergyRaw
+    simpa [certificate, index] using! henergyRaw
   let energyNumerators : List ℝ :=
     certificate.rows.map
       (fun row => |((row.jointGram.claimedJointEnergy : ℤ) : ℝ)|)
@@ -110,7 +110,7 @@ theorem actualFiniteRangeJointGram_energy_le_baseBound
   change actualJointGramEnergy skeleton M (data M) ≤
     energyNumerators.sum / (certificate.valueDenominator : ℝ)
   apply (le_div_iff₀ hdenominator_real).2
-  simpa [mul_comm] using hmul
+  simpa [mul_comm] using! hmul
 
 /--
 The full signed joint-Gram recurrence and actual forcing control above a finite
@@ -172,7 +172,7 @@ theorem uniform_actualResidual_energy_bound
                 (data (control.ancestor M)) +
             actualWeightedForcingBound weights forcingData M := by
     intro M hM
-    simpa [ActualJointGramRecurrenceControl] using control.recurrence M hM
+    simpa [ActualJointGramRecurrenceControl] using! control.recurrence M hM
   have huniform :
       ∀ M,
         actualJointGramEnergy skeleton M (data M) ≤

@@ -89,7 +89,7 @@ theorem nativeLambdaTwoGoodRecipMass_le_const_mul_log_sq
   have hgood := nativeLambdaTwoGoodRecipMass_le_recipMass N beta
   calc
     nativeLambdaTwoGoodRecipMass N beta ≤ nativeLambdaTwoRecipMass N := hgood
-    _ ≤ L ^ 2 + 1000 * L + 2000 := by simpa [L] using htotal
+    _ ≤ L ^ 2 + 1000 * L + 2000 := by simpa [L] using! htotal
     _ ≤ (1 + 1000 / l2 + 2000 / l2 ^ 2) * L ^ 2 := by
       nlinarith [hlin, hconst]
     _ = (1 + 1000 / Real.log 2 + 2000 / (Real.log 2) ^ 2) *
@@ -129,7 +129,7 @@ theorem dyadicPacketPNTGoodMassCharge_of_additiveDescendantPersistence
     omega
   have hN3 : 3 ≤ N := by dsimp [N]; omega
   have hmass : nativeLambdaTwoGoodRecipMass N 1 ≤ K * Q := by
-    simpa [K, Q] using
+    simpa [K, Q] using!
       nativeLambdaTwoGoodRecipMass_le_const_mul_log_sq N 1 hN3
   have hD0 : 0 ≤ D := by
     dsimp [D]
@@ -137,7 +137,7 @@ theorem dyadicPacketPNTGoodMassCharge_of_additiveDescendantPersistence
   have hQ0 : 0 ≤ Q := by dsimp [Q]; positivity
   have hKQ0 : 0 ≤ K * Q := mul_nonneg hK0 hQ0
   have hpersist : D ≤ CA * P * A := by
-    simpa [y, J, P, A, D] using hAb k x hk hlow hup
+    simpa [y, J, P, A, D] using! hAb k x hk hlow hup
   calc
     nativeLambdaTwoGoodRecipMass N 1 * D ≤ (K * Q) * D :=
       mul_le_mul_of_nonneg_right hmass hD0
@@ -247,7 +247,7 @@ theorem primeSieveReciprocalPrimeDiscrepancy_norm_le_floorScale
       ‖primeSieveReciprocalLiMass y x d‖ ≤
         ((primeSieveReciprocalUpper x d : ℝ) -
           (primeSieveReciprocalLower y x d : ℝ)) / Real.log 2 := by
-    rw [primeSieveReciprocalLiMass, if_pos hle]
+    rw [primeSieveReciprocalLiMass, ite_eq_left hle]
     have hnorm :
         ‖(((logarithmicIntegralFromTwo (primeSieveReciprocalUpper x d : ℝ) -
             logarithmicIntegralFromTwo (primeSieveReciprocalLower y x d : ℝ) : ℝ)) : ℂ)‖ =
@@ -310,13 +310,13 @@ theorem primeSieveReciprocalPrimeDiscrepancy_norm_le_dyadicScale
     dsimp [y, primorialPNTPrimeSieveCutoff]
     omega
   have hdSupport : d ∈ primeSieveQuotientSupport y x := by
-    simpa [y] using (mem_primeSieveDyadicBlock.mp hdB).1
+    simpa [y] using! (mem_primeSieveDyadicBlock.mp hdB).1
   have hdI := Finset.mem_Icc.mp hdSupport
   have hd1 : 1 ≤ d := hdI.1
   have hprod : d * (y + 1) ≤ x :=
     (Nat.le_div_iff_mul_le (Nat.succ_pos y)).1 hdI.2
   have hroot : Nat.sqrt x < y := by
-    simpa [y] using
+    simpa [y] using!
       sqrt_lt_primorialPNTPrimeSieveCutoff_of_le_upper (k := k) hup
   have hxsq : x < y ^ 2 := by
     have hs := Nat.lt_succ_sqrt' x
@@ -334,7 +334,7 @@ theorem primeSieveReciprocalPrimeDiscrepancy_norm_le_dyadicScale
   rw [primeSieveDyadicBlock_eq_explicitIcc] at hdE
   have hpowd : 2 ^ j ≤ d := by
     have hleft := (Finset.mem_Icc.mp hdE).1
-    simpa [primeSieveDyadicBlockLeft] using hleft
+    simpa [primeSieveDyadicBlockLeft] using! hleft
   have hPpos : 0 < P := by dsimp [P]; positivity
   have hDpos : 0 < D := by dsimp [D]; positivity
   have hx0 : 0 ≤ (x : ℝ) := by positivity
@@ -343,7 +343,7 @@ theorem primeSieveReciprocalPrimeDiscrepancy_norm_le_dyadicScale
     exact_mod_cast hdenxNat
   have hone : (1 : ℝ) ≤ (x : ℝ) / D := by
     rw [le_div_iff₀ hDpos]
-    simpa using hdenx
+    simpa using! hdenx
   have hpowdR : P ≤ (d : ℝ) := by
     dsimp [P]
     exact_mod_cast hpowd
@@ -354,7 +354,7 @@ theorem primeSieveReciprocalPrimeDiscrepancy_norm_le_dyadicScale
   have hdsq : (d : ℝ) ^ 2 ≤ D := by
     dsimp [D]
     have hmul := mul_le_mul_of_nonneg_left hdSucc (by positivity : (0 : ℝ) ≤ d)
-    simpa [pow_two] using hmul
+    simpa [pow_two] using! hmul
   have hdenLower : P ^ 2 ≤ D := hsq.trans hdsq
   have hP2pos : 0 < P ^ 2 := pow_pos hPpos 2
   have hdiv : (x : ℝ) / D ≤ (x : ℝ) / (P ^ 2) := by
@@ -370,7 +370,7 @@ theorem primeSieveReciprocalPrimeDiscrepancy_norm_le_dyadicScale
   calc
     ‖primeSieveReciprocalPrimeDiscrepancy y x d‖ ≤
         (1 + 1 / Real.log 2) * ((x : ℝ) / D + 1) := by
-      simpa [D] using hfib
+      simpa [D] using! hfib
     _ ≤ (1 + 1 / Real.log 2) *
         (2 * ((x : ℝ) / (P ^ 2))) :=
       mul_le_mul_of_nonneg_left hsum hcoef
@@ -403,7 +403,7 @@ theorem primeSieveSignedSiblingPacketResidual_norm_le_of_fibreBound
             primeSieveReciprocalPrimeDiscrepancy y x d‖ ≤
           ∑ d ∈ Finset.Ico a m,
             ‖primeSieveReciprocalPrimeDiscrepancy y x d‖ := by
-              simpa using
+              simpa using!
                 (norm_sum_le (Finset.Ico a m)
                   (fun d => primeSieveReciprocalPrimeDiscrepancy y x d))
         _ ≤ ∑ _d ∈ Finset.Ico a m, δ := by
@@ -423,7 +423,7 @@ theorem primeSieveSignedSiblingPacketResidual_norm_le_of_fibreBound
             primeSieveReciprocalPrimeDiscrepancy y x d‖ ≤
           ∑ d ∈ Finset.Ico m b,
             ‖primeSieveReciprocalPrimeDiscrepancy y x d‖ := by
-              simpa using
+              simpa using!
                 (norm_sum_le (Finset.Ico m b)
                   (fun d => primeSieveReciprocalPrimeDiscrepancy y x d))
         _ ≤ ∑ _d ∈ Finset.Ico m b, δ := by
@@ -487,7 +487,7 @@ theorem primeSieveSignedSiblingPacketResidual_norm_le_of_fibreBound
           2 * W ^ 2 * δ := by
       calc
         ‖primeSieveSignedSiblingPacket y x a m b‖ ≤
-            2 * L * R * δ := by simpa [L, R] using hpacket
+            2 * L * R * δ := by simpa [L, R] using! hpacket
         _ = (2 * δ) * (L * R) := by ring
         _ ≤ (2 * δ) * (W ^ 2) :=
           mul_le_mul_of_nonneg_left hLR (mul_nonneg (by norm_num) hδ)
@@ -499,7 +499,7 @@ theorem primeSieveSignedSiblingPacketResidual_norm_le_of_fibreBound
     calc
       W⁻¹ * ‖primeSieveSignedSiblingPacket y x a m b‖ ≤
           W⁻¹ * (2 * W ^ 2 * δ) := by
-        simpa [W] using hscaled
+        simpa [W] using! hscaled
       _ = 2 * W * δ := by
         field_simp [ne_of_gt hWpos]
       _ = 2 * ((b - a : ℕ) : ℝ) * δ := by rfl
@@ -565,7 +565,7 @@ theorem primeSieveDyadicPacketIntervalLevelEnergy_scaled_le_of_fibreBound
         have hres' :
             ‖primeSieveSignedSiblingPacketResidual y x a m b‖ ≤
               2 * W * δ := by
-          simpa [m, W] using hres
+          simpa [m, W] using! hres
         have hsq :
             ‖primeSieveSignedSiblingPacketResidual y x a m b‖ ^ 2 ≤
               (2 * W * δ) ^ 2 :=
@@ -585,7 +585,7 @@ theorem primeSieveDyadicPacketIntervalLevelEnergy_scaled_le_of_fibreBound
           _ = 4 * δ ^ 2 * (((2 ^ j : ℕ) : ℝ) ^ 3) := by rfl
       · have hRhs :
             0 ≤ 4 * δ ^ 2 * (((2 ^ j : ℕ) : ℝ) ^ 3) := by positivity
-        simpa [primeSieveDyadicPacketIntervalLevelEnergy, hsplit] using hRhs
+        simpa [primeSieveDyadicPacketIntervalLevelEnergy, hsplit] using! hRhs
   | succ level ih =>
       intro j a b hlevel ha hb hwidth hfib
       cases j with
@@ -621,9 +621,9 @@ theorem primeSieveDyadicPacketIntervalLevelEnergy_scaled_le_of_fibreBound
             let P : ℝ := ((2 ^ j : ℕ) : ℝ)
             let F : ℝ := ((4 ^ level : ℕ) : ℝ)
             have hleft' : F * EL ≤ 4 * δ ^ 2 * P ^ 3 := by
-              simpa [F, EL, P] using hleft
+              simpa [F, EL, P] using! hleft
             have hright' : F * ER ≤ 4 * δ ^ 2 * P ^ 3 := by
-              simpa [F, ER, P] using hright
+              simpa [F, ER, P] using! hright
             have hsum :
                 F * (EL + ER) ≤ 8 * δ ^ 2 * P ^ 3 := by
               calc
@@ -662,7 +662,7 @@ theorem primeSieveDyadicPacketIntervalLevelEnergy_scaled_le_of_fibreBound
           · have hRhs :
                 0 ≤ 4 * δ ^ 2 * (((2 ^ (j + 1) : ℕ) : ℝ) ^ 3) := by
               positivity
-            simpa [primeSieveDyadicPacketIntervalLevelEnergy, hsplit] using hRhs
+            simpa [primeSieveDyadicPacketIntervalLevelEnergy, hsplit] using! hRhs
 
 -- ATTACK_PATCH: dyadic-level-specialization
 
@@ -709,7 +709,7 @@ theorem primeSieveDyadicPacketIntervalLevelEnergy_dyadic_scaled
     dsimp [δ]
     positivity
   have hleft1 : 1 ≤ primeSieveDyadicBlockLeft j := by
-    simpa [primeSieveDyadicBlockLeft] using (Nat.one_le_pow' j 1)
+    simpa [primeSieveDyadicBlockLeft] using! (Nat.one_le_pow' j 1)
   have hrightTop :
       primeSieveDyadicBlockRight y x j + 1 ≤ x / (y + 1) + 1 := by
     unfold primeSieveDyadicBlockRight
@@ -721,7 +721,7 @@ theorem primeSieveDyadicPacketIntervalLevelEnergy_dyadic_scaled
         primeSieveDyadicBlock y x j := by
     rw [primeSieveDyadicBlock_eq_explicitIcc]
     ext d
-    simp
+    simp only [Finset.mem_Icc, Finset.mem_Ico]
     omega
   have hfib : ∀ d ∈ Finset.Ico (primeSieveDyadicBlockLeft j)
       (primeSieveDyadicBlockRight y x j + 1),
@@ -731,8 +731,8 @@ theorem primeSieveDyadicPacketIntervalLevelEnergy_dyadic_scaled
       rw [← hset]
       exact hd
     have h := primeSieveReciprocalPrimeDiscrepancy_norm_le_dyadicScale
-      hk hup (by simpa [y] using hdB)
-    simpa [y, δ, c, P] using h
+      hk hup (by simpa [y] using! hdB)
+    simpa [y, δ, c, P] using! h
   have hgeneric :=
     primeSieveDyadicPacketIntervalLevelEnergy_scaled_le_of_fibreBound
       y x δ hδ0 level j
@@ -740,7 +740,7 @@ theorem primeSieveDyadicPacketIntervalLevelEnergy_dyadic_scaled
       (primeSieveDyadicBlockRight y x j + 1)
       hlevel hleft1 hrightTop hwidth hfib
   have hgeneric' : F * E ≤ 4 * δ ^ 2 * P ^ 3 := by
-    simpa [F, E, P] using hgeneric
+    simpa [F, E, P] using! hgeneric
   have hscaled := mul_le_mul_of_nonneg_left hgeneric' hPpos.le
   change P * F * E ≤ 16 * c ^ 2 * (x : ℝ) ^ 2
   calc
@@ -805,7 +805,7 @@ theorem primeSieveDyadicPacketBlockDeepEnergy_scaled_le
   by_cases hdead : j ≤ J
   · rw [primeSieveDyadicPacketBlockDeepEnergy_eq_zero_of_depth_le hdead]
     have : 0 ≤ (j : ℝ) * C := mul_nonneg (by positivity) hC0
-    simpa [C, c] using this
+    simpa [C, c] using! this
   · have hJj : J ≤ j := (Nat.lt_of_not_ge hdead).le
     rw [primeSieveDyadicPacketBlockDeepEnergy_eq_sum_levelEnergy hJj,
       Finset.mul_sum]
@@ -840,7 +840,7 @@ theorem primeSieveDyadicPacketBlockDeepEnergy_scaled_le
             primeSieveDyadicPacketIntervalLevelEnergy_dyadic_scaled
               (k := k) (x := x) (j := j) (level := level)
               hk hup hLI.2.le
-          exact hscale.trans (by simpa [y, C, c] using hlevelBound)
+          exact hscale.trans (by simpa [y, C, c] using! hlevelBound)
       _ = (((j - J : ℕ) : ℝ)) * C := by
         simp [Nat.card_Ico, nsmul_eq_mul]
       _ ≤ (j : ℝ) * C := by
@@ -867,7 +867,7 @@ private theorem pntGoodMassAttack_dyadicIndex_le_log_succ
       _ ≤ x := Nat.div_le_self _ _
       _ ≤ x + 1 := by omega
   rw [← hidx]
-  simpa [primeSieveDyadicIndex, Nat.log2_eq_log_two] using
+  simpa [primeSieveDyadicIndex, Nat.log2_eq_log_two] using!
     (Nat.log_mono_right hdx)
 
 /-- The total number and total depth of occupied reciprocal dyadic labels are
@@ -883,15 +883,15 @@ private theorem pntGoodMassAttack_sum_dyadicIndices_le_log_sq
   have hpoint : ∀ j ∈ S, (j : ℝ) ≤ (((M + 1 : ℕ) : ℝ)) := by
     intro j hj
     have hjM : j ≤ M := by
-      simpa [S, M] using pntGoodMassAttack_dyadicIndex_le_log_succ hj
+      simpa [S, M] using! pntGoodMassAttack_dyadicIndex_le_log_succ hj
     exact_mod_cast (hjM.trans (Nat.le_succ M))
   have hsubset : S ⊆ Finset.range (M + 1) := by
     intro j hj
     have hjM : j ≤ M := by
-      simpa [S, M] using pntGoodMassAttack_dyadicIndex_le_log_succ hj
+      simpa [S, M] using! pntGoodMassAttack_dyadicIndex_le_log_succ hj
     exact Finset.mem_range.mpr (Nat.lt_succ_of_le hjM)
   have hcardNat : S.card ≤ M + 1 := by
-    simpa using Finset.card_le_card hsubset
+    simpa using! Finset.card_le_card hsubset
   have hcard : (S.card : ℝ) ≤ (((M + 1 : ℕ) : ℝ)) := by
     exact_mod_cast hcardNat
   change (∑ j ∈ S, (j : ℝ)) ≤ (((M + 1 : ℕ) : ℝ)) ^ 2
@@ -938,7 +938,7 @@ theorem primeSieveDyadicPacketDeepEnergy_scaled_le
         intro j _hj
         have hb := primeSieveDyadicPacketBlockDeepEnergy_scaled_le
           (k := k) (x := x) (j := j) (J := J) hk hup
-        simpa [y, C, c] using hb
+        simpa [y, C, c] using! hb
     _ = (∑ j ∈ primeSieveDyadicBlockIndices y x, (j : ℝ)) * C := by
       rw [Finset.sum_mul]
     _ ≤ (((Nat.log 2 (x + 1) + 1 : ℕ) : ℝ)) ^ 2 * C :=
@@ -966,11 +966,11 @@ private theorem pntGoodMassAttack_log_succ_le_subpolynomial
   intro x
   let M : ℕ := Nat.log 2 (x + 1)
   have hpowOne : 1 ≤ 2 ^ M := by
-    simpa using (Nat.one_le_pow' M 1)
+    simpa using! (Nat.one_le_pow' M 1)
   have hdiv := hCb (2 ^ M) hpowOne
   have hcard : (2 ^ M).divisors.card = M + 1 := by
     have h := congrArg Finset.card (Nat.divisors_prime_pow Nat.prime_two M)
-    simpa using h
+    simpa using! h
   rw [hcard] at hdiv
   have hpowNat : 2 ^ M ≤ x + 1 := by
     dsimp [M]
@@ -982,7 +982,7 @@ private theorem pntGoodMassAttack_log_succ_le_subpolynomial
         Real.rpow ((x : ℝ) + 1) ε :=
     Real.rpow_le_rpow (by positivity) hpowCast hε.le
   have hcPow := mul_le_mul_of_nonneg_left hrpow hC
-  simpa [M] using hdiv.trans hcPow
+  simpa [M] using! hdiv.trans hcPow
 
 /-- The square of the binary logarithmic depth is still subpolynomial. -/
 private theorem pntGoodMassAttack_log_succ_sq_le_subpolynomial
@@ -1001,7 +1001,7 @@ private theorem pntGoodMassAttack_log_succ_sq_le_subpolynomial
   let P : ℝ := Real.rpow B (ε / 2)
   have hL0 : 0 ≤ L := by dsimp [L]; positivity
   have hlinear : L ≤ C * P := by
-    simpa [L, B, P] using hlin x
+    simpa [L, B, P] using! hlin x
   have hsquare : L ^ 2 ≤ (C * P) ^ 2 :=
     pow_le_pow_left₀ hL0 hlinear 2
   have hBpos : 0 < B := by dsimp [B]; positivity
@@ -1050,7 +1050,7 @@ theorem primeSieveDyadicPacketDeepEnergy_baseEight_succ_le
   have hA0 : 0 ≤ K * L ^ 2 := mul_nonneg hK0 (sq_nonneg L)
   have hpowNat : x + 1 ≤ 8 ^ (J + 1) := by
     have hlt := Nat.lt_pow_succ_log_self (by norm_num : 1 < (8 : ℕ)) (x + 1)
-    simpa [J, Nat.succ_eq_add_one] using hlt.le
+    simpa [J, Nat.succ_eq_add_one] using! hlt.le
   have hpow : B ≤ (((8 ^ (J + 1) : ℕ) : ℝ)) := by
     dsimp [B]
     exact_mod_cast hpowNat
@@ -1069,12 +1069,12 @@ theorem primeSieveDyadicPacketDeepEnergy_baseEight_succ_le
     calc
       B * D ≤ (((8 ^ (J + 1) : ℕ) : ℝ)) * D := hleft
       _ ≤ K * L ^ 2 * (x : ℝ) ^ 2 := by
-        simpa [K, L, D] using hscaled
+        simpa [K, L, D] using! hscaled
       _ ≤ K * L ^ 2 * B ^ 2 := hright
       _ = B * ((K * L ^ 2) * B) := by ring
   have hcancel : D ≤ (K * L ^ 2) * B :=
     (mul_le_mul_iff_right₀ hBpos).mp hBD
-  simpa [dyadicPacketBaseEightCutoff, J, B, L, K, D, mul_assoc] using hcancel
+  simpa [dyadicPacketBaseEightCutoff, J, B, L, K, D, mul_assoc] using! hcancel
 
 /-- The base-eight cutoff has unconditional additive descendant persistence.
 No PNT good-mass charge is assumed: the result is forced directly by the
@@ -1102,7 +1102,7 @@ theorem dyadicPacketBaseEightCutoff_additiveDescendantPersistence :
   have hdeep := primeSieveDyadicPacketDeepEnergy_baseEight_succ_le
     (k := k) (x := x) hk hup
   have hlogx : L ^ 2 ≤ C * P := by
-    simpa [L, B, P] using hlog x
+    simpa [L, B, P] using! hlog x
   have hB0 : 0 ≤ B := by dsimp [B]; positivity
   have hP0 : 0 ≤ P := by
     dsimp [P]
@@ -1120,7 +1120,7 @@ theorem dyadicPacketBaseEightCutoff_additiveDescendantPersistence :
   change D ≤ (K * C) * P * (E + B)
   calc
     D ≤ K * L ^ 2 * B := by
-      simpa [y, J, B, L, D, K] using hdeep
+      simpa [y, J, B, L, D, K] using! hdeep
     _ ≤ K * (C * P) * B := hlogScaledB
     _ = (K * C) * P * B := by ring
     _ ≤ (K * C) * P * (E + B) :=

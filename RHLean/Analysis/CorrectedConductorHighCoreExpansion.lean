@@ -125,10 +125,10 @@ private theorem inv_natCast_mul_natDiv_cast_eq_inv_natCast
   have hdne : d ≠ 0 := by
     intro hd0
     subst d
-    have : N = 0 := by simpa using hdvd
+    have : N = 0 := by simpa using! hdvd
     exact hNne this
   have hmul : (N / d) * d = N := by
-    simpa [Nat.mul_comm] using Nat.mul_div_cancel' hdvd
+    simpa [Nat.mul_comm] using! Nat.mul_div_cancel' hdvd
   have hNneC : (N : ℂ) ≠ 0 := by exact_mod_cast hNne
   have hdneC : (d : ℂ) ≠ 0 := by exact_mod_cast hdne
   field_simp [hNneC, hdneC]

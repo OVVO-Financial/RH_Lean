@@ -219,7 +219,7 @@ theorem mem_squareRootCanonicalRoughPrimePartnerSet_iff
       ⟨hrough, hqUpper, hdiv⟩
     have hupper : c * q ≤ squareRootEndpoint R := by
       have h := (Nat.le_div_iff_mul_le hc).1 hqUpper
-      simpa [Nat.mul_comm] using h
+      simpa [Nat.mul_comm] using! h
     have hdivGlobal : squareRootEndpoint R / (c * q) = z := by
       rw [← Nat.div_div_eq_div_mul]
       exact hdiv
@@ -244,7 +244,7 @@ theorem mem_squareRootCanonicalRoughPrimePartnerSet_iff
     let z := (squareRootEndpoint R / c) / q
     have hqUpper : q ≤ squareRootEndpoint R / c := by
       apply (Nat.le_div_iff_mul_le hc).2
-      simpa [Nat.mul_comm] using hupper
+      simpa [Nat.mul_comm] using! hupper
     have hz1 : 1 ≤ z := by
       dsimp [z]
       exact (Nat.one_le_div_iff hqPrime.pos).2 hqUpper
@@ -278,7 +278,7 @@ theorem canonicalLargestPrimeFactor_fresh_mul
     {c p : ℕ} (hc : 0 < c) (hp : p.Prime)
     (hfresh : canonicalLargestPrimeFactor c < p) :
     canonicalLargestPrimeFactor (p * c) = p := by
-  simpa [Nat.mul_comm] using
+  simpa [Nat.mul_comm] using!
     (canonicalLargestPrimeFactor_mul_prime_eq_of_rough hc hp hfresh)
 
 /-- Parent partners lost when adjoining the fresh prime `p`. -/

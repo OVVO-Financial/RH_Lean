@@ -162,7 +162,7 @@ private theorem sum_range_mul_quotientKernel_eq_diagonal_add_strict
         F z * squareRootReplacementQuotientKernel z y) =
         (∑ z ∈ Finset.range (y + 1), f z) +
           ∑ z ∈ Finset.Ico (y + 1) R, f z := by
-            simpa [f] using
+            simpa [f] using!
               (Finset.sum_range_add_sum_Ico f
                 (Nat.succ_le_of_lt hyR)).symm
     _ = ((∑ z ∈ Finset.range y, f z) + f y) +
@@ -231,7 +231,7 @@ theorem squareRootCanonicalRoughRenewalState_eq_one
     simp
   unfold squareRootCanonicalRoughRenewalState
   rw [hset, Finset.sum_union hdisj] at hfull
-  simpa using hfull
+  simpa using! hfull
 
 /-- Fubini identifies the intact cofactor response with its prime
 multiplicities paired against the complete renewal state. -/
@@ -414,7 +414,7 @@ private theorem canonicalRough_sq_le_rpow_two_add
   have hbase : (1 : ℝ) ≤ (R : ℝ) := by exact_mod_cast hR
   have hexp : (2 : ℝ) ≤ 2 + ε := by linarith
   have h := Real.rpow_le_rpow_of_exponent_le hbase hexp
-  simpa [Real.rpow_two] using h
+  simpa [Real.rpow_two] using! h
 
 /-- Square-prefix critical control bounds the concrete covariance numerator. -/
 theorem squareRootCanonicalRoughCorrelationBounded_of_squarePrefixEnergyBounded
@@ -437,7 +437,7 @@ theorem squareRootCanonicalRoughCorrelationBounded_of_squarePrefixEnergyBounded
           2 * ‖mertensSummatory (squareRootEndpoint R)‖ ^ 2 := by
     rw [squareRootCanonicalRoughCorrelation_eq_mertens_pred_sub_endpoint
       R hR]
-    simpa [sub_eq_add_neg] using hsum
+    simpa [sub_eq_add_neg] using! hsum
   have hMpred := norm_mertensSummatory_sub_le 0 (R - 1) (Nat.zero_le _)
   rw [mertensSummatory_zero, sub_zero] at hMpred
   have hMpredSq :
@@ -446,7 +446,7 @@ theorem squareRootCanonicalRoughCorrelationBounded_of_squarePrefixEnergyBounded
       exact_mod_cast Nat.sub_le R 1
     have hMpred' :
         ‖mertensSummatory (R - 1)‖ ≤ (((R - 1 : ℕ) : ℝ)) := by
-      simpa using hMpred
+      simpa using! hMpred
     have hMpredR : ‖mertensSummatory (R - 1)‖ ≤ (R : ℝ) :=
       hMpred'.trans hpredCast
     nlinarith [norm_nonneg (mertensSummatory (R - 1))]
@@ -454,7 +454,7 @@ theorem squareRootCanonicalRoughCorrelationBounded_of_squarePrefixEnergyBounded
   have hMendpoint :
       ‖mertensSummatory (squareRootEndpoint R)‖ ^ 2 ≤
         C * Real.rpow (R : ℝ) (2 + ε) := by
-    simpa [squarePrefixMertens, squarePrefixEndpoint, hpred] using
+    simpa [squarePrefixMertens, squarePrefixEndpoint, hpred] using!
       hbound (R - 1)
   have hpow := canonicalRough_sq_le_rpow_two_add (by omega : 1 ≤ R) hε
   calc
@@ -468,7 +468,7 @@ theorem squareRootCanonicalRoughCorrelationBounded_of_squarePrefixEnergyBounded
         (mul_le_mul_of_nonneg_left hMendpoint (by norm_num))
     _ ≤ 2 * Real.rpow (R : ℝ) (2 + ε) +
           2 * (C * Real.rpow (R : ℝ) (2 + ε)) :=
-      add_le_add_right (mul_le_mul_of_nonneg_left hpow (by norm_num)) _
+      add_le_add_left (mul_le_mul_of_nonneg_left hpow (by norm_num)) _
     _ = D * Real.rpow (R : ℝ) (2 + ε) := by
       dsimp [D]
       ring
@@ -516,7 +516,7 @@ theorem squarePrefixEnergyBounded_of_squareRootCanonicalRoughCorrelationBounded
         dsimp [R]
         exact_mod_cast Nat.le_succ n
       have hMpred' : ‖mertensSummatory n‖ ≤ (n : ℝ) := by
-        simpa using hMpred
+        simpa using! hMpred
       have hMpredR : ‖mertensSummatory n‖ ≤ (R : ℝ) :=
         hMpred'.trans hnR
       nlinarith [norm_nonneg (mertensSummatory n)]
@@ -528,7 +528,7 @@ theorem squarePrefixEnergyBounded_of_squareRootCanonicalRoughCorrelationBounded
       ‖mertensSummatory n - squareRootCanonicalRoughCorrelation R‖ ^ 2 ≤
           2 * ‖mertensSummatory n‖ ^ 2 +
             2 * ‖squareRootCanonicalRoughCorrelation R‖ ^ 2 := by
-        simpa [sub_eq_add_neg] using hsum
+        simpa [sub_eq_add_neg] using! hsum
       _ ≤ 2 * ((R : ℝ) ^ 2) +
             2 * (C * Real.rpow (R : ℝ) (2 + ε)) := by
         exact add_le_add
@@ -536,7 +536,7 @@ theorem squarePrefixEnergyBounded_of_squareRootCanonicalRoughCorrelationBounded
           (mul_le_mul_of_nonneg_left hcorrBound (by norm_num))
       _ ≤ 2 * Real.rpow (R : ℝ) (2 + ε) +
             2 * (C * Real.rpow (R : ℝ) (2 + ε)) :=
-        add_le_add_right (mul_le_mul_of_nonneg_left hpow (by norm_num)) _
+        add_le_add_left (mul_le_mul_of_nonneg_left hpow (by norm_num)) _
       _ = D * Real.rpow ((n + 1 : ℕ) : ℝ) (2 + ε) := by
         rw [hbase]
         dsimp [D]

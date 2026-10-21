@@ -33,7 +33,7 @@ theorem deriv_invLog_eq_vfInvLogDeriv
     {x : ℝ} (hx : 1 < x) :
     deriv (fun t : ℝ => (Real.log t)⁻¹) x =
       vfInvLogDeriv x := by
-  simpa [vfInvLogDeriv] using deriv_inv_log_formula hx
+  simp [vfInvLogDeriv, deriv_inv_log_formula hx]
 
 /-- Exact derivative of the first derivative of the inverse-log density. -/
 theorem hasDerivAt_vfInvLogDeriv
@@ -183,7 +183,7 @@ theorem vfInvLogDeriv_lipschitzOn_squareTile
         ‖deriv vfInvLogDeriv z‖ ≤
           4 / ((r : ℝ) ^ 4 * Real.log (r : ℝ) ^ 2) := by
     intro z hz
-    simpa [Real.norm_eq_abs] using
+    simpa [Real.norm_eq_abs] using!
       (abs_deriv_vfInvLogDeriv_le_squareTile hr hz)
   have h :=
     Convex.norm_image_sub_le_of_norm_deriv_le
@@ -192,7 +192,7 @@ theorem vfInvLogDeriv_lipschitzOn_squareTile
       (f := vfInvLogDeriv)
       (x := u) (y := v)
       hdiff hder (convex_Icc _ _) hu hv
-  simpa [Real.norm_eq_abs, abs_sub_comm] using h
+  simpa [Real.norm_eq_abs, abs_sub_comm] using! h
 
 /-- Detrending the inverse-log density by its midpoint tangent leaves a
 function whose derivative is O(width * sup |f''|) on the whole square band. -/
@@ -231,14 +231,14 @@ theorem abs_deriv_invLog_detrended_le_squareTile
     exact ((Real.hasDerivAt_log hu0).inv hlog0).differentiableAt
   have hlin :
       HasDerivAt (fun z : ℝ => d * (z - m)) d u := by
-    simpa using ((hasDerivAt_id u).sub_const m).const_mul d
+    simpa using! ((hasDerivAt_id u).sub_const m).const_mul d
   have hfder :
       HasDerivAt (fun z : ℝ => (Real.log z)⁻¹)
         (vfInvLogDeriv u) u := by
     have hu0 : u ≠ 0 := by linarith
     have hlog0 : Real.log u ≠ 0 :=
       ne_of_gt (Real.log_pos hu1)
-    simpa [vfInvLogDeriv] using
+    simpa [vfInvLogDeriv] using!
       (Real.hasDerivAt_log hu0).inv hlog0
   have hderiv :
       deriv
@@ -308,7 +308,7 @@ theorem abs_vfMidBandQuadratureError_le_logHarmonic
       have hrR : (2 : ℝ) ≤ (r : ℝ) := by exact_mod_cast hr
       have hz4 : (4 : ℝ) ≤ z := by
         have hr4 : (4 : ℝ) ≤ (r : ℝ) ^ 2 := by nlinarith
-        exact hr4.trans (by simpa [a] using hz.1)
+        exact hr4.trans (by simpa [a] using! hz.1)
       linarith
     have hz0 : z ≠ 0 := by linarith
     have hlog0 : Real.log z ≠ 0 :=
@@ -323,9 +323,9 @@ theorem abs_vfMidBandQuadratureError_le_logHarmonic
   have hgder :
       ∀ z ∈ Icc a b, |deriv g z| ≤ M * width := by
     intro z hz
-    simpa [a, b, m, width, M, d, g] using
+    simpa [a, b, m, width, M, d, g] using!
       (abs_deriv_invLog_detrended_le_squareTile hr
-        (by simpa [a, b] using hz))
+        (by simpa [a, b] using! hz))
   have hgpoint :
       ∀ z ∈ Icc a b,
         |g m - g z| ≤ M * width ^ 2 := by
@@ -335,16 +335,16 @@ theorem abs_vfMidBandQuadratureError_le_logHarmonic
         (s := Icc a b) (f := g) (x := m) (y := z)
         hgdiff
         (fun u hu => by
-          simpa [Real.norm_eq_abs] using hgder u hu)
+          simpa [Real.norm_eq_abs] using! hgder u hu)
         (convex_Icc _ _) hm hz
     have hdist' := hdist hz
     calc
       |g m - g z|
           ≤ (M * width) * |m - z| := by
-            simpa [Real.norm_eq_abs, abs_sub_comm] using hlip
+            simpa [Real.norm_eq_abs, abs_sub_comm] using! hlip
       _ ≤ (M * width) * width := by
             exact mul_le_mul_of_nonneg_left
-              (by simpa [abs_sub_comm] using hdist')
+              (by simpa [abs_sub_comm] using! hdist')
               (mul_nonneg hM hwidth)
       _ = M * width ^ 2 := by ring
   have hlinInt :
@@ -357,7 +357,7 @@ theorem abs_vfMidBandQuadratureError_le_logHarmonic
       convert
         (((hasDerivAt_id z).sub_const m).pow 2).const_mul d |>.div_const 2
         using 1
-      all_goals (simp [id_eq]; ring_nf)
+      all_goals (simp [id_eq] <;> ring)
     have hlinI' :
         IntervalIntegrable (fun z : ℝ => d * (z - m))
           MeasureTheory.volume a b :=
@@ -411,7 +411,7 @@ theorem abs_vfMidBandQuadratureError_le_logHarmonic
       (fun z hz => by
         rw [Set.uIoc_of_le hab] at hz
         have hz' : z ∈ Icc a b := Ioc_subset_Icc_self hz
-        simpa [Real.norm_eq_abs] using hgpoint z hz')
+        simpa [Real.norm_eq_abs] using! hgpoint z hz')
   have herr :
       |width * (Real.log m)⁻¹ -
           (∫ z in a..b, (Real.log z)⁻¹)| ≤
@@ -492,7 +492,7 @@ theorem integral_vfLogHarmonicKernel
     have hinv :
         HasDerivAt (fun y : ℝ => (Real.log y)⁻¹)
           (vfInvLogDeriv x) x := by
-      simpa [vfInvLogDeriv] using
+      simpa [vfInvLogDeriv] using!
         (Real.hasDerivAt_log hx0).inv hlog0
     have hneg := hinv.neg
     convert hneg using 1
@@ -596,7 +596,7 @@ theorem sum_vfLogHarmonicKernel_Ico_le
         ∫ x in (2 : ℝ)..((R - 1 : ℕ) : ℝ),
           vfLogHarmonicKernel x := by
     rw [hshift]
-    simpa using htail0
+    simpa using! htail0
   have hint :=
     integral_vfLogHarmonicKernel
       (a := (2 : ℝ))
@@ -623,9 +623,9 @@ theorem sum_vfLogHarmonicKernel_Ico_le
         ≤ vfLogHarmonicKernel 2 +
             (∫ x in (2 : ℝ)..((R - 1 : ℕ) : ℝ),
               vfLogHarmonicKernel x) :=
-      add_le_add_left htail _
+      add_le_add_right htail _
     _ ≤ vfLogHarmonicKernel 2 + (Real.log 2)⁻¹ :=
-      add_le_add_left hintle _
+      add_le_add_right hintle _
 
 theorem sum_abs_vfMidBandQuadratureError_le_uniform
     (R : ℕ) (hR : 2 ≤ R) :
@@ -722,7 +722,7 @@ theorem abs_vfMidLiError_sq_le_uniform
           108 *
             (vfLogHarmonicKernel 2 +
               (Real.log 2)⁻¹) := by
-      exact add_le_add_left
+      exact add_le_add_right
         (sum_abs_vfMidBandQuadratureError_le_uniform R hR) _
     _ = vfMidLiSquareEndpointUniformConstant := rfl
 

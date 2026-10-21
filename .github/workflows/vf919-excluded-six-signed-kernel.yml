@@ -30,6 +30,11 @@ jobs:
           fi
       - name: Set up Lean and cached Mathlib
         uses: ./.github/actions/lean-setup
+      - name: Build RHLean modules imported by these research checks
+        run: >-
+          python3 scripts/compile_research_import_closure.py --library-only
+          research/VF_MID_919_OAI_EXCLUDED_SIX_SIGNED_KERNEL.lean
+          research/VF_MID_919_OAI_QUADRATIC_NORM_EULER.lean
       - name: Warning-fatal compile of norm Euler factor and exact physical signed kernel
         run: |
           set -e

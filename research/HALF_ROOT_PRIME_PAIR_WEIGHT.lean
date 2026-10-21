@@ -67,7 +67,7 @@ theorem mertensSummatoryInt_squareRootEndpoint_div_pair_eq_halfRootPrimePairWeig
       halfRootPrimePairWeight R p q := by
   have hlt := squareRootEndpoint_div_two_halfRootHighPrimes_lt_four hR hp hq
   let z := squareRootEndpoint R / (p * q)
-  have hzlt : z < 4 := by simpa [z] using hlt
+  have hzlt : z < 4 := by simpa [z] using! hlt
   by_cases hz0 : z = 0
   · simp [halfRootPrimePairWeight, z, hz0, mertensSummatoryInt_zero]
   by_cases hz1 : z = 1

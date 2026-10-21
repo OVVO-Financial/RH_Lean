@@ -1,14 +1,13 @@
 import Mathlib
 import Mathlib.NumberTheory.LSeries.Dirichlet
 import PrimeNumberTheoremAnd.ZetaBounds
-import StrongPNT.PNT4_ZeroFreeRegion
-import StrongPNT.ZetaZeroFree
+import PrimeNumberTheoremAnd.StrongPNT
 
 /-!
 # Shared log-nine corridor for the unconditional strong Mertens bridge
 
 This file reconciles, once and for all, the existential constants coming from
-PNT+'s reciprocal-zeta estimate, StrongPNT's zero-free region, and StrongPNT's
+PNT+'s reciprocal-zeta estimate, its `1/log` zero-free region, and its
 bounded-height zero-free box.  Downstream contour code sees one positive constant
 `A`, one left boundary
 
@@ -103,14 +102,14 @@ private lemma shift_lt_one {A T : ℝ} (hA : 0 < A) (hT : 3 ≤ T) :
 /-- The canonical shared corridor.  Its `A` is the minimum of:
 
 * the `ZetaInvBnd` log-nine constant;
-* the StrongPNT zero-free constant;
+* the PNT+ `ZetaZeroFree1` zero-free constant;
 * the bounded-height allowance `(1-smallSigma) * (log 3)^9`.
 
 Shrinking is proved explicitly, so no downstream theorem relies on unrelated
 existential witnesses being definitionally equal.
 
 `StrongMertensLogNineCorridor` bundles real data, so it lives in `Type`, while
-every analytic input below (`ZetaInvBnd`, `ZetaZeroFree_p`, `ZetaNoZerosInBox'`)
+every analytic input below (`ZetaInvBnd`, `ZetaZeroFree1`, `ZetaNoZerosInBox`)
 is a `Prop`-valued existential whose witnesses may not be eliminated into
 `Type`.  Existence is therefore proved as the `Prop` statement `Nonempty
 StrongMertensLogNineCorridor`, and the corridor term used downstream is the
@@ -118,8 +117,8 @@ choice of a witness. -/
 theorem nonempty_strongMertensLogNineCorridor :
     Nonempty StrongMertensLogNineCorridor := by
   obtain ⟨Ainv, hAinv, Cinv, hCinv, hInv⟩ := ZetaInvBnd
-  obtain ⟨Azf, hAzf, hZF⟩ := ZetaZeroFree_p
-  obtain ⟨sigma0, hsigma0, hSmall⟩ := ZetaNoZerosInBox' 3
+  obtain ⟨Azf, hAzf, hZF⟩ := ZetaZeroFree1
+  obtain ⟨sigma0, hsigma0, hSmall⟩ := ZetaNoZerosInBox 3
 
   have hlog3pos : 0 < Real.log 3 := Real.log_pos (by norm_num)
   set Acorner : ℝ := (1 - sigma0) * (Real.log 3) ^ 9 with hAcorner
@@ -246,7 +245,9 @@ theorem nonempty_strongMertensLogNineCorridor :
         have hmem : s.re ∈ Set.Ico (1 - Azf / Real.log |s.im| ^ 1) 1 :=
           ⟨hleft, hrelt⟩
         rw [← re_add_im s]
-        exact hZF s.re s.im hlarge hmem
+        have hpow1 : Real.log |s.im| ^ (1 : ℝ) = Real.log |s.im| ^ (1 : ℕ) := by
+          simp
+        exact hZF s.re s.im hlarge (by simpa only [hpow1] using! hmem)
 
   have hinvwindow : ∀ (sigma t : ℝ), 3 < |t| →
       sigma ∈ Set.Ico
@@ -264,7 +265,10 @@ theorem nonempty_strongMertensLogNineCorridor :
       linarith [hsigma.1, hfrac]
     have hupper : sigma < 1 + Ainv / (Real.log |t|) ^ 9 := by
       linarith [hsigma.2, hfrac]
-    exact hInv sigma t ht ⟨hlower, hupper⟩
+    have hpow9 : Real.log |t| ^ (9 : ℝ) = Real.log |t| ^ (9 : ℕ) :=
+      Real.rpow_natCast _ 9
+    exact hInv sigma t ht ⟨(by simpa only [hpow9] using! hlower),
+      (by simpa only [hpow9] using! hupper)⟩
 
   have hinvshift : ∀ (T t : ℝ), 3 < T → 3 < |t| → |t| ≤ T →
       1 / ‖zeta (strongMertensLogNineShift A T + t * I)‖ ≤
@@ -286,7 +290,11 @@ theorem nonempty_strongMertensLogNineCorridor :
         have : 0 < Ainv / (Real.log |t|) ^ 9 := div_pos hAinv.1 (pow_pos hlog 9)
         linarith
       exact hshiftlt.trans hplus
-    exact hInv (strongMertensLogNineShift A T) t ht ⟨hlower, hupper⟩
+    have hpow9 : Real.log |t| ^ (9 : ℝ) = Real.log |t| ^ (9 : ℕ) :=
+      Real.rpow_natCast _ 9
+    exact hInv (strongMertensLogNineShift A T) t ht
+      ⟨(by simpa only [hpow9] using! hlower),
+       (by simpa only [hpow9] using! hupper)⟩
 
   exact
     ⟨{ A := A

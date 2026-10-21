@@ -39,7 +39,7 @@ theorem lowOwnerZeroFrequencyFirstOwnerGram_eq_positivePairCarrier
       Finset.Icc 1 (squareRootEndpoint R) =
         Finset.Ico 1 (squareRootEndpoint R + 1) := by
     ext n
-    simp
+    simp only [Finset.mem_Icc, Finset.mem_Ico]
     omega
   symm
   calc
@@ -66,7 +66,7 @@ theorem lowOwnerZeroFrequencyFirstOwnerGram_eq_positivePairCarrier
                 lowOwnerZeroFrequencyMobiusSite R n
              else 0)
           else 0 := by
-      simpa only using
+      simpa only using!
         (Finset.sum_product
           (s := Finset.Icc 1 (squareRootEndpoint R))
           (t := Finset.Icc 1 (squareRootEndpoint R))
@@ -239,11 +239,11 @@ theorem covarianceOrderedPair_arithmeticOrient_eq
   have hlt := (Finset.mem_filter.mp hmn).2.1
   by_cases hpm : p ∣ mn.1
   · rw [lowOwnerFirstOwnerArithmeticOrient]
-    simp only [if_pos hpm]
+    simp only [ite_eq_left hpm]
     rw [covarianceOrderedPair_comm]
     exact covarianceOrderedPair_eq_of_lt hlt
   · rw [lowOwnerFirstOwnerArithmeticOrient]
-    simp only [if_neg hpm]
+    simp only [ite_eq_right hpm]
     exact covarianceOrderedPair_eq_of_lt hlt
 
 /-- Every p-free/p-divisible oriented pair has a unique positive-lag preimage. -/
@@ -309,7 +309,7 @@ theorem sum_lowOwnerFirstOwnerUnorderedPairCarrier_eq_orientedCrossPairs
     have heq' :
         lowOwnerFirstOwnerArithmeticOrient p mn =
           lowOwnerFirstOwnerArithmeticOrient p uv := by
-      simpa using heq
+      simpa using! heq
     calc
       mn = covarianceOrderedPair
           (lowOwnerFirstOwnerArithmeticOrient p mn).1
@@ -322,7 +322,7 @@ theorem sum_lowOwnerFirstOwnerUnorderedPairCarrier_eq_orientedCrossPairs
   · intro ab hab
     rcases lowOwnerFirstOwnerOrientedCrossPair_has_unorderedPreimage hp hab with
       ⟨mn, hmn, horient⟩
-    exact ⟨mn, hmn, by simpa using horient⟩
+    exact ⟨mn, hmn, by simpa using! horient⟩
   · intro mn _hmn
     exact (lowOwnerFirstOwnerArithmeticOrient_pairWeight R p mn).symm
 

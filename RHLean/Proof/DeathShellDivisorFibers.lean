@@ -69,14 +69,14 @@ theorem deathShellHeightNat_mem_integerWindow
   have hwindow := (isDeathHeightShell_iff_height_window Λ t m).mp hshell
   have hupper :
       (deathShellHeightNat m : ℝ) ≤ 2 * Λ * ((t + 1 : ℕ) : ℝ) := by
-    simpa [deathShellHeightNat_cast] using hwindow.2
+    simpa [deathShellHeightNat_cast] using! hwindow.2
   have hfloor :
       deathShellHeightNat m ≤ Nat.floor (2 * Λ * ((t + 1 : ℕ) : ℝ)) :=
     Nat.le_floor hupper
   apply Finset.mem_filter.mpr
   constructor
   · exact Finset.mem_range.mpr (Nat.lt_succ_of_le hfloor)
-  · simpa [deathShellHeightNat_cast] using hwindow.1
+  · simpa [deathShellHeightNat_cast] using! hwindow.1
 
 /-- The product of the unordered canonical pair is the source, including the
 harmless endpoints `m=0,1`. -/
@@ -136,7 +136,7 @@ theorem deathShellDivisorCode_injOn
       canonicalPairLo m + canonicalPairHi m =
         canonicalPairLo n + canonicalPairHi n := by
     apply Nat.eq_of_mul_eq_mul_left hgapPos
-    simpa [deathShellHeightNat, hgap] using hheight
+    simpa [deathShellHeightNat, hgap] using! hheight
   have hhi_m := canonicalPairLo_add_absoluteGap m
   have hhi_n := canonicalPairLo_add_absoluteGap n
   have hlo : canonicalPairLo m = canonicalPairLo n := by omega

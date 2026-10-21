@@ -134,7 +134,7 @@ theorem vfMidFloorLiOneStepMass_nonneg_lt_one
       0 ≤ vfMidLogarithmicIntegralFromTwo ((n + 1 : ℕ) : ℝ) -
         vfMidLogarithmicIntegralFromTwo (n : ℝ) := by
     simpa [densityTightLiWeight, vfMidLogarithmicIntegralFromTwo,
-      logarithmicIntegralFromTwo] using hnon0
+      logarithmicIntegralFromTwo] using! hnon0
   have hn2 : (2 : ℝ) ≤ (n : ℝ) := by
     exact_mod_cast (show 2 ≤ n by omega)
   have hstep0 :=
@@ -150,7 +150,7 @@ theorem vfMidFloorLiOneStepMass_nonneg_lt_one
       push_cast
       ring
     simpa [vfMidLogarithmicIntegralFromTwo,
-      logarithmicIntegralFromTwo, hone] using hstep0
+      logarithmicIntegralFromTwo, hone] using! hstep0
   have hlog4eq : Real.log (4 : ℝ) = 2 * Real.log 2 := by
     calc
       Real.log (4 : ℝ) = Real.log ((2 : ℝ) ^ 2) := by norm_num
@@ -215,7 +215,7 @@ theorem vfMidPrimeCountingInteger_step_zero_or_one
   have hup0 := vfMid_primeCounting_add_le n 1
   have hup :
       Nat.primeCounting (n + 1) ≤ Nat.primeCounting n + 1 := by
-    simpa using hup0
+    simpa using! hup0
   omega
 
 theorem vfMidFloorLiPrimitiveMismatch_ternary
@@ -364,12 +364,12 @@ theorem vfMidFloorLiSignedMismatchMass_cast_eq_moebiusAbel_add_rounding
       (((vfMidPrimeFloorLiIntegerBacklog B : ℤ) : ℂ)) =
         (vfMidPrimeLiIntegerDiscrepancyReal B : ℂ) +
           (vfMidFloorLiEndpointRounding B : ℂ) := by
-    simpa using hBcomplex0
+    simpa using! hBcomplex0
   have hAcomplex :
       (((vfMidPrimeFloorLiIntegerBacklog A : ℤ) : ℂ)) =
         (vfMidPrimeLiIntegerDiscrepancyReal A : ℂ) +
           (vfMidFloorLiEndpointRounding A : ℂ) := by
-    simpa using hAcomplex0
+    simpa using! hAcomplex0
   rw [← primeSievePrimeDiscrepancy_eq_vfMidPrimeLiIntegerDiscrepancyReal B]
     at hBcomplex
   rw [← primeSievePrimeDiscrepancy_eq_vfMidPrimeLiIntegerDiscrepancyReal A]

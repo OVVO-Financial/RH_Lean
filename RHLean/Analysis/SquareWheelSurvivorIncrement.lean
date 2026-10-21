@@ -149,7 +149,7 @@ theorem primorialMinimalSquareWheelNonzeroResponse_sub_pred_eq_survivorCentered_
           (primorialMinimalWheelSystem k) (n - 1) =
       canonicalTotalIncrement n -
         primorialMinimalSquareWheelEndpointDrift k n := by
-          simpa [primorialMinimalSquareWheelCenteredIncrement] using
+          simpa [primorialMinimalSquareWheelCenteredIncrement] using!
             primorialMinimalSquareWheelNonzeroResponse_sub_pred_eq_centeredIncrement
               k n hn hleftLower hleftUpper hrightUpper
     _ =
@@ -216,7 +216,7 @@ theorem norm_nonzeroResponseIncrement_sub_survivorCentered_le_control_add_death
         ‖lifetimeDeathMass 16 n - lifetimeDeathMass 16 (n - 1)‖ := by
   exact (norm_nonzeroResponseIncrement_sub_survivorCentered_le_low_add_death
     k n hn hleftLower hleftUpper hrightUpper).trans
-      (add_le_add_right (control.norm_increment_le n) _)
+      (add_le_add_left (control.norm_increment_le n) _)
 
 /-- The predecessor death-mass difference is exactly the existing one-step
 death increment. -/
@@ -262,7 +262,7 @@ theorem norm_nonzeroResponseIncrement_sub_survivorCentered_subpolynomial
         C * Real.rpow (n : ℝ) ε := by
     rw [lifetimeDeathMass_sub_pred_eq_deathIncrement 16 n hn]
     have hpred : n - 1 + 1 = n := Nat.sub_add_cancel hn
-    simpa [hpred] using hdeathAt
+    simpa [hpred] using! hdeathAt
   exact hbase.trans (add_le_add hlow hdeathBound)
 
 end RHLean.Proof

@@ -98,9 +98,9 @@ theorem lowWheelCanonicalRepeatedTerminalExternal_mem_firstFailureBoundary
       (lowWheelTaggedDowncrossPivot y) := by
   let p := lowWheelTaggedDowncrossPivot y
   have hterminal := (Finset.mem_filter.mp hy).1
-  have hlt : R < p := by simpa [p] using (Finset.mem_filter.mp hy).2
+  have hlt : R < p := by simpa [p] using! (Finset.mem_filter.mp hy).2
   have hgeom := lowWheelCanonicalRepeatedTerminalBoundary_geometry hterminal
-  have hp : p.Prime := by simpa [p] using hgeom.2.2.1
+  have hp : p.Prime := by simpa [p] using! hgeom.2.2.1
   have hpNot : p ∉ primesUpTo R := by
     intro hmem
     have hpLe := (mem_primesUpTo.mp hmem).2

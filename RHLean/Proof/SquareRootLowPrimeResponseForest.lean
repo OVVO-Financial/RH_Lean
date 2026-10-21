@@ -62,7 +62,7 @@ theorem canonicalLargestPrimeFactor_mem_freshPrimeSet_of_mem_ownedBadCofactors
   rcases Finset.mem_biUnion.mp hc with ⟨p, hp, hcp⟩
   have hlpf : canonicalLargestPrimeFactor c = p :=
     (Finset.mem_filter.mp (Finset.mem_filter.mp hcp).1).2
-  simpa [hlpf] using hp
+  simpa [hlpf] using! hp
 
 /-- A deletion cofactor is owned by its canonical largest prime in the selected
 fresh-prime interval. -/
@@ -74,7 +74,7 @@ theorem canonicalLargestPrimeFactor_mem_freshPrimeSet_of_mem_ownedDeletionCofact
   rcases Finset.mem_biUnion.mp hc with ⟨p, hp, hcp⟩
   have hlpf : canonicalLargestPrimeFactor c = p :=
     (Finset.mem_filter.mp (Finset.mem_filter.mp hcp).1).2
-  simpa [hlpf] using hp
+  simpa [hlpf] using! hp
 
 /-- Every response cofactor is owned by one actual prime in `(K,U]`. -/
 theorem canonicalLargestPrimeFactor_mem_freshPrimeSet_of_mem_ownedResponseCofactors
@@ -100,13 +100,13 @@ theorem squareRootLowPrimeOwnedResponseAtom_fst_mem_ownedResponseCofactors
     have hzcData := mem_squareRootLowPrimeBadAtomFiber.mp hzc
     apply mem_squareRootLowPrimeOwnedResponseCofactors.mpr
     left
-    simpa [hzcData.1] using hc
+    simpa [hzcData.1] using! hc
   · unfold squareRootLowPrimeOwnedDeletionAtoms at hzDeletion
     rcases Finset.mem_biUnion.mp hzDeletion with ⟨c, hc, hzc⟩
     have hzcData := mem_squareRootLowPrimeBadAtomFiber.mp hzc
     apply mem_squareRootLowPrimeOwnedResponseCofactors.mpr
     right
-    simpa [hzcData.1] using hc
+    simpa [hzcData.1] using! hc
 
 /-- The owner of an atom's cofactor is an actual fresh prime in `(K,U]`. -/
 theorem squareRootLowPrimeOwnedResponseAtom_owner_mem_freshPrimeSet
@@ -371,7 +371,7 @@ theorem squareRootLowPrimePostRootResponseAtom_canonicalSourceData
     have hsqpos : 0 < R ^ 2 := by positivity
     omega
   have hSquareLt : R ^ 2 < R * z.2 := by
-    simpa [pow_two] using Nat.mul_lt_mul_of_pos_left hRq hRpos
+    simpa [pow_two] using! Nat.mul_lt_mul_of_pos_left hRq hRpos
   have hXlt : squareRootEndpoint R < R * z.2 :=
     hXltSquare.trans hSquareLt
   have hdivlt : squareRootEndpoint R / z.2 < R :=

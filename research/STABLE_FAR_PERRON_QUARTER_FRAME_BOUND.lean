@@ -99,7 +99,7 @@ theorem oddPrimeOwnerReciprocalSquareBudgetReal_le_quarter (N : ℕ) :
     exact_mod_cast hQ
   push_cast at hcast
   norm_num at hcast ⊢
-  simpa [Nat.cast_pow] using hcast
+  simpa [Nat.cast_pow] using! hcast
 
 /-- **Quarter-frame theorem.** At every log frequency, the complete odd-prime
 critical q² synthesis has squared operator norm at most `1/4`. -/
@@ -194,7 +194,7 @@ theorem farFourOddMertensLogFrequencyColumn_energy_le_quarter_owner_weighted
   have h := stableFarCriticalQ2OddPrimeSynthesis_energy_le_quarter
     tau (R - 1) (fun q => (q : ℂ) *
       ((mertensSummatoryInt (squareRootEndpoint R / (q * q)) : ℤ) : ℂ))
-  simpa only [norm_mul, Complex.norm_natCast, mul_pow] using h
+  simpa only [norm_mul, Complex.norm_natCast, mul_pow] using! h
 
 /-- Even at zero frequency a single nonzero raw input is changed by inserting
 the critical multiplier. A boundary or input renormalization is necessary. -/

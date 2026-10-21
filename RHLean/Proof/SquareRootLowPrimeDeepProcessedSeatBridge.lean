@@ -89,7 +89,7 @@ private theorem squareRootLowPrimeOwnedSignedCofactor_mem_processed
       K < canonicalLargestPrimeFactor c := by
   have hcResponse : c ∈ squareRootLowPrimeOwnedResponseCofactors R K U := by
     simpa [squareRootLowPrimeOwnedSignedCofactors,
-      squareRootLowPrimeOwnedResponseCofactors] using hc
+      squareRootLowPrimeOwnedResponseCofactors] using! hc
   have hpFresh :=
     canonicalLargestPrimeFactor_mem_freshPrimeSet_of_mem_ownedResponseCofactors
       hcResponse
@@ -148,7 +148,7 @@ theorem squareRootLowPrimeProcessedSeat_mem_ownedResponseSeatCarrier_of_deep
     (hdeep : K < canonicalLargestPrimeFactor c) :
     (c, s) ∈ squareRootLowPrimeOwnedResponseSeatCarrier R K j U := by
   have hz : (c, s) ∈ squareRootLowPrimeProcessedSeatAtoms R K j U := by
-    simpa [squareRootLowPrimeProcessedSeatCarrier] using hx
+    simpa [squareRootLowPrimeProcessedSeatCarrier] using! hx
   rw [← squareRootLowPrimeProcessedDeepSeatAtoms_eq_ownedResponseSeatCarrier hK]
   exact mem_squareRootLowPrimeProcessedDeepSeatAtoms.mpr ⟨hz, hdeep⟩
 

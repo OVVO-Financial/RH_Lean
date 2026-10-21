@@ -142,7 +142,7 @@ theorem squareRootLowPrimeGoWallSquareResidualChild_owner
     canonicalLargestPrimeFactor_primeFaceProduct_lt_freshPrime hq huData.1
   have hcPos : 0 < primeFaceProduct u :=
     primeFaceProduct_pos_of_mem_powerset huData.1
-  simpa [Nat.mul_comm] using
+  simpa [Nat.mul_comm] using!
     (canonicalLargestPrimeFactor_mul_prime_eq_of_rough hcPos hq hrough)
 
 /-- **Square certificate.**  Every owned Go child still fits after one more
@@ -159,7 +159,7 @@ theorem squareRootLowPrimeGoWallSquareResidualChild_owner_mul_le
   have hqqPos : 0 < q * q := Nat.mul_pos hq.pos hq.pos
   have hmul : primeFaceProduct u * (q * q) ≤ X :=
     (Nat.le_div_iff_mul_le hqqPos).1 huCut
-  simpa [Nat.mul_assoc, Nat.mul_comm, Nat.mul_left_comm] using hmul
+  simpa [Nat.mul_assoc, Nat.mul_comm, Nat.mul_left_comm] using! hmul
 
 /-- Distinct Go liberties own disjoint square-residual child populations.  The
 prime coordinate is not an external multiplicity: it is encoded in `P+(m)`. -/
@@ -230,11 +230,11 @@ theorem squareRootLowPrimeGoWallSquareResidualFaces_image_eq_smoothCofactors
       ⟨hc1, hcB, hsq, hrough⟩
     let u := squarefreePrimeFace c
     have hprod : primeFaceProduct u = c := by
-      simpa [u] using primeFaceProduct_squarefreePrimeFace hsq
+      simpa [u] using! primeFaceProduct_squarefreePrimeFace hsq
     have huSub : u ⊆ primesUpTo (q - 1) := by
       intro r hr
       have hrData : r ∈ c.primeFactors := by
-        simpa [u, squarefreePrimeFace] using hr
+        simpa [u, squarefreePrimeFace] using! hr
       have hrPrime : r.Prime := (Nat.mem_primeFactors.mp hrData).1
       have hrDvd : r ∣ c := (Nat.mem_primeFactors.mp hrData).2.1
       have hcPos : 0 < c := by omega
@@ -242,13 +242,13 @@ theorem squareRootLowPrimeGoWallSquareResidualFaces_image_eq_smoothCofactors
       have hcGt : 1 < c := lt_of_lt_of_le hrPrime.one_lt hrLeC
       have hrLeLpf : r ≤ canonicalLargestPrimeFactor c := by
         unfold canonicalLargestPrimeFactor
-        rw [dif_pos hcGt]
+        rw [dite_eq_left hcGt]
         exact Finset.le_max' c.primeFactors r hrData
       exact mem_primesUpTo.mpr ⟨hrPrime, by omega⟩
     have huFace : u ∈ squareRootLowPrimeGoWallSquareResidualFaces q X := by
       apply mem_squareRootLowPrimeGoWallSquareResidualFaces.mpr
       refine ⟨Finset.mem_powerset.mpr huSub, ?_⟩
-      simpa [hprod] using hcB
+      simpa [hprod] using! hcB
     exact Finset.mem_image.mpr ⟨u, huFace, hprod⟩
 
 /-- The frozen square residual is exactly the ordinary Möbius sum over its

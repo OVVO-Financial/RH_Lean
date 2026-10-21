@@ -41,7 +41,7 @@ theorem canonicalLargestPrimeFactor_ne_of_one_lt_not_prime
     exact hnot (heq ▸ hlpfPrime)
   · have hlpfOne : canonicalLargestPrimeFactor c = 1 := by
       unfold canonicalLargestPrimeFactor
-      rw [dif_neg hc]
+      rw [dite_eq_right hc]
     omega
 
 /-- Across a composite cutoff greater than one, the condition `P+(c) <= p` is
@@ -109,7 +109,7 @@ theorem real_pred_sub_telescope_Ioc
     (T : ℕ → ℝ) {K U : ℕ} (hKU : K ≤ U) :
     (∑ p ∈ Finset.Ioc K U, (T (p - 1) - T p)) = T K - T U := by
   have h := real_pred_sub_telescope T K (U - K)
-  simpa [Nat.add_sub_of_le hKU] using h
+  simpa [Nat.add_sub_of_le hKU] using! h
 
 /-- **Exact fresh-prime telescope.**  Composite arithmetic cutoffs contribute
 zero, so the actual running-state change is exactly the prime-filtered fresh
@@ -136,10 +136,10 @@ theorem squareRootLowPrimeRunningImbalanceReal_sub_eq_freshIncrement_sum
         have hKp := (Finset.mem_Ioc.mp hpIoc).1
         omega
       by_cases hpPrime : p.Prime
-      · rw [if_pos hpPrime]
+      · rw [ite_eq_left hpPrime]
         exact squareRootLowPrimeRunningImbalanceReal_step_eq_freshIncrementReal
           R K j p hpPrime
-      · rw [if_neg hpPrime,
+      · rw [ite_eq_right hpPrime,
           squareRootLowPrimeRunningImbalanceReal_eq_pred_of_not_prime
             R K j p hpGt hpPrime]
         ring
@@ -182,12 +182,12 @@ theorem abs_squareRootLowPrimeRunningImbalanceReal_le_shallow_add_frontierCard
       |squareRootLowPrimeRunningImbalanceReal R K j K| +
         |squareRootLowPrimeRunningImbalanceReal R K j K -
           squareRootLowPrimeRunningImbalanceReal R K j U| := by
-            simpa only [abs_neg] using abs_sub
+            simpa only [abs_neg] using! abs_sub
               (squareRootLowPrimeRunningImbalanceReal R K j K)
               (squareRootLowPrimeRunningImbalanceReal R K j K -
                 squareRootLowPrimeRunningImbalanceReal R K j U)
     _ ≤ |squareRootLowPrimeRunningImbalanceReal R K j K| +
         ((squareRootLowPrimeOwnedResponseMatchingFrontier R K U).card : ℝ) :=
-      add_le_add_left hdiff _
+      add_le_add_right hdiff _
 
 end RHLean.Proof

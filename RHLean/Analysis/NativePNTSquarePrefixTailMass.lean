@@ -53,7 +53,7 @@ theorem nativeLambdaTwoTailRecipMass_add_small_eq
   unfold nativeLambdaTwoTailRecipMass nativeLambdaTwoSmallQuotientRecipMass
     nativePNTSquarePrefixTailFiberSet nativePNTSquarePrefixSmallQuotientFiberSet
     nativeLambdaTwoRecipMass
-  simpa only [not_le] using
+  simpa only [not_le] using!
     (Finset.sum_filter_add_sum_filter_not
       (s := Finset.Icc 1 N)
       (p := fun n => M ≤ N / n)

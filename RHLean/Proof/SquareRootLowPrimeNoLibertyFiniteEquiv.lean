@@ -86,7 +86,7 @@ theorem abs_squareRootLowPrimeNoLibertyBoundaryWeight_le_one
       · have hInt :
           |(ArithmeticFunction.moebius
               (squareRootLowPrimeBadAtomChild z) : ℤ)| ≤ 1 := by
-          simpa using
+          simpa using!
             (ArithmeticFunction.abs_moebius_le_one
               (n := squareRootLowPrimeBadAtomChild z))
         change |((ArithmeticFunction.moebius
@@ -94,7 +94,7 @@ theorem abs_squareRootLowPrimeNoLibertyBoundaryWeight_le_one
         exact_mod_cast hInt
       · have hInt :
           |(ArithmeticFunction.moebius (z.1.2 * z.2) : ℤ)| ≤ 1 := by
-          simpa using
+          simpa using!
             (ArithmeticFunction.abs_moebius_le_one
               (n := z.1.2 * z.2))
         change |((ArithmeticFunction.moebius (z.1.2 * z.2) : ℤ) : ℝ)| ≤ 1
@@ -195,7 +195,7 @@ theorem squareRootLowPrimeProcessedSeatDescendingFrontier_card_le_boundary
         Fintype.card (SquareRootLowPrimeProcessedSeatNoLibertyTaggedBoundary
           R K j U) :=
     Fintype.card_le_of_injective e.toEmbedding e.toEmbedding.injective
-  simpa using hcard
+  simpa using! hcard
 
 /-- **Mass transfer from the actual classifier.**  At the canonical terminal
 cutoff, a weight-preserving injection into the four tagged endpoint classes
@@ -308,7 +308,7 @@ noncomputable def SquareRootLowPrimeDescendingBoundaryWeightEquiv.toStable
       e.toEquiv
   weight_eq := by
     intro x
-    simpa using e.weight_eq
+    simpa using! e.weight_eq
       (squareRootLowPrimeProcessedSeatNoLibertyStableEquivDescending R K j U x)
 
 /-- A weight-preserving finite equivalence transfers the complete signed mass.
@@ -338,7 +338,7 @@ theorem squareRootLowPrimeNoLibertyWeightEquiv_sum_eq
       rw [← e.toEquiv.sum_comp]
       apply Finset.sum_congr rfl
       intro x _hx
-      simpa [A, B] using (e.weight_eq x).symm
+      simpa [A, B] using! (e.weight_eq x).symm
     _ = ∑ z ∈ B, squareRootLowPrimeNoLibertyBoundaryWeight z := by
       exact Finset.sum_attach B squareRootLowPrimeNoLibertyBoundaryWeight
 

@@ -61,9 +61,9 @@ theorem lowWheelCanonicalFrozenDowncross_pivot_lt_root_of_cofactor_gt_one
   have hpNotC := (mem_lowWheelCanonicalDowncrossPart.mp hx).2.1
   let q := canonicalLargestPrimeFactor y.2.1
   have hqPrime : q.Prime := by
-    simpa [q] using canonicalLargestPrimeFactor_prime hcgt
+    simpa [q] using! canonicalLargestPrimeFactor_prime hcgt
   have hqDvdC : q ∣ y.2.1 := by
-    simpa [q] using canonicalLargestPrimeFactor_dvd hcgt
+    simpa [q] using! canonicalLargestPrimeFactor_dvd hcgt
   have hqDvdProd : q ∣ y.2.1 * y.2.2 :=
     dvd_mul_of_dvd_left hqDvdC y.2.2
   have hpLeQ : lowWheelTaggedDowncrossPivot y ≤ q := by
@@ -73,8 +73,8 @@ theorem lowWheelCanonicalFrozenDowncross_pivot_lt_root_of_cofactor_gt_one
     intro heq
     apply hpNotC
     have hpDvd : lowWheelTaggedDowncrossPivot y ∣ y.2.1 := by
-      simpa [heq] using hqDvdC
-    simpa [lowWheelTaggedDowncrossPivot] using hpDvd
+      simpa [heq] using! hqDvdC
+    simpa [lowWheelTaggedDowncrossPivot] using! hpDvd
   have hpLtQ : lowWheelTaggedDowncrossPivot y < q :=
     lt_of_le_of_ne hpLeQ hpNeQ
   have hqLeC : q ≤ y.2.1 := Nat.le_of_dvd (by omega) hqDvdC
@@ -110,7 +110,7 @@ theorem lowWheelCanonicalFrozenDowncross_firstCrossing_geometry
   rcases lowWheelCanonicalDowncrossPart_adjacent_shell hx with
     ⟨hpRaw, _hpNotC, _hpDvdK, hdown, hup⟩
   have hp : (lowWheelTaggedDowncrossPivot y).Prime := by
-    simpa [lowWheelTaggedDowncrossPivot] using hpRaw
+    simpa [lowWheelTaggedDowncrossPivot] using! hpRaw
   change primeFaceProduct y.1 *
       (y.2.2 / lowWheelTaggedDowncrossPivot y) ≤ R at hdown
   change R < primeFaceProduct y.1 *
@@ -126,7 +126,7 @@ theorem lowWheelCanonicalFrozenDowncross_firstCrossing_geometry
   have hup' : R < primeFaceProduct y.1 * lowWheelTaggedDowncrossPivot y := by
     rw [hdiv, Nat.mul_one] at hup
     exact hup
-  exact ⟨hdown', by simpa [Nat.mul_comm] using hup'⟩
+  exact ⟨hdown', by simpa [Nat.mul_comm] using! hup'⟩
 
 /-- An internal frozen crossing is exactly an existing truncated Boolean-cube
 first-failure face at its canonical pivot. -/
@@ -141,7 +141,7 @@ theorem lowWheelCanonicalFrozenDowncross_face_mem_firstFailureBoundary
   rcases mem_lowWheelCanonicalTaggedDowncrossCarrier.mp hcarrier with ⟨ht, hx⟩
   have hshell := lowWheelCanonicalDowncrossPart_adjacent_shell hx
   have hp : (lowWheelTaggedDowncrossPivot y).Prime := by
-    simpa [lowWheelTaggedDowncrossPivot] using hshell.1
+    simpa [lowWheelTaggedDowncrossPivot] using! hshell.1
   have hpGlobal : lowWheelTaggedDowncrossPivot y ∈ primesUpTo R :=
     mem_primesUpTo.mpr ⟨hp, hpR⟩
   have htSub : y.1 ⊆ primesUpTo R := Finset.mem_powerset.mp ht
@@ -269,7 +269,7 @@ theorem lowWheelFarTaggedPhysicalLedger_eq_residual_add_farMate_add_top
           lowWheelFullTaggedPhysicalWeight z := by
       symm
       simpa [lowWheelFarTaggedPhysicalLedger,
-        lowWheelFrozenTopFarPhysicalResidualCarrier] using hs
+        lowWheelFrozenTopFarPhysicalResidualCarrier] using! hs
     _ = lowWheelFrozenTopFarPhysicalResidualLedger R +
           (lowWheelCanonicalRepeatedTerminalInternalMateFarLedger R +
             lowWheelFrozenCofactorTopImageLedger R) := by
@@ -312,7 +312,7 @@ theorem lowWheelTaggedHighProduct_injOn_internalMateImage
   have hprod : primeFaceProduct a.1 = primeFaceProduct b.1 := by
     unfold lowWheelTaggedHighProduct at hab
     rw [haState, hbState] at hab
-    simpa using hab
+    simpa using! hab
   have hface : a.1 = b.1 :=
     (primeFaceProduct_eq_iff
       (fun p hp => prime_of_mem_primesUpTo
@@ -414,7 +414,7 @@ theorem norm_lowWheelFrozenTopFarResidual_le_physicalResidual_add_seven
         ‖lowWheelCanonicalRepeatedTerminalInternalMateNearLedger R‖ :=
       norm_sub_le _ _
     _ ≤ ‖lowWheelFrozenTopFarPhysicalResidualLedger R‖ + 7 :=
-      add_le_add_left
+      add_le_add_right
         (norm_lowWheelCanonicalRepeatedTerminalInternalMateNearLedger_le_seven R) _
 
 end RHLean.Proof

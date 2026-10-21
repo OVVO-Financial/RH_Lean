@@ -155,9 +155,9 @@ theorem roughWheelInterval_primesUpTo_squareRootEndpoint_eq_one_union_highPrimes
         have hnOne : n ≠ 1 := hn1
         let p := n.minFac
         have hpPrime : p.Prime := by
-          simpa [p] using Nat.minFac_prime hnOne
+          simpa [p] using! Nat.minFac_prime hnOne
         have hpDvd : p ∣ n := by
-          simpa [p] using Nat.minFac_dvd n
+          simpa [p] using! Nat.minFac_dvd n
         have hpLeN : p ≤ n := Nat.le_of_dvd hnpos hpDvd
         have hpMem : p ∈ primesUpTo R :=
           mem_primesUpTo.mpr ⟨hpPrime, hpLeN.trans hnR⟩
@@ -187,7 +187,7 @@ theorem squareRootEndpoint_div_lt_root_of_root_lt
   have hqpos : 0 < q := by omega
   apply (Nat.div_lt_iff_lt_mul hqpos).2
   have hsq : R ^ 2 < R * q := by
-    simpa [pow_two] using
+    simpa [pow_two] using!
       (Nat.mul_lt_mul_left (by omega : 0 < R)).2 hRq
   unfold squareRootEndpoint
   omega
@@ -216,7 +216,7 @@ theorem roughMertens_squareRootEndpoint_eq_lowKernel_add_neg_highPrimeLowerMerte
         ((Finset.Ioc R (squareRootEndpoint R)).filter Nat.Prime) := by
     rw [Finset.disjoint_left]
     intro n hn1 hnHigh
-    have hnEq : n = 1 := by simpa using hn1
+    have hnEq : n = 1 := by simpa using! hn1
     subst n
     have hI := (Finset.mem_filter.mp hnHigh).1
     have hR1 := (Finset.mem_Ioc.mp hI).1

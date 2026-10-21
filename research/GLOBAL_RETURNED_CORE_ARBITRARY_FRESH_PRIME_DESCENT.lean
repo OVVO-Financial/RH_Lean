@@ -42,7 +42,7 @@ theorem squarefreePrimeFamilyParent_dvd_public (p n : ℕ) :
     squarefreePrimeFamilyParent p n ∣ n := by
   unfold squarefreePrimeFamilyParent
   by_cases hpn : p ∣ n
-  · rw [if_pos hpn]
+  · rw [ite_eq_left hpn]
     exact ⟨p, (Nat.div_mul_cancel hpn).symm⟩
   · simp [hpn]
 
@@ -52,9 +52,9 @@ theorem squarefreePrimeFamilyParent_pos_public
     0 < squarefreePrimeFamilyParent p n := by
   unfold squarefreePrimeFamilyParent
   by_cases hpn : p ∣ n
-  · rw [if_pos hpn]
+  · rw [ite_eq_left hpn]
     exact Nat.div_pos (Nat.le_of_dvd hn hpn) hp.pos
-  · simpa [hpn] using hn
+  · simpa [hpn] using! hn
 
 /-- Stripping p preserves divisibility by every distinct prime q. -/
 theorem prime_dvd_squarefreePrimeFamilyParent_iff_of_ne_public
@@ -62,14 +62,14 @@ theorem prime_dvd_squarefreePrimeFamilyParent_iff_of_ne_public
     q ∣ squarefreePrimeFamilyParent p n ↔ q ∣ n := by
   unfold squarefreePrimeFamilyParent
   by_cases hpn : p ∣ n
-  · rw [if_pos hpn]
+  · rw [ite_eq_left hpn]
     constructor
     · intro hqdiv
       have hmul : p * (n / p) = n := Nat.mul_div_cancel' hpn
       exact hmul ▸ dvd_mul_of_dvd_right hqdiv p
     · intro hqn
       have hmul : p * (n / p) = n := Nat.mul_div_cancel' hpn
-      have hprod : q ∣ p * (n / p) := by simpa [hmul] using hqn
+      have hprod : q ∣ p * (n / p) := by simpa [hmul] using! hqn
       rcases hq.dvd_mul.mp hprod with hqP | hqParent
       · have heq : q = p := (Nat.prime_dvd_prime_iff_eq hq hp).mp hqP
         exact False.elim (hqp heq)
@@ -96,7 +96,7 @@ theorem owner_not_mem_squarefreePrimeFace_parent
   rw [prime_mem_squarefreePrimeFace_iff_dvd_public hp hparentPos]
   unfold squarefreePrimeFamilyParent
   by_cases hpn : p ∣ n
-  · rw [if_pos hpn]
+  · rw [ite_eq_left hpn]
     exact prime_not_dvd_div_of_squarefree hp hnSq hpn
   · simp [hpn]
 
@@ -138,10 +138,10 @@ theorem freshPrimeSet_stripped_eq_erase
           Finset.mem_sdiff] at hqStrip
         rcases hqStrip with hqStrip | hqStrip
         · have hpf : q ∈ (squarefreePrimeFamilyParent p m).primeFactors := by
-            simpa [squarefreePrimeFace] using hqStrip.1
+            simpa [squarefreePrimeFace] using! hqStrip.1
           exact Nat.prime_of_mem_primeFactors hpf
         · have hpf : q ∈ (squarefreePrimeFamilyParent p n).primeFactors := by
-            simpa [squarefreePrimeFace] using hqStrip.1
+            simpa [squarefreePrimeFace] using! hqStrip.1
           exact Nat.prime_of_mem_primeFactors hpf
       have hqOrig :=
         (mem_freshPrimeSet_stripped_iff_of_ne hp hqPrime hqp hm hn).1 hqStrip
@@ -153,10 +153,10 @@ theorem freshPrimeSet_stripped_eq_erase
           Finset.mem_sdiff] at hqOrig
         rcases hqOrig with hqOrig | hqOrig
         · have hpf : q ∈ m.primeFactors := by
-            simpa [squarefreePrimeFace] using hqOrig.1
+            simpa [squarefreePrimeFace] using! hqOrig.1
           exact Nat.prime_of_mem_primeFactors hpf
         · have hpf : q ∈ n.primeFactors := by
-            simpa [squarefreePrimeFace] using hqOrig.1
+            simpa [squarefreePrimeFace] using! hqOrig.1
           exact Nat.prime_of_mem_primeFactors hpf
       exact (mem_freshPrimeSet_stripped_iff_of_ne hp hqPrime hqp' hm hn).2 hqOrig
 
@@ -186,7 +186,7 @@ theorem arbitraryFreshPrime_pairWeight_eq_neg_parentPairWeight
   · have hnot := prime_not_dvd_div_of_squarefree hp hmSq h.1
     have hmEq : p * (m / p) = m := Nat.mul_div_cancel' h.1
     unfold squarefreePrimeFamilyParent
-    rw [if_pos h.1, if_neg h.2]
+    rw [ite_eq_left h.1, ite_eq_right h.2]
     calc
       realMoebiusStep m * realMoebiusStep n =
           realMoebiusStep (p * (m / p)) * realMoebiusStep n := by rw [hmEq]
@@ -196,7 +196,7 @@ theorem arbitraryFreshPrime_pairWeight_eq_neg_parentPairWeight
   · have hnot := prime_not_dvd_div_of_squarefree hp hnSq h.1
     have hnEq : p * (n / p) = n := Nat.mul_div_cancel' h.1
     unfold squarefreePrimeFamilyParent
-    rw [if_neg h.2, if_pos h.1]
+    rw [ite_eq_right h.2, ite_eq_left h.1]
     calc
       realMoebiusStep m * realMoebiusStep n =
           realMoebiusStep m * realMoebiusStep (p * (n / p)) := by rw [hnEq]
@@ -233,13 +233,13 @@ theorem arbitraryFreshPrime_reciprocalPairAmplitude_descent
       have hmCast : (m : ℝ) = (p : ℝ) * (((m / p : ℕ) : ℝ)) := by
         exact_mod_cast hmEq.symm
       unfold squarefreePrimeFamilyParent
-      rw [if_pos h.1, if_neg h.2]
+      rw [ite_eq_left h.1, ite_eq_right h.2]
       rw [hmCast]
     · have hnEq : p * (n / p) = n := Nat.mul_div_cancel' h.1
       have hnCast : (n : ℝ) = (p : ℝ) * (((n / p : ℕ) : ℝ)) := by
         exact_mod_cast hnEq.symm
       unfold squarefreePrimeFamilyParent
-      rw [if_neg h.2, if_pos h.1]
+      rw [ite_eq_right h.2, ite_eq_left h.1]
       rw [hnCast]
       ring
   unfold postRootCovarianceReciprocalPairAmplitude
@@ -281,10 +281,10 @@ theorem arbitraryFreshPrime_orderedParent_mem_postRootRemainder
   change (if um < un then (um, un) else (un, um)) ∈
     postRootCovarianceRemainderPhysicalPairCarrier W
   by_cases hlt : um < un
-  · rw [if_pos hlt]
+  · rw [ite_eq_left hlt]
     exact postRootCovarianceRemainderPhysicalPairCarrier_of_dvd hpair
       (Or.inl ⟨humDvd, hunDvd⟩) humPos hunPos hlt
-  · rw [if_neg hlt]
+  · rw [ite_eq_right hlt]
     have hrev : un < um := by
       dsimp [um, un] at hne
       omega

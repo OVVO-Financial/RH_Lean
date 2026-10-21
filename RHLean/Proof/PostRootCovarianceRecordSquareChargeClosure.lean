@@ -49,7 +49,7 @@ theorem postRootPrimeFamilyCovarianceRowTotal_eq_zero_of_no_active_divisor
   unfold postRootPrimeFamilyCovarianceRowTotal
   apply Finset.sum_eq_zero
   intro p hp
-  rw [postRootLowerCovarianceRow_eq_ite, if_neg (hno p hp)]
+  rw [postRootLowerCovarianceRow_eq_ite, ite_eq_right (hno p hp)]
 
 /-- In the low/no-active-high case, the physical row is bounded by half of the
 single atom's cumulative Mertens-square increment. -/
@@ -86,7 +86,7 @@ theorem postRootCovariancePowerRecordExcess_le_lowSquareCharge_of_no_active_divi
     postRootCovariancePowerRecordExcess_le_localInnovationBudget ε hε hW
   rw [postRootCovariancePowerLocalInnovationBudget_eq_outerRow_add_departure] at hlocal
   exact hlocal.trans
-    (add_le_add_right
+    (add_le_add_left
       (postRootRecordOuterRowSeat_le_physicalSquareStepSeat_of_no_active_divisor
         ε hno)
       (postRootRecordDepartureSeat ε W))

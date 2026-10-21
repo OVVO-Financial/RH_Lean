@@ -126,7 +126,7 @@ theorem squareRootLowPrimeProcessedSeatCarrier_weight_sum
           ((-μ z.1 : ℤ) : ℝ) := by
     apply Finset.sum_image
     intro a _ha b _hb hab
-    simpa using hab
+    simpa using! hab
   rw [himage, squareRootLowPrimeProcessedSeatAtoms_weight_sum]
   simp [squareRootLowPrimeProcessedSeatWeightReal]
 
@@ -240,7 +240,7 @@ theorem abs_squareRootLowPrimeProcessedSeatWeightReal_le_one
   · simp [squareRootLowPrimeProcessedSeatWeightReal]
   · change |(((-μ z.1 : ℤ) : ℝ))| ≤ 1
     have hInt : |(-μ z.1 : ℤ)| ≤ 1 := by
-      simpa using (ArithmeticFunction.abs_moebius_le_one (n := z.1))
+      simpa using! (ArithmeticFunction.abs_moebius_le_one (n := z.1))
     exact_mod_cast hInt
 
 end RHLean.Proof

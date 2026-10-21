@@ -64,7 +64,7 @@ theorem lowWheelFrozenSquareResidualParentCarrier_basicData
   have hcBounds := Finset.mem_Icc.mp hcIcc
   have hcgt : 1 < c := by omega
   have hrDvd : r ∣ c := by
-    simpa [howner] using canonicalLargestPrimeFactor_dvd hcgt
+    simpa [howner] using! canonicalLargestPrimeFactor_dvd hcgt
   have hrLeC : r ≤ c := Nat.le_of_dvd (by omega) hrDvd
   have hBR := lowWheelFrozenSourceScale_cutoff_lt_root hdata.1
   have hrR : r < R := hrLeC.trans_lt (hcBounds.2.trans_lt hBR)
@@ -140,7 +140,7 @@ theorem lowWheelFrozenSquareResidualParentCarrier_largestPrime_lt_owner
             (show (r, A * d) ∈ lowWheelFrozenSquareResidualParentCarrier R by
               exact Finset.mem_image.mpr ⟨(A, (r, d)), ht, rfl⟩)
           exact Nat.pos_of_ne_zero
-            (fun h0 => by subst d; simpa using hsf.ne_zero)
+            (fun h0 => by subst d; simpa using! hsf.ne_zero)
         omega
       have hsLe := prime_dvd_le_canonicalLargestPrimeFactor hdgt hsPrime hsd
       exact lt_of_le_of_lt hsLe hdLt
@@ -165,7 +165,7 @@ theorem lowWheelFrozenSquareResidualParentOwner_subset_postRootSmooth
   have hqqPos : 0 < q * q := Nat.mul_pos hbasic.1.pos hbasic.1.pos
   have hnUpper : n ≤ squareRootEndpoint R / (q * q) := by
     apply (Nat.le_div_iff_mul_le hqqPos).2
-    simpa [Nat.mul_assoc, Nat.mul_left_comm, Nat.mul_comm] using hbasic.2.2.2
+    simpa [Nat.mul_assoc, Nat.mul_left_comm, Nat.mul_comm] using! hbasic.2.2.2
   apply Finset.mem_filter.mpr
   refine ⟨mem_squareRootLowPrimeGoSmoothCofactors.mpr
       ⟨by omega, hnUpper, hsq, hlt⟩, hbasic.2.2.1⟩

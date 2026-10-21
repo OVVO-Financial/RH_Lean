@@ -54,7 +54,7 @@ theorem nativePNTError_tail_pointwise_improve
   have hcost' :
       (6 - beta) * S + alpha * (1000 * L + 2000) + 3000 * L ≤
         3 * delta * L ^ 2 := by
-    simpa [L, S, delta] using hcost
+    simpa [L, S, delta] using! hcost
   have hbound :
       |nativePNTError N| * L ^ 2 ≤
         (alpha - delta) * (N : ℝ) * L ^ 2 := by
@@ -64,7 +64,7 @@ theorem nativePNTError_tail_pointwise_improve
             (alpha - beta) * (N : ℝ) * GT +
             (6 - alpha) * (N : ℝ) * S +
             3000 * (N : ℝ) * L := by
-      simpa [L, S, GT] using hrec
+      simpa [L, S, GT] using! hrec
     calc
       |nativePNTError N| * L ^ 2 ≤
           alpha * (N : ℝ) * (L ^ 2 + 1000 * L + 2000) -
@@ -85,7 +85,7 @@ theorem nativePNTError_tail_pointwise_improve
       _ ≤ alpha * (N : ℝ) * L ^ 2 -
             4 * delta * (N : ℝ) * L ^ 2 +
             (N : ℝ) * (3 * delta * L ^ 2) := by
-        exact add_le_add_left
+        exact add_le_add_right
           (mul_le_mul_of_nonneg_left hcost' hN0) _
       _ = (alpha - delta) * (N : ℝ) * L ^ 2 := by ring
   have hL : 0 < L := by
@@ -96,7 +96,7 @@ theorem nativePNTError_tail_pointwise_improve
   have hcancel := (mul_le_mul_iff_left₀ hLsq).mp
     (show |nativePNTError N| * L ^ 2 ≤
       ((alpha - delta) * (N : ℝ)) * L ^ 2 by
-        simpa [mul_assoc] using hbound)
-  simpa [delta] using hcancel
+        simpa [mul_assoc] using! hbound)
+  simpa [delta] using! hcancel
 
 end RHLean.Analysis

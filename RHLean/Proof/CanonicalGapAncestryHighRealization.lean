@@ -208,26 +208,26 @@ theorem sourceHighPrefix_eq_squarefreeInteger_sum
     have hsdata :
         SourceAdmissible s ∧ sourceClock B s ≤ x ∧
           IsCanonicalHighHeight Λ (sourceClock B s) (sourceProduct s) := by
-      simpa [activeHighSourceSet] using hs
+      simpa [activeHighSourceSet] using! hs
     have hprodle :=
       (sourceClock_le_iff_sourceProduct_le_endpoint (x := x) s).1 hsdata.2.1
     have hprodgt := one_lt_sourceProduct_of_admissible hsdata.1
     simp only [activeHighSquarefreeIntegerSet, Finset.mem_filter, Finset.mem_range]
     exact ⟨Nat.lt_succ_of_le hprodle, hprodgt,
       sourceProduct_squarefree_of_admissible hsdata.1,
-      by simpa [sourceClock] using hsdata.2.2⟩
+      by simpa [sourceClock] using! hsdata.2.2⟩
   · intro s₁ hs₁ s₂ hs₂ heq
     have hs₁data : SourceAdmissible s₁ := by
       have hs₁full :
           SourceAdmissible s₁ ∧ sourceClock B s₁ ≤ x ∧
             IsCanonicalHighHeight Λ (sourceClock B s₁) (sourceProduct s₁) := by
-        simpa [activeHighSourceSet] using hs₁
+        simpa [activeHighSourceSet] using! hs₁
       exact hs₁full.1
     have hs₂data : SourceAdmissible s₂ := by
       have hs₂full :
           SourceAdmissible s₂ ∧ sourceClock B s₂ ≤ x ∧
             IsCanonicalHighHeight Λ (sourceClock B s₂) (sourceProduct s₂) := by
-        simpa [activeHighSourceSet] using hs₂
+        simpa [activeHighSourceSet] using! hs₂
       exact hs₂full.1
     exact sourceProduct_injective_on_admissible hs₁data hs₂data heq
   · intro m hm
@@ -235,7 +235,7 @@ theorem sourceHighPrefix_eq_squarefreeInteger_sum
         m < RHLean.Analysis.squarePrefixEndpoint x + 1 ∧
           2 ≤ m ∧ Squarefree m ∧
             IsCanonicalHighHeight Λ (Nat.sqrt m) m := by
-      simpa [activeHighSquarefreeIntegerSet] using hm
+      simpa [activeHighSquarefreeIntegerSet] using! hm
     have hmgt : 1 < m := hmdata.2.1
     have hmend : m ≤ RHLean.Analysis.squarePrefixEndpoint x :=
       Nat.lt_succ_iff.mp hmdata.1
@@ -256,7 +256,7 @@ theorem sourceHighPrefix_eq_squarefreeInteger_sum
     have hsfull :
         SourceAdmissible s ∧ sourceClock B s ≤ x ∧
           IsCanonicalHighHeight Λ (sourceClock B s) (sourceProduct s) := by
-      simpa [activeHighSourceSet] using hs
+      simpa [activeHighSourceSet] using! hs
     exact sourceWeight_of_admissible s hsfull.1
 
 /-! ## Native high prefix as an integer sum -/
@@ -275,7 +275,7 @@ theorem sqrt_eq_of_mem_canonicalSquareBlock
     {j m : ℕ} (hm : m ∈ canonicalSquareBlock j) :
     Nat.sqrt m = j := by
   have hmIco : m ∈ Finset.Ico (j ^ 2) ((j + 1) ^ 2) := by
-    simpa [canonicalSquareBlock] using hm
+    simpa [canonicalSquareBlock] using! hm
   have hsqrt : j = Nat.sqrt m :=
     (Nat.eq_sqrt').2 (Finset.mem_Ico.mp hmIco)
   exact hsqrt.symm
@@ -308,12 +308,12 @@ theorem canonicalHighIntegerPrefix_eq_range_sum
         intro m hm
         have hsqrt : Nat.sqrt m = x + 1 := by
           apply sqrt_eq_of_mem_canonicalSquareBlock
-          simpa [canonicalSquareBlock, Nat.add_assoc] using hm
+          simpa [canonicalSquareBlock, Nat.add_assoc] using! hm
         rw [hsqrt]
       rw [hblock]
       have hle : (x + 1) ^ 2 ≤ (x + 2) ^ 2 := by
         exact Nat.pow_le_pow_left (by omega) 2
-      simpa [Nat.add_assoc] using
+      simpa [Nat.add_assoc] using!
         (Finset.sum_range_add_sum_Ico
           (fun m : ℕ =>
             if IsCanonicalHighHeight Λ (Nat.sqrt m) m then (μ m : ℤ) else 0)

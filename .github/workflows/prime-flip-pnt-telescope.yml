@@ -123,30 +123,19 @@ jobs:
           build: false
           test: false
           lint: false
-      - name: Apply StrongPNT 4.24 compatibility patch
-        run: |
-          python3 scripts/strongpnt_424/apply.py
-          python3 scripts/strongpnt_424/apply_post.py
-          python3 scripts/strongpnt_424/apply_pnt5_mid.py
-          python3 scripts/strongpnt_424/apply_pnt5_strong.py
-          python3 scripts/strongpnt_424/apply_lint.py
-      - name: Restore StrongPNT port build cache
+      - name: Restore PNT+ build cache
         uses: actions/cache/restore@v5
         with:
           path: |
             .lake/packages/PrimeNumberTheoremAnd/.lake/build
-            .lake/packages/StrongPNT/.lake/build
-          key: strongpnt-port-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-${{ hashFiles('scripts/strongpnt_424/*.py') }}
-          restore-keys: |
-            strongpnt-port-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-
+          key: pntplus-build-v1-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
       - name: Restore RHLean build cache
         uses: actions/cache/restore@v5
         with:
           path: .lake/build
-          key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py', 'RHLean.lean', 'RHLean/**/*.lean') }}
+          key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'RHLean.lean', 'RHLean/**/*.lean') }}
           restore-keys: |
-            rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py') }}-
-            rhlean-build-${{ runner.os }}-
+            rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-
       - name: Audit repository assumptions
         run: bash scripts/audit_assumptions.sh
       - name: Build exact dependencies
@@ -157,6 +146,89 @@ jobs:
           lake build RHLean.Proof.LargePrimeTerminalFlipLayers
           lake build RHLean.Proof.PrimeCombVisualizationFrames
           lake build RHLean.Proof.PrimeCombReciprocalBandCancellation
+      - name: Build RHLean modules imported by these research checks
+        run: >-
+          python3 scripts/compile_research_import_closure.py --library-only
+          research/ALL_SCALE_LI_DISPLACEMENT_REDUCTION.lean
+          research/EULER_LI_PHYSICAL_CLOSURE_ROUTE.lean
+          research/EXACT_LI_DICKMAN_FORMAL.lean
+          research/EXACT_LI_PURE_MODEL_CLOSURE.lean
+          research/FOUR_FANTASY_PROXY_RH_CLOSURES.lean
+          research/LI_FLOOR_PRIME_COUNT_FANTASY.lean
+          research/PRIME_DENSITY_INTEGRAL_TIGHTENING.lean
+          research/PRIME_DENSITY_LOG_TIGHTENING.lean
+          research/PRIME_DENSITY_PNT_LOG_BOUND.lean
+          research/PRIME_DENSITY_UNIVERSAL_BASELINE.lean
+          research/PRIME_FLIP_PNT_TELESCOPE.lean
+          research/PRIME_FLIP_STATIC_CHRONOLOGY.lean
+          research/PRIME_WHEEL_ROUGH_SEAT_SQRT_SPECIALIZATION.lean
+          research/VF_MID_925_FACTOR_THETA_SPECTRAL_WELD.lean
+          research/VF_MID_ACTUAL_CRITICAL_OWNER_RECURSION.lean
+          research/VF_MID_ACTUAL_PRIME_FIRST_BAD_MOBIUS_TRIGGER.lean
+          research/VF_MID_ACTUAL_PRIME_ROOT_SQUARE_CONTRACTION.lean
+          research/VF_MID_ADAPTIVE_FACTOR_OWNER_RETURN.lean
+          research/VF_MID_ADVERSARIAL_PROOF_FUZZER.lean
+          research/VF_MID_AGGREGATE_CHILD_FORCING.lean
+          research/VF_MID_ALIGNED_STEP_GRAPH.lean
+          research/VF_MID_COMPOSITE_FLOOR.lean
+          research/VF_MID_CORNER_CHANNEL.lean
+          research/VF_MID_DIRECT_COMPOSITE_DESCENT.lean
+          research/VF_MID_DIRECT_DISCREPANCY_ABEL.lean
+          research/VF_MID_DIRECT_OWNER_DESCENT.lean
+          research/VF_MID_DIRECT_ROUGH_CHILD.lean
+          research/VF_MID_DIRECT_SIGNED_DYNAMICS.lean
+          research/VF_MID_DYADIC_OWNER_EXACT.lean
+          research/VF_MID_DYADIC_PREFIX_OWNER.lean
+          research/VF_MID_DYADIC_SUMMATION_TRANSFER.lean
+          research/VF_MID_ENDPOINT_TRIGGER_DICTIONARY.lean
+          research/VF_MID_EXISTING_BOUNDARY_OPTIMAL_BASE.lean
+          research/VF_MID_FINAL_RAW_CLIPPED_TELESCOPE.lean
+          research/VF_MID_FIRST_BAD_AFFINE_OWNER_SPLICE.lean
+          research/VF_MID_FIRST_BAD_TERMINAL_CONTRADICTION.lean
+          research/VF_MID_FLOOR_LI_CRITICAL_BALANCE.lean
+          research/VF_MID_FLOOR_LI_DISCRETE_BACKLOG.lean
+          research/VF_MID_FLOOR_LI_SIGNED_POPULATION_BALANCE.lean
+          research/VF_MID_FLOOR_LI_TRANSPORT_CANCELLATION.lean
+          research/VF_MID_FRACTIONAL_PRIME_CLUSTER.lean
+          research/VF_MID_GLOBAL_PHASE_UNIFORMITY_BRIDGE.lean
+          research/VF_MID_HARMAN_FOUR_FIFTHS.lean
+          research/VF_MID_HARMAN_HALF_PHASE_BRIDGE.lean
+          research/VF_MID_INTEGER_BLOCK_CAPTURE.lean
+          research/VF_MID_LINEAR_INTERPOLATION_FANTASY.lean
+          research/VF_MID_LITERAL_BLOCK_CROSSING.lean
+          research/VF_MID_LI_PHASE_FAN.lean
+          research/VF_MID_LI_UNIFORM_QUADRATURE.lean
+          research/VF_MID_MIDPOINT_COMPLEMENT_DISPERSION.lean
+          research/VF_MID_NATIVE_LYAPUNOV_SEAT_GRAM.lean
+          research/VF_MID_ODD_FRACTIONAL_CLUSTER.lean
+          research/VF_MID_OPTIMAL_BASE_FIRST_CROSSING_TRIGGER.lean
+          research/VF_MID_OPTIMAL_BASE_VON_KOCH_FAN.lean
+          research/VF_MID_OSCILLATION_SCALE.lean
+          research/VF_MID_OWNER_ADMISSIBLE_ESCAPE_CLASS.lean
+          research/VF_MID_PHI_CUTOFF_TELESCOPE.lean
+          research/VF_MID_PHI_DIAGONAL_TRANSFER.lean
+          research/VF_MID_PHI_ODD_LI_TRANSFER.lean
+          research/VF_MID_PHI_OWNER_BRIDGE.lean
+          research/VF_MID_PHYSICAL_FORCING_MOBIUS_DECODER.lean
+          research/VF_MID_PHYSICAL_Q2_CUBIC_PHASE.lean
+          research/VF_MID_PROXY_ENERGY_PULL.lean
+          research/VF_MID_RECURSIVE_CHILD_INJECTIVE.lean
+          research/VF_MID_RECURSIVE_REMAINDER_BOUND.lean
+          research/VF_MID_RECURSIVE_SCALE_DESCENT.lean
+          research/VF_MID_SIGNED_SEAT_CHARGE.lean
+          research/VF_MID_SOLVED_FANTASY_CONE.lean
+          research/VF_MID_SQRT_TWO_LI_HORIZONTAL.lean
+          research/VF_MID_SQRT_TWO_VERTICAL_PNT_HORIZONTAL.lean
+          research/VF_MID_SQUARE_BAND_COMPOSITE_BRIDGE.lean
+          research/VF_MID_SQUARE_THETA_NATIVE_DESCENT.lean
+          research/VF_MID_SQUARE_WHEEL_BACKLOG.lean
+          research/VF_MID_STEP_GRAPH_BRACKETING.lean
+          research/VF_MID_SUBDOUBLING_SURVIVOR_TO_OWNER_GATE.lean
+          research/VF_MID_THIRTY_FACTOR_RANGE_LOWER_GATE.lean
+          research/VF_MID_UNIFORMITY_BIAS_CORRELATION.lean
+          research/VF_MID_VON_KOCH_BRIDGE.lean
+          research/ZERO_TARGET_COVARIANCE_OWNER_DESCENT.lean
+          research/ZERO_TARGET_PARTIAL_MOMENT_COVARIANCE.lean
       - name: Kernel-check prime flip telescope
         run: |
           mkdir -p .lake/build/lib/lean

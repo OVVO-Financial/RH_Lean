@@ -72,12 +72,12 @@ theorem sum_weightedOthello_eq_escape_add_half_interiorDifference
   have hmem : ∀ x ∈ I, tau x ∈ I := by
     intro x hx
     have hx' : x ∈ weightedOthelloInteriorPart tau S := by
-      simpa [I] using hx
+      simpa [I] using! hx
     obtain ⟨hxS, hmate⟩ := mem_weightedOthelloInteriorPart.mp hx'
     have hmem' : tau x ∈ weightedOthelloInteriorPart tau S := by
       apply mem_weightedOthelloInteriorPart.mpr
-      exact ⟨hmate, by simpa [hinv x] using hxS⟩
-    simpa [I] using hmem'
+      exact ⟨hmate, by simpa [hinv x] using! hxS⟩
+    simpa [I] using! hmem'
 
   have hinvI : ∀ x ∈ I, tau (tau x) = x := fun x _ => hinv x
 
@@ -139,26 +139,26 @@ theorem sum_weightedOthello_eq_escape_add_half_interiorDifference
     constructor
     · intro hx
       rcases Finset.mem_union.mp hx with h | h
-      · exact (mem_weightedOthelloInteriorPart.mp (by simpa [I] using h)).1
-      · exact (mem_weightedOthelloEscapePart.mp (by simpa [E] using h)).1
+      · exact (mem_weightedOthelloInteriorPart.mp (by simpa [I] using! h)).1
+      · exact (mem_weightedOthelloEscapePart.mp (by simpa [E] using! h)).1
     · intro hx
       by_cases hm : tau x ∈ S
       · apply Finset.mem_union.mpr
         left
         have : x ∈ weightedOthelloInteriorPart tau S :=
           mem_weightedOthelloInteriorPart.mpr ⟨hx, hm⟩
-        simpa [I] using this
+        simpa [I] using! this
       · apply Finset.mem_union.mpr
         right
         have : x ∈ weightedOthelloEscapePart tau S :=
           mem_weightedOthelloEscapePart.mpr ⟨hx, hm⟩
-        simpa [E] using this
+        simpa [E] using! this
 
   have hdisj : Disjoint I E := by
     rw [Finset.disjoint_left]
     intro x hx hx'
-    have hInt : x ∈ weightedOthelloInteriorPart tau S := by simpa [I] using hx
-    have hEsc : x ∈ weightedOthelloEscapePart tau S := by simpa [E] using hx'
+    have hInt : x ∈ weightedOthelloInteriorPart tau S := by simpa [I] using! hx
+    have hEsc : x ∈ weightedOthelloEscapePart tau S := by simpa [E] using! hx'
     exact (mem_weightedOthelloEscapePart.mp hEsc).2
       (mem_weightedOthelloInteriorPart.mp hInt).2
 
@@ -210,7 +210,7 @@ private theorem othelloRealMoebius_eq_zero_of_toggle_fixed
     refine ArithmeticFunction.moebius_eq_zero_of_not_squarefree ?_
     intro hsf
     exact (Nat.squarefree_iff_prime_squarefree.mp hsf p hp)
-      (by simpa [pow_two] using hsq)
+      (by simpa [pow_two] using! hsq)
   simp [othelloRealMoebius, hmu]
 
 /-- Pair Möbius weight reverses under every moving left toggle. -/
@@ -337,7 +337,7 @@ theorem sum_pairWeightedMoebius_eq_escapeFaces_add_quarter_mixedDifference
       (∑ mn ∈ C, w mn * f mn) =
         (∑ mn ∈ weightedOthelloEscapePart tauL C, w mn * f mn) +
           (1 / 2 : ℝ) * ∑ mn ∈ I, w mn * g mn := by
-    simpa [I, pairPrimeLeftInteriorPart, g, tauL] using hleft
+    simpa [I, pairPrimeLeftInteriorPart, g, tauL] using! hleft
 
   change
     (∑ mn ∈ C, w mn * f mn) =

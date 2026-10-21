@@ -59,7 +59,7 @@ theorem lowWheelOthelloParentToggleAt_explicitParent
   have htail :
       (lowWheelOthelloDowncrossPivot y * u.2) /
           lowWheelOthelloDowncrossPivot y = u.2 := by
-    simpa [Nat.mul_comm] using Nat.mul_div_left u.2 hp
+    simpa [Nat.mul_comm] using! Nat.mul_div_left u.2 hp
   change primeFaceProduct u.1 *
       ((lowWheelOthelloDowncrossPivot y * u.2) /
         lowWheelOthelloDowncrossPivot y) =
@@ -80,7 +80,7 @@ theorem lowWheelOthelloParentToggleAt_highProduct
   have hk :
       lowWheelOthelloDowncrossPivot y * lowWheelOthelloDowncrossTail y =
         y.2.2 := by
-    simpa [lowWheelOthelloDowncrossPivot, lowWheelOthelloDowncrossTail] using
+    simpa [lowWheelOthelloDowncrossPivot, lowWheelOthelloDowncrossTail] using!
       Nat.mul_div_cancel' hpk
   let u := lowWheelFaceTailToggleAt q (lowWheelOthelloFaceTail y)
   have hparent := lowWheelFaceTailToggleAt_product q
@@ -88,7 +88,7 @@ theorem lowWheelOthelloParentToggleAt_highProduct
   have hparent' :
       primeFaceProduct u.1 * u.2 =
         primeFaceProduct y.1 * lowWheelOthelloDowncrossTail y := by
-    simpa [u, lowWheelOthelloFaceTail] using hparent
+    simpa [u, lowWheelOthelloFaceTail] using! hparent
   change primeFaceProduct u.1 *
       (lowWheelOthelloDowncrossPivot y * u.2) =
     primeFaceProduct y.1 * y.2.2
@@ -150,11 +150,11 @@ theorem lowWheelOthelloParentToggleAt_face_mem
   dsimp
   unfold lowWheelFaceTailToggleAt
   by_cases hqt : q ∈ y.1
-  · simp only [hqt, if_true]
+  · simp only [hqt, ite_true]
     exact Finset.mem_powerset.mpr
       ((Finset.erase_subset q y.1).trans (Finset.mem_powerset.mp ht))
   · have htail : q ∣ lowWheelOthelloDowncrossTail y := hq.2.2.resolve_left hqt
-    simp only [hqt, if_false, htail, if_true]
+    simp only [hqt, ite_false, htail, ite_true]
     apply Finset.mem_powerset.mpr
     intro r hr
     rcases Finset.mem_insert.mp hr with rfl | hr
@@ -175,8 +175,8 @@ theorem lowWheelOthelloParentToggleAt_physicalCarrier
   rcases hcarrier with ⟨hc1, hcR, hhigh, htop⟩
   have hprod := lowWheelOthelloParentToggleAt_highProduct (q := q) hy
   refine ⟨?_, ?_, ?_, ?_⟩
-  · simpa using hc1
-  · simpa using hcR
+  · simpa using! hc1
+  · simpa using! hcR
   · rw [hprod]
     exact hhigh
   · rw [lowWheelOthelloParentToggleAt_cofactor]
@@ -203,7 +203,7 @@ theorem lowWheelOthelloParentToggleAt_mem_physical
   have hxF := (mem_lowWheelOthelloDowncrossPart.mp hx).1
   have hsq := (mem_lowWheelCanonicalPhysicalStateSet.mp hxF).2.2.1
   exact mem_lowWheelCanonicalPhysicalStateSet.mpr
-    ⟨hrange.1, hrange.2, by simpa using hsq, hcarrier⟩
+    ⟨hrange.1, hrange.2, by simpa using! hsq, hcarrier⟩
 
 /-- Canonical least-prime pivot is unchanged by a movable transfer. -/
 theorem lowWheelOthelloParentToggleAt_pivot
@@ -219,7 +219,7 @@ theorem lowWheelOthelloParentToggleAt_pivot
   have hk :
       lowWheelOthelloDowncrossPivot y * lowWheelOthelloDowncrossTail y =
         y.2.2 := by
-    simpa [lowWheelOthelloDowncrossPivot, lowWheelOthelloDowncrossTail] using
+    simpa [lowWheelOthelloDowncrossPivot, lowWheelOthelloDowncrossTail] using!
       Nat.mul_div_cancel' hpk
   have hmin :
       Nat.minFac
@@ -237,7 +237,7 @@ theorem lowWheelOthelloParentToggleAt_pivot
         (lowWheelOthelloDowncrossPivot y *
           (lowWheelFaceTailToggleAt q (lowWheelOthelloFaceTail y)).2)) =
       lowWheelOthelloDowncrossPivot y
-  simpa [lowWheelOthelloFaceTail] using hpres
+  simpa [lowWheelOthelloFaceTail] using! hpres
 
 /-- The actual canonical root parent is invariant. -/
 theorem lowWheelOthelloParentToggleAt_parent
@@ -251,7 +251,7 @@ theorem lowWheelOthelloParentToggleAt_parent
   have hpivot := lowWheelOthelloParentToggleAt_pivot hy hq
   unfold lowWheelOthelloDowncrossParent
   rw [hpivot]
-  simpa [lowWheelOthelloDowncrossTail, lowWheelOthelloDowncrossPivot] using
+  simpa [lowWheelOthelloDowncrossTail, lowWheelOthelloDowncrossPivot] using!
     (lowWheelOthelloParentToggleAt_explicitParent
       (q := q) (y := y) hp.pos)
 
@@ -287,13 +287,13 @@ theorem lowWheelOthelloParentToggleAt_ne
   unfold lowWheelOthelloParentToggleAt lowWheelOthelloFaceTail at hfaceEq
   dsimp at hfaceEq
   by_cases hqt : q ∈ y.1
-  · simp only [lowWheelFaceTailToggleAt, hqt, if_true] at hfaceEq
+  · simp only [lowWheelFaceTailToggleAt, hqt, ite_true] at hfaceEq
     have hbad : q ∈ y.1.erase q := by
       rw [hfaceEq]
       exact hqt
     exact (Finset.notMem_erase q y.1) hbad
   · have htail : q ∣ lowWheelOthelloDowncrossTail y := hq.2.2.resolve_left hqt
-    simp only [lowWheelFaceTailToggleAt, hqt, if_false, htail, if_true] at hfaceEq
+    simp only [lowWheelFaceTailToggleAt, hqt, ite_false, htail, ite_true] at hfaceEq
     apply hqt
     rw [← hfaceEq]
     exact Finset.mem_insert_self q y.1
@@ -325,7 +325,7 @@ theorem lowWheelOthelloFaceTail_parentToggleAt
   have hdiv :
       (lowWheelOthelloDowncrossPivot y * u.2) /
           lowWheelOthelloDowncrossPivot y = u.2 := by
-    simpa [Nat.mul_comm] using Nat.mul_div_left u.2 hp.pos
+    simpa [Nat.mul_comm] using! Nat.mul_div_left u.2 hp.pos
   apply Prod.ext
   · rfl
   · unfold lowWheelOthelloFaceTail lowWheelOthelloDowncrossTail
@@ -346,7 +346,7 @@ theorem lowWheelOthelloParentToggleAt_movablePrime_iff
   have hqactiveFT :
       q ∈ (lowWheelOthelloFaceTail y).1 ∨
         q ∣ (lowWheelOthelloFaceTail y).2 := by
-    simpa [lowWheelOthelloFaceTail, lowWheelOthelloDowncrossTail] using hq.2.2
+    simpa [lowWheelOthelloFaceTail, lowWheelOthelloDowncrossTail] using! hq.2.2
   constructor
   · rintro ⟨hrPrime, hpr, hactive⟩
     refine ⟨hrPrime, ?_, ?_⟩
@@ -358,7 +358,7 @@ theorem lowWheelOthelloParentToggleAt_movablePrime_iff
           r ∈ (lowWheelOthelloFaceTail (lowWheelOthelloParentToggleAt q y)).1 ∨
             r ∣ (lowWheelOthelloFaceTail
               (lowWheelOthelloParentToggleAt q y)).2 := by
-        simpa [lowWheelOthelloFaceTail, lowWheelOthelloDowncrossTail] using hactive
+        simpa [lowWheelOthelloFaceTail, lowWheelOthelloDowncrossTail] using! hactive
       rw [hft] at hactive'
       exact hsupp.mp hactive'
   · rintro ⟨hrPrime, hpr, hactive⟩
@@ -371,9 +371,9 @@ theorem lowWheelOthelloParentToggleAt_movablePrime_iff
           r ∈ (lowWheelFaceTailToggleAt q (lowWheelOthelloFaceTail y)).1 ∨
             r ∣ (lowWheelFaceTailToggleAt q (lowWheelOthelloFaceTail y)).2 :=
         hsupp.mpr <| by
-          simpa [lowWheelOthelloFaceTail, lowWheelOthelloDowncrossTail] using hactive
+          simpa [lowWheelOthelloFaceTail, lowWheelOthelloDowncrossTail] using! hactive
       rw [← hft] at hactive'
-      simpa [lowWheelOthelloFaceTail, lowWheelOthelloDowncrossTail] using hactive'
+      simpa [lowWheelOthelloFaceTail, lowWheelOthelloDowncrossTail] using! hactive'
 
 /-- Finite set of all movable prime coordinates. -/
 def lowWheelOthelloMovablePrimeSet
@@ -428,7 +428,7 @@ theorem lowWheelOthelloOppositePrime_mem
     (h : (lowWheelOthelloMovablePrimeSet R y).Nonempty) :
     lowWheelOthelloOppositePrime R y ∈ lowWheelOthelloMovablePrimeSet R y := by
   unfold lowWheelOthelloOppositePrime
-  rw [dif_pos h]
+  rw [dite_eq_left h]
   exact Finset.min'_mem _ h
 
 /-- The canonical opposite prime is prime and movable. -/

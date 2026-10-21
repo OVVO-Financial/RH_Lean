@@ -161,7 +161,7 @@ theorem squareRootLowPrimeFreshIncrement_eq_neg_ownedResponseChildrenMass
       (R := R) (K := K) (j := j) (L := p - 1) (U := p)
       hR hKL hpR
   rw [squareRootLowPrimeFreshPrimeSet_pred_eq_singleton hp] at hsum
-  simpa using hsum
+  simpa using! hsum
 
 /-- **Quadratic energy step on the exact signed child carrier.**  This is the
 existing energy identity with the local response replaced by its canonical

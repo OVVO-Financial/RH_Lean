@@ -31,7 +31,7 @@ theorem PrimeCombBoundaryState.abs_increment_le_two_mul_length
     |b.after - b.before| ≤ 2 * (b.length : ℤ) := by
   calc
     |b.after - b.before| ≤ |b.after| + |b.before| := by
-      simpa [sub_eq_add_neg] using abs_add_le b.after (-b.before)
+      simpa [sub_eq_add_neg] using! abs_add_le b.after (-b.before)
     _ ≤ (b.length : ℤ) + (b.length : ℤ) :=
       add_le_add b.afterBound b.beforeBound
     _ = 2 * (b.length : ℤ) := by ring
@@ -69,7 +69,7 @@ theorem PrimeCombWheelSplit.abs_total_after_le_complete_add_boundary
     (s : PrimeCombWheelSplit) :
     |s.total.after| ≤ |s.complete.after| + (s.boundary.length : ℤ) := by
   rw [s.afterSplit]
-  exact (abs_add_le _ _).trans (add_le_add_left s.boundary.afterBound _)
+  exact (abs_add_le _ _).trans (add_le_add_right s.boundary.afterBound _)
 
 structure TwoFragmentWheelBoundary where
   period : ℕ
@@ -100,7 +100,7 @@ theorem PrimeCombWheelSplit.abs_total_after_le_complete_add_two_periods
     |s.total.after| ≤ |s.complete.after| + 2 * (b.period : ℤ) := by
   have hmain := s.abs_total_after_le_complete_add_boundary
   rw [hlen] at hmain
-  exact hmain.trans (add_le_add_left b.int_length_le_two_mul_period _)
+  exact hmain.trans (add_le_add_right b.int_length_le_two_mul_period _)
 
 theorem PrimeCombWheelSplit.abs_total_after_le_two_periods_of_complete_zero
     (s : PrimeCombWheelSplit) (b : TwoFragmentWheelBoundary)
@@ -108,6 +108,6 @@ theorem PrimeCombWheelSplit.abs_total_after_le_two_periods_of_complete_zero
     (hcomplete : s.complete.after = 0) :
     |s.total.after| ≤ 2 * (b.period : ℤ) := by
   have h := s.abs_total_after_le_complete_add_two_periods b hlen
-  simpa [hcomplete] using h
+  simpa [hcomplete] using! h
 
 end RHLean.Proof

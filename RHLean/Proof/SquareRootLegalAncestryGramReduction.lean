@@ -84,7 +84,7 @@ theorem sourceRootPrefix_sub_sourceSuccessorPrefix_eq_mertensInt_sub_one
   have hrenew :
       sourcePrefix B (R - 1) =
         sourceRootPrefix B (R - 1) - sourceSuccessorPrefix B (R - 1) := by
-    simpa [sourceRootPrefix, sourceSuccessorPrefix] using
+    simpa [sourceRootPrefix, sourceSuccessorPrefix] using!
       sourcePrefix_renewal B (R - 1)
   have hsum :=
     sourcePrefix_add_indicator_eq_mertens_sum
@@ -92,7 +92,7 @@ theorem sourceRootPrefix_sub_sourceSuccessorPrefix_eq_mertensInt_sub_one
   have hsum' :
       sourcePrefix B (R - 1) + 1 =
         mertensSummatoryInt (RHLean.Analysis.squarePrefixEndpoint (R - 1)) := by
-    simpa [indicator, hclock, mertensSummatoryInt] using hsum
+    simpa [indicator, hclock, mertensSummatoryInt] using! hsum
   rw [hend, hrenew] at hsum'
   omega
 
@@ -107,7 +107,7 @@ theorem squareRootLegalAncestryGramDefect_eq_mertensNumerator
     sourceRootPrefix_sub_sourceSuccessorPrefix_eq_mertensInt_sub_one hR hB
   have hsq := congrArg (fun z : ℤ => ((z : ℝ) ^ 2)) h
   simpa [squareRootLegalAncestryGramDefect,
-    squareRootLegalRootReal, squareRootLegalSuccessorReal] using hsq
+    squareRootLegalRootReal, squareRootLegalSuccessorReal] using! hsq
 
 /-- The successor coordinate is exactly the negative complete smooth ancestry
 mass.  This keeps every legal ancestry generation through the full source
@@ -128,7 +128,7 @@ theorem squareRootLegalRootReal_eq_primeMass
       ((squareRootAncestryRootPrimeMass R : ℤ) : ℝ) := by
   have h := congrArg (fun z : ℤ => (z : ℝ))
     (sourceRootPrefix_eq_lowerMertensPrimeTransform hR hB)
-  simpa [squareRootLegalRootReal] using h
+  simpa [squareRootLegalRootReal] using! h
 
 /-- The real successor coordinate is the negative smooth ancestry mass. -/
 theorem squareRootLegalSuccessorReal_eq_neg_smoothMass
@@ -138,7 +138,7 @@ theorem squareRootLegalSuccessorReal_eq_neg_smoothMass
       -((squareRootAncestrySmoothMassInt R : ℤ) : ℝ) := by
   have h := congrArg (fun z : ℤ => (z : ℝ))
     (sourceSuccessorPrefix_eq_neg_smoothMassInt hR hB)
-  simpa [squareRootLegalSuccessorReal] using h
+  simpa [squareRootLegalSuccessorReal] using! h
 
 /-- Exact prime-root plus smooth-mass form of the residual.  The square is not
 estimated here; this theorem only exposes the two signed populations whose
@@ -224,7 +224,7 @@ theorem squareRootPrimeSmoothState_eq_mertensInt_sub_one
     exact_mod_cast hres
   rw [squareRootLegalRootReal_eq_primeMass hR hB,
     squareRootLegalSuccessorReal_eq_neg_smoothMass hR hB] at hreal
-  simpa [squareRootPrimeRootReal, squareRootSmoothMassReal] using hreal
+  simpa [squareRootPrimeRootReal, squareRootSmoothMassReal] using! hreal
 
 /-- The same state reconstruction, now as a literal equality in the repository's
 complex square-prefix Mertens state. -/
@@ -255,7 +255,7 @@ theorem squareRootPrimeSmoothState_eq_shiftedSquarePrefixMertens_re
       (RHLean.Analysis.squarePrefixMertens (R - 1)).re - 1 := by
   have h := congrArg Complex.re
     (squareRootPrimeSmoothState_cast_eq_shiftedSquarePrefixMertens R hR)
-  simpa using h
+  simpa using! h
 
 /-- Consequently `D_R + 2 O_R` is literally the shifted square-prefix Mertens
 energy.  This is the exact root-smooth Gram requested by the empirical

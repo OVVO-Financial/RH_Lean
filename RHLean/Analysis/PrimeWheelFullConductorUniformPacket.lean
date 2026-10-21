@@ -93,7 +93,7 @@ theorem primorialPeriodicRawResidual_eq_sum_explicitAllConductorPackets
   apply Finset.sum_congr rfl
   intro q hqmem
   have hx : x ≤ (primorialMinimalWheelSystem k).upper := by
-    simpa using hupper
+    simpa using! hupper
   exact primorialPeriodicRawJointConductorResponse_eq_explicitAllConductor
     k x q hqmem hx
 

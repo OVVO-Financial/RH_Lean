@@ -214,9 +214,9 @@ theorem realMoebiusSuperLcmFourCorner_eq_firstFailure
   have hwall := superLcmIndicator_fourCorner_eq_firstFailure
     (W := W) hp hpa hpb
   by_cases hcross : Nat.lcm a b ≤ W ∧ W < p * Nat.lcm a b
-  · rw [if_pos hcross] at hwall ⊢
+  · rw [ite_eq_left hcross] at hwall ⊢
     linear_combination (realMoebiusStep a * realMoebiusStep b) * hwall
-  · rw [if_neg hcross] at hwall ⊢
+  · rw [ite_eq_right hcross] at hwall ⊢
     linear_combination (realMoebiusStep a * realMoebiusStep b) * hwall
 
 /-! ## Retain the physical endpoint when recombining the LCM wall
@@ -268,7 +268,7 @@ theorem physicalSuperLcmIndicator_fourCorner_eq_walls
     simp [physicalSuperLcmIndicator, haW, hbW]
   rw [hreduce]
   have hL : Nat.lcm a b ≤ p * Nat.lcm a b := by
-    simpa using Nat.mul_le_mul_right (Nat.lcm a b) hp.one_le
+    simpa using! Nat.mul_le_mul_right (Nat.lcm a b) hp.one_le
   by_cases hpaW : p * a ≤ W
   · have hnotTop : ¬ W < p * a := Nat.not_lt.mpr hpaW
     by_cases hbase : W < Nat.lcm a b
@@ -406,7 +406,7 @@ theorem realMoebiusPhysicalSuperLcmFourCorner_postRoot_eq_neg_lower
   have hpaW : p * a ≤ W := by
     calc
       p * a ≤ p * (W / p) := Nat.mul_le_mul_left p haq
-      _ ≤ W := by simpa [Nat.mul_comm] using Nat.div_mul_le_self W p
+      _ ≤ W := by simpa [Nat.mul_comm] using! Nat.div_mul_le_self W p
   have hlcmDvd : Nat.lcm a b ∣ a * b :=
     Nat.lcm_dvd_iff.mpr ⟨⟨b, rfl⟩, ⟨a, by ring⟩⟩
   have hL : Nat.lcm a b ≤ W := by
@@ -416,7 +416,7 @@ theorem realMoebiusPhysicalSuperLcmFourCorner_postRoot_eq_neg_lower
       _ = (W / p) ^ 2 := by ring
       _ ≤ W := postRootPrimeFamily_quotient_sq_le hp
   have hcross : W < p * Nat.lcm a b ↔ W / p < Nat.lcm a b := by
-    simpa [Nat.mul_comm] using
+    simpa [Nat.mul_comm] using!
       (Nat.div_lt_iff_lt_mul hpPrime.pos :
         W / p < Nat.lcm a b ↔ W < Nat.lcm a b * p).symm
   rw [realMoebiusPhysicalSuperLcmFourCorner_eq_walls

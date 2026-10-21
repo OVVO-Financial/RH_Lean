@@ -239,7 +239,7 @@ theorem vfMidGlobalHalfPhaseDiscrepancy_succ
     rw [primeCountUpTo_eq_primeCounting,
       primeCountUpTo_eq_primeCounting]
     rw [← vfMidDirectPrimeBand_eq_squareWheelPrimes]
-    simpa [vfMidIntegerBlockPrimeSupply, Nat.add_comm] using hprime.symm
+    simpa [vfMidIntegerBlockPrimeSupply, Nat.add_comm] using! hprime.symm
   have hphaseR :
       (squareRootPrimePhaseWindowCount ((R + 1) ^ 2) 0 (1 / 2 : ℝ) : ℝ) =
         (squareRootPrimePhaseWindowCount (R ^ 2) 0 (1 / 2 : ℝ) : ℝ) +
@@ -296,7 +296,7 @@ theorem vfMidGlobalHalfPhaseDiscrepancy_eventually_relative
   have hsq : X0 ≤ R ^ 2 := by
     have hRR : R ≤ R ^ 2 := by nlinarith
     exact hRX0.trans hRR
-  simpa [vfMidGlobalHalfPhaseDiscrepancy] using hX0 (R ^ 2) hsq
+  simpa [vfMidGlobalHalfPhaseDiscrepancy] using! hX0 (R ^ 2) hsq
 
 /-- Consequently the cumulative square-block midpoint bias over any finite
 window is controlled by the two global half-phase endpoint discrepancies. -/

@@ -215,7 +215,7 @@ theorem squareRootEndpoint_div_two_halfRootHighPrimes_lt_four
   have hX4 : squareRootEndpoint R < 4 * (p * q) :=
     hX.trans (hRsq.trans_le hfour)
   apply (Nat.div_lt_iff_lt_mul (Nat.mul_pos hpData.1.pos hqData.1.pos)).2
-  simpa [Nat.mul_assoc] using hX4
+  simpa [Nat.mul_assoc] using! hX4
 
 /-- **Half-root outer-parity normal form.**  The generic cubic identity may be
 run at the explicit proper subwheel `R/2`.  In addition, every semiprime term

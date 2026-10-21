@@ -51,7 +51,7 @@ theorem squareRootLowPrimeProcessedSeatMatchingFrontier_subset'
   induction ps generalizing S with
   | nil =>
       intro x hx
-      simpa [squareRootLowPrimeProcessedSeatMatchingFrontier] using hx
+      simpa [squareRootLowPrimeProcessedSeatMatchingFrontier] using! hx
   | cons p ps ih =>
       exact
         (ih (squareRootLowPrimeProcessedSeatFrontierStep S p)).trans
@@ -91,19 +91,19 @@ theorem squareRootLowPrimeProcessedSeat_removed_has_owner
       by_cases hyS₁ : y ∈ S₁
       · have hyLostTail :
           y ∉ squareRootLowPrimeProcessedSeatMatchingFrontier ps S₁ := by
-          simpa [S₁, squareRootLowPrimeProcessedSeatMatchingFrontier] using
+          simpa [S₁, squareRootLowPrimeProcessedSeatMatchingFrontier] using!
             hyLost
         rcases ih S₁ hyS₁ hyLostTail with
           ⟨pre, q, post, hps, hpair⟩
         refine ⟨p :: pre, q, post, ?_, ?_⟩
         · simp [hps]
-        · simpa [S₁, squareRootLowPrimeProcessedSeatMatchingFrontier] using
+        · simpa [S₁, squareRootLowPrimeProcessedSeatMatchingFrontier] using!
             hpair
       · have hpair : y ∈ squareRootLowPrimeProcessedSeatPaired S p := by
           by_contra hnot
           apply hyS₁
           exact Finset.mem_sdiff.mpr ⟨hyS, hnot⟩
-        exact ⟨[], p, ps, by simp, by simpa using hpair⟩
+        exact ⟨[], p, ps, by simp, by simpa using! hpair⟩
 
 /-- Membership in one paired population exposes the opposite endpoint of the
 matching edge. -/
@@ -159,7 +159,7 @@ theorem squareRootLowPrimeProcessedSeatTerminal_neighbor_has_earlier_blocker
         (squareRootLowPrimeProcessedSeatFrontierStep
           (squareRootLowPrimeProcessedSeatMatchingFrontier pre S) p) := by
     rw [squareRootLowPrimeProcessedSeatMatchingFrontier_append] at hx
-    simpa [squareRootLowPrimeProcessedSeatMatchingFrontier] using hx
+    simpa [squareRootLowPrimeProcessedSeatMatchingFrontier] using! hx
   have hxStep :
       x ∈ squareRootLowPrimeProcessedSeatFrontierStep
         (squareRootLowPrimeProcessedSeatMatchingFrontier pre S) p :=

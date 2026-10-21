@@ -46,7 +46,7 @@ theorem halfRootPrimePairWeight_ne_zero_product_le_endpoint
   have hdiv : 1 ≤ squareRootEndpoint R / (p * q) := by omega
   have hpos : 0 < p * q := Nat.mul_pos hpPrime.pos hqPrime.pos
   have hmul := (Nat.le_div_iff_mul_le hpos).1 hdiv
-  simpa using hmul
+  simpa using! hmul
 
 /-- Once `R >= 6`, the integer square root lies below the half-root cutoff. -/
 theorem sqrt_le_halfRoot
@@ -97,7 +97,7 @@ theorem halfRoot_nonzeroPair_mem_firstJump_and_owner
     rw [mem_upperHalfFirstJumpOwnerSet]
     refine ⟨hpData.1, by omega, ?_⟩
     apply (Nat.le_div_iff_mul_le hqData.1.pos).2
-    simpa [Nat.mul_comm] using hprod
+    simpa [Nat.mul_comm] using! hprod
   exact ⟨hqFirst, hpOwner⟩
 
 /-- Consequently every nonzero pair-shell incidence names an actual oriented

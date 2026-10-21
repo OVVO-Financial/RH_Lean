@@ -38,7 +38,7 @@ private theorem upperDivisors_eq_image
       exact hD hprod.symm
     refine ⟨q / d, ⟨?_, hquotD⟩, ?_⟩
     · apply (Nat.dvd_div_iff_mul_dvd hd).2
-      simpa [Nat.mul_div_cancel' hdq] using hqD
+      simpa [Nat.mul_div_cancel' hdq] using! hqD
     · exact Nat.mul_div_cancel' hdq
   · rintro ⟨r, ⟨hr, _⟩, rfl⟩
     exact ⟨⟨(Nat.dvd_div_iff_mul_dvd hd).1 hr, hD⟩, dvd_mul_right d r⟩
@@ -66,7 +66,7 @@ theorem sum_moebius_upper_divisors_eq_one_or_zero
       intro h
       have hprod : d * (D / d) = D := Nat.mul_div_cancel' hd
       rw [h] at hprod
-      have : d = D := by simpa using hprod
+      have : d = D := by simpa using! hprod
       exact hEq this
     simp [hEq, hquot]
 
@@ -118,7 +118,7 @@ theorem sum_complex_moebius_upper_divisors_ambient_eq_one_or_zero
   · have hne : d ≠ D := by
       intro h
       exact hdD (h ▸ dvd_rfl)
-    rw [if_neg hne]
+    rw [ite_eq_right hne]
     apply Finset.sum_eq_zero
     intro q hq
     by_cases hdq : d ∣ q

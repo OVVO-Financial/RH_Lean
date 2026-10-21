@@ -1,9 +1,6 @@
 import Mathlib
 import Mathlib.NumberTheory.LSeries.Dirichlet
--- See the note in `StrongMertensZetaKernel`: `StrongPNT.PNT5_Strong` and
--- `PrimeNumberTheoremAnd.MediumPNT` cannot both be imported, and this route
--- takes the StrongPNT side.
-import StrongPNT.PNT5_Strong
+import PrimeNumberTheoremAnd.StrongPNT
 import RHLean.Analysis.StrongMertensLogNineEnvelope
 
 /-!
@@ -77,7 +74,7 @@ theorem strongMertens_smoothed_close_aux
     simp only [Nat.ceil_pos, n0]
     subst C_eq
     have hprod : c1 * eps < 1 :=
-      mul_lt_one_of_nonneg_of_lt_one_left c1_pos.le c1_lt eps_lt_one.le
+      (mul_le_of_le_one_right c1_pos.le eps_lt_one.le).trans_lt c1_lt
     have : (0 : ℝ) < 1 - c1 * eps := by linarith
     positivity
   have n0_inside_le_X : X * (1 - c1 * eps) ≤ X := by
@@ -148,7 +145,7 @@ theorem strongMertens_smoothed_close_aux
     have hsplit : (∑' n : ℕ, (μ (n + n1) : ℝ) * F (((n + n1 : ℕ) : ℝ) / X)) =
         (μ n1 : ℝ) * F ((n1 : ℝ) / X) +
           (∑' n : ℕ, (μ (n + 1 + n1) : ℝ) * F (((n + 1 + n1 : ℕ) : ℝ) / X)) := by
-      simpa [Nat.cast_add] using (sum_mu_shift n1).tsum_eq_zero_add
+      simpa [Nat.cast_add] using! (sum_mu_shift n1).tsum_eq_zero_add
     rw [hsplit]
     apply add_eq_left.mpr
     convert tsum_zero with n
@@ -199,8 +196,8 @@ theorem strongMertens_smoothed_close_aux
     rw [← mul_one (1 : ℝ)]
     apply mul_le_mul (mu_bnd1 n hn) _ (norm_nonneg _) (by norm_num)
     rw [Real.norm_of_nonneg]
-    · simpa [F, Nat.cast_add] using smooth_le_one (n + n0) (by omega)
-    · simpa [F, Nat.cast_add] using smooth_nonneg (n + n0) (by omega)
+    · simpa [F, Nat.cast_add] using! smooth_le_one (n + n0) (by omega)
+    · simpa [F, Nat.cast_add] using! smooth_nonneg (n + n0) (by omega)
   have bnd2 :
       ∑ x ∈ Finset.range (⌊X + 1⌋₊ - n0), ‖(μ (x + n0) : ℝ)‖ ≤
         (⌊X + 1⌋₊ : ℝ) - n0 := by
@@ -250,7 +247,7 @@ theorem strongMertens_smoothed_close_aux
         · apply floor_X_add_one_le_self.trans
           ring_nf
           linarith [X_bound_1]
-        · simpa [mul_comm c1 eps] using n0_gt
+        · simpa [mul_comm c1 eps] using! n0_gt
       have hkey : ((n1 : ℝ) - n0) + ((⌊X + 1⌋₊ : ℝ) - n0) + 1 ≤
           X * eps * (c2 + c1) + 2 * (X * eps * c1) + X * eps * c1 := by
         apply add_le_add (add_le_add n1_sub_n0 hfloor_n0)

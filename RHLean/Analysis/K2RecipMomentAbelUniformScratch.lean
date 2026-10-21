@@ -30,12 +30,12 @@ theorem k2A2AbelPrefix_centered_abs_le_head_add
     | empty => simp
     | @insert a s ha ih =>
         simp only [Finset.sum_insert ha]
-        exact (abs_add_le _ _).trans (add_le_add_left ih _)
+        exact (abs_add_le _ _).trans (add_le_add_right ih _)
   have hM : 1 ≤ M := hN.trans hNM
   have hsplit :
       (∑ n ∈ Finset.Ico 1 N, f n) + (∑ n ∈ Finset.Ico N M, f n) =
         ∑ n ∈ Finset.Ico 1 M, f n := by
-    simpa only using (Finset.sum_Ico_consecutive (f := f) hN hNM)
+    simpa only using! (Finset.sum_Ico_consecutive (f := f) hN hNM)
   have htail :
       |∑ n ∈ Finset.Ico N M, f n| ≤
         eps * ∑ n ∈ Finset.Ico N M,
@@ -131,6 +131,6 @@ theorem k2A2AbelPrefix_centered_abs_le_head_add
     _ ≤ |∑ n ∈ Finset.Ico 1 N,
             (k2MobiusLogMoment 2 n - A) *
               (k2AbelBoundaryWeight sigma n - k2AbelBoundaryWeight sigma (n + 1))| + eps :=
-      add_le_add_left hrest _
+      add_le_add_right hrest _
 
 end RHLean.Analysis

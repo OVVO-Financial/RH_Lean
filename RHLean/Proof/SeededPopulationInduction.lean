@@ -79,7 +79,7 @@ theorem seededPopulationInvariant_all
       have hNge : 2 ≤ 2 + k := by omega
       obtain ⟨hstep⟩ := hlaw (2 + k) hNge hN.oneBlock
       have hs := seededPopulationInvariant_succ hN hstep
-      simpa [Nat.add_assoc, Nat.add_comm, Nat.add_left_comm] using
+      simpa [Nat.add_assoc, Nat.add_comm, Nat.add_left_comm] using!
         (show Nonempty (SeededPopulationInvariant ((2 + k) + 1)) from ⟨hs⟩)
 
 /-- Direct seed-to-block formulation: every target block `a ≥ 3` appears in a

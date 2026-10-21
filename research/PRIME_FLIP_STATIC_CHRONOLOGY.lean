@@ -61,7 +61,7 @@ theorem primeFlipSnapshot_postRootOwner_unique
     Nat.mul_le_mul hpSucc hqSucc
   have hWlt : W < (Nat.sqrt W + 1) ^ 2 := Nat.lt_succ_sqrt' W
   have hWlt' : W < (Nat.sqrt W + 1) * (Nat.sqrt W + 1) := by
-    simpa [pow_two] using hWlt
+    simpa [pow_two] using! hWlt
   omega
 
 /-- **Static chronology theorem.**  At any endpoint, a squarefree late seat
@@ -95,10 +95,10 @@ theorem primeFlipSnapshot_topHalf_inert
       primeCombTailSignedDelta W p = 0 := by
   constructor
   · exact primeCombProperMultiplierSet_eq_empty_of_half_lt hp.pos hpHalf
-  · have hlo : 1 * p ≤ W := by simpa using hpW
+  · have hlo : 1 * p ≤ W := by simpa using! hpW
     have hhi : W < (1 + 1) * p := by
       have h := (Nat.div_lt_iff_lt_mul (by omega : 0 < 2)).1 hpHalf
-      simpa [Nat.mul_comm] using h
+      simpa [Nat.mul_comm] using! h
     have hdiv : W / p = 1 := Nat.div_eq_of_lt_le hlo hhi
     rw [primeCombTailSignedDelta_eq hp.pos hpW, hdiv,
       primeFlipSnapshot_mertens_one]
@@ -128,7 +128,7 @@ theorem primeFlipSnapshotLateCorrection_eq_two_exactResponse
       intro p hpRange
       have hpW : p ≤ W := (Finset.mem_Ioc.mp hpRange).2
       by_cases hpPrime : p.Prime
-      · rw [if_pos hpPrime, primeCombTailSignedDelta_eq hpPrime.pos hpW]
+      · rw [ite_eq_left hpPrime, primeCombTailSignedDelta_eq hpPrime.pos hpW]
         simp [primeSievePrimeIndicator, primeFlipInheritedResponse, hpPrime]
       · simp [primeSievePrimeIndicator, hpPrime]
     _ = 2 * ∑ p ∈ Finset.Ioc (Nat.sqrt W) W,
@@ -156,7 +156,7 @@ theorem primeFlipSnapshot_quotientTop_le_root
     W / (Nat.sqrt W + 1) ≤ Nat.sqrt W := by
   have hlt : W < (Nat.sqrt W + 1) ^ 2 := Nat.lt_succ_sqrt' W
   have hlt' : W < (Nat.sqrt W + 1) * (Nat.sqrt W + 1) := by
-    simpa [pow_two] using hlt
+    simpa [pow_two] using! hlt
   have hdiv :
       W / (Nat.sqrt W + 1) < Nat.sqrt W + 1 :=
     (Nat.div_lt_iff_lt_mul (Nat.succ_pos _)).2 hlt'

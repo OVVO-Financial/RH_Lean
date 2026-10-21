@@ -45,8 +45,8 @@ theorem stableFarReturnedCrossingCofactors_lower_subset_upper
   have hq1 : 1 ≤ q := hq.one_le
   have hden : q * r * p ≤ q * q * r * p := by
     have hqq : q ≤ q * q := by
-      simpa using Nat.mul_le_mul_left q hq1
-    simpa [Nat.mul_assoc] using Nat.mul_le_mul_right (r * p) hqq
+      simpa using! Nat.mul_le_mul_left q hq1
+    simpa [Nat.mul_assoc] using! Nat.mul_le_mul_right (r * p) hqq
   have hdenPos : 0 < q * r * p :=
     Nat.mul_pos (Nat.mul_pos hq.pos hr.pos) hp.pos
   have hcut :
@@ -135,7 +135,7 @@ theorem stableFarReturnedCrossingCofactors_subset_descended
   have hrleq : r ≤ q := hqData.2.1.le
   have hden : r * r * p ≤ q * r * p := by
     have hmul := Nat.mul_le_mul_right (r * p) hrleq
-    simpa [Nat.mul_assoc] using hmul
+    simpa [Nat.mul_assoc] using! hmul
   have hdenPos : 0 < r * r * p :=
     Nat.mul_pos (Nat.mul_pos hr.pos hr.pos) hp.pos
   have hcut :

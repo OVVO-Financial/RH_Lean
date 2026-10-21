@@ -81,7 +81,7 @@ theorem squareRootLowPrimeRunningImbalanceReal_at_cutoff_eq_canonicalCore_sub_ne
       R K j hR hK hKR hj)
   simpa [squareRootLowPrimeRunningImbalanceReal,
     squareRootLowPrimeCanonicalTerminalCoreReal,
-    squareRootLowPrimeNearRootRemainderReal] using h
+    squareRootLowPrimeNearRootRemainderReal] using! h
 
 /-- **Exact child-to-root map.** -/
 theorem squareRootLowPrimeOwnedResponseChildMassReal_eq_canonicalCore_sub_shallow_sub_nearRoot
@@ -121,7 +121,7 @@ theorem abs_squareRootLowPrimeOwnedResponseChildMassReal_sub_canonicalCore_sub_s
   have hnear := squareRootBornPostTailNearRootRemainder_norm_le_root
     R K j hR hK hKR hj
   have hbound := hre.trans hnear
-  simpa [squareRootLowPrimeNearRootRemainderReal] using hbound
+  simpa [squareRootLowPrimeNearRootRemainderReal] using! hbound
 
 /-- The canonical core-minus-shallow state is controlled by any child-mass
 bound plus the root remainder. -/
@@ -158,7 +158,7 @@ theorem abs_canonicalCore_sub_shallow_le_childMass_add_root
         (squareRootBornPostTailLowPrimeCutoff R) -
         (squareRootLowPrimeCanonicalTerminalCoreReal R K j -
           squareRootLowPrimeRunningImbalanceReal R K j K)| := by
-            simpa only [abs_neg] using abs_sub
+            simpa only [abs_neg] using! abs_sub
               (squareRootLowPrimeOwnedResponseChildMassReal R K
                 (squareRootBornPostTailLowPrimeCutoff R))
               (squareRootLowPrimeOwnedResponseChildMassReal R K
@@ -167,7 +167,7 @@ theorem abs_canonicalCore_sub_shallow_le_childMass_add_root
                   squareRootLowPrimeRunningImbalanceReal R K j K))
     _ ≤ |squareRootLowPrimeOwnedResponseChildMassReal R K
           (squareRootBornPostTailLowPrimeCutoff R)| + (R : ℝ) :=
-      add_le_add_left hdiff _
+      add_le_add_right hdiff _
 
 /-- The child-to-far-survivor discrepancy is bounded by `8R+K`. -/
 theorem abs_squareRootLowPrimeOwnedResponseChildMassReal_sub_farSurvivorCore_sub_shallow_le

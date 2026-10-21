@@ -61,7 +61,7 @@ theorem restrictedPrimeRealQuadraticContraction_symmetrizingWeight
     nlinarith [mul_pos hminus hplus]
   by_cases hx : x = 0
   · subst x
-    have hy : y ≠ 0 := by simpa using hxy
+    have hy : y ≠ 0 := by simpa using! hxy
     have hy2 : 0 < y ^ 2 := by positivity
     have hcoef : beta ^ 2 < beta / gamma := by
       rw [lt_div_iff₀ hgamma]

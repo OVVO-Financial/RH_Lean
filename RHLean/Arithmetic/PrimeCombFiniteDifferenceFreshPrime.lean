@@ -17,8 +17,8 @@ theorem prime_coprime_primorial
   rw [hp.coprime_iff_not_dvd]
   intro hpdiv
   have hpdiv' : p ∣ S.prod id := by
-    simpa [primorial] using hpdiv
-  rcases (Prime.dvd_finset_prod_iff hp.prime id).mp hpdiv' with
+    simpa [primorial] using! hpdiv
+  rcases (Prime.dvd_finsetProd_iff hp.prime id).mp hpdiv' with
     ⟨q, hqS, hpq⟩
   rcases (hprime q hqS).eq_one_or_self_of_dvd p hpq with hpOne | hpqEq
   · exact hp.ne_one hpOne
@@ -40,9 +40,9 @@ theorem divisors_primorial_insert
   · intro hn
     rcases Finset.mem_mul.mp hn with ⟨a, ha, b, hb, hab⟩
     have ha' : a = 1 ∨ a = p := by
-      simpa using ha
+      simpa using! ha
     rcases ha' with rfl | rfl
-    · have hbn : b = n := by simpa using hab
+    · have hbn : b = n := by simpa using! hab
       exact Finset.mem_union.mpr (Or.inl (hbn ▸ hb))
     · exact Finset.mem_union.mpr
         (Or.inr (Finset.mem_image.mpr ⟨b, hb, hab⟩))
@@ -155,7 +155,7 @@ theorem finiteDifferenceOperator_singleton
       f - shift p f := by
   have h := finiteDifferenceOperator_insert
     (R := R) ∅ p hp (by simp) (by simp) f
-  simpa using h
+  simpa using! h
 
 /-! ## Scale intertwining -/
 

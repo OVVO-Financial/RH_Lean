@@ -128,13 +128,13 @@ theorem lowWheelFrozenSquareResidualPostRootSmooth_mass_eq_rootFlooredDiff
           canonicalMoebiusWeight m) =
         ((frozenPrimeUniverseMass (primesUpTo (q - 1)) B : ℤ) : ℂ) := by
       have h := congrArg (fun z : ℤ => (z : ℂ)) hBmass
-      simpa [canonicalMoebiusWeight] using h.symm
+      simpa [canonicalMoebiusWeight] using! h.symm
     have hRcast :
         (∑ m ∈ squareRootLowPrimeGoSmoothCofactors q R,
           canonicalMoebiusWeight m) =
         ((frozenPrimeUniverseMass (primesUpTo (q - 1)) R : ℤ) : ℂ) := by
       have h := congrArg (fun z : ℤ => (z : ℂ)) hRmass
-      simpa [canonicalMoebiusWeight] using h.symm
+      simpa [canonicalMoebiusWeight] using! h.symm
     rw [hset, max_eq_right hRB]
     calc
       (∑ m ∈ squareRootLowPrimeGoSmoothCofactors q B \

@@ -62,7 +62,7 @@ theorem squareRootBornPartnerCount_eq_zero_of_lpf_gt_cutoff
     by_contra hcle
     have hPeq : canonicalLargestPrimeFactor c = 1 := by
       unfold canonicalLargestPrimeFactor
-      rw [dif_neg hcle]
+      rw [dite_eq_right hcle]
     omega
   have hPprime : (canonicalLargestPrimeFactor c).Prime :=
     canonicalLargestPrimeFactor_prime hc1
@@ -117,7 +117,7 @@ theorem prime_of_le_pred_root_of_lpf_gt_cutoff
     by_contra hcle
     have hPeq : canonicalLargestPrimeFactor c = 1 := by
       unfold canonicalLargestPrimeFactor
-      rw [dif_neg hcle]
+      rw [dite_eq_right hcle]
     omega
   have hPprime : (canonicalLargestPrimeFactor c).Prime :=
     canonicalLargestPrimeFactor_prime hc1
@@ -185,8 +185,8 @@ theorem squareRootBornPostTailAboveCutoffResponse_at_cutoff
     intro c hc
     by_cases hle : canonicalLargestPrimeFactor c ≤
         squareRootBornPostTailLowPrimeCutoff R
-    · rw [if_pos hle]
-    · rw [if_neg hle]
+    · rw [ite_eq_left hle]
+    · rw [ite_eq_right hle]
       rw [squareRootBornPartnerCount_eq_zero_of_lpf_gt_cutoff hR
         (Finset.mem_Icc.mp hc).2 (by omega)]
       simp
@@ -223,7 +223,7 @@ theorem squareRootBornPostTailAboveCutoffResponse_at_cutoff
     have hhigh : squareRootBornPostTailHighResponse R K j c =
         squareRootPostRootPrimePrefixCard R c := by
       unfold squareRootBornPostTailHighResponse
-      rw [if_neg hcK]
+      rw [ite_eq_right hcK]
     rw [hmu, hhigh]
   unfold squareRootBornPostTailAboveCutoffResponse
   rw [hborn, hfilter, hterms]

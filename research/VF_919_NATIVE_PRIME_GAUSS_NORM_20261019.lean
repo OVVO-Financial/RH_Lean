@@ -29,7 +29,7 @@ theorem vf919FiniteFieldGauss_squaredNorm
     (hχ : χ ≠ 1) (hψ : ψ.IsPrimitive) :
     ‖gaussSum χ ψ‖ ^ 2 = (Fintype.card F : ℝ) := by
   have hmul := gaussSum_mul_gaussSum_eq_card hχ hψ
-  -- Pinned Mathlib 4.24 does not yet expose star_gaussSum_eq.
+  -- Written before Mathlib exposed star_gaussSum_eq; kept unchanged.
   -- Prove the conjugation identity directly from the native
   -- multiplicative/additive character involutions.
   have hstar : star (gaussSum χ ψ) = gaussSum χ⁻¹ ψ⁻¹ := by
@@ -51,7 +51,7 @@ theorem vf919SplitPrimeGauss_squaredNorm
     (χ : DirichletCharacter ℂ p)
     (hχ : χ ≠ 1) :
     ‖gaussSum χ (ZMod.stdAddChar (N := p))‖ ^ 2 = (p : ℝ) := by
-  letI : Fact p.Prime := ⟨hp⟩
+  let : Fact p.Prime := ⟨hp⟩
   have h := vf919FiniteFieldGauss_squaredNorm χ
     (ZMod.stdAddChar (N := p)) hχ
     (ZMod.isPrimitive_stdAddChar p)

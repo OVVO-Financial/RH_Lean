@@ -38,7 +38,7 @@ theorem localPrimeComb_periodic_of_square_dvd
     Function.Periodic (localPrimeComb p) P := by
   rcases hdiv with ⟨c, hc⟩
   have hper := (localPrimeComb_periodic_square p).nsmul c
-  simpa [hc, nsmul_eq_mul, Nat.mul_comm] using hper
+  simpa [hc, nsmul_eq_mul, Nat.mul_comm] using! hper
 
 /-- If a common period is divisible by every local square period, the complete
 seeded prime comb has that common period. -/
@@ -75,7 +75,7 @@ theorem primorialMinimalRawSite_periodic (k : ℕ) :
     Function.Periodic
       (primorialMinimalWheelSystem k).rawSite
       (primorialSquareSensitiveModulus k) := by
-  simpa [PrimeWheelFiniteSystem.rawSite, primorialMinimalWheelSystem] using
+  simpa [PrimeWheelFiniteSystem.rawSite, primorialMinimalWheelSystem] using!
     (primorialSeededPrimeComb_periodic k)
 
 /-- The historical wheel raw site has the same natural period as well. -/
@@ -83,7 +83,7 @@ theorem primorialRawSite_periodic (k : ℕ) :
     Function.Periodic
       (primorialWheelSystem k).rawSite
       (primorialSquareSensitiveModulus k) := by
-  simpa [PrimeWheelFiniteSystem.rawSite, primorialWheelSystem] using
+  simpa [PrimeWheelFiniteSystem.rawSite, primorialWheelSystem] using!
     (primorialSeededPrimeComb_periodic k)
 
 end RHLean.Analysis
