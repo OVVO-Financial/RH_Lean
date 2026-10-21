@@ -80,11 +80,9 @@ theorem vf919NNSPartialFourth_eq_pow (x : ℝ) :
     vf919NNSPartialFourth x = x ^ 4 := by
   unfold vf919NNSPartialFourth
   by_cases hx : 0 ≤ x
-  · simp [partialUpper, partialLower, hx, not_lt_of_ge hx]
-    ring
+  · simp [partialUpper, partialLower, hx, not_lt_of_ge hx] <;> ring
   · have hlt : x < 0 := lt_of_not_ge hx
-    simp [partialUpper, partialLower, hx, hlt]
-    ring
+    simp [partialUpper, partialLower, hx, hlt] <;> ring
 
 /-- Four unnormalized NNS directional 2-by-2 quadrants. -/
 def vf919NNSQuadrant22 (x y : ℝ) : ℝ :=
@@ -119,8 +117,11 @@ theorem vf919MarkedFourthNNS_eq_normFourth (z : ℂ) :
       vf919NNSQuadrant22_eq, vf919NNSPartialFourth_eq_pow]
   unfold vf919MarkedRealEnergy at he
   dsimp only at he
-  rw [←he]
-  ring
+  calc
+    _ = (((stableFarComplexToRealPair z).1 ^ 2 +
+        (stableFarComplexToRealPair z).2 ^ 2) / 2) ^ 2 := by ring
+    _ = (‖z‖ ^ 2) ^ 2 := by rw [he]
+    _ = ‖z‖ ^ 4 := by ring
 
 /-- The j=k=0 case of the ACTUAL marked input is a genuine quartic
 partial-moment identity, weighted by its unchanged physicalProduct.
