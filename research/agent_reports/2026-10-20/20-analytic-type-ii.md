@@ -248,4 +248,4 @@ No workflow title is used as mathematical evidence beyond the exact source depen
 
 ## K. Publication verification
 
-Early `IN_PROGRESS` checkpoint commit: `51c7ce0c10d1e22de3bdee5ee3c1245b572d856e`.
+Early `IN_PROGRESS` checkpoint commit: `51c7ce0c10d1e22de3bdee5ee3c1245b572d856e`. Substantive completion commit: `96e0fee257b5f626472510bc036b31084965e564`; its returned content blob was `d86a6e67e790a303d4636e222a784823de17558d`. A final metadata-only update records these identifiers; mathematical content and status are unchanged.
