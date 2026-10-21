@@ -78,6 +78,7 @@ theorem vf919EulerSectorSix_rightMixed_forbidden
     (u, v) ∉
       lowOwnerFirstOwnerIncompleteReturnedClipRightSet
         (R + 1) p sig r := by
+  classical
   constructor
   · intro h
     have hnotLeft :
