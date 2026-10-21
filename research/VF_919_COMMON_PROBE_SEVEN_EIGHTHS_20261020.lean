@@ -101,7 +101,7 @@ signal exponent. The Gaussian is retained in the Mellin product identity;
 there is no inverse-Gaussian norm estimate or sharp-cutoff premise here. -/
 theorem beta_le_seven_eighths : HeckeZeroSupremum.beta ≤ (7/8 : ℝ) := by
   by_contra hn
-  obtain ⟨ω, σ, hω0, hω, hσ, hcontract⟩ := commonProbe (lt_of_not_ge hn)
+  obtain ⟨omegaLoss, σ, hω0, hω, hσ, hcontract⟩ := commonProbe (lt_of_not_ge hn)
   have hmargin := Supremum.continuationMargin_pos hω hσ
   have hboundary := Supremum.continuation_boundary_gt (β := beta) (σ := σ) hω0
   obtain ⟨η, ρ, hp, hhalf, _, hpole, hz, hnear⟩ :=
@@ -115,7 +115,7 @@ theorem beta_le_seven_eighths : HeckeZeroSupremum.beta ≤ (7/8 : ℝ) := by
   have hzχ : LFunction χ ρ = 0 := by
     rw [HeckeFiniteDeletion.LFunction_eq_of_mask_nonpole χ η hmask
       (by linarith) hχpole, hz, zero_mul]
-  apply (HeckeSignal.nonzero_of_probe_bounds χ H J beta ω σ (-11/16)
+  apply (HeckeSignal.nonzero_of_probe_bounds χ H J beta omegaLoss σ (-11/16)
     beta_le_one hω0 hω hσ hH hb ?_ ?_ hnear hχpole) hzχ
   · convert hJ using 1 <;> ring_nf
   · convert herr using 1 <;> ring_nf
