@@ -28,6 +28,8 @@ open scoped ArithmeticFunction.Moebius BigOperators
 
 namespace RHLean.Analysis
 
+open RHLean.Arithmetic RHLean.Proof
+
 attribute [local instance] Classical.propDecidable
 
 def vf915GlobalMuSq (n : ℕ) : ℝ := (((μ n) ^ 2 : ℤ) : ℝ)
