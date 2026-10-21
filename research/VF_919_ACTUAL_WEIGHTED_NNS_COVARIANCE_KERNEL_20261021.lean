@@ -74,6 +74,61 @@ theorem vf919Phi_sum_idealAtoms
         constructor <;> ring
       rw [hadd, ih]
 
+/-- OpenAI's own detector_row_eq_source gives a NORMALIZED finite ideal
+column sum. The selected physical product is ALREADY part of the individual
+source coefficient. It is incorrect to multiply by |W(u)|^2 again here.
+
+This theorem is the exact unnormalized NNS reading of one such finite
+Hecke column source, with no source-specific assumptions and no lost phase. -/
+theorem vf919FiniteSource_normSq_eq_NNS
+    {α : Type*} [DecidableEq α] (atoms : Finset α) (a : α → ℂ) :
+    ‖∑ I ∈ atoms, a I‖ ^ 2 =
+      ((zeroTargetCoPartialGram atoms
+          (fun I => (stableFarComplexToRealPair (a I)).1) +
+        zeroTargetCoPartialGram atoms
+          (fun I => (stableFarComplexToRealPair (a I)).2)) -
+       (zeroTargetDivergentGram atoms
+          (fun I => (stableFarComplexToRealPair (a I)).1) +
+        zeroTargetDivergentGram atoms
+          (fun I => (stableFarComplexToRealPair (a I)).2))) / 2 := by
+  have hphi := vf919Phi_sum_idealAtoms atoms a
+  have hnorm := stableFarRealPairNormalizedEnergy_complexToRealPair
+    (∑ I ∈ atoms, a I)
+  rw [hphi] at hnorm
+  change (((∑ I ∈ atoms, (stableFarComplexToRealPair (a I)).1) ^ 2 +
+      (∑ I ∈ atoms, (stableFarComplexToRealPair (a I)).2) ^ 2) / 2) =
+    ‖∑ I ∈ atoms, a I‖ ^ 2 at hnorm
+  rw [← hnorm]
+  rw [zeroTarget_globalGram_reassembly,
+      zeroTarget_globalGram_reassembly]
+  ring
+
+/-- This is the EXACT SOURCE FORM OpenAI supplies after
+detector_row_eq_source and its normalized_norm_sq lemma:
+  D_U^(-1) sum_{u∈F.rows} |sum_{I∈finiteColumns} c_I R_u(I)|^2.
+Here n stands for that literal D_U and the actual physical selected masks
+are ALREADY embedded in a(u,I). -/
+theorem vf919NormalizedColumnSource_NNSCovariance
+    {ι α : Type*} [DecidableEq α]
+    (rows : Finset ι) (atoms : Finset α)
+    (a : ι → α → ℂ) (n : ℝ) :
+    (∑ u ∈ rows, (1 / n) * ‖∑ I ∈ atoms, a u I‖ ^ 2) =
+      (∑ u ∈ rows, (1 / n) *
+        ((zeroTargetCoPartialGram atoms
+            (fun I => (stableFarComplexToRealPair (a u I)).1) +
+          zeroTargetCoPartialGram atoms
+            (fun I => (stableFarComplexToRealPair (a u I)).2)) / 2)) -
+      (∑ u ∈ rows, (1 / n) *
+        ((zeroTargetDivergentGram atoms
+            (fun I => (stableFarComplexToRealPair (a u I)).1) +
+          zeroTargetDivergentGram atoms
+            (fun I => (stableFarComplexToRealPair (a u I)).2)) / 2)) := by
+  rw [← Finset.sum_sub_distrib]
+  apply Finset.sum_congr rfl
+  intro u hu
+  rw [vf919FiniteSource_normSq_eq_NNS]
+  ring
+
 /-- Original finite row energy in Fred's invertible two-real-coordinate Phi
 representation. The row amplitude is the sum of all retained source atoms. -/
 def vf919WeightedPhiMarkedMoment
@@ -252,6 +307,8 @@ theorem vf919EulerPairPowerSaving_of_independent_alignment
 
 end RHLean.Analysis
 
+#print axioms RHLean.Analysis.vf919FiniteSource_normSq_eq_NNS
+#print axioms RHLean.Analysis.vf919NormalizedColumnSource_NNSCovariance
 #print axioms RHLean.Analysis.vf919WeightedPhiMarkedMoment_eq_co_sub_div
 #print axioms RHLean.Analysis.vf919ActualMarkedMoment_eq_exactWeightedNNSCovariance
 #print axioms RHLean.Analysis.vf919EulerPairWeightedNNSCovariance
