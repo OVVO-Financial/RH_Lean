@@ -278,7 +278,7 @@ theorem squarePrefixHighChannelModeContribution_add_two_tripled_eq_defect
       newPrime := (mem_squarePrefixHighTriplingBases.mp hbase).2.1
       base_mem := (mem_squarePrefixHighTriplingBases.mp hbase).1
       tripled_mem := (mem_squarePrefixHighTriplingBases.mp hbase).2.2 }
-  simpa [pair] using
+  simpa [pair] using!
     actualResidualPacket_squarePrefixHighTransportData_tripling_signedDefect
       cutoff M hcutoff Λ n pair modeLabel
 

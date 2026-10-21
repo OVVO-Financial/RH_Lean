@@ -189,7 +189,7 @@ private theorem nearPositiveSource_to_pair_mem
   · exact Finset.mem_product.mpr
       ⟨Finset.mem_Ioc.mpr ⟨hRq, hqUpper⟩,
         Finset.mem_Icc.mpr ⟨Nat.succ_le_iff.mpr hcPos, hcX⟩⟩
-  · exact ⟨hqPrime, by simpa [hprod] using (Finset.mem_Icc.mp hmRange).2⟩
+  · exact ⟨hqPrime, by simpa [hprod] using! (Finset.mem_Icc.mp hmRange).2⟩
 
 private theorem nearPositiveSource_pair_injective
     {R m n : ℕ}
@@ -240,7 +240,7 @@ private theorem nearPositivePair_surjective
   · apply Finset.mem_filter.mpr
     constructor
     · exact Finset.mem_Icc.mpr ⟨hm1, hprodX⟩
-    · simpa only [hlargest, hcofactor] using
+    · simpa only [hlargest, hcofactor] using!
         And.intro hRq (And.intro hqUpper hcq)
   · exact Prod.ext hlargest hcofactor
 
@@ -257,7 +257,7 @@ theorem squareRootLowPrimeNearPositiveSourceMass_eq_pairMass
     (fun m _hm => (canonicalLargestPrimeFactor m, canonicalCofactor m))
     (fun m hm => nearPositiveSource_to_pair_mem hm)
     (fun m hm n hn hmn => nearPositiveSource_pair_injective hm hn hmn)
-    (fun qc hcq => by simpa using nearPositivePair_surjective hR qc hcq)
+    (fun qc hcq => by simpa using! nearPositivePair_surjective hR qc hcq)
     ?_
   intro m hm
   have hmgt : 1 < m := one_lt_of_mem_nearPositiveSourceSet hm
@@ -333,7 +333,7 @@ theorem squareRootLowPrimeNearPositivePairMass_eq_neg_nearPrimeTransport
           if q.Prime ∧ c * q ≤ squareRootEndpoint R then
             canonicalMoebiusWeight (c * q)
           else 0 := by
-            simpa only using
+            simpa only using!
               (Finset.sum_product
                 (s := Finset.Ioc R (R + 7))
                 (t := Finset.Icc 1 (squareRootEndpoint R))
@@ -348,7 +348,7 @@ theorem squareRootLowPrimeNearPositivePairMass_eq_neg_nearPrimeTransport
           apply Finset.sum_congr rfl
           intro q hqMem
           by_cases hqPrime : q.Prime
-          · simp only [hqPrime, true_and, if_true]
+          · simp only [hqPrime, true_and, ite_true]
             exact nearPositivePrimeFibre_eq_neg_mertens hR hqMem hqPrime
           · simp [hqPrime]
     _ = -squareRootNearPrimeTransport R := by

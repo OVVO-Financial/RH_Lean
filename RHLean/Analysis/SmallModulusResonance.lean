@@ -31,7 +31,7 @@ theorem quadraticUnitPhase_eq_additiveCharacter_of_sq_eq_one
   have hdvd :=
     (ZMod.intCast_zmod_eq_zero_iff_dvd
       (a * (u.val.val : ℤ) ^ 2 - a) (2 * r)).mp hz
-  simpa using hdvd
+  simpa using! hdvd
 
 /-- When all units modulo `2 * r` square to one, the reduced sum is the
 totient times one coherent additive-character phase. -/
@@ -43,7 +43,7 @@ theorem reducedQuadraticGauss_eq_totient_mul_phase_of_unit_sq
       (Nat.totient (2 * r) : ℂ) *
         additiveCharacter (2 * (r : ℤ)) a := by
   classical
-  letI : NeZero (2 * r) :=
+  let : NeZero (2 * r) :=
     ⟨Nat.mul_ne_zero (by norm_num) (Nat.ne_of_gt hr)⟩
   have hphase : ∀ u : (ZMod (2 * r))ˣ,
       quadraticUnitPhase a r u =
@@ -72,7 +72,7 @@ theorem normalizedReducedQuadraticGauss_mod_six
     (a : ℤ) :
     normalizedReducedQuadraticGauss a 3 (by norm_num) =
       additiveCharacter 6 a := by
-  simpa using
+  simpa using!
     normalizedReducedQuadraticGauss_eq_phase_of_unit_sq
       a 3 (by norm_num) unit_sq_eq_one_mod_six
 
@@ -81,7 +81,7 @@ theorem normalizedReducedQuadraticGauss_mod_twenty_four
     (a : ℤ) :
     normalizedReducedQuadraticGauss a 12 (by norm_num) =
       additiveCharacter 24 a := by
-  simpa using
+  simpa using!
     normalizedReducedQuadraticGauss_eq_phase_of_unit_sq
       a 12 (by norm_num) unit_sq_eq_one_mod_twenty_four
 
@@ -140,7 +140,7 @@ private theorem stdAddChar_threeCycle_sum_eq_zero
   have hz1 : z ≠ 1 := by
     intro hz
     apply hx0
-    exact ZMod.injective_stdAddChar (by simpa [z] using hz)
+    exact ZMod.injective_stdAddChar (by simpa [z] using! hz)
   have hz3 : z ^ 3 = 1 := by
     calc
       z ^ 3 = ZMod.stdAddChar (3 • x) := by
@@ -202,7 +202,7 @@ theorem physicalPrimeThreeSlotPhase_sum_eq_zero
   let x := physicalPrimeThreeTransportedFrequency r
   have hx := physicalPrimeThreeTransportedFrequency_data r hr0 hr3
   have hcycle := stdAddChar_threeCycle_sum_eq_zero x hx.1 hx.2
-  simpa [physicalPrimeThreeSlotPhase, x, nsmul_eq_mul] using hcycle
+  simpa [physicalPrimeThreeSlotPhase, x, nsmul_eq_mul] using! hcycle
 
 /-- The actual common local prime-`3` raw Fourier coefficient transported from
 the cell clock. -/
@@ -223,7 +223,7 @@ theorem physicalPrimeThreeLocalRawMode_eq_neg_five
   have hx := physicalPrimeThreeTransportedFrequency_data r hr0 hr3
   unfold physicalPrimeThreeLocalRawMode
   rw [localPrimeCombNaturalSpectrum_eq_explicit]
-  rw [if_neg hx.1]
+  rw [ite_eq_right hx.1]
   have hxdiv : 3 ∣ (physicalPrimeThreeTransportedFrequency r).val := by
     have hrval0 : r.val ≠ 0 := by
       intro hval
@@ -244,7 +244,7 @@ theorem physicalPrimeThreeLocalRawMode_eq_neg_five
         norm_num
       rw [hr]
       native_decide
-  rw [if_pos hxdiv]
+  rw [ite_eq_left hxdiv]
   norm_num
 
 /-- **Local raw resonance cancellation.**  Although each prime-`3` conductor
@@ -289,7 +289,7 @@ private theorem physicalPrimeThreeLocalRawMode_eq_zmodSum
         (-(z * physicalPrimeThreeTransportedFrequency r))
   have hsum := physicalFinNineEquivZMod.sum_comp F
   simpa [physicalPrimeThreeLocalRawMode, localPrimeCombNaturalSpectrum,
-    F, physicalFinNineEquivZMod, ZMod.val_natCast_of_lt] using hsum
+    F, physicalFinNineEquivZMod, ZMod.val_natCast_of_lt] using! hsum
 
 /-- The physical affine map `k ↦ 4k+j` on `ZMod 9`.  Its inverse is
 `z ↦ 7(z-j)`. -/
@@ -384,7 +384,7 @@ theorem physicalPrimeThreeLocalRawSlotSpectrum_sum_eq_zero
   rw [physicalPrimeThreeLocalRawSlotSpectrum_eq_mode,
     physicalPrimeThreeLocalRawSlotSpectrum_eq_mode,
     physicalPrimeThreeLocalRawSlotSpectrum_eq_mode]
-  simpa [physicalPrimeThreeLocalRawSlotMode] using
+  simpa [physicalPrimeThreeLocalRawSlotMode] using!
     physicalPrimeThreeLocalRawSlotMode_sum_eq_zero r hr0 hr3
 
 end RHLean.Analysis

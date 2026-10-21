@@ -114,7 +114,7 @@ theorem vfMid915HistoryUpper_add_lower_eq_abs
   have hs := vfMid915HistorySums_add A R
   have ha := vfMid915Partial_add (-vfMidActualPrimeEndpointDefect A)
   rw [abs_neg] at ha
-  simpa using (show
+  simpa using! (show
       (zeroTargetUpperPart (-vfMidActualPrimeEndpointDefect A) +
         (∑ r ∈ Finset.Ico A R, ∑ n ∈ vfMidOddCandidateSeats r,
           zeroTargetUpperPart (vfMidOddSignedSeatCharge r n))) +

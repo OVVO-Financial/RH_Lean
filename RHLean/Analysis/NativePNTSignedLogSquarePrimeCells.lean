@@ -112,7 +112,7 @@ theorem nativeLambdaTwoWeighted_eq_mobiusLogSquareReciprocalMass
           have hmulN' : k * m ≤ N :=
             (Nat.le_div_iff_mul_le hmpos).1 hkN
           have hmulN : m * k ≤ N := by
-            simpa [Nat.mul_comm] using hmulN'
+            simpa [Nat.mul_comm] using! hmulN'
           have hkpos : 0 < k := by omega
           exact ⟨⟨Nat.one_le_iff_ne_zero.mpr
             (Nat.ne_of_gt (Nat.mul_pos hmpos hkpos)), hmulN⟩,
@@ -139,7 +139,7 @@ theorem nativeLambdaTwoSignedErrorMass_eq_mobiusLogSquareReciprocal
     (∑ d ∈ Finset.Icc 1 N,
       nativeLambdaTwo d * nativePNTError (N / d)) =
       nativePNTMobiusLogSquareReciprocalSignedErrorMass N := by
-  simpa [nativePNTMobiusLogSquareReciprocalSignedErrorMass] using
+  simpa [nativePNTMobiusLogSquareReciprocalSignedErrorMass] using!
     (nativeLambdaTwoWeighted_eq_mobiusLogSquareReciprocalMass N
       (fun d => nativePNTError (N / d)))
 
@@ -219,8 +219,8 @@ private theorem abs_pair_surplus_ge_two_lower
     2 * L ≤ |x| + |y| - |x - y| := by
   rcases hsign with hpos | hneg
   · rcases hpos with ⟨hx0, hy0⟩
-    have hxL : L ≤ x := by simpa [abs_of_nonneg hx0] using hx
-    have hyL : L ≤ y := by simpa [abs_of_nonneg hy0] using hy
+    have hxL : L ≤ x := by simpa [abs_of_nonneg hx0] using! hx
+    have hyL : L ≤ y := by simpa [abs_of_nonneg hy0] using! hy
     rw [abs_of_nonneg hx0, abs_of_nonneg hy0]
     by_cases hxy : x ≤ y
     · rw [abs_of_nonpos (sub_nonpos.mpr hxy)]
@@ -229,8 +229,8 @@ private theorem abs_pair_surplus_ge_two_lower
       rw [abs_of_nonneg (sub_nonneg.mpr hyx)]
       linarith
   · rcases hneg with ⟨hx0, hy0⟩
-    have hxL : L ≤ -x := by simpa [abs_of_nonpos hx0] using hx
-    have hyL : L ≤ -y := by simpa [abs_of_nonpos hy0] using hy
+    have hxL : L ≤ -x := by simpa [abs_of_nonpos hx0] using! hx
+    have hyL : L ≤ -y := by simpa [abs_of_nonpos hy0] using! hy
     rw [abs_of_nonpos hx0, abs_of_nonpos hy0]
     by_cases hxy : x ≤ y
     · rw [abs_of_nonpos (sub_nonpos.mpr hxy)]

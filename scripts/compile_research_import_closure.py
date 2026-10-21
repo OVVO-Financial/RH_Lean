@@ -64,7 +64,6 @@ def environment_key(root: Path) -> str:
         root / name for name in ("lean-toolchain", "lakefile.lean", "lake-manifest.json", "RHLean.lean")
     }
     paths.update((root / "RHLean").rglob("*.lean"))
-    paths.update((root / "scripts" / "strongpnt_424").glob("*.py"))
     rows = [SCHEMA, FLAGS, PRODUCERS]
     rows.append([(p.relative_to(root).as_posix(), digest(p.read_bytes()) if p.is_file() else None)
                  for p in sorted(paths)])
@@ -170,6 +169,7 @@ def main() -> None:
     parser.add_argument("targets", nargs="*", help="research/*.lean files (multiple roots share one traversal)")
     parser.add_argument("--plan", type=Path, help="write a dependency/cache plan without running Lean")
     parser.add_argument("--build-library", action="store_true", help="ask Lake to build the imported RHLean targets first")
+    parser.add_argument("--library-only", action="store_true", help="ask Lake to build the imported RHLean targets, then stop")
     parser.add_argument("--force", action="store_true", help="compile every module, ignoring verified cache records")
     parser.add_argument("--affected-files", type=Path, help="classify a newline-separated changed-file list without running Lean")
     args = parser.parse_args()
@@ -196,8 +196,11 @@ def main() -> None:
                 stream.write(f"plan-key={digest(json.dumps(plan, sort_keys=True).encode())}\n")
         print(f"[research-closure] planned {len(plan['modules'])} modules, {len(plan['library'])} library targets")
         return
-    if args.build_library and plan["library"]:
+    if (args.build_library or args.library_only) and plan["library"]:
         subprocess.run(["lake", "build", *plan["library"]], cwd=ROOT, check=True)
+    if args.library_only:
+        print(f"[research-closure] built {len(plan['library'])} library targets; research not compiled")
+        return
     closure.compile(force=args.force)
 
 

@@ -157,7 +157,7 @@ theorem sum_primeDivisibleCofactorPrefix_real_eq_neg_primeFree_div
   have h := sum_primeDivisibleCofactorPrefix_eq_neg_primeFree_div p B hp
   have hre := congrArg Complex.re h
   unfold canonicalPrimeFreeMobiusPrefixMassReal
-  simpa [canonicalMoebiusWeight, moebiusReal] using hre
+  simpa [canonicalMoebiusWeight, moebiusReal] using! hre
 
 /-- For one fixed prime, the non-fresh square-collision support is exactly one
 block of `p`-divisible cofactors. -/
@@ -256,9 +256,9 @@ theorem squareCorrection_eq_logWeightedPrimeFreeQ2Blocks (N : ℕ) :
   apply Finset.sum_congr rfl
   intro p _hpRange
   by_cases hp : p.Prime
-  · rw [if_pos hp]
+  · rw [ite_eq_left hp]
     exact logSquarePrimeExtensionFiber_eq_neg_log_mul_primeFreeQ2Block N p hp
-  · rw [if_neg hp]
+  · rw [ite_eq_right hp]
     unfold logSquarePrimeExtensionTerm
     simp [hp]
 

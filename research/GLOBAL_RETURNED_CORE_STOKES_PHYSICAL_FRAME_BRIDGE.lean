@@ -118,7 +118,7 @@ theorem lowOwnerStokesOddPrimePeriodSet_reciprocalSquareBudget_le_quarter
     (∑ p ∈ lowOwnerStokesOddPrimePeriodSet R,
       ((1 : ℝ) / (p : ℝ)) ^ 2) ≤ 1 / 4 := by
   unfold lowOwnerStokesOddPrimePeriodSet lowOwnerStokesWheelPrimes
-  simpa [div_pow] using
+  simpa [div_pow] using!
     (oddPrimeOwnerReciprocalSquareBudgetReal_le_quarter
       (Nat.sqrt (squareRootEndpoint R)))
 
@@ -139,7 +139,7 @@ theorem lowOwnerStokesOddPrimePeriodSet_card_le_root
       unfold lowOwnerStokesWheelPrimes at hpWheel
       exact (mem_primesUpTo.mp hpWheel).2
     exact Finset.mem_range.mpr (hpCut.trans_lt hroot)
-  simpa using Finset.card_le_card hsub
+  simpa using! Finset.card_le_card hsub
 
 /-- The compiled reciprocal prime-period frame on the literal physical odd
 Stokes coordinates and the natural square-sensitive torus. -/
@@ -211,7 +211,7 @@ theorem root_sq_over_eighteen_le_lowOwnerStokesOddPrimePeriodFrameMajorant
   have hmass :
       (1 / 9 : ℝ) ≤
         ∑ p ∈ S, ((1 : ℝ) / (p : ℝ)) ^ 2 := by
-    simpa [S] using
+    simpa [S] using!
       one_ninth_le_lowOwnerStokesOddPrimePeriodSet_reciprocalSquareMass hR
   have hoff :
       0 ≤ primePeriodReciprocalOffDiagonalMajorant W X S := by
@@ -291,7 +291,7 @@ theorem finalStokesBoundaryBound_of_primePeriodFrameDomination
     _ ≤ C * ((5 / 4 : ℝ) * (R : ℝ) ^ 2) := hscaled
     _ = ((5 / 4 : ℝ) * C) * (R : ℝ) ^ 2 := by ring
     _ ≤ ((5 / 4 : ℝ) * C) * (R : ℝ) ^ 2 * K := by
-      simpa [mul_assoc] using hKmul
+      simpa [mul_assoc] using! hKmul
 
 /-- Once the exact physical payload-to-frame domination is supplied, no further
 Stokes, frame, envelope, or terminal plumbing remains before RH. -/
@@ -418,15 +418,15 @@ theorem lowOwnerStokesSecondPrime_schedule_eq_single_top
   let s := lowOwnerStokesSecondPrime R hR
   let t := lowOwnerStokesTopPrime R hR
   have hst : s < t := by
-    simpa [s, t] using lowOwnerStokesSecondPrime_lt_topPrime hR
+    simpa [s, t] using! lowOwnerStokesSecondPrime_lt_topPrime hR
   have htMem : t ∈ primesUpTo (squareRootEndpoint R) := by
-    simpa [t] using lowOwnerStokesTopPrime_mem hR
+    simpa [t] using! lowOwnerStokesTopPrime_mem hR
   have htFull : t ∈ squareRootCanonicalRoughDescendingPrimeSchedule R := by
     unfold squareRootCanonicalRoughDescendingPrimeSchedule
     exact (Finset.mem_sort (fun a b : ℕ => a ≥ b)).2 htMem
   have htSched :
       t ∈ lowOwnerFirstOwnerCanonicalStokesSchedule R s := by
-    simpa [lowOwnerFirstOwnerCanonicalStokesSchedule] using
+    simpa [lowOwnerFirstOwnerCanonicalStokesSchedule] using!
       (show t ∈ squareRootCanonicalRoughDescendingPrimeSchedule R ∧ s < t
         from ⟨htFull, hst⟩)
   have huniq :
@@ -434,7 +434,7 @@ theorem lowOwnerStokesSecondPrime_schedule_eq_single_top
     intro q hq
     have hqData :
         q ∈ squareRootCanonicalRoughDescendingPrimeSchedule R ∧ s < q := by
-      simpa [lowOwnerFirstOwnerCanonicalStokesSchedule] using hq
+      simpa [lowOwnerFirstOwnerCanonicalStokesSchedule] using! hq
     have hqMem : q ∈ primesUpTo (squareRootEndpoint R) := by
       unfold squareRootCanonicalRoughDescendingPrimeSchedule at hqData
       exact (Finset.mem_sort (fun a b : ℕ => a ≥ b)).1 hqData.1
@@ -443,7 +443,7 @@ theorem lowOwnerStokesSecondPrime_schedule_eq_single_top
         q ∈ (primesUpTo (squareRootEndpoint R)).erase t :=
       Finset.mem_erase.mpr ⟨hqt, hqMem⟩
     have hqLeS : q ≤ s := by
-      simpa [s, t] using
+      simpa [s, t] using!
         Finset.le_max'
           ((primesUpTo (squareRootEndpoint R)).erase t) q hqErase
     omega
@@ -533,7 +533,7 @@ theorem lowOwnerStokesTopPrime_schedule_eq_nil
   have hqLe :
       q ≤ lowOwnerStokesTopPrime R hR :=
     Finset.le_max' _ q hqMem
-  simpa only [decide_eq_true_eq] using (Nat.not_lt_of_ge hqLe)
+  simpa only [decide_eq_true_eq] using! (Nat.not_lt_of_ge hqLe)
 
 /-- A top-owner admitted cofactor is forced to one. -/
 theorem lowOwnerStokesTopPrime_admittedBase_eq_one
@@ -555,7 +555,7 @@ theorem lowOwnerStokesTopPrime_admittedBase_eq_one
   have hmul :
       2 * lowOwnerStokesTopPrime R hR ≤
         lowOwnerStokesTopPrime R hR * a := by
-    simpa [Nat.mul_comm] using
+    simpa [Nat.mul_comm] using!
       Nat.mul_le_mul_right (lowOwnerStokesTopPrime R hR) ha2
   omega
 
@@ -688,22 +688,22 @@ theorem lowOwnerStokesTopTerminalOwnerSet_subset_top_two
   · simp [hps, s]
   exfalso
   have htS : t ∈ primesUpTo (squareRootEndpoint R) := by
-    simpa [t] using lowOwnerStokesTopPrime_mem hR
+    simpa [t] using! lowOwnerStokesTopPrime_mem hR
   have hsErase :
       s ∈ (primesUpTo (squareRootEndpoint R)).erase t := by
-    simpa [s, t] using lowOwnerStokesSecondPrime_mem_erase hR
+    simpa [s, t] using! lowOwnerStokesSecondPrime_mem_erase hR
   have hsS : s ∈ primesUpTo (squareRootEndpoint R) :=
     (Finset.mem_erase.mp hsErase).2
   have hst : s ≠ t := (Finset.mem_erase.mp hsErase).1
   have hptLe : p ≤ t := by
-    simpa [t] using Finset.le_max'
+    simpa [t] using! Finset.le_max'
       (primesUpTo (squareRootEndpoint R)) p hpS
   have hptLt : p < t := by omega
   have hpErase :
       p ∈ (primesUpTo (squareRootEndpoint R)).erase t :=
     Finset.mem_erase.mpr ⟨hpt, hpS⟩
   have hpsLe : p ≤ s := by
-    simpa [s, t] using Finset.le_max'
+    simpa [s, t] using! Finset.le_max'
       ((primesUpTo (squareRootEndpoint R)).erase t) p hpErase
   have hpsLt : p < s := by omega
   have htFull :
@@ -716,12 +716,12 @@ theorem lowOwnerStokesTopTerminalOwnerSet_subset_top_two
     exact (Finset.mem_sort (fun a b : ℕ => a ≥ b)).2 hsS
   have htSched :
       t ∈ lowOwnerFirstOwnerCanonicalStokesSchedule R p := by
-    simpa [lowOwnerFirstOwnerCanonicalStokesSchedule] using
+    simpa [lowOwnerFirstOwnerCanonicalStokesSchedule] using!
       (show t ∈ squareRootCanonicalRoughDescendingPrimeSchedule R ∧ p < t
         from ⟨htFull, hptLt⟩)
   have hsSched :
       s ∈ lowOwnerFirstOwnerCanonicalStokesSchedule R p := by
-    simpa [lowOwnerFirstOwnerCanonicalStokesSchedule] using
+    simpa [lowOwnerFirstOwnerCanonicalStokesSchedule] using!
       (show s ∈ squareRootCanonicalRoughDescendingPrimeSchedule R ∧ p < s
         from ⟨hsFull, hpsLt⟩)
   generalize hsched :
@@ -750,7 +750,7 @@ theorem card_lowOwnerStokesTopTerminalOwnerSet_le_two
       have h := Finset.card_insert_le
         (lowOwnerStokesTopPrime R hR)
         ({lowOwnerStokesSecondPrime R hR} : Finset ℕ)
-      simpa using h
+      simpa using! h
 
 /-- Outside the zero/one-owner terminal strata the local terminal contribution
 is literally zero. -/
@@ -1240,7 +1240,7 @@ theorem lowOwnerStokesClipReciprocalCoefficientEnvelope_iff_frameDomination_one 
       simp
     · rw [primePeriodReciprocalCoefficientEnvelope_one_eq_frameMajorant]
       have h := hFrame R hR
-      simpa [lowOwnerStokesOddPrimePeriodFrameMajorant] using h
+      simpa [lowOwnerStokesOddPrimePeriodFrameMajorant] using! h
 
 /-- One actual reciprocal prime-period mode on the natural Stokes torus.  The
 coefficient field in a genuine admissibility theorem must be supplied before
@@ -1424,7 +1424,7 @@ theorem clip_le_five_fourths_root_sq_mul_lowerEnvelope_of_coefficientBounded
           (lowOwnerStokesOddPrimePeriodSet R)
           (coefficient R hR) := hclip
     _ ≤ K * lowOwnerStokesOddPrimePeriodFrameMajorant R hR := by
-      simpa [lowOwnerStokesOddPrimePeriodFrameMajorant] using henv
+      simpa [lowOwnerStokesOddPrimePeriodFrameMajorant] using! henv
     _ ≤ K * ((5 / 4 : ℝ) * (R : ℝ) ^ 2) :=
       mul_le_mul_of_nonneg_left hframe hK.1
     _ = (5 / 4 : ℝ) * (R : ℝ) ^ 2 * K := by ring
@@ -1593,7 +1593,7 @@ private theorem sum_product_othello_separable
         (g mn.1 * h mn.2)) =
       ∑ a ∈ S, ∑ b ∈ T,
         (othelloRealMoebius a * othelloRealMoebius b) * (g a * h b) := by
-          simpa only using
+          simpa only using!
             (Finset.sum_product
               (s := S) (t := T)
               (f := fun mn : ℕ × ℕ =>
@@ -2138,7 +2138,7 @@ theorem lowOwnerStokesSignedScalarAmplitude_base_eq_firstOwnerBaseAmplitude
       lowOwnerFirstOwnerBaseAmplitude R p sig := by
   simpa [lowOwnerStokesSignedScalarAmplitude, lowOwnerDirichletBaseCoefficient,
     lowOwnerFirstOwnerDirichletBaseSite, othelloRealMoebius,
-    RHLean.Analysis.realMoebiusStep, mul_comm] using
+    RHLean.Analysis.realMoebiusStep, mul_comm] using!
       (sum_lowOwnerFirstOwnerDirichletBaseSite_eq_amplitude R p sig)
 
 /-- On the same base fibre, the signed Stokes returned amplitude is exactly the
@@ -2152,7 +2152,7 @@ theorem lowOwnerStokesSignedScalarAmplitude_returned_eq_firstOwnerReturnedAmplit
   simpa [lowOwnerStokesSignedScalarAmplitude,
     lowOwnerDirichletReturnedCoefficient,
     lowOwnerFirstOwnerDirichletReturnedChildSite, othelloRealMoebius,
-    RHLean.Analysis.realMoebiusStep, mul_comm] using
+    RHLean.Analysis.realMoebiusStep, mul_comm] using!
       (sum_lowOwnerFirstOwnerDirichletReturnedChildSite_eq_returned
         (R := R) (p := p) (sig := sig))
 
@@ -2328,7 +2328,7 @@ theorem norm_sq_lowOwnerStokesLowerMertensPrimeCoefficient_le_lowerEnvelope
   unfold lowOwnerStokesLowerMertensPrimeCoefficient
   rw [Complex.norm_real, Real.norm_eq_abs, abs_div,
     abs_of_pos hsqrtPos, div_pow, sq_abs, hsqrtSq]
-  exact (div_le_iff₀ hpPos).2 (by simpa [mul_comm] using henv)
+  exact (div_le_iff₀ hpPos).2 (by simpa [mul_comm] using! henv)
 
 /-- The only still-missing half for this concrete coefficient family: physical
 clip synthesis into its reciprocal prime-period envelope. -/
@@ -2372,7 +2372,7 @@ theorem clip_lowerEnvelopeBound_of_lowerMertensSynthesis
           (lowOwnerStokesOddPrimePeriodSet R)
           lowOwnerStokesLowerMertensPrimeCoefficient := hSynth R hR
     _ ≤ K * lowOwnerStokesOddPrimePeriodFrameMajorant R hR := by
-      simpa [lowOwnerStokesOddPrimePeriodFrameMajorant] using henv
+      simpa [lowOwnerStokesOddPrimePeriodFrameMajorant] using! henv
     _ ≤ K * ((5 / 4 : ℝ) * (R : ℝ) ^ 2) :=
       mul_le_mul_of_nonneg_left hframe hK.1
     _ = (5 / 4 : ℝ) * (R : ℝ) ^ 2 * K := by ring
@@ -2389,7 +2389,7 @@ theorem lowOwnerCanonicalSignedStokesTopTerminalBoundary_le_four
   rw [lowOwnerCanonicalSignedStokesTopTerminalBoundary_eq_terminalOwnerSum]
   simpa [lowOwnerStokesTopTerminalOwnerSet,
     StokesTerminalFrame.exceptionalTerminalBoundary,
-    StokesTerminalFrame.topTerminalOwnerSet] using
+    StokesTerminalFrame.topTerminalOwnerSet] using!
       (StokesTerminalFrame.exceptionalTerminalBoundary_le_four hR)
 
 /-- **Downstream DAG closure.**
@@ -2420,7 +2420,7 @@ theorem riemannHypothesis_of_topTwoStokesClipCriticalEnvelopeBound
         lowOwnerCanonicalSignedStokesTopTerminalBoundary R ≤
       C * (R : ℝ) ^ 2 * K + 4 := add_le_add hclip hterm
     _ ≤ C * (R : ℝ) ^ 2 * K + (R : ℝ) ^ 2 * K :=
-      add_le_add_left hscale _
+      add_le_add_right hscale _
     _ = (C + 1) * (R : ℝ) ^ 2 * K := by ring
 
 end RHLean.Proof

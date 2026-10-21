@@ -40,7 +40,7 @@ theorem complex_sq_injective_of_re_pos
   rcases (complex_sq_eq_sq_iff_eq_or_eq_neg z w).mp hsq with h | hneg
   · exact h
   · have hre : z.re = -w.re := by
-      simpa using congrArg Complex.re hneg
+      simpa using! congrArg Complex.re hneg
     linarith
 
 /-- Equality of Fermat points recovers both factor coordinates. -/
@@ -49,9 +49,9 @@ theorem fermatPoint_injective
     (h : fermatPoint c q = fermatPoint c' q') :
     c = c' ∧ q = q' := by
   have ha : fermatA c q = fermatA c' q' := by
-    simpa [fermatPoint] using congrArg Complex.re h
+    simpa [fermatPoint] using! congrArg Complex.re h
   have hb : fermatB c q = fermatB c' q' := by
-    simpa [fermatPoint] using congrArg Complex.im h
+    simpa [fermatPoint] using! congrArg Complex.im h
   constructor
   · calc
       c = fermatA c q - fermatB c q := (fermatA_sub_fermatB c q).symm

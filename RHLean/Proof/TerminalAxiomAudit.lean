@@ -174,7 +174,7 @@ silently weakening the claim. -/
 /-- **Native Chebyshev prime number theorem, unconditional.**  `psi(N)/N -> 1`, with no
 hypothesis.  The underlying contraction is this repository's own elementary argument:
 `NativePNTErdosContraction` imports Mathlib and one project file, so this does not route
-through the vendored StrongPNT port. -/
+through PNT+. -/
 theorem nativeChebyshevPrimeNumberTheorem_unconditional :
     Filter.Tendsto (fun N : ℕ => RHLean.Analysis.nativePsi N / (N : ℝ))
       Filter.atTop (nhds 1) :=
@@ -312,7 +312,7 @@ theorem sqrtFirstJumpResidual_cast_eq_band_sub_band
   simp only [mertensSummatoryInt_cast] at hcast
   rw [Finset.sum_sub_distrib] at hcast
   unfold firstJumpPrimeSieveMertensBand
-  simpa only [neg_sub] using hcast
+  simpa only [neg_sub] using! hcast
 
 /-- The exact signed reciprocal-Mertens object left after the geometric
 contractions.  No norm is built into this definition. -/
@@ -386,7 +386,7 @@ theorem primeDilateCofactorWindowPrimeCount_eq_zero_of_sqrt_lt_cofactor
   have hsc : Nat.sqrt R + 1 ≤ c := by omega
   have hmul :
       (Nat.sqrt R + 1) ^ 2 ≤ (Nat.sqrt R + 1) * c := by
-    simpa [pow_two] using
+    simpa [pow_two] using!
       Nat.mul_le_mul_left (Nat.sqrt R + 1) hsc
   have hXlt : X < (Nat.sqrt R + 1) * c :=
     hXR.trans_lt (hclock.trans_le hmul)
@@ -410,7 +410,7 @@ theorem firstJumpHighPrimeCofactorResponse_eq_zero_of_sqrt_lt_cofactor
     firstJumpHighPrimeCofactorResponse p R K X c = 0 := by
   unfold firstJumpHighPrimeCofactorResponse
   by_cases hc : c ∈ primeDilateCofactorSupport p X
-  · simp only [hc, if_true]
+  · simp only [hc, ite_true]
     rw [primeDilateCofactorWindowPrimeCount_eq_zero_of_sqrt_lt_cofactor
       hXR hcs (le_refl _),
       primeDilateCofactorWindowPrimeCount_eq_zero_of_sqrt_lt_cofactor
@@ -554,7 +554,7 @@ theorem firstJumpHighPrimeCofactorResponse_eq_windowMass
     firstJumpHighPrimeCofactorResponse p R K X c =
       firstJumpHighPrimeCofactorWindowMass p R K X c := by
   unfold firstJumpHighPrimeCofactorResponse
-  simp only [hc, if_true]
+  simp only [hc, ite_true]
   unfold firstJumpHighPrimeCofactorWindowMass
     primeDilateCofactorWindowPrimeCount
   have hsub :
@@ -628,7 +628,7 @@ theorem firstJumpHighPrimeCofactorActiveWindowSet_data
     q.Prime ∧ Nat.sqrt R < q ∧ c * q ≤ X := by
   by_cases hcSupport : c ∈ primeDilateCofactorSupport p X
   · have hq' : q ∈ firstJumpHighPrimeCofactorWindowSet p R K X c := by
-      simpa [firstJumpHighPrimeCofactorActiveWindowSet, hcSupport] using hq
+      simpa [firstJumpHighPrimeCofactorActiveWindowSet, hcSupport] using! hq
     rcases Finset.mem_filter.mp hq' with ⟨hqDiff, hqPrime⟩
     have hqWindow := (Finset.mem_sdiff.mp hqDiff).1
     rcases mem_primeDilateCofactorWindow.mp hqWindow with ⟨hlo, hup⟩
@@ -645,7 +645,7 @@ theorem firstJumpHighPrimeCofactorActiveWindowSet_data
     unfold primeDilateCofactorWindowUpper at hup
     have hqcX : q * c ≤ X :=
       (Nat.le_div_iff_mul_le hcpos).1 hup
-    exact ⟨hqPrime, hsltq, by simpa [Nat.mul_comm] using hqcX⟩
+    exact ⟨hqPrime, hsltq, by simpa [Nat.mul_comm] using! hqcX⟩
   · simp [firstJumpHighPrimeCofactorActiveWindowSet, hcSupport] at hq
 
 /-- Product image of one active cofactor window. -/
@@ -673,8 +673,8 @@ theorem firstJumpHighPrimeCofactorProductSet_pairwiseDisjoint
     Set.PairwiseDisjoint (↑(Finset.Icc 1 (Nat.sqrt R)))
       (firstJumpHighPrimeCofactorProductSet p R K X) := by
   intro c hc d hd hcd
-  have hcRoot : c ∈ Finset.Icc 1 (Nat.sqrt R) := by simpa using hc
-  have hdRoot : d ∈ Finset.Icc 1 (Nat.sqrt R) := by simpa using hd
+  have hcRoot : c ∈ Finset.Icc 1 (Nat.sqrt R) := by simpa using! hc
+  have hdRoot : d ∈ Finset.Icc 1 (Nat.sqrt R) := by simpa using! hd
   change Disjoint
     (firstJumpHighPrimeCofactorProductSet p R K X c)
     (firstJumpHighPrimeCofactorProductSet p R K X d)
@@ -742,14 +742,14 @@ theorem sum_firstJumpHighPrimeCofactorActiveWindowSet_card_le_endpoint
   let S := Finset.Icc 1 (Nat.sqrt R)
   let F := firstJumpHighPrimeCofactorProductSet p R K X
   have hpair : Set.PairwiseDisjoint (↑S) F := by
-    simpa [S, F] using
+    simpa [S, F] using!
       firstJumpHighPrimeCofactorProductSet_pairwiseDisjoint p R K X
   have hunion :
       (S.biUnion F).card = ∑ c ∈ S, (F c).card := by
     have h := Finset.sum_biUnion hpair (f := fun _ : ℕ => (1 : ℕ))
-    simpa using h
+    simpa using! h
   have hsubset : S.biUnion F ⊆ Finset.Icc 1 X := by
-    simpa [S, F] using
+    simpa [S, F] using!
       firstJumpHighPrimeCofactorProductUnion_subset_Icc p R K X
   calc
     (∑ c ∈ Finset.Icc 1 (Nat.sqrt R),
@@ -758,7 +758,7 @@ theorem sum_firstJumpHighPrimeCofactorActiveWindowSet_card_le_endpoint
         apply Finset.sum_congr rfl
         intro c hc
         have hcpos : 0 < c := by
-          have hc1 := (Finset.mem_Icc.mp (by simpa [S] using hc)).1
+          have hc1 := (Finset.mem_Icc.mp (by simpa [S] using! hc)).1
           omega
         symm
         exact firstJumpHighPrimeCofactorProductSet_card hcpos
@@ -811,7 +811,7 @@ theorem norm_firstJumpPrimeSieveMertensBand_le_endpoint
             ((firstJumpHighPrimeCofactorActiveWindowSet p R K X c).card : ℝ) := by
         exact_mod_cast (Nat.zero_le
           (firstJumpHighPrimeCofactorActiveWindowSet p R K X c).card)
-      simpa using mul_le_mul_of_nonneg_right hmu hcardNonneg
+      simpa using! mul_le_mul_of_nonneg_right hmu hcardNonneg
     _ ≤ (X : ℝ) := hpackR
 
 /-- **Local first-jump residual is linear.**  The complete signed residual of
@@ -901,7 +901,7 @@ theorem lowWheelCanonicalDowncrossOrientedFrozenStateFibre_eq_sqrtDense_add_firs
     unfold lowWheelCanonicalDowncrossOrientedFrozenStateFibre
       lowWheelCanonicalDowncrossOrientedSqrtDenseStateFibre
       lowWheelCanonicalDowncrossOrientedFirstJumpStateFibre
-    rw [if_pos hne, if_pos h, if_pos h]
+    rw [ite_eq_left hne, ite_eq_left h, ite_eq_left h]
     rw [hcast]
     ring
   · simp [lowWheelCanonicalDowncrossOrientedSqrtDenseStateFibre,
@@ -989,7 +989,7 @@ theorem firstJumpHighPrimeCofactorWindowSet_subset_canonicalRoughPrimePartnerSet
   have hrough : canonicalLargestPrimeFactor c < q := by
     by_cases hcEq : c = 1
     · subst c
-      simpa [canonicalLargestPrimeFactor] using hqPrime.one_lt
+      simpa [canonicalLargestPrimeFactor] using! hqPrime.one_lt
     · have hcgt : 1 < c := by omega
       exact
         (Nat.le_of_dvd (by omega) (canonicalLargestPrimeFactor_dvd hcgt)).trans_lt
@@ -998,11 +998,11 @@ theorem firstJumpHighPrimeCofactorWindowSet_subset_canonicalRoughPrimePartnerSet
   have hqcX : q * c ≤ X :=
     (Nat.le_div_iff_mul_le hcpos).1 hup
   have hcqX : c * q ≤ X := by
-    simpa [Nat.mul_comm] using hqcX
+    simpa [Nat.mul_comm] using! hqcX
   have hqRoot : Nat.sqrt R + 1 ≤ q := by omega
   have hrootProduct : Nat.sqrt R + 1 ≤ c * q := by
     have hqle : q ≤ c * q := by
-      simpa using Nat.mul_le_mul_right q hc1
+      simpa using! Nat.mul_le_mul_right q hc1
     exact hqRoot.trans hqle
   have hclock : R < (Nat.sqrt R + 1) ^ 2 := Nat.lt_succ_sqrt' R
   have hRupper : R ≤ squareRootEndpoint (Nat.sqrt R + 1) := by
@@ -1026,7 +1026,7 @@ theorem firstJumpHighPrimeCofactorActiveWindowSet_subset_canonicalRoughPrimePart
   by_cases hcSupport : c ∈ primeDilateCofactorSupport p X
   · have hcActive : c ∈ firstJumpHighPrimeCofactorSupport p R X :=
       Finset.mem_inter.mpr ⟨hcSupport, hcRoot⟩
-    simpa [firstJumpHighPrimeCofactorActiveWindowSet, hcSupport] using
+    simpa [firstJumpHighPrimeCofactorActiveWindowSet, hcSupport] using!
       (firstJumpHighPrimeCofactorWindowSet_subset_canonicalRoughPrimePartnerSet
         hR hXR hcActive)
   · simp [firstJumpHighPrimeCofactorActiveWindowSet, hcSupport]

@@ -75,7 +75,7 @@ theorem lowWheelDoubleCubePrimePrefix_step_eq_freeWindowCards
           ((lowWheelPrimeWindowFreeMultiplierSet
             p R (squareRootEndpoint R)
             (primeFaceProduct u) (primeFaceProduct t)).card : ℤ) := by
-      simpa [Nat.mul_assoc] using htel
+      simpa [Nat.mul_assoc] using! htel
     exact_mod_cast htel'
   change
     (∑ k ∈ Finset.Icc 1 (squareRootEndpoint R),

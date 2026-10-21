@@ -44,7 +44,7 @@ private theorem lowOwnerThresholdClippedDifference_eq_zero_of_completedCoordinat
     lowOwnerThresholdClippedDifference
         p r n (squareRootEndpoint R) = 0 := by
   have hrpn : r * (p * n) ≤ squareRootEndpoint R := by
-    simpa [Nat.mul_assoc, Nat.mul_left_comm, Nat.mul_comm] using hprn
+    simpa [Nat.mul_assoc, Nat.mul_left_comm, Nat.mul_comm] using! hprn
   unfold lowOwnerThresholdClippedDifference
     lowOwnerThresholdCrossingIndicator
   simp [hn, hpn, Nat.not_lt_of_ge hrn, Nat.not_lt_of_ge hrpn]

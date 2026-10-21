@@ -190,7 +190,7 @@ theorem primeSieveFiniteDifference_backward_increment_norm_le_active
     rw [← mul_sub, norm_mul]
     by_cases hmove : (primeSieveCanonicalPin y - t) / d <
         primeSieveCanonicalPin y / d
-    · rw [if_pos hmove]
+    · rw [ite_eq_left hmove]
       have hstep :=
         primeSieveMoebiusDiscrepancySum_fiber_backward_increment_norm_le
           y t d hy ht
@@ -216,7 +216,7 @@ theorem primeSieveFiniteDifference_backward_increment_norm_le_active
           (primeSieveCanonicalPin y - t) / d := by omega
       have hδ0 : (primeSieveCanonicalPin y / d -
           (primeSieveCanonicalPin y - t) / d : ℕ) = 0 := by omega
-      rw [if_neg hmove, hδ0, heq, sub_self, norm_zero, mul_zero]
+      rw [ite_eq_right hmove, hδ0, heq, sub_self, norm_zero, mul_zero]
       simp
   refine le_trans (Finset.sum_le_sum hterm) ?_
   rw [Finset.sum_add_distrib, ← Finset.mul_sum, ← Finset.mul_sum,
@@ -238,7 +238,7 @@ theorem primeSieveFiniteDifference_backward_increment_norm_le_active
       have hd0 : 0 < d := Nat.pos_of_mem_divisors hd
       by_cases hmove : (primeSieveCanonicalPin y - t) / d <
           primeSieveCanonicalPin y / d
-      · rw [if_pos hmove]
+      · rw [ite_eq_left hmove]
         have htP : t ≤ primeSieveCanonicalPin y :=
           le_trans ht (le_primeSieveCanonicalPin y)
         have hcancel : primeSieveCanonicalPin y - t + t =
@@ -259,7 +259,7 @@ theorem primeSieveFiniteDifference_backward_increment_norm_le_active
           Nat.div_le_div_right (Nat.sub_le _ _)
         have hδ0 : (primeSieveCanonicalPin y / d -
             (primeSieveCanonicalPin y - t) / d : ℕ) = 0 := by omega
-        rw [if_neg hmove, hδ0]
+        rw [ite_eq_right hmove, hδ0]
         simp only [Nat.cast_zero, add_zero]
         positivity
     calc ∑ d ∈ (primorial S).divisors,

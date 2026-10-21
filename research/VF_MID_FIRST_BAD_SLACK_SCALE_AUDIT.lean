@@ -59,7 +59,7 @@ theorem vfMidFirstBad_linearSlack_does_not_control_square
       vfMidFirstBadRadialSquareSlack R < x ^ 2 := by
   let Δ := vfMidFirstBadRadialSquareSlack R
   have hΔ4 : (4 : ℝ) < Δ := by
-    simpa [Δ] using vfMidFirstBadRadialSquareSlack_gt_four R hR
+    simpa [Δ] using! vfMidFirstBadRadialSquareSlack_gt_four R hR
   have hΔ0 : 0 < Δ := by linarith
   refine ⟨Δ / 2, ?_, ?_⟩
   · rw [abs_of_nonneg (by positivity : 0 ≤ Δ / 2)]
@@ -72,7 +72,7 @@ theorem abs_vfMidNativeDescentRemainder_lt_firstBadLinearSlack
     (R : ℕ) (hR : 7 ≤ R) :
     |vfMidNativeDescentRemainder R| <
       vfMidFirstBadRadialSquareSlack R := by
-  simpa [vfMidFirstBadRadialSquareSlack] using
+  simpa [vfMidFirstBadRadialSquareSlack] using!
     abs_vfMidNativeDescentRemainder_lt_radial_sq_increment R hR
 
 end RHLean.Analysis

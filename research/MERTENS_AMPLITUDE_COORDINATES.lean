@@ -32,7 +32,7 @@ theorem amplitudeCoordinate_eq_logb (x A : ℝ) :
 
 theorem checkedCoordinate_some {x A : ℝ} (hx : 1 < x) (hA : 0 < A) :
     amplitudeCoordinate? x A = some (amplitudeCoordinate x A) := by
-  simp only [amplitudeCoordinate?, if_pos (And.intro hx hA)]
+  simp only [amplitudeCoordinate?, ite_eq_left (And.intro hx hA)]
 
 theorem checkedCoordinate_zero (x : ℝ) : amplitudeCoordinate? x 0 = none := by
   simp [amplitudeCoordinate?]
@@ -100,7 +100,7 @@ theorem image_amplitudeBand {x : ℝ} (hx : 1 < x) (l u : ℝ) :
 /-- The unit-to-linear amplitude interval maps exactly to the critical-strip coordinates. -/
 theorem coordinate_mem_unit_iff {x A : ℝ} (hx : 1 < x) (hA : 0 < A) :
     amplitudeCoordinate x A ∈ Set.Icc (0 : ℝ) 1 ↔ 1 ≤ A ∧ A ≤ x := by
-  simpa only [amplitudeBand, Set.mem_Icc, Real.rpow_zero, Real.rpow_one] using
+  simpa only [amplitudeBand, Set.mem_Icc, Real.rpow_zero, Real.rpow_one] using!
     (coordinate_mem_Icc_iff (l := 0) (u := 1) hx hA)
 
 theorem reflectedAmplitude_pos {x A : ℝ} (hx : 0 < x) (hA : 0 < A) :

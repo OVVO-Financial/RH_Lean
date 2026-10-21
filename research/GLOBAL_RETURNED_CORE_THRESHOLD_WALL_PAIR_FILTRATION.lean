@@ -193,7 +193,7 @@ theorem lowOwnerThresholdWallRevealedPairEnergy_empty_eq_zeroTargetGram
           realMoebiusStep mn.1 * realMoebiusStep mn.2) =
         ∑ m ∈ W, ∑ n ∈ W,
           realMoebiusStep m * realMoebiusStep n := by
-            simpa only using
+            simpa only using!
               (Finset.sum_product
                 (s := W) (t := W)
                 (f := fun mn : ℕ × ℕ =>
@@ -342,7 +342,7 @@ theorem lowOwnerThresholdWallRevealedPairEnergy_full_eq_diagonal
   change (∑ mn ∈ P,
     realMoebiusStep mn.1 * realMoebiusStep mn.2) = _
   rw [← hs]
-  simpa [D] using
+  simpa [D] using!
     sum_lowOwnerThresholdWallDiagonalPairCarrier_eq p y
 
 

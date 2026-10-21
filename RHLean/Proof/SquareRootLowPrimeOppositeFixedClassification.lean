@@ -83,9 +83,18 @@ theorem finiteOthelloStablePart_processedSeatNoLibertyMate_eq_descendingFrontier
       (squareRootLowPrimeProcessedSeatCarrier R K j U)
       (fun p hp =>
         (prime_of_mem_squareRootLowPrimeFreshPrimeListDescending hp).pos)) x
-  simpa [finiteOthelloStablePart, signMatchingFixedPart,
-    squareRootLowPrimeProcessedSeatNoLibertyMate,
-    squareRootLowPrimeProcessedSeatDescendingTerminalFrontier] using h
+  change
+    (x ∈ (squareRootLowPrimeProcessedSeatCarrier R K j U).filter
+      (fun y =>
+        squareRootLowPrimeProcessedSeatMatchingInvolution
+          (squareRootLowPrimeFreshPrimeListDescending K U)
+          (squareRootLowPrimeProcessedSeatCarrier R K j U) y = y)) ↔
+      x ∈ squareRootLowPrimeProcessedSeatMatchingFrontier
+        (squareRootLowPrimeFreshPrimeListDescending K U)
+        (squareRootLowPrimeProcessedSeatCarrier R K j U)
+  rw [Finset.mem_filter]
+  simp only [signMatchingFixedPart, Finset.mem_filter] at h
+  exact h
 
 /-- Finite cancellation identifies the stable mass with the running imbalance. -/
 theorem squareRootLowPrimeProcessedSeatNoLibertyMate_stableMass_eq_runningImbalance

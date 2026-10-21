@@ -66,7 +66,7 @@ theorem isSquarefreePairFreshPrimeOwner_iff_sameLowerSignature_dvdXor
       squarefreePairFreshPrimeOwner_dvd_xor hmsq hnsq hmn hmpos hnpos
     have hxor :
         (p ∣ m ∧ ¬ p ∣ n) ∨ (p ∣ n ∧ ¬ p ∣ m) := by
-      simpa [hpEq] using hxor0
+      simpa [hpEq] using! hxor0
     exact ⟨hsig, hxor⟩
   · rintro ⟨hsig, hxor⟩
     exact firstOwner_of_lowerSignature_eq_and_dvd_xor

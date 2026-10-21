@@ -102,7 +102,7 @@ theorem primorialPeriodicRawTorusField_unit_mul
     primorialPeriodicRawTorusField k
         ((u : ZMod (primorialMinimalWheelSystem k).modulus) * z) =
       primorialPeriodicRawTorusField k z := by
-  letI : NeZero (primorialMinimalTorusModulus k) :=
+  let : NeZero (primorialMinimalTorusModulus k) :=
     ⟨Nat.ne_of_gt (primorialMinimalTorusModulus_pos k)⟩
   unfold primorialPeriodicRawTorusField
     PrimeWheelFiniteSystem.rawSite
@@ -140,6 +140,6 @@ theorem primorialPeriodicRawSpectrum_unit_mul
     (primorialPeriodicRawTorusField k) u⁻¹ r
   rw [primorialPeriodicRawTorusField_comp_unitMul k u⁻¹] at h
   unfold primorialPeriodicRawSpectrum
-  simpa using h.symm
+  simpa using! h.symm
 
 end RHLean.Analysis

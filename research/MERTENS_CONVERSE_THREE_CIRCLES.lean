@@ -85,7 +85,7 @@ theorem threeCircle_power_bound {f : ℂ → ℂ} {r₀ r R A B : ℝ}
     exact div_le_div_of_nonneg_right
       (sub_le_sub_right (Real.log_le_log hzpos hz) _) hden.le
   have hBpow : B ^ (1 - (Real.log ‖z‖ - Real.log r₀) / (Real.log R - Real.log r₀)) ≤ B := by
-    simpa only [Real.rpow_one] using Real.rpow_le_rpow_of_exponent_le hB
+    simpa only [Real.rpow_one] using! Real.rpow_le_rpow_of_exponent_le hB
       (show 1 - (Real.log ‖z‖ - Real.log r₀) / (Real.log R - Real.log r₀) ≤ 1 by linarith)
   exact hthree.trans (mul_le_mul hBpow
     (Real.rpow_le_rpow_of_exponent_le hA htheta_le)

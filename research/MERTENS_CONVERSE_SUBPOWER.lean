@@ -65,7 +65,7 @@ theorem reciprocal_stretchedLog_of_strip {a σ : ℝ}
   have hF : AnalyticOnNhd ℂ F (Metric.closedBall (0 : ℂ) (3 / 4)) := by
     intro w hw
     have hwnorm : ‖w‖ ≤ (3 : ℝ) / 4 := by
-      simpa only [Metric.mem_closedBall, dist_zero_right] using hw
+      simpa only [Metric.mem_closedBall, dist_zero_right] using! hw
     have hne := zetaDiscPoint_ne_one hsT hwnorm
     have haff : AnalyticAt ℂ (zetaDiscPoint t) w := by
       unfold zetaDiscPoint
@@ -74,7 +74,7 @@ theorem reciprocal_stretchedLog_of_strip {a σ : ℝ}
   have hFne : ∀ w ∈ Metric.closedBall (0 : ℂ) R₃, F w ≠ 0 := by
     intro w hw
     have hwnorm : ‖w‖ ≤ R₃ := by
-      simpa only [Metric.mem_closedBall, dist_zero_right] using hw
+      simpa only [Metric.mem_closedBall, dist_zero_right] using! hw
     have hwsmall : ‖w‖ ≤ (3 : ℝ) / 4 := hwnorm.trans h34.le
     apply zeta_ne_zero_of_strip ha hstrip _ (zetaDiscPoint_ne_one hsT hwsmall)
     rw [zetaDiscPoint_re]
@@ -83,7 +83,7 @@ theorem reciprocal_stretchedLog_of_strip {a σ : ℝ}
     linarith
   have hFinv0 : ‖(F 0)⁻¹‖ ≤ K := by
     have h := hKbound t
-    simpa only [F, zetaDiscPoint, mul_zero, add_zero] using
+    simpa only [F, zetaDiscPoint, mul_zero, add_zero] using!
       h.trans (show K₀ ≤ K by dsimp [K]; linarith)
   have hFinner : ∀ w : ℂ, ‖w‖ ≤ (1 : ℝ) / 8 → ‖F w‖ ≤ E := by
     intro w hw
@@ -113,7 +113,7 @@ theorem reciprocal_stretchedLog_of_strip {a σ : ℝ}
   have hlog : 1 ≤ Real.log |t| :=
     (logt_gt_one (by dsimp [t]; linarith : 3 ≤ |t|)).le
   have h := hlocal |t| hlog F hF hFne hFinv0 hFinner hFouter w hw
-  simpa only [F, heq, t, θ] using h
+  simpa only [F, heq, t, θ] using! h
 
 /-- A stretched logarithm with exponent below one is absorbed by every
 positive power. This is an asymptotic estimate, not a finite-height test. -/
@@ -124,7 +124,7 @@ theorem exp_stretchedLog_eventually_le_rpow {θ C η : ℝ}
   have hlim : Tendsto (fun T : ℝ => C * (Real.log T) ^ (θ - 1)) atTop (𝓝 0) := by
     have h := (tendsto_const_nhds (x := C)).mul
       ((_root_.tendsto_rpow_neg_atTop (sub_pos.mpr hθ)).comp Real.tendsto_log_atTop)
-    simpa only [mul_zero, neg_sub] using h
+    simpa only [mul_zero, neg_sub] using! h
   filter_upwards [hlim.eventually (gt_mem_nhds hη),
     eventually_ge_atTop (3 : ℝ)] with T hsmall hT
   have hTpos : 0 < T := by linarith

@@ -207,7 +207,7 @@ theorem squareRoot_positive_add_born_add_dyadicHigh_eq_dyadicJointPacket
   have h :=
     squareRoot_positive_add_born_sub_transport_eq_dyadicJointPacket R hR
   rw [squareRootTransportCofactorFirst_eq_neg_dyadicCanonicalHighSourceMass R] at h
-  simpa only [sub_neg_eq_add] using h
+  simpa only [sub_neg_eq_add] using! h
 
 /-- Every individual canonical high source produced by dyadic transport
 compression lies on the same top odd annulus.  This is the pointwise support

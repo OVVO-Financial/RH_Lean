@@ -175,7 +175,7 @@ private theorem moebius_ne_one_of_two_le_of_le_five
     norm_num
   · have hnsq : ¬ Squarefree 4 := by
       rw [Nat.squarefree_iff_prime_squarefree]
-      push_neg
+      push Not
       exact ⟨2, Nat.prime_two, by norm_num⟩
     rw [ArithmeticFunction.moebius_eq_zero_of_not_squarefree hnsq]
     norm_num
@@ -209,7 +209,7 @@ theorem reciprocalIndex_le_five_of_sixth_lt
   have hXlt : X < q * 6 :=
     (Nat.div_lt_iff_lt_mul (by norm_num : 0 < 6)).1 hqSixth
   have hXlt' : X < 6 * q := by
-    simpa [Nat.mul_comm] using hXlt
+    simpa [Nat.mul_comm] using! hXlt
   have hdivlt : X / q < 6 :=
     (Nat.div_lt_iff_lt_mul hqpos).2 hXlt'
   omega
@@ -223,7 +223,7 @@ private theorem moebius_eq_neg_one_of_two_le_of_le_five_of_ne_zero
   · rw [ArithmeticFunction.moebius_apply_prime (by norm_num : Nat.Prime 3)]
   · have hnsq : ¬ Squarefree 4 := by
       rw [Nat.squarefree_iff_prime_squarefree]
-      push_neg
+      push Not
       exact ⟨2, Nat.prime_two, by norm_num⟩
     have hzero : μ 4 = 0 :=
       ArithmeticFunction.moebius_eq_zero_of_not_squarefree hnsq
@@ -442,13 +442,13 @@ theorem reciprocalIndex_le_iff_cutoff_lt
     have hmul : X < (K + 1) * q :=
       (Nat.div_lt_iff_lt_mul hq).1 hlt
     have hmul' : X < q * (K + 1) := by
-      simpa [Nat.mul_comm] using hmul
+      simpa [Nat.mul_comm] using! hmul
     exact (Nat.div_lt_iff_lt_mul (by omega : 0 < K + 1)).2 hmul'
   · intro h
     have hmul : X < q * (K + 1) :=
       (Nat.div_lt_iff_lt_mul (by omega : 0 < K + 1)).1 h
     have hmul' : X < (K + 1) * q := by
-      simpa [Nat.mul_comm] using hmul
+      simpa [Nat.mul_comm] using! hmul
     have hlt : X / q < K + 1 :=
       (Nat.div_lt_iff_lt_mul hq).2 hmul'
     omega
@@ -553,7 +553,7 @@ theorem squareRootPacketReciprocalCoefficient_eq_moebiusBoundary
       (∑ d ∈ Finset.Icc 1 K,
         (((μ d : ℤ) : ℂ)) * ((1 : ℂ) / (d : ℂ))) -
       mertensSummatory K * ((1 : ℂ) / ((K + 1 : ℕ) : ℂ)) := by
-  simpa [squareRootPacketReciprocalCoefficient] using
+  simpa [squareRootPacketReciprocalCoefficient] using!
     (sum_mertensSummatory_mul_forwardDifference
       (fun d : ℕ => (1 : ℂ) / (d : ℂ)) K)
 
@@ -576,7 +576,7 @@ theorem squareRootPacketLogReciprocalCoefficient_eq_moebiusBoundary
       (∑ d ∈ Finset.Icc 1 K,
         (((μ d : ℤ) : ℂ)) * squareRootPacketLogReciprocalValue d) -
       mertensSummatory K * squareRootPacketLogReciprocalValue (K + 1) := by
-  simpa [squareRootPacketLogReciprocalCoefficient] using
+  simpa [squareRootPacketLogReciprocalCoefficient] using!
     (sum_mertensSummatory_mul_forwardDifference
       squareRootPacketLogReciprocalValue K)
 
@@ -604,7 +604,7 @@ theorem squareRootReciprocalPrimeCount_eq_layerCard
     (R K : ℕ) :
     primeSieveReciprocalPrimeCount R (squareRootEndpoint R) K =
       (squareRootReciprocalPrimeLayerCard R K : ℂ) := by
-  simpa [squareRootReciprocalPrimeLayerCard] using
+  simpa [squareRootReciprocalPrimeLayerCard] using!
     (primeSieveReciprocalPrimeCount_eq_card R (squareRootEndpoint R) K)
 
 /-- Integer shadow of the complete truncated upper-middle packet. -/
@@ -689,7 +689,7 @@ theorem squareRootPacketCrossing_has_postRootPrime
   have hcard' :
       0 < ((primeSieveReciprocalInterval R (squareRootEndpoint R) K).filter
         Nat.Prime).card := by
-    simpa [squareRootReciprocalPrimeLayerCard] using hcard
+    simpa [squareRootReciprocalPrimeLayerCard] using! hcard
   have hne :
       ((primeSieveReciprocalInterval R (squareRootEndpoint R) K).filter
         Nat.Prime).Nonempty := Finset.card_pos.mp hcard'
@@ -733,7 +733,7 @@ theorem squareRootCrossingLayerPartialPacketInt_full
       squareRootTruncatedUpperMiddlePacketInt R K := by
   have hstep := squareRootTruncatedUpperMiddlePacketInt_succ R (K - 1)
   rw [Nat.sub_add_cancel hK] at hstep
-  simpa [squareRootCrossingLayerPartialPacketInt] using hstep.symm
+  simpa [squareRootCrossingLayerPartialPacketInt] using! hstep.symm
 
 /-- Trivial but useful lower-scale bound: the magnitude of a negative Mertens
 value is at most the number of available terms. -/
@@ -794,7 +794,7 @@ theorem squareRootPacketCrossing_exists_partial_residual
       ⟨(Nat.sub_le j 1).trans hj.1, hpredNonneg⟩
     have hfind := Nat.find_min' hex hpredP
     have hbad : j ≤ j - 1 := by
-      simpa [j] using hfind
+      simpa [j] using! hfind
     omega
   have hsucc := squareRootCrossingLayerPartialPacketInt_succ R K (j - 1)
   rw [Nat.sub_add_cancel hjpos] at hsucc

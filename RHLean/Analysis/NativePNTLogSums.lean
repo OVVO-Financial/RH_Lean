@@ -85,7 +85,6 @@ theorem nativeLogFactorial_upper_sharp :
               (by exact_mod_cast (Nat.factorial_ne_zero n))]
         rw [hfac]
         push_cast
-        push_cast at ih'
         nlinarith [ih', hkey]
 
 /-- **`log(N!) = N log N - N + 1 + O(log N)`** with an explicit constant. -/
@@ -173,8 +172,8 @@ theorem nativeIntegral_logSquare (N : ℕ) (hN : 1 ≤ N) :
     intro x hx
     rw [Set.uIcc_of_le hNreal] at hx
     have hx0 : x ≠ 0 := by linarith [hx.1]
-    simpa [pow_two] using
-      ((Real.hasDerivAt_log hx0).continuousAt.mul
+    simpa [pow_two] using!
+      ((Real.hasDerivAt_log hx0).continuousAt.fun_mul
         (Real.hasDerivAt_log hx0).continuousAt).continuousWithinAt
   have hint : IntervalIntegrable (fun x : ℝ => (Real.log x) ^ 2)
       MeasureTheory.volume (1 : ℝ) (N : ℝ) := hcont.intervalIntegrable
@@ -262,7 +261,7 @@ theorem nativeLogSquareMass_bounds (N : ℕ) (hN : 1 ≤ N) :
   have hmono' :
       MonotoneOn (fun x : ℝ => (Real.log x) ^ 2)
         (Set.Icc ((1 : ℕ) : ℝ) (N : ℝ)) := by
-    simpa using hmono
+    simpa using! hmono
   have hlowerInt := MonotoneOn.integral_le_sum_Ico
     (f := fun x : ℝ => (Real.log x) ^ 2) hN hmono'
   have hupperInt := MonotoneOn.sum_le_integral_Ico
@@ -275,7 +274,7 @@ theorem nativeLogSquareMass_bounds (N : ℕ) (hN : 1 ≤ N) :
       nativeLogSquareMain N - 2 =
           ∫ x in (1 : ℝ)..(N : ℝ), (Real.log x) ^ 2 := hI.symm
       _ ≤ ∑ n ∈ Finset.Ico 1 N,
-          (Real.log ((n + 1 : ℕ) : ℝ)) ^ 2 := by simpa using hlowerInt
+          (Real.log ((n + 1 : ℕ) : ℝ)) ^ 2 := by simpa using! hlowerInt
       _ = nativeLogSquareMass N := hshift
   · calc
       nativeLogSquareMass N =
@@ -283,7 +282,7 @@ theorem nativeLogSquareMass_bounds (N : ℕ) (hN : 1 ≤ N) :
             (Real.log (N : ℝ)) ^ 2 := htop
       _ ≤ (∫ x in (1 : ℝ)..(N : ℝ), (Real.log x) ^ 2) +
             (Real.log (N : ℝ)) ^ 2 := by
-          simpa using (add_le_add_right hupperInt ((Real.log (N : ℝ)) ^ 2))
+          simpa using! (add_le_add_left hupperInt ((Real.log (N : ℝ)) ^ 2))
       _ = nativeLogSquareMain N - 2 + (Real.log (N : ℝ)) ^ 2 := by rw [hI]
 
 /-- **Quadratic logarithmic summatory estimate.**

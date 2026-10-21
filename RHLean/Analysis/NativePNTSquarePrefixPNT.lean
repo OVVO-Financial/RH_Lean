@@ -46,11 +46,11 @@ theorem nativePNTSquarePrefixFullIterationBudget_spec
         (nativePNTSquarePrefixFullIterationBudget eta : ℝ) := by
     unfold nativePNTSquarePrefixFullIterationBudget
     push_cast
-    simpa using
+    simpa using!
       (Nat.lt_floor_add_one
         (6 / (nativePNTSquarePrefixRederivedCubicConstant * eta ^ 3)))
   have hmul := (div_lt_iff₀ hcoef).mp hfloor
-  simpa [mul_assoc, mul_left_comm, mul_comm] using hmul
+  simpa [mul_assoc, mul_left_comm, mul_comm] using! hmul
 
 /-- Every positive target slope is attained by the fully rederived
 square-prefix affine contraction, with an explicit finite iteration count. -/
@@ -116,7 +116,7 @@ theorem nativePNTSquarePrefixPsi_div_atTop_one :
   have hsum : Tendsto
       (fun N : ℕ => nativePNTError N / (N : ℝ) + 1)
       atTop (𝓝 1) := by
-    simpa using
+    simpa using!
       nativePNTSquarePrefixPNTError_div_atTop_zero.add tendsto_const_nhds
   refine hsum.congr' ?_
   filter_upwards [eventually_ge_atTop 1] with N hN

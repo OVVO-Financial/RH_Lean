@@ -79,7 +79,7 @@ theorem squareRootCanonicalRoughResponseCenteredSummand_add_mul_freshPrime_eq_lo
           squareRootCanonicalRoughPrimePartnerCount R (c * p) =
         ((squareRootCanonicalRoughFreshLossBoundary R c p).card : ℂ) -
           ((squareRootCanonicalRoughFreshBirthBoundary R c p).card : ℂ) := by
-    simpa [Nat.mul_comm] using hdiff
+    simpa [Nat.mul_comm] using! hdiff
   calc
     canonicalMoebiusWeight c *
           (squareRootCanonicalRoughPrimePartnerCount R c -
@@ -111,7 +111,7 @@ theorem squareRootCanonicalRoughFreshBirthBoundary_child_lt_root
   have hpc_lt_qc : p * c < q * c :=
     Nat.mul_lt_mul_of_pos_right hpq hc
   have hpc_lt_cq : p * c < c * q := by
-    simpa [Nat.mul_comm] using hpc_lt_qc
+    simpa [Nat.mul_comm] using! hpc_lt_qc
   exact hpc_lt_cq.trans hcqR
 
 /-- Once the fresh child has reached the root, the centered pair has only a
@@ -151,7 +151,7 @@ theorem squareRootCanonicalRoughPrimePartnerSet_mul_freshPrime_eq_empty_of_rootP
     Nat.mul_le_mul hRp.le hRq
   have hc1 : 1 ≤ c := hc
   have hp_le_cp : p ≤ c * p := by
-    simpa using Nat.mul_le_mul_right p hc1
+    simpa using! Nat.mul_le_mul_right p hc1
   have hpq_le_cpq : p * q ≤ (c * p) * q :=
     Nat.mul_le_mul_right q hp_le_cp
   have hXltRR : squareRootEndpoint R < R * R := by
@@ -393,11 +393,11 @@ theorem sum_squareRootCanonicalRoughMoebiusWeight_eq_freshPrimeSurvivors
         (∑ n ∈ squareRootCanonicalRoughFreshPrimePairedOn p U,
           canonicalMoebiusWeight n) =
         ∑ n ∈ U, canonicalMoebiusWeight n := by
-    simpa [squareRootCanonicalRoughFreshPrimeSurvivorsOn] using
+    simpa [squareRootCanonicalRoughFreshPrimeSurvivorsOn] using!
       (Finset.sum_sdiff hsub (f := canonicalMoebiusWeight))
   rw [sum_squareRootCanonicalRoughFreshPrimePairedOn_moebiusWeight_eq_zero U hp]
     at hsplit
-  simpa using hsplit.symm
+  simpa using! hsplit.symm
 
 /-- **Sequential parity invariant.**  No chronological sequence of genuine
 fresh-prime pairing steps can change the total canonical Mobius mass of the

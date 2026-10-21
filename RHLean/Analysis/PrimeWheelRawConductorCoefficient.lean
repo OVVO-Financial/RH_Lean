@@ -168,7 +168,7 @@ private theorem seededPrimeComb_cast_eq_rawExpansion
         ∏ p : {p // p ∈ S},
           (localPrimeCombExpansionWeight (e p) *
             (if p.val ^ (e p).val ∣ n then (1 : ℂ) else 0)) := by
-              simpa using
+              simpa using!
                 (Finset.prod_univ_sum
                   (t := fun _p : {p // p ∈ S} =>
                     (Finset.univ : Finset (Fin 3)))
@@ -189,11 +189,11 @@ private theorem seededPrimeComb_cast_eq_rawExpansion
             · have hall :
                   ∀ p : {p // p ∈ S}, p.val ^ (e p).val ∣ n :=
                 hiff.mp hdiv
-              rw [if_pos hall, if_pos hdiv]
+              rw [ite_eq_left hall, ite_eq_left hdiv]
             · have hall :
                   ¬∀ p : {p // p ∈ S}, p.val ^ (e p).val ∣ n :=
                 fun h => hdiv (hiff.mpr h)
-              rw [if_neg hall, if_neg hdiv]
+              rw [ite_eq_right hall, ite_eq_right hdiv]
 
 /-- Canonical least-representative equivalence used to reindex complete
 character sums. -/
@@ -270,8 +270,8 @@ private theorem rawDivisorCharacterSum
           apply Finset.sum_congr rfl
           intro n hn
           by_cases hdiv : d ∣ n
-          · simp only [if_pos hdiv, one_mul]
-          · simp only [if_neg hdiv, zero_mul]
+          · simp only [ite_eq_left hdiv, one_mul]
+          · simp only [ite_eq_right hdiv, zero_mul]
     _ =
       ∑ a ∈ Finset.range (N / d),
         ZMod.stdAddChar (-((((d * a : ℕ) : ZMod N)) * r)) := by
@@ -303,10 +303,10 @@ private theorem rawDivisorCharacterSum
         have hb : b = 0 := by
           dsimp [b]
           have hmul : (((d : ℕ) : ZMod N) * r) = 0 := by
-            simpa [nsmul_eq_mul] using hdr
+            simpa [nsmul_eq_mul] using! hdr
           rw [hmul]
           simp
-        rw [if_pos hcond]
+        rw [ite_eq_left hcond]
         simp [hb]
       · have hdr : d • r ≠ 0 := by
           intro h
@@ -317,11 +317,11 @@ private theorem rawDivisorCharacterSum
           dsimp [b] at hb0
           have hmul : (((d : ℕ) : ZMod N) * r) = 0 := by
             exact neg_eq_zero.mp hb0
-          simpa [nsmul_eq_mul] using hmul
+          simpa [nsmul_eq_mul] using! hmul
         have hchar : ZMod.stdAddChar b ≠ 1 := by
           intro h
           have hzero : b = 0 :=
-            ZMod.injective_stdAddChar (by simpa using h)
+            ZMod.injective_stdAddChar (by simpa using! h)
           exact hb hzero
         have hqsmul : (N / d) • b = 0 := by
           dsimp [b]
@@ -333,7 +333,7 @@ private theorem rawDivisorCharacterSum
                 push_cast
                 ring
             _ = -((((N : ℕ) : ZMod N)) * r) := by
-              rw [show (N / d) * d = N by simpa [Nat.mul_comm] using hprod]
+              rw [show (N / d) * d = N by simpa [Nat.mul_comm] using! hprod]
             _ = 0 := by
               rw [ZMod.natCast_self]
               simp
@@ -345,7 +345,7 @@ private theorem rawDivisorCharacterSum
               exact AddChar.map_nsmul_eq_pow
                 (ZMod.stdAddChar : AddChar (ZMod N) ℂ) (N / d) b
             _ = 1 := by rw [hqsmul]; simp
-        rw [if_neg hcond, geom_sum_eq hchar (N / d), hpow]
+        rw [ite_eq_right hcond, geom_sum_eq hchar (N / d), hpow]
         simp
 
 /-- On any modulus containing every local `p^2` period, the actual unnormalized
@@ -456,7 +456,7 @@ theorem primorialPeriodicRawSpectrum_eq_rawConductorArithmeticCoefficient
     primorialPeriodicRawSpectrum k r =
       primorialRawConductorArithmeticCoefficient k
         (reducedAdditiveConductor r) := by
-  letI : NeZero (primorialMinimalTorusModulus k) :=
+  let : NeZero (primorialMinimalTorusModulus k) :=
     ⟨Nat.ne_of_gt (primorialMinimalTorusModulus_pos k)⟩
   unfold primorialPeriodicRawSpectrum primorialPeriodicRawTorusField
     primorialRawConductorArithmeticCoefficient

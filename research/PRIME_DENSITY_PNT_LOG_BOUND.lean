@@ -217,7 +217,7 @@ theorem densityTight_signed_energy_budget_nine_quarters
     (a - e) ^ 2 - D ≤ (9 / 4 : ℝ) * E +
       ((3 / 2 : ℝ) * Cb + 3 * Ce + 3 / 2) * L := by
   have h := densityTight_signed_energy_budget a e D E L 1 (1 / 4) Cb Ce (1 / 2)
-    (by norm_num) hD (by simpa using hb) he
+    (by norm_num) hD (by simpa using! hb) he
   norm_num at h ⊢
   nlinarith
 

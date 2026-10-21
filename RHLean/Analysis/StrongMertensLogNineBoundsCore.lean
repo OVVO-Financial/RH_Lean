@@ -1,7 +1,7 @@
 import Mathlib
 import Mathlib.Analysis.SpecialFunctions.ImproperIntegrals
 import PrimeNumberTheoremAnd.ZetaBounds
-import StrongPNT.PNT5_Strong
+import PrimeNumberTheoremAnd.StrongPNT
 import RHLean.Analysis.StrongMertensLogNineContour
 import RHLean.Analysis.StrongMertensSmallHeight
 
@@ -37,8 +37,7 @@ namespace RHLean.Analysis
 
 local notation "zetaC" => riemannZeta
 
--- `StrongPNT.PNT1_ComplexAnalysis` declares a root-level `def I := Complex.I`,
--- so with `Complex` open the bare token `I` resolves two ways.
+-- Keep the bare token `I` pinned to `Complex.I` under `open Complex`.
 local notation "I" => Complex.I
 
 /-- One uniform inverse-zeta estimate on the fixed shifted line for an
@@ -68,7 +67,7 @@ theorem nativeInvZeta_logNine_shift_uniform_for
         pow_le_pow_left₀ hlognn hlogle 7
       calc
         1 / ‖zetaC (strongMertensLogNineShift corridor.A T + t * I)‖
-            ≤ corridor.invConst * (Real.log |t|) ^ 7 := by simpa using hlarge
+            ≤ corridor.invConst * (Real.log |t|) ^ 7 := by simpa using! hlarge
         _ ≤ corridor.invConst * (Real.log T) ^ 7 :=
           mul_le_mul_of_nonneg_left hp7 corridor.invConst_pos.le
         _ ≤ C * (1 + (Real.log T) ^ 7) := by
@@ -217,7 +216,7 @@ lemma nativeIntegralNegLogSqOverTSqBound : ∃ C > 0, ∀ T, 3 < T →
   calc
     ∫ t in Set.Iic (-T), (Real.log (-t))^2 / (-t)^2 =
         ∫ t in Set.Ioi T, (Real.log t)^2 / t^2 := by
-      simpa only [neg_neg] using
+      simpa only [neg_neg] using!
         (integral_comp_neg_Iic (-T) (fun t : ℝ => (Real.log t)^2 / t^2))
     _ = ∫ t in Set.Ici T, (Real.log t)^2 / t^2 := by
       rw [MeasureTheory.integral_Ici_eq_integral_Ioi]
@@ -275,7 +274,7 @@ theorem nativeMertensFarTail_pointwise {f : ℝ → ℝ}
     calc
       1 / ‖zetaC ((sigma : ℂ) + t * I)‖
           ≤ Cz * (((Real.log X)⁻¹) ^ (-(3 : ℝ) / 4)) *
-              (Real.log |t|) ^ ((1 : ℝ) / 4) := by simpa [sigma] using hzb
+              (Real.log |t|) ^ ((1 : ℝ) / 4) := by simpa [sigma] using! hzb
       _ ≤ Cz * Real.log X * Real.log (-t) := by
         gcongr
   let s : ℂ := (sigma : ℂ) + t * I
@@ -392,7 +391,7 @@ private lemma nativeMertensM1_integral_norm_bound {f : ℝ → ℝ}
   have hscaled : IntegrableOn
       (fun t : ℝ => C1 * (X * Real.log X / eps) *
         ((Real.log (-t))^2 / (-t)^2)) (Set.Iic (-T)) := by
-    simpa only [mul_assoc] using hInt.const_mul (C1 * (X * Real.log X / eps))
+    simpa only [mul_assoc] using! hInt.const_mul (C1 * (X * Real.log X / eps))
   calc
     ‖∫ t in Set.Iic (-T), nativeSmoothedMobiusIntegrand f eps X
         ((1 + (Real.log X)⁻¹) + t * I)‖
@@ -404,7 +403,7 @@ private lemma nativeMertensM1_integral_norm_bound {f : ℝ → ℝ}
       · exact Filter.Eventually.of_forall fun _ => norm_nonneg _
       · exact hscaled
       · filter_upwards [ae_restrict_mem measurableSet_Iic] with t ht
-        simpa only [mul_div_assoc] using hpw heps hX hT t ht
+        simpa only [mul_div_assoc] using! hpw heps hX hT t ht
     _ = C1 * (X * Real.log X / eps) *
         (∫ t in Set.Iic (-T), (Real.log (-t))^2 / (-t)^2) := by
       rw [← MeasureTheory.integral_const_mul]
@@ -503,7 +502,7 @@ theorem nativeMertensM5_logNine_bound {f : ℝ → ℝ}
       have hc := nativeSmoothedMobiusIntegrand_conj
         (f := f) (eps := eps) (X := X) hXpos
         ((1 + (Real.log X)⁻¹) + (-x) * I)
-      simpa using hc
+      simpa using! hc
   rw [hconj, RCLike.norm_conj]
   exact hM1 heps hX hT
 

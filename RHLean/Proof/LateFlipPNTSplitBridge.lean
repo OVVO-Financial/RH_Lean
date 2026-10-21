@@ -98,9 +98,9 @@ late-flip update. -/
 theorem primeCombReciprocalBandKernel_div_eq_zero_of_top
     {x q : ℕ} (hq : 0 < q) (hlow : x < 2 * q) (hhigh : q ≤ x) :
     primeCombReciprocalBandKernel (x / q) = 0 := by
-  have h1 : 1 ≤ x / q := (Nat.le_div_iff_mul_le hq).2 (by simpa using hhigh)
+  have h1 : 1 ≤ x / q := (Nat.le_div_iff_mul_le hq).2 (by simpa using! hhigh)
   have h2 : x / q < 2 :=
-    (Nat.div_lt_iff_lt_mul hq).2 (by simpa [Nat.mul_comm] using hlow)
+    (Nat.div_lt_iff_lt_mul hq).2 (by simpa [Nat.mul_comm] using! hlow)
   have hdiv : x / q = 1 := by omega
   rw [hdiv, primeCombReciprocalBandKernel_one]
 

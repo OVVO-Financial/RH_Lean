@@ -75,7 +75,7 @@ theorem k2_tendsto_div_four_ratio :
       have hmodNat : N % 4 ≤ 3 := by omega
       have hmod : ((N % 4 : ℕ) : ℝ) ≤ 3 := by exact_mod_cast hmodNat
       exact mul_le_mul_of_nonneg_right hmod (inv_nonneg.mpr (by positivity))
-    · simpa using (tendsto_const_nhds.mul hinv :
+    · simpa using! (tendsto_const_nhds.mul hinv :
         Tendsto (fun N : ℕ => (3 : ℝ) * (((N / 4 : ℕ) : ℝ))⁻¹)
           atTop (𝓝 ((3 : ℝ) * 0)))
   have heq :
@@ -97,7 +97,7 @@ theorem k2_tendsto_div_four_ratio :
         (fun N : ℕ => 4 +
           ((N % 4 : ℕ) : ℝ) * (((N / 4 : ℕ) : ℝ))⁻¹)
         atTop (𝓝 4) := by
-    simpa using (tendsto_const_nhds.add hrem :
+    simpa using! (tendsto_const_nhds.add hrem :
       Tendsto
         (fun N : ℕ => (4 : ℝ) +
           ((N % 4 : ℕ) : ℝ) * (((N / 4 : ℕ) : ℝ))⁻¹)
@@ -158,14 +158,14 @@ theorem K2CenteredConverges.factorFourTendsto
         (fun N : ℕ =>
           k2CenteredRecipValue N - k2CenteredRecipValue (N / 4))
         atTop (𝓝 0) := by
-    simpa using hL.sub hL4
+    simpa using! hL.sub hL4
   have hlog :
       Tendsto
         (fun N : ℕ =>
           2 * γE *
             (Real.log (N : ℝ) - Real.log ((N / 4 : ℕ) : ℝ)))
         atTop (𝓝 (2 * γE * Real.log 4)) := by
-    simpa using
+    simpa using!
       (tendsto_const_nhds.mul k2_tendsto_log_sub_log_div_four :
         Tendsto
           (fun N : ℕ =>
@@ -173,7 +173,7 @@ theorem K2CenteredConverges.factorFourTendsto
               (Real.log (N : ℝ) - Real.log ((N / 4 : ℕ) : ℝ)))
           atTop (𝓝 ((2 * γE) * Real.log 4)))
   have hsub := hdiff.sub hlog
-  simpa [nativePNTSignedK2RecipInterval_four_eq_centered] using hsub
+  simpa [nativePNTSignedK2RecipInterval_four_eq_centered] using! hsub
 
 /-- Global `O(1)` factor-four reciprocal shell bound, including the finite
 initial segment. -/
@@ -192,7 +192,7 @@ theorem K2CenteredConverges.factorFourUniformBound
         |nativePNTSignedK2RecipInterval N 4| ≤ |L| + 1 := by
     filter_upwards [hnear] with N hN
     have hd : |nativePNTSignedK2RecipInterval N 4 - L| < 1 := by
-      simpa [Real.dist_eq] using hN
+      simpa [Real.dist_eq] using! hN
     calc
       |nativePNTSignedK2RecipInterval N 4| =
           |(nativePNTSignedK2RecipInterval N 4 - L) + L| := by ring_nf

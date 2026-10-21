@@ -136,7 +136,7 @@ theorem vfMidOneBlockActivePhysicalCarrier_mem_squareBandSites
   rcases Finset.mem_union.mp hn with hnPrime | hnProcessed
   · have hnSite : n ∈ vfMidSquareWheelSites R :=
       (Finset.mem_filter.mp hnPrime).1
-    simpa [vfMidSquareWheelSites, vfMidSquareBandSites] using hnSite
+    simpa [vfMidSquareWheelSites, vfMidSquareBandSites] using! hnSite
   · rcases Finset.mem_biUnion.mp hnProcessed with ⟨p, _hp, hnp⟩
     have hnOwner : n ∈ vfMidSquareBandCompositeOwner R p :=
       (Finset.mem_filter.mp hnp).1
@@ -645,13 +645,13 @@ theorem vfMidOneBlockActivePhysicalCarrier_subset_oddCandidates
     have hsurv : lowWheelHighSurvivor 2 n := by
       apply (vfMidSquareBandComposite_survives_prefix_iff_minFac_gt
         (z := 2) (R := R) (n := n) (by omega : 2 ≤ R) hnComp).2
-      simpa [hmin] using hpGt
+      simpa [hmin] using! hpGt
     unfold vfMidOddCandidateSeats vfMidSquarePrefixWheelSurvivors
     apply Finset.mem_filter.mpr
     constructor
     · have hsite : n ∈ vfMidSquareBandSites R :=
         (Finset.mem_filter.mp hnComp).1
-      simpa [vfMidSquareBandSites, vfMidSquareWheelSites] using hsite
+      simpa [vfMidSquareBandSites, vfMidSquareWheelSites] using! hsite
     · exact hsurv
 
 /-! ## Exact weighted demand and capacity on the adjacent clock -/
@@ -762,7 +762,7 @@ theorem vfMidWeightedDiagonal_abs_eq (C : ℕ) (v : ℕ → ℝ) :
   intro mn hmn
   have heq := (Finset.mem_filter.mp hmn).2
   rw [heq]
-  simpa only [pow_two] using sq_abs (v mn.2)
+  simpa only [pow_two] using! sq_abs (v mn.2)
 
 /-- Exact capacity identity for the unchanged #897 denominator.  Local
 half-gate branch squares do not replace these absolute pair capacities. -/
@@ -810,7 +810,7 @@ theorem vfMidWeightedOwnerCellOverflow_of_sum_excess
       ∃ sig ∈ lowOwnerFirstOwnerSignatureSet C p,
         capacity p sig < demand p sig := by
   by_contra hnot
-  push_neg at hnot
+  push Not at hnot
   have hle :
       (∑ p ∈ primesUpTo (squareRootEndpoint C),
         ∑ sig ∈ lowOwnerFirstOwnerSignatureSet C p, demand p sig) ≤

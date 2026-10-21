@@ -81,7 +81,7 @@ private theorem lowWheelFrozenSquareResidualTripleFiber_pairwise
   have hqe : q = r := by
     have h := congrArg (fun z : ℕ × (ℕ × ℕ) => z.2.1)
       (hdt.trans het.symm)
-    simpa using h
+    simpa using! h
   exact hqr hqe
 
 private theorem lowWheelFrozenSquareResidualTriplesAtScale_fst
@@ -91,7 +91,7 @@ private theorem lowWheelFrozenSquareResidualTriplesAtScale_fst
   rcases Finset.mem_biUnion.mp ht with ⟨q, _hq, htq⟩
   rcases Finset.mem_image.mp htq with ⟨d, _hd, hdt⟩
   have h := congrArg (fun z : ℕ × (ℕ × ℕ) => z.1) hdt
-  simpa using h.symm
+  simpa using! h.symm
 
 private theorem lowWheelFrozenSquareResidualTriplesAtScale_pairwise
     (R : ℕ) :
@@ -117,7 +117,7 @@ private theorem lowWheelFrozenSquareResidualTripleFiber_sum
   rw [Finset.sum_image]
   intro d _hd e _he hde
   have h := congrArg (fun z : ℕ × (ℕ × ℕ) => z.2.2) hde
-  simpa using h
+  simpa using! h
 
 private theorem lowWheelFrozenSquareResidualTriplesAtScale_sum
     (R A : ℕ) (f : ℕ × (ℕ × ℕ) → ℂ) :

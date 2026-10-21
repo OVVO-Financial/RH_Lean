@@ -29,7 +29,7 @@ theorem vf919SplitPrimeFourier_norm_le_sqrt
     (v : ZMod p) :
     ‖ZMod.dft (fun x : ZMod p => χ x) v‖ ≤
       Real.sqrt (p : ℝ) := by
-  letI : Fact p.Prime := ⟨hp⟩
+  let : Fact p.Prime := ⟨hp⟩
   by_cases hv : v = 0
   · subst v
     have hz : (∑ x : ZMod p, χ x) = 0 :=
@@ -78,7 +78,7 @@ theorem vf919SplitPrimeIncompleteCharacter_sqrtGauss
     ‖∑ x : ZMod p, χ x * g x‖ ≤
       ‖(p : ℂ)⁻¹‖ * Real.sqrt (p : ℝ) *
         (∑ v : ZMod p, ‖ZMod.dft g (-v)‖) := by
-  letI : Fact p.Prime := ⟨hp⟩
+  let : Fact p.Prime := ⟨hp⟩
   exact vf919IncompleteCharacter_FourierEnvelope χ g
     (Real.sqrt (p : ℝ))
     (vf919SplitPrimeFourier_norm_le_sqrt p hp χ hχ)

@@ -51,7 +51,7 @@ theorem survivorResidueCollisionCount_eq_card_pairSet
   classical
   unfold survivorResidueCollisionCount survivorResidueCollisionPairSet
   rw [Finset.card_eq_sum_ones, Finset.sum_filter]
-  simpa only using
+  simpa only using!
     (Finset.sum_product
       (s := survivorZeroModePrimeFiber Λ t c)
       (t := survivorZeroModePrimeFiber Λ t c')

@@ -99,7 +99,7 @@ theorem half_zeroCount_lt_positiveLagPairSum_of_sqrt_lt_norm_mertens
       Real.sqrt (x : ℝ) ^ 2 < ‖mertensSummatory x‖ ^ 2 :=
     (sq_lt_sq₀ hsqrt (norm_nonneg (mertensSummatory x))).2 h
   have hsq : (x : ℝ) < ‖mertensSummatory x‖ ^ 2 := by
-    simpa [Real.sq_sqrt hx] using hsqroot
+    simpa [Real.sq_sqrt hx] using! hsqroot
   have hid :=
     norm_mertensSummatory_sq_eq_endpoint_sub_zeroCount_add_two_covariance x
   nlinarith
@@ -115,7 +115,7 @@ theorem half_zeroCount_le_positiveLagPairSum_of_sqrt_le_norm_mertens
       Real.sqrt (x : ℝ) ^ 2 ≤ ‖mertensSummatory x‖ ^ 2 :=
     (sq_le_sq₀ hsqrt (norm_nonneg (mertensSummatory x))).2 h
   have hsq : (x : ℝ) ≤ ‖mertensSummatory x‖ ^ 2 := by
-    simpa [Real.sq_sqrt hx] using hsqroot
+    simpa [Real.sq_sqrt hx] using! hsqroot
   have hid :=
     norm_mertensSummatory_sq_eq_endpoint_sub_zeroCount_add_two_covariance x
   nlinarith
@@ -132,7 +132,7 @@ theorem positiveLagPairSum_lower_of_mul_sqrt_le_norm_mertens
   have hsq : A ^ 2 * (x : ℝ) ≤ ‖mertensSummatory x‖ ^ 2 := by
     have hnonneg : 0 ≤ A * Real.sqrt (x : ℝ) := mul_nonneg hA hsqrt
     have hsqraw := (sq_le_sq₀ hnonneg (norm_nonneg (mertensSummatory x))).2 h
-    simpa [mul_pow, Real.sq_sqrt hx] using hsqraw
+    simpa [mul_pow, Real.sq_sqrt hx] using! hsqraw
   have hid :=
     norm_mertensSummatory_sq_eq_endpoint_sub_zeroCount_add_two_covariance x
   nlinarith

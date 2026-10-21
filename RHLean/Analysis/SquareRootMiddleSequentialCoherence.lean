@@ -480,10 +480,10 @@ theorem squareRootFrozenPrimeUniverse_sequence
           squareRootFrozenPrimeUniverse_primesUpTo_step R (y + 1) hR hprime hRq
         have hpred : y + 1 - 1 = y := by omega
         rw [hpred] at hstep
-        rw [if_pos hprime, hstep, ih]
+        rw [ite_eq_left hprime, hstep, ih]
         ring
       · have hsame := primesUpTo_succ_eq_of_not_prime y hprime
-        rw [if_neg hprime, add_zero, hsame, ih]
+        rw [ite_eq_right hprime, add_zero, hsame, ih]
 
 /-- **The square-root stopping state is exactly the smooth/low edge.**  The
 finite frozen cube with precisely the primes `<= R` is not the all-plus comb
@@ -556,7 +556,7 @@ theorem squareRootFrozenPrimeUniverse_after_middle
     squareRootFrozenPrimeUniverse_sequence R (squareRootEndpoint R / 2)
       (by omega) hhalf
   rw [squareRootFrozenPrimeUniverseMass_eq_smooth R hR] at hseq
-  simpa [squareRootMiddleMertensTail] using hseq
+  simpa [squareRootMiddleMertensTail] using! hseq
 
 /-- A middle fresh prime performs the same one-prime frozen update, and its
 ordinary Mertens probe lies exactly in the completed lower interval `[2,R)`. -/

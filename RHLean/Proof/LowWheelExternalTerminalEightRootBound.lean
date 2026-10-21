@@ -71,7 +71,7 @@ theorem squareRootExternalTerminalFaceLedger_eq_carrierSum
           (booleanCubeSign z.1 : ℂ)
         else 0 := by
       symm
-      simpa only using
+      simpa only using!
         (Finset.sum_product
           (s := admissiblePrimeFaces (R - 1))
           (t := Finset.Ioc R (squareRootEndpoint R))

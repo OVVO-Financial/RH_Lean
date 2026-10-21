@@ -271,14 +271,14 @@ theorem squareRootTransportDiscretePNTMain_eq_oddPaired (R : ℕ) :
   apply Finset.sum_congr rfl
   intro c _hc
   by_cases ho : Odd c
-  · simp only [ho, if_true]
+  · simp only [ho, ite_true]
     unfold liPairedIntervalMass liPairedLower
     by_cases h2 : 2 * c < R
-    · simp only [h2, if_true, hw]
+    · simp only [h2, ite_true, hw]
       unfold squareRootTransportLiDiscWeight
       push_cast
       ring
-    · simp only [h2, if_false, hw]
+    · simp only [h2, ite_false, hw]
       unfold squareRootTransportLiDiscWeight
       push_cast
       ring
@@ -378,7 +378,7 @@ theorem norm_liHybridGridModel_sub_liHybridModel_le_card (R : ℕ) :
         else 0) := by
       intro c _hc
       by_cases ho : Odd c
-      · simp only [ho, if_true]
+      · simp only [ho, ite_true]
         push_cast
         ring
       · simp [ho]
@@ -460,6 +460,12 @@ theorem squareRootTransportRaw_sub_liDisc_eq_discrepancy
         primeCountLiDiscrepancy R := by
   have hRa : R ≤ squareRootEndpoint R / c := le_squareRootEndpoint_div hc1 hcR
   rw [squareRootTransportRawWeight_eq_primeCountDifference hc1]
+  have htail :
+      Finset.Ico (R + 1) (squareRootEndpoint R / c + 1) =
+        Finset.Ioc R (squareRootEndpoint R / c) := by
+    ext q
+    simp only [Finset.mem_Ico, Finset.mem_Ioc]
+    omega
   have hsplit :
       (∑ q ∈ Finset.range (squareRootEndpoint R / c + 1),
           if q.Prime then (1 : ℂ) else 0) =
@@ -468,11 +474,7 @@ theorem squareRootTransportRaw_sub_liDisc_eq_discrepancy
             if q.Prime then (1 : ℂ) else 0 := by
     rw [Finset.range_eq_Ico, ← Finset.sum_Ico_consecutive _
       (Nat.zero_le (R + 1)) (by omega : R + 1 ≤ squareRootEndpoint R / c + 1)]
-    congr 1
-    refine Finset.sum_congr ?_ (fun _ _ => rfl)
-    ext q
-    simp only [Finset.mem_Ico, Finset.mem_Ioc]
-    omega
+    rw [htail, ← Finset.range_eq_Ico]
   unfold primeCountLiDiscrepancy squareRootTransportLiDiscWeight
   rw [hsplit]
   push_cast

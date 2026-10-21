@@ -91,7 +91,7 @@ private theorem equalKeyFiberAmplitude_sq_eq_pairSum
       rw [Finset.mul_sum]
     _ = _ := by
       symm
-      simpa only using
+      simpa only using!
         (Finset.sum_product
           (s := equalKeyFiber S key tau)
           (t := equalKeyFiber S key tau)
@@ -120,7 +120,7 @@ theorem sum_equalKeyPairCarrier_eq_sum_fiberSquares
   have hset := equalKeyPairFiber_eq_product S key tau
   rw [hset]
   symm
-  simpa [P, T, F] using equalKeyFiberAmplitude_sq_eq_pairSum S key f tau
+  simpa [P, T, F] using! equalKeyFiberAmplitude_sq_eq_pairSum S key f tau
 
 /-- Equal-key Gram sums are nonnegative. -/
 theorem sum_equalKeyPairCarrier_nonneg

@@ -40,35 +40,38 @@ jobs:
           test: false
           lint: false
 
-      - name: Apply StrongPNT 4.24 compatibility patch
-        run: |
-          python3 scripts/strongpnt_424/apply.py
-          python3 scripts/strongpnt_424/apply_post.py
-          python3 scripts/strongpnt_424/apply_pnt5_mid.py
-          python3 scripts/strongpnt_424/apply_pnt5_strong.py
-          python3 scripts/strongpnt_424/apply_lint.py
-
-      - name: Restore StrongPNT port build cache
+      - name: Restore PNT+ build cache
         uses: actions/cache/restore@v5
         with:
           path: |
             .lake/packages/PrimeNumberTheoremAnd/.lake/build
-            .lake/packages/StrongPNT/.lake/build
-          key: strongpnt-port-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-${{ hashFiles('scripts/strongpnt_424/*.py') }}
-          restore-keys: |
-            strongpnt-port-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-
+          key: pntplus-build-v1-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
 
-      - name: Prebuild StrongPNT dependency
-        run: lake build StrongPNT.PNT5_Strong
+      - name: Prebuild PNT+ StrongPNT dependency
+        run: lake build PrimeNumberTheoremAnd.StrongPNT
 
       - name: Restore RHLean build cache
         uses: actions/cache/restore@v5
         with:
           path: .lake/build
-          key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py', 'RHLean.lean', 'RHLean/**/*.lean') }}
+          key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'RHLean.lean', 'RHLean/**/*.lean') }}
           restore-keys: |
-            rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py') }}-
-            rhlean-build-${{ runner.os }}-${{ runner.arch }}-
+            rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-
+
+      - name: Build RHLean modules imported by these research checks
+        run: >-
+          python3 scripts/compile_research_import_closure.py --library-only
+          research/CANONICAL_DESCENDING_PRIME_CHRONOLOGY.lean
+          research/CANONICAL_ROUGH_GLOBAL_BOUNDS.lean
+          research/CANONICAL_ROUGH_Q2_TAIL_REDUCTION.lean
+          research/CORRELATION_FOUR_TERMINAL_BRIDGE.lean
+          research/DIRECT_SUM_COUPLED_FRESH_PRIME_RANGE_EXIT.lean
+          research/DIRECT_SUM_COUPLED_PACKET.lean
+          research/DIRECT_SUM_COUPLED_RANGE_EXIT_COLLAPSE.lean
+          research/DIRECT_SUM_DYADIC_DISPERSION_BRIDGE.lean
+          research/DIRECT_SUM_FRESH_PRIME_GLOBAL_COLLAPSE.lean
+          research/DIRECT_SUM_FRESH_PRIME_STOKES_PRE_SQUARE.lean
+          research/DIRECT_SUM_LOW_FRESHNESS_ABEL.lean
 
       - name: Kernel-check direct-sum deterministic bridge and emit importable olean
         run: |

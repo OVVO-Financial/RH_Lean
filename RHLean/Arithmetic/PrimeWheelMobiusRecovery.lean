@@ -13,7 +13,7 @@ lemma localPrimeComb_eq_ite_dvd_of_squarefree
     {p n : ℕ} (hp : Nat.Prime p) (hsq : Squarefree n) :
     localPrimeComb p n = if p ∣ n then -1 else 1 := by
   have hnot : ¬ p ^ 2 ∣ n := by
-    simpa [pow_two] using (Nat.squarefree_iff_prime_squarefree.mp hsq p hp)
+    simpa [pow_two] using! (Nat.squarefree_iff_prime_squarefree.mp hsq p hp)
   simp [localPrimeComb, hnot]
 
 lemma prod_localPrimeComb_eq_negOnePow_filter_card
@@ -56,7 +56,7 @@ lemma moebius_eq_negOnePow_primeFactors_card
   unfold primeFaceProduct booleanCubeSign at h
   change μ (n.primeFactors.prod id) = (-1 : ℤ) ^ n.primeFactors.card at h
   have hprod : n.primeFactors.prod id = n := by
-    simpa using Nat.prod_primeFactors_of_squarefree hsq
+    simpa using! Nat.prod_primeFactors_of_squarefree hsq
   calc
     μ n = μ (n.primeFactors.prod id) := by
       exact congrArg μ hprod.symm
@@ -177,7 +177,7 @@ lemma seededPrimeComb_eq_zero_of_not_squarefree
     seededPrimeComb S n = 0 := by
   classical
   rw [Nat.squarefree_iff_prime_squarefree] at hnsq
-  push_neg at hnsq
+  push Not at hnsq
   rcases hnsq with ⟨p, hpPrime, hpSq⟩
   have hpSqLeN : p * p ≤ n := Nat.le_of_dvd hnpos hpSq
   have hpLe : p ≤ Nat.sqrt upper :=
@@ -232,7 +232,7 @@ theorem primorialWheel_correctedSite_eq_moebius
   · exact hupper
 
 /-- Canonical arithmetic certificate for the complete primorial wheel family. -/
-def primorialWheelArithmeticCertificate (k : ℕ) :
+theorem primorialWheelArithmeticCertificate (k : ℕ) :
     (primorialWheelSystem k).ArithmeticCertificate where
   corrected_eq_moebius := by
     intro n hlower hupper

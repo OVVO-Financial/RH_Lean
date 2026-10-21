@@ -107,7 +107,7 @@ private theorem vfMidSameTag_primeCount_split
     intro p hpE hpF
     have he : p ≤ L := by
       have he := (Finset.mem_filter.mp hpE).1
-      simpa only [Finset.mem_range, Nat.lt_succ_iff] using he
+      simpa only [Finset.mem_range, Nat.lt_succ_iff] using! he
     have hf : L < p := (Finset.mem_Ioc.mp (Finset.mem_filter.mp hpF).1).1
     omega
   have hunion : E ∪ F = G := by
@@ -126,7 +126,7 @@ private theorem vfMidSameTag_primeCount_split
   rw [Finset.card_union_of_disjoint hdisj] at hcard
   rw [vfMidSameTag_primeCounting_range L,
       vfMidSameTag_primeCounting_range U] at hcard
-  simpa [E, F, G, add_comm] using hcard
+  simpa [E, F, G, add_comm] using! hcard
 
 /-- Excluding the even prime is an exact one-unit correction, not an
 asymptotic approximation. -/
@@ -160,14 +160,14 @@ private theorem vfMidSameTag_oddPrimeCount_split
     have hErase := Finset.card_erase_of_mem heven
     have hFpos : 0 < F.card := Finset.card_pos.mpr ⟨2, heven⟩
     rw [hO, hErase]
-    simp only [if_pos hCond]
+    simp only [ite_eq_left hCond]
     omega
   · have hCond : ¬(L < 2 ∧ 2 ≤ U) := by
       intro h
       exact heven (hTwo.mpr h)
     have hErase : F.erase 2 = F := Finset.erase_eq_of_notMem heven
     rw [hO, hErase]
-    simp only [if_neg hCond]
+    simp only [ite_eq_right hCond]
     omega
 
 /-- Exact Analytic Type II prime-fibre formula, corrected for q>=4096.

@@ -35,7 +35,7 @@ theorem outsidePrimeReservedBlockerPrimes_subset_earlier
     outsidePrimeReservedBlockerPrimes ⊆ outsidePrimeEarlierPrimes q := by
   intro p hp
   have hpCases : p = 2 ∨ p = 3 ∨ p = 5 ∨ p = 7 := by
-    simpa [outsidePrimeReservedBlockerPrimes] using hp
+    simpa [outsidePrimeReservedBlockerPrimes] using! hp
   rcases hpCases with rfl | rfl | rfl | rfl
   · exact Finset.mem_filter.mpr
       ⟨Finset.mem_range.mpr (by omega), Nat.prime_two⟩
@@ -76,7 +76,7 @@ theorem outsidePrimeLeastSuperPrimeSet_prime
     (hr : r ∈ outsidePrimeLeastSuperPrimeSet P q) : r.Prime := by
   unfold outsidePrimeLeastSuperPrimeSet outsidePrimeLeastStagePrimes at hr
   rcases Finset.mem_insert.mp hr with hrq | hr
-  · simpa [hrq] using hq
+  · simpa [hrq] using! hq
   · rcases Finset.mem_union.mp hr with hrP | hrEarlier
     · exact (hP r hrP).1
     · exact (Finset.mem_filter.mp hrEarlier).2
@@ -117,7 +117,7 @@ theorem outsidePrimeLeastSuperPeriod_ge_blocker
   have hprod :
       (∏ p ∈ outsidePrimeBlockerSeed P q, p ^ 2) ≤
         ∏ p ∈ outsidePrimeLeastSuperPrimeSet P q, p ^ 2 := by
-    exact Finset.prod_le_prod_of_subset_of_one_le' hsub (by
+    exact Finset.prod_le_prod_of_subset_of_one_le hsub (by
       intro p hpSuper _hpSeed
       have hpPrime := outsidePrimeLeastSuperPrimeSet_prime hP hq hpSuper
       nlinarith [hpPrime.two_le])
@@ -148,7 +148,7 @@ theorem physicalSquarePrimeAtEdge_iff_not_tSquareZeroFreeAt
     {k q : ℕ} (hq : q.Prime) (hq2 : q ≠ 2) :
     physicalSquarePrimeAtEdge k q ↔ ¬ tSquareZeroFreeAt q k := by
   have hcop4 : Nat.Coprime (q ^ 2) 4 := by
-    simpa using
+    simpa using!
       (Nat.coprime_pow_primes (p := q) (q := 2) 2 2
         hq Nat.prime_two hq2)
   have hcop2 : Nat.Coprime (q ^ 2) 2 :=
@@ -157,35 +157,35 @@ theorem physicalSquarePrimeAtEdge_iff_not_tSquareZeroFreeAt
   · rintro ⟨_hq, a, ha, hdiv⟩ hzero
     simp [physicalTransitionActiveOffsets] at ha
     rcases ha with rfl | rfl | rfl | rfl | rfl | rfl
-    · exact (hzero (0 : Fin 6)) (by simpa [tTransitionForm, pow_two] using hdiv)
+    · exact (hzero (0 : Fin 6)) (by simpa [tTransitionForm, pow_two] using! hdiv)
     · have hdiv' : q ^ 2 ∣ 2 * (2 * k + 1) := by
         convert hdiv using 1 <;> ring
       have hsmall : q ^ 2 ∣ 2 * k + 1 :=
         hcop2.dvd_of_dvd_mul_left hdiv'
-      exact (hzero (1 : Fin 6)) (by simpa [tTransitionForm] using hsmall)
-    · exact (hzero (2 : Fin 6)) (by simpa [tTransitionForm, pow_two] using hdiv)
-    · exact (hzero (3 : Fin 6)) (by simpa [tTransitionForm, pow_two] using hdiv)
+      exact (hzero (1 : Fin 6)) (by simpa [tTransitionForm] using! hsmall)
+    · exact (hzero (2 : Fin 6)) (by simpa [tTransitionForm, pow_two] using! hdiv)
+    · exact (hzero (3 : Fin 6)) (by simpa [tTransitionForm, pow_two] using! hdiv)
     · have hdiv' : q ^ 2 ∣ 2 * (2 * k + 3) := by
         convert hdiv using 1 <;> ring
       have hsmall : q ^ 2 ∣ 2 * k + 3 :=
         hcop2.dvd_of_dvd_mul_left hdiv'
-      exact (hzero (4 : Fin 6)) (by simpa [tTransitionForm] using hsmall)
-    · exact (hzero (5 : Fin 6)) (by simpa [tTransitionForm, pow_two] using hdiv)
+      exact (hzero (4 : Fin 6)) (by simpa [tTransitionForm] using! hsmall)
+    · exact (hzero (5 : Fin 6)) (by simpa [tTransitionForm, pow_two] using! hdiv)
   · intro hnot
     unfold tSquareZeroFreeAt at hnot
-    push_neg at hnot
+    push Not at hnot
     rcases hnot with ⟨i, hi⟩
     fin_cases i
-    · exact ⟨hq, 1, by simp [physicalTransitionActiveOffsets], by simpa [tTransitionForm, pow_two] using hi⟩
+    · exact ⟨hq, 1, by simp [physicalTransitionActiveOffsets], by simpa [tTransitionForm, pow_two] using! hi⟩
     · refine ⟨hq, 2, by simp [physicalTransitionActiveOffsets], ?_⟩
       have hmul : q ^ 2 ∣ 2 * (2 * k + 1) := dvd_mul_of_dvd_right hi 2
       convert hmul using 1 <;> ring
-    · exact ⟨hq, 3, by simp [physicalTransitionActiveOffsets], by simpa [tTransitionForm, pow_two] using hi⟩
-    · exact ⟨hq, 5, by simp [physicalTransitionActiveOffsets], by simpa [tTransitionForm, pow_two] using hi⟩
+    · exact ⟨hq, 3, by simp [physicalTransitionActiveOffsets], by simpa [tTransitionForm, pow_two] using! hi⟩
+    · exact ⟨hq, 5, by simp [physicalTransitionActiveOffsets], by simpa [tTransitionForm, pow_two] using! hi⟩
     · refine ⟨hq, 6, by simp [physicalTransitionActiveOffsets], ?_⟩
       have hmul : q ^ 2 ∣ 2 * (2 * k + 3) := dvd_mul_of_dvd_right hi 2
       convert hmul using 1 <;> ring
-    · exact ⟨hq, 7, by simp [physicalTransitionActiveOffsets], by simpa [tTransitionForm, pow_two] using hi⟩
+    · exact ⟨hq, 7, by simp [physicalTransitionActiveOffsets], by simpa [tTransitionForm, pow_two] using! hi⟩
 
 /-- A prime already selected into the zero-free CRT wheel cannot simultaneously
 be the least outside-square owner of a deletion cell. -/
@@ -205,7 +205,7 @@ theorem outsidePrimeLeastDeletionChannel_no_selected_owner
   cases hleast : physicalLeastOddSquarePrime k with
   | none => exact (hne hleast).elim
   | some r =>
-      have hrq : r = q := by simpa [hleast] using hownerGet
+      have hrq : r = q := by simpa [hleast] using! hownerGet
       subst r
       have hhit := physicalLeastOddSquarePrime_some_spec hleast
       exact (physicalSquarePrimeAtEdge_iff_not_tSquareZeroFreeAt hq hq2).mp hhit hselected

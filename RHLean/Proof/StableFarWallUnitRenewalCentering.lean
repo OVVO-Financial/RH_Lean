@@ -94,9 +94,9 @@ theorem lowWheelFarPrimeCrossingStableMass_eq_returnedRenewalMass (R : ℕ) :
     have hcoords := lowWheelFarPrimeProduct_coordinates hbase
     have hlpf :
         canonicalLargestPrimeFactor (t.2.1 * t.2.2) = t.2.2 := by
-      simpa [lowWheelFarPrimeProductKey] using hcoords.1
+      simpa [lowWheelFarPrimeProductKey] using! hcoords.1
     have hcof : canonicalCofactor (t.2.1 * t.2.2) = t.2.1 := by
-      simpa [lowWheelFarPrimeProductKey] using hcoords.2
+      simpa [lowWheelFarPrimeProductKey] using! hcoords.2
     unfold lowWheelFarPrimeCrossingStableState lowWheelFarPrimeProductKey
     rw [hlpf, hcof]
   · intro a ha b hb hab
@@ -141,15 +141,15 @@ theorem lowWheelFarPrimeQ2UnitCrossing_prime_mem_unitProducts
   have hpX : t.2.2 ≤ squareRootEndpoint R := by
     have hq1 : 1 ≤ t.1 := hq.one_le
     have hle : t.2.2 ≤ t.1 * t.2.2 := by
-      simpa using Nat.mul_le_mul_right t.2.2 hq1
+      simpa using! Nat.mul_le_mul_right t.2.2 hq1
     have hqp : t.1 * t.2.2 ≤ squareRootEndpoint R := by
-      simpa [h1] using hcut
+      simpa [h1] using! hcut
     exact hle.trans hqp
   have hpair : (1, t.2.2) ∈ lowWheelFarPrimePairSet R := by
     apply mem_lowWheelFarPrimePairSet.mpr
     refine ⟨Finset.mem_Ico.mpr ⟨by norm_num, hR1⟩,
       Finset.mem_Icc.mpr ⟨hpR, hpX⟩, hp, ?_⟩
-    simpa using hpX
+    simpa using! hpX
   have hsqPair : (1, t.2.2) ∈ lowWheelFarPrimeSquarefreePairSet R :=
     mem_lowWheelFarPrimeSquarefreePairSet.mpr ⟨hpair, by simp⟩
   have hunit : (1, t.2.2) ∈ lowWheelFarPrimeUnitPairSet R :=

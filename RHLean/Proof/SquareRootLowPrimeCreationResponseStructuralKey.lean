@@ -66,7 +66,7 @@ theorem squareRootLowPrimeProcessedCreationResponseTaggedMate_structuralKey
   · rcases y with c | z
     · by_cases hc : c ∈ squareRootLowPrimeMatchedCreationStates R K j U
       · simp only [squareRootLowPrimeProcessedCreationResponseTaggedMate,
-          creationResponseOthelloMate, hc, if_true]
+          creationResponseOthelloMate, hc, ite_true]
         exact squareRootLowPrimeCanonicalCreationToResponse_structuralKey hc
       · simp [squareRootLowPrimeProcessedCreationResponseTaggedMate,
           creationResponseOthelloMate, hc]
@@ -76,7 +76,7 @@ theorem squareRootLowPrimeProcessedCreationResponseTaggedMate_structuralKey
       · -- `simp` cannot be used to select this branch: it rewrites membership in
         -- `squareRootLowPrimeMatchedCreationStates` inside the `dite` condition,
         -- after which `hpre` no longer matches it.  Select the branch with
-        -- `dif_pos` directly.
+        -- `dite_eq_left` directly.
         have hmate :
             squareRootLowPrimeProcessedCreationResponseTaggedMate R K j U
                 (Sum.inr (Sum.inr z)) =
@@ -86,7 +86,7 @@ theorem squareRootLowPrimeProcessedCreationResponseTaggedMate_structuralKey
                 z hpre)) := by
           dsimp only [squareRootLowPrimeProcessedCreationResponseTaggedMate,
             creationResponseOthelloMate]
-          rw [dif_pos hpre]
+          rw [dite_eq_left hpre]
         have hc :
             creationResponseOthelloPreimage
                 (squareRootLowPrimeMatchedCreationStates R K j U)
@@ -109,7 +109,7 @@ theorem squareRootLowPrimeProcessedCreationResponseTaggedMate_structuralKey
                 (Sum.inr (Sum.inr z)) = Sum.inr (Sum.inr z) := by
           dsimp only [squareRootLowPrimeProcessedCreationResponseTaggedMate,
             creationResponseOthelloMate]
-          rw [dif_neg hpre]
+          rw [dite_eq_right hpre]
         rw [hmate]
 
 /-- Encoding the exact processed carrier does not change the common structural
@@ -124,7 +124,7 @@ theorem squareRootLowPrimeProcessedCreationResponseEncode_structuralKey
   rcases x with _ | z
   · rfl
   · have hzAtom : z ∈ squareRootLowPrimeProcessedSeatAtoms R K j U := by
-      simpa [squareRootLowPrimeProcessedSeatCarrier] using hx
+      simpa [squareRootLowPrimeProcessedSeatCarrier] using! hx
     by_cases hshallow : canonicalLargestPrimeFactor z.1 ≤ K
     · have hzShallow :
           z ∈ squareRootLowPrimeProcessedShallowSeatAtoms R K j U :=

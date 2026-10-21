@@ -82,7 +82,7 @@ theorem squareRootLowPrimeProcessedDeepSeatResponseAtom_injective
       squareRootLowPrimeOwnedResponseSeatAtomEquiv R K j U hR ez =
         squareRootLowPrimeOwnedResponseSeatAtomEquiv R K j U hR ew := by
     apply Subtype.ext
-    simpa [squareRootLowPrimeProcessedDeepSeatResponseAtom, ez, ew] using hEq
+    simpa [squareRootLowPrimeProcessedDeepSeatResponseAtom, ez, ew] using! hEq
   have hSeats : ez = ew :=
     (squareRootLowPrimeOwnedResponseSeatAtomEquiv R K j U hR).injective hAtoms
   exact congrArg Subtype.val hSeats
@@ -107,7 +107,7 @@ theorem squareRootLowPrimeProcessedDeepSeatResponseAtom_bornExit_mem_boundary
           R K j U hR hK z hz hdeep) ∈
       squareRootLowPrimeProcessedSeatNoLibertyBoundary R K j U := by
   simpa [squareRootLowPrimeBornExitBoundaryTag,
-    squareRootLowPrimeProcessedSeatNoLibertyBoundary] using hborn
+    squareRootLowPrimeProcessedSeatNoLibertyBoundary] using! hborn
 
 /-- The BornExit tag has exactly the native processed-seat weight. -/
 theorem squareRootLowPrimeProcessedDeepSeatResponseAtom_bornExit_weight_eq
@@ -123,7 +123,7 @@ theorem squareRootLowPrimeProcessedDeepSeatResponseAtom_bornExit_weight_eq
   let a := squareRootLowPrimeProcessedDeepSeatResponseAtom
     R K j U hR hK z hz hdeep
   have ha : a ∈ squareRootLowPrimeOwnedResponseAtoms R K U := by
-    simpa [a] using squareRootLowPrimeProcessedDeepSeatResponseAtom_mem
+    simpa [a] using! squareRootLowPrimeProcessedDeepSeatResponseAtom_mem
       hR hK hz hdeep
   have haData := squareRootLowPrimeOwnedResponseAtom_data ha
   have hqPrime : a.2.Prime :=
@@ -133,7 +133,7 @@ theorem squareRootLowPrimeProcessedDeepSeatResponseAtom_bornExit_weight_eq
   have hqFresh : ¬ a.2 ∣ a.1 :=
     squareRootLowPrimePrime_fresh_of_lpf_lt haData.1 hqPrime hrough
   have hmu : μ (a.1 * a.2) = -μ a.1 := by
-    simpa [Nat.mul_comm] using
+    simpa [Nat.mul_comm] using!
       (moebius_prime_mul_eq_neg_of_not_dvd hqPrime hqFresh)
   have hfst : a.1 = z.1 := by
     simp [a]
@@ -162,7 +162,7 @@ theorem squareRootLowPrimeProcessedDeepSeat_bornExitTag_injective
           R K j U hR hK z hz hzDeep =
         squareRootLowPrimeProcessedDeepSeatResponseAtom
           R K j U hR hK w hw hwDeep := by
-    simpa [squareRootLowPrimeBornExitBoundaryTag] using hEq
+    simpa [squareRootLowPrimeBornExitBoundaryTag] using! hEq
   exact squareRootLowPrimeProcessedDeepSeatResponseAtom_injective
     hR hK hz hw hzDeep hwDeep hAtom
 

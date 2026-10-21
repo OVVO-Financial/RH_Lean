@@ -174,7 +174,7 @@ theorem vfMidDyadicFrozenSafeMass_mem_trackingWindow_of_lowerTransport_le
     vfMidDyadicLowerPrimeIntervalTransport_nonneg hA hAB hBA
   apply vfMidDyadicFrozenSafeMass_mem_trackingWindow_of_lowerTransport_abs_le
     hA hAB hBA
-  simpa [abs_of_nonneg hnonneg] using hrec
+  simpa [abs_of_nonneg hnonneg] using! hrec
 
 /-- Every actual tagged prime child in the lower transport lies on a strictly
 smaller square-root scale.  This packages the existing frozen-run geometry in
@@ -255,7 +255,7 @@ theorem vfMidSectorSixDirichletMass_pos_has_recursivePair
           lowOwnerFirstOwnerGreatestOwnerRecursiveContinuationPairFiber
             R p sig r := by
   by_contra hnone
-  push_neg at hnone
+  push Not at hnone
   have hzero :
       lowOwnerFirstOwnerAdmittedPositiveSectorSixDirichletMass R p sig = 0 := by
     unfold lowOwnerFirstOwnerAdmittedPositiveSectorSixDirichletMass

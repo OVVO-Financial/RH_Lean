@@ -305,7 +305,7 @@ theorem squareRootLowPrimeDirectNoTogglePopulations_card_le_two_root
       (squareRootLowPrimePostRootInteriorNoToggleAtoms R K
         (squareRootBornPostTailLowPrimeCutoff R)).card ≤ 2 * R := by
   rw [squareRootLowPrimePostRootInteriorNoToggleAtoms_card]
-  simpa using squareRootLowPrimeBornNoSuccessorAtoms_card_le_two_root R K hR
+  simpa using! squareRootLowPrimeBornNoSuccessorAtoms_card_le_two_root R K hR
 
 /-- Therefore absence of the post-root canonical predecessor can occur only
 when the parent owner has left the processed prime interval. -/

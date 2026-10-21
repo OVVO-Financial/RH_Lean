@@ -57,7 +57,7 @@ theorem lowOwnerZeroFrequencyMobiusWeight_sub_toggle_eq_toggleCrossingDefect
       lowOwnerStokesToggleCrossingDefect R r n := by
   rcases lowOwnerNonzeroMobiusCarrier_squarefree_pos hn with
     ⟨hnSq, _hnPos⟩
-  simpa [lowOwnerStokesToggleCrossingDefect] using
+  simpa [lowOwnerStokesToggleCrossingDefect] using!
     (lowOwnerZeroFrequencyMobiusWeight_sub_toggle_eq_signedCrossing
       (R := R) (r := r) (n := n) hr hnSq)
 
@@ -155,7 +155,7 @@ theorem card_lowOwnerStokesPhysicalFracturedCoreCarrier_le_R_sq
   have hendpoint :
       (lowOwnerStokesPhysicalFracturedCoreCarrier R).card ≤
         squareRootEndpoint R := by
-    simpa [Nat.card_Icc] using hcard
+    simpa [Nat.card_Icc] using! hcard
   exact hendpoint.trans (by
     unfold squareRootEndpoint
     omega)
@@ -244,7 +244,7 @@ theorem card_lowOwnerStokesFracturedCoreCarrier_le_endpoint
   have hcard :=
     Finset.card_le_card
       (lowOwnerStokesFracturedCoreCarrier_subset_clock R)
-  simpa [Nat.card_Icc] using hcard
+  simpa [Nat.card_Icc] using! hcard
 
 /-- Boundary area bound. Since X_R = R^2 - 1, the simultaneous fracture
 carrier contains at most R^2 physical cores. -/
@@ -447,28 +447,28 @@ theorem lowOwnerCanonicalStokesSchedule_eq_top_second_cons_of_lower_owner
   let t := topPrime R hR
   let u := secondPrime R hR
   have htMem : t ∈ primesUpTo (squareRootEndpoint R) := by
-    simpa [t] using topPrime_mem hR
+    simpa [t] using! topPrime_mem hR
   have huErase :
       u ∈ (primesUpTo (squareRootEndpoint R)).erase t := by
-    simpa [u, t] using secondPrime_mem_erase hR
+    simpa [u, t] using! secondPrime_mem_erase hR
   have huMem : u ∈ primesUpTo (squareRootEndpoint R) :=
     (Finset.mem_erase.mp huErase).2
   have hut : u ≠ t := (Finset.mem_erase.mp huErase).1
   have hptLe : p ≤ t := by
-    simpa [t] using
+    simpa [t] using!
       Finset.le_max' (primesUpTo (squareRootEndpoint R)) p hpMem
   have hpt : p < t := by
-    have hne : p ≠ t := by simpa [t] using hpTop
+    have hne : p ≠ t := by simpa [t] using! hpTop
     omega
   have hpErase :
       p ∈ (primesUpTo (squareRootEndpoint R)).erase t := by
-    exact Finset.mem_erase.mpr ⟨by simpa [t] using hpTop, hpMem⟩
+    exact Finset.mem_erase.mpr ⟨by simpa [t] using! hpTop, hpMem⟩
   have hpuLe : p ≤ u := by
-    simpa [u, t] using
+    simpa [u, t] using!
       Finset.le_max'
         ((primesUpTo (squareRootEndpoint R)).erase t) p hpErase
   have hpu : p < u := by
-    have hne : p ≠ u := by simpa [u] using hpSecond
+    have hne : p ≠ u := by simpa [u] using! hpSecond
     omega
   have htFull :
       t ∈ squareRootCanonicalRoughDescendingPrimeSchedule R := by
@@ -480,12 +480,12 @@ theorem lowOwnerCanonicalStokesSchedule_eq_top_second_cons_of_lower_owner
     exact (Finset.mem_sort (fun a b : ℕ => a ≥ b)).2 huMem
   have htSched :
       t ∈ lowOwnerFirstOwnerCanonicalStokesSchedule R p := by
-    simpa [lowOwnerFirstOwnerCanonicalStokesSchedule] using
+    simpa [lowOwnerFirstOwnerCanonicalStokesSchedule] using!
       (show t ∈ squareRootCanonicalRoughDescendingPrimeSchedule R ∧ p < t
         from ⟨htFull, hpt⟩)
   have huSched :
       u ∈ lowOwnerFirstOwnerCanonicalStokesSchedule R p := by
-    simpa [lowOwnerFirstOwnerCanonicalStokesSchedule] using
+    simpa [lowOwnerFirstOwnerCanonicalStokesSchedule] using!
       (show u ∈ squareRootCanonicalRoughDescendingPrimeSchedule R ∧ p < u
         from ⟨huFull, hpu⟩)
   have hmem :
@@ -494,7 +494,7 @@ theorem lowOwnerCanonicalStokesSchedule_eq_top_second_cons_of_lower_owner
     intro q hq
     have hqData :
         q ∈ squareRootCanonicalRoughDescendingPrimeSchedule R ∧ p < q := by
-      simpa [lowOwnerFirstOwnerCanonicalStokesSchedule] using hq
+      simpa [lowOwnerFirstOwnerCanonicalStokesSchedule] using! hq
     unfold squareRootCanonicalRoughDescendingPrimeSchedule at hqData
     exact (Finset.mem_sort (fun a b : ℕ => a ≥ b)).1 hqData.1
   have hsorted := lowOwnerFirstOwnerCanonicalStokesSchedule_sorted R p
@@ -537,10 +537,10 @@ theorem lowOwnerCanonicalStokesSchedule_eq_top_second_cons_of_lower_owner
               b ∈ (primesUpTo (squareRootEndpoint R)).erase t :=
             Finset.mem_erase.mpr ⟨hbNeT, hbMem⟩
           have hbLeU : b ≤ u := by
-            simpa [u, t] using
+            simpa [u, t] using!
               Finset.le_max'
                 ((primesUpTo (squareRootEndpoint R)).erase t) b hbErase
-          have htailSorted : List.Sorted (fun x y : ℕ => x ≥ y) (b :: rest) :=
+          have htailSorted : List.Pairwise (fun x y : ℕ => x ≥ y) (b :: rest) :=
             (List.pairwise_cons.mp hsorted).2
           have hbGeU : u ≤ b := by
             simp only [List.mem_cons] at huTail
@@ -607,7 +607,7 @@ theorem lowOwnerFirstOwnerCanonicalStokesClipBoundary_eq_topTwoNormalForm
           (q := topPrime R hR) (s := secondPrime R hR)
           (sig := sig) (rest := rest) (by omega) hrest
       simpa [lowOwnerFirstOwnerTopTwoStokesClipNormalForm,
-        hpTop, hpSecond] using htwo
+        hpTop, hpSecond] using! htwo
 
 /-- Globally assembled top-two physical clip normal form. -/
 def lowOwnerCanonicalTopTwoStokesClipNormalForm

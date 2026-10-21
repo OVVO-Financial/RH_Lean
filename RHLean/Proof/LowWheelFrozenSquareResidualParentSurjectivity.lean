@@ -69,9 +69,9 @@ private theorem postRootSmooth_sourceScale_represented
   let p : ℕ := y.2.2
   let A : ℕ := p * primeFaceProduct y.1
   let d : ℕ := y.2.1
-  have hpPrime : p.Prime := by simpa [p] using hs.1
+  have hpPrime : p.Prime := by simpa [p] using! hs.1
   have hpivot : lowWheelTaggedDowncrossPivot y = p := by
-    simpa [p] using orderedEulerCutShape_canonicalPivot hs
+    simpa [p] using! orderedEulerCutShape_canonicalPivot hs
   have hAd : A * d = m := by
     rw [← hchild]
     simp [orderedEulerCutChildInteger, orderedEulerCutHighCofactor,
@@ -80,7 +80,7 @@ private theorem postRootSmooth_sourceScale_represented
   have hAR : R < A := by
     have hdeath := hlife.2
     change R < y.2.2 * primeFaceProduct y.1 at hdeath
-    simpa [A, p] using hdeath
+    simpa [A, p] using! hdeath
   have hApos : 0 < A := by omega
   have htPred : y.1 ∈ (primesUpTo (p - 1)).powerset := by
     apply Finset.mem_powerset.mpr
@@ -106,13 +106,13 @@ private theorem postRootSmooth_sourceScale_represented
   have hpLeTop : p ≤ canonicalLargestPrimeFactor m :=
     prime_dvd_le_canonicalLargestPrimeFactor hmgt hpPrime hpDvdM
   have hpq : p < q := hpLeTop.trans_lt hmTop
-  have hd1 : 1 ≤ d := by simpa [d] using hs.2.1
-  have hdSq : Squarefree d := by simpa [d] using hs.2.2.1
-  have hdRough : RoughAbove p d := by simpa [d, p] using hs.2.2.2.2.2
+  have hd1 : 1 ≤ d := by simpa [d] using! hs.2.1
+  have hdSq : Squarefree d := by simpa [d] using! hs.2.2.1
+  have hdRough : RoughAbove p d := by simpa [d, p] using! hs.2.2.2.2.2
   have hdTop : canonicalLargestPrimeFactor d < q := by
     by_cases hdOne : d = 1
     · rw [hdOne]
-      simpa [canonicalLargestPrimeFactor] using hq.one_lt
+      simpa [canonicalLargestPrimeFactor] using! hq.one_lt
     · have hdgt : 1 < d := by omega
       have hrPrime := canonicalLargestPrimeFactor_prime hdgt
       have hrDvdD := canonicalLargestPrimeFactor_dvd hdgt
@@ -123,7 +123,7 @@ private theorem postRootSmooth_sourceScale_represented
   have hq2m : q * q * m ≤ squareRootEndpoint R := by
     have hqqPos : 0 < q * q := Nat.mul_pos hq.pos hq.pos
     have h := (Nat.le_div_iff_mul_le hqqPos).1 hmUpper
-    simpa [Nat.mul_assoc, Nat.mul_left_comm, Nat.mul_comm] using h
+    simpa [Nat.mul_assoc, Nat.mul_left_comm, Nat.mul_comm] using! h
   let B : ℕ := squareRootEndpoint R / A
   have hq2d : q * q * d ≤ B := by
     apply (Nat.le_div_iff_mul_le hApos).2
@@ -133,7 +133,7 @@ private theorem postRootSmooth_sourceScale_represented
       _ ≤ squareRootEndpoint R := hq2m
   have hq2B : q * q ≤ B := by
     have h := Nat.mul_le_mul_left (q * q) hd1
-    simpa using h.trans hq2d
+    simpa using! h.trans hq2d
   have hBltR : B < R := by
     dsimp [B]
     apply (Nat.div_lt_iff_lt_mul hApos).2
@@ -141,7 +141,7 @@ private theorem postRootSmooth_sourceScale_represented
     have hXltR2 : squareRootEndpoint R < R * R := by
       unfold squareRootEndpoint
       have hsqNe : R ^ 2 ≠ 0 := pow_ne_zero 2 (Nat.ne_of_gt hRpos)
-      simpa [pow_two] using Nat.pred_lt hsqNe
+      simpa [pow_two] using! Nat.pred_lt hsqNe
     have hR2ltRA : R * R < R * A :=
       Nat.mul_lt_mul_of_pos_left hAR hRpos
     exact hXltR2.trans hR2ltRA
@@ -154,7 +154,7 @@ private theorem postRootSmooth_sourceScale_represented
   obtain ⟨r, hrPrime, hhalfR, hr2half⟩ :=
     Nat.exists_prime_lt_and_le_two_mul (B / 2) hhalfNZ
   have h2halfB : 2 * (B / 2) ≤ B := by
-    simpa [Nat.mul_comm] using Nat.div_mul_le_self B 2
+    simpa [Nat.mul_comm] using! Nat.div_mul_le_self B 2
   have hrB : r ≤ B := hr2half.trans h2halfB
   have hrR : r < R := hrB.trans_lt hBltR
   have hBr2 : B < r * r := by
@@ -169,7 +169,7 @@ private theorem postRootSmooth_sourceScale_represented
     rcases Nat.mem_primeFactors.mp ha with ⟨haPrime, haDvd, _⟩
     have har : a = r :=
       (Nat.prime_dvd_prime_iff_eq haPrime hrPrime).mp haDvd
-    simpa [har] using hpr
+    simpa [har] using! hpr
   have hpnr : ¬ p ∣ r := by
     intro hdiv
     have hprEq : p = r :=
@@ -200,7 +200,7 @@ private theorem postRootSmooth_sourceScale_represented
     exact max_le hfaceR (max_le (by omega) hzSqrt)
   have hzDeath : R < orderedEulerCutDeathRoot z := by
     change R < p * primeFaceProduct y.1
-    simpa [A] using hAR
+    simpa [A] using! hAR
   have hzOrdered : z ∈ orderedEulerCutCarrier R :=
     mem_orderedEulerCutCarrier_iff_shape_lifetime.mpr
       ⟨hzShape, hzBirth, hzDeath⟩
@@ -210,32 +210,29 @@ private theorem postRootSmooth_sourceScale_represented
     exact (Nat.prime_dvd_prime_iff_eq htopData.1 hrPrime).mp htopData.2.1
   have hwallX : squareRootEndpoint R < r * r * A := by
     have h := (Nat.div_lt_iff_lt_mul hApos).1 hBr2
-    simpa [B, Nat.mul_assoc, Nat.mul_left_comm, Nat.mul_comm] using h
+    simpa [B, Nat.mul_assoc, Nat.mul_left_comm, Nat.mul_comm] using! h
   have hzSecond : z ∈ lowWheelCanonicalRepeatedFrozenSecondContactPart R := by
     apply Finset.mem_filter.mpr
     refine ⟨hzFrozen, ?_⟩
-    change squareRootEndpoint R <
-      lowWheelFrozenCofactorTopPrime z *
-        primeFaceProduct (lowWheelCanonicalRepeatedFrozenProductOneFace z)
     rw [htopZ, lowWheelCanonicalRepeatedFrozenProductOneFace_product hzFrozen]
     rw [hzPivot]
     dsimp [z]
-    simpa [A, Nat.mul_assoc, Nat.mul_left_comm, Nat.mul_comm] using hwallX
+    simpa [A, Nat.mul_assoc, Nat.mul_left_comm, Nat.mul_comm] using! hwallX
   have hAset : A ∈ lowWheelFrozenSecondContactSourceScaleSet R := by
     unfold lowWheelFrozenSecondContactSourceScaleSet
     exact Finset.mem_image.mpr ⟨z, hzSecond, hzSource⟩
   have hdB : d ≤ B / (q * q) := by
     have hqqPos : 0 < q * q := Nat.mul_pos hq.pos hq.pos
     exact (Nat.le_div_iff_mul_le hqqPos).2
-      (by simpa [Nat.mul_assoc, Nat.mul_left_comm, Nat.mul_comm] using hq2d)
+      (by simpa [Nat.mul_assoc, Nat.mul_left_comm, Nat.mul_comm] using! hq2d)
   have hdWindow : d ∈ lowWheelFrozenSourceSquareResidualDaughterWindow
       (canonicalLargestPrimeFactor A) (squareRootEndpoint R / A) q := by
     apply Finset.mem_filter.mpr
     rw [htopA]
-    exact ⟨Finset.mem_Icc.mpr ⟨hd1, by simpa [B] using hdB⟩,
+    exact ⟨Finset.mem_Icc.mpr ⟨hd1, by simpa [B] using! hdB⟩,
       hdSq, hdRough, hdTop⟩
   have hpqA : canonicalLargestPrimeFactor A < q := by
-    simpa [htopA] using hpq
+    simpa [htopA] using! hpq
   have hchildResidual :=
     lowWheelFrozenSourceSquareResidualDaughter_child_mem hq hpqA hdWindow
   have hqOwner : q ∈ lowWheelFrozenSourceSquareResidualOwners

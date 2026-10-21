@@ -59,7 +59,7 @@ theorem nativePNTError_abs_log_sq_le_evolving_tail
           (alpha - beta) * (N : Real) *
             nativeLambdaTwoGoodTailRecipMass N M beta +
           nativeLambdaTwoSmallQuotientErrorMass N M) +
-          nativePNTSecondRemainderFrom R N := add_le_add_right hcomp _
+          nativePNTSecondRemainderFrom R N := add_le_add_left hcomp _
     _ = alpha * (N : Real) * (Real.log (N : Real)) ^ 2 -
           (alpha - beta) * (N : Real) *
             nativeLambdaTwoGoodTailRecipMass N M beta +

@@ -4,7 +4,7 @@ import Mathlib
 # First-bad minimal payment — exact parity-compressed algebra
 
 This is a SMALL, warning-fatal, Mathlib-only kernel test. It does not import
-the expensive native StrongPNT/research graph. The native definitions are
+the expensive native PNT+/research graph. The native definitions are
 w_R = V_R / R, C_R = R - P_R and D_R = pi(R^2)-VF_mid(R^2).
 
 The ONLY open mathematical requirement is to establish the final balance
@@ -1074,11 +1074,11 @@ theorem vfV2HistoricalPrefixLocksPrime
       omega
     let p := n.minFac
     have hpprime : p.Prime := by
-      simpa [p] using Nat.minFac_prime hnnotone
+      simpa [p] using! Nat.minFac_prime hnnotone
     have hpdvd : p ∣ n := by
-      simpa [p] using Nat.minFac_dvd n
+      simpa [p] using! Nat.minFac_dvd n
     have hpsq : p ^ 2 ≤ n := by
-      simpa [p] using Nat.minFac_sq_le_self hnpos hnprime
+      simpa [p] using! Nat.minFac_sq_le_self hnpos hnprime
     have hpbound : p ≤ A ^ 2 := by
       by_contra hpnot
       have hle : A ^ 2 ≤ p := by omega
@@ -1322,7 +1322,7 @@ theorem vfV2CompletedSquareWheelBandPhase_le_two_boundary
       |vfV2FixedWheelPrefixPhase F density (B ^ 2)| +
         |vfV2FixedWheelPrefixPhase F density (A ^ 2)| :=
       by
-        simpa only [sub_zero, zero_sub, abs_neg] using
+        simpa only [sub_zero, zero_sub, abs_neg] using!
           (abs_sub_le (vfV2FixedWheelPrefixPhase F density (B ^ 2)) 0 (vfV2FixedWheelPrefixPhase F density (A ^ 2)))
     _ ≤ C + C :=
       add_le_add (hbound _) (hbound _)
@@ -1407,7 +1407,7 @@ theorem vfV2CompletedOpenSquareWheelBandPhase_abs_le_four_boundary
         |vfV2FixedWheelPrefixPhase F density (B ^ 2)| +
           |vfV2FixedWheelPrefixPhase F density (A ^ 2)| :=
         by
-        simpa only [sub_zero, zero_sub, abs_neg] using
+        simpa only [sub_zero, zero_sub, abs_neg] using!
           (abs_sub_le (vfV2FixedWheelPrefixPhase F density (B ^ 2)) 0 (vfV2FixedWheelPrefixPhase F density (A ^ 2)))
       _ ≤ C + C := add_le_add (hbound _) (hbound _)
       _ = 2 * C := by ring
@@ -1420,7 +1420,7 @@ theorem vfV2CompletedOpenSquareWheelBandPhase_abs_le_four_boundary
         |vfV2FixedWheelPrefixPhase F density B| +
           |vfV2FixedWheelPrefixPhase F density A| :=
         by
-        simpa only [sub_zero, zero_sub, abs_neg] using
+        simpa only [sub_zero, zero_sub, abs_neg] using!
           (abs_sub_le (vfV2FixedWheelPrefixPhase F density B) 0 (vfV2FixedWheelPrefixPhase F density A))
       _ ≤ C + C := add_le_add (hbound _) (hbound _)
       _ = 2 * C := by ring
@@ -1433,7 +1433,7 @@ theorem vfV2CompletedOpenSquareWheelBandPhase_abs_le_four_boundary
           vfV2FixedWheelPrefixPhase F density (A ^ 2)| +
       |vfV2FixedWheelPrefixPhase F density B -
           vfV2FixedWheelPrefixPhase F density A| := by
-        simpa only [sub_zero, zero_sub, abs_neg] using
+        simpa only [sub_zero, zero_sub, abs_neg] using!
           (abs_sub_le (vfV2FixedWheelPrefixPhase F density (B ^ 2) - vfV2FixedWheelPrefixPhase F density (A ^ 2)) 0 (vfV2FixedWheelPrefixPhase F density B - vfV2FixedWheelPrefixPhase F density A))
     _ ≤ 2 * C + 2 * C := add_le_add hsq hroot
     _ = 4 * C := by ring

@@ -68,7 +68,7 @@ noncomputable def ancestryParentWheelMove {B : ℕ}
         rw [sourceCore_parentIndex]
         exact canonicalLargestPrimeFactor_not_dvd_cofactor h.1.2.2.1 hcgt
       child_smooth := by
-        simpa [sourceToWheelFactor] using h.2 }
+        simpa [sourceToWheelFactor] using! h.2 }
 
 /-- Every canonical ancestry parent edge is an ordered wheel insertion. -/
 theorem ancestryParentWheelMove_ordered {B : ℕ}
@@ -134,7 +134,7 @@ theorem orderedWheelCrossConfiguration_has_orderedMove
   have hs : x.2 ∈ activeSmoothSourceSet B (R - 1) :=
     (Finset.mem_product.mp hx).2
   have hsdata : SmoothOriented x.2 ∧ sourceClock B x.2 ≤ R - 1 := by
-    simpa [activeSmoothSourceSet] using hs
+    simpa [activeSmoothSourceSet] using! hs
   exact ⟨hsdata.1, ancestryParentWheelMove_ordered x.2 hsdata.1⟩
 
 /-- On an active smooth child, the transported wheel-parent weight is exactly

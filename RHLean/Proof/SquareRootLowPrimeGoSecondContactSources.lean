@@ -72,10 +72,10 @@ theorem squareRootLowPrimeGoWallSquareResidualChild_coordinates
   have hrough :=
     canonicalLargestPrimeFactor_primeFaceProduct_lt_freshPrime hq huData.1
   have hcofactor : canonicalCofactor (q * primeFaceProduct u) = primeFaceProduct u := by
-    simpa [Nat.mul_comm] using
+    simpa [Nat.mul_comm] using!
       canonicalCofactor_mul_prime_eq_of_rough hcPos hq hrough
   constructor
-  · simpa using howner
+  · simpa using! howner
   · rw [hcofactor]
 
 /-- **One-owner signed second-contact form.**  The frozen predecessor residual
@@ -109,7 +109,7 @@ theorem squareRootLowPrimeGoWallSquareResidual_cast_eq_neg_childMass
   have hcPos : 0 < c := by omega
   have hflip :
       canonicalMoebiusWeight (q * c) = -canonicalMoebiusWeight c := by
-    simpa [Nat.mul_comm] using
+    simpa [Nat.mul_comm] using!
       canonicalMoebiusWeight_mul_prime_eq_neg_of_rough
         hcPos hq hcData.2.2.2
   rw [hflip]
@@ -176,8 +176,8 @@ theorem squareRootLowPrimeGoSecondContactSource_owner_exists
   have hcontact :=
     squareRootLowPrimeGoWallSquareResidualChild_owner_mul_le hqPrime hmq
   constructor
-  · simpa [howner] using hqQ
-  · simpa [howner] using hcontact
+  · simpa [howner] using! hqQ
+  · simpa [howner] using! hcontact
 
 /-! ## Half-scale flux contraction -/
 
@@ -206,7 +206,7 @@ theorem squareRootLowPrimeGoSecondContactSources_subset_halfScale
   have htwoX : 2 * m ≤ X := htwoqm.trans hcontact
   have hmHalf : m ≤ X / 2 := by
     apply (Nat.le_div_iff_mul_le (by norm_num : 0 < (2 : ℕ))).2
-    simpa [Nat.mul_comm] using htwoX
+    simpa [Nat.mul_comm] using! htwoX
   exact Finset.mem_Icc.mpr ⟨by omega, hmHalf⟩
 
 /-- The disjoint global second-contact population has at most half as many
@@ -233,7 +233,7 @@ theorem squareRootLowPrimeGoWallSquareResidualTotal_eq_neg_sourceMobiusSum
   have hcast :
       ((squareRootLowPrimeGoWallSquareResidualTotal Q X : ℤ) : ℂ) =
         (((-∑ m ∈ squareRootLowPrimeGoSecondContactSources Q X, μ m : ℤ) : ℤ) : ℂ) := by
-    simpa [canonicalMoebiusWeight] using h
+    simpa [canonicalMoebiusWeight] using! h
   exact_mod_cast hcast
 
 /-- **Quantitative half-scale flux bound.**  After exact signed recombination,
@@ -286,10 +286,10 @@ theorem squareRootLowPrimeGoSecondContactSource_canonicalCofactor_le_quarterScal
   have hfour :
       4 * canonicalCofactor m ≤ q * (q * canonicalCofactor m) := by
     have h := Nat.mul_le_mul_right (canonicalCofactor m) hfourqq
-    simpa [Nat.mul_assoc] using h
+    simpa [Nat.mul_assoc] using! h
   have h4X : 4 * canonicalCofactor m ≤ X := hfour.trans hq2
   apply (Nat.le_div_iff_mul_le (by norm_num : 0 < (4 : ℕ))).2
-  simpa [Nat.mul_comm] using h4X
+  simpa [Nat.mul_comm] using! h4X
 
 /-- A second-contact child has a positive canonical parent. -/
 theorem squareRootLowPrimeGoSecondContactSource_canonicalCofactor_pos
@@ -413,17 +413,17 @@ theorem squareRootLowPrimeGoSecondContactSources_primesUpTo_eq_canonical
     let q := canonicalLargestPrimeFactor m
     let c := canonicalCofactor m
     have hdata : CanonicalSourceData q c := by
-      simpa [q, c] using canonicalSourceData_of_squarefree hsq hmgt
+      simpa [q, c] using! canonicalSourceData_of_squarefree hsq hmgt
     rcases hdata with ⟨hq, hc1, hcsq, _hcop, hdom⟩
     have hprod : q * c = m := by
-      simpa [q, c, Nat.mul_comm] using
+      simpa [q, c, Nat.mul_comm] using!
         canonicalCofactor_mul_largestPrimeFactor hmgt
     have hqX : q ≤ X := by
       have hmOne : 1 ≤ m := Nat.le_of_lt hmgt
       have hqm : q ≤ q * m := by
-        simpa using Nat.mul_le_mul_left q hmOne
+        simpa using! Nat.mul_le_mul_left q hmOne
       have hcontact' : q * m ≤ X := by
-        simpa [q] using hcontact
+        simpa [q] using! hcontact
       exact hqm.trans hcontact'
     have hqMem : q ∈ primesUpTo X := mem_primesUpTo.mpr ⟨hq, hqX⟩
     apply Finset.mem_biUnion.mpr
@@ -438,8 +438,8 @@ theorem squareRootLowPrimeGoSecondContactSources_primesUpTo_eq_canonical
       exact hcontact
     · by_cases hcEq : c = 1
       · have hcEq' : canonicalCofactor m = 1 := by
-          simpa [c] using hcEq
-        simpa [c, hcEq', canonicalLargestPrimeFactor] using hq.one_lt
+          simpa [c] using! hcEq
+        simpa [c, hcEq', canonicalLargestPrimeFactor] using! hq.one_lt
       · have hcgt : 1 < c := by omega
         exact hdom _ (canonicalLargestPrimeFactor_prime hcgt)
           (canonicalLargestPrimeFactor_dvd hcgt)

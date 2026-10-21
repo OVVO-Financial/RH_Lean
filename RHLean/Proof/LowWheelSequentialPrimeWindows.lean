@@ -53,18 +53,18 @@ theorem mem_primeDilateCofactorWindow_iff_lowWheelShell
       lt_of_le_of_lt (le_max_right R (X / (p * a))) hlower
     have hparent : a * q ≤ X := by
       have h := (Nat.le_div_iff_mul_le ha).1 hupper
-      simpa [Nat.mul_comm] using h
+      simpa [Nat.mul_comm] using! h
     have hchild : X < p * (a * q) := by
       have h := (Nat.div_lt_iff_lt_mul hpa).1 hdiv
-      simpa [Nat.mul_comm, Nat.mul_left_comm, Nat.mul_assoc] using h
+      simpa [Nat.mul_comm, Nat.mul_left_comm, Nat.mul_assoc] using! h
     exact ⟨hRq, hparent, hchild⟩
   · rintro ⟨hRq, hparent, hchild⟩
     have hupper : q ≤ X / a := by
       apply (Nat.le_div_iff_mul_le ha).2
-      simpa [Nat.mul_comm] using hparent
+      simpa [Nat.mul_comm] using! hparent
     have hdiv : X / (p * a) < q := by
       apply (Nat.div_lt_iff_lt_mul hpa).2
-      simpa [Nat.mul_comm, Nat.mul_left_comm, Nat.mul_assoc] using hchild
+      simpa [Nat.mul_comm, Nat.mul_left_comm, Nat.mul_assoc] using! hchild
     exact ⟨max_lt hRq hdiv, hupper⟩
 
 /-- The second shell is exactly the same reciprocal window after the fresh-prime
@@ -75,7 +75,7 @@ theorem mul_mem_primeDilateCofactorWindow_iff_lowWheelSecondShell
       R < p * q ∧ p * (a * q) ≤ X ∧ X < p * p * (a * q) := by
   have h := mem_primeDilateCofactorWindow_iff_lowWheelShell
     (p := p) (R := R) (X := X) (a := a) (q := p * q) hp ha
-  simpa [Nat.mul_comm, Nat.mul_left_comm, Nat.mul_assoc] using h
+  simpa [Nat.mul_comm, Nat.mul_left_comm, Nat.mul_assoc] using! h
 
 /-- Integer indicator of one reciprocal prime-dilate window. -/
 def lowWheelPrimeDilateWindowIndicator

@@ -13,7 +13,7 @@ theorem wheelPrime_add_two_le (k : ℕ) : k + 2 ≤ wheelPrime k := by
 theorem two_mul_primorialEndpoint_le_succ (k : ℕ) :
     2 * primorialEndpoint k ≤ primorialEndpoint (k + 1) := by
   rw [primorialEndpoint_succ]
-  simpa [Nat.mul_comm] using
+  simpa [Nat.mul_comm] using!
     Nat.mul_le_mul_left (primorialEndpoint k) (wheelPrime_prime k).two_le
 
 /-- After the first prime, every primorial step grows by at least a factor of three. -/
@@ -23,7 +23,7 @@ theorem three_mul_primorialEndpoint_le_succ
   rw [primorialEndpoint_succ]
   have hp : 3 ≤ wheelPrime k := by
     exact le_trans (by omega) (wheelPrime_add_two_le k)
-  simpa [Nat.mul_comm] using Nat.mul_le_mul_left (primorialEndpoint k) hp
+  simpa [Nat.mul_comm] using! Nat.mul_le_mul_left (primorialEndpoint k) hp
 
 /-- In the shifted scale used by the Mertens-energy statement, every primorial
 step after the first expands by at least a factor of two. -/
@@ -73,7 +73,7 @@ theorem primorialBlockLower_blockIndex_lt
   unfold primorialBlockIndex
   cases hfind : Nat.find (primorialBlock_exists x) with
   | zero =>
-      simpa [primorialBlockLower, primorialEndpoint_zero] using hx
+      simpa [primorialBlockLower, primorialEndpoint_zero] using! hx
   | succ j =>
       have hjlt : j < Nat.find (primorialBlock_exists x) := by
         rw [hfind]

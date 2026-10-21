@@ -158,11 +158,11 @@ theorem image_primeFaceProduct_chargingFaces_eq_ownershipProducts
       hparent.trans (Nat.div_le_self _ _)
     let t : Finset ℕ := squarefreePrimeFace a
     have htSub : t ⊆ primesUpTo R := by
-      simpa [t] using squarefreePrimeFace_subset_primesUpTo hsqa haR
+      simpa [t] using! squarefreePrimeFace_subset_primesUpTo hsqa haR
     have htPow : t ∈ (primesUpTo R).powerset :=
       Finset.mem_powerset.mpr htSub
     have hprod : primeFaceProduct t = a := by
-      simpa [t] using primeFaceProduct_squarefreePrimeFace hsqa
+      simpa [t] using! primeFaceProduct_squarefreePrimeFace hsqa
     have hhigh : R < a * k :=
       (Nat.div_lt_iff_lt_mul hkpos).mp hlo
     have htopMul : a * (c * k) ≤ squareRootEndpoint R :=
@@ -211,20 +211,20 @@ theorem sum_booleanCubeSign_chargingFaces_eq_moebiusOwnershipInterval
     apply Finset.sum_congr rfl
     intro t ht
     have htData := mem_lowWheelCanonicalDowncrossChargingFaces.mp
-      (by simpa [F] using ht)
+      (by simpa [F] using! ht)
     have htSub := Finset.mem_powerset.mp htData.1
     symm
     exact moebius_primeFaceProduct_eq_booleanCubeSign t
       (fun q hq => prime_of_mem_primesUpTo (htSub hq))
   have himage : F.image primeFaceProduct =
       lowWheelCanonicalDowncrossOwnershipProducts R c k := by
-    simpa [F] using
+    simpa [F] using!
       image_primeFaceProduct_chargingFaces_eq_ownershipProducts hne
   have hinj :
       ∀ a ∈ F, ∀ b ∈ F, primeFaceProduct a = primeFaceProduct b → a = b := by
     intro a ha b hb hab
     exact primeFaceProduct_injOn_chargingFaces R (c, k)
-      (by simpa [F] using ha) (by simpa [F] using hb) hab
+      (by simpa [F] using! ha) (by simpa [F] using! hb) hab
   calc
     (∑ t ∈ lowWheelCanonicalDowncrossChargingFaces R (c, k),
         booleanCubeSign t) = ∑ t ∈ F, booleanCubeSign t := by rfl
@@ -273,7 +273,7 @@ private theorem cast_le_rpow_one_add
     ((n + 1 : ℕ) : ℝ) ≤ Real.rpow ((n + 1 : ℕ) : ℝ) (1 + δ) := by
   have h := Real.rpow_le_rpow_of_exponent_le (one_le_cast_succ n)
     (by linarith : (1 : ℝ) ≤ 1 + δ)
-  simpa using h
+  simpa using! h
 
 /-- `1 ≤ x ^ (2 + ε)` for a base at least one. -/
 private theorem one_le_rpow_two_add
@@ -281,7 +281,7 @@ private theorem one_le_rpow_two_add
     (1 : ℝ) ≤ Real.rpow ((n + 1 : ℕ) : ℝ) (2 + ε) := by
   have h := Real.rpow_le_rpow_of_exponent_le (one_le_cast_succ n)
     (by linarith : (0 : ℝ) ≤ 2 + ε)
-  simpa using h
+  simpa using! h
 
 /-- **The oriented `1 + ε` seam gives the square-prefix energy criterion.**
 
@@ -304,7 +304,7 @@ theorem squarePrefixEnergyBounded_of_canonicalOrientedEpsilon
     have hn1 : n + 1 - 1 = n := by omega
     rw [hn1, LateParentCancellation.downcrossLedger_eq_orientedLedger] at hsplit
     have hM : ‖mertensSummatory (n + 1)‖ ≤ ((n + 1 : ℕ) : ℝ) := by
-      simpa using norm_mertensSummatory_sub_le 0 (n + 1) (Nat.zero_le _)
+      simpa using! norm_mertensSummatory_sub_le 0 (n + 1) (Nat.zero_le _)
     have hRle := cast_le_rpow_one_add (δ := ε / 2) (by linarith) n
     have hA :
         ‖squarePrefixMertens n‖ ≤
@@ -347,7 +347,7 @@ theorem squarePrefixEnergyBounded_of_canonicalOrientedEpsilon
     have hEnd : squarePrefixEndpoint n ≤ 3 := by
       interval_cases n <;> simp [squarePrefixEndpoint]
     have hb : ‖squarePrefixMertens n‖ ≤ ((squarePrefixEndpoint n : ℕ) : ℝ) := by
-      simpa [squarePrefixMertens] using
+      simpa [squarePrefixMertens] using!
         norm_mertensSummatory_sub_le 0 (squarePrefixEndpoint n) (Nat.zero_le _)
     have hb3 : ‖squarePrefixMertens n‖ ≤ 3 := by
       have hcast : ((squarePrefixEndpoint n : ℕ) : ℝ) ≤ 3 := by exact_mod_cast hEnd
@@ -399,7 +399,7 @@ private theorem cast_root_le_rpow_one_add
   have hbase : (1 : ℝ) ≤ (R : ℝ) := by exact_mod_cast hR
   have h := Real.rpow_le_rpow_of_exponent_le hbase
     (by linarith : (1 : ℝ) ≤ 1 + ε)
-  simpa using h
+  simpa using! h
 
 /-- The already-compiled `9R` comparison sends the canonical oriented
 `R^(1+ε)` seam to the frozen/top/far residual with no exponent loss. -/
@@ -466,9 +466,9 @@ theorem frozenTopFarResidualEpsilon_of_canonicalOrientedEpsilon
     ‖lowWheelFrozenTopFarResidual R‖ ≤
         ‖lowWheelCanonicalDowncrossLedger R‖ + 9 * (R : ℝ) := hcomp
     _ ≤ C * Real.rpow (R : ℝ) (1 + ε) + 9 * (R : ℝ) :=
-      add_le_add_right hD _
+      add_le_add_left hD _
     _ ≤ C * Real.rpow (R : ℝ) (1 + ε) +
-        9 * Real.rpow (R : ℝ) (1 + ε) := add_le_add_left h9 _
+        9 * Real.rpow (R : ℝ) (1 + ε) := add_le_add_right h9 _
     _ = (C + 9) * Real.rpow (R : ℝ) (1 + ε) := by ring
 
 /-- Conversely, the frozen/top/far target gives the complete canonical oriented
@@ -502,9 +502,9 @@ theorem canonicalOrientedEpsilon_of_frozenTopFarResidualEpsilon
       ‖lowWheelCanonicalDowncrossLedger R‖ ≤
           ‖lowWheelFrozenTopFarResidual R‖ + 9 * (R : ℝ) := hcomp
       _ ≤ C * Real.rpow (R : ℝ) (1 + ε) + 9 * (R : ℝ) :=
-        add_le_add_right hbound _
+        add_le_add_left hbound _
       _ ≤ C * Real.rpow (R : ℝ) (1 + ε) +
-          9 * Real.rpow (R : ℝ) (1 + ε) := add_le_add_left h9 _
+          9 * Real.rpow (R : ℝ) (1 + ε) := add_le_add_right h9 _
       _ = (C + 9) * Real.rpow (R : ℝ) (1 + ε) := by ring
       _ ≤ C' * Real.rpow (R : ℝ) (1 + ε) :=
         mul_le_mul_of_nonneg_right hcoeff hrpowNonneg
@@ -518,7 +518,7 @@ theorem canonicalOrientedEpsilon_of_frozenTopFarResidualEpsilon
         (1 : ℝ) ≤ Real.rpow (R : ℝ) (1 + ε) := by
       have hm := Real.rpow_le_rpow_of_exponent_le hbase
         (by linarith : (0 : ℝ) ≤ 1 + ε)
-      simpa using hm
+      simpa using! hm
     have h55nonneg : 0 ≤ (55 : ℝ) ^ 4 := by positivity
     have hscale :
         (55 : ℝ) ^ 4 ≤ (55 : ℝ) ^ 4 * Real.rpow (R : ℝ) (1 + ε) := by

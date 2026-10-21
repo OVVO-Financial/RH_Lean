@@ -218,7 +218,7 @@ private theorem natCast_ratio_norm_le_one
   rw [norm_mul, norm_inv, Complex.norm_natCast, Complex.norm_natCast]
   have hqR : (0 : ℝ) < q := by exact_mod_cast hq
   have hpqR : (p : ℝ) ≤ q := by exact_mod_cast hpq
-  simpa [div_eq_mul_inv] using (div_le_one hqR).2 hpqR
+  simpa [div_eq_mul_inv] using! (div_le_one hqR).2 hpqR
 
 private theorem left_tent_energy_le
     (c : ℂ) {a m : ℕ} (ham : a < m) :
@@ -242,7 +242,7 @@ private theorem left_tent_energy_le
         rw [norm_mul]
         change (r * ‖c‖) ^ 2 ≤ ‖c‖ ^ 2
         have hmul : r * ‖c‖ ≤ ‖c‖ := by
-          simpa using mul_le_mul_of_nonneg_right hr1 hc0
+          simpa using! mul_le_mul_of_nonneg_right hr1 hc0
         exact (sq_le_sq₀ (mul_nonneg hr0 hc0) hc0).2 hmul
     _ = ((m - a : ℕ) : ℝ) * ‖c‖ ^ 2 := by
       simp [Nat.card_Ico, nsmul_eq_mul]
@@ -269,7 +269,7 @@ private theorem right_tent_energy_le
         rw [norm_mul]
         change (r * ‖c‖) ^ 2 ≤ ‖c‖ ^ 2
         have hmul : r * ‖c‖ ≤ ‖c‖ := by
-          simpa using mul_le_mul_of_nonneg_right hr1 hc0
+          simpa using! mul_le_mul_of_nonneg_right hr1 hc0
         exact (sq_le_sq₀ (mul_nonneg hr0 hc0) hc0).2 hmul
     _ = ((b - m : ℕ) : ℝ) * ‖c‖ ^ 2 := by
       simp [Nat.card_Ico, nsmul_eq_mul]
@@ -346,7 +346,7 @@ private theorem genericChordEnergy_split_weighted
             have ht := left_tent_energy_le c ham
             have hcoef : 0 ≤ (q : ℝ) * ((q + 1 : ℕ) : ℝ) := by positivity
             have hs := mul_le_mul_of_nonneg_left ht hcoef
-            convert add_le_add_left hs
+            convert add_le_add_right hs
               (((q + 1 : ℕ) : ℝ) * (∑ d ∈ Finset.Ico a m,
                 ‖genericSignedSiblingResidual f a d m‖ ^ 2)) using 1
             all_goals ring
@@ -386,7 +386,7 @@ private theorem genericChordEnergy_split_weighted
             have ht := right_tent_energy_le c hmb
             have hcoef : 0 ≤ (q : ℝ) * ((q + 1 : ℕ) : ℝ) := by positivity
             have hs := mul_le_mul_of_nonneg_left ht hcoef
-            convert add_le_add_left hs
+            convert add_le_add_right hs
               (((q + 1 : ℕ) : ℝ) * (∑ d ∈ Finset.Ico m b,
                 ‖genericSignedSiblingResidual f m d b‖ ^ 2)) using 1
             all_goals ring
@@ -441,13 +441,13 @@ private theorem genericMidpointPacketTreeEnergy_mono_succ
       genericMidpointPacketTreeEnergy f (depth + 1) a b := by
   induction depth generalizing a b with
   | zero =>
-      simpa [genericMidpointPacketTreeEnergy] using
+      simpa [genericMidpointPacketTreeEnergy] using!
         genericMidpointPacketTreeEnergy_nonneg f 1 a b
   | succ depth ih =>
       simp only [genericMidpointPacketTreeEnergy]
       by_cases hsplit : a + 1 < b
       · simp [hsplit]
-        exact add_le_add (add_le_add_left (ih _ _) _) (ih _ _)
+        exact add_le_add (add_le_add_right (ih _ _) _) (ih _ _)
       · simp [hsplit]
 
 private theorem genericMidpointPacketTreeEnergy_mono
@@ -469,7 +469,7 @@ private theorem genericChordEnergy_le_midpointPacketTreeEnergy
   induction depth with
   | zero =>
       intro a b hab hwidth
-      have hw : b - a ≤ 1 := by simpa using hwidth
+      have hw : b - a ≤ 1 := by simpa using! hwidth
       rw [genericChordEnergy_eq_zero_of_width_le_one f hw]
       simp
   | succ depth ih =>
@@ -499,7 +499,7 @@ private theorem genericChordEnergy_le_midpointPacketTreeEnergy
               genericMidpointPacketTreeEnergy f 1 a b =
                 ((b - a : ℕ) : ℝ) *
                   ‖genericSignedSiblingResidual f a m b‖ ^ 2 := by
-            simpa [genericMidpointPacketTreeEnergy] using htree
+            simpa [genericMidpointPacketTreeEnergy] using! htree
           calc
             genericChordEnergy f a b ≤
                 2 * ((b - a : ℕ) : ℝ) *
@@ -550,10 +550,10 @@ private theorem genericChordEnergy_le_midpointPacketTreeEnergy
                   (((depth : ℝ) + 1) *
                       (genericChordEnergy f a m + genericChordEnergy f m b) +
                     (depth : ℝ) * (((depth : ℝ) + 1) * root)) := by
-                simpa [root, mul_assoc] using hw
+                simpa [root, mul_assoc] using! hw
               _ ≤ (((depth : ℝ) + 1) * (2 * (depth : ℝ) * kids) +
                     (depth : ℝ) * (((depth : ℝ) + 1) * root)) := by
-                exact add_le_add_right hchildScaled _
+                exact add_le_add_left hchildScaled _
               _ ≤ (depth : ℝ) *
                     (2 * ((depth : ℝ) + 1) * (root + kids)) := by
                 have hextra :
@@ -717,7 +717,7 @@ private theorem genericChordEnergy_eq_blockChordEnergy
         primeSieveDyadicBlock y x j := by
     rw [primeSieveDyadicBlock_eq_explicitIcc]
     ext d
-    simp
+    simp only [Finset.mem_Icc, Finset.mem_Ico]
     omega
   unfold genericChordEnergy
   rw [hset]
@@ -760,7 +760,7 @@ theorem primeSieveDyadicChordEnergy_le_weightedPacketTree
 private theorem dyadicPower_divisors_card (j : ℕ) :
     (2 ^ j).divisors.card = j + 1 := by
   have h := congrArg Finset.card (Nat.divisors_prime_pow Nat.prime_two j)
-  simpa using h
+  simpa using! h
 
 /-- The dyadic depth is subpolynomial because `j+1` is exactly the divisor count
 of `2^j`. -/
@@ -775,7 +775,7 @@ private theorem dyadicDepth_succ_le_subpolynomial
   refine ⟨C, hC, ?_⟩
   intro j
   have hpow : 1 ≤ 2 ^ j := by
-    simpa using (Nat.one_le_pow' j 1)
+    simpa using! (Nat.one_le_pow' j 1)
   have h := hCb (2 ^ j) hpow
   rw [dyadicPower_divisors_card] at h
   exact h

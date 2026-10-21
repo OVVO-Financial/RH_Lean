@@ -132,7 +132,7 @@ theorem partial_add_postCrossingCoupledTail_eq_mertens
         squareRootSmoothMass (R - 1) - squareRootTransportPrimeFirst R := by
       ring
     _ = mertensSummatory (squareRootEndpoint R) := by
-      simpa [squareRootEndpoint] using hprefix.symm
+      simpa [squareRootEndpoint] using! hprefix.symm
 
 /-- Subtraction form: the coupled tail is exactly terminal Mertens minus the
 small partial crossing residual. -/
@@ -326,13 +326,13 @@ theorem postCrossingCoupledTailBounded_of_squarePrefixEnergyBounded
         2 * ‖mertensSummatory (squareRootEndpoint R)‖ ^ 2 +
           2 * ‖-((squareRootCrossingLayerPartialPacketInt R K j : ℤ) : ℂ)‖ ^ 2 := by
     rw [postCrossingCoupledTail_eq_mertens_sub_partial R K j hR]
-    simpa [sub_eq_add_neg] using htail
+    simpa [sub_eq_add_neg] using! htail
   have hMbound :
       ‖mertensSummatory (squareRootEndpoint R)‖ ^ 2 ≤
         C * Real.rpow (R : ℝ) (2 + ε) := by
     have h := hbound (R - 1)
     have hpred : R - 1 + 1 = R := Nat.sub_add_cancel (by omega : 1 ≤ R)
-    simpa [squarePrefixMertens, squarePrefixEndpoint, hpred] using h
+    simpa [squarePrefixMertens, squarePrefixEndpoint, hpred] using! h
   have hV := partialResidual_norm_le_cap K₀ hK hV0 hVK
   have hVsq :
       ‖((squareRootCrossingLayerPartialPacketInt R K j : ℤ) : ℂ)‖ ^ 2 ≤
@@ -351,12 +351,12 @@ theorem postCrossingCoupledTailBounded_of_squarePrefixEnergyBounded
       htail'
     _ ≤ 2 * (C * Real.rpow (R : ℝ) (2 + ε)) +
           2 * (K₀ : ℝ) ^ 2 := by
-      simpa only [norm_neg] using add_le_add
+      simpa only [norm_neg] using! add_le_add
         (mul_le_mul_of_nonneg_left hMbound (by norm_num))
         (mul_le_mul_of_nonneg_left hVsq (by norm_num))
     _ ≤ 2 * (C * Real.rpow (R : ℝ) (2 + ε)) +
           2 * (K₀ : ℝ) ^ 2 * Real.rpow (R : ℝ) (2 + ε) :=
-      add_le_add_left hconst _
+      add_le_add_right hconst _
     _ = D * Real.rpow (R : ℝ) (2 + ε) := by
       dsimp [D]
       ring
@@ -427,7 +427,7 @@ theorem squarePrefixEnergyBounded_of_postCrossingCoupledTailBounded
             (mul_le_mul_of_nonneg_left htailR (by norm_num))
         _ ≤ 2 * (K₀ : ℝ) ^ 2 * Real.rpow (R : ℝ) (2 + ε) +
               2 * (C * Real.rpow (R : ℝ) (2 + ε)) :=
-          add_le_add_right hconst _
+          add_le_add_left hconst _
         _ ≤ D * Real.rpow (R : ℝ) (2 + ε) := by
           have hpowNonneg : 0 ≤ Real.rpow (R : ℝ) (2 + ε) :=
             Real.rpow_nonneg (by positivity) _
@@ -440,7 +440,7 @@ theorem squarePrefixEnergyBounded_of_postCrossingCoupledTailBounded
               mul_le_mul_of_nonneg_right (by
                 dsimp [D]
                 nlinarith [sq_nonneg ((B : ℝ) ^ 2)]) hpowNonneg
-    simpa [squarePrefixMertens, hendpoint, R] using hendpointBound
+    simpa [squarePrefixMertens, hendpoint, R] using! hendpointBound
   · have hRB : R ≤ B := by omega
     have hnorm := norm_mertensSummatory_sub_le
       0 (squareRootEndpoint R) (Nat.zero_le _)
@@ -453,7 +453,7 @@ theorem squarePrefixEnergyBounded_of_postCrossingCoupledTailBounded
       calc
         ‖mertensSummatory (squareRootEndpoint R)‖ ≤
             (squareRootEndpoint R : ℝ) := by
-          simpa using hnorm
+          simpa using! hnorm
         _ ≤ (B ^ 2 : ℕ) := by exact_mod_cast hendpointLe
         _ = (B : ℝ) ^ 2 := by norm_cast
     have hnormSq :

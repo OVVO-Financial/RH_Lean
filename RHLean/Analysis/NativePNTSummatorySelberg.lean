@@ -102,7 +102,7 @@ theorem nativeLambdaConvolutionMass_eq_reciprocalPsi (N : ℕ) :
           exact ⟨hq1, hqN⟩
         · rintro ⟨m, ⟨hm1, hmN⟩, rfl⟩
           have hmulN' : m * d ≤ N := (Nat.le_div_iff_mul_le hdpos).1 hmN
-          have hmulN : d * m ≤ N := by simpa [Nat.mul_comm] using hmulN'
+          have hmulN : d * m ≤ N := by simpa [Nat.mul_comm] using! hmulN'
           have hmpos : 0 < m := by omega
           have hmulpos : 0 < d * m := Nat.mul_pos hdpos hmpos
           exact ⟨⟨Nat.one_le_iff_ne_zero.mpr (Nat.ne_of_gt hmulpos), hmulN⟩,
@@ -182,7 +182,7 @@ theorem nativeLambdaTwoSummatory_eq_moebius_logSquare (N : ℕ) :
           exact ⟨hq1, hqN⟩
         · rintro ⟨m, ⟨hm1, hmN⟩, rfl⟩
           have hmulN' : m * d ≤ N := (Nat.le_div_iff_mul_le hdpos).1 hmN
-          have hmulN : d * m ≤ N := by simpa [Nat.mul_comm] using hmulN'
+          have hmulN : d * m ≤ N := by simpa [Nat.mul_comm] using! hmulN'
           have hmpos : 0 < m := by omega
           have hmulpos : 0 < d * m := Nat.mul_pos hdpos hmpos
           exact ⟨⟨Nat.one_le_iff_ne_zero.mpr (Nat.ne_of_gt hmulpos), hmulN⟩,
@@ -339,7 +339,7 @@ theorem nativeSelbergPair_sub_lambdaTwoSummatory_abs_le (N : ℕ) :
     nativeLambdaConvolutionMass_eq_reciprocalPsi]
   unfold nativeSelbergPair
   have h := nativeLambdaLogMass_sub_psiLog_abs_le N
-  simpa [abs_sub_comm, add_sub_add_right_eq_sub] using h
+  simpa [abs_sub_comm, add_sub_add_right_eq_sub] using! h
 
 /-! ## Explicit main term -/
 
@@ -446,16 +446,16 @@ private theorem nativeReciprocalSqrtMass_le :
             1 / Real.sqrt ((N + 1 : ℕ) : ℝ) ≤
               2 * (Real.sqrt ((N + 1 : ℕ) : ℝ) - Real.sqrt (N : ℝ)) := by
           apply (div_le_iff₀ hsSpos).2
-          simpa [mul_assoc] using honele
+          simpa [mul_assoc] using! honele
         calc
           (∑ d ∈ Finset.Icc 1 N, 1 / Real.sqrt (d : ℝ)) +
               1 / Real.sqrt ((N + 1 : ℕ) : ℝ) ≤
               2 * Real.sqrt (N : ℝ) +
                 1 / Real.sqrt ((N + 1 : ℕ) : ℝ) :=
-            add_le_add_right ih _
+            add_le_add_left ih _
           _ ≤ 2 * Real.sqrt (N : ℝ) +
                 2 * (Real.sqrt ((N + 1 : ℕ) : ℝ) - Real.sqrt (N : ℝ)) :=
-            add_le_add_left hstep _
+            add_le_add_right hstep _
           _ = 2 * Real.sqrt ((N + 1 : ℕ) : ℝ) := by ring
 
 private theorem nativeFloorLogSquareMass_le (N : ℕ) :
@@ -532,7 +532,7 @@ private theorem nativeFloorLogMass_le (N : ℕ) :
         rw [Nat.card_Icc]
         norm_num
       _ ≤ 32 * (N : ℝ) + (N : ℝ) :=
-        add_le_add_right (nativeFloorLogSquareMass_le N) _
+        add_le_add_left (nativeFloorLogSquareMass_le N) _
       _ = 33 * (N : ℝ) := by ring
 
 private def nativeMobiusFloorLogSquareCorrection (N : ℕ) : ℝ :=
@@ -585,11 +585,11 @@ private theorem nativeMobiusFloorLogSquareCorrection_abs_le (N : ℕ) :
               Int.fract ((N : ℝ) / (d : ℝ)) ≤
               1 * Int.fract ((N : ℝ) / (d : ℝ)) :=
             mul_le_mul_of_nonneg_right hmu hfr0
-          _ ≤ 1 := by simpa using hfr1
+          _ ≤ 1 := by simpa using! hfr1
       have hlog2 : 0 ≤ (Real.log ((N / d : ℕ) : ℝ)) ^ 2 :=
         sq_nonneg (Real.log ((N / d : ℕ) : ℝ))
       rw [abs_mul, abs_mul, abs_of_nonneg hfr0, abs_of_nonneg hlog2]
-      simpa using mul_le_mul_of_nonneg_right hmf hlog2
+      simpa using! mul_le_mul_of_nonneg_right hmf hlog2
     _ ≤ 32 * (N : ℝ) := nativeFloorLogSquareMass_le N
 
 private theorem nativeMobiusFloorLogCorrection_abs_le (N : ℕ) :
@@ -626,9 +626,9 @@ private theorem nativeMobiusFloorLogCorrection_abs_le (N : ℕ) :
               Int.fract ((N : ℝ) / (d : ℝ)) ≤
               1 * Int.fract ((N : ℝ) / (d : ℝ)) :=
             mul_le_mul_of_nonneg_right hmu hfr0
-          _ ≤ 1 := by simpa using hfr1
+          _ ≤ 1 := by simpa using! hfr1
       rw [abs_mul, abs_mul, abs_of_nonneg hfr0, abs_of_nonneg hlog0]
-      simpa using mul_le_mul_of_nonneg_right hmf hlog0
+      simpa using! mul_le_mul_of_nonneg_right hmf hlog0
     _ ≤ 33 * (N : ℝ) := nativeFloorLogMass_le N
 
 private def nativeMobiusFloorLogSquareMass (N : ℕ) : ℝ :=
@@ -752,7 +752,7 @@ private theorem nativeLambdaTwoLogSquareRemainderMass_abs_le
         have herr := nativeLogSquareMass_sub_main_abs_le (N / d) hq1
         have hmu := nativeAbsMobiusReal_le_one d
         rw [abs_mul]
-        simpa using
+        simpa using!
           (mul_le_mul hmu herr (abs_nonneg _)
             (show (0 : ℝ) ≤ 1 by norm_num))
       _ = (∑ d ∈ Finset.Icc 1 N,
@@ -765,7 +765,7 @@ private theorem nativeLambdaTwoLogSquareRemainderMass_abs_le
         rw [Nat.card_Icc]
         norm_num
       _ ≤ 32 * (N : ℝ) + 2 * (N : ℝ) :=
-        add_le_add_right (nativeFloorLogSquareMass_le N) _
+        add_le_add_left (nativeFloorLogSquareMass_le N) _
       _ = 34 * (N : ℝ) := by ring
 
 private theorem nativeLambdaTwoSummatory_eq_main_add_remainder (N : ℕ) :

@@ -166,7 +166,7 @@ theorem lowOwnerFirstOwner_toggle_of_dvd_mem_same_base
   have hrsq : ¬ r ^ 2 ∣ n := by
     intro hsq
     exact (Nat.squarefree_iff_prime_squarefree.mp hnSq r hr)
-      (by simpa [pow_two] using hsq)
+      (by simpa [pow_two] using! hsq)
   rw [primeCarrierToggle_of_dvd hrn hrsq]
   exact lowOwnerFirstOwner_div_larger_prime_mem_same_base
     hp hr hpr hn hrn
@@ -192,7 +192,7 @@ theorem lowOwnerFirstOwner_primeEscapePart_eq_dirichletClipFace
           hp hr hpr hrn hn hle
         apply hout
         rw [primeCarrierToggle_of_not_dvd hrn]
-        simpa [Nat.mul_comm] using hmul
+        simpa [Nat.mul_comm] using! hmul
       exact mem_lowOwnerFirstOwnerStokesDirichletClipFace.mpr
         ⟨hn, hrn, hclip⟩
   · intro hclip
@@ -206,7 +206,7 @@ theorem lowOwnerFirstOwner_primeEscapePart_eq_dirichletClipFace
     have hIcc := (Finset.mem_filter.mp hcar).1
     have hle : n * r ≤ squareRootEndpoint R := (Finset.mem_Icc.mp hIcc).2
     have hle' : r * n ≤ squareRootEndpoint R := by
-      simpa [Nat.mul_comm] using hle
+      simpa [Nat.mul_comm] using! hle
     omega
 
 /-- The same physical clip is exactly the endpoint threshold crossing of the
@@ -287,9 +287,9 @@ theorem lowOwnerStokesNearestSquareDistance_le_sqrt (x : ℕ) :
     lowOwnerStokesNearestSquareDistance x ≤ Nat.sqrt x := by
   let s := Nat.sqrt x
   have hs2 : s ^ 2 ≤ x := by
-    simpa [s] using Nat.sqrt_le' x
+    simpa [s] using! Nat.sqrt_le' x
   have hxlt : x < (s + 1) ^ 2 := by
-    simpa [s] using Nat.lt_succ_sqrt' x
+    simpa [s] using! Nat.lt_succ_sqrt' x
   by_cases hmid : x < s ^ 2 + s
   · have hdist :
         lowOwnerStokesNearestSquareDistance x =
@@ -299,7 +299,7 @@ theorem lowOwnerStokesNearestSquareDistance_le_sqrt (x : ℕ) :
     have hgap : x - squareRootEndpoint s ≤ s := by
       unfold squareRootEndpoint
       omega
-    simpa [s] using hgap
+    simpa [s] using! hgap
   · have hmid' : s ^ 2 + s ≤ x := Nat.le_of_not_gt hmid
     have hdist :
         lowOwnerStokesNearestSquareDistance x =
@@ -311,7 +311,7 @@ theorem lowOwnerStokesNearestSquareDistance_le_sqrt (x : ℕ) :
       unfold squareRootEndpoint
       rw [hsquare]
       omega
-    simpa [s] using hgap
+    simpa [s] using! hgap
 
 /-- Residual endpoint distance at an arbitrary positive finite-wheel conductor.
 This remains an exact coordinate, not a magnitude estimate. -/
@@ -610,15 +610,15 @@ theorem lowOwnerZeroFrequencyMobiusWeight_sub_toggle_eq_signedCrossing
   · have hrsq : ¬ r ^ 2 ∣ n := by
       intro hsq
       exact (Nat.squarefree_iff_prime_squarefree.mp hnSq r hr)
-        (by simpa [pow_two] using hsq)
-    rw [if_pos hrn, primeCarrierToggle_of_dvd hrn hrsq]
+        (by simpa [pow_two] using! hsq)
+    rw [ite_eq_left hrn, primeCarrierToggle_of_dvd hrn hrsq]
     have heq : r * (n / r) = n := Nat.mul_div_cancel' hrn
     have h := lowOwnerZeroFrequencyMobiusWeight_sub_mul
       (R := R) (p := r) (n := n / r) hr.one_le
     rw [heq] at h
     linarith
-  · rw [if_neg hrn, primeCarrierToggle_of_not_dvd hrn]
-    simpa [Nat.mul_comm] using
+  · rw [ite_eq_right hrn, primeCarrierToggle_of_not_dvd hrn]
+    simpa [Nat.mul_comm] using!
       (lowOwnerZeroFrequencyMobiusWeight_sub_mul
         (R := R) (p := r) (n := n) hr.one_le)
 

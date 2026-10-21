@@ -120,18 +120,18 @@ theorem prime_sq_dvd_lowOwnerStokesNaturalWheelModulus
   exact prime_sq_dvd_lowOwnerStokesSquareSensitivePeriod hp
 
 /-- Exact arithmetic certificate on the natural-period wheel. -/
-def lowOwnerStokesNaturalWheelArithmeticCertificate
+theorem lowOwnerStokesNaturalWheelArithmeticCertificate
     (R : ℕ) (hR : 56 ≤ R) :
-    (lowOwnerStokesNaturalWheelSystem R hR).ArithmeticCertificate where
-  corrected_eq_moebius := by
-    intro n hnpos hnupper
-    change correctedPrimeWheelSite
-      (lowOwnerStokesWheelPrimes R) (squareRootEndpoint R) n = μ n
-    exact correctedPrimeWheelSite_eq_moebius
-      (lowOwnerStokesWheelPrimes R)
-      (fun p hp => lowOwnerStokesWheelPrimes_prime hp)
-      (lowOwnerStokesWheelPrimes_sqrtCoverage R)
-      hnpos hnupper
+    (lowOwnerStokesNaturalWheelSystem R hR).ArithmeticCertificate := by
+  refine ⟨?_⟩
+  intro n hnpos hnupper
+  change correctedPrimeWheelSite
+    (lowOwnerStokesWheelPrimes R) (squareRootEndpoint R) n = μ n
+  exact correctedPrimeWheelSite_eq_moebius
+    (lowOwnerStokesWheelPrimes R)
+    (fun p hp => lowOwnerStokesWheelPrimes_prime hp)
+    (lowOwnerStokesWheelPrimes_sqrtCoverage R)
+    hnpos hnupper
 
 /-- The natural wheel uses the same physical prefix interval `(0,x] = [1,x]`. -/
 theorem lowOwnerStokesNaturalWheel_prefixInterval_eq_Icc

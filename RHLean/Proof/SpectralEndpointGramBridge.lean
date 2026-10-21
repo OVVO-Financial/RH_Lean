@@ -35,7 +35,7 @@ theorem packetBoundary_eq_coherent_add_orthogonal
   have hsum := congrArg (fun x : E => inner ℂ x (packet N))
     (orthogonalResidual_add_projection (𝕜 := ℂ) v u hv)
   simpa [packetBoundary, coherentPacketBoundary, orthogonalPacketBoundary,
-    inner_add_left, add_comm] using hsum.symm
+    inner_add_left, add_comm] using! hsum.symm
 
 /--
 Spectral data for a packet family.  The coherent direction is projected exactly,
@@ -56,28 +56,27 @@ structure SpectralEndpointGramData {E : Type*}
       (orthogonalPacketBoundary packet v u hv)
 
 /-- Spectral Gram data instantiate the projection bridge from #110. -/
-def endpointProjectionOfSpectralGram
+theorem endpointProjectionOfSpectralGram
     {E : Type*} [NormedAddCommGroup E] [InnerProductSpace ℂ E]
     (packet : ℕ → E) (v u : E) (hv : v ≠ 0)
     (spectral : SpectralEndpointGramData packet v u hv) :
     EndpointProjectionDecomposition
       (packetBoundary packet u)
       (coherentPacketBoundary packet v u hv)
-      (orthogonalPacketBoundary packet v u hv) where
-  pointwise_decomposition :=
-    packetBoundary_eq_coherent_add_orthogonal packet v u hv
-  local_energy_decomposition := spectral.local_energy_separation
+      (orthogonalPacketBoundary packet v u hv) := by
+  exact ⟨packetBoundary_eq_coherent_add_orthogonal packet v u hv,
+    spectral.local_energy_separation⟩
 
 /-- Spectral alignment and orthogonal-complement control give projection estimates. -/
-def endpointProjectionEstimatesOfSpectralGram
+theorem endpointProjectionEstimatesOfSpectralGram
     {E : Type*} [NormedAddCommGroup E] [InnerProductSpace ℂ E]
     (packet : ℕ → E) (v u : E) (hv : v ≠ 0)
     (spectral : SpectralEndpointGramData packet v u hv) :
     EndpointProjectionEstimates
       (coherentPacketBoundary packet v u hv)
-      (orthogonalPacketBoundary packet v u hv) where
-  coherent_bound := spectral.coherent_alignment_control
-  residual_bound := spectral.orthogonal_operator_control
+      (orthogonalPacketBoundary packet v u hv) := by
+  exact ⟨spectral.coherent_alignment_control,
+    spectral.orthogonal_operator_control⟩
 
 /-- Spectral endpoint-Gram control yields the endpoint-boundary estimate. -/
 theorem endpointBoundary_of_spectralGram

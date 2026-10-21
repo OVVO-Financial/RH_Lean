@@ -62,14 +62,14 @@ theorem creationResponseOthelloMate_mem
   classical
   rcases x with c | r
   · have hcC : c ∈ C := by
-      simpa [creationResponseOthelloCarrier] using hx
+      simpa [creationResponseOthelloCarrier] using! hx
     by_cases hcM : c ∈ M
     · simp [creationResponseOthelloMate, hcM,
         creationResponseOthelloCarrier, hmap c hcM]
     · simp [creationResponseOthelloMate, hcM,
         creationResponseOthelloCarrier, hcC]
   · have hrR : r ∈ R := by
-      simpa [creationResponseOthelloCarrier] using hx
+      simpa [creationResponseOthelloCarrier] using! hx
     by_cases hpre : ∃ c ∈ M, φ c = r
     · have hspec := creationResponseOthelloPreimage_spec hpre
       have hcC := hMC hspec.1
@@ -166,7 +166,7 @@ theorem finiteOthelloStablePart_creationResponse_eq_frontier
       simp [creationResponseOthelloMate, hpre,
         creationResponseTaggedFrontier, him]
     · have hnot : r ∉ creationResponseMatchedImage M φ := by
-        simpa [himage] using hpre
+        simpa [himage] using! hpre
       simp [creationResponseOthelloMate, hpre,
         creationResponseTaggedFrontier, hnot]
 

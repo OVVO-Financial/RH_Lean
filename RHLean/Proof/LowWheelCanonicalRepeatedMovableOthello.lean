@@ -56,13 +56,13 @@ private theorem prime_mem_face_of_dvd_primeFaceProduct
     (hdiv : q ∣ primeFaceProduct t) :
     q ∈ t := by
   change q ∣ t.prod id at hdiv
-  rcases (Prime.dvd_finset_prod_iff hq.prime id).mp hdiv with
+  rcases (Prime.dvd_finsetProd_iff hq.prime id).mp hdiv with
     ⟨r, hrt, hqr⟩
   have hrPrime : r.Prime :=
     prime_of_mem_primesUpTo ((Finset.mem_powerset.mp ht) hrt)
   have hqrEq : q = r :=
     (Nat.prime_dvd_prime_iff_eq hq hrPrime).mp hqr
-  simpa [hqrEq] using hrt
+  simpa [hqrEq] using! hrt
 
 /-- Every previously-classified movable coordinate belongs to the invariant
 parent-divisor candidate set. -/
@@ -142,7 +142,7 @@ theorem lowWheelCanonicalDowncrossMover_mem
       (lowWheelCanonicalDowncrossMovablePrimeSet R y).Nonempty :=
     (lowWheelCanonicalDowncrossMovablePrimeSet_nonempty_iff hyCarrier).2 hmov
   unfold lowWheelCanonicalDowncrossMover
-  rw [dif_pos hnonempty]
+  rw [dite_eq_left hnonempty]
   exact Finset.min'_mem _ hnonempty
 
 /-- Hence the canonical mover satisfies the original arithmetic movable-prime

@@ -118,7 +118,7 @@ theorem lowOwnerFirstOwnerPolarization_child_rawParent_mem_same_cell
   have hparents :=
     lowOwnerFirstOwnerBasePair_freshPrime_parents_mem_same_cell
       hp hmBase hnBase howner.1
-  simpa [lowOwnerFirstOwnerPolarizationRawParent] using hparents
+  simpa [lowOwnerFirstOwnerPolarizationRawParent] using! hparents
 
 /-- Both coordinates of an occurring raw parent are r-free. -/
 theorem lowOwnerFirstOwnerPolarization_child_rawParent_not_dvd
@@ -137,10 +137,10 @@ theorem lowOwnerFirstOwnerPolarization_child_rawParent_not_dvd
   rcases lowOwnerNonzeroMobiusCarrier_squarefree_pos hnCar with ⟨hnSq, _hnPos⟩
   have hr := (freshPrime_of_nonzeroPhysicalPair hmCar hnCar howner.1).1
   exact ⟨by
-      simpa [lowOwnerFirstOwnerPolarizationRawParent] using
+      simpa [lowOwnerFirstOwnerPolarizationRawParent] using!
         (squarefreePrimeFamilyParent_not_dvd hr hmSq),
     by
-      simpa [lowOwnerFirstOwnerPolarizationRawParent] using
+      simpa [lowOwnerFirstOwnerPolarizationRawParent] using!
         (squarefreePrimeFamilyParent_not_dvd hr hnSq)⟩
 
 /-- Every child with fixed raw parent is one of the two literal mixed r-corners. -/
@@ -166,7 +166,7 @@ theorem lowOwnerFirstOwnerPolarizationFixedRawParentFiber_child_mixed
   have hparent' :
       (squarefreePrimeFamilyParent r m,
         squarefreePrimeFamilyParent r n) = parent := by
-    simpa [lowOwnerFirstOwnerPolarizationRawParent] using hparent
+    simpa [lowOwnerFirstOwnerPolarizationRawParent] using! hparent
   rcases parent with ⟨a, b⟩
   simp only [Prod.mk.injEq] at hparent'
   rcases hparent' with ⟨ha, hb⟩
@@ -200,7 +200,7 @@ theorem lowOwnerFirstOwnerPolarizationFixedRawParentFiber_card_le_two
     have h := Finset.card_insert_le
       (r * parent.1, parent.2)
       ({(parent.1, r * parent.2)} : Finset (ℕ × ℕ))
-    simpa [candidates] using h
+    simpa [candidates] using! h
   exact hcard.trans hcand
 
 end RHLean.Proof

@@ -45,6 +45,10 @@ jobs:
           key: mertens-map-native-v1-${{ runner.os }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-${{ github.sha }}
           restore-keys: |
             mertens-map-native-v1-${{ runner.os }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-
+      - name: Build RHLean modules imported by these research checks
+        run: >-
+          python3 scripts/compile_research_import_closure.py --library-only
+          research/MERTENS_EXPONENT_STRIP_ACCEPTANCE.lean
       - name: Compile complete warning-fatal import closure
         uses: ./.github/actions/research-compile
         with:

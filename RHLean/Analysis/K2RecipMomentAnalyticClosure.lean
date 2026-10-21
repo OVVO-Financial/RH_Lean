@@ -65,7 +65,7 @@ theorem k2ZetaRegularPart_differentiable_punctured :
     ∀ᶠ s : ℂ in 𝓝[≠] (1 : ℂ), DifferentiableAt ℂ k2ZetaRegularPart s := by
   filter_upwards [self_mem_nhdsWithin] with s hs
   have hs1 : s ≠ (1 : ℂ) := by
-    simpa only [mem_compl_singleton_iff] using hs
+    simpa only [mem_compl_singleton_iff] using! hs
   have hbase : DifferentiableAt ℂ
       (fun z : ℂ => riemannZeta z - 1 / (z - 1)) s := by
     refine (differentiableAt_riemannZeta hs1).sub ((differentiableAt_const _).div ?_ ?_)
@@ -77,7 +77,7 @@ theorem k2ZetaRegularPart_differentiable_punctured :
       (fun z : ℂ => riemannZeta z - 1 / (z - 1)) := by
     filter_upwards [hne] with z hz
     exact k2ZetaRegularPart_eq (by
-      simpa only [mem_compl_singleton_iff] using hz)
+      simpa only [mem_compl_singleton_iff] using! hz)
   exact hbase.congr_of_eventuallyEq heq
 
 /-- The pole-removed zeta germ is analytic at `1`. -/
@@ -131,9 +131,9 @@ theorem k2InvZetaFactor_hasDerivAt_one :
   have hden : HasDerivAt
       (fun s : ℂ => 1 + (s - 1) * k2ZetaRegularPart s)
       (gammaE : ℂ) (1 : ℂ) := by
-    simpa [k2ZetaRegularPart_one] using hprod.const_add 1
+    simpa [k2ZetaRegularPart_one] using! hprod.const_add 1
   have hinv := hden.fun_inv (by simp)
-  simpa [k2InvZetaFactor] using hinv
+  simpa [k2InvZetaFactor] using! hinv
 
 /-- The reciprocal germ has the expected simple zero with first derivative
 one. -/
@@ -142,7 +142,7 @@ theorem k2InvZetaRegular_hasDerivAt_one :
   have hlin : HasDerivAt (fun s : ℂ => s - 1) 1 (1 : ℂ) :=
     (hasDerivAt_id (1 : ℂ)).sub_const 1
   have h := hlin.fun_mul k2InvZetaFactor_hasDerivAt_one
-  simpa [k2InvZetaRegular] using h
+  simpa [k2InvZetaRegular] using! h
 
 /-- Coefficient extraction at the filled pole: the second derivative of the
 regular reciprocal-zeta germ is exactly `-2 * gamma`. -/
@@ -161,7 +161,7 @@ theorem k2InvZetaRegular_iteratedDeriv_two :
     have hlin : HasDerivAt (fun z : ℂ => z - 1) 1 s :=
       (hasDerivAt_id s).sub_const 1
     have h := hlin.fun_mul hs.hasDerivAt
-    simpa [H, k2InvZetaRegular] using h.deriv
+    simpa [H, k2InvZetaRegular] using! h.deriv
   have hfactor_deriv_value :
       deriv k2InvZetaFactor (1 : ℂ) = -(gammaE : ℂ) :=
     k2InvZetaFactor_hasDerivAt_one.deriv
@@ -177,14 +177,14 @@ theorem k2InvZetaRegular_iteratedDeriv_two :
     rw [hfactor_deriv_value] at hsum'
     have hsumH : HasDerivAt H
         (-(gammaE : ℂ) + -(gammaE : ℂ)) (1 : ℂ) := by
-      simpa [H] using hsum'
+      simpa [H] using! hsum'
     convert hsumH using 1
     ring
   have hsecond :
       deriv (deriv k2InvZetaRegular) (1 : ℂ) = -2 * (gammaE : ℂ) := by
     rw [hderiv_eq.deriv_eq]
     exact hH.deriv
-  simpa [show (2 : ℕ) = 1 + 1 by norm_num, iteratedDeriv_succ] using hsecond
+  simpa [show (2 : ℕ) = 1 + 1 by norm_num, iteratedDeriv_succ] using! hsecond
 
 /-- On the absolutely convergent half-plane the regular reciprocal is the
 ordinary reciprocal of the Riemann zeta function. -/

@@ -83,7 +83,7 @@ theorem survivorZeroMode_eq_sum_fixedPrimeCofactorMass
           if IsSurvivorZeroModePair Λ t c q then
             canonicalMoebiusWeight (c * q)
           else 0 := by
-            simpa only using
+            simpa only using!
               (Finset.sum_product
                 (s := Finset.Icc 1 (squarePrefixEndpoint t))
                 (t := Finset.Icc 2 (squarePrefixEndpoint t))
@@ -128,7 +128,7 @@ theorem survivorFixedPrimeCofactorMass_eq_zero_of_endpoint_lt_prime
     intro hpair
     have hprod := hpair.2.1
     have hqle : q ≤ c * q := by
-      simpa using Nat.mul_le_mul_right q hc1
+      simpa using! Nat.mul_le_mul_right q hc1
     exact (not_le_of_gt hq) (hqle.trans hprod)
   simp [survivorFixedPrimeCofactorTerm,
     survivorFixedPrimeActivityIndicator, hnotPair]

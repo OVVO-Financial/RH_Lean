@@ -96,7 +96,7 @@ theorem sourcePrefix_eq_squarefreeInteger_sum
   refine Finset.sum_bij (fun s _hs => sourceProduct s) ?_ ?_ ?_ ?_
   · intro s hs
     have hsdata : SourceAdmissible s ∧ sourceClock B s ≤ x := by
-      simpa [activeSourceSet] using hs
+      simpa [activeSourceSet] using! hs
     have hprodle :=
       (sourceClock_le_iff_sourceProduct_le_endpoint (x := x) s).1 hsdata.2
     have hprodgt := one_lt_sourceProduct_of_admissible hsdata.1
@@ -105,15 +105,15 @@ theorem sourcePrefix_eq_squarefreeInteger_sum
       sourceProduct_squarefree_of_admissible hsdata.1⟩
   · intro s₁ hs₁ s₂ hs₂ heq
     have hs₁data : SourceAdmissible s₁ ∧ sourceClock B s₁ ≤ x := by
-      simpa [activeSourceSet] using hs₁
+      simpa [activeSourceSet] using! hs₁
     have hs₂data : SourceAdmissible s₂ ∧ sourceClock B s₂ ≤ x := by
-      simpa [activeSourceSet] using hs₂
+      simpa [activeSourceSet] using! hs₂
     exact sourceProduct_injective_on_admissible hs₁data.1 hs₂data.1 heq
   · intro m hm
     have hmdata :
         m < RHLean.Analysis.squarePrefixEndpoint x + 1 ∧
           2 ≤ m ∧ Squarefree m := by
-      simpa [activeSquarefreeIntegerSet] using hm
+      simpa [activeSquarefreeIntegerSet] using! hm
     have hmgt : 1 < m := hmdata.2.1
     have hmend : m ≤ RHLean.Analysis.squarePrefixEndpoint x :=
       Nat.lt_succ_iff.mp hmdata.1
@@ -129,7 +129,7 @@ theorem sourcePrefix_eq_squarefreeInteger_sum
     · exact canonicalSourceIndex_product hmdata.2.2 hmgt hmB
   · intro s hs
     have hsdata : SourceAdmissible s ∧ sourceClock B s ≤ x := by
-      simpa [activeSourceSet] using hs
+      simpa [activeSourceSet] using! hs
     exact sourceWeight_of_admissible s hsdata.1
 
 /-- Filtering to squarefree terms does not change the Möbius tail beginning at
@@ -202,7 +202,7 @@ theorem sourcePrefix_add_one_eq_squarePrefixMertens
     ((sourcePrefix B x : ℤ) : ℂ) + 1 =
       RHLean.Analysis.squarePrefixMertens x := by
   have h := sourcePrefix_add_indicator_eq_squarePrefixMertens hB
-  simpa [indicator, hx, Int.cast_add] using h
+  simpa [indicator, hx, Int.cast_add] using! h
 
 /-! ## Finite successor generations -/
 
@@ -227,7 +227,7 @@ theorem sourceGeneration_succ (B j : ℕ) :
     sourceGeneration B (j + 1) =
       (boundedSourceFlow B).successorOperator (sourceGeneration B j) := by
   unfold sourceGeneration
-  simpa only [Nat.succ_eq_add_one] using
+  simpa only [Nat.succ_eq_add_one] using!
     Function.iterate_succ_apply'
       (boundedSourceFlow B).successorOperator j
       (boundedSourceFlow B).rootField
@@ -352,7 +352,7 @@ theorem sourceBlockIncrement_eq_generation_sum (B n : ℕ) :
         (-1 : ℤ) ^ j * generationBlockIncrement B j n := by
   cases n with
   | zero =>
-      simpa [sourceBlockIncrement, generationBlockIncrement] using
+      simpa [sourceBlockIncrement, generationBlockIncrement] using!
         sourcePrefix_eq_generation_sum B 0
   | succ n =>
       change
@@ -398,7 +398,7 @@ theorem generationWindowPrefix_eq
     generationWindowPrefix B j N r = generationPrefix B j (N + r) := by
   have hIcc : Finset.Icc N (N + r) = Finset.Ico N (N + r + 1) := by
     ext n
-    simp
+    simp only [Finset.mem_Icc, Finset.mem_Ico]
     omega
   have hsplit : N ≤ N + r + 1 := by omega
   have hNrange : N - 1 + 1 = N := by omega
@@ -417,7 +417,7 @@ theorem generationWindowPrefix_eq
             exact Finset.sum_range_add_sum_Ico
               (f := generationBlockIncrement B j) hsplit
     _ = generationPrefix B j (N + r) := by
-          simpa using sum_generationBlockIncrement_eq_prefix B j (N + r)
+          simpa using! sum_generationBlockIncrement_eq_prefix B j (N + r)
 
 /-- Summing the actual generation windows, including their inherited backlogs,
 recovers the actual full source prefix at every point in the window. -/

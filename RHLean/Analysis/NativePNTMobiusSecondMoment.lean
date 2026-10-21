@@ -98,7 +98,7 @@ theorem nativeLambdaRecip_eq_mobius_logRecip
         (fun z : ℝ =>
           (ArithmeticFunction.moebius d : ℝ) *
             Real.log ((n / d : ℕ) : ℝ) * z) hmul
-      simpa [mul_assoc] using hscaled
+      simpa [mul_assoc] using! hscaled
     _ = ∑ d ∈ Finset.Icc 1 N,
           ∑ n ∈ (Finset.Icc 1 N).filter (fun x => d ∣ x),
             ((ArithmeticFunction.moebius d : ℝ) /
@@ -128,7 +128,7 @@ theorem nativeLambdaRecip_eq_mobius_logRecip
           have hmpos : 0 < m := by omega
           have hmulpos : 0 < d * m := Nat.mul_pos hdpos hmpos
           have hmulN' : m * d ≤ N := (Nat.le_div_iff_mul_le hdpos).1 hmN
-          have hmulN : d * m ≤ N := by simpa [Nat.mul_comm] using hmulN'
+          have hmulN : d * m ≤ N := by simpa [Nat.mul_comm] using! hmulN'
           exact ⟨⟨Nat.one_le_iff_ne_zero.mpr (Nat.ne_of_gt hmulpos), hmulN⟩,
             dvd_mul_right d m⟩
       rw [hmap, Finset.sum_image]
@@ -210,7 +210,7 @@ theorem nativeLogRecipDefect_succ_le
   have hpoint :
       Real.log ((q + 1 : ℕ) : ℝ) / ((q + 1 : ℕ) : ℝ) ≤
         ∫ x in (q : ℝ)..((q + 1 : ℕ) : ℝ), Real.log x / x := by
-    simpa using hsum
+    simpa using! hsum
   rw [nativeIntegral_log_div_unit q (by omega : 1 ≤ q)] at hpoint
   unfold nativeLogRecipDefect
   rw [nativeLogRecipMass_succ]
@@ -231,7 +231,7 @@ theorem nativeLogRecipDefect_succ_sub_ge
   have hpoint :
       (∫ x in (q : ℝ)..((q + 1 : ℕ) : ℝ), Real.log x / x) ≤
         Real.log (q : ℝ) / (q : ℝ) := by
-    simpa using hsum
+    simpa using! hsum
   rw [nativeIntegral_log_div_unit q (by omega : 1 ≤ q)] at hpoint
   unfold nativeLogRecipDefect
   rw [nativeLogRecipMass_succ]
@@ -456,7 +456,7 @@ private theorem nativeDiv_le_two_of_div_three_lt
     simp_all
   have hmul : 3 * d ≤ N := (Nat.le_div_iff_mul_le hdpos).1 h3
   have hdiv : d ≤ N / 3 := (Nat.le_div_iff_mul_le (by norm_num : 0 < 3)).2 (by
-    simpa [Nat.mul_comm] using hmul)
+    simpa [Nat.mul_comm] using! hmul)
   omega
 
 /-- The Möbius-weighted reciprocal-log defect is uniformly bounded. -/
@@ -470,7 +470,7 @@ theorem nativeMobiusLogRecipDefectMass_abs_le
   have hprefix : ∀ n, 1 ≤ n → n ≤ M →
       |∑ k ∈ Finset.Icc 1 n, a k| ≤ 1 := by
     intro n _hn1 _hnM
-    simpa [a, nativeMertensRecip] using nativeMertensRecip_abs_le_one n
+    simpa [a, nativeMertensRecip] using! nativeMertensRecip_abs_le_one n
   have hmono : ∀ d ∈ Finset.Ico 1 M, b d ≤ b (d + 1) := by
     intro d hd
     have hdI := Finset.mem_Ico.mp hd
@@ -531,7 +531,7 @@ theorem nativeMobiusLogRecipDefectMass_abs_le
         have hthreeN : (N : ℝ) < 3 * (d : ℝ) := by
           have hNat : N < 3 * d := by
             have := (Nat.div_lt_iff_lt_mul (by norm_num : 0 < 3)).1 hMlt
-            simpa [Nat.mul_comm] using this
+            simpa [Nat.mul_comm] using! this
           exact_mod_cast hNat
         have hrecip : 1 / (d : ℝ) ≤ 3 / (N : ℝ) := by
           have hNNatPos : 0 < N := by omega
@@ -542,7 +542,7 @@ theorem nativeMobiusLogRecipDefectMass_abs_le
         have ha : |a d| ≤ 3 / (N : ℝ) := by
           simp only [a, abs_div, abs_of_pos hdpos]
           exact (div_le_div_of_nonneg_right hmu hdpos.le).trans hrecip
-        exact mul_le_of_le_one_right (by positivity) hb |>.trans (by simpa using ha)
+        exact mul_le_of_le_one_right (by positivity) hb |>.trans (by simpa using! ha)
       _ ≤ (N : ℝ) * (3 / (N : ℝ)) := by
         rw [Finset.sum_const, nsmul_eq_mul]
         have hcard : ((Finset.Icc 1 N).filter (fun d => M < d)).card ≤ N := by

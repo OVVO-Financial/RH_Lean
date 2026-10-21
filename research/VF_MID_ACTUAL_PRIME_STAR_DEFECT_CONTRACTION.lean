@@ -116,7 +116,7 @@ theorem abs_vfMidActualHighPrimeProtectedStarMass_le_parent
         vfMidActualHighPrimeStarReciprocalMass R m *
           |nativePNTSignedSquareBlockCorrelationReciprocalSummand
             ((R + 1) ^ 2) (R ^ 2) ((R + 1) ^ 2) m| :=
-      add_le_add_left hdef _
+      add_le_add_right hdef _
     _ = |nativePNTSignedSquareBlockCorrelationReciprocalSummand
           ((R + 1) ^ 2) (R ^ 2) ((R + 1) ^ 2) m| := by
       ring

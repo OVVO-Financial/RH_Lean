@@ -145,7 +145,7 @@ theorem primeInteriorPart_subset_one_insert_prime_of_top
     have hqkLt : q * k < q * 2 := by
       have h : n < 2 * q := hnData.2.trans_lt h2q
       rw [hk] at h
-      simpa [Nat.mul_comm] using h
+      simpa [Nat.mul_comm] using! h
     have hkLt : k < 2 :=
       (Nat.mul_lt_mul_left hq.pos).mp hqkLt
     have hk1 : k = 1 := by omega
@@ -155,7 +155,7 @@ theorem primeInteriorPart_subset_one_insert_prime_of_top
     have hmateData := hB (n * q) hmateB
     have hqnLt : q * n < q * 2 := by
       have h : n * q < 2 * q := hmateData.2.trans_lt h2q
-      simpa [Nat.mul_comm] using h
+      simpa [Nat.mul_comm] using! h
     have hnLt : n < 2 :=
       (Nat.mul_lt_mul_left hq.pos).mp hqnLt
     have hn1 : n = 1 := by omega
@@ -185,7 +185,7 @@ theorem card_lowOwnerFirstOwner_topPrimeInterior_le_two
       (R := R) (p := p) (q := q) (sig := sig) hq hqTop
   have htwo : (({1, q} : Finset ℕ).card) ≤ 2 := by
     have h := Finset.card_insert_le 1 ({q} : Finset ℕ)
-    simpa using h
+    simpa using! h
   exact (Finset.card_le_card hsub).trans htwo
 
 /-- **Top-half pair collapse.**  After the first canonical Stokes peel, the

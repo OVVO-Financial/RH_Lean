@@ -108,6 +108,6 @@ theorem squareRootGoSquareKillFace_product_le
     (Nat.le_div_iff_mul_le hq.pos).1 htCut
   have hTwo : (primeFaceProduct t * q) * q ≤ X :=
     (Nat.le_div_iff_mul_le hq.pos).1 hOne
-  simpa [Nat.mul_assoc, Nat.mul_comm, Nat.mul_left_comm] using hTwo
+  simpa [Nat.mul_assoc, Nat.mul_comm, Nat.mul_left_comm] using! hTwo
 
 end RHLean.Proof

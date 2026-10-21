@@ -110,7 +110,7 @@ theorem nativePNTError_abs_log_le_firstRemainder
       _ = nativeLambdaErrorMass N + nativePNTFirstRemainder N := by
         unfold nativePNTFirstRemainder
         ring
-  simpa [abs_mul, abs_of_nonneg hlog0] using hmain
+  simpa [abs_mul, abs_of_nonneg hlog0] using! hmain
 
 /-- The canonical exact first remainder is itself a valid recurrence profile. -/
 theorem nativePNTFirstRemainder_profile :

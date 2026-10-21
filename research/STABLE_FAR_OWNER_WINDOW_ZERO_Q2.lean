@@ -41,7 +41,7 @@ theorem lowWheelFarPrimeQ2CrossingOwner_div_square_eq_zero
   let Y := lowWheelFarPrimeQ2CrossingOwnerLower R y
   have hqData := mem_frozenPrimeUniverseHighPrimeSet.mp hq
   have hYq : Y < q := by
-    simpa [Y] using hqData.2.1
+    simpa [Y] using! hqData.2.1
   have hsqrtY : Nat.sqrt T ≤ Y := by
     dsimp [T, Y, lowWheelFarPrimeQ2CrossingOwnerLower]
     exact le_max_right _ _

@@ -140,7 +140,7 @@ theorem lowOwnerNearestSquareShellAtom_eq_lower_frequencyArc
   let Y : ℕ := rawQ2ChildCutoff R q
   let s : ℕ := Nat.sqrt Y
   let E : ℕ := squareRootEndpoint s
-  have hmid' : Y < s ^ 2 + s := by simpa [Y, s] using hmid
+  have hmid' : Y < s ^ 2 + s := by simpa [Y, s] using! hmid
   have hendpoint : q2NearestSquareEndpoint Y = E := by
     dsimp [E]
     exact q2NearestSquareEndpoint_eq_lower hmid'
@@ -152,13 +152,13 @@ theorem lowOwnerNearestSquareShellAtom_eq_lower_frequencyArc
     unfold squareRootEndpoint
     exact (Nat.sub_le _ _).trans hs2
   have hLE : primorialBlockLower k < E := by
-    simpa [Y, s, E] using hblockLower
+    simpa [Y, s, E] using! hblockLower
   have hA : 0 < E - primorialBlockLower k := Nat.sub_pos_of_lt hLE
   have hupper :
       primorialBlockLower k +
           ((E - primorialBlockLower k) + (Y - E)) ≤
         primorialBlockUpper k := by
-    have hYU : Y ≤ primorialBlockUpper k := by simpa [Y] using hblockUpper
+    have hYU : Y ≤ primorialBlockUpper k := by simpa [Y] using! hblockUpper
     omega
   have harc := primorialWheel_mertensForwardArc_eq_sum_frequencyArcs
     k (E - primorialBlockLower k) (Y - E) hA hupper
@@ -201,7 +201,7 @@ theorem lowOwnerNearestSquareShellAtom_eq_neg_upper_frequencyArc
   let Y : ℕ := rawQ2ChildCutoff R q
   let s : ℕ := Nat.sqrt Y
   let E : ℕ := squareRootEndpoint (s + 1)
-  have hmid' : s ^ 2 + s ≤ Y := by simpa [Y, s] using hmid
+  have hmid' : s ^ 2 + s ≤ Y := by simpa [Y, s] using! hmid
   have hendpoint : q2NearestSquareEndpoint Y = E := by
     dsimp [E]
     exact q2NearestSquareEndpoint_eq_upper hmid'
@@ -213,13 +213,13 @@ theorem lowOwnerNearestSquareShellAtom_eq_neg_upper_frequencyArc
     unfold squareRootEndpoint
     omega
   have hLY : primorialBlockLower k < Y := by
-    simpa [Y] using hblockLower
+    simpa [Y] using! hblockLower
   have hA : 0 < Y - primorialBlockLower k := Nat.sub_pos_of_lt hLY
   have hupper :
       primorialBlockLower k +
           ((Y - primorialBlockLower k) + (E - Y)) ≤
         primorialBlockUpper k := by
-    have hEU : E ≤ primorialBlockUpper k := by simpa [Y, s, E] using hblockUpper
+    have hEU : E ≤ primorialBlockUpper k := by simpa [Y, s, E] using! hblockUpper
     omega
   have harc := primorialWheel_mertensForwardArc_eq_sum_frequencyArcs
     k (Y - primorialBlockLower k) (E - Y) hA hupper

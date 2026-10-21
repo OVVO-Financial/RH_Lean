@@ -235,7 +235,7 @@ theorem cofactorWeighted_evolvedMismatch_eq_zero_of_completeDescendingPrefix
     have hqProd : q ≤ q * (c * p) := Nat.le_mul_of_pos_right q hcpPos
     have hqUpper : q ≤ squareRootEndpoint R := by
       have hqProd' : q ≤ (c * p) * q := by
-        simpa [Nat.mul_comm] using hqProd
+        simpa [Nat.mul_comm] using! hqProd
       exact hqProd'.trans hupper
     rcases hcomplete.2 q hqPrime hpq hqUpper with
       ⟨pre, post, hsplit, hprePrime, hpreLarger⟩
@@ -287,7 +287,7 @@ theorem cofactorWeighted_evolvedMass_eq_next_add_physicalDefect_of_completeDesce
       hR hp
   rw [cofactorWeighted_evolvedMismatch_eq_zero_of_completeDescendingPrefix
     R qs hR hp hcomplete] at hstep
-  simpa using hstep
+  simpa using! hstep
 
 /-- **Signed scaled-drop form.**  On the actual evolved raw carrier, the current
 raw boundary is exactly `p` times the drop from the current raw mass to the

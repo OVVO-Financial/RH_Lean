@@ -96,7 +96,7 @@ theorem predecessorDensePrimeFace_subset_primesUpTo_sqrt
     have h :=
       predecessorDenseFace_coordinate_power_succ_le_of_large
         hprime hdense hpt hsp
-    simpa using h
+    simpa using! h
   have hp4R : p ^ 4 ≤ Nat.sqrt R * R :=
     hp4.trans (Nat.mul_le_mul_left (Nat.sqrt R) hprod)
   have hclock := sqrt_mul_root_lt_succ_fourth R
@@ -229,7 +229,7 @@ theorem firstJumpFrozenWindowFace_sqrt_exists_highPrime_lowPredecessor
       predecessorPrimeFaceProduct t p ≤
         p * predecessorPrimeFaceProduct t p := by
     have hpOne : 1 ≤ p := hpPrime.one_le
-    simpa [one_mul, Nat.mul_comm] using
+    simpa [one_mul, Nat.mul_comm] using!
       Nat.mul_le_mul_right (predecessorPrimeFaceProduct t p) hpOne
   have hpredLeR : predecessorPrimeFaceProduct t p ≤ R :=
     (hpredLeMul.trans hprefix).trans (hup.trans hBR)
@@ -410,11 +410,11 @@ theorem sqrtFirstJumpSlice_tail_eq_empty
       exact hrt
   have hprodLower : p * r ≤ primeFaceProduct t := by
     unfold primeFaceProduct
-    have hle := Finset.prod_le_prod_of_subset_of_one_le' hsub (by
+    have hle := Finset.prod_le_prod_of_subset_of_one_le hsub (by
       intro z hzt _hzsmall
       exact (prime_of_mem_primesUpTo (htSub hzt)).one_le)
     have hne : p ≠ r := by omega
-    simpa [hne, Nat.mul_comm] using hle
+    simpa [hne, Nat.mul_comm] using! hle
   have hRnext : R < (Nat.sqrt R + 1) ^ 2 := Nat.lt_succ_sqrt' R
   have hrootLt : Nat.sqrt R < p := hfirst.2.1
   have hsp : Nat.sqrt R + 1 ≤ p := by omega
@@ -486,7 +486,7 @@ theorem sqrtFirstJumpSlice_predecessor_subset_sqrt
   have hpredLeMul :
       predecessorPrimeFaceProduct t p ≤
         p * predecessorPrimeFaceProduct t p := by
-    simpa [one_mul, Nat.mul_comm] using
+    simpa [one_mul, Nat.mul_comm] using!
       Nat.mul_le_mul_right (predecessorPrimeFaceProduct t p) hpPrime.one_le
   have hpredLeR : predecessorPrimeFaceProduct t p ≤ R :=
     (hpredLeMul.trans hprefix).trans (hup.trans hBR)
@@ -558,7 +558,7 @@ theorem frozenPrimeUniverse_highUpperColumn_telescope
           frozenPrimeUniverseMass (primesUpTo (p - 1)) (0 / p)) = 0 := by
         apply Finset.sum_eq_zero
         intro p _hp
-        simpa using frozenPrimeUniverseMass_primesUpTo_zero (p - 1)
+        simpa using! frozenPrimeUniverseMass_primesUpTo_zero (p - 1)
       _ = frozenPrimeUniverseMass (primesUpTo s) 0 -
           frozenPrimeUniverseMass (primesUpTo K) 0 := by
         rw [frozenPrimeUniverseMass_primesUpTo_zero,
@@ -650,7 +650,7 @@ theorem sqrtFirstJumpResidual_eq_neg_highPrimeWindows
         frozenPrimeUniverseWindowMass (primesUpTo (q - 1)) A B -
           frozenPrimeUniverseWindowMass (primesUpTo (Nat.sqrt R)) A B := by
     apply (eq_sub_iff_add_eq).2
-    simpa [add_comm] using hcontract.symm
+    simpa [add_comm] using! hcontract.symm
   calc
     predecessorFirstJumpFrozenWindowMass
         3 (Nat.sqrt R) (primesUpTo (q - 1)) A B =
@@ -678,7 +678,7 @@ theorem sqrtHighPrimePredecessorWindow_eq_mertensGap
   have hBlt : B < p * p := hBR.trans_lt (hRnext.trans_le hnextLe)
   have hBdiv : B / p < p := by
     apply (Nat.div_lt_iff_lt_mul hp.pos).2
-    simpa [Nat.mul_comm] using hBlt
+    simpa [Nat.mul_comm] using! hBlt
   have hAdiv : A / p < p :=
     (Nat.div_le_div_right hAB).trans_lt hBdiv
   rw [frozenPrimeUniverseWindowMass_eq_sub (Nat.div_le_div_right hAB),

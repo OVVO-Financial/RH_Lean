@@ -88,7 +88,7 @@ private theorem survivorPrimeFaceProduct_mono
     {q : ℕ} {u v : Finset ℕ}
     (huv : u ⊆ v) (hv : v ⊆ survivorPrimeFaceAmbient q) :
     primeFaceProduct u ≤ primeFaceProduct v := by
-  exact Finset.prod_le_prod_of_subset_of_one_le' huv (by
+  exact Finset.prod_le_prod_of_subset_of_one_le huv (by
     intro p hpv _hpu
     have hpAmbient : p ∈ primesUpTo (q - 1) := hv hpv
     exact (prime_of_mem_primesUpTo hpAmbient).one_le)
@@ -158,12 +158,12 @@ theorem survivorPrimeFaceHigh_indicator_decomposition
         rw [abs_of_nonneg hx]
         exact ht
       have htransport : survivorPrimeFaceTransportPrefix Λ n q u := by
-        exact ⟨hp, by simpa [H, c] using ht⟩
+        exact ⟨hp, by simpa [H, c] using! ht⟩
       have hbelow : survivorPrimeFaceBelowSmoothPrefix Λ n q u := by
         refine ⟨hp, ?_⟩
         dsimp [H, c] at ht hH ⊢
         nlinarith
-      rw [if_pos ha, if_pos htransport, if_pos hp, if_pos hbelow]
+      rw [ite_eq_left ha, ite_eq_left htransport, ite_eq_left hp, ite_eq_left hbelow]
       norm_num
     · by_cases hs : H < c ^ 2 - (q : ℝ) ^ 2
       · have hx : (q : ℝ) ^ 2 - c ^ 2 ≤ 0 := by linarith
@@ -174,13 +174,13 @@ theorem survivorPrimeFaceHigh_indicator_decomposition
           nlinarith
         have htransport : ¬ survivorPrimeFaceTransportPrefix Λ n q u := by
           intro h
-          exact ht (by simpa [H, c] using h.2)
+          exact ht (by simpa [H, c] using! h.2)
         have hbelow : ¬ survivorPrimeFaceBelowSmoothPrefix Λ n q u := by
           intro h
           have hb := h.2
           dsimp [H, c] at hs hb
           linarith
-        rw [if_pos ha, if_neg htransport, if_pos hp, if_neg hbelow]
+        rw [ite_eq_left ha, ite_eq_right htransport, ite_eq_left hp, ite_eq_right hbelow]
         norm_num
       · have hsle : c ^ 2 - (q : ℝ) ^ 2 ≤ H := le_of_not_gt hs
         have hqside : (q : ℝ) ^ 2 - c ^ 2 ≤ H := le_of_not_gt ht
@@ -190,21 +190,21 @@ theorem survivorPrimeFaceHigh_indicator_decomposition
         have habsOriginal :
             |(q : ℝ) ^ 2 - (primeFaceProduct u : ℝ) ^ 2| ≤
               2 * Λ * (n : ℝ) := by
-          simpa [H, c] using habs
+          simpa [H, c] using! habs
         have ha : ¬ survivorPrimeFaceHigh Λ n q u := by
           intro h
           exact (not_lt_of_ge habsOriginal) h.2
         have htransport : ¬ survivorPrimeFaceTransportPrefix Λ n q u := by
           intro h
-          exact ht (by simpa [H, c] using h.2)
+          exact ht (by simpa [H, c] using! h.2)
         have hbelow : survivorPrimeFaceBelowSmoothPrefix Λ n q u := by
-          exact ⟨hp, by simpa [H, c] using hsle⟩
-        rw [if_neg ha, if_neg htransport, if_pos hp, if_pos hbelow]
+          exact ⟨hp, by simpa [H, c] using! hsle⟩
+        rw [ite_eq_right ha, ite_eq_right htransport, ite_eq_left hp, ite_eq_left hbelow]
         norm_num
   · have ha : ¬ survivorPrimeFaceHigh Λ n q u := fun h => hp h.1
     have ht : ¬ survivorPrimeFaceTransportPrefix Λ n q u := fun h => hp h.1
     have hb : ¬ survivorPrimeFaceBelowSmoothPrefix Λ n q u := fun h => hp h.1
-    rw [if_neg ha, if_neg ht, if_neg hp, if_neg hb]
+    rw [ite_eq_right ha, ite_eq_right ht, ite_eq_right hp, ite_eq_right hb]
     norm_num
 
 /-- The alternating mass of the full high selector is exactly the signed
@@ -233,7 +233,7 @@ theorem survivorPrimeFaceHigh_alternatingMass_decomposition
       have hind := survivorPrimeFaceHigh_indicator_decomposition Λ n q u hΛ
       unfold survivorPrimeFaceIndicator at hind
       have hscaled := congrArg (fun z : ℤ => z * booleanCubeSign u) hind
-      simpa [add_mul, sub_mul] using hscaled
+      simpa [add_mul, sub_mul] using! hscaled
     _ =
       (∑ u ∈ (survivorPrimeFaceAmbient q).powerset,
         if survivorPrimeFaceTransportPrefix Λ n q u then booleanCubeSign u else 0) +

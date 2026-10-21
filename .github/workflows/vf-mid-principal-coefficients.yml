@@ -41,6 +41,12 @@ jobs:
           path = Path('research/VF_MID_919_QUOTIENT_SIGNED_RETURN.lean')
           assert not re.search(r'\b(sorry|admit|axiom)\b', path.read_text()), path
           PY
+      - name: Build RHLean modules imported by these research checks
+        run: >-
+          python3 scripts/compile_research_import_closure.py --library-only
+          research/VF_MID_919_OAI_PRINCIPAL_COEFFICIENT_MAP.lean
+          research/VF_MID_919_OAI_SIGNED_SIXTH_POWER_INLET.lean
+          research/VF_MID_919_QUOTIENT_SIGNED_RETURN.lean
       - name: Compile exact coefficient map and signed amplifier warning-fatally
         run: |
           mkdir -p .lake/build/lib/lean

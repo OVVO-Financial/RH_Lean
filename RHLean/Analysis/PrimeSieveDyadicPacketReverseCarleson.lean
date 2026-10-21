@@ -256,7 +256,7 @@ theorem dyadicPacketReverseCarlesonBlockBounded_of_siblingDescendantPersistence
     have hx0 : (0 : ℝ) ≤ (x : ℝ) := by positivity
     have hbase : (1 : ℝ) ≤ (x : ℝ) + 1 := by linarith
     have h := Real.rpow_le_rpow (by norm_num : (0 : ℝ) ≤ 1) hbase hε.le
-    simpa using h
+    simpa using! h
   have hcoef : 1 ≤ (C + 1) * P := by
     calc
       (1 : ℝ) ≤ C + 1 := by linarith
@@ -288,7 +288,7 @@ theorem dyadicPacketReverseCarlesonBlockBounded_of_siblingDescendantPersistence
         have hdesc :
             primeSieveDyadicPacketBlockDeepEnergy y x j (J + 1) ≤
               C * P * primeSieveDyadicPacketBlockLevelEnergy y x j J := by
-          simpa [y, J, P] using
+          simpa [y, J, P] using!
             hCb k x j hk hlow hup hj hnonterminal
         have hL := primeSieveDyadicPacketBlockLevelEnergy_nonneg y x j J
         have hLP :

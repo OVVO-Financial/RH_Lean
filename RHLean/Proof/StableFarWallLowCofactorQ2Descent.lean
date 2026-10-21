@@ -79,7 +79,7 @@ theorem lowWheelFarPrimeNonUnitPair_data
     canonicalCofactor_mul_largestPrimeFactor hcgt
   have hprod : q * d = c := by
     dsimp [q, d]
-    simpa [Nat.mul_comm] using hprod0
+    simpa [Nat.mul_comm] using! hprod0
   have hqDvd : q ∣ c := by
     dsimp [q]
     exact canonicalLargestPrimeFactor_dvd hcgt
@@ -95,7 +95,7 @@ theorem lowWheelFarPrimeNonUnitPair_data
     dsimp [q, d]
     exact canonicalLargestPrimeFactor_canonicalCofactor_lt_of_squarefree hcgt hcsq
   have hprodX : q * d * p ≤ squareRootEndpoint R := by
-    simpa [hprod] using hcpX
+    simpa [hprod] using! hcpX
   have hmuInt : μ c = -μ d := by
     dsimp [d]
     exact canonicalSignedParent_moebius hcsq hcgt

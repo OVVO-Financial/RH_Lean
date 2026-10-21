@@ -68,13 +68,13 @@ private theorem vfMidOpenInlet_endpointDefect_eq_zero_of_le_one
   have hsq_lt : (R : ℝ) ^ 2 < 4 := by nlinarith [hsq]
   have hvf : vfMid ((R : ℝ) ^ 2) = 0 := by
     unfold vfMid
-    rw [if_pos hsq_lt]
+    rw [ite_eq_left hsq_lt]
   have hfloor : ⌊(R : ℝ) ^ 2⌋₊ = R ^ 2 := by
     rw [show (R : ℝ) ^ 2 = ((R ^ 2 : ℕ) : ℝ) by norm_num]
     exact Nat.floor_natCast (R ^ 2)
   have hsqle : R ^ 2 ≤ 1 := by
     have h := Nat.pow_le_pow_left hR 2
-    simpa using h
+    simpa using! h
   have hpi : Nat.primeCounting (R ^ 2) = 0 := by
     have hmono : Nat.primeCounting (R ^ 2) ≤ Nat.primeCounting 1 :=
       Nat.monotone_primeCounting hsqle
@@ -124,7 +124,7 @@ theorem abs_vfMidPrimeError_sq_sub_sq_le_of_squareEndpointBound
         |vfMidPrimeError ((B : ℝ) ^ 2)| + |vfMidPrimeError ((A : ℝ) ^ 2)| := by
     have h := abs_add_le (vfMidPrimeError ((B : ℝ) ^ 2))
       (-(vfMidPrimeError ((A : ℝ) ^ 2)))
-    simpa only [sub_eq_add_neg, abs_neg] using h
+    simpa only [sub_eq_add_neg, abs_neg] using! h
   have hAreal : (2 : ℝ) ≤ (A : ℝ) := by exact_mod_cast hA
   have hBreal : (2 : ℝ) ≤ (B : ℝ) := by exact_mod_cast hB
   have hBA' : (B : ℝ) ≤ 2 * (A : ℝ) := by exact_mod_cast hBA
@@ -162,7 +162,7 @@ theorem abs_vfMidPrimeError_sq_sub_sq_le_of_squareEndpointBound
     _ ≤ C * (B : ℝ) * Real.log B + C * (A : ℝ) * Real.log A :=
       add_le_add hEB hEA
     _ ≤ 4 * (C * (A : ℝ) * Real.log A) + C * (A : ℝ) * Real.log A :=
-      add_le_add_right hCB _
+      add_le_add_left hCB _
     _ = 5 * C * (A : ℝ) * Real.log A := by ring
 
 /-- **Reverse implication (new).**  The square-endpoint von-Koch statement

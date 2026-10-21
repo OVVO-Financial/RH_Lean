@@ -28,7 +28,7 @@ theorem k2AbelBoundaryWeight_succ_le
     {sigma : ℝ} (hsigma : 1 < sigma) {n : ℕ} (hn : 1 ≤ n) :
     k2AbelBoundaryWeight sigma (n + 1) ≤ k2AbelBoundaryWeight sigma n := by
   unfold k2AbelBoundaryWeight
-  apply Real.rpow_le_rpow_of_exponent_nonpos
+  apply Real.rpow_le_rpow_of_nonpos
   · exact_mod_cast (by omega : 0 < n)
   · exact_mod_cast (show n ≤ n + 1 by omega)
   · linarith
@@ -58,16 +58,16 @@ theorem k2AbelBoundaryWeight_tendsto_one (n : ℕ) (hn : 1 ≤ n) :
   have hsub :
       Tendsto (fun sigma : ℝ => (1 : ℝ) - sigma)
         (𝓝 (1 : ℝ)) (𝓝 0) := by
-    simpa using (tendsto_const_nhds.sub tendsto_id :
+    simpa using! (tendsto_const_nhds.sub tendsto_id :
       Tendsto (fun sigma : ℝ => (1 : ℝ) - sigma)
         (𝓝 (1 : ℝ)) (𝓝 ((1 : ℝ) - 1)))
   have hmul :
       Tendsto (fun sigma : ℝ => Real.log (n : ℝ) * (1 - sigma))
         (𝓝 (1 : ℝ)) (𝓝 0) := by
-    simpa using (tendsto_const_nhds.mul hsub :
+    simpa using! (tendsto_const_nhds.mul hsub :
       Tendsto (fun sigma : ℝ => Real.log (n : ℝ) * (1 - sigma))
         (𝓝 (1 : ℝ)) (𝓝 (Real.log (n : ℝ) * 0)))
-  simpa using Real.continuous_exp.continuousAt.tendsto.comp hmul
+  simpa using! Real.continuous_exp.continuousAt.tendsto.comp hmul
 
 /-- Abel differences telescope from one to the endpoint. -/
 theorem k2AbelBoundaryWeight_telescopes
@@ -140,7 +140,7 @@ theorem k2A2AbelPrefix_centered
             rw [Finset.mul_sum]
   have htel' :
       k2AbelBoundaryWeight sigma M + ∑ n ∈ Ico 1 M, d n = 1 := by
-    simpa [d] using htel
+    simpa [d] using! htel
   have hAtel :
       A * k2AbelBoundaryWeight sigma M +
           A * (∑ n ∈ Ico 1 M, d n) = A := by
@@ -157,7 +157,7 @@ theorem k2A2AbelPrefix_centered
             (k2AbelBoundaryWeight sigma n - k2AbelBoundaryWeight sigma (n + 1))) -
           A * (∑ n ∈ Ico 1 M,
             (k2AbelBoundaryWeight sigma n - k2AbelBoundaryWeight sigma (n + 1))) := by
-    simpa [S, d] using hcenter
+    simpa [S, d] using! hcenter
   rw [hcenter']
   nlinarith [hAtel]
 
@@ -202,7 +202,7 @@ theorem k2A2AbelHead_tendsto_zero (A : ℝ) (N : ℕ) :
                   (k2AbelBoundaryWeight sigma a -
                     k2AbelBoundaryWeight sigma (a + 1)))
               (𝓝 (1 : ℝ)) (𝓝 0) := by
-          simpa using (tendsto_const_nhds.mul hdiff :
+          simpa using! (tendsto_const_nhds.mul hdiff :
             Tendsto
               (fun sigma : ℝ =>
                 (k2MobiusLogMoment 2 a - A) *
@@ -210,7 +210,7 @@ theorem k2A2AbelHead_tendsto_zero (A : ℝ) (N : ℕ) :
                     k2AbelBoundaryWeight sigma (a + 1)))
               (𝓝 (1 : ℝ))
               (𝓝 ((k2MobiusLogMoment 2 a - A) * (1 - 1))))
-        simpa [Finset.sum_insert ha] using hterm.add (ih ht')
-  simpa [s] using hgeneral s hs
+        simpa [Finset.sum_insert ha] using! hterm.add (ih ht')
+  simpa [s] using! hgeneral s hs
 
 end RHLean.Analysis

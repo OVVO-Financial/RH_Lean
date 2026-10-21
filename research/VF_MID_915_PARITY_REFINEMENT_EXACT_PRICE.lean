@@ -94,10 +94,10 @@ theorem vfMid915ParitySplit_physicalSeatAbs
     vfMidOddFractionalPrimeSeatWeight_le_one_of_three_le R hR
   unfold vfMidOddSignedSeatCharge vfMidActualPrimeSeatMass
   by_cases hp : n.Prime
-  · simp only [if_pos hp, mul_one]
+  · simp only [ite_eq_left hp, mul_one]
     exact vfMid915ParitySplit_abs_one
       (vfMidOddFractionalPrimeSeatWeight R) hw0 hw1
-  · simp only [if_neg hp, mul_zero, add_zero]
+  · simp only [ite_eq_right hp, mul_zero, add_zero]
     exact vfMid915ParitySplit_abs_zero
       (vfMidOddFractionalPrimeSeatWeight R) hw0
 
@@ -129,7 +129,7 @@ theorem vfMid915ParitySplit_physicalSeatQuadraticPrice
     (vfMidOddFractionalPrimeSeatWeight R)
     (vfMidActualPrimeSeatMass n)
     hw0 hw1 (vfMid915ActualPrimeSeatMass_zero_or_one n)
-  simpa [vfMidOddSignedSeatCharge] using hevent
+  simpa [vfMidOddSignedSeatCharge] using! hevent
 
 /-- TOTAL local pair heat that can possibly be credited to splitting
 the current odd prime charges into even/odd halves. This is NOT an
@@ -284,7 +284,7 @@ theorem vfMid915OriginalOddAbs_ge_actualPrimePart
       simp [vfMidActualPrimeSeatMass, hp]
     · rw [vfMidOddSignedSeatCharge_of_not_prime R n hp,
         abs_of_nonneg hw0]
-      simpa [vfMidActualPrimeSeatMass, hp] using hw0
+      simpa [vfMidActualPrimeSeatMass, hp] using! hw0
   calc
     (1 - vfMidOddFractionalPrimeSeatWeight R) *
         (vfMidIntegerBlockPrimeSupply R : ℝ) =

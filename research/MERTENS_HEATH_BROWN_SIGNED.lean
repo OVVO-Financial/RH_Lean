@@ -106,7 +106,7 @@ theorem inverseDefect_zero_below {B : Nat} {a : ArithmeticFunction Int}
   intro n hn
   rw [inverseDefect_eq_tail_mul]
   apply mul_zero_below (A := B) (B := 1)
-    (g := zetaInt) _ (arithmetic_zero_below_one zetaInt) (by simpa using hn)
+    (g := zetaInt) _ (arithmetic_zero_below_one zetaInt) (by simpa using! hn)
   intro m hm
   change ArithmeticFunction.moebius m - a m = 0
   rw [ha m hm, sub_self]
@@ -119,7 +119,7 @@ theorem convolution_pow_zero_below {B : Nat} {f : ArithmeticFunction Int}
   | succ k ih =>
     intro n hn
     rw [pow_succ]
-    exact mul_zero_below ih hf (by simpa only [pow_succ] using hn)
+    exact mul_zero_below ih hf (by simpa only [pow_succ] using! hn)
 
 /-- A genuine finite coefficient prefix extends to arbitrary integral power precision. -/
 theorem heathBrownLift_agrees_below_power {B : Nat} {a : ArithmeticFunction Int}
@@ -129,7 +129,7 @@ theorem heathBrownLift_agrees_below_power {B : Nat} {a : ArithmeticFunction Int}
   have hz : (ArithmeticFunction.moebius * inverseDefect a ^ k) n = 0 :=
     mul_zero_below (A := 1) (B := B ^ k)
       (arithmetic_zero_below_one ArithmeticFunction.moebius)
-      (convolution_pow_zero_below (inverseDefect_zero_below ha) k) (by simpa using hn)
+      (convolution_pow_zero_below (inverseDefect_zero_below ha) k) (by simpa using! hn)
   have he := congrArg (fun f : ArithmeticFunction Int => f n) (heathBrownLift_error a k)
   change ArithmeticFunction.moebius n - heathBrownLift a k n =
     (ArithmeticFunction.moebius * inverseDefect a ^ k) n at he
@@ -146,7 +146,7 @@ theorem inverseDefect_prefix_one {N : Nat} (hN : 1 <= N) :
     inverseDefect (mobiusPrefix N) 1 = 0 := by
   change (1 : ArithmeticFunction Int) 1 - (mobiusPrefix N * zetaInt) 1 = 0
   rw [ArithmeticFunction.mul_apply_one]
-  simp [ArithmeticFunction.one_apply, mobiusPrefix, zetaInt, hN]
+  simp [mobiusPrefix, zetaInt, hN]
 
 /-- Two unprocessed prime defects reinforce rather than cancel in each product. -/
 theorem fresh_prime_defect_product {N p q : Nat} (hN : 1 <= N)

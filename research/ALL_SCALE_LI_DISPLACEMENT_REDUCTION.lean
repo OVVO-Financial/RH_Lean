@@ -149,10 +149,10 @@ theorem primeFrequencyState_squareRoot_split
     have hRsqLt : R ^ 2 < q ^ 2 :=
       Nat.pow_lt_pow_left hRq (by omega)
     have hXlt : squareRootEndpoint R < q * q := by
-      simpa [pow_two] using hXltRsq.trans hRsqLt
+      simpa [pow_two] using! hXltRsq.trans hRsqLt
     have hdivlt : squareRootEndpoint R / q < q := by
       apply (Nat.div_lt_iff_lt_mul hqpos).2
-      simpa [Nat.mul_comm] using hXlt
+      simpa [Nat.mul_comm] using! hXlt
     have hsatChild : squareRootEndpoint R / q ≤ q - 1 := by omega
     rw [hsat (squareRootEndpoint R / q) (q - 1) hsatChild]
   have hsplit :=

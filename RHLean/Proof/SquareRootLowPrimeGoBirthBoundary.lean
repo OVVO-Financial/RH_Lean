@@ -98,7 +98,7 @@ theorem squareRootLowPrimeGoBirthBoundary_thresholdCrosses
   unfold squareRootLowPrimeThresholdCrosses
   constructor
   · omega
-  · simpa [Nat.mul_comm] using
+  · simpa [Nat.mul_comm] using!
       (Nat.div_lt_iff_lt_mul hr.pos).1 hlower
 
 /-- At the square-dilated cutoff, the outer owner `q` is genuinely a born
@@ -121,7 +121,7 @@ theorem squareRootLowPrimeGoSquareParent_outerOwner_bornAtChild
     (Nat.le_div_iff_mul_le hqqPos).1 hchildCutoff
   have hqLeQQ : q ≤ q * q := by
     have hqOne : 1 ≤ q := hq.one_le
-    simpa [one_mul] using Nat.mul_le_mul_left q hqOne
+    simpa [one_mul] using! Nat.mul_le_mul_left q hqOne
   have hproduct : (r * d) * q ≤ squareRootEndpoint R := by
     exact (Nat.mul_le_mul_left (r * d) hqLeQQ).trans hsecondContact
   apply Finset.mem_filter.mpr
@@ -169,7 +169,7 @@ theorem squareRootLowPrimeGoSquareBirthBoundary_child_lt_root
   have hendpointLt : squareRootEndpoint R < R * R := by
     have hRpos : 0 < R := lt_of_lt_of_le hq.pos hqR
     unfold squareRootEndpoint
-    simpa [pow_two] using Nat.sub_lt (Nat.mul_pos hRpos hRpos) (by omega : 0 < 1)
+    simpa [pow_two] using! Nat.sub_lt (Nat.mul_pos hRpos hRpos) (by omega : 0 < 1)
   omega
 
 /-- **Go boundary = born birth boundary.**  Once the stripped parent falls below

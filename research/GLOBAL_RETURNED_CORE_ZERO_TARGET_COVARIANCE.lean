@@ -144,7 +144,7 @@ theorem zeroTargetCriticalContinuationIndicator_eq_superLcmIndicator_div
       superLcmIndicator (W / p) a b := by
   have hcross :
       W < p * Nat.lcm a b ↔ W / p < Nat.lcm a b := by
-    simpa [Nat.mul_comm] using
+    simpa [Nat.mul_comm] using!
       (Nat.div_lt_iff_lt_mul hp :
         W / p < Nat.lcm a b ↔ W < Nat.lcm a b * p).symm
   unfold zeroTargetCriticalContinuationIndicator superLcmIndicator
@@ -163,11 +163,11 @@ theorem zeroTargetCriticalClippedExitIndicator_eq_lowerEndpointEscape
       if W / p < Nat.lcm a b ∧ W / p < b then 1 else 0 := by
   have hL :
       W < p * Nat.lcm a b ↔ W / p < Nat.lcm a b := by
-    simpa [Nat.mul_comm] using
+    simpa [Nat.mul_comm] using!
       (Nat.div_lt_iff_lt_mul hp :
         W / p < Nat.lcm a b ↔ W < Nat.lcm a b * p).symm
   have hb : W < p * b ↔ W / p < b := by
-    simpa [Nat.mul_comm] using
+    simpa [Nat.mul_comm] using!
       (Nat.div_lt_iff_lt_mul hp : W / p < b ↔ W < b * p).symm
   unfold zeroTargetCriticalClippedExitIndicator
   simp only [hL, hb]
@@ -179,7 +179,7 @@ theorem zeroTargetCriticalCompleteParent_le_lowerEndpoint
     a ≤ W / p ∧ b ≤ W / p := by
   have hb : b ≤ W / p := by
     apply (Nat.le_div_iff_mul_le hp).2
-    simpa [Nat.mul_comm] using hpbW
+    simpa [Nat.mul_comm] using! hpbW
   exact ⟨hab.trans hb, hb⟩
 
 /-- The clipped coefficient in the exact trichotomy already contains one

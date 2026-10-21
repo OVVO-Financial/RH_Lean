@@ -332,7 +332,7 @@ private theorem moebius_mul_prime_eq_neg_of_largestPrimeFactor_lt
         Nat.mem_primeFactors.mpr ⟨hq, hqdvd, by omega⟩
       have hqle : q ≤ canonicalLargestPrimeFactor c := by
         unfold canonicalLargestPrimeFactor
-        rw [dif_pos hcgt]
+        rw [dite_eq_left hcgt]
         exact Finset.le_max' c.primeFactors q hmem
       omega
     have hcop : Nat.Coprime c q :=
@@ -358,7 +358,7 @@ theorem squareRootLowPrimeOwnedResponseAtomChild_moebiusWeight
   have hmu := moebius_mul_prime_eq_neg_of_largestPrimeFactor_lt
     hzData.1 hqPrime hrough
   have hcast := congrArg (fun a : ℤ => (a : ℂ)) hmu
-  simpa [squareRootLowPrimeBadAtomChild, canonicalMoebiusWeight] using hcast
+  simpa [squareRootLowPrimeBadAtomChild, canonicalMoebiusWeight] using! hcast
 
 /-- A bad atom produces a negative-Möbius child. -/
 theorem squareRootLowPrimeOwnedBadAtomChild_moebiusWeight_eq_neg_one

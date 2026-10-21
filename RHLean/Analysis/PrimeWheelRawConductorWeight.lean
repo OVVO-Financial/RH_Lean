@@ -118,17 +118,6 @@ private theorem rawExpansionDivisor_factorization_apply
   classical
   rw [rawExpansionDivisor_factorization S hprime e]
   simp [Finsupp.single_apply]
-  calc
-    (∑ x ∈ S.attach, if x.val = p.val then (e x).val else 0) =
-        (if p.val = p.val then (e p).val else 0) := by
-          apply Finset.sum_eq_single_of_mem p
-          · simp
-          · intro q _ hqp
-            rw [if_neg]
-            intro hval
-            exact hqp (Subtype.ext hval)
-    _ = (e p).val := by
-      rw [if_pos rfl]
 
 private theorem rawExpansionDivisor_dvd_iff_pointwise
     (S : Finset ℕ)
@@ -192,7 +181,7 @@ private theorem natQuotient_cast_mul_inv_eq_inv
     exact_mod_cast (Nat.ne_of_gt hdpos)
   have hprod : d * (N / d) = N := Nat.mul_div_cancel' hd
   field_simp [hNne, hdne]
-  exact_mod_cast (by simpa [Nat.mul_comm] using hprod)
+  exact_mod_cast (by simpa [Nat.mul_comm] using! hprod)
 
 private theorem rawExpansionWeight_mul_invDivisor_eq_prod
     (S : Finset ℕ)
@@ -271,14 +260,14 @@ theorem primeWheelRawConductorArithmeticCoefficient_normalized_eq_neg_prod
           by_cases hle : ∀ p : {p // p ∈ S}, (c p).val ≤ (e p).val
           · have hdiv : primeWheelRawExpansionDivisor S c ∣
                 primeWheelRawExpansionDivisor S e := hiff.mpr hle
-            rw [if_pos hdiv, if_pos hle]
+            rw [ite_eq_left hdiv, ite_eq_left hle]
             rw [mul_assoc,
               natQuotient_cast_mul_inv_eq_inv hQpos
                 (rawExpansionDivisor_dvd_naturalModulus S hprime e)]
           · have hdiv : ¬ primeWheelRawExpansionDivisor S c ∣
                 primeWheelRawExpansionDivisor S e :=
               fun h => hle (hiff.mp h)
-            rw [if_neg hdiv, if_neg hle]
+            rw [ite_eq_right hdiv, ite_eq_right hle]
             ring
     _ =
       ∑ e : PrimeWheelRawExpansionPoint S,
@@ -289,9 +278,9 @@ theorem primeWheelRawConductorArithmeticCoefficient_normalized_eq_neg_prod
           apply Fintype.sum_congr
           intro e
           by_cases hle : ∀ p : {p // p ∈ S}, (c p).val ≤ (e p).val
-          · simp only [if_pos hle]
+          · simp only [ite_eq_left hle]
             exact rawExpansionWeight_mul_invDivisor_eq_prod S e
-          · simp only [if_neg hle]
+          · simp only [ite_eq_right hle]
     _ =
       ∑ e : PrimeWheelRawExpansionPoint S,
         ∏ p : {p // p ∈ S},
@@ -301,15 +290,15 @@ theorem primeWheelRawConductorArithmeticCoefficient_normalized_eq_neg_prod
             apply Fintype.sum_congr
             intro e
             by_cases hle : ∀ p : {p // p ∈ S}, (c p).val ≤ (e p).val
-            · rw [if_pos hle]
+            · rw [ite_eq_left hle]
               apply Fintype.prod_congr
               intro p
-              rw [if_pos (hle p)]
-            · rw [if_neg hle]
+              rw [ite_eq_left (hle p)]
+            · rw [ite_eq_right hle]
               rcases not_forall.mp hle with ⟨p, hp⟩
               apply Eq.symm
               apply Finset.prod_eq_zero (Finset.mem_univ p)
-              rw [if_neg hp]
+              rw [ite_eq_right hp]
     _ =
       ∏ p : {p // p ∈ S},
         ∑ e : Fin 3,
@@ -317,7 +306,7 @@ theorem primeWheelRawConductorArithmeticCoefficient_normalized_eq_neg_prod
             localPrimeRawNormalizedExpansionTerm p.val e
           else 0 := by
             symm
-            simpa using
+            simpa using!
               (Finset.prod_univ_sum
                 (t := fun _p : {p // p ∈ S} =>
                   (Finset.univ : Finset (Fin 3)))
@@ -423,7 +412,7 @@ theorem primeWheelRawConductorPatternAbsoluteWeight_le_decayEnvelope
       primeWheelRawConductorPatternDecayEnvelope S c := by
   unfold primeWheelRawConductorPatternAbsoluteWeight
     primeWheelRawConductorPatternDecayEnvelope
-  apply Finset.prod_le_prod
+  apply Finset.prod_le_prod₀
   · intro p hp
     exact localPrimeRawAbsoluteConductorWeight_nonneg
       p.val (hprime p.val p.property) (c p)
@@ -465,7 +454,7 @@ theorem sum_primeWheelRawConductorPatternAbsoluteWeight_eq_prod
       ∑ c : PrimeWheelRawExpansionPoint S,
         ∏ p : {p // p ∈ S},
           localPrimeRawAbsoluteConductorWeight p.val (c p) := by
-            simpa using
+            simpa using!
               (Finset.prod_univ_sum
                 (t := fun _p : {p // p ∈ S} =>
                   (Finset.univ : Finset (Fin 3)))
@@ -489,8 +478,8 @@ private theorem sum_localPrimeRawMarkedWeight
   · simp [hm, localPrimeRawAbsoluteConductorWeight, Fin.sum_univ_succ]
     field_simp [hp0]
     ring
-  · rw [if_neg hm]
-    simp only [hm, false_and, if_false, mul_one]
+  · rw [ite_eq_right hm]
+    simp only [hm, false_and, ite_false, mul_one]
     exact sum_localPrimeRawAbsoluteConductorWeight p hp
 
 /-- Exact marked generating identity.  A marked prime contributes
@@ -529,7 +518,7 @@ theorem primeWheelRawConductorPatternGeneratingMass_eq_prod
           (localPrimeRawAbsoluteConductorWeight p.val c *
             (if p.val ∈ T ∧ c.val ≠ 0 then t else 1)) := by
               symm
-              simpa using
+              simpa using!
                 (Finset.prod_univ_sum
                   (t := fun _p : {p // p ∈ S} =>
                     (Finset.univ : Finset (Fin 3)))

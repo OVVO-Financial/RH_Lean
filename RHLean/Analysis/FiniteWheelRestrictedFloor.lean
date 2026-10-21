@@ -32,7 +32,9 @@ theorem finiteWheelRoughMoebius_mul_zeta_apply
       if n = 0 then 0 else if n.primeFactors ⊆ P then 1 else 0 := by
   induction n using Nat.recOnPosPrimePosCoprime with
   | zero => simp
-  | one => simp [finiteWheelRoughMoebius]
+  | one =>
+      rw [ArithmeticFunction.mul_apply_one]
+      simp [finiteWheelRoughMoebius]
   | prime_pow p k hp hk =>
       rw [ArithmeticFunction.coe_mul_zeta_apply,
         Nat.sum_divisors_prime_pow hp, Finset.sum_range_succ']
@@ -46,8 +48,8 @@ theorem finiteWheelRoughMoebius_mul_zeta_apply
           exact (hp.coprime_iff_not_dvd.mp hcop) hpdvd
         have hsmooth : (p ^ k).primeFactors ⊆ P := by
           rw [Nat.primeFactors_pow p hk0]
-          simpa [hp] using hpP
-        rw [if_neg hpow0, if_pos hsmooth]
+          simpa [hp] using! hpP
+        rw [ite_eq_right hpow0, ite_eq_left hsmooth]
         simp [finiteWheelRoughMoebius, Nat.coprime_pow_left_iff, hncp]
       · have hpndvd : ¬ p ∣ primorialWheelProduct P := by
           exact fun h => hpP ((prime_dvd_primorialWheelProduct_iff hp hprime).1 h)
@@ -55,15 +57,15 @@ theorem finiteWheelRoughMoebius_mul_zeta_apply
           hp.coprime_iff_not_dvd.mpr hpndvd
         have hnSmooth : ¬ (p ^ k).primeFactors ⊆ P := by
           rw [Nat.primeFactors_pow p hk0]
-          simpa [hp] using hpP
-        rw [if_neg hpow0, if_neg hnSmooth]
+          simpa [hp] using! hpP
+        rw [ite_eq_right hpow0, ite_eq_right hnSmooth]
         have hpowcop : ∀ j : ℕ, Nat.Coprime (p ^ j) (primorialWheelProduct P) :=
           fun j => hpcop.pow_left j
-        simp_rw [finiteWheelRoughMoebius_apply, if_pos (hpowcop _)]
+        simp_rw [finiteWheelRoughMoebius_apply, ite_eq_left (hpowcop _)]
         have hsum :
             (∑ x ∈ Finset.range k, ArithmeticFunction.moebius (p ^ (x + 1))) = (-1 : ℤ) := by
           rw [Finset.sum_eq_single 0]
-          · simpa using ArithmeticFunction.moebius_apply_prime hp
+          · simpa using! ArithmeticFunction.moebius_apply_prime hp
           · intro b hb hb0
             have hb1 : b + 1 ≠ 0 := by omega
             rw [ArithmeticFunction.moebius_apply_prime_pow hp hb1]
@@ -152,7 +154,7 @@ theorem roughGE_convolution_roughGT_moebius_eq_primePowers
             exact hnd hqdvd
           omega
       have hcopIff : Nat.Coprime c p ↔ ¬ p ∣ c := by
-        simpa [Nat.coprime_comm] using (hp.coprime_iff_not_dvd (n := c))
+        simpa [Nat.coprime_comm] using! (hp.coprime_iff_not_dvd (n := c))
       have hwheel : primorialWheelProduct ({p} : Finset ℕ) = p := by
         simp [primorialWheelProduct]
       rw [finiteWheelRoughMoebius_apply, hwheel]
@@ -276,16 +278,16 @@ theorem finiteWheelRestrictedFloorIdentity
       have hk0 : k ≠ 0 := Nat.ne_of_gt hkpos
       rw [← ArithmeticFunction.coe_mul_zeta_apply,
         finiteWheelRoughMoebius_mul_zeta_apply P hprime k]
-      rw [if_neg hk0]
+      rw [ite_eq_right hk0]
     _ = (finiteWheelSmoothCount P X : ℤ) := by
       unfold finiteWheelSmoothCount finiteWheelSmoothSet
       simp
 
 /-- The restricted floor certificate exists for every genuine finite prime
 wheel. -/
-def finiteWheelRestrictedFloorCertificate
+theorem finiteWheelRestrictedFloorCertificate
     (P : Finset ℕ) (hprime : ∀ p ∈ P, p.Prime) :
-    FiniteWheelRestrictedFloorCertificate P where
-  floor_identity := finiteWheelRestrictedFloorIdentity P hprime
+    FiniteWheelRestrictedFloorCertificate P := by
+  exact ⟨finiteWheelRestrictedFloorIdentity P hprime⟩
 
 end RHLean.Analysis

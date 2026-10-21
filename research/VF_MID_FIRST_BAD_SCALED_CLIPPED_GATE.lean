@@ -70,7 +70,7 @@ theorem vfMidScaledCompletedGatePMDegreeTwoDenominator_eq_retainedParentEnergy
         lowOwnerThresholdEulerPairCoefficient R p r parent ^ 2 *
           postRootCovarianceReciprocalPairEnergy parent := by
     simpa [lowOwnerCompletedIncidenceFourCornerMass,
-      lowOwnerThresholdEulerParentEnergy] using
+      lowOwnerThresholdEulerParentEnergy] using!
       (lowOwnerThresholdIncidence_fourCorner_sq_eq_eulerParentEnergy
         (R := R) (p := p) (r := r)
         (a := parent.1) (b := parent.2)

@@ -80,7 +80,7 @@ theorem sum_moebius_log_divisors_eq_neg_vonMangoldt
         exact hn0 hnz
       have hxle : x ≤ n := Nat.le_of_dvd (by omega) hxdiv
       simp [hx0, not_lt_of_ge hxle]
-    _ = -Λ n := by simpa using h
+    _ = -Λ n := by simpa using! h
 
 /-- **First logarithmic reciprocal Mobius harmonic identity.**
 
@@ -134,7 +134,7 @@ theorem nativeMobiusLogRecipHarmonic_eq_neg_lambdaRecip
           have hmpos : 0 < m := by omega
           have hmulpos : 0 < d * m := Nat.mul_pos hdpos hmpos
           have hmulN' : m * d ≤ N := (Nat.le_div_iff_mul_le hdpos).1 hmN
-          have hmulN : d * m ≤ N := by simpa [Nat.mul_comm] using hmulN'
+          have hmulN : d * m ≤ N := by simpa [Nat.mul_comm] using! hmulN'
           exact ⟨⟨Nat.one_le_iff_ne_zero.mpr (Nat.ne_of_gt hmulpos), hmulN⟩,
             dvd_mul_right d m⟩
       rw [hmap, Finset.sum_image]

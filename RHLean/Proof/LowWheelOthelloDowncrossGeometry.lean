@@ -218,7 +218,7 @@ theorem lowWheelOthelloDowncrossUniqueParentPart_card_le_root
   let parent := lowWheelOthelloDowncrossParent
   have hinj : Set.InjOn parent
       (lowWheelOthelloDowncrossUniqueParentPart R) := by
-    simpa [parent] using lowWheelOthelloDowncrossParent_injOn_unique R
+    simpa [parent] using! lowWheelOthelloDowncrossParent_injOn_unique R
   have himage :
       (lowWheelOthelloDowncrossUniqueParentPart R).image parent ⊆
         Finset.Icc 1 R := by
@@ -234,6 +234,6 @@ theorem lowWheelOthelloDowncrossUniqueParentPart_card_le_root
     Finset.card_image_iff.mpr hinj
   rw [← hcard]
   have hle := Finset.card_le_card himage
-  simpa [Nat.card_Icc] using hle
+  simpa [Nat.card_Icc] using! hle
 
 end RHLean.Proof

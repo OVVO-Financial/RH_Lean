@@ -234,7 +234,7 @@ theorem vfMidSqrtTwoActualPrimeSquarePNT :
         (Nat.primeCounting (R ^ 2) : ℝ) *
           Real.log ((R ^ 2 : ℕ) : ℝ) / ((R ^ 2 : ℕ) : ℝ))
       atTop (𝓝 1) := by
-  simpa only [Function.comp_apply] using
+  simpa only [Function.comp_apply] using!
     nativePrimeNumberTheorem.comp vfMidSqrtTwoSquareClock_tendsto_atTop
 
 /-- PNT supplies arbitrary *fixed percentage* accuracy at square endpoints,
@@ -285,6 +285,6 @@ theorem vfMidSqrtTwoRelativeHeightAlignment_of_VF_mainTerm
     funext R
     ring
   rw [heq]
-  simpa only [sub_self] using hdiff
+  simpa only [sub_self] using! hdiff
 
 end RHLean.Analysis

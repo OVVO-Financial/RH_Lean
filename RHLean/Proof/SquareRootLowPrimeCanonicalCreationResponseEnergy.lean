@@ -60,9 +60,9 @@ theorem abs_squareRootLowPrimeRunningImbalanceReal_le_root_mul_seats_canonical
     exact squareRootLowPrimeCanonicalCreationToResponse_mem hx
   · exact squareRootLowPrimeCanonicalCreationToResponse_injOn
   · simpa [squareRootLowPrimeCanonicalCreationResponseFrontier,
-      squareRootLowPrimeCanonicalCreationToResponse] using hencodeInj
+      squareRootLowPrimeCanonicalCreationToResponse] using! hencodeInj
   · simpa [squareRootLowPrimeCanonicalCreationResponseFrontier,
-      squareRootLowPrimeCanonicalCreationToResponse] using hbox
+      squareRootLowPrimeCanonicalCreationToResponse] using! hbox
 
 /-- Canonical squared terminal estimate. -/
 theorem squareRootLowPrimeRunningImbalanceReal_sq_le_root_sq_mul_seats_sq_canonical

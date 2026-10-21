@@ -68,7 +68,7 @@ theorem survivorFixedPrimeCofactorTerm_two_mul_of_odd
       canonicalMoebiusWeight d *
         survivorFixedPrimeActivityIndicator Λ t q (2 * d) := by
   unfold survivorFixedPrimeCofactorTerm
-  rw [canonicalMoebiusWeight_two_mul d, if_pos hd]
+  rw [canonicalMoebiusWeight_two_mul d, ite_eq_left hd]
   ring
 
 /-- The parent/child signed contribution is the exact activity-indicator
@@ -81,7 +81,7 @@ theorem survivorDyadicPairContribution_eq_activityDifference
         (survivorFixedPrimeActivityIndicator Λ t q (2 * d) -
           survivorFixedPrimeActivityIndicator Λ t q d) := by
   unfold survivorDyadicPairContribution survivorFixedPrimeCofactorTerm
-  rw [canonicalMoebiusWeight_two_mul d, if_pos hd]
+  rw [canonicalMoebiusWeight_two_mul d, ite_eq_left hd]
   ring
 
 /-- Equal survivor activity gives equal complex activity indicators. -/
@@ -133,7 +133,7 @@ theorem survivorFixedPrimeCofactorTerm_two_mul_of_even
     survivorFixedPrimeCofactorTerm Λ t q (2 * d) = 0 := by
   unfold survivorFixedPrimeCofactorTerm
   have hnotOdd : ¬ Odd d := Nat.not_odd_iff_even.mpr hd
-  rw [canonicalMoebiusWeight_two_mul d, if_neg hnotOdd]
+  rw [canonicalMoebiusWeight_two_mul d, ite_eq_right hnotOdd]
   ring
 
 private theorem survivor_sum_Icc_eq_odd_add_even
@@ -171,7 +171,7 @@ private theorem survivor_sum_evenCofactorPrefix_eq_sum_double
     rcases Finset.mem_Icc.mp hd with ⟨hd1, hdB⟩
     have h2dB : 2 * d ≤ B := by
       have hmul := (Nat.le_div_iff_mul_le (by omega : 0 < 2)).1 hdB
-      simpa [Nat.mul_comm] using hmul
+      simpa [Nat.mul_comm] using! hmul
     have hpos : 1 ≤ 2 * d := by omega
     exact mem_evenCofactorPrefix.mpr
       ⟨hpos, h2dB, even_two_mul d⟩
@@ -189,7 +189,7 @@ private theorem survivor_sum_evenCofactorPrefix_eq_sum_double
       omega
     · apply (Nat.le_div_iff_mul_le (by omega : 0 < 2)).2
       have hmul : c / 2 * 2 = c := by
-        simpa [Nat.mul_comm] using hdouble
+        simpa [Nat.mul_comm] using! hdouble
       rw [hmul]
       exact hcB
   · intro d _hd

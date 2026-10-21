@@ -25,7 +25,7 @@ theorem nativePNTSquarePrefixRederivedCubicSlope_inv_sq_rate (n : ℕ) :
     (fun m => (nativePNTSquarePrefixRederivedCubicSlope_spec m).1)
     (fun m => nativePNTSquarePrefixRederivedCubicSlope_succ m) n
   have h6 : (6 : ℝ) ^ 2 = 36 := by norm_num
-  simpa [nativePNTSquarePrefixRederivedCubicSlope_zero, h6] using h
+  simpa [nativePNTSquarePrefixRederivedCubicSlope_zero, h6] using! h
 
 /-- Equivalent direct square-prefix rate: `2 C n a_n^2 <= 1`. -/
 theorem nativePNTSquarePrefixRederivedCubicSlope_quadratic_rate (n : ℕ) :
@@ -46,7 +46,7 @@ theorem nativePNTSquarePrefixRederivedCubicSlope_quadratic_rate (n : ℕ) :
           (nativePNTSquarePrefixRederivedCubicSlope n) ^ 2 ≤
         (1 / (nativePNTSquarePrefixRederivedCubicSlope n) ^ 2) *
           (nativePNTSquarePrefixRederivedCubicSlope n) ^ 2 := by
-      simpa [mul_assoc] using hmul
+      simpa [mul_assoc] using! hmul
     _ = 1 := by
       field_simp [ne_of_gt hslope]
 

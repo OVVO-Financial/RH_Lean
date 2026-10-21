@@ -51,7 +51,7 @@ theorem squareRootLowPrimeGoFullFaceDefectRootFloorSource_mem_downcross
       primeFaceProduct
           (squareRootLowPrimeGoFullFaceDefectSourceTag ((r, q), d)).1 =
         r * d := by
-    simpa [squareRootLowPrimeGoFullFaceDefectSourceTag] using
+    simpa [squareRootLowPrimeGoFullFaceDefectSourceTag] using!
       squareRootLowPrimeGoSecondBoundaryFullFaceSource_faceProduct
         hq hr hrq hfull
   have hpivot :
@@ -65,12 +65,7 @@ theorem squareRootLowPrimeGoFullFaceDefectRootFloorSource_mem_downcross
   refine ⟨hphysicalData.2, ?_, ?_⟩
   · rw [hpivot]
     exact hq.not_dvd_one
-  · change primeFaceProduct
-        (squareRootLowPrimeGoFullFaceDefectSourceTag ((r, q), d)).1 *
-        ((squareRootLowPrimeGoFullFaceDefectSourceTag ((r, q), d)).2.2 /
-          lowWheelCanonicalCofactorQuotientPivot
-            (squareRootLowPrimeGoFullFaceDefectSourceTag ((r, q), d)).2) ≤ R
-    rw [hpivot]
+  · rw [hpivot]
     change primeFaceProduct
         (squareRootLowPrimeGoFullFaceDefectSourceTag ((r, q), d)).1 *
         (q / q) ≤ R
@@ -108,7 +103,7 @@ theorem squareRootLowPrimeGoFullFaceDefectRootFloorSource_frozenShape
     have hpFactors : p ∈ (r * d).primeFactors := by
       simpa [squareRootLowPrimeGoFullFaceDefectSourceTag,
         squareRootLowPrimeGoSecondBoundaryFullFaceSource,
-        squarefreePrimeFace] using hp
+        squarefreePrimeFace] using! hp
     have hpData := Nat.mem_primeFactors.mp hpFactors
     exact hchild.1.2.2.2.2 p hpData.1 hpData.2.1
 
@@ -125,10 +120,10 @@ theorem squareRootLowPrimeGoFullFaceDefectRootFloorSource_unique_or_internalTerm
         lowWheelCanonicalRepeatedTerminalInternalPart R := by
   let y := squareRootLowPrimeGoFullFaceDefectSourceTag ((r, q), d)
   have hy : y ∈ lowWheelCanonicalTaggedDowncrossCarrier R := by
-    simpa [y] using
+    simpa [y] using!
       squareRootLowPrimeGoFullFaceDefectRootFloorSource_mem_downcross hR hz
   have hfrozen : LowWheelDowncrossFrozenShape y := by
-    simpa [y] using
+    simpa [y] using!
       squareRootLowPrimeGoFullFaceDefectRootFloorSource_frozenShape hz
   have hsplit :
       y ∈ lowWheelCanonicalDowncrossUniqueParentPart R ∨

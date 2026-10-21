@@ -101,7 +101,7 @@ theorem lowOwnerRawParentReturnedNextClipped_left_doubleCorner_eq_one
     ⟨_hr, _hpr, _haBase, _hbBase, _hra, _hrb⟩
   have hdouble :
       squareRootEndpoint R < r * (p * parent.1) := by
-    simpa [Nat.mul_assoc, Nat.mul_left_comm, Nat.mul_comm] using hleft
+    simpa [Nat.mul_assoc, Nat.mul_left_comm, Nat.mul_comm] using! hleft
   unfold lowOwnerThresholdDoubleCornerBoundary
   simp [hclip.1, hclip.2.2.1, hdouble]
 
@@ -118,7 +118,7 @@ theorem lowOwnerRawParentReturnedNextClipped_right_doubleCorner_eq_one
     ⟨_hr, _hpr, _haBase, _hbBase, _hra, _hrb⟩
   have hdouble :
       squareRootEndpoint R < r * (p * parent.2) := by
-    simpa [Nat.mul_assoc, Nat.mul_left_comm, Nat.mul_comm] using hright
+    simpa [Nat.mul_assoc, Nat.mul_left_comm, Nat.mul_comm] using! hright
   unfold lowOwnerThresholdDoubleCornerBoundary
   simp [hclip.2.1, hclip.2.2.2.1, hdouble]
 

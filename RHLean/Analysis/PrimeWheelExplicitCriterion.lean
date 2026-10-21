@@ -38,11 +38,12 @@ theorem primorialWheelDirichletNonconcentration_iff_harmonic :
       dsimp [N]
       exact Nat.add_sub_of_le (Nat.le_of_lt hlower)
     have hNupper : primorialBlockLower k + N ≤ primorialBlockUpper k := by
-      simpa [hx] using hupper
+      rw [hx]
+      exact hupper
     have hD := hbound k N hNpos hNupper
     rw [← spectralPrefix_lower_add_eq_dirichletPrefix
       (primorialWheelSystem k) N hNupper] at hD
-    simpa [primorialWheelFamily, primorialWheelSystem, hx] using hD
+    simpa [primorialWheelFamily, primorialWheelSystem, hx] using! hD
   · intro h ε hε
     rcases h ε hε with ⟨C, hC, hbound⟩
     refine ⟨C, hC, ?_⟩
@@ -57,6 +58,6 @@ theorem primorialWheelDirichletNonconcentration_iff_harmonic :
           ((((primorialWheelSystem k).lower + N) + 1 : ℕ) : ℝ) (1 + ε) at hH
     rw [spectralPrefix_lower_add_eq_dirichletPrefix
       (primorialWheelSystem k) N hupper] at hH
-    simpa [primorialWheelSystem] using hH
+    simpa [primorialWheelSystem] using! hH
 
 end RHLean.Analysis

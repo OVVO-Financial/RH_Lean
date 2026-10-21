@@ -124,7 +124,7 @@ theorem renewalTransportSite_mem_squarefreeShell_of_cut
   have hreSq : Squarefree (r * e) :=
     (Nat.squarefree_mul hreCop).2 ⟨hrPrime.squarefree, heSq⟩
   have hlpf_re : canonicalLargestPrimeFactor (r * e) = r := by
-    simpa [Nat.mul_comm] using
+    simpa [Nat.mul_comm] using!
       canonicalLargestPrimeFactor_mul_prime_eq_of_rough he1 hrPrime her
   have hreq : canonicalLargestPrimeFactor (r * e) < q := by
     rw [hlpf_re]
@@ -138,7 +138,7 @@ theorem renewalTransportSite_mem_squarefreeShell_of_cut
   have hqrePos : 0 < q * (r * e) := Nat.mul_pos hqPrime.pos hrePos
   have hqre1 : 1 ≤ q * (r * e) := by omega
   have hlpf_qre : canonicalLargestPrimeFactor (q * (r * e)) = q := by
-    simpa [Nat.mul_comm] using
+    simpa [Nat.mul_comm] using!
       canonicalLargestPrimeFactor_mul_prime_eq_of_rough hre1 hqPrime hreq
   have hqrep : canonicalLargestPrimeFactor (q * (r * e)) < p := by
     rw [hlpf_qre]
@@ -151,25 +151,25 @@ theorem renewalTransportSite_mem_squarefreeShell_of_cut
     (Nat.squarefree_mul hpCop).2 ⟨hqreSq, hpPrime.squarefree⟩
   have hsiteLe :
       stableFarRenewalTransportSite q r e p ≤ squareRootEndpoint R := by
-    simpa [stableFarRenewalTransportSite, Nat.mul_assoc] using hcut
+    simpa [stableFarRenewalTransportSite, Nat.mul_assoc] using! hcut
   have hXlt : squareRootEndpoint R < R * R := by
     unfold squareRootEndpoint
     have hne : R ^ 2 ≠ 0 := pow_ne_zero 2 (Nat.ne_of_gt hRpos)
-    simpa [pow_two] using Nat.pred_lt hne
+    simpa [pow_two] using! Nat.pred_lt hne
   apply mem_orderedEulerCutSquarefreeShell.mpr
   refine ⟨?_, ?_, ?_⟩
   · have hqreRawPos : 0 < q * r * e := by
-      simpa [Nat.mul_assoc] using
+      simpa [Nat.mul_assoc] using!
         Nat.mul_pos (Nat.mul_pos hqPrime.pos hrPrime.pos) hePos
     have hqreRaw1 : 1 ≤ q * r * e := by omega
     have hpSite : p ≤ stableFarRenewalTransportSite q r e p := by
       have hmul := Nat.mul_le_mul_right p hqreRaw1
-      simpa [stableFarRenewalTransportSite, Nat.mul_assoc] using hmul
+      simpa [stableFarRenewalTransportSite, Nat.mul_assoc] using! hmul
     omega
   · have hlt : stableFarRenewalTransportSite q r e p < R * R :=
       hsiteLe.trans_lt hXlt
-    simpa [pow_two] using hlt
-  · simpa [stableFarRenewalTransportSite, Nat.mul_assoc] using hsq
+    simpa [pow_two] using! hlt
+  · simpa [stableFarRenewalTransportSite, Nat.mul_assoc] using! hsq
 
 /-- The transported squarefree site carries exactly the sign-reversed returned
 cofactor weight. -/
@@ -194,9 +194,9 @@ theorem renewalTransportSite_weight_eq_neg_returned
   have hreFlip :
       canonicalMoebiusWeight (r * e) = -canonicalMoebiusWeight e := by
     have h := canonicalMoebiusWeight_mul_freshPrime hrPrime hreFresh
-    simpa [Nat.mul_comm] using h
+    simpa [Nat.mul_comm] using! h
   have hlpf_re : canonicalLargestPrimeFactor (r * e) = r := by
-    simpa [Nat.mul_comm] using
+    simpa [Nat.mul_comm] using!
       canonicalLargestPrimeFactor_mul_prime_eq_of_rough he1 hrPrime her
   have hreq : canonicalLargestPrimeFactor (r * e) < q := by
     rw [hlpf_re]
@@ -207,11 +207,11 @@ theorem renewalTransportSite_weight_eq_neg_returned
       canonicalMoebiusWeight (q * (r * e)) =
         -canonicalMoebiusWeight (r * e) := by
     have h := canonicalMoebiusWeight_mul_freshPrime hqPrime hqFresh
-    simpa [Nat.mul_comm] using h
+    simpa [Nat.mul_comm] using! h
   have hqrePos : 0 < q * (r * e) := Nat.mul_pos hqPrime.pos hrePos
   have hqre1 : 1 ≤ q * (r * e) := by omega
   have hlpf_qre : canonicalLargestPrimeFactor (q * (r * e)) = q := by
-    simpa [Nat.mul_comm] using
+    simpa [Nat.mul_comm] using!
       canonicalLargestPrimeFactor_mul_prime_eq_of_rough hre1 hqPrime hreq
   have hqrep : canonicalLargestPrimeFactor (q * (r * e)) < p := by
     rw [hlpf_qre]
@@ -246,7 +246,7 @@ theorem renewalTransportSite_unique
   have hrePos : 0 < r * e := Nat.mul_pos hr.pos hePos
   have hre1 : 1 ≤ r * e := by omega
   have hlpf_re : canonicalLargestPrimeFactor (r * e) = r := by
-    simpa [Nat.mul_comm] using
+    simpa [Nat.mul_comm] using!
       canonicalLargestPrimeFactor_mul_prime_eq_of_rough he1 hr her
   have hreq : canonicalLargestPrimeFactor (r * e) < q := by
     rw [hlpf_re]
@@ -254,7 +254,7 @@ theorem renewalTransportSite_unique
   have hqrePos : 0 < q * (r * e) := Nat.mul_pos hq.pos hrePos
   have hqre1 : 1 ≤ q * (r * e) := by omega
   have hlpf_qre : canonicalLargestPrimeFactor (q * (r * e)) = q := by
-    simpa [Nat.mul_comm] using
+    simpa [Nat.mul_comm] using!
       canonicalLargestPrimeFactor_mul_prime_eq_of_rough hre1 hq hreq
   have hqrep : canonicalLargestPrimeFactor (q * (r * e)) < p := by
     rw [hlpf_qre]
@@ -267,7 +267,7 @@ theorem renewalTransportSite_unique
   have hrePos' : 0 < r' * e' := Nat.mul_pos hr'.pos hePos'
   have hre1' : 1 ≤ r' * e' := by omega
   have hlpf_re' : canonicalLargestPrimeFactor (r' * e') = r' := by
-    simpa [Nat.mul_comm] using
+    simpa [Nat.mul_comm] using!
       canonicalLargestPrimeFactor_mul_prime_eq_of_rough he1' hr' her'
   have hreq' : canonicalLargestPrimeFactor (r' * e') < q' := by
     rw [hlpf_re']
@@ -275,7 +275,7 @@ theorem renewalTransportSite_unique
   have hqrePos' : 0 < q' * (r' * e') := Nat.mul_pos hq'.pos hrePos'
   have hqre1' : 1 ≤ q' * (r' * e') := by omega
   have hlpf_qre' : canonicalLargestPrimeFactor (q' * (r' * e')) = q' := by
-    simpa [Nat.mul_comm] using
+    simpa [Nat.mul_comm] using!
       canonicalLargestPrimeFactor_mul_prime_eq_of_rough hre1' hq' hreq'
   have hqrep' : canonicalLargestPrimeFactor (q' * (r' * e')) < p' := by
     rw [hlpf_qre']
@@ -286,7 +286,7 @@ theorem renewalTransportSite_unique
 
   have heqNested :
       (q * (r * e)) * p = (q' * (r' * e')) * p' := by
-    simpa [stableFarRenewalTransportSite, Nat.mul_assoc] using heq
+    simpa [stableFarRenewalTransportSite, Nat.mul_assoc] using! heq
   have hpp : p = p' := by
     rw [← hlpf_site, ← hlpf_site', heqNested]
   subst p'
@@ -388,7 +388,7 @@ theorem stableFarCenteredRenewalWeight_add_double
         ((lowWheelFarPrimeQ2CrossingOuterOwnerSet R (r, (e, p))).card : ℂ)) *
           canonicalMoebiusWeight e := by
   unfold stableFarCenteredRenewalWeight stableFarCenteredRenewalCoeff
-  rw [canonicalMoebiusWeight_two_mul, if_pos he]
+  rw [canonicalMoebiusWeight_two_mul, ite_eq_left he]
   ring
 
 def stableFarRenewalOwnerIndicatorDifference
@@ -599,8 +599,8 @@ theorem stableFarRenewalTwoShellTransport_injOn
       (stableFarRenewalTwoShellCarrier R :
         Set StableFarRenewalShellTag) := by
   intro a ha b hb hab
-  have haFin : a ∈ stableFarRenewalTwoShellCarrier R := by simpa using ha
-  have hbFin : b ∈ stableFarRenewalTwoShellCarrier R := by simpa using hb
+  have haFin : a ∈ stableFarRenewalTwoShellCarrier R := by simpa using! ha
+  have hbFin : b ∈ stableFarRenewalTwoShellCarrier R := by simpa using! hb
   rcases a with ⟨q, ⟨r, ⟨e, p⟩⟩⟩
   rcases b with ⟨q', ⟨r', ⟨e', p'⟩⟩⟩
   rcases stableFarRenewalTwoShellCarrier_data haFin with
@@ -618,7 +618,7 @@ theorem stableFarRenewalTwoShellTransport_injOn
   have hlabels :=
     renewalTransportSite_unique_of_descended
       hy hy' hqOld hrq hqOld' hrq'
-      (by simpa [stableFarRenewalTwoShellTransport] using hab)
+      (by simpa [stableFarRenewalTwoShellTransport] using! hab)
   rcases hlabels with ⟨hqq, hrr, hee, hpp⟩
   exact Prod.ext hqq (Prod.ext hrr (Prod.ext hee hpp))
 
@@ -637,9 +637,9 @@ theorem stableFarRenewalTwoShellImage_subset_squarefreeShell
   rcases stableFarRenewalTwoShellCarrier_data ht with
     ⟨_hqOld, hy, hshell⟩
   rcases hshell with hfirst | hsecond
-  · simpa [stableFarRenewalTwoShellTransport] using
+  · simpa [stableFarRenewalTwoShellTransport] using!
       firstCutShell_transportSite_mem_squarefreeShell hR hy hfirst
-  · simpa [stableFarRenewalTwoShellTransport] using
+  · simpa [stableFarRenewalTwoShellTransport] using!
       secondCrossShell_transportSite_mem_squarefreeShell hR hy hsecond
 
 /-- The image census loses no atoms: the global physical transport is genuinely
@@ -694,7 +694,7 @@ theorem stableFarCenteredReturnedFibre_eq_ownerDifference_add_boundary
   · apply Finset.sum_congr rfl
     intro d _hd
     by_cases hrough : canonicalLargestPrimeFactor d < r
-    · rw [if_pos hrough, if_pos hrough]
+    · rw [ite_eq_left hrough, ite_eq_left hrough]
       unfold stableFarCenteredRenewalCoeff
       ring
     · simp [hrough]
@@ -720,7 +720,7 @@ theorem stableFarCenteredReturnedFibre_eq_ownerIndicatorSum_add_boundary
   apply Finset.sum_congr rfl
   intro d _hd
   by_cases hrough : canonicalLargestPrimeFactor d < r
-  · rw [if_pos hrough, if_pos hrough]
+  · rw [ite_eq_left hrough, ite_eq_left hrough]
     have hcast := congrArg (fun z : ℤ => (z : ℂ))
       (crossingOuterOwnerSet_card_difference_eq_indicator_sum R r d p)
     push_cast at hcast
@@ -754,7 +754,7 @@ theorem mem_lowWheelFarPrimeQ2DescendedTriples_iff_renewalCofactor
     have heCut : e ≤ stableFarReturnedCofactorCutoff R r p := by
       unfold stableFarReturnedCofactorCutoff
       apply (Nat.le_div_iff_mul_le hdenPos).2
-      simpa [Nat.mul_assoc, Nat.mul_left_comm, Nat.mul_comm] using hq2
+      simpa [Nat.mul_assoc, Nat.mul_left_comm, Nat.mul_comm] using! hq2
     refine ⟨hr, hrR, hp, hpR, ?_⟩
     exact mem_squareRootLowPrimeGoSmoothCofactors.mpr
       ⟨he1, heCut, heSq, her⟩
@@ -765,14 +765,14 @@ theorem mem_lowWheelFarPrimeQ2DescendedTriples_iff_renewalCofactor
       Nat.mul_pos (Nat.mul_pos hr.pos hr.pos) hp.pos
     have hq2raw : e * (r * r * p) ≤ squareRootEndpoint R := by
       apply (Nat.le_div_iff_mul_le hdenPos).1
-      simpa [stableFarReturnedCofactorCutoff] using heCut
+      simpa [stableFarReturnedCofactorCutoff] using! heCut
     have hq2 : r * r * e * p ≤ squareRootEndpoint R := by
-      simpa [Nat.mul_assoc, Nat.mul_left_comm, Nat.mul_comm] using hq2raw
+      simpa [Nat.mul_assoc, Nat.mul_left_comm, Nat.mul_comm] using! hq2raw
     have hbaseCut : r * e * p ≤ squareRootEndpoint R := by
       have hr1 : 1 ≤ r := hr.one_le
       have hle : r * e * p ≤ r * r * e * p := by
         have h := Nat.mul_le_mul_right (r * e * p) hr1
-        simpa [Nat.mul_assoc, Nat.mul_left_comm, Nat.mul_comm] using h
+        simpa [Nat.mul_assoc, Nat.mul_left_comm, Nat.mul_comm] using! h
       exact hle.trans hq2
     have hbase : (r, (e, p)) ∈ lowWheelFarPrimeLowCofactorTriples R :=
       lowWheelFarPrimeLowCofactorTriple_mem_of_data
@@ -933,7 +933,7 @@ theorem farFourQ2CenteredTower_eq_ownerTwo_add_oddDyadicFibres
   have hrgt : 2 < rp.1 := by
     have hr2 := hdata.1.two_le
     omega
-  simpa [f] using
+  simpa [f] using!
     stableFarCenteredReturnedFibre_eq_ownerIndicatorSum_add_boundary
       hdata.1 hrgt
 
@@ -965,7 +965,7 @@ theorem crossingOuterOwnerSet_double_eq_empty_of_roughBoundary
       (2 * d) * (r * r * p) ≤ q * r * (2 * d) * p := by
     have h :=
       Nat.mul_le_mul_right (r * (2 * d) * p) hrqle
-    simpa [Nat.mul_assoc, Nat.mul_left_comm, Nat.mul_comm] using h
+    simpa [Nat.mul_assoc, Nat.mul_left_comm, Nat.mul_comm] using! h
   exact (Nat.not_lt_of_ge hcut) (hXlt.trans_le hmul)
 
 /-- Consequently the centered weight on the unpaired top boundary is its
@@ -1128,7 +1128,7 @@ theorem mem_stableFarRenewalCoordinatePairs_iff
     have hrrPos : 0 < r * r := Nat.mul_pos hr.pos hr.pos
     have hpUpper : p ≤ squareRootEndpoint R / (r * r) := by
       apply (Nat.le_div_iff_mul_le hrrPos).2
-      simpa [Nat.mul_assoc, Nat.mul_left_comm, Nat.mul_comm] using hprod
+      simpa [Nat.mul_assoc, Nat.mul_left_comm, Nat.mul_comm] using! hprod
     exact ⟨hr, hrR,
       mem_frozenPrimeUniverseHighPrimeSet.mpr
         ⟨hp, by omega, hpUpper⟩⟩
@@ -1139,7 +1139,7 @@ theorem mem_stableFarRenewalCoordinatePairs_iff
     have hprod0 : p * (r * r) ≤ squareRootEndpoint R :=
       (Nat.le_div_iff_mul_le hrrPos).1 hpUpper
     have hprod : r * r * p ≤ squareRootEndpoint R := by
-      simpa [Nat.mul_assoc, Nat.mul_left_comm, Nat.mul_comm] using hprod0
+      simpa [Nat.mul_assoc, Nat.mul_left_comm, Nat.mul_comm] using! hprod0
     have hdenPos : 0 < r * r * p :=
       Nat.mul_pos hrrPos hp.pos
     have hcut1 :
@@ -1151,7 +1151,7 @@ theorem mem_stableFarRenewalCoordinatePairs_iff
           (stableFarReturnedCofactorCutoff R r p) := by
       apply mem_squareRootLowPrimeGoSmoothCofactors.mpr
       refine ⟨by norm_num, hcut1, squarefree_one, ?_⟩
-      simpa [canonicalLargestPrimeFactor] using hr.one_lt
+      simpa [canonicalLargestPrimeFactor] using! hr.one_lt
     have hdesc :
         (r, (1, p)) ∈ lowWheelFarPrimeQ2DescendedTriples R :=
       (mem_lowWheelFarPrimeQ2DescendedTriples_iff_renewalCofactor).2
@@ -1175,7 +1175,7 @@ theorem stableFarRenewalFarPrimeSet_eq_highPrimeSet
     have hdata := (mem_stableFarRenewalCoordinatePairs_iff).1 hrp
     have hrEq : rp.1 = r := hrpFst
     have hpEq : rp.2 = p := hrpSnd
-    simpa [hrEq, hpEq] using hdata.2.2
+    simpa [hrEq, hpEq] using! hdata.2.2
   · intro hp
     have hrp :
         (r, p) ∈ stableFarRenewalCoordinatePairs R :=
@@ -1221,7 +1221,7 @@ theorem stableFarRenewalCoordinateOwnerFiber_eq_highPrimeImage
   · intro h
     rcases Finset.mem_filter.mp h with ⟨hab, ha⟩
     have hdata := (mem_stableFarRenewalCoordinatePairs_iff).1 hab
-    have haEq : a = r := by simpa using ha
+    have haEq : a = r := by simpa using! ha
     subst a
     exact Finset.mem_image.mpr ⟨b, hdata.2.2, rfl⟩
   · intro h
@@ -1232,7 +1232,7 @@ theorem stableFarRenewalCoordinateOwnerFiber_eq_highPrimeImage
     have hmem :
         (r, p) ∈ stableFarRenewalCoordinateOwnerFiber R r :=
       Finset.mem_filter.mpr ⟨hpair, rfl⟩
-    simpa [heq] using hmem
+    simpa [heq] using! hmem
 
 def stableFarRenewalOwnerDifferenceColumn (R r : ℕ) : ℂ :=
   ∑ p ∈ frozenPrimeUniverseHighPrimeSet (R + 7)
@@ -1260,7 +1260,7 @@ theorem stableFarRenewalCoordinateOwnerFiber_centeredMass_eq_difference_add_chil
     apply Finset.sum_congr rfl
     intro p hp
     have hpPrime := (mem_frozenPrimeUniverseHighPrimeSet.mp hp).1
-    simpa using
+    simpa using!
       stableFarCenteredReturnedFibre_eq_fullDifference_add_roughBoundaryMass
         hr hrgt hpPrime
   · intro a _ha b _hb hab
@@ -1303,9 +1303,9 @@ theorem farFourQ2CenteredTower_eq_ownerwise_difference_add_childFar
   have hrR : r < R := Nat.lt_of_le_pred (by omega) hrData.2
   by_cases hr2 : r = 2
   · subst r
-    rw [if_pos rfl]
+    rw [ite_eq_left rfl]
     rfl
-  · rw [if_neg hr2]
+  · rw [ite_eq_right hr2]
     have hrgt : 2 < r := by
       have hrle := hrData.1.two_le
       omega
@@ -1696,7 +1696,7 @@ theorem stableFarRenewalOwnerDifferenceMass_eq_localTwoShellIndicatorMass
                 ((stableFarRenewalOwnerIndicatorDifference R q r d p : ℤ) : ℂ) *
                   canonicalMoebiusWeight d
               else 0 := by
-        simpa only using
+        simpa only using!
           (Finset.sum_product
             (s := primesUpTo (R - 1))
             (t := (squareRootLowPrimeGoSmoothCofactors r B).filter Odd)

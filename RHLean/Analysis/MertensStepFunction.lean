@@ -59,7 +59,9 @@ theorem mertensStep_locallyIntegrableOn :
       (c := fun n : ℕ => (((μ n : ℤ) : ℂ)))
       (m := 1) (a := 0) le_rfl hconst
   have hIci : LocallyIntegrableOn mertensStep (Ici 0) := by
-    simpa [mertensStep] using hsum
+    change LocallyIntegrableOn
+      (fun t : ℝ => ∑ k ∈ Finset.Icc 1 ⌊t⌋₊, (((μ k : ℤ) : ℂ))) (Ici 0)
+    simpa using! hsum
   exact hIci.mono_set Set.Ioi_subset_Ici_self
 
 /-- The Mertens energy criterion transfers directly to the floor-step function:

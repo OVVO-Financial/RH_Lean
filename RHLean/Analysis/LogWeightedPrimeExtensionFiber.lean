@@ -28,7 +28,7 @@ theorem prod_primeFactors_eq_self_of_squarefree
           rw [Nat.factorization_eq_one_of_squarefree hs hpPrime hpDvd, pow_one]
     _ = n.factorization.prod (fun p k => p ^ k) := by
           rw [Nat.prod_factorization_eq_prod_primeFactors]
-    _ = n := Nat.factorization_prod_pow_eq_self hs.ne_zero
+    _ = n := Nat.prod_factorization_pow_eq_self hs.ne_zero
 
 theorem log_nat_finset_prod
     (s : Finset ℕ) (hpos : ∀ x ∈ s, 0 < x) :
@@ -121,7 +121,7 @@ theorem not_squarefree_div_of_fresh_prime
     (hpPrime.coprime_iff_not_dvd).2 hnot
   have hsq : Squarefree (p * (n / p)) :=
     (Nat.squarefree_mul hcop).2 ⟨hpPrime.squarefree, hco⟩
-  exact hns (by simpa [hmul] using hsq)
+  exact hns (by simpa [hmul] using! hsq)
 
 theorem sum_freshPrimeDivisors_mu_parent_log_eq_neg_mu_log (n : ℕ) :
     (∑ p ∈ freshPrimeDivisors n,
@@ -236,7 +236,7 @@ theorem logFreshPrimeExtensionMass_eq_sourcePairSum (N : ℕ) :
               cp.1 * cp.2 ≤ 2 * N ∧ ¬cp.2 ∣ cp.1 then
             moebiusReal cp.1 * Real.log cp.2 else 0 := by
               symm
-              simpa only using
+              simpa only [Finset.product_eq_sprod] using!
                 (Finset.sum_product
                   (s := Finset.Icc 1 (2 * N))
                   (t := Finset.Icc 2 (2 * N))
@@ -270,7 +270,7 @@ theorem childPairSum_eq_logFreshChildFiberMass (N : ℕ) :
         ∑ p ∈ Finset.Icc 2 (2 * N),
           if p ∈ freshPrimeDivisors n then
             moebiusReal (n / p) * Real.log p else 0 := by
-              simpa only using
+              simpa only [Finset.product_eq_sprod] using!
                 (Finset.sum_product
                   (s := Finset.Ioc N (2 * N))
                   (t := Finset.Icc 2 (2 * N))
@@ -312,7 +312,7 @@ private theorem sourcePair_to_childPair_mem
     · exact ⟨cp.1, by simp [Nat.mul_comm]⟩
     · omega
   · have hdiv : cp.1 * cp.2 / cp.2 = cp.1 := by
-      simpa [Nat.mul_comm] using Nat.mul_div_right cp.1 hpPrime.pos
+      simpa [Nat.mul_comm] using! Nat.mul_div_right cp.1 hpPrime.pos
     rw [hdiv]
     exact hfresh
 
@@ -323,9 +323,9 @@ private theorem sourcePair_map_injective
     (hab : (a.1 * a.2, a.2) = (b.1 * b.2, b.2)) :
     a = b := by
   have hpEq : a.2 = b.2 := by
-    simpa using congrArg (fun z : ℕ × ℕ => z.2) hab
+    simpa using! congrArg (fun z : ℕ × ℕ => z.2) hab
   have hprod : a.1 * a.2 = b.1 * b.2 := by
-    simpa using congrArg (fun z : ℕ × ℕ => z.1) hab
+    simpa using! congrArg (fun z : ℕ × ℕ => z.1) hab
   have hpPrime : a.2.Prime := (mem_logFreshExtensionPairSet.mp ha).2.2.1
   have hprod' : a.1 * a.2 = b.1 * a.2 := by
     calc
@@ -344,7 +344,7 @@ private theorem childPair_surjective
   rcases Nat.mem_primeFactors.mp hpPF with ⟨hpPrime, hpDvd, hn0⟩
   let c := np.1 / np.2
   have hmul : c * np.2 = np.1 := by
-    simpa [c] using Nat.div_mul_cancel hpDvd
+    simpa [c] using! Nat.div_mul_cancel hpDvd
   have hcPos : 0 < c := by
     exact Nat.div_pos (Nat.le_of_dvd (Nat.pos_of_ne_zero hn0) hpDvd) hpPrime.pos
   have hcUpper : c ≤ 2 * N := by
@@ -353,9 +353,9 @@ private theorem childPair_surjective
   · apply mem_logFreshExtensionPairSet.mpr
     refine ⟨Finset.mem_Icc.mpr ⟨by omega, hcUpper⟩, hpRange,
       hpPrime, ?_, ?_, ?_⟩
-    · simpa [hmul] using (Finset.mem_Ioc.mp hnRange).1
-    · simpa [hmul] using (Finset.mem_Ioc.mp hnRange).2
-    · simpa [c] using hfresh
+    · simpa [hmul] using! (Finset.mem_Ioc.mp hnRange).1
+    · simpa [hmul] using! (Finset.mem_Ioc.mp hnRange).2
+    · simpa [c] using! hfresh
   · apply Prod.ext
     · exact hmul
     · rfl
@@ -367,7 +367,7 @@ private theorem sourcePair_weight_eq_childWeight
       moebiusReal ((cp.1 * cp.2) / cp.2) * Real.log cp.2 := by
   have hpPrime : cp.2.Prime := (mem_logFreshExtensionPairSet.mp hcp).2.2.1
   have hdiv : cp.1 * cp.2 / cp.2 = cp.1 := by
-    simpa [Nat.mul_comm] using Nat.mul_div_right cp.1 hpPrime.pos
+    simpa [Nat.mul_comm] using! Nat.mul_div_right cp.1 hpPrime.pos
   rw [hdiv]
 
 theorem logFreshExtensionPairSet_sum_eq_childPairSet_sum (N : ℕ) :
@@ -386,7 +386,7 @@ theorem logFreshExtensionPairSet_sum_eq_childPairSet_sum (N : ℕ) :
     (fun np hnp => by
       rcases childPair_surjective np hnp with ⟨cp, hcp, hmap⟩
       refine ⟨cp, hcp, ?_⟩
-      simpa only using hmap)
+      simpa only using! hmap)
     ?_
   intro cp hcp
   exact sourcePair_weight_eq_childWeight hcp

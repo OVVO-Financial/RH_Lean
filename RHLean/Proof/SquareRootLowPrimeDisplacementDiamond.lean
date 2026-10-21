@@ -159,7 +159,7 @@ theorem squareRootLowPrimeProcessedSeat_upperDisplacement_forces_bottom_missing
         squareRootLowPrimeProcessedSeatPairLower S q :=
     mem_squareRootLowPrimeProcessedSeatPairLower.mpr
       ⟨hbottom, hbottomNone, hqFresh, by
-        simpa [squareRootLowPrimeProcessedSeatExtend_comm] using htopData.1⟩
+        simpa [squareRootLowPrimeProcessedSeatExtend_comm] using! htopData.1⟩
   have htranslatedUpper :
       squareRootLowPrimeProcessedSeatExtend p
           (squareRootLowPrimeProcessedSeatExtend q x) ∈
@@ -255,8 +255,8 @@ theorem squareRootLowPrimeEulerStep_canonicalLargestPrimeFactor
     exact h.source
   have howner := sourcePrime_eq_canonicalLargestPrimeFactor s hs
   have howner' : p = canonicalLargestPrimeFactor (p * c) := by
-    simpa [s, sourcePrime, sourceProduct, sourceCore] using howner
-  simpa [h.child_eq, Nat.mul_comm] using howner'.symm
+    simpa [s, sourcePrime, sourceProduct, sourceCore] using! howner
+  simpa [h.child_eq, Nat.mul_comm] using! howner'.symm
 
 /-- Stripping the canonical largest prime of a fresh child recovers the unique
 parent cofactor. -/
@@ -280,8 +280,8 @@ theorem squareRootLowPrimeEulerStep_canonicalCofactor
     exact h.source
   have hcore := sourceCore_eq_canonicalCofactor s hs
   have hcore' : c = canonicalCofactor (p * c) := by
-    simpa [s, sourcePrime, sourceProduct, sourceCore] using hcore
-  simpa [h.child_eq, Nat.mul_comm] using hcore'.symm
+    simpa [s, sourcePrime, sourceProduct, sourceCore] using! hcore
+  simpa [h.child_eq, Nat.mul_comm] using! hcore'.symm
 
 /-- Exact Mobius sign reversal along one genuine forward Euler edge. -/
 theorem squareRootLowPrimeEulerStep_moebius

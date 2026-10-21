@@ -40,7 +40,7 @@ theorem squareRootLowPrimeResponseMatchingFrontier_subset
   induction ells generalizing S with
   | nil =>
       intro n hn
-      simpa [squareRootLowPrimeResponseMatchingFrontier] using hn
+      simpa [squareRootLowPrimeResponseMatchingFrontier] using! hn
   | cons ell ells ih =>
       exact (ih (squareRootLowPrimeResponseFrontierStep S ell)).trans
         (squareRootLowPrimeResponseFrontierStep_subset S ell)

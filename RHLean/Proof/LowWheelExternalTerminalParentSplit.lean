@@ -93,7 +93,7 @@ theorem squareRootExternalTerminalTag_mem_downcross
     apply mem_lowWheelCanonicalPhysicalStateSet.mpr
     refine ⟨Finset.mem_Ico.mpr ⟨by norm_num, by omega⟩,
       Finset.mem_Icc.mpr ⟨hp.one_le, hpX⟩, by simp, ?_⟩
-    refine ⟨by norm_num, by omega, ?_, by simpa using htop⟩
+    refine ⟨by norm_num, by omega, ?_, by simpa using! htop⟩
     have hpLe : p ≤ primeFaceProduct t * p := by
       calc
         p = 1 * p := by simp
@@ -106,7 +106,7 @@ theorem squareRootExternalTerminalTag_mem_downcross
       primeFaceProduct t *
           (p / lowWheelCanonicalCofactorQuotientPivot (1, p)) ≤ R := by
     rw [hpivot, Nat.div_self hp.pos]
-    simpa using Nat.le_of_lt hPltR
+    simpa using! Nat.le_of_lt hPltR
   apply mem_lowWheelCanonicalTaggedDowncrossCarrier.mpr
   exact ⟨ht, mem_lowWheelCanonicalDowncrossPart.mpr
     ⟨hphysical, hnot, hdown⟩⟩

@@ -176,7 +176,7 @@ theorem squareRootLowPrimeGoStrictCrossingSourceTag_injective :
   rcases a with ⟨⟨r, q⟩, d⟩
   rcases b with ⟨⟨s, t⟩, e⟩
   have hface : ({r} : Finset ℕ) = {s} := congrArg Prod.fst hab
-  have hrs : r = s := by simpa using hface
+  have hrs : r = s := by simpa using! hface
   have hstate : (d, q) = (e, t) := congrArg Prod.snd hab
   have hde : d = e := congrArg Prod.fst hstate
   have hqt : q = t := congrArg Prod.snd hstate
@@ -206,7 +206,7 @@ theorem squareRootLowPrimeGoFullBirthBoundary_matePivot_not_dvd_cofactor
     (lowWheelCofactorQuotientToggleAt
       (lowWheelCanonicalCofactorQuotientPivot (d, q)) (d, q)).1
   unfold lowWheelCofactorQuotientToggleAt
-  simp only [hpDvd, if_true]
+  simp only [hpDvd, ite_true]
   exact prime_not_dvd_div_of_squarefree hp hsq hpDvd
 
 /-- The mate tag also loses no multiplicity.  Equality of mate states can be
@@ -220,7 +220,7 @@ theorem squareRootLowPrimeGoStrictCrossingMateTag_injOn
   rcases a with ⟨⟨r, q⟩, d⟩
   rcases b with ⟨⟨s, t⟩, e⟩
   have hface : ({r} : Finset ℕ) = {s} := congrArg Prod.fst hab
-  have hrs : r = s := by simpa using hface
+  have hrs : r = s := by simpa using! hface
   subst s
   have hmate :
       lowWheelCanonicalCofactorQuotientToggle (d, q) =
@@ -298,7 +298,7 @@ theorem squareRootLowPrimeGoStrictCrossingSourceMate_disjoint
       ht hs hst hfullE
   have hdiv' :
       lowWheelCanonicalCofactorQuotientPivot (d, q) ∣ (d, q).1 := by
-    simpa using hdiv
+    simpa using! hdiv
   rw [hstate] at hdiv'
   exact hnot hdiv'
 
@@ -367,7 +367,7 @@ theorem squareRootLowPrimeGoStrictCrossingSourceLedger_eq_mass
   have hfull :=
     (mem_squareRootLowPrimeGoSecondBoundaryDefectParents.mp hd).1
   simpa [lowWheelTaggedCanonicalWeight,
-      squareRootLowPrimeGoStrictCrossingSourceTag, canonicalMoebiusWeight] using
+      squareRootLowPrimeGoStrictCrossingSourceTag, canonicalMoebiusWeight] using!
     squareRootLowPrimeGoFullBirthBoundary_transportWeight_eq_sourceWeight
       hq hfull
 
@@ -387,7 +387,7 @@ theorem squareRootLowPrimeGoStrictCrossingSource_add_mate_eq_zero
     ⟨_hrR, _hqR, _hdR, hr, hq, hrq, hcube, _hcross, hroot, hd⟩
   simpa [lowWheelTaggedCanonicalWeight,
       squareRootLowPrimeGoStrictCrossingSourceTag,
-      squareRootLowPrimeGoStrictCrossingMateTag] using
+      squareRootLowPrimeGoStrictCrossingMateTag] using!
     squareRootLowPrimeGoStrictCrossing_globalPartner_cancel
       hR hq hr hrq hcube hroot hd
 

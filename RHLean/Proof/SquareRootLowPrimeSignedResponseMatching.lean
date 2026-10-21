@@ -239,7 +239,7 @@ theorem prime_of_mem_squareRootLowPrimeFreshPrimeList
     {K U ell : ℕ} (hell : ell ∈ squareRootLowPrimeFreshPrimeList K U) :
     ell.Prime := by
   have hset : ell ∈ squareRootLowPrimeFreshPrimeSet K U := by
-    simpa [squareRootLowPrimeFreshPrimeList] using hell
+    simpa [squareRootLowPrimeFreshPrimeList] using! hell
   exact (Finset.mem_filter.mp hset).2
 
 /-- The complete sequentially matched response frontier. -/

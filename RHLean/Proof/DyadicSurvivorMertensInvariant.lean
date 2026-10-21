@@ -124,7 +124,7 @@ theorem squareRootDyadicSurvivorMass_eq_neg_transport
       omega
     exact hsq.trans hpR
   by_cases hpPrime : p.Prime
-  · simp only [hpPrime, if_true]
+  · simp only [hpPrime, ite_true]
     rw [dyadicLargePrimeSurvivorMass_eq_neg_mertens hpPrime hpRoot,
       primeDilatedLowCofactorMass_eq_mertensSummatory
         R p hR hpR hpPrime.pos]

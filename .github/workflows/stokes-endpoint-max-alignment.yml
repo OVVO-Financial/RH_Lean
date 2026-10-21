@@ -28,6 +28,12 @@ jobs:
           lake build RHLean.Analysis.SquareWheelQuadraticSampling
           lake build RHLean.Analysis.CorrectedConductorBoundaryDefectGeneral
           mkdir -p .lake/build/lib/lean
+      - name: Build RHLean modules imported by these research checks
+        run: >-
+          python3 scripts/compile_research_import_closure.py --library-only
+          research/STOKES_COMPLETED_CONDUCTOR_BOUNDARY.lean
+          research/STOKES_ENDPOINT_MAX_ALIGNMENT.lean
+          research/STOKES_ENDPOINT_MAX_ALIGNMENT_FRAME.lean
       - name: Kernel-check diagnostic harmonic lemmas only
         run: |
           lake env lean -DwarningAsError=true \

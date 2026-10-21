@@ -74,7 +74,7 @@ theorem vfMidAligned_sq_mem_solvedFantasyCone
       vfMid ((R : ℝ) ^ 2) + c - vfMid ((R : ℝ) ^ 2) = c := by
     ring
   rw [hleft]
-  simpa using hc
+  simpa using! hc
 
 /-- All four solved fantasy directions together have only root-scale radius. -/
 theorem vfMidSolvedFantasyConeRadius_le_root :
@@ -104,7 +104,7 @@ theorem vfMidSolvedFantasyConeRadius_le_root :
   have hvf :
       |vfMidLogarithmicIntegralFromTwo x - vfMid x| ≤
         Bvf * (R : ℝ) := by
-    simpa [vfMidLiError, hsqrt, abs_sub_comm] using hvf0
+    simpa [vfMidLiError, hsqrt, abs_sub_comm] using! hvf0
 
   have hfrac :
       |vfMidFractionalPrimeClusterMass R - vfMid x| = 0 := by
@@ -117,7 +117,7 @@ theorem vfMidSolvedFantasyConeRadius_le_root :
       |vfMidLinearMidpointInterpolant x -
           vfMidLogarithmicIntegralFromTwo x| ≤
         Blin * (R : ℝ) := by
-    simpa [hsqrt] using hlinLi0
+    simpa [hsqrt] using! hlinLi0
   have hlin :
       |vfMidLinearMidpointInterpolant x - vfMid x| ≤
         (Blin + Bvf) * (R : ℝ) := by
@@ -141,7 +141,7 @@ theorem vfMidSolvedFantasyConeRadius_le_root :
       |liIntegerCutoffFloorPrimeCountProxy x -
           vfMidLogarithmicIntegralFromTwo x| ≤
         Bfloor * (R : ℝ) := by
-    simpa [hsqrt] using hfloorLi0
+    simpa [hsqrt] using! hfloorLi0
   have hfloor :
       |liIntegerCutoffFloorPrimeCountProxy x - vfMid x| ≤
         (Bfloor + Bvf) * (R : ℝ) := by
@@ -163,22 +163,22 @@ theorem vfMidSolvedFantasyConeRadius_le_root :
   dsimp [vfMidSolvedFantasyConeRadius, x, K]
   have hfrac' :
       |vfMidFractionalPrimeClusterMass R - vfMid ((R : ℝ) ^ 2)| = 0 := by
-    simpa [x] using hfrac
+    simpa [x] using! hfrac
   rw [hfrac']
   have hvf' :
       |vfMidLogarithmicIntegralFromTwo ((R : ℝ) ^ 2) -
           vfMid ((R : ℝ) ^ 2)| ≤ Bvf * (R : ℝ) := by
-    simpa [x] using hvf
+    simpa [x] using! hvf
   have hlin' :
       |vfMidLinearMidpointInterpolant ((R : ℝ) ^ 2) -
           vfMid ((R : ℝ) ^ 2)| ≤
         (Blin + Bvf) * (R : ℝ) := by
-    simpa [x] using hlin
+    simpa [x] using! hlin
   have hfloor' :
       |liIntegerCutoffFloorPrimeCountProxy ((R : ℝ) ^ 2) -
           vfMid ((R : ℝ) ^ 2)| ≤
         (Bfloor + Bvf) * (R : ℝ) := by
-    simpa [x] using hfloor
+    simpa [x] using! hfloor
   nlinarith
 
 /-- The expanded solved fantasy cone is uniformly von-Koch safe.  The fantasy
@@ -243,10 +243,10 @@ theorem vfMidSolvedFantasyCone_vonKoch_safe
     calc
       (K * Real.log (R : ℝ)) * vfMidSolvedFantasyConeRadius R + C0
           ≤ (K * Real.log (R : ℝ)) * (B * (R : ℝ)) + C0 :=
-            add_le_add_right hmul C0
+            add_le_add_left hmul C0
       _ ≤ (K * Real.log (R : ℝ)) * (B * (R : ℝ)) +
             (C0 / Real.log 2) * (R : ℝ) * Real.log (R : ℝ) :=
-          add_le_add_left hphase _
+          add_le_add_right hphase _
       _ = C * (R : ℝ) * Real.log (R : ℝ) := by
           dsimp [C]
           ring
@@ -275,7 +275,7 @@ theorem vfMidSquareEndpointVonKochBounded_of_actualPrimeContainedInSolvedFantasy
   have hsafe :=
     hC R hR (vfMidPrimeCount ((R : ℝ) ^ 2)) (hcontain R hR)
   unfold vfMidPrimeError
-  simpa using hsafe
+  simpa using! hsafe
 
 /-- Existing downstream plumbing: once actual prime count is in the solved
 fantasy cone, the already-compiled square-endpoint consumer closes RH. -/
@@ -400,7 +400,7 @@ theorem vfMidSolvedFantasyRadialConeAt_iff
     rw [abs_vfMidSolvedFantasyRadialPoint_sub_vfMid a hR]
     have hs0 : 0 ≤ s := hspos.le
     have hm := mul_le_mul_of_nonneg_right ha hs0
-    simpa [s, mul_assoc] using hm
+    simpa [s, mul_assoc] using! hm
   · intro hy
     let d : ℝ := vfMidSolvedFantasyRadialDirection R
     have hdabs : |d| = 1 := by
@@ -419,7 +419,7 @@ theorem vfMidSolvedFantasyRadialConeAt_iff
       rw [abs_div, abs_mul, hdabs, mul_one, abs_of_pos hspos]
     have ha : |a| ≤ K := by
       rw [haabs, div_le_iff₀ hspos]
-      simpa [s, mul_assoc] using hy
+      simpa [s, mul_assoc] using! hy
     refine ⟨a, ha, ?_⟩
     unfold vfMidSolvedFantasyRadialPoint
     change y =
@@ -459,14 +459,14 @@ theorem actualPrimeContainedInSolvedFantasyRadialCone_iff :
     have h :=
       (vfMidSolvedFantasyRadialConeAt_iff hR).mp (hcontain R hR)
     unfold vfMidPrimeError
-    simpa using h
+    simpa using! h
   · rintro ⟨K, hK, hbound⟩
     refine ⟨K, hK, ?_⟩
     intro R hR
     apply (vfMidSolvedFantasyRadialConeAt_iff hR).mpr
     have h := hbound R hR
     unfold vfMidPrimeError at h
-    simpa using h
+    simpa using! h
 
 /-- Existing downstream consumer for the normalized radial formulation. -/
 theorem riemannHypothesis_of_actualPrimeContainedInSolvedFantasyRadialCone

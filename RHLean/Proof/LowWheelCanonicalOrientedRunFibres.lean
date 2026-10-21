@@ -136,7 +136,7 @@ theorem lowWheelCanonicalDowncrossOrientedStateFaceMass_eq_frozenWindowMass
   have h :=
     sum_booleanCubeSign_orientedChargingFaces_eq_frozenWindowMass hne
   have hc := congrArg (fun z : ℤ => (z : ℂ)) h
-  simpa [lowWheelCanonicalDowncrossOrientedStateFaceMass] using hc
+  simpa [lowWheelCanonicalDowncrossOrientedStateFaceMass] using! hc
 
 /-- The state-fibre and frozen-window presentations agree for every state,
 including absent states. -/
@@ -146,7 +146,7 @@ theorem lowWheelCanonicalDowncrossOrientedStateFibre_eq_frozenStateFibre
       lowWheelCanonicalDowncrossOrientedFrozenStateFibre R x := by
   by_cases hne : (lowWheelCanonicalDowncrossOrientedChargingFaces R x).Nonempty
   · rcases x with ⟨c, k⟩
-    simp only [lowWheelCanonicalDowncrossOrientedFrozenStateFibre, hne, if_true]
+    simp only [lowWheelCanonicalDowncrossOrientedFrozenStateFibre, hne, ite_true]
     unfold lowWheelCanonicalDowncrossOrientedStateFibre
     rw [lowWheelCanonicalDowncrossOrientedStateFaceMass_eq_frozenWindowMass hne]
   · have hempty : lowWheelCanonicalDowncrossOrientedChargingFaces R x = ∅ :=
@@ -530,7 +530,7 @@ theorem prime_mul_predecessorPrimeFaceProduct_le
     exact Finset.prod_pos fun q hq => (hprime q hq).pos
   have hle := Nat.le_of_dvd hprodPos hdiv
   have hpNot : p ∉ predecessorPrimeFace t p := by simp
-  simpa [primeFaceProduct, predecessorPrimeFaceProduct, hpNot] using hle
+  simpa [primeFaceProduct, predecessorPrimeFaceProduct, hpNot] using! hle
 
 /-- Every *large* coordinate of a predecessor-dense prime face obeys the
 corresponding `d+1` power bound against the complete face product. -/
@@ -610,8 +610,8 @@ theorem orientedChargingFace_triplyDense_facePrimeFourth_le_endpoint
   have hpower :=
     predecessorDenseFace_coordinate_power_succ_le_of_scale
       (d := 3) (Y := Y) (X := squareRootEndpoint R)
-      hprime hdense hpt (by simpa using hY4) hYprod
-  simpa using hpower
+      hprime hdense hpt (by simpa using! hY4) hYprod
+  simpa using! hpower
 
 /-- A fourth-power-unsafe prime coordinate is an exact certificate that the
 face is not triply predecessor-dense at any admissible smooth scale. -/
@@ -678,13 +678,13 @@ theorem orientedChargingFace_ownerFourthUnsafe_insert_not_triplyDense
   have hgeom := lowWheelCanonicalDowncross_firstFailure_geometry hdown
   dsimp only at hgeom
   have hqPrime : q.Prime := by
-    simpa [q] using hgeom.1
+    simpa [q] using! hgeom.1
   have hkPivot := lowWheelCanonicalDowncrossOriented_quotient_eq_pivot hx
   have hk : k = q := by
-    simpa [q] using hkPivot
+    simpa [q] using! hkPivot
   have hpTop : ∀ p ∈ t, p < q := by
     intro p hpt
-    simpa [q] using
+    simpa [q] using!
       lowWheelCanonicalDowncrossOriented_facePrime_lt_pivot htPow hx hpt
   have hphys := (mem_lowWheelCanonicalDowncrossPart.mp hdown).1
   have hphysical := mem_lowWheelCanonicalPhysicalStateSet.mp hphys
@@ -692,7 +692,7 @@ theorem orientedChargingFace_ownerFourthUnsafe_insert_not_triplyDense
   rcases hcarrier with ⟨hc1, _hcR, _hhigh, htop⟩
   rw [hk] at htop
   have hQle : primeFaceProduct t ≤ c * primeFaceProduct t := by
-    simpa [one_mul] using Nat.mul_le_mul_right (primeFaceProduct t) hc1
+    simpa [one_mul] using! Nat.mul_le_mul_right (primeFaceProduct t) hc1
   have hQq : primeFaceProduct t * q ≤ squareRootEndpoint R := by
     exact (Nat.mul_le_mul_right q hQle).trans htop
   have hQlt : primeFaceProduct t < q ^ 3 := by
@@ -704,13 +704,13 @@ theorem orientedChargingFace_ownerFourthUnsafe_insert_not_triplyDense
         _ ≤ primeFaceProduct t * q := Nat.mul_le_mul_right q hq3Q
     have hq4X : q ^ 4 ≤ squareRootEndpoint R := hq4Qq.trans hQq
     have hXq4 : squareRootEndpoint R < q ^ 4 := by
-      simpa [q] using hunsafe
+      simpa [q] using! hunsafe
     omega
   intro hdense
   have hqCond := hdense q (by simp) hqPrime.one_lt
   rw [predecessorPrimeFaceProduct_insert_top hpTop] at hqCond
   have hq3Q : q ^ 3 ≤ primeFaceProduct t := by
-    simpa using hqCond
+    simpa using! hqCond
   omega
 
 /-- **Descending-or-terminal owner classification.**  Beyond the owner
@@ -733,7 +733,7 @@ theorem orientedChargingFace_ownerFourthUnsafe_firstJump_dichotomy
           PredecessorDenseFace 3 1 (predecessorPrimeFace t p) := by
   let q := lowWheelCanonicalDowncrossPivot (c, k)
   have hnot : ¬ PredecessorDenseFace 3 1 (insert q t) := by
-    simpa [q] using
+    simpa [q] using!
       orientedChargingFace_ownerFourthUnsafe_insert_not_triplyDense ht hunsafe
   rcases exists_first_predecessorDenseFailure_with_densePredecessor hnot with
     ⟨p, hpins, _h1p, hfail, hpredDense⟩
@@ -741,7 +741,7 @@ theorem orientedChargingFace_ownerFourthUnsafe_firstJump_dichotomy
     ⟨htPow, hx⟩
   have hpTop : ∀ r ∈ t, r < q := by
     intro r hrt
-    simpa [q] using
+    simpa [q] using!
       lowWheelCanonicalDowncrossOriented_facePrime_lt_pivot htPow hx hrt
   rcases Finset.mem_insert.mp hpins with hpq | hpt
   · subst p
@@ -749,13 +749,13 @@ theorem orientedChargingFace_ownerFourthUnsafe_firstJump_dichotomy
     rw [predecessorPrimeFace_insert_top hpTop] at hpredDense
     rw [predecessorPrimeFaceProduct_insert_top hpTop] at hfail
     refine ⟨hpredDense, ?_⟩
-    simpa [q] using hfail
+    simpa [q] using! hfail
   · right
     have hpq : p < q := hpTop p hpt
     rw [predecessorPrimeFaceProduct_insert_of_lt hpq] at hfail
     rw [predecessorPrimeFace_insert_of_lt hpq] at hpredDense
     refine ⟨p, hpt, ?_, ?_, hpredDense⟩
-    · simpa [q] using hpq
-    · simpa using hfail
+    · simpa [q] using! hpq
+    · simpa using! hfail
 
 end RHLean.Proof

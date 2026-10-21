@@ -33,13 +33,13 @@ theorem partialPrimeWheel_nonzero_error_unresolved_gt_sq
   have hb1 : primeWheelUnresolvedPart y n ≠ 1 := by
     intro hb
     apply herr
-    rw [partialPrimeWheel_error_eq y upper hnpos hnupper, if_pos hb]
+    rw [partialPrimeWheel_error_eq y upper hnpos hnupper, ite_eq_left hb]
   have hfactorNonzero :
       μ (primeWheelResolvedPart y n) *
           (1 + μ (primeWheelUnresolvedPart y n)) ≠ 0 := by
     intro hzero
     apply herr
-    rw [partialPrimeWheel_error_eq y upper hnpos hnupper, if_neg hb1, hzero]
+    rw [partialPrimeWheel_error_eq y upper hnpos hnupper, ite_eq_right hb1, hzero]
   have hsecond : 1 + μ (primeWheelUnresolvedPart y n) ≠ 0 := by
     intro hzero
     apply hfactorNonzero
@@ -57,12 +57,12 @@ theorem partialPrimeWheel_nonzero_error_unresolved_gt_sq
     dsimp [q]
     exact Nat.minFac_prime hb1
   have hqDvd : q ∣ primeWheelUnresolvedPart y n := by
-    simpa [q] using Nat.minFac_dvd (primeWheelUnresolvedPart y n)
+    simpa [q] using! Nat.minFac_dvd (primeWheelUnresolvedPart y n)
   have hqPF : q ∈ (primeWheelUnresolvedPart y n).primeFactors :=
     Nat.mem_primeFactors.mpr ⟨hqPrime, hqDvd, hb0⟩
   have hyq : y < q := primeWheelUnresolvedPart_primeFactor_gt hqPF
   have hqSqLe : q ^ 2 ≤ primeWheelUnresolvedPart y n := by
-    simpa [q] using Nat.minFac_sq_le_self hbpos hbNotPrime
+    simpa [q] using! Nat.minFac_sq_le_self hbpos hbNotPrime
   have hySqLtqSq : y ^ 2 < q ^ 2 :=
     Nat.pow_lt_pow_left hyq (by omega)
   exact hySqLtqSq.trans_le hqSqLe
@@ -121,7 +121,7 @@ theorem partialPrimeWheel_nonzero_error_div_lt_depth
   have hscaleN : upper < L * n :=
     hscale.trans (Nat.mul_lt_mul_of_pos_left hySqLtN hL)
   apply (Nat.div_lt_iff_lt_mul hnpos).2
-  simpa [Nat.mul_comm] using hscaleN
+  simpa [Nat.mul_comm] using! hscaleN
 
 /-- Combined finite-depth frontier certificate. -/
 theorem partialPrimeWheel_nonzero_error_finite_depth

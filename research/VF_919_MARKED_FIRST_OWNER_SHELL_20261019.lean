@@ -40,9 +40,8 @@ def vf919FirstMarkedDivisor (P : Finset ℕ) (n : ℕ) : ℕ :=
 theorem vf919FirstMarkedDivisor_mem (P : Finset ℕ) (n : ℕ)
     (h : (vf919MarkedDivisors P n).Nonempty) :
     vf919FirstMarkedDivisor P n ∈ vf919MarkedDivisors P n := by
-  unfold vf919FirstMarkedDivisor
-  rw [dif_pos h]
-  exact Finset.min'_mem _ h
+  simpa [vf919FirstMarkedDivisor, h] using
+    (Finset.min'_mem (vf919MarkedDivisors P n) h)
 
 theorem vf919FirstMarkedDivisor_mem_band (P : Finset ℕ) (n : ℕ)
     (h : (vf919MarkedDivisors P n).Nonempty) :

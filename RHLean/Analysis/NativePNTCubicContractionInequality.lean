@@ -28,13 +28,13 @@ theorem inv_sq_rate_of_cubic_contraction_inequality
             1 / (a (n + 1)) ^ 2 := by
         apply (div_le_div_iff₀ (sq_pos_of_pos hcubic)
           (sq_pos_of_pos (hpos (n + 1)))).2
-        simpa using hsquare
+        simpa using! hsquare
       calc
         1 / (a 0) ^ 2 + 2 * C * ((n + 1 : Nat) : Real) =
             (1 / (a 0) ^ 2 + 2 * C * (n : Real)) + 2 * C := by
           push_cast
           ring
-        _ <= 1 / (a n) ^ 2 + 2 * C := add_le_add_right ih _
+        _ <= 1 / (a n) ^ 2 + 2 * C := add_le_add_left ih _
         _ <= 1 / (a n - C * (a n) ^ 3) ^ 2 := hstep
         _ <= 1 / (a (n + 1)) ^ 2 := hinv
 
@@ -54,7 +54,7 @@ theorem cubic_contraction_inequality_quadratic_rate
   calc
     2 * C * (n : Real) * (a n) ^ 2 <=
         (1 / (a n) ^ 2) * (a n) ^ 2 := by
-      simpa [mul_assoc] using hmul
+      simpa [mul_assoc] using! hmul
     _ = 1 := by
       field_simp [ne_of_gt (hpos n)]
 

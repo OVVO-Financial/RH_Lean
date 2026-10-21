@@ -60,7 +60,7 @@ theorem squareShell_twoPrimeOrbit_pairProduct_pos
     hp hq hpmL hpmU hqmL hqmU hpc hqc]
   have hmu : μ m ≠ 0 :=
     ArithmeticFunction.moebius_ne_zero_iff_squarefree.mpr hm
-  simpa [pow_two] using (mul_self_pos.mpr hmu)
+  simpa [pow_two] using! (mul_self_pos.mpr hmu)
 
 end RHLean.Analysis
 

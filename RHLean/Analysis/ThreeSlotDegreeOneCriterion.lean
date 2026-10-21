@@ -125,7 +125,7 @@ theorem sqrtWheelRecoveredEnergyBounded_of_threeSlotDegreeOneEnergy
     have hbase : (1 : ℝ) ≤ ((X + 1 : ℕ) : ℝ) := by
       exact_mod_cast Nat.le_add_left 1 X
     have h1 := Real.rpow_le_rpow zero_le_one hbase hεexp
-    simpa [Real.one_rpow] using h1
+    simpa [Real.one_rpow] using! h1
   rw [sqrtWheelRecoveredPrefix_cast_eq_mertensSummatory]
   calc ‖mertensSummatory X‖ ^ 2
       ≤ 2 * ‖mertensSummatory (4 * (X / 4))‖ ^ 2 + 18 := hsq

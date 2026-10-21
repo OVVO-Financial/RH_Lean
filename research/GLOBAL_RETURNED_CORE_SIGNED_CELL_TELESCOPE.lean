@@ -68,7 +68,7 @@ theorem lowOwnerFirstOwnerBaseAmplitude_eq_admittedBase_add_clipped
       lowOwnerFirstOwnerAdmittedBaseAmplitude R p sig +
         lowOwnerFirstOwnerClippedAmplitude R p sig := by
   simpa [lowOwnerFirstOwnerAdmittedBaseAmplitude,
-    lowOwnerFirstOwnerClippedAmplitude] using
+    lowOwnerFirstOwnerClippedAmplitude] using!
       lowOwnerFirstOwnerBaseAmplitude_eq_admitted_add_clipped R p sig
 
 /-- The compiled daughter/root crossing amplitude is exactly `L - J`. -/

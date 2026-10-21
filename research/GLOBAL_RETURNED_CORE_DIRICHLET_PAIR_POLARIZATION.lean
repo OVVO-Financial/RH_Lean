@@ -181,7 +181,7 @@ private theorem sum_product_mul_factor
   calc
     (∑ ab ∈ s.product s, f ab.1 * g ab.2) =
       ∑ a ∈ s, ∑ b ∈ s, f a * g b := by
-        simpa only using
+        simpa only using!
           (Finset.sum_product
             (s := s) (t := s)
             (f := fun ab : ℕ × ℕ => f ab.1 * g ab.2))
@@ -256,7 +256,7 @@ theorem lowOwnerFirstOwnerSignedCellTelescope_eq_sum_dirichletPolarizationAtoms
       lowOwnerFirstOwnerDirichletIncidenceAmplitude R p sig ^ 2 -
         lowOwnerFirstOwnerBaseAmplitude R p sig ^ 2 -
         lowOwnerFirstOwnerReturnedChildParentAmplitude R p sig ^ 2 by
-    simpa [s] using hatoms]
+    simpa [s] using! hatoms]
   ring
 
 end RHLean.Proof

@@ -36,7 +36,7 @@ theorem nativeLambdaTwoErrorMass_eq_tail_add_small
     nativeLambdaTwoSmallQuotientErrorMass nativePNTSquarePrefixTailFiberSet
     nativePNTSquarePrefixSmallQuotientFiberSet
   symm
-  simpa only [not_le] using
+  simpa only [not_le] using!
     (Finset.sum_filter_add_sum_filter_not
       (s := Finset.Icc 1 N)
       (p := fun n => M ≤ N / n)

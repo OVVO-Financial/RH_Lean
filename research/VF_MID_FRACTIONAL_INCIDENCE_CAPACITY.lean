@@ -133,7 +133,7 @@ theorem vfMidCompletedGateActiveCapacityFraction_le_one
         0 < lowOwnerFirstOwnerCompletedIncidenceGateSquareMass R p sig r :=
       lt_of_le_of_ne hgate0 (Ne.symm hzero)
     apply (div_le_iff₀ hgatePos).2
-    simpa using
+    simpa using!
       vfMidCompletedGateSelectedParentEnergy_le_incidenceGateSquare
         (R := R) (p := p) (r := r) (sig := sig) hp
 
@@ -261,7 +261,7 @@ theorem vfMidCompletedGateSelectedClippedOutgoingEnergy_eq_reciprocalCapacity
   have hqPrime : q.Prime :=
     (mem_primesUpTo.mp (Finset.mem_filter.mp hq).1).1
   by_cases hclip : squareRootEndpoint R < q * parent.2
-  · simp only [hclip, if_true]
+  · simp only [hclip, ite_true]
     exact sum_lowOwnerGreatestOwnerFixedParentChild_energy_eq
       hqPrime parent
   · simp [hclip]

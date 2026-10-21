@@ -201,7 +201,7 @@ theorem norm_squareRootLowPrimeRunningImbalance_le_matched_add_root_add_depth
         ‖squareRootMatchedBornSmoothTransport R‖ := norm_add_le _ _
     _ ≤ ((R : ℝ) + (K : ℝ)) +
         ‖squareRootMatchedBornSmoothTransport R‖ :=
-      add_le_add_right hdiff _
+      add_le_add_left hdiff _
     _ = ‖squareRootMatchedBornSmoothTransport R‖ +
         ((R : ℝ) + (K : ℝ)) := by ring
 
@@ -339,7 +339,7 @@ theorem squareRootLowPrimeProcessedSeatCanonicalTerminalFrontier_weight_sum_eq_m
       have h := congrArg Complex.re
         (squareRootLowPrimeRunningImbalance_at_cutoff_eq_matched_sub_shallowBoundary
           R K j hR hK hKR hj)
-      simpa [squareRootLowPrimeRunningImbalanceReal] using h
+      simpa [squareRootLowPrimeRunningImbalanceReal] using! h
 
 /-- A single proposition carrying all exact maps needed to identify the
 square-root obstruction across the Born/high, processed-seat, literal Go-wall,

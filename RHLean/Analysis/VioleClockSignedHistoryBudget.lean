@@ -76,7 +76,7 @@ theorem nativePNTNormalizedFloorAverage_eq_recursive_add_transition_add_history
         ∑ d ∈ Finset.Icc 1 N, f d := by
     unfold nativePNTSquarePrefixTailFiberSet
       nativePNTSquarePrefixSmallQuotientFiberSet
-    simpa only [not_le] using
+    simpa only [not_le] using!
       (Finset.sum_filter_add_sum_filter_not
         (s := Finset.Icc 1 N)
         (p := fun d => L <= N / d)
@@ -269,7 +269,7 @@ theorem nativePNTDirectCutoffInductionLaw_of_signedHistoryBudget
               _ <= (|nativePNTDirectCutoffSignedHistoryResidual N M| +
                     |nativePNTDirectCutoffRecursiveAverage N L|) +
                   |nativePNTDirectCutoffTransitionAverage N M L| :=
-                add_le_add_right (abs_sub _ _) _
+                add_le_add_left (abs_sub _ _) _
               _ = _ := by ring
       _ <= |nativePNTDirectCutoffSignedHistoryResidual N M| +
           alpha' * nativePNTDirectCutoffRecursiveWeight N L +
@@ -281,7 +281,7 @@ theorem nativePNTDirectCutoffInductionLaw_of_signedHistoryBudget
     have hmulAbs' :
         Real.log (N : Real) * |nativePNTNormalizedError N| <=
           Real.log (N : Real) * alpha' := by
-      simpa [mul_comm] using hmulAbs
+      simpa [mul_comm] using! hmulAbs
     exact (mul_le_mul_iff_right₀ hlog).mp hmulAbs'
   unfold nativePNTNormalizedError at hnorm
   rw [abs_div, abs_of_pos hNpos] at hnorm
@@ -309,7 +309,7 @@ theorem nativePNTDirectCutoffRecursiveAverage_endpoint_eq_zero
     nativePNTDirectCutoffRecursiveAverage_abs_le L L 0 hL le_rfl le_rfl
       (fun q hLq hqL => by omega)
   have hle : |nativePNTDirectCutoffRecursiveAverage L L| <= 0 := by
-    simpa using hbound
+    simpa using! hbound
   have habs : |nativePNTDirectCutoffRecursiveAverage L L| = 0 :=
     le_antisymm hle (abs_nonneg _)
   exact abs_eq_zero.mp habs
@@ -338,7 +338,7 @@ theorem nativePNTDirectCutoffHistoryAverage_endpoint_eq_floorAverage_of_subdoubl
     nativePNTDirectCutoffTransitionAverage_endpoint_eq_zero_of_subdoubling
       M L hM hML hsub
   rw [hrec0, htrans0] at hsplit
-  simpa using hsplit.symm
+  simpa using! hsplit.symm
 
 /-- **Seed identity.** At `N = L < 2M`, the #553 signed-history residual is
 exactly the current normalized endpoint error times `log L`. Hence it contains

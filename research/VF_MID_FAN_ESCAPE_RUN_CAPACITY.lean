@@ -106,7 +106,7 @@ theorem vfMidRadialUpper_noBreak_of_prefixSupply_lt_bill
   have hmin :=
     vfMidRadialUpperPrimeJumpBill_minimal
       K A (B - A) hq
-  simpa [vfMidRadial_runOffset_add hAB] using hmin
+  simpa [vfMidRadial_runOffset_add hAB] using! hmin
 
 /-- Prime counting at B^2 is the starting count plus the natural jump count. -/
 theorem vfMidPrimeCounting_sq_eq_start_add_jumpCount

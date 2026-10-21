@@ -18,6 +18,38 @@ namespace RHLean.Analysis.MertensExponent
 open Complex Filter Set
 open scoped Topology
 
+-- The historical StrongPNT disk helpers are replaced by the pinned PNT+
+-- Borel-Caratheodory theorem. These helpers preserve their exact old interface.
+private def ballDR (R : ℝ) : Set ℂ := Metric.ball (0 : ℂ) R
+
+private theorem lem_ballDR (R : ℝ) (hR : 0 < R) :
+    closure (ballDR R) = Metric.closedBall (0 : ℂ) R := by
+  unfold ballDR
+  exact closure_ball 0 (ne_of_gt hR)
+
+private theorem lem_BCI (R M : ℝ) (hR : 0 < R) (hM : 0 < M)
+    (f : ℂ → ℂ)
+    (hAnalytic : AnalyticOn ℂ f (closure (ballDR R)))
+    (hZero : f 0 = 0)
+    (hRe : ∀ w : ℂ, w ∈ closure (ballDR R) → (f w).re ≤ M)
+    (r : ℝ) (_hr : 0 < r) (hrR : r < R)
+    (z : ℂ) (hz : ‖z‖ ≤ r) :
+    ‖f z‖ ≤ (2 * r / (R - r)) * M := by
+  have hc : closure (ballDR R) = Metric.closedBall (0 : ℂ) R :=
+    lem_ballDR R hR
+  have ha : AnalyticOn ℂ f (Metric.ball 0 R) := by
+    apply hAnalytic.mono
+    rw [hc]
+    exact Metric.ball_subset_closedBall
+  have hb : ∀ w ∈ Metric.ball (0 : ℂ) R, (f w).re ≤ M := by
+    intro w hw
+    exact hRe w (by rw [hc]; exact Metric.ball_subset_closedBall hw)
+  have hpoint : z ∈ Metric.closedBall (0 : ℂ) r := by
+    simpa only [Metric.mem_closedBall, dist_zero_right] using hz
+  have hbc := borelCaratheodory' hM hR hrR ha hZero hb hpoint
+  convert hbc using 1
+  ring
+
 /-- The exponent in the three-circle estimate. -/
 def logInterpolationExponent (r R : ℝ) : ℝ :=
   (Real.log r - Real.log (1 / 16)) / (Real.log R - Real.log (1 / 16))
@@ -68,28 +100,34 @@ theorem reciprocal_stretchedLog_of_local_data
   have hTpos : 0 < T := by
     by_contra hnot
     have hnonpos : T ≤ 0 := le_of_not_gt hnot
-    have hF0 : F 0 ≠ 0 := hne 0 (by simpa using hR30.le)
-    have hout0 := houter 0 (by simpa using hR20.le)
+    have hF0 : F 0 ≠ 0 := hne 0 (by simpa using! hR30.le)
+    have hout0 := houter 0 (by simpa using! hR20.le)
     have hprod : D * T ≤ 0 := mul_nonpos_of_nonneg_of_nonpos hD0.le hnonpos
     exact (not_le_of_gt (norm_pos_iff.mpr hF0)) (hout0.trans hprod)
-  obtain ⟨J, hJ, hJ0, _hJderiv, hJre⟩ :=
-    log_of_analytic hR20 h23 h34 h4 hF hne
+  -- PNT+ proves the modern analytic-log theorem on the larger open disk.
+  obtain ⟨J, hJopen, hJ0, _hJderiv, hJreOpen⟩ :=
+    LogOfAnalyticFunction' hR20 h23 h34 hF hne
+  have hJ : AnalyticOnNhd ℂ J (Metric.closedBall (0 : ℂ) R₂) :=
+    hJopen.mono (Metric.closedBall_subset_ball h23)
+  have hJre (w : ℂ) (hw : w ∈ Metric.closedBall (0 : ℂ) R₂) :
+      Real.log ‖F w‖ - Real.log ‖F 0‖ = (J w).re :=
+    hJreOpen w (Metric.closedBall_subset_ball h23 hw)
   have hJanalytic (S : ℝ) (hS : 0 < S) (hSR : S ≤ R₂) :
       AnalyticOn ℂ J (closure (ballDR S)) := by
     rw [lem_ballDR S hS]
     exact hJ.analyticOn.mono (Metric.closedBall_subset_closedBall hSR)
   have hFnonzero (w : ℂ) (hw : ‖w‖ ≤ R₂) : F w ≠ 0 := by
     apply hne
-    simpa only [Metric.mem_closedBall, dist_zero_right] using hw.trans h23.le
-  have hFzero : F 0 ≠ 0 := hFnonzero 0 (by simpa using hR20.le)
+    simpa only [Metric.mem_closedBall, dist_zero_right] using! hw.trans h23.le
+  have hFzero : F 0 ≠ 0 := hFnonzero 0 (by simpa using! hR20.le)
   have hlogInv0 : -Real.log ‖F 0‖ ≤ Real.log K := by
     rw [← Real.log_inv]
     apply Real.log_le_log (inv_pos.mpr (norm_pos_iff.mpr hFzero))
-    simpa only [norm_inv] using hinv0
+    simpa only [norm_inv] using! hinv0
   have hJsmallRe : ∀ w : ℂ, ‖w‖ ≤ (1 : ℝ) / 8 → (J w).re ≤ E + K := by
     intro w hw
     have hwR : ‖w‖ ≤ R₂ := hw.trans hsmall
-    rw [← hJre w (by simpa only [Metric.mem_closedBall, dist_zero_right] using hwR)]
+    rw [← hJre w (by simpa only [Metric.mem_closedBall, dist_zero_right] using! hwR)]
     have hlogF := Real.log_le_log (norm_pos_iff.mpr (hFnonzero w hwR)) (hinner w hw)
     have hlogE := Real.log_le_self hE0.le
     have hlogK := Real.log_le_self hK0.le
@@ -102,7 +140,7 @@ theorem reciprocal_stretchedLog_of_local_data
       (by
         intro v hv
         rw [lem_ballDR _ (by norm_num)] at hv
-        exact hJsmallRe v (by simpa only [Metric.mem_closedBall, dist_zero_right] using hv))
+        exact hJsmallRe v (by simpa only [Metric.mem_closedBall, dist_zero_right] using! hv))
       ((1 : ℝ) / 16) (by norm_num) (by norm_num) w hw
     norm_num only at hbound
     dsimp [B]
@@ -110,7 +148,7 @@ theorem reciprocal_stretchedLog_of_local_data
   have hJlargeRe : ∀ w : ℂ, ‖w‖ ≤ R₂ →
       (J w).re ≤ (D + K + 1) * Real.log T := by
     intro w hw
-    rw [← hJre w (by simpa only [Metric.mem_closedBall, dist_zero_right] using hw)]
+    rw [← hJre w (by simpa only [Metric.mem_closedBall, dist_zero_right] using! hw)]
     have hlogF := Real.log_le_log (norm_pos_iff.mpr (hFnonzero w hw)) (houter w hw)
     rw [Real.log_mul hD0.ne' hTpos.ne'] at hlogF
     have hlogD := Real.log_le_self hD0.le
@@ -126,7 +164,7 @@ theorem reciprocal_stretchedLog_of_local_data
       (by
         intro v hv
         rw [lem_ballDR R₂ hR20] at hv
-        exact hJlargeRe v (by simpa only [Metric.mem_closedBall, dist_zero_right] using hv))
+        exact hJlargeRe v (by simpa only [Metric.mem_closedBall, dist_zero_right] using! hv))
       R₁ hR10 h12 w hw
     have hA : ‖J w‖ ≤ A₀ * Real.log T := by
       dsimp [A₀]
@@ -137,16 +175,16 @@ theorem reciprocal_stretchedLog_of_local_data
     have h := threeCircle_power_bound (by norm_num : (0 : ℝ) < 1 / 16)
       hr hr₁ hA1 hB
       (fun w hw => (hJ w (by
-        simpa only [Metric.mem_closedBall, dist_zero_right] using hw.trans h12.le)).differentiableAt)
+        simpa only [Metric.mem_closedBall, dist_zero_right] using! hw.trans h12.le)).differentiableAt)
       hJsmall hJlarge hz
     change ‖J z‖ ≤ B * (H * Real.log T) ^ θ at h
     rw [Real.mul_rpow hH0.le hL0.le] at h
-    simpa only [C, mul_assoc] using h
+    simpa only [C, mul_assoc] using! h
   have hzR : ‖z‖ ≤ R₂ := (hz.trans hr₁.le).trans h12.le
   have hlogInv : Real.log ‖(F z)⁻¹‖ ≤ ‖J z‖ + Real.log K := by
     rw [norm_inv, Real.log_inv]
     have hrelation := hJre z (by
-      simpa only [Metric.mem_closedBall, dist_zero_right] using hzR)
+      simpa only [Metric.mem_closedBall, dist_zero_right] using! hzR)
     have hnegRe : -(J z).re ≤ ‖J z‖ :=
       (neg_le_abs _).trans (Complex.abs_re_le_norm _)
     linarith
@@ -155,6 +193,6 @@ theorem reciprocal_stretchedLog_of_local_data
   have hexp := Real.exp_le_exp.mpr hlogFinal
   rw [Real.exp_log (norm_pos_iff.mpr (inv_ne_zero (hFnonzero z hzR))),
     Real.exp_add, Real.exp_log hK0] at hexp
-  simpa only [mul_comm] using hexp
+  simpa only [mul_comm] using! hexp
 
 end RHLean.Analysis.MertensExponent

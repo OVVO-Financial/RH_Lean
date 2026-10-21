@@ -114,7 +114,7 @@ theorem vfMidOddCandidates_sdiff_active_eq_squarefulProcessedCarrier
         n ∈ vfMidSquareWheelPrimes R ∪
           vfMidSquareBandPrefixCompositeSurvivors 2 R := by
       rw [← hsplit]
-      simpa [vfMidOddCandidateSeats] using hncand
+      simpa [vfMidOddCandidateSeats] using! hncand
     rcases Finset.mem_union.mp hmem with hnPrime | hnComposite
     · exfalso
       apply hnnot
@@ -175,14 +175,14 @@ theorem vfMidOddCandidates_sdiff_active_eq_squarefulProcessedCarrier
     have hnSurv : lowWheelHighSurvivor 2 n := by
       apply (vfMidSquareBandComposite_survives_prefix_iff_minFac_gt
         (z := 2) (R := R) (n := n) (by omega : 2 ≤ R) hnComp).2
-      simpa [hnMin] using hpGt
+      simpa [hnMin] using! hpGt
     have hncand : n ∈ vfMidOddCandidateSeats R := by
       unfold vfMidOddCandidateSeats vfMidSquarePrefixWheelSurvivors
       apply Finset.mem_filter.mpr
       constructor
       · have hnSite : n ∈ vfMidSquareBandSites R :=
           (Finset.mem_filter.mp hnComp).1
-        simpa [vfMidSquareBandSites, vfMidSquareWheelSites] using hnSite
+        simpa [vfMidSquareBandSites, vfMidSquareWheelSites] using! hnSite
       · exact hnSurv
     apply Finset.mem_sdiff.mpr
     refine ⟨hncand, ?_⟩

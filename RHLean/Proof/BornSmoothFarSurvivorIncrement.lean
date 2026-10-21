@@ -85,7 +85,7 @@ theorem canonicalLargestPrimeFactor_le_root_of_bornSmooth
     have hsquare :
         (R + 1) ^ 2 ≤
           canonicalCofactor m * canonicalLargestPrimeFactor m := by
-      simpa [pow_two] using Nat.mul_le_mul hc hq
+      simpa [pow_two] using! Nat.mul_le_mul hc hq
     have hmLower : (R + 1) ^ 2 ≤ m := by
       calc
         (R + 1) ^ 2 ≤
@@ -94,7 +94,7 @@ theorem canonicalLargestPrimeFactor_le_root_of_bornSmooth
     exact (Nat.not_lt_of_ge hmLower) hm
   · have hq : canonicalLargestPrimeFactor m = 1 := by
       unfold canonicalLargestPrimeFactor
-      rw [dif_neg hmgt]
+      rw [dite_eq_right hmgt]
     rw [hq]
     exact hR
 

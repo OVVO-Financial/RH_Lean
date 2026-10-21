@@ -87,7 +87,7 @@ theorem newtonLift_agrees_below_square {B : Nat} {a : ArithmeticFunction Int}
     have hk0 : k = 0 := by omega
     subst k
     simp
-  have hthree := mul_zero_below htwo hz (by simpa using hn)
+  have hthree := mul_zero_below htwo hz (by simpa using! hn)
   rw [newtonLift_eq_moebius_sub_tail]
   change ArithmeticFunction.moebius n -
     ((ArithmeticFunction.moebius - a) * (ArithmeticFunction.moebius - a) * zetaInt) n =
@@ -140,7 +140,7 @@ theorem newtonIterates_agree (j : Nat) :
   | zero =>
     intro n hn
     have hn2 : n < 2 := hn
-    interval_cases n <;> simp [newtonIterates, ArithmeticFunction.one_apply]
+    interval_cases n <;> simp [newtonIterates]
   | succ j ih => exact newtonLift_agrees_below_square ih
 
 theorem precisionCutoff_ge (j : Nat) : j + 2 <= precisionCutoff j := by
@@ -189,10 +189,10 @@ theorem guarded_interval_extension {B L U : Nat} {a : ArithmeticFunction Int}
     _ <= norm (mertensSummatory L) +
         norm (mertensSummatory x - mertensSummatory L) := norm_add_le _ _
     _ <= norm (mertensSummatory L) + ((x - L : Nat) : Real) :=
-      add_le_add_left (norm_mertensSummatory_sub_le L x hLx) _
+      add_le_add_right (norm_mertensSummatory_sub_le L x hLx) _
     _ = norm (liftSummatory a L) + ((x - L : Nat) : Real) := by
       rw [liftSummatory_eq_mertens ha hL]
-    _ <= norm (liftSummatory a L) + ((U - L : Nat) : Real) := add_le_add_left hgap _
+    _ <= norm (liftSummatory a L) + ((U - L : Nat) : Real) := add_le_add_right hgap _
     _ <= C * (L : Real) ^ sigma := hbudget
     _ <= C * (x : Real) ^ sigma := mul_le_mul_of_nonneg_left
       (Real.rpow_le_rpow (Nat.cast_nonneg L) (by exact_mod_cast hLx) hsigma) hC
@@ -204,7 +204,7 @@ theorem inverseDefect_prefix_prime {N p : Nat}
     inverseDefect (mobiusPrefix N) p = -1 := by
   have hsum : Finset.sum p.divisors (mobiusPrefix N) = (1 : Int) := by
     have h := Nat.sum_divisors_prime_pow (k := 1) (f := mobiusPrefix N) hp
-    simpa [Finset.sum_range_succ, mobiusPrefix, hN, hNp.not_ge] using h
+    simpa [Finset.sum_range_succ, mobiusPrefix, hN, hNp.not_ge] using! h
   unfold inverseDefect
   change (1 : ArithmeticFunction Int) p - (mobiusPrefix N * zetaInt) p = -1
   rw [ArithmeticFunction.one_apply_ne hp.ne_one]

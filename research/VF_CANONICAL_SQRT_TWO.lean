@@ -131,7 +131,7 @@ theorem abs_vfCanonicalLiError_le_uniform_allReal
     _ = |vfMidLiError x| + vfCanonicalPhase := by
       rw [abs_of_nonneg vfCanonicalPhase_nonneg]
     _ ≤ vfMidLiAllRealUniformConstant + vfCanonicalPhase := by
-      exact add_le_add_right (abs_vfMidLiError_le_uniform_allReal hx) _
+      exact add_le_add_left (abs_vfMidLiError_le_uniform_allReal hx) _
     _ = vfCanonicalLiAllRealUniformConstant := rfl
 
 /-- The tighter bound at all COMPLETE square endpoints has no live tile. -/
@@ -149,7 +149,7 @@ theorem abs_vfCanonicalLiError_sq_le_uniform
     _ = |vfMidLiError ((R : ℝ)^2)| + vfCanonicalPhase := by
       rw [abs_of_nonneg vfCanonicalPhase_nonneg]
     _ ≤ vfMidLiSquareEndpointUniformConstant + vfCanonicalPhase := by
-      exact add_le_add_right (abs_vfMidLiError_sq_le_uniform hR) _
+      exact add_le_add_left (abs_vfMidLiError_sq_le_uniform hR) _
 
 /-- Genuine pi(R^2) minus REAL sqrt-two-shifted canonical VF. -/
 def vfCanonicalSquareDefect (R : ℕ) : ℝ :=
@@ -218,7 +218,7 @@ theorem vfCanonicalPrimeError_abs_le_primeLi_abs_add_uniform
         vfMidPrimeLiError x - vfCanonicalLiError x := by
     linarith
   rw [hident]
-  exact (abs_sub _ _).trans (add_le_add_left hbound _)
+  exact (abs_sub _ _).trans (add_le_add_right hbound _)
 
 /-! ### Exact vertical phase correction to energy, historical return and floors -/
 
@@ -325,6 +325,6 @@ theorem vfCanonicalUpperLeftPhase_li_uniform
           |vfCanonicalPhase| := abs_add_le _ _
     _ ≤ vfMidLiSquareEndpointUniformConstant + vfCanonicalPhase := by
       rw [abs_of_nonneg vfCanonicalPhase_nonneg]
-      exact add_le_add_right hlegacy _
+      exact add_le_add_left hlegacy _
 
 end RHLean.Analysis

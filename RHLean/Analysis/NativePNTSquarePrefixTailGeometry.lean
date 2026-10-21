@@ -23,7 +23,7 @@ theorem nativePNTSquarePrefixSmallQuotientFiberSet_eq_Icc
       (Nat.div_lt_iff_lt_mul hnpos).1 hquot
     have hNMlt : N / M < n := by
       apply (Nat.div_lt_iff_lt_mul hMpos).2
-      simpa [Nat.mul_comm] using hNlt
+      simpa [Nat.mul_comm] using! hNlt
     exact ⟨by omega, hnN⟩
   · rintro ⟨hNM, hnN⟩
     have hn1 : 1 ≤ n :=
@@ -35,7 +35,7 @@ theorem nativePNTSquarePrefixSmallQuotientFiberSet_eq_Icc
       (Nat.div_lt_iff_lt_mul hMpos).1 hNMlt
     have hquot : N / n < M := by
       apply (Nat.div_lt_iff_lt_mul hnpos).2
-      simpa [Nat.mul_comm] using hNlt
+      simpa [Nat.mul_comm] using! hNlt
     exact ⟨⟨hn1, hnN⟩, hquot⟩
 
 /-- The finite-prefix carry is literally an existing reciprocal LambdaTwo

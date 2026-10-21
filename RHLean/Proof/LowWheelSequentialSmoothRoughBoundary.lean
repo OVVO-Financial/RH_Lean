@@ -179,7 +179,7 @@ theorem lowWheelDoubleCubePrimePrefix_step_eq_smoothRoughShellMass
       apply Finset.sum_congr rfl
       intro q _hq
       by_cases hsurv : lowWheelHighSurvivor p q
-      · simp only [hsurv, true_and, if_true]
+      · simp only [hsurv, true_and, ite_true]
         unfold lowWheelSmoothFaceShellMass
         push_cast
         rfl

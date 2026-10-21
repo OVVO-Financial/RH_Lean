@@ -50,7 +50,7 @@ theorem primeOwnerReciprocalSquareBudget_le_109_over_225 (N : ℕ) :
       (∑ q ∈ primesUpTo N, (1 : ℚ) / (q : ℚ) ^ 2) =
           (∑ q ∈ (primesUpTo N).erase 2,
             (1 : ℚ) / (q : ℚ) ^ 2) + 1 / 4 := hsplit'.symm
-      _ ≤ (211 / 900 : ℚ) + 1 / 4 := add_le_add_right hodd _
+      _ ≤ (211 / 900 : ℚ) + 1 / 4 := add_le_add_left hodd _
       _ = 109 / 225 := by norm_num
   · have heq : (primesUpTo N).erase 2 = primesUpTo N :=
       Finset.erase_eq_of_notMem htwo
@@ -109,7 +109,7 @@ theorem postRootCovarianceReciprocalOutgoingEnergy_le_218_over_225
       (∑ p ∈ primesUpTo W,
         (postRootCovarianceFixedOwnerChildMultiplicity W parent p : ℝ) /
           (p : ℝ) ^ 2) ≤ 218 / 225 := by
-    simpa [Nat.cast_pow] using hcast
+    simpa [Nat.cast_pow] using! hcast
   exact mul_le_mul_of_nonneg_right hcongR
     (postRootCovarianceReciprocalPairEnergy_nonneg parent)
 

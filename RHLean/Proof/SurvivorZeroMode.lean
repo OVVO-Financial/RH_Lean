@@ -126,7 +126,7 @@ private theorem canonicalLargestPrimeFactor_mul_eq_of_sourceData
     · exact (hdom p hpPrime hpc).le
     · exact ((Nat.prime_dvd_prime_iff_eq hpPrime hq).mp hpq).le
   unfold canonicalLargestPrimeFactor
-  rw [dif_pos hm1]
+  rw [dite_eq_left hm1]
   exact ((c * q).primeFactors.max'_eq_iff
     (Nat.nonempty_primeFactors.mpr hm1) q).2 ⟨hqmem, hall⟩
 
@@ -139,7 +139,7 @@ private theorem canonicalCofactor_mul_eq_of_sourceData
   unfold canonicalCofactor
   rw [canonicalLargestPrimeFactor_mul_eq_of_sourceData
     ⟨hq, hc1, hsq, hcop, hdom⟩]
-  simpa [Nat.mul_comm] using Nat.mul_div_right c hq.pos
+  simpa [Nat.mul_comm] using! Nat.mul_div_right c hq.pos
 
 /-- An admissible fresh prime reverses the Mobius sign of its cofactor. -/
 private theorem canonicalMoebiusWeight_mul_eq_neg_of_sourceData
@@ -199,7 +199,7 @@ private theorem survivorSource_to_pair_mem
   unfold movingCanonicalHighSet at hmMoving'
   rcases Finset.mem_filter.mp hmMoving' with ⟨hmPrefix, hhigh⟩
   have hmLt : m < (t + 1) ^ 2 := by
-    simpa [cumulativeSquarePrefixSet] using hmPrefix
+    simpa [cumulativeSquarePrefixSet] using! hmPrefix
   have hmX : m ≤ RHLean.Analysis.squarePrefixEndpoint t := by
     rw [← RHLean.Analysis.squarePrefixEndpoint_add_one t] at hmLt
     omega
@@ -224,7 +224,7 @@ private theorem survivorSource_to_pair_mem
     · have hprod := canonicalCofactor_mul_largestPrimeFactor hmgt
       rw [hprod]
       exact hmX
-    · simpa [canonicalHeightTwice] using hhigh
+    · simpa [canonicalHeightTwice] using! hhigh
 
 private theorem survivorSource_pair_injective
     {Λ : ℝ} {t m n : ℕ}
@@ -303,7 +303,7 @@ theorem sum_survivorSquarefreeSourceSet_eq_pairProducts
     (fun m _hm => (canonicalCofactor m, canonicalLargestPrimeFactor m))
     (fun m hm => survivorSource_to_pair_mem hm)
     (fun m hm n hn hmn => survivorSource_pair_injective hm hn hmn)
-    (fun cq hcq => by simpa using (survivorPair_surjective cq hcq))
+    (fun cq hcq => by simpa using! (survivorPair_surjective cq hcq))
     ?_
   intro m hm
   have hmgt : 1 < m := (Finset.mem_filter.mp hm).2.1
@@ -329,7 +329,7 @@ theorem survivorZeroModePairSourceMass_eq_zeroMode
           if IsSurvivorZeroModePair Λ t c q then
             canonicalMoebiusWeight (c * q)
           else 0 := by
-      simpa only using
+      simpa only using!
         (Finset.sum_product
           (s := Finset.Icc 1 (RHLean.Analysis.squarePrefixEndpoint t))
           (t := Finset.Icc 2 (RHLean.Analysis.squarePrefixEndpoint t))

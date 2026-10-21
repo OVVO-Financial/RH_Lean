@@ -92,7 +92,7 @@ theorem squareRootLowPrimeOwnedResponseChildren_moebiusSum_eq_roughBaseResidualS
   unfold squareRootLowPrimeOwnedResponseRoughBaseResidual
     squareRootLowPrimeOwnedResponseRoughBaseFiber
   symm
-  simpa using
+  simpa using!
     (Finset.sum_fiberwise_of_maps_to
       (s := squareRootLowPrimeOwnedResponseChildren R K U)
       (t := squareRootLowPrimeOwnedResponseRoughBases R K U)

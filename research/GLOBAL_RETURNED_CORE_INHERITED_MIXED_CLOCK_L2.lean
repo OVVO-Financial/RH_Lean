@@ -185,10 +185,10 @@ theorem sum_lowOwnerThresholdSecondOwnerDifference_sq_le_quarter_endpoint_add_fo
       (lowOwnerThresholdCrossingIndicator p n (R - 1) +
         lowOwnerThresholdCrossingIndicator p (r * n) (R - 1))
   have hA : A ≤ (1 / 2 : ℝ) * (squareRootEndpoint R : ℝ) := by
-    simpa [A] using
+    simpa [A] using!
       (sum_lowOwnerThresholdDaughterActivity_le_half_endpoint R p r hr.pos)
   have hB : B ≤ 2 * ((R - 1 : ℕ) : ℝ) := by
-    simpa [B] using
+    simpa [B] using!
       (sum_lowOwnerThresholdRootActivity_le_two_root hR hr.pos
         (p := p))
   have hsum :

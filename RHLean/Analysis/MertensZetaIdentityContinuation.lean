@@ -102,7 +102,7 @@ private theorem mertensZetaProduct_eq_one_on_upper
   have hnhd : {z : ℂ | 1 < z.re} ∈ 𝓝 ((2 : ℂ) + I) :=
     (isOpen_lt continuous_const continuous_re).mem_nhds (by norm_num)
   filter_upwards [hnhd] with z hz
-  simpa [mertensZetaProduct] using
+  simpa [mertensZetaProduct] using!
     riemannZeta_mul_mertensMellinContinuation_eq_one hM hz
 
 private theorem mertensZetaProduct_eq_one_on_lower
@@ -127,7 +127,7 @@ private theorem mertensZetaProduct_eq_one_on_lower
   have hnhd : {z : ℂ | 1 < z.re} ∈ 𝓝 ((2 : ℂ) - I) :=
     (isOpen_lt continuous_const continuous_re).mem_nhds (by norm_num)
   filter_upwards [hnhd] with z hz
-  simpa [mertensZetaProduct] using
+  simpa [mertensZetaProduct] using!
     riemannZeta_mul_mertensMellinContinuation_eq_one hM hz
 
 private theorem mertensZetaProduct_eq_one_on_leftStrip
@@ -173,7 +173,7 @@ theorem riemannZeta_mul_mertensMellinContinuation_eq_one_of_half_lt_re
   · exact riemannZeta_mul_mertensMellinContinuation_eq_one hM hgt
   by_cases hlt : s.re < 1
   · have hsstrip : s ∈ criticalLeftStrip := ⟨hs, hlt⟩
-    simpa [mertensZetaProduct] using
+    simpa [mertensZetaProduct] using!
       mertensZetaProduct_eq_one_on_leftStrip hM hsstrip
   · have hre : s.re = 1 :=
       le_antisymm (le_of_not_gt hgt) (le_of_not_gt hlt)
@@ -187,10 +187,10 @@ theorem riemannZeta_mul_mertensMellinContinuation_eq_one_of_half_lt_re
         exact him
     rcases lt_or_gt_of_ne himne with himlt | himgt
     · have hslower : s ∈ criticalLowerHalfPlane := ⟨hs, himlt⟩
-      simpa [mertensZetaProduct] using
+      simpa [mertensZetaProduct] using!
         mertensZetaProduct_eq_one_on_lower hM hslower
     · have hsupper : s ∈ criticalUpperHalfPlane := ⟨hs, himgt⟩
-      simpa [mertensZetaProduct] using
+      simpa [mertensZetaProduct] using!
         mertensZetaProduct_eq_one_on_upper hM hsupper
 
 end RHLean.Analysis

@@ -59,9 +59,11 @@ jobs:
       - name: Verify exact native AMP rank-three coefficient witness
         run: python3 -B scripts/vf919_rectangle_rank_check.py
   mathlib-only:
-    name: Seven-eighths bridge kernel (Lean 4.24, no StrongPNT)
+    name: Seven-eighths bridge kernel (Mathlib only, no PNT+)
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    # The uncached RHLean import-closure build below takes about 16 minutes of
+    # an 18-20 minute job, so the old 20-minute limit cut runs off mid-build.
+    timeout-minutes: 45
     steps:
       - uses: actions/checkout@v4
       - name: Forbid proof holes and direct incompatible OAI imports
@@ -86,11 +88,30 @@ jobs:
           fi
           if grep -nE '^[[:space:]]*import OAI' \
             research/VF_MID_SEVEN_EIGHTHS_ANALYTIC_BRIDGE.lean; then
-            echo "External OAI is Lean 4.34; RHLean is pinned Lean 4.24"
+            echo "External OAI is not an RHLean dependency; do not import it directly"
             exit 1
           fi
       - name: Set up Lean and cached Mathlib
         uses: ./.github/actions/lean-setup
+      - name: Build RHLean modules imported by these research checks
+        run: >-
+          python3 scripts/compile_research_import_closure.py --library-only
+          research/VF_MID_919_OAI_FERMAT_TWIST_PROJECTION.lean
+          research/VF_MID_919_OAI_INTEGRATED_SHARP_CHARACTER_STEP.lean
+          research/VF_MID_919_OAI_NATIVE_PRINCIPAL_WELD.lean
+          research/VF_MID_919_OAI_OWNER_TWO_SIGNED_BOUNDARY.lean
+          research/VF_MID_919_OAI_PARTIAL_MOMENT_TAILS.lean
+          research/VF_MID_919_OAI_PHASE_ALIGNED_OWNER_COMPENSATION.lean
+          research/VF_MID_919_OAI_PRINCIPAL_COEFFICIENT_MAP.lean
+          research/VF_MID_919_OAI_QUADRATIC_NORM_EULER.lean
+          research/VF_MID_919_OAI_R2K_ENDPOINT_LIMIT.lean
+          research/VF_MID_919_OAI_RECTANGLE_RANK_OBSTRUCTION.lean
+          research/VF_MID_919_OAI_SHARP_SMOOTH_NO_GAP.lean
+          research/VF_MID_LI_UNIFORM_QUADRATURE.lean
+          research/VF_MID_SEVEN_EIGHTHS_ANALYTIC_BRIDGE.lean
+          research/VF_MID_SEVEN_EIGHTHS_MELLIN_SQUARE_KERNEL.lean
+          research/VF_MID_SEVEN_EIGHTHS_OWNER_ABEL.lean
+          research/VF_MID_VON_KOCH_BRIDGE.lean
       - name: Compile existing midpoint Li bridge and O(1) quadrature (warning-fatal)
         run: |
           mkdir -p .lake/build/lib/lean
@@ -227,30 +248,26 @@ jobs:
           ref: ${{ github.event.pull_request.head.sha || github.sha }}
       - name: Set up Lean and cached Mathlib
         uses: ./.github/actions/lean-setup
-      - name: Apply existing StrongPNT compatibility layer
-        run: |
-          python3 scripts/strongpnt_424/apply.py
-          python3 scripts/strongpnt_424/apply_post.py
-          python3 scripts/strongpnt_424/apply_pnt5_mid.py
-          python3 scripts/strongpnt_424/apply_pnt5_strong.py
-          python3 scripts/strongpnt_424/apply_lint.py
-      - name: Restore existing StrongPNT port build cache
+      - name: Restore PNT+ build cache
         uses: actions/cache/restore@v5
         with:
           path: |
             .lake/packages/PrimeNumberTheoremAnd/.lake/build
-            .lake/packages/StrongPNT/.lake/build
-          key: strongpnt-port-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-${{ hashFiles('scripts/strongpnt_424/*.py') }}
-          restore-keys: |
-            strongpnt-port-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-
+          key: pntplus-build-v1-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
       - name: Restore native library build cache
         uses: actions/cache/restore@v5
         with:
           path: .lake/build
-          key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py') }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py', 'RHLean.lean', 'RHLean/**/*.lean') }}
+          key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'RHLean.lean', 'RHLean/**/*.lean') }}
           restore-keys: |
-            rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py') }}-
-            rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py', 'RHLean.lean', 'RHLean/**/*.lean') }}
+            rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-
+            rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'RHLean.lean', 'RHLean/**/*.lean') }}
+      - name: Build RHLean modules imported by these research checks
+        run: >-
+          python3 scripts/compile_research_import_closure.py --library-only
+          research/VF_MID_919_OAI_NATIVE_PRINCIPAL_WELD.lean
+          research/VF_MID_919_OAI_R2K_ENDPOINT_LIMIT.lean
+          research/VF_MID_919_OAI_RECTANGLE_RANK_OBSTRUCTION.lean
       - name: Build exact native library prerequisites
         run: |
           python3 - <<'PY'
@@ -389,7 +406,7 @@ jobs:
           grep -F 'leanprover/lean4:v4.34.1' /tmp/oai_toolchain
           grep -F 'theorem riemannZeta_ne_zero_of_seven_eighths_lt_re' /tmp/oai_nonvanishing
           grep -F 'SevenEighths.ProbeFinalAssemblyUnconditional.zeta_nonzero' /tmp/oai_nonvanishing
-          grep -F 'leanprover/lean4:v4.24.0' lean-toolchain
-          echo 'PASS: zeta zero-free theorem exists upstream; toolchains DIFFER.'
+          grep -F 'leanprover/lean4:v4.34.1' lean-toolchain
+          echo 'PASS: zeta zero-free theorem exists upstream; toolchains MATCH (v4.34.1).'
           echo 'NOT CERTIFIED HERE: the explicit-formula 7/8 pi-Li error theorem.'
-          echo 'NOT ATTEMPTED: cross-toolchain import or external full OAI build.'
+          echo 'NOT ATTEMPTED: importing the external OAI package or a full OAI build.'

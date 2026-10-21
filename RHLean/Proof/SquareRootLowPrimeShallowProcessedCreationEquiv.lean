@@ -96,7 +96,7 @@ theorem squareRootLowPrimeProcessedShallowSeatToCreation_mem
       have hcNot' : ¬ z.1 ≤ R - 1 := hcNot
       have hsOnlyBorn :
           z.2 < squareRootBornPartnerCount R z.1 := by
-        simpa [squareRootLowPrimeCombinedFreshResponse, hcNot'] using hsCombined
+        simpa [squareRootLowPrimeCombinedFreshResponse, hcNot'] using! hsCombined
       exact hsBorn hsOnlyBorn
     have hsHigh :
         z.2 - squareRootBornPartnerCount R z.1 <
@@ -104,7 +104,7 @@ theorem squareRootLowPrimeProcessedShallowSeatToCreation_mem
       have hsCombined' :
           z.2 < squareRootBornPartnerCount R z.1 +
             squareRootBornPostTailHighResponse R K j z.1 := by
-        simpa [squareRootLowPrimeCombinedFreshResponse, hcR] using hsCombined
+        simpa [squareRootLowPrimeCombinedFreshResponse, hcR] using! hsCombined
       omega
     have hcHigh : z.1 ∈ squareRootLowPrimeShallowHighCofactors R K := by
       have hcOne := (Finset.mem_Icc.mp hcRange).1
@@ -117,7 +117,7 @@ theorem squareRootLowPrimeProcessedShallowSeatToCreation_mem
       apply Finset.mem_biUnion.mpr
       refine ⟨z.1, hcHigh, ?_⟩
       exact mem_squareRootLowPrimeShallowHighSeatFiber.mpr
-        ⟨by rfl, by simpa [w] using hsHigh⟩
+        ⟨by rfl, by simpa [w] using! hsHigh⟩
     apply Finset.mem_erase.mpr
     refine ⟨by simp [squareRootLowPrimeProcessedShallowSeatToCreation, hsBorn], ?_⟩
     unfold squareRootLowPrimeCreationCarrierExact
@@ -178,7 +178,7 @@ theorem squareRootLowPrimeCreationToProcessedShallowSeat_mem
     have hsCombined :
         squareRootBornPartnerCount R z.1 + z.2 <
           squareRootLowPrimeCombinedFreshResponse R K j z.1 := by
-      simpa [squareRootLowPrimeCombinedFreshResponse, hcR] using
+      simpa [squareRootLowPrimeCombinedFreshResponse, hcR] using!
         Nat.add_lt_add_left hzData.2 (squareRootBornPartnerCount R z.1)
     exact mem_squareRootLowPrimeProcessedShallowSeatAtoms.mpr
       ⟨mem_squareRootLowPrimeProcessedSeatAtoms.mpr
@@ -198,7 +198,7 @@ theorem squareRootLowPrimeCreationToProcessedShallowSeat_toCreation
   · simp [squareRootLowPrimeProcessedShallowSeatToCreation,
       squareRootLowPrimeCreationToProcessedShallowSeat, hsBorn]
   · simp only [squareRootLowPrimeProcessedShallowSeatToCreation, hsBorn,
-      if_false, squareRootLowPrimeCreationToProcessedShallowSeat]
+      ite_false, squareRootLowPrimeCreationToProcessedShallowSeat]
     apply Prod.ext
     · rfl
     · omega

@@ -64,7 +64,7 @@ theorem vfMidIntegerBlockLevel_cast_le (R : ℕ) :
 theorem vfMidFinishedMass_lt_integerBlockLevel_add_one (R : ℕ) :
     vfMidFinishedMass R < (vfMidIntegerBlockLevel R : ℝ) + 1 := by
   unfold vfMidIntegerBlockLevel
-  simpa using Nat.lt_floor_add_one (vfMidFinishedMass R)
+  simpa using! Nat.lt_floor_add_one (vfMidFinishedMass R)
 
 /-- Flooring the VF-mid square-block level costs strictly less than one count. -/
 theorem vfMidIntegerBlock_rounding_error (R : ℕ) :
@@ -155,7 +155,7 @@ theorem vfMidSquareEndpointVonKochBounded_of_integerBlockCapture
       linarith
     have hratio : 1 ≤ Real.log (R : ℝ) / Real.log 2 := by
       rw [le_div_iff₀ hlog2]
-      simpa using hlogR
+      simpa using! hlogR
     dsimp [C]
     have hR0 : 0 ≤ (R : ℝ) := by positivity
     calc

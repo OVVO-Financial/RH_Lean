@@ -53,17 +53,17 @@ theorem sum_postRootPrimePhysicalInteriorLcmCarrier_eq_lower
     rcases Finset.mem_Icc.mp hb with ⟨hb1, hbQ⟩
     have haW : p * ab.1 ≤ W := by
       have h := (Nat.le_div_iff_mul_le hpPrime.pos).1 haQ
-      simpa [Nat.mul_comm] using h
+      simpa [Nat.mul_comm] using! h
     have hbW : p * ab.2 ≤ W := by
       have h := (Nat.le_div_iff_mul_le hpPrime.pos).1 hbQ
-      simpa [Nat.mul_comm] using h
+      simpa [Nat.mul_comm] using! h
     have habp : p * ab.1 < p * ab.2 :=
       (Nat.mul_lt_mul_left hpPrime.pos).2 hablt
     have hlcmW : Nat.lcm (p * ab.1) (p * ab.2) ≤ W := by
       have hmul : p * Nat.lcm ab.1 ab.2 ≤ W := by
         have h := (Nat.le_div_iff_mul_le hpPrime.pos).1 hlcm
-        simpa [Nat.mul_comm] using h
-      simpa only [Nat.lcm_mul_left] using hmul
+        simpa [Nat.mul_comm] using! h
+      simpa only [Nat.lcm_mul_left] using! hmul
     apply mem_postRootPrimePhysicalInteriorLcmCarrier.mpr
     constructor
     · apply mem_postRootPrimePhysicalPairCarrier.mpr
@@ -93,19 +93,19 @@ theorem sum_postRootPrimePhysicalInteriorLcmCarrier_eq_lower
       exact Nat.div_pos (Nat.le_of_dvd (by omega) hpn) hpPrime.pos
     have haQ : a ≤ W / p := by
       apply (Nat.le_div_iff_mul_le hpPrime.pos).2
-      simpa [Nat.mul_comm, hma] using hmW
+      simpa [Nat.mul_comm, hma] using! hmW
     have hbQ : b ≤ W / p := by
       apply (Nat.le_div_iff_mul_le hpPrime.pos).2
-      simpa [Nat.mul_comm, hnb] using hnW
+      simpa [Nat.mul_comm, hnb] using! hnW
     have hablt : a < b := by
       apply (Nat.mul_lt_mul_left hpPrime.pos).1
-      simpa [hma, hnb] using hmnlt
+      simpa [hma, hnb] using! hmnlt
     have hlcmQ : Nat.lcm a b ≤ W / p := by
       apply (Nat.le_div_iff_mul_le hpPrime.pos).2
       have hlcmScaled : Nat.lcm (p * a) (p * b) ≤ W := by
-        simpa [hma, hnb] using hlcmW
+        simpa [hma, hnb] using! hlcmW
       rw [Nat.lcm_mul_left] at hlcmScaled
-      simpa [Nat.mul_comm] using hlcmScaled
+      simpa [Nat.mul_comm] using! hlcmScaled
     refine ⟨(a, b), ?_, ?_⟩
     · exact mem_moebiusLcmInteriorPositiveCarrier.mpr ⟨
         Finset.mem_Icc.mpr ⟨ha1, haQ⟩,

@@ -109,11 +109,11 @@ theorem physicalSuperLcmIndicators_postRoot_complete
   have hpaW : p * a ≤ W := by
     calc
       p * a ≤ p * (W / p) := Nat.mul_le_mul_left p haq
-      _ ≤ W := by simpa [Nat.mul_comm] using Nat.div_mul_le_self W p
+      _ ≤ W := by simpa [Nat.mul_comm] using! Nat.div_mul_le_self W p
   have hpbW : p * b ≤ W := by
     calc
       p * b ≤ p * (W / p) := Nat.mul_le_mul_left p hbq
-      _ ≤ W := by simpa [Nat.mul_comm] using Nat.div_mul_le_self W p
+      _ ≤ W := by simpa [Nat.mul_comm] using! Nat.div_mul_le_self W p
   have hlcmDvd : Nat.lcm a b ∣ a * b :=
     Nat.lcm_dvd_iff.mpr ⟨⟨b, rfl⟩, ⟨a, by ring⟩⟩
   have hL : Nat.lcm a b ≤ W := by
@@ -123,7 +123,7 @@ theorem physicalSuperLcmIndicators_postRoot_complete
       _ = (W / p) ^ 2 := by ring
       _ ≤ W := postRootPrimeFamily_quotient_sq_le hp
   have hcross : W < p * Nat.lcm a b ↔ W / p < Nat.lcm a b := by
-    simpa [Nat.mul_comm] using
+    simpa [Nat.mul_comm] using!
       (Nat.div_lt_iff_lt_mul hpPrime.pos :
         W / p < Nat.lcm a b ↔ W < Nat.lcm a b * p).symm
   have hleft := zeroTarget_lcm_prime_mul_left_of_not_dvd hpPrime hpa hpb
@@ -135,14 +135,14 @@ theorem physicalSuperLcmIndicators_postRoot_complete
       Nat.not_lt.mpr hL]
   constructor
   · unfold physicalSuperLcmIndicator superLcmIndicator
-    rw [if_pos ⟨hpaW, hbW⟩, hleft]
+    rw [ite_eq_left ⟨hpaW, hbW⟩, hleft]
     by_cases h : W / p < Nat.lcm a b <;> simp [h, hcross]
   constructor
   · unfold physicalSuperLcmIndicator superLcmIndicator
-    rw [if_pos ⟨haW, hpbW⟩, hright]
+    rw [ite_eq_left ⟨haW, hpbW⟩, hright]
     by_cases h : W / p < Nat.lcm a b <;> simp [h, hcross]
   · unfold physicalSuperLcmIndicator superLcmIndicator
-    rw [if_pos ⟨hpaW, hpbW⟩, hboth]
+    rw [ite_eq_left ⟨hpaW, hpbW⟩, hboth]
     by_cases h : W / p < Nat.lcm a b <;> simp [h, hcross]
 
 /-- **Pointwise complete-cube Mellin collapse.** -/

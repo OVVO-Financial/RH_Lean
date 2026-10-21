@@ -107,8 +107,7 @@ private theorem sum_pDivisible_realMoebius_mul_eq_neg_admittedParent
       _ = m := Nat.mul_div_cancel' hmdiv
   · intro a ha
     refine ⟨p * a, globalAdmitted_mul_mem_pDivisible hp ha, ?_⟩
-    change (p * a) / p = a
-    simpa [Nat.mul_comm] using Nat.mul_div_left a hp.pos
+    simpa [Nat.mul_comm] using! Nat.mul_div_left a hp.pos
   · intro n hn
     have hchild := globalPDivisible_mem_childCell hn
     have hbase := lowOwnerFirstOwner_div_mem_base_of_child hp hchild
@@ -167,7 +166,7 @@ theorem sum_pFree_realMoebius_ownerDifference_eq_full
       ∑ n ∈ lowOwnerNonzeroMobiusCarrier R,
         realMoebiusStep n * f n := by
     simpa [lowOwnerFirstOwnerPFreeCarrier,
-      lowOwnerFirstOwnerPDivisibleCarrier, add_comm] using hpartition
+      lowOwnerFirstOwnerPDivisibleCarrier, add_comm] using! hpartition
   calc
     (∑ a ∈ lowOwnerFirstOwnerPFreeCarrier R p,
         realMoebiusStep a * (f a - f (p * a))) =

@@ -41,20 +41,20 @@ theorem squarefree_mem_freshPrimeChildrenOn_canonicalLargestPrimeFactor
   let c := canonicalCofactor n
   let p := canonicalLargestPrimeFactor n
   have hp : p.Prime := by
-    simpa [p] using canonicalLargestPrimeFactor_prime hn
+    simpa [p] using! canonicalLargestPrimeFactor_prime hn
   have hcpos : 0 < c := by
     have hc1 : 1 ≤ canonicalCofactor n :=
       CanonicalGapAncestryBridge.canonicalCofactor_pos hn
-    simpa [c] using hc1
+    simpa [c] using! hc1
   have hrough : canonicalLargestPrimeFactor c < p := by
-    simpa [c, p] using
+    simpa [c, p] using!
       canonicalLargestPrimeFactor_canonicalCofactor_lt_of_squarefree hn hsq
   have hprod : c * p = n := by
-    simpa [c, p] using canonicalCofactor_mul_largestPrimeFactor hn
+    simpa [c, p] using! canonicalCofactor_mul_largestPrimeFactor hn
   have hparent : c ∈ squareRootCanonicalRoughFreshPrimeParentsOn p U := by
     apply mem_squareRootCanonicalRoughFreshPrimeParentsOn.mpr
     refine ⟨?_, hcpos, hrough, ?_⟩
-    · simpa [c] using hcU
+    · simpa [c] using! hcU
     · rw [hprod]
       exact hnU
   unfold squareRootCanonicalRoughFreshPrimeChildrenOn
@@ -127,7 +127,7 @@ theorem mem_adaptiveCarrier_of_all_larger_primes
     (hlarger : ∀ p ∈ ps, canonicalLargestPrimeFactor n < p) :
     n ∈ squareRootCanonicalRoughAdaptiveCarrier ps U := by
   induction ps generalizing U with
-  | nil => simpa [squareRootCanonicalRoughAdaptiveCarrier] using hnU
+  | nil => simpa [squareRootCanonicalRoughAdaptiveCarrier] using! hnU
   | cons p ps ih =>
       have hp : p.Prime := hprime p (by simp)
       have hnp : canonicalLargestPrimeFactor n < p := hlarger p (by simp)

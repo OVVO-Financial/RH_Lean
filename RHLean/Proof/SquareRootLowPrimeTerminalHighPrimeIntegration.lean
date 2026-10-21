@@ -186,7 +186,7 @@ theorem squareRootLowPrimeRunningImbalance_sub_integratedCore_norm_le
           ((squareRootCrossingLayerPartialPacketInt R K j : ℤ) : ℂ)‖ ≤
         ‖squareRootERuniq R‖ +
           ‖((squareRootCrossingLayerPartialPacketInt R K j : ℤ) : ℂ)‖ := by
-    simpa only [norm_neg] using
+    simpa only [norm_neg] using!
       norm_sub_le (-squareRootERuniq R)
         (((squareRootCrossingLayerPartialPacketInt R K j : ℤ) : ℂ))
   calc
@@ -207,7 +207,7 @@ theorem squareRootLowPrimeRunningImbalance_sub_integratedCore_norm_le
     _ ≤ (‖squareRootERuniq R‖ +
           ‖((squareRootCrossingLayerPartialPacketInt R K j : ℤ) : ℂ)‖) +
         ‖squareRootBornPostTailNearRootRemainder R K j‖ :=
-      add_le_add_right hfirst _
+      add_le_add_left hfirst _
     _ ≤ ((R : ℝ) + (K : ℝ)) + (R : ℝ) :=
       add_le_add (add_le_add huniq hpartial) hnear
     _ = 2 * (R : ℝ) + (K : ℝ) := by ring
@@ -215,7 +215,7 @@ theorem squareRootLowPrimeRunningImbalance_sub_integratedCore_norm_le
 private theorem abs_re_sub_le_norm_sub_integrated (z w : ℂ) :
     |z.re - w.re| ≤ ‖z - w‖ := by
   have h := Complex.abs_re_le_norm (z - w)
-  simpa using h
+  simpa using! h
 
 /-- Real terminal state differs from the integrated signed core by at most
 `2R + K`. -/
@@ -266,7 +266,7 @@ theorem squareRootLowPrimeProcessedSeatCanonicalTerminalFrontier_weight_sum_eq_i
         (squareRootLowPrimeRunningImbalance_at_cutoff_eq_integratedCore_sub_boundaries
           R K j hR hK hKR hj)
       simpa [squareRootLowPrimeRunningImbalanceReal,
-        squareRootLowPrimeIntegratedTerminalCoreReal] using h
+        squareRootLowPrimeIntegratedTerminalCoreReal] using! h
 
 /-- The literal canonical terminal processed frontier is within `2R + K` of the
 single integrated signed core.  This is the quantitative integration theorem on
@@ -317,9 +317,9 @@ theorem squareRootLowPrimeRunningImbalanceReal_abs_le_of_integratedCore
       abs_add_le _ _
     _ ≤ (2 * (R : ℝ) + (K : ℝ)) +
           |squareRootLowPrimeIntegratedTerminalCoreReal R| :=
-      add_le_add_right hdiff _
+      add_le_add_left hdiff _
     _ ≤ (2 * (R : ℝ) + (K : ℝ)) + B :=
-      add_le_add_left hcore _
+      add_le_add_right hcore _
     _ = B + (2 * (R : ℝ) + (K : ℝ)) := by ring
 
 /-- Squared terminal-state transfer.  This is again only endpoint bookkeeping:
@@ -347,6 +347,6 @@ theorem squareRootLowPrimeRunningImbalanceReal_sq_le_of_integratedCore
     nlinarith [abs_nonneg
       (squareRootLowPrimeRunningImbalanceReal R K j
         (squareRootBornPostTailLowPrimeCutoff R))]
-  simpa [sq_abs] using hsquare
+  simpa [sq_abs] using! hsquare
 
 end RHLean.Proof

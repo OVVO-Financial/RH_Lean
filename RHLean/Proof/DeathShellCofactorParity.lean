@@ -150,7 +150,7 @@ theorem canonicalMoebiusWeight_eq_deathShellCofactorParity
     (hm : m ∈ deathShellNonzeroSupport Λ t) :
     canonicalMoebiusWeight m =
       (-1 : ℂ) ^ (deathShellCofactorOmega m + 1) := by
-  simpa [canonicalMoebiusWeight] using
+  simpa [canonicalMoebiusWeight] using!
     congrArg (fun z : ℤ => (z : ℂ))
       (moebius_eq_negOnePow_succ_deathShellCofactorOmega hΛ hm)
 
@@ -214,7 +214,7 @@ theorem deathShellCofactorParityMass_eq_pointwise
       simp
     _ = ∑ m ∈ deathShellNonzeroSupport Λ t,
           (-1 : ℂ) ^ (deathShellCofactorOmega m + 1) := by
-      simpa using
+      simpa using!
         (Finset.sum_fiberwise_of_maps_to'
           (s := deathShellNonzeroSupport Λ t)
           (t := deathShellCofactorOmegaValues Λ t)

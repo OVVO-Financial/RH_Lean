@@ -252,7 +252,7 @@ theorem sum_moebius_primeInteriorPart_eq_zero {p : ℕ} (hp : p.Prime)
   refine ArithmeticFunction.moebius_eq_zero_of_not_squarefree ?_
   intro hsf
   exact (Nat.squarefree_iff_prime_squarefree.mp hsf p hp)
-    (by simpa [pow_two] using hsq)
+    (by simpa [pow_two] using! hsq)
 
 /-- **Global Othello theorem.**  The entire signed Möbius mass of a finite
 region sits on the boundary sites whose distinguished-prime mate has left the

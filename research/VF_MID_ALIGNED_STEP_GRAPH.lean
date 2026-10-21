@@ -201,7 +201,7 @@ theorem vfMidAlignedMass_lt_integerBlockLevel_add_one
     vfMidAlignedMass c R <
       (vfMidAlignedIntegerBlockLevel c R : ℝ) + 1 := by
   unfold vfMidAlignedIntegerBlockLevel
-  simpa using Nat.lt_floor_add_one (vfMidAlignedMass c R)
+  simpa using! Nat.lt_floor_add_one (vfMidAlignedMass c R)
 
 /-- Flooring an aligned VF level costs less than one count. -/
 theorem vfMidAlignedIntegerBlock_rounding_error
@@ -240,7 +240,7 @@ theorem vfMidAlignedRoundingPhase_bounds
     (c : ℝ) (hc : 0 ≤ c) (R : ℕ) :
     0 ≤ vfMidAlignedRoundingPhase c R ∧
       vfMidAlignedRoundingPhase c R < 1 := by
-  simpa only [vfMidAlignedRoundingPhase] using
+  simpa only [vfMidAlignedRoundingPhase] using!
     vfMidAlignedIntegerBlock_rounding_error c hc R
 
 /-- Aligned integer-step increments are the original VF band mass plus
@@ -435,8 +435,8 @@ theorem vfMidAlignedLeftVerticalCrossed_of_prefixWheelEnvelope
   rcases hright with ⟨hlo, hup⟩
   have hsucc : R - 1 + 1 = R := by omega
   constructor
-  · simpa [hsucc] using hlo
-  · simpa [hsucc] using hup
+  · simpa [hsucc] using! hlo
+  · simpa [hsucc] using! hup
 
 /-- The universal half-width theorem yields a simple right-face certificate:
 R counts of VF headroom above the current prime endpoint are enough. -/
@@ -737,7 +737,7 @@ theorem vfMidSquareEndpointVonKochBounded_of_alignedStepGraph
     exact Real.log_le_log (by norm_num) hRreal
   have hratio : 1 ≤ Real.log (R : ℝ) / Real.log 2 := by
     rw [le_div_iff₀ hlog2]
-    simpa using hlogR
+    simpa using! hlogR
   have hBR_to_vK :
       B * (R : ℝ) ≤ C * (R : ℝ) * Real.log (R : ℝ) := by
     dsimp [C]
@@ -745,7 +745,7 @@ theorem vfMidSquareEndpointVonKochBounded_of_alignedStepGraph
       B * (R : ℝ)
           ≤ B * (R : ℝ) *
               (Real.log (R : ℝ) / Real.log 2) := by
-            simpa only [mul_one] using
+            simpa only [mul_one] using!
               (mul_le_mul_of_nonneg_left hratio
                 (mul_nonneg hB hRnonneg))
       _ = (B / Real.log 2) * (R : ℝ) * Real.log (R : ℝ) := by

@@ -41,7 +41,7 @@ theorem nativeLog_div_sqrt_atTop :
     Tendsto (fun x : ℝ => Real.log x / Real.sqrt x) atTop (𝓝 0) := by
   have h := isLittleO_log_rpow_atTop (r := (1 / 2 : ℝ)) (by norm_num)
   have htend := h.tendsto_div_nhds_zero
-  simpa only [← Real.sqrt_eq_rpow] using htend
+  simpa only [← Real.sqrt_eq_rpow] using! htend
 
 /-- The same limit read along the natural numbers. -/
 theorem nativeLog_div_sqrt_natCast_atTop :
@@ -112,11 +112,11 @@ theorem nativeTheta_div_atTop_one_iff :
   · intro h
     have hsum := h.add nativePsi_sub_theta_div_atTop
     rw [add_zero] at hsum
-    simpa only [hfwd] using hsum
+    simpa only [hfwd] using! hsum
   · intro h
     have hdiff := h.sub nativePsi_sub_theta_div_atTop
     rw [sub_zero] at hdiff
-    simpa only [hback] using hdiff
+    simpa only [hback] using! hdiff
 
 /-- **Native theta PNT:** `theta(N) / N -> 1`. -/
 theorem nativeTheta_div_atTop_one :
@@ -292,7 +292,7 @@ private theorem nativeNatDiv_tendsto_atTop (K : ℕ) (hK : 0 < K) :
   refine Filter.tendsto_atTop.2 ?_
   intro b
   filter_upwards [eventually_ge_atTop (b * K)] with N hN
-  exact (Nat.le_div_iff_mul_le hK).2 (by simpa [Nat.mul_comm] using hN)
+  exact (Nat.le_div_iff_mul_le hK).2 (by simpa [Nat.mul_comm] using! hN)
 
 /-- Once `N / K` is at least `2K`, its logarithm is at least half the
 logarithm of `N`.  This is the only floor-loss estimate needed in the cutoff. -/
@@ -301,7 +301,7 @@ private theorem nativeLog_le_two_log_natDiv
     Real.log (N : ℝ) ≤ 2 * Real.log ((N / K : ℕ) : ℝ) := by
   let M : ℕ := N / K
   have hKpos : 0 < K := by omega
-  have hM' : 2 * K ≤ M := by simpa [M] using hM
+  have hM' : 2 * K ≤ M := by simpa [M] using! hM
   have hMpos : 0 < M := by omega
   have hdiv : K * M + N % K = N := by
     dsimp [M]
@@ -316,7 +316,7 @@ private theorem nativeLog_le_two_log_natDiv
       _ = (2 * K) * M := by ring
   have hKMle : K * M ≤ N := by
     dsimp [M]
-    simpa [Nat.mul_comm] using Nat.div_mul_le_self N K
+    simpa [Nat.mul_comm] using! Nat.div_mul_le_self N K
   have hNpos : (0 : ℝ) < (N : ℝ) := by
     have hKMpos : 0 < K * M := Nat.mul_pos hKpos hMpos
     have hNposNat : 0 < N := lt_of_lt_of_le hKMpos hKMle
@@ -407,12 +407,12 @@ private theorem nativePrimeCounting_mul_log_le_scaledTheta_add_small
     rcases Finset.mem_filter.mp hpSet with ⟨hpIcc, hpPrime⟩
     refine Finset.mem_filter.mpr ⟨?_, hpPrime⟩
     refine Finset.mem_Icc.mpr ⟨(Finset.mem_Icc.mp hpIcc).1, ?_⟩
-    exact (Nat.le_div_iff_mul_le hKpos).2 (by simpa [Nat.mul_comm] using hsmall)
+    exact (Nat.le_div_iff_mul_le hKpos).2 (by simpa [Nat.mul_comm] using! hsmall)
   have hsmallReal :
       ((((nativePrimeSet N).filter (fun p => K * p ≤ N)).card : ℕ) : ℝ) ≤
         (Nat.primeCounting (N / K) : ℝ) := by exact_mod_cast hsmallCard
   have hlogN : 0 ≤ Real.log (N : ℝ) := Real.log_nonneg (by exact_mod_cast hN)
-  exact hsum.trans (add_le_add_left
+  exact hsum.trans (add_le_add_right
     (mul_le_mul_of_nonneg_right hsmallReal hlogN) (A * nativeTheta N))
 
 /-- **Prime Number Theorem.**  The native Selberg--Erdos proof gives
@@ -501,12 +501,12 @@ theorem nativePrimeNumberTheorem :
           gap / 2 * (N : ℝ) := by
       have hpiNonneg : 0 ≤ (Nat.primeCounting (N / K) : ℝ) := by positivity
       have hKMnat : K * (N / K) ≤ N := by
-        simpa [Nat.mul_comm] using Nat.div_mul_le_self N K
+        simpa [Nat.mul_comm] using! Nat.div_mul_le_self N K
       have hKM : (K : ℝ) * ((N / K : ℕ) : ℝ) ≤ (N : ℝ) := by
         exact_mod_cast hKMnat
       have hKg : 32 < gap * (K : ℝ) := by
         have := (div_lt_iff₀ hgap).mp hKreal
-        simpa [mul_comm] using this
+        simpa [mul_comm] using! this
       have hcoef : (16 : ℝ) ≤ gap / 2 * (K : ℝ) := by
         nlinarith
       calc
@@ -550,6 +550,6 @@ theorem nativePrimeNumberTheorem :
           mul_lt_mul_of_pos_right hcoefFinal hNpos
     have hbgap : 1 + gap = b := by dsimp [gap]; ring
     rw [div_lt_iff₀ hNpos]
-    simpa [hbgap] using htotal
+    simpa [hbgap] using! htotal
 
 end RHLean.Analysis

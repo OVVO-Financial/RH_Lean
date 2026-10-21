@@ -193,7 +193,7 @@ theorem mem_physicalSquareHitCells_iff
     rcases Finset.mem_biUnion.mp hk with ⟨a, ha, hka⟩
     rcases Finset.mem_filter.mp hka with ⟨hkK, hdiv⟩
     refine ⟨Finset.mem_range.mp hkK, hq, a, ha, ?_⟩
-    simpa [pow_two] using hdiv
+    simpa [pow_two] using! hdiv
   · rintro ⟨hkK, hhit⟩
     exact mem_physicalSquareHitCells_of_squarePrimeAtEdge hkK hhit
 
@@ -212,7 +212,7 @@ theorem outsidePrimeLeastDeletionChannel_no_earlier_square
   | none => exact (hne hleast).elim
   | some r =>
       have hrq : r = q := by
-        simpa [hleast] using howner
+        simpa [hleast] using! howner
       have hle : r ≤ p := physicalLeastOddSquarePrime_le hleast hpHit
       omega
 
@@ -229,11 +229,11 @@ theorem outsidePrimeLeastDeletionChannel_exists_offset
   | none => exact (hne hleast).elim
   | some r =>
       have hrq : r = q := by
-        simpa [hleast] using howner
+        simpa [hleast] using! howner
       subst r
       rcases physicalLeastOddSquarePrime_some_spec hleast with
         ⟨_hq, a, ha, hdiv⟩
-      exact ⟨a, ha, by simpa [pow_two] using hdiv⟩
+      exact ⟨a, ha, by simpa [pow_two] using! hdiv⟩
 
 /-- The exact transported selected field attached to a tagged daughter.  The
 source-cell pullback is the feature that a literal Go identification omits. -/
@@ -419,7 +419,7 @@ theorem outsidePrimeLeastDeletionChannelCells_eleven_three (K : ℕ) :
     | none => exact (hne hleast).elim
     | some p =>
         have hp3 : p = 3 := by
-          simpa [hleast] using howner
+          simpa [hleast] using! howner
         subst p
         have hhit : physicalSquarePrimeAtEdge k 3 :=
           physicalLeastOddSquarePrime_some_spec hleast
@@ -428,7 +428,7 @@ theorem outsidePrimeLeastDeletionChannelCells_eleven_three (K : ℕ) :
         · exact (mem_physicalSquareHitCells_iff (K := K)
             (q := 3) (k := k) (by norm_num)).2
               ⟨Finset.mem_range.mp hkRange, hhit⟩
-        · simpa [outsidePrimeSelectedZeroFreeAt] using hselected
+        · simpa [outsidePrimeSelectedZeroFreeAt] using! hselected
   · intro hk
     rcases Finset.mem_filter.mp hk with ⟨hkSquare, h11zero⟩
     rcases (mem_physicalSquareHitCells_iff (K := K)
@@ -438,7 +438,7 @@ theorem outsidePrimeLeastDeletionChannelCells_eleven_three (K : ℕ) :
       (physicalLeastOddSquarePrime_eq_some_three_iff k).2 hthree
     have hselected :
         outsidePrimeSelectedZeroFreeAt ({11} : Finset ℕ) k := by
-      simpa [outsidePrimeSelectedZeroFreeAt] using h11zero
+      simpa [outsidePrimeSelectedZeroFreeAt] using! h11zero
     have hnotActual : ¬ outsidePrimeActualZeroFreeAt k := by
       intro hactual
       have hedge :

@@ -71,7 +71,7 @@ theorem sqrt_mul_le_sqrt_primeDilateChild_mul
   unfold primeDilateChildCofactor
   have hp1 : 1 ≤ p := Nat.one_le_iff_ne_zero.mpr hp.ne_zero
   have hc : c ≤ p * c := by
-    simpa using Nat.mul_le_mul_right c hp1
+    simpa using! Nat.mul_le_mul_right c hp1
   exact Nat.mul_le_mul_right q hc
 
 /-- Multiplication by a genuinely new prime flips the full Möbius source weight. -/
@@ -84,7 +84,7 @@ theorem canonicalMoebiusWeight_primeDilateChild
     rw [ArithmeticFunction.isMultiplicative_moebius.map_mul_of_coprime hcop]
     rw [ArithmeticFunction.moebius_apply_prime hp]
     simp
-  simpa [primeDilateChildCofactor, canonicalMoebiusWeight, Nat.mul_assoc] using
+  simpa [primeDilateChildCofactor, canonicalMoebiusWeight, Nat.mul_assoc] using!
     congrArg (fun z : ℤ => (z : ℂ)) hmu
 
 /-- If `p` and `q` are distinct primes and `p ∤ c`, then `p` is a genuinely new
@@ -201,10 +201,10 @@ theorem primeDilatePrefixBoundary_iff_reciprocalShell
       (Nat.le_div_iff_mul_le hq).2 hparent
     have hBltpc : x / q < p * c := by
       apply (Nat.div_lt_iff_lt_mul hq).2
-      simpa [primeDilateChildCofactor, Nat.mul_assoc] using hchild
+      simpa [primeDilateChildCofactor, Nat.mul_assoc] using! hchild
     have hshell : (x / q) / p < c := by
       apply (Nat.div_lt_iff_lt_mul hp.pos).2
-      simpa [Nat.mul_comm] using hBltpc
+      simpa [Nat.mul_comm] using! hBltpc
     exact ⟨hcB, hshell⟩
   · rintro ⟨hcB, hshell⟩
     have hparent : c * q ≤ x :=
@@ -212,10 +212,10 @@ theorem primeDilatePrefixBoundary_iff_reciprocalShell
     have hBltcp : x / q < c * p :=
       (Nat.div_lt_iff_lt_mul hp.pos).1 hshell
     have hBltpc : x / q < p * c := by
-      simpa [Nat.mul_comm] using hBltcp
+      simpa [Nat.mul_comm] using! hBltcp
     have hchild : x < (p * c) * q :=
       (Nat.div_lt_iff_lt_mul hq).1 hBltpc
-    exact ⟨hparent, by simpa [primeDilateChildCofactor] using hchild⟩
+    exact ⟨hparent, by simpa [primeDilateChildCofactor] using! hchild⟩
 
 /-- The literal finite `1/p` shell in the `q`-fiber of an arbitrary prefix. -/
 def primeDilatePrefixReciprocalShell (p x q : ℕ) : Finset ℕ :=
@@ -290,7 +290,7 @@ theorem canonicalMoebiusWeight_prime_mul
     canonicalMoebiusWeight (p * c) =
       if p ∣ c then 0 else -canonicalMoebiusWeight c := by
   by_cases hpc : p ∣ c
-  · rw [if_pos hpc]
+  · rw [ite_eq_left hpc]
     have hzero : μ (p * c) = 0 := by
       apply ArithmeticFunction.moebius_eq_zero_of_not_squarefree
       intro hsq
@@ -301,10 +301,10 @@ theorem canonicalMoebiusWeight_prime_mul
       rw [hk]
       ring
     simp [canonicalMoebiusWeight, hzero]
-  · rw [if_neg hpc]
-    simpa [primeDilateChildCofactor] using
+  · rw [ite_eq_right hpc]
+    simpa [primeDilateChildCofactor] using!
       (canonicalMoebiusWeight_primeDilateChild
-        (p := p) (c := c) (q := 1) hp (by simpa using hpc))
+        (p := p) (c := c) (q := 1) hp (by simpa using! hpc))
 
 /-- Multiplication by `p` bijects the positive prefix through `B / p` with the
 `p`-divisible cofactors through `B`. -/
@@ -318,7 +318,7 @@ theorem sum_prime_mul_eq_sum_primeDivisibleCofactorPrefix
     rcases Finset.mem_Icc.mp hd with ⟨hd1, hdB⟩
     have hpdB : p * d ≤ B := by
       have hmul := (Nat.le_div_iff_mul_le hp.pos).1 hdB
-      simpa [Nat.mul_comm] using hmul
+      simpa [Nat.mul_comm] using! hmul
     exact mem_primeDivisibleCofactorPrefix.mpr
       ⟨by nlinarith [hp.two_le], hpdB, dvd_mul_right p d⟩
   · intro d1 hd1 d2 hd2 h
@@ -337,7 +337,7 @@ theorem sum_prime_mul_eq_sum_primeDivisibleCofactorPrefix
       exact hquotPos
     · apply (Nat.le_div_iff_mul_le hp.pos).2
       have hmul : (c / p) * p = c := by
-        simpa [Nat.mul_comm] using hprod
+        simpa [Nat.mul_comm] using! hprod
       rw [hmul]
       exact hcB
   · intro d hd
@@ -470,10 +470,10 @@ theorem primeDilateSquareBoundary_iff_reciprocalShell
       (Nat.le_div_iff_mul_le hq).2 hparent
     have hBltpc : squareRootEndpoint R / q < p * c := by
       apply (Nat.div_lt_iff_lt_mul hq).2
-      simpa [primeDilateChildCofactor, Nat.mul_assoc] using hchild
+      simpa [primeDilateChildCofactor, Nat.mul_assoc] using! hchild
     have hshell : (squareRootEndpoint R / q) / p < c := by
       apply (Nat.div_lt_iff_lt_mul hp.pos).2
-      simpa [Nat.mul_comm] using hBltpc
+      simpa [Nat.mul_comm] using! hBltpc
     exact ⟨hcB, hshell⟩
   · rintro ⟨hcB, hshell⟩
     have hparent : c * q ≤ squareRootEndpoint R :=
@@ -481,10 +481,10 @@ theorem primeDilateSquareBoundary_iff_reciprocalShell
     have hBltcp : squareRootEndpoint R / q < c * p :=
       (Nat.div_lt_iff_lt_mul hp.pos).1 hshell
     have hBltpc : squareRootEndpoint R / q < p * c := by
-      simpa [Nat.mul_comm] using hBltcp
+      simpa [Nat.mul_comm] using! hBltcp
     have hchild : squareRootEndpoint R < (p * c) * q :=
       (Nat.div_lt_iff_lt_mul hq).1 hBltpc
-    exact ⟨hparent, by simpa [primeDilateChildCofactor] using hchild⟩
+    exact ⟨hparent, by simpa [primeDilateChildCofactor] using! hchild⟩
 
 /-- The literal finite `1/p` shell in a prime-first `q`-fiber. -/
 def primeDilateReciprocalShell (p R q : ℕ) : Finset ℕ :=

@@ -54,7 +54,7 @@ theorem vf919ExcludedNorm_eq_zero_of_two_dvd {n : ℕ} (h : 2 ∣ n) :
     vf919ExcludedNormCoefficients n = 0 := by
   rw [vf919ExcludedNorm_apply]
   unfold vf919PrimeToSixMask
-  rw [if_pos (Or.inl h : 2 ∣ n ∨ 3 ∣ n), zero_mul]
+  rw [ite_eq_left (Or.inl h : 2 ∣ n ∨ 3 ∣ n), zero_mul]
 
 /-- A norm carrying a nonzero excluded-six coefficient is odd. -/
 theorem vf919ExcludedNorm_odd_of_ne_zero {n : ℕ}
@@ -130,22 +130,22 @@ theorem vf919HighBucket_norm (X t : ℕ) (ht : Nat.sqrt X + 1 ≤ t) :
     have hB : vf919QuotientBucket X t = vf919ExcludedNormCoefficients m0 := by
       unfold vf919QuotientBucket
       rw [Finset.sum_eq_single m0]
-      · rw [if_pos hq0]
+      · rw [ite_eq_left hq0]
       · intro m hm hne
         have hm' := Finset.mem_Icc.mp hm
         have hq : X / m ≠ t := fun hq => hne (huniq m hm'.1 hq)
-        rw [if_neg hq]
+        rw [ite_eq_right hq]
       · intro hnot
         exact (hnot (Finset.mem_Icc.mpr ⟨hm0'.1, hm0'.2.trans hNX⟩)).elim
     rw [hB, Finset.sum_eq_single m0]
-    · rw [if_pos hq0]
+    · rw [ite_eq_left hq0]
     · intro m hm hne
       have hm' := Finset.mem_Icc.mp hm
       have hq : X / m ≠ t := fun hq => hne (huniq m hm'.1 hq)
-      rw [if_neg hq]
+      rw [ite_eq_right hq]
     · intro hnot
       exact (hnot hm0).elim
-  · push_neg at hex
+  · push Not at hex
     have hB : vf919QuotientBucket X t = 0 := by
       unfold vf919QuotientBucket
       apply Finset.sum_eq_zero
@@ -154,35 +154,35 @@ theorem vf919HighBucket_norm (X t : ℕ) (ht : Nat.sqrt X + 1 ≤ t) :
       have hq : X / m ≠ t := by
         intro hq
         exact hex m (Finset.mem_Icc.mpr ⟨hm'.1, hhigh m hm'.1 hq⟩) hq
-      rw [if_neg hq]
+      rw [ite_eq_right hq]
     rw [hB, norm_zero]
     symm
     apply Finset.sum_eq_zero
     intro m hm
-    rw [if_neg (hex m hm)]
+    rw [ite_eq_right (hex m hm)]
 
 /-- Census-2 isolation: two consecutive high buckets are never both nonzero.
 Supported norms are odd, so their quotients differ by at least two. -/
 theorem vf919HighBucket_isolated (X t : ℕ) (ht : Nat.sqrt X + 1 ≤ t) :
     vf919QuotientBucket X t = 0 ∨ vf919QuotientBucket X (t + 1) = 0 := by
   by_contra hcon
-  push_neg at hcon
+  push Not at hcon
   obtain ⟨h0, h1⟩ := hcon
   unfold vf919QuotientBucket at h0 h1
   obtain ⟨m, hm, hmne⟩ := Finset.exists_ne_zero_of_sum_ne_zero h0
   obtain ⟨m', hm', hm'ne⟩ := Finset.exists_ne_zero_of_sum_ne_zero h1
   have hq : X / m = t := by
     by_contra hne
-    exact hmne (if_neg hne)
+    exact hmne (ite_eq_right hne)
   have hq' : X / m' = t + 1 := by
     by_contra hne
-    exact hm'ne (if_neg hne)
+    exact hm'ne (ite_eq_right hne)
   have ha : vf919ExcludedNormCoefficients m ≠ 0 := by
     intro hz
-    exact hmne (by rw [if_pos hq, hz])
+    exact hmne (by rw [ite_eq_left hq, hz])
   have ha' : vf919ExcludedNormCoefficients m' ≠ 0 := by
     intro hz
-    exact hm'ne (by rw [if_pos hq', hz])
+    exact hm'ne (by rw [ite_eq_left hq', hz])
   have hmpos : 0 < m := by
     have := (Finset.mem_Icc.mp hm).1
     omega
@@ -196,7 +196,7 @@ theorem vf919HighBucket_isolated (X t : ℕ) (ht : Nat.sqrt X + 1 ≤ t) :
     (vf919HighQuotient_iff X m' hm'pos).mp (by omega)
   have hlt : m' < m := by
     by_contra hle
-    push_neg at hle
+    push Not at hle
     have hdiv := Nat.div_le_div_left (a := X) hle hmpos
     omega
   have hgap := vf919Quotient_gap (X := X) (n := m') (m := m) (d := m - m')
@@ -261,7 +261,7 @@ theorem vf919HighQuotientVariation_eq (X : ℕ) :
       · have := (vf919HighQuotient_iff X m (by omega)).mpr hm'.2
         omega
       · exact Nat.div_le_self X m
-    rw [Finset.sum_ite_eq, if_pos hq]
+    rw [Finset.sum_ite_eq, ite_eq_left hq]
   have htop : vf919QuotientBucket X (X + 1) = 0 :=
     vf919QuotientBucket_above X (X + 1) (by omega)
   rw [Finset.sum_congr rfl hterm, Finset.sum_add_distrib,
@@ -373,7 +373,7 @@ theorem vf919RationalMobius_prime {p : ℕ} (hp : p.Prime) : vf919RationalMobius
 theorem vf919RationalMobius_prime_pow_eq_zero {p j : ℕ} (hp : p.Prime) (hj : 2 ≤ j) :
     vf919RationalMobius (p ^ j) = 0 := by
   have h := ArithmeticFunction.moebius_apply_prime_pow hp (show j ≠ 0 by omega)
-  rw [if_neg (show j ≠ 1 by omega)] at h
+  rw [ite_eq_right (show j ≠ 1 by omega)] at h
   show ((ArithmeticFunction.moebius (p ^ j) : ℤ) : ℂ) = 0
   rw [h, Int.cast_zero]
 
@@ -445,10 +445,10 @@ theorem vf919ExcludedNorm_prime_pow_le {p k : ℕ} (hp : p.Prime) (hk : 0 < k) :
     have hz : vf919ExcludedNormCoefficients (p ^ k) = 0 := by
       rw [vf919ExcludedNorm_apply]
       unfold vf919PrimeToSixMask
-      rw [if_pos hdvd, zero_mul]
+      rw [ite_eq_left hdvd, zero_mul]
     rw [hz, norm_zero]
     exact hdnn
-  · push_neg at h23
+  · push Not at h23
     obtain ⟨hp2, hp3⟩ := h23
     have hn2 : ¬ 2 ∣ p ^ k := fun h =>
       hp2 ((Nat.prime_dvd_prime_iff_eq Nat.prime_two hp).mp
@@ -458,13 +458,13 @@ theorem vf919ExcludedNorm_prime_pow_le {p k : ℕ} (hp : p.Prime) (hk : 0 < k) :
         (Nat.prime_three.dvd_of_dvd_pow h)).symm
     have hmask : vf919PrimeToSixMask (p ^ k) = 1 := by
       unfold vf919PrimeToSixMask
-      rw [if_neg (not_or.mpr ⟨hn2, hn3⟩)]
+      rw [ite_eq_right (not_or.mpr ⟨hn2, hn3⟩)]
     have hmod : p % 3 ≠ 0 := fun h =>
       hp3 ((Nat.prime_dvd_prime_iff_eq Nat.prime_three hp).mp
         (Nat.dvd_of_mod_eq_zero h)).symm
     have hc : vf919ChiReal p = 1 ∨ vf919ChiReal p = -1 := by
       unfold vf919ChiReal
-      rw [if_neg hmod]
+      rw [ite_eq_right hmod]
       split_ifs <;> simp
     rw [vf919ExcludedNorm_apply, hmask, one_mul]
     rcases (show k = 1 ∨ k = 2 ∨ 3 ≤ k by omega) with rfl | rfl | hk3
@@ -692,7 +692,7 @@ theorem vf919HalfIncrement_norm_le_lowVariation_add_boundary (X : ℕ) :
     _ ≤ (∑ t ∈ Finset.Icc 1 (Nat.sqrt X),
             ‖vf919QuotientBucket X t - vf919QuotientBucket X (t + 1)‖) +
           ‖vf919QuotientBucket X (Nat.sqrt X + 1)‖ :=
-      add_le_add_right (norm_sum_le _ _) _
+      add_le_add_left (norm_sum_le _ _) _
 
 /-- The boundary bucket `B_X(r+1)` holds at most one norm, and its size is at
 most `sqrt X`. -/

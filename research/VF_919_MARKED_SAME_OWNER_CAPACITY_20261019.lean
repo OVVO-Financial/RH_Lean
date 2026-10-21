@@ -105,9 +105,9 @@ theorem vf919FirstMarkedPhysicalSite_abs_le_divisible
     have hstep : |realMoebiusStep n| ≤ 1 := by
       have hsq := realMoebiusStep_sq_le_one n
       nlinarith [sq_abs (realMoebiusStep n), abs_nonneg (realMoebiusStep n)]
-    simpa only [vf919FirstMarkedPhysicalSite, if_pos hown, if_pos hpd]
+    simpa only [vf919FirstMarkedPhysicalSite, ite_eq_left hown, ite_eq_left hpd]
       using hstep
-  · simp only [vf919FirstMarkedPhysicalSite, if_neg hown]
+  · simp only [vf919FirstMarkedPhysicalSite, ite_eq_right hown]
     split_ifs <;> norm_num
 
 /-- Unconditional pointwise same-owner shell norm is paid by the number

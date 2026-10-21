@@ -142,7 +142,7 @@ rough-Mobius balance. The frozen survivor count stays on the original
 arithmetic wheel; no artificial prime jumps or proxy counts enter.
 This is a TRUE arithmetic identity, not the missing estimate. -/
 theorem vfV2ActualPrimeFrozenRunMobiusDecoder
-    {A B : ℕ} (hA : 3 ≤ A) (hAB : A ≤ B)
+    {A B : ℕ} (hA : 3 ≤ A) (_hAB : A ≤ B)
     (hcube : ∀ r ∈ Finset.Ico A B, (r + 1) ^ 2 ≤ (A + 1) ^ 3) :
     (∑ r ∈ Finset.Ico A B,
       ((vfMidIntegerBlockPrimeSupply r : ℝ) - vfMidBandMass r)) =
@@ -407,7 +407,7 @@ theorem vfV2ActualPrime_RH_of_signedOwnerRule_and_base
   have hrad' :
       VFMidSyntheticRadialBounded
         (fun R => vfMidPrimeError ((R : ℝ) ^ 2)) := by
-    simpa [vfMidActualPrimeEndpointDefect] using hrad
+    simpa [vfMidActualPrimeEndpointDefect] using! hrad
   have hsq : VFMidSquareEndpointVonKochBoundedStatement :=
     vfMidActualRadialBounded_iff_squareEndpoint.mp hrad'
   exact riemannHypothesis_of_vfMidSquareEndpoint criterion hsq
@@ -442,7 +442,7 @@ theorem vfV2ActualHighPrimeParent_genuine
   have hex : ∃ q : ℕ, q.Prime ∧ R < q ∧ q ∣ n ∧ q < n :=
     (Finset.mem_filter.mp hn).2
   unfold vfV2ActualHighPrimeParent
-  rw [dif_pos hex]
+  rw [dite_eq_left hex]
   exact Classical.choose_spec hex
 
 /-- On the strict original physical square band, the chosen genuine high
@@ -466,7 +466,7 @@ theorem vfV2ActualHighPrimeAgeNativeMass_sum (R : ℕ) :
         (vfV2ActualHighPrimeOddCompositeSites R)
         (fun n => Nat.sqrt (vfV2ActualHighPrimeParent R n))
         (fun _ => vfMidOddFractionalPrimeSeatWeight R) bucket) =
-      ∑ n ∈ vfV2ActualHighPrimeOddCompositeSites R,
+      ∑ _n ∈ vfV2ActualHighPrimeOddCompositeSites R,
         vfMidOddFractionalPrimeSeatWeight R := by
   exact vfV2AgeCohortNativeMass_sum R
     (vfV2ActualHighPrimeOddCompositeSites R)

@@ -52,7 +52,7 @@ theorem canonicalCofactor_one_lt_and_not_prime_of_factorDepthResidual
       calc
         m = c * q := hprod.symm
         _ = q := by simp [hc]
-    simpa [hmq] using hqPrime
+    simpa [hmq] using! hqPrime
   have hcgt : 1 < c := by omega
   refine ⟨hcgt, ?_⟩
   intro hcPrime
@@ -63,7 +63,7 @@ theorem canonicalCofactor_one_lt_and_not_prime_of_factorDepthResidual
     exact ⟨hcPrime, hcdvd, hm0⟩
   have hcq : c ≤ q := by
     unfold q canonicalLargestPrimeFactor
-    rw [dif_pos hm]
+    rw [dite_eq_left hm]
     exact Finset.le_max' m.primeFactors c hcmem
   rcases eq_or_lt_of_le hcq with hcqEq | hcqLt
   · apply hres.2.2 q hqPrime

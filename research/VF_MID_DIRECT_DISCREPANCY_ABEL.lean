@@ -579,7 +579,7 @@ theorem abs_vfMidDirectSquareEndpointError_le_of_thetaEnvelope
               vfMidDirectThetaEndpointError 2 *
                 vfMidDirectThetaAbelWeight 2| := by
           exact (abs_add_le _ _).trans
-            (add_le_add_right (abs_add_le _ _) _)
+            (add_le_add_left (abs_add_le _ _) _)
     _ ≤ (9 / Real.log 4) * (R : ℝ) +
           (C * (R : ℝ) * Real.log (R : ℝ) +
             4 * C * (R : ℝ)) +

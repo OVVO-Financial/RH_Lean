@@ -64,7 +64,7 @@ theorem amplitudeReciprocalDropStep_evolved_eq_amplitudePhysicalDefectStep
       (fun _ => (1 : ℂ))
     amplitudeReciprocalDropStep R p U a =
       amplitudePhysicalDefectStep R p pre := by
-  simpa [amplitudePhysicalDefectStep] using
+  simpa [amplitudePhysicalDefectStep] using!
     amplitudeReciprocalDropStep_evolved_eq_physicalDefectMass
       R pre hR hp hcomplete
 
@@ -127,7 +127,7 @@ theorem amplitudeEulerMemoryStep_evolved_eq_sub_one_mul_physicalDefectStep
   have hp0 : (p : ℂ) ≠ 0 := by exact_mod_cast hp.ne_zero
   change E - N = ((p : ℂ) - 1) * D
   field_simp [hp0] at hmemory ⊢
-  simpa [mul_assoc, mul_left_comm, mul_comm] using hmemory
+  simpa [mul_assoc, mul_left_comm, mul_comm] using! hmemory
 
 /-- Chronological unscaled physical-defect ledger. -/
 def amplitudePhysicalDefectLedger

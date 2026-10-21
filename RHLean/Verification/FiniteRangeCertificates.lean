@@ -268,7 +268,7 @@ theorem checkFiniteRangeCertificate_sound
     (hchecked : checkFiniteRangeCertificate expectation certificate = true) :
     certificate.Valid expectation := by
   apply of_decide_eq_true
-  simpa [checkFiniteRangeCertificate] using hchecked
+  simpa [checkFiniteRangeCertificate] using! hchecked
 
 /--
 Only certificates accompanied by a proof that the executable checker returned

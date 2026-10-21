@@ -123,15 +123,15 @@ theorem vfMidSevenEighthsVFEndpointBounded_of_primeLi
       |vfMidPrimeError x| ≤
         |vfMidPrimeLiError x| + |vfMidLiError x| := by
     rw [hident]
-    simpa only [sub_zero, zero_sub, abs_neg] using
+    simpa only [sub_zero, zero_sub, abs_neg] using!
       (abs_sub_le (vfMidPrimeLiError x) 0 (vfMidLiError x))
   have hsourceR : |vfMidPrimeLiError x| ≤ C * w := by
-    simpa [x, w] using hsource R hR
+    simpa [x, w] using! hsource R hR
   have hquad : |vfMidLiError x| ≤ Q := by
-    simpa [x, Q] using
+    simpa [x, Q] using!
       (abs_vfMidLiError_sq_le_uniform (R := R) hR)
   have hw : Real.log (2 : ℝ) ≤ w := by
-    simpa [w] using vfMidSevenEighthsWeight_ge_logTwo hR
+    simpa [w] using! vfMidSevenEighthsWeight_ge_logTwo hR
   have hboundQ : Q ≤ (Q / Real.log (2 : ℝ)) * w := by
     have hmul :=
       mul_le_mul_of_nonneg_left hw hQdiv
@@ -145,7 +145,7 @@ theorem vfMidSevenEighthsVFEndpointBounded_of_primeLi
         |vfMidPrimeLiError x| + |vfMidLiError x| := htriangle
     _ ≤ C * w + Q := add_le_add hsourceR hquad
     _ ≤ C * w + (Q / Real.log (2 : ℝ)) * w :=
-      add_le_add_left hboundQ _
+      add_le_add_right hboundQ _
     _ = (C + Q / Real.log (2 : ℝ)) * w := by ring
 
 /-- A published zero-free theorem PLUS the explicitly identified
@@ -168,7 +168,7 @@ theorem vfMidSevenEighthsWall_track_of_primeLi
       ∀ R : ℕ, 2 ≤ R →
         |vfMidPrimeError ((R : ℝ) ^ 2)| ≤
           vfMidSevenEighthsWall C R := by
-  simpa [VFMidSevenEighthsVFEndpointBounded, vfMidSevenEighthsWall] using
+  simpa [VFMidSevenEighthsVFEndpointBounded, vfMidSevenEighthsWall] using!
     (vfMidSevenEighthsVFEndpointBounded_of_primeLi hinput)
 
 end RHLean.Analysis

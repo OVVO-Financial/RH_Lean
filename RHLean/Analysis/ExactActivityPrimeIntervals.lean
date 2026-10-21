@@ -64,16 +64,16 @@ theorem isDyadicBoundaryActive_iff_product_bounds
     have hupper' :
         t < Nat.sqrt (dyadicChildCofactor c * q) ∧
           t < finiteTransportUpper N q := by
-      simpa [dyadicBoundaryUpper] using (lt_min_iff.mp hupper)
+      simpa [dyadicBoundaryUpper] using! (lt_min_iff.mp hupper)
     have hfinite : t < q - 1 ∧ t < N + 1 := by
-      simpa [finiteTransportUpper] using (lt_min_iff.mp hupper'.2)
+      simpa [finiteTransportUpper] using! (lt_min_iff.mp hupper'.2)
     have hq : t + 2 ≤ q := by omega
     have hchildSucc : t + 1 ≤ Nat.sqrt (dyadicChildCofactor c * q) := by
       omega
     have hchildSquare : (t + 1) ^ 2 ≤ dyadicChildCofactor c * q :=
       (Nat.le_sqrt').1 hchildSucc
     have hlower : (t + 1) ^ 2 ≤ 2 * (c * q) := by
-      simpa [dyadicChildCofactor, Nat.mul_assoc] using hchildSquare
+      simpa [dyadicChildCofactor, Nat.mul_assoc] using! hchildSquare
     have hentryLt : Nat.sqrt (c * q) < t + 1 := by omega
     have hupperProduct : c * q < (t + 1) ^ 2 :=
       (Nat.sqrt_lt').1 hentryLt
@@ -84,7 +84,7 @@ theorem isDyadicBoundaryActive_iff_product_bounds
     have hentry : Nat.sqrt (c * q) ≤ t := by omega
     have hchildSquare :
         (t + 1) ^ 2 ≤ dyadicChildCofactor c * q := by
-      simpa [dyadicChildCofactor, Nat.mul_assoc] using hlower
+      simpa [dyadicChildCofactor, Nat.mul_assoc] using! hlower
     have hchildSucc : t + 1 ≤ Nat.sqrt (dyadicChildCofactor c * q) :=
       (Nat.le_sqrt').2 hchildSquare
     have hchild : t < Nat.sqrt (dyadicChildCofactor c * q) := by omega
@@ -107,30 +107,30 @@ theorem exactActivityPrimeBounds_iff_product_bounds
   · rintro ⟨hlower, hupper⟩
     have hlower' :
         max (t + 2) ((t + 1) ^ 2 ⌈/⌉ (2 * c)) ≤ q := by
-      simpa [exactActivityPrimeLower] using hlower
+      simpa [exactActivityPrimeLower] using! hlower
     have hparts := max_le_iff.mp hlower'
     have hceil : (t + 1) ^ 2 ≤ (2 * c) * q :=
       (ceilDiv_le_iff_le_mul h2c).1 hparts.2
     have hmiddle : (t + 1) ^ 2 ≤ 2 * (c * q) := by
-      simpa [Nat.mul_assoc] using hceil
+      simpa [Nat.mul_assoc] using! hceil
     have hdiv : q * c ≤ (t + 1) ^ 2 - 1 := by
       exact (Nat.le_div_iff_mul_le hc).1 hupper
     have hproductLe : c * q ≤ (t + 1) ^ 2 - 1 := by
-      simpa [Nat.mul_comm] using hdiv
+      simpa [Nat.mul_comm] using! hdiv
     have hsquarePos : 0 < (t + 1) ^ 2 := by positivity
     have hproductLt : c * q < (t + 1) ^ 2 := by omega
     exact ⟨hparts.1, hmiddle, hproductLt⟩
   · rintro ⟨hq, hmiddle, hproductLt⟩
     have hceil : ((t + 1) ^ 2 ⌈/⌉ (2 * c)) ≤ q := by
       apply (ceilDiv_le_iff_le_mul h2c).2
-      simpa [Nat.mul_assoc] using hmiddle
+      simpa [Nat.mul_assoc] using! hmiddle
     have hlowerMax :
         max (t + 2) ((t + 1) ^ 2 ⌈/⌉ (2 * c)) ≤ q :=
       max_le hq hceil
     have hlower : exactActivityPrimeLower t c ≤ q := by
-      simpa [exactActivityPrimeLower] using hlowerMax
+      simpa [exactActivityPrimeLower] using! hlowerMax
     have hqcLt : q * c < (t + 1) ^ 2 := by
-      simpa [Nat.mul_comm] using hproductLt
+      simpa [Nat.mul_comm] using! hproductLt
     have hqcLe : q * c ≤ (t + 1) ^ 2 - 1 :=
       Nat.le_pred_of_lt hqcLt
     have hupper : q ≤ exactActivityPrimeUpper t c := by
@@ -188,7 +188,7 @@ theorem exactActivityPrimeSourceMass_eq_card_nsmul
         change max (t + 2) ((t + 1) ^ 2 ⌈/⌉ (2 * c)) ≤ q at hlower
         have htq : t + 2 ≤ q := (max_le_iff.mp hlower).1
         have hcq : c < q := by omega
-        rw [dyadicBoundaryContribution, if_pos hactive,
+        rw [dyadicBoundaryContribution, ite_eq_left hactive,
           canonicalMoebiusWeight_mul_prime_eq_neg hc hcq hqData.1]
     _ = (exactActivityPrimeInterval t c).card • (-canonicalMoebiusWeight c) := by
       simp

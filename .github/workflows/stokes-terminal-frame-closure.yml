@@ -40,32 +40,21 @@ jobs:
           build: false
           test: false
           lint: false
-      - name: Apply StrongPNT 4.24 compatibility patch
-        run: |
-          python3 scripts/strongpnt_424/apply.py
-          python3 scripts/strongpnt_424/apply_post.py
-          python3 scripts/strongpnt_424/apply_pnt5_mid.py
-          python3 scripts/strongpnt_424/apply_pnt5_strong.py
-          python3 scripts/strongpnt_424/apply_lint.py
-      - name: Restore StrongPNT port build cache
+      - name: Restore PNT+ build cache
         uses: actions/cache/restore@v5
         with:
           path: |
             .lake/packages/PrimeNumberTheoremAnd/.lake/build
-            .lake/packages/StrongPNT/.lake/build
-          key: strongpnt-port-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-${{ hashFiles('scripts/strongpnt_424/*.py') }}
-          restore-keys: |
-            strongpnt-port-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-
-      - name: Prebuild StrongPNT dependency
-        run: lake build StrongPNT.PNT5_Strong
+          key: pntplus-build-v1-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
+      - name: Prebuild PNT+ StrongPNT dependency
+        run: lake build PrimeNumberTheoremAnd.StrongPNT
       - name: Restore RHLean build cache
         uses: actions/cache/restore@v5
         with:
           path: .lake/build
-          key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py', 'RHLean.lean', 'RHLean/**/*.lean') }}
+          key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'RHLean.lean', 'RHLean/**/*.lean') }}
           restore-keys: |
-            rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py') }}-
-            rhlean-build-${{ runner.os }}-
+            rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-
       - name: Build algebraic dependencies
         run: |
           lake build RHLean.Proof.GlobalPrefixCarrierOthello
@@ -76,6 +65,100 @@ jobs:
           lake build RHLean.Analysis.CorrectedConductorBoundaryDefectGeneral
           lake build RHLean.Proof.SquareRootLowPrimeOneBlockTerminalBudget
           lake build RHLean.Proof.RealSquareBlockIncrements
+      - name: Build RHLean modules imported by these research checks
+        run: >-
+          python3 scripts/compile_research_import_closure.py --library-only
+          research/AMPLITUDE_GLOBAL_PHYSICAL_DEFECT_LEDGER.lean
+          research/AMPLITUDE_RECIPROCAL_DROP_PHYSICAL_DEFECT.lean
+          research/AMPLITUDE_RETURNED_FIBER_PHYSICAL_BRIDGE.lean
+          research/AMPLITUDE_STOKES_MEMORY_SPLIT.lean
+          research/CANONICAL_DESCENDING_PRIME_CHRONOLOGY.lean
+          research/CANONICAL_ROUGH_GLOBAL_BOUNDS.lean
+          research/CANONICAL_ROUGH_Q2_TAIL_REDUCTION.lean
+          research/COVARIANCE_RECIPROCAL_OWNER_CONGESTION.lean
+          research/DIRECT_SUM_COUPLED_FRESH_PRIME_RANGE_EXIT.lean
+          research/DIRECT_SUM_COUPLED_PACKET.lean
+          research/DIRECT_SUM_COUPLED_RANGE_EXIT_COLLAPSE.lean
+          research/DIRECT_SUM_DYADIC_DISPERSION_BRIDGE.lean
+          research/DIRECT_SUM_FRESH_PRIME_GLOBAL_COLLAPSE.lean
+          research/DIRECT_SUM_FRESH_PRIME_STOKES_PRE_SQUARE.lean
+          research/DIRECT_SUM_LOW_FRESHNESS_ABEL.lean
+          research/GLOBAL_RETURNED_CORE_CANONICAL_SIGNED_STOKES.lean
+          research/GLOBAL_RETURNED_CORE_CLIPPED_QUOTIENT.lean
+          research/GLOBAL_RETURNED_CORE_COMPENSATED_FOUR_CORNER.lean
+          research/GLOBAL_RETURNED_CORE_COMPENSATED_OWNER_BLOCK.lean
+          research/GLOBAL_RETURNED_CORE_CONTINUATION_CARRIER.lean
+          research/GLOBAL_RETURNED_CORE_DIRICHLET_INCIDENCE_CLOSURE.lean
+          research/GLOBAL_RETURNED_CORE_DIRICHLET_PAIR_POLARIZATION.lean
+          research/GLOBAL_RETURNED_CORE_DIRICHLET_POLARIZATION_OWNER_CUBE.lean
+          research/GLOBAL_RETURNED_CORE_DIRICHLET_POLARIZATION_RANK_BASE.lean
+          research/GLOBAL_RETURNED_CORE_FIRST_OWNER_CELLS.lean
+          research/GLOBAL_RETURNED_CORE_FIRST_OWNER_CELL_FUBINI.lean
+          research/GLOBAL_RETURNED_CORE_FIRST_OWNER_CELL_SUM.lean
+          research/GLOBAL_RETURNED_CORE_FIRST_OWNER_GRAM.lean
+          research/GLOBAL_RETURNED_CORE_FIRST_OWNER_GRAM_TO_CELLS.lean
+          research/GLOBAL_RETURNED_CORE_ITERATED_PAIR_STOKES.lean
+          research/GLOBAL_RETURNED_CORE_ONE_AMPLITUDE.lean
+          research/GLOBAL_RETURNED_CORE_PAIR_WEIGHTED_OTHELLO_STOKES.lean
+          research/GLOBAL_RETURNED_CORE_SIGNED_CELL_STOKES_BRIDGE.lean
+          research/GLOBAL_RETURNED_CORE_SIGNED_CELL_TELESCOPE.lean
+          research/GLOBAL_RETURNED_CORE_SIGNED_OWNER_TELESCOPE.lean
+          research/GLOBAL_RETURNED_CORE_STOKES_ALL_ENDPOINT_MERTENS_LEDGER.lean
+          research/GLOBAL_RETURNED_CORE_STOKES_ARBITRARY_CLOCK_WHEEL.lean
+          research/GLOBAL_RETURNED_CORE_STOKES_BOUNDARY_IDENTIFICATION.lean
+          research/GLOBAL_RETURNED_CORE_STOKES_CLIP_AMPLITUDE_FACTOR.lean
+          research/GLOBAL_RETURNED_CORE_STOKES_CORRECTED_WHEEL_IDENTIFICATION.lean
+          research/GLOBAL_RETURNED_CORE_STOKES_CROSS_AMPLITUDE_NORMAL_FORM.lean
+          research/GLOBAL_RETURNED_CORE_STOKES_ENDPOINT_AMPLITUDE_IDENTIFICATION.lean
+          research/GLOBAL_RETURNED_CORE_STOKES_GLOBAL_IDENTIFICATION.lean
+          research/GLOBAL_RETURNED_CORE_STOKES_NATURAL_COMMON_SPECTRUM_LEDGER.lean
+          research/GLOBAL_RETURNED_CORE_STOKES_NATURAL_CORRECTED_CONDUCTOR_PACKET.lean
+          research/GLOBAL_RETURNED_CORE_STOKES_NATURAL_PERIODIC_RAW_REALIZATION.lean
+          research/GLOBAL_RETURNED_CORE_STOKES_NATURAL_PERIOD_WHEEL.lean
+          research/GLOBAL_RETURNED_CORE_STOKES_NEAREST_SQUARE_ENDPOINT_LEDGER.lean
+          research/GLOBAL_RETURNED_CORE_STOKES_TERMINAL_CLASSIFICATION.lean
+          research/GLOBAL_RETURNED_CORE_STOKES_TERMINAL_FRAME_API.lean
+          research/GLOBAL_RETURNED_CORE_STOKES_TWO_STEP_BOUNDARY_NORMAL_FORM.lean
+          research/GLOBAL_RETURNED_CORE_STOKES_ZERO_TARGET_COVARIANCE.lean
+          research/GLOBAL_RETURNED_CORE_THRESHOLD_INCIDENCE_KERNEL.lean
+          research/GLOBAL_RETURNED_CORE_THRESHOLD_RECIPROCAL_INTERTWINING.lean
+          research/GLOBAL_RETURNED_CORE_WEIGHTED_GRAM.lean
+          research/GLOBAL_RETURNED_CORE_WEIGHTED_MOBIUS_COORDINATE.lean
+          research/GLOBAL_RETURNED_CORE_WEIGHTED_OTHELLO_STOKES.lean
+          research/GLOBAL_RETURNED_CORE_ZERO_TARGET_COVARIANCE.lean
+          research/LOW_OWNER_AMPLITUDE_MELLIN_LEDGER_SPLICE.lean
+          research/LOW_OWNER_CHILD_FAR_NORMAL_FORM.lean
+          research/LOW_OWNER_HIGH_Q2_SCALAR_CANCELLATION.lean
+          research/LOW_OWNER_PHYSICAL_AMPLITUDE_TRANSPORT.lean
+          research/LOW_OWNER_PHYSICAL_CENSUS_CORRELATION.lean
+          research/LOW_OWNER_Q2_NEAREST_SQUARE_ENDPOINT.lean
+          research/LOW_OWNER_RETURNED_AMPLITUDE_CORE.lean
+          research/NNS_ZERO_TARGET_NORMALIZED_STOKES.lean
+          research/NNS_ZERO_TARGET_ONE_BLOCK_ENERGY.lean
+          research/NNS_ZERO_TARGET_PARTNER_TIME_DERIVATIVE.lean
+          research/RECIPROCAL_COVARIANCE_PAIR_AMPLITUDE_CONTRACTION.lean
+          research/STABLE_FAR_CRITICAL_Q2_ENERGY_MULTIPLIER.lean
+          research/STABLE_FAR_GLOBAL_RETURNED_MEMORY_FUBINI.lean
+          research/STABLE_FAR_LOG_FREQUENCY_DIAGONALIZATION.lean
+          research/STABLE_FAR_PERRON_QUARTER_FRAME_BOUND.lean
+          research/STABLE_FAR_PERRON_REALIFICATION.lean
+          research/STABLE_FAR_PERRON_RETURNED_FIBER_INTERFACE.lean
+          research/STABLE_FAR_RECIPROCAL_OWNER_FUBINI.lean
+          research/STABLE_FAR_RETURNED_FIBER_FUBINI.lean
+          research/STABLE_FAR_RETURNED_FIBER_PRODUCTION.lean
+          research/STABLE_FAR_RETURNED_RECIPROCAL_FROZEN_WINDOW.lean
+          research/STABLE_FAR_RETURNED_RECIPROCAL_PHYSICAL_BRIDGE.lean
+          research/STOKES_ENDPOINT_MAX_ALIGNMENT.lean
+          research/STOKES_ENDPOINT_MAX_ALIGNMENT_FRAME.lean
+          research/ZERO_TARGET_CLIPPED_OWNER_ENERGY_CONTRACTION.lean
+          research/ZERO_TARGET_COVARIANCE_OWNER_DESCENT.lean
+          research/ZERO_TARGET_CRITICAL_CLIPPED_EDGE.lean
+          research/ZERO_TARGET_CRITICAL_CLIPPED_EDGE_BOUNDARY_SPLIT.lean
+          research/ZERO_TARGET_MELLIN_COMPLETE_POST_ROOT_CUBES.lean
+          research/ZERO_TARGET_MELLIN_FRESH_PRIME_SQUARE.lean
+          research/ZERO_TARGET_MELLIN_PHYSICAL_LCM_STENCIL.lean
+          research/ZERO_TARGET_PARTIAL_MOMENT_COVARIANCE.lean
+          research/ZERO_TARGET_PERRON_RECIPROCAL_IDENTIFICATION.lean
       - name: Emit returned-core dependency foundation through owner cube
         run: |
           mkdir -p .lake/build/lib/lean

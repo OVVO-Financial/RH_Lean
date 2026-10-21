@@ -41,7 +41,7 @@ private theorem finset_odd_four_consecutive_card_le_two
       simp only [Finset.mem_insert, Finset.mem_singleton]
       omega
     have hne : t + 1 ≠ t + 3 := by omega
-    simpa [hne] using (Finset.card_le_card hpair)
+    simpa [hne] using! (Finset.card_le_card hpair)
   · have htOne : t % 2 = 1 := by omega
     have hpair : s ⊆ ({t + 2, t + 4} : Finset ℕ) := by
       intro m hm
@@ -52,7 +52,7 @@ private theorem finset_odd_four_consecutive_card_le_two
       simp only [Finset.mem_insert, Finset.mem_singleton]
       omega
     have hne : t + 2 ≠ t + 4 := by omega
-    simpa [hne] using (Finset.card_le_card hpair)
+    simpa [hne] using! (Finset.card_le_card hpair)
 
 /-- The four-slot inclusion from the existing four-site count, now exported
 in the precise child-carrier form needed to intersect with odd prime children.
@@ -75,7 +75,7 @@ theorem vfMidSquareBandLateOwner_roughChildren_subset_four_slots
   have hhi : p * m < (R + 1) ^ 2 := hdata.2.1
   have hmLower : R ^ 2 / p < m := by
     apply (Nat.div_lt_iff_lt_mul hpPos).2
-    simpa [Nat.mul_comm] using hlo
+    simpa [Nat.mul_comm] using! hlo
   have hfloor : R ^ 2 < (R ^ 2 / p + 1) * p := by
     apply (Nat.div_lt_iff_lt_mul hpPos).1
     omega
@@ -94,7 +94,7 @@ theorem vfMidSquareBandLateOwner_roughChildren_subset_four_slots
       rw [hexp, hq5]
       omega
     have hprodHi : m * p < (R + 1) ^ 2 := by
-      simpa [Nat.mul_comm] using hhi
+      simpa [Nat.mul_comm] using! hhi
     omega
   exact Finset.mem_Ioc.mpr ⟨hmLower, hmUpper⟩
 
@@ -158,7 +158,7 @@ theorem vfMidSquareBandPrefixComposite_start_card_le_two_mul_gap
   have hownerCard :
       (vfMidSquareBandLateOwnerPrimes A R).card ≤ R - A := by
     have hc := Finset.card_le_card hownerSub
-    simpa using hc
+    simpa using! hc
   rw [howners]
   calc
     (∑ p ∈ vfMidSquareBandLateOwnerPrimes A R,

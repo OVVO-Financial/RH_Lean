@@ -15,7 +15,7 @@ theorem lowerMoebius_mul_normalizedChannelAmplitude
         normalizedChannelAmplitude
           { lowerCofactor := c, upperFactor := q } =
       normalizedCofactorWeight c q := by
-  simpa [normalizedChannelAmplitude, normalizedCofactorWeight] using
+  simpa [normalizedChannelAmplitude, normalizedCofactorWeight] using!
     congrArg (fun x : ℚ => (x : ℂ))
       (lowerMoebius_mul_normalizedChannelAmplitudeRat c q)
 
@@ -77,7 +77,7 @@ theorem normalizedFareyTransportPacket_eq_intervalSum
           (orderedChannelTransitionIndex channel),
         normalizedFareyTransportEntry mode channel packetIndex := by
   unfold normalizedFareyTransportPacket
-  simpa [orderedTransportPacketStart, orderedTransportPacketLength] using
+  simpa [orderedTransportPacketStart, orderedTransportPacketLength] using!
     orderedTransportPacket_eq_intervalSum
       (normalizedFareyTransportEntry mode channel) 0 channel 0
 
@@ -169,7 +169,7 @@ theorem fareyChannelPhase_tripled_eq_transport_mul
     (channel : RHLean.Analysis.ActualCofactorChannel) :
     fareyChannelPhase mode (tripledCofactorChannel channel) =
       triplingPhaseTransport mode channel * fareyChannelPhase mode channel := by
-  simpa [triplingPhaseTransport] using fareyChannelPhase_tripled mode channel
+  simpa [triplingPhaseTransport] using! fareyChannelPhase_tripled mode channel
 
 /-- Tripling cannot move a channel to an earlier entry shell. -/
 theorem orderedChannelEntryShell_le_tripled

@@ -65,7 +65,7 @@ theorem norm_squareBlockSmoothTransportResidual_sq_le_of_incrementEnergy
         (n + 1 : ℝ) *
           ∑ k ∈ Finset.range (n + 1),
             ‖squareBlockSmoothIncrement k - squareBlockTransportIncrement k‖ ^ 2 := by
-    simpa using
+    simpa using!
       (sq_sum_le_card_mul_sum_sq
         (s := Finset.range (n + 1))
         (f := fun k : ℕ =>

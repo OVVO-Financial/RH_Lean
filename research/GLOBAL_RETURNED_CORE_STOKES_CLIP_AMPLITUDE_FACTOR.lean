@@ -85,7 +85,7 @@ private theorem sum_product_othello_separable
         (g mn.1 * h mn.2)) =
       ∑ a ∈ S, ∑ b ∈ T,
         (othelloRealMoebius a * othelloRealMoebius b) * (g a * h b) := by
-          simpa only using
+          simpa only using!
             (Finset.sum_product
               (s := S) (t := T)
               (f := fun mn : ℕ × ℕ =>
@@ -215,7 +215,7 @@ theorem lowOwnerFirstOwnerTopTerminal_eq_neg_two_base_mul_returned_of_schedule_n
         lowOwnerFirstOwnerBaseAmplitude R p sig := by
     simpa [lowOwnerStokesSignedAmplitude, lowOwnerDirichletBaseCoefficient,
       lowOwnerFirstOwnerDirichletBaseSite, othelloRealMoebius,
-      RHLean.Analysis.realMoebiusStep, mul_comm] using
+      RHLean.Analysis.realMoebiusStep, mul_comm] using!
         (sum_lowOwnerFirstOwnerDirichletBaseSite_eq_amplitude R p sig)
   have hret :
       lowOwnerStokesSignedAmplitude
@@ -224,7 +224,7 @@ theorem lowOwnerFirstOwnerTopTerminal_eq_neg_two_base_mul_returned_of_schedule_n
         lowOwnerFirstOwnerReturnedChildParentAmplitude R p sig := by
     simpa [lowOwnerStokesSignedAmplitude, lowOwnerDirichletReturnedCoefficient,
       lowOwnerFirstOwnerDirichletReturnedChildSite, othelloRealMoebius,
-      RHLean.Analysis.realMoebiusStep, mul_comm] using
+      RHLean.Analysis.realMoebiusStep, mul_comm] using!
         (sum_lowOwnerFirstOwnerDirichletReturnedChildSite_eq_returned
           (R := R) (p := p) (sig := sig))
   rw [hbase, hret]

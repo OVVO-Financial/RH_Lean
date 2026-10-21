@@ -332,11 +332,11 @@ theorem squareRootLowPrimeOwnedBadChildren_subset_Icc
   have hzData := mem_squareRootLowPrimeBadAtomFiber.mp hzc
   have hcpos := (squareRootLowPrimeOwnedBadCofactor_data hc).1
   have hz1pos : 0 < z.1 := by
-    simpa [hzData.1] using hcpos
+    simpa [hzData.1] using! hcpos
   have hqPrime := prime_of_mem_squareRootLowPrimeDeepPartnerSet hzData.2
   have hprod := mul_le_squareRootEndpoint_of_mem_deepPartnerSet hzData.2
   have hprod' : z.1 * z.2 ≤ squareRootEndpoint R := by
-    simpa [hzData.1] using hprod
+    simpa [hzData.1] using! hprod
   exact Finset.mem_Icc.mpr
     ⟨Nat.one_le_iff_ne_zero.mpr
         (Nat.mul_ne_zero (Nat.ne_of_gt hz1pos) hqPrime.ne_zero),

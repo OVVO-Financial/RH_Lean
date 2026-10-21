@@ -75,9 +75,9 @@ theorem squareRootLowPrimeHonestHighResponse_antitone
   unfold squareRootLowPrimeHonestHighResponse
   by_cases hb : b ≤ R - 1
   · have haR : a ≤ R - 1 := hab.trans hb
-    rw [if_pos hb, if_pos haR]
+    rw [ite_eq_left hb, ite_eq_left haR]
     exact squareRootBornPostTailHighResponse_antitone ha hab
-  · rw [if_neg hb]
+  · rw [ite_eq_right hb]
     exact Nat.zero_le _
 
 /-! ## Re-entry forces born growth -/
@@ -125,7 +125,7 @@ theorem squareRootLowPrimeResponseReentry_newBornPartner_gt
     exact hlt
   have hpcLe : p * c ≤ q * c := Nat.mul_le_mul (le_of_lt hpq) (le_refl c)
   by_contra hcon
-  push_neg at hcon
+  push Not at hcon
   apply hrp
   refine Finset.mem_filter.mpr ⟨hrData.1, hrData.2.1, ?_, hcon, ?_⟩
   · rw [hlpfP]

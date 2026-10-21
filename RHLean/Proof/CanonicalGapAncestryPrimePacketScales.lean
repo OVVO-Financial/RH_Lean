@@ -44,7 +44,7 @@ theorem canonicalLargestPrimeFactor_le_self
   have hprod := canonicalCofactor_mul_largestPrimeFactor hc
   have hdvd : canonicalLargestPrimeFactor c ∣ c := by
     refine ⟨canonicalCofactor c, ?_⟩
-    simpa [Nat.mul_comm] using hprod.symm
+    simpa [Nat.mul_comm] using! hprod.symm
   exact Nat.le_of_dvd (by omega) hdvd
 
 /-- Every distinguished-prime scale fits in the finite source cutoff. -/
@@ -60,7 +60,7 @@ theorem sourceStrippedPrimeDyadicScale_lt_bound
     sourceStrippedPrimeDyadicScale s < B + 1 := by
   by_cases hc : 1 < sourceCore s
   · have hp_le : sourceStrippedPrime s ≤ sourceCore s := by
-      simpa [sourceStrippedPrime] using
+      simpa [sourceStrippedPrime] using!
         (canonicalLargestPrimeFactor_le_self hc)
     exact lt_of_le_of_lt
       ((Nat.log_le_self 2 (sourceStrippedPrime s)).trans hp_le) s.2.2
@@ -75,12 +75,12 @@ theorem sourceStrippedPrime_lt_sourcePrime_of_smooth
   rcases hs.1 with ⟨hq, _hcpos, _hsq, _hcop, hdom⟩
   have hcgt : 1 < sourceCore s := lt_trans hq.one_lt hs.2
   have hpPrime : (sourceStrippedPrime s).Prime := by
-    simpa [sourceStrippedPrime] using
+    simpa [sourceStrippedPrime] using!
       (canonicalLargestPrimeFactor_prime hcgt)
   have hpDvd : sourceStrippedPrime s ∣ sourceCore s := by
     have hprod := canonicalCofactor_mul_largestPrimeFactor hcgt
     refine ⟨canonicalCofactor (sourceCore s), ?_⟩
-    simpa [sourceStrippedPrime, Nat.mul_comm] using hprod.symm
+    simpa [sourceStrippedPrime, Nat.mul_comm] using! hprod.symm
   exact hdom (sourceStrippedPrime s) hpPrime hpDvd
 
 /-- Consequently the stripped-prime scale is no larger than the

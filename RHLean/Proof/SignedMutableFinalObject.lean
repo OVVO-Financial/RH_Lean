@@ -79,7 +79,7 @@ theorem signedMutableUniformLocalBounded_implies_squarePrefixUniformLocal
   rcases hbound ε hε with ⟨C, hC, hlocal⟩
   refine ⟨C, hC, ?_⟩
   intro N H hH hHN
-  simpa [RHLean.Analysis.localSequenceEnergy, hidentify] using
+  simpa [RHLean.Analysis.localSequenceEnergy, hidentify] using!
     hlocal N H hH hHN
 
 /-- Conditional RH closure with the cumulative signed mutable sum as the sole

@@ -72,19 +72,20 @@ theorem canonicalRoughLowQ2Owners_56 :
 daughter windows, hence weight 1/3 + 1/5 + 1/7 = 71/105. -/
 theorem lowOwnerReciprocalDaughterWeight_56_one :
     lowOwnerReciprocalDaughterWeight 56 1 = (71 : ℝ) / 105 := by
-  rw [canonicalRoughLowQ2Owners_56]
-  norm_num [lowOwnerReciprocalDaughterWeight, rawQ2ChildCutoff,
+  norm_num [lowOwnerReciprocalDaughterWeight,
+    canonicalRoughLowQ2Owners_56, rawQ2ChildCutoff,
     squareRootEndpoint]
 
 /-- Since mu(1)=1 and the far-tail indicator is zero at n=1<R, the actual
 zero-frequency AMP site is 71/105, not a member of {-1,0,1}. -/
 theorem lowOwnerZeroFrequencyMobiusSite_56_one :
     lowOwnerZeroFrequencyMobiusSite 56 1 = (71 : ℝ) / 105 := by
+  unfold lowOwnerZeroFrequencyMobiusSite
   rw [show lowOwnerZeroFrequencyMobiusWeight 56 1 = (71 : ℝ) / 105 by
     unfold lowOwnerZeroFrequencyMobiusWeight
     rw [lowOwnerReciprocalDaughterWeight_56_one]
     norm_num [lowOwnerFarTailWeight]]
-  simp [lowOwnerZeroFrequencyMobiusSite, realMoebiusStep]
+  simp [realMoebiusStep]
 
 theorem lowOwnerZeroFrequencyMobiusSite_56_one_not_boolean :
     lowOwnerZeroFrequencyMobiusSite 56 1 ≠ -1 ∧
@@ -105,13 +106,35 @@ theorem signatureCell_56_three_straddles_high_q7_threshold :
   have hcell :
       1 ∈ lowOwnerFirstOwnerSignatureCellCarrier 56 3 (∅ : Finset ℕ) ∧
         65 ∈ lowOwnerFirstOwnerSignatureCellCarrier 56 3 (∅ : Finset ℕ) := by
-    native_decide
+    constructor
+    · norm_num [lowOwnerFirstOwnerSignatureCellCarrier,
+        lowOwnerNonzeroMobiusCarrier, squarefreeLowerPrimeSignature,
+        squarefreePrimeFace, realMoebiusStep, squareRootEndpoint]
+      intro x hx hxone
+      have htwo := hx.two_le
+      omega
+    · norm_num [lowOwnerFirstOwnerSignatureCellCarrier,
+        lowOwnerNonzeroMobiusCarrier, squarefreeLowerPrimeSignature,
+        squarefreePrimeFace, realMoebiusStep, squareRootEndpoint]
+      constructor
+      · exact (ArithmeticFunction.moebius_ne_zero_iff_squarefree).2
+          (by
+            have h : Squarefree (65 : ℕ) ∧ (65 : ℕ).primeFactors.card = 2 :=
+              (Nat.squarefree_and_primeFactors_card_eq_two_iff 65).2
+                ⟨5, 13, by norm_num, by norm_num, by norm_num, by norm_num⟩
+            exact h.1)
+      · intro x hx hxdiv
+        by_contra hlt
+        have htwo : 2 ≤ x := hx.two_le
+        have hx2 : x = 2 := by omega
+        subst x
+        norm_num at hxdiv
   refine ⟨hcell.1, hcell.2, ?_⟩
   rw [lowOwnerReciprocalDaughterWeight_56_one]
   have h65 :
       lowOwnerReciprocalDaughterWeight 56 65 = (8 : ℝ) / 15 := by
-    rw [canonicalRoughLowQ2Owners_56]
-    norm_num [lowOwnerReciprocalDaughterWeight, rawQ2ChildCutoff,
+    norm_num [lowOwnerReciprocalDaughterWeight,
+      canonicalRoughLowQ2Owners_56, rawQ2ChildCutoff,
       squareRootEndpoint]
   rw [h65]
   norm_num
@@ -128,11 +151,24 @@ theorem firstOwner_three_edge_zero_weightGradient_nonzero_siteProduct :
       lowOwnerZeroFrequencyMobiusSite 56 1 *
           lowOwnerZeroFrequencyMobiusSite 56 3 ≠ 0 := by
   have howner : IsSquarefreePairFreshPrimeOwner 3 1 3 := by
-    native_decide
+    apply firstOwner_of_lowerSignature_eq_and_dvd_xor
+      (by norm_num : Nat.Prime 3)
+      (by norm_num : 0 < (1 : ℕ))
+      (by norm_num : 0 < (3 : ℕ))
+    · simp [squarefreeLowerPrimeSignature, squarefreePrimeFace,
+        (show Nat.Prime 3 by norm_num).primeFactors]
+      ext q
+      simp only [Finset.mem_filter, Finset.mem_singleton]
+      constructor
+      · intro h
+        simp at h
+      · rintro ⟨rfl, hlt⟩
+        omega
+    · exact Or.inr ⟨by norm_num, by norm_num⟩
   have hthree :
       lowOwnerReciprocalDaughterWeight 56 3 = (71 : ℝ) / 105 := by
-    rw [canonicalRoughLowQ2Owners_56]
-    norm_num [lowOwnerReciprocalDaughterWeight, rawQ2ChildCutoff,
+    norm_num [lowOwnerReciprocalDaughterWeight,
+      canonicalRoughLowQ2Owners_56, rawQ2ChildCutoff,
       squareRootEndpoint]
   have hweight1 :
       lowOwnerZeroFrequencyMobiusWeight 56 1 = (71 : ℝ) / 105 := by
@@ -154,7 +190,7 @@ theorem firstOwner_three_edge_zero_weightGradient_nonzero_siteProduct :
     have hmu1 : realMoebiusStep 1 = 1 := by
       norm_num [realMoebiusStep]
     have hmu3 : realMoebiusStep 3 = -1 := by
-      simpa [hmu1] using hflip
+      simpa [hmu1] using! hflip
     rw [hmu3]
     ring
   refine ⟨howner, ?_, ?_⟩

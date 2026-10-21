@@ -10,8 +10,8 @@ unnecessary import diamond.
 
 No Lebesgue integration or OpenAI proof import. Reuse the native
 finite-field conjugation and Gauss-product theorem already verified
-under pinned Mathlib 4.24. The older star_gaussSum_eq name does not exist
-on this toolchain.
+under the pinned toolchain; it does not depend on Mathlib's
+star_gaussSum_eq.
 
 The modulus has an explicit NeZero instance, as required to construct
 ZMod p's finite residue field before elaborating the theorem statement.
