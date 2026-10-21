@@ -1,0 +1,88 @@
+name: OpenAI true square-block covariance in native Lean 4.34.1
+
+on:
+  pull_request:
+    paths:
+      - 'research/VF_919_OAI_*.lean'
+      - 'research/VF_919_EXACT_INTEGER_*.lean'
+      - '.github/workflows/vf919-oai-squareblock-native-434.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: vf919-native-square-434-${{ github.head_ref || github.ref_name }}
+  cancel-in-progress: true
+
+jobs:
+  true-square-covariance:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - name: Confirm same Lean 4.34.1 and source pin as migration PR 983
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(cat lean-toolchain)" = 'leanprover/lean4:v4.34.1'
+          grep -q 'd13f23b723b8a846827a245b89c10fc7d3f11612' lakefile.lean
+      - name: Complete exact original Mobius and square-block acceptance (317/1027)
+        run: python3 scripts/vf919_oai_square_block_four_index_acceptance.py
+      - name: Refuse proof holes or synthetic axioms in new source
+        shell: bash
+        run: |
+          set -euo pipefail
+          if grep -nE '^[[:space:]]*(sorry|admit|axiom)([[:space:]]|$)' research/VF_919_OAI_*.lean research/VF_919_EXACT_INTEGER_*.lean; then exit 1; fi
+      - uses: ./.github/actions/lean-setup
+      - name: Compile full native original square-block proof closure in Lean 4.34.1
+        uses: ./.github/actions/research-compile
+        with:
+          build-library: 'true'
+          targets: >-
+            research/VF_919_OAI_EXACT_MARKED_RESCALED_LOCAL_20261019.lean
+            research/VF_919_OAI_EXACT_LABELED_NATIVE_SEATS_20261019.lean
+            research/VF_919_OAI_INTEGER_MOBIUS_HECKE_TWO_LEGS_20261019.lean
+            research/VF_919_EXACT_INTEGER_BY_INTEGER_317_1027_20261019.lean
+            research/VF_919_EXACT_INTEGER_NATIVE_COVARIANCE_BRIDGE_20261019.lean
+            research/VF_919_OAI_SQUARE_BLOCK_FOUR_INDEX_COVARIANCE_20261019.lean
+            research/VF_919_OAI_SQUARE_BLOCK_EXCLUDED_NORM_BOUNDARIES_20261019.lean
+            research/VF_919_OAI_SQUARE_BLOCK_ONE_SOURCE_FULL_NORM_GRAM_20261019.lean
+            research/VF_919_OAI_GLOBAL_SQUARE_BLOCK_ALL_PAIR_COVARIANCE_20261019.lean
+            research/VF_919_OAI_TRUE_IDEAL_NORM_SHARP_SQUARE_BLOCK_20261019.lean
+            research/VF_919_OAI_IDEAL_COFACTOR_TERM_BY_TERM_SHARP_FLOORS_20261019.lean
+            research/VF_919_OAI_GENUINE_IDEAL_ORDERED_PHYSICAL_PAIRS_20261019.lean
+      - name: Check actual original-carrier theorem statements and axiom sets
+        shell: bash
+        run: |
+          set -euo pipefail
+          cat >/tmp/oai_true_square_block_434.lean <<'LEAN'
+          import «research.VF_919_OAI_EXACT_MARKED_RESCALED_LOCAL_20261019»
+          import «research.VF_919_OAI_GLOBAL_SQUARE_BLOCK_ALL_PAIR_COVARIANCE_20261019»
+          import «research.VF_919_OAI_IDEAL_COFACTOR_TERM_BY_TERM_SHARP_FLOORS_20261019»
+          import «research.VF_919_OAI_GENUINE_IDEAL_ORDERED_PHYSICAL_PAIRS_20261019»
+          #check RHLean.Analysis.vf919OAI_exact_local_compensation
+          #check RHLean.Analysis.vf919SquareShellCovariance_eq_true_ordered_physical_pairs
+          #check RHLean.Analysis.vf919SquareShell_actual_signed_covariance_eq_fourIndexHecke
+          #check RHLean.Analysis.vf919SquareShell_original_energy_eq_fourIndexHecke
+          #check RHLean.Analysis.vf919OAIExactSquareNormSource_eq_originalSquareShell
+          #check RHLean.Analysis.vf919SquareShell_original_signed_covariance_eq_fullNormGram
+          #check RHLean.Analysis.vf919OAI_original_global_signed_covariance_eq_full_blockNormGram
+          #check RHLean.Analysis.vf919OAITrueSquareIdealNormSource_eq_originalShell
+          #check RHLean.Analysis.vf919OAITrueSquareBlockCharacterWeight_eq_floorDifference
+          #check RHLean.Analysis.vf919OAI_true_square_block_eq_sum_exact_ideal_norm_floors
+          #check RHLean.Analysis.vf919OAI_original_ordered_covariance_eq_any_real_ideal_fiber
+          #print axioms RHLean.Analysis.vf919OAI_exact_local_compensation
+          #print axioms RHLean.Analysis.vf919SquareShellCovariance_eq_true_ordered_physical_pairs
+          #print axioms RHLean.Analysis.vf919SquareShell_actual_signed_covariance_eq_fourIndexHecke
+          #print axioms RHLean.Analysis.vf919SquareShell_original_energy_eq_fourIndexHecke
+          #print axioms RHLean.Analysis.vf919OAIExactSquareNormSource_eq_originalSquareShell
+          #print axioms RHLean.Analysis.vf919SquareShell_original_signed_covariance_eq_fullNormGram
+          #print axioms RHLean.Analysis.vf919OAI_original_global_signed_covariance_eq_full_blockNormGram
+          #print axioms RHLean.Analysis.vf919OAITrueSquareIdealNormSource_eq_originalShell
+          #print axioms RHLean.Analysis.vf919OAITrueSquareBlockCharacterWeight_eq_floorDifference
+          #print axioms RHLean.Analysis.vf919OAI_true_square_block_eq_sum_exact_ideal_norm_floors
+          #print axioms RHLean.Analysis.vf919OAI_original_ordered_covariance_eq_any_real_ideal_fiber
+          LEAN
+          lake env lean -DwarningAsError=true /tmp/oai_true_square_block_434.lean | tee /tmp/oai-true-square-block-434-axioms.txt
+          if grep -E 'sorryAx|admitAx|_private' /tmp/oai-true-square-block-434-axioms.txt; then exit 1; fi

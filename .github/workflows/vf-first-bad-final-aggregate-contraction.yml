@@ -76,6 +76,7 @@ jobs:
             rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-
             rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'RHLean.lean', 'RHLean/**/*.lean') }}
       - name: Build RHLean modules imported by these research checks
+        if: steps.affected.outputs.affected == 'true'
         run: >-
           python3 scripts/compile_research_import_closure.py --library-only
           research/VF_MID_FIRST_BAD_FINAL_AGGREGATE_CONTRACTION.lean
