@@ -2,7 +2,7 @@
 
 Date: 2026-10-21. Status: **unconditional finite algebra plus explicitly conditional analytic contract**. This file audits the proposed resonance / source-energy argument against the actual [OpenAI marked-moment theorem](https://github.com/openai/math/blob/main/lean/OAI/NumberTheory/DirichletL/Detector/DetectorPlainMarkedFineField.lean). It does not claim an improved zero-free exponent.
 
-Native finite Lean: [VF_919_OAI_POLARIZED_NNS_TWISTED_EULER_20261021.lean](VF_919_OAI_POLARIZED_NNS_TWISTED_EULER_20261021.lean).
+Native finite Lean: [VF_919_OAI_POLARIZED_SIGNED_NNS_EULER_20261021.lean](VF_919_OAI_POLARIZED_SIGNED_NNS_EULER_20261021.lean).
 
 ## A. The correct marked source and the polarized real NNS identity
 
@@ -39,7 +39,7 @@ For mixed j,k, the correct **degree-four** identity is
 
 The last term can be NEGATIVE for different derivative rows; it is NOT universally a positive residual. For j=k=0 it is +4(P-N)²>=0, giving the pure fourth identity. Applying the pure fourth identity to P_j P_k W instead would raise the degree and depart from OAI's actual theorem.
 
-Lean source proves the conditional row identity, exact unnormalized varying-weight finite fibre sum, original negative-payment implication, Phi sign quadrants, and source-phase-twisted Euler coefficient identity. **It does not yet prove the exact expansion of OAI's actual P_j(u) as its own annotated ideal atom list.** That is an independent type-correct source-lift obligation.
+The existing #997 Lean module proves the conditional row identity, exact unnormalized varying-weight finite fibre sum, the negative-payment implication, Phi sign quadrants, and the phase-twisted Euler pairing. See also [the 317/1027 and Parseval numerical regression](../scripts/oai_marked_polarized_source_audit.py). **It does not yet prove the exact expansion of OAI's actual P_j(u) as its own annotated ideal atom list.** That is an independent type-correct source-lift obligation.
 
 ## B. Resonant four-point character floor: valid exact statement and essential caveat
 
@@ -87,7 +87,7 @@ For a literal logarithm l=log N(T), b=log N(p):
     (l+b)^1 - l = b;
     (l+b)^2 - l² = 2lb+b².
 
-Lean lemmas logarithmicShiftOne/Two prove this. For a source term a_T with derivative coefficient (log N T)^j, the paired logarithmic part is
+Lean lemmas phase_correct_log_one and phase_correct_log_two prove the exact phase-weighted forms. For a source term a_T with derivative coefficient (log N T)^j, the paired logarithmic part is
 
     l^j W(T) - phase*(l+b)^j W(T union {p})
       = l^j[W(T)-phase W(T union {p})]
