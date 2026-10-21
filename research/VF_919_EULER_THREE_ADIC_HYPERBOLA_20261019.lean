@@ -94,7 +94,7 @@ theorem three_adic_dipole_defect_eq_zero (M : ℕ) :
       intro d hd
       rw [vf919ThreeDipoleAlpha_child hd]
     · intro a _ha b _hb hab
-      omega
+      exact Nat.eq_of_mul_eq_mul_left (by norm_num) hab
   rw [hparent, hchild, ← Finset.sum_add_distrib]
   apply Finset.sum_eq_zero
   intro d hd
@@ -264,9 +264,6 @@ theorem odd_shell_high_tail_dual_by_gpf (R M : ℕ) (hR : 2 ≤ R) :
         vf919EulerOddHighOwnerCofactorMass R M q) := by
           dsimp [T]
           congr 1
-          apply Finset.sum_congr rfl
-          intro q _
-          rfl
 
 
 /-! ## Exact extension to the FULL finite dyadic cofactor carrier -/
