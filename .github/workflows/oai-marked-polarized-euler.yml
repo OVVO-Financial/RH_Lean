@@ -31,10 +31,16 @@ jobs:
       - name: Compile standalone polarized NNS math (no full RHLean library)
         run: |
           lake env lean -DwarningAsError=true research/VF_919_OAI_POLARIZED_EULER_BRIDGE_20261021.lean
-      - name: Assert certified theorem signatures
+      - name: Check the actual compiled NNS and phase-theorem signatures
         run: |
-          cat > research/VF_919_POLAR_NNS_ACCEPTANCE_TEMP.lean <<'LEAN'
-          import Mathlib
-          #check max
+          cp research/VF_919_OAI_POLARIZED_EULER_BRIDGE_20261021.lean /tmp/VF_919_OAI_POLAR_ACCEPTANCE_TEMP.lean
+          cat >> /tmp/VF_919_OAI_POLAR_ACCEPTANCE_TEMP.lean <<'LEAN'
+          #check RHLean.Analysis.vf919Polar_mixed_fourth
+          #check RHLean.Analysis.vf919Polar_weighted_mixed_fourth
+          #check RHLean.Analysis.vf919Polar_character_toggle_log1
+          #check RHLean.Analysis.vf919Polar_character_toggle_log2
+          #check RHLean.Analysis.vf919Polar_restricted_char_resonance_counterexample
+          #print axioms RHLean.Analysis.vf919Polar_mixed_fourth
+          #print axioms RHLean.Analysis.vf919Polar_restricted_char_resonance_counterexample
           LEAN
-          lake env lean -DwarningAsError=true research/VF_919_POLAR_NNS_ACCEPTANCE_TEMP.lean
+          lake env lean -DwarningAsError=true /tmp/VF_919_OAI_POLAR_ACCEPTANCE_TEMP.lean
