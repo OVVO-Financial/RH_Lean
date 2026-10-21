@@ -51,9 +51,9 @@ No new zero-free line, Mertens exponent, canonical VF estimate or RH conclusion 
 
 ## B. Current proof objective
 
-Final live authority at report preparation:
+Final live authority after final readback:
 
-- main@325ca5d9c9db0040981387191b76f04907038246, merge of PR #997;
+- main@7f3f20bbd5e8635e9a748142e8f390dd17afd1f8, merge of PR #998 after merged #997;
 - AGENTS.md read at that exact revision;
 - CURRENT_PROOF_CONTRACT.md blob 2fa9931dcdc1fc8a816aefb8aa348db12ee9a384;
 - native replication protocol blob 53194dc3ae106be363bc22cf85a88bac4a3b2e6e;
@@ -94,7 +94,7 @@ Target implication: an improved genuine marked source moment enters the same thr
 
 First missing theorem: a type-correct source lift from OAI P_j(u)P_k(u) to its original labelled atoms, followed by a uniform kernel estimate. PR #998 states the source-admission equality as a visible premise; it does not derive it from SourceData.
 
-Support: merged #997, exact complete-residue moments, Analytic claim 20261020-analytic-1, and claim 20261021-coordinator-2.
+Support: merged #997 and #998, exact complete-residue moments, Analytic claim 20261020-analytic-1, and claim 20261021-coordinator-2.
 
 Obstructions: complete uniform phases give no Euler-pair L2 gain; injective class support forbids complete-dual contraction below raw energy; shellwise excess has both signs; mixed derivative rows have no fixed-sign residual; interpair covariance can offset every local pair saving.
 
@@ -207,13 +207,13 @@ Yesterday's Census, Referee and Lean reports were also read. External handoffs b
 - PR #997 merged to main at 325ca5d9c9db0040981387191b76f04907038246. Its exact proof head 81583333535006b42d695de13c46ea7e71b405bb has 13/13 observed pull-request workflows successful, including both new OAI marked/NNS jobs. Its contribution is PROVED_IN_LEAN_ON_MAIN finite algebra, not a new analytic estimate.
 - PR #993 and #994 are merged. Their conditional owner consumer and complete-residue moments are on main; neither supplies the missing quantitative premise.
 - PR #995 remains open draft at f607672c7217383948e733ae808729c492c3a761. Targeted Lean iteration and Native finite-history returned-owner audit failed; it is not review-ready. Other observed jobs succeeded.
-- PR #998 remains open, non-draft at 0d9cce37079ae943bda6430d7cd41443084a93be. All 12 observed exact-head workflows succeeded. Its actual-source equality remains conditional on the explicit source-admission premise; CI_GREEN is not a new covariance bound.
-- PR #999 remains open, non-draft and stacked on #998 at 56be3d45171dacc81397a0116a76ba5dd7c1bac0. All five observed exact-head workflows succeeded. It proves structural low-gate/overlap facts only.
+- PR #998 was human-merged to main at 7f3f20bbd5e8635e9a748142e8f390dd17afd1f8 from proof head 0d9cce37079ae943bda6430d7cd41443084a93be. All 12 observed exact-head workflows succeeded. Its actual-source equality retains the explicit source-admission premise; PROVED_IN_LEAN_ON_MAIN finite identities are not a new covariance bound.
+- PR #999 was closed as merged into the non-main research/oai-weighted-nns-covariance-kernel-20261021 branch at merge SHA 19dfaf5ab51e601798cdd4302034ea34ceca5d25, proof head 56be3d45171dacc81397a0116a76ba5dd7c1bac0. All five observed exact-head workflows succeeded. Its structural low-gate/overlap facts are not on main at final readback and are not PROVED_IN_LEAN_ON_MAIN.
 - Human review and merge gates remain in force. No merge action was taken.
 
 ## J. Next-run resume capsule
 
-Authority: main@325ca5d9c9db0040981387191b76f04907038246; contract blob 2fa9931dcdc1fc8a816aefb8aa348db12ee9a384; protocol blob 53194dc3ae106be363bc22cf85a88bac4a3b2e6e; external inbox blob 038018145c0fddb2f6306c0712373adf9cd1ea52.
+Authority: main@7f3f20bbd5e8635e9a748142e8f390dd17afd1f8; contract blob 2fa9931dcdc1fc8a816aefb8aa348db12ee9a384; protocol blob 53194dc3ae106be363bc22cf85a88bac4a3b2e6e; external inbox blob 038018145c0fddb2f6306c0712373adf9cd1ea52.
 
 New claims: 20261021-coordinator-1, exact HighData width-only boundary-shift no-go; 20261021-coordinator-2, complete-dual alias inverse theorem.
 
@@ -221,4 +221,4 @@ Surviving primary task: obtain the coefficientwise actual-source class aggregati
 
 Missing reports: Owner, Analytic and Wheel remain TODAY=PENDING. Do not infer their execution from open PRs.
 
-Publication history: IN_PROGRESS primary commit 97f801ca0c2ebbd85aa1566fc40bc9d5030df226; compatibility mirror commit eac7c269db52b380a2b2998015a0460789d68828. This completed synthesis replaces the checkpoint while preserving its material status history.
+Publication history: IN_PROGRESS primary commit 97f801ca0c2ebbd85aa1566fc40bc9d5030df226; compatibility mirror commit eac7c269db52b380a2b2998015a0460789d68828. The first completed synthesis was published before the late #998/#999 status transition; this final authority refresh records the verified live state while preserving the checkpoint history.
