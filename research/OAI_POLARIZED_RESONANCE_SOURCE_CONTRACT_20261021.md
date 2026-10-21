@@ -53,12 +53,14 @@ The expression labelled RESONANT is exact for alpha gamma=beta delta as *ideals*
 
 Critical correction: the resonant expression is NOT in general a floor for the FULL moment with incomplete/nonuniform character weights: NONRESONANT may be negative. Example for the group of order 2 with a=(1,-1): the trivial character gives F=0, so a sample consisting solely of the trivial character has fourth moment 0 despite a positive formal multiplicative-diagonal term. Over the COMPLETE uniform character family, Parseval kills the off-diagonal modulo the character kernel, and the fourth-moment floor becomes a genuine inequality.
 
-For the FULL uniform dual of a finite abelian group with distinct coefficient labels:
+For the FULL uniform dual of a finite abelian group, AFTER the original ideals
+have been aggregated by their actual character-class map, define
+b(g)=sum_{alpha: class(alpha)=g} a_alpha. Then:
 
-    E_chi |F_chi|² = ||a||_2², and
-    E_chi |F_chi|⁴ >= (E_chi |F_chi|²)² = ||a||_2⁴.
+    E_chi |F_chi|² = ||b||_2², and
+    E_chi |F_chi|⁴ >= (E_chi |F_chi|²)² = ||b||_2⁴.
 
-Equivalently the FULL normalized fourth moment equals ||a*a||_2², at least ||a||_2⁴. This is the rigorous Parseval/Jensen obstruction to claiming near-total cancellation on almost every UNWEIGHTED character for fixed source coefficients.
+Equivalently the FULL normalized fourth moment equals ||b*b||_2², at least ||b||_2⁴. If the ideal-to-class map is injective on the actual source support then b and a have the same ℓ² norm and this reduces to the originally proposed ||a||_2 floor. Otherwise opposite source coefficients on distinct ideals with identical class signatures can cancel **before character averaging**, giving ||b|| much smaller than ||a||. The raw ideal-indexed resonant diagonal is therefore not an all-character lower bound without this alias control. This is the rigorous Parseval/Jensen obstruction to claiming near-total cancellation on almost every UNWEIGHTED character for fixed source coefficients.
 
 **Mixed derivatives differ:** a_j*a_k can cancel, and no general inequality ||a_j*a_k||_2² >= ||a_j||_2²||a_k||_2² holds; do not transfer the pure-row floor unmodified to j!=k.
 
