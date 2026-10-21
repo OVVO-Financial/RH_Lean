@@ -9,7 +9,7 @@ on:
       - lake-manifest.json
       - 'research/VF_919_*.lean'
       - 'research/MERTENS_*.lean'
-      - scripts/patch_oai_434_rellich_compat.py
+      - scripts/apply_oai_434_upstream_patches.py
       - scripts/ci/vf919_common_probe_dependency_audit.lean
       - .github/workflows/vf919-oai-certified-core-434.yml
 
@@ -103,7 +103,10 @@ jobs:
         uses: actions/cache/restore@v5
         with:
           path: oai-upstream/lean/.lake
-          key: vf919-oai-analytic-v1-${{ runner.os }}-${{ runner.arch }}-1581d4cbdd69a0faf34b2089614fe2a814316a6a-${{ hashFiles('scripts/patch_oai_434_rellich_compat.py') }}
+          key: vf919-oai-4341-v3-${{ runner.os }}-${{ runner.arch }}-1581d4cbdd69a0faf34b2089614fe2a814316a6a-${{ hashFiles('scripts/apply_oai_434_upstream_patches.py') }}-intermediate
+          restore-keys: |
+            vf919-oai-4341-v3-${{ runner.os }}-${{ runner.arch }}-1581d4cbdd69a0faf34b2089614fe2a814316a6a-${{ hashFiles('scripts/apply_oai_434_upstream_patches.py') }}-full
+            vf919-oai-4341-v3-${{ runner.os }}-${{ runner.arch }}-1581d4cbdd69a0faf34b2089614fe2a814316a6a-${{ hashFiles('scripts/apply_oai_434_upstream_patches.py') }}-
       - name: Fetch pinned dependencies on a cold cache
         if: steps.oai-cache.outputs.cache-hit != 'true'
         working-directory: oai-upstream/lean
@@ -112,9 +115,11 @@ jobs:
           set -euo pipefail
           test "$(cat lean-toolchain)" = 'leanprover/lean4:v4.34.1'
           lake exe cache get
-      - name: Apply checked Rellich compatibility on a cold cache
-        if: steps.oai-cache.outputs.cache-hit != 'true'
-        run: python3 scripts/patch_oai_434_rellich_compat.py
+      - name: Verify and apply the ORIGINAL OpenAI Lean 4.34.1 upstream patches
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 scripts/apply_oai_434_upstream_patches.py oai-upstream/lean
       - name: Kernel-check patched prerequisite proofs
         working-directory: oai-upstream/lean
         shell: bash
