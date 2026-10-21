@@ -1,0 +1,68 @@
+name: OAI weighted NNS covariance kernel
+on:
+  pull_request:
+    paths:
+      - 'research/VF_919_ACTUAL_WEIGHTED_NNS_COVARIANCE_KERNEL_20261021.lean'
+      - 'research/OAI_WEIGHTED_NNS_COVARIANCE_ATTACK_20261021.md'
+      - 'research/OAI_919_COMPENSATION_NNS_SIMULTANEOUS_CROSSWALK_20261021.md'
+      - 'scripts/oai_weighted_nns_covariance_kernel_audit.py'
+      - '.github/workflows/oai-weighted-nns-covariance-kernel.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  weighted-gram-numerical:
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@v4
+      - name: Test weighted 317 and 1027 sextic source kernels
+        run: python3 scripts/oai_weighted_nns_covariance_kernel_audit.py
+
+  weighted-nns-lean:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Set up pinned Lean and dependencies
+        uses: ./.github/actions/lean-setup
+      - name: Restore pinned StrongPNT cache
+        uses: actions/cache/restore@v5
+        with:
+          path: .lake/packages/PrimeNumberTheoremAnd/.lake/build
+          key: pntplus-build-v1-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
+      - name: Build pinned StrongPNT dependency
+        run: lake build PrimeNumberTheoremAnd.StrongPNT
+      - name: Restore native RHLean library build
+        uses: actions/cache/restore@v5
+        with:
+          path: .lake/build
+          key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'RHLean.lean', 'RHLean/**/*.lean') }}
+          restore-keys: |
+            rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-
+      - name: Compile full weighted NNS research proof closure warning-fatal
+        uses: ./.github/actions/research-compile
+        with:
+          targets: research/VF_919_ACTUAL_WEIGHTED_NNS_COVARIANCE_KERNEL_20261021.lean
+      - name: Exact source and original-weight theorem acceptance
+        run: |
+          cat > research/VF_919_WEIGHTED_NNS_ACCEPTANCE_TEMP.lean <<'LEAN'
+          import «research.VF_919_ACTUAL_WEIGHTED_NNS_COVARIANCE_KERNEL_20261021»
+          #check RHLean.Analysis.vf919MarkedFiniteProductAtoms
+          #check RHLean.Analysis.vf919Phi_sum_idealAtoms
+          #check RHLean.Analysis.vf919FiniteSource_normSq_eq_NNS
+          #check RHLean.Analysis.vf919NormalizedColumnSource_NNSCovariance
+          #check RHLean.Analysis.vf919WeightedPhiMarkedMoment_eq_co_sub_div
+          #check RHLean.Analysis.vf919WeightedPhiMarkedMoment_eq_diagonal_add_offCo_sub_div
+          #check RHLean.Analysis.vf919ActualMarkedMoment_eq_exactWeightedNNSCovariance
+          #check RHLean.Analysis.vf919EulerPairWeightedNNSCovariance
+          #check RHLean.Analysis.vf919EulerPairPowerSaving_of_independent_alignment
+          #print axioms RHLean.Analysis.vf919NormalizedColumnSource_NNSCovariance
+          #print axioms RHLean.Analysis.vf919ActualMarkedMoment_eq_exactWeightedNNSCovariance
+          #print axioms RHLean.Analysis.vf919EulerPairWeightedNNSCovariance
+          LEAN
+          lake env lean -DwarningAsError=true research/VF_919_WEIGHTED_NNS_ACCEPTANCE_TEMP.lean
