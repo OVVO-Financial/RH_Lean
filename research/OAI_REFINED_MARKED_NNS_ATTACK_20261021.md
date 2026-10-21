@@ -97,6 +97,32 @@ For the **separate compensated-difference identity** `M=1, R=ζ₆^j`, the six e
 
 whose average is 6. The unsigned quartic baseline `A²+C²` has the same average 6: positive and negative directional alignment cancel exactly over uniform six-phase weights. So a new POWER saving cannot follow from realification or directional quadrant definitions alone. It would require a PROVED source-weighted *nonuniform arithmetic alignment or spectral moment gain*. This is a finite falsifier of any alleged all-purpose "NNS automatically improves fourth moments" rule, not evidence against a genuine conditional arithmetic gain.
 
+### Independent phase-faithful 317/1027 ideal tests (now added)
+
+In addition to the deliberately uniform sixth-phase obstruction, the test
+now uses the four **actual finite Eisenstein ideal-labelled phase arrays**
+proved in `research/VF_919_NATIVE_SEXTIC_OWNER_PROJECTION_20261019.lean`
+(`vf919SexticFourWits_twistedIdealTotals` and
+`vf919SexticFourWits_markedMinusRescaledMainTotals`).
+
+| Actual native tagged fibre | Exact phases `e` | Signed phase sum | Selected main phase sum `-χ^-1` | Fourth moment of signed sum | Fourth after norm-first |
+|---|---|---:|---:|---:|---:|
+| x=317 (n=133) | [5,5,1,1] | +2 | -2 | 16 | 256 |
+| x=1027 (n=259) | [1,3,3,5] | -1 | +1 | 1 | 256 |
+| R=317 (n=100531) | [0,4,2,0] | +1 | -1 | 1 | 256 |
+| R=1027 (n=1054741) | [3,1,5,3] | -1 | +1 | 1 | 256 |
+| **Total** | | | | **19** | **1024** |
+
+These are **real arithmetic cancellations in genuine differing ideal labels**:
+the fourth power of their compensated signed complex sum is 19 rather than
+1024 if each ideal-phase row is replaced by a positive mass 4 before summation.
+Their NNS/Φ directional expansion reproduces each quartic exactly.
+
+**Validity limit:** these four tagged fibres are not a statistically
+representative sample, and this is not OpenAI's complete `F.rows` and
+`F.physicalProduct selected u` over all conductors. A ratio of 1024/19 on
+four finite witnesses is not a global `Z^-η` saving.
+
 ## 5. Specific next analytic target
 
 Use real NNS coordinates for the *ACTUAL* Hecke source and preserve all selected labels. Determine whether the current `PositiveAt` -> `retainedSourceEnergy` -> `diagonalControl` step pays extra positive mass for phase-unfavourable row families. The precise analytic inequality to strengthen is the upper bound on the `retainedSourceEnergy` of those actual derivative-profile polynomials, with an independent improvement to the marked capacity or source width.
