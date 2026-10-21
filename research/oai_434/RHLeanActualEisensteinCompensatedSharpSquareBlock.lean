@@ -62,9 +62,9 @@ def rhleanActualContinuedLocalFactor
     (η : HeckeFamily.Character) (P : PrimeIdeal)
     (x w z B q : ℂ) : ℂ :=
   compensatedReplacement
-    (coordV (Ideal.absNorm P.val) z)
-    (coordW (Ideal.absNorm P.val) 1 w)
-    (coordD (Ideal.absNorm P.val)
+    (ProbeEuler.coordV (Ideal.absNorm P.val) z)
+    (ProbeEuler.coordW (Ideal.absNorm P.val) 1 w)
+    (ProbeEuler.coordD (Ideal.absNorm P.val)
        (HeckeFamily.idealCoeff η P.val) 1 x)
     (idealMarkedClosed η P x w z) B q /
     idealClosedCorrection η P x w z
