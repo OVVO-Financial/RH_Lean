@@ -5,8 +5,9 @@ on:
       - 'research/VF_919_OAI_ACTUAL_MARKED_FOURTH_REAL_NNS_20261021.lean'
       - 'research/VF_919_OAI_POLARIZED_SIGNED_NNS_EULER_20261021.lean'
       - 'research/OAI_REFINED_MARKED_NNS_ATTACK_20261021.md'
-      - 'research/OAI_POLARIZED_EULER_PARSEVAL_PROOF_AUDIT_20261021.md'
+      - 'research/OAI_POLARIZED_RESONANCE_SOURCE_CONTRACT_20261021.md'
       - 'scripts/oai_marked_phi_sextic_stress.py'
+      - 'scripts/oai_marked_polarized_source_audit.py'
       - '.github/workflows/oai-marked-real-nns.yml'
   workflow_dispatch:
 
@@ -20,7 +21,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Verify sextic phase, NNS quartic and width slack
-        run: python3 scripts/oai_marked_phi_sextic_stress.py
+        run: |
+          python3 scripts/oai_marked_phi_sextic_stress.py
+          python3 scripts/oai_marked_polarized_source_audit.py
 
   marked-real-nns-lean:
     runs-on: ubuntu-latest
