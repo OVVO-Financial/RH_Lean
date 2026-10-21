@@ -129,7 +129,7 @@ theorem vf919EulerPrimeSquareHandoff_eq_neg_parent
   have hIco :
       (∑ c ∈ Finset.Ico 1 p, realMoebiusStep c) =
         realMertensLength p - realMertensLength 1 := by
-    simpa [realMertensLength] using
+    simpa [realMertensLength] using!
       (Finset.sum_Ico_eq_sub (fun c : ℕ => realMoebiusStep c) hle)
   unfold vf919EulerPrimeSquareHandoff
   calc
@@ -155,7 +155,7 @@ theorem vf919EulerPrimeSquareHandoff_diagonal_eq_parent
   have hIco :
       (∑ c ∈ Finset.Ico 1 p, realMoebiusStep c ^ 2) =
         realMertensDiagonal p - realMertensDiagonal 1 := by
-    simpa [realMertensDiagonal] using
+    simpa [realMertensDiagonal] using!
       (Finset.sum_Ico_eq_sub (fun c : ℕ => realMoebiusStep c ^ 2) hle)
   calc
     (∑ c ∈ Finset.Ico 1 p, realMoebiusStep (p * c) ^ 2) =

@@ -194,7 +194,7 @@ theorem odd_shell_hyperbola_split_eq (R M : ℕ) :
   rw [vf919EulerOddSquarefreeCarrier_mass]
   unfold vf919EulerOddLowMass vf919EulerOddHighMass
     vf919EulerOddLowSites vf919EulerOddHighSites
-  simpa only [not_le] using
+  simpa only [not_le] using!
     (Finset.sum_filter_add_sum_filter_not
       (s := vf919EulerOddSquarefreeCarrier R)
       (p := fun n => RHLean.Proof.canonicalCofactor n ≤ 3 * M)
@@ -240,7 +240,7 @@ theorem odd_shell_high_tail_dual_by_gpf (R M : ℕ) (hR : 2 ≤ R) :
     have hnlo := (Finset.mem_Ico.mp hnI).1
     have hn1 : 1 < n := by nlinarith
     have hmu := RHLean.Proof.canonicalSignedParent_moebius hsq hn1
-    simpa [realMoebiusStep] using
+    simpa [realMoebiusStep] using!
       congrArg (fun z : ℤ => (z : ℝ)) hmu
   have hfiber := Finset.sum_fiberwise_of_maps_to
     (s := S) (t := T) (g := RHLean.Proof.canonicalLargestPrimeFactor)

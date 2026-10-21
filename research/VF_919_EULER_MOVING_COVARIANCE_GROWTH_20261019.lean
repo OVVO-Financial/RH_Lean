@@ -172,7 +172,7 @@ theorem vf919EulerShellPrimeCount_eq_prefixDifference (R : ℕ) :
         vf919EulerPrimePrefix (R ^ 2) := by
   have hle : R ^ 2 ≤ (R + 1) ^ 2 :=
     Nat.pow_le_pow_left (by omega) 2
-  simpa [vf919EulerShellPrimeCount, vf919EulerPrimePrefix] using
+  simpa [vf919EulerShellPrimeCount, vf919EulerPrimePrefix] using!
     (Finset.sum_Ico_eq_sub vf919EulerPrimeIndicator hle)
 
 /-- Prime arrivals partition ALL integer sites up to the square cutoff.

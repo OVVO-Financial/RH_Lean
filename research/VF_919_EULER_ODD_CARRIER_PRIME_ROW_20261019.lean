@@ -46,7 +46,7 @@ theorem vf919EulerMertens_real_eq_odd_sub_half (X : ℕ) :
     (mertensSummatory X).re =
       vf919EulerOddRealMertens X - vf919EulerOddRealMertens (X / 2) := by
   have h := congrArg Complex.re (vf919EulerMertens_eq_odd_sub_half X)
-  simpa [vf919EulerOddRealMertens] using h
+  simpa [vf919EulerOddRealMertens] using! h
 
 /-- Any true odd-prefix envelope transfers to full Mertens at two scales.
 This is conditional on the explicit odd bound hOdd. -/
@@ -92,9 +92,9 @@ theorem vf919EulerOddBlock_source_partition (R X : ℕ) :
         apply Finset.sum_congr rfl
         intro n _
         by_cases hn : Odd n
-        · simp only [if_pos hn]
+        · simp only [ite_eq_left hn]
           exact vf919EulerFixedWheel_site_partition R n
-        · simp only [if_neg hn]
+        · simp only [ite_eq_right hn]
           ring
     _ = _ := by rw [Finset.sum_sub_distrib, Finset.sum_add_distrib]
 

@@ -168,7 +168,7 @@ theorem vf919EulerOddGpfFiber_mass
     have hmu : ArithmeticFunction.moebius n =
         -(ArithmeticFunction.moebius m) := by
       rw [RHLean.Proof.canonicalSignedParent_moebius hsq hn1, hm]
-    simpa [realMoebiusStep] using
+    simpa [realMoebiusStep] using!
       congrArg (fun z : ℤ => (z : ℝ)) hmu
   calc
     (∑ n ∈ vf919EulerOddGpfFiber R m, realMoebiusStep n) =
@@ -281,7 +281,7 @@ theorem gpf_one_fiber_eq_prime_count (R : ℕ) (hR : 2 ≤ R) :
     · intro hn
       rcases vf919EulerOddGpfFiber_prime_owner hR hn with
         ⟨q, hq, _hrough, hprod, hlo, hhi⟩
-      have hnq : n = q := by simpa using hprod.symm
+      have hnq : n = q := by simpa using! hprod.symm
       exact Finset.mem_filter.mpr
         ⟨Finset.mem_Ico.mpr ⟨hlo, hhi⟩, hnq.symm ▸ hq⟩
     · intro hn
@@ -422,7 +422,7 @@ theorem vf919EulerGpfKernel_quadratic
         vf919EulerGpfKernel H m n) =
       ∑ R ∈ Finset.Ico H (2 * H),
         (vf919EulerGpfWeightedResponse M R) ^ 2 := by
-  simpa [vf919EulerGpfKernel, vf919EulerGpfWeightedResponse] using
+  simpa [vf919EulerGpfKernel, vf919EulerGpfWeightedResponse] using!
     vf919EulerGpf_finiteKernel_quad H M
       (fun R m => vf919EulerOddGpfPrimeCount R m)
 
@@ -433,7 +433,7 @@ theorem vf919EulerGpfDeltaKernel_quadratic
         vf919EulerGpfDeltaKernel H m n alpha) =
       ∑ R ∈ Finset.Ico H (2 * H),
         (vf919EulerGpfCenteredResponse M alpha R) ^ 2 := by
-  simpa [vf919EulerGpfDeltaKernel, vf919EulerGpfCenteredResponse] using
+  simpa [vf919EulerGpfDeltaKernel, vf919EulerGpfCenteredResponse] using!
     vf919EulerGpf_finiteKernel_quad H M
       (fun R m => vf919EulerGpfDelta R m alpha)
 
@@ -523,7 +523,7 @@ theorem gpf_mul_prime_of_lt_gpf
     intro r hr
     dsimp [q]
     unfold RHLean.Proof.canonicalLargestPrimeFactor
-    rw [dif_pos hd]
+    rw [dite_eq_left hd]
     exact Finset.le_max' d.primeFactors r hr
   have hmax_prod : ∀ r ∈ (p * d).primeFactors, r ≤ q := by
     intro r hr
@@ -535,7 +535,7 @@ theorem gpf_mul_prime_of_lt_gpf
     · exact hmax_d r (Nat.mem_primeFactors.mpr ⟨hrprime, hrd, hdne⟩)
   have hres : RHLean.Proof.canonicalLargestPrimeFactor (p * d) = q := by
     unfold RHLean.Proof.canonicalLargestPrimeFactor
-    rw [dif_pos hprodgt]
+    rw [dite_eq_left hprodgt]
     exact ((p * d).primeFactors.max'_eq_iff
       (Nat.nonempty_primeFactors.mpr hprodgt) q).2
         ⟨hqmem, hmax_prod⟩
