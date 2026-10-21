@@ -298,7 +298,7 @@ theorem gpf_one_fiber_eq_prime_count (R : ℕ) (hR : 2 ≤ R) :
       have hcofactor : RHLean.Proof.canonicalCofactor n = 1 := by
         unfold RHLean.Proof.canonicalCofactor
         rw [hq]
-        simp [hprime.ne_zero]
+        exact Nat.div_self hprime.pos
       exact Finset.mem_filter.mpr
         ⟨Finset.mem_filter.mpr ⟨hnI, hnodd, hprime.squarefree⟩,
           hcofactor⟩
@@ -492,7 +492,7 @@ theorem dyadic_kernel_double_difference_of_zero_defect
       ∑ m ∈ M, ∑ n ∈ M,
         realMoebiusStep m * realMoebiusStep n *
           vf919EulerGpfDeltaKernel H m n alpha := by
-  rw [dyadic_kernel_double_difference_eq]
+  rw [dyadic_kernel_double_difference_eq H M alpha]
   simp [hzero]
 
 /-! ## Genuine greatest-prime preserving local parent/child compensation -/
