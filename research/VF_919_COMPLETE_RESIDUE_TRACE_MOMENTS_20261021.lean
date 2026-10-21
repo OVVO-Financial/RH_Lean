@@ -1,4 +1,4 @@
-import «research.VF_919_SPLIT_SEXTIC_CONJUGATE_PRODUCT_20261020»
+import «research.VF_919_NATIVE_SEXTIC_IDEAL_FIBER_20261019»
 
 /-!
 # Exact complete-residue sextic trace moments
