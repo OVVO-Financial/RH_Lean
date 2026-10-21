@@ -92,6 +92,9 @@ jobs:
           #check RHLean.Analysis.vf915GlobalDecoded_fullKeyWeightedOwnerWeld
           #check RHLean.Analysis.vf915GlobalDecoded_originalNNSMass
           #check RHLean.Analysis.vf915GlobalDecoded_originalAnchoredExcess
+          #check RHLean.Analysis.vf915GlobalDecoded_fullyLabelledPairGramWeld
+          #check RHLean.Analysis.vf915GlobalNegativeComposite_freshPrime_normalForm
+          #check RHLean.Analysis.vf915GlobalDecoded_originalResidualAndBoundary
           #check RHLean.Analysis.vf915GlobalDecoded_halfGate_iff_original
           #print axioms RHLean.Analysis.vf915GlobalDecoded_originalAnchoredExcess
           LEAN
