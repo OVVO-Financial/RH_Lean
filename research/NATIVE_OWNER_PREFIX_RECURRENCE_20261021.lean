@@ -98,7 +98,7 @@ def rawPrefixAmplitude (M : ℕ → ℝ) (B : ℕ) (hB : 2 ≤ B) : ℝ := by
   let s := (Finset.Ico 1 B).image fun n => |M n| / Real.sqrt (n : ℝ)
   have hs : s.Nonempty := by
     refine ⟨|M 1| / Real.sqrt (1 : ℝ), ?_⟩
-    exact Finset.mem_image.mpr ⟨1, Finset.mem_Ico.mpr ⟨le_rfl, by omega⟩, rfl⟩
+    exact Finset.mem_image.mpr ⟨1, Finset.mem_Ico.mpr ⟨le_rfl, by omega⟩, by norm_num⟩
   exact s.max' hs
 
 /-- For the actual Mertens normalization, adjoining 1 does not change E(B). -/
@@ -160,9 +160,15 @@ theorem owner_reciprocal_le_log (R : ℕ) (hR : 2 ≤ R) :
       (fun p _ _ => inv_nonneg.mpr (Nat.cast_nonneg p))
   have hh : (∑ p ∈ Finset.Icc 1 (R ^ 2), (p : ℝ)⁻¹) ≤
       1 + 2 * Real.log (R : ℝ) := by
-    simpa only [harmonic_eq_sum_Icc, Rat.cast_sum, Rat.cast_inv,
-      Rat.cast_natCast, Nat.cast_pow, Real.log_pow, Nat.cast_ofNat]
-      using harmonic_le_one_add_log (R ^ 2)
+    have hh₀ : (∑ p ∈ Finset.Icc 1 (R ^ 2), (p : ℝ)⁻¹) ≤
+        1 + Real.log ((R ^ 2 : ℕ) : ℝ) := by
+      simpa only [harmonic_eq_sum_Icc, Rat.cast_sum, Rat.cast_inv,
+        Rat.cast_natCast] using harmonic_le_one_add_log (R ^ 2)
+    have hlog : Real.log ((R ^ 2 : ℕ) : ℝ) = 2 * Real.log (R : ℝ) := by
+      rw [Nat.cast_pow, Real.log_pow]
+      norm_num
+    rw [hlog] at hh₀
+    exact hh₀
   exact hsum.trans hh
 
 theorem diagonal_le_log (M : ℕ → ℝ) (R : ℕ) (hR : 2 ≤ R) :
@@ -280,12 +286,13 @@ theorem endpoint_amplitude_bound (M A : ℕ → ℝ) {κ ε C : ℝ}
       _ = l * l := Real.rpow_add hR0 _ _
       _ = l ^ 2 := by ring
   have hxR : x ≤ (R : ℝ) ^ 2 := by
+    dsimp [x, endpoint]
     exact_mod_cast (Nat.sub_le (R ^ 2) 1)
   have henergy : M (endpoint R) ^ 2 ≤ K₀ * (l * e * (R : ℝ)) ^ 2 := by
     calc
       M (endpoint R) ^ 2 = d + compensation M A R :=
         square_eq_diagonal_add_compensation M A (hdecomp R hR)
-      _ ≤ d + C * q * (x + d) := add_le_add_left (howner R hR) d
+      _ ≤ d + C * q * (x + d) := add_le_add (le_refl d) (howner R hR)
       _ ≤ (C + 1) * q * (x + d) := by
         nlinarith [hdq, mul_nonneg (by linarith : 0 ≤ q) hx0]
       _ ≤ (C + 1) * q * ((1 + k) * x * p * e ^ 2) :=
@@ -321,7 +328,7 @@ theorem abs_sub_le_of_unit_step (M : ℕ → ℝ)
         calc
           |M (b + 1) - M a| =
               |(M b - M a) + (M (b + 1) - M b)| := by congr 1; ring
-          _ ≤ |M b - M a| + |M (b + 1) - M b| := abs_add _ _
+          _ ≤ |M b - M a| + |M (b + 1) - M b| := abs_add_le _ _
           _ ≤ ((b - a : ℕ) : ℝ) + 1 :=
             add_le_add (ih hab') (hstep b (by omega))
           _ = (((b + 1) - a : ℕ) : ℝ) := by
@@ -357,7 +364,8 @@ theorem upper_square_geometry {n B : ℕ} (hn : 1 ≤ n) (hnB : n < B ^ 2) :
   have hgap : endpoint (r + 1) - n ≤ 2 * r := by rw [hendpoint]; omega
   have hr2R : (r : ℝ) ^ 2 ≤ (n : ℝ) := by exact_mod_cast hr2
   have hrsqrt : (r : ℝ) ≤ Real.sqrt (n : ℝ) := by
-    simpa only [Real.sqrt_sq_eq_abs, abs_of_nonneg (Nat.cast_nonneg r)]
+    simpa only [Real.sqrt_sq_eq_abs,
+      abs_of_nonneg (show (0 : ℝ) ≤ (r : ℝ) from Nat.cast_nonneg r)]
       using Real.sqrt_le_sqrt hr2R
   have hr1R : (1 : ℝ) ≤ (r : ℝ) := by exact_mod_cast hr1
   have hRreal : ((r + 1 : ℕ) : ℝ) ≤ 2 * Real.sqrt (n : ℝ) := by
@@ -389,8 +397,9 @@ theorem prefix_amplitude_le_of_endpoint (M : ℕ → ℝ) {a C : ℝ}
       _ ≤ Z := mul_le_mul hBp hE (by norm_num) (by positivity)
   have hZ0 : 0 ≤ Z := by linarith
   apply prefixAmplitude_le M
-  · change 1 ≤ (2 * C + 2) * Z
-    nlinarith [mul_nonneg hC hZ0]
+  · have hzbound : 1 ≤ (2 * C + 2) * Z := by
+      nlinarith [mul_nonneg hC hZ0]
+    simpa only [Z, mul_assoc] using hzbound
   · intro n hn hnB
     let R := Nat.sqrt n + 1
     obtain ⟨hR2, hRB, hnend, hRreal, hgapreal⟩ := upper_square_geometry hn hnB
@@ -421,10 +430,10 @@ theorem prefix_amplitude_le_of_endpoint (M : ℕ → ℝ) {a C : ℝ}
       simpa only [one_mul] using mul_le_mul_of_nonneg_right hZ hs0
     calc
       |M n| = |M (endpoint R) + (M n - M (endpoint R))| := by congr 1; ring
-      _ ≤ |M (endpoint R)| + |M n - M (endpoint R)| := abs_add _ _
+      _ ≤ |M (endpoint R)| + |M n - M (endpoint R)| := abs_add_le _ _
       _ ≤ C * Z * (R : ℝ) + 2 * Real.sqrt (n : ℝ) := add_le_add hend hdiff
       _ ≤ C * Z * (2 * Real.sqrt (n : ℝ)) + 2 * Real.sqrt (n : ℝ) :=
-        add_le_add_right (mul_le_mul_of_nonneg_left hRreal (mul_nonneg hC hZ0)) _
+        add_le_add (mul_le_mul_of_nonneg_left hRreal (mul_nonneg hC hZ0)) (le_refl _)
       _ ≤ C * Z * (2 * Real.sqrt (n : ℝ)) + 2 * (Z * Real.sqrt (n : ℝ)) := by
         linarith
       _ = ((2 * C + 2) * (B : ℝ) ^ a * prefixAmplitude M B) *
@@ -531,8 +540,9 @@ theorem growthAtMost_of_prefix_recurrence (M : ℕ → ℝ) {γ θ : ℝ}
       mul_le_mul_of_nonneg_right
         (mul_le_mul_of_nonneg_left hEB (by positivity)) (Real.sqrt_nonneg _)
     _ = C * (D + 1) * (B : ℝ) ^ s * Real.sqrt (n : ℝ) := by
-      dsimp [s]
-      rw [Real.rpow_add hB0]
+      have hpow : (B : ℝ) ^ s = (B : ℝ) ^ (γ + ε) * (B : ℝ) ^ a :=
+        Real.rpow_add hB0 (γ + ε) a
+      rw [hpow]
       ring
     _ ≤ C * (D + 1) * (2 * Real.sqrt (n : ℝ)) ^ s * Real.sqrt (n : ℝ) :=
       mul_le_mul_of_nonneg_right
