@@ -133,8 +133,8 @@ theorem twoAdmissionGates_exact_three_faces
     {alpha : Type*} (S : Finset alpha)
     (admitA admitB : alpha → Prop) (A B : alpha → ℂ) :
     (∑ i ∈ S,
-       (if admitA i then A i else 0) -
-       (if admitB i then B i else 0)) =
+       ((if admitA i then A i else 0) -
+        (if admitB i then B i else 0))) =
     (∑ i ∈ S,
        if admitA i ∧ admitB i then A i - B i else 0) +
     (∑ i ∈ S,
