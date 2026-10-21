@@ -1,0 +1,72 @@
+name: Concurrent prime-wheel and OAI real NNS ledger
+on:
+  pull_request:
+    paths:
+      - 'research/VF_919_PRIME_WHEEL_OAI_SIMULTANEOUS_COVARIANCE_20261021.md'
+      - 'research/VF_919_WHEEL_OAI_SIMULTANEOUS_STAGE_20261021.lean'
+      - 'research/VF_919_ACTUAL_WEIGHTED_NNS_COVARIANCE_KERNEL_20261021.lean'
+      - 'scripts/prime_wheel_oai_simultaneous_317_1027.py'
+      - '.github/workflows/vf919-wheel-oai-concurrent.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  integer-and-ideal-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify every integer and every wheel-prime stage at 317/1027
+        run: |
+          python3 scripts/prime_wheel_oai_simultaneous_317_1027.py | tee /tmp/wheel_oai_simultaneous.log
+          grep -F 'SQUARE ROOT 317, X=100488: M(X)=-28, low-wheel S=-20940, high-prime delta=20912' /tmp/wheel_oai_simultaneous.log
+          grep -F 'SQUARE ROOT 1027, X=1054728: M(X)=367, low-wheel S=-178151, high-prime delta=178518' /tmp/wheel_oai_simultaneous.log
+          grep -F 'First high prime p=317: k=floor(X/p)=316, M(k)=-3, wheel delta=8' /tmp/wheel_oai_simultaneous.log
+          grep -F 'First high prime p=1031: k=floor(X/p)=1023, M(k)=-4, wheel delta=10' /tmp/wheel_oai_simultaneous.log
+          grep -F 'PASS every integer, every sequential prime stage' /tmp/wheel_oai_simultaneous.log
+
+  simultaneous-lean:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: \${{ github.event.pull_request.head.sha || github.sha }}
+      - uses: ./.github/actions/lean-setup
+      - name: Restore pinned StrongPNT cache
+        uses: actions/cache/restore@v5
+        with:
+          path: .lake/packages/PrimeNumberTheoremAnd/.lake/build
+          key: pntplus-build-v1-\${{ runner.os }}-\${{ runner.arch }}-\${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
+      - name: Prebuild pinned StrongPNT
+        run: lake build PrimeNumberTheoremAnd.StrongPNT
+      - name: Restore native RHLean artifacts
+        uses: actions/cache/restore@v5
+        with:
+          path: .lake/build
+          key: rhlean-build-\${{ runner.os }}-\${{ runner.arch }}-\${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'RHLean.lean', 'RHLean/**/*.lean') }}
+          restore-keys: |
+            rhlean-build-\${{ runner.os }}-\${{ runner.arch }}-\${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-
+      - name: Compile actual prime wheel + signed Hecke NNS kernel
+        uses: ./.github/actions/research-compile
+        with:
+          targets: |
+            research/VF_919_WHEEL_OAI_SIMULTANEOUS_STAGE_20261021.lean
+            research/VF_919_ACTUAL_WEIGHTED_NNS_COVARIANCE_KERNEL_20261021.lean
+      - name: Check original source and synchronized theorem signatures
+        run: |
+          cat > research/VF_919_WHEEL_OAI_ACCEPTANCE_TEMP.lean <<'LEAN'
+          import «research.VF_919_WHEEL_OAI_SIMULTANEOUS_STAGE_20261021»
+          import «research.VF_919_ACTUAL_WEIGHTED_NNS_COVARIANCE_KERNEL_20261021»
+          #check RHLean.Analysis.vf919WheelOAIPrimeStage_energy
+          #check RHLean.Analysis.vf919WheelOAIHeckePair_realNNS
+          #check RHLean.Analysis.vf919WheelOAIStage_sideBySide
+          #check RHLean.Analysis.vf919WeightedPhiMarkedMoment_eq_co_sub_div
+          #check RHLean.Analysis.vf919ActualMarkedMoment_eq_exactWeightedNNSCovariance
+          #check RHLean.Analysis.vf919EulerPairWeightedNNSCovariance
+          #print axioms RHLean.Analysis.vf919WheelOAIPrimeStage_energy
+          #print axioms RHLean.Analysis.vf919ActualMarkedMoment_eq_exactWeightedNNSCovariance
+          LEAN
+          lake env lean -DwarningAsError=true research/VF_919_WHEEL_OAI_ACCEPTANCE_TEMP.lean
