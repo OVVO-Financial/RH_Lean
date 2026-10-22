@@ -39,7 +39,7 @@ def nnsPrincipalNonprincipalCross {ι : Type*}
 theorem nns_principal_nonprincipal_norm_polarization (R H : ℂ) :
     ‖R + H‖ ^ 2 =
       ‖R‖ ^ 2 + ‖H‖ ^ 2 + 2 * (R * star H).re := by
-  simp only [Complex.sq_norm, Complex.normSq_apply,
+  simp only [Complex.star_def, Complex.sq_norm, Complex.normSq_apply,
     Complex.add_re, Complex.add_im, Complex.mul_re,
     Complex.conj_re, Complex.conj_im]
   ring
@@ -61,7 +61,10 @@ theorem nns_energy_principal_nonprincipal_exact {ι : Type*}
       intro u hu
       rw [nns_principal_nonprincipal_norm_polarization]
     _ = _ := by
-      simp only [mul_add, Finset.sum_add_distrib, ← Finset.mul_sum]
+      simp only [mul_add, Finset.sum_add_distrib, Finset.mul_sum]
+      apply congrArg₂ (· + ·) rfl
+      apply Finset.sum_congr rfl
+      intro u hu
       ring
 
 /-- The nonnegative weighted absolute mixed mass is bounded by the
@@ -128,7 +131,8 @@ theorem nns_principal_nonprincipal_cross_le_geometric
           _ ≤ |(R u * star (H u)).re| := le_abs_self _
           _ ≤ ‖R u * star (H u)‖ := Complex.abs_re_le_norm _
           _ = _ := by simp only [norm_mul, norm_star]
-      exact mul_le_mul_of_nonneg_left hc (homega u hu)
+      simpa only [mul_assoc] using
+        (mul_le_mul_of_nonneg_left hc (homega u hu))
     _ ≤ _ := nns_principal_nonprincipal_weighted_abs_cross_le
       rows omega homega R H
 
@@ -210,8 +214,13 @@ theorem nns_energy_principal_nonprincipal_bound
        Real.sqrt (nnsPrincipalWeightedEnergy rows omega H)) ^ 2 :=
         nns_energy_principal_nonprincipal_root_bound rows omega homega R H
     _ ≤ (Real.sqrt T) ^ 2 := by
-      nlinarith [add_nonneg (Real.sqrt_nonneg _) (Real.sqrt_nonneg _),
-        Real.sqrt_nonneg T]
+      have hsum : 0 ≤
+          Real.sqrt (nnsPrincipalWeightedEnergy rows omega R) +
+          Real.sqrt (nnsPrincipalWeightedEnergy rows omega H) :=
+        add_nonneg (Real.sqrt_nonneg _) (Real.sqrt_nonneg _)
+      have hprod := mul_nonneg (sub_nonneg.mpr hRoot)
+        (add_nonneg (Real.sqrt_nonneg T) hsum)
+      nlinarith
     _ = T := Real.sq_sqrt hT
 
 end RHLean.Analysis
