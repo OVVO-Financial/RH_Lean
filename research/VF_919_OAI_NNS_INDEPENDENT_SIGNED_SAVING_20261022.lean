@@ -56,7 +56,7 @@ def nnsTwoPhaseAtom (a b : ℂ) (phase atom : Bool) : ℂ :=
 private theorem nnsTwoPhase_row (a b : ℂ) (phase : Bool) :
     (∑ atom : Bool, nnsTwoPhaseAtom a b phase atom) =
       if phase then a - b else a + b := by
-  cases phase <;> simp [nnsTwoPhaseAtom, Fintype.sum_bool] <;> ring
+  cases phase <;> simp [nnsTwoPhaseAtom] <;> ring
 
 /-- Unconditional complex parallelogram payment from the two ACTUAL
     opposite character phases. No moment estimate is assumed. -/
@@ -133,10 +133,12 @@ theorem nnsTwoPhase_independent_signed_moment (a b : ℂ) :
       2 * (‖a‖ ^ 2 + ‖b‖ ^ 2)
   rw [Fintype.sum_bool]
   rw [nnsTwoPhase_row, nnsTwoPhase_row]
-  simp only [if_true, if_false]
-  first
-  | exact nnsTwoPhase_complex_saving a b
-  | simpa only [add_comm] using nnsTwoPhase_complex_saving a b
+  simpa using
+    (show ‖a - b‖ ^ 2 + ‖a + b‖ ^ 2 =
+        2 * (‖a‖ ^ 2 + ‖b‖ ^ 2) from by
+      calc
+        _ = ‖a + b‖ ^ 2 + ‖a - b‖ ^ 2 := by ring
+        _ = _ := nnsTwoPhase_complex_saving a b)
 
 /-- NNS realification CANNOT establish a uniform saving on arbitrary
     signed sources: n coherent atoms have n² energy, not O(n).
