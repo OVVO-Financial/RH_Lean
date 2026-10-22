@@ -1,0 +1,142 @@
+import Mathlib
+import «research.VF_919_OAI_GROUPED_HOLDER_SIXTH_SOURCE_20261022»
+
+/-!
+# Source-honest two-bill conditional ell^(6/5) estimate
+
+The already-grouped OAI compensated fiber b(m) is decomposed into two
+source-specific physical bills:
+    b(m) = shift(m) + Euler(m).
+The original local identity does NOT prove a Z^(-sigma) bound for either.
+
+What is proved here, independently and exactly:
+  (i) finite ell^(6/5) norm of the grouped sum, from actual pointwise
+      shift and Euler bills multiplied by the prime-slot multiplicity tau;
+ (ii) the D^(1/3+c) Z^(-sigma) exponent arithmetic WHEN the needed
+      pointwise scale and multiplicity MOMENT estimates are supplied.
+
+The missing source obligations are not wrapped in invented statements:
+  * source-specific alignment of physical windows at child/parent scale;
+  * verified derivative bound AND slot-band width eta_P = O(Z^-sigma);
+  * BOTH terms of ProbeLocal.normalized_cancellation;
+  * physical normalization and masks; actual prime representation tau;
+  * a separate finite ideal-count / tau^(6/5) moment bound.
+No real analytic or Hecke estimates are imported from the target high-row
+bound, and a generic finite sum inequality is not called an OAI proof.
+-/
+
+noncomputable section
+open scoped Classical BigOperators
+
+namespace RHLean.Analysis
+
+/-- Once the SOURCE-SPECIFIC shift and Euler bills have been bounded
+    pointwise against the SAME actual prime-slot multiplicity, the
+    already-compensated fiber sum has the exact weighted ell^(6/5)
+    bound. The coefficient is shift+Euler, NOT the ungrouped atoms.
+    The factor T_tau is a proven independent multiplicity norm, never
+    replaced by the mean tau without a justified moment bound. -/
+theorem oai_grouped_fiber_l65_bound
+    {α : Type*} (carrier : Finset α)
+    (shift euler : α → ℂ) (tau : α → ℝ)
+    (Ashift Aeuler Ttau : ℝ)
+    (hAshift : 0 ≤ Ashift) (hAeuler : 0 ≤ Aeuler)
+    (htau : ∀ m ∈ carrier, 0 ≤ tau m)
+    (hShift : ∀ m ∈ carrier, ‖shift m‖ ≤ Ashift * tau m)
+    (hEuler : ∀ m ∈ carrier, ‖euler m‖ ≤ Aeuler * tau m)
+    (hTauMoment :
+      (∑ m ∈ carrier, tau m ^ (6 / 5 : ℝ)) ^
+        (5 / 6 : ℝ) ≤ Ttau) :
+    (∑ m ∈ carrier, ‖shift m + euler m‖ ^ (6 / 5 : ℝ)) ^
+      (5 / 6 : ℝ) ≤ (Ashift + Aeuler) * Ttau := by
+  let A := Ashift + Aeuler
+  have hA : 0 ≤ A := add_nonneg hAshift hAeuler
+  have hPoint (m : α) (hm : m ∈ carrier) :
+      ‖shift m + euler m‖ ≤ A * tau m := by
+    calc
+      _ ≤ ‖shift m‖ + ‖euler m‖ := norm_add_le _ _
+      _ ≤ Ashift * tau m + Aeuler * tau m :=
+        add_le_add (hShift m hm) (hEuler m hm)
+      _ = A * tau m := by dsimp [A]; ring
+  have hSum :
+      (∑ m ∈ carrier, ‖shift m + euler m‖ ^ (6 / 5 : ℝ)) ≤
+        A ^ (6 / 5 : ℝ) *
+          (∑ m ∈ carrier, tau m ^ (6 / 5 : ℝ)) := by
+    calc
+      _ ≤ ∑ m ∈ carrier, (A * tau m) ^ (6 / 5 : ℝ) := by
+        apply Finset.sum_le_sum
+        intro m hm
+        exact Real.rpow_le_rpow (norm_nonneg _) (hPoint m hm)
+          (by norm_num)
+      _ = ∑ m ∈ carrier,
+          A ^ (6 / 5 : ℝ) * tau m ^ (6 / 5 : ℝ) := by
+        apply Finset.sum_congr rfl
+        intro m hm
+        exact Real.mul_rpow hA (htau m hm)
+      _ = _ := by rw [Finset.mul_sum]
+  have hroot :
+      (∑ m ∈ carrier, ‖shift m + euler m‖ ^ (6 / 5 : ℝ)) ^
+        (5 / 6 : ℝ) ≤
+        (A ^ (6 / 5 : ℝ) *
+          (∑ m ∈ carrier, tau m ^ (6 / 5 : ℝ))) ^ (5 / 6 : ℝ) :=
+    Real.rpow_le_rpow (by positivity) hSum (by norm_num)
+  have hpow : (A ^ (6 / 5 : ℝ)) ^ (5 / 6 : ℝ) = A := by
+    rw [← Real.rpow_mul hA]
+    norm_num
+  have hTauNonneg :
+      0 ≤ (∑ m ∈ carrier, tau m ^ (6 / 5 : ℝ)) ^
+          (5 / 6 : ℝ) := by positivity
+  calc
+    _ ≤ (A ^ (6 / 5 : ℝ) *
+          (∑ m ∈ carrier, tau m ^ (6 / 5 : ℝ))) ^ (5 / 6 : ℝ) :=
+      hroot
+    _ = A *
+        (∑ m ∈ carrier, tau m ^ (6 / 5 : ℝ)) ^
+          (5 / 6 : ℝ) := by
+        rw [Real.mul_rpow (by positivity) (by positivity), hpow]
+    _ ≤ A * Ttau := mul_le_mul_of_nonneg_left hTauMoment hA
+    _ = (Ashift + Aeuler) * Ttau := rfl
+
+/-- Algebraically, a bound D^(-1/2)*Z^(-sigma) for both *combined*
+    physical bills and a real independent tau moment of
+    D^(5/6+c) yield D^(1/3+c) Z^(-sigma) in the ell^(6/5)
+    coefficient norm. Those two premise bounds are the OPEN original
+    Stage-II analytic work; a fixed-width prime slot cannot supply the
+    first simply by being called a narrow window. -/
+theorem oai_grouped_fiber_l65_power_budget
+    {α : Type*} (carrier : Finset α)
+    (shift euler : α → ℂ) (tau : α → ℝ)
+    (Ashift Aeuler D Z sigma c : ℝ)
+    (hAshift : 0 ≤ Ashift) (hAeuler : 0 ≤ Aeuler)
+    (hD : 0 < D) (hZ : 0 < Z)
+    (htau : ∀ m ∈ carrier, 0 ≤ tau m)
+    (hShift : ∀ m ∈ carrier, ‖shift m‖ ≤ Ashift * tau m)
+    (hEuler : ∀ m ∈ carrier, ‖euler m‖ ≤ Aeuler * tau m)
+    (hAmp : Ashift + Aeuler ≤ D ^ (-(1 / 2 : ℝ)) * Z ^ (-sigma))
+    (hTauMoment :
+      (∑ m ∈ carrier, tau m ^ (6 / 5 : ℝ)) ^
+        (5 / 6 : ℝ) ≤ D ^ ((5 / 6 : ℝ) + c)) :
+    (∑ m ∈ carrier, ‖shift m + euler m‖ ^ (6 / 5 : ℝ)) ^
+      (5 / 6 : ℝ) ≤ D ^ ((1 / 3 : ℝ) + c) * Z ^ (-sigma) := by
+  have hTwo := oai_grouped_fiber_l65_bound
+    carrier shift euler tau Ashift Aeuler
+    (D ^ ((5 / 6 : ℝ) + c))
+    hAshift hAeuler htau hShift hEuler hTauMoment
+  have hTauNonneg :
+      0 ≤ (∑ m ∈ carrier, tau m ^ (6 / 5 : ℝ)) ^
+        (5 / 6 : ℝ) := by positivity
+  calc
+    _ ≤ (Ashift + Aeuler) * D ^ ((5 / 6 : ℝ) + c) := hTwo
+    _ ≤ (D ^ (-(1 / 2 : ℝ)) * Z ^ (-sigma)) *
+        D ^ ((5 / 6 : ℝ) + c) :=
+      mul_le_mul_of_nonneg_right hAmp (by positivity)
+    _ = D ^ ((1 / 3 : ℝ) + c) * Z ^ (-sigma) := by
+      rw [show ((5 / 6 : ℝ) + c) =
+          (-(1 / 2 : ℝ)) + ((1 / 3 : ℝ) + c) by ring,
+        Real.rpow_add hD]
+      ring
+
+end RHLean.Analysis
+
+#print axioms RHLean.Analysis.oai_grouped_fiber_l65_bound
+#print axioms RHLean.Analysis.oai_grouped_fiber_l65_power_budget
