@@ -4,14 +4,14 @@
 
 ## Source authority and verified/research distinction
 
-- Original upstream: \`openai/math@1581d4cbdd69a0faf34b2089614fe2a814316a6a\`, Lean 4.34.1; consult original \`Detector/Local.lean\`, \`Detector/EulerCoordinates.lean\`, \`Detector/Euler.lean\`, \`PrimeRows/CentralSlots.lean\`, \`PrimeRows/HighFromMoments.lean\`, \`Detector/GaussianCommon.lean\`, \`Moments/DetectorPlainFiberSource.lean\`, \`Detector/PrincipalNormalized.lean\` and the original marked moment and Poisson/Hecke source modules. Pin actual exact source commits and lines in every claim.
-- **MERGED on main:** #987 independently **imports** the original unconditional OAI 7/8 certificate to prove square-block consequences, which is different from independently reconstructing its analytic mechanism. #997/#998 supply finite, source-faithful signed NNS bridges; #995 maps real Möbius channels into actual original VF #915 physical returned pairs without closing its bound. #1000–#1004 include the exact compensated norm/phase/source audits and warning-fatally compiled original-OAI-typed complete Gaussian/NNS intertwiner. Do not redo these structural equalities.
-- **OPEN DRAFTS:** #1005 is the original-signed NNS/marked moment, sextic resonance, compensated-fiber and principal budget research; #1006 is the recombined one-prime audit and conditional single-bill \ell^{6/5} consumer, stacked on #1005. Declarations on these branches become \`PROVED_IN_LEAN_ON_MAIN\` **only after** their exact-head warning-fatal mixed-OAI verification and human merge. Source audit findings are not proof of a new global saving.
+- Original upstream: `openai/math@1581d4cbdd69a0faf34b2089614fe2a814316a6a`, Lean 4.34.1; consult original `Detector/Local.lean`, `Detector/EulerCoordinates.lean`, `Detector/Euler.lean`, `PrimeRows/CentralSlots.lean`, `PrimeRows/HighFromMoments.lean`, `Detector/GaussianCommon.lean`, `Moments/DetectorPlainFiberSource.lean`, `Detector/PrincipalNormalized.lean` and the original marked moment and Poisson/Hecke source modules. Pin actual exact source commits and lines in every claim.
+- **MERGED on main:** #987 **imports** the original unconditional OAI 7/8 certificate to prove square-block consequences, which is different from independently reconstructing its analytic mechanism. #997/#998 supply finite, source-faithful signed NNS bridges; #995 maps real Möbius channels into actual original VF #915 physical returned pairs without closing its bound. #1000–#1004 include the exact compensated norm/phase/source audits and warning-fatally compiled original-OAI-typed complete Gaussian/NNS intertwiner. Do not redo these structural equalities.
+- **OPEN DRAFTS:** #1005 is the original-signed NNS/marked moment, sextic resonance, compensated-fiber and principal budget research; #1006 is the recombined one-prime audit and conditional single-bill \(\ell^{6/5}\) consumer, stacked on #1005. Declarations on these branches become `PROVED_IN_LEAN_ON_MAIN` **only after** their exact-head warning-fatal mixed-OAI verification and human merge. Source audit findings are not proof of a new global saving.
 - Working audits: [source-true three gates](../research/VF_919_OAI_COMPENSATED_SEXTIC_THREE_GATES_20261022.md), [NNS independent saving](../research/VF_919_OAI_NNS_INDEPENDENT_SIGNED_SAVING_20261022.md) on #1005; [one-prime recombination](../research/VF_919_OAI_ONE_PRIME_RECOMBINATION_SOURCE_AUDIT_20261022.md) on #1006. Fetch by **PR head ref until merged**, not by assuming the files exist on main. Resolve conflicts from compiled sources.
 
 ## The one mathematical source, two coordinates
 
-For the **actual fully labelled and height-integrated OAI compensated Gaussian source** with its \`compensationSubsetWeight\`, \`compensationRowTest\`, selected slot factors, genuine row/mask/conductor/height weights and distinct negative principal-signal label, write
+For the **actual fully labelled and height-integrated OAI compensated Gaussian source** with its `compensationSubsetWeight`, `compensationRowTest`, selected slot factors, genuine row/mask/conductor/height weights and distinct negative principal-signal label, write
 
 \[
  F_u = \frac{\sum_J A_{J,u}}{\mathrm{normer}}-\mathrm{signal}_u,\qquad
@@ -28,11 +28,11 @@ Let \(\alpha=\beta-11/16-\sigma\) with the original high-row parameter and sourc
  V_{\rm off}-C_{\rm off}\ge D_{\rm diag}-T(Z).
 \]
 
-**Do not assume** \`actual_high_probe_from_raw_moments\`, its conclusion \`hHigh\`, a comparable \`SourceMomentsAt\` premise not independently discharged, or an RH-quality inequality merely to prove this payment. Existing OAI final theorem replay proves its own claim, but is not an independent analytic derivation of the displayed estimate. The genuinely stronger retained-width \`1+D.t/2\` marked intermediate in #1005 is conditional on the original \`PositiveFineSourceInput\`, not an unconditional improvement in the final exponent.
+**Do not assume** `actual_high_probe_from_raw_moments`, its conclusion `hHigh`, a comparable `SourceMomentsAt` premise not independently discharged, or an RH-quality inequality merely to prove this payment. Existing OAI final theorem replay proves its own claim, but is not an independent analytic derivation of the displayed estimate. The genuinely stronger retained-width `1+D.t/2` marked intermediate in #1005 is conditional on the original `PositiveFineSourceInput`, not an unconditional improvement in the final exponent.
 
 ## Gate A — recombine the one-prime source before taking norms (current FIRST attack)
 
-Original \`ProbeLocal.normalized_cancellation\` has **two residual bills with a common compensating factor**. Its recombined complex source, in its original variables, is
+Original `ProbeLocal.normalized_cancellation` has **two residual bills with a common compensating factor**. Its recombined complex source, in its original variables, is
 
 \[
  {\cal B}_1+{\cal B}_2
@@ -47,17 +47,17 @@ Do not take separate absolute values until checking whether the whole bracket ca
  D_{\rm loc}=\eta(P)\overline v\,Q^{-x},\
  B=\overline{\eta(P)}Q^x,\ q=Q^{-w}.
 \]
-The marked Euler expression \(P^\star\) is defined by the original \`Detector/Euler.lean\`, **not** by \(P^\star=-V\); \(B\) may grow, and a fixed annular [c,d] window is not a \(Z^{-\sigma}\)-thin window.
+The marked Euler expression \(P^\star\) is defined by the original `Detector/Euler.lean`, **not** by \(P^\star=-V\); \(B\) may grow, and a fixed annular [c,d] window is not a \(Z^{-\sigma}\)-thin window.
 
 For a squarefree ideal \(\mathfrak m\) with exactly one marked ideal-prime in a source band (\(\tau_S(\mathfrak m)=1\)), unique **ideal** factorization gives exactly one pair \((P,\mathfrak b)\), \(P\mathfrak b=\mathfrak m\). Therefore no cancellation between different factorizations of that coefficient exists there; test the **within-prime recombined local sum** first. Do not extrapolate this uniqueness to repeated-prime, higher-valuation or multi-slot labels.
 
-**Already proved by original OAI under its exact central/unramified/good-support/copime hypotheses:**
+**Already proved by original OAI under its exact central/unramified/good-support/coprime hypotheses:**
 \[
  |\mathrm{continuedCompensatedLocal}_P+
       \mathrm{idealUnramifiedCorrection}_P\,\overline v|
  \le720\,Q^{-51/100}.
 \]
-Source: \`PrimeRows/CentralSlots.lean::actual_central_unramified_error\`, with the specified central-contour parameter ranges. This is a genuine pointwise local power saving for a fixed relative prime band, not a conclusion about every admitted effective ideal. **Neither proclaim (A) false from octave width nor proclaim (A) proved from local \(Q^{-51/100}\).** Establish the exact transport and exponent cost, or give a **source-admitted, normalized counterexample**.
+Source: `PrimeRows/CentralSlots.lean::actual_central_unramified_error`, with the specified central-contour parameter ranges. This is a genuine pointwise local power saving for a fixed relative prime band, not a conclusion about every admitted effective ideal. **Neither proclaim (A) false from octave width nor proclaim (A) proved from local \(Q^{-51/100}\).** Establish the exact transport and exponent cost, or give a **source-admitted, normalized counterexample**.
 
 ## Gate B — the complete original coefficient bill and multiplicity moment
 
@@ -81,7 +81,7 @@ The original ideal-ball absolute sum bound is not an \(\ell^{6/5}\) multiplicity
 
 ## Gate C — source-admitted sextic phase and uniform sixth moment
 
-On the **same grouped original coefficients**, prove effective ideal valuation/class assignment and \(a_{u,I}=b_I\psi_I(u)\) (or an exact full remainder ledger); \(\psi_I\) must be an actual nonprincipal Hecke phase with the original conductor support. Establish upper valuation restrictions on EVERY admitted OAI source occurrence, or isolate higher powers with proved cost. Original \`completePool\` has multiple polynomial factors and selected slots, so a blanket valuation cap two is NOT currently available. Distinguish split conjugate prime ideals even when rational norms coincide; the relative character may be zero, resonant/trivial, or nonuniformly sampled.
+On the **same grouped original coefficients**, prove effective ideal valuation/class assignment and \(a_{u,I}=b_I\psi_I(u)\) (or an exact full remainder ledger); \(\psi_I\) must be an actual nonprincipal Hecke phase with the original conductor support. Establish upper valuation restrictions on EVERY admitted OAI source occurrence, or isolate higher powers with proved cost. Original `completePool` has multiple polynomial factors and selected slots, so a blanket valuation cap two is NOT currently available. Distinguish split conjugate prime ideals even when rational norms coincide; the relative character may be zero, resonant/trivial, or nonuniformly sampled.
 
 Prove, for **all** allowed row tests \(\gamma\), the original incomplete-conductor Gauss/Poisson bound
 \[
@@ -89,11 +89,11 @@ Prove, for **all** allowed row tests \(\gamma\), the original incomplete-conduct
                   \overline{\gamma_u}\right|^6\right)^{1/6}
  \le K\left(\sum_u\omega_u|\gamma_u|^2\right)^{1/2},
 \]
-with exact parameter uniformity, then combine with the **post-grouping** \(\ell^{6/5}\) bound via the formally proved dual. Complete uniform \(\pm1\)/sextic phase averaging is an isometry or mean-subtraction identity, not the needed nonuniform defect bound. For an underlying sixth-power sum the amplitude exponent is \(1/6\); after squaring energy the factor has exponent \(1/3\). Do not invent an upstream \`SexticPoissonGaussBound\` theorem.
+with exact parameter uniformity, then combine with the **post-grouping** \(\ell^{6/5}\) bound via the formally proved dual. Complete uniform \(\pm1\)/sextic phase averaging is an isometry or mean-subtraction identity, not the needed nonuniform defect bound. For an underlying sixth-power sum the amplitude exponent is \(1/6\); after squaring energy the factor has exponent \(1/3\). Do not invent an upstream `SexticPoissonGaussBound` theorem.
 
 ## Gate D — principal normalization, cross term and final exponent ledger
 
-Use the original \`actual_ray_principal_comparison\` with all geometry, Schwartz, excluded-ideal and window hypotheses. The published principal bound has the two exponents \(\beta-11/16-17/48000+\nu\) and \(\beta-11/16+e-(7/8)\ell_{\min}\). Sufficient margins are \(\sigma+\nu\le17/48000\) and \(\sigma+e\le(7/8)\ell_{\min}\), **plus** a justified transport from the physical principal source norm to the complete row-weighted residual \(E_R\). A row-independent \`normer\` is NOT assumed close to 1.
+Use the original `actual_ray_principal_comparison` with all geometry, Schwartz, excluded-ideal and window hypotheses. The published principal bound has the two exponents \(\beta-11/16-17/48000+\nu\) and \(\beta-11/16+e-(7/8)\ell_{\min}\). Sufficient margins are \(\sigma+\nu\le17/48000\) and \(\sigma+e\le(7/8)\ell_{\min}\), **plus** a justified transport from the physical principal source norm to the complete row-weighted residual \(E_R\). A row-independent `normer` is NOT assumed close to 1.
 
 With \(F=R+H\), preserve the **actual signed NNS mixed covariance**
 \[
@@ -112,9 +112,9 @@ For a safe sufficient payment require \(E_R\le c_R^2T,\ E_H\le c_H^2T,\ c_R+c_H\
 | Finite Wheel / Structural Incidence | Prove/count genuine Eisenstein ideal prime-factor multiplicity \(\tau_S\), split/inert/ramified and repeated-valuation sectors, then attack the convex \(\ell^{6/5}\) bound; refuse rational-norm deduplication and blanket cap-two assumptions. |
 | Prime Census / Experimental Number Theory | Falsify only explicitly instantiated, original-source claims: first \(\tau=1\) good-central one-prime local ratios, then full physical normalization/exceptional masks and multiplicity tails. Keep original complex phases and row labels; report first violating coefficient or reproducible exact-head finite fixture. 317/1027 integer VF witnesses are crosswalk regressions, not automatically valid OAI Hecke examples. |
 | Adversarial Referee / Mathematical Red Team | Independently check every original source lemma/hypothesis and exponent; distinguish local decay vs global (A), \(\ell^1\) vs \(\ell^{6/5}\), toy orbit vs incomplete sextic source, finite detector vs full Gaussian source, principal \(1/|\mathrm{normer}|^2\) and \((c_R+c_H)^2\). Reject circular \(hHigh\), hypothetical phase equality and target-equivalent inputs. |
-| Lean Verification / Formal Certification | On its authorized draft branch(s) check exact #1005/#1006 mixed OAI original-type module heads and missing source arrows; reuse #1004 merged \`originalOAI_gaussian_normalized_NNS_full_weighted_moment\`, #1005 \`oai_actual_local_one_prime_recombined\` and #1006 conditional \`oai_grouped_fiber_l65_power_budget_one_bill\` only when present. Formalize an independently proved source transport, multiplicity/moment input or counterexample; no filler rewrite, \`sorry\`, custom axiom or softened warning gate. Human merge only. |
+| Lean Verification / Formal Certification | On its authorized draft branch(s) check exact #1005/#1006 mixed OAI original-type module heads and missing source arrows; reuse #1004 merged `originalOAI_gaussian_normalized_NNS_full_weighted_moment`, #1005 `oai_actual_local_one_prime_recombined` and #1006 conditional `oai_grouped_fiber_l65_power_budget_one_bill` only when present. Formalize an independently proved source transport, multiplicity/moment input or counterexample; no filler rewrite, `sorry`, custom axiom or softened warning gate. Human merge only. |
 
-Every role keeps its existing permissions and one scheduled invocation/day; its report must name main SHA, relevant PR-head/source SHAs, source types, \`IDENTITY_ONLY / CONDITIONAL / PROVED_IN_LEAN / REFUTED\` status, exact uniform hypotheses, independent evidence, a falsifier and the next missing theorem. Read today's **and yesterday's** \`agent-reports\` (branch, local New York dates) and external handoffs. A report, draft PR, passing Markdown job or imported terminal OAI theorem is not independent closure.
+Every role keeps its existing permissions and one scheduled invocation/day; its report must name main SHA, relevant PR-head/source SHAs, source types, `IDENTITY_ONLY / CONDITIONAL / PROVED_IN_LEAN / REFUTED` status, exact uniform hypotheses, independent evidence, a falsifier and the next missing theorem. Read today's **and yesterday's** `agent-reports` (branch, local New York dates) and external handoffs. A report, draft PR, passing Markdown job or imported terminal OAI theorem is not independent closure.
 
 ## Terminal acceptance, without drifting into a different problem
 
@@ -122,4 +122,4 @@ Every role keeps its existing permissions and one scheduled invocation/day; its 
 2. An **independent** \(\tau_S^{6/5}\) multiplicity estimate and uniform actual-family sextic Gauss/Poisson estimate, with true factorization/class admissions.
 3. Complete original normalized principal and row-weighted cross-term payment with the correct \(T(Z)\) exponent and simultaneous LOW/HIGH detector hypotheses.
 4. Kernel-checked end-to-end native original-OAI-source proof **without assuming the sought bound or importing its terminal conclusion**, plus separately identified imported-OAI 7/8 benchmark and still-open original canonical VF #915 gap.
-5. Exact-head warning-fatal Lean 4.34.1 builds, \`#print axioms\`, standard permitted axioms only, source audit and human review/merge. If any gate fails, report the first genuine counterexample or sharp obstruction; never manufacture a 7/8 or RH closure.
+5. Exact-head warning-fatal Lean 4.34.1 builds, `#print axioms`, standard permitted axioms only, source audit and human review/merge. If any gate fails, report the first genuine counterexample or sharp obstruction; never manufacture a 7/8 or RH closure.

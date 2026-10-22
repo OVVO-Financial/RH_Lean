@@ -1,6 +1,6 @@
 # Create RH_Lean research agents in **ChatGPT Agent Studio** (browser)
 
-> **Current routing correction, 2026-10-22:** This is a **historical Agent Studio setup guide**, not the active per-run research brief. Existing saved agents that dynamically read main should use [the live Oct 22 original OAI/NNS one-prime seam](OAI_COMPENSATED_ONE_PRIME_NNS_SEAM_20261022.md) once human-merged, together with \`main:AGENTS.md\` and \`main:docs/DYNAMIC_RESEARCH_AGENTS.md\`. **No change** to schedules, saved Studio prompts, tools, account permissions or launch status is caused by this Markdown PR. Do not create duplicate schedules or run agents from this document.
+> **Current routing correction, 2026-10-22:** This is a **historical Agent Studio setup guide**, not the active per-run research brief. Existing saved agents that dynamically read main should use [the live Oct 22 original OAI/NNS one-prime seam](OAI_COMPENSATED_ONE_PRIME_NNS_SEAM_20261022.md) once human-merged, together with `main:AGENTS.md` and `main:docs/DYNAMIC_RESEARCH_AGENTS.md`. **No change** to schedules, saved Studio prompts, tools, account permissions or launch status is caused by this Markdown PR. Do not create duplicate schedules or run agents from this document.
 
 ## Historical October 17, 2026: seven-agent signed covariance pivot
 
