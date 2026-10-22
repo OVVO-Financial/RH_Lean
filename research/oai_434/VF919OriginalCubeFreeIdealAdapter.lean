@@ -121,6 +121,62 @@ theorem original_FreeRow_cube_fiber_weighted_reindex
       (s := rows) (t := rows.image g) (g := g) hmaps
       (fun u => rho u * ‖amplitude u‖ ^ 2))
 
+/-- Concrete OAI ideal counting already gives an explicit constant
+    128 for the number of distinct squarefree cube-root ideals
+    arising from original sixth-free ELEMENT rows of norm <= U.
+    No average multiplicity or abstract ideal-density premise.
+    Unit associates may share the same root and only reduce count. -/
+theorem original_FreeRow_cube_root_ideal_count_le
+    (rows : Finset FreeRow) (U : ℝ) (hU : 1 ≤ U)
+    (hRows : ∀ u ∈ rows,
+      ((Ideal.absNorm (Ideal.span {u.val}) : ℕ) : ℝ) ≤ U) :
+    ((rows.image (fun u =>
+      squarefreeCubeRoot (Ideal.span {u.val}))).card : ℝ) ≤
+        128 * U ^ (1 / 3 : ℝ) := by
+  have hU0 : 0 ≤ U := by linarith
+  have hRoot : 1 ≤ U ^ (1 / 3 : ℝ) := by
+    have h := Real.rpow_le_rpow (by norm_num : (0 : ℝ) ≤ 1)
+      hU (by norm_num : (0 : ℝ) ≤ (1 / 3 : ℝ))
+    simpa using h
+  have hBound (u : FreeRow) (hu : u ∈ rows) :
+      ((Ideal.absNorm (squarefreeCubeRoot
+        (Ideal.span {u.val})) : ℕ) : ℝ) ≤
+        U ^ (1 / 3 : ℝ) := by
+    let I : Id := Ideal.span {u.val}
+    let C : Id := squarefreeCubeRoot I
+    let R : Id := cubeFreeRemainder I
+    have hR1 : 1 ≤ ((Ideal.absNorm R : ℕ) : ℝ) :=
+      norm_one_le (cubeFreeRemainder_ne_zero I)
+    have hCpos : 0 ≤ ((Ideal.absNorm C : ℕ) : ℝ) :=
+      Nat.cast_nonneg _
+    have hCubed :
+        (((Ideal.absNorm C : ℕ) : ℝ) ^ 3) ≤ U := by
+      calc
+        _ = ((Ideal.absNorm C : ℕ) : ℝ) ^ 3 * 1 := by ring
+        _ ≤ ((Ideal.absNorm C : ℕ) : ℝ) ^ 3 *
+            ((Ideal.absNorm R : ℕ) : ℝ) :=
+          mul_le_mul_of_nonneg_left hR1 (by positivity)
+        _ = ((Ideal.absNorm I : ℕ) : ℝ) := by
+          simpa only [C, R, I] using
+            (original_FreeRow_cube_ideal_norm_identity u).symm
+        _ ≤ U := hRows u hu
+    have hPower :
+        ((Ideal.absNorm C : ℕ) : ℝ) ^ (3 : ℝ) ≤ U := by
+      simpa only [Real.rpow_natCast] using hCubed
+    have hCubeRoot :=
+      (Real.le_rpow_inv_iff_of_pos hCpos hU0
+        (by norm_num : (0 : ℝ) < 3)).mpr hPower
+    simpa only [C, I, one_div] using hCubeRoot
+  apply DescentFiberCost.finite_ideal_count_real
+    (rows.image (fun u => squarefreeCubeRoot (Ideal.span {u.val})))
+    (U ^ (1 / 3 : ℝ)) hRoot
+  · intro C hC
+    obtain ⟨u, hu, rfl⟩ := Finset.mem_image.mp hC
+    exact squarefreeCubeRoot_ne_zero _
+  · intro C hC
+    obtain ⟨u, hu, rfl⟩ := Finset.mem_image.mp hC
+    exact hBound u hu
+
 /-- Uniqueness among actual ideal factors, not only symbolic profiles. -/
 theorem actual_ideal_base3_unique
     (I C R : Id) (hC : C ≠ 0) (hR : R ≠ 0)
@@ -199,6 +255,7 @@ end
 #print axioms SevenEighths.CubeFreeRowAdapter.original_FreeRow_principal_ideal_base3
 #print axioms SevenEighths.CubeFreeRowAdapter.original_FreeRow_cube_ideal_norm_identity
 #print axioms SevenEighths.CubeFreeRowAdapter.original_FreeRow_cube_fiber_weighted_reindex
+#print axioms SevenEighths.CubeFreeRowAdapter.original_FreeRow_cube_root_ideal_count_le
 #print axioms SevenEighths.CubeFreeRowAdapter.actual_ideal_base3_unique
 #print axioms SevenEighths.CubeFreeRowAdapter.original_canonicalSextic_sq_eq_cubic
 #print axioms SevenEighths.CubeFreeRowAdapter.original_canonical_cubic_cube_mask

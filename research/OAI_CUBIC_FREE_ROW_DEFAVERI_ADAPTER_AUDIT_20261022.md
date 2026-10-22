@@ -64,3 +64,6 @@ The pinned source already has factorPart_valuation, ideal_eq_of_valuation_eq, ca
 
 
 The same original adapter now reindexes the EXACT physical labelled FreeRow finite weighted energy by the real squarefree cube-root ideal, using Finset.sum_fiberwise_of_maps_to. It proves original_FreeRow_cube_ideal_norm_identity and original_FreeRow_cube_fiber_weighted_reindex without assuming uniform weights, density or injectivity of element representatives. This pays the finite partition/admission bookkeeping; the character-family operator and row spread remain independent.
+
+
+The root-fiber cardinality can now be paid with an ORIGINAL theorem rather than an assumption: DescentFiberCost.finite_ideal_count_real gives (number of distinct squarefree cube roots of original FreeRow elements with norm<=U) <= 128 U^(1/3). The new original_FreeRow_cube_root_ideal_count_le combines source actual norm factorization and source ideal count. No sixth-free density or row-spread claim is needed for this upper bound. This declaration requires original mixed-source CI; the inverse norm zeta(2), zeta(3) moments and character-family identification remain separate.
