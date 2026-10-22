@@ -9,6 +9,7 @@ on:
       - 'research/oai_434/VF919OriginalDetectorSignedNNS.lean'
       - 'research/oai_434/VF919OriginalDetectorSexticSectorDefect.lean'
       - 'research/oai_434/VF919OriginalGaussianResonantFibers.lean'
+      - 'research/oai_434/VF919OriginalGaussianResonantSextic.lean'
       - 'research/oai_434/VF919OriginalDetectorResonantFibers.lean'
       - 'research/VF_919_RESONANT_FIBER_NNS_RECOMBINATION_20261022.lean'
       - 'research/VF_919_SEXTIC_SECTOR_MEAN_DEFECT_20261022.lean'
@@ -190,6 +191,17 @@ jobs:
             research/oai_434/VF919OriginalDetectorResonantFibers.lean \
             | tee /tmp/oai-original-detector-resonant-fibers.log
           if grep -E 'sorryAx|admitAx|_private' /tmp/oai-original-detector-resonant-fibers.log; then exit 1; fi
+      - name: KERNEL-CHECK exact ORIGINAL Gaussian resonance plus sextic defect
+        shell: bash
+        run: |
+          set -euo pipefail
+          OAI_PATH="$(cd oai-upstream/lean && lake env python3 -c 'import os; print(os.pathsep.join(os.path.abspath(p) for p in os.environ["LEAN_PATH"].split(os.pathsep) if p))')"
+          RH_PATH="$(lake env python3 -c 'import os; print(os.pathsep.join(os.path.abspath(p) for p in os.environ["LEAN_PATH"].split(os.pathsep) if p))')"
+          python3 scripts/check_shared_lean_packages.py . oai-upstream/lean PrimeNumberTheoremAnd mathlib
+          env LEAN_PATH="$RH_PATH:$OAI_PATH" lean -DwarningAsError=true \
+            research/oai_434/VF919OriginalGaussianResonantSextic.lean \
+            | tee /tmp/oai-original-gaussian-resonant-sextic.log
+          if grep -E 'sorryAx|admitAx|_private' /tmp/oai-original-gaussian-resonant-sextic.log; then exit 1; fi
       - name: Save original imports for subsequent exact checks
         if: ${{ !cancelled() && steps.oai_cache.outputs.cache-hit != 'true' }}
         continue-on-error: true
@@ -209,5 +221,6 @@ jobs:
             /tmp/oai-original-ideal-sextic-sector-defect.log
             /tmp/oai-original-gaussian-resonant-fibers.log
             /tmp/oai-original-detector-resonant-fibers.log
+            /tmp/oai-original-gaussian-resonant-sextic.log
           if-no-files-found: warn
           retention-days: 7
