@@ -68,3 +68,27 @@ The actual OAI row source `detector_row_eq_source` admits a *different* labelled
 ## 4. Acceptance
 
 The native independent partial result is accepted only upon warning-fatal Lean 4.34.1 CI with printed axioms and zero `sorryAx`; the global OAI arithmetic saving remains OPEN until the original labelled weighted signed covariance bound is actually proved, without importing an analytically equivalent high-row conclusion. Keep this PR a draft.
+
+
+## 5. Independently re-derived original marked analytic input WITH NNS and a sharper exponent
+
+The same PR now contains `research/oai_434/VF919OriginalMarkedSharpenedSignedNNS.lean`, whose proof directly reproduces (rather than invoking) the proof of original OAI `Detector/DetectorPlainMarkedFineField.lean::source_batch_plain_marked_fine`. It uses precisely the original `PositiveFineSourceInput S mesh`, the original `source_batch_marked_initial`, `CenteredMomentDetectorPlainRelativeClass.energy_eq`, and original profile and height estimates, then inserts RH_Lean's exact real `vf919ActualMarkedMoment_eq_realEnergies` before the analytic comparison.
+
+The original proof relaxes the state exponent `state.width + stageError D` to `1+D.t`. But its `marked_state_admission` proves `state.width=1+delta D`; both `delta D` and `stageError D` are DEFINED as `D.t/4`. Thus the *source-proved exponent* can be retained exactly at
+
+```
+state.width + stageError D = 1 + D.t/2
+```
+
+and the strengthened native-OAI moment statement is
+
+```
+sum_{u in F.rows}
+  E_NNS(P_j(u)) * E_NNS(P_k(u)) * E_NNS(physicalProduct(selected,u))
+  <= C*(1+height)^J*(Z^d)^(1+D.t/2),
+j+k<=2, same original positive fine input, masks, labels, and geometry.
+```
+
+This is a **genuine stronger intermediate original-source estimate** if it passes the dedicated combined OAI/RHLean warning-fatal kernel check, and it does not assume `source_batch_plain_marked_fine` or the terminal high-row saving. The improvement is from retaining OpenAI's *original analytic width budget*, **not from an independently proved NNS offdiagonal imbalance**. In particular `PositiveFineSourceInput` remains the stated original analytic premise, and the original OAI transport / inverse / final high-row geometry still must be re-proved if using the stronger intermediate exponent to alter the final (7/8) outcome. Do NOT call this RH or a `Z^{-sigma}` global bound until the entire dependency is closed.
+
+Dedicated CI in `.github/workflows/oai-gaussian-nns-typed-434.yml` checks this theorem inside the combined pinned OAI/RHLean environment and prints axioms.
