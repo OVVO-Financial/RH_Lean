@@ -1,4 +1,4 @@
-import «research.oai_434.VF919OriginalDetectorSignedNNS»
+import OAI.NumberTheory.DirichletL.Moments.DetectorPlainFiberSource
 import «research.VF_919_SEXTIC_SECTOR_MEAN_DEFECT_20261022»
 
 /-!
@@ -8,7 +8,7 @@ These are ACTUAL original OAI finite detector labels and source atoms:
   Fiber M H Label Slot ...
   FreeRow
   Ideal HeckeFamily.O
-  originalDetectorNNSAtom F eta selected j k sigma t u I
+  originalDetectorSectorPairAtom F eta selected j k sigma t u I
   originalDetectorNNSScale F selected
 
 There is no asserted phase extractor for an arbitrary Hecke character:
@@ -43,6 +43,17 @@ local notation "O" => HeckeFamily.O
 variable {M : Ideal O} {H : Subgroup (O ⧸ M)ˣ} {Label Slot : Type*}
 variable {U a ε tstar T allowance : ℝ} {i : ℕ}
 
+
+/-- The ACTUAL OAI finite source coefficient, not a fitted sixth root:
+    the same fiberCoefficient times original masked rowWeight as in
+    original detector_row_eq_source. -/
+def originalDetectorSectorPairAtom
+    (F : Fiber M H Label Slot U a ε tstar T allowance i)
+    (eta : Character) (selected : Finset Slot)
+    (j k : ℕ) (sigma t : ℝ) (u : FreeRow) (I : Ideal O) : ℂ :=
+  fiberCoefficient F eta selected j k sigma t I *
+    CenteredMomentHeckeExpansion.rowWeight eta fixedBadMask 1 u.val 0 I
+
 /-- All ACTUAL pair-labelled OAI detector-row columns, at the ORIGINAL
     positive row-normalization scale D_U. The sector coefficient can be
     complex and row-dependent, retaining every Gauss, theta, radial and
@@ -56,26 +67,26 @@ theorem original_detector_ideal_pairs_sextic_sector_defect
     (coefficient : (Ideal O × Ideal O) → FreeRow → ℂ)
     (zeta : ℂ) (hpow : zeta ^ 6 = 1) (hne : zeta ≠ 1)
     (hPhase : ∀ pair ∈ pairs, ∀ u ∈ F.rows,
-      originalDetectorNNSAtom F eta selected j k sigma t u pair.1 *
-        star (originalDetectorNNSAtom F eta selected j k sigma t u pair.2) =
+      originalDetectorSectorPairAtom F eta selected j k sigma t u pair.1 *
+        star (originalDetectorSectorPairAtom F eta selected j k sigma t u pair.2) =
           coefficient pair u *
             sexticPhaseWithZero zeta (phase pair u)) :
     (∑ pair ∈ pairs, ∑ u ∈ F.rows,
-      originalDetectorNNSAtom F eta selected j k sigma t u pair.1 *
-        star (originalDetectorNNSAtom F eta selected j k sigma t u pair.2)) /
-      ((originalDetectorNNSScale F selected : ℝ) : ℂ) =
+      originalDetectorSectorPairAtom F eta selected j k sigma t u pair.1 *
+        star (originalDetectorSectorPairAtom F eta selected j k sigma t u pair.2)) /
+      (((U ^ F.m) * (U ^ F.m) * ∏ s ∈ selected, U ^ (F.widths s) : ℝ) : ℂ) =
     (∑ pair ∈ pairs,
       sexticSectorDefect zeta
         (sexticWeightedSectorMass F.rows (phase pair) (fun _ => 1)
           (coefficient pair))) /
-      ((originalDetectorNNSScale F selected : ℝ) : ℂ) := by
+      (((U ^ F.m) * (U ^ F.m) * ∏ s ∈ selected, U ^ (F.widths s) : ℝ) : ℂ) := by
   congr 1
   have h := sextic_admitted_offdiagonal_Hecke_pair_defect
     F.rows pairs
     (fun pair u =>
-      originalDetectorNNSAtom F eta selected j k sigma t u pair.1)
+      originalDetectorSectorPairAtom F eta selected j k sigma t u pair.1)
     (fun pair u =>
-      originalDetectorNNSAtom F eta selected j k sigma t u pair.2)
+      originalDetectorSectorPairAtom F eta selected j k sigma t u pair.2)
     phase (fun _ => (1 : ℝ)) coefficient zeta hpow hne hPhase
   simpa only [one_mul, Complex.ofReal_one] using h
 
