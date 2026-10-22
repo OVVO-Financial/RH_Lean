@@ -8,6 +8,9 @@ on:
       - 'research/oai_434/VF919OriginalMarkedSharpenedSignedNNS.lean'
       - 'research/oai_434/VF919OriginalDetectorSignedNNS.lean'
       - 'research/oai_434/VF919OriginalDetectorSexticSectorDefect.lean'
+      - 'research/oai_434/VF919OriginalGaussianResonantFibers.lean'
+      - 'research/oai_434/VF919OriginalDetectorResonantFibers.lean'
+      - 'research/VF_919_RESONANT_FIBER_NNS_RECOMBINATION_20261022.lean'
       - 'research/VF_919_SEXTIC_SECTOR_MEAN_DEFECT_20261022.lean'
       - 'research/VF_919_OAI_ACTUAL_MARKED_FOURTH_REAL_NNS_20261021.lean'
       - 'research/VF_919_OAI_GAUSSIAN_SUBSET_EXACT_COEFFICIENT_NNS_20261021.lean'
@@ -71,6 +74,7 @@ jobs:
             research/VF_919_OAI_GAUSSIAN_SUBSET_EXACT_COEFFICIENT_NNS_20261021.lean
             research/VF_919_OAI_ACTUAL_MARKED_FOURTH_REAL_NNS_20261021.lean
             research/VF_919_SEXTIC_SECTOR_MEAN_DEFECT_20261022.lean
+            research/VF_919_RESONANT_FIBER_NNS_RECOMBINATION_20261022.lean
       - name: Restore original OAI dependency and compiled DAG cache
         id: oai_cache
         uses: actions/cache/restore@v5
@@ -164,6 +168,28 @@ jobs:
             echo 'Unexpected axiom in original OAI/RHLean NNS bridge.' >&2
             exit 1
           fi
+      - name: KERNEL-CHECK original GaussianSubset compensated resonant fiber regrouping
+        shell: bash
+        run: |
+          set -euo pipefail
+          OAI_PATH="$(cd oai-upstream/lean && lake env python3 -c 'import os; print(os.pathsep.join(os.path.abspath(p) for p in os.environ["LEAN_PATH"].split(os.pathsep) if p))')"
+          RH_PATH="$(lake env python3 -c 'import os; print(os.pathsep.join(os.path.abspath(p) for p in os.environ["LEAN_PATH"].split(os.pathsep) if p))')"
+          python3 scripts/check_shared_lean_packages.py . oai-upstream/lean PrimeNumberTheoremAnd mathlib
+          env LEAN_PATH="$RH_PATH:$OAI_PATH" lean -DwarningAsError=true \
+            research/oai_434/VF919OriginalGaussianResonantFibers.lean \
+            | tee /tmp/oai-original-gaussian-resonant-fibers.log
+          if grep -E 'sorryAx|admitAx|_private' /tmp/oai-original-gaussian-resonant-fibers.log; then exit 1; fi
+      - name: KERNEL-CHECK original finite ideal-column resonant fiber grouping
+        shell: bash
+        run: |
+          set -euo pipefail
+          OAI_PATH="$(cd oai-upstream/lean && lake env python3 -c 'import os; print(os.pathsep.join(os.path.abspath(p) for p in os.environ["LEAN_PATH"].split(os.pathsep) if p))')"
+          RH_PATH="$(lake env python3 -c 'import os; print(os.pathsep.join(os.path.abspath(p) for p in os.environ["LEAN_PATH"].split(os.pathsep) if p))')"
+          python3 scripts/check_shared_lean_packages.py . oai-upstream/lean PrimeNumberTheoremAnd mathlib
+          env LEAN_PATH="$RH_PATH:$OAI_PATH" lean -DwarningAsError=true \
+            research/oai_434/VF919OriginalDetectorResonantFibers.lean \
+            | tee /tmp/oai-original-detector-resonant-fibers.log
+          if grep -E 'sorryAx|admitAx|_private' /tmp/oai-original-detector-resonant-fibers.log; then exit 1; fi
       - name: Save original imports for subsequent exact checks
         if: ${{ !cancelled() && steps.oai_cache.outputs.cache-hit != 'true' }}
         continue-on-error: true
@@ -181,5 +207,7 @@ jobs:
             /tmp/oai-marked-sharper-nns.log
             /tmp/oai-original-detector-signed-nns.log
             /tmp/oai-original-ideal-sextic-sector-defect.log
+            /tmp/oai-original-gaussian-resonant-fibers.log
+            /tmp/oai-original-detector-resonant-fibers.log
           if-no-files-found: warn
           retention-days: 7
