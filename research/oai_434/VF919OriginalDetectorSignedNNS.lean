@@ -108,8 +108,61 @@ theorem original_detector_row_exact_signed_NNS
     _ = _ := RHLean.Analysis.vf919NormalizedColumnSource_NNSCovariance
       F.rows Q atom D
 
+
+/-- The ORIGINAL marked polynomial product from OAI (both log derivatives
+    and every selected Hecke physical slot) is exactly the same labelled
+    signed NNS ideal-column energy. Its source admission is proved by OAI's
+    fiber_plain_energy_eq, NOT asserted for arbitrary coefficient tuples.
+
+    hdata, hMm and hEta are precisely the original theorem's row-data,
+    fixed bad-mask and prime-pool coprimality hypotheses. The equality
+    is valid for every j,k; in the marked saving consumer j+k≤2. -/
+theorem original_marked_polynomials_exact_signed_NNS
+    (F : Fiber M H Label Slot U a ε tstar T allowance i)
+    (η : Character)
+    (hdata : F.rowData = momentData η)
+    (hMm : M ≤ Ideal.span {rowMaskElement}) (hU : 0 < U)
+    (selected : Finset Slot) (j k : ℕ) (σ t : ℝ)
+    (hEta :
+      ∀ s ∈ selected,
+        ∀ J ∈ primePool M H (F.upper s) (U ^ (F.widths s)),
+          F.profile s ((J.absNorm : ℝ) / (U ^ (F.widths s))) ≠ 0 →
+            IsCoprime J η.modulus) :
+    let Q := finiteColumns (fiberPool F selected)
+    let D := originalDetectorNNSScale F selected
+    let atom := originalDetectorNNSAtom F η selected j k σ t
+    (∑ u ∈ F.rows,
+      ‖polynomial (F.family u F.label) false
+        ((logProfile^[j]) positiveAnnular) (U ^ F.m) σ t *
+        polynomial (F.family u F.label) false
+          ((logProfile^[k]) positiveAnnular) (U ^ F.m) σ t *
+        F.physicalProduct selected u‖ ^ 2) =
+    (∑ u ∈ F.rows, (1 / D) *
+      ((zeroTargetCoPartialGram Q
+          (fun I => (stableFarComplexToRealPair (atom u I)).1) +
+        zeroTargetCoPartialGram Q
+          (fun I => (stableFarComplexToRealPair (atom u I)).2)) / 2)) -
+    (∑ u ∈ F.rows, (1 / D) *
+      ((zeroTargetDivergentGram Q
+          (fun I => (stableFarComplexToRealPair (atom u I)).1) +
+        zeroTargetDivergentGram Q
+          (fun I => (stableFarComplexToRealPair (atom u I)).2)) / 2)) := by
+  calc
+    (∑ u ∈ F.rows,
+      ‖polynomial (F.family u F.label) false
+        ((logProfile^[j]) positiveAnnular) (U ^ F.m) σ t *
+        polynomial (F.family u F.label) false
+          ((logProfile^[k]) positiveAnnular) (U ^ F.m) σ t *
+        F.physicalProduct selected u‖ ^ 2) =
+        (∑ u ∈ F.rows, ‖detectorPositiveRow F η selected j k σ t u‖ ^ 2) :=
+      CenteredMomentDetectorDictionary.fiber_plain_energy_eq
+        F η hdata hMm hU selected j k σ t hEta
+    _ = _ := original_detector_row_exact_signed_NNS
+      F η selected j k σ t hU
+
 end SevenEighths.CenteredMomentDetectorPlainFiberSource
 
 #print axioms SevenEighths.CenteredMomentDetectorPlainFiberSource.original_detector_row_exact_signed_NNS
+#print axioms SevenEighths.CenteredMomentDetectorPlainFiberSource.original_marked_polynomials_exact_signed_NNS
 
 end OAI
