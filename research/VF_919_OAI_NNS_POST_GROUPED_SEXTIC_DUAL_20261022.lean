@@ -74,13 +74,17 @@ theorem oai_nonprincipal_energy_eq_grouped_dual
       push_cast
       apply Finset.sum_congr rfl
       intro u hu
-      simpa only [map_mul, map_pow] using (hPoint u)
+      change (omega u : ℂ) * (‖H u‖ : ℂ) ^ 2 =
+        (omega u : ℂ) * H u * star (H u)
+      calc
+        _ = ((omega u * ‖H u‖ ^ 2 : ℝ) : ℂ) := by norm_cast
+        _ = _ := hPoint u
     _ = ∑ u ∈ rows, ∑ C ∈ cols,
           b C * ((omega u : ℂ) * phase C u * star (H u)) := by
       apply Finset.sum_congr rfl
       intro u hu
       dsimp [H, oaiNonprincipalGroupedH]
-      rw [Finset.sum_mul, Finset.mul_sum]
+      rw [Finset.mul_sum, Finset.sum_mul]
       apply Finset.sum_congr rfl
       intro C hC
       ring
