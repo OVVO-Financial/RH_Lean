@@ -74,12 +74,20 @@ theorem oai_grouped_fiber_l65_bound
         intro m hm
         exact Real.mul_rpow hA (htau m hm)
       _ = _ := by rw [Finset.mul_sum]
+  have hTauSumNonneg :
+      0 ≤ ∑ m ∈ carrier, tau m ^ (6 / 5 : ℝ) := by
+    apply Finset.sum_nonneg
+    intro m hm
+    exact Real.rpow_nonneg (htau m hm) _
+  have hCoeffSumNonneg :
+      0 ≤ ∑ m ∈ carrier, ‖shift m + euler m‖ ^ (6 / 5 : ℝ) := by
+    positivity
   have hroot :
       (∑ m ∈ carrier, ‖shift m + euler m‖ ^ (6 / 5 : ℝ)) ^
         (5 / 6 : ℝ) ≤
         (A ^ (6 / 5 : ℝ) *
           (∑ m ∈ carrier, tau m ^ (6 / 5 : ℝ))) ^ (5 / 6 : ℝ) :=
-    Real.rpow_le_rpow (by positivity) hSum (by norm_num)
+    Real.rpow_le_rpow hCoeffSumNonneg hSum (by norm_num)
   have hpow : (A ^ (6 / 5 : ℝ)) ^ (5 / 6 : ℝ) = A := by
     rw [← Real.rpow_mul hA]
     norm_num
@@ -93,7 +101,7 @@ theorem oai_grouped_fiber_l65_bound
     _ = A *
         (∑ m ∈ carrier, tau m ^ (6 / 5 : ℝ)) ^
           (5 / 6 : ℝ) := by
-        rw [Real.mul_rpow (by positivity) (by positivity), hpow]
+        rw [Real.mul_rpow (Real.rpow_nonneg hA _) hTauSumNonneg, hpow]
     _ ≤ A * Ttau := mul_le_mul_of_nonneg_left hTauMoment hA
     _ = (Ashift + Aeuler) * Ttau := rfl
 
@@ -129,12 +137,23 @@ theorem oai_grouped_fiber_l65_power_budget
     _ ≤ (Ashift + Aeuler) * D ^ ((5 / 6 : ℝ) + c) := hTwo
     _ ≤ (D ^ (-(1 / 2 : ℝ)) * Z ^ (-sigma)) *
         D ^ ((5 / 6 : ℝ) + c) :=
-      mul_le_mul_of_nonneg_right hAmp (by positivity)
+      mul_le_mul_of_nonneg_right hAmp (Real.rpow_nonneg hD.le _)
     _ = D ^ ((1 / 3 : ℝ) + c) * Z ^ (-sigma) := by
-      rw [show ((5 / 6 : ℝ) + c) =
-          (-(1 / 2 : ℝ)) + ((1 / 3 : ℝ) + c) by ring,
-        Real.rpow_add hD]
-      ring
+      have hcancel :
+          D ^ (-(1 / 2 : ℝ)) * D ^ (1 / 2 : ℝ) = 1 := by
+        rw [← Real.rpow_add hD]
+        norm_num
+      calc
+        (D ^ (-(1 / 2 : ℝ)) * Z ^ (-sigma)) *
+          D ^ ((5 / 6 : ℝ) + c) =
+          (D ^ (-(1 / 2 : ℝ)) * D ^ (1 / 2 : ℝ)) *
+          (D ^ ((1 / 3 : ℝ) + c) * Z ^ (-sigma)) := by
+            rw [show ((5 / 6 : ℝ) + c) =
+              (1 / 2 : ℝ) + ((1 / 3 : ℝ) + c) by ring,
+              Real.rpow_add hD]
+            ring
+        _ = D ^ ((1 / 3 : ℝ) + c) * Z ^ (-sigma) := by
+          rw [hcancel, one_mul]
 
 end RHLean.Analysis
 
