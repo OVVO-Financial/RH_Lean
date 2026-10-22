@@ -6,6 +6,8 @@ on:
       - 'research/VF_919_OPENAI_434_UNCONDITIONAL_SQUARE_BLOCK_COVARIANCE_20261019.lean'
       - 'research/VF_919_SEVEN_EIGHTHS_SIGNED_COVARIANCE_20261019.lean'
       - 'research/VF_919_SEVEN_EIGHTHS_SQUARE_SHELL_BRIDGE_20261019.lean'
+      - 'research/VF_919_OAI_GAUSSIAN_SUBSET_EXACT_COEFFICIENT_NNS_20261021.lean'
+      - 'research/oai_434/VF919OriginalGaussianIntegratedNNS.lean'
       - '.github/workflows/vf919-oai-certified-core-434.yml'
       - '.github/actions/lean-setup/**'
       - '.github/actions/research-compile/**'
@@ -88,6 +90,7 @@ jobs:
           targets: >-
             research/VF_919_SEVEN_EIGHTHS_SIGNED_COVARIANCE_20261019.lean
             research/VF_919_SEVEN_EIGHTHS_SQUARE_SHELL_BRIDGE_20261019.lean
+            research/VF_919_OAI_GAUSSIAN_SUBSET_EXACT_COEFFICIENT_NNS_20261021.lean
       - name: Save native prerequisites before any downstream proof work
         if: ${{ steps.native_cache.outputs.cache-hit != 'true' }}
         continue-on-error: true
@@ -164,6 +167,26 @@ jobs:
         with:
           path: oai-upstream/lean/.lake
           key: oai-certified-434-pntnative-v2-${{ runner.os }}-${{ runner.arch }}-1581d4cbdd69a0faf34b2089614fe2a814316a6a-${{ hashFiles('oai-upstream/lean/lean-toolchain', 'oai-upstream/lean/lakefile.lean', 'oai-upstream/lean/lake-manifest.json', 'oai-upstream/lean/patches/**', 'scripts/apply_oai_434_upstream_patches.py') }}-progress-${{ github.run_id }}-${{ github.run_attempt }}
+      # This is the user-directed ORIGINAL-TYPE GaussianSubset integration.
+      # Both original OAI and native RHLean oleans are imported into the
+      # SAME Lean 4.34.1 kernel; the type-checked goal contains actual
+      # OAI.HeckeFamily.Character, CalibrationData, physical source
+      # integrals, all masks and weighted NNS Co/Div theorem statements.
+      - name: KERNEL-CHECK original OAI GaussianSubset integrated signed NNS
+        id: gaussian_nns
+        shell: bash
+        run: |
+          set -euo pipefail
+          OAI_PATH="$(cd oai-upstream/lean && lake env python3 -c 'import os; print(os.pathsep.join(os.path.abspath(p) for p in os.environ["LEAN_PATH"].split(os.pathsep) if p))')"
+          RH_PATH="$(lake env python3 -c 'import os; print(os.pathsep.join(os.path.abspath(p) for p in os.environ["LEAN_PATH"].split(os.pathsep) if p))')"
+          python3 scripts/check_shared_lean_packages.py . oai-upstream/lean PrimeNumberTheoremAnd mathlib
+          env LEAN_PATH="$RH_PATH:$OAI_PATH" lean -DwarningAsError=true \
+            research/oai_434/VF919OriginalGaussianIntegratedNNS.lean \
+            | tee /tmp/vf919-oai-gaussian-original-types-nns-axioms.log
+          if grep -E 'sorryAx|admitAx|_private' /tmp/vf919-oai-gaussian-original-types-nns-axioms.log; then
+            echo "Unexpected axiom in original-OAI typed NNS theorem" >&2
+            exit 1
+          fi
       - name: KERNEL-CHECK native UNCONDITIONAL signed covariance and ALL square-block bounds
         id: native_theorem
         shell: bash
@@ -191,6 +214,8 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: vf919-oai-certified-core-434-axioms-${{ github.run_id }}-${{ github.run_attempt }}
-          path: /tmp/vf919-oai-certified-core-434-axioms.log
+          path: |
+            /tmp/vf919-oai-certified-core-434-axioms.log
+            /tmp/vf919-oai-gaussian-original-types-nns-axioms.log
           if-no-files-found: warn
           retention-days: 7
