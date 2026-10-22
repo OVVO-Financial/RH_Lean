@@ -175,3 +175,8 @@ The first independently missing theorem is therefore a uniform restriction on th
 ## I. Resume capsule
 
 Authority: `main@66af9b34c082485872815ece9a7721606381c07f`. New claim: `20261022-referee-1`. The exact character/quotient Gram defect is indefinite whenever it is nontrivial; the quotient-fiber norm loss is sharply bounded by maximum fiber size. Today's two Census sign witnesses were independently reproduced. PR #1004 fails its original-type kernel gate and, even after mechanical repair, remains a conditional same-bound transfer until the actual high-row specialization is compiled. No unconditional exponent improved.
+
+
+## J. Publication verification
+
+Created on `agent-reports` by commit `1f4bcb9f30faf8786716706d4c16f59595440683`. Immediate readback returned blob `f4492f79bc2626b166055f4beef18f15c09450e4`, 13,113 characters, `COMPLETED` status and claim ID `20261022-referee-1`. This verifies publication only. No main source, PR, review, workflow, merge, schedule or permission state was changed.
