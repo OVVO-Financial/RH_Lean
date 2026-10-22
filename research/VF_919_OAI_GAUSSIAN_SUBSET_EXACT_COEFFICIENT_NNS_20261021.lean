@@ -271,6 +271,108 @@ theorem gaussianIndexed_uniform_signed_moment_of_source_estimate
     physicalRows weight q eta W phase core]
   exact hBound
 
+
+/-! ## The final norm must be taken AFTER full Gaussian-Mellin integration.
+     In the OAI specialization, integrated(u,J) is the original complete
+     tsum over dyadic j of integrals in height t of the original row test.
+     The extra None atom is the ORIGINAL principal signal subtraction.
+     No exchange of integrals with squares is used. -/
+
+def gaussianIntegratedSignalCarrier (K : ℕ) :
+    Finset (Option (Finset (Fin K))) :=
+  insert none (((Finset.univ : Finset (Fin K)).powerset).image some)
+
+def gaussianIntegratedSignalAtom {K : ℕ} {ι : Type*}
+    (integrated : ι → Finset (Fin K) → ℂ)
+    (principal : ι → ℂ) (u : ι)
+    (l : Option (Finset (Fin K))) : ℂ :=
+  match l with
+  | none => -principal u
+  | some J => integrated u J
+
+theorem gaussianIntegrated_source_minus_principal_exact
+    {K : ℕ} {ι : Type*}
+    (integrated : ι → Finset (Fin K) → ℂ)
+    (principal : ι → ℂ) (u : ι) :
+    (∑ l ∈ gaussianIntegratedSignalCarrier K,
+       gaussianIntegratedSignalAtom integrated principal u l) =
+      (∑ J ∈ (Finset.univ : Finset (Fin K)).powerset,
+         integrated u J) - principal u := by
+  classical
+  unfold gaussianIntegratedSignalCarrier
+  have hnone : (none : Option (Finset (Fin K))) ∉
+      ((Finset.univ : Finset (Fin K)).powerset).image some := by simp
+  rw [Finset.sum_insert hnone]
+  rw [Finset.sum_image (fun a _ b _ hab => Option.some.inj hab)]
+  simp [gaussianIntegratedSignalAtom]
+  ring
+
+/-- Exact signed source moment on all subset and principal terms.
+The cross-height and cross-dyad contributions are retained INSIDE the
+complex integrated(u,J) before squaring. -/
+theorem gaussianIntegrated_principal_signed_NNS_moment_exact
+    {K : ℕ} {ι : Type*} (rows : Finset ι)
+    (weight : ι → ℝ)
+    (integrated : ι → Finset (Fin K) → ℂ)
+    (principal : ι → ℂ) :
+    (∑ u ∈ rows, weight u *
+      ‖(∑ J ∈ (Finset.univ : Finset (Fin K)).powerset,
+         integrated u J) - principal u‖ ^ 2) =
+      vf919WeightedPhiCoMass rows (gaussianIntegratedSignalCarrier K) weight
+        (fun u l => (stableFarComplexToRealPair
+          (gaussianIntegratedSignalAtom integrated principal u l)).1)
+        (fun u l => (stableFarComplexToRealPair
+          (gaussianIntegratedSignalAtom integrated principal u l)).2) -
+      vf919WeightedPhiDivMass rows (gaussianIntegratedSignalCarrier K) weight
+        (fun u l => (stableFarComplexToRealPair
+          (gaussianIntegratedSignalAtom integrated principal u l)).1)
+        (fun u l => (stableFarComplexToRealPair
+          (gaussianIntegratedSignalAtom integrated principal u l)).2) := by
+  classical
+  unfold vf919WeightedPhiCoMass vf919WeightedPhiDivMass
+  rw [← Finset.sum_sub_distrib]
+  apply Finset.sum_congr rfl
+  intro u hu
+  rw [← gaussianIntegrated_source_minus_principal_exact integrated principal u]
+  rw [vf919FiniteSource_normSq_eq_NNS]
+  ring
+
+/-- This is a genuine uniform signed second-moment deduction from the
+ORIGINAL OAI pointwise high-row norm estimate hOAI. It does not generate
+a better exponent than hOAI; no arithmetic power saving is assumed. -/
+theorem gaussianIntegrated_uniform_signed_NNS_of_original_bound
+    {K : ℕ} {ι : Type*} (rows : Finset ι)
+    (weight : ι → ℝ) (hweight : ∀ u ∈ rows, 0 ≤ weight u)
+    (integrated : ι → Finset (Fin K) → ℂ)
+    (principal : ι → ℂ) (B : ι → ℝ)
+    (hOAI : ∀ u ∈ rows,
+      ‖(∑ J ∈ (Finset.univ : Finset (Fin K)).powerset,
+         integrated u J) - principal u‖ ≤ B u) :
+      vf919WeightedPhiCoMass rows (gaussianIntegratedSignalCarrier K) weight
+        (fun u l => (stableFarComplexToRealPair
+          (gaussianIntegratedSignalAtom integrated principal u l)).1)
+        (fun u l => (stableFarComplexToRealPair
+          (gaussianIntegratedSignalAtom integrated principal u l)).2) -
+      vf919WeightedPhiDivMass rows (gaussianIntegratedSignalCarrier K) weight
+        (fun u l => (stableFarComplexToRealPair
+          (gaussianIntegratedSignalAtom integrated principal u l)).1)
+        (fun u l => (stableFarComplexToRealPair
+          (gaussianIntegratedSignalAtom integrated principal u l)).2) ≤
+        ∑ u ∈ rows, weight u * (B u) ^ 2 := by
+  rw [← gaussianIntegrated_principal_signed_NNS_moment_exact
+    rows weight integrated principal]
+  apply Finset.sum_le_sum
+  intro u hu
+  have h := hOAI u hu
+  have hn : 0 ≤ ‖(∑ J ∈ (Finset.univ : Finset (Fin K)).powerset,
+    integrated u J) - principal u‖ := norm_nonneg _
+  have hb : 0 ≤ B u := le_trans hn h
+  have hsq :
+      ‖(∑ J ∈ (Finset.univ : Finset (Fin K)).powerset,
+        integrated u J) - principal u‖ ^ 2 ≤ (B u) ^ 2 := by
+    nlinarith
+  exact mul_le_mul_of_nonneg_left hsq (hweight u hu)
+
 end RHLean.Analysis
 
 #print axioms RHLean.Analysis.gaussianSubset_slot_product_exact
@@ -280,3 +382,7 @@ end RHLean.Analysis
 #print axioms RHLean.Analysis.gaussianIndexed_signed_NNS_moment_exact
 #print axioms RHLean.Analysis.gaussianIndexed_normalized_signed_NNS_moment_exact
 #print axioms RHLean.Analysis.gaussianIndexed_uniform_signed_moment_of_source_estimate
+
+#print axioms RHLean.Analysis.gaussianIntegrated_source_minus_principal_exact
+#print axioms RHLean.Analysis.gaussianIntegrated_principal_signed_NNS_moment_exact
+#print axioms RHLean.Analysis.gaussianIntegrated_uniform_signed_NNS_of_original_bound
