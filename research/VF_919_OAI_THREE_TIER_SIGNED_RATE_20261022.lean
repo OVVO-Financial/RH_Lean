@@ -86,13 +86,13 @@ theorem oai_weighted_complex_tier_cauchy
       apply Finset.sum_le_sum
       intro u hu
       exact mul_le_mul_of_nonneg_left (hpoint u hu) (hrho u hu)
+    _ = (∑ u ∈ rows, rho u) *
+          (C ^ 2 * (∑ p ∈ primes, (f p) ^ 2) *
+            (∑ p ∈ primes, (g p) ^ 2)) := by
+      rw [Finset.sum_mul]
     _ = C ^ 2 * (∑ p ∈ primes, (f p) ^ 2) *
           (∑ p ∈ primes, (g p) ^ 2) *
-          (∑ u ∈ rows, rho u) := by
-      rw [Finset.mul_sum]
-      apply Finset.sum_congr rfl
-      intro u hu
-      ring
+          (∑ u ∈ rows, rho u) := by ring
 
 private theorem oai_tier_rpow_square
     (q a : ℝ) (hq : 0 < q) :
@@ -393,8 +393,9 @@ theorem d_tier_gauss_off_diagonal_bound
         intro p hp
         ring
       _ = (C * B) * B := by
-        dsimp [B]
-        rw [Finset.mul_sum]
+         change (∑ p ∈ primes, (C * B) * a p) =
+           (C * B) * (∑ p ∈ primes, a p)
+         conv_rhs => rw [Finset.mul_sum]
       _ = C * B ^ 2 := by ring
   have hSplit (p : κ) (hp : p ∈ primes) :
       a p = q p ^ (-(7 / 8 : ℝ)) *
