@@ -324,7 +324,7 @@ theorem oai_d_tier_cubic_remainder_norm_bound
       calc
         _ ≤ ‖-D‖ + ‖(2 : ℂ) * W‖ := norm_add_le _ _
         _ = ‖D‖ + 2 * ‖W‖ := by
-          simp [norm_mul]
+          simp
     calc
       _ ≤ ‖-D + 2 * W‖ + ‖W ^ 2‖ := norm_sub_le _ _
       _ ≤ (‖D‖ + 2 * ‖W‖) + ‖W‖ ^ 2 := by
