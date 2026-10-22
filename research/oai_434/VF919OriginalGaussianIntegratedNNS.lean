@@ -106,7 +106,7 @@ theorem originalOAI_probe_eq_integrated_subsets
     The second conclusion transfers any genuine OAI pointwise high-row
     norm estimate to uniform weighted signed NNS, keeping its same bound;
     no new exponent is assumed or fabricated here. -/
-theorem originalOAI_gaussian_NNS_full_weighted_moment
+theorem originalOAI_gaussian_normalized_NNS_full_weighted_moment
     {K : ℕ} {ι : Type*}
     (W : Fin K → ℝ → ℂ) (M : Fin K → ℝ)
     (hM : ∀i, 0 ≤ M i)
@@ -119,7 +119,7 @@ theorem originalOAI_gaussian_NNS_full_weighted_moment
         (W0 W1 : ι → ℝ → ℂ)
         (slots : ι → Fin K → Finset O)
         (P : ι → Fin K → ℝ)
-        (X Y Z : ι → ℝ) (principal : ι → ℂ)
+        (X Y Z : ι → ℝ) (normer : ι → ℂ) (principal : ι → ℂ)
         (weight B : ι → ℝ),
         (∀u ∈ rows, HasCompactSupport (W0 u)) →
         (∀u ∈ rows, HasCompactSupport (W1 u)) →
@@ -130,10 +130,10 @@ theorem originalOAI_gaussian_NNS_full_weighted_moment
         (∀u ∈ rows, 0 < Z u) →
         (∀u ∈ rows, 0 ≤ weight u) →
         (∀u ∈ rows,
-          ‖originalOAIGaussianProbe eta cal W0 W1 slots W P X Y Z u -
-              principal u‖ ≤ B u) →
-        let A := originalOAIGaussianSubsetIntegral V hV eta cal
-            W0 W1 slots W P X Y Z
+          ‖originalOAIGaussianProbe eta cal W0 W1 slots W P X Y Z u /
+              normer u - principal u‖ ≤ B u) →
+        let A := fun u J => originalOAIGaussianSubsetIntegral V hV eta cal
+            W0 W1 slots W P X Y Z u J / normer u
         let co := vf919WeightedPhiCoMass rows
           (gaussianIntegratedSignalCarrier K) weight
           (fun u l =>
@@ -151,27 +151,29 @@ theorem originalOAI_gaussian_NNS_full_weighted_moment
             (RHLean.Proof.stableFarComplexToRealPair
               (gaussianIntegratedSignalAtom (A u) (principal u) l)).2)
         (∑ u ∈ rows, weight u *
-          ‖originalOAIGaussianProbe eta cal W0 W1 slots W P X Y Z u -
-              principal u‖ ^ 2 = co - div) ∧
+          ‖originalOAIGaussianProbe eta cal W0 W1 slots W P X Y Z u /
+              normer u - principal u‖ ^ 2 = co - div) ∧
         (co - div ≤ ∑ u ∈ rows, weight u * (B u) ^ 2) := by
   obtain ⟨V, hV, hSource⟩ :=
     originalOAI_probe_eq_integrated_subsets (ι := ι) W M hM hwindow
   refine ⟨V, hV, ?_⟩
-  intro rows eta cal W0 W1 slots P X Y Z principal weight B
+  intro rows eta cal W0 W1 slots P X Y Z normer principal weight B
     hW0 hW1 hslots hP hX hY hZ hweight hHigh
   dsimp only
-  let A := originalOAIGaussianSubsetIntegral V hV eta cal
-    W0 W1 slots W P X Y Z
+  let A := fun u J => originalOAIGaussianSubsetIntegral V hV eta cal
+    W0 W1 slots W P X Y Z u J / normer u
   have hA (u : ι) (hu : u ∈ rows) :
-      originalOAIGaussianProbe eta cal W0 W1 slots W P X Y Z u =
-        ∑ J ∈ (Finset.univ : Finset (Fin K)).powerset, A u J :=
-    hSource eta cal W0 W1 slots P X Y Z u
+      originalOAIGaussianProbe eta cal W0 W1 slots W P X Y Z u / normer u =
+        ∑ J ∈ (Finset.univ : Finset (Fin K)).powerset, A u J := by
+    dsimp only [A]
+    rw [Finset.sum_div]
+    rw [hSource eta cal W0 W1 slots P X Y Z u
       (hW0 u hu) (hW1 u hu) (hslots u hu) (hP u hu)
-      (hX u hu) (hY u hu) (hZ u hu)
+      (hX u hu) (hY u hu) (hZ u hu)]
   have hEnergy :
       (∑ u ∈ rows, weight u *
-        ‖originalOAIGaussianProbe eta cal W0 W1 slots W P X Y Z u -
-          principal u‖ ^ 2) =
+        ‖originalOAIGaussianProbe eta cal W0 W1 slots W P X Y Z u /
+          normer u - principal u‖ ^ 2) =
         ∑ u ∈ rows, weight u *
           ‖(∑ J ∈ (Finset.univ : Finset (Fin K)).powerset,
               A u J) - principal u‖ ^ 2 := by
@@ -193,4 +195,4 @@ theorem originalOAI_gaussian_NNS_full_weighted_moment
 end RHLean.Analysis
 
 #print axioms RHLean.Analysis.originalOAI_probe_eq_integrated_subsets
-#print axioms RHLean.Analysis.originalOAI_gaussian_NNS_full_weighted_moment
+#print axioms RHLean.Analysis.originalOAI_gaussian_normalized_NNS_full_weighted_moment
