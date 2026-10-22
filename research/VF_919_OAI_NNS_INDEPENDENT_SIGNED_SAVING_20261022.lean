@@ -133,9 +133,10 @@ theorem nnsTwoPhase_independent_signed_moment (a b : ℂ) :
       2 * (‖a‖ ^ 2 + ‖b‖ ^ 2)
   rw [Fintype.sum_bool]
   rw [nnsTwoPhase_row, nnsTwoPhase_row]
-  simp only [Bool.ite_true, Bool.ite_false]
-  exact (nnsTwoPhase_complex_saving a b).symm.trans
-    (by ring)
+  simp only [if_true, if_false]
+  first
+  | exact nnsTwoPhase_complex_saving a b
+  | simpa only [add_comm] using nnsTwoPhase_complex_saving a b
 
 /-- NNS realification CANNOT establish a uniform saving on arbitrary
     signed sources: n coherent atoms have n² energy, not O(n).
