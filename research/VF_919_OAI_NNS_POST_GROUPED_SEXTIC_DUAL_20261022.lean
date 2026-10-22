@@ -59,17 +59,22 @@ theorem oai_nonprincipal_energy_eq_grouped_dual
       ((omega u * ‖H u‖ ^ 2 : ℝ) : ℂ) =
         (omega u : ℂ) * H u * star (H u) := by
     have hm : H u * star (H u) = ((‖H u‖ ^ 2 : ℝ) : ℂ) := by
-      simpa only [Complex.star_def] using (Complex.mul_conj' (H u))
-    rw [← mul_assoc, hm]
-    norm_cast
-  unfold oaiNonprincipalGroupedEnergy
-  push_cast
+      calc
+        _ = (‖H u‖ : ℂ) ^ 2 := Complex.mul_conj' (H u)
+        _ = ((‖H u‖ ^ 2 : ℝ) : ℂ) := by norm_cast
+    calc
+      ((omega u * ‖H u‖ ^ 2 : ℝ) : ℂ) =
+          (omega u : ℂ) * ((‖H u‖ ^ 2 : ℝ) : ℂ) := by norm_cast
+      _ = (omega u : ℂ) * (H u * star (H u)) := by rw [hm]
+      _ = (omega u : ℂ) * H u * star (H u) := by ring
   calc
-    (∑ u ∈ rows, ((omega u * ‖H u‖ ^ 2 : ℝ) : ℂ)) =
+    ((oaiNonprincipalGroupedEnergy rows cols omega b phase : ℝ) : ℂ) =
       ∑ u ∈ rows, (omega u : ℂ) * H u * star (H u) := by
+      unfold oaiNonprincipalGroupedEnergy
+      push_cast
       apply Finset.sum_congr rfl
       intro u hu
-      exact hPoint u
+      simpa only [map_mul, map_pow] using (hPoint u)
     _ = ∑ u ∈ rows, ∑ C ∈ cols,
           b C * ((omega u : ℂ) * phase C u * star (H u)) := by
       apply Finset.sum_congr rfl
@@ -149,7 +154,7 @@ theorem oai_nonprincipal_energy_bound
       have hsq : Real.sqrt EH * Real.sqrt EH ≤
           (A * K) * Real.sqrt EH := by
         nlinarith [Real.sq_sqrt hEH]
-      exact (mul_le_mul_right hpos).mp hsq
+      exact (mul_le_mul_iff_of_pos_right hpos).mp hsq
   have henergy : EH ≤ (A * K) ^ 2 := by
     nlinarith [Real.sq_sqrt hEH, mul_nonneg hA hK,
       Real.sqrt_nonneg EH]
