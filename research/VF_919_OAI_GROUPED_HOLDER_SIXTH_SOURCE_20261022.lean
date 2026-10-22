@@ -86,8 +86,32 @@ theorem oai_grouped_sixth_holder_of_two_analytic_bounds
       positivity
     _ ≤ A * K := mul_le_mul_of_nonneg_left hSixth hA
 
+/-- Squaring the already compensated Holder estimate (hence the
+    sixth-moment-root contributes ONE THIRD in the energy ledger)
+    gives the exact energy acceptance contract. The inequality
+    (A*K)^2 <= Target is a VISIBLE analytic exponent budget, not
+    something supplied by Holder or by the NNS change of coordinates. -/
+theorem oai_compensated_sixth_energy_with_explicit_budget
+    {ι : Type*} (s : Finset ι) (b t : ι → ℂ)
+    (A K Target : ℝ) (hA : 0 ≤ A)
+    (hCoeff : (∑ i ∈ s, ‖b i‖ ^ (6 / 5 : ℝ)) ^
+      (5 / 6 : ℝ) ≤ A)
+    (hSixth : (∑ i ∈ s, ‖t i‖ ^ (6 : ℝ)) ^
+      (1 / 6 : ℝ) ≤ K)
+    (hBudget : (A * K) ^ 2 ≤ Target) :
+    ‖∑ i ∈ s, b i * t i‖ ^ 2 ≤ Target := by
+  have h :=
+    oai_grouped_sixth_holder_of_two_analytic_bounds
+      s b t A K hA hCoeff hSixth
+  have hlo : 0 ≤ ‖∑ i ∈ s, b i * t i‖ := norm_nonneg _
+  have hhi : 0 ≤ A * K := le_trans hlo h
+  have hSq : ‖∑ i ∈ s, b i * t i‖ ^ 2 ≤ (A * K) ^ 2 := by
+    nlinarith [mul_nonneg (sub_nonneg.mpr h) (add_nonneg hlo hhi)]
+  exact hSq.trans hBudget
+
 end RHLean.Analysis
 
 #print axioms RHLean.Analysis.oai_compensated_fiber_sixth_holder
 #print axioms RHLean.Analysis.oai_grouped_resonant_fibers_sixth_holder
 #print axioms RHLean.Analysis.oai_grouped_sixth_holder_of_two_analytic_bounds
+#print axioms RHLean.Analysis.oai_compensated_sixth_energy_with_explicit_budget
