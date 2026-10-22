@@ -55,7 +55,7 @@ theorem oai_distinct_effective_ideals_have_nontrivial_sextic_coordinate
     (hne : v ≠ w) :
     ∃ p, ¬ (6 : ℤ) ∣ ((v p : ℤ) - (w p : ℤ)) := by
   by_contra h
-  push_neg at h
+  push Not at h
   exact hne ((oai_effective_ideal_resonance_iff_eq v w hv hw).mp h)
 
 /-- A source column may occur under several distinct labels while
