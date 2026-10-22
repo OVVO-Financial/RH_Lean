@@ -113,3 +113,43 @@ It then proves directly from OAI's **compiled source equality**, not from a prem
 This preserves all ideal and row labels, original conductor-sensitive Hecke phases, `fixedBadMask`, and normalization. It is a separately sourced detector-polynomial correspondence; **it does not assert** these columns are termwise the same as the completed GaussianSubset height-integrated source of PR #1004.
 
 The dedicated original OAI 4.34.1 combined-kernel CI checks this exact ideal-column theorem and the sharpened refined marked-moment theorem separately. Both remain subject to Lean acceptance at the latest head.
+
+## 7. Six-sector mean-defect: exact and nonuniform
+
+Formal Lean: research/VF_919_SEXTIC_SECTOR_MEAN_DEFECT_20261022.lean.
+
+Choose a sixth root zeta with zeta^6=1 and zeta != 1. For a particular genuine ideal pair (a,b), an actual OAI row u may have relative phase zeta^k or zero. Use phase_ab(u): Option (Fin 6); none means zero, not a seventh phase. The row-dependent complex amplitude c_ab(u) retains every selected mask, conductor condition, physical weight and compensated coefficient. Define
+
+  W_ab(k) = sum_{u in rows, phase_ab(u)=some(k)} omega(u) c_ab(u),
+  Wbar_ab = (sum_{k=0}^5 W_ab(k))/6.
+
+Then the exact, unconditional finite algebra is
+
+  sum_{u in rows} omega(u)c_ab(u)*phase_ab(u)
+    = sum_{k=0}^5 [W_ab(k)-Wbar_ab]*zeta^k.
+
+The mean contribution vanishes because the complete sextic geometric sum is zero. This is an IDENTITY, not a bound on the right-hand side. The proof also aggregates all distinct ordered ideal-pair labels and explicitly retains zero and constant-phase (resonant) cases. For a trivial relative phase, the full mass survives: complete-sector subtraction cannot make it small.
+
+Lean theorem names: sextic_nontrivial_root_geometric_sum_zero, sextic_sector_mean_subtraction, sextic_weighted_sector_reassembly, sextic_weighted_nonuniform_defect_exact, sextic_trivial_character_retains_full_weight, sextic_zero_characters_contribute_zero, sextic_all_labelled_pairs_defect_exact. The real NNS identification is sextic_NNS_cross_pair_eq_real_Hecke_Gram: its Co0-minus-Div0 Hermitian cross-term equals Re(a * conjugate(b)).
+
+The theorem sextic_admitted_offdiagonal_Hecke_pair_defect retains a VISIBLE original-phase-factorization hypothesis: for each actual row and ideal pair, a(u)*conjugate(b(u)) = c(u)*phase(u). It does not infer this factorization from rational ideal norms, and is NOT a proof that the entire Gaussian-Mellin source admits a uniform sextic splitting. That arithmetic identification must be proved from original OAI source declarations.
+
+## 8. Critical source-level normalizer correction
+
+OpenAI's authoritative PrimeRows/HighFromMoments.lean defines the final normalized probe denominator as
+
+  normer = sourceResidueConstant W0 W1 (product of excluded ideals)
+           * (Probe.principalScalar Finset.univ Z (1/6)
+                (slotMass T (residueWeights W Yp)) : Complex).
+
+Neither expression depends on the internal row u: the actual_high_probe_from_raw_moments conclusion is a SINGLE scalar compensatedPhysicalProbe(eta,...)/normer minus the principal Hecke signal, while u indexes internal moment-source rows. It is INCORRECT to identify normer with a row-dependent product of Stage-II factors G_p + chi_p(u)^(-1) H_p. This also means a high-row scalar normer can be pulled through any complete weighted row-sector sum, rather than charged as row-dependent equidistribution error.
+
+The exact reciprocal identity is source/normer-principal = (source-principal)+(normer^(-1)-1)*source. The source module proves this and proves the corresponding conditional remainder norm inequality; it does NOT assert normer near 1. A claimed local factor bound |E_p-1| <= Norm(p)^(-2*sigma), even if established for some different Stage-II Euler factors, does NOT bound this final normalizer without an exact product identification and nonvanishing control.
+
+At the QUADRATIC level, each normalized ideal pair contributes a(I)*conjugate(a(J)) / |normer|^2, not just 1/normer; the principal subtraction creates additional mixed pairs. Consequently no scalar first-order approximation may silently discard principal/normalizer covariance.
+
+## 9. Analytic acceptance contract
+
+The exact remaining inequality is a bound on SUMS OF ACTUAL signed, row-dependent sector defects, plus the resonant/principal/unpaired boundary terms, sufficient to yield D + Co_off - Div_off <= target(Z). It requires genuine arithmetic control of the actual Hecke relative phases and weights over incomplete conductor boxes. Neither an exact mean-subtraction identity nor arbitrary chosen phases nor a complete uniform toy orbit constitutes the needed power saving.
+
+Proof status: native Lean compilation and OAI combined typechecks are required; global uniform arithmetic saving remains OPEN.
