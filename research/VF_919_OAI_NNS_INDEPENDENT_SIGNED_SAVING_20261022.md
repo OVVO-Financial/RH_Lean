@@ -92,3 +92,24 @@ j+k<=2, same original positive fine input, masks, labels, and geometry.
 This is a **genuine stronger intermediate original-source estimate** if it passes the dedicated combined OAI/RHLean warning-fatal kernel check, and it does not assume `source_batch_plain_marked_fine` or the terminal high-row saving. The improvement is from retaining OpenAI's *original analytic width budget*, **not from an independently proved NNS offdiagonal imbalance**. In particular `PositiveFineSourceInput` remains the stated original analytic premise, and the original OAI transport / inverse / final high-row geometry still must be re-proved if using the stronger intermediate exponent to alter the final (7/8) outcome. Do NOT call this RH or a `Z^{-sigma}` global bound until the entire dependency is closed.
 
 Dedicated CI in `.github/workflows/oai-gaussian-nns-typed-434.yml` checks this theorem inside the combined pinned OAI/RHLean environment and prints axioms.
+
+
+## 6. No source-admission hypothesis: original detector ideal columns in Co/Div
+
+The PR also introduces `research/oai_434/VF919OriginalDetectorSignedNNS.lean`, importing **both** original OAI `Moments/DetectorPlainFiberSource.lean::detector_row_eq_source` and RHLean `vf919NormalizedColumnSource_NNSCovariance`.
+
+For an actual original OAI `Fiber` and every original (j,k,sigma,t), it defines (Q=mathrm{finiteColumns}(mathrm{fiberPool},F,selected)), (D_U=(U^{F.m})^2prod_{sin selected} U^{F.widths(s)}), and the **genuine** column coefficient
+[
+a_u(I)=mathrm{fiberCoefficient}(F,eta,selected,j,k,sigma,t,I)cdot
+  mathrm{CenteredMomentHeckeExpansion.rowWeight}(eta,mathrm{fixedBadMask},1,u.val,0,I).
+]
+It then proves directly from OAI's **compiled source equality**, not from a premise asserting arbitrary atoms match,
+[
+oxed{sum_{uin F.rows}|mathrm{detectorPositiveRow}(u)|^2
+=rac1{D_U}sum_usum_{I,Jin Q}
+ left[mathrm{Co}_0(Phi(a_u(I)),Phi(a_u(J)))
+       -mathrm{Div}_0(Phi(a_u(I)),Phi(a_u(J)))ight]/2.}
+]
+This preserves all ideal and row labels, original conductor-sensitive Hecke phases, `fixedBadMask`, and normalization. It is a separately sourced detector-polynomial correspondence; **it does not assert** these columns are termwise the same as the completed GaussianSubset height-integrated source of PR #1004.
+
+The dedicated original OAI 4.34.1 combined-kernel CI checks this exact ideal-column theorem and the sharpened refined marked-moment theorem separately. Both remain subject to Lean acceptance at the latest head.
