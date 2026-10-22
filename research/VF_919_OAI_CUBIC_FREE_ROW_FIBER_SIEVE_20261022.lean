@@ -20,7 +20,7 @@ or physical weight-spread as a disguised established lemma.
 -/
 
 noncomputable section
-open scoped BigOperators
+open scoped BigOperators Classical
 
 namespace RHLean.Analysis
 
@@ -33,7 +33,7 @@ theorem sixthFree_valuation_base3 (v : ℕ) (hv : v < 6) :
 /-- Strong uniqueness, including overlapping support of c and r.
 No coprimality between the cube root and cube-free remainder is assumed. -/
 theorem sixthFree_valuation_base3_unique
-    (v c r : ℕ) (hc : c < 2) (hr : r < 3)
+    (v c r : ℕ) (_hc : c < 2) (hr : r < 3)
     (h : v = 3 * c + r) :
     c = v / 3 ∧ r = v % 3 := by
   omega
@@ -204,7 +204,7 @@ theorem deFaveri_cubic_fiber_sum_bound
         P * (fibers.card : ℝ) +
         G * (∑ c ∈ fibers, q c ^ (-(2 : ℝ)))) := by
     simp only [mul_add, Finset.sum_add_distrib, ← Finset.mul_sum,
-      Finset.sum_const_zero, Finset.sum_const, nsmul_eq_mul]
+      Finset.sum_const, nsmul_eq_mul]
     ring
   have hInner :
       U * (∑ c ∈ fibers, q c ^ (-(3 : ℝ))) +
@@ -340,25 +340,25 @@ theorem dyadic_inverse_norm_pointwise_from_lower
       ((2 : ℝ) ^ k) ^ (-(2 : ℝ)) =
         (1 / 4 : ℝ) ^ k := by
     calc
-      _ = (2 : ℝ) ^ ((k : ℝ) * (-(2 : ℝ))) := by
-        rw [← Real.rpow_mul (by norm_num : (0 : ℝ) ≤ 2)]
+      _ = (2 : ℝ) ^ ((k : ℝ) * (-(2 : ℝ))) :=
+        (Real.rpow_natCast_mul (by norm_num : (0 : ℝ) ≤ 2) k (-(2 : ℝ))).symm
       _ = (2 : ℝ) ^ (-(2 : ℝ) * (k : ℝ)) := by
         congr 1
         ring
-      _ = ((2 : ℝ) ^ (-(2 : ℝ))) ^ k := by
-        rw [← Real.rpow_mul (by norm_num : (0 : ℝ) ≤ 2)]
+      _ = ((2 : ℝ) ^ (-(2 : ℝ))) ^ k :=
+        Real.rpow_mul_natCast (by norm_num : (0 : ℝ) ≤ 2) (-(2 : ℝ)) k
       _ = (1 / 4 : ℝ) ^ k := by norm_num
   have hthree :
       ((2 : ℝ) ^ k) ^ (-(3 : ℝ)) =
         (1 / 8 : ℝ) ^ k := by
     calc
-      _ = (2 : ℝ) ^ ((k : ℝ) * (-(3 : ℝ))) := by
-        rw [← Real.rpow_mul (by norm_num : (0 : ℝ) ≤ 2)]
+      _ = (2 : ℝ) ^ ((k : ℝ) * (-(3 : ℝ))) :=
+        (Real.rpow_natCast_mul (by norm_num : (0 : ℝ) ≤ 2) k (-(3 : ℝ))).symm
       _ = (2 : ℝ) ^ (-(3 : ℝ) * (k : ℝ)) := by
         congr 1
         ring
-      _ = ((2 : ℝ) ^ (-(3 : ℝ))) ^ k := by
-        rw [← Real.rpow_mul (by norm_num : (0 : ℝ) ≤ 2)]
+      _ = ((2 : ℝ) ^ (-(3 : ℝ))) ^ k :=
+        Real.rpow_mul_natCast (by norm_num : (0 : ℝ) ≤ 2) (-(3 : ℝ)) k
       _ = (1 / 8 : ℝ) ^ k := by norm_num
   constructor
   · calc
@@ -397,8 +397,8 @@ theorem dyadic_inverse_norm_two_three_constants
       (∑ i ∈ s, f i) =
         ∑ k ∈ Finset.range K,
           ∑ i ∈ s with bucket i = k, f i := by
-    exact Finset.sum_fiberwise_of_maps_to
-      (s := s) (t := Finset.range K) (g := bucket) hmap f
+    exact (Finset.sum_fiberwise_of_maps_to
+      (s := s) (t := Finset.range K) (g := bucket) hmap f).symm
   have hcell2 (k : ℕ) (hk : k < K) :
       (∑ i ∈ s with bucket i = k,
         normVal i ^ (-(2 : ℝ))) ≤
