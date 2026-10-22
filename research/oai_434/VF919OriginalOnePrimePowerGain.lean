@@ -101,17 +101,17 @@ theorem oai_one_prime_actual_marked_error_power
   have hKV : ‖K‖ * ‖V‖ ≤ T := by
     have hVle : ‖V‖ ≤ Q ^ (-6 * z.re) := hV.le
     exact hprod _ _ _ _ _ (norm_nonneg _) (norm_nonneg _)
-      hK hVle (by dsimp [T]; linarith)
+      hK hVle (by linarith)
   have hBR : ‖B‖ * ‖R‖ ≤ T :=
     hprod _ _ _ _ _ (norm_nonneg _) (norm_nonneg _)
-      hB hR (by dsimp [T]; linarith)
+      hB hR (by linarith)
   have hKVpow :
       ‖K‖ * ‖V‖ ≤ Q ^ (1 - x.re - w.re - 6 * z.re) := by
     exact hprod _ _ _ _ _ (norm_nonneg _) (norm_nonneg _)
-      hK hV.le (by ring)
+      hK hV.le (le_refl _)
   have hBKV : ‖B‖ * (‖K‖ * ‖V‖) ≤ T :=
     hprod _ _ _ _ _ (norm_nonneg _) (mul_nonneg (norm_nonneg _) (norm_nonneg _))
-      hB hKVpow (by dsimp [T]; linarith)
+      hB hKVpow (by linarith)
   have hraw := unramified_marked_error_bound R V (Q : ℂ)⁻¹ K W D
     hRh hVh hqi hDh
   have hP : ‖P + D‖ ≤ 12 * ‖R‖ * (1 + ‖W‖) +
@@ -167,20 +167,21 @@ theorem oai_one_prime_unramified_compensated_power_gain
     exact Real.rpow_le_one_of_one_le_of_nonpos hQ1 (by linarith)
   have hVT : ‖V‖ ≤ T := by
     rw [coordV_norm Q hQ0]
-    exact Real.rpow_le_rpow_of_exponent_le hQ1 (by dsimp [T]; linarith)
+    exact Real.rpow_le_rpow_of_exponent_le hQ1 (by linarith)
   have hDT : ‖D‖ ≤ T :=
     (coordD_norm_le Q hQ0 eta v x heta.le hv.le).trans
-      (Real.rpow_le_rpow_of_exponent_le hQ1 (by dsimp [T]; linarith))
+      (Real.rpow_le_rpow_of_exponent_le hQ1 (by linarith))
   have hP := oai_one_prime_actual_marked_error_power Q A eta v x w z
     hQ hA heta hv hx hw hz
   have hphase := selected_phase_identities Q eta v x w
     hQ0 heta hv
   have hh := compensated_phase_error_bound V W D P B q vInv T
     (Real.rpow_nonneg hQ0.le _) hV hW hD hq
-    hVT hDT hP.1 hP.2 (by dsimp [vInv]; rw [norm_star, hv])
+    hVT hDT hP.1 hP.2 (by change ‖star v‖ ≤ 1; rw [norm_star, hv])
     hphase.1 hphase.2
-  simpa only [unramifiedSelected, unramifiedClosed, unramifiedMarked]
-    using hh
+  change ‖compensatedReplacement V W D P B q +
+    continuedCorrection V W D P * vInv‖ ≤ 720 * T
+  exact hh
 
 
 /-- Apply the source-faithful signed one-prime bound on the ACTUAL
