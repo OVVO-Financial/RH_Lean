@@ -22,6 +22,7 @@ noncomputable section
 open scoped BigOperators
 
 namespace RHLean.Analysis
+open RHLean.Proof
 
 /-- Cancellation of the geometric sum for any nontrivial sixth root.
     Distinct six-sector phase labelling itself requires primitivity. -/
