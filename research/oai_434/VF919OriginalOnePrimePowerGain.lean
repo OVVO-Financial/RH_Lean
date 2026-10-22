@@ -14,7 +14,7 @@ This file RETAINS THE DISCARDED POWERS in the same original OAI
 HighRowsSelectedError.unramified_marked_error_bound source proof
 instead of replacing the actual marked error with Pstar = -V.
 
-Under the ACTUAL Q>=4, x.re>=7/8, w.re>=1/2, z.re>=17/50
+Under Q>=4, x.re>=7/8, w.re>=0, z.re>=17/50
 assumptions and unit eta/v phases, we show:
    |Pstar + D| <= 28 Q^(-7/8)
    |B| |Pstar + D| <= 28 Q^(-7/8)
@@ -43,7 +43,7 @@ theorem oai_one_prime_actual_marked_error_power
     (hQ : 4 ≤ Q) (hA : ‖A‖ ≤ 1)
     (heta : ‖eta‖ = 1) (hv : ‖v‖ = 1)
     (hx : (7 / 8 : ℝ) ≤ x.re)
-    (hw : (1 / 2 : ℝ) ≤ w.re)
+    (hw : (0 : ℝ) ≤ w.re)
     (hz : (17 / 50 : ℝ) ≤ z.re) :
     ‖unramifiedMarked Q A eta v x w z + coordD Q eta v x‖ ≤
         28 * Q ^ (-(7 / 8 : ℝ)) ∧
@@ -137,7 +137,7 @@ theorem oai_one_prime_unramified_compensated_power_gain
     (hQ : 4 ≤ Q) (hA : ‖A‖ ≤ 1)
     (heta : ‖eta‖ = 1) (hv : ‖v‖ = 1)
     (hx : (7 / 8 : ℝ) ≤ x.re)
-    (hw : (1 / 2 : ℝ) ≤ w.re)
+    (hw : (0 : ℝ) ≤ w.re)
     (hz : (17 / 50 : ℝ) ≤ z.re) :
     ‖unramifiedSelected Q A eta v x w z +
         unramifiedClosed Q A eta v x w z * star v‖ ≤
@@ -182,11 +182,43 @@ theorem oai_one_prime_unramified_compensated_power_gain
   simpa only [unramifiedSelected, unramifiedClosed, unramifiedMarked]
     using hh
 
+
+/-- Apply the source-faithful signed one-prime bound on the ACTUAL
+    central contour.  The original source coordinates are
+      x.re = a + 16*e, w.re = 1 - a - 6*e, z.re = 17/50.
+    At a=7/8, w.re is close to 1/8, so a spurious w.re>=1/2
+    assumption would make the local estimate unusable there.
+    This theorem requires the explicit subregion a+6*e<=1,
+    and makes NO claim about the remaining negative-w contour,
+    conductor summation, Gaussian/Mellin transport, or NNS energy. -/
+theorem oai_one_prime_physical_central_contour_power_gain
+    (Q : ℝ) (A eta v x w z : ℂ) (a e : ℝ)
+    (hQ : 4 ≤ Q) (hA : ‖A‖ ≤ 1)
+    (heta : ‖eta‖ = 1) (hv : ‖v‖ = 1)
+    (ha : (7 / 8 : ℝ) ≤ a)
+    (haTop : a + 6 * e ≤ 1)
+    (he : 0 ≤ e)
+    (hx : x.re = a + 16 * e)
+    (hw : w.re = 1 - a - 6 * e)
+    (hz : z.re = 17 / 50) :
+    ‖unramifiedSelected Q A eta v x w z +
+        unramifiedClosed Q A eta v x w z * star v‖ ≤
+      720 * Q ^ (-(7 / 8 : ℝ)) := by
+  apply oai_one_prime_unramified_compensated_power_gain
+    Q A eta v x w z hQ hA heta hv
+  · rw [hx]
+    linarith
+  · rw [hw]
+    linarith
+  · rw [hz]
+
+
 end SevenEighths.ProbeEuler
 
 end
 
 #print axioms SevenEighths.ProbeEuler.oai_one_prime_actual_marked_error_power
 #print axioms SevenEighths.ProbeEuler.oai_one_prime_unramified_compensated_power_gain
+#print axioms SevenEighths.ProbeEuler.oai_one_prime_physical_central_contour_power_gain
 
 end OAI
