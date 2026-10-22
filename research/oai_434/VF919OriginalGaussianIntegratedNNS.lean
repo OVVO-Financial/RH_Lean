@@ -166,10 +166,10 @@ theorem originalOAI_gaussian_normalized_NNS_full_weighted_moment
       originalOAIGaussianProbe eta cal W0 W1 slots W P X Y Z u / normer u =
         ∑ J ∈ (Finset.univ : Finset (Fin K)).powerset, A u J := by
     dsimp only [A]
-    rw [Finset.sum_div]
     rw [hSource eta cal W0 W1 slots P X Y Z u
       (hW0 u hu) (hW1 u hu) (hslots u hu) (hP u hu)
       (hX u hu) (hY u hu) (hZ u hu)]
+    rw [Finset.sum_div]
   have hEnergy :
       (∑ u ∈ rows, weight u *
         ‖originalOAIGaussianProbe eta cal W0 W1 slots W P X Y Z u /
