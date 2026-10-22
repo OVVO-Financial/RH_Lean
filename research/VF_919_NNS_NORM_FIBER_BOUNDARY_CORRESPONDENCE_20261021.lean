@@ -72,27 +72,21 @@ theorem fullRowSource_eq_mutual_add_unmatched
   classical
   unfold fullRowSource mutualRowSource unmatchedRowSource
     mutualFace markedOnlyFace rescaledOnlyFace
-  calc
-    (∑ a ∈ S, ((if M a then marked a else 0) +
-      (if R a then rescaledSigned a else 0))) =
-        (∑ a ∈ S,
-          ((if M a ∧ R a then marked a + rescaledSigned a else 0) +
-           (if M a ∧ ¬ R a then marked a else 0) +
-           (if ¬ M a ∧ R a then rescaledSigned a else 0))) := by
-        apply Finset.sum_congr rfl
-        intro a ha
-        by_cases hm : M a <;> by_cases hr : R a <;>
-          simp [hm, hr]
-    _ = _ := by simp only [Finset.sum_add_distrib, Finset.sum_filter]
+  simp only [Finset.sum_filter]
+  rw [← Finset.sum_add_distrib, ← Finset.sum_add_distrib]
+  apply Finset.sum_congr rfl
+  intro a ha
+  by_cases hm : M a <;> by_cases hr : R a <;>
+    simp [hm, hr]
 
 /-! ## Exact Hermitian row and detector Gram -/
 
 theorem normSq_mutual_add_unmatched (A B : ℂ) :
     Complex.normSq (A + B) =
       Complex.normSq A + Complex.normSq B +
-        2 * (A * star B).re := by
+        2 * (A * Complex.conj B).re := by
   simp only [Complex.normSq_apply, Complex.add_re, Complex.add_im,
-    Complex.mul_re, Complex.conj_re, Complex.conj_im, star_def]
+    Complex.mul_re, Complex.conj_re, Complex.conj_im]
   ring
 
 theorem detectorEnergy_eq_mutual_boundary_Gram
@@ -101,7 +95,7 @@ theorem detectorEnergy_eq_mutual_boundary_Gram
     D⁻¹ * (∑ u ∈ rows, Complex.normSq (A u + B u)) =
       D⁻¹ * ∑ u ∈ rows,
         (Complex.normSq (A u) + Complex.normSq (B u) +
-          2 * (A u * star (B u)).re) := by
+          2 * (A u * Complex.conj (B u)).re) := by
   congr 1
   apply Finset.sum_congr rfl
   intro u hu
@@ -212,8 +206,8 @@ theorem normFiber_lowGate_bridge_unconditional
     Finset.sum_le_sum (fun p hp => hFiber p)
   have hC : 0 ≤ ((H / n + 1 : ℕ) : ℝ) := Nat.cast_nonneg _
   have hTop := mul_le_mul_of_nonneg_left hSum hC
-  have hgroup : (∑ p ∈ L, packet p) = ∑ a ∈ S, z a :=
-    sum_over_norm_fibers S f z
+  have hgroup : (∑ p ∈ L, packet p) = ∑ a ∈ S, z a := by
+    simpa only [L, packet] using (sum_over_norm_fibers S f z)
   calc
     ‖∑ a ∈ S, z a‖ ^ 2 =
         ‖∑ p ∈ L, packet p‖ ^ 2 := by rw [hgroup]
