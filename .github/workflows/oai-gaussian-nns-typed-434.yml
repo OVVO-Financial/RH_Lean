@@ -25,12 +25,12 @@ permissions:
 
 concurrency:
   group: oai-gaussian-nns-typed-434-${{ github.head_ref || github.ref_name }}
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   original-oai-gaussian-nns:
     runs-on: ubuntu-latest
-    timeout-minutes: 95
+    timeout-minutes: 300
     steps:
       - name: Checkout RHLean original NNS source
         uses: actions/checkout@v4
@@ -107,12 +107,24 @@ jobs:
           set -euo pipefail
           lake build OAI.NumberTheory.DirichletL.Detector.GaussianCommon
           test -s .lake/build/lib/lean/OAI/NumberTheory/DirichletL/Detector/GaussianCommon.olean
+      - name: Checkpoint compiled OAI GaussianCommon prerequisite DAG
+        if: ${{ steps.oai_cache.outputs.cache-hit != 'true' }}
+        uses: actions/cache/save@v5
+        with:
+          path: oai-upstream/lean/.lake
+          key: oai-certified-434-pntnative-v2-${{ runner.os }}-${{ runner.arch }}-1581d4cbdd69a0faf34b2089614fe2a814316a6a-${{ hashFiles('oai-upstream/lean/lean-toolchain', 'oai-upstream/lean/lakefile.lean', 'oai-upstream/lean/lake-manifest.json', 'oai-upstream/lean/patches/**', 'scripts/apply_oai_434_upstream_patches.py') }}-progress-gaussian-${{ github.run_id }}
       - name: Build ORIGINAL OAI refined marked analytic moment prerequisites
         working-directory: oai-upstream/lean
         run: |
           set -euo pipefail
           lake build OAI.NumberTheory.DirichletL.Detector.DetectorPlainMarkedFineField
           test -s .lake/build/lib/lean/OAI/NumberTheory/DirichletL/Detector/DetectorPlainMarkedFineField.olean
+      - name: Checkpoint compiled OAI marked-source prerequisite DAG
+        if: ${{ steps.oai_cache.outputs.cache-hit != 'true' }}
+        uses: actions/cache/save@v5
+        with:
+          path: oai-upstream/lean/.lake
+          key: oai-certified-434-pntnative-v2-${{ runner.os }}-${{ runner.arch }}-1581d4cbdd69a0faf34b2089614fe2a814316a6a-${{ hashFiles('oai-upstream/lean/lean-toolchain', 'oai-upstream/lean/lakefile.lean', 'oai-upstream/lean/lake-manifest.json', 'oai-upstream/lean/patches/**', 'scripts/apply_oai_434_upstream_patches.py') }}-progress-marked-${{ github.run_id }}
       - name: KERNEL-CHECK exact original detector ideal columns into NNS CoDiv
         shell: bash
         run: |
