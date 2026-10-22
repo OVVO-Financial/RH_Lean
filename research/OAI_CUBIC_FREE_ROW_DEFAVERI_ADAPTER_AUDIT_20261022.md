@@ -61,3 +61,6 @@ The assertion `R=O(1)` does not follow from a positive density of all sixth-free
 ## New original OAI certified ideal/character adapter (pending CI)
 
 The pinned source already has factorPart_valuation, ideal_eq_of_valuation_eq, canonicalSextic_pow_two and canonicalSextic_sixth_power_mask. New source module VF919OriginalCubeFreeIdealAdapter supplies true squarefree cube root and cube-free remainder for the ACTUAL ideal span of OpenAI FreeRow, plus an actual character-square equality and sixth-power zero-mask, with no invented phase. A source-to-element equivalence, primary unit normalizers, and exact fixed-family de Faveri large-sieve admission are still separate open obligations. Workflow KERNEL-CHECK original FreeRow ideal base-3 and true cubic mask enforces warning-fatal Lean v4.34.1; do not count it kernel-certified until green.
+
+
+The same original adapter now reindexes the EXACT physical labelled FreeRow finite weighted energy by the real squarefree cube-root ideal, using Finset.sum_fiberwise_of_maps_to. It proves original_FreeRow_cube_ideal_norm_identity and original_FreeRow_cube_fiber_weighted_reindex without assuming uniform weights, density or injectivity of element representatives. This pays the finite partition/admission bookkeeping; the character-family operator and row spread remain independent.

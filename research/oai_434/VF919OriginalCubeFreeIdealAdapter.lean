@@ -85,6 +85,42 @@ theorem original_FreeRow_principal_ideal_base3
   · exact Ideal.span_singleton_eq_bot.not.mpr u.property.1
   · exact u.property.2
 
+/-- The actual original FreeRow principal ideal norm splits into
+    its cube-root and cube-free remainder norms, without replacing a
+    labelled row by an arbitrary chosen generator. -/
+theorem original_FreeRow_cube_ideal_norm_identity
+    (u : FreeRow) :
+    ((Ideal.absNorm (Ideal.span {u.val}) : ℕ) : ℝ) =
+      ((Ideal.absNorm (squarefreeCubeRoot (Ideal.span {u.val})) : ℕ) : ℝ) ^ 3 *
+      ((Ideal.absNorm (cubeFreeRemainder (Ideal.span {u.val})) : ℕ) : ℝ) := by
+  have h := congrArg (fun J : Id => ((Ideal.absNorm J : ℕ) : ℝ))
+    (original_FreeRow_principal_ideal_base3 u).1
+  simpa only [map_mul, map_pow, Nat.cast_mul, Nat.cast_pow] using h.symm
+
+/-- EXACT weighted Fubini of ORIGINAL labelled FreeRow ELEMENTS by
+    their genuine squarefree cube-root IDEAL. Every original row and
+    its weight occurs once, even when several element associates
+    determine the same principal ideal. No density or weight-spread
+    hypothesis is used. -/
+theorem original_FreeRow_cube_fiber_weighted_reindex
+    (rows : Finset FreeRow) (rho : FreeRow → ℝ)
+    (amplitude : FreeRow → ℂ) :
+    (∑ u ∈ rows, rho u * ‖amplitude u‖ ^ 2) =
+      ∑ C ∈ rows.image (fun u =>
+        squarefreeCubeRoot (Ideal.span {u.val})),
+        ∑ u ∈ rows with
+          squarefreeCubeRoot (Ideal.span {u.val}) = C,
+          rho u * ‖amplitude u‖ ^ 2 := by
+  let g : FreeRow → Id := fun u =>
+    squarefreeCubeRoot (Ideal.span {u.val})
+  have hmaps : ∀ u ∈ rows, g u ∈ rows.image g := by
+    intro u hu
+    exact Finset.mem_image.mpr ⟨u, hu, rfl⟩
+  simpa only [g] using
+    (Finset.sum_fiberwise_of_maps_to
+      (s := rows) (t := rows.image g) (g := g) hmaps
+      (fun u => rho u * ‖amplitude u‖ ^ 2))
+
 /-- Uniqueness among actual ideal factors, not only symbolic profiles. -/
 theorem actual_ideal_base3_unique
     (I C R : Id) (hC : C ≠ 0) (hR : R ≠ 0)
@@ -161,6 +197,8 @@ end
 #print axioms SevenEighths.CubeFreeRowAdapter.actual_ideal_base3_factorization
 #print axioms SevenEighths.CubeFreeRowAdapter.sixthFree_ideal_sqFree_mul_cube_cubeFree
 #print axioms SevenEighths.CubeFreeRowAdapter.original_FreeRow_principal_ideal_base3
+#print axioms SevenEighths.CubeFreeRowAdapter.original_FreeRow_cube_ideal_norm_identity
+#print axioms SevenEighths.CubeFreeRowAdapter.original_FreeRow_cube_fiber_weighted_reindex
 #print axioms SevenEighths.CubeFreeRowAdapter.actual_ideal_base3_unique
 #print axioms SevenEighths.CubeFreeRowAdapter.original_canonicalSextic_sq_eq_cubic
 #print axioms SevenEighths.CubeFreeRowAdapter.original_canonical_cubic_cube_mask
