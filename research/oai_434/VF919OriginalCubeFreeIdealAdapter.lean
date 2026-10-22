@@ -120,7 +120,7 @@ theorem original_FreeRow_cube_fiber_weighted_reindex
   simpa only [g] using
     (Finset.sum_fiberwise_of_maps_to
       (s := rows) (t := rows.image g) (g := g) hmaps
-      (fun u => rho u * ‖amplitude u‖ ^ 2))
+      (fun u => rho u * ‖amplitude u‖ ^ 2)).symm
 
 /-- Concrete OAI ideal counting already gives an explicit constant
     128 for the number of distinct squarefree cube-root ideals

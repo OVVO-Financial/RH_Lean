@@ -97,7 +97,7 @@ theorem cubic_masked_cube_character_invariant
           calc
             _ = zC ^ 6 * zU ^ 2 := by ring
             _ = zU ^ 2 := by rw [hpow]; ring)
-    · simp [hc, hu]
+    · simp [hu]
   · simp [hc]
 
 /-- A conjugated cubic symbol has the same fiber invariance,
@@ -120,7 +120,7 @@ theorem conjugate_cubic_masked_cube_character_invariant
           calc
             _ = zC ^ 6 * zU ^ 2 := by ring
             _ = zU ^ 2 := by rw [hpow]; ring)
-    · simp [hc, hu]
+    · simp [hu]
   · simp [hc]
 
 /-- Directly from nonnegative physical weights and a cube-free
