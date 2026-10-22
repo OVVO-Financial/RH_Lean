@@ -192,7 +192,60 @@ theorem originalOAI_gaussian_normalized_NNS_full_weighted_moment
   · exact gaussianIntegrated_uniform_signed_NNS_of_original_bound
       rows weight hweight A principal B hBound
 
+
+/-- Discharges the GaussianCommon logarithmic slot-window condition
+    from the ORIGINAL high-row annular support, rather than postulating
+    a synthetic bounded Mellin weight. -/
+theorem originalOAI_gaussian_log_window_from_annular_support
+    {K : ℕ} (W : Fin K → ℝ → ℂ) (a b : ℝ)
+    (ha : 0 < a)
+    (hSupport : ∀i, Function.support (W i) ⊆ Set.Ioo a b) :
+    ∃ M : Fin K → ℝ, (∀i, 0 ≤ M i) ∧
+      (∀i y, W i (Real.exp y) ≠ 0 → |y| ≤ M i) := by
+  refine ⟨fun _ => |Real.log a| + |Real.log b| + 1, ?_, ?_⟩
+  · intro i
+    positivity
+  · intro i y hy
+    have hmem : Real.exp y ∈ Function.support (W i) := hy
+    obtain ⟨hlo, hhi⟩ := hSupport i hmem
+    have hl : Real.log a ≤ y := by
+      have hh := Real.log_le_log ha hlo.le
+      simpa only [Real.log_exp] using hh
+    have hh : y ≤ Real.log b := by
+      have hh' := Real.log_le_log (Real.exp_pos y) hhi.le
+      simpa only [Real.log_exp] using hh'
+    apply abs_le.mpr
+    constructor
+    · have hleft := neg_abs_le (Real.log a)
+      have hright := abs_nonneg (Real.log b)
+      dsimp
+      linarith
+    · have hright := le_abs_self (Real.log b)
+      have hleft := abs_nonneg (Real.log a)
+      dsimp
+      linarith
+
+/-- Precisely the REAL-valued slot-window profile used in the original
+    HighFromMoments theorem; all three OAI Gaussian hypotheses are
+    derived from hSupport and the positive lower annular edge. -/
+theorem originalOAI_real_slot_window_from_annular_support
+    {K : ℕ} (W : Fin K → ℝ → ℝ) (a b : ℝ)
+    (ha : 0 < a)
+    (hSupport : ∀i, Function.support (W i) ⊆ Set.Ioo a b) :
+    ∃ M : Fin K → ℝ, (∀i, 0 ≤ M i) ∧
+      (∀i y, ((W i (Real.exp y) : ℝ) : ℂ) ≠ 0 → |y| ≤ M i) := by
+  apply originalOAI_gaussian_log_window_from_annular_support
+    (fun i x => (W i x : ℂ)) a b ha
+  intro i x hx
+  apply hSupport i
+  change (W i x : ℂ) ≠ 0 at hx
+  change W i x ≠ 0
+  exact_mod_cast hx
+
 end RHLean.Analysis
 
 #print axioms RHLean.Analysis.originalOAI_probe_eq_integrated_subsets
 #print axioms RHLean.Analysis.originalOAI_gaussian_normalized_NNS_full_weighted_moment
+
+#print axioms RHLean.Analysis.originalOAI_gaussian_log_window_from_annular_support
+#print axioms RHLean.Analysis.originalOAI_real_slot_window_from_annular_support
