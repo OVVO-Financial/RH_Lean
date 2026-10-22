@@ -467,8 +467,6 @@ end
 #print axioms SevenEighths.ProbeEuler.oai_one_prime_unramified_compensated_power_gain
 #print axioms SevenEighths.ProbeEuler.oai_one_prime_physical_central_contour_power_gain
 
-end OAI
-
 #print axioms SevenEighths.ProbeEuler.oai_one_prime_compensated_source_contour_rate
 #print axioms SevenEighths.ProbeEuler.oai_one_prime_compensated_weighted_l2_rate
 #print axioms SevenEighths.ProbeEuler.oai_actual_marked_factor_plus_D_exact
@@ -477,3 +475,5 @@ end OAI
 #print axioms SevenEighths.ProbeEuler.oai_actual_BKV_source_bound
 #print axioms SevenEighths.ProbeEuler.oai_actual_BKV_source_contour_power
 #print axioms SevenEighths.ProbeEuler.oai_actual_BKV_leading_phase_free
+
+end OAI
