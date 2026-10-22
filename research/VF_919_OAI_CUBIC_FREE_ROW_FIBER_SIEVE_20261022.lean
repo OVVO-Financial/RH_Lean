@@ -327,6 +327,49 @@ private theorem oai_sum_quarter_geometric (K : ℕ) :
     rw [Finset.sum_range_succ, ih, pow_succ]
     ring
 
+/-- From the *actual dyadic norm lower bound*, not an
+    independent analytic hypothesis, the two inverse-norm
+    monotonicity bounds follow with exact constants. -/
+theorem dyadic_inverse_norm_pointwise_from_lower
+    (q : ℝ) (k : ℕ)
+    (hq : (2 : ℝ) ^ k ≤ q) :
+    q ^ (-(2 : ℝ)) ≤ (1 / 4 : ℝ) ^ k ∧
+    q ^ (-(3 : ℝ)) ≤ (1 / 8 : ℝ) ^ k := by
+  have hpowPos : 0 < (2 : ℝ) ^ k := by positivity
+  have htwo :
+      ((2 : ℝ) ^ k) ^ (-(2 : ℝ)) =
+        (1 / 4 : ℝ) ^ k := by
+    calc
+      _ = (2 : ℝ) ^ ((k : ℝ) * (-(2 : ℝ))) := by
+        rw [← Real.rpow_mul (by norm_num : (0 : ℝ) ≤ 2)]
+      _ = (2 : ℝ) ^ (-(2 : ℝ) * (k : ℝ)) := by
+        congr 1
+        ring
+      _ = ((2 : ℝ) ^ (-(2 : ℝ))) ^ k := by
+        rw [← Real.rpow_mul (by norm_num : (0 : ℝ) ≤ 2)]
+      _ = (1 / 4 : ℝ) ^ k := by norm_num
+  have hthree :
+      ((2 : ℝ) ^ k) ^ (-(3 : ℝ)) =
+        (1 / 8 : ℝ) ^ k := by
+    calc
+      _ = (2 : ℝ) ^ ((k : ℝ) * (-(3 : ℝ))) := by
+        rw [← Real.rpow_mul (by norm_num : (0 : ℝ) ≤ 2)]
+      _ = (2 : ℝ) ^ (-(3 : ℝ) * (k : ℝ)) := by
+        congr 1
+        ring
+      _ = ((2 : ℝ) ^ (-(3 : ℝ))) ^ k := by
+        rw [← Real.rpow_mul (by norm_num : (0 : ℝ) ≤ 2)]
+      _ = (1 / 8 : ℝ) ^ k := by norm_num
+  constructor
+  · calc
+      _ ≤ ((2 : ℝ) ^ k) ^ (-(2 : ℝ)) :=
+        Real.rpow_le_rpow_of_nonpos hpowPos hq (by norm_num)
+      _ = (1 / 4 : ℝ) ^ k := htwo
+  · calc
+      _ ≤ ((2 : ℝ) ^ k) ^ (-(3 : ℝ)) :=
+        Real.rpow_le_rpow_of_nonpos hpowPos hq (by norm_num)
+      _ = (1 / 8 : ℝ) ^ k := hthree
+
 /-- EXACT FINITE DYADIC PAYMENT: if all ideal masses are assigned
     to 2^k<=N<2^(k+1), the original OAI ball bound
     # {I: N(I)<=X} <=128X gives bucketCount<=256*2^k.
@@ -449,3 +492,4 @@ end RHLean.Analysis
 #print axioms RHLean.Analysis.cubic_conjugate_operator_energy_eq
 #print axioms RHLean.Analysis.cubic_primary_unit_ramified_cosets_card
 #print axioms RHLean.Analysis.dyadic_inverse_norm_two_three_constants
+#print axioms RHLean.Analysis.dyadic_inverse_norm_pointwise_from_lower

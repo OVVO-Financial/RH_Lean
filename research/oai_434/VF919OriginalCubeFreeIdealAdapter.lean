@@ -178,6 +178,39 @@ theorem original_FreeRow_cube_root_ideal_count_le
     obtain ⟨u, hu, rfl⟩ := Finset.mem_image.mp hC
     exact hBound u hu
 
+/-- This is the ORIGINAL OAI 128X ideal count instantiated on
+    one genuine Eisenstein norm-dyadic shell. It supplies the
+    exact 256*2^k cap used in our elementary zeta(2), zeta(3)
+    finite dyadic argument. The ideal support can be any finite
+    subset of nonzero ideals (including squarefree cube roots). -/
+theorem original_ideal_dyadic_shell_count_le
+    (carrier : Finset Id) (hnz : ∀ I ∈ carrier, I ≠ 0)
+    (k : ℕ) :
+    (((carrier.filter (fun I =>
+      (2 : ℝ) ^ k ≤ (Ideal.absNorm I : ℝ) ∧
+      (Ideal.absNorm I : ℝ) < (2 : ℝ) ^ (k + 1))).card : ℕ) : ℝ) ≤
+        256 * (2 : ℝ) ^ k := by
+  let shell : Finset Id := carrier.filter (fun I =>
+      (2 : ℝ) ^ k ≤ (Ideal.absNorm I : ℝ) ∧
+      (Ideal.absNorm I : ℝ) < (2 : ℝ) ^ (k + 1))
+  have hOne : 1 ≤ (2 : ℝ) ^ (k + 1) :=
+    one_le_pow₀ (by norm_num : (1 : ℝ) ≤ 2) _
+  have hNZ : ∀ I ∈ shell, I ≠ 0 := by
+    intro I hI
+    exact hnz I (Finset.mem_filter.mp hI).1
+  have hBound : ∀ I ∈ shell,
+      (Ideal.absNorm I : ℝ) ≤ (2 : ℝ) ^ (k + 1) := by
+    intro I hI
+    exact (Finset.mem_filter.mp hI).2.2.le
+  have hc := DescentFiberCost.finite_ideal_count_real
+    shell ((2 : ℝ) ^ (k + 1)) hOne hNZ hBound
+  change (shell.card : ℝ) ≤ 256 * (2 : ℝ) ^ k
+  calc
+    _ ≤ 128 * (2 : ℝ) ^ (k + 1) := hc
+    _ = 256 * (2 : ℝ) ^ k := by
+      rw [pow_succ]
+      ring
+
 /-- Uniqueness among actual ideal factors, not only symbolic profiles. -/
 theorem actual_ideal_base3_unique
     (I C R : Id) (hC : C ≠ 0) (hR : R ≠ 0)
@@ -327,6 +360,7 @@ end
 #print axioms SevenEighths.CubeFreeRowAdapter.original_FreeRow_cube_ideal_norm_identity
 #print axioms SevenEighths.CubeFreeRowAdapter.original_FreeRow_cube_fiber_weighted_reindex
 #print axioms SevenEighths.CubeFreeRowAdapter.original_FreeRow_cube_root_ideal_count_le
+#print axioms SevenEighths.CubeFreeRowAdapter.original_ideal_dyadic_shell_count_le
 #print axioms SevenEighths.CubeFreeRowAdapter.actual_ideal_base3_unique
 #print axioms SevenEighths.CubeFreeRowAdapter.original_canonicalSextic_sq_eq_cubic
 #print axioms SevenEighths.CubeFreeRowAdapter.original_canonical_cubic_cube_mask
