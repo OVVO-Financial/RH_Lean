@@ -116,7 +116,7 @@ theorem oai_grouped_fiber_l65_power_budget
     (shift euler : α → ℂ) (tau : α → ℝ)
     (Ashift Aeuler D Z sigma c : ℝ)
     (hAshift : 0 ≤ Ashift) (hAeuler : 0 ≤ Aeuler)
-    (hD : 0 < D) (hZ : 0 < Z)
+    (hD : 0 < D) (_hZ : 0 < Z)
     (htau : ∀ m ∈ carrier, 0 ≤ tau m)
     (hShift : ∀ m ∈ carrier, ‖shift m‖ ≤ Ashift * tau m)
     (hEuler : ∀ m ∈ carrier, ‖euler m‖ ≤ Aeuler * tau m)
