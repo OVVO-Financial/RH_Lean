@@ -43,7 +43,7 @@ theorem oai_one_prime_actual_marked_error_power
     (hQ : 4 ≤ Q) (hA : ‖A‖ ≤ 1)
     (heta : ‖eta‖ = 1) (hv : ‖v‖ = 1)
     (hx : (7 / 8 : ℝ) ≤ x.re)
-    (hw : (1 / 2 : ℝ) ≤ w.re)
+    (hw : (0 : ℝ) ≤ w.re)
     (hz : (17 / 50 : ℝ) ≤ z.re) :
     ‖unramifiedMarked Q A eta v x w z + coordD Q eta v x‖ ≤
         28 * Q ^ (-(7 / 8 : ℝ)) ∧
@@ -137,7 +137,7 @@ theorem oai_one_prime_unramified_compensated_power_gain
     (hQ : 4 ≤ Q) (hA : ‖A‖ ≤ 1)
     (heta : ‖eta‖ = 1) (hv : ‖v‖ = 1)
     (hx : (7 / 8 : ℝ) ≤ x.re)
-    (hw : (1 / 2 : ℝ) ≤ w.re)
+    (hw : (0 : ℝ) ≤ w.re)
     (hz : (17 / 50 : ℝ) ≤ z.re) :
     ‖unramifiedSelected Q A eta v x w z +
         unramifiedClosed Q A eta v x w z * star v‖ ≤
@@ -182,11 +182,93 @@ theorem oai_one_prime_unramified_compensated_power_gain
   simpa only [unramifiedSelected, unramifiedClosed, unramifiedMarked]
     using hh
 
+/-- The ORIGINAL central-contour coordinates, not an invented
+    independent half-plane choice, satisfy the one-prime compensated
+    Q^(-7/8) estimate as soon as 7/8 <= a and a+6*e <= 1.
+    In particular w.re=1-a-6*e is near 1/8 at a=7/8,
+    NOT >= 1/2. The theorem consumes ONLY the source-local estimate. -/
+theorem oai_one_prime_compensated_source_contour_rate
+    (Q : ℝ) (A eta v x w z : ℂ) (a e : ℝ)
+    (hQ : 4 ≤ Q) (hA : ‖A‖ ≤ 1)
+    (heta : ‖eta‖ = 1) (hv : ‖v‖ = 1)
+    (ha : (7 / 8 : ℝ) ≤ a)
+    (he : 0 < e) (_heMax : e ≤ 1 / 1000)
+    (haUpper : a + 6 * e ≤ 1)
+    (hx : x.re = a + 16 * e)
+    (hw : w.re = 1 - a - 6 * e)
+    (hz : z.re = 17 / 50) :
+    ‖unramifiedSelected Q A eta v x w z +
+        unramifiedClosed Q A eta v x w z * star v‖ ≤
+      720 * Q ^ (-(7 / 8 : ℝ)) := by
+  apply oai_one_prime_unramified_compensated_power_gain
+    Q A eta v x w z hQ hA heta hv
+  · rw [hx]
+    linarith
+  · rw [hw]
+    linarith
+  · rw [hz]
+
+/-- A GENUINE weighted energy rate for the recombined, single-prime,
+    original OAI source residual, including arbitrary NONNEGATIVE
+    physical row weights and row-dependent unit phases.
+    No complete-uniform-orbit hypothesis, no high-row target, and no
+    phase-orthogonality assumption is used. This is deliberately
+    a ONE-prime source bound, not the summed effective-ideal family. -/
+theorem oai_one_prime_compensated_weighted_l2_rate
+    {ι : Type*} (rows : Finset ι) (rho : ι → ℝ)
+    (Q : ℝ) (A eta x w z : ℂ) (v : ι → ℂ) (a e : ℝ)
+    (hQ : 4 ≤ Q) (hA : ‖A‖ ≤ 1) (heta : ‖eta‖ = 1)
+    (hv : ∀ u ∈ rows, ‖v u‖ = 1)
+    (hrho : ∀ u ∈ rows, 0 ≤ rho u)
+    (ha : (7 / 8 : ℝ) ≤ a)
+    (he : 0 < e) (heMax : e ≤ 1 / 1000)
+    (haUpper : a + 6 * e ≤ 1)
+    (hx : x.re = a + 16 * e)
+    (hw : w.re = 1 - a - 6 * e)
+    (hz : z.re = 17 / 50) :
+    (∑ u ∈ rows, rho u *
+       ‖unramifiedSelected Q A eta (v u) x w z +
+           unramifiedClosed Q A eta (v u) x w z * star (v u)‖ ^ 2) ≤
+      (720 * Q ^ (-(7 / 8 : ℝ))) ^ 2 *
+        (∑ u ∈ rows, rho u) := by
+  let r : ι → ℂ := fun u =>
+    unramifiedSelected Q A eta (v u) x w z +
+      unramifiedClosed Q A eta (v u) x w z * star (v u)
+  let C : ℝ := 720 * Q ^ (-(7 / 8 : ℝ))
+  have hC : 0 ≤ C := by
+    dsimp [C]
+    positivity
+  have hpoint (u : ι) (hu : u ∈ rows) : ‖r u‖ ≤ C := by
+    dsimp [r, C]
+    exact oai_one_prime_compensated_source_contour_rate
+      Q A eta (v u) x w z a e
+      hQ hA heta (hv u hu) ha he heMax haUpper hx hw hz
+  have hsq (u : ι) (hu : u ∈ rows) : ‖r u‖ ^ 2 ≤ C ^ 2 := by
+    have hprod : 0 ≤ (C - ‖r u‖) * (C + ‖r u‖) :=
+      mul_nonneg (sub_nonneg.mpr (hpoint u hu))
+        (add_nonneg hC (norm_nonneg _))
+    nlinarith
+  change (∑ u ∈ rows, rho u * ‖r u‖ ^ 2) ≤
+    C ^ 2 * (∑ u ∈ rows, rho u)
+  calc
+    _ ≤ ∑ u ∈ rows, rho u * C ^ 2 := by
+      apply Finset.sum_le_sum
+      intro u hu
+      exact mul_le_mul_of_nonneg_left (hsq u hu) (hrho u hu)
+    _ = ∑ u ∈ rows, C ^ 2 * rho u := by
+      apply Finset.sum_congr rfl
+      intro u hu
+      ring
+    _ = C ^ 2 * (∑ u ∈ rows, rho u) := by
+      rw [Finset.mul_sum]
+
 end SevenEighths.ProbeEuler
 
 end
 
 #print axioms SevenEighths.ProbeEuler.oai_one_prime_actual_marked_error_power
 #print axioms SevenEighths.ProbeEuler.oai_one_prime_unramified_compensated_power_gain
+#print axioms SevenEighths.ProbeEuler.oai_one_prime_compensated_source_contour_rate
+#print axioms SevenEighths.ProbeEuler.oai_one_prime_compensated_weighted_l2_rate
 
 end OAI
