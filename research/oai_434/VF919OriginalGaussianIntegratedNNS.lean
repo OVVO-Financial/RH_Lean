@@ -5,7 +5,7 @@ import «research.VF_919_OAI_GAUSSIAN_SUBSET_EXACT_COEFFICIENT_NNS_20261021»
 # OAI-typed, proof-authoritative Gaussian subset -> signed NNS
 
 Unlike the abstract coefficient interface, THIS FILE DIRECTLY USES the
-original upstream OAI.HeckeFamily.Character, CalibrationData, OAI
+original upstream OAI.SevenEighths.HeckeFamily.Character, CalibrationData, OAI
 compensatedPhysicalProbe, compensationSubsetWeight, compensationRowTest,
 selectedSlotFactor, gaussianJointDensity and the kernel-proved theorem
 compensatedPhysicalProbe_common_gaussian.
@@ -38,7 +38,7 @@ local notation "O" => OAI.ActualEisensteinCubic.O
 def originalOAIGaussianSubsetIntegral {K : ℕ} {ι : Type*}
     (V : Finset (Fin K) → SchwartzMap ℝ ℂ)
     (hV : ∀J, HasCompactSupport (V J : ℝ → ℂ))
-    (eta : ι → OAI.HeckeFamily.Character)
+    (eta : ι → OAI.SevenEighths.HeckeFamily.Character)
     (cal : ι → CalibrationData)
     (W0 W1 : ι → ℝ → ℂ) (slots : ι → Fin K → Finset O)
     (W : Fin K → ℝ → ℂ) (P : ι → Fin K → ℝ)
@@ -55,7 +55,7 @@ def originalOAIGaussianSubsetIntegral {K : ℕ} {ι : Type*}
 
 /-- Original probe, with EXACT row-labelled original OAI types. -/
 def originalOAIGaussianProbe {K : ℕ} {ι : Type*}
-    (eta : ι → OAI.HeckeFamily.Character)
+    (eta : ι → OAI.SevenEighths.HeckeFamily.Character)
     (cal : ι → CalibrationData)
     (W0 W1 : ι → ℝ → ℂ) (slots : ι → Fin K → Finset O)
     (W : Fin K → ℝ → ℂ) (P : ι → Fin K → ℝ)
@@ -73,7 +73,7 @@ theorem originalOAI_probe_eq_integrated_subsets
     (hwindow : ∀i y, W i (Real.exp y) ≠ 0 → |y| ≤ M i) :
     ∃ V : Finset (Fin K) → SchwartzMap ℝ ℂ,
       ∃ hV : ∀ J, HasCompactSupport (V J : ℝ → ℂ),
-      ∀ (eta : ι → OAI.HeckeFamily.Character)
+      ∀ (eta : ι → OAI.SevenEighths.HeckeFamily.Character)
         (cal : ι → CalibrationData)
         (W0 W1 : ι → ℝ → ℂ)
         (slots : ι → Fin K → Finset O)
@@ -114,7 +114,7 @@ theorem originalOAI_gaussian_normalized_NNS_full_weighted_moment
     ∃ V : Finset (Fin K) → SchwartzMap ℝ ℂ,
       ∃ hV : ∀ J, HasCompactSupport (V J : ℝ → ℂ),
       ∀ (rows : Finset ι)
-        (eta : ι → OAI.HeckeFamily.Character)
+        (eta : ι → OAI.SevenEighths.HeckeFamily.Character)
         (cal : ι → CalibrationData)
         (W0 W1 : ι → ℝ → ℂ)
         (slots : ι → Fin K → Finset O)
@@ -138,18 +138,18 @@ theorem originalOAI_gaussian_normalized_NNS_full_weighted_moment
           (gaussianIntegratedSignalCarrier K) weight
           (fun u l =>
             (RHLean.Proof.stableFarComplexToRealPair
-              (gaussianIntegratedSignalAtom (A u) (principal u) l)).1)
+              (gaussianIntegratedSignalAtom A principal u l)).1)
           (fun u l =>
             (RHLean.Proof.stableFarComplexToRealPair
-              (gaussianIntegratedSignalAtom (A u) (principal u) l)).2)
+              (gaussianIntegratedSignalAtom A principal u l)).2)
         let div := vf919WeightedPhiDivMass rows
           (gaussianIntegratedSignalCarrier K) weight
           (fun u l =>
             (RHLean.Proof.stableFarComplexToRealPair
-              (gaussianIntegratedSignalAtom (A u) (principal u) l)).1)
+              (gaussianIntegratedSignalAtom A principal u l)).1)
           (fun u l =>
             (RHLean.Proof.stableFarComplexToRealPair
-              (gaussianIntegratedSignalAtom (A u) (principal u) l)).2)
+              (gaussianIntegratedSignalAtom A principal u l)).2)
         (∑ u ∈ rows, weight u *
           ‖originalOAIGaussianProbe eta cal W0 W1 slots W P X Y Z u /
               normer u - principal u‖ ^ 2 = co - div) ∧
