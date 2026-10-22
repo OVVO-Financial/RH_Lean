@@ -185,3 +185,7 @@ Do not enlarge the raw-modulus table unchanged. The next nonduplicate experiment
 Recombine the complete complex source before taking its norm and verify it independently against the upstream subset sum. The decisive falsifier for a proposed local saving is a legal weighted row whose complete even-plus-odd restricted-kernel defect has the opposite sign. The needed theorem is a uniform weighted bound across moving conductors/heights, not a pointwise alias statistic.
 
 No RH proof claim.
+
+## I. Publication verification
+
+The initial report was created on `agent-reports` by commit `9660b880e74b45f70de2275fef7c7a7db5fea48b`. Immediate readback returned blob `8244a0945498207203ec8aaf3996045dea0517dc`, 12,737 characters, `COMPLETED` status and claim ID `20261022-census-1`. This verifies publication only; it does not promote the finite computation to a uniform theorem. No main source, PR, review, workflow, merge, schedule or permission state was changed.
