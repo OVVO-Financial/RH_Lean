@@ -1,11 +1,19 @@
 # Research route registry
 
+## 2026-10-22 — CURRENT source-first OAI/NNS quantitative gate (upon human merge)
+
+First-selector document: [OAI compensated one-prime / signed NNS seam](docs/OAI_COMPENSATED_ONE_PRIME_NNS_SEAM_20261022.md). Distinct research gates: **(A)** original one-prime already locally \(O(Q^{-51/100})\) on eligible central rows, but global post-compensated ideal coefficient \(D_{\rm cond}^{-1/2}Z^{-\sigma}\tau\) still **OPEN**; **(B)** genuine \(\|\tau\|_{6/5}\) bound; **(C)** original grouped incomplete sextic sixth-moment and phase admission; **(D)** original principal/cross NNS full energy plus LOW/HIGH final detector. #1000–#1004 **merged**; #1005/#1006 **draft**. No proof of a better 7/8 bound or canonical VF / RH; original #987 imports OAI's known 7/8 benchmark and is not an independent proof of its mechanism.
+
+**Discriminating experiment:** \(\tau_S(\mathfrak m)=1\) admits exactly one ideal-prime/cofactor pair on squarefree ideals: regrouping alone cannot cancel it. Audit the exact recombined \`ProbeLocal.normalized_cancellation\` coefficient and original normalization first, rather than assuming dyadic width kills (A). If (A) fails on an admitted physical source, activate a complete aggregate signed covariance alternative with every exceptional bill. Archive older Oct 14 "live" priorities below as historical routes, preserving their independent mathematical use.
+
+
+
 This file is the permanent trail marker for analytic routes explored around the
 square-prefix Mertens program. It records which mechanisms are exact, which
 finite experiments have been run, which mechanisms have failed their declared
 tests, and which routes remain materially distinct.
 
-## 2026-10-14 — live research route portfolio: independent conceptual mechanisms
+## 2026-10-14 — historical research route portfolio: independent conceptual mechanisms
 
 **Status:** The canonical `VFCanonicalSquareVonKochStatement` remains unproved; original signed source, finite A/C and CORR-4 have no completed all-scale independent estimate. The former actual-prime versus Li/floor-Li signed collision experiment remains useful but is only **one candidate mechanism**, not the permanent coordinating task for every agent. Live authority: `AGENTS.md`, `CURRENT_PROOF_CONTRACT.md` and [Dynamic Research Agents](docs/DYNAMIC_RESEARCH_AGENTS.md).
 

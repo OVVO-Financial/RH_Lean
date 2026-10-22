@@ -1,10 +1,12 @@
 # RH_Lean current proof contract
 
+> **CURRENT FRONTIER OVERLAY, 2026-10-22 (effective after human merge):** The [source-grounded OAI compensated one-prime/NNS contract](docs/OAI_COMPENSATED_ONE_PRIME_NNS_SEAM_20261022.md) is the agents' first quantitative seam. Merged #1000–#1004 fix exact original source admissions and complete Gaussian-to-NNS identities; #1005/#1006 are still draft. Original OAI's proved conditional central local \(720Q^{-51/100}\) must be transported to (or disproved for) actual post-compensation ideal coefficients under real \(D_{\rm cond}^{-1/2}Z^{-\sigma}\) scaling. Independently prove true \(\ell^{6/5}\) multiplicity, actual-family sixth-moment, principal and signed cross bills before a native 7/8 claim. The #987 imported original 7/8 certificate is verified benchmark, NOT independent replication; no RH or canonical \(VF\) source-payment closure is implied. All prior PNT, Hecke, original #915, finite-A/C and alternative results remain mathematically unchanged but their older "ACTIVE" labels are historical as agent-routing priorities.
+
 > **2026-10-18 execution refinement (pending merge):** [S=A-T two-scale signed renewal attack plan](research/SIGNED_RENEWAL_TWO_SCALE_ATTACK_PLAN_20261018.md). First seek a genuinely *independent* power-saving on the full signed square-shell second moment, with a parameterized high-divisor tail and honest prime-only d=1 compensation; then seek separate nonlocal cross-shell compensation for the RH-level endpoint. The plan preserves the original strict vs non-strict root cutoff, historical source #915, and #975/#976 obstructions. It records #978 as an independent, still-draft Λ-hyperbola/anchor interface, not a proved signed estimate. No canonical target, already established theorem, or current closed-status label is changed by this research steering.
 
-## ACTIVE mathematical seam after the 2026-10-18 PNT-first user pivot (upon merge)
+## Retained secondary mathematical seam after the 2026-10-18 PNT-first pivot
 
-**Primary operating authority:** [PNT-first signed cofactor / historical-return contract](docs/PNT_FIRST_SIGNED_COFACTOR_SEAM_2026_10_18.md). **PNT is established**, not an RH hypothesis. Use its true asymptotic/error theorem for genuine prime populations; *never* replace actual prime indicators by pointwise Li density without retaining the signed discrepancy and source weights.
+**Historical operating authority (secondary after Oct 22):** [PNT-first signed cofactor / historical-return contract](docs/PNT_FIRST_SIGNED_COFACTOR_SEAM_2026_10_18.md). **PNT is established**, not an RH hypothesis. Use its true asymptotic/error theorem for genuine prime populations; *never* replace actual prime indicators by pointwise Li density without retaining the signed discrepancy and source weights.
 
 For `R>=3, X=R^2-1, t_c=floor(X/c), y=R-1>=2`, set
 ```text

@@ -1,5 +1,9 @@
 # Research closeout map
 
+**Active agent research seam (Oct 22, 2026, subject to human merge):** [original OpenAI compensated one-prime source → signed NNS quantitative gate](../docs/OAI_COMPENSATED_ONE_PRIME_NNS_SEAM_20261022.md). The #1006 one-prime audit on its own draft ref, and #1005 three-gate/NNS audit on its draft ref, specify source-grounded missing bounds; do not mistake absent-on-main research Markdown for missing files, or conditional \(\ell^{6/5}\) consumers for saved analytic exponents.
+
+
+
 For source discovery across all current research modules and fetched PR refs,
 use the [repository search and import DAG](../docs/REPOSITORY_SEARCH.md):
 `python3 scripts/proofq.py repo-search 'SectorSix' --scope research`.
