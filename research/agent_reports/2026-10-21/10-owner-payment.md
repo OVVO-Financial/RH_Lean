@@ -230,4 +230,7 @@ Early checkpoint commit:
 `cd040afc83741c9249fc772be329cf999b4d02ec`; verified readback blob
 `2e82224506813a63e66c008e4474494fce043e3f`.
 
-Substantive completion commit:\n`530b33e135b4b8652a69d5af4298c6dcfd956973`; verified readback blob\n`63ea10a3110f569310a912f004d65d7da3a32bb9` (13,156 characters, `COMPLETED`).\nThis final metadata update does not change the mathematical claims.
+Substantive completion commit:
+`530b33e135b4b8652a69d5af4298c6dcfd956973`; verified readback blob
+`63ea10a3110f569310a912f004d65d7da3a32bb9` (13,156 characters, `COMPLETED`).
+This final metadata update does not change the mathematical claims.
