@@ -152,7 +152,105 @@ theorem oai_grouped_fiber_l65_power_budget
         _ = D ^ ((1 / 3 : ℝ) + c) * Z ^ (-sigma) := by
           rw [hcancel, one_mul]
 
+/-! ## Correct order of operations: first recombine, THEN bound the coefficient -/
+
+/-- Use ONE pointwise bound on the signed, already-recombined physical
+    correction.  Unlike the legacy two-bill consumer above, this statement
+    never assumes a separate upper bound on either correction summand.
+    The multiplicity moment is still an independent arithmetic obligation. -/
+theorem oai_grouped_fiber_l65_recombined_bound
+    {α : Type*} (carrier : Finset α)
+    (combined : α → ℂ) (tau : α → ℝ)
+    (A Ttau : ℝ) (hA : 0 ≤ A)
+    (htau : ∀ m ∈ carrier, 0 ≤ tau m)
+    (hCombined : ∀ m ∈ carrier, ‖combined m‖ ≤ A * tau m)
+    (hTauMoment :
+      (∑ m ∈ carrier, tau m ^ (6 / 5 : ℝ)) ^
+        (5 / 6 : ℝ) ≤ Ttau) :
+    (∑ m ∈ carrier, ‖combined m‖ ^ (6 / 5 : ℝ)) ^
+      (5 / 6 : ℝ) ≤ A * Ttau := by
+  have hZero :
+      ∀ m ∈ carrier, ‖(0 : ℂ)‖ ≤ (0 : ℝ) * tau m := by
+    simp
+  have h := oai_grouped_fiber_l65_bound
+    carrier combined (fun _ => 0) tau A 0 Ttau
+    hA (le_refl (0 : ℝ)) htau hCombined hZero hTauMoment
+  simpa only [add_zero] using h
+
+/-- The exponent-budget acceptance theorem with the CORRECT single-bill
+    hypothesis.  In particular it allows cancellation between the exact
+    ProbeLocal.first and second residuals BEFORE taking a norm.  This
+    only proves the implication from a pointwise SOURCE-specific estimate
+    and a separate tau^(6/5) moment; neither is manufactured here. -/
+theorem oai_grouped_fiber_l65_power_budget_recombined
+    {α : Type*} (carrier : Finset α)
+    (combined : α → ℂ) (tau : α → ℝ)
+    (D Z sigma c : ℝ)
+    (hD : 0 < D) (_hZ : 0 < Z)
+    (htau : ∀ m ∈ carrier, 0 ≤ tau m)
+    (hCombined :
+      ∀ m ∈ carrier,
+        ‖combined m‖ ≤
+          (D ^ (-(1 / 2 : ℝ)) * Z ^ (-sigma)) * tau m)
+    (hTauMoment :
+      (∑ m ∈ carrier, tau m ^ (6 / 5 : ℝ)) ^
+        (5 / 6 : ℝ) ≤ D ^ ((5 / 6 : ℝ) + c)) :
+    (∑ m ∈ carrier, ‖combined m‖ ^ (6 / 5 : ℝ)) ^
+      (5 / 6 : ℝ) ≤ D ^ ((1 / 3 : ℝ) + c) * Z ^ (-sigma) := by
+  have hA : 0 ≤ D ^ (-(1 / 2 : ℝ)) * Z ^ (-sigma) := by
+    positivity
+  have hBound := oai_grouped_fiber_l65_recombined_bound
+    carrier combined tau
+      (D ^ (-(1 / 2 : ℝ)) * Z ^ (-sigma))
+      (D ^ ((5 / 6 : ℝ) + c))
+      hA htau hCombined hTauMoment
+  calc
+    _ ≤ (D ^ (-(1 / 2 : ℝ)) * Z ^ (-sigma)) *
+          D ^ ((5 / 6 : ℝ) + c) := hBound
+    _ = D ^ ((1 / 3 : ℝ) + c) * Z ^ (-sigma) := by
+      have hcancel :
+          D ^ (-(1 / 2 : ℝ)) * D ^ (1 / 2 : ℝ) = 1 := by
+        rw [← Real.rpow_add hD]
+        norm_num
+      calc
+        (D ^ (-(1 / 2 : ℝ)) * Z ^ (-sigma)) *
+            D ^ ((5 / 6 : ℝ) + c) =
+            (D ^ (-(1 / 2 : ℝ)) * D ^ (1 / 2 : ℝ)) *
+              (D ^ ((1 / 3 : ℝ) + c) * Z ^ (-sigma)) := by
+            rw [show ((5 / 6 : ℝ) + c) =
+              (1 / 2 : ℝ) + ((1 / 3 : ℝ) + c) by ring,
+              Real.rpow_add hD]
+            ring
+        _ = D ^ ((1 / 3 : ℝ) + c) * Z ^ (-sigma) := by
+          rw [hcancel, one_mul]
+
+/-- Ergonomic drop-in: the two named local residuals are assembled
+    BEFORE the pointwise bound is assumed, instead of receiving
+    independent triangle-inequality estimates. -/
+theorem oai_grouped_fiber_l65_power_budget_one_bill
+    {α : Type*} (carrier : Finset α)
+    (first second : α → ℂ) (tau : α → ℝ)
+    (D Z sigma c : ℝ)
+    (hD : 0 < D) (hZ : 0 < Z)
+    (htau : ∀ m ∈ carrier, 0 ≤ tau m)
+    (hRecombined :
+      ∀ m ∈ carrier,
+        ‖first m + second m‖ ≤
+          (D ^ (-(1 / 2 : ℝ)) * Z ^ (-sigma)) * tau m)
+    (hTauMoment :
+      (∑ m ∈ carrier, tau m ^ (6 / 5 : ℝ)) ^
+        (5 / 6 : ℝ) ≤ D ^ ((5 / 6 : ℝ) + c)) :
+    (∑ m ∈ carrier, ‖first m + second m‖ ^ (6 / 5 : ℝ)) ^
+      (5 / 6 : ℝ) ≤ D ^ ((1 / 3 : ℝ) + c) * Z ^ (-sigma) :=
+  oai_grouped_fiber_l65_power_budget_recombined
+    carrier (fun m => first m + second m) tau D Z sigma c
+    hD hZ htau hRecombined hTauMoment
+
 end RHLean.Analysis
 
 #print axioms RHLean.Analysis.oai_grouped_fiber_l65_bound
 #print axioms RHLean.Analysis.oai_grouped_fiber_l65_power_budget
+
+#print axioms RHLean.Analysis.oai_grouped_fiber_l65_recombined_bound
+#print axioms RHLean.Analysis.oai_grouped_fiber_l65_power_budget_recombined
+#print axioms RHLean.Analysis.oai_grouped_fiber_l65_power_budget_one_bill
