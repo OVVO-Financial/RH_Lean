@@ -43,10 +43,14 @@ theorem real_power_three_halves_cancel (q : ℝ) (hq : 0 < q) :
     calc
       q * q ^ (1 / 2 : ℝ) =
           q ^ (1 : ℝ) * q ^ (1 / 2 : ℝ) := by rw [Real.rpow_one]
-      _ = q ^ (1 + (1 / 2 : ℝ)) := (Real.rpow_add hq).symm
+      _ = q ^ (1 + (1 / 2 : ℝ)) := (Real.rpow_add hq 1 (1 / 2 : ℝ)).symm
       _ = q ^ (3 / 2 : ℝ) := by norm_num
-  rw [hcombine, ← Real.rpow_add hq]
-  norm_num
+  calc
+    q ^ (-(3 / 2 : ℝ)) * (q * q ^ (1 / 2 : ℝ)) =
+        q ^ (-(3 / 2 : ℝ)) * q ^ (3 / 2 : ℝ) := by rw [hcombine]
+    _ = q ^ (-(3 / 2 : ℝ) + (3 / 2 : ℝ)) :=
+      (Real.rpow_add hq (-(3 / 2 : ℝ)) (3 / 2 : ℝ)).symm
+    _ = 1 := by norm_num
 
 /-! ## OAI Physical.lean: the TWO windows must be checked separately. -/
 
@@ -59,8 +63,7 @@ theorem physical_W1_window_matches (q b Y : ℝ)
     (hq : q ≠ 0) (hY : Y ≠ 0) :
     markedW1Arg q b Y = rescaledW1Arg q b Y := by
   unfold markedW1Arg rescaledW1Arg
-  field_simp [hq, hY]
-  ring
+  field_simp [hq, hY] <;> ring
 
 /-- For the same m, these are the literal W0 arguments in OAI
 markedPhysicalProbe(s=p*b,X) and physicalProbe(s=b,X/q). -/
@@ -78,8 +81,7 @@ theorem physical_W0_has_q_square_shear (m Nc q b X : ℝ)
     rescaledW0Arg m Nc q b X =
       q ^ 2 * markedW0Arg m Nc q b X := by
   unfold rescaledW0Arg markedW0Arg
-  field_simp [hNc, hq, hb, hX]
-  ring
+  field_simp [hNc, hq, hb, hX] <;> ring
 
 /-- Concrete admissible positive-norm example: a same-m pairing
 does NOT make the W0 arguments identical. -/
@@ -98,14 +100,11 @@ theorem model_three_argument_kernel_invariance
     K ((q * b) / X) ((q * b) / Y) (X / (Z * q)) =
       K (b / (X / q)) (b / (Y / q)) ((X / q) / Z) := by
   have hx : (q * b) / X = b / (X / q) := by
-    field_simp [hX, hq]
-    ring
+    field_simp [hX, hq] <;> ring
   have hy : (q * b) / Y = b / (Y / q) := by
-    field_simp [hY, hq]
-    ring
+    field_simp [hY, hq] <;> ring
   have hz : X / (Z * q) = (X / q) / Z := by
-    field_simp [hZ, hq]
-    ring
+    field_simp [hZ, hq] <;> ring
   rw [hx, hy, hz]
 
 /-! ## Phase and full four-subratio algebra. -/
