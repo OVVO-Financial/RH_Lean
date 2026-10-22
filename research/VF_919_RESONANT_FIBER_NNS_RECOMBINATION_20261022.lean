@@ -15,7 +15,7 @@ No new analytic moment estimate is assumed or claimed.
 -/
 
 noncomputable section
-open scoped BigOperators
+open scoped Classical BigOperators
 
 namespace RHLean.Analysis
 open RHLean.Proof
@@ -23,9 +23,8 @@ open RHLean.Proof
 private theorem resonant_complex_norm_sq (z : ℂ) :
     ‖z‖ ^ 2 = (z * star z).re := by
   rw [Complex.sq_norm]
-  simp [Complex.normSq_apply, Complex.mul_re, Complex.star_def,
+  simp [Complex.normSq_apply, Complex.mul_re,
     Complex.conj_re, Complex.conj_im]
-  ring
 
 /-- Full diagonal and every different-label ordered complex Gram pair. -/
 theorem resonant_norm_sq_sum_eq_diagonal_plus_off
@@ -74,8 +73,10 @@ theorem resonant_fiber_sum_eq_total
       resonantFiberSum atoms classOf a u c) =
       ∑ I ∈ atoms, a u I := by
   classical
-  exact Finset.sum_fiberwise_of_maps_to
-    (fun I hI => Finset.mem_image_of_mem classOf hI) (a u)
+  simpa only [resonantFiberClasses, resonantFiberSum] using
+    (Finset.sum_fiberwise_of_maps_to (s := atoms)
+      (t := atoms.image classOf) (g := classOf)
+      (fun I hI => Finset.mem_image_of_mem classOf hI) (a u))
 
 /-- Fully recombined within-class energy before squaring. -/
 def resonantFiberEnergy {ι α κ : Type*}
@@ -252,6 +253,7 @@ theorem resonant_interfiber_Gram_eq_sextic_defects
             apply Finset.sum_congr rfl
             intro u hu
             rw [hPhase c hc d hd u hu]
+            ring
         _ = _ := sextic_weighted_nonuniform_defect_exact
           rows (phase c d) omega (coefficient c d) ζ hpow hne
 
@@ -341,7 +343,9 @@ theorem resonant_parent_child_diagonal_payment
   calc
     _ = ‖parent + (remainder - parent)‖ ^ 2 :=
       (htwo parent (remainder - parent)).symm
-    _ = ‖remainder‖ ^ 2 := by congr 1 <;> ring
+    _ = ‖remainder‖ ^ 2 := by
+      have h : parent + (remainder - parent) = remainder := by ring
+      rw [h]
 
 end RHLean.Analysis
 
