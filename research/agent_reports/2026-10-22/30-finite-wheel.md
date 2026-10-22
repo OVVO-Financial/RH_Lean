@@ -199,3 +199,13 @@ No workflow was rerun, no PR was reviewed or merged, and no main source, schedul
 - First analytic blocker: control those fibers with the complete integrated physical core and restricted character kernel.
 - CI blocker: #1004 original-type bridge fails both mandatory typed gates at `f5496fdf...`.
 - Native independent 7/8 proof, original #915 payment, canonical VF and RH remain OPEN.
+
+## I. Publication verification
+
+The initial report was created on `agent-reports` by commit
+`66ab3aab9b8ea1dd8327f2705930ee1ca8d8668e`. Immediate readback returned
+blob `22614f520ea251d9573ad9ff367180f757fcb1ff`, 14,194 characters,
+`COMPLETED` status and claim ID `20261022-wheel-1`. This verifies
+publication only; it does not promote the paper theorem to Lean or prove an
+analytic estimate. No main-source, PR, review, CI rerun, merge, schedule, or
+permission state was mutated.
