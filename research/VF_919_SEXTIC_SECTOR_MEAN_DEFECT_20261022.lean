@@ -218,6 +218,63 @@ theorem sextic_NNS_cross_pair_eq_real_Hecke_Gram (a b : ℂ) :
   dsimp [stableFarRealPairNormalizedDot, stableFarRealPairDot] at hPhi
   linarith
 
+
+/-- Extend the exact sector decomposition to ALL labelled offdiagonal
+    ideal pairs, with pair-dependent weights, phases and coefficients.
+    Duplicate rational norms are NOT merged: each pair is a distinct
+    element of the original pair carrier. -/
+theorem sextic_all_labelled_pairs_defect_exact
+    {ι α : Type*} (rows : Finset ι) (pairs : Finset α)
+    (phase : α → ι → Option (Fin 6))
+    (omega : ι → ℝ) (coefficient : α → ι → ℂ)
+    (ζ : ℂ) (hpow : ζ ^ 6 = 1) (hne : ζ ≠ 1) :
+    (∑ pair ∈ pairs, ∑ u ∈ rows,
+      (omega u : ℂ) * coefficient pair u *
+        sexticPhaseWithZero ζ (phase pair u)) =
+      ∑ pair ∈ pairs,
+        sexticSectorDefect ζ
+          (sexticWeightedSectorMass rows (phase pair) omega
+            (coefficient pair)) := by
+  apply Finset.sum_congr rfl
+  intro pair hpair
+  exact sextic_weighted_nonuniform_defect_exact rows
+    (phase pair) omega (coefficient pair) ζ hpow hne
+
+/-- This is the required *explicit phase admission* interface for the
+    ACTUAL OAI marked ideal coefficients. A genuine Hecke sextic-source
+    identification must prove hPhase from the ORIGINAL declarations;
+    it is NOT inferred from a rational norm or arbitrary coefficient.
+
+    The conclusion is an exact full-pair offdiagonal sector defect.
+    There is still no bound on the defect and no imported hHigh. -/
+theorem sextic_admitted_offdiagonal_Hecke_pair_defect
+    {ι α : Type*} (rows : Finset ι) (pairs : Finset α)
+    (a b : α → ι → ℂ)
+    (phase : α → ι → Option (Fin 6))
+    (omega : ι → ℝ) (coefficient : α → ι → ℂ)
+    (ζ : ℂ) (hpow : ζ ^ 6 = 1) (hne : ζ ≠ 1)
+    (hPhase : ∀ pair ∈ pairs, ∀ u ∈ rows,
+      a pair u * star (b pair u) =
+        coefficient pair u *
+          sexticPhaseWithZero ζ (phase pair u)) :
+    (∑ pair ∈ pairs, ∑ u ∈ rows,
+       (omega u : ℂ) * (a pair u * star (b pair u))) =
+      ∑ pair ∈ pairs,
+        sexticSectorDefect ζ
+          (sexticWeightedSectorMass rows (phase pair) omega
+            (coefficient pair)) := by
+  calc
+    _ = (∑ pair ∈ pairs, ∑ u ∈ rows,
+      (omega u : ℂ) * coefficient pair u *
+        sexticPhaseWithZero ζ (phase pair u)) := by
+        apply Finset.sum_congr rfl
+        intro pair hpair
+        apply Finset.sum_congr rfl
+        intro u hu
+        rw [hPhase pair hpair u hu]
+    _ = _ := sextic_all_labelled_pairs_defect_exact rows pairs
+      phase omega coefficient ζ hpow hne
+
 end RHLean.Analysis
 
 #print axioms RHLean.Analysis.sextic_nontrivial_root_geometric_sum_zero
@@ -230,3 +287,6 @@ end RHLean.Analysis
 #print axioms RHLean.Analysis.sextic_scalar_normalizer_split
 #print axioms RHLean.Analysis.sextic_scalar_normalizer_error_le
 #print axioms RHLean.Analysis.sextic_constant_normalizer_defect_exact
+
+#print axioms RHLean.Analysis.sextic_all_labelled_pairs_defect_exact
+#print axioms RHLean.Analysis.sextic_admitted_offdiagonal_Hecke_pair_defect
