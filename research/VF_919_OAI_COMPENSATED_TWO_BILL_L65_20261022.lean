@@ -152,6 +152,58 @@ theorem oai_grouped_fiber_l65_power_budget
         _ = D ^ ((1 / 3 : ℝ) + c) * Z ^ (-sigma) := by
           rw [hcancel, one_mul]
 
+/-- THE USER-REQUESTED REPLACEMENT for premature triangle inequality:
+    bound the exact SIGNED/RECOMBINED local physical coefficient
+    `bill(m) = shift(m)+Euler(m)` itself, then take ell^(6/5).
+    Neither individual bill is assumed small. Thus potentially large
+    opposite-signed terms may cancel pointwise BEFORE Holder. -/
+theorem oai_grouped_recombined_single_bill_l65_bound
+    {α : Type*} (carrier : Finset α)
+    (bill : α → ℂ) (tau : α → ℝ)
+    (A Ttau : ℝ) (hA : 0 ≤ A)
+    (htau : ∀ m ∈ carrier, 0 ≤ tau m)
+    (hCombined : ∀ m ∈ carrier, ‖bill m‖ ≤ A * tau m)
+    (hTauMoment :
+      (∑ m ∈ carrier, tau m ^ (6 / 5 : ℝ)) ^
+        (5 / 6 : ℝ) ≤ Ttau) :
+    (∑ m ∈ carrier, ‖bill m‖ ^ (6 / 5 : ℝ)) ^
+      (5 / 6 : ℝ) ≤ A * Ttau := by
+  have hZero : ∀ m ∈ carrier,
+      ‖(0 : ℂ)‖ ≤ (0 : ℝ) * tau m := by
+    intro m hm
+    simp
+  have h := oai_grouped_fiber_l65_bound
+    carrier bill (fun _ => 0) tau A 0 Ttau
+    hA (le_refl _) htau hCombined hZero hTauMoment
+  simpa only [add_zero] using h
+
+/-- Exact exponent budget on ONLY the already recombined local
+    coefficient. The one-prime original OAI power estimate supplies
+    a candidate for hCombined, while the physical source normalization
+    and multiplicity moment remain visible arithmetic premises. -/
+theorem oai_grouped_recombined_single_bill_l65_power_budget
+    {α : Type*} (carrier : Finset α)
+    (bill : α → ℂ) (tau : α → ℝ)
+    (A D Z sigma c : ℝ)
+    (hA : 0 ≤ A) (hD : 0 < D) (hZ : 0 < Z)
+    (htau : ∀ m ∈ carrier, 0 ≤ tau m)
+    (hCombined : ∀ m ∈ carrier, ‖bill m‖ ≤ A * tau m)
+    (hAmp : A ≤ D ^ (-(1 / 2 : ℝ)) * Z ^ (-sigma))
+    (hTauMoment :
+      (∑ m ∈ carrier, tau m ^ (6 / 5 : ℝ)) ^
+        (5 / 6 : ℝ) ≤ D ^ ((5 / 6 : ℝ) + c)) :
+    (∑ m ∈ carrier, ‖bill m‖ ^ (6 / 5 : ℝ)) ^
+      (5 / 6 : ℝ) ≤ D ^ ((1 / 3 : ℝ) + c) * Z ^ (-sigma) := by
+  have hZero : ∀ m ∈ carrier,
+      ‖(0 : ℂ)‖ ≤ (0 : ℝ) * tau m := by
+    intro m hm
+    simp
+  have h := oai_grouped_fiber_l65_power_budget
+    carrier bill (fun _ => 0) tau A 0 D Z sigma c
+    hA (le_refl _) hD hZ htau hCombined hZero
+    (by simpa only [add_zero] using hAmp) hTauMoment
+  simpa only [add_zero] using h
+
 /-! ## Correct order of operations: first recombine, THEN bound the coefficient -/
 
 /-- Use ONE pointwise bound on the signed, already-recombined physical
@@ -251,6 +303,8 @@ end RHLean.Analysis
 #print axioms RHLean.Analysis.oai_grouped_fiber_l65_bound
 #print axioms RHLean.Analysis.oai_grouped_fiber_l65_power_budget
 
+#print axioms RHLean.Analysis.oai_grouped_recombined_single_bill_l65_bound
+#print axioms RHLean.Analysis.oai_grouped_recombined_single_bill_l65_power_budget
 #print axioms RHLean.Analysis.oai_grouped_fiber_l65_recombined_bound
 #print axioms RHLean.Analysis.oai_grouped_fiber_l65_power_budget_recombined
 #print axioms RHLean.Analysis.oai_grouped_fiber_l65_power_budget_one_bill
