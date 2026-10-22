@@ -275,6 +275,167 @@ theorem deFaveri_cubic_P54_exponent_budget
         congr 1
         ring
 
+
+/-! ## Conjugate cubic operator norm and explicit dyadic ideal mass -/
+
+/-- Conjugating a cubic Hecke matrix is an EXACT L² isometry
+    after conjugating column coefficients. No assumption about
+    equidistribution of the row weights is needed. -/
+theorem cubic_conjugate_operator_energy_eq
+    {ι κ : Type*}
+    (rows : Finset ι) (primes : Finset κ)
+    (rho : ι → ℝ) (alpha : κ → ℂ) (chi : ι → κ → ℂ) :
+    (∑ u ∈ rows, rho u *
+      ‖∑ p ∈ primes, alpha p * star (chi u p)‖ ^ 2) =
+      (∑ u ∈ rows, rho u *
+        ‖∑ p ∈ primes, star (alpha p) * chi u p‖ ^ 2) := by
+  apply Finset.sum_congr rfl
+  intro u hu
+  congr 1
+  have heq :
+      (∑ p ∈ primes, alpha p * star (chi u p)) =
+        star (∑ p ∈ primes, star (alpha p) * chi u p) := by
+    rw [star_sum]
+    apply Finset.sum_congr rfl
+    intro p hp
+    simp [star_mul, mul_comm]
+  rw [heq, norm_star]
+
+/-- The natural elementary 36 labels are six unit classes and
+    six valuations at the unique prime above 3. This does NOT
+    assert the as-yet-unproved primary-generator bijection of
+    original OpenAI element rows. -/
+theorem cubic_primary_unit_ramified_cosets_card :
+    Fintype.card (Fin 6 × Fin 6) = 36 := by
+  simp
+
+private theorem oai_sum_half_geometric (K : ℕ) :
+    (∑ k ∈ Finset.range K, (1 / 2 : ℝ) ^ k) =
+      2 * (1 - (1 / 2 : ℝ) ^ K) := by
+  induction K with
+  | zero => norm_num
+  | succ n ih =>
+    rw [Finset.sum_range_succ, ih, pow_succ]
+    ring
+
+private theorem oai_sum_quarter_geometric (K : ℕ) :
+    (∑ k ∈ Finset.range K, (1 / 4 : ℝ) ^ k) =
+      (4 / 3 : ℝ) * (1 - (1 / 4 : ℝ) ^ K) := by
+  induction K with
+  | zero => norm_num
+  | succ n ih =>
+    rw [Finset.sum_range_succ, ih, pow_succ]
+    ring
+
+/-- EXACT FINITE DYADIC PAYMENT: if all ideal masses are assigned
+    to 2^k<=N<2^(k+1), the original OAI ball bound
+    # {I: N(I)<=X} <=128X gives bucketCount<=256*2^k.
+    The h2 and h3 premises are precisely the elementary
+    monotonicity bounds N^-2<=2^(-2k), N^-3<=2^(-3k).
+    No false claim of a full ideal-to-primary element adapter. -/
+theorem dyadic_inverse_norm_two_three_constants
+    {ι : Type*} [DecidableEq ι]
+    (s : Finset ι) (bucket : ι → ℕ) (K : ℕ)
+    (normVal : ι → ℝ)
+    (hRange : ∀ i ∈ s, bucket i < K)
+    (hCount : ∀ k < K,
+      ((s.filter (fun i => bucket i = k)).card : ℝ) ≤
+        256 * (2 : ℝ) ^ k)
+    (h2 : ∀ i ∈ s, normVal i ^ (-(2 : ℝ)) ≤
+        (1 / 4 : ℝ) ^ (bucket i))
+    (h3 : ∀ i ∈ s, normVal i ^ (-(3 : ℝ)) ≤
+        (1 / 8 : ℝ) ^ (bucket i)) :
+    (∑ i ∈ s, normVal i ^ (-(2 : ℝ))) ≤ 512 ∧
+    (∑ i ∈ s, normVal i ^ (-(3 : ℝ))) ≤ 1024 / 3 := by
+  have hmap : ∀ i ∈ s, bucket i ∈ Finset.range K := by
+    intro i hi
+    exact Finset.mem_range.mpr (hRange i hi)
+  have hfib (f : ι → ℝ) :
+      (∑ i ∈ s, f i) =
+        ∑ k ∈ Finset.range K,
+          ∑ i ∈ s with bucket i = k, f i := by
+    exact Finset.sum_fiberwise_of_maps_to
+      (s := s) (t := Finset.range K) (g := bucket) hmap f
+  have hcell2 (k : ℕ) (hk : k < K) :
+      (∑ i ∈ s with bucket i = k,
+        normVal i ^ (-(2 : ℝ))) ≤
+      256 * (1 / 2 : ℝ) ^ k := by
+    let S : Finset ι := s.filter (fun i => bucket i = k)
+    have hupper :
+        (∑ i ∈ S, normVal i ^ (-(2 : ℝ))) ≤
+          (S.card : ℝ) * (1 / 4 : ℝ) ^ k := by
+      calc
+        _ ≤ ∑ i ∈ S, (1 / 4 : ℝ) ^ k := by
+          apply Finset.sum_le_sum
+          intro i hi
+          have hh := Finset.mem_filter.mp hi
+          simpa only [hh.2] using h2 i hh.1
+        _ = (S.card : ℝ) * (1 / 4 : ℝ) ^ k := by simp
+    calc
+      _ ≤ (S.card : ℝ) * (1 / 4 : ℝ) ^ k := hupper
+      _ ≤ (256 * (2 : ℝ) ^ k) * (1 / 4 : ℝ) ^ k := by
+        exact mul_le_mul_of_nonneg_right (hCount k hk)
+          (by positivity)
+      _ = 256 * (1 / 2 : ℝ) ^ k := by
+        rw [mul_assoc, ← mul_pow]
+        norm_num
+  have hcell3 (k : ℕ) (hk : k < K) :
+      (∑ i ∈ s with bucket i = k,
+        normVal i ^ (-(3 : ℝ))) ≤
+      256 * (1 / 4 : ℝ) ^ k := by
+    let S : Finset ι := s.filter (fun i => bucket i = k)
+    have hupper :
+        (∑ i ∈ S, normVal i ^ (-(3 : ℝ))) ≤
+          (S.card : ℝ) * (1 / 8 : ℝ) ^ k := by
+      calc
+        _ ≤ ∑ i ∈ S, (1 / 8 : ℝ) ^ k := by
+          apply Finset.sum_le_sum
+          intro i hi
+          have hh := Finset.mem_filter.mp hi
+          simpa only [hh.2] using h3 i hh.1
+        _ = (S.card : ℝ) * (1 / 8 : ℝ) ^ k := by simp
+    calc
+      _ ≤ (S.card : ℝ) * (1 / 8 : ℝ) ^ k := hupper
+      _ ≤ (256 * (2 : ℝ) ^ k) * (1 / 8 : ℝ) ^ k := by
+        exact mul_le_mul_of_nonneg_right (hCount k hk)
+          (by positivity)
+      _ = 256 * (1 / 4 : ℝ) ^ k := by
+        rw [mul_assoc, ← mul_pow]
+        norm_num
+  constructor
+  · calc
+      _ = ∑ k ∈ Finset.range K,
+          ∑ i ∈ s with bucket i = k,
+            normVal i ^ (-(2 : ℝ)) :=
+        hfib (fun i => normVal i ^ (-(2 : ℝ)))
+      _ ≤ ∑ k ∈ Finset.range K,
+            256 * (1 / 2 : ℝ) ^ k := by
+        apply Finset.sum_le_sum
+        intro k hk
+        exact hcell2 k (Finset.mem_range.mp hk)
+      _ = 256 * ∑ k ∈ Finset.range K,
+            (1 / 2 : ℝ) ^ k := by rw [Finset.mul_sum]
+      _ ≤ 512 := by
+        rw [oai_sum_half_geometric]
+        have hp : 0 ≤ (1 / 2 : ℝ) ^ K := by positivity
+        nlinarith
+  · calc
+      _ = ∑ k ∈ Finset.range K,
+          ∑ i ∈ s with bucket i = k,
+            normVal i ^ (-(3 : ℝ)) :=
+        hfib (fun i => normVal i ^ (-(3 : ℝ)))
+      _ ≤ ∑ k ∈ Finset.range K,
+            256 * (1 / 4 : ℝ) ^ k := by
+        apply Finset.sum_le_sum
+        intro k hk
+        exact hcell3 k (Finset.mem_range.mp hk)
+      _ = 256 * ∑ k ∈ Finset.range K,
+            (1 / 4 : ℝ) ^ k := by rw [Finset.mul_sum]
+      _ ≤ 1024 / 3 := by
+        rw [oai_sum_quarter_geometric]
+        have hp : 0 ≤ (1 / 4 : ℝ) ^ K := by positivity
+        nlinarith
+
 end RHLean.Analysis
 
 #print axioms RHLean.Analysis.sixthFree_valuation_base3
@@ -285,3 +446,6 @@ end RHLean.Analysis
 #print axioms RHLean.Analysis.cubic_head_fiber_reduction_le
 #print axioms RHLean.Analysis.deFaveri_cubic_fiber_sum_bound
 #print axioms RHLean.Analysis.deFaveri_cubic_P54_exponent_budget
+#print axioms RHLean.Analysis.cubic_conjugate_operator_energy_eq
+#print axioms RHLean.Analysis.cubic_primary_unit_ramified_cosets_card
+#print axioms RHLean.Analysis.dyadic_inverse_norm_two_three_constants
