@@ -164,6 +164,126 @@ theorem resonant_fiber_recombination_NNS_eq
   rw [hReal]
   exact resonant_fiber_recombination_eq rows atoms classOf a omega
 
+
+/-- EXACT weld from the different-fiber Hermitian Gram to the
+    NONUNIFORM six-sector defect. This is not a Fourier estimate:
+    hPhase is the EXPLICIT missing source-specific statement that
+    each pair of original resonant classes has the indicated sixth-root
+    character on every admitted row, with complex coefficient.
+    For a globally trivial relative Hecke character, hPhase is NOT the
+    nontrivial six-sector hypothesis and the pair must remain grouped.
+    Ramified zero character values use phase=none. -/
+theorem resonant_interfiber_Gram_eq_sextic_defects
+    {ι α κ : Type*} (rows : Finset ι) (atoms : Finset α)
+    (classOf : α → κ) (a : ι → α → ℂ)
+    (omega : ι → ℝ)
+    (phase : κ → κ → ι → Option (Fin 6))
+    (coefficient : κ → κ → ι → ℂ)
+    (ζ : ℂ) (hpow : ζ ^ 6 = 1) (hne : ζ ≠ 1)
+    (hPhase : ∀ c ∈ resonantFiberClasses atoms classOf,
+      ∀ d ∈ (resonantFiberClasses atoms classOf).erase c,
+      ∀ u ∈ rows,
+        resonantFiberSum atoms classOf a u c *
+          star (resonantFiberSum atoms classOf a u d) =
+          coefficient c d u *
+            sexticPhaseWithZero ζ (phase c d u)) :
+    nonresonantInterfiberGram rows atoms classOf a omega =
+      ∑ c ∈ resonantFiberClasses atoms classOf,
+        ∑ d ∈ (resonantFiberClasses atoms classOf).erase c,
+          (sexticSectorDefect ζ
+            (sexticWeightedSectorMass rows (phase c d) omega
+              (coefficient c d))).re := by
+  classical
+  let s := resonantFiberClasses atoms classOf
+  let B := resonantFiberSum atoms classOf a
+  change
+    (∑ u ∈ rows, omega u *
+      (∑ c ∈ s, ∑ d ∈ s.erase c,
+        (B u c * star (B u d)).re)) =
+    ∑ c ∈ s, ∑ d ∈ s.erase c,
+      (sexticSectorDefect ζ
+        (sexticWeightedSectorMass rows (phase c d) omega
+          (coefficient c d))).re
+  calc
+    (∑ u ∈ rows, omega u *
+      (∑ c ∈ s, ∑ d ∈ s.erase c,
+        (B u c * star (B u d)).re)) =
+      ∑ c ∈ s, ∑ d ∈ s.erase c, ∑ u ∈ rows,
+        omega u * (B u c * star (B u d)).re := by
+      calc
+        _ = ∑ u ∈ rows, ∑ c ∈ s, ∑ d ∈ s.erase c,
+          omega u * (B u c * star (B u d)).re := by
+          apply Finset.sum_congr rfl
+          intro u hu
+          rw [Finset.mul_sum]
+          apply Finset.sum_congr rfl
+          intro c hc
+          rw [Finset.mul_sum]
+        _ = ∑ c ∈ s, ∑ u ∈ rows, ∑ d ∈ s.erase c,
+          omega u * (B u c * star (B u d)).re := by
+          rw [Finset.sum_comm]
+        _ = _ := by
+          apply Finset.sum_congr rfl
+          intro c hc
+          rw [Finset.sum_comm]
+    _ = _ := by
+      apply Finset.sum_congr rfl
+      intro c hc
+      apply Finset.sum_congr rfl
+      intro d hd
+      have hpair :
+          (∑ u ∈ rows, omega u *
+            (B u c * star (B u d)).re) =
+          (∑ u ∈ rows, (omega u : ℂ) *
+            (B u c * star (B u d))).re := by
+        rw [Complex.re_sum]
+        apply Finset.sum_congr rfl
+        intro u hu
+        simp only [Complex.mul_re, Complex.ofReal_re,
+          Complex.ofReal_im, zero_mul, sub_zero]
+      rw [hpair]
+      congr 1
+      calc
+        (∑ u ∈ rows, (omega u : ℂ) *
+          (B u c * star (B u d))) =
+          ∑ u ∈ rows, (omega u : ℂ) *
+            coefficient c d u *
+              sexticPhaseWithZero ζ (phase c d u) := by
+            apply Finset.sum_congr rfl
+            intro u hu
+            rw [hPhase c hc d hd u hu]
+        _ = _ := sextic_weighted_nonuniform_defect_exact
+          rows (phase c d) omega (coefficient c d) ζ hpow hne
+
+/-- Requested two-part exact proof contract, now explicitly
+    with six-sector defect rather than a generic cross Gram.
+    The only premise is the ORIGINAL phase admission hPhase; no
+    source-moment estimate, global hHigh, or saving is imported. -/
+theorem resonant_fiber_recombination_eq_sextic
+    {ι α κ : Type*} (rows : Finset ι) (atoms : Finset α)
+    (classOf : α → κ) (a : ι → α → ℂ)
+    (omega : ι → ℝ)
+    (phase : κ → κ → ι → Option (Fin 6))
+    (coefficient : κ → κ → ι → ℂ)
+    (ζ : ℂ) (hpow : ζ ^ 6 = 1) (hne : ζ ≠ 1)
+    (hPhase : ∀ c ∈ resonantFiberClasses atoms classOf,
+      ∀ d ∈ (resonantFiberClasses atoms classOf).erase c,
+      ∀ u ∈ rows,
+        resonantFiberSum atoms classOf a u c *
+          star (resonantFiberSum atoms classOf a u d) =
+          coefficient c d u *
+            sexticPhaseWithZero ζ (phase c d u)) :
+    (∑ u ∈ rows, omega u * ‖∑ I ∈ atoms, a u I‖ ^ 2) =
+      resonantFiberEnergy rows atoms classOf a omega +
+      ∑ c ∈ resonantFiberClasses atoms classOf,
+        ∑ d ∈ (resonantFiberClasses atoms classOf).erase c,
+          (sexticSectorDefect ζ
+            (sexticWeightedSectorMass rows (phase c d) omega
+              (coefficient c d))).re := by
+  rw [resonant_fiber_recombination_eq,
+    resonant_interfiber_Gram_eq_sextic_defects
+      rows atoms classOf a omega phase coefficient ζ hpow hne hPhase]
+
 /-- Original high-row constants must pay c1+c2, not merely exist. -/
 theorem compensated_resonant_and_nonresonant_bounds_close_NNS
     (resonant nonresonant target c₁ c₂ : ℝ)
@@ -233,3 +353,6 @@ end RHLean.Analysis
 #print axioms RHLean.Analysis.resonant_NNS_uniform_saving_from_two_payments
 #print axioms RHLean.Analysis.resonant_parent_child_energy_is_remainder
 #print axioms RHLean.Analysis.resonant_parent_child_diagonal_payment
+
+#print axioms RHLean.Analysis.resonant_interfiber_Gram_eq_sextic_defects
+#print axioms RHLean.Analysis.resonant_fiber_recombination_eq_sextic
