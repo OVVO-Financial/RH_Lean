@@ -88,3 +88,19 @@ D_{\rm comp}\le c_1\mathcal T(Z),\quad
 where (\mathcal T(Z)=Z^{2(\beta-11/16-\sigma)}\sum_u\omega_uB_u^2).
 The native budget theorem then yields (E\le\mathcal T(Z)).
 The finite algebra is now explicit; the two required uniform arithmetic savings are not to be imported from the terminal desired high-row bound.
+
+## 2A. Stronger source-backed principal payment via the actual OAI bound
+
+The earlier generic `raw=residue+tail` identity is NOT the strongest available source statement. Original `Detector/PrincipalNormalized.lean::actual_ray_principal_comparison` already bounds the NORMALIZED principal-row source against the actual `HeckeSignal.signal` by
+\[
+ C\left(Z^{\beta-11/16-17/48000+\nu}
+          +Z^{\beta-11/16+e-(7/8)\ell_{\min}}\right)
+\]
+under its fully explicit original source window, ray-ideal, Schwartz and beta geometry hypotheses. Do NOT replace those hypotheses with a fictitious shift to real part (1/2-\sigma).
+
+New native theorems in `research/VF_919_OAI_PRINCIPAL_SOURCE_EXPONENT_BUDGET_20261022.lean` prove that both original terms fit (2C Z^{\beta-11/16-\sigma}) for (Z\ge1) **exactly when the sufficient margin constraints**
+\[
+ \sigma+\nu\le17/48000,
+ \qquad \sigma+e\le(7/8)\ell_{\min}
+\]
+are supplied. The new theorem `oai_original_principal_source_error_fits_high_row` consumes the original source estimate as a VISIBLE hypothesis and pays the explicit factor 2. This is a valid, noncircular source-level principal comparison under original source prerequisites. The remaining proof must instantiate the original `actual_ray_principal_comparison` with the selected PR #1005 parameters and account for its principal source vs grouped-fiber identification, rather than assuming its own analytic estimate.
