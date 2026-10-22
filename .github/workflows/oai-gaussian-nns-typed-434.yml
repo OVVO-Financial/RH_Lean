@@ -1,0 +1,125 @@
+name: Original OAI GaussianSubset to RHLean NNS typecheck
+
+on:
+  workflow_call:
+  pull_request:
+    paths:
+      - 'research/oai_434/VF919OriginalGaussianIntegratedNNS.lean'
+      - 'research/VF_919_OAI_GAUSSIAN_SUBSET_EXACT_COEFFICIENT_NNS_20261021.lean'
+      - '.github/workflows/oai-gaussian-nns-typed-434.yml'
+      - 'scripts/apply_oai_434_upstream_patches.py'
+      - 'scripts/check_shared_lean_packages.py'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: oai-gaussian-nns-typed-434-${{ github.head_ref || github.ref_name }}
+  cancel-in-progress: true
+
+jobs:
+  original-oai-gaussian-nns:
+    runs-on: ubuntu-latest
+    timeout-minutes: 95
+    steps:
+      - name: Checkout RHLean original NNS source
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Require original Lean and Mathlib pins
+        run: |
+          set -euo pipefail
+          test "$(cat lean-toolchain)" = "leanprover/lean4:v4.34.1"
+          grep -q d13f23b723b8a846827a245b89c10fc7d3f11612 lakefile.lean
+          ! grep -nE '^[[:space:]]*(sorry|admit|axiom)([[:space:]]|$)' research/oai_434/VF919OriginalGaussianIntegratedNNS.lean
+      - name: Setup pinned Lean and cached Mathlib
+        uses: ./.github/actions/lean-setup
+      - name: Checkout pinned ORIGINAL OpenAI Lean source
+        uses: actions/checkout@v4
+        with:
+          repository: openai/math
+          ref: 1581d4cbdd69a0faf34b2089614fe2a814316a6a
+          path: oai-upstream
+          persist-credentials: false
+      - name: Verify original checkout
+        run: |
+          set -euo pipefail
+          test "$(git -C oai-upstream rev-parse HEAD)" = "1581d4cbdd69a0faf34b2089614fe2a814316a6a"
+          test "$(cat oai-upstream/lean/lean-toolchain)" = "leanprover/lean4:v4.34.1"
+      - name: Restore native Lean NNS and unpatched PNT caches
+        uses: actions/cache/restore@v5
+        with:
+          path: |
+            .lake/build
+            .lake/packages/PrimeNumberTheoremAnd/.lake/build
+          key: rhlean-oai-native-v2-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'RHLean/**/*.lean', 'scripts/compile_research_import_closure.py', 'scripts/ci/**') }}
+      - name: Build original native PNT Wiener before shared-path setup
+        run: |
+          set -euo pipefail
+          lake build PrimeNumberTheoremAnd.Wiener
+      - name: Kernel-build ORIGINAL native signed NNS coefficients
+        uses: ./.github/actions/research-compile
+        with:
+          build-library: 'true'
+          targets: research/VF_919_OAI_GAUSSIAN_SUBSET_EXACT_COEFFICIENT_NNS_20261021.lean
+      - name: Restore original OAI dependency and compiled DAG cache
+        id: oai_cache
+        uses: actions/cache/restore@v5
+        with:
+          path: oai-upstream/lean/.lake
+          key: oai-certified-434-pntnative-v2-${{ runner.os }}-${{ runner.arch }}-1581d4cbdd69a0faf34b2089614fe2a814316a6a-${{ hashFiles('oai-upstream/lean/lean-toolchain', 'oai-upstream/lean/lakefile.lean', 'oai-upstream/lean/lake-manifest.json', 'oai-upstream/lean/patches/**', 'scripts/apply_oai_434_upstream_patches.py') }}-complete
+          restore-keys: |
+            oai-certified-434-pntnative-v2-${{ runner.os }}-${{ runner.arch }}-1581d4cbdd69a0faf34b2089614fe2a814316a6a-${{ hashFiles('oai-upstream/lean/lean-toolchain', 'oai-upstream/lean/lakefile.lean', 'oai-upstream/lean/lake-manifest.json', 'oai-upstream/lean/patches/**', 'scripts/apply_oai_434_upstream_patches.py') }}-progress-
+      - name: Fetch exact OAI Mathlib packages on cold cache
+        if: ${{ steps.oai_cache.outputs.cache-hit != 'true' }}
+        working-directory: oai-upstream/lean
+        run: |
+          set -euo pipefail
+          lake exe cache get
+      - name: Apply exact original OAI compatibility patches
+        run: python3 scripts/apply_oai_434_upstream_patches.py oai-upstream/lean --keep-pinned PrimeNumberTheoremAnd
+      - name: Prebuild patched original Rellich prerequisites
+        working-directory: oai-upstream/lean
+        run: |
+          set -euo pipefail
+          lake build \
+            RellichKondrachov.Analysis.FunctionalSpaces.Sobolev.Euclidean.TranslationEstimateL2 \
+            RellichKondrachov.Analysis.FunctionalSpaces.Sobolev.Euclidean.L2Compactness.Approximation \
+            RellichKondrachov.Analysis.FunctionalSpaces.Sobolev.Euclidean.L2Compactness.ArzelaAscoli \
+            RellichKondrachov.Analysis.FunctionalSpaces.Sobolev.Euclidean.L2Compactness.Transfer
+      - name: Build upstream original GaussianCommon theorem imports
+        working-directory: oai-upstream/lean
+        run: |
+          set -euo pipefail
+          lake build OAI.NumberTheory.DirichletL.Detector.GaussianCommon
+          test -s .lake/build/lib/lean/OAI/NumberTheory/DirichletL/Detector/GaussianCommon.olean
+      - name: KERNEL-CHECK original OAI type specialization and NNS
+        shell: bash
+        run: |
+          set -euo pipefail
+          OAI_PATH="$(cd oai-upstream/lean && lake env python3 -c 'import os; print(os.pathsep.join(os.path.abspath(p) for p in os.environ["LEAN_PATH"].split(os.pathsep) if p))')"
+          RH_PATH="$(lake env python3 -c 'import os; print(os.pathsep.join(os.path.abspath(p) for p in os.environ["LEAN_PATH"].split(os.pathsep) if p))')"
+          python3 scripts/check_shared_lean_packages.py . oai-upstream/lean PrimeNumberTheoremAnd mathlib
+          env LEAN_PATH="$RH_PATH:$OAI_PATH" lean -DwarningAsError=true \
+            research/oai_434/VF919OriginalGaussianIntegratedNNS.lean \
+            | tee /tmp/oai-gaussian-nns-typed.log
+          if grep -E 'sorryAx|admitAx|_private' /tmp/oai-gaussian-nns-typed.log; then
+            echo 'Unexpected axiom in original OAI/RHLean NNS bridge.' >&2
+            exit 1
+          fi
+      - name: Save original imports for subsequent exact checks
+        if: ${{ !cancelled() && steps.oai_cache.outputs.cache-hit != 'true' }}
+        continue-on-error: true
+        uses: actions/cache/save@v5
+        with:
+          path: oai-upstream/lean/.lake
+          key: oai-gaussian-nns-typed-434-${{ runner.os }}-${{ runner.arch }}-1581d4cbdd69a0faf34b2089614fe2a814316a6a-${{ github.run_id }}
+      - name: Upload original typed theorem axiom log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: oai-gaussian-nns-typed-${{ github.run_id }}-${{ github.run_attempt }}
+          path: /tmp/oai-gaussian-nns-typed.log
+          if-no-files-found: warn
+          retention-days: 7
