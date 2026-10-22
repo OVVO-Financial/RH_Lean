@@ -196,9 +196,32 @@ theorem sextic_constant_normalizer_defect_exact {ι : Type*}
       rw [sextic_weighted_nonuniform_defect_exact rows phase omega coefficient
         ζ hpow hne]
 
+
+/-- EXACT NNS-to-Hecke cross-term: concordant minus discordant
+    zero-target partial covariance is the Hermitian real part.
+    The preceding sector defect is therefore the precise offdiagonal
+    term in the original (fully integrated) Co-Div ledger. -/
+theorem sextic_NNS_cross_pair_eq_real_Hecke_Gram (a b : ℂ) :
+    let xa := (stableFarComplexToRealPair a).1
+    let ya := (stableFarComplexToRealPair a).2
+    let xb := (stableFarComplexToRealPair b).1
+    let yb := (stableFarComplexToRealPair b).2
+    ((zeroTargetCoPartialPair xa xb + zeroTargetCoPartialPair ya yb) -
+      (zeroTargetDivergentPair xa xb + zeroTargetDivergentPair ya yb)) / 2 =
+        (a * star b).re := by
+  dsimp only
+  have hX := zeroTargetCoPartial_sub_divergent_eq_mul
+    (stableFarComplexToRealPair a).1 (stableFarComplexToRealPair b).1
+  have hY := zeroTargetCoPartial_sub_divergent_eq_mul
+    (stableFarComplexToRealPair a).2 (stableFarComplexToRealPair b).2
+  have hPhi := stableFarRealPairNormalizedDot_complexToRealPair a b
+  dsimp [stableFarRealPairNormalizedDot, stableFarRealPairDot] at hPhi
+  linarith
+
 end RHLean.Analysis
 
 #print axioms RHLean.Analysis.sextic_nontrivial_root_geometric_sum_zero
+#print axioms RHLean.Analysis.sextic_NNS_cross_pair_eq_real_Hecke_Gram
 #print axioms RHLean.Analysis.sextic_sector_mean_subtraction
 #print axioms RHLean.Analysis.sextic_weighted_sector_reassembly
 #print axioms RHLean.Analysis.sextic_weighted_nonuniform_defect_exact
