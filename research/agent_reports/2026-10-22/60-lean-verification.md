@@ -1,10 +1,10 @@
 # RH_Lean agent daily report - 2026-10-22 / RH | Lean Verification
 
-**Status:** IN_PROGRESS  
+**Status:** COMPLETED  
 **Run ID:** 2026-10-22T05:17:00-04:00, scheduled invocation  
 **Canonical objective:** `VFCanonicalSquareVonKochStatement` remains OPEN  
 **Campaign status:** `INCOMPLETE; NO INDEPENDENT 7/8 PROOF`  
-**Result classes:** `CI_REPAIR_IN_PROGRESS`, `STRUCTURAL SOURCE CORRESPONDENCE`, `CONDITIONAL BOUND TRANSFER`, `NO_NEW_ANALYTIC_SAVING`
+**Result classes:** `PROVED_IN_LEAN_ON_PR_HEAD`, `CI_REPAIRED`, `STRUCTURAL SOURCE CORRESPONDENCE`, `CONDITIONAL BOUND TRANSFER`, `NO_NEW_ANALYTIC_SAVING`
 
 ## A. Live authority and continuity
 
@@ -68,7 +68,9 @@ Successful exact-head workflows:
 - Lean source audits, run 39756235496;
 - Original OAI GaussianSubset to RHLean NNS typecheck, run 39756235275.
 
-The broader certified-core workflow 39756235244 is still running. Both of its jobs have already passed their original-OAI kernel checks; job 119748861149 is compiling the entire pinned upstream moment and final-detector chain, while job 119748861516 completed successfully. This report remains `IN_PROGRESS` until the final attached workflow reaches a terminal state.
+The broader certified-core workflow 39756235244 also completed successfully. Job 119748861149 rebuilt the full pinned upstream moment/final-detector chain, kernel-checked the repaired bridge, and passed the terminal native signed-covariance gates. Job 119748861516 independently passed the direct original-OAI bridge check.
+
+All four repaired bridge declarations print exactly `[propext, Classical.choice, Quot.sound]`. The jobs reject `sorryAx`, `admitAx`, private declarations and new project axioms; none was present. Thus claim `20261022-lean-1` is `PROVED_IN_LEAN_ON_PR_HEAD` at the exact SHA above, with structural/conditional significance only.
 
 No merge, auto-merge, direct main write, review-ready transition, or theorem-strengthening mutation was performed.
 
@@ -89,7 +91,14 @@ The repaired bridge is useful infrastructure because it removes an unproved type
 - Active PR: #1004, head `e9bed435a474cbdb07ff21bbb1e351e4ef6a0abc`.
 - Repaired source blob: `b846f13df583c6159a558d5ee810c23bf0c8c91f`.
 - Dedicated original-OAI typecheck: GREEN.
-- Full attached certified-core workflow: PENDING.
-- Claim ID reserved: `20261022-lean-1`, pending final exact-head CI.
+- Full attached certified-core workflow: GREEN.
+- Claim `20261022-lean-1`: `PROVED_IN_LEAN_ON_PR_HEAD / STRUCTURAL AND CONDITIONAL`.
 - Quantitative progress: NONE.
 - Campaign status: `INCOMPLETE; NO INDEPENDENT 7/8 PROOF`.
+
+
+## G. Final publication and PR state
+
+All six workflows attached to `e9bed435a474cbdb07ff21bbb1e351e4ef6a0abc` are successful. The PR remains open, mergeable and draft, stacked on #1003; human-only merge and stack order are preserved. The PR body was updated with the repair, exact run IDs, axiom result and scope limitations. No merge, auto-merge or direct main write was performed.
+
+The completed report supersedes only its earlier in-progress checkpoint. It does not promote the open PR to main and does not alter the contract's status: `INCOMPLETE; NO INDEPENDENT 7/8 PROOF`.
