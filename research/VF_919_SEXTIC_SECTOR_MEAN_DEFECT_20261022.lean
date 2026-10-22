@@ -43,7 +43,6 @@ theorem sextic_nontrivial_root_geometric_sum_zero
       (∑ k ∈ Finset.range 6, ζ ^ k) =
         1 + ζ + ζ ^ 2 + ζ ^ 3 + ζ ^ 4 + ζ ^ 5 := by
     simp [Finset.sum_range_succ]
-    ring
   rw [hsum]
   exact hgeom
 
@@ -101,9 +100,9 @@ theorem sextic_weighted_sector_reassembly {ι : Type*}
         intro u hu
         cases h : phase u with
         | none =>
-            simp [sexticPhaseWithZero, h]
+            simp [sexticPhaseWithZero]
         | some k =>
-            simp [sexticPhaseWithZero, h, Finset.sum_ite_eq', mul_assoc]
+            simp [sexticPhaseWithZero, mul_assoc]
     _ = ∑ k : Fin 6, ∑ u ∈ rows,
         (if phase u = some k then
           (omega u : ℂ) * coefficient u else 0) * ζ ^ k.val := by
@@ -217,7 +216,13 @@ theorem sextic_NNS_cross_pair_eq_real_Hecke_Gram (a b : ℂ) :
     (stableFarComplexToRealPair a).2 (stableFarComplexToRealPair b).2
   have hPhi := stableFarRealPairNormalizedDot_complexToRealPair a b
   dsimp [stableFarRealPairNormalizedDot, stableFarRealPairDot] at hPhi
-  linarith
+  change
+    ((stableFarComplexToRealPair a).1 *
+        (stableFarComplexToRealPair b).1 +
+      (stableFarComplexToRealPair a).2 *
+        (stableFarComplexToRealPair b).2) / 2 =
+      (a * star b).re at hPhi
+  linarith [hX, hY, hPhi]
 
 
 /-- Extend the exact sector decomposition to ALL labelled offdiagonal
@@ -273,6 +278,7 @@ theorem sextic_admitted_offdiagonal_Hecke_pair_defect
         apply Finset.sum_congr rfl
         intro u hu
         rw [hPhase pair hpair u hu]
+        ring
     _ = _ := sextic_all_labelled_pairs_defect_exact rows pairs
       phase omega coefficient ζ hpow hne
 
