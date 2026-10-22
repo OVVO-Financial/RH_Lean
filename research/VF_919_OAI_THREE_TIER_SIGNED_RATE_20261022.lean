@@ -285,6 +285,106 @@ theorem sextic_sixth_moment_nonprimitive_repeat_collisions :
       (6 : ℤ) ∣ (2 * (3 : ℤ)) := by
   constructor <;> norm_num
 
+/-! ## Exact D-tier cubic head and explicit, absolutely decaying tail -/
+
+/-- The D-bill of ProbeLocal.normalized_cancellation is the pure cubic
+    harmonic -vinv*D plus an explicit rational correction; no phase
+    averaging is used. The equation vinv*W=q is ORIGINAL source data. -/
+theorem oai_d_tier_exact_cubic_remainder
+    (V W D q vinv : ℂ)
+    (hV : 1 - V ≠ 0) (hD : 1 - D ≠ 0)
+    (hphase : vinv * W = q) :
+    (1 - V) * (1 - W) / (1 - D) * (vinv - q) *
+      (V / (1 - V) - D) + vinv * D =
+      vinv * (D * (-D + 2 * W - W ^ 2) +
+        V * (1 + D) * (1 - W) ^ 2) / (1 - D) := by
+  rw [← hphase]
+  field_simp [hV, hD]
+  ring
+
+/-- Entire D-tier tail is paid by D², D*W and V; only the leading
+    -vinv*D has the original 7/8 exponent. The inverse denominator
+    bound is the elementary original-source norm lemma, not a new
+    analytic/Hecke premise. -/
+theorem oai_d_tier_cubic_remainder_norm_bound
+    (V W D vinv : ℂ)
+    (hW : ‖W‖ ≤ 1)
+    (hD : ‖D‖ ≤ 1 / 2)
+    (hInv : ‖(1 - D)⁻¹‖ ≤ 2)
+    (hvinv : ‖vinv‖ = 1) :
+    ‖vinv * (D * (-D + 2 * W - W ^ 2) +
+      V * (1 + D) * (1 - W) ^ 2) / (1 - D)‖ ≤
+      2 * ‖D‖ ^ 2 + 6 * ‖D‖ * ‖W‖ + 12 * ‖V‖ := by
+  have hWsq : ‖W‖ ^ 2 ≤ ‖W‖ := by
+    nlinarith [norm_nonneg W]
+  have hInner :
+      ‖-D + 2 * W - W ^ 2‖ ≤ ‖D‖ + 3 * ‖W‖ := by
+    have hAdd :
+        ‖-D + 2 * W‖ ≤ ‖D‖ + 2 * ‖W‖ := by
+      calc
+        _ ≤ ‖-D‖ + ‖(2 : ℂ) * W‖ := norm_add_le _ _
+        _ = ‖D‖ + 2 * ‖W‖ := by
+          simp [norm_mul]
+    calc
+      _ ≤ ‖-D + 2 * W‖ + ‖W ^ 2‖ := norm_sub_le _ _
+      _ ≤ (‖D‖ + 2 * ‖W‖) + ‖W‖ ^ 2 := by
+        rw [norm_pow]
+        linarith
+      _ ≤ ‖D‖ + 3 * ‖W‖ := by linarith
+  have hDterm :
+      ‖D * (-D + 2 * W - W ^ 2)‖ ≤
+        ‖D‖ ^ 2 + 3 * ‖D‖ * ‖W‖ := by
+    rw [norm_mul]
+    have hm := mul_le_mul_of_nonneg_left hInner (norm_nonneg D)
+    nlinarith
+  have hOneD : ‖1 + D‖ ≤ (3 / 2 : ℝ) := by
+    have h := norm_add_le (1 : ℂ) D
+    rw [norm_one] at h
+    linarith
+  have hOneW : ‖1 - W‖ ≤ 2 := by
+    have h := norm_sub_le (1 : ℂ) W
+    rw [norm_one] at h
+    linarith
+  have hOneWsq : ‖1 - W‖ ^ 2 ≤ 4 := by
+    nlinarith [norm_nonneg (1 - W)]
+  have hFactor :
+      ‖(1 + D) * (1 - W) ^ 2‖ ≤ 6 := by
+    rw [norm_mul, norm_pow]
+    calc
+      _ ≤ (3 / 2 : ℝ) * 4 :=
+        mul_le_mul hOneD hOneWsq (sq_nonneg _) (by norm_num)
+      _ = 6 := by norm_num
+  have hVterm :
+      ‖V * (1 + D) * (1 - W) ^ 2‖ ≤ 6 * ‖V‖ := by
+    calc
+      _ = ‖V‖ * ‖(1 + D) * (1 - W) ^ 2‖ := by
+        simp only [norm_mul, norm_pow]
+        ring
+      _ ≤ ‖V‖ * 6 :=
+        mul_le_mul_of_nonneg_left hFactor (norm_nonneg V)
+      _ = 6 * ‖V‖ := by ring
+  let N : ℝ := ‖D‖ ^ 2 + 3 * ‖D‖ * ‖W‖ + 6 * ‖V‖
+  have hBoth :
+      ‖D * (-D + 2 * W - W ^ 2) +
+        V * (1 + D) * (1 - W) ^ 2‖ ≤ N := by
+    dsimp [N]
+    calc
+      _ ≤ ‖D * (-D + 2 * W - W ^ 2)‖ +
+        ‖V * (1 + D) * (1 - W) ^ 2‖ := norm_add_le _ _
+      _ ≤ _ := by linarith
+  have hN : 0 ≤ N := by
+    dsimp [N]
+    positivity
+  calc
+    _ = ‖D * (-D + 2 * W - W ^ 2) +
+        V * (1 + D) * (1 - W) ^ 2‖ * ‖(1 - D)⁻¹‖ := by
+      rw [div_eq_mul_inv, norm_mul, norm_mul, hvinv, one_mul]
+    _ ≤ N * 2 :=
+      mul_le_mul hBoth hInv (norm_nonneg _) hN
+    _ = 2 * ‖D‖ ^ 2 + 6 * ‖D‖ * ‖W‖ + 12 * ‖V‖ := by
+      dsimp [N]
+      ring
+
 /-- For the original compensated leading cubic harmonic m=4,
     a sixth-moment resonance among 3 plus and 3 minus prime slots
     forces equality of each local occupancy, EXCEPT for the pure-cube
@@ -451,4 +551,6 @@ end RHLean.Analysis
 #print axioms RHLean.Analysis.sextic_sixth_moment_nonprimitive_repeat_collisions
 #print axioms RHLean.Analysis.cubic_m4_three_slot_local_collision_classification
 #print axioms RHLean.Analysis.cubic_repeated_prime_offdiagonal_mass_bound
+#print axioms RHLean.Analysis.oai_d_tier_exact_cubic_remainder
+#print axioms RHLean.Analysis.oai_d_tier_cubic_remainder_norm_bound
 #print axioms RHLean.Analysis.d_tier_gauss_off_diagonal_bound

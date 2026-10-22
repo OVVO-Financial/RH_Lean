@@ -223,3 +223,55 @@ decay nevertheless makes it far smaller than the coherent D-tier
 at the level of one-prime dyadic coefficient envelopes. The
 missing source-specific weighted cubic-character estimate and
 full Gaussian/Mellin normalization remain open.
+
+
+## 7. Exact cubic D head plus absolutely controlled remainder
+
+The literal upstream source relation \`vinv*W=q\` implies
+
+\`\`\`text
+T_D = (1-V)(1-W)/(1-D)*(vinv-q)*(V/(1-V)-D)
+    = -vinv*D + Tail_D,
+Tail_D = vinv * [D*(-D+2*W-W²) + V*(1+D)*(1-W)²]/(1-D).
+\`\`\`
+
+Since \`D=eta*conj(v)*Q^-x\`, the head \`-vinv*D\`
+is exactly \`-eta*(conj v)^2 Q^-x\`: cubic harmonic m=4.
+
+Source-local norms \`|W|<=1\`, \`|D|<=1/2\`,
+\`|(1-D)^(-1)|<=2\`, \`|vinv|=1\` imply, without ANY
+character cancellation,
+
+\`\`\`text
+|Tail_D| <= 2|D|² + 6|D|*|W| + 12|V|
+         <= 2 Q^(-2*Re x)
+            +6 Q^(-Re x-Re w)
+            +12 Q^(-6*Re z).
+\`\`\`
+
+On the central contour x.re=a+16e, w.re=1-a-6e,
+z.re=17/50 and 7/8<=a, these are
+
+\`\`\`text
+2 Q^(-2a-32e) + 6 Q^(-1-10e) + 12 Q^(-51/25).
+\`\`\`
+
+For a band of at most C*P distinct prime ideals with norms >=P,
+the sum of all tails is at most
+
+\`\`\`text
+C*(2 P^(-3/4-32e)+6 P^(-10e)+12 P^(-26/25)).
+\`\`\`
+
+Therefore for each fixed **e>0**, the full D-tail has o(1)
+amplitude and o(W) weighted energy, independent of row phases.
+At e=0 the crude count yields only O(1) for the middle term,
+while a prime-ideal PNT count O(P/log P) gives O(1/log P).
+The o(1) conclusion is NOT UNIFORM as e approaches zero; this
+matters for integration over moving OAI contours.
+
+Combining the BR and BKV absolute rates, for fixed e>0
+the ONE-PRIME source is a pure leading cubic harmonic
+plus an absolutely decaying remainder. No such reduction is
+claimed for the complete original Gaussian/Mellin normalized
+high-row source without proving its source-identification map.
