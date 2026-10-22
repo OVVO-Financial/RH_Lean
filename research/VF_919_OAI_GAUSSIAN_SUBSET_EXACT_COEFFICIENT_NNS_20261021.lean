@@ -32,6 +32,8 @@ open scoped Classical BigOperators
 
 namespace RHLean.Analysis
 
+open RHLean.Proof
+
 /-- Literal coefficient shape from OAI GaussianCompensation.lean:
     (-1)^|J| * N(p_J)^(-3/2) * star(eta(p_complement)).
     Each q_i is an ORIGINAL elementNorm and each eta_i an ORIGINAL
