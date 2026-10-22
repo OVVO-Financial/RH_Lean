@@ -139,6 +139,33 @@ jobs:
         run: |
           set -euo pipefail
           lake build OAI.NumberTheory.DirichletL.PrimeCounting.Progressions
+      - name: Build actual original OAI GaussianSubset / GaussianCommon imports
+        shell: bash
+        working-directory: oai-upstream/lean
+        run: |
+          set -euo pipefail
+          lake build OAI.NumberTheory.DirichletL.Detector.GaussianCommon
+          test -s .lake/build/lib/lean/OAI/NumberTheory/DirichletL/Detector/GaussianCommon.olean
+      # This is the user-directed ORIGINAL-TYPE GaussianSubset integration.
+      # Both original OAI and native RHLean oleans are imported into the
+      # SAME Lean 4.34.1 kernel; the type-checked goal contains actual
+      # OAI.HeckeFamily.Character, CalibrationData, physical source
+      # integrals, all masks and weighted NNS Co/Div theorem statements.
+      - name: KERNEL-CHECK original OAI GaussianSubset integrated signed NNS
+        id: gaussian_nns
+        shell: bash
+        run: |
+          set -euo pipefail
+          OAI_PATH="$(cd oai-upstream/lean && lake env python3 -c 'import os; print(os.pathsep.join(os.path.abspath(p) for p in os.environ["LEAN_PATH"].split(os.pathsep) if p))')"
+          RH_PATH="$(lake env python3 -c 'import os; print(os.pathsep.join(os.path.abspath(p) for p in os.environ["LEAN_PATH"].split(os.pathsep) if p))')"
+          python3 scripts/check_shared_lean_packages.py . oai-upstream/lean PrimeNumberTheoremAnd mathlib
+          env LEAN_PATH="$RH_PATH:$OAI_PATH" lean -DwarningAsError=true \
+            research/oai_434/VF919OriginalGaussianIntegratedNNS.lean \
+            | tee /tmp/vf919-oai-gaussian-original-types-nns-axioms.log
+          if grep -E 'sorryAx|admitAx|_private' /tmp/vf919-oai-gaussian-original-types-nns-axioms.log; then
+            echo "Unexpected axiom in original-OAI typed NNS theorem" >&2
+            exit 1
+          fi
       # Always invoke Lake, including on a cache hit. Its dependency traces
       # determine what must be rebuilt; a cache hit is not proof acceptance.
       - name: Compile entire original OpenAI moment and final detector chain
@@ -167,26 +194,6 @@ jobs:
         with:
           path: oai-upstream/lean/.lake
           key: oai-certified-434-pntnative-v2-${{ runner.os }}-${{ runner.arch }}-1581d4cbdd69a0faf34b2089614fe2a814316a6a-${{ hashFiles('oai-upstream/lean/lean-toolchain', 'oai-upstream/lean/lakefile.lean', 'oai-upstream/lean/lake-manifest.json', 'oai-upstream/lean/patches/**', 'scripts/apply_oai_434_upstream_patches.py') }}-progress-${{ github.run_id }}-${{ github.run_attempt }}
-      # This is the user-directed ORIGINAL-TYPE GaussianSubset integration.
-      # Both original OAI and native RHLean oleans are imported into the
-      # SAME Lean 4.34.1 kernel; the type-checked goal contains actual
-      # OAI.HeckeFamily.Character, CalibrationData, physical source
-      # integrals, all masks and weighted NNS Co/Div theorem statements.
-      - name: KERNEL-CHECK original OAI GaussianSubset integrated signed NNS
-        id: gaussian_nns
-        shell: bash
-        run: |
-          set -euo pipefail
-          OAI_PATH="$(cd oai-upstream/lean && lake env python3 -c 'import os; print(os.pathsep.join(os.path.abspath(p) for p in os.environ["LEAN_PATH"].split(os.pathsep) if p))')"
-          RH_PATH="$(lake env python3 -c 'import os; print(os.pathsep.join(os.path.abspath(p) for p in os.environ["LEAN_PATH"].split(os.pathsep) if p))')"
-          python3 scripts/check_shared_lean_packages.py . oai-upstream/lean PrimeNumberTheoremAnd mathlib
-          env LEAN_PATH="$RH_PATH:$OAI_PATH" lean -DwarningAsError=true \
-            research/oai_434/VF919OriginalGaussianIntegratedNNS.lean \
-            | tee /tmp/vf919-oai-gaussian-original-types-nns-axioms.log
-          if grep -E 'sorryAx|admitAx|_private' /tmp/vf919-oai-gaussian-original-types-nns-axioms.log; then
-            echo "Unexpected axiom in original-OAI typed NNS theorem" >&2
-            exit 1
-          fi
       - name: KERNEL-CHECK native UNCONDITIONAL signed covariance and ALL square-block bounds
         id: native_theorem
         shell: bash
