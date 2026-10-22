@@ -431,8 +431,11 @@ theorem oai_d_tier_three_harmonic_tail_bound
     nlinarith [norm_nonneg (1 - W)]
   have hVterm :
       ‖V * (1 + D)‖ ≤ (3 / 2 : ℝ) * ‖V‖ := by
-    rw [norm_mul]
-    exact mul_le_mul_of_nonneg_left hOneD (norm_nonneg V) |>.trans_eq (by ring)
+    calc
+      _ = ‖V‖ * ‖1 + D‖ := norm_mul _ _
+      _ ≤ ‖V‖ * (3 / 2 : ℝ) :=
+        mul_le_mul_of_nonneg_left hOneD (norm_nonneg V)
+      _ = (3 / 2 : ℝ) * ‖V‖ := by ring
   have hPre :
       ‖V * (1 + D) - D ^ 2‖ ≤
         (3 / 2 : ℝ) * ‖V‖ + ‖D‖ ^ 2 := by

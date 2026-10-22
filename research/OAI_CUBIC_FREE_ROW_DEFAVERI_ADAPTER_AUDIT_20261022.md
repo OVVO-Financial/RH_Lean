@@ -67,3 +67,16 @@ The same original adapter now reindexes the EXACT physical labelled FreeRow fini
 
 
 The root-fiber cardinality can now be paid with an ORIGINAL theorem rather than an assumption: DescentFiberCost.finite_ideal_count_real gives (number of distinct squarefree cube roots of original FreeRow elements with norm<=U) <= 128 U^(1/3). The new original_FreeRow_cube_root_ideal_count_le combines source actual norm factorization and source ideal count. No sixth-free density or row-spread claim is needed for this upper bound. This declaration requires original mixed-source CI; the inverse norm zeta(2), zeta(3) moments and character-family identification remain separate.
+
+
+## CORRECTION (2026-10-22): W is row-dependent and there are three leading characters
+
+Verified from ORIGINAL ProbeEuler.EulerCoordinates:
+
+- V=Q^(-6z) is row-independent, W=v*Q^(-w) is ROW DEPENDENT, D=eta*conj(v)*Q^(-x), q=Q^(-w).
+- Correct exact D-bill: T_D= -conj(v)*D + 2*q*D - conj(v)*D*W^2 + conj(v)*(V*(1+D)-D^2)*(1-W)^2/(1-D).
+- The first term is conjugate CUBIC, the second is conjugate SEXTIC, the third is row-PRINCIPAL (coefficient -eta*Q^(-x-2w)), and only the last term is an absolute small tail.
+- The last term has uniform norm <=12|V|+8|D|^2 for |W|<=1, |D|<=1/2, |(1-D)^-1|<=2 and |v|=1. This has NO |D*W| term, so its full-band payment is O(P^-26/25+P^-3/4) uniformly as e approaches zero.
+- The proposal that (1-W) could be absorbed into a row-independent cubic coefficient was INVALID. Do not implement it. Original-OAI typed lemmas now directly inspect real coordW and coordD rather than generic stand-ins.
+- The principal term has size Q^(-(2-a+4e)); at a=7/8,e=0 it is Q^-9/8 and pays P^-1/8 by |S|<<P; at the full right endpoint a=1-6e its power is Q^(-1-10e), so a UNIFORM polynomial gain across a up to 1 and e down to zero is NOT proved. At the endpoint one may get O(1/logP) from ideal PNT, or seek cancellation in the OTHER original marked/BKV bill.
+- The n=6 Theorem 1.1 is not (UP)^(5/6): its sharper actual four-term operator is U+P+U^(5/6)P^(1/3)+U^(1/3)P^(5/6), with (UP)^eps. Given source family matching, bounded spread ratio, and sextic coefficient square norm O(P^-1-20e), U=P^(5/4), this implies normalized sextic energy O_eps(P^-7/8-20e+(9/4)eps), rather than the weaker proposed P^-3/8. n=6 requires the relevant fixed S to include primes above 2 as well as 3, and the *actual* original sextic Hecke symbol must be matched to that fixed ray character family. This is NOT asserted by the cube-free n=3 adapter.

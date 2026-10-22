@@ -2,6 +2,7 @@ import OAI.NumberTheory.DirichletL.Hecke.InverseAmplificationRows
 import OAI.NumberTheory.DirichletL.CenteredExceptionalCount
 import OAI.NumberTheory.DirichletL.GaussSum.CubicNormalization
 import OAI.NumberTheory.DirichletL.GaussSum.LocalProductAssembly
+import OAI.NumberTheory.DirichletL.Detector.EulerCoordinates
 
 /-!
 Original OAI true Eisenstein ideal base-3 adapter and canonical sextic
@@ -247,6 +248,76 @@ theorem original_conjugated_cubic_cube_mask
     (original_canonical_cubic_cube_mask P hg c u)
   simpa only [star_mul, map_ite, star_zero, star_one] using h
 
+
+/-! ## Source-exact three harmonic D bill, without false scalar W -/
+
+/-- In the literal original source, W=v*Q^(-w), not Q^(-w).
+    The row-independent object is q=Q^(-w), with star(v)*W=q
+    whenever v has norm one. -/
+theorem original_Physical_W_is_row_sextic
+    (Q : ℝ) (v w : ℂ) :
+    ProbeEuler.coordW Q v w = v * (Q : ℂ) ^ (-w) := rfl
+
+/-- The source phase equation is a CONSEQUENCE of unit-modulus
+    sextic character, not an independence assumption. -/
+theorem original_Physical_vinv_W_eq_q
+    (Q : ℝ) (v w : ℂ) (hv : star v * v = 1) :
+    star v * ProbeEuler.coordW Q v w = (Q : ℂ) ^ (-w) := by
+  unfold ProbeEuler.coordW
+  calc
+    _ = (star v * v) * (Q : ℂ) ^ (-w) := by ring
+    _ = (Q : ℂ) ^ (-w) := by rw [hv]; ring
+
+/-- Literal compensated normalized D-bill in original OAI
+    ProbeLocal coordinates. The three leading terms remain
+    uncombined, preserving cubic, sextic and principal windings. -/
+theorem original_Physical_D_three_harmonics
+    (Q : ℝ) (eta v x w z : ℂ)
+    (hUnit : star v * v = 1)
+    (hV : 1 - ProbeEuler.coordV Q z ≠ 0)
+    (hD : 1 - ProbeEuler.coordD Q eta v x ≠ 0) :
+    let V := ProbeEuler.coordV Q z
+    let W := ProbeEuler.coordW Q v w
+    let D := ProbeEuler.coordD Q eta v x
+    let q := (Q : ℂ) ^ (-w)
+    (1 - V) * (1 - W) / (1 - D) * (star v - q) *
+       (V / (1 - V) - D) =
+      -star v * D + 2 * q * D - star v * D * W ^ 2 +
+        star v * (V * (1 + D) - D ^ 2) *
+          (1 - W) ^ 2 / (1 - D) := by
+  dsimp
+  rw [← original_Physical_vinv_W_eq_q Q v w hUnit]
+  field_simp [hV, hD]
+  ring
+
+/-- In the ORIGINAL physical coordinates, the W² cross term is a
+    TRUE PRINCIPAL ROW HARMONIC (eta itself may depend on the prime).
+    It is NOT another cubic column and cannot be paid by a cubic
+    large sieve without an independent cancellation. -/
+theorem original_Physical_DW2_is_row_principal
+    (Q : ℝ) (eta v x w : ℂ) (hUnit : star v * v = 1) :
+    star v * ProbeEuler.coordD Q eta v x *
+       (ProbeEuler.coordW Q v w) ^ 2 =
+      eta * (Q : ℂ) ^ (-x) * ((Q : ℂ) ^ (-w)) ^ 2 := by
+  unfold ProbeEuler.coordD ProbeEuler.coordW
+  calc
+    _ = eta * (star v * v) ^ 2 *
+        (Q : ℂ) ^ (-x) * ((Q : ℂ) ^ (-w)) ^ 2 := by ring
+    _ = eta * (Q : ℂ) ^ (-x) * ((Q : ℂ) ^ (-w)) ^ 2 := by
+      rw [hUnit]
+      ring
+
+/-- The other formerly-absolute size Q^(-Re(x)-Re(w))
+    term is the TRUE sextic harmonic q*eta*star(v)*Q^(-x).
+    n=6 fixed-order large sieve matching is still an
+    explicit separate analytic hypothesis. -/
+theorem original_Physical_qD_is_row_sextic
+    (Q : ℝ) (eta v x w : ℂ) :
+    (Q : ℂ) ^ (-w) * ProbeEuler.coordD Q eta v x =
+      eta * star v * (Q : ℂ) ^ (-x) * (Q : ℂ) ^ (-w) := by
+  unfold ProbeEuler.coordD
+  ring
+
 end SevenEighths.CubeFreeRowAdapter
 end
 
@@ -260,5 +331,8 @@ end
 #print axioms SevenEighths.CubeFreeRowAdapter.original_canonicalSextic_sq_eq_cubic
 #print axioms SevenEighths.CubeFreeRowAdapter.original_canonical_cubic_cube_mask
 #print axioms SevenEighths.CubeFreeRowAdapter.original_conjugated_cubic_cube_mask
+#print axioms SevenEighths.CubeFreeRowAdapter.original_Physical_D_three_harmonics
+#print axioms SevenEighths.CubeFreeRowAdapter.original_Physical_DW2_is_row_principal
+#print axioms SevenEighths.CubeFreeRowAdapter.original_Physical_qD_is_row_sextic
 
 end OAI
