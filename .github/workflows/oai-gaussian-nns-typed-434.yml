@@ -85,20 +85,25 @@ jobs:
         run: |
           set -euo pipefail
           lake build PrimeNumberTheoremAnd.Wiener
-      - name: Kernel-build ORIGINAL native signed NNS coefficients
-        uses: ./.github/actions/research-compile
-        with:
-          build-library: 'true'
-          targets: |
-            research/VF_919_OAI_GAUSSIAN_SUBSET_EXACT_COEFFICIENT_NNS_20261021.lean
-            research/VF_919_OAI_ACTUAL_MARKED_FOURTH_REAL_NNS_20261021.lean
-            research/VF_919_SEXTIC_SECTOR_MEAN_DEFECT_20261022.lean
-            research/VF_919_RESONANT_FIBER_NNS_RECOMBINATION_20261022.lean
-      # Do not discard a verified 9,000-module native build if the much larger
-      # original OAI graph later fails or exceeds a runner time budget.
-      # Native packages use Lake's dependency traces; the restore prefix is
-      # pinned to the exact compiler, Mathlib and package manifests.
-      - name: Checkpoint native library / PNT before original OAI source build
+      - name: Build only imported RHLean library modules from the native source DAG
+        # The research compiler already supports --library-only, which
+        # guarantees native .olean prerequisites are complete even when
+        # a NEW research proof itself fails to elaborate.
+        shell: bash
+        run: |
+          set -euo pipefail
+          export RHLEAN_RESEARCH_TARGETS="$(cat <<'TARGETS'
+          research/VF_919_OAI_GAUSSIAN_SUBSET_EXACT_COEFFICIENT_NNS_20261021.lean
+          research/VF_919_OAI_ACTUAL_MARKED_FOURTH_REAL_NNS_20261021.lean
+          research/VF_919_SEXTIC_SECTOR_MEAN_DEFECT_20261022.lean
+          research/VF_919_RESONANT_FIBER_NNS_RECOMBINATION_20261022.lean
+          TARGETS
+          )"
+          python3 scripts/compile_research_import_closure.py --library-only
+      # A failing newly added research lemma cannot discard the expensive
+      # verified native library it depends on. Immutable cache identity is
+      # source-sensitive, with a compiler/manifest pinned restore prefix.
+      - name: Checkpoint native imported library before new research elaboration
         if: ${{ !cancelled() && steps.native_cache.outputs.cache-hit != 'true' }}
         uses: actions/cache/save@v5
         with:
@@ -106,6 +111,15 @@ jobs:
             .lake/build
             .lake/packages/PrimeNumberTheoremAnd/.lake/build
           key: ${{ steps.native_cache.outputs.cache-primary-key }}
+      - name: Kernel-check ONLY new / changed signed NNS research sources
+        uses: ./.github/actions/research-compile
+        with:
+          build-library: 'false'
+          targets: |
+            research/VF_919_OAI_GAUSSIAN_SUBSET_EXACT_COEFFICIENT_NNS_20261021.lean
+            research/VF_919_OAI_ACTUAL_MARKED_FOURTH_REAL_NNS_20261021.lean
+            research/VF_919_SEXTIC_SECTOR_MEAN_DEFECT_20261022.lean
+            research/VF_919_RESONANT_FIBER_NNS_RECOMBINATION_20261022.lean
       - name: Restore original OAI dependency and compiled DAG cache
         id: oai_cache
         uses: actions/cache/restore@v5
