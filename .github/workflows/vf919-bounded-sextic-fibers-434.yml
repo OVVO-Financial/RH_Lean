@@ -1,0 +1,49 @@
+name: Native effective ideal resonance and compensated sextic Holder 4.34.1
+
+on:
+  pull_request:
+    paths:
+      - 'research/VF_919_OAI_EFFECTIVE_SEXTIC_VALUATION_CLASSIFICATION_20261022.lean'
+      - 'research/VF_919_OAI_GROUPED_HOLDER_SIXTH_SOURCE_20261022.lean'
+      - 'research/VF_919_RESONANT_FIBER_NNS_RECOMBINATION_20261022.lean'
+      - 'research/VF_919_SEXTIC_SECTOR_MEAN_DEFECT_20261022.lean'
+      - 'RHLean/**/*.lean'
+      - 'lean-toolchain'
+      - 'lakefile.lean'
+      - 'lake-manifest.json'
+      - '.github/workflows/vf919-bounded-sextic-fibers-434.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: native-compensated-sixth-${{ github.head_ref || github.ref_name }}
+  cancel-in-progress: false
+
+jobs:
+  certified-native-sixth:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Setup pinned Lean 4.34.1 and Mathlib
+        uses: ./.github/actions/lean-setup
+      - name: Restore verified native compiled library
+        uses: actions/cache/restore@v5
+        with:
+          path: |
+            .lake/build
+            .lake/packages/PrimeNumberTheoremAnd/.lake/build
+          key: rhlean-oai-native-v3-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-${{ hashFiles('RHLean/**/*.lean', 'scripts/compile_research_import_closure.py', 'scripts/ci/**') }}
+          restore-keys: |
+            rhlean-oai-native-v3-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-
+      - name: Kernel-compile native ideal classification and compensated sixth-moment Holder
+        uses: ./.github/actions/research-compile
+        with:
+          build-library: 'true'
+          targets: |
+            research/VF_919_OAI_EFFECTIVE_SEXTIC_VALUATION_CLASSIFICATION_20261022.lean
+            research/VF_919_OAI_GROUPED_HOLDER_SIXTH_SOURCE_20261022.lean
