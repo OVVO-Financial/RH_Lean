@@ -298,6 +298,76 @@ theorem oai_grouped_fiber_l65_power_budget_one_bill
     carrier (fun m => first m + second m) tau D Z sigma c
     hD hZ htau hRecombined hTauMoment
 
+
+/-!
+## Independent scalar one-prime dyadic rate: 7/8 versus 5/6
+
+The pointwise original-OAI one-prime remainder can cost P^(-7/8)
+on a dyadic prime-ideal band of size O(P). Even the weak cardinal bound
+#slots <= C*P then gives the true finite ell^(6/5) rate P^(-1/24).
+
+This result concerns the ONE-PRIME, NO-COFACTOR scalar band. It does not
+identify the complete Gaussian/Mellin coefficients with these b(p),
+bound effective-ideal multiplicities or prove the uniform sixth moment.
+-/
+
+/-- A genuine POWER rate for a finite one-prime band follows from the
+    7/8 pointwise power and the linear slot count.  Both hypotheses are
+    explicit, and the 1/24 comes from 7/8 - 5/6, not a target energy
+    assumption.  Actual Hecke source admission is a separate theorem. -/
+theorem oai_one_prime_dyadic_l65_power_rate
+    {α : Type*} (slots : Finset α) (b : α → ℂ)
+    (P C : ℝ)
+    (hP : 1 ≤ P) (hC : 0 ≤ C)
+    (hCard : (slots.card : ℝ) ≤ C * P)
+    (hLocal : ∀ p ∈ slots,
+      ‖b p‖ ≤ 720 * P ^ (-(7 / 8 : ℝ))) :
+    (∑ p ∈ slots, ‖b p‖ ^ (6 / 5 : ℝ)) ^ (5 / 6 : ℝ) ≤
+      720 * C ^ (5 / 6 : ℝ) * P ^ (-(1 / 24 : ℝ)) := by
+  have hP0 : 0 ≤ P := by linarith
+  have hPpos : 0 < P := by linarith
+  let A : ℝ := 720 * P ^ (-(7 / 8 : ℝ))
+  have hA : 0 ≤ A := by
+    dsimp [A]
+    positivity
+  have htau : ∀ p ∈ slots, 0 ≤ (1 : ℝ) := by
+    intro p hp
+    norm_num
+  have hPoint : ∀ p ∈ slots, ‖b p‖ ≤ A * (1 : ℝ) := by
+    intro p hp
+    simpa [A] using hLocal p hp
+  have hOneNorm :
+      (∑ p ∈ slots, (1 : ℝ) ^ (6 / 5 : ℝ)) ^ (5 / 6 : ℝ) ≤
+        (slots.card : ℝ) ^ (5 / 6 : ℝ) := by
+    simp
+  have hOnePrime := oai_grouped_fiber_l65_recombined_bound
+    slots b (fun _ => (1 : ℝ))
+    A ((slots.card : ℝ) ^ (5 / 6 : ℝ))
+    hA htau hPoint hOneNorm
+  have hCountPow :
+      (slots.card : ℝ) ^ (5 / 6 : ℝ) ≤
+        (C * P) ^ (5 / 6 : ℝ) :=
+    Real.rpow_le_rpow (Nat.cast_nonneg _) hCard (by norm_num)
+  have hSimplify :
+      P ^ (-(7 / 8 : ℝ)) * P ^ (5 / 6 : ℝ) =
+        P ^ (-(1 / 24 : ℝ)) := by
+    rw [← Real.rpow_add hPpos]
+    congr 1
+    ring
+  calc
+    _ ≤ A * (slots.card : ℝ) ^ (5 / 6 : ℝ) := hOnePrime
+    _ ≤ A * (C * P) ^ (5 / 6 : ℝ) :=
+      mul_le_mul_of_nonneg_left hCountPow hA
+    _ = 720 * C ^ (5 / 6 : ℝ) * P ^ (-(1 / 24 : ℝ)) := by
+      dsimp [A]
+      rw [Real.mul_rpow hC hP0]
+      calc
+        (720 * P ^ (-(7 / 8 : ℝ))) *
+            (C ^ (5 / 6 : ℝ) * P ^ (5 / 6 : ℝ)) =
+            720 * C ^ (5 / 6 : ℝ) *
+              (P ^ (-(7 / 8 : ℝ)) * P ^ (5 / 6 : ℝ)) := by ring
+        _ = _ := by rw [hSimplify]
+
 end RHLean.Analysis
 
 #print axioms RHLean.Analysis.oai_grouped_fiber_l65_bound
@@ -308,3 +378,4 @@ end RHLean.Analysis
 #print axioms RHLean.Analysis.oai_grouped_fiber_l65_recombined_bound
 #print axioms RHLean.Analysis.oai_grouped_fiber_l65_power_budget_recombined
 #print axioms RHLean.Analysis.oai_grouped_fiber_l65_power_budget_one_bill
+#print axioms RHLean.Analysis.oai_one_prime_dyadic_l65_power_rate
