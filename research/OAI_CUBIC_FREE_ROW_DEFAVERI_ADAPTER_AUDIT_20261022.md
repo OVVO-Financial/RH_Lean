@@ -56,3 +56,8 @@ The assertion `R=O(1)` does not follow from a positive density of all sixth-free
 4. Establish the row-spread ratio `U*rhoMax/W=O(1)` for the actual physical detector weights, or keep it in the exponent budget explicitly.
 5. Instantiate the paper's analytic operator theorem with correct identification (not merely assume the same inequality for an arbitrary family); check all dyadic parameters and the C_eps dependence.
 6. Pass warning-fatal Lean on this file AND the original OAI module in #1008; do not merge these drafts simply to bypass CI.
+
+
+## New original OAI certified ideal/character adapter (pending CI)
+
+The pinned source already has factorPart_valuation, ideal_eq_of_valuation_eq, canonicalSextic_pow_two and canonicalSextic_sixth_power_mask. New source module VF919OriginalCubeFreeIdealAdapter supplies true squarefree cube root and cube-free remainder for the ACTUAL ideal span of OpenAI FreeRow, plus an actual character-square equality and sixth-power zero-mask, with no invented phase. A source-to-element equivalence, primary unit normalizers, and exact fixed-family de Faveri large-sieve admission are still separate open obligations. Workflow KERNEL-CHECK original FreeRow ideal base-3 and true cubic mask enforces warning-fatal Lean v4.34.1; do not count it kernel-certified until green.

@@ -12,6 +12,7 @@ on:
       - 'research/oai_434/VF919OriginalGaussianResonantSextic.lean'
       - 'research/oai_434/VF919ActualSexticLocalResonanceAndCompensation.lean'
       - 'research/oai_434/VF919OriginalOnePrimePowerGain.lean'
+      - 'research/oai_434/VF919OriginalCubeFreeIdealAdapter.lean'
       - 'research/oai_434/VF919OriginalDetectorResonantFibers.lean'
       - 'research/VF_919_RESONANT_FIBER_NNS_RECOMBINATION_20261022.lean'
       - 'research/VF_919_SEXTIC_SECTOR_MEAN_DEFECT_20261022.lean'
@@ -223,6 +224,22 @@ jobs:
             | tee /tmp/oai-original-one-prime-power-gain.log
           if grep -E 'sorryAx|admitAx|_private' /tmp/oai-original-one-prime-power-gain.log; then
             echo 'Unexpected axiom in original one-prime signed power gain.' >&2
+            exit 1
+          fi
+      - name: KERNEL-CHECK original FreeRow ideal base-3 and true cubic mask
+        shell: bash
+        run: |
+          set -euo pipefail
+          OAI_PATH="$(cd oai-upstream/lean && lake env python3 -c 'import os; print(os.pathsep.join(os.path.abspath(p) for p in os.environ["LEAN_PATH"].split(os.pathsep) if p))')"
+          RH_PATH="$(lake env python3 -c 'import os; print(os.pathsep.join(os.path.abspath(p) for p in os.environ["LEAN_PATH"].split(os.pathsep) if p))')"
+          python3 scripts/check_shared_lean_packages.py . oai-upstream/lean PrimeNumberTheoremAnd mathlib
+          env LEAN_PATH="$RH_PATH:$OAI_PATH" lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.oai_434.VF919OriginalCubeFreeIdealAdapter.olean \
+            research/oai_434/VF919OriginalCubeFreeIdealAdapter.lean \
+            | tee /tmp/oai-original-cubefree-ideal-mask.log
+          test -s .lake/build/lib/lean/research.oai_434.VF919OriginalCubeFreeIdealAdapter.olean
+          if grep -E 'sorryAx|admitAx|_private' /tmp/oai-original-cubefree-ideal-mask.log; then
+            echo 'Unexpected axiom in actual OAI cube-free ideal mask adapter.' >&2
             exit 1
           fi
       - name: KERNEL-CHECK original OAI type specialization and NNS
