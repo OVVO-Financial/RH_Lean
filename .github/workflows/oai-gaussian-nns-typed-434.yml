@@ -7,6 +7,8 @@ on:
       - 'research/oai_434/VF919OriginalGaussianIntegratedNNS.lean'
       - 'research/oai_434/VF919OriginalMarkedSharpenedSignedNNS.lean'
       - 'research/oai_434/VF919OriginalDetectorSignedNNS.lean'
+      - 'research/oai_434/VF919OriginalDetectorSexticSectorDefect.lean'
+      - 'research/VF_919_SEXTIC_SECTOR_MEAN_DEFECT_20261022.lean'
       - 'research/VF_919_OAI_ACTUAL_MARKED_FOURTH_REAL_NNS_20261021.lean'
       - 'research/VF_919_OAI_GAUSSIAN_SUBSET_EXACT_COEFFICIENT_NNS_20261021.lean'
       - '.github/workflows/oai-gaussian-nns-typed-434.yml'
@@ -68,6 +70,7 @@ jobs:
           targets: |
             research/VF_919_OAI_GAUSSIAN_SUBSET_EXACT_COEFFICIENT_NNS_20261021.lean
             research/VF_919_OAI_ACTUAL_MARKED_FOURTH_REAL_NNS_20261021.lean
+            research/VF_919_SEXTIC_SECTOR_MEAN_DEFECT_20261022.lean
       - name: Restore original OAI dependency and compiled DAG cache
         id: oai_cache
         uses: actions/cache/restore@v5
@@ -119,6 +122,20 @@ jobs:
             echo 'Unexpected axiom in original detector NNS theorem.' >&2
             exit 1
           fi
+      - name: KERNEL-CHECK ORIGINAL ideal pair sextic source defect and phase gate
+        shell: bash
+        run: |
+          set -euo pipefail
+          OAI_PATH="$(cd oai-upstream/lean && lake env python3 -c 'import os; print(os.pathsep.join(os.path.abspath(p) for p in os.environ["LEAN_PATH"].split(os.pathsep) if p))')"
+          RH_PATH="$(lake env python3 -c 'import os; print(os.pathsep.join(os.path.abspath(p) for p in os.environ["LEAN_PATH"].split(os.pathsep) if p))')"
+          python3 scripts/check_shared_lean_packages.py . oai-upstream/lean PrimeNumberTheoremAnd mathlib
+          env LEAN_PATH="$RH_PATH:$OAI_PATH" lean -DwarningAsError=true \
+            research/oai_434/VF919OriginalDetectorSexticSectorDefect.lean \
+            | tee /tmp/oai-original-ideal-sextic-sector-defect.log
+          if grep -E 'sorryAx|admitAx|_private' /tmp/oai-original-ideal-sextic-sector-defect.log; then
+            echo 'Unexpected axiom in original typed sextic defect.' >&2
+            exit 1
+          fi
       - name: KERNEL-CHECK independent sharper source moment IN NNS coordinates
         shell: bash
         run: |
@@ -163,5 +180,6 @@ jobs:
             /tmp/oai-gaussian-nns-typed.log
             /tmp/oai-marked-sharper-nns.log
             /tmp/oai-original-detector-signed-nns.log
+            /tmp/oai-original-ideal-sextic-sector-defect.log
           if-no-files-found: warn
           retention-days: 7
