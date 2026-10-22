@@ -357,3 +357,5 @@ changed in this execution.
 
 Early \`IN_PROGRESS\` checkpoint commit:
 \`8e6b2317e5877542070e7049e313a40d65b8c292\`.
+
+Substantive completion commit: `16d5cfba4cb5d109b7c1e0ff4d28dd538b140b9a`; returned content blob: `3da19156b35045e28abaccffcae560e9aa1337f5`. Final metadata update only; mathematical content and status are unchanged.
