@@ -56,13 +56,16 @@ jobs:
           set -euo pipefail
           test "$(git -C oai-upstream rev-parse HEAD)" = "1581d4cbdd69a0faf34b2089614fe2a814316a6a"
           test "$(cat oai-upstream/lean/lean-toolchain)" = "leanprover/lean4:v4.34.1"
-      - name: Restore native Lean NNS and unpatched PNT caches
+      - name: Restore pinned native Lean build cache (verified by Lake dependency traces)
+        id: native_cache
         uses: actions/cache/restore@v5
         with:
           path: |
             .lake/build
             .lake/packages/PrimeNumberTheoremAnd/.lake/build
-          key: rhlean-oai-native-v2-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'RHLean/**/*.lean', 'scripts/compile_research_import_closure.py', 'scripts/ci/**') }}
+          key: rhlean-oai-native-v3-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-${{ hashFiles('RHLean/**/*.lean', 'scripts/compile_research_import_closure.py', 'scripts/ci/**') }}
+          restore-keys: |
+            rhlean-oai-native-v3-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-
       - name: Build original native PNT Wiener before shared-path setup
         run: |
           set -euo pipefail
@@ -76,6 +79,18 @@ jobs:
             research/VF_919_OAI_ACTUAL_MARKED_FOURTH_REAL_NNS_20261021.lean
             research/VF_919_SEXTIC_SECTOR_MEAN_DEFECT_20261022.lean
             research/VF_919_RESONANT_FIBER_NNS_RECOMBINATION_20261022.lean
+      # Do not discard a verified 9,000-module native build if the much larger
+      # original OAI graph later fails or exceeds a runner time budget.
+      # Native packages use Lake's dependency traces; the restore prefix is
+      # pinned to the exact compiler, Mathlib and package manifests.
+      - name: Checkpoint native library / PNT before original OAI source build
+        if: ${{ !cancelled() && steps.native_cache.outputs.cache-hit != 'true' }}
+        uses: actions/cache/save@v5
+        with:
+          path: |
+            .lake/build
+            .lake/packages/PrimeNumberTheoremAnd/.lake/build
+          key: ${{ steps.native_cache.outputs.cache-primary-key }}
       - name: Restore original OAI dependency and compiled DAG cache
         id: oai_cache
         uses: actions/cache/restore@v5
@@ -83,13 +98,24 @@ jobs:
           path: oai-upstream/lean/.lake
           key: oai-certified-434-pntnative-v2-${{ runner.os }}-${{ runner.arch }}-1581d4cbdd69a0faf34b2089614fe2a814316a6a-${{ hashFiles('oai-upstream/lean/lean-toolchain', 'oai-upstream/lean/lakefile.lean', 'oai-upstream/lean/lake-manifest.json', 'oai-upstream/lean/patches/**', 'scripts/apply_oai_434_upstream_patches.py') }}-complete
           restore-keys: |
+            oai-certified-434-pntnative-v2-${{ runner.os }}-${{ runner.arch }}-1581d4cbdd69a0faf34b2089614fe2a814316a6a-${{ hashFiles('oai-upstream/lean/lean-toolchain', 'oai-upstream/lean/lakefile.lean', 'oai-upstream/lean/lake-manifest.json', 'oai-upstream/lean/patches/**', 'scripts/apply_oai_434_upstream_patches.py') }}-progress-marked-
+            oai-certified-434-pntnative-v2-${{ runner.os }}-${{ runner.arch }}-1581d4cbdd69a0faf34b2089614fe2a814316a6a-${{ hashFiles('oai-upstream/lean/lean-toolchain', 'oai-upstream/lean/lakefile.lean', 'oai-upstream/lean/lake-manifest.json', 'oai-upstream/lean/patches/**', 'scripts/apply_oai_434_upstream_patches.py') }}-progress-gaussian-
             oai-certified-434-pntnative-v2-${{ runner.os }}-${{ runner.arch }}-1581d4cbdd69a0faf34b2089614fe2a814316a6a-${{ hashFiles('oai-upstream/lean/lean-toolchain', 'oai-upstream/lean/lakefile.lean', 'oai-upstream/lean/lake-manifest.json', 'oai-upstream/lean/patches/**', 'scripts/apply_oai_434_upstream_patches.py') }}-progress-
-      - name: Fetch exact OAI Mathlib packages on cold cache
-        if: ${{ steps.oai_cache.outputs.cache-hit != 'true' }}
+      - name: Fetch exact OAI Mathlib packages only when no OAI cache restored
+        # restore-key hits report cache-hit='false' but still contain all
+        # patched package sources and Mathlib oleans. Re-fetching on every
+        # partial restore can overwrite or invalidate compiled build traces.
+        if: ${{ steps.oai_cache.outputs.cache-hit == '' }}
         working-directory: oai-upstream/lean
         run: |
           set -euo pipefail
           lake exe cache get
+      - name: Report native and OAI cache decisions
+        run: |
+          echo "native cache exact hit: ${{ steps.native_cache.outputs.cache-hit }}"
+          echo "native cache restored: ${{ steps.native_cache.outputs.cache-matched-key }}"
+          echo "OAI cache exact hit: ${{ steps.oai_cache.outputs.cache-hit }}"
+          echo "OAI cache restored: ${{ steps.oai_cache.outputs.cache-matched-key }}"
       - name: Apply exact original OAI compatibility patches
         run: python3 scripts/apply_oai_434_upstream_patches.py oai-upstream/lean --keep-pinned PrimeNumberTheoremAnd
       - name: Prebuild patched original Rellich prerequisites
