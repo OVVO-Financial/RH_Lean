@@ -264,13 +264,15 @@ theorem bkv_tier_boundary_energy_bound
     nonuniform physical Gauss bound or proof of actual source phases. -/
 def oaiDistinctPrimeHarmonicValuation
     {κ : Type*} [DecidableEq κ] (p q : κ) (m : ℕ) (r : κ) : ℕ :=
-  if r = p then m else if r = q then 6 - m else 0
+  (if r = p then m else 0) + (if r = q then 6 - m else 0)
 
 theorem distinct_prime_harmonic_nonresonant
     {κ : Type*} [DecidableEq κ] (p q : κ) (hpq : p ≠ q)
     (m : ℕ) (hm : 1 ≤ m) (hm5 : m ≤ 5) :
     ¬ (6 : ℤ) ∣ ((oaiDistinctPrimeHarmonicValuation p q m p : ℕ) : ℤ) := by
-  simp only [oaiDistinctPrimeHarmonicValuation, ite_true]
+  have hp : oaiDistinctPrimeHarmonicValuation p q m p = m := by
+    simp [oaiDistinctPrimeHarmonicValuation, hpq]
+  rw [hp]
   omega
 
 /-- IMPORTANT COUNTEREXAMPLE to an automatic 3! sixth-moment diagonal
@@ -340,10 +342,10 @@ theorem d_tier_gauss_off_diagonal_bound
         apply Finset.sum_congr rfl
         intro p hp
         ring
-      _ = C * B ^ 2 := by
-        rw [Finset.mul_sum]
+      _ = (C * B) * B := by
         dsimp [B]
-        ring
+        rw [Finset.mul_sum]
+      _ = C * B ^ 2 := by ring
   have hSplit (p : κ) (hp : p ∈ primes) :
       a p = q p ^ (-(7 / 8 : ℝ)) *
         q p ^ (-(1 / 2 : ℝ)) := by
