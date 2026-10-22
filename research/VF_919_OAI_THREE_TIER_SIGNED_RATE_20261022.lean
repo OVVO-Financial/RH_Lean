@@ -385,6 +385,80 @@ theorem oai_d_tier_cubic_remainder_norm_bound
       dsimp [N]
       ring
 
+/-! ## Literal source three-harmonic split: cubic, sextic, principal -/
+
+/-- OpenAI ProbeLocal's first compensated (D) bill is NOT merely a
+    cubic character times the row-independent scalar (1-W).
+    SOURCE: W=v*Q^(-w) carries sextic winding. The identity
+    below uses the original hvW : vinv*W=q with all physical
+    scalar denominators retained. Algebra only, no sieve premise. -/
+theorem oai_d_tier_exact_three_harmonics
+    (V W D q vinv : ℂ)
+    (hV : 1 - V ≠ 0) (hD : 1 - D ≠ 0)
+    (hphase : vinv * W = q) :
+    (1 - V) * (1 - W) / (1 - D) * (vinv - q) *
+        (V / (1 - V) - D) =
+      -vinv * D + 2 * q * D - vinv * D * W ^ 2 +
+        vinv * (V * (1 + D) - D ^ 2) * (1 - W) ^ 2 /
+          (1 - D) := by
+  rw [← hphase]
+  field_simp [hV, hD]
+  ring
+
+/-- The new genuine three-harmonic remainder pays only
+    V and D², uniformly through e=0 on the physical strip.
+    In particular the previous size |D*W| no longer appears
+    inside the absolutely bounded remainder. -/
+theorem oai_d_tier_three_harmonic_tail_bound
+    (V W D vinv : ℂ)
+    (hW : ‖W‖ ≤ 1)
+    (hD : ‖D‖ ≤ 1 / 2)
+    (hInv : ‖(1 - D)⁻¹‖ ≤ 2)
+    (hvinv : ‖vinv‖ = 1) :
+    ‖vinv * (V * (1 + D) - D ^ 2) *
+        (1 - W) ^ 2 / (1 - D)‖ ≤
+      12 * ‖V‖ + 8 * ‖D‖ ^ 2 := by
+  have hOneD : ‖1 + D‖ ≤ (3 / 2 : ℝ) := by
+    have h := norm_add_le (1 : ℂ) D
+    rw [norm_one] at h
+    linarith
+  have hOneW : ‖1 - W‖ ≤ 2 := by
+    have h := norm_sub_le (1 : ℂ) W
+    rw [norm_one] at h
+    linarith
+  have hOneWsq : ‖(1 - W) ^ 2‖ ≤ 4 := by
+    rw [norm_pow]
+    nlinarith [norm_nonneg (1 - W)]
+  have hVterm :
+      ‖V * (1 + D)‖ ≤ (3 / 2 : ℝ) * ‖V‖ := by
+    rw [norm_mul]
+    exact mul_le_mul_of_nonneg_left hOneD (norm_nonneg V) |>.trans_eq (by ring)
+  have hPre :
+      ‖V * (1 + D) - D ^ 2‖ ≤
+        (3 / 2 : ℝ) * ‖V‖ + ‖D‖ ^ 2 := by
+    calc
+      _ ≤ ‖V * (1 + D)‖ + ‖D ^ 2‖ := norm_sub_le _ _
+      _ ≤ (3 / 2 : ℝ) * ‖V‖ + ‖D‖ ^ 2 := by
+        rw [norm_pow]
+        linarith
+  let N : ℝ := (3 / 2 : ℝ) * ‖V‖ + ‖D‖ ^ 2
+  have hN : 0 ≤ N := by dsimp [N]; positivity
+  have hPreN : ‖V * (1 + D) - D ^ 2‖ ≤ N := hPre
+  have hPair :
+      ‖V * (1 + D) - D ^ 2‖ * ‖(1 - W) ^ 2‖ ≤
+        N * 4 := by
+    exact mul_le_mul hPreN hOneWsq (norm_nonneg _) hN
+  calc
+    _ = ‖V * (1 + D) - D ^ 2‖ *
+        ‖(1 - W) ^ 2‖ * ‖(1 - D)⁻¹‖ := by
+      rw [div_eq_mul_inv, norm_mul, norm_mul, norm_mul,
+        hvinv, one_mul]
+    _ ≤ (N * 4) * 2 := by
+      exact mul_le_mul hPair hInv (norm_nonneg _) (by positivity)
+    _ = 12 * ‖V‖ + 8 * ‖D‖ ^ 2 := by
+      dsimp [N]
+      ring
+
 /-- For the original compensated leading cubic harmonic m=4,
     a sixth-moment resonance among 3 plus and 3 minus prime slots
     forces equality of each local occupancy, EXCEPT for the pure-cube
@@ -553,4 +627,6 @@ end RHLean.Analysis
 #print axioms RHLean.Analysis.cubic_repeated_prime_offdiagonal_mass_bound
 #print axioms RHLean.Analysis.oai_d_tier_exact_cubic_remainder
 #print axioms RHLean.Analysis.oai_d_tier_cubic_remainder_norm_bound
+#print axioms RHLean.Analysis.oai_d_tier_exact_three_harmonics
+#print axioms RHLean.Analysis.oai_d_tier_three_harmonic_tail_bound
 #print axioms RHLean.Analysis.d_tier_gauss_off_diagonal_bound
