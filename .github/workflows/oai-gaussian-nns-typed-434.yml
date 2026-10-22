@@ -11,6 +11,7 @@ on:
       - 'research/oai_434/VF919OriginalGaussianResonantFibers.lean'
       - 'research/oai_434/VF919OriginalGaussianResonantSextic.lean'
       - 'research/oai_434/VF919ActualSexticLocalResonanceAndCompensation.lean'
+      - 'research/oai_434/VF919OriginalOnePrimePowerGain.lean'
       - 'research/oai_434/VF919OriginalDetectorResonantFibers.lean'
       - 'research/VF_919_RESONANT_FIBER_NNS_RECOMBINATION_20261022.lean'
       - 'research/VF_919_SEXTIC_SECTOR_MEAN_DEFECT_20261022.lean'
@@ -197,6 +198,28 @@ jobs:
             echo 'Unexpected axiom in true OAI local residue and compensation.' >&2
             exit 1
           fi
+      - name: Compile ORIGINAL OAI unramified source prerequisite once
+        working-directory: oai-upstream/lean
+        run: |
+          set -euo pipefail
+          lake build OAI.NumberTheory.DirichletL.Detector.HighRowsSelectedUnramified
+          test -s .lake/build/lib/lean/OAI/NumberTheory/DirichletL/Detector/HighRowsSelectedUnramified.olean
+      - name: KERNEL-CHECK original one-prime signed compensation power diagnostic
+        shell: bash
+        run: |
+          set -euo pipefail
+          OAI_PATH="$(cd oai-upstream/lean && lake env python3 -c 'import os; print(os.pathsep.join(os.path.abspath(p) for p in os.environ["LEAN_PATH"].split(os.pathsep) if p))')"
+          RH_PATH="$(lake env python3 -c 'import os; print(os.pathsep.join(os.path.abspath(p) for p in os.environ["LEAN_PATH"].split(os.pathsep) if p))')"
+          python3 scripts/check_shared_lean_packages.py . oai-upstream/lean PrimeNumberTheoremAnd mathlib
+          mkdir -p .lake/build/lib/lean/research/oai_434
+          env LEAN_PATH="$RH_PATH:$OAI_PATH" lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research/oai_434/VF919OriginalOnePrimePowerGain.olean \
+            research/oai_434/VF919OriginalOnePrimePowerGain.lean \
+            | tee /tmp/oai-original-one-prime-power-gain.log
+          if grep -E 'sorryAx|admitAx|_private' /tmp/oai-original-one-prime-power-gain.log; then
+            echo 'Unexpected axiom in original one-prime signed power gain.' >&2
+            exit 1
+          fi
       - name: KERNEL-CHECK original OAI type specialization and NNS
         shell: bash
         run: |
@@ -333,5 +356,6 @@ jobs:
             /tmp/oai-original-detector-resonant-fibers.log
             /tmp/oai-original-gaussian-resonant-sextic.log
             /tmp/oai-actual-sextic-compensation.log
+            /tmp/oai-original-one-prime-power-gain.log
           if-no-files-found: warn
           retention-days: 7
