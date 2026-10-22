@@ -1,6 +1,7 @@
 name: Original OAI GaussianSubset to RHLean NNS typecheck
 
 on:
+  workflow_call:
   pull_request:
     paths:
       - 'research/oai_434/VF919OriginalGaussianIntegratedNNS.lean'
