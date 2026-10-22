@@ -85,3 +85,27 @@ OAI's already-verified `source_batch_plain_marked_fine` supplies the original we
 Prove the original-type intertwining theorem using the *actual* Gaussian reassembly and detector column expansion, preserving the `(u,J,p,r,j,t)` indices and all `W0/W1`, D-masks, completed ideal phases and Gaussian densities. Then derive the required **uniform quantitative** Co/Div payment with original rows, all heights, all j+k<=2, including cross-height/cross-J terms, using specific OAI Poisson and character moment estimates. If the existing source estimates furnish only `U^(1+D.t)`, report that exponent exactly; do not claim an independent `sigma`.
 
 **What this PR certifies:** original-form coefficient splitting + full labelled finite complex moment identity, warning-fatal Lean subject to CI. **What it does NOT certify:** an original OAI↔RH_Lean type import, an independently stronger moment estimate, or any new zero-free/RH result.
+
+## Whole integrated probe and true uniform signed bound (post-integration theorem)
+
+The important `GaussianCommon.compensatedPhysicalProbe_common_gaussian` theorem already identifies the *complete* physical probe with the **finite subset sum** `Σ_{J⊆Fin K} A_J`, where every `A_J` is the original `∑'_{j:ℕ} ∫_{t:ℝ}` of the exact original `compensationSubsetWeight * compensationRowTest * selectedSlotFactor * gaussianJointDensity`. No extra rearrangement inside `A_J` is needed to take its norm.
+
+The corresponding actual residual in OAI's `HighFromMoments.actual_high_probe_from_raw_moments` is `Σ_J A_J - principalSignal`. We introduce the distinct original source labels `Some J` and `None`, the latter with complex coefficient `-principalSignal`. The theorems `gaussianIntegrated_source_minus_principal_exact` and `gaussianIntegrated_principal_signed_NNS_moment_exact` give
+
+```text
+Σ_u omega_u * |Σ_J A_J(u) - principalSignal(u)|²
+ = Co_all({Some J, None}) - Div_all({Some J, None}).
+```
+
+All cross-J covariance, cross-dyad and cross-height terms now remain *inside* the integrated complex coefficients before squaring. The principal cross terms have the original negative sign and appear in the NNS quadratic rather than being silently excluded. `gaussianIntegrated_uniform_signed_NNS_of_original_bound` then proves the exact, genuinely uniform implication
+
+```text
+OAI pointwise estimate |Σ_J A_J(u)-principalSignal(u)| <= B(u)
+  for every admitted source row u
+=> Co_all - Div_all <= Σ_u omega_u * B(u)^2
+  for every omega_u >= 0.
+```
+
+This consumes OpenAI's **actual** high-row analytic estimate (with all its hypotheses and its published exponent) rather than assuming the *same* NNS moment inequality as an input. It produces no additional exponent improvement. To get a new positive gain, one must independently improve the original high-row/source moment bound itself; the NNS decomposition cannot do that automatically.
+
+For exact OAI-type integration, instantiate `A_J` from `compensatedPhysicalProbe_common_gaussian` and `B(u)` from the conclusion of `actual_high_probe_from_raw_moments` (including its full signed principal term and conductor-dependent constants). This native algebra file cannot yet import the OpenAI Lean theorem types into RH_Lean; the quantitative estimate here is verified as an implication, not advertised as a new arithmetic proof.
