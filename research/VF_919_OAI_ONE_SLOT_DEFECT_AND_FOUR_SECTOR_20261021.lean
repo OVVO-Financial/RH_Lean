@@ -25,7 +25,6 @@ theorem rescaled_window_arg_eq_marked_arg
     (U Np Nb : ℝ) (hU : U ≠ 0) (hNp : Np ≠ 0) :
     Nb / (U / Np) = (Np * Nb) / U := by
   field_simp [hU, hNp]
-  ring
 
 /-- Exact algebraic shape of OAI one-slot compensation.
 The arguments markedPhysical and rescaledPhysical represent the FULL
@@ -112,7 +111,7 @@ theorem single_selected_phase_defect
 
 theorem phase_reversal_prevents_degree_zero_cancellation :
     rescaledModelAtom (1 : ℂ) 1 0 +
-        phaseMarkedModelAtom (-1) 1 0 1 0 = 2 := by
+        phaseMarkedModelAtom (-1) 1 0 1 0 0 = 2 := by
   norm_num [rescaledModelAtom, phaseMarkedModelAtom]
 
 /-! ## Four sectors with priority collision, inert, low, other/high -/
