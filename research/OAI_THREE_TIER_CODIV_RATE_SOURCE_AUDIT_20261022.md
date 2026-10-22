@@ -152,3 +152,74 @@ small in the ONE-PRIME scalar dyadic model; this is an explicit
 candidate payment for Route B, not a proof of the weighted
 sixth-moment on original Hecke row tests. The source
 identification and actual sixth-power masks remain essential.
+
+
+## 6. Complete physical tier extraction: explicit uniform constants (paper estimate)
+
+The new \`oai_actual_one_prime_exact_three_tier\` algebra lemma identifies
+the WHOLE local tiers, including denominators, and not merely the bare
+products BR and BKV. Define
+
+\`\`\`text
+F = (1-W)/(1-D);
+L = 1-Q^(-1) + (1-V)*(W-D);
+U0 = vInv-q;
+
+T_D   = ((1-V)*(1-W)/(1-D))*U0*(V/(1-V)-D);
+T_BR  = F*(B+U0)*R*L/(1-R);
+T_BKV = -F*(B+U0)*(K*V)/(1-R).
+residual = T_D + T_BR + T_BKV.
+\`\`\`
+
+From ORIGINAL source hypotheses \`Q>=4, |A|<=1\`, unit
+\`eta,v\`, \`Re(x)>=7/8\`, \`Re(w)>=0\`, \`Re(z)>=17/50\`,
+
+\`\`\`text
+|R|,|V|,|D| <=1/2;  |W|,|q|,|Q^(-1)|<=1;
+|F|<=4;  |L|<=2+(3/2)*(3/2)<=5;
+|1/(1-R)|<=2;  |B+U0|<=|B|+2;
+
+|B R|  <= Q^(-483/200);   |R|   <= Q^(-483/200);
+|B K V|<= Q^(-26/25);    |K V| <= Q^(-26/25);
+|V|,|D| <= Q^(-7/8).
+\`\`\`
+
+Elementary products then give the **complete physical tier bounds**
+
+\`\`\`text
+|T_BR|
+ <= 4*(|B|+2)*|R|*5*2
+ <= 120*Q^(-483/200).
+
+|T_BKV|
+ <= 4*(|B|+2)*|K*V|*2
+ <= 24*Q^(-26/25).
+
+|T_D|
+ <= 8*2*(2*|V|+|D|)
+ <= 48*Q^(-7/8).
+\`\`\`
+
+These constants deliberately keep positive slack; sharper constants
+are not needed. By the elementary three-term quadratic inequality,
+the complete weighted local-source band satisfies the paper estimate
+
+\`\`\`text
+E_total <= 2*E_D
+  + 4*120^2*W*(sum_P Q_P^(-7/4))*(sum_P Q_P^(-77/25))
+  + 4*24^2*W*(sum_P Q_P^(-7/4))*(sum_P Q_P^(-33/100)).
+\`\`\`
+
+This is an unconditional algebra/absolute-value estimate ONCE every
+P really is a source-admitted coprime good prime with the exact
+marked profile and the given physical row weights. The supporting
+bare BR/BKV estimates and three-tier identity have Lean
+declarations, but the explicit **120/24/48 full-tier combination is
+a paper derivation here, not yet a kernel-certified named theorem**.
+
+The BKV term is NOT absorbed at the D diagonal rate by this bound;
+its extra prime-norm sum is generally unbounded. The absolute
+decay nevertheless makes it far smaller than the coherent D-tier
+at the level of one-prime dyadic coefficient envelopes. The
+missing source-specific weighted cubic-character estimate and
+full Gaussian/Mellin normalization remain open.
