@@ -83,6 +83,37 @@ theorem oai_actualSextic_finite_family_local_resonance_iff_eq
     intro i
     rfl
 
+/-- The two ACTUAL OpenAI local analytic bills, with all Euler,
+    phase and window factors retained, are exposed BEFORE taking norms.
+    Calling the first a smooth-scale shift and the second an Euler-mask
+    bill requires further source-specific identification. -/
+def oaiActualLocalFirstBill
+    (V W D Pstar B q vInv : ℂ) : ℂ :=
+  ((1 - V) * (1 - W) / (1 - D)) *
+    ((vInv - q) * (V / (1 - V) - D))
+
+def oaiActualLocalSecondBill
+    (V W D Pstar B q vInv : ℂ) : ℂ :=
+  ((1 - V) * (1 - W) / (1 - D)) *
+    ((B + vInv - q) * (Pstar + D))
+
+/-- Source-TRUE equality: the compensated local amplitude IS the
+    sum of these two exact surviving OAI complex bills. There is no
+    Z^(-sigma) conclusion and no replacement by a lone quadratic term. -/
+theorem oai_actual_local_compensation_eq_two_bills
+    (V W D Pstar B q vInv : ℂ)
+    (hV : 1 - V ≠ 0) (hW : 1 - W ≠ 0)
+    (hD : 1 - D ≠ 0)
+    (hBD : B * D = vInv) (hvW : vInv * W = q) :
+    ProbeLocal.compensatedReplacement V W D Pstar B q +
+        ProbeLocal.localCorrection V W D Pstar * vInv =
+      oaiActualLocalFirstBill V W D Pstar B q vInv +
+      oaiActualLocalSecondBill V W D Pstar B q vInv := by
+  rw [ProbeLocal.normalized_cancellation
+    V W D Pstar B q vInv hV hW hD hBD hvW]
+  dsimp [oaiActualLocalFirstBill, oaiActualLocalSecondBill]
+  ring
+
 /-- The ORIGINAL physical local cancellation has TWO remainder terms.
     Their norms must be paid together: neither may be silently dropped
     or replaced by a bare quadratic Euler estimate. -/
@@ -135,6 +166,7 @@ end SevenEighths
 
 #print axioms SevenEighths.oai_actualSextic_bounded_local_resonance_iff_eq
 #print axioms SevenEighths.oai_actualSextic_finite_family_local_resonance_iff_eq
+#print axioms SevenEighths.oai_actual_local_compensation_eq_two_bills
 #print axioms SevenEighths.oai_actual_local_compensation_two_bills_le
 #print axioms SevenEighths.oai_principal_residue_normalized_cancel
 #print axioms SevenEighths.oai_principal_residue_normalized_energy
