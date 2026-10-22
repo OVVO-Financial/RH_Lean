@@ -120,7 +120,9 @@ jobs:
           OAI_PATH="$(cd oai-upstream/lean && lake env python3 -c 'import os; print(os.pathsep.join(os.path.abspath(p) for p in os.environ["LEAN_PATH"].split(os.pathsep) if p))')"
           RH_PATH="$(lake env python3 -c 'import os; print(os.pathsep.join(os.path.abspath(p) for p in os.environ["LEAN_PATH"].split(os.pathsep) if p))')"
           python3 scripts/check_shared_lean_packages.py . oai-upstream/lean PrimeNumberTheoremAnd mathlib
+          mkdir -p .lake/build/lib/lean/research/oai_434
           env LEAN_PATH="$RH_PATH:$OAI_PATH" lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research/oai_434/VF919OriginalDetectorSignedNNS.olean \
             research/oai_434/VF919OriginalDetectorSignedNNS.lean \
             | tee /tmp/oai-original-detector-signed-nns.log
           if grep -E 'sorryAx|admitAx|_private' /tmp/oai-original-detector-signed-nns.log; then
@@ -134,7 +136,9 @@ jobs:
           OAI_PATH="$(cd oai-upstream/lean && lake env python3 -c 'import os; print(os.pathsep.join(os.path.abspath(p) for p in os.environ["LEAN_PATH"].split(os.pathsep) if p))')"
           RH_PATH="$(lake env python3 -c 'import os; print(os.pathsep.join(os.path.abspath(p) for p in os.environ["LEAN_PATH"].split(os.pathsep) if p))')"
           python3 scripts/check_shared_lean_packages.py . oai-upstream/lean PrimeNumberTheoremAnd mathlib
+          mkdir -p .lake/build/lib/lean/research/oai_434
           env LEAN_PATH="$RH_PATH:$OAI_PATH" lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research/oai_434/VF919OriginalDetectorSexticSectorDefect.olean \
             research/oai_434/VF919OriginalDetectorSexticSectorDefect.lean \
             | tee /tmp/oai-original-ideal-sextic-sector-defect.log
           if grep -E 'sorryAx|admitAx|_private' /tmp/oai-original-ideal-sextic-sector-defect.log; then
@@ -148,7 +152,9 @@ jobs:
           OAI_PATH="$(cd oai-upstream/lean && lake env python3 -c 'import os; print(os.pathsep.join(os.path.abspath(p) for p in os.environ["LEAN_PATH"].split(os.pathsep) if p))')"
           RH_PATH="$(lake env python3 -c 'import os; print(os.pathsep.join(os.path.abspath(p) for p in os.environ["LEAN_PATH"].split(os.pathsep) if p))')"
           python3 scripts/check_shared_lean_packages.py . oai-upstream/lean PrimeNumberTheoremAnd mathlib
+          mkdir -p .lake/build/lib/lean/research/oai_434
           env LEAN_PATH="$RH_PATH:$OAI_PATH" lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research/oai_434/VF919OriginalMarkedSharpenedSignedNNS.olean \
             research/oai_434/VF919OriginalMarkedSharpenedSignedNNS.lean \
             | tee /tmp/oai-marked-sharper-nns.log
           if grep -E 'sorryAx|admitAx|_private' /tmp/oai-marked-sharper-nns.log; then
@@ -162,7 +168,9 @@ jobs:
           OAI_PATH="$(cd oai-upstream/lean && lake env python3 -c 'import os; print(os.pathsep.join(os.path.abspath(p) for p in os.environ["LEAN_PATH"].split(os.pathsep) if p))')"
           RH_PATH="$(lake env python3 -c 'import os; print(os.pathsep.join(os.path.abspath(p) for p in os.environ["LEAN_PATH"].split(os.pathsep) if p))')"
           python3 scripts/check_shared_lean_packages.py . oai-upstream/lean PrimeNumberTheoremAnd mathlib
+          mkdir -p .lake/build/lib/lean/research/oai_434
           env LEAN_PATH="$RH_PATH:$OAI_PATH" lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research/oai_434/VF919OriginalGaussianIntegratedNNS.olean \
             research/oai_434/VF919OriginalGaussianIntegratedNNS.lean \
             | tee /tmp/oai-gaussian-nns-typed.log
           if grep -E 'sorryAx|admitAx|_private' /tmp/oai-gaussian-nns-typed.log; then
@@ -176,7 +184,9 @@ jobs:
           OAI_PATH="$(cd oai-upstream/lean && lake env python3 -c 'import os; print(os.pathsep.join(os.path.abspath(p) for p in os.environ["LEAN_PATH"].split(os.pathsep) if p))')"
           RH_PATH="$(lake env python3 -c 'import os; print(os.pathsep.join(os.path.abspath(p) for p in os.environ["LEAN_PATH"].split(os.pathsep) if p))')"
           python3 scripts/check_shared_lean_packages.py . oai-upstream/lean PrimeNumberTheoremAnd mathlib
+          mkdir -p .lake/build/lib/lean/research/oai_434
           env LEAN_PATH="$RH_PATH:$OAI_PATH" lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research/oai_434/VF919OriginalGaussianResonantFibers.olean \
             research/oai_434/VF919OriginalGaussianResonantFibers.lean \
             | tee /tmp/oai-original-gaussian-resonant-fibers.log
           if grep -E 'sorryAx|admitAx|_private' /tmp/oai-original-gaussian-resonant-fibers.log; then exit 1; fi
@@ -187,7 +197,9 @@ jobs:
           OAI_PATH="$(cd oai-upstream/lean && lake env python3 -c 'import os; print(os.pathsep.join(os.path.abspath(p) for p in os.environ["LEAN_PATH"].split(os.pathsep) if p))')"
           RH_PATH="$(lake env python3 -c 'import os; print(os.pathsep.join(os.path.abspath(p) for p in os.environ["LEAN_PATH"].split(os.pathsep) if p))')"
           python3 scripts/check_shared_lean_packages.py . oai-upstream/lean PrimeNumberTheoremAnd mathlib
+          mkdir -p .lake/build/lib/lean/research/oai_434
           env LEAN_PATH="$RH_PATH:$OAI_PATH" lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research/oai_434/VF919OriginalDetectorResonantFibers.olean \
             research/oai_434/VF919OriginalDetectorResonantFibers.lean \
             | tee /tmp/oai-original-detector-resonant-fibers.log
           if grep -E 'sorryAx|admitAx|_private' /tmp/oai-original-detector-resonant-fibers.log; then exit 1; fi
@@ -198,7 +210,9 @@ jobs:
           OAI_PATH="$(cd oai-upstream/lean && lake env python3 -c 'import os; print(os.pathsep.join(os.path.abspath(p) for p in os.environ["LEAN_PATH"].split(os.pathsep) if p))')"
           RH_PATH="$(lake env python3 -c 'import os; print(os.pathsep.join(os.path.abspath(p) for p in os.environ["LEAN_PATH"].split(os.pathsep) if p))')"
           python3 scripts/check_shared_lean_packages.py . oai-upstream/lean PrimeNumberTheoremAnd mathlib
+          mkdir -p .lake/build/lib/lean/research/oai_434
           env LEAN_PATH="$RH_PATH:$OAI_PATH" lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research/oai_434/VF919OriginalGaussianResonantSextic.olean \
             research/oai_434/VF919OriginalGaussianResonantSextic.lean \
             | tee /tmp/oai-original-gaussian-resonant-sextic.log
           if grep -E 'sorryAx|admitAx|_private' /tmp/oai-original-gaussian-resonant-sextic.log; then exit 1; fi
