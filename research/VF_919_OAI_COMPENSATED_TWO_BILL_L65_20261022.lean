@@ -130,9 +130,6 @@ theorem oai_grouped_fiber_l65_power_budget
     carrier shift euler tau Ashift Aeuler
     (D ^ ((5 / 6 : ℝ) + c))
     hAshift hAeuler htau hShift hEuler hTauMoment
-  have hTauNonneg :
-      0 ≤ (∑ m ∈ carrier, tau m ^ (6 / 5 : ℝ)) ^
-        (5 / 6 : ℝ) := by positivity
   calc
     _ ≤ (Ashift + Aeuler) * D ^ ((5 / 6 : ℝ) + c) := hTwo
     _ ≤ (D ^ (-(1 / 2 : ℝ)) * Z ^ (-sigma)) *
