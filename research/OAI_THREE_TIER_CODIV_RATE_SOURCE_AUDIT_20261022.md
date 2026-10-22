@@ -124,3 +124,31 @@ transform and boundary errors, and a uniform estimate depending on
 the row scale U relative to N(PQ). Saying U >> P^2 alone is not a
 quantitative Gauss gain. No unproved large-sieve hypothesis should
 be called an unconditional NNS bound.
+
+
+## 5. Pay the nonprimitive m=4 cubic triple collisions exactly
+
+The dominant original compensated local term is
+\`-vInv*D=-eta*(conj v)^2*Q^(-x)\`, winding m=4, order three.
+In a sixth-moment expansion with three positive and three negative
+prime slots, a local multiplicity difference obeys
+\`6 | 4(c_P-d_P)\` iff its difference is divisible by 3.
+Because 0<=c_P,d_P<=3, the ONLY possibilities are
+equal local multiplicities, or \`(3,0)\` and \`(0,3)\`.
+
+Thus the nonprimitive resonant classes are identical ideal triples
+(at most 3! permutations) **plus** pure cubes on different prime
+ideals. The latter have N² possible pair labels, but a direct
+fully unconditional finite inequality gives
+
+\`\`\`text
+ |sum_{P != Q} a_P^3 conj(a_Q^3)|
+   <= (sum_P |a_P|^3)^2.
+\`\`\`
+
+For N<=C*P and |a_P|<=c*P^(-7/8), the RHS is
+<= C^2*c^6*P^(-13/4). Hence cubic repeat collisions are
+small in the ONE-PRIME scalar dyadic model; this is an explicit
+candidate payment for Route B, not a proof of the weighted
+sixth-moment on original Hecke row tests. The source
+identification and actual sixth-power masks remain essential.

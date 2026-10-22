@@ -285,6 +285,56 @@ theorem sextic_sixth_moment_nonprimitive_repeat_collisions :
       (6 : ℤ) ∣ (2 * (3 : ℤ)) := by
   constructor <;> norm_num
 
+/-- For the original compensated leading cubic harmonic m=4,
+    a sixth-moment resonance among 3 plus and 3 minus prime slots
+    forces equality of each local occupancy, EXCEPT for the pure-cube
+    deviations 3-to-0 and 0-to-3. This is the exact local collision
+    classification that replaces the false universal 3! rule. -/
+theorem cubic_m4_three_slot_local_collision_classification
+    (c d : ℕ) (hc : c ≤ 3) (hd : d ≤ 3)
+    (hphase : (6 : ℤ) ∣ (4 : ℤ) * ((c : ℤ) - (d : ℤ))) :
+    c = d ∨ (c = 3 ∧ d = 0) ∨ (c = 0 ∧ d = 3) := by
+  omega
+
+/-- The additional resonant pure-cube packet pairs are absolutely
+    payable by cube coefficient mass even though their number is O(N²).
+    No Gauss/Poisson or incomplete row hypothesis is used. -/
+theorem cubic_repeated_prime_offdiagonal_mass_bound
+    {κ : Type*} [DecidableEq κ]
+    (primes : Finset κ) (a : κ → ℂ) :
+    ‖∑ p ∈ primes, ∑ q ∈ primes.erase p,
+        (a p) ^ 3 * star ((a q) ^ 3)‖ ≤
+      (∑ p ∈ primes, ‖a p‖ ^ 3) ^ 2 := by
+  have hnonneg (p : κ) : 0 ≤ ‖a p‖ ^ 3 := by positivity
+  calc
+    _ ≤ ∑ p ∈ primes,
+        ‖∑ q ∈ primes.erase p,
+          (a p) ^ 3 * star ((a q) ^ 3)‖ :=
+      norm_sum_le _ _
+    _ ≤ ∑ p ∈ primes, ∑ q ∈ primes.erase p,
+          ‖(a p) ^ 3 * star ((a q) ^ 3)‖ := by
+      apply Finset.sum_le_sum
+      intro p hp
+      exact norm_sum_le _ _
+    _ = ∑ p ∈ primes, ∑ q ∈ primes.erase p,
+          ‖a p‖ ^ 3 * ‖a q‖ ^ 3 := by
+      apply Finset.sum_congr rfl
+      intro p hp
+      apply Finset.sum_congr rfl
+      intro q hq
+      simp only [norm_mul, norm_star, norm_pow]
+    _ ≤ ∑ p ∈ primes, ∑ q ∈ primes,
+          ‖a p‖ ^ 3 * ‖a q‖ ^ 3 := by
+      apply Finset.sum_le_sum
+      intro p hp
+      apply Finset.sum_le_sum_of_subset_of_nonneg
+        (Finset.erase_subset p primes)
+      intro q hq _hnot
+      exact mul_nonneg (hnonneg p) (hnonneg q)
+    _ = (∑ p ∈ primes, ‖a p‖ ^ 3) ^ 2 := by
+      rw [← Finset.sum_mul_sum]
+      ring
+
 /-- Conditional GAUSS consumer for the offdiagonal D-tier: its input
     is a *real* physical weighted, nontrivial pair estimate.
     No complete-residue or uniformly distributed row assumption is
@@ -398,4 +448,6 @@ end RHLean.Analysis
 #print axioms RHLean.Analysis.bkv_tier_boundary_energy_bound
 #print axioms RHLean.Analysis.distinct_prime_harmonic_nonresonant
 #print axioms RHLean.Analysis.sextic_sixth_moment_nonprimitive_repeat_collisions
+#print axioms RHLean.Analysis.cubic_m4_three_slot_local_collision_classification
+#print axioms RHLean.Analysis.cubic_repeated_prime_offdiagonal_mass_bound
 #print axioms RHLean.Analysis.d_tier_gauss_off_diagonal_bound
