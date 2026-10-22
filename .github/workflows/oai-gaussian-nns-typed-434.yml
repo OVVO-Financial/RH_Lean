@@ -10,6 +10,7 @@ on:
       - 'research/oai_434/VF919OriginalDetectorSexticSectorDefect.lean'
       - 'research/oai_434/VF919OriginalGaussianResonantFibers.lean'
       - 'research/oai_434/VF919OriginalGaussianResonantSextic.lean'
+      - 'research/oai_434/VF919ActualSexticLocalResonanceAndCompensation.lean'
       - 'research/oai_434/VF919OriginalDetectorResonantFibers.lean'
       - 'research/VF_919_RESONANT_FIBER_NNS_RECOMBINATION_20261022.lean'
       - 'research/VF_919_SEXTIC_SECTOR_MEAN_DEFECT_20261022.lean'
@@ -97,6 +98,8 @@ jobs:
           research/VF_919_OAI_ACTUAL_MARKED_FOURTH_REAL_NNS_20261021.lean
           research/VF_919_SEXTIC_SECTOR_MEAN_DEFECT_20261022.lean
           research/VF_919_RESONANT_FIBER_NNS_RECOMBINATION_20261022.lean
+          research/VF_919_OAI_EFFECTIVE_SEXTIC_VALUATION_CLASSIFICATION_20261022.lean
+          research/VF_919_OAI_GROUPED_HOLDER_SIXTH_SOURCE_20261022.lean
           TARGETS
           )"
           python3 scripts/compile_research_import_closure.py --library-only
@@ -120,6 +123,8 @@ jobs:
             research/VF_919_OAI_ACTUAL_MARKED_FOURTH_REAL_NNS_20261021.lean
             research/VF_919_SEXTIC_SECTOR_MEAN_DEFECT_20261022.lean
             research/VF_919_RESONANT_FIBER_NNS_RECOMBINATION_20261022.lean
+            research/VF_919_OAI_EFFECTIVE_SEXTIC_VALUATION_CLASSIFICATION_20261022.lean
+            research/VF_919_OAI_GROUPED_HOLDER_SIXTH_SOURCE_20261022.lean
       - name: Restore original OAI dependency and compiled DAG cache
         id: oai_cache
         uses: actions/cache/restore@v5
@@ -168,6 +173,22 @@ jobs:
         with:
           path: oai-upstream/lean/.lake
           key: oai-certified-434-pntnative-v2-${{ runner.os }}-${{ runner.arch }}-1581d4cbdd69a0faf34b2089614fe2a814316a6a-${{ hashFiles('oai-upstream/lean/lean-toolchain', 'oai-upstream/lean/lakefile.lean', 'oai-upstream/lean/lake-manifest.json', 'oai-upstream/lean/patches/**', 'scripts/apply_oai_434_upstream_patches.py') }}-progress-gaussian-${{ github.run_id }}
+      - name: KERNEL-CHECK ORIGINAL actualSextic local classification and two-bill compensation
+        shell: bash
+        run: |
+          set -euo pipefail
+          OAI_PATH="$(cd oai-upstream/lean && lake env python3 -c 'import os; print(os.pathsep.join(os.path.abspath(p) for p in os.environ["LEAN_PATH"].split(os.pathsep) if p))')"
+          RH_PATH="$(lake env python3 -c 'import os; print(os.pathsep.join(os.path.abspath(p) for p in os.environ["LEAN_PATH"].split(os.pathsep) if p))')"
+          python3 scripts/check_shared_lean_packages.py . oai-upstream/lean PrimeNumberTheoremAnd mathlib
+          mkdir -p .lake/build/lib/lean/research/oai_434
+          env LEAN_PATH="$RH_PATH:$OAI_PATH" lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research/oai_434/VF919ActualSexticLocalResonanceAndCompensation.olean \
+            research/oai_434/VF919ActualSexticLocalResonanceAndCompensation.lean \
+            | tee /tmp/oai-actual-sextic-compensation.log
+          if grep -E 'sorryAx|admitAx|_private' /tmp/oai-actual-sextic-compensation.log; then
+            echo 'Unexpected axiom in true OAI local residue and compensation.' >&2
+            exit 1
+          fi
       - name: KERNEL-CHECK original OAI type specialization and NNS
         shell: bash
         run: |
@@ -303,5 +324,6 @@ jobs:
             /tmp/oai-original-gaussian-resonant-fibers.log
             /tmp/oai-original-detector-resonant-fibers.log
             /tmp/oai-original-gaussian-resonant-sextic.log
+            /tmp/oai-actual-sextic-compensation.log
           if-no-files-found: warn
           retention-days: 7
