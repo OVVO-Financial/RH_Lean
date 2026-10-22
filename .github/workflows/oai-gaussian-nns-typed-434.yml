@@ -19,6 +19,21 @@ on:
       - 'scripts/apply_oai_434_upstream_patches.py'
       - 'scripts/check_shared_lean_packages.py'
   workflow_dispatch:
+  push:
+    # A trusted default-branch build seeds a cache that subsequent PRs
+    # may read. Pull-request-only caches live under refs/pull/*/merge
+    # and cannot be reused by a sibling PR (GitHub cache scopes).
+    branches: [main]
+    paths:
+      - 'research/oai_434/**'
+      - 'research/VF_919_*.lean'
+      - 'RHLean/**/*.lean'
+      - 'lean-toolchain'
+      - 'lakefile.lean'
+      - 'lake-manifest.json'
+      - '.github/workflows/oai-gaussian-nns-typed-434.yml'
+      - 'scripts/apply_oai_434_upstream_patches.py'
+      - 'scripts/check_shared_lean_packages.py'
 
 permissions:
   contents: read
@@ -139,6 +154,48 @@ jobs:
         with:
           path: oai-upstream/lean/.lake
           key: oai-certified-434-pntnative-v2-${{ runner.os }}-${{ runner.arch }}-1581d4cbdd69a0faf34b2089614fe2a814316a6a-${{ hashFiles('oai-upstream/lean/lean-toolchain', 'oai-upstream/lean/lakefile.lean', 'oai-upstream/lean/lake-manifest.json', 'oai-upstream/lean/patches/**', 'scripts/apply_oai_434_upstream_patches.py') }}-progress-gaussian-${{ github.run_id }}
+      - name: KERNEL-CHECK original OAI type specialization and NNS
+        shell: bash
+        run: |
+          set -euo pipefail
+          OAI_PATH="$(cd oai-upstream/lean && lake env python3 -c 'import os; print(os.pathsep.join(os.path.abspath(p) for p in os.environ["LEAN_PATH"].split(os.pathsep) if p))')"
+          RH_PATH="$(lake env python3 -c 'import os; print(os.pathsep.join(os.path.abspath(p) for p in os.environ["LEAN_PATH"].split(os.pathsep) if p))')"
+          python3 scripts/check_shared_lean_packages.py . oai-upstream/lean PrimeNumberTheoremAnd mathlib
+          mkdir -p .lake/build/lib/lean/research/oai_434
+          env LEAN_PATH="$RH_PATH:$OAI_PATH" lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research/oai_434/VF919OriginalGaussianIntegratedNNS.olean \
+            research/oai_434/VF919OriginalGaussianIntegratedNNS.lean \
+            | tee /tmp/oai-gaussian-nns-typed.log
+          if grep -E 'sorryAx|admitAx|_private' /tmp/oai-gaussian-nns-typed.log; then
+            echo 'Unexpected axiom in original OAI/RHLean NNS bridge.' >&2
+            exit 1
+          fi
+      - name: KERNEL-CHECK original GaussianSubset compensated resonant fiber regrouping
+        shell: bash
+        run: |
+          set -euo pipefail
+          OAI_PATH="$(cd oai-upstream/lean && lake env python3 -c 'import os; print(os.pathsep.join(os.path.abspath(p) for p in os.environ["LEAN_PATH"].split(os.pathsep) if p))')"
+          RH_PATH="$(lake env python3 -c 'import os; print(os.pathsep.join(os.path.abspath(p) for p in os.environ["LEAN_PATH"].split(os.pathsep) if p))')"
+          python3 scripts/check_shared_lean_packages.py . oai-upstream/lean PrimeNumberTheoremAnd mathlib
+          mkdir -p .lake/build/lib/lean/research/oai_434
+          env LEAN_PATH="$RH_PATH:$OAI_PATH" lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research/oai_434/VF919OriginalGaussianResonantFibers.olean \
+            research/oai_434/VF919OriginalGaussianResonantFibers.lean \
+            | tee /tmp/oai-original-gaussian-resonant-fibers.log
+          if grep -E 'sorryAx|admitAx|_private' /tmp/oai-original-gaussian-resonant-fibers.log; then exit 1; fi
+      - name: KERNEL-CHECK exact ORIGINAL Gaussian resonance plus sextic defect
+        shell: bash
+        run: |
+          set -euo pipefail
+          OAI_PATH="$(cd oai-upstream/lean && lake env python3 -c 'import os; print(os.pathsep.join(os.path.abspath(p) for p in os.environ["LEAN_PATH"].split(os.pathsep) if p))')"
+          RH_PATH="$(lake env python3 -c 'import os; print(os.pathsep.join(os.path.abspath(p) for p in os.environ["LEAN_PATH"].split(os.pathsep) if p))')"
+          python3 scripts/check_shared_lean_packages.py . oai-upstream/lean PrimeNumberTheoremAnd mathlib
+          mkdir -p .lake/build/lib/lean/research/oai_434
+          env LEAN_PATH="$RH_PATH:$OAI_PATH" lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research/oai_434/VF919OriginalGaussianResonantSextic.olean \
+            research/oai_434/VF919OriginalGaussianResonantSextic.lean \
+            | tee /tmp/oai-original-gaussian-resonant-sextic.log
+          if grep -E 'sorryAx|admitAx|_private' /tmp/oai-original-gaussian-resonant-sextic.log; then exit 1; fi
       - name: Build ORIGINAL OAI refined marked analytic moment prerequisites
         working-directory: oai-upstream/lean
         run: |
@@ -199,35 +256,6 @@ jobs:
             echo 'Unexpected axiom in independent original-OAI marked NNS theorem.' >&2
             exit 1
           fi
-      - name: KERNEL-CHECK original OAI type specialization and NNS
-        shell: bash
-        run: |
-          set -euo pipefail
-          OAI_PATH="$(cd oai-upstream/lean && lake env python3 -c 'import os; print(os.pathsep.join(os.path.abspath(p) for p in os.environ["LEAN_PATH"].split(os.pathsep) if p))')"
-          RH_PATH="$(lake env python3 -c 'import os; print(os.pathsep.join(os.path.abspath(p) for p in os.environ["LEAN_PATH"].split(os.pathsep) if p))')"
-          python3 scripts/check_shared_lean_packages.py . oai-upstream/lean PrimeNumberTheoremAnd mathlib
-          mkdir -p .lake/build/lib/lean/research/oai_434
-          env LEAN_PATH="$RH_PATH:$OAI_PATH" lean -DwarningAsError=true \
-            -o .lake/build/lib/lean/research/oai_434/VF919OriginalGaussianIntegratedNNS.olean \
-            research/oai_434/VF919OriginalGaussianIntegratedNNS.lean \
-            | tee /tmp/oai-gaussian-nns-typed.log
-          if grep -E 'sorryAx|admitAx|_private' /tmp/oai-gaussian-nns-typed.log; then
-            echo 'Unexpected axiom in original OAI/RHLean NNS bridge.' >&2
-            exit 1
-          fi
-      - name: KERNEL-CHECK original GaussianSubset compensated resonant fiber regrouping
-        shell: bash
-        run: |
-          set -euo pipefail
-          OAI_PATH="$(cd oai-upstream/lean && lake env python3 -c 'import os; print(os.pathsep.join(os.path.abspath(p) for p in os.environ["LEAN_PATH"].split(os.pathsep) if p))')"
-          RH_PATH="$(lake env python3 -c 'import os; print(os.pathsep.join(os.path.abspath(p) for p in os.environ["LEAN_PATH"].split(os.pathsep) if p))')"
-          python3 scripts/check_shared_lean_packages.py . oai-upstream/lean PrimeNumberTheoremAnd mathlib
-          mkdir -p .lake/build/lib/lean/research/oai_434
-          env LEAN_PATH="$RH_PATH:$OAI_PATH" lean -DwarningAsError=true \
-            -o .lake/build/lib/lean/research/oai_434/VF919OriginalGaussianResonantFibers.olean \
-            research/oai_434/VF919OriginalGaussianResonantFibers.lean \
-            | tee /tmp/oai-original-gaussian-resonant-fibers.log
-          if grep -E 'sorryAx|admitAx|_private' /tmp/oai-original-gaussian-resonant-fibers.log; then exit 1; fi
       - name: KERNEL-CHECK original finite ideal-column resonant fiber grouping
         shell: bash
         run: |
@@ -241,19 +269,6 @@ jobs:
             research/oai_434/VF919OriginalDetectorResonantFibers.lean \
             | tee /tmp/oai-original-detector-resonant-fibers.log
           if grep -E 'sorryAx|admitAx|_private' /tmp/oai-original-detector-resonant-fibers.log; then exit 1; fi
-      - name: KERNEL-CHECK exact ORIGINAL Gaussian resonance plus sextic defect
-        shell: bash
-        run: |
-          set -euo pipefail
-          OAI_PATH="$(cd oai-upstream/lean && lake env python3 -c 'import os; print(os.pathsep.join(os.path.abspath(p) for p in os.environ["LEAN_PATH"].split(os.pathsep) if p))')"
-          RH_PATH="$(lake env python3 -c 'import os; print(os.pathsep.join(os.path.abspath(p) for p in os.environ["LEAN_PATH"].split(os.pathsep) if p))')"
-          python3 scripts/check_shared_lean_packages.py . oai-upstream/lean PrimeNumberTheoremAnd mathlib
-          mkdir -p .lake/build/lib/lean/research/oai_434
-          env LEAN_PATH="$RH_PATH:$OAI_PATH" lean -DwarningAsError=true \
-            -o .lake/build/lib/lean/research/oai_434/VF919OriginalGaussianResonantSextic.olean \
-            research/oai_434/VF919OriginalGaussianResonantSextic.lean \
-            | tee /tmp/oai-original-gaussian-resonant-sextic.log
-          if grep -E 'sorryAx|admitAx|_private' /tmp/oai-original-gaussian-resonant-sextic.log; then exit 1; fi
       - name: Save original imports for subsequent exact checks
         if: ${{ !cancelled() && steps.oai_cache.outputs.cache-hit != 'true' }}
         continue-on-error: true
