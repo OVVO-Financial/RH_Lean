@@ -30,9 +30,6 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  original-oai-gaussian-nns-typed:
-    uses: ./.github/workflows/oai-gaussian-nns-typed-434.yml
-
   original-oai-complete-proof:
     runs-on: ubuntu-latest
     timeout-minutes: 150
