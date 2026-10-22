@@ -109,6 +109,14 @@ theorem detectorEnergy_eq_mutual_boundary_Gram
 
 /-! ## Unconditional norm-fiber grouping: no aliasing of ideal labels -/
 
+/-- Caution: inert prime ideals can have composite rational norm q=p^2,
+but the pure factor-pair count can STILL apply. This example has
+q=4, c=3, m=12, n=3, and Z=7/2 <=4. It does NOT license a
+largest-rational-prime or Mobius-sign interpretation. -/
+theorem compositePrimeNorm_geometric_gate_example :
+    SignedHeight.Admissible 3 4 3 1 := by
+  norm_num [SignedHeight.Admissible]
+
 /-- The disjoint fibers of an ACTUAL finite map reassemble the original
 labelled source exactly. This records multiplicity rather than collapsing
 distinct ideal occurrences sharing one rational norm pair. -/
@@ -160,8 +168,10 @@ theorem finiteComplex_energy_le
 
 The finite index alpha can be a fully labelled prime/cofactor ideal pair,
 with all original marked/rescaled tuple and phase labels retained.
-The map f returns the *canonical integer factor pair (c,d)*, where
-q=c+d is necessarily the rational largest prime of c*q.
+The map f returns an ordered positive integer factor-pair (c,d),
+q=c+d. The SignedHeight counting theorem is PURE GEOMETRY: q need
+not be a rational prime. A Möbius largest-prime interpretation requires
+separate proofs of q=P_plus(c*q), squarefreeness and the sign flip.
 
 The visible admission hypothesis demands exactly the hypotheses of
 SignedHeight.card_le, rather than inventing an identification with

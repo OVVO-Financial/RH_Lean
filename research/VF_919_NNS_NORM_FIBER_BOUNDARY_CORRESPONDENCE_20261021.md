@@ -88,12 +88,19 @@ rational integer:
 * inert p=2 mod3: prime ideal norm p²;
 * ramified p=3: norm 3.
 
-The hCanon hypothesis requires the rational norm image to encode
-m=c*q with q=P_plus(m) a rational prime. Inert prime ideals are
-not legal for this direct application. Even when q is rational
-prime, cofactor norm c must have no prime factor greater than q,
-q must not divide c when using the squarefree Möbius sign change,
-and the canonical block and height predicates must truly hold.
+The hCanon hypothesis requires ONLY the already-proved
+factor-pair geometry: ordered positive factors (c,q) with q=c+d,
+their product in the same square block, and bounded |q^2-c^2|/2.
+It does NOT require q to be a rational prime or the largest prime.
+In particular, q=4 (the norm of an inert prime ideal above 2)
+with c=3 lies in the low-height geometric gate for n=3,H=4;
+the companion Lean file certifies this example.
+
+To use the *Möbius parity-toggle interpretation*, additionally
+prove q=P_plus(c*q) is a rational prime, cofactor c is root-smooth,
+q does not divide c in the relevant squarefree extension,
+and the original masks/weights transfer. Such arithmetic assumptions
+are not needed for the geometric Cauchy bound itself.
 
 Use a disjoint partition:
   C_low = actual labelled ideal occurrences that satisfy all
@@ -102,6 +109,8 @@ Use a disjoint partition:
             noncanonical highest-prime labels, and the high-height
             part of the selected windows.
 The theorem controls ONLY C_low. No term is thrown away.
+Inert norm p^2 can be in C_low if the geometric hCanon conditions
+are satisfied; its OAI coefficient and Möbius meaning remain distinct.
 
 The paper-level triangular root-boundary fibre count from #999
 applies where q>R and the CANONICAL hypotheses hold, and does not
