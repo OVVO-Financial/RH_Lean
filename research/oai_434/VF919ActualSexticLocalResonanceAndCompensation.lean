@@ -57,6 +57,32 @@ theorem oai_actualSextic_bounded_local_resonance_iff_eq
   · intro h
     rw [h]
 
+/-- Full finite family of ACTUAL good Eisenstein prime-ideal
+    sextic characters: local equality of all these characters at
+    bounded exponents is equivalent to equality of the valuation
+    functions. This is not yet the theorem that an actual incomplete
+    row box distinguishes different characters, nor that every
+    Gaussian coefficient has such a bounded prime-ideal valuation. -/
+theorem oai_actualSextic_finite_family_local_resonance_iff_eq
+    {ι : Type*} (P : ι → Ideal O)
+    [∀ i, (P i).IsMaximal]
+    (hg : ∀ i, goodLambda ∉ P i)
+    (hchar : ∀ i, ringChar (O ⧸ P i) ≠ 2)
+    (v w : ι → ℕ)
+    (hv : ∀ i, v i ≤ 2) (hw : ∀ i, w i ≤ 2) :
+    (∀ i, (actualSextic (P i) (hg i)) ^ (v i) =
+      (actualSextic (P i) (hg i)) ^ (w i)) ↔ v = w := by
+  constructor
+  · intro h
+    funext i
+    exact (oai_actualSextic_bounded_local_resonance_iff_eq
+      (P i) (hg i) (hchar i) (v i) (w i)
+      (hv i) (hw i)).mp (h i)
+  · intro h
+    rw [h]
+    intro i
+    rfl
+
 /-- The ORIGINAL physical local cancellation has TWO remainder terms.
     Their norms must be paid together: neither may be silently dropped
     or replaced by a bare quadratic Euler estimate. -/
@@ -91,8 +117,7 @@ theorem oai_principal_residue_normalized_cancel
     (hResidue : residue = normer * signal) :
     raw / normer - signal = tail / normer := by
   rw [hraw, hResidue]
-  field_simp
-  ring
+  field_simp [hnormer] <;> ring
 
 /-- The exact energy left after subtracting the calibrated principal
     signal; this is only small if the genuine contour tail is small. -/
@@ -109,6 +134,7 @@ theorem oai_principal_residue_normalized_energy
 end SevenEighths
 
 #print axioms SevenEighths.oai_actualSextic_bounded_local_resonance_iff_eq
+#print axioms SevenEighths.oai_actualSextic_finite_family_local_resonance_iff_eq
 #print axioms SevenEighths.oai_actual_local_compensation_two_bills_le
 #print axioms SevenEighths.oai_principal_residue_normalized_cancel
 #print axioms SevenEighths.oai_principal_residue_normalized_energy
