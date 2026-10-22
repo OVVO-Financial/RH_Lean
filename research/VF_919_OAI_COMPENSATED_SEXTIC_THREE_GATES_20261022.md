@@ -104,3 +104,58 @@ New native theorems in `research/VF_919_OAI_PRINCIPAL_SOURCE_EXPONENT_BUDGET_202
  \qquad \sigma+e\le(7/8)\ell_{\min}
 \]
 are supplied. The new theorem `oai_original_principal_source_error_fits_high_row` consumes the original source estimate as a VISIBLE hypothesis and pays the explicit factor 2. This is a valid, noncircular source-level principal comparison under original source prerequisites. The remaining proof must instantiate the original `actual_ray_principal_comparison` with the selected PR #1005 parameters and account for its principal source vs grouped-fiber identification, rather than assuming its own analytic estimate.
+
+## 4. Separate principal residual, exact NNS mixed covariance and source-honest l65 cost (Oct 22)
+
+New Lean sources:
+- `research/VF_919_OAI_NNS_PRINCIPAL_NONPRINCIPAL_CROSS_20261022.lean`:
+  `nns_energy_principal_nonprincipal_exact`, `nns_principal_nonprincipal_cross_le_geometric`, `nns_energy_principal_nonprincipal_root_bound`, and
+  `nns_energy_principal_nonprincipal_bound`.
+- `research/VF_919_OAI_COMPENSATED_TWO_BILL_L65_20261022.lean`:
+  `oai_grouped_fiber_l65_bound` and `oai_grouped_fiber_l65_power_budget`.
+- `research/VF_919_OAI_NNS_POST_GROUPED_SEXTIC_DUAL_20261022.lean`:
+  `oai_nonprincipal_energy_eq_grouped_dual`, `oaiUniformCompensatedSixthMoment`, and `oai_nonprincipal_energy_bound`.
+
+**Principal cross:** with the original row-constant normalized physical principal source (P_u/\mathrm{normer}), the actual inverse-Mellin signal (S_u), and the already compensated nonprincipal source (H_u), let (R_u=P_u/\mathrm{normer}-S_u). For nonnegative original weights \(\omega\),
+\[
+ E(R+H)=E_R+E_H+2\Re\sum_u\omega_u R_u\overline{H_u}
+ \le(\sqrt{E_R}+\sqrt{E_H})^2.
+\]
+The norm bounds have to be `E_R <= cR²*T`, `E_H <= cH²*T`, and `cR+cH <= 1`. Merely `E_R <= cR*T`, `E_H <= cH*T`, `cR+cH <= 1` does NOT suffice in general. The source-level principal comparison bounds one physical normalized signal norm at parameter Z; a theorem that turns it into the whole `sum_u omega_u |R_u|²` is still required wherever the rows index a separate source family.
+
+**Two-bill l65:** for each effective compensated ideal \(\mathfrak m\), define the original source-identifiable shift and Euler residuals (b_{\rm shift}, b_{\rm Euler}). Suppose \(\tau_S\) is the actual nonnegative representation multiplicity and source-specific estimates prove
+\[
+ |b_{\rm shift}(\mathfrak m)|\le A_{\rm shift}\tau_S(\mathfrak m),\quad
+ |b_{\rm Euler}(\mathfrak m)|\le A_{\rm Euler}\tau_S(\mathfrak m).
+\]
+The kernel theorem then proves, by actual rpow algebra,
+\[
+\|b_{\rm shift}+b_{\rm Euler}\|_{6/5}
+\le(A_{\rm shift}+A_{\rm Euler})\|\tau_S\|_{6/5}.
+\]
+Under the further **independent arithmetic inputs**
+\[
+ A_{\rm shift}+A_{\rm Euler}\le D^{-1/2}Z^{-\sigma},
+ \qquad\|\tau_S\|_{6/5}\le D^{5/6+c},
+\]
+it gives \(\|b\|_{6/5}\le D^{1/3+c}Z^{-\sigma}\). Neither the local compensation identity nor the ideal-ball counting lemma establishes these two inputs alone.
+
+**Critical original window audit:** original `ProbePrincipalNormalized.actual_ray_principal_comparison` assumes `support (W j) ⊆ Ioo c d` for fixed `0<c≤d` and slot norms \(N(P)\asymp Z^{\ell_j}\) in \([c Z^{\ell_j},d Z^{\ell_j}]\). This is **not** automatically a narrow band of relative width \(O(Z^{-\sigma})\). A mean value theorem gives a factor (\eta_P\) only if the actual parent-child window-alignment displacement is independently shown \(\ll\eta_P=O(Z^{-\sigma})\) uniformly, including derivatives and all normalization factors. That source theorem is OPEN.
+
+**Counting/multiplicity audit:** `CenteredMomentCounting.norm_tsum_ideal_ball` is an absolute IDEAL SUM NORM bound `‖∑' f‖≤128 M H`, proved by invoking `DescentFiberCost.finite_ideal_count_real` internally. Its conclusion is NOT a ready-made sixth-power bound on the representation multiplicities. The additional `sum tau^(6/5)` moment must be proved from the original marked-prime pool geometry (or bounded via a separate maximum-multiplicity/count argument), not replaced with the ordinary mean of tau, since \(x\mapsto x^{6/5}\) is convex.
+
+**Post-compensation sixth-moment dual:** for a row-INDEPENDENT grouped coefficient (b(\mathcal C)\) and a fully source-admitted complex character phase \(\psi_{\mathcal C}(u)\), the exact dual energy is
+\[
+E_H=\sum_{\mathcal C}b(\mathcal C)
+    \sum_u\omega_u\psi_{\mathcal C}(u)\overline{H_u}.
+\]
+The duality theorem proves an (E_H\le (A K)^2) estimate from the grouped (\ell^{6/5}\) bound (A) and **uniform** sixth-root moment operator bound
+\[
+\left(\sum_{\mathcal C}
+\left|\sum_u\omega_u\psi_{\mathcal C}(u)\overline{\gamma_u}\right|^6\right)^{1/6}
+\le K\left(\sum_u\omega_u|\gamma_u|^2\right)^{1/2}
+\quad\text{for ALL }\gamma.
+\]
+This exact proof does not require (R_u\) to admit any sextic phase decomposition and keeps every original weight. It makes explicit that actual OAI physical coefficients must first be grouped and factored into (u\)-independent (b(\mathcal C)\) and the phase \(\psi_{\mathcal C}(u)\) (possibly via genuine sixth-power mask expansion) before applying the uniform moment estimate. The Gauss/Poisson bound for the actual family remains open and is NOT imported from the final high-row target.
+
+**CI acceptance:** Both native and mixed OAI Lean workflows now include these three new modules. Do not mark them kernel-proved until warning-fatal GitHub Actions accepts their exact versions.
