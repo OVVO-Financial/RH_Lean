@@ -84,9 +84,8 @@ theorem fullRowSource_eq_mutual_add_unmatched
 theorem normSq_mutual_add_unmatched (A B : ℂ) :
     Complex.normSq (A + B) =
       Complex.normSq A + Complex.normSq B +
-        2 * (A * Complex.conj B).re := by
-  simp only [Complex.normSq_apply, Complex.add_re, Complex.add_im,
-    Complex.mul_re, Complex.conj_re, Complex.conj_im]
+        2 * (A.re * B.re + A.im * B.im) := by
+  simp only [Complex.normSq_apply, Complex.add_re, Complex.add_im]
   ring
 
 theorem detectorEnergy_eq_mutual_boundary_Gram
@@ -95,7 +94,7 @@ theorem detectorEnergy_eq_mutual_boundary_Gram
     D⁻¹ * (∑ u ∈ rows, Complex.normSq (A u + B u)) =
       D⁻¹ * ∑ u ∈ rows,
         (Complex.normSq (A u) + Complex.normSq (B u) +
-          2 * (A u * Complex.conj (B u)).re) := by
+          2 * ((A u).re * (B u).re + (A u).im * (B u).im)) := by
   congr 1
   apply Finset.sum_congr rfl
   intro u hu
@@ -207,7 +206,22 @@ theorem normFiber_lowGate_bridge_unconditional
   have hC : 0 ≤ ((H / n + 1 : ℕ) : ℝ) := Nat.cast_nonneg _
   have hTop := mul_le_mul_of_nonneg_left hSum hC
   have hgroup : (∑ p ∈ L, packet p) = ∑ a ∈ S, z a := by
-    simpa only [L, packet] using (sum_over_norm_fibers S f z)
+    dsimp [L, packet]
+    calc
+      (∑ p ∈ S.image f, ∑ a ∈ S.filter (fun a => f a = p), z a) =
+          ∑ p ∈ S.image f, ∑ a ∈ S,
+            if f a = p then z a else 0 := by
+        apply Finset.sum_congr rfl
+        intro p hp
+        rw [Finset.sum_filter]
+      _ = ∑ a ∈ S, ∑ p ∈ S.image f,
+            if f a = p then z a else 0 := by rw [Finset.sum_comm]
+      _ = ∑ a ∈ S, z a := by
+        apply Finset.sum_congr rfl
+        intro a ha
+        have hmem : f a ∈ S.image f :=
+          Finset.mem_image.mpr ⟨a, ha, rfl⟩
+        simp [eq_comm, hmem]
   calc
     ‖∑ a ∈ S, z a‖ ^ 2 =
         ‖∑ p ∈ L, packet p‖ ^ 2 := by rw [hgroup]
