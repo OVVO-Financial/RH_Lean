@@ -204,4 +204,4 @@ Resume:
 
 ## J. Publication verification
 
-Pending initial publication and readback on `agent-reports`.
+Initial publication commit `c81437fb737875b8f1aafacc7313580a73c3bec0` was fetched directly from `agent-reports`. Readback returned blob `8b28da8440058c4224096bb81a59b1c37a6b3aa4`, 15,058 characters, with `COMPLETED` status and claim `20261023-referee-1` present. This verifies report publication only; it does not promote the paper theorem to Lean or change main, PR, CI, review, merge or schedule state.
