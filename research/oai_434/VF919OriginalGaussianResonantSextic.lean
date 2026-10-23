@@ -24,6 +24,7 @@ open MeasureTheory
 namespace RHLean.Analysis
 local notation "O" => OAI.ActualEisensteinCubic.O
 
+set_option maxHeartbeats 1000000 in
 theorem originalOAI_gaussian_fiber_equals_sextic_defect
     {K : ℕ} {ι κ : Type*}
     (W : Fin K → ℝ → ℂ) (M : Fin K → ℝ)
@@ -80,10 +81,10 @@ theorem originalOAI_gaussian_fiber_equals_sextic_defect
       rows classOf eta cal W0 W1 slots P X Y Z normer principal
       omega hW0 hW1 hslots hP hX hY hZ
   refine ⟨V, hV, ?_⟩
-  intro phase coefficient ζ hpow hne hPhase
-  let A := fun u J => originalOAIGaussianSubsetIntegral V hV eta cal
-    W0 W1 slots W P X Y Z u J / normer
-  let atom := gaussianIntegratedSignalAtom A principal
+  -- The goal starts with TWO local `let` binders (`A` and `atom`).
+  -- Introduce them first: otherwise `phase` gets A's type, and ζ gets
+  -- the phase-function type instead of the required complex scalar.
+  intro A atom phase coefficient ζ hpow hne hPhase
   have hOriginal :
       (∑ u ∈ rows, omega u *
         ‖originalOAIGaussianProbe eta cal W0 W1 slots W P X Y Z u /
