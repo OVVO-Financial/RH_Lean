@@ -113,3 +113,53 @@ At y=floor sqrt(x), no correction is required. The Lean kernel also
 checks the finite identity 1/(H-v)=1/H+v/H^2+v^2/H^3+
 v^3/(H^3(H-v)) for nonzero denominators. Its Mellin moment and
 integral consequences remain paper proofs pending Lean formalization.
+
+
+## Fixed-y square-shell consequence (exact Lean target)
+
+Fix integer R>=2 and the SAME cutoff y=R at both endpoints
+
+  X0=R^2-1, X1=(R+1)^2-1.
+
+Then floor sqrt(X0)=R-1<=R and floor sqrt(X1)=R<=R.
+The extended sharp-root source theorem gives exactly
+
+  delta_R := M(X1)-M(X0)
+           = [F_R(X1)-F_R(X0)] + [G_R(X1)-G_R(X0)].
+
+Here F_R(x)=K_R(x)-S_L(R,x) and
+G_R(x)=-sum_{R<q<=x}xi(q) M(floor(x/q)), with the
+SAME y=R in both endpoint brackets. No boundary correction
+or new numerical assumption enters this within-shell identity.
+
+The correctly CLIPPED kth floor-Li cofactor fiber is
+
+  sum_{R<q<=floor(x/k)}[L(q)-L(q-1)]
+    = L(max(R,floor(x/k)))-L(R),
+
+NOT L(floor(x/k))-L(R) if floor(x/k)<R. For x=X0,
+k=R is EMPTY since floor((R^2-1)/R)=R-1.
+For x=X1, k=R is admitted and has upper quotient R+2.
+In particular there is no spurious k=R lower-endpoint
+floor-Li charge. Similar clipping applies to B=pi-L.
+
+## Cross-shell gate migration is a separate exact term
+
+The fixed-y shell theorem must NOT be mistaken for the claim that
+sum_R [F_R(X1)-F_R(X0)] telescopes to F_H(H^2-1): consecutive
+shells use different y. At the shared boundary
+X=(R+1)^2-1, switching the cutoff R -> R+1 changes the
+two bracket pieces by opposite amounts,
+
+  F_{R+1}(X)-F_R(X) = -xi(R+1) M(R),
+  G_{R+1}(X)-G_R(X) = +xi(R+1) M(R),
+
+where xi(R+1) = 1_{R+1 prime}-[L(R+1)-L(R)].
+The pair cancels in F+G=M, but is generally nonzero
+separately. This exact gate-switch bookkeeping is a *different*
+question from any within-shell boundary correction.
+
+This audit does NOT claim the cross-shell gate-switch identity is
+yet Lean-kernel proved. Formalize it before using global telescoping
+claims to infer variance bounds. Both the initial 7/8 bound and the
+new signed power saving remain distinct from these finite identities.

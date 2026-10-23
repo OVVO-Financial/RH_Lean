@@ -178,6 +178,93 @@ theorem buchstab_reciprocal_log_three_term_kernel
   field_simp
   <;> ring
 
+
+/-! ## Fixed-wheel square-shell difference: the same y=R at both endpoints -/
+
+/-- Left endpoint of the square shell [R^2, (R+1)^2). -/
+def buchstabSquareShellLower (R : ℕ) : ℕ := R ^ 2 - 1
+
+/-- Right endpoint inclusive of the shell [R^2, (R+1)^2). -/
+def buchstabSquareShellUpper (R : ℕ) : ℕ := (R + 1) ^ 2 - 1
+
+/-- The small-prime wheel is FIXED at y=R throughout this shell. -/
+def buchstabFloorLiSquareShellSmoothDelta (R : ℕ) : ℂ :=
+  buchstabFloorLiSmoothBracket R (buchstabSquareShellUpper R) -
+    buchstabFloorLiSmoothBracket R (buchstabSquareShellLower R)
+
+/-- The high-prime innovation is centered BEFORE the shell difference. -/
+def buchstabFloorLiSquareShellInnovationDelta (R : ℕ) : ℂ :=
+  buchstabFloorLiInnovationBracket R (buchstabSquareShellUpper R) -
+    buchstabFloorLiInnovationBracket R (buchstabSquareShellLower R)
+
+/-- The lower endpoint is strictly below R^2. -/
+theorem buchstab_squareShell_lower_sqrt_lt
+    (R : ℕ) (hR : 2 ≤ R) :
+    Nat.sqrt (buchstabSquareShellLower R) < R := by
+  unfold buchstabSquareShellLower
+  apply (Nat.sqrt_lt').2
+  have hpos : 0 < R ^ 2 := pow_pos (by omega) 2
+  omega
+
+/-- The upper endpoint is strictly below (R+1)^2 and hence
+has integer square root at most R. -/
+theorem buchstab_squareShell_upper_sqrt_le
+    (R : ℕ) (hR : 2 ≤ R) :
+    Nat.sqrt (buchstabSquareShellUpper R) ≤ R := by
+  unfold buchstabSquareShellUpper
+  have hlt : Nat.sqrt ((R + 1) ^ 2 - 1) < R + 1 := by
+    apply (Nat.sqrt_lt').2
+    have hpos : 0 < (R + 1) ^ 2 := pow_pos (by omega) 2
+    omega
+  omega
+
+/-- Exact shell identity: same prime-wheel cutoff y=R at BOTH
+endpoints, no gate migration within the shell and no RH estimate. -/
+theorem buchstab_fixedRootSquareShell_signed_delta
+    (R : ℕ) (hR : 2 ≤ R) :
+    mertensSummatory (buchstabSquareShellUpper R) -
+        mertensSummatory (buchstabSquareShellLower R) =
+      buchstabFloorLiSquareShellSmoothDelta R +
+        buchstabFloorLiSquareShellInnovationDelta R := by
+  have hlo := buchstab_mertens_eq_floorLi_smooth_add_innovation_of_sqrt_le
+    R (buchstabSquareShellLower R) (by omega)
+    (le_of_lt (buchstab_squareShell_lower_sqrt_lt R hR))
+  have hhi := buchstab_mertens_eq_floorLi_smooth_add_innovation_of_sqrt_le
+    R (buchstabSquareShellUpper R) (by omega)
+    (buchstab_squareShell_upper_sqrt_le R hR)
+  unfold buchstabFloorLiSquareShellSmoothDelta
+    buchstabFloorLiSquareShellInnovationDelta
+  rw [hhi, hlo]
+  ring
+
+/-- Literal centered smooth mass, with the same wheel on each endpoint.
+This is the source-algebraic main-term subtraction; it gives no bound. -/
+theorem buchstab_fixedRootSquareShell_smoothDelta_eq
+    (R : ℕ) :
+    buchstabFloorLiSquareShellSmoothDelta R =
+      (primeSieveSmoothMobiusMass R (buchstabSquareShellUpper R) -
+        primeSieveSmoothMobiusMass R (buchstabSquareShellLower R)) -
+      (buchstabFloorLiPrimeTail R (buchstabSquareShellUpper R) -
+        buchstabFloorLiPrimeTail R (buchstabSquareShellLower R)) := by
+  unfold buchstabFloorLiSquareShellSmoothDelta
+    buchstabFloorLiSmoothBracket
+  ring
+
+/-- Physical centered high-prime innovations, keeping the sign and the
+actual small-scale Mertens cofactor inside each q-fiber. -/
+theorem buchstab_fixedRootSquareShell_innovationDelta_eq
+    (R : ℕ) :
+    buchstabFloorLiSquareShellInnovationDelta R =
+      -(buchstabFloorLiMismatchTail R (buchstabSquareShellUpper R) -
+        buchstabFloorLiMismatchTail R (buchstabSquareShellLower R)) := by
+  unfold buchstabFloorLiSquareShellInnovationDelta
+    buchstabFloorLiInnovationBracket
+  ring
+
+#print axioms buchstab_fixedRootSquareShell_signed_delta
+#print axioms buchstab_fixedRootSquareShell_smoothDelta_eq
+#print axioms buchstab_fixedRootSquareShell_innovationDelta_eq
+
 #print axioms buchstab_mertens_eq_floorLi_smooth_add_innovation_at_root
 #print axioms buchstab_reciprocal_log_three_term_kernel
 #print axioms buchstab_actualPrimeTail_eq_floorLi_add_mismatch
