@@ -3,6 +3,8 @@ on:
   pull_request:
     paths:
       - 'research/oai_434/VF919OriginalVariableExponentThreeQuarters.lean'
+      - 'scripts/oai_three_quarters_cubic_exponent_audit.py'
+      - 'research/OAI_THREE_QUARTERS_ACTUAL_CUBIC_ATTACK_20261022.md'
       - '.github/workflows/oai-three-quarter-local-434.yml'
   workflow_dispatch:
 
@@ -14,6 +16,13 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  exact-exponent-regression:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check cubic, sextic and scalar powers exactly
+        run: python3 scripts/oai_three_quarters_cubic_exponent_audit.py
   actual-prime-three-quarter:
     runs-on: ubuntu-latest
     timeout-minutes: 100
