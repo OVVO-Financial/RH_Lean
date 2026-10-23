@@ -85,25 +85,81 @@ theorem vf919PhysicalWindowCubicFourthPayment
   exact (vf919PhysicalWindowCubicFourthHolder rows W H).trans
     (mul_le_mul hWindow hCubic hHnon hBW)
 
-/-- Exact P^(5/4) and P^2 pair-modulus exponent budgets at a=3/4,
-where the pair-coefficient diagonal has norm exponent 2-4a=-1
-and the n=3 mixed term is (U*P^2)^(2/3). -/
-theorem vf919CubicPairFourthExponentArithmetic :
-    (2 : ℝ) - 4 * (3 / 4) +
-        (2 / 3) * (5 / 4 + 2) - 5 / 4 = -(1 / 12 : ℝ) ∧
-    (2 : ℝ) - 4 * (3 / 4) +
-        (2 / 3) * (2 + 2) - 2 = -(1 / 3 : ℝ) ∧
-    ((5 / 4 : ℝ) * (1 / 15)) / 2 = 1 / 24 := by
-  constructor
-  · norm_num
-  constructor
-  · norm_num
-  · norm_num
+/-! ## Source-accurate sixth-free row cube-root cost and width gate -/
+
+/-- Actual FreeRow rows are SIXTH-free; the pair-cubic fourth moment
+must sum c^3 * u0 fibers. At U=P^(5/4) the cube-root counting term
+GROWS like P^(1/6): the attractive cube-free P^(-1/12)
+fourth-moment budget is not admissible for the original source.
+
+At U=P^2 the worst actual term is P^(-1/3), and at the source
+marked-width aperture U >= P^(9/2), it is P^(-1).
+These are exponent equalities only, not a sieve or row admission. -/
+theorem vf919ActualSixthFreePairFourthExponentArithmetic :
+    (4 : ℝ) - 4 * (3 / 4) - (2 / 3) * (5 / 4) = 1 / 6 ∧
+    (10 / 3 : ℝ) - 4 * (3 / 4) - (5 / 4) / 3 = -(1 / 12) ∧
+    (4 : ℝ) - 4 * (3 / 4) - (2 / 3) * 2 = -(1 / 3) ∧
+    (10 / 3 : ℝ) - 4 * (3 / 4) - 2 / 3 = -(1 / 3) ∧
+    (4 : ℝ) - 4 * (3 / 4) - (2 / 3) * (9 / 2) = -2 ∧
+    (10 / 3 : ℝ) - 4 * (3 / 4) - (9 / 2) / 3 = -(7 / 6) := by
+  norm_num
+
+/-- The ORIGINAL OAI marked-fourth width constraint:
+2*m + 6*(3/4+2*Delta)*sum(selected widths) <= 1.
+For m,Delta>=0, this forces the full selected width <=2/9. -/
+theorem vf919ActualMarkedFourthWidthCap
+    {Slot : Type*} (selected : Finset Slot)
+    (width : Slot → ℝ) (m Delta : ℝ)
+    (hm : 0 ≤ m) (hDelta : 0 ≤ Delta)
+    (hw : ∀ s ∈ selected, 0 ≤ width s)
+    (hGate : 2 * m + 6 * (3 / 4 + 2 * Delta) *
+        (∑ s ∈ selected, width s) ≤ 1) :
+    (∑ s ∈ selected, width s) ≤ (2 / 9 : ℝ) := by
+  have hS : 0 ≤ (∑ s ∈ selected, width s) := by
+    apply Finset.sum_nonneg
+    intro s hs
+    exact hw s hs
+  have hDS : 0 ≤ Delta * (∑ s ∈ selected, width s) :=
+    mul_nonneg hDelta hS
+  nlinarith [hDS]
+
+/-- Every actually selected slot is below the full width budget. -/
+theorem vf919ActualSelectedSlotWidthCap
+    {Slot : Type*} (selected : Finset Slot)
+    (width : Slot → ℝ) (m Delta : ℝ) (s : Slot)
+    (hm : 0 ≤ m) (hDelta : 0 ≤ Delta)
+    (hw : ∀ t ∈ selected, 0 ≤ width t)
+    (hGate : 2 * m + 6 * (3 / 4 + 2 * Delta) *
+        (∑ t ∈ selected, width t) ≤ 1)
+    (hs : s ∈ selected) :
+    width s ≤ (2 / 9 : ℝ) := by
+  have hSum := vf919ActualMarkedFourthWidthCap
+    selected width m Delta hm hDelta hw hGate
+  have hOne : width s ≤ (∑ t ∈ selected, width t) :=
+    Finset.single_le_sum (fun t ht => hw t ht) hs
+  linarith
+
+/-- Original prime-slot P=U^width, so the actual marked-width gate
+forces U >= P^(9/2). This is the aperture favorable to the
+SIXTH-free pair-cubic sieve, rather than an invented U=P^(5/4). -/
+theorem vf919SelectedPrimeAperture
+    (U w : ℝ) (hU : 1 ≤ U) (hw : w ≤ 2 / 9) :
+    (U ^ w) ^ (9 / 2 : ℝ) ≤ U := by
+  have hUp : 0 < U := lt_of_lt_of_le zero_lt_one hU
+  calc
+    (U ^ w) ^ (9 / 2 : ℝ) = U ^ (w * (9 / 2 : ℝ)) := by
+      rw [← Real.rpow_mul hUp.le]
+    _ ≤ U ^ (1 : ℝ) :=
+      Real.rpow_le_rpow_of_exponent_le hU (by nlinarith)
+    _ = U := by rw [Real.rpow_one]
 
 #print axioms vf919CubicPrimePairLift
 #print axioms vf919CubicFourthMoment_eq_pairMoment
 #print axioms vf919PhysicalWindowCubicFourthHolder
 #print axioms vf919PhysicalWindowCubicFourthPayment
-#print axioms vf919CubicPairFourthExponentArithmetic
+#print axioms vf919ActualSixthFreePairFourthExponentArithmetic
+#print axioms vf919ActualMarkedFourthWidthCap
+#print axioms vf919ActualSelectedSlotWidthCap
+#print axioms vf919SelectedPrimeAperture
 
 end RHLean.Analysis
