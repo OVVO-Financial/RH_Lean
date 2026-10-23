@@ -25,7 +25,7 @@ open scoped Classical BigOperators
 namespace SevenEighths.LowSignedSixthCompletion
 
 open ActualEisensteinCubic CompletedGauss ConcreteTraceCRT
-open ConcretePrimeRowBridge CanonicalQuadraticSieve
+open ConcretePrimeRowBridge CanonicalQuadraticSieve CanonicalRowCompletion
 open SevenEighths.CenteredMomentCanonical
 open SevenEighths.CenteredMomentFourier
 open SevenEighths.CenteredMomentSupportedCorrelation
@@ -85,8 +85,8 @@ theorem actual_low_gauss_prime_phase_exact
         residueGauss p hp0 χ (Ideal.Quotient.mk (Ideal.span {p}) (-m)) := by
       exact (residueGauss_supported_mk p hp (-m)).symm
     _ = _ := by
-      rw [hgt, hχeq]
-      rw [← residueGauss_supported_mk p hp 1]
+      rw [hgt]
+      rw [residueGauss_supported_mk p hp 1]
       rw [hχeq]
 
 #print axioms actual_low_prime_supportedChar_eq_sextic
