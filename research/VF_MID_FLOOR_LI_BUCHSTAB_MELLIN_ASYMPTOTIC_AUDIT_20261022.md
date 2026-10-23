@@ -26,12 +26,11 @@ The prime-cofactor sum is K_y-M(x), **not** pi(x)-pi(y)-1.
 The latter is only the k=1 cofactor fiber (up to the unit accounting).
 F+G=M is algebraically exact and does not by itself supply a rate.
 
-The new Lean file consumes the pre-existing exact
-PrimeSieveCollapseIdentity theorem. That library theorem requires
-sqrt(x)<y (strict). At x=R^2, replacing y=R by R+1 changes
-the smooth population by 0 if R+1 is composite and by
--M(floor(R^2/(R+1)))=-M(R-1) if R+1 is prime.
-A literal y=R specialisation must account for this one prime.
+The revised source transport extends the hypothesis to sqrt(x)<=y.
+When y=floor(sqrt x), the inequality x<(y+1)^2 gives
+k=floor(x/q)<=y for any prime q>y. Hence there is exactly one
+possible high prime factor and no additional boundary term.
+All previously exported strict-root theorem interfaces are retained.
 
 ## Rigorous Mellin argument (paper proof; not yet in Lean)
 
@@ -105,3 +104,12 @@ without precise source checking: Alladi's work separately covers
 least- and greatest-prime-factor restricted Möbius sums. The
 Mellin argument above is self-contained given the known beta<1
 input and the zeta Laurent expansion.
+
+## Exact-boundary amendment
+
+The new weak-root source theorem is independent of RH: it rests on
+unique high-prime ownership and the inequality q>y>=sqrt(x).
+At y=floor sqrt(x), no correction is required. The Lean kernel also
+checks the finite identity 1/(H-v)=1/H+v/H^2+v^2/H^3+
+v^3/(H^3(H-v)) for nonzero denominators. Its Mellin moment and
+integral consequences remain paper proofs pending Lean formalization.

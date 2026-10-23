@@ -149,8 +149,8 @@ theorem isPrimeWheelSmooth_primesUpTo_iff_largestPrime_le
 
 /-- Exact pointwise discrepancy after `sqrt x < y`: a resolved source contributes
 zero discrepancy; an unresolved source contributes `-2 mu(n)`. -/
-theorem allPlusPrimeCombSite_sub_moebius_eq_high
-    (y x n : ℕ) (hroot : Nat.sqrt x < y)
+theorem allPlusPrimeCombSite_sub_moebius_eq_high_of_sqrt_le
+    (y x n : ℕ) (hy : 1 ≤ y) (hroot : Nat.sqrt x ≤ y)
     (hn1 : 1 ≤ n) (hnx : n ≤ x) :
     (((allPlusPrimeCombSite (primesUpTo y) n : ℤ) : ℂ)) -
         canonicalMoebiusWeight n =
@@ -159,10 +159,9 @@ theorem allPlusPrimeCombSite_sub_moebius_eq_high
       else
         0 := by
   classical
-  have hy : 1 ≤ y := by omega
   have hnpos : 0 < n := by omega
   have hcover : PrimeWheelSqrtCoverage (primesUpTo y) x :=
-    primesUpTo_sqrtCoverage hroot.le
+    primesUpTo_sqrtCoverage hroot
   have hprime : ∀ p ∈ primesUpTo y, Nat.Prime p := by
     intro p hp
     exact prime_of_mem_primesUpTo hp
@@ -191,10 +190,21 @@ theorem allPlusPrimeCombSite_sub_moebius_eq_high
     rw [hsite]
     simp [hmu, canonicalMoebiusWeight]
 
+/-- Preserve the original strict cutoff interface. -/
+theorem allPlusPrimeCombSite_sub_moebius_eq_high
+    (y x n : ℕ) (hroot : Nat.sqrt x < y)
+    (hn1 : 1 ≤ n) (hnx : n ≤ x) :
+    (((allPlusPrimeCombSite (primesUpTo y) n : ℤ) : ℂ)) -
+        canonicalMoebiusWeight n =
+      if y < canonicalLargestPrimeFactor n then
+        -2 * canonicalMoebiusWeight n else 0 :=
+  allPlusPrimeCombSite_sub_moebius_eq_high_of_sqrt_le
+    y x n (by omega) hroot.le hn1 hnx
+
 /-- Summing the pointwise discrepancy isolates exactly the unresolved canonical
 largest-prime source mass. -/
-theorem allPlusPrimeCombPrefixMass_sub_mertens_eq_neg_two_highSource
-    (y x : ℕ) (hroot : Nat.sqrt x < y) :
+theorem allPlusPrimeCombPrefixMass_sub_mertens_eq_neg_two_highSource_of_sqrt_le
+    (y x : ℕ) (hy : 1 ≤ y) (hroot : Nat.sqrt x ≤ y) :
     allPlusPrimeCombPrefixMass y x - RHLean.Analysis.mertensSummatory x =
       -2 *
         (∑ n ∈ primeSieveHighSourceSet y x, canonicalMoebiusWeight n) := by
@@ -218,7 +228,7 @@ theorem allPlusPrimeCombPrefixMass_sub_mertens_eq_neg_two_highSource
         apply Finset.sum_congr rfl
         intro n hn
         rcases Finset.mem_Icc.mp hn with ⟨hn1, hnx⟩
-        exact allPlusPrimeCombSite_sub_moebius_eq_high y x n hroot hn1 hnx
+        exact allPlusPrimeCombSite_sub_moebius_eq_high_of_sqrt_le y x n hy hroot hn1 hnx
     _ = ∑ n ∈ primeSieveHighSourceSet y x,
         -2 * canonicalMoebiusWeight n := by
         unfold primeSieveHighSourceSet
@@ -227,9 +237,17 @@ theorem allPlusPrimeCombPrefixMass_sub_mertens_eq_neg_two_highSource
         (∑ n ∈ primeSieveHighSourceSet y x, canonicalMoebiusWeight n) := by
         rw [Finset.mul_sum]
 
+/-- Preserve the original strict cutoff interface. -/
+theorem allPlusPrimeCombPrefixMass_sub_mertens_eq_neg_two_highSource
+    (y x : ℕ) (hroot : Nat.sqrt x < y) :
+    allPlusPrimeCombPrefixMass y x - RHLean.Analysis.mertensSummatory x =
+      -2 * (∑ n ∈ primeSieveHighSourceSet y x, canonicalMoebiusWeight n) :=
+  allPlusPrimeCombPrefixMass_sub_mertens_eq_neg_two_highSource_of_sqrt_le
+    y x (by omega) hroot.le
+
 private theorem cofactor_lt_largePrime_of_sqrt_lt
     {y x c q : ℕ}
-    (hroot : Nat.sqrt x < y) (hyq : y < q)
+    (hroot : Nat.sqrt x ≤ y) (hyq : y < q)
     (hmul : c * q ≤ x) :
     c < q := by
   by_contra hnot
@@ -244,14 +262,13 @@ private theorem cofactor_lt_largePrime_of_sqrt_lt
   omega
 
 private theorem primeSieveHighSource_to_pair_mem
-    {y x m : ℕ} (hroot : Nat.sqrt x < y)
+    {y x m : ℕ} (hy : 1 ≤ y)
     (hm : m ∈ primeSieveHighSourceSet y x) :
     (canonicalCofactor m, canonicalLargestPrimeFactor m) ∈
       primeSieveTransportPairSet y x := by
   classical
   rcases Finset.mem_filter.mp hm with ⟨hmBase, hhigh⟩
   rcases Finset.mem_Icc.mp hmBase with ⟨hm1, hmx⟩
-  have hy : 1 ≤ y := by omega
   have hmne : m ≠ 1 := by
     intro hmeq
     subst m
@@ -285,14 +302,12 @@ private theorem primeSieveHighSource_to_pair_mem
   · exact ⟨hqPrime, by simpa [hprod] using! hmx⟩
 
 private theorem primeSieveHighSource_pair_injective
-    {y x m n : ℕ} (hroot : Nat.sqrt x < y)
-    (hm : m ∈ primeSieveHighSourceSet y x)
+    {y x m n : ℕ} (hm : m ∈ primeSieveHighSourceSet y x)
     (hn : n ∈ primeSieveHighSourceSet y x)
     (hpair :
       (canonicalCofactor m, canonicalLargestPrimeFactor m) =
         (canonicalCofactor n, canonicalLargestPrimeFactor n)) :
     m = n := by
-  have hy : 1 ≤ y := by omega
   have hmBase := (Finset.mem_filter.mp hm).1
   have hnBase := (Finset.mem_filter.mp hn).1
   have hm1 := (Finset.mem_Icc.mp hmBase).1
@@ -323,7 +338,7 @@ private theorem primeSieveHighSource_pair_injective
     _ = n := hnprod
 
 private theorem primeSievePair_surjective
-    {y x : ℕ} (hroot : Nat.sqrt x < y)
+    {y x : ℕ} (hroot : Nat.sqrt x ≤ y)
     (cq : ℕ × ℕ) (hcq : cq ∈ primeSieveTransportPairSet y x) :
     ∃ m ∈ primeSieveHighSourceSet y x,
       (canonicalCofactor m, canonicalLargestPrimeFactor m) = cq := by
@@ -354,23 +369,22 @@ private theorem primeSievePair_surjective
 
 /-- Exact reindexing of all unresolved sources by their unique lower cofactor
 and one remaining large prime. -/
-theorem sum_primeSieveHighSourceSet_eq_pairProducts
-    (y x : ℕ) (hroot : Nat.sqrt x < y) :
+theorem sum_primeSieveHighSourceSet_eq_pairProducts_of_sqrt_le
+    (y x : ℕ) (hy : 1 ≤ y) (hroot : Nat.sqrt x ≤ y) :
     (∑ m ∈ primeSieveHighSourceSet y x, canonicalMoebiusWeight m) =
       ∑ cq ∈ primeSieveTransportPairSet y x,
         canonicalMoebiusWeight (cq.1 * cq.2) := by
   classical
   refine Finset.sum_bij
     (fun m _hm => (canonicalCofactor m, canonicalLargestPrimeFactor m))
-    (fun m hm => primeSieveHighSource_to_pair_mem hroot hm)
-    (fun m hm n hn hmn => primeSieveHighSource_pair_injective hroot hm hn hmn)
+    (fun m hm => primeSieveHighSource_to_pair_mem hy hm)
+    (fun m hm n hn hmn => primeSieveHighSource_pair_injective hm hn hmn)
     (fun cq hcq => by simpa using! primeSievePair_surjective hroot cq hcq)
     ?_
   intro m hm
   have hmBase := (Finset.mem_filter.mp hm).1
   have hm1 := (Finset.mem_Icc.mp hmBase).1
   have hmHigh := (Finset.mem_filter.mp hm).2
-  have hy : 1 ≤ y := by omega
   have hmgt : 1 < m := by
     by_contra hnot
     have hmeq : m = 1 := by omega
@@ -379,10 +393,19 @@ theorem sum_primeSieveHighSourceSet_eq_pairProducts
     omega
   rw [canonicalCofactor_mul_largestPrimeFactor hmgt]
 
+/-- Existing strict-root high-source transport is a special case. -/
+theorem sum_primeSieveHighSourceSet_eq_pairProducts
+    (y x : ℕ) (hroot : Nat.sqrt x < y) :
+    (∑ m ∈ primeSieveHighSourceSet y x, canonicalMoebiusWeight m) =
+      ∑ cq ∈ primeSieveTransportPairSet y x,
+        canonicalMoebiusWeight (cq.1 * cq.2) :=
+  sum_primeSieveHighSourceSet_eq_pairProducts_of_sqrt_le
+    y x (by omega) hroot.le
+
 /-- On every unresolved pair the large prime is fresh relative to the lower
 cofactor, so its final action reverses the source sign. -/
-theorem sum_primeSieveTransportPairSet_eq_neg_cofactorMass
-    (y x : ℕ) (hroot : Nat.sqrt x < y) :
+theorem sum_primeSieveTransportPairSet_eq_neg_cofactorMass_of_sqrt_le
+    (y x : ℕ) (hroot : Nat.sqrt x ≤ y) :
     (∑ cq ∈ primeSieveTransportPairSet y x,
         canonicalMoebiusWeight (cq.1 * cq.2)) =
       -primeSieveTransportCofactorMass y x := by
@@ -442,6 +465,15 @@ theorem sum_primeSieveTransportPairSet_eq_neg_cofactorMass
         apply Finset.sum_congr rfl
         intro q _hq
         by_cases h : q.Prime ∧ c * q ≤ x <;> simp [h]
+
+/-- Existing strict-root sign-reversal transport is a special case. -/
+theorem sum_primeSieveTransportPairSet_eq_neg_cofactorMass
+    (y x : ℕ) (hroot : Nat.sqrt x < y) :
+    (∑ cq ∈ primeSieveTransportPairSet y x,
+        canonicalMoebiusWeight (cq.1 * cq.2)) =
+      -primeSieveTransportCofactorMass y x :=
+  sum_primeSieveTransportPairSet_eq_neg_cofactorMass_of_sqrt_le
+    y x hroot.le
 
 /-- The cofactor-first batch mass is exactly the lower-scale Mertens transform
 indexed by the unprocessed primes. -/

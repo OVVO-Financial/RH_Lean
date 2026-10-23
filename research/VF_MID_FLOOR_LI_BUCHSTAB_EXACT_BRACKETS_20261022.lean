@@ -6,7 +6,7 @@ import «research.VF_MID_FLOOR_LI_CRITICAL_BALANCE»
 # Corrected floor-Li Buchstab brackets: ACTUAL Möbius source
 
 Only source-exact identities. The imported smooth/rough collapse requires
-Nat.sqrt x < y; literal y=Nat.sqrt x needs a one-prime boundary adjustment.
+Nat.sqrt x <= y, including literal y=Nat.sqrt x with no boundary term.
 No analytic rate, random independence or RH-level estimate is assumed.
 -/
 
@@ -54,8 +54,8 @@ theorem buchstab_actualPrimeTail_eq_floorLi_add_mismatch
 
 /-- Exact actual sharp Mertens identity with the two physical brackets.
 It is explicitly NOT an independently proved cancellation estimate. -/
-theorem buchstab_mertens_eq_floorLi_smooth_add_innovation
-    (y x : ℕ) (hroot : Nat.sqrt x < y) :
+theorem buchstab_mertens_eq_floorLi_smooth_add_innovation_of_sqrt_le
+    (y x : ℕ) (hy : 1 ≤ y) (hroot : Nat.sqrt x ≤ y) :
     mertensSummatory x =
       buchstabFloorLiSmoothBracket y x +
         buchstabFloorLiInnovationBracket y x := by
@@ -63,13 +63,32 @@ theorem buchstab_mertens_eq_floorLi_smooth_add_innovation
     mertensSummatory x =
         -primeSieveReciprocalMertensSignedSum y x +
           primeSieveSmoothMobiusMass y x :=
-      mertensSummatory_eq_neg_signedSum_add_smoothMass y x hroot
+      mertensSummatory_eq_neg_signedSum_add_smoothMass_of_sqrt_le y x hy hroot
     _ = buchstabFloorLiSmoothBracket y x +
           buchstabFloorLiInnovationBracket y x := by
       rw [buchstab_actualPrimeTail_eq_floorLi_add_mismatch]
       unfold buchstabFloorLiSmoothBracket
         buchstabFloorLiInnovationBracket
       ring
+
+/-- Preserve the original strict-root interface. -/
+theorem buchstab_mertens_eq_floorLi_smooth_add_innovation
+    (y x : ℕ) (hroot : Nat.sqrt x < y) :
+    mertensSummatory x =
+      buchstabFloorLiSmoothBracket y x +
+        buchstabFloorLiInnovationBracket y x :=
+  buchstab_mertens_eq_floorLi_smooth_add_innovation_of_sqrt_le
+    y x (by omega) hroot.le
+
+/-- Literal y=floor sqrt x: exact for every x>=1, no boundary term. -/
+theorem buchstab_mertens_eq_floorLi_smooth_add_innovation_at_root
+    (x : ℕ) (hx : 1 ≤ x) :
+    mertensSummatory x =
+      buchstabFloorLiSmoothBracket (Nat.sqrt x) x +
+        buchstabFloorLiInnovationBracket (Nat.sqrt x) x := by
+  have hy : 1 ≤ Nat.sqrt x := Nat.le_sqrt.mpr (by simpa using hx)
+  exact buchstab_mertens_eq_floorLi_smooth_add_innovation_of_sqrt_le
+    (Nat.sqrt x) x hy le_rfl
 
 /-- Retain the genuine cofactor M(floor(x/q)) in each high-prime
 innovation; neither signs nor quotient intervals are discarded. -/
@@ -150,6 +169,17 @@ theorem buchstab_floorLiPrimeTail_eq_discretePotential
   intro d _hd
   rw [buchstab_floorLiReciprocalInterval_eq_discretePotential]
 
+/-- Exact three-moment reciprocal-log kernel, WITHOUT an analytic claim. -/
+theorem buchstab_reciprocal_log_three_term_kernel
+    (H v : ℝ) (hH : H ≠ 0) (hHv : H - v ≠ 0) :
+    1 / (H - v) =
+      1 / H + v / H ^ 2 + v ^ 2 / H ^ 3 +
+        v ^ 3 / (H ^ 3 * (H - v)) := by
+  field_simp
+  <;> ring
+
+#print axioms buchstab_mertens_eq_floorLi_smooth_add_innovation_at_root
+#print axioms buchstab_reciprocal_log_three_term_kernel
 #print axioms buchstab_actualPrimeTail_eq_floorLi_add_mismatch
 #print axioms buchstab_mertens_eq_floorLi_smooth_add_innovation
 #print axioms buchstab_innovation_eq_signed_high_prime_cofactor
