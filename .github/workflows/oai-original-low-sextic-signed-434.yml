@@ -62,10 +62,10 @@ jobs:
             oai-certified-434-pntnative-v2-${{ runner.os }}-${{ runner.arch }}-1581d4cbdd69a0faf34b2089614fe2a814316a6a-${{ hashFiles('oai-upstream/lean/lean-toolchain', 'oai-upstream/lean/lakefile.lean', 'oai-upstream/lean/lake-manifest.json', 'oai-upstream/lean/patches/**', 'scripts/apply_oai_434_upstream_patches.py') }}-progress-
       # Do not spend 90 minutes rebuilding the original OAI libraries in
       # a stacked PR. #1015 publishes the source-pinned baseline on main.
-      - name: Fail fast if no reusable original OAI dependency DAG exists
-        if: ${{ steps.oai_cache.outputs.cache-matched-key == '' }}
+      - name: Require main-published COMPLETE OAI DAG before sextic proof jobs
+        if: ${{ steps.oai_cache.outputs.cache-hit != 'true' }}
         run: |
-          echo "::error::No reusable original OAI compiled DAG. Run the main-branch OpenAI cache publisher, then rerun this proof job."
+          echo "::error::No verified COMPLETE v3 original OAI DAG; partial caches cannot safely stand in for the complete source prerequisite build. Complete main-branch publisher before rerunning."
           exit 1
       - name: Fetch Mathlib only with empty original OAI DAG
         if: ${{ steps.oai_cache.outputs.cache-hit == '' }}
