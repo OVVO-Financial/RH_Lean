@@ -47,7 +47,7 @@ permissions:
 
 concurrency:
   group: oai-gaussian-nns-typed-434-${{ github.head_ref || github.ref_name }}
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   original-oai-gaussian-nns:

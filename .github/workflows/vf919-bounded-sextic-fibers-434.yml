@@ -25,7 +25,7 @@ permissions:
 
 concurrency:
   group: native-compensated-sixth-${{ github.head_ref || github.ref_name }}
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   certified-native-sixth:
@@ -37,15 +37,8 @@ jobs:
           ref: ${{ github.event.pull_request.head.sha || github.sha }}
       - name: Setup pinned Lean 4.34.1 and Mathlib
         uses: ./.github/actions/lean-setup
-      - name: Restore verified native compiled library
-        uses: actions/cache/restore@v5
-        with:
-          path: |
-            .lake/build
-            .lake/packages/PrimeNumberTheoremAnd/.lake/build
-          key: rhlean-oai-native-v3-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-${{ hashFiles('RHLean/**/*.lean', 'scripts/compile_research_import_closure.py', 'scripts/ci/**') }}
-          restore-keys: |
-            rhlean-oai-native-v3-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-
+      - name: Restore source-pinned native RHLean baseline from main
+        uses: ./.github/actions/lean-compiled-cache
       - name: Kernel-compile native ideal classification and compensated sixth-moment Holder
         uses: ./.github/actions/research-compile
         with:
