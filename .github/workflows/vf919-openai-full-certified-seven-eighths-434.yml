@@ -129,8 +129,8 @@ jobs:
       # so publishing its partial DAG as -complete would poison reuse.
       # Failed compilation may still have thousands of valid prerequisites.
       # Keep it under a separate, immutable progress key, never a complete key.
-      - name: Preserve a partial original OpenAI DAG after a failed PR check
-        if: ${{ !cancelled() && failure() && steps.oai_cache.outcome == 'success' && steps.oai_cache.outputs.cache-hit != 'true' }}
+      - name: Preserve partial original OpenAI DAG only on true cold miss
+        if: ${{ !cancelled() && failure() && steps.oai_cache.outcome == 'success' && steps.oai_cache.outputs.cache-matched-key == '' }}
         continue-on-error: true
         uses: actions/cache/save@v5
         with:
