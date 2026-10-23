@@ -204,6 +204,170 @@ theorem oai_grouped_recombined_single_bill_l65_power_budget
     (by simpa only [add_zero] using hAmp) hTauMoment
   simpa only [add_zero] using h
 
+/-! ## Correct order of operations: first recombine, THEN bound the coefficient -/
+
+/-- Use ONE pointwise bound on the signed, already-recombined physical
+    correction.  Unlike the legacy two-bill consumer above, this statement
+    never assumes a separate upper bound on either correction summand.
+    The multiplicity moment is still an independent arithmetic obligation. -/
+theorem oai_grouped_fiber_l65_recombined_bound
+    {α : Type*} (carrier : Finset α)
+    (combined : α → ℂ) (tau : α → ℝ)
+    (A Ttau : ℝ) (hA : 0 ≤ A)
+    (htau : ∀ m ∈ carrier, 0 ≤ tau m)
+    (hCombined : ∀ m ∈ carrier, ‖combined m‖ ≤ A * tau m)
+    (hTauMoment :
+      (∑ m ∈ carrier, tau m ^ (6 / 5 : ℝ)) ^
+        (5 / 6 : ℝ) ≤ Ttau) :
+    (∑ m ∈ carrier, ‖combined m‖ ^ (6 / 5 : ℝ)) ^
+      (5 / 6 : ℝ) ≤ A * Ttau := by
+  have hZero :
+      ∀ m ∈ carrier, ‖(0 : ℂ)‖ ≤ (0 : ℝ) * tau m := by
+    simp
+  have h := oai_grouped_fiber_l65_bound
+    carrier combined (fun _ => 0) tau A 0 Ttau
+    hA (le_refl (0 : ℝ)) htau hCombined hZero hTauMoment
+  simpa only [add_zero] using h
+
+/-- The exponent-budget acceptance theorem with the CORRECT single-bill
+    hypothesis.  In particular it allows cancellation between the exact
+    ProbeLocal.first and second residuals BEFORE taking a norm.  This
+    only proves the implication from a pointwise SOURCE-specific estimate
+    and a separate tau^(6/5) moment; neither is manufactured here. -/
+theorem oai_grouped_fiber_l65_power_budget_recombined
+    {α : Type*} (carrier : Finset α)
+    (combined : α → ℂ) (tau : α → ℝ)
+    (D Z sigma c : ℝ)
+    (hD : 0 < D) (_hZ : 0 < Z)
+    (htau : ∀ m ∈ carrier, 0 ≤ tau m)
+    (hCombined :
+      ∀ m ∈ carrier,
+        ‖combined m‖ ≤
+          (D ^ (-(1 / 2 : ℝ)) * Z ^ (-sigma)) * tau m)
+    (hTauMoment :
+      (∑ m ∈ carrier, tau m ^ (6 / 5 : ℝ)) ^
+        (5 / 6 : ℝ) ≤ D ^ ((5 / 6 : ℝ) + c)) :
+    (∑ m ∈ carrier, ‖combined m‖ ^ (6 / 5 : ℝ)) ^
+      (5 / 6 : ℝ) ≤ D ^ ((1 / 3 : ℝ) + c) * Z ^ (-sigma) := by
+  have hA : 0 ≤ D ^ (-(1 / 2 : ℝ)) * Z ^ (-sigma) := by
+    positivity
+  have hBound := oai_grouped_fiber_l65_recombined_bound
+    carrier combined tau
+      (D ^ (-(1 / 2 : ℝ)) * Z ^ (-sigma))
+      (D ^ ((5 / 6 : ℝ) + c))
+      hA htau hCombined hTauMoment
+  calc
+    _ ≤ (D ^ (-(1 / 2 : ℝ)) * Z ^ (-sigma)) *
+          D ^ ((5 / 6 : ℝ) + c) := hBound
+    _ = D ^ ((1 / 3 : ℝ) + c) * Z ^ (-sigma) := by
+      have hcancel :
+          D ^ (-(1 / 2 : ℝ)) * D ^ (1 / 2 : ℝ) = 1 := by
+        rw [← Real.rpow_add hD]
+        norm_num
+      calc
+        (D ^ (-(1 / 2 : ℝ)) * Z ^ (-sigma)) *
+            D ^ ((5 / 6 : ℝ) + c) =
+            (D ^ (-(1 / 2 : ℝ)) * D ^ (1 / 2 : ℝ)) *
+              (D ^ ((1 / 3 : ℝ) + c) * Z ^ (-sigma)) := by
+            rw [show ((5 / 6 : ℝ) + c) =
+              (1 / 2 : ℝ) + ((1 / 3 : ℝ) + c) by ring,
+              Real.rpow_add hD]
+            ring
+        _ = D ^ ((1 / 3 : ℝ) + c) * Z ^ (-sigma) := by
+          rw [hcancel, one_mul]
+
+/-- Ergonomic drop-in: the two named local residuals are assembled
+    BEFORE the pointwise bound is assumed, instead of receiving
+    independent triangle-inequality estimates. -/
+theorem oai_grouped_fiber_l65_power_budget_one_bill
+    {α : Type*} (carrier : Finset α)
+    (first second : α → ℂ) (tau : α → ℝ)
+    (D Z sigma c : ℝ)
+    (hD : 0 < D) (hZ : 0 < Z)
+    (htau : ∀ m ∈ carrier, 0 ≤ tau m)
+    (hRecombined :
+      ∀ m ∈ carrier,
+        ‖first m + second m‖ ≤
+          (D ^ (-(1 / 2 : ℝ)) * Z ^ (-sigma)) * tau m)
+    (hTauMoment :
+      (∑ m ∈ carrier, tau m ^ (6 / 5 : ℝ)) ^
+        (5 / 6 : ℝ) ≤ D ^ ((5 / 6 : ℝ) + c)) :
+    (∑ m ∈ carrier, ‖first m + second m‖ ^ (6 / 5 : ℝ)) ^
+      (5 / 6 : ℝ) ≤ D ^ ((1 / 3 : ℝ) + c) * Z ^ (-sigma) :=
+  oai_grouped_fiber_l65_power_budget_recombined
+    carrier (fun m => first m + second m) tau D Z sigma c
+    hD hZ htau hRecombined hTauMoment
+
+
+/-!
+## Independent scalar one-prime dyadic rate: 7/8 versus 5/6
+
+The pointwise original-OAI one-prime remainder can cost P^(-7/8)
+on a dyadic prime-ideal band of size O(P). Even the weak cardinal bound
+#slots <= C*P then gives the true finite ell^(6/5) rate P^(-1/24).
+
+This result concerns the ONE-PRIME, NO-COFACTOR scalar band. It does not
+identify the complete Gaussian/Mellin coefficients with these b(p),
+bound effective-ideal multiplicities or prove the uniform sixth moment.
+-/
+
+/-- A genuine POWER rate for a finite one-prime band follows from the
+    7/8 pointwise power and the linear slot count.  Both hypotheses are
+    explicit, and the 1/24 comes from 7/8 - 5/6, not a target energy
+    assumption.  Actual Hecke source admission is a separate theorem. -/
+theorem oai_one_prime_dyadic_l65_power_rate
+    {α : Type*} (slots : Finset α) (b : α → ℂ)
+    (P C : ℝ)
+    (hP : 1 ≤ P) (hC : 0 ≤ C)
+    (hCard : (slots.card : ℝ) ≤ C * P)
+    (hLocal : ∀ p ∈ slots,
+      ‖b p‖ ≤ 720 * P ^ (-(7 / 8 : ℝ))) :
+    (∑ p ∈ slots, ‖b p‖ ^ (6 / 5 : ℝ)) ^ (5 / 6 : ℝ) ≤
+      720 * C ^ (5 / 6 : ℝ) * P ^ (-(1 / 24 : ℝ)) := by
+  have hP0 : 0 ≤ P := by linarith
+  have hPpos : 0 < P := by linarith
+  let A : ℝ := 720 * P ^ (-(7 / 8 : ℝ))
+  have hA : 0 ≤ A := by
+    dsimp [A]
+    positivity
+  have htau : ∀ p ∈ slots, 0 ≤ (1 : ℝ) := by
+    intro p hp
+    norm_num
+  have hPoint : ∀ p ∈ slots, ‖b p‖ ≤ A * (1 : ℝ) := by
+    intro p hp
+    simpa [A] using hLocal p hp
+  have hOneNorm :
+      (∑ p ∈ slots, (1 : ℝ) ^ (6 / 5 : ℝ)) ^ (5 / 6 : ℝ) ≤
+        (slots.card : ℝ) ^ (5 / 6 : ℝ) := by
+    simp
+  have hOnePrime := oai_grouped_fiber_l65_recombined_bound
+    slots b (fun _ => (1 : ℝ))
+    A ((slots.card : ℝ) ^ (5 / 6 : ℝ))
+    hA htau hPoint hOneNorm
+  have hCountPow :
+      (slots.card : ℝ) ^ (5 / 6 : ℝ) ≤
+        (C * P) ^ (5 / 6 : ℝ) :=
+    Real.rpow_le_rpow (Nat.cast_nonneg _) hCard (by norm_num)
+  have hSimplify :
+      P ^ (-(7 / 8 : ℝ)) * P ^ (5 / 6 : ℝ) =
+        P ^ (-(1 / 24 : ℝ)) := by
+    rw [← Real.rpow_add hPpos]
+    congr 1
+    ring
+  calc
+    _ ≤ A * (slots.card : ℝ) ^ (5 / 6 : ℝ) := hOnePrime
+    _ ≤ A * (C * P) ^ (5 / 6 : ℝ) :=
+      mul_le_mul_of_nonneg_left hCountPow hA
+    _ = 720 * C ^ (5 / 6 : ℝ) * P ^ (-(1 / 24 : ℝ)) := by
+      dsimp [A]
+      rw [Real.mul_rpow hC hP0]
+      calc
+        (720 * P ^ (-(7 / 8 : ℝ))) *
+            (C ^ (5 / 6 : ℝ) * P ^ (5 / 6 : ℝ)) =
+            720 * C ^ (5 / 6 : ℝ) *
+              (P ^ (-(7 / 8 : ℝ)) * P ^ (5 / 6 : ℝ)) := by ring
+        _ = _ := by rw [hSimplify]
+
 end RHLean.Analysis
 
 #print axioms RHLean.Analysis.oai_grouped_fiber_l65_bound
@@ -211,3 +375,7 @@ end RHLean.Analysis
 
 #print axioms RHLean.Analysis.oai_grouped_recombined_single_bill_l65_bound
 #print axioms RHLean.Analysis.oai_grouped_recombined_single_bill_l65_power_budget
+#print axioms RHLean.Analysis.oai_grouped_fiber_l65_recombined_bound
+#print axioms RHLean.Analysis.oai_grouped_fiber_l65_power_budget_recombined
+#print axioms RHLean.Analysis.oai_grouped_fiber_l65_power_budget_one_bill
+#print axioms RHLean.Analysis.oai_one_prime_dyadic_l65_power_rate
