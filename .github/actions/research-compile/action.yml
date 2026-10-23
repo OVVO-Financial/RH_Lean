@@ -10,6 +10,24 @@ inputs:
 runs:
   using: composite
   steps:
+    - name: Probe existing complete native RHLean library
+      id: native_probe
+      shell: bash
+      run: |
+        if [[ -s .lake/build/lib/lean/RHLean.olean ]]; then
+          echo 'present=true' >> "$GITHUB_OUTPUT"
+          echo "Native RHLean compiled root already present; skipping fallback download"
+        else
+          echo 'present=false' >> "$GITHUB_OUTPUT"
+        fi
+    - name: Restore source-addressed native library from trusted main if missing
+      if: ${{ steps.native_probe.outputs.present != 'true' }}
+      uses: actions/cache/restore@v5
+      with:
+        path: .lake/build
+        key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'RHLean.lean', 'RHLean/**/*.lean') }}
+        restore-keys: |
+          rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-
     - name: Plan research imports and cache identity
       id: plan
       shell: bash

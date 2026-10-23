@@ -59,14 +59,9 @@ jobs:
           set -euo pipefail
           test "$(git -C oai-upstream rev-parse HEAD)" = "1581d4cbdd69a0faf34b2089614fe2a814316a6a"
           test "$(cat oai-upstream/lean/lean-toolchain)" = "leanprover/lean4:v4.34.1"
-      - name: Restore native library and shared PNT build artifacts
+      - name: Restore main-branch native RHLean and shared unpatched Wiener
         id: native_cache
-        uses: actions/cache/restore@v5
-        with:
-          path: |
-            .lake/build
-            .lake/packages/PrimeNumberTheoremAnd/.lake/build
-          key: rhlean-oai-native-v2-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'RHLean/**/*.lean', 'scripts/compile_research_import_closure.py', 'scripts/ci/**') }}
+        uses: ./.github/actions/lean-compiled-cache
       # Lean resolves a package root from ONE search-path entry. RH_PATH comes
       # first and supplies StrongPNT for the native converse, so it must also
       # supply Wiener for the OAI imports. OpenAI's chain is compiled below
@@ -88,37 +83,16 @@ jobs:
           targets: >-
             research/VF_919_SEVEN_EIGHTHS_SIGNED_COVARIANCE_20261019.lean
             research/VF_919_SEVEN_EIGHTHS_SQUARE_SHELL_BRIDGE_20261019.lean
-      - name: Save native prerequisites before any downstream proof work
-        if: ${{ steps.native_cache.outputs.cache-hit != 'true' }}
-        continue-on-error: true
-        uses: actions/cache/save@v5
-        with:
-          path: |
-            .lake/build
-            .lake/packages/PrimeNumberTheoremAnd/.lake/build
-          key: ${{ steps.native_cache.outputs.cache-primary-key }}
+      # The existing lean.yml/main job publishes native libraries; avoid
+      # allocating another multi-gigabyte PR-scoped RHLean cache.
       # Cache identity is independent of the RH_Lean PR commit. Only the
       # pinned upstream source, toolchain, dependency pins and patches matter.
       # Restore after checkout, so checkout's clean operation cannot erase it.
-      - name: Restore pinned original OpenAI build and dependency traces
+      - name: Restore verified original OpenAI compiled baseline from main
         id: oai_cache
-        uses: actions/cache/restore@v5
-        with:
-          path: oai-upstream/lean/.lake
-          key: oai-certified-434-pntnative-v2-${{ runner.os }}-${{ runner.arch }}-1581d4cbdd69a0faf34b2089614fe2a814316a6a-${{ hashFiles('oai-upstream/lean/lean-toolchain', 'oai-upstream/lean/lakefile.lean', 'oai-upstream/lean/lake-manifest.json', 'oai-upstream/lean/patches/**', 'scripts/apply_oai_434_upstream_patches.py') }}-complete
-          restore-keys: |
-            oai-certified-434-pntnative-v2-${{ runner.os }}-${{ runner.arch }}-1581d4cbdd69a0faf34b2089614fe2a814316a6a-${{ hashFiles('oai-upstream/lean/lean-toolchain', 'oai-upstream/lean/lakefile.lean', 'oai-upstream/lean/lake-manifest.json', 'oai-upstream/lean/patches/**', 'scripts/apply_oai_434_upstream_patches.py') }}-progress-
-      - name: Fetch pinned original OpenAI dependencies on a cold or partial cache
-        if: ${{ steps.oai_cache.outputs.cache-hit != 'true' }}
-        shell: bash
-        working-directory: oai-upstream/lean
-        run: |
-          set -euo pipefail
-          lake exe cache get
-      - name: Apply upstream OpenAI Lean 4.34.1 dependency patches (lake post_update)
-        id: oai_patches
-        run: python3 scripts/apply_oai_434_upstream_patches.py oai-upstream/lean --keep-pinned PrimeNumberTheoremAnd
+        uses: ./.github/actions/oai-434-shared-cache
       - name: Kernel-check patched pinned Rellich prerequisites before full OpenAI DAG
+        if: ${{ steps.oai_cache.outputs.complete != 'true' }}
         shell: bash
         working-directory: oai-upstream/lean
         run: |
@@ -131,6 +105,7 @@ jobs:
       # PrimeCounting/Progressions imports only PNT Wiener and uses each
       # Wiener declaration OpenAI needs; fail here, not after the full DAG.
       - name: Preflight OpenAI's PNT Wiener consumers against native PNT
+        if: ${{ steps.oai_cache.outputs.complete != 'true' }}
         shell: bash
         working-directory: oai-upstream/lean
         run: |
@@ -139,6 +114,7 @@ jobs:
       # Always invoke Lake, including on a cache hit. Its dependency traces
       # determine what must be rebuilt; a cache hit is not proof acceptance.
       - name: Compile entire original OpenAI moment and final detector chain
+        if: ${{ steps.oai_cache.outputs.complete != 'true' }}
         id: oai_build
         shell: bash
         working-directory: oai-upstream/lean
@@ -146,24 +122,18 @@ jobs:
           set -euo pipefail
           lake build OAI.NumberTheory.DirichletL.Detector.FinalAssemblyUnconditional
           test -s .lake/build/lib/lean/OAI/NumberTheory/DirichletL/Detector/FinalAssemblyUnconditional.olean
-      # Explicit save MUST precede the RH_Lean leaf check. A downstream
-      # elaboration error must not discard a successfully completed OAI DAG.
-      - name: Save completed original OpenAI DAG BEFORE the native theorem check
-        if: ${{ !cancelled() && steps.oai_build.outcome == 'success' && steps.oai_cache.outputs.cache-hit != 'true' }}
-        continue-on-error: true
-        uses: actions/cache/save@v5
-        with:
-          path: oai-upstream/lean/.lake
-          key: ${{ steps.oai_cache.outputs.cache-primary-key }}
+      # ONLY the main-branch foundation publisher may write v3 -complete.
+      # This consumer does not necessarily compile Gaussian/FreeRow siblings,
+      # so publishing its partial DAG as -complete would poison reuse.
       # Failed compilation may still have thousands of valid prerequisites.
       # Keep it under a separate, immutable progress key, never a complete key.
-      - name: Save partial original OpenAI build after an upstream failure
-        if: ${{ !cancelled() && failure() && steps.oai_patches.outcome == 'success' && steps.oai_build.outcome != 'success' && steps.oai_cache.outputs.cache-hit != 'true' }}
+      - name: Preserve partial original OpenAI DAG only on true cold miss
+        if: ${{ !cancelled() && failure() && steps.oai_cache.outcome == 'success' && steps.oai_cache.outputs.cache-matched-key == '' }}
         continue-on-error: true
         uses: actions/cache/save@v5
         with:
           path: oai-upstream/lean/.lake
-          key: oai-certified-434-pntnative-v2-${{ runner.os }}-${{ runner.arch }}-1581d4cbdd69a0faf34b2089614fe2a814316a6a-${{ hashFiles('oai-upstream/lean/lean-toolchain', 'oai-upstream/lean/lakefile.lean', 'oai-upstream/lean/lake-manifest.json', 'oai-upstream/lean/patches/**', 'scripts/apply_oai_434_upstream_patches.py') }}-progress-${{ github.run_id }}-${{ github.run_attempt }}
+          key: oai-certified-434-pntnative-v3-${{ runner.os }}-${{ runner.arch }}-1581d4cbdd69a0faf34b2089614fe2a814316a6a-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'oai-upstream/lean/lean-toolchain', 'oai-upstream/lean/lakefile.lean', 'oai-upstream/lean/lake-manifest.json', 'oai-upstream/lean/patches/**', 'scripts/apply_oai_434_upstream_patches.py') }}-progress-${{ github.run_id }}-${{ github.run_attempt }}
       - name: KERNEL-CHECK native UNCONDITIONAL signed covariance and ALL square-block bounds
         id: native_theorem
         shell: bash
