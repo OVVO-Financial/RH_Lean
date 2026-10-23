@@ -358,8 +358,8 @@ jobs:
             research/oai_434/VF919OriginalDetectorResonantFibers.lean \
             | tee /tmp/oai-original-detector-resonant-fibers.log
           if grep -E 'sorryAx|admitAx|_private' /tmp/oai-original-detector-resonant-fibers.log; then exit 1; fi
-      - name: Save a partial OAI DAG only after a failed uncached check
-        if: ${{ !cancelled() && failure() && steps.oai_cache.outcome == 'success' && steps.oai_cache.outputs.cache-hit != 'true' }}
+      - name: Save partial OAI DAG only on first cold miss (avoid 3.3GB duplicate caches)
+        if: ${{ !cancelled() && failure() && steps.oai_cache.outcome == 'success' && steps.oai_cache.outputs.cache-matched-key == '' }}
         continue-on-error: true
         uses: actions/cache/save@v5
         with:
