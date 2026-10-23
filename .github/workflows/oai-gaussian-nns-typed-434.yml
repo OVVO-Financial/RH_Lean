@@ -133,6 +133,8 @@ jobs:
             OAI.NumberTheory.DirichletL.Detector.EulerCoordinates
           test -s .lake/build/lib/lean/OAI/NumberTheory/DirichletL/Hecke/InverseAmplificationRows.olean
       - name: KERNEL-CHECK original FreeRow ideal base-3 and true cubic mask
+        id: verify_cube
+        continue-on-error: true
         shell: bash
         run: |
           set -euo pipefail
@@ -208,6 +210,8 @@ jobs:
       # `research.oai_434.Foo.olean` (as the native research compiler does),
       # not under the nested source tree `research/oai_434/Foo.olean`.
       - name: KERNEL-CHECK ORIGINAL actualSextic local classification and two-bill compensation
+        id: verify_actual
+        continue-on-error: true
         shell: bash
         run: |
           set -euo pipefail
@@ -232,6 +236,8 @@ jobs:
           lake build OAI.NumberTheory.DirichletL.Detector.HighRowsSelectedUnramified
           test -s .lake/build/lib/lean/OAI/NumberTheory/DirichletL/Detector/HighRowsSelectedUnramified.olean
       - name: KERNEL-CHECK original one-prime signed compensation power diagnostic
+        id: verify_oneprime
+        continue-on-error: true
         shell: bash
         run: |
           set -euo pipefail
@@ -248,6 +254,8 @@ jobs:
             exit 1
           fi
       - name: KERNEL-CHECK original OAI type specialization and NNS
+        id: verify_typed
+        continue-on-error: true
         shell: bash
         run: |
           set -euo pipefail
@@ -264,6 +272,8 @@ jobs:
             exit 1
           fi
       - name: KERNEL-CHECK original GaussianSubset compensated resonant fiber regrouping
+        id: verify_fibers
+        continue-on-error: true
         shell: bash
         run: |
           set -euo pipefail
@@ -277,6 +287,8 @@ jobs:
             | tee /tmp/oai-original-gaussian-resonant-fibers.log
           if grep -E 'sorryAx|admitAx|_private' /tmp/oai-original-gaussian-resonant-fibers.log; then exit 1; fi
       - name: KERNEL-CHECK exact ORIGINAL Gaussian resonance plus sextic defect
+        id: verify_sextic
+        continue-on-error: true
         shell: bash
         run: |
           set -euo pipefail
@@ -298,6 +310,8 @@ jobs:
           test -s .lake/build/lib/lean/OAI/NumberTheory/DirichletL/Detector/DetectorPlainMarkedFineField.olean
       # A failed uncached run retains a single partial checkpoint at the end.
       - name: KERNEL-CHECK exact original detector ideal columns into NNS CoDiv
+        id: verify_detector
+        continue-on-error: true
         shell: bash
         run: |
           set -euo pipefail
@@ -314,6 +328,8 @@ jobs:
             exit 1
           fi
       - name: KERNEL-CHECK ORIGINAL ideal pair sextic source defect and phase gate
+        id: verify_defect
+        continue-on-error: true
         shell: bash
         run: |
           set -euo pipefail
@@ -330,6 +346,8 @@ jobs:
             exit 1
           fi
       - name: KERNEL-CHECK independent sharper source moment IN NNS coordinates
+        id: verify_marked
+        continue-on-error: true
         shell: bash
         run: |
           set -euo pipefail
@@ -346,6 +364,8 @@ jobs:
             exit 1
           fi
       - name: KERNEL-CHECK original finite ideal-column resonant fiber grouping
+        id: verify_resonant
+        continue-on-error: true
         shell: bash
         run: |
           set -euo pipefail
@@ -358,6 +378,32 @@ jobs:
             research/oai_434/VF919OriginalDetectorResonantFibers.lean \
             | tee /tmp/oai-original-detector-resonant-fibers.log
           if grep -E 'sorryAx|admitAx|_private' /tmp/oai-original-detector-resonant-fibers.log; then exit 1; fi
+      # Every individual proof check remains mandatory. Do not short-circuit
+      # on the first failed leaf after expensive source DAG compilation.
+      - name: Enforce every independent original OAI kernel and axiom check
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          bad=0
+          for result in \
+            "cube=${{ steps.verify_cube.outcome }}" \
+            "actual=${{ steps.verify_actual.outcome }}" \
+            "oneprime=${{ steps.verify_oneprime.outcome }}" \
+            "typed=${{ steps.verify_typed.outcome }}" \
+            "fibers=${{ steps.verify_fibers.outcome }}" \
+            "sextic=${{ steps.verify_sextic.outcome }}" \
+            "detector=${{ steps.verify_detector.outcome }}" \
+            "defect=${{ steps.verify_defect.outcome }}" \
+            "marked=${{ steps.verify_marked.outcome }}" \
+            "resonant=${{ steps.verify_resonant.outcome }}"
+          do
+            if [[ "${result#*=}" != success ]]; then
+              echo "::error::Original proof check not green: $result"
+              bad=1
+            fi
+          done
+          exit "$bad"
       - name: Save partial OAI DAG only on first cold miss (avoid 3.3GB duplicate caches)
         if: ${{ !cancelled() && failure() && steps.oai_cache.outcome == 'success' && steps.oai_cache.outputs.cache-matched-key == '' }}
         continue-on-error: true
