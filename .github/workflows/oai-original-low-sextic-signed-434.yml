@@ -4,7 +4,9 @@ on:
   pull_request:
     paths:
       - 'research/oai_434/VF919OriginalSignedSexticLowResidueCompletion.lean'
+      - 'research/oai_434/VF919OriginalLowGaussSexticPhase.lean'
       - 'scripts/oai_sextic_sixfree_residue_completion_probe.py'
+      - 'scripts/oai_original_low_gauss_smooth_completion_probe.py'
       - '.github/workflows/oai-original-low-sextic-signed-434.yml'
       - 'research/OAI_ORIGINAL_SIGNED_SIXFREE_LOW_COMPLETION_20261022.md'
   workflow_dispatch:
@@ -75,5 +77,17 @@ jobs:
           lake env lean -DwarningAsError=true VF919OriginalSignedSexticLowResidueCompletion.lean 2>&1 | tee /tmp/oai-low-sixth-signed.log
           if grep -E 'sorryAx|admitAx|_private' /tmp/oai-low-sixth-signed.log; then
             echo "Unexpected source axiom or private proof" >&2
+            exit 1
+          fi
+
+      - name: KERNEL check genuine original low sextic Gauss coefficient
+        shell: bash
+        run: |
+          set -euo pipefail
+          cp research/oai_434/VF919OriginalLowGaussSexticPhase.lean oai-upstream/lean/VF919OriginalLowGaussSexticPhase.lean
+          cd oai-upstream/lean
+          lake env lean -DwarningAsError=true VF919OriginalLowGaussSexticPhase.lean 2>&1 | tee /tmp/oai-low-gauss-phase.log
+          if grep -E 'sorryAx|admitAx|_private' /tmp/oai-low-gauss-phase.log; then
+            echo "Unexpected axiom in actual low sextic Gauss source" >&2
             exit 1
           fi
