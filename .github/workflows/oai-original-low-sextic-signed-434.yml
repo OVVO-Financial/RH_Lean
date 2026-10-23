@@ -1,0 +1,79 @@
+name: OAI genuine sextic low signed completion 4.34.1
+
+on:
+  pull_request:
+    paths:
+      - 'research/oai_434/VF919OriginalSignedSexticLowResidueCompletion.lean'
+      - 'scripts/oai_sextic_sixfree_residue_completion_probe.py'
+      - '.github/workflows/oai-original-low-sextic-signed-434.yml'
+      - 'research/OAI_ORIGINAL_SIGNED_SIXFREE_LOW_COMPLETION_20261022.md'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: oai-low-signed-${{ github.head_ref || github.ref_name }}
+  cancel-in-progress: true
+
+jobs:
+  sixthfree-direct-arithmetic:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+      - name: Genuine primary Eisenstein sextic and sixth-power-divisibility test
+        run: python3 scripts/oai_sextic_sixfree_residue_completion_probe.py
+
+  original-sextic-source-lean:
+    runs-on: ubuntu-latest
+    timeout-minutes: 110
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: openai/math
+          ref: 1581d4cbdd69a0faf34b2089614fe2a814316a6a
+          path: oai-upstream
+          persist-credentials: false
+      - name: Install Lean v4.34.1
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl -fsSL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+      - name: Restore trusted original OAI DAG cache
+        id: oai_cache
+        uses: actions/cache/restore@v5
+        with:
+          path: oai-upstream/lean/.lake
+          key: oai-certified-434-pntnative-v2-${{ runner.os }}-${{ runner.arch }}-1581d4cbdd69a0faf34b2089614fe2a814316a6a-${{ hashFiles('oai-upstream/lean/lean-toolchain', 'oai-upstream/lean/lakefile.lean', 'oai-upstream/lean/lake-manifest.json', 'oai-upstream/lean/patches/**', 'scripts/apply_oai_434_upstream_patches.py') }}-complete
+          restore-keys: |
+            oai-certified-434-pntnative-v2-${{ runner.os }}-${{ runner.arch }}-1581d4cbdd69a0faf34b2089614fe2a814316a6a-${{ hashFiles('oai-upstream/lean/lean-toolchain', 'oai-upstream/lean/lakefile.lean', 'oai-upstream/lean/lake-manifest.json', 'oai-upstream/lean/patches/**', 'scripts/apply_oai_434_upstream_patches.py') }}-progress-marked-
+            oai-certified-434-pntnative-v2-${{ runner.os }}-${{ runner.arch }}-1581d4cbdd69a0faf34b2089614fe2a814316a6a-${{ hashFiles('oai-upstream/lean/lean-toolchain', 'oai-upstream/lean/lakefile.lean', 'oai-upstream/lean/lake-manifest.json', 'oai-upstream/lean/patches/**', 'scripts/apply_oai_434_upstream_patches.py') }}-progress-gaussian-
+            oai-certified-434-pntnative-v2-${{ runner.os }}-${{ runner.arch }}-1581d4cbdd69a0faf34b2089614fe2a814316a6a-${{ hashFiles('oai-upstream/lean/lean-toolchain', 'oai-upstream/lean/lakefile.lean', 'oai-upstream/lean/lake-manifest.json', 'oai-upstream/lean/patches/**', 'scripts/apply_oai_434_upstream_patches.py') }}-progress-
+      - name: Fetch Mathlib only with empty original OAI DAG
+        if: ${{ steps.oai_cache.outputs.cache-hit == '' }}
+        working-directory: oai-upstream/lean
+        run: lake exe cache get
+      - name: Apply original compatibility patches (retain pinned dependencies)
+        shell: bash
+        run: python3 scripts/apply_oai_434_upstream_patches.py oai-upstream/lean --keep-pinned PrimeNumberTheoremAnd
+      - name: Compile TRUE OAI sextic residue character authority
+        working-directory: oai-upstream/lean
+        shell: bash
+        run: |
+          set -euo pipefail
+          lake build OAI.NumberTheory.DirichletL.Moments.Unequal
+          test -s .lake/build/lib/lean/OAI/NumberTheory/DirichletL/Moments/Unequal.olean
+      - name: KERNEL check nonprincipal sixth-phase weight payment
+        shell: bash
+        run: |
+          set -euo pipefail
+          cp research/oai_434/VF919OriginalSignedSexticLowResidueCompletion.lean oai-upstream/lean/VF919OriginalSignedSexticLowResidueCompletion.lean
+          cd oai-upstream/lean
+          lake env lean -DwarningAsError=true VF919OriginalSignedSexticLowResidueCompletion.lean 2>&1 | tee /tmp/oai-low-sixth-signed.log
+          if grep -E 'sorryAx|admitAx|_private' /tmp/oai-low-sixth-signed.log; then
+            echo "Unexpected source axiom or private proof" >&2
+            exit 1
+          fi
