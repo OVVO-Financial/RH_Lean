@@ -33,4 +33,14 @@ runs:
           echo 'affected=true' >> "$GITHUB_OUTPUT"
           exit 0
         fi
-        python3 scripts/compile_research_import_closure.py --affected-files /tmp/rhlean-research-changed.txt
+        # A new/edited workflow is only an input to THAT workflow's proof gate.
+        # Do not make every unrelated research target rebuild for another
+        # workflow's YAML. A routing-only change here changes no Lean theorem.
+        workflow_path="${GITHUB_WORKFLOW_REF#${GITHUB_REPOSITORY}/}"
+        workflow_path="${workflow_path%@*}"
+        awk -v own_workflow="$workflow_path" '
+          /^\.github\/workflows\// && $0 != own_workflow { next }
+          $0 == ".github/actions/research-affected/action.yml" { next }
+          { print }
+        ' /tmp/rhlean-research-changed.txt > /tmp/rhlean-research-scoped.txt
+        python3 scripts/compile_research_import_closure.py --affected-files /tmp/rhlean-research-scoped.txt
