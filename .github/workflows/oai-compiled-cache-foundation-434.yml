@@ -115,7 +115,7 @@ jobs:
       # Only failed builds get a partial checkpoint; do NOT create a second
       # multi-GB progress snapshot when a full cache was published.
       - name: Preserve partial DAG exclusively after a failed cold baseline build
-        if: ${{ !cancelled() && failure() && steps.oai.outcome == 'success' && steps.oai.outputs.cache-hit != 'true' }}
+        if: ${{ !cancelled() && failure() && steps.oai.outcome == 'success' && steps.oai.outputs.cache-matched-key == '' }}
         continue-on-error: true
         uses: actions/cache/save@v5
         with:
