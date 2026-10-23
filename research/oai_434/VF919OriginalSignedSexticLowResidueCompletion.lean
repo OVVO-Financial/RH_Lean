@@ -23,6 +23,8 @@ open scoped Classical BigOperators
 namespace SevenEighths.LowSignedSixthCompletion
 open ActualEisensteinCubic
 open SevenEighths.CenteredMomentUnequal
+open SevenEighths.CenteredMomentCanonical
+open CompletedGauss ConcretePrimeRowBridge
 
 /-- Exact signed annihilation of a constant physical weight on the
 complete original lifted sextic residue family. This is the ORIGINAL
