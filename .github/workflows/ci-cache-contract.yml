@@ -1,0 +1,27 @@
+name: Prevent new cold-only Lean and OpenAI CI
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/**'
+      - '.github/actions/**'
+      - 'scripts/ci/check_lean_cache_contract.py'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout complete changes and base branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Inspect touched Lean workflows for pinned cache reuse
+        shell: bash
+        env:
+          BASE: ${{ github.base_ref || 'main' }}
+        run: |
+          set -euo pipefail
+          git fetch --no-tags origin "$BASE"
+          python3 scripts/ci/check_lean_cache_contract.py --base "origin/$BASE"
