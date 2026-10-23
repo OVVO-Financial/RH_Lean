@@ -1,0 +1,69 @@
+name: Frozen-cofactor OAI NNS source bridge Lean 4.34.1
+
+on:
+  pull_request:
+    paths:
+      - 'research/VF_919_FROZEN_COFACTOR_OAI_NNS_RESPONSE_20261023.lean'
+      - 'research/VF_919_FROZEN_COFACTOR_OAI_NNS_RESPONSE_20261023.md'
+      - 'scripts/vf919_frozen_cofactor_response_audit.py'
+      - '.github/workflows/vf919-frozen-cofactor-oai-nns-434.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: frozen-cofactor-hecke-${{ github.head_ref || github.ref_name }}
+  cancel-in-progress: true
+
+jobs:
+  exact-source:
+    runs-on: ubuntu-latest
+    timeout-minutes: 95
+    steps:
+      - uses: actions/checkout@v4
+      - name: Require pinned Lean 4.34.1
+        run: test "$(cat lean-toolchain)" = "leanprover/lean4:v4.34.1"
+      - name: Exhaustive integer source, cutoff, NNS, and restored-Hecke audit
+        run: python3 scripts/vf919_frozen_cofactor_response_audit.py
+      - name: Refuse proof holes, custom axioms, or admitted lemmas
+        run: |
+          set -euo pipefail
+          ! grep -nE '^[[:space:]]*(sorry|admit|axiom)([[:space:]]|$)' research/VF_919_FROZEN_COFACTOR_OAI_NNS_RESPONSE_20261023.lean
+      - uses: ./.github/actions/lean-setup
+      - name: Restore native library artifacts
+        uses: actions/cache/restore@v5
+        with:
+          path: |
+            .lake/build
+            .lake/packages/PrimeNumberTheoremAnd/.lake/build
+          key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-${{ hashFiles('RHLean/**/*.lean') }}
+          restore-keys: |
+            rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-
+      - name: Kernel-compile physically weighted OAI lift and marked-moment obstruction
+        uses: ./.github/actions/research-compile
+        with:
+          build-library: 'true'
+          targets: research/VF_919_FROZEN_COFACTOR_OAI_NNS_RESPONSE_20261023.lean
+      - name: Check all eight actual theorem axiom footprints
+        shell: bash
+        run: |
+          set -euo pipefail
+          lake env lean -DwarningAsError=true research/VF_919_FROZEN_COFACTOR_OAI_NNS_RESPONSE_20261023.lean > /tmp/frozen-cofactor-axioms.log 2>&1
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+          source = Path('research/VF_919_FROZEN_COFACTOR_OAI_NNS_RESPONSE_20261023.lean').read_text()
+          log = Path('/tmp/frozen-cofactor-axioms.log').read_text()
+          names = re.findall(r'^#print axioms\s+(\S+)', source, re.M)
+          assert len(names) == 8, names
+          actual = re.findall(r"'([^']+)' depends on axioms:\s*\[([^\]]*)\]", log)
+          assert len(actual) == len(names), (names, actual)
+          expected = {'RHLean.Analysis.'+name for name in names}
+          assert {name for name, _ in actual} == expected, (actual, expected)
+          allowed = {'propext', 'Classical.choice', 'Quot.sound'}
+          for name, axioms in actual:
+              found = {a.strip() for a in axioms.split(',') if a.strip()}
+              assert found <= allowed, (name, found-allowed)
+          print('PASS: 8 checked exact frozen cofactor / norm / moment-gate theorems')
+          PY
