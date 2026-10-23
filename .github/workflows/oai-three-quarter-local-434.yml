@@ -1,0 +1,81 @@
+name: OAI three-quarters actual prime local source
+on:
+  pull_request:
+    paths:
+      - 'research/oai_434/VF919OriginalVariableExponentThreeQuarters.lean'
+      - '.github/workflows/oai-three-quarter-local-434.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: oai-three-quarter-${{ github.head_ref || github.ref_name }}
+  cancel-in-progress: true
+
+jobs:
+  actual-prime-three-quarter:
+    runs-on: ubuntu-latest
+    timeout-minutes: 100
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: openai/math
+          ref: 1581d4cbdd69a0faf34b2089614fe2a814316a6a
+          path: oai-upstream
+          persist-credentials: false
+      - name: Install Lean 4.34.1
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl -fsSL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+      - name: Restore OAI packages
+        uses: actions/cache/restore@v5
+        with:
+          path: |
+            oai-upstream/lean/.lake/packages
+            oai-upstream/lean/.lake/build
+          key: oai-three-quarter-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('oai-upstream/lean/lean-toolchain', 'oai-upstream/lean/lake-manifest.json') }}
+          restore-keys: |
+            oai-three-quarter-${{ runner.os }}-${{ runner.arch }}-
+      - name: Check original Lean version and mathlib cache
+        shell: bash
+        working-directory: oai-upstream/lean
+        run: |
+          set -euo pipefail
+          test "$(cat lean-toolchain)" = "leanprover/lean4:v4.34.1"
+          lake exe cache get
+      - name: Apply pinned original dependency patches
+        run: python3 scripts/apply_oai_434_upstream_patches.py oai-upstream/lean
+      - name: Build pinned OAI Rellich support
+        shell: bash
+        working-directory: oai-upstream/lean
+        run: |
+          set -euo pipefail
+          lake build \
+            RellichKondrachov.Analysis.FunctionalSpaces.Sobolev.Euclidean.TranslationEstimateL2 \
+            RellichKondrachov.Analysis.FunctionalSpaces.Sobolev.Euclidean.L2Compactness.Approximation \
+            RellichKondrachov.Analysis.FunctionalSpaces.Sobolev.Euclidean.L2Compactness.ArzelaAscoli \
+            RellichKondrachov.Analysis.FunctionalSpaces.Sobolev.Euclidean.L2Compactness.Transfer
+      - name: Build original prime row contour source
+        shell: bash
+        working-directory: oai-upstream/lean
+        run: |
+          set -euo pipefail
+          lake build OAI.NumberTheory.DirichletL.PrimeRows.CentralSlots
+      - name: Verify real a=3/4 ideal-row rate, no sorry
+        shell: bash
+        run: |
+          set -euo pipefail
+          cp research/oai_434/VF919OriginalVariableExponentThreeQuarters.lean \
+            oai-upstream/lean/VF919OriginalVariableExponentThreeQuarters.lean
+          cd oai-upstream/lean
+          lake env lean -DwarningAsError=true VF919OriginalVariableExponentThreeQuarters.lean 2>&1 \
+            | tee /tmp/oai-a075.txt
+          grep -q 'actual_central_unramified_three_quarters' VF919OriginalVariableExponentThreeQuarters.lean
+          if grep -E 'sorryAx|admitAx|_private' /tmp/oai-a075.txt; then
+            echo "Unexpected axiom or private proof!" >&2
+            exit 1
+          fi
