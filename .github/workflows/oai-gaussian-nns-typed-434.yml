@@ -81,6 +81,20 @@ jobs:
       - name: Restore compiled native RHLean plus unpatched Wiener from main
         id: native_cache
         uses: ./.github/actions/lean-compiled-cache
+      # The trusted main cache can legitimately miss (new source version or
+      # cache eviction). Preserve the expensive imported DAG on THIS PR too.
+      # This key is a partial/work cache, NEVER an accepted full-library cache.
+      - name: Restore verified PR-local native imported library if main missed
+        id: native_import_cache
+        if: ${{ steps.native_cache.outputs.native-matched-key == '' }}
+        uses: actions/cache/restore@v5
+        with:
+          path: |
+            .lake/build
+            .lake/packages/PrimeNumberTheoremAnd/.lake/build
+          key: rhlean-oai-imports-v1-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-${{ hashFiles('RHLean.lean', 'RHLean/**/*.lean', 'scripts/compile_research_import_closure.py') }}
+          restore-keys: |
+            rhlean-oai-imports-v1-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-
       - name: Build original native PNT Wiener before shared-path setup
         run: |
           set -euo pipefail
@@ -108,6 +122,14 @@ jobs:
           python3 scripts/compile_research_import_closure.py --library-only
       # Verified native imports come from the main cache. Changed research
       # leaves remain warning-fatal kernel-checked by research-compile.
+      - name: Checkpoint compiled PR-local native imports BEFORE leaf research
+        if: ${{ !cancelled() && steps.native_import_cache.outcome == 'success' && steps.native_import_cache.outputs.cache-hit != 'true' && steps.native_cache.outputs.native-matched-key == '' }}
+        uses: actions/cache/save@v5
+        with:
+          path: |
+            .lake/build
+            .lake/packages/PrimeNumberTheoremAnd/.lake/build
+          key: ${{ steps.native_import_cache.outputs.cache-primary-key }}
       - name: Kernel-check ONLY new / changed signed NNS research sources
         uses: ./.github/actions/research-compile
         with:
