@@ -302,7 +302,7 @@ private theorem primeSieveHighSource_to_pair_mem
   · exact ⟨hqPrime, by simpa [hprod] using! hmx⟩
 
 private theorem primeSieveHighSource_pair_injective
-    {y x m n : ℕ} (hm : m ∈ primeSieveHighSourceSet y x)
+    {y x m n : ℕ} (hy : 1 ≤ y) (hm : m ∈ primeSieveHighSourceSet y x)
     (hn : n ∈ primeSieveHighSourceSet y x)
     (hpair :
       (canonicalCofactor m, canonicalLargestPrimeFactor m) =
@@ -378,7 +378,7 @@ theorem sum_primeSieveHighSourceSet_eq_pairProducts_of_sqrt_le
   refine Finset.sum_bij
     (fun m _hm => (canonicalCofactor m, canonicalLargestPrimeFactor m))
     (fun m hm => primeSieveHighSource_to_pair_mem hy hm)
-    (fun m hm n hn hmn => primeSieveHighSource_pair_injective hm hn hmn)
+    (fun m hm n hn hmn => primeSieveHighSource_pair_injective hy hm hn hmn)
     (fun cq hcq => by simpa using! primeSievePair_surjective hroot cq hcq)
     ?_
   intro m hm
