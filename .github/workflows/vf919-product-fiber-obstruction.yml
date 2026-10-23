@@ -1,0 +1,47 @@
+name: Grouped product-fiber obstruction Lean
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - "research/VF_919_OAI_PRODUCT_FIBER_OBSTRUCTION_20261023.lean"
+      - ".github/workflows/vf919-product-fiber-obstruction.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  lean:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - name: Restore Lake packages
+        uses: actions/cache/restore@v5
+        with:
+          path: .lake/packages
+          key: lake-packages-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
+      - uses: leanprover/lean-action@v1
+        with:
+          use-github-cache: false
+          use-mathlib-cache: true
+          build: false
+          test: false
+          lint: false
+      - name: Check grouped product-fiber obstruction with warnings fatal
+        run: |
+          mkdir -p .lake/build/lib/lean
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.VF_919_OAI_PRODUCT_FIBER_OBSTRUCTION_20261023.olean \
+            research/VF_919_OAI_PRODUCT_FIBER_OBSTRUCTION_20261023.lean
+      - name: Audit theorem axioms
+        run: |
+          printf 'import «research.VF_919_OAI_PRODUCT_FIBER_OBSTRUCTION_20261023»\n#print axioms RHLean.Analysis.productFiber_unweighted_degree_le\n#print axioms RHLean.Analysis.productFiber_weighted_degree_le\n#print axioms RHLean.Analysis.productFiber_unit_cap_arbitrary_degree\n' \
+            >/tmp/product_fiber_axioms.lean
+          lake env lean -DwarningAsError=true /tmp/product_fiber_axioms.lean
+          if grep -R -nE '\\b(sorry|admit)\\b' \
+              research/VF_919_OAI_PRODUCT_FIBER_OBSTRUCTION_20261023.lean; then
+            echo "Forbidden proof placeholder found." >&2
+            exit 1
+          fi
