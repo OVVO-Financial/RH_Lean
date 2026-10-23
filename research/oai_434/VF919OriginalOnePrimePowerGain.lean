@@ -96,7 +96,6 @@ theorem oai_one_prime_actual_marked_error_power
       _ ≤ Q ^ c := Real.rpow_le_rpow_of_exponent_le hQ1 he
   have hRT : ‖R‖ ≤ T := by
     exact hR.trans (Real.rpow_le_rpow_of_exponent_le hQ1 (by
-      dsimp [T]
       linarith))
   have hKV : ‖K‖ * ‖V‖ ≤ T := by
     have hVle : ‖V‖ ≤ Q ^ (-6 * z.re) := hV.le
