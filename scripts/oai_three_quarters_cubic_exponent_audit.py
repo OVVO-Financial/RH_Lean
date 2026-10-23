@@ -70,26 +70,33 @@ print(f"a=3/4, z=17/50, e=0 absolute tiers: {at_zero}")
 print(f"a=3/4, z=17/50, e=1/1000 absolute tiers: {at_max}")
 print("PASS: local exponent arithmetic. Does not imply a full-source power saving.")
 
-# Fourth-moment replacement for the missing per-fiber spread estimate:
-# H(u)^2 reindexes as a cubic character sum over cube-free p*q, norm P^2.
-# Collision cap <=2 gives squared pair coefficients P^(2-4a).
-def cubic_pair_fourth_exponents(a: F, k: F):
+# Correct fourth-moment route for ORIGINAL SIXTH-FREE rows:
+# H(u)^2 lives on paired cubic moduli N~P^2. Cube-root row fibers c^3*u0
+# must still be summed: #fibers << U^(1/3), NOT 1. This adds U^(1/3)P^2.
+# Pair coefficients sum |b_m|^2 <= 2*(sum |alpha_p|^2)^2 ~ P^(2-4a).
+def cubic_pair_fourth_sixth_free_exponents(a: F, k: F):
     return {
-        "rows": 2-4*a,
-        "pair_modulus": 2-4*a + 2-k,
-        "mixed": 2-4*a + F(2,3)*(k+2)-k,
+        "row": 2-4*a,
+        "cube_root_count": 4-4*a-F(2,3)*k,
+        "mixed": F(10,3)-4*a-k/F(3),
     }
 
-for k, expected_fourth, delta_threshold in [
-    (F(5,4),F(-1,12),F(1,15)),
-    (F(2),F(-1,3),F(1,6)),
-]:
-    four=cubic_pair_fourth_exponents(A,k)
-    assert max(four.values()) == expected_fourth, (k,four)
-    # Physical W-fourth overhead U^delta; Holder square root gives
-    # energy / U exponent <= (k*delta+expected_fourth)/2.
-    assert (k*delta_threshold + expected_fourth)/2 == 0
-    assert (k*0 + expected_fourth)/2 < 0
-    print(f"U=P^{k} pair-lift cubic H^4/U: {four} -> P^{expected_fourth}; "
-          f"weighted energy power survives when delta < {delta_threshold}")
-print("PASS: exact pair-lift arithmetic; physical fourth moment/family matching still open.")
+expected = [
+    (F(5,4), F(1,6), None),      # NO GAIN: cube-root fibers win
+    (F(2), F(-1,3), F(1,6)),    # quartic gain -> weighted gain
+    (F(9,2), F(-1), F(2,9)),    # original marked-width aperture cap
+]
+for k, exponent, delta_limit in expected:
+    four=cubic_pair_fourth_sixth_free_exponents(A,k)
+    assert max(four.values()) == exponent, (k,four,exponent)
+    if delta_limit is not None:
+        # Weighted fourth->second Holder: exponent (quartic + k*delta)/2
+        assert (k*delta_limit+exponent)/2 == 0
+        assert exponent/2 < 0
+    else:
+        assert exponent > 0
+    print(f"U=P^{k} actual SIXTH-FREE pair-cubic H^4/U: {four}; worst={exponent}; "
+          f"physical W fourth-moment delta limit={delta_limit}")
+assert F(6)*(F(3,4))*F(2,9) == 1
+print("PASS: actual cube-root fibers retained; 5/4 is NOT a quartic saving; "
+      "9/2 is the marked-width aperture threshold under m,Delta>=0.")
