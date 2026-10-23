@@ -455,12 +455,12 @@ theorem oai_actual_BKV_leading_phase_free
   rw [hQcast]
   calc
     (star eta * (Q : ℂ) ^ x) *
-        (eta * ((Q - 1 : ℝ) : ℂ) * (Q : ℂ) ^ (-x - w)) *
+        (eta * ((Q : ℂ) - 1) * (Q : ℂ) ^ (-x - w)) *
         coordV Q z =
-      (star eta * eta) * ((Q - 1 : ℝ) : ℂ) *
+      (star eta * eta) * ((Q : ℂ) - 1) *
         ((Q : ℂ) ^ x * (Q : ℂ) ^ (-x - w)) *
         coordV Q z := by ring
-    _ = ((Q - 1 : ℝ) : ℂ) * (Q : ℂ) ^ (-w) *
+    _ = ((Q : ℂ) - 1) * (Q : ℂ) ^ (-w) *
         coordV Q z := by rw [hunit, hpow]; ring
 
 end SevenEighths.ProbeEuler
