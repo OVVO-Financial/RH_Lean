@@ -107,7 +107,7 @@ theorem oai_one_prime_actual_marked_error_power
   have hKVpow :
       ‖K‖ * ‖V‖ ≤ Q ^ (1 - x.re - w.re - 6 * z.re) := by
     exact hprod _ _ _ _ _ (norm_nonneg _) (norm_nonneg _)
-      hK hV.le (le_refl _)
+      hK hV.le (by linarith)
   have hBKV : ‖B‖ * (‖K‖ * ‖V‖) ≤ T :=
     hprod _ _ _ _ _ (norm_nonneg _) (mul_nonneg (norm_nonneg _) (norm_nonneg _))
       hB hKVpow (by linarith)
