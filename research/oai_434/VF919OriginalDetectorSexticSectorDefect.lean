@@ -94,4 +94,6 @@ end SevenEighths.CenteredMomentDetectorPlainFiberSource
 
 #print axioms SevenEighths.CenteredMomentDetectorPlainFiberSource.original_detector_ideal_pairs_sextic_sector_defect
 
+end
+
 end OAI

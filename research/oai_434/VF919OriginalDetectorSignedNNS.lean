@@ -165,4 +165,6 @@ end SevenEighths.CenteredMomentDetectorPlainFiberSource
 #print axioms SevenEighths.CenteredMomentDetectorPlainFiberSource.original_detector_row_exact_signed_NNS
 #print axioms SevenEighths.CenteredMomentDetectorPlainFiberSource.original_marked_polynomials_exact_signed_NNS
 
+end
+
 end OAI
