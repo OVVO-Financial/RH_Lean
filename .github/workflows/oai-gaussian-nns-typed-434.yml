@@ -99,6 +99,62 @@ jobs:
         run: |
           set -euo pipefail
           lake build PrimeNumberTheoremAnd.Wiener
+      - name: Restore original OAI compiled DAG, verifying source pins and patches
+        id: oai_cache
+        uses: ./.github/actions/oai-434-shared-cache
+      - name: Report shared cache decisions
+        run: |
+          echo "RHLean native: ${{ steps.native_cache.outputs.native-matched-key }}"
+          echo "PNT Wiener exact: ${{ steps.native_cache.outputs.wiener-hit }}"
+          echo "OpenAI matched: ${{ steps.oai_cache.outputs.cache-matched-key }}"
+          echo "OpenAI complete: ${{ steps.oai_cache.outputs.complete }}"
+      - name: Prebuild patched original Rellich prerequisites
+        if: ${{ steps.oai_cache.outputs.complete != 'true' }}
+        working-directory: oai-upstream/lean
+        run: |
+          set -euo pipefail
+          lake build \
+            RellichKondrachov.Analysis.FunctionalSpaces.Sobolev.Euclidean.TranslationEstimateL2 \
+            RellichKondrachov.Analysis.FunctionalSpaces.Sobolev.Euclidean.L2Compactness.Approximation \
+            RellichKondrachov.Analysis.FunctionalSpaces.Sobolev.Euclidean.L2Compactness.ArzelaAscoli \
+            RellichKondrachov.Analysis.FunctionalSpaces.Sobolev.Euclidean.L2Compactness.Transfer
+      # Fail fast on OAI-only ideal algebra before compiling native RHLean's
+      # large import DAG or the expensive GaussianCommon detector.
+      - name: Build exact original OAI FreeRow adapter import closure
+        if: ${{ steps.oai_cache.outputs.complete != 'true' }}
+        working-directory: oai-upstream/lean
+        run: |
+          set -euo pipefail
+          lake build \
+            OAI.NumberTheory.DirichletL.Hecke.InverseAmplificationRows \
+            OAI.NumberTheory.DirichletL.CenteredExceptionalCount \
+            OAI.NumberTheory.DirichletL.GaussSum.CubicNormalization \
+            OAI.NumberTheory.DirichletL.GaussSum.LocalProductAssembly \
+            OAI.NumberTheory.DirichletL.Detector.EulerCoordinates
+          test -s .lake/build/lib/lean/OAI/NumberTheory/DirichletL/Hecke/InverseAmplificationRows.olean
+      - name: KERNEL-CHECK original FreeRow ideal base-3 and true cubic mask
+        shell: bash
+        run: |
+          set -euo pipefail
+          OAI_PATH="$(cd oai-upstream/lean && lake env python3 -c 'import os; print(os.pathsep.join(os.path.abspath(p) for p in os.environ["LEAN_PATH"].split(os.pathsep) if p))')"
+          RH_PATH="$(lake env python3 -c 'import os; print(os.pathsep.join(os.path.abspath(p) for p in os.environ["LEAN_PATH"].split(os.pathsep) if p))')"
+          python3 scripts/check_shared_lean_packages.py . oai-upstream/lean PrimeNumberTheoremAnd mathlib
+          env LEAN_PATH="$RH_PATH:$OAI_PATH" lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.oai_434.VF919OriginalCubeFreeIdealAdapter.olean \
+            research/oai_434/VF919OriginalCubeFreeIdealAdapter.lean \
+            | tee /tmp/oai-original-cubefree-ideal-mask.log
+          test -s .lake/build/lib/lean/research.oai_434.VF919OriginalCubeFreeIdealAdapter.olean
+          if grep -E 'sorryAx|admitAx|_private' /tmp/oai-original-cubefree-ideal-mask.log; then
+            echo 'Unexpected axiom in actual OAI cube-free ideal mask adapter.' >&2
+            exit 1
+          fi
+      - name: Build upstream original GaussianCommon theorem imports
+        if: ${{ steps.oai_cache.outputs.complete != 'true' }}
+        working-directory: oai-upstream/lean
+        run: |
+          set -euo pipefail
+          lake build OAI.NumberTheory.DirichletL.Detector.GaussianCommon
+          test -s .lake/build/lib/lean/OAI/NumberTheory/DirichletL/Detector/GaussianCommon.olean
       - name: Build only imported RHLean library modules from the native source DAG
         # The research compiler already supports --library-only, which
         # guarantees native .olean prerequisites are complete even when
@@ -145,32 +201,6 @@ jobs:
             research/VF_919_OAI_COMPENSATED_TWO_BILL_L65_20261022.lean
             research/VF_919_OAI_NNS_POST_GROUPED_SEXTIC_DUAL_20261022.lean
             research/VF_919_OAI_PRINCIPAL_SOURCE_EXPONENT_BUDGET_20261022.lean
-      - name: Restore original OAI compiled DAG, verifying source pins and patches
-        id: oai_cache
-        uses: ./.github/actions/oai-434-shared-cache
-      - name: Report shared cache decisions
-        run: |
-          echo "RHLean native: ${{ steps.native_cache.outputs.native-matched-key }}"
-          echo "PNT Wiener exact: ${{ steps.native_cache.outputs.wiener-hit }}"
-          echo "OpenAI matched: ${{ steps.oai_cache.outputs.cache-matched-key }}"
-          echo "OpenAI complete: ${{ steps.oai_cache.outputs.complete }}"
-      - name: Prebuild patched original Rellich prerequisites
-        if: ${{ steps.oai_cache.outputs.complete != 'true' }}
-        working-directory: oai-upstream/lean
-        run: |
-          set -euo pipefail
-          lake build \
-            RellichKondrachov.Analysis.FunctionalSpaces.Sobolev.Euclidean.TranslationEstimateL2 \
-            RellichKondrachov.Analysis.FunctionalSpaces.Sobolev.Euclidean.L2Compactness.Approximation \
-            RellichKondrachov.Analysis.FunctionalSpaces.Sobolev.Euclidean.L2Compactness.ArzelaAscoli \
-            RellichKondrachov.Analysis.FunctionalSpaces.Sobolev.Euclidean.L2Compactness.Transfer
-      - name: Build upstream original GaussianCommon theorem imports
-        if: ${{ steps.oai_cache.outputs.complete != 'true' }}
-        working-directory: oai-upstream/lean
-        run: |
-          set -euo pipefail
-          lake build OAI.NumberTheory.DirichletL.Detector.GaussianCommon
-          test -s .lake/build/lib/lean/OAI/NumberTheory/DirichletL/Detector/GaussianCommon.olean
       # Main publishes the full OAI DAG; do not duplicate multi-GB caches
       # after intermediate steps on successful PR runs.
       # Research imports are quoted flat dotted module names such as
@@ -215,34 +245,6 @@ jobs:
             | tee /tmp/oai-original-one-prime-power-gain.log
           if grep -E 'sorryAx|admitAx|_private' /tmp/oai-original-one-prime-power-gain.log; then
             echo 'Unexpected axiom in original one-prime signed power gain.' >&2
-            exit 1
-          fi
-      - name: Build exact original OAI FreeRow adapter import closure
-        if: ${{ steps.oai_cache.outputs.complete != 'true' }}
-        working-directory: oai-upstream/lean
-        run: |
-          set -euo pipefail
-          lake build \
-            OAI.NumberTheory.DirichletL.Hecke.InverseAmplificationRows \
-            OAI.NumberTheory.DirichletL.CenteredExceptionalCount \
-            OAI.NumberTheory.DirichletL.GaussSum.CubicNormalization \
-            OAI.NumberTheory.DirichletL.GaussSum.LocalProductAssembly \
-            OAI.NumberTheory.DirichletL.Detector.EulerCoordinates
-          test -s .lake/build/lib/lean/OAI/NumberTheory/DirichletL/Hecke/InverseAmplificationRows.olean
-      - name: KERNEL-CHECK original FreeRow ideal base-3 and true cubic mask
-        shell: bash
-        run: |
-          set -euo pipefail
-          OAI_PATH="$(cd oai-upstream/lean && lake env python3 -c 'import os; print(os.pathsep.join(os.path.abspath(p) for p in os.environ["LEAN_PATH"].split(os.pathsep) if p))')"
-          RH_PATH="$(lake env python3 -c 'import os; print(os.pathsep.join(os.path.abspath(p) for p in os.environ["LEAN_PATH"].split(os.pathsep) if p))')"
-          python3 scripts/check_shared_lean_packages.py . oai-upstream/lean PrimeNumberTheoremAnd mathlib
-          env LEAN_PATH="$RH_PATH:$OAI_PATH" lean -DwarningAsError=true \
-            -o .lake/build/lib/lean/research.oai_434.VF919OriginalCubeFreeIdealAdapter.olean \
-            research/oai_434/VF919OriginalCubeFreeIdealAdapter.lean \
-            | tee /tmp/oai-original-cubefree-ideal-mask.log
-          test -s .lake/build/lib/lean/research.oai_434.VF919OriginalCubeFreeIdealAdapter.olean
-          if grep -E 'sorryAx|admitAx|_private' /tmp/oai-original-cubefree-ideal-mask.log; then
-            echo 'Unexpected axiom in actual OAI cube-free ideal mask adapter.' >&2
             exit 1
           fi
       - name: KERNEL-CHECK original OAI type specialization and NNS
