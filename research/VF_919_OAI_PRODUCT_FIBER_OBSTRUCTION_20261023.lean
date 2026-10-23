@@ -61,7 +61,7 @@ theorem productFiber_weighted_degree_le
 finite size. Hence valuation alone cannot give a uniform bound for the grouped
 label degree; a fiber-mass or phase-sensitive theorem is indispensable. -/
 theorem productFiber_unit_cap_arbitrary_degree (K : ℕ) :
-    let labels := Finset.univ : Finset (Fin (K + 1))
+    let labels : Finset (Fin (K + 1)) := Finset.univ
     let contribution : Fin (K + 1) → ℕ := fun _ => 1
     (∀ x ∈ labels, contribution x ≤ 1) ∧
       (∑ x ∈ labels, contribution x) = K + 1 := by
