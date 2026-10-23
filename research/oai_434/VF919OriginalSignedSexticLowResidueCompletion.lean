@@ -25,7 +25,8 @@ open ActualEisensteinCubic
 open SevenEighths.CenteredMomentCorrelation CenteredMomentCommonSupport
 open SevenEighths.CenteredMomentUnequal
 open SevenEighths.CenteredMomentCanonical
-open CompletedGauss (ConcretePrimeRowBridge) hiding O
+open CompletedGauss
+open ConcretePrimeRowBridge hiding O
 local notation "O" => ActualEisensteinCubic.O
 
 /-- Exact signed annihilation of a constant physical weight on the
