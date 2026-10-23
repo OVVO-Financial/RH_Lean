@@ -124,19 +124,13 @@ jobs:
           set -euo pipefail
           lake build OAI.NumberTheory.DirichletL.Detector.FinalAssemblyUnconditional
           test -s .lake/build/lib/lean/OAI/NumberTheory/DirichletL/Detector/FinalAssemblyUnconditional.olean
-      # Explicit save MUST precede the RH_Lean leaf check. A downstream
-      # elaboration error must not discard a successfully completed OAI DAG.
-      - name: Save completed original OpenAI DAG BEFORE the native theorem check
-        if: ${{ !cancelled() && steps.oai_build.outcome == 'success' && steps.oai_cache.outputs.cache-hit != 'true' }}
-        continue-on-error: true
-        uses: actions/cache/save@v5
-        with:
-          path: oai-upstream/lean/.lake
-          key: ${{ steps.oai_cache.outputs.cache-primary-key }}
+      # ONLY the main-branch foundation publisher may write v3 -complete.
+      # This consumer does not necessarily compile Gaussian/FreeRow siblings,
+      # so publishing its partial DAG as -complete would poison reuse.
       # Failed compilation may still have thousands of valid prerequisites.
       # Keep it under a separate, immutable progress key, never a complete key.
-      - name: Save partial original OpenAI build after an upstream failure
-        if: ${{ !cancelled() && failure() && steps.oai_cache.outcome == 'success' && steps.oai_build.outcome != 'success' && steps.oai_cache.outputs.cache-hit != 'true' }}
+      - name: Preserve a partial original OpenAI DAG after a failed PR check
+        if: ${{ !cancelled() && failure() && steps.oai_cache.outcome == 'success' && steps.oai_cache.outputs.cache-hit != 'true' }}
         continue-on-error: true
         uses: actions/cache/save@v5
         with:
