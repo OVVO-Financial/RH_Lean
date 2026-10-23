@@ -71,7 +71,10 @@ theorem vf919FrozenCofactorPrimeWeight_zero_of_root_le
     Nat.mul_le_mul hc (by omega : R + 1 ≤ p)
   have hroot : vf919FrozenCofactorEndpoint R < R * (R + 1) := by
     unfold vf919FrozenCofactorEndpoint
-    nlinarith
+    have hpow : 1 ≤ R ^ 2 := by nlinarith
+    have hcancel : (R ^ 2 - 1) + 1 = R ^ 2 := Nat.sub_add_cancel hpow
+    have hcompare : R ^ 2 ≤ R * (R + 1) := by nlinarith
+    omega
   have hnot : ¬ (p.Prime ∧ c * p ≤ vf919FrozenCofactorEndpoint R) := by
     intro h
     omega
@@ -100,7 +103,10 @@ theorem vf919FrozenCofactorPhysicalResponse_eq_completeHecke
   let X := vf919FrozenCofactorEndpoint R
   have hX : 12 ≤ X := by
     dsimp [X, vf919FrozenCofactorEndpoint]
-    nlinarith
+    have hpow : (4 : ℕ) ^ 2 ≤ R ^ 2 := Nat.pow_le_pow_left hR 2
+    have hcancel : (R ^ 2 - 1) + 1 = R ^ 2 :=
+      Nat.sub_add_cancel (by omega)
+    omega
   have hsub : Finset.Ico 1 R ⊆ Finset.Icc 1 X := by
     intro c hc
     simp only [Finset.mem_Ico, Finset.mem_Icc] at hc ⊢
@@ -108,7 +114,12 @@ theorem vf919FrozenCofactorPhysicalResponse_eq_completeHecke
     · exact hc.1
     · have hRX : R ≤ X := by
         dsimp [X, vf919FrozenCofactorEndpoint]
-        nlinarith
+        have htwice : R * 2 ≤ R * R :=
+          Nat.mul_le_mul_left R (by omega : 2 ≤ R)
+        have hpoly : R + 1 ≤ R ^ 2 := by nlinarith
+        have hcancel : (R ^ 2 - 1) + 1 = R ^ 2 :=
+          Nat.sub_add_cancel (by omega)
+        omega
       omega
   have hsum :
       (∑ c ∈ Finset.Ico 1 R,
