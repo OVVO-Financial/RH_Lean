@@ -54,7 +54,7 @@ theorem originalOAI_gaussian_fiber_equals_sextic_defect
       let atom := gaussianIntegratedSignalAtom A principal
       ∀ (phase : κ → κ → ι → Option (Fin 6))
         (coefficient : κ → κ → ι → ℂ)
-        (ζ : ℂ) (hpow : ζ ^ 6 = 1) (hne : ζ ≠ 1),
+        (ζ : ℂ) (_hpow : ζ ^ 6 = 1) (_hne : ζ ≠ 1),
         (∀ c ∈ resonantFiberClasses (gaussianIntegratedSignalCarrier K) classOf,
           ∀ d ∈ (resonantFiberClasses
               (gaussianIntegratedSignalCarrier K) classOf).erase c,
