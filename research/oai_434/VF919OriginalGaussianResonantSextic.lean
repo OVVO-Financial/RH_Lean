@@ -81,7 +81,6 @@ theorem originalOAI_gaussian_fiber_equals_sextic_defect
       omega hW0 hW1 hslots hP hX hY hZ
   refine ⟨V, hV, ?_⟩
   intro phase coefficient ζ hpow hne hPhase
-  dsimp only
   let A := fun u J => originalOAIGaussianSubsetIntegral V hV eta cal
     W0 W1 slots W P X Y Z u J / normer
   let atom := gaussianIntegratedSignalAtom A principal
