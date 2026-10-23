@@ -215,3 +215,7 @@ Resume:
 - Strongest falsifier: duplicate legal slot labels consuming only one valuation unit.
 - First missing theorem: typed original fiberPool incidence pushforward.
 - Native independent 7/8 proof, original #915 payment, canonical VF and RH remain OPEN.
+
+## J. Publication verification
+
+Initial publication commit cdf7490b56bddf4e1536d7cdd4f73fa67199781d was read back from agent-reports as blob af2f1725bc14073df674657ece8a5b713a7edc13, 14,711 characters, with COMPLETED status and claim 20261023-wheel-1 present. This verifies report publication only; it does not promote the paper theorem to Lean or change main, PR, CI, review, merge or schedule state.
