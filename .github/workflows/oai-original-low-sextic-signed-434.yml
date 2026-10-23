@@ -9,6 +9,7 @@ on:
       - 'scripts/oai_original_low_gauss_smooth_completion_probe.py'
       - '.github/workflows/oai-original-low-sextic-signed-434.yml'
       - 'research/OAI_ORIGINAL_SIGNED_SIXFREE_LOW_COMPLETION_20261022.md'
+      - 'research/OAI_ORIGINAL_LOW_GAUSS_PRIMITIVE_PERIOD_COMPLETION_20261022.md'
   workflow_dispatch:
 
 permissions:
@@ -25,7 +26,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Genuine primary Eisenstein sextic and sixth-power-divisibility test
-        run: python3 scripts/oai_sextic_sixfree_residue_completion_probe.py
+        run: |
+          set -euo pipefail
+          python3 scripts/oai_sextic_sixfree_residue_completion_probe.py
+          python3 scripts/oai_original_low_gauss_smooth_completion_probe.py
 
   original-sextic-source-lean:
     runs-on: ubuntu-latest
