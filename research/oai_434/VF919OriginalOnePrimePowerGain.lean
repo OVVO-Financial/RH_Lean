@@ -96,7 +96,6 @@ theorem oai_one_prime_actual_marked_error_power
       _ ≤ Q ^ c := Real.rpow_le_rpow_of_exponent_le hQ1 he
   have hRT : ‖R‖ ≤ T := by
     exact hR.trans (Real.rpow_le_rpow_of_exponent_le hQ1 (by
-      dsimp [T]
       linarith))
   have hKV : ‖K‖ * ‖V‖ ≤ T := by
     have hVle : ‖V‖ ≤ Q ^ (-6 * z.re) := hV.le
@@ -108,7 +107,7 @@ theorem oai_one_prime_actual_marked_error_power
   have hKVpow :
       ‖K‖ * ‖V‖ ≤ Q ^ (1 - x.re - w.re - 6 * z.re) := by
     exact hprod _ _ _ _ _ (norm_nonneg _) (norm_nonneg _)
-      hK hV.le (le_refl _)
+      hK hV.le (by linarith)
   have hBKV : ‖B‖ * (‖K‖ * ‖V‖) ≤ T :=
     hprod _ _ _ _ _ (norm_nonneg _) (mul_nonneg (norm_nonneg _) (norm_nonneg _))
       hB hKVpow (by linarith)
@@ -449,8 +448,11 @@ theorem oai_actual_BKV_leading_phase_free
       _ = (Q : ℂ) ^ (-w) := by congr 1; ring
   have hunit : star eta * eta = 1 :=
     PrincipalSlotEstimate.unit_phase_inverse eta heta
+  have hQcast : ((Q - 1 : ℝ) : ℂ) = (Q : ℂ) - 1 := by
+    push_cast
+    ring
   unfold coordK
-  rw [← Complex.ofReal_sub]
+  rw [hQcast]
   calc
     (star eta * (Q : ℂ) ^ x) *
         (eta * ((Q - 1 : ℝ) : ℂ) * (Q : ℂ) ^ (-x - w)) *
