@@ -96,4 +96,5 @@ end SevenEighths.CenteredMomentDetectorPlainFiberSource
 
 #print axioms SevenEighths.CenteredMomentDetectorPlainFiberSource.original_detector_resonant_fiber_recombination
 
+end
 end OAI

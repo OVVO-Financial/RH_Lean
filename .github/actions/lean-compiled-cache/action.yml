@@ -1,0 +1,45 @@
+name: Restore trusted native Lean build
+description: Reuse RHLean and pinned unpatched PNT+ compilation from the default branch.
+outputs:
+  native-hit:
+    description: Whether the exact source-addressed RHLean build was found
+    value: ${{ steps.native.outputs.cache-hit }}
+  native-matched-key:
+    description: Cache key restored, including a safe pinned fallback
+    value: ${{ steps.native.outputs.cache-matched-key }}
+  wiener-hit:
+    description: Whether the pinned PNT+ Wiener build was restored exactly
+    value: ${{ steps.wiener.outputs.cache-hit }}
+  wiener-primary-key:
+    description: Key for the main-branch Wiener cache publisher
+    value: ${{ steps.wiener.outputs.cache-primary-key }}
+runs:
+  using: composite
+  steps:
+    # This EXACT key is published by the existing lean.yml main-branch build.
+    # No separate multi-gigabyte RHLean cache namespace is created.
+    - name: Restore compiled native RHLean from trusted main
+      id: native
+      uses: actions/cache/restore@v5
+      with:
+        path: .lake/build
+        key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'RHLean.lean', 'RHLean/**/*.lean') }}
+        restore-keys: |
+          rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-
+    - name: Restore shared unpatched PNT+ Wiener prerequisites
+      id: wiener
+      uses: actions/cache/restore@v5
+      with:
+        path: .lake/packages/PrimeNumberTheoremAnd/.lake/build
+        key: pntplus-wiener-v1-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
+        restore-keys: |
+          pntplus-build-v1-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
+    - name: Report native compilation reuse
+      shell: bash
+      env:
+        NATIVE_KEY: ${{ steps.native.outputs.cache-matched-key }}
+        WIENER_KEY: ${{ steps.wiener.outputs.cache-matched-key }}
+      run: |
+        echo "RHLean native cache: ${NATIVE_KEY:-MISS}"
+        echo "Unpatched Wiener cache: ${WIENER_KEY:-MISS}"
+        echo "::notice::A restored cache is an optimization; Lake must still verify changed native sources."

@@ -21,6 +21,8 @@ on:
       - '.github/workflows/oai-gaussian-nns-typed-434.yml'
       - 'scripts/apply_oai_434_upstream_patches.py'
       - 'scripts/check_shared_lean_packages.py'
+      - '.github/actions/lean-compiled-cache/**'
+      - '.github/actions/oai-434-shared-cache/**'
   workflow_dispatch:
   push:
     # A trusted default-branch build seeds a cache that subsequent PRs
@@ -37,13 +39,15 @@ on:
       - '.github/workflows/oai-gaussian-nns-typed-434.yml'
       - 'scripts/apply_oai_434_upstream_patches.py'
       - 'scripts/check_shared_lean_packages.py'
+      - '.github/actions/lean-compiled-cache/**'
+      - '.github/actions/oai-434-shared-cache/**'
 
 permissions:
   contents: read
 
 concurrency:
   group: oai-gaussian-nns-typed-434-${{ github.head_ref || github.ref_name }}
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   original-oai-gaussian-nns:
@@ -74,20 +78,94 @@ jobs:
           set -euo pipefail
           test "$(git -C oai-upstream rev-parse HEAD)" = "1581d4cbdd69a0faf34b2089614fe2a814316a6a"
           test "$(cat oai-upstream/lean/lean-toolchain)" = "leanprover/lean4:v4.34.1"
-      - name: Restore pinned native Lean build cache (verified by Lake dependency traces)
+      - name: Restore compiled native RHLean plus unpatched Wiener from main
         id: native_cache
+        uses: ./.github/actions/lean-compiled-cache
+      # The trusted main cache can legitimately miss (new source version or
+      # cache eviction). Preserve the expensive imported DAG on THIS PR too.
+      # This key is a partial/work cache, NEVER an accepted full-library cache.
+      - name: Restore verified PR-local native imported library if main missed
+        id: native_import_cache
+        if: ${{ steps.native_cache.outputs.native-matched-key == '' }}
         uses: actions/cache/restore@v5
         with:
           path: |
             .lake/build
             .lake/packages/PrimeNumberTheoremAnd/.lake/build
-          key: rhlean-oai-native-v3-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-${{ hashFiles('RHLean/**/*.lean', 'scripts/compile_research_import_closure.py', 'scripts/ci/**') }}
+          key: rhlean-oai-imports-v1-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-${{ hashFiles('RHLean.lean', 'RHLean/**/*.lean', 'scripts/compile_research_import_closure.py') }}
           restore-keys: |
-            rhlean-oai-native-v3-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-
+            rhlean-oai-imports-v1-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-
       - name: Build original native PNT Wiener before shared-path setup
         run: |
           set -euo pipefail
           lake build PrimeNumberTheoremAnd.Wiener
+      - name: Restore original OAI compiled DAG, verifying source pins and patches
+        id: oai_cache
+        uses: ./.github/actions/oai-434-shared-cache
+      - name: Report shared cache decisions
+        run: |
+          echo "RHLean native: ${{ steps.native_cache.outputs.native-matched-key }}"
+          echo "PNT Wiener exact: ${{ steps.native_cache.outputs.wiener-hit }}"
+          echo "OpenAI matched: ${{ steps.oai_cache.outputs.cache-matched-key }}"
+          echo "OpenAI complete: ${{ steps.oai_cache.outputs.complete }}"
+      # Never spend another 80-100 minutes cold-building this old research
+      # PR. The complete pinned source DAG must first be published on main.
+      - name: Require verified complete original OpenAI cache before research builds
+        if: ${{ steps.oai_cache.outputs.complete != 'true' }}
+        shell: bash
+        run: |
+          echo "::error::Complete v3 OAI baseline is not yet available. Main cache publisher: https://github.com/OVVO-Financial/RH_Lean/actions/workflows/oai-compiled-cache-foundation-434.yml"
+          echo "::error::Refusing another 80-minute prerequisite rebuild; theorems are NOT accepted."
+          exit 1
+      - name: Prebuild patched original Rellich prerequisites
+        if: ${{ steps.oai_cache.outputs.complete != 'true' }}
+        working-directory: oai-upstream/lean
+        run: |
+          set -euo pipefail
+          lake build \
+            RellichKondrachov.Analysis.FunctionalSpaces.Sobolev.Euclidean.TranslationEstimateL2 \
+            RellichKondrachov.Analysis.FunctionalSpaces.Sobolev.Euclidean.L2Compactness.Approximation \
+            RellichKondrachov.Analysis.FunctionalSpaces.Sobolev.Euclidean.L2Compactness.ArzelaAscoli \
+            RellichKondrachov.Analysis.FunctionalSpaces.Sobolev.Euclidean.L2Compactness.Transfer
+      # Fail fast on OAI-only ideal algebra before compiling native RHLean's
+      # large import DAG or the expensive GaussianCommon detector.
+      - name: Build exact original OAI FreeRow adapter import closure
+        if: ${{ steps.oai_cache.outputs.complete != 'true' }}
+        working-directory: oai-upstream/lean
+        run: |
+          set -euo pipefail
+          lake build \
+            OAI.NumberTheory.DirichletL.Hecke.InverseAmplificationRows \
+            OAI.NumberTheory.DirichletL.CenteredExceptionalCount \
+            OAI.NumberTheory.DirichletL.GaussSum.CubicNormalization \
+            OAI.NumberTheory.DirichletL.GaussSum.LocalProductAssembly \
+            OAI.NumberTheory.DirichletL.Detector.EulerCoordinates
+          test -s .lake/build/lib/lean/OAI/NumberTheory/DirichletL/Hecke/InverseAmplificationRows.olean
+      - name: KERNEL-CHECK original FreeRow ideal base-3 and true cubic mask
+        id: verify_cube
+        continue-on-error: true
+        shell: bash
+        run: |
+          set -euo pipefail
+          OAI_PATH="$(cd oai-upstream/lean && lake env python3 -c 'import os; print(os.pathsep.join(os.path.abspath(p) for p in os.environ["LEAN_PATH"].split(os.pathsep) if p))')"
+          RH_PATH="$(lake env python3 -c 'import os; print(os.pathsep.join(os.path.abspath(p) for p in os.environ["LEAN_PATH"].split(os.pathsep) if p))')"
+          python3 scripts/check_shared_lean_packages.py . oai-upstream/lean PrimeNumberTheoremAnd mathlib
+          env LEAN_PATH="$RH_PATH:$OAI_PATH" lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.oai_434.VF919OriginalCubeFreeIdealAdapter.olean \
+            research/oai_434/VF919OriginalCubeFreeIdealAdapter.lean \
+            | tee /tmp/oai-original-cubefree-ideal-mask.log
+          test -s .lake/build/lib/lean/research.oai_434.VF919OriginalCubeFreeIdealAdapter.olean
+          if grep -E 'sorryAx|admitAx|_private' /tmp/oai-original-cubefree-ideal-mask.log; then
+            echo 'Unexpected axiom in actual OAI cube-free ideal mask adapter.' >&2
+            exit 1
+          fi
+      - name: Build upstream original GaussianCommon theorem imports
+        if: ${{ steps.oai_cache.outputs.complete != 'true' }}
+        working-directory: oai-upstream/lean
+        run: |
+          set -euo pipefail
+          lake build OAI.NumberTheory.DirichletL.Detector.GaussianCommon
+          test -s .lake/build/lib/lean/OAI/NumberTheory/DirichletL/Detector/GaussianCommon.olean
       - name: Build only imported RHLean library modules from the native source DAG
         # The research compiler already supports --library-only, which
         # guarantees native .olean prerequisites are complete even when
@@ -109,17 +187,16 @@ jobs:
           TARGETS
           )"
           python3 scripts/compile_research_import_closure.py --library-only
-      # A failing newly added research lemma cannot discard the expensive
-      # verified native library it depends on. Immutable cache identity is
-      # source-sensitive, with a compiler/manifest pinned restore prefix.
-      - name: Checkpoint native imported library before new research elaboration
-        if: ${{ !cancelled() && steps.native_cache.outputs.cache-hit != 'true' }}
+      # Verified native imports come from the main cache. Changed research
+      # leaves remain warning-fatal kernel-checked by research-compile.
+      - name: Checkpoint compiled PR-local native imports BEFORE leaf research
+        if: ${{ !cancelled() && steps.native_import_cache.outcome == 'success' && steps.native_import_cache.outputs.cache-hit != 'true' && steps.native_cache.outputs.native-matched-key == '' }}
         uses: actions/cache/save@v5
         with:
           path: |
             .lake/build
             .lake/packages/PrimeNumberTheoremAnd/.lake/build
-          key: ${{ steps.native_cache.outputs.cache-primary-key }}
+          key: ${{ steps.native_import_cache.outputs.cache-primary-key }}
       - name: Kernel-check ONLY new / changed signed NNS research sources
         uses: ./.github/actions/research-compile
         with:
@@ -135,59 +212,15 @@ jobs:
             research/VF_919_OAI_COMPENSATED_TWO_BILL_L65_20261022.lean
             research/VF_919_OAI_NNS_POST_GROUPED_SEXTIC_DUAL_20261022.lean
             research/VF_919_OAI_PRINCIPAL_SOURCE_EXPONENT_BUDGET_20261022.lean
-      - name: Restore original OAI dependency and compiled DAG cache
-        id: oai_cache
-        uses: actions/cache/restore@v5
-        with:
-          path: oai-upstream/lean/.lake
-          key: oai-certified-434-pntnative-v2-${{ runner.os }}-${{ runner.arch }}-1581d4cbdd69a0faf34b2089614fe2a814316a6a-${{ hashFiles('oai-upstream/lean/lean-toolchain', 'oai-upstream/lean/lakefile.lean', 'oai-upstream/lean/lake-manifest.json', 'oai-upstream/lean/patches/**', 'scripts/apply_oai_434_upstream_patches.py') }}-complete
-          restore-keys: |
-            oai-certified-434-pntnative-v2-${{ runner.os }}-${{ runner.arch }}-1581d4cbdd69a0faf34b2089614fe2a814316a6a-${{ hashFiles('oai-upstream/lean/lean-toolchain', 'oai-upstream/lean/lakefile.lean', 'oai-upstream/lean/lake-manifest.json', 'oai-upstream/lean/patches/**', 'scripts/apply_oai_434_upstream_patches.py') }}-progress-marked-
-            oai-certified-434-pntnative-v2-${{ runner.os }}-${{ runner.arch }}-1581d4cbdd69a0faf34b2089614fe2a814316a6a-${{ hashFiles('oai-upstream/lean/lean-toolchain', 'oai-upstream/lean/lakefile.lean', 'oai-upstream/lean/lake-manifest.json', 'oai-upstream/lean/patches/**', 'scripts/apply_oai_434_upstream_patches.py') }}-progress-gaussian-
-            oai-certified-434-pntnative-v2-${{ runner.os }}-${{ runner.arch }}-1581d4cbdd69a0faf34b2089614fe2a814316a6a-${{ hashFiles('oai-upstream/lean/lean-toolchain', 'oai-upstream/lean/lakefile.lean', 'oai-upstream/lean/lake-manifest.json', 'oai-upstream/lean/patches/**', 'scripts/apply_oai_434_upstream_patches.py') }}-progress-
-      - name: Fetch exact OAI Mathlib packages only when no OAI cache restored
-        # restore-key hits report cache-hit='false' but still contain all
-        # patched package sources and Mathlib oleans. Re-fetching on every
-        # partial restore can overwrite or invalidate compiled build traces.
-        if: ${{ steps.oai_cache.outputs.cache-hit == '' }}
-        working-directory: oai-upstream/lean
-        run: |
-          set -euo pipefail
-          lake exe cache get
-      - name: Report native and OAI cache decisions
-        run: |
-          echo "native cache exact hit: ${{ steps.native_cache.outputs.cache-hit }}"
-          echo "native cache restored: ${{ steps.native_cache.outputs.cache-matched-key }}"
-          echo "OAI cache exact hit: ${{ steps.oai_cache.outputs.cache-hit }}"
-          echo "OAI cache restored: ${{ steps.oai_cache.outputs.cache-matched-key }}"
-      - name: Apply exact original OAI compatibility patches
-        run: python3 scripts/apply_oai_434_upstream_patches.py oai-upstream/lean --keep-pinned PrimeNumberTheoremAnd
-      - name: Prebuild patched original Rellich prerequisites
-        working-directory: oai-upstream/lean
-        run: |
-          set -euo pipefail
-          lake build \
-            RellichKondrachov.Analysis.FunctionalSpaces.Sobolev.Euclidean.TranslationEstimateL2 \
-            RellichKondrachov.Analysis.FunctionalSpaces.Sobolev.Euclidean.L2Compactness.Approximation \
-            RellichKondrachov.Analysis.FunctionalSpaces.Sobolev.Euclidean.L2Compactness.ArzelaAscoli \
-            RellichKondrachov.Analysis.FunctionalSpaces.Sobolev.Euclidean.L2Compactness.Transfer
-      - name: Build upstream original GaussianCommon theorem imports
-        working-directory: oai-upstream/lean
-        run: |
-          set -euo pipefail
-          lake build OAI.NumberTheory.DirichletL.Detector.GaussianCommon
-          test -s .lake/build/lib/lean/OAI/NumberTheory/DirichletL/Detector/GaussianCommon.olean
-      - name: Checkpoint compiled OAI GaussianCommon prerequisite DAG
-        if: ${{ steps.oai_cache.outputs.cache-hit != 'true' }}
-        uses: actions/cache/save@v5
-        with:
-          path: oai-upstream/lean/.lake
-          key: oai-certified-434-pntnative-v2-${{ runner.os }}-${{ runner.arch }}-1581d4cbdd69a0faf34b2089614fe2a814316a6a-${{ hashFiles('oai-upstream/lean/lean-toolchain', 'oai-upstream/lean/lakefile.lean', 'oai-upstream/lean/lake-manifest.json', 'oai-upstream/lean/patches/**', 'scripts/apply_oai_434_upstream_patches.py') }}-progress-gaussian-${{ github.run_id }}
+      # Main publishes the full OAI DAG; do not duplicate multi-GB caches
+      # after intermediate steps on successful PR runs.
       # Research imports are quoted flat dotted module names such as
       # `import «research.oai_434.Foo»`. Emit their .olean files as
       # `research.oai_434.Foo.olean` (as the native research compiler does),
       # not under the nested source tree `research/oai_434/Foo.olean`.
       - name: KERNEL-CHECK ORIGINAL actualSextic local classification and two-bill compensation
+        id: verify_actual
+        continue-on-error: true
         shell: bash
         run: |
           set -euo pipefail
@@ -205,12 +238,15 @@ jobs:
             exit 1
           fi
       - name: Compile ORIGINAL OAI unramified source prerequisite once
+        if: ${{ steps.oai_cache.outputs.complete != 'true' }}
         working-directory: oai-upstream/lean
         run: |
           set -euo pipefail
           lake build OAI.NumberTheory.DirichletL.Detector.HighRowsSelectedUnramified
           test -s .lake/build/lib/lean/OAI/NumberTheory/DirichletL/Detector/HighRowsSelectedUnramified.olean
       - name: KERNEL-CHECK original one-prime signed compensation power diagnostic
+        id: verify_oneprime
+        continue-on-error: true
         shell: bash
         run: |
           set -euo pipefail
@@ -226,34 +262,9 @@ jobs:
             echo 'Unexpected axiom in original one-prime signed power gain.' >&2
             exit 1
           fi
-      - name: Build exact original OAI FreeRow adapter import closure
-        working-directory: oai-upstream/lean
-        run: |
-          set -euo pipefail
-          lake build \
-            OAI.NumberTheory.DirichletL.Hecke.InverseAmplificationRows \
-            OAI.NumberTheory.DirichletL.CenteredExceptionalCount \
-            OAI.NumberTheory.DirichletL.GaussSum.CubicNormalization \
-            OAI.NumberTheory.DirichletL.GaussSum.LocalProductAssembly \
-            OAI.NumberTheory.DirichletL.Detector.EulerCoordinates
-          test -s .lake/build/lib/lean/OAI/NumberTheory/DirichletL/Hecke/InverseAmplificationRows.olean
-      - name: KERNEL-CHECK original FreeRow ideal base-3 and true cubic mask
-        shell: bash
-        run: |
-          set -euo pipefail
-          OAI_PATH="$(cd oai-upstream/lean && lake env python3 -c 'import os; print(os.pathsep.join(os.path.abspath(p) for p in os.environ["LEAN_PATH"].split(os.pathsep) if p))')"
-          RH_PATH="$(lake env python3 -c 'import os; print(os.pathsep.join(os.path.abspath(p) for p in os.environ["LEAN_PATH"].split(os.pathsep) if p))')"
-          python3 scripts/check_shared_lean_packages.py . oai-upstream/lean PrimeNumberTheoremAnd mathlib
-          env LEAN_PATH="$RH_PATH:$OAI_PATH" lean -DwarningAsError=true \
-            -o .lake/build/lib/lean/research.oai_434.VF919OriginalCubeFreeIdealAdapter.olean \
-            research/oai_434/VF919OriginalCubeFreeIdealAdapter.lean \
-            | tee /tmp/oai-original-cubefree-ideal-mask.log
-          test -s .lake/build/lib/lean/research.oai_434.VF919OriginalCubeFreeIdealAdapter.olean
-          if grep -E 'sorryAx|admitAx|_private' /tmp/oai-original-cubefree-ideal-mask.log; then
-            echo 'Unexpected axiom in actual OAI cube-free ideal mask adapter.' >&2
-            exit 1
-          fi
       - name: KERNEL-CHECK original OAI type specialization and NNS
+        id: verify_typed
+        continue-on-error: true
         shell: bash
         run: |
           set -euo pipefail
@@ -270,6 +281,8 @@ jobs:
             exit 1
           fi
       - name: KERNEL-CHECK original GaussianSubset compensated resonant fiber regrouping
+        id: verify_fibers
+        continue-on-error: true
         shell: bash
         run: |
           set -euo pipefail
@@ -283,6 +296,8 @@ jobs:
             | tee /tmp/oai-original-gaussian-resonant-fibers.log
           if grep -E 'sorryAx|admitAx|_private' /tmp/oai-original-gaussian-resonant-fibers.log; then exit 1; fi
       - name: KERNEL-CHECK exact ORIGINAL Gaussian resonance plus sextic defect
+        id: verify_sextic
+        continue-on-error: true
         shell: bash
         run: |
           set -euo pipefail
@@ -296,18 +311,16 @@ jobs:
             | tee /tmp/oai-original-gaussian-resonant-sextic.log
           if grep -E 'sorryAx|admitAx|_private' /tmp/oai-original-gaussian-resonant-sextic.log; then exit 1; fi
       - name: Build ORIGINAL OAI refined marked analytic moment prerequisites
+        if: ${{ steps.oai_cache.outputs.complete != 'true' }}
         working-directory: oai-upstream/lean
         run: |
           set -euo pipefail
           lake build OAI.NumberTheory.DirichletL.Detector.DetectorPlainMarkedFineField
           test -s .lake/build/lib/lean/OAI/NumberTheory/DirichletL/Detector/DetectorPlainMarkedFineField.olean
-      - name: Checkpoint compiled OAI marked-source prerequisite DAG
-        if: ${{ steps.oai_cache.outputs.cache-hit != 'true' }}
-        uses: actions/cache/save@v5
-        with:
-          path: oai-upstream/lean/.lake
-          key: oai-certified-434-pntnative-v2-${{ runner.os }}-${{ runner.arch }}-1581d4cbdd69a0faf34b2089614fe2a814316a6a-${{ hashFiles('oai-upstream/lean/lean-toolchain', 'oai-upstream/lean/lakefile.lean', 'oai-upstream/lean/lake-manifest.json', 'oai-upstream/lean/patches/**', 'scripts/apply_oai_434_upstream_patches.py') }}-progress-marked-${{ github.run_id }}
+      # A failed uncached run retains a single partial checkpoint at the end.
       - name: KERNEL-CHECK exact original detector ideal columns into NNS CoDiv
+        id: verify_detector
+        continue-on-error: true
         shell: bash
         run: |
           set -euo pipefail
@@ -324,6 +337,8 @@ jobs:
             exit 1
           fi
       - name: KERNEL-CHECK ORIGINAL ideal pair sextic source defect and phase gate
+        id: verify_defect
+        continue-on-error: true
         shell: bash
         run: |
           set -euo pipefail
@@ -340,6 +355,8 @@ jobs:
             exit 1
           fi
       - name: KERNEL-CHECK independent sharper source moment IN NNS coordinates
+        id: verify_marked
+        continue-on-error: true
         shell: bash
         run: |
           set -euo pipefail
@@ -356,6 +373,8 @@ jobs:
             exit 1
           fi
       - name: KERNEL-CHECK original finite ideal-column resonant fiber grouping
+        id: verify_resonant
+        continue-on-error: true
         shell: bash
         run: |
           set -euo pipefail
@@ -368,13 +387,39 @@ jobs:
             research/oai_434/VF919OriginalDetectorResonantFibers.lean \
             | tee /tmp/oai-original-detector-resonant-fibers.log
           if grep -E 'sorryAx|admitAx|_private' /tmp/oai-original-detector-resonant-fibers.log; then exit 1; fi
-      - name: Save original imports for subsequent exact checks
-        if: ${{ !cancelled() && steps.oai_cache.outputs.cache-hit != 'true' }}
+      # Every individual proof check remains mandatory. Do not short-circuit
+      # on the first failed leaf after expensive source DAG compilation.
+      - name: Enforce every independent original OAI kernel and axiom check
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          bad=0
+          for result in \
+            "cube=${{ steps.verify_cube.outcome }}" \
+            "actual=${{ steps.verify_actual.outcome }}" \
+            "oneprime=${{ steps.verify_oneprime.outcome }}" \
+            "typed=${{ steps.verify_typed.outcome }}" \
+            "fibers=${{ steps.verify_fibers.outcome }}" \
+            "sextic=${{ steps.verify_sextic.outcome }}" \
+            "detector=${{ steps.verify_detector.outcome }}" \
+            "defect=${{ steps.verify_defect.outcome }}" \
+            "marked=${{ steps.verify_marked.outcome }}" \
+            "resonant=${{ steps.verify_resonant.outcome }}"
+          do
+            if [[ "${result#*=}" != success ]]; then
+              echo "::error::Original proof check not green: $result"
+              bad=1
+            fi
+          done
+          exit "$bad"
+      - name: Save partial OAI DAG only on first cold miss (avoid 3.3GB duplicate caches)
+        if: ${{ !cancelled() && failure() && steps.oai_cache.outcome == 'success' && steps.oai_cache.outputs.cache-matched-key == '' }}
         continue-on-error: true
         uses: actions/cache/save@v5
         with:
           path: oai-upstream/lean/.lake
-          key: oai-gaussian-nns-typed-434-${{ runner.os }}-${{ runner.arch }}-1581d4cbdd69a0faf34b2089614fe2a814316a6a-${{ github.run_id }}
+          key: oai-certified-434-pntnative-v3-${{ runner.os }}-${{ runner.arch }}-1581d4cbdd69a0faf34b2089614fe2a814316a6a-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'oai-upstream/lean/lean-toolchain', 'oai-upstream/lean/lakefile.lean', 'oai-upstream/lean/lake-manifest.json', 'oai-upstream/lean/patches/**', 'scripts/apply_oai_434_upstream_patches.py') }}-progress-${{ github.run_id }}-${{ github.run_attempt }}
       - name: Upload original typed theorem axiom log
         if: always()
         uses: actions/upload-artifact@v4
