@@ -23,6 +23,11 @@ Inspect both `cache-matched-key` and the compiled `.olean` prerequisites.
   immutable pinned original imports, including GaussianCommon, the FreeRow
   dependencies, detector marked moments, and FinalAssemblyUnconditional.
   Only verified success publishes the immutable `-complete` key.
+- `.github/actions/research-compile` now checks whether the full native
+  `RHLean.olean` is already present. If it is missing, it restores the
+  source-addressed main-branch `rhlean-build` cache before resolving
+  research imports. This fixes *existing* targeted workflows without forcing
+  a duplicate multi-GB download when they already restored the native build.
 - `.github/actions/oai-434-shared-cache` restores the compiled OpenAI DAG,
   patches upstream packages idempotently, preserves unmodified native PNT,
   and distinguishes complete from partial caches. All mixed RHLean/OAI
