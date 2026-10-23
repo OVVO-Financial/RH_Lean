@@ -152,7 +152,7 @@ theorem buchstab_floorLiReciprocalInterval_eq_discretePotential
   by_cases h : primeSieveReciprocalLower y x d ≤
       primeSieveReciprocalUpper x d
   · simp [h]
-    exact buchstab_floorLiStep_Ioc h
+    simpa only [Int.cast_sub] using (buchstab_floorLiStep_Ioc h)
   · have hreverse :
         primeSieveReciprocalUpper x d ≤
           primeSieveReciprocalLower y x d := by omega
