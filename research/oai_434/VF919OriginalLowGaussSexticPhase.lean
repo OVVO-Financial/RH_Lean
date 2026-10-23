@@ -29,6 +29,7 @@ open ConcretePrimeRowBridge CanonicalQuadraticSieve CanonicalRowCompletion
 open SevenEighths.CenteredMomentCanonical
 open SevenEighths.CenteredMomentFourier
 open SevenEighths.CenteredMomentSupportedCorrelation
+open SevenEighths.CenteredMomentCommonSupport
 
 local notation "O" => ActualEisensteinCubic.O
 
@@ -40,7 +41,7 @@ theorem actual_low_prime_supportedChar_eq_sextic
     (hg : goodLambda ∉ Ideal.span {p}) :
     supportedModulusCharacter p hp =
       actualSextic (Ideal.span {p}) hg := by
-  apply MulChar.ext
+  apply MulChar.ext'
   intro x
   obtain ⟨y, rfl⟩ := Ideal.Quotient.mk_surjective x
   rw [supportedModulusCharacter_mk, idealRowHom_prime _ _ hg]
