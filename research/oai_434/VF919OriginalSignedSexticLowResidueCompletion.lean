@@ -73,8 +73,9 @@ theorem original_lifted_nonprincipal_weight_variation
       apply Finset.sum_le_sum
       intro y hy
       rw [norm_mul]
-      exact mul_le_of_le_one_left (norm_nonneg _)
+      exact mul_le_mul_of_nonneg_left
         (QuadraticInitialBound.norm_finite_character_le_one chiV y)
+        (norm_nonneg (W y - c))
 
 /-- The finite PHYSICAL weighting is exactly insensitive to the
 constant residue mode. A user must now bound the ACTUAL deviation
