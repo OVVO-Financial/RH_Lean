@@ -113,3 +113,56 @@ There is **no cardinality lower bound** or weight-mass lower bound on a single `
 The existing ORIGINAL `Moments/DetectorPlainFiberSource.lean::detector_row_eq_source` supplies the exact factor `D_U^(-1/2)`, `D_U=(U^F.m)^2 ∏_s U^(F.widths s)`, and each finite-column coefficient already contains selected windows. **Never apply the physical `|W(u)|²` twice.** The source norm comparison and character phase must occur in one coordinate system.
 
 **Next discriminating lemma:** a batched, mask-preserving inequality linking the full original normalized `detectorPositiveRow` L² mass to the full fixed-family cubic/sixth-order operator norm, with explicit original multiplicity and one single normalization. This is the appropriate independent arithmetic seam; the all-fiber energy cannot be deduced from arbitrary `F.nonempty`.
+
+## 7. IMPROVED MOONSHOT: quartic cubic pair lift avoids per-fiber spreading
+
+The source audit in section 6 invalidates a casual per-fiber `Rspread=O(1)`. A stronger option uses the actual n=3 large sieve **twice the right way**: apply it to the SQUARE of the coherent cubic sum, before multiplying by OpenAI's physical row weight.
+
+Let `H(u)=sum_{p in S} alpha_p * conj(chi_p(u))`, where `chi_p` is the true cubic character `v_p(u)^2`, and `S` a prime-ideal norm dyad `N(p)~P`. Then EXACTLY
+
+```text
+H(u)^2 = sum_{p,q in S} alpha_p alpha_q conj(chi_p(u)chi_q(u))
+       = sum_{m in {p*q}} b_m conj(chi_m(u)),
+b_m = sum_{p*q=m} alpha_p alpha_q.
+```
+
+The second equality requires genuine multiplicativity of the **same fixed cubic Hecke family**, retaining the coprime/ramified zero masks. Original true prime-ideal unique factorization gives at most TWO ordered factorizations `m=p*q` (one when p=q). Thus the exact coefficient collision inequality is
+
+```text
+sum_m |b_m|^2 <= 2 * (sum_p |alpha_p|^2)^2
+              << P^(2-4a).
+```
+
+The diagonal `p=q` produces `p^2`, which IS cube-free, so it belongs to de Faveri's **n=3** cube-free modulus universe (but the actual fixed-family character for `p^2` must be verified; it must not be replaced by a primitive-character convention). Pair ideals have norm `~P^2`. Applying de Faveri n=3 with rows `U=P^kappa` yields a FOURTH moment rather than a second:
+
+```text
+sum_{u in complete admitted rows} |H(u)|^4 / U
+ << (U*P^2)^eps * [
+       P^(2-4a)
+       + P^(4-4a-kappa)
+       + P^(10/3-4a-kappa/3) ].
+```
+
+At `a=3/4`, exact rational exponent regression reports:
+- `U=P^(5/4)`: `[-1,-1/4,-1/12]`. Thus fourth-moment saving `P^(-1/12+eps)`.
+- `U=P^2`: `[-1,-1,-1/3]`. Thus fourth-moment saving `P^(-1/3+eps)`.
+
+NOW use the native signed, physical, **pre-norm** quadratic fact:
+
+```text
+[sum_u |W(u)|^2 |H(u)|^2]^2
+ <= [sum_u |W(u)|^4] * [sum_u |H(u)|^4].
+```
+
+This is proved independently in `research/VF_919_CUBIC_PAIR_LIFT_FOURTH_MOMENT_20261022.lean` with exact complex pair lift and a Cauchy payment; warning-fatal CI pending. If actual OpenAI original window weights satisfy `sum|W(u)|^4 << U^(1+delta)`, then at `U=P^(5/4)`
+
+```text
+sum_u |W(u)|^2 |H(u)|^2 / U
+   << P^(-1/24 + (5/8)*delta + eps).
+```
+
+A true polynomial gain remains whenever `delta<1/15`; at `U=P^2`, the analogous gain is `P^(-1/6+delta+eps)`, surviving `delta<1/6`. This requires **NO assumption that arbitrary individual fibers have positive row density**.
+
+**Exact new acceptance seam:** connect the *actual complete compensated source* to a COMMON `W(u)` fourth moment and the true fixed-family pair character, keeping masks, selected prime windows, all `X/Np,Y/Np,Z*Np` rescalings and the *one* original detector normalization. If W varies with the marked prime p, a common W factor is not valid; an exact grouped mixed-fourth source must replace it. Prove or explicitly falsify the factorization. Do not create an axiom saying the fourth moment exists.
+
+This quartic route can plausibly produce a full-source a=3/4 gain if all source admissions hold; its **own** exponent budget does NOT reach a=1/2 (at `U=P^2` the pair mixed term is `8/3-4a`, positive for `a<2/3`). The move beyond 2/3 needs an additional compensated higher-moment or altered parameter geometry. RH remains OPEN.
