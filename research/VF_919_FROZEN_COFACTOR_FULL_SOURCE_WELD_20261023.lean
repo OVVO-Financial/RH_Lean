@@ -63,7 +63,7 @@ theorem vf919FrozenCofactorPhysicalResponse_eq_primeTail
       rw [Finset.mul_sum]
       apply Finset.sum_congr rfl
       intro p _hp
-      simp only [mul_ite, mul_one, mul_zero, canonicalMoebiusWeight]
+      simp only [X, mul_ite, mul_one, mul_zero, canonicalMoebiusWeight]
     _ = primeSieveMertensPrimeTail R X :=
       primeSieveTransportCofactorMass_eq_mertensPrimeTail R X
 
