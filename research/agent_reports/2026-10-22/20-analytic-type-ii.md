@@ -256,4 +256,4 @@ Continuity consumed:
 
 ## J. Publication history
 
-Early `IN_PROGRESS` checkpoint commit: `1c1135f7db9399cad038c6cb775bd44c445cb81d`. Final completion commit and readback blob are recorded after verified publication.
+Early `IN_PROGRESS` checkpoint commit: `1c1135f7db9399cad038c6cb775bd44c445cb81d`. Substantive completion commit: `05fde416ec198b88cbede8a3a105358f11050ba6`; verified returned blob: `b0915d7e332b5e40d486f0a58aa041a37014cb12`. This final metadata update does not change the mathematical content or classification.
