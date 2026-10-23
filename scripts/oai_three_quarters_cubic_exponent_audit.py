@@ -69,3 +69,27 @@ assert at_max["BKV_amplitude"] == F(-71, 250)
 print(f"a=3/4, z=17/50, e=0 absolute tiers: {at_zero}")
 print(f"a=3/4, z=17/50, e=1/1000 absolute tiers: {at_max}")
 print("PASS: local exponent arithmetic. Does not imply a full-source power saving.")
+
+# Fourth-moment replacement for the missing per-fiber spread estimate:
+# H(u)^2 reindexes as a cubic character sum over cube-free p*q, norm P^2.
+# Collision cap <=2 gives squared pair coefficients P^(2-4a).
+def cubic_pair_fourth_exponents(a: F, k: F):
+    return {
+        "rows": 2-4*a,
+        "pair_modulus": 2-4*a + 2-k,
+        "mixed": 2-4*a + F(2,3)*(k+2)-k,
+    }
+
+for k, expected_fourth, delta_threshold in [
+    (F(5,4),F(-1,12),F(1,15)),
+    (F(2),F(-1,3),F(1,6)),
+]:
+    four=cubic_pair_fourth_exponents(A,k)
+    assert max(four.values()) == expected_fourth, (k,four)
+    # Physical W-fourth overhead U^delta; Holder square root gives
+    # energy / U exponent <= (k*delta+expected_fourth)/2.
+    assert (k*delta_threshold + expected_fourth)/2 == 0
+    assert (k*0 + expected_fourth)/2 < 0
+    print(f"U=P^{k} pair-lift cubic H^4/U: {four} -> P^{expected_fourth}; "
+          f"weighted energy power survives when delta < {delta_threshold}")
+print("PASS: exact pair-lift arithmetic; physical fourth moment/family matching still open.")
