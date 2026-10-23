@@ -49,6 +49,9 @@ theorem buchstab_smoothShellDelta_eq_boundaryDiff_add_gate
   have hgate := buchstab_gate_switch_smooth R hR
   unfold buchstabFloorLiSquareShellSmoothDelta
     buchstabSmoothShellBoundary
+  have hend : buchstabSquareShellLower (R + 1) =
+      buchstabSquareShellUpper R := rfl
+  rw [hend]
   linear_combination -hgate
 
 /-- The within-shell innovation increment is the matching
@@ -62,6 +65,9 @@ theorem buchstab_innovationShellDelta_eq_boundaryDiff_sub_gate
   have hgate := buchstab_gate_switch_innovation R hR
   unfold buchstabFloorLiSquareShellInnovationDelta
     buchstabInnovationShellBoundary
+  have hend : buchstabSquareShellLower (R + 1) =
+      buchstabSquareShellUpper R := rfl
+  rw [hend]
   linear_combination -hgate
 
 /-- Multi-shell smooth telescope with the gate charge INCLUDED. -/
@@ -89,7 +95,6 @@ theorem buchstab_multiShell_smooth_telescope
       rw [Finset.sum_add_distrib]
     _ = _ := by
       rw [Finset.sum_Ico_sub buchstabSmoothShellBoundary hab]
-      ring
 
 /-- Multi-shell innovation telescope with the OPPOSITE gate charge. -/
 theorem buchstab_multiShell_innovation_telescope
@@ -137,7 +142,7 @@ theorem buchstab_multiShell_signed_mertens
         · exact le_of_lt (buchstab_squareShell_lower_sqrt_lt b hb)
         · omega)
   unfold buchstabSmoothShellBoundary buchstabInnovationShellBoundary
-  linear_combination hright - hleft
+  linear_combination hleft - hright
 
 /-- Exact algebraic two-channel square, retaining the mixed interaction. -/
 theorem buchstab_twoChannel_signed_gram (a b : ℕ) :
