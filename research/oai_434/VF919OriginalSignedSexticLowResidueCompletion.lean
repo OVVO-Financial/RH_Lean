@@ -22,9 +22,11 @@ open scoped Classical BigOperators
 
 namespace SevenEighths.LowSignedSixthCompletion
 open ActualEisensteinCubic
+open SevenEighths.CenteredMomentCorrelation CenteredMomentCommonSupport
 open SevenEighths.CenteredMomentUnequal
 open SevenEighths.CenteredMomentCanonical
-open CompletedGauss ConcretePrimeRowBridge
+open CompletedGauss (ConcretePrimeRowBridge) hiding O
+local notation "O" => ActualEisensteinCubic.O
 
 /-- Exact signed annihilation of a constant physical weight on the
 complete original lifted sextic residue family. This is the ORIGINAL
@@ -122,4 +124,5 @@ theorem actual_sextic_weighted_complete_residue_payment
 #print axioms actual_sextic_weighted_complete_residue_payment
 
 end SevenEighths.LowSignedSixthCompletion
+end
 end OAI
