@@ -14,6 +14,8 @@ noncomputable section
 open scoped BigOperators
 namespace RHLean.Analysis
 
+open RHLean.Proof
+
 /-- Deterministic integer floor-Li events weighted by true smaller
 Mertens prefixes, before taking norms. -/
 def buchstabFloorLiPrimeTail (y x : ℕ) : ℂ :=
@@ -124,8 +126,7 @@ theorem buchstab_floorLiStep_Ioc {a b : ℕ} (hab : a ≤ b) :
   | succ b ih =>
       by_cases h : a ≤ b
       · rw [Finset.sum_Ioc_succ_top h, ih h]
-        simp only [vfMidFloorLiSingletonWeight, Nat.succ_eq_add_one,
-          Nat.add_sub_cancel]
+        simp only [vfMidFloorLiSingletonWeight, Nat.add_sub_cancel]
         push_cast
         ring
       · have ha : a = b + 1 := by omega
@@ -150,7 +151,7 @@ theorem buchstab_floorLiReciprocalInterval_eq_discretePotential
     buchstabFloorLiReciprocalIntervalMass
   by_cases h : primeSieveReciprocalLower y x d ≤
       primeSieveReciprocalUpper x d
-  · simp only [if_pos h]
+  · simp [h]
     exact buchstab_floorLiStep_Ioc h
   · have hreverse :
         primeSieveReciprocalUpper x d ≤
@@ -175,8 +176,7 @@ theorem buchstab_reciprocal_log_three_term_kernel
     1 / (H - v) =
       1 / H + v / H ^ 2 + v ^ 2 / H ^ 3 +
         v ^ 3 / (H ^ 3 * (H - v)) := by
-  field_simp
-  <;> ring
+  field_simp; ring
 
 
 /-! ## Fixed-wheel square-shell difference: the same y=R at both endpoints -/
