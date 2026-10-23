@@ -226,6 +226,17 @@ jobs:
             echo 'Unexpected axiom in original one-prime signed power gain.' >&2
             exit 1
           fi
+      - name: Build exact original OAI FreeRow adapter import closure
+        working-directory: oai-upstream/lean
+        run: |
+          set -euo pipefail
+          lake build \
+            OAI.NumberTheory.DirichletL.Hecke.InverseAmplificationRows \
+            OAI.NumberTheory.DirichletL.CenteredExceptionalCount \
+            OAI.NumberTheory.DirichletL.GaussSum.CubicNormalization \
+            OAI.NumberTheory.DirichletL.GaussSum.LocalProductAssembly \
+            OAI.NumberTheory.DirichletL.Detector.EulerCoordinates
+          test -s .lake/build/lib/lean/OAI/NumberTheory/DirichletL/Hecke/InverseAmplificationRows.olean
       - name: KERNEL-CHECK original FreeRow ideal base-3 and true cubic mask
         shell: bash
         run: |
