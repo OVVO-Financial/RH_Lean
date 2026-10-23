@@ -24,7 +24,12 @@ def buchstabShellGateCharge (R : ℕ) : ℂ :=
 theorem buchstab_squareShell_upper_eq_mul (R : ℕ) :
     buchstabSquareShellUpper R = R * (R + 2) := by
   unfold buchstabSquareShellUpper
-  have hpos : 1 ≤ (R + 1) ^ 2 := by nlinarith
+  have hpos : 1 ≤ (R + 1) ^ 2 := by
+    calc
+      1 = 1 * 1 := by ring
+      _ ≤ (R + 1) * (R + 1) :=
+        Nat.mul_le_mul (by omega) (by omega)
+      _ = (R + 1) ^ 2 := by ring
   have hsub : (R + 1) ^ 2 - 1 + 1 = (R + 1) ^ 2 :=
     Nat.sub_add_cancel hpos
   nlinarith
