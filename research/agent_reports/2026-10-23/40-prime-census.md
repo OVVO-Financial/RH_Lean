@@ -154,3 +154,7 @@ with actual slot windows, the two plain profiles, row/height labels, normalizer 
 The decisive falsifier for phase-blind claim (A) is one legal nonzero column with `tau(m)=1` but weighted label mass above the proposed normalized envelope. The decisive support for a phase-sensitive replacement is cancellation stable under exact regrouping and independent direct-source reconstruction.
 
 No RH proof claim.
+
+## I. Publication verification
+
+Initial publication commit `6008cf706c1b644b49b057fda89d44b6cc1c0f6c` was fetched directly. Immediate readback returned blob `1f4473e9382187bedd3978bd34f5649d86a146c6`, 10,803 characters, with `COMPLETED` status and claim `20261023-census-1` present. This verifies report publication only. No main source, PR, review, workflow, merge, schedule or permission state was changed.
