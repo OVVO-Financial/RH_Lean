@@ -215,7 +215,8 @@ theorem oai_three_quarters_original_contour_rate
   · linarith
   · exact he
   · exact hx
-  · convert hw using 1 <;> ring
+  · convert hw using 1
+    ring
   · exact hz
 
 end SevenEighths.ProbeEuler
@@ -268,6 +269,7 @@ theorem actual_central_unramified_three_quarters
     he.le he1 hx hw hz
 
 end SevenEighths.ProbeHighRowFamily
+end
 end OAI
 
 #print axioms OAI.SevenEighths.ProbeEuler.oai_variable_a_actual_marked_error_power
