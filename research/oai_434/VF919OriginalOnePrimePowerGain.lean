@@ -449,8 +449,7 @@ theorem oai_actual_BKV_leading_phase_free
   have hunit : star eta * eta = 1 :=
     PrincipalSlotEstimate.unit_phase_inverse eta heta
   have hQcast : ((Q - 1 : ℝ) : ℂ) = (Q : ℂ) - 1 := by
-    push_cast
-    ring
+    push_cast <;> ring
   unfold coordK
   rw [hQcast]
   calc
