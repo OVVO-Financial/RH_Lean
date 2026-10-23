@@ -67,6 +67,25 @@ jobs:
         run: |
           echo "::error::No verified COMPLETE v3 original OAI DAG; partial caches cannot safely stand in for the complete source prerequisite build. Complete main-branch publisher before rerunning."
           exit 1
+      - name: Require cached original LOW modules, not entire detector DAG
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(cat lean-toolchain)" = "leanprover/lean4:v4.34.1"
+          test "$(cat oai-upstream/lean/lean-toolchain)" = "leanprover/lean4:v4.34.1"
+          test "$(git -C oai-upstream rev-parse HEAD)" = "1581d4cbdd69a0faf34b2089614fe2a814316a6a"
+          root=oai-upstream/lean/.lake/build/lib/lean/OAI/NumberTheory/DirichletL
+          missing=0
+          for m in Moments/Unequal GaussSum/FiniteFourier Detector/LocalUnitFrequency Detector/CalibrationRemoval; do
+            if [[ ! -s "$root/$m.olean" ]]; then
+              echo "::error::Missing original low-prime prerequisite: $m.olean"
+              missing=1
+            fi
+          done
+          if [[ "$missing" != 0 ]]; then
+            echo "::error::No 90-minute cold rebuild: first seed these specific modules in the shared cache."
+            exit 1
+          fi
       - name: Fetch Mathlib only with empty original OAI DAG
         if: ${{ steps.oai_cache.outputs.cache-hit == '' }}
         working-directory: oai-upstream/lean
