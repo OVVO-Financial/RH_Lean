@@ -24,7 +24,7 @@ def buchstabShellGateCharge (R : ℕ) : ℂ :=
 theorem buchstab_squareShell_upper_eq_mul (R : ℕ) :
     buchstabSquareShellUpper R = R * (R + 2) := by
   unfold buchstabSquareShellUpper
-  have hpos : 1 ≤ (R + 1) ^ 2 := by positivity
+  have hpos : 1 ≤ (R + 1) ^ 2 := by nlinarith
   have hsub : (R + 1) ^ 2 - 1 + 1 = (R + 1) ^ 2 :=
     Nat.sub_add_cancel hpos
   nlinarith
@@ -97,8 +97,9 @@ theorem buchstab_squareShell_lower_lastFiber_clipped
     (buchstabSquareShellLower R / R) < R := by
   have hsmall : buchstabSquareShellLower R < R * R := by
     unfold buchstabSquareShellLower
-    have hpos : 1 ≤ R ^ 2 := by positivity
-    omega
+    have hpos : 1 ≤ R ^ 2 := by nlinarith
+    have hsub : R ^ 2 - 1 + 1 = R ^ 2 := Nat.sub_add_cancel hpos
+    nlinarith [hsub]
   exact (Nat.div_lt_iff_lt_mul (by omega : 0 < R)).2 (by simpa [Nat.mul_comm] using hsmall)
 
 /-- The last (k=R) fiber at the right endpoint reaches R+2. -/
@@ -106,7 +107,7 @@ theorem buchstab_squareShell_upper_lastFiber
     (R : ℕ) (hR : 2 ≤ R) :
     buchstabSquareShellUpper R / R = R + 2 := by
   rw [buchstab_squareShell_upper_eq_mul]
-  simp [Nat.mul_div_cancel_left, show 0 < R by omega]
+  simp [show 0 < R by omega]
 
 #print axioms buchstab_squareShell_upper_eq_mul
 #print axioms buchstab_gate_switch_innovation
