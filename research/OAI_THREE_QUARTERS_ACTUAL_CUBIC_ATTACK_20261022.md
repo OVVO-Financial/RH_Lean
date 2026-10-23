@@ -88,3 +88,28 @@ DO NOT start another conservation-only module. Attack these exact steps in this 
 - PR remains DRAFT until both acceptance checks pass; even green CI is only local evidence, not global zero-free improvement.
 
 Related: #1005/#1006/#1008 (local and ideal) and #1009 (signed floor-Li), all separately owned.
+
+## 6. SOURCE AUDIT: per-fiber row spreading is NOT a theorem of the OAI carrier
+
+The ORIGINAL `Hecke/DetectorRawFiber.lean` defines
+
+```lean
+structure Fiber ... where
+  rows : Finset FreeRow
+  nonempty : rows.Nonempty
+  ...
+  fixed_bin : ∀ u∈rows, ... = bin s
+  ...
+```
+
+There is **no cardinality lower bound** or weight-mass lower bound on a single `F.rows`. In particular, a generic singleton-row model with `rho=1` has `W=rhoMax=1` and hence `Rspread=U`, which exceeds `P^(1/4)` whenever `U=P^(5/4)`. This is a counterexample to claiming a uniform spread bound from just nonemptiness and finite reindexing; it is NOT a claim that every actual supported `Fiber` can be instantiated as that singleton under all witness predicates.
+
+**Required architectural correction:** do **not** normalize the cubic operator separately on every arbitrary `Fiber.rows`. Instead either:
+
+(A) apply the fixed-family n=3/n=6 large sieves once over a **complete admissible original FreeRow parent population**, preserving the original `source_batch_plain_marked_fine` row normalization, then restrict by nonnegative masks and apply `Finset.sum` to the disjoint fibers; or
+
+(B) prove the actual weighted nonuniform large sieve for `F.physicalProduct` (including all selected windows) directly, exploiting the profile structure rather than a fictitious per-fiber density bound.
+
+The existing ORIGINAL `Moments/DetectorPlainFiberSource.lean::detector_row_eq_source` supplies the exact factor `D_U^(-1/2)`, `D_U=(U^F.m)^2 ∏_s U^(F.widths s)`, and each finite-column coefficient already contains selected windows. **Never apply the physical `|W(u)|²` twice.** The source norm comparison and character phase must occur in one coordinate system.
+
+**Next discriminating lemma:** a batched, mask-preserving inequality linking the full original normalized `detectorPositiveRow` L² mass to the full fixed-family cubic/sixth-order operator norm, with explicit original multiplicity and one single normalization. This is the appropriate independent arithmetic seam; the all-fiber energy cannot be deduced from arbitrary `F.nonempty`.
