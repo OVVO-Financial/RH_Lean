@@ -21,6 +21,8 @@ on:
       - '.github/workflows/oai-gaussian-nns-typed-434.yml'
       - 'scripts/apply_oai_434_upstream_patches.py'
       - 'scripts/check_shared_lean_packages.py'
+      - '.github/actions/lean-compiled-cache/**'
+      - '.github/actions/oai-434-shared-cache/**'
   workflow_dispatch:
   push:
     # A trusted default-branch build seeds a cache that subsequent PRs
@@ -37,6 +39,8 @@ on:
       - '.github/workflows/oai-gaussian-nns-typed-434.yml'
       - 'scripts/apply_oai_434_upstream_patches.py'
       - 'scripts/check_shared_lean_packages.py'
+      - '.github/actions/lean-compiled-cache/**'
+      - '.github/actions/oai-434-shared-cache/**'
 
 permissions:
   contents: read
@@ -74,16 +78,9 @@ jobs:
           set -euo pipefail
           test "$(git -C oai-upstream rev-parse HEAD)" = "1581d4cbdd69a0faf34b2089614fe2a814316a6a"
           test "$(cat oai-upstream/lean/lean-toolchain)" = "leanprover/lean4:v4.34.1"
-      - name: Restore pinned native Lean build cache (verified by Lake dependency traces)
+      - name: Restore compiled native RHLean plus unpatched Wiener from main
         id: native_cache
-        uses: actions/cache/restore@v5
-        with:
-          path: |
-            .lake/build
-            .lake/packages/PrimeNumberTheoremAnd/.lake/build
-          key: rhlean-oai-native-v3-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-${{ hashFiles('RHLean/**/*.lean', 'scripts/compile_research_import_closure.py', 'scripts/ci/**') }}
-          restore-keys: |
-            rhlean-oai-native-v3-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-
+        uses: ./.github/actions/lean-compiled-cache
       - name: Build original native PNT Wiener before shared-path setup
         run: |
           set -euo pipefail
@@ -109,17 +106,8 @@ jobs:
           TARGETS
           )"
           python3 scripts/compile_research_import_closure.py --library-only
-      # A failing newly added research lemma cannot discard the expensive
-      # verified native library it depends on. Immutable cache identity is
-      # source-sensitive, with a compiler/manifest pinned restore prefix.
-      - name: Checkpoint native imported library before new research elaboration
-        if: ${{ !cancelled() && steps.native_cache.outputs.cache-hit != 'true' }}
-        uses: actions/cache/save@v5
-        with:
-          path: |
-            .lake/build
-            .lake/packages/PrimeNumberTheoremAnd/.lake/build
-          key: ${{ steps.native_cache.outputs.cache-primary-key }}
+      # Verified native imports come from the main cache. Changed research
+      # leaves remain warning-fatal kernel-checked by research-compile.
       - name: Kernel-check ONLY new / changed signed NNS research sources
         uses: ./.github/actions/research-compile
         with:
@@ -135,34 +123,17 @@ jobs:
             research/VF_919_OAI_COMPENSATED_TWO_BILL_L65_20261022.lean
             research/VF_919_OAI_NNS_POST_GROUPED_SEXTIC_DUAL_20261022.lean
             research/VF_919_OAI_PRINCIPAL_SOURCE_EXPONENT_BUDGET_20261022.lean
-      - name: Restore original OAI dependency and compiled DAG cache
+      - name: Restore original OAI compiled DAG, verifying source pins and patches
         id: oai_cache
-        uses: actions/cache/restore@v5
-        with:
-          path: oai-upstream/lean/.lake
-          key: oai-certified-434-pntnative-v2-${{ runner.os }}-${{ runner.arch }}-1581d4cbdd69a0faf34b2089614fe2a814316a6a-${{ hashFiles('oai-upstream/lean/lean-toolchain', 'oai-upstream/lean/lakefile.lean', 'oai-upstream/lean/lake-manifest.json', 'oai-upstream/lean/patches/**', 'scripts/apply_oai_434_upstream_patches.py') }}-complete
-          restore-keys: |
-            oai-certified-434-pntnative-v2-${{ runner.os }}-${{ runner.arch }}-1581d4cbdd69a0faf34b2089614fe2a814316a6a-${{ hashFiles('oai-upstream/lean/lean-toolchain', 'oai-upstream/lean/lakefile.lean', 'oai-upstream/lean/lake-manifest.json', 'oai-upstream/lean/patches/**', 'scripts/apply_oai_434_upstream_patches.py') }}-progress-marked-
-            oai-certified-434-pntnative-v2-${{ runner.os }}-${{ runner.arch }}-1581d4cbdd69a0faf34b2089614fe2a814316a6a-${{ hashFiles('oai-upstream/lean/lean-toolchain', 'oai-upstream/lean/lakefile.lean', 'oai-upstream/lean/lake-manifest.json', 'oai-upstream/lean/patches/**', 'scripts/apply_oai_434_upstream_patches.py') }}-progress-gaussian-
-            oai-certified-434-pntnative-v2-${{ runner.os }}-${{ runner.arch }}-1581d4cbdd69a0faf34b2089614fe2a814316a6a-${{ hashFiles('oai-upstream/lean/lean-toolchain', 'oai-upstream/lean/lakefile.lean', 'oai-upstream/lean/lake-manifest.json', 'oai-upstream/lean/patches/**', 'scripts/apply_oai_434_upstream_patches.py') }}-progress-
-      - name: Fetch exact OAI Mathlib packages only when no OAI cache restored
-        # restore-key hits report cache-hit='false' but still contain all
-        # patched package sources and Mathlib oleans. Re-fetching on every
-        # partial restore can overwrite or invalidate compiled build traces.
-        if: ${{ steps.oai_cache.outputs.cache-hit == '' }}
-        working-directory: oai-upstream/lean
+        uses: ./.github/actions/oai-434-shared-cache
+      - name: Report shared cache decisions
         run: |
-          set -euo pipefail
-          lake exe cache get
-      - name: Report native and OAI cache decisions
-        run: |
-          echo "native cache exact hit: ${{ steps.native_cache.outputs.cache-hit }}"
-          echo "native cache restored: ${{ steps.native_cache.outputs.cache-matched-key }}"
-          echo "OAI cache exact hit: ${{ steps.oai_cache.outputs.cache-hit }}"
-          echo "OAI cache restored: ${{ steps.oai_cache.outputs.cache-matched-key }}"
-      - name: Apply exact original OAI compatibility patches
-        run: python3 scripts/apply_oai_434_upstream_patches.py oai-upstream/lean --keep-pinned PrimeNumberTheoremAnd
+          echo "RHLean native: ${{ steps.native_cache.outputs.native-matched-key }}"
+          echo "PNT Wiener exact: ${{ steps.native_cache.outputs.wiener-hit }}"
+          echo "OpenAI matched: ${{ steps.oai_cache.outputs.cache-matched-key }}"
+          echo "OpenAI complete: ${{ steps.oai_cache.outputs.complete }}"
       - name: Prebuild patched original Rellich prerequisites
+        if: ${{ steps.oai_cache.outputs.complete != 'true' }}
         working-directory: oai-upstream/lean
         run: |
           set -euo pipefail
@@ -172,17 +143,14 @@ jobs:
             RellichKondrachov.Analysis.FunctionalSpaces.Sobolev.Euclidean.L2Compactness.ArzelaAscoli \
             RellichKondrachov.Analysis.FunctionalSpaces.Sobolev.Euclidean.L2Compactness.Transfer
       - name: Build upstream original GaussianCommon theorem imports
+        if: ${{ steps.oai_cache.outputs.complete != 'true' }}
         working-directory: oai-upstream/lean
         run: |
           set -euo pipefail
           lake build OAI.NumberTheory.DirichletL.Detector.GaussianCommon
           test -s .lake/build/lib/lean/OAI/NumberTheory/DirichletL/Detector/GaussianCommon.olean
-      - name: Checkpoint compiled OAI GaussianCommon prerequisite DAG
-        if: ${{ steps.oai_cache.outputs.cache-hit != 'true' }}
-        uses: actions/cache/save@v5
-        with:
-          path: oai-upstream/lean/.lake
-          key: oai-certified-434-pntnative-v2-${{ runner.os }}-${{ runner.arch }}-1581d4cbdd69a0faf34b2089614fe2a814316a6a-${{ hashFiles('oai-upstream/lean/lean-toolchain', 'oai-upstream/lean/lakefile.lean', 'oai-upstream/lean/lake-manifest.json', 'oai-upstream/lean/patches/**', 'scripts/apply_oai_434_upstream_patches.py') }}-progress-gaussian-${{ github.run_id }}
+      # Main publishes the full OAI DAG; do not duplicate multi-GB caches
+      # after intermediate steps on successful PR runs.
       # Research imports are quoted flat dotted module names such as
       # `import «research.oai_434.Foo»`. Emit their .olean files as
       # `research.oai_434.Foo.olean` (as the native research compiler does),
@@ -205,6 +173,7 @@ jobs:
             exit 1
           fi
       - name: Compile ORIGINAL OAI unramified source prerequisite once
+        if: ${{ steps.oai_cache.outputs.complete != 'true' }}
         working-directory: oai-upstream/lean
         run: |
           set -euo pipefail
@@ -227,6 +196,7 @@ jobs:
             exit 1
           fi
       - name: Build exact original OAI FreeRow adapter import closure
+        if: ${{ steps.oai_cache.outputs.complete != 'true' }}
         working-directory: oai-upstream/lean
         run: |
           set -euo pipefail
@@ -296,17 +266,13 @@ jobs:
             | tee /tmp/oai-original-gaussian-resonant-sextic.log
           if grep -E 'sorryAx|admitAx|_private' /tmp/oai-original-gaussian-resonant-sextic.log; then exit 1; fi
       - name: Build ORIGINAL OAI refined marked analytic moment prerequisites
+        if: ${{ steps.oai_cache.outputs.complete != 'true' }}
         working-directory: oai-upstream/lean
         run: |
           set -euo pipefail
           lake build OAI.NumberTheory.DirichletL.Detector.DetectorPlainMarkedFineField
           test -s .lake/build/lib/lean/OAI/NumberTheory/DirichletL/Detector/DetectorPlainMarkedFineField.olean
-      - name: Checkpoint compiled OAI marked-source prerequisite DAG
-        if: ${{ steps.oai_cache.outputs.cache-hit != 'true' }}
-        uses: actions/cache/save@v5
-        with:
-          path: oai-upstream/lean/.lake
-          key: oai-certified-434-pntnative-v2-${{ runner.os }}-${{ runner.arch }}-1581d4cbdd69a0faf34b2089614fe2a814316a6a-${{ hashFiles('oai-upstream/lean/lean-toolchain', 'oai-upstream/lean/lakefile.lean', 'oai-upstream/lean/lake-manifest.json', 'oai-upstream/lean/patches/**', 'scripts/apply_oai_434_upstream_patches.py') }}-progress-marked-${{ github.run_id }}
+      # A failed uncached run retains a single partial checkpoint at the end.
       - name: KERNEL-CHECK exact original detector ideal columns into NNS CoDiv
         shell: bash
         run: |
@@ -368,13 +334,13 @@ jobs:
             research/oai_434/VF919OriginalDetectorResonantFibers.lean \
             | tee /tmp/oai-original-detector-resonant-fibers.log
           if grep -E 'sorryAx|admitAx|_private' /tmp/oai-original-detector-resonant-fibers.log; then exit 1; fi
-      - name: Save original imports for subsequent exact checks
-        if: ${{ !cancelled() && steps.oai_cache.outputs.cache-hit != 'true' }}
+      - name: Save a partial OAI DAG only after a failed uncached check
+        if: ${{ !cancelled() && failure() && steps.oai_cache.outcome == 'success' && steps.oai_cache.outputs.cache-hit != 'true' }}
         continue-on-error: true
         uses: actions/cache/save@v5
         with:
           path: oai-upstream/lean/.lake
-          key: oai-gaussian-nns-typed-434-${{ runner.os }}-${{ runner.arch }}-1581d4cbdd69a0faf34b2089614fe2a814316a6a-${{ github.run_id }}
+          key: oai-certified-434-pntnative-v3-${{ runner.os }}-${{ runner.arch }}-1581d4cbdd69a0faf34b2089614fe2a814316a6a-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'oai-upstream/lean/lean-toolchain', 'oai-upstream/lean/lakefile.lean', 'oai-upstream/lean/lake-manifest.json', 'oai-upstream/lean/patches/**', 'scripts/apply_oai_434_upstream_patches.py') }}-progress-${{ github.run_id }}-${{ github.run_attempt }}
       - name: Upload original typed theorem axiom log
         if: always()
         uses: actions/upload-artifact@v4
