@@ -89,9 +89,35 @@ theorem original_weighted_residue_centering_exact
   simp_rw [sub_mul, Finset.sum_sub_distrib]
   rw [← Finset.mul_sum, hzero, mul_zero, sub_zero]
 
+/-- GENUINE original Eisenstein sextic character, with no
+hchi-ne-one premise: the nontriviality follows from exact sextic
+order six away from the bad primes. This is the intended physical
+leading phase, not an abstract random row character. -/
+theorem actual_sextic_weighted_complete_residue_payment
+    (p v : O) (hpv : p ∣ v)
+    [(Ideal.span {p}).IsMaximal]
+    (hg : ConcretePrimeRowBridge.goodLambda ∉ Ideal.span {p})
+    (hchar : ringChar (O ⧸ Ideal.span {p}) ≠ 2)
+    [Fintype (Residue p)] [Fintype (Residue v)]
+    (chiV : MulChar (Residue v) ℂ)
+    (hlift : ∀ x : O, chiV (Ideal.Quotient.mk _ x) =
+      actualSextic (Ideal.span {p}) hg (Ideal.Quotient.mk _ x))
+    (W : Residue v → ℂ) (c : ℂ) :
+    ‖∑ y : Residue v, W y * chiV y‖ ≤
+      ∑ y : Residue v, ‖W y - c‖ := by
+  have hchi : actualSextic (Ideal.span {p}) hg ≠ 1 := by
+    intro h
+    have hdiv : (6 : ℕ) ∣ 1 := by
+      rw [← actualSextic_order_six (Ideal.span {p}) hg hchar]
+      exact orderOf_dvd_of_pow_eq_one (by simpa only [pow_one] using h)
+    norm_num at hdiv
+  exact original_lifted_nonprincipal_weight_variation p v hpv
+    chiV (actualSextic (Ideal.span {p}) hg) hchi hlift W c
+
 #print axioms original_lifted_nonprincipal_constant_mode_zero
 #print axioms original_lifted_nonprincipal_weight_variation
 #print axioms original_weighted_residue_centering_exact
+#print axioms actual_sextic_weighted_complete_residue_payment
 
 end SevenEighths.LowSignedSixthCompletion
 end OAI
