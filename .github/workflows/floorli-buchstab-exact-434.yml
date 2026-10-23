@@ -4,6 +4,8 @@ on:
   pull_request:
     paths:
       - research/VF_MID_FLOOR_LI_BUCHSTAB_EXACT_BRACKETS_20261022.lean
+      - research/VF_MID_SHELL_COFACTOR_FIBER_GATE_SWITCH_20261022.lean
+      - research/VF_MID_TWO_CHANNEL_SHELL_CODIV_GRAM_20261022.lean
       - research/VF_MID_FLOOR_LI_BUCHSTAB_MELLIN_ASYMPTOTIC_AUDIT_20261022.md
       - .github/workflows/floorli-buchstab-exact-434.yml
   workflow_dispatch:
@@ -43,7 +45,7 @@ jobs:
       - name: Kernel-check exact bracket import closure
         run: |
           python3 scripts/compile_research_import_closure.py --build-library \
-            research/VF_MID_FLOOR_LI_BUCHSTAB_EXACT_BRACKETS_20261022.lean \
+            research/VF_MID_TWO_CHANNEL_SHELL_CODIV_GRAM_20261022.lean \
             2>&1 | tee /tmp/floorli-buchstab-proof.txt
           if grep -q 'sorryAx' /tmp/floorli-buchstab-proof.txt; then
             echo 'Sorry axiom detected'
