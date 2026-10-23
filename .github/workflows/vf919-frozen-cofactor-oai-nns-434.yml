@@ -4,6 +4,7 @@ on:
   pull_request:
     paths:
       - 'research/VF_919_FROZEN_COFACTOR_OAI_NNS_RESPONSE_20261023.lean'
+      - 'research/VF_919_FROZEN_COFACTOR_FULL_SOURCE_WELD_20261023.lean'
       - 'research/VF_919_FROZEN_COFACTOR_OAI_NNS_RESPONSE_20261023.md'
       - 'scripts/vf919_frozen_cofactor_response_audit.py'
       - '.github/workflows/vf919-frozen-cofactor-oai-nns-434.yml'
@@ -29,7 +30,7 @@ jobs:
       - name: Refuse proof holes, custom axioms, or admitted lemmas
         run: |
           set -euo pipefail
-          ! grep -nE '^[[:space:]]*(sorry|admit|axiom)([[:space:]]|$)' research/VF_919_FROZEN_COFACTOR_OAI_NNS_RESPONSE_20261023.lean
+          ! grep -nE '^[[:space:]]*(sorry|admit|axiom)([[:space:]]|$)' research/VF_919_FROZEN_COFACTOR_OAI_NNS_RESPONSE_20261023.lean research/VF_919_FROZEN_COFACTOR_FULL_SOURCE_WELD_20261023.lean
       - uses: ./.github/actions/lean-setup
       - name: Restore native library artifacts
         uses: actions/cache/restore@v5
@@ -44,19 +45,22 @@ jobs:
         uses: ./.github/actions/research-compile
         with:
           build-library: 'true'
-          targets: research/VF_919_FROZEN_COFACTOR_OAI_NNS_RESPONSE_20261023.lean
-      - name: Check all eight actual theorem axiom footprints
+          targets: >-
+            research/VF_919_FROZEN_COFACTOR_OAI_NNS_RESPONSE_20261023.lean
+            research/VF_919_FROZEN_COFACTOR_FULL_SOURCE_WELD_20261023.lean
+      - name: Check all twelve actual theorem axiom footprints
         shell: bash
         run: |
           set -euo pipefail
           lake env lean -DwarningAsError=true research/VF_919_FROZEN_COFACTOR_OAI_NNS_RESPONSE_20261023.lean > /tmp/frozen-cofactor-axioms.log 2>&1
+          lake env lean -DwarningAsError=true research/VF_919_FROZEN_COFACTOR_FULL_SOURCE_WELD_20261023.lean >> /tmp/frozen-cofactor-axioms.log 2>&1
           python3 - <<'PY'
           from pathlib import Path
           import re
-          source = Path('research/VF_919_FROZEN_COFACTOR_OAI_NNS_RESPONSE_20261023.lean').read_text()
+          source = (Path('research/VF_919_FROZEN_COFACTOR_OAI_NNS_RESPONSE_20261023.lean').read_text() + '\n' + Path('research/VF_919_FROZEN_COFACTOR_FULL_SOURCE_WELD_20261023.lean').read_text())
           log = Path('/tmp/frozen-cofactor-axioms.log').read_text()
           names = re.findall(r'^#print axioms\s+(\S+)', source, re.M)
-          assert len(names) == 8, names
+          assert len(names) == 12, names
           actual = re.findall(r"'([^']+)' depends on axioms:\s*\[([^\]]*)\]", log)
           assert len(actual) == len(names), (names, actual)
           expected = {'RHLean.Analysis.'+name for name in names}
@@ -65,5 +69,5 @@ jobs:
           for name, axioms in actual:
               found = {a.strip() for a in axioms.split(',') if a.strip()}
               assert found <= allowed, (name, found-allowed)
-          print('PASS: 8 checked exact frozen cofactor / norm / moment-gate theorems')
+          print('PASS: 12 checked exact frozen cofactor / Hecke / NNS moment theorems')
           PY
