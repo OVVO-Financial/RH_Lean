@@ -114,55 +114,83 @@ The existing ORIGINAL `Moments/DetectorPlainFiberSource.lean::detector_row_eq_so
 
 **Next discriminating lemma:** a batched, mask-preserving inequality linking the full original normalized `detectorPositiveRow` L² mass to the full fixed-family cubic/sixth-order operator norm, with explicit original multiplicity and one single normalization. This is the appropriate independent arithmetic seam; the all-fiber energy cannot be deduced from arbitrary `F.nonempty`.
 
-## 7. IMPROVED MOONSHOT: quartic cubic pair lift avoids per-fiber spreading
+## 7. CORRECTED fourth-moment moonshot: sixth-free fibers, then the ORIGINAL marked-width aperture
 
-The source audit in section 6 invalidates a casual per-fiber `Rspread=O(1)`. A stronger option uses the actual n=3 large sieve **twice the right way**: apply it to the SQUARE of the coherent cubic sum, before multiplying by OpenAI's physical row weight.
+The first quartic draft was TOO OPTIMISTIC at `U=P^(5/4)`: it applied an n=3 cube-free large sieve directly to OpenAI's **sixth-free** `FreeRow` population. The real `c^3*u0` cube-root fibers add `#c << U^(1/3)`, and this extra term makes the proposed P^(-1/12) saving fail at that aperture. The code, rational regression and Lean exponent theorem have been corrected, with this failed candidate explicitly preserved as a no-go.
 
-Let `H(u)=sum_{p in S} alpha_p * conj(chi_p(u))`, where `chi_p` is the true cubic character `v_p(u)^2`, and `S` a prime-ideal norm dyad `N(p)~P`. Then EXACTLY
+Let `H(u)=sum_{p in S} alpha_p*conj(chi_p(u))` with genuine fixed cubic `chi_p(u)=v_p(u)^2`, and `S` a dyadic prime-ideal norm P band. EXACTLY
 
 ```text
 H(u)^2 = sum_{p,q in S} alpha_p alpha_q conj(chi_p(u)chi_q(u))
-       = sum_{m in {p*q}} b_m conj(chi_m(u)),
+       = sum_{m in {p*q}} b_m conj(chi_m(u)).
 b_m = sum_{p*q=m} alpha_p alpha_q.
 ```
 
-The second equality requires genuine multiplicativity of the **same fixed cubic Hecke family**, retaining the coprime/ramified zero masks. Original true prime-ideal unique factorization gives at most TWO ordered factorizations `m=p*q` (one when p=q). Thus the exact coefficient collision inequality is
+The second equality requires fixed-family Hecke multiplicativity and accurate bad-prime zero masks. For genuine individually labelled prime ideals, UFD gives at most two ordered decompositions `m=p*q` (one at p=q), so
 
 ```text
-sum_m |b_m|^2 <= 2 * (sum_p |alpha_p|^2)^2
-              << P^(2-4a).
+sum_m |b_m|^2 <= 2*(sum_p |alpha_p|^2)^2 << P^(2-4a).
 ```
 
-The diagonal `p=q` produces `p^2`, which IS cube-free, so it belongs to de Faveri's **n=3** cube-free modulus universe (but the actual fixed-family character for `p^2` must be verified; it must not be replaced by a primitive-character convention). Pair ideals have norm `~P^2`. Applying de Faveri n=3 with rows `U=P^kappa` yields a FOURTH moment rather than a second:
+The repeated-prime modulus `p^2` is CUBE-free and must be accepted by de Faveri's n=3 family with the source's nonprimitive character/mask conventions.
+
+**Correct full sixth-free fourth moment.** With `U=P^kappa`, group original sixth-free row ideals by `c^3*u0`, sum the de Faveri n=3 operator for each cube-free `u0`, use `#c << U^(1/3)` and convergent `sum_c(Nc)^(-2), sum_c(Nc)^(-3)`. This gives, subject to the exact original Hecke fixed-family identification,
 
 ```text
-sum_{u in complete admitted rows} |H(u)|^4 / U
- << (U*P^2)^eps * [
-       P^(2-4a)
-       + P^(4-4a-kappa)
-       + P^(10/3-4a-kappa/3) ].
+(sum_original_FRows |H(u)|^4)/U
+ << (UP^2)^eps * [P^(2-4a)
+                + P^(4-4a-2*kappa/3)
+                + P^(10/3-4a-kappa/3)].
 ```
 
-At `a=3/4`, exact rational exponent regression reports:
-- `U=P^(5/4)`: `[-1,-1/4,-1/12]`. Thus fourth-moment saving `P^(-1/12+eps)`.
-- `U=P^2`: `[-1,-1,-1/3]`. Thus fourth-moment saving `P^(-1/3+eps)`.
+At `a=3/4`:
+- `kappa=5/4`: powers `[-1, +1/6, -1/12]`. **NO saving**.
+- `kappa=2`: powers `[-1, -1/3, -1/3]`. Fourth moment `P^(-1/3+eps)`.
+- `kappa=9/2`: powers `[-1, -2, -7/6]`. Fourth moment `P^(-1+eps)`.
 
-NOW use the native signed, physical, **pre-norm** quadratic fact:
+### Actual OAI geometry supplies the needed larger aperture
+
+Read ORIGINAL `Hecke/DetectorRawFiber.lean::Moments.plain_marked`. Its REAL admission condition is
+
+```text
+2*F.m + 6*(3/4+2*Delta)*sum_{s in selected} F.widths(s) <= 1.
+```
+
+For `F.m>=0`, `Delta>=0` and positive widths this forces
+
+```text
+sum_{s in selected} widths(s) <= 2/9,
+every selected widths(s) <= 2/9.
+```
+
+Thus a selected slot of native scale `P=U^widths(s)` has the **necessary aperture**
+
+```text
+U >= P^(9/2)
+```
+
+(physical prime-ideal norm is in a fixed annular band around P, with constants). **This is part of the original marked fourth-moment source geometry, not an invented independent choice of U=P^2.** New native Lean theorems `vf919ActualMarkedFourthWidthCap`, `vf919ActualSelectedSlotWidthCap`, and `vf919SelectedPrimeAperture` formalize this deduction and are warning-fatal CI targets, pending result.
+
+The selected-width gate is a premise for the actual plain-marked moment branch, **not a universal restriction on every inverse/unmarked/high-row source**. The complete detector must still pay those sources separately.
+
+### True weighted L2 payment, with NO assumed per-fiber density
+
+Native `vf919CubicPrimePairLift` and `vf919PhysicalWindowCubicFourthHolder` prove the exact finite pre-norm pair expansion and Cauchy payment:
 
 ```text
 [sum_u |W(u)|^2 |H(u)|^2]^2
- <= [sum_u |W(u)|^4] * [sum_u |H(u)|^4].
+  <= [sum_u |W(u)|^4] [sum_u |H(u)|^4].
 ```
 
-This is proved independently in `research/VF_919_CUBIC_PAIR_LIFT_FOURTH_MOMENT_20261022.lean` with exact complex pair lift and a Cauchy payment; warning-fatal CI pending. If actual OpenAI original window weights satisfy `sum|W(u)|^4 << U^(1+delta)`, then at `U=P^(5/4)`
+If the ACTUAL physical selected-window remainder has `sum|W|^4 << U^(1+delta)`, then at an actual source aperture `kappa>=9/2` the candidate normalized weighted energy is
 
 ```text
 sum_u |W(u)|^2 |H(u)|^2 / U
-   << P^(-1/24 + (5/8)*delta + eps).
+ << P^(-1/2 + kappa*delta/2 + eps).
 ```
 
-A true polynomial gain remains whenever `delta<1/15`; at `U=P^2`, the analogous gain is `P^(-1/6+delta+eps)`, surviving `delta<1/6`. This requires **NO assumption that arbitrary individual fibers have positive row density**.
+The source-normalized gain survives when `kappa*delta < 1`. At the boundary `kappa=9/2`, this is `delta<2/9`. For narrower selected slots (larger kappa), the admissible `delta` shrinks; do not silently use the boundary threshold uniformly.
 
-**Exact new acceptance seam:** connect the *actual complete compensated source* to a COMMON `W(u)` fourth moment and the true fixed-family pair character, keeping masks, selected prime windows, all `X/Np,Y/Np,Z*Np` rescalings and the *one* original detector normalization. If W varies with the marked prime p, a common W factor is not valid; an exact grouped mixed-fourth source must replace it. Prove or explicitly falsify the factorization. Do not create an axiom saying the fourth moment exists.
+**ONE exact remaining source seam:** regroup the true ORIGINAL `compensatedPhysicalProbe` selected-prime terms into a *common* physical `W(u)` factor times the actual cubic harmonic (and sextic/principal/BR/BKV corrections), keeping `X/Np,Y/Np,Z*Np`, original windows, masks, conductor, and the exact `D_U^(-1/2)` from `DetectorPlainFiberSource.detector_row_eq_source`. If the physical W genuinely depends on marked p after rescaling, use an exact mixed-fourth coefficient operator instead—do NOT assert common W by fiat. Then prove the needed actual physical W-fourth moment or show precisely why its delta consumes the cubic saving.
 
-This quartic route can plausibly produce a full-source a=3/4 gain if all source admissions hold; its **own** exponent budget does NOT reach a=1/2 (at `U=P^2` the pair mixed term is `8/3-4a`, positive for `a<2/3`). The move beyond 2/3 needs an additional compensated higher-moment or altered parameter geometry. RH remains OPEN.
+This may enable an **independent original 3/4 high-row saving** if the true OAI proof geometry admits these decompositions. It is still unproved and cannot be promoted to a new zero-free line. The fourth-moment route alone does not force RH; crossing the resulting barrier toward 1/2 needs additional arithmetic.
