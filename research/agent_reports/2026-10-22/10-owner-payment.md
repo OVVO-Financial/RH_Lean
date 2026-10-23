@@ -234,4 +234,4 @@ This is not claim (A) restated: it is a concrete sufficient total-variation theo
 
 Early checkpoint commit: `4cbac20be294debff886cac962c0e401501b8f95`; readback blob `044716b5c6d2fdfea1d4c1fa166c20c72df70a6a`, 2,299 characters, `IN_PROGRESS`.
 
-Substantive completion publication and readback are recorded after this update.
+Substantive completion commit: `dc7756125d323e662676b34fbeb0f72106e63b9f`; verified readback blob `6a7933e27e5079599f2319c888ab92a18ef4d795`, 14,192 characters, `COMPLETED`, with claim `20261022-owner-1` present. This final metadata update does not alter the mathematical claim.
