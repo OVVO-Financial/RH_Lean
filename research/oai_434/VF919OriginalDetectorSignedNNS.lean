@@ -46,7 +46,7 @@ def originalDetectorNNSScale
     (F : Fiber M H Label Slot U a ε tstar T allowance i)
     (selected : Finset Slot) : ℝ :=
   (U ^ F.m) * (U ^ F.m) *
-    ∏ s ∈ selected, U ^ (F.widths s)
+    ∏ s : selected, U ^ (F.widths s.val)
 
 /-- Full original ideal-column row coefficient: the Hecke phase and
     fixed mask are present exactly once. -/
@@ -165,4 +165,5 @@ end SevenEighths.CenteredMomentDetectorPlainFiberSource
 #print axioms SevenEighths.CenteredMomentDetectorPlainFiberSource.original_detector_row_exact_signed_NNS
 #print axioms SevenEighths.CenteredMomentDetectorPlainFiberSource.original_marked_polynomials_exact_signed_NNS
 
+end
 end OAI
