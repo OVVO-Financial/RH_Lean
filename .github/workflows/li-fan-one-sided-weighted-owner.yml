@@ -1,0 +1,26 @@
+name: One-sided Li fan weighted owner audit
+on:
+  pull_request:
+    paths:
+      - 'research/LI_FAN_ONE_SIDED_WEIGHTED_COMPOSITE_RH_CONTRACT_20261022.md'
+      - 'scripts/li_fan_one_sided_weighted_owner_audit.py'
+      - '.github/workflows/li-fan-one-sided-weighted-owner.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  genuine-prime-square-owner-census:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install high precision logarithmic integral evaluator
+        run: python -m pip install 'mpmath>=1.3,<2'
+      - name: Exact true prime/floor-Li/weighted square-owner identities
+        run: python scripts/li_fan_one_sided_weighted_owner_audit.py
