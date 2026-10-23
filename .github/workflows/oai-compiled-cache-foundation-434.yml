@@ -1,0 +1,123 @@
+name: Publish reusable Lean 4.34.1 OpenAI compilation foundation
+# IMPORTANT: GitHub only shares PR caches with that PR and its base branch.
+# Publish on main, never refs/pull/*/merge. Do not publish -complete on failure.
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/oai-compiled-cache-foundation-434.yml'
+      - '.github/actions/oai-434-shared-cache/**'
+      - '.github/actions/lean-compiled-cache/**'
+      - '.github/actions/lean-setup/**'
+      - 'lean-toolchain'
+      - 'lakefile.lean'
+      - 'lake-manifest.json'
+      - 'RHLean/**'
+      - 'scripts/apply_oai_434_upstream_patches.py'
+      - 'scripts/check_shared_lean_packages.py'
+  schedule:
+    - cron: '27 4 * * 0'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: oai-434-compiled-baseline-main
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    # A workflow_dispatch on a feature branch must never create a "trusted"
+    # cache that default-branch users could mistake for a reviewed baseline.
+    if: ${{ github.ref == 'refs/heads/main' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    steps:
+      - name: Checkout trusted main
+        uses: actions/checkout@v4
+      - name: Set up exact Lean 4.34.1 and Mathlib
+        uses: ./.github/actions/lean-setup
+      - name: Restore default-branch RHLean and unpatched PNT+ artifacts
+        id: native
+        uses: ./.github/actions/lean-compiled-cache
+      - name: Build pinned native Wiener prerequisite once
+        id: wiener
+        run: |
+          set -euo pipefail
+          lake build PrimeNumberTheoremAnd.Wiener
+          test -s .lake/packages/PrimeNumberTheoremAnd/.lake/build/lib/lean/PrimeNumberTheoremAnd/Wiener.olean
+      - name: Publish native Wiener extension for all PRs
+        if: ${{ !cancelled() && steps.wiener.outcome == 'success' && steps.native.outputs.wiener-hit != 'true' }}
+        uses: actions/cache/save@v5
+        with:
+          path: .lake/packages/PrimeNumberTheoremAnd/.lake/build
+          key: ${{ steps.native.outputs.wiener-primary-key }}
+      - name: Checkout original immutable OpenAI mathematics
+        uses: actions/checkout@v4
+        with:
+          repository: openai/math
+          ref: 1581d4cbdd69a0faf34b2089614fe2a814316a6a
+          path: oai-upstream
+          persist-credentials: false
+      - name: Restore pinned original OpenAI prerequisite DAG
+        id: oai
+        uses: ./.github/actions/oai-434-shared-cache
+      - name: Compile all ORIGINAL OAI 7/8 and Gaussian-NNS imported prerequisites
+        id: build
+        if: ${{ steps.oai.outputs.complete != 'true' }}
+        working-directory: oai-upstream/lean
+        run: |
+          set -euo pipefail
+          # Same dependency surface as the accepted original OAI workflows,
+          # plus the extra Gaussian NNS/FreeRow imports used by PR #1008.
+          lake build \
+            RellichKondrachov.Analysis.FunctionalSpaces.Sobolev.Euclidean.TranslationEstimateL2 \
+            RellichKondrachov.Analysis.FunctionalSpaces.Sobolev.Euclidean.L2Compactness.Approximation \
+            RellichKondrachov.Analysis.FunctionalSpaces.Sobolev.Euclidean.L2Compactness.ArzelaAscoli \
+            RellichKondrachov.Analysis.FunctionalSpaces.Sobolev.Euclidean.L2Compactness.Transfer
+          lake build \
+            OAI.NumberTheory.DirichletL.Detector.GaussianCommon \
+            OAI.NumberTheory.DirichletL.Detector.HighRowsSelectedUnramified \
+            OAI.NumberTheory.DirichletL.Hecke.InverseAmplificationRows \
+            OAI.NumberTheory.DirichletL.CenteredExceptionalCount \
+            OAI.NumberTheory.DirichletL.GaussSum.CubicNormalization \
+            OAI.NumberTheory.DirichletL.GaussSum.LocalProductAssembly \
+            OAI.NumberTheory.DirichletL.Detector.EulerCoordinates \
+            OAI.NumberTheory.DirichletL.Detector.DetectorPlainMarkedFineField \
+            OAI.NumberTheory.DirichletL.Detector.FinalAssemblyUnconditional
+      - name: Verify terminal imported OpenAI cache is COMPLETE
+        id: verified
+        run: |
+          set -euo pipefail
+          root=oai-upstream/lean/.lake/build/lib/lean/OAI/NumberTheory/DirichletL
+          for module in \
+            Detector/GaussianCommon \
+            Detector/HighRowsSelectedUnramified \
+            Hecke/InverseAmplificationRows \
+            CenteredExceptionalCount \
+            GaussSum/CubicNormalization \
+            GaussSum/LocalProductAssembly \
+            Detector/EulerCoordinates \
+            Detector/DetectorPlainMarkedFineField \
+            Detector/FinalAssemblyUnconditional
+          do
+            test -s "$root/$module.olean"
+          done
+          python3 scripts/check_shared_lean_packages.py . oai-upstream/lean PrimeNumberTheoremAnd mathlib
+          echo "::notice::Complete pinned OpenAI imports; ready for reuse by independent PRs."
+      - name: Publish immutable COMPLETE default-branch OpenAI DAG
+        if: ${{ !cancelled() && steps.verified.outcome == 'success' && steps.oai.outputs.cache-hit != 'true' }}
+        uses: actions/cache/save@v5
+        with:
+          path: oai-upstream/lean/.lake
+          key: ${{ steps.oai.outputs.cache-primary-key }}
+      # Only failed builds get a partial checkpoint; do NOT create a second
+      # multi-GB progress snapshot when a full cache was published.
+      - name: Preserve partial DAG exclusively after a failed cold baseline build
+        if: ${{ !cancelled() && failure() && steps.oai.outcome == 'success' && steps.oai.outputs.cache-hit != 'true' }}
+        continue-on-error: true
+        uses: actions/cache/save@v5
+        with:
+          path: oai-upstream/lean/.lake
+          key: oai-certified-434-pntnative-v3-${{ runner.os }}-${{ runner.arch }}-1581d4cbdd69a0faf34b2089614fe2a814316a6a-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'oai-upstream/lean/lean-toolchain', 'oai-upstream/lean/lakefile.lean', 'oai-upstream/lean/lake-manifest.json', 'oai-upstream/lean/patches/**', 'scripts/apply_oai_434_upstream_patches.py') }}-progress-${{ github.run_id }}-${{ github.run_attempt }}
