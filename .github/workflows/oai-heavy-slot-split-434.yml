@@ -1,0 +1,59 @@
+name: Original OAI fixed-heavy-slot two-channel split
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'research/oai_434/VF919OriginalFiberHeavySlotSplit.lean'
+      - '.github/workflows/oai-heavy-slot-split-434.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: oai-heavy-slot-split-${{ github.head_ref || github.ref_name }}
+  cancel-in-progress: true
+
+jobs:
+  lean:
+    runs-on: ubuntu-latest
+    timeout-minutes: 110
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up pinned native Lean and Mathlib
+        uses: ./.github/actions/lean-setup
+      - name: Restore main-branch native RHLean and unpatched PNT
+        uses: ./.github/actions/lean-compiled-cache
+      - uses: actions/checkout@v4
+        with:
+          repository: openai/math
+          ref: 1581d4cbdd69a0faf34b2089614fe2a814316a6a
+          path: oai-upstream
+          persist-credentials: false
+      - name: Restore verified original OpenAI compiled baseline
+        id: oai
+        uses: ./.github/actions/oai-434-shared-cache
+      - name: Compile the pinned original Fiber dependency when needed
+        if: ${{ steps.oai.outputs.complete != 'true' }}
+        working-directory: oai-upstream/lean
+        run: |
+          set -euo pipefail
+          lake build OAI.NumberTheory.DirichletL.Hecke.DetectorRawFiber
+      - name: Warning-fatal kernel check and axiom audit
+        shell: bash
+        run: |
+          set -euo pipefail
+          cp research/oai_434/VF919OriginalFiberHeavySlotSplit.lean \
+            oai-upstream/lean/VF919OriginalFiberHeavySlotSplit.lean
+          cd oai-upstream/lean
+          lake env lean -DwarningAsError=true VF919OriginalFiberHeavySlotSplit.lean \
+            2>&1 | tee /tmp/oai-heavy-slot-split.log
+          if grep -E 'sorryAx|admitAx|_private' /tmp/oai-heavy-slot-split.log; then
+            echo "Unexpected source axiom, placeholder, or private proof" >&2
+            exit 1
+          fi
+          if grep -R -nE '\\b(sorry|admit)\\b' VF919OriginalFiberHeavySlotSplit.lean; then
+            echo "Forbidden proof placeholder found" >&2
+            exit 1
+          fi
