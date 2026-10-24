@@ -81,7 +81,9 @@ theorem closedSquareShell_floor_before_birth (k : ℕ) (hk : 1 ≤ k) :
     rw [Finset.sum_Icc_succ_top (by omega : 1 ≤ k - 1 + 1)]
     simp only [hsucc]
   have htop : f k = closedSquareShellMu k := by
-    simp [f, Nat.div_self (by omega : 0 < k)]
+    change closedSquareShellMu k * (((k / k : ℕ) : ℤ)) = closedSquareShellMu k
+    rw [Nat.div_self (by omega : 0 < k)]
+    norm_num
   change (∑ b ∈ Finset.Icc 1 (k - 1), f b) = 1 - closedSquareShellMu k
   rw [htop] at hsplit
   omega
