@@ -223,3 +223,8 @@ Resume:
 - Quantitative conditional gain: (U^{-175/(888N)}) at the #1008 (Q^{-7/8}) rate.
 - Status: `PAPER_PROOF / EXACT STRUCTURAL REDUCTION`; no Lean compilation was performed by this report-only agent.
 - Native independent 7/8 proof, original #915 payment, canonical VF and RH remain OPEN.
+
+
+## K. Publication verification
+
+The completed report was created by commit `32c0b3c79d02a18ac774eda1b0e067ac602adaea`. Immediate readback from `agent-reports` returned blob `fd205cae652c7a747fbe52cebebe1e988c371625`, 15,145 characters, with `COMPLETED` and claim `20261024-wheel-1` present. This verifies report publication only; it does not promote the paper theorem to Lean or change main, PR review state, merge state, schedules or permissions.
