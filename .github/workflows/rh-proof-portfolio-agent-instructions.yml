@@ -1,0 +1,35 @@
+name: RH proof portfolio and seven-agent instruction checks
+
+on:
+  pull_request:
+    paths:
+      - 'AGENTS.md'
+      - 'CURRENT_PROOF_CONTRACT.md'
+      - 'CURRENT_RESEARCH_HANDOFF.md'
+      - 'RESEARCH_ROUTE_REGISTRY.md'
+      - 'docs/RH_PROOF_ATTACK_PORTFOLIO_20261024.md'
+      - 'docs/AGENT_STUDIO_20261024_SEVEN_PROMPTS.md'
+      - 'docs/DYNAMIC_RESEARCH_AGENTS.md'
+      - 'docs/FACTOR_DEPTH_RESEARCH_BRIEF.md'
+      - 'docs/CHATGPT_AGENT_STUDIO_RH_SETUP_2026_10_12.md'
+      - 'docs/RESEARCH_FRONTIER_DAG.md'
+      - 'docs/OAI_COMPENSATED_ONE_PRIME_NNS_SEAM_20261022.md'
+      - 'docs/DOCUMENTATION_INDEX.md'
+      - 'scripts/validate_rh_agent_portfolio.py'
+      - 'scripts/vf_block_capture_counterexample_549.py'
+      - '.github/workflows/rh-proof-portfolio-agent-instructions.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  portfolio-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate all ten routes and seven dynamic agent prompts
+        run: python3 scripts/validate_rh_agent_portfolio.py
+      - name: Reproduce the refutation of universal one-square-block VF capture
+        run: python3 scripts/vf_block_capture_counterexample_549.py
