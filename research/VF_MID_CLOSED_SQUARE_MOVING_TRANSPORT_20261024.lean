@@ -108,7 +108,43 @@ theorem closedSquareShell_generic_movingComplement_telescope
            rw [hfull, hfix]
            ring
 
+
+/-- The actual signed double-floor square with every ordered factor pair. -/
+def closedSquareShellPhysicalFloor (R X : ℕ) : ℤ :=
+  ∑ a ∈ Finset.Icc 1 R,
+    ∑ b ∈ Finset.Icc 1 R,
+      closedSquareShellMu a * closedSquareShellMu b *
+        (((X / (a * b) : ℕ) : ℤ))
+
+/-- Literal newly admitted row, column and corner at root k. -/
+def closedSquareShellPhysicalBorder (k : ℕ) : ℤ :=
+  (∑ a ∈ Finset.Icc 1 (k - 1),
+    closedSquareShellMu a * closedSquareShellMu k *
+      (((k ^ 2 / (a * k) : ℕ) : ℤ))) +
+  (∑ b ∈ Finset.Icc 1 (k - 1),
+    closedSquareShellMu k * closedSquareShellMu b *
+      (((k ^ 2 / (k * b) : ℕ) : ℤ))) +
+  closedSquareShellMu k * closedSquareShellMu k *
+    (((k ^ 2 / (k * k) : ℕ) : ℤ))
+
+/-- The physical square grows by exactly one signed border bill. -/
+theorem closedSquareShell_physicalFloor_square_birth
+    (k : ℕ) (hk : 1 ≤ k) :
+    closedSquareShellPhysicalFloor k (k ^ 2) =
+      closedSquareShellPhysicalFloor (k - 1) (k ^ 2) +
+        closedSquareShellPhysicalBorder k := by
+  have hpred : k - 1 + 1 = k := by omega
+  have h := closedSquareShell_doubleSum_square_succ
+    (fun a b : ℕ =>
+      closedSquareShellMu a * closedSquareShellMu b *
+        (((k ^ 2 / (a * b) : ℕ) : ℤ))) (k - 1)
+  rw [hpred] at h
+  unfold closedSquareShellPhysicalFloor closedSquareShellPhysicalBorder
+  convert h using 1 <;> ring
+
+
 #print axioms closedSquareShell_doubleSum_square_succ
+#print axioms closedSquareShell_physicalFloor_square_birth
 #print axioms closedSquareShell_generic_movingBoundary_telescope
 #print axioms closedSquareShell_generic_movingComplement_telescope
 end RHLean.Analysis
