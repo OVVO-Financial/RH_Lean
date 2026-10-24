@@ -36,4 +36,5 @@ jobs:
         shell: bash
         run: |
           ! grep -nE '^[[:space:]]*(sorry|admit|axiom)([[:space:]]|$)' \
-            research/VF_MID_CLOSED_SQUARE_BIRTH_TIME_20261024.lean
+            research/VF_MID_CLOSED_SQUARE_BIRTH_TIME_20261024.lean \
+            research/VF_MID_CLOSED_SQUARE_MOVING_TRANSPORT_20261024.lean
