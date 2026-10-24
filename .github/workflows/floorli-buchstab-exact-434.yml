@@ -1,0 +1,53 @@
+name: Floor-Li Buchstab exact signed source
+
+on:
+  pull_request:
+    paths:
+      - research/VF_MID_FLOOR_LI_BUCHSTAB_EXACT_BRACKETS_20261022.lean
+      - research/VF_MID_SHELL_COFACTOR_FIBER_GATE_SWITCH_20261022.lean
+      - research/VF_MID_TWO_CHANNEL_SHELL_CODIV_GRAM_20261022.lean
+      - research/VF_MID_FLOOR_LI_BUCHSTAB_MELLIN_ASYMPTOTIC_AUDIT_20261022.md
+      - .github/workflows/floorli-buchstab-exact-434.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  kernel:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Restore Lake packages
+        uses: actions/cache/restore@v5
+        with:
+          path: .lake/packages
+          key: lake-packages-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
+      - uses: leanprover/lean-action@v1
+        with:
+          use-github-cache: false
+          use-mathlib-cache: true
+          build: false
+          test: false
+          lint: false
+      - name: Restore RHLean build cache
+        uses: actions/cache/restore@v5
+        with:
+          path: .lake/build
+          key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'RHLean.lean', 'RHLean/**/*.lean') }}
+          restore-keys: |
+            rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-
+      - name: Audit assumptions
+        run: bash scripts/audit_assumptions.sh
+      - name: Kernel-check exact bracket import closure
+        run: |
+          python3 scripts/compile_research_import_closure.py --build-library \
+            research/VF_MID_TWO_CHANNEL_SHELL_CODIV_GRAM_20261022.lean \
+            2>&1 | tee /tmp/floorli-buchstab-proof.txt
+          if grep -q 'sorryAx' /tmp/floorli-buchstab-proof.txt; then
+            echo 'Sorry axiom detected'
+            exit 1
+          fi

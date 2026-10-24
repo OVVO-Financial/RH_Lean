@@ -248,6 +248,31 @@ theorem mertensSummatory_eq_neg_signedSum_add_smoothMass
   exact primeSievePNTCorrected_sub_two_error_eq_neg_signedSum_add_smoothMass
     y x hroot
 
+/-! ## Literal square-root cutoff: every unprocessed q>y is unique -/
+
+/-- When sqrt(x)<=y, the remaining high-prime cofactor is at most y.
+The entire signed high-source mass equals the negative actual prime tail. -/
+theorem sum_primeSieveHighSourceSet_eq_neg_mertensPrimeTail_of_sqrt_le
+    (y x : ℕ) (hy : 1 ≤ y) (hroot : Nat.sqrt x ≤ y) :
+    (∑ n ∈ primeSieveHighSourceSet y x, canonicalMoebiusWeight n) =
+      -primeSieveMertensPrimeTail y x := by
+  rw [sum_primeSieveHighSourceSet_eq_pairProducts_of_sqrt_le y x hy hroot,
+    sum_primeSieveTransportPairSet_eq_neg_cofactorMass_of_sqrt_le y x hroot,
+    primeSieveTransportCofactorMass_eq_mertensPrimeTail y x]
+
+/-- Full sharp Mertens collapse with the literal y=floor sqrt x
+cutoff. The theorem contains NO extra prime-boundary correction. -/
+theorem mertensSummatory_eq_neg_signedSum_add_smoothMass_of_sqrt_le
+    (y x : ℕ) (hy : 1 ≤ y) (hroot : Nat.sqrt x ≤ y) :
+    mertensSummatory x =
+      -primeSieveReciprocalMertensSignedSum y x +
+        primeSieveSmoothMobiusMass y x := by
+  have hsplit := mertensSummatory_eq_smoothMass_add_highSourceMass y x
+  rw [sum_primeSieveHighSourceSet_eq_neg_mertensPrimeTail_of_sqrt_le
+    y x hy hroot,
+    ← primeSieveReciprocalMertensSignedSum_eq_mertensPrimeTail] at hsplit
+  linear_combination hsplit
+
 /-! ## The Li-subtracted variant
 
 Replacing the prime counts `Pi_d` by the prime-count discrepancies
