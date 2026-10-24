@@ -1,0 +1,29 @@
+name: Original cubic pair-fourth moment native Lean 4.34.1
+on:
+  pull_request:
+    paths:
+      - 'research/VF_919_CUBIC_PAIR_LIFT_FOURTH_MOMENT_20261022.lean'
+      - '.github/workflows/oai-cubic-pair-fourth-native-434.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: oai-cubic-fourth-${{ github.head_ref || github.ref_name }}
+  cancel-in-progress: true
+jobs:
+  finite-pair-fourth:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/lean-setup
+      - name: Compile signed cubic pair lift and physical 4th-moment consumer
+        shell: bash
+        run: |
+          set -euo pipefail
+          lake env lean -DwarningAsError=true research/VF_919_CUBIC_PAIR_LIFT_FOURTH_MOMENT_20261022.lean 2>&1 \
+            | tee /tmp/oai-cubic-fourth.txt
+          if grep -E 'sorryAx|admitAx|_private' /tmp/oai-cubic-fourth.txt; then
+            echo "Unexpected axiom/private proof" >&2
+            exit 1
+          fi
