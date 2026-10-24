@@ -72,7 +72,7 @@ theorem closedSquareShell_floor_before_birth (k : ℕ) (hk : 1 ≤ k) :
     simp only [hsucc]
   have htop : f k = shellMu k := by
     dsimp [f]
-    simp [Nat.div_self (by omega : k ≠ 0)]
+    simp [Nat.div_self (by omega : 0 < k)]
   change (∑ b ∈ Finset.Icc 1 (k - 1), f b) = 1 - shellMu k
   rw [htop] at hsplit
   omega
@@ -145,6 +145,9 @@ theorem closedSquareShell_birth_root_diagonal_cancel (A B : ℕ) :
 #print axioms closedSquareShell_pair_birth_telescope
 #print axioms closedSquareShell_native_floor_unit
 #print axioms closedSquareShell_floor_before_birth
+#print axioms closedSquareShell_birth_root_quotient_left
+#print axioms closedSquareShell_birth_root_quotient_right
+#print axioms closedSquareShell_birth_bill_eq_literal_root_floor
 #print axioms closedSquareShell_birthTime_floor_eq_two_mu_sub_mu_sq
 #print axioms closedSquareShell_sum_birth_bills
 #print axioms closedSquareShell_birth_root_diagonal_cancel
