@@ -201,3 +201,8 @@ No workflow was rerun, no PR was modified, reviewed, retargeted or merged, and n
 - Sharp obstruction: arbitrary selected subsets have no width floor; one-slot thresholds are \(4/67\) for \(\theta=7/8\) and \(25/364\) for \(\theta=51/100\).
 - First missing theorem: uniform absolutely integrable physical-response multiplier envelope plus exact \(U,D_{\rm cond},Z\) conversion.
 - Incomplete sixth-moment, principal normalization, full signed NNS cross energy, native global 7/8, canonical VF and RH remain OPEN.
+
+
+## K. Publication verification
+
+The early `IN_PROGRESS` checkpoint was created by commit `8bc7445d0b4046c8cd3c0aee4c1f3e9ad0bf5aef` and read back as blob `2174b6ebe2a13d79e4b2f0cef6998aa06636aca4`. The completed mathematical report was published through commits `36b2de10162dfb120feadbb365322d33a339d2bb` and Markdown-normalization commit `381ad9df42193be9d26235558ce27d659d77eea0`. Readback returned blob `79fb26cf20ba44b5920bc7f7f493b61d95ef8b03`, 14,195 characters, with `COMPLETED` and claim `20261023-analytic-1` present. This verifies report publication only; it does not change main, theorem evidence, PR state, CI, merge state, schedules or permissions.
