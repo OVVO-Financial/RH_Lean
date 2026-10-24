@@ -1,6 +1,6 @@
 # Documentation index
 
-Updated 2026-10-16 after merged PR #961 and the unified manual cycle. The repository is a formal reduction and obstruction map;
+Updated 2026-10-22 with the current original-OAI/NNS proof attack and historical links; The repository is a formal reduction and obstruction map;
 the CANONICAL direct VF cumulative signed owner/run estimate remains open. The
 Mertens finite-A/finite-C and historical CORR-4 routes are unproved sufficient
 alternatives, not replacements. Start with the
@@ -14,6 +14,7 @@ alternatives, not replacements. Start with the
 | [Current proof contract](../CURRENT_PROOF_CONTRACT.md) | Sole sqrt2 canonical VF endpoint, frozen raw arithmetic translation, actual-prime open gate. |
 | [Canonical VF full autopsy (Oct 12)](../research/VF_CANONICAL_SQRT_TWO_AUTOPSY_2026_10_12.md) | Definitive new real VF definition, all-real O(1), phase/cofactor/floor/fantasy normalization, von Koch formal interfaces. |
 | [Finite A/C ↔ original VF alignment (Oct 11)](../research/FINITE_A_C_VF_ALIGNMENT_2026_10_11.md) | Distinguish the canonical VF target from finite-A/C alternatives, exact signed mechanisms, conditional consumers, and the one remaining quantitative gate. |
+| [ACTIVE Oct 22 OAI compensated one-prime / signed NNS proof seam](OAI_COMPENSATED_ONE_PRIME_NNS_SEAM_20261022.md) | First quantitative proof attack, seven separate specialist deliverables, source/falsifier and terminal acceptance. |
 | [Agent instructions](../AGENTS.md) | Agent governance, mathematical integrity and repository permissions. |
 | [Live post-#958 factor-depth brief](FACTOR_DEPTH_RESEARCH_BRIEF.md) | Merged one-ninth support lemma; raw cross-tag and growing-cofactor paper restrictions; complete signed A/B next target and distinct MU-LIFT route. |
 | [Merged #958 odd cofactor support](../RHLean/Proof/OddResidualCofactorSupport.lean) | Qualified `9 * P+(m) < R^2` structural theorem PROVED_IN_LEAN_ON_MAIN; not a signed bound or return-cell bridge. |

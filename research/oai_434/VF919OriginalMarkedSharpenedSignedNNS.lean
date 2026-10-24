@@ -40,7 +40,7 @@ open RHLean.Analysis
 local notation "O" => HeckeFamily.O
 
 theorem source_batch_plain_marked_fine_sharper_signed_NNS {Δ:ℝ}{D:Parameters.HighData Δ}
-    (S:SourceData D)(mesh:ℝ)(hmesh:0<mesh)(hfine:∀j,D.ell j≤mesh/200)
+    (S:SourceData D)(mesh:ℝ)(hmesh : 0 < mesh)(hfine : ∀ j, D.ell j ≤ mesh / 200)
     (henergy:PositiveFineSourceInput S mesh):
     ∃J:ℕ,∀η:Character,∃C:ℝ,0<C ∧ ∀ᶠZ:ℝ in atTop,
     1<Z ∧ ∀rows:Finset FreeRow,(∀u∈rows,Z^(1/100:ℝ)≤rowNorm u)→
@@ -96,8 +96,8 @@ theorem source_batch_plain_marked_fine_sharper_signed_NNS {Δ:ℝ}{D:Parameters.
   have hf:=actual_fiber_lengths D F hU
   have hstate:state.width≤2:=by rw [hwidthstate];exact (width_bands D F.m hf.2.2.1).2.1
   have hw (s:selected):0≤F.widths s.val:=(hwidths s).1.le
-  have hwcap (s:selected):F.widths s.val≤mesh:=by
-    change B.widths s.val≤mesh
+  have hwcap (s:selected) : F.widths s.val ≤ mesh := by
+    change B.widths s.val ≤ mesh
     rw [hwidth]
     exact (Parameters.fine_slot_widths D (fun _=>mesh) hmesh hfine d hd s.val).2
   have hpos:=hU₀ label (Z^d) (hscale label d hd) selected (fun _=>1)
@@ -121,7 +121,8 @@ theorem source_batch_plain_marked_fine_sharper_signed_NNS {Δ:ℝ}{D:Parameters.
   have hexp:state.width+stageError D≤1+D.t/2:=by
     rw [hwidthstate]
     dsimp [delta, stageError]
-    ring
+    have hsplit : (1 + D.t / 4 + D.t / 4 : ℝ) = 1 + D.t / 2 := by ring
+    exact hsplit.le
   calc
     (∑ u ∈ F.rows,
         vf919MarkedRealEnergy (polynomial (F.family u F.label) false ((logProfile^[j]) positiveAnnular) ((Z^d)^F.m) σ t) *
@@ -157,4 +158,5 @@ end SevenEighths.ProbeDetectorPlainMarkedFineField
 
 #print axioms SevenEighths.ProbeDetectorPlainMarkedFineField.source_batch_plain_marked_fine_sharper_signed_NNS
 
+end
 end OAI

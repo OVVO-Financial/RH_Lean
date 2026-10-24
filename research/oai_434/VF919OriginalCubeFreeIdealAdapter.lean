@@ -60,7 +60,7 @@ theorem sixthFree_ideal_sqFree_mul_cube_cubeFree
       Squarefree (squarefreeCubeRoot I) ∧
       (∀ P : Id, valuation (cubeFreeRemainder I) P < 3) := by
   have hSq : Squarefree (squarefreeCubeRoot I) := by
-    apply (squarefree_iff_nodup_normalizedFactors
+    apply (UniqueFactorizationMonoid.squarefree_iff_nodup_normalizedFactors
       (squarefreeCubeRoot_ne_zero I)).mpr
     apply Multiset.nodup_iff_count_le_one.mpr
     intro P
@@ -163,7 +163,7 @@ theorem original_FreeRow_cube_root_ideal_count_le
         _ ≤ U := hRows u hu
     have hPower :
         ((Ideal.absNorm C : ℕ) : ℝ) ^ (3 : ℝ) ≤ U := by
-      simpa only [Real.rpow_natCast] using hCubed
+      simpa only [Real.rpow_ofNat] using hCubed
     have hCubeRoot :=
       (Real.le_rpow_inv_iff_of_pos hCpos hU0
         (by norm_num : (0 : ℝ) < 3)).mpr hPower
@@ -194,7 +194,7 @@ theorem original_ideal_dyadic_shell_count_le
       (2 : ℝ) ^ k ≤ (Ideal.absNorm I : ℝ) ∧
       (Ideal.absNorm I : ℝ) < (2 : ℝ) ^ (k + 1))
   have hOne : 1 ≤ (2 : ℝ) ^ (k + 1) :=
-    one_le_pow₀ (by norm_num : (1 : ℝ) ≤ 2) _
+    one_le_pow₀ (by norm_num : (1 : ℝ) ≤ 2)
   have hNZ : ∀ I ∈ shell, I ≠ 0 := by
     intro I hI
     exact hnz I (Finset.mem_filter.mp hI).1
@@ -248,7 +248,9 @@ theorem original_canonicalSextic_sq_eq_cubic
   have h := congrArg
     (fun chi : MulChar (O ⧸ P) ℂ => chi (Ideal.Quotient.mk P u))
     (canonicalSextic_pow_two P hg)
-  simpa only [MulChar.pow_apply'] using h
+  rw [MulChar.pow_apply' (canonicalSextic P hg)
+    (by norm_num : (2 : ℕ) ≠ 0) (Ideal.Quotient.mk P u)] at h
+  exact h
 
 /-- True original mask including the zero value when c belongs to P:
     squaring the sextic character kills the c-cube factor. -/
@@ -279,7 +281,9 @@ theorem original_conjugated_cubic_cube_mask
         star ((canonicalSextic P hg (Ideal.Quotient.mk P u)) ^ 2) := by
   have h := congrArg star
     (original_canonical_cubic_cube_mask P hg c u)
-  simpa only [star_mul, map_ite, star_zero, star_one] using h
+  by_cases hc : c ∈ P
+  · simpa [hc] using h
+  · simpa [hc] using h
 
 
 /-! ## Source-exact three harmonic D bill, without false scalar W -/
@@ -321,6 +325,7 @@ theorem original_Physical_D_three_harmonics
   dsimp
   rw [← original_Physical_vinv_W_eq_q Q v w hUnit]
   field_simp [hV, hD]
+  simp only [starRingEnd_apply]
   ring
 
 /-- In the ORIGINAL physical coordinates, the W² cross term is a
