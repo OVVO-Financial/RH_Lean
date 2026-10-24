@@ -1,0 +1,84 @@
+name: Restore original OpenAI 4.34.1 compiled DAG (shared unpatched PNT)
+description: Restore exact pinned OpenAI imports; never confuse a partial restore with a certified complete build.
+outputs:
+  cache-hit:
+    description: Exact complete cache key matched
+    value: ${{ steps.restore.outputs.cache-hit }}
+  cache-matched-key:
+    description: Restored exact or partial cache key
+    value: ${{ steps.restore.outputs.cache-matched-key }}
+  cache-primary-key:
+    description: Immutable complete cache key to publish only after the full DAG is compiled
+    value: ${{ steps.restore.outputs.cache-primary-key }}
+  complete:
+    description: Exact complete cache with verified OpenAI prerequisite oleans present
+    value: ${{ steps.probe.outputs.complete }}
+runs:
+  using: composite
+  steps:
+    - name: Verify original pinned OAI checkout
+      shell: bash
+      run: |
+        set -euo pipefail
+        test "$(git -C oai-upstream rev-parse HEAD)" = "1581d4cbdd69a0faf34b2089614fe2a814316a6a"
+        test "$(cat oai-upstream/lean/lean-toolchain)" = "leanprover/lean4:v4.34.1"
+        test "$(cat lean-toolchain)" = "leanprover/lean4:v4.34.1"
+    - name: Restore source-pinned complete or progressive OpenAI imports
+      id: restore
+      uses: actions/cache/restore@v5
+      with:
+        path: oai-upstream/lean/.lake
+        # v3 additionally commits to native RHLean pins, because OpenAI is
+        # deliberately typechecked against the native *unpatched* PNT+ Wiener.
+        key: oai-certified-434-pntnative-v3-${{ runner.os }}-${{ runner.arch }}-1581d4cbdd69a0faf34b2089614fe2a814316a6a-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'oai-upstream/lean/lean-toolchain', 'oai-upstream/lean/lakefile.lean', 'oai-upstream/lean/lake-manifest.json', 'oai-upstream/lean/patches/**', 'scripts/apply_oai_434_upstream_patches.py') }}-complete
+        restore-keys: |
+          oai-certified-434-pntnative-v3-${{ runner.os }}-${{ runner.arch }}-1581d4cbdd69a0faf34b2089614fe2a814316a6a-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'oai-upstream/lean/lean-toolchain', 'oai-upstream/lean/lakefile.lean', 'oai-upstream/lean/lake-manifest.json', 'oai-upstream/lean/patches/**', 'scripts/apply_oai_434_upstream_patches.py') }}-progress-
+          oai-certified-434-pntnative-v2-${{ runner.os }}-${{ runner.arch }}-1581d4cbdd69a0faf34b2089614fe2a814316a6a-${{ hashFiles('oai-upstream/lean/lean-toolchain', 'oai-upstream/lean/lakefile.lean', 'oai-upstream/lean/lake-manifest.json', 'oai-upstream/lean/patches/**', 'scripts/apply_oai_434_upstream_patches.py') }}-complete
+          oai-certified-434-pntnative-v2-${{ runner.os }}-${{ runner.arch }}-1581d4cbdd69a0faf34b2089614fe2a814316a6a-${{ hashFiles('oai-upstream/lean/lean-toolchain', 'oai-upstream/lean/lakefile.lean', 'oai-upstream/lean/lake-manifest.json', 'oai-upstream/lean/patches/**', 'scripts/apply_oai_434_upstream_patches.py') }}-progress-
+    - name: Get exact original Mathlib only if truly absent
+      shell: bash
+      working-directory: oai-upstream/lean
+      env:
+        MATCHED: ${{ steps.restore.outputs.cache-matched-key }}
+      run: |
+        set -euo pipefail
+        if [[ -z "$MATCHED" ]] || [[ ! -d .lake/packages/mathlib/Mathlib ]]; then
+          lake exe cache get
+        else
+          echo "Reusing packages from restored OpenAI cache: $MATCHED"
+        fi
+    - name: Apply verified upstream compatibility patches (preserve native PNT)
+      shell: bash
+      run: |
+        set -euo pipefail
+        python3 scripts/apply_oai_434_upstream_patches.py oai-upstream/lean --keep-pinned PrimeNumberTheoremAnd
+        python3 scripts/check_shared_lean_packages.py . oai-upstream/lean PrimeNumberTheoremAnd mathlib
+    - name: Validate COMPLETE baseline instead of treating partial restoration as full
+      id: probe
+      shell: bash
+      env:
+        EXACT: ${{ steps.restore.outputs.cache-hit }}
+        MATCHED: ${{ steps.restore.outputs.cache-matched-key }}
+      run: |
+        set -euo pipefail
+        root=oai-upstream/lean/.lake/build/lib/lean/OAI/NumberTheory/DirichletL
+        ready=true
+        [[ "$EXACT" == true ]] || ready=false
+        for module in \
+          Detector/GaussianCommon \
+          Detector/HighRowsSelectedUnramified \
+          Hecke/InverseAmplificationRows \
+          CenteredExceptionalCount \
+          GaussSum/CubicNormalization \
+          GaussSum/LocalProductAssembly \
+          Detector/EulerCoordinates \
+          Detector/DetectorPlainMarkedFineField \
+          Detector/FinalAssemblyUnconditional
+        do
+          if [[ ! -s "$root/$module.olean" ]]; then
+            echo "::notice::Missing or not-yet-built OAI prerequisite: $module"
+            ready=false
+          fi
+        done
+        echo "complete=$ready" >> "$GITHUB_OUTPUT"
+        echo "::notice::OpenAI cache exact=$EXACT complete=$ready restored=${MATCHED:-MISS}"

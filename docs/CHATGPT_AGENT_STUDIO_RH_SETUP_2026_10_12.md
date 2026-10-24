@@ -1,6 +1,8 @@
 # Create RH_Lean research agents in **ChatGPT Agent Studio** (browser)
 
-## October 17, 2026: dynamic seven-agent signed covariance pivot
+> **Current routing correction, 2026-10-22:** This is a **historical Agent Studio setup guide**, not the active per-run research brief. Existing saved agents that dynamically read main should use [the live Oct 22 original OAI/NNS one-prime seam](OAI_COMPENSATED_ONE_PRIME_NNS_SEAM_20261022.md) once human-merged, together with `main:AGENTS.md` and `main:docs/DYNAMIC_RESEARCH_AGENTS.md`. **No change** to schedules, saved Studio prompts, tools, account permissions or launch status is caused by this Markdown PR. Do not create duplicate schedules or run agents from this document.
+
+## Historical October 17, 2026: seven-agent signed covariance pivot
 
 The USER has directed all seven existing research roles to attack an independent saving on the complete signed genuine Möbius pair covariance. The authoritative dynamic assignment is now [signed covariance RH seam](SIGNED_MOBIUS_COVARIANCE_RH_SEAM_2026_10_17.md) together with `main:AGENTS.md`, `main:CURRENT_PROOF_CONTRACT.md`, `main:docs/DYNAMIC_RESEARCH_AGENTS.md`. The dated construction prompts below are historical; **do not overwrite saved Studio prompts with the dated material or pin static PR numbers there.** Existing dynamic saved Studio instructions should automatically refresh main on their next scheduled run AFTER human merge of the new instruction PR.
 
