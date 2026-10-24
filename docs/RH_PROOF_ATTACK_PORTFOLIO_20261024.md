@@ -1,6 +1,6 @@
 # RH proof attack portfolio and seven-agent operating contract — 2026-10-24
 
-**Status: PROPOSED RESEARCH ROUTING; effective only after human merge.** This document is the new primary *task selector* for the seven dynamic RH_Lean research specialists. It does **not** change the canonical mathematical target, modify saved ChatGPT Agent Studio configurations, launch/schedule agents, grant GitHub permissions, merge any PR, or claim RH proved. It supersedes the October 22 "all roles first attack OAI one-prime source" *priority*, not the mathematics in the older contracts.
+**Status: PROPOSED RESEARCH ROUTING; effective only after human merge. Human-only merge remains mandatory.** This document is the new primary *task selector* for the seven dynamic RH_Lean research specialists. It does **not** change the canonical mathematical target, modify saved ChatGPT Agent Studio configurations, launch/schedule agents, grant GitHub permissions, merge any PR, or claim RH proved. It supersedes the October 22 "all roles first attack OAI one-prime source" *priority*, not the mathematics in the older contracts.
 
 **Required first reads on each authorized run:** the actual current `main` SHA, `AGENTS.md`, `CURRENT_PROOF_CONTRACT.md`, **this file**, `docs/DYNAMIC_RESEARCH_AGENTS.md`, then current source declarations, live PR status, today's and yesterday's genuinely committed reports on `agent-reports`, and the external handoff index. Saved Studio instructions should dynamically fetch `main`; GitHub edits alone cannot edit them.
 
