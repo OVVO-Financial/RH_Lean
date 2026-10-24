@@ -1,0 +1,95 @@
+name: OAI three-quarters actual prime local source
+on:
+  pull_request:
+    paths:
+      - 'research/oai_434/VF919OriginalVariableExponentThreeQuarters.lean'
+      - 'scripts/oai_three_quarters_cubic_exponent_audit.py'
+      - 'research/OAI_THREE_QUARTERS_ACTUAL_CUBIC_ATTACK_20261022.md'
+      - '.github/workflows/oai-three-quarter-local-434.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: oai-three-quarter-${{ github.head_ref || github.ref_name }}
+  cancel-in-progress: true
+
+jobs:
+  exact-exponent-regression:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check cubic, sextic and scalar powers exactly
+        run: python3 scripts/oai_three_quarters_cubic_exponent_audit.py
+  actual-prime-three-quarter:
+    runs-on: ubuntu-latest
+    timeout-minutes: 100
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: openai/math
+          ref: 1581d4cbdd69a0faf34b2089614fe2a814316a6a
+          path: oai-upstream
+          persist-credentials: false
+      - name: Install Lean 4.34.1
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl -fsSL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+      - name: Restore shared trusted original-OAI DAG cache
+        id: oai_cache
+        uses: actions/cache/restore@v5
+        with:
+          path: oai-upstream/lean/.lake
+          key: oai-certified-434-pntnative-v2-${{ runner.os }}-${{ runner.arch }}-1581d4cbdd69a0faf34b2089614fe2a814316a6a-${{ hashFiles('oai-upstream/lean/lean-toolchain', 'oai-upstream/lean/lakefile.lean', 'oai-upstream/lean/lake-manifest.json', 'oai-upstream/lean/patches/**', 'scripts/apply_oai_434_upstream_patches.py') }}-complete
+          restore-keys: |
+            oai-certified-434-pntnative-v2-${{ runner.os }}-${{ runner.arch }}-1581d4cbdd69a0faf34b2089614fe2a814316a6a-${{ hashFiles('oai-upstream/lean/lean-toolchain', 'oai-upstream/lean/lakefile.lean', 'oai-upstream/lean/lake-manifest.json', 'oai-upstream/lean/patches/**', 'scripts/apply_oai_434_upstream_patches.py') }}-progress-marked-
+            oai-certified-434-pntnative-v2-${{ runner.os }}-${{ runner.arch }}-1581d4cbdd69a0faf34b2089614fe2a814316a6a-${{ hashFiles('oai-upstream/lean/lean-toolchain', 'oai-upstream/lean/lakefile.lean', 'oai-upstream/lean/lake-manifest.json', 'oai-upstream/lean/patches/**', 'scripts/apply_oai_434_upstream_patches.py') }}-progress-gaussian-
+            oai-certified-434-pntnative-v2-${{ runner.os }}-${{ runner.arch }}-1581d4cbdd69a0faf34b2089614fe2a814316a6a-${{ hashFiles('oai-upstream/lean/lean-toolchain', 'oai-upstream/lean/lakefile.lean', 'oai-upstream/lean/lake-manifest.json', 'oai-upstream/lean/patches/**', 'scripts/apply_oai_434_upstream_patches.py') }}-progress-
+      - name: Verify original Lean toolchain
+        shell: bash
+        working-directory: oai-upstream/lean
+        run: |
+          set -euo pipefail
+          test "$(cat lean-toolchain)" = "leanprover/lean4:v4.34.1"
+      - name: Fetch original Mathlib only if no OAI cache restored
+        if: ${{ steps.oai_cache.outputs.cache-hit == '' }}
+        shell: bash
+        working-directory: oai-upstream/lean
+        run: lake exe cache get
+      - name: Apply pinned original dependency patches
+        run: python3 scripts/apply_oai_434_upstream_patches.py oai-upstream/lean --keep-pinned PrimeNumberTheoremAnd
+      - name: Build pinned OAI Rellich support
+        shell: bash
+        working-directory: oai-upstream/lean
+        run: |
+          set -euo pipefail
+          lake build \
+            RellichKondrachov.Analysis.FunctionalSpaces.Sobolev.Euclidean.TranslationEstimateL2 \
+            RellichKondrachov.Analysis.FunctionalSpaces.Sobolev.Euclidean.L2Compactness.Approximation \
+            RellichKondrachov.Analysis.FunctionalSpaces.Sobolev.Euclidean.L2Compactness.ArzelaAscoli \
+            RellichKondrachov.Analysis.FunctionalSpaces.Sobolev.Euclidean.L2Compactness.Transfer
+      - name: Build original prime row contour source
+        shell: bash
+        working-directory: oai-upstream/lean
+        run: |
+          set -euo pipefail
+          lake build OAI.NumberTheory.DirichletL.PrimeRows.CentralSlots
+      - name: Verify real a=3/4 ideal-row rate, no sorry
+        shell: bash
+        run: |
+          set -euo pipefail
+          cp research/oai_434/VF919OriginalVariableExponentThreeQuarters.lean \
+            oai-upstream/lean/VF919OriginalVariableExponentThreeQuarters.lean
+          cd oai-upstream/lean
+          lake env lean -DwarningAsError=true VF919OriginalVariableExponentThreeQuarters.lean 2>&1 \
+            | tee /tmp/oai-a075.txt
+          grep -q 'actual_central_unramified_three_quarters' VF919OriginalVariableExponentThreeQuarters.lean
+          if grep -E 'sorryAx|admitAx|_private' /tmp/oai-a075.txt; then
+            echo "Unexpected axiom or private proof!" >&2
+            exit 1
+          fi
