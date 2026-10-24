@@ -1,0 +1,160 @@
+name: OAI genuine sextic low signed completion 4.34.1
+
+on:
+  pull_request:
+    paths:
+      - 'research/oai_434/VF919OriginalSignedSexticLowResidueCompletion.lean'
+      - 'research/oai_434/VF919OriginalLowGaussSexticPhase.lean'
+      - 'research/oai_434/VF919OriginalLowGaussActualResonance.lean'
+      - 'scripts/oai_sextic_sixfree_residue_completion_probe.py'
+      - 'scripts/oai_original_low_gauss_smooth_completion_probe.py'
+      - '.github/workflows/oai-original-low-sextic-signed-434.yml'
+      - 'research/OAI_ORIGINAL_SIGNED_SIXFREE_LOW_COMPLETION_20261022.md'
+      - 'research/OAI_ORIGINAL_LOW_GAUSS_PRIMITIVE_PERIOD_COMPLETION_20261022.md'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: oai-low-signed-${{ github.head_ref || github.ref_name }}
+  cancel-in-progress: true
+
+jobs:
+  sixthfree-direct-arithmetic:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+      - name: Genuine primary Eisenstein sextic and sixth-power-divisibility test
+        run: |
+          set -euo pipefail
+          python3 scripts/oai_sextic_sixfree_residue_completion_probe.py
+          python3 scripts/oai_original_low_gauss_smooth_completion_probe.py
+
+  original-sextic-source-lean:
+    runs-on: ubuntu-latest
+    timeout-minutes: 110
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: openai/math
+          ref: 1581d4cbdd69a0faf34b2089614fe2a814316a6a
+          path: oai-upstream
+          persist-credentials: false
+      - name: Install Lean v4.34.1
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl -fsSL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+      - name: Restore trusted original OAI DAG cache
+        id: oai_cache
+        uses: actions/cache/restore@v5
+        with:
+          path: oai-upstream/lean/.lake
+          key: oai-certified-434-pntnative-v3-${{ runner.os }}-${{ runner.arch }}-1581d4cbdd69a0faf34b2089614fe2a814316a6a-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'oai-upstream/lean/lean-toolchain', 'oai-upstream/lean/lakefile.lean', 'oai-upstream/lean/lake-manifest.json', 'oai-upstream/lean/patches/**', 'scripts/apply_oai_434_upstream_patches.py') }}-complete
+          restore-keys: |
+            oai-certified-434-pntnative-v3-${{ runner.os }}-${{ runner.arch }}-1581d4cbdd69a0faf34b2089614fe2a814316a6a-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'oai-upstream/lean/lean-toolchain', 'oai-upstream/lean/lakefile.lean', 'oai-upstream/lean/lake-manifest.json', 'oai-upstream/lean/patches/**', 'scripts/apply_oai_434_upstream_patches.py') }}-progress-
+            oai-certified-434-pntnative-v2-${{ runner.os }}-${{ runner.arch }}-1581d4cbdd69a0faf34b2089614fe2a814316a6a-${{ hashFiles('oai-upstream/lean/lean-toolchain', 'oai-upstream/lean/lakefile.lean', 'oai-upstream/lean/lake-manifest.json', 'oai-upstream/lean/patches/**', 'scripts/apply_oai_434_upstream_patches.py') }}-progress-marked-
+            oai-certified-434-pntnative-v2-${{ runner.os }}-${{ runner.arch }}-1581d4cbdd69a0faf34b2089614fe2a814316a6a-${{ hashFiles('oai-upstream/lean/lean-toolchain', 'oai-upstream/lean/lakefile.lean', 'oai-upstream/lean/lake-manifest.json', 'oai-upstream/lean/patches/**', 'scripts/apply_oai_434_upstream_patches.py') }}-progress-gaussian-
+            oai-certified-434-pntnative-v2-${{ runner.os }}-${{ runner.arch }}-1581d4cbdd69a0faf34b2089614fe2a814316a6a-${{ hashFiles('oai-upstream/lean/lean-toolchain', 'oai-upstream/lean/lakefile.lean', 'oai-upstream/lean/lake-manifest.json', 'oai-upstream/lean/patches/**', 'scripts/apply_oai_434_upstream_patches.py') }}-progress-
+      # A cache is an optimization, not a prerequisite for a kernel check.
+      # The old guards stopped this workflow before ANY low theorem ran.
+      - name: Verify original OAI pins before building low-prime source
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(cat lean-toolchain)" = "leanprover/lean4:v4.34.1"
+          test "$(cat oai-upstream/lean/lean-toolchain)" = "leanprover/lean4:v4.34.1"
+          test "$(git -C oai-upstream rev-parse HEAD)" = "1581d4cbdd69a0faf34b2089614fe2a814316a6a"
+      - name: Restore missing original Mathlib dependencies (cache optional)
+        working-directory: oai-upstream/lean
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ ! -d .lake/packages/mathlib/Mathlib ]] ||
+             [[ ! -s .lake/packages/mathlib/.lake/build/lib/lean/Mathlib.olean ]]; then
+            echo "::notice::No complete pinned Mathlib cache; fetching original Mathlib artifacts"
+            lake exe cache get
+          else
+            echo "::notice::Pinned Mathlib library already compiled; retaining artifacts"
+          fi
+      - name: Apply original compatibility patches (retain pinned dependencies)
+        shell: bash
+        run: python3 scripts/apply_oai_434_upstream_patches.py oai-upstream/lean --keep-pinned PrimeNumberTheoremAnd
+      - name: Compile ONLY the four original low-prime OAI imports
+        working-directory: oai-upstream/lean
+        shell: bash
+        run: |
+          set -euo pipefail
+          lake build \
+            OAI.NumberTheory.DirichletL.Moments.Unequal \
+            OAI.NumberTheory.DirichletL.GaussSum.FiniteFourier \
+            OAI.NumberTheory.DirichletL.Detector.LocalUnitFrequency \
+            OAI.NumberTheory.DirichletL.Detector.CalibrationRemoval
+          root=.lake/build/lib/lean/OAI/NumberTheory/DirichletL
+          for m in Moments/Unequal GaussSum/FiniteFourier Detector/LocalUnitFrequency Detector/CalibrationRemoval; do
+            test -s "$root/$m.olean" || { echo "::error::Missing compiled original low OAI module $m"; exit 1; }
+          done
+      - name: KERNEL check nonprincipal sixth-phase weight payment
+        id: proof_sixth
+        continue-on-error: true
+        shell: bash
+        run: |
+          set -euo pipefail
+          cp research/oai_434/VF919OriginalSignedSexticLowResidueCompletion.lean oai-upstream/lean/VF919OriginalSignedSexticLowResidueCompletion.lean
+          cd oai-upstream/lean
+          lake env lean -DwarningAsError=true VF919OriginalSignedSexticLowResidueCompletion.lean 2>&1 | tee /tmp/oai-low-sixth-signed.log
+          if grep -E 'sorryAx|admitAx|_private' /tmp/oai-low-sixth-signed.log; then
+            echo "Unexpected source axiom or private proof" >&2
+            exit 1
+          fi
+
+      - name: KERNEL check genuine original low sextic Gauss coefficient
+        id: proof_phase
+        continue-on-error: true
+        shell: bash
+        run: |
+          set -euo pipefail
+          cp research/oai_434/VF919OriginalLowGaussSexticPhase.lean oai-upstream/lean/VF919OriginalLowGaussSexticPhase.lean
+          cd oai-upstream/lean
+          lake env lean -DwarningAsError=true VF919OriginalLowGaussSexticPhase.lean 2>&1 | tee /tmp/oai-low-gauss-phase.log
+          if grep -E 'sorryAx|admitAx|_private' /tmp/oai-low-gauss-phase.log; then
+            echo "Unexpected axiom in actual low sextic Gauss source" >&2
+            exit 1
+          fi
+
+      - name: KERNEL check EXACT physical low inverse source resonance
+        id: proof_resonance
+        continue-on-error: true
+        shell: bash
+        run: |
+          set -euo pipefail
+          cp research/oai_434/VF919OriginalLowGaussActualResonance.lean oai-upstream/lean/VF919OriginalLowGaussActualResonance.lean
+          cd oai-upstream/lean
+          lake env lean -DwarningAsError=true VF919OriginalLowGaussActualResonance.lean 2>&1 | tee /tmp/oai-true-low-resonance.log
+          if grep -E 'sorryAx|admitAx|_private' /tmp/oai-true-low-resonance.log; then
+            echo "Unexpected axiom in exact physical inverse source resonance" >&2
+            exit 1
+          fi
+
+      # All three theorem checks are mandatory. A failed leaf does not hide
+      # the other two; this final gate fails if ANY Lean/axiom check failed.
+      - name: Enforce all three low Gauss theorem and no-sorry checks
+        shell: bash
+        run: |
+          set -euo pipefail
+          failures=0
+          for result in \
+            "sixth=${{ steps.proof_sixth.outcome }}" \
+            "phase=${{ steps.proof_phase.outcome }}" \
+            "resonance=${{ steps.proof_resonance.outcome }}"
+          do
+            if [[ "${result#*=}" != success ]]; then
+              echo "::error::Low Gauss proof not kernel-certified: $result"
+              failures=1
+            fi
+          done
+          exit "$failures"
