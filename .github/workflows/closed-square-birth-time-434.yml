@@ -4,6 +4,7 @@ on:
   pull_request:
     paths:
       - 'research/VF_MID_CLOSED_SQUARE_BIRTH_TIME_20261024.lean'
+      - 'research/VF_MID_CLOSED_SQUARE_MOVING_TRANSPORT_20261024.lean'
       - '.github/workflows/closed-square-birth-time-434.yml'
   workflow_dispatch:
 
@@ -25,7 +26,7 @@ jobs:
         run: |
           set -euo pipefail
           python3 scripts/compile_research_import_closure.py --build-library \
-            research/VF_MID_CLOSED_SQUARE_BIRTH_TIME_20261024.lean \
+            research/VF_MID_CLOSED_SQUARE_MOVING_TRANSPORT_20261024.lean \
             2>&1 | tee /tmp/closed-square-birth-time-434.log
           if grep -E 'sorryAx|admitAx|_private' /tmp/closed-square-birth-time-434.log; then
             echo 'Nonstandard axiom contamination detected' >&2
