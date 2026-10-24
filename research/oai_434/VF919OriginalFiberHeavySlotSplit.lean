@@ -33,13 +33,17 @@ theorem Fiber.exists_heavy_slot
       7 / (37 * (F.slots.card : ℝ)) ≤ F.widths s := by
   have hslots : F.slots.Nonempty := by
     by_contra h
-    rw [Finset.not_nonempty_iff_eq_empty.mp h] at F.supply
-    norm_num at F.supply
+    have hempty : F.slots = ∅ :=
+      Finset.not_nonempty_iff_eq_empty.mp h
+    have hsupply : (7 / 37 : ℝ) ≤ 0 := by
+      simpa only [hempty, Finset.sum_empty] using F.supply
+    norm_num at hsupply
+  have hcardNat : 0 < F.slots.card := Finset.card_pos.mpr hslots
   have hcard : (0 : ℝ) < F.slots.card := by
-    exact_mod_cast F.slots.card_pos
+    exact_mod_cast hcardNat
   have hcard0 : (F.slots.card : ℝ) ≠ 0 := ne_of_gt hcard
   by_contra h
-  push_neg at h
+  push Not at h
   have hlt :
       (∑ s ∈ F.slots, F.widths s) <
         ∑ _s ∈ F.slots, 7 / (37 * (F.slots.card : ℝ)) :=
@@ -61,6 +65,7 @@ theorem sum_powerset_two_channel
   rw [← Finset.insert_erase hs,
     Finset.sum_powerset_insert (Finset.notMem_erase s slots),
     ← Finset.sum_add_distrib]
+  simp
 
 /-- Original-source combined form: one fixed heavy slot also indexes an exact
 two-channel decomposition of every additive complete-subset sum. -/
