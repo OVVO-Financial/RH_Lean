@@ -393,7 +393,7 @@ jobs:
       # Every individual proof check remains mandatory. Do not short-circuit
       # on the first failed leaf after expensive source DAG compilation.
       - name: Enforce every independent original OAI kernel and axiom check
-        if: always()
+        if: ${{ always() && steps.oai_cache.outputs.complete == 'true' }}
         shell: bash
         run: |
           set -euo pipefail
@@ -416,13 +416,8 @@ jobs:
             fi
           done
           exit "$bad"
-      - name: Save partial OAI DAG only on first cold miss (avoid 3.3GB duplicate caches)
-        if: ${{ !cancelled() && failure() && steps.oai_cache.outcome == 'success' && steps.oai_cache.outputs.cache-matched-key == '' }}
-        continue-on-error: true
-        uses: actions/cache/save@v5
-        with:
-          path: oai-upstream/lean/.lake
-          key: oai-certified-434-pntnative-v3-${{ runner.os }}-${{ runner.arch }}-1581d4cbdd69a0faf34b2089614fe2a814316a6a-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'oai-upstream/lean/lean-toolchain', 'oai-upstream/lean/lakefile.lean', 'oai-upstream/lean/lake-manifest.json', 'oai-upstream/lean/patches/**', 'scripts/apply_oai_434_upstream_patches.py') }}-progress-${{ github.run_id }}-${{ github.run_attempt }}
+      # PR jobs are consumers only. A failure must NOT add another 3+ GB
+      # archive that competes with the main-published complete OAI cache.
       - name: Upload original typed theorem axiom log
         if: always()
         uses: actions/upload-artifact@v4
