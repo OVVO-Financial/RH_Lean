@@ -2,15 +2,15 @@
 
 **Status:** COMPLETED  
 **Run ID:** 2026-10-23T22:26:01-04:00 scheduled invocation  
-**Canonical objective:** \`VFCanonicalSquareVonKochStatement\` remains OPEN  
+**Canonical objective:** `VFCanonicalSquareVonKochStatement` remains OPEN  
 **Primary campaign:** original OAI compensated one-prime / signed NNS seam  
-**Result classes:** \`PAPER_PROOF / MULTIPLIER-DOMINATED CONVOLUTION\`, \`CONDITIONAL QUANTITATIVE TRANSFER\`, \`SHARP WIDTH OBSTRUCTION\`, \`NO_NEW_GLOBAL_BOUND\`
+**Result classes:** `PAPER_PROOF / MULTIPLIER-DOMINATED CONVOLUTION`, `CONDITIONAL QUANTITATIVE TRANSFER`, `SHARP WIDTH OBSTRUCTION`, `NO_NEW_GLOBAL_BOUND`
 
 ## A. Most important analytic development
 
-### Claim \`20261023-analytic-1\`: multiplier-dominated convolution and the exact width threshold
+### Claim `20261023-analytic-1`: multiplier-dominated convolution and the exact width threshold
 
-Owner claim \`20261023-owner-2\` identifies the original factorized \`fiberCoefficient\` as multiplicative convolution. The useful theorem is slightly stronger: factorization of every remaining tuple weight is unnecessary.
+Owner claim `20261023-owner-2` identifies the original factorized `fiberCoefficient` as multiplicative convolution. The useful theorem is slightly stronger: factorization of every remaining tuple weight is unnecessary.
 
 Let \(G\) be an abelian group, \(S\) a finite nonempty slot set, \(r\in S\), and let \(f_s:G\to\mathbb C\) be finitely supported. Let \(K:G^S\to\mathbb C\) be any tuple-dependent multiplier satisfying \(|K(x)|\le A\). Define
 \[
@@ -31,12 +31,12 @@ and finite Young convolution proves (1). Nonzero integral ideals embed in the fr
 
 The same proof permits two plain factors and an absolutely integrated label \(\xi\): if \(|K_\xi|\le A(\xi)\) and \(\int A(\xi)\,d|\mu|(\xi)<\infty\), Minkowski gives (1) multiplied by that total-variation envelope. This is the precise analytic condition needed for Gaussian/Mellin labels.
 
-**Classification:** \`PAPER_PROOF / INDEPENDENT FINITE ANALYTIC THEOREM\`.
+**Classification:** `PAPER_PROOF / INDEPENDENT FINITE ANALYTIC THEOREM`.
 
 ## B. Exact OAI normalization ledger
 
 Use the pinned original
-\`DetectorPlainFiberSource.lean::fiberCoefficient\`, with
+`DetectorPlainFiberSource.lean::fiberCoefficient`, with
 \[
  P_s=U^{w_s},\quad X=U^m,\quad
  H=X^2\prod_{s\in S}P_s=U^{2m+W},\quad W=\sum_{s\in S}w_s.
@@ -52,7 +52,7 @@ Assume the source-good/coprime slot coefficients have modulus at most one, the f
  \|e_r\|_{6/5}\ll C P_r^{5/6-\theta}.
 \]
 
-The first two bounds use the original ideal count \(\#\{I:NI\le Y\}\le128Y\). For the plain profiles, the apparent comparison-scale branch in \`plainSupportPool\` contributes zero by \`comparison_first_zero\`; the active support has \(NI\le(9/4)X\). Constants depend explicitly on the finite profile sup norms, annulus upper endpoints and slot number. Uniform source use must bound this product of constants independently of the main scale.
+The first two bounds use the original ideal count \(\#\{I:NI\le Y\}\le128Y\). For the plain profiles, the apparent comparison-scale branch in `plainSupportPool` contributes zero by `comparison_first_zero`; the active support has \(NI\le(9/4)X\). Constants depend explicitly on the finite profile sup norms, annulus upper endpoints and slot number. Uniform source use must bound this product of constants independently of the main scale.
 
 Applying (1) and dividing by \(\sqrt H\) gives
 \[
@@ -105,21 +105,21 @@ Hence the full selected carrier has no exponent obstruction at the abstract fact
  w\ge {4\over67}\quad(\theta=7/8),\qquad
  w\ge {25\over364}\quad(\theta=51/100).
 \]
-The original \`Fiber\` structure gives positivity of each width and a supply lower bound only for the full slot set. It gives no positive lower bound for an arbitrary selected subset. Therefore a one-slot or thin-subset Young argument does not uniformly deliver the requested \(U^{1/3}Z^{-\sigma}\) scale.
+The original `Fiber` structure gives positivity of each width and a supply lower bound only for the full slot set. It gives no positive lower bound for an arbitrary selected subset. Therefore a one-slot or thin-subset Young argument does not uniformly deliver the requested \(U^{1/3}Z^{-\sigma}\) scale.
 
-**Classification:** equations (2)-(5) are \`PAPER_PROOF / CONDITIONAL QUANTITATIVE TRANSFER\`; the absence of an arbitrary-subset width floor is a \`SHARP SOURCE-CLASS OBSTRUCTION\`, not a counterexample to the actual physical coefficient claim (A).
+**Classification:** equations (2)-(5) are `PAPER_PROOF / CONDITIONAL QUANTITATIVE TRANSFER`; the absence of an arbitrary-subset width floor is a `SHARP SOURCE-CLASS OBSTRUCTION`, not a counterexample to the actual physical coefficient claim (A).
 
 ## D. Why this is not merely an identity
 
-The theorem controls the full grouped coefficient norm after every ideal-product collision, so it genuinely bypasses the refuted valuation-only label cap. It is stronger than a coordinate rewrite and independent of claim (A), \`hHigh\`, \`SourceMomentsAt\`, a terminal seven-eighths theorem, canonical VF and RH.
+The theorem controls the full grouped coefficient norm after every ideal-product collision, so it genuinely bypasses the refuted valuation-only label cap. It is stronger than a coordinate rewrite and independent of claim (A), `hHigh`, `SourceMomentsAt`, a terminal seven-eighths theorem, canonical VF and RH.
 
 It also corrects one overly restrictive formulation in today's Owner report: a tuple-dependent mask need not factor or depend only on the product. A uniform absolute multiplier bound is enough for the phase-blind Young estimate. What remains difficult is proving the required multiplier envelope on the actual response, not algebraic separability.
 
 ## E. Exact remaining source response theorem
 
-In \`GaussianSubset.lean\`,
-\`compensationSubsetWeight * selectedSlotFactor\` separates into selected and complementary slot products, but
-\`compensationRowTest\` depends jointly on
+In `GaussianSubset.lean`,
+`compensationSubsetWeight * selectedSlotFactor` separates into selected and complementary slot products, but
+`compensationRowTest` depends jointly on
 
 - \(X/N(slotProduct(p,J))\) and \(Y/N(slotProduct(p,J))\);
 - the complementary ideal \(\operatorname{span}(slotProduct(p,J^c))\);
@@ -140,41 +140,41 @@ The second missing bridge is the exact identification of \(U\) and the contract'
 3. **Thin selected subsets:** admissible positive widths can tend to zero while the full unused slot set carries the \(7/37\) supply. Then the marked factor \(U^{-(\theta+1/6)w_r}\) tends to one and (4) can fail. No fixed power follows from positivity alone.
 4. **Growing slot complexity:** the product of ideal-count/profile constants can become a power loss if the number of slots or profile norms grows with \(U\). It must be bounded, not called an absolute constant automatically.
 5. **Integrated response:** without absolute integrability, Minkowski/Fubini is unavailable. Conditional cancellation inside the response cannot be replaced by total variation and still called the same estimate.
-6. **Source scope:** the abstract thin-width construction is not asserted to be a realized final detector coefficient. It refutes only a universal inference from the current \`Fiber\` axioms.
+6. **Source scope:** the abstract thin-width construction is not asserted to be a realized final detector coefficient. It refutes only a universal inference from the current `Fiber` axioms.
 
 ## G. Authority, continuity and source provenance
 
 Final authority refresh for the mathematical work:
 
-- \`main@68169af16c18a63b4858d0b6fb7782887fb5937b\`;
-- \`AGENTS.md\` blob \`a5c1f409bd5a5ac92b7a9297b2d1328b6788c744\`;
-- \`CURRENT_PROOF_CONTRACT.md\` blob \`37fa0c327886643653d6d07517621d9e7a2e1e3d\`;
-- active seam blob \`45b46929d33af6449f61fdec2428fa9b122056ed\`;
-- external inbox blob \`038018145c0fddb2f6306c0712373adf9cd1ea52\`;
-- original OAI \`openai/math@1581d4cbdd69a0faf34b2089614fe2a814316a6a\`.
+- `main@68169af16c18a63b4858d0b6fb7782887fb5937b`;
+- `AGENTS.md` blob `a5c1f409bd5a5ac92b7a9297b2d1328b6788c744`;
+- `CURRENT_PROOF_CONTRACT.md` blob `37fa0c327886643653d6d07517621d9e7a2e1e3d`;
+- active seam blob `45b46929d33af6449f61fdec2428fa9b122056ed`;
+- external inbox blob `038018145c0fddb2f6306c0712373adf9cd1ea52`;
+- original OAI `openai/math@1581d4cbdd69a0faf34b2089614fe2a814316a6a`.
 
 Material original blobs:
 
-- \`DetectorRawFiber.lean\`: \`ee826e81bbec1df5820f26aa15bce53bcb675cd6\`;
-- \`DetectorPlainFiberSource.lean\`: \`4dc1484cac11916b4cf4cffdcb74bc69b75677be\`;
-- \`DetectorPlainSource.lean\`: \`e316c4e129b63296d8b53095acc7342aa0a2eab8\`;
-- \`SourceMass.lean\`: \`56d4772b362dbadfc0f8081ed2039a6b7c9f05a3\`;
-- \`UncenteredTerminal.lean\`: \`fc95f6a88fe213db66cee5f354765cedc0e94b31\`;
-- \`PrimeSlot.lean\`: \`d787d9feb80495d1574c815a937dd8ae75fe344d\`;
-- \`GaussianSubset.lean\`: \`560ba0b999e04d591537840af659a67b9cbbae57\`.
+- `DetectorRawFiber.lean`: `ee826e81bbec1df5820f26aa15bce53bcb675cd6`;
+- `DetectorPlainFiberSource.lean`: `4dc1484cac11916b4cf4cffdcb74bc69b75677be`;
+- `DetectorPlainSource.lean`: `e316c4e129b63296d8b53095acc7342aa0a2eab8`;
+- `SourceMass.lean`: `56d4772b362dbadfc0f8081ed2039a6b7c9f05a3`;
+- `UncenteredTerminal.lean`: `fc95f6a88fe213db66cee5f354765cedc0e94b31`;
+- `PrimeSlot.lean`: `d787d9feb80495d1574c815a937dd8ae75fe344d`;
+- `GaussianSubset.lean`: `560ba0b999e04d591537840af659a67b9cbbae57`.
 
-Consumed current-day reports: Owner \`d8113b78bcf257082de09c8d3580dd752d3a3743\`, Wheel \`953a8b301b71d03b90388cf03252a3c665080c01\`, Census \`04cea2f12072607caa2458b8559896afbc8fb072\`, Referee \`9a4b99fdb924eec703132eda4a230ec553970d34\`, Lean \`d5ba285902294874821e97b4c71ddf4f9bd54922\`. Coordinator is \`TODAY=PENDING\`.
+Consumed current-day reports: Owner `d8113b78bcf257082de09c8d3580dd752d3a3743`, Wheel `953a8b301b71d03b90388cf03252a3c665080c01`, Census `04cea2f12072607caa2458b8559896afbc8fb072`, Referee `9a4b99fdb924eec703132eda4a230ec553970d34`, Lean `d5ba285902294874821e97b4c71ddf4f9bd54922`. Coordinator is `TODAY=PENDING`.
 
-All October 22 reports were consumed as \`YESTERDAY=CARRY_FORWARD\`; prior Analytic is \`68cfbfb4bbeebbc2c9fba3fc4624b22211558d36\`. The external inbox has no entry newer than October 18; those routes remain secondary under the merged October 22 selector.
+All October 22 reports were consumed as `YESTERDAY=CARRY_FORWARD`; prior Analytic is `68cfbfb4bbeebbc2c9fba3fc4624b22211558d36`. The external inbox has no entry newer than October 18; those routes remain secondary under the merged October 22 selector.
 
 ## H. PR and exact-head CI audit
 
 At final audit:
 
-- #1008 is open/draft at \`49571d1a61530f4e37bbeb9a1f083f23f6afc343\`. Native resonance/Holder, targeted Lean, source audits, inventory and export are green. Original-OAI run \`40050633167\` failed at step 12 because the verified complete cache was not restored; all ten theorem checks were skipped. This run neither rejected nor certified the newest original source.
-- #1016 is open/non-draft at \`abd1c712901d9e6c82a92ab96ef1baed399f19b6\`. Inventory, export, targeted Lean and source audit are green; original-OAI run \`40050638363\` was still in progress at the audit.
-- #1013 is open/draft at \`ff5d2f2647781f72c39209eca385dcd0506c880f\`. All eleven observed exact-head workflows, including grouped product-fiber obstruction Lean, are successful.
-- Main cache publisher run \`40017871079\` at exact \`main@68169af...\` completed successfully. This is CI infrastructure evidence, not mathematical certification of #1008's skipped leaves.
+- #1008 is open/draft at `49571d1a61530f4e37bbeb9a1f083f23f6afc343`. Native resonance/Holder, targeted Lean, source audits, inventory and export are green. Original-OAI run `40050633167` failed at step 12 because the verified complete cache was not restored; all ten theorem checks were skipped. This run neither rejected nor certified the newest original source.
+- #1016 is open/non-draft at `abd1c712901d9e6c82a92ab96ef1baed399f19b6`. Inventory, export, targeted Lean and source audit are green; original-OAI run `40050638363` was still in progress at the audit.
+- #1013 is open/draft at `ff5d2f2647781f72c39209eca385dcd0506c880f`. All eleven observed exact-head workflows, including grouped product-fiber obstruction Lean, are successful.
+- Main cache publisher run `40017871079` at exact `main@68169af...` completed successfully. This is CI infrastructure evidence, not mathematical certification of #1008's skipped leaves.
 
 No workflow was rerun, no PR was modified, reviewed, retargeted or merged, and no main source or schedule was changed.
 
@@ -194,7 +194,7 @@ No workflow was rerun, no PR was modified, reviewed, retargeted or merged, and n
 
 ## J. Resume capsule
 
-- New claim: \`20261023-analytic-1\`.
+- New claim: `20261023-analytic-1`.
 - Strongest theorem: arbitrary bounded tuple multipliers preserve the one-\(\ell^{6/5}\), remaining-\(\ell^1\) convolution bound.
 - Exact normalized exponent: \(m+W/2-(\theta+1/6)w_r\).
 - Full-carrier margin: \(73/444\) below \(U^{1/3}\), before marked saving, when \(S=F.slots\), \(\Delta\ge0\), and the marked-moment admission holds.
