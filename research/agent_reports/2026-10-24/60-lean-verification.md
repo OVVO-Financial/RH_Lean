@@ -120,3 +120,8 @@ Incomplete cubic/sextic moments, principal normalization, full signed NNS cross 
 - Source theorem unchanged across repair.
 - Next action: inspect the exact leaf result; repair only genuine elaboration failures, then record axiom output and all latest-head required checks.
 - First mathematical obstruction after this theorem: occurrence-preserving paired heavy-slot source adapter plus explicit payment of the inverse-sextic resonant projection.
+
+
+## G. Publication verification
+
+Checkpoint publication commit: `2a2d076c02f5812ef2f8f0aa3e093e80ee8b5f3e`. Immediate readback returned blob `716596eb13e23e3ada85c000033a59aa1025fecf`, 6,770 characters, with `IN_PROGRESS / CI_PENDING`, PR #1017 and exact head `2d8d4a644f2a93f7bcd59d026c628af41c25c521` present. This verifies report publication only; it does not certify the pending Lean declarations or alter the human merge gate.
