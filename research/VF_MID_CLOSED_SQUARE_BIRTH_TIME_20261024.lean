@@ -192,6 +192,19 @@ theorem closedSquareShell_birth_bill_eq_literal_root_floor
   ring
 
 
+
+/-- An integer square endpoint changes floor(u/d) by its exact divisor
+indicator. This includes d=0, where both sides are zero for u>0. -/
+theorem closedSquareShellFloor_eq_open_add_rootDivisor
+    (u d : ℕ) (hu : 0 < u) :
+    u / d - (u - 1) / d = if d ∣ u then 1 else 0 := by
+  have hsucc : u - 1 + 1 = u := by omega
+  have h := (Nat.succ_div (a := u - 1) (b := d))
+  rw [hsucc] at h
+  omega
+
+
+#print axioms closedSquareShellFloor_eq_open_add_rootDivisor
 #print axioms closedSquareShell_squarePrefix_drift_eq_sq
 #print axioms closedSquareShell_actual_squarePrefix_drift_eq_sq
 #print axioms closedSquareShell_sawtooth_window_telescope
