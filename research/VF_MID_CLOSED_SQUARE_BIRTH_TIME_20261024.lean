@@ -12,7 +12,7 @@ noncomputable section
 open scoped ArithmeticFunction.Moebius BigOperators
 namespace RHLean.Analysis
 
-private def shellMu (k : ℕ) : ℤ := ArithmeticFunction.moebius k
+def closedSquareShellMu (k : ℕ) : ℤ := ArithmeticFunction.moebius k
 
 def closedSquareShellHarmonic (A : ℕ) : ℝ :=
   ∑ a ∈ Finset.Icc 1 A, (ArithmeticFunction.moebius a : ℝ) / (a : ℝ)
@@ -54,13 +54,13 @@ theorem closedSquareShell_pair_birth_telescope
 
 theorem closedSquareShell_native_floor_unit (k : ℕ) (hk : 1 ≤ k) :
     (∑ b ∈ Finset.Icc 1 k,
-      shellMu b * (((k / b : ℕ) : ℤ))) = 1 := by
-  simpa only [shellMu] using nativeSumMoebiusMulFloor k hk
+      closedSquareShellMu b * (((k / b : ℕ) : ℤ))) = 1 := by
+  simpa only [closedSquareShellMu] using nativeSumMoebiusMulFloor k hk
 
 theorem closedSquareShell_floor_before_birth (k : ℕ) (hk : 1 ≤ k) :
     (∑ b ∈ Finset.Icc 1 (k - 1),
-      shellMu b * (((k / b : ℕ) : ℤ))) = 1 - shellMu k := by
-  let f : ℕ → ℤ := fun b => shellMu b * (((k / b : ℕ) : ℤ))
+      closedSquareShellMu b * (((k / b : ℕ) : ℤ))) = 1 - closedSquareShellMu k := by
+  let f : ℕ → ℤ := fun b => closedSquareShellMu b * (((k / b : ℕ) : ℤ))
   have hfull : (∑ b ∈ Finset.Icc 1 k, f b) = 1 := by
     simpa [f] using closedSquareShell_native_floor_unit k hk
   have hsplit :
@@ -70,40 +70,40 @@ theorem closedSquareShell_floor_before_birth (k : ℕ) (hk : 1 ≤ k) :
     conv_lhs => rw [← hsucc]
     rw [Finset.sum_Icc_succ_top (by omega : 1 ≤ k - 1 + 1)]
     simp only [hsucc]
-  have htop : f k = shellMu k := by
+  have htop : f k = closedSquareShellMu k := by
     dsimp [f]
     simp [Nat.div_self (by omega : 0 < k)]
-  change (∑ b ∈ Finset.Icc 1 (k - 1), f b) = 1 - shellMu k
+  change (∑ b ∈ Finset.Icc 1 (k - 1), f b) = 1 - closedSquareShellMu k
   rw [htop] at hsplit
   omega
 
 def closedSquareShellBirthBill (k : ℕ) : ℤ :=
     (∑ b ∈ Finset.Icc 1 (k - 1),
-      shellMu k * shellMu b * (((k / b : ℕ) : ℤ))) +
+      closedSquareShellMu k * closedSquareShellMu b * (((k / b : ℕ) : ℤ))) +
     (∑ a ∈ Finset.Icc 1 (k - 1),
-      shellMu a * shellMu k * (((k / a : ℕ) : ℤ))) +
-    (shellMu k) ^ 2
+      closedSquareShellMu a * closedSquareShellMu k * (((k / a : ℕ) : ℤ))) +
+    (closedSquareShellMu k) ^ 2
 
 theorem closedSquareShell_birthTime_floor_eq_two_mu_sub_mu_sq
     (k : ℕ) (hk : 1 ≤ k) :
     closedSquareShellBirthBill k =
-      2 * shellMu k - (shellMu k) ^ 2 := by
+      2 * closedSquareShellMu k - (closedSquareShellMu k) ^ 2 := by
   have hlow := closedSquareShell_floor_before_birth k hk
   unfold closedSquareShellBirthBill
   have hfirst :
       (∑ b ∈ Finset.Icc 1 (k - 1),
-        shellMu k * shellMu b * (((k / b : ℕ) : ℤ))) =
-      shellMu k * (∑ b ∈ Finset.Icc 1 (k - 1),
-        shellMu b * (((k / b : ℕ) : ℤ))) := by
+        closedSquareShellMu k * closedSquareShellMu b * (((k / b : ℕ) : ℤ))) =
+      closedSquareShellMu k * (∑ b ∈ Finset.Icc 1 (k - 1),
+        closedSquareShellMu b * (((k / b : ℕ) : ℤ))) := by
     rw [Finset.mul_sum]
     apply Finset.sum_congr rfl
     intro b _
     ring
   have hsecond :
       (∑ a ∈ Finset.Icc 1 (k - 1),
-        shellMu a * shellMu k * (((k / a : ℕ) : ℤ))) =
-      shellMu k * (∑ a ∈ Finset.Icc 1 (k - 1),
-        shellMu a * (((k / a : ℕ) : ℤ))) := by
+        closedSquareShellMu a * closedSquareShellMu k * (((k / a : ℕ) : ℤ))) =
+      closedSquareShellMu k * (∑ a ∈ Finset.Icc 1 (k - 1),
+        closedSquareShellMu a * (((k / a : ℕ) : ℤ))) := by
     rw [Finset.mul_sum]
     apply Finset.sum_congr rfl
     intro a _
@@ -113,30 +113,30 @@ theorem closedSquareShell_birthTime_floor_eq_two_mu_sub_mu_sq
 
 theorem closedSquareShell_sum_birth_bills (A B : ℕ) :
     (∑ k ∈ Finset.Ico (A + 1) B, closedSquareShellBirthBill k) =
-      2 * (∑ k ∈ Finset.Ico (A + 1) B, shellMu k) -
-        (∑ k ∈ Finset.Ico (A + 1) B, (shellMu k) ^ 2) := by
+      2 * (∑ k ∈ Finset.Ico (A + 1) B, closedSquareShellMu k) -
+        (∑ k ∈ Finset.Ico (A + 1) B, (closedSquareShellMu k) ^ 2) := by
   classical
   have hk : ∀ k ∈ Finset.Ico (A + 1) B, 1 ≤ k := by
     intro k h; omega
   calc
     (∑ k ∈ Finset.Ico (A + 1) B, closedSquareShellBirthBill k) =
       ∑ k ∈ Finset.Ico (A + 1) B,
-        (2 * shellMu k - (shellMu k) ^ 2) := by
+        (2 * closedSquareShellMu k - (closedSquareShellMu k) ^ 2) := by
           apply Finset.sum_congr rfl
           intro k h
           exact closedSquareShell_birthTime_floor_eq_two_mu_sub_mu_sq k (hk k h)
-    _ = 2 * (∑ k ∈ Finset.Ico (A + 1) B, shellMu k) -
-      (∑ k ∈ Finset.Ico (A + 1) B, (shellMu k) ^ 2) := by
+    _ = 2 * (∑ k ∈ Finset.Ico (A + 1) B, closedSquareShellMu k) -
+      (∑ k ∈ Finset.Ico (A + 1) B, (closedSquareShellMu k) ^ 2) := by
         rw [Finset.sum_sub_distrib, Finset.mul_sum]
 
 theorem closedSquareShell_birth_root_diagonal_cancel (A B : ℕ) :
-    (∑ k ∈ Finset.Ico (A + 1) B, (shellMu k) ^ 2) +
-      (∑ k ∈ Finset.Ico (A + 1) B, (2 * shellMu k - (shellMu k) ^ 2)) =
-      2 * (∑ k ∈ Finset.Ico (A + 1) B, shellMu k) := by
+    (∑ k ∈ Finset.Ico (A + 1) B, (closedSquareShellMu k) ^ 2) +
+      (∑ k ∈ Finset.Ico (A + 1) B, (2 * closedSquareShellMu k - (closedSquareShellMu k) ^ 2)) =
+      2 * (∑ k ∈ Finset.Ico (A + 1) B, closedSquareShellMu k) := by
   rw [← Finset.sum_add_distrib]
   simp_rw [show ∀ k : ℕ,
-    shellMu k ^ 2 + (2 * shellMu k - shellMu k ^ 2) =
-      2 * shellMu k from fun _ => by ring]
+    closedSquareShellMu k ^ 2 + (2 * closedSquareShellMu k - closedSquareShellMu k ^ 2) =
+      2 * closedSquareShellMu k from fun _ => by ring]
   rw [Finset.mul_sum]
 
 #print axioms closedSquareShell_squarePrefix_drift_eq_sq
