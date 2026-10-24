@@ -1,6 +1,13 @@
 # Research route registry
 
-## 2026-10-22 — CURRENT source-first OAI/NNS quantitative gate (upon human merge)
+## 2026-10-24 — CURRENT TEN-ROUTE PROOF PORTFOLIO (after human merge)
+
+**New task selector:** [RH proof attack portfolio](docs/RH_PROOF_ATTACK_PORTFOLIO_20261024.md) and [seven-agent dynamic protocol](docs/DYNAMIC_RESEARCH_AGENTS.md). The old October 22 one-prime OAI source is retained as an **analytic subprogram**, not the only route. Independent criterion families: direct one-sided VF-LOW; SAT / JOH actual weighted composite removals; CODIV / OAI-NNS genuine covariance improving imported 7/8; FINITE-AC; CORR4 q² recursion; fixed-k MU-LIFT with r<k; full-basis NYMAN. The literal universal VF-in-every-block crossing/capture is REFUTED at R=549 by a reproducible genuine-prime sieve, so do not promote that conditional capture implication into an RH research goal. \`scripts/vf_block_capture_counterexample_549.py\` is the regression.
+
+**Live PR audit 2026-10-24:** #987, #1005, #1006 and #1008 are **merged** (older Oct22 text below calling #1005/#1006 draft is historical). #1019 is green/unmerged exact closed-square birth and moving transport, not an exponent result. The portfolio assigns each of seven specialties a **different original-source deliverable**, registers status and one falsifier, and refuses RH-equivalent renamed residuals as "small cancellation lemmas". Preserve canonical \`VFCanonicalSquareVonKochStatement\`, one run/specialist/day, six report-only specialists and human-only merge.
+
+
+## Historical 2026-10-22 — former OAI/NNS first selector (retained analytic seam)
 
 First-selector document: [OAI compensated one-prime / signed NNS seam](docs/OAI_COMPENSATED_ONE_PRIME_NNS_SEAM_20261022.md). Distinct research gates: **(A)** original one-prime already locally \(O(Q^{-51/100})\) on eligible central rows, but global post-compensated ideal coefficient \(D_{\rm cond}^{-1/2}Z^{-\sigma}\tau\) still **OPEN**; **(B)** genuine \(\|\tau\|_{6/5}\) bound; **(C)** original grouped incomplete sextic sixth-moment and phase admission; **(D)** original principal/cross NNS full energy plus LOW/HIGH final detector. #1000–#1004 **merged**; #1005/#1006 **draft**. No proof of a better 7/8 bound or canonical VF / RH; original #987 imports OAI's known 7/8 benchmark and is not an independent proof of its mechanism.
 
