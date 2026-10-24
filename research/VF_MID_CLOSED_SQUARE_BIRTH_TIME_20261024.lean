@@ -151,12 +151,57 @@ theorem closedSquareShell_birth_root_diagonal_cancel (A B : ℕ) :
       2 * closedSquareShellMu k from fun _ => by ring]
   rw [Finset.mul_sum]
 
+
+/-- Literal closed-square quotient, with the root factor cancelled. -/
+theorem closedSquareShell_birth_root_quotient_left
+    (k b : ℕ) (hk : 0 < k) :
+    k ^ 2 / (k * b) = k / b := by
+  simpa only [pow_two] using
+    (Nat.mul_div_mul_left (m := k) k b hk)
+
+/-- The other, ordered birth leg is the same arithmetic quotient. -/
+theorem closedSquareShell_birth_root_quotient_right
+    (k a : ℕ) (hk : 0 < k) :
+    k ^ 2 / (a * k) = k / a := by
+  rw [Nat.mul_comm a k]
+  exact closedSquareShell_birth_root_quotient_left k a hk
+
+/-- The new square-corner floor is exactly one. -/
+theorem closedSquareShell_birth_root_quotient_diag
+    (k : ℕ) (hk : 0 < k) :
+    k ^ 2 / (k * k) = 1 := by
+  change k * k / (k * k) = 1
+  exact Nat.div_self (Nat.mul_pos hk hk)
+
+/-- The already-paid root birth bill is the *literal* physical floor bill. -/
+theorem closedSquareShell_birth_bill_eq_literal_root_floor
+    (k : ℕ) (hk : 0 < k) :
+    closedSquareShellBirthBill k =
+      (∑ a ∈ Finset.Icc 1 (k - 1),
+        closedSquareShellMu a * closedSquareShellMu k *
+          (((k ^ 2 / (a * k) : ℕ) : ℤ))) +
+      (∑ b ∈ Finset.Icc 1 (k - 1),
+        closedSquareShellMu k * closedSquareShellMu b *
+          (((k ^ 2 / (k * b) : ℕ) : ℤ))) +
+        closedSquareShellMu k * closedSquareShellMu k *
+          (((k ^ 2 / (k * k) : ℕ) : ℤ)) := by
+  unfold closedSquareShellBirthBill
+  simp only [closedSquareShell_birth_root_quotient_left k _ hk,
+    closedSquareShell_birth_root_quotient_right k _ hk,
+    closedSquareShell_birth_root_quotient_diag k hk]
+  ring
+
+
 #print axioms closedSquareShell_squarePrefix_drift_eq_sq
 #print axioms closedSquareShell_actual_squarePrefix_drift_eq_sq
 #print axioms closedSquareShell_sawtooth_window_telescope
 #print axioms closedSquareShell_pair_birth_telescope
 #print axioms closedSquareShell_native_floor_unit
 #print axioms closedSquareShell_floor_before_birth
+#print axioms closedSquareShell_birth_root_quotient_left
+#print axioms closedSquareShell_birth_root_quotient_right
+#print axioms closedSquareShell_birth_root_quotient_diag
+#print axioms closedSquareShell_birth_bill_eq_literal_root_floor
 #print axioms closedSquareShell_birthTime_floor_eq_two_mu_sub_mu_sq
 #print axioms closedSquareShell_sum_birth_bills
 #print axioms closedSquareShell_birth_root_diagonal_cancel
