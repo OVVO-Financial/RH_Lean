@@ -368,6 +368,50 @@ theorem oai_one_prime_dyadic_l65_power_rate
               (P ^ (-(7 / 8 : ℝ)) * P ^ (5 / 6 : ℝ)) := by ring
         _ = _ := by rw [hSimplify]
 
+/-! ## Independent convex multiplicity payment from an arithmetic cap -/
+
+/-- For the true effective-ideal multiplicity `tau`, a UNIFORM cap K
+    and a genuine carrier-cardinality count imply its convex ell^(6/5)
+    moment. No Jensen reversal, average multiplicity substitution, or
+    unproved source counting is involved in the finite inequality.
+    Establishing K and the actual ideal-support count remains source work. -/
+theorem oai_tau_l65_le_cap_mul_card_root
+    {α : Type*} (carrier : Finset α) (tau : α → ℝ)
+    (K : ℝ) (hK : 0 ≤ K)
+    (htau : ∀ m ∈ carrier, 0 ≤ tau m)
+    (hcap : ∀ m ∈ carrier, tau m ≤ K) :
+    (∑ m ∈ carrier, tau m ^ (6 / 5 : ℝ)) ^
+      (5 / 6 : ℝ) ≤
+      K * ((carrier.card : ℝ) ^ (5 / 6 : ℝ)) := by
+  have hsum :
+      (∑ m ∈ carrier, tau m ^ (6 / 5 : ℝ)) ≤
+        (carrier.card : ℝ) * K ^ (6 / 5 : ℝ) := by
+    calc
+      _ ≤ ∑ m ∈ carrier, K ^ (6 / 5 : ℝ) := by
+        apply Finset.sum_le_sum
+        intro m hm
+        exact Real.rpow_le_rpow (htau m hm) (hcap m hm)
+          (by norm_num)
+      _ = (carrier.card : ℝ) * K ^ (6 / 5 : ℝ) := by
+        simp
+  have hsum_nonneg :
+      0 ≤ ∑ m ∈ carrier, tau m ^ (6 / 5 : ℝ) := by
+    apply Finset.sum_nonneg
+    intro m hm
+    exact Real.rpow_nonneg (htau m hm) _
+  have hcard : 0 ≤ (carrier.card : ℝ) := Nat.cast_nonneg _
+  calc
+    _ ≤ ((carrier.card : ℝ) * K ^ (6 / 5 : ℝ)) ^
+          (5 / 6 : ℝ) :=
+      Real.rpow_le_rpow hsum_nonneg hsum (by norm_num)
+    _ = ((carrier.card : ℝ) ^ (5 / 6 : ℝ)) *
+          ((K ^ (6 / 5 : ℝ)) ^ (5 / 6 : ℝ)) := by
+      rw [Real.mul_rpow hcard (Real.rpow_nonneg hK _)]
+    _ = K * ((carrier.card : ℝ) ^ (5 / 6 : ℝ)) := by
+      rw [← Real.rpow_mul hK]
+      norm_num
+      ring
+
 end RHLean.Analysis
 
 #print axioms RHLean.Analysis.oai_grouped_fiber_l65_bound
@@ -379,3 +423,5 @@ end RHLean.Analysis
 #print axioms RHLean.Analysis.oai_grouped_fiber_l65_power_budget_recombined
 #print axioms RHLean.Analysis.oai_grouped_fiber_l65_power_budget_one_bill
 #print axioms RHLean.Analysis.oai_one_prime_dyadic_l65_power_rate
+
+#print axioms RHLean.Analysis.oai_tau_l65_le_cap_mul_card_root
