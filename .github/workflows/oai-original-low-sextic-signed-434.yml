@@ -60,47 +60,47 @@ jobs:
             oai-certified-434-pntnative-v2-${{ runner.os }}-${{ runner.arch }}-1581d4cbdd69a0faf34b2089614fe2a814316a6a-${{ hashFiles('oai-upstream/lean/lean-toolchain', 'oai-upstream/lean/lakefile.lean', 'oai-upstream/lean/lake-manifest.json', 'oai-upstream/lean/patches/**', 'scripts/apply_oai_434_upstream_patches.py') }}-progress-marked-
             oai-certified-434-pntnative-v2-${{ runner.os }}-${{ runner.arch }}-1581d4cbdd69a0faf34b2089614fe2a814316a6a-${{ hashFiles('oai-upstream/lean/lean-toolchain', 'oai-upstream/lean/lakefile.lean', 'oai-upstream/lean/lake-manifest.json', 'oai-upstream/lean/patches/**', 'scripts/apply_oai_434_upstream_patches.py') }}-progress-gaussian-
             oai-certified-434-pntnative-v2-${{ runner.os }}-${{ runner.arch }}-1581d4cbdd69a0faf34b2089614fe2a814316a6a-${{ hashFiles('oai-upstream/lean/lean-toolchain', 'oai-upstream/lean/lakefile.lean', 'oai-upstream/lean/lake-manifest.json', 'oai-upstream/lean/patches/**', 'scripts/apply_oai_434_upstream_patches.py') }}-progress-
-      # Do not spend 90 minutes rebuilding the original OAI libraries in
-      # a stacked PR. #1015 publishes the source-pinned baseline on main.
-      - name: Require a source-pinned OAI cache before sextic proof jobs
-        if: ${{ steps.oai_cache.outputs.cache-matched-key == '' }}
-        run: |
-          echo "::error::No verified COMPLETE v3 original OAI DAG; partial caches cannot safely stand in for the complete source prerequisite build. Complete main-branch publisher before rerunning."
-          exit 1
-      - name: Require cached original LOW modules, not entire detector DAG
+      # A cache is an optimization, not a prerequisite for a kernel check.
+      # The old guards stopped this workflow before ANY low theorem ran.
+      - name: Verify original OAI pins before building low-prime source
         shell: bash
         run: |
           set -euo pipefail
           test "$(cat lean-toolchain)" = "leanprover/lean4:v4.34.1"
           test "$(cat oai-upstream/lean/lean-toolchain)" = "leanprover/lean4:v4.34.1"
           test "$(git -C oai-upstream rev-parse HEAD)" = "1581d4cbdd69a0faf34b2089614fe2a814316a6a"
-          root=oai-upstream/lean/.lake/build/lib/lean/OAI/NumberTheory/DirichletL
-          missing=0
-          for m in Moments/Unequal GaussSum/FiniteFourier Detector/LocalUnitFrequency Detector/CalibrationRemoval; do
-            if [[ ! -s "$root/$m.olean" ]]; then
-              echo "::error::Missing original low-prime prerequisite: $m.olean"
-              missing=1
-            fi
-          done
-          if [[ "$missing" != 0 ]]; then
-            echo "::error::No 90-minute cold rebuild: first seed these specific modules in the shared cache."
-            exit 1
-          fi
-      - name: Fetch Mathlib only with empty original OAI DAG
-        if: ${{ steps.oai_cache.outputs.cache-hit == '' }}
-        working-directory: oai-upstream/lean
-        run: lake exe cache get
-      - name: Apply original compatibility patches (retain pinned dependencies)
-        shell: bash
-        run: python3 scripts/apply_oai_434_upstream_patches.py oai-upstream/lean --keep-pinned PrimeNumberTheoremAnd
-      - name: Compile TRUE OAI sextic residue character authority
+      - name: Restore missing original Mathlib dependencies (cache optional)
         working-directory: oai-upstream/lean
         shell: bash
         run: |
           set -euo pipefail
-          lake build OAI.NumberTheory.DirichletL.Moments.Unequal OAI.NumberTheory.DirichletL.Detector.LocalUnitFrequency
-          test -s .lake/build/lib/lean/OAI/NumberTheory/DirichletL/Moments/Unequal.olean
+          if [[ ! -d .lake/packages/mathlib/Mathlib ]] ||
+             [[ ! -s .lake/packages/mathlib/.lake/build/lib/lean/Mathlib.olean ]]; then
+            echo "::notice::No complete pinned Mathlib cache; fetching original Mathlib artifacts"
+            lake exe cache get
+          else
+            echo "::notice::Pinned Mathlib library already compiled; retaining artifacts"
+          fi
+      - name: Apply original compatibility patches (retain pinned dependencies)
+        shell: bash
+        run: python3 scripts/apply_oai_434_upstream_patches.py oai-upstream/lean --keep-pinned PrimeNumberTheoremAnd
+      - name: Compile ONLY the four original low-prime OAI imports
+        working-directory: oai-upstream/lean
+        shell: bash
+        run: |
+          set -euo pipefail
+          lake build \
+            OAI.NumberTheory.DirichletL.Moments.Unequal \
+            OAI.NumberTheory.DirichletL.GaussSum.FiniteFourier \
+            OAI.NumberTheory.DirichletL.Detector.LocalUnitFrequency \
+            OAI.NumberTheory.DirichletL.Detector.CalibrationRemoval
+          root=.lake/build/lib/lean/OAI/NumberTheory/DirichletL
+          for m in Moments/Unequal GaussSum/FiniteFourier Detector/LocalUnitFrequency Detector/CalibrationRemoval; do
+            test -s "$root/$m.olean" || { echo "::error::Missing compiled original low OAI module $m"; exit 1; }
+          done
       - name: KERNEL check nonprincipal sixth-phase weight payment
+        id: proof_sixth
+        continue-on-error: true
         shell: bash
         run: |
           set -euo pipefail
@@ -113,6 +113,8 @@ jobs:
           fi
 
       - name: KERNEL check genuine original low sextic Gauss coefficient
+        id: proof_phase
+        continue-on-error: true
         shell: bash
         run: |
           set -euo pipefail
@@ -125,6 +127,8 @@ jobs:
           fi
 
       - name: KERNEL check EXACT physical low inverse source resonance
+        id: proof_resonance
+        continue-on-error: true
         shell: bash
         run: |
           set -euo pipefail
@@ -135,3 +139,22 @@ jobs:
             echo "Unexpected axiom in exact physical inverse source resonance" >&2
             exit 1
           fi
+
+      # All three theorem checks are mandatory. A failed leaf does not hide
+      # the other two; this final gate fails if ANY Lean/axiom check failed.
+      - name: Enforce all three low Gauss theorem and no-sorry checks
+        shell: bash
+        run: |
+          set -euo pipefail
+          failures=0
+          for result in \
+            "sixth=${{ steps.proof_sixth.outcome }}" \
+            "phase=${{ steps.proof_phase.outcome }}" \
+            "resonance=${{ steps.proof_resonance.outcome }}"
+          do
+            if [[ "${result#*=}" != success ]]; then
+              echo "::error::Low Gauss proof not kernel-certified: $result"
+              failures=1
+            fi
+          done
+          exit "$failures"
