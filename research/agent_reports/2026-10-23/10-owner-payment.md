@@ -218,4 +218,4 @@ Continuity consumed:
 
 ## Publication verification
 
-The initial `IN_PROGRESS` checkpoint was created by commit `c32762c4a5ccafecc46e56fcc756455dbe92fa50` and read back as blob `67a8b23cfd5fe978378add0e6b72e345e8ca60fb`. Final publication verification is pending below.
+The initial `IN_PROGRESS` checkpoint was created by commit `c32762c4a5ccafecc46e56fcc756455dbe92fa50` and read back as blob `67a8b23cfd5fe978378add0e6b72e345e8ca60fb`. The completed report was published by commit `ac6c8d1a14c3da6c55f247ef7072da08ab0d1696` and read back as blob `9d262b592fdd7a71188d418dc184e43918a22725`, 16,389 characters, with `COMPLETED` and claim `20261023-owner-2` present. This verifies report publication only; it does not change main, proof branches, PR review state, CI, merge state, schedules or permissions.
