@@ -1,5 +1,15 @@
 # Current RH_Lean research handoff
 
+
+## Active 2026-10-24 research handoff (authority upon human merge)
+
+**FIRST research decision source:** [ten-route proof portfolio](docs/RH_PROOF_ATTACK_PORTFOLIO_20261024.md), read with `AGENTS.md`, `CURRENT_PROOF_CONTRACT.md` and [dynamic seven-specialist instructions](docs/DYNAMIC_RESEARCH_AGENTS.md) at live `main`. Do not route all seven agents to an OAI single source, the older Oct 18 PNT only, or another RH-equivalent "signed cancellation" label. Select prime-side **VF lower first-bad / SAT / Johnston weighted composite removals**, recursive **finite A/C / CORR4 / MU-LIFT**, source-original **OAI-NNS actual coefficient+moment improvement beyond imported 7/8**, or separate **Nyman full-basis** criterion with a paid original-source input. The literal universal VF every-block capture is **refuted** (R=549), even though the conditional implication remains a valid Lean theorem.
+
+**Actual baseline checked 2026-10-24:** merged #987 original OpenAI unconditional 7/8 import; #915/#929/#975/#1005/#1006/#1008/#1009/#1013 merged; #1019 `0d39cfe586b8abf072042899f73bd3e326a29007` green but **OPEN/UNMERGED** exact square-prefix birth and moving transport. No independently improved exponent, historical finite-A/C bound, original first-bad payment, CORR4 input, whole-interval MU-LIFT gain or Nyman density has been proved by this routing change.
+
+**Seven roles:** Coordinator selects two distinct source attacks; Owner VF/weighted composite; Analytic original OAI and its real analytic alternatives; Wheel actual composite/ q² incidence; Census exact falsifiers; Referee source and circularity; Lean genuine accepted theorem + scoped PR. One run/agent/day, first six own-report-only, Lean focused draft proof PR, all human-only merges. Saved Studio configurations **not** altered by GitHub; see [seven current prompt templates](docs/AGENT_STUDIO_20261024_SEVEN_PROMPTS.md). Historical handoffs below remain searchable but do not supersede this priority.
+
+
 This file preserves the research history. The current mathematical frontier is
 specified by [`CURRENT_PROOF_CONTRACT.md`](CURRENT_PROOF_CONTRACT.md), which
 overrides older instructions and open/closed labels below.
@@ -1326,7 +1336,7 @@ The key exact block variable is
 \bigl[\lfloor Li_2((R+1)^2)\rfloor-\lfloor Li_2(R^2)\rfloor\bigr].
 \]
 The new theorem file
-\`research/VF_MID_FLOOR_LI_TRANSPORT_CANCELLATION.lean\` proves that
+`research/VF_MID_FLOOR_LI_TRANSPORT_CANCELLATION.lean` proves that
 \(\delta_R\) is the square-backlog derivative, the primitive ternary mismatch
 mass, the negative native floor-Li prime defect, the owner-census correction,
 and—up to strictly less than one count of endpoint rounding—the existing

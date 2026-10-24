@@ -1,8 +1,17 @@
 # Current research frontier and import DAG
 
-## Live October 18 PNT-first source-to-bound DAG and newest PR dispositions
+## Current 2026-10-24 portfolio frontier (effective after human merge)
 
-**Current selected team mechanism:** [PNT-first signed Euler/Moebius cofactor compensation](PNT_FIRST_SIGNED_COFACTOR_SEAM_2026_10_18.md). Ordinary PNT is already proved. For `X=R^2-1`, `M(X)=S_R-L_R-E_R` where `L` is genuine cofactor-weighted Li prime availability and `E` the **signed actual-prime minus Li** transport. The remaining independent theorem is a quantitative bound on the joint signed smooth/model/error/historical source; identities do not constitute a saving. Keep `p=R` endpoint, top-half prime terminal cells, original #915 once-only active/returned masks, and original quadratic normalized denominator.
+The primary task selector is [RH proof attack portfolio](RH_PROOF_ATTACK_PORTFOLIO_20261024.md). It distinguishes canonical **one-sided VF-LOW**, SAT/JOH **weighted prime/composite** route, CODIV/OAI-NNS **actual signed covariance** exponent improvement, FINITE-AC and **CORR4** critical-energy recurrences, **MU-LIFT** higher-order full-prefix amplification, and independent **NYMAN** positive-norm density. Literal universal per-block VF capture is **REFUTED** by R=549, not an agent's unsolved task.
+
+**Current status after live GitHub inspection on 2026-10-24:** merged #987 imports the original OAI unconditional 7/8 proof; merged #915/#929/#975/#1005/#1006/#1008/#1009/#1013 are sources or conditional consumers (not RH). #1019 is **green, open and unmerged**: physical square-boundary birth `2mu-mu²` and moving-transport telescope are Lean-certified; independent quantitative bound, closed-square root-divisor correction and final shell-to-Mertens integration still require separate work. Check live head on each run; these statuses will become stale.
+
+**Do not count as a new mathematical gap:** a newly named residual already equal to the RH-strength prime/Mertens error. Status accepts a genuinely independent bound, a novel forbidden configuration, a fixed subcritical `r<k` recurrence with proved source, or a source-grounded refutation; otherwise report `TARGET_EQUIVALENT`/no improvement. [Role table and proof gate](RH_PROOF_ATTACK_PORTFOLIO_20261024.md#3-seven-nonduplicate-role-instructions--one-live-portfolio).
+
+
+## Historical October 18 PNT-first source-to-bound DAG and PR dispositions (retained)
+
+**Historical Oct 18 selected mechanism (not current priority):** [PNT-first signed Euler/Moebius cofactor compensation](PNT_FIRST_SIGNED_COFACTOR_SEAM_2026_10_18.md). Ordinary PNT is already proved. For `X=R^2-1`, `M(X)=S_R-L_R-E_R` where `L` is genuine cofactor-weighted Li prime availability and `E` the **signed actual-prime minus Li** transport. The remaining independent theorem is a quantitative bound on the joint signed smooth/model/error/historical source; identities do not constitute a saving. Keep `p=R` endpoint, top-half prime terminal cells, original #915 once-only active/returned masks, and original quadratic normalized denominator.
 
 - [PR #975](https://github.com/OVVO-Financial/RH_Lean/pull/975) (OPEN/DRAFT at October 18 inventory): source-legal historical cofactor parent no-go and original first-bad `E=G+2U-6L`; a hypothetical large first bad forces `G>0` (stronger scalar corollary `G>R^2` has not yet been named as Lean theorem). This forbids assuming local boundary alone pays the historical anchor. Not an RH proof.
 - [PR #976](https://github.com/OVVO-Financial/RH_Lean/pull/976) (OPEN at October 18 inventory): genuine two-prime same-base strict-square-shell Mobius signs agree, giving **positive**, not negative, covariance in that orbit. It is structural and does not provide shell-energy cancellation or RH.

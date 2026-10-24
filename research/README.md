@@ -1,6 +1,6 @@
 # Research closeout map
 
-**Active agent research seam (Oct 22, 2026, subject to human merge):** [original OpenAI compensated one-prime source → signed NNS quantitative gate](../docs/OAI_COMPENSATED_ONE_PRIME_NNS_SEAM_20261022.md). The #1006 one-prime audit on its own draft ref, and #1005 three-gate/NNS audit on its draft ref, specify source-grounded missing bounds; do not mistake absent-on-main research Markdown for missing files, or conditional \(\ell^{6/5}\) consumers for saved analytic exponents.
+**Active proof-attack routing after human merge (2026-10-24):** [ten-route research portfolio](../docs/RH_PROOF_ATTACK_PORTFOLIO_20261024.md). Preserve direct canonical VF/first-lower-wall, SAT/JOH weighted composite incidence, Co-Div and source-faithful original OAI-NNS, FINITE-AC/CORR4/MU-LIFT subcritical recurrences, and NYMAN. Retire literal universal VF block capture (falsified at R=549). The prior [Oct 22 OAI/NNS one-prime contract](../docs/OAI_COMPENSATED_ONE_PRIME_NNS_SEAM_20261022.md) remains the detailed analytic lane **only**, not all seven agents' next task. Merged #987 imports true unconditional 7/8; green #1019 remains unmerged exact structure; neither alone gives RH. All new progress needs an independent quantified input, true carrier, falsifier and proof status.
 
 
 
