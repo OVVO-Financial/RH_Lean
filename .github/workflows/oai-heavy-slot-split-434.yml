@@ -21,18 +21,16 @@ jobs:
     timeout-minutes: 110
     steps:
       - uses: actions/checkout@v4
+      - name: Set up pinned native Lean and Mathlib
+        uses: ./.github/actions/lean-setup
+      - name: Restore main-branch native RHLean and unpatched PNT
+        uses: ./.github/actions/lean-compiled-cache
       - uses: actions/checkout@v4
         with:
           repository: openai/math
           ref: 1581d4cbdd69a0faf34b2089614fe2a814316a6a
           path: oai-upstream
           persist-credentials: false
-      - name: Install exact Lean toolchain
-        shell: bash
-        run: |
-          set -euo pipefail
-          curl -fsSL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain none
-          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
       - name: Restore verified original OpenAI compiled baseline
         id: oai
         uses: ./.github/actions/oai-434-shared-cache
