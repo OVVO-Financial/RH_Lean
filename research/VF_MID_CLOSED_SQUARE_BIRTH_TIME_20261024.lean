@@ -45,7 +45,17 @@ theorem closedSquareShell_sawtooth_window_telescope
     (ψ : ℕ → ℝ) (A B : ℕ) (hAB : A ≤ B) :
     (∑ r ∈ Finset.Ico A B, (ψ (r ^ 2) - ψ ((r + 1) ^ 2))) =
       ψ (A ^ 2) - ψ (B ^ 2) := by
-  simpa only [] using Finset.sum_Ico_sub (fun r => ψ (r ^ 2)) hAB
+  have h := Finset.sum_Ico_sub (fun r => ψ (r ^ 2)) hAB
+  calc
+    (∑ r ∈ Finset.Ico A B, (ψ (r ^ 2) - ψ ((r + 1) ^ 2))) =
+        (∑ r ∈ Finset.Ico A B, ψ (r ^ 2)) -
+        (∑ r ∈ Finset.Ico A B, ψ ((r + 1) ^ 2)) := by
+          rw [Finset.sum_sub_distrib]
+    _ = -((∑ r ∈ Finset.Ico A B, ψ ((r + 1) ^ 2)) -
+          (∑ r ∈ Finset.Ico A B, ψ (r ^ 2))) := by ring
+    _ = ψ (A ^ 2) - ψ (B ^ 2) := by
+          rw [← Finset.sum_sub_distrib, h]
+          ring
 
 theorem closedSquareShell_pair_birth_telescope
     (f : ℕ → ℤ) (k B : ℕ) (hkB : k ≤ B) :
@@ -71,8 +81,7 @@ theorem closedSquareShell_floor_before_birth (k : ℕ) (hk : 1 ≤ k) :
     rw [Finset.sum_Icc_succ_top (by omega : 1 ≤ k - 1 + 1)]
     simp only [hsucc]
   have htop : f k = closedSquareShellMu k := by
-    dsimp [f]
-    simp [Nat.div_self (by omega : 0 < k)]
+    simp [f, Nat.div_self (by omega : 0 < k)]
   change (∑ b ∈ Finset.Icc 1 (k - 1), f b) = 1 - closedSquareShellMu k
   rw [htop] at hsplit
   omega
@@ -117,7 +126,8 @@ theorem closedSquareShell_sum_birth_bills (A B : ℕ) :
         (∑ k ∈ Finset.Ico (A + 1) B, (closedSquareShellMu k) ^ 2) := by
   classical
   have hk : ∀ k ∈ Finset.Ico (A + 1) B, 1 ≤ k := by
-    intro k h; omega
+    intro k h
+    exact (by omega : 1 ≤ A + 1).trans (Finset.mem_Ico.mp h).1
   calc
     (∑ k ∈ Finset.Ico (A + 1) B, closedSquareShellBirthBill k) =
       ∑ k ∈ Finset.Ico (A + 1) B,
@@ -145,9 +155,6 @@ theorem closedSquareShell_birth_root_diagonal_cancel (A B : ℕ) :
 #print axioms closedSquareShell_pair_birth_telescope
 #print axioms closedSquareShell_native_floor_unit
 #print axioms closedSquareShell_floor_before_birth
-#print axioms closedSquareShell_birth_root_quotient_left
-#print axioms closedSquareShell_birth_root_quotient_right
-#print axioms closedSquareShell_birth_bill_eq_literal_root_floor
 #print axioms closedSquareShell_birthTime_floor_eq_two_mu_sub_mu_sq
 #print axioms closedSquareShell_sum_birth_bills
 #print axioms closedSquareShell_birth_root_diagonal_cancel
