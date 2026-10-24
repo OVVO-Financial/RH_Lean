@@ -69,10 +69,10 @@ theorem actual_low_gauss_prime_phase_exact
     rw [← hχeq, he, orderOf_one] at horder
     norm_num at horder
   let hp0 := supported_element_ne_zero p hp
-  letI : Finite (Residue p) := finite_quotient_span hp0
-  letI : Fintype (Residue p) := Fintype.ofFinite _
-  letI : Field (Residue p) := Ideal.Quotient.field _
-  let ψ := quotientTrace p hp0
+  let : Finite (Residue p) := finite_quotient_span hp0
+  let : Fintype (Residue p) := Fintype.ofFinite _
+  let : Field (Residue p) := Ideal.Quotient.field _
+  let ψ := CubicEisenstein.quotientTrace p hp0
   have ht := ShortDraftFiniteGaussFourier.gauss_transform χ ψ hχ
     (Ideal.Quotient.mk (Ideal.span {p}) (-m))
   have hgt :
