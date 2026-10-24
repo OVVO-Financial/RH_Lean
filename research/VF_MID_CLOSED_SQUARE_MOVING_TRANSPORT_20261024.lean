@@ -140,7 +140,7 @@ theorem closedSquareShell_physicalFloor_square_birth
         (((k ^ 2 / (a * b) : ℕ) : ℤ))) (k - 1)
   rw [hpred] at h
   unfold closedSquareShellPhysicalFloor closedSquareShellPhysicalBorder
-  convert h using 1 <;> ring
+  convert h using 1; ring
 
 
 
