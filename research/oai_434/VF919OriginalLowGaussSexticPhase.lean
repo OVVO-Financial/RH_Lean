@@ -81,14 +81,16 @@ theorem actual_low_gauss_prime_phase_exact
           (χ (Ideal.Quotient.mk (Ideal.span {p}) (-m)))⁻¹ *
             residueGauss p hp0 χ 1) := by
     simpa only [residueGauss, tsum_fintype, gaussSum, map_one, one_mul, ψ] using ht
+  have hgaussOne :
+      residueGauss p hp0 χ 1 =
+        ProbePhysical.sexticGauss p hp0 1 := by
+    simpa only [χ, map_one] using (residueGauss_supported_mk p hp 1)
   calc
     ProbePhysical.sexticGauss p hp0 (-m) =
         residueGauss p hp0 χ (Ideal.Quotient.mk (Ideal.span {p}) (-m)) := by
       exact (residueGauss_supported_mk p hp (-m)).symm
     _ = _ := by
-      rw [hgt]
-      rw [residueGauss_supported_mk p hp 1]
-      rw [hχeq]
+      rw [hgt, hgaussOne, hχeq]
 
 #print axioms actual_low_prime_supportedChar_eq_sextic
 #print axioms actual_low_gauss_prime_phase_exact
