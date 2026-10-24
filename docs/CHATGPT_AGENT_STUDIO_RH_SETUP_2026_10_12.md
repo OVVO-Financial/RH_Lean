@@ -1,6 +1,6 @@
 # Create RH_Lean research agents in **ChatGPT Agent Studio** (browser)
 
-> **CURRENT 2026-10-24 STUDIO PROMPT SOURCE, EFFECTIVE AFTER HUMAN MERGE:** The **complete current copy/paste instructions for all SEVEN existing agents** are in [AGENT_STUDIO_20261024_SEVEN_PROMPTS.md](AGENT_STUDIO_20261024_SEVEN_PROMPTS.md). Their live, nonduplicative mathematical route assignments are in [RH_PROOF_ATTACK_PORTFOLIO_20261024.md](RH_PROOF_ATTACK_PORTFOLIO_20261024.md) and \`main:AGENTS.md\`. The older October 12 prompts and Oct 17/Oct 22 single-campaign examples below are **historical only**; they must not override the new live main research selection. The saved Workspace Agent Studio configurations, tool permissions and schedules **are NOT changed by this GitHub PR**: the owner must inspect/edit those separately only if the existing prompts lack dynamic main refresh. One scheduled run/agent/day, six own-report-only roles, Agent #7 scoped draft proof-PR exception, and human-only merge are preserved.
+> **CURRENT 2026-10-24 STUDIO PROMPT SOURCE, EFFECTIVE AFTER HUMAN MERGE:** The **complete current copy/paste instructions for all SEVEN existing agents** are in [AGENT_STUDIO_20261024_SEVEN_PROMPTS.md](AGENT_STUDIO_20261024_SEVEN_PROMPTS.md). Their live, nonduplicative mathematical route assignments are in [RH_PROOF_ATTACK_PORTFOLIO_20261024.md](RH_PROOF_ATTACK_PORTFOLIO_20261024.md) and `main:AGENTS.md`. The older October 12 prompts and Oct 17/Oct 22 single-campaign examples below are **historical only**; they must not override the new live main research selection. The saved Workspace Agent Studio configurations, tool permissions and schedules **are NOT changed by this GitHub PR**: the owner must inspect/edit those separately only if the existing prompts lack dynamic main refresh. One scheduled run/agent/day, six own-report-only roles, Agent #7 scoped draft proof-PR exception, and human-only merge are preserved.
 
 ## Current complete seven-role Studio Instructions (2026-10-24)
 
@@ -13,7 +13,7 @@
 6. RH | Finite Wheel & Incidence — once-only actual composite-owner weighted wheel, square borders, q² daughter support
 7. RH | Lean Verification — independently justified paper claims to kernel proof; scoped draft PR and exact-head CI, never merge
 
-**Studio action is separate from GitHub:** if each saved prompt already fetches \`main:AGENTS.md\` and the proof contract and does not pin a former sole route, no Studio change is required; next authorized run loads the new portfolio after human merge. If a saved prompt still directs ONLY OAI one-prime, only first-bad or universal one-block capture, manually replace it with its named complete template and verify saved/published state. No duplicate schedules; no assertion that Studio edits were completed.
+**Studio action is separate from GitHub:** if each saved prompt already fetches `main:AGENTS.md` and the proof contract and does not pin a former sole route, no Studio change is required; next authorized run loads the new portfolio after human merge. If a saved prompt still directs ONLY OAI one-prime, only first-bad or universal one-block capture, manually replace it with its named complete template and verify saved/published state. No duplicate schedules; no assertion that Studio edits were completed.
 
 ## Historical October 17, 2026: seven-agent signed covariance pivot
 
