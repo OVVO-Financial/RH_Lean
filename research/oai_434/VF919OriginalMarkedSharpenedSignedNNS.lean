@@ -121,7 +121,7 @@ theorem source_batch_plain_marked_fine_sharper_signed_NNS {Δ:ℝ}{D:Parameters.
   have hexp:state.width+stageError D≤1+D.t/2:=by
     rw [hwidthstate]
     dsimp [delta, stageError]
-    exact le_refl _
+    exact le_refl (1 + D.t * (1 / 2 : ℝ))
   calc
     (∑ u ∈ F.rows,
         vf919MarkedRealEnergy (polynomial (F.family u F.label) false ((logProfile^[j]) positiveAnnular) ((Z^d)^F.m) σ t) *

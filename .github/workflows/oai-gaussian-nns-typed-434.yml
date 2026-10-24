@@ -141,6 +141,9 @@ jobs:
           OAI_PATH="$(cd oai-upstream/lean && lake env python3 -c 'import os; print(os.pathsep.join(os.path.abspath(p) for p in os.environ["LEAN_PATH"].split(os.pathsep) if p))')"
           RH_PATH="$(lake env python3 -c 'import os; print(os.pathsep.join(os.path.abspath(p) for p in os.environ["LEAN_PATH"].split(os.pathsep) if p))')"
           python3 scripts/check_shared_lean_packages.py . oai-upstream/lean PrimeNumberTheoremAnd mathlib
+          # This leaf precedes the native library build; the output directory
+          # is not guaranteed to exist on a cold or partial native cache.
+          mkdir -p .lake/build/lib/lean
           env LEAN_PATH="$RH_PATH:$OAI_PATH" lean -DwarningAsError=true \
             -o .lake/build/lib/lean/research.oai_434.VF919OriginalCubeFreeIdealAdapter.olean \
             research/oai_434/VF919OriginalCubeFreeIdealAdapter.lean \
