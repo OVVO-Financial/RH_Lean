@@ -1,0 +1,40 @@
+name: Closed-square fixed-prefix birth-time proofs
+
+on:
+  pull_request:
+    paths:
+      - 'research/VF_MID_CLOSED_SQUARE_BIRTH_TIME_20261024.lean'
+      - 'research/VF_MID_CLOSED_SQUARE_MOVING_TRANSPORT_20261024.lean'
+      - '.github/workflows/closed-square-birth-time-434.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  native-kernel:
+    runs-on: ubuntu-latest
+    timeout-minutes: 70
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Lean 4.34.1
+        uses: ./.github/actions/lean-setup
+      - name: Restore verified main-branch native RHLean
+        uses: ./.github/actions/lean-compiled-cache
+      - name: Check research import closure, warnings fatal
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 scripts/compile_research_import_closure.py --build-library \
+            research/VF_MID_CLOSED_SQUARE_MOVING_TRANSPORT_20261024.lean \
+            2>&1 | tee /tmp/closed-square-birth-time-434.log
+          if grep -E 'sorryAx|admitAx|_private' /tmp/closed-square-birth-time-434.log; then
+            echo 'Nonstandard axiom contamination detected' >&2
+            exit 1
+          fi
+      - name: Reject sorry, admit or extra axioms
+        shell: bash
+        run: |
+          ! grep -nE '^[[:space:]]*(sorry|admit|axiom)([[:space:]]|$)' \
+            research/VF_MID_CLOSED_SQUARE_BIRTH_TIME_20261024.lean \
+            research/VF_MID_CLOSED_SQUARE_MOVING_TRANSPORT_20261024.lean
