@@ -143,7 +143,56 @@ theorem closedSquareShell_physicalFloor_square_birth
   convert h using 1 <;> ring
 
 
+
+/-- The physical border with both ordered legs equals the exact unit-floor bill. -/
+theorem closedSquareShell_physicalBorder_eq_birthBill
+    (k : ℕ) (hk : 0 < k) :
+    closedSquareShellPhysicalBorder k = closedSquareShellBirthBill k := by
+  unfold closedSquareShellPhysicalBorder
+  exact (closedSquareShell_birth_bill_eq_literal_root_floor k hk).symm
+
+/-- No hypothetical phase estimate: the literal square floor changes
+by the *proved* birth bill 2 mu(k)-mu(k)^2. -/
+theorem closedSquareShell_physical_floor_birth_exact
+    (k : ℕ) (hk : 1 ≤ k) :
+    closedSquareShellPhysicalFloor k (k ^ 2) =
+      closedSquareShellPhysicalFloor (k - 1) (k ^ 2) +
+      (2 * closedSquareShellMu k - closedSquareShellMu k ^ 2) := by
+  rw [closedSquareShell_physicalFloor_square_birth k hk,
+    closedSquareShell_physicalBorder_eq_birthBill k (by omega),
+    closedSquareShell_birthTime_floor_eq_two_mu_sub_mu_sq k hk]
+
+/-- The square-complement transport of the ACTUAL finite Mobius floor
+source now has no shell-index sum except the exactly paid birth stream.
+It retains the lower square (not an artificial ab < A hyperbola). -/
+theorem closedSquareShell_actual_moving_transport_telescope
+    (A B : ℕ) (hAB : A ≤ B) :
+    (∑ r ∈ Finset.Ico A B,
+      ((closedSquareShellPhysicalFloor r ((r + 1) ^ 2) -
+        closedSquareShellPhysicalFloor A ((r + 1) ^ 2)) -
+       (closedSquareShellPhysicalFloor r (r ^ 2) -
+        closedSquareShellPhysicalFloor A (r ^ 2)))) =
+      (closedSquareShellPhysicalFloor B (B ^ 2) -
+        closedSquareShellPhysicalFloor A (B ^ 2)) -
+      ∑ r ∈ Finset.Ico A B,
+        (2 * closedSquareShellMu (r + 1) -
+          closedSquareShellMu (r + 1) ^ 2) := by
+  apply closedSquareShell_generic_movingComplement_telescope
+    closedSquareShellPhysicalFloor
+    (fun k => 2 * closedSquareShellMu k - closedSquareShellMu k ^ 2)
+    A B hAB
+  intro r hr
+  have hk : 1 ≤ r + 1 := by omega
+  have h := closedSquareShell_physical_floor_birth_exact (r + 1) hk
+  have hpred : r + 1 - 1 = r := by omega
+  rw [hpred] at h
+  exact h
+
+
 #print axioms closedSquareShell_doubleSum_square_succ
+#print axioms closedSquareShell_physicalBorder_eq_birthBill
+#print axioms closedSquareShell_physical_floor_birth_exact
+#print axioms closedSquareShell_actual_moving_transport_telescope
 #print axioms closedSquareShell_physicalFloor_square_birth
 #print axioms closedSquareShell_generic_movingBoundary_telescope
 #print axioms closedSquareShell_generic_movingComplement_telescope
