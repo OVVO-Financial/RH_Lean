@@ -338,3 +338,12 @@ of every actual Gaussian subset coefficient into (i) a paid resonant inverse-row
 projection and (ii) a nonresonant remainder admitting the claimed period-cell
 saving, uniformly in both heavy-slot roles and with all normalizers, windows,
 ideals, contours, principal terms and signed NNS cross energy restored.
+
+## J. Publication verification
+
+The completed report was created on `agent-reports` by commit
+`721ebbdcf5865ab9c96d2ed56af66b8184b72736`. Immediate readback returned
+blob `d49c38832cd794f76f7cbb6471b0cf17d34a37b2`, 13,319 characters, with
+`COMPLETED` and claim `20261024-referee-1` present. This verifies report
+publication only; it does not promote the paper theorem to Lean, alter a PR,
+merge source, or change any schedule.
