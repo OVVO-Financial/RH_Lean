@@ -170,7 +170,7 @@ theorem closedSquareShell_birth_root_quotient_right
 theorem closedSquareShell_birth_root_quotient_diag
     (k : ℕ) (hk : 0 < k) :
     k ^ 2 / (k * k) = 1 := by
-  change k * k / (k * k) = 1
+  rw [pow_two]
   exact Nat.div_self (Nat.mul_pos hk hk)
 
 /-- The already-paid root birth bill is the *literal* physical floor bill. -/
@@ -186,9 +186,9 @@ theorem closedSquareShell_birth_bill_eq_literal_root_floor
         closedSquareShellMu k * closedSquareShellMu k *
           (((k ^ 2 / (k * k) : ℕ) : ℤ)) := by
   unfold closedSquareShellBirthBill
+  rw [closedSquareShell_birth_root_quotient_diag k hk]
   simp only [closedSquareShell_birth_root_quotient_left k _ hk,
-    closedSquareShell_birth_root_quotient_right k _ hk,
-    closedSquareShell_birth_root_quotient_diag k hk]
+    closedSquareShell_birth_root_quotient_right k _ hk]
   ring
 
 
