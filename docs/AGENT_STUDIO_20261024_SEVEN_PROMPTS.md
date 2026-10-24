@@ -4,7 +4,7 @@
 
 The following are the seven **current complete standalone Studio Instructions** for each named specialty. The agent roles are permanent; the daily theorem/route comes dynamically from [AGENTS.md](../AGENTS.md), the [proof contract](../CURRENT_PROOF_CONTRACT.md), and the [ten-route portfolio](RH_PROOF_ATTACK_PORTFOLIO_20261024.md). Historical [October 12 Agent Studio setup guide](CHATGPT_AGENT_STUDIO_RH_SETUP_2026_10_12.md) is only a UI/setup reference; its dated initial campaign and eight logical schedule anchors are NOT new schedule requests.
 
-**No configuration/schedule change is asserted here:** one scheduled invocation per specialist/day; first six may write only own files on \`agent-reports\`; #7 alone has scoped \`agent/lean-verification/\` feature-branch DRAFT PR exception; human-only merge.
+**No configuration/schedule change is asserted here:** one scheduled invocation per specialist/day; first six may write only own files on `agent-reports`; #7 alone has scoped `agent/lean-verification/` feature-branch DRAFT PR exception; human-only merge.
 
 ## Common dynamic refresh (included in every complete role prompt)
 
