@@ -17,6 +17,7 @@ def main() -> None:
     proof_contract = read("CURRENT_PROOF_CONTRACT.md")
     setup = read("docs/CHATGPT_AGENT_STUDIO_RH_SETUP_2026_10_12.md")
     prompts = read("docs/AGENT_STUDIO_20261024_SEVEN_PROMPTS.md")
+    overlap = read("docs/RH_PROOF_OVERLAP_AND_SEVEN_EIGHTHS_AUDIT_20261024.md")
     for route in ("VF-LOW", "SAT", "CODIV", "BLOCK", "OAI-NNS", "JOH",
                   "FINITE-AC", "CORR4", "MU-LIFT", "NYMAN"):
         assert "**" + route + "**" in portfolio, f"missing route {route}"
@@ -40,6 +41,13 @@ def main() -> None:
                        ("CONTRACT", proof_contract), ("STUDIO", setup)):
         assert "RH_PROOF_ATTACK_PORTFOLIO_20261024.md" in doc, label
     assert "AGENT_STUDIO_20261024_SEVEN_PROMPTS.md" in setup
+    assert "EXACT IDENTITY" in overlap and "EXACT WEIGHTED PROJECTION" in overlap
+    assert "INDEPENDENT ARITHMETIC GAIN" in overlap and "CORR-4" in overlap
+    assert "7/8" in overlap and "m(B)" in overlap, "missing baseline power audit"
+    for label, doc in (("AGENTS", agent_policy), ("DYNAMIC", dynamic),
+                       ("CONTRACT", proof_contract), ("PORTFOLIO", portfolio),
+                       ("STUDIO PROMPTS", prompts)):
+        assert "RH_PROOF_OVERLAP_AND_SEVEN_EIGHTHS_AUDIT_20261024.md" in doc, label
     for path in (
         "AGENTS.md",
         "CURRENT_PROOF_CONTRACT.md",
@@ -47,9 +55,10 @@ def main() -> None:
         "docs/RH_PROOF_ATTACK_PORTFOLIO_20261024.md",
         "docs/AGENT_STUDIO_20261024_SEVEN_PROMPTS.md",
         "docs/RESEARCH_FRONTIER_DAG.md",
+        "docs/RH_PROOF_OVERLAP_AND_SEVEN_EIGHTHS_AUDIT_20261024.md",
     ):
         assert (chr(92) + chr(96)) not in read(path), f"escaped Markdown backtick in {path}"
-    print("PASS: 10 routes; 7 Studio roles; current authority and permission rules")
+    print("PASS: 10 routes; 7 Studio roles; rigorously labelled equivalence and 7/8 gates")
 
 
 if __name__ == "__main__":
