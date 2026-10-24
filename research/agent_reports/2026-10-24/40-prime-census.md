@@ -10,52 +10,52 @@
 
 ### Claim `20261024-census-1`: all Gaussian compensation subsets lie on one physical projective ray
 
-Fix the original OAI data in `GaussianCompensation.lean`: nonzero slot elements
-(p_i), a subset (J), and positive physical scales (X,Y,Z). Write
+Fix the original OAI data in `GaussianCompensation.lean`: nonzero slot
+elements `p_i`, a subset `J`, and positive physical scales `X,Y,Z`.
+Write
 
-[
-  n_i=N(p_i),qquad
-  n_J=prod_{iin J}n_i,qquad
-  n_{ar J}=prod_{i
-otin J}n_i,qquad
-  n_{m all}=n_Jn_{ar J}.
-]
+```text
+n_i       = N(p_i)
+n_J       = product_(i in J) n_i
+n_comp    = product_(i not in J) n_i
+n_all     = n_J * n_comp
+```
 
 The exact arguments passed by `compensationSubsetProbe` to
 `markedPhysicalProbe` are
 
-[
-  X_J={Xover n_J},qquad
-  Y_J={Yover n_J},qquad
-  Z_J=Z,n_{ar J}.
-]
+```text
+X_J = X / n_J
+Y_J = Y / n_J
+Z_J = Z * n_comp
+```
 
-Therefore, for every subset (J),
+Therefore, for every subset `J`,
 
-[
- {X_Jover Z_J}={Xover Z n_{m all}},qquad
- {Y_Jover Z_J}={Yover Z n_{m all}},qquad
- {X_Jover Y_J}={Xover Y}.                                      	ag{1}
-]
+```text
+X_J / Z_J = X / (Z * n_all)
+Y_J / Z_J = Y / (Z * n_all)
+X_J / Y_J = X / Y.                                  (1)
+```
 
-The complete (2^K)-subset carrier is not a collection of unrelated physical
-scales. Every term lies on the same projective ray in ((X,Y,Z)).
+The complete `2^K`-subset carrier is not a collection of unrelated physical
+scales. Every term lies on the same projective ray in `(X,Y,Z)`.
 
-Now fix the heavy slot (s_*) from Wheel claim `20261024-wheel-1`, and let
-(J) omit (s_*). If (q=n_{s_*}), then
+Now fix the heavy slot `s_star` from Wheel claim
+`20261024-wheel-1`, and let `J` omit it. If
+`q = n_(s_star)`, then
 
-[
-  (X_{Jcup{s_*}},Y_{Jcup{s_*}},Z_{Jcup{s_*}})
-  =q^{-1}(X_J,Y_J,Z_J).                                          	ag{2}
-]
+```text
+(X_(J union {s_star}), Y_(J union {s_star}), Z_(J union {s_star}))
+  = q^(-1) * (X_J, Y_J, Z_J).                         (2)
+```
 
 Thus the selected-heavy and compensated-heavy terms in the exact pairing
 
-[
- sum_{Jsubseteq S}T(J)
- =sum_{Asubseteq Ssetminus{s_*}}
-   left(T(A)+T(Acup{s_*})ight)
-]
+```text
+sum_(J subset S) T(J)
+  = sum_(A subset S minus {s_star}) [T(A) + T(A union {s_star})]
+```
 
 are related by a common diagonal dilation, not by three independent scale
 changes.
@@ -69,13 +69,13 @@ It follows directly from the compiled definitions
 
 The live problem is whether the local recombined one-prime residual can be
 inserted into the actual Gaussian subset expansion without losing the
-(Q^{-	heta}) gain and the convolution-first (ell^{6/5}) saving.
+`Q^(-theta)` gain and the convolution-first `ell^(6/5)` saving.
 
 Two mechanisms predicted different behavior:
 
 1. **Unrelated-channel hypothesis.** Moving the heavy slot across the
-   compensation cut changes (X), (Y), and completed height in incompatible
-   ways, so the two halves require unrelated estimates.
+   compensation cut changes `X`, `Y`, and completed height in
+   incompatible ways, so the two halves require unrelated estimates.
 2. **Paired-local hypothesis.** The two subset terms are the two source faces
    of one compensated prime operation and should retain a common normalized
    physical geometry.
@@ -84,19 +84,19 @@ Equations (1)-(2) falsify the scale-mismatch part of hypothesis 1 and support
 the geometry required by hypothesis 2. They do not prove that the complete
 integrands recombine into the local residual.
 
-The discriminator was preregistered as exact equality of all three rational
-ratios and exact coordinatewise (q^{-1}) scaling for every toggle pair.
-Any failure on one legal subset would refute the proposed invariant.
+The discriminator was exact equality of all three rational ratios and exact
+coordinatewise `q^(-1)` scaling for every toggle pair. Any failure on one
+legal subset would refute the proposed invariant.
 
 ## C. Exact finite verification
 
 A six-slot fixture used genuine supported split-prime norms
 
-[
-  (7,13,19,31,37,43)
-]
+```text
+7, 13, 19, 31, 37, 43
+```
 
-and (X=1009,;Y=2027,;Z=17). Exact `Fraction` arithmetic enumerated all
+and `X=1009, Y=2027, Z=17`. Exact `Fraction` arithmetic enumerated all
 64 subsets. Results:
 
 ```text
@@ -110,10 +110,10 @@ Y_J/Z_J       2027 / 1449692153
 X_J/Y_J             1009 / 2027
 ```
 
-A second reconstruction generated the subset products recursively rather than
-by direct bitmask multiplication. It produced 64 distinct triples and exactly
-the same triple set. An independent Node/BigInt implementation checked all
-192 toggle pairs and found zero coordinate failures.
+A second reconstruction generated subset products recursively rather than by
+direct bitmask multiplication. It produced 64 distinct triples and exactly the
+same triple set. An independent Node/BigInt implementation checked all 192
+toggle pairs and found zero coordinate failures.
 
 These calculations are checksums for the algebraic identity, not evidence for
 an asymptotic estimate. All discrete operations were exact integers or
@@ -125,6 +125,7 @@ CPython 3.12.13 and Node 24.14.0. No random seed was used.
 ## D. Source interpretation
 
 The paired-source coefficient also changes in a structured way. The original
+definition is
 
 ```text
 compensationSubsetCoefficient eta p J
@@ -132,19 +133,18 @@ compensationSubsetCoefficient eta p J
       * star(elementCoeff eta (p_complement)).
 ```
 
-When (s_*) is toggled into (J), the sign reverses, the explicit
-normalization acquires (q^{-3/2}), and the complementary character
-coefficient loses the prime factor (p_{s_*}). Under the actual coprimality
-and multiplicativity hypotheses this is the expected main/correction shape of
-a compensated local Euler pair.
+When `s_star` is toggled into `J`, the sign reverses, the explicit
+normalization acquires `q^(-3/2)`, and the complementary character
+coefficient loses the prime factor `p_(s_star)`. Under the actual
+coprimality and multiplicativity hypotheses this is the expected
+main/correction shape of a compensated local Euler pair.
 
 However, a complete source theorem still has to prove that correspondence.
 The following objects also change across the toggle:
 
-- the complementary ideal
-  (operatorname{span}(p_{ar J}));
+- the complementary ideal `span(p_complement)`;
 - the `correctedCompletedT` row response;
-- the subset-dependent Schwartz function (V(J));
+- the subset-dependent Schwartz function `V(J)`;
 - the Gaussian joint density scale;
 - masks, conductor conditions, row labels, and exceptional prime classes.
 
@@ -157,18 +157,17 @@ half of the carrier.
 The exact next theorem should be formulated on paired terms, not on one
 channel in isolation:
 
-> For each (Asubseteq Ssetminus{s_*}), rewrite the complete original
-> pair (T(A)+T(Acup{s_*})) so that the heavy prime contributes the
+> For each `A subset S minus {s_star}`, rewrite the complete original pair
+> `T(A) + T(A union {s_star})` so that the heavy prime contributes the
 > source-realized recombined local residual, while the remaining response is
 > an absolutely integrable multiplier envelope on the common projective ray.
 
 If established, Analytic claim `20261023-analytic-1` and Wheel claim
 `20261024-wheel-1` would then give a fixed relative convolution saving
 
-[
- U^{-(	heta+1/6)w_*},qquad
- w_*ge {7over37N},
-]
+```text
+U^(-(theta + 1/6) * w_star),   w_star >= 7/(37*N),
+```
 
 without discarding either half of the power-set carrier. The missing work is
 the exact pair-to-local-residual adapter and the uniform response envelope,
@@ -178,9 +177,9 @@ normalization, and full signed NNS cross energy.
 The strongest falsifier for this proposed adapter is now precise: find the
 smallest admitted pair for which the two terms cannot be expressed with one
 common local prime after the complementary ideal, character coefficient, and
-Gaussian density are restored. Merely observing different raw (X_J,Y_J,Z_J)
-values is no longer a valid obstruction because (2) shows their exact common
-dilation.
+Gaussian density are restored. Merely observing different raw
+`X_J,Y_J,Z_J` values is no longer a valid obstruction because (2) shows
+their exact common dilation.
 
 ## F. Relation to prior work
 
@@ -198,8 +197,8 @@ dilation.
 - `20261024-census-1` adds the source-scale invariant needed to test whether
   that pairing can realize the local compensated prime operation.
 
-No claim above proves coefficient claim (A), a native independent seven-eighths
-theorem, the canonical VF estimate, or RH.
+No claim above proves coefficient claim (A), a native independent
+seven-eighths theorem, the canonical VF estimate, or RH.
 
 ## G. Provenance and continuity
 
@@ -263,15 +262,15 @@ or permission was changed.
 ## I. Continuation checkpoint
 
 Do not rerun the six-prime subset census; equations (1)-(2) are exact. Continue
-with the first admitted original pair (A,Acup{s_*}):
+with the first admitted original pair `A, A union {s_star}`:
 
 1. unfold the two `compensationSubsetCoefficient` terms;
-2. prove the required coprimality/multiplicativity split at (p_{s_*});
+2. prove the required coprimality/multiplicativity split at `p_(s_star)`;
 3. align the two `correctedCompletedT` responses under the common diagonal
    dilation;
 4. compare the paired local factor exactly with
    `continuedCompensatedLocal + idealUnramifiedCorrection * rowPhase`;
-5. only then apply the (ell^{6/5}) multiplier theorem and measure the
+5. only then apply the `ell^(6/5)` multiplier theorem and measure the
    response envelope.
 
 **Final status:** `PAPER_PROOF / EXACT SOURCE-SCALE INVARIANT` and
