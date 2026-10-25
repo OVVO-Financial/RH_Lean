@@ -224,3 +224,47 @@ the ORIGINAL jointExtension for EVERY sixth-free seed R|G^5.
 If it vanishes in the low-C sector, Poisson can save power there;
 the large-C tail is already absolutely damped by C^(-7/6).
 This is a candidate new xi>0, not a proven global bound.
+
+## An explicit principal-seed collision: fifth power of the CALIBRATION generator
+
+The original primary numerator factorization theorem
+ChineseRemainder/FrequencyLifts.lean::idealRowHom_factor_numerator
+identifies the bad-prime numerator twist for the supported seed
+z=g^5 with idealRowHom(g^5,(n)) on primary n. For any supported n
+coprime to g, the exact sixth-mask identity yields
+  idealRowHom(g,(n))*idealRowHom(g^5,(n))
+    = idealRowHom(g^6,(n)) = 1.
+As original LowGramArithmetic.lean::gramPeriodicMonoid_primary shows,
+the low-column coefficient is (rho_g(n))^(-1)*idealRowHom(g,(n)).
+Therefore the fifth-power exceptional seed has
+  [low column coefficient]*[numerator bad twist]
+    = rho_g(n)^(-1).
+
+The new Lean theorem
+research/oai_434/VF919OriginalExceptionalSixthCorridor.lean::
+original_low_column_fifth_seed_restores_calibration
+proves this final identity as a conditional exact algebraic statement.
+The separate source factorization and equivalence to the actual k=g^5
+frequency should be imported from the original numerator factorization
+theorem, with the true unit/ramified/inert decomposition of g.
+Until that adapter is kernel checked this note does not claim the
+entire jointExtension at that seed is a constant scalar.
+
+For MINIMAL calibration g=2*lambda, primary n have n≡1 mod lambda^2,
+and a fixed physical ray n mod4 fixes n mod2. Consequently rho_g(n)
+is constant on that particular primary-ray class. This means the
+finite nonprincipality of the low column cannot kill ALL bad-prime
+exceptional seeds. At some seeds the numerator twist restores the
+principal calibration-ray sector.
+
+This moves the real arithmetic gate from 'prove alpha nonprincipal'
+to 'subtract/classify the restoring bad-prime seed and prove its
+SIGNED contribution is controlled by the original common divisor
+and sourceMobiusWeight cancellation, without taking absolute values.'
+One cannot assign an unconditional P^(-xi) gain to the entire
+exceptional class before that restoring contribution has been paid.
+
+The arithmetic cancellation and frequency phase-invariance results
+do NOT imply that the fully weighted exceptional source is
+nonzero; other source labels and original compensation may cancel.
+No global theorem A or beta<7/8 follows.
