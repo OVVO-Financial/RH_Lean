@@ -165,3 +165,7 @@ External handoff index blob `038018145c0fddb2f6306c0712373adf9cd1ea52` has no en
 **Next Referee action:** attack the complete first-owner Gram/remainder inequality on endpoint-excursion runs, or seek an infinite-family obstruction to any proof using only unsigned owner frames. For OAI, test the total outer source cost against the local (Z^{-1/64}) saving and isolate the surviving resonant projection exactly.
 
 **Final classification:** a new unconditional prime-incidence strengthening and independently verified conditional coefficient improvement; no unconditional complete-source signed estimate, no exponent below 7/8, no canonical VF closure, and no RH proof.
+
+## G. Publication verification
+
+Initial publication commit: `f0091e990ed69a5cf59f27962e7c076a206baae2`. Immediate readback returned blob `595e73d654778df955099ccd201bb668be39f1ab`, 10,138 characters, with `COMPLETED`, claim `20261025-referee-1`, and the pinned main SHA present. This verifies report publication only; it does not promote the paper strengthening to Lean, prove an open premise, alter either PR, merge source, or change any schedule.
