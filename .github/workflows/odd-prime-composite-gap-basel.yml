@@ -1,0 +1,40 @@
+name: Odd-prime composite-gap Basel frame
+
+on:
+  pull_request:
+    paths:
+      - 'research/ODD_PRIME_COMPOSITE_GAP_BASEL_20261025.lean'
+      - '.github/workflows/odd-prime-composite-gap-basel.yml'
+      - 'lean-toolchain'
+      - 'lakefile.lean'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  composite-gap-basel:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - name: Require exact Lean pin and no proof holes
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(cat lean-toolchain)" = "leanprover/lean4:v4.34.1"
+          ! grep -nE '^[[:space:]]*(sorry|admit|axiom)([[:space:]]|$)' research/ODD_PRIME_COMPOSITE_GAP_BASEL_20261025.lean
+      - uses: ./.github/actions/lean-setup
+      - uses: ./.github/actions/lean-compiled-cache
+      - name: Warning-fatal kernel check and axiom audit
+        shell: bash
+        run: |
+          set -euo pipefail
+          lake env lean -DwarningAsError=true research/ODD_PRIME_COMPOSITE_GAP_BASEL_20261025.lean | tee /tmp/composite-gap-basel-axioms.log
+          if grep -E 'sorryAx|admitAx|_private' /tmp/composite-gap-basel-axioms.log; then
+            echo 'Unexpected axiom in composite-gap Basel theorem' >&2
+            exit 1
+          fi
+          grep -q 'propext' /tmp/composite-gap-basel-axioms.log
+          grep -q 'Classical.choice' /tmp/composite-gap-basel-axioms.log
+          grep -q 'Quot.sound' /tmp/composite-gap-basel-axioms.log
