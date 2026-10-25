@@ -1,5 +1,5 @@
 import Mathlib
-import OAI.NumberTheory.DirichletL.Arithmetic.IdealMobius
+import OAI.NumberTheory.DirichletL.Detector.SourcePrime
 
 /-!
 # J = 1: exact completed column weight and the finite projection obstruction
@@ -55,6 +55,27 @@ theorem centered_coefficients_can_have_nonzero_projection :
     ((1 : ℂ) + (-1) = 0) ∧
       ((1 : ℂ) * 1 + (-1) * (-1) = 2) := by
   constructor <;> ring
+
+
+/-- Exact ORIGINAL prime-column phase bridge: after the angular and
+    quadratic Gauss correction, cubic gaussTwo agrees with the negative
+    inverse normalized cubic gamma1, not bare gaussTwo. This reuses TWO
+    separately certified original OAI theorems; extension to arbitrary
+    squarefree columns and actual ray/calibration-weighted residues is open. -/
+theorem corrected_j_one_prime_gamma (p : O) (hp : Prime p)
+    [(Ideal.span {p} : Ideal O).IsMaximal]
+    (hg : ConcretePrimeRowBridge.goodLambda ∉ Ideal.span {p})
+    (hchar : ringChar (O ⧸ Ideal.span {p}) ≠ 2)
+    (hprimary : ConcretePrimeRowBridge.goodLambda ^ 2 ∣ p - 1)
+    (hI : CompletedGauss.primaryGenerator (Ideal.span {p}) ≠ 0)
+    (hs : CanonicalQuadraticSieve.Supported (Ideal.span {p})) :
+    CompletedGauss.gaussTwo (Ideal.span {p}) hI *
+        star (FiniteGaussPhase.angularFactor p) *
+        star (SevenEighths.ProbePhase.G p) =
+      -(ProbePrimePower.localGamma p hp.ne_zero hg 1)⁻¹ := by
+  rw [SevenEighths.ProbePhysical.gaussTwo_prime_localGamma p hp hg hprimary hI]
+  exact SevenEighths.ProbePhysical.corrected_prime_cubic_signal
+    p hp.ne_zero hg hchar hprimary hs
 
 end VF919OriginalLowMetaProjection
 
