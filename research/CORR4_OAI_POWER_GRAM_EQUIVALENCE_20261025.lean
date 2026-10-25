@@ -122,12 +122,19 @@ theorem corr4PowerPhysicalRemainder_of_mertensPowerBound
     _ ≤ (9 / 4 : ℝ) * canonicalRoughLowQ2DaughterEnergy R +
           (2025 / 1814 : ℝ) *
             (C * Real.rpow ((R : ℝ) ^ 2) β) ^ 2 := by
-      exact add_le_add_left
-        (mul_le_mul_of_nonneg_left hsq (by norm_num)) _
+      exact add_le_add le_rfl
+        (mul_le_mul_of_nonneg_left hsq (by norm_num))
     _ = (9 / 4 : ℝ) * canonicalRoughLowQ2DaughterEnergy R +
           A * Real.rpow (R : ℝ) (4 * β) := by
+      have hscaled :
+          (C * Real.rpow ((R : ℝ) ^ 2) β) ^ 2 =
+            C ^ 2 * Real.rpow (R : ℝ) (4 * β) := by
+        calc
+          (C * Real.rpow ((R : ℝ) ^ 2) β) ^ 2 =
+              C ^ 2 * (Real.rpow ((R : ℝ) ^ 2) β) ^ 2 := by ring
+          _ = C ^ 2 * Real.rpow (R : ℝ) (4 * β) := by rw [hfour]
+      rw [hscaled]
       dsimp [A]
-      rw [mul_pow, hfour]
       ring
 
 theorem corr4PowerFirstOwnerGram_of_mertensPowerBound
