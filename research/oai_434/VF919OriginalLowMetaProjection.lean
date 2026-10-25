@@ -16,7 +16,10 @@ namespace OAI
 namespace VF919OriginalLowMetaProjection
 
 open scoped BigOperators
-open CompletedGauss
+open CompletedGauss ActualEisensteinCubic ActualEisensteinCoordinates
+open CanonicalQuadraticSieve ConcretePrimeRowBridge CubicEisenstein ConcreteTraceCRT
+open SevenEighths.ProbePhysical SevenEighths.ProbePhase SevenEighths.ProbePrimePower
+open FiniteGaussPhase QuadraticGaussRay
 local notation "O" => ActualEisensteinCubic.O
 
 /-- At the ACTUAL completed ideal J=1, the cubeWeight factor is exactly 1,
