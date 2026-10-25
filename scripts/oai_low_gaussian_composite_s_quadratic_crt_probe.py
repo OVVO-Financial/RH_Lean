@@ -133,6 +133,34 @@ def test_exponents():
     print("Exact rational exponent ledger PASS")
 
 
+
+def test_prime_power_lift():
+    # The actual prime-power Gauss sum has support p^(a-1)|m,
+    # and reduces to p^(a-1) times the local prime Gauss factor.
+    # Includes the sixth-principal exponent a=6.
+    fld = Field(7, 1)
+    p = fld.p
+    for a in (1, 2, 3, 6):
+        modulus = p ** a
+        def chi(x):
+            return fld.character((x % p,), a)
+        def g(m):
+            return sum(chi(x) * exp(2j*pi*((m*x) % modulus)/modulus)
+                       for x in range(modulus))
+        for m in (1, p ** (a-1), 2*p ** (a-1), 0):
+            if m % (p ** (a-1)):
+                expected = 0j
+            else:
+                n = m // (p ** (a-1))
+                expected = p ** (a-1) * sum(
+                    chi(x) * exp(2j*pi*((n*x) % p)/p)
+                    for x in range(p)
+                )
+            actual = g(m)
+            assert abs(actual-expected) < 1e-8*(1+abs(expected)), (a,m,actual,expected)
+        print(f"p=7, outer exponent {a}: exact prime-power lift PASS")
+
 if __name__ == "__main__":
     test_local()
+    test_prime_power_lift()
     test_exponents()
