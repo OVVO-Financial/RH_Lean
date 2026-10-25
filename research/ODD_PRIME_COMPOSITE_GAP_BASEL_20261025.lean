@@ -44,7 +44,9 @@ theorem sum_seventeenOddReciprocalSquares_le (N : ℕ) :
               (1 / (4 * ((N : ℚ) + 8)) -
                 1 / (4 * ((N : ℚ) + 9))) := by
                   apply add_le_add ih
-                  convert hterm using 1 <;> push_cast <;> ring
+                  convert hterm using 1
+                  all_goals push_cast
+                  all_goals ring
           _ = (1 / 32 : ℚ) -
               1 / (4 * (((N.succ : ℕ) : ℚ) + 8)) := by
                 push_cast
@@ -74,8 +76,7 @@ private theorem oddPrimesBelowSeventeen_subset (N : ℕ) :
   have hq17 := (Finset.mem_filter.mp hq).2
   have hp := (mem_primesUpTo.mp (Finset.mem_erase.mp hbase).2).1
   have hne := (Finset.mem_erase.mp hbase).1
-  interval_cases q
-  all_goals norm_num at hp hne ⊢
+  interval_cases q <;> norm_num at *
 
 /-- Exact `3,5,7,11,13` prime contributions plus the odd tail from `17`.
 The missing odd locations `9` and `15` are excluded by primality. -/
