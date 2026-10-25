@@ -21,7 +21,7 @@ noncomputable section
 namespace SevenEighths.ProbePhysical
 open ActualEisensteinCubic ActualEisensteinCoordinates
 open ConcretePrimeRowBridge ConcreteTraceCRT
-open CanonicalRowCompletion CompletedGauss
+open CanonicalRowCompletion CompletedGauss CanonicalQuadraticSieve
 open CenteredMomentSupportedCorrelation CenteredMomentCommonSupport
 open SevenEighths.ProbePhase
 local notation "O" => ActualEisensteinCubic.O
@@ -33,15 +33,13 @@ theorem original_coprime_same_ray_sextic_correlation_phase_one
     (hpu : goodLambda ^ 2 ∣ u - 1)
     (hpv : goodLambda ^ 2 ∣ v - 1)
     (hcop : IsCoprime u v)
+    [Fintype (O ⧸ Ideal.span {u})]
     [(Ideal.span {v} : Ideal O).IsMaximal]
     (hgood : goodLambda ∉ Ideal.span {v})
     (hchar : ringChar (O ⧸ Ideal.span {v}) ≠ 2)
     (hray : physicalRay u = physicalRay v) :
     idealRowHom (-u) (Ideal.span {v}) *
       star (idealRowHom v (Ideal.span {u})) = 1 := by
-  letI : Finite (O ⧸ Ideal.span {u}) :=
-    ConcreteTraceCRT.finite_quotient_span (supported_element_ne_zero u hu)
-  letI : Fintype (O ⧸ Ideal.span {u}) := Fintype.ofFinite _
   have hdiff : (4 : O) ∣ u - v := by
     change (Ideal.Quotient.mk (Ideal.span {(4 : O)}) u) =
       Ideal.Quotient.mk (Ideal.span {(4 : O)}) v at hray
