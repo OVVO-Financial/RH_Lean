@@ -120,3 +120,51 @@ Only after replacing the actual full compensated low operator
 theorem, not merely the abstract scalar source, can the
 global high, sextic moment and multiplicity terms be rebalanced.
 No beta<7/8, no full Global Theorem A and no RH are proved here.
+
+## Higher-leverage route: move the CRT argument BEFORE low Cauchy
+
+This is a key logical distinction in the actual pinned proof.
+Detector/LowSeparated.lean defines
+  lowSeparatedIntegrand =
+    mellin(W0) *
+      sum_m lowNumeratorWeight(m) *
+        sum_sigma lowRayAmplitude(sigma,m) * B(sigma,m).
+
+The true B(sigma,m) is the MARKED COMPLETED DETECTOR ROW, built from
+correctedCompletedT(...,physicalRayRowMonoid(...),gaussianCompletedProfile Z)
+as shown in Detector/LowSeparated.lean and PhysicalReopen.lean.
+The good column character chi_I(m)*chi_J(m)^3 from #1022
+appears **ONLY WHEN B IS REOPENED**. It does NOT appear in
+the isolated lowRayAmplitude or the squared low-only Gram.
+
+Detector/LowCauchy.lean::lowSeparatedIntegrand_cauchy replaces the
+signed bilinear product with sqrt(lowGaussEnergy)*sqrt(sum|B|^2).
+This removes chi_I(m)chi_J(m)^3 from the low factor. As a result,
+the fixed (s,I,J) primitive-column CRT saving DOES NOT IMPLY the
+proposed low-only energy gain. Elementary orthogonality makes the
+logical distinction exact: <A,B>=0 need not make ||A||^2 small.
+
+Hence two distinct possible routes:
+(A) Prove a genuinely NEW signed exceptional frequency/Gram saving
+after Cauchy, necessarily across C,D or residual character seeds;
+OR
+(B) Bypass LowCauchy for the ACTUAL detector B, reopen
+PhysicalReopen BEFORE the Cauchy inequality, and bound the fully
+weighted four-channel sum over s,I,J,m, preserving its
+chi_s^-1 * chi_I * chi_J^3 * rho_C character, as well as Gaussian
+profiles, selected slots and compensation terms.
+
+Route (B) is the only direct avenue for harvesting #1022's local
+Z^(-71/768) primitive-column gain without an independent positive
+Gram theorem. Its acceptance test is to improve the very SAME
+complete LHS of original
+Detector/LowCentralTuple.lean::low_central_compensated_tuple
+from Z^(3/16+254 epsilon) to Z^(3/16-delta+C epsilon)
+with all real sources/cutoffs and uniform analytic constants.
+This is NOT proved by the existing source-local bound, since
+summing all original s,I,J coefficients and compensations may
+consume more than the available CRT gain.
+
+No general claim "primitive-column CRT implies global low Gram gain"
+is valid; the complete low Gram has no I,J primitive-column
+oscillation to exploit.
