@@ -46,29 +46,16 @@ jobs:
               text = pathlib.Path('research', name + '.lean').read_text()
               assert not re.search(r'\b(sorry|admit|axiom)\b', text), name
           PY
-      - name: Build native RHLean library prerequisites (no OAI upstream)
-        run: |
-          python3 scripts/compile_research_import_closure.py --library-only \
-            research/CORR4_OAI_RELAXED_REMAINDER_20261024.lean \
-            research/CORR4_OAI_SQUARE_ENDPOINT_BOOTSTRAP_20261025.lean \
-            research/CORR4_OAI_POWER_RENEWAL_20261025.lean \
-            research/CORR4_OAI_POWER_GUIDEPOST_20261024.lean \
+      - name: Compile whole native research closure with source-addressed cache
+        uses: ./.github/actions/research-compile
+        with:
+          build-library: 'true'
+          targets: >-
+            research/CORR4_OAI_RELAXED_REMAINDER_20261024.lean
+            research/CORR4_OAI_SQUARE_ENDPOINT_BOOTSTRAP_20261025.lean
+            research/CORR4_OAI_POWER_RENEWAL_20261025.lean
+            research/CORR4_OAI_POWER_GUIDEPOST_20261024.lean
             research/CORR4_OAI_RESTORED_PHYSICAL_KERNEL_20261024.lean
-      - name: Warning-fatal Lean compile, module dependency order
-        run: |
-          set -euo pipefail
-          mkdir -p .lake/build/lib/lean
-          for name in \
-            CORR4_OAI_RELAXED_REMAINDER_20261024 \
-            CORR4_OAI_SQUARE_ENDPOINT_BOOTSTRAP_20261025 \
-            CORR4_OAI_POWER_RENEWAL_20261025 \
-            CORR4_OAI_POWER_GUIDEPOST_20261024 \
-            CORR4_OAI_RESTORED_PHYSICAL_KERNEL_20261024
-          do
-            lake env lean -DwarningAsError=true \
-              -o ".lake/build/lib/lean/research.$name.olean" \
-              "research/$name.lean"
-          done
       - name: Check physical witness and conditional theorem axiom footprints
         run: |
           cat > /tmp/corr4_oai_axioms.lean <<'LEAN'
