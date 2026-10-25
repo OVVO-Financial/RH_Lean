@@ -26,6 +26,30 @@ jobs:
           ! grep -nE '^[[:space:]]*(sorry|admit|axiom)([[:space:]]|$)' research/ODD_PRIME_COMPOSITE_GAP_BASEL_20261025.lean
       - uses: ./.github/actions/lean-setup
       - uses: ./.github/actions/lean-compiled-cache
+      - name: Build imported research closure
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 scripts/compile_research_import_closure.py --library-only \
+            research/STABLE_FAR_RETURNED_FIBER_PRODUCTION.lean \
+            research/STABLE_FAR_LOG_FREQUENCY_DIAGONALIZATION.lean \
+            research/STABLE_FAR_PERRON_RETURNED_FIBER_INTERFACE.lean \
+            research/STABLE_FAR_CRITICAL_Q2_ENERGY_MULTIPLIER.lean \
+            research/STABLE_FAR_PERRON_QUARTER_FRAME_BOUND.lean \
+            research/STABLE_FAR_PERRON_BASEL_FRAME_SHARPENING.lean \
+            research/ODD_PRIME_COMPOSITE_GAP_BASEL_20261025.lean
+          for module in \
+            STABLE_FAR_RETURNED_FIBER_PRODUCTION \
+            STABLE_FAR_LOG_FREQUENCY_DIAGONALIZATION \
+            STABLE_FAR_PERRON_RETURNED_FIBER_INTERFACE \
+            STABLE_FAR_CRITICAL_Q2_ENERGY_MULTIPLIER \
+            STABLE_FAR_PERRON_QUARTER_FRAME_BOUND \
+            STABLE_FAR_PERRON_BASEL_FRAME_SHARPENING
+          do
+            lake env lean -DwarningAsError=true \
+              -o ".lake/build/lib/lean/research.${module}.olean" \
+              "research/${module}.lean"
+          done
       - name: Warning-fatal kernel check and axiom audit
         shell: bash
         run: |
