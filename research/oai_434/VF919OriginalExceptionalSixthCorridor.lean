@@ -115,7 +115,6 @@ theorem original_compensated_exceptional_parameter_invariant
     (hY : Y ≠ 0) (hL : L ≠ 0) :
     ((Y / L) ^ 2) / (q * (X / L) * (Y / L)) = Y / (q * X) := by
   field_simp
-  <;> ring
 
 #print axioms original_exceptional_of_sixth_power
 #print axioms original_actual_calibrated_sixth_frequency_invariant
