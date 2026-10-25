@@ -133,4 +133,4 @@ Next formal work should not merely retain more finite primes unless the added co
 
 ## G. Publication verification
 
-This report is the only Lean Verification report written by this invocation. Its creation commit and readback blob are recorded after publication below. Publication certifies the report text only; formal certification is the exact PR head and Actions evidence above.
+This report is the only Lean Verification report written by this invocation. Initial publication commit: `62af1409f7104aff9fec05da344ead1beb3a4666`. Immediate readback returned blob `1b992124b6952fe68572ea470a23f9fad5172766`, 7,929 characters, with the exact PR head `44fbcf3f2dcab39c849f8a52cec4202929a734ad` and dedicated run `40181443709` present. Publication certifies the report text only; formal certification is the exact PR head and Actions evidence above.
