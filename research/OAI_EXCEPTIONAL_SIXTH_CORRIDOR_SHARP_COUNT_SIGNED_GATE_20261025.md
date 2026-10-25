@@ -168,3 +168,59 @@ consume more than the available CRT gain.
 No general claim "primitive-column CRT implies global low Gram gain"
 is valid; the complete low Gram has no I,J primitive-column
 oscillation to exploit.
+
+## Candidate signed mechanism: nonprincipal periodic fixed-ray low-column coefficients
+
+Pinned Detector/LowGramArithmetic.lean::lowArithmeticCoefficient_periodic
+and Detector/LowGramFixedCoefficient.lean::gramCoefficientExtension_periodic
+express the admissible column coefficient, up to one fixed scalar, as
+
+  alpha(n) = rho_g(n)^(-1) * idealRowHom(g,(n)),
+
+a multiplicative PERIODIC function of the primary element n. The
+physical ray modulo 4 is projected separately.
+
+For MINIMAL S=fixedBadPrimes={(lambda),(2)}, the conductor ideal
+(g)=(2*lambda), lambda=1-omega, and any generator is a unit associate
+of g0=2*(1-omega). Take primary split-prime elements
+  n7=-2-3*omega,   N(n7)=7,
+  n139=10-3*omega, N(n139)=139.
+Both are 1 modulo lambda^2 and have SAME ray (2,1) mod4.
+Their difference 12=g0*(4+2*omega), so EVERY calibration character
+modulo (g) takes the SAME value on these two elements.
+
+Exact sixth-root residue calculations in F7 and F139 give, for
+the six associates of g0, exponents modulo 6:
+  g0                   (0,1)
+  -g0                  (3,4)
+  omega*g0             (2,5)
+  -omega*g0            (5,2)
+  (1+omega)*g0         (1,0)
+  -(1+omega)*g0        (4,3)
+where pairs mean (chi_n7(g),chi_n139(g)). They are ALWAYS distinct.
+The low-column periodic multiplicative function is thus
+nonconstant on this primary ray subgroup for minimal calibration,
+irrespective of the generator's unit normalization or the chosen
+local calibration characters.
+
+Exact modular-arithmetic test:
+  scripts/oai_low_fixed_ray_nonprincipal_witness.py.
+No assertion of warning-fatal Lean certification of these specific
+F7/F139 residue evaluations is made here.
+
+WHY IT MATTERS: A nonprincipal multiplicative finite-group character
+has zero average on a coset of any subgroup where it is nontrivial.
+With fixed conductor, smooth Poisson supplies arbitrary power
+decay of the corresponding SEPARABLE weighted lattice sum.
+
+BUT the ACTUAL exceptional Gram is NOT automatically separable:
+it includes both columns, IsCoprime(I,J), variable sixth-free seeds,
+physical radial kernel and original jointFixed/actualCommon factors.
+Finite Fourier expansion of the two-column source may create
+principal sectors even when alpha by itself is nonprincipal.
+
+The exact remaining finite test is the two-coordinate mean of
+the ORIGINAL jointExtension for EVERY sixth-free seed R|G^5.
+If it vanishes in the low-C sector, Poisson can save power there;
+the large-C tail is already absolutely damped by C^(-7/6).
+This is a candidate new xi>0, not a proven global bound.
