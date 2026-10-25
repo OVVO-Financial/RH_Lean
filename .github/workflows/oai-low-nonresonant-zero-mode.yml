@@ -8,6 +8,9 @@ on:
       - 'research/oai_434/VF919OriginalLowGoodColumnCRTGauss.lean'
       - 'research/oai_434/VF919OriginalExceptionalSixthCorridor.lean'
       - 'research/oai_434/VF919OriginalSameRaySixthCorrelationPhase.lean'
+      - 'research/oai_434/VF919OriginalLowQuadraticBudget.lean'
+      - 'research/oai_434/VF919OriginalLowQuadraticLocalCharacters.lean'
+      - 'research/oai_434/VF919OriginalLowMetaProjection.lean'
       - '.github/workflows/oai-low-nonresonant-zero-mode.yml'
       - 'scripts/oai_low_gaussian_unit_character_finite.py'
       - 'scripts/oai_low_gaussian_crt_good_column_probe.py'
@@ -15,6 +18,7 @@ on:
       - 'scripts/oai_exceptional_sixth_corridor_sharpness.py'
       - 'scripts/oai_sextic_same_ray_cross_phase_probe.py'
       - 'scripts/oai_low_fixed_ray_nonprincipal_witness.py'
+      - 'scripts/oai_low_gaussian_composite_s_quadratic_crt_probe.py'
       - 'lean-toolchain'
       - 'lakefile.lean'
   workflow_dispatch:
@@ -34,7 +38,7 @@ jobs:
           set -euo pipefail
           test "$(cat lean-toolchain)" = "leanprover/lean4:v4.34.1"
           grep -q 'd13f23b723b8a846827a245b89c10fc7d3f11612' lakefile.lean
-          ! grep -nE '^[[:space:]]*(sorry|admit|axiom)([[:space:]]|$)' research/oai_434/VF919OriginalLowNonresonantZeroMode.lean research/oai_434/VF919OriginalLowGoodColumnCRTGauss.lean research/oai_434/VF919OriginalExceptionalSixthCorridor.lean research/oai_434/VF919OriginalSameRaySixthCorrelationPhase.lean
+          ! grep -nE '^[[:space:]]*(sorry|admit|axiom)([[:space:]]|$)' research/oai_434/VF919OriginalLowNonresonantZeroMode.lean research/oai_434/VF919OriginalLowGoodColumnCRTGauss.lean research/oai_434/VF919OriginalExceptionalSixthCorridor.lean research/oai_434/VF919OriginalSameRaySixthCorrelationPhase.lean research/oai_434/VF919OriginalLowQuadraticBudget.lean research/oai_434/VF919OriginalLowQuadraticLocalCharacters.lean research/oai_434/VF919OriginalLowMetaProjection.lean
       - uses: ./.github/actions/lean-setup
       - name: Fetch exact pinned original OpenAI source
         uses: actions/checkout@v4
@@ -67,6 +71,7 @@ jobs:
           lake build OAI.NumberTheory.DirichletL.Detector.PrimePhase
           lake build OAI.NumberTheory.DirichletL.Detector.LowRay
           lake build OAI.NumberTheory.DirichletL.Moments.SupportedCorrelation
+          lake build OAI.NumberTheory.DirichletL.Detector.SourcePrime
       - name: Kernel-check unconditional exact source zero mode
         shell: bash
         run: |
@@ -89,6 +94,21 @@ jobs:
           env LEAN_PATH="$RH_PATH:$OAI_PATH" lean -DwarningAsError=true \
             research/oai_434/VF919OriginalSameRaySixthCorrelationPhase.lean \
             | tee /tmp/original-oai-same-ray-sixth-coherence-axioms.log
+          env LEAN_PATH="$RH_PATH:$OAI_PATH" lean -DwarningAsError=true \
+            research/oai_434/VF919OriginalLowQuadraticBudget.lean \
+            | tee /tmp/original-oai-low-quadratic-budget-axioms.log
+          env LEAN_PATH="$RH_PATH:$OAI_PATH" lean -DwarningAsError=true \
+            research/oai_434/VF919OriginalLowQuadraticLocalCharacters.lean \
+            | tee /tmp/original-oai-low-quadratic-characters-axioms.log
+          env LEAN_PATH="$RH_PATH:$OAI_PATH" lean -DwarningAsError=true \
+            research/oai_434/VF919OriginalLowMetaProjection.lean \
+            | tee /tmp/original-oai-low-meta-projection-axioms.log
+          for f in /tmp/original-oai-low-quadratic-budget-axioms.log /tmp/original-oai-low-quadratic-characters-axioms.log /tmp/original-oai-low-meta-projection-axioms.log; do
+            if grep -E 'sorryAx|admitAx|_private' "$f"; then
+              echo "Unexpected axiom in new OAI low attack source: $f" >&2
+              exit 1
+            fi
+          done
           if grep -E 'sorryAx|admitAx|_private' /tmp/original-oai-same-ray-sixth-coherence-axioms.log; then
             echo 'Unexpected axiom in same-ray sixth coherence theorem' >&2
             exit 1
@@ -118,6 +138,7 @@ jobs:
           python3 scripts/oai_exceptional_sixth_corridor_sharpness.py
           python3 scripts/oai_sextic_same_ray_cross_phase_probe.py
           python3 scripts/oai_low_fixed_ray_nonprincipal_witness.py
+          python3 scripts/oai_low_gaussian_composite_s_quadratic_crt_probe.py
       - name: Record scope
         run: |
           echo "Unconditional original source zero-frequency vanishing checked."
