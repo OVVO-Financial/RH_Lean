@@ -73,6 +73,21 @@ For example any nonprincipal finite character chi has sum_x chi(x)=0 but sum_x |
 
 To prove global Theorem A with a factor Z^(-71/384), one must establish a source-authentic L-uniform Gram/energy transfer over the actual s,I,J, ray, selected slots, Gaussian dyadics, and compensation labels. Also certify the m-independent source coefficients and Gaussian tails. A harmonic J sum alone gives only logarithmic control; the original I weight is columnWeight(I)/sqrt(N(I)) multiplied by Vstar, which itself contains sqrt(N(I)*N(J)^3/Z). It is not a free 1/N(I) harmonic suppression.
 
+## Exact existing full compensated low acceptance baseline: 3/16
+
+Original Detector/LowCentralTuple.lean::low_central_compensated_tuple already establishes the actual sum over all labeled unselected slots and selected subsets, with the original physical row, Gaussian completion and compensation factors:
+  norm(complete compensated low-central tuple)
+    <= C*(1+norm(t))^degree * Z^(3/16+254*epsilon)
+under its stated hypotheses, INCLUDING selected slot exponents totaling at most 1/6.
+
+The proof tracks the real L payment in low_central_compensated_tuple and low_compensated_sqrt_factor, together with the original lowGramFactor and inverse-family bounds. A genuine beta=7/8-delta improvement by the proposed low route requires a NEW estimate for this SAME fully compensated operator, with exponent 3/16-delta (up to stated controllable epsilon loss), or an explicitly matched replacement global detector contract.
+
+A direct alternative is a signed bilinear theorem on the full low *paired* source (after spectral reopening) with uniform absolute coefficient/slot budget. The local CRT bound pairs with the inverse row; it cannot be squared into a bound on G_low by ignoring its positive diagonals. The relevant exact necessary ledger is:
+  |signed_low(Z)| <= sum_{labels} |outside_weight(labels)|*|physical_m_pairing(labels)|.
+The new input supplies only physical_m_pairing <= Q_s*Z^(-71/768-t/2-d)*L^(3/2)/sqrt(N(g)) in the applicable bulk. The other weighted coefficient/slot sum must be proved independently, keeping all Gaussian tails and noncoprime cells.
+
+In particular do NOT advertise Global Theorem A as immediate from a harmonic J sum; the existing original full source has already spent a distinct 3/16 exponent at the Gram/compensation level. We must prove an improvement relative to THAT bound.
+
 ## Exact next acceptance test
 
 (1) Warning-fatal Lean: s|I implies I=s I', coprime squarefree I', and exact norm; with NI/NJ bounds isolate s not dividing J and principal s character.
