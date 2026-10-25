@@ -4,6 +4,7 @@ on:
   pull_request:
     paths:
       - 'research/oai_434/VF919OriginalLowNonresonantZeroMode.lean'
+      - 'research/oai_434/VF919OriginalLowRadicalPhysicalPeriod.lean'
       - '.github/workflows/oai-low-nonresonant-zero-mode.yml'
       - 'scripts/oai_low_gaussian_unit_character_finite.py'
       - 'lean-toolchain'
@@ -48,6 +49,8 @@ jobs:
           set -euo pipefail
           lake build OAI.NumberTheory.DirichletL.Detector.LocalUnitFrequency
           lake build OAI.NumberTheory.DirichletL.Detector.CalibrationRemoval
+          lake build OAI.NumberTheory.DirichletL.Detector.RowRadicalConductor
+          lake build OAI.NumberTheory.DirichletL.Detector.PhysicalPoisson
       - name: Kernel-check unconditional exact source zero mode
         shell: bash
         run: |
@@ -58,6 +61,13 @@ jobs:
           env LEAN_PATH="$RH_PATH:$OAI_PATH" lean -DwarningAsError=true \
             research/oai_434/VF919OriginalLowNonresonantZeroMode.lean \
             | tee /tmp/original-oai-low-nonresonant-zero-mode-axioms.log
+          env LEAN_PATH="$RH_PATH:$OAI_PATH" lean -DwarningAsError=true \
+            research/oai_434/VF919OriginalLowRadicalPhysicalPeriod.lean \
+            | tee /tmp/original-oai-low-short-radical-period-axioms.log
+          if grep -E 'sorryAx|admitAx|_private' /tmp/original-oai-low-short-radical-period-axioms.log; then
+            echo 'Unexpected axiom in original OAI short radical physical period' >&2
+            exit 1
+          fi
           if grep -E 'sorryAx|admitAx|_private' /tmp/original-oai-low-nonresonant-zero-mode-axioms.log; then
             echo 'Unexpected axiom in original OAI low-source zero mode' >&2
             exit 1
