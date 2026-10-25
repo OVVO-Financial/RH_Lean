@@ -29,6 +29,7 @@ open SevenEighths.ProbePhysical
 open CanonicalQuadraticSieve
 open CenteredExceptionalCount
 open UniqueFactorizationMonoid
+open CanonicalRowCompletion
 local notation "O" => ActualEisensteinCubic.O
 local notation "Id" => Ideal O
 
@@ -186,6 +187,30 @@ theorem original_exceptional_seed_dvd_fixed_fifth
   · have hz := hk p hp
     omega
 
+
+/-- A bad-prime fifth-power frequency may cancel the entire original
+    low-column sextic character. This source-exact identity preserves
+    the full calibrated residual character and its nonunit mask.
+    In a fixed calibration ray that residual character can be constant,
+    so nonprincipality of a column on its own does not imply that
+    every exceptional sixth-power seed has zero finite mean. -/
+theorem original_low_column_fifth_seed_restores_calibration
+    (C : CalibrationData) (n : O)
+    (hn : Supported (Ideal.span {n}))
+    (hcop : IsCoprime n C.generator) :
+    (C.residueMonoid n)⁻¹ *
+        idealRowHom C.generator (Ideal.span {n}) *
+          idealRowHom (C.generator ^ 5) (Ideal.span {n}) =
+      (C.residueMonoid n)⁻¹ := by
+  have h6 := idealRowHom_sixth_mask C.generator (Ideal.span {n}) hn
+  rw [idealRowHom_argument_pow C.generator 6 _ hn,
+    ite_eq_left ((Ideal.isCoprime_span_singleton_iff n C.generator).mpr hcop)] at h6
+  rw [idealRowHom_argument_pow C.generator 5 _ hn]
+  calc
+    _ = (C.residueMonoid n)⁻¹ *
+        (idealRowHom C.generator (Ideal.span {n})) ^ 6 := by ring
+    _ = (C.residueMonoid n)⁻¹ := by rw [h6, mul_one]
+
 #print axioms original_exceptional_of_sixth_power
 #print axioms original_actual_calibrated_sixth_frequency_invariant
 #print axioms original_actual_exceptional_sixth_corridor
@@ -195,6 +220,7 @@ theorem original_exceptional_seed_dvd_fixed_fifth
 #print axioms original_exceptional_sixth_seed_support
 #print axioms original_exceptional_sixth_normal_form
 #print axioms original_exceptional_seed_dvd_fixed_fifth
+#print axioms original_low_column_fifth_seed_restores_calibration
 
 end SevenEighths.ProbeGramCommon
 end
