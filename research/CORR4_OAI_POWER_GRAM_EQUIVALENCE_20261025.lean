@@ -80,11 +80,11 @@ theorem corr4PowerPhysicalRemainder_of_mertensPowerBound
     {β : ℝ} (hβ : 0 ≤ β)
     (hM : MertensExponent.MertensPowerBound β) :
     ∃ A : ℝ, 0 ≤ A ∧ Corr4PowerPhysicalRemainder A β := by
-  obtain ⟨C, hC, hbound⟩ := hM
-  let A : ℝ := (2025 / 1814 : ℝ) * (2 * C) ^ 2
+  obtain ⟨C, hC, hguide⟩ :=
+    physicalRemainder_powerGuidepost_of_mertensPowerBound hβ hM
+  let A : ℝ := (2025 / 1814 : ℝ) * C ^ 2
   refine ⟨A, by dsimp [A]; positivity, ?_⟩
   intro R hR
-  have hcorr := roughCorrelation_norm_le_of_mertensPowerBound hβ hC hbound R hR
   have hX : (squareRootEndpoint R : ℝ) ≤ (R : ℝ) ^ 2 := by
     have hn : squareRootEndpoint R ≤ R ^ 2 := by
       unfold squareRootEndpoint
@@ -95,22 +95,39 @@ theorem corr4PowerPhysicalRemainder_of_mertensPowerBound
         Real.rpow ((R : ℝ) ^ 2) β :=
     Real.rpow_le_rpow (Nat.cast_nonneg _) hX hβ
   have hpC :
-      2 * C * Real.rpow (squareRootEndpoint R : ℝ) β ≤
-        2 * C * Real.rpow ((R : ℝ) ^ 2) β :=
-    mul_le_mul_of_nonneg_left hp (by positivity)
-  have hnorm : 0 ≤ ‖squareRootCanonicalRoughCorrelation R‖ := norm_nonneg _
-  have hpnonneg :
-      0 ≤ 2 * C * Real.rpow ((R : ℝ) ^ 2) β :=
-    mul_nonneg (by positivity) (Real.rpow_nonneg (sq_nonneg _) _)
-  have hcorr2 :
-      ‖squareRootCanonicalRoughCorrelation R‖ ^ 2 ≤
-        (2 * C * Real.rpow ((R : ℝ) ^ 2) β) ^ 2 := by
+      C * Real.rpow (squareRootEndpoint R : ℝ) β ≤
+        C * Real.rpow ((R : ℝ) ^ 2) β :=
+    mul_le_mul_of_nonneg_left hp hC
+  have hleft :
+      0 ≤ C * Real.rpow (squareRootEndpoint R : ℝ) β :=
+    mul_nonneg hC (Real.rpow_nonneg (Nat.cast_nonneg _) _)
+  have hright :
+      0 ≤ C * Real.rpow ((R : ℝ) ^ 2) β :=
+    mul_nonneg hC (Real.rpow_nonneg (sq_nonneg _) _)
+  have hsq :
+      (C * Real.rpow (squareRootEndpoint R : ℝ) β) ^ 2 ≤
+        (C * Real.rpow ((R : ℝ) ^ 2) β) ^ 2 := by
     nlinarith
-  have hphysical :=
-    lowOwnerPhysicalRemainder_sq_le_twoPointTwoFive_daughter_add_correlation R hR
+  have hbase := hguide R hR
   have hfour := corr4_rpow_square_sq R β
-  dsimp [A]
-  nlinarith [sq_nonneg (Real.rpow ((R : ℝ) ^ 2) β)]
+  change ‖lowOwnerPhysicalAmplitudeRemainder R 0‖ ^ 2 ≤
+    (9 / 4 : ℝ) * canonicalRoughLowQ2DaughterEnergy R +
+      A * Real.rpow (R : ℝ) (4 * β)
+  calc
+    ‖lowOwnerPhysicalAmplitudeRemainder R 0‖ ^ 2 ≤
+        (9 / 4 : ℝ) * canonicalRoughLowQ2DaughterEnergy R +
+          (2025 / 1814 : ℝ) *
+            (C * Real.rpow (squareRootEndpoint R : ℝ) β) ^ 2 := hbase
+    _ ≤ (9 / 4 : ℝ) * canonicalRoughLowQ2DaughterEnergy R +
+          (2025 / 1814 : ℝ) *
+            (C * Real.rpow ((R : ℝ) ^ 2) β) ^ 2 := by
+      exact add_le_add_left
+        (mul_le_mul_of_nonneg_left hsq (by norm_num)) _
+    _ = (9 / 4 : ℝ) * canonicalRoughLowQ2DaughterEnergy R +
+          A * Real.rpow (R : ℝ) (4 * β) := by
+      dsimp [A]
+      rw [mul_pow, hfour]
+      ring
 
 theorem corr4PowerFirstOwnerGram_of_mertensPowerBound
     {β : ℝ} (hβ : 0 ≤ β)
