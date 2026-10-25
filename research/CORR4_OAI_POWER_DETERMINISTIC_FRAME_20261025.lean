@@ -112,7 +112,8 @@ theorem corr4_low_daughter_energy_of_prefix_power
       calc
         Real.rpow ((R : ℝ) ^ 2) β =
             Real.rpow (Real.rpow (R : ℝ) (2 : ℝ)) β := by
-              rw [Real.rpow_natCast]
+              exact congrArg (fun t : ℝ => Real.rpow t β)
+                ((Real.rpow_natCast (R : ℝ) 2).symm)
         _ = Real.rpow (R : ℝ) (2 * β) :=
           (Real.rpow_mul hRnonneg 2 β).symm
     have hYPower :
