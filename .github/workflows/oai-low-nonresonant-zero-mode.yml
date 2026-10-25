@@ -1,0 +1,72 @@
+name: Original OAI low Gaussian nonresonant zero-mode certificate
+
+on:
+  pull_request:
+    paths:
+      - 'research/oai_434/VF919OriginalLowNonresonantZeroMode.lean'
+      - '.github/workflows/oai-low-nonresonant-zero-mode.yml'
+      - 'scripts/oai_low_gaussian_unit_character_finite.py'
+      - 'lean-toolchain'
+      - 'lakefile.lean'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  actual-original-oai-low-zero-mode:
+    runs-on: ubuntu-latest
+    timeout-minutes: 135
+    steps:
+      - uses: actions/checkout@v4
+      - name: Require exact Lean pins and no introduced axioms
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(cat lean-toolchain)" = "leanprover/lean4:v4.34.1"
+          grep -q 'd13f23b723b8a846827a245b89c10fc7d3f11612' lakefile.lean
+          ! grep -nE '^[[:space:]]*(sorry|admit|axiom)([[:space:]]|$)' research/oai_434/VF919OriginalLowNonresonantZeroMode.lean
+      - uses: ./.github/actions/lean-setup
+      - name: Fetch exact pinned original OpenAI source
+        uses: actions/checkout@v4
+        with:
+          repository: openai/math
+          ref: 1581d4cbdd69a0faf34b2089614fe2a814316a6a
+          path: oai-upstream
+          persist-credentials: false
+      - name: Check source pin and toolchain
+        run: |
+          set -euo pipefail
+          test "$(git -C oai-upstream rev-parse HEAD)" = "1581d4cbdd69a0faf34b2089614fe2a814316a6a"
+          test "$(cat oai-upstream/lean/lean-toolchain)" = "leanprover/lean4:v4.34.1"
+      - name: Restore original compiled theorem DAG
+        uses: ./.github/actions/oai-434-shared-cache
+      - name: Kernel build original low Gaussian source covariance
+        shell: bash
+        working-directory: oai-upstream/lean
+        run: |
+          set -euo pipefail
+          lake build OAI.NumberTheory.DirichletL.Detector.LocalUnitFrequency
+          lake build OAI.NumberTheory.DirichletL.Detector.CalibrationRemoval
+      - name: Kernel-check unconditional exact source zero mode
+        shell: bash
+        run: |
+          set -euo pipefail
+          OAI_PATH="$(cd oai-upstream/lean && lake env python3 -c 'import os; print(os.pathsep.join(os.path.abspath(p) for p in os.environ["LEAN_PATH"].split(os.pathsep) if p))')"
+          RH_PATH="$(lake env python3 -c 'import os; print(os.pathsep.join(os.path.abspath(p) for p in os.environ["LEAN_PATH"].split(os.pathsep) if p))')"
+          python3 scripts/check_shared_lean_packages.py . oai-upstream/lean PrimeNumberTheoremAnd mathlib
+          env LEAN_PATH="$RH_PATH:$OAI_PATH" lean -DwarningAsError=true \
+            research/oai_434/VF919OriginalLowNonresonantZeroMode.lean \
+            | tee /tmp/original-oai-low-nonresonant-zero-mode-axioms.log
+          if grep -E 'sorryAx|admitAx|_private' /tmp/original-oai-low-nonresonant-zero-mode-axioms.log; then
+            echo 'Unexpected axiom in original OAI low-source zero mode' >&2
+            exit 1
+          fi
+      - name: Verify finite original phase and rational band
+        run: |
+          set -euo pipefail
+          python3 scripts/oai_low_gaussian_unit_character_finite.py
+      - name: Record scope
+        run: |
+          echo "Unconditional original source zero-frequency vanishing checked."
+          echo "No global detector saving or Mertens exponent improvement is claimed."
