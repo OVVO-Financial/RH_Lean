@@ -73,6 +73,29 @@ For example any nonprincipal finite character chi has sum_x chi(x)=0 but sum_x |
 
 To prove global Theorem A with a factor Z^(-71/384), one must establish a source-authentic L-uniform Gram/energy transfer over the actual s,I,J, ray, selected slots, Gaussian dyadics, and compensation labels. Also certify the m-independent source coefficients and Gaussian tails. A harmonic J sum alone gives only logarithmic control; the original I weight is columnWeight(I)/sqrt(N(I)) multiplied by Vstar, which itself contains sqrt(N(I)*N(J)^3/Z). It is not a free 1/N(I) harmonic suppression.
 
+## Exact original completion weight: harmonic cubeWeight DOES NOT survive Vstar
+
+Read Original Arithmetic/IdealMobius.lean:
+  cubeWeight(Psi,J) = angular_J*Psi(J)^3/N(J)
+  Vstar(W,y) = sqrt(y)*W(y),
+  summand(Psi,W,Z,I,J)
+    = columnWeight(Psi,I)/sqrt(N(I)) * cubeWeight(Psi,J)
+      * Vstar(W,N(I)*N(J)^3/Z).
+
+For positive norms a=N(I), b=N(J), straightforward exact cancellation gives
+  [1/sqrt(a)] * [1/b] * sqrt(a*b^3/Z) = sqrt(b/Z).
+Thus after completing the ORIGINAL source, the norm-only prefactor is
+  columnWeight(Psi,I)*angular_J*Psi(J)^3*sqrt(N(J)/Z)
+  times W(N(I)*N(J)^3/Z),
+NOT columnWeight(I)/sqrt(NI)*[1/NJ] with a harmonic J sum.
+
+Consequences:
+- There is NO isolated 1/sqrt(NI) outside the completed Gaussian window that can be booked as a free suppression on I=sI'.
+- There is NO general O(log Z) upper bound on the full completed J-source by summing 1/N(J): the Vstar factor changes the absolute J norm power to +1/2. The combined I/J Gaussian support may still make the TOTAL source summable, but that is a different weighted calculation and must be proved with original coefficients.
+- The principal collision I=sI' can have a smaller I-fiber cardinality, but its savings must be measured against this correctly normalized completed source and the s-sum.
+
+This explicitly invalidates the proposed immediate Step 2 summation based solely on cubeWeight harmonicity.
+
 ## Exact existing full compensated low acceptance baseline: 3/16
 
 Original Detector/LowCentralTuple.lean::low_central_compensated_tuple already establishes the actual sum over all labeled unselected slots and selected subsets, with the original physical row, Gaussian completion and compensation factors:
