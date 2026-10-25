@@ -88,7 +88,9 @@ theorem corr4_low_daughter_energy_of_prefix_power
     have hX : Y * (q * q) ≤ R ^ 2 := hYX.trans hR2
     have hXreal :
         (Y : ℝ) * (q : ℝ) ^ 2 ≤ (R : ℝ) ^ 2 := by
-      exact_mod_cast hX
+      have hXpow : Y * q ^ 2 ≤ R ^ 2 := by
+        simpa only [pow_two] using hX
+      exact_mod_cast hXpow
     have hqOne : (1 : ℝ) ≤ (q : ℝ) ^ 2 := by
       have hqTwo : (2 : ℝ) ≤ (q : ℝ) := by exact_mod_cast hqNat
       nlinarith
@@ -122,7 +124,7 @@ theorem corr4_low_daughter_energy_of_prefix_power
       have hh := mul_le_mul_of_nonneg_left hqPow
         (Real.rpow_nonneg (Nat.cast_nonneg Y) β)
       rw [hRpower] at hRaise
-      linarith
+      exact hh.trans hRaise
     have hByScale :
         ‖mertensSummatory Y‖ * (q : ℝ) ≤
           H * Real.rpow (R : ℝ) (2 * β) := by
