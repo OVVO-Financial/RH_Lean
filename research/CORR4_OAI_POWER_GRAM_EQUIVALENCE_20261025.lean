@@ -121,8 +121,56 @@ theorem corr4PowerFirstOwnerGram_of_mertensPowerBound
   exact ⟨A, hA,
     (corr4PowerFirstOwnerGram_iff_powerPhysicalRemainder A β).mpr hB⟩
 
+
+/-- Direct all-integer bootstrap should start from the literal daughter energy,
+    not the rounded surrogate. This finite identity requires only the original
+    source power hypothesis and pays the genuine root prefix. -/
+theorem corr4_mertens_endpoint_unrounded_power_recurrence
+    {A β : ℝ} (hB : Corr4PowerPhysicalRemainder A β)
+    (R : ℕ) (hR : 56 ≤ R) :
+    ‖mertensSummatory (squareRootEndpoint R)‖ ^ 2 ≤
+      (101 / 100 : ℝ) * (886 / 225 : ℝ) *
+        canonicalRoughLowQ2DaughterEnergy R +
+      (101 / 75 : ℝ) * A * Real.rpow (R : ℝ) (4 * β) +
+      101 * ‖mertensSummatory (R - 1)‖ ^ 2 := by
+  have hc := squareRootCanonicalRoughCorrelation_eq_criticalSynthesis_add_physicalRemainder
+    R hR 0
+  have hy := corr4_rough_power_recurrence_after_rounding hB R hR
+  have hU := lowOwnerCriticalSynthesis_energy_le_twoTermBasel R 0
+  have hBR := hB R hR
+  have hC : ‖squareRootCanonicalRoughCorrelation R‖ ^ 2 ≤
+      (886 / 225 : ℝ) * canonicalRoughLowQ2DaughterEnergy R +
+        (4 / 3 : ℝ) * A * Real.rpow (R : ℝ) (4 * β) := by
+    have hY := norm_add_sq_le_four_fourThirds
+      (lowOwnerCriticalMertensSynthesis R 0)
+      (lowOwnerPhysicalAmplitudeRemainder R 0)
+    rw [← hc] at hY
+    nlinarith
+  have hsource :=
+    squareRootCanonicalRoughCorrelation_eq_mertens_pred_sub_endpoint
+      R (by omega)
+  have hM :
+      squareRootCanonicalRoughCorrelation R -
+        mertensSummatory (R - 1) =
+          -mertensSummatory (squareRootEndpoint R) := by
+    rw [hsource]
+    ring
+  have hRootYoung := corr4_power_norm_sub_sq_onePercent
+    (squareRootCanonicalRoughCorrelation R)
+    (mertensSummatory (R - 1))
+  rw [hM, norm_neg] at hRootYoung
+  nlinarith
+
+/-- A direct (unrounded) endpoint bootstrap has over six percent margin
+    relative to the simple buffered endpoint level (49/50)^2. -/
+theorem corr4_unrounded_daughter_coefficient_lt_buffer :
+    ((101 / 100 : ℝ) * (886 / 225) * (211 / 900)) <
+      (49 / 50 : ℝ) ^ 2 := by
+  norm_num
+
 #print axioms corr4PowerFirstOwnerGram_iff_powerPhysicalRemainder
 #print axioms corr4PowerPhysicalRemainder_of_mertensPowerBound
 #print axioms corr4PowerFirstOwnerGram_of_mertensPowerBound
+#print axioms corr4_mertens_endpoint_unrounded_power_recurrence
 
 end RHLean.Proof
