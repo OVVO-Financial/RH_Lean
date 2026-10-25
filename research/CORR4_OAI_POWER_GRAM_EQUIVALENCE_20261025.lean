@@ -1,6 +1,7 @@
 import Mathlib
 import «research.CORR4_OAI_POWER_RENEWAL_20261025»
 import «research.MERTENS_EXPONENT_ENVELOPES»
+import «research.CORR4_OAI_POWER_GUIDEPOST_20261024»
 
 /-!
 # CORR-4 power Gram: exact unconditional reverse direction
@@ -69,7 +70,7 @@ private theorem corr4_rpow_square_sq
   calc
     (Real.rpow (R : ℝ) (2 * β)) ^ 2 =
         Real.rpow (Real.rpow (R : ℝ) (2 * β)) 2 := by
-          rw [Real.rpow_natCast]
+          exact (Real.rpow_natCast (Real.rpow (R : ℝ) (2 * β)) 2).symm
     _ = Real.rpow (R : ℝ) ((2 * β) * 2) :=
       (Real.rpow_mul hR (2 * β) 2).symm
     _ = Real.rpow (R : ℝ) (4 * β) := by congr 1; ring
