@@ -21,6 +21,7 @@ on:
       - 'scripts/oai_low_fixed_ray_nonprincipal_witness.py'
       - 'scripts/oai_low_gaussian_composite_s_quadratic_crt_probe.py'
       - 'scripts/oai_low_j_composite_cubic_cross_witness.py'
+      - 'scripts/oai_low_reduced_modulus_crt_aliasing_probe.py'
       - 'lean-toolchain'
       - 'lakefile.lean'
   workflow_dispatch:
@@ -145,6 +146,7 @@ jobs:
           python3 scripts/oai_low_fixed_ray_nonprincipal_witness.py
           python3 scripts/oai_low_gaussian_composite_s_quadratic_crt_probe.py
           python3 scripts/oai_low_j_composite_cubic_cross_witness.py
+          python3 scripts/oai_low_reduced_modulus_crt_aliasing_probe.py
       - name: Record scope
         run: |
           echo "Unconditional original source zero-frequency vanishing checked."
