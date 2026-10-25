@@ -15,6 +15,16 @@ The local s exponent in that case is (-1)+1+3*v_s(J), congruent to 3*v_s(J) mod 
 
 Under UNCOMPENSATED bulk bounds q=N(s)>=Z^(23/48) and N(I)*N(J)^3<=Z^(1+1/384), N(J)<=Z^(385/1152)<q for Z>1, hence s does not divide J. The s character in the collision is then a PRINCIPAL COPRIMALITY MASK, not a primitive Gauss factor. The putative v_s(J) odd quadratic subcase does not occur in this unscaled Gaussian region. The proof must re-check this for compensated physical scales, where q can be smaller.
 
+## Important existing certified theorem: calibrated zero mode is already absent
+
+Original Detector/RadialIdentity.lean::actualCongruenceCoefficient_zero_frequency proves, for EVERY A and s with nonzero generators, an admissible coprime calibration g, and ANY nonempty excluded-prime set S:
+
+  actualCongruenceCoefficient (calibrationForSet S hS) A s hA 0 = 0.
+
+This is source-authentic and PRE-EXISTING in pinned OpenAI. It includes the coherent s|I and J-square towers. It follows from the calibrated source vanishing at frequencies not coprime to g; H=0 is always excluded when S is nonempty. Therefore the fact that our primitive-factor CRT vanishes at zero, BY ITSELF, is not a new route around 7/8. The genuinely additional possible improvement is a better UNIFORM upper bound on its NONZERO frequencies and especially the physical weighted/Gram energy after compensation.
+
+The new s*I primitive CRT route may still improve nonzero-frequency coefficients, but it MUST be compared numerically and analytically to the existing original FFT/Mellin frequency estimates. Do not count already-certified calibration zero-frequency vanishing as a new power saving.
+
 ## Correct calibrated primitive CRT factor, both cases
 
 Assume the source's original masks, and g coprime s*I*J. Write G for primitive local-character primes and H for remaining masks/imprimitive factors.
