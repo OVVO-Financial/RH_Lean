@@ -42,7 +42,7 @@ The finite tail is bounded by its infinite telescope (1/20). Adding the exact (3
 This was checked against the existing theorem
 `oddPrimeOwnerReciprocalSquareBudgetReal_le_twoTermBasel` in
 `research/STABLE_FAR_PERRON_BASEL_FRAME_SHARPENING.lean`, main blob
-`9b5cdddb92e2e9b5072f7bff024a63fc15e250d4` as referenced by the live tree/PR closure. The existing proof retains (3,5) exactly and telescopes from (7); it does not use the composite gap at (9). Repository searches for `9769/44100`, `77/324`, and an exclude-9 reciprocal-prime-square theorem found no equivalent declaration.
+`e86617a02d18071ee9e73edc004937484e1a0447` as referenced by the live tree/PR closure. The existing proof retains (3,5) exactly and telescopes from (7); it does not use the composite gap at (9). Repository searches for `9769/44100`, `77/324`, and an exclude-9 reciprocal-prime-square theorem found no equivalent declaration.
 
 ## B. Exact consequence for the genuine LOW daughter carrier
 
