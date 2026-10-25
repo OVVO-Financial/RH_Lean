@@ -10,7 +10,7 @@ full original weighted physical remainder power hypothesis.
 
 Any independently established all-integer Mertens power bound implies the
 matching physical remainder/Gram bound. Its reverse strong induction is not
-assumed here and will be handled separately. No sorry or new axiom.
+assumed here and will be handled separately. No proof holes are introduced.
 -/
 
 noncomputable section
