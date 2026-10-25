@@ -250,3 +250,8 @@ Next falsification step:
 The theoretical target is a deterministic restriction on the sign-coherent cross term -2 C_R U_R or on the complete first-owner Gram. A larger table without that classifier is low value.
 
 **Final classification:** FINITE_COMPUTATION and REFUTED local sign necessity, with a sharply stated held-out CONJECTURE. NO_NEW_GLOBAL_QUANTITATIVE_BOUND.
+
+
+## I. Publication verification
+
+Initial publication commit: 5a473954883403c771cb4fd07883a465488aeef5. Immediate readback returned blob 30167666c70c29cf023e67f5694b38c542080d81, 11,791 characters, with claim 20261025-census-1 and the final evidence classification present. This verifies report publication only; it does not certify a global inequality, alter main, or change the human merge gate.
