@@ -268,3 +268,51 @@ The arithmetic cancellation and frequency phase-invariance results
 do NOT imply that the fully weighted exceptional source is
 nonzero; other source labels and original compensation may cancel.
 No global theorem A or beta<7/8 follows.
+
+## Actual COPRIME pair at the coherent bad seed (stronger than a column identity)
+
+Let u,v be distinct supported primary split-prime generators,
+coprime to g and to each other, with the SAME physical ray modulo 4.
+The original coprime CRT correlation formula (derivable from
+Detector/GramCommonSum.lean::fullModulusCorrelation_parameter
+at C=1) reads, on a frequency k coprime to uv,
+
+  Corr(u,v,k) =
+     chi_u(k)*conj(chi_v(k)) *
+       [chi_u(v)^(-1)*chi_v(-u)].
+
+The bracket is +1 in the same-ray case by sextic reciprocity
+and the original PrimePhase.lean::reciprocitySign_self_eq_sextic_neg_one
+(see the new same-ray Lean phase theorem and its six finite tests).
+Original low coefficients on admissible primary columns are
+  alpha(n)=tau^(-1)*rho_g(n)^(-1)*chi_n(g),
+with the same global tau, and k=g^5*w^6 where w is coprime g*u*v.
+Thus the full phase of a COPRIME pair is
+
+  alpha(u)*conj(alpha(v))*Corr(u,v,k)
+     = |tau|^(-2) *
+       rho_g(u)^(-1)*conj(rho_g(v)^(-1)) *
+       chi_u(g)^6*conj(chi_v(g)^6)
+     = rho_g(u)^(-1)*conj(rho_g(v)^(-1)).
+
+For fixed primary ray and minimal calibration g=2*lambda, rho_g
+is constant on the ray (the reductions mod lambda and (2) are
+determined by n≡1 mod lambda^2 and the ray modulo 4).
+Hence the RHS is exactly +1.
+
+In particular the explicit primary pair norm (7,139) with
+u=-2-3*omega, v=10-3*omega has a POSITIVE coherent
+source-local signed pair at every admissible k=g^5*w^6.
+This is an original source-local CRT fact, not a demonstrated
+positive lower bound on the FULL C,D weighted exceptional
+source: the complete source can have negative/compensating
+contributions from other labels and diagonal parts.
+
+It decisively rules out attempting to annihilate the entire
+exceptional corridor using ONLY the nonprincipal character
+of the low Gaussian columns: a compatible frequency seed
+reverses that character and leaves a principal same-ray
+coprime pair. The remaining needed theorem is control of
+these coherent bad-seed contributions AFTER all original
+common-divisor C, source-Mobius D, and compensation
+coefficients are recombined.
