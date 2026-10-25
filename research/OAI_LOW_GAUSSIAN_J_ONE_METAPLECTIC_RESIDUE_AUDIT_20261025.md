@@ -130,3 +130,45 @@ A precise SUFFICIENT HYBRID theorem for the small-C sector would improve the ori
 \]
 with small epsilon margin. The source-specific hybrid theorem is UNPROVED, and may already be obstructed by coherent C=1, k=g^5 same-ray seeds. Check those fully weighted canonicalJoint cells BEFORE claiming xi>0.
 
+
+
+## I. Audit of proposed "composite prime product -> unique 1/3 pole -> 1/1344 saving"
+
+### I.1 Correct composite identity: cubic cross-factor survives trivial quadratic ray
+
+The original pinned theorem Detector/CubicGaussCRT.lean::gaussTwo_coprime_product_sextic states
+\[
+  \mathrm{gaussTwo}(AB)=\mathrm{sexticPair}(a,b)^2\,\mathrm{gaussTwo}(A)\mathrm{gaussTwo}(B),
+\]
+where a,b are the primary ideal generators. Detector/PairPhase.lean::sexticPair_cube proves
+\[
+ \mathrm{sexticPair}(a,b)^3=\mathrm{reciprocitySign}(a,b)\in\{+1,-1\}.
+\]
+Therefore reciprocitySign=+1 ONLY implies sexticPair is a cube root of unity. It does **not** imply sexticPair^2=1; that would additionally require trivial CUBIC residue between a,b. The quadratic ray condition does not force that.
+
+Finite exact witness: \(p=1-12\omega,\ q=-23-12\omega\), norms \(157\) and \(397\), both prime, primary modulo lambda^2 (equivalent to primary mod 3 for these generators), and both ray \((1,0)\bmod4\). Hence original quadraticRaySign is \(+1\). In O/(p)=F157, \(\omega=144\), q=133 and q^52=12=omega^2 !=1; in O/(q)=F397, \(\omega=362\), p=24 and p^132=34=omega^2 !=1. Thus the pair has nontrivial cubic residue and sexticPair^2 !=1. Script: scripts/oai_low_j_composite_cubic_cross_witness.py. The prime-pair witness is in the admitted good primary family; it need not be congruent to 1 modulo an arbitrarily enlarged jointFixedModulus(S). The logical implication "quadratic reciprocity sign=+1 hence all cubic cross factors vanish" is already refuted.
+
+The original full corrected coefficient has the ADDITIONAL reciprocity phase needed for cancellation:
+Detector/CompletedCoefficient.lean::correctedFiniteCoefficient_product is an exact product theorem with original supported/coprmality/primary hypotheses. An explicit Lean adapter rawCubicColumn_coprime_product in this PR records the residual sexticPair^2*conj(reciprocitySign) when this reciprocityCoefficient is omitted. This is the correct route to a squarefree composite source coefficient; a naive \(\mu(I)\prod_p\mathrm{localGamma}_1(p)^{-1}\) is NOT established as a multiplicative theta coefficient.
+
+Further, the G in Detector/SourcePrime.lean::corrected_prime_cubic_signal is ProbePhase.G(p), a FIXED quadratic/4-ray factor, NOT the variable-frequency Gauss factor G(I;k). The u_C beta^6 frequency twist lives in the separate congruence/correlation coefficient. Identifying these distinct G's would incorrectly erase the exceptional seed.
+
+### I.2 The user-proposed J=1 insertion is across two distinct operators
+
+J=1 denotes a COMPLETED SOURCE ideal in CompletedGauss.summand, whose bare coefficient is weighted by 1/sqrt(NI). The post-Cauchy canonicalLatticeBlock is a LOW GAUSSIAN two-column Gram, with independently labelled Gram columns I,J and actualCorrelation. It does NOT contain a completed-source ideal J=1 that can simply be set to one. The completed-source J=1 restriction belongs in the PRE-Cauchy pairing lowSeparatedIntegrand(lowRayAmplitude,B). Thus the 1/3 pole shift is a valid hypothetical normalization of ONE completed column, not a proved pole or asymptotic for originalCommonBlock(C=1,k=g^5).
+
+At C=1, exceptional seed k=g^5, same-ray primaries u,v of norms 7 and 139 have a VERIFIED +1 source-local phase after calibration restoration, as documented in research/OAI_EXCEPTIONAL_SIXTH_CORRIDOR_SHARP_COUNT_SIGNED_GATE_20261025.md and VF919OriginalSameRaySixthCorrelationPhase.lean. This **disproves universal character cancellation on that seed**, but does not compute any weighted finite metaplectic residue of the complete Gram, nor a positive lower bound for all C,d,k.
+
+### I.3 The metaplectic published-input result does not apply to g^5 verbatim
+
+CubicMoment/Transform/MetaplecticHeight.lean::MetaplecticContinuation explicitly quantifies only PRIMARY and SQUAREFREE levels r (the input hypothesis is Squarefree r). The fifth-power seed g^5 is not squarefree in the Eisenstein UFD whenever g is nonunit. A reduction of its bad-prime fifth powers to an admissible squarefree metaplectic level is a separate local Gauss-lifting and conductor-adapter theorem. Also: the published input is for an UNT WISTED all-primary Gauss Dirichlet series, not arbitrary ray-character theta twists. The proposed \(\prod_{p\mid d\beta}(1+(Np)^{-2/3})^{-1}\), positive diagonal main term, unique seed class, and uniform holomorphic O(Y^(1/4+epsilon)) remainder are each NEW unproved claims in this source.
+
+At best the original metaplectic analytic continuation beyond 1/2 permits contour shifts of the UNWEIGHTED *matched* series from 5/6 toward 3/4, corresponding to normalized 1/3 toward 1/4. To obtain a POWER SAVE one must also have quantitative conductor-height bounds, the exact pole-extraction, compatibility of radial / two-column test profiles, and all compensated source weights. There is no established A<=1 or xi=1/12 for this detector. The identity xi/(16(6A+1))=1/1344 at (xi,A)=(1/12,1) is algebraically correct but purely CONDITIONAL.
+
+### I.4 Actual next proof acceptance
+
+1. Certify the exact original composite-CRT source adapter with nontrivial sexticPair^2 and the full reciprocityCoefficient; do not set it to one based on quadratic sign.
+2. Evaluate the finite two-variable source mean of canonicalJoint at C=1 and the genuine g^5 seed, with all row masks and ray labels (the known norm-7,139 same-ray pair is a positive witness).
+3. Derive a matching fully weighted Mellin/Hecke series (PRE-Cauchy J=1 if that is the target), and prove the g^5 non-squarefree conductor can be reduced to published metaplectic analytic inputs. Compute actual residue, not just calibration-centering.
+4. Only then invoke a shifted contour and prove a conductor-polynomial cost A and a positive xi; the hybrid tail arithmetic converts those into a signed saving if all full original source terms are controlled. The other high/multiplicity/moment branches must still be paid before 7/8-delta.
+
