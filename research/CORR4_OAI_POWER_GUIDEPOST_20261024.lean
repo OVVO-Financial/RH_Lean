@@ -57,14 +57,14 @@ theorem roughCorrelation_norm_le_of_mertensPowerBound
           (hM (squareRootEndpoint R) hXmin)
     _ ≤ C * Real.rpow (squareRootEndpoint R : ℝ) a +
           C * Real.rpow (squareRootEndpoint R : ℝ) a := by
-        exact add_le_add_right (mul_le_mul_of_nonneg_left hpowers hC) _
+        exact add_le_add (mul_le_mul_of_nonneg_left hpowers hC) le_rfl
     _ = (2 * C) * Real.rpow (squareRootEndpoint R : ℝ) a := by ring
 
 /-- Uniform at *any* admissible exponent: 9/4 of the genuine low daughters
     plus a separate power error.  Neither replaces the lower Mertens envelope. -/
 theorem physicalRemainder_powerGuidepost_of_mertensPowerBound
     {a : ℝ} (ha : 0 ≤ a)
-    (hM : MertensPowerBound a) :
+    (hM : MertensExponent.MertensPowerBound a) :
     ∃ C : ℝ, 0 ≤ C ∧
       ∀ R : ℕ, 56 ≤ R →
         ‖lowOwnerPhysicalAmplitudeRemainder R 0‖ ^ 2 ≤
@@ -93,7 +93,7 @@ theorem physicalRemainder_powerGuidepost_of_mertensPowerBound
     theorem supplied by the separate upstream-OAI kernel-check workflow.
     Generic research CI must not import the upstream OAI package. -/
 theorem physicalRemainder_sevenEighths_of_mertensGrowth
-    (hM : MertensGrowthAtMost ((7 : ℝ) / 8))
+    (hM : MertensExponent.MertensGrowthAtMost ((7 : ℝ) / 8))
     (ε : ℝ) (hε : 0 < ε) :
     ∃ C : ℝ, 0 ≤ C ∧
       ∀ R : ℕ, 56 ≤ R →
