@@ -177,10 +177,10 @@ The current canonical theorem `VFCanonicalSquareVonKochStatement`, complete-sour
 - PR #1019 is merged at merge SHA `2f4fc830150242b4cc0f9973f1c1b6c8be809fc3`.
 - PR #1021 is the only open PR observed, draft and unmerged, base main, head
   `1193a4eedb242e32b226999a0a20caaf580c0a78`, 13 changed files.
-- At 2026-10-25T04:13:35Z, #1021 checks observed:
-  `Prevent new cold-only Lean and OpenAI CI` SUCCESS;
-  `Documentation checks` SUCCESS;
-  CORR4 specialized, OpenAI 7/8, source audit, proof inventory, export and several regression workflows IN_PROGRESS/PENDING.
+- At the final 2026-10-25T04:15Z refresh, #1021 checks observed:
+  `Prevent new cold-only Lean and OpenAI CI`, `Documentation checks`,
+  `Proof inventory`, and `Public export verification` SUCCESS.
+  The generic `Targeted Lean iteration` was CANCELLED during cached Lean setup before compilation; its compile and axiom steps were skipped. The dedicated `CORR4 OAI relaxed physical remainder` job had passed checkout, cached Lean setup and the no-holes/added-axioms scan, and was still compiling the full native closure. The pinned OpenAI 7/8 job, source audit and several regression workflows remained IN_PROGRESS.
   Therefore no new PR declaration is promoted to `PROVED_IN_LEAN_PR_GREEN_UNMERGED` in this report.
 
 ## G. Handoffs and next action
