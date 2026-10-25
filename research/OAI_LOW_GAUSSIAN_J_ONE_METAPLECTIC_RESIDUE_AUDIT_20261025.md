@@ -102,3 +102,31 @@ Separately, CubicMoment/Theta/CubicThetaMains.lean::patterson_firstMoment and pa
 **Present genuine bottleneck:** actual source \(I\)-column (corrected prime-to-squarefree and ray/mask) -> untwisted/twisted metaplectic analytic family -> uniform residue projection. The existing Patterson prime asymptotic alone cannot decide \(\Lambda_{\rm actual}\).
 
 Pinned references: Detector/{GramClassification,GramCanonicalSource,GramCanonicalBlock,GramSourceDivisors,GramFrequencyMass,GramIdealMass,GramJointFixed,SourcePrime,SpectralCoefficient,GaussianSeminorm,GaussianCrude,LowCompensation,LowCauchy,LowSeparated}.lean; Arithmetic/IdealMobius.lean; CubicMoment/{Transform/MetaplecticHeight,Transform/MetaplecticMellinShift,Transform/MetaplecticStripGrowth,Estimates/TypeICompleted,Theta/CubicThetaMains}.lean.
+
+
+## G. A residual post-Cauchy route DOES remain: phase of the low Gram itself
+
+Do not overinterpret LowCauchy.lean: Cauchy-Schwarz deletes the **relative pairing phase between lowRayAmplitude and completed inverse B**, but it does NOT remove phase differences AMONG original low-Gaussian columns. In originalCommonBlock, the factors lowGramCoefficient(C*I)*conj(lowGramCoefficient(C*J)), actualCorrelation, and all two-column W/Schwartz kernels remain. Those Gram-column ideals I,J are NOT the completed-source ideals I,J in correctedCompletedT; they are different independently quantified indices reusing notation.
+
+Thus TWO distinct genuine signed opportunities remain:
+(A) nontrivial cancellation of weighted sixth-frequency C,D and low-Gram-column cross terms **inside** the original positive low Gram; or
+(B) bypass LowCauchy retaining the relative phase against the completed inverse row. The full low Gram is nonnegative, but individual nonzero-frequency Fourier blocks need not be nonnegative. The statement "beta terms are all nonnegative because chi(beta^6)=1" is not a source-level theorem.
+
+Already formalized in PR #1022: VF919OriginalSameRaySixthCorrelationPhase.lean gives coherent +1 for a coprime same-ray subfamily, and VF919OriginalExceptionalSixthCorridor.lean certifies sixth-frequency invariance and seed dividing exceptionalModulus^5. Any proposed uniform Gram cancellation must pay or subtract these real coherent subfamilies.
+
+## H. A quantifiable large-common-ideal C escape
+
+The original GramIdealMass.lean per-(C,D) absolute majorant has a convergent common-ideal factor (N C)^(-7/6+epsilon)*(N D)^(-2). Standard ideal counting in this fixed quadratic field gives
+\[
+\sum_{N(C)>V}(N C)^{-7/6+\varepsilon}
+\ll_\varepsilon V^{-1/6+\varepsilon},\qquad
+\sum_D(N D)^{-2}<\infty,
+\]
+for sufficiently small positive epsilon. Hence the N(C)>P^rho tail already saves P^(-rho*(1/6-epsilon)) from the EXISTING ABSOLUTE bound; no signed input is needed there. The remaining conductor G_C=jointFixedModulus(S)*C then satisfies N(G_C) << P^rho when restricting N(C)<=P^rho.
+
+A precise SUFFICIENT HYBRID theorem for the small-C sector would improve the original signed exceptional per-C bound by P^(-xi)*(NC)^A for some xi>0, finite A>=0, retaining every ray/sextic seed and primal Mobius sign. This sector saves xi-A*rho up to eps, while the large-C absolute tail saves rho/6 up to eps. Balance rho=xi/(A+1/6), producing a conditional full exceptional-frequency exponent saving
+\[
+ \kappa_{\mathrm{eff}}=\frac{\xi}{6A+1}>0,
+\]
+with small epsilon margin. The source-specific hybrid theorem is UNPROVED, and may already be obstructed by coherent C=1, k=g^5 same-ray seeds. Check those fully weighted canonicalJoint cells BEFORE claiming xi>0.
+
