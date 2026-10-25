@@ -122,6 +122,26 @@ theorem corr4PowerFirstOwnerGram_of_mertensPowerBound
     (corr4PowerFirstOwnerGram_iff_powerPhysicalRemainder A β).mpr hB⟩
 
 
+private theorem corr4_unrounded_norm_add_sq (u v : ℂ) :
+    ‖u + v‖ ^ 2 ≤
+      4 * ‖u‖ ^ 2 + (4 / 3 : ℝ) * ‖v‖ ^ 2 := by
+  have ht := norm_add_le u v
+  have hu := norm_nonneg u
+  have hv := norm_nonneg v
+  have huv := norm_nonneg (u + v)
+  have hsq : ‖u + v‖ ^ 2 ≤ (‖u‖ + ‖v‖) ^ 2 := by nlinarith
+  nlinarith [sq_nonneg (3 * ‖u‖ - ‖v‖)]
+
+private theorem corr4_unrounded_norm_sub_sq (u v : ℂ) :
+    ‖u - v‖ ^ 2 ≤
+      (101 / 100 : ℝ) * ‖u‖ ^ 2 + 101 * ‖v‖ ^ 2 := by
+  have ht := norm_sub_le u v
+  have hu := norm_nonneg u
+  have hv := norm_nonneg v
+  have huv := norm_nonneg (u - v)
+  have hsq : ‖u - v‖ ^ 2 ≤ (‖u‖ + ‖v‖) ^ 2 := by nlinarith
+  nlinarith [sq_nonneg (‖u‖ - 100 * ‖v‖)]
+
 /-- Direct all-integer bootstrap should start from the literal daughter energy,
     not the rounded surrogate. This finite identity requires only the original
     source power hypothesis and pays the genuine root prefix. -/
@@ -135,13 +155,12 @@ theorem corr4_mertens_endpoint_unrounded_power_recurrence
       101 * ‖mertensSummatory (R - 1)‖ ^ 2 := by
   have hc := squareRootCanonicalRoughCorrelation_eq_criticalSynthesis_add_physicalRemainder
     R hR 0
-  have hy := corr4_rough_power_recurrence_after_rounding hB R hR
   have hU := lowOwnerCriticalSynthesis_energy_le_twoTermBasel R 0
   have hBR := hB R hR
   have hC : ‖squareRootCanonicalRoughCorrelation R‖ ^ 2 ≤
       (886 / 225 : ℝ) * canonicalRoughLowQ2DaughterEnergy R +
         (4 / 3 : ℝ) * A * Real.rpow (R : ℝ) (4 * β) := by
-    have hY := norm_add_sq_le_four_fourThirds
+    have hY := corr4_unrounded_norm_add_sq
       (lowOwnerCriticalMertensSynthesis R 0)
       (lowOwnerPhysicalAmplitudeRemainder R 0)
     rw [← hc] at hY
@@ -155,7 +174,7 @@ theorem corr4_mertens_endpoint_unrounded_power_recurrence
           -mertensSummatory (squareRootEndpoint R) := by
     rw [hsource]
     ring
-  have hRootYoung := corr4_power_norm_sub_sq_onePercent
+  have hRootYoung := corr4_unrounded_norm_sub_sq
     (squareRootCanonicalRoughCorrelation R)
     (mertensSummatory (R - 1))
   rw [hM, norm_neg] at hRootYoung
