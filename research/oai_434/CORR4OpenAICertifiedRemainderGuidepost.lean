@@ -1,5 +1,6 @@
 import «research.CORR4_OAI_POWER_GUIDEPOST_20261024»
-import «research.VF_919_OPENAI_434_UNCONDITIONAL_SQUARE_BLOCK_COVARIANCE_20261019»
+import «research.VF_919_SEVEN_EIGHTHS_SIGNED_COVARIANCE_20261019»
+import OAI.NumberTheory.DirichletL.Detector.FinalAssemblyUnconditional
 
 /-!
 # Fully certified original OpenAI 7/8 -> physical CORR4 remainder
@@ -9,7 +10,8 @@ because generic native research CI does not load upstream OAI. The native
 CORR4 power bridge remains independent of any particular imported exponent.
 
 This file contains no new analytic hypothesis. The actual 7/8 source is
-openai434_actual_global_signed_covariance, proved from original OpenAI's
+vf919_sevenEighthsSignedCovariance_of_zetaNonzero
+      (fun s hs => OAI.SevenEighths.ProbeFinalAssemblyUnconditional.zeta_nonzero s hs), proved from original OpenAI's
 FinalAssemblyUnconditional; the rest is a native finite energy inequality.
 -/
 
