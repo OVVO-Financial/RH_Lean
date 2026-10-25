@@ -10,6 +10,7 @@ on:
       - research/CORR4_OAI_POWER_GRAM_EQUIVALENCE_20261025.lean
       - research/CORR4_OAI_BUFFERED_INDUCTION_CORE_20261025.lean
       - research/CORR4_OAI_POWER_DETERMINISTIC_FRAME_20261025.lean
+      - research/CORR4_OAI_POWER_MIXED_TAIL_GATE_20261025.lean
       - research/CORR4_OAI_POWER_GUIDEPOST_20261024.lean
       - research/CORR4_OAI_RESTORED_PHYSICAL_KERNEL_20261024.lean
       - research/CORR4_OAI_RELAXED_REMAINDER_20261024.md
@@ -45,6 +46,7 @@ jobs:
             'CORR4_OAI_POWER_GRAM_EQUIVALENCE_20261025',
             'CORR4_OAI_BUFFERED_INDUCTION_CORE_20261025',
             'CORR4_OAI_POWER_DETERMINISTIC_FRAME_20261025',
+            'CORR4_OAI_POWER_MIXED_TAIL_GATE_20261025',
             'CORR4_OAI_POWER_GUIDEPOST_20261024',
             'CORR4_OAI_RESTORED_PHYSICAL_KERNEL_20261024',
           )
@@ -63,6 +65,7 @@ jobs:
             research/CORR4_OAI_POWER_GRAM_EQUIVALENCE_20261025.lean
             research/CORR4_OAI_BUFFERED_INDUCTION_CORE_20261025.lean
             research/CORR4_OAI_POWER_DETERMINISTIC_FRAME_20261025.lean
+            research/CORR4_OAI_POWER_MIXED_TAIL_GATE_20261025.lean
             research/CORR4_OAI_POWER_GUIDEPOST_20261024.lean
             research/CORR4_OAI_RESTORED_PHYSICAL_KERNEL_20261024.lean
       - name: Check physical witness and conditional theorem axiom footprints
@@ -74,7 +77,10 @@ jobs:
           import «research.CORR4_OAI_POWER_GRAM_EQUIVALENCE_20261025»
           import «research.CORR4_OAI_BUFFERED_INDUCTION_CORE_20261025»
           import «research.CORR4_OAI_POWER_DETERMINISTIC_FRAME_20261025»
+          import «research.CORR4_OAI_POWER_MIXED_TAIL_GATE_20261025»
           import «research.CORR4_OAI_RESTORED_PHYSICAL_KERNEL_20261024»
+          #check RHLean.Proof.mertensSevenEighthsImprovement_of_corr4MixedTailPowerSaving
+          #print axioms RHLean.Proof.mertensSevenEighthsImprovement_of_corr4MixedTailPowerSaving
           #check RHLean.Proof.corr4PowerFirstOwnerGram_iff_mertensPowerBound
           #print axioms RHLean.Proof.corr4PowerFirstOwnerGram_iff_mertensPowerBound
           #check RHLean.Proof.corr4_buffered_all_integer_of_prefix_daughter_frame
