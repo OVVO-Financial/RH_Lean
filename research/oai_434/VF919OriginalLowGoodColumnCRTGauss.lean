@@ -20,7 +20,7 @@ namespace OAI
 noncomputable section
 namespace SevenEighths.ProbePhysical
 
-open ActualEisensteinCubic CompletedGauss ConcretePrimeRowBridge
+open ActualEisensteinCubic CompletedGauss ConcretePrimeRowBridge ConcreteTraceCRT
 local notation "O" => ActualEisensteinCubic.O
 
 /-- Even if the I-column prime divides J, the combined local
@@ -65,9 +65,9 @@ theorem lowGoodColumnCRTGauss_norm
     (hchar : ∀ i, ringChar (O ⧸ P i) ≠ 2)
     (isLowSlot : ι → Bool)
     (eJ : ι → ℕ) :
-    ‖SevenEighths.CubicSieve.canonicalGaussSum P hcop hgood
+    ‖canonicalGaussSum P hcop hgood
        (fun i => if isLowSlot i then 5 else 1 + 3 * eJ i)‖ =
-      ‖eisEmbedding (SevenEighths.CubicSieve.finitePrimeModulus P)‖ := by
+      ‖eisEmbedding (finitePrimeModulus P)‖ := by
   apply SevenEighths.CubicSieve.norm_canonicalGaussSum_of_nontrivial
     P hcop hgood (fun i => if isLowSlot i then 5 else 1 + 3 * eJ i)
   intro i
