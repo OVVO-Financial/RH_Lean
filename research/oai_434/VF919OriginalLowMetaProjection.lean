@@ -80,6 +80,10 @@ theorem corrected_j_one_prime_gamma (p : O) (hp : Prime p)
   exact SevenEighths.ProbePhysical.corrected_prime_cubic_signal
     p hp.ne_zero hg hchar hprimary hs
 
+#print axioms j_one_bare_completed_weight
+#print axioms inverse_character_projection
+#print axioms corrected_j_one_prime_gamma
+
 end VF919OriginalLowMetaProjection
 
 end OAI
