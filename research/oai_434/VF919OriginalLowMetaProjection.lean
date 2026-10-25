@@ -32,7 +32,9 @@ theorem j_one_bare_completed_weight (Ψ : O →* ℂ) (W : ℝ → ℂ)
       CompletedGauss.columnWeight Ψ I /
         (Real.sqrt (Ideal.absNorm I : ℝ) : ℂ) *
         CompletedGauss.Vstar W ((Ideal.absNorm I : ℝ) / T) := by
-  simp [CompletedGauss.summand, CompletedGauss.cubeWeight]
+  have hcube : CompletedGauss.cubeWeight Ψ (1 : Ideal O) = 1 :=
+    (CompletedGauss.cubeWeight Ψ).map_one
+  simp [CompletedGauss.summand, hcube]
 
 /-- The pole of the Dirichlet series for an additional N(I)^(-1/2)
     column weight is at 5/6 - 1/2 = 1/3, IF the unweighted
