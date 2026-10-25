@@ -167,7 +167,10 @@ theorem corr4_buffered_all_integer_of_prefix_daughter_frame
           have h3H : (3 : ℝ) ≤ H / 50 := by linarith
           have hcoeff := mul_le_mul_of_nonneg_right h3H
             (Real.rpow_nonneg hRpos (2 * β))
-          linarith
+          calc
+            2 * (R : ℝ) + 1 ≤ 3 * (R : ℝ) := h3
+            _ ≤ 3 * Real.rpow (R : ℝ) (2 * β) := hpow
+            _ ≤ (H / 50) * Real.rpow (R : ℝ) (2 * β) := hcoeff
         have hnSquare : R ^ 2 ≤ n := by omega
         have hnSquareCast :
             (R : ℝ) ^ 2 ≤ (n : ℝ) := by exact_mod_cast hnSquare
@@ -180,7 +183,8 @@ theorem corr4_buffered_all_integer_of_prefix_daughter_frame
             calc
               Real.rpow ((R : ℝ) ^ 2) β =
                   Real.rpow (Real.rpow (R : ℝ) (2 : ℝ)) β := by
-                    rw [Real.rpow_natCast]
+                    exact congrArg (fun t : ℝ => Real.rpow t β)
+                      ((Real.rpow_natCast (R : ℝ) 2).symm)
               _ = Real.rpow (R : ℝ) (2 * β) :=
                 (Real.rpow_mul hRpos 2 β).symm
           rw [← he]
