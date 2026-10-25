@@ -86,15 +86,15 @@ theorem centered_coefficients_can_have_nonzero_projection :
     upstream correctedFiniteCoefficient_product. No trivialization of
     sexticPair^2 is assumed here. -/
 noncomputable def rawCubicColumn (I : Ideal O)
-    (hI : CubicSieve.Admissible I) : ℂ :=
+    (hI : SevenEighths.CubicSieve.Admissible I) : ℂ :=
   CompletedGauss.gaussTwo I hI.2 *
     star (FiniteGaussPhase.angularFactor (CompletedGauss.primaryGenerator I)) *
     star (SevenEighths.ProbePhase.G (CompletedGauss.primaryGenerator I))
 
 theorem rawCubicColumn_coprime_product
     (I J : Ideal O)
-    (hI : CubicSieve.Admissible I) (hJ : CubicSieve.Admissible J)
-    (hIJ : CubicSieve.Admissible (I*J))
+    (hI : SevenEighths.CubicSieve.Admissible I) (hJ : SevenEighths.CubicSieve.Admissible J)
+    (hIJ : SevenEighths.CubicSieve.Admissible (I*J))
     (hcop : IsCoprime I J)
     (hoddI : EisensteinEPrimaryPhase.odd
       (ActualEisensteinCoordinates.residue (CompletedGauss.primaryGenerator I)))
