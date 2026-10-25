@@ -6,10 +6,12 @@ on:
       - 'research/oai_434/VF919OriginalLowNonresonantZeroMode.lean'
       - 'research/oai_434/VF919OriginalLowRadicalPhysicalPeriod.lean'
       - 'research/oai_434/VF919OriginalLowGoodColumnCRTGauss.lean'
+      - 'research/oai_434/VF919OriginalExceptionalSixthCorridor.lean'
       - '.github/workflows/oai-low-nonresonant-zero-mode.yml'
       - 'scripts/oai_low_gaussian_unit_character_finite.py'
       - 'scripts/oai_low_gaussian_crt_good_column_probe.py'
       - 'scripts/oai_low_gaussian_collision_calibration_crt_probe.py'
+      - 'scripts/oai_exceptional_sixth_corridor_sharpness.py'
       - 'lean-toolchain'
       - 'lakefile.lean'
   workflow_dispatch:
@@ -29,7 +31,7 @@ jobs:
           set -euo pipefail
           test "$(cat lean-toolchain)" = "leanprover/lean4:v4.34.1"
           grep -q 'd13f23b723b8a846827a245b89c10fc7d3f11612' lakefile.lean
-          ! grep -nE '^[[:space:]]*(sorry|admit|axiom)([[:space:]]|$)' research/oai_434/VF919OriginalLowNonresonantZeroMode.lean research/oai_434/VF919OriginalLowGoodColumnCRTGauss.lean
+          ! grep -nE '^[[:space:]]*(sorry|admit|axiom)([[:space:]]|$)' research/oai_434/VF919OriginalLowNonresonantZeroMode.lean research/oai_434/VF919OriginalLowGoodColumnCRTGauss.lean research/oai_434/VF919OriginalExceptionalSixthCorridor.lean
       - uses: ./.github/actions/lean-setup
       - name: Fetch exact pinned original OpenAI source
         uses: actions/checkout@v4
@@ -56,6 +58,9 @@ jobs:
           lake build OAI.NumberTheory.DirichletL.Detector.PhysicalPoisson
           lake build OAI.NumberTheory.DirichletL.Detector.Sextic
           lake build OAI.NumberTheory.DirichletL.CubicSieve.Poisson
+          lake build OAI.NumberTheory.DirichletL.Detector.GramClassification
+          lake build OAI.NumberTheory.DirichletL.Detector.SixthFrequency
+          lake build OAI.NumberTheory.DirichletL.Detector.CalibrationFourier
       - name: Kernel-check unconditional exact source zero mode
         shell: bash
         run: |
@@ -72,6 +77,13 @@ jobs:
           env LEAN_PATH="$RH_PATH:$OAI_PATH" lean -DwarningAsError=true \
             research/oai_434/VF919OriginalLowGoodColumnCRTGauss.lean \
             | tee /tmp/original-oai-low-good-column-crt-gauss-axioms.log
+          env LEAN_PATH="$RH_PATH:$OAI_PATH" lean -DwarningAsError=true \
+            research/oai_434/VF919OriginalExceptionalSixthCorridor.lean \
+            | tee /tmp/original-oai-exceptional-sixth-corridor-axioms.log
+          if grep -E 'sorryAx|admitAx|_private' /tmp/original-oai-exceptional-sixth-corridor-axioms.log; then
+            echo 'Unexpected axiom in original exceptional sixth corridor' >&2
+            exit 1
+          fi
           if grep -E 'sorryAx|admitAx|_private' /tmp/original-oai-low-short-radical-period-axioms.log; then
             echo 'Unexpected axiom in original OAI short radical physical period' >&2
             exit 1
@@ -90,6 +102,7 @@ jobs:
           python3 scripts/oai_low_gaussian_unit_character_finite.py
           python3 scripts/oai_low_gaussian_crt_good_column_probe.py
           python3 scripts/oai_low_gaussian_collision_calibration_crt_probe.py
+          python3 scripts/oai_exceptional_sixth_corridor_sharpness.py
       - name: Record scope
         run: |
           echo "Unconditional original source zero-frequency vanishing checked."
