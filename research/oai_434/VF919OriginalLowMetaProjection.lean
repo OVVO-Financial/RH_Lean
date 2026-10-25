@@ -30,7 +30,7 @@ theorem j_one_bare_completed_weight (Ψ : O →* ℂ) (W : ℝ → ℂ)
       CompletedGauss.columnWeight Ψ I /
         (Real.sqrt (Ideal.absNorm I : ℝ) : ℂ) *
         CompletedGauss.Vstar W ((Ideal.absNorm I : ℝ) / T) := by
-  simp [CompletedGauss.summand]
+  simp [CompletedGauss.summand, CompletedGauss.cubeWeight]
 
 /-- The pole of the Dirichlet series for an additional N(I)^(-1/2)
     column weight is at 5/6 - 1/2 = 1/3, IF the unweighted
@@ -50,7 +50,12 @@ theorem inverse_character_projection {G : Type*} [Group G] [Fintype G]
     calc
       χ u * χ (u⁻¹) = χ (u * u⁻¹) := (map_mul χ u (u⁻¹)).symm
       _ = 1 := by simp
-  simp [h]
+  calc
+    (∑ u : G, χ u * χ (u⁻¹)) = ∑ _u : G, (1 : ℂ) := by
+      apply Finset.sum_congr rfl
+      intro u hu
+      exact h u
+    _ = (Fintype.card G : ℂ) := by simp
 
 
 /-- Exact criterion for a finite source-residue projection: a centered
@@ -85,7 +90,7 @@ theorem corrected_j_one_prime_gamma (p : O) (hp : Prime p)
     CompletedGauss.gaussTwo (Ideal.span {p}) hI *
         star (FiniteGaussPhase.angularFactor p) *
         star (SevenEighths.ProbePhase.G p) =
-      -(ProbePrimePower.localGamma p hp.ne_zero hg 1)⁻¹ := by
+      -(SevenEighths.ProbePrimePower.localGamma p hp.ne_zero hg 1)⁻¹ := by
   rw [SevenEighths.ProbePhysical.gaussTwo_prime_localGamma p hp hg hprimary hI]
   exact SevenEighths.ProbePhysical.corrected_prime_cubic_signal
     p hp.ne_zero hg hchar hprimary hs
