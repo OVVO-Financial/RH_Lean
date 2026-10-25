@@ -9,10 +9,9 @@ ONLY the pinned ORIGINAL OAI certificate workflow can kernel-check this file,
 because generic native research CI does not load upstream OAI. The native
 CORR4 power bridge remains independent of any particular imported exponent.
 
-This file contains no new analytic hypothesis. The actual 7/8 source is
-vf919_sevenEighthsSignedCovariance_of_zetaNonzero
-      (fun s hs => OAI.SevenEighths.ProbeFinalAssemblyUnconditional.zeta_nonzero s hs), proved from original OpenAI's
-FinalAssemblyUnconditional; the rest is a native finite energy inequality.
+This file contains no new analytic hypothesis. The imported original OAI
+FinalAssemblyUnconditional theorem supplies the certified nonvanishing strip;
+the remainder estimate follows from the native finite energy inequality.
 -/
 
 noncomputable section
@@ -35,7 +34,8 @@ theorem openai434_physicalRemainder_sevenEighths_guidepost
                 ((7 : ℝ) / 8 + ε)) ^ 2 := by
   have hseven : MertensGrowthAtMost ((7 : ℝ) / 8) :=
     vf919_sevenEighthsSignedCovariance_iff_mertensGrowth.mp
-      openai434_actual_global_signed_covariance
+      (vf919_sevenEighthsSignedCovariance_of_zetaNonzero
+        (fun s hs => OAI.SevenEighths.ProbeFinalAssemblyUnconditional.zeta_nonzero s hs))
   exact physicalRemainder_sevenEighths_of_mertensGrowth hseven ε hε
 
 #print axioms openai434_physicalRemainder_sevenEighths_guidepost
