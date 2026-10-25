@@ -166,3 +166,20 @@ Also: a=6 local chi^a is PRINCIPAL, not a primitive quadratic/sextic character. 
 ## 7. Finite falsifier
 
 A standard-library finite-field source-local Gauss/Fourier probe checks q=7,13,19 (split-degree-1) and q=25,121 (inert-degree-2 Eisenstein cases) across outer exponents a=1..12, I incidence alpha=0,1, and J valuations beta=0..5. It verifies the double transform and the q^(1+alpha/2+beta/2) local bound, including sixth-power Ramanujan and s|I collisions. This tests local arithmetic only; it does NOT evaluate the fully labeled original OAI low source or certify an analytic theorem in Lean.
+
+## 8. Wider high-J corridor (exact unconditional rational arithmetic)
+
+The bound is not limited to a narrow face with lambda=1/384. For each dyadic J-cell at t=log_Z N(J), the CONDITIONAL absolute bound before choosing t_min is
+\[
+ E(t)=-17/96+\tfrac32(1+\sigma+\eta)-4t.
+\]
+It beats the existing full low-Cauchy exponent 3/16 whenever
+\[
+ t>\frac38(1+\sigma+\eta)-\frac{35}{384}.
+\]
+The top support edge is \(t_{\max}=(1+\sigma+\eta)/3\), so its strict width is
+\[
+ t_{\max}-t_{\mathrm{crit}}=\frac{35}{384}-\frac{1+\sigma+\eta}{24}.
+\]
+If \(\sigma+\eta\le1/6\), this is \(\ge49/1152>0\). The relative saving must shrink by the chosen distance from \(t_{\mathrm{crit}}\), any source tail constants and epsilon; the endpoint itself has zero margin. The rational identities have corresponding Lean-only-budget lemmas in VF919OriginalLowQuadraticBudget.lean. This is again ONLY the high-J source, not the full original low theorem.
+
