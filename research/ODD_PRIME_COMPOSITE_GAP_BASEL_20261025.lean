@@ -44,7 +44,7 @@ theorem sum_seventeenOddReciprocalSquares_le (N : ℕ) :
               (1 / (4 * ((N : ℚ) + 8)) -
                 1 / (4 * ((N : ℚ) + 9))) := by
                   apply add_le_add ih
-                  simpa only [Nat.cast_add, Nat.cast_ofNat] using hterm
+                  convert hterm using 1 <;> push_cast <;> ring
           _ = (1 / 32 : ℚ) -
               1 / (4 * (((N.succ : ℕ) : ℚ) + 8)) := by
                 push_cast
@@ -74,7 +74,8 @@ private theorem oddPrimesBelowSeventeen_subset (N : ℕ) :
   have hq17 := (Finset.mem_filter.mp hq).2
   have hp := (mem_primesUpTo.mp (Finset.mem_erase.mp hbase).2).1
   have hne := (Finset.mem_erase.mp hbase).1
-  interval_cases q <;> norm_num at hp hne ⊢
+  interval_cases q
+  all_goals norm_num at hp hne ⊢
 
 /-- Exact `3,5,7,11,13` prime contributions plus the odd tail from `17`.
 The missing odd locations `9` and `15` are excluded by primality. -/
@@ -102,7 +103,7 @@ theorem oddPrimeOwnerReciprocalSquareBudget_le_compositeGap (N : ℕ) :
       · exact Or.inr ⟨hq, by omega⟩
   have hsmall :
       (∑ q ∈ L, (1 : ℚ) / (q : ℚ) ^ 2) ≤
-        (1 / 9 + 1 / 25 + 1 / 49 : ℚ) := by
+        (1 / 9 + 1 / 25 + 1 / 49 + 1 / 121 + 1 / 169 : ℚ) := by
     have hsub : L ⊆ ({3, 5, 7, 11, 13} : Finset ℕ) := by
       simpa only [L, S] using oddPrimesBelowSeventeen_subset N
     calc
@@ -127,7 +128,10 @@ theorem oddPrimeOwnerReciprocalSquareBudget_le_compositeGap (N : ℕ) :
     rw [Finset.sum_image] at hmono
     · exact hmono.trans (sum_seventeenOddReciprocalSquares_le N)
     · intro a _ b _ hab
+      have hmul : 2 * a = 2 * b := Nat.add_right_cancel hab
       omega
+  change (∑ q ∈ S, (1 : ℚ) / (q : ℚ) ^ 2) ≤
+    (1565172113 / 7214407200 : ℚ)
   rw [← hunion, Finset.sum_union hdisj]
   norm_num at hsmall hlarge ⊢
   linarith
