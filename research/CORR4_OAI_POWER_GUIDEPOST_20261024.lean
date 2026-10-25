@@ -1,6 +1,6 @@
 import Mathlib
 import «research.CORR4_OAI_RELAXED_REMAINDER_20261024»
-import «research.VF_919_OPENAI_434_UNCONDITIONAL_SQUARE_BLOCK_COVARIANCE_20261019»
+import «research.MERTENS_EXPONENT_ENVELOPES»
 
 /-!
 # OpenAI 7/8 is a GUIDEPOST, not a fixed exponent
@@ -10,7 +10,8 @@ nonnegative exponent a it yields the exact physical CORR-4 remainder bound
 
   |B_R|^2 <= (9/4) E_low(R) + (2025/1814) * (C_a * X_R^a)^2.
 
-OpenAI's imported unconditional 7/8 is one instantiation.  Any future
+The existing unconditional OpenAI 7/8 certificate can be instantiated in a
+DEDICATED upstream-OAI workflow (not the native research closure). Any future
 independently proved improvement to the Mertens exponent plugs into exactly
 the same theorem.  The residual O(X^(2a)) is NOT the critical O(R^2 K_R)
 needed for RH, and this file does not pretend otherwise.
@@ -88,9 +89,11 @@ theorem physicalRemainder_powerGuidepost_of_mertensPowerBound
     lowOwnerPhysicalRemainder_sq_le_twoPointTwoFive_daughter_add_correlation R hR
   nlinarith
 
-/-- Actual imported OpenAI 7/8 result: an unconditional power GUIDEPOST
-    with the physical daughter term retained.  Not an RH closure. -/
-theorem openai434_physicalRemainder_sevenEighths_guidepost
+/-- Native 7/8 consumer: hM is the ACTUAL certified OpenAI Mertens growth
+    theorem supplied by the separate upstream-OAI kernel-check workflow.
+    Generic research CI must not import the upstream OAI package. -/
+theorem physicalRemainder_sevenEighths_of_mertensGrowth
+    (hM : MertensGrowthAtMost ((7 : ℝ) / 8))
     (ε : ℝ) (hε : 0 < ε) :
     ∃ C : ℝ, 0 ≤ C ∧
       ∀ R : ℕ, 56 ≤ R →
@@ -99,14 +102,11 @@ theorem openai434_physicalRemainder_sevenEighths_guidepost
             (2025 / 1814 : ℝ) *
               (C * Real.rpow (squareRootEndpoint R : ℝ)
                 ((7 : ℝ) / 8 + ε)) ^ 2 := by
-  have hM : MertensGrowthAtMost ((7 : ℝ) / 8) :=
-    vf919_sevenEighthsSignedCovariance_iff_mertensGrowth.mp
-      openai434_actual_global_signed_covariance
   exact physicalRemainder_powerGuidepost_of_mertensPowerBound
     (a := (7 : ℝ) / 8 + ε) (by linarith) (hM ε hε)
 
 #print axioms roughCorrelation_norm_le_of_mertensPowerBound
 #print axioms physicalRemainder_powerGuidepost_of_mertensPowerBound
-#print axioms openai434_physicalRemainder_sevenEighths_guidepost
+#print axioms physicalRemainder_sevenEighths_of_mertensGrowth
 
 end RHLean.Proof
