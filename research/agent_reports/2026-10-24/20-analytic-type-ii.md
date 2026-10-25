@@ -275,7 +275,7 @@ A merely assumed bound on the complete sum is JOH/RH-equivalent and receives no 
 - New claim: `20261024-analytic-1`.
 - Status: `PAPER_PROOF / EXACT ASYMPTOTIC COUNTERMODEL`.
 - Strongest exact theorem: fixed sizes have extrema (4)-(6); fixed model plus parity has unavoidable spread (7).
-- Strongest source-faithful falsifier: exact floor-Li demand with equal-count earliest/latest odd candidates gives opposite (pm(1+o(1))r^2/log r) displacement.
+- Strongest source-faithful falsifier: exact floor-Li demand with equal-count earliest/latest odd candidates gives opposite opposite-sign `(1+o(1)) * r^2 / log r` displacement.
 - Mechanism rejected: block counts, parity and PNT-sized density as sufficient JOH control.
 - Mechanism surviving: genuine least-prime ancestry controlling chronological barycentres nonlocally.
 - Imported 7/8 improvement: NONE.
@@ -288,4 +288,4 @@ The early `IN_PROGRESS` checkpoint was created by commit
 `0231874b77140f52e97df7fe27bcfe63c1b9512f` and read back as blob
 `582f0b143a96f688660b9b70cf0fcc68fe2dacec`, 3,980 characters.
 
-The completed report publication and final readback are recorded below after the write. Publication verifies only this report, not the paper theorem, Lean certification, a source change, PR status change, merge, or schedule change.
+The completed report was published by commit `67366227c757f253ede51a3a995a6cb3250a0c94`. Immediate readback returned blob `4d535a2434aabc6eb36270aa517347c4bf66eda4`, 15,726 characters, with `COMPLETED`, claim `20261024-analytic-1`, and the pinned main SHA present. Publication verifies only this report, not the paper theorem, Lean certification, a source change, PR status change, merge, or schedule change.
