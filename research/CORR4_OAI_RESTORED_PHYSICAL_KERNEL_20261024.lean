@@ -39,9 +39,7 @@ theorem corr4PhysicalFiniteWeight_site
     (R n : ℕ) (hn : n ≤ squareRootEndpoint R) :
     ((lowOwnerZeroFrequencyMobiusWeight R n * realMoebiusStep n : ℝ) : ℂ) =
       (ArithmeticFunction.moebius n : ℂ) * corr4PhysicalFiniteWeight R n := by
-  simp only [corr4PhysicalFiniteWeight, if_pos hn, realMoebiusStep]
-  push_cast
-  ring
+  simp [corr4PhysicalFiniteWeight, hn, realMoebiusStep] <;> push_cast <;> ring
 
 /-- Exact source preservation across all physical sites, with the original
     sharp admission mask and the complete signed AMP remainder. -/
@@ -53,9 +51,10 @@ theorem corr4PhysicalRemainder_eq_restoredNormKernel
           vf919PhysicalHeckeKernel (squareRootEndpoint R)
             (corr4PhysicalFiniteWeight R) m) := by
   let X := squareRootEndpoint R
+  have hR2 : 13 ≤ R ^ 2 := by nlinarith
   have hX : 12 ≤ X := by
     dsimp [X, squareRootEndpoint]
-    nlinarith
+    omega
   have hw : ∀ n, X < n → corr4PhysicalFiniteWeight R n = 0 := by
     intro n hn
     exact corr4PhysicalFiniteWeight_zero_above_endpoint R n hn
@@ -67,7 +66,8 @@ theorem corr4PhysicalRemainder_eq_restoredNormKernel
     push_cast
     apply Finset.sum_congr rfl
     intro n hn
-    exact corr4PhysicalFiniteWeight_site R n (Finset.mem_Icc.mp hn).2
+    simpa only [Complex.ofReal_mul] using
+      corr4PhysicalFiniteWeight_site R n (Finset.mem_Icc.mp hn).2
   have hrestored :=
     vf919WeightedMobius_eq_excludedNormKernel X hX
       (corr4PhysicalFiniteWeight R) hw
