@@ -228,4 +228,4 @@ Continuity consumed:
 
 ## Publication verification
 
-The initial `IN_PROGRESS` checkpoint was created by commit `b34c3b94a59c1586a316b75ec9d2688dc763f402` and read back as blob `a642ba0ad5f8fa1a30ad1f89112cdf8fc20cd9b5`, 4,742 characters, with status present. Final publication commit and blob are recorded after write/readback verification below.
+The initial `IN_PROGRESS` checkpoint was created by commit `b34c3b94a59c1586a316b75ec9d2688dc763f402` and read back as blob `a642ba0ad5f8fa1a30ad1f89112cdf8fc20cd9b5`, 4,742 characters, with status present. The completed report was published by commit `047acd3d4730b6d7e68f88ae124a46d6647bdfdb` and read back as blob `82fb60cd5e2921f2504926b725dfa3eb7f747422`, 15,227 characters, with claim `20261024-owner-1` and pinned main SHA present. This verifies report publication only; it does not promote the paper theorem to Lean, alter main, create a proof PR, merge source, or change any schedule.
