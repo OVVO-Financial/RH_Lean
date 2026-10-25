@@ -100,15 +100,15 @@ theorem corr4_mertens_endpoint_power_recurrence
     squareRootCanonicalRoughCorrelation_eq_mertens_pred_sub_endpoint
       R (by omega)
   have hM :
-      mertensSummatory (squareRootEndpoint R) =
-        squareRootCanonicalRoughCorrelation R -
-          mertensSummatory (R - 1) := by
+      squareRootCanonicalRoughCorrelation R -
+        mertensSummatory (R - 1) =
+          -mertensSummatory (squareRootEndpoint R) := by
     rw [hcorr]
     ring
   have hsplit := corr4_power_norm_sub_sq_onePercent
     (squareRootCanonicalRoughCorrelation R)
     (mertensSummatory (R - 1))
-  rw [← hM] at hsplit
+  rw [hM, norm_neg] at hsplit
   have hrec := corr4_rough_power_recurrence_after_rounding hB R hR
   nlinarith
 
