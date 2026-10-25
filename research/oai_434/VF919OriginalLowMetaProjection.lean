@@ -1,5 +1,7 @@
 import Mathlib
 import OAI.NumberTheory.DirichletL.Detector.SourcePrime
+import OAI.NumberTheory.DirichletL.Detector.CubicGaussCRT
+import OAI.NumberTheory.DirichletL.Detector.CompletedCoefficient
 
 /-!
 # J = 1: exact completed column weight and the finite projection obstruction
@@ -75,6 +77,42 @@ theorem centered_coefficients_can_have_nonzero_projection :
   constructor <;> ring
 
 
+
+/-- The bare Gauss-angular-quadratic phase still contains a cubic
+    cross factor on a coprime composite column. The completed source
+    must ALSO retain the reciprocity coefficient, as proved in the
+    upstream correctedFiniteCoefficient_product. No trivialization of
+    sexticPair^2 is assumed here. -/
+noncomputable def rawCubicColumn (I : Ideal O)
+    (hI : CubicSieve.Admissible I) : ℂ :=
+  CompletedGauss.gaussTwo I hI.2 *
+    star (FiniteGaussPhase.angularFactor (CompletedGauss.primaryGenerator I)) *
+    star (SevenEighths.ProbePhase.G (CompletedGauss.primaryGenerator I))
+
+theorem rawCubicColumn_coprime_product
+    (I J : Ideal O)
+    (hI : CubicSieve.Admissible I) (hJ : CubicSieve.Admissible J)
+    (hIJ : CubicSieve.Admissible (I*J))
+    (hcop : IsCoprime I J)
+    (hoddI : EisensteinEPrimaryPhase.odd
+      (ActualEisensteinCoordinates.residue (CompletedGauss.primaryGenerator I)))
+    (hoddJ : EisensteinEPrimaryPhase.odd
+      (ActualEisensteinCoordinates.residue (CompletedGauss.primaryGenerator J))) :
+    rawCubicColumn (I*J) hIJ =
+      SevenEighths.ProbePhase.sexticPair
+        (CompletedGauss.primaryGenerator I) (CompletedGauss.primaryGenerator J)^2 *
+      star (SevenEighths.ProbePhase.reciprocitySign
+        (CompletedGauss.primaryGenerator I) (CompletedGauss.primaryGenerator J)) *
+      rawCubicColumn I hI * rawCubicColumn J hJ := by
+  unfold rawCubicColumn
+  rw [SevenEighths.ProbePhysical.gaussTwo_coprime_product_sextic
+        I J hI hJ hIJ hcop,
+      CompletedGauss.primaryGenerator_mul I J,
+      CompletedGauss.angularFactor_mul,
+      SevenEighths.ProbePhase.G_mul _ _ hoddI hoddJ]
+  simp only [star_mul]
+  ring
+
 /-- Exact ORIGINAL prime-column phase bridge: after the angular and
     quadratic Gauss correction, cubic gaussTwo agrees with the negative
     inverse normalized cubic gamma1, not bare gaussTwo. This reuses TWO
@@ -98,6 +136,7 @@ theorem corrected_j_one_prime_gamma (p : O) (hp : Prime p)
 #print axioms j_one_bare_completed_weight
 #print axioms inverse_character_projection
 #print axioms centered_projection_vanishes_of_constant_residue
+#print axioms rawCubicColumn_coprime_product
 #print axioms corrected_j_one_prime_gamma
 
 end VF919OriginalLowMetaProjection
