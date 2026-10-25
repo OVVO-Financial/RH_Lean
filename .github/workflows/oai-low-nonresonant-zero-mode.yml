@@ -9,6 +9,7 @@ on:
       - '.github/workflows/oai-low-nonresonant-zero-mode.yml'
       - 'scripts/oai_low_gaussian_unit_character_finite.py'
       - 'scripts/oai_low_gaussian_crt_good_column_probe.py'
+      - 'scripts/oai_low_gaussian_collision_calibration_crt_probe.py'
       - 'lean-toolchain'
       - 'lakefile.lean'
   workflow_dispatch:
@@ -88,6 +89,7 @@ jobs:
           set -euo pipefail
           python3 scripts/oai_low_gaussian_unit_character_finite.py
           python3 scripts/oai_low_gaussian_crt_good_column_probe.py
+          python3 scripts/oai_low_gaussian_collision_calibration_crt_probe.py
       - name: Record scope
         run: |
           echo "Unconditional original source zero-frequency vanishing checked."
