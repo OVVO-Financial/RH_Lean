@@ -46,7 +46,7 @@ jobs:
               text = pathlib.Path('research', name + '.lean').read_text()
               assert not re.search(r'\b(sorry|admit|axiom)\b', text), name
           PY
-      - name: Build RHLean import closure and pinned OAI dependency
+      - name: Build native RHLean library prerequisites (no OAI upstream)
         run: |
           python3 scripts/compile_research_import_closure.py --library-only \
             research/CORR4_OAI_RELAXED_REMAINDER_20261024.lean \
@@ -88,8 +88,8 @@ jobs:
           #print axioms RHLean.Proof.relaxedFirstOwnerGram_iff_physicalRemainder
           #check RHLean.Proof.riemannHypothesis_of_relaxedPhysicalRemainder
           #print axioms RHLean.Proof.riemannHypothesis_of_relaxedPhysicalRemainder
-          #check RHLean.Proof.openai434_physicalRemainder_sevenEighths_guidepost
-          #print axioms RHLean.Proof.openai434_physicalRemainder_sevenEighths_guidepost
+          #check RHLean.Proof.physicalRemainder_sevenEighths_of_mertensGrowth
+          #print axioms RHLean.Proof.physicalRemainder_sevenEighths_of_mertensGrowth
           #check RHLean.Proof.corr4PhysicalRemainder_eq_restoredNormKernel
           #print axioms RHLean.Proof.corr4PhysicalRemainder_eq_restoredNormKernel
           LEAN
