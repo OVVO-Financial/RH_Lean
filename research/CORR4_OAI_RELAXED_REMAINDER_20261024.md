@@ -104,16 +104,30 @@ independently checked against site-by-site physical omega_R(n) on sampled
 roots, retaining all q,q' interactions. K_R includes every y<R, including
 the crucial small-y maximum 1.5 at y=5.
 
-At roots 56 through 2000 inclusive (1,945 roots, 3,999,999 actual integers),
+At roots 56 through 5000 inclusive (4,945 roots, 24,999,999 actual integers),
 the smallest needed empirical boundary coefficient
 
     c_R = (|B_R|^2-(9/4)*E_R)/(R^2*K_R)
 
 has observed maximum 0.12018444535655791 at R=244, where
 M(R^2-1)=-102, C_R=100, U_R=-7.72047952, B_R=107.72047952,
-E_R=387, K_R=1.5. The C=0 daughter-only assertion FAILS at 1,105 of
+E_R=387, K_R=1.5. The C=0 daughter-only assertion FAILS at 2,866 of
 these roots. This establishes that the critical historical term cannot simply
 be dropped. No observed maximum is claimed to be uniform for all R.
+
+
+**Extended adversarial sweep (Numba, genuine Mertens through 99,999,999):**
+
+    python3 scripts/corr4_oai_remainder_numba_20261024.py 10000
+
+For all 9,945 roots 56<=R<=10,000 the maximum moves to
+**0.14418310472084428 at R=5561**. There X=30,924,720,
+M(X)=-2544, C_R=2549, U_R=-121.191365..., B_R=2670.191365...,
+E_R=196306 and historical K_R=1.5. A proposed universal C<=0.12 is thus
+falsified by the genuine original source. There are 5,772 failures of C=0.
+The R=5561 peak overlaps the historical FINITE-A/C stress point; require it
+as a regression fixture, not a proof of the bound at all roots. The 0.1442
+finite maximum is NOT claimed to persist beyond the tested range.
 
 ## Research next action: independently pay ONE new bill
 
