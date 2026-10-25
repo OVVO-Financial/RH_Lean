@@ -5,8 +5,10 @@ on:
     paths:
       - 'research/oai_434/VF919OriginalLowNonresonantZeroMode.lean'
       - 'research/oai_434/VF919OriginalLowRadicalPhysicalPeriod.lean'
+      - 'research/oai_434/VF919OriginalLowGoodColumnCRTGauss.lean'
       - '.github/workflows/oai-low-nonresonant-zero-mode.yml'
       - 'scripts/oai_low_gaussian_unit_character_finite.py'
+      - 'scripts/oai_low_gaussian_crt_good_column_probe.py'
       - 'lean-toolchain'
       - 'lakefile.lean'
   workflow_dispatch:
@@ -26,7 +28,7 @@ jobs:
           set -euo pipefail
           test "$(cat lean-toolchain)" = "leanprover/lean4:v4.34.1"
           grep -q 'd13f23b723b8a846827a245b89c10fc7d3f11612' lakefile.lean
-          ! grep -nE '^[[:space:]]*(sorry|admit|axiom)([[:space:]]|$)' research/oai_434/VF919OriginalLowNonresonantZeroMode.lean
+          ! grep -nE '^[[:space:]]*(sorry|admit|axiom)([[:space:]]|$)' research/oai_434/VF919OriginalLowNonresonantZeroMode.lean research/oai_434/VF919OriginalLowGoodColumnCRTGauss.lean
       - uses: ./.github/actions/lean-setup
       - name: Fetch exact pinned original OpenAI source
         uses: actions/checkout@v4
@@ -51,6 +53,8 @@ jobs:
           lake build OAI.NumberTheory.DirichletL.Detector.CalibrationRemoval
           lake build OAI.NumberTheory.DirichletL.Detector.RowRadicalConductor
           lake build OAI.NumberTheory.DirichletL.Detector.PhysicalPoisson
+          lake build OAI.NumberTheory.DirichletL.Detector.Sextic
+          lake build OAI.NumberTheory.DirichletL.CubicSieve.Poisson
       - name: Kernel-check unconditional exact source zero mode
         shell: bash
         run: |
@@ -64,8 +68,15 @@ jobs:
           env LEAN_PATH="$RH_PATH:$OAI_PATH" lean -DwarningAsError=true \
             research/oai_434/VF919OriginalLowRadicalPhysicalPeriod.lean \
             | tee /tmp/original-oai-low-short-radical-period-axioms.log
+          env LEAN_PATH="$RH_PATH:$OAI_PATH" lean -DwarningAsError=true \
+            research/oai_434/VF919OriginalLowGoodColumnCRTGauss.lean \
+            | tee /tmp/original-oai-low-good-column-crt-gauss-axioms.log
           if grep -E 'sorryAx|admitAx|_private' /tmp/original-oai-low-short-radical-period-axioms.log; then
             echo 'Unexpected axiom in original OAI short radical physical period' >&2
+            exit 1
+          fi
+          if grep -E 'sorryAx|admitAx|_private' /tmp/original-oai-low-good-column-crt-gauss-axioms.log; then
+            echo 'Unexpected axiom in good-column CRT Gauss source' >&2
             exit 1
           fi
           if grep -E 'sorryAx|admitAx|_private' /tmp/original-oai-low-nonresonant-zero-mode-axioms.log; then
@@ -76,6 +87,7 @@ jobs:
         run: |
           set -euo pipefail
           python3 scripts/oai_low_gaussian_unit_character_finite.py
+          python3 scripts/oai_low_gaussian_crt_good_column_probe.py
       - name: Record scope
         run: |
           echo "Unconditional original source zero-frequency vanishing checked."
