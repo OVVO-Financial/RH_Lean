@@ -76,15 +76,15 @@ private theorem norm_add_sq_le_four_fourThirds (u v : ℂ) :
     correlation, leaving exactly 9/4 of low-daughter energy. -/
 private theorem norm_sub_sq_le_guidepost (u v : ℂ) :
     ‖u - v‖ ^ 2 ≤
-      (162 / 145 : ℝ) * ‖u‖ ^ 2 +
-      (162 / 17 : ℝ) * ‖v‖ ^ 2 := by
+      (2025 / 1814 : ℝ) * ‖u‖ ^ 2 +
+      (2025 / 211 : ℝ) * ‖v‖ ^ 2 := by
   have ht := norm_sub_le u v
   have hu := norm_nonneg u
   have hv := norm_nonneg v
   have huv := norm_nonneg (u - v)
   have hsq : ‖u - v‖ ^ 2 ≤ (‖u‖ + ‖v‖) ^ 2 := by
     nlinarith
-  nlinarith [sq_nonneg (17 * ‖u‖ - 145 * ‖v‖)]
+  nlinarith [sq_nonneg (211 * ‖u‖ - 1814 * ‖v‖)]
 
 /-- Unconditional full-physical-remainder comparison.  All mixed terms remain
     inside the norm: this is NOT the RH-strength remainder bound. -/
@@ -92,7 +92,7 @@ theorem lowOwnerPhysicalRemainder_sq_le_twoPointTwoFive_daughter_add_correlation
     (R : ℕ) (hR : 56 ≤ R) :
     ‖lowOwnerPhysicalAmplitudeRemainder R 0‖ ^ 2 ≤
       (9 / 4 : ℝ) * canonicalRoughLowQ2DaughterEnergy R +
-        (162 / 145 : ℝ) * ‖squareRootCanonicalRoughCorrelation R‖ ^ 2 := by
+        (2025 / 1814 : ℝ) * ‖squareRootCanonicalRoughCorrelation R‖ ^ 2 := by
   have hid := squareRootCanonicalRoughCorrelation_eq_criticalSynthesis_add_physicalRemainder
     R hR 0
   have hrearrange :
