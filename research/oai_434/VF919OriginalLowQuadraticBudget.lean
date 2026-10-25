@@ -55,4 +55,16 @@ theorem full_j_range_below_original
   have h := full_j_range_bookkeeping sigma eta lambda hs he hl
   linarith
 
+theorem full_j_critical_cutoff (a t : ℚ)
+    (ht : (3 / 8 : ℚ) * (1 + a) - 35 / 384 < t) :
+    -(17 / 96 : ℚ) + (3 / 2 : ℚ) * (1 + a) - 4 * t
+      < 3 / 16 := by
+  linarith
+
+theorem full_j_critical_corridor_width (a : ℚ)
+    (ha : a ≤ 1 / 6) :
+    (1 + a) / 3 - ((3 / 8 : ℚ) * (1 + a) - 35 / 384)
+      ≥ 49 / 1152 := by
+  linarith
+
 end VF919OriginalLowQuadraticBudget
