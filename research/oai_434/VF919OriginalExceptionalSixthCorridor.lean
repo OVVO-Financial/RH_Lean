@@ -116,12 +116,84 @@ theorem original_compensated_exceptional_parameter_invariant
     ((Y / L) ^ 2) / (q * (X / L) * (Y / L)) = Y / (q * X) := by
   field_simp
 
+
+/-- The sixth-free seed of an ACTUAL exceptional Gaussian
+    frequency has NO prime factor outside the fixed Gram conductor.
+    Unlike the mere sixth-power inclusion, this treats EVERY
+    exceptional frequency, including all conductor-supported
+    nontrivial sixth-free seeds. -/
+theorem original_exceptional_sixth_seed_support
+    (S : Finset Id) (hS : ∀ p ∈ S, p.IsMaximal)
+    (C : SupportedIdeal) (k : GramFrequency)
+    (hk : ExceptionalFrequency S hS C k) :
+    ∀ p ∉ IdealMobiusDivisorSum.primeSupport
+        (exceptionalModulus S hS C),
+      CenteredExceptionalCount.valuation
+        (CenteredExceptionalCount.sixthRemainder (Ideal.span {k.val})) p = 0 := by
+  intro p hp
+  rw [CenteredExceptionalCount.sixthRemainder_valuation]
+  exact hk p hp
+
+/-- The entire exceptional frequency ideal is a sixth-power ideal
+    times a sixth-free seed supported on the fixed conductor.
+    This is an exact classification and does NOT imply signed
+    cancellation when the sixth-power lattice is summed. -/
+theorem original_exceptional_sixth_normal_form
+    (S : Finset Id) (hS : ∀ p ∈ S, p.IsMaximal)
+    (C : SupportedIdeal) (k : GramFrequency)
+    (hk : ExceptionalFrequency S hS C k) :
+    ∃ R V : Ideal O, R ≠ 0 ∧ V ≠ 0 ∧
+      Ideal.span {k.val} = R * V ^ 6 ∧
+      ∀ p ∉ IdealMobiusDivisorSum.primeSupport
+          (exceptionalModulus S hS C),
+        CenteredExceptionalCount.valuation R p = 0 := by
+  let I : Ideal O := Ideal.span {k.val}
+  have hI : I ≠ 0 := Ideal.span_singleton_eq_bot.not.mpr k.property
+  refine ⟨CenteredExceptionalCount.sixthRemainder I,
+    CenteredExceptionalCount.sixthQuotient I,
+    CenteredExceptionalCount.sixthRemainder_ne_zero I,
+    CenteredExceptionalCount.sixthQuotient_ne_zero I, ?_, ?_⟩
+  · exact (CenteredExceptionalCount.sixth_normal_form I hI).symm
+  · exact original_exceptional_sixth_seed_support S hS C k hk
+
+/-- Stronger finite seed control: every original exceptional
+    sixth-free remainder DIVIDES the fifth power of its original
+    fixed Gram modulus. This is the exact finite-divisor
+    parameter needed to isolate all coherent sixth-power towers. -/
+theorem original_exceptional_seed_dvd_fixed_fifth
+    (S : Finset Id) (hS : ∀ p ∈ S, p.IsMaximal)
+    (C : SupportedIdeal) (k : GramFrequency)
+    (hk : ExceptionalFrequency S hS C k) :
+    CenteredExceptionalCount.sixthRemainder (Ideal.span {k.val}) ∣
+      (exceptionalModulus S hS C) ^ 5 := by
+  let G := exceptionalModulus S hS C
+  have hR := CenteredExceptionalCount.sixthRemainder_ne_zero (Ideal.span {k.val})
+  have hG := exceptionalModulus_nonzero S hS C
+  apply (dvd_iff_normalizedFactors_le_normalizedFactors hR
+    (pow_ne_zero 5 hG)).mpr
+  apply Multiset.le_iff_count.mpr
+  intro p
+  change CenteredExceptionalCount.valuation
+    (CenteredExceptionalCount.sixthRemainder (Ideal.span {k.val})) p ≤
+      CenteredExceptionalCount.valuation (G ^ 5) p
+  rw [CenteredExceptionalCount.sixthRemainder_valuation,
+    CenteredExceptionalCount.valuation_pow]
+  by_cases hp : p ∈ IdealMobiusDivisorSum.primeSupport G
+  · have hpos : 0 < CenteredExceptionalCount.valuation G p :=
+      Multiset.count_pos.mpr (Multiset.mem_toFinset.mp hp)
+    omega
+  · have hz := hk p hp
+    omega
+
 #print axioms original_exceptional_of_sixth_power
 #print axioms original_actual_calibrated_sixth_frequency_invariant
 #print axioms original_actual_exceptional_sixth_corridor
 #print axioms original_exceptional_gram_power_ledger
 #print axioms original_gram_zero_to_exceptional_gap
 #print axioms original_compensated_exceptional_parameter_invariant
+#print axioms original_exceptional_sixth_seed_support
+#print axioms original_exceptional_sixth_normal_form
+#print axioms original_exceptional_seed_dvd_fixed_fifth
 
 end SevenEighths.ProbeGramCommon
 end
