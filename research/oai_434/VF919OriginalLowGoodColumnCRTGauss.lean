@@ -77,10 +77,43 @@ theorem lowGoodColumnCRTGauss_norm
   · simpa [h] using lowSlotInverseActualSextic_nonprincipal
       (P i) (hgood i) (hchar i)
 
+
+/-- Exact squarefree collision factorization at the marked low prime:
+    the quotient column remains squarefree and coprime to the slot. -/
+theorem lowSquarefreeCollision_split (s I : Ideal O)
+    (hI : Squarefree I) (hs : s ∣ I) :
+    ∃ I' : Ideal O, I = s * I' ∧ IsRelPrime s I' ∧ Squarefree I' := by
+  obtain ⟨I', hfac⟩ := hs
+  have hsf : Squarefree (s * I') := hfac ▸ hI
+  obtain ⟨hrel, _, hI'⟩ := squarefree_mul_iff.mp hsf
+  exact ⟨I', hfac, hrel, hI'⟩
+
+/-- Ideal norms retain the exact q factor after the collision split. -/
+theorem lowSquarefreeCollision_norm (s I I' : Ideal O)
+    (hfac : I = s * I') :
+    Ideal.absNorm I = Ideal.absNorm s * Ideal.absNorm I' := by
+  rw [hfac]
+  exact map_mul Ideal.absNorm s I'
+
+/-- At a colliding low prime the total sextic exponent is 3*v_s(J). -/
+theorem lowCollisionResidualExponent (v : ℕ) :
+    (5 + (1 + 3 * v)) % 6 = (3 * v) % 6 := by
+  omega
+
+/-- In the Gaussian bulk s does not divide J; hence at v_s(J)=0
+    the s-phase is PRINCIPAL on units. Calibration is still present. -/
+theorem lowCollisionPrincipal_at_zero :
+    (5 + (1 + 3 * 0)) % 6 = 0 := by
+  norm_num
+
 #print axioms lowColumnOnePlusThree_not_six_dvd
 #print axioms lowColumnActualSextic_nonprincipal
 #print axioms lowSlotInverseActualSextic_nonprincipal
 #print axioms lowGoodColumnCRTGauss_norm
+#print axioms lowSquarefreeCollision_split
+#print axioms lowSquarefreeCollision_norm
+#print axioms lowCollisionResidualExponent
+#print axioms lowCollisionPrincipal_at_zero
 
 end SevenEighths.ProbePhysical
 end
