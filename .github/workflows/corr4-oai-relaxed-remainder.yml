@@ -7,6 +7,7 @@ on:
       - research/CORR4_OAI_RELAXED_REMAINDER_20261024.lean
       - research/CORR4_OAI_SQUARE_ENDPOINT_BOOTSTRAP_20261025.lean
       - research/CORR4_OAI_POWER_RENEWAL_20261025.lean
+      - research/CORR4_OAI_POWER_GRAM_EQUIVALENCE_20261025.lean
       - research/CORR4_OAI_POWER_GUIDEPOST_20261024.lean
       - research/CORR4_OAI_RESTORED_PHYSICAL_KERNEL_20261024.lean
       - research/CORR4_OAI_RELAXED_REMAINDER_20261024.md
@@ -39,6 +40,7 @@ jobs:
             'CORR4_OAI_RELAXED_REMAINDER_20261024',
             'CORR4_OAI_SQUARE_ENDPOINT_BOOTSTRAP_20261025',
             'CORR4_OAI_POWER_RENEWAL_20261025',
+            'CORR4_OAI_POWER_GRAM_EQUIVALENCE_20261025',
             'CORR4_OAI_POWER_GUIDEPOST_20261024',
             'CORR4_OAI_RESTORED_PHYSICAL_KERNEL_20261024',
           )
@@ -54,6 +56,7 @@ jobs:
             research/CORR4_OAI_RELAXED_REMAINDER_20261024.lean
             research/CORR4_OAI_SQUARE_ENDPOINT_BOOTSTRAP_20261025.lean
             research/CORR4_OAI_POWER_RENEWAL_20261025.lean
+            research/CORR4_OAI_POWER_GRAM_EQUIVALENCE_20261025.lean
             research/CORR4_OAI_POWER_GUIDEPOST_20261024.lean
             research/CORR4_OAI_RESTORED_PHYSICAL_KERNEL_20261024.lean
       - name: Check physical witness and conditional theorem axiom footprints
@@ -62,7 +65,12 @@ jobs:
           import «research.CORR4_OAI_POWER_GUIDEPOST_20261024»
           import «research.CORR4_OAI_SQUARE_ENDPOINT_BOOTSTRAP_20261025»
           import «research.CORR4_OAI_POWER_RENEWAL_20261025»
+          import «research.CORR4_OAI_POWER_GRAM_EQUIVALENCE_20261025»
           import «research.CORR4_OAI_RESTORED_PHYSICAL_KERNEL_20261024»
+          #check RHLean.Proof.corr4PowerFirstOwnerGram_iff_powerPhysicalRemainder
+          #print axioms RHLean.Proof.corr4PowerFirstOwnerGram_iff_powerPhysicalRemainder
+          #check RHLean.Proof.corr4PowerFirstOwnerGram_of_mertensPowerBound
+          #print axioms RHLean.Proof.corr4PowerFirstOwnerGram_of_mertensPowerBound
           #check RHLean.Proof.corr4_daughter_round_to_square
           #print axioms RHLean.Proof.corr4_daughter_round_to_square
           #check RHLean.Proof.corr4_mertens_endpoint_power_recurrence
