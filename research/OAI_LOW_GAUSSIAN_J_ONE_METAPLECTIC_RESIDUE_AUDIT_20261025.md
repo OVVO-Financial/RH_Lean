@@ -172,3 +172,27 @@ At best the original metaplectic analytic continuation beyond 1/2 permits contou
 3. Derive a matching fully weighted Mellin/Hecke series (PRE-Cauchy J=1 if that is the target), and prove the g^5 non-squarefree conductor can be reduced to published metaplectic analytic inputs. Compute actual residue, not just calibration-centering.
 4. Only then invoke a shifted contour and prove a conductor-polynomial cost A and a positive xi; the hybrid tail arithmetic converts those into a signed saving if all full original source terms are controlled. The other high/multiplicity/moment branches must still be paid before 7/8-delta.
 
+
+
+## J. Stronger immediate test: exact native two-variable principal Fourier coefficient
+
+A better FIRST finite test than positing a Patterson pole uses original SOURCE PERIODICITY. Detector/GramJoint.lean::jointExtension_periodic proves that the exact jointExtension(S,sigma,C,k,...) is separately periodic in its two primal coordinates modulo
+\[
+\mathfrak m_{C,k}=\mathrm{jointPeriod}(S,\mathrm{primeFactors}(C),r)
+  =\mathrm{jointFixedModulus}(S)\cdot\operatorname{rad}(C)\cdot(r),
+\]
+where r is the GOOD part of the numerator k. This full periodic modulus, not merely exceptionalModulus G_C, must be used. GramJointPeriod.lean::jointPeriod_nonzero and jointPeriod_norm_bound supply finite-quotient and conductor bounds. GramResidue.lean::exists_nonexceptional_residue explicitly constructs the quotient-lifted TWO-VARIABLE kernel and proves that its double sum equals ZERO when a nonexceptional prime is present. No analogous exceptional zero-mode vanishing is proved there.
+
+At C=1 and k=g^5, when g is supported only at the original excluded bad primes, r=1 and rad(C)=1, so the joint period reduces to jointFixedModulus(S). Put R=O/jointFixedModulus(S). The direct test is the actual finite COMPLEX mean
+\[
+\mathfrak P_{\sigma}(g^5)=
+  \frac{1}{|R|^2}\sum_{x,y\in R}
+  \mathrm{jointExtension}(S,\sigma,C=1,k=g^5,x,y),
+\]
+with its exact original generator and decomposition proofs, including primary/ray/nonunit masks, calibration, bad-prime numerator twist, sextic cross-phase and where applicable d dilating both coordinates. This is a finite source computation, NOT a claim that the value is zero or nonzero. The previously verified coherent norm-(7,139) same-ray pair does not determine the WHOLE double mean.
+
+If the actual P_sigma(g^5)=0 for all admitted sigma and d, the constant two-coordinate Fourier mode at that seed vanishes and a quantitative smooth lattice Poisson estimate may yield a saving, subject to genuine conductor and test-profile losses. If it is nonzero, it identifies a PRINCIPAL TWO-COLUMN KERNEL to extract and test against the actual pre-Cauchy completed B source. This is not automatically a metaplectic 5/6 pole.
+
+**Immediate Lean task:** mirror GramResidue.lean's quotient-lifted A(x,y)=jointExtension(...,d*x.out,d*y.out); use jointExtension_dilation_periodic to prove independence of representatives; compute the exact double sum at C=1,k=g^5. Crucially GramResidue's nonexceptional-prime hypothesis is NOT valid for g^5, so it cannot be reused to claim the sum vanishes.
+
+The set NC<=P^rho grows with P: it is finite at each P but not a fixed finite list. A UNIFORM analytic bound in C must follow the finite C=1 diagnostic. This is why numerical verification of finitely many examples does not close the exponent improvement.
