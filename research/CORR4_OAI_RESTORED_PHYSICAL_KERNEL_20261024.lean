@@ -39,7 +39,9 @@ theorem corr4PhysicalFiniteWeight_site
     (R n : ℕ) (hn : n ≤ squareRootEndpoint R) :
     ((lowOwnerZeroFrequencyMobiusWeight R n * realMoebiusStep n : ℝ) : ℂ) =
       (ArithmeticFunction.moebius n : ℂ) * corr4PhysicalFiniteWeight R n := by
-  simp [corr4PhysicalFiniteWeight, hn, realMoebiusStep] <;> push_cast <;> ring
+  simp [corr4PhysicalFiniteWeight, hn, realMoebiusStep]
+  push_cast
+  ring
 
 /-- Exact source preservation across all physical sites, with the original
     sharp admission mask and the complete signed AMP remainder. -/
