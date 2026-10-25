@@ -6,6 +6,7 @@ on:
     paths:
       - research/CORR4_OAI_RELAXED_REMAINDER_20261024.lean
       - research/CORR4_OAI_SQUARE_ENDPOINT_BOOTSTRAP_20261025.lean
+      - research/CORR4_OAI_POWER_RENEWAL_20261025.lean
       - research/CORR4_OAI_POWER_GUIDEPOST_20261024.lean
       - research/CORR4_OAI_RESTORED_PHYSICAL_KERNEL_20261024.lean
       - research/CORR4_OAI_RELAXED_REMAINDER_20261024.md
@@ -37,6 +38,7 @@ jobs:
           names = (
             'CORR4_OAI_RELAXED_REMAINDER_20261024',
             'CORR4_OAI_SQUARE_ENDPOINT_BOOTSTRAP_20261025',
+            'CORR4_OAI_POWER_RENEWAL_20261025',
             'CORR4_OAI_POWER_GUIDEPOST_20261024',
             'CORR4_OAI_RESTORED_PHYSICAL_KERNEL_20261024',
           )
@@ -49,6 +51,7 @@ jobs:
           python3 scripts/compile_research_import_closure.py --library-only \
             research/CORR4_OAI_RELAXED_REMAINDER_20261024.lean \
             research/CORR4_OAI_SQUARE_ENDPOINT_BOOTSTRAP_20261025.lean \
+            research/CORR4_OAI_POWER_RENEWAL_20261025.lean \
             research/CORR4_OAI_POWER_GUIDEPOST_20261024.lean \
             research/CORR4_OAI_RESTORED_PHYSICAL_KERNEL_20261024.lean
       - name: Warning-fatal Lean compile, module dependency order
@@ -58,6 +61,7 @@ jobs:
           for name in \
             CORR4_OAI_RELAXED_REMAINDER_20261024 \
             CORR4_OAI_SQUARE_ENDPOINT_BOOTSTRAP_20261025 \
+            CORR4_OAI_POWER_RENEWAL_20261025 \
             CORR4_OAI_POWER_GUIDEPOST_20261024 \
             CORR4_OAI_RESTORED_PHYSICAL_KERNEL_20261024
           do
@@ -70,9 +74,12 @@ jobs:
           cat > /tmp/corr4_oai_axioms.lean <<'LEAN'
           import «research.CORR4_OAI_POWER_GUIDEPOST_20261024»
           import «research.CORR4_OAI_SQUARE_ENDPOINT_BOOTSTRAP_20261025»
+          import «research.CORR4_OAI_POWER_RENEWAL_20261025»
           import «research.CORR4_OAI_RESTORED_PHYSICAL_KERNEL_20261024»
           #check RHLean.Proof.corr4_daughter_round_to_square
           #print axioms RHLean.Proof.corr4_daughter_round_to_square
+          #check RHLean.Proof.corr4_mertens_endpoint_power_recurrence
+          #print axioms RHLean.Proof.corr4_mertens_endpoint_power_recurrence
           #check RHLean.Proof.mertens_all_int_of_square_endpoint
           #print axioms RHLean.Proof.mertens_all_int_of_square_endpoint
           #check RHLean.Proof.lowOwnerCriticalSynthesis_energy_le_twoTermBasel
