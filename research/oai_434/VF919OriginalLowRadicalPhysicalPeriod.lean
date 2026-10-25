@@ -19,6 +19,7 @@ noncomputable section
 namespace SevenEighths.ProbePhysical
 open ActualEisensteinCubic
 open CanonicalRowCompletion CanonicalQuadraticSieve
+open OAI.SevenEighths.ProbeRowRadicalConductor
 local notation "O" => ActualEisensteinCubic.O
 
 /-- Source-exact radical-conductor reduction for the true calibrated
@@ -57,9 +58,7 @@ theorem calibratedLowGaussFactor_congr_shortRadical
   have hsm : m - n ∈ (Ideal.span {s} : Ideal O) :=
     Ideal.mul_le_right h
   have hsneg : -m - (-n) ∈ (Ideal.span {s} : Ideal O) := by
-    have hh : -(m - n) ∈ (Ideal.span {s} : Ideal O) :=
-      (Ideal.span {s}).neg_mem hsm
-    simpa only [neg_sub] using hh
+    convert (Ideal.span {s}).neg_mem hsm using 1 <;> ring
   rw [calibratedNumerator_congr_shortRadical C A m n hnum,
     sexticGauss_frequency_congr s hs (-m) (-n) hsneg]
 
