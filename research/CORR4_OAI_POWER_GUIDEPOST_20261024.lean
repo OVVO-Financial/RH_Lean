@@ -8,7 +8,7 @@ import «research.VF_919_OPENAI_434_UNCONDITIONAL_SQUARE_BLOCK_COVARIANCE_202610
 This file consumes a replaceable genuine MertensPowerBound(a).  At any
 nonnegative exponent a it yields the exact physical CORR-4 remainder bound
 
-  |B_R|^2 <= (9/4) E_low(R) + (162/145) * (C_a * X_R^a)^2.
+  |B_R|^2 <= (9/4) E_low(R) + (2025/1814) * (C_a * X_R^a)^2.
 
 OpenAI's imported unconditional 7/8 is one instantiation.  Any future
 independently proved improvement to the Mertens exponent plugs into exactly
@@ -68,7 +68,7 @@ theorem physicalRemainder_powerGuidepost_of_mertensPowerBound
       ∀ R : ℕ, 56 ≤ R →
         ‖lowOwnerPhysicalAmplitudeRemainder R 0‖ ^ 2 ≤
           (9 / 4 : ℝ) * canonicalRoughLowQ2DaughterEnergy R +
-            (162 / 145 : ℝ) *
+            (2025 / 1814 : ℝ) *
               (C * Real.rpow (squareRootEndpoint R : ℝ) a) ^ 2 := by
   rcases hM with ⟨C0, hC0, hbound⟩
   refine ⟨2 * C0, by positivity, ?_⟩
@@ -96,7 +96,7 @@ theorem openai434_physicalRemainder_sevenEighths_guidepost
       ∀ R : ℕ, 56 ≤ R →
         ‖lowOwnerPhysicalAmplitudeRemainder R 0‖ ^ 2 ≤
           (9 / 4 : ℝ) * canonicalRoughLowQ2DaughterEnergy R +
-            (162 / 145 : ℝ) *
+            (2025 / 1814 : ℝ) *
               (C * Real.rpow (squareRootEndpoint R : ℝ)
                 ((7 : ℝ) / 8 + ε)) ^ 2 := by
   have hM : MertensGrowthAtMost ((7 : ℝ) / 8) :=
