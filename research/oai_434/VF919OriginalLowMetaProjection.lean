@@ -52,6 +52,16 @@ theorem inverse_character_projection {G : Type*} [Group G] [Fintype G]
       _ = 1 := by simp
   simp [h]
 
+
+/-- Exact criterion for a finite source-residue projection: a centered
+    source coefficient cancels a CONSTANT residue vector, but no general
+    theorem permits replacing a variable ray-dependent residue by one. -/
+theorem centered_projection_vanishes_of_constant_residue
+    {H : Type*} [Fintype H] (c : H → ℂ) (r : ℂ)
+    (hc : ∑ u : H, c u = 0) :
+    (∑ u : H, c u * r) = 0 := by
+  rw [← Finset.sum_mul, hc, zero_mul]
+
 /-- Concrete parity example of centering without cancellation under
     matching twist; the phenomenon is independent of analytic issues. -/
 theorem centered_coefficients_can_have_nonzero_projection :
@@ -82,6 +92,7 @@ theorem corrected_j_one_prime_gamma (p : O) (hp : Prime p)
 
 #print axioms j_one_bare_completed_weight
 #print axioms inverse_character_projection
+#print axioms centered_projection_vanishes_of_constant_residue
 #print axioms corrected_j_one_prime_gamma
 
 end VF919OriginalLowMetaProjection
