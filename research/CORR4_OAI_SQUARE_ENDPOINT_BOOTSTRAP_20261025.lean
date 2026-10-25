@@ -150,7 +150,7 @@ theorem corr4_mertens_all_integer_shell
       norm_add_le _ _
     _ ≤ ((x - squareRootEndpoint R : ℕ) : ℝ) +
           ‖mertensSummatory (squareRootEndpoint R)‖ :=
-      add_le_add_right hvar _
+      add_le_add hvar le_rfl
     _ ≤ ‖mertensSummatory (squareRootEndpoint R)‖ +
           2 * (R : ℝ) := by linarith
 
