@@ -28,6 +28,7 @@ open ActualEisensteinCubic
 open SevenEighths.ProbePhysical
 open CanonicalQuadraticSieve
 open CenteredExceptionalCount
+open UniqueFactorizationMonoid
 local notation "O" => ActualEisensteinCubic.O
 local notation "Id" => Ideal O
 
