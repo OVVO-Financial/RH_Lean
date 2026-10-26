@@ -4,11 +4,11 @@
 
 Reproduce with:
 
-\`\`\`bash
+```bash
 python scripts/corr4_bucket_hyperbola_pilot.py --R 1027 --H 5000 --T 150
 python scripts/corr4_bucket_hyperbola_pilot.py --R 1027 --H 3000 --T 250
 python scripts/corr4_bucket_hyperbola_pilot.py --R 317 --H 1000 --T 90
-\`\`\`
+```
 
 Requires Python and numpy. The original, not simulated, coefficients are computed multiplicatively via the local Eisenstein inverse polynomials. The code independently verifies the sharp #919 \(M(Y)=\sum_{m\le Y}a_6(m)K(\lfloor Y/m\rfloor)\) on three tent sites, with the 36-period kernel and all 2/3 exclusions restored.
 
@@ -75,7 +75,7 @@ The **sharp quotient-1 bucket** \(A_6(X)-A_6(\lfloor X/2\rfloor)\) is **+82**, n
 | All composites | +38,878 |
 | **Net** | **+82** |
 
-These values independently reproduce the existing **+82** in \`CORR4_MIXED_TAIL_RECORD_PLATEAU_FEJER_20261026.md\`. The proposed -10,575 smooth subtotal is not consistent with the original \(a_6\) sequence.
+These values independently reproduce the existing **+82** in `CORR4_MIXED_TAIL_RECORD_PLATEAU_FEJER_20261026.md`. The proposed -10,575 smooth subtotal is not consistent with the original \(a_6\) sequence.
 
 Additional independent pilots:
 - \(R=317,H=1000,T=90\): high -26.249308, exact Abel numerator error 0; absolute quotient bill 10,967.206964.
@@ -132,4 +132,4 @@ In the zero-target NNS/Co-Div vocabulary, the missing input can equivalently be 
 \]
 That equality is algebraic; **its uniform upper bound is not proved**.
 
-**Next Lean acceptance:** port (A)/(B) as finite \`Finset.sum_comm\` + \`K(0)=0\` + discrete telescoping, with exact strict \(m>T\) gate and \(U_*,U_0\) distinction. Keep (C) with a moving \(z(h)\) or an explicit correction collar. Do not upgrade either to a claimed analytic improvement.
+**Next Lean acceptance:** port (A)/(B) as finite `Finset.sum_comm` + `K(0)=0` + discrete telescoping, with exact strict \(m>T\) gate and \(U_*,U_0\) distinction. Keep (C) with a moving \(z(h)\) or an explicit correction collar. Do not upgrade either to a claimed analytic improvement.
