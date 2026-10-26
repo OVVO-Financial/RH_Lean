@@ -138,7 +138,7 @@ theorem corr4_monotone_sharp_kernel_complex_norm
       |∑ u ∈ Finset.Icc L U,
         ((vf919SharpQuotientKernel36 u : ℝ) -
          (vf919SharpQuotientKernel36 (u - 1) : ℝ)) * w u| := by
-    convert hnr0 using 1 <;> push_cast <;> rfl
+    convert hnr0 using 1
   exact hnr.le.trans hr
 
 
