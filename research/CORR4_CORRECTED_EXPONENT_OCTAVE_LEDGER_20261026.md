@@ -87,7 +87,7 @@ The full decoder satisfies the exact **coefficient identity**
 When the sharp/tent cutoff Y>=6r, the full finite prefix of the
 four-point low-owner correction is identically zero. Thus
 \[
- \sum_{n\le Y}[d*(\mu_{6,>r}*b_6)](n)=M(Y),
+ \sum_{n\le Y}\bigl(d*(\mu_{6,>r}*b_6)\bigr)(n)=M(Y),
  \qquad Y\ge6r.\tag{C}
 \]
 The truncated low-u branch is M(Y) **minus its u>=L boundary tail**,
