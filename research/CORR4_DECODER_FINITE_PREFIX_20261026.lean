@@ -85,7 +85,7 @@ theorem corr4_decoder_euler_eval (n : ℕ) :
     rw [← hdelta]
     ring
   rw [heq]
-  simp only [ArithmeticFunction.sub_apply, ArithmeticFunction.add_apply]
+  simp only [vf919ArithmeticFunction_sub_apply, ArithmeticFunction.add_apply]
   rw [vf919DirichletDelta_mul_apply 3 (by decide),
     vf919DirichletDelta_mul_apply 4 (by decide),
     vf919DirichletDelta_mul_apply 12 (by decide)]
