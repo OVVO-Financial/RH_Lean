@@ -133,3 +133,80 @@ In the zero-target NNS/Co-Div vocabulary, the missing input can equivalently be 
 That equality is algebraic; **its uniform upper bound is not proved**.
 
 **Next Lean acceptance:** port (A)/(B) as finite `Finset.sum_comm` + `K(0)=0` + discrete telescoping, with exact strict \(m>T\) gate and \(U_*,U_0\) distinction. Keep (C) with a moving \(z(h)\) or an explicit correction collar. Do not upgrade either to a claimed analytic improvement.
+
+
+## E. New fixed-cutoff and second-Abel audit (2026-10-26)
+
+**Independent execution:** \`/mnt/data/corr4_second_abel_audit.py\` in the analysis container (not a repository fixture) reproduced the integer tent numerators and verified the fixed asymmetric hyperbola at 15 sample (u,Y) pairs with u in {1,2,5,100,500}. The repository acceptance script \`scripts/corr4_bucket_hyperbola_pilot.py\` now includes the same fixed-cutoff and first/second Abel assertions. The new Lean module \`research/CORR4_FIXED_HYPERBOLA_DOUBLE_ABEL_20261026.lean\` has been committed for CI; compilation must be checked, not presumed.
+
+### E.1 The exact asymmetric hyperbola identity
+
+Let f=mu_6, g=chi_-3*mu_6 pointwise (NOT a Dirichlet convolution in this notation), F(z)=sum_{a<=z}f(a), G(z)=sum_{b<=z}g(b). For an arbitrary integer y0>=1, entirely independent of h,
+
+\[
+\boxed{A_6(Y)
+=\sum_{a\le y_0}f(a)G(\lfloor Y/a\rfloor)
++\sum_{b\le\lfloor Y/(y_0+1)\rfloor}
+ g(b)\left[F(\lfloor Y/b\rfloor)-F(y_0)\right].}\tag{D}
+\]
+
+It partitions a<=y0 and a>y0, so there is no moving square-root overlap correction. The **b cutoff still varies with Y**. Replacing it with y0 or dropping its gate is not justified.
+
+The previous symmetric frozen-root error at (R,H,u)=(1027,5000,1) is -1 at all 4999 sites h=1..4999 and 0 elsewhere; exact tent-averaged defect is **-0.4999**. A reported 41.34 is not the defect in this genuine coefficient audit. The moving sqrt boundary crosses more than one integer, but the *signed omitted region* reduces to this single unit in this pilot.
+
+### E.2 First and second Abel, with endpoints
+
+For B_u=sum_{m>T} a6(m) Phi_{H,X}(um), K(0)=0, d(u)=K(u)-K(u-1), P(u)=sum_{j=1}^u K(j), B_{U+1}=B_{U+2}=0, finite telescoping yields
+
+\[
+\boxed{\sum_{u=1}^{U}d(u) B_u
+=\sum_{u=1}^{U}K(u)(B_u-B_{u+1})
+=\sum_{u=1}^{U}P(u)(B_u-2B_{u+1}+B_{u+2}).}\tag{E}
+\]
+
+**The exact primitive range [-4,4], step rule, and first quotient Abel lemma are already Lean-certified** in \`research/VF_MID_919_QUOTIENT_SIGNED_RETURN.lean\`: \`vf919QuotientKernelPrimitive36_bounds\`, \`vf919QuotientKernelPrimitive36_step\`, \`vf919QuotientKernel36_signed_abel\`. New proof work must reuse these declarations instead of reproving them. The real new formalization is the difference-kernel Abel identity and its composition with the existing primitive, including b(U+1)=b(U+2)=0.
+
+**Executed R=1027,H=5000,T=150**: first Abel, second Abel and original high-source tent pairing have **identical integer numerators 8,889,789,728**. The absolute sums of first/second differences are 4,199.22532216 and 5,766.53300356, giving the rigorous but loose second-Abel upper bound 23,066.13201424 compared with the signed total 355.59158912. The earlier 93,335.21720752 is **sum |d(u)B_u|, not sum |B_u|**; it suppresses the d(u)=0 buckets.
+
+### E.3 Stronger high-quotient tail: the entire range can be paid unconditionally
+
+The monotone tent ramp gives 0<=Phi(um)<=1 and Phi(um)>=Phi((u+1)m). For 1<=L<=U_* and B_{U_*+1}=0, the **range-restricted** first Abel identity is
+
+\[
+\sum_{u=L}^{U_*}d(u)B_u
+=-K(L-1)B_L+\sum_{u=L}^{U_*}K(u)(B_u-B_{u+1}).\tag{F}
+\]
+
+Use the same original occurrence coefficients and DO NOT replace B_u by absolute masses. The triangle inequality **after** Abel is legal because
+\[
+\begin{aligned}
+|B_L|&\le\sum_{m>T}|a_6(m)|\Phi(Lm),\\
+\sum_{u=L}^{U_*}|B_u-B_{u+1}|
+&\le\sum_{m>T}|a_6(m)|\sum_{u=L}^{U_*}(\Phi(um)-\Phi((u+1)m))\\
+&=\sum_{m>T}|a_6(m)|\Phi(Lm).
+\end{aligned}
+\]
+The inner difference of Phi is nonnegative: it is the essential monotonicity that permits **telescoping before absolute summation over all u**. Since |K(u)|<=2 and the already-proved genuine coefficient mass is sum_{m<=N}|a6(m)|<=N,
+
+\[
+\boxed{
+\left|\sum_{u=L}^{U_*}d(u)B_u\right|
+\le4\sum_{T<m\le\lfloor(X+H-1)/L\rfloor}|a_6(m)|
+\le4\left\lfloor\frac{X+H-1}{L}\right\rfloor.}\tag{G}
+\]
+
+This is an **unconditional deterministic high-u tail estimate** on the genuine signed high-norm source. No heuristic n^epsilon divisor bound, Mertens saving, special Hecke phase or second Abel estimate is needed. At the critical scaling X~H^(8/7), choosing L=ceil(H^(1/7+2kappa)) yields a high-u tail O(H^(1-2kappa)), subject to the exponent bookkeeping and rounding. If L>U_*, the high-u tail is empty.
+
+**This does NOT bound the remaining low-u term.** The independent missing inequality is precisely
+\[
+\left|\sum_{1\le u<L}d(u)B_u\right|\ll H^{1-\kappa}
+\]
+with the true y0-fixed asymmetric hyperbola and the principal split-prime source intact.
+
+### E.4 The proposed low-u proof has an analytic gap
+
+Even with fixed y0=H^(4/7), the first hyperbola term contains G(floor((X+h)/(ua))) with argument t~X/(ua) and tent-window length W~H/(ua). Their ratio is W/t~H/X~H^(-1/7), a **fixed power-short relative window**. The classical fixed-conductor zero-free region yields a global bound of the form |G(t)|<=t exp(-c(log t)^alpha) (log refinements omitted). Difference of two such global bounds supplies at best t exp(-c(log t)^alpha), **larger than W=t H^(-1/7)** for asymptotically large H. Hence this theorem does *not* establish signed power cancellation for the hyperbola's short arithmetic increments, even when ua<<H.
+
+Furthermore, the term \`F(floor(Y/b))-F(y0)\` from (D) can be as hard as the original Mobius signed cancellation. The Euler identity of 1/zeta_K eliminates a limiting average/main pole, but does not prove finite-cutoff cancellation of the split-prime, cofactor and smooth populations with the required power rate.
+
+**Precise new input needed:** a uniform bilinear/Type-II or short-interval signed estimate on the actual f/g convolution, with all (u,a,b) weights, moving b gate, y0 cutoff and boundary collars, strong enough to sum u<L. Existing PNT/zero-free estimates alone do not discharge this obligation. No RH or 7/8 improvement has been proved by (D)-(G).
