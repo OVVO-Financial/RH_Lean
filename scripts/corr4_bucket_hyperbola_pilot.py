@@ -41,13 +41,13 @@ def q36(t):
 
 
 def get_ramps(H):
-    """R(d)=weighted count of h>=d, h=-H+1...H-1, divided by H^2."""
+    """Integer numerator R(d)*H^2: tent weight for h>=d."""
     weights = np.array([H-abs(h) for h in range(-H+1,H)],dtype=np.int64)
     tail = np.r_[np.cumsum(weights[::-1],dtype=np.int64)[::-1],0]
     def ramp(d):
         ar=np.asarray(d, dtype=np.int64)
         idx=np.clip(ar+H-1,0,len(tail)-1)
-        return np.where(ar <= -H+1, 1.0, np.where(ar>=H, 0.0, tail[idx]/H**2))
+        return np.where(ar <= -H+1, H*H, np.where(ar>=H, 0, tail[idx]))
     return ramp
 
 
@@ -55,7 +55,7 @@ def buckets(pfx, a6, X,H,T, number_detail=16):
     maxu=(X+H-1)//(T+1)  # nonempty for m>T; larger u only contribute 0
     maxu_proposed=(X+H)//T
     ramp=get_ramps(H)
-    small = np.zeros(maxu+1,dtype=np.float64)
+    small = np.zeros(maxu+1,dtype=np.int64)
     incr=np.zeros(maxu+1,dtype=np.int64)
     kprev=0
     for u in range(1,maxu+1):
@@ -63,19 +63,19 @@ def buckets(pfx, a6, X,H,T, number_detail=16):
         lo=T+1
         # whole-weight site m iff um <= X-H+1
         full=min((X-H+1)//u,(X+H-1)//u)
-        total=0.0
+        total=0
         if full>=lo:
-            total=float(pfx[full]-pfx[T])
+            total=int(pfx[full]-pfx[T])*H*H
         coll_start=max(lo,full+1)
         coll_end=(X+H-1)//u
         if coll_end>=coll_start:
             ms=np.arange(coll_start,coll_end+1,dtype=np.int64)
-            total+=float(np.dot(a6[ms].astype(np.float64),ramp(u*ms-X)))
+            total+=int(np.dot(a6[ms].astype(np.int64),ramp(u*ms-X)))
         small[u]=total
     contributions=small*incr
-    btest={int(u):[int(incr[u]),float(small[u]),float(contributions[u])] for u in range(1,number_detail+1)}
-    val=float(contributions.sum())
-    return val,maxu,maxu_proposed,btest,[(int(u),float(contributions[u])) for u in np.argsort(-np.abs(contributions))[0:12] if u>0]
+    btest={int(u):[int(incr[u]),float(small[u])/(H*H),float(contributions[u])/(H*H)] for u in range(1,number_detail+1)}
+    val=int(contributions.sum())
+    return val,maxu,maxu_proposed,btest,[(int(u),float(contributions[u])/(H*H)) for u in np.argsort(-np.abs(contributions))[0:12] if u>0]
 
 
 def main(R,H,T):
@@ -87,11 +87,11 @@ def main(R,H,T):
     hs=np.arange(-H+1,H,dtype=np.int64)
     w=H-np.abs(hs)
     xhs=X+hs
-    total=float(np.dot(w.astype(np.float64),mertens[xhs]))/H**2
+    total_num=int(np.dot(w,mertens[xhs])); total=total_num/H**2
     mv=int(mertens[X]);
     Q=q36(xhs[:,None]//np.arange(1,T+1)[None,:])
     low_per_h=(Q*a6[1:T+1]).sum(axis=1)
-    low=float(np.dot(w.astype(np.float64),low_per_h))/H**2
+    low_num=int(np.dot(w,low_per_h)); low=low_num/H**2
     high=total-low
     A6=int(pfx[X]);pA6=int(pfx[X//2]);b1=A6-pA6
     begin=X//2+1
@@ -104,7 +104,7 @@ def main(R,H,T):
     e2=int(a6[ms[highcomposite]].sum())
     e3=int(a6[ms[smooth]].sum())
     num_primes=int(issplit.sum())
-    recovered,actualumax,proposedumax,details,largest=buckets(pfx,a6,X,H,T)
+    recovered_num,actualumax,proposedumax,details,largest=buckets(pfx,a6,X,H,T)
     # Cross-check at a few h the exact restored Mertens identity using bucket weights
     source=[]
     for y in [X-H+1,X,X+H-1]:
@@ -131,7 +131,7 @@ def main(R,H,T):
     print(num_primes,e1,e2,e3,e2+e3,e1+e2+e3)
     print('Q36 values 0..36:',list(map(int,q36(np.arange(37)))))
     print('Exact M=source checks:',source)
-    print('quotient Abel high:',recovered,'error:',recovered-high,'Umax_actual',actualumax,'Umax_formula',proposedumax)
+    print('quotient Abel high:',recovered_num/H**2,'integer numerator error:',recovered_num-(total_num-low_num),'Umax_actual',actualumax,'Umax_formula',proposedumax)
     print('first quotient contributions [u, dK, smoothed (A6-A6T), weighted]:',details)
     print('largest |signed| quotient contributions:',largest)
     print('hyperbola (Y, sqrtY, exact, A6, fixed_cutoff, naive, error):',hy)
