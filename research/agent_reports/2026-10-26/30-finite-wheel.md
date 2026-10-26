@@ -185,8 +185,9 @@ PRs #1021--#1024 are merged on main; #1021's conditional power equivalence is
 proved, not its open premise. At final refresh a new draft PR #1026 existed at
 head `5dba4b6cced298985659948f72ac7bcf20821e21`, base
 `06f488aca201f5806c8ac40923be9f73a917b1c3`. Nine observed workflows were
-successful and `Targeted Lean iteration` run `40267738497` was still in
-progress. Therefore #1026 is `CI_PENDING / NOT PROMOTED` in this report.
+successful; `Targeted Lean iteration` run `40267738497` completed CANCELLED,
+so its compile/axiom result is not green. Therefore #1026 is
+`CI_INCOMPLETE / NOT PROMOTED` in this report.
 
 This agent created no proof PR, changed no Lean source, reviewed no PR, and
 performed no merge or auto-merge.
