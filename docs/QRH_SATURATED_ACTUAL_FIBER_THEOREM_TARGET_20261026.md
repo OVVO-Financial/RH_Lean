@@ -63,12 +63,12 @@ Read the **real original source** at `Record1252270103Return/WindowFiber.lean` l
 
 The original estimate is (write delta=2a−1 and p=F.q/delta):
 
-[
+\[
   \#F.\mathrm{rows}
   \le \mathrm{fiberConstant}(C,\mathrm{height},K_0)
     U^{\;w.\mathrm{value}(\delta,p)
       +159\varepsilon+\varepsilon_m+F.\mathrm{mesh}+7\nu_{\mathrm{width}}}.
-]
+\]
 
 **Warning:** the theorem's `nu_width` (= actual Lean `ν`) is a freely selected positive width/mesh loss **≤ 1e-7**, not the desired gain. Keep this letter in the original Lean source; name the new arithmetic power **`sigma_sat`** or `σ_sat`.
 
@@ -78,14 +78,14 @@ Choose one **fixed** positive real `sigma_sat`, numerical trial `sigma_sat = 3/4
 
 **Hypothetical theorem** `count_fiber_at_window_sat_power_gain`: under **the exact same** outer binders, original arithmetic predicates, moment and window hypotheses, and eventual-U order as `count_fiber_at_window`, for every original admissible fiber satisfying
 
-[
+\[
 \delta=2a-1,\qquad p=F.q/\delta,\qquad
 \frac{49}{100}\le p\le\frac12,
-]
+\]
 
 prove **without assuming the desired improved bound**:
 
-[
+\[
 \boxed{
  \#F.\mathrm{rows}
  \le \mathrm{fiberConstant}(C,\mathrm{height},K_0)\,
@@ -93,7 +93,7 @@ prove **without assuming the desired improved bound**:
  +159\varepsilon+\varepsilon_m+F.\mathrm{mesh}
  +7\nu_{\mathrm{width}}}.
 }
-]
+\]
 
 All genuine original Hecke/Dirichlet families, modulus conditions, physical character phases, positive diagonal, chosen cutoff, all legal windows, real height, label/dyadic indices, retained masks and frequency ranges remain in force. **Not** a synthetic arbitrary `Finset`/iid amplitude sparsity statement. A bound only on finite numerical rows, or assuming a new strength on `Moments` / `AffineMarkedMoment` instead of proving it from original source, does not close the source task. If the full all-window theorem is too strong or false, isolate the minimal still-uniform actual `returnWindow07` / chosen-window theorem and reprove the selected-envelope consumer. No source hypothesis may depend on U, row, window, or conductor in an unauthorized way.
 
