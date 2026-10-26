@@ -1231,3 +1231,15 @@ Möbius-Abel carrier after global reassembly.  A future deterministic lifetime
 or active-population envelope strong enough to give \(O(R\log R)\) crossing
 population would feed the already-proved floor-Li/VF root-scale bridge and
 therefore the direct square-endpoint von-Koch consumer.
+
+## Formal milestone record and proof-obligation DAG (2026-10-25 reconciliation)
+
+Append-only summary; details in [FORMALIZATION_MILESTONES.md](docs/FORMALIZATION_MILESTONES.md) and the [proof-dependency DAG](docs/PROOF_DEPENDENCY_DAG.md).
+
+1. **von Koch (1901) — canonical VF reduction (#932, 2026-10-12).** `vfCanonical`; `abs_vfCanonicalLiError_le_uniform_allReal` (VF_can − Li₂ = O(1) on all real x ≥ 4); `vfCanonicalSquareVonKoch_iff_primeLiVonKoch` and companions; consumer `riemannHypothesis_of_vfCanonicalSquare` with explicit `ClassicalVonKochRHCriterion`. Classification `FORMALIZED_CANONICAL_VONKOCH_REDUCTION`. The classical analytic theorem is an interface; the actual-prime bound `VFCanonicalSquareVonKochStatement` is open.
+2. **Mertens-side consumers (library).** `riemannHypothesis_of_mertensEnergy` (no interface); `mertensEnergyBounded_of_squareRootEndpointAmplification`; CORR-4 terminal chain through `squareEndpointRawOddQ2EnergyStepWith_implies_endpointAmplification`.
+3. **Subsequent formal results.** #939 #915 content audit; #949 exponent ⇔ zero boundary; #954 signed lift; #958/#961 incidence; #983 Lean 4.34.1 migration; #987 imported OpenAI 7/8 (benchmark, not native); #1017 heavy slot; #1019 closed-square birth/transport.
+4. **On open PRs at 2026-10-25.** #1023 odd-prime frame b₇ (green); #1022 low-Gaussian zero mode (green draft); #1021 relaxed-remainder wiring (latest head red).
+
+The current dependency is arithmetic: every RH path in the DAG has an open arithmetic input. The only formalization-completeness item on the von Koch path is constructing `ClassicalVonKochRHCriterion`.
+

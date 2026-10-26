@@ -61,7 +61,7 @@ Preserve user authorization: **one scheduled invocation per specialist per day**
 ## 5. Current live PR audit (checked 2026-10-24; MUST REFRESH)
 
 - **Merged:** #915 (conditional original first-bad source toolkit), #929 (finite A/C identities), #975 (historical owner no-go), #987 (imported original unconditional OAI 7/8 genuine covariance), #1005, #1006, #1008, #1009, #1013. These are not unmerged merely because old documentation says "draft".
-- **#1019:** green dedicated Lean 4.34.1 compile, **open/unmerged** at `0d39cfe586b8abf072042899f73bd3e326a29007`; exact physical square birth and moving-complement telescope are proved. Root-divisor correction and full endpoint shell identity are **not** silently upgraded.
+- **#1019:** green dedicated Lean 4.34.1 compile, **open/unmerged** at `0d39cfe586b8abf072042899f73bd3e326a29007` when this audit was taken (**merged 2026-10-24T21:57:31Z**, see §7); exact physical square birth and moving-complement telescope are proved. Root-divisor correction and full endpoint shell identity are **not** silently upgraded.
 - All live merge states and check runs are fetched anew at execution. No auto-merge requested.
 
 ## 6. Reporting template for every actual run
@@ -79,3 +79,13 @@ Next-run capsule and explicit unresolved assumption; PR/report link; no merge
 ```
 
 Other historical task-specific contracts remain valuable references but **are no longer FIRST task selectors**. This portfolio is task routing, not an additional mathematical premise.
+
+## 7. Dated addendum — 2026-10-25 (milestones, PR corrections, new findings)
+
+This portfolio (PR #1020) was human-merged 2026-10-24T22:29:18Z and is the live task selector. The [proof-dependency DAG](PROOF_DEPENDENCY_DAG.md), generated from [proof-obligations.json](proof-obligations.json), now carries the route scoreboard, each RH path's unpaid inputs, the ranked frontier and the seven next deliverables; [FORMALIZATION_MILESTONES.md](FORMALIZATION_MILESTONES.md) records completed results. Nothing in this addendum changes a target, a theorem statement or a role permission.
+
+- **Milestone recognition.** The canonical VF von Koch reduction (`MILESTONE-VONKOCH-VF-LEAN`, #932) and VF_can − Li₂ = O(1) on all real x ≥ 4 (`MILESTONE-VF-LI-O1`) are completed Lean results on main. von Koch's 1901 criterion enters only through the explicit interface `ClassicalVonKochRHCriterion`; constructing it is a formalization-completeness task, separate from the open actual-prime bound.
+- **PR corrections (observed 2026-10-25).** #1019 merged; #1021 open (head `daefa859` failed two workflows; new head `72d7e508` CI running at 2026-10-26T00:15Z); #1022 open draft, head `03f756a4` 13/13 jobs green; #1023 open, head `44fbcf3f` 12/12 jobs green.
+- **CORR4.** #1023 proves the odd-prime frame b₇ = 1565172113/7214407200; with #1021's conditional wiring the coefficient is 3 + 4b₇ ≈ 3.8678 < 4. The critical missing theorem is |B_R|² ≤ (9/4)E_R + C R² K_R on the exact carrier (`OPEN-CORR4-RELAXED-REMAINDER`). Claim `20261025-coordinator-1` (paper) shows unsigned-frame arguments rehouse a finite-A excursion; R = 57 refutes the local sign necessity. Stop tightening unsigned reciprocal constants; seek a signed first-owner Gram restriction.
+- **JOH.** Claim `20261024-owner-1` (paper): #915's boundary is a zeroth moment, JOH needs the first moment J_r; blocks r = 4, 7 refute count-only bridges (reproduced in `scripts/proof_dag_falsifier_regressions.py`).
+- **OAI-NNS.** #1022's zero mode and Z^{−1/64} source-local band are structural progress; a strict improvement of 7/8 still needs the complete eight-gate ledger with δ > 0.

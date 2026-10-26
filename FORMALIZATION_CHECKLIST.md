@@ -6,6 +6,28 @@ This file is the mandatory closeout record for every pull request in `RH_Lean`.
 
 A PR is not complete unless this file is updated on the same branch before the substantive merge-gating CI run. Do not add a post-green documentation-only commit merely to record CI status.
 
+## Completed formal milestones vs open mathematics (snapshot 2026-10-25)
+
+Kept apart so that a finished reduction is never read as a proof of its hypothesis. Source of truth: [proof-obligations.json](docs/proof-obligations.json); narrative in [FORMALIZATION_MILESTONES.md](docs/FORMALIZATION_MILESTONES.md).
+
+**Completed in Lean on main (selected):**
+
+- [x] `MILESTONE-VF-CANONICAL` — canonical VF_can = vfMid + √2 with the exact actual-prime block recurrence (#932).
+- [x] `MILESTONE-VF-LI-O1` — VF_can − Li₂ = O(1) on every real x ≥ 4 (#932).
+- [x] `MILESTONE-VONKOCH-VF-LEAN` — canonical square-endpoint ⇔ all-real ⇔ legacy ⇔ prime−Li₂ von Koch bounds; conditional RH consumer with explicit `ClassicalVonKochRHCriterion` (#932).
+- [x] Mertens energy ⇒ RH proved internally (`riemannHypothesis_of_mertensEnergy`); finite A ⇒ Mertens energy; CORR-4 ⇒ finite A.
+- [x] #915/#939 first-bad toolkit and content audit; #949 Mertens exponent ⇔ zero boundary; #954 signed lift; #958/#961 incidence structure; #987 imported OpenAI 7/8; #1017 heavy slot; #1019 closed-square birth/transport.
+
+**Open mathematics (no Lean proof, no accepted paper proof):**
+
+- [ ] `OPEN-VF-ACTUAL-PRIME`: ∃C ∀R ≥ 2, |π(R²) − VF_can(R²)| ≤ C R log R (and its one-sided, #915 and JOH variants).
+- [ ] `OPEN-FINITE-AC`, `OPEN-CORR4`, `OPEN-CORR4-RELAXED-REMAINDER`, `OPEN-MU-LIFT`, `OPEN-NYMAN-DENSITY`, `PROP-MERTENS-ENERGY`.
+- [ ] `OPEN-MERTENS-EXPONENT-BELOW-7-8` (non-RH intermediate): no strict improvement of 7/8 verified.
+
+**Formalization completeness (mathematics established, Lean construction missing):**
+
+- [ ] `CLASSICAL_VONKOCH_CRITERION_FORMAL_IMPORT_OR_PROOF` — construct `ClassicalVonKochRHCriterion`; external Ω±, Johnston and Báez-Duarte theorems are likewise not formalized.
+
 ## 1. Non-negotiable proof rules
 
 Every PR must preserve all of the following:
@@ -80,6 +102,18 @@ Each PR description and checklist update must identify:
 - remaining analytic or realization obligations.
 
 ## Active PR record
+
+### Documentation/infrastructure PR — proof-obligation DAG and formalization milestones (2026-10-25; no Lean source change)
+
+- [x] Refresh live main `8d3a06d`, agent-reports `48862446`, and PR states of #932, #987, #1017, #1019–#1023 from GitHub; record dated heads and observed checks.
+- [x] Verify every cited Lean declaration on main (lexically and against the repository index) and record its file.
+- [x] Add `docs/proof-obligations.json`, `docs/PROOF_DEPENDENCY_DAG.md`, `docs/FORMALIZATION_MILESTONES.md`, `scripts/proof_obligation_dag.py`, `scripts/test_proof_obligation_dag.py`, `scripts/proof_dag_falsifier_regressions.py`.
+- [x] Give the von Koch (1901) / canonical VF reduction first-class placement; keep `ClassicalVonKochRHCriterion` explicit and the actual-prime bound open.
+- [x] Correct stale #1019 status text by dated annotation without deleting history; replace the validator's word-presence PR test with typed snapshot metadata.
+- [x] Preserve `docs/research-frontier.json` track meanings (pointer added only) and all historical sections.
+- [ ] Final-head documentation, portfolio and proof-inventory workflows green.
+- [ ] Human review/merge only; no theorem statement, canonical definition, schedule or Studio change; no RH claim.
+
 
 ### PR #944 — central seven-agent signed collision-transfer routing (2026-10-14; instructions only)
 

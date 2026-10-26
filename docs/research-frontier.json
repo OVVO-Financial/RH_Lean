@@ -1,6 +1,7 @@
 {
   "schema": "rhlean-research-frontier/1",
   "authority": "Source navigation only. Conditional consumers do not prove their hypotheses; paper and numerical evidence do not certify Lean theorems.",
+  "proof_obligations": "docs/proof-obligations.json maps each track below (historical_tracks) to proposition nodes of the mathematical proof DAG; this file stays a source-navigation registry.",
   "tracks": [
     {
       "pr": 915,

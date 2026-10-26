@@ -1,6 +1,8 @@
 # Documentation index
 
 
+**2026-10-25 additions:** [proof-dependency DAG](PROOF_DEPENDENCY_DAG.md) (mathematical Layer A, generated from [proof-obligations.json](proof-obligations.json)) and [formalization milestones](FORMALIZATION_MILESTONES.md) (completed formal results, led by the von Koch (1901) / canonical VF reduction). Read them after the portfolio; they record statuses, not new theorems.
+
 **2026-10-24 current reading order after human merge:** [the ten-route proof portfolio](RH_PROOF_ATTACK_PORTFOLIO_20261024.md), [AGENTS.md](../AGENTS.md), [proof contract](../CURRENT_PROOF_CONTRACT.md), [seven-role protocol](DYNAMIC_RESEARCH_AGENTS.md), and [seven complete Studio instruction templates](AGENT_STUDIO_20261024_SEVEN_PROMPTS.md). This prevents reassigning seven agents to one redundant signed-cancellation obligation. Historical Oct 22 OAI/NNS remains a specialized source, no longer the FIRST task selector. Canonical VF von Koch/RH remains open. The literal universal every-block VF capture claim is REFUTED at R=549. No new mathematical exponent follows from documentation.
 
 
@@ -17,6 +19,8 @@ alternatives, not replacements. Start with the
 | [README](../README.md) | Public project status and entry points. |
 | [Current proof contract](../CURRENT_PROOF_CONTRACT.md) | Sole sqrt2 canonical VF endpoint, frozen raw arithmetic translation, actual-prime open gate. |
 | [Current ten-route proof portfolio](RH_PROOF_ATTACK_PORTFOLIO_20261024.md) | Exact distinct sufficient criteria and mechanisms, refuted literal block capture and nonduplicate seven-agent tasks. |
+| [Proof-dependency DAG](PROOF_DEPENDENCY_DAG.md) | Typed mathematical proposition graph, every RH path's unpaid inputs, route scoreboard, seven next deliverables and dated PR evidence; generated from [proof-obligations.json](proof-obligations.json). |
+| [Formalization milestones](FORMALIZATION_MILESTONES.md) | Chronological completed formal results: von Koch (1901) canonical VF reduction, all-real VF − Li₂ = O(1), imported 7/8, structural milestones, and what each does not prove. |
 | [Seven current saved-Studio instruction templates](AGENT_STUDIO_20261024_SEVEN_PROMPTS.md) | Seven ready-to-paste prompts; saved Studio edits and scheduling require separate access. |
 | [Canonical VF full autopsy (Oct 12)](../research/VF_CANONICAL_SQRT_TWO_AUTOPSY_2026_10_12.md) | Definitive new real VF definition, all-real O(1), phase/cofactor/floor/fantasy normalization, von Koch formal interfaces. |
 | [Finite A/C ↔ original VF alignment (Oct 11)](../research/FINITE_A_C_VF_ALIGNMENT_2026_10_11.md) | Distinguish the canonical VF target from finite-A/C alternatives, exact signed mechanisms, conditional consumers, and the one remaining quantitative gate. |
@@ -34,7 +38,7 @@ alternatives, not replacements. Start with the
 | [Research handoff](../CURRENT_RESEARCH_HANDOFF.md) | Latest handoff followed by historical checkpoints. |
 | [Knowledge graph](KNOWLEDGE_GRAPH.md) | Navigation, inventory, and exact dependency audit tooling. |
 | [Repository search and import DAG](REPOSITORY_SEARCH.md) | Full-source discovery across research, documents, scripts, exports, and fetched PR refs, with occurrence and commit provenance. |
-| [Current research frontier DAG](RESEARCH_FRONTIER_DAG.md) | Source-checked map of the eight cleanup tracks, exact import closure, evidence scope and open inputs. |
+| [Current research frontier DAG](RESEARCH_FRONTIER_DAG.md) | Source-checked map of the ten historical cleanup tracks (Layer B), exact import closure, evidence scope and open inputs; distinct from the mathematical proof DAG. |
 
 Lean source and the applicable successful kernel checks take precedence over
 prose. A theorem's ordinary hypotheses matter even when its axiom list is
@@ -70,6 +74,7 @@ headers, not their Lean sources, manifests, or provenance pins.
 | Paper / Analysis boundary | `bash scripts/check_paper_analysis_boundary.sh` |
 | Export closure and synchronization | `python3 scripts/check_export_sync.py` / `Public export verification` |
 | Library compilation and exact declaration graph | `Lean source audits`, including `Hosted Lean build` and the owned-warning gate |
+| Mathematical proof-obligation DAG | `python3 scripts/proof_obligation_dag.py --check --repo-index`; `python3 -m unittest discover -s scripts -p test_proof_obligation_dag.py -v`; `python3 scripts/proof_dag_falsifier_regressions.py` / `RH proof portfolio and seven-agent instruction checks` |
 | Full repository search and module DAG | `python3 -m unittest discover -s scripts -p test_repo_index.py -v`; `python3 scripts/repo_index.py build --require-acyclic` / `Proof inventory` |
 | Local development validation | `bash scripts/local_ci.sh` (requires Lean and dependency-cache access) |
 | Local independent export builds | `bash scripts/verify_exports_local.sh` |

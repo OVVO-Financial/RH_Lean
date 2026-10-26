@@ -16,6 +16,20 @@ on:
       - 'docs/RESEARCH_FRONTIER_DAG.md'
       - 'docs/OAI_COMPENSATED_ONE_PRIME_NNS_SEAM_20261022.md'
       - 'docs/DOCUMENTATION_INDEX.md'
+      - 'README.md'
+      - 'FORMALIZATION_SEQUENCE.md'
+      - 'FORMALIZATION_CHECKLIST.md'
+      - 'docs/PROOF_DEPENDENCY_DAG.md'
+      - 'docs/FORMALIZATION_MILESTONES.md'
+      - 'docs/proof-obligations.json'
+      - 'docs/research-frontier.json'
+      - 'docs/KNOWLEDGE_GRAPH.md'
+      - 'scripts/proof_obligation_dag.py'
+      - 'scripts/test_proof_obligation_dag.py'
+      - 'scripts/proof_dag_falsifier_regressions.py'
+      - 'scripts/repo_index.py'
+      - 'research/VF_CANONICAL_*.lean'
+      - 'research/VF_MID_VON_KOCH_BRIDGE.lean'
       - 'scripts/validate_rh_agent_portfolio.py'
       - 'scripts/vf_block_capture_counterexample_549.py'
       - '.github/workflows/rh-proof-portfolio-agent-instructions.yml'
@@ -34,3 +48,9 @@ jobs:
         run: python3 scripts/validate_rh_agent_portfolio.py
       - name: Reproduce the refutation of universal one-square-block VF capture
         run: python3 scripts/vf_block_capture_counterexample_549.py
+      - name: Validate the proof-obligation DAG, Lean links and generated tables
+        run: python3 scripts/proof_obligation_dag.py --check --repo-index
+      - name: Proof-obligation DAG structural and status-consistency tests
+        run: python3 -m unittest discover -s scripts -p test_proof_obligation_dag.py -v
+      - name: Reproduce recorded CORR-4 and JOH falsifiers
+        run: python3 scripts/proof_dag_falsifier_regressions.py

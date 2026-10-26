@@ -6,6 +6,23 @@
 > **Retained 2026-10-18 execution refinement (secondary after Oct 22):** Under the PNT-first seven-agent contract, run the [two-scale signed S=A-T attack](../research/SIGNED_RENEWAL_TWO_SCALE_ATTACK_PLAN_20261018.md). Owner+Analytic lead on the compensated genuine q/p/cofactor mixed term, Wheel+Lean verify exact shell endpoints and adjustable divisor tail, Census+Referee falsify the c=1 mode and sign claims, Coordinator accepts only an independently proved signed saving with all complements paid. Distinguish a shell-energy improvement beyond 7/8 from the separate cross-shell RH-scale obligation. Prior timetable, permissions, original VF source, and merged no-go theorems are unchanged.
 
 
+## 2026-10-25 alignment with the proof-obligation DAG (after human merge)
+
+Every specialist output now attaches to [proof-obligations.json](proof-obligations.json) (rendered in [PROOF_DEPENDENCY_DAG.md](PROOF_DEPENDENCY_DAG.md)). A report states, for each claim: the registry node it advances or a proposed new node (type, statement with quantifiers, carrier, `logical_status`, `formal_status`, evidence class), the typed edge it would add (identity, equivalence, implication, weighted projection, conditional implication, requirement, refutation, arithmetic gain), and which route path's unpaid input it would change. A paper claim enters as `CLAIMED / PAPER_PROOF_NEEDS_REVIEW`; a census enters as `FINITE_EVIDENCE` or, for an exact counterexample to a universal claim, as a `counterexample` with a reproducer. Only the human-authorized maintenance PR edits the registry; agents propose entries in their own reports.
+
+| Specialist | 2026-10-25 next deliverable | Registry targets | Rejected substitute |
+| --- | --- | --- | --- |
+| Research Coordinator | Refresh the scoreboard from live PR/CI; one prime-side (rank B) and one recursive (rank A or D) attack, each with a falsifier node | `MECH-CORR4-SIGNED-FIRST-OWNER-GRAM`, `MECH-JOH-ANCESTRY-DISPLACEMENT` | Seven agents on one unspecified cancellation |
+| Owner Payment | One dyadic least-prime ancestry law for the boundary-padded JOH displacement, with unequal-count correction, anchor and weighted block defects | `MECH-JOH-ANCESTRY-DISPLACEMENT`, `MECH-VF-LOW-FIRST-LOWER-ESCAPE` | Count-only or density-only bridges (refuted at r = 4, 7) |
+| Adversarial Referee | Independent verdict on claims `20261025-coordinator-1` and `20261024-owner-1` | `NOGO-CORR4-FRAME-ONLY`, `CLAIM-20261024-OWNER-1` | Self-audit presented as review |
+| Prime Census Laboratory | Held-out CORR4 roots above 6000 (H_R, A_R, H_R/A_R vs λ₇); certified D_r = 0 JOH displacement census | `FINITE-CORR4-CENSUS`, `CE-JOH-R4-R7` | Unmotivated larger scans or infinite claims |
+| Analytic Type II | Complete #1022 exponent table with a proved δ > 0 or one unavoidable sector at 7/8 | `MECH-OAI-NNS-COMPLETE-LEDGER`, `CLAIM-1022-POISSON-SAVING` | Local Poisson factor called a global exponent |
+| Finite Wheel & Incidence | Signed incidence restriction on the complete CORR4 first-owner Gram on endpoint-excursion roots | `MECH-CORR4-SIGNED-FIRST-OWNER-GRAM`, `MECH-SAT-OWNER-REMOVAL` | Another unsigned reciprocal-frame constant |
+| Lean Verification | After referee acceptance, formalize the frame-to-endpoint inverse inequality with the open premise explicit; scope `ClassicalVonKochRHCriterion` construction as formalization only; else `NO_NEW_THEOREM_TO_FORMALIZE` | `NOGO-CORR4-FRAME-ONLY`, `CLASSICAL_VONKOCH_CRITERION_FORMAL_IMPORT_OR_PROOF` | Hypotheses hidden as declarations; stale green heads |
+
+**Status corrections:** #1019 is merged (2026-10-24T21:57:31Z); the Lean row below that says "inspect green/unmerged #1019" is the 2026-10-24 instruction. Permissions, one run per specialist per day, report-only scope for six agents, the scoped Lean draft-PR exception and human-only merge are unchanged.
+
+
 ## Live 2026-10-24 portfolio orchestration and role boundaries
 
 | Specialist | First mathematical deliverable | Rejected substitute |

@@ -1,11 +1,31 @@
 # RH_Lean
 
-Lean 4 formalization of the classical von-Koch prime-counting criterion
+Lean 4 formalization of the classical von Koch prime-counting criterion
 in a square-tiled VF coordinate, plus the genuinely open signed
 actual-prime and Möbius arithmetic research.
 
-**Current research direction (2026-10-14):** the seven specialist agents are centrally routed via [AGENTS.md](AGENTS.md) and the [current proof contract](CURRENT_PROOF_CONTRACT.md) toward an **independent signed actual-prime arithmetic replacement** for the continuous Li model's non-transferable *absolute* critical Poisson collision bound. Floor-Li's O(1) rounding and exact actual-minus-floor-Li transport are already proven algebra; they do not bound the genuine unmatched prime population. The continuous Li-density critical collision sum is finite, whereas simply inserting the actual prime indicator yields the divergent unsigned sum of reciprocal primes. No global signed NNS source payment, finite A/C, or RH is proved. PRs #938/#939 are merged logical/payment audits; #941–#943 are merged local arithmetic restrictions, not global closure. See [the studio configuration guide](docs/CHATGPT_AGENT_STUDIO_RH_SETUP_2026_10_12.md) for the one-time check required by saved Workspace Agent instructions: GitHub changes do not edit Studio settings.
+**Status (2026-10-25, main `8d3a06d`, Lean 4.34.1): the Riemann Hypothesis is not proved here.** The repository has completed a Lean reduction of the von Koch criterion to an explicit actual-prime inequality, an unconditional uniform VF − Li₂ bound, an imported unconditional 7/8 Mertens benchmark, and many exact structural results. Every route to RH still has an open arithmetic input; see the [proof-dependency DAG](docs/PROOF_DEPENDENCY_DAG.md) and [formalization milestones](docs/FORMALIZATION_MILESTONES.md).
 
+## Major Formalization Milestone: von Koch (1901) and the Canonical VF Prime-Counting Criterion
+
+**Classical theorem.** H. von Koch, *Sur la distribution des nombres premiers*, Acta Mathematica **24** (1901) 159–182 (doi:10.1007/BF02403071), proved that RH implies π(x) = Li(x) + O(√x log x); with the classical converse this is the criterion RH ⇔ π(x) − Li(x) = O(√x log x). Using Li₂(x) = ∫₂ˣ dt/log t instead of li changes only an additive constant.
+
+**Formalized in Lean on main** by merged [PR #932](https://github.com/OVVO-Financial/RH_Lean/pull/932) (2026-10-12; merged head `2713d8ef495e24164a13a5eb34e3b4ba70a3377e`, 13 workflow runs / 17 jobs green, including warning-fatal compilation and axiom printing in [vf-canonical-sqrt-two.yml](.github/workflows/vf-canonical-sqrt-two.yml)):
+
+| Milestone | Lean declarations | Content |
+| --- | --- | --- |
+| Canonical VF | [`vfCanonical`](research/VF_CANONICAL_SQRT_TWO.lean), `vfCanonicalSquareDefect_succ`, `vfCanonicalPrimeLiError_eq_primeError_add_quadrature` | The unique public VF_can(x) = √2 + Σ_{r=2}^{R−1} (2r+1)/log(r²+r+1/2) + (x−R²)/log((R²+x)/2), R = ⌊√x⌋, with the exact actual-prime block recurrence. |
+| VF_can − Li₂ = O(1) | [`abs_vfCanonicalLiError_le_uniform_allReal`](research/VF_CANONICAL_SQRT_TWO.lean), [`abs_vfMidLiError_le_uniform_allReal`](research/VF_CANONICAL_ALL_REAL_LI_O_ONE.lean), `vfMidLiAllRealUniformBounded` | Unconditionally bounded on **every real x ≥ 4**; stronger than the deterministic input the reduction needs. |
+| von Koch reduction | [`vfCanonicalSquareVonKoch_iff_primeLiVonKoch`](research/VF_CANONICAL_SQRT_TWO_VON_KOCH.lean), `vfCanonicalRealVonKoch_iff_primeLiVonKoch`, `vfCanonicalSquareVonKoch_iff_realVonKoch`, [`vfMidSquareEndpointVonKochBounded_iff_primeLiVonKochBounded`](research/VF_MID_VON_KOCH_BRIDGE.lean) | (∃C ∀R ≥ 2, \|π(R²) − VF_can(R²)\| ≤ C R log R) ⇔ (∃C′ ∀x ≥ 4, \|π(x) − Li₂(x)\| ≤ C′ √x log x), constants renormalized. |
+| Conditional consumer | [`riemannHypothesis_of_vfCanonicalSquare`](research/VF_CANONICAL_SQRT_TWO_VON_KOCH.lean) | `ClassicalVonKochRHCriterion → VFCanonicalSquareVonKochStatement → RiemannHypothesis`. |
+
+**Interface status.** The historical analytic equivalence enters Lean only as the explicit argument [`ClassicalVonKochRHCriterion`](research/VF_MID_VON_KOCH_BRIDGE.lean); constructing it (by import or proof) is an open *formalization-completeness* task, not new mathematics. `#print axioms` does not report such theorem arguments.
+
+**What remains open.** The actual-prime bound `VFCanonicalSquareVonKochStatement`: ∃C ≥ 0 ∀R ≥ 2, |π(R²) − VF_can(R²)| ≤ C R log R. The equivalence is proved; the inequality for actual primes is not. Completing the reduction did not prove its hypothesis.
+
+## Current research status
+
+Ten stable routes are tracked in the [proof-dependency DAG](docs/PROOF_DEPENDENCY_DAG.md) (registry [proof-obligations.json](docs/proof-obligations.json)) and routed to seven specialists by the [portfolio](docs/RH_PROOF_ATTACK_PORTFOLIO_20261024.md): VF-LOW, SAT, CODIV, BLOCK, OAI-NNS, JOH, FINITE-AC, CORR4, MU-LIFT, NYMAN. The literal universal block-capture form of BLOCK is **refuted** at R = 549. Merged [#987](https://github.com/OVVO-Financial/RH_Lean/pull/987) imports the original unconditional OpenAI proof of M(x) = O_ε(x^{7/8+ε}); no strict improvement below 7/8 has been verified. Current leads: a signed CORR4 first-owner Gram restriction (open [#1021](https://github.com/OVVO-Financial/RH_Lean/pull/1021); [#1023](https://github.com/OVVO-Financial/RH_Lean/pull/1023) sharpens the unsigned frame only), a nonlocal prime-chronology law for VF-LOW/JOH, and a complete OAI-NNS exponent ledger ([#1022](https://github.com/OVVO-Financial/RH_Lean/pull/1022)). Open-PR states change; query GitHub.
 
 > **2026-10-12 CANONICAL VF — the only current PUBLIC VF definition is**
 >
@@ -130,6 +150,10 @@ The [terminal axiom audit](RHLean/Proof/TerminalAxiomAudit.lean) guards the
 standard logical axiom footprint of the named terminal implications. A clean
 axiom list does not discharge ordinary theorem hypotheses. Finite numerical
 runs are diagnostics, never uniform bounds or Lean certificates by themselves.
+
+## Historical status notes
+
+**Research direction recorded 2026-10-14 (historical):** the seven specialist agents are centrally routed via [AGENTS.md](AGENTS.md) and the [current proof contract](CURRENT_PROOF_CONTRACT.md) toward an **independent signed actual-prime arithmetic replacement** for the continuous Li model's non-transferable *absolute* critical Poisson collision bound. Floor-Li's O(1) rounding and exact actual-minus-floor-Li transport are already proven algebra; they do not bound the genuine unmatched prime population. The continuous Li-density critical collision sum is finite, whereas simply inserting the actual prime indicator yields the divergent unsigned sum of reciprocal primes. No global signed NNS source payment, finite A/C, or RH is proved. PRs #938/#939 are merged logical/payment audits; #941–#943 are merged local arithmetic restrictions, not global closure. See [the studio configuration guide](docs/CHATGPT_AGENT_STUDIO_RH_SETUP_2026_10_12.md) for the one-time check required by saved Workspace Agent instructions: GitHub changes do not edit Studio settings.
 
 ## Contribution rules
 
