@@ -2,7 +2,7 @@
 
 ## 2026-10-25 — route dispositions and exact missing arithmetic (registry-backed, after human merge)
 
-Machine-readable source: [docs/proof-obligations.json](docs/proof-obligations.json), rendered with every RH path and its unpaid inputs in the [proof-dependency DAG](docs/PROOF_DEPENDENCY_DAG.md). Completed formal results are in [FORMALIZATION_MILESTONES.md](docs/FORMALIZATION_MILESTONES.md). Statuses below are as of main `8d3a06d`, observed 2026-10-25.
+Machine-readable source: [docs/proof-obligations.json](docs/proof-obligations.json), rendered with every RH path and its unpaid inputs in the [proof-dependency DAG](docs/PROOF_DEPENDENCY_DAG.md). Completed formal results are in [FORMALIZATION_MILESTONES.md](docs/FORMALIZATION_MILESTONES.md). Statuses below are as of main `54564c00`, evidence refreshed 2026-10-26.
 
 | Route | Disposition | Exact missing arithmetic (registry node) | RH consumer and remaining conditions |
 | --- | --- | --- | --- |
@@ -13,11 +13,11 @@ Machine-readable source: [docs/proof-obligations.json](docs/proof-obligations.js
 | OAI-NNS | OPEN | Complete eight-gate exponent ledger with δ > 0 (`MECH-OAI-NNS-COMPLETE-LEDGER` → `OPEN-MERTENS-EXPONENT-BELOW-7-8`); RH strength needs exponent 1/2 + ε | Lean Mertens-energy consumer. #987 7/8 is an imported benchmark, not a gain. |
 | JOH | OPEN | Nonlocal least-prime ancestry restriction on first-moment displacement J_r (`MECH-JOH-ANCESTRY-DISPLACEMENT`) giving eventual G(R²) < 0 (`OPEN-JOH-SIGN`) | Johnston arXiv:2201.06184 (literature, li = li(2) + Li₂) + square-endpoint transfer (paper, review pending). |
 | FINITE-AC | OPEN | All-root signed historical-envelope estimate (`OPEN-FINITE-AC`); constants must exceed 0.4357 (paper, Hurst) | Fully Lean-certified chain finite A ⇒ Mertens energy ⇒ RH. |
-| CORR4 | OPEN — frame advanced, physical remainder open | Signed first-owner Gram restriction beyond the scalar frame (`MECH-CORR4-SIGNED-FIRST-OWNER-GRAM`) paying \|B_R\|² ≤ (9/4)E_R + C R² K_R (`OPEN-CORR4-RELAXED-REMAINDER`) | Coefficient-4 CORR-4 ⇒ finite A ⇒ RH is merged Lean; the #1021 relaxation (886/225, or 3 + 4b₇ ≈ 3.8678 with #1023) is not yet certified at its latest head. |
+| CORR4 | OPEN — frame advanced, physical remainder open | Signed first-owner Gram restriction beyond the scalar frame (`MECH-CORR4-SIGNED-FIRST-OWNER-GRAM`) paying \|B_R\|² ≤ (9/4)E_R + C R² K_R (`OPEN-CORR4-RELAXED-REMAINDER`) | Coefficient-4 CORR-4 ⇒ finite A ⇒ RH is merged Lean; merged #1021 certifies the conditional relaxed-remainder ⇒ CORR-4 theorem and the general beta >= 1/2 Gram/Mertens biconditional; #1023 proves an unsigned frame refinement. The full signed mixed-tail power estimate (`OPEN-CORR4-MIXED-TAIL-POWER`) and RH-strength remainder input remain OPEN. |
 | MU-LIFT | OPEN | Fixed-k full-prefix signed estimate with r < k (`MECH-MU-LIFT-SUBCRITICAL`) | Paper contraction (review pending) into the Lean Mertens-energy consumer. |
 | NYMAN | OPEN | All-scale full-basis norm decay at a = 1/2 (`OPEN-NYMAN-DENSITY`) | Báez-Duarte criterion (literature). Burnol rules out q < 1/2 square contractions. |
 
-**Status corrections (2026-10-25):** #1019 merged 2026-10-24T21:57:31Z (the section below records it as green/unmerged at that time); #1021 head `daefa859` failed two workflows and new head `72d7e508` was still running CI when observed; #1022 (draft) and #1023 are green and unmerged. The October 24 portfolio and all earlier sections remain historical context; this table does not upgrade any status.
+**Status corrections (2026-10-26):** #1019 and #1021–#1024 are merged, with exact merged PR heads green. The previous red/pending #1021 and unmerged #1022/#1023 descriptions are historical. The strict exponent target stays OPEN; `MILESTONE-CORR4-POWER-IFF` is a proved equivalence and `CONSUMER-CORR4-MIXED-TAIL-POWER-IMPROVEMENT` a proved conditional implication only. The October 24 portfolio and earlier sections remain historical context.
 
 
 ## 2026-10-24 — CURRENT TEN-ROUTE PROOF PORTFOLIO (after human merge)

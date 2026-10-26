@@ -1,6 +1,6 @@
 # RH_Lean formalization milestones
 
-**Completed formal mathematics, in order, with exactly what each result does not prove.** RH remains OPEN. A completed reduction is a genuine achievement; it is not a proof of its open hypothesis. The machine-readable source is [proof-obligations.json](proof-obligations.json); the open obligations and route dependencies are in the [proof-dependency DAG](PROOF_DEPENDENCY_DAG.md). Snapshot: main `8d3a06d3748282e7e7e5cd273efdd00560cdee15`, Lean `v4.34.1`, observed 2026-10-25.
+**Completed formal mathematics, in order, with exactly what each result does not prove.** RH remains OPEN. A completed reduction is a genuine achievement; it is not a proof of its open hypothesis. The machine-readable source is [proof-obligations.json](proof-obligations.json); the open obligations and route dependencies are in the [proof-dependency DAG](PROOF_DEPENDENCY_DAG.md). Snapshot: main `54564c00e4a5855bc303ad92e38e5e6285031012`, Lean `v4.34.1`, evidence observed 2026-10-26.
 
 ## 1. Major formalization milestone: von Koch (1901) and the canonical VF prime-counting criterion
 
@@ -57,6 +57,7 @@ structure ClassicalVonKochRHCriterion where
 | 10 | 2026-10-21 | `IMPORTED-OAI-7-8` — Imported original OpenAI unconditional 7/8 theorem (#987) | PROVED_IN_LEAN_ON_MAIN | [`openai434_actual_zeta_nonzero`](../research/VF_919_OPENAI_434_UNCONDITIONAL_SQUARE_BLOCK_COVARIANCE_20261019.lean)<br/>[`openai434_actual_global_signed_covariance`](../research/VF_919_OPENAI_434_UNCONDITIONAL_SQUARE_BLOCK_COVARIANCE_20261019.lean)<br/>[`openai434_actual_global_signed_pairs`](../research/VF_919_OPENAI_434_UNCONDITIONAL_SQUARE_BLOCK_COVARIANCE_20261019.lean)<br/>[`openai434_actual_all_square_blocks_seven_eighths`](../research/VF_919_OPENAI_434_UNCONDITIONAL_SQUARE_BLOCK_COVARIANCE_20261019.lean)<br/>[`openai434_actual_all_square_block_covariance`](../research/VF_919_OPENAI_434_UNCONDITIONAL_SQUARE_BLOCK_COVARIANCE_20261019.lean) | [#987](https://github.com/OVVO-Financial/RH_Lean/pull/987) | An independent native reproduction of the OpenAI analytic estimates; Any exponent strictly below 7/8; RH |
 | 11 | 2026-10-24 | `MILESTONE-OAI-HEAVY-SLOT` — Original OAI fixed heavy-slot two-channel split (#1017) | PROVED_IN_LEAN_ON_MAIN | [`Fiber.exists_heavy_slot`](../research/oai_434/VF919OriginalFiberHeavySlotSplit.lean)<br/>[`Fiber.exists_heavy_slot_with_two_channel_sum`](../research/oai_434/VF919OriginalFiberHeavySlotSplit.lean) | [#1017](https://github.com/OVVO-Financial/RH_Lean/pull/1017) | A uniform source moment gap (heavy-slot weight is only >= 7/(37\|S\|)) |
 | 12 | 2026-10-24 | `MILESTONE-1019-BIRTH-TRANSPORT` — Closed-square Mobius birth time and moving transport (#1019) | PROVED_IN_LEAN_ON_MAIN | [`closedSquareShell_birthTime_floor_eq_two_mu_sub_mu_sq`](../research/VF_MID_CLOSED_SQUARE_BIRTH_TIME_20261024.lean)<br/>[`closedSquareShellFloor_eq_open_add_rootDivisor`](../research/VF_MID_CLOSED_SQUARE_BIRTH_TIME_20261024.lean)<br/>[`closedSquareShell_actual_moving_transport_telescope`](../research/VF_MID_CLOSED_SQUARE_MOVING_TRANSPORT_20261024.lean) | [#1019](https://github.com/OVVO-Financial/RH_Lean/pull/1019) | A quantitative bound; An occurrence map to prime/floor-Li events or the weighted #915 source |
+| 13 | 2026-10-25 | `MILESTONE-CORR4-POWER-IFF` — Complete general-exponent CORR-4 Gram / Mertens biconditional (#1021) | PROVED_IN_LEAN_ON_MAIN | [`corr4PowerFirstOwnerGram_iff_mertensPowerBound`](../research/CORR4_OAI_POWER_DETERMINISTIC_FRAME_20261025.lean)<br/>[`corr4_low_daughter_energy_of_prefix_power`](../research/CORR4_OAI_POWER_DETERMINISTIC_FRAME_20261025.lean)<br/>[`corr4_power_buffer_for_H`](../research/CORR4_OAI_POWER_DETERMINISTIC_FRAME_20261025.lean) | [#1021](https://github.com/OVVO-Financial/RH_Lean/pull/1021) | The source-specific signed mixed-tail power estimate OPEN-CORR4-MIXED-TAIL-POWER; Any strict improvement below Mertens exponent 7/8; The Riemann Hypothesis |
 <!-- END GENERATED: milestones -->
 
 ## 3. Notes on the other milestones
@@ -69,15 +70,17 @@ structure ClassicalVonKochRHCriterion where
 - **#987 — imported OpenAI 7/8 (2026-10-21).** [`openai434_actual_zeta_nonzero`](../research/VF_919_OPENAI_434_UNCONDITIONAL_SQUARE_BLOCK_COVARIANCE_20261019.lean) and companions import the original unconditional Lean 4.34.1 proof (pinned `openai/math@1581d4cbdd69a0faf34b2089614fe2a814316a6a`) and transport M(x) = O_ε(x^{7/8+ε}) to RH_Lean's genuine square-block covariance. Provenance: imported certified external Lean, not an independent native reproduction. No strict exponent below 7/8 has been verified.
 - **#1017 / #1019 (2026-10-24).** Original OAI heavy-slot two-channel algebra; exact closed-square Möbius birth time `2μ(k) − μ(k)²` and moving transport. Structure only.
 
-## 4. Formal work on open PRs (not on main)
+## 4. Newly merged formal results (#1021–#1023)
 
-Observed 2026-10-25 (#1021 re-checked 2026-10-26T00:15Z); refresh from GitHub before relying on these rows.
+Verified on the exact merged PR heads, 2026-10-26; these theorems are on `main` (not draft/unmerged). All remaining *arithmetic* hypotheses retain OPEN status.
 
-| PR | Head | Observed CI | Formal content | Scope |
-| --- | --- | --- | --- | --- |
-| [#1023](https://github.com/OVVO-Financial/RH_Lean/pull/1023) | `44fbcf3f2dca` | 12/12 jobs green, ready for review | Σ_{q odd prime ≤ N} 1/q² ≤ b₇ = 1565172113/7214407200 (`oddPrimeOwnerReciprocalSquareBudget_le_compositeGap`) | Finite arithmetic; with #1021's conditional wiring the CORR-4 coefficient becomes 3 + 4b₇ = 6975977513/1803601800 ≈ 3.8678 < 4. Not a remainder bound. |
-| [#1022](https://github.com/OVVO-Financial/RH_Lean/pull/1022) | `03f756a4e495` | 13/13 jobs green, draft | Nonprincipal zero mode `actualCongruenceCoefficient_zero_mode_of_nontrivial` on the original low-Gaussian numerator | Source-local; the Z^{−1/64} Poisson band is a paper claim before outer costs. |
-| [#1021](https://github.com/OVVO-Financial/RH_Lean/pull/1021) | `72d7e508ed13` | 5/14 jobs green, 9 running, 0 failed at 2026-10-26T00:15Z (previous head `daefa85975a6` failed *Targeted Lean iteration* and *CORR4 OAI relaxed physical remainder*) | Relaxed-remainder ⇒ CORR-4 wiring (coefficient 886/225 with the merged 211/900 frame) | Not counted as Lean-certified until a current head is green; the premise `LowOwnerPhysicalRelaxedRemainderBound` is open. |
+| PR | Lean result on main | Exact limitation |
+| --- | --- | --- |
+| [#1021](https://github.com/OVVO-Financial/RH_Lean/pull/1021) | [`corr4PowerFirstOwnerGram_iff_mertensPowerBound`](../research/CORR4_OAI_POWER_DETERMINISTIC_FRAME_20261025.lean): for every beta >= 1/2, existence of a uniform CORR-4 power Gram bound iff `MertensPowerBound beta`; also [`mertensSevenEighthsImprovement_of_corr4MixedTailPowerSaving`](../research/CORR4_OAI_POWER_MIXED_TAIL_GATE_20261025.lean) and [`correlationFour_of_relaxedPhysicalRemainder`](../research/CORR4_OAI_RELAXED_REMAINDER_20261024.lean). | All are conditional as relevant: proving a Gram/Mertens equivalence does not produce a bound; the signed mixed-tail input `OPEN-CORR4-MIXED-TAIL-POWER` and RH-strength relaxed remainder `OPEN-CORR4-RELAXED-REMAINDER` are both unproved. |
+| [#1022](https://github.com/OVVO-Financial/RH_Lean/pull/1022) | [`actualCongruenceCoefficient_zero_mode_of_nontrivial`](../research/oai_434/VF919OriginalLowNonresonantZeroMode.lean) is compiled on the original low-Gaussian source. | Source-local exact zero mode only; Poisson saving beyond outer costs is still a paper claim. |
+| [#1023](https://github.com/OVVO-Financial/RH_Lean/pull/1023) | [`oddPrimeOwnerReciprocalSquareBudget_le_compositeGap`](../research/ODD_PRIME_COMPOSITE_GAP_BASEL_20261025.lean) gives the odd-prime frame bound b7 = 1565172113/7214407200. | An unsigned coefficient improvement, not a signed first-owner remainder estimate. |
+
+**Power-gate distinction:** the conditional statement `2 Gamma_mixed <= 2 E_R + A R^(7/2-eta)` for some 0 < eta <= 3/2 is not proved; if it is proved uniformly, the merged Lean theorem yields `MertensPowerBound (7/8 - eta/4)`. The 7/8 benchmark and RH status are unchanged.
 
 ## 5. What remains
 

@@ -3,19 +3,19 @@
 
 ## Active 2026-10-25 research handoff (authority upon human merge)
 
-**Resume state.** main `8d3a06d3748282e7e7e5cd273efdd00560cdee15` (merge of #1020); `agent-reports` `488624466091f82500ab46c35d7fa0ba64b03665`; Lean `v4.34.1`. Start from the [proof-dependency DAG](docs/PROOF_DEPENDENCY_DAG.md) (registry [proof-obligations.json](docs/proof-obligations.json)) and [formalization milestones](docs/FORMALIZATION_MILESTONES.md); validate with `python3 scripts/proof_obligation_dag.py --check`.
+**Resume state.** main `54564c00e4a5855bc303ad92e38e5e6285031012` (merge of #1024); `agent-reports` `488624466091f82500ab46c35d7fa0ba64b03665`; Lean `v4.34.1`. Start from the [proof-dependency DAG](docs/PROOF_DEPENDENCY_DAG.md) (registry [proof-obligations.json](docs/proof-obligations.json)) and [formalization milestones](docs/FORMALIZATION_MILESTONES.md); validate with `python3 scripts/proof_obligation_dag.py --check`.
 
-**Live PR state observed 2026-10-25 (refresh before use).** #1019 **merged** 2026-10-24T21:57:31Z (merge `2f4fc830`); #1020 merged (current main); #1021 open — head `daefa85975a6` had 12/14 jobs green with *Targeted Lean iteration* and *CORR4 OAI relaxed physical remainder* failed; new head `72d7e508ed13` (pushed 2026-10-26T00:12Z) had 5/14 green, 9 running, 0 failed at 00:15Z (an earlier head `58be641d` was reported 13/13 green by the Coordinator); #1022 open draft, head `03f756a4e495`, 13/13 jobs green; #1023 open, head `44fbcf3f2dca`, 12/12 jobs green.
+**Live PR state refreshed 2026-10-26.** #1019 and #1020 merged previously; #1021 (head `72d7e508ed13`, 14/14 jobs green), #1022 (head `03f756a4e495`, 13/13 green), #1023 (head `44fbcf3f2dca`, 12/12 green), and #1024 (head `b74d47009362`, 8/8 green) are now MERGED into main. The historical CI failure observations below remain historical and do not describe current PR state. See `EV-PR-1021`–`EV-PR-1024` in the dated DAG.
 
-**October 24–25 developments (none promoted to Lean-on-main):**
+**October 24–25 developments (formal results on main; paper/numerical claims remain separate):**
 
-- `PR1023-FRAME-B7` (Lean, green unmerged): Σ_{q odd prime} 1/q² ≤ b₇ = 1565172113/7214407200; with #1021's conditional wiring the CORR-4 coefficient is 3 + 4b₇ = 6975977513/1803601800 ≈ 3.8678 < 4. Finite arithmetic only.
+- `PR1023-FRAME-B7` (Lean, merged and green): Σ_{q odd prime} 1/q² ≤ b₇ = 1565172113/7214407200; with #1021's conditional wiring the CORR-4 coefficient is 3 + 4b₇ = 6975977513/1803601800 ≈ 3.8678 < 4. Finite arithmetic only.
 - `NOGO-CORR4-FRAME-ONLY` (claim `20261025-coordinator-1`, paper, referee pending): |B_R|² − (9/4)E_R ≤ λ₇|C_R|², λ₇ = 16232416200/14667244087, sharp for the unsigned frame; a positive excess forces a finite-A endpoint excursion. Frame refinements alone cannot pay CORR4.
 - `FINITE-CORR4-CENSUS` / `CE-CORR4-R57` (claim `20261025-census-1`, exact): large bills on 56 ≤ R ≤ 6000 are square-endpoint excursions with a coherent daughter echo; R = 57 has c_R > 0 with C_R U_R > 0, refuting local sign necessity; maximum observed c_R = 0.14418… at R = 5561 (R ≤ 10000, #1021).
 - `CLAIM-20261024-OWNER-1` (paper): the #915 boundary is a zeroth moment, JOH needs a first moment; blocks r = 4, 7 have zero count defect and displacement +4, −2 (`CE-JOH-R4-R7`, reproduced by `scripts/proof_dag_falsifier_regressions.py`).
-- `PR1022-ZERO-MODE` (Lean, green draft) and `CLAIM-1022-POISSON-SAVING` (paper): exact nonprincipal zero mode and a source-local Z^{−1/64} band before outer costs; not a global exponent.
+- `PR1022-ZERO-MODE` (Lean, merged) and `CLAIM-1022-POISSON-SAVING` (paper): exact nonprincipal zero mode and a source-local Z^{−1/64} band before outer costs; not a global exponent.
 
-**Next independent questions** (one per specialist, see the DAG agents table): CORR4 signed first-owner Gram on endpoint excursions (A); JOH/VF-LOW nonlocal chronology (B); complete OAI-NNS exponent ledger (C); FINITE-AC / MU-LIFT payable estimate (D); NYMAN density (E); `ClassicalVonKochRHCriterion` construction as formalization only (F). Canonical VF, finite A/C, CORR4 and RH remain open.
+**Next independent questions** (one per specialist, see the DAG agents table): `OPEN-CORR4-MIXED-TAIL-POWER` on genuine signed first-owner source (A), with #1021's proved beta >= 1/2 Gram/Mertens biconditional as the conditional consumer and the separate RH-strength relaxed remainder still open; JOH/VF-LOW nonlocal chronology (B); complete OAI-NNS exponent ledger (C); FINITE-AC / MU-LIFT payable estimate (D); NYMAN density (E); `ClassicalVonKochRHCriterion` construction as formalization only (F). Canonical VF, finite A/C, CORR4 and RH remain open.
 
 
 ## Active 2026-10-24 research handoff (authority upon human merge)
