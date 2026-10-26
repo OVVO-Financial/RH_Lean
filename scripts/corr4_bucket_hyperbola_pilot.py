@@ -73,7 +73,7 @@ def buckets(pfx, a6, X,H,T, number_detail=16):
             total+=int(np.dot(a6[ms].astype(np.int64),ramp(u*ms-X)))
         small[u]=total
     contributions=small*incr
-    btest={int(u):[int(incr[u]),float(small[u])/(H*H),float(contributions[u])/(H*H)] for u in range(1,number_detail+1)}
+    btest={int(u):[int(incr[u]),float(small[u])/(H*H),float(contributions[u])/(H*H)] for u in range(1,min(number_detail,maxu)+1)}
     val=int(contributions.sum())
     print('Abel signed total, absolute-bucket total, #nonzero buckets:', val/(H*H), float(np.abs(contributions).sum())/(H*H), int(np.count_nonzero(contributions)))
     return val,maxu,maxu_proposed,btest,[(int(u),float(contributions[u])/(H*H)) for u in np.argsort(-np.abs(contributions))[0:12] if u>0]
@@ -81,6 +81,8 @@ def buckets(pfx, a6, X,H,T, number_detail=16):
 
 def main(R,H,T):
     X=R*R-1
+    if not (R>=4 and H>0 and 0<T<X-H):
+        raise ValueError("require R>=4, H>0, and 0<T<R^2-1-H")
     n=X+H
     spf,mu,a6,hp,mu6,b6=data_sieves(n)
     pfx=np.r_[0, np.cumsum(a6[1:].astype(np.int64))]
@@ -125,6 +127,10 @@ def main(R,H,T):
         af=np.arange(1,zfix+1,dtype=np.int64)
         naive=int(np.dot(mu6[af].astype(np.int64),Fb[y//af])+np.dot(b6[af].astype(np.int64),Fmu[y//af])-Fmu[zfix]*Fb[zfix])
         hy.append((y,z,v,int(pfx[y]),zfix,naive,naive-int(pfx[y])))
+    assert recovered_num == total_num-low_num, 'Abel numerator identity failed'
+    assert e1+e2+e3 == b1, 'bucket-1 partition failed'
+    assert all(value==truth for _,value,truth in source), 'sharp restored Mobius formula failed'
+    assert all(value==truth for _,_,value,truth,*_ in hy), 'moving hyperbola identity failed'
     print('R H T X=',R,H,T,X)
     print('M(X), A_H M, Low, High, high-share:',mv,total,low,high,high/total)
     print('A6(X), A6(X/2), u=1 sharp bucket:', A6,pA6,b1)
