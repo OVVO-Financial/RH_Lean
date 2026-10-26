@@ -70,9 +70,12 @@ theorem corr4_mixed_excess_lower_of_record_energy
     dsimp [b] at hu he ⊢
     nlinarith
   have hcross : -(2 * b * c ^ 2) ≤ 2 * u * c := by
-    have hs := sq_nonneg (u + b * c)
-    dsimp [b] at hs ⊢
-    nlinarith
+    have hu2' : u ^ 2 ≤ (211 / 900 : ℝ) ^ 2 * c ^ 2 := by
+      simpa [b] using hu2
+    have hs' : 0 ≤ (u + (211 / 900 : ℝ) * c) ^ 2 :=
+      sq_nonneg _
+    dsimp [b]
+    nlinarith only [hu2', hs']
   have hexact := corr4_mixed_tail_eq_actual_endpoint_gap R hR
   dsimp [b, c, u, e] at *
   nlinarith
