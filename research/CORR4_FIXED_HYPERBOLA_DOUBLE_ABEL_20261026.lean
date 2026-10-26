@@ -101,10 +101,10 @@ theorem corr4_fixed_owner_hyperbola_partition
     (∑ a ∈ Finset.Icc 1 Y, ∑ b ∈ Finset.Icc 1 Y,
         if a * b ≤ Y then f a * g b else 0) =
       (∑ a ∈ Finset.Icc 1 Y,
-        (∑ b ∈ Finset.Icc 1 Y,
+        ((∑ b ∈ Finset.Icc 1 Y,
           if a ≤ y0 then (if a * b ≤ Y then f a * g b else 0) else 0) +
         (∑ b ∈ Finset.Icc 1 Y,
-          if y0 < a ∧ a * b ≤ Y then f a * g b else 0)) := by
+          if y0 < a ∧ a * b ≤ Y then f a * g b else 0))) := by
         apply Finset.sum_congr rfl
         intro a ha
         rw [← Finset.sum_add_distrib]
