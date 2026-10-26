@@ -62,7 +62,7 @@ theorem lowOwnerCriticalSynthesis_energy_le_compositeGap
 Equality is possible in the scalar abstraction when the frame is saturated and
 `v` is antiparallel to `u` with the extremal norm ratio. -/
 theorem norm_sub_sq_sub_twoPointTwoFive_energy_le_compositeGap
-    (u v : ℂ) (E : ℝ) (hE : 0 ≤ E)
+    (u v : ℂ) (E : ℝ)
     (hv : ‖v‖ ^ 2 ≤
       (1565172113 / 7214407200 : ℝ) * E) :
     ‖u - v‖ ^ 2 - (9 / 4 : ℝ) * E ≤
@@ -104,7 +104,7 @@ theorem lowOwnerPhysicalRemainder_excess_le_endpointCorrelation
   exact norm_sub_sq_sub_twoPointTwoFive_energy_le_compositeGap
     (squareRootCanonicalRoughCorrelation R)
     (lowOwnerCriticalMertensSynthesis R 0)
-    (canonicalRoughLowQ2DaughterEnergy R) hE hframe
+    (canonicalRoughLowQ2DaughterEnergy R) hframe
 
 /-- The reciprocal sharp constant `κ₇ = 1/λ₇`, useful when reading the
 inverse inequality as a forced endpoint excursion. -/
