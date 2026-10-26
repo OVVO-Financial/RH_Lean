@@ -27,10 +27,6 @@ theorem corr4_difference_kernel_signed_abel
   | zero =>
       simp [hk0]
   | succ N ih =>
-      change
-        (∑ t ∈ Finset.Icc 1 (N + 1), (k t - k (t - 1)) * b t) =
-          (∑ t ∈ Finset.Icc 1 (N + 1),
-            k t * (b t - b (t + 1))) + k (N + 1) * b (N + 1 + 1)
       rw [Finset.sum_Icc_succ_top (by omega : 1 ≤ N + 1)]
       rw [Finset.sum_Icc_succ_top (by omega : 1 ≤ N + 1)]
       rw [ih, show N + 1 - 1 = N by omega]
@@ -104,11 +100,11 @@ theorem corr4_fixed_owner_hyperbola_partition
   calc
     (∑ a ∈ Finset.Icc 1 Y, ∑ b ∈ Finset.Icc 1 Y,
         if a * b ≤ Y then f a * g b else 0) =
-      ∑ a ∈ Finset.Icc 1 Y,
+      (∑ a ∈ Finset.Icc 1 Y,
         (∑ b ∈ Finset.Icc 1 Y,
           if a ≤ y0 then (if a * b ≤ Y then f a * g b else 0) else 0) +
         (∑ b ∈ Finset.Icc 1 Y,
-          if y0 < a ∧ a * b ≤ Y then f a * g b else 0) := by
+          if y0 < a ∧ a * b ≤ Y then f a * g b else 0)) := by
         apply Finset.sum_congr rfl
         intro a ha
         rw [← Finset.sum_add_distrib]
