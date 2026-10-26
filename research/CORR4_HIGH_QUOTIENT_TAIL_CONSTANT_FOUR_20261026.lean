@@ -27,7 +27,7 @@ theorem corr4_abel_on_Icc_real (k w : ℕ → ℝ) (L U : ℕ)
       k (L - 1) * w L + k U * w (U + 1) := by
   induction U, hLU using Nat.le_induction with
   | base =>
-      simp only [Finset.sum_Icc_self]
+      simp only [Finset.Icc_self, Finset.sum_singleton]
       ring
   | succ U hLU ih =>
       rw [Finset.sum_Icc_succ_top (by omega)]
@@ -43,7 +43,7 @@ theorem corr4_Icc_successive_difference_telescope
       w L - w (U + 1) := by
   induction U, hLU using Nat.le_induction with
   | base =>
-      simp only [Finset.sum_Icc_self]
+      simp only [Finset.Icc_self, Finset.sum_singleton]
   | succ U hLU ih =>
       rw [Finset.sum_Icc_succ_top (by omega), ih]
       ring
@@ -77,10 +77,14 @@ theorem corr4_monotone_differenced_kernel_bound
         |(∑ u ∈ Finset.Icc L U, k u * (w u - w (u + 1))) -
           k (L - 1) * w L| := by rw [hAbel, hfinal]; ring
     _ ≤ |∑ u ∈ Finset.Icc L U, k u * (w u - w (u + 1))| +
-          |k (L - 1) * w L| := abs_sub_le _ _
+          |k (L - 1) * w L| := by
+            simpa only [sub_eq_add_neg, abs_neg] using
+              (abs_add_le
+                (∑ u ∈ Finset.Icc L U, k u * (w u - w (u + 1)))
+                (-(k (L - 1) * w L)))
     _ ≤ (∑ u ∈ Finset.Icc L U, |k u * (w u - w (u + 1))|) +
           |k (L - 1) * w L| := by
-            exact add_le_add_right (Finset.abs_sum_le_sum_abs _ _) _
+            exact add_le_add (Finset.abs_sum_le_sum_abs _ _) le_rfl
     _ ≤ (∑ u ∈ Finset.Icc L U, 2 * (w u - w (u + 1))) +
           2 * w L := add_le_add hterms hboundary
     _ = 4 * w L := by rw [← Finset.mul_sum, htel, hfinal]; ring
@@ -119,8 +123,19 @@ theorem corr4_monotone_sharp_kernel_complex_norm
          (vf919SharpQuotientKernel36 (u - 1) : ℝ)) * w u) : ℂ) := by
     push_cast
     rfl
-  rw [hc, Complex.norm_real, Real.norm_eq_abs]
-  exact hr
+  calc
+    ‖∑ u ∈ Finset.Icc L U,
+        ((vf919SharpQuotientKernel36 u : ℂ) -
+         (vf919SharpQuotientKernel36 (u - 1) : ℂ)) * (w u : ℂ)‖ =
+      ‖((∑ u ∈ Finset.Icc L U,
+          ((vf919SharpQuotientKernel36 u : ℝ) -
+           (vf919SharpQuotientKernel36 (u - 1) : ℝ)) * w u) : ℂ)‖ :=
+        congrArg norm hc
+    _ = |∑ u ∈ Finset.Icc L U,
+          ((vf919SharpQuotientKernel36 u : ℝ) -
+           (vf919SharpQuotientKernel36 (u - 1) : ℝ)) * w u| := by
+          simp only [Complex.norm_real, Real.norm_eq_abs]
+    _ ≤ 4 * w L := hr
 
 
 /-- The literal difference of adjacent period-36 coefficients in the
