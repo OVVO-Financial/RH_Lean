@@ -90,7 +90,7 @@ theorem mertensPowerBound_of_corr4MixedTailBill
     below the Mertens x^(7/8) exponent. The independent signed estimate is
     displayed as a hypothesis, never inferred from OAI's 7/8 guidepost. -/
 theorem mertensSevenEighthsImprovement_of_corr4MixedTailPowerSaving
-    (η A : ℝ) (hη : 0 < η) (hηmax : η ≤ 3 / 2) (hA : 0 ≤ A)
+    (η A : ℝ) (_hη : 0 < η) (hηmax : η ≤ 3 / 2) (hA : 0 ≤ A)
     (hMixed : ∀ R : ℕ, 56 ≤ R →
       2 * lowOwnerPrefixTailMixedRawCellMass R ≤
         2 * canonicalRoughLowQ2DaughterEnergy R +
