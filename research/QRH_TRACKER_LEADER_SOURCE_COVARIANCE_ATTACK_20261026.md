@@ -146,6 +146,53 @@ while responses A1=1,A2=-1 yield |c1*A1+c2*A2|^2=4.
 Thus an inequality solely on aggregate a6(n) cannot certify
 a bound on the original complete source energy.
 
+## Even more precise: the existing CENTERED estimate drops the covariance
+
+The imported fourth-power source already introduces a **literal
+two-rectangle difference**, not just two independent moment bounds.
+Its file FourthPower/MixedCenteredEnergy.lean contains
+
+  radial_centered,
+  radial_extracted_centered,
+
+and FourthPower/MixedFirstCenteredSourceMoment.lean contains
+
+  selected_energy_split,
+  grouped_energy_split.
+
+At the key elementary step it uses
+
+\[
+ \|f-g\|^2\le 2(\|f\|^2+\|g\|^2)
+\]
+
+before bounding each squared norm separately. The exact NNS complex
+polarization is instead
+
+\[
+ \boxed{\|f-g\|^2=\|f\|^2+\|g\|^2
+       -2\operatorname{Re}\langle f,g\rangle.}
+\]
+
+**SIGN WARNING:** positive cross covariance decreases the energy
+of f-g; negative covariance INCREASES it. This sign is opposite
+the case of a sum f+g. Any RH_Lean CoDiv/NNS transfer must distinguish
+these orientations, and must be measured on the ACTUAL shared complex
+Gauss rows, not abstract sign populations.
+
+The existing factor 2 is a **constant loss**: merely replacing
+it by 1 does not improve any exponent. A real exponent
+improvement requires a *power-scale* joint estimate on the
+centered source after all normalization, uniformly in the
+moving ideal/ray/height bins, independent of the final desired
+zero-free conclusion. The exact positive cross term is the
+candidate source of such a bound, but its sign/size is
+not guaranteed by the algebraic polarization.
+
+This is a direct insertion point for RH_Lean's NNS covariance
+decomposition in the leading certified proof, not a request
+for another finite identity.
+
 ## Specific competitive proof target
 
 The viable target is a **new bound on the actual original
