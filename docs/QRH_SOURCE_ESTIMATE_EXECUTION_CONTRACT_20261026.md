@@ -16,7 +16,7 @@
 - **Native RH_Lean current certified import:** pinned original OpenAI 7/8, proved complete arithmetic transfer to genuine Mertens signed covariance on main via [#987](https://github.com/OVVO-Financial/RH_Lean/pull/987), but **not** an import of tracker #76/#79 as Lean theorems. A new zeta-only result and a stronger **all-Dirichlet** tracker submission are different achievements.
 - Every genuine zeta/Mertens β-bound implies the original real Co/Div residual D(N)+2C(N)=M(N)^2 = O_ε(N^(2β+ε)), the one-sided signed C upper envelope, and weighted-covariance convergence for each η>β-1/2. The reverse arithmetic boundary is formalized in `research/MERTENS_CONVERSE_IDENTIFICATION.lean`; original Co/Div receiver in `research/VF_919_OPENAI_434_UNCONDITIONAL_SQUARE_BLOCK_COVARIANCE_20261019.lean`. They **receive** improved β; by themselves they do not improve it.
 
-## 2. PRIMARY and ONLY leaderboard lane — the *final-return* Collet saturated count
+## 2. HISTORICAL DOWNSTREAM LEDGER (NOT THE ACTIVE FIRST TASK) — the *final-return* Collet saturated count
 
 **Binding consumer verified from actual tracker Lean, not a hypothetical transfer.** The merged #76 return imports the original Collet `Record1252270103Return/WindowFiber.lean:count_fiber_at_window` through `WindowBatch.lean:fixed_amplitude_window_count`, `EnvelopeBatch.lean:fixed_amplitude_envelope_count`, and `SelectedBatch.lean:fixed_amplitude_selected_envelope_count`. The leader `ReturnD/PhysicalDirect/CountParameters.lean:exists_count_parameters` calls that last theorem explicitly; the resulting `CountParameters.counted` is supplied to the physical/final return. The original bound for real physical `F : Fiber ...` at `delta=2*a-1`, `p=F.q/delta` is
 
