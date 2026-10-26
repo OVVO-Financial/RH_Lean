@@ -75,6 +75,7 @@ def buckets(pfx, a6, X,H,T, number_detail=16):
     contributions=small*incr
     btest={int(u):[int(incr[u]),float(small[u])/(H*H),float(contributions[u])/(H*H)] for u in range(1,number_detail+1)}
     val=int(contributions.sum())
+    print('Abel signed total, absolute-bucket total, #nonzero buckets:', val/(H*H), float(np.abs(contributions).sum())/(H*H), int(np.count_nonzero(contributions)))
     return val,maxu,maxu_proposed,btest,[(int(u),float(contributions[u])/(H*H)) for u in np.argsort(-np.abs(contributions))[0:12] if u>0]
 
 
