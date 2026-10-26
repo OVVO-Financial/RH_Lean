@@ -90,3 +90,29 @@ for some positive delta,kappa, **with every split/inert/squareful large-m occurr
 2. Audit the paper liminf inputs, import/signpost Mertens oscillation and Walfisz separately before calling it Lean-certified.
 3. Derive a retained-fiber bound for the true #919 high-norm tent pairing. Reject averages that delete quotient=1 or the coherent split-prime main mode.
 4. Falsify signed source estimates on exact a6 and K at feasible endpoints before promoting them to DAG proof obligations.
+
+## 5. Explicit plateau lower constant and finite original-source pilot
+
+For positive integral H and X>=H, the 1-Lipschitz property of M yields
+\[
+|\mathcal A_H M(X)|
+\ge H^{-2}\sum_{|h|<H}(H-|h|)^2
+=\frac{2H}{3}+\frac{1}{3H}
+\quad\text{provided }|M(X)|\ge H.
+\]
+Thus \(|\mathrm{High}_{T,H}|\ge2H/3+1/(3H)-2592T³/H²\). This is **paper algebra**, not a new Lean-certified analytic source estimate.
+
+Independent Python tests generated actual integer Mobius and a6 coefficients from the exact local Euler polynomials and verified
+\(M(X)=\sum_{m\le X}a_6(m)K(\lfloor X/m\rfloor)\)
+at X=317²−1 and X=1027²−1. The finite tent checks were:
+
+| R | H | T | A_H M(X) | low m<=T | high m>T |
+|---|---:|---:|---:|---:|---:|
+| 317 | 1000 | 90 | -26.811496 | -0.562188 | -26.249308 |
+| 1027 | 3000 | 250 | 363.915608 | 1.219798 | 362.695810 |
+| 1027 | 5000 | 150 | 355.546523 | -0.045066 | 355.591589 |
+
+This is **not** a plateau experiment: these H exceed |M(X)|. It is a source-reassembly and smoothing falsifier. The high-norm source retains almost all the signed amplitude in these cases.
+
+Even the quotient-1 bucket at X=1027²−1 exhibits enormous **within-bucket** cancellation:
+19,398 genuine split primes in (X/2,X] supply -38,796 via a6(p)=-2, while the *other actual a6 coefficients* sum +38,878. Their signed quotient-1 bucket is only +82. This is finite evidence that the principal split-prime term cannot be discarded or treated as an oscillating Hecke phase. A uniform bound on the complete restored large-m signed source remains OPEN.

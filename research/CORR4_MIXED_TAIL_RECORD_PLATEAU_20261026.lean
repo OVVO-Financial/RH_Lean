@@ -69,8 +69,8 @@ theorem corr4_mixed_excess_lower_of_record_energy
   have hu2 : u ^ 2 ≤ b ^ 2 * c ^ 2 := by
     dsimp [b] at hu he ⊢
     nlinarith
-  have hcross : 2 * u * c ≤ 2 * b * c ^ 2 := by
-    have hs := sq_nonneg (u - b * c)
+  have hcross : -(2 * b * c ^ 2) ≤ 2 * u * c := by
+    have hs := sq_nonneg (u + b * c)
     dsimp [b] at hs ⊢
     nlinarith
   have hexact := corr4_mixed_tail_eq_actual_endpoint_gap R hR
