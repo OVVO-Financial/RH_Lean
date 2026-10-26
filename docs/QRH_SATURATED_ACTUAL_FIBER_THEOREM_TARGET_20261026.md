@@ -74,13 +74,15 @@ where
 
 **This is intentionally only a candidate**, written in the source's variables to expose precisely what has to be proved. The actual `feedback_fiber_count_K` proves the same bound **without** `-nu` under `FiberMomentsK`, and `ordinary_actual_weighted_row_sum_K` gets those moment fields for actual B. The moment step is not an independent uniform saving. If the candidate is FALSE for legitimate actual rows or too strong to prove, the agent must return the smallest admissible counter-family and a weaker **proper-source** replacement that still yields an independently justified positive gain.
 
+**Diagnostic of the existing class slack, not a theorem:** evaluating the six literal `Gain/Gain.lean` facet roots with K=8, B=0.99999, lam=3.72, cap=0.06, Q=1, produces `gainP(delta,1/2)-gainK(delta) = 0` in some legal geometry (for example delta=0.7, S=0.03), but positive gaps in others (for example delta=0.5, S=0.06 gives about 0.000096). This is a *model computation on the existing deterministic geometry*, not a test that an actual source family realizes those parameters. It demonstrates exactly why the uniform improvement must **pay** class-sharp slack and why a global `-nu` against `gainK` can already be a restatement in some bins.
+
 **Crucial anti-false-gain check:** `FiberK.lean`'s count proof first controls the **class-specific** `gainP delta p ...`, and only at the end relaxes it to global `gainK/gainRep` (see `gainP_count_identity` and `gainK_le_gainP`). A claimed ν against `gainRep` that merely recovers `gainP-gainK` is deterministic **old slack**, NOT a new analytic source estimate. Quantify and subtract that existing per-class slack at the near-saturated face; a valid new arithmetic theorem must exceed the locally sharp existing count, or else certify a better full return from an already proved but previously unused class-specific theorem. Do not double-count both.
 
 The actual production proof should yield **bin-local** sharpened cardinality and then reassemble `weighted_row_sum_K` by splitting near-saturated vs. complement. On the complement p<49/100 use the original legal bound and prove the full return is strictly positive for all admissible δ and all 15 `admissionGuard` inequalities, including endpoints and any bin-width/mesh transition losses. Do not simply subtract ν from every term of the full weighted row sum. Repeat all stages of `CountWrappersK`, density, natural count, high/low, Poisson, physical face and final Dirichlet theorem. **The Lean source-bound theorem and the final tracker-verifier certificate are separate acceptance gates.**
 
 ## 4. The marked-cost alternative: correction to the earlier "two-copy" worry
 
-The original inverse supplier imposes both `r+2z<1` and `2r+8z<3`. If an independently proved marked-moment theorem changes only the first cost to `r+mu*z<1`, and z is taken as near (1−r)/mu, the **existing** second condition remains feasible for every r>=23/37 provided
+The original inverse supplier imposes both `r+2z<1` and `2r+8z<3`. If an independently proved marked-moment theorem changes only the first cost to `r+mu*z<1`, and z is taken as near (1−r)/mu, the **existing** second condition remains feasible for every 23/37<=r<1 provided
 
 ```text
 mu > 8*(1-r)/(3-2*r) <= 112/65 ~= 1.723076923.
