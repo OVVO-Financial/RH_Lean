@@ -1,136 +1,146 @@
-# CORR-4: genuine low-quotient Mellin audit and the constant-four tail (2026-10-26)
+# CORR-4: low-quotient Mellin audit and constant-four quotient tail (2026-10-26)
 
-**Status:** the upper-quotient tail has an unconditional deterministic proof from monotone tent weights and the original #919 coefficient mass; Lean formalization is in `research/CORR4_HIGH_QUOTIENT_TAIL_CONSTANT_FOUR_20261026.lean` (check warning-fatal CI). The Mellin calculations below are **paper identities/audits**, not certified analytic power savings. No improved Mertens exponent or RH theorem is claimed.
+**Status:** The genuine constant-four upper-quotient bound has a warning-fatal Lean-certified proof in PR #1026 (Targeted Lean iteration run 40274162531). This document records a separate, **unclosed** Mellin reduction of the low-quotient source. No strict Mertens exponent improvement or RH theorem is claimed.
 
-## 1. Exact arithmetic Dirichlet series
+## 1. Complete Eisenstein decoder
 
-Let `chi = chi_-3`, `mu6 = 1_{(n,6)=1} mu`, and
-[
-a_6(n) = 1_{(n,6)=1},[mu*(chimu)](n).
-]
-For Re(s)>1 the Euler factors are
-[
-F_6(s):=sum_{mge1}rac{a_6(m)}{m^s}
-=rac{1}{(1-3^{-s})(1-4^{-s}),zeta(s)L(s,chi)}.
-	ag{1}
-]
-At p=2 the excluded coefficient factor is `1-2^{-2s}=1-4^{-s}`, and at p=3 it is `1-3^{-s}`; these factors must **not** be discarded.
+Let \(\chi=\chi_{-3}\), \(\mu_6(n)=\mathbf 1_{(n,6)=1}\mu(n)\), and
 
-The original #919 quotient kernel is
-[
-K(v)=C_chi(v)-C_chi(lfloor v/3floor)
- -C_chi(lfloor v/4floor)+C_chi(lfloor v/12floor),
-quad C_chi(v)=sum_{1le dle v}chi(d).
-]
-Thus its actual first discrete difference `d(u)=K(u)-K(u-1)` is
-[
-d(u)=chi(u)-1_{3mid u}chi(u/3)-1_{4mid u}chi(u/4)
- +1_{12mid u}chi(u/12).
-	ag{2}
-]
-For Re(s)>1, the **complete** Dirichlet series is exactly
-[
-oxed{D(s):=sum_{uge1}rac{d(u)}{u^s}
-=(1-3^{-s})(1-4^{-s})L(s,chi),qquad F_6(s)D(s)=1/zeta(s).}
-	ag{3}
-]
-This identity is a useful reality check: the full periodic decoder cancels the excluded factors and Dirichlet-L factor in the Eisenstein norm series and recovers the rational Mertens series. A partial decoder `D_{L-1}(s)=sum_{u<L}d(u)u^{-s}` does **not** automatically retain this cancellation at all vertical frequencies.
+\[
+a_6(n)=\mathbf 1_{(n,6)=1}\bigl(\mu*(\chi\mu)\bigr)(n).
+\]
 
-## 2. Exact low-quotient decoupling
+For \(\Re s>1\), the exact Euler factorization is
 
-Let `X=R^2-1`, `H>=1`, `T>=1`, and
-[
-B_u(X,H,T)=sum_{m>T}a_6(m),Phi_{H,X}(um),
-quad
-Phi_{H,X}(n)=H^{-2}sum_{|h|<H}(H-|h|)1_{nle X+h}.
-]
-If `(L-1)T <= X-H+1` (and `X>=H`), then `floor((X+h)/u)>=T` for all `u<L` and all tent positions. Therefore
-[
-oxed{
-sum_{1le u<L} d(u)B_u =
-sum_{1le u<L}d(u),
-mathcal A_H A_6ig(lfloor(X+h)/ufloorig)
--K(L-1)A_6(T).
-}
-	ag{4}
-]
-Since `|K|<=2` and the existing Lean theorem is `sum_{m<=T}|a6(m)|<=T`, the subtracted finite boundary is bounded by `2T`. At `T=H^(1-delta)`, `L=H^(1/7+2kappa)`, `X~H^(8/7)`, this gate is eventually uniform provided `delta>2kappa`.
+\[
+F_6(s)=\sum_{m\ge1}\frac{a_6(m)}{m^s}
+=\frac{1}{(1-3^{-s})(1-4^{-s})\zeta(s)L(s,\chi)}.
+\tag{1}
+\]
 
-The exact cutoff for the high quotient source is `U*=floor((X+H-1)/(T+1))`. For `1<=L<=U*`, the physical constant-four bound is
-[
-oxed{
-left|sum_{u=L}^{U_*}d(u)B_uight|
-le 4sum_{m>T}|a_6(m)|Phi_{H,X}(Lm)
-le4leftlfloorrac{X+H-1}{L}ightfloor.
-}
-	ag{5}
-]
-It follows from **one** Abel transformation, `|K|<=2`, `Phi((u+1)m)<=Phi(um)`, and the exact coefficient mass. No hypothesis on arithmetic cancellation is used.
+The excluded factors at \(p=3\) and the inert prime \(p=2\) are **both retained in the denominator**. The actual period-36 quotient decoder is
 
-## 3. Mellin representation: what actually follows
+\[
+\mathcal K(v)=C_\chi(v)-C_\chi(\lfloor v/3\rfloor)
+-C_\chi(\lfloor v/4\rfloor)+C_\chi(\lfloor v/12\rfloor),
+\quad
+C_\chi(v)=\sum_{1\le n\le v}\chi(n).
+\]
 
-For any integer `u>=1`, the sharp indicator is equal to
-`1_{um < X+h+1/2}`, so the **half-integer shift** removes the endpoint half-weight ambiguity of Perron inversion.
+Its first discrete difference \(d(u)=\mathcal K(u)-\mathcal K(u-1)\) has Dirichlet series
 
-For `c>1`, let
-[
-W_{X,H}(s)=rac{1}{H^2}sum_{|h|<H}(H-|h|)
- rac{(X+h+1/2)^s}{s}.
-	ag{6}
-]
-The tent average of the full norm prefix admits the classical Perron-limit representation
-[
-mathcal A_H A_6(lfloor(X+h)/ufloor)
-=lim_{V	oinfty}rac{1}{2pi i}
-int_{c-iV}^{c+iV}F_6(s)u^{-s}W_{X,H}(s),ds.
-	ag{7}
-]
-Consequently, finite interchange gives the exact **low-u Mellin interface**
-[
-oxed{
-S_{<L}(X,H)=lim_{V	oinfty}rac{1}{2pi i}
-int_{c-iV}^{c+iV}
-F_6(s)D_{L-1}(s)W_{X,H}(s),ds,
-quad D_{L-1}(s)=sum_{u<L}d(u)u^{-s}.
-}
-	ag{8}
-]
-The low high-norm source is `S_<L-K(L-1)A6(T)` subject to (4). All original arithmetic factors and the u cut are retained.
+\[
+D(s)=\sum_{u\ge1}\frac{d(u)}{u^s}
+=(1-3^{-s})(1-4^{-s})L(s,\chi),\qquad
+\boxed{F_6(s)D(s)=\zeta(s)^{-1}.}
+\tag{2}
+\]
 
-For comparison, **continuous** tent averaging has the exact integral kernel
-[
-W^{mathrm{cont}}_{X,H}(s)
-=rac{(X+H)^{s+2}-2X^{s+2}+(X-H)^{s+2}}
-{H^2,s(s+1)(s+2)},qquad X>H,
-	ag{9}
-]
-and hence
-[
-|W^{mathrm{cont}}_{X,H}(sigma+it)|
-ll_sigma rac{X^sigma}{|s|}
-min!left(1,left[rac{X}{H(1+|t|)}ight]^2ight)
-]
-for fixed `sigma` in a compact interval, up to harmless comparability constants when `H/X` is bounded away from 1. This is a **vertical tail cutoff** at `|t|~X/H`, not an arithmetic power saving on the surviving low frequencies.
+This is a precise algebraic explanation of the complete cross-quotient cancellation: the full decoder removes the quadratic \(L\)-factor and both excluded Euler factors. The truncated decoder \(D_{L-1}(s)=\sum_{u<L}d(u)u^{-s}\) no longer cancels the whole norm source.
 
-### Discrete-tent warning
+## 2. Unconditional high-u tail and exact low-u reduction
 
-The **literal lattice** kernel (6) is a finite sum of functions `(X+h+1/2)^(sigma+it)`. For each fixed integer `X,H`, its t-dependence is an almost-periodic exponential polynomial. Such a nonzero finite exponential sum cannot satisfy a uniform `O(t^-2)` decay as `|t|->infinity`: simultaneous Diophantine approximation of its finitely many phases produces arbitrarily large near-recurrences. **Do not substitute** the continuous kernel bound (9) into the original lattice source without quantifying the lattice/continuous discrepancy and the remaining large-t Perron tail.
+Let \(X=R^2-1\), integers \(H,T\ge1\), and use the literal normalized discrete tent
 
-## 4. Why the Mellin height reduction does not yet improve 7/8
+\[
+\mathcal A_H f(X)=\frac1{H^2}\sum_{|h|<H}(H-|h|)f(X+h),
+\quad
+\Phi_{H,X}(n)=\mathcal A_H \mathbf 1_{\{n\le X+h\}}.
+\]
 
-The frequency scale `X/H~H^(1/7)` describes the continuous tent's attenuation of **large** `|t|`. It does not show any saving on `|t| <= X/H`. For example, `W_{X,H}(sigma)` at real `s=sigma>1` is of order `X^sigma/sigma` (no factor `H^-1/56`). The local detector/ideal conductor scale in the OpenAI proof is **not automatically** the vertical Mellin frequency, and a smaller `t` range does not shrink a Hecke conductor or Gaussian moment family by fiat.
+Set \(B_u=\sum_{m>T}a_6(m)\Phi_{H,X}(um)\) and \(U_*=\lfloor(X+H-1)/(T+1)\rfloor\). Using a **single** signed Abel identity, monotonicity of each ramp, the original period-36 bound \(|\mathcal K|\le2\), and the existing genuine coefficient mass bound \(\sum_{m\le N}|a_6(m)|\le N\), yields the unconditional inequality
 
-The Vinogradov--Korobov zero-free region near `Re(s)=1` yields stretched-exponential-in-log savings for Mertens-type prefixes, not a fixed negative power of x. In particular, the analogue `|A6(Y)| <= Y^(7/8)` does **not follow** from the rational-Mertens 7/8 estimate without additional bounds on the inverse quadratic L-function. Further, `|A6(Y)|<=Y^(7/8)` alone would only give the low-u triangle bill of order `H L^(1/8)`, not `H^(1-kappa)`.
+\[
+\boxed{\left|\sum_{u=L}^{U_*}d(u)B_u\right|
+\le4\left\lfloor\frac{X+H-1}{L}\right\rfloor}
+\quad(1\le L\le U_*).
+\tag{3}
+\]
 
-To deduce `|S_<L| <= H^(1-kappa)` from (8), one must prove an **independent** bound on the whole vertical integral including `F6(s) D_{L-1}(s)`, contour shifts past/around all relevant zeta and L zeros, the low-frequency family, conductor/moment bookkeeping, and discrete-to-continuous errors. The existing period-36 return, PNT slope, and tent smoothing identities alone do not provide it.
+The Lean theorem for the physical tent occurs in research/CORR4_PHYSICAL_TENT_CONSTANT_FOUR_20261026.lean and uses the equal-weight two-box convolution representation of the exact Fejér tent. The abstract coefficient-mass/monotone-Abel theorem is in research/CORR4_HIGH_QUOTIENT_TAIL_CONSTANT_FOUR_20261026.lean.
 
-## 5. Lean acceptance
+If \((L-1)T\le X-H+1\), the low-u gate is identically on across the entire tent window and
 
-- Exact restored quotient kernel and primitive: `VF_MID_919_QUOTIENT_SIGNED_RETURN.lean` (already certified).
-- Coefficient mass: `vf919ExcludedNorm_mass_le` in `VF_MID_919_GENERAL_X_HIGH_QUOTIENT_ISOLATION.lean` (already certified).
-- Fixed-owner hyperbola and second Abel: `CORR4_FIXED_HYPERBOLA_DOUBLE_ABEL_20261026.lean` (new; review CI).
-- Constant-four monotone-weight theorem with actual `vf919ExcludedNormCoefficients`: `CORR4_HIGH_QUOTIENT_TAIL_CONSTANT_FOUR_20261026.lean` (new; review CI).
-- The last integration from the abstract nonnegative monotone weight to the explicitly defined discrete tent should be certified before calling the literal (5) Lean-proved.
-- **Open:** the low-quotient power-saving estimate and the source-preserving OpenAI detector/moment transfer.
+\[
+\boxed{\sum_{1\le u<L}d(u)B_u
+=\sum_{1\le u<L}d(u)\,
+\mathcal A_H A_6\!\left(\left\lfloor\frac{X+h}{u}\right\rfloor\right)
+-\mathcal K(L-1)A_6(T).}
+\tag{4}
+\]
 
-**Never upgrade a contour-height cutoff or a finite signed cancellation ratio into a global power-saving theorem without an independently established analytic bound on the retained source.**
+The last term has magnitude at most \(2T\). With \(X\asymp H^{8/7}\), \(T=H^{1-\delta}\), \(L=H^{1/7+2\kappa}\), the gate holds eventually if \(\delta>2\kappa\), while the high-u tail is \(O(H^{1-2\kappa})\).
+
+## 3. Exact Perron/Mellin interface
+
+For \(\Re s=c>1\), define the discrete kernel
+
+\[
+W_{X,H}(s)=\frac1{H^2s}\sum_{|h|<H}
+(H-|h|)(X+h+\tfrac12)^s.
+\tag{5}
+\]
+
+The half-integer shift makes every sharp integer cutoff exact, with no Perron boundary half-weight. For the low quotient source (including all \(a_6\) occurrences, prior to subtracting the finite \(T\)-boundary),
+
+\[
+\boxed{
+S_{<L}(X,H)
+=\lim_{V\to\infty}\frac1{2\pi i}
+\int_{c-iV}^{c+iV}F_6(s)D_{L-1}(s)W_{X,H}(s)\,ds.}
+\tag{6}
+\]
+
+There is a useful unconditional *decoder-tail* estimate. Since \(\sum_{j\le u}d(j)=\mathcal K(u)\) and \(|\mathcal K(u)|\le2\), summation by parts gives, for \(\sigma=\Re s>0\),
+
+\[
+\left|D(s)-D_{L-1}(s)\right|
+\le2L^{-\sigma}\left(1+\frac{|s|}{\sigma}\right).
+\tag{7}
+\]
+
+The exact identity
+
+\[
+F_6(s)D_{L-1}(s)
+=\frac1{\zeta(s)}-
+F_6(s)\bigl(D(s)-D_{L-1}(s)\bigr)
+\tag{8}
+\]
+
+shows why the decoder-tail saving alone is not enough: the remainder retains inverse zeta and Dirichlet \(L\)-function factors and can be amplified near their zeros.
+
+## 4. Continuous smoothing is not an automatic conductor saving
+
+The continuous tent, which is **not** the literal physical lattice tent, has the exact Mellin kernel
+
+\[
+W^{\rm cont}_{X,H}(s)
+=\frac{(X+H)^{s+2}-2X^{s+2}+(X-H)^{s+2}}
+{H^2s(s+1)(s+2)}.
+\tag{9}
+\]
+
+This attenuates frequencies \(|t|\gg X/H\) quadratically. It does **not** bound frequencies \(|t|\lesssim X/H\), and reducing a Mellin vertical frequency range is not the same as reducing an auxiliary Hecke conductor or OpenAI Gaussian detector family.
+
+Moreover, the exact discrete kernel (5) is a finite exponential polynomial in \(t\), divided by \(s\). It does not inherit the same uniform continuous \(t^{-2}\) attenuation at arbitrarily high frequencies; possible lattice aliasing and the Perron truncation tail must be controlled separately.
+
+The standard fixed-conductor zero-free region supplies subexponential-in-logarithms bounds, not the **fixed negative power** needed on the short windows of relative width \(H/X\asymp H^{-1/7}\). Nor does an already-known \(7/8\) rational Möbius estimate directly imply a pointwise \(7/8\) estimate for \(A_6\) without new analytic control of the inverse \(L\)-factor.
+
+**Remaining independent analytic theorem:** prove uniformly
+
+\[
+\left|S_{<L}(X,H)\right|\ll H^{1-\kappa}
+\]
+
+with the complete low-frequency integral, all retained \(a_6\) coefficients, the truncated decoder, true finite tent, boundary term, and every contour pole/residue paid. This is a genuine arithmetic cancellation estimate, **OPEN**.
+
+## 5. Acceptance artifacts
+
+- research/VF_MID_919_QUOTIENT_SIGNED_RETURN.lean — original exact period-36 decoder, primitive, and signed Abel.
+- research/VF_MID_919_GENERAL_X_HIGH_QUOTIENT_ISOLATION.lean — original coefficient mass \(\sum_{m\le N}|a_6(m)|\le N\).
+- research/CORR4_FIXED_HYPERBOLA_DOUBLE_ABEL_20261026.lean — fixed-owner partition and double Abel.
+- research/CORR4_HIGH_QUOTIENT_TAIL_CONSTANT_FOUR_20261026.lean — monotone Abel and actual coefficient mass.
+- research/CORR4_PHYSICAL_TENT_CONSTANT_FOUR_20261026.lean — exact physical tent and all-source upper-u bound.
+
+Warning-fatal selected research closure: GitHub Actions Targeted Lean iteration run 40274162531, conclusion **success**. No `sorryAx` was reported for the target theorems.
