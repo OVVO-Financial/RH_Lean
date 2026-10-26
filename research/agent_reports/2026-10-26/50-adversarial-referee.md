@@ -249,10 +249,12 @@ Merged #1021-#1024 remain kernel/repository evidence at their exact scopes. `MIL
 
 **Resume:** the highest-value unresolved question is whether a complete high-norm source estimate at a fixed power threshold can be proved without importing an equivalent Mertens bound. Adaptive sublinear estimates are ruled out; upper-quotient constant four and small-norm Fejer suppression survive; the complete low-quotient/coherent large-`m` source remains unpaid.
 
-Canonical VF, the mixed-tail power estimate, strict sub-`7/8), and RH remain OPEN.
+Canonical VF, the mixed-tail power estimate, strict sub-`7/8`, and RH remain OPEN.
 
 ## H. Publication history
 
 The initial `IN_PROGRESS` checkpoint was created by commit
 `90e40a59f887857f8225a80e2c7ac5acbc01cc97` and read back as blob
-`d7516902cd7a62897d00a0c2736e04dae495c3db`. Final readback evidence is appended after publication.
+`d7516902cd7a62897d00a0c2736e04dae495c3db`. The completed synthesis was published by commit
+`c05cce752d81b001be823c52026747913398cf46` and immediately read back as blob
+`600b9c4bf06e50f4352ee8b5d0e302e33a31344d` (14,111 characters), with `COMPLETED`, claim `20261026-referee-2`, and the exact PR head present. This final annotation preserves that verified mathematical text.
