@@ -122,4 +122,120 @@ theorem corr4_monotone_sharp_kernel_complex_norm
   rw [hc, Complex.norm_real, Real.norm_eq_abs]
   exact hr
 
+
+/-- The literal difference of adjacent period-36 coefficients in the
+original #919 norm carrier. -/
+def corr4SharpQuotientDifference (u : ℕ) : ℂ :=
+  (vf919SharpQuotientKernel36 u : ℂ) -
+    (vf919SharpQuotientKernel36 (u - 1) : ℂ)
+
+/-- The exact mass lemma applied only after one signed Abel transform.
+Every physical norm coefficient occurs once, with its original complex
+value, not an ad hoc probability or absolute coefficient replacement.
+
+The hypotheses on w are verified by nonnegative tent ramps (below).
+The terminal assumption is precisely what closes the upper Abel boundary. -/
+theorem corr4_actual_a6_monotone_weight_tail_le_four_mass
+    (L U T N : ℕ) (w : ℕ → ℕ → ℝ)
+    (hL : 1 ≤ L) (hLU : L ≤ U)
+    (hwpos : ∀ m ∈ Finset.Ioc T N, 0 ≤ w m L)
+    (hwdesc : ∀ m ∈ Finset.Ioc T N,
+      ∀ u ∈ Finset.Icc L U, w m (u + 1) ≤ w m u)
+    (hwzero : ∀ m ∈ Finset.Ioc T N, w m (U + 1) = 0)
+    (hwunit : ∀ m ∈ Finset.Ioc T N, w m L ≤ 1) :
+    ‖∑ u ∈ Finset.Icc L U,
+        corr4SharpQuotientDifference u *
+          (∑ m ∈ Finset.Ioc T N,
+            vf919ExcludedNormCoefficients m * (w m u : ℂ))‖ ≤
+       4 * (N : ℝ) := by
+  have hswap :
+      (∑ u ∈ Finset.Icc L U,
+        corr4SharpQuotientDifference u *
+          (∑ m ∈ Finset.Ioc T N,
+            vf919ExcludedNormCoefficients m * (w m u : ℂ))) =
+      (∑ m ∈ Finset.Ioc T N,
+        vf919ExcludedNormCoefficients m *
+          (∑ u ∈ Finset.Icc L U,
+            corr4SharpQuotientDifference u * (w m u : ℂ))) := by
+    calc
+      _ = ∑ u ∈ Finset.Icc L U,
+            ∑ m ∈ Finset.Ioc T N,
+              corr4SharpQuotientDifference u *
+                (vf919ExcludedNormCoefficients m * (w m u : ℂ)) := by
+           apply Finset.sum_congr rfl
+           intro u hu
+           rw [Finset.mul_sum]
+      _ = ∑ m ∈ Finset.Ioc T N,
+            ∑ u ∈ Finset.Icc L U,
+              corr4SharpQuotientDifference u *
+                (vf919ExcludedNormCoefficients m * (w m u : ℂ)) := Finset.sum_comm
+      _ = ∑ m ∈ Finset.Ioc T N,
+            vf919ExcludedNormCoefficients m *
+              (∑ u ∈ Finset.Icc L U,
+                corr4SharpQuotientDifference u * (w m u : ℂ)) := by
+           apply Finset.sum_congr rfl
+           intro m hm
+           rw [Finset.mul_sum]
+           apply Finset.sum_congr rfl
+           intro u hu
+           ring
+  have hpoint : ∀ m ∈ Finset.Ioc T N,
+      ‖∑ u ∈ Finset.Icc L U,
+           corr4SharpQuotientDifference u * (w m u : ℂ)‖ ≤ 4 := by
+    intro m hm
+    have ha := corr4_monotone_sharp_kernel_complex_norm
+      (w m) L U hL hLU (hwpos m hm) (hwdesc m hm) (hwzero m hm)
+    change ‖∑ u ∈ Finset.Icc L U,
+        corr4SharpQuotientDifference u * (w m u : ℂ)‖ ≤
+          4 * w m L at ha
+    have hv := hwunit m hm
+    linarith
+  have hsubset : Finset.Ioc T N ⊆ Finset.Icc 1 N := by
+    intro m hm
+    have h := Finset.mem_Ioc.mp hm
+    exact Finset.mem_Icc.mpr ⟨by omega, h.2⟩
+  have hmass : (∑ m ∈ Finset.Ioc T N,
+        ‖vf919ExcludedNormCoefficients m‖) ≤ (N : ℝ) := by
+    calc
+      _ ≤ ∑ m ∈ Finset.Icc 1 N,
+          ‖vf919ExcludedNormCoefficients m‖ := by
+          apply Finset.sum_le_sum_of_subset_of_nonneg hsubset
+          intro m hm _
+          exact norm_nonneg _
+      _ ≤ (N : ℝ) := vf919ExcludedNorm_mass_le N
+  calc
+    ‖∑ u ∈ Finset.Icc L U,
+        corr4SharpQuotientDifference u *
+          (∑ m ∈ Finset.Ioc T N,
+            vf919ExcludedNormCoefficients m * (w m u : ℂ))‖ =
+      ‖∑ m ∈ Finset.Ioc T N,
+        vf919ExcludedNormCoefficients m *
+          (∑ u ∈ Finset.Icc L U,
+            corr4SharpQuotientDifference u * (w m u : ℂ))‖ := by rw [hswap]
+    _ ≤ ∑ m ∈ Finset.Ioc T N,
+        ‖vf919ExcludedNormCoefficients m *
+          (∑ u ∈ Finset.Icc L U,
+            corr4SharpQuotientDifference u * (w m u : ℂ))‖ :=
+            norm_sum_le _ _
+    _ = ∑ m ∈ Finset.Ioc T N,
+        ‖vf919ExcludedNormCoefficients m‖ *
+          ‖∑ u ∈ Finset.Icc L U,
+            corr4SharpQuotientDifference u * (w m u : ℂ)‖ := by
+            simp_rw [norm_mul]
+    _ ≤ ∑ m ∈ Finset.Ioc T N,
+        ‖vf919ExcludedNormCoefficients m‖ * 4 := by
+          apply Finset.sum_le_sum
+          intro m hm
+          exact mul_le_mul_of_nonneg_left (hpoint m hm) (norm_nonneg _)
+    _ = 4 * (∑ m ∈ Finset.Ioc T N,
+        ‖vf919ExcludedNormCoefficients m‖) := by
+          rw [Finset.mul_sum]
+          apply Finset.sum_congr rfl
+          intro m hm
+          ring
+    _ ≤ 4 * (N : ℝ) := mul_le_mul_of_nonneg_left hmass (by norm_num)
+
+#print axioms corr4_monotone_differenced_kernel_bound
+#print axioms corr4_actual_a6_monotone_weight_tail_le_four_mass
+
 end RHLean.Analysis
