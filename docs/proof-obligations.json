@@ -2162,8 +2162,7 @@
       "formal_status": "PROVED_IN_LEAN_ON_MAIN",
       "evidence_class": "CONDITIONAL",
       "provenance": "PAPER_ARGUMENT",
-      "open_obligation": true,
-      "obligation_kind": "REVIEW",
+      "open_obligation": false,
       "lean": [
         {
           "file": "research/CORR4_OAI_RELAXED_REMAINDER_20261024.lean",
