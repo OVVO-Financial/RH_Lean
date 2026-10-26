@@ -125,19 +125,21 @@ theorem corr4_monotone_sharp_kernel_complex_norm
          (vf919SharpQuotientKernel36 (u - 1) : ℝ)) * w u) : ℂ) := by
     push_cast
     rfl
+  have hnr0 := hnormReal
+    (∑ u ∈ Finset.Icc L U,
+      ((vf919SharpQuotientKernel36 u : ℝ) -
+       (vf919SharpQuotientKernel36 (u - 1) : ℝ)) * w u)
+  simp only [Complex.ofReal_sum, Complex.ofReal_mul,
+    Complex.ofReal_sub] at hnr0
   have hnr :
-      ‖((∑ u ∈ Finset.Icc L U,
-          ((vf919SharpQuotientKernel36 u : ℝ) -
-           (vf919SharpQuotientKernel36 (u - 1) : ℝ)) * w u) : ℂ)‖ =
-        |∑ u ∈ Finset.Icc L U,
-          ((vf919SharpQuotientKernel36 u : ℝ) -
-           (vf919SharpQuotientKernel36 (u - 1) : ℝ)) * w u| :=
-    hnormReal
-      (∑ u ∈ Finset.Icc L U,
+      ‖∑ u ∈ Finset.Icc L U,
+        ((vf919SharpQuotientKernel36 u : ℂ) -
+         (vf919SharpQuotientKernel36 (u - 1) : ℂ)) * (w u : ℂ)‖ =
+      |∑ u ∈ Finset.Icc L U,
         ((vf919SharpQuotientKernel36 u : ℝ) -
-         (vf919SharpQuotientKernel36 (u - 1) : ℝ)) * w u)
-  have heqnorm := (congrArg norm hc).trans hnr
-  exact heqnorm.le.trans hr
+         (vf919SharpQuotientKernel36 (u - 1) : ℝ)) * w u| := by
+    convert hnr0 using 1 <;> push_cast <;> rfl
+  exact hnr.le.trans hr
 
 
 /-- The literal difference of adjacent period-36 coefficients in the
