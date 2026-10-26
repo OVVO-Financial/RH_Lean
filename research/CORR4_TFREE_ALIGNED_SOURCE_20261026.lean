@@ -67,7 +67,7 @@ theorem corr4_aligned_low_u_below_T_exactly_zero
   intro m hm
   have hmT : m ≤ T := (Finset.mem_Icc.mp hm).2
   have hdeep : L * m + (H - 1) ≤ X := by
-    exact (add_le_add_right (Nat.mul_le_mul_left L hmT) (H - 1)).trans hgate
+    exact (by omega : L * m + (H - 1) ≤ X)
   rw [corr4_low_quotient_tent_zero_for_small_norm
     X H L q m hH hL hdeep, mul_zero]
 
