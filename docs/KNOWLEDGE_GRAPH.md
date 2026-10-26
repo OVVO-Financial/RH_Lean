@@ -14,6 +14,16 @@ registry of the #915/#922/#923/#925–#929 source tracks. Its generated import
 closure is extracted from the same repository index, while its evidence and
 open-input labels keep conditional and paper results distinct from closure.
 
+**Three graph layers for research (2026-10-25).** The tooling below is the *Lean source and declaration* layer. Two further layers sit beside it and must not be merged with it:
+
+| Layer | What a node/edge means | Where | Validator |
+| --- | --- | --- | --- |
+| A. Mathematical proof obligations | A proposition (RH, criteria, milestones, open estimates, counterexamples) and a typed mathematical relation: exact identity, proved equivalence/implication, weighted projection, conditional implication, requirement, refutation, arithmetic-gain target | [proof-obligations.json](proof-obligations.json), rendered in [PROOF_DEPENDENCY_DAG.md](PROOF_DEPENDENCY_DAG.md) | `python3 scripts/proof_obligation_dag.py --check --repo-index` |
+| B. Lean source and declarations (this page) | A module, declaration or kernel dependency; an import is a code dependency, never a proof of a proposition | generated indexes below, [repository search](REPOSITORY_SEARCH.md), [historical import DAG](RESEARCH_FRONTIER_DAG.md) | `proof_inventory.py`, `decl_graph.py`, `repo_index.py`, `research_frontier_dag.py` |
+| C. Evidence and implementation | A merged PR, open PR head, CI run, agent report, script, literature reference — with its observation date and grade | `evidence` records in the registry | dated snapshot; refresh from GitHub |
+
+Layer A nodes link to Layer B by `(file, declaration)` pairs, which `--repo-index` checks against this index; Layer C grades (e.g. `KERNEL_CHECKED_ON_MAIN`, `PR_HEAD_RED`, `AGENT_REPORT_SELF_AUDITED`) never change a Layer A logical status by themselves. Proof status derived in layer 5 below concerns Lean declarations; registry statuses concern mathematical propositions, including literature theorems passed as explicit interfaces (for example `ClassicalVonKochRHCriterion`) that `#print axioms` does not reveal.
+
 The layers answer different questions, and it is worth being
 precise about which question, because they are easy to confuse.
 

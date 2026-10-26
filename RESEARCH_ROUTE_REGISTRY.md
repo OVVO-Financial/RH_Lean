@@ -1,10 +1,30 @@
 # Research route registry
 
+## 2026-10-25 — route dispositions and exact missing arithmetic (registry-backed, after human merge)
+
+Machine-readable source: [docs/proof-obligations.json](docs/proof-obligations.json), rendered with every RH path and its unpaid inputs in the [proof-dependency DAG](docs/PROOF_DEPENDENCY_DAG.md). Completed formal results are in [FORMALIZATION_MILESTONES.md](docs/FORMALIZATION_MILESTONES.md). Statuses below are as of main `8d3a06d`, observed 2026-10-25.
+
+| Route | Disposition | Exact missing arithmetic (registry node) | RH consumer and remaining conditions |
+| --- | --- | --- | --- |
+| VF-LOW | OPEN | Original-source first-lower-escape contradiction (`MECH-VF-LOW-FIRST-LOWER-ESCAPE`) giving π(R²) − VF_can(R²) ≥ −K R log R (`OPEN-VF-LOW`); or the two-sided `OPEN-VF-ACTUAL-PRIME`; or the #915 payment `OPEN-915-SOURCE-PAYMENT` | One-sided: Montgomery–Vaughan Ω± (literature) + paper note. Two-sided: Lean consumer with explicit `ClassicalVonKochRHCriterion`. #915: Lean consumer plus finite base window checked outside Lean. |
+| SAT | OPEN (input producer) | Signed owner-removal / prime-innovation inequality with locations, not counts (`MECH-SAT-OWNER-REMOVAL`) | Through JOH or VF-LOW. Three S = A − T carriers stay separate. |
+| CODIV | OPEN | New source-level signed covariance estimate (`MECH-CODIV-SIGNED-COVARIANCE`); RH strength is `PROP-MERTENS-ENERGY` itself (target-equivalent) | Lean `riemannHypothesis_of_mertensEnergy` (no interface). |
+| BLOCK | **REFUTED** (universal literal capture) | None: false at R = 549 (`CE-BLOCK-R549`, `scripts/vf_block_capture_counterexample_549.py`) | Valid Lean consumer with a false premise; weaker replacements need a new precise statement and consumer. |
+| OAI-NNS | OPEN | Complete eight-gate exponent ledger with δ > 0 (`MECH-OAI-NNS-COMPLETE-LEDGER` → `OPEN-MERTENS-EXPONENT-BELOW-7-8`); RH strength needs exponent 1/2 + ε | Lean Mertens-energy consumer. #987 7/8 is an imported benchmark, not a gain. |
+| JOH | OPEN | Nonlocal least-prime ancestry restriction on first-moment displacement J_r (`MECH-JOH-ANCESTRY-DISPLACEMENT`) giving eventual G(R²) < 0 (`OPEN-JOH-SIGN`) | Johnston arXiv:2201.06184 (literature, li = li(2) + Li₂) + square-endpoint transfer (paper, review pending). |
+| FINITE-AC | OPEN | All-root signed historical-envelope estimate (`OPEN-FINITE-AC`); constants must exceed 0.4357 (paper, Hurst) | Fully Lean-certified chain finite A ⇒ Mertens energy ⇒ RH. |
+| CORR4 | OPEN — frame advanced, physical remainder open | Signed first-owner Gram restriction beyond the scalar frame (`MECH-CORR4-SIGNED-FIRST-OWNER-GRAM`) paying \|B_R\|² ≤ (9/4)E_R + C R² K_R (`OPEN-CORR4-RELAXED-REMAINDER`) | Coefficient-4 CORR-4 ⇒ finite A ⇒ RH is merged Lean; the #1021 relaxation (886/225, or 3 + 4b₇ ≈ 3.8678 with #1023) is not yet certified at its latest head. |
+| MU-LIFT | OPEN | Fixed-k full-prefix signed estimate with r < k (`MECH-MU-LIFT-SUBCRITICAL`) | Paper contraction (review pending) into the Lean Mertens-energy consumer. |
+| NYMAN | OPEN | All-scale full-basis norm decay at a = 1/2 (`OPEN-NYMAN-DENSITY`) | Báez-Duarte criterion (literature). Burnol rules out q < 1/2 square contractions. |
+
+**Status corrections (2026-10-25):** #1019 merged 2026-10-24T21:57:31Z (the section below records it as green/unmerged at that time); #1021 head `daefa859` failed two workflows and new head `72d7e508` was still running CI when observed; #1022 (draft) and #1023 are green and unmerged. The October 24 portfolio and all earlier sections remain historical context; this table does not upgrade any status.
+
+
 ## 2026-10-24 — CURRENT TEN-ROUTE PROOF PORTFOLIO (after human merge)
 
 **New task selector:** [RH proof attack portfolio](docs/RH_PROOF_ATTACK_PORTFOLIO_20261024.md) and [seven-agent dynamic protocol](docs/DYNAMIC_RESEARCH_AGENTS.md). The old October 22 one-prime OAI source is retained as an **analytic subprogram**, not the only route. Independent criterion families: direct one-sided VF-LOW; SAT / JOH actual weighted composite removals; CODIV / OAI-NNS genuine covariance improving imported 7/8; FINITE-AC; CORR4 q² recursion; fixed-k MU-LIFT with r<k; full-basis NYMAN. The literal universal VF-in-every-block crossing/capture is REFUTED at R=549 by a reproducible genuine-prime sieve, so do not promote that conditional capture implication into an RH research goal. `scripts/vf_block_capture_counterexample_549.py` is the regression.
 
-**Live PR audit 2026-10-24:** #987, #1005, #1006 and #1008 are **merged** (older Oct22 text below calling #1005/#1006 draft is historical). #1019 is green/unmerged exact closed-square birth and moving transport, not an exponent result. The portfolio assigns each of seven specialties a **different original-source deliverable**, registers status and one falsifier, and refuses RH-equivalent renamed residuals as "small cancellation lemmas". Preserve canonical `VFCanonicalSquareVonKochStatement`, one run/specialist/day, six report-only specialists and human-only merge.
+**Live PR audit 2026-10-24:** #987, #1005, #1006 and #1008 are **merged** (older Oct22 text below calling #1005/#1006 draft is historical). #1019 was green/unmerged at that audit (merged 2026-10-24T21:57:31Z) exact closed-square birth and moving transport, not an exponent result. The portfolio assigns each of seven specialties a **different original-source deliverable**, registers status and one falsifier, and refuses RH-equivalent renamed residuals as "small cancellation lemmas". Preserve canonical `VFCanonicalSquareVonKochStatement`, one run/specialist/day, six report-only specialists and human-only merge.
 
 
 ## Historical 2026-10-22 — former OAI/NNS first selector (retained analytic seam)

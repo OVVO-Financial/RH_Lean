@@ -1,5 +1,12 @@
 # Current research frontier and import DAG
 
+## Two different DAGs: mathematical obligations vs historical source imports (2026-10-25)
+
+This page and [research-frontier.json](research-frontier.json) are the **historical PR-track source map and import closure** (Layer B navigation): ten cleanup tracks #915, #922, #923, #925–#929, #931, #932 with their modules, sentinels and open inputs. The **mathematical proof-obligation DAG** (Layer A) is separate: [PROOF_DEPENDENCY_DAG.md](PROOF_DEPENDENCY_DAG.md), generated from [proof-obligations.json](proof-obligations.json), whose `historical_tracks` field maps each historical PR below to the proposition nodes it supports. Historical PR numbers are evidence provenance, not independent proof architectures, and the ten historical tracks are not the ten mathematical routes. An import edge here never discharges a proposition there.
+
+**Status correction (2026-10-25):** #1019 merged 2026-10-24T21:57:31Z; the "green, open and unmerged" wording in the next section is the 2026-10-24 observation.
+
+
 ## Current 2026-10-24 portfolio frontier (effective after human merge)
 
 The primary task selector is [RH proof attack portfolio](RH_PROOF_ATTACK_PORTFOLIO_20261024.md). It distinguishes canonical **one-sided VF-LOW**, SAT/JOH **weighted prime/composite** route, CODIV/OAI-NNS **actual signed covariance** exponent improvement, FINITE-AC and **CORR4** critical-energy recurrences, **MU-LIFT** higher-order full-prefix amplification, and independent **NYMAN** positive-norm density. Literal universal per-block VF capture is **REFUTED** by R=549, not an agent's unsolved task.

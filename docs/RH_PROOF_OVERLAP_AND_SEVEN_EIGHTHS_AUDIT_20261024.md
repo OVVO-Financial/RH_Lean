@@ -78,3 +78,7 @@ It is defensible to say **six routes (#2,#5,#6,#7,#8,#9) can be equipped with th
 **Mandatory agent acceptance question:** "After inserting the unconditional 7/8 theorem, write the exact strongest power of X obtained on the complete target—including the main coherent term, all boundary and mixed terms—and show a **strictly smaller exponent**, a **subcritical coefficient under a separately proved arithmetic hypothesis**, or a new **incompatible first-bad configuration**. If no strict improvement, classify the work `BASELINE_REEXPRESSED`."
 
 This audit does not introduce a new conjecture or request every route to prove another signed cancellation. It records the arithmetic information still absent from each otherwise useful coordinate change.
+
+## 5. Registry links (added 2026-10-25; audit text above unchanged)
+
+The arrows audited in §2 are encoded as typed edges and recorded non-equivalences in [proof-obligations.json](proof-obligations.json) and checked by `scripts/proof_obligation_dag.py`: the #915 weighted source vs signed Mertens `S=A-T` (`CARRIER-915-WEIGHTED-SOURCE` ≠ `CARRIER-SAT-MERTENS`), the JOH Cesàro projection (`E-ETA-FIRST`, `OPEN-JOH-SIGN` ≠ `OPEN-VF-ACTUAL-PRIME`), the finite-A/legal Gram existential equivalence (`E-FINITE-A-GRAM`) vs global covariance, the one-way CORR-4 ⇒ finite A edge (`E-CORR4-FINITE-A`, `OPEN-CORR4` ≠ `OPEN-FINITE-AC`), and the imported 7/8 benchmark vs an exponent gain (`IMPORTED-OAI-7-8` ≠ `OPEN-MERTENS-EXPONENT-BELOW-7-8`). See the [proof-dependency DAG](PROOF_DEPENDENCY_DAG.md).

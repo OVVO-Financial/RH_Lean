@@ -1,0 +1,3825 @@
+{
+  "schema": "rhlean-proof-obligations/1",
+  "registry_version": "2026-10-25.1",
+  "authority": "Mathematical proof-obligation registry (Layer A) with links to Lean declarations (Layer B) and evidence (Layer C). Navigation and status bookkeeping only: a conditional consumer does not prove its premises, an explicit interface is not a Lean proof, and paper or numerical findings are not Lean certificates. Live PR state must be refreshed from GitHub; the evidence snapshot is dated.",
+  "baseline": {
+    "repository": "OVVO-Financial/RH_Lean",
+    "main_sha": "8d3a06d3748282e7e7e5cd273efdd00560cdee15",
+    "lean_toolchain": "leanprover/lean4:v4.34.1",
+    "agent_reports_sha": "488624466091f82500ab46c35d7fa0ba64b03665",
+    "verified_at": "2026-10-25T23:45:00Z"
+  },
+  "vocabulary": {
+    "node_types": [
+      "rh_target",
+      "historical_theorem",
+      "literature_theorem",
+      "explicit_interface",
+      "formalization_task",
+      "formalization_milestone",
+      "proved_lemma",
+      "imported_theorem",
+      "conditional_consumer",
+      "open_obligation",
+      "arithmetic_mechanism",
+      "paper_claim",
+      "no_go",
+      "finite_evidence",
+      "counterexample",
+      "refuted_claim",
+      "carrier"
+    ],
+    "logical_status": [
+      "PROVED",
+      "ESTABLISHED_LITERATURE",
+      "OPEN",
+      "CLAIMED",
+      "FINITE_EVIDENCE",
+      "REFUTED",
+      "DEFINITION"
+    ],
+    "formal_status": [
+      "PROVED_IN_LEAN_ON_MAIN",
+      "PROVED_IN_LEAN_PR_GREEN_UNMERGED",
+      "LEAN_PR_HEAD_NOT_GREEN",
+      "EXPLICIT_LEAN_INTERFACE",
+      "LEAN_STATEMENT_ONLY",
+      "LEAN_DEFINITION_ON_MAIN",
+      "NOT_FORMALIZED"
+    ],
+    "evidence_class": [
+      "PROVED_IN_LEAN_ON_MAIN",
+      "PROVED_IN_LEAN_PR_GREEN_UNMERGED",
+      "INDEPENDENTLY_REVIEWED_PAPER_PROOF",
+      "PAPER_PROOF_NEEDS_REVIEW",
+      "FINITE_COMPUTATION",
+      "CONDITIONAL",
+      "TARGET_EQUIVALENT",
+      "REFUTED",
+      "UNKNOWN"
+    ],
+    "provenance": [
+      "PROVED_INTERNALLY",
+      "IMPORTED_CERTIFIED_EXTERNAL_LEAN",
+      "LITERATURE_EXPLICIT_INTERFACE",
+      "LITERATURE_NOT_FORMALIZED",
+      "PAPER_ARGUMENT",
+      "NUMERICAL",
+      "OPEN_NO_PROOF"
+    ],
+    "obligation_kind": [
+      "ARITHMETIC",
+      "REVIEW",
+      "FORMALIZATION_COMPLETENESS"
+    ],
+    "edge_types": [
+      "EXACT_IDENTITY",
+      "PROVED_EQUIVALENCE",
+      "PROVED_IMPLICATION",
+      "WEIGHTED_PROJECTION",
+      "CONDITIONAL_IMPLICATION",
+      "REQUIRES",
+      "REFUTED_BY",
+      "INDEPENDENT_ARITHMETIC_GAIN"
+    ],
+    "evidence_grades": [
+      "KERNEL_CHECKED_ON_MAIN",
+      "KERNEL_CHECKED_GREEN_PR_HEAD",
+      "PR_HEAD_RED",
+      "PR_HEAD_PENDING",
+      "LITERATURE_STANDARD",
+      "AGENT_REPORT_SELF_AUDITED",
+      "AGENT_REPORT_REFEREED",
+      "EXACT_FINITE_REPRODUCED",
+      "REPOSITORY_NOTE"
+    ]
+  },
+  "routes": [
+    {
+      "id": "VF-LOW",
+      "title": "Canonical prime counting and one-sided von Koch escape prevention",
+      "disposition": "OPEN",
+      "status_label": "OPEN",
+      "gate": "PRIME-ONE-SIDED",
+      "priority": "B",
+      "architecture": "I. prime/composite incidence",
+      "missing_mathematics": "A legitimate original-source lower-wall restriction or first-bad contradiction retaining all original prime occurrences, VF weights, historical anchors, returning cells, restored terms and signed NNS interactions.",
+      "quantitative_target": "pi(R^2) - VF_can(R^2) >= -K R log R for all R >= R0.",
+      "best_source": "Canonical VF + von Koch reduction (#932); #915 toolkit and #939 content audit; research/VF_MID_LOWER_CHANNEL_ALONE_RH_AND_FIRST_BAD_GATE.md.",
+      "largest_unpaid_term": "Large negative first escape: imported 7/8 allows D_can(R) as low as -R^(7/4+eps).",
+      "falsifiers": [
+        "CE-BLOCK-R549",
+        "CE-JOH-R4-R7"
+      ],
+      "mechanism_nodes": [
+        "MECH-VF-LOW-FIRST-LOWER-ESCAPE",
+        "MECH-SAT-OWNER-REMOVAL",
+        "MECH-JOH-ANCESTRY-DISPLACEMENT"
+      ],
+      "next_action": "State one original-weight first-lower-escape restriction with quantifiers and test it on the exact #915 carrier; do not substitute an unweighted Mobius sum.",
+      "paths": [
+        {
+          "id": "VF-LOW/one-sided",
+          "description": "Lower wall + external Omega+- theorem.",
+          "edges": [
+            "E-VF-LOW-RH"
+          ],
+          "unpaid_inputs": [
+            "OPEN-VF-LOW",
+            "LIT-MV-OMEGA-PM",
+            "PAPER-VF-LOW-ONE-SIDED"
+          ]
+        },
+        {
+          "id": "VF-LOW/canonical-two-sided",
+          "description": "Public canonical target through the formalized von Koch reduction.",
+          "edges": [
+            "E-VF-CAN-RH"
+          ],
+          "unpaid_inputs": [
+            "OPEN-VF-ACTUAL-PRIME",
+            "IFACE-CLASSICAL-VONKOCH"
+          ]
+        },
+        {
+          "id": "VF-LOW/915-first-bad",
+          "description": "Original #915 source payment (fixed K = 2 envelope) into the canonical target.",
+          "edges": [
+            "E-915-VF",
+            "E-VF-CAN-RH"
+          ],
+          "unpaid_inputs": [
+            "OPEN-915-SOURCE-PAYMENT",
+            "FINITE-915-BASE-WINDOW",
+            "IFACE-CLASSICAL-VONKOCH"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "SAT",
+      "title": "Genuine prime/composite incidence and signed renewal S = A - T",
+      "disposition": "OPEN",
+      "status_label": "OPEN",
+      "gate": "PRIME-ONE-SIDED",
+      "priority": "B",
+      "architecture": "I. prime/composite incidence (input producer for VF-LOW and JOH)",
+      "missing_mathematics": "A new uniform signed owner-removal or cofactor/prime-innovation inequality with complete original source coefficients and nonlocal historical contributions; arithmetic restrictions on genuine prime locations and their least-prime-owned composite complements.",
+      "quantitative_target": "T(R^2) > A(R^2) - L(R^2) eventually (JOH form) or the VF-LOW wall.",
+      "best_source": "Merged #1019 birth/transport, least-prime owner and Mobius parity accounting, square-shell telescopes, #931 guardrail.",
+      "largest_unpaid_term": "Nonlocal historical composite-removal mass; PNT-sized density carries no RH-scale sign.",
+      "falsifiers": [
+        "CE-JOH-R4-R7"
+      ],
+      "mechanism_nodes": [
+        "MECH-SAT-OWNER-REMOVAL"
+      ],
+      "next_action": "Keep the three S = A - T carriers separate; derive one signed removal law on CARRIER-SAT-PRIME with location data and test it on zero-defect blocks.",
+      "paths": [
+        {
+          "id": "SAT/via-JOH",
+          "description": "SAT pays the JOH weighted composite-removal inequality.",
+          "edges": [
+            "E-JOH-RH"
+          ],
+          "unpaid_inputs": [
+            "OPEN-JOH-SIGN",
+            "LIT-JOHNSTON-2022",
+            "PAPER-JOH-SQUARE-TRANSFER"
+          ]
+        },
+        {
+          "id": "SAT/via-VF-LOW",
+          "description": "SAT pays the one-sided canonical wall.",
+          "edges": [
+            "E-VF-LOW-RH"
+          ],
+          "unpaid_inputs": [
+            "OPEN-VF-LOW",
+            "LIT-MV-OMEGA-PM",
+            "PAPER-VF-LOW-ONE-SIDED"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "CODIV",
+      "title": "Genuine unnormalized Mobius covariance",
+      "disposition": "OPEN",
+      "status_label": "OPEN",
+      "gate": "ANALYTIC-IMPROVEMENT",
+      "priority": "C",
+      "architecture": "II. genuine Mertens signed pair",
+      "missing_mathematics": "A nontrivial uniform source estimate for the full genuine signed covariance (diagonal and off-diagonal), not the identity M^2 = D + 2C or an NNS coordinate change.",
+      "quantitative_target": "M(X) = O(X^(7/8 - delta + eps)) for an independent delta > 0; RH strength is exponent 1/2 + eps.",
+      "best_source": "MILESTONE-COVARIANCE-IDENTITY; #987 global covariance output; #923 quotient variation.",
+      "largest_unpaid_term": "Off-diagonal pair sum C(N) at scale N^(7/4+eps).",
+      "falsifiers": [],
+      "mechanism_nodes": [
+        "MECH-CODIV-SIGNED-COVARIANCE",
+        "MECH-SIGNED-QUOTIENT-VARIATION"
+      ],
+      "intermediate_targets": [
+        "OPEN-MERTENS-EXPONENT-BELOW-7-8"
+      ],
+      "next_action": "Exhibit one proper signed component whose complete bill is below the 7/4 covariance power after every complement is restored.",
+      "paths": [
+        {
+          "id": "CODIV/mertens-energy",
+          "description": "RH-strength CODIV input is literally the Mertens-energy statement (target-equivalent).",
+          "edges": [
+            "E-MERTENS-RH"
+          ],
+          "unpaid_inputs": [
+            "PROP-MERTENS-ENERGY"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "BLOCK",
+      "title": "Literal universal VF integer-level square-block capture",
+      "disposition": "REFUTED",
+      "status_label": "Original universal version REFUTED; weaker replacements not automatically accepted",
+      "gate": "RETIRED",
+      "priority": null,
+      "architecture": "retired",
+      "missing_mathematics": "None for the universal statement: it is false. A weaker multi-block, averaged or one-sided theorem must be new, precise, not refuted, with a verified consumer and explicit arithmetic input.",
+      "quantitative_target": "N/A (refuted).",
+      "best_source": "research/VF_MID_LITERAL_BLOCK_CROSSING.lean (valid conditional consumer); scripts/vf_block_capture_counterexample_549.py.",
+      "largest_unpaid_term": "N/A",
+      "falsifiers": [
+        "CE-BLOCK-R549"
+      ],
+      "mechanism_nodes": [],
+      "next_action": "Keep the R = 549 regression permanent; do not assign the universal statement.",
+      "paths": [
+        {
+          "id": "BLOCK/literal",
+          "description": "Valid consumer with a false premise.",
+          "edges": [
+            "E-BLOCK-RH"
+          ],
+          "unpaid_inputs": [
+            "REFUTED-BLOCK-UNIVERSAL",
+            "IFACE-CLASSICAL-VONKOCH"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "OAI-NNS",
+      "title": "Original OpenAI compensated Hecke/Gaussian source and full signed NNS moment",
+      "disposition": "OPEN",
+      "status_label": "OPEN",
+      "gate": "ANALYTIC-IMPROVEMENT",
+      "priority": "C",
+      "architecture": "III. original OAI Hecke/character",
+      "missing_mathematics": "Complete source exponent ledger (eight gates) with strictly positive net saving; a local character zero mode or Poisson factor is source-level progress, not a global exponent.",
+      "quantitative_target": "All-scale exponent 7/8 - delta, delta > 0, on the complete source.",
+      "best_source": "Merged #987 (benchmark), #1017 heavy slot; open #1022 zero mode and Z^(-1/64) band.",
+      "largest_unpaid_term": "Low-J, resonant and unit-trivial rows plus outer counts at the 7/8 baseline.",
+      "falsifiers": [],
+      "mechanism_nodes": [
+        "MECH-OAI-NNS-COMPLETE-LEDGER"
+      ],
+      "intermediate_targets": [
+        "OPEN-MERTENS-EXPONENT-BELOW-7-8"
+      ],
+      "next_action": "Tabulate every Z exponent and multiplicity on the smallest complete admitted source family; reject if one sector stays at 7/8.",
+      "paths": [
+        {
+          "id": "OAI-NNS/mertens-energy",
+          "description": "RH strength needs exponent 1/2 + eps; any delta < 3/8 only improves the zero-free region.",
+          "edges": [
+            "E-MERTENS-RH"
+          ],
+          "unpaid_inputs": [
+            "PROP-MERTENS-ENERGY"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "JOH",
+      "title": "Johnston integrated prime discrepancy and weighted composite removal",
+      "disposition": "OPEN",
+      "status_label": "OPEN",
+      "gate": "PRIME-ONE-SIDED",
+      "priority": "B",
+      "architecture": "I. prime/composite incidence",
+      "missing_mathematics": "A genuine nonlocal least-prime ancestry restriction controlling signed chronological displacement, together with weighted block defects and historical anchors.",
+      "quantitative_target": "G(R^2) < 0 for all R >= R0 (Johnston scale -N^(3/2)/log N).",
+      "best_source": "research/LI_FAN_ONE_SIDED_WEIGHTED_COMPOSITE_RH_CONTRACT_20261022.md; claim 20261024-owner-1.",
+      "largest_unpaid_term": "sum_r J_r, trivially O(N^(3/2)/log N) with no sign.",
+      "falsifiers": [
+        "CE-JOH-R4-R7"
+      ],
+      "mechanism_nodes": [
+        "MECH-JOH-ANCESTRY-DISPLACEMENT",
+        "MECH-SAT-OWNER-REMOVAL"
+      ],
+      "next_action": "Certified displacement census on D_r = 0 blocks, then one stated nonlocal ancestry law.",
+      "paths": [
+        {
+          "id": "JOH/johnston",
+          "description": "Johnston's external criterion and the square-endpoint transfer.",
+          "edges": [
+            "E-JOH-RH"
+          ],
+          "unpaid_inputs": [
+            "OPEN-JOH-SIGN",
+            "LIT-JOHNSTON-2022",
+            "PAPER-JOH-SQUARE-TRANSFER"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "FINITE-AC",
+      "title": "Historical Mertens envelope and normalized signed energy",
+      "disposition": "OPEN",
+      "status_label": "OPEN",
+      "gate": "MERTENS-RECURSIVE",
+      "priority": "D",
+      "architecture": "II. genuine Mertens signed pair",
+      "missing_mathematics": "A genuine all-root signed upper estimate with the historical denominator intact.",
+      "quantitative_target": "|Q_R| <= C R sqrt(K_R), equivalently (M(R^2-1) - 1)^2 <= A R^2 K_R.",
+      "best_source": "#929 accounting; RHLean/Proof/SquareRootMertensEndpointAmplification.lean; RHLean/Proof/SquareRootAmplificationClosure.lean.",
+      "largest_unpaid_term": "Square-endpoint excursions such as R = 5561 (M = -2544).",
+      "falsifiers": [
+        "CE-CORR4-R5561"
+      ],
+      "mechanism_nodes": [
+        "MECH-FINITE-AC-HISTORICAL-ENVELOPE"
+      ],
+      "next_action": "Seek an independently payable historical-envelope estimate; respect the Hurst restriction A > 0.4357.",
+      "paths": [
+        {
+          "id": "FINITE-AC/mertens",
+          "description": "Fully Lean-certified consumer chain; only the arithmetic premise is open.",
+          "edges": [
+            "E-FINITE-A-MERTENS",
+            "E-MERTENS-RH"
+          ],
+          "unpaid_inputs": [
+            "OPEN-FINITE-AC"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "CORR4",
+      "title": "Rough cofactor correlation, low-q^2 daughters and signed first-owner Gram",
+      "disposition": "OPEN",
+      "status_label": "FRAME ADVANCED; PHYSICAL REMAINDER OPEN",
+      "gate": "MERTENS-RECURSIVE",
+      "priority": "A",
+      "architecture": "II'. q^2 recursion (distinct mechanism within the Mertens family)",
+      "missing_mathematics": "A source-specific signed first-owner Gram restriction using arithmetic information beyond the sharp scalar frame, particularly on large endpoint excursions.",
+      "quantitative_target": "|B_R|^2 <= (9/4) E_R + C R^2 K_R for all R >= 56.",
+      "best_source": "Open #1021 (carrier, conditional wiring), green #1023 (b_7 frame), research/CORRELATION_FOUR_TERMINAL_BRIDGE.lean.",
+      "largest_unpaid_term": "|B_R|^2 - (9/4) E_R, observed up to 0.1442 R^2 K at R = 5561; forced finite-A excursion (NOGO-CORR4-FRAME-ONLY).",
+      "falsifiers": [
+        "CE-CORR4-R57",
+        "CE-CORR4-R5561",
+        "CE-CORR4-R56"
+      ],
+      "mechanism_nodes": [
+        "MECH-CORR4-SIGNED-FIRST-OWNER-GRAM"
+      ],
+      "next_action": "Stop refining unsigned reciprocal constants; prove or refute a signed restriction excluding near-saturation of the antiparallel frame extremizer on endpoint excursions.",
+      "paths": [
+        {
+          "id": "CORR4/coefficient-4",
+          "description": "Merged terminal chain riemannHypothesis_of_canonicalRoughCorrelationFourQ2Energy.",
+          "edges": [
+            "E-CORR4-FINITE-A",
+            "E-FINITE-A-MERTENS",
+            "E-MERTENS-RH"
+          ],
+          "unpaid_inputs": [
+            "OPEN-CORR4"
+          ]
+        },
+        {
+          "id": "CORR4/relaxed-remainder",
+          "description": "#1021 sufficient relaxation (coefficient 886/225, or 3 + 4 b_7 with #1023).",
+          "edges": [
+            "E-CORR4-RELAXED",
+            "E-CORR4-FINITE-A",
+            "E-FINITE-A-MERTENS",
+            "E-MERTENS-RH"
+          ],
+          "unpaid_inputs": [
+            "OPEN-CORR4-RELAXED-REMAINDER",
+            "PR1021-RELAXED-CONSUMER"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "MU-LIFT",
+      "title": "Higher-order Newton/Heath-Brown full-prefix amplification",
+      "disposition": "OPEN",
+      "status_label": "OPEN",
+      "gate": "MERTENS-RECURSIVE",
+      "priority": "D",
+      "architecture": "IV. higher-order inverse Newton lift",
+      "missing_mathematics": "A genuinely new full-prefix signed estimate yielding a subcritical exponent r < k.",
+      "quantitative_target": "E(B^k) <= B^(o(1)) E(B)^r, fixed r < k.",
+      "best_source": "#954 signed lift; docs/MERTENS_AMPLIFICATION_BUDGET.md.",
+      "largest_unpaid_term": "Remaining K3 ranges and K1/K2 at full prefix scale.",
+      "falsifiers": [],
+      "mechanism_nodes": [
+        "MECH-MU-LIFT-SUBCRITICAL"
+      ],
+      "next_action": "Specify one Type II corner with every complementary range and its exact r; reject r = k or target-defined G.",
+      "paths": [
+        {
+          "id": "MU-LIFT/contraction",
+          "description": "Paper contraction argument into the Lean Mertens-energy consumer.",
+          "edges": [
+            "E-MULIFT-MERTENS",
+            "E-MERTENS-RH"
+          ],
+          "unpaid_inputs": [
+            "OPEN-MU-LIFT",
+            "PAPER-MU-LIFT-CONTRACTION"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "NYMAN",
+      "title": "Nyman-Beurling Hilbert approximation",
+      "disposition": "OPEN",
+      "status_label": "OPEN",
+      "gate": "INDEPENDENT-HILBERT",
+      "priority": "E",
+      "architecture": "V. Nyman Hilbert",
+      "missing_mathematics": "Full-scale norm decay or density, not finite-dimensional approximation.",
+      "quantitative_target": "d_N -> 0 at a = 1/2 for the full basis.",
+      "best_source": "research/NYMAN_BEURLING_POSITIVE_RESIDUE_ATTACK_2026_10_15.md (#957).",
+      "largest_unpaid_term": "All-scale tail of the basis approximation.",
+      "falsifiers": [],
+      "mechanism_nodes": [
+        "MECH-NYMAN-FULL-BASIS-DECAY"
+      ],
+      "next_action": "Keep as an independent analytic reserve; never revive a q < 1/2 square contraction (Burnol).",
+      "paths": [
+        {
+          "id": "NYMAN/baez-duarte",
+          "description": "External Baez-Duarte criterion.",
+          "edges": [
+            "E-NYMAN-RH"
+          ],
+          "unpaid_inputs": [
+            "OPEN-NYMAN-DENSITY",
+            "LIT-BAEZ-DUARTE"
+          ]
+        }
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "id": "RH",
+      "title": "Riemann Hypothesis",
+      "type": "rh_target",
+      "route_ids": [
+        "VF-LOW",
+        "SAT",
+        "CODIV",
+        "BLOCK",
+        "OAI-NNS",
+        "JOH",
+        "FINITE-AC",
+        "CORR4",
+        "MU-LIFT",
+        "NYMAN"
+      ],
+      "statement": "Every nontrivial zero of the Riemann zeta function has real part 1/2 (Mathlib `RiemannHypothesis`; repository alias `VFMidRiemannHypothesisStatement`).",
+      "logical_status": "OPEN",
+      "formal_status": "LEAN_STATEMENT_ONLY",
+      "evidence_class": "UNKNOWN",
+      "provenance": "OPEN_NO_PROOF",
+      "open_obligation": true,
+      "obligation_kind": "ARITHMETIC",
+      "lean": [
+        {
+          "file": "research/VF_MID_VON_KOCH_BRIDGE.lean",
+          "name": "VFMidRiemannHypothesisStatement"
+        }
+      ],
+      "notes": "No route in this registry closes RH; every RH path below lists its unpaid inputs.",
+      "evidence": [],
+      "does_not_prove": []
+    },
+    {
+      "id": "HISTORICAL-VONKOCH-1901",
+      "title": "von Koch prime-counting criterion (1901)",
+      "type": "historical_theorem",
+      "route_ids": [
+        "VF-LOW",
+        "BLOCK"
+      ],
+      "statement": "RH <=> pi(x) - Li(x) = O(sqrt(x) log x). von Koch (1901) proved RH => pi(x) = Li(x) + O(sqrt(x) log x); the converse is the classical Mellin/partial-summation argument (an O(x^(1/2+eps)) error continues the relevant Dirichlet series to Re s > 1/2). Li_2(x) = int_2^x dt/log t differs from li(x) by the constant li(2) = 1.04516..., so the criterion is normalization-independent.",
+      "normalization": "Either li or Li_2; the additive constant li(2) is absorbed in the O(sqrt(x) log x) scale.",
+      "logical_status": "ESTABLISHED_LITERATURE",
+      "formal_status": "EXPLICIT_LEAN_INTERFACE",
+      "evidence_class": "INDEPENDENTLY_REVIEWED_PAPER_PROOF",
+      "provenance": "LITERATURE_EXPLICIT_INTERFACE",
+      "literature": [
+        "H. von Koch, \"Sur la distribution des nombres premiers\", Acta Mathematica 24 (1901), 159-182, doi:10.1007/BF02403071 (RH => error bound)."
+      ],
+      "represented_by": "IFACE-CLASSICAL-VONKOCH",
+      "lean": [
+        {
+          "file": "research/VF_MID_VON_KOCH_BRIDGE.lean",
+          "name": "ClassicalVonKochRHCriterion"
+        }
+      ],
+      "evidence": [
+        "EV-LIT-VONKOCH-1901"
+      ],
+      "does_not_prove": [
+        "Any arithmetic estimate on actual primes",
+        "The Riemann Hypothesis"
+      ],
+      "milestone": {
+        "order": 0,
+        "date": "1901",
+        "label": "Historical theorem (literature)",
+        "pr": null
+      },
+      "open_obligation": false
+    },
+    {
+      "id": "IFACE-CLASSICAL-VONKOCH",
+      "title": "ClassicalVonKochRHCriterion (explicit Lean interface)",
+      "type": "explicit_interface",
+      "route_ids": [
+        "VF-LOW",
+        "BLOCK"
+      ],
+      "statement": "structure ClassicalVonKochRHCriterion where iff_riemannHypothesis : PrimeLiVonKochBoundedStatement <-> VFMidRiemannHypothesisStatement. Supplied as an explicit theorem argument; the repository does not construct it.",
+      "logical_status": "ESTABLISHED_LITERATURE",
+      "formal_status": "EXPLICIT_LEAN_INTERFACE",
+      "evidence_class": "INDEPENDENTLY_REVIEWED_PAPER_PROOF",
+      "provenance": "LITERATURE_EXPLICIT_INTERFACE",
+      "literature": [
+        "Packages HISTORICAL-VONKOCH-1901 in the repository's Li_2 normalization."
+      ],
+      "lean": [
+        {
+          "file": "research/VF_MID_VON_KOCH_BRIDGE.lean",
+          "name": "ClassicalVonKochRHCriterion"
+        },
+        {
+          "file": "research/VF_MID_VON_KOCH_BRIDGE.lean",
+          "name": "PrimeLiVonKochBoundedStatement"
+        }
+      ],
+      "realizes": "HISTORICAL-VONKOCH-1901",
+      "discharged_by": "CLASSICAL_VONKOCH_CRITERION_FORMAL_IMPORT_OR_PROOF",
+      "evidence": [
+        "EV-LEAN-MAIN-VFCAN",
+        "EV-LIT-VONKOCH-1901"
+      ],
+      "does_not_prove": [
+        "The classical analytic theorem inside Lean (it is a hypothesis, not a construction)"
+      ],
+      "notes": "`#print axioms` does not report this structure: it is an ordinary theorem argument, not a logical axiom.",
+      "open_obligation": false
+    },
+    {
+      "id": "CLASSICAL_VONKOCH_CRITERION_FORMAL_IMPORT_OR_PROOF",
+      "title": "Formalize or import the classical von Koch criterion",
+      "type": "formalization_task",
+      "route_ids": [
+        "VF-LOW",
+        "BLOCK"
+      ],
+      "statement": "Construct a term of ClassicalVonKochRHCriterion, either from an existing certified Lean proof of the classical equivalence or by a new proof in the pinned Lean 4.34.1 / Mathlib toolchain.",
+      "logical_status": "ESTABLISHED_LITERATURE",
+      "formal_status": "NOT_FORMALIZED",
+      "evidence_class": "INDEPENDENTLY_REVIEWED_PAPER_PROOF",
+      "provenance": "LITERATURE_NOT_FORMALIZED",
+      "open_obligation": true,
+      "obligation_kind": "FORMALIZATION_COMPLETENESS",
+      "literature": [
+        "HISTORICAL-VONKOCH-1901; Mathlib (pinned) does not expose this equivalence in the Li_2 normalization (comment on ClassicalVonKochRHCriterion)."
+      ],
+      "lean": [
+        {
+          "file": "research/VF_MID_VON_KOCH_BRIDGE.lean",
+          "name": "ClassicalVonKochRHCriterion"
+        }
+      ],
+      "does_not_prove": [
+        "OPEN-VF-ACTUAL-PRIME: discharging the interface leaves the actual-prime estimate exactly as open as before"
+      ],
+      "notes": "Formalization-completeness objective only. It is not a new conjecture and does not substitute for the open arithmetic estimate OPEN-VF-ACTUAL-PRIME.",
+      "evidence": []
+    },
+    {
+      "id": "MILESTONE-VF-CANONICAL",
+      "title": "Canonical square-block VF definition",
+      "type": "formalization_milestone",
+      "route_ids": [
+        "VF-LOW",
+        "JOH",
+        "SAT"
+      ],
+      "statement": "vfCanonical x = vfMid x + sqrt 2; for x >= 4, R = floor(sqrt x): VF_can(x) = sqrt2 + sum_{r=2}^{R-1} (2r+1)/log(r^2+r+1/2) + (x-R^2)/log((R^2+x)/2). The square-endpoint defect obeys the exact actual-prime recurrence D_{R+1} = D_R + (P_R - V_R).",
+      "logical_status": "PROVED",
+      "formal_status": "PROVED_IN_LEAN_ON_MAIN",
+      "evidence_class": "PROVED_IN_LEAN_ON_MAIN",
+      "provenance": "PROVED_INTERNALLY",
+      "lean": [
+        {
+          "file": "research/VF_CANONICAL_SQRT_TWO.lean",
+          "name": "vfCanonical"
+        },
+        {
+          "file": "research/VF_CANONICAL_SQRT_TWO.lean",
+          "name": "vfCanonical_eq_legacy_plus_sqrt_two"
+        },
+        {
+          "file": "research/VF_CANONICAL_SQRT_TWO.lean",
+          "name": "vfCanonicalSquareDefect_succ"
+        },
+        {
+          "file": "research/VF_CANONICAL_SQRT_TWO.lean",
+          "name": "vfCanonicalPrimeLiError_eq_primeError_add_quadrature"
+        }
+      ],
+      "pr": 932,
+      "evidence": [
+        "EV-PR-932",
+        "EV-LEAN-MAIN-VFCAN"
+      ],
+      "does_not_prove": [
+        "Any bound on pi - VF_can",
+        "Pointwise optimality of the sqrt2 phase"
+      ],
+      "milestone": {
+        "order": 2,
+        "date": "2026-10-12",
+        "label": "MILESTONE-VF-CANONICAL",
+        "pr": 932
+      },
+      "open_obligation": false
+    },
+    {
+      "id": "MILESTONE-VF-LI-ROOT",
+      "title": "Root-scale VF/Li_2 quadrature (pre-#932)",
+      "type": "proved_lemma",
+      "route_ids": [
+        "VF-LOW"
+      ],
+      "statement": "VFMidLiRootBoundedStatement: exists B >= 0, forall x >= 4, |vfMid(x) - Li_2(x)| <= B sqrt(x). This is the quadrature input actually used by the von Koch equivalence proofs.",
+      "logical_status": "PROVED",
+      "formal_status": "PROVED_IN_LEAN_ON_MAIN",
+      "evidence_class": "PROVED_IN_LEAN_ON_MAIN",
+      "provenance": "PROVED_INTERNALLY",
+      "lean": [
+        {
+          "file": "research/VF_MID_VON_KOCH_BRIDGE.lean",
+          "name": "VFMidLiRootBoundedStatement"
+        },
+        {
+          "file": "research/VF_MID_VON_KOCH_BRIDGE.lean",
+          "name": "vfMidLiRootBounded"
+        }
+      ],
+      "evidence": [
+        "EV-LEAN-MAIN-VFCAN"
+      ],
+      "does_not_prove": [],
+      "open_obligation": false
+    },
+    {
+      "id": "MILESTONE-VF-LI-O1",
+      "title": "VF_can - Li_2 = O(1) on the whole real continuum",
+      "type": "formalization_milestone",
+      "route_ids": [
+        "VF-LOW",
+        "JOH"
+      ],
+      "statement": "exists C, forall real x >= 4: |VF_can(x) - Li_2(x)| <= C (and |vfMid(x) - Li_2(x)| <= C_square + C_live). Unconditional; elementary uniform midpoint quadrature, no prime-distribution hypothesis.",
+      "logical_status": "PROVED",
+      "formal_status": "PROVED_IN_LEAN_ON_MAIN",
+      "evidence_class": "PROVED_IN_LEAN_ON_MAIN",
+      "provenance": "PROVED_INTERNALLY",
+      "lean": [
+        {
+          "file": "research/VF_CANONICAL_ALL_REAL_LI_O_ONE.lean",
+          "name": "abs_vfMidLiError_le_uniform_allReal"
+        },
+        {
+          "file": "research/VF_CANONICAL_ALL_REAL_LI_O_ONE.lean",
+          "name": "vfMidLiAllRealUniformBounded"
+        },
+        {
+          "file": "research/VF_CANONICAL_SQRT_TWO.lean",
+          "name": "abs_vfCanonicalLiError_le_uniform_allReal"
+        }
+      ],
+      "pr": 932,
+      "evidence": [
+        "EV-PR-932",
+        "EV-LEAN-MAIN-VFCAN"
+      ],
+      "does_not_prove": [
+        "Any bound on pi - VF_can or pi - Li_2",
+        "The Riemann Hypothesis"
+      ],
+      "notes": "Strictly stronger than the root-scale quadrature MILESTONE-VF-LI-ROOT that the von Koch equivalence consumes; either suffices for the reduction.",
+      "milestone": {
+        "order": 3,
+        "date": "2026-10-12",
+        "label": "MILESTONE-VF-LI-O1",
+        "pr": 932
+      },
+      "open_obligation": false
+    },
+    {
+      "id": "MILESTONE-VONKOCH-VF-LEAN",
+      "title": "Canonical VF square endpoint <=> classical prime-Li von Koch bound",
+      "type": "formalization_milestone",
+      "route_ids": [
+        "VF-LOW"
+      ],
+      "classification": "FORMALIZED_CANONICAL_VONKOCH_REDUCTION",
+      "statement": "(exists C >= 0, forall R >= 2, |pi(R^2) - VF_can(R^2)| <= C R log R) <=> (exists C' >= 0, forall real x >= 4, |pi(x) - Li_2(x)| <= C' sqrt(x) log x), and both are equivalent to the all-real canonical and legacy vfMid forms, with renormalized nonnegative constants.",
+      "logical_status": "PROVED",
+      "formal_status": "PROVED_IN_LEAN_ON_MAIN",
+      "evidence_class": "PROVED_IN_LEAN_ON_MAIN",
+      "provenance": "PROVED_INTERNALLY",
+      "lean": [
+        {
+          "file": "research/VF_CANONICAL_SQRT_TWO_VON_KOCH.lean",
+          "name": "vfCanonicalSquareVonKoch_iff_primeLiVonKoch"
+        },
+        {
+          "file": "research/VF_CANONICAL_SQRT_TWO_VON_KOCH.lean",
+          "name": "vfCanonicalRealVonKoch_iff_primeLiVonKoch"
+        },
+        {
+          "file": "research/VF_CANONICAL_SQRT_TWO_VON_KOCH.lean",
+          "name": "vfCanonicalSquareVonKoch_iff_realVonKoch"
+        },
+        {
+          "file": "research/VF_CANONICAL_SQRT_TWO_VON_KOCH.lean",
+          "name": "vfCanonicalRealVonKoch_iff_legacy"
+        },
+        {
+          "file": "research/VF_CANONICAL_SQRT_TWO_VON_KOCH.lean",
+          "name": "vfCanonicalSquareVonKoch_iff_legacy"
+        },
+        {
+          "file": "research/VF_MID_VON_KOCH_BRIDGE.lean",
+          "name": "vfMidVonKochBounded_iff_primeLiVonKochBounded"
+        },
+        {
+          "file": "research/VF_MID_VON_KOCH_BRIDGE.lean",
+          "name": "vfMidSquareEndpointVonKochBounded_iff_primeLiVonKochBounded"
+        },
+        {
+          "file": "research/VF_MID_VON_KOCH_BRIDGE.lean",
+          "name": "vfMidVonKochBounded_of_squareEndpoint"
+        }
+      ],
+      "pr": 932,
+      "evidence": [
+        "EV-PR-932",
+        "EV-LEAN-MAIN-VFCAN"
+      ],
+      "does_not_prove": [
+        "The actual-prime endpoint estimate OPEN-VF-ACTUAL-PRIME",
+        "The independent classical von Koch-to-RH analytic theorem (IFACE-CLASSICAL-VONKOCH is an explicit argument)",
+        "The Riemann Hypothesis"
+      ],
+      "milestone": {
+        "order": 4,
+        "date": "2026-10-12",
+        "label": "MILESTONE-VONKOCH-VF-LEAN",
+        "pr": 932
+      },
+      "open_obligation": false
+    },
+    {
+      "id": "OPEN-VF-ACTUAL-PRIME",
+      "title": "Canonical actual-prime von Koch bound (public target)",
+      "type": "open_obligation",
+      "route_ids": [
+        "VF-LOW"
+      ],
+      "statement": "VFCanonicalSquareVonKochStatement: exists C >= 0, forall R >= 2, |pi(R^2) - VF_can(R^2)| <= C R log R.",
+      "logical_status": "OPEN",
+      "formal_status": "LEAN_STATEMENT_ONLY",
+      "evidence_class": "TARGET_EQUIVALENT",
+      "provenance": "OPEN_NO_PROOF",
+      "open_obligation": true,
+      "obligation_kind": "ARITHMETIC",
+      "lean": [
+        {
+          "file": "research/VF_CANONICAL_SQRT_TWO_VON_KOCH.lean",
+          "name": "VFCanonicalSquareVonKochStatement"
+        }
+      ],
+      "pr": 932,
+      "evidence": [
+        "EV-PR-932"
+      ],
+      "notes": "Equivalent (MILESTONE-VONKOCH-VF-LEAN) to the classical prime-Li von Koch bound, hence RH-equivalent given HISTORICAL-VONKOCH-1901. Known baseline from imported 7/8: D_can(R) = O(R^(7/4+eps)).",
+      "does_not_prove": []
+    },
+    {
+      "id": "PROP-VF-CAN-REAL-VONKOCH",
+      "title": "Canonical all-real von Koch bound",
+      "type": "open_obligation",
+      "route_ids": [
+        "VF-LOW"
+      ],
+      "statement": "VFCanonicalRealVonKochStatement: exists C >= 0, forall real x >= 4, |pi(x) - VF_can(x)| <= C sqrt(x) log x.",
+      "logical_status": "OPEN",
+      "formal_status": "LEAN_STATEMENT_ONLY",
+      "evidence_class": "TARGET_EQUIVALENT",
+      "provenance": "OPEN_NO_PROOF",
+      "open_obligation": true,
+      "obligation_kind": "ARITHMETIC",
+      "lean": [
+        {
+          "file": "research/VF_CANONICAL_SQRT_TWO_VON_KOCH.lean",
+          "name": "VFCanonicalRealVonKochStatement"
+        }
+      ],
+      "pr": 932,
+      "evidence": [
+        "EV-PR-932"
+      ],
+      "does_not_prove": []
+    },
+    {
+      "id": "PROP-VF-MID-SQUARE-VONKOCH",
+      "title": "Legacy vfMid square-endpoint von Koch bound",
+      "type": "open_obligation",
+      "route_ids": [
+        "VF-LOW"
+      ],
+      "statement": "VFMidSquareEndpointVonKochBoundedStatement: exists C >= 0, forall R >= 2, |pi(R^2) - vfMid(R^2)| <= C R log R (historical statement, not redefined).",
+      "logical_status": "OPEN",
+      "formal_status": "LEAN_STATEMENT_ONLY",
+      "evidence_class": "TARGET_EQUIVALENT",
+      "provenance": "OPEN_NO_PROOF",
+      "open_obligation": true,
+      "obligation_kind": "ARITHMETIC",
+      "lean": [
+        {
+          "file": "research/VF_MID_VON_KOCH_BRIDGE.lean",
+          "name": "VFMidSquareEndpointVonKochBoundedStatement"
+        }
+      ],
+      "evidence": [
+        "EV-LEAN-MAIN-VFCAN"
+      ],
+      "does_not_prove": []
+    },
+    {
+      "id": "PROP-VF-MID-REAL-VONKOCH",
+      "title": "Legacy vfMid all-real von Koch bound",
+      "type": "open_obligation",
+      "route_ids": [
+        "VF-LOW"
+      ],
+      "statement": "VFMidVonKochBoundedStatement: exists C >= 0, forall real x >= 4, |pi(x) - vfMid(x)| <= C sqrt(x) log x.",
+      "logical_status": "OPEN",
+      "formal_status": "LEAN_STATEMENT_ONLY",
+      "evidence_class": "TARGET_EQUIVALENT",
+      "provenance": "OPEN_NO_PROOF",
+      "open_obligation": true,
+      "obligation_kind": "ARITHMETIC",
+      "lean": [
+        {
+          "file": "research/VF_MID_VON_KOCH_BRIDGE.lean",
+          "name": "VFMidVonKochBoundedStatement"
+        }
+      ],
+      "evidence": [
+        "EV-LEAN-MAIN-VFCAN"
+      ],
+      "does_not_prove": []
+    },
+    {
+      "id": "PROP-PRIME-LI-VONKOCH",
+      "title": "Classical prime-Li_2 von Koch bound",
+      "type": "open_obligation",
+      "route_ids": [
+        "VF-LOW"
+      ],
+      "statement": "PrimeLiVonKochBoundedStatement: exists C >= 0, forall real x >= 4, |pi(x) - Li_2(x)| <= C sqrt(x) log x, Li_2(x) = int_2^x dt/log t.",
+      "logical_status": "OPEN",
+      "formal_status": "LEAN_STATEMENT_ONLY",
+      "evidence_class": "TARGET_EQUIVALENT",
+      "provenance": "OPEN_NO_PROOF",
+      "open_obligation": true,
+      "obligation_kind": "ARITHMETIC",
+      "lean": [
+        {
+          "file": "research/VF_MID_VON_KOCH_BRIDGE.lean",
+          "name": "PrimeLiVonKochBoundedStatement"
+        }
+      ],
+      "evidence": [
+        "EV-LEAN-MAIN-VFCAN"
+      ],
+      "does_not_prove": []
+    },
+    {
+      "id": "RH-CONDITIONAL-CONSUMER",
+      "title": "Canonical VF RH consumer (explicit classical interface)",
+      "type": "conditional_consumer",
+      "route_ids": [
+        "VF-LOW"
+      ],
+      "statement": "riemannHypothesis_of_vfCanonicalSquare (criterion : ClassicalVonKochRHCriterion) (h : VFCanonicalSquareVonKochStatement) : RiemannHypothesis; legacy form riemannHypothesis_of_vfMidSquareEndpoint.",
+      "logical_status": "PROVED",
+      "formal_status": "PROVED_IN_LEAN_ON_MAIN",
+      "evidence_class": "CONDITIONAL",
+      "provenance": "PROVED_INTERNALLY",
+      "hypotheses": [
+        "IFACE-CLASSICAL-VONKOCH",
+        "OPEN-VF-ACTUAL-PRIME"
+      ],
+      "lean": [
+        {
+          "file": "research/VF_CANONICAL_SQRT_TWO_VON_KOCH.lean",
+          "name": "riemannHypothesis_of_vfCanonicalSquare"
+        },
+        {
+          "file": "research/VF_MID_VON_KOCH_BRIDGE.lean",
+          "name": "riemannHypothesis_of_vfMidSquareEndpoint"
+        }
+      ],
+      "pr": 932,
+      "evidence": [
+        "EV-PR-932",
+        "EV-LEAN-MAIN-VFCAN"
+      ],
+      "does_not_prove": [
+        "Either hypothesis",
+        "The Riemann Hypothesis"
+      ],
+      "open_obligation": false
+    },
+    {
+      "id": "OPEN-VF-LOW",
+      "title": "One-sided canonical lower wall",
+      "type": "open_obligation",
+      "route_ids": [
+        "VF-LOW",
+        "SAT"
+      ],
+      "statement": "exists K >= 0, R0, forall R >= R0: pi(R^2) - VF_can(R^2) >= -K R log R.",
+      "logical_status": "OPEN",
+      "formal_status": "NOT_FORMALIZED",
+      "evidence_class": "UNKNOWN",
+      "provenance": "OPEN_NO_PROOF",
+      "open_obligation": true,
+      "obligation_kind": "ARITHMETIC",
+      "evidence": [
+        "EV-NOTE-VF-LOW"
+      ],
+      "notes": "Imported 7/8 gives only D_can(R) = O(R^(7/4+eps)); a large negative first escape is not excluded.",
+      "lean": [],
+      "does_not_prove": []
+    },
+    {
+      "id": "PAPER-VF-LOW-ONE-SIDED",
+      "title": "One-sided lower wall suffices for RH (paper argument)",
+      "type": "paper_claim",
+      "route_ids": [
+        "VF-LOW"
+      ],
+      "statement": "Lower wall + square-endpoint O(1) quadrature + monotonicity of pi give pi(x) - li(x) >= -O(sqrt(x) log x) for all real x; with LIT-MV-OMEGA-PM this forces RH.",
+      "logical_status": "CLAIMED",
+      "formal_status": "NOT_FORMALIZED",
+      "evidence_class": "PAPER_PROOF_NEEDS_REVIEW",
+      "provenance": "PAPER_ARGUMENT",
+      "open_obligation": true,
+      "obligation_kind": "REVIEW",
+      "source_file": "research/VF_MID_LOWER_CHANNEL_ALONE_RH_AND_FIRST_BAD_GATE.md",
+      "pr": 925,
+      "evidence": [
+        "EV-NOTE-VF-LOW"
+      ],
+      "lean": [],
+      "does_not_prove": []
+    },
+    {
+      "id": "LIT-MV-OMEGA-PM",
+      "title": "Two-sided oscillation of pi - li (Montgomery-Vaughan Thm 15.3)",
+      "type": "literature_theorem",
+      "route_ids": [
+        "VF-LOW"
+      ],
+      "statement": "With Theta = sup Re(rho), for every eps > 0: pi(x) - li(x) = Omega_+-(x^(Theta - eps)).",
+      "logical_status": "ESTABLISHED_LITERATURE",
+      "formal_status": "NOT_FORMALIZED",
+      "evidence_class": "INDEPENDENTLY_REVIEWED_PAPER_PROOF",
+      "provenance": "LITERATURE_NOT_FORMALIZED",
+      "literature": [
+        "H. L. Montgomery and R. C. Vaughan, Multiplicative Number Theory I: Classical Theory, Theorem 15.3."
+      ],
+      "evidence": [
+        "EV-NOTE-VF-LOW"
+      ],
+      "lean": [],
+      "does_not_prove": [],
+      "open_obligation": false
+    },
+    {
+      "id": "OPEN-915-SOURCE-PAYMENT",
+      "title": "Original #915 first-bad source payment",
+      "type": "open_obligation",
+      "route_ids": [
+        "VF-LOW"
+      ],
+      "statement": "VFMid915FirstBadSourcePaymentStatement: forall R >= 8 with first bad successor R+1 at K=2, 2 * Source(R)^2 <= TotalMass(R). Content audit (#939): equivalent to the absence of first-bad successors; with the finite base window, equivalent to |D_R| <= 2 R log R for every R >= 2.",
+      "logical_status": "OPEN",
+      "formal_status": "LEAN_STATEMENT_ONLY",
+      "evidence_class": "UNKNOWN",
+      "provenance": "OPEN_NO_PROOF",
+      "open_obligation": true,
+      "obligation_kind": "ARITHMETIC",
+      "lean": [
+        {
+          "file": "research/VF_MID_FIRST_BAD_EXACT_BUDGET_CLOSE.lean",
+          "name": "VFMid915FirstBadSourcePaymentStatement"
+        },
+        {
+          "file": "research/VF_MID_915_SOURCE_PAYMENT_CONTENT_AUDIT.lean",
+          "name": "vfMid915FirstBadSourcePayment_iff_radialTwoEnvelope_of_base"
+        }
+      ],
+      "pr": 915,
+      "evidence": [
+        "EV-PR-915",
+        "EV-PR-939"
+      ],
+      "notes": "A fixed-constant (K=2) strengthening of OPEN-VF-ACTUAL-PRIME; not phase invariant. Do not substitute an unweighted Mobius sum for this source.",
+      "does_not_prove": []
+    },
+    {
+      "id": "FINITE-915-BASE-WINDOW",
+      "title": "#915 finite base window R = 2..8 at K = 2",
+      "type": "finite_evidence",
+      "route_ids": [
+        "VF-LOW"
+      ],
+      "statement": "For 2 <= B <= 8, the actual-prime endpoint defect is not bad at K = 2 (hypothesis hbase of the #939 consumers).",
+      "logical_status": "FINITE_EVIDENCE",
+      "formal_status": "NOT_FORMALIZED",
+      "evidence_class": "FINITE_COMPUTATION",
+      "provenance": "NUMERICAL",
+      "open_obligation": true,
+      "obligation_kind": "FORMALIZATION_COMPLETENESS",
+      "reproducer": "Session report cited in research/VF_MID_915_SOURCE_PAYMENT_CONTENT_AUDIT.lean (verified numerically outside Lean)",
+      "pr": 939,
+      "evidence": [
+        "EV-PR-939"
+      ],
+      "lean": [],
+      "does_not_prove": []
+    },
+    {
+      "id": "CONSUMER-915-CANONICAL",
+      "title": "#915 payment + base window => canonical target",
+      "type": "conditional_consumer",
+      "route_ids": [
+        "VF-LOW"
+      ],
+      "statement": "vfCanonicalSquareVonKoch_of_915SourcePayment_and_base (hbase) (hpay) : VFCanonicalSquareVonKochStatement; also vfMid915FirstBad_closed_of_sourcePayment (payment forbids every first-bad successor).",
+      "logical_status": "PROVED",
+      "formal_status": "PROVED_IN_LEAN_ON_MAIN",
+      "evidence_class": "CONDITIONAL",
+      "provenance": "PROVED_INTERNALLY",
+      "hypotheses": [
+        "FINITE-915-BASE-WINDOW",
+        "OPEN-915-SOURCE-PAYMENT"
+      ],
+      "lean": [
+        {
+          "file": "research/VF_MID_915_SOURCE_PAYMENT_CONTENT_AUDIT.lean",
+          "name": "vfCanonicalSquareVonKoch_of_915SourcePayment_and_base"
+        },
+        {
+          "file": "research/VF_MID_915_SOURCE_PAYMENT_CONTENT_AUDIT.lean",
+          "name": "vfMid915FirstBadSourcePayment_iff_noFirstBad"
+        },
+        {
+          "file": "research/VF_MID_FIRST_BAD_EXACT_BUDGET_CLOSE.lean",
+          "name": "vfMid915FirstBad_closed_of_sourcePayment"
+        }
+      ],
+      "pr": 939,
+      "evidence": [
+        "EV-PR-915",
+        "EV-PR-939"
+      ],
+      "milestone": {
+        "order": 5,
+        "date": "2026-10-12 / 2026-10-14",
+        "label": "#915 conditional first-bad toolkit and #939 content audit",
+        "pr": 915
+      },
+      "does_not_prove": [],
+      "open_obligation": false
+    },
+    {
+      "id": "MILESTONE-915-MOVING-OWNER",
+      "title": "#915 historical moving-owner = signed floor-Li mismatch",
+      "type": "proved_lemma",
+      "route_ids": [
+        "VF-LOW",
+        "JOH",
+        "SAT"
+      ],
+      "statement": "For 2 <= A <= B: vfMid915HistoricalMovingOwnerCorrection A B = -(signed floor-Li population balance on [A^2, B^2)). Aggregate (zeroth-moment) identity only.",
+      "logical_status": "PROVED",
+      "formal_status": "PROVED_IN_LEAN_ON_MAIN",
+      "evidence_class": "PROVED_IN_LEAN_ON_MAIN",
+      "provenance": "PROVED_INTERNALLY",
+      "lean": [
+        {
+          "file": "research/VF_MID_915_FLOOR_LI_TRANSPORT_BOUNDARY.lean",
+          "name": "vfMid915HistoricalMovingOwner_eq_signedMismatch"
+        }
+      ],
+      "evidence": [
+        "EV-LEAN-MAIN-915"
+      ],
+      "does_not_prove": [
+        "That the complete native-weight, masked, clipped, anchored #915 NNS first-bad bill equals the unweighted Mertens kernel or is bounded"
+      ],
+      "open_obligation": false
+    },
+    {
+      "id": "MECH-VF-LOW-FIRST-LOWER-ESCAPE",
+      "title": "Original-source first-lower-escape contradiction",
+      "type": "arithmetic_mechanism",
+      "route_ids": [
+        "VF-LOW"
+      ],
+      "statement": "A legitimate original-source lower-wall restriction or first-bad contradiction retaining all original prime occurrences, VF weights, historical anchors, returning cells, restored terms and signed NNS interactions.",
+      "logical_status": "OPEN",
+      "formal_status": "NOT_FORMALIZED",
+      "evidence_class": "UNKNOWN",
+      "provenance": "OPEN_NO_PROOF",
+      "open_obligation": true,
+      "obligation_kind": "ARITHMETIC",
+      "evidence": [
+        "EV-NOTE-VF-LOW"
+      ],
+      "lean": [],
+      "does_not_prove": []
+    },
+    {
+      "id": "MECH-SAT-OWNER-REMOVAL",
+      "title": "Signed owner-removal / prime-innovation inequality",
+      "type": "arithmetic_mechanism",
+      "route_ids": [
+        "SAT",
+        "JOH",
+        "VF-LOW"
+      ],
+      "statement": "A new uniform signed least-prime owner-removal or cofactor/prime-innovation inequality on the genuine prime/composite incidence S = A - T, with complete original source coefficients and nonlocal historical contributions; must use arithmetic restrictions on genuine prime locations, not population counts.",
+      "logical_status": "OPEN",
+      "formal_status": "NOT_FORMALIZED",
+      "evidence_class": "UNKNOWN",
+      "provenance": "OPEN_NO_PROOF",
+      "open_obligation": true,
+      "obligation_kind": "ARITHMETIC",
+      "evidence": [
+        "EV-NOTE-SAT"
+      ],
+      "lean": [],
+      "does_not_prove": []
+    },
+    {
+      "id": "MILESTONE-1019-BIRTH-TRANSPORT",
+      "title": "Closed-square Mobius birth time and moving transport (#1019)",
+      "type": "formalization_milestone",
+      "route_ids": [
+        "SAT"
+      ],
+      "statement": "Exact closed-square prefix drift, birth bill 2 mu(k) - mu(k)^2, and the physical moving-complement transport telescope.",
+      "logical_status": "PROVED",
+      "formal_status": "PROVED_IN_LEAN_ON_MAIN",
+      "evidence_class": "PROVED_IN_LEAN_ON_MAIN",
+      "provenance": "PROVED_INTERNALLY",
+      "lean": [
+        {
+          "file": "research/VF_MID_CLOSED_SQUARE_BIRTH_TIME_20261024.lean",
+          "name": "closedSquareShell_birthTime_floor_eq_two_mu_sub_mu_sq"
+        },
+        {
+          "file": "research/VF_MID_CLOSED_SQUARE_BIRTH_TIME_20261024.lean",
+          "name": "closedSquareShellFloor_eq_open_add_rootDivisor"
+        },
+        {
+          "file": "research/VF_MID_CLOSED_SQUARE_MOVING_TRANSPORT_20261024.lean",
+          "name": "closedSquareShell_actual_moving_transport_telescope"
+        }
+      ],
+      "pr": 1019,
+      "evidence": [
+        "EV-PR-1019"
+      ],
+      "does_not_prove": [
+        "A quantitative bound",
+        "An occurrence map to prime/floor-Li events or the weighted #915 source"
+      ],
+      "milestone": {
+        "order": 12,
+        "date": "2026-10-24",
+        "label": "Exact closed-square birth/transport",
+        "pr": 1019
+      },
+      "open_obligation": false
+    },
+    {
+      "id": "OPEN-JOH-SIGN",
+      "title": "Eventual negative square-endpoint Johnston statistic",
+      "type": "open_obligation",
+      "route_ids": [
+        "JOH",
+        "SAT"
+      ],
+      "statement": "exists R0, forall R >= R0: G(R^2) < 0, where Q(n) = floor(Li_2(n)), G(N) = sum_{2<=n<N} (pi(n) - Q(n) - 1) = A(N) - T(N) - L(N); equivalently T(R^2) > A(R^2) - L(R^2).",
+      "normalization": "Johnston's criterion uses classical li = li(2) + Li_2; replacing li by Li_2 in his all-X statement is invalid.",
+      "logical_status": "OPEN",
+      "formal_status": "NOT_FORMALIZED",
+      "evidence_class": "UNKNOWN",
+      "provenance": "OPEN_NO_PROOF",
+      "open_obligation": true,
+      "obligation_kind": "ARITHMETIC",
+      "source_file": "research/LI_FAN_ONE_SIDED_WEIGHTED_COMPOSITE_RH_CONTRACT_20261022.md",
+      "pr": 1012,
+      "evidence": [
+        "EV-NOTE-JOH"
+      ],
+      "notes": "Imported 7/8 gives only |G(N)| = O(N^(15/8+eps)), larger than Johnston's -N^(3/2)/log N scale.",
+      "lean": [],
+      "does_not_prove": []
+    },
+    {
+      "id": "LIT-JOHNSTON-2022",
+      "title": "Johnston integrated criterion",
+      "type": "literature_theorem",
+      "route_ids": [
+        "JOH"
+      ],
+      "statement": "RH <=> int_2^X (pi(t) - li(t)) dt < 0 for all real X > 2, with quantitative forms (Section 3 eqs (3.4)-(3.6); Theorem 1.4, Lemma 2.8).",
+      "logical_status": "ESTABLISHED_LITERATURE",
+      "formal_status": "NOT_FORMALIZED",
+      "evidence_class": "INDEPENDENTLY_REVIEWED_PAPER_PROOF",
+      "provenance": "LITERATURE_NOT_FORMALIZED",
+      "literature": [
+        "D. R. Johnston, \"On the average value of pi(t) - li(t)\", arXiv:2201.06184, Theorem 1.1."
+      ],
+      "evidence": [
+        "EV-NOTE-JOH"
+      ],
+      "lean": [],
+      "does_not_prove": [],
+      "open_obligation": false
+    },
+    {
+      "id": "PAPER-JOH-SQUARE-TRANSFER",
+      "title": "Transfer of Johnston's criterion to eventual square endpoints",
+      "type": "paper_claim",
+      "route_ids": [
+        "JOH"
+      ],
+      "statement": "Using Johnston's quantitative estimates: RH <=> exists R0 forall R >= R0, G(R^2) < 0.",
+      "logical_status": "CLAIMED",
+      "formal_status": "NOT_FORMALIZED",
+      "evidence_class": "PAPER_PROOF_NEEDS_REVIEW",
+      "provenance": "PAPER_ARGUMENT",
+      "open_obligation": true,
+      "obligation_kind": "REVIEW",
+      "source_file": "research/LI_FAN_ONE_SIDED_WEIGHTED_COMPOSITE_RH_CONTRACT_20261022.md",
+      "pr": 1012,
+      "evidence": [
+        "EV-NOTE-JOH"
+      ],
+      "lean": [],
+      "does_not_prove": []
+    },
+    {
+      "id": "CLAIM-20261024-OWNER-1",
+      "title": "JOH first-moment conservation law",
+      "type": "paper_claim",
+      "route_ids": [
+        "JOH",
+        "VF-LOW",
+        "SAT"
+      ],
+      "statement": "With eta(k) = 1_prime(k) - (Q(k) - Q(k-1)) and J_r = sum_{r^2<k<(r+1)^2} ((r+1)^2 - k) eta(k): sum_{r^2<=n<(r+1)^2} E(n) = (2r+1)(P_r - 1) + J_r and G(B^2) - G(A^2) = (B^2 - A^2)(P_A - 1) - sum_{j=A}^{B-1} (B^2 - (j+1)^2) D_j + sum_{r=A}^{B-1} J_r. The #915 boundary carries the zeroth moment; JOH needs the first moment.",
+      "logical_status": "CLAIMED",
+      "formal_status": "NOT_FORMALIZED",
+      "evidence_class": "PAPER_PROOF_NEEDS_REVIEW",
+      "provenance": "PAPER_ARGUMENT",
+      "open_obligation": true,
+      "obligation_kind": "REVIEW",
+      "evidence": [
+        "EV-REPORT-20261024-OWNER"
+      ],
+      "lean": [],
+      "does_not_prove": []
+    },
+    {
+      "id": "MECH-JOH-ANCESTRY-DISPLACEMENT",
+      "title": "Nonlocal least-prime ancestry restriction on chronological displacement",
+      "type": "arithmetic_mechanism",
+      "route_ids": [
+        "JOH",
+        "VF-LOW",
+        "SAT"
+      ],
+      "statement": "A genuine least-prime-ancestry restriction on the boundary-padded displacement pairs J_r, stronger than the trivial total-distance bound, surviving the opposite-sign blocks r = 4, 7, and combining with the anchor and weighted block defects without assuming eventual G < 0.",
+      "logical_status": "OPEN",
+      "formal_status": "NOT_FORMALIZED",
+      "evidence_class": "UNKNOWN",
+      "provenance": "OPEN_NO_PROOF",
+      "open_obligation": true,
+      "obligation_kind": "ARITHMETIC",
+      "evidence": [
+        "EV-REPORT-20261024-OWNER"
+      ],
+      "lean": [],
+      "does_not_prove": []
+    },
+    {
+      "id": "REFUTED-JOH-COUNT-ONLY",
+      "title": "Count-only / universal local-sign JOH bridge",
+      "type": "refuted_claim",
+      "route_ids": [
+        "JOH"
+      ],
+      "statement": "Conjecture (refuted): the JOH first-moment contribution of a square block is determined by its zero-th moment count defect D_r, or J_r has a universal sign.",
+      "logical_status": "REFUTED",
+      "formal_status": "NOT_FORMALIZED",
+      "evidence_class": "REFUTED",
+      "provenance": "NUMERICAL",
+      "evidence": [
+        "EV-REPORT-20261024-OWNER",
+        "EV-SCRIPT-REGRESSIONS"
+      ],
+      "lean": [],
+      "does_not_prove": [],
+      "open_obligation": false
+    },
+    {
+      "id": "CE-JOH-R4-R7",
+      "title": "JOH blocks r = 4 and r = 7",
+      "type": "counterexample",
+      "route_ids": [
+        "JOH"
+      ],
+      "statement": "r=4: primes {17,19,23}, floor-Li arrivals {18,21,24}, D_4 = 0, J_4 = +4. r=7: primes {53,59,61}, floor-Li arrivals {53,57,61}, D_7 = 0, J_7 = -2. Every Li_2 value used is >= 0.06 from an integer.",
+      "logical_status": "PROVED",
+      "formal_status": "NOT_FORMALIZED",
+      "evidence_class": "FINITE_COMPUTATION",
+      "provenance": "NUMERICAL",
+      "reproducer": "scripts/proof_dag_falsifier_regressions.py",
+      "evidence": [
+        "EV-REPORT-20261024-OWNER",
+        "EV-SCRIPT-REGRESSIONS"
+      ],
+      "lean": [],
+      "does_not_prove": [],
+      "open_obligation": false
+    },
+    {
+      "id": "PROP-MERTENS-ENERGY",
+      "title": "Mertens energy / exponent-1/2 statement",
+      "type": "open_obligation",
+      "route_ids": [
+        "CODIV",
+        "OAI-NNS",
+        "FINITE-AC",
+        "CORR4",
+        "MU-LIFT"
+      ],
+      "statement": "MertensEnergyBoundedStatement: forall eps > 0, exists C >= 0, forall x: |M(x)|^2 <= C (x+1)^(1+eps). Via M(N)^2 = D(N) + 2C(N) this is literally the RH-strength CODIV target D + 2C = O(N^(1+eps)).",
+      "logical_status": "OPEN",
+      "formal_status": "LEAN_STATEMENT_ONLY",
+      "evidence_class": "TARGET_EQUIVALENT",
+      "provenance": "OPEN_NO_PROOF",
+      "open_obligation": true,
+      "obligation_kind": "ARITHMETIC",
+      "lean": [
+        {
+          "file": "RHLean/Analysis/SquarePrefixMertensBridge.lean",
+          "name": "MertensEnergyBoundedStatement"
+        }
+      ],
+      "evidence": [
+        "EV-LEAN-MAIN-MERTENS"
+      ],
+      "does_not_prove": []
+    },
+    {
+      "id": "CONSUMER-MERTENS-ENERGY-RH",
+      "title": "Mertens energy => RH (proved internally)",
+      "type": "conditional_consumer",
+      "route_ids": [
+        "CODIV",
+        "OAI-NNS",
+        "FINITE-AC",
+        "CORR4",
+        "MU-LIFT"
+      ],
+      "statement": "riemannHypothesis_of_mertensEnergy (hM : MertensEnergyBoundedStatement) : RiemannHypothesis. No classical interface argument: the zeta/Mertens Mellin continuation is proved in the RHLean library.",
+      "logical_status": "PROVED",
+      "formal_status": "PROVED_IN_LEAN_ON_MAIN",
+      "evidence_class": "CONDITIONAL",
+      "provenance": "PROVED_INTERNALLY",
+      "hypotheses": [
+        "PROP-MERTENS-ENERGY"
+      ],
+      "lean": [
+        {
+          "file": "RHLean/Analysis/MertensEnergyRHForward.lean",
+          "name": "riemannHypothesis_of_mertensEnergy"
+        },
+        {
+          "file": "RHLean/Analysis/MertensEnergyRHForward.lean",
+          "name": "riemannZeta_ne_zero_of_half_lt_re"
+        }
+      ],
+      "evidence": [
+        "EV-LEAN-MAIN-MERTENS"
+      ],
+      "milestone": {
+        "order": 1,
+        "date": "on main (introduction date not re-verified)",
+        "label": "Mertens-energy => RH proved in the RHLean library",
+        "pr": null
+      },
+      "does_not_prove": [],
+      "open_obligation": false
+    },
+    {
+      "id": "MILESTONE-MERTENS-CONVERSE",
+      "title": "Bidirectional Mertens growth / zero-boundary identification (#949)",
+      "type": "formalization_milestone",
+      "route_ids": [
+        "CODIV",
+        "OAI-NNS",
+        "MU-LIFT",
+        "NYMAN"
+      ],
+      "statement": "growthAtMost_iff_strip, growthExponent_eq_rightmost, logLimsup_eq_rightmost: the Mertens growth exponent equals the rightmost real part of nontrivial zeta zeros.",
+      "logical_status": "PROVED",
+      "formal_status": "PROVED_IN_LEAN_ON_MAIN",
+      "evidence_class": "PROVED_IN_LEAN_ON_MAIN",
+      "provenance": "PROVED_INTERNALLY",
+      "lean": [
+        {
+          "file": "research/MERTENS_CONVERSE_IDENTIFICATION.lean",
+          "name": "growthAtMost_iff_strip"
+        },
+        {
+          "file": "research/MERTENS_CONVERSE_IDENTIFICATION.lean",
+          "name": "growthExponent_eq_rightmost"
+        },
+        {
+          "file": "research/MERTENS_CONVERSE_IDENTIFICATION.lean",
+          "name": "logLimsup_eq_rightmost"
+        }
+      ],
+      "pr": 949,
+      "evidence": [
+        "EV-PR-949"
+      ],
+      "does_not_prove": [
+        "Any numerical value of the common boundary"
+      ],
+      "milestone": {
+        "order": 6,
+        "date": "2026-10-15",
+        "label": "Mertens exponent <=> zero boundary",
+        "pr": 949
+      },
+      "open_obligation": false
+    },
+    {
+      "id": "MILESTONE-MERTENS-SIGNED-LIFT",
+      "title": "Signed higher-order Newton/Heath-Brown lift (#954)",
+      "type": "formalization_milestone",
+      "route_ids": [
+        "MU-LIFT"
+      ],
+      "statement": "heathBrownLift_agrees_below_power: a genuine Mobius prefix below B reconstructs coefficients below B^k (every integral k), with exact signed geometric/defect formulas.",
+      "logical_status": "PROVED",
+      "formal_status": "PROVED_IN_LEAN_ON_MAIN",
+      "evidence_class": "PROVED_IN_LEAN_ON_MAIN",
+      "provenance": "PROVED_INTERNALLY",
+      "lean": [
+        {
+          "file": "research/MERTENS_HEATH_BROWN_SIGNED.lean",
+          "name": "heathBrownLift_agrees_below_power"
+        }
+      ],
+      "pr": 954,
+      "evidence": [
+        "EV-PR-954"
+      ],
+      "does_not_prove": [
+        "An amplitude estimate E(B^k) <= G E(B)^r"
+      ],
+      "milestone": {
+        "order": 7,
+        "date": "2026-10-15",
+        "label": "Signed higher-order lift identities",
+        "pr": 954
+      },
+      "open_obligation": false
+    },
+    {
+      "id": "MILESTONE-COVARIANCE-IDENTITY",
+      "title": "M^2 = diagonal + 2 * signed pair covariance",
+      "type": "proved_lemma",
+      "route_ids": [
+        "CODIV"
+      ],
+      "statement": "realMertensPositiveLagPairSum_eq_norm_sq_sub_diagonal: the genuine positive-lag pair sum equals (|M|^2 - sum mu^2)/2, i.e. M(X)^2 = sum mu(n)^2 + 2 sum_{a<b} mu(a) mu(b).",
+      "logical_status": "PROVED",
+      "formal_status": "PROVED_IN_LEAN_ON_MAIN",
+      "evidence_class": "PROVED_IN_LEAN_ON_MAIN",
+      "provenance": "PROVED_INTERNALLY",
+      "lean": [
+        {
+          "file": "RHLean/Analysis/MertensCovarianceDescent.lean",
+          "name": "realMertensPositiveLagPairSum_eq_norm_sq_sub_diagonal"
+        }
+      ],
+      "evidence": [
+        "EV-LEAN-MAIN-MERTENS"
+      ],
+      "does_not_prove": [
+        "Any bound on the covariance"
+      ],
+      "open_obligation": false
+    },
+    {
+      "id": "MILESTONE-958-ODD-RESIDUAL",
+      "title": "Sharp odd residual cofactor support (#958)",
+      "type": "formalization_milestone",
+      "route_ids": [
+        "SAT",
+        "VF-LOW"
+      ],
+      "statement": "1 < m, Odd(canonicalCofactor m), IsOddFactorDepthResidual m, m < R^2 ==> 9 * canonicalLargestPrimeFactor m < R^2.",
+      "logical_status": "PROVED",
+      "formal_status": "PROVED_IN_LEAN_ON_MAIN",
+      "evidence_class": "PROVED_IN_LEAN_ON_MAIN",
+      "provenance": "PROVED_INTERNALLY",
+      "lean": [
+        {
+          "file": "RHLean/Proof/OddResidualCofactorSupport.lean",
+          "name": "nine_mul_canonicalLargestPrimeFactor_lt_sq"
+        }
+      ],
+      "pr": 958,
+      "evidence": [
+        "EV-PR-958"
+      ],
+      "does_not_prove": [
+        "A signed-weight bound",
+        "Returned-cell admission"
+      ],
+      "milestone": {
+        "order": 8,
+        "date": "2026-10-16",
+        "label": "One-ninth odd residual support",
+        "pr": 958
+      },
+      "open_obligation": false
+    },
+    {
+      "id": "MILESTONE-961-COMPLETE-FIBRE",
+      "title": "Complete greatest-prime fibre above the root wall (#961)",
+      "type": "formalization_milestone",
+      "route_ids": [
+        "SAT",
+        "VF-LOW"
+      ],
+      "statement": "For prime q >= R: the greatest-prime fibre below R^2 is complete, with multiplier a < q, non-square property and explicit odd-residual characterization.",
+      "logical_status": "PROVED",
+      "formal_status": "PROVED_IN_LEAN_ON_MAIN",
+      "evidence_class": "PROVED_IN_LEAN_ON_MAIN",
+      "provenance": "PROVED_INTERNALLY",
+      "lean": [
+        {
+          "file": "RHLean/Proof/RootWallCompleteFibre.lean",
+          "name": "completeFibre_of_root_le"
+        },
+        {
+          "file": "RHLean/Proof/RootWallCompleteFibre.lean",
+          "name": "largestPrimeFactor_eq_iff_exists_mul_of_root_le"
+        }
+      ],
+      "pr": 961,
+      "evidence": [
+        "EV-PR-961"
+      ],
+      "does_not_prove": [
+        "A native signed or covariance estimate"
+      ],
+      "milestone": {
+        "order": 9,
+        "date": "2026-10-16",
+        "label": "Complete above-root incidence fibre",
+        "pr": 961
+      },
+      "open_obligation": false
+    },
+    {
+      "id": "IMPORTED-OAI-7-8",
+      "title": "Imported original OpenAI unconditional 7/8 theorem (#987)",
+      "type": "imported_theorem",
+      "route_ids": [
+        "OAI-NNS",
+        "CODIV",
+        "CORR4",
+        "FINITE-AC",
+        "MU-LIFT",
+        "JOH",
+        "VF-LOW",
+        "SAT",
+        "NYMAN"
+      ],
+      "statement": "zeta(s) != 0 for Re s > 7/8, hence M(x) = O_eps(x^(7/8+eps)), the global signed covariance bound and the all-square-block 7/8 bound on the original RH_Lean carriers.",
+      "logical_status": "PROVED",
+      "formal_status": "PROVED_IN_LEAN_ON_MAIN",
+      "evidence_class": "PROVED_IN_LEAN_ON_MAIN",
+      "provenance": "IMPORTED_CERTIFIED_EXTERNAL_LEAN",
+      "literature": [
+        "Original OpenAI Lean 4.34.1 proof imported at pinned openai/math commit 1581d4cbdd69a0faf34b2089614fe2a814316a6a."
+      ],
+      "lean": [
+        {
+          "file": "research/VF_919_OPENAI_434_UNCONDITIONAL_SQUARE_BLOCK_COVARIANCE_20261019.lean",
+          "name": "openai434_actual_zeta_nonzero"
+        },
+        {
+          "file": "research/VF_919_OPENAI_434_UNCONDITIONAL_SQUARE_BLOCK_COVARIANCE_20261019.lean",
+          "name": "openai434_actual_global_signed_covariance"
+        },
+        {
+          "file": "research/VF_919_OPENAI_434_UNCONDITIONAL_SQUARE_BLOCK_COVARIANCE_20261019.lean",
+          "name": "openai434_actual_global_signed_pairs"
+        },
+        {
+          "file": "research/VF_919_OPENAI_434_UNCONDITIONAL_SQUARE_BLOCK_COVARIANCE_20261019.lean",
+          "name": "openai434_actual_all_square_blocks_seven_eighths"
+        },
+        {
+          "file": "research/VF_919_OPENAI_434_UNCONDITIONAL_SQUARE_BLOCK_COVARIANCE_20261019.lean",
+          "name": "openai434_actual_all_square_block_covariance"
+        }
+      ],
+      "pr": 987,
+      "evidence": [
+        "EV-PR-987",
+        "EV-PR-983"
+      ],
+      "does_not_prove": [
+        "An independent native reproduction of the OpenAI analytic estimates",
+        "Any exponent strictly below 7/8",
+        "RH"
+      ],
+      "milestone": {
+        "order": 10,
+        "date": "2026-10-21",
+        "label": "Imported unconditional 7/8 benchmark",
+        "pr": 987
+      },
+      "open_obligation": false
+    },
+    {
+      "id": "OPEN-MERTENS-EXPONENT-BELOW-7-8",
+      "title": "Strict Mertens exponent improvement below 7/8",
+      "type": "open_obligation",
+      "route_ids": [
+        "CODIV",
+        "OAI-NNS"
+      ],
+      "statement": "exists delta > 0, forall eps > 0: M(x) = O_eps(x^(7/8 - delta + eps)), proved on the complete original source with every sector controlled.",
+      "logical_status": "OPEN",
+      "formal_status": "NOT_FORMALIZED",
+      "evidence_class": "UNKNOWN",
+      "provenance": "OPEN_NO_PROOF",
+      "open_obligation": true,
+      "obligation_kind": "ARITHMETIC",
+      "evidence": [
+        "EV-NOTE-OVERLAP"
+      ],
+      "notes": "Intermediate (non-RH) target; RH strength is exponent 1/2 + eps (PROP-MERTENS-ENERGY). No strict improvement is verified at this snapshot.",
+      "lean": [],
+      "does_not_prove": []
+    },
+    {
+      "id": "MECH-CODIV-SIGNED-COVARIANCE",
+      "title": "Genuine unnormalized Mobius covariance estimate",
+      "type": "arithmetic_mechanism",
+      "route_ids": [
+        "CODIV"
+      ],
+      "statement": "A nontrivial uniform source estimate for the full signed covariance C(N) = sum_{a<b<=N} mu(a) mu(b), with diagonal and off-diagonal terms retained, giving C(N) <= -D(N)/2 + O(N^(7/4 - 2 delta + eps)).",
+      "logical_status": "OPEN",
+      "formal_status": "NOT_FORMALIZED",
+      "evidence_class": "UNKNOWN",
+      "provenance": "OPEN_NO_PROOF",
+      "open_obligation": true,
+      "obligation_kind": "ARITHMETIC",
+      "evidence": [
+        "EV-NOTE-OVERLAP"
+      ],
+      "notes": "Distinct from the original #915 weighted NNS energy and from the OAI ideal-labelled source.",
+      "lean": [],
+      "does_not_prove": []
+    },
+    {
+      "id": "MECH-SIGNED-QUOTIENT-VARIATION",
+      "title": "Low-quotient signed bucket variation (#923/#964)",
+      "type": "arithmetic_mechanism",
+      "route_ids": [
+        "CODIV"
+      ],
+      "statement": "A uniform bound V_low(X) = sum_{t<=sqrt X} |D_X(t)| = O(X^(7/8 - delta + eps)); with the compiled signed Abel theorem |M(X)| <= 4(V_low + V_high) and V_high <= 2 sqrt X (paper), this pays an exponent gain.",
+      "logical_status": "OPEN",
+      "formal_status": "NOT_FORMALIZED",
+      "evidence_class": "UNKNOWN",
+      "provenance": "OPEN_NO_PROOF",
+      "open_obligation": true,
+      "obligation_kind": "ARITHMETIC",
+      "lean": [
+        {
+          "file": "research/VF_QUOTIENT_VARIATION_FIRSTBAD_ATTACK.lean",
+          "name": "vfVarSquareMertens_norm_le_four_lowVariation_add_two_shortMass"
+        }
+      ],
+      "pr": 923,
+      "evidence": [
+        "EV-PR-923"
+      ],
+      "does_not_prove": []
+    },
+    {
+      "id": "MECH-OAI-NNS-COMPLETE-LEDGER",
+      "title": "Complete original-source OAI/NNS exponent ledger",
+      "type": "arithmetic_mechanism",
+      "route_ids": [
+        "OAI-NNS"
+      ],
+      "statement": "Gates: (1) source admission of every compensated component; (2) conductor and physical normalization; (3) low-J, resonant and unit-trivial rows; (4) principal and Gaussian-tail costs; (5) true multiplicity and incomplete sextic moments; (6) compensation subsets, collisions and outer sums; (7) full signed cross-energy and NNS Co/Div restoration; (8) a complete exponent budget with strictly positive net saving delta.",
+      "logical_status": "OPEN",
+      "formal_status": "NOT_FORMALIZED",
+      "evidence_class": "UNKNOWN",
+      "provenance": "OPEN_NO_PROOF",
+      "open_obligation": true,
+      "obligation_kind": "ARITHMETIC",
+      "evidence": [
+        "EV-PR-1022",
+        "EV-NOTE-OAI"
+      ],
+      "lean": [],
+      "does_not_prove": []
+    },
+    {
+      "id": "MILESTONE-OAI-HEAVY-SLOT",
+      "title": "Original OAI fixed heavy-slot two-channel split (#1017)",
+      "type": "formalization_milestone",
+      "route_ids": [
+        "OAI-NNS"
+      ],
+      "statement": "Fiber.exists_heavy_slot_with_two_channel_sum: every original fiber has a heavy slot and an exact two-channel powerset decomposition.",
+      "logical_status": "PROVED",
+      "formal_status": "PROVED_IN_LEAN_ON_MAIN",
+      "evidence_class": "PROVED_IN_LEAN_ON_MAIN",
+      "provenance": "PROVED_INTERNALLY",
+      "lean": [
+        {
+          "file": "research/oai_434/VF919OriginalFiberHeavySlotSplit.lean",
+          "name": "Fiber.exists_heavy_slot"
+        },
+        {
+          "file": "research/oai_434/VF919OriginalFiberHeavySlotSplit.lean",
+          "name": "Fiber.exists_heavy_slot_with_two_channel_sum"
+        }
+      ],
+      "pr": 1017,
+      "evidence": [
+        "EV-PR-1017"
+      ],
+      "does_not_prove": [
+        "A uniform source moment gap (heavy-slot weight is only >= 7/(37|S|))"
+      ],
+      "milestone": {
+        "order": 11,
+        "date": "2026-10-24",
+        "label": "OAI heavy-slot two-channel algebra",
+        "pr": 1017
+      },
+      "open_obligation": false
+    },
+    {
+      "id": "PR1022-ZERO-MODE",
+      "title": "Original low-Gaussian nonprincipal zero mode (#1022)",
+      "type": "proved_lemma",
+      "route_ids": [
+        "OAI-NNS"
+      ],
+      "statement": "actualCongruenceCoefficient_zero_mode_of_nontrivial: every source component admitting a coprime multiplier with nontrivial residual sextic phase has an exact zero Fourier mode on the original calibrated numerator.",
+      "logical_status": "PROVED",
+      "formal_status": "PROVED_IN_LEAN_PR_GREEN_UNMERGED",
+      "evidence_class": "PROVED_IN_LEAN_PR_GREEN_UNMERGED",
+      "provenance": "PROVED_INTERNALLY",
+      "lean": [
+        {
+          "file": "research/oai_434/VF919OriginalLowNonresonantZeroMode.lean",
+          "name": "bareCongruenceCoefficient_zero_mode_of_nontrivial"
+        },
+        {
+          "file": "research/oai_434/VF919OriginalLowNonresonantZeroMode.lean",
+          "name": "actualCongruenceCoefficient_zero_mode_of_nontrivial"
+        }
+      ],
+      "pr": 1022,
+      "evidence": [
+        "EV-PR-1022"
+      ],
+      "does_not_prove": [
+        "A global Mertens exponent improvement"
+      ],
+      "open_obligation": false
+    },
+    {
+      "id": "CLAIM-1022-POISSON-SAVING",
+      "title": "Source-local Z^(-1/64) Poisson factor (#1022)",
+      "type": "paper_claim",
+      "route_ids": [
+        "OAI-NNS"
+      ],
+      "statement": "In the nonprincipal short-radical band Z^(21/64) <= N(J) <= Z^(1/3), N(I) N(J)^3 <= Z^(1+1/384), X = Z^(17/48), Y = Z^(23/48): F/Q_s <= Z^(-1/128) and, after exact zero-mode elimination, radial Poisson gives a source-local Z^(-1/64) factor before outer costs.",
+      "logical_status": "CLAIMED",
+      "formal_status": "NOT_FORMALIZED",
+      "evidence_class": "PAPER_PROOF_NEEDS_REVIEW",
+      "provenance": "PAPER_ARGUMENT",
+      "open_obligation": true,
+      "obligation_kind": "REVIEW",
+      "pr": 1022,
+      "evidence": [
+        "EV-PR-1022"
+      ],
+      "does_not_prove": [
+        "A new global Mertens exponent"
+      ],
+      "lean": []
+    },
+    {
+      "id": "OPEN-FINITE-AC",
+      "title": "Finite A / finite C historical-envelope bound",
+      "type": "open_obligation",
+      "route_ids": [
+        "FINITE-AC",
+        "CORR4"
+      ],
+      "statement": "SquareRootMertensEndpointAmplificationStatement: exists A >= 0, forall R >= 2, forall K with LowerMertensCriticalEnvelope R K: (M(R^2-1) - 1)^2 <= A R^2 K. Equivalent as an existence claim to finite C: exists C, forall R >= 2, |Q_R| <= C R sqrt(K_R), Q_R = 2M(R-1) - M(R^2-1), K_R = max_{0<=y<R} (M(y)-1)^2/(y+1) (elementary: K >= 1 and |M(R-1) - 1| <= sqrt(K R)).",
+      "logical_status": "OPEN",
+      "formal_status": "LEAN_STATEMENT_ONLY",
+      "evidence_class": "UNKNOWN",
+      "provenance": "OPEN_NO_PROOF",
+      "open_obligation": true,
+      "obligation_kind": "ARITHMETIC",
+      "lean": [
+        {
+          "file": "RHLean/Proof/SquareRootMertensEndpointAmplification.lean",
+          "name": "SquareRootMertensEndpointAmplificationStatement"
+        }
+      ],
+      "pr": 929,
+      "evidence": [
+        "EV-PR-929",
+        "EV-LEAN-MAIN-MERTENS"
+      ],
+      "notes": "Can be stronger than RH; finite samples, near -1 correlations and target-equivalent restatements do not prove it.",
+      "does_not_prove": []
+    },
+    {
+      "id": "PROP-LEGAL-ANCESTRY-GRAM",
+      "title": "Legal live-packet ancestry Gram amplification",
+      "type": "open_obligation",
+      "route_ids": [
+        "FINITE-AC",
+        "CODIV"
+      ],
+      "statement": "SquareRootLegalAncestryGramAmplificationStatement: the genuine legal live-packet Gram Gamma_R satisfies the historical-envelope bound Gamma_R <= B R^2 K_R (with changed constants); existential equivalence with finite A on this normalized carrier only.",
+      "logical_status": "OPEN",
+      "formal_status": "LEAN_STATEMENT_ONLY",
+      "evidence_class": "UNKNOWN",
+      "provenance": "OPEN_NO_PROOF",
+      "open_obligation": true,
+      "obligation_kind": "ARITHMETIC",
+      "lean": [
+        {
+          "file": "RHLean/Proof/SquareRootLegalAncestryGramReduction.lean",
+          "name": "SquareRootLegalAncestryGramAmplificationStatement"
+        }
+      ],
+      "evidence": [
+        "EV-LEAN-MAIN-MERTENS"
+      ],
+      "does_not_prove": []
+    },
+    {
+      "id": "THM-FINITE-A-IFF-LEGAL-GRAM",
+      "title": "Finite A <=> legal ancestry Gram (Lean)",
+      "type": "proved_lemma",
+      "route_ids": [
+        "FINITE-AC",
+        "CODIV"
+      ],
+      "statement": "squareRootMertensEndpointAmplification_iff_legalAncestryGram.",
+      "logical_status": "PROVED",
+      "formal_status": "PROVED_IN_LEAN_ON_MAIN",
+      "evidence_class": "PROVED_IN_LEAN_ON_MAIN",
+      "provenance": "PROVED_INTERNALLY",
+      "lean": [
+        {
+          "file": "RHLean/Proof/SquareRootMertensEndpointAmplification.lean",
+          "name": "squareRootMertensEndpointAmplification_iff_legalAncestryGram"
+        }
+      ],
+      "evidence": [
+        "EV-LEAN-MAIN-MERTENS"
+      ],
+      "does_not_prove": [],
+      "open_obligation": false
+    },
+    {
+      "id": "CONSUMER-FINITE-A-MERTENS",
+      "title": "Finite A => Mertens energy",
+      "type": "conditional_consumer",
+      "route_ids": [
+        "FINITE-AC",
+        "CORR4"
+      ],
+      "statement": "mertensEnergyBounded_of_squareRootEndpointAmplification (hamp) : MertensEnergyBoundedStatement.",
+      "logical_status": "PROVED",
+      "formal_status": "PROVED_IN_LEAN_ON_MAIN",
+      "evidence_class": "CONDITIONAL",
+      "provenance": "PROVED_INTERNALLY",
+      "hypotheses": [
+        "OPEN-FINITE-AC"
+      ],
+      "lean": [
+        {
+          "file": "RHLean/Proof/SquareRootAmplificationClosure.lean",
+          "name": "mertensEnergyBounded_of_squareRootEndpointAmplification"
+        }
+      ],
+      "evidence": [
+        "EV-LEAN-MAIN-MERTENS"
+      ],
+      "does_not_prove": [],
+      "open_obligation": false
+    },
+    {
+      "id": "MECH-FINITE-AC-HISTORICAL-ENVELOPE",
+      "title": "All-root signed historical-envelope estimate",
+      "type": "arithmetic_mechanism",
+      "route_ids": [
+        "FINITE-AC"
+      ],
+      "statement": "A genuine all-root signed upper estimate for Q_R (or Gamma_R) with the historical denominator R^2 K_R intact.",
+      "logical_status": "OPEN",
+      "formal_status": "NOT_FORMALIZED",
+      "evidence_class": "UNKNOWN",
+      "provenance": "OPEN_NO_PROOF",
+      "open_obligation": true,
+      "obligation_kind": "ARITHMETIC",
+      "evidence": [
+        "EV-NOTE-FINITE-AC"
+      ],
+      "lean": [],
+      "does_not_prove": []
+    },
+    {
+      "id": "NOGO-FINITE-A-HURST",
+      "title": "Every valid finite-A constant exceeds 0.4357 (#926)",
+      "type": "no_go",
+      "route_ids": [
+        "FINITE-AC"
+      ],
+      "statement": "Using Hurst's unconditional theorem and the actual Mertens state: any uniform A in the finite-A statement satisfies A > 0.4357.",
+      "logical_status": "CLAIMED",
+      "formal_status": "NOT_FORMALIZED",
+      "evidence_class": "PAPER_PROOF_NEEDS_REVIEW",
+      "provenance": "PAPER_ARGUMENT",
+      "open_obligation": true,
+      "obligation_kind": "REVIEW",
+      "literature": [
+        "G. Hurst, Computations of the Mertens function and improved bounds on the Mertens conjecture, arXiv:1610.08551, Theorem 6.1."
+      ],
+      "source_file": "research/ABSOLUTE_A_ALL_SCALE_SIGNED_ESTIMATE_AUDIT.md",
+      "pr": 926,
+      "evidence": [
+        "EV-NOTE-FINITE-AC"
+      ],
+      "lean": [],
+      "does_not_prove": []
+    },
+    {
+      "id": "OPEN-CORR4",
+      "title": "CORR-4 rough-correlation vs q^2-daughter energy",
+      "type": "open_obligation",
+      "route_ids": [
+        "CORR4"
+      ],
+      "statement": "CanonicalRoughCorrelationFourQ2EnergyStatement: exists C >= 0 such that for every R >= 56 and every LowerMertensCriticalEnvelope R K: ||squareRootCanonicalRoughCorrelation R||^2 <= 4 * farFourOddQ2DaughterEnergy R + C R^2 K.",
+      "logical_status": "OPEN",
+      "formal_status": "LEAN_STATEMENT_ONLY",
+      "evidence_class": "UNKNOWN",
+      "provenance": "OPEN_NO_PROOF",
+      "open_obligation": true,
+      "obligation_kind": "ARITHMETIC",
+      "lean": [
+        {
+          "file": "research/CORRELATION_FOUR_TERMINAL_BRIDGE.lean",
+          "name": "CanonicalRoughCorrelationFourQ2EnergyStatement"
+        },
+        {
+          "file": "research/CANONICAL_ROUGH_Q2_TAIL_REDUCTION.lean",
+          "name": "CanonicalRoughCorrelationQ2EnergyStatementWith"
+        }
+      ],
+      "evidence": [
+        "EV-LEAN-MAIN-CORR4"
+      ],
+      "notes": "Imported 7/8 gives E^(q^2) = O(R^(7/2+eps)), the same root power as M(R^2)^2; coefficient 4 is new information.",
+      "does_not_prove": []
+    },
+    {
+      "id": "CONSUMER-CORR4-FINITE-A",
+      "title": "CORR-4 => finite A (Lean chain)",
+      "type": "conditional_consumer",
+      "route_ids": [
+        "CORR4"
+      ],
+      "statement": "correlationFour_implies_rawQ2_10201_over_2500 then squareEndpointRawOddQ2EnergyStepWith_implies_endpointAmplification (subcritical 10201/2500 * 37/36 * 17/72 < 1); composite terminal theorem riemannHypothesis_of_canonicalRoughCorrelationFourQ2Energy.",
+      "logical_status": "PROVED",
+      "formal_status": "PROVED_IN_LEAN_ON_MAIN",
+      "evidence_class": "CONDITIONAL",
+      "provenance": "PROVED_INTERNALLY",
+      "hypotheses": [
+        "OPEN-CORR4"
+      ],
+      "lean": [
+        {
+          "file": "research/CORRELATION_FOUR_TERMINAL_BRIDGE.lean",
+          "name": "correlationFour_implies_rawQ2_10201_over_2500"
+        },
+        {
+          "file": "research/CORRELATION_FOUR_TERMINAL_BRIDGE.lean",
+          "name": "riemannHypothesis_of_canonicalRoughCorrelationFourQ2Energy"
+        },
+        {
+          "file": "research/CORRELATION_FOUR_TERMINAL_BRIDGE.lean",
+          "name": "corrFour_10201_over_2500_is_subcritical"
+        },
+        {
+          "file": "RHLean/Proof/PhysicalQ2ExceptionalTerminalSynthesis.lean",
+          "name": "squareEndpointRawOddQ2EnergyStepWith_implies_endpointAmplification"
+        }
+      ],
+      "evidence": [
+        "EV-LEAN-MAIN-CORR4"
+      ],
+      "notes": "Only CORR-4 => finite A is proved; the reverse is not.",
+      "does_not_prove": [],
+      "open_obligation": false
+    },
+    {
+      "id": "OPEN-CORR4-RELAXED-REMAINDER",
+      "title": "CORR-4 physical remainder bound (#1021)",
+      "type": "open_obligation",
+      "route_ids": [
+        "CORR4"
+      ],
+      "statement": "LowOwnerPhysicalRelaxedRemainderBound: exists C >= 0, forall R >= 56 and every LowerMertensCriticalEnvelope R K: |B_R|^2 <= (9/4) E_R + C R^2 K, where X_R = R^2 - 1, C_R = M(R-1) - M(X_R), U_R = sum_{q odd prime, q^2<R} M(floor(X_R/q^2))/q, E_R = sum_{q odd prime, q^2<R} M(floor(X_R/q^2))^2, B_R = C_R - U_R. Equivalently 2 Gamma_R <= (9/4) E_R + C R^2 K - D_R on the first-owner Gram |B_R|^2 = D_R + 2 Gamma_R.",
+      "logical_status": "OPEN",
+      "formal_status": "NOT_FORMALIZED",
+      "evidence_class": "UNKNOWN",
+      "provenance": "OPEN_NO_PROOF",
+      "open_obligation": true,
+      "obligation_kind": "ARITHMETIC",
+      "pr": 1021,
+      "evidence": [
+        "EV-PR-1021"
+      ],
+      "notes": "Unconditional companion (#1021, paper + Lean on PR): |B_R|^2 <= (9/4) E_R + (2025/1814) |C_R|^2; OAI 7/8 makes the residual O(R^(7/2+eps)) only.",
+      "lean": [],
+      "does_not_prove": []
+    },
+    {
+      "id": "PR1021-RELAXED-CONSUMER",
+      "title": "Relaxed remainder => CORR-4 with coefficient 886/225 (#1021)",
+      "type": "paper_claim",
+      "route_ids": [
+        "CORR4"
+      ],
+      "statement": "|C_R|^2 <= 4|U_R|^2 + (4/3)|B_R|^2 <= (4b + 3) E_R + (4/3) C R^2 K with b the odd-prime reciprocal-square frame; b = 211/900 gives 886/225 < 4 (#1021); b = b_7 = 1565172113/7214407200 (#1023) gives 6975977513/1803601800 = 3.8678... < 4. Then CORR-4 and the existing terminal theorem.",
+      "logical_status": "CLAIMED",
+      "formal_status": "LEAN_PR_HEAD_NOT_GREEN",
+      "evidence_class": "PAPER_PROOF_NEEDS_REVIEW",
+      "provenance": "PAPER_ARGUMENT",
+      "open_obligation": true,
+      "obligation_kind": "REVIEW",
+      "lean": [
+        {
+          "file": "research/CORR4_OAI_RELAXED_REMAINDER_20261024.lean",
+          "name": "LowOwnerPhysicalRelaxedRemainderBound"
+        }
+      ],
+      "pr": 1021,
+      "evidence": [
+        "EV-PR-1021",
+        "EV-REPORT-20261025-COORDINATOR"
+      ],
+      "notes": "Compiled green at earlier head 58be641ddb0c6cd003e4b61f760113ab254fbf11 per the 2026-10-25 Coordinator report (not re-verified here); head daefa859 then failed two workflows and the current head 72d7e508 was still running CI at observation, so it is not counted as Lean-certified.",
+      "does_not_prove": []
+    },
+    {
+      "id": "PR1023-FRAME-B7",
+      "title": "Odd-prime reciprocal frame b_7 (#1023)",
+      "type": "proved_lemma",
+      "route_ids": [
+        "CORR4"
+      ],
+      "statement": "forall N: sum_{q <= N, q odd prime} 1/q^2 <= 1565172113/7214407200 (= 0.21695...), hence |U_R|^2 <= b_7 E_R on the CORR-4 carrier; strictly below 211/900.",
+      "logical_status": "PROVED",
+      "formal_status": "PROVED_IN_LEAN_PR_GREEN_UNMERGED",
+      "evidence_class": "PROVED_IN_LEAN_PR_GREEN_UNMERGED",
+      "provenance": "PROVED_INTERNALLY",
+      "lean": [
+        {
+          "file": "research/ODD_PRIME_COMPOSITE_GAP_BASEL_20261025.lean",
+          "name": "oddPrimeOwnerReciprocalSquareBudget_le_compositeGap"
+        },
+        {
+          "file": "research/ODD_PRIME_COMPOSITE_GAP_BASEL_20261025.lean",
+          "name": "stableFarCriticalQ2OddPrimeSynthesis_energy_le_compositeGap"
+        },
+        {
+          "file": "research/ODD_PRIME_COMPOSITE_GAP_BASEL_20261025.lean",
+          "name": "compositeGapBudget_lt_twoTermBasel"
+        }
+      ],
+      "pr": 1023,
+      "evidence": [
+        "EV-PR-1023",
+        "EV-REPORT-20261025-REFEREE"
+      ],
+      "does_not_prove": [
+        "The physical remainder bound OPEN-CORR4-RELAXED-REMAINDER",
+        "CORR-4",
+        "A Mertens exponent",
+        "RH"
+      ],
+      "open_obligation": false
+    },
+    {
+      "id": "NOGO-CORR4-FRAME-ONLY",
+      "title": "Frame-only CORR-4 arguments rehouse a finite-A excursion (claim 20261025-coordinator-1)",
+      "type": "no_go",
+      "route_ids": [
+        "CORR4",
+        "FINITE-AC"
+      ],
+      "statement": "With a = 9/4: |B_R|^2 - a E_R <= lambda_7 |C_R|^2, lambda_7 = a/(a - b_7) = 16232416200/14667244087 = 1.10671...; sharp for the unsigned frame alone. If H_R = (|B_R|^2 - a E_R)/(R^2 K) > 0 then sqrt(A_R) >= sqrt(kappa_7 H_R) - 1/sqrt(R), A_R = (M(X_R) - 1)^2/(R^2 K), kappa_7 = 14667244087/16232416200.",
+      "logical_status": "CLAIMED",
+      "formal_status": "NOT_FORMALIZED",
+      "evidence_class": "PAPER_PROOF_NEEDS_REVIEW",
+      "provenance": "PAPER_ARGUMENT",
+      "open_obligation": true,
+      "obligation_kind": "REVIEW",
+      "evidence": [
+        "EV-REPORT-20261025-COORDINATOR"
+      ],
+      "notes": "Falsification lens: a CORR-4 proof must forbid the forced finite-A excursion or use signed information beyond the frame.",
+      "lean": [],
+      "does_not_prove": []
+    },
+    {
+      "id": "MECH-CORR4-SIGNED-FIRST-OWNER-GRAM",
+      "title": "Signed first-owner Gram restriction beyond the scalar frame",
+      "type": "arithmetic_mechanism",
+      "route_ids": [
+        "CORR4"
+      ],
+      "statement": "An all-root sign-preserving restriction on the complete first-owner Gram Gamma_R showing that genuine incidence excludes near-saturation of the antiparallel parent/daughter frame extremizer on large finite-A endpoint excursions.",
+      "logical_status": "OPEN",
+      "formal_status": "NOT_FORMALIZED",
+      "evidence_class": "UNKNOWN",
+      "provenance": "OPEN_NO_PROOF",
+      "open_obligation": true,
+      "obligation_kind": "ARITHMETIC",
+      "evidence": [
+        "EV-REPORT-20261025-COORDINATOR"
+      ],
+      "lean": [],
+      "does_not_prove": []
+    },
+    {
+      "id": "FINITE-CORR4-CENSUS",
+      "title": "CORR-4 remainder census 56 <= R <= 10000",
+      "type": "finite_evidence",
+      "route_ids": [
+        "CORR4",
+        "FINITE-AC"
+      ],
+      "statement": "Exact census 56 <= R <= 6000 (Census 20261025-census-1) and Numba sweep R <= 10000 (#1021): max observed c_R = (|B_R|^2 - (9/4)E_R)/(R^2 K_R) is 0.14418310472084428 at R = 5561 (M(X) = -2544, K = 3/2); all 58 roots with c_R > 1/10 (R <= 6000) are square-endpoint excursions with C_R U_R < 0.",
+      "logical_status": "FINITE_EVIDENCE",
+      "formal_status": "NOT_FORMALIZED",
+      "evidence_class": "FINITE_COMPUTATION",
+      "provenance": "NUMERICAL",
+      "reproducer": "scripts/corr4_oai_remainder_numba_20261024.py on PR #1021; Census report 2026-10-25",
+      "pr": 1021,
+      "evidence": [
+        "EV-REPORT-20261025-CENSUS",
+        "EV-PR-1021"
+      ],
+      "lean": [],
+      "does_not_prove": [],
+      "open_obligation": false
+    },
+    {
+      "id": "REFUTED-CORR4-C-012",
+      "title": "Universal relaxed-remainder constant C <= 0.12",
+      "type": "refuted_claim",
+      "route_ids": [
+        "CORR4"
+      ],
+      "statement": "Conjecture (refuted): the relaxed remainder bound holds with C <= 0.12 for all R >= 56.",
+      "logical_status": "REFUTED",
+      "formal_status": "NOT_FORMALIZED",
+      "evidence_class": "REFUTED",
+      "provenance": "NUMERICAL",
+      "evidence": [
+        "EV-REPORT-20261025-CENSUS",
+        "EV-PR-1021"
+      ],
+      "lean": [],
+      "does_not_prove": [],
+      "open_obligation": false
+    },
+    {
+      "id": "CE-CORR4-R5561",
+      "title": "CORR-4 fixture R = 5561",
+      "type": "counterexample",
+      "route_ids": [
+        "CORR4",
+        "FINITE-AC"
+      ],
+      "statement": "R = 5561: X = 30924720, M(X) = -2544, C_R = 2549, E_R = 196306, K = 3/2, c_R = 0.14418310472084428 (exact rational certificate in the Census report).",
+      "logical_status": "PROVED",
+      "formal_status": "NOT_FORMALIZED",
+      "evidence_class": "FINITE_COMPUTATION",
+      "provenance": "NUMERICAL",
+      "reproducer": "scripts/corr4_oai_remainder_numba_20261024.py (PR #1021); exact Fraction recomputation in the 2026-10-25 Census report",
+      "evidence": [
+        "EV-REPORT-20261025-CENSUS",
+        "EV-PR-1021"
+      ],
+      "lean": [],
+      "does_not_prove": [],
+      "open_obligation": false
+    },
+    {
+      "id": "REFUTED-CORR4-LOCAL-SIGN",
+      "title": "CORR-4 local sign necessity c_R > 0 => C_R U_R < 0",
+      "type": "refuted_claim",
+      "route_ids": [
+        "CORR4"
+      ],
+      "statement": "Conjecture (refuted): every root with positive boundary payment c_R > 0 has anti-aligned parent and daughter synthesis, C_R U_R < 0.",
+      "logical_status": "REFUTED",
+      "formal_status": "NOT_FORMALIZED",
+      "evidence_class": "REFUTED",
+      "provenance": "NUMERICAL",
+      "evidence": [
+        "EV-REPORT-20261025-CENSUS",
+        "EV-SCRIPT-REGRESSIONS"
+      ],
+      "lean": [],
+      "does_not_prove": [],
+      "open_obligation": false
+    },
+    {
+      "id": "CE-CORR4-R57",
+      "title": "CORR-4 fixture R = 57",
+      "type": "counterexample",
+      "route_ids": [
+        "CORR4"
+      ],
+      "statement": "R = 57: X = 3248, C_R = -19, U_R = -71/105, E_R = 3, K = 3/2, c_57 = 14509429/214921350 > 0 and C_R U_R > 0.",
+      "logical_status": "PROVED",
+      "formal_status": "NOT_FORMALIZED",
+      "evidence_class": "FINITE_COMPUTATION",
+      "provenance": "NUMERICAL",
+      "reproducer": "scripts/proof_dag_falsifier_regressions.py",
+      "evidence": [
+        "EV-REPORT-20261025-CENSUS",
+        "EV-SCRIPT-REGRESSIONS"
+      ],
+      "lean": [],
+      "does_not_prove": [],
+      "open_obligation": false
+    },
+    {
+      "id": "REFUTED-CORR4-DAUGHTER-ONLY",
+      "title": "Daughter-only CORR-4 remainder (C = 0)",
+      "type": "refuted_claim",
+      "route_ids": [
+        "CORR4"
+      ],
+      "statement": "Conjecture (refuted): |B_R|^2 <= (9/4) E_R for all R >= 56 (the historical R^2 K term can be dropped).",
+      "logical_status": "REFUTED",
+      "formal_status": "NOT_FORMALIZED",
+      "evidence_class": "REFUTED",
+      "provenance": "NUMERICAL",
+      "evidence": [
+        "EV-SCRIPT-REGRESSIONS",
+        "EV-PR-1021"
+      ],
+      "lean": [],
+      "does_not_prove": [],
+      "open_obligation": false
+    },
+    {
+      "id": "CE-CORR4-R56",
+      "title": "CORR-4 fixture R = 56",
+      "type": "counterexample",
+      "route_ids": [
+        "CORR4"
+      ],
+      "statement": "R = 56: |B_56|^2 > (9/4) E_56 (c_56 > 0), the first root of the domain; 3,577 of the 5,945 roots 56..6000 have c_R > 0.",
+      "logical_status": "PROVED",
+      "formal_status": "NOT_FORMALIZED",
+      "evidence_class": "FINITE_COMPUTATION",
+      "provenance": "NUMERICAL",
+      "reproducer": "scripts/proof_dag_falsifier_regressions.py",
+      "evidence": [
+        "EV-SCRIPT-REGRESSIONS",
+        "EV-REPORT-20261025-CENSUS"
+      ],
+      "lean": [],
+      "does_not_prove": [],
+      "open_obligation": false
+    },
+    {
+      "id": "OPEN-MU-LIFT",
+      "title": "Subcritical fixed-degree full-prefix amplification",
+      "type": "open_obligation",
+      "route_ids": [
+        "MU-LIFT"
+      ],
+      "statement": "For a fixed k >= 2 and fixed r < k: E(B^k) <= G(B) E(B)^r with E(B) = max_{1<=n<B} |M(n)|/sqrt(n), log G(B)/log B -> 0, on a chain with complete interval coverage.",
+      "logical_status": "OPEN",
+      "formal_status": "NOT_FORMALIZED",
+      "evidence_class": "UNKNOWN",
+      "provenance": "OPEN_NO_PROOF",
+      "open_obligation": true,
+      "obligation_kind": "ARITHMETIC",
+      "source_file": "docs/MERTENS_AMPLIFICATION_BUDGET.md",
+      "evidence": [
+        "EV-NOTE-MU-LIFT"
+      ],
+      "notes": "k = r = 2 is not subcritical; a gain factor defined from E itself is target-equivalent.",
+      "lean": [],
+      "does_not_prove": []
+    },
+    {
+      "id": "PAPER-MU-LIFT-CONTRACTION",
+      "title": "Subcritical recurrence => Mertens exponent 1/2",
+      "type": "paper_claim",
+      "route_ids": [
+        "MU-LIFT"
+      ],
+      "statement": "u_{j+1} <= (r/k) u_j + g_j/k with u_j = log E(B_j)/log B_j and g_j -> 0 forces u_j -> 0; full-prefix interpolation gives |M(n)| <= n^(1/2+o(1)).",
+      "logical_status": "CLAIMED",
+      "formal_status": "NOT_FORMALIZED",
+      "evidence_class": "PAPER_PROOF_NEEDS_REVIEW",
+      "provenance": "PAPER_ARGUMENT",
+      "open_obligation": true,
+      "obligation_kind": "REVIEW",
+      "source_file": "docs/MERTENS_AMPLIFICATION_BUDGET.md",
+      "evidence": [
+        "EV-NOTE-MU-LIFT"
+      ],
+      "lean": [],
+      "does_not_prove": []
+    },
+    {
+      "id": "MECH-MU-LIFT-SUBCRITICAL",
+      "title": "New full-prefix signed estimate with r < k",
+      "type": "arithmetic_mechanism",
+      "route_ids": [
+        "MU-LIFT"
+      ],
+      "statement": "A genuinely new signed estimate on the exact K1/K2/K3 floor kernel (Type II corner plus every complementary range, square/floor boundaries and full-prefix coverage) yielding a fixed subcritical r < k.",
+      "logical_status": "OPEN",
+      "formal_status": "NOT_FORMALIZED",
+      "evidence_class": "UNKNOWN",
+      "provenance": "OPEN_NO_PROOF",
+      "open_obligation": true,
+      "obligation_kind": "ARITHMETIC",
+      "evidence": [
+        "EV-NOTE-MU-LIFT"
+      ],
+      "lean": [],
+      "does_not_prove": []
+    },
+    {
+      "id": "OPEN-NYMAN-DENSITY",
+      "title": "Full-basis Nyman-Beurling density at a = 1/2",
+      "type": "open_obligation",
+      "route_ids": [
+        "NYMAN"
+      ],
+      "statement": "d_N -> 0 for the full integer-dilation (Baez-Duarte) basis distance at the critical a = 1/2, or an independently justified weighted a > 1/2 zero-free consequence.",
+      "logical_status": "OPEN",
+      "formal_status": "NOT_FORMALIZED",
+      "evidence_class": "UNKNOWN",
+      "provenance": "OPEN_NO_PROOF",
+      "open_obligation": true,
+      "obligation_kind": "ARITHMETIC",
+      "source_file": "research/NYMAN_BEURLING_POSITIVE_RESIDUE_ATTACK_2026_10_15.md",
+      "pr": 957,
+      "evidence": [
+        "EV-NOTE-NYMAN"
+      ],
+      "lean": [],
+      "does_not_prove": []
+    },
+    {
+      "id": "LIT-BAEZ-DUARTE",
+      "title": "Baez-Duarte integer-dilation Nyman-Beurling criterion",
+      "type": "literature_theorem",
+      "route_ids": [
+        "NYMAN"
+      ],
+      "statement": "RH <=> the integer-dilation Nyman-Beurling distance d_N tends to 0.",
+      "logical_status": "ESTABLISHED_LITERATURE",
+      "formal_status": "NOT_FORMALIZED",
+      "evidence_class": "INDEPENDENTLY_REVIEWED_PAPER_PROOF",
+      "provenance": "LITERATURE_NOT_FORMALIZED",
+      "literature": [
+        "L. Baez-Duarte, A strengthening of the Nyman-Beurling criterion for the Riemann hypothesis, arXiv:math/0202141."
+      ],
+      "evidence": [
+        "EV-NOTE-NYMAN"
+      ],
+      "lean": [],
+      "does_not_prove": [],
+      "open_obligation": false
+    },
+    {
+      "id": "LIT-BURNOL-2002",
+      "title": "Burnol logarithmic lower bound",
+      "type": "literature_theorem",
+      "route_ids": [
+        "NYMAN"
+      ],
+      "statement": "Unconditionally, the Nyman-Beurling distance satisfies a positive lower bound of order 1/log N, which applies to the centered integer-modulus span.",
+      "logical_status": "ESTABLISHED_LITERATURE",
+      "formal_status": "NOT_FORMALIZED",
+      "evidence_class": "INDEPENDENTLY_REVIEWED_PAPER_PROOF",
+      "provenance": "LITERATURE_NOT_FORMALIZED",
+      "literature": [
+        "J.-F. Burnol, A lower bound in an approximation problem involving the zeros of the Riemann zeta function, arXiv:math/0103058."
+      ],
+      "evidence": [
+        "EV-NOTE-NYMAN"
+      ],
+      "lean": [],
+      "does_not_prove": [],
+      "open_obligation": false
+    },
+    {
+      "id": "REFUTED-NYMAN-SQUARE-CONTRACTION",
+      "title": "Eventual square-schedule contraction d_{B^2}^2 <= q d_B^2, q < 1/2",
+      "type": "refuted_claim",
+      "route_ids": [
+        "NYMAN"
+      ],
+      "statement": "Conjecture (refuted): for some fixed q < 1/2, eventually d_{B^2}^2 <= q d_B^2.",
+      "logical_status": "REFUTED",
+      "formal_status": "NOT_FORMALIZED",
+      "evidence_class": "REFUTED",
+      "provenance": "LITERATURE_NOT_FORMALIZED",
+      "evidence": [
+        "EV-NOTE-NYMAN"
+      ],
+      "lean": [],
+      "does_not_prove": [],
+      "open_obligation": false
+    },
+    {
+      "id": "MECH-NYMAN-FULL-BASIS-DECAY",
+      "title": "All-scale norm decay of the full residue basis",
+      "type": "arithmetic_mechanism",
+      "route_ids": [
+        "NYMAN"
+      ],
+      "statement": "A proved (possibly slow) all-scale decay of d_(N,a) for the full basis, not monotonicity, finite Gram fits or finite rational certificates.",
+      "logical_status": "OPEN",
+      "formal_status": "NOT_FORMALIZED",
+      "evidence_class": "UNKNOWN",
+      "provenance": "OPEN_NO_PROOF",
+      "open_obligation": true,
+      "obligation_kind": "ARITHMETIC",
+      "evidence": [
+        "EV-NOTE-NYMAN"
+      ],
+      "lean": [],
+      "does_not_prove": []
+    },
+    {
+      "id": "REFUTED-BLOCK-UNIVERSAL",
+      "title": "Universal literal square-block VF capture",
+      "type": "refuted_claim",
+      "route_ids": [
+        "BLOCK"
+      ],
+      "statement": "VFMidIntegerBlockCrossingStatement / capture: forall R >= 2, pi(R^2) <= floor(F_R) <= pi((R+1)^2). FALSE.",
+      "logical_status": "REFUTED",
+      "formal_status": "LEAN_STATEMENT_ONLY",
+      "evidence_class": "REFUTED",
+      "provenance": "NUMERICAL",
+      "lean": [
+        {
+          "file": "research/VF_MID_LITERAL_BLOCK_CROSSING.lean",
+          "name": "VFMidIntegerBlockCrossingStatement"
+        }
+      ],
+      "evidence": [
+        "EV-SCRIPT-549"
+      ],
+      "notes": "Weaker multi-block, averaged or one-sided replacements are admissible only with a new precise statement, a verified consumer and an explicit independent arithmetic input.",
+      "does_not_prove": [],
+      "open_obligation": false
+    },
+    {
+      "id": "CE-BLOCK-R549",
+      "title": "BLOCK counterexample R = 549",
+      "type": "counterexample",
+      "route_ids": [
+        "BLOCK"
+      ],
+      "statement": "pi(549^2) = 26112, floor(F_549) = 26194, pi(550^2) = 26193; canonical floor(F_549 + sqrt2) = 26196 also fails.",
+      "logical_status": "PROVED",
+      "formal_status": "NOT_FORMALIZED",
+      "evidence_class": "FINITE_COMPUTATION",
+      "provenance": "NUMERICAL",
+      "reproducer": "scripts/vf_block_capture_counterexample_549.py",
+      "evidence": [
+        "EV-SCRIPT-549"
+      ],
+      "lean": [],
+      "does_not_prove": [],
+      "open_obligation": false
+    },
+    {
+      "id": "CONSUMER-BLOCK-RH",
+      "title": "Block crossing => RH (valid consumer, false premise)",
+      "type": "conditional_consumer",
+      "route_ids": [
+        "BLOCK"
+      ],
+      "statement": "riemannHypothesis_of_vfMidIntegerBlockCrossing (criterion : ClassicalVonKochRHCriterion) (hcross : VFMidIntegerBlockCrossingStatement) : RiemannHypothesis.",
+      "logical_status": "PROVED",
+      "formal_status": "PROVED_IN_LEAN_ON_MAIN",
+      "evidence_class": "CONDITIONAL",
+      "provenance": "PROVED_INTERNALLY",
+      "hypotheses": [
+        "IFACE-CLASSICAL-VONKOCH",
+        "REFUTED-BLOCK-UNIVERSAL"
+      ],
+      "lean": [
+        {
+          "file": "research/VF_MID_LITERAL_BLOCK_CROSSING.lean",
+          "name": "riemannHypothesis_of_vfMidIntegerBlockCrossing"
+        },
+        {
+          "file": "research/VF_MID_LITERAL_BLOCK_CROSSING.lean",
+          "name": "vfMidIntegerBlockCrossingStatement_iff_captureStatement"
+        }
+      ],
+      "evidence": [
+        "EV-SCRIPT-549"
+      ],
+      "does_not_prove": [],
+      "open_obligation": false
+    },
+    {
+      "id": "CARRIER-PRIME-MODEL-EVENTS",
+      "title": "Prime vs floor-Li event stream eta",
+      "type": "carrier",
+      "route_ids": [
+        "JOH",
+        "VF-LOW",
+        "SAT"
+      ],
+      "statement": "eta(k) = 1_prime(k) - (Q(k) - Q(k-1)), Q = floor(Li_2), in {-1, 0, 1}.",
+      "logical_status": "DEFINITION",
+      "formal_status": "LEAN_DEFINITION_ON_MAIN",
+      "provenance": "PROVED_INTERNALLY",
+      "lean": [
+        {
+          "file": "research/VF_MID_FLOOR_LI_SIGNED_POPULATION_BALANCE.lean",
+          "name": "vfMidFloorLiPrimitiveMismatch"
+        }
+      ],
+      "evidence": [],
+      "does_not_prove": [],
+      "open_obligation": false
+    },
+    {
+      "id": "CARRIER-915-ZEROTH-MOMENT",
+      "title": "#915 block count defect (zeroth moment)",
+      "type": "carrier",
+      "route_ids": [
+        "VF-LOW",
+        "JOH"
+      ],
+      "statement": "D_r = Q((r+1)^2) - Q(r^2) - (pi((r+1)^2) - pi(r^2)); aggregate history telescopes to endpoints.",
+      "logical_status": "DEFINITION",
+      "formal_status": "LEAN_DEFINITION_ON_MAIN",
+      "provenance": "PROVED_INTERNALLY",
+      "lean": [
+        {
+          "file": "research/VF_MID_FLOOR_LI_DISCRETE_BACKLOG.lean",
+          "name": "vfMidFloorLiBlockPrimeDefect"
+        }
+      ],
+      "evidence": [],
+      "does_not_prove": [],
+      "open_obligation": false
+    },
+    {
+      "id": "CARRIER-JOH-FIRST-MOMENT",
+      "title": "Johnston cumulative statistic G (first moment)",
+      "type": "carrier",
+      "route_ids": [
+        "JOH"
+      ],
+      "statement": "G(N) = sum_{2<=n<N} (pi(n) - Q(n) - 1) = sum_k (N - k) eta(k) + boundary; = A(N) - T(N) - L(N).",
+      "logical_status": "DEFINITION",
+      "formal_status": "NOT_FORMALIZED",
+      "provenance": "PAPER_ARGUMENT",
+      "lean": [],
+      "evidence": [],
+      "does_not_prove": [],
+      "open_obligation": false
+    },
+    {
+      "id": "CARRIER-915-WEIGHTED-SOURCE",
+      "title": "Original #915 weighted first-bad source",
+      "type": "carrier",
+      "route_ids": [
+        "VF-LOW"
+      ],
+      "statement": "Source(R) = D_raw(R+1), TotalMass(R) = (|D_raw(R)| + beta_R)^2 with native VF weights m_R, w_R, active/returned masks, clipping, historical anchors, restoration and zero-target NNS denominators.",
+      "logical_status": "DEFINITION",
+      "formal_status": "LEAN_DEFINITION_ON_MAIN",
+      "provenance": "PROVED_INTERNALLY",
+      "lean": [
+        {
+          "file": "research/VF_MID_FIRST_BAD_EXACT_BUDGET_CLOSE.lean",
+          "name": "VFMid915FirstBadSourcePaymentStatement"
+        }
+      ],
+      "evidence": [],
+      "does_not_prove": [],
+      "open_obligation": false
+    },
+    {
+      "id": "CARRIER-SAT-MERTENS",
+      "title": "Signed Mertens S = A - T",
+      "type": "carrier",
+      "route_ids": [
+        "SAT",
+        "CODIV",
+        "FINITE-AC"
+      ],
+      "statement": "M(R^2 - 1) = A_mu(R) - T_mu(R): smooth Mobius mass minus high-prime cofactor transport.",
+      "logical_status": "DEFINITION",
+      "formal_status": "NOT_FORMALIZED",
+      "provenance": "PAPER_ARGUMENT",
+      "lean": [],
+      "evidence": [],
+      "does_not_prove": [],
+      "open_obligation": false
+    },
+    {
+      "id": "CARRIER-SAT-PRIME",
+      "title": "Unsigned prime candidate minus least-prime composite removal",
+      "type": "carrier",
+      "route_ids": [
+        "SAT",
+        "JOH"
+      ],
+      "statement": "Square-block least-prime candidate count minus least-prime-owned composite removals (P_R = R - C_R).",
+      "logical_status": "DEFINITION",
+      "formal_status": "NOT_FORMALIZED",
+      "provenance": "PAPER_ARGUMENT",
+      "lean": [],
+      "evidence": [],
+      "does_not_prove": [],
+      "open_obligation": false
+    },
+    {
+      "id": "CARRIER-OAI-IDEAL-SOURCE",
+      "title": "Original OAI compensated ideal-labelled source",
+      "type": "carrier",
+      "route_ids": [
+        "OAI-NNS"
+      ],
+      "statement": "Ideal-labelled Gaussian/Hecke source with marked-minus-rescaled compensation and split/inert labels (research/oai_434).",
+      "logical_status": "DEFINITION",
+      "formal_status": "NOT_FORMALIZED",
+      "provenance": "PAPER_ARGUMENT",
+      "lean": [],
+      "evidence": [],
+      "does_not_prove": [],
+      "open_obligation": false
+    },
+    {
+      "id": "CARRIER-CORR4-PHYSICAL-REMAINDER",
+      "title": "CORR-4 physical remainder B_R",
+      "type": "carrier",
+      "route_ids": [
+        "CORR4"
+      ],
+      "statement": "B_R = C_R - U_R on X_R = R^2 - 1 with the actual weight omega_R(n) = 1_{R<=n<=X_R} + sum_{q in S_R} (1/q) 1_{n<=Y_q}.",
+      "logical_status": "DEFINITION",
+      "formal_status": "NOT_FORMALIZED",
+      "provenance": "PAPER_ARGUMENT",
+      "lean": [],
+      "evidence": [],
+      "does_not_prove": [],
+      "open_obligation": false
+    }
+  ],
+  "edges": [
+    {
+      "id": "E-VK-CAN-SQ-REAL",
+      "from": "OPEN-VF-ACTUAL-PRIME",
+      "type": "PROVED_EQUIVALENCE",
+      "to": "PROP-VF-CAN-REAL-VONKOCH",
+      "certified_by": "MILESTONE-VONKOCH-VF-LEAN",
+      "note": "vfCanonicalSquareVonKoch_iff_realVonKoch (renormalized constants)",
+      "conditions": []
+    },
+    {
+      "id": "E-VK-CAN-SQ-LEGACY",
+      "from": "OPEN-VF-ACTUAL-PRIME",
+      "type": "PROVED_EQUIVALENCE",
+      "to": "PROP-VF-MID-SQUARE-VONKOCH",
+      "certified_by": "MILESTONE-VONKOCH-VF-LEAN",
+      "note": "vfCanonicalSquareVonKoch_iff_legacy (fixed sqrt2 phase absorbed)",
+      "conditions": []
+    },
+    {
+      "id": "E-VK-CAN-REAL-LEGACY",
+      "from": "PROP-VF-CAN-REAL-VONKOCH",
+      "type": "PROVED_EQUIVALENCE",
+      "to": "PROP-VF-MID-REAL-VONKOCH",
+      "certified_by": "MILESTONE-VONKOCH-VF-LEAN",
+      "note": "vfCanonicalRealVonKoch_iff_legacy",
+      "conditions": []
+    },
+    {
+      "id": "E-VK-MID-REAL-PRIMELI",
+      "from": "PROP-VF-MID-REAL-VONKOCH",
+      "type": "PROVED_EQUIVALENCE",
+      "to": "PROP-PRIME-LI-VONKOCH",
+      "certified_by": "MILESTONE-VONKOCH-VF-LEAN",
+      "note": "vfMidVonKochBounded_iff_primeLiVonKochBounded (uses vfMidLiRootBounded)",
+      "conditions": []
+    },
+    {
+      "id": "E-VK-MID-SQ-PRIMELI",
+      "from": "PROP-VF-MID-SQUARE-VONKOCH",
+      "type": "PROVED_EQUIVALENCE",
+      "to": "PROP-PRIME-LI-VONKOCH",
+      "certified_by": "MILESTONE-VONKOCH-VF-LEAN",
+      "note": "vfMidSquareEndpointVonKochBounded_iff_primeLiVonKochBounded",
+      "conditions": []
+    },
+    {
+      "id": "E-VK-REQ-QUAD",
+      "from": "MILESTONE-VONKOCH-VF-LEAN",
+      "type": "REQUIRES",
+      "to": "MILESTONE-VF-LI-ROOT",
+      "note": "the equivalence consumes the root-scale quadrature",
+      "conditions": []
+    },
+    {
+      "id": "E-VK-REQ-CANON",
+      "from": "MILESTONE-VONKOCH-VF-LEAN",
+      "type": "REQUIRES",
+      "to": "MILESTONE-VF-CANONICAL",
+      "note": "canonical definition and sqrt2 phase transport",
+      "conditions": []
+    },
+    {
+      "id": "E-O1-IMPLIES-ROOT",
+      "from": "MILESTONE-VF-LI-O1",
+      "type": "PROVED_IMPLICATION",
+      "to": "MILESTONE-VF-LI-ROOT",
+      "elementary": "O(1) <= B sqrt(x) for x >= 4",
+      "note": "the all-real O(1) theorem is strictly stronger than the root-scale input",
+      "conditions": []
+    },
+    {
+      "id": "E-VF-CAN-RH",
+      "from": "OPEN-VF-ACTUAL-PRIME",
+      "type": "CONDITIONAL_IMPLICATION",
+      "to": "RH",
+      "conditions": [
+        "IFACE-CLASSICAL-VONKOCH"
+      ],
+      "certified_by": "RH-CONDITIONAL-CONSUMER",
+      "note": "riemannHypothesis_of_vfCanonicalSquare"
+    },
+    {
+      "id": "E-VF-TWO-TO-ONE",
+      "from": "OPEN-VF-ACTUAL-PRIME",
+      "type": "PROVED_IMPLICATION",
+      "to": "OPEN-VF-LOW",
+      "elementary": "|D| <= C R log R implies D >= -C R log R",
+      "conditions": []
+    },
+    {
+      "id": "E-VF-LOW-RH",
+      "from": "OPEN-VF-LOW",
+      "type": "CONDITIONAL_IMPLICATION",
+      "to": "RH",
+      "conditions": [
+        "LIT-MV-OMEGA-PM",
+        "PAPER-VF-LOW-ONE-SIDED"
+      ],
+      "certified_by": "PAPER-VF-LOW-ONE-SIDED",
+      "note": "uses the Lean square-endpoint quadrature abs_vfMidLiError_sq_le_uniform plus an external Omega+- theorem"
+    },
+    {
+      "id": "E-915-VF",
+      "from": "OPEN-915-SOURCE-PAYMENT",
+      "type": "CONDITIONAL_IMPLICATION",
+      "to": "OPEN-VF-ACTUAL-PRIME",
+      "conditions": [
+        "FINITE-915-BASE-WINDOW"
+      ],
+      "certified_by": "CONSUMER-915-CANONICAL"
+    },
+    {
+      "id": "E-VFLOW-MECH",
+      "from": "MECH-VF-LOW-FIRST-LOWER-ESCAPE",
+      "type": "INDEPENDENT_ARITHMETIC_GAIN",
+      "to": "OPEN-VF-LOW",
+      "gain": "would supply the one-sided wall K R log R directly on the original source",
+      "conditions": []
+    },
+    {
+      "id": "E-SAT-MECH-VFLOW",
+      "from": "MECH-SAT-OWNER-REMOVAL",
+      "type": "INDEPENDENT_ARITHMETIC_GAIN",
+      "to": "OPEN-VF-LOW",
+      "gain": "signed owner-removal bound on genuine prime/composite incidence feeding the lower wall",
+      "conditions": []
+    },
+    {
+      "id": "E-SAT-MECH-JOH",
+      "from": "MECH-SAT-OWNER-REMOVAL",
+      "type": "INDEPENDENT_ARITHMETIC_GAIN",
+      "to": "OPEN-JOH-SIGN",
+      "gain": "weighted composite-removal inequality T(R^2) > A(R^2) - L(R^2)",
+      "conditions": []
+    },
+    {
+      "id": "E-JOH-MECH",
+      "from": "MECH-JOH-ANCESTRY-DISPLACEMENT",
+      "type": "INDEPENDENT_ARITHMETIC_GAIN",
+      "to": "OPEN-JOH-SIGN",
+      "gain": "controls the first-moment displacement term sum J_r in the conservation law",
+      "conditions": []
+    },
+    {
+      "id": "E-JOH-RH",
+      "from": "OPEN-JOH-SIGN",
+      "type": "CONDITIONAL_IMPLICATION",
+      "to": "RH",
+      "conditions": [
+        "LIT-JOHNSTON-2022",
+        "PAPER-JOH-SQUARE-TRANSFER"
+      ],
+      "certified_by": "PAPER-JOH-SQUARE-TRANSFER"
+    },
+    {
+      "id": "E-ETA-ZEROTH",
+      "from": "CARRIER-PRIME-MODEL-EVENTS",
+      "type": "WEIGHTED_PROJECTION",
+      "to": "CARRIER-915-ZEROTH-MOMENT",
+      "certified_by": "MILESTONE-915-MOVING-OWNER",
+      "loses": "within-block arrival locations (block sums only)",
+      "conditions": []
+    },
+    {
+      "id": "E-ETA-FIRST",
+      "from": "CARRIER-PRIME-MODEL-EVENTS",
+      "type": "WEIGHTED_PROJECTION",
+      "to": "CARRIER-JOH-FIRST-MOMENT",
+      "certified_by": "CLAIM-20261024-OWNER-1",
+      "loses": "pointwise discrepancies (triangular weight N - k)",
+      "conditions": []
+    },
+    {
+      "id": "E-915-SOURCE-ZEROTH",
+      "from": "CARRIER-915-WEIGHTED-SOURCE",
+      "type": "WEIGHTED_PROJECTION",
+      "to": "CARRIER-915-ZEROTH-MOMENT",
+      "certified_by": "MILESTONE-915-MOVING-OWNER",
+      "loses": "native VF weights, masks, clipping, historical anchors, restoration, quadratic NNS terms",
+      "conditions": []
+    },
+    {
+      "id": "E-REF-JOH",
+      "from": "REFUTED-JOH-COUNT-ONLY",
+      "type": "REFUTED_BY",
+      "to": "CE-JOH-R4-R7",
+      "conditions": []
+    },
+    {
+      "id": "E-MERTENS-RH",
+      "from": "PROP-MERTENS-ENERGY",
+      "type": "PROVED_IMPLICATION",
+      "to": "RH",
+      "certified_by": "CONSUMER-MERTENS-ENERGY-RH",
+      "conditions": []
+    },
+    {
+      "id": "E-MERTENS-BELOW-78",
+      "from": "PROP-MERTENS-ENERGY",
+      "type": "PROVED_IMPLICATION",
+      "to": "OPEN-MERTENS-EXPONENT-BELOW-7-8",
+      "elementary": "exponent 1/2 + eps is below 7/8 - delta for delta < 3/8",
+      "conditions": []
+    },
+    {
+      "id": "E-CODIV-MECH",
+      "from": "MECH-CODIV-SIGNED-COVARIANCE",
+      "type": "INDEPENDENT_ARITHMETIC_GAIN",
+      "to": "OPEN-MERTENS-EXPONENT-BELOW-7-8",
+      "gain": "M^2 = D + 2C turns a covariance saving 2 delta into exponent saving delta",
+      "conditions": []
+    },
+    {
+      "id": "E-QUOT-MECH",
+      "from": "MECH-SIGNED-QUOTIENT-VARIATION",
+      "type": "INDEPENDENT_ARITHMETIC_GAIN",
+      "to": "OPEN-MERTENS-EXPONENT-BELOW-7-8",
+      "gain": "|M| <= 4(V_low + V_high) with V_high <= 2 sqrt X",
+      "conditions": []
+    },
+    {
+      "id": "E-OAI-MECH",
+      "from": "MECH-OAI-NNS-COMPLETE-LEDGER",
+      "type": "INDEPENDENT_ARITHMETIC_GAIN",
+      "to": "OPEN-MERTENS-EXPONENT-BELOW-7-8",
+      "gain": "net delta > 0 after all eight gates",
+      "conditions": []
+    },
+    {
+      "id": "E-FINITE-A-GRAM",
+      "from": "OPEN-FINITE-AC",
+      "type": "PROVED_EQUIVALENCE",
+      "to": "PROP-LEGAL-ANCESTRY-GRAM",
+      "certified_by": "THM-FINITE-A-IFF-LEGAL-GRAM",
+      "conditions": []
+    },
+    {
+      "id": "E-FINITE-A-MERTENS",
+      "from": "OPEN-FINITE-AC",
+      "type": "PROVED_IMPLICATION",
+      "to": "PROP-MERTENS-ENERGY",
+      "certified_by": "CONSUMER-FINITE-A-MERTENS",
+      "conditions": []
+    },
+    {
+      "id": "E-FINITE-AC-MECH",
+      "from": "MECH-FINITE-AC-HISTORICAL-ENVELOPE",
+      "type": "INDEPENDENT_ARITHMETIC_GAIN",
+      "to": "OPEN-FINITE-AC",
+      "gain": "the uniform constant A itself",
+      "conditions": []
+    },
+    {
+      "id": "E-CORR4-FINITE-A",
+      "from": "OPEN-CORR4",
+      "type": "PROVED_IMPLICATION",
+      "to": "OPEN-FINITE-AC",
+      "certified_by": "CONSUMER-CORR4-FINITE-A",
+      "conditions": []
+    },
+    {
+      "id": "E-CORR4-RELAXED",
+      "from": "OPEN-CORR4-RELAXED-REMAINDER",
+      "type": "CONDITIONAL_IMPLICATION",
+      "to": "OPEN-CORR4",
+      "conditions": [
+        "PR1021-RELAXED-CONSUMER"
+      ],
+      "certified_by": "PR1021-RELAXED-CONSUMER"
+    },
+    {
+      "id": "E-CORR4-REQ-FRAME",
+      "from": "PR1021-RELAXED-CONSUMER",
+      "type": "REQUIRES",
+      "to": "PR1023-FRAME-B7",
+      "note": "the sharper coefficient 3 + 4 b_7 uses #1023; the 886/225 version uses the merged 211/900 frame",
+      "conditions": []
+    },
+    {
+      "id": "E-CORR4-MECH",
+      "from": "MECH-CORR4-SIGNED-FIRST-OWNER-GRAM",
+      "type": "INDEPENDENT_ARITHMETIC_GAIN",
+      "to": "OPEN-CORR4-RELAXED-REMAINDER",
+      "gain": "pays |B_R|^2 - (9/4) E_R by O(R^2 K) without a prior finite-A bound",
+      "conditions": []
+    },
+    {
+      "id": "E-REF-CORR4-012",
+      "from": "REFUTED-CORR4-C-012",
+      "type": "REFUTED_BY",
+      "to": "CE-CORR4-R5561",
+      "conditions": []
+    },
+    {
+      "id": "E-REF-CORR4-SIGN",
+      "from": "REFUTED-CORR4-LOCAL-SIGN",
+      "type": "REFUTED_BY",
+      "to": "CE-CORR4-R57",
+      "conditions": []
+    },
+    {
+      "id": "E-REF-CORR4-C0",
+      "from": "REFUTED-CORR4-DAUGHTER-ONLY",
+      "type": "REFUTED_BY",
+      "to": "CE-CORR4-R56",
+      "conditions": []
+    },
+    {
+      "id": "E-MULIFT-MERTENS",
+      "from": "OPEN-MU-LIFT",
+      "type": "CONDITIONAL_IMPLICATION",
+      "to": "PROP-MERTENS-ENERGY",
+      "conditions": [
+        "PAPER-MU-LIFT-CONTRACTION"
+      ],
+      "certified_by": "PAPER-MU-LIFT-CONTRACTION"
+    },
+    {
+      "id": "E-MULIFT-MECH",
+      "from": "MECH-MU-LIFT-SUBCRITICAL",
+      "type": "INDEPENDENT_ARITHMETIC_GAIN",
+      "to": "OPEN-MU-LIFT",
+      "gain": "fixed r < k",
+      "conditions": []
+    },
+    {
+      "id": "E-NYMAN-RH",
+      "from": "OPEN-NYMAN-DENSITY",
+      "type": "CONDITIONAL_IMPLICATION",
+      "to": "RH",
+      "conditions": [
+        "LIT-BAEZ-DUARTE"
+      ],
+      "certified_by": "LIT-BAEZ-DUARTE"
+    },
+    {
+      "id": "E-NYMAN-MECH",
+      "from": "MECH-NYMAN-FULL-BASIS-DECAY",
+      "type": "INDEPENDENT_ARITHMETIC_GAIN",
+      "to": "OPEN-NYMAN-DENSITY",
+      "gain": "all-scale decay of the full-basis distance",
+      "conditions": []
+    },
+    {
+      "id": "E-REF-NYMAN",
+      "from": "REFUTED-NYMAN-SQUARE-CONTRACTION",
+      "type": "REFUTED_BY",
+      "to": "LIT-BURNOL-2002",
+      "conditions": []
+    },
+    {
+      "id": "E-BLOCK-RH",
+      "from": "REFUTED-BLOCK-UNIVERSAL",
+      "type": "CONDITIONAL_IMPLICATION",
+      "to": "RH",
+      "conditions": [
+        "IFACE-CLASSICAL-VONKOCH"
+      ],
+      "certified_by": "CONSUMER-BLOCK-RH"
+    },
+    {
+      "id": "E-REF-BLOCK",
+      "from": "REFUTED-BLOCK-UNIVERSAL",
+      "type": "REFUTED_BY",
+      "to": "CE-BLOCK-R549",
+      "conditions": []
+    }
+  ],
+  "non_equivalences": [
+    {
+      "a": "CARRIER-915-WEIGHTED-SOURCE",
+      "b": "CARRIER-SAT-MERTENS",
+      "reason": "The original #915 weighted, masked, clipped, anchored NNS source is not the unweighted signed Mertens smooth-minus-transport kernel; only an aggregate zeroth-moment identity is proved."
+    },
+    {
+      "a": "CARRIER-JOH-FIRST-MOMENT",
+      "b": "CARRIER-915-ZEROTH-MOMENT",
+      "reason": "Blocks r = 4, 7 have zero count defect and opposite first-moment displacement (CE-JOH-R4-R7)."
+    },
+    {
+      "a": "OPEN-JOH-SIGN",
+      "b": "OPEN-VF-ACTUAL-PRIME",
+      "reason": "JOH is a Cesaro/weighted projection of the pointwise discrepancy; it is not pointwise-equivalent to the square-endpoint VF error."
+    },
+    {
+      "a": "OPEN-CORR4",
+      "b": "OPEN-FINITE-AC",
+      "reason": "Only CORR-4 => finite A is proved; shared K_R and a consumer do not give the reverse."
+    },
+    {
+      "a": "OPEN-FINITE-AC",
+      "b": "PROP-MERTENS-ENERGY",
+      "reason": "Finite A implies the Mertens energy statement; the converse is not proved and finite A can be stronger than RH."
+    },
+    {
+      "a": "PROP-LEGAL-ANCESTRY-GRAM",
+      "b": "PROP-MERTENS-ENERGY",
+      "reason": "Co/Div and finite A/C are existentially equivalent only on the correctly normalized live-packet carrier, not as global unnormalized covariance statements."
+    },
+    {
+      "a": "CARRIER-OAI-IDEAL-SOURCE",
+      "b": "CARRIER-915-WEIGHTED-SOURCE",
+      "reason": "Original OAI ideal coefficients are not automatically RH_Lean physical prime-owner coefficients; #987 is an output-level bound."
+    },
+    {
+      "a": "IMPORTED-OAI-7-8",
+      "b": "OPEN-MERTENS-EXPONENT-BELOW-7-8",
+      "reason": "The imported 7/8 bound is a benchmark; inserting it into identities reproduces exponent 7/8 and is not an exponent-improvement engine."
+    },
+    {
+      "a": "OPEN-VF-LOW",
+      "b": "OPEN-VF-ACTUAL-PRIME",
+      "reason": "One-sided sufficiency uses an external Omega+- theorem; no Lean equivalence."
+    },
+    {
+      "a": "OPEN-915-SOURCE-PAYMENT",
+      "b": "OPEN-VF-ACTUAL-PRIME",
+      "reason": "The #915 payment is a fixed-constant K = 2 envelope; the public target is existential in C."
+    },
+    {
+      "a": "CLASSICAL_VONKOCH_CRITERION_FORMAL_IMPORT_OR_PROOF",
+      "b": "OPEN-VF-ACTUAL-PRIME",
+      "reason": "Formalizing the classical criterion does not touch the open actual-prime estimate."
+    }
+  ],
+  "evidence": [
+    {
+      "id": "EV-PR-915",
+      "kind": "pr",
+      "number": 915,
+      "state": "merged",
+      "title": "Exact first-bad VF identities and conditional source-payment consumers",
+      "observed_at": "2026-10-25T23:45:00Z",
+      "merged_at": "2026-10-12T04:07:13Z",
+      "grade": "KERNEL_CHECKED_ON_MAIN"
+    },
+    {
+      "id": "EV-PR-923",
+      "kind": "pr",
+      "number": 923,
+      "state": "merged",
+      "title": "Arithmetic input: exact square-hyperbola quotient variation and signed return reduction",
+      "observed_at": "2026-10-25T23:45:00Z",
+      "merged_at": "2026-10-12T04:07:13Z",
+      "grade": "KERNEL_CHECKED_ON_MAIN"
+    },
+    {
+      "id": "EV-PR-929",
+      "kind": "pr",
+      "number": 929,
+      "state": "merged",
+      "title": "Finite A/C Euler and ancestry accounting with canonical VF alignment",
+      "observed_at": "2026-10-25T23:45:00Z",
+      "merged_at": "2026-10-12T04:07:18Z",
+      "grade": "REPOSITORY_NOTE"
+    },
+    {
+      "id": "EV-PR-932",
+      "kind": "pr",
+      "number": 932,
+      "state": "merged",
+      "title": "Canonical sqrt(2) VF autopsy: all-real O(1) Li bridge and single public VF",
+      "observed_at": "2026-10-25T23:45:00Z",
+      "merged_at": "2026-10-12T16:02:17Z",
+      "head_sha": "2713d8ef495e24164a13a5eb34e3b4ba70a3377e",
+      "grade": "KERNEL_CHECKED_ON_MAIN",
+      "checks": {
+        "workflow_runs": 13,
+        "jobs": 17,
+        "success": 17,
+        "failed": 0,
+        "pending": 0,
+        "note": "13 workflow runs (17 jobs) all successful on the merged head, including vf-canonical-sqrt-two.yml jobs canonical-vf-kernel, all-real-quadrature, definition-autopsy, genuine-primes-vs-li"
+      }
+    },
+    {
+      "id": "EV-PR-939",
+      "kind": "pr",
+      "number": 939,
+      "state": "merged",
+      "title": "Lean: content audit of the #915 first-bad source-payment statement",
+      "observed_at": "2026-10-25T23:45:00Z",
+      "merged_at": "2026-10-14T13:24:38Z",
+      "grade": "KERNEL_CHECKED_ON_MAIN"
+    },
+    {
+      "id": "EV-PR-949",
+      "kind": "pr",
+      "number": 949,
+      "state": "merged",
+      "title": "Prove bidirectional Mertens growth and zeta-zero boundary identification",
+      "observed_at": "2026-10-25T23:45:00Z",
+      "merged_at": "2026-10-15T13:27:49Z",
+      "grade": "KERNEL_CHECKED_ON_MAIN"
+    },
+    {
+      "id": "EV-PR-954",
+      "kind": "pr",
+      "number": 954,
+      "state": "merged",
+      "title": "Preserve signs in higher-order Mertens lifts and hyperbola decomposition",
+      "observed_at": "2026-10-25T23:45:00Z",
+      "merged_at": "2026-10-15T16:45:02Z",
+      "grade": "KERNEL_CHECKED_ON_MAIN"
+    },
+    {
+      "id": "EV-PR-957",
+      "kind": "pr",
+      "number": 957,
+      "state": "merged",
+      "title": "Nyman-Beurling positive residue attack: exact certificate and sparse-basis obstruction",
+      "observed_at": "2026-10-25T23:45:00Z",
+      "merged_at": "2026-10-16T01:46:23Z",
+      "grade": "REPOSITORY_NOTE"
+    },
+    {
+      "id": "EV-PR-958",
+      "kind": "pr",
+      "number": 958,
+      "state": "merged",
+      "title": "Formalize sharp odd residual cofactor support",
+      "observed_at": "2026-10-25T23:45:00Z",
+      "merged_at": "2026-10-16T11:36:56Z",
+      "grade": "KERNEL_CHECKED_ON_MAIN"
+    },
+    {
+      "id": "EV-PR-961",
+      "kind": "pr",
+      "number": 961,
+      "state": "merged",
+      "title": "Formalize complete greatest-prime fibres above the square-root wall",
+      "observed_at": "2026-10-25T23:45:00Z",
+      "merged_at": "2026-10-16T13:59:55Z",
+      "grade": "KERNEL_CHECKED_ON_MAIN"
+    },
+    {
+      "id": "EV-PR-983",
+      "kind": "pr",
+      "number": 983,
+      "state": "merged",
+      "title": "Build: migrate RH_Lean to Lean 4.34.1 for Quasi-Riemann Tracker compatibility",
+      "observed_at": "2026-10-25T23:45:00Z",
+      "merged_at": "2026-10-20T11:38:48Z",
+      "head_sha": "ed9bb56e29ea1462321ffe514e761e4ead8705ef",
+      "grade": "KERNEL_CHECKED_ON_MAIN"
+    },
+    {
+      "id": "EV-PR-987",
+      "kind": "pr",
+      "number": 987,
+      "state": "merged",
+      "title": "Lean 4.34.1: reproduce OpenAI ideal compensation on original square-block signed covariance",
+      "observed_at": "2026-10-25T23:45:00Z",
+      "merged_at": "2026-10-21T11:29:13Z",
+      "head_sha": "a5271548202e004dab4f872962dd7fedbb94bac1",
+      "grade": "KERNEL_CHECKED_ON_MAIN"
+    },
+    {
+      "id": "EV-PR-1012",
+      "kind": "pr",
+      "number": 1012,
+      "state": "merged",
+      "title": "One-sided Li-fan RH criterion: weighted composite owner inequality at square endpoints",
+      "observed_at": "2026-10-25T23:45:00Z",
+      "merged_at": "2026-10-24T15:32:58Z",
+      "grade": "REPOSITORY_NOTE"
+    },
+    {
+      "id": "EV-PR-1017",
+      "kind": "pr",
+      "number": 1017,
+      "state": "merged",
+      "title": "Lean: original OAI fixed heavy-slot two-channel split",
+      "observed_at": "2026-10-25T23:45:00Z",
+      "merged_at": "2026-10-24T15:32:23Z",
+      "head_sha": "b96ac58b656a4bd2c99c98d0182087c8f0ec1bfb",
+      "grade": "KERNEL_CHECKED_ON_MAIN"
+    },
+    {
+      "id": "EV-PR-1019",
+      "kind": "pr",
+      "number": 1019,
+      "state": "merged",
+      "title": "Lean 4.34.1: exact closed-square prefix and Mobius birth-time algebra",
+      "observed_at": "2026-10-25T23:45:00Z",
+      "merged_at": "2026-10-24T21:57:31Z",
+      "head_sha": "0d39cfe586b8abf072042899f73bd3e326a29007",
+      "merge_commit": "2f4fc830150242b4cc0f9973f1c1b6c8be809fc3",
+      "grade": "KERNEL_CHECKED_ON_MAIN"
+    },
+    {
+      "id": "EV-PR-1020",
+      "kind": "pr",
+      "number": 1020,
+      "state": "merged",
+      "title": "Research: ten-route RH proof portfolio and seven-agent instructions",
+      "observed_at": "2026-10-25T23:45:00Z",
+      "merged_at": "2026-10-24T22:29:18Z",
+      "head_sha": "effff7a0462a149b0ff6ae3a200b802802703c12",
+      "merge_commit": "8d3a06d3748282e7e7e5cd273efdd00560cdee15",
+      "grade": "REPOSITORY_NOTE"
+    },
+    {
+      "id": "EV-PR-1021",
+      "kind": "pr",
+      "number": 1021,
+      "state": "open",
+      "title": "CORR-4: sharpened physical remainder, OAI power guidepost and signed owner Gram attack",
+      "observed_at": "2026-10-26T00:15:00Z",
+      "draft": false,
+      "head_sha": "72d7e508ed138d3dbd8adb6f75b51bfef50264ee",
+      "grade": "PR_HEAD_PENDING",
+      "checks": {
+        "jobs": 14,
+        "success": 5,
+        "failed": 0,
+        "pending": 9,
+        "note": "Head pushed 2026-10-26T00:12Z; dedicated physical-remainder and Lean jobs still running at observation. Previous head daefa85975a60429882c13b6fef2880a15815d5a had 12/14 green with Targeted Lean iteration (run 40245025512) and CORR4 OAI relaxed physical remainder (run 40245025514) failed; the Coordinator reported 13/13 green at earlier head 58be641ddb0c6cd003e4b61f760113ab254fbf11. No earlier head certifies the current one."
+      }
+    },
+    {
+      "id": "EV-PR-1022",
+      "kind": "pr",
+      "number": 1022,
+      "state": "open",
+      "title": "Original OAI low-Gaussian: nonprincipal zero-mode and short-radical Poisson saving band",
+      "observed_at": "2026-10-25T23:45:00Z",
+      "draft": true,
+      "head_sha": "03f756a4e4954d4df388f26105785cc30e438a16",
+      "grade": "KERNEL_CHECKED_GREEN_PR_HEAD",
+      "checks": {
+        "jobs": 13,
+        "success": 13,
+        "failed": 0,
+        "pending": 0,
+        "note": "includes dedicated actual-original-oai-low-zero-mode job (run 40243652061)"
+      }
+    },
+    {
+      "id": "EV-PR-1023",
+      "kind": "pr",
+      "number": 1023,
+      "state": "open",
+      "title": "Lean: sharpen odd-prime frame through composite gaps",
+      "observed_at": "2026-10-25T23:45:00Z",
+      "draft": false,
+      "head_sha": "44fbcf3f2dcab39c849f8a52cec4202929a734ad",
+      "grade": "KERNEL_CHECKED_GREEN_PR_HEAD",
+      "checks": {
+        "jobs": 12,
+        "success": 12,
+        "failed": 0,
+        "pending": 0,
+        "note": "dedicated composite-gap-basel run 40181443709: warning-fatal Lean 4.34.1 and [propext, Classical.choice, Quot.sound]"
+      }
+    },
+    {
+      "id": "EV-LEAN-MAIN-VFCAN",
+      "kind": "lean_source",
+      "ref": ".github/workflows/vf-canonical-sqrt-two.yml",
+      "description": "Warning-fatal compilation and #print axioms for the canonical VF, all-real quadrature and von Koch modules.",
+      "sha": "8d3a06d3748282e7e7e5cd273efdd00560cdee15",
+      "grade": "KERNEL_CHECKED_ON_MAIN",
+      "observed_at": "2026-10-25T23:45:00Z"
+    },
+    {
+      "id": "EV-LEAN-MAIN-915",
+      "kind": "lean_source",
+      "ref": "research/VF_MID_915_FLOOR_LI_TRANSPORT_BOUNDARY.lean",
+      "description": "#915 floor-Li transport boundary identities on main.",
+      "sha": "8d3a06d3748282e7e7e5cd273efdd00560cdee15",
+      "grade": "KERNEL_CHECKED_ON_MAIN",
+      "observed_at": "2026-10-25T23:45:00Z"
+    },
+    {
+      "id": "EV-LEAN-MAIN-MERTENS",
+      "kind": "lean_source",
+      "ref": "RHLean/ (library build, Lean source audits)",
+      "description": "Library modules compiled by the hosted Lean build and terminal axiom audit.",
+      "sha": "8d3a06d3748282e7e7e5cd273efdd00560cdee15",
+      "grade": "KERNEL_CHECKED_ON_MAIN",
+      "observed_at": "2026-10-25T23:45:00Z"
+    },
+    {
+      "id": "EV-LEAN-MAIN-CORR4",
+      "kind": "lean_source",
+      "ref": "research/CORRELATION_FOUR_TERMINAL_BRIDGE.lean",
+      "description": "CORR-4 terminal bridge on main.",
+      "sha": "8d3a06d3748282e7e7e5cd273efdd00560cdee15",
+      "grade": "KERNEL_CHECKED_ON_MAIN",
+      "observed_at": "2026-10-25T23:45:00Z"
+    },
+    {
+      "id": "EV-LIT-VONKOCH-1901",
+      "kind": "literature",
+      "ref": "doi:10.1007/BF02403071",
+      "description": "H. von Koch, Sur la distribution des nombres premiers, Acta Math. 24 (1901) 159-182.",
+      "grade": "LITERATURE_STANDARD",
+      "observed_at": "2026-10-25T23:45:00Z"
+    },
+    {
+      "id": "EV-NOTE-VF-LOW",
+      "kind": "repository_note",
+      "ref": "research/VF_MID_LOWER_CHANNEL_ALONE_RH_AND_FIRST_BAD_GATE.md",
+      "description": "One-sided lower-channel sufficiency (paper) and first-bad gate.",
+      "grade": "REPOSITORY_NOTE",
+      "observed_at": "2026-10-25T23:45:00Z"
+    },
+    {
+      "id": "EV-NOTE-SAT",
+      "kind": "repository_note",
+      "ref": "research/SIGNED_RENEWAL_TWO_SCALE_ATTACK_PLAN_20261018.md",
+      "description": "Signed renewal S = A - T plan and carrier distinctions.",
+      "grade": "REPOSITORY_NOTE",
+      "observed_at": "2026-10-25T23:45:00Z"
+    },
+    {
+      "id": "EV-NOTE-JOH",
+      "kind": "repository_note",
+      "ref": "research/LI_FAN_ONE_SIDED_WEIGHTED_COMPOSITE_RH_CONTRACT_20261022.md",
+      "description": "Johnston weighted composite contract (li(2) normalization).",
+      "grade": "REPOSITORY_NOTE",
+      "observed_at": "2026-10-25T23:45:00Z"
+    },
+    {
+      "id": "EV-NOTE-OVERLAP",
+      "kind": "repository_note",
+      "ref": "docs/RH_PROOF_OVERLAP_AND_SEVEN_EIGHTHS_AUDIT_20261024.md",
+      "description": "Route overlap and imported 7/8 power audit.",
+      "grade": "REPOSITORY_NOTE",
+      "observed_at": "2026-10-25T23:45:00Z"
+    },
+    {
+      "id": "EV-NOTE-OAI",
+      "kind": "repository_note",
+      "ref": "docs/OAI_COMPENSATED_ONE_PRIME_NNS_SEAM_20261022.md",
+      "description": "OAI compensated one-prime / NNS seam.",
+      "grade": "REPOSITORY_NOTE",
+      "observed_at": "2026-10-25T23:45:00Z"
+    },
+    {
+      "id": "EV-NOTE-FINITE-AC",
+      "kind": "repository_note",
+      "ref": "research/FINITE_A_C_VF_ALIGNMENT_2026_10_11.md",
+      "description": "Finite A/C alignment; research/ABSOLUTE_A_ALL_SCALE_SIGNED_ESTIMATE_AUDIT.md for the Hurst restriction.",
+      "grade": "REPOSITORY_NOTE",
+      "observed_at": "2026-10-25T23:45:00Z"
+    },
+    {
+      "id": "EV-NOTE-MU-LIFT",
+      "kind": "repository_note",
+      "ref": "docs/MERTENS_AMPLIFICATION_BUDGET.md",
+      "description": "MU-LIFT amplification budget (paper contraction; same-session referee self-audit).",
+      "grade": "REPOSITORY_NOTE",
+      "observed_at": "2026-10-25T23:45:00Z"
+    },
+    {
+      "id": "EV-NOTE-NYMAN",
+      "kind": "repository_note",
+      "ref": "research/NYMAN_BEURLING_POSITIVE_RESIDUE_ATTACK_2026_10_15.md",
+      "description": "Nyman-Beurling residue attack, Baez-Duarte and Burnol references.",
+      "grade": "REPOSITORY_NOTE",
+      "observed_at": "2026-10-25T23:45:00Z"
+    },
+    {
+      "id": "EV-SCRIPT-549",
+      "kind": "script",
+      "ref": "scripts/vf_block_capture_counterexample_549.py",
+      "description": "Standard-library reproduction of the R = 549 BLOCK counterexample.",
+      "grade": "EXACT_FINITE_REPRODUCED",
+      "observed_at": "2026-10-25T23:45:00Z"
+    },
+    {
+      "id": "EV-SCRIPT-REGRESSIONS",
+      "kind": "script",
+      "ref": "scripts/proof_dag_falsifier_regressions.py",
+      "description": "Standard-library regressions: CORR-4 R = 56, 57, 244 (exact Fractions) and JOH r = 4, 7 (Li_2 margin check).",
+      "grade": "EXACT_FINITE_REPRODUCED",
+      "observed_at": "2026-10-25T23:45:00Z"
+    },
+    {
+      "id": "EV-REPORT-20261024-OWNER",
+      "kind": "agent_report",
+      "ref": "agent-reports:research/agent_reports/2026-10-24/10-owner-payment.md",
+      "sha": "3d5a94fdfc2da9b4918c9f9643582060f2105c92",
+      "claims": [
+        "20261024-owner-1"
+      ],
+      "description": "JOH first-moment conservation law; r = 4, 7 blocks.",
+      "grade": "AGENT_REPORT_SELF_AUDITED",
+      "observed_at": "2026-10-25T23:45:00Z"
+    },
+    {
+      "id": "EV-REPORT-20261025-COORDINATOR",
+      "kind": "agent_report",
+      "ref": "agent-reports:research/agent_reports/2026-10-25/00-coordinator-am.md",
+      "sha": "6e3ab2ac74a3831b58825f02a6d0238b02b97daa",
+      "claims": [
+        "20261025-coordinator-1"
+      ],
+      "description": "CORR-4 inverse restriction; Referee verification pending.",
+      "grade": "AGENT_REPORT_SELF_AUDITED",
+      "observed_at": "2026-10-25T23:45:00Z"
+    },
+    {
+      "id": "EV-REPORT-20261025-CENSUS",
+      "kind": "agent_report",
+      "ref": "agent-reports:research/agent_reports/2026-10-25/40-prime-census.md",
+      "sha": "25dbde73e5b15bc8e028c69bb05809d2439da8af",
+      "claims": [
+        "20261025-census-1"
+      ],
+      "description": "Exact CORR-4 census 56 <= R <= 6000; R = 57 sign counterexample.",
+      "grade": "AGENT_REPORT_SELF_AUDITED",
+      "observed_at": "2026-10-25T23:45:00Z"
+    },
+    {
+      "id": "EV-REPORT-20261025-REFEREE",
+      "kind": "agent_report",
+      "ref": "agent-reports:research/agent_reports/2026-10-25/50-adversarial-referee.md",
+      "sha": "1cbc2e20d211523c926b9bb6a114e959ebbfded5",
+      "claims": [
+        "20261025-referee-1"
+      ],
+      "description": "Parametric finite-tail frame family; K = 7 constant b_7.",
+      "grade": "AGENT_REPORT_REFEREED",
+      "observed_at": "2026-10-25T23:45:00Z"
+    }
+  ],
+  "historical_tracks": {
+    "915": [
+      "OPEN-915-SOURCE-PAYMENT",
+      "CONSUMER-915-CANONICAL",
+      "CARRIER-915-WEIGHTED-SOURCE"
+    ],
+    "922": [
+      "MECH-OAI-NNS-COMPLETE-LEDGER",
+      "CARRIER-OAI-IDEAL-SOURCE"
+    ],
+    "923": [
+      "MECH-SIGNED-QUOTIENT-VARIATION"
+    ],
+    "925": [
+      "OPEN-VF-LOW",
+      "PAPER-VF-LOW-ONE-SIDED",
+      "MILESTONE-VF-CANONICAL"
+    ],
+    "926": [
+      "NOGO-FINITE-A-HURST",
+      "OPEN-FINITE-AC"
+    ],
+    "927": [
+      "MECH-SAT-OWNER-REMOVAL"
+    ],
+    "928": [
+      "OPEN-FINITE-AC",
+      "MECH-FINITE-AC-HISTORICAL-ENVELOPE"
+    ],
+    "929": [
+      "OPEN-FINITE-AC",
+      "CONSUMER-FINITE-A-MERTENS",
+      "THM-FINITE-A-IFF-LEGAL-GRAM"
+    ],
+    "931": [
+      "CARRIER-915-WEIGHTED-SOURCE",
+      "MECH-SAT-OWNER-REMOVAL"
+    ],
+    "932": [
+      "MILESTONE-VF-CANONICAL",
+      "MILESTONE-VF-LI-O1",
+      "MILESTONE-VONKOCH-VF-LEAN",
+      "OPEN-VF-ACTUAL-PRIME"
+    ]
+  },
+  "frontier": [
+    {
+      "rank": "A",
+      "title": "Signed CORR-4 first-owner Gram",
+      "routes": [
+        "CORR4"
+      ],
+      "targets": [
+        "MECH-CORR4-SIGNED-FIRST-OWNER-GRAM",
+        "OPEN-CORR4-RELAXED-REMAINDER"
+      ],
+      "lens": "NOGO-CORR4-FRAME-ONLY",
+      "task": "Decide whether genuine arithmetic incidence rules out near-saturation of the antiparallel parent/daughter frame extremizer on large finite-A endpoint excursions."
+    },
+    {
+      "rank": "B",
+      "title": "VF-LOW / JOH genuine-prime chronology",
+      "routes": [
+        "VF-LOW",
+        "JOH",
+        "SAT"
+      ],
+      "targets": [
+        "MECH-JOH-ANCESTRY-DISPLACEMENT",
+        "MECH-VF-LOW-FIRST-LOWER-ESCAPE",
+        "MECH-SAT-OWNER-REMOVAL"
+      ],
+      "lens": "CE-JOH-R4-R7",
+      "task": "Prove a nonlocal ancestry constraint on actual prime locations versus floor-Li demand, retaining first moments, weighted block defects, anchors and the #915 source distinction."
+    },
+    {
+      "rank": "C",
+      "title": "OAI-NNS complete exponent improvement",
+      "routes": [
+        "OAI-NNS",
+        "CODIV"
+      ],
+      "targets": [
+        "MECH-OAI-NNS-COMPLETE-LEDGER",
+        "OPEN-MERTENS-EXPONENT-BELOW-7-8"
+      ],
+      "lens": "CLAIM-1022-POISSON-SAVING",
+      "task": "Turn #1022's exact local character result into a full original-source exponent ledger with explicit delta > 0."
+    },
+    {
+      "rank": "D",
+      "title": "FINITE-AC and MU-LIFT",
+      "routes": [
+        "FINITE-AC",
+        "MU-LIFT"
+      ],
+      "targets": [
+        "MECH-FINITE-AC-HISTORICAL-ENVELOPE",
+        "MECH-MU-LIFT-SUBCRITICAL"
+      ],
+      "lens": "NOGO-FINITE-A-HURST",
+      "task": "Seek an independently payable historical-envelope estimate or a genuine fixed-degree r < k recurrence."
+    },
+    {
+      "rank": "E",
+      "title": "NYMAN",
+      "routes": [
+        "NYMAN"
+      ],
+      "targets": [
+        "MECH-NYMAN-FULL-BASIS-DECAY"
+      ],
+      "lens": "REFUTED-NYMAN-SQUARE-CONTRACTION",
+      "task": "Maintain the full-Hilbert approximation route; require all-scale norm-density information."
+    },
+    {
+      "rank": "F",
+      "title": "Formalization completeness: classical von Koch criterion",
+      "routes": [
+        "VF-LOW",
+        "BLOCK"
+      ],
+      "targets": [
+        "CLASSICAL_VONKOCH_CRITERION_FORMAL_IMPORT_OR_PROOF"
+      ],
+      "lens": "IFACE-CLASSICAL-VONKOCH",
+      "task": "Assess import or formal proof of the classical equivalence; otherwise keep ClassicalVonKochRHCriterion explicit. Does not touch OPEN-VF-ACTUAL-PRIME."
+    }
+  ],
+  "agents": [
+    {
+      "agent": 1,
+      "role": "RH | Research Coordinator",
+      "owns": "Proof-obligation DAG (docs/proof-obligations.json) and frontier ranking",
+      "next_deliverable": "Scoreboard refresh from live PR/CI; one prime-side attack (rank B) and one recursive attack (rank A or D), each with a falsifier node.",
+      "target_nodes": [
+        "MECH-CORR4-SIGNED-FIRST-OWNER-GRAM",
+        "MECH-JOH-ANCESTRY-DISPLACEMENT"
+      ]
+    },
+    {
+      "agent": 2,
+      "role": "RH | Owner Payment",
+      "owns": "#915 occurrence preservation and VF/JOH source correspondence",
+      "next_deliverable": "One dyadic least-prime ancestry law for the boundary-padded JOH displacement, with unequal-count correction, anchor and weighted block defects.",
+      "target_nodes": [
+        "MECH-JOH-ANCESTRY-DISPLACEMENT",
+        "MECH-VF-LOW-FIRST-LOWER-ESCAPE"
+      ]
+    },
+    {
+      "agent": 3,
+      "role": "RH | Adversarial Referee",
+      "owns": "Logical strength, interfaces, normalization and counterexample audits",
+      "next_deliverable": "Independent ACCEPT/REVISE/REJECT on claim 20261025-coordinator-1 (sharpness, K > 0, finite-A corollary) and on claim 20261024-owner-1.",
+      "target_nodes": [
+        "NOGO-CORR4-FRAME-ONLY",
+        "CLAIM-20261024-OWNER-1"
+      ]
+    },
+    {
+      "agent": 4,
+      "role": "RH | Prime Census Laboratory",
+      "owns": "Preregistered finite falsifiers",
+      "next_deliverable": "Held-out CORR-4 roots above 6000 measuring H_R, A_R and H_R/A_R against lambda_7; certified D_r = 0 JOH displacement census.",
+      "target_nodes": [
+        "FINITE-CORR4-CENSUS",
+        "CE-JOH-R4-R7"
+      ]
+    },
+    {
+      "agent": 5,
+      "role": "RH | Analytic Type II",
+      "owns": "OAI-NNS complete exponent ledger",
+      "next_deliverable": "Complete #1022 exponent table (high-J, low-J, resonant, principal, Gaussian, outer-count, NNS-cross) with a proved delta > 0 or one unavoidable sector at 7/8.",
+      "target_nodes": [
+        "MECH-OAI-NNS-COMPLETE-LEDGER",
+        "CLAIM-1022-POISSON-SAVING"
+      ]
+    },
+    {
+      "agent": 6,
+      "role": "RH | Finite Wheel & Incidence",
+      "owns": "Least-prime incidence and CORR-4 q^2 daughter structure",
+      "next_deliverable": "A signed incidence restriction on the complete CORR-4 first-owner Gram on endpoint-excursion roots (no further reciprocal-frame refinement).",
+      "target_nodes": [
+        "MECH-CORR4-SIGNED-FIRST-OWNER-GRAM",
+        "MECH-SAT-OWNER-REMOVAL"
+      ]
+    },
+    {
+      "agent": 7,
+      "role": "RH | Lean Verification",
+      "owns": "Formalization of independently accepted results",
+      "next_deliverable": "After referee acceptance, formalize the abstract frame-to-endpoint inverse inequality on its carrier with the open premise explicit; separately scope CLASSICAL_VONKOCH_CRITERION_FORMAL_IMPORT_OR_PROOF. Otherwise NO_NEW_THEOREM_TO_FORMALIZE.",
+      "target_nodes": [
+        "NOGO-CORR4-FRAME-ONLY",
+        "CLASSICAL_VONKOCH_CRITERION_FORMAL_IMPORT_OR_PROOF"
+      ]
+    }
+  ]
+}
