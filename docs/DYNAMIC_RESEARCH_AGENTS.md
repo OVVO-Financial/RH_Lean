@@ -1,5 +1,11 @@
 # RH_Lean dynamic seven-agent research protocol
 
+
+## ACTIVE AFTER HUMAN MERGE: RH_Lean-native physical arithmetic leads (2026-10-26)
+
+**First selector:** [RH_Lean-native first mathematical proof routing](RHLEAN_NATIVE_FIRST_PROOF_ROUTING_20261026.md). The older "ACTIVE: one final-return all-Dirichlet leaderboard target" section below is **SUPERSEDED AS AGENT ROUTING**, not a proof or a statement that the hypothetical count theorem is false. **Do not assign all seven specialists to Collet WindowFiber**, and do not try to infer sigma_sat>0 from two exactly crossing existing moment/count inequalities. **Native first:** direct pi - VF_can/first-bad owners (#915 source), genuine S=A-T signed prime/cofactor chronology, Co/Div complete covariance, CORR4 and finite-A/C/MU-LIFT original-source inputs. **Corresponding OpenAI layer:** actual ideal-prime compensated A-B packets and complete labelled height-integrated signed NNS Gram, including principal/resonant/exceptions; test a source-specific cross-prime estimate or genuine counterexample before formalization. **Downstream only:** selected detector/final-return exponent accounting after an independently proved improved source theorem. Seven distinct roles, their original source files, falsifiers and stop conditions are in the new directive; replace the old role-table assignments below by the new ones upon merge. Retain the ten-route DAG, exact imports and proof statuses; no new exponent gain, schedules, saved Studio edits, permissions or autonomous merges.
+
+
 ## ACTIVE: one final-return all-Dirichlet leaderboard target (2026-10-26 corrected)
 
 **Authoritative source-target:** [corrected final-return theorem and quantified literal fiber contract](QRH_SATURATED_ACTUAL_FIBER_THEOREM_TARGET_20261026.md); [quantitative ledger and source/scope distinctions](QRH_SOURCE_ESTIMATE_EXECUTION_CONTRACT_20261026.md). Tracker #76 is the merged all-Dirichlet benchmark β=0.8746075, #79 (0.8746074) was pending at last check; verify live. This corrects the previous (incorrect) instruction to improve `Source/FiberK.feedback_fiber_count_K` for a predicted 0.133 final-return exchange. **That is an UPSTREAM `nf_step2` source-face count and its θ sensitivity is UNKNOWN.** Do not run leaderboard research against that theorem using final-return model budgets.
