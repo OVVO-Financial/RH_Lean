@@ -1,0 +1,153 @@
+name: Original OAI low Gaussian nonresonant zero-mode certificate
+
+on:
+  pull_request:
+    paths:
+      - 'research/oai_434/VF919OriginalLowNonresonantZeroMode.lean'
+      - 'research/oai_434/VF919OriginalLowRadicalPhysicalPeriod.lean'
+      - 'research/oai_434/VF919OriginalLowGoodColumnCRTGauss.lean'
+      - 'research/oai_434/VF919OriginalExceptionalSixthCorridor.lean'
+      - 'research/oai_434/VF919OriginalSameRaySixthCorrelationPhase.lean'
+      - 'research/oai_434/VF919OriginalLowQuadraticBudget.lean'
+      - 'research/oai_434/VF919OriginalLowQuadraticLocalCharacters.lean'
+      - 'research/oai_434/VF919OriginalLowMetaProjection.lean'
+      - 'research/oai_434/VF919OriginalLowGrowingSetPeriod.lean'
+      - '.github/workflows/oai-low-nonresonant-zero-mode.yml'
+      - 'scripts/oai_low_gaussian_unit_character_finite.py'
+      - 'scripts/oai_low_gaussian_crt_good_column_probe.py'
+      - 'scripts/oai_low_gaussian_collision_calibration_crt_probe.py'
+      - 'scripts/oai_exceptional_sixth_corridor_sharpness.py'
+      - 'scripts/oai_sextic_same_ray_cross_phase_probe.py'
+      - 'scripts/oai_low_fixed_ray_nonprincipal_witness.py'
+      - 'scripts/oai_low_gaussian_composite_s_quadratic_crt_probe.py'
+      - 'scripts/oai_low_j_composite_cubic_cross_witness.py'
+      - 'scripts/oai_low_reduced_modulus_crt_aliasing_probe.py'
+      - 'lean-toolchain'
+      - 'lakefile.lean'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  actual-original-oai-low-zero-mode:
+    runs-on: ubuntu-latest
+    timeout-minutes: 135
+    steps:
+      - uses: actions/checkout@v4
+      - name: Require exact Lean pins and no introduced axioms
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(cat lean-toolchain)" = "leanprover/lean4:v4.34.1"
+          grep -q 'd13f23b723b8a846827a245b89c10fc7d3f11612' lakefile.lean
+          ! grep -nE '^[[:space:]]*(sorry|admit|axiom)([[:space:]]|$)' research/oai_434/VF919OriginalLowNonresonantZeroMode.lean research/oai_434/VF919OriginalLowGoodColumnCRTGauss.lean research/oai_434/VF919OriginalExceptionalSixthCorridor.lean research/oai_434/VF919OriginalSameRaySixthCorrelationPhase.lean research/oai_434/VF919OriginalLowQuadraticBudget.lean research/oai_434/VF919OriginalLowQuadraticLocalCharacters.lean research/oai_434/VF919OriginalLowMetaProjection.lean research/oai_434/VF919OriginalLowGrowingSetPeriod.lean
+      - uses: ./.github/actions/lean-setup
+      - name: Fetch exact pinned original OpenAI source
+        uses: actions/checkout@v4
+        with:
+          repository: openai/math
+          ref: 1581d4cbdd69a0faf34b2089614fe2a814316a6a
+          path: oai-upstream
+          persist-credentials: false
+      - name: Check source pin and toolchain
+        run: |
+          set -euo pipefail
+          test "$(git -C oai-upstream rev-parse HEAD)" = "1581d4cbdd69a0faf34b2089614fe2a814316a6a"
+          test "$(cat oai-upstream/lean/lean-toolchain)" = "leanprover/lean4:v4.34.1"
+      - name: Restore original compiled theorem DAG
+        uses: ./.github/actions/oai-434-shared-cache
+      - name: Kernel build original low Gaussian source covariance
+        shell: bash
+        working-directory: oai-upstream/lean
+        run: |
+          set -euo pipefail
+          lake build OAI.NumberTheory.DirichletL.Detector.LocalUnitFrequency
+          lake build OAI.NumberTheory.DirichletL.Detector.CalibrationRemoval
+          lake build OAI.NumberTheory.DirichletL.Detector.RowRadicalConductor
+          lake build OAI.NumberTheory.DirichletL.Detector.PhysicalPoisson
+          lake build OAI.NumberTheory.DirichletL.Detector.Sextic
+          lake build OAI.NumberTheory.DirichletL.CubicSieve.Poisson
+          lake build OAI.NumberTheory.DirichletL.Detector.GramClassification
+          lake build OAI.NumberTheory.DirichletL.Detector.SixthFrequency
+          lake build OAI.NumberTheory.DirichletL.Detector.CalibrationFourier
+          lake build OAI.NumberTheory.DirichletL.Detector.PrimePhase
+          lake build OAI.NumberTheory.DirichletL.Detector.LowRay
+          lake build OAI.NumberTheory.DirichletL.Moments.SupportedCorrelation
+          lake build OAI.NumberTheory.DirichletL.Detector.SourcePrime
+      - name: Kernel-check unconditional exact source zero mode
+        shell: bash
+        run: |
+          set -euo pipefail
+          OAI_PATH="$(cd oai-upstream/lean && lake env python3 -c 'import os; print(os.pathsep.join(os.path.abspath(p) for p in os.environ["LEAN_PATH"].split(os.pathsep) if p))')"
+          RH_PATH="$(lake env python3 -c 'import os; print(os.pathsep.join(os.path.abspath(p) for p in os.environ["LEAN_PATH"].split(os.pathsep) if p))')"
+          python3 scripts/check_shared_lean_packages.py . oai-upstream/lean PrimeNumberTheoremAnd mathlib
+          env LEAN_PATH="$RH_PATH:$OAI_PATH" lean -DwarningAsError=true \
+            research/oai_434/VF919OriginalLowNonresonantZeroMode.lean \
+            | tee /tmp/original-oai-low-nonresonant-zero-mode-axioms.log
+          env LEAN_PATH="$RH_PATH:$OAI_PATH" lean -DwarningAsError=true \
+            research/oai_434/VF919OriginalLowRadicalPhysicalPeriod.lean \
+            | tee /tmp/original-oai-low-short-radical-period-axioms.log
+          env LEAN_PATH="$RH_PATH:$OAI_PATH" lean -DwarningAsError=true \
+            research/oai_434/VF919OriginalLowGoodColumnCRTGauss.lean \
+            | tee /tmp/original-oai-low-good-column-crt-gauss-axioms.log
+          env LEAN_PATH="$RH_PATH:$OAI_PATH" lean -DwarningAsError=true \
+            research/oai_434/VF919OriginalExceptionalSixthCorridor.lean \
+            | tee /tmp/original-oai-exceptional-sixth-corridor-axioms.log
+          env LEAN_PATH="$RH_PATH:$OAI_PATH" lean -DwarningAsError=true \
+            research/oai_434/VF919OriginalSameRaySixthCorrelationPhase.lean \
+            | tee /tmp/original-oai-same-ray-sixth-coherence-axioms.log
+          env LEAN_PATH="$RH_PATH:$OAI_PATH" lean -DwarningAsError=true \
+            research/oai_434/VF919OriginalLowQuadraticBudget.lean \
+            | tee /tmp/original-oai-low-quadratic-budget-axioms.log
+          env LEAN_PATH="$RH_PATH:$OAI_PATH" lean -DwarningAsError=true \
+            research/oai_434/VF919OriginalLowQuadraticLocalCharacters.lean \
+            | tee /tmp/original-oai-low-quadratic-characters-axioms.log
+          env LEAN_PATH="$RH_PATH:$OAI_PATH" lean -DwarningAsError=true \
+            research/oai_434/VF919OriginalLowMetaProjection.lean \
+            | tee /tmp/original-oai-low-meta-projection-axioms.log
+          env LEAN_PATH="$RH_PATH:$OAI_PATH" lean -DwarningAsError=true \
+            research/oai_434/VF919OriginalLowGrowingSetPeriod.lean \
+            | tee /tmp/original-oai-low-growing-set-period-axioms.log
+          for f in /tmp/original-oai-low-quadratic-budget-axioms.log /tmp/original-oai-low-quadratic-characters-axioms.log /tmp/original-oai-low-meta-projection-axioms.log /tmp/original-oai-low-growing-set-period-axioms.log; do
+            if grep -E 'sorryAx|admitAx|_private' "$f"; then
+              echo "Unexpected axiom in new OAI low attack source: $f" >&2
+              exit 1
+            fi
+          done
+          if grep -E 'sorryAx|admitAx|_private' /tmp/original-oai-same-ray-sixth-coherence-axioms.log; then
+            echo 'Unexpected axiom in same-ray sixth coherence theorem' >&2
+            exit 1
+          fi
+          if grep -E 'sorryAx|admitAx|_private' /tmp/original-oai-exceptional-sixth-corridor-axioms.log; then
+            echo 'Unexpected axiom in original exceptional sixth corridor' >&2
+            exit 1
+          fi
+          if grep -E 'sorryAx|admitAx|_private' /tmp/original-oai-low-short-radical-period-axioms.log; then
+            echo 'Unexpected axiom in original OAI short radical physical period' >&2
+            exit 1
+          fi
+          if grep -E 'sorryAx|admitAx|_private' /tmp/original-oai-low-good-column-crt-gauss-axioms.log; then
+            echo 'Unexpected axiom in good-column CRT Gauss source' >&2
+            exit 1
+          fi
+          if grep -E 'sorryAx|admitAx|_private' /tmp/original-oai-low-nonresonant-zero-mode-axioms.log; then
+            echo 'Unexpected axiom in original OAI low-source zero mode' >&2
+            exit 1
+          fi
+      - name: Verify finite original phase and rational band
+        run: |
+          set -euo pipefail
+          python3 scripts/oai_low_gaussian_unit_character_finite.py
+          python3 scripts/oai_low_gaussian_crt_good_column_probe.py
+          python3 scripts/oai_low_gaussian_collision_calibration_crt_probe.py
+          python3 scripts/oai_exceptional_sixth_corridor_sharpness.py
+          python3 scripts/oai_sextic_same_ray_cross_phase_probe.py
+          python3 scripts/oai_low_fixed_ray_nonprincipal_witness.py
+          python3 scripts/oai_low_gaussian_composite_s_quadratic_crt_probe.py
+          python3 scripts/oai_low_j_composite_cubic_cross_witness.py
+          python3 scripts/oai_low_reduced_modulus_crt_aliasing_probe.py
+      - name: Record scope
+        run: |
+          echo "Unconditional original source zero-frequency vanishing checked."
+          echo "No global detector saving or Mertens exponent improvement is claimed."
