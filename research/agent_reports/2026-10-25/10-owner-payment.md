@@ -260,3 +260,8 @@ Live PR/CI final audit:
 Green CI certifies only declarations at those exact heads. No PR was modified, reviewed or merged; no workflow was rerun; no schedule or permission changed.
 
 New claim: `20261025-owner-1`. Final classification: exact structural paper theorem plus finite sign obstruction; no independent global quantitative restriction, no canonical VF closure and no RH proof.
+
+
+## Publication verification
+
+The initial `IN_PROGRESS` checkpoint was created by commit `80564e82ea5de6c2fbc03b484f5036da2fe28560`. The completed synthesis was published by commit `93fa82ac4c0f79f30608ad586826d976dd9bcd8a` and immediately read back as blob `00058161e1675ae43e8a400c45bff9cf31e8a1f3`, 13,998 characters, with `COMPLETED`, claim `20261025-owner-1`, and the pinned main SHA present. This verifies report publication only; it does not formalize the paper theorem, prove the missing barycentre restriction, alter main, merge a PR or change a schedule.
