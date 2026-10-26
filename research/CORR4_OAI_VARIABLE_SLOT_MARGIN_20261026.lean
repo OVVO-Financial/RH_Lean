@@ -81,7 +81,7 @@ theorem corr4_oai_candidate_slot_geometry (eps : ℝ) :
   eps <=1/1000000, including small Q, positive length and low-gram
   P_a^2/Y' payment. This checks geometry, not analytic theorems. -/
 theorem corr4_oai_candidate_low_scale_gates (eps : ℝ)
-    (heps : 0 ≤ eps) (hepsSmall : eps ≤ 1 / 1000000) :
+    (_heps : 0 ≤ eps) (hepsSmall : eps ≤ 1 / 1000000) :
     let ell : ℝ := 1 / 6 + 4 * eps
     let lx : ℝ := 17 / 48 - 2 * eps
     let ly : ℝ := 23 / 48 - 2 * eps
