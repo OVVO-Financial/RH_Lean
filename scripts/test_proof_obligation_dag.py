@@ -104,14 +104,33 @@ class ProofObligationDagTests(unittest.TestCase):
                            "promoted to a Lean certificate")
 
     def test_pr_status_comes_from_the_dated_snapshot(self):
-        def merged(r):
-            next(e for e in r["evidence"] if e.get("number") == 1023).update(state="merged", merged_at="2026-10-26")
-        self.assertRejects(merged, "requires an open PR")
+        for number in (1021, 1022, 1023, 1024):
+            ev = next(e for e in self.reg["evidence"] if e.get("number") == number)
+            self.assertEqual(ev["state"], "merged")
+            self.assertEqual(ev["checks"]["pending"], 0)
+            self.assertEqual(ev["checks"]["failed"], 0)
+        for name in ("PR1022-ZERO-MODE", "PR1023-FRAME-B7"):
+            self.assertEqual(node(self.reg, name)["formal_status"], "PROVED_IN_LEAN_ON_MAIN")
 
-        def red(r):
-            next(e for e in r["evidence"] if e.get("number") == 1023)["checks"]["failed"] = 1
-        self.assertRejects(red, "contradicts PR #1023 checks")
+        def reopen(r):
+            next(e for e in r["evidence"] if e.get("number") == 1023).update(state="open", merged_at=None)
+        self.assertRejects(reopen, "on-main status but PR #1023 is not merged")
         self.assertEqual(next(e for e in self.reg["evidence"] if e.get("number") == 1019)["state"], "merged")
+
+    def test_corr4_power_gate_is_conditional_not_an_exponent_proof(self):
+        self.assertEqual(node(self.reg, "MILESTONE-CORR4-POWER-IFF")["logical_status"], "PROVED")
+        self.assertEqual(node(self.reg, "OPEN-CORR4-MIXED-TAIL-POWER")["logical_status"], "OPEN")
+        self.assertEqual(node(self.reg, "CONSUMER-CORR4-MIXED-TAIL-POWER-IMPROVEMENT")["hypotheses"],
+                         ["OPEN-CORR4-MIXED-TAIL-POWER"])
+        self.assertEqual(edge(self.reg, "E-CORR4-MIXED-TAIL-IMPROVES-78")["certified_by"],
+                         "CONSUMER-CORR4-MIXED-TAIL-POWER-IMPROVEMENT")
+        self.assertEqual(node(self.reg, "OPEN-CORR4-RELAXED-REMAINDER")["logical_status"], "OPEN")
+        self.assertEqual(node(self.reg, "IFACE-CLASSICAL-VONKOCH")["formal_status"], "EXPLICIT_LEAN_INTERFACE")
+        def falsely_pay(r):
+            node(r, "OPEN-CORR4-MIXED-TAIL-POWER").update(logical_status="PROVED",
+                formal_status="PROVED_IN_LEAN_ON_MAIN", evidence_class="PROVED_IN_LEAN_ON_MAIN",
+                open_obligation=False)
+        self.assertRejects(falsely_pay, "every hypothesis is proved")
 
     def test_proved_nodes_cannot_require_open_inputs(self):
         def require(r):
