@@ -125,19 +125,19 @@ theorem corr4_monotone_sharp_kernel_complex_norm
          (vf919SharpQuotientKernel36 (u - 1) : ℝ)) * w u) : ℂ) := by
     push_cast
     rfl
-  calc
-    ‖∑ u ∈ Finset.Icc L U,
-        ((vf919SharpQuotientKernel36 u : ℂ) -
-         (vf919SharpQuotientKernel36 (u - 1) : ℂ)) * (w u : ℂ)‖ =
+  have hnr :
       ‖((∑ u ∈ Finset.Icc L U,
           ((vf919SharpQuotientKernel36 u : ℝ) -
-           (vf919SharpQuotientKernel36 (u - 1) : ℝ)) * w u) : ℂ)‖ :=
-        congrArg norm hc
-    _ = |∑ u ∈ Finset.Icc L U,
+           (vf919SharpQuotientKernel36 (u - 1) : ℝ)) * w u) : ℂ)‖ =
+        |∑ u ∈ Finset.Icc L U,
           ((vf919SharpQuotientKernel36 u : ℝ) -
            (vf919SharpQuotientKernel36 (u - 1) : ℝ)) * w u| :=
-          hnormReal _
-    _ ≤ 4 * w L := hr
+    hnormReal
+      (∑ u ∈ Finset.Icc L U,
+        ((vf919SharpQuotientKernel36 u : ℝ) -
+         (vf919SharpQuotientKernel36 (u - 1) : ℝ)) * w u)
+  have heqnorm := (congrArg norm hc).trans hnr
+  exact heqnorm.le.trans hr
 
 
 /-- The literal difference of adjacent period-36 coefficients in the
