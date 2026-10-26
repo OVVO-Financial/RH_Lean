@@ -75,6 +75,26 @@ def buckets(pfx, a6, X,H,T, number_detail=16):
     contributions=small*incr
     btest={int(u):[int(incr[u]),float(small[u])/(H*H),float(contributions[u])/(H*H)] for u in range(1,min(number_detail,maxu)+1)}
     val=int(contributions.sum())
+    kval=np.array([int(q36([u])[0]) for u in range(maxu+1)],dtype=np.int64)
+    primitive=np.cumsum(kval,dtype=np.int64)
+    first_diff=small[1:]-np.r_[small[2:],0]
+    second_diff=first_diff-np.r_[first_diff[1:],0]
+    assert np.max(np.abs(primitive))<=4, 'actual period-36 kernel primitive exceeded four'
+    assert val==int(np.dot(kval[1:],first_diff)), 'first Abel failed'
+    assert val==int(np.dot(primitive[1:],second_diff)), 'double Abel failed'
+    print('Double-Abel signed total and abs-variation [all divided by H^2]:',
+          val/(H*H),float(np.abs(first_diff).sum())/(H*H),
+          float(np.abs(second_diff).sum())/(H*H),
+          '4x second-variation:',4*float(np.abs(second_diff).sum())/(H*H))
+    for L in [1,100,500,1000,2000,4000,6000]:
+        if L>maxu: continue
+        tail=int(np.dot(incr[L:],small[L:]))
+        first_tail=int(np.dot(kval[L:],first_diff[L-1:])-kval[L-1]*small[L])
+        second_tail=int(np.dot(primitive[L:],second_diff[L-1:])
+                        -primitive[L-1]*first_diff[L-1]-kval[L-1]*small[L])
+        assert tail==first_tail==second_tail, 'range-restricted Abel boundary failed'
+        print('High-quotient tail starting at',L,
+              'signed:',tail/(H*H),'absolute lemma ceiling:',4*(X+H-1)//L)
     print('Abel signed total, absolute-bucket total, #nonzero buckets:', val/(H*H), float(np.abs(contributions).sum())/(H*H), int(np.count_nonzero(contributions)))
     return val,maxu,maxu_proposed,btest,[(int(u),float(contributions[u])/(H*H)) for u in np.argsort(-np.abs(contributions))[0:12] if u>0]
 
@@ -127,6 +147,20 @@ def main(R,H,T):
         af=np.arange(1,zfix+1,dtype=np.int64)
         naive=int(np.dot(mu6[af].astype(np.int64),Fb[y//af])+np.dot(b6[af].astype(np.int64),Fmu[y//af])-Fmu[zfix]*Fb[zfix])
         hy.append((y,z,v,int(pfx[y]),zfix,naive,naive-int(pfx[y])))
+    # Exact asymmetric hyperbola with a fixed cutoff independent of h;
+    # the upper b-index is intentionally allowed to move.
+    Fmu=np.cumsum(mu6.astype(np.int64))
+    Fb=np.cumsum(b6.astype(np.int64))
+    for u in [1,2,5,100,500]:
+        for y in [(X-H+1)//u,X//u,(X+H-1)//u]:
+            z0=min(y,max(1,int(H**(4/7))))
+            aa=np.arange(1,z0+1,dtype=np.int64)
+            bb=np.arange(1,y//(z0+1)+1,dtype=np.int64)
+            asymmetric=int(np.dot(mu6[aa].astype(np.int64),Fb[y//aa]))
+            asymmetric+=int(np.dot(b6[bb].astype(np.int64),
+                                    Fmu[y//bb]-Fmu[z0]))
+            assert asymmetric==pfx[y], (u,y,z0,asymmetric,int(pfx[y]))
+    print('Asymmetric fixed-cutoff hyperbola: 15/15 exact independent checks')
     assert recovered_num == total_num-low_num, 'Abel numerator identity failed'
     assert e1+e2+e3 == b1, 'bucket-1 partition failed'
     assert all(value==truth for _,value,truth in source), 'sharp restored Mobius formula failed'
