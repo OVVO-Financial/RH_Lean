@@ -137,7 +137,7 @@ That equality is algebraic; **its uniform upper bound is not proved**.
 
 ## E. New fixed-cutoff and second-Abel audit (2026-10-26)
 
-**Independent execution:** \`/mnt/data/corr4_second_abel_audit.py\` in the analysis container (not a repository fixture) reproduced the integer tent numerators and verified the fixed asymmetric hyperbola at 15 sample (u,Y) pairs with u in {1,2,5,100,500}. The repository acceptance script \`scripts/corr4_bucket_hyperbola_pilot.py\` now includes the same fixed-cutoff and first/second Abel assertions. The new Lean module \`research/CORR4_FIXED_HYPERBOLA_DOUBLE_ABEL_20261026.lean\` has been committed for CI; compilation must be checked, not presumed.
+**Independent execution:** `/mnt/data/corr4_second_abel_audit.py` in the analysis container (not a repository fixture) reproduced the integer tent numerators and verified the fixed asymmetric hyperbola at 15 sample (u,Y) pairs with u in {1,2,5,100,500}. The repository acceptance script `scripts/corr4_bucket_hyperbola_pilot.py` now includes the same fixed-cutoff and first/second Abel assertions. The new Lean module `research/CORR4_FIXED_HYPERBOLA_DOUBLE_ABEL_20261026.lean` has been committed for CI; compilation must be checked, not presumed.
 
 ### E.1 The exact asymmetric hyperbola identity
 
@@ -164,7 +164,7 @@ For B_u=sum_{m>T} a6(m) Phi_{H,X}(um), K(0)=0, d(u)=K(u)-K(u-1), P(u)=sum_{j=1}^
 =\sum_{u=1}^{U}P(u)(B_u-2B_{u+1}+B_{u+2}).}\tag{E}
 \]
 
-**The exact primitive range [-4,4], step rule, and first quotient Abel lemma are already Lean-certified** in \`research/VF_MID_919_QUOTIENT_SIGNED_RETURN.lean\`: \`vf919QuotientKernelPrimitive36_bounds\`, \`vf919QuotientKernelPrimitive36_step\`, \`vf919QuotientKernel36_signed_abel\`. New proof work must reuse these declarations instead of reproving them. The real new formalization is the difference-kernel Abel identity and its composition with the existing primitive, including b(U+1)=b(U+2)=0.
+**The exact primitive range [-4,4], step rule, and first quotient Abel lemma are already Lean-certified** in `research/VF_MID_919_QUOTIENT_SIGNED_RETURN.lean`: `vf919QuotientKernelPrimitive36_bounds`, `vf919QuotientKernelPrimitive36_step`, `vf919QuotientKernel36_signed_abel`. New proof work must reuse these declarations instead of reproving them. The real new formalization is the difference-kernel Abel identity and its composition with the existing primitive, including b(U+1)=b(U+2)=0.
 
 **Executed R=1027,H=5000,T=150**: first Abel, second Abel and original high-source tent pairing have **identical integer numerators 8,889,789,728**. The absolute sums of first/second differences are 4,199.22532216 and 5,766.53300356, giving the rigorous but loose second-Abel upper bound 23,066.13201424 compared with the signed total 355.59158912. The earlier 93,335.21720752 is **sum |d(u)B_u|, not sum |B_u|**; it suppresses the d(u)=0 buckets.
 
@@ -207,6 +207,6 @@ with the true y0-fixed asymmetric hyperbola and the principal split-prime source
 
 Even with fixed y0=H^(4/7), the first hyperbola term contains G(floor((X+h)/(ua))) with argument t~X/(ua) and tent-window length W~H/(ua). Their ratio is W/t~H/X~H^(-1/7), a **fixed power-short relative window**. The classical fixed-conductor zero-free region yields a global bound of the form |G(t)|<=t exp(-c(log t)^alpha) (log refinements omitted). Difference of two such global bounds supplies at best t exp(-c(log t)^alpha), **larger than W=t H^(-1/7)** for asymptotically large H. Hence this theorem does *not* establish signed power cancellation for the hyperbola's short arithmetic increments, even when ua<<H.
 
-Furthermore, the term \`F(floor(Y/b))-F(y0)\` from (D) can be as hard as the original Mobius signed cancellation. The Euler identity of 1/zeta_K eliminates a limiting average/main pole, but does not prove finite-cutoff cancellation of the split-prime, cofactor and smooth populations with the required power rate.
+Furthermore, the term `F(floor(Y/b))-F(y0)` from (D) can be as hard as the original Mobius signed cancellation. The Euler identity of 1/zeta_K eliminates a limiting average/main pole, but does not prove finite-cutoff cancellation of the split-prime, cofactor and smooth populations with the required power rate.
 
 **Precise new input needed:** a uniform bilinear/Type-II or short-interval signed estimate on the actual f/g convolution, with all (u,a,b) weights, moving b gate, y0 cutoff and boundary collars, strong enough to sum u<L. Existing PNT/zero-free estimates alone do not discharge this obligation. No RH or 7/8 improvement has been proved by (D)-(G).
