@@ -21,7 +21,7 @@ namespace RHLean.Analysis
 upper-tail application the final boundary vanishes but the lower one
 must be retained. -/
 theorem corr4_abel_on_Icc_real (k w : ℕ → ℝ) (L U : ℕ)
-    (hL : 1 ≤ L) (hLU : L ≤ U) :
+    (_hL : 1 ≤ L) (hLU : L ≤ U) :
     (∑ u ∈ Finset.Icc L U, (k u - k (u - 1)) * w u) =
       (∑ u ∈ Finset.Icc L U, k u * (w u - w (u + 1))) -
       k (L - 1) * w L + k U * w (U + 1) := by
@@ -114,6 +114,8 @@ theorem corr4_monotone_sharp_kernel_complex_norm
     (fun u => (vf919SharpQuotientKernel36 u : ℝ))
     w L U hL hLU corr4_sharp_quotient_kernel_real_abs_le_two
     hweight hdesc hfinal
+  have hnormReal (r : ℝ) : ‖(r : ℂ)‖ = |r| := by
+    rw [Complex.norm_real, Real.norm_eq_abs]
   have hc :
       (∑ u ∈ Finset.Icc L U,
         ((vf919SharpQuotientKernel36 u : ℂ) -
@@ -133,8 +135,8 @@ theorem corr4_monotone_sharp_kernel_complex_norm
         congrArg norm hc
     _ = |∑ u ∈ Finset.Icc L U,
           ((vf919SharpQuotientKernel36 u : ℝ) -
-           (vf919SharpQuotientKernel36 (u - 1) : ℝ)) * w u| := by
-          simp only [Complex.norm_real, Real.norm_eq_abs]
+           (vf919SharpQuotientKernel36 (u - 1) : ℝ)) * w u| :=
+          hnormReal _
     _ ≤ 4 * w L := hr
 
 
