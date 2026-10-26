@@ -1,0 +1,112 @@
+name: CORR4 OAI relaxed physical remainder
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - research/CORR4_OAI_RELAXED_REMAINDER_20261024.lean
+      - research/CORR4_OAI_SQUARE_ENDPOINT_BOOTSTRAP_20261025.lean
+      - research/CORR4_OAI_POWER_RENEWAL_20261025.lean
+      - research/CORR4_OAI_POWER_GRAM_EQUIVALENCE_20261025.lean
+      - research/CORR4_OAI_BUFFERED_INDUCTION_CORE_20261025.lean
+      - research/CORR4_OAI_POWER_DETERMINISTIC_FRAME_20261025.lean
+      - research/CORR4_OAI_POWER_MIXED_TAIL_GATE_20261025.lean
+      - research/CORR4_OAI_POWER_GUIDEPOST_20261024.lean
+      - research/CORR4_OAI_RESTORED_PHYSICAL_KERNEL_20261024.lean
+      - research/CORR4_OAI_RELAXED_REMAINDER_20261024.md
+      - scripts/corr4_oai_remainder_census_20261024.py
+      - .github/workflows/corr4-oai-relaxed-remainder.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: corr4-oai-remainder-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  physical-remainder:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Lean 4.34.1 cached setup
+        uses: ./.github/actions/lean-setup
+      - name: No holes or added axioms
+        run: |
+          python3 - <<'PY'
+          import pathlib, re
+          names = (
+            'CORR4_OAI_RELAXED_REMAINDER_20261024',
+            'CORR4_OAI_SQUARE_ENDPOINT_BOOTSTRAP_20261025',
+            'CORR4_OAI_POWER_RENEWAL_20261025',
+            'CORR4_OAI_POWER_GRAM_EQUIVALENCE_20261025',
+            'CORR4_OAI_BUFFERED_INDUCTION_CORE_20261025',
+            'CORR4_OAI_POWER_DETERMINISTIC_FRAME_20261025',
+            'CORR4_OAI_POWER_MIXED_TAIL_GATE_20261025',
+            'CORR4_OAI_POWER_GUIDEPOST_20261024',
+            'CORR4_OAI_RESTORED_PHYSICAL_KERNEL_20261024',
+          )
+          for name in names:
+              text = pathlib.Path('research', name + '.lean').read_text()
+              assert not re.search(r'\b(sorry|admit|axiom)\b', text), name
+          PY
+      - name: Compile whole native research closure with source-addressed cache
+        uses: ./.github/actions/research-compile
+        with:
+          build-library: 'true'
+          targets: >-
+            research/CORR4_OAI_RELAXED_REMAINDER_20261024.lean
+            research/CORR4_OAI_SQUARE_ENDPOINT_BOOTSTRAP_20261025.lean
+            research/CORR4_OAI_POWER_RENEWAL_20261025.lean
+            research/CORR4_OAI_POWER_GRAM_EQUIVALENCE_20261025.lean
+            research/CORR4_OAI_BUFFERED_INDUCTION_CORE_20261025.lean
+            research/CORR4_OAI_POWER_DETERMINISTIC_FRAME_20261025.lean
+            research/CORR4_OAI_POWER_MIXED_TAIL_GATE_20261025.lean
+            research/CORR4_OAI_POWER_GUIDEPOST_20261024.lean
+            research/CORR4_OAI_RESTORED_PHYSICAL_KERNEL_20261024.lean
+      - name: Check physical witness and conditional theorem axiom footprints
+        run: |
+          cat > /tmp/corr4_oai_axioms.lean <<'LEAN'
+          import «research.CORR4_OAI_POWER_GUIDEPOST_20261024»
+          import «research.CORR4_OAI_SQUARE_ENDPOINT_BOOTSTRAP_20261025»
+          import «research.CORR4_OAI_POWER_RENEWAL_20261025»
+          import «research.CORR4_OAI_POWER_GRAM_EQUIVALENCE_20261025»
+          import «research.CORR4_OAI_BUFFERED_INDUCTION_CORE_20261025»
+          import «research.CORR4_OAI_POWER_DETERMINISTIC_FRAME_20261025»
+          import «research.CORR4_OAI_POWER_MIXED_TAIL_GATE_20261025»
+          import «research.CORR4_OAI_RESTORED_PHYSICAL_KERNEL_20261024»
+          #check RHLean.Proof.mertensSevenEighthsImprovement_of_corr4MixedTailPowerSaving
+          #print axioms RHLean.Proof.mertensSevenEighthsImprovement_of_corr4MixedTailPowerSaving
+          #check RHLean.Proof.corr4PowerFirstOwnerGram_iff_mertensPowerBound
+          #print axioms RHLean.Proof.corr4PowerFirstOwnerGram_iff_mertensPowerBound
+          #check RHLean.Proof.corr4_buffered_all_integer_of_prefix_daughter_frame
+          #print axioms RHLean.Proof.corr4_buffered_all_integer_of_prefix_daughter_frame
+          #check RHLean.Proof.corr4PowerFirstOwnerGram_iff_powerPhysicalRemainder
+          #print axioms RHLean.Proof.corr4PowerFirstOwnerGram_iff_powerPhysicalRemainder
+          #check RHLean.Proof.corr4PowerFirstOwnerGram_of_mertensPowerBound
+          #print axioms RHLean.Proof.corr4PowerFirstOwnerGram_of_mertensPowerBound
+          #check RHLean.Proof.corr4_daughter_round_to_square
+          #print axioms RHLean.Proof.corr4_daughter_round_to_square
+          #check RHLean.Proof.corr4_mertens_endpoint_power_recurrence
+          #print axioms RHLean.Proof.corr4_mertens_endpoint_power_recurrence
+          #check RHLean.Proof.mertens_all_int_of_square_endpoint
+          #print axioms RHLean.Proof.mertens_all_int_of_square_endpoint
+          #check RHLean.Proof.lowOwnerCriticalSynthesis_energy_le_twoTermBasel
+          #print axioms RHLean.Proof.lowOwnerCriticalSynthesis_energy_le_twoTermBasel
+          #check RHLean.Proof.relaxedFirstOwnerGram_iff_physicalRemainder
+          #print axioms RHLean.Proof.relaxedFirstOwnerGram_iff_physicalRemainder
+          #check RHLean.Proof.riemannHypothesis_of_relaxedPhysicalRemainder
+          #print axioms RHLean.Proof.riemannHypothesis_of_relaxedPhysicalRemainder
+          #check RHLean.Proof.physicalRemainder_sevenEighths_of_mertensGrowth
+          #print axioms RHLean.Proof.physicalRemainder_sevenEighths_of_mertensGrowth
+          #check RHLean.Proof.corr4PhysicalRemainder_eq_restoredNormKernel
+          #print axioms RHLean.Proof.corr4PhysicalRemainder_eq_restoredNormKernel
+          LEAN
+          lake env lean -DwarningAsError=true /tmp/corr4_oai_axioms.lean
+      - name: Finite independent arithmetic stress test
+        run: |
+          python3 scripts/corr4_oai_remainder_census_20261024.py --max-root 317 --assert-identity
