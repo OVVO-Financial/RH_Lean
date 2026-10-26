@@ -21,26 +21,30 @@ theorem corr4_b6_norm_le_one (n : ℕ) : ‖corr4B6 n‖ ≤ 1 := by
   have hchi : ‖vf919ChiMinusThree n‖ ≤ 1 := by
     unfold vf919ChiMinusThree
     split_ifs <;> norm_num
-  have hmu : (((|ArithmeticFunction.moebius n| : ℤ) : ℝ)) ≤ 1 := by
+  have hmu : ‖((ArithmeticFunction.moebius n : ℤ) : ℂ)‖ ≤ 1 := by
+    rw [Complex.norm_intCast]
     exact_mod_cast (ArithmeticFunction.abs_moebius_le_one (n := n))
+  have hchiMu :
+      ‖vf919ChiMinusThree n‖ *
+        ‖((ArithmeticFunction.moebius n : ℤ) : ℂ)‖ ≤ 1 := by
+    calc
+      _ ≤ 1 * ‖((ArithmeticFunction.moebius n : ℤ) : ℂ)‖ :=
+        mul_le_mul_of_nonneg_right hchi (norm_nonneg _)
+      _ ≤ 1 * 1 := mul_le_mul_of_nonneg_left hmu (by norm_num)
+      _ = 1 := by ring
   change ‖vf919PrimeToSixMask n *
     (vf919ChiMinusThree n * ((ArithmeticFunction.moebius n : ℤ) : ℂ))‖ ≤ 1
-  rw [norm_mul, norm_mul, Complex.norm_intCast]
-  have hprod :
-      ‖vf919PrimeToSixMask n‖ * ‖vf919ChiMinusThree n‖ ≤ 1 := by
-    calc
-      _ ≤ 1 * ‖vf919ChiMinusThree n‖ :=
-        mul_le_mul_of_nonneg_right hmask (norm_nonneg _)
-      _ ≤ 1 * 1 := mul_le_mul_of_nonneg_left hchi (by norm_num)
-      _ = 1 := by ring
-  have hnonneg : 0 ≤ (((|ArithmeticFunction.moebius n| : ℤ) : ℝ)) := by
-    exact_mod_cast (abs_nonneg (ArithmeticFunction.moebius n))
+  rw [norm_mul, norm_mul]
   calc
-    (‖vf919PrimeToSixMask n‖ * ‖vf919ChiMinusThree n‖) *
-      (((|ArithmeticFunction.moebius n| : ℤ) : ℝ)) ≤
-        1 * (((|ArithmeticFunction.moebius n| : ℤ) : ℝ)) :=
-          mul_le_mul_of_nonneg_right hprod hnonneg
-    _ ≤ 1 := by simpa using hmu
+    ‖vf919PrimeToSixMask n‖ *
+        (‖vf919ChiMinusThree n‖ *
+          ‖((ArithmeticFunction.moebius n : ℤ) : ℂ)‖) ≤
+      1 * (‖vf919ChiMinusThree n‖ *
+        ‖((ArithmeticFunction.moebius n : ℤ) : ℂ)‖) :=
+          mul_le_mul_of_nonneg_right hmask
+            (mul_nonneg (norm_nonneg _) (norm_nonneg _))
+    _ ≤ 1 * 1 := mul_le_mul_of_nonneg_left hchiMu (by norm_num)
+    _ = 1 := by ring
 
 theorem corr4_b6_mass_le (N : ℕ) :
     (∑ m ∈ Finset.Icc 1 N, ‖corr4B6 m‖) ≤ (N : ℝ) := by
