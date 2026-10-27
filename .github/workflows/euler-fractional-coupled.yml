@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - "research/EULER_FRACTIONAL_COUPLED_20261027.lean"
+      - "research/EULER_RANK_ONE_FRACTIONAL_ROWS_20261027.lean"
       - "research/EULER_FRACTIONAL_COUPLED_AUDIT_20261027.md"
       - ".github/workflows/euler-fractional-coupled.yml"
   workflow_dispatch:
@@ -37,7 +38,7 @@ jobs:
       - name: Compile exact research import closure with warnings fatal
         run: |
           python3 scripts/compile_research_import_closure.py --build-library \
-            research/EULER_FRACTIONAL_COUPLED_20261027.lean
+            research/EULER_RANK_ONE_FRACTIONAL_ROWS_20261027.lean
       - name: Audit new theorem axioms
         run: |
           cat > /tmp/euler_fractional_axioms.lean <<'EOF'
@@ -45,6 +46,11 @@ jobs:
           #print axioms RHLean.Proof.eulerFloorBilinearQ_eq_continuous_sub_fractional
           #print axioms RHLean.Proof.eulerContinuousBilinearQ_eq_reciprocal_square
           #print axioms RHLean.Proof.eulerFloorBilinearQ_cast_eq_original
+          #print axioms RHLean.Proof.eulerFloorBilinearQ_eq_continuous_sub_diag_sub_twice_off
+          #print axioms RHLean.Proof.eulerFractionDiagonalQ_bounds
+          #print axioms RHLean.Proof.eulerRankOneFloorKernel_eq_coupled_fracs
+          #print axioms RHLean.Proof.eulerRankOneResidualQ_eq_floor_sub_linear
+          #print axioms RHLean.Proof.eulerRankOneFloorKernel_divisor_row
           EOF
           lake env lean -DwarningAsError=true /tmp/euler_fractional_axioms.lean | tee /tmp/euler_fractional_axioms.log
           if grep -q 'sorryAx' /tmp/euler_fractional_axioms.log; then exit 1; fi
@@ -65,6 +71,7 @@ jobs:
           import pathlib, re
           paths = [
               'research/EULER_FRACTIONAL_COUPLED_20261027.lean',
+              'research/EULER_RANK_ONE_FRACTIONAL_ROWS_20261027.lean',
           ]
           for path in paths:
               body = pathlib.Path(path).read_text()
