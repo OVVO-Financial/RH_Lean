@@ -64,7 +64,16 @@ theorem eulerHistoricalFloorInversionQ (R : ℕ) (hR : 2 ≤ R) :
       (((R - 1) / a : ℕ) : ℚ)) = 1 := by
   have h := RHLean.Analysis.nativeSumMoebiusMulFloor (R - 1) (by omega)
   have hQ := congrArg (fun z : ℤ => (z : ℚ)) h
-  simpa [eulerMuQ] using hQ
+  calc
+    (∑ a ∈ Finset.Icc 1 (R - 1), eulerMuQ a *
+      (((R - 1) / a : ℕ) : ℚ)) =
+      ((∑ a ∈ Finset.Icc 1 (R - 1),
+        (μ a : ℤ) * (((R - 1) / a : ℕ) : ℤ) : ℤ) : ℚ) := by
+          rw [Int.cast_sum]
+          apply Finset.sum_congr rfl
+          intro a _ha
+          simp only [eulerMuQ, Int.cast_mul, Int.cast_natCast]
+    _ = 1 := hQ
 
 /-- The exact original Q_R minus an independently bounded linear root mode. -/
 theorem eulerRankOneResidualQ_eq_floor_sub_linear
@@ -108,6 +117,7 @@ theorem eulerRankOneResidualQ_eq_floor_sub_linear
           simp_rw [mul_sub, Finset.sum_sub_distrib]
           simp_rw [mul_sub, Finset.sum_sub_distrib]
           simp_rw [hcor]
+          simp only [mul_div_assoc]
     _ = (∑ b ∈ S, eulerMuQ b *
         ∑ a ∈ S, eulerMuQ a * eulerFloorQ R a b) -
       ((R + 1 : ℕ) : ℚ) * (∑ a ∈ S, eulerMuQ a / (a : ℚ)) := by
