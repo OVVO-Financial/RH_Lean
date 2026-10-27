@@ -6,6 +6,7 @@ on:
     paths:
       - "research/EULER_SELF_DUAL_POINTWISE_20261027.lean"
       - "research/EULER_SELF_DUAL_FINITE_C_BRIDGE_20261027.lean"
+      - "research/EULER_SELF_DUAL_ENDPOINT_GATE_20261027.lean"
       - "research/EULER_SELF_DUAL_BRIDGE_AUDIT_20261027.md"
       - ".github/workflows/euler-self-dual-finite-c.yml"
   workflow_dispatch:
@@ -38,7 +39,7 @@ jobs:
       - name: Compile exact research import closure with warnings fatal
         run: |
           python3 scripts/compile_research_import_closure.py --build-library \
-            research/EULER_SELF_DUAL_FINITE_C_BRIDGE_20261027.lean
+            research/EULER_SELF_DUAL_ENDPOINT_GATE_20261027.lean
       - name: Audit new theorem axioms
         run: |
           cat > /tmp/euler_self_dual_axioms.lean <<'EOF'
@@ -47,6 +48,9 @@ jobs:
           #print axioms RHLean.Proof.eulerSelfDualConvolutionCoefficient_eq_moebius_of_lt_root
           #print axioms RHLean.Proof.eulerSelfDualConvolutionCoefficient_eq_neg_moebius_of_root_le
           #print axioms RHLean.Proof.eulerSelfDualBilinear_eq_convolutionSummatory
+          #print axioms RHLean.Proof.eulerSelfDualBilinear_eq_two_mertens_sub_endpoint
+          #print axioms RHLean.Proof.squareRootEndpointAmplification_of_eulerFiniteC
+          #print axioms RHLean.Proof.riemannHypothesis_of_eulerSelfDualFiniteC
           EOF
           lake env lean -DwarningAsError=true /tmp/euler_self_dual_axioms.lean | tee /tmp/euler_self_dual_axioms.log
           if grep -q 'sorryAx' /tmp/euler_self_dual_axioms.log; then exit 1; fi
@@ -68,6 +72,7 @@ jobs:
           paths = [
               'research/EULER_SELF_DUAL_POINTWISE_20261027.lean',
               'research/EULER_SELF_DUAL_FINITE_C_BRIDGE_20261027.lean',
+              'research/EULER_SELF_DUAL_ENDPOINT_GATE_20261027.lean',
           ]
           for path in paths:
               body = pathlib.Path(path).read_text()
