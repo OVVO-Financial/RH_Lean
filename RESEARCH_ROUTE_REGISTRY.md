@@ -1,5 +1,11 @@
 # Research route registry
 
+
+## 2026-10-26 — RH_Lean-native first, OpenAI source correspondence second
+
+**Operating research selector after human merge:** [RHLEAN_NATIVE_FIRST_PROOF_ROUTING_20261026.md](docs/RHLEAN_NATIVE_FIRST_PROOF_ROUTING_20261026.md), superseding the Oct 26 Collet-final-return compulsory target. This is a **priority change only**: no statuses or graph arrows in [proof-obligations.json](docs/proof-obligations.json) change. The direct genuine-prime VF-LOW/SAT/JOH + first-owner #915 arithmetic remains the canonical prime-side route; CORR4, finite-A/C, fixed-k MU-LIFT and NYMAN are independently sufficient candidates, not subsections of the tracker. The focused OAI-NNS analytic lane now tests whether RH_Lean's already formalized signed source covariance and owner chronology yield a nontrivial bound on the **actual post-compensation, labelled ideal-prime cross-Gram**, with normalized physical and principal exceptions. Local Q^-7/8 central cancellation is real under its restrictions; cross-prime source/height aggregation is OPEN. The Count/WindowFiber frozen crossing is a historical negative scalar result, not a proof that every admissible actual Hecke fiber saturates the bound. Reject all fictional uniform sigma_sat, arbitrary phase averaging, source-free owner transport, and terminal equivalent estimates presented as new lemmas. Governance and human-only merge unchanged.
+
+
 ## 2026-10-25 — route dispositions and exact missing arithmetic (registry-backed, after human merge)
 
 Machine-readable source: [docs/proof-obligations.json](docs/proof-obligations.json), rendered with every RH path and its unpaid inputs in the [proof-dependency DAG](docs/PROOF_DEPENDENCY_DAG.md). Completed formal results are in [FORMALIZATION_MILESTONES.md](docs/FORMALIZATION_MILESTONES.md). Statuses below are as of main `54564c00`, evidence refreshed 2026-10-26.
