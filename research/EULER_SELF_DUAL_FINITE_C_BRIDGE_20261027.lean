@@ -68,6 +68,7 @@ private theorem eulerTripleConvolution_sum_eq_hyperbolaFloor
         intro n _hn
         rw [ArithmeticFunction.mul_apply]
         push_cast
+        rfl
       _ = ∑ d ∈ Finset.Icc 1 X,
         ∑ k ∈ Finset.Icc 1 (X / d),
           (((P * P) d : ℤ) : ℂ) * (((zetaInt k : ℤ) : ℂ)) :=
@@ -97,7 +98,6 @@ private theorem eulerTripleConvolution_sum_eq_hyperbolaFloor
         have hprod : p.1 * p.2 = d :=
           (Nat.mem_divisorsAntidiagonal.mp hp).1
         rw [hprod]
-        ring
     _ = ∑ b ∈ Finset.Icc 1 X,
         ∑ a ∈ Finset.Icc 1 (X / b),
           (((P b : ℤ) : ℂ)) * (((P a : ℤ) : ℂ)) *
@@ -112,7 +112,7 @@ the hyperbola. This is why no masked boundary survives in the bilinear
 convolution-to-floor reindexing. -/
 private theorem eulerHistoricalProduct_le_squareEndpoint
     {R a b : ℕ} (hR : 2 ≤ R) (ha : 1 ≤ a) (haR : a < R)
-    (hb : 1 ≤ b) (hbR : b < R) :
+    (_hb : 1 ≤ b) (hbR : b < R) :
     a * b ≤ squareRootEndpoint R := by
   have ha' : a ≤ R - 1 := by omega
   have hb' : b ≤ R - 1 := by omega
