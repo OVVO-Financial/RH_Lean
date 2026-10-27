@@ -291,4 +291,4 @@ New claim: `20261026-owner-1`. Final classification: exact structural paper theo
 
 ## Publication verification
 
-The initial `IN_PROGRESS` checkpoint was created by commit `97c678c47722c114ad835bcb7c2a19d46feabf8a` and read back as blob `25eb705995caad98e3fa58302651e397eb1373b2`. Final commit and read-back blob are recorded after publication.
+The initial `IN_PROGRESS` checkpoint was created by commit `97c678c47722c114ad835bcb7c2a19d46feabf8a` and read back as blob `25eb705995caad98e3fa58302651e397eb1373b2`. The completed synthesis was published by commit `1c6552aea9659b3730d0d2328818bc1870c39f41` and immediately read back as blob `e1919ab74a64960592b62043e4d05f2cfff6699e` (16,784 characters), with `COMPLETED`, claim `20261026-owner-1`, and the pinned main SHA present. This verifies report publication only; it does not formalize the paper theorem or prove the missing incidence estimate.
