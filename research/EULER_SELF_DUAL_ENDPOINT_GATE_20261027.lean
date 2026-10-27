@@ -62,7 +62,8 @@ theorem eulerSelfDualBilinear_eq_two_mertens_sub_endpoint
             R n hR (lt_of_le_of_lt hnX hR2)]
         push_cast
         by_cases hnr : n < R
-        · simp [hnr] <;> ring
+        · simp [hnr]
+          ring
         · simp [hnr]
       _ =
         2 * (∑ n ∈ Finset.Icc 1 X,
