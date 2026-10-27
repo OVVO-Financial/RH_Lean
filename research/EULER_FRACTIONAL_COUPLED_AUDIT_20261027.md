@@ -1,6 +1,6 @@
 # Original Euler fractional cancellation: audited historical one-sided carrier
 
-2026-10-27. Status: exact source code **draft** until dedicated warning-fatal CI is green. The independent rational checks are finite certificates; this document does not assert finite C or RH.
+2026-10-27. Status: exact fractional and rank-one Lean source compiled under warning-fatal CI and standard-axioms audit at PR #1036 head `fe34e12`. This mathematical note adds separately proved paper-level arithmetic consequences not yet all formalized. It does not assert finite C or RH.
 
 ## 1. Original signed decomposition (no asymptotic replacement)
 
@@ -101,3 +101,120 @@ The b={1,3,5} signed-cross negativity bound discussed in prior analysis is stric
 - #1035 original pointwise terminal bridge remains a separate draft PR and is not used to invent any new quantitative estimate.
 
 No `sorry`, `admit` or new `axiom` permitted; exact-head Lean4.34.1 CI will report kernel certification separately.
+
+## 8. Euclidean carry-phase coordinate (original kernel, no estimates)
+
+Let L=R+1, q_a=floor(N/a), t_a=N mod a, and
+rho_(a,b)=(L*q_a) mod b. Then N=a*q_a+t_a and
+L*q_a=b*floor(L*q_a/b)+rho_(a,b). Thus exactly
+
+    T_R(a,b) = floor((a*rho_(a,b)+L*t_a)/(a*b)) - rho_(a,b)/b.
+
+This separates the **integer carry** and the **congruence phase** while keeping
+their signed correlation. Neither summand is automatically small after summing
+over the genuine coefficients. In particular the carry can exceed 1 for small b.
+
+- If a|N, then t_a=0 and the carry vanishes.
+- If b|(L*q_a), then rho_(a,b)=0 and T_R(a,b)=floor(L*t_a/(a*b))>=0.
+- If both conditions hold, T_R(a,b)=0 exactly.
+- At a=1, T_R(1,b)=-{X/b}; the signed first row is minus the
+  original PNT-first lattice sum Phi_R of
+  research/PNT_FIRST_LAMBDA_HYPERBOLA_ANCHOR_20261018.lean.
+- At b=1, T_R(a,1)=floor(L*(N mod a)/a), an integer carry.
+
+These are occurrence-preserving arithmetic subcases, not an operator-norm
+contraction or a fixed eta.
+
+## 9. NEW UNCONDITIONAL ROOT-SCALE PAYMENT: TOP SQRT(R) FULL ROWS
+
+For 1<=b<=N, let Y_b=floor(X/b) and define the **entire** signed row
+
+    G_R(b)=sum_(a=1)^N mu(a)*T_R(a,b).
+
+Use the exact nested-floor identity floor(X/(a*b))=floor(Y_b/a),
+and complete finite Möbius inversion at Y_b:
+
+    sum_(a<=Y_b) mu(a)floor(Y_b/a)=1.
+
+Here Y_b>=N for every b<=N. The row is therefore
+
+    G_R(b)=1-L/b
+           -sum_(n=N+1)^Y_b mu(n)*floor(Y_b/n).          (ROW)
+
+When b>=ceil(R/2), Y_b<2R, and every floor in the omitted tail
+equals 1. Hence the signed row is EXACTLY
+
+    G_R(b)=1-L/b-[M(Y_b)-M(N)].                          (TOP)
+
+Now write b=N-j, 0<=j<=N/2. Since L-b=j+2,
+
+    Y_b-N <= N*(L-b)/b = N*(j+2)/(N-j) <= 2*(j+2),
+
+and
+
+    |1-L/b|=(j+2)/(N-j) <= j+2.
+
+With |mu(n)|<=1 we obtain the uniform bound
+
+    |G_R(N-j)| <= 3*(j+2).                               (LOCAL)
+
+Let H=floor(sqrt R). For all R>=5, H<=N/2+1 and the
+H distinct values b=N-H+1,...,N satisfy 0<=j<=H-1<=N/2.
+Therefore, using |mu(b)|<=1,
+
+    |sum_(b=N-H+1)^N mu(b)G_R(b)|
+       <= 3*sum_(j=0)^(H-1)(j+2)
+       = (3/2)*H*(H+3)
+       = O(R).                                            (PAID)
+
+This is a **quantitative** source-specific root-scale estimate for a
+complete upper boundary strip, with NO dependence on K_R, PNT, zero
+regions, or assumptions on M(Y_b). The bounded strip arises by
+performing the full genuine inner Mobius inversion BEFORE taking any
+absolute value.
+
+Independent exact-floor verification (reported as rounded decimals):
+
+    R    H    signed upper-row sum    proven abs bound
+    56   7       -0.0785                  105
+    100  10      +12.7077                 195
+    317  17       -9.1433                 510
+    500  22       -5.0544                 825
+    1000 31      -13.9310                1581
+    2000 44      +13.9109                3102
+
+The finite checks were carried out on the ORIGINAL Mobius coefficients
+and actual floor quotients. They are not substituted for proof.
+
+### What is left after the two independent payments
+
+Define R_div as the signed contribution from all rows a|N,
+and R_top as the contribution of all b>N-H, including those a|N.
+The intersection of these sets is counted in both, so avoid
+double counting by using the disjoint partition:
+
+    A = {(a,b): 1<=a,b<=N, a|N}
+    B = {(a,b): 1<=a,b<=N, a does NOT divide N, b>N-H}
+    C = {(a,b): 1<=a,b<=N, a does NOT divide N, b<=N-H}.
+
+The full rank-one residual equals the three signed restrictions.
+The A contribution is O_epsilon(R^(1+epsilon)) by the divisor-row bound
+and tau(N)=N^o(1). The B contribution is O(R)+O(H*tau(N)),
+since B is the full paid top strip minus its divisor-row intersection.
+Thus both A and B fit O_epsilon(R^(1+epsilon)) WITHOUT K_R.
+
+The remaining independent target is the complete original signed
+C-contribution. Any fixed-eta historical estimate for C,
+
+    |sum_((a,b) in C) mu(a)mu(b) T_R(a,b)|
+      <= C_(eta,epsilon) R^(1+epsilon) K_R^(1-eta/2),
+
+for some eta>0 (and every epsilon>0), would activate the nonlinear
+square-root amplification route **provided** the independently controlled
+linear mode (R+1)*S_N is included with the correct budget.
+The target is OPEN. The local payments are genuine but do not by
+themselves infer a uniform fixed eta for the full source.
+
+The q^2 daughter index, integer least-prime divisor, and Gram first-separating
+owner are distinct; this source must be paired with their actual occurrence
+weights before applying the reciprocal-operator contraction.
