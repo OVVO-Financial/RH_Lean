@@ -129,7 +129,8 @@ theorem squareRootEndpointAmplification_of_eulerFiniteC
   have hMpreviousNorm :
       ‖mertensSummatory (R - 1) - 1‖ ^ 2 ≤
         K * (R : ℝ) := by
-    rw [← shiftedMertensEnergy_eq_intSquare (R - 1)]
+    change shiftedMertensEnergy (R - 1) ≤ K * (R : ℝ)
+    rw [shiftedMertensEnergy_eq_intSquare]
     exact hMprevious
   have hKpos : (0 : ℝ) ≤ K := hKnonneg
   have hRpow : (R : ℝ) ≤ (R : ℝ) ^ 2 := by
