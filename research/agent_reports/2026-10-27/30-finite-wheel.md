@@ -19,19 +19,19 @@ prime `q`, the actual ideal operation underlying the native extension
 `n -> q*n` is
 
 ```text
-iota(q*n) = iota(n) * iota`q`.
+iota(q*n) = iota(n) * iota(q).
 ```
 
-The factorization of `iota`q`` gives exactly three cases.
+The factorization of `iota(q)` gives exactly three cases.
 
-1. If `q = 2 (mod 3)`, then `iota`q`` is one inert prime ideal and
-   `N(iota`q`) = q^2`. The rational extension is a one-prime-ideal operation.
+1. If `q = 2 (mod 3)`, then `iota(q)` is one inert prime ideal and
+   `N(iota(q)) = q^2`. The rational extension is a one-prime-ideal operation.
 2. If `q = 1 (mod 3)`, then
-   `iota`q` = Q * conjugate(Q)`, where the two factors are
+   `iota(q) = Q * conjugate(Q)`, where the two factors are
    distinct prime ideals of norm `q`. The rational extension is a
    two-distinct-slot operation, not either one-slot operation separately.
-3. If `q = 3`, then `iota`3` = P^2` with
-   `N`P` = 3`. The rational extension is a repeated two-slot
+3. If `q = 3`, then `iota(3) = P^2` with
+   `N(P) = 3`. The rational extension is a repeated two-slot
    operation.
 
 Consequently, at the level of actual ideal-prime multiplication, a native
@@ -43,14 +43,13 @@ case.
 This gives the corresponding scale classification for the genuine native
 CORR4 daughter cutoff
 
-[
-  operatorname{rawQ2ChildCutoff}(R,q)
-   = leftlfloorrac{R^2-1}{q^2}ightfloor .
-]
+```text
+rawQ2ChildCutoff(R,q) = floor((R^2 - 1) / q^2).
+```
 
-The original OAI one-slot theorem rescales by `X / N`P``. Therefore:
+The original OAI one-slot theorem rescales by `X / N(P)`. Therefore:
 
-- inert `q`: (P=`q`), `N`P` = q^2`, so the one-slot rescaling is exactly
+- inert `q`: `P = (q)`, `N(P) = q^2`, so the one-slot rescaling is exactly
   `X/q^2`;
 - split `q`: each one-slot prime ideal has norm `q`, hence gives `X/q`;
   only the conjugate two-slot product has norm `q^2`;
@@ -74,11 +73,11 @@ The original source theorem is
 `a in O`, it uses
 
 ```text
-conjugate(eta`a`) * markedPhysicalProbe(D=`a`, X, Y, Z*N`a`)
-  - N`a`^(-3/2) * physicalProbe(X/N`a`, Y/N`a`, Z).
+conjugate(eta(a)) * markedPhysicalProbe(D=(a), X, Y, Z*N(a))
+  - N(a)^(-3/2) * physicalProbe(X/N(a), Y/N(a), Z).
 ```
 
-The selected divisor is literally ``a``, and
+The selected divisor is literally `(a)`, and
 `elementNorm a = Ideal.absNorm (Ideal.span {a})`. No rational Möbius sign or
 invented ideal label was inserted.
 
@@ -97,8 +96,8 @@ At the pinned original source, `NormFiberCharacters.lean` proves:
   ramified prime.
 
 Since the Eisenstein ring has rank two over `Z`,
-(N(`q`)=q^2). Applying the displayed norm-fiber theorems to the principal
-ideal (`q`) proves the three cases. Unique ideal factorization supplies
+`N((q)) = q^2`. Applying the displayed norm-fiber theorems to the principal
+ideal `(q)` proves the three cases. Unique ideal factorization supplies
 distinctness in the split case and the exponent two in the ramified case.
 
 The native definition
