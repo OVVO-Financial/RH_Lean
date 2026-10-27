@@ -13,25 +13,25 @@
 
 ### Claim `20261027-wheel-1`: rational prime extension has a three-case Eisenstein slot-arity law
 
-Let (mathcal O) be the Eisenstein integer ring used by the original OAI source, and let
-(iota(n)=(n)) be the principal ideal of a rational integer. For a rational
-prime (q), the actual ideal operation underlying the native extension
-(nmapsto qn) is
+Let `O` be the Eisenstein integer ring used by the original OAI source, and let
+`iota(n) = (n)` be the principal ideal of a rational integer. For a rational
+prime `q`, the actual ideal operation underlying the native extension
+`n -> q*n` is
 
-[
-  iota(qn)=iota(n)iota(q).
-]
+```text
+iota(q*n) = iota(n) * iota`q`.
+```
 
-The factorization of (iota(q)) gives exactly three cases.
+The factorization of `iota`q`` gives exactly three cases.
 
-1. If (qequiv2pmod3), then (iota(q)) is one inert prime ideal and
-   (Niota(q)=q^2). The rational extension is a one-prime-ideal operation.
-2. If (qequiv1pmod3), then
-   (iota(q)=mathfrak qoverline{mathfrak q}), where the two factors are
-   distinct prime ideals of norm (q). The rational extension is a
+1. If `q = 2 (mod 3)`, then `iota`q`` is one inert prime ideal and
+   `N(iota`q`) = q^2`. The rational extension is a one-prime-ideal operation.
+2. If `q = 1 (mod 3)`, then
+   `iota`q` = Q * conjugate(Q)`, where the two factors are
+   distinct prime ideals of norm `q`. The rational extension is a
    two-distinct-slot operation, not either one-slot operation separately.
-3. If (q=3), then (iota(3)=mathfrak p^2) with
-   (Nmathfrak p=3). The rational extension is a repeated two-slot
+3. If `q = 3`, then `iota`3` = P^2` with
+   `N`P` = 3`. The rational extension is a repeated two-slot
    operation.
 
 Consequently, at the level of actual ideal-prime multiplication, a native
@@ -48,14 +48,14 @@ CORR4 daughter cutoff
    = leftlfloorrac{R^2-1}{q^2}ightfloor .
 ]
 
-The original OAI one-slot theorem rescales by (X/N(P)). Therefore:
+The original OAI one-slot theorem rescales by `X / N`P``. Therefore:
 
-- inert (q): (P=(q)), (N(P)=q^2), so the one-slot rescaling is exactly
-  (X/q^2);
-- split (q): each one-slot prime ideal has norm (q), hence gives (X/q);
-  only the conjugate two-slot product has norm (q^2);
-- ramified (3): one slot has norm (3), while the repeated square has norm
-  (9).
+- inert `q`: (P=`q`), `N`P` = q^2`, so the one-slot rescaling is exactly
+  `X/q^2`;
+- split `q`: each one-slot prime ideal has norm `q`, hence gives `X/q`;
+  only the conjugate two-slot product has norm `q^2`;
+- ramified `3`: one slot has norm `3`, while the repeated square has norm
+  `9`.
 
 Thus the native owner set has an exact arithmetic partition into a genuine
 one-slot scale-corresponding inert sector, a paired conjugate split sector,
@@ -71,17 +71,14 @@ not establish source mask admission, phase equality, or a signed estimate.
 
 The original source theorem is
 `SevenEighths.ProbePhysical.compensatedTuple_one`. For a selected element
-(ainmathcal O), it uses
+`a in O`, it uses
 
-[
- overline{eta(a)},
- operatorname{markedPhysicalProbe}(D=(a),X,Y,Z,N(a))
- -
- N(a)^{-3/2},
- operatorname{physicalProbe}(X/N(a),Y/N(a),Z).
-]
+```text
+conjugate(eta`a`) * markedPhysicalProbe(D=`a`, X, Y, Z*N`a`)
+  - N`a`^(-3/2) * physicalProbe(X/N`a`, Y/N`a`, Z).
+```
 
-The selected divisor is literally ((a)), and
+The selected divisor is literally ``a``, and
 `elementNorm a = Ideal.absNorm (Ideal.span {a})`. No rational Möbius sign or
 invented ideal label was inserted.
 
@@ -89,37 +86,37 @@ At the pinned original source, `NormFiberCharacters.lean` proves:
 
 - `split_count_of_mod_one`: two primes above a split rational prime;
 - `inert_count_of_mod_two`: one prime above an inert rational prime;
-- `ramified_count`: one prime above (3);
+- `ramified_count`: one prime above `3`;
 - `absNorm_split`, `absNorm_inert`, and `absNorm_ramified`;
-- `norm_p_fiber_inert`: no ideal of norm (p) for inert (p);
-- `norm_p_sq_fiber_inert`: the norm-(p^2) fiber is the inert prime above
-  (p);
-- `norm_p_sq_fiber_split`: every norm-(p^2) ideal is a product of two
-  primes above split (p);
+- `norm_p_fiber_inert`: no ideal of norm `p` for inert `p`;
+- `norm_p_sq_fiber_inert`: the norm-`p^2` fiber is the inert prime above
+  `p`;
+- `norm_p_sq_fiber_split`: every norm-`p^2` ideal is a product of two
+  primes above split `p`;
 - `norm_nine_fiber_ramified`: every norm-nine ideal is the square of the
   ramified prime.
 
-Since the Eisenstein ring has rank two over (mathbb Z),
-(N((q))=q^2). Applying the displayed norm-fiber theorems to the principal
-ideal ((q)) proves the three cases. Unique ideal factorization supplies
+Since the Eisenstein ring has rank two over `Z`,
+(N(`q`)=q^2). Applying the displayed norm-fiber theorems to the principal
+ideal (`q`) proves the three cases. Unique ideal factorization supplies
 distinctness in the split case and the exponent two in the ramified case.
 
 The native definition
-`canonicalRoughLowQ2Owners R` is the odd-prime owner set with (q^2<R);
-`rawQ2ChildCutoff R q` uses the literal denominator (q^2). Hence the scale
+`canonicalRoughLowQ2Owners R` is the odd-prime owner set with `q^2 < R`;
+`rawQ2ChildCutoff R q` uses the literal denominator `q^2`. Hence the scale
 comparison is exact, including floors. It is not an asymptotic analogy.
 
 ## C. Decisive falsifiers and boundary cases
 
 Three smallest examples separate the cases without a large scan.
 
-- (q=5) is inert. The prime ideal ((5)) has norm (25), and the original
-  one-slot rescaling (X/25) agrees with the native (q^2) daughter scale.
-- (q=7) is split. Either prime ideal above (7) has norm (7), so a
-  one-slot rescaling is (X/7), not (X/49). The paired conjugate product
-  restores (X/49).
-- (q=3) is ramified. The prime ideal has norm (3), while the native
-  daughter denominator is (9); the repeated prime-ideal square is required.
+- (q=5) is inert. The prime ideal (`5`) has norm `25`, and the original
+  one-slot rescaling `X/25` agrees with the native `q^2` daughter scale.
+- (q=7) is split. Either prime ideal above `7` has norm `7`, so a
+  one-slot rescaling is `X/7`, not `X/49`. The paired conjugate product
+  restores `X/49`.
+- `q = 3` is ramified. The prime ideal has norm `3`, while the native
+  daughter denominator is `9`; the repeated prime-ideal square is required.
 
 These examples refute a blanket one-slot bridge while preserving one exact
 subsector. They also explain why rational-norm deduplication is invalid:
@@ -139,13 +136,13 @@ The classification preserves the correct rational `q^2` extension and does
 not identify a Boolean native sign with a sextic Hecke phase.
 
 - In the inert sector, the norm rescaling and prime-ideal operation correspond,
-  but the native reciprocal coefficient (1/q), Mertens daughter
+  but the native reciprocal coefficient `1/q`, Mertens daughter
   (M(lfloor X/q^2floor)), OAI character value, physical W0/W1 weights,
   conductor, normalizer, principal signal, and masks remain different data.
 - In the split sector, any exact bridge must use the full conjugate two-slot
   packet. Its coefficient contains both original ideal labels and their
   Hecke phases; replacing the pair by a rational label loses cross terms.
-- At (3), a bridge must retain repeated valuation and any diagonal/collision
+- At `3`, a bridge must retain repeated valuation and any diagonal/collision
   rule. Treating it as two independent available slots would double-spend an
   occurrence.
 
@@ -156,17 +153,17 @@ paired, or repeated sector before norms are taken.
 
 ## E. Quantitative consequence and first missing lemma
 
-There is no new exponent saving. The imported (7/8) benchmark, the complete
+There is no new exponent saving. The imported `7/8` benchmark, the complete
 OAI spatial Gram exponent, `OPEN-CORR4-MIXED-TAIL-POWER`, the canonical VF
 bound, and RH remain open.
 
 The smallest independently payable next statement is:
 
 > On the inert owner sector only, construct an occurrence-preserving map from
-> the native (q^2) daughter labels into the literal original compensated
+> the native `q^2` daughter labels into the literal original compensated
 > one-slot rows, or prove that one of the original W0/W1, coprimality,
 > conductor, selected-window, or row masks prevents such a map. The statement
-> must retain the native (1/q) coefficient, original OAI phase and weight,
+> must retain the native `1/q` coefficient, original OAI phase and weight,
 > and the complete complement.
 
 For the split sector, the corresponding next object is a conjugate two-slot
@@ -180,7 +177,7 @@ paid.
 Repository search found the individual splitting facts, norm-Euler
 dictionary, one-slot source formula, and warnings that split labels must not
 be collapsed. It did not find the native-rational-extension slot-arity
-classification or its exact consequence for the CORR4 (q^2) cutoff.
+classification or its exact consequence for the CORR4 `q^2` cutoff.
 
 The closest existing items are:
 
@@ -191,10 +188,10 @@ The closest existing items are:
 - `VF_MID_919_OAI_RECTANGLE_ADMISSIBILITY_AUDIT.md`, which already notes
   the inert norm-four obstruction to a rational dilation by two;
 - `VF_919_NNS_NORM_FIBER_BOUNDARY_CORRESPONDENCE_20261021.md`, which warns
-  that inert (p^2) norms and split (p) norms must be separated.
+  that inert `p^2` norms and split `p` norms must be separated.
 
 Claim `20261027-wheel-1` reorganizes those facts around the actual operation
-(nmapsto qn) and proves which source-slot arity can represent it. It is new
+`n -> q*n` and proves which source-slot arity can represent it. It is new
 structural information, not a new inequality. It assumes neither the target
 Gram bound nor a favorable phase.
 
@@ -261,8 +258,8 @@ auto-merge.
 
 **Decision now:** CONTINUE only with the arity-correct sectorization.
 
-**Rejected:** a uniform map from every rational owner (q) to one OAI prime
-slot of norm (q^2).
+**Rejected:** a uniform map from every rational owner `q` to one OAI prime
+slot of norm `q^2`.
 
 **Strongest surviving theorem:** exact one-slot scale correspondence on inert
 owners; exact two-slot requirements on split and ramified owners.
@@ -277,8 +274,8 @@ the inert ideal slot and how split conjugate packets interact with the original
 #915 returned-pair masks. Do not infer phase or physical-sign inheritance.
 
 **Census handoff:** no large scan is requested. The smallest decisive source
-test is one admitted inert packet (for example rational (5)) versus one
-admitted split conjugate packet (for example (7)), with original W0/W1,
+test is one admitted inert packet (for example rational `5`) versus one
+admitted split conjugate packet (for example `7`), with original W0/W1,
 character, row, mask, and normalizer data. If those cannot be instantiated,
 report `SOURCE_ADMISSION_BLOCKED`.
 
@@ -290,7 +287,7 @@ ramified source-admission no-go but does not change the ideal factorization.
 ## I. Final summary
 
 **Independent progress:** exact source-verified prime-slot arity
-classification for native rational extensions and CORR4 (q^2) scales.  
+classification for native rational extensions and CORR4 `q^2` scales.  
 **Quantitative progress:** NONE.  
 **Hypotheses eliminated/repaired:** blanket rational-owner equals one
 Eisenstein-prime-slot correspondence rejected; inert one-slot and split/
@@ -298,3 +295,7 @@ ramified two-slot formulations survive.
 **Completeness:** DONE.  
 **No unsupported RH/global-bound claim:** the canonical actual-prime bound,
 complete signed Gram estimates, strict exponent gain, and RH remain OPEN.
+
+## J. Publication verification
+
+The completed report was created by commit `0f860d97e915943ee50f9b85a9b5140ea611fcdb` and immediately read back as blob `b3cf2c30d388cc5d562f6179d6c014219e6c3cfa` (13,642 characters), with `COMPLETED`, claim `20261027-wheel-1`, and the pinned main/source SHAs present. A follow-up formatting-only update replaced backslash-damaged display notation with ASCII; it changes no mathematics. Publication verifies this report text only, not a Lean formalization or the missing source-admission estimate.
