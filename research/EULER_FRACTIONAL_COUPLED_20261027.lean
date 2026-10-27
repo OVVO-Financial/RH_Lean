@@ -216,12 +216,12 @@ theorem eulerFractionBilinearQ_eq_diagonal_add_twice_off (R : ℕ) :
       eulerFractionDiagonalQ R + 2 * eulerFractionOffQ R := by
   have hsym (a b : ℕ) :
       eulerFractionQ R a b = eulerFractionQ R b a := by
-    simp [eulerFractionQ, eulerContinuousQ, eulerFloorQ, Nat.mul_comm]
+    simp [eulerFractionQ, eulerContinuousQ, eulerFloorQ, mul_comm]
   exact eulerFractionSymmetricSquareQ (R - 1) eulerMuQ
     (eulerFractionQ R) hsym
 
 /-- The fractional diagonal is completely paid at the root scale, WITHOUT K. -/
-theorem eulerFractionDiagonalQ_bounds (R : ℕ) (hR : 2 ≤ R) :
+theorem eulerFractionDiagonalQ_bounds (R : ℕ) (_hR : 2 ≤ R) :
     0 ≤ eulerFractionDiagonalQ R ∧
       eulerFractionDiagonalQ R ≤ (R - 1 : ℕ) := by
   have hterm (b : ℕ) (hb : b ∈ Finset.Icc 1 (R - 1)) :
