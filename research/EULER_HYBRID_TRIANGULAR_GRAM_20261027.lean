@@ -216,6 +216,7 @@ theorem eulerSelfDualBilinear_eq_diagonal_add_signedStrictCross
             ((∑ a ∈ Finset.Icc 1 (b - 1), f a * F a b) -
               M (b - 1) * F b b) := by
         rw [Finset.sum_add_distrib, Finset.mul_sum]
+        simp only [mul_assoc]
 
 #print axioms eulerSelfDualBilinear_eq_diagonal_add_signedStrictCross
 
