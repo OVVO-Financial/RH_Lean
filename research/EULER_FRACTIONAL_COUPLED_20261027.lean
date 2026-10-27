@@ -123,14 +123,7 @@ theorem eulerContinuousBilinearQ_eq_reciprocal_square (R : ℕ) :
 theorem eulerFloorBilinearQ_cast_eq_original (R : ℕ) :
     ((eulerFloorBilinearQ R : ℚ) : ℂ) = eulerSelfDualBilinear R := by
   unfold eulerFloorBilinearQ eulerSelfDualBilinear
-  simp only [Rat.cast_sum, Rat.cast_mul, Rat.cast_intCast]
-  apply Finset.sum_congr rfl
-  intro b _hb
-  rw [Complex.ofReal_mul] -- replacement if already cast definally equal
-  congr 1
-  apply Finset.sum_congr rfl
-  intro a _ha
-  simp [eulerMuQ, eulerFloorQ, eulerSelfDualFloor]
+  simp [eulerMuQ, eulerFloorQ, eulerSelfDualFloor, Rat.cast_sum, Rat.cast_mul]
 
 #print axioms eulerFloorBilinearQ_eq_continuous_sub_fractional
 #print axioms eulerContinuousBilinearQ_eq_reciprocal_square
