@@ -38,9 +38,13 @@ def eulerRankOneResidualQ (R : ℕ) : ℚ :=
 /-- Physical square horizon factors exactly, without a continuous approximation. -/
 theorem eulerRootEndpoint_factor (R : ℕ) (hR : 2 ≤ R) :
     squareRootEndpoint R = (R + 1) * (R - 1) := by
-  have hpred : R - 1 + 1 = R := by omega
-  unfold squareRootEndpoint
-  nlinarith
+  cases R with
+  | zero => omega
+  | succ n =>
+      change (n + 1) ^ 2 - 1 = (n + 1 + 1) * n
+      have hsq : (n + 1) ^ 2 = (n + 1 + 1) * n + 1 := by ring
+      rw [hsq]
+      omega
 
 /-- The rank-one subtraction couples BOTH fractional modes, exactly. -/
 theorem eulerRankOneFloorKernel_eq_coupled_fracs
@@ -59,8 +63,8 @@ theorem eulerHistoricalFloorInversionQ (R : ℕ) (hR : 2 ≤ R) :
     (∑ a ∈ Finset.Icc 1 (R - 1), eulerMuQ a *
       (((R - 1) / a : ℕ) : ℚ)) = 1 := by
   have h := RHLean.Analysis.nativeSumMoebiusMulFloor (R - 1) (by omega)
-  unfold eulerMuQ
-  exact_mod_cast h
+  have hQ := congrArg (fun z : ℤ => (z : ℚ)) h
+  simpa [eulerMuQ] using hQ
 
 /-- The exact original Q_R minus an independently bounded linear root mode. -/
 theorem eulerRankOneResidualQ_eq_floor_sub_linear
@@ -82,8 +86,13 @@ theorem eulerRankOneResidualQ_eq_floor_sub_linear
           apply Finset.sum_congr rfl
           intro a _ha
           ring
-      _ = _ := by simpa [S] using congrArg
-        (fun z : ℚ => ((R + 1 : ℕ) : ℚ) / (b : ℚ) * z) hInversion
+      _ = _ := by
+        change ((R + 1 : ℕ) : ℚ) / (b : ℚ) *
+            (∑ a ∈ Finset.Icc 1 (R - 1),
+              eulerMuQ a * (((R - 1) / a : ℕ) : ℚ)) =
+          ((R + 1 : ℕ) : ℚ) / (b : ℚ)
+        rw [hInversion]
+        ring
   unfold eulerRankOneResidualQ eulerRankOneFloorKernelQ
     eulerFloorBilinearQ eulerReciprocalHistoricalQ
   calc
