@@ -38,6 +38,25 @@ Concrete counterexample: R=56, c=3, p=23. Both integer least-prime factors are 3
 The *literal collision quotient* no-go in
 `RHLean/Analysis/PrimeBoundaryCollisionQuotientNoGo.lean` is specifically caused by corrected physical weights being **zero on selected-prime square-hit sites**, not in general by p<minFac(c) or by a change of first-owner coordinate. The new work must avoid reading those zero-weight physical collision labels as valid paid descendants.
 
+## Daughter indices are not integer factor owners
+
+The reciprocal daughter index `q` in
+`lowOwnerReciprocalDaughterWeight R n` is an independent prime summation
+index; it is *not* constrained to divide n. The already-proved common-clock
+Fubini `lowOwnerReciprocalMertensColumnReal_eq_weightedMobiusSum` makes
+this explicit. At R=56, n=1 receives 1/3+1/5+1/7 even though none of
+3,5,7 divides the site. Consequently, decomposing every daughter term as
+`n=q*m` with `Nat.minFac n=q` does NOT reproduce the original AMP
+column. For Task B, distinguish all three independent indices: daughter
+cutoff q, first-separating Gram owner p, and least integer factor minFac(n).
+
+Likewise the pair-side first-owner cell includes arbitrary distinct squarefree
+m,n whose sets of primes below p match and whose p-divisibility differs.
+They need not be literal p-multiplication mates. For example the pair
+(21,429) first differs at p=7 but is not related by multiplying by 7.
+The four-corner virtual-parent completion and the original signed Gram
+are required to recover all pair atoms.
+
 ## Corrected factor and cutoff geometry
 
 Let `X=R^2-1`, `q` the least prime factor of the parent `q*m`, `p>q` fresh, and assume all factors of m lie in (q,p). The child `q*p*m` is outside the physical horizon precisely when
