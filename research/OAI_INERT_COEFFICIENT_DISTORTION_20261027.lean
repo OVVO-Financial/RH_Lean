@@ -18,6 +18,8 @@ out weighted norms, non-diagonal maps, use of the marked top term, or
 cancellation in the complete compensated packet.
 -/
 
+noncomputable section
+
 namespace RHLean.Proof
 
 /-- The scalar coefficient of the rescaled term in an inert OAI one-slot
@@ -53,7 +55,6 @@ theorem inertOwnerwiseCoefficientMatch_iff
   · intro h
     rw [h]
     field_simp [hqR]
-    ring
 
 /-- Any unweighted operator bound for the local coefficient match must pay the
 full `q²` distortion. -/
@@ -74,7 +75,7 @@ theorem arbitrarily_large_inert_coefficient_multiplier (N : ℕ) :
       ∀ t : ℝ, InertOwnerwiseCoefficientMatch q t →
         (N : ℝ) < |t| := by
   obtain ⟨q, hNq, hprime, hmod⟩ :=
-    DirichletsTheorem.Nat.forall_exists_prime_gt_and_modEq N
+    Nat.forall_exists_prime_gt_and_modEq N
       (q := 3) (a := 2) (by norm_num) (by norm_num)
   refine ⟨q, hprime, hmod, ?_⟩
   intro t hmatch
