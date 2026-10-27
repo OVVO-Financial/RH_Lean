@@ -1,0 +1,76 @@
+name: Euler self-dual pointwise finite-C bridge
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - "research/EULER_SELF_DUAL_POINTWISE_20261027.lean"
+      - "research/EULER_SELF_DUAL_POINTWISE_20261027.lean"
+      - "research/EULER_SELF_DUAL_BRIDGE_AUDIT_20261027.md"
+      - ".github/workflows/euler-self-dual-finite-c.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  lean:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up pinned Lean and cached Mathlib
+        uses: ./.github/actions/lean-setup
+      - name: Restore PNT+ build cache
+        uses: actions/cache/restore@v5
+        with:
+          path: .lake/packages/PrimeNumberTheoremAnd/.lake/build
+          key: pntplus-build-v1-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
+      - name: Prebuild PNT+ StrongPNT
+        run: lake build PrimeNumberTheoremAnd.StrongPNT
+      - name: Restore native library build cache
+        uses: actions/cache/restore@v5
+        with:
+          path: .lake/build
+          key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'RHLean.lean', 'RHLean/**/*.lean') }}
+          restore-keys: |
+            rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-
+      - name: Compile exact research import closure with warnings fatal
+        run: |
+          python3 scripts/compile_research_import_closure.py --build-library \
+            research/EULER_SELF_DUAL_POINTWISE_20261027.lean
+      - name: Audit new theorem axioms
+        run: |
+          cat > /tmp/euler_self_dual_axioms.lean <<'EOF'
+          import «research.EULER_HYBRID_TRIANGULAR_GRAM_20261027»
+          #print axioms RHLean.Proof.eulerSelfDualConvolutionCoefficient_eq_signed_moebius
+          #print axioms RHLean.Proof.eulerSelfDualConvolutionCoefficient_eq_moebius_of_lt_root
+          #print axioms RHLean.Proof.eulerSelfDualConvolutionCoefficient_eq_neg_moebius_of_root_le
+          EOF
+          lake env lean -DwarningAsError=true /tmp/euler_self_dual_axioms.lean | tee /tmp/euler_self_dual_axioms.log
+          if grep -q 'sorryAx' /tmp/euler_self_dual_axioms.log; then exit 1; fi
+          python3 - <<'PY'
+          import re
+          log = open('/tmp/euler_self_dual_axioms.log').read()
+          allowed = {'propext', 'Classical.choice', 'Quot.sound'}
+          for line in log.splitlines():
+              match = re.search(r"depends on axioms: \[(.*)\]", line)
+              if match:
+                  used = {a.strip() for a in match.group(1).split(',') if a.strip()}
+                  assert used <= allowed, f"Nonstandard axioms: {used - allowed}"
+          print("PASS standard axioms only")
+          PY
+      - name: Reject admitted proofs in changed source
+        run: |
+          python3 - <<'PY'
+          import pathlib, re
+          paths = [
+              'research/EULER_SELF_DUAL_POINTWISE_20261027.lean',
+          ]
+          for path in paths:
+              body = pathlib.Path(path).read_text()
+              body = re.sub(r'/-.*?-/', '', body, flags=re.S)
+              body = re.sub(r'--.*', '', body)
+              assert not re.search(r'\b(sorry|admit|axiom)\b', body), path
+          print('PASS no sorry, admit or new axiom')
+          PY
