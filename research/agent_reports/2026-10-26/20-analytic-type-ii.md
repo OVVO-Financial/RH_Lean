@@ -281,3 +281,8 @@ The first payable statement is:
 The proof must operate on the genuine spatial sextic kernel. Hecke-character completion over `eta` is not source-admitted at the fixed-`eta` moment. Low `J=1`, same-ray sixth-power seeds, unit-trivial rows, principal signal, split/inert collisions, Gaussian tails and height integration remain mandatory.
 
 New claim: `20261026-analytic-1`. Final classification: a source-verified correction and rigorous Gram/Schur reduction, plus a counterexample to generic weighted character completion; no independently proved original-source power saving, no strict exponent gain, no canonical VF closure and no RH proof.
+
+
+## K. Publication verification
+
+The early `IN_PROGRESS` checkpoint was created by commit `ac7d59cb64ba85bdd11ac85672ed96a802e1a655` and immediately read back as blob `3164f45cdfa54741b124e66c5d429e0a7647a473`. The completed synthesis was published by commit `86d162677d7d7bf9f6aa11ecdd0dd60a63dbf2c5` and immediately read back as blob `13008ae4786a03eb2b49b4acccf71edb805ad60d`, 14,685 characters, with claim `20261026-analytic-1` and the pinned original source blob present. Publication verifies the report text only; the new Gram theorem remains a paper proof pending independent review.
