@@ -52,7 +52,8 @@ def eulerHybridAbelEdge (R : ℕ) : ℂ :=
 
 /-- Exact asymmetric Abel identity, including the upper boundary term.
 This holds at every R, with no bound or hypothesis. -/
-theorem eulerSelfDualBilinear_eq_hybridAbel_add_edge (R : ℕ) :
+theorem eulerSelfDualBilinear_eq_hybridAbel_add_edge
+    (R : ℕ) (hR : 2 ≤ R) :
     eulerSelfDualBilinear R =
       eulerHybridAbelMain R +
         mertensSummatory (R - 1) * eulerHybridAbelEdge R := by
@@ -67,6 +68,8 @@ theorem eulerSelfDualBilinear_eq_hybridAbel_add_edge (R : ℕ) :
         mertensSummatory (R - 1) * eulerSelfDualFloor R R b := by
     have h := RHLean.Analysis.sum_mertensSummatory_mul_forwardDifference
       (fun a => eulerSelfDualFloor R a b) (R - 1)
+    have htop : R - 1 + 1 = R := by omega
+    rw [htop] at h
     calc
       _ =
           ((∑ a ∈ Finset.Icc 1 (R - 1),
