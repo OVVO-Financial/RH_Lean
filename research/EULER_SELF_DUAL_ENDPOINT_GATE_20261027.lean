@@ -62,8 +62,8 @@ theorem eulerSelfDualBilinear_eq_two_mertens_sub_endpoint
             R n hR (lt_of_le_of_lt hnX hR2)]
         push_cast
         by_cases hnr : n < R
-        · simp [hnr]
-        · simp [hnr]
+        · simp [hnr] <;> ring
+        · simp [hnr] <;> ring
       _ =
         2 * (∑ n ∈ Finset.Icc 1 X,
           if n < R then (((μ n : ℤ) : ℂ)) else 0) -
@@ -85,7 +85,6 @@ theorem eulerSelfDualBilinear_eq_two_mertens_sub_endpoint
         mertensSummatory (squareRootEndpoint R) := by
       rw [← mertensSummatory_eq_sum_Icc (R - 1),
         ← mertensSummatory_eq_sum_Icc X]
-      rfl
 
 /-- Original finite-C estimate, with a universal scalar C and *every*
 valid historical critical envelope K. This is the OPEN number-theoretic
@@ -131,7 +130,7 @@ theorem squareRootEndpointAmplification_of_eulerFiniteC
         K * (R : ℝ) := by
     change shiftedMertensEnergy (R - 1) ≤ K * (R : ℝ)
     rw [shiftedMertensEnergy_eq_intSquare]
-    exact hMprevious
+    simpa [show R - 1 + 1 = R by omega] using hMprevious
   have hKpos : (0 : ℝ) ≤ K := hKnonneg
   have hRpow : (R : ℝ) ≤ (R : ℝ) ^ 2 := by
     nlinarith
@@ -142,7 +141,10 @@ theorem squareRootEndpointAmplification_of_eulerFiniteC
       _ ≤ K * (R : ℝ) := hMpreviousNorm
       _ ≤ K * (R : ℝ) ^ 2 :=
         mul_le_mul_of_nonneg_left hRpow hKpos
-      _ = ((R : ℝ) * Real.sqrt K) ^ 2 := by rw [hSsq]; ring
+      _ = ((R : ℝ) * Real.sqrt K) ^ 2 := by
+        calc
+          K * (R : ℝ) ^ 2 = (Real.sqrt K) ^ 2 * (R : ℝ) ^ 2 := by rw [hSsq]
+          _ = ((R : ℝ) * Real.sqrt K) ^ 2 := by ring
   have hMpreviousLinear :
       ‖mertensSummatory (R - 1) - 1‖ ≤
         (R : ℝ) * Real.sqrt K := by
@@ -169,7 +171,7 @@ theorem squareRootEndpointAmplification_of_eulerFiniteC
       _ ≤
           (‖2 * (mertensSummatory (R - 1) - 1)‖ + ‖(1 : ℂ)‖) +
             ‖eulerSelfDualBilinear R‖ :=
-        add_le_add_right (norm_add_le _ _) _
+        add_le_add_left (norm_add_le _ _) _
       _ = 2 * ‖mertensSummatory (R - 1) - 1‖ +
           1 + ‖eulerSelfDualBilinear R‖ := by
         simp
@@ -195,7 +197,11 @@ theorem squareRootEndpointAmplification_of_eulerFiniteC
   calc
     ‖mertensSummatory (squareRootEndpoint R) - 1‖ ^ 2 ≤
         ((C + 3) * (R : ℝ) * Real.sqrt K) ^ 2 := hsqBound
-    _ = (C + 3) ^ 2 * (R : ℝ) ^ 2 * K := by rw [hSsq]; ring
+    _ = (C + 3) ^ 2 * (R : ℝ) ^ 2 * K := by
+      calc
+        ((C + 3) * (R : ℝ) * Real.sqrt K) ^ 2 =
+          (C + 3) ^ 2 * (R : ℝ) ^ 2 * (Real.sqrt K) ^ 2 := by ring
+        _ = (C + 3) ^ 2 * (R : ℝ) ^ 2 * K := by rw [hSsq]
 
 /-- **Conditional RH export**: no new number-theoretic hypothesis is hidden.
 The entire unproved payload is EulerSelfDualFiniteCStatement. -/
