@@ -218,3 +218,48 @@ themselves infer a uniform fixed eta for the full source.
 The q^2 daughter index, integer least-prime divisor, and Gram first-separating
 owner are distinct; this source must be paired with their actual occurrence
 weights before applying the reciprocal-operator contraction.
+
+## 10. The complete signed interior becomes fixed-quotient carry/phase covariance
+
+For a in the unpaid interior define q=floor(N/a). Partition the historical
+a-line into the **disjoint original quotient buckets**
+
+    I_q={a: floor(N/(q+1))<a<=floor(N/q)}, 1<=q<=N.
+
+For each q,b let rho_(q,b)=(L*q) mod b, independent of a inside I_q,
+and define the integer carry
+
+    c_(q,b)(a)=floor((a*rho_(q,b)+L*(N-a*q))/(a*b)).
+
+Let DeltaM_q^o=sum_(a in I_q, a NOT dividing N) mu(a). This is the
+original signed historical Mertens increment, with exact divisor rows removed.
+The UNPAID bulk has the exact, fully signed expansion
+
+    C_R =
+      sum_(q=1)^N sum_(b=1)^(N-H) mu(b) *
+        [ sum_(a in I_q, a not | N) mu(a)*c_(q,b)(a)
+          - (rho_(q,b)/b) * DeltaM_q^o ].
+
+The residue phase is constant inside each q-bucket; only the integer
+carry changes as a varies. This gives a direct bridge to reciprocal
+quotient-bucket and historical covariance coordinates without dropping
+the correlated phase or applying a per-bucket triangle inequality.
+
+Independent original-Mobius float displays (all floor/carry decisions
+computed with exact integers):
+
+    R    total bulk C_R    sum_q |bucket_q|    ratio
+    100     +12.267              41.668         3.40
+    317     +26.962             117.563         4.36
+    500     +36.291             234.342         6.46
+    1000   -205.005             453.335         2.21
+
+There is material signed inter-bucket cancellation. But the finite
+tests have K_R=1.5 at these roots and do not probe the required
+large-energy regime; no fixed-eta gain follows.
+
+**Next source-faithful target:** establish an independently proved mixed
+carry-phase signed bound on the COMPLETE q,b sum for the original Mobius
+values, with all original quotient windows and row endpoints retained.
+That, rather than independent carry and phase norms, is the necessary
+analytic input for the eta<2 historical-budget amplification recurrence.
