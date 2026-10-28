@@ -90,7 +90,7 @@ theorem oai78Abel_hyperbola_three_terms
   have htotal := oai78Abel_all_quotients_eq_one N (by omega)
   have hsplit1 := Finset.sum_Ioc_consecutive
     (f := fun q : ℕ => mertensSummatoryInt (N / q))
-    (Nat.zero_le 1) hQN
+    (Nat.zero_le 1) (by omega : 1 ≤ N)
   have hsplit2 := Finset.sum_Ioc_consecutive
     (f := fun q : ℕ => mertensSummatoryInt (N / q))
     hQ hQN
@@ -139,10 +139,8 @@ theorem oai78Abel_hyperbola_three_terms
           (Q : ℤ) *
             (∑ a ∈ Finset.Icc 1 (N / Q),
               (ArithmeticFunction.moebius a : ℤ)) := by
-                rw [Finset.sum_sub_distrib, ← Finset.mul_sum]
-                apply congrArg (fun x : ℤ => _ - x)
-                -- The final sum is already the complete signed prefix.
-                simp only [mul_comm]
+                rw [Finset.sum_sub_distrib, ← Finset.sum_mul]
+                ring
       _ = _ := by rw [mertensSummatoryInt_eq_Icc]
   rw [hsmall] at hcore
   exact hcore
