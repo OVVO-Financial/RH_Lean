@@ -51,7 +51,7 @@ For any k>=1,
     c_qb(a)>=k
       <=> a<= floor(Y_b/(m_qb+k)) =: v_qbk.
 
-Let a0=l_q+1 (assuming I_q nonempty) and K_qb=c_qb(a0). Then
+Let a0=l_q+1 and DEFINE K_qb=c_qb(a0) when I_q is nonempty, or K_qb=0 when I_q is empty. Then
 
     c_qb(a)=sum_(k=1)^K_qb 1_(a<=v_qbk)
 
