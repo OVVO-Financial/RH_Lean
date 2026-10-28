@@ -328,7 +328,7 @@ theorem eulerBucketMertens_endpoint_lt_root
 /-- Exact integer Euclidean carry: both original arithmetic remainders
 are retained, with no smooth approximation. -/
 theorem eulerBucketCarry_eq_euclidean
-    (R q b a : ℕ) (hR : 2 ≤ R) (ha : 0 < a)
+    (R q b a : ℕ) (hR : 2 ≤ R) (ha : 0 < a) (hb : 0 < b)
     (hq : (R - 1) / a = q) :
     eulerBucketCarry R q b a =
       (a * (((R + 1) * q) % b) +
@@ -355,7 +355,7 @@ theorem eulerBucketCarry_eq_euclidean
       squareRootEndpoint R / (a * b) =
         m + (a * rho + L * t) / (a * b) := by
     rw [hX, Nat.mul_comm (a * b) m,
-      Nat.mul_add_div (Nat.mul_pos ha (by omega : 0 < b))]
+      Nat.mul_add_div (Nat.mul_pos ha hb)]
   have hnest :
       eulerBucketY R b / a = squareRootEndpoint R / (a * b) := by
     unfold eulerBucketY
@@ -413,8 +413,8 @@ theorem eulerBucketCarry_le_div_add_one
       _ = (b * 1 + N) / b := by ring
       _ = 1 + N / b := Nat.mul_add_div hb
       _ = N / b + 1 := by omega
-  rw [eulerBucketCarry_eq_euclidean R q b a hR ha hq]
-  exact hrat.trans_eq hadd
+  rw [eulerBucketCarry_eq_euclidean R q b a hR ha hb hq]
+  exact le_of_le_of_eq hrat hadd
 
 /-- Certified complexity bound for the COMPLETE genuine historical bucket.
 In particular b>N/2 forces at most TWO integer carry levels. -/
