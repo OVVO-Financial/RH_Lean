@@ -87,8 +87,12 @@ theorem eulerAbelSmoothDrift_eq_one_sub_complement
   let f : ℕ → ℤ := fun q => mertensSummatoryInt (N / q)
   have hwhole :
       (∑ q ∈ Finset.Ioc 0 N, f q) = 1 := by
-    simpa only [Ioc_zero_eq_Icc_one] using
-      (eulerGlobalHistoricalQuotientSum_eq_one N hN)
+    have hset : Finset.Ioc 0 N = Finset.Icc 1 N := by
+      ext q
+      simp only [Finset.mem_Ioc, Finset.mem_Icc]
+      omega
+    rw [hset]
+    exact eulerGlobalHistoricalQuotientSum_eq_one N hN
   have hsplit1 := Finset.sum_Ioc_consecutive
     (f := f) (Nat.zero_le 1) hN
   have hsplit2 := Finset.sum_Ioc_consecutive
@@ -96,11 +100,15 @@ theorem eulerAbelSmoothDrift_eq_one_sub_complement
   have hfirst :
       (∑ q ∈ Finset.Ioc 0 1, f q) = mertensSummatoryInt N := by
     simp [f]
-  rw [hsplit1, hsplit2, hfirst] at hwhole
+  rw [← hsplit1, ← hsplit2, hfirst] at hwhole
   change (∑ q ∈ Finset.Ioc 1 Q, f q) =
     1 - mertensSummatoryInt N -
       ∑ q ∈ Finset.Ioc Q N, f q
   omega
+
+/-- Original historical Mertens value embedded into rational Abel weights. -/
+def eulerHistoricalMertensQ (n : ℕ) : ℚ :=
+  ((mertensSummatoryInt n : ℤ) : ℚ)
 
 /-- Apply the already-proved no-drift identity to the exact rational
 Abel coefficient d=(R+1)/b, retaining the whole complementary tail. -/
