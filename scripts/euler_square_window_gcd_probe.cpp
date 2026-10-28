@@ -12,7 +12,11 @@ using i64 = int64_t;
 
 i64 numerator(int r,int d) {
   const i64 x=i64(r)*r-1, y=i64(r)*r+2*r;
-  return x%d-y%d;
+  const auto euclidean_mod=[&](i64 z) -> i64 {
+    const i64 t=z%d;
+    return t<0?t+d:t;
+  };
+  return euclidean_mod(x)-euclidean_mod(y);
 }
 i64 historical(int R,const std::vector<int8_t>& mu) {
   const i64 x=i64(R)*R-1, y=i64(R)*R+2*R;
