@@ -286,6 +286,61 @@ theorem eulerBucket_strict_level_implies_small_q
   rw [hnone] at hk
   simp at hk
 
+
+/-- Left edge of the extended strict-interior quotient-j window. -/
+def eulerBucketJLower (R q b : ℕ) : ℕ :=
+  eulerBucketY R b / eulerBucketHigh R q
+
+/-- Right edge of the extended strict-interior quotient-j window.
+Only use the extended interval when the historical bucket low is nonzero. -/
+def eulerBucketJUpper (R q b : ℕ) : ℕ :=
+  eulerBucketY R b / eulerBucketLow R q
+
+/-- The j-windows are EXACTLY contiguous: ell_q = r_(q+1).
+No fractional approximation or missing interior endpoint. -/
+theorem eulerBucketJUpper_eq_nextJLower (R q b : ℕ) :
+    eulerBucketJUpper R q b = eulerBucketJLower R (q + 1) b := by
+  rfl
+
+/-- All terms added when extending a strict interior level-set sum
+from floor(Y/(ell+1)) to floor(Y/ell) have quotient EXACTLY ell. -/
+theorem eulerBucket_extended_j_quotient_eq_low
+    (R q b j : ℕ) (hlo : 0 < eulerBucketLow R q)
+    (hj : j ∈ Finset.Ioc
+       (eulerBucketY R b / (eulerBucketLow R q + 1))
+       (eulerBucketJUpper R q b)) :
+    eulerBucketY R b / j = eulerBucketLow R q := by
+  let ell := eulerBucketLow R q
+  let Y := eulerBucketY R b
+  have hleft : Y / (ell + 1) < j := (Finset.mem_Ioc.mp hj).1
+  have hright : j ≤ Y / ell := (Finset.mem_Ioc.mp hj).2
+  have hjpos : 0 < j := by
+    have hz : 0 ≤ Y / (ell + 1) := Nat.zero_le _
+    omega
+  have hmulLo : j * ell ≤ Y :=
+    (Nat.le_div_iff_mul_le hlo).1 hright
+  have hmulHi : Y < j * (ell + 1) :=
+    (Nat.div_lt_iff_lt_mul (Nat.succ_pos ell)).1 hleft
+  have hdivLo : ell ≤ Y / j :=
+    (Nat.le_div_iff_mul_le hjpos).2
+      (by simpa [Nat.mul_comm] using hmulLo)
+  have hdivHi : Y / j < ell + 1 :=
+    (Nat.div_lt_iff_lt_mul hjpos).2
+      (by simpa [Nat.mul_comm] using hmulHi)
+  omega
+
+/-- The extended j-window adds ZERO genuine historical Mertens mass,
+including all floor quotient corners. -/
+theorem eulerBucket_extended_j_Mertens_zero
+    (R q b j : ℕ) (hlo : 0 < eulerBucketLow R q)
+    (hj : j ∈ Finset.Ioc
+       (eulerBucketY R b / (eulerBucketLow R q + 1))
+       (eulerBucketJUpper R q b)) :
+    mertensSummatoryInt (eulerBucketY R b / j) -
+      mertensSummatoryInt (eulerBucketLow R q) = 0 := by
+  rw [eulerBucket_extended_j_quotient_eq_low R q b j hlo hj]
+  ring
+
 #print axioms eulerBucketJumpEnd_ge_right_of_clipped
 #print axioms eulerBucketJumpEnd_lt_right_of_strict
 #print axioms eulerBucketJumpEnd_gt_low_of_strict
@@ -295,5 +350,8 @@ theorem eulerBucket_strict_level_implies_small_q
 #print axioms eulerBucketRightCarry_zero_of_q_dvd
 #print axioms eulerBucketCarry_sum_eq_endpoint_add_strict
 #print axioms eulerBucket_strict_level_implies_small_q
+#print axioms eulerBucketJUpper_eq_nextJLower
+#print axioms eulerBucket_extended_j_quotient_eq_low
+#print axioms eulerBucket_extended_j_Mertens_zero
 
 end RHLean.Proof
