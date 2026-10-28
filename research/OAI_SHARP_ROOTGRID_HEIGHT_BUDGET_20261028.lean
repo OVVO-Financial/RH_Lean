@@ -350,7 +350,8 @@ theorem oaiMobiusOfPerfectSquare_zero
   have hp2 : p ^ 2 ∣ m ^ 2 := by
     obtain ⟨k, hk⟩ := hpd
     exact ⟨k ^ 2, by rw [hk]; ring⟩
-  exact (Nat.squarefree_iff_prime_squarefree.mp hsf p hp) hp2
+  have hp2' : p * p ∣ m ^ 2 := by simpa only [pow_two] using hp2
+  exact (Nat.squarefree_iff_prime_squarefree.mp hsf p hp) hp2'
 
 /-- There is not even an O(H) square-jump error in the genuine
 Mobius-weighted root-phase series, since square terms vanish exactly. -/
