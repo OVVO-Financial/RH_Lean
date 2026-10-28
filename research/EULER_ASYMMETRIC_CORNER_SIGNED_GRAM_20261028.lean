@@ -198,7 +198,7 @@ theorem eulerAsym_omitted_row
   have hfromGlobal :
       (∑ a ∈ Finset.Icc 1 N, f a) +
         (∑ a ∈ Finset.Ioc N K, f a) = 1 := by
-    rw [← hsplit]
+    rw [hsplit]
     simpa [f] using htotal
   rw [htail, eulerAsym_mobius_interval N K hNK] at hfromGlobal
   have hfirst :
