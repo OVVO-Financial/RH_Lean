@@ -62,6 +62,9 @@ theorem oai78Nested_original_corr4_frame_defect_nonneg (R : ℕ) :
   have hstrong := corr4_reciprocal_column_sq_le_211_900_energy R
   have henergy : 0 ≤ canonicalRoughLowQ2DaughterEnergy R := by
     unfold canonicalRoughLowQ2DaughterEnergy
+    apply Finset.sum_nonneg
+    intro q _hq
+    unfold rawQ2ChildEnergyReal
     positivity
   nlinarith
 
