@@ -229,6 +229,138 @@ theorem oaiNNSDyadicTwoSided_eq_energy (H : ℕ) (x : ℕ → Real) :
   simpa only [sub_zero] using
     oaiNNSTwoSidedSecond_eq_energy (Finset.Ico H (2 * H)) x 0
 
+
+/-!
+## Fourth partial moments: conditional half-trace budget, not a free saving
+
+NNS LPM4+UPM4 exactly equals the original fourth signed moment.
+Cauchy for a finite set gives (sum x²)^2<=card*sum x⁴.
+For a globally T-bandlimited smooth function, first-derivative trace
+applied to |F|⁴ and the L4 Bernstein inequality yield
+sum_grid|F|⁴ <= (H+C*T)*integral_R|F|⁴.
+Thus the GRID factor (T/H)^(1/2) enters the second moment after
+Cauchy. This gains only IF a sufficiently strong *root-source fourth
+moment* is independently available. In a bounded-width spike model,
+the continuous L4 baseline itself grows by sqrt(T/H) against L2,
+exactly canceling the apparent trace gain.
+
+The original OAI marked fourth-moment theorem controls a Hecke-row
+marked product, NOT by definition this root-indexed |F|^4 moment.
+No source identity or uniform fourth-moment estimate is assumed here.
+-/
+
+def oaiNNSLowerFourth (s : Finset ℕ) (x : ℕ → Real)
+    (target : Real) : Real :=
+  ∑ R ∈ s, (max (target - x R) 0) ^ 4
+
+def oaiNNSUpperFourth (s : Finset ℕ) (x : ℕ → Real)
+    (target : Real) : Real :=
+  ∑ R ∈ s, (max (x R - target) 0) ^ 4
+
+theorem oaiNNSTwoSidedFourth_eq_energy
+    (s : Finset ℕ) (x : ℕ → Real) (target : Real) :
+    oaiNNSLowerFourth s x target +
+      oaiNNSUpperFourth s x target =
+        ∑ R ∈ s, (x R - target) ^ 4 := by
+  unfold oaiNNSLowerFourth oaiNNSUpperFourth
+  rw [← Finset.sum_add_distrib]
+  apply Finset.sum_congr rfl
+  intro R _hR
+  by_cases h : x R ≤ target
+  · have hlt : 0 ≤ target - x R := sub_nonneg.mpr h
+    have hut : x R - target ≤ 0 := sub_nonpos.mpr h
+    rw [max_eq_left hlt, max_eq_right hut]
+    ring
+  · have hgt : target ≤ x R := le_of_lt (lt_of_not_ge h)
+    have hlt : target - x R ≤ 0 := sub_nonpos.mpr hgt
+    have hut : 0 ≤ x R - target := sub_nonneg.mpr hgt
+    rw [max_eq_right hlt, max_eq_left hut]
+    ring
+
+theorem oaiNNSEnergy2_sq_le_card_energy4
+    (s : Finset ℕ) (x : ℕ → Real) :
+    (∑ R ∈ s, (x R) ^ 2) ^ 2 ≤
+      (s.card : Real) * ∑ R ∈ s, (x R) ^ 4 := by
+  have h := Finset.sum_mul_sq_le_sq_mul_sq
+    (R := Real) s (fun _ => (1 : Real)) (fun R => (x R) ^ 2)
+  simpa [pow_mul] using h
+
+theorem oaiNNSDyadicEnergy2_sq_le_H_energy4
+    (H : ℕ) (x : ℕ → Real) :
+    (∑ R ∈ Finset.Ico H (2 * H), (x R) ^ 2) ^ 2 ≤
+      (H : Real) * ∑ R ∈ Finset.Ico H (2 * H), (x R) ^ 4 := by
+  have hcard : (Finset.Ico H (2 * H)).card = H := by
+    simp [Nat.card_Ico]
+    omega
+  simpa [hcard] using
+    oaiNNSEnergy2_sq_le_card_energy4 (Finset.Ico H (2 * H)) x
+
+def oaiFourthGridTracePower (delta kappa : Real) : Real :=
+  (oaiMellinPower delta kappa - 1) / 2
+
+theorem oaiFourthGridTracePower_eq (delta kappa : Real) :
+    oaiFourthGridTracePower delta kappa =
+      1 / 8 + delta / 4 + kappa / 2 := by
+  unfold oaiFourthGridTracePower oaiMellinPower oaiCollarPower
+  ring
+
+/-- Here delta0 is the HALF saving of an independently proven
+FOURTH-MOMENT scale H^(4-2*delta0), and beta4 is the profile
+penalty exponent in that FOURTH moment BEFORE taking its square root.
+Neither is supplied by the existing pinned OAI marked-moment theorem. -/
+theorem oaiFourthGridRelativeBudget_iff
+    (delta delta0 kappa beta4 : Real) :
+    (5 / 2 - delta0 + oaiFourthGridTracePower delta kappa +
+        beta4 / 2 * (oaiMellinPower delta kappa - 1) ≤
+          5 / 2 - delta) ↔
+      (1 / 8 + 5 * delta / 4 + kappa / 2 +
+          beta4 / 2 * (1 / 4 + delta / 2 + kappa) ≤ delta0) := by
+  rw [oaiFourthGridTracePower_eq, oaiMellinPower_eq]
+  constructor <;> intro h <;> linarith
+
+/-- A spiky root-source fourth-moment baseline may already cost
+the missing half grid power, eliminating the apparent advantage. -/
+theorem oaiFourthGridTwice_eq_LinearTrace (delta kappa : Real) :
+    2 * oaiFourthGridTracePower delta kappa =
+      oaiLinearTracePower delta kappa := by
+  unfold oaiFourthGridTracePower oaiLinearTracePower
+  ring
+
+/-!
+## Fourier jumps at exact squares: no error for original Möbius
+
+The periodic fractional root factor
+ exp(-2*pi*i*theta*{u}) has jumps at integer u when theta is
+not integral. At u=m, its ordinary Fourier series converges to
+the midpoint, not to the right-continuous value. For n=m²>=4,
+however, actual mu(n)=0. The zero is proved below.
+-/
+
+open scoped ArithmeticFunction.Moebius
+
+theorem oaiMobiusOfPerfectSquare_zero
+    (m : ℕ) (hm : 2 ≤ m) :
+    μ (m ^ 2) = 0 := by
+  apply ArithmeticFunction.moebius_eq_zero_of_not_squarefree
+  intro hsf
+  obtain ⟨p, hp, hpd⟩ := Nat.exists_prime_and_dvd
+    (by omega : m ≠ 1)
+  have hp2 : p ^ 2 ∣ m ^ 2 := by
+    obtain ⟨k, hk⟩ := hpd
+    exact ⟨k ^ 2, by rw [hk]; ring⟩
+  exact (Nat.squarefree_iff_prime_squarefree.mp hsf p hp) hp2
+
+/-- There is not even an O(H) square-jump error in the genuine
+Mobius-weighted root-phase series, since square terms vanish exactly. -/
+theorem oaiMobiusSquareJumpContribution_zero
+    (H : ℕ) (hH : 2 ≤ H) (F : ℕ → ℤ) :
+    (∑ m ∈ Finset.Ico H (2 * H), (μ (m ^ 2)) * F m) = 0 := by
+  apply Finset.sum_eq_zero
+  intro m hm
+  have hm2 : 2 ≤ m := hH.trans (Finset.mem_Ico.mp hm).1
+  rw [oaiMobiusOfPerfectSquare_zero m hm2]
+  ring
+
 #print axioms oaiCollarRoundingPower
 #print axioms oaiMellinPower_eq
 #print axioms oaiGridTracePower_eq
@@ -237,6 +369,14 @@ theorem oaiNNSDyadicTwoSided_eq_energy (H : ℕ) (x : ℕ → Real) :
 #print axioms oaiLinearGridAbsoluteBudget_iff
 #print axioms oaiNNSTwoSidedSecond_eq_energy
 #print axioms oaiNNSDyadicTwoSided_eq_energy
+#print axioms oaiNNSTwoSidedFourth_eq_energy
+#print axioms oaiNNSEnergy2_sq_le_card_energy4
+#print axioms oaiNNSDyadicEnergy2_sq_le_H_energy4
+#print axioms oaiFourthGridTracePower_eq
+#print axioms oaiFourthGridRelativeBudget_iff
+#print axioms oaiFourthGridTwice_eq_LinearTrace
+#print axioms oaiMobiusOfPerfectSquare_zero
+#print axioms oaiMobiusSquareJumpContribution_zero
 #print axioms oaiRelativeProfilePower_eq
 #print axioms oaiAbsoluteHeightPower_eq
 #print axioms oaiGenericRelativeBudget_iff
