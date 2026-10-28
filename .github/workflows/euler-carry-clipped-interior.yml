@@ -51,6 +51,9 @@ jobs:
           #print axioms RHLean.Proof.eulerBucketRightCarry_zero_of_q_dvd
           #print axioms RHLean.Proof.eulerBucketCarry_sum_eq_endpoint_add_strict
           #print axioms RHLean.Proof.eulerBucket_strict_level_implies_small_q
+          #print axioms RHLean.Proof.eulerBucketJUpper_eq_nextJLower
+          #print axioms RHLean.Proof.eulerBucket_extended_j_quotient_eq_low
+          #print axioms RHLean.Proof.eulerBucket_extended_j_Mertens_zero
           EOF
           lake env lean -DwarningAsError=true /tmp/euler_clipped_axioms.lean | tee /tmp/euler_clipped_axioms.log
           if grep -q 'sorryAx' /tmp/euler_clipped_axioms.log; then exit 1; fi
