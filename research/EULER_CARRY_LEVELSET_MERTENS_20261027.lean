@@ -238,7 +238,7 @@ theorem eulerMobius_Ioc_eq_historicalMertens
       mertensSummatoryInt hi - mertensSummatoryInt lo := by
   have hs := Finset.sum_Ioc_consecutive
     (f := fun a : ℕ => (μ a : ℤ)) (Nat.zero_le lo) h
-  rw [Ioc_zero_eq_Icc_one, Ioc_zero_eq_Icc_one,
+  rw [Finset.Ioc_zero_eq_Icc_one, Finset.Ioc_zero_eq_Icc_one,
       ← mertensSummatoryInt_eq_Icc,
       ← mertensSummatoryInt_eq_Icc] at hs
   omega
