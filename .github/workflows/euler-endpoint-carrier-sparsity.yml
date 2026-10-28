@@ -42,6 +42,8 @@ jobs:
         run: |
           cat > /tmp/euler_endpoint_axioms.lean <<'EOF'
           import «research.EULER_CARRY_LEVELSET_MERTENS_20261027»
+          #print axioms RHLean.Proof.eulerBucket_jump_count_le
+          #print axioms RHLean.Proof.eulerBucket_jump_count_le_outer
           #print axioms RHLean.Proof.eulerEndpointCarry_q_one_zero
           #print axioms RHLean.Proof.eulerEndpointRight_remainder_eq_mod_q
           #print axioms RHLean.Proof.eulerEndpointCarry_le_sharp
