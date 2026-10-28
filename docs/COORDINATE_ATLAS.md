@@ -365,7 +365,7 @@ Harvested from source by [`scripts/search_catalog.py`](../scripts/search_catalog
 | `COORD-MOBIUS-COVARIANCE` | [`realMertensPositiveLagPairSum`](../RHLean/Analysis/DeterministicTGreenKuboComparison.lean) | 3: `realMertensPositiveLagPairSum_eq_inner_add_cross`, `realMertensPositiveLagPairSum_eq_doubleSum`, `realMertensPositiveLagPairSum_eq_norm_sq_sub_diagonal` |
 | `COORD-SQUARE-SHELL-MASS` | [`vf919SquareShellSum`](../research/VF_919_SEVEN_EIGHTHS_SQUARE_SHELL_BRIDGE_20261019.lean) | 2: `vf919SquareShellSum_eq_physicalIco`, `vf919SquareShellSum_eq_OAI_excludedNorm_high_sub_low` |
 | `COORD-LEGAL-GRAM` | [`squareRootLegalAncestryGramDefect`](../RHLean/Proof/SquareRootLegalAncestryGramReduction.lean) | 4: `squareRootLegalAncestryGramDefect_eq_sourceLedger`, `squareRootLegalAncestryGramDefect_eq_expanded`, `squareRootLegalAncestryGramDefect_eq_mertensNumerator`, `squareRootLegalAncestryGramDefect_eq_prime_add_smooth_sq` |
-| `COORD-EULER-SELF-DUAL` | [`eulerSelfDualBilinear`](../research/EULER_HYBRID_ABEL_GRAM_20261027.lean) | 4: `eulerSelfDualBilinear_eq_hybridAbel_add_edge`, `eulerSelfDualBilinear_eq_diagonal_add_signedStrictCross`, `eulerSelfDualBilinear_eq_two_mertens_sub_endpoint`, `eulerSelfDualBilinear_eq_convolutionSummatory` |
+| `COORD-EULER-SELF-DUAL` | [`eulerSelfDualBilinear`](../research/EULER_HYBRID_ABEL_GRAM_20261027.lean) | 5: `eulerSelfDualBilinear_eq_admissible_population`, `eulerSelfDualBilinear_eq_hybridAbel_add_edge`, `eulerSelfDualBilinear_eq_diagonal_add_signedStrictCross`, `eulerSelfDualBilinear_eq_two_mertens_sub_endpoint`, `eulerSelfDualBilinear_eq_convolutionSummatory` |
 | `COORD-EULER-SELF-DUAL` | [`eulerSelfDualConvolutionCoefficient`](../research/EULER_SELF_DUAL_POINTWISE_20261027.lean) | 3: `eulerSelfDualConvolutionCoefficient_eq_moebius_of_lt_root`, `eulerSelfDualConvolutionCoefficient_eq_neg_moebius_of_root_le`, `eulerSelfDualConvolutionCoefficient_eq_signed_moebius` |
 | `COORD-CORR4-PARENT` | [`squareRootCanonicalRoughCorrelation`](../RHLean/Analysis/SquareRootCanonicalRoughCovariance.lean) | 9: `squareRootCanonicalRoughCorrelation_eq_card_mul_mean_add_covariance`, `squareRootCanonicalRoughCorrelation_eq_mertens_pred_sub_endpoint`, `squareRootCanonicalRoughCorrelation_eq_weighted_primePartnerCount`, `squareRootCanonicalRoughCorrelation_eq_renewalDyadicCensus_sub_rootCorrection`, `squareRootCanonicalRoughCorrelation_eq_neg_post789EndpointGap`, `squareRootCanonicalRoughCorrelation_eq_criticalSynthesis_add_physicalRemainder` … (+3) |
 | `COORD-CORR4-DAUGHTERS` | [`canonicalRoughLowQ2DaughterEnergy`](../research/CANONICAL_ROUGH_Q2_TAIL_REDUCTION.lean) | 1: `canonicalRoughLowQ2DaughterEnergy_eq_diagonal_add_firstOwnerGram` |
@@ -381,8 +381,7 @@ Harvested from source by [`scripts/search_catalog.py`](../scripts/search_catalog
 Edit [coordinate-atlas.json](coordinate-atlas.json), then run, in this order:
 
 ```bash
-python3 scripts/search_catalog.py --write        # static corpus, rewrite families, per-topic pages
-python3 scripts/coordinate_atlas.py write        # this page
+python3 scripts/search_catalog.py --write        # static corpus, rewrite families, per-topic pages and this page's generated blocks
 python3 scripts/coordinate_atlas.py check
 python3 -m unittest discover -s scripts -p 'test_coordinate_atlas.py' -v
 ```

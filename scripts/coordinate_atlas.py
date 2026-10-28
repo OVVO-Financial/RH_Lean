@@ -483,7 +483,7 @@ def main():
             raise SystemExit("coordinate atlas invalid:\n  " + "\n  ".join(errors))
         stale = sync(atlas, write=args.cmd == "write")
         if stale and args.cmd == "check":
-            raise SystemExit("docs/COORDINATE_ATLAS.md is stale; run python3 scripts/coordinate_atlas.py write")
+            raise SystemExit("docs/COORDINATE_ATLAS.md is stale; run python3 scripts/search_catalog.py --write")
         print(f"PASS: {len(atlas['coordinates'])} coordinates, {len(atlas['crosswalks'])} crosswalks, "
               f"{len(atlas['collisions'])} notation collisions; every coordinate reaches an anchor")
     elif args.cmd == "lookup":

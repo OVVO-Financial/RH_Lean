@@ -16,7 +16,8 @@ limit and is small enough for an agent to fetch one topic at a time.
 Tags come from docs/coordinate-atlas.json aliases and Lean names, route terms
 and literal proof-obligation IDs. They are search hints, never mathematical
 claims. `--check` reports staleness (and fails only with --strict); `--write`
-regenerates. Runs with the standard library in a few seconds.
+regenerates, including the generated blocks of docs/COORDINATE_ATLAS.md.
+Standard library only; a full run takes well under a minute.
 """
 
 import argparse
@@ -370,6 +371,14 @@ def expected_on_disk(files):
     return present - set(files)
 
 
+def write(files):
+    for name, body in files.items():
+        (OUT / name).parent.mkdir(parents=True, exist_ok=True)
+        (OUT / name).write_text(body, encoding="utf-8")
+    for name in expected_on_disk(files):
+        (OUT / name).unlink()
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     mode = parser.add_mutually_exclusive_group(required=True)
@@ -379,11 +388,13 @@ def main():
     args = parser.parse_args()
     files = build()
     if args.write:
-        for name, body in files.items():
-            (OUT / name).parent.mkdir(parents=True, exist_ok=True)
-            (OUT / name).write_text(body, encoding="utf-8")
-        for name in expected_on_disk(files):
-            (OUT / name).unlink()
+        write(files)
+        # docs/COORDINATE_ATLAS.md renders its rewrite block from these shards and is itself an input,
+        # so refresh it and rebuild once; rewrite families depend only on Lean sources, so this converges.
+        import coordinate_atlas
+        if coordinate_atlas.sync(coordinate_atlas.load(), write=True):
+            files = build()
+            write(files)
         print(json.dumps(json.loads(files["MANIFEST.json"])["counts"]))
         return
     missing = [n for n in files if not (OUT / n).is_file()]

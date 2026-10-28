@@ -18,7 +18,7 @@
 
 ## Lean definitions and their proved rewrites
 
-- [`eulerSelfDualBilinear`](../../../research/EULER_HYBRID_ABEL_GRAM_20261027.lean): 4 rewrite theorem(s): [`eulerSelfDualBilinear_eq_hybridAbel_add_edge`](../../../research/EULER_HYBRID_ABEL_GRAM_20261027.lean), [`eulerSelfDualBilinear_eq_diagonal_add_signedStrictCross`](../../../research/EULER_HYBRID_TRIANGULAR_GRAM_20261027.lean), [`eulerSelfDualBilinear_eq_two_mertens_sub_endpoint`](../../../research/EULER_SELF_DUAL_ENDPOINT_GATE_20261027.lean), [`eulerSelfDualBilinear_eq_convolutionSummatory`](../../../research/EULER_SELF_DUAL_FINITE_C_BRIDGE_20261027.lean)
+- [`eulerSelfDualBilinear`](../../../research/EULER_HYBRID_ABEL_GRAM_20261027.lean): 5 rewrite theorem(s): [`eulerSelfDualBilinear_eq_admissible_population`](../../../research/EULER_ADMISSIBLE_PRIME_POPULATION_CODIV_20261028.lean), [`eulerSelfDualBilinear_eq_hybridAbel_add_edge`](../../../research/EULER_HYBRID_ABEL_GRAM_20261027.lean), [`eulerSelfDualBilinear_eq_diagonal_add_signedStrictCross`](../../../research/EULER_HYBRID_TRIANGULAR_GRAM_20261027.lean), [`eulerSelfDualBilinear_eq_two_mertens_sub_endpoint`](../../../research/EULER_SELF_DUAL_ENDPOINT_GATE_20261027.lean), [`eulerSelfDualBilinear_eq_convolutionSummatory`](../../../research/EULER_SELF_DUAL_FINITE_C_BRIDGE_20261027.lean)
 - [`eulerSelfDualConvolutionCoefficient`](../../../research/EULER_SELF_DUAL_POINTWISE_20261027.lean): 3 rewrite theorem(s): [`eulerSelfDualConvolutionCoefficient_eq_moebius_of_lt_root`](../../../research/EULER_SELF_DUAL_POINTWISE_20261027.lean), [`eulerSelfDualConvolutionCoefficient_eq_neg_moebius_of_root_le`](../../../research/EULER_SELF_DUAL_POINTWISE_20261027.lean), [`eulerSelfDualConvolutionCoefficient_eq_signed_moebius`](../../../research/EULER_SELF_DUAL_POINTWISE_20261027.lean)
 - [`newtonLift_prefix_exact`](../../../research/MERTENS_FINITE_PREFIX_EXTENSION.lean): 0 rewrite theorem(s)
 
@@ -36,6 +36,8 @@
 | 13 | [research/MERTENS_FINITE_PREFIX_EXTENSION.lean](../../../research/MERTENS_FINITE_PREFIX_EXTENSION.lean) | Exact finite-prefix extension for the genuine Mobius function |
 | 9 | [research/EULER_FRACTIONAL_COUPLED_20261027.lean](../../../research/EULER_FRACTIONAL_COUPLED_20261027.lean) | Exact original Möbius fractional Euler bilinear and divisor-row subtraction |
 | 8 | [research/MERTENS_FINITE_PREFIX_ACCEPTANCE.lean](../../../research/MERTENS_FINITE_PREFIX_ACCEPTANCE.lean) | Exact signatures of the finite-prefix lift and interval guard. |
+| 5 | [research/EULER_ADMISSIBLE_PRIME_POPULATION_CODIV_20261028.lean](../../../research/EULER_ADMISSIBLE_PRIME_POPULATION_CODIV_20261028.lean) | Genuine admissible Euler population, reciprocal prime bands and signed Co-Div |
+| 5 | [research/EULER_ADMISSIBLE_WEIGHTED_CODIV_20261028.lean](../../../research/EULER_ADMISSIBLE_WEIGHTED_CODIV_20261028.lean) | Actual weighted Euler Co-Div and admissible-prime population |
 | 4 | [research/EULER_ASYMMETRIC_CORNER_SIGNED_GRAM_20261028.lean](../../../research/EULER_ASYMMETRIC_CORNER_SIGNED_GRAM_20261028.lean) | Asymmetric two-cutoff Euler floor identity and its signed Gram transport |
 | 3 | [research/EULER_HYBRID_ABEL_AUDIT_20261027.md](../../../research/EULER_HYBRID_ABEL_AUDIT_20261027.md) | Euler self-dual one-sided Abel and truncated divisor annihilator (2026-10-27) |
 | 2 | [research/MERTENS_HEATH_BROWN_SIGNED.lean](../../../research/MERTENS_HEATH_BROWN_SIGNED.lean) | Signed higher-order finite Mobius inversion |

@@ -7,7 +7,7 @@
 | Coordinate | Family | Name | Tagged files |
 | --- | --- | --- | --- |
 | [ANCHOR-PRIME-DISCREPANCY](coordinates/ANCHOR-PRIME-DISCREPANCY.md) | anchor | Prime-counting discrepancy pi - Li_2 | 47 |
-| [ANCHOR-MERTENS](coordinates/ANCHOR-MERTENS.md) | anchor | Mertens function M | 271 |
+| [ANCHOR-MERTENS](coordinates/ANCHOR-MERTENS.md) | anchor | Mertens function M | 274 |
 | [ANCHOR-ZETA-ZEROS](coordinates/ANCHOR-ZETA-ZEROS.md) | anchor | Nontrivial zeta zeros / rightmost real part | 44 |
 | [COORD-LI2-MODEL](coordinates/COORD-LI2-MODEL.md) | deterministic-model | Logarithmic integral model Li_2 | 45 |
 | [COORD-VF-MID](coordinates/COORD-VF-MID.md) | deterministic-model | Legacy midpoint VF (vfMid) | 74 |
@@ -27,7 +27,7 @@
 | [COORD-SAT-PRIME-CENSUS](coordinates/COORD-SAT-PRIME-CENSUS.md) | prime-side | Least-prime owner census P_R = R - C_R | 29 |
 | [COORD-VON-MANGOLDT](coordinates/COORD-VON-MANGOLDT.md) | prime-side | von Mangoldt / Chebyshev psi | 15 |
 | [COORD-PRIME-RECIPROCAL](coordinates/COORD-PRIME-RECIPROCAL.md) | prime-side | Mertens prime-reciprocal error E_prime | 31 |
-| [COORD-SQUARE-PREFIX-MERTENS](coordinates/COORD-SQUARE-PREFIX-MERTENS.md) | mobius-side | Mertens at square endpoints | 591 |
+| [COORD-SQUARE-PREFIX-MERTENS](coordinates/COORD-SQUARE-PREFIX-MERTENS.md) | mobius-side | Mertens at square endpoints | 593 |
 | [COORD-MOBIUS-COVARIANCE](coordinates/COORD-MOBIUS-COVARIANCE.md) | covariance-statistic | Diagonal + signed pair covariance of mu | 85 |
 | [COORD-WEIGHTED-ENERGY](coordinates/COORD-WEIGHTED-ENERGY.md) | covariance-statistic | Weighted Mertens energy E_eps(T) | 27 |
 | [COORD-NNS-CODIV](coordinates/COORD-NNS-CODIV.md) | covariance-statistic | Zero-target NNS co-partial moments (Co/Div) | 146 |
@@ -36,7 +36,7 @@
 | [COORD-HECKE-A6](coordinates/COORD-HECKE-A6.md) | mobius-side | Excluded-six Hecke coefficient a6 and quotient kernel K | 96 |
 | [COORD-FINITE-AC](coordinates/COORD-FINITE-AC.md) | mobius-side | Finite A/C historical envelope | 249 |
 | [COORD-LEGAL-GRAM](coordinates/COORD-LEGAL-GRAM.md) | covariance-statistic | Legal live-packet ancestry Gram | 8 |
-| [COORD-EULER-SELF-DUAL](coordinates/COORD-EULER-SELF-DUAL.md) | mobius-side | Euler self-dual bilinear / Newton-lift double sum | 13 |
+| [COORD-EULER-SELF-DUAL](coordinates/COORD-EULER-SELF-DUAL.md) | mobius-side | Euler self-dual bilinear / Newton-lift double sum | 15 |
 | [COORD-CORR4-PARENT](coordinates/COORD-CORR4-PARENT.md) | mobius-side | CORR-4 rough correlation C_R | 69 |
 | [COORD-CORR4-DAUGHTERS](coordinates/COORD-CORR4-DAUGHTERS.md) | mobius-side | CORR-4 low q^2 daughters (E_R, U_R) | 80 |
 | [COORD-CORR4-REMAINDER](coordinates/COORD-CORR4-REMAINDER.md) | covariance-statistic | CORR-4 physical remainder B_R and first-owner Gram | 43 |
@@ -53,26 +53,26 @@
 | Route | Tagged files |
 | --- | --- |
 | [VF-LOW](routes/VF-LOW.md) | 338 |
-| [SAT](routes/SAT.md) | 701 |
-| [CODIV](routes/CODIV.md) | 891 |
+| [SAT](routes/SAT.md) | 703 |
+| [CODIV](routes/CODIV.md) | 896 |
 | [BLOCK](routes/BLOCK.md) | 26 |
-| [OAI-NNS](routes/OAI-NNS.md) | 580 |
+| [OAI-NNS](routes/OAI-NNS.md) | 583 |
 | [JOH](routes/JOH.md) | 98 |
-| [FINITE-AC](routes/FINITE-AC.md) | 798 |
-| [CORR4](routes/CORR4.md) | 827 |
-| [MU-LIFT](routes/MU-LIFT.md) | 298 |
+| [FINITE-AC](routes/FINITE-AC.md) | 801 |
+| [CORR4](routes/CORR4.md) | 830 |
+| [MU-LIFT](routes/MU-LIFT.md) | 301 |
 | [NYMAN](routes/NYMAN.md) | 54 |
 
 ## Machine-readable shards
 
 - [catalog-research-lean-vf.jsonl](catalog-research-lean-vf.jsonl) — 225 records
-- [catalog-research-lean.jsonl](catalog-research-lean.jsonl) — 382 records
-- [catalog-research-notes.jsonl](catalog-research-notes.jsonl) — 216 records
+- [catalog-research-lean.jsonl](catalog-research-lean.jsonl) — 385 records
+- [catalog-research-notes.jsonl](catalog-research-notes.jsonl) — 217 records
 - [catalog-library-proof.jsonl](catalog-library-proof.jsonl) — 444 records
 - [catalog-library-core.jsonl](catalog-library-core.jsonl) — 386 records
 - [catalog-docs.jsonl](catalog-docs.jsonl) — 107 records
-- [catalog-code.jsonl](catalog-code.jsonl) — 264 records
-- [rewrite-families-a-k.jsonl](rewrite-families-a-k.jsonl) — 243 records
+- [catalog-code.jsonl](catalog-code.jsonl) — 265 records
+- [rewrite-families-a-k.jsonl](rewrite-families-a-k.jsonl) — 247 records
 - [rewrite-families-l.jsonl](rewrite-families-l.jsonl) — 339 records
 - [rewrite-families-m-r.jsonl](rewrite-families-m-r.jsonl) — 454 records
 - [rewrite-families-s.jsonl](rewrite-families-s.jsonl) — 422 records

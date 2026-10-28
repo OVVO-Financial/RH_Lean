@@ -12,7 +12,7 @@ python3 scripts/proofq.py repo-search 'q2 daughter' --expand --scope research   
 git grep -n -E "$(python3 scripts/coordinate_atlas.py expand 'floor-Li' --grep)"
 ```
 
-`--expand` matches any one exact alias or Lean name of the coordinates the query names (it cannot be combined with `--regex`) and labels each hit with the alias that matched. Agents without Python should use the committed [static search index](search/INDEX.md): one page per coordinate (definition, crosswalks, every proved `<def>_eq_…` rewrite, top files) and per route, plus JSONL shards for code search ([guide](search/README.md)). Regenerate with `python3 scripts/search_catalog.py --write` and `python3 scripts/coordinate_atlas.py write`.
+`--expand` matches any one exact alias or Lean name of the coordinates the query names (it cannot be combined with `--regex`) and labels each hit with the alias that matched. Agents without Python should use the committed [static search index](search/INDEX.md): one page per coordinate (definition, crosswalks, every proved `<def>_eq_…` rewrite, top files) and per route, plus JSONL shards for code search ([guide](search/README.md)). Regenerate both the corpus and the atlas page's generated blocks with `python3 scripts/search_catalog.py --write`.
 
 ## Full-text search and the module DAG
 

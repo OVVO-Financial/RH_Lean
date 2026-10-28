@@ -57,6 +57,7 @@ Coordinates: [`ANCHOR-MERTENS`](../coordinates/ANCHOR-MERTENS.md), [`COORD-SQUAR
 | 3 | [export_mobius_synthesis/README.md](../../../export_mobius_synthesis/README.md) | Möbius Synthesis |
 | 3 | [export_mobius_synthesis/SEAMS.md](../../../export_mobius_synthesis/SEAMS.md) | Exact seams between the proof layers |
 | 3 | [research/ALL_SCALE_LI_DISPLACEMENT_REDUCTION.lean](../../../research/ALL_SCALE_LI_DISPLACEMENT_REDUCTION.lean) | All-scale Li allocation and the exact prime-displacement remainder |
+| 3 | [research/EULER_ADMISSIBLE_PRIME_POPULATION_CODIV_20261028.lean](../../../research/EULER_ADMISSIBLE_PRIME_POPULATION_CODIV_20261028.lean) | Genuine admissible Euler population, reciprocal prime bands and signed Co-Div |
 | 3 | [research/EULER_ASYMMETRIC_CORNER_SIGNED_GRAM_20261028.lean](../../../research/EULER_ASYMMETRIC_CORNER_SIGNED_GRAM_20261028.lean) | Asymmetric two-cutoff Euler floor identity and its signed Gram transport |
 | 3 | [research/EULER_FRACTIONAL_COUPLED_20261027.lean](../../../research/EULER_FRACTIONAL_COUPLED_20261027.lean) | Exact original Möbius fractional Euler bilinear and divisor-row subtraction |
 | 3 | [research/EULER_HYBRID_ABEL_GRAM_20261027.lean](../../../research/EULER_HYBRID_ABEL_GRAM_20261027.lean) | Euler square-root bilinear form: one-sided historical Abel transport |
@@ -67,4 +68,3 @@ Coordinates: [`ANCHOR-MERTENS`](../coordinates/ANCHOR-MERTENS.md), [`COORD-SQUAR
 | 3 | [research/PRIME_SCALE_CONDITIONAL_BLOCK_DEPENDENCE_2026_10_11.md](../../../research/PRIME_SCALE_CONDITIONAL_BLOCK_DEPENDENCE_2026_10_11.md) | Prime-conditioned moving-lag dependence versus near-zero block correlations |
 | 3 | [research/SEQUENTIAL_PRIME_POPULATION_CUTOFF_AND_ANCESTRY_2026_10_11.md](../../../research/SEQUENTIAL_PRIME_POPULATION_CUTOFF_AND_ANCESTRY_2026_10_11.md) | Fixed-endpoint sequential prime-population cutoff and shared ancestry |
 | 3 | [research/SQUARE_ENDPOINT_STEP_POLYLOG_STRENGTH.lean](../../../research/SQUARE_ENDPOINT_STEP_POLYLOG_STRENGTH.lean) | Strength of the packaged square-endpoint recurrence |
-| 3 | [research/SQUARE_ROOT_LEGAL_GRAM_ATTACK.md](../../../research/SQUARE_ROOT_LEGAL_GRAM_ATTACK.md) | Square-root legal-ancestry Gram attack |

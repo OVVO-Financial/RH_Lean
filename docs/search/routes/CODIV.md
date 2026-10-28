@@ -25,6 +25,8 @@ Coordinates: [`ANCHOR-MERTENS`](../coordinates/ANCHOR-MERTENS.md), [`ANCHOR-ZETA
 | 6 | [scripts/prime_wheel_oai_simultaneous_317_1027.py](../../../scripts/prime_wheel_oai_simultaneous_317_1027.py) | Exact integer-by-integer prime-comb wheel and independent sextic Phi/NNS audit. |
 | 5 | [docs/QRH_SATURATED_ACTUAL_FIBER_THEOREM_TARGET_20261026.md](../../../docs/QRH_SATURATED_ACTUAL_FIBER_THEOREM_TARGET_20261026.md) | Final-return near-saturated window-fiber count: exact unproved analytic target (2026-10-26) |
 | 5 | [docs/RHLEAN_NATIVE_FIRST_PROOF_ROUTING_20261026.md](../../../docs/RHLEAN_NATIVE_FIRST_PROOF_ROUTING_20261026.md) | RH_Lean-native-first mathematical proof routing (26 October 2026) |
+| 5 | [research/EULER_ADMISSIBLE_SIGNED_RETURN_TELESCOPE_20261028.lean](../../../research/EULER_ADMISSIBLE_SIGNED_RETURN_TELESCOPE_20261028.lean) | Complete chronological admissible-prime signed energy and Co-Div seam |
+| 5 | [research/EULER_ADMISSIBLE_WEIGHTED_CODIV_20261028.lean](../../../research/EULER_ADMISSIBLE_WEIGHTED_CODIV_20261028.lean) | Actual weighted Euler Co-Div and admissible-prime population |
 | 5 | [research/FINITE_AC_CROSS_COORDINATE_DAG_CLOSURE_AUDIT_2026_10_12.md](../../../research/FINITE_AC_CROSS_COORDINATE_DAG_CLOSURE_AUDIT_2026_10_12.md) | Exhaustive cross-coordinate audit: finite A/C and actual-prime VF source |
 | 5 | [research/VF_919_WHEEL_OAI_SIMULTANEOUS_STAGE_20261021.lean](../../../research/VF_919_WHEEL_OAI_SIMULTANEOUS_STAGE_20261021.lean) | One simultaneous chronological prime-wheel / OAI-Hecke NNS payment ledger |
 | 5 | [research/VF_MID_915_SECTOR_SIX_CONE_AUDIT.md](../../../research/VF_MID_915_SECTOR_SIX_CONE_AUDIT.md) | #915 — Sector Six cone regression and revised proof contract |
@@ -66,5 +68,3 @@ Coordinates: [`ANCHOR-MERTENS`](../coordinates/ANCHOR-MERTENS.md), [`ANCHOR-ZETA
 | 3 | [RHLean/Proof/EndpointCubeAnalyticClosure.lean](../../../RHLean/Proof/EndpointCubeAnalyticClosure.lean) | Product packing as a square-root covariance power contraction |
 | 3 | [RHLean/Proof/FinalCompensatedParentReduction.lean](../../../RHLean/Proof/FinalCompensatedParentReduction.lean) | Final compensated parent reduction after the q^2 parent reassembly |
 | 3 | [RHLean/Proof/GlobalFirstJumpCriticalCorrelationBridge.lean](../../../RHLean/Proof/GlobalFirstJumpCriticalCorrelationBridge.lean) | Critical reciprocal-correlation bridge for the recombined defect |
-| 3 | [RHLean/Proof/LowWheelCanonicalDefectReduction.lean](../../../RHLean/Proof/LowWheelCanonicalDefectReduction.lean) | Canonical transport defect reduction |
-| 3 | [RHLean/Proof/MatchedFarSurvivorBridge.lean](../../../RHLean/Proof/MatchedFarSurvivorBridge.lean) | Matched transport as born-smooth plus far-upper survivor |

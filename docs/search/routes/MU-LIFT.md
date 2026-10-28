@@ -26,6 +26,8 @@ Coordinates: [`ANCHOR-MERTENS`](../coordinates/ANCHOR-MERTENS.md), [`COORD-EULER
 | 2 | [docs/FORMALIZATION_MILESTONES.md](../../../docs/FORMALIZATION_MILESTONES.md) | RH_Lean formalization milestones |
 | 2 | [docs/RHLEAN_NATIVE_FIRST_PROOF_ROUTING_20261026.md](../../../docs/RHLEAN_NATIVE_FIRST_PROOF_ROUTING_20261026.md) | RH_Lean-native-first mathematical proof routing (26 October 2026) |
 | 2 | [export_prime_wheel/paper/seeded_prime_comb_harmonic_reduction.tex](../../../export_prime_wheel/paper/seeded_prime_comb_harmonic_reduction.tex) | \vspace{-1.5em}\textbf{Seeded Prime-Comb Dynamics and the Finite Harmonic Reduction of Primorial-Block M\"obius Sums}\\[0.45em] |
+| 2 | [research/EULER_ADMISSIBLE_PRIME_POPULATION_CODIV_20261028.lean](../../../research/EULER_ADMISSIBLE_PRIME_POPULATION_CODIV_20261028.lean) | Genuine admissible Euler population, reciprocal prime bands and signed Co-Div |
+| 2 | [research/EULER_ADMISSIBLE_WEIGHTED_CODIV_20261028.lean](../../../research/EULER_ADMISSIBLE_WEIGHTED_CODIV_20261028.lean) | Actual weighted Euler Co-Div and admissible-prime population |
 | 2 | [research/EULER_ASYMMETRIC_CORNER_SIGNED_GRAM_20261028.lean](../../../research/EULER_ASYMMETRIC_CORNER_SIGNED_GRAM_20261028.lean) | Asymmetric two-cutoff Euler floor identity and its signed Gram transport |
 | 2 | [research/EULER_HYBRID_ABEL_GRAM_20261027.lean](../../../research/EULER_HYBRID_ABEL_GRAM_20261027.lean) | Euler square-root bilinear form: one-sided historical Abel transport |
 | 2 | [research/EULER_HYBRID_TRIANGULAR_GRAM_20261027.lean](../../../research/EULER_HYBRID_TRIANGULAR_GRAM_20261027.lean) | The triangular signed historical Gram of the exact Euler hyperbola |
@@ -66,5 +68,3 @@ Coordinates: [`ANCHOR-MERTENS`](../coordinates/ANCHOR-MERTENS.md), [`COORD-EULER
 | 1 | [RHLean/Analysis/MobiusRenewalTelescope.lean](../../../RHLean/Analysis/MobiusRenewalTelescope.lean) | The Möbius renewal telescope |
 | 1 | [RHLean/Analysis/MobiusSynthesisBoundaryBridge.lean](../../../RHLean/Analysis/MobiusSynthesisBoundaryBridge.lean) | Bridge: synthesis boundary target ↔ projected renewal quadratic bound |
 | 1 | [RHLean/Analysis/NativePNTQuantitativeStatements.lean](../../../RHLean/Analysis/NativePNTQuantitativeStatements.lean) | Quantitative statements beyond the native PNT baseline |
-| 1 | [RHLean/Analysis/NearestSquareEndpointDomination.lean](../../../RHLean/Analysis/NearestSquareEndpointDomination.lean) | Nearest-square endpoint domination |
-| 1 | [RHLean/Analysis/PRoughSquarePrefixEnergy.lean](../../../RHLean/Analysis/PRoughSquarePrefixEnergy.lean) | One-prime rough Mertens energy transfer |
