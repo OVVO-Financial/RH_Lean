@@ -1,0 +1,3041 @@
+{
+  "schema": "rhlean-coordinate-atlas/1",
+  "atlas_version": "2026-10-28.1",
+  "authority": "Navigation layer: which repository objects describe the same discrepancy in which coordinates, and how they are related. A crosswalk records an identity, bound or implication with its status; a navigation path through the atlas is not a proof, and NOT_EQUIVALENT edges are barriers. Lean status is checked lexically against main; mathematical status of open statements lives in docs/proof-obligations.json.",
+  "phenomenon": "One phenomenon, many coordinates: the square-root-scale fluctuation of the primes (pi - Li_2) and of the Mobius function (M), both governed by the nontrivial zeros of zeta. RH <=> each anchor fluctuates at the square-root scale. Every coordinate below reaches an anchor through typed crosswalks.",
+  "vocabulary": {
+    "families": [
+      "anchor",
+      "prime-side",
+      "mobius-side",
+      "covariance-statistic",
+      "deterministic-model",
+      "analytic",
+      "hilbert"
+    ],
+    "relations": [
+      "DEFINITIONAL",
+      "EXACT_IDENTITY",
+      "FIXED_OFFSET",
+      "BOUNDED_DIFFERENCE",
+      "INCREMENT",
+      "RESTRICTION",
+      "DECOMPOSITION",
+      "COUPLING",
+      "WEIGHTED_PROJECTION",
+      "BOUND_EQUIVALENCE",
+      "ONE_WAY_IMPLICATION",
+      "CLASSICAL_ANALYTIC_TRANSFER",
+      "NOT_EQUIVALENT"
+    ],
+    "invertible_relations": [
+      "DEFINITIONAL",
+      "EXACT_IDENTITY",
+      "FIXED_OFFSET",
+      "BOUND_EQUIVALENCE"
+    ],
+    "statuses": [
+      "LEAN_ON_MAIN",
+      "PAPER",
+      "LITERATURE",
+      "DEFINITIONAL",
+      "EXTERNAL",
+      "AUDIT"
+    ]
+  },
+  "anchors": [
+    "ANCHOR-PRIME-DISCREPANCY",
+    "ANCHOR-MERTENS",
+    "ANCHOR-ZETA-ZEROS"
+  ],
+  "route_terms": {
+    "VF-LOW": [
+      "VF-LOW",
+      "lower wall",
+      "first-lower"
+    ],
+    "SAT": [
+      "SAT",
+      "S=A-T",
+      "S = A - T"
+    ],
+    "CODIV": [
+      "CODIV",
+      "Co/Div",
+      "Co-Div",
+      "CoDiv"
+    ],
+    "BLOCK": [
+      "BLOCK",
+      "block capture"
+    ],
+    "OAI-NNS": [
+      "OAI-NNS",
+      "OAI",
+      "OpenAI"
+    ],
+    "JOH": [
+      "JOH",
+      "Johnston"
+    ],
+    "FINITE-AC": [
+      "FINITE-AC",
+      "finite A/C",
+      "finite-A",
+      "finite A"
+    ],
+    "CORR4": [
+      "CORR4",
+      "CORR-4"
+    ],
+    "MU-LIFT": [
+      "MU-LIFT",
+      "Heath-Brown",
+      "Newton lift"
+    ],
+    "NYMAN": [
+      "NYMAN",
+      "Nyman"
+    ]
+  },
+  "coordinates": [
+    {
+      "id": "ANCHOR-PRIME-DISCREPANCY",
+      "name": "Prime-counting discrepancy pi - Li_2",
+      "family": "anchor",
+      "symbols": [
+        "Δ(x)",
+        "Delta(t)"
+      ],
+      "aliases": [
+        "pi minus li",
+        "prime discrepancy",
+        "prime-li error",
+        "vfMidPrimeLiError",
+        "PrimeLiVonKochBoundedStatement",
+        "pi(x)-li(x)",
+        "pi(x) - li(x)",
+        "prime counting error",
+        "von koch"
+      ],
+      "definition": "Delta(x) = pi(x) - Li_2(x), Li_2(x) = int_2^x dt/log t (repository normalization).",
+      "index": "real x >= 4 (pi evaluated at floor x)",
+      "normalization": "Classical li = li(2) + Li_2 with li(2) = 1.045163780...; see CONV-LI-VS-LI2.",
+      "measures": "The prime-side face of the phenomenon: RH <=> Delta(x) = O(sqrt(x) log x).",
+      "lean": [
+        {
+          "file": "research/VF_MID_VON_KOCH_BRIDGE.lean",
+          "name": "vfMidPrimeLiError"
+        },
+        {
+          "file": "research/VF_MID_VON_KOCH_BRIDGE.lean",
+          "name": "vfMidLogarithmicIntegralFromTwo"
+        },
+        {
+          "file": "research/VF_MID_VON_KOCH_BRIDGE.lean",
+          "name": "PrimeLiVonKochBoundedStatement"
+        }
+      ],
+      "documents": [
+        "research/VF_CANONICAL_SQRT_TWO_AUTOPSY_2026_10_12.md"
+      ],
+      "routes": [
+        "VF-LOW",
+        "JOH",
+        "SAT"
+      ],
+      "proof_nodes": [
+        "PROP-PRIME-LI-VONKOCH",
+        "HISTORICAL-VONKOCH-1901"
+      ]
+    },
+    {
+      "id": "ANCHOR-MERTENS",
+      "name": "Mertens function M",
+      "family": "anchor",
+      "symbols": [
+        "M(x)",
+        "M(X)",
+        "M(n)"
+      ],
+      "aliases": [
+        "mertens function",
+        "mertensSummatory",
+        "mertensSummatoryInt",
+        "summatory mobius",
+        "summatory moebius",
+        "MertensEnergyBoundedStatement",
+        "mertens energy"
+      ],
+      "definition": "M(x) = sum_{n<=x} mu(n); energy form |M(x)|^2 <= C (x+1)^(1+eps).",
+      "index": "integer x >= 0 (M(0) = 0)",
+      "measures": "The Mobius-side face: RH <=> M(x) = O(x^(1/2+eps)).",
+      "lean": [
+        {
+          "file": "RHLean/Analysis/SquarePrefixMertensBridge.lean",
+          "name": "mertensSummatory"
+        },
+        {
+          "file": "RHLean/Analysis/SquarePrefixMertensBridge.lean",
+          "name": "MertensEnergyBoundedStatement"
+        },
+        {
+          "file": "RHLean/Proof/SquareRootAncestryRoot.lean",
+          "name": "mertensSummatoryInt"
+        }
+      ],
+      "documents": [
+        "docs/MERTENS_AMPLIFICATION_BUDGET.md"
+      ],
+      "routes": [
+        "CODIV",
+        "OAI-NNS",
+        "FINITE-AC",
+        "CORR4",
+        "MU-LIFT"
+      ],
+      "proof_nodes": [
+        "PROP-MERTENS-ENERGY"
+      ]
+    },
+    {
+      "id": "ANCHOR-ZETA-ZEROS",
+      "name": "Nontrivial zeta zeros / rightmost real part",
+      "family": "anchor",
+      "symbols": [
+        "Θ",
+        "ρ"
+      ],
+      "aliases": [
+        "zeta zeros",
+        "rightmost zero",
+        "zetaRightmostRealPart",
+        "zero-free region",
+        "zero free region",
+        "critical line",
+        "riemannZeta",
+        "RiemannHypothesis"
+      ],
+      "definition": "Theta = sup { Re rho : zeta(rho) = 0, 0 < Re rho < 1 }; RH <=> Theta = 1/2.",
+      "index": "complex s",
+      "measures": "The common analytic source of both anchors.",
+      "lean": [
+        {
+          "file": "research/MERTENS_EXPONENT_DIAGNOSTICS.lean",
+          "name": "zetaRightmostRealPart"
+        }
+      ],
+      "documents": [
+        "research/MERTENS_CONVERSE_IDENTIFICATION.lean"
+      ],
+      "routes": [
+        "CODIV",
+        "OAI-NNS",
+        "NYMAN",
+        "VF-LOW"
+      ],
+      "proof_nodes": [
+        "RH",
+        "MILESTONE-MERTENS-CONVERSE",
+        "IMPORTED-OAI-7-8"
+      ]
+    },
+    {
+      "id": "COORD-LI2-MODEL",
+      "name": "Logarithmic integral model Li_2",
+      "family": "deterministic-model",
+      "symbols": [
+        "Li_2(x)"
+      ],
+      "aliases": [
+        "logarithmic integral",
+        "vfMidLogarithmicIntegralFromTwo",
+        "Li_2"
+      ],
+      "definition": "Li_2(x) = int_2^x dt/log t.",
+      "index": "real x >= 2",
+      "measures": "Deterministic prime-count model; no arithmetic content.",
+      "lean": [
+        {
+          "file": "research/VF_MID_VON_KOCH_BRIDGE.lean",
+          "name": "vfMidLogarithmicIntegralFromTwo"
+        }
+      ],
+      "documents": [
+        "research/LI_FAN_ONE_SIDED_WEIGHTED_COMPOSITE_RH_CONTRACT_20261022.md"
+      ],
+      "routes": [
+        "VF-LOW",
+        "JOH"
+      ],
+      "proof_nodes": []
+    },
+    {
+      "id": "COORD-VF-MID",
+      "name": "Legacy midpoint VF (vfMid)",
+      "family": "deterministic-model",
+      "symbols": [
+        "VF_mid(x)",
+        "VF_raw"
+      ],
+      "aliases": [
+        "vfMid",
+        "midpoint VF",
+        "VF_mid",
+        "VF_raw",
+        "vfMidFinishedMass"
+      ],
+      "definition": "vfMid(x) = sum_{r=2}^{R-1} (2r+1)/log(r^2+r+1/2) + (x-R^2)/log((R^2+x)/2), R = floor(sqrt x).",
+      "index": "real x >= 4",
+      "measures": "Square-tiled deterministic model of pi; legacy internal coordinate.",
+      "lean": [
+        {
+          "file": "research/VF_MID_VON_KOCH_BRIDGE.lean",
+          "name": "vfMid"
+        },
+        {
+          "file": "research/VF_MID_VON_KOCH_BRIDGE.lean",
+          "name": "vfMidFinishedMass"
+        },
+        {
+          "file": "research/VF_MID_VON_KOCH_BRIDGE.lean",
+          "name": "vfMidBandMass"
+        }
+      ],
+      "documents": [
+        "research/VF_CANONICAL_SQRT_TWO_AUTOPSY_2026_10_12.md"
+      ],
+      "routes": [
+        "VF-LOW"
+      ],
+      "proof_nodes": []
+    },
+    {
+      "id": "COORD-VF-CAN",
+      "name": "Canonical VF (vfCanonical)",
+      "family": "deterministic-model",
+      "symbols": [
+        "VF_can(x)",
+        "VF(x)"
+      ],
+      "aliases": [
+        "vfCanonical",
+        "canonical VF",
+        "VF_can",
+        "sqrt2 phase",
+        "sqrt(2) phase",
+        "vfCanonicalFinishedMass"
+      ],
+      "definition": "VF_can(x) = vfMid(x) + sqrt 2; VF_can(R^2) = F_R + sqrt 2.",
+      "index": "real x >= 4",
+      "measures": "The unique public VF; differs from Li_2 by O(1) on every real x >= 4.",
+      "lean": [
+        {
+          "file": "research/VF_CANONICAL_SQRT_TWO.lean",
+          "name": "vfCanonical"
+        },
+        {
+          "file": "research/VF_CANONICAL_SQRT_TWO.lean",
+          "name": "vfCanonicalFinishedMass"
+        },
+        {
+          "file": "research/VF_CANONICAL_SQRT_TWO.lean",
+          "name": "vfCanonicalPhase"
+        }
+      ],
+      "documents": [
+        "research/VF_CANONICAL_SQRT_TWO_AUTOPSY_2026_10_12.md"
+      ],
+      "routes": [
+        "VF-LOW"
+      ],
+      "proof_nodes": [
+        "MILESTONE-VF-CANONICAL",
+        "MILESTONE-VF-LI-O1"
+      ]
+    },
+    {
+      "id": "COORD-VF-BLOCK-MASS",
+      "name": "VF finished mass and block mass",
+      "family": "deterministic-model",
+      "symbols": [
+        "F_R",
+        "V_r",
+        "m_R"
+      ],
+      "aliases": [
+        "finished mass",
+        "block mass",
+        "band mass",
+        "vfMidBandMass"
+      ],
+      "definition": "F_R = sum_{2<=r<R} V_r, V_r = m_r = (2r+1)/log(r^2+r+1/2); w_R = m_R/R.",
+      "index": "integer R >= 2",
+      "measures": "Deterministic per-block demand matched against actual block prime counts.",
+      "lean": [
+        {
+          "file": "research/VF_MID_VON_KOCH_BRIDGE.lean",
+          "name": "vfMidFinishedMass"
+        },
+        {
+          "file": "research/VF_MID_VON_KOCH_BRIDGE.lean",
+          "name": "vfMidBandMass"
+        }
+      ],
+      "documents": [
+        "CURRENT_PROOF_CONTRACT.md"
+      ],
+      "routes": [
+        "VF-LOW"
+      ],
+      "proof_nodes": []
+    },
+    {
+      "id": "COORD-VF-REAL-PRIME-ERROR",
+      "name": "pi - VF on the real line",
+      "family": "prime-side",
+      "symbols": [],
+      "aliases": [
+        "vfCanonicalPrimeError",
+        "vfMidPrimeError",
+        "VFCanonicalRealVonKochStatement",
+        "VFMidVonKochBoundedStatement"
+      ],
+      "definition": "pi(x) - VF_can(x) (canonical) or pi(x) - vfMid(x) (legacy).",
+      "index": "real x >= 4",
+      "measures": "Delta(x) minus the bounded deterministic quadrature VF_can - Li_2.",
+      "lean": [
+        {
+          "file": "research/VF_CANONICAL_SQRT_TWO.lean",
+          "name": "vfCanonicalPrimeError"
+        },
+        {
+          "file": "research/VF_MID_VON_KOCH_BRIDGE.lean",
+          "name": "vfMidPrimeError"
+        }
+      ],
+      "documents": [
+        "research/VF_CANONICAL_SQRT_TWO_AUTOPSY_2026_10_12.md"
+      ],
+      "routes": [
+        "VF-LOW"
+      ],
+      "proof_nodes": [
+        "PROP-VF-CAN-REAL-VONKOCH",
+        "PROP-VF-MID-REAL-VONKOCH"
+      ]
+    },
+    {
+      "id": "COORD-VF-CAN-DEFECT",
+      "name": "Canonical square-endpoint defect D_R^can",
+      "family": "prime-side",
+      "symbols": [
+        "D_R^can",
+        "D_can(R)",
+        "D_R"
+      ],
+      "aliases": [
+        "vfCanonicalSquareDefect",
+        "VFCanonicalSquareVonKochStatement",
+        "canonical defect",
+        "square-endpoint defect",
+        "square endpoint defect"
+      ],
+      "definition": "D_can(R) = pi(R^2) - F_R - sqrt 2 = pi(R^2) - VF_can(R^2).",
+      "index": "integer R >= 2",
+      "measures": "Delta sampled at square endpoints, shifted by a bounded deterministic term; the public RH target.",
+      "lean": [
+        {
+          "file": "research/VF_CANONICAL_SQRT_TWO.lean",
+          "name": "vfCanonicalSquareDefect"
+        },
+        {
+          "file": "research/VF_CANONICAL_SQRT_TWO_VON_KOCH.lean",
+          "name": "VFCanonicalSquareVonKochStatement"
+        }
+      ],
+      "documents": [
+        "CURRENT_PROOF_CONTRACT.md",
+        "docs/FORMALIZATION_MILESTONES.md"
+      ],
+      "routes": [
+        "VF-LOW"
+      ],
+      "proof_nodes": [
+        "OPEN-VF-ACTUAL-PRIME",
+        "MILESTONE-VONKOCH-VF-LEAN"
+      ]
+    },
+    {
+      "id": "COORD-VF-RAW-DEFECT",
+      "name": "Legacy raw square-endpoint defect D_raw",
+      "family": "prime-side",
+      "symbols": [
+        "D_raw(R)"
+      ],
+      "aliases": [
+        "vfMidDirectSquareEndpointError",
+        "vfMidActualPrimeEndpointDefect",
+        "VFMidSquareEndpointVonKochBoundedStatement",
+        "raw defect"
+      ],
+      "definition": "D_raw(R) = pi(R^2) - F_R.",
+      "index": "integer R >= 2",
+      "measures": "Same as D_can up to the fixed offset sqrt 2; the #915 historical coordinate.",
+      "lean": [
+        {
+          "file": "research/VF_MID_DIRECT_SIGNED_DYNAMICS.lean",
+          "name": "vfMidDirectSquareEndpointError"
+        },
+        {
+          "file": "research/VF_MID_OWNER_ADMISSIBLE_ESCAPE_CLASS.lean",
+          "name": "vfMidActualPrimeEndpointDefect"
+        }
+      ],
+      "documents": [
+        "CURRENT_PROOF_CONTRACT.md"
+      ],
+      "routes": [
+        "VF-LOW"
+      ],
+      "proof_nodes": [
+        "PROP-VF-MID-SQUARE-VONKOCH"
+      ]
+    },
+    {
+      "id": "COORD-BLOCK-PRIME-COUNT",
+      "name": "Actual primes per square block P_R",
+      "family": "prime-side",
+      "symbols": [
+        "P_R"
+      ],
+      "aliases": [
+        "vfMidDirectPrimeBandCount",
+        "vfMidIntegerBlockPrimeSupply",
+        "block prime count",
+        "block prime supply"
+      ],
+      "definition": "P_R = pi((R+1)^2) - pi(R^2).",
+      "index": "integer R >= 2",
+      "measures": "Increment of pi across one square block; drives the defect recurrence.",
+      "lean": [
+        {
+          "file": "research/VF_MID_DIRECT_SIGNED_DYNAMICS.lean",
+          "name": "vfMidDirectPrimeBandCount"
+        },
+        {
+          "file": "research/VF_MID_DIRECT_SIGNED_DYNAMICS.lean",
+          "name": "vfMidDirectBandError"
+        },
+        {
+          "file": "research/VF_MID_SQUARE_WHEEL_BACKLOG.lean",
+          "name": "vfMidIntegerBlockPrimeSupply"
+        }
+      ],
+      "documents": [
+        "CURRENT_PROOF_CONTRACT.md"
+      ],
+      "routes": [
+        "VF-LOW",
+        "SAT"
+      ],
+      "proof_nodes": []
+    },
+    {
+      "id": "COORD-FLOOR-LI-MODEL",
+      "name": "Floor-Li integer model Q(n)",
+      "family": "deterministic-model",
+      "symbols": [
+        "Q(n)"
+      ],
+      "aliases": [
+        "floor-Li",
+        "floor Li",
+        "floorLi",
+        "vfMidFloorLiIntegerPotential",
+        "fantasy floor-Li"
+      ],
+      "definition": "Q(n) = floor(Li_2(n)); integer potential of the floor-Li staircase.",
+      "index": "integer n >= 2",
+      "measures": "Integer rounding of Li_2; a model, never actual-prime membership.",
+      "lean": [
+        {
+          "file": "research/VF_MID_FLOOR_LI_SIGNED_POPULATION_BALANCE.lean",
+          "name": "vfMidFloorLiIntegerPotential"
+        }
+      ],
+      "documents": [
+        "research/LI_FAN_ONE_SIDED_WEIGHTED_COMPOSITE_RH_CONTRACT_20261022.md"
+      ],
+      "routes": [
+        "JOH",
+        "VF-LOW"
+      ],
+      "proof_nodes": []
+    },
+    {
+      "id": "COORD-PRIME-MODEL-EVENTS",
+      "name": "Prime vs floor-Li event stream eta",
+      "family": "prime-side",
+      "symbols": [
+        "η(k)",
+        "eta(k)"
+      ],
+      "aliases": [
+        "vfMidFloorLiPrimitiveMismatch",
+        "primitive mismatch",
+        "signed mismatch",
+        "floor-Li mismatch",
+        "vfMidFloorLiSignedPopulationBalance"
+      ],
+      "definition": "eta(k) = 1_prime(k) - (Q(k) - Q(k-1)) in {-1,0,1}.",
+      "index": "integer k >= 3",
+      "measures": "Pointwise increments of pi - Q; every prime-side statistic is a weighted sum of eta.",
+      "lean": [
+        {
+          "file": "research/VF_MID_FLOOR_LI_SIGNED_POPULATION_BALANCE.lean",
+          "name": "vfMidFloorLiPrimitiveMismatch"
+        },
+        {
+          "file": "research/VF_MID_FLOOR_LI_SIGNED_POPULATION_BALANCE.lean",
+          "name": "vfMidFloorLiSignedPopulationBalance"
+        }
+      ],
+      "documents": [
+        "research/LI_FAN_ONE_SIDED_WEIGHTED_COMPOSITE_RH_CONTRACT_20261022.md"
+      ],
+      "routes": [
+        "JOH",
+        "VF-LOW",
+        "SAT"
+      ],
+      "proof_nodes": [
+        "CARRIER-PRIME-MODEL-EVENTS"
+      ]
+    },
+    {
+      "id": "COORD-FLOORLI-BLOCK-DEFECT",
+      "name": "Floor-Li block prime defect D_r (zeroth moment)",
+      "family": "prime-side",
+      "symbols": [
+        "D_r"
+      ],
+      "aliases": [
+        "vfMidFloorLiBlockPrimeDefect",
+        "block prime defect",
+        "zeroth moment",
+        "historical moving-owner"
+      ],
+      "definition": "D_r = Q((r+1)^2) - Q(r^2) - (pi((r+1)^2) - pi(r^2)).",
+      "index": "integer r >= 2",
+      "measures": "Block count of signed mismatches; loses within-block locations.",
+      "lean": [
+        {
+          "file": "research/VF_MID_FLOOR_LI_DISCRETE_BACKLOG.lean",
+          "name": "vfMidFloorLiBlockPrimeDefect"
+        },
+        {
+          "file": "research/VF_MID_915_FLOOR_LI_TRANSPORT_BOUNDARY.lean",
+          "name": "vfMid915HistoricalMovingOwnerCorrection"
+        }
+      ],
+      "documents": [
+        "research/VF_MID_915_SOURCE_PAYMENT_STATUS.md"
+      ],
+      "routes": [
+        "VF-LOW",
+        "JOH"
+      ],
+      "proof_nodes": [
+        "CARRIER-915-ZEROTH-MOMENT",
+        "MILESTONE-915-MOVING-OWNER"
+      ]
+    },
+    {
+      "id": "COORD-JOH-G",
+      "name": "Johnston cumulative statistic G and displacement J_r",
+      "family": "prime-side",
+      "symbols": [
+        "G(N)",
+        "J_r",
+        "B(n)"
+      ],
+      "aliases": [
+        "Johnston",
+        "weighted composite removal",
+        "first moment",
+        "chronological displacement",
+        "li-fan",
+        "Li-fan"
+      ],
+      "definition": "G(N) = sum_{2<=n<N} (pi(n) - Q(n) - 1) = A(N) - T(N) - L(N); J_r = sum_{r^2<k<(r+1)^2} ((r+1)^2 - k) eta(k).",
+      "index": "integer N >= 3; blocks r",
+      "measures": "Cesaro (first-moment) projection of Delta; RH <=> eventual G(R^2) < 0 (Johnston, paper transfer).",
+      "lean": [],
+      "documents": [
+        "research/LI_FAN_ONE_SIDED_WEIGHTED_COMPOSITE_RH_CONTRACT_20261022.md"
+      ],
+      "routes": [
+        "JOH",
+        "SAT"
+      ],
+      "proof_nodes": [
+        "OPEN-JOH-SIGN",
+        "CARRIER-JOH-FIRST-MOMENT",
+        "CLAIM-20261024-OWNER-1"
+      ]
+    },
+    {
+      "id": "COORD-JOH-H",
+      "name": "Johnston integral H(X)",
+      "family": "prime-side",
+      "symbols": [
+        "H(X)"
+      ],
+      "aliases": [
+        "integral of pi minus li",
+        "Johnston integral"
+      ],
+      "definition": "H(X) = int_2^X (pi(t) - li(t)) dt (classical li).",
+      "index": "real X > 2",
+      "measures": "Continuous first moment of Delta; Johnston: RH <=> H(X) < 0 for all X > 2.",
+      "lean": [],
+      "documents": [
+        "research/LI_FAN_ONE_SIDED_WEIGHTED_COMPOSITE_RH_CONTRACT_20261022.md"
+      ],
+      "routes": [
+        "JOH"
+      ],
+      "proof_nodes": [
+        "LIT-JOHNSTON-2022"
+      ]
+    },
+    {
+      "id": "COORD-915-SOURCE",
+      "name": "Original #915 first-bad weighted source",
+      "family": "prime-side",
+      "symbols": [
+        "Source(R)",
+        "TotalMass(R)",
+        "beta_R"
+      ],
+      "aliases": [
+        "vfMidFirstBadDecompressedHistoricalSource",
+        "vfMidFirstBadZeroTargetTotalMass",
+        "VFMid915FirstBadSourcePaymentStatement",
+        "first-bad",
+        "first bad",
+        "source payment"
+      ],
+      "definition": "Source(R) = D_raw(R+1) = D_raw(R) + P_R - m_R; TotalMass(R) = (|D_raw(R)| + beta_R)^2, beta_R = m_R + (1 - 2 w_R) P_R; native VF weights, masks, clipping, anchors, NNS denominators.",
+      "index": "integer R >= 8 (first-bad successor R+1 at K = 2)",
+      "measures": "Weighted, masked quadratic first-bad statistic on the raw defect; not the unweighted Mertens kernel.",
+      "lean": [
+        {
+          "file": "research/VF_MID_FIRST_BAD_SOURCE_TO_SECTOR_SIX_INLET.lean",
+          "name": "vfMidFirstBadDecompressedHistoricalSource"
+        },
+        {
+          "file": "research/VF_MID_FIRST_BAD_NORMALIZED_PARTIAL_MOMENT.lean",
+          "name": "vfMidFirstBadZeroTargetTotalMass"
+        },
+        {
+          "file": "research/VF_MID_FIRST_BAD_EXACT_BUDGET_CLOSE.lean",
+          "name": "VFMid915FirstBadSourcePaymentStatement"
+        }
+      ],
+      "documents": [
+        "research/VF_MID_915_SOURCE_PAYMENT_STATUS.md"
+      ],
+      "routes": [
+        "VF-LOW"
+      ],
+      "proof_nodes": [
+        "OPEN-915-SOURCE-PAYMENT",
+        "CARRIER-915-WEIGHTED-SOURCE"
+      ]
+    },
+    {
+      "id": "COORD-RAW-LEDGER",
+      "name": "Raw odd-seat factor-depth ledger L_R = T_R + H_R",
+      "family": "prime-side",
+      "symbols": [
+        "L_R",
+        "T_R",
+        "H_R",
+        "c(r,n)"
+      ],
+      "aliases": [
+        "raw ledger",
+        "factor-depth",
+        "odd-seat",
+        "cut-mode",
+        "owner tag"
+      ],
+      "definition": "c(r,n) = w_r - 1_prime(n) on odd seats r^2 < n < (r+1)^2; L_R = sum c = T_R (prime tags) + H_R (positive composite seats).",
+      "index": "integer R >= 3",
+      "measures": "Seat-level weighted model-minus-prime ledger; D_can(R) = 2 - sqrt2 - L_R (paper).",
+      "lean": [],
+      "documents": [
+        "docs/FACTOR_DEPTH_RESEARCH_BRIEF.md",
+        "CURRENT_PROOF_CONTRACT.md"
+      ],
+      "routes": [
+        "VF-LOW",
+        "SAT"
+      ],
+      "proof_nodes": []
+    },
+    {
+      "id": "COORD-SAT-PRIME-CENSUS",
+      "name": "Least-prime owner census P_R = R - C_R",
+      "family": "prime-side",
+      "symbols": [
+        "C_R",
+        "P_R = R - C_R"
+      ],
+      "aliases": [
+        "least-prime owner",
+        "least prime owner",
+        "owner census",
+        "composite removal"
+      ],
+      "definition": "For the R odd interior seats of (R^2,(R+1)^2): P_R = R - C_R with C_R the seats removed by their unique least prime owner.",
+      "index": "integer R",
+      "measures": "Unsigned population accounting of the block prime count; S = A - T carrier #1.",
+      "lean": [],
+      "documents": [
+        "docs/CROSS_COORDINATE_LOW_QUOTIENT_RESEARCH_2026_10_17.md"
+      ],
+      "routes": [
+        "SAT"
+      ],
+      "proof_nodes": [
+        "MECH-SAT-OWNER-REMOVAL"
+      ]
+    },
+    {
+      "id": "COORD-VON-MANGOLDT",
+      "name": "von Mangoldt / Chebyshev psi",
+      "family": "prime-side",
+      "symbols": [
+        "Λ(n)",
+        "psi(x)"
+      ],
+      "aliases": [
+        "von Mangoldt",
+        "vonMangoldt",
+        "Chebyshev psi",
+        "Landau identity",
+        "pntFirst_landau_vonMangoldt_mertens"
+      ],
+      "definition": "Lambda(n) = log p on prime powers; psi(x) = sum_{n<=x} Lambda(n).",
+      "index": "integer x >= 1",
+      "measures": "Prime-power weighted prime count; psi(x) - x is the classical twin of Delta.",
+      "lean": [
+        {
+          "file": "research/PNT_FIRST_LAMBDA_HYPERBOLA_ANCHOR_20261018.lean",
+          "name": "pntFirst_landau_vonMangoldt_mertens"
+        }
+      ],
+      "documents": [
+        "docs/PNT_FIRST_SIGNED_COFACTOR_SEAM_2026_10_18.md"
+      ],
+      "routes": [
+        "SAT",
+        "CODIV"
+      ],
+      "proof_nodes": []
+    },
+    {
+      "id": "COORD-PRIME-RECIPROCAL",
+      "name": "Mertens prime-reciprocal error E_prime",
+      "family": "prime-side",
+      "symbols": [
+        "E_prime(y)"
+      ],
+      "aliases": [
+        "prime reciprocal",
+        "Meissel",
+        "reciprocal prime"
+      ],
+      "definition": "E_prime(y) = sum_{p<=y} 1/p - log log y - M_Meissel.",
+      "index": "real y >= 2",
+      "measures": "Band oscillation in the raw ledger: T_R - M_R^band = F_R (E_prime(2R-1) - E_prime(R-1)) + rho_R (paper).",
+      "lean": [],
+      "documents": [
+        "CURRENT_PROOF_CONTRACT.md"
+      ],
+      "routes": [
+        "VF-LOW"
+      ],
+      "proof_nodes": []
+    },
+    {
+      "id": "COORD-SQUARE-PREFIX-MERTENS",
+      "name": "Mertens at square endpoints",
+      "family": "mobius-side",
+      "symbols": [
+        "X_R"
+      ],
+      "aliases": [
+        "squarePrefixMertens",
+        "squareRootEndpoint",
+        "squarePrefixEndpoint",
+        "square endpoint",
+        "square-prefix"
+      ],
+      "definition": "X_R = R^2 - 1 (squareRootEndpoint R); squarePrefixMertens n = M((n+1)^2 - 1).",
+      "index": "integer R >= 2",
+      "normalization": "Index shift: squarePrefixEndpoint n = (n+1)^2 - 1 but squareRootEndpoint R = R^2 - 1; see CONV-SQUARE-ENDPOINT.",
+      "measures": "M sampled just below each square; the Mobius analogue of the VF square endpoint.",
+      "lean": [
+        {
+          "file": "RHLean/Analysis/SquarePrefixMertensBridge.lean",
+          "name": "squarePrefixMertens"
+        },
+        {
+          "file": "RHLean/Analysis/SquarePrefixMertensBridge.lean",
+          "name": "squarePrefixEndpoint"
+        },
+        {
+          "file": "RHLean/Analysis/TwoABPrimeDilation.lean",
+          "name": "squareRootEndpoint"
+        }
+      ],
+      "documents": [
+        "docs/CROSS_COORDINATE_LOW_QUOTIENT_RESEARCH_2026_10_17.md"
+      ],
+      "routes": [
+        "FINITE-AC",
+        "CORR4",
+        "SAT",
+        "CODIV"
+      ],
+      "proof_nodes": []
+    },
+    {
+      "id": "COORD-MOBIUS-COVARIANCE",
+      "name": "Diagonal + signed pair covariance of mu",
+      "family": "covariance-statistic",
+      "symbols": [
+        "D(N)",
+        "C(N)"
+      ],
+      "aliases": [
+        "realMertensDiagonal",
+        "realMertensPositiveLagPairSum",
+        "signed covariance",
+        "Co/Div",
+        "positive-lag pair"
+      ],
+      "definition": "D(N) = sum_{n<=N} mu(n)^2, C(N) = sum_{a<b<=N} mu(a) mu(b); M(N)^2 = D(N) + 2 C(N).",
+      "index": "integer N",
+      "measures": "Quadratic (energy) face of M; C(N) is not a Pearson correlation.",
+      "lean": [
+        {
+          "file": "RHLean/Analysis/DeterministicTGreenKuboComparison.lean",
+          "name": "realMertensDiagonal"
+        },
+        {
+          "file": "RHLean/Analysis/DeterministicTGreenKuboComparison.lean",
+          "name": "realMertensPositiveLagPairSum"
+        }
+      ],
+      "documents": [
+        "docs/SIGNED_MOBIUS_COVARIANCE_RH_SEAM_2026_10_17.md"
+      ],
+      "routes": [
+        "CODIV",
+        "OAI-NNS"
+      ],
+      "proof_nodes": [
+        "MILESTONE-COVARIANCE-IDENTITY"
+      ]
+    },
+    {
+      "id": "COORD-WEIGHTED-ENERGY",
+      "name": "Weighted Mertens energy E_eps(T)",
+      "family": "covariance-statistic",
+      "symbols": [
+        "E_eps(T)",
+        "C_eps(T)"
+      ],
+      "aliases": [
+        "weighted energy",
+        "Green-Kubo",
+        "Green--Kubo",
+        "weighted covariance"
+      ],
+      "definition": "E_eps(T) = sum_{n<=T} M(n)^2/n^(2+2eps) = D_eps(T) + 2 C_eps(T).",
+      "index": "real T, eps > 0",
+      "measures": "Mellin-weighted energy; uniform bound at every eps > 0 is RH-equivalent.",
+      "lean": [],
+      "documents": [
+        "docs/SIGNED_MOBIUS_COVARIANCE_RH_SEAM_2026_10_17.md"
+      ],
+      "routes": [
+        "CODIV"
+      ],
+      "proof_nodes": []
+    },
+    {
+      "id": "COORD-NNS-CODIV",
+      "name": "Zero-target NNS co-partial moments (Co/Div)",
+      "family": "covariance-statistic",
+      "symbols": [
+        "CUPM",
+        "CLPM",
+        "DUPM",
+        "DLPM"
+      ],
+      "aliases": [
+        "zeroTargetCUPM",
+        "zeroTargetCLPM",
+        "zeroTargetDLPM",
+        "zeroTargetDUPM",
+        "partial moment",
+        "co-partial",
+        "NNS",
+        "CoDiv",
+        "zero-target"
+      ],
+      "definition": "For a pair (x, y): x*y = CUPM + CLPM - DLPM - DUPM about target 0 (Co = CUPM + CLPM, Div = DUPM + DLPM).",
+      "index": "real pairs",
+      "measures": "Sign-split coordinates for any signed product sum; the #915 source uses a weighted, normalized version.",
+      "lean": [
+        {
+          "file": "research/ZERO_TARGET_PARTIAL_MOMENT_COVARIANCE.lean",
+          "name": "zeroTargetCUPM"
+        },
+        {
+          "file": "research/ZERO_TARGET_PARTIAL_MOMENT_COVARIANCE.lean",
+          "name": "zeroTargetCLPM"
+        },
+        {
+          "file": "research/ZERO_TARGET_PARTIAL_MOMENT_COVARIANCE.lean",
+          "name": "zeroTargetDLPM"
+        },
+        {
+          "file": "research/ZERO_TARGET_PARTIAL_MOMENT_COVARIANCE.lean",
+          "name": "zeroTargetDUPM"
+        }
+      ],
+      "documents": [
+        "docs/OAI_COMPENSATED_ONE_PRIME_NNS_SEAM_20261022.md"
+      ],
+      "routes": [
+        "OAI-NNS",
+        "CODIV",
+        "VF-LOW"
+      ],
+      "proof_nodes": []
+    },
+    {
+      "id": "COORD-SQUARE-SHELL-MASS",
+      "name": "Square-shell Mobius mass",
+      "family": "mobius-side",
+      "symbols": [
+        "δ_r",
+        "delta_r"
+      ],
+      "aliases": [
+        "vf919SquareShellSum",
+        "square shell",
+        "square-shell",
+        "shell energy"
+      ],
+      "definition": "delta_R = sum of mu over the shell [R^2, (R+1)^2) (vf919SquareShellSum, half-open) or (r^2, (r+1)^2) (strict, energy notes).",
+      "index": "integer R",
+      "normalization": "Half-open vs strict shells differ by the square endpoint; see CONV-SQUARE-SHELL.",
+      "measures": "Block increments of M; sum over shells telescopes to M.",
+      "lean": [
+        {
+          "file": "research/VF_919_SEVEN_EIGHTHS_SQUARE_SHELL_BRIDGE_20261019.lean",
+          "name": "vf919SquareShellSum"
+        }
+      ],
+      "documents": [
+        "research/INDEPENDENT_SEVEN_EIGHTHS_SQUARE_SHELL_ENERGY_20261016.md"
+      ],
+      "routes": [
+        "CODIV",
+        "OAI-NNS",
+        "SAT"
+      ],
+      "proof_nodes": []
+    },
+    {
+      "id": "COORD-SAT-MERTENS",
+      "name": "Signed smooth-minus-transport S = A - T",
+      "family": "mobius-side",
+      "symbols": [
+        "A_R",
+        "T_R",
+        "A_mu(R)",
+        "T_mu(R)"
+      ],
+      "aliases": [
+        "squareRootSmoothMass",
+        "squareRootTransportMass",
+        "smooth minus transport",
+        "smooth-minus-transport",
+        "born-smooth"
+      ],
+      "definition": "M(R^2-1) = A_mu(R) - T_mu(R), A_mu(R) = sum_{m<=X, P+(m)<=R} mu(m), T_mu(R) = sum_{R<q<=X prime} M(floor(X/q)).",
+      "index": "integer R >= 4",
+      "measures": "S = A - T carrier #2: genuine signed Mobius, not the prime census or the Hecke transform.",
+      "lean": [
+        {
+          "file": "RHLean/Analysis/TwoABScaleTransfer.lean",
+          "name": "squarePrefixMertens_eq_squareRootSmooth_sub_transport"
+        }
+      ],
+      "documents": [
+        "docs/CROSS_COORDINATE_LOW_QUOTIENT_RESEARCH_2026_10_17.md"
+      ],
+      "routes": [
+        "SAT",
+        "CODIV"
+      ],
+      "proof_nodes": [
+        "MILESTONE-1019-BIRTH-TRANSPORT"
+      ]
+    },
+    {
+      "id": "COORD-HECKE-A6",
+      "name": "Excluded-six Hecke coefficient a6 and quotient kernel K",
+      "family": "mobius-side",
+      "symbols": [
+        "a6(n)",
+        "C6(z)",
+        "K(t)",
+        "P0",
+        "P1",
+        "B_X(t)",
+        "D_X(t)",
+        "V_low"
+      ],
+      "aliases": [
+        "vf919",
+        "excluded-six",
+        "excludedSix",
+        "Hecke",
+        "quotient kernel",
+        "quotient bucket",
+        "chi_{-3}",
+        "split prime",
+        "vf919Mertens_eq_exact_quotient_buckets"
+      ],
+      "definition": "a6 = 1_{gcd(n,6)=1} (mu * (chi_{-3} mu)); M(X) = sum_m a6(m) K(floor(X/m)) with a period-36 kernel K; at y = floor(sqrt X), M = P0 - 2 P1.",
+      "index": "integer X >= 12",
+      "measures": "S = A - T carrier #3 (normalized Hecke transform); quotient-bucket variation bounds M.",
+      "lean": [
+        {
+          "file": "research/VF_MID_919_OAI_EXCLUDED_SIX_SIGNED_KERNEL.lean",
+          "name": "vf919FiniteSixExcludedHecke"
+        },
+        {
+          "file": "research/VF_MID_919_OAI_EXCLUDED_SIX_SIGNED_KERNEL.lean",
+          "name": "vf919SixExcludedSharpQuotientKernel"
+        },
+        {
+          "file": "research/VF_MID_919_QUOTIENT_SIGNED_RETURN.lean",
+          "name": "vf919QuotientKernelPrimitive36"
+        }
+      ],
+      "documents": [
+        "research/HECKE_SPLIT_PRIME_CUTOFF_TRADEOFF_20261016.md"
+      ],
+      "routes": [
+        "CODIV",
+        "OAI-NNS"
+      ],
+      "proof_nodes": [
+        "MECH-SIGNED-QUOTIENT-VARIATION"
+      ]
+    },
+    {
+      "id": "COORD-FINITE-AC",
+      "name": "Finite A/C historical envelope",
+      "family": "mobius-side",
+      "symbols": [
+        "K_R",
+        "Q_R"
+      ],
+      "aliases": [
+        "LowerMertensCriticalEnvelope",
+        "SquareRootMertensEndpointAmplificationStatement",
+        "finite A",
+        "finite C",
+        "finite-A",
+        "finite-C",
+        "historical envelope",
+        "endpoint amplification"
+      ],
+      "definition": "K_R = max_{0<=y<R} (M(y)-1)^2/(y+1); Q_R = 2M(R-1) - M(R^2-1); finite A: (M(R^2-1)-1)^2 <= A R^2 K_R.",
+      "index": "integer R >= 2",
+      "measures": "M at the square endpoint normalized by its own historical maximum.",
+      "lean": [
+        {
+          "file": "RHLean/Proof/SquareRootLegalAncestryGramReduction.lean",
+          "name": "LowerMertensCriticalEnvelope"
+        },
+        {
+          "file": "RHLean/Proof/SquareRootMertensEndpointAmplification.lean",
+          "name": "SquareRootMertensEndpointAmplificationStatement"
+        }
+      ],
+      "documents": [
+        "research/FINITE_A_C_VF_ALIGNMENT_2026_10_11.md"
+      ],
+      "routes": [
+        "FINITE-AC",
+        "CORR4"
+      ],
+      "proof_nodes": [
+        "OPEN-FINITE-AC"
+      ]
+    },
+    {
+      "id": "COORD-LEGAL-GRAM",
+      "name": "Legal live-packet ancestry Gram",
+      "family": "covariance-statistic",
+      "symbols": [
+        "Γ_R",
+        "Gamma_R"
+      ],
+      "aliases": [
+        "squareRootLegalAncestryGramDefect",
+        "legal ancestry",
+        "live packet",
+        "live-packet",
+        "SquareRootLegalAncestryGramAmplificationStatement"
+      ],
+      "definition": "M(X_R)^2 = L_R + 2 Gamma_R over legal live odd packets.",
+      "index": "integer R >= 2",
+      "measures": "Packet-Gram face of the finite-A endpoint numerator.",
+      "lean": [
+        {
+          "file": "RHLean/Proof/SquareRootLegalAncestryGramReduction.lean",
+          "name": "squareRootLegalAncestryGramDefect"
+        },
+        {
+          "file": "RHLean/Proof/SquareRootLegalAncestryGramReduction.lean",
+          "name": "SquareRootLegalAncestryGramAmplificationStatement"
+        }
+      ],
+      "documents": [
+        "research/FINITE_A_C_VF_ALIGNMENT_2026_10_11.md"
+      ],
+      "routes": [
+        "FINITE-AC",
+        "CODIV"
+      ],
+      "proof_nodes": [
+        "PROP-LEGAL-ANCESTRY-GRAM"
+      ]
+    },
+    {
+      "id": "COORD-EULER-SELF-DUAL",
+      "name": "Euler self-dual bilinear / Newton-lift double sum",
+      "family": "mobius-side",
+      "symbols": [
+        "Q_N(X)",
+        "q_R(n)"
+      ],
+      "aliases": [
+        "eulerSelfDualBilinear",
+        "eulerSelfDualConvolutionCoefficient",
+        "newtonLift",
+        "Newton lift",
+        "self-dual",
+        "Euler self-dual",
+        "hybrid Abel"
+      ],
+      "definition": "Q_{R-1}(R^2-1) = sum_{a,b<R} mu(a) mu(b) floor((R^2-1)/(ab)) = sum_{n<=X} (P_R*P_R*zeta)(n) = 2M(R-1) - M(R^2-1).",
+      "index": "integer R >= 2",
+      "measures": "The finite-C quantity Q_R written as the k = 2 Newton-lift / Euler-product bilinear.",
+      "lean": [
+        {
+          "file": "research/EULER_HYBRID_ABEL_GRAM_20261027.lean",
+          "name": "eulerSelfDualBilinear"
+        },
+        {
+          "file": "research/EULER_SELF_DUAL_POINTWISE_20261027.lean",
+          "name": "eulerSelfDualConvolutionCoefficient"
+        },
+        {
+          "file": "research/MERTENS_FINITE_PREFIX_EXTENSION.lean",
+          "name": "newtonLift_prefix_exact"
+        }
+      ],
+      "documents": [
+        "research/EULER_SELF_DUAL_BRIDGE_AUDIT_20261027.md",
+        "docs/MERTENS_AMPLIFICATION_BUDGET.md"
+      ],
+      "routes": [
+        "FINITE-AC",
+        "MU-LIFT"
+      ],
+      "proof_nodes": [
+        "OPEN-FINITE-AC",
+        "OPEN-MU-LIFT"
+      ]
+    },
+    {
+      "id": "COORD-CORR4-PARENT",
+      "name": "CORR-4 rough correlation C_R",
+      "family": "mobius-side",
+      "symbols": [
+        "C_R"
+      ],
+      "aliases": [
+        "squareRootCanonicalRoughCorrelation",
+        "rough correlation",
+        "rough-prime correlation",
+        "CORR4",
+        "CORR-4"
+      ],
+      "definition": "C_R = squareRootCanonicalRoughCorrelation R = M(R-1) - M(R^2-1).",
+      "index": "integer R >= 2",
+      "measures": "Parent endpoint excursion of M across the square root.",
+      "lean": [
+        {
+          "file": "RHLean/Analysis/SquareRootCanonicalRoughCovariance.lean",
+          "name": "squareRootCanonicalRoughCorrelation"
+        }
+      ],
+      "documents": [
+        "research/CORR4_OAI_RELAXED_REMAINDER_20261024.md"
+      ],
+      "routes": [
+        "CORR4"
+      ],
+      "proof_nodes": [
+        "OPEN-CORR4"
+      ]
+    },
+    {
+      "id": "COORD-CORR4-DAUGHTERS",
+      "name": "CORR-4 low q^2 daughters (E_R, U_R)",
+      "family": "mobius-side",
+      "symbols": [
+        "E_R",
+        "U_R",
+        "Y_q"
+      ],
+      "aliases": [
+        "canonicalRoughLowQ2DaughterEnergy",
+        "farFourOddQ2DaughterEnergy",
+        "lowOwnerCriticalMertensSynthesis",
+        "q^2 daughter",
+        "q2 daughter",
+        "q² daughter",
+        "daughter energy"
+      ],
+      "definition": "Y_q = floor(X_R/q^2), q odd prime with q^2 < R; E_R = sum M(Y_q)^2; U_R = sum M(Y_q)/q.",
+      "index": "integer R >= 56",
+      "measures": "M at the q^2-rescaled endpoints: the recursion's children.",
+      "lean": [
+        {
+          "file": "research/CANONICAL_ROUGH_Q2_TAIL_REDUCTION.lean",
+          "name": "canonicalRoughLowQ2DaughterEnergy"
+        },
+        {
+          "file": "RHLean/Proof/FarSurvivorRenewal_is_LowerMertens.lean",
+          "name": "farFourOddQ2DaughterEnergy"
+        },
+        {
+          "file": "research/LOW_OWNER_PHYSICAL_AMPLITUDE_TRANSPORT.lean",
+          "name": "lowOwnerCriticalMertensSynthesis"
+        }
+      ],
+      "documents": [
+        "research/CORR4_OAI_RELAXED_REMAINDER_20261024.md"
+      ],
+      "routes": [
+        "CORR4"
+      ],
+      "proof_nodes": [
+        "OPEN-CORR4",
+        "PR1023-FRAME-B7"
+      ]
+    },
+    {
+      "id": "COORD-CORR4-REMAINDER",
+      "name": "CORR-4 physical remainder B_R and first-owner Gram",
+      "family": "covariance-statistic",
+      "symbols": [
+        "B_R",
+        "Γ_R",
+        "D_R"
+      ],
+      "aliases": [
+        "lowOwnerPhysicalAmplitudeRemainder",
+        "lowOwnerZeroFrequencyFirstOwnerGram",
+        "lowOwnerZeroFrequencyMobiusDiagonal",
+        "first-owner Gram",
+        "first owner Gram",
+        "physical remainder",
+        "LowOwnerPhysicalRelaxedRemainderBound"
+      ],
+      "definition": "B_R = C_R - U_R; |B_R|^2 = D_R + 2 Gamma_R with D_R the weighted Mobius diagonal and Gamma_R the first-owner Gram.",
+      "index": "integer R >= 56",
+      "measures": "What is left of the parent excursion after the daughter synthesis; at least 12 Lean rewrites exist.",
+      "lean": [
+        {
+          "file": "research/LOW_OWNER_PHYSICAL_AMPLITUDE_TRANSPORT.lean",
+          "name": "lowOwnerPhysicalAmplitudeRemainder"
+        },
+        {
+          "file": "research/GLOBAL_RETURNED_CORE_FIRST_OWNER_GRAM.lean",
+          "name": "lowOwnerZeroFrequencyFirstOwnerGram"
+        },
+        {
+          "file": "research/GLOBAL_RETURNED_CORE_FIRST_OWNER_GRAM.lean",
+          "name": "lowOwnerZeroFrequencyMobiusDiagonal"
+        }
+      ],
+      "documents": [
+        "research/CORR4_OAI_RELAXED_REMAINDER_20261024.md"
+      ],
+      "routes": [
+        "CORR4"
+      ],
+      "proof_nodes": [
+        "OPEN-CORR4-RELAXED-REMAINDER",
+        "NOGO-CORR4-FRAME-ONLY",
+        "MECH-CORR4-SIGNED-FIRST-OWNER-GRAM"
+      ]
+    },
+    {
+      "id": "COORD-PNT-FIRST-SPLIT",
+      "name": "PNT-first cofactor split M = S - L - E",
+      "family": "mobius-side",
+      "symbols": [
+        "S_R",
+        "L_R",
+        "E_R",
+        "N_R(c)"
+      ],
+      "aliases": [
+        "PNT-first",
+        "pntFirst",
+        "cofactor split",
+        "Li availability",
+        "signed transport"
+      ],
+      "definition": "M(X) = S_R - L_R - E_R, S_R = sum_{P+(n)<R} mu(n), L_R = sum_{c<R} mu(c)(Li_2(t_c) - Li_2(R-1)), E_R = sum_{c<R} mu(c)(Delta(t_c) - Delta(R-1)), t_c = floor(X/c).",
+      "index": "integer R >= 3, X = R^2 - 1",
+      "measures": "Writes M through cofactor-weighted Li model plus the prime discrepancy Delta: a direct prime/Mobius coupling.",
+      "lean": [],
+      "documents": [
+        "docs/PNT_FIRST_SIGNED_COFACTOR_SEAM_2026_10_18.md"
+      ],
+      "routes": [
+        "SAT",
+        "CODIV"
+      ],
+      "proof_nodes": []
+    },
+    {
+      "id": "COORD-BUCHSTAB-FLOOR-LI",
+      "name": "Buchstab floor-Li brackets",
+      "family": "mobius-side",
+      "symbols": [],
+      "aliases": [
+        "buchstabFloorLiSmoothBracket",
+        "buchstabFloorLiInnovationBracket",
+        "Buchstab",
+        "innovation bracket"
+      ],
+      "definition": "M(x) = smooth bracket + innovation bracket, the innovation being sum_{y<q<=x} (prime-minus-floor-Li weight)(q) * M(floor(x/q)).",
+      "index": "integer x >= 1, y = floor(sqrt x)",
+      "measures": "Exact bilinear coupling of the prime/floor-Li mismatch with Mertens prefixes.",
+      "lean": [
+        {
+          "file": "research/VF_MID_FLOOR_LI_BUCHSTAB_EXACT_BRACKETS_20261022.lean",
+          "name": "buchstabFloorLiSmoothBracket"
+        },
+        {
+          "file": "research/VF_MID_FLOOR_LI_BUCHSTAB_EXACT_BRACKETS_20261022.lean",
+          "name": "buchstabFloorLiInnovationBracket"
+        }
+      ],
+      "documents": [
+        "research/VF_MID_FLOOR_LI_BUCHSTAB_EXACT_BRACKETS_20261022.lean"
+      ],
+      "routes": [
+        "SAT",
+        "JOH",
+        "CODIV"
+      ],
+      "proof_nodes": []
+    },
+    {
+      "id": "COORD-MU-LIFT",
+      "name": "Full-prefix amplitude E(B) and Newton/Heath-Brown lift",
+      "family": "mobius-side",
+      "symbols": [
+        "E(B)",
+        "G(B)",
+        "K1",
+        "K2",
+        "K3"
+      ],
+      "aliases": [
+        "heathBrownLift",
+        "Heath-Brown",
+        "amplitude budget",
+        "MU-LIFT",
+        "hyperbola split",
+        "floor kernel"
+      ],
+      "definition": "E(B) = max_{1<=n<B} |M(n)|/sqrt(n); M(X) = 2M(N) + K1 - K2 + K3 for N = B - 1, B <= X < B^2.",
+      "index": "integer B >= 2",
+      "measures": "Normalized running maximum of |M|; a subcritical recurrence E(B^k) <= G E(B)^r, r < k, would give RH.",
+      "lean": [
+        {
+          "file": "research/MERTENS_HEATH_BROWN_SIGNED.lean",
+          "name": "heathBrownLift"
+        },
+        {
+          "file": "research/MERTENS_HEATH_BROWN_SIGNED.lean",
+          "name": "heathBrownLift_agrees_below_power"
+        }
+      ],
+      "documents": [
+        "docs/MERTENS_AMPLIFICATION_BUDGET.md"
+      ],
+      "routes": [
+        "MU-LIFT"
+      ],
+      "proof_nodes": [
+        "OPEN-MU-LIFT",
+        "MILESTONE-MERTENS-SIGNED-LIFT"
+      ]
+    },
+    {
+      "id": "COORD-MERTENS-EXPONENT",
+      "name": "Mertens growth exponent",
+      "family": "analytic",
+      "symbols": [
+        "λ_M",
+        "lambda_M"
+      ],
+      "aliases": [
+        "mertensGrowthExponent",
+        "growth exponent",
+        "MertensGrowthAtMost",
+        "growthAtMost"
+      ],
+      "definition": "lambda_M = limsup log|M(n)| / log n.",
+      "index": "real",
+      "measures": "Exponent bookkeeping of M; equals Theta (Lean).",
+      "lean": [
+        {
+          "file": "research/MERTENS_EXPONENT_ENVELOPES.lean",
+          "name": "mertensGrowthExponent"
+        }
+      ],
+      "documents": [
+        "research/MERTENS_CONVERSE_IDENTIFICATION.lean"
+      ],
+      "routes": [
+        "CODIV",
+        "OAI-NNS",
+        "MU-LIFT"
+      ],
+      "proof_nodes": [
+        "MILESTONE-MERTENS-CONVERSE",
+        "OPEN-MERTENS-EXPONENT-BELOW-7-8"
+      ]
+    },
+    {
+      "id": "COORD-OAI-IDEAL-SOURCE",
+      "name": "Original OpenAI compensated ideal-labelled source",
+      "family": "analytic",
+      "symbols": [
+        "τ_S",
+        "D_cond"
+      ],
+      "aliases": [
+        "rhleanActualEisensteinIdealNormFiber",
+        "rhleanActualIdealSharpNormTerm",
+        "openai434",
+        "OpenAI",
+        "marked-minus-rescaled",
+        "Eisenstein ideal",
+        "low-Gaussian",
+        "low Gaussian",
+        "heavy slot",
+        "oai_434"
+      ],
+      "definition": "Ideal-labelled Gaussian/Hecke source with marked-minus-rescaled compensation, split/inert labels and sextic detector (research/oai_434).",
+      "index": "Eisenstein ideals, height Z",
+      "measures": "Analytic zero-detector source behind the imported 7/8 theorem.",
+      "lean": [
+        {
+          "file": "research/oai_434/RHLeanActualEisensteinIdealSharpSquareBlock.lean",
+          "name": "rhleanActualEisensteinIdealNormFiber"
+        },
+        {
+          "file": "research/oai_434/RHLeanActualEisensteinIdealSharpSquareBlock.lean",
+          "name": "rhleanActualIdealSharpNormTerm"
+        }
+      ],
+      "documents": [
+        "docs/OAI_COMPENSATED_ONE_PRIME_NNS_SEAM_20261022.md"
+      ],
+      "routes": [
+        "OAI-NNS"
+      ],
+      "proof_nodes": [
+        "IMPORTED-OAI-7-8",
+        "MECH-OAI-NNS-COMPLETE-LEDGER",
+        "CARRIER-OAI-IDEAL-SOURCE"
+      ]
+    },
+    {
+      "id": "COORD-QRH-TRACKER",
+      "name": "Quasi-Riemann Tracker all-Dirichlet boundary",
+      "family": "analytic",
+      "symbols": [],
+      "aliases": [
+        "QRH",
+        "QuasiRiemannTracker",
+        "Quasi-Riemann",
+        "tracker boundary",
+        "leaderboard"
+      ],
+      "definition": "External tracker-certified zero-free boundary for all Dirichlet L-functions (0.8746075 at the 2026-10-26 note), a benchmark beside the imported 7/8.",
+      "index": "exponent in (1/2, 1)",
+      "measures": "External exponent benchmark; not an RH_Lean theorem.",
+      "lean": [],
+      "documents": [
+        "research/QRH_TRACKER_LEADER_SOURCE_COVARIANCE_ATTACK_20261026.md",
+        "docs/QRH_SOURCE_ESTIMATE_EXECUTION_CONTRACT_20261026.md"
+      ],
+      "routes": [
+        "OAI-NNS",
+        "CODIV"
+      ],
+      "proof_nodes": []
+    },
+    {
+      "id": "COORD-NYMAN",
+      "name": "Nyman-Beurling distance d_N",
+      "family": "hilbert",
+      "symbols": [
+        "d_N",
+        "d_(N,a)"
+      ],
+      "aliases": [
+        "Nyman",
+        "Beurling",
+        "Baez-Duarte",
+        "Báez-Duarte",
+        "Burnol",
+        "residue basis"
+      ],
+      "definition": "d_N = distance in L^2 from 1 to the span of integer-dilation fractional-part functions up to N.",
+      "index": "integer N",
+      "measures": "Hilbert-space face: RH <=> d_N -> 0 (Baez-Duarte).",
+      "lean": [],
+      "documents": [
+        "research/NYMAN_BEURLING_POSITIVE_RESIDUE_ATTACK_2026_10_15.md"
+      ],
+      "routes": [
+        "NYMAN"
+      ],
+      "proof_nodes": [
+        "OPEN-NYMAN-DENSITY",
+        "LIT-BAEZ-DUARTE",
+        "LIT-BURNOL-2002"
+      ]
+    }
+  ],
+  "crosswalks": [
+    {
+      "id": "X-DELTA-LI2",
+      "from": "ANCHOR-PRIME-DISCREPANCY",
+      "relation": "DEFINITIONAL",
+      "to": "COORD-LI2-MODEL",
+      "formula": "Delta(x) = pi(x) - Li_2(x)",
+      "status": "LEAN_ON_MAIN",
+      "lean": [
+        {
+          "file": "research/VF_MID_VON_KOCH_BRIDGE.lean",
+          "name": "vfMidPrimeLiError"
+        }
+      ],
+      "source": []
+    },
+    {
+      "id": "X-VFCAN-VFMID",
+      "from": "COORD-VF-CAN",
+      "relation": "FIXED_OFFSET",
+      "to": "COORD-VF-MID",
+      "formula": "VF_can(x) = vfMid(x) + sqrt 2",
+      "status": "LEAN_ON_MAIN",
+      "lean": [
+        {
+          "file": "research/VF_CANONICAL_SQRT_TWO.lean",
+          "name": "vfCanonical_eq_legacy_plus_sqrt_two"
+        }
+      ],
+      "source": []
+    },
+    {
+      "id": "X-VFCAN-LI2",
+      "from": "COORD-VF-CAN",
+      "relation": "BOUNDED_DIFFERENCE",
+      "to": "COORD-LI2-MODEL",
+      "formula": "|VF_can(x) - Li_2(x)| <= C for every real x >= 4",
+      "status": "LEAN_ON_MAIN",
+      "lean": [
+        {
+          "file": "research/VF_CANONICAL_SQRT_TWO.lean",
+          "name": "abs_vfCanonicalLiError_le_uniform_allReal"
+        }
+      ],
+      "source": [],
+      "caveat": "Deterministic; says nothing about pi."
+    },
+    {
+      "id": "X-DELTA-SPLIT",
+      "from": "ANCHOR-PRIME-DISCREPANCY",
+      "relation": "DECOMPOSITION",
+      "to": "COORD-VF-REAL-PRIME-ERROR",
+      "formula": "pi - Li_2 = (pi - VF_can) + (VF_can - Li_2) at every real x",
+      "status": "LEAN_ON_MAIN",
+      "lean": [
+        {
+          "file": "research/VF_CANONICAL_SQRT_TWO.lean",
+          "name": "vfCanonicalPrimeLiError_eq_primeError_add_quadrature"
+        }
+      ],
+      "source": []
+    },
+    {
+      "id": "X-REAL-SQUARE",
+      "from": "COORD-VF-REAL-PRIME-ERROR",
+      "relation": "RESTRICTION",
+      "to": "COORD-VF-CAN-DEFECT",
+      "formula": "pi(x) - VF_can(x) at x = R^2 equals D_can(R)",
+      "status": "LEAN_ON_MAIN",
+      "lean": [
+        {
+          "file": "research/VF_CANONICAL_SQRT_TWO.lean",
+          "name": "vfCanonicalPrimeError_sq_eq_squareDefect"
+        }
+      ],
+      "source": []
+    },
+    {
+      "id": "X-VONKOCH",
+      "from": "COORD-VF-CAN-DEFECT",
+      "relation": "BOUND_EQUIVALENCE",
+      "to": "ANCHOR-PRIME-DISCREPANCY",
+      "formula": "(exists C, |D_can(R)| <= C R log R) <=> (exists C', |Delta(x)| <= C' sqrt(x) log x)",
+      "status": "LEAN_ON_MAIN",
+      "lean": [
+        {
+          "file": "research/VF_CANONICAL_SQRT_TWO_VON_KOCH.lean",
+          "name": "vfCanonicalSquareVonKoch_iff_primeLiVonKoch"
+        }
+      ],
+      "source": [],
+      "caveat": "Existential constants change; fixed-constant statements are not preserved."
+    },
+    {
+      "id": "X-CAN-RAW",
+      "from": "COORD-VF-CAN-DEFECT",
+      "relation": "FIXED_OFFSET",
+      "to": "COORD-VF-RAW-DEFECT",
+      "formula": "D_can(R) = D_raw(R) - sqrt 2",
+      "status": "LEAN_ON_MAIN",
+      "lean": [
+        {
+          "file": "research/VF_CANONICAL_SQRT_TWO.lean",
+          "name": "vfCanonicalSquareDefect_eq_legacy_sub_phase"
+        }
+      ],
+      "source": [],
+      "caveat": "Squares carry -2 sqrt2 D_raw + 2; fixed-K first-bad energies are not phase invariant."
+    },
+    {
+      "id": "X-DEFECT-RECURRENCE",
+      "from": "COORD-VF-CAN-DEFECT",
+      "relation": "INCREMENT",
+      "to": "COORD-BLOCK-PRIME-COUNT",
+      "formula": "D_can(R+1) = D_can(R) + (P_R - V_R)",
+      "status": "LEAN_ON_MAIN",
+      "lean": [
+        {
+          "file": "research/VF_CANONICAL_SQRT_TWO.lean",
+          "name": "vfCanonicalSquareDefect_succ_primeWheel"
+        }
+      ],
+      "source": []
+    },
+    {
+      "id": "X-FINISHED-MASS",
+      "from": "COORD-VF-BLOCK-MASS",
+      "relation": "DEFINITIONAL",
+      "to": "COORD-VF-CAN",
+      "formula": "VF_can(R^2) = F_R + sqrt 2",
+      "status": "LEAN_ON_MAIN",
+      "lean": [
+        {
+          "file": "research/VF_MID_VON_KOCH_BRIDGE.lean",
+          "name": "vfMidFinishedMass"
+        }
+      ],
+      "source": []
+    },
+    {
+      "id": "X-FLOORLI-LI2",
+      "from": "COORD-FLOOR-LI-MODEL",
+      "relation": "BOUNDED_DIFFERENCE",
+      "to": "COORD-LI2-MODEL",
+      "formula": "0 <= Li_2(n) - Q(n) < 1",
+      "status": "DEFINITIONAL",
+      "lean": [],
+      "source": [
+        "research/LI_FAN_ONE_SIDED_WEIGHTED_COMPOSITE_RH_CONTRACT_20261022.md"
+      ],
+      "caveat": "Rounding of the model, not prime-counting control."
+    },
+    {
+      "id": "X-ETA-Q",
+      "from": "COORD-PRIME-MODEL-EVENTS",
+      "relation": "INCREMENT",
+      "to": "COORD-FLOOR-LI-MODEL",
+      "formula": "eta(k) = 1_prime(k) - (Q(k) - Q(k-1))",
+      "status": "LEAN_ON_MAIN",
+      "lean": [
+        {
+          "file": "research/VF_MID_FLOOR_LI_SIGNED_POPULATION_BALANCE.lean",
+          "name": "vfMidFloorLiPrimitiveMismatch"
+        }
+      ],
+      "source": []
+    },
+    {
+      "id": "X-ETA-BLOCK",
+      "from": "COORD-PRIME-MODEL-EVENTS",
+      "relation": "WEIGHTED_PROJECTION",
+      "to": "COORD-FLOORLI-BLOCK-DEFECT",
+      "formula": "signed mismatch mass on [A^2, B^2) = -(dyadic prime defect)",
+      "status": "LEAN_ON_MAIN",
+      "lean": [
+        {
+          "file": "research/VF_MID_FLOOR_LI_SIGNED_POPULATION_BALANCE.lean",
+          "name": "vfMidFloorLiSignedMismatchMass_sq_eq_neg_dyadicPrimeDefect"
+        }
+      ],
+      "source": [],
+      "caveat": "Zeroth moment: within-block arrival locations are lost."
+    },
+    {
+      "id": "X-915-ZEROTH",
+      "from": "COORD-915-SOURCE",
+      "relation": "WEIGHTED_PROJECTION",
+      "to": "COORD-FLOORLI-BLOCK-DEFECT",
+      "formula": "historical moving-owner correction on [A,B) = -(signed floor-Li population balance on [A^2,B^2))",
+      "status": "LEAN_ON_MAIN",
+      "lean": [
+        {
+          "file": "research/VF_MID_915_FLOOR_LI_TRANSPORT_BOUNDARY.lean",
+          "name": "vfMid915HistoricalMovingOwner_eq_signedMismatch"
+        }
+      ],
+      "source": [],
+      "caveat": "Aggregate only; native weights, masks, clipping, anchors and NNS terms are not carried."
+    },
+    {
+      "id": "X-915-RAW",
+      "from": "COORD-915-SOURCE",
+      "relation": "INCREMENT",
+      "to": "COORD-VF-RAW-DEFECT",
+      "formula": "Source(R) = D_raw(R+1) = D_raw(R) + P_R - m_R",
+      "status": "LEAN_ON_MAIN",
+      "lean": [
+        {
+          "file": "research/VF_MID_915_SOURCE_PAYMENT_CONTENT_AUDIT.lean",
+          "name": "vfMidActualPrimeEndpointDefect_succ_eq_add_blockSupply"
+        }
+      ],
+      "source": []
+    },
+    {
+      "id": "X-JOH-ETA",
+      "from": "COORD-JOH-G",
+      "relation": "WEIGHTED_PROJECTION",
+      "to": "COORD-PRIME-MODEL-EVENTS",
+      "formula": "G(B^2) - G(A^2) = (B^2-A^2)(P_A-1) - sum_j (B^2-(j+1)^2) D_j + sum_r J_r",
+      "status": "PAPER",
+      "lean": [],
+      "source": [
+        "research/LI_FAN_ONE_SIDED_WEIGHTED_COMPOSITE_RH_CONTRACT_20261022.md"
+      ],
+      "caveat": "Claim 20261024-owner-1 (agent-reports); first moment, review pending."
+    },
+    {
+      "id": "X-JOH-DELTA",
+      "from": "COORD-JOH-G",
+      "relation": "WEIGHTED_PROJECTION",
+      "to": "ANCHOR-PRIME-DISCREPANCY",
+      "formula": "G(N) = sum_{n<N} Delta(n) + O(N)",
+      "status": "PAPER",
+      "lean": [],
+      "source": [
+        "docs/RH_PROOF_OVERLAP_AND_SEVEN_EIGHTHS_AUDIT_20261024.md"
+      ],
+      "caveat": "Cesaro projection; not pointwise-invertible."
+    },
+    {
+      "id": "X-JOH-H",
+      "from": "COORD-JOH-H",
+      "relation": "BOUNDED_DIFFERENCE",
+      "to": "COORD-JOH-G",
+      "formula": "H(X) - G(floor X) = O(X) (li vs Li_2 and the -1 centering)",
+      "status": "PAPER",
+      "lean": [],
+      "source": [
+        "research/LI_FAN_ONE_SIDED_WEIGHTED_COMPOSITE_RH_CONTRACT_20261022.md"
+      ]
+    },
+    {
+      "id": "X-JOH-H-DELTA",
+      "from": "COORD-JOH-H",
+      "relation": "DEFINITIONAL",
+      "to": "ANCHOR-PRIME-DISCREPANCY",
+      "formula": "H(X) = int_2^X (pi - li) = int_2^X Delta - li(2)(X - 2)",
+      "status": "LITERATURE",
+      "lean": [],
+      "source": [
+        "research/LI_FAN_ONE_SIDED_WEIGHTED_COMPOSITE_RH_CONTRACT_20261022.md"
+      ]
+    },
+    {
+      "id": "X-LEDGER-DEFECT",
+      "from": "COORD-RAW-LEDGER",
+      "relation": "FIXED_OFFSET",
+      "to": "COORD-VF-CAN-DEFECT",
+      "formula": "D_can(R) = 2 - sqrt 2 - L_R",
+      "status": "PAPER",
+      "lean": [],
+      "source": [
+        "CURRENT_PROOF_CONTRACT.md"
+      ],
+      "caveat": "Paper-level telescoping under the stated endpoint conventions; not compiled."
+    },
+    {
+      "id": "X-RECIPROCAL-LEDGER",
+      "from": "COORD-PRIME-RECIPROCAL",
+      "relation": "COUPLING",
+      "to": "COORD-RAW-LEDGER",
+      "formula": "T_R - M_R^band = F_R (E_prime(2R-1) - E_prime(R-1)) + rho_R, rho_R = O(R/log^2 R)",
+      "status": "PAPER",
+      "lean": [],
+      "source": [
+        "CURRENT_PROOF_CONTRACT.md"
+      ],
+      "caveat": "Self-audited paper claim; band relative to its prime-free model only."
+    },
+    {
+      "id": "X-CENSUS-BLOCK",
+      "from": "COORD-SAT-PRIME-CENSUS",
+      "relation": "EXACT_IDENTITY",
+      "to": "COORD-BLOCK-PRIME-COUNT",
+      "formula": "primes among the R odd interior seats = R - C_R (least-prime owner removal)",
+      "status": "PAPER",
+      "lean": [],
+      "source": [
+        "docs/CROSS_COORDINATE_LOW_QUOTIENT_RESEARCH_2026_10_17.md"
+      ],
+      "caveat": "Unsigned population accounting."
+    },
+    {
+      "id": "X-ZEROS-PRIME",
+      "from": "ANCHOR-ZETA-ZEROS",
+      "relation": "CLASSICAL_ANALYTIC_TRANSFER",
+      "to": "ANCHOR-PRIME-DISCREPANCY",
+      "formula": "Delta(x) = O(x^(Theta+eps)) and Delta(x) = Omega_+-(x^(Theta-eps)); RH <=> Delta = O(sqrt x log x) (von Koch 1901)",
+      "status": "LITERATURE",
+      "lean": [],
+      "source": [
+        "docs/FORMALIZATION_MILESTONES.md",
+        "research/VF_MID_LOWER_CHANNEL_ALONE_RH_AND_FIRST_BAD_GATE.md"
+      ],
+      "caveat": "In Lean only through the explicit ClassicalVonKochRHCriterion interface."
+    },
+    {
+      "id": "X-MERTENS-EXP-DEF",
+      "from": "ANCHOR-MERTENS",
+      "relation": "DEFINITIONAL",
+      "to": "COORD-MERTENS-EXPONENT",
+      "formula": "lambda_M = limsup log|M(n)|/log n",
+      "status": "LEAN_ON_MAIN",
+      "lean": [
+        {
+          "file": "research/MERTENS_CONVERSE_IDENTIFICATION.lean",
+          "name": "logLimsup_eq_rightmost"
+        }
+      ],
+      "source": []
+    },
+    {
+      "id": "X-MERTENS-EXP-ZEROS",
+      "from": "COORD-MERTENS-EXPONENT",
+      "relation": "EXACT_IDENTITY",
+      "to": "ANCHOR-ZETA-ZEROS",
+      "formula": "lambda_M = Theta",
+      "status": "LEAN_ON_MAIN",
+      "lean": [
+        {
+          "file": "research/MERTENS_CONVERSE_IDENTIFICATION.lean",
+          "name": "growthExponent_eq_rightmost"
+        },
+        {
+          "file": "research/MERTENS_CONVERSE_IDENTIFICATION.lean",
+          "name": "growthAtMost_iff_strip"
+        }
+      ],
+      "source": [],
+      "caveat": "Identifies boundaries; supplies no numerical value."
+    },
+    {
+      "id": "X-LANDAU",
+      "from": "COORD-VON-MANGOLDT",
+      "relation": "COUPLING",
+      "to": "ANCHOR-MERTENS",
+      "formula": "sum_{d<=X} Lambda(d) M(floor(X/d)) = -sum_{n<=X} mu(n) log n",
+      "status": "LEAN_ON_MAIN",
+      "lean": [
+        {
+          "file": "research/PNT_FIRST_LAMBDA_HYPERBOLA_ANCHOR_20261018.lean",
+          "name": "pntFirst_landau_vonMangoldt_mertens"
+        },
+        {
+          "file": "research/PNT_FIRST_LAMBDA_HYPERBOLA_ANCHOR_20261018.lean",
+          "name": "pntFirst_lambdaError_hyperbola_total"
+        }
+      ],
+      "source": []
+    },
+    {
+      "id": "X-PSI-PI",
+      "from": "COORD-VON-MANGOLDT",
+      "relation": "CLASSICAL_ANALYTIC_TRANSFER",
+      "to": "ANCHOR-PRIME-DISCREPANCY",
+      "formula": "partial summation: psi(x) - x = O(x^a log^2 x) <=> Delta(x) = O(x^a log x) for a >= 1/2",
+      "status": "LITERATURE",
+      "lean": [],
+      "source": [
+        "docs/PNT_FIRST_SIGNED_COFACTOR_SEAM_2026_10_18.md"
+      ]
+    },
+    {
+      "id": "X-BUCHSTAB-M",
+      "from": "COORD-BUCHSTAB-FLOOR-LI",
+      "relation": "DECOMPOSITION",
+      "to": "ANCHOR-MERTENS",
+      "formula": "M(x) = smooth bracket + innovation bracket at y = floor(sqrt x), exact for x >= 1",
+      "status": "LEAN_ON_MAIN",
+      "lean": [
+        {
+          "file": "research/VF_MID_FLOOR_LI_BUCHSTAB_EXACT_BRACKETS_20261022.lean",
+          "name": "buchstab_mertens_eq_floorLi_smooth_add_innovation_at_root"
+        }
+      ],
+      "source": []
+    },
+    {
+      "id": "X-BUCHSTAB-ETA",
+      "from": "COORD-BUCHSTAB-FLOOR-LI",
+      "relation": "COUPLING",
+      "to": "COORD-PRIME-MODEL-EVENTS",
+      "formula": "actual prime tail = floor-Li reference + sum_q (prime-minus-floor-Li weight)(q) M(floor(x/q))",
+      "status": "LEAN_ON_MAIN",
+      "lean": [
+        {
+          "file": "research/VF_MID_FLOOR_LI_BUCHSTAB_EXACT_BRACKETS_20261022.lean",
+          "name": "buchstab_actualPrimeTail_eq_floorLi_add_mismatch"
+        }
+      ],
+      "source": [],
+      "caveat": "Bilinear in (mismatch, Mertens prefix); no norm taken."
+    },
+    {
+      "id": "X-SQUARE-PREFIX",
+      "from": "COORD-SQUARE-PREFIX-MERTENS",
+      "relation": "RESTRICTION",
+      "to": "ANCHOR-MERTENS",
+      "formula": "squarePrefixMertens n = M((n+1)^2 - 1)",
+      "status": "LEAN_ON_MAIN",
+      "lean": [
+        {
+          "file": "RHLean/Analysis/SquarePrefixMertensBridge.lean",
+          "name": "squarePrefixMertens"
+        }
+      ],
+      "source": []
+    },
+    {
+      "id": "X-SAT-MERTENS",
+      "from": "COORD-SAT-MERTENS",
+      "relation": "DECOMPOSITION",
+      "to": "COORD-SQUARE-PREFIX-MERTENS",
+      "formula": "M(R^2 - 1) = A_mu(R) - T_mu(R)",
+      "status": "LEAN_ON_MAIN",
+      "lean": [
+        {
+          "file": "RHLean/Analysis/TwoABScaleTransfer.lean",
+          "name": "squarePrefixMertens_eq_squareRootSmooth_sub_transport"
+        }
+      ],
+      "source": []
+    },
+    {
+      "id": "X-COVARIANCE",
+      "from": "COORD-MOBIUS-COVARIANCE",
+      "relation": "DECOMPOSITION",
+      "to": "ANCHOR-MERTENS",
+      "formula": "M(N)^2 = D(N) + 2 C(N)",
+      "status": "LEAN_ON_MAIN",
+      "lean": [
+        {
+          "file": "RHLean/Analysis/MertensCovarianceDescent.lean",
+          "name": "realMertensPositiveLagPairSum_eq_norm_sq_sub_diagonal"
+        }
+      ],
+      "source": []
+    },
+    {
+      "id": "X-NNS-COVARIANCE",
+      "from": "COORD-NNS-CODIV",
+      "relation": "DECOMPOSITION",
+      "to": "COORD-MOBIUS-COVARIANCE",
+      "formula": "each pair product mu(a) mu(b) = CUPM + CLPM - DLPM - DUPM at target 0",
+      "status": "LEAN_ON_MAIN",
+      "lean": [
+        {
+          "file": "research/ZERO_TARGET_PARTIAL_MOMENT_COVARIANCE.lean",
+          "name": "zeroTargetPartialMoment_reassembly"
+        }
+      ],
+      "source": [],
+      "caveat": "The #915 NNS statistic is weighted and normalized differently; this is only the pairwise sign split."
+    },
+    {
+      "id": "X-WEIGHTED-ENERGY",
+      "from": "COORD-WEIGHTED-ENERGY",
+      "relation": "WEIGHTED_PROJECTION",
+      "to": "COORD-MOBIUS-COVARIANCE",
+      "formula": "E_eps(T) = sum M(n)^2/n^(2+2eps) = D_eps(T) + 2 C_eps(T)",
+      "status": "PAPER",
+      "lean": [],
+      "source": [
+        "docs/SIGNED_MOBIUS_COVARIANCE_RH_SEAM_2026_10_17.md"
+      ]
+    },
+    {
+      "id": "X-SHELLS",
+      "from": "COORD-SQUARE-SHELL-MASS",
+      "relation": "DECOMPOSITION",
+      "to": "ANCHOR-MERTENS",
+      "formula": "sum over shells R < K of the shell source = realMertensLength(K^2), the true Mertens prefix of length K^2",
+      "status": "LEAN_ON_MAIN",
+      "lean": [
+        {
+          "file": "research/VF_919_OAI_GLOBAL_SQUARE_BLOCK_ALL_PAIR_COVARIANCE_20261019.lean",
+          "name": "vf919OAIGlobalSquareBlockSource_eq_trueMertens"
+        }
+      ],
+      "source": []
+    },
+    {
+      "id": "X-HECKE-M",
+      "from": "COORD-HECKE-A6",
+      "relation": "DECOMPOSITION",
+      "to": "ANCHOR-MERTENS",
+      "formula": "M(X) = exact signed quotient buckets of a6 against the period-36 kernel",
+      "status": "LEAN_ON_MAIN",
+      "lean": [
+        {
+          "file": "research/VF_MID_919_QUOTIENT_SIGNED_RETURN.lean",
+          "name": "vf919Mertens_eq_exact_quotient_buckets"
+        },
+        {
+          "file": "research/VF_MID_919_QUOTIENT_SIGNED_RETURN.lean",
+          "name": "vf919Mertens_eq_exact_signed_quotient_return"
+        }
+      ],
+      "source": []
+    },
+    {
+      "id": "X-HECKE-SAT",
+      "from": "COORD-HECKE-A6",
+      "relation": "EXACT_IDENTITY",
+      "to": "COORD-SAT-MERTENS",
+      "formula": "P0(X;R-1) = A_R + H_R - I_R + 1_{R prime}(1 + chi_{-3}(R)) M(R-1)",
+      "status": "PAPER",
+      "lean": [],
+      "source": [
+        "docs/CROSS_COORDINATE_LOW_QUOTIENT_RESEARCH_2026_10_17.md"
+      ],
+      "caveat": "Scalar crosswalk, integer-verified; root cutoff R-1 vs historical q > R (CONV-ROOT-CUTOFF)."
+    },
+    {
+      "id": "X-FINITE-AC-DEF",
+      "from": "COORD-FINITE-AC",
+      "relation": "DEFINITIONAL",
+      "to": "COORD-SQUARE-PREFIX-MERTENS",
+      "formula": "Q_R = 2M(R-1) - M(R^2-1); numerator (M(R^2-1) - 1)^2; K_R from M(y), y < R",
+      "status": "LEAN_ON_MAIN",
+      "lean": [
+        {
+          "file": "RHLean/Proof/SquareRootMertensEndpointAmplification.lean",
+          "name": "SquareRootMertensEndpointAmplificationStatement"
+        }
+      ],
+      "source": []
+    },
+    {
+      "id": "X-EULER-QR",
+      "from": "COORD-EULER-SELF-DUAL",
+      "relation": "EXACT_IDENTITY",
+      "to": "COORD-FINITE-AC",
+      "formula": "sum_{a,b<R} mu(a) mu(b) floor((R^2-1)/(ab)) = 2M(R-1) - M(R^2-1) = Q_R",
+      "status": "LEAN_ON_MAIN",
+      "lean": [
+        {
+          "file": "research/EULER_SELF_DUAL_ENDPOINT_GATE_20261027.lean",
+          "name": "eulerSelfDualBilinear_eq_two_mertens_sub_endpoint"
+        }
+      ],
+      "source": []
+    },
+    {
+      "id": "X-EULER-NEWTON",
+      "from": "COORD-EULER-SELF-DUAL",
+      "relation": "EXACT_IDENTITY",
+      "to": "COORD-MU-LIFT",
+      "formula": "(P_R * P_R * zeta)(n) = mu(n) for n < R, -mu(n) for R <= n < R^2 (Newton lift 2P - P*P*zeta = mu below R^2)",
+      "status": "LEAN_ON_MAIN",
+      "lean": [
+        {
+          "file": "research/MERTENS_FINITE_PREFIX_EXTENSION.lean",
+          "name": "newtonLift_prefix_exact"
+        },
+        {
+          "file": "research/EULER_SELF_DUAL_POINTWISE_20261027.lean",
+          "name": "eulerSelfDualConvolutionCoefficient_eq_signed_moebius"
+        }
+      ],
+      "source": [],
+      "caveat": "Support statement on coefficients, not a sign or norm estimate."
+    },
+    {
+      "id": "X-GRAM-FINITE-A",
+      "from": "COORD-LEGAL-GRAM",
+      "relation": "BOUND_EQUIVALENCE",
+      "to": "COORD-FINITE-AC",
+      "formula": "Gamma_R <= B R^2 K_R (some B) <=> finite A (some A)",
+      "status": "LEAN_ON_MAIN",
+      "lean": [
+        {
+          "file": "RHLean/Proof/SquareRootMertensEndpointAmplification.lean",
+          "name": "squareRootMertensEndpointAmplification_iff_legalAncestryGram"
+        }
+      ],
+      "source": [],
+      "caveat": "Existential equivalence on this normalized carrier only."
+    },
+    {
+      "id": "X-FINITE-A-ENERGY",
+      "from": "COORD-FINITE-AC",
+      "relation": "ONE_WAY_IMPLICATION",
+      "to": "ANCHOR-MERTENS",
+      "formula": "finite A => |M(x)|^2 <= C (x+1)^(1+eps)",
+      "status": "LEAN_ON_MAIN",
+      "lean": [
+        {
+          "file": "RHLean/Proof/SquareRootAmplificationClosure.lean",
+          "name": "mertensEnergyBounded_of_squareRootEndpointAmplification"
+        }
+      ],
+      "source": [],
+      "caveat": "Converse not proved; finite A may be stronger than RH."
+    },
+    {
+      "id": "X-CORR4-C",
+      "from": "COORD-CORR4-PARENT",
+      "relation": "EXACT_IDENTITY",
+      "to": "COORD-SQUARE-PREFIX-MERTENS",
+      "formula": "C_R = M(R-1) - M(R^2-1)",
+      "status": "LEAN_ON_MAIN",
+      "lean": [
+        {
+          "file": "RHLean/Analysis/SquareRootCanonicalRoughCovariance.lean",
+          "name": "squareRootCanonicalRoughCorrelation_eq_mertens_pred_sub_endpoint"
+        }
+      ],
+      "source": []
+    },
+    {
+      "id": "X-CORR4-ENERGY",
+      "from": "COORD-CORR4-PARENT",
+      "relation": "BOUND_EQUIVALENCE",
+      "to": "ANCHOR-MERTENS",
+      "formula": "bounded normalized rough correlation <=> Mertens energy statement",
+      "status": "LEAN_ON_MAIN",
+      "lean": [
+        {
+          "file": "RHLean/Analysis/SquareRootCanonicalRoughCovariance.lean",
+          "name": "squareRootCanonicalRoughCorrelationBounded_iff_mertensEnergyBounded"
+        }
+      ],
+      "source": []
+    },
+    {
+      "id": "X-CORR4-DAUGHTERS",
+      "from": "COORD-CORR4-DAUGHTERS",
+      "relation": "RESTRICTION",
+      "to": "COORD-SQUARE-PREFIX-MERTENS",
+      "formula": "daughters are M(floor(X_R/q^2)) for odd primes q^2 < R",
+      "status": "LEAN_ON_MAIN",
+      "lean": [
+        {
+          "file": "research/LOW_OWNER_PHYSICAL_AMPLITUDE_TRANSPORT.lean",
+          "name": "lowOwnerRawMertensAmplitude"
+        },
+        {
+          "file": "research/LOW_OWNER_PHYSICAL_AMPLITUDE_TRANSPORT.lean",
+          "name": "lowOwnerCriticalMertensSynthesis"
+        }
+      ],
+      "source": []
+    },
+    {
+      "id": "X-CORR4-FRAME",
+      "from": "COORD-CORR4-DAUGHTERS",
+      "relation": "ONE_WAY_IMPLICATION",
+      "to": "COORD-CORR4-REMAINDER",
+      "formula": "|U_R|^2 <= b_7 E_R, b_7 = 1565172113/7214407200 (unsigned frame)",
+      "status": "LEAN_ON_MAIN",
+      "lean": [
+        {
+          "file": "research/ODD_PRIME_COMPOSITE_GAP_BASEL_20261025.lean",
+          "name": "stableFarCriticalQ2OddPrimeSynthesis_energy_le_compositeGap"
+        }
+      ],
+      "source": [],
+      "caveat": "Frame-only arguments rehouse a finite-A excursion (claim 20261025-coordinator-1)."
+    },
+    {
+      "id": "X-CORR4-B-C",
+      "from": "COORD-CORR4-REMAINDER",
+      "relation": "DECOMPOSITION",
+      "to": "COORD-CORR4-PARENT",
+      "formula": "B_R = rough correlation - reciprocal column (one of >= 12 Lean rewrites of B_R)",
+      "status": "LEAN_ON_MAIN",
+      "lean": [
+        {
+          "file": "research/LOW_OWNER_AMPLITUDE_MELLIN_LEDGER_SPLICE.lean",
+          "name": "lowOwnerPhysicalAmplitudeRemainder_zero_eq_correlation_sub_reciprocalColumn"
+        }
+      ],
+      "source": []
+    },
+    {
+      "id": "X-CORR4-GRAM",
+      "from": "COORD-CORR4-REMAINDER",
+      "relation": "DECOMPOSITION",
+      "to": "COORD-NNS-CODIV",
+      "formula": "|B_R|^2 = D_R + 2 * (first-owner Gram)",
+      "status": "LEAN_ON_MAIN",
+      "lean": [
+        {
+          "file": "research/GLOBAL_RETURNED_CORE_FIRST_OWNER_GRAM.lean",
+          "name": "norm_sq_lowOwnerPhysicalAmplitudeRemainder_zero_eq_diagonal_add_firstOwners"
+        }
+      ],
+      "source": [],
+      "caveat": "A first-owner diagonal/off-diagonal split, the same shape as M^2 = D + 2C on a different carrier."
+    },
+    {
+      "id": "X-CORR4-FINITE-A",
+      "from": "COORD-CORR4-DAUGHTERS",
+      "relation": "ONE_WAY_IMPLICATION",
+      "to": "COORD-FINITE-AC",
+      "formula": "CORR-4 (coefficient 4 on q^2 daughter energy) => finite A",
+      "status": "LEAN_ON_MAIN",
+      "lean": [
+        {
+          "file": "research/CORRELATION_FOUR_TERMINAL_BRIDGE.lean",
+          "name": "correlationFour_implies_rawQ2_10201_over_2500"
+        },
+        {
+          "file": "RHLean/Proof/PhysicalQ2ExceptionalTerminalSynthesis.lean",
+          "name": "squareEndpointRawOddQ2EnergyStepWith_implies_endpointAmplification"
+        }
+      ],
+      "source": []
+    },
+    {
+      "id": "X-PNT-FIRST",
+      "from": "COORD-PNT-FIRST-SPLIT",
+      "relation": "DECOMPOSITION",
+      "to": "COORD-SQUARE-PREFIX-MERTENS",
+      "formula": "M(X) = S_R - L_R - E_R, X = R^2 - 1",
+      "status": "PAPER",
+      "lean": [],
+      "source": [
+        "docs/PNT_FIRST_SIGNED_COFACTOR_SEAM_2026_10_18.md"
+      ],
+      "caveat": "Exact identity, not an estimate."
+    },
+    {
+      "id": "X-PNT-FIRST-DELTA",
+      "from": "COORD-PNT-FIRST-SPLIT",
+      "relation": "COUPLING",
+      "to": "ANCHOR-PRIME-DISCREPANCY",
+      "formula": "E_R = sum_{c<R} mu(c) (Delta(t_c) - Delta(R-1))",
+      "status": "PAPER",
+      "lean": [],
+      "source": [
+        "docs/PNT_FIRST_SIGNED_COFACTOR_SEAM_2026_10_18.md"
+      ],
+      "caveat": "Fixed-c PNT is not uniform as c approaches R."
+    },
+    {
+      "id": "X-MULIFT-E",
+      "from": "COORD-MU-LIFT",
+      "relation": "WEIGHTED_PROJECTION",
+      "to": "ANCHOR-MERTENS",
+      "formula": "E(B) = max_{1<=n<B} |M(n)|/sqrt(n)",
+      "status": "PAPER",
+      "lean": [],
+      "source": [
+        "docs/MERTENS_AMPLIFICATION_BUDGET.md"
+      ]
+    },
+    {
+      "id": "X-OAI-ZEROS",
+      "from": "COORD-OAI-IDEAL-SOURCE",
+      "relation": "ONE_WAY_IMPLICATION",
+      "to": "ANCHOR-ZETA-ZEROS",
+      "formula": "zeta(s) != 0 for Re s > 7/8",
+      "status": "LEAN_ON_MAIN",
+      "lean": [
+        {
+          "file": "research/VF_919_OPENAI_434_UNCONDITIONAL_SQUARE_BLOCK_COVARIANCE_20261019.lean",
+          "name": "openai434_actual_zeta_nonzero"
+        }
+      ],
+      "source": [],
+      "caveat": "Imported certified external proof; benchmark, not an exponent improvement."
+    },
+    {
+      "id": "X-OAI-COVARIANCE",
+      "from": "COORD-OAI-IDEAL-SOURCE",
+      "relation": "ONE_WAY_IMPLICATION",
+      "to": "COORD-MOBIUS-COVARIANCE",
+      "formula": "global signed covariance bound at exponent 7/8 + eps",
+      "status": "LEAN_ON_MAIN",
+      "lean": [
+        {
+          "file": "research/VF_919_OPENAI_434_UNCONDITIONAL_SQUARE_BLOCK_COVARIANCE_20261019.lean",
+          "name": "openai434_actual_global_signed_covariance"
+        }
+      ],
+      "source": [],
+      "caveat": "Output-level; not coefficient-by-coefficient identification with RH_Lean owner coefficients."
+    },
+    {
+      "id": "X-QRH-ZEROS",
+      "from": "COORD-QRH-TRACKER",
+      "relation": "ONE_WAY_IMPLICATION",
+      "to": "ANCHOR-ZETA-ZEROS",
+      "formula": "tracker-certified all-Dirichlet zero-free boundary (external)",
+      "status": "EXTERNAL",
+      "lean": [],
+      "source": [
+        "research/QRH_TRACKER_LEADER_SOURCE_COVARIANCE_ATTACK_20261026.md"
+      ],
+      "caveat": "External tracker certificate; not imported into RH_Lean."
+    },
+    {
+      "id": "X-NYMAN-ZEROS",
+      "from": "COORD-NYMAN",
+      "relation": "CLASSICAL_ANALYTIC_TRANSFER",
+      "to": "ANCHOR-ZETA-ZEROS",
+      "formula": "RH <=> d_N -> 0 (Baez-Duarte); d_N^2 >= c/log N (Burnol)",
+      "status": "LITERATURE",
+      "lean": [],
+      "source": [
+        "research/NYMAN_BEURLING_POSITIVE_RESIDUE_ATTACK_2026_10_15.md"
+      ]
+    },
+    {
+      "id": "X-NOT-915-SAT",
+      "from": "COORD-915-SOURCE",
+      "relation": "NOT_EQUIVALENT",
+      "to": "COORD-SAT-MERTENS",
+      "formula": "the weighted #915 first-bad source is not the unweighted smooth-minus-transport kernel",
+      "status": "AUDIT",
+      "lean": [],
+      "source": [
+        "docs/RH_PROOF_OVERLAP_AND_SEVEN_EIGHTHS_AUDIT_20261024.md"
+      ]
+    },
+    {
+      "id": "X-NOT-JOH-ZEROTH",
+      "from": "COORD-JOH-G",
+      "relation": "NOT_EQUIVALENT",
+      "to": "COORD-FLOORLI-BLOCK-DEFECT",
+      "formula": "first moment vs zeroth moment: blocks r = 4, 7 have D_r = 0 and J_r = +4, -2",
+      "status": "AUDIT",
+      "lean": [],
+      "source": [
+        "docs/PROOF_DEPENDENCY_DAG.md"
+      ]
+    },
+    {
+      "id": "X-NOT-CENSUS-SAT",
+      "from": "COORD-SAT-PRIME-CENSUS",
+      "relation": "NOT_EQUIVALENT",
+      "to": "COORD-SAT-MERTENS",
+      "formula": "three S = A - T carriers (prime census, signed Mertens, Hecke) are not termwise or normwise identical",
+      "status": "AUDIT",
+      "lean": [],
+      "source": [
+        "docs/CROSS_COORDINATE_LOW_QUOTIENT_RESEARCH_2026_10_17.md"
+      ]
+    },
+    {
+      "id": "X-NOT-OAI-915",
+      "from": "COORD-OAI-IDEAL-SOURCE",
+      "relation": "NOT_EQUIVALENT",
+      "to": "COORD-915-SOURCE",
+      "formula": "OAI ideal coefficients are not RH_Lean physical prime-owner coefficients",
+      "status": "AUDIT",
+      "lean": [],
+      "source": [
+        "docs/RH_PROOF_OVERLAP_AND_SEVEN_EIGHTHS_AUDIT_20261024.md"
+      ]
+    }
+  ],
+  "collisions": [
+    {
+      "symbol": "D",
+      "meanings": [
+        {
+          "coordinate": "COORD-VF-CAN-DEFECT",
+          "as": "D_R^can, D_can(R): canonical square-endpoint prime defect"
+        },
+        {
+          "coordinate": "COORD-VF-RAW-DEFECT",
+          "as": "D_raw(R): legacy raw defect"
+        },
+        {
+          "coordinate": "COORD-FLOORLI-BLOCK-DEFECT",
+          "as": "D_r: floor-Li block prime defect (zeroth moment)"
+        },
+        {
+          "coordinate": "COORD-MOBIUS-COVARIANCE",
+          "as": "D(N) = sum mu^2: squarefree diagonal"
+        },
+        {
+          "coordinate": "COORD-CORR4-REMAINDER",
+          "as": "D_R: CORR-4 weighted Mobius diagonal in |B_R|^2 = D_R + 2 Gamma_R"
+        },
+        {
+          "coordinate": "COORD-HECKE-A6",
+          "as": "D_X(t): second difference of Hecke quotient buckets"
+        },
+        {
+          "coordinate": "COORD-OAI-IDEAL-SOURCE",
+          "as": "D_cond: OAI conductor in the D_cond^(-1/2) Z^(-sigma) normalization"
+        }
+      ]
+    },
+    {
+      "symbol": "C",
+      "meanings": [
+        {
+          "coordinate": "COORD-CORR4-PARENT",
+          "as": "C_R = M(R-1) - M(R^2-1): rough correlation"
+        },
+        {
+          "coordinate": "COORD-MOBIUS-COVARIANCE",
+          "as": "C(N) = sum_{a<b} mu(a) mu(b): pair covariance"
+        },
+        {
+          "coordinate": "COORD-SAT-PRIME-CENSUS",
+          "as": "C_R: least-prime composite removals"
+        },
+        {
+          "coordinate": "COORD-WEIGHTED-ENERGY",
+          "as": "C_eps(T): weighted covariance"
+        },
+        {
+          "coordinate": "COORD-HECKE-A6",
+          "as": "C6(z): Hecke summatory"
+        },
+        {
+          "meaning": "C: an existential constant (finite C, von Koch, CORR-4)",
+          "where": [
+            "CURRENT_PROOF_CONTRACT.md"
+          ]
+        }
+      ]
+    },
+    {
+      "symbol": "E",
+      "meanings": [
+        {
+          "coordinate": "COORD-CORR4-DAUGHTERS",
+          "as": "E_R = sum M(Y_q)^2: q^2 daughter energy"
+        },
+        {
+          "coordinate": "COORD-PNT-FIRST-SPLIT",
+          "as": "E_R = sum mu(c)(Delta(t_c) - Delta(R-1)): signed prime-error transport"
+        },
+        {
+          "coordinate": "COORD-MU-LIFT",
+          "as": "E(B) = max |M(n)|/sqrt n: amplitude budget"
+        },
+        {
+          "coordinate": "COORD-PRIME-RECIPROCAL",
+          "as": "E_prime(y): prime-reciprocal error"
+        },
+        {
+          "coordinate": "COORD-WEIGHTED-ENERGY",
+          "as": "E_eps(T): weighted Mertens energy"
+        },
+        {
+          "meaning": "E(n) = pi(n) - Q(n) - 1 in the 2026-10-24 Owner report",
+          "where": [
+            "docs/PROOF_DEPENDENCY_DAG.md"
+          ]
+        }
+      ]
+    },
+    {
+      "symbol": "K",
+      "meanings": [
+        {
+          "coordinate": "COORD-FINITE-AC",
+          "as": "K_R: historical Mertens envelope"
+        },
+        {
+          "coordinate": "COORD-HECKE-A6",
+          "as": "K(t): period-36 quotient kernel"
+        },
+        {
+          "coordinate": "COORD-MU-LIFT",
+          "as": "K1, K2, K3: pieces of the hyperbola floor kernel M(X) = 2M(N) + K1 - K2 + K3"
+        },
+        {
+          "meaning": "K: one-sided wall constant (VF-LOW) or first-bad radial constant K = 2 (#915)",
+          "where": [
+            "docs/PROOF_DEPENDENCY_DAG.md"
+          ]
+        },
+        {
+          "meaning": "K = 7: index of the finite-tail frame b_7 (#1023)",
+          "where": [
+            "docs/FORMALIZATION_MILESTONES.md"
+          ]
+        }
+      ]
+    },
+    {
+      "symbol": "L",
+      "meanings": [
+        {
+          "coordinate": "COORD-RAW-LEDGER",
+          "as": "L_R = T_R + H_R: raw odd-seat ledger"
+        },
+        {
+          "coordinate": "COORD-PNT-FIRST-SPLIT",
+          "as": "L_R: cofactor-weighted Li availability"
+        },
+        {
+          "coordinate": "COORD-LEGAL-GRAM",
+          "as": "L_R: live-packet diagonal in M^2 = L_R + 2 Gamma_R"
+        },
+        {
+          "meaning": "L(N): Johnston weighted term in G = A - T - L",
+          "where": [
+            "research/LI_FAN_ONE_SIDED_WEIGHTED_COMPOSITE_RH_CONTRACT_20261022.md"
+          ]
+        }
+      ]
+    },
+    {
+      "symbol": "T",
+      "meanings": [
+        {
+          "coordinate": "COORD-RAW-LEDGER",
+          "as": "T_R: prime-tag part of the raw ledger"
+        },
+        {
+          "coordinate": "COORD-SAT-MERTENS",
+          "as": "T_R, T_mu(R): high-prime cofactor transport"
+        },
+        {
+          "meaning": "T(N): Johnston weighted composite removal",
+          "where": [
+            "research/LI_FAN_ONE_SIDED_WEIGHTED_COMPOSITE_RH_CONTRACT_20261022.md"
+          ]
+        },
+        {
+          "meaning": "T_R = sum (V_r - P_r) in the VF-LOW owner overrun",
+          "where": [
+            "research/VF_MID_LOWER_CHANNEL_ALONE_RH_AND_FIRST_BAD_GATE.md"
+          ]
+        }
+      ]
+    },
+    {
+      "symbol": "A",
+      "meanings": [
+        {
+          "coordinate": "COORD-SAT-MERTENS",
+          "as": "A_R, A_mu(R): smooth Mobius mass"
+        },
+        {
+          "meaning": "A: finite-A constant",
+          "where": [
+            "research/FINITE_A_C_VF_ALIGNMENT_2026_10_11.md"
+          ]
+        },
+        {
+          "meaning": "A_R: upper tag sector of the raw cut A_R + B_R = L_R",
+          "where": [
+            "CURRENT_PROOF_CONTRACT.md"
+          ]
+        },
+        {
+          "meaning": "A(N): Johnston prime-candidate term",
+          "where": [
+            "research/LI_FAN_ONE_SIDED_WEIGHTED_COMPOSITE_RH_CONTRACT_20261022.md"
+          ]
+        }
+      ]
+    },
+    {
+      "symbol": "B",
+      "meanings": [
+        {
+          "coordinate": "COORD-CORR4-REMAINDER",
+          "as": "B_R = C_R - U_R: CORR-4 physical remainder"
+        },
+        {
+          "coordinate": "COORD-JOH-G",
+          "as": "B(n) = pi(n) - Q(n) - 1"
+        },
+        {
+          "coordinate": "COORD-HECKE-A6",
+          "as": "B_X(t): Hecke quotient bucket"
+        },
+        {
+          "meaning": "B_R: lower-tag sector of the raw cut",
+          "where": [
+            "CURRENT_PROOF_CONTRACT.md"
+          ]
+        },
+        {
+          "meaning": "B: MU-LIFT scale (E(B)) or a Gram constant",
+          "where": [
+            "docs/MERTENS_AMPLIFICATION_BUDGET.md"
+          ]
+        }
+      ]
+    },
+    {
+      "symbol": "P",
+      "meanings": [
+        {
+          "coordinate": "COORD-BLOCK-PRIME-COUNT",
+          "as": "P_R = pi((R+1)^2) - pi(R^2)"
+        },
+        {
+          "coordinate": "COORD-SAT-PRIME-CENSUS",
+          "as": "P_R = R - C_R (same block count, census form)"
+        },
+        {
+          "coordinate": "COORD-HECKE-A6",
+          "as": "P0, P1: Hecke large-prime layers"
+        },
+        {
+          "meaning": "P_r = pi(r^2) - Q(r^2): floor-Li backlog in the JOH crosswalk",
+          "where": [
+            "docs/PROOF_DEPENDENCY_DAG.md"
+          ]
+        },
+        {
+          "meaning": "P_R(n): truncated Mobius prefix in the Euler self-dual identity",
+          "where": [
+            "research/EULER_SELF_DUAL_BRIDGE_AUDIT_20261027.md"
+          ]
+        }
+      ]
+    },
+    {
+      "symbol": "Q",
+      "meanings": [
+        {
+          "coordinate": "COORD-FLOOR-LI-MODEL",
+          "as": "Q(n) = floor(Li_2(n))"
+        },
+        {
+          "coordinate": "COORD-FINITE-AC",
+          "as": "Q_R = 2M(R-1) - M(R^2-1)"
+        },
+        {
+          "coordinate": "COORD-EULER-SELF-DUAL",
+          "as": "Q_N(X) = sum mu(i) mu(j) floor(X/(ij)) (equals Q_R at N = R-1, X = R^2-1)"
+        },
+        {
+          "meaning": "Q: OAI height/conductor parameter",
+          "where": [
+            "docs/OAI_COMPENSATED_ONE_PRIME_NNS_SEAM_20261022.md"
+          ]
+        }
+      ]
+    },
+    {
+      "symbol": "G",
+      "meanings": [
+        {
+          "coordinate": "COORD-JOH-G",
+          "as": "G(N): Johnston cumulative statistic"
+        },
+        {
+          "coordinate": "COORD-MU-LIFT",
+          "as": "G(B): MU-LIFT gain factor"
+        },
+        {
+          "meaning": "G_R(q): raw-ledger tag charge",
+          "where": [
+            "CURRENT_PROOF_CONTRACT.md"
+          ]
+        }
+      ]
+    },
+    {
+      "symbol": "H",
+      "meanings": [
+        {
+          "coordinate": "COORD-RAW-LEDGER",
+          "as": "H_R: positive native weight of composite seats"
+        },
+        {
+          "coordinate": "COORD-JOH-H",
+          "as": "H(X): Johnston integral"
+        },
+        {
+          "meaning": "H_R, I_R: historical split/inert cofactor transforms",
+          "where": [
+            "docs/CROSS_COORDINATE_LOW_QUOTIENT_RESEARCH_2026_10_17.md"
+          ]
+        }
+      ]
+    },
+    {
+      "symbol": "Γ",
+      "meanings": [
+        {
+          "coordinate": "COORD-LEGAL-GRAM",
+          "as": "Gamma_R: legal live-packet Gram"
+        },
+        {
+          "coordinate": "COORD-CORR4-REMAINDER",
+          "as": "Gamma_R: CORR-4 first-owner Gram"
+        }
+      ]
+    },
+    {
+      "symbol": "S",
+      "meanings": [
+        {
+          "coordinate": "COORD-PNT-FIRST-SPLIT",
+          "as": "S_R = sum_{P+(n)<R} mu(n)"
+        },
+        {
+          "meaning": "S = A - T: name shared by three different carriers (see CONV-SAT-CARRIERS)",
+          "where": [
+            "docs/CROSS_COORDINATE_LOW_QUOTIENT_RESEARCH_2026_10_17.md"
+          ]
+        },
+        {
+          "meaning": "S_R: odd-prime owner set {q : q^2 < R} in CORR-4",
+          "where": [
+            "research/CORR4_OAI_RELAXED_REMAINDER_20261024.md"
+          ]
+        }
+      ]
+    },
+    {
+      "symbol": "V",
+      "meanings": [
+        {
+          "coordinate": "COORD-VF-BLOCK-MASS",
+          "as": "V_r = m_r: VF block mass"
+        },
+        {
+          "coordinate": "COORD-HECKE-A6",
+          "as": "V_low, V_high: Hecke quotient-bucket variation"
+        }
+      ]
+    },
+    {
+      "symbol": "VF",
+      "meanings": [
+        {
+          "coordinate": "COORD-VF-CAN",
+          "as": "VF(x), VF_can(x): canonical public VF"
+        },
+        {
+          "coordinate": "COORD-VF-MID",
+          "as": "VF_mid, VF_raw: legacy midpoint VF (no sqrt 2)"
+        }
+      ]
+    }
+  ],
+  "conventions": [
+    {
+      "id": "CONV-LI-VS-LI2",
+      "title": "li versus Li_2",
+      "statement": "Repository Li_2(x) = int_2^x dt/log t; classical li(x) = li(2) + Li_2(x), li(2) = 1.045163780...",
+      "pitfall": "Johnston's all-X criterion uses li; replacing it by Li_2 is invalid. von Koch-scale statements are insensitive to the constant.",
+      "coordinates": [
+        "COORD-LI2-MODEL",
+        "ANCHOR-PRIME-DISCREPANCY",
+        "COORD-JOH-H"
+      ],
+      "sources": [
+        "research/LI_FAN_ONE_SIDED_WEIGHTED_COMPOSITE_RH_CONTRACT_20261022.md"
+      ]
+    },
+    {
+      "id": "CONV-VF-PHASE",
+      "title": "VF_mid versus VF_can (sqrt 2 phase)",
+      "statement": "VF_can = vfMid + sqrt 2; D_can = D_raw - sqrt 2.",
+      "pitfall": "Existence of a von Koch constant is phase invariant; fixed-K first-bad statements and squared energies are not ((D_raw - sqrt2)^2 = D_raw^2 - 2 sqrt2 D_raw + 2).",
+      "coordinates": [
+        "COORD-VF-CAN",
+        "COORD-VF-MID",
+        "COORD-VF-CAN-DEFECT",
+        "COORD-VF-RAW-DEFECT"
+      ],
+      "sources": [
+        "CURRENT_PROOF_CONTRACT.md"
+      ]
+    },
+    {
+      "id": "CONV-SQUARE-ENDPOINT",
+      "title": "Square endpoints and index shifts",
+      "statement": "VF endpoints are R^2; Mertens endpoints are X_R = R^2 - 1 = squareRootEndpoint R; squarePrefixEndpoint n = (n+1)^2 - 1 (shifted index).",
+      "pitfall": "Mixing R^2 with R^2 - 1 or n with n + 1 silently moves one square block.",
+      "coordinates": [
+        "COORD-SQUARE-PREFIX-MERTENS",
+        "COORD-VF-CAN-DEFECT",
+        "COORD-FINITE-AC",
+        "COORD-CORR4-PARENT"
+      ],
+      "sources": [
+        "docs/CROSS_COORDINATE_LOW_QUOTIENT_RESEARCH_2026_10_17.md"
+      ]
+    },
+    {
+      "id": "CONV-ROOT-CUTOFF",
+      "title": "Hecke root cutoff R - 1 versus historical q > R",
+      "statement": "At X = R^2 - 1, floor(sqrt X) = R - 1; the historical transport uses primes q > R.",
+      "pitfall": "If R is a split prime, q = R is a live Hecke prime absent from the historical transform; the correction 1_{R prime}(1 + chi_{-3}(R)) M(R-1) is required (fails without it at R = 7, 13).",
+      "coordinates": [
+        "COORD-HECKE-A6",
+        "COORD-SAT-MERTENS"
+      ],
+      "sources": [
+        "AGENTS.md",
+        "docs/CROSS_COORDINATE_LOW_QUOTIENT_RESEARCH_2026_10_17.md"
+      ]
+    },
+    {
+      "id": "CONV-SQUARE-SHELL",
+      "title": "Half-open versus strict square shells",
+      "statement": "vf919SquareShellSum uses [R^2, (R+1)^2); square-shell energy notes and raw odd seats use (r^2, (r+1)^2).",
+      "pitfall": "For R >= 2, mu(R^2) = 0, so the two Mobius shell sums agree; seat counts, VF seat weights and closed-block telescopes still differ at the endpoints, and R = 1 has mu(1) = 1. Check the definition before transporting a bound.",
+      "coordinates": [
+        "COORD-SQUARE-SHELL-MASS",
+        "COORD-RAW-LEDGER"
+      ],
+      "sources": [
+        "research/INDEPENDENT_SEVEN_EIGHTHS_SQUARE_SHELL_ENERGY_20261016.md"
+      ]
+    },
+    {
+      "id": "CONV-SAT-CARRIERS",
+      "title": "Three different S = A - T",
+      "statement": "(1) prime census P_R = R - C_R; (2) signed Mertens M(X) = A_mu - T_mu; (3) #919 Hecke four-shift transform.",
+      "pitfall": "Shared notation is not a proof arrow; physical sites, coefficients and masks differ.",
+      "coordinates": [
+        "COORD-SAT-PRIME-CENSUS",
+        "COORD-SAT-MERTENS",
+        "COORD-HECKE-A6"
+      ],
+      "sources": [
+        "docs/CROSS_COORDINATE_LOW_QUOTIENT_RESEARCH_2026_10_17.md"
+      ]
+    },
+    {
+      "id": "CONV-COVARIANCE-NORMALIZATION",
+      "title": "Raw covariance versus Pearson-type ratios",
+      "statement": "C(N) = sum_{a<b} mu(a) mu(b) is unnormalized; rho_R = 2 U V/(U^2 + V^2) is a different two-aggregate normalization.",
+      "pitfall": "rho_R near -1 does not imply an RH-scale bound on C(N) or M.",
+      "coordinates": [
+        "COORD-MOBIUS-COVARIANCE",
+        "COORD-NNS-CODIV"
+      ],
+      "sources": [
+        "docs/SIGNED_MOBIUS_COVARIANCE_RH_SEAM_2026_10_17.md"
+      ]
+    },
+    {
+      "id": "CONV-MINUS-ONE-CENTERING",
+      "title": "The -1 centerings",
+      "statement": "Finite A uses (M(y) - 1)^2 and (M(R^2-1) - 1)^2; JOH uses B(n) = pi(n) - Q(n) - 1.",
+      "pitfall": "The constant shifts are integral-stability or envelope conventions, not claims that M = 1 or pi = Q + 1.",
+      "coordinates": [
+        "COORD-FINITE-AC",
+        "COORD-JOH-G"
+      ],
+      "sources": [
+        "research/FINITE_A_C_VF_ALIGNMENT_2026_10_11.md",
+        "research/LI_FAN_ONE_SIDED_WEIGHTED_COMPOSITE_RH_CONTRACT_20261022.md"
+      ]
+    },
+    {
+      "id": "CONV-MERTENS-TYPES",
+      "title": "mertensSummatory versus mertensSummatoryInt",
+      "statement": "mertensSummatory is complex-valued (RHLean.Analysis); mertensSummatoryInt is integer-valued (RHLean.Proof).",
+      "pitfall": "Rewrites found for one name do not automatically apply to the other; search both.",
+      "coordinates": [
+        "ANCHOR-MERTENS"
+      ],
+      "sources": [
+        "RHLean/Analysis/SquarePrefixMertensBridge.lean",
+        "RHLean/Proof/SquareRootAncestryRoot.lean"
+      ]
+    }
+  ]
+}

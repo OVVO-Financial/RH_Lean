@@ -103,6 +103,18 @@ Each PR description and checklist update must identify:
 
 ## Active PR record
 
+### Documentation/infrastructure PR — coordinate atlas and coordinate-aware search (2026-10-28; no Lean source change)
+
+- [x] Restart from main `14f830c`; reuse `proofq`/`repo_index`, the proof-obligation registry and existing facets rather than a parallel search stack.
+- [x] Add `docs/coordinate-atlas.json` (41 coordinate systems, 59 typed crosswalks with evidence status, 16 notation collisions, 9 convention traps), `scripts/coordinate_atlas.py` (validator, generated `docs/COORDINATE_ATLAS.md`, `lookup`/`path`/`expand`) and tests.
+- [x] Verify every atlas Lean link on main lexically; every coordinate must reach an anchor; undeclared notation collisions and crosswalks contradicting a `NOT_EQUIVALENT` barrier are rejected.
+- [x] Add `scripts/search_catalog.py` and the committed static corpus `docs/search/` (file catalogs, rewrite families harvested from `<def>_eq_…`/`<def>_iff_…`, per-coordinate and per-route pages), each file below GitHub code search's 384 KB limit.
+- [x] Add `proofq repo-search --expand`, root `llms.txt`, and entry-point updates (README, AGENTS, REPOSITORY_SEARCH, DOCUMENTATION_INDEX, KNOWLEDGE_GRAPH, DYNAMIC_RESEARCH_AGENTS, Studio templates).
+- [x] Add the `Coordinate atlas and static search corpus` workflow (atlas check and tests hard-fail; corpus staleness is a warning only).
+- [ ] Final-head workflows green.
+- [ ] Human review/merge only; no theorem, definition, schedule or Studio change; no RH claim.
+
+
 ### Documentation/infrastructure PR — proof-obligation DAG and formalization milestones (2026-10-25; no Lean source change)
 
 - [x] Refresh live main `8d3a06d`, agent-reports `48862446`, and PR states of #932, #987, #1017, #1019–#1023 from GitHub; record dated heads and observed checks.

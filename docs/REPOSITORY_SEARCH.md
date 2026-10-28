@@ -1,5 +1,21 @@
 # Repository search and import DAG
 
+## Coordinate-aware search (start here)
+
+The same object often appears under several names: `C_R`, `squareRootCanonicalRoughCorrelation` and "rough correlation" are one quantity, while `D_R` names at least five different ones. Plain search finds only the spelling you typed. Use the [coordinate atlas](COORDINATE_ATLAS.md) to translate first:
+
+```bash
+python3 scripts/coordinate_atlas.py lookup D_R                       # every reading of a symbol, alias or Lean name
+python3 scripts/coordinate_atlas.py path "rough correlation" ANCHOR-PRIME-DISCREPANCY   # strongest-evidence crosswalk chain
+python3 scripts/coordinate_atlas.py path COORD-EULER-SELF-DUAL COORD-CORR4-PARENT --lean-only
+python3 scripts/proofq.py repo-search 'q2 daughter' --expand --scope research    # search every alias of the coordinate
+git grep -n -E "$(python3 scripts/coordinate_atlas.py expand 'floor-Li' --grep)"
+```
+
+`--expand` matches any one exact alias or Lean name of the coordinates the query names (it cannot be combined with `--regex`) and labels each hit with the alias that matched. Agents without Python should use the committed [static search index](search/INDEX.md): one page per coordinate (definition, crosswalks, every proved `<def>_eq_…` rewrite, top files) and per route, plus JSONL shards for code search ([guide](search/README.md)). Regenerate both the corpus and the atlas page's generated blocks with `python3 scripts/search_catalog.py --write`.
+
+## Full-text search and the module DAG
+
 The library declaration graph is still the audited `RHLean/` graph. The
 repository source index adds navigation across `research/`, documents, scripts,
 and the independent export projects. It can also search fetched PR refs without

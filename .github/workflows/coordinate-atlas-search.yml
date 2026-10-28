@@ -1,0 +1,46 @@
+name: Coordinate atlas and static search corpus
+
+on:
+  pull_request:
+    paths:
+      - '**.lean'
+      - '**.md'
+      - 'llms.txt'
+      - 'docs/coordinate-atlas.json'
+      - 'docs/proof-obligations.json'
+      - 'docs/search/**'
+      - 'scripts/coordinate_atlas.py'
+      - 'scripts/search_catalog.py'
+      - 'scripts/test_coordinate_atlas.py'
+      - 'scripts/proof_obligation_dag.py'
+      - 'scripts/repo_index.py'
+      - '.github/workflows/coordinate-atlas-search.yml'
+  push:
+    branches: [main]
+    paths:
+      - '**.lean'
+      - 'docs/coordinate-atlas.json'
+      - 'docs/search/**'
+      - 'scripts/coordinate_atlas.py'
+      - 'scripts/search_catalog.py'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  atlas:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      # Fails when an atlas Lean link, document, DAG node or llms.txt target
+      # disappears, or a coordinate loses its path to the anchors.
+      - name: Validate the coordinate atlas and its generated page
+        run: python3 scripts/coordinate_atlas.py check
+      - name: Coordinate atlas and search corpus tests
+        run: python3 -m unittest discover -s scripts -p test_coordinate_atlas.py -v
+      # Research lands daily; staleness is reported as a warning so unrelated
+      # PRs are never blocked. Regenerate with --write.
+      - name: Report static search corpus freshness
+        run: python3 scripts/search_catalog.py --check
