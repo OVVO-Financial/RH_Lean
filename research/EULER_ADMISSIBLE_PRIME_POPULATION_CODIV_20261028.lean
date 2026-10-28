@@ -239,8 +239,12 @@ theorem eulerAdmissibleState_terminal
       omega
     change Nat.sqrt (squareRootEndpoint R) ≤ squareRootEndpoint R
     omega
+  have hXone : 1 ≤ X := by
+    have hsq : 2 ≤ R ^ 2 := by nlinarith
+    dsimp [X, squareRootEndpoint]
+    omega
   have h := mertensSummatory_eq_neg_signedSum_add_smoothMass_of_sqrt_le
-    X X (by omega : 1 ≤ X) hroot
+    X X hXone hroot
   rw [primeSieveReciprocalMertensSignedSum_eq_mertensPrimeTail] at h
   have hzero : primeSieveMertensPrimeTail X X = 0 := by
     simp [primeSieveMertensPrimeTail]
