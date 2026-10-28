@@ -2,7 +2,7 @@
 
 **Status (registry `2026-10-25.2`, main `54564c00e4a5855bc303ad92e38e5e6285031012`, Lean 4.34.1; evidence refreshed 2026-10-26): the Riemann Hypothesis is OPEN in this repository. No route below closes it; every RH path lists exactly what is still unpaid.** This page is generated from, and validated against, the machine-readable registry [proof-obligations.json](proof-obligations.json) by [`scripts/proof_obligation_dag.py`](../scripts/proof_obligation_dag.py). It is a proof map, not a proof: a compiled implication does not prove its premise, an explicit theorem interface is not a Lean construction, and paper or numerical findings are not Lean certificates.
 
-Read with [FORMALIZATION_MILESTONES.md](FORMALIZATION_MILESTONES.md) (what is finished), the [ten-route portfolio](RH_PROOF_ATTACK_PORTFOLIO_20261024.md) (task routing) and the [overlap / imported 7/8 audit](RH_PROOF_OVERLAP_AND_SEVEN_EIGHTHS_AUDIT_20261024.md) (why shared coordinates are not equivalences).
+Read with the [coordinate atlas](COORDINATE_ATLAS.md) (which repository objects are the same quantity in other coordinates), [FORMALIZATION_MILESTONES.md](FORMALIZATION_MILESTONES.md) (what is finished), the [ten-route portfolio](RH_PROOF_ATTACK_PORTFOLIO_20261024.md) (task routing) and the [overlap / imported 7/8 audit](RH_PROOF_OVERLAP_AND_SEVEN_EIGHTHS_AUDIT_20261024.md) (why shared coordinates are not equivalences).
 
 ## 1. Three graph layers
 

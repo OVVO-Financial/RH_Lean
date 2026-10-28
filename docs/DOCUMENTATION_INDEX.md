@@ -19,6 +19,8 @@ alternatives, not replacements. Start with the
 | [README](../README.md) | Public project status and entry points. |
 | [Current proof contract](../CURRENT_PROOF_CONTRACT.md) | Sole sqrt2 canonical VF endpoint, frozen raw arithmetic translation, actual-prime open gate. |
 | [Current ten-route proof portfolio](RH_PROOF_ATTACK_PORTFOLIO_20261024.md) | Exact distinct sufficient criteria and mechanisms, refuted literal block capture and nonduplicate seven-agent tasks. |
+| [Coordinate atlas](COORDINATE_ATLAS.md) | One phenomenon in 41 coordinate systems: definitions, Lean names, typed crosswalks with evidence status, notation collisions and normalization traps; generated from [coordinate-atlas.json](coordinate-atlas.json). |
+| [Static search index](search/INDEX.md) | Per-coordinate and per-route pages, proved rewrite families and JSONL file catalogs for agents that cannot run code ([guide](search/README.md)); also [llms.txt](../llms.txt) at the root. |
 | [Proof-dependency DAG](PROOF_DEPENDENCY_DAG.md) | Typed mathematical proposition graph, every RH path's unpaid inputs, route scoreboard, seven next deliverables and dated PR evidence; generated from [proof-obligations.json](proof-obligations.json). |
 | [Formalization milestones](FORMALIZATION_MILESTONES.md) | Chronological completed formal results: von Koch (1901) canonical VF reduction, all-real VF − Li₂ = O(1), imported 7/8, structural milestones, and what each does not prove. |
 | [Seven current saved-Studio instruction templates](AGENT_STUDIO_20261024_SEVEN_PROMPTS.md) | Seven ready-to-paste prompts; saved Studio edits and scheduling require separate access. |
@@ -74,6 +76,7 @@ headers, not their Lean sources, manifests, or provenance pins.
 | Paper / Analysis boundary | `bash scripts/check_paper_analysis_boundary.sh` |
 | Export closure and synchronization | `python3 scripts/check_export_sync.py` / `Public export verification` |
 | Library compilation and exact declaration graph | `Lean source audits`, including `Hosted Lean build` and the owned-warning gate |
+| Coordinate atlas and static search corpus | `python3 scripts/coordinate_atlas.py check`; `python3 -m unittest discover -s scripts -p test_coordinate_atlas.py -v`; `python3 scripts/search_catalog.py --check` (staleness warning) / `Coordinate atlas and static search corpus` |
 | Mathematical proof-obligation DAG | `python3 scripts/proof_obligation_dag.py --check --repo-index`; `python3 -m unittest discover -s scripts -p test_proof_obligation_dag.py -v`; `python3 scripts/proof_dag_falsifier_regressions.py` / `RH proof portfolio and seven-agent instruction checks` |
 | Full repository search and module DAG | `python3 -m unittest discover -s scripts -p test_repo_index.py -v`; `python3 scripts/repo_index.py build --require-acyclic` / `Proof inventory` |
 | Local development validation | `bash scripts/local_ci.sh` (requires Lean and dependency-cache access) |

@@ -1,0 +1,21 @@
+{
+  "schema": "rhlean-search-catalog/1",
+  "generator": "scripts/search_catalog.py",
+  "input_fingerprint": "74940cd77c5a6e29a32a0998671d3eafb5ac5fdd0c1a221825cf9f848fdeb73f",
+  "counts": {
+    "catalog-research-lean-vf.jsonl": 225,
+    "catalog-research-lean.jsonl": 382,
+    "catalog-research-notes.jsonl": 216,
+    "catalog-library-proof.jsonl": 444,
+    "catalog-library-core.jsonl": 386,
+    "catalog-docs.jsonl": 107,
+    "catalog-code.jsonl": 264,
+    "rewrite-families-a-k.jsonl": 243,
+    "rewrite-families-l.jsonl": 339,
+    "rewrite-families-m-r.jsonl": 454,
+    "rewrite-families-s.jsonl": 422,
+    "rewrite-families-t-z.jsonl": 286,
+    "rewrite_families": 1744,
+    "rewrite_theorems": 3160
+  }
+}

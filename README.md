@@ -23,6 +23,10 @@ actual-prime and Möbius arithmetic research.
 
 **What remains open.** The actual-prime bound `VFCanonicalSquareVonKochStatement`: ∃C ≥ 0 ∀R ≥ 2, |π(R²) − VF_can(R²)| ≤ C R log R. The equivalence is proved; the inequality for actual primes is not. Completing the reduction did not prove its hypothesis.
 
+## Finding things
+
+Agents and readers: start at [llms.txt](llms.txt). The [coordinate atlas](docs/COORDINATE_ATLAS.md) maps the many coordinate systems that describe the same prime/Möbius fluctuation, with typed crosswalks, the proved Lean rewrites of each object and the notation collisions; [docs/search/](docs/search/INDEX.md) holds one small page per coordinate and per route for agents that cannot run code. `python3 scripts/proofq.py repo-search '<term>' --expand` searches every alias of a coordinate at once.
+
 ## Current research status
 
 Ten stable routes are tracked in the [proof-dependency DAG](docs/PROOF_DEPENDENCY_DAG.md) (registry [proof-obligations.json](docs/proof-obligations.json)) and routed to seven specialists by the [portfolio](docs/RH_PROOF_ATTACK_PORTFOLIO_20261024.md): VF-LOW, SAT, CODIV, BLOCK, OAI-NNS, JOH, FINITE-AC, CORR4, MU-LIFT, NYMAN. The literal universal block-capture form of BLOCK is **refuted** at R = 549. Merged [#987](https://github.com/OVVO-Financial/RH_Lean/pull/987) imports the original unconditional OpenAI proof of M(x) = O_ε(x^{7/8+ε}); no strict improvement below 7/8 has been verified. Current leads: a signed CORR4 first-owner mixed-tail inequality (merged [#1021](https://github.com/OVVO-Financial/RH_Lean/pull/1021) proves the *conditional* Gram/Mertens power biconditional; merged [#1023](https://github.com/OVVO-Financial/RH_Lean/pull/1023) sharpens the unsigned frame only), a nonlocal prime-chronology law for VF-LOW/JOH, and a complete OAI-NNS exponent ledger (merged [#1022](https://github.com/OVVO-Financial/RH_Lean/pull/1022) proves a source-local zero-mode, not a global saving). No strict exponent below 7/8 is proved. Consult the dated DAG evidence rather than inferring PR state from historical prose.

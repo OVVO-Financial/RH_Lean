@@ -316,22 +316,49 @@ def add_search_arguments(parser) -> None:
     parser.add_argument("--carrier", help="heuristic carrier facet (declaration results only)")
     parser.add_argument("--role", help="heuristic statement role (declaration results only)")
     parser.add_argument("--regex", action="store_true")
+    parser.add_argument("--expand", action="store_true",
+                        help="also match every alias and Lean name of the docs/coordinate-atlas.json "
+                             "coordinates the query names (any one exact phrase suffices)")
     parser.add_argument("--limit", type=int, default=25)
     parser.add_argument("--json", action="store_true", help="print structured results")
 
 
+def expanded_query(query: str) -> tuple[str, list[str], list[str]]:
+    """Regex matching the query or any alias/Lean name of the coordinates it names."""
+    sys.path.insert(0, str(ROOT / "scripts"))
+    import coordinate_atlas
+    terms, coordinates, _ = coordinate_atlas.expand(coordinate_atlas.load(), query)
+    phrases = [query] + [t for t in terms if t.casefold() != query.casefold()]
+    return "|".join(re.escape(t) for t in sorted(phrases, key=len, reverse=True)), phrases, coordinates
+
+
 def run_search(args) -> int:
     data = load_index(ROOT, args.index, args.ref)
-    hits = search(data, args.query, kind=args.kind, scope=args.scope, view=args.view, regex=args.regex, carrier=args.carrier, role=args.role)
+    query, regex, phrases, coordinates = args.query, args.regex, [], []
+    if args.expand:
+        if args.regex:
+            raise ValueError("--expand builds its own pattern; do not combine it with --regex")
+        query, phrases, coordinates = expanded_query(args.query)
+        regex = True
+    hits = search(data, query, kind=args.kind, scope=args.scope, view=args.view, regex=regex, carrier=args.carrier, role=args.role)
+    for hit in hits if phrases else ():
+        text = (hit["name"] + " " + hit["excerpt"]).casefold()
+        hit["matched"] = next((p for p in phrases if p.casefold() in text), None)
     selected = hits[:max(args.limit, 0)]
     if args.json:
-        print(json.dumps({"total": len(hits), "results": selected, "provenance": data["provenance"]}, ensure_ascii=False))
+        print(json.dumps({"total": len(hits), "results": selected, "provenance": data["provenance"],
+                          "expansion": {"coordinates": coordinates, "phrases": phrases} if args.expand else None},
+                         ensure_ascii=False))
     else:
         print(data["provenance"]["authority"])
+        if args.expand:
+            print(f"Expanded via coordinate atlas {', '.join(coordinates) or '(no coordinate matched)'}: "
+                  + ", ".join(phrases))
         for hit in selected:
             state = " modified" if hit["dirty"] else ""
             print(f"[{hit['view']} @ {hit['commit'][:12]}{state}] {hit['scope']} / {hit['kind']} {hit['name']}")
-            print(f"  {hit['path']}:{hit['line']}  {hit['excerpt']}")
+            print(f"  {hit['path']}:{hit['line']}  {hit['excerpt']}"
+                  + (f"  [matched: {hit['matched']}]" if hit.get("matched") else ""))
         print(f"\n{len(hits)} matches; showing {len(selected)}")
     return 0
 
