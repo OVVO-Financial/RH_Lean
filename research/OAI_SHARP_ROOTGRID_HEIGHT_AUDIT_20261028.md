@@ -432,3 +432,241 @@ The OPEN source-level task is now precise:
 No route may replace the actual signed Möbius coefficients with
 resampled/independent signs, and no lossless moment inequality follows
 from the mere existence of the continuous empirical distribution.
+
+
+## 10. L4 NNS sampling: exact gain and the equally necessary fourth-moment input
+
+For any finite deterministic collection x_R, put
+
+    LPM4(t)=H^-1 sum_R max(t-x_R,0)^4,
+    UPM4(t)=H^-1 sum_R max(x_R-t,0)^4.
+
+At target t=0 their sum equals H^-1 sum_R x_R^4 EXACTLY,
+with all original arithmetic signs encoded in the x_R.
+Cauchy--Schwarz yields
+
+    (sum_R x_R^2)^2 <= H*sum_R x_R^4.           (CS4)
+
+This is now formally proved in the Lean budget module as
+oaiNNSEnergy2_sq_le_card_energy4 and its dyadic specialization.
+The degree-four partial-moment identity is also certified.
+
+Let F be a locally absolutely continuous complex smooth root-scale
+source on u=2 log R, with F' in L4. The FTC applied to |F|^4 gives
+for each root interval I_R and each u in I_R
+
+    |F(u_R)|^4 <= |F(u)|^4+4*int_(I_R)|F|^3|F'|.
+
+Average in u, sum disjoint intervals, and apply Holder:
+
+    sum_R |F(u_R)|^4
+      <= H*int_I|F|^4 + 4*||F||_(L4(I))^3*||F'||_(L4(I)).
+                                                            (TRACE4)
+
+If F is globally bandlimited to frequencies |v|<=T and belongs to
+L4(R), a global L4 Bernstein inequality gives
+||F'||_L4(R) <= C*T*||F||_L4(R). The resulting global estimate is
+
+    sum_R |F(u_R)|^4 <= (H+C*T)*||F||_L4(R)^4.     (PP4)
+
+Using CS4 after PP4,
+
+    sum_R |F(u_R)|^2
+      <= sqrt(H*(H+C*T))*||F||_L4(R)^2.
+
+Compared with its OWN natural L4-based continuous root baseline
+H*||F||_L4(R)^2, the grid factor is now (1+T/H)^(1/2), rather than
+(1+T/H) in L2. In the collar regime T=H^(5/4+delta/2+kappa) this
+factor costs H^(1/8+delta/4+kappa/2). This is a CORRECT CONDITIONAL
+reduction in the GRID multiplier.
+
+However, L4 control is not free. To begin at a second-moment-
+equivalent smooth saving delta0, one MUST independently prove
+
+    H*||F||_L4(R)^4 <= C H^(4-2*delta0),
+
+equivalently ||F||_L4(R)^4 <= C H^(3-2*delta0).
+
+This gives the true exponent
+
+    E2sharp(H) <= H^(5/2-delta0)*(1+T/H)^(1/2)
+
+before profile penalties. To retain a target saving delta, require
+
+    delta0 >= 1/8 + 5*delta/4 + kappa/2.
+
+If the FOURTH-moment bound pays relative penalty (T/H)^beta4,
+taking the square root yields
+
+    delta0 >= 1/8 + 5*delta/4 + kappa/2
+                 +(beta4/2)*(1/4+delta/2+kappa).     (L4)
+
+The Lean theorem oaiFourthGridRelativeBudget_iff certifies this
+precisely. If the actual fourth-moment data have no such root-source
+saving, no new conclusion follows. The pinned OAI statement
+source_batch_plain_marked_fine bounds the character-row square of
+a PRODUCT of marked Hecke polynomials, not the above L4 norm of
+the same root-indexed F. A new source identification and
+normalization are indispensable.
+
+### Why the grid gain may NOT be an overall gain
+
+Take T>>H and a smooth field with one narrow peak of width 1/T
+centered at each logarithmic root u_R (a sum of well-separated
+Gaussian bumps is a useful finite-scale model). Set peak heights
+near one. Then, on the root interval of O(1) log-length,
+
+    sum_R |F(u_R)|^2 ~H,
+    integral |F|^2 ~H/T,
+    integral |F|^4 ~H/T.
+
+L2 sampling inflation relative to H*integral |F|^2 is T/H.
+L4 sampling inflation relative to the L4 baseline
+H*(integral |F|^4)^(1/2) is sqrt(T/H). But that L4 baseline
+is already sqrt(T/H) larger than the L2 baseline, so the
+TOTAL L4 approach has the SAME order of cost T/H for this model.
+
+Therefore L4 halves the grid factor relative to a STRONGER
+continuous input; it does not automatically halve the net cost
+of applying the original L2 theorem. The stronger marked moment
+must first be shown to control the same physical root source.
+
+## 11. Exact fractional-root Fourier expansion: correct coefficients and mixed k,l terms
+
+Let H>=2 and write e(t)=exp(2*pi*i*t). The exact Parseval
+source for REAL original mu is
+
+    S_H(theta) = sum_(H^2<=n<4H^2) mu(n)*e(theta*floor(sqrt(n))),
+    E_sharp(H) = int_(theta=0)^1 |S_H(theta)|^2 dtheta.
+
+Separate the fractional part:
+
+    e(theta*floor(sqrt(n)))
+      = e(theta*sqrt(n)) * e(-theta*{sqrt(n)}).
+
+For 0<theta<1, periodically extend f_theta(u)=e(-theta*u)
+from 0<u<1. Its CORRECT ordinary Fourier coefficients are
+
+    c_k(theta) = int_0^1 e(-(theta+k)*u) du
+               = (1-e(-theta))/(2*pi*i*(theta+k)),
+               k in Z.
+
+The removable singularities at theta=0 or 1 have their
+appropriate continuous values. For noninteger u, the full
+Fourier series represents the original periodic f_theta(u):
+
+    f_theta(u)=lim_(K->infty) sum_(k=-K)^K c_k(theta)*e(k*u).
+
+At integer u, it converges to the midpoint
+(1+e(-theta))/2, NOT to the right-continuous f_theta(u)=1.
+This is usually a jump correction.
+
+**Important genuine Mobius improvement:** all integer
+sqrt(n)=m with n=m^2 and m>=2 have mu(n)=0. In the present
+H>=2 interval, there is therefore EXACTLY ZERO square-jump
+correction in the Mobius-weighted sum, not merely O(H). The
+Lean theorem oaiMobiusSquareJumpContribution_zero certifies it
+from prime-square divisibility and squarefreeness.
+
+Put the TRUE, smoothly oscillating root-phase finite sum
+
+    B_H(xi) = sum_(H^2<=n<4H^2) mu(n)*e(xi*sqrt(n)).
+
+Then, for each fixed H and almost every theta,
+
+    S_H(theta) = lim_(K->infty)
+       sum_(k=-K)^K c_k(theta)*B_H(theta+k).
+
+This is the correct exact step-phase-to-smooth-root-phase
+transformation. (The limit is pointwise at finitely many
+noninteger roots; do not assume uniform convergence in H.)
+
+Its squared source energy is therefore
+
+    E_sharp(H)=int_0^1 lim_K |
+       sum_(|k|<=K) c_k(theta)*B_H(theta+k) |^2 dtheta.
+
+Expanding the finite-K square gives both DIAGONAL and MIXED
+harmonic modes:
+
+    sum_(|k|,|l|<=K)
+      int_0^1 c_k(theta)*conj(c_l(theta))
+        B_H(theta+k)*conj(B_H(theta+l)) dtheta.
+
+The coefficient magnitude is asymptotic to
+    |c_k(theta)| ~ |sin(pi*theta)|/(pi*|k|).
+The diagonal |c_k|^2 is O(k^-2), BUT the mixed k!=l terms
+are NOT zero just because k and l are different integers.
+They share the SAME theta and the same Mobius coefficients.
+Thus replacing the entire true energy with a k^-2-weighted
+sum of separate smooth moments is INVALID without a
+proved off-diagonal harmonic Bessel/orthogonality estimate.
+
+Furthermore, sum_k |c_k(theta)| generally diverges
+logarithmically, even though sum_k|c_k(theta)|^2=1
+by Parseval in the FRACTIONAL ROOT coordinate u. That
+latter Parseval does not imply orthogonality in theta of
+the physical root-phase polynomials B_H(theta+k).
+
+For a finite regularization |k|<=K, an optional route is
+Minkowski/triangle across k, losing at most O(log^2 K)
+in squared norms PROVIDED one has a single UNIFORM root-
+phase moment bound for all relevant harmonics |k|<=K.
+One must separately pay the regularization tail in the
+original signed arithmetic source. Even this log-loss
+strategy requests root-phases with |k| as large as K;
+it is not a direct consequence of OAI's original
+small-detector-height theorem.
+
+### Mellin heights of each smooth root-phase
+
+For x=e^u and xi=theta+k, the smooth phase is
+
+    Phi_xi(u)=2*pi*xi*exp(u/2),
+    dPhi_xi/du=pi*xi*sqrt(x).
+
+On x in [H^2,4H^2], its instantaneous Mellin frequency
+sweeps the interval with magnitude ~|xi|H (between
+pi*|xi|H and 2*pi*|xi|H); it is NOT literally a
+single Mellin character x^(it) nor compactly spectrally
+supported. A dyadic endpoint envelope, stationary-phase
+analysis and a high-frequency tail estimate are still
+needed to apply an admissible OAI Hecke test.
+
+The k=0 mode has |t|~H for theta of order one, which
+already lies far beyond the small chosen row-height of the
+terminal OAI certificate under any simplistic Z~H^2
+identification. Do not identify Fourier frequency v,
+instantaneous Mellin t and OAI source row-height
+without an explicit normalization theorem.
+
+**Mathematical status:** source-faithful Fourier
+reconstruction is exact, with perfect-square jump
+correction zero. Its modes are SIGNED and COHERENT,
+not a diagonal random mixture. The analytic gate is
+a uniform coupled harmonic Mellin/Hecke moment (or
+a signed off-diagonal mode estimate), not merely
+term-by-term use of the pinned marked fourth moment.
+
+## 12. Next proof contract
+
+Prefer a theorem on ONE compensated, original Möbius source:
+
+    int_(0<=theta<=1) |
+       sum_(H^2<=n<4H^2)mu(n)*e(theta*floor(sqrt(n))) |^2
+         <= C_epsilon H^(5/2-delta+epsilon).
+
+A usable new OAI theorem would be a compensated marked
+root-phase moment for the FULL sum in theta, with
+harmonic k,l mixed phases and the physical ideal
+normalizer retained. Any source-localization gain
+must survive its Fourier profile frequency range and
+the signed cancellation at the physical prime-cofactor
+level. The degree-four NNS route is a valid alternative
+only if the fourth moment belongs to the SAME physical
+root-source with the explicitly stronger H^(4-2delta0)
+normalization.
+
+No strict exponent saving, or RH proof, is asserted
+by the new formalized algebra and the exact Fourier
+reconstruction described here.
