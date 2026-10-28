@@ -24,9 +24,9 @@ theorem eulerEndpointCarry_q_one_zero (R b : ℕ) (hR : 2 ≤ R) :
     eulerBucketRightCarry R 1 b = 0 := by
   have hN : 0 < R - 1 := by omega
   have hdiv : (R - 1) / (R - 1) = 1 := Nat.div_self hN
-  unfold eulerBucketRightCarry eulerBucketHigh
-  exact eulerBucketCarry_zero_of_dvd R 1 b (R - 1)
-    hR hN (dvd_refl _) hdiv
+  simpa [eulerBucketRightCarry, eulerBucketHigh] using
+    (eulerBucketCarry_zero_of_dvd R 1 b (R - 1)
+      hR hN (dvd_refl _) hdiv)
 
 /-- The right endpoint's residual t=N-q*r is exactly N mod q.
 A legitimate bucket endpoint is essential: this fails for arbitrary q
@@ -48,6 +48,7 @@ theorem eulerEndpointRight_remainder_eq_mod_q
   have hdr := Nat.div_add_mod (R - 1) r
   change q * r + (R - 1) % q = R - 1 at hdq
   rw [hqr] at hdr
+  change (R - 1) % r = (R - 1) % q
   omega
 
 /-- Original endpoint carry has the sharp *q-dependent* upper bound.
@@ -71,7 +72,10 @@ theorem eulerEndpointCarry_le_sharp
     eulerBucketIndices_quotient R q r hq hrMem
   have hrho : rho < b := Nat.mod_lt _ hb
   have ht : t < q := by
-    rw [eulerEndpointRight_remainder_eq_mod_q R q hq hne]
+    change (R - 1) % r < q
+    have heq := eulerEndpointRight_remainder_eq_mod_q R q hq hne
+    change (R - 1) % r = (R - 1) % q at heq
+    rw [heq]
     exact Nat.mod_lt _ hq
   have hmul :
       r * rho + (R + 1) * t ≤
@@ -127,6 +131,7 @@ theorem eulerEndpointLargeBucket_punched_mass
         if eulerBucketHigh R q ∣ R - 1 then 0
         else eulerMuQ (eulerBucketHigh R q) := by
   rw [eulerEndpointLargeBucket_eq_singleton R q hq hlarge hne]
+  rw [Finset.sum_filter]
   by_cases hd : eulerBucketHigh R q ∣ R - 1
   · simp [hd]
   · simp [hd]
@@ -176,7 +181,7 @@ theorem eulerEndpointBucket_mem_iff_small_historical
 It is stronger than a singleton approximation: the original buckets
 partition the literal small-a prefix without overcounting or omissions. -/
 theorem eulerEndpointTail_buckets_partition
-    (R Q : ℕ) (hQ : 0 < Q) (hQN : Q ≤ R - 1)
+    (R Q : ℕ) (hQ : 0 < Q) (_hQN : Q ≤ R - 1)
     (f : ℕ → ℚ) :
     (∑ q ∈ Finset.Icc Q (R - 1),
         ∑ a ∈ eulerBucketIndices R q, f a) =
@@ -248,12 +253,13 @@ theorem eulerEndpoint_tail_singleton_collapse
     by_cases hne : eulerBucketLow R q < eulerBucketHigh R q
     · rw [eulerEndpointLargeBucket_eq_singleton R q hqPos
         (hlargeQ q hq) hne]
+      rw [Finset.sum_filter]
       by_cases hd : eulerBucketHigh R q ∣ R - 1
       · simp [f, hd]
       · simp [f, hd]
     · have hempty : eulerBucketIndices R q = ∅ := by
         ext a
-        simp only [eulerBucketIndices, Finset.mem_Ioc, Finset.not_mem_empty]
+        simp [eulerBucketIndices, Finset.mem_Ioc]
         omega
       simp [hempty]
   calc
