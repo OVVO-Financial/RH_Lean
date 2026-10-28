@@ -1,0 +1,77 @@
+name: Euler asymmetric corner and signed Gram Lean
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - "research/EULER_ASYMMETRIC_CORNER_SIGNED_GRAM_20261028.lean"
+      - "research/EULER_ASYMMETRIC_CORNER_SIGNED_GRAM_20261028.md"
+      - "scripts/euler_asymmetric_corner_exact_probe_20261028.py"
+      - ".github/workflows/euler-asymmetric-corner.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  lean:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up pinned Lean and cached Mathlib
+        uses: ./.github/actions/lean-setup
+      - name: Restore PNT+ build cache
+        uses: actions/cache/restore@v5
+        with:
+          path: .lake/packages/PrimeNumberTheoremAnd/.lake/build
+          key: pntplus-build-v1-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
+      - name: Prebuild PNT+ StrongPNT
+        run: lake build PrimeNumberTheoremAnd.StrongPNT
+      - name: Restore native library build cache
+        uses: actions/cache/restore@v5
+        with:
+          path: .lake/build
+          key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'RHLean.lean', 'RHLean/**/*.lean') }}
+          restore-keys: |
+            rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-
+      - name: Compile exact research import closure, warnings fatal
+        run: |
+          python3 scripts/compile_research_import_closure.py --build-library \
+            research/EULER_ASYMMETRIC_CORNER_SIGNED_GRAM_20261028.lean
+      - name: Standard-axioms audit
+        run: |
+          cat > /tmp/euler_asym_axioms.lean <<'EOF'
+          import «research.EULER_ASYMMETRIC_CORNER_SIGNED_GRAM_20261028»
+          #print axioms RHLean.Proof.eulerAsym_corner_floor_one
+          #print axioms RHLean.Proof.eulerAsym_omitted_row
+          #print axioms RHLean.Proof.eulerAsymBilinear_eq_mertens_add_corner
+          #print axioms RHLean.Proof.eulerAsymCorner_norm_le_two_R
+          #print axioms RHLean.Proof.eulerAsymBilinear_eq_signedGram_add_corner
+          EOF
+          lake env lean -DwarningAsError=true /tmp/euler_asym_axioms.lean | tee /tmp/euler_asym_axioms.log
+          if grep -q 'sorryAx' /tmp/euler_asym_axioms.log; then exit 1; fi
+          python3 - <<'PY'
+          import re
+          log = open('/tmp/euler_asym_axioms.log').read()
+          allowed = {'propext', 'Classical.choice', 'Quot.sound'}
+          for line in log.splitlines():
+              match = re.search(r"depends on axioms: \[(.*)\]", line)
+              if match:
+                  used = {a.strip() for a in match.group(1).split(',') if a.strip()}
+                  assert used <= allowed, f"Nonstandard axioms: {used - allowed}"
+          print("PASS standard axioms only")
+          PY
+      - name: No admitted statements in new source
+        run: |
+          python3 - <<'PY'
+          import pathlib, re
+          path = 'research/EULER_ASYMMETRIC_CORNER_SIGNED_GRAM_20261028.lean'
+          body = pathlib.Path(path).read_text()
+          body = re.sub(r'/-.*?-/', '', body, flags=re.S)
+          body = re.sub(r'--.*', '', body)
+          assert not re.search(r'\b(sorry|admit|axiom)\b', body), path
+          print('PASS no sorry, admit or new axiom')
+          PY
+      - name: Exact original-Mobius regression
+        run: python3 scripts/euler_asymmetric_corner_exact_probe_20261028.py
