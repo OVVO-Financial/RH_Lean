@@ -184,7 +184,78 @@ theorem eulerCoupled_head_interior_abel_no_drift
   rw [hlinear, hsum]
   linear_combination hcancel
 
+
+/-- The hyperbola quotient-window endpoints grow with the bucket index,
+provided the right-end bucket remains strictly historical and positive. -/
+theorem eulerHeadWindowEndpoint_mono
+    (R q b : ℕ) (hq : 0 < q) (hqn : q + 1 ≤ R - 1) :
+    eulerBucketJLower R q b ≤ eulerBucketJLower R (q + 1) b := by
+  have hden : eulerBucketHigh R (q + 1) ≤ eulerBucketHigh R q := by
+    unfold eulerBucketHigh
+    exact Nat.div_le_div_left (by omega : q ≤ q + 1) hq
+  have hdenpos : 0 < eulerBucketHigh R (q + 1) := by
+    unfold eulerBucketHigh
+    have h : 1 ≤ (R - 1) / (q + 1) :=
+      (Nat.le_div_iff_mul_le (by omega : 0 < q + 1)).2
+        (by simpa using hqn)
+    omega
+  exact Nat.div_le_div_left hden hdenpos
+
+/-- Consecutive integer quotient windows concatenate without a gap.
+The proof is finite induction and an exact Ioc interval split. -/
+private theorem eulerHeadWindowConcat_generic
+    (n : ℕ) (A : ℕ → ℕ) (f : ℕ → ℚ)
+    (hmono : ∀ i < n, A (i + 1) ≤ A (i + 2)) :
+    (∑ i ∈ Finset.range n,
+       ∑ m ∈ Finset.Ioc (A (i + 1)) (A (i + 2)), f m) =
+      ∑ m ∈ Finset.Ioc (A 1) (A (n + 1)), f m := by
+  induction n with
+  | zero => simp
+  | succ n ih =>
+      have hprefix : ∀ i < n, A (i + 1) ≤ A (i + 2) := by
+        intro i hi
+        exact hmono i (by omega)
+      have hlast : A (n + 1) ≤ A (n + 2) :=
+        hmono n (by omega)
+      have hfirst : A 1 ≤ A (n + 1) := by
+        have hstart (k : ℕ) (hk : k ≤ n) :
+            A 1 ≤ A (k + 1) := by
+          induction k with
+          | zero => exact le_refl _
+          | succ k hkInd =>
+              have hkN : k ≤ n := by omega
+              have hkLt : k < n + 1 := by omega
+              exact (hkInd hkN).trans (hmono k hkLt)
+        exact hstart n (le_refl _)
+      have hsplit := Finset.sum_Ioc_consecutive (f := f) hfirst hlast
+      rw [Finset.sum_range_succ, ih hprefix]
+      simpa only [Nat.succ_eq_add_one, Nat.add_assoc] using hsplit.symm
+
+/-- The WHOLE signed historical Mertens window is one contiguous m-sum,
+not an approximation by one m-sum per quotient bucket. -/
+theorem eulerCoupled_head_window_concat
+    (R Q b : ℕ) (hQ : 1 ≤ Q) (hQN : Q ≤ R - 1) :
+    (∑ i ∈ Finset.range (Q - 1), eulerHeadWindowMassQ R (i + 1) b) =
+      ∑ m ∈ Finset.Ioc (eulerBucketJLower R 1 b)
+        (eulerBucketJLower R Q b),
+        eulerHistoricalMertensQ (eulerBucketY R b / m) := by
+  have hmono : ∀ i < Q - 1,
+      eulerBucketJLower R (i + 1) b ≤
+        eulerBucketJLower R (i + 2) b := by
+    intro i hi
+    exact eulerHeadWindowEndpoint_mono R (i + 1) b
+      (by omega : 0 < i + 1) (by omega : i + 2 ≤ R - 1)
+  have hconcat := eulerHeadWindowConcat_generic (Q - 1)
+    (fun q => eulerBucketJLower R q b)
+    (fun m => eulerHistoricalMertensQ (eulerBucketY R b / m))
+    hmono
+  have hQeq : Q - 1 + 1 = Q := by omega
+  simpa [eulerHeadWindowMassQ, eulerBucketJUpper_eq_nextJLower, hQeq] using
+    hconcat
+
 #print axioms eulerCoupled_head_interior_abel
 #print axioms eulerCoupled_head_interior_abel_no_drift
+#print axioms eulerHeadWindowEndpoint_mono
+#print axioms eulerCoupled_head_window_concat
 
 end RHLean.Proof
