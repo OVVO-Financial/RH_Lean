@@ -104,7 +104,8 @@ theorem oai78Paid_extra_owner_power (q T : ℕ) (hq : 1 ≤ q)
         Real.rpow (q : ℝ) (3 / 2) := by
     have ha := Real.rpow_add hqrpos (1 : ℝ) (1 / 2 : ℝ)
     rw [Real.rpow_one, ← Real.sqrt_eq_rpow] at ha
-    simpa only [show (1 + 1 / 2 : ℝ) = 3 / 2 by ring] using ha.symm
+    simpa only [Real.rpow_eq_pow,
+      show (1 + 1 / 2 : ℝ) = 3 / 2 by ring] using ha.symm
   calc
     (T : ℝ) * (q : ℝ) ≤
         (q : ℝ) * Real.sqrt (q : ℝ) := by
