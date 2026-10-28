@@ -52,6 +52,7 @@ jobs:
           #print axioms RHLean.Analysis.oaiPaired_actualSharpEnergy_eq_nativeDyadicEnergy
           #print axioms RHLean.Analysis.oaiPaired_actualSharpEnergy_eq_primeSampler
           #print axioms RHLean.Analysis.oaiPaired_actualSharpMoment_consumer
+          #print axioms RHLean.Analysis.oaiPaired_threeUniformDyadicEnergy
           #print axioms RHLean.Analysis.oaiAltSquarePrefix_abs_le
           #print axioms RHLean.Analysis.oaiAltSquareIncrement_exact
           #print axioms RHLean.Analysis.oaiAltSquareIncrement_sq
