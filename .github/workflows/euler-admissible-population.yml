@@ -7,6 +7,7 @@ on:
       - "research/EULER_ADMISSIBLE_PRIME_POPULATION_CODIV_20261028.lean"
       - "research/EULER_ADMISSIBLE_PRIME_POPULATION_CODIV_20261028.md"
       - "research/EULER_ADMISSIBLE_WEIGHTED_CODIV_20261028.lean"
+      - "research/EULER_ADMISSIBLE_SIGNED_RETURN_TELESCOPE_20261028.lean"
       - "scripts/euler_admissible_population_probe.cpp"
       - ".github/workflows/euler-admissible-population.yml"
   workflow_dispatch:
@@ -39,11 +40,11 @@ jobs:
       - name: Compile exact research import closure, warnings fatal
         run: |
           python3 scripts/compile_research_import_closure.py --build-library \
-            research/EULER_ADMISSIBLE_WEIGHTED_CODIV_20261028.lean
+            research/EULER_ADMISSIBLE_SIGNED_RETURN_TELESCOPE_20261028.lean
       - name: Standard-axioms audit
         run: |
           cat > /tmp/euler_pop_axioms.lean <<'EOF'
-          import «research.EULER_ADMISSIBLE_WEIGHTED_CODIV_20261028»
+          import «research.EULER_ADMISSIBLE_SIGNED_RETURN_TELESCOPE_20261028»
           #print axioms RHLean.Proof.eulerAdmissible_endpoint_eq_low_add_innovation
           #print axioms RHLean.Proof.eulerAdmissibleBandPopulation_eq_primeCounting_sub
           #print axioms RHLean.Proof.eulerAdmissiblePrimeDebt_eq_exact_bands
@@ -55,6 +56,8 @@ jobs:
           #print axioms RHLean.Proof.eulerHybridStrictCross_eq_admissible_weighted_Co_sub_Div
           #print axioms RHLean.Proof.eulerAdmissible_weighted_CoDiv_eq_primePopulation
           #print axioms RHLean.Proof.eulerAsymBilinear_eq_weighted_CoDiv_add_corner
+          #print axioms RHLean.Proof.eulerAdmissibleChronologicalEnergy_identity
+          #print axioms RHLean.Proof.eulerAdmissibleChronologicalMixed_eq_weighted_CoDiv_payment
           EOF
           lake env lean -DwarningAsError=true /tmp/euler_pop_axioms.lean | tee /tmp/euler_pop_axioms.log
           if grep -q 'sorryAx' /tmp/euler_pop_axioms.log; then exit 1; fi
@@ -73,7 +76,7 @@ jobs:
         run: |
           python3 - <<'PY'
           import pathlib, re
-          body = ''.join(pathlib.Path(p).read_text() for p in ['research/EULER_ADMISSIBLE_PRIME_POPULATION_CODIV_20261028.lean', 'research/EULER_ADMISSIBLE_WEIGHTED_CODIV_20261028.lean'])
+          body = ''.join(pathlib.Path(p).read_text() for p in ['research/EULER_ADMISSIBLE_PRIME_POPULATION_CODIV_20261028.lean', 'research/EULER_ADMISSIBLE_WEIGHTED_CODIV_20261028.lean', 'research/EULER_ADMISSIBLE_SIGNED_RETURN_TELESCOPE_20261028.lean'])
           body = re.sub(r'/-.*?-/', '', body, flags=re.S)
           body = re.sub(r'--.*', '', body)
           assert not re.search(r'\b(sorry|admit|axiom)\b', body)
