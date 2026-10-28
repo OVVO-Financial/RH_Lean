@@ -328,3 +328,17 @@ remains a full-coupled dyadic bound
     sum_{R=H}^{2H-1} delta_R^2 <= C_epsilon H^(5/2-eta+epsilon), eta>0.
 
 No exponent improvement or RH result is asserted by this addendum.
+
+
+### Important adversarial qualification
+
+The first-moment divisor discrepancy identity above is a consequence of
+consecutive interval boundaries: it would telescope for ANY nested
+partition of an integer interval. It proves exact first-order unbiasedness,
+but **not a square-specific mixing or independence phenomenon**.
+
+The genuinely new square-specific task lies at SECOND order:
+joint residues of R^2 modulo several prime-factor products, the physical
+gcd-dependent correlations, and the full moving-site x prime-owner signed
+nine-channel matrix. None of their entries is automatically zero simply
+because a physical site-by-owner cell is empty at one endpoint.
