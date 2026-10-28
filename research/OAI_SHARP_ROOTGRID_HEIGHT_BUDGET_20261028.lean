@@ -283,7 +283,9 @@ theorem oaiNNSEnergy2_sq_le_card_energy4
       (s.card : Real) * ∑ R ∈ s, (x R) ^ 4 := by
   have h := Finset.sum_mul_sq_le_sq_mul_sq
     (R := Real) s (fun _ => (1 : Real)) (fun R => (x R) ^ 2)
-  simpa [pow_mul] using h
+  have hsquare (R : ℕ) : ((x R) ^ 2) ^ 2 = (x R) ^ 4 := by ring
+  simp_rw [hsquare] at h
+  simpa using h
 
 theorem oaiNNSDyadicEnergy2_sq_le_H_energy4
     (H : ℕ) (x : ℕ → Real) :
