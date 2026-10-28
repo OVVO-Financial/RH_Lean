@@ -6,6 +6,8 @@ on:
     paths:
       - research/OAI78_CORR4_NESTED_FINITE_C_PAID_20261028.lean
       - research/OAI78_CORR4_OWNER_TAIL_PAID_20261028.lean
+      - research/OAI78_CORR4_NESTED_SQUARE_RESERVES_20261028.lean
+      - research/OAI78_ABEl_HYPERBOLA_DRIFT_PAYMENT_20261028.lean
       - .github/workflows/oai78-cor4-paid-estimates.yml
   workflow_dispatch:
 
@@ -42,12 +44,16 @@ jobs:
           targets: >-
             research/OAI78_CORR4_NESTED_FINITE_C_PAID_20261028.lean
             research/OAI78_CORR4_OWNER_TAIL_PAID_20261028.lean
+            research/OAI78_CORR4_NESTED_SQUARE_RESERVES_20261028.lean
+            research/OAI78_ABEl_HYPERBOLA_DRIFT_PAYMENT_20261028.lean
       - name: Inspect theorem axioms
         shell: bash
         run: |
           cat > /tmp/oai78_paid_axioms.lean <<'LEAN'
           import «research.OAI78_CORR4_NESTED_FINITE_C_PAID_20261028»
           import «research.OAI78_CORR4_OWNER_TAIL_PAID_20261028»
+          import «research.OAI78_CORR4_NESTED_SQUARE_RESERVES_20261028»
+          import «research.OAI78_ABEl_HYPERBOLA_DRIFT_PAYMENT_20261028»
           #check RHLean.Proof.oai78_nearest_daughter_eq_two_history_sub_finiteC
           #print axioms RHLean.Proof.oai78_nearest_daughter_eq_two_history_sub_finiteC
           #check RHLean.Proof.oai78_nearest_column_eq_history_sub_nested_finiteC
@@ -56,5 +62,7 @@ jobs:
           #print axioms RHLean.Proof.oai78_corr4_physical_eq_nested_finiteC_add_boundary
           #check RHLean.Proof.oai78Paid_large_owner_column_le_power
           #print axioms RHLean.Proof.oai78Paid_large_owner_column_le_power
+          #print axioms RHLean.Proof.oai78Nested_original_corr4_square_le_nine_eighths
+          #print axioms RHLean.Proof.oai78Abel_continuous_drift_exact
           LEAN
           lake env lean -DwarningAsError=true /tmp/oai78_paid_axioms.lean
