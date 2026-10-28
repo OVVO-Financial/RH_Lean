@@ -57,6 +57,63 @@ void independent_at(int root, const Sieve &s, const Three &v) {
      <<" M(X)="<<v.mertens<<"\n";
 }
 
+
+// The moving half-wall contribution is deterministic reclassification;
+// the cofactor-shell response below is the *genuine* signed prime/composite
+// incidence that remains after that reclassification cancels.
+struct SignedThreeFlow {
+  int64_t prime_births=0;       // primes newly crossing upper square wall
+  int64_t half_gate=0;          // primes crossing moving X/2 wall
+  int64_t composite_shell=0;    // sum_c mu(c) * actual prime hits with cp in shell
+  int64_t root_gate=0;          // root R admission: 1_{R prime} M(R-1)
+};
+
+SignedThreeFlow three_flow(int root,const Sieve &s) {
+  const int x=root*root-1;
+  const int y=(root+1)*(root+1)-1;
+  SignedThreeFlow v;
+  v.prime_births=static_cast<int64_t>(s.pi[y])-s.pi[x];
+  v.half_gate=static_cast<int64_t>(s.pi[y/2])-s.pi[x/2];
+  v.root_gate=
+      (s.least[root]==static_cast<uint32_t>(root)) ? s.mertens[root-1] : 0;
+  for (int cof=2;cof<=root;++cof) {
+    const int left=std::max(root,x/cof);
+    const int right=y/cof;
+    assert(left<=right);
+    const int64_t n=static_cast<int64_t>(s.pi[right])-s.pi[left];
+    // The displayed child products all obey R^2<=cof*p<=(R+1)^2-1,
+    // p>R, and cof<=R, so gcd(p,cof)=1 automatically.
+    v.composite_shell+=s.mu[cof]*n;
+  }
+  return v;
+}
+
+struct MixedDissection {
+  int64_t transfer_component=0, composite_component=0, root_component=0;
+  int64_t total=0;
+};
+
+MixedDissection dissection(const std::vector<Three> &v,
+                           const Sieve &s,int H) {
+  MixedDissection out;
+  for (int root=H;root<2*H;++root) {
+    SignedThreeFlow t=three_flow(root,s);
+    const int64_t dm=v[root+1].middle-v[root].middle;
+    const int64_t du=v[root+1].top-v[root].top;
+    const int64_t db=t.prime_births-t.half_gate;
+    assert(du==-db);
+    assert(dm==t.root_gate-t.half_gate-t.composite_shell);
+    assert(dm+du==t.root_gate-t.composite_shell-t.prime_births);
+    out.transfer_component+=2*t.half_gate*db;
+    out.composite_component+=2*t.composite_shell*db;
+    out.root_component-=2*t.root_gate*db;
+    out.total+=2*dm*du;
+  }
+  assert(out.transfer_component+out.composite_component+
+         out.root_component==out.total);
+  return out;
+}
+
 SixMoment window(const std::vector<Three> &v,int H) {
   SixMoment s;
   for (int r=H; r<2*H; ++r) {
@@ -97,13 +154,18 @@ int main() {
 
   for (int H : std::array<int,5>{{16,64,256,1024,4096}}) {
     SixMoment m=window(values,H);
+    const MixedDissection d=dissection(values,s,H);
+    assert(d.total==m.mt);
     const int64_t diagonals=m.ll+m.mm+m.tt;
     const int64_t crosses=m.lm+m.lt+m.mt;
     std::cout<<"H="<<H<<" shellEnergy="<<m.total
       <<" diagonalThree="<<diagonals
       <<" crossThree="<<crosses
       <<" LL="<<m.ll<<" MM="<<m.mm<<" TT="<<m.tt
-      <<" 2LM="<<m.lm<<" 2LT="<<m.lt<<" 2MT="<<m.mt<<"\n";
+      <<" 2LM="<<m.lm<<" 2LT="<<m.lt<<" 2MT="<<m.mt
+      <<" MT_halfGate="<<d.transfer_component
+      <<" MT_composites="<<d.composite_component
+      <<" MT_rootGate="<<d.root_component<<"\n";
   }
   std::cout<<"PASS independent three-stratum prime-product population,"
     <<" top prime singleton, six-moment square-block sampler\n";
