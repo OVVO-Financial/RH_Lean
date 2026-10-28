@@ -45,7 +45,7 @@ jobs:
       - name: Standard-axioms audit
         run: |
           cat > /tmp/euler_pop_axioms.lean <<'EOF'
-          import «research.EULER_ADMISSIBLE_SIGNED_RETURN_TELESCOPE_20261028»
+          import «research.EULER_SQUARE_BLOCK_DIVISOR_SURROGATE_20261028»
           #print axioms RHLean.Proof.eulerThree_root_le_half
           #print axioms RHLean.Proof.eulerThreeTopDebt_eq_prime_singletons
           #print axioms RHLean.Proof.eulerThreeTopDebt_eq_primeCounting_gap
