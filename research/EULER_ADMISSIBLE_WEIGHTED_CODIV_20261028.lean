@@ -55,7 +55,7 @@ private theorem eulerAdmissiblePair_signed_eq_co_sub_div
         eulerAdmissiblePairWeight R a b else 0) := by
   rcases ArithmeticFunction.moebius_eq_or a with ha | ha | ha <;>
     rcases ArithmeticFunction.moebius_eq_or b with hb | hb | hb <;>
-    simp [ha, hb] <;> ring
+    simp [ha, hb]
 
 /-- Original Abel mixed cross = pairwise signed Mobius floor differences.
 No probabilistic cancellation is used in the Abel transfer. -/
