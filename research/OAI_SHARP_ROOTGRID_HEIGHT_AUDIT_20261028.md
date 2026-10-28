@@ -4,6 +4,15 @@
 
 Pinned OAI commit: openai/math@1581d4cbdd69a0faf34b2089614fe2a814316a6a.
 
+## UPDATE: 2026-10-28 NNS sampling and first-derivative trace correction
+
+The original squared-derivative Sobolev trace and its H^(1/2+delta)
+loss below remain VALID as a conservative proof, but are NOT optimal.
+A first-derivative Plancherel--Polya-type argument reduces the
+generic high-frequency penalty to H^(1/4+delta/2+kappa).
+Read the corrected source and exponent budgets in Section 7 below.
+No lossless arbitrary-profile-to-OAI theorem is asserted.
+
 ## The proved physical source and what is still missing
 
 For H<=R<2H, PR #1047 proves the complete ORIGINAL, sharp quadratic norm-fiber source identity, before squaring:
@@ -243,3 +252,183 @@ theorem simultaneously (i) covers the sharp physical masks, (ii)
 controls their root-indexed moment, and (iii) delivers strict saving.
 This is a quantitative theorem-applicability gap, not an impossibility
 result against more arithmetic signed localization.
+
+
+## 7. Corrected: a first-derivative trace beats the squared-Sobolev tax
+
+The original Section on the squared-derivative Sobolev trace is a
+correct inequality but NOT an unavoidable +1/2 exponent tax.
+There is a strictly better bound from the fundamental theorem applied
+to |F|^2 (sometimes formulated as Plancherel--Polya or a sampling
+Bessel inequality).
+
+For u_R=2 log R, h_R=u_(R+1)-u_R, H<=R<2H, we have
+
+    1/H <= h_R <= 2/H.
+
+For any locally absolutely continuous complex F and interval
+I_R=[u_R,u_(R+1)], the fundamental theorem gives for v in I_R
+
+    |F(u_R)|^2 <= |F(v)|^2 + 2*int_(I_R)|F||F'|.
+
+Average over v and sum DISJOINT intervals:
+
+    sum_R |F(u_R)|^2
+       <= H*int_I |F|^2 + 2*int_I|F||F'|
+       <= H*int_I |F|^2
+          + 2*||F||_(L2(I))*||F'||_(L2(I)).        (TRACE-1)
+
+If F is globally L2 and Fourier bandlimited to |v|<=T, then
+global Plancherel gives ||F'||_2<=2*pi*T*||F||_2
+under the exp(2*pi*i*u*v) transform convention. Therefore
+
+    sum_R |F(u_R)|^2
+       <= (H+4*pi*T)*||F||_(L2(R))^2.           (PP)
+
+The frequency inflation RELATIVE to the natural H*integral is now
+1+T/H, not 1+(T/H)^2. Global bandlimitedness does not automatically
+give a Bernstein inequality on the smaller interval I alone, which is
+why PP is stated using the GLOBAL continuous L2 norm. To insert it
+into a LOCAL smooth source moment, one needs a global/buffered norm or
+explicit tail control. This qualification is essential.
+
+At collar width Delta=H^(3/4-delta/2-kappa), we need
+T_eff=H^(5/4+delta/2+kappa), hence the refined grid price is
+
+    (T_eff/H)=H^(1/4+delta/2+kappa).
+
+Assuming INDEPENDENT continuous smoothed root-source moment saving
+delta0 and hypothetical RELATIVE profile penalty (T/H)^beta, the
+revised exact closure budget is
+
+    delta0>=1/4+3*delta/2+kappa+
+                      beta*(1/4+delta/2+kappa).    (REL-1)
+
+For beta=0,kappa=0,delta=0.01 this is 0.265 instead of 0.52.
+If paying the original polynomial ABSOLUTE height price T^J,
+the corresponding (conditional) budget is
+
+    delta0>=1/4+3*delta/2+kappa+
+                         J*(5/4+delta/2+kappa).    (ABS-1)
+
+The Lean file adds oaiLinearTracePower_eq,
+oaiLinearGridRelativeBudget_iff, and
+oaiLinearGridAbsoluteBudget_iff, all proved with standard axioms.
+The earlier +1/2 budget remains a valid NONOPTIMAL inequality for
+the squared-derivative route and MUST NOT be called a fundamental
+uncertainty-principle obstruction.
+
+This does NOT establish the OAI smooth moment saving delta0 in the
+PHYSICAL root variable. It also does not supply a uniform OAI theorem
+for the actual shrinking sharp-window profiles.
+
+## 8. NNS sampling is an exact discrete-to-continuous DISTRIBUTION bridge
+
+Canonical source:
+https://github.com/OVVO-Financial/NNS/blob/master/vignettes/NNSvignette_05_Sampling.Rmd
+
+In NNS, the degree-zero lower-partial-moment ratio recovers the
+empirical CDF; positive degrees create continuous threshold
+descriptions, and the vignette's multivariate examples explicitly
+preserve/compare dependence rather than assume IID.
+
+Let s_R be the original sharp Mobius square-block signed increment
+(no synthetic, randomized or independence surrogate) and choose R
+UNIFORMLY from the H integer roots [H,2H).
+Define the exact empirical law
+
+    nu_H=(1/H)*sum_(R=H)^(2H-1) delta_(s_R).
+
+It is a probability measure on R, not a claim of independence.
+For target t and q>0 define actual NNS partial moments
+
+    LPM_(q,H)(t)=(1/H)*sum_R max(t-s_R,0)^q,
+    UPM_(q,H)(t)=(1/H)*sum_R max(s_R-t,0)^q.
+
+At q=2, t=0, the exact identity is
+
+    sum_R s_R^2 = H*(LPM_(2,H)(0)+UPM_(2,H)(0)).
+
+The general target identity is
+
+    H*(LPM_(2,H)(t)+UPM_(2,H)(t))=sum_R(s_R-t)^2.
+
+The degree-two LPM is continuously differentiable as a function of
+the TARGET t. Its first derivative is 2 LPM_(1,H)(t), and its
+second derivative is 2 F_H(t) almost everywhere, with F_H the
+degree-zero empirical CDF. This gives an exact continuous
+partial-moment REPRESENTATION of the same discrete data.
+The positive-degree LPM.ratio itself reweights the empirical
+distribution and therefore is not a lossless substitute for the
+original moments unless additional identities are proved.
+
+Alternatively, introduce an EXACT continuous uniform-quantile
+variable z in [0,1), with root index R(z)=H+floor(H*z).
+Then, for any original deterministic samples s_R,
+
+    int_(z in [0,1)) |s_(R(z))|^2 dz
+       =(1/H)*sum_R |s_R|^2.
+
+There is zero sampling or interpolation error here. However the
+resulting source is a STEP FUNCTION of z; it is NOT automatically
+one of the original smooth OAI inverse/marked Hecke profiles.
+Thus NNS sampling removes the representation/trace obstacle, but
+DOES NOT by itself prove that an OAI moment bound applies to the
+resulting empirical measure.
+
+The full joint law should be used for the user's moving Euler
+three-prime-population streams, not independent marginals:
+
+    nu_H^joint=(1/H)*sum_R delta_(
+       DeltaE_R, DeltaC_R, -DeltaP_R).
+
+Then the true variance has the signed cross-terms:
+
+    (1/H)*sum_R |s_R|^2
+       =int_(a,b,c) (a+b+c)^2 d nu_H^joint(a,b,c).
+
+NNS multivariate dependence/copula methods can diagnose that
+correlation on finite genuine arithmetic samples, but resampling
+or bootstrap simulations cannot prove a bound uniform in H.
+
+The degree-zero empirical CDF of |s_R| also gives the exact
+tail-moment representation
+
+    (1/H)*sum_R |s_R|^2
+      =2*int_(t>0) t*P_H(|s_R|>t) dt.
+
+A new arithmetic theorem such as
+
+    P_H(|s_R|>z*H^(3/4-delta/2))<=A*exp(-c*z^2)
+    for ALL H and z>=0 (with uniform A,c>0),
+
+would yield the desired H^(5/2-delta) energy (integrate tails).
+This sufficient tail theorem is genuinely NEW arithmetic input,
+not a consequence of the NNS empirical CDF identity or finite
+sampling observations.
+
+The exact unnormalized NNS degree-two identities are certified by
+oaiNNSTwoSidedSecond_eq_energy and
+oaiNNSDyadicTwoSided_eq_energy in the Lean budget module.
+
+## 9. Revised conclusion / next source task
+
+The user's NNS insight provides a lossless continuous *empirical
+measure* of the deterministic sharp data and preserves the joint
+prime/cofactor covariance. Also the naive +1/2 grid exponent tax is
+not fundamental: a first-derivative Bessel trace reduces it to +1/4
+at the collar bandwidth, still not negligible.
+
+The OPEN source-level task is now precise:
+
+- Either prove the original OAI compensated moment directly under the
+  empirical root-index law / root-phase Parseval formulation;
+- Or build a weighted, buffered Plancherel--Polya estimate that
+  transfers the actual OAI smooth family into this source with the
+  stated first-derivative cost and controlled sharp boundary tails;
+- Or prove a uniform joint NNS partial-moment / tail dominance
+  estimate for the actual arithmetic three-population residual.
+
+No route may replace the actual signed Möbius coefficients with
+resampled/independent signs, and no lossless moment inequality follows
+from the mere existence of the continuous empirical distribution.
