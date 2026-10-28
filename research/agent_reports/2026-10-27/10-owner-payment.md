@@ -2,16 +2,16 @@
 
 **Status:** COMPLETED
 **Invocation:** scheduled run begun 2026-10-27 20:43 America/New_York
-**Final authority refresh:** 2026-10-27 21:xx America/New_York
-**Pinned main:** \`aed8eaccecc0d898bea05dc5417fd649bb1c4b37\`
-**New claim:** \`20261027-owner-1\`
-**Result classes:** \`PAPER_PROOF / EXACT GLOBAL THREE-CLASS INVERSE LEDGER\`, \`STRUCTURAL NO-GO\`, \`NO_NEW_GLOBAL_QUANTITATIVE_BOUND\`
+**Final authority refresh:** 2026-10-27 America/New_York
+**Pinned main:** `aed8eaccecc0d898bea05dc5417fd649bb1c4b37`
+**New claim:** `20261027-owner-1`
+**Result classes:** `PAPER_PROOF / EXACT GLOBAL THREE-CLASS INVERSE LEDGER`, `STRUCTURAL NO-GO`, `NO_NEW_GLOBAL_QUANTITATIVE_BOUND`
 
 ## A. Most important mathematical development
 
-### Claim \`20261027-owner-1\`: the complete #915 first-owner Fubini has an exact three-class inverse ledger
+### Claim `20261027-owner-1`: the complete #915 first-owner Fubini has an exact three-class inverse ledger
 
-Yesterday's claim \`20261026-owner-1\` classified one literal active returned cell. Combining that paper classifier with the compiled occurrence-preserving returned-pair Fubini and compiled global residual equality gives the complete original-carrier identity.
+Yesterday's claim `20261026-owner-1` classified one literal active returned cell. Combining that paper classifier with the compiled occurrence-preserving returned-pair Fubini and compiled global residual equality gives the complete original-carrier identity.
 
 Fix \(R\ge3\), put
 \[
@@ -32,7 +32,7 @@ Its elements are literal clipped/admitted pairs \((a,c)\); the two physical curr
  T_R&=\sum_{p,\sigma}\#\{(a,c)\in{\cal C}_{R,p,\sigma}:c=1\}.
 \end{aligned}
 \]
-Here \(p\) ranges over \`primesUpTo (squareRootEndpoint (R+1))\` and \(\sigma\) over \`lowOwnerFirstOwnerSignatureSet (R+1) p\`. Counts retain literal pair multiplicity; they are not counts of deduplicated sites or raw parents.
+Here \(p\) ranges over `primesUpTo (squareRootEndpoint (R+1))` and \(\sigma\) over `lowOwnerFirstOwnerSignatureSet (R+1) p`. Counts retain literal pair multiplicity; they are not counts of deduplicated sites or raw parents.
 
 Let
 \[
@@ -45,7 +45,7 @@ Then
  E_R=G_R+2w^2 C_R-6w(1-w)P_R+2(1-w)^2T_R. }\tag{1}
 \]
 
-The apparent fourth class \(a\) composite, \(c=1\) is empty by the same-signature square-block argument from \`20261026-owner-1\`: the child is the active prime \(p\), so \(p>R^2\); an active composite \(a<(R+1)^2\) has a least prime factor below \(R+1<p\), contradicting the empty lower-\(p\) signature.
+The apparent fourth class \(a\) composite, \(c=1\) is empty by the same-signature square-block argument from `20261026-owner-1`: the child is the active prime \(p\), so \(p>R^2\); an active composite \(a<(R+1)^2\) has a least prime factor below \(R+1<p\), contradicting the empty lower-\(p\) signature.
 
 At a genuine \(K=2\) first-bad successor, the already-compiled strict NNS theorem gives \(E_R>0\). Therefore failure of the desired payment forces the exact inverse inequality
 \[
@@ -67,16 +67,16 @@ The canonical theorem remains open:
 
 Live authority and material blobs:
 
-- main \`aed8eaccecc0d898bea05dc5417fd649bb1c4b37\`;
-- \`AGENTS.md\` \`d11dea7ea8f2206ed5147f0231846d0a4652f8e9\`;
-- \`CURRENT_PROOF_CONTRACT.md\` \`24bd727096001b68c76b28fe70c99b8d548d7bfe\`;
-- active excess ledger \`c103b811dfe5ac4130c71134a93bb23793c11695\`;
-- final returned Co/Div Fubini \`47e4255f76fb3387d1b12d0fa185cffde2744e63\`;
-- global Möbius/physical weld \`5e3212e20666b9ed7f13d6bd9ebadfad88338eaa\`;
-- active raw-parent splice \`dd872ccdf0eac1e78f998aa77f357f68df53f76e\`;
-- exact #915 budget close \`3730a5eabd41d54ff74cd8876047c7a1818717e7\`;
-- weighted owner Fubini \`4679d7edae521dd4d9f0238aa4201445b1fdb9a9\`;
-- restoring decomposition \`41ca385cb2bd0706db21007e19cd2b0b1aaa4b3e\`.
+- main `aed8eaccecc0d898bea05dc5417fd649bb1c4b37`;
+- `AGENTS.md` `d11dea7ea8f2206ed5147f0231846d0a4652f8e9`;
+- `CURRENT_PROOF_CONTRACT.md` `24bd727096001b68c76b28fe70c99b8d548d7bfe`;
+- active excess ledger `c103b811dfe5ac4130c71134a93bb23793c11695`;
+- final returned Co/Div Fubini `47e4255f76fb3387d1b12d0fa185cffde2744e63`;
+- global Möbius/physical weld `5e3212e20666b9ed7f13d6bd9ebadfad88338eaa`;
+- active raw-parent splice `dd872ccdf0eac1e78f998aa77f357f68df53f76e`;
+- exact #915 budget close `3730a5eabd41d54ff74cd8876047c7a1818717e7`;
+- weighted owner Fubini `4679d7edae521dd4d9f0238aa4201445b1fdb9a9`;
+- restoring decomposition `41ca385cb2bd0706db21007e19cd2b0b1aaa4b3e`.
 
 The accepted Owner task remains the native #915 physical carrier, not a zero-cost identification with Euler, CORR4, or OAI ideal indices. Merged #1033 explicitly reinforces that reciprocal daughter \(q\), first-separating owner \(p\), and integer least factor are independent coordinates.
 
@@ -164,7 +164,7 @@ Gain ledger:
 | Structural output | exact global count identity and inverse inequality |
 | Canonical VF/RH consequence | none without a new bound on (2) |
 
-Classification: \`PAPER_PROOF\` plus \`STRUCTURAL NO-GO\`; \`NO_NEW_GLOBAL_QUANTITATIVE_BOUND\`.
+Classification: `PAPER_PROOF` plus `STRUCTURAL NO-GO`; `NO_NEW_GLOBAL_QUANTITATIVE_BOUND`.
 
 ## F. Falsification and circularity review
 
@@ -216,9 +216,9 @@ Any use of history must exhibit a literal occurrence map and preserve the origin
 
 **Adversarial Referee:** verify the global aggregation from the named compiled Fubini and the strict first-bad rearrangement. In particular test the claim that \(c=1\) is not the identity-root occurrence and audit whether any pair can appear in two cells.
 
-**Lean Verification:** after referee acceptance, the valuable scoped theorem is the global three-count identity plus first-bad inverse inequality, defining counts directly on \`vfMidActiveReturnedPairCarrier\`. Do not add a historical-root payment premise or formalize the target-equivalent nonpositivity assumption as progress.
+**Lean Verification:** after referee acceptance, the valuable scoped theorem is the global three-count identity plus first-bad inverse inequality, defining counts directly on `vfMidActiveReturnedPairCarrier`. Do not add a historical-root payment premise or formalize the target-equivalent nonpositivity assumption as progress.
 
-**Coordinator:** retain node \`MECH-915-THREE-CLASS-RETURNED-INCIDENCE\`, now with paper-level global inverse status. The independently missing input is a genuine incidence/residual theorem, not another carrier translation.
+**Coordinator:** retain node `MECH-915-THREE-CLASS-RETURNED-INCIDENCE`, now with paper-level global inverse status. The independently missing input is a genuine incidence/residual theorem, not another carrier translation.
 
 ## J. First independently missing lemma
 
@@ -233,23 +233,23 @@ As stated with only first-badness, this inequality is the desired gate and there
 
 ## K. Next-run resume capsule
 
-Resume from main \`aed8eaccecc0d898bea05dc5417fd649bb1c4b37\`, claim \`20261027-owner-1\`, and equations (1)-(2).
+Resume from main `aed8eaccecc0d898bea05dc5417fd649bb1c4b37`, claim `20261027-owner-1`, and equations (1)-(2).
 
 Continuity consumed:
 
-- today Coordinator \`b12989910667ec44b7cb5cb9e7395a6a5602f560\`, claim \`20261027-coordinator-1\`;
-- yesterday Owner \`f4e51b5f6f240772f52bed114bcda6e77b330325\`, claim \`20261026-owner-1\`;
-- today Wheel \`8318a17434501b49d5a948c6dc750790dcdb0183\`;
-- today Census \`842d50e673d5b6967b79835807a05b2d7bef49f8\`;
-- today Referee \`f7e86621f16ef102520c133287717b0b1aec79e0\`;
-- today Lean \`2e1c4f807055c964f07b3e6c344d156d803bbc7f\`;
-- Owner and Analytic were \`TODAY=PENDING\` at Coordinator intake; this report supplies the Owner execution;
-- external inbox \`038018145c0fddb2f6306c0712373adf9cd1ea52\`, no entry newer than 2026-10-18.
+- today Coordinator `b12989910667ec44b7cb5cb9e7395a6a5602f560`, claim `20261027-coordinator-1`;
+- yesterday Owner `f4e51b5f6f240772f52bed114bcda6e77b330325`, claim `20261026-owner-1`;
+- today Wheel `8318a17434501b49d5a948c6dc750790dcdb0183`;
+- today Census `842d50e673d5b6967b79835807a05b2d7bef49f8`;
+- today Referee `f7e86621f16ef102520c133287717b0b1aec79e0`;
+- today Lean `2e1c4f807055c964f07b3e6c344d156d803bbc7f`;
+- Owner and Analytic were `TODAY=PENDING` at Coordinator intake; this report supplies the Owner execution;
+- external inbox `038018145c0fddb2f6306c0712373adf9cd1ea52`, no entry newer than 2026-10-18.
 
-Live PR audit: #1035 and #1036 are open mergeable drafts at heads \`3d9faa7735159802ca0fec36ab0cc6f1f875788a\` and \`c3ef5e99be34ae05db60b10ee71cbe011cf86754\`; both are exact/conditional Euler work and do not prove the #915 incidence bound. #1032, #1033, and #1034 are merged. No source, proof branch, PR, workflow, issue, schedule, or permission was modified.
+Live PR audit: #1035 and #1036 are open mergeable drafts at heads `3d9faa7735159802ca0fec36ab0cc6f1f875788a` and `c3ef5e99be34ae05db60b10ee71cbe011cf86754`; both are exact/conditional Euler work and do not prove the #915 incidence bound. #1032, #1033, and #1034 are merged. No source, proof branch, PR, workflow, issue, schedule, or permission was modified.
 
 The highest-value next step is a bounded-multiplicity arithmetic matching from the positive prime-root or composite/composite subclasses into the unique negative prime/composite class, with unmatched occurrences linked to an already named residual summand and no anchor duplication.
 
 ## Publication verification
 
-The early \`IN_PROGRESS\` checkpoint was created by commit \`490c8c1418bf0a39b11700ef96ef158912df9bb3\` and read back as blob \`f0286234d77c535e03ce696b0c702583253845d9\`. Final completed publication is pending immediate post-update readback.
+The early `IN_PROGRESS` checkpoint was created by commit `490c8c1418bf0a39b11700ef96ef158912df9bb3` and read back as blob `f0286234d77c535e03ce696b0c702583253845d9`. The completed synthesis was published by commit `314bf10170e219c63274b161bcb788bc5865627c` and read back as blob `a947b82d380669fb994f459913a58650125dc867` (15,554 characters), with `COMPLETED`, claim `20261027-owner-1`, and the pinned main SHA present. This formatting/verification revision is immediately re-fetched below.
