@@ -131,3 +131,49 @@ No such estimate is proved by this PR.
 The theorem is eulerCoupled_head_interior_abel. Its no-drift variant
 uses the already proved eulerAbelSmoothDriftQ_eq_compensated. Warning-
 fatal Lean 4.34.1 CI plus standard-axiom audit is the certification gate.
+
+## 7. Rigorous falsifier for a *purely two-sided envelope* argument
+
+This is a counterexample to using only small partial sums in both
+coordinates, NOT a counterexample to the original Möbius theorem.
+
+Let a(n)=1 for n odd and -1 for n even. This a(n) is multiplicative
+on coprime arguments, satisfies |a(n)|=1, and its genuine prefix
+A(t)=sum_(n<=t)a(n) belongs to {0,1} at every t. The analogue of
+the historical K_R envelope is therefore bounded by 1, uniformly.
+
+But sum_(n<=N) a(n)/n = log(2)+O(1/N). Moreover for any real Y>=1
+the signed fractional sum obeys
+
+    |sum_(b<=B) a(b)*{Y/b}| = O(sqrt(Y)+1).
+
+Proof: split b at ceil(sqrt Y). The initial prefix has at most sqrt Y
+terms, each of size <1. For the tail, A(t) is uniformly bounded and
+the total variation of {Y/b} on b>=sqrt Y is bounded by O(Y/sqrt Y):
+the smooth reciprocal variation telescopes, and the floor jump
+variation is a monotone quotient count.
+
+Consequently at X=R²-1, N=R-1,
+
+    sum_(a,b<=N) a(a)a(b)*{X/(a*b)}
+        = O(sum_(a<=N) sqrt(X/a)) = O(R^(3/2)).
+
+Therefore the complete bilinear floor sum satisfies
+
+    sum_(a,b<=N) a(a)a(b)*floor(X/(ab))
+      = (log 2)^2 * R² + O(R^(3/2)).
+
+So even multiplicativity, bounded coefficients, and
+uniformly bounded historical partial sums in BOTH coordinates
+do NOT force O(R^(1+epsilon)) or any fixed-eta historical feedback
+without an additional genuine Mobius-specific restriction.
+
+What the original Mobius has that this countermodel does not:
+the exact inversion identity
+sum_(d<=Z) mu(d)*floor(Z/d)=1 for every Z>=1, which creates the
+precise continuous-vs-fractional cancellation. This is why a valid
+next estimate must keep the original Mobius inverse-divisor and
+its matched endpoint/carry weights. A generic two-sided Abel
+estimate cannot replace that interaction.
+
+No claim about a(n)=(-1)^(n+1) is an RH_Lean theorem about mu.
