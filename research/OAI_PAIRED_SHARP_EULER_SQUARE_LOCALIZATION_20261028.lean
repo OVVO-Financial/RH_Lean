@@ -100,7 +100,9 @@ theorem oaiPaired_newShell_above_newHalf
     (R n : ℕ) (hR : 3 ≤ R) (hn : R ^ 2 ≤ n) :
     (R + 1) ^ 2 - 1 < 2 * n := by
   have hpos : 1 ≤ (R + 1) ^ 2 := by nlinarith
-  have hid : (R + 1) ^ 2 - 1 = R ^ 2 + 2 * R := by omega
+  have hid : (R + 1) ^ 2 - 1 = R ^ 2 + 2 * R := by
+    have hs : (R + 1) ^ 2 = R ^ 2 + 2 * R + 1 := by ring
+    omega
   rw [hid]
   nlinarith
 
@@ -129,7 +131,10 @@ theorem oaiPaired_actualSharpEnergy_eq_primeSampler
   unfold vf919DyadicSquareShellEnergy eulerThreeSampledShellEnergy
   apply Finset.sum_congr rfl
   intro R hR
-  rw [oaiPaired_realShell_eq_eulerShell R (by omega : 1 ≤ R)]
+  have hR1 : 1 ≤ R := by
+    have hR0 := (Finset.mem_Ico.mp hR).1
+    omega
+  rw [oaiPaired_realShell_eq_eulerShell R hR1]
 
 /-- A second moment upper bound for the ACTUAL, paired, sharp ideal
 source has the desired consequence on the true three-Euler-band energy.
@@ -175,7 +180,6 @@ theorem oaiPaired_threeUniformDyadicEnergy
       let a := eulerThreeShellLow R
       let b := eulerThreeShellMiddle R
       let c := eulerThreeShellTop R
-      dsimp only
       nlinarith [sq_nonneg (a - b), sq_nonneg (a - c),
         sq_nonneg (b - c)]
     _ = 3 * ((∑ R ∈ Finset.Ico H (2 * H),
@@ -185,7 +189,6 @@ theorem oaiPaired_threeUniformDyadicEnergy
       (∑ R ∈ Finset.Ico H (2 * H),
         (eulerThreeShellTop R) ^ 2)) := by
         simp only [mul_add, Finset.sum_add_distrib, Finset.mul_sum]
-        ring
     _ ≤ 9 * T := by linarith
 
 #print axioms oaiPaired_squareShell_eq_originalMertensDifference
