@@ -1,0 +1,84 @@
+name: Euler carry clipped and strict interior Lean
+
+on:
+  pull_request:
+    branches: [main, research/euler-carry-levelset-mertens-20261027]
+    paths:
+      - "research/EULER_CARRY_CLIPPED_INTERIOR_20261027.lean"
+      - "research/EULER_CARRY_CLIPPED_INTERIOR_AUDIT_20261027.md"
+      - ".github/workflows/euler-carry-clipped-interior.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  lean:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up pinned Lean and cached Mathlib
+        uses: ./.github/actions/lean-setup
+      - name: Restore PNT+ build cache
+        uses: actions/cache/restore@v5
+        with:
+          path: .lake/packages/PrimeNumberTheoremAnd/.lake/build
+          key: pntplus-build-v1-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
+      - name: Prebuild PNT+ StrongPNT
+        run: lake build PrimeNumberTheoremAnd.StrongPNT
+      - name: Restore native library build cache
+        uses: actions/cache/restore@v5
+        with:
+          path: .lake/build
+          key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'RHLean.lean', 'RHLean/**/*.lean') }}
+          restore-keys: |
+            rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-
+      - name: Compile exact research import closure with warnings fatal
+        run: |
+          python3 scripts/compile_research_import_closure.py --build-library \
+            research/EULER_CARRY_CLIPPED_INTERIOR_20261027.lean
+      - name: Audit new theorem axioms
+        run: |
+          cat > /tmp/euler_clipped_axioms.lean <<'EOF'
+          import «research.EULER_CARRY_LEVELSET_MERTENS_20261027»
+          #print axioms RHLean.Proof.eulerBucketJumpEnd_ge_right_of_clipped
+          #print axioms RHLean.Proof.eulerBucketJumpEnd_lt_right_of_strict
+          #print axioms RHLean.Proof.eulerBucketJumpEnd_gt_low_of_strict
+          #print axioms RHLean.Proof.eulerBucket_reciprocal_width_integer
+          #print axioms RHLean.Proof.eulerBucketHigh_le_low_add_one_of_large_q
+          #print axioms RHLean.Proof.eulerBucket_strict_levels_empty_of_large_q
+          #print axioms RHLean.Proof.eulerBucketRightCarry_zero_of_q_dvd
+          #print axioms RHLean.Proof.eulerBucketCarry_sum_eq_endpoint_add_strict
+          #print axioms RHLean.Proof.eulerBucket_strict_level_implies_small_q
+          #print axioms RHLean.Proof.eulerBucketJUpper_eq_nextJLower
+          #print axioms RHLean.Proof.eulerBucket_extended_j_quotient_eq_low
+          #print axioms RHLean.Proof.eulerBucket_extended_j_Mertens_zero
+          EOF
+          lake env lean -DwarningAsError=true /tmp/euler_clipped_axioms.lean | tee /tmp/euler_clipped_axioms.log
+          if grep -q 'sorryAx' /tmp/euler_clipped_axioms.log; then exit 1; fi
+          python3 - <<'PY'
+          import re
+          log = open('/tmp/euler_clipped_axioms.log').read()
+          allowed = {'propext', 'Classical.choice', 'Quot.sound'}
+          for line in log.splitlines():
+              match = re.search(r"depends on axioms: \[(.*)\]", line)
+              if match:
+                  used = {a.strip() for a in match.group(1).split(',') if a.strip()}
+                  assert used <= allowed, f"Nonstandard axioms: {used - allowed}"
+          print("PASS standard axioms only")
+          PY
+      - name: Reject admitted proofs in changed source
+        run: |
+          python3 - <<'PY'
+          import pathlib, re
+          paths = [
+              'research/EULER_CARRY_CLIPPED_INTERIOR_20261027.lean',
+          ]
+          for path in paths:
+              body = pathlib.Path(path).read_text()
+              body = re.sub(r'/-.*?-/', '', body, flags=re.S)
+              body = re.sub(r'--.*', '', body)
+              assert not re.search(r'\b(sorry|admit|axiom)\b', body), path
+          print('PASS no sorry, admit or new axiom')
+          PY
