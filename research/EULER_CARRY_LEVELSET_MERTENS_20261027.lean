@@ -339,7 +339,9 @@ theorem eulerBucketCarry_eq_euclidean
   let rho := (L * q) % b
   let t := N % a
   have hN : a * q + t = N := by
-    simpa only [hq] using (Nat.div_add_mod N a)
+    change a * q + (R - 1) % a = R - 1
+    rw [← hq]
+    exact Nat.div_add_mod (R - 1) a
   have hQ : b * m + rho = L * q := Nat.div_add_mod (L * q) b
   have hX :
       squareRootEndpoint R =
@@ -354,8 +356,7 @@ theorem eulerBucketCarry_eq_euclidean
   have hquot :
       squareRootEndpoint R / (a * b) =
         m + (a * rho + L * t) / (a * b) := by
-    rw [hX, Nat.mul_comm (a * b) m,
-      Nat.mul_add_div (Nat.mul_pos ha hb)]
+    rw [hX, Nat.mul_add_div (Nat.mul_pos ha hb)]
   have hnest :
       eulerBucketY R b / a = squareRootEndpoint R / (a * b) := by
     unfold eulerBucketY
@@ -364,6 +365,7 @@ theorem eulerBucketCarry_eq_euclidean
   rw [hnest, hquot]
   change m + (a * rho + L * t) / (a * b) - m =
     (a * rho + L * t) / (a * b)
+  have hnonneg : 0 ≤ (a * rho + L * t) / (a * b) := Nat.zero_le _
   omega
 
 /-- True pointwise sharp carry range. The small power-saving lemma uses
@@ -386,7 +388,9 @@ theorem eulerBucketCarry_le_div_add_one
   have haa : a - 1 + 1 = a := by omega
   have hLbound : L * (a - 1) ≤ a * R := by
     have hm : L * (a - 1) + L = L * a := by
-      rw [← mul_add, haa]
+      calc
+        _ = L * ((a - 1) + 1) := by ring
+        _ = L * a := by rw [haa]
     dsimp [L] at *
     nlinarith
   have hnum : a * rho + L * t ≤ a * (N + b) := by
@@ -411,7 +415,7 @@ theorem eulerBucketCarry_le_div_add_one
   have hadd : (N + b) / b = N / b + 1 := by
     calc
       _ = (b * 1 + N) / b := by ring
-      _ = 1 + N / b := Nat.mul_add_div hb
+      _ = 1 + N / b := Nat.mul_add_div hb 1 N
       _ = N / b + 1 := by omega
   rw [eulerBucketCarry_eq_euclidean R q b a hR ha hb hq]
   exact le_of_le_of_eq hrat hadd
