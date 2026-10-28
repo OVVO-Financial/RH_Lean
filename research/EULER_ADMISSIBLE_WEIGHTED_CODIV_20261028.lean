@@ -45,7 +45,7 @@ def eulerAdmissibleWeightedDiv (R : ℕ) : ℂ :=
 Zero Mobius coefficients contribute to neither population. -/
 private theorem eulerAdmissiblePair_signed_eq_co_sub_div
     (R a b : ℕ) :
-    (((μ a : ℤ) : ℂ) * (((μ b : ℤ) : ℂ)) *
+    (((μ a : ℤ) : ℂ)) * (((μ b : ℤ) : ℂ)) *
         eulerAdmissiblePairWeight R a b =
       (if (((μ a : ℤ) = 1 ∧ (μ b : ℤ) = 1) ∨
           ((μ a : ℤ) = -1 ∧ (μ b : ℤ) = -1)) then
@@ -63,7 +63,7 @@ theorem eulerHybridStrictCross_eq_original_weighted_pairs (R : ℕ) :
     eulerHybridStrictCross R =
       ∑ b ∈ Finset.Icc 1 (R - 1),
         ∑ a ∈ Finset.Icc 1 (b - 1),
-          (((μ a : ℤ) : ℂ) * (((μ b : ℤ) : ℂ)) *
+          (((μ a : ℤ) : ℂ)) * (((μ b : ℤ) : ℂ)) *
             eulerAdmissiblePairWeight R a b := by
   unfold eulerHybridStrictCross
   apply Finset.sum_congr rfl
