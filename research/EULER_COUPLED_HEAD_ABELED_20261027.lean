@@ -229,7 +229,7 @@ private theorem eulerHeadWindowConcat_generic
         exact hstart n (le_refl _)
       have hsplit := Finset.sum_Ioc_consecutive (f := f) hfirst hlast
       rw [Finset.sum_range_succ, ih hprefix]
-      simpa only [Nat.succ_eq_add_one, Nat.add_assoc] using hsplit.symm
+      simpa only [Nat.succ_eq_add_one, Nat.add_assoc] using hsplit
 
 /-- The WHOLE signed historical Mertens window is one contiguous m-sum,
 not an approximation by one m-sum per quotient bucket. -/
