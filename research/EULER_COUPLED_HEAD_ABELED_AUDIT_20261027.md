@@ -271,3 +271,69 @@ for q|N the original right carry is zero so |E_q(b)|<1.
 
 The newly isolated open target is the FULL signed unpaid bracket,
 not the originally separate E_q or J_q norms.
+
+## 9. Final four-part ORIGINAL-Mobius source after all unconditional payments
+
+For q|N and q<Q, the certified divisor right-carry is ZERO, so
+E_q(b)=-(L*q mod b)/b with |E_q(b)|<1. Thus the full signed
+divisor-punch contribution has absolute value at most
+
+    B * tau(N) = O_epsilon(R^(1+epsilon)),
+
+independent of K_R. Under any fixed 0<eta<=1 and K_R>=1,
+both this amount and the independently paid P_R=O(R sqrt K_R)
+fit inside the desired historical feedback budget.
+
+Consequently the ENTIRE unpaid arithmetic is the FOUR-TERM original
+mixed source
+
+    U_R = sum_(b=1)^B mu(b) * [
+         V_b
+       + (L/b)*T_Q
+       - E_Q(b)*M(r_Q)
+       + sum_(a=1)^r_Q, a not|N mu(a)*T_R(a,b)
+    ],
+
+where V_b is the single concatenated m-window and
+T_Q=sum_(q=Q+1)^N M(floor(N/q)).
+
+EXACT source relation:
+
+    C_R = P_R - Punch_R + U_R,
+
+where Punch_R=sum_(b<=B)mu(b)*sum_(q<Q,q|N)E_q(b)*mu(N/q).
+
+No q<B off-diagonal fractional phase remains separately after
+the coupled q-Abel identity: its integer carry is paired and
+telescoped with the strict interior Mertens level-set windows.
+The only unbounded interaction is in the four-term U_R above.
+
+A sufficient independent eta-target is therefore
+
+    |U_R| <= C_(eta,epsilon) R^(1+epsilon) K_R^(1-eta/2)
+
+for one fixed 0<eta<1 and every epsilon>0. This is STILL OPEN.
+It is already RH-strength when combined with the historical-prefix
+amplification and must not be inferred from the exact identities.
+
+Source-fidelity warnings:
+- E_Q is indexed by terminal q=Q even if I_Q is empty.
+- The a<=r_Q tail is punctured at divisors of N.
+- The m-window is the exact contiguous (A_1,A_Q].
+- The independent short b-row payment from #1036 is retained.
+- The divisor-punch and principal scalar are explicitly paid, not
+  silently deleted from the source.
+- Reversing the full b,n Fubini sum reconstructs M(X) tautologically;
+  that alone gives no quantitative bound.
+
+### Precise exponent exchange at the imported 7/8 barrier
+
+A hypothetical bound |U_R|<=R^(1+gamma+epsilon) K_R^alpha,
+with alpha<1, would beat Mertens 7/8 only if
+
+    gamma < (3/4)*(1-alpha).
+
+The separately estimated historical drift R^(17/12) K_R^(5/6)
+has (gamma,alpha)=(5/12,5/6); it misses the required
+gamma<1/8 badly. The four-part source must be bounded as a
+coupled original arithmetic object to obtain a positive eta.
