@@ -16,30 +16,30 @@
 ### Claim `20261027-analytic-1`: hybrid bucket width plus historical envelope gives a complete (R^{5/3}K_R^{1/3}) Euler bound
 
 Let
-[
-N=R-1,qquad L=R+1=N+2,qquad X=NL=R^2-1,
-]
+```text
+N=R-1,   L=R+1=N+2,   X=NL=R^2-1,
+```
 and let (M(y)=sum_{nle y}mu(n)). Define the strict historical budget
-[
-K_R=max_{0le yle N}rac{(M(y)-1)^2}{y+1}ge1.
-]
+```text
+K_R=max_{0le yle N}frac{(M(y)-1)^2}{y+1}ge1.
+```
 For (Rge3), the original genuine-Mobius floor bilinear is
-[
+```text
 Q_R=sum_{1le a,ble N}mu(a)mu(b)
-       leftlfloorrac{X}{ab}ightfloor
+       leftlfloorfrac{X}{ab}ightfloor
     =2M(N)-M(X).
-]
+```
 
 The new paper theorem is the explicit all-root estimate
-[
-oxed{ |Q_R|le
+```text
+boxed{ |Q_R|le
 48,N^{5/3}K_R^{1/3}(log N+2). }	ag{1}
-]
-Consequently, for every fixed (arepsilon>0),
-[
-Q_R=O_arepsilon!left(R^{5/3+arepsilon}K_R^{1/3}ight).
+```
+Consequently, for every fixed (varepsilon>0),
+```text
+Q_R=O_varepsilon!left(R^{5/3+varepsilon}K_R^{1/3}ight).
 	ag{2}
-]
+```
 
 This estimate uses the complete original coefficients and every quotient bucket. It is not an assumed covariance theorem, an average-density substitution, or a finite-data extrapolation. It follows from the exact green stacked-PR identities plus elementary inequalities.
 
@@ -48,19 +48,19 @@ It is also not the required finite-C or fixed-(eta) theorem. With only the eleme
 ## B. Exact carrier and certified structural inputs
 
 The proof operates on the actual rank-one-subtracted kernel
-[
-T_R(a,b)=leftlfloorrac{X}{ab}ightfloor
-       -rac{L}{b}leftlfloorrac{N}{a}ightfloor
-       =rac{L}{b}left{rac Naight}
-        -left{rac{X}{ab}ight}.
+```text
+T_R(a,b)=leftlfloorfrac{X}{ab}ightfloor
+       -frac{L}{b}leftlfloorfrac{N}{a}ightfloor
+       =frac{L}{b}left{frac Naight}
+        -left{frac{X}{ab}ight}.
 	ag{3}
-]
+```
 The exact rank-one identity is
-[
-Q_R=Lsum_{ale N}rac{mu(a)}a+
+```text
+Q_R=Lsum_{ale N}frac{mu(a)}a+
  sum_{a,ble N}mu(a)mu(b)T_R(a,b).
 	ag{4}
-]
+```
 
 Material sources and exact blobs:
 
@@ -74,29 +74,29 @@ All four heads are open stacked drafts, not main. The exact structural declarati
 ## C. Quotient-bucket decomposition
 
 For (qge1), put
-[
-ell_q=leftlfloorrac{N}{q+1}ightfloor,qquad
-r_q=leftlfloorrac Nqightfloor,qquad
+```text
+ell_q=leftlfloorfrac{N}{q+1}ightfloor,  
+r_q=leftlfloorfrac Nqightfloor,  
 I_q=(ell_q,r_q].
-]
+```
 For (ain I_q), (lfloor N/afloor=q). The #1037 carry staircase and #1038 clipping theorem give, for every (b), the exact punched nondivisor bucket identity
-[
+```text
 sum_{substack{ain I_q\a
 mid N}}mu(a)T_R(a,b)
-=T_R(r_q,b)Delta_q^circ
+=T_R(r_q,b)Delta_q^o
 +sum_{k=c_{q,b}+1}^{K_{q,b}}
- igl(M(v_{q,b,k})-M(ell_q)igr),                 	ag{5}
-]
+ bigl(M(v_{q,b,k})-M(ell_q)bigr),                 	ag{5}
+```
 where
-[
-Delta_q^circ=M(r_q)-M(ell_q)
- -{f1}_{qmid N}mu(N/q),
-]
+```text
+Delta_q^o=M(r_q)-M(ell_q)
+ -{bf1}_{qmid N}mu(N/q),
+```
 every strict endpoint satisfies (ell_q<v_{q,b,k}<r_q), and
-[
-K_{q,b}-c_{q,b}le K_{q,b}leleftlfloorrac Nbightfloor+1.
+```text
+K_{q,b}-c_{q,b}le K_{q,b}leleftlfloorfrac Nbightfloor+1.
 	ag{6}
-]
+```
 A strict level can occur only when (q(q+1)<N).
 
 This keeps the endpoint and strict-interior pieces separate only after their exact source-faithful equality is established.
@@ -106,36 +106,36 @@ This keeps the endpoint and strict-interior pieces separate only after their exa
 For any (ell<vle r_q), there are two independent bounds.
 
 Historical-envelope bound:
-[
+```text
 |M(v)-M(ell)|
- lesqrt{K_R}igl(sqrt{v+1}+sqrt{ell+1}igr)
- le2sqrt{rac{2NK_R}{q}}.                         	ag{7}
-]
+ lesqrt{K_R}bigl(sqrt{v+1}+sqrt{ell+1}bigr)
+ le2sqrt{frac{2NK_R}{q}}.                         	ag{7}
+```
 
 Literal interval-width bound:
-[
+```text
 |M(v)-M(ell)|le v-ellle r_q-ell_q
- lerac{N}{q(q+1)}+1lerac{2N}{q^2},             	ag{8}
-]
+ lefrac{N}{q(q+1)}+1lefrac{2N}{q^2},             	ag{8}
+```
 where the last inequality uses (q^2<N), which holds for every strict level.
 
 For the punched endpoint increment, the divisor correction costs at most one. Since (K_Rge1) and (r_qge1),
-[
-|Delta_q^circ|
-le minleft(3sqrt{rac{2NK_R}{q}},rac{2N}{q^2}ight). 	ag{9}
-]
+```text
+|Delta_q^o|
+le minleft(3sqrt{frac{2NK_R}{q}},frac{2N}{q^2}ight). 	ag{9}
+```
 
 Split the (q)-sum at (T=(N/K_R)^{1/3}). If (K_R<N), summing the square-root side for (qle T) and the width side for (q>T), using
-[
-sum_{qle T}q^{-1/2}le2sqrt T,qquad
+```text
+sum_{qle T}q^{-1/2}le2sqrt T,  
 sum_{q>T}q^{-2}le 2/T,
-]
+```
 gives
-[
-sum_{q<sqrt N}|Delta_q^circ|
+```text
+sum_{q<sqrt N}|Delta_q^o|
 le(6sqrt2+4)N^{2/3}K_R^{1/3}
 <13N^{2/3}K_R^{1/3}.                                	ag{10}
-]
+```
 The same bound holds for the sum of the maximum possible strict increments. If (K_Rge N), the width bound alone gives (10) with a smaller constant.
 
 This (N^{2/3}K_R^{1/3}) interpolation is the new analytic ingredient. An envelope-only estimate gives the weaker (N^{3/4}K_R^{1/2}) q-budget.
@@ -143,67 +143,67 @@ This (N^{2/3}K_R^{1/3}) interpolation is the new analytic ingredient. An envelop
 ## E. Complete endpoint and strict-interior accounting
 
 From (3),
-[
-|T_R(a,b)|<1+rac Lb.                               	ag{11}
-]
+```text
+|T_R(a,b)|<1+frac Lb.                               	ag{11}
+```
 Also
-[
-sum_{ble N}left(leftlfloorrac Nbightfloor+1ight)
+```text
+sum_{ble N}left(leftlfloorfrac Nbightfloor+1ight)
  le N(log N+2),                                    	ag{12}
-]
+```
 and, for (Nge2),
-[
-sum_{ble N}left(1+rac Lbight)
+```text
+sum_{ble N}left(1+frac Lbight)
  le2N(log N+2).                                    	ag{13}
-]
+```
 
 ### Strict interior
 
 Apply (10) to the strict increments and (6), then sum (12):
-[
+```text
 |C_R^{m strict}|
 le13N^{5/3}K_R^{1/3}(log N+2).                    	ag{14}
-]
+```
 
 ### Low-q endpoints
 
 For (q<Q=lceilsqrt Nceil), combine (9), (10), (11), and (13):
-[
+```text
 |C_R^{m end,low}|
 le26N^{5/3}K_R^{1/3}(log N+2).                    	ag{15}
-]
+```
 
 ### High-q endpoints
 
 For (qge Q), #1039 proves that all nonempty buckets are singletons and that the complete punched endpoint sum collapses exactly to
-[
+```text
 sum_{substack{alelfloor N/Qfloor\a
 mid N}}
  mu(a)T_R(a,b).
-]
+```
 Because (lfloor N/Qfloorlesqrt N), (11) and (13) give
-[
+```text
 |C_R^{m end,high}|
 le2N^{3/2}(log N+2)
 le2N^{5/3}K_R^{1/3}(log N+2).                    	ag{16}
-]
+```
 
 Equations (14)-(16) prove the complete nondivisor estimate
-[
+```text
 |C_R^{m nondiv}|
 le41N^{5/3}K_R^{1/3}(log N+2).                    	ag{17}
-]
+```
 
 The divisor rows satisfy the already-audited
-[
+```text
 |C_R^{m div}|le N	au(N)le2N^{3/2}.             	ag{18}
-]
+```
 Finally,
-[
-left|Lsum_{ale N}rac{mu(a)}aight|
-le Lsum_{ale N}rac1a
+```text
+left|Lsum_{ale N}frac{mu(a)}aight|
+le Lsum_{ale N}frac1a
 le2N(log N+1).                                    	ag{19}
-]
+```
 Since (K_Rge1), (17)-(19) imply (1) with the safe constant 48.
 
 ## F. Quantitative meaning and gain ledger
@@ -218,7 +218,7 @@ Since (K_Rge1), (17)-(19) imply (1) with the safe constant 48.
 | Old elementary worst case | (O(N^2)) from (Q_R=2M(N)-M(X)) |
 | Improvement regime | (K_R=o(N/log^3N)) |
 | Required finite-C scale | (Nsqrt{K_R}) |
-| Fixed-(eta) nonlinear scale | (N^{1+arepsilon}K_R^{1-eta/2}) |
+| Fixed-(eta) nonlinear scale | (N^{1+varepsilon}K_R^{1-eta/2}) |
 | Canonical VF consequence | none |
 | RH consequence | none |
 
@@ -240,13 +240,13 @@ In recurrence language, dividing by (sqrt Xasymp N) leaves an unavoidable factor
 ## H. Independent finite checks
 
 An independent exact-integer/rational implementation reconstructed (mu), (M), every (I_q), endpoint term, strict jump, divisor row, and (Q_R) for
-[
+```text
 R=3,5,10,21,56,100,200,317.
-]
+```
 For every root it verified
-[
+```text
 C_R^{m nondiv}=C_R^{m endpoint}+C_R^{m strict}
-]
+```
 exactly and checked every individual increment against both (7) and (8).
 
 Selected values:
@@ -299,23 +299,30 @@ Each set includes its dedicated warning-fatal Euler workflow, Targeted Lean iter
 ## K. First independently missing lemma and resume capsule
 
 The proof loses the decisive factor when it takes absolute values over (b):
-[
-sum_{ble N}left(leftlfloorrac Nbightfloor+1ight)
+```text
+sum_{ble N}left(leftlfloorfrac Nbightfloor+1ight)
 asymp Nlog N.
-]
+```
 To reach the finite-C scale from (1), one needs a genuine signed (b)-axis cancellation or an endpoint/strict coupling theorem saving approximately
-[
+```text
 N^{2/3}K_R^{-1/6}
-]
+```
 relative to the new bound when compared with (Nsqrt{K_R}).
 
 A precise next candidate is a dyadic theorem for the complete original block
-[
+```text
 sum_{B<ble2B}mu(b)sum_qleft[
- T_R(r_q,b)Delta_q^circ+
+ T_R(r_q,b)Delta_q^o+
  sum_{k=c_{q,b}+1}^{K_{q,b}}
    (M(v_{q,b,k})-M(ell_q))ight],
-]
+```
 uniformly for (1le Ble N), with a saving beyond the harmonic triangle bound and with the high-q small-a endpoint prefix restored. The theorem must not assume a Mertens estimate stronger than the declared (K_R).
 
 Final classification: claim `20261027-analytic-1` is a new independently derived self-normalized paper bound on the complete genuine arithmetic system. It is quantitatively insufficient for fixed eta, finite C, the canonical VF endpoint, or RH.
+
+
+## L. Publication verification
+
+The early checkpoint was created by commit `1e9878129edb01386beba37781c63dd0e4ff49a0` and read back as blob `fc8e0760f1cd1e810385c7e68753177177b918bc`.
+
+The completed mathematical synthesis was published by commit `ba0438667360bd5da68b22a04ef7744d25828d63` and read back as blob `4941c5c64ba084cf3140133bca35d6be7029c73b`, with `COMPLETED`, claim `20261027-analytic-1`, constant 48, `NO_FIXED_ETA_GAIN`, and pinned main SHA present. This final update is formatting-only plus this verification record; it changes no mathematics.
