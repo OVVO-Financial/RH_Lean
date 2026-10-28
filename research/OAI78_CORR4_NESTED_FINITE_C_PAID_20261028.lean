@@ -97,7 +97,7 @@ theorem oai78_corr4_physical_eq_nested_finiteC_add_boundary
 
 /-- The exact bridge immediately bounds the error by the three original,
     separately auditable historical and midpoint-shell quantities.
-    A quantitative bound on these is NOT taken as an additional axiom. -/
+    A quantitative bound on these is NOT silently assumed. -/
 theorem oai78_corr4_nested_finiteC_error_triangle
     (R : ℕ) (hR : 56 ≤ R) :
     ‖lowOwnerPhysicalAmplitudeRemainder R 0 -
