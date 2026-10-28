@@ -274,6 +274,31 @@ theorem eulerEndpoint_tail_singleton_collapse
         if a ∣ R - 1 then 0 else
           eulerMuQ a * eulerRankOneFloorKernelQ R a b := rfl
 
+
+/-- The *strict* jump count has the stronger N/b+1 bound, already
+contained in the total-level count bound certified in #1037.
+The reciprocal-width lemma is important for geometry but not
+required to prove this quantitative count. -/
+theorem eulerBucket_jump_count_le
+    (R q b : ℕ) (hR : 2 ≤ R) (hq : 0 < q) (hb : 0 < b) :
+    eulerBucketLevelCount R q b -
+      eulerBucketRightCarry R q b ≤ (R - 1) / b + 1 := by
+  exact (Nat.sub_le _ _).trans
+    (eulerBucketLevelCount_le_div_add_one R q b hR hq hb)
+
+/-- The originally requested L/b+1 strict jump bound is a direct
+corollary of the stronger historical N/b+1 estimate above. -/
+theorem eulerBucket_jump_count_le_outer
+    (R q b : ℕ) (hR : 2 ≤ R) (hq : 0 < q) (hb : 0 < b) :
+    eulerBucketLevelCount R q b -
+      eulerBucketRightCarry R q b ≤ (R + 1) / b + 1 := by
+  have hc := eulerBucket_jump_count_le R q b hR hq hb
+  have hdiv : (R - 1) / b ≤ (R + 1) / b :=
+    Nat.div_le_div_right (by omega : R - 1 ≤ R + 1)
+  omega
+
+#print axioms eulerBucket_jump_count_le
+#print axioms eulerBucket_jump_count_le_outer
 #print axioms eulerEndpointCarry_q_one_zero
 #print axioms eulerEndpointRight_remainder_eq_mod_q
 #print axioms eulerEndpointCarry_le_sharp
