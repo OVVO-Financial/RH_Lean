@@ -1,0 +1,80 @@
+name: Euler endpoint carrier sparsity Lean
+
+on:
+  pull_request:
+    branches: [main, research/euler-carry-clipped-interior-20261027]
+    paths:
+      - "research/EULER_ENDPOINT_CARRIER_SPARSITY_20261027.lean"
+      - "research/EULER_ENDPOINT_CARRIER_SPARSITY_AUDIT_20261027.md"
+      - ".github/workflows/euler-endpoint-carrier-sparsity.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  lean:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up pinned Lean and cached Mathlib
+        uses: ./.github/actions/lean-setup
+      - name: Restore PNT+ build cache
+        uses: actions/cache/restore@v5
+        with:
+          path: .lake/packages/PrimeNumberTheoremAnd/.lake/build
+          key: pntplus-build-v1-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
+      - name: Prebuild PNT+ StrongPNT
+        run: lake build PrimeNumberTheoremAnd.StrongPNT
+      - name: Restore native library build cache
+        uses: actions/cache/restore@v5
+        with:
+          path: .lake/build
+          key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'RHLean.lean', 'RHLean/**/*.lean') }}
+          restore-keys: |
+            rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-
+      - name: Compile exact research import closure with warnings fatal
+        run: |
+          python3 scripts/compile_research_import_closure.py --build-library \
+            research/EULER_ENDPOINT_CARRIER_SPARSITY_20261027.lean
+      - name: Audit new theorem axioms
+        run: |
+          cat > /tmp/euler_endpoint_axioms.lean <<'EOF'
+          import «research.EULER_CARRY_LEVELSET_MERTENS_20261027»
+          #print axioms RHLean.Proof.eulerBucket_jump_count_le
+          #print axioms RHLean.Proof.eulerBucket_jump_count_le_outer
+          #print axioms RHLean.Proof.eulerEndpointCarry_q_one_zero
+          #print axioms RHLean.Proof.eulerEndpointRight_remainder_eq_mod_q
+          #print axioms RHLean.Proof.eulerEndpointCarry_le_sharp
+          #print axioms RHLean.Proof.eulerEndpointLargeBucket_eq_singleton
+          #print axioms RHLean.Proof.eulerEndpointTail_buckets_partition
+          #print axioms RHLean.Proof.eulerEndpoint_tail_singleton_collapse
+          EOF
+          lake env lean -DwarningAsError=true /tmp/euler_endpoint_axioms.lean | tee /tmp/euler_endpoint_axioms.log
+          if grep -q 'sorryAx' /tmp/euler_endpoint_axioms.log; then exit 1; fi
+          python3 - <<'PY'
+          import re
+          log = open('/tmp/euler_endpoint_axioms.log').read()
+          allowed = {'propext', 'Classical.choice', 'Quot.sound'}
+          for line in log.splitlines():
+              match = re.search(r"depends on axioms: \[(.*)\]", line)
+              if match:
+                  used = {a.strip() for a in match.group(1).split(',') if a.strip()}
+                  assert used <= allowed, f"Nonstandard axioms: {used - allowed}"
+          print("PASS standard axioms only")
+          PY
+      - name: Reject admitted proofs in changed source
+        run: |
+          python3 - <<'PY'
+          import pathlib, re
+          paths = [
+              'research/EULER_ENDPOINT_CARRIER_SPARSITY_20261027.lean',
+          ]
+          for path in paths:
+              body = pathlib.Path(path).read_text()
+              body = re.sub(r'/-.*?-/', '', body, flags=re.S)
+              body = re.sub(r'--.*', '', body)
+              assert not re.search(r'\b(sorry|admit|axiom)\b', body), path
+          print('PASS no sorry, admit or new axiom')
+          PY
