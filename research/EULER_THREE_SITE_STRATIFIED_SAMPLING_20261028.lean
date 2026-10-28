@@ -79,7 +79,7 @@ theorem eulerSite_shellFlow_eq_three (R : ℕ) :
   unfold eulerThreeShellMobius eulerSiteShellLow
     eulerSiteShellMiddle eulerSiteShellTop
     eulerSiteLow eulerSiteMiddle eulerSiteTop
-  simp only [Complex.sub_re, Complex.add_re]
+  simp only [Complex.sub_re]
   ring
 
 /-- Exact six-term Gram under square-root index sampling using the
