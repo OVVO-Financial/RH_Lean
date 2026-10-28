@@ -48,6 +48,8 @@ jobs:
           #print axioms RHLean.Proof.eulerBucketCarry_zero_on_divisor_member
           #print axioms RHLean.Proof.eulerBucketCarry_sum_eq_historicalMertens
           #print axioms RHLean.Proof.eulerBucketMertens_endpoint_lt_root
+          #print axioms RHLean.Proof.eulerBucketCarry_eq_euclidean
+          #print axioms RHLean.Proof.eulerBucketLevelCount_le_div_add_one
           EOF
           lake env lean -DwarningAsError=true /tmp/euler_carry_axioms.lean | tee /tmp/euler_carry_axioms.log
           if grep -q 'sorryAx' /tmp/euler_carry_axioms.log; then exit 1; fi
