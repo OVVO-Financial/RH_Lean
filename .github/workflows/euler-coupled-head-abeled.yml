@@ -5,6 +5,7 @@ on:
     branches: [main, research/euler-coupled-head-interior-abel-20261027]
     paths:
       - "research/EULER_COUPLED_HEAD_ABELED_20261027.lean"
+      - "research/EULER_DOUBLE_INVERSION_ROOT_MODE_20261027.lean"
       - "research/EULER_COUPLED_HEAD_ABELED_AUDIT_20261027.md"
       - ".github/workflows/euler-coupled-head-abeled.yml"
   workflow_dispatch:
@@ -37,7 +38,7 @@ jobs:
       - name: Compile exact research import closure with warnings fatal
         run: |
           python3 scripts/compile_research_import_closure.py --build-library \
-            research/EULER_COUPLED_HEAD_ABELED_20261027.lean
+            research/EULER_DOUBLE_INVERSION_ROOT_MODE_20261027.lean
       - name: Audit new theorem axioms
         run: |
           cat > /tmp/euler_coupled_head_axioms.lean <<'EOF'
@@ -46,6 +47,9 @@ jobs:
           #print axioms RHLean.Proof.eulerCoupled_head_interior_abel_no_drift
           #print axioms RHLean.Proof.eulerHeadWindowEndpoint_mono
           #print axioms RHLean.Proof.eulerCoupled_head_window_concat
+          #print axioms RHLean.Proof.eulerDoubleInversion_upper_floor_one
+          #print axioms RHLean.Proof.eulerDoubleInversion_truncated_floor
+          #print axioms RHLean.Proof.eulerDoubleInversion_truncated_floor_rat
           EOF
           lake env lean -DwarningAsError=true /tmp/euler_coupled_head_axioms.lean | tee /tmp/euler_coupled_head_axioms.log
           if grep -q 'sorryAx' /tmp/euler_coupled_head_axioms.log; then exit 1; fi
@@ -66,6 +70,7 @@ jobs:
           import pathlib, re
           paths = [
               'research/EULER_COUPLED_HEAD_ABELED_20261027.lean',
+              'research/EULER_DOUBLE_INVERSION_ROOT_MODE_20261027.lean',
           ]
           for path in paths:
               body = pathlib.Path(path).read_text()
