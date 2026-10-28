@@ -160,7 +160,7 @@ theorem eulerBucketLevelCount_eq_rightCarry_of_large_q
     eulerBucketHigh_le_low_add_one_of_large_q R q hq hlarge
   have heq :
       eulerBucketHigh R q = eulerBucketLow R q + 1 := by omega
-  simp [eulerBucketLevelCount, eulerBucketRightCarry, hne, heq]
+  simp [eulerBucketLevelCount, eulerBucketRightCarry, heq]
 
 /-- There are NO strict interior jump indices above the square-root
 quotient threshold, though the singleton endpoint phase still survives. -/
@@ -184,7 +184,7 @@ theorem eulerBucketRightCarry_zero_of_q_dvd
   have hEq : q * ((R - 1) / q) = R - 1 := by
     have h := Nat.div_add_mod (R - 1) q
     rw [hmod, add_zero] at h
-    exact h.symm
+    exact h
   have hdiv : eulerBucketHigh R q ∣ R - 1 := by
     refine ⟨q, ?_⟩
     dsimp [eulerBucketHigh]
