@@ -246,6 +246,7 @@ theorem eulerBucketCarry_sum_eq_endpoint_add_strict
       _ = (c : ℤ) *
             (mertensSummatoryInt hi - mertensSummatoryInt lo) := by
               simp
+              ring
   have hstrict :
       (∑ k ∈ Finset.Ioc c K, f k) =
         ∑ k ∈ Finset.Ioc c K,
@@ -283,7 +284,7 @@ theorem eulerBucket_strict_level_implies_small_q
   have hnone := eulerBucket_strict_levels_empty_of_large_q
     R q b hq hlarge hne
   rw [hnone] at hk
-  simpa using hk
+  simp at hk
 
 #print axioms eulerBucketJumpEnd_ge_right_of_clipped
 #print axioms eulerBucketJumpEnd_lt_right_of_strict
