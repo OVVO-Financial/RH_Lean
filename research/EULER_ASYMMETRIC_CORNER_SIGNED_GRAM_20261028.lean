@@ -97,7 +97,12 @@ private theorem eulerAsym_quotient_geometry
     omega
   have hRb : R * b ≤ X := by
     have hm := Nat.mul_le_mul_left R hbN
-    nlinarith
+    have hpred : R - 1 + 1 = R := by omega
+    have hmul : R * (R - 1) + R = R * R := by
+      calc
+        R * (R - 1) + R = R * ((R - 1) + 1) := by ring
+        _ = R * R := by rw [hpred]
+    omega
   have hlow : R ≤ X / b :=
     (Nat.le_div_iff_mul_le hbpos).2 hRb
   have hXtwo : X < (2 * R) * b := by
@@ -169,7 +174,9 @@ theorem eulerAsym_omitted_row
   have htotal :
       (∑ a ∈ Finset.Icc 1 K,
         (((μ a : ℤ) : ℂ)) * (((K / a : ℕ)) : ℂ)) = 1 := by
-    exact_mod_cast htotalZ
+    have hcast := congrArg (fun z : ℤ => (z : ℂ)) htotalZ
+    push_cast at hcast
+    simpa using hcast
   let f : ℕ → ℂ := fun a =>
     (((μ a : ℤ) : ℂ)) * (((K / a : ℕ)) : ℂ)
   have hsplit := Finset.sum_Ioc_consecutive
@@ -209,7 +216,6 @@ theorem eulerAsym_omitted_row
     apply Finset.sum_congr rfl
     intro a _ha
     rw [eulerAsym_floor_reorder]
-    rfl
   rw [hfirst] at hfromGlobal
   dsimp [N, K] at hfromGlobal
   linear_combination hfromGlobal
@@ -249,13 +255,21 @@ theorem eulerAsym_omitted_strip_eq_mertens_sub_corner
       rw [eulerAsym_omitted_row R b hR hb'.1 hb'.2]
     _ = (∑ b ∈ Finset.Ioc (eulerAsymCutoff R) (R - 1),
        (((μ b : ℤ) : ℂ))) - eulerAsymCorner R := by
-      simp_rw [mul_sub, mul_one]
-      rw [Finset.sum_sub_distrib]
-      rfl
+      calc
+        _ = ∑ b ∈ Finset.Ioc (eulerAsymCutoff R) (R - 1),
+          ((((μ b : ℤ) : ℂ)) -
+            (((μ b : ℤ) : ℂ)) *
+              (mertensSummatory (squareRootEndpoint R / b) -
+                mertensSummatory (R - 1))) := by
+            apply Finset.sum_congr rfl
+            intro b _hb
+            ring
+        _ = _ := by
+          rw [Finset.sum_sub_distrib]
+          rfl
     _ = _ := by
       rw [eulerAsym_mobius_interval
         (eulerAsymCutoff R) (R - 1) (Nat.sub_le _ _)]
-      ring
 
 /-- The EXACT asymmetric two-cutoff inversion identity.  It carries the
 future Mertens value with coefficient -1 and does not diminish that term. -/
@@ -334,7 +348,8 @@ theorem eulerAsymCorner_norm_le_two_R (R : ℕ) (hR : 2 ≤ R) :
       Finset.sum_le_sum hpoint
     _ = (H : ℝ) * ((H + 2 : ℕ) : ℝ) := by
       rw [Finset.sum_const, hcard]
-      simp [nsmul_eq_mul, mul_comm]
+      simp only [nsmul_eq_mul, Nat.cast_add, Nat.cast_ofNat]
+      ring
     _ ≤ 2 * (R : ℝ) := by exact_mod_cast hnat
 
 /-- REUSE of the established signed NNS/Gram diagonal-plus-cross
