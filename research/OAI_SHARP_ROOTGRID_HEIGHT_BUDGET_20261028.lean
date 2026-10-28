@@ -13,8 +13,10 @@ Normalized log transition width is Delta/H^2, so effective Mellin
 frequency is H^2/Delta=H^(5/4+delta/2+kappa). It is an EFFECTIVE
 frequency, not a compact Mellin Fourier support.
 
-The generic Sobolev trace on u_R=2 log R with actual band-limit T
-costs (T/H)^2=H^(1/2+delta+2*kappa). With an additional hypothetical
+A squared-derivative Sobolev trace on u_R=2 log R costs
+(T/H)^2=H^(1/2+delta+2*kappa), but it is NONOPTIMAL:
+the first-derivative / Plancherel--Polya trace costs only
+(T/H)=H^(1/4+delta/2+kappa). With an additional hypothetical
 RELATIVE profile factor (T/H)^beta, the full budget requires
 
   delta0 >= 1/2 + 2*delta + 2*kappa + beta*(1/4+delta/2+kappa).
@@ -114,9 +116,127 @@ theorem oaiChosenHeightRootPower_lt_mellin
   rw [oaiMellinPower_eq]
   linarith
 
+
+/-!
+## Refined first-derivative grid trace: a +1/4, not compulsory +1/2, tax
+
+The earlier squared-derivative Sobolev trace is VALID but suboptimal.
+For an absolutely continuous F, the fundamental theorem for |F|^2
+gives a first-derivative sampling estimate
+
+  sum_R |F(u_R)|^2
+    <= H * integral_I |F(u)|^2
+       + 2 * sqrt(integral_I |F(u)|^2)
+             * sqrt(integral_I |F'(u)|^2).
+
+This uses the exact nonuniform log-grid spacing 1/H <= h_R <= 2/H.
+If F is globally T-bandlimited, global Plancherel and Cauchy imply
+
+  sum_R |F(u_R)|^2 <= (H + 4*pi*T)*||F||_L2(R)^2.
+
+The high-frequency price RELATIVE to H*||F||^2 is now (T/H),
+NOT (T/H)^2. This is the elementary Plancherel--Polya/Bessel
+sampling bound. Its proof at the integral level is given explicitly
+in the accompanying audit, not claimed as a Lean theorem here.
+
+The following Lean results prove the revised exact EXPONENT BUDGET;
+the OAI source family and bandlimited derivative hypotheses remain open.
+-/
+
+/-- Grid cost for the sharper Plancherel--Polya / first-derivative trace. -/
+def oaiLinearTracePower (delta kappa : Real) : Real :=
+  oaiMellinPower delta kappa - 1
+
+theorem oaiLinearTracePower_eq (delta kappa : Real) :
+    oaiLinearTracePower delta kappa =
+      1 / 4 + delta / 2 + kappa := by
+  unfold oaiLinearTracePower oaiMellinPower oaiCollarPower
+  ring
+
+/-- When the smoothed source estimate is normalized by H, the
+first-derivative trace incurs linear frequency inflation. With a
+hypothetical relative profile penalty (T/H)^beta the exact budget
+is delta0>=1/4+3*delta/2+kappa+beta*(1/4+delta/2+kappa). -/
+theorem oaiLinearGridRelativeBudget_iff
+    (delta delta0 kappa beta : Real) :
+    (5 / 2 - delta0 + oaiLinearTracePower delta kappa +
+        oaiRelativeProfilePower delta kappa beta ≤ 5 / 2 - delta) ↔
+    (1 / 4 + 3 * delta / 2 + kappa +
+        beta * (1 / 4 + delta / 2 + kappa) ≤ delta0) := by
+  rw [oaiLinearTracePower_eq, oaiRelativeProfilePower_eq]
+  constructor <;> intro h <;> linarith
+
+/-- With the pinned polynomial ABSOLUTE height factor T^J the
+corresponding bound is more expensive. No identification of profile
+Mellin variable with OAI row-height is assumed. -/
+theorem oaiLinearGridAbsoluteBudget_iff
+    (delta delta0 kappa J : Real) :
+    (5 / 2 - delta0 + oaiLinearTracePower delta kappa +
+        oaiAbsoluteHeightPower delta kappa J ≤ 5 / 2 - delta) ↔
+    (1 / 4 + 3 * delta / 2 + kappa +
+        J * (5 / 4 + delta / 2 + kappa) ≤ delta0) := by
+  rw [oaiLinearTracePower_eq, oaiAbsoluteHeightPower_eq]
+  constructor <;> intro h <;> linarith
+
+/-!
+## NNS sampling/partial moments as a LOSSLESS measure bridge
+
+For the original deterministic samples x(R), NNS degree-zero LPM
+recovers the empirical CDF, and higher LPMs give continuous functions
+of the TARGET. The original second moment is exactly the unnormalized
+sum of degree-two LPM and UPM at target zero. This is an exact
+discrete-to-continuous *distributional* representation; it is NOT an
+OAI smooth-root-source moment inequality, since target and physical
+square-root scale are different variables. No simulated Mobius signs.
+-/
+
+def oaiNNSLowerSecond (s : Finset ℕ) (x : ℕ → Real)
+    (target : Real) : Real :=
+  ∑ R ∈ s, (max (target - x R) 0) ^ 2
+
+def oaiNNSUpperSecond (s : Finset ℕ) (x : ℕ → Real)
+    (target : Real) : Real :=
+  ∑ R ∈ s, (max (x R - target) 0) ^ 2
+
+/-- All deterministic signed data, with no sampling approximation or
+loss, satisfy the exact NNS LPM2+UPM2 energy identity. -/
+theorem oaiNNSTwoSidedSecond_eq_energy
+    (s : Finset ℕ) (x : ℕ → Real) (target : Real) :
+    oaiNNSLowerSecond s x target +
+      oaiNNSUpperSecond s x target =
+        ∑ R ∈ s, (x R - target) ^ 2 := by
+  unfold oaiNNSLowerSecond oaiNNSUpperSecond
+  rw [← Finset.sum_add_distrib]
+  apply Finset.sum_congr rfl
+  intro R _hR
+  by_cases h : x R ≤ target
+  · have hlt : 0 ≤ target - x R := sub_nonneg.mpr h
+    have hut : x R - target ≤ 0 := sub_nonpos.mpr h
+    rw [max_eq_left hlt, max_eq_right hut]
+    ring
+  · have hgt : target ≤ x R := (le_of_lt (lt_of_not_ge h))
+    have hlt : target - x R ≤ 0 := sub_nonpos.mpr hgt
+    have hut : 0 ≤ x R - target := sub_nonneg.mpr hgt
+    rw [max_eq_right hlt, max_eq_left hut]
+    ring
+
+/-- The NNS degree-two target-zero moment is EXACTLY the native
+dyadic second moment for ANY deterministic shell coefficient sequence. -/
+theorem oaiNNSDyadicTwoSided_eq_energy (H : ℕ) (x : ℕ → Real) :
+    oaiNNSLowerSecond (Finset.Ico H (2 * H)) x 0 +
+      oaiNNSUpperSecond (Finset.Ico H (2 * H)) x 0 =
+        ∑ R ∈ Finset.Ico H (2 * H), (x R) ^ 2 := by
+  simpa only [sub_zero] using
+    oaiNNSTwoSidedSecond_eq_energy (Finset.Ico H (2 * H)) x 0
+
 #print axioms oaiCollarRoundingPower
 #print axioms oaiMellinPower_eq
 #print axioms oaiGridTracePower_eq
+#print axioms oaiLinearTracePower_eq
+#print axioms oaiLinearGridRelativeBudget_iff
+#print axioms oaiLinearGridAbsoluteBudget_iff
+#print axioms oaiNNSTwoSidedSecond_eq_energy
+#print axioms oaiNNSDyadicTwoSided_eq_energy
 #print axioms oaiRelativeProfilePower_eq
 #print axioms oaiAbsoluteHeightPower_eq
 #print axioms oaiGenericRelativeBudget_iff
