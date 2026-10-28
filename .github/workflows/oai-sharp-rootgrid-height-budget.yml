@@ -42,10 +42,14 @@ jobs:
           assert "oaiLinearGridAbsoluteBudget_iff" in log
           assert "oaiNNSTwoSidedSecond_eq_energy" in log
           assert "oaiNNSDyadicTwoSided_eq_energy" in log
+          assert "oaiNNSTwoSidedFourth_eq_energy" in log
+          assert "oaiNNSDyadicEnergy2_sq_le_H_energy4" in log
+          assert "oaiFourthGridRelativeBudget_iff" in log
+          assert "oaiMobiusSquareJumpContribution_zero" in log
           allowed={"propext","Classical.choice","Quot.sound"}
           found=re.findall(r"depends on axioms:\s*\[([^\]]+)\]",log,re.S)
           for blob in found:
               used={x.strip() for x in blob.split(",") if x.strip()}
               assert used<=allowed,used-allowed
-          print("PASS standard axioms: generic and refined trace budgets, plus exact NNS signed moments")
+          print("PASS standard axioms: second/fourth NNS moments, refined sampling budgets and square-jump zero")
           PY
