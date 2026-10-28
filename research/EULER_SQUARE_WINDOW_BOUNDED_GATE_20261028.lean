@@ -40,9 +40,8 @@ private theorem euler_sum_Icc_top (R : ℕ) (hR : 1 ≤ R)
     (∑ a ∈ Finset.Icc 1 R, f a) =
       (∑ a ∈ Finset.Icc 1 (R - 1), f a) + f R := by
   have hp : R - 1 + 1 = R := by omega
-  calc
-    _ = ∑ a ∈ Finset.Icc 1 (R - 1 + 1), f a := by rw [hp]
-    _ = _ := Finset.sum_Icc_succ_top (by omega : 1 ≤ R - 1 + 1)
+  simpa only [hp] using
+    (Finset.sum_Icc_succ_top (by omega : 1 ≤ R - 1 + 1) f)
 
 /-- One symmetric new row, one symmetric new column, and one diagonal.
 No positive absolute-value bound is inserted during the row expansion. -/
@@ -142,14 +141,16 @@ theorem eulerHistoricalSquareWindow_newRowIdentity
     simpa using eulerHistoricalSquareWindow_upperThreeFloor R 0 hR (by omega)
   have hq1 : (R + 2) / (R + 1) = 1 := by
     simpa using eulerHistoricalSquareWindow_upperThreeFloor R 1 hR (by omega)
-  have hq2 : (R + 2) / (R + 2) = 1 := by
-    simpa using eulerHistoricalSquareWindow_upperThreeFloor R 2 hR (by omega)
+  have hq2 : (R + 2) / (R + 2) = 1 :=
+    eulerHistoricalSquareWindow_upperThreeFloor R 2 hR (by omega)
   have hrow :
       (∑ a ∈ Finset.Icc 1 (R - 1),
           eulerMuQ a * (((R + 2) / a : ℕ) : ℚ)) =
       1 - eulerMuQ R - eulerMuQ (R + 1) -
         eulerMuQ (R + 2) := by
-    rw [hp, htop2, htop1, htop0, hq0, hq1, hq2] at hfull
+    have hp2 : R + 2 - 1 = R + 1 := by omega
+    have hp1 : R + 1 - 1 = R := by omega
+    rw [hp, htop2, hp2, htop1, hp1, htop0, hq0, hq1, hq2] at hfull
     norm_num at hfull
     linear_combination -hfull
   calc
@@ -191,6 +192,10 @@ theorem eulerHistoricalSquareWindow_bilinear_step
         eulerHistoricalSquareWindowQ R := by
     unfold eulerFloorBilinearQ eulerHistoricalSquareWindowQ
     simp_rw [mul_sub, Finset.sum_sub_distrib]
+    rw [← Finset.sum_sub_distrib]
+    apply Finset.sum_congr rfl
+    intro b hb
+    ring
   have hgate := eulerHistoricalSquareWindow_newRowIdentity R hR
   have hdiag : eulerFloorQ (R + 1) R R = 1 := by
     unfold eulerFloorQ
@@ -199,11 +204,19 @@ theorem eulerHistoricalSquareWindow_bilinear_step
   change eulerFloorBilinearQ (R + 1) - eulerFloorBilinearQ R =
       eulerHistoricalSquareWindowQ R + 2 * eulerMuQ R -
         eulerHistoricalSquareGateQ R
-  unfold eulerFloorBilinearQ at hsplit
-  rw [hpred] at hsplit
-  rw [hgate, hdiag] at hsplit
+  have hsplit' :
+      eulerFloorBilinearQ (R + 1) =
+        (∑ b ∈ Finset.Icc 1 (R - 1), eulerMuQ b *
+          ∑ a ∈ Finset.Icc 1 (R - 1), eulerMuQ a *
+            eulerFloorQ (R + 1) a b) +
+          2 * eulerMuQ R *
+            (∑ a ∈ Finset.Icc 1 (R - 1), eulerMuQ a *
+              eulerFloorQ (R + 1) a R) +
+          eulerMuQ R ^ 2 * eulerFloorQ (R + 1) R R := by
+    simpa [eulerFloorBilinearQ, hpred] using hsplit
+  rw [hgate, hdiag] at hsplit'
   unfold eulerHistoricalSquareGateQ
-  linear_combination hsplit + hfixed
+  linear_combination hsplit' + hfixed
 
 /-- Square-shell Mertens increment equals the old historical divisor-window
 process up to a uniformly bounded *local* gate, with no random signs. -/
@@ -225,8 +238,11 @@ theorem eulerHistoricalSquareWindow_mertens_step
   have hm : mertensSummatory R =
       mertensSummatory (R - 1) + (((μ R : ℤ) : ℂ)) := by
     have hpred : R - 1 + 1 = R := by omega
-    rw [← hpred, mertensSummatory_succ]
-  rw [hm] at hQstepC
+    have hs := mertensSummatory_succ (R - 1)
+    rw [hpred] at hs
+    exact hs
+  have hpred2 : R + 1 - 1 = R := by omega
+  rw [hpred2, hm] at hQstepC
   unfold eulerMuQ at hQstepC
   push_cast at hQstepC
   linear_combination -hQstepC
