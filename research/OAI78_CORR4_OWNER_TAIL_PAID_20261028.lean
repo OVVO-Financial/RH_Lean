@@ -88,8 +88,12 @@ theorem oai78Paid_extra_owner_power (q T : ℕ) (hq : 1 ≤ q)
     (T : ℝ) * (q : ℝ) ≤ Real.rpow (q : ℝ) (2 * β) := by
   have hqr : (1 : ℝ) ≤ (q : ℝ) := by exact_mod_cast hq
   have hqr0 : (0 : ℝ) ≤ (q : ℝ) := by positivity
+  have hqrpos : (0 : ℝ) < (q : ℝ) := by
+    exact_mod_cast (show 0 < q by omega)
   have hTsq : (T : ℝ) ^ 2 ≤ (q : ℝ) := by
-    exact_mod_cast hT
+    have hTreal : (T : ℝ) * (T : ℝ) ≤ (q : ℝ) := by
+      exact_mod_cast hT
+    simpa only [pow_two] using hTreal
   have hTsqrt : (T : ℝ) ≤ Real.sqrt (q : ℝ) := by
     have hs := Real.sq_sqrt hqr0
     have hspos := Real.sqrt_nonneg (q : ℝ)
@@ -98,7 +102,7 @@ theorem oai78Paid_extra_owner_power (q T : ℕ) (hq : 1 ≤ q)
   have hPow :
       (q : ℝ) * Real.sqrt (q : ℝ) =
         Real.rpow (q : ℝ) (3 / 2) := by
-    have ha := Real.rpow_add hqr0 (1 : ℝ) (1 / 2 : ℝ)
+    have ha := Real.rpow_add hqrpos (1 : ℝ) (1 / 2 : ℝ)
     rw [Real.rpow_one, ← Real.sqrt_eq_rpow] at ha
     convert ha.symm using 1 <;> ring
   calc
@@ -204,7 +208,6 @@ theorem oai78Paid_single_large_owner
           (q : ℝ) ^ 2 =
       ‖mertensSummatory (rawQ2ChildCutoff R q)‖ * (T : ℝ) * (q : ℝ) := by
         field_simp
-        ring
     _ ≤ _ := hprod
 
 /-- High q² owner tail is fully paid by the supplied ALL-INTEGER Mertens
@@ -254,7 +257,7 @@ theorem oai78Paid_large_owner_column_le_power
     rw [Finset.mul_sum, Finset.mul_sum]
     apply Finset.sum_le_sum
     intro q hq
-    simpa [mul_div_assoc] using
+    simpa only [div_eq_mul_inv] using
       oai78Paid_single_large_owner R q T hR hq β C hβ hC hM
   have hrec :
       (∑ q ∈ oai78PaidLargeQOwners R T, (1 : ℝ) / (q : ℝ) ^ 2) ≤
