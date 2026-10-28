@@ -152,7 +152,7 @@ theorem eulerHistoricalSquareWindow_newRowIdentity
     have hp1 : R + 1 - 1 = R := by omega
     rw [hp, htop2, hp2, htop1, hp1, htop0, hq0, hq1, hq2] at hfull
     norm_num at hfull
-    linear_combination -hfull
+    linear_combination hfull
   calc
     _ = ∑ a ∈ Finset.Icc 1 (R - 1),
           eulerMuQ a * (((R + 2) / a : ℕ) : ℚ) := by
@@ -245,6 +245,7 @@ theorem eulerHistoricalSquareWindow_mertens_step
   rw [hpred2, hm] at hQstepC
   unfold eulerMuQ at hQstepC
   push_cast at hQstepC
+  rw [Rat.cast_sub]
   linear_combination -hQstepC
 
 #print axioms eulerHistoricalSquareWindow_newRowIdentity
