@@ -215,3 +215,116 @@ streams telescope beautifully; the needed Möbius power saving involves
 a signed SECOND moment, with products of distinct divisor-count
 errors and shared-prime/incomplete-period correlations. Proving bounds
 for those true products is the arithmetic mixing theorem, still open.
+
+
+## Two independent axes of nested partition sampling: numerical and probabilistic audit
+
+The original three admission strata (low P+(n)<R, middle R<=P+(n)<=X/2,
+upper P+(n)>X/2) are now **crossed with the integer-site ranges**
+[1,R-1], [R,floor(X/2)] and (floor(X/2),X]. There are six nonempty
+geometric cells; the top-prime cell contains ONLY singleton primes,
+but the middle-prime band includes singleton primes p<=X/2 **as well as**
+composites with that largest prime factor. Calling the entire middle band
+"composites" would be incorrect.
+
+Put Y=floor(X/2), L(Z)=sum_{n<=Z, P+(n)<R}mu(n), and
+D(Z)=sum_{R<=p<=Z, p prime}M(floor(Z/p)). For Z=Y or X, sqrt(Z)<R
+ensures M(Z)=L(Z)-D(Z). The ordered six-site/factor cells are
+
+    c0=M(R-1),
+    c1=L(Y)-M(R-1),
+    c2=-D(Y),
+    c3=L(X)-L(Y),
+    c4=-D(X)+D(Y)+[pi(X)-pi(Y)],
+    c5=-[pi(X)-pi(Y)].
+
+Their sum is M(X), and their column sums recover precisely the
+three admitted prime-factor strata. The six cell values are
+recomputed from genuine Mobius and actual prime counts in the C++ test.
+
+If c_j(R) is the true cell mass and g_j(R)=c_j(R+1)-c_j(R), then
+
+    delta_R=sum_{j=0}^5 g_j(R),
+
+    sum_{H<=R<2H} delta_R^2
+        =sum_j sum_R g_j(R)^2
+         +2 sum_{j<k} sum_R g_j(R)g_k(R).
+
+**The total energy is invariant under deterministic regrouping.**
+In particular, a larger negative cross term or cancellation percentage
+under a finer partition does NOT independently prove any mixing theorem.
+
+The **correct independent-random-sign reference** holds the set of actual
+squarefree sites fixed, but hypothetically assigns independent Rademacher
+signs to those sites. For each shell let d_R=sum_{n in I_R}mu(n)^2.
+Under this reference model, and only under this model,
+
+    E_rand[sum_R delta_R^2] = D(H)=sum_R d_R,
+    Var_rand(sum_R delta_R^2) = 2 sum_R d_R(d_R-1).
+
+No assertion that genuine Mobius signs satisfy this distribution is made.
+
+Independently sieved arithmetic (separate C++ implementation through
+67,125,248) yielded the following exact energies. The extra crossed-site
+diagnostic was integrated into the existing genuine-prime sieve script.
+
+| H | actual sum delta^2 | squarefree random E | ratio | site 3-band diagonal | prime 3-band diagonal | crossed 6-cell diagonal |
+|---:|---:|---:|---:|---:|---:|---:|
+| 256 | 110,216 | 119,516 | 0.922 | 292,210 | 658,834 | 756,100 |
+| 1024 | 1,723,387 | 1,912,373 | 0.901 | 4,722,701 | 25,761,943 | 26,570,093 |
+| 4096 | 30,291,950 | 30,598,026 | 0.990 | 80,367,974 | 1,118,176,570 | 1,089,567,934 |
+
+At H=4096, the corresponding signed cross sums (each equals actual energy
+minus the relevant diagonal) are:
+
+    site cross   =      -50,076,024,
+    prime cross  =   -1,087,884,620,
+    six-cell cross = -1,059,275,984.
+
+The six-cell cross between the upper-integer-site middle-largest-prime
+and upper-integer-site top-prime populations alone is -1,006,683,890.
+This is a **large, coherent arithmetic response**, not an assertion
+that these two channels are independent random variables.
+
+The normalized actual square-block increments z_R=delta_R/sqrt(d_R)
+in the H=4096 held-out range have measured mean 0.00011, RMS 0.99397,
+lag-1 product mean 0.01115, and 173 of 4096 increments exceed 2
+standardized units (8 exceed 3). Under the independent-sign reference,
+the observed total energy is -0.445 reference standard deviations from
+its expectation. These finite observations support **random-like
+variance**, not a proven random-process law.
+
+### Rigorous small-modulus sampling lemma, and its limit
+
+Let N_R(d) be the actual number of multiples of fixed d in
+[R^2,(R+1)^2) and e_R(d)=N_R(d)-(2R+1)/d. The elementary floor identity is
+
+    e_R(d)=frac((R^2-1)/d)-frac(((R+1)^2-1)/d).
+
+For any coprime positive d,e, e_R(d) and e_R(e) are periodic in R
+modulo d and e respectively, and each separately sums to 0 over a
+full period. The CRT therefore gives the *exact* finite identity
+
+    sum_{R=1}^{de} e_R(d)e_R(e)=0.
+
+As |e_R(d)e_R(e)|<=1, splitting any H consecutive sampled roots into
+complete periods of length de and a remainder gives
+
+    |(1/H)sum_{R=H}^{2H-1}e_R(d)e_R(e)| <= de/H.
+
+This IS a rigorously deterministic, polynomial decorrelation estimate
+for fixed coprime channels with de << H. It is NOT a proof that all
+square-block Mobius divisor channels decorrelate: high moduli with
+de>=H, shared prime factors, moving filters and the total cofactor
+weights remain outside this CRT estimate.
+
+**Current verdict:** the nested partitions expose exceptionally strong,
+source-faithful signed compensation and the final sampled second moment
+closely matches the independent-sign reference at H=4096; neither
+phenomenon alone proves that the moving partitions supply a *uniform*
+random-process concentration theorem. The independent arithmetic gate
+remains a full-coupled dyadic bound
+
+    sum_{R=H}^{2H-1} delta_R^2 <= C_epsilon H^(5/2-eta+epsilon), eta>0.
+
+No exponent improvement or RH result is asserted by this addendum.
