@@ -44,6 +44,8 @@ jobs:
           import «research.EULER_COUPLED_HEAD_NO_DRIFT_20261027»
           #print axioms RHLean.Proof.eulerCoupled_head_interior_abel
           #print axioms RHLean.Proof.eulerCoupled_head_interior_abel_no_drift
+          #print axioms RHLean.Proof.eulerHeadWindowEndpoint_mono
+          #print axioms RHLean.Proof.eulerCoupled_head_window_concat
           EOF
           lake env lean -DwarningAsError=true /tmp/euler_coupled_head_axioms.lean | tee /tmp/euler_coupled_head_axioms.log
           if grep -q 'sorryAx' /tmp/euler_coupled_head_axioms.log; then exit 1; fi
