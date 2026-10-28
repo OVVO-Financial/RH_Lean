@@ -67,7 +67,22 @@ X/(r*b)=L*q/b+L*t/(r*b).
 The bound is strong for q<<sqrt N and b large. It does not
 control the signed sum across b or the complementary interior jumps.
 
-## 3. Contiguous window coupling (no automatic mixed moment)
+## 3. Strict-jump count: a stronger existing theorem already pays it
+
+The requested bound is
+
+    K_(q,b)-c_(q,b)(r_q) <= floor(L/b)+1.
+
+It follows immediately from the **stronger pre-existing** #1037 theorem
+
+    K_(q,b) <= floor(N/b)+1
+
+because right carry is a natural number and N<L. The new named Lean
+lemmas `eulerBucket_jump_count_le` and
+`eulerBucket_jump_count_le_outer` certify both inequalities. This is
+an exact complexity saving, but not a new signed cancellation estimate.
+
+## 4. Contiguous window coupling (no automatic mixed moment)
 
 Define A_q(b)=floor(Y_b/r_q). For consecutive well-defined endpoints:
 
@@ -82,14 +97,14 @@ baseline M(r_(q+1)) terms into endpoint carriers, but that is an
 identity, not by itself a gain. Any claimed bound needs a source-faithful
 signed estimate on the combined endpoint/interior interaction.
 
-## 4. Numerical integer/rational audit
+## 5. Numerical integer/rational audit
 
 Direct original-Mobius checks at N=12,30,56,999 verified the
 high-q tail collapse with the original punched divisor condition
 and rank-one floor weights. The exact q-dependent carry bound was
 checked for every q,b on roots R=2,3,5,10,31,100,317.
 
-## 5. Open theorem after this reduction
+## 6. Open theorem after this reduction
 
 The exact signed root residual is unchanged. To activate the
 historical-energy amplification route we still need a uniform
