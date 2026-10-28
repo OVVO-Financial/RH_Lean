@@ -75,8 +75,8 @@ theorem eulerDoubleInversion_truncated_floor_rat
       eulerMuQ b * (((L / b : ℕ)) : ℚ)) =
       1 - (eulerHistoricalMertensQ L - eulerHistoricalMertensQ B) := by
   have hZ := eulerDoubleInversion_truncated_floor L B hL hBL hhalf
-  have hCast := congrArg (fun z : ℤ => (z : ℚ)) hZ
-  simpa [eulerMuQ, eulerHistoricalMertensQ] using hCast
+  unfold eulerMuQ eulerHistoricalMertensQ
+  exact_mod_cast hZ
 
 #print axioms eulerDoubleInversion_upper_floor_one
 #print axioms eulerDoubleInversion_truncated_floor
