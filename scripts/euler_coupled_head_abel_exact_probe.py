@@ -17,9 +17,10 @@ def mobius_up_to(n: int) -> list[int]:
         if prime[p]:
             for k in range(p, n + 1, p):
                 mu[k] *= -1
+                if k > p:
+                    prime[k] = False
             for k in range(p * p, n + 1, p * p):
                 mu[k] = 0
-                prime[k] = False
     return mu
 
 
@@ -30,6 +31,7 @@ def verify_root(R: int) -> tuple[int, int, list[Fraction]]:
     B = N - H
     Q = next(q for q in range(1, N + 1) if q * (q + 1) >= N)
     mu = mobius_up_to(N)
+    assert mu[1:11] == [1, -1, -1, 0, -1, 1, -1, 0, 0, 1][:N]
     M = [0] * (N + 1)
     for n in range(1, N + 1):
         M[n] = M[n - 1] + mu[n]
