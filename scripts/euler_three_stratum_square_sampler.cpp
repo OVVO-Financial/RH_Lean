@@ -114,6 +114,78 @@ MixedDissection dissection(const std::vector<Three> &v,
   return out;
 }
 
+
+// Cross the three moving prime-factor admission bands with the three
+// literal INTEGER-SITE intervals [1,R-1], [R,X/2], (X/2,X].
+// There are six (not nine) potentially nonempty cells. The composite and
+// singleton terms remain together in the middle prime-factor band.
+using SixCells = std::array<int64_t,6>;
+SixCells two_axis_at(int root,const Sieve &s,const Three &v) {
+  const int x=root*root-1, y=x/2;
+  int64_t debt_y=0;
+  for(int k=1;k<=y/root;++k) {
+    const int left=std::max(root-1,y/(k+1)),right=y/k;
+    assert(left<=right);
+    debt_y+=s.mertens[k]*
+      (static_cast<int64_t>(s.pi[right])-s.pi[left]);
+  }
+  const int64_t smooth_y=static_cast<int64_t>(s.mertens[y])+debt_y;
+  SixCells a{{
+    s.mertens[root-1], smooth_y-s.mertens[root-1], -debt_y,
+    v.low-smooth_y, v.middle+debt_y, v.top
+  }};
+  int64_t total=0;
+  for(auto k:a) total+=k;
+  assert(total==v.mertens);
+  assert(a[0]+a[1]+a[3]==v.low);
+  assert(a[2]+a[4]==v.middle);
+  assert(a[5]==v.top);
+  return a;
+}
+
+struct NestedMoment {
+  int64_t site_diag=0,site_cross=0,six_diag=0,six_cross=0;
+  int64_t squarefree_diag=0;
+  double null_sd=0;
+};
+
+NestedMoment nested_window(const std::vector<SixCells> &a,
+                           const std::vector<Three> &v,
+                           const Sieve &s,int H) {
+  NestedMoment out;
+  double null_var=0;
+  int64_t observed=0;
+  for(int R=H;R<2*H;++R) {
+    SixCells d{};
+    int64_t z=0;
+    for(int j=0;j<6;++j) {
+      d[j]=a[R+1][j]-a[R][j];
+      out.six_diag+=d[j]*d[j];
+      z+=d[j];
+    }
+    out.six_cross+=z*z;
+    for(int j=0;j<6;++j) out.six_cross-=d[j]*d[j];
+    const std::array<int64_t,3> site{{
+      d[0],d[1]+d[2],d[3]+d[4]+d[5]
+    }};
+    for(const auto x:site) out.site_diag+=x*x;
+    out.site_cross+=z*z;
+    for(const auto x:site) out.site_cross-=x*x;
+    const int64_t physical=v[R+1].mertens-v[R].mertens;
+    assert(z==physical);
+    observed+=z*z;
+    int64_t squarefree=0;
+    for(int n=R*R;n<(R+1)*(R+1);++n)
+      squarefree+=s.mu[n]*s.mu[n];
+    out.squarefree_diag+=squarefree;
+    null_var+=2.0*squarefree*(squarefree-1);
+  }
+  assert(out.site_diag+out.site_cross==observed);
+  assert(out.six_diag+out.six_cross==observed);
+  out.null_sd=std::sqrt(null_var);
+  return out;
+}
+
 SixMoment window(const std::vector<Three> &v,int H) {
   SixMoment s;
   for (int r=H; r<2*H; ++r) {
@@ -138,9 +210,11 @@ int main() {
   constexpr int maxR=10000;
   Sieve s(maxR*maxR-1);
   std::vector<Three> values(maxR+1);
+  std::vector<SixCells> cells(maxR+1);
   int sign_positive=0,sign_zero=0,sign_negative=0;
   for (int root=2;root<=maxR;++root) {
     values[root]=three_at(root,s);
+    cells[root]=two_axis_at(root,s,values[root]);
     if (values[root].middle>0) ++sign_positive;
     else if (values[root].middle<0) ++sign_negative;
     else ++sign_zero;
@@ -154,6 +228,7 @@ int main() {
 
   for (int H : std::array<int,5>{{16,64,256,1024,4096}}) {
     SixMoment m=window(values,H);
+    const NestedMoment nested=nested_window(cells,values,s,H);
     const MixedDissection d=dissection(values,s,H);
     assert(d.total==m.mt);
     const int64_t diagonals=m.ll+m.mm+m.tt;
@@ -165,7 +240,14 @@ int main() {
       <<" 2LM="<<m.lm<<" 2LT="<<m.lt<<" 2MT="<<m.mt
       <<" MT_halfGate="<<d.transfer_component
       <<" MT_composites="<<d.composite_component
-      <<" MT_rootGate="<<d.root_component<<"\n";
+      <<" MT_rootGate="<<d.root_component
+      <<" squarefreeDiag="<<nested.squarefree_diag
+      <<" actualToRandom="<<(double(m.total)/nested.squarefree_diag)
+      <<" nullReferenceZ="<<((m.total-nested.squarefree_diag)/nested.null_sd)
+      <<" siteDiag="<<nested.site_diag
+      <<" siteCross="<<nested.site_cross
+      <<" sixCellDiag="<<nested.six_diag
+      <<" sixCellCross="<<nested.six_cross<<"\n";
   }
   std::cout<<"PASS independent three-stratum prime-product population,"
     <<" top prime singleton, six-moment square-block sampler\n";
