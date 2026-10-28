@@ -88,29 +88,12 @@ theorem oai78_corr4_physical_eq_nested_finiteC_add_boundary
   have hC :=
     squareRootCanonicalRoughCorrelation_eq_criticalSynthesis_add_physicalRemainder
       R hR 0
-  rw [lowOwnerCriticalMertensSynthesis_zero_eq_reciprocalColumn] at hC
-  rw [lowOwnerReciprocalMertensColumn_eq_nearestSquare_add_shell] at hC
-  rw [oai78_nearest_column_eq_history_sub_nested_finiteC] at hC
+  rw [lowOwnerCriticalMertensSynthesis_zero_eq_reciprocalColumn R,
+    lowOwnerReciprocalMertensColumn_eq_nearestSquare_add_shell R,
+    oai78_nearest_column_eq_history_sub_nested_finiteC R] at hC
   have hP := oai78_parent_finiteC_eq_rough_sub_history R (by omega)
   rw [hP]
-  -- The original physical amplitude is the CORR-4 parent minus
-  -- its genuine reciprocal daughter synthesis.
-  calc
-    lowOwnerPhysicalAmplitudeRemainder R 0 =
-        squareRootCanonicalRoughCorrelation R -
-          (2 * oai78NestedHistoricalColumn R -
-            oai78NestedFiniteCColumn R +
-            lowOwnerNearestSquareReciprocalShell R) := by
-          calc
-            _ = (lowOwnerCriticalMertensSynthesis R 0 +
-                lowOwnerPhysicalAmplitudeRemainder R 0) -
-                (2 * oai78NestedHistoricalColumn R -
-                  oai78NestedFiniteCColumn R +
-                  lowOwnerNearestSquareReciprocalShell R) := by rw [← hC]
-            _ = _ := by rw [lowOwnerCriticalMertensSynthesis_zero_eq_reciprocalColumn,
-                lowOwnerReciprocalMertensColumn_eq_nearestSquare_add_shell,
-                oai78_nearest_column_eq_history_sub_nested_finiteC]; ring
-    _ = _ := by rw [hP]; ring
+  linear_combination -hC
 
 /-- The exact bridge immediately bounds the error by the three original,
     separately auditable historical and midpoint-shell quantities.
