@@ -50,7 +50,7 @@ theorem eulerAdmissible_endpoint_div_root (R : ℕ) (hR : 2 ≤ R) :
   have hpred : R - 1 + 1 = R := by omega
   have hsq : squareRootEndpoint R + 1 = R * R := by
     unfold squareRootEndpoint
-    have hpos : 1 ≤ R ^ 2 := by positivity
+    have hpos : 1 ≤ R ^ 2 := by nlinarith
     rw [Nat.sub_add_cancel hpos]
     ring
   have hmul : (R - 1) * R + R = R * R := by
@@ -59,7 +59,9 @@ theorem eulerAdmissible_endpoint_div_root (R : ℕ) (hR : 2 ≤ R) :
       _ = R * R := by rw [hpred]
   have hlow : (R - 1) * R ≤ squareRootEndpoint R := by omega
   have hhigh : squareRootEndpoint R < R * R := by omega
-  exact Nat.div_eq_of_lt_le hlow hhigh
+  have hhigh' : squareRootEndpoint R < (R - 1 + 1) * R := by
+    simpa [hpred] using hhigh
+  exact Nat.div_eq_of_lt_le hlow hhigh'
 
 /-- Literal endpoint equality for the admitted prime-product population.
 No probabilistic or monotonicity input. -/
@@ -85,22 +87,17 @@ theorem eulerAdmissibleBandPopulation_eq_primeCounting_sub
           (max (R - 1) (squareRootEndpoint R / (k + 1))) := by
   let L := max (R - 1) (squareRootEndpoint R / (k + 1))
   let U := squareRootEndpoint R / k
+  change ((Finset.Ioc L U).filter Nat.Prime).card =
+    Nat.primeCounting U - Nat.primeCounting L
   by_cases hLU : L ≤ U
   · have hcount := primeCard_Ioc_add_primeCounting_eq hLU
-    have hset : primeSieveReciprocalInterval (R - 1)
-        (squareRootEndpoint R) k = Finset.Ioc L U := rfl
-    unfold eulerAdmissibleBandPopulation
-    rw [hset]
     omega
-  · have hUL : U < L := Nat.lt_of_not_ge hLU
-    have hcount : Nat.primeCounting U ≤ Nat.primeCounting L :=
-      Nat.primeCounting_mono hUL.le
-    have hempty : primeSieveReciprocalInterval (R - 1)
-        (squareRootEndpoint R) k = ∅ := by
-      ext p
-      simp only [mem_primeSieveReciprocalInterval, Finset.not_mem_empty, iff_false]
-      omega
-    simp [eulerAdmissibleBandPopulation, hempty, L, U, Nat.sub_eq_zero_of_le hcount]
+  · have hUL : U ≤ L := Nat.le_of_lt (Nat.lt_of_not_ge hLU)
+    have hcount := primeCard_Ioc_add_primeCounting_eq hUL
+    have hempty : Finset.Ioc L U = ∅ := Finset.Ioc_eq_empty_of_le hUL
+    have hzero : ((Finset.Ioc L U).filter Nat.Prime).card = 0 := by
+      simp [hempty]
+    omega
 
 /-- Original high-prime debt equals the exact reciprocal-band sum. -/
 theorem eulerAdmissiblePrimeDebt_eq_exact_bands
@@ -238,8 +235,9 @@ theorem eulerAdmissibleState_terminal
     have hs := squareRootEndpoint_sqrt_lt_root hR
     have hRle : R ≤ X := by
       have hm : R + 1 ≤ R ^ 2 := by nlinarith
-      dsimp [X, squareRootEndpoint]
+      change R ≤ R ^ 2 - 1
       omega
+    change Nat.sqrt (squareRootEndpoint R) ≤ squareRootEndpoint R
     omega
   have h := mertensSummatory_eq_neg_signedSum_add_smoothMass_of_sqrt_le
     X X (by omega : 1 ≤ X) hroot
