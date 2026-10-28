@@ -608,6 +608,17 @@ by Parseval in the FRACTIONAL ROOT coordinate u. That
 latter Parseval does not imply orthogonality in theta of
 the physical root-phase polynomials B_H(theta+k).
 
+A reproducible genuine-Mobius numerical check is in
+scripts/oai_root_phase_harmonic_probe.py (Python standard library,
+H=8, 64 harmonics each side and 64 midpoint theta samples).
+The exact physical energy is 176. The finite harmonic full-square
+energy is approximately 176.65, but the SAME finite expansion's
+diagonal-only energy is about 112.94: omitted signed mixed harmonics
+contribute about +63.71. The finite full expansion converges toward
+the original 176 as K increases. This rules out simply dropping
+the mixed harmonics even in a tiny actual arithmetic experiment.
+It does NOT establish any uniform asymptotic mixed-mode lower bound.
+
 For a finite regularization |k|<=K, an optional route is
 Minkowski/triangle across k, losing at most O(log^2 K)
 in squared norms PROVIDED one has a single UNIFORM root-
