@@ -53,6 +53,7 @@ theorem eulerBucketIndices_quotient (R q a : ℕ) (hq : 0 < q)
     (Finset.mem_Ioc.mp ha).1
   have hhi : a ≤ (R - 1) / q :=
     (Finset.mem_Ioc.mp ha).2
+  have hloNonneg : 0 ≤ (R - 1) / (q + 1) := Nat.zero_le _
   have ha0 : 0 < a := by omega
   have hqle : q ≤ (R - 1) / a := by
     apply (Nat.le_div_iff_mul_le ha0).2
@@ -135,6 +136,7 @@ theorem eulerBucketCarry_zero_on_divisor_member
   have ha0 : 0 < a := by
     have h := (Finset.mem_Ioc.mp ha).1
     unfold eulerBucketLow at h
+    have hz : 0 ≤ (R - 1) / (q + 1) := Nat.zero_le _
     omega
   exact eulerBucketCarry_zero_of_dvd R q b a hR ha0 hadiv
     (eulerBucketIndices_quotient R q a hq ha)
