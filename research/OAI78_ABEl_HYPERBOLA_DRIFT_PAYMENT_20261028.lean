@@ -34,8 +34,8 @@ theorem oai78Abel_tail_eq_small_cofactor_sum
     · rintro ⟨⟨hqQ, hqN⟩, ha1, haN⟩
       have hq0 : 0 < q := by omega
       have hQ0 : 0 < Q := by omega
-      have hqa : q * a ≤ N :=
-        (Nat.le_div_iff_mul_le hq0).1 haN
+      have hqa : q * a ≤ N := by
+        simpa [Nat.mul_comm] using (Nat.le_div_iff_mul_le hq0).1 haN
       have hQa : Q * a ≤ N :=
         (Nat.mul_le_mul_right a (by omega : Q ≤ q)).trans hqa
       have haSmall : a ≤ N / Q :=
@@ -62,7 +62,7 @@ theorem oai78Abel_tail_eq_small_cofactor_sum
     _ = ∑ a ∈ Finset.Icc 1 (N / Q),
           ∑ q ∈ Finset.Ioc Q (N / a),
             (ArithmeticFunction.moebius a : ℤ) :=
-          Finset.sum_comm' hswap
+          Finset.sum_comm' (fun q a => (hswap q a).trans (and_comm))
     _ = ∑ a ∈ Finset.Icc 1 (N / Q),
           (ArithmeticFunction.moebius a : ℤ) * ((N / a - Q : ℕ) : ℤ) := by
       apply Finset.sum_congr rfl
@@ -98,7 +98,8 @@ theorem oai78Abel_hyperbola_three_terms
       (∑ q ∈ Finset.Ioc 0 N, mertensSummatoryInt (N / q)) = 1 := by
     have he : Finset.Ioc 0 N = Finset.Icc 1 N := by
       ext q
-      simp [Finset.mem_Ioc, Finset.mem_Icc]
+      simp only [Finset.mem_Ioc, Finset.mem_Icc]
+      omega
     rw [he]
     exact htotal
   have htail := oai78Abel_tail_eq_small_cofactor_sum N Q hQ hQN
@@ -143,7 +144,7 @@ theorem oai78Abel_hyperbola_three_terms
                 ring
       _ = _ := by rw [mertensSummatoryInt_eq_Icc]
   rw [hsmall] at hcore
-  exact hcore
+  convert hcore using 1 <;> ring
 
 /-- No separately estimated R^(29/16) drift: the three original
     continuous Abel pieces combine to a SINGLE Mertens historical
@@ -161,8 +162,15 @@ theorem oai78Abel_continuous_drift_exact
       ((L : ℚ) / (b : ℚ)) *
         (((mertensSummatoryInt N : ℤ) : ℚ) - 1) := by
   have h := oai78Abel_hyperbola_three_terms N Q hQ hQN
-  have hRat := congrArg (fun z : ℤ => (z : ℚ)) h
-  push_cast at hRat ⊢
+  have hRat :
+      (∑ q ∈ Finset.Ioc 1 Q,
+        (((mertensSummatoryInt (N / q) : ℤ) : ℚ))) +
+      (∑ a ∈ Finset.Icc 1 (N / Q),
+        (((ArithmeticFunction.moebius a : ℤ) : ℚ)) *
+          (((N / a : ℕ) : ℚ))) -
+      (Q : ℚ) * (((mertensSummatoryInt (N / Q) : ℤ) : ℚ)) =
+      1 - (((mertensSummatoryInt N : ℤ) : ℚ)) := by
+    exact_mod_cast h
   linear_combination -((L : ℚ) / (b : ℚ)) * hRat
 
 #print axioms oai78Abel_tail_eq_small_cofactor_sum
