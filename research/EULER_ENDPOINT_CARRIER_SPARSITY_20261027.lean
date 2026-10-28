@@ -48,8 +48,10 @@ theorem eulerEndpointRight_remainder_eq_mod_q
   have hdr := Nat.div_add_mod (R - 1) r
   change q * r + (R - 1) % q = R - 1 at hdq
   rw [hqr] at hdr
+  have hdr' : q * r + (R - 1) % r = R - 1 := by
+    simpa only [Nat.mul_comm r q] using hdr
   change (R - 1) % r = (R - 1) % q
-  omega
+  exact Nat.add_left_cancel (hdr'.trans hdq.symm)
 
 /-- Original endpoint carry has the sharp *q-dependent* upper bound.
 In particular this is far below the whole-bucket N/b+1 budget when
@@ -228,7 +230,7 @@ theorem eulerEndpointTail_buckets_partition
 All high-q endpoint carriers become a SHORT genuine Möbius prefix,
 with the actual divisor punch and original one-sided floor kernel. -/
 theorem eulerEndpoint_tail_singleton_collapse
-    (R Q b : ℕ) (hR : 2 ≤ R) (hQ : 0 < Q)
+    (R Q b : ℕ) (_hR : 2 ≤ R) (hQ : 0 < Q)
     (hQN : Q ≤ R - 1) (hlarge : R - 1 ≤ Q * (Q + 1)) :
     (∑ q ∈ Finset.Icc Q (R - 1),
       (∑ a ∈ (eulerBucketIndices R q).filter
