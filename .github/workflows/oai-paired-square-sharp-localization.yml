@@ -1,0 +1,82 @@
+name: OAI paired square source exact Euler localization and no-go
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - "research/OAI_PAIRED_SHARP_EULER_SQUARE_LOCALIZATION_20261028.lean"
+      - "research/OAI_SQUARE_GLOBAL_TO_LOCAL_MOMENT_NO_GO_20261028.lean"
+      - "research/OAI_PAIRED_SHARP_MOMENT_TRANSFER_20261028.md"
+      - ".github/workflows/oai-paired-square-sharp-localization.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  lean:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up pinned Lean and cached Mathlib
+        uses: ./.github/actions/lean-setup
+      - name: Restore PNT+ build cache
+        uses: actions/cache/restore@v5
+        with:
+          path: .lake/packages/PrimeNumberTheoremAnd/.lake/build
+          key: pntplus-build-v1-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
+      - name: Prebuild PNT+ StrongPNT
+        run: lake build PrimeNumberTheoremAnd.StrongPNT
+      - name: Restore native library build cache
+        uses: actions/cache/restore@v5
+        with:
+          path: .lake/build
+          key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'RHLean.lean', 'RHLean/**/*.lean') }}
+          restore-keys: |
+            rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-
+      - name: Compile exact research import closure, warnings fatal
+        run: |
+          python3 scripts/compile_research_import_closure.py --build-library \
+            research/OAI_PAIRED_SHARP_EULER_SQUARE_LOCALIZATION_20261028.lean \
+            research/OAI_SQUARE_GLOBAL_TO_LOCAL_MOMENT_NO_GO_20261028.lean
+      - name: Standard-axioms audit
+        run: |
+          cat > /tmp/euler_pop_axioms.lean <<'EOF'
+          import «research.OAI_PAIRED_SHARP_EULER_SQUARE_LOCALIZATION_20261028»
+          import «research.OAI_SQUARE_GLOBAL_TO_LOCAL_MOMENT_NO_GO_20261028»
+          #print axioms RHLean.Analysis.oaiPaired_squareShell_eq_originalMertensDifference
+          #print axioms RHLean.Analysis.oaiPaired_originalSharp_eq_movingPrimeFlux
+          #print axioms RHLean.Analysis.oaiPaired_originalSharp_eq_movingSiteFlux
+          #print axioms RHLean.Analysis.oaiPaired_newShell_above_newHalf
+          #print axioms RHLean.Analysis.oaiPaired_actualSharpEnergy_eq_nativeDyadicEnergy
+          #print axioms RHLean.Analysis.oaiPaired_actualSharpEnergy_eq_primeSampler
+          #print axioms RHLean.Analysis.oaiPaired_actualSharpMoment_consumer
+          #print axioms RHLean.Analysis.oaiAltSquarePrefix_abs_le
+          #print axioms RHLean.Analysis.oaiAltSquareIncrement_exact
+          #print axioms RHLean.Analysis.oaiAltSquareIncrement_sq
+          #print axioms RHLean.Analysis.oaiAltSquareDyadicEnergy_cubic_lower
+          EOF
+          lake env lean -DwarningAsError=true /tmp/euler_pop_axioms.lean | tee /tmp/euler_pop_axioms.log
+          if grep -q 'sorryAx' /tmp/euler_pop_axioms.log; then exit 1; fi
+          python3 - <<'PY'
+          import re
+          log = open('/tmp/euler_pop_axioms.log').read()
+          allowed = {'propext', 'Classical.choice', 'Quot.sound'}
+          for line in log.splitlines():
+              match = re.search(r"depends on axioms: \[(.*)\]", line)
+              if match:
+                  used = {a.strip() for a in match.group(1).split(',') if a.strip()}
+                  assert used <= allowed, f"Nonstandard axioms: {used - allowed}"
+          print("PASS standard axioms only")
+          PY
+      - name: No admitted statements
+        run: |
+          python3 - <<'PY'
+          import pathlib, re
+          body = ''.join(pathlib.Path(p).read_text() for p in ['research/OAI_PAIRED_SHARP_EULER_SQUARE_LOCALIZATION_20261028.lean', 'research/OAI_SQUARE_GLOBAL_TO_LOCAL_MOMENT_NO_GO_20261028.lean'])
+          body = re.sub(r'/-.*?-/', '', body, flags=re.S)
+          body = re.sub(r'--.*', '', body)
+          assert not re.search(r'\b(sorry|admit|axiom)\b', body)
+          print('PASS no sorry, admit, or axiom declarations')
+          PY
