@@ -228,3 +228,88 @@ for actual Möbius. The naive k^-2 mode diagonalization is FALSE even
 on genuine two-site Möbius subpopulations. Preserving the signed
 harmonic cross-mode covariance is essential; root-phase Fourier
 representation does not supply a new power saving on its own.
+
+
+## 7. NEW: the outer-support smoothing cost is O(W²), not O(H W²)
+
+This is a real improvement in the root-phase Fourier coordinate that does
+not require a new OAI moment theorem. The exact phase
+exp(2*pi*i*theta*floor(sqrt n)) has already encoded ALL internal H square
+walls, so there is NO reason to smooth each square shell separately.
+
+Instead, smooth only the global endpoints of the full dyadic support
+[H²,4H²). Let W>=1, and let a smooth physical outer mask agree with
+1 on [H²+W,4H²-W], taper in two collars of width W, and vanish outside
+the original support. The discrepancy from the ORIGINAL sharp phase
+is supported on at most
+
+    |[H²,H²+W) union [4H²-W,4H²)| <= 2W
+
+actual integers. For any theta, after reassembling the original Mobius
+norm fibers and using |mu(n)|<=1, |phase(n,theta)|=1 and a taper in [0,1],
+
+    |A_H(theta)-A_H,outerSmoothed(theta)| <= 2W.
+
+Taking the theta integral over an interval of length one gives
+
+    integral |A_H-A_H,outerSmoothed|² <= 4W².
+
+Consequently (triangle inequality in L²(theta)):
+
+    E_sharp(H) <= 2*integral |A_H,outerSmoothed|²+8W².
+
+Choosing W~H pays an OUTER rounding cost O(H²), which is below the
+H^(5/2-delta) power-saving budget for any delta<1/2. In contrast,
+smoothing H distinct blocks independently at width W~H would pay
+O(H^3) and destroy the saving.
+
+This removes the GLOBAL support-collar part of the earlier Tax 1.
+At physical x~H², W~H costs log width ~W/H²~H^-1, so the Mellin
+frequency needed for these TWO OUTER SUPPORT CUTS is only O(H),
+NOT H^(5/4+...). Crucially the INTERNAL sharp boundaries remain
+encoded in the k!=0 fractional-root harmonic modes, whose effective
+frequency remains |t|~|k|H. One cannot conclude the entire source
+only needs t=O(H).
+
+The Lean module OAI_ROOTPHASE_TWO_OUTER_COLLARS_20261028.lean proves:
+- exact two-collar site cardinality <=2W for ALL H,W;
+- any complex coefficient error of per-site norm <=1 has total
+  absolute amplitude <=2W;
+- its squared amplitude is <=4W².
+
+The final theta-integrated estimate is a direct consequence of the
+pointwise inequality and the unit length of the theta interval; that
+measure-theoretic step is documented but not claimed to be part of
+this finite-arithmetic Lean module.
+
+**New acceptance gate:** prove an OAI compensated bound on the
+outer-smoothed, INTERNALLY sharp root-phase source, retaining the
+entire mixed harmonic k,l matrix, with saving H^(5/2-delta).
+It is false to demand H separate small physical collars once the
+root-phase sampling operator has been used.
+
+## 8. Harmonic coefficient norm and the missing original mixing theorem
+
+Since f_theta(v)=exp(-2*pi*i*theta*{v}) has |f_theta(v)|=1
+on v in [0,1), Parseval in its PERIODIC variable gives
+
+    sum_(k in Z) |c_k(theta)|² = 1.
+
+This is true even though the off-diagonal k!=l terms in the
+MOBIUS source energy are nonzero and often strongly negative.
+Coefficientwise l² normalization is NOT orthogonality of the
+arithmetic smooth modes V_H(theta+k).
+
+In fact, the bare unweighted sum
+    sum_k |V_H(theta+k)|²
+generally diverges for a finite original n-sum of complex
+exponentials. Therefore using Cauchy--Schwarz on the infinite
+k-series with only ||c(theta)||_l2=1 does NOT give a finite
+moment estimate. One needs actual decay or a mixed-k/l large
+sieve at the original signed source level.
+
+PR #1049 deliberately preserves all mode pairs. Its direct
+cofactor/Hecke next step is a source-normalized, harmonic-mixed
+moment inequality that survives k,l recombination without
+spending the original signed cancellation on an invalid
+diagonalization.
