@@ -1,0 +1,90 @@
+name: Euler admissible prime population and Co-Div Lean
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - "research/EULER_ADMISSIBLE_PRIME_POPULATION_CODIV_20261028.lean"
+      - "research/EULER_ADMISSIBLE_PRIME_POPULATION_CODIV_20261028.md"
+      - "research/EULER_ADMISSIBLE_WEIGHTED_CODIV_20261028.lean"
+      - "research/EULER_ADMISSIBLE_SIGNED_RETURN_TELESCOPE_20261028.lean"
+      - "scripts/euler_admissible_population_probe.cpp"
+      - ".github/workflows/euler-admissible-population.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  lean:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up pinned Lean and cached Mathlib
+        uses: ./.github/actions/lean-setup
+      - name: Restore PNT+ build cache
+        uses: actions/cache/restore@v5
+        with:
+          path: .lake/packages/PrimeNumberTheoremAnd/.lake/build
+          key: pntplus-build-v1-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
+      - name: Prebuild PNT+ StrongPNT
+        run: lake build PrimeNumberTheoremAnd.StrongPNT
+      - name: Restore native library build cache
+        uses: actions/cache/restore@v5
+        with:
+          path: .lake/build
+          key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'RHLean.lean', 'RHLean/**/*.lean') }}
+          restore-keys: |
+            rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-
+      - name: Compile exact research import closure, warnings fatal
+        run: |
+          python3 scripts/compile_research_import_closure.py --build-library \
+            research/EULER_ADMISSIBLE_SIGNED_RETURN_TELESCOPE_20261028.lean
+      - name: Standard-axioms audit
+        run: |
+          cat > /tmp/euler_pop_axioms.lean <<'EOF'
+          import «research.EULER_ADMISSIBLE_SIGNED_RETURN_TELESCOPE_20261028»
+          #print axioms RHLean.Proof.eulerAdmissible_endpoint_eq_low_add_innovation
+          #print axioms RHLean.Proof.eulerAdmissibleBandPopulation_eq_primeCounting_sub
+          #print axioms RHLean.Proof.eulerAdmissiblePrimeDebt_eq_exact_bands
+          #print axioms RHLean.Proof.eulerAdmissiblePrimeDebt_eq_root_prime_add_far
+          #print axioms RHLean.Proof.eulerSelfDualBilinear_eq_admissible_population
+          #print axioms RHLean.Proof.eulerAdmissibleState_step
+          #print axioms RHLean.Proof.eulerAdmissibleState_energy_step
+          #print axioms RHLean.Proof.eulerHybridStrictCross_eq_original_weighted_pairs
+          #print axioms RHLean.Proof.eulerHybridStrictCross_eq_admissible_weighted_Co_sub_Div
+          #print axioms RHLean.Proof.eulerAdmissible_weighted_CoDiv_eq_primePopulation
+          #print axioms RHLean.Proof.eulerAsymBilinear_eq_weighted_CoDiv_add_corner
+          #print axioms RHLean.Proof.eulerAdmissibleChronologicalEnergy_identity
+          #print axioms RHLean.Proof.eulerAdmissibleChronologicalMixed_eq_weighted_CoDiv_payment
+          EOF
+          lake env lean -DwarningAsError=true /tmp/euler_pop_axioms.lean | tee /tmp/euler_pop_axioms.log
+          if grep -q 'sorryAx' /tmp/euler_pop_axioms.log; then exit 1; fi
+          python3 - <<'PY'
+          import re
+          log = open('/tmp/euler_pop_axioms.log').read()
+          allowed = {'propext', 'Classical.choice', 'Quot.sound'}
+          for line in log.splitlines():
+              match = re.search(r"depends on axioms: \[(.*)\]", line)
+              if match:
+                  used = {a.strip() for a in match.group(1).split(',') if a.strip()}
+                  assert used <= allowed, f"Nonstandard axioms: {used - allowed}"
+          print("PASS standard axioms only")
+          PY
+      - name: No admitted statements
+        run: |
+          python3 - <<'PY'
+          import pathlib, re
+          body = ''.join(pathlib.Path(p).read_text() for p in ['research/EULER_ADMISSIBLE_PRIME_POPULATION_CODIV_20261028.lean', 'research/EULER_ADMISSIBLE_WEIGHTED_CODIV_20261028.lean', 'research/EULER_ADMISSIBLE_SIGNED_RETURN_TELESCOPE_20261028.lean'])
+          body = re.sub(r'/-.*?-/', '', body, flags=re.S)
+          body = re.sub(r'--.*', '', body)
+          assert not re.search(r'\b(sorry|admit|axiom)\b', body)
+          print('PASS no sorry, admit, or axiom declarations')
+          PY
+      - name: Exact admissible-prime numerical census
+        run: |
+          g++ -O3 -std=c++17 -Wall -Wextra -Werror \
+            scripts/euler_admissible_population_probe.cpp \
+            -o /tmp/euler_admissible_population_probe
+          /tmp/euler_admissible_population_probe
