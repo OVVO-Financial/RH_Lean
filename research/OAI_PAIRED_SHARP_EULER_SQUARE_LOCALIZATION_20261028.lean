@@ -141,6 +141,53 @@ theorem oaiPaired_actualSharpMoment_consumer
     eulerThreeSampledShellEnergy H ≤ T := by
   rwa [oaiPaired_actualSharpEnergy_eq_primeSampler H hH] at hSharp
 
+
+/-- UNIFORM PARTITION CONSTANTS STAY UNIFORM: if each of the three
+moving Euler streams has the same dyadic second-moment bound T, the
+actual physical source has bound 9*T. Nothing about a moving boundary
+changes the factor 9. The analytic component hypotheses are explicit;
+they do not follow from the original OAI profile family automatically. -/
+theorem oaiPaired_threeUniformDyadicEnergy
+    (H : ℕ) (hH : 4 ≤ H) (T : ℝ)
+    (hL : (∑ R ∈ Finset.Ico H (2 * H),
+      (eulerThreeShellLow R) ^ 2) ≤ T)
+    (hM : (∑ R ∈ Finset.Ico H (2 * H),
+      (eulerThreeShellMiddle R) ^ 2) ≤ T)
+    (hU : (∑ R ∈ Finset.Ico H (2 * H),
+      (eulerThreeShellTop R) ^ 2) ≤ T) :
+    oaiPairedActualSharpEnergy H ≤ 9 * T := by
+  rw [oaiPaired_actualSharpEnergy_eq_primeSampler H hH]
+  unfold eulerThreeSampledShellEnergy
+  calc
+    _ = ∑ R ∈ Finset.Ico H (2 * H),
+        (eulerThreeShellLow R + eulerThreeShellMiddle R +
+          eulerThreeShellTop R) ^ 2 := by
+      apply Finset.sum_congr rfl
+      intro R hR
+      rw [eulerThree_shellFlow_eq_three R
+        (by have hr := (Finset.mem_Ico.mp hR).1; omega)]
+    _ ≤ ∑ R ∈ Finset.Ico H (2 * H),
+        3 * ((eulerThreeShellLow R) ^ 2 +
+          (eulerThreeShellMiddle R) ^ 2 +
+          (eulerThreeShellTop R) ^ 2) := by
+      apply Finset.sum_le_sum
+      intro R _hR
+      let a := eulerThreeShellLow R
+      let b := eulerThreeShellMiddle R
+      let c := eulerThreeShellTop R
+      dsimp only
+      nlinarith [sq_nonneg (a - b), sq_nonneg (a - c),
+        sq_nonneg (b - c)]
+    _ = 3 * ((∑ R ∈ Finset.Ico H (2 * H),
+        (eulerThreeShellLow R) ^ 2) +
+      (∑ R ∈ Finset.Ico H (2 * H),
+        (eulerThreeShellMiddle R) ^ 2) +
+      (∑ R ∈ Finset.Ico H (2 * H),
+        (eulerThreeShellTop R) ^ 2)) := by
+        simp only [mul_add, Finset.sum_add_distrib, Finset.mul_sum]
+        ring
+    _ ≤ 9 * T := by linarith
+
 #print axioms oaiPaired_squareShell_eq_originalMertensDifference
 #print axioms oaiPaired_originalSharp_eq_movingPrimeFlux
 #print axioms oaiPaired_originalSharp_eq_movingSiteFlux
@@ -148,5 +195,6 @@ theorem oaiPaired_actualSharpMoment_consumer
 #print axioms oaiPaired_actualSharpEnergy_eq_nativeDyadicEnergy
 #print axioms oaiPaired_actualSharpEnergy_eq_primeSampler
 #print axioms oaiPaired_actualSharpMoment_consumer
+#print axioms oaiPaired_threeUniformDyadicEnergy
 
 end RHLean.Analysis
