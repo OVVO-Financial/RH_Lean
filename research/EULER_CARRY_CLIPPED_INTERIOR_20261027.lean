@@ -327,6 +327,7 @@ theorem eulerBucket_extended_j_quotient_eq_low
   have hdivHi : Y / j < ell + 1 :=
     (Nat.div_lt_iff_lt_mul hjpos).2
       (by simpa [Nat.mul_comm] using hmulHi)
+  change Y / j = ell
   omega
 
 /-- The extended j-window adds ZERO genuine historical Mertens mass,
