@@ -6,6 +6,8 @@ on:
     paths:
       - research/OAI78_CORR4_NESTED_FINITE_C_PAID_20261028.lean
       - research/OAI78_CORR4_OWNER_TAIL_PAID_20261028.lean
+      - research/OAI78_CORR4_NESTED_FINITE_C_AMPLITUDE_PAID_20261028.lean
+      - scripts/oai78_paid_native_regression.py
       - research/OAI78_CORR4_NESTED_SQUARE_RESERVES_20261028.lean
       - research/OAI78_ABEl_HYPERBOLA_DRIFT_PAYMENT_20261028.lean
       - .github/workflows/oai78-cor4-paid-estimates.yml
@@ -44,6 +46,7 @@ jobs:
           targets: >-
             research/OAI78_CORR4_NESTED_FINITE_C_PAID_20261028.lean
             research/OAI78_CORR4_OWNER_TAIL_PAID_20261028.lean
+            research/OAI78_CORR4_NESTED_FINITE_C_AMPLITUDE_PAID_20261028.lean
             research/OAI78_CORR4_NESTED_SQUARE_RESERVES_20261028.lean
             research/OAI78_ABEl_HYPERBOLA_DRIFT_PAYMENT_20261028.lean
       - name: Inspect theorem axioms
@@ -52,6 +55,7 @@ jobs:
           cat > /tmp/oai78_paid_axioms.lean <<'LEAN'
           import «research.OAI78_CORR4_NESTED_FINITE_C_PAID_20261028»
           import «research.OAI78_CORR4_OWNER_TAIL_PAID_20261028»
+          import «research.OAI78_CORR4_NESTED_FINITE_C_AMPLITUDE_PAID_20261028»
           import «research.OAI78_CORR4_NESTED_SQUARE_RESERVES_20261028»
           import «research.OAI78_ABEl_HYPERBOLA_DRIFT_PAYMENT_20261028»
           #check RHLean.Proof.oai78_nearest_daughter_eq_two_history_sub_finiteC
@@ -64,5 +68,9 @@ jobs:
           #print axioms RHLean.Proof.oai78Paid_large_owner_column_le_power
           #print axioms RHLean.Proof.oai78Nested_original_corr4_square_le_nine_eighths
           #print axioms RHLean.Proof.oai78Abel_continuous_drift_exact
+          #print axioms RHLean.Proof.oai78_nested_finiteC_physical_error_le_three_root
           LEAN
           lake env lean -DwarningAsError=true /tmp/oai78_paid_axioms.lean
+
+      - name: Finite arithmetic regression at 56, 317, 1027
+        run: python3 scripts/oai78_paid_native_regression.py
