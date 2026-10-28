@@ -177,3 +177,97 @@ its matched endpoint/carry weights. A generic two-sided Abel
 estimate cannot replace that interaction.
 
 No claim about a(n)=(-1)^(n+1) is an RH_Lean theorem about mu.
+
+## 8. Exact DOUBLE-INVERSION payment of the first endpoint plus smooth drift
+
+This is a stronger result than estimating E_1*M(N) and the smooth
+drift separately by the b-coordinate historical envelope.
+
+Write B=N-H with H=floor(sqrt R), L=R+1, and Q the first positive
+integer satisfying Q(Q+1)>=N. At any b>=1, E_1(b)=floor(L/b)-L/b.
+The full quotient inversion theorem gives
+
+  sum_(q=2)^Q M(r_q)
+       =1-M(N)-sum_(q=Q+1)^N M(r_q).
+
+Therefore EXACTLY, for every b,
+
+  E_1(b)*M(N) - (L/b)*sum_(q=2)^Q M(r_q)
+    = floor(L/b)*M(N) - L/b
+      + (L/b)*sum_(q=Q+1)^N M(r_q).             (DOUBLE)
+
+Let T_Q=sum_(q=Q+1)^N M(r_q), independent of b. The complete
+original punctured rank-one residual has the exact source formula
+
+  C_R =
+    P_R + sum_(b=1)^B mu(b) * [
+       V_b + (L/b)*T_Q - E_Q(b)*M(r_Q)
+           -sum_(q=1)^(Q-1) E_q(b)*delta_q
+           +sum_(a=1)^r_Q, a not |N mu(a)*T_R(a,b)
+    ],
+
+where V_b=sum_(m=A_1(b)+1)^A_Q(b) M(floor(Y_b/m)) and
+
+  P_R = M(N)*sum_(b=1)^B mu(b)*floor(L/b)
+            - L*sum_(b=1)^B mu(b)/b.
+
+This is the exact five-piece source verified by scripts/
+euler_coupled_head_abel_exact_probe.py. The terminal E_Q is the
+BUCKET-INDEXED endpoint, even for an empty I_Q.
+
+For R>=6, every omitted b in B<b<=L satisfies floor(L/b)=1.
+Applying genuine Mobius inversion AGAIN, now at L rather than N,
+
+  sum_(b=1)^B mu(b)*floor(L/b)
+     =1-[M(L)-M(B)].
+
+Thus the combined principal scalar is EXACTLY
+
+  P_R = M(N)*(1-M(L)+M(B)) - L*S_B,        (PAID)
+  S_B=sum_(b=1)^B mu(b)/b.
+
+The missing M(L)-M(B) is a window of only H+2 original coefficients,
+so |M(L)-M(B)|<=H+2. By the historical envelope
+|M(N)|<=1+sqrt(K_R*R).
+
+Ordinary one-variable Abel summation gives
+  S_B=M(B)/B + sum_(n=1)^(B-1) M(n)/(n(n+1)),
+and hence |S_B|<=C*sqrt(K_R) for K_R>=1, B<R.
+Therefore
+
+  |P_R| <= C' * R * sqrt(K_R)                   (UNCONDITIONAL).
+
+This uses the ORIGINAL Mobius inverse-divisor identity twice, genuine
+historical Mertens bounds, and a short coefficient window. No
+external zero-free region or conjecture is required.
+
+The new Lean source research/EULER_DOUBLE_INVERSION_ROOT_MODE_20261027.lean
+formally proves the exact truncated floor inversion at any wide B
+satisfying 2(B+1)>L; the final real-valued K_R numerical estimate is
+a separate elementary paper proof, not yet a named Lean theorem.
+
+### Numerical verification of the paid core
+
+All coefficients and rational phases were evaluated exactly, before
+display rounding:
+
+    R     M(N)   P_R          (L*S_B)*T_Q (remaining)
+     56     -2      +3.169       -17.536
+    100     +1      -0.852        -2.960
+    317     -3      +0.342      -123.661
+    500     -6      +4.323      -185.904
+   1000     +2      +1.515      +441.001
+
+Only P_R is independently paid. The complementary T_Q remains
+large and MUST be recoupled to V_b, -E_Q M(r_Q), and original
+small-a tail to obtain any fixed-eta arithmetic saving.
+
+This is a stronger **complete source reduction** than the prior
+phase-by-phase attempt: all interior q endpoint phases cancel in
+the coupled Abel head. Only E_1, E_Q and divisor-punch phases remain,
+and the E_1+smooth principal combination is now paid by double
+Mobius inversion. The divisor punch itself is O(R*tau(N)):
+for q|N the original right carry is zero so |E_q(b)|<1.
+
+The newly isolated open target is the FULL signed unpaid bracket,
+not the originally separate E_q or J_q norms.
