@@ -51,7 +51,10 @@ theorem oaiRootAlias_mobius_six : μ 6 = (1 : ℤ) := by
     ArithmeticFunction.moebius_apply_prime (by norm_num)
   have h3 : μ 3 = (-1 : ℤ) :=
     ArithmeticFunction.moebius_apply_prime (by norm_num)
-  norm_num [show (6 : ℕ) = 2 * 3 by norm_num, h2, h3] at hmult ⊢
+  calc
+    μ 6 = μ (2 * 3) := by norm_num
+    _ = μ 2 * μ 3 := hmult
+    _ = 1 := by rw [h2, h3]; norm_num
 
 /-- The two original integer Mobius coefficients cancel. -/
 theorem oaiRootAlias_mobius_five_add_six :
