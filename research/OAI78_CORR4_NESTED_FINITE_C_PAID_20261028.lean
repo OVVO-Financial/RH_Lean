@@ -126,10 +126,11 @@ theorem oai78_corr4_nested_finiteC_error_triangle
     _ ≤ ‖mertensSummatory (R - 1)‖ +
       ‖2 * oai78NestedHistoricalColumn R‖ +
       ‖lowOwnerNearestSquareReciprocalShell R‖ := by
-        rw [norm_neg, norm_neg]
-        linarith [norm_add_le (-mertensSummatory (R - 1))
-          (-(2 * oai78NestedHistoricalColumn R))]
-    _ = _ := by simp [norm_mul]
+        have h := norm_add_le (-mertensSummatory (R - 1))
+          (-(2 * oai78NestedHistoricalColumn R))
+        simp only [norm_neg] at h
+        linarith
+    _ = _ := by simp
 
 #print axioms oai78_nearest_daughter_eq_two_history_sub_finiteC
 #print axioms oai78_nearest_column_eq_history_sub_nested_finiteC
