@@ -104,8 +104,6 @@ theorem oai78_nested_historical_column_le_three_fourths_root
         2 * (R : ℝ) ^ 2 := by
     simpa [S, oai78NestedDaughterRoot] using
       sum_lowOwnerQ2NearestSquareRoot_sq_le_two_root_sq R (by omega)
-  have hcoeff0 :
-      0 ≤ (∑ q ∈ S, ((1 : ℝ) / (q : ℝ)) ^ 2) := by positivity
   have hroots0 :
       0 ≤ (∑ q ∈ S, (oai78NestedDaughterRoot R q : ℝ) ^ 2) := by
     positivity
@@ -145,7 +143,6 @@ theorem oai78_nested_finiteC_physical_error_le_three_root
     RHLean.Analysis.MertensExponent.mertens_norm_le (R - 1)
   have hMle : ‖mertensSummatory (R - 1)‖ ≤ (R : ℝ) := by
     exact hM.trans (by exact_mod_cast (Nat.sub_le R 1))
-  have hR0 : (0 : ℝ) ≤ (R : ℝ) := by positivity
   calc
     ‖lowOwnerPhysicalAmplitudeRemainder R 0 -
        (oai78NestedFiniteC R + oai78NestedFiniteCColumn R)‖ ≤
