@@ -80,17 +80,26 @@ theorem eulerAdmissibleChronologicalEnergy_identity
       _ = _ := by
         have hX : X + 1 - 1 = X := by omega
         simp [f, hX]
-  have hlast := eulerAdmissibleState_terminal R hR
-  have hfirst := eulerAdmissibleState_initial R
-  rw [← hstep] 
-  rw [htel]
-  rw [show eulerAdmissibleState R X = mertensSummatory X from
-    (by simpa [X] using hlast)]
-  rw [hfirst]
-  unfold eulerAdmissibleChronologicalDiagonal
-    eulerAdmissibleChronologicalMixed
-  rw [← Finset.sum_sub_distrib]
-  rfl
+  have hpayment :
+      (∑ p ∈ Finset.Icc R X,
+          (Complex.normSq (eulerAdmissibleState R p) -
+            Complex.normSq (eulerAdmissibleState R (p - 1)))) =
+        eulerAdmissibleChronologicalDiagonal R -
+          eulerAdmissibleChronologicalMixed R := by
+    rw [hstep]
+    unfold eulerAdmissibleChronologicalDiagonal
+      eulerAdmissibleChronologicalMixed
+    rw [Finset.sum_sub_distrib]
+  have hresult :
+      Complex.normSq (eulerAdmissibleState R X) -
+        Complex.normSq (eulerAdmissibleState R (R - 1)) =
+      eulerAdmissibleChronologicalDiagonal R -
+        eulerAdmissibleChronologicalMixed R := by
+    rw [← htel]
+    exact hpayment
+  rw [eulerAdmissibleState_terminal R hR,
+    eulerAdmissibleState_initial R] at hresult
+  linarith
 
 /-- The mixed return is the exact payment needed against the positive
 chronological diagonal and the prepared low-population energy. This statement
