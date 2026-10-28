@@ -1,0 +1,79 @@
+name: Historical square-window bounded gate and shared-divisor covariance
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - "research/EULER_SQUARE_WINDOW_BOUNDED_GATE_20261028.lean"
+      - "research/EULER_SQUARE_WINDOW_SHARED_GCD_20261028.md"
+      - "scripts/euler_square_window_gcd_probe.cpp"
+      - ".github/workflows/euler-square-window-gcd.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  lean:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up pinned Lean and cached Mathlib
+        uses: ./.github/actions/lean-setup
+      - name: Restore PNT+ build cache
+        uses: actions/cache/restore@v5
+        with:
+          path: .lake/packages/PrimeNumberTheoremAnd/.lake/build
+          key: pntplus-build-v1-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
+      - name: Prebuild PNT+ StrongPNT
+        run: lake build PrimeNumberTheoremAnd.StrongPNT
+      - name: Restore native library build cache
+        uses: actions/cache/restore@v5
+        with:
+          path: .lake/build
+          key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'RHLean.lean', 'RHLean/**/*.lean') }}
+          restore-keys: |
+            rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-
+      - name: Compile exact research import closure, warnings fatal
+        run: |
+          python3 scripts/compile_research_import_closure.py --build-library \
+            research/EULER_SQUARE_WINDOW_BOUNDED_GATE_20261028.lean
+      - name: Standard-axioms audit
+        run: |
+          cat > /tmp/euler_pop_axioms.lean <<'EOF'
+          import «research.EULER_ADMISSIBLE_SIGNED_RETURN_TELESCOPE_20261028»
+          #print axioms RHLean.Proof.eulerHistoricalSquareWindow_newRowIdentity
+          #print axioms RHLean.Proof.eulerHistoricalSquareGateQ_abs_le_five
+          #print axioms RHLean.Proof.eulerHistoricalSquareWindow_bilinear_step
+          #print axioms RHLean.Proof.eulerHistoricalSquareWindow_mertens_step
+          EOF
+          lake env lean -DwarningAsError=true /tmp/euler_pop_axioms.lean | tee /tmp/euler_pop_axioms.log
+          if grep -q 'sorryAx' /tmp/euler_pop_axioms.log; then exit 1; fi
+          python3 - <<'PY'
+          import re
+          log = open('/tmp/euler_pop_axioms.log').read()
+          allowed = {'propext', 'Classical.choice', 'Quot.sound'}
+          for line in log.splitlines():
+              match = re.search(r"depends on axioms: \[(.*)\]", line)
+              if match:
+                  used = {a.strip() for a in match.group(1).split(',') if a.strip()}
+                  assert used <= allowed, f"Nonstandard axioms: {used - allowed}"
+          print("PASS standard axioms only")
+          PY
+      - name: No admitted statements
+        run: |
+          python3 - <<'PY'
+          import pathlib, re
+          body = pathlib.Path('research/EULER_SQUARE_WINDOW_BOUNDED_GATE_20261028.lean').read_text()
+          body = re.sub(r'/-.*?-/', '', body, flags=re.S)
+          body = re.sub(r'--.*', '', body)
+          assert not re.search(r'\b(sorry|admit|axiom)\b', body)
+          print('PASS no sorry, admit, or axiom declarations')
+          PY
+      - name: Exact gate, shared-gcd and incomplete-period numerical audit
+        run: |
+          g++ -O3 -std=c++17 -Wall -Wextra -Werror \
+            scripts/euler_square_window_gcd_probe.cpp \
+            -o /tmp/euler_square_window_gcd_probe
+          /tmp/euler_square_window_gcd_probe
