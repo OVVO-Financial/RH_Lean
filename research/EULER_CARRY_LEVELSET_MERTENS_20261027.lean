@@ -324,11 +324,126 @@ theorem eulerBucketMertens_endpoint_lt_root
     _ ≤ R - 1 := Nat.div_le_self _ _
     _ < R := by omega
 
+
+/-- Exact integer Euclidean carry: both original arithmetic remainders
+are retained, with no smooth approximation. -/
+theorem eulerBucketCarry_eq_euclidean
+    (R q b a : ℕ) (hR : 2 ≤ R) (ha : 0 < a)
+    (hq : (R - 1) / a = q) :
+    eulerBucketCarry R q b a =
+      (a * (((R + 1) * q) % b) +
+         (R + 1) * ((R - 1) % a)) / (a * b) := by
+  let N := R - 1
+  let L := R + 1
+  let m := L * q / b
+  let rho := (L * q) % b
+  let t := N % a
+  have hN : a * q + t = N := by
+    simpa only [hq] using (Nat.div_add_mod N a)
+  have hQ : b * m + rho = L * q := Nat.div_add_mod (L * q) b
+  have hX :
+      squareRootEndpoint R =
+        (a * b) * m + (a * rho + L * t) := by
+    calc
+      squareRootEndpoint R = L * N := by
+        simpa [L, N] using eulerRootEndpoint_factor R hR
+      _ = L * (a * q + t) := by rw [hN]
+      _ = a * (L * q) + L * t := by ring
+      _ = a * (b * m + rho) + L * t := by rw [hQ]
+      _ = (a * b) * m + (a * rho + L * t) := by ring
+  have hquot :
+      squareRootEndpoint R / (a * b) =
+        m + (a * rho + L * t) / (a * b) := by
+    rw [hX, Nat.mul_comm (a * b) m,
+      Nat.mul_add_div (Nat.mul_pos ha (by omega : 0 < b))]
+  have hnest :
+      eulerBucketY R b / a = squareRootEndpoint R / (a * b) := by
+    unfold eulerBucketY
+    rw [Nat.div_div_eq_div_mul, Nat.mul_comm b a]
+  unfold eulerBucketCarry eulerBucketPhaseQuot
+  rw [hnest, hquot]
+  change m + (a * rho + L * t) / (a * b) - m =
+    (a * rho + L * t) / (a * b)
+  omega
+
+/-- True pointwise sharp carry range. The small power-saving lemma uses
+BOTH a<=N and the original Euclidean residues, not a generic floor matrix. -/
+theorem eulerBucketCarry_le_div_add_one
+    (R q b a : ℕ) (hR : 2 ≤ R) (ha : 0 < a) (hb : 0 < b)
+    (haN : a ≤ R - 1) (hq : (R - 1) / a = q) :
+    eulerBucketCarry R q b a ≤ (R - 1) / b + 1 := by
+  let N := R - 1
+  let L := R + 1
+  let rho := (L * q) % b
+  let t := N % a
+  have hr : rho ≤ b - 1 := by
+    have hlt : rho < b := Nat.mod_lt (L * q) hb
+    omega
+  have ht : t ≤ a - 1 := by
+    have hlt : t < a := Nat.mod_lt N ha
+    omega
+  have haR : a ≤ R := by omega
+  have haa : a - 1 + 1 = a := by omega
+  have hLbound : L * (a - 1) ≤ a * R := by
+    have hm : L * (a - 1) + L = L * a := by
+      rw [← mul_add, haa]
+    dsimp [L] at *
+    nlinarith
+  have hnum : a * rho + L * t ≤ a * (N + b) := by
+    calc
+      _ ≤ a * (b - 1) + L * (a - 1) :=
+        Nat.add_le_add (Nat.mul_le_mul_left a hr)
+          (Nat.mul_le_mul_left L ht)
+      _ ≤ a * (b - 1) + a * R :=
+        Nat.add_le_add_left hLbound _
+      _ = a * (N + b) := by
+        have heq : (b - 1) + R = N + b := by
+          dsimp [N]
+          omega
+        calc
+          _ = a * ((b - 1) + R) := by ring
+          _ = a * (N + b) := by rw [heq]
+  have hrat :
+      (a * rho + L * t) / (a * b) ≤ (N + b) / b := by
+    calc
+      _ ≤ (a * (N + b)) / (a * b) := Nat.div_le_div_right hnum
+      _ = (N + b) / b := Nat.mul_div_mul_left (m := a) (N + b) b ha
+  have hadd : (N + b) / b = N / b + 1 := by
+    calc
+      _ = (b * 1 + N) / b := by ring
+      _ = 1 + N / b := Nat.mul_add_div hb
+      _ = N / b + 1 := by omega
+  rw [eulerBucketCarry_eq_euclidean R q b a hR ha hq]
+  exact hrat.trans_eq hadd
+
+/-- Certified complexity bound for the COMPLETE genuine historical bucket.
+In particular b>N/2 forces at most TWO integer carry levels. -/
+theorem eulerBucketLevelCount_le_div_add_one
+    (R q b : ℕ) (hR : 2 ≤ R) (hq : 0 < q) (hb : 0 < b) :
+    eulerBucketLevelCount R q b ≤ (R - 1) / b + 1 := by
+  by_cases hne : eulerBucketLow R q < eulerBucketHigh R q
+  · have haMem :
+        eulerBucketLow R q + 1 ∈ eulerBucketIndices R q :=
+      Finset.mem_Ioc.mpr ⟨by omega, by omega⟩
+    have haN : eulerBucketLow R q + 1 ≤ R - 1 := by
+      have hhigh : eulerBucketHigh R q ≤ R - 1 :=
+        Nat.div_le_self _ _
+      have hhi := (Finset.mem_Ioc.mp haMem).2
+      omega
+    have hqexact := eulerBucketIndices_quotient R q
+      (eulerBucketLow R q + 1) hq haMem
+    have hbound := eulerBucketCarry_le_div_add_one R q b
+      (eulerBucketLow R q + 1) hR (Nat.succ_pos _) hb haN hqexact
+    simpa [eulerBucketLevelCount, hne] using hbound
+  · simp [eulerBucketLevelCount, hne]
+
 #print axioms eulerBucketIndices_quotient
 #print axioms eulerBucketCarry_antitone
 #print axioms eulerBucketCarry_ge_iff_le_jumpEnd
 #print axioms eulerBucketCarry_zero_on_divisor_member
 #print axioms eulerBucketCarry_sum_eq_historicalMertens
 #print axioms eulerBucketMertens_endpoint_lt_root
+#print axioms eulerBucketCarry_eq_euclidean
+#print axioms eulerBucketLevelCount_le_div_add_one
 
 end RHLean.Proof
