@@ -75,8 +75,25 @@ theorem eulerDoubleInversion_truncated_floor_rat
       eulerMuQ b * (((L / b : ℕ)) : ℚ)) =
       1 - (eulerHistoricalMertensQ L - eulerHistoricalMertensQ B) := by
   have hZ := eulerDoubleInversion_truncated_floor L B hL hBL hhalf
-  unfold eulerMuQ eulerHistoricalMertensQ
-  exact_mod_cast hZ
+  have hTerm (b : ℕ) :
+      eulerMuQ b * (((L / b : ℕ)) : ℚ) =
+        (((μ b : ℤ) * (((L / b : ℕ)) : ℤ) : ℤ) : ℚ) := by
+    simp only [eulerMuQ, Int.cast_mul, Int.cast_natCast]
+  calc
+    (∑ b ∈ Finset.Icc 1 B,
+      eulerMuQ b * (((L / b : ℕ)) : ℚ)) =
+      ∑ b ∈ Finset.Icc 1 B,
+        (((μ b : ℤ) * (((L / b : ℕ)) : ℤ) : ℤ) : ℚ) := by
+          apply Finset.sum_congr rfl
+          intro b _hb
+          exact hTerm b
+    _ = (((∑ b ∈ Finset.Icc 1 B,
+          (μ b : ℤ) * (((L / b : ℕ)) : ℤ)) : ℤ) : ℚ) := by
+          rw [Int.cast_sum]
+    _ = ((1 - (mertensSummatoryInt L - mertensSummatoryInt B) : ℤ) : ℚ) := by
+          rw [hZ]
+    _ = 1 - (eulerHistoricalMertensQ L - eulerHistoricalMertensQ B) := by
+          simp [eulerHistoricalMertensQ]
 
 #print axioms eulerDoubleInversion_upper_floor_one
 #print axioms eulerDoubleInversion_truncated_floor
