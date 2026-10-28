@@ -441,6 +441,36 @@ theorem eulerBucketLevelCount_le_div_add_one
     simpa [eulerBucketLevelCount, hne] using hbound
   · simp [eulerBucketLevelCount, hne]
 
+
+/-- The full original signed carry sum is UNCHANGED when divisor rows are
+removed: each omitted divisor has zero integer carry. -/
+theorem eulerBucketCarry_sum_unpunctured
+    (R q b : ℕ) (hR : 2 ≤ R) (hq : 0 < q) :
+    (∑ a ∈ (eulerBucketIndices R q).filter (fun a => ¬ a ∣ R - 1),
+        (μ a : ℤ) * (eulerBucketCarry R q b a : ℤ)) =
+      ∑ a ∈ eulerBucketIndices R q,
+        (μ a : ℤ) * (eulerBucketCarry R q b a : ℤ) := by
+  rw [Finset.sum_filter]
+  apply Finset.sum_congr rfl
+  intro a ha
+  by_cases hd : a ∣ R - 1
+  · have hc := eulerBucketCarry_zero_on_divisor_member R q b a hR hq ha hd
+    simp [hd, hc]
+  · simp [hd]
+
+/-- On b>N/2, EVERY real quotient bucket has at most two integer carry levels.
+This is a derived numerical *complexity* bound, not a covariance bound. -/
+theorem eulerBucketLevelCount_le_two_of_upper_half
+    (R q b : ℕ) (hR : 2 ≤ R) (hq : 0 < q) (hb : 0 < b)
+    (hhalf : (R - 1) / 2 < b) :
+    eulerBucketLevelCount R q b ≤ 2 := by
+  have hc := eulerBucketLevelCount_le_div_add_one R q b hR hq hb
+  have hNlt : R - 1 < b * 2 :=
+    (Nat.div_lt_iff_lt_mul (by norm_num : 0 < (2 : ℕ))).mp hhalf
+  have hquot : (R - 1) / b < 2 :=
+    (Nat.div_lt_iff_lt_mul hb).2 (by simpa [Nat.mul_comm] using hNlt)
+  omega
+
 #print axioms eulerBucketIndices_quotient
 #print axioms eulerBucketCarry_antitone
 #print axioms eulerBucketCarry_ge_iff_le_jumpEnd
@@ -449,5 +479,7 @@ theorem eulerBucketLevelCount_le_div_add_one
 #print axioms eulerBucketMertens_endpoint_lt_root
 #print axioms eulerBucketCarry_eq_euclidean
 #print axioms eulerBucketLevelCount_le_div_add_one
+#print axioms eulerBucketCarry_sum_unpunctured
+#print axioms eulerBucketLevelCount_le_two_of_upper_half
 
 end RHLean.Proof
