@@ -110,3 +110,69 @@ H=16,64,256,1024,4096. The exact signed six-term energy must reproduce the
 original Mobius shell energy on each window.
 
 Passing these numerical tests is a finite identity/correctness check only.
+
+
+## Second sampling axis: the literal integer-site partitions
+
+These are NOT merely bookkeeping categories. The hypothesis is that repeated
+sampling through moving, physically determined partitions can behave as a
+pseudorandomization operator on a deterministic multiplicative sign sequence.
+
+The prime-owner bands above form one sampling axis. A separate location axis is
+
+    S0(R) = [1,R-1]
+    S1(R) = [R,floor(X_R/2)]
+    S2(R) = [floor(X_R/2)+1,X_R].
+
+For X_R=R^2-1, signed site-band masses are
+
+    A_R=M(R-1)
+    B_R=M(floor(X_R/2))-M(R-1)
+    C_R=M(X_R)-M(floor(X_R/2)).
+
+They satisfy A_R+B_R+C_R=M(X_R) exactly. The physical top half C_R
+contains primes AND composites, unlike the prime-owner top class, which
+consists entirely of prime singletons.
+
+Both moving filters cross. Assign each nonzero Mobius site n<=X_R its
+integer-location row and greatest-prime-factor column. Three cells are
+structural zeros: site-low x owner-middle, site-low x owner-top, and
+site-middle x owner-top. The other six must retain their original signs.
+
+Now sample R uniformly over H<=R<2H. Let a_i(R) be the change in site
+mass i when R advances by 1 and b_j(R) the corresponding change in
+prime-owner band j. Both obey
+
+    sum_i a_i(R)=sum_j b_j(R)=Delta_R.
+
+The exact 3x3 cross moment is
+
+    K_ij(H)=sum_{R=H}^{2H-1} a_i(R)*b_j(R).
+
+The original square-block energy is precisely
+
+    sum_R Delta_R^2 = sum_{i=0}^2 sum_{j=0}^2 K_ij(H).
+
+The Lean theorem eulerSiteOwnerSampledCross_eq_nine_terms retains all
+nine terms; eulerSiteOwnerSampledCross_eq_squareShellEnergy proves they
+sum to the original shell energy. eulerSite_sampledSixTermGram also certifies
+the independent six-term location-band variance decomposition.
+
+Numerical audit scripts/euler_three_site_owner_surrogate_sampler.cpp uses
+actual integer mu(n): directly enumerates all physical 3x3 cells at roots
+317,1027,5561,10000 and all nine dynamic cross terms at
+H=16,64,256,1024,4096.
+
+### What stochastic mathematics can legitimately be imported?
+
+Uniformly choosing R from [H,2H) makes each deterministic channel a random
+variable by random selection of its input, NOT by random alteration of mu(n).
+These variables are not assumed independent. This sampling gives exact
+empirical moments and conditioned population probes. Any concentration
+theorem requires proof of its hypotheses on the actual arithmetic masks.
+
+Concentration of a Monte Carlo estimator of M(X), alone, does NOT bound
+the deterministic value of M(X). Conservation identities themselves merely
+reassemble the original second moment. An independent arithmetic mixing
+bound is still necessary, accounting for quadratic residues, incomplete
+prime periods, and common-prime-factor singularities.
