@@ -176,3 +176,42 @@ the deterministic value of M(X). Conservation identities themselves merely
 reassemble the original second moment. An independent arithmetic mixing
 bound is still necessary, accounting for quadratic residues, incomplete
 prime periods, and common-prime-factor singularities.
+
+
+## A genuinely provable deterministic randomization property
+
+More than reassembly: for each FIXED divisor d>0, the square-block
+multiple-count discrepancy has uniformly bounded *cumulative first moment*
+over every consecutive interval of sampled roots. Define
+
+    X_R=R^2-1,
+    N_R(d)=floor(X_(R+1)/d)-floor(X_R/d),
+    err_R(d)=d*N_R(d)-(X_(R+1)-X_R).
+
+The actual count N_R(d) is nonnegative and the discrepancy has an exact
+remainder representation:
+
+    err_R(d)=(X_R mod d)-(X_(R+1) mod d).
+
+Therefore every A<=B and d>0 satisfy
+
+    sum_{R=A}^{B-1} err_R(d)
+       = (X_A mod d)-(X_B mod d),
+    |sum err_R(d)|<d.
+
+Equivalently, the cumulative error between the exact number of divisor
+multiples in the sampled square blocks and their total length divided
+by d has absolute value STRICTLY LESS THAN 1. This is an all-interval,
+all-d theorem, not a numerical approximation or randomness hypothesis.
+
+Kernel certification:
+research/EULER_SQUARE_BLOCK_DIVISOR_SURROGATE_20261028.lean
+with eulerSquareBlockDivisorSampleError_eq_mod_boundary,
+eulerSquareBlockDivisorSampleError_telescope and
+eulerSquareBlockDivisorSampleError_abs_lt.
+
+The essential limit is decisive: first moments of individual divisor
+streams telescope beautifully; the needed Möbius power saving involves
+a signed SECOND moment, with products of distinct divisor-count
+errors and shared-prime/incomplete-period correlations. Proving bounds
+for those true products is the arithmetic mixing theorem, still open.
