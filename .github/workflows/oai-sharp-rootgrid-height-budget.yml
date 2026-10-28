@@ -6,6 +6,7 @@ on:
     paths:
       - "research/OAI_SHARP_ROOTGRID_HEIGHT_BUDGET_20261028.lean"
       - "research/OAI_SHARP_ROOTGRID_HEIGHT_AUDIT_20261028.md"
+      - "scripts/oai_root_phase_harmonic_probe.py"
       - ".github/workflows/oai-sharp-rootgrid-height-budget.yml"
   workflow_dispatch:
 
@@ -53,3 +54,6 @@ jobs:
               assert used<=allowed,used-allowed
           print("PASS standard axioms: second/fourth NNS moments, refined sampling budgets and square-jump zero")
           PY
+
+      - name: Genuine-Mobius root-phase signed harmonic diagnostic
+        run: python3 scripts/oai_root_phase_harmonic_probe.py
