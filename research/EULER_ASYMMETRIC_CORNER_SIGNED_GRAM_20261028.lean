@@ -175,8 +175,8 @@ theorem eulerAsym_omitted_row
       (∑ a ∈ Finset.Icc 1 K,
         (((μ a : ℤ) : ℂ)) * (((K / a : ℕ)) : ℂ)) = 1 := by
     have hcast := congrArg (fun z : ℤ => (z : ℂ)) htotalZ
-    push_cast at hcast
-    simpa using hcast
+    simpa only [Int.cast_sum, Int.cast_mul, Int.cast_natCast,
+      Int.cast_one] using hcast
   let f : ℕ → ℂ := fun a =>
     (((μ a : ℤ) : ℂ)) * (((K / a : ℕ)) : ℂ)
   have hsplit := Finset.sum_Ioc_consecutive
@@ -349,7 +349,6 @@ theorem eulerAsymCorner_norm_le_two_R (R : ℕ) (hR : 2 ≤ R) :
     _ = (H : ℝ) * ((H + 2 : ℕ) : ℝ) := by
       rw [Finset.sum_const, hcard]
       simp only [nsmul_eq_mul, Nat.cast_add, Nat.cast_ofNat]
-      ring
     _ ≤ 2 * (R : ℝ) := by exact_mod_cast hnat
 
 /-- REUSE of the established signed NNS/Gram diagonal-plus-cross
