@@ -66,7 +66,6 @@ private theorem eulerHeadFiniteTelescope (n : ℕ) (f : ℕ → ℚ) :
   | zero => simp
   | succ n ih =>
     rw [Finset.sum_range_succ, ih]
-    simp only [Nat.succ_eq_add_one]
     ring
 
 /-- Any matched endpoint difference and window length telescope exactly;
@@ -149,12 +148,22 @@ theorem eulerCoupled_head_interior_abel_no_drift
             eulerHistoricalMertensQ ((R - 1) / q)) := by
   rw [eulerCoupled_head_interior_abel R Q b hQ]
   unfold eulerCoupledHeadPostAbelQ
+  have hsum_aux (n : ℕ) :
+      (∑ i ∈ Finset.range n, eulerHeadMertensQ R (i + 2)) =
+        ∑ q ∈ Finset.Ioc 1 (n + 1),
+          eulerHistoricalMertensQ ((R - 1) / q) := by
+    induction n with
+    | zero => simp
+    | succ n ih =>
+        rw [Finset.sum_range_succ,
+          Finset.sum_Ioc_succ_top (by omega : 1 ≤ n + 1), ih]
+        simp [eulerHeadMertensQ, eulerBucketHigh]
   have hsum :
       (∑ i ∈ Finset.range (Q - 1), eulerHeadMertensQ R (i + 2)) =
         ∑ q ∈ Finset.Ioc 1 Q,
           eulerHistoricalMertensQ ((R - 1) / q) := by
-    rw [← Finset.sum_Ioc_eq_sum_range]
-    simp [eulerHeadMertensQ, eulerBucketHigh]
+    have hQeq : Q - 1 + 1 = Q := by omega
+    simpa [hQeq] using hsum_aux (Q - 1)
   have hcancel := eulerAbelSmoothDriftQ_eq_compensated R Q b hR hQ hQN
   have hlinear :
       (∑ i ∈ Finset.range (Q - 1),
