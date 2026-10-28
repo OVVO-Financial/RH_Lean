@@ -113,7 +113,7 @@ def eulerHistoricalMertensQ (n : ℕ) : ℚ :=
 /-- Apply the already-proved no-drift identity to the exact rational
 Abel coefficient d=(R+1)/b, retaining the whole complementary tail. -/
 theorem eulerAbelSmoothDriftQ_eq_compensated
-    (R Q b : ℕ) (hR : 2 ≤ R) (hQ : 1 ≤ Q) (hQN : Q ≤ R - 1) :
+    (R Q b : ℕ) (_hR : 2 ≤ R) (hQ : 1 ≤ Q) (hQN : Q ≤ R - 1) :
     - (((R + 1 : ℕ) : ℚ) / (b : ℚ)) *
       (∑ q ∈ Finset.Ioc 1 Q,
         eulerHistoricalMertensQ ((R - 1) / q)) =
