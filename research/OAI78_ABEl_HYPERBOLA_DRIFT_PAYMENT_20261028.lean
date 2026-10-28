@@ -21,7 +21,7 @@ open RHLean.Analysis
 /-- Original q>Q historical quotient sum, with exact small-a multiplicity.
     A hyperbola identity; no analytic Mertens bound or PNT is used. -/
 theorem oai78Abel_tail_eq_small_cofactor_sum
-    (N Q : ℕ) (hQ : 1 ≤ Q) (hQN : Q ≤ N) :
+    (N Q : ℕ) (hQ : 1 ≤ Q) (_hQN : Q ≤ N) :
     (∑ q ∈ Finset.Ioc Q N, mertensSummatoryInt (N / q)) =
       ∑ a ∈ Finset.Icc 1 (N / Q),
         (ArithmeticFunction.moebius a : ℤ) * ((N / a - Q : ℕ) : ℤ) := by
@@ -144,7 +144,7 @@ theorem oai78Abel_hyperbola_three_terms
                 ring
       _ = _ := by rw [mertensSummatoryInt_eq_Icc]
   rw [hsmall] at hcore
-  convert hcore using 1 <;> ring
+  convert hcore using 1; ring
 
 /-- No separately estimated R^(29/16) drift: the three original
     continuous Abel pieces combine to a SINGLE Mertens historical
@@ -170,7 +170,9 @@ theorem oai78Abel_continuous_drift_exact
           (((N / a : ℕ) : ℚ))) -
       (Q : ℚ) * (((mertensSummatoryInt (N / Q) : ℤ) : ℚ)) =
       1 - (((mertensSummatoryInt N : ℤ) : ℚ)) := by
-    exact_mod_cast h
+    have hc := congrArg (fun z : ℤ => (z : ℚ)) h
+    simpa only [Int.cast_add, Int.cast_sub, Int.cast_mul,
+      Int.cast_sum, Int.cast_natCast, Int.cast_one] using hc
   linear_combination -((L : ℚ) / (b : ℚ)) * hRat
 
 #print axioms oai78Abel_tail_eq_small_cofactor_sum
