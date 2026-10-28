@@ -38,10 +38,14 @@ jobs:
           log=pathlib.Path("/tmp/oai-rootgrid-budget.log").read_text()
           assert "oaiGenericRelativeBudget_iff" in log
           assert "oaiGenericAbsoluteBudget_iff" in log
+          assert "oaiLinearGridRelativeBudget_iff" in log
+          assert "oaiLinearGridAbsoluteBudget_iff" in log
+          assert "oaiNNSTwoSidedSecond_eq_energy" in log
+          assert "oaiNNSDyadicTwoSided_eq_energy" in log
           allowed={"propext","Classical.choice","Quot.sound"}
           found=re.findall(r"depends on axioms:\s*\[([^\]]+)\]",log,re.S)
           for blob in found:
               used={x.strip() for x in blob.split(",") if x.strip()}
               assert used<=allowed,used-allowed
-          print("PASS standard axioms only; both quantitative budget identities certified")
+          print("PASS standard axioms: generic and refined trace budgets, plus exact NNS signed moments")
           PY
