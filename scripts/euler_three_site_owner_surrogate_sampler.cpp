@@ -1,10 +1,32 @@
 // Two successive deterministic sampling filters: moving integer site interval
 // and largest-admitted-prime Euler class, observed with R uniform in [H,2H).
 // Exact integer Mobius values throughout; no randomized signs or fitted model.
-#define main prime_owner_three_stratum_main
-#include "euler_three_stratum_square_sampler.cpp"
+#define main baseline_admissible_euler_probe_main
+#include "euler_admissible_population_probe.cpp"
 #undef main
 #include <array>
+
+struct Three {
+  int64_t low=0, middle=0, top=0, mertens=0;
+};
+
+Three three_at(int root, const Sieve &s) {
+  const int x=root*root-1;
+  const int64_t top = -static_cast<int64_t>(s.pi[x]-s.pi[x/2]);
+  int64_t middle_debt=0;
+  for(int k=2;k<root;++k) {
+    const int lower=std::max(root-1,x/(k+1));
+    const int upper=x/k;
+    assert(lower<=upper);
+    middle_debt+=static_cast<int64_t>(s.mertens[k])*
+      (static_cast<int64_t>(s.pi[upper])-s.pi[lower]);
+  }
+  const int64_t middle=-middle_debt;
+  const int64_t final=s.mertens[x];
+  const int64_t low=final-middle-top;
+  assert(low+middle+top==final);
+  return {low,middle,top,final};
+}
 
 struct Site3 {
   int64_t low=0, middle=0, top=0, all=0;
