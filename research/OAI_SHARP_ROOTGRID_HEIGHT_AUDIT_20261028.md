@@ -325,7 +325,7 @@ for the actual shrinking sharp-window profiles.
 ## 8. NNS sampling is an exact discrete-to-continuous DISTRIBUTION bridge
 
 Canonical source:
-https://github.com/OVVO-Financial/NNS/blob/master/vignettes/NNSvignette_05_Sampling.Rmd
+https://github.com/OVVO-Financial/NNS/blob/NNS-Beta-Version/vignettes/NNSvignette_05_Sampling.Rmd
 
 In NNS, the degree-zero lower-partial-moment ratio recovers the
 empirical CDF; positive degrees create continuous threshold
