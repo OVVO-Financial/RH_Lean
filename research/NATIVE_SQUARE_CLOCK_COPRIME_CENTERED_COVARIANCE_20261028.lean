@@ -54,7 +54,7 @@ theorem nativeEulerRootCentered_sum_zero (d : ℕ) [NeZero d] :
           (d : ℚ) * nativeEulerRootMean d := by rw [hconst]
     _ = 0 := by
       unfold nativeEulerRootMean
-      field_simp
+      field_simp [hd] <;> ring
 
 /-- A FULL root orbit kills all centered fractional cross-energy for
     coprime moduli, including genuine composite moduli. This retains the
