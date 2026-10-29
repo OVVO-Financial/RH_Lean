@@ -113,6 +113,11 @@ theorem offcritical_MellinCoarsen_residue_of_regularDefect
       (offcriticalMellinScale q rho * residue)
       (fun s => offcriticalMellinScale q s * f s)
       defect hscaled hregular
-  simpa only [hcoarse] using hsum
+  have hfun : coarse =
+      (fun s => offcriticalMellinScale q s * f s + defect s) := by
+    funext s
+    exact hcoarse s
+  rw [hfun]
+  exact hsum
 
 end RHLean.Analysis
