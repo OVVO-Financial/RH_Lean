@@ -60,9 +60,7 @@ theorem offcritical_simplePoleResidue_add_regular
       (𝓝[≠] rho) (𝓝 0) := by
     simpa using h0.mul hhlim
   have hsum := hf.add hcorr
-  convert hsum using 1 <;> simp only [zero_add]
-  · funext s
-    ring
+  simpa only [mul_add, add_zero] using hsum
 
 /-- A continuous scaling multiplier evaluates at the pole exactly:
 the coefficient scales by multiplier(rho), independently of all
