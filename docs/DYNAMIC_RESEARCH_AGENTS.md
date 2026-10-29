@@ -1,6 +1,26 @@
 # RH_Lean dynamic seven-agent research protocol
 
 
+## 2026-10-29 NEXT-RUN ROUTING (operative only after HUMAN MERGE)
+
+Read [the full source-faithful square-clock attack](RHLEAN_NATIVE_SQUARE_CLOCK_AGENT_DIRECTIVE_20261029.md) before all historical role tables below. The new objective is **not another RH equivalence**. Starting from the literal eulerFractionOffQ mu(a)mu(b) owner source, pay the complete original signed principal + centered + high-product + mixed + reciprocal/diagonal/physical-boundary costs and obtain an independent quantitative gain. The 2026-10-29 Analytic accepted PAPER estimate for the centered low product-modulus sector is a real subsource advance but no global exponent gain. Referee and Lean must check its shared-GCD/Gauss details before upgrading. First remaining breakthrough target: full sharp square-shell dyadic energy H^(5/2-eta+eps), eta>0. Preserve exact source/normalizers; no invented independence, sqrt(de) bounds, source-free cancellation or recycled 7/8.
+
+| Existing agent | Unique compulsory next contribution |
+| --- | --- |
+| #1 Coordinator | One complete original-source cost/exponent ledger, verified live status, one new bound target and one legal falsifier |
+| #2 Owner Payment | Principal P_Q, high-conductor ab>Q, signed mixed terms and genuine historical first-owner/cofactor returns |
+| #3 Analytic Type II | Independently check paper shared-GCD moment; prove or falsify incomplete quadratic correlation when H<lcm(d,e) |
+| #4 Finite Wheel | Cubefree alpha_d grouping, shared-prime/even-modulus Gauss checks and legitimate coherent resonance packets |
+| #5 Prime Census | Exact-rational principal at d=6,10,12, Q^3 vs H transition, held-out owner/GCD/mixed energy and falsifiers |
+| #6 Adversarial Referee | Independent epsilon/Gauss/period/provenance audit and primorial uncentered counterexample; reject circular savings |
+| #7 Lean Verification | On current main (merged #1051 and #1052), formalize only referee-accepted alpha_d, shared-GCD finite Fourier/moment source, with warning-fatal Lean and axiom audit |
+
+The older OAI/QRH/final-return routing below is historical or complementary, NOT a compulsory task overriding this. Independent CORR4/finite-A, native VF/SAT/JOH, MU-LIFT, Co/Div and NYMAN routes remain available and do not inherit unproved cross-source bounds.
+
+**Operating rules unchanged:** one existing scheduled run per role/day; ordered handoffs, Coordinator's identical 00/90 mirror reports, exact SHA/status and paper-vs-Lean provenance, six own-report-only specialists, scoped Lean draft-PR/Actions-only lane, human-only main merge, no saved Studio or schedule edits. A branch proposal is not live until the PR is merged. Never revise previously completed daily reports.
+
+
+
 ## ACTIVE AFTER HUMAN MERGE: RH_Lean-native physical arithmetic leads (2026-10-26)
 
 **First selector:** [RH_Lean-native first mathematical proof routing](RHLEAN_NATIVE_FIRST_PROOF_ROUTING_20261026.md). The older "ACTIVE: one final-return all-Dirichlet leaderboard target" section below is **SUPERSEDED AS AGENT ROUTING**, not a proof or a statement that the hypothetical count theorem is false. **Do not assign all seven specialists to Collet WindowFiber**, and do not try to infer sigma_sat>0 from two exactly crossing existing moment/count inequalities. **Native first:** direct pi - VF_can/first-bad owners (#915 source), genuine S=A-T signed prime/cofactor chronology, Co/Div complete covariance, CORR4 and finite-A/C/MU-LIFT original-source inputs. **Corresponding OpenAI layer:** actual ideal-prime compensated A-B packets and complete labelled height-integrated signed NNS Gram, including principal/resonant/exceptions; test a source-specific cross-prime estimate or genuine counterexample before formalization. **Downstream only:** selected detector/final-return exponent accounting after an independently proved improved source theorem. Seven distinct roles, their original source files, falsifiers and stop conditions are in the new directive; replace the old role-table assignments below by the new ones upon merge. Retain the ten-route DAG, exact imports and proof statuses; no new exponent gain, schedules, saved Studio edits, permissions or autonomous merges.
