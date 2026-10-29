@@ -1,0 +1,49 @@
+name: Off-critical zero HIGH and canonical VF bridge
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'research/OFF_CRITICAL_ZERO_HIGH_VF_BRIDGE_20261029.lean'
+      - 'research/OFF_CRITICAL_ZERO_HIGH_VF_CONTRACT_20261029.md'
+      - '.github/workflows/offcritical-high-vf.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  offcritical-high-vf-kernel:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Lean 4.34.1 and cached mathlib
+        uses: ./.github/actions/lean-setup
+      - name: Reject proof holes or project axioms
+        run: |
+          if grep -nE '^[[:space:]]*(sorry|admit|axiom)([[:space:]]|$)' \
+               research/OFF_CRITICAL_ZERO_HIGH_VF_BRIDGE_20261029.lean; then
+            echo "Unproved source declarations are prohibited."
+            exit 1
+          fi
+      - name: Warning-fatal import closure and complete source compile
+        run: |
+          python3 scripts/compile_research_import_closure.py --build-library \
+            research/OFF_CRITICAL_ZERO_HIGH_VF_BRIDGE_20261029.lean
+      - name: Inspect theorem signatures and axioms
+        run: |
+          cat > /tmp/OffCriticalHighVFAudit.lean <<'LEAN'
+          import «research.OFF_CRITICAL_ZERO_HIGH_VF_BRIDGE_20261029»
+          #check RHLean.Analysis.offCriticalRightZero_forces_highEnergyCriterion_failure
+          #check RHLean.Analysis.offCriticalRightZero_forces_mertensPower_failure
+          #check RHLean.Analysis.squareScaleCoarsen_endpointShortage
+          #check RHLean.Analysis.actualThetaSquareShortage_eq_physicalFactorSource
+          #check RHLean.Analysis.actualThetaSquareShortage_coarsen_eq_endpoints
+          #check RHLean.Analysis.canonicalVF_step_eq_thetaShortage_and_position
+          #check RHLean.Analysis.canonicalVF_step_eq_signed_nativeOwner_and_descent
+          #print axioms RHLean.Analysis.offCriticalRightZero_forces_highEnergyCriterion_failure
+          #print axioms RHLean.Analysis.squareScaleCoarsen_endpointShortage
+          #print axioms RHLean.Analysis.canonicalVF_step_eq_signed_nativeOwner_and_descent
+          LEAN
+          lake env lean -DwarningAsError=true /tmp/OffCriticalHighVFAudit.lean
