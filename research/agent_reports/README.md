@@ -1,5 +1,15 @@
 # RH_Lean daily multi-agent research ledger
 
+
+## 2026-10-29 user-directed next-run mathematics: square-clock signed source (conditional)
+
+After HUMAN MERGE of [draft routing PR #1053](https://github.com/OVVO-Financial/RH_Lean/pull/1053), use latest main:docs/RHLEAN_NATIVE_SQUARE_CLOCK_AGENT_DIRECTIVE_20261029.md as the next-first proof selector. Until merged, this reporting-branch notice is a **handoff preview**, never an override of main. Read research/agent_reports/SCHEDULE_PROMPTS.md for seven distinct role prompts and live-authority gate.
+
+Main mathematical change: attack the literal original 2*eulerFractionOffQ square-clock \(\mu(a)\mu(b)\) source, not additional offcritical LOW/HIGH/Mellin/realification equivalences. Start from the accepted paper-level centered complete low-product shared-GCD moment (20261029-analytic-1); keep its principal P_Q, high-product ab>Q, mixed, diagonal, reciprocal-square and sharp boundary bills **open**. Pursue genuine incomplete quadratic correlations beyond Q^3<=H and a complete shell moment saving H^(5/2-eta+eps), eta>0. Today's Wheel/Census/Referee show principal compensations and an uncentered primorial obstruction; don't treat centered O(HQ) as full source. #1051 and #1052 merged per live PR refresh, yet no new global exponent.
+
+Existing report paths and run cadence, one invocation/agent/day, Coordinator mirror convention, role permissions and human-only merge remain unchanged. Do NOT edit earlier report files or saved Studio configurations.
+
+
 ## 2026-10-17 next-run topic: complete signed Mobius covariance
 
 The user has requested a covariance-first attack by all seven specialists. This reporting-branch note is **not active policy by itself**: first verify that instruction PR #970 is HUMAN-MERGED into `main`, then read `main:docs/SIGNED_MOBIUS_COVARIANCE_RH_SEAM_2026_10_17.md` and the live `AGENTS.md`/proof contract. The old owner cut and K1/K2/K3 examples below remain evidence and potential arithmetic mechanisms but are no longer the FIRST cross-role assignment after that merge.
