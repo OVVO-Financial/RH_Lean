@@ -50,7 +50,7 @@ theorem offcriticalMellin_block_identity
           a j * offcriticalSquareMellinKernel s (j + 1)) +
         offcriticalLocalMellinDefect a q R s := by
   unfold offcriticalLocalMellinDefect
-  rw [Finset.sum_mul, ← Finset.mul_sum, ← Finset.sum_add_distrib]
+  rw [Finset.sum_mul, Finset.mul_sum, ← Finset.sum_add_distrib]
   apply Finset.sum_congr rfl
   intro j _hj
   ring
