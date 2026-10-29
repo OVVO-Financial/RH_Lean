@@ -116,7 +116,7 @@ theorem offcriticalZeroPrimitive_scale
     have hn0 : (n : ℝ) ≠ 0 := by
       exact_mod_cast hn
     have hqn : q * n ≠ 0 := mul_ne_zero (Nat.ne_of_gt hq) hn
-    simp [offcriticalZeroPrimitive, hn, hqn]
+    simp only [offcriticalZeroPrimitive, ite_eq_right hn, ite_eq_right hqn]
     have hsplit :
         (2 * rho) * ((Real.log ((q * n : ℕ) : ℝ) : ℝ) : ℂ) =
           (2 * rho) * ((Real.log (q : ℝ) : ℝ) : ℂ) +
@@ -189,14 +189,15 @@ theorem offcriticalZeroEigenMultiplier_norm (rho : ℂ) (q : ℕ) :
   rw [Complex.norm_exp]
   congr 1
   have hIm :
-      (((Real.log (q : ℝ) : ℝ) : ℂ)).im = 0 := by simp
+      (((Real.log (q : ℝ) : ℝ) : ℂ)).im = 0 := by
+        simp only [Complex.ofReal_im]
   have hRe :
-      (((Real.log (q : ℝ) : ℝ) : ℂ)).re = Real.log (q : ℝ) := by simp
+      (((Real.log (q : ℝ) : ℝ) : ℂ)).re = Real.log (q : ℝ) := by
+        simp only [Complex.ofReal_re]
   rw [Complex.mul_re, hIm, hRe]
   simp only [mul_zero, sub_zero]
   have hCoeff : (2 * rho - 1).re = 2 * rho.re - 1 := by
     simp [Complex.sub_re, Complex.mul_re]
-    ring
   rw [hCoeff]
 
 /-- The reflected mode has reciprocal radial eigenvalue,
