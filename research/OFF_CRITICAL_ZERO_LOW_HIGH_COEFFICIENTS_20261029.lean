@@ -214,4 +214,22 @@ theorem offcriticalLow_LSeries_differentiableAt
     exact_mod_cast hs
   exact (LSeries_hasDerivAt (habsc.trans_lt hpoint)).differentiableAt
 
+/-- The genuine fixed-height LOW Dirichlet series is fully analytic,
+not merely differentiable, throughout Re(s)>1/2. This is unconditional. -/
+theorem offcriticalLow_LSeries_analyticAt
+    (Lambda : ℝ) {s : ℂ} (hs : (1 : ℝ) / 2 < s.re) :
+    AnalyticAt ℂ (LSeries (offcriticalLowCoefficient Lambda)) s := by
+  have habsc :
+      LSeries.abscissaOfAbsConv (offcriticalLowCoefficient Lambda) ≤
+        ((1 : ℝ) / 2 : EReal) := by
+    apply LSeries.abscissaOfAbsConv_le_of_forall_lt_LSeriesSummable
+    intro y hy
+    exact offcriticalLow_LSeriesSummable Lambda
+      (s := (y : ℂ)) (by simpa using hy)
+  have hlt :
+      LSeries.abscissaOfAbsConv (offcriticalLowCoefficient Lambda) <
+        (s.re : EReal) :=
+    lt_of_le_of_lt habsc (by exact_mod_cast hs)
+  exact (LSeries_analyticOnNhd (offcriticalLowCoefficient Lambda)) hlt
+
 end RHLean.Proof
