@@ -258,3 +258,7 @@ No main source, proof branch, PR, issue, workflow, schedule, permission, or anot
 **Canonical `VFCanonicalSquareVonKochStatement`:** OPEN.
 **Finite A/C and complete signed source payment:** OPEN.
 **RH:** OPEN.
+
+## I. Publication verification
+
+The completed report was created by commit `46eb2b032bb26e4adf7226d60fea89f8f94d7b19` and read back as blob `882134de79684238f8c32be59a32ba01590ab46e` (12,780 characters). The readback contained `COMPLETED`, claim `20261029-wheel-1`, the proof of (1)-(4), and no non-whitespace control characters. This receipt changes no mathematics.
