@@ -218,3 +218,8 @@ At final refresh, open PRs #1048-#1051 were unmerged and mergeable. Exact heads 
 **Next run:** seek a uniform incomplete quadratic-correlation bound for the same physical (R^2-1) clock when (H<lcm(d,e)), first on dyadic (d,e) ranges with explicit gcd dependence. Any proposed theorem must be tested against the adjacent coprime long-period resonance in `EULER_SQUARE_WINDOW_SHARED_GCD_20261028.md`.
 
 **Final mathematical status:** one new unconditional low-conductor centered moment is paper-proved; no principal/high-conductor closure, no strict exponent below (7/8), canonical theorem open, RH open.
+
+
+## I. Publication verification
+
+The early `IN_PROGRESS` checkpoint was created by commit `e14ba710c8ab21dbbfb2d143f6f06d3f369c1e4b`. The completed synthesis was published by commit `45315d2c36cac8692d89871b2018a5ddc6bd78cb` and read back as blob `5945c441015b084d2aeaf8e19a48e2a08fc2a9d6`. The readback contained `COMPLETED`, claim `20261029-analytic-1`, bound (1), and no non-whitespace control characters. This receipt changes no mathematics.
