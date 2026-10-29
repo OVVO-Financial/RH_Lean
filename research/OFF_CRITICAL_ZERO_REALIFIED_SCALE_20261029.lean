@@ -33,7 +33,8 @@ theorem offcriticalComplexCoarsen_increment
     offcriticalComplexCoarsen q
         (offcriticalPotentialIncrement potential) R =
       (potential (q * (R + 1)) - potential (q * R)) / (q : ℂ) := by
-  have hle : q * R ≤ q * (R + 1) := by omega
+  have hle : q * R ≤ q * (R + 1) :=
+    Nat.mul_le_mul_left q (Nat.le_succ R)
   unfold offcriticalComplexCoarsen offcriticalPotentialIncrement
   rw [Finset.sum_Ico_sub potential hle]
 
