@@ -59,7 +59,7 @@ theorem offcriticalHighReciprocal_preserves_pole_order
           (fun s : ℂ =>
             -LSeries (offcriticalLowCoefficient Lambda) s) := by
     funext s
-    simp [offcriticalHighReciprocal, Pi.add_apply, sub_eq_add_neg]
+    simp only [offcriticalHighReciprocal, Pi.add_apply, sub_eq_add_neg]
   rw [hfun]
   exact hPreserve
 
