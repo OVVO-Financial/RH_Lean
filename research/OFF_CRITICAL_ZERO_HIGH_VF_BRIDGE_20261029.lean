@@ -95,7 +95,8 @@ theorem squareScaleCoarsen_endpointShortage
     squareScaleCoarsen q (squareEndpointShortage f) R =
       (squareEndpointPotential f (q * (R + 1)) -
         squareEndpointPotential f (q * R)) / (q : ℝ) := by
-  have hle : q * R ≤ q * (R + 1) := by omega
+  have hle : q * R ≤ q * (R + 1) :=
+    Nat.mul_le_mul_left q (Nat.le_succ R)
   unfold squareScaleCoarsen squareEndpointShortage
   rw [Finset.sum_Ico_sub (squareEndpointPotential f) hle]
 
