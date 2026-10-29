@@ -123,4 +123,95 @@ theorem offcriticalLow_normSum_le
     _ ≤ (((Nat.sqrt N + 1) * (Nat.floor Lambda + 1) : ℕ) : ℝ) := by
           exact_mod_cast offcriticalLowSupport_card_le Lambda N
 
+/-! ## Absolute Dirichlet series beyond the critical line -/
+
+open Filter Asymptotics
+
+/-- The absolute mass of the actual canonical LOW coefficients is
+O(N^(1/2)) at all natural cutoffs, not merely on square endpoints. -/
+theorem offcriticalLow_absoluteMass_isBigO (Lambda : ℝ) :
+    (fun N : ℕ => ∑ m ∈ Finset.Icc 1 N,
+      ‖offcriticalLowCoefficient Lambda m‖) =O[atTop]
+      (fun N : ℕ => (N : ℝ) ^ ((1 : ℝ) / 2)) := by
+  let C : ℝ := (Nat.floor Lambda : ℝ) + 1
+  have hC : 0 ≤ C := by
+    dsimp [C]
+    positivity
+  refine IsBigO.of_bound (2 * C) ?_
+  filter_upwards [eventually_ge_atTop (1 : ℕ)] with N hN
+  have hsub : Finset.Icc 1 N ⊆ Finset.range (N + 1) := by
+    intro m hm
+    have hmle := (Finset.mem_Icc.mp hm).2
+    exact Finset.mem_range.mpr (by omega)
+  have hIcc :
+      (∑ m ∈ Finset.Icc 1 N,
+        ‖offcriticalLowCoefficient Lambda m‖) ≤
+      ∑ m ∈ Finset.range (N + 1),
+        ‖offcriticalLowCoefficient Lambda m‖ := by
+    apply Finset.sum_le_sum_of_subset_of_nonneg hsub
+    intro m _hm _hnot
+    exact norm_nonneg _
+  have hMass := offcriticalLow_normSum_le Lambda N
+  have hSq : ((Nat.sqrt N : ℝ) ^ 2) ≤ (N : ℝ) := by
+    exact_mod_cast Nat.sqrt_le' N
+  have hSqrtSq : (Real.sqrt (N : ℝ)) ^ 2 = (N : ℝ) :=
+    Real.sq_sqrt (Nat.cast_nonneg N)
+  have hSqrtPos : 0 ≤ Real.sqrt (N : ℝ) := Real.sqrt_nonneg _
+  have hRootPos : 0 ≤ (Nat.sqrt N : ℝ) := Nat.cast_nonneg _
+  have hRoot : (Nat.sqrt N : ℝ) ≤ Real.sqrt (N : ℝ) := by
+    nlinarith
+  have hN1 : (1 : ℝ) ≤ (N : ℝ) := by
+    exact_mod_cast hN
+  have hSqrtOne : (1 : ℝ) ≤ Real.sqrt (N : ℝ) := by
+    nlinarith
+  have hCmul :
+      ((Nat.sqrt N : ℝ) + 1) * C ≤
+        (2 * C) * Real.sqrt (N : ℝ) := by
+    nlinarith
+  have hNonneg :
+      0 ≤ (∑ m ∈ Finset.Icc 1 N,
+        ‖offcriticalLowCoefficient Lambda m‖) :=
+    Finset.sum_nonneg (by intro m _hm; exact norm_nonneg _)
+  rw [Real.norm_eq_abs, abs_of_nonneg hNonneg]
+  rw [Real.norm_eq_abs, abs_of_nonneg
+    (Real.rpow_nonneg (Nat.cast_nonneg N) _)]
+  calc
+    (∑ m ∈ Finset.Icc 1 N,
+        ‖offcriticalLowCoefficient Lambda m‖) ≤
+      ∑ m ∈ Finset.range (N + 1),
+        ‖offcriticalLowCoefficient Lambda m‖ := hIcc
+    _ ≤ (((Nat.sqrt N + 1) * (Nat.floor Lambda + 1) : ℕ) : ℝ) :=
+      hMass
+    _ = ((Nat.sqrt N : ℝ) + 1) * C := by
+      simp [C, Nat.cast_mul]
+    _ ≤ (2 * C) * Real.sqrt (N : ℝ) := hCmul
+    _ = (2 * C) * ((N : ℝ) ^ ((1 : ℝ) / 2)) := by
+      rw [Real.sqrt_eq_rpow]
+
+/-- Mathlib's Abel summation theorem turns the unconditional sparse absolute
+LOW census into ABSOLUTE convergence of the genuine LOW Dirichlet series
+throughout the open half-plane Re(s) > 1/2. -/
+theorem offcriticalLow_LSeriesSummable
+    (Lambda : ℝ) {s : ℂ} (hs : (1 : ℝ) / 2 < s.re) :
+    LSeriesSummable (offcriticalLowCoefficient Lambda) s := by
+  exact LSeriesSummable_of_sum_norm_bigO
+    (offcriticalLow_absoluteMass_isBigO Lambda)
+    (by norm_num : (0 : ℝ) ≤ 1 / 2) hs
+
+/-- The LOW series is holomorphic at every point strictly to the right
+of Re(s)=1/2. The theorem uses ACTUAL Mobius coefficient filtering only. -/
+theorem offcriticalLow_LSeries_differentiableAt
+    (Lambda : ℝ) {s : ℂ} (hs : (1 : ℝ) / 2 < s.re) :
+    DifferentiableAt ℂ (LSeries (offcriticalLowCoefficient Lambda)) s := by
+  have habsc :
+      LSeries.abscissaOfAbsConv (offcriticalLowCoefficient Lambda) ≤
+        ((1 : ℝ) / 2 : EReal) := by
+    apply LSeries.abscissaOfAbsConv_le_of_forall_lt_LSeriesSummable
+    intro y hy
+    exact offcriticalLow_LSeriesSummable Lambda
+      (s := (y : ℂ)) (by simpa using hy)
+  have hpoint : ((1 : ℝ) / 2 : EReal) < (s.re : EReal) := by
+    exact_mod_cast hs
+  exact (LSeries_hasDerivAt (habsc.trans_lt hpoint)).differentiableAt
+
 end RHLean.Proof
