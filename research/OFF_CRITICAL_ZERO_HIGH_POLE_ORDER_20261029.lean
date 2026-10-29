@@ -66,6 +66,6 @@ theorem offcriticalHighReciprocal_order_eq_neg_zeta_order
       -meromorphicOrderAt riemannZeta rho := by
   rw [offcriticalHighReciprocal_preserves_pole_order
     Lambda rho hrho hpole]
-  exact fun_meromorphicOrderAt_inv
+  exact meromorphicOrderAt_inv
 
 end RHLean.Proof
