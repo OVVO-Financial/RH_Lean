@@ -1,0 +1,23 @@
+name: Native square-clock fractional covariance and moment regressions
+
+on:
+  pull_request:
+    paths:
+      - research/NATIVE_SQUARE_CLOCK_**
+      - scripts/native_squareclock_**
+      - .github/workflows/native-squareclock-native-regression.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  exact-rational:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - name: Exact original square-clock coprime and shared-factor checks
+        run: python3 scripts/native_squareclock_crt_covariance_regression.py
+      - name: Original Euler first-prime-row dyadic moment at fixed roots
+        run: python3 scripts/native_squareclock_first_prime_moment_regression.py
