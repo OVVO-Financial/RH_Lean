@@ -116,3 +116,31 @@ Prove \(\mathcal C_qg_\rho=q^{2\rho-1}g_\rho\). Reuse the existing stableFarComp
 ## 5. The remaining genuinely new theorem
 
 An independent, quantified signed restriction on the complete moving-owner HIGH ancestry, or on its actual-prime theta/VF transfer, that excludes the coherent off-critical mode. Telescoping, correspondence, bounded LOW occupancy, and failure-of-HIGH-under-hypothetical-zero do NOT prove that restriction.
+
+## 6. Code implementation ledger (2026-10-29)
+
+The following have been added to the same draft PR for strict Lean 4.34.1
+kernel checking. **Until a clean warning-fatal workflow completes,
+all newly added declarations remain unverified source claims.**
+
+| Layer | New module | Status of mathematics |
+| --- | --- | --- |
+| Hypothetical zero -> failure of native HIGH local energy; exact native theta/VF owner bridge | OFF_CRITICAL_ZERO_HIGH_VF_BRIDGE_20261029.lean | Exact source/conditional theorem; kernel verification pending |
+| All-integer genuine LOW/HIGH coefficients and LOW support O(sqrt N) in absolute mass | OFF_CRITICAL_ZERO_LOW_HIGH_COEFFICIENTS_20261029.lean | New unconditional arithmetic theorem; kernel verification pending |
+| Absolute LOW Dirichlet convergence and holomorphy for Re(s)>1/2 | Same LOW module | Known consequence via Mathlib LSeriesSummable_of_sum_norm_bigO; kernel verification pending |
+| Actual Euler reciprocal on Re(s)>1 and actual von Mangoldt log derivative | OFF_CRITICAL_ZERO_EULER_LOGDERIV_20261029.lean | Existing Mathlib Euler results combined with actual LOW/HIGH; kernel verification pending |
+| HIGH preserves negative meromorphic pole order | OFF_CRITICAL_ZERO_HIGH_POLE_ORDER_20261029.lean | Proved in terms of explicit negative reciprocal-pole hypothesis; actual zero -> that hypothesis still to formalize |
+| Exact q-coarsening zero-mode eigenlaw and its genuine Phi realification | OFF_CRITICAL_ZERO_REALIFIED_SCALE_20261029.lean | Exact elementary spectral algebra; kernel verification pending |
+| Full finite theta Mellin coarsening with within-block correction | OFF_CRITICAL_ZERO_THETA_MELLIN_FINITE_20261029.lean | Exact finite algebra; kernel verification pending |
+| Continuous/holomorphic defect implies residue transport | OFF_CRITICAL_ZERO_MELLIN_RESIDUE_20261029.lean | General functional-analytic implication; kernel verification pending |
+
+### Actual unresolved analytic sublemmas
+
+1. Genuine prime-index block-location correction A(s) and prime-power correction P>=2(s): show locally uniform convergence and analyticity on Re(s)>1/2.
+2. Identify the actual theta-shortage Mellin transform meromorphically with the explicit zeta-log-derivative expression; fix first square and s=1 endpoints.
+3. Establish a uniform in q local defect majorant for the INFINITE within-block Mellin correction and prove its holomorphy for Re(s)>1/2. Then instantiate the already-written abstract residue transport, obtaining q^(2rho-1)m_rho.
+4. Use zeta analyticity and isolated-zero theory to construct a strictly negative reciprocal meromorphic order at any actual off-critical zero, including higher multiplicities, and formalize the resulting HIGH pole-order and log-derivative residue.
+5. Formalize arbitrary-exponent actual prime/VF escape without importing the desired prime-error estimate as an assumption.
+6. Finally prove an independent, source-native uniform signed HIGH restriction. **This is an RH-strength open theorem, not a missing tactic.**
+
+Do not collapse (1)-(5) into a single hypothetical analytic premise when claiming certification of the full sequence. Existing geometric identities alone cannot prove (6).
