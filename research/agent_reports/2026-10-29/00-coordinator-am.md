@@ -27,22 +27,19 @@ there exists `C >= 0` such that for every integer `R >= 2`,
   |pi(R^2)-VF_can(R^2)| <= C R log R.
 ]
 
-The nearer native benchmark is: for some fixed `eta>0`, every `epsilon>0), and all sufficiently large `H`,
-[
-  sum_{H <= R < 2H} |Delta_R|^2
-  ll_{eta,epsilon} H^{5/2-eta+epsilon},
-  qquad
-  Delta_R=sum_{R^2 <= n < (R+1)^2}mu(n).
-]
+The nearer native benchmark is: for some fixed `eta>0`, every `epsilon>0`, and all sufficiently large `H`,
+```text
+sum_(H<=R<2H) |Delta_R|^2 <<_(eta,epsilon) H^(5/2-eta+epsilon),
+Delta_R = sum_(R^2<=n<(R+1)^2) mu(n).
+```
 The exact square-to-prefix interpolation would then give
 `M(x)=O_{eta,epsilon}(x^(7/8-eta/4+epsilon))`.
 Both the benchmark and every strict gain below `7/8` remain OPEN.
 
 The original source is unchanged:
-[
- U_R=2sum_{1<=a<b<R}mu(a)mu(b)
-       rac{(R^2-1)mod ab}{ab}.
-]
+```text
+U_R = 2 * sum_(1<=a<b<R) mu(a) * mu(b) * (((R^2-1) mod (a*b))/(a*b)).
+```
 For `d=s^2t`, with squarefree coprime `s,t` and `t>1`,
 `alpha_d=mu(t)2^(omega(t)-1)`; otherwise `alpha_d=0`.
 All moving cutoffs, principal means, diagonal, reciprocal square, and high-product terms remain compulsory.
@@ -109,55 +106,47 @@ All moving cutoffs, principal means, diagonal, reciprocal square, and high-produ
 ### Claim `20261029-coordinator-1`: the uncentered low-product row is already subcritical
 
 For integers `H>=4`, `2<=Q<H`, define
-[
- f_d(R)=rac{(R^2-1)mod d}{d},quad
- m_d=rac1dsum_{rmod d}f_d(r),quad
- F_d=f_d-m_d,
-]
-[
- L_Q(R)=2sum_{2<=d<=Q}alpha_dF_d(R),quad
- P_Q=2sum_{2<=d<=Q}alpha_dm_d,
-]
-and
-[
- U_Q^{low}(R)=2sum_{2<=d<=Q}alpha_df_d(R)=L_Q(R)+P_Q.
-]
+```text
+f_d(R) = ((R^2-1) mod d)/d,
+m_d = (1/d) * sum_(r mod d) f_d(r),
+F_d(R) = f_d(R)-m_d,
+L_Q(R) = 2 * sum_(2<=d<=Q) alpha_d * F_d(R),
+P_Q = 2 * sum_(2<=d<=Q) alpha_d * m_d,
+U_Q_low(R) = 2 * sum_(2<=d<=Q) alpha_d * f_d(R) = L_Q(R)+P_Q.
+```
 Because `d<=Q<R`, this is exactly every original pair with `ab<=Q`; no factor-pair cutoff has been altered.
 
-For every `d`, `0<=m_d<1`. Also
-`|alpha_d|<=tau(d)`, and the elementary divisor count gives
-[
- sum_{d<=Q}	au(d)le Q(1+log Q).
-]
+For every `d`, `0<=m_d<1`. Also `|alpha_d|<=tau(d)`, and the elementary divisor count gives
+```text
+sum_(d<=Q) tau(d) <= Q*(1+log Q).
+```
 Therefore
-[
- |P_Q|le2Q(1+log Q).                                      	ag{1}
-]
+```text
+|P_Q| <= 2*Q*(1+log Q).                                      (1)
+```
 The accepted paper theorem `20261029-analytic-1` gives
-[
- sum_{H<=R<2H}|L_Q(R)|^2
- ll_epsilon HQ^{1+epsilon}+Q^{4+epsilon}.              	ag{2}
-]
+```text
+sum_(H<=R<2H) |L_Q(R)|^2 <<_epsilon H*Q^(1+epsilon)+Q^(4+epsilon).  (2)
+```
 Using `|x+y|^2<=2|x|^2+2|y|^2` and the fact that the interval has exactly `H` roots,
-[
- sum_{H<=R<2H}|U_Q^{low}(R)|^2
- ll_epsilon HQ^{2+epsilon}+Q^{4+epsilon}.              	ag{3}
-]
+```text
+sum_(H<=R<2H) |U_Q_low(R)|^2
+  <<_epsilon H*Q^(2+epsilon)+Q^(4+epsilon).                  (3)
+```
 In particular, for `Q=floor(sqrt H)`,
-[
- sum_{H<=R<2H}|U_Q^{low}(R)|^2
- ll_epsilon H^{2+epsilon}.                              	ag{4}
-]
+```text
+sum_(H<=R<2H) |U_Q_low(R)|^2 <<_epsilon H^(2+epsilon).       (4)
+```
 
 This is `PAPER_PROOF / COROLLARY_OF_ACCEPTED_PAPER_PROOF`.
 It directly addresses the referee's primorial witness: that witness shows the principal energy can exceed `HQ`, while (1) shows it remains within `HQ^2 log^2Q`, which is fully affordable at `Q=sqrt H`.
 
 ### Inverse localization
 
-Let `U^{high}=U-U_Q^{low}` on the same root interval. Then
-[
- |U^{high}|_2gemax(0,|U|_2-|U_Q^{low}|_2).          	ag{5}
-]
+Let `U_high=U-U_Q_low` on the same root interval. Then
+```text
+||U_high||_2 >= max(0, ||U||_2-||U_Q_low||_2).               (5)
+```
 For every fixed `eta<1/2`, (4) is lower order than
 `H^{5/2-eta+epsilon}` after choosing the epsilon margins consistently.
 Thus failure of an off-diagonal fractional-source bound at that scale forces a corresponding high-product obstruction along the failing sequence.
