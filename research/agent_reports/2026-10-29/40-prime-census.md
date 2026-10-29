@@ -16,8 +16,8 @@
 
 For
 [
- f_d(R)=((R^2-1)mod d)/d,qquad
- m_d=d^{-1}sum_{rmod d}f_d(r),
+ f_d(R)=((R^2-1)mod d)/d,qquad
+ m_d=d^{-1}sum_{rmod d}f_d(r),
 ]
 retain today's Analytic coefficient
 [
@@ -83,7 +83,7 @@ Implementation A:
 1. sieve exact Möbius values;
 2. reconstruct the unique cubefree representation (d=s^2t);
 3. compute (alpha_d=mu(t)2^{omega(t)-1});
-4. compute (m_d=d^{-2}sum_{r=0}^{d-1}((r^2-1)mod d)).
+4. compute (m_d=d^{-2}sum_{r=0}^{d-1}((r^2-1)mod d)).
 
 Implementation B independently enumerates every original unordered pair
 (1le a<b), (mu(a)mu(b)
@@ -154,9 +154,9 @@ positive. The smallest individual shared-factor sign reversal is already
 (d=12).
 
 **Candidate only:**
-for every (arepsilon>0),
+for every (epsilon>0),
 [
- |P(Q)|ll_arepsilon Q^{1/2+arepsilon}.
+ |P(Q)|ll_epsilon Q^{1/2+epsilon}.
 ]
 Discovery used (Qle5000); the fixed exponent was then tested without
 revision on (5001le Qle10000). It survived, with the displayed maximum
@@ -188,7 +188,7 @@ shell estimate, finite A/C, an exponent below (7/8), the canonical
 The next mathematical lemma worth attacking is a uniform estimate for the
 complete principal convolution
 [
- sum_{dle Q}igl((mu*mu)(d)-1_{{d=u^2}}mu(u)^2igr)m_d,
+ sum_{dle Q}((mu*mu)(d)-1_{{d=u^2}}mu(u)^2)m_d,
 ]
 with (m_d) retained exactly. A theorem for only prime, squarefree, or
 shared-factor modes is structurally insufficient.
