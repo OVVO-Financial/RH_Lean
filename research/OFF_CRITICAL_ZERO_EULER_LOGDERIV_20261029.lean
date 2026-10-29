@@ -153,4 +153,43 @@ theorem offcritical_logDerivative_split_algebra
   field_simp [hz, hgate]
   ring
 
+/-! ## Actual von Mangoldt / zeta logarithmic derivative -/
+
+/-- This is the genuine von Mangoldt signal of the actual integers, with
+neither floor-Li events nor synthetic canonical VF prime labels. The identity
+is the classical Mathlib Euler-product theorem, with its exact domain. -/
+theorem offcriticalVonMangoldt_LSeries_eq_zetaLogDerivative
+    {s : ℂ} (hs : 1 < s.re) :
+    LSeries (fun n : ℕ => (ArithmeticFunction.vonMangoldt n : ℂ)) s =
+      -(deriv riemannZeta s) / riemannZeta s := by
+  exact ArithmeticFunction.LSeries_vonMangoldt_eq_deriv_riemannZeta_div hs
+
+/-- The LOW/HIGH algebra predicts the exact logarithmic-derivative split
+where the true zeta value is nonzero and the HIGH numerator is nonzero.
+This preserves the multiplicative Euler product, not only the zero-set
+reflection, and is the algebraic step toward the actual-prime theta bridge. -/
+theorem offcriticalVonMangoldt_logDerivative_split
+    (s : ℂ) (Lambda : ℝ)
+    (hz : riemannZeta s ≠ 0)
+    (hgate : 1 - riemannZeta s *
+        LSeries (offcriticalLowCoefficient Lambda) s ≠ 0) :
+    -(deriv riemannZeta s) / riemannZeta s =
+      (-(deriv riemannZeta s) -
+          (riemannZeta s) ^ 2 *
+            deriv (LSeries (offcriticalLowCoefficient Lambda)) s) /
+        (riemannZeta s *
+          (1 - riemannZeta s *
+            LSeries (offcriticalLowCoefficient Lambda) s)) +
+      (deriv riemannZeta s *
+          LSeries (offcriticalLowCoefficient Lambda) s +
+        riemannZeta s *
+          deriv (LSeries (offcriticalLowCoefficient Lambda)) s) /
+        (1 - riemannZeta s *
+          LSeries (offcriticalLowCoefficient Lambda) s) := by
+  exact offcritical_logDerivative_split_algebra
+    (riemannZeta s) (deriv riemannZeta s)
+    (LSeries (offcriticalLowCoefficient Lambda) s)
+    (deriv (LSeries (offcriticalLowCoefficient Lambda)) s)
+    hz hgate
+
 end RHLean.Proof
