@@ -51,8 +51,8 @@ theorem offcriticalActualMobius_LSeries_eq_invZeta
     {s : ℂ} (hs : 1 < s.re) :
     LSeries canonicalMoebiusWeight s = (riemannZeta s)⁻¹ := by
   have hprod : riemannZeta s * LSeries canonicalMoebiusWeight s = 1 := by
-    simpa only [canonicalMoebiusWeight] using
-      (ArithmeticFunction.LSeries_zeta_mul_Lseries_moebius hs)
+    rw [← ArithmeticFunction.LSeries_zeta_eq_riemannZeta hs]
+    exact ArithmeticFunction.LSeries_zeta_mul_Lseries_moebius hs
   have hz : riemannZeta s ≠ 0 := by
     intro hzero
     rw [hzero, zero_mul] at hprod
@@ -119,7 +119,12 @@ theorem offcriticalHighReciprocal_product
         (LSeries (offcriticalLowCoefficient Lambda) s +
           offcriticalHighReciprocal Lambda s) = 1 := by
   unfold offcriticalHighReciprocal
-  rw [add_sub_cancel_left]
+  have hcancel :
+      LSeries (offcriticalLowCoefficient Lambda) s +
+          ((riemannZeta s)⁻¹ -
+            LSeries (offcriticalLowCoefficient Lambda) s) =
+        (riemannZeta s)⁻¹ := by ring
+  rw [hcancel]
   exact mul_inv_cancel₀ hz
 
 /-- A genuine zeta zero cannot admit a FINITE pointwise reciprocal-product
