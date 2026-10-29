@@ -1,5 +1,31 @@
 # Stable schedule-prompt reference for the seven RH_Lean agents
 
+
+## 2026-10-29 native arithmetic FIRST: seven distinct roles, conditional on main #1053 merge
+
+**Authority gate:** on EVERY invocation fetch latest main and verify that human-reviewed PR #1053 (or equivalent fully merged directive) is actually in main. Until then, follow current main AGENTS/CURRENT_PROOF_CONTRACT/DYNAMIC_RESEARCH_AGENTS and treat this as a *preview*, NOT a saved Studio task change. After merge, first read main:docs/RHLEAN_NATIVE_SQUARE_CLOCK_AGENT_DIRECTIVE_20261029.md plus the verified current original Lean source. #1051 and #1052 were merged on live PR refresh 2026-10-29; refresh next time rather than reusing an older daily report's unmerged label.
+
+**User objective:** Use RH_Lean's UNIQUE original moving prime-factor-owner arithmetic to PROVE an independent signed source saving. No further equivalence/pole/symmetry/Mellin reformulation is a principal deliverable. Genuine source:
+- X_R=R^2-1; f_d(R)=((X_R mod d)/d); m_d=mean over R mod d; F_d=f_d-m_d.
+- U_R=2 sum_(1<=a<b<R) mu(a)mu(b) f_(ab)(R), literal eulerFractionOffQ.
+- For Q<R and d=s^2*t cubefree, alpha_d=mu(t)*2^(omega(t)-1) when t>1, otherwise 0.
+- U_R=L_Q(R)+P_Q+U_R^(>Q), where L_Q=2 sum_(d<=Q) alpha_d F_d and P_Q=2 sum_(d<=Q) alpha_d m_d.
+- Preserve original diagonal, reciprocal square, physical sharp moving boundaries, full principal and cross terms.
+
+**Evidence status:** 20261029-analytic-1 H*Q^(1+eps)+Q^(4+eps) centered shared-GCD low-product moment is PAPER_ACCEPTED_WITH_SCOPE by Lean report, not yet proved in Lean; today's Wheel/Census/Referee prove/test that principal compensation is nontrivial and the uncentered prime bound is false in an infinite primorial family. First-prime/CRT #1051 and spectral #1052 are merged but neither proves global gain. A strict new exponent requires full genuine shell energy H^(5/2-eta+eps), eta>0, NOT YET PROVED.
+
+**Role-specific next actions:**
+- Coordinator (#1): one complete true source ledger from alpha_d, L_Q, P_Q, >Q through diagonal/reciprocal, then to Delta_R; fixed exponent budgets, status, legal falsifier, distinct role assignments.
+- Owner Payment (#2): pay P_Q, composite/shared-factor principal, >Q product ancestry and ALL mixed original signs, historical/physical cutoffs; no centered-only victory.
+- Analytic Type II (#3): independently audit paper shared-GCD Fourier bound; prove or falsify incomplete H<lcm(d,e) quadratic correlations with actual gcd/2-adic/resonance bills.
+- Finite Wheel (#4): prove exact cubefree alpha_d and parity/gcd/2-adic source admission; construct worst-case coherent packets.
+- Prime Census (#5): exact-rational d=6,10,12 principal reversals; dyadic H,Q across Q^3=H and held-outs incl. R=317/1027; full principal/mixed diagnostics, no random signs.
+- Adversarial Referee (#6): independent paper proof audit, uncentered primorial falsifier, incomplete sqrt(de) conjecture counterexamples, full missing-bill and no-circularity checks.
+- Lean Verification (#7): on refreshed main, formalize referee-accepted exact alpha_d grouping and shared-GCD Fourier/moment inequality, then only valid incomplete-correlation arithmetic with Lean 4.34.1; no speculative new axioms or merges.
+
+**Preserve:** exactly one existing scheduled run/role/day, no new Studio automation/launch/permission, six own-report-only roles, scoped Lean draft-PR/Actions lane, Coordinator's identical 00/90 mirrors, current reporting filenames and handoff order, HUMAN-ONLY main merges. This Markdown does not edit saved/published Studio agents. No extra run is authorized by this update.
+
+
 ## 2026-10-17 covariance-first directive, conditional on main instruction PR #970 merge
 
 **On EVERY scheduled invocation fetch LIVE main** and, if merged there, read the complete `docs/SIGNED_MOBIUS_COVARIANCE_RH_SEAM_2026_10_17.md` as the FIRST current mechanism assignment. The older post-#961 K3/owner cut-mode role examples below become SECONDARY comparisons, not current compulsory work. A not-yet-merged feature PR does NOT change active main policy.
