@@ -1,0 +1,76 @@
+name: OAI 7/8 paid CORR4 and nested finite-C estimates
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - research/OAI78_CORR4_NESTED_FINITE_C_PAID_20261028.lean
+      - research/OAI78_CORR4_OWNER_TAIL_PAID_20261028.lean
+      - research/OAI78_CORR4_NESTED_FINITE_C_AMPLITUDE_PAID_20261028.lean
+      - scripts/oai78_paid_native_regression.py
+      - research/OAI78_CORR4_NESTED_SQUARE_RESERVES_20261028.lean
+      - research/OAI78_ABEl_HYPERBOLA_DRIFT_PAYMENT_20261028.lean
+      - .github/workflows/oai78-cor4-paid-estimates.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: oai78-cor4-paid-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  paid-estimates:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Lean 4.34.1 pinned setup
+        uses: ./.github/actions/lean-setup
+      - name: Audit proof holes and new axioms
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import pathlib, re
+          for f in pathlib.Path("research").glob("OAI78_CORR4_*_20261028.lean"):
+              s=f.read_text()
+              assert not re.search(r'\b(sorry|admit|axiom)\b', s), f
+          PY
+      - name: Compile exact native source with cached dependencies
+        uses: ./.github/actions/research-compile
+        with:
+          build-library: 'true'
+          targets: >-
+            research/OAI78_CORR4_NESTED_FINITE_C_PAID_20261028.lean
+            research/OAI78_CORR4_OWNER_TAIL_PAID_20261028.lean
+            research/OAI78_CORR4_NESTED_FINITE_C_AMPLITUDE_PAID_20261028.lean
+            research/OAI78_CORR4_NESTED_SQUARE_RESERVES_20261028.lean
+            research/OAI78_ABEl_HYPERBOLA_DRIFT_PAYMENT_20261028.lean
+      - name: Inspect theorem axioms
+        shell: bash
+        run: |
+          cat > /tmp/oai78_paid_axioms.lean <<'LEAN'
+          import «research.OAI78_CORR4_NESTED_FINITE_C_PAID_20261028»
+          import «research.OAI78_CORR4_OWNER_TAIL_PAID_20261028»
+          import «research.OAI78_CORR4_NESTED_FINITE_C_AMPLITUDE_PAID_20261028»
+          import «research.OAI78_CORR4_NESTED_SQUARE_RESERVES_20261028»
+          import «research.OAI78_ABEl_HYPERBOLA_DRIFT_PAYMENT_20261028»
+          #check RHLean.Proof.oai78_nearest_daughter_eq_two_history_sub_finiteC
+          #print axioms RHLean.Proof.oai78_nearest_daughter_eq_two_history_sub_finiteC
+          #check RHLean.Proof.oai78_nearest_column_eq_history_sub_nested_finiteC
+          #print axioms RHLean.Proof.oai78_nearest_column_eq_history_sub_nested_finiteC
+          #check RHLean.Proof.oai78_corr4_physical_eq_nested_finiteC_add_boundary
+          #print axioms RHLean.Proof.oai78_corr4_physical_eq_nested_finiteC_add_boundary
+          #check RHLean.Proof.oai78Paid_large_owner_column_le_power
+          #print axioms RHLean.Proof.oai78Paid_large_owner_column_le_power
+          #print axioms RHLean.Proof.oai78Nested_original_corr4_square_le_nine_eighths
+          #print axioms RHLean.Proof.oai78Abel_continuous_drift_exact
+          #print axioms RHLean.Proof.oai78_nested_finiteC_physical_error_le_three_root
+          LEAN
+          lake env lean -DwarningAsError=true /tmp/oai78_paid_axioms.lean
+
+      - name: Finite arithmetic regression at 56, 317, 1027
+        run: python3 scripts/oai78_paid_native_regression.py
