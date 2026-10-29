@@ -26,6 +26,8 @@ open scoped ArithmeticFunction.Moebius BigOperators LSeries.notation
 
 namespace RHLean.Proof
 
+attribute [local instance] Classical.propDecidable
+
 /-- Each HIGH coefficient is a legitimate bounded actual Mobius weight. -/
 theorem offcriticalHighCoefficient_norm_le_one (Lambda : ℝ) (m : ℕ) :
     ‖offcriticalHighCoefficient Lambda m‖ ≤ 1 := by
