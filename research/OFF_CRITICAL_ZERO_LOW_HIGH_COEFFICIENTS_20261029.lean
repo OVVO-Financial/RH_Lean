@@ -18,6 +18,8 @@ open scoped ArithmeticFunction.Moebius BigOperators
 
 namespace RHLean.Proof
 
+attribute [local instance] Classical.propDecidable
+
 /-- The literal canonical LOW Mobius coefficient at every natural integer. -/
 def offcriticalLowCoefficient (Lambda : ℝ) (m : ℕ) : ℂ :=
   if IsCanonicalLowHeight Lambda (Nat.sqrt m) m then
@@ -51,6 +53,8 @@ theorem offcriticalLowSupport_mem_squareBlock
     (hm : m ∈ offcriticalLowSupportUpTo Lambda N) :
     m ∈ canonicalLowSupport Lambda (Nat.sqrt m) := by
   classical
+  change m ∈ (Finset.range (N + 1)).filter
+    (fun x => μ x ≠ 0 ∧ IsCanonicalLowHeight Lambda (Nat.sqrt x) x) at hm
   rcases Finset.mem_filter.mp hm with ⟨_hmN, hmMu, hmLow⟩
   have hmBlock :
       m ∈ canonicalSquareBlock (Nat.sqrt m) := by
@@ -73,7 +77,10 @@ theorem offcriticalLowSupport_card_le
     intro m hm
     have hmrange :
         m ∈ Finset.range (N + 1) :=
-      (Finset.mem_filter.mp hm).1
+      (Finset.mem_filter.mp (show m ∈
+          (Finset.range (N + 1)).filter
+            (fun x => μ x ≠ 0 ∧ IsCanonicalLowHeight Lambda (Nat.sqrt x) x)
+        from hm)).1
     have hmle : m ≤ N := by
       have hmlt := Finset.mem_range.mp hmrange
       omega
@@ -211,7 +218,7 @@ theorem offcriticalLow_LSeries_differentiableAt
     exact offcriticalLow_LSeriesSummable Lambda
       (s := (y : ℂ)) (by simpa using hy)
   have hpoint : ((1 : ℝ) / 2 : EReal) < (s.re : EReal) := by
-    exact_mod_cast hs
+    exact EReal.coe_lt_coe_iff.mpr hs
   exact (LSeries_hasDerivAt (habsc.trans_lt hpoint)).differentiableAt
 
 /-- The genuine fixed-height LOW Dirichlet series is fully analytic,
@@ -229,7 +236,7 @@ theorem offcriticalLow_LSeries_analyticAt
   have hlt :
       LSeries.abscissaOfAbsConv (offcriticalLowCoefficient Lambda) <
         (s.re : EReal) :=
-    lt_of_le_of_lt habsc (by exact_mod_cast hs)
+    lt_of_le_of_lt habsc (EReal.coe_lt_coe_iff.mpr hs)
   exact (LSeries_analyticOnNhd (offcriticalLowCoefficient Lambda)) hlt
 
 end RHLean.Proof
