@@ -22,6 +22,7 @@ improvement of the global zeta zero-free exponent.
 
 noncomputable section
 open scoped BigOperators
+open AddChar
 
 namespace RHLean.Proof
 
@@ -57,7 +58,9 @@ theorem nativeSquareClock_shift_character_sum_zero
     _ = ∑ R : ZMod n,
           ZMod.stdAddChar (R * ((2 : ZMod n) * h)) *
             ZMod.stdAddChar (h ^ 2) := by
-          simp only [map_add]
+          apply Finset.sum_congr rfl
+          intro R _hR
+          rw [map_add_eq_mul]
     _ = (∑ R : ZMod n,
           ZMod.stdAddChar (R * ((2 : ZMod n) * h))) *
             ZMod.stdAddChar (h ^ 2) := by rw [Finset.sum_mul]
