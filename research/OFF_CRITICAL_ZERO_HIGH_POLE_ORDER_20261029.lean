@@ -53,7 +53,15 @@ theorem offcriticalHighReciprocal_preserves_pole_order
       (f₂ := fun s : ℂ =>
         -LSeries (offcriticalLowCoefficient Lambda) s)
       hNeg.meromorphicAt hlt
-  simpa only [offcriticalHighReciprocal, sub_eq_add_neg] using hPreserve
+  have hfun :
+      offcriticalHighReciprocal Lambda =
+        (fun s : ℂ => (riemannZeta s)⁻¹) +
+          (fun s : ℂ =>
+            -LSeries (offcriticalLowCoefficient Lambda) s) := by
+    funext s
+    simp [offcriticalHighReciprocal, Pi.add_apply, sub_eq_add_neg]
+  rw [hfun]
+  exact hPreserve
 
 /-- The reciprocal pole order equals the NEGATIVE of the actual zeta order,
 provided it is a pole rather than a removable singularity. -/
