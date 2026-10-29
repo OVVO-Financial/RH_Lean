@@ -39,7 +39,8 @@ jobs:
             research/OFF_CRITICAL_ZERO_EULER_LOGDERIV_20261029.lean \
             research/OFF_CRITICAL_ZERO_REALIFIED_SCALE_20261029.lean \
             research/OFF_CRITICAL_ZERO_MELLIN_RESIDUE_20261029.lean \
-            research/OFF_CRITICAL_ZERO_THETA_MELLIN_FINITE_20261029.lean
+            research/OFF_CRITICAL_ZERO_THETA_MELLIN_FINITE_20261029.lean \
+            research/OFF_CRITICAL_ZERO_HIGH_POLE_ORDER_20261029.lean
       - name: Verify theorem signatures, source axiom dependencies, and imports
         run: |
           cat > /tmp/OffCriticalZeroAudit.lean <<'LEAN'
@@ -49,13 +50,16 @@ jobs:
           import «research.OFF_CRITICAL_ZERO_REALIFIED_SCALE_20261029»
           import «research.OFF_CRITICAL_ZERO_MELLIN_RESIDUE_20261029»
           import «research.OFF_CRITICAL_ZERO_THETA_MELLIN_FINITE_20261029»
+          import «research.OFF_CRITICAL_ZERO_HIGH_POLE_ORDER_20261029»
           #check RHLean.Analysis.offCriticalRightZero_forces_highEnergyCriterion_failure
           #check RHLean.Analysis.offCriticalRightZero_forces_mertensPower_failure
           #check RHLean.Proof.offcriticalLowSupport_card_le
           #check RHLean.Proof.offcriticalLow_absoluteMass_isBigO
           #check RHLean.Proof.offcriticalLow_LSeriesSummable
           #check RHLean.Proof.offcriticalLow_LSeries_differentiableAt
+          #check RHLean.Proof.offcriticalLow_LSeries_analyticAt
           #check RHLean.Proof.offcriticalLowHigh_LSeries_eq_invZeta
+          #check RHLean.Proof.offcriticalHighReciprocal_preserves_pole_order
           #check RHLean.Proof.offcritical_logDerivative_split_algebra
           #check RHLean.Proof.offcriticalVonMangoldt_LSeries_eq_zetaLogDerivative
           #check RHLean.Analysis.actualThetaSquareShortage_coarsen_eq_endpoints
