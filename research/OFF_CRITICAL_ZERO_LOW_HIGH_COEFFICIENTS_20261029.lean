@@ -237,6 +237,6 @@ theorem offcriticalLow_LSeries_analyticAt
       LSeries.abscissaOfAbsConv (offcriticalLowCoefficient Lambda) <
         (s.re : EReal) :=
     lt_of_le_of_lt habsc (EReal.coe_lt_coe_iff.mpr hs)
-  exact (LSeries_analyticOnNhd (offcriticalLowCoefficient Lambda)) hlt
+  exact (LSeries_analyticOnNhd (offcriticalLowCoefficient Lambda)) s hlt
 
 end RHLean.Proof
