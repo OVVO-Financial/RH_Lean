@@ -116,7 +116,7 @@ theorem offcriticalZeroPrimitive_scale
     have hn0 : (n : ℝ) ≠ 0 := by
       exact_mod_cast hn
     have hqn : q * n ≠ 0 := mul_ne_zero (Nat.ne_of_gt hq) hn
-    simp only [offcriticalZeroPrimitive, if_neg hn, if_neg hqn]
+    simp [offcriticalZeroPrimitive, hn, hqn]
     have hsplit :
         (2 * rho) * ((Real.log ((q * n : ℕ) : ℝ) : ℝ) : ℂ) =
           (2 * rho) * ((Real.log (q : ℝ) : ℝ) : ℂ) +
@@ -135,11 +135,15 @@ theorem offcriticalZeroMode_coarsen
     offcriticalComplexCoarsen q (offcriticalZeroMode rho) R =
       (Complex.exp ((2 * rho) * ((Real.log (q : ℝ) : ℝ) : ℂ)) /
         (q : ℂ)) * offcriticalZeroMode rho R := by
-  simpa only [offcriticalZeroMode, offcriticalPotentialIncrement] using
-    offcriticalComplexCoarsen_homogeneous q R
-      (offcriticalZeroPrimitive rho)
-      (Complex.exp ((2 * rho) * ((Real.log (q : ℝ) : ℝ) : ℂ)))
-      (offcriticalZeroPrimitive_scale rho q hq)
+  have hmode :
+      offcriticalZeroMode rho =
+        offcriticalPotentialIncrement (offcriticalZeroPrimitive rho) := by
+    rfl
+  rw [hmode]
+  exact offcriticalComplexCoarsen_homogeneous q R
+    (offcriticalZeroPrimitive rho)
+    (Complex.exp ((2 * rho) * ((Real.log (q : ℝ) : ℝ) : ℂ)))
+    (offcriticalZeroPrimitive_scale rho q hq)
 
 /-- The true repository Phi map carries the same exact q-scale eigenaction. -/
 theorem offcriticalZeroMode_realified_coarsen
@@ -184,8 +188,16 @@ theorem offcriticalZeroEigenMultiplier_norm (rho : ℂ) (q : ℕ) :
   unfold offcriticalZeroEigenMultiplier
   rw [Complex.norm_exp]
   congr 1
-  simp [Complex.mul_re]
-  ring
+  have hIm :
+      (((Real.log (q : ℝ) : ℝ) : ℂ)).im = 0 := by simp
+  have hRe :
+      (((Real.log (q : ℝ) : ℝ) : ℂ)).re = Real.log (q : ℝ) := by simp
+  rw [Complex.mul_re, hIm, hRe]
+  simp only [mul_zero, sub_zero]
+  have hCoeff : (2 * rho - 1).re = 2 * rho.re - 1 := by
+    simp [Complex.sub_re, Complex.mul_re]
+    ring
+  rw [hCoeff]
 
 /-- The reflected mode has reciprocal radial eigenvalue,
 although its rotational phase is the SAME. No positivity or contraction
