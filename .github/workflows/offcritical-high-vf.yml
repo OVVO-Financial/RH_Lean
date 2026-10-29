@@ -66,6 +66,7 @@ jobs:
           #check RHLean.Analysis.canonicalVF_step_eq_signed_nativeOwner_and_descent
           #check RHLean.Analysis.offcriticalZeroMode_coarsen
           #check RHLean.Analysis.offcriticalZeroMode_realified_coarsen
+          #check RHLean.Analysis.offcriticalReflectedEigenMultiplier_norm
           #check RHLean.Analysis.offcritical_MellinCoarsen_residue_of_regularDefect
           #check RHLean.Analysis.offcriticalActualTheta_Mellin_coarsen_finite
           #print axioms RHLean.Analysis.offCriticalRightZero_forces_highEnergyCriterion_failure
