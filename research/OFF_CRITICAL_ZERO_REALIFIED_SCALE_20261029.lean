@@ -86,4 +86,73 @@ theorem offcriticalRealifiedCoarsen_energy
       q R potential multiplier hhomogeneous,
     norm_mul, mul_pow]
 
+/-! ## Genuine exponential zero-mode primitive (positive real logarithm) -/
+
+/-- For n > 0 this equals n^(2*rho)/rho using the positive-real branch.
+At the artificial lower endpoint n = 0, define the potential to be zero,
+so the q-scaling law remains true even at the first square block. -/
+def offcriticalZeroPrimitive (rho : ℂ) (n : ℕ) : ℂ :=
+  if n = 0 then 0
+  else Complex.exp ((2 * rho) * ((Real.log (n : ℝ) : ℝ) : ℂ)) / rho
+
+/-- A zero mode is an EXACT square-root first difference. -/
+def offcriticalZeroMode (rho : ℂ) (R : ℕ) : ℂ :=
+  offcriticalZeroPrimitive rho (R + 1) -
+    offcriticalZeroPrimitive rho R
+
+/-- This is the nontrivial positive-real complex-power step: actual logarithmic
+homogeneity, not an assumed scaling of primes. -/
+theorem offcriticalZeroPrimitive_scale
+    (rho : ℂ) (q : ℕ) (hq : 0 < q) (n : ℕ) :
+    offcriticalZeroPrimitive rho (q * n) =
+      Complex.exp ((2 * rho) * ((Real.log (q : ℝ) : ℝ) : ℂ)) *
+        offcriticalZeroPrimitive rho n := by
+  by_cases hn : n = 0
+  · subst n
+    simp [offcriticalZeroPrimitive]
+  · have hq0 : (q : ℝ) ≠ 0 := by
+      exact_mod_cast (Nat.ne_of_gt hq)
+    have hn0 : (n : ℝ) ≠ 0 := by
+      exact_mod_cast hn
+    have hqn : q * n ≠ 0 := mul_ne_zero (Nat.ne_of_gt hq) hn
+    simp only [offcriticalZeroPrimitive, if_neg hn, if_neg hqn]
+    have hsplit :
+        (2 * rho) * ((Real.log ((q * n : ℕ) : ℝ) : ℝ) : ℂ) =
+          (2 * rho) * ((Real.log (q : ℝ) : ℝ) : ℂ) +
+            (2 * rho) * ((Real.log (n : ℝ) : ℝ) : ℂ) := by
+      rw [Nat.cast_mul, Real.log_mul hq0 hn0]
+      push_cast
+      ring
+    rw [hsplit, Complex.exp_add]
+    ring
+
+/-- Every individual hypothetical zeta-zero mode obeys exact coarsening
+eigenhomogeneity. The theorem holds for ALL complex rho, even though no
+off-critical actual zeta zero is asserted to exist. -/
+theorem offcriticalZeroMode_coarsen
+    (rho : ℂ) (q R : ℕ) (hq : 0 < q) :
+    offcriticalComplexCoarsen q (offcriticalZeroMode rho) R =
+      (Complex.exp ((2 * rho) * ((Real.log (q : ℝ) : ℝ) : ℂ)) /
+        (q : ℂ)) * offcriticalZeroMode rho R := by
+  simpa only [offcriticalZeroMode, offcriticalPotentialIncrement] using
+    offcriticalComplexCoarsen_homogeneous q R
+      (offcriticalZeroPrimitive rho)
+      (Complex.exp ((2 * rho) * ((Real.log (q : ℝ) : ℝ) : ℂ)))
+      (offcriticalZeroPrimitive_scale rho q hq)
+
+/-- The true repository Phi map carries the same exact q-scale eigenaction. -/
+theorem offcriticalZeroMode_realified_coarsen
+    (rho : ℂ) (q R : ℕ) (hq : 0 < q) :
+    RHLean.Proof.stableFarComplexToRealPair
+      (offcriticalComplexCoarsen q (offcriticalZeroMode rho) R) =
+      RHLean.Proof.stableFarRealComplexMul
+        (Complex.exp ((2 * rho) * ((Real.log (q : ℝ) : ℝ) : ℂ)) /
+          (q : ℂ))
+        (RHLean.Proof.stableFarComplexToRealPair
+          (offcriticalZeroMode rho R)) := by
+  rw [offcriticalZeroMode_coarsen rho q R hq]
+  exact RHLean.Proof.stableFarComplexToRealPair_mul
+    (Complex.exp ((2 * rho) * ((Real.log (q : ℝ) : ℝ) : ℂ)) /
+      (q : ℂ)) (offcriticalZeroMode rho R)
+
 end RHLean.Analysis
