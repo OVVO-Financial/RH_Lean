@@ -34,7 +34,8 @@ jobs:
             research/OFF_CRITICAL_ZERO_LOW_HIGH_COEFFICIENTS_20261029.lean \
             research/OFF_CRITICAL_ZERO_EULER_LOGDERIV_20261029.lean \
             research/OFF_CRITICAL_ZERO_REALIFIED_SCALE_20261029.lean \
-            research/OFF_CRITICAL_ZERO_MELLIN_RESIDUE_20261029.lean
+            research/OFF_CRITICAL_ZERO_MELLIN_RESIDUE_20261029.lean \
+            research/OFF_CRITICAL_ZERO_THETA_MELLIN_FINITE_20261029.lean
       - name: Verify theorem signatures, source axiom dependencies, and imports
         run: |
           cat > /tmp/OffCriticalZeroAudit.lean <<'LEAN'
@@ -43,6 +44,7 @@ jobs:
           import «research.OFF_CRITICAL_ZERO_EULER_LOGDERIV_20261029»
           import «research.OFF_CRITICAL_ZERO_REALIFIED_SCALE_20261029»
           import «research.OFF_CRITICAL_ZERO_MELLIN_RESIDUE_20261029»
+          import «research.OFF_CRITICAL_ZERO_THETA_MELLIN_FINITE_20261029»
           #check RHLean.Analysis.offCriticalRightZero_forces_highEnergyCriterion_failure
           #check RHLean.Analysis.offCriticalRightZero_forces_mertensPower_failure
           #check RHLean.Proof.offcriticalLowSupport_card_le
@@ -51,11 +53,13 @@ jobs:
           #check RHLean.Proof.offcriticalLow_LSeries_differentiableAt
           #check RHLean.Proof.offcriticalLowHigh_LSeries_eq_invZeta
           #check RHLean.Proof.offcritical_logDerivative_split_algebra
+          #check RHLean.Proof.offcriticalVonMangoldt_LSeries_eq_zetaLogDerivative
           #check RHLean.Analysis.actualThetaSquareShortage_coarsen_eq_endpoints
           #check RHLean.Analysis.canonicalVF_step_eq_signed_nativeOwner_and_descent
           #check RHLean.Analysis.offcriticalZeroMode_coarsen
           #check RHLean.Analysis.offcriticalZeroMode_realified_coarsen
           #check RHLean.Analysis.offcritical_MellinCoarsen_residue_of_regularDefect
+          #check RHLean.Analysis.offcriticalActualTheta_Mellin_coarsen_finite
           #print axioms RHLean.Analysis.offCriticalRightZero_forces_highEnergyCriterion_failure
           #print axioms RHLean.Proof.offcriticalLow_LSeries_differentiableAt
           #print axioms RHLean.Proof.offcriticalLowHigh_LSeries_eq_invZeta
