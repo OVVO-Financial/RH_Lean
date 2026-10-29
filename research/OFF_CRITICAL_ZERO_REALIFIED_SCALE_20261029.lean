@@ -156,4 +156,45 @@ theorem offcriticalZeroMode_realified_coarsen
     (Complex.exp ((2 * rho) * ((Real.log (q : ℝ) : ℝ) : ℂ)) /
       (q : ℂ)) (offcriticalZeroMode rho R)
 
+/-! ## The functional-equation reflected spectral pair -/
+
+/-- Partner of rho across Re(s)=1/2, with the same imaginary coordinate. -/
+def offcriticalReflected (rho : ℂ) : ℂ :=
+  1 - star rho
+
+theorem offcriticalReflected_re (rho : ℂ) :
+    (offcriticalReflected rho).re = 1 - rho.re := by
+  simp [offcriticalReflected]
+
+theorem offcriticalReflected_im (rho : ℂ) :
+    (offcriticalReflected rho).im = rho.im := by
+  simp [offcriticalReflected]
+
+/-- The individual q-scale eigenvalue is q^(2rho-1), not the
+incorrect q^(2rho) that would arise from omitting the averaging /q. -/
+def offcriticalZeroEigenMultiplier (rho : ℂ) (q : ℕ) : ℂ :=
+  Complex.exp ((2 * rho - 1) *
+    ((Real.log (q : ℝ) : ℝ) : ℂ))
+
+/-- Exact radial part of the q-eigenvalue, applicable to any genuine
+zeta zero and its reflected partner. -/
+theorem offcriticalZeroEigenMultiplier_norm (rho : ℂ) (q : ℕ) :
+    ‖offcriticalZeroEigenMultiplier rho q‖ =
+      Real.exp ((2 * rho.re - 1) * Real.log (q : ℝ)) := by
+  unfold offcriticalZeroEigenMultiplier
+  rw [Complex.norm_exp]
+  congr 1
+  simp [Complex.mul_re]
+  ring
+
+/-- The reflected mode has reciprocal radial eigenvalue,
+although its rotational phase is the SAME. No positivity or contraction
+of the complete actual-prime source follows from this mode identity. -/
+theorem offcriticalReflectedEigenMultiplier_norm (rho : ℂ) (q : ℕ) :
+    ‖offcriticalZeroEigenMultiplier (offcriticalReflected rho) q‖ =
+      Real.exp ((1 - 2 * rho.re) * Real.log (q : ℝ)) := by
+  rw [offcriticalZeroEigenMultiplier_norm, offcriticalReflected_re]
+  congr 1
+  ring
+
 end RHLean.Analysis
