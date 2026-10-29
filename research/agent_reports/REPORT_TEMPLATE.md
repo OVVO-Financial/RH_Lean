@@ -1,5 +1,11 @@
 # RH_Lean research report — [DATE / ROLE]
 
+
+> **2026-10-29 upcoming mathematical checks (only after current main contains merged routing PR #1053).** Focus RH_Lean original signed square-clock and moving owner sources, not identities already proved. For the Q-conductor Euler fractional attack, record EXACT \(f_d,m_d,F_d,\alpha_d\), \(Q<R\) admission, centered L_Q, uncentered principal P_Q, high-product U^(>Q), all original mixed/diagonal/reciprocal-square and sharp-shell transport. The 20261029-analytic-1 Q-linear centered shared-GCD bound is PAPER_ACCEPTED_WITH_SCOPE; the complete shell H^(5/2-eta+eps) and the consequent 7/8 exponent improvement remain OPEN. See main:docs/RHLEAN_NATIVE_SQUARE_CLOCK_AGENT_DIRECTIVE_20261029.md once merged, and check original paper/Lean source SHAs.
+>
+> **Additional mandatory source proof ledger:** (i) exact source carrier and current SHA; (ii) H,Q,d,e and epsilon quantifiers, original bound vs improved bound, all constants; (iii) principal/nonprincipal separation; (iv) high-product and complete cross-sector payments; (v) shared-gcd, 2-adic and incomplete-period resonance counterexample; (vi) the full sharp square-shell consumer and its still-open input; (vii) PROVED_IN_LEAN / PAPER_ACCEPTED / FINITE_EVIDENCE / FALSIFIED / OPEN grading and one smallest next independent lemma. Report NO_NEW_INDEPENDENT_INEQUALITY if only an identity, partial census or conditional bound exists. Actual saved Studio cadence/permissions are unchanged.
+>
+
 > TEMPLATE only. Copy into your own dated stage file. Scheduled agents do not modify this template. Read live main AGENTS, CURRENT_PROOF_CONTRACT, docs/FACTOR_DEPTH_RESEARCH_BRIEF and docs/DYNAMIC_RESEARCH_AGENTS first. For MU-LIFT also read main:docs/MERTENS_AMPLIFICATION_BUDGET.md. Main authority and actual merged PR/source state, not this snapshot, determine current work. Merged #958 AND #961 are support/incidence-only: actual signed band/cut paper results are NOT kernel-proved by those PRs. Read live main, not a stale report, for any later changes.
 
 ## Provenance and actual execution
