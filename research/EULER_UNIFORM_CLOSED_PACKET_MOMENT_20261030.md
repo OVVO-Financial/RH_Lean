@@ -1,180 +1,191 @@
-# Complete 2-adic Euler packets: a power-saving UNcentered low-source moment
+# Complete 2-adic Euler packets: a power-saving uncentered LOW-SOURCE moment
 
-Date: 2026-10-30. Scope: genuine original Möbius factor pairs, positive square roots, all principal terms, and correct physical admission. Status: **PAPER_PROOF_NEEDS_INDEPENDENT_REVIEW** for the analytic moment; accompanying coefficient/packet Lean modules require exact-head CI. **Not a full square-shell bound, not a new Mertens exponent, not RH.**
+Date: 2026-10-30. Scope: genuine original Möbius factor pairs, positive square roots, all principal terms, and correct physical admission. **PAPER_PROOF_NEEDS_INDEPENDENT_REVIEW** for the analytic moment. The accompanying Lean files prove the coefficient identities, activation bookkeeping, principal decomposition, finite Gram identity and square-exception bound, subject to their exact-head CI. **The complete original square-shell power-saving theorem is NOT proved. No Mertens exponent improvement or RH claim.**
 
-## 1. Why two columns were incomplete
+## 1. The missing genuine 4d partner
 
-Let X_R=R²-1 and f_d(R)=((R²-1) mod d)/d for R>=1. Let
+Let X_R=R²-1 and f_d(R)=((R²-1) mod d)/d for positive R. Define the original completed coefficient
 
     alpha_d = sum_(1<=a<b, ab=d) mu(a)mu(b).
 
-For odd nonsquare d the ORIGINAL coefficients satisfy
+For odd nonsquare d, actual Möbius multiplicativity gives
 
-    alpha_(2d) = -2 alpha_d,    alpha_(4d) = alpha_d.
+    alpha_(2d)=-2alpha_d,     alpha_(4d)=alpha_d.
 
-The first identity alone gives the binary packet at d,2d with a principal of size -alpha_d. The 4d coefficient is not optional: it is the original even-even partner (2a,2b). The complete eligible packet is
+These are not assumed scalar coefficients. The exact proof uses (mu*mu)(d)=2alpha_d for nonsquares, multiplicativity of the actual Dirichlet convolution, and its local values (mu*mu)(2)=-2, (mu*mu)(4)=1. At a square, every nonzero pair has both factors squarefree; their square product forces them equal, excluded by a<b, hence alpha_(k²)=0.
 
-    2 alpha_d K_d(R),
-    K_d(R) = f_d(R) - 2 f_(2d)(R) + f_(4d)(R).
+The complete eligible packet is therefore
 
-This is not an arbitrary choice of weights. The weights are forced by the actual Möbius convolution and unique factorization. Proof: for a positive nonsquare d, (mu*mu)(d)=2alpha_d. The actual convolution is multiplicative with local values (mu*mu)(2)=-2 and (mu*mu)(4)=1. For odd d both coprimality facts hold; 2d is never square and 4d is square iff d is. Square moduli have no nonzero strict unordered pair, since two squarefree naturals with square product must be equal.
+    2alpha_d K_d(R),
+    K_d(R)=f_d(R)-2f_(2d)(R)+f_(4d)(R).
 
-For EVERY odd d, including squares, the full formulas are
+Pairing just d with 2d leaves a principal of size -alpha_d. The original 4d even-even partner is essential to the improvement below.
 
-    alpha_(2d) = -2 alpha_d - s_d,
-    alpha_(4d) = alpha_d,
-    s_d = mu(k)^2 if d=k², and 0 otherwise.
+For every odd d, including squares, the full coefficient formulas are
 
-Thus no diagonal-type square exception may be erased. The special d=1 contributes the original pair (1,2).
+    alpha_(2d)=-2alpha_d-s_d,     alpha_(4d)=alpha_d,
+    s_d=mu(k)^2 if d=k², and 0 otherwise.
 
-## 2. The exact original closed low source
+In particular d=1 contributes the original pair (1,2). It cannot be discarded.
 
-For integer Q>=1 define
+## 2. An exact original, uncentered, fully admitted subsource
 
-    V_Q(R) = 2 sum_(odd d<=Q)
-       [alpha_d f_d(R) + alpha_(2d) f_(2d)(R) + alpha_(4d) f_(4d)(R)].
+For Q>=1 set
 
-Whenever 4Q<R, every original factor pair in these product columns is physically admitted. Consequently V_Q(R) is EXACTLY the part of twice eulerFractionOffQ R whose product ab has odd part <=Q. No pair is counted twice: every nonzero Mobius product has 2-adic exponent 0,1,or2, and its odd part is unique. Products with higher powers of 2 have zero original coefficient.
+    V_Q(R)=2 sum_(odd d<=Q)
+       [alpha_d f_d(R)+alpha_(2d)f_(2d)(R)+alpha_(4d)f_(4d)(R)].
 
-The decomposition is
+When 4Q<R, EVERY original factor pair in these columns is admitted by a<b<R. Thus V_Q is precisely the part of twice eulerFractionOffQ R whose product ab has odd part <=Q. No cloned or deleted occurrence: a nonzero Möbius product has 2-adic exponent 0,1,or2, and the odd part is unique.
 
-    V_Q(R) = Z_Q(R) + E_Q(R),
-    Z_Q(R) = 2 sum_(odd d<=Q) alpha_d K_d(R),
-    E_Q(R) = -2 sum_(odd k, k²<=Q) mu(k)^2 f_(2k²)(R).
+The exact decomposition is
 
-The square-exception bound is unconditional and pointwise:
+    V_Q=Z_Q+E_Q,
+    Z_Q(R)=2 sum_(odd d<=Q) alpha_d K_d(R),
+    E_Q(R)=-2 sum_(odd k, k²<=Q) mu(k)^2 f_(2k²)(R).
 
-    |E_Q(R)| <= 2 floor(sqrt Q).
+The square exception is paid without cancellation:
 
-It is an original arithmetic term, not a new assumption. All alpha_d with square d vanish in Z_Q.
+    |E_Q(R)|<=2 floor(sqrt Q),
+    sum_(R in I) E_Q(R)^2 <=4 |I| Q.
 
-**Principal warning:** f_d is periodic as a function of the integer polynomial R²-1, using its least nonnegative residue. At residue R=0, that means (-1) mod d, not the truncated natural subtraction 0²-1=0. The Lean physical means use positive representatives 1..d, agreeing exactly with the integer-polynomial period. Every physical root in the theorem is positive.
+The accompanying square-exception Lean module proves its coefficient, absolute mass and energy bound. The displayed identification of all original odd-part fibers still needs its complete finite-Fubini Lean assembly; its mathematical proof is the unique 2-adic factorization described above.
 
-## 3. Main theorem and exact scope
+**Root-zero convention:** use least nonnegative residues of the INTEGER polynomial R²-1 for complete periods, represented by R=1,...,d. At R=0, natural-number subtraction gives 0 instead of -1; silently using that truncated value corrupts the mean. The physical Lean means use positive representatives.
 
-For every epsilon>0 there is an effective C_epsilon such that for every interval I of H consecutive positive integers and every Q>=1,
+## 3. Main paper theorem
+
+For every epsilon>0 there is an effective C_epsilon such that, uniformly over every interval I of H consecutive positive roots and every Q>=1,
 
     sum_(R in I) |Z_Q(R)|²
-      <= C_epsilon [H Q^(1+epsilon) + Q^(3+epsilon)].       (A)
+       <= C_epsilon [H Q^(1+epsilon)+Q^(3+epsilon)].       (A)
 
-The SAME bound holds for V_Q after adding E_Q. In particular, on H<=R<2H, if 4Q<H, this is a bound for the **genuine fully admitted uncentered closed low-product source**, including its principal contribution:
+The SAME estimate holds for V_Q after including E_Q. Consequently, when 4Q<H,
 
     sum_(H<=R<2H) |V_Q(R)|²
-      <= C_epsilon [H Q^(1+epsilon) + Q^(3+epsilon)].       (B)
+       <= C_epsilon [H Q^(1+epsilon)+Q^(3+epsilon)]        (B)
 
-No Mertens bound, zero-free strip, imported OpenAI exponent, random signs, or conjectural cross-term sign enters this theorem.
+is a bound for the actual fully admitted uncentered closed low source, not only a centered model. For Q²<=H this saves one power of Q, up to epsilon, against the elementary triangle-energy benchmark H Q^(2+epsilon).
 
-For Q²<=H, (B) is O_epsilon(H Q^(1+epsilon)), saving one Q (up to epsilon) against the pointwise-triangle energy H Q^(2+epsilon). Unlike the previous centered low-conductor estimate, there is NO unpaid O(H Q²) principal bill inside V_Q.
+The proof below uses finite Fourier algebra, quadratic Gauss orthogonality and elementary divisor estimates. It does not assume an improved Mertens bound, imported OAI exponent, random signs, or a cross-term sign.
 
-## 4. ALL-frequency quadratic Fourier estimate, including the principal
+## 4. All-frequency Gauss bound, INCLUDING frequency zero
 
-Let a_m(x)=x/m on x=0,...,m-1 and e_m(x)=exp(2 pi i x/m). Normalize the finite Fourier transform by 1/m. Then
+Let a_m(x)=x/m on x=0,...,m-1, e_m(x)=exp(2 pi i x/m), and normalize Fourier coefficients by 1/m. Then
 
-    hat a_m(0)=(m-1)/(2m)=:c_m,
-    |hat a_m(k)|=1/[m |1-e_m(-k)|]   (0<k<m).
+    hat a_m(0)=(m-1)/(2m)=c_m,
+    |hat a_m(k)|=1/[m |1-e_m(-k)|] for 0<k<m.
 
-For a quadratic root column f_m(r)=a_m(r²-1),
+For the quadratic column f_m(r)=a_m(r²-1),
 
     hat f_m(h)=c_m*1_(h=0)
-      + sum_(k=1)^(m-1) hat a_m(k) e_m(-k)
-          * (1/m) sum_(r mod m) e_m(k r²-h r).
+      + sum_(k=1)^(m-1) hat a_m(k)e_m(-k)
+          *m^(-1) sum_(r mod m)e_m(k r²-h r).
 
-The Gauss sum obeys for EVERY positive m, including even and nonprimitive cases,
+For every positive m, even or odd, the complete quadratic sum satisfies
 
-    |sum_(r mod m) e_m(k r²-h r)|² <= m*gcd(2k,m).
+    |sum_(r mod m)e_m(k r²-h r)|² <= m*gcd(2k,m).
 
-Proof: square the modulus, substitute x=y+t; the inner sum over y is zero unless m divides 2kt, and otherwise is m. There are gcd(2k,m) surviving t. Triangle inequality is used only after this exact character orthogonality.
+Indeed, squaring and setting x=y+t leaves a geometric inner sum over y. It is zero unless m divides 2kt and otherwise equals m. Exactly gcd(2k,m) residues t survive. Take absolute values only after this orthogonality. No inverse of 2 is assumed.
 
-Pair k with m-k, use |1-e_m(k)|>=4 min(k,m-k)/m and gcd(2k,m)<=2gcd(k,m), then group by the divisors of m. With a safe absolute constant C0,
+Pair k with m-k, use |1-e_m(k)|>=4 min(k,m-k)/m and gcd(2k,m)<=2gcd(k,m). Group by divisors of m. For an absolute constant C0,
 
     |hat f_m(h)-c_m*1_(h=0)|
-      <= C0 (1+log(2m))*sigma_(-1/2)(m)/sqrt(m) =: A(m).  (C)
+      <= C0(1+log(2m))*sigma_(-1/2)(m)/sqrt(m)=A(m).       (C)
 
-This holds for h=0 as well. It bounds the actual quadratic principal bias; it does not assume that the roots are uniformly distributed among residues.
+The estimate includes h=0, where it bounds the actual quadratic-principal bias rather than assuming root equidistribution.
 
-Lift the transforms of f_d, f_(2d), f_(4d) to the same root period 4d. The f_d term appears at frequencies divisible by 4, the f_(2d) term at frequencies divisible by 2, and f_(4d) at every frequency. At frequency zero their uniform main terms cancel exactly to
+Lift f_d,f_(2d),f_(4d) to period 4d. The first is supported at Fourier frequencies divisible by 4, the second at frequencies divisible by 2, the third at every frequency. At zero,
 
-    c_d - 2c_(2d) + c_(4d) = -1/(8d).
+    c_d-2c_(2d)+c_(4d)=-1/(8d).
 
-Therefore EVERY normalized Fourier coefficient of K_d, INCLUDING ZERO, satisfies
+Thus every Fourier coefficient of the CLOSED kernel, including zero, obeys
 
-    |hat K_d(h)| <= B(d),
-    B(d) = C1 (1+log(8d))*sigma_(-1/2)(4d)/sqrt(d),       (D)
+    |hat K_d(h)|<=B(d),
+    B(d)=C1(1+log(8d))*sigma_(-1/2)(4d)/sqrt(d),           (D)
 
-for a sufficiently large absolute C1. This is the key improvement: after the genuine 4d partner is restored, the principal is subject to the same square-root Gauss envelope as the other frequencies.
+with a sufficiently large absolute C1. This is the key change: the genuine principal now obeys the same square-root Gauss envelope as the other frequencies.
 
-The true mean is not zero. In the original positive-root notation m_d, it is exactly
+Its exact mean is not zero:
 
-    mean K_d = -1/(8d) + (m_d-c_d)-2(m_(2d)-c_(2d))+(m_(4d)-c_(4d)).
+    mean K_d=-1/(8d)+(m_d-c_d)-2(m_(2d)-c_(2d))+(m_(4d)-c_(4d)).
 
-Its bound follows from (C); its value is never discarded.
+All these biases are retained in Lean; only the analytic estimate (C)-(D) is paper-level.
 
-## 5. Exact packet interactions: GCD frequencies and incomplete windows
+## 5. Actual packet interactions and incomplete windows
 
-For d,e put g=gcd(d,e) and L=lcm(4d,4e)=4 lcm(d,e). The product-frequency map
+For d,e put g=gcd(d,e), L=lcm(4d,4e)=4lcm(d,e). The product-frequency map
 
     Z/(4d) x Z/(4e) -> Z/L
 
-is onto and has exactly gcd(4d,4e)=4g preimages at each frequency. Thus every normalized Fourier coefficient of K_d K_e is at most
+is onto and has precisely gcd(4d,4e)=4g preimages at each frequency. Every normalized Fourier coefficient of K_d K_e therefore has magnitude <=4g B(d)B(e).
 
-    4g B(d)B(e).
+For any interval I of H roots, retain the zero mode and bound each nonzero interval-character sum by L/[2min(n,L-n)]. Their sum is <=L(1+log L). Since 4gL=16de,
 
-The zero-frequency term is retained. For an interval I of H consecutive roots,
+    |sum_(R in I)K_d(R)K_e(R)|
+      <=4g H B(d)B(e)+16de B(d)B(e)(1+log L).            (E)
 
-    |sum_(R in I) K_d(R)K_e(R)|
-      <= 4g H B(d)B(e)
-         + 16de B(d)B(e)*(1+log L).                      (E)
+This permits nonzero shared-prime covariance of either sign. No packet independence is asserted.
 
-Indeed, each nonzero interval character sum is at most
-L/[2 min(n,L-n)], and their sum is at most L(1+log L); use 4gL=16de. This proves a bound on the ACTUAL signed packet interactions, not a declaration of independence. Both signs and all shared-prime zero modes are allowed.
+Expand Z_Q² with every signed alpha_d alpha_e cross term BEFORE bounding it. Use |alpha_d|<=tau(d), the elementary fixed-epsilon divisor bounds, and
 
-Expand Z_Q² before bounding. The coefficients obey |alpha_d|<=tau(d), and sigma_(-1/2)(4d), tau(d), and all logarithms are bounded by C_epsilon d^epsilon. The complete-period contribution is controlled by
+    sum_(d,e<=Q)gcd(d,e)/sqrt(de)<=4Q(1+log Q).
 
-    sum_(d,e<=Q) gcd(d,e)/sqrt(de) <= 4Q(1+log Q).
+The complete-frequency contribution in (E) is O_epsilon(HQ^(1+epsilon)). The incomplete contribution is bounded by a logarithm times
 
-The incomplete contribution is controlled by
+    [sum_(d<=Q)|alpha_d|sqrt(d)(1+log(8d))*sigma_(-1/2)(4d)]²
+       <<_epsilon Q^(3+epsilon).
 
-    (sum_(d<=Q) |alpha_d| sqrt(d) (1+log(8d))
-                  sigma_(-1/2)(4d))² * O(log(8Q²))
-      <<_epsilon Q^(3+epsilon).
+Choose the smaller divisor epsilons consistently so that the final exponent is epsilon. This proves (A). Then |Z_Q+E_Q|²<=2|Z_Q|²+2|E_Q|² and the proved O(HQ) exception energy yield (B), including their mixed interaction with only a constant-factor cost.
 
-Using (E) and dividing epsilon consistently across the divisor factors gives (A), uniformly in H,Q. Adding E_Q with |E_Q|<=2sqrt Q and |x+y|²<=2|x|²+2|y|² proves (B) with only O(HQ) extra cost. This retains its mixed interaction by a constant-factor bound; there is no exponent loss.
+## 6. Exact progress and an essential sharp-shell comparison
 
-## 6. What this actually advances
+For the UNcentered static-source ledger, (B) improves the previous bound
 
-The prior UNcentered low-product estimate was
+    H Q^(2+epsilon)+Q^(3+epsilon)
 
-    H Q^(2+epsilon) + Q^(3+epsilon),
+to
 
-because the principal remained of size O(Q^(1+epsilon)). The closed packet bound (B) replaces it by
+    H Q^(1+epsilon)+Q^(3+epsilon).
 
-    H Q^(1+epsilon) + Q^(3+epsilon).
+A closed low source is affordable at a proposed H^(5/2-eta+epsilon) budget up to
 
-For a proposed shell energy H^(5/2-eta+epsilon), 0<eta<1/2, choose
+    Q=floor(H^(5/6-eta/3-kappa)),
 
-    Q=floor(H^(5/6-eta/3-kappa)),  kappa>0,
+for fixed 0<eta<1/2, positive kappa with positive cutoff exponent, sufficiently small epsilon margins and sufficiently large H so 4Q<H.
 
-with positive exponent, suitable epsilon margin and sufficiently large H that 4Q<H. The closed low source then lies strictly inside that target budget. This advances the affordable product cutoff from the previous crude-principal scale H^(3/4-eta/2) to H^(5/6-eta/3), up to fixed margins.
+**Do not turn this comparison into an automatic sharp-shell gain.** When one first differences a STATIC low source in R, its constant principal already cancels. The pre-existing centered Q³ estimate can then have the same cutoff power. Accordingly, this work proves a stronger uncentered closed-packet estimate and a source-exact completion mechanism; it does NOT establish an improved optimized sharp-shell frontier merely by comparing the old uncentered principal cost.
 
-**The complete square-block theorem is still NOT proved.** The original source also contains odd parts >Q, including moving products of order H². The above estimate does not control their mixed interaction with V_Q, the rank-one reciprocal square, the original diagonal, or the final floor-to-sharp-shell transfer. Taking Q~H² in (A) gives an unacceptable Q³ cost, not the desired global power saving. No source theorem is obtained by ignoring those terms or inserting a hypothetical bound for them.
+## 7. The still-unproved complete source
 
-## 7. Exact regression (not a proof of asymptotics)
+The original full source contains products of order H² and genuinely moving coefficients beta_d(R). Replacing them by completed alpha_d is false (e.g. the original 2p activation family). For each eligible packet the Lean identity keeps the three exact missing-owner terms; they disappear only after all its factors are admitted.
 
-A rational-arithmetic regression checked 600 odd moduli d<=1200, 5400 pointwise original-coefficient packet identities, 51 positive-period mean identities, and independent original factor-pair reconstruction at (R,Q)=(17,3),(35,8),(64,15),(317,17),(1027,32).
+Existing native square-window algebra gives, for R>=3,
 
-Selected complete closed-source root-window energies and principals:
+    Delta_R=-W_R+B_R,  |B_R|<=5,
+    W_R=(2R+1)s_R²+F_R,
+    s_R=sum_(a<R)mu(a)/a,
+    F_R=sum_(a,b<R)mu(a)mu(b)[f_(ab)(R)-f_(ab)(R+1)].
 
-| H | Q | exact energy (decimal rendering) | actual closed principal | two-column eligible principal |
+The original complete-source energy target must control this W_R, not just the prefix off-diagonal. After the closed low packets and their square exceptions are split off, the unpaid statistic is the **joint** remaining historical fractional window, reciprocal-square drift, diagonal window and all their signed cross terms. Bounding that joint statistic by H^(5/2-eta+epsilon) is NOT proved here. Nor is a global favorable cross-term sign proved.
+
+Setting Q~H² in (A) makes the Q³ remainder of order H^6; it is not a route to the desired bound. The finite packet identities or disappearance of a principal term do not justify discarding the high-product complement or its physical activation corrections. No improved Mertens exponent is claimed.
+
+## 8. Regression and formal status
+
+The committed script scripts/euler_uniform_closed_packet_regression.py independently enumerates genuine factor pairs and checks 600 odd moduli d<=1200, 5400 pointwise identities, 51 positive-period means and physical original-source reconstruction at (R,Q)=(17,3),(35,8),(64,15),(317,17),(1027,32). All calculations use exact integers/Fractions. These are finite falsification/regression checks, not the proof of (A)-(B).
+
+Selected exact-rational energies (decimal renderings) and principals:
+
+| H | Q | closed family energy | actual closed principal | eligible two-column principal |
 |---:|---:|---:|---:|---:|
-| 64 | 8 | 105.9657142857 | 59/252 | 3 |
-| 127 | 11 | 366.3487218505 | -2411/4158 | 4 |
-| 317 | 17 | 2448.7977088357 | -4013657/4594590 | 4 |
-| 1027 | 32 | 13863.6972251468 | -1179689554754/644658718275 | 6 |
+|64|8|105.9657142857|59/252|3|
+|127|11|366.3487218505|-2411/4158|4|
+|317|17|2448.7977088357|-4013657/4594590|4|
+|1027|32|13863.6972251468|-1179689554754/644658718275|6|
 
-These compare different complete packet groupings, not a claim that a fixed sample must obey a monotone energy improvement. No fitted exponent is used in (A)-(B).
+Uniform Lean source files:
+- EULER_UNIFORM_COMPLETED_COEFFICIENTS_20261030.lean: genuine convolution/strict-factor bridge and alpha_(2d) relation.
+- EULER_UNIFORM_CLOSED_PACKETS_20261030.lean: alpha_(4d), all three actual activations, exact principal cancellation and all signed finite Gram terms.
+- EULER_UNIFORM_SQUARE_EXCEPTIONS_20261030.lean: square-root exceptions, actual alpha_(2k²), and uniform O(HQ) energy.
 
-## 8. Formal verification boundary
-
-The new Lean modules prove original coefficient pairing, true d/2d/4d source reconstruction, actual activation terms, the exact cancellation of the uniform-residue principal, the retained quadratic-principal bias, and the fully expanded finite signed Gram identity.
-
-The universal Gauss/Fourier bound (C), normalized product-frequency estimate (E), divisor-epsilon summation and asymptotic moment (A)-(B) are paper proofs here and are NOT claimed kernel-checked merely because those structural modules compile. The complete original-source fixed-eta theorem remains a separate, unpaid arithmetic obligation.
+The all-frequency Gauss bound (C), product-frequency estimate (E), epsilon divisor summation, source-Fubini assembly and asymptotic (A)-(B) still require Lean formalization. Their paper proof must undergo independent review. Successful structural CI does NOT certify the full analytic theorem or the absent full-source saving.
