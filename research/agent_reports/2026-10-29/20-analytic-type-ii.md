@@ -223,3 +223,16 @@ At final refresh, open PRs #1048-#1051 were unmerged and mergeable. Exact heads 
 ## I. Publication verification
 
 The early `IN_PROGRESS` checkpoint was created by commit `e14ba710c8ab21dbbfb2d143f6f06d3f369c1e4b`. The completed synthesis was published by commit `45315d2c36cac8692d89871b2018a5ddc6bd78cb` and read back as blob `5945c441015b084d2aeaf8e19a48e2a08fc2a9d6`. The readback contained `COMPLETED`, claim `20261029-analytic-1`, bound (1), and no non-whitespace control characters. This receipt changes no mathematics.
+
+
+---
+
+## Scheduled continuation - 2026-10-29 22:26 America/New_York
+
+**Status:** IN_PROGRESS
+**Pinned live main:** `d6b59b3fac72e5813145bc1955151e1c8e93e4c6`
+**Authority blobs:** `AGENTS.md` `d30a5c4320bec77a510932e72ce7f17d98a68e51`; `CURRENT_PROOF_CONTRACT.md` `7a067ec0423a998e1079e37494061346d8ee02b0`; square-clock directive `d275035a5a7de919b31948d58f0341627a877461`.
+**Material source blobs:** `EULER_FRACTIONAL_COUPLED_20261027.lean` `e6c4b1690e497760d366e36b28a1f7aa60e19f85`; centered coprime covariance `83c83502e815d15c06d2eda8c1890022adbca119`; quadratic shift orthogonality `a0c2817d7ae43e4cf67d5d7a3f3bccc9a5f6c285`; sharp localization `1f5b2e57f24e44e5b7b5cea80d437ac8350365b0`.
+**Continuity consumed:** all 2026-10-29 specialist reports, including Coordinator `a6b7581`, Owner `86f69ec`, prior Analytic `0c0a7af`, Wheel `27b9572`, Census `00de1c2`, Referee `9c0e84c`, Lean `7296e00`; all 2026-10-28 reports as carry-forward; external inbox `0380181` (no item newer than 2026-10-18).
+
+**Research question.** Repair the incomplete-window term in claim `20261029-analytic-1` on the genuine centered square-clock carrier. The candidate mechanism is common-period Fourier completion: for `D=lcm(d,e)`, every frequency of `F_dF_e` has exactly `gcd(d,e)` lifts, so the accepted pointwise Fourier/Gauss bound may reduce the per-pair remainder from `O(D)` to `O(sqrt(de) polylog(de))`. The normalization, shared-frequency zero mode, 2-adic costs, aggregate `Q` exponent, and adjacent/shared-factor falsifiers are under active audit. No new inequality is classified as proved at this checkpoint.
