@@ -21,11 +21,12 @@ private lemma synthesisMultiples_card_mul_le
   let S := (Finset.Icc a b).filter (fun n => h ∣ n)
   have hinj : Set.InjOn (fun n : ℕ => n/h) (S : Set ℕ) := by
     intro n hn m hm heq
+    change n/h = m/h at heq
     have hnD : h ∣ n := (Finset.mem_filter.mp hn).2
     have hmD : h ∣ m := (Finset.mem_filter.mp hm).2
     calc
       n = h*(n/h) := (Nat.mul_div_cancel' hnD).symm
-      _ = h*(m/h) := by rw [heq]
+      _ = h*(m/h) := congrArg (fun q : ℕ => h*q) heq
       _ = m := Nat.mul_div_cancel' hmD
   have hsub : S.image (fun n => n/h) ⊆ Finset.Icc (a/h) (b/h) := by
     intro q hq
@@ -41,11 +42,15 @@ private lemma synthesisMultiples_card_mul_le
   have hqa := Nat.mod_add_div a h
   have hqb := Nat.mod_add_div b h
   have hra := Nat.mod_lt a hh
-  have hrb := Nat.mod_lt b hh
   have hdiff : b/h+1-a/h+a/h = b/h+1 := Nat.sub_add_cancel (by omega)
+  have hdiffMul : (b/h+1-a/h)*h+(a/h)*h = (b/h)*h+h := by
+    calc
+      _ = (b/h+1-a/h+a/h)*h := by ring
+      _ = (b/h+1)*h := by rw [hdiff]
+      _ = _ := by ring
   have hdiff2 : b-a+a = b := Nat.sub_add_cancel hab
   change S.card*h ≤ b-a+2*h
-  nlinarith
+  nlinarith only [htimes, hdiffMul, hqa, hqb, hra, hdiff2]
 
 /-- Actual multiples, not independence of their Mobius signs, pay this bound. -/
 theorem synthesisDivisorMobius_abs_mul_le
@@ -127,7 +132,7 @@ theorem synthesisHighDivisor_energy
   simp only [← Finset.sum_mul] at hpoint
   simp only [Finset.sum_const, nsmul_eq_mul, hcountH, hcountD] at hpoint
   have hdZ : (0 : ℤ) < D := by exact_mod_cast hD
-  apply (mul_le_mul_right hdZ).mp
+  apply (mul_le_mul_iff_left₀ hdZ).mp
   nlinarith only [hpoint]
 
 /-- Same estimate on the corrected ORIGINAL Euler source, with all actual
