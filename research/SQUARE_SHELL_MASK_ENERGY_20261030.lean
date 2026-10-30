@@ -1,14 +1,8 @@
 import Mathlib
 import «research.SQUARE_SHELL_DIVISOR_SYNTHESIS_20261030»
 
-/-!
-# Uniform energy of a complete physical squareful-mask sector
-
-Squareful physical divisor masks annihilate actual Mobius incidence.
-The full original historical Euler family collapses to its three corners.
-This proves O(number of roots) energy on this proper sector. It does not
-bound the primitive h=1 or the remaining squarefree source.
--/
+/-! Uniform energy of the COMPLETE original Euler source on physical squareful
+masks. The primitive h=1 and remaining squarefree source are not bounded here. -/
 noncomputable section
 open scoped ArithmeticFunction.Moebius BigOperators
 namespace RHLean.Proof
@@ -25,7 +19,7 @@ private lemma masked_impulse_sum (I : Finset ℕ) (h q : ℕ) (v : ℤ)
   · intro hn
     exact False.elim (hn hq)
 
-/-- The divisor correction consists of exactly three original physical sites. -/
+/-- Exactly the three original physical corner sites; no boundary assumption. -/
 theorem synthesisDivisorCornerWindow_explicit
     (R h : ℕ) (hR : 3 ≤ R) :
     synthesisDivisorCornerWindow R h =
@@ -49,7 +43,7 @@ theorem synthesisDivisorCornerWindow_explicit
     masked_impulse_sum I h (R*(R+1)) _ h1,
     masked_impulse_sum I h (R*(R+2)) _ h2]
 
-private lemma synthesis_mask_abs (P : Prop) (z B : ℤ)
+private lemma synthesis_mask_abs (P : Prop) [Decidable P] (z B : ℤ)
     (hB : 0 ≤ B) (hz : |z| ≤ B) :
     |if P then z else 0| ≤ B := by
   by_cases h : P
@@ -69,7 +63,6 @@ private lemma synthesis_mu_pair_abs (a b : ℕ) :
       ring
     _ ≤ 2 := by linarith only [hp]
 
-set_option maxHeartbeats 2000000 in
 lemma synthesisDivisorCornerWindow_abs_le_five
     (R h : ℕ) (hR : 3 ≤ R) :
     |synthesisDivisorCornerWindow R h| ≤ 5 := by
@@ -81,11 +74,11 @@ lemma synthesisDivisorCornerWindow_abs_le_five
     have hu := (abs_le.mp hmu).2
     nlinarith only [hl, hu]
   have h0 : |if h ∣ R*R then (μ R : ℤ)^2 else 0| ≤ 1 :=
-    synthesis_mask_abs _ _ _ (by norm_num) hsquare
+    synthesis_mask_abs (h ∣ R*R) _ _ (by norm_num) hsquare
   have h1 : |if h ∣ R*(R+1) then 2*(μ R : ℤ)*μ (R+1) else 0| ≤ 2 :=
-    synthesis_mask_abs _ _ _ (by norm_num) (synthesis_mu_pair_abs R (R+1))
+    synthesis_mask_abs (h ∣ R*(R+1)) _ _ (by norm_num) (synthesis_mu_pair_abs R (R+1))
   have h2 : |if h ∣ R*(R+2) then 2*(μ R : ℤ)*μ (R+2) else 0| ≤ 2 :=
-    synthesis_mask_abs _ _ _ (by norm_num) (synthesis_mu_pair_abs R (R+2))
+    synthesis_mask_abs (h ∣ R*(R+2)) _ _ (by norm_num) (synthesis_mu_pair_abs R (R+2))
   calc
     _ ≤ |(if h ∣ R*R then (μ R : ℤ)^2 else 0) +
           (if h ∣ R*(R+1) then 2*(μ R : ℤ)*μ (R+1) else 0)| +
@@ -96,14 +89,14 @@ lemma synthesisDivisorCornerWindow_abs_le_five
       add_le_add_right (abs_add_le _ _) _
     _ ≤ 5 := by linarith only [h0, h1, h2]
 
-/-- All original completed/partial factor pairs are covered by this bound. -/
+/-- Covers all original completed and partially admitted factor pairs. -/
 theorem synthesisSquarefulEuler_abs_le_five
     (R h : ℕ) (hR : 3 ≤ R) (hh : ¬ Squarefree h) :
     |synthesisDivisorEulerWindow R h| ≤ 5 := by
   rw [synthesisSquarefulEuler_eq_corner R h hR hh]
   exact synthesisDivisorCornerWindow_abs_le_five R h hR
 
-/-- The physical squareful mask can change arbitrarily with R. -/
+/-- The physical squareful mask may change arbitrarily with R. -/
 theorem synthesisSquarefulEuler_energy_le
     (I : Finset ℕ) (mask : ℕ → ℕ)
     (hR : ∀ R ∈ I, 3 ≤ R)
@@ -122,7 +115,7 @@ theorem synthesisSquarefulEuler_energy_le
         0 ≤ synthesisDivisorEulerWindow R (mask R) + 5)]
     _ = 25 * (I.card : ℤ) := by simp; ring
 
-/-- No signed cross-divisor term is erased by this physical-source identity. -/
+/-- No signed cross-divisor term is erased by the physical-source identity. -/
 theorem synthesisCorrectedEuler_gram
     (I S : Finset ℕ) (weight : ℕ → ℤ)
     (hR : ∀ R ∈ I, 3 ≤ R) :
