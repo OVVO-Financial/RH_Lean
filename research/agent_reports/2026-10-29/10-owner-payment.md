@@ -230,3 +230,5 @@ Equation (7) is consistent with the October 29 Census conjecture but unproved. I
 ## Publication verification
 
 Early `IN_PROGRESS` checkpoint: commit `d65f717dcf155ef81160da527fca7c2ea6a02948`, read back as blob `91269b6460af76325da28cfe8f5549dc5c3c9fd7`.
+
+Completed mathematical synthesis: commit `772f8d2ab5d084e5fef6d9c3970a72ff676e264f`, read back as blob `3f1dd68aaa75c08bd6551d6cf060665387834055` (14,086 characters; `COMPLETED`, claim `20261029-owner-1`, equation (7), and no non-whitespace control characters verified). This receipt update changes no mathematics.
