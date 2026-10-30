@@ -1,27 +1,247 @@
 # RH_Lean agent daily report - 2026-10-30 / RH | Finite Wheel & Incidence
 
-**Status:** IN_PROGRESS
+**Status:** COMPLETED
 **Invocation:** scheduled run begun 2026-10-30 00:09 America/New_York
+**Final authority refresh:** 2026-10-30 America/New_York
 **Pinned live main:** `d6b59b3fac72e5813145bc1955151e1c8e93e4c6`
 **Authority blobs:** `AGENTS.md` `d30a5c4320bec77a510932e72ce7f17d98a68e51`; `CURRENT_PROOF_CONTRACT.md` `7a067ec0423a998e1079e37494061346d8ee02b0`
 **Material source blobs:** `research/EULER_FRACTIONAL_COUPLED_20261027.lean` `e6c4b1690e497760d366e36b28a1f7aa60e19f85`; square-clock directive `d275035a5a7de919b31948d58f0341627a877461`; quadratic shift orthogonality `a0c2817d7ae43e4cf67d5d7a3f3bccc9a5f6c285`
-**External inbox:** `038018145c0fddb2f6306c0712373adf9cd1ea52`, no handoff newer than 2026-10-18.
-**Continuity:** all named 2026-10-30 reports were absent at intake, so `TODAY=PENDING`. The complete 2026-10-29 set is `YESTERDAY=CARRY_FORWARD`; in particular Wheel blob `27b957207d399a1d6c4187b6bfab72433be5a52d`, claim `20261029-wheel-1`, and Coordinator blob `a6b758112539d0841472082a69da3a4ce49d79cb`, claim `20261029-coordinator-1`.
+**External inbox:** `038018145c0fddb2f6306c0712373adf9cd1ea52`, no handoff newer than 2026-10-18
+**New claim:** `20261030-wheel-1`
+**Result classes:** `PAPER_PROOF / EXACT ORIGINAL-SOURCE 2-ADIC PACKET IDENTITY`, `PAPER_PROOF / EXACT LOW-HIGH MIXED COVARIANCE`, `PAPER_PROOF / SHARED-2 RESONANT FAMILY`, `FINITE_COMPUTATION`, `NO_FIXED_ETA_GAIN`, `NO_RH`
 
-## Active question
+## A. Main result
 
-Classify the first high product layer above a split (Q) on the literal
-`2*eulerFractionOffQ` carrier, retaining cubefree multiplicity, signs, the
-prime (2), shared gcd, lcm, principal modes, and low/high mixed energy.
+### Claim `20261030-wheel-1`: exact prime/even-semiprime conservation packet
 
-The first candidate is the exact packet (d=p,2p) for odd primes
-(Q/2<p\le Q). Unique factorization gives (alpha_p=-1) and
-(alpha_{2p}=2), so the split places (p) below (Q) and (2p) immediately
-above it. A pointwise 2-adic carry identity appears to turn
-(-2f_p(R)+4f_{2p}(R)) into a binary value (0) or (2). The proof,
-complete-period covariance, coherent packet family, and relation to the new
-analytic incomplete-window claim are under active audit.
+Write
 
-No new inequality is classified as proved at this checkpoint. The full sharp
-shell moment, any strict exponent below (7/8), the canonical theorem, and RH
-remain open.
+```text
+X_R = R^2 - 1
+f_d(R) = (X_R mod d)/d
+m_d = d^(-1) sum_(r mod d) f_d(r)
+F_d(R) = f_d(R)-m_d.
+```
+
+Group the literal strict source `2*eulerFractionOffQ(R)` by product `d=ab`,
+with `alpha_d=sum_(1<=a<b,ab=d) mu(a)mu(b)`. For every odd prime `p` and
+root `R>2p`, the complete original packet at `d=p,2p` is
+
+```text
+B_p(R) = 2*alpha_p*f_p(R) + 2*alpha_(2p)*f_(2p)(R)
+       = -2*f_p(R) + 4*f_(2p)(R).
+```
+
+Then, exactly,
+
+```text
+B_p(R) is in {0,2};                                          (1)
+m_(2p) = 1/4 + m_p/2;                                        (2)
+-2*m_p + 4*m_(2p) = 1;                                       (3)
+b_p(R) := B_p(R)-1 = -2*F_p(R)+4*F_(2p)(R) is in {-1,1};      (4)
+(1/(2p)) sum_(R mod 2p) b_p(R)^2 = 1.                        (5)
+```
+
+Thus the negative prime principal debt from `20261029-wheel-1` has an exact
+immediate even-semiprime compensator. The pair does not cancel to zero: it
+conserves one unit of principal mass and one unit of centered variance.
+
+## B. Cubefree incidence and proof
+
+If `alpha_d` is nonzero, unique factorization forces `d=s^2*t`, with `s,t`
+squarefree and coprime. Every prime in `s` occurs in both factors; every prime
+in `t` is allocated to exactly one factor. Therefore, for `t>1`,
+
+```text
+alpha_d = mu(t)*2^(omega(t)-1),                              (6)
+```
+
+while `t=1` gives only the excluded equality `a=b=s`, hence `alpha_d=0`.
+In particular `alpha_p=-1` and `alpha_(2p)=+2`.
+
+Put `y=X_R mod p`, `delta=X_R mod 2`, and `x=X_R mod (2p)`. CRT says `x`
+is the unique member of `{y,y+p}` having parity `delta`. Thus `x-y` is `0`
+or `p`, and
+
+```text
+B_p(R) = -2*y/p + 4*x/(2p) = 2*(x-y)/p.
+```
+
+This proves (1). As `R` runs modulo `2p`, each residue modulo `p` has one
+even and one odd lift. For fixed `y`, the corresponding `2p` remainders are
+`y` and `y+p`, with sum `2y+p`. Averaging proves (2), then (3)-(5).
+
+This explains the earlier finite observations at `d=3,6` and `d=5,10`:
+the two principal increments sum to exactly one for every odd prime.
+
+## C. Exact low/high mixed-energy ledger
+
+Let `v_p` be the complete-period variance of `F_p`, and put
+
+```text
+L_p=-2*F_p,  H_p=4*F_(2p),  b_p=L_p+H_p.
+```
+
+For the two parity lifts above each residue modulo `p`, `F_p` is unchanged
+and `b_p` changes sign. Hence, for normalized complete-period brackets,
+
+```text
+<F_p,b_p>_(2p) = 0,
+||L_p||^2_(2p) = 4*v_p,
+||H_p||^2_(2p) = 1+4*v_p,
+<L_p,H_p>_(2p) = -4*v_p,
+||L_p+H_p||^2_(2p) = 1.                                    (7)
+```
+
+For a cutoff `Q`, every prime `Q/2<p<=Q` lies below the cut while `2p` lies
+in the first high layer `Q<2p<=2Q`. If `2Q<R`, all original occurrences
+`(1,p),(1,2p),(2,p)` are admitted. The cut therefore separates the two
+halves of (7). A theorem declaring this low/high mixed block zero,
+nonnegative, or dispensable is false on the original carrier.
+
+This does not prove that triangle inequality is globally too expensive by a
+fixed power. It identifies the exact cancellation that it discards.
+
+## D. Shared-2 resonance and coherent family
+
+Define
+
+```text
+S_p = sum_(r mod p) (-1)^((r^2-1) mod p).
+```
+
+The binary centered packet satisfies
+`b_p(R)=(-1)^(R+((R^2-1) mod p))`. For distinct odd primes `p,q`,
+conditioning on the common parity coordinate and applying CRT gives
+
+```text
+<b_p,b_q>_(2pq) = S_p*S_q/(p*q).                            (8)
+```
+
+If `p=1 mod 4`, then `S_p=1`: the `r=0` term contributes one and the
+two-to-one nonzero square residues pair by `z <-> p-z`; since `-1` is a
+square and paired representatives have opposite parity, they cancel. Thus,
+for `p,q=1 mod 4`,
+
+```text
+<b_p,b_q>_(2pq) = 1/(p*q) > 0.                              (9)
+```
+
+The high moduli satisfy `gcd(2p,2q)=2`, `lcm(2p,2q)=2pq`, and
+
+```text
+<4F_(2p),4F_(2q)>_(2pq)=1/(p*q).                            (10)
+```
+
+All other cross terms in the packet expansion have coprime moduli and zero
+complete-period covariance. Equations (9)-(10) are therefore a legitimate
+positive shared-2 resonance. In a dyadic layer `Q/2<p,q<=Q`, the lcm lies in
+`(Q^2/2,2Q^2]`, the long-period scale when `Q^2` exceeds the interval length.
+Classical PNT in the progression `1 mod 4` gives about `Q/(4 log Q)` such
+primes, but no asymptotic count is needed for the exact identities.
+
+The coherent uncentered packet has mean equal to its number of primes, so its
+complete-period energy is at least the square of that number. This refutes an
+`O(HQ)`-style uncentered estimate for sufficiently large packets, but not the
+sharp-shell target; full-source compensation remains possible.
+
+## E. Test of claim `20261029-analytic-2`
+
+The scheduled Analytic continuation, blob
+`2480e5f2b5f0f1bbb5144a79583fd3b89dcf2aa9`, proposes a centered
+incomplete-window bound from the product-frequency map
+
+```text
+(h,k) -> b*h+a*k mod D,  d=g*a, e=g*b, D=g*a*b.
+```
+
+The finite group count is consistent: the map is well-defined and onto, and
+its kernel has size `g` because its domain has `de=gD` elements. Today's
+packet does not falsify the centered claim. It supplies the requested even
+shared-gcd stress test: the `g=2` zero mode is nonzero with weighted value
+`1/(pq)`; the within-packet mixed covariance is `-4v_p`; restoring principal
+modes changes the packet mean from zero to one.
+
+Thus `20261029-analytic-2` remains `PAPER_PROOF_NEEDS_INDEPENDENT_REVIEW`.
+This result neither promotes it to Lean nor refutes its stated scope. It does
+refute extensions deleting principal reconstruction, the shared-2 zero mode,
+or the low/high mixed term.
+
+## F. Exact finite regression
+
+Exact-rational CPython 3.12.13 assertions checked (1)-(7) for
+`p=3,5,7,13,17,29,41,101,149`. Examples:
+
+| p | m_p | m_(2p) | v_p | low energy | high energy | mixed covariance | packet variance |
+|---:|---:|---:|---:|---:|---:|---:|---:|
+| 5 | 2/5 | 9/20 | 14/125 | 56/125 | 181/125 | -56/125 | 1 |
+| 13 | 6/13 | 25/52 | 18/169 | 72/169 | 241/169 | -72/169 | 1 |
+| 17 | 8/17 | 33/68 | 32/289 | 128/289 | 417/289 | -128/289 | 1 |
+
+It also checked (9) exactly:
+
+| p | q | lcm(2p,2q) | covariance |
+|---:|---:|---:|---:|
+| 5 | 13 | 130 | 1/65 |
+| 5 | 17 | 170 | 1/85 |
+| 13 | 17 | 442 | 1/221 |
+| 17 | 29 | 986 | 1/493 |
+| 29 | 41 | 2378 | 1/1189 |
+
+Held-out intervals `H=Q^2`, `H<=R<2H`, for `Q=50,100,200,400` retained
+packet values in `{0,2,...,2#P}` and displayed the predicted negative mixed
+term. These computations are evidence only; Sections B-D are the proof.
+
+Repository search found the cubefree coefficient formula, the prime-only
+principal bound, and finite compensation at `d=6,10,12`. It did not find
+(1), principal conservation (3), mixed ledger (7), or family (8)-(10).
+
+## G. Continuity, authority, and GitHub state
+
+All named 2026-10-30 reports were absent at intake: `TODAY=PENDING`. The
+complete 2026-10-29 set is `YESTERDAY=CARRY_FORWARD`:
+
+- Coordinator mirrors `a6b758112539d0841472082a69da3a4ce49d79cb`, claim `20261029-coordinator-1`;
+- Owner `86f69ecbf9a921b9d26424a3e4936c950cabdab5`, claim `20261029-owner-1`;
+- Analytic `2480e5f2b5f0f1bbb5144a79583fd3b89dcf2aa9`, claims `20261029-analytic-1..2`;
+- Wheel `27b957207d399a1d6c4187b6bfab72433be5a52d`, claim `20261029-wheel-1`;
+- Census `00de1c235982179677834940d270357999b75d42`, claim `20261029-census-1`;
+- Referee `9c0e84cb7b7303d501c33550697b45c5ded3a46a`, claims `20261029-referee-1..3`;
+- Lean `7296e00bf6e606a53af8acc35a11f24a5a99a58f`, claim `20261029-lean-1`.
+
+The external inbox has no claim newer than 2026-10-18; its older PNT, Hecke,
+and source no-go handoffs do not state or pay this identity.
+
+At final refresh, main remained `d6b59b3fac72e5813145bc1955151e1c8e93e4c6`;
+#1051/#1052/#1053 are merged and there are no open or draft PRs. Compiled
+main certifies the named #1051/#1052 declarations, not `20261030-wheel-1`.
+
+No source, proof branch, PR, issue, workflow, schedule, permission, or another
+agent's report was modified. The only writes were this authorized report.
+
+## H. Handoff and resume capsule
+
+**Adversarial Referee:** audit (1)-(10), especially `alpha_(2p)=2`, admission
+`R>2p`, the parity-lift average, and conditional-parity proof of (8).
+
+**Lean Verification:** after referee acceptance, formalize the Euclidean carry
+dichotomy, `m_(2p)=1/4+m_p/2`, and centered mixed identity (7). Do not include
+the PNT-in-AP population sentence in the finite theorem.
+
+**Owner/Analytic:** preserve each `p,2p` packet across the cut or retain its
+exact mixed term. The next quantitative question is whether larger `s^2t`
+ancestry admits analogous prime-adjoining conservation packets that reduce
+the complete high principal bill without restating the target.
+
+**Next Wheel run:** classify `d=p,ell*p` for odd primes `ell`; determine
+whether `ell=2` is the unique binary law, and seek a disjoint packet cover of
+a positive high-layer proportion without double-spending occurrences.
+
+**Independent structural progress:** YES.
+**Independent fixed-eta signed progress:** NONE.
+**Canonical theorem, complete source payment, strict exponent below 7/8, and RH:** OPEN.
+
+## I. Publication record
+
+Early checkpoint commit `5928e77fe3b0aeabc087a62595d01c6ddb3c099d`,
+read back as blob `93d2994086e7571e94c7dba5515f9e584e77529d`.
