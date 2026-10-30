@@ -35,7 +35,7 @@ jobs:
       - name: Warning-fatal native source closure
         uses: ./.github/actions/research-compile
         with:
-          targets: research/SQUARE_SHELL_DIVISOR_SYNTHESIS_20261030.lean research/SQUARE_SHELL_MASK_ENERGY_20261030.lean research/SQUARE_SHELL_COMPENSATED_SYNTHESIS_20261030.lean research/SQUARE_SHELL_HIGH_DIVISOR_BOUND_20261030.lean
+          targets: research/SQUARE_SHELL_DIVISOR_SYNTHESIS_20261030.lean research/SQUARE_SHELL_MASK_ENERGY_20261030.lean research/SQUARE_SHELL_COMPENSATED_SYNTHESIS_20261030.lean research/SQUARE_SHELL_HIGH_DIVISOR_BOUND_20261030.lean research/SQUARE_SHELL_PERSISTENCE_COUNTEREXAMPLES_20261030.lean
           build-library: 'true'
       - name: Theorem type and logical axiom verification
         run: |
@@ -45,25 +45,30 @@ jobs:
           import «research.SQUARE_SHELL_MASK_ENERGY_20261030»
           import «research.SQUARE_SHELL_COMPENSATED_SYNTHESIS_20261030»
           import «research.SQUARE_SHELL_HIGH_DIVISOR_BOUND_20261030»
+          import «research.SQUARE_SHELL_PERSISTENCE_COUNTEREXAMPLES_20261030»
           #check RHLean.Proof.synthesisEulerCoefficient_eq_neg_moebius_add_corner
           #check RHLean.Proof.synthesisDivisorEuler_eq_neg_mobius_add_corner
           #check RHLean.Proof.synthesisSquarefulEuler_energy_le
           #check RHLean.Proof.synthesisCompensatedIncidence_profile
           #check RHLean.Proof.synthesisCompensatedIncidence_gram
           #check RHLean.Proof.synthesisHighDivisor_correctedEuler_energy
+          #check RHLean.Proof.synthesis_not_universal_nonpositive_adjacent
+          #check RHLean.Proof.synthesis_not_universal_nonpositive_coprime
           #print axioms RHLean.Proof.synthesisEulerCoefficient_eq_neg_moebius_add_corner
           #print axioms RHLean.Proof.synthesisDivisorEuler_eq_neg_mobius_add_corner
           #print axioms RHLean.Proof.synthesisSquarefulEuler_energy_le
           #print axioms RHLean.Proof.synthesisCompensatedIncidence_profile
           #print axioms RHLean.Proof.synthesisCompensatedIncidence_gram
           #print axioms RHLean.Proof.synthesisHighDivisor_correctedEuler_energy
+          #print axioms RHLean.Proof.synthesis_not_universal_nonpositive_adjacent
+          #print axioms RHLean.Proof.synthesis_not_universal_nonpositive_coprime
           EOF
           lake env lean -DwarningAsError=true /tmp/divisor_synthesis_audit.lean | tee /tmp/divisor_synthesis_axioms.log
           python3 - <<'PY'
           import pathlib,re
           s=pathlib.Path('/tmp/divisor_synthesis_axioms.log').read_text()
           found=re.findall(r'depends on axioms:\s*\[([^]]*)\]',s,re.S)
-          assert len(found)>=6
+          assert len(found)>=8
           for ax in found:
               assert {a.strip() for a in ax.split(',') if a.strip()} <= {'propext','Classical.choice','Quot.sound'}, ax
           for p in pathlib.Path('research').glob('SQUARE_SHELL_*_20261030.lean'):
