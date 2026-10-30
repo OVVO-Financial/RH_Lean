@@ -1,0 +1,23 @@
+name: Native Euler odd-doubling packet Lean
+
+on:
+  pull_request:
+    paths:
+      - "research/EULER_ODD_DOUBLING_PACKET_20261030.lean"
+      - ".github/workflows/odd-doubling-packet.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  lean:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: leanprover/lean-action@v1
+        with:
+          build: false
+      - name: Compile odd-doubling packet with warnings fatal
+        run: lake env lean -DwarningAsError=true research/EULER_ODD_DOUBLING_PACKET_20261030.lean
