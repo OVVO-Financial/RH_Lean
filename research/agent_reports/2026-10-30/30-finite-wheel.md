@@ -276,15 +276,15 @@ Let
 Unique factorization gives the exact identity
 [
   c(n)=2alpha_n+
-  {f 1}_{n=k^2}mu(k)^2.                                  	ag{11}
+  {\bf 1}_{n=k^2}mu(k)^2.                                  	ag{11}
 ]
 If (ell) is prime and (ell
 mid d), multiplicativity and
 (c(ell)=-2, c(ell^2)=1) therefore give
 [
-egin{aligned}
+\begin{aligned}
  alpha_{ell d}
-   &=-2alpha_d-{f 1}_{d=k^2}mu(k)^2,\
+   &=-2alpha_d-{\bf 1}_{d=k^2}mu(k)^2,\
  alpha_{ell^2d}&=alpha_d.                                	ag{12}
 end{aligned}
 ]
@@ -300,11 +300,11 @@ Thus the genuine completed occurrence packet is
 ]
 
 For an arbitrary integer numerator (X=pq+r, 0le r<p), write
-(t=qmodell^2) and (u=qmodell). Direct Euclidean division yields
+(t=q\bmodell^2) and (u=q\bmodell). Direct Euclidean division yields
 [
  K_{ell,p}(X)
- =rac{(ell-1)^2r}{ell^2p}
-   +rac{t-2ell u}{ell^2}.                               	ag{15}
+ =\frac{(ell-1)^2r}{ell^2p}
+   +\frac{t-2ell u}{ell^2}.                               	ag{15}
 ]
 Unlike the (ell=2) binary packet formalized by #1054, (15) retains both
 the residual coordinate and an (ell^2)-quotient coordinate. In particular
@@ -322,13 +322,13 @@ Fix an odd prime (ell) and choose distinct primes
 Every product (ell^2p_i<R), so all three original columns in (13) are
 fully admitted. Moreover
 [
- rac{X_R}{p_i}=(P/p_i)(P+2)equiv3pmod{ell^2}.
+ \frac{X_R}{p_i}=(P/p_i)(P+2)equiv3pmod{ell^2}.
 ]
 Consequently all (N) distinct prime-adjoining packets have exactly the same
 value:
 [
  K_{ell,p_i}(R)=
- egin{cases}
+ \begin{cases}
   1/3,&ell=3,\
   -3(2ell-1)/ell^2,&ellge5.
  end{cases}                                                	ag{16}
@@ -351,7 +351,7 @@ packets before restoring the remaining source.
 I checked the paper steps behind
 [
  sum_{Rin I}|Z_Q(R)|^2
- ll_arepsilon H Q^{1+arepsilon}+Q^{3+arepsilon}.
+ ll_\varepsilon H Q^{1+\varepsilon}+Q^{3+\varepsilon}.
 ]
 The even-modulus Gauss estimate follows exactly by differencing (x=y+t);
 the inner sum survives for precisely (gcd(2k,m)) values of (t). The
@@ -359,10 +359,10 @@ product-frequency fibre has size (4gcd(d,e)), and
 (4gcd(d,e)operatorname{lcm}(4d,4e)=16de), giving the stated incomplete
 term. Finally
 [
- sum_{d,ele Q}rac{gcd(d,e)}{sqrt{de}}ll Qlog Q
+ sum_{d,ele Q}\frac{gcd(d,e)}{sqrt{de}}ll Qlog Q
 ]
 by (d=ga,e=gb), while the one-variable incomplete mass is
-(O_arepsilon(Q^{3/2+arepsilon})).
+(O_\varepsilon(Q^{3/2+\varepsilon})).
 
 No contradiction was found. The result remains exactly
 `PAPER_PROOF_NEEDS_INDEPENDENT_REVIEW`, because the all-frequency Fourier
@@ -429,7 +429,7 @@ Equivalently, for every natural `p`,
 
 [
  k_W((1,q),p)=
- egin{cases}
+ \begin{cases}
  2,&p {m prime}, p<q,\
  0,&	ext{otherwise}.
  end{cases}
@@ -439,23 +439,23 @@ This is an equality of original occurrence identifiers, not merely a count. Cons
 
 [
  operatorname{ownerReturnHarmonicMultiplicity}(W,(1,q))
-   =2sum_{p<q, p {m prime}}rac1p,
+   =2sum_{p<q, p {m prime}}\frac1p,
 ]
 and, since the parent reciprocal amplitude is (-1/q),
 
 [
  sum_{vinmathcal F_W(1,q)} a(v)
-   =rac2qsum_{p<q}rac1p,
+   =\frac2qsum_{p<q}\frac1p,
  qquad
- rac{left|sum_{vinmathcal F_W(1,q)}a(v)ight|}
+ \frac{left|sum_{vinmathcal F_W(1,q)}a(v)ight|}
       {|a(1,q)|}
-   =2sum_{p<q}rac1p.
+   =2sum_{p<q}\frac1p.
 ]
 
 Euler divergence of the prime harmonic series therefore gives the quantified no-go
 
 [
- orall C>0 exists q {m prime} exists Wge q^2:
+ \forall C>0 exists q {m prime} exists Wge q^2:
  left|sum_{vinmathcal F_W(1,q)}a(v)ight|>C|a(1,q)|.
 ]
 
@@ -487,7 +487,7 @@ Exact rational checks reproduce #1059 at `q=7` and extend it:
 | 1009 | 168 | 4.396160... | 19.326224... | 0.904240... |
 | 10007 | 1229 | 4.966119... | 24.662346... | 0.904475... |
 
-The computation is only a regression; the all-scale conclusion uses the exact fibre proof and the classical divergence theorem. Boundary cases were checked: `p=q` fails strict chronology and `p>q` has owner `q), not `p`; `W< p q` may clip a child, which is why the theorem assumes `W>=q^2`; composite `p` is not an owner; repeated-prime candidates are nonsquarefree.
+The computation is only a regression; the all-scale conclusion uses the exact fibre proof and the classical divergence theorem. Boundary cases were checked: `p=q` fails strict chronology and `p>q` has owner `q`, not `p`; `W< p q` may clip a child, which is why the theorem assumes `W>=q^2`; composite `p` is not an owner; repeated-prime candidates are nonsquarefree.
 
 Repository code search found only the concrete `q=7,W=35` complete-fibre theorem and no equivalent all-prime fibre formula or unbounded harmonic-return theorem. The result is therefore new relative to current `main`, subject to independent review.
 
@@ -497,10 +497,7 @@ This closes a structural question negatively: local owner incidence cannot by it
 
 Smallest formalization target: for prime `q`, prime `p<q`, and `W>=q^2`, prove
 
-[
- operatorname{postRootCovarianceFixedOwnerChildFiber}(W,(1,q),p)
- ={(1,pq),(p,q)}.
-]
+`postRootCovarianceFixedOwnerChildFiber W (1,q) p = {(1,p*q),(p,q)}`.
 
 Then prove the zero case for nonprime or `q<=p`, the exact finite harmonic-multiplicity identity, and only afterward import the already-standard divergence of `sum_{p<q}1/p` if the library theorem is available. Keep the global no-go paper-level until that last step is independently reviewed.
 
