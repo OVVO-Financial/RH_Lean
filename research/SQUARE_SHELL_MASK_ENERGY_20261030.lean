@@ -62,33 +62,37 @@ private lemma synthesis_mu_pair_abs (a b : ℕ) :
       ring
     _ ≤ 2 := by linarith only [hp]
 
-set_option maxHeartbeats 1000000 in
+private lemma synthesis_mask_abs_generic
+    (P : Prop) [Decidable P] (x B : ℤ) (hB : 0 ≤ B) (hx : |x| ≤ B) :
+    |if P then x else 0| ≤ B := by
+  by_cases h : P
+  · simpa only [ite_eq_left h] using hx
+  · simpa only [ite_eq_right h, abs_zero] using hB
+
+private lemma synthesis_three_masks_abs
+    (P Q T : Prop) [Decidable P] [Decidable Q] [Decidable T]
+    (x y z : ℤ) (hx : |x| ≤ 1) (hy : |y| ≤ 2) (hz : |z| ≤ 2) :
+    |(if P then x else 0)+(if Q then y else 0)+(if T then z else 0)| ≤ 5 := by
+  have hp := synthesis_mask_abs_generic P x 1 (by norm_num) hx
+  have hq := synthesis_mask_abs_generic Q y 2 (by norm_num) hy
+  have ht := synthesis_mask_abs_generic T z 2 (by norm_num) hz
+  calc
+    _ ≤ |(if P then x else 0)+(if Q then y else 0)| +
+        |if T then z else 0| := abs_add_le _ _
+    _ ≤ |if P then x else 0| + |if Q then y else 0| +
+        |if T then z else 0| := add_le_add_right (abs_add_le _ _) _
+    _ ≤ (1+2)+2 := add_le_add (add_le_add hp hq) ht
+    _ = 5 := rfl
+
 lemma synthesisDivisorCornerWindow_abs_le_five
     (R h : ℕ) (hR : 3 ≤ R) :
     |synthesisDivisorCornerWindow R h| ≤ 5 := by
   rw [synthesisDivisorCornerWindow_explicit R h hR]
-  have h0 : |if h ∣ R*R then (μ R : ℤ)^2 else 0| ≤ 1 := by
-    split_ifs
-    · exact synthesis_square_abs (μ R) ArithmeticFunction.abs_moebius_le_one
-    · norm_num
-  have h1 : |if h ∣ R*(R+1) then 2*(μ R : ℤ)*μ (R+1) else 0| ≤ 2 := by
-    split_ifs
-    · exact synthesis_mu_pair_abs R (R+1)
-    · norm_num
-  have h2 : |if h ∣ R*(R+2) then 2*(μ R : ℤ)*μ (R+2) else 0| ≤ 2 := by
-    split_ifs
-    · exact synthesis_mu_pair_abs R (R+2)
-    · norm_num
-  calc
-    _ ≤ |(if h ∣ R*R then (μ R : ℤ)^2 else 0) +
-          (if h ∣ R*(R+1) then 2*(μ R : ℤ)*μ (R+1) else 0)| +
-        |if h ∣ R*(R+2) then 2*(μ R : ℤ)*μ (R+2) else 0| := abs_add_le _ _
-    _ ≤ |if h ∣ R*R then (μ R : ℤ)^2 else 0| +
-        |if h ∣ R*(R+1) then 2*(μ R : ℤ)*μ (R+1) else 0| +
-        |if h ∣ R*(R+2) then 2*(μ R : ℤ)*μ (R+2) else 0| :=
-      add_le_add_right (abs_add_le _ _) _
-    _ ≤ (1+2)+2 := add_le_add (add_le_add h0 h1) h2
-    _ = 5 := rfl
+  exact synthesis_three_masks_abs
+    (h ∣ R*R) (h ∣ R*(R+1)) (h ∣ R*(R+2))
+    ((μ R : ℤ)^2) (2*(μ R : ℤ)*μ (R+1)) (2*(μ R : ℤ)*μ (R+2))
+    (synthesis_square_abs (μ R) ArithmeticFunction.abs_moebius_le_one)
+    (synthesis_mu_pair_abs R (R+1)) (synthesis_mu_pair_abs R (R+2))
 
 /-- Covers all original completed and partially admitted factor pairs. -/
 theorem synthesisSquarefulEuler_abs_le_five
