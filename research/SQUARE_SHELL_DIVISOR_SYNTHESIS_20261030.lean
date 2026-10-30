@@ -15,12 +15,16 @@ def synthesisMobiusTail (R : ℕ) : ArithmeticFunction ℤ :=
 lemma synthesisMobiusTail_of_lt (R n : ℕ) (hn : n < R) :
     synthesisMobiusTail R n = 0 := by
   have hle : n ≤ R - 1 := by omega
-  simp [synthesisMobiusTail, eulerSelfDualPrefix, mobiusPrefix, hle]
+  change (μ n : ℤ) - (if n ≤ R-1 then μ n else 0) = 0
+  rw [ite_eq_left hle]
+  ring
 
 lemma synthesisMobiusTail_of_ge (R n : ℕ) (hR : 1 ≤ R) (hn : R ≤ n) :
     synthesisMobiusTail R n = μ n := by
   have hnot : ¬ n ≤ R - 1 := by omega
-  simp [synthesisMobiusTail, eulerSelfDualPrefix, mobiusPrefix, hnot]
+  change (μ n : ℤ) - (if n ≤ R-1 then μ n else 0) = μ n
+  rw [ite_eq_right hnot]
+  ring
 
 lemma synthesisTailSquare_zero_below (R n : ℕ) (hn : n < R * R) :
     (synthesisMobiusTail R * synthesisMobiusTail R) n = 0 := by
@@ -113,14 +117,11 @@ lemma synthesisTailSquare_eq_corner
   rw [ArithmeticFunction.mul_apply]
   change (∑ p ∈ A, f p) = _
   rw [hrestrict, hfilter, Finset.sum_filter]
-  have hR1 : R ≠ R+1 := by omega
-  have hR2 : R ≠ R+2 := by omega
-  have h12 : R+1 ≠ R+2 := by omega
   have ht0 := synthesisMobiusTail_of_ge R R (by omega) (by omega)
   have ht1 := synthesisMobiusTail_of_ge R (R+1) (by omega) (by omega)
   have ht2 := synthesisMobiusTail_of_ge R (R+2) (by omega) (by omega)
   simp [S, A, f, synthesisCornerPairs, Nat.mem_divisorsAntidiagonal,
-    hn0, ht0, ht1, ht2, hR1, hR2, h12, Prod.ext_iff,
+    hn0, ht0, ht1, ht2, Prod.ext_iff,
     synthesisCornerCoefficient, Nat.mul_comm, eq_comm, pow_two] <;>
     split_ifs <;> ring
 
@@ -133,8 +134,10 @@ theorem synthesisEulerCoefficient_eq_neg_moebius_add_corner
   have hN := congrArg (fun f : ArithmeticFunction ℤ => f n)
     (newtonLift_eq_moebius_sub_tail (eulerSelfDualPrefix R))
   have hprefix : eulerSelfDualPrefix R n = 0 := by
-    have hnot : ¬ n ≤ R-1 := by nlinarith
-    simp [eulerSelfDualPrefix, mobiusPrefix, hnot]
+    have hroot : R ≤ n := by nlinarith
+    have hnot : ¬ n ≤ R-1 := by omega
+    change (if n ≤ R-1 then (μ n : ℤ) else 0) = 0
+    exact ite_eq_right hnot
   have hproper := synthesis_zeta_no_proper_divisor
     (synthesisMobiusTail R * synthesisMobiusTail R) (R*R) n
     (synthesisTailSquare_zero_below R) (by nlinarith) (by nlinarith)
