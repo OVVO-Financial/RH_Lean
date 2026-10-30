@@ -73,16 +73,17 @@ private lemma synthesis_three_masks_abs
     (P Q T : Prop) [Decidable P] [Decidable Q] [Decidable T]
     (x y z : ℤ) (hx : |x| ≤ 1) (hy : |y| ≤ 2) (hz : |z| ≤ 2) :
     |(if P then x else 0)+(if Q then y else 0)+(if T then z else 0)| ≤ 5 := by
-  have hp := synthesis_mask_abs_generic P x 1 (by norm_num) hx
-  have hq := synthesis_mask_abs_generic Q y 2 (by norm_num) hy
-  have ht := synthesis_mask_abs_generic T z 2 (by norm_num) hz
-  calc
-    _ ≤ |(if P then x else 0)+(if Q then y else 0)| +
-        |if T then z else 0| := abs_add_le _ _
-    _ ≤ |if P then x else 0| + |if Q then y else 0| +
-        |if T then z else 0| := add_le_add_right (abs_add_le _ _) _
-    _ ≤ (1+2)+2 := add_le_add (add_le_add hp hq) ht
-    _ = 5 := rfl
+  have hp : |(if P then x else 0 : ℤ)| ≤ 1 :=
+    synthesis_mask_abs_generic P x 1 (by norm_num) hx
+  have hq : |(if Q then y else 0 : ℤ)| ≤ 2 :=
+    synthesis_mask_abs_generic Q y 2 (by norm_num) hy
+  have ht : |(if T then z else 0 : ℤ)| ≤ 2 :=
+    synthesis_mask_abs_generic T z 2 (by norm_num) hz
+  obtain ⟨hpl, hpu⟩ := abs_le.mp hp
+  obtain ⟨hql, hqu⟩ := abs_le.mp hq
+  obtain ⟨htl, htu⟩ := abs_le.mp ht
+  apply abs_le.mpr
+  constructor <;> omega
 
 lemma synthesisDivisorCornerWindow_abs_le_five
     (R h : ℕ) (hR : 3 ≤ R) :
