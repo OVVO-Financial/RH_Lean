@@ -5,6 +5,7 @@ on:
     paths:
       - "research/EULER_UNIFORM_*_20261030.lean"
       - "research/EULER_UNIFORM_*_20261030.md"
+      - "scripts/euler_uniform_closed_packet_regression.py"
       - ".github/workflows/euler-uniform-packet-interactions.yml"
   workflow_dispatch:
 
@@ -37,21 +38,33 @@ jobs:
           key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'RHLean.lean', 'RHLean/**/*.lean') }}
           restore-keys: |
             rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-
-      - name: Warning-fatal uniform source proof
+      - name: Warning-fatal complete original source proof
         run: |
           python3 scripts/compile_research_import_closure.py --build-library \
-            research/EULER_UNIFORM_COMPLETED_COEFFICIENTS_20261030.lean
+            research/EULER_UNIFORM_COMPLETED_COEFFICIENTS_20261030.lean \
+            research/EULER_UNIFORM_CLOSED_PACKETS_20261030.lean \
+            research/EULER_UNIFORM_SQUARE_EXCEPTIONS_20261030.lean
       - name: Audit exact theorem types and standard axioms
         run: |
           set -o pipefail
           cat > /tmp/uniform_euler_packet_audit.lean <<'EOF'
           import «research.EULER_UNIFORM_COMPLETED_COEFFICIENTS_20261030»
+          import «research.EULER_UNIFORM_CLOSED_PACKETS_20261030»
+          import «research.EULER_UNIFORM_SQUARE_EXCEPTIONS_20261030»
           #check RHLean.Proof.eulerCompletedProductCoeff_double
-          #check RHLean.Proof.eulerPhysicalOddPacket_uniform
-          #check RHLean.Proof.eulerPhysicalOddPacket_uniform_energy
+          #check RHLean.Proof.eulerCompletedProductCoeff_four
+          #check RHLean.Proof.eulerPhysicalClosedPacket_uniform
+          #check RHLean.Proof.eulerClosedActualPrincipal_exact
+          #check RHLean.Proof.eulerClosedFamily_energy_exact
+          #check RHLean.Proof.eulerCompletedProductCoeff_double_square
+          #check RHLean.Proof.eulerClosedSquareException_energy_le
           #print axioms RHLean.Proof.eulerCompletedProductCoeff_double
-          #print axioms RHLean.Proof.eulerPhysicalOddPacket_uniform
-          #print axioms RHLean.Proof.eulerPhysicalOddPacket_uniform_energy
+          #print axioms RHLean.Proof.eulerCompletedProductCoeff_four
+          #print axioms RHLean.Proof.eulerPhysicalClosedPacket_uniform
+          #print axioms RHLean.Proof.eulerClosedActualPrincipal_exact
+          #print axioms RHLean.Proof.eulerClosedFamily_energy_exact
+          #print axioms RHLean.Proof.eulerCompletedProductCoeff_double_square
+          #print axioms RHLean.Proof.eulerClosedSquareException_energy_le
           EOF
           lake env lean -DwarningAsError=true /tmp/uniform_euler_packet_audit.lean | tee /tmp/uniform_euler_packet_audit.log
           python3 - <<'PY'
@@ -59,7 +72,7 @@ jobs:
           s=pathlib.Path('/tmp/uniform_euler_packet_audit.log').read_text()
           assert 'sorryAx' not in s
           found=re.findall(r'depends on axioms:\s*\[([^]]*)\]',s,re.S)
-          assert len(found) >= 3
+          assert len(found) >= 7
           for ax in found:
               used={a.strip() for a in ax.split(',') if a.strip()}
               assert used <= {'propext','Classical.choice','Quot.sound'}, used
@@ -69,3 +82,5 @@ jobs:
               assert not re.search(r'\b(sorry|admit|axiom|native_decide)\b',t),p
           print('PASS: no proof holes, native-evaluation axioms, or project axioms')
           PY
+      - name: Exact original-factor arithmetic regression
+        run: python3 scripts/euler_uniform_closed_packet_regression.py
