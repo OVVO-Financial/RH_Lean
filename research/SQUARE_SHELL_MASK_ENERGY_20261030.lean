@@ -2,13 +2,12 @@ import Mathlib
 import «research.SQUARE_SHELL_DIVISOR_SYNTHESIS_20261030»
 
 /-!
-# A complete physical sector, not a generic centered proxy
+# Uniform energy of a complete physical squareful-mask sector
 
-Squareful physical divisor masks annihilate the true Mobius incidence.
-The ENTIRE original historical Euler coefficient family (all completed and
-partially admitted factor pairs) then collapses to the three original corners.
-This proves a uniform O(number of roots) energy bound on this proper sector.
-It does not bound the primitive h=1 or squarefree residual.
+Squareful physical divisor masks annihilate actual Mobius incidence.
+The full original historical Euler family collapses to its three corners.
+This proves O(number of roots) energy on this proper sector. It does not
+bound the primitive h=1 or the remaining squarefree source.
 -/
 noncomputable section
 open scoped ArithmeticFunction.Moebius BigOperators
@@ -26,8 +25,7 @@ private lemma masked_impulse_sum (I : Finset ℕ) (h q : ℕ) (v : ℤ)
   · intro hn
     exact False.elim (hn hq)
 
-/-- No disguised boundary assumption: the divisor-resolved correction is
-exactly the original three physical sites. -/
+/-- The divisor correction consists of exactly three original physical sites. -/
 theorem synthesisDivisorCornerWindow_explicit
     (R h : ℕ) (hR : 3 ≤ R) :
     synthesisDivisorCornerWindow R h =
@@ -51,23 +49,42 @@ theorem synthesisDivisorCornerWindow_explicit
     masked_impulse_sum I h (R*(R+1)) _ h1,
     masked_impulse_sum I h (R*(R+2)) _ h2]
 
+private lemma synthesis_mask_abs (P : Prop) (z B : ℤ)
+    (hB : 0 ≤ B) (hz : |z| ≤ B) :
+    |if P then z else 0| ≤ B := by
+  by_cases h : P
+  · simpa only [ite_eq_left h] using hz
+  · simpa only [ite_eq_right h, abs_zero] using hB
+
+private lemma synthesis_mu_pair_abs (a b : ℕ) :
+    |2*(μ a : ℤ)*μ b| ≤ 2 := by
+  have ha : |(μ a : ℤ)| ≤ 1 := ArithmeticFunction.abs_moebius_le_one
+  have hb : |(μ b : ℤ)| ≤ 1 := ArithmeticFunction.abs_moebius_le_one
+  have hp : |(μ a : ℤ)| * |(μ b : ℤ)| ≤ 1 := by
+    simpa using mul_le_mul ha hb (abs_nonneg _) (by norm_num : (0 : ℤ) ≤ 1)
+  calc
+    |2*(μ a : ℤ)*μ b| = 2*(|(μ a : ℤ)| * |(μ b : ℤ)|) := by
+      rw [abs_mul, abs_mul]
+      norm_num
+      ring
+    _ ≤ 2 := by linarith
+
 lemma synthesisDivisorCornerWindow_abs_le_five
     (R h : ℕ) (hR : 3 ≤ R) :
     |synthesisDivisorCornerWindow R h| ≤ 5 := by
   rw [synthesisDivisorCornerWindow_explicit R h hR]
-  have h0 : |if h ∣ R*R then (μ R : ℤ)^2 else 0| ≤ 1 := by
-    split_ifs <;> rcases ArithmeticFunction.moebius_eq_or R with hr | hr | hr <;>
-      norm_num [hr]
-  have h1 : |if h ∣ R*(R+1) then 2*(μ R : ℤ)*μ (R+1) else 0| ≤ 2 := by
-    split_ifs <;>
-      rcases ArithmeticFunction.moebius_eq_or R with hr | hr | hr <;>
-      rcases ArithmeticFunction.moebius_eq_or (R+1) with hs | hs | hs <;>
-      norm_num [hr,hs]
-  have h2 : |if h ∣ R*(R+2) then 2*(μ R : ℤ)*μ (R+2) else 0| ≤ 2 := by
-    split_ifs <;>
-      rcases ArithmeticFunction.moebius_eq_or R with hr | hr | hr <;>
-      rcases ArithmeticFunction.moebius_eq_or (R+2) with hs | hs | hs <;>
-      norm_num [hr,hs]
+  have hmu : |(μ R : ℤ)| ≤ 1 := ArithmeticFunction.abs_moebius_le_one
+  have hsquare : |(μ R : ℤ)^2| ≤ 1 := by
+    rw [abs_of_nonneg (sq_nonneg _)]
+    have hl := (abs_le.mp hmu).1
+    have hu := (abs_le.mp hmu).2
+    nlinarith
+  have h0 : |if h ∣ R*R then (μ R : ℤ)^2 else 0| ≤ 1 :=
+    synthesis_mask_abs _ _ _ (by norm_num) hsquare
+  have h1 : |if h ∣ R*(R+1) then 2*(μ R : ℤ)*μ (R+1) else 0| ≤ 2 :=
+    synthesis_mask_abs _ _ _ (by norm_num) (synthesis_mu_pair_abs R (R+1))
+  have h2 : |if h ∣ R*(R+2) then 2*(μ R : ℤ)*μ (R+2) else 0| ≤ 2 :=
+    synthesis_mask_abs _ _ _ (by norm_num) (synthesis_mu_pair_abs R (R+2))
   calc
     _ ≤ |(if h ∣ R*R then (μ R : ℤ)^2 else 0) +
           (if h ∣ R*(R+1) then 2*(μ R : ℤ)*μ (R+1) else 0)| +
@@ -78,16 +95,14 @@ lemma synthesisDivisorCornerWindow_abs_le_five
       add_le_add_right (abs_add_le _ _) _
     _ ≤ 5 := by omega
 
-/-- Entire original Euler source on any squareful divisor mask is O(1),
-not just a termwise inequality on individual completed packets. -/
+/-- All original completed/partial factor pairs are covered by this bound. -/
 theorem synthesisSquarefulEuler_abs_le_five
     (R h : ℕ) (hR : 3 ≤ R) (hh : ¬ Squarefree h) :
     |synthesisDivisorEulerWindow R h| ≤ 5 := by
   rw [synthesisSquarefulEuler_eq_corner R h hR hh]
   exact synthesisDivisorCornerWindow_abs_le_five R h hR
 
-/-- Uniform genuine source energy. The physical squareful mask may change
-arbitrarily with R; neither stationarity nor independent signs are assumed. -/
+/-- The physical squareful mask can change arbitrarily with R. -/
 theorem synthesisSquarefulEuler_energy_le
     (I : Finset ℕ) (mask : ℕ → ℕ)
     (hR : ∀ R ∈ I, 3 ≤ R)
@@ -106,8 +121,7 @@ theorem synthesisSquarefulEuler_energy_le
         0 ≤ synthesisDivisorEulerWindow R (mask R) + 5)]
     _ = 25 * (I.card : ℤ) := by simp; ring
 
-/-- No cross-divisor correlation is erased. This is the full signed Gram of
-the physical corrected Euler windows, exactly the Mobius divisor Gram. -/
+/-- No signed cross-divisor term is erased by this physical-source identity. -/
 theorem synthesisCorrectedEuler_gram
     (I S : Finset ℕ) (weight : ℕ → ℤ)
     (hR : ∀ R ∈ I, 3 ≤ R) :
