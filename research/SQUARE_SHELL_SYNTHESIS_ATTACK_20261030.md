@@ -50,7 +50,7 @@ If h is not squarefree, F_R(h)=0. Therefore W_R(h)=B_R(h). The formal estimate |
 
     sum_(R in I) W_R(h_R)² <=25 |I|.
 
-The stronger constant1 follows by eliminating the squareful off-diagonal corner products, but is not claimed as a Lean theorem here. Corrected W_R-B_R vanishes exactly on this sector.
+The stronger constant 1 follows by eliminating the squareful off-diagonal corner products, but is not claimed as a Lean theorem here. Corrected W_R-B_R vanishes exactly on this sector.
 
 Counting genuine multiples gives, for h>0,
 
@@ -60,9 +60,9 @@ For every 0<D<=H, this implies the explicit all-scale band estimate
 
     D sum_(H<=R<2H) sum_(D<=h<2D) F_R(h)² <=36 H³.
 
-The same inequality is proved for the corrected ORIGINAL Euler source W_R(h)-B_R(h). For D>=H^(1/2+kappa), the displayed unweighted band energy is at most 36 H^(5/2-kappa). A GCD-band application must retain the actual Mobius-inverted divisor weights and prove their size bound separately; it cannot silently replace them by 1. Restricting h to h<=R only decreases the nonnegative band energy.
+The same inequality is transported to the corrected ORIGINAL Euler source W_R(h)-B_R(h). For D>=H^(1/2+kappa), the displayed unweighted band energy is at most 36 H^(5/2-kappa). A GCD-band application must retain the actual Mobius-inverted divisor weights and prove their size bound separately; it cannot silently replace them by 1. Restricting h to h<=R only decreases the nonnegative band energy.
 
-These are proper-sector source estimates, NOT the full h=1 or full-source power saving. Large physical divisor h and large product modulus ab are different partitions.
+These are proper-sector source estimates derived from elementary support and divisor counting, NOT the full h=1 or full-source power saving. Large physical divisor h and large product modulus ab are different partitions.
 
 ## 4. Exact source-specific falsification
 
@@ -72,17 +72,26 @@ Let C_H(l)=sum_(H<=R<2H-l)Delta_R Delta_(R+l).
 
 | H | sum Delta² | sum Delta | C_H(1) | primitive/coprime GCD-band sum |
 |---:|---:|---:|---:|---:|
-|64|7137|-13|-749|-628|
-|127|35323|not used|2154|4301|
+|64|7137|-13|-648|-628|
+|127|35323|3|2154|4301|
 |317|176655|45|-1633|-5825|
 |1027|1726915|-61|76139|-124045|
 |2053|7431842|-214|-439159|-43063|
 
-At H=1027, lag13 contributes +209588. Grouping roots into disjoint length32 blocks gives total temporal off-diagonal +422472; length512 blocks give -1710830. Thus universal nonpositive covariance and monotone contraction at every aggregation scale are FALSE for the actual sequence. This does not refute the weaker sought aggregate power bound.
+The H=64 adjacent covariance is -648, independently rechecked against the standard-library implementation. A prior draft's -749 entry was a transcription error.
 
-For the exact coprime kernel, beta_1(h)=mu(h), so its signed form is sum_R sum_(h<=R)mu(h)F_R(h)². Its sign changes: +4301 at H=127, -5825 at H=317. At H=2053 its signed sum is -43063 while its absolute-mask sum is 35504889. A theorem asserting that every primitive/cop rime block is nonpositive is false, and replacing this form by its absolute terms loses substantial finite cancellation.
+At H=1027, lag 13 contributes +209588. Grouping roots into disjoint length-32 blocks gives total temporal off-diagonal +422472; length-512 blocks give -1710830. Thus universal nonpositive covariance and monotone contraction at every aggregation scale are FALSE for the actual sequence. This does not refute the weaker sought aggregate power bound.
 
-Independent standard-library checks verified 24 literal root/divisor Euler identities and all 223 bands D<=H at H=32,64,127. The accelerated census checked 679632 squareful masks at H=64,317,1027 and another2475262 at H=2053. These are regression/falsification data, never an asymptotic proof or fitted exponent.
+For the exact coprime kernel, beta_1(h)=mu(h), so its signed form is sum_R sum_(h<=R)mu(h)F_R(h)². Its sign changes: +4301 at H=127, -5825 at H=317. At H=2053 its signed sum is -43063 while its absolute-mask sum is 35504889. A theorem asserting that every primitive/coprime block is nonpositive is false, and replacing this form by its absolute terms loses substantial finite cancellation.
+
+There are small exact falsifiers suitable for kernel checking:
+
+    Delta_15=-4, Delta_16=-6, Delta_15*Delta_16=24>0;
+    sum_(5<=R<10) sum_(1<=h<=R) mu(h)F_R(h)²=14>0.
+
+SQUARE_SHELL_PERSISTENCE_COUNTEREXAMPLES_20261030.lean formalizes these actual arithmetic values with decide +kernel and derives the negations of both universal sign claims. No random sequence or native-evaluation axiom is used.
+
+Independent standard-library checks verified 24 literal root/divisor Euler identities and all 223 bands D<=H at H=32,64,127. The accelerated census checked 679632 squareful masks at H=64,317,1027 and another 2475262 at H=2053. These are regression/falsification data, never an asymptotic proof or fitted exponent.
 
 ## 5. What remains for an independent improvement below 7/8
 
@@ -103,11 +112,12 @@ An admissible next target is a signed estimate on the ORIGINAL primitive first-o
 
 ## 6. Formal delivery boundary
 
-The four new Lean modules are:
+The five new Lean modules are:
 
 - SQUARE_SHELL_DIVISOR_SYNTHESIS_20261030.lean: original coefficient and every divisor mask.
 - SQUARE_SHELL_MASK_ENERGY_20261030.lean: complete physical squareful sector and signed corrected Gram.
-- SQUARE_SHELL_COMPENSATED_SYNTHESIS_20261030.lean: actual largest-prime A-T, finite inverse-incidence and all signed cross terms.
+- SQUARE_SHELL_COMPENSATED_SYNTHESIS_20261030.lean: actual largest-prime A-T, finite inverse incidence and all signed cross terms.
 - SQUARE_SHELL_HIGH_DIVISOR_BOUND_20261030.lean: independent explicit 36H³/D bound and its original Euler-source transport.
+- SQUARE_SHELL_PERSISTENCE_COUNTEREXAMPLES_20261030.lean: actual kernel-evaluated arithmetic counterexamples to two overly strong sign hypotheses.
 
 All source declarations must pass warning-fatal Lean4.34.1 and #print axioms with only propext, Classical.choice, Quot.sound. No sorry/admit/project or native-evaluation axioms. Exact-head CI, not a file name or paper assertion, determines the proved status. The final primitive signed-persistence estimate remains OPEN. Existing schedules, permissions, main status and human-only merge are unchanged.
