@@ -4,6 +4,7 @@ on:
   pull_request:
     paths:
       - "research/EULER_PHYSICAL_COMPLETE_PACKET_20261030.lean"
+      - "research/EULER_COMPOSITE_PACKET_15_20261030.lean"
       - ".github/workflows/euler-complete-physical-packet.yml"
   workflow_dispatch:
 
@@ -39,11 +40,13 @@ jobs:
       - name: Full source import closure, warnings fatal
         run: |
           python3 scripts/compile_research_import_closure.py --build-library \
-            research/EULER_PHYSICAL_COMPLETE_PACKET_20261030.lean
+            research/EULER_PHYSICAL_COMPLETE_PACKET_20261030.lean \
+            research/EULER_COMPOSITE_PACKET_15_20261030.lean
       - name: Audit actual source and standard logical axioms
         run: |
           cat > /tmp/euler_physical_packet_audit.lean <<'EOF'
           import «research.EULER_PHYSICAL_COMPLETE_PACKET_20261030»
+          import «research.EULER_COMPOSITE_PACKET_15_20261030»
           #check RHLean.Proof.eulerMovingProductCoeff_succ
           #check RHLean.Proof.eulerMovingProductCoeff_eq_completed
           #check RHLean.Proof.eulerOriginalProductRow_eq_moving
@@ -53,11 +56,17 @@ jobs:
           #check RHLean.Proof.eulerPhysicalOddPacket_eq_principal_add_centered
           #check RHLean.Proof.eulerPhysicalPacketPrincipal_exact_activation
           #check RHLean.Proof.eulerCompletedPacketPrincipal_exact_ledger
+          #check RHLean.Proof.eulerPhysicalOddPacket_fifteen_all_roots
+          #check RHLean.Proof.eulerPhysicalPacketPrincipal_fifteen_after_last_owner
+          #check RHLean.Proof.eulerPhysicalOddPacket_fifteen_energy
           #print axioms RHLean.Proof.eulerMovingProductCoeff_eq_completed
           #print axioms RHLean.Proof.eulerOriginalProductRow_eq_moving
           #print axioms RHLean.Proof.eulerPhysicalOddPacket_exact_decomposition
           #print axioms RHLean.Proof.eulerPhysicalPacketPrincipal_exact_activation
           #print axioms RHLean.Proof.eulerCompletedPacketPrincipal_exact_ledger
+          #print axioms RHLean.Proof.eulerPhysicalOddPacket_fifteen_all_roots
+          #print axioms RHLean.Proof.eulerPhysicalPacketPrincipal_fifteen_after_last_owner
+          #print axioms RHLean.Proof.eulerPhysicalOddPacket_fifteen_energy
           EOF
           lake env lean -DwarningAsError=true /tmp/euler_physical_packet_audit.lean | tee /tmp/euler_physical_packet_audit.log
           python3 - <<'PY'
@@ -76,10 +85,11 @@ jobs:
         run: |
           python3 - <<'PY'
           import pathlib,re
-          p=pathlib.Path('research/EULER_PHYSICAL_COMPLETE_PACKET_20261030.lean')
-          t=p.read_text()
-          t=re.sub(r'/-.*?-/', '', t,flags=re.S)
-          t=re.sub(r'--.*', '', t)
-          assert not re.search(r'\b(sorry|admit|axiom)\b',t)
+          for p in [pathlib.Path('research/EULER_PHYSICAL_COMPLETE_PACKET_20261030.lean'),
+                    pathlib.Path('research/EULER_COMPOSITE_PACKET_15_20261030.lean')]:
+              t=p.read_text()
+              t=re.sub(r'/-.*?-/', '', t,flags=re.S)
+              t=re.sub(r'--.*', '', t)
+              assert not re.search(r'\b(sorry|admit|axiom)\b',t)
           print("PASS: no proof holes or extra axioms")
           PY
