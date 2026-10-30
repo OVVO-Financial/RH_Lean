@@ -117,7 +117,8 @@ theorem eulerClosedSquareException_energy_le
     (I : Finset ℕ) (K Q : ℕ) (hK : K * K ≤ Q) :
     (∑ R ∈ I, eulerClosedSquareException R K ^ 2) ≤
       4 * (I.card : ℚ) * (Q : ℚ) := by
-  have hKq : (K : ℚ) ^ 2 ≤ Q := by exact_mod_cast hK
+  have hKnat : K ^ 2 ≤ Q := by simpa only [pow_two] using hK
+  have hKq : (K : ℚ) ^ 2 ≤ Q := by exact_mod_cast hKnat
   calc
     (∑ R ∈ I, eulerClosedSquareException R K ^ 2) ≤
         ∑ _R ∈ I, 4 * (Q : ℚ) := by
