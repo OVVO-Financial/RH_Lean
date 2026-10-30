@@ -1,0 +1,86 @@
+name: Owner reciprocal margin and complete signed return
+
+on:
+  pull_request:
+    paths:
+      - 'research/OWNER_*_20261030.lean'
+      - 'research/OWNER_*_20261030.md'
+      - 'scripts/owner_signed_return_audit.py'
+      - '.github/workflows/owner-complete-signed-return.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: owner-signed-return-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  owner-signed-return:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - name: Pinned Lean and Mathlib
+        uses: ./.github/actions/lean-setup
+      - name: Restore PNT+ build cache
+        uses: actions/cache/restore@v5
+        with:
+          path: .lake/packages/PrimeNumberTheoremAnd/.lake/build
+          key: pntplus-build-v1-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
+      - name: Prebuild PNT+ StrongPNT
+        run: lake build PrimeNumberTheoremAnd.StrongPNT
+      - name: Restore native library cache
+        uses: actions/cache/restore@v5
+        with:
+          path: .lake/build
+          key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'RHLean.lean', 'RHLean/**/*.lean') }}
+          restore-keys: |
+            rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-
+      - name: Warning-fatal source-addressed proof closure
+        run: |
+          python3 scripts/compile_research_import_closure.py --build-library \
+            research/OWNER_RECIPROCAL_EXPONENT_SLACK_20261030.lean \
+            research/OWNER_COMPLETE_SIGNED_RETURN_20261030.lean \
+            research/OWNER_BASELINE_WEIGHT_WITNESS_20261030.lean
+      - name: Exact signatures and standard logical axioms
+        run: |
+          set -o pipefail
+          cat > /tmp/owner_signed_return_audit.lean <<'EOF'
+          import «research.OWNER_RECIPROCAL_EXPONENT_SLACK_20261030»
+          import «research.OWNER_COMPLETE_SIGNED_RETURN_20261030»
+          import «research.OWNER_BASELINE_WEIGHT_WITNESS_20261030»
+          #check RHLean.Proof.exists_positive_owner_reciprocal_exponent_slack
+          #check RHLean.Proof.ownerReturnSignedReciprocalOutgoing_eq
+          #check RHLean.Proof.ownerReturn_pair_unweight
+          #check RHLean.Proof.ownerReturn_signed_square_eq_diagonal_add_cross
+          #check RHLean.Proof.ownerReturn_parent_one_seven_at_35
+          #check RHLean.Proof.ownerReturn_actual_diagonal_contracts_but_signed_square_expands
+          #check RHLean.Proof.ownerBaseline_seven_fourths_congestion_gt_one
+          #print axioms RHLean.Proof.exists_positive_owner_reciprocal_exponent_slack
+          #print axioms RHLean.Proof.ownerReturnSignedReciprocalOutgoing_eq
+          #print axioms RHLean.Proof.ownerReturn_pair_unweight
+          #print axioms RHLean.Proof.ownerReturn_signed_square_eq_diagonal_add_cross
+          #print axioms RHLean.Proof.ownerReturn_parent_one_seven_at_35
+          #print axioms RHLean.Proof.ownerReturn_actual_diagonal_contracts_but_signed_square_expands
+          #print axioms RHLean.Proof.ownerBaseline_seven_fourths_congestion_gt_one
+          EOF
+          lake env lean -DwarningAsError=true /tmp/owner_signed_return_audit.lean | tee /tmp/owner_signed_return_audit.log
+          python3 - <<'PY'
+          import pathlib,re
+          log=pathlib.Path('/tmp/owner_signed_return_audit.log').read_text()
+          assert 'sorryAx' not in log
+          found=re.findall(r'depends on axioms:\s*\[([^]]*)\]',log,re.S)
+          assert len(found)>=7
+          for item in found:
+              used={a.strip() for a in item.split(',') if a.strip()}
+              assert used <= {'propext','Classical.choice','Quot.sound'},used
+          for p in pathlib.Path('research').glob('OWNER_*_20261030.lean'):
+              text=re.sub(r'/-.*?-/', '',p.read_text(),flags=re.S)
+              text=re.sub(r'--.*','',text)
+              assert not re.search(r'\b(sorry|admit|axiom|native_decide)\b',text),p
+          print('PASS: exact arithmetic source and standard logical axioms only')
+          PY
+      - name: Exact whole-source and coherent-fibre regression
+        run: python3 scripts/owner_signed_return_audit.py --endpoints 13 35 71 127 317 1027
