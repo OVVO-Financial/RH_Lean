@@ -396,3 +396,113 @@ lemma.
 **Independent fixed-(eta) signed progress:** NONE.  
 **Canonical theorem, complete source payment, strict exponent below (7/8),
 and RH:** OPEN.
+
+
+## K. 18:08 America/New_York continuation after merged #1059
+
+**Status:** COMPLETED continuation  
+**New claim:** `20261030-wheel-3`  
+**Result classes:** `PAPER_PROOF_NEEDS_INDEPENDENT_REVIEW / EXACT COMPLETE OWNER-FIBRE FAMILY`, `INFINITE COHERENT SIGNED-RETURN OBSTRUCTION`, `NO_NEW_FIXED_ETA_BOUND`, `NO_RH`
+
+Live `main` is `6b2a869750b92fcdbebff78a591e7722b4f2c747`, the merge of #1059. There are no open or draft PRs. Authority blobs are `AGENTS.md` `d30a5c4320bec77a510932e72ce7f17d98a68e51` and `CURRENT_PROOF_CONTRACT.md` `7a067ec0423a998e1079e37494061346d8ee02b0`. The source declarations used below are:
+
+- `research/COVARIANCE_REMAINDER_OWNER_FUBINI.lean` `a1292825681d028ec511059920274e62e1168638`;
+- `research/COVARIANCE_RECIPROCAL_OWNER_CONGESTION.lean` `d58e9f9b13c251a73b861af52b0d9288251e442f`;
+- `RHLean/Analysis/PrimeWheelRunOthelloBoundary.lean` `26ffb242dc294fe8f57c1d6b8985c5f70f4e3d43`;
+- `research/OWNER_RECIPROCAL_EXPONENT_SLACK_20261030.lean` `8386033011145cae64961482e273598d5a6a3263`;
+- `research/OWNER_COMPLETE_SIGNED_RETURN_20261030.lean` `3a35c851336ea6c357c65217a0d1dc521557c3bc`;
+- `research/OWNER_SIGNED_RETURN_ATTACK_20261030.md` `56d22ec7b4cc9266bcf2f3c81cef52c4d42c8624`.
+
+Today's Coordinator and Owner files are absent at final intake and remain `TODAY=PENDING`. Today's Analytic, Census, Referee and Lean reports were consumed at blobs `bae5e244f4bafdb42071263e72d502d50f3ce31e`, `21449e1bef548daccfc88b0ceb9bd26ded392971`, `482e44efaaca567878129d539251a427580824be`, and `0c6b9c81fc35529abea32ce8617372ef8b282ade`. Yesterday's Coordinator and Owner reports were consumed as `YESTERDAY=CARRY_FORWARD` at `a6b758112539d0841472082a69da3a4ce49d79cb` and `86f69ecbf9a921b9d26424a3e4936c950cabdab5`. External inbox blob `038018145c0fddb2f6306c0712373adf9cd1ea52` has no claim newer than 2026-10-18.
+
+### Claim `20261030-wheel-3`: the complete prime parent fibres have unbounded coherent return
+
+Let `q` be prime and let `W >= q^2`. For the genuine original parent `u=(1,q)), the complete recursive child fibre is exactly
+
+[
+  mathcal F_W(1,q)
+  =
+  {(1,pq),(p,q): p<q, p {m prime}}.
+]
+
+Equivalently, for every natural `p`,
+
+[
+ k_W((1,q),p)=
+ egin{cases}
+ 2,&p {m prime}, p<q,\
+ 0,&	ext{otherwise}.
+ end{cases}
+]
+
+This is an equality of original occurrence identifiers, not merely a count. Consequently
+
+[
+ operatorname{ownerReturnHarmonicMultiplicity}(W,(1,q))
+   =2sum_{p<q, p {m prime}}rac1p,
+]
+and, since the parent reciprocal amplitude is (-1/q),
+
+[
+ sum_{vinmathcal F_W(1,q)} a(v)
+   =rac2qsum_{p<q}rac1p,
+ qquad
+ rac{left|sum_{vinmathcal F_W(1,q)}a(v)ight|}
+      {|a(1,q)|}
+   =2sum_{p<q}rac1p.
+]
+
+Euler divergence of the prime harmonic series therefore gives the quantified no-go
+
+[
+ orall C>0 exists q {m prime} exists Wge q^2:
+ left|sum_{vinmathcal F_W(1,q)}a(v)ight|>C|a(1,q)|.
+]
+
+Thus the #1059 `(1,7)` witness is not an isolated small obstruction. No uniform per-parent signed-return contraction, no bounded Schur row sum, and no transfer from the reciprocal-square congestion to the coherent signed square can hold on all genuine fibres. This does not refute cancellation between distinct parents or cancellation with the retained terminal population.
+
+### Proof and source-admission audit
+
+For each prime `p<q`, both displayed children are squarefree and have nonzero Möbius weight. Their differing-prime set is exactly `{p,q}`, so the least separating prime is `p`. Removing `p` gives the ordered parent `(1,q)` in both cases. The pairs are coprime: `gcd(1,pq)=1` and `gcd(p,q)=1`; hence neither is removed by the common post-root-prime carrier. The endpoint inequalities are `1<pq<q^2<=W` and `p<q<=W`.
+
+Conversely, the compiled two-candidate theorem says a fixed-owner child can only be `(1,pq)` or `(p,q)`. Owner chronology in a child of parent `(1,q)` forces `p<q`; nonzero squarefree ownership forces `p` prime. This proves coverage, disjointness and absence of extra children. The two children for different primes are distinct, so no occurrence is spent twice.
+
+Both children have Möbius product (+1), whereas the parent has product (-1). Therefore all children in the complete fibre have the same sign. The exact reciprocal-square diagonal factor remains
+
+[
+  2sum_{p<q}p^{-2}le79/81
+]
+
+by the on-main congestion theorem, while the coherent amplitude factor (2sum_{p<q}p^{-1}) is unbounded. This is an arbitrarily large separation between the certified diagonal contraction and the complete signed return.
+
+### Exact regression and falsification
+
+Exact rational checks reproduce #1059 at `q=7` and extend it:
+
+| `q` | number of owners | coherent factor (2sum_{p<q}1/p) | coherent square ratio | diagonal factor (2sum_{p<q}1/p^2) |
+|---:|---:|---:|---:|---:|
+| 7 | 3 | `31/15` | `961/225` | 0.802222... |
+| 11 | 4 | `247/105` | 5.533696... | 0.843038... |
+| 101 | 25 | 3.605634... | 13.000599... | 0.900857... |
+| 1009 | 168 | 4.396160... | 19.326224... | 0.904240... |
+| 10007 | 1229 | 4.966119... | 24.662346... | 0.904475... |
+
+The computation is only a regression; the all-scale conclusion uses the exact fibre proof and the classical divergence theorem. Boundary cases were checked: `p=q` fails strict chronology and `p>q` has owner `q), not `p`; `W< p q` may clip a child, which is why the theorem assumes `W>=q^2`; composite `p` is not an owner; repeated-prime candidates are nonsquarefree.
+
+Repository code search found only the concrete `q=7,W=35` complete-fibre theorem and no equivalent all-prime fibre formula or unbounded harmonic-return theorem. The result is therefore new relative to current `main`, subject to independent review.
+
+### Proof impact and next lemma
+
+This closes a structural question negatively: local owner incidence cannot by itself turn the positive reciprocal exponent slack into a complete signed-return gain. Any successful `T+A` estimate must use cross-parent cancellation, the terminal population, or an additional global arithmetic restriction. Packetwise diagonal contraction and per-parent Schur contraction are now both invalid globalization mechanisms.
+
+Smallest formalization target: for prime `q`, prime `p<q`, and `W>=q^2`, prove
+
+[
+ operatorname{postRootCovarianceFixedOwnerChildFiber}(W,(1,q),p)
+ ={(1,pq),(p,q)}.
+]
+
+Then prove the zero case for nonprime or `q<=p`, the exact finite harmonic-multiplicity identity, and only afterward import the already-standard divergence of `sum_{p<q}1/p` if the library theorem is available. Keep the global no-go paper-level until that last step is independently reviewed.
+
+**NO_NEW_INDEPENDENT_INEQUALITY** toward the sharp-shell fixed-`eta` upper bound.  
+**Canonical theorem, strict exponent below 7/8, complete source payment, and RH:** OPEN.
