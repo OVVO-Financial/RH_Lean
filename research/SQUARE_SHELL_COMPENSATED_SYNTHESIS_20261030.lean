@@ -58,7 +58,10 @@ theorem synthesisCompensatedIncidence_eq_transport_sub_smooth
   apply Finset.sum_congr rfl
   intro n _hn
   rw [synthesisDivisorMobius_eq_smooth_sub_transport]
-  by_cases hc : c ∣ n <;> simp [hc] <;> ring
+  by_cases hc : c ∣ n
+  · simp only [ite_eq_left hc]
+    ring
+  · simp only [ite_eq_right hc, neg_zero, sub_self]
 
 /-- Every divisor channel is the corrected ORIGINAL Euler source. -/
 theorem synthesisCompensatedIncidence_profile
@@ -98,8 +101,17 @@ lemma synthesisDivisorGram_factor
     rw [Finset.mul_sum, Finset.sum_mul]
     apply Finset.sum_congr rfl
     intro h _hh
-    by_cases h1 : h ∣ c <;> by_cases h2 : h ∣ cp <;>
-      simp [m,h1,h2] <;> ring
+    dsimp only [m]
+    by_cases h1 : h ∣ c
+    · by_cases h2 : h ∣ cp
+      · rw [ite_eq_left (And.intro h1 h2), ite_eq_left h1, ite_eq_left h2]
+        ring
+      · have hn : ¬ (h ∣ c ∧ h ∣ cp) := fun hx => h2 hx.2
+        rw [ite_eq_right hn, ite_eq_left h1, ite_eq_right h2]
+        ring
+    · have hn : ¬ (h ∣ c ∧ h ∣ cp) := fun hx => h1 hx.1
+      rw [ite_eq_right hn, ite_eq_right h1]
+      ring
   change (∑ c ∈ I, ∑ cp ∈ I,
     u c * (∑ h ∈ I, if h ∣ c ∧ h ∣ cp then weight h else 0) * u cp) = _
   simp_rw [hatom]
