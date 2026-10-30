@@ -122,8 +122,8 @@ lemma synthesisTailSquare_eq_corner
   have ht2 := synthesisMobiusTail_of_ge R (R+2) (by omega) (by omega)
   simp [S, A, f, synthesisCornerPairs, Nat.mem_divisorsAntidiagonal,
     hn0, ht0, ht1, ht2, Prod.ext_iff,
-    synthesisCornerCoefficient, Nat.mul_comm, eq_comm, pow_two] <;>
-    split_ifs <;> ring
+    synthesisCornerCoefficient, Nat.mul_comm, eq_comm, pow_two]
+  split_ifs <;> ring
 
 /-- Source-level identity at EVERY original integer in EVERY square shell. -/
 theorem synthesisEulerCoefficient_eq_neg_moebius_add_corner
