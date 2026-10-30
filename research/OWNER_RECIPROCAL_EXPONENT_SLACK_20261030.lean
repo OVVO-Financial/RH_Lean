@@ -29,10 +29,17 @@ theorem postRootOwnerPowerCongestion_two_le
     postRootOwnerPowerCongestion W parent 2 ≤ (79 / 81 : ℝ) := by
   have h := postRootCovarianceReciprocalOwnerCongestion_le_79_over_81 W parent
   unfold postRootCovarianceReciprocalOwnerCongestion at h
+  have hcast :
+      (((∑ p ∈ primesUpTo W,
+        (postRootCovarianceFixedOwnerChildMultiplicity W parent p : ℚ) /
+          (p : ℚ) ^ 2 : ℚ)) : ℝ) ≤ (((79 / 81 : ℚ)) : ℝ) := by
+    exact_mod_cast h
+  push_cast at hcast
+  norm_num at hcast
   have hr : (∑ p ∈ primesUpTo W,
       (postRootCovarianceFixedOwnerChildMultiplicity W parent p : ℝ) /
         (p : ℝ) ^ 2) ≤ (79 / 81 : ℝ) := by
-    exact_mod_cast h
+    simpa using hcast
   simpa [postRootOwnerPowerCongestion, Real.rpow_neg,
     Real.rpow_two, div_eq_mul_inv] using hr
 
@@ -69,8 +76,8 @@ private theorem ownerCongestion_three_halves_le
       exact Summable.sum_le_tsum _ (fun n _ =>
         Real.rpow_nonneg (Nat.cast_nonneg n) _) hs
 
-/-- Elementary weighted AM-GM preserves a strict reciprocal exponent window.
-The new constant is independent of W and the actual parent. -/
+/-- Weighted AM-GM preserves a strict reciprocal exponent window, uniformly
+in the endpoint and the actual original parent. -/
 theorem postRootOwnerPowerCongestion_interpolate
     (W : ℕ) (parent : ℕ × ℕ) (t : ℝ) (ht : 0 ≤ t) (ht1 : t ≤ 1) :
     postRootOwnerPowerCongestion W parent (2 - t / 2) ≤
@@ -114,9 +121,8 @@ theorem postRootOwnerPowerCongestion_interpolate
       simp only [mul_add, Finset.sum_add_distrib, Finset.mul_sum]
       congr 1 <;> apply Finset.sum_congr rfl <;> intro p _hp <;> ring
 
-/-- There really IS some positive uniform reciprocal exponent slack.
-This theorem is unconditional, but its conclusion is WEIGHTED CONGESTION,
-not an improved Mertens exponent or a bound on the full signed return. -/
+/-- An unconditional positive uniform reciprocal exponent margin.
+This is a WEIGHTED congestion statement, not the unproved physical return. -/
 theorem exists_positive_owner_reciprocal_exponent_slack :
     ∃ τ : ℝ, 0 < τ ∧ τ < 1 / 2 ∧
       ∀ (W : ℕ) (parent : ℕ × ℕ),
@@ -129,7 +135,6 @@ theorem exists_positive_owner_reciprocal_exponent_slack :
   have htprod : t * (B + 1) = 1 / 162 := by
     dsimp [t]
     field_simp [hB1]
-    ring
   have htB : 0 ≤ t * B := mul_nonneg ht.le hB
   have ht1 : t < 1 := by nlinarith
   refine ⟨t / 2, by positivity, by linarith, ?_⟩
