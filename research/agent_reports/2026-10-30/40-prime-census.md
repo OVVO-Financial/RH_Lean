@@ -288,30 +288,30 @@ Today's Coordinator, Owner Payment, and Analytic reports are absent at final int
 ### Claim `20261030-census-2`: exact first moving-band owner subtraction
 
 Let
-[
+$$
 \alpha_n=\sum_{1\le a<b,\,ab=n}\mu(a)\mu(b),\qquad
 \beta_R(n)=\sum_{1\le a<b<R,\,ab=n}\mu(a)\mu(b).
-]
+$$
 For every `R>=2` and `R<=n<2R`,
-[
+$$
 \boxed{\beta_R(n)=\alpha_n-\mu(n).} \tag{17}
-]
-Indeed, an unadmitted completed pair has `b>=R`. Then `n=ab>=aR`; because `n<2R), necessarily `a=1`, so the unique missing pair is `(1,n)), of weight `mu(n)`. Conversely that pair is completed and unadmitted. This is the exact specialization of merged `eulerUnadmittedProductCoeff` to the first product boundary; it uses the literal original strict source.
+$$
+Indeed, an unadmitted completed pair has `b>=R`. Then `n=ab>=aR`; because `n<2R`, necessarily `a=1`, so the unique missing pair is `(1,n)`, of weight `mu(n)`. Conversely that pair is completed and unadmitted. This is the exact specialization of merged `eulerUnadmittedProductCoeff` to the first product boundary; it uses the literal original strict source.
 
 Writing `n=R+k`, also
-[
+$$
 f_n(R)=\frac{(R^2-1)\bmod n}{n}
       =\frac{(k^2-1)\bmod(R+k)}{R+k}. \tag{18}
-]
+$$
 Thus the full activation correction on this band is not a generic boundary error but the explicit transported Mobius row
-[
+$$
 A_R=-2\sum_{R\le n<2R}\mu(n)f_n(R). \tag{19}
-]
+$$
 Put
-[
+$$
 C_R=2\sum_{R\le n<2R}\alpha_n f_n(R),\qquad
 P_R=2\sum_{R\le n<2R}\beta_R(n)f_n(R).
-]
+$$
 Then (17) gives the exact physical reconstruction `P_R=C_R+A_R`.
 
 ### Preregistered discriminator
@@ -323,10 +323,10 @@ Then (17) gives the exact physical reconstruction `P_R=C_R+A_R`.
 **H2 (owner compensation):** the missing singleton owner `(1,n)` is strongly anticorrelated with the completed band after dyadic aggregation; paying the two energies separately destroys an original-source interaction.
 
 A pointwise sign law was explicitly allowed to fail. The discriminator was the complete dyadic energy ledger
-[
+$$
 E_P=E_C+E_A+2X_{CA},\qquad
 X_{CA}=\sum_{H\le R<2H}C_RA_R. \tag{20}
-]
+$$
 
 ### Exact computation and independent check
 
@@ -349,24 +349,24 @@ Rows through `H=1027` are exact rationals rendered as decimals. The held-out `H=
 ### Falsification and surviving conjecture
 
 The local strengthening `C_R A_R<=0` is **REFUTED** at the smallest found root `R=8`:
-[
+$$
 C_8=101/286,\quad A_8=164/143,\quad P_8=3/2,\quad
 C_8A_8=8282/20449>0.
-]
+$$
 So the observed compensation is nonlocal and cannot be proved by termwise or rootwise sign.
 
 Nevertheless the dyadic cross term was strictly negative for every exact `2<=H<=160`, for the exact benchmark shells above, and in an independent long-double scan for every `2<=H<=5000`; no shell counterexample was found. This motivates the precise conjecture
-[
+$$
 \boxed{\sum_{H\le R<2H}C_RA_R\le0\quad(H\ge2).} \tag{21}
-]
+$$
 Status: `CONJECTURE`. The scan was selected after the band identity, and finite survival is not an all-scale sign theorem. A future proof must explain why positive roots such as `R=8` are outweighed across the whole dyadic shell.
 
 ### Proof impact and limits
 
 If (21) were proved, the literal first moving band would satisfy
-[
+$$
 \sum P_R^2\le\sum C_R^2+\sum A_R^2,
-]
+$$
 so its completed and activation pieces could be restored without an absolute mixed-term loss. This is an independently stated arithmetic restriction on the merged physical carrier, not an assumed random-sign model. Equation (18) identifies the hidden variable as the small displacement `k=n-R`, while (17) shows that the first missing-owner layer is exactly the singleton Möbius owner.
 
 This does **not** bound either energy on the required scale, cover `n>=2R` (where multiple small cofactors are missing), pay the diagonal, reciprocal square, packet mismatch, squareful exceptions, or sharp-shell transfer, or prove the full `H^(5/2-eta+epsilon)` moment. It yields no fixed `eta`, no exponent below `7/8`, no canonical theorem, and no RH.
@@ -374,11 +374,11 @@ This does **not** bound either energy on the required scale, cover `n>=2R` (wher
 ### Continuation checkpoint
 
 Do not repeat the `H<=5000` sign scan. First derive the next exact owner layer:
-[
+$$
 2R\le n<3R\implies
 \alpha_n-\beta_R(n)=\mu(n)+
-{f 1}_{2\mid n,\,2<n/2}\mu(2)\mu(n/2),
-]
+{\\mathbf{1}}_{2\mid n,\,2<n/2}\mu(2)\mu(n/2),
+$$
 with the strict-pair exception checked at `n=4`. Then reconstruct the coupled first two bands and search for the smallest dyadic counterexample to the corresponding aggregate activation cross term. Separately, seek an exact summation-by-parts or displacement-`k` identity that could prove or refute (21) without assuming a Mertens bound.
 
 **Independent structural progress:** YES.  
