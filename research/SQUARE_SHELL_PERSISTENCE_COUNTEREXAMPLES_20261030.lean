@@ -14,15 +14,15 @@ noncomputable section
 open scoped ArithmeticFunction.Moebius BigOperators
 namespace RHLean.Proof
 
-/-- The original square block [225,256) has Mobius sum -4. -/
 set_option maxRecDepth 8192 in
 set_option maxHeartbeats 0 in
+/-- The original square block [225,256) has Mobius sum -4. -/
 theorem synthesisShell_fifteen : synthesisDivisorMobiusWindow 15 1 = -4 := by
   decide +kernel
 
-/-- The next original square block [256,289) has Mobius sum -6. -/
 set_option maxRecDepth 8192 in
 set_option maxHeartbeats 0 in
+/-- The next original square block [256,289) has Mobius sum -6. -/
 theorem synthesisShell_sixteen : synthesisDivisorMobiusWindow 16 1 = -6 := by
   decide +kernel
 
@@ -45,9 +45,9 @@ def synthesisCoprimeBandEnergy (H : ℕ) : ℤ :=
   ∑ R ∈ Finset.Ico H (2*H),
     ∑ h ∈ Finset.Icc 1 R, (μ h : ℤ) * synthesisDivisorMobiusWindow R h ^ 2
 
-/-- A complete dyadic root window has POSITIVE coprime signed Gram. -/
 set_option maxRecDepth 8192 in
 set_option maxHeartbeats 0 in
+/-- A complete dyadic root window has POSITIVE coprime signed Gram. -/
 theorem synthesisCoprimeBand_five : synthesisCoprimeBandEnergy 5 = 14 := by
   decide +kernel
 
