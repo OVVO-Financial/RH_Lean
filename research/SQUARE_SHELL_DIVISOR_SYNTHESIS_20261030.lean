@@ -7,18 +7,14 @@ import «research.EULER_SQUARE_WINDOW_BOUNDED_GATE_20261028»
 The original historical Euler coefficient P_R*P_R*zeta is extended from
 n<R^2 to the whole physical shell R^2 <= n < (R+1)^2. Its discrepancy
 from -mu(n) is supported at exactly R^2, R(R+1), R(R+2).
-
-This is the source-level input for divisor masks, smooth/transport incidence
-and signed cross-correlations. No RH bound or assumed cancellation occurs.
+No RH bound, random coefficient, or assumed signed cancellation occurs.
 -/
-
 noncomputable section
 open scoped ArithmeticFunction.Moebius BigOperators
 namespace RHLean.Proof
 open ArithmeticFunction RHLean.Analysis.MertensFiniteExtension
 attribute [local instance] Classical.propDecidable
 
-/-- Genuine missing Mobius tail, not independent model coefficients. -/
 def synthesisMobiusTail (R : ℕ) : ArithmeticFunction ℤ :=
   ArithmeticFunction.moebius - eulerSelfDualPrefix R
 
@@ -37,8 +33,7 @@ lemma synthesisTailSquare_zero_below (R n : ℕ) (hn : n < R * R) :
   exact mul_zero_below (synthesisMobiusTail_of_lt R)
     (synthesisMobiusTail_of_lt R) hn
 
-/-- Below twice a support threshold, the zeta convolution adds no proper
-multiples: every proper divisor is already below the support. -/
+/-- Every proper divisor is below the multiplicative support threshold. -/
 lemma synthesis_zeta_no_proper_divisor
     (F : ArithmeticFunction ℤ) (B n : ℕ)
     (hF : ∀ k < B, F k = 0) (hn : 0 < n) (hupper : n < 2 * B) :
@@ -61,24 +56,29 @@ lemma synthesis_zeta_no_proper_divisor
   · intro hnot
     exact False.elim (hnot (Nat.mem_divisors.mpr ⟨dvd_rfl, ne_of_gt hn⟩))
 
-/-- Exact five ordered upper-corner factor pairs. -/
 def synthesisCornerPairs (R : ℕ) : Finset (ℕ × ℕ) :=
   {(R,R), (R,R+1), (R+1,R), (R,R+2), (R+2,R)}
 
-/-- Every active upper-tail pair in one square shell lies at a literal corner. -/
 lemma synthesis_tail_pair_corner
-    (R n : ℕ) (hR : 3 ≤ R) (hn : R * R ≤ n)
+    (R n : ℕ) (hR : 3 ≤ R) (_hn : R * R ≤ n)
     (hupper : n < (R+1) * (R+1))
     (p : ℕ × ℕ) (hp : p ∈ n.divisorsAntidiagonal)
     (ha : R ≤ p.1) (hb : R ≤ p.2) :
     p ∈ synthesisCornerPairs R := by
   have hab : p.1 * p.2 = n := (Nat.mem_divisorsAntidiagonal.mp hp).1
-  have ha2 : p.1 ≤ R+2 := by nlinarith
-  have hb2 : p.2 ≤ R+2 := by nlinarith
+  have ha2 : p.1 ≤ R+2 := by
+    by_contra hh
+    have hprod := Nat.mul_le_mul (show R+3 ≤ p.1 by omega) hb
+    nlinarith
+  have hb2 : p.2 ≤ R+2 := by
+    by_contra hh
+    have hprod := Nat.mul_le_mul ha (show R+3 ≤ p.2 by omega)
+    nlinarith
   have hedge : p.1 = R ∨ p.2 = R := by
     by_contra hh
     have h1 : R+1 ≤ p.1 := by omega
     have h2 : R+1 ≤ p.2 := by omega
+    have hprod := Nat.mul_le_mul h1 h2
     nlinarith
   rcases hedge with h1 | h2
   · have hc : p.2 = R ∨ p.2 = R+1 ∨ p.2 = R+2 := by omega
@@ -88,7 +88,6 @@ lemma synthesis_tail_pair_corner
     rcases hc with h | h | h <;>
       simp [synthesisCornerPairs, Prod.ext_iff, h2, h]
 
-/-- The actual physical corner coefficient. -/
 def synthesisCornerCoefficient (R n : ℕ) : ℤ :=
   (if n = R*R then (μ R : ℤ)^2 else 0) +
   (if n = R*(R+1) then 2*(μ R : ℤ)*μ (R+1) else 0) +
@@ -129,11 +128,10 @@ lemma synthesisTailSquare_eq_corner
   have ht2 := synthesisMobiusTail_of_ge R (R+2) (by omega) (by omega)
   simp [S, A, f, synthesisCornerPairs, Nat.mem_divisorsAntidiagonal,
     hn0, ht0, ht1, ht2, hR1, hR2, h12, Prod.ext_iff,
-    synthesisCornerCoefficient, Nat.mul_comm, eq_comm, pow_two]
-  ring
+    synthesisCornerCoefficient, Nat.mul_comm, eq_comm, pow_two] <;>
+    split_ifs <;> ring
 
-/-- NEW source-level shell theorem: actual Euler coefficient, actual Mobius,
-actual physical corners. Holds at every integer in every shell R>=3. -/
+/-- Genuine coefficientwise source synthesis, at every physical shell site. -/
 theorem synthesisEulerCoefficient_eq_neg_moebius_add_corner
     (R n : ℕ) (hR : 3 ≤ R) (hn : R*R ≤ n)
     (hupper : n < (R+1)*(R+1)) :
@@ -154,7 +152,7 @@ theorem synthesisEulerCoefficient_eq_neg_moebius_add_corner
   rw [hprefix, hproper, hcorner] at hN
   omega
 
-/-- Source mask on physical divisibility; it does not freeze factor owners. -/
+/-- Physical divisibility mask; all original factor owners stay present. -/
 def synthesisDivisorEulerWindow (R h : ℕ) : ℤ :=
   ∑ n ∈ Finset.Ico (R*R) ((R+1)*(R+1)),
     if h ∣ n then eulerSelfDualConvolutionCoefficient R n else 0
@@ -166,8 +164,6 @@ def synthesisDivisorCornerWindow (R h : ℕ) : ℤ :=
   ∑ n ∈ Finset.Ico (R*R) ((R+1)*(R+1)),
     if h ∣ n then synthesisCornerCoefficient R n else 0
 
-/-- Divisor-by-divisor synthesis: BEFORE any absolute values, the original
-Euler source and the true Mobius incidence agree up to physical corners. -/
 theorem synthesisDivisorEuler_eq_neg_mobius_add_corner
     (R h : ℕ) (hR : 3 ≤ R) :
     synthesisDivisorEulerWindow R h =
@@ -183,7 +179,6 @@ theorem synthesisDivisorEuler_eq_neg_mobius_add_corner
     exact synthesisEulerCoefficient_eq_neg_moebius_add_corner R n hR hs.1 hs.2
   · simp only [ite_eq_right hh, neg_zero, add_zero]
 
-/-- Squareful physical masks cannot carry any nonzero Mobius incidence. -/
 theorem synthesisDivisorMobius_eq_zero_of_not_squarefree
     (R h : ℕ) (hh : ¬ Squarefree h) :
     synthesisDivisorMobiusWindow R h = 0 := by
@@ -191,7 +186,7 @@ theorem synthesisDivisorMobius_eq_zero_of_not_squarefree
   apply Finset.sum_eq_zero
   intro n _hn
   by_cases hdiv : h ∣ n
-  · have hns : ¬ Squarefree n := fun hn => hh (hn.of_dvd hdiv)
+  · have hns : ¬ Squarefree n := fun hn => hh (hn.squarefree_of_dvd hdiv)
     have hz : μ n = 0 := ArithmeticFunction.moebius_eq_zero_of_not_squarefree hns
     simp [hdiv,hz]
   · simp [hdiv]
