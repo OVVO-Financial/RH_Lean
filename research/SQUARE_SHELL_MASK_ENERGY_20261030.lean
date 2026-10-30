@@ -67,8 +67,9 @@ private lemma synthesis_mu_pair_abs (a b : ℕ) :
       rw [abs_mul, abs_mul]
       norm_num
       ring
-    _ ≤ 2 := by linarith
+    _ ≤ 2 := by linarith only [hp]
 
+set_option maxHeartbeats 2000000 in
 lemma synthesisDivisorCornerWindow_abs_le_five
     (R h : ℕ) (hR : 3 ≤ R) :
     |synthesisDivisorCornerWindow R h| ≤ 5 := by
@@ -78,7 +79,7 @@ lemma synthesisDivisorCornerWindow_abs_le_five
     rw [abs_of_nonneg (sq_nonneg _)]
     have hl := (abs_le.mp hmu).1
     have hu := (abs_le.mp hmu).2
-    nlinarith
+    nlinarith only [hl, hu]
   have h0 : |if h ∣ R*R then (μ R : ℤ)^2 else 0| ≤ 1 :=
     synthesis_mask_abs _ _ _ (by norm_num) hsquare
   have h1 : |if h ∣ R*(R+1) then 2*(μ R : ℤ)*μ (R+1) else 0| ≤ 2 :=
@@ -93,7 +94,7 @@ lemma synthesisDivisorCornerWindow_abs_le_five
         |if h ∣ R*(R+1) then 2*(μ R : ℤ)*μ (R+1) else 0| +
         |if h ∣ R*(R+2) then 2*(μ R : ℤ)*μ (R+2) else 0| :=
       add_le_add_right (abs_add_le _ _) _
-    _ ≤ 5 := by omega
+    _ ≤ 5 := by linarith only [h0, h1, h2]
 
 /-- All original completed/partial factor pairs are covered by this bound. -/
 theorem synthesisSquarefulEuler_abs_le_five
@@ -117,7 +118,7 @@ theorem synthesisSquarefulEuler_energy_le
         (hR R hmem) (hmask R hmem)
       have hl := (abs_le.mp h).1
       have hu := (abs_le.mp h).2
-      nlinarith [mul_nonneg (sub_nonneg.mpr hu) (by linarith :
+      nlinarith only [hl, hu, mul_nonneg (sub_nonneg.mpr hu) (by linarith only [hl] :
         0 ≤ synthesisDivisorEulerWindow R (mask R) + 5)]
     _ = 25 * (I.card : ℤ) := by simp; ring
 
