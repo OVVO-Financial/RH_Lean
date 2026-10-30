@@ -40,6 +40,7 @@ theorem mod_two_mul_eq_mod_or_mod_add
     apply (Nat.div_lt_iff_lt_mul hd).2
     simpa [Nat.mul_comm] using hlt
   have hdecomp := Nat.mod_add_div (X % (2 * d)) d
+  have hqnonneg : 0 ≤ X % (2 * d) / d := Nat.zero_le _
   have hqcases : X % (2 * d) / d = 0 ∨ X % (2 * d) / d = 1 := by
     omega
   rcases hqcases with hq0 | hq1
