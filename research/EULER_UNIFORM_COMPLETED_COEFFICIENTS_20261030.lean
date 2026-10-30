@@ -107,9 +107,20 @@ private theorem packetFullCoefficient_eq_convolution
   unfold eulerPacketMobiusConvolution
   rw [ArithmeticFunction.mul_apply, packetAntidiagonal_eq_filter d hd,
     Finset.sum_filter, Finset.sum_product]
-  simp only [packetFullCoefficient, packetCoefficientKernel, eulerMuQ,
-    ArithmeticFunction.intCoe_apply, Finset.mul_sum, mul_ite, mul_one,
-    mul_zero, mul_comm]
+  unfold packetFullCoefficient
+  simp only [Finset.mul_sum]
+  apply Finset.sum_congr rfl
+  intro b _hb
+  apply Finset.sum_congr rfl
+  intro a _ha
+  simp only [packetCoefficientKernel, eulerMuQ, ArithmeticFunction.intCoe_apply]
+  by_cases hab : a * b = d
+  · have hba : b * a = d := by simpa only [mul_comm] using hab
+    rw [ite_eq_left hab, ite_eq_left hba]
+    ring
+  · have hba : b * a ≠ d := by simpa only [mul_comm] using hab
+    rw [ite_eq_right hab, ite_eq_right hba]
+    ring
 
 /-- The factor-pair sum in #1055 equals half the original Mobius convolution
 for every positive nonsquare modulus, not just the numerical example 15. -/
