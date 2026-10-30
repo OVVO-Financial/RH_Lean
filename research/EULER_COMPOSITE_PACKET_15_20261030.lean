@@ -21,23 +21,21 @@ set_option maxHeartbeats 0
 noncomputable section
 namespace RHLean.Proof
 
-attribute [local instance] Classical.propDecidable
-
 theorem eulerCompletedProductCoeff_fifteen :
     eulerCompletedProductCoeff 15 = 2 := by
-  decide
+  decide +kernel
 
 theorem eulerCompletedProductCoeff_thirty :
     eulerCompletedProductCoeff 30 = -4 := by
-  decide
+  decide +kernel
 
 theorem eulerPacketRootPrincipal_fifteen :
     eulerPacketRootPrincipal 15 = 14 / 45 := by
-  decide
+  decide +kernel
 
 theorem eulerPacketRootPrincipal_thirty :
     eulerPacketRootPrincipal 30 = 73 / 180 := by
-  decide
+  decide +kernel
 
 /-- The actual odd-composite and even-composite coefficients close together,
 not by assuming a generic arithmetic coefficient relation. -/
@@ -109,15 +107,15 @@ theorem eulerPhysicalOddPacket_fifteen_energy
 completed coefficient cannot replace the physical 30-column prematurely. -/
 theorem eulerMovingProductCoeff_twenty_fifteen :
     eulerMovingProductCoeff 20 15 = 2 := by
-  decide
+  decide +kernel
 
 theorem eulerMovingProductCoeff_twenty_thirty :
     eulerMovingProductCoeff 20 30 = -3 := by
-  decide
+  decide +kernel
 
 theorem eulerPhysicalOddPacket_twenty_fifteen :
     eulerPhysicalOddPacket 20 15 = 3 / 5 := by
-  decide
+  decide +kernel
 
 #print axioms eulerCompletedProductCoeff_fifteen
 #print axioms eulerCompletedProductCoeff_thirty
