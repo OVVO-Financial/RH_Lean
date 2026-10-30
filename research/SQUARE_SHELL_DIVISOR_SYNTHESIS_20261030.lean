@@ -1,14 +1,8 @@
 import Mathlib
-import «research.EULER_SQUARE_WINDOW_BOUNDED_GATE_20261028»
+import «research.EULER_SELF_DUAL_POINTWISE_20261027»
 
-/-!
-# One original arithmetic source, resolved BEFORE summation
-
-The original historical Euler coefficient P_R*P_R*zeta is extended from
-n<R^2 to the whole physical shell R^2 <= n < (R+1)^2. Its discrepancy
-from -mu(n) is supported at exactly R^2, R(R+1), R(R+2).
-No RH bound, random coefficient, or assumed signed cancellation occurs.
--/
+/-! Exact original Euler coefficients on one square shell, with all corner terms.
+No source estimate, random signs, or RH hypothesis is assumed. -/
 noncomputable section
 open scoped ArithmeticFunction.Moebius BigOperators
 namespace RHLean.Proof
@@ -33,7 +27,6 @@ lemma synthesisTailSquare_zero_below (R n : ℕ) (hn : n < R * R) :
   exact mul_zero_below (synthesisMobiusTail_of_lt R)
     (synthesisMobiusTail_of_lt R) hn
 
-/-- Every proper divisor is below the multiplicative support threshold. -/
 lemma synthesis_zeta_no_proper_divisor
     (F : ArithmeticFunction ℤ) (B n : ℕ)
     (hF : ∀ k < B, F k = 0) (hn : 0 < n) (hupper : n < 2 * B) :
@@ -131,7 +124,7 @@ lemma synthesisTailSquare_eq_corner
     synthesisCornerCoefficient, Nat.mul_comm, eq_comm, pow_two] <;>
     split_ifs <;> ring
 
-/-- Genuine coefficientwise source synthesis, at every physical shell site. -/
+/-- Source-level identity at EVERY original integer in EVERY square shell. -/
 theorem synthesisEulerCoefficient_eq_neg_moebius_add_corner
     (R n : ℕ) (hR : 3 ≤ R) (hn : R*R ≤ n)
     (hupper : n < (R+1)*(R+1)) :
@@ -152,7 +145,6 @@ theorem synthesisEulerCoefficient_eq_neg_moebius_add_corner
   rw [hprefix, hproper, hcorner] at hN
   omega
 
-/-- Physical divisibility mask; all original factor owners stay present. -/
 def synthesisDivisorEulerWindow (R h : ℕ) : ℤ :=
   ∑ n ∈ Finset.Ico (R*R) ((R+1)*(R+1)),
     if h ∣ n then eulerSelfDualConvolutionCoefficient R n else 0
