@@ -1,0 +1,95 @@
+name: Original Euler complete physical packet Lean
+
+on:
+  pull_request:
+    paths:
+      - "research/EULER_PHYSICAL_COMPLETE_PACKET_20261030.lean"
+      - "research/EULER_COMPOSITE_PACKET_15_20261030.lean"
+      - ".github/workflows/euler-complete-physical-packet.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: complete-physical-euler-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  packet-kernel:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up pinned Lean and cached Mathlib
+        uses: ./.github/actions/lean-setup
+      - name: Restore PNT+ build cache
+        uses: actions/cache/restore@v5
+        with:
+          path: .lake/packages/PrimeNumberTheoremAnd/.lake/build
+          key: pntplus-build-v1-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
+      - name: Prebuild PNT+ StrongPNT
+        run: lake build PrimeNumberTheoremAnd.StrongPNT
+      - name: Restore native library build cache
+        uses: actions/cache/restore@v5
+        with:
+          path: .lake/build
+          key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'RHLean.lean', 'RHLean/**/*.lean') }}
+          restore-keys: |
+            rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-
+      - name: Full source import closure, warnings fatal
+        run: |
+          python3 scripts/compile_research_import_closure.py --build-library \
+            research/EULER_PHYSICAL_COMPLETE_PACKET_20261030.lean \
+            research/EULER_COMPOSITE_PACKET_15_20261030.lean
+      - name: Audit actual source and standard logical axioms
+        run: |
+          cat > /tmp/euler_physical_packet_audit.lean <<'EOF'
+          import «research.EULER_PHYSICAL_COMPLETE_PACKET_20261030»
+          import «research.EULER_COMPOSITE_PACKET_15_20261030»
+          #check RHLean.Proof.eulerMovingProductCoeff_succ
+          #check RHLean.Proof.eulerMovingProductCoeff_eq_completed
+          #check RHLean.Proof.eulerOriginalProductRow_eq_moving
+          #check RHLean.Proof.eulerPhysicalOddPacket_exact_decomposition
+          #check RHLean.Proof.eulerPhysicalOddPacket_eq_original_rows
+          #check RHLean.Proof.eulerPacketActivationCorrection_eq_zero
+          #check RHLean.Proof.eulerPhysicalOddPacket_eq_principal_add_centered
+          #check RHLean.Proof.eulerPhysicalPacketPrincipal_exact_activation
+          #check RHLean.Proof.eulerCompletedPacketPrincipal_exact_ledger
+          #check RHLean.Proof.eulerPhysicalOddPacket_fifteen_all_roots
+          #check RHLean.Proof.eulerPhysicalPacketPrincipal_fifteen_after_last_owner
+          #check RHLean.Proof.eulerPhysicalOddPacket_fifteen_energy
+          #print axioms RHLean.Proof.eulerMovingProductCoeff_eq_completed
+          #print axioms RHLean.Proof.eulerOriginalProductRow_eq_moving
+          #print axioms RHLean.Proof.eulerPhysicalOddPacket_exact_decomposition
+          #print axioms RHLean.Proof.eulerPhysicalPacketPrincipal_exact_activation
+          #print axioms RHLean.Proof.eulerCompletedPacketPrincipal_exact_ledger
+          #print axioms RHLean.Proof.eulerPhysicalOddPacket_fifteen_all_roots
+          #print axioms RHLean.Proof.eulerPhysicalPacketPrincipal_fifteen_after_last_owner
+          #print axioms RHLean.Proof.eulerPhysicalOddPacket_fifteen_energy
+          EOF
+          lake env lean -DwarningAsError=true /tmp/euler_physical_packet_audit.lean | tee /tmp/euler_physical_packet_audit.log
+          python3 - <<'PY'
+          import re
+          log = open('/tmp/euler_physical_packet_audit.log').read()
+          allowed = {'propext','Classical.choice','Quot.sound'}
+          assert 'sorryAx' not in log
+          for line in log.splitlines():
+              m = re.search(r"depends on axioms: \[(.*)\]",line)
+              if m:
+                  used = set(x.strip() for x in m.group(1).split(',') if x.strip())
+                  assert used <= allowed, (used - allowed)
+          print("PASS: native physical packet has only standard logical axioms")
+          PY
+      - name: Reject admitted proofs and speculative declarations
+        run: |
+          python3 - <<'PY'
+          import pathlib,re
+          for p in [pathlib.Path('research/EULER_PHYSICAL_COMPLETE_PACKET_20261030.lean'),
+                    pathlib.Path('research/EULER_COMPOSITE_PACKET_15_20261030.lean')]:
+              t=p.read_text()
+              t=re.sub(r'/-.*?-/', '', t,flags=re.S)
+              t=re.sub(r'--.*', '', t)
+              assert not re.search(r'\b(sorry|admit|axiom)\b',t)
+          print("PASS: no proof holes or extra axioms")
+          PY
