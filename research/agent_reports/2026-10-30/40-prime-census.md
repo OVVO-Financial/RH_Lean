@@ -262,3 +262,11 @@ extending beyond `2Q<H`.
 **Independent structural progress:** YES.  
 **Independent fixed-eta signed progress:** NONE.  
 **Canonical theorem, complete source payment, strict exponent below 7/8, and RH:** OPEN.
+
+## J. Publication record
+
+The completed report was created by commit
+`6e3553725835bf72574c63390051a9ceeddc6418` and read back as blob
+`0633ede5c89255e119bda27f41201eee57502502` (11,571 characters; the
+`COMPLETED` marker and claim `20261030-census-1` were verified). This receipt
+update changes no mathematics.
