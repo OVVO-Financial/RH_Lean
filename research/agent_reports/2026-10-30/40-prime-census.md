@@ -270,3 +270,117 @@ The completed report was created by commit
 `0633ede5c89255e119bda27f41201eee57502502` (11,571 characters; the
 `COMPLETED` marker and claim `20261030-census-1` were verified). This receipt
 update changes no mathematics.
+
+
+## K. 13:51 America/New_York continuation after merged physical-packet source
+
+**Status:** COMPLETED continuation  
+**Authority refresh:** 2026-10-30 13:58 America/New_York  
+**Pinned live main:** `a72d9ad177cd773c1f4c97fee6538b0d7908dca3` (merged #1055)  
+**Authority blobs:** `AGENTS.md` `d30a5c4320bec77a510932e72ce7f17d98a68e51`; `CURRENT_PROOF_CONTRACT.md` `7a067ec0423a998e1079e37494061346d8ee02b0`  
+**New source blobs:** `research/EULER_PHYSICAL_COMPLETE_PACKET_20261030.lean` `8084af7fa50fb5b8361a64f05eb658f08b529ca7`; `research/EULER_COMPOSITE_PACKET_15_20261030.lean` `af1328d1a4fef43897179d80ac88abe69144c433`  
+**Open drafts:** #1056 at `9a50d2219bf96bb80b33805e368cf51545d76f1b`; #1058 at `54b52ea0e5e5cf993bd8204c4bbc400335044635`. PR #1057 is merged into the still-draft #1056 branch, not into main.  
+**New claim:** `20261030-census-2`  
+**Evidence classes:** `PAPER_PROOF / EXACT FIRST MOVING-BAND IDENTITY`, `FINITE_COMPUTATION`, `CONJECTURE`, `REFUTED_LOCAL_STRENGTHENING`, `NO_FIXED_ETA_GAIN`, `NO_RH`.
+
+Today's Coordinator, Owner Payment, and Analytic reports are absent at final intake and remain `TODAY=PENDING`. Today's Wheel, earlier Census, Referee, and Lean reports were consumed at blobs `c4d6f5fb208f81e61b53dc74fd5a9cd2f81bd7e2`, `487d03f121186edf4da60c10d0843347e4c050a0`, `c76e6a3e1f4c88e5185dac65966e0fe6c8947999`, and `0c6b9c81fc35529abea32ce8617372ef8b282ade`. The complete relevant 2026-10-29 set remains `YESTERDAY=CARRY_FORWARD`. External inbox blob `038018145c0fddb2f6306c0712373adf9cd1ea52` contains no newer claim.
+
+### Claim `20261030-census-2`: exact first moving-band owner subtraction
+
+Let
+[
+\alpha_n=\sum_{1\le a<b,\,ab=n}\mu(a)\mu(b),\qquad
+\beta_R(n)=\sum_{1\le a<b<R,\,ab=n}\mu(a)\mu(b).
+]
+For every `R>=2` and `R<=n<2R`,
+[
+\boxed{\beta_R(n)=\alpha_n-\mu(n).} \tag{17}
+]
+Indeed, an unadmitted completed pair has `b>=R`. Then `n=ab>=aR`; because `n<2R), necessarily `a=1`, so the unique missing pair is `(1,n)), of weight `mu(n)`. Conversely that pair is completed and unadmitted. This is the exact specialization of merged `eulerUnadmittedProductCoeff` to the first product boundary; it uses the literal original strict source.
+
+Writing `n=R+k`, also
+[
+f_n(R)=\frac{(R^2-1)\bmod n}{n}
+      =\frac{(k^2-1)\bmod(R+k)}{R+k}. \tag{18}
+]
+Thus the full activation correction on this band is not a generic boundary error but the explicit transported Mobius row
+[
+A_R=-2\sum_{R\le n<2R}\mu(n)f_n(R). \tag{19}
+]
+Put
+[
+C_R=2\sum_{R\le n<2R}\alpha_n f_n(R),\qquad
+P_R=2\sum_{R\le n<2R}\beta_R(n)f_n(R).
+]
+Then (17) gives the exact physical reconstruction `P_R=C_R+A_R`.
+
+### Preregistered discriminator
+
+**Mystery.** Does the newly formalized activation debt behave as a separately payable error, or does it carry deterministic signed compensation against the completed first high-product band?
+
+**H1 (separate payment):** the shell cross term `sum C_R A_R` is small or sign-indefinite, so replacing moving coefficients by completed coefficients loses no stable cancellation.
+
+**H2 (owner compensation):** the missing singleton owner `(1,n)` is strongly anticorrelated with the completed band after dyadic aggregation; paying the two energies separately destroys an original-source interaction.
+
+A pointwise sign law was explicitly allowed to fail. The discriminator was the complete dyadic energy ledger
+[
+E_P=E_C+E_A+2X_{CA},\qquad
+X_{CA}=\sum_{H\le R<2H}C_RA_R. \tag{20}
+]
+
+### Exact computation and independent check
+
+Python implementation A used a Mobius sieve, unordered-pair enumeration for `alpha`, direct physical divisor enumeration for `beta_R`, and `Fraction` for every row, sum, cross term, and energy. An independent trial-division Mobius routine agreed through 4,108; direct `beta_R(n)` agreed with `alpha_n-mu(n)` on all 19,897 fixtures with `3<=R<200`, `R<=n<2R`. Energy recombination in (20) was exact. CPython 3.12.14 script SHA-256: `bae9c6d73a221473653d46ad9b954015830890f4024a32a9b561e6903ff343cd`. Exact result payload checksum: `f45fb454dd8bd259d4ea851c9b37fa85ce3e2f8a5d293f55c5e56a82b26e6e27`.
+
+Implementation B was independent C++17 trial factorization and direct physical pair reconstruction. It agreed with the decimal renderings below and checked every `beta=alpha-mu` occurrence on the named shells. Compiler: g++ 13.3.0, `-O2 -std=c++17`; source SHA-256 `5efeea3af3d9a71676c2df4153e378ea7237cbc0d685196335dbaf1279c9bbe1`.
+
+| H | E_C | E_A | X_CA | E_P | E_P/(E_C+E_A) | corr(C,A) |
+|---:|---:|---:|---:|---:|---:|---:|
+| 32 | 3907.849 | 458.483 | -1100.687 | 2164.958 | 0.496 | -0.822 |
+| 64 | 19966.829 | 2808.352 | -6859.029 | 9057.123 | 0.398 | -0.916 |
+| 127 | 82261.155 | 7735.012 | -22456.609 | 45082.950 | 0.501 | -0.890 |
+| 317 | 674452.751 | 50150.837 | -157974.055 | 408655.477 | 0.564 | -0.859 |
+| 512 | 1709632.035 | 121692.745 | -386840.493 | 1057643.793 | 0.578 | -0.848 |
+| 1027 | 9800330.546 | 621223.028 | -2127668.826 | 6166215.921 | 0.592 | -0.862 |
+| 2053* | 44794949.999 | 2257348.359 | -8539375.889 | 29973546.580 | 0.637 | -0.849 |
+
+Rows through `H=1027` are exact rationals rendered as decimals. The held-out `H=2053` row is the independent long-double reconstruction; its sign margins are large, but it is not labeled an exact rational certificate.
+
+### Falsification and surviving conjecture
+
+The local strengthening `C_R A_R<=0` is **REFUTED** at the smallest found root `R=8`:
+[
+C_8=101/286,\quad A_8=164/143,\quad P_8=3/2,\quad
+C_8A_8=8282/20449>0.
+]
+So the observed compensation is nonlocal and cannot be proved by termwise or rootwise sign.
+
+Nevertheless the dyadic cross term was strictly negative for every exact `2<=H<=160`, for the exact benchmark shells above, and in an independent long-double scan for every `2<=H<=5000`; no shell counterexample was found. This motivates the precise conjecture
+[
+\boxed{\sum_{H\le R<2H}C_RA_R\le0\quad(H\ge2).} \tag{21}
+]
+Status: `CONJECTURE`. The scan was selected after the band identity, and finite survival is not an all-scale sign theorem. A future proof must explain why positive roots such as `R=8` are outweighed across the whole dyadic shell.
+
+### Proof impact and limits
+
+If (21) were proved, the literal first moving band would satisfy
+[
+\sum P_R^2\le\sum C_R^2+\sum A_R^2,
+]
+so its completed and activation pieces could be restored without an absolute mixed-term loss. This is an independently stated arithmetic restriction on the merged physical carrier, not an assumed random-sign model. Equation (18) identifies the hidden variable as the small displacement `k=n-R`, while (17) shows that the first missing-owner layer is exactly the singleton Möbius owner.
+
+This does **not** bound either energy on the required scale, cover `n>=2R` (where multiple small cofactors are missing), pay the diagonal, reciprocal square, packet mismatch, squareful exceptions, or sharp-shell transfer, or prove the full `H^(5/2-eta+epsilon)` moment. It yields no fixed `eta`, no exponent below `7/8`, no canonical theorem, and no RH.
+
+### Continuation checkpoint
+
+Do not repeat the `H<=5000` sign scan. First derive the next exact owner layer:
+[
+2R\le n<3R\implies
+\alpha_n-\beta_R(n)=\mu(n)+
+{f 1}_{2\mid n,\,2<n/2}\mu(2)\mu(n/2),
+]
+with the strict-pair exception checked at `n=4`. Then reconstruct the coupled first two bands and search for the smallest dyadic counterexample to the corresponding aggregate activation cross term. Separately, seek an exact summation-by-parts or displacement-`k` identity that could prove or refute (21) without assuming a Mertens bound.
+
+**Independent structural progress:** YES.  
+**Independent fixed-eta signed progress:** NONE.  
+**Canonical theorem, complete source payment, strict exponent below 7/8, and RH:** OPEN.
