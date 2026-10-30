@@ -15,6 +15,9 @@ certifies both the ACTUAL completed principal and the individual composite
 coefficient pairing; no generic alpha_(2d) identity is assumed.
 -/
 
+set_option maxRecDepth 8192
+set_option maxHeartbeats 0
+
 noncomputable section
 namespace RHLean.Proof
 
@@ -22,25 +25,25 @@ attribute [local instance] Classical.propDecidable
 
 theorem eulerCompletedProductCoeff_fifteen :
     eulerCompletedProductCoeff 15 = 2 := by
-  native_decide
+  decide
 
 theorem eulerCompletedProductCoeff_thirty :
     eulerCompletedProductCoeff 30 = -4 := by
-  native_decide
+  decide
 
 theorem eulerPacketRootPrincipal_fifteen :
     eulerPacketRootPrincipal 15 = 14 / 45 := by
-  native_decide
+  decide
 
 theorem eulerPacketRootPrincipal_thirty :
     eulerPacketRootPrincipal 30 = 73 / 180 := by
-  native_decide
+  decide
 
 /-- The actual odd-composite and even-composite coefficients close together,
 not by assuming a generic arithmetic coefficient relation. -/
 theorem eulerDoublingCoeffMismatch_fifteen :
     eulerDoublingCoeffMismatch 15 = 0 := by
-  simp [eulerDoublingCoeffMismatch,
+  norm_num [eulerDoublingCoeffMismatch,
     eulerCompletedProductCoeff_fifteen,
     eulerCompletedProductCoeff_thirty]
 
@@ -97,23 +100,24 @@ theorem eulerPhysicalOddPacket_fifteen_energy
     (R : ℕ) (hR : 30 < R) :
     (eulerPhysicalOddPacket R 15 + 2) ^ 2 = 4 := by
   rw [eulerPhysicalOddPacket_fifteen_after_last_owner R hR]
-  simpa using
-    (nativeEulerOddDoublingPacket_centered_sq (2 : ℚ) (d := 15)
-      (R := R) (by norm_num : (0 : ℕ) < 15))
+  have h := nativeEulerOddDoublingPacket_centered_sq (2 : ℚ)
+    (d := 15) (R := R) (by norm_num : (0 : ℕ) < 15)
+  norm_num at h
+  exact h
 
 /-- Exact original-source admission already occurs before root 31, so a
 completed coefficient cannot replace the physical 30-column prematurely. -/
 theorem eulerMovingProductCoeff_twenty_fifteen :
     eulerMovingProductCoeff 20 15 = 2 := by
-  native_decide
+  decide
 
 theorem eulerMovingProductCoeff_twenty_thirty :
     eulerMovingProductCoeff 20 30 = -3 := by
-  native_decide
+  decide
 
 theorem eulerPhysicalOddPacket_twenty_fifteen :
     eulerPhysicalOddPacket 20 15 = 3 / 5 := by
-  native_decide
+  decide
 
 #print axioms eulerCompletedProductCoeff_fifteen
 #print axioms eulerCompletedProductCoeff_thirty
