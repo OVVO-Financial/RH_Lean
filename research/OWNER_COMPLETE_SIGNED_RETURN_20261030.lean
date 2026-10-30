@@ -6,23 +6,18 @@ import «research.ZERO_TARGET_SQUARE_FINITE_DIFFERENCE_REDUCTION»
 # Exact signed return on the original owner fibres
 
 A sum of squared reciprocal amplitudes is not the square of their signed sum.
-All children of one fixed parent have the OPPOSITE parent sign, so their
-within-fibre mixed terms reinforce. This module retains that fact and the
-complete return weights, rather than treating the 79/81 diagonal estimate as
-a signed scalar contraction.
-
-No global Mertens improvement is asserted. The finite witness uses the exact
-original physical remainder and owner map; it is not an arbitrary sign model.
+All children of one fixed parent have the opposite parent sign, so their
+within-fibre mixed terms reinforce. The complete physical fibre below is
+proved by owner chronology, the two-candidate theorem, and coprimality.
+No arbitrary coefficient model or full-return power estimate is assumed.
 -/
 
 noncomputable section
 open scoped BigOperators ArithmeticFunction.Moebius
 namespace RHLean.Proof
 open RHLean.Analysis RHLean.Arithmetic
-
 attribute [local instance] Classical.propDecidable
 
-/-- Exact amplitude law on the actual admitted fixed-owner child fibre. -/
 theorem ownerReturn_child_reciprocalAmplitude
     {W p : ℕ} {parent mn : ℕ × ℕ}
     (hmnMem : mn ∈ postRootCovarianceFixedOwnerChildFiber W parent p) :
@@ -43,10 +38,10 @@ theorem ownerReturn_child_reciprocalAmplitude
   have hnstep : realMoebiusStep n ≠ 0 := by
     intro hnzero
     exact hweight (by rw [hnzero, mul_zero])
-  have hmsq := squarefree_of_realMoebiusStep_ne_zero hmstep
-  have hnsq := squarefree_of_realMoebiusStep_ne_zero hnstep
   have ha := postRootCovarianceReciprocalPairAmplitude_owner_descent
-    hmsq hnsq (ne_of_lt hmnlt) (by omega) (by omega)
+    (squarefree_of_realMoebiusStep_ne_zero hmstep)
+    (squarefree_of_realMoebiusStep_ne_zero hnstep)
+    (ne_of_lt hmnlt) (by omega) (by omega)
   dsimp only at ha
   rw [howner] at ha
   have hp' : covarianceOrderedPair
@@ -56,8 +51,7 @@ theorem ownerReturn_child_reciprocalAmplitude
     simpa [howner] using! hparent
   rwa [hp'] at ha
 
-/-- Signed amplitudes in a single owner fibre add with ONE sign; the factor
-is k/p, not sqrt(k/p^2) and not k/p^2. -/
+/-- The coherent coefficient is k/p, not k/p^2. -/
 theorem ownerReturn_fixedOwner_signed_sum
     (W : ℕ) (parent : ℕ × ℕ) (p : ℕ) :
     (∑ mn ∈ postRootCovarianceFixedOwnerChildFiber W parent p,
@@ -77,13 +71,11 @@ theorem ownerReturn_fixedOwner_signed_sum
       simp only [Finset.sum_const, nsmul_eq_mul]
       ring
 
-/-- Exact outgoing coherent amplitude over ALL original owner primes. -/
 def ownerReturnSignedReciprocalOutgoing (W : ℕ) (parent : ℕ × ℕ) : ℝ :=
   ∑ p ∈ primesUpTo W,
     ∑ mn ∈ postRootCovarianceFixedOwnerChildFiber W parent p,
       postRootCovarianceReciprocalPairAmplitude mn
 
-/-- The actual harmonic multiplicity controlling coherent outgoing amplitudes. -/
 def ownerReturnHarmonicMultiplicity (W : ℕ) (parent : ℕ × ℕ) : ℝ :=
   ∑ p ∈ primesUpTo W,
     (postRootCovarianceFixedOwnerChildMultiplicity W parent p : ℝ) / (p : ℝ)
@@ -94,12 +86,10 @@ theorem ownerReturnSignedReciprocalOutgoing_eq
       -ownerReturnHarmonicMultiplicity W parent *
         postRootCovarianceReciprocalPairAmplitude parent := by
   unfold ownerReturnSignedReciprocalOutgoing ownerReturnHarmonicMultiplicity
-  simp_rw [ownerReturn_fixedOwner_signed_sum]
+  simp_rw [ownerReturn_fixedOwner_signed_sum, neg_mul]
   rw [Finset.sum_neg_distrib, ← Finset.sum_mul]
-  ring
 
-/-- The exact physical inverse weight; it removes, rather than preserves,
-the reciprocal p suppression. This is a source identity, not an inequality. -/
+/-- Physical inverse weights exactly remove the reciprocal suppression. -/
 theorem ownerReturn_pair_unweight (m n : ℕ) (hm : 0 < m) (hn : 0 < n) :
     ((m : ℝ) * (n : ℝ)) *
       postRootCovarianceReciprocalPairAmplitude (m, n) =
@@ -110,8 +100,7 @@ theorem ownerReturn_pair_unweight (m n : ℕ) (hm : 0 < m) (hn : 0 < n) :
   dsimp only
   field_simp [hm0, hn0]
 
-/-- A finite exact decomposition retaining all coherent cross terms, valid
-for any physical family and in particular for every original owner fibre. -/
+/-- Complete square, with every coherent cross term retained. -/
 theorem ownerReturn_signed_square_eq_diagonal_add_cross
     (S : Finset (ℕ × ℕ)) :
     (∑ mn ∈ S, postRootCovarianceReciprocalPairAmplitude mn) ^ 2 =
@@ -136,38 +125,40 @@ theorem ownerReturn_signed_square_eq_diagonal_add_cross
       exact hsplit
     _ = _ := Finset.sum_add_distrib
 
-/-! ## A literal arithmetic fibre, evaluated without native compiler axioms -/
+/-! ## Actual arithmetic fibre: complete support proved structurally -/
 
-/-- Same original physical recursive carrier, with the nonzero test in integers.
-The following theorem identifies it with the original real-Mobius fibre. -/
-def ownerReturnIntegerParentFiber (W : ℕ) (parent : ℕ × ℕ) : Finset (ℕ × ℕ) :=
-  ((postRootCovarianceRemainderRecursivePairCarrier W).filter
-    (fun mn => (μ mn.1 : ℤ) * (μ mn.2 : ℤ) ≠ 0)).filter
-      (fun mn => squarefreePairFreshPrimeOrderedParent mn.1 mn.2 = parent)
-
-theorem ownerReturnIntegerParentFiber_eq_physical
-    (W : ℕ) (parent : ℕ × ℕ) :
-    ownerReturnIntegerParentFiber W parent =
-      postRootCovarianceFixedParentChildFiber W parent := by
-  ext mn
-  simp only [ownerReturnIntegerParentFiber, postRootCovarianceFixedParentChildFiber,
-    Finset.mem_filter, realMoebiusStep]
-  have hzero :
-      (((μ mn.1 : ℤ) : ℝ) * ((μ mn.2 : ℤ) : ℝ) = 0) ↔
-        (μ mn.1 : ℤ) * (μ mn.2 : ℤ) = 0 := by
-    exact_mod_cast (Iff.rfl :
-      (μ mn.1 : ℤ) * (μ mn.2 : ℤ) = 0 ↔
-        (μ mn.1 : ℤ) * (μ mn.2 : ℤ) = 0)
-  rw [hzero]
-
-set_option maxRecDepth 16384 in
-set_option maxHeartbeats 0 in
-/-- Entire actual recursive parent fibre, including every admitted owner. -/
-theorem ownerReturn_parent_one_seven_at_35 :
-    postRootCovarianceFixedParentChildFiber 35 (1, 7) =
-      {(1, 14), (1, 21), (1, 35), (2, 7), (3, 7), (5, 7)} := by
-  rw [← ownerReturnIntegerParentFiber_eq_physical]
+private theorem ownerReturn_face_values :
+    squarefreePairFreshPrimeSet 1 7 = {7} ∧
+    squarefreePairFreshPrimeSet 1 14 = {2,7} ∧
+    squarefreePairFreshPrimeSet 1 21 = {3,7} ∧
+    squarefreePairFreshPrimeSet 1 35 = {5,7} ∧
+    squarefreePairFreshPrimeSet 2 7 = {2,7} ∧
+    squarefreePairFreshPrimeSet 3 7 = {3,7} ∧
+    squarefreePairFreshPrimeSet 5 7 = {5,7} := by
   decide +kernel
+
+/-- Exact original least-separating-prime labels. -/
+theorem ownerReturn_owner_values :
+    squarefreePairFreshPrimeOwner 1 7 = 7 ∧
+    squarefreePairFreshPrimeOwner 1 14 = 2 ∧
+    squarefreePairFreshPrimeOwner 1 21 = 3 ∧
+    squarefreePairFreshPrimeOwner 1 35 = 5 ∧
+    squarefreePairFreshPrimeOwner 2 7 = 2 ∧
+    squarefreePairFreshPrimeOwner 3 7 = 3 ∧
+    squarefreePairFreshPrimeOwner 5 7 = 5 := by
+  rcases ownerReturn_face_values with ⟨h7,h14,h21,h35,h2,h3,h5⟩
+  simp [squarefreePairFreshPrimeOwner,h7,h14,h21,h35,h2,h3,h5]
+
+private theorem ownerReturn_parent_values :
+    squarefreePairFreshPrimeOrderedParent 1 14 = (1,7) ∧
+    squarefreePairFreshPrimeOrderedParent 1 21 = (1,7) ∧
+    squarefreePairFreshPrimeOrderedParent 1 35 = (1,7) ∧
+    squarefreePairFreshPrimeOrderedParent 2 7 = (1,7) ∧
+    squarefreePairFreshPrimeOrderedParent 3 7 = (1,7) ∧
+    squarefreePairFreshPrimeOrderedParent 5 7 = (1,7) := by
+  rcases ownerReturn_owner_values with ⟨_h7,h14,h21,h35,h2,h3,h5⟩
+  norm_num [squarefreePairFreshPrimeOrderedParent,
+    squarefreePrimeFamilyParent,h14,h21,h35,h2,h3,h5]
 
 private theorem ownerReturn_mu_values :
     (μ 1 : ℤ) = 1 ∧ (μ 2 : ℤ) = -1 ∧ (μ 3 : ℤ) = -1 ∧
@@ -175,7 +166,96 @@ private theorem ownerReturn_mu_values :
     (μ 21 : ℤ) = 1 ∧ (μ 35 : ℤ) = 1 := by
   decide +kernel
 
-/-- Strictly contractive diagonal reciprocal energy in this actual fibre. -/
+private theorem ownerReturn_coprime_mem_remainder
+    {W m n : ℕ} (hm : 1 ≤ m) (hmW : m ≤ W)
+    (hn : 1 ≤ n) (hnW : n ≤ W) (hmn : m < n) (hcop : Nat.Coprime m n) :
+    (m,n) ∈ postRootCovarianceRemainderPhysicalPairCarrier W := by
+  apply mem_postRootCovarianceRemainderPhysicalPairCarrier.mpr
+  refine ⟨mem_mertensPositivePhysicalPairCarrier.mpr ⟨hm,hmW,hn,hnW,hmn⟩, ?_⟩
+  intro hbad
+  rcases mem_postRootPrimePhysicalPairUnion.mp hbad with ⟨p,hp,hpair⟩
+  rcases mem_postRootPrimePhysicalPairCarrier.mp hpair with
+    ⟨_hm,_hmW,_hn,_hnW,_hmn,hpm,hpn⟩
+  have hg : p ∣ Nat.gcd m n := Nat.dvd_gcd hpm hpn
+  rw [hcop.gcd_eq_one] at hg
+  have hp1 : p = 1 := Nat.eq_one_of_dvd_one hg
+  exact (mem_postRootPrimeFamilySet.mp hp).2.2.ne_one hp1
+
+private theorem ownerReturn_coprime_child_mem
+    {m n : ℕ} (hm : 1 ≤ m) (hmW : m ≤ 35)
+    (hn : 1 ≤ n) (hnW : n ≤ 35) (hmn : m < n) (hcop : Nat.Coprime m n)
+    (hw : realMoebiusStep m * realMoebiusStep n ≠ 0)
+    (hp : squarefreePairFreshPrimeOrderedParent m n = (1,7)) :
+    (m,n) ∈ postRootCovarianceFixedParentChildFiber 35 (1,7) := by
+  have hrem := ownerReturn_coprime_mem_remainder hm hmW hn hnW hmn hcop
+  have hne : ¬ SquarefreePairFreshPrimeParentsEqual (m,n) := by
+    intro heq
+    change squarefreePrimeFamilyParent (squarefreePairFreshPrimeOwner m n) m =
+      squarefreePrimeFamilyParent (squarefreePairFreshPrimeOwner m n) n at heq
+    have hdiag : (squarefreePairFreshPrimeOrderedParent m n).1 =
+        (squarefreePairFreshPrimeOrderedParent m n).2 := by
+      simp [squarefreePairFreshPrimeOrderedParent,heq]
+    rw [hp] at hdiag
+    norm_num at hdiag
+  exact Finset.mem_filter.mpr
+    ⟨Finset.mem_filter.mpr ⟨Finset.mem_filter.mpr ⟨hrem,hne⟩,hw⟩,hp⟩
+
+/-- ENTIRE original fibre: chronology forces p<7, hence p=2,3,5; each has
+exactly the two admitted mixed-corner children. -/
+theorem ownerReturn_parent_one_seven_at_35 :
+    postRootCovarianceFixedParentChildFiber 35 (1, 7) =
+      {(1, 14), (1, 21), (1, 35), (2, 7), (3, 7), (5, 7)} := by
+  ext mn
+  constructor
+  · rcases mn with ⟨m,n⟩
+    intro hmem
+    rcases Finset.mem_filter.mp hmem with ⟨hweighted,hparent⟩
+    rcases Finset.mem_filter.mp hweighted with ⟨hrec,hweight⟩
+    have hdesc := postRootCovarianceRemainderRecursivePair_owner_descent hrec hweight
+    dsimp only at hdesc
+    have hlt : squarefreePairFreshPrimeOwner m n < 7 := by
+      have hh := hdesc.2.1
+      rw [hparent] at hh
+      simpa only [ownerReturn_owner_values.1] using hh
+    have hphys := (mem_postRootCovarianceRemainderPhysicalPairCarrier.mp
+      (Finset.mem_filter.mp hrec).1).1
+    rcases mem_mertensPositivePhysicalPairCarrier.mp hphys with
+      ⟨hm,_hmW,hn,_hnW,hmn⟩
+    have hm0 : realMoebiusStep m ≠ 0 := by
+      intro hz
+      exact hweight (by rw [hz,zero_mul])
+    have hn0 : realMoebiusStep n ≠ 0 := by
+      intro hz
+      exact hweight (by rw [hz,mul_zero])
+    have hprime := squarefreePairFreshPrimeOwner_prime
+      (squarefree_of_realMoebiusStep_ne_zero hm0)
+      (squarefree_of_realMoebiusStep_ne_zero hn0) (ne_of_lt hmn)
+    have hsmall (p : ℕ) (hp : p.Prime) (hp7 : p < 7) :
+        p = 2 ∨ p = 3 ∨ p = 5 := by
+      have hp2 := hp.two_le
+      interval_cases p <;> norm_num at *
+    have hcases := hsmall _ hprime hlt
+    have hfixed : (m,n) ∈ postRootCovarianceFixedOwnerChildFiber 35 (1,7)
+        (squarefreePairFreshPrimeOwner m n) :=
+      Finset.mem_filter.mpr
+        ⟨Finset.mem_filter.mpr ⟨Finset.mem_filter.mpr ⟨hrec,hweight⟩,rfl⟩,hparent⟩
+    have hc := postRootCovarianceFixedOwnerChildFiber_subset_candidates
+      35 (1,7) (squarefreePairFreshPrimeOwner m n) hfixed
+    rcases hcases with hp | hp | hp <;>
+      simp [hp,covarianceOwnerChildCandidates,covarianceOrderedPair] at hc
+    all_goals
+      simp only [Finset.mem_insert,Finset.mem_singleton]
+      aesop
+  · intro hmem
+    rcases ownerReturn_parent_values with ⟨hp14,hp21,hp35,hp2,hp3,hp5⟩
+    rcases ownerReturn_mu_values with ⟨h1,h2,h3,h5,h7,h14,h21,h35⟩
+    simp only [Finset.mem_insert,Finset.mem_singleton] at hmem
+    rcases hmem with rfl | rfl | rfl | rfl | rfl | rfl
+    all_goals
+      apply ownerReturn_coprime_child_mem <;>
+        norm_num [realMoebiusStep,h1,h2,h3,h5,h7,h14,h21,h35,
+          hp14,hp21,hp35,hp2,hp3,hp5]
+
 theorem ownerReturn_fibre_diagonal_energy :
     (∑ mn ∈ postRootCovarianceFixedParentChildFiber 35 (1, 7),
       postRootCovarianceReciprocalPairEnergy mn) = (361 / 22050 : ℝ) := by
@@ -185,16 +265,14 @@ theorem ownerReturn_fibre_diagonal_energy :
     postRootCovarianceReciprocalPairAmplitude, realMoebiusStep,
     h1,h2,h3,h5,h7,h14,h21,h35]
 
-/-- Coherent reciprocal amplitude, BEFORE any physical inverse weights. -/
 theorem ownerReturn_fibre_signed_amplitude :
     (∑ mn ∈ postRootCovarianceFixedParentChildFiber 35 (1, 7),
       postRootCovarianceReciprocalPairAmplitude mn) = (31 / 105 : ℝ) := by
   rcases ownerReturn_mu_values with ⟨h1,h2,h3,h5,h7,h14,h21,h35⟩
   rw [ownerReturn_parent_one_seven_at_35]
-  norm_num [postRootCovarianceReciprocalPairAmplitude, realMoebiusStep,
+  norm_num [postRootCovarianceReciprocalPairAmplitude,realMoebiusStep,
     h1,h2,h3,h5,h7,h14,h21,h35]
 
-/-- The complete unweighted signed child mass is +6; the parent mass is -1. -/
 theorem ownerReturn_fibre_unweighted_mass :
     (∑ mn ∈ postRootCovarianceFixedParentChildFiber 35 (1, 7),
       realMoebiusStep mn.1 * realMoebiusStep mn.2) = 6 := by
@@ -202,8 +280,8 @@ theorem ownerReturn_fibre_unweighted_mass :
   rw [ownerReturn_parent_one_seven_at_35]
   norm_num [realMoebiusStep,h1,h2,h3,h5,h7,h14,h21,h35]
 
-/-- On this genuine fibre, diagonal energy contracts but the signed-square
-energy expands. This does NOT refute a global cross-parent cancellation law. -/
+/-- Diagonal energy contracts but coherent signed-square energy expands on
+this genuine physical fibre. No global cross-parent theorem is refuted. -/
 theorem ownerReturn_actual_diagonal_contracts_but_signed_square_expands :
     (∑ mn ∈ postRootCovarianceFixedParentChildFiber 35 (1, 7),
       postRootCovarianceReciprocalPairEnergy mn) <
@@ -212,9 +290,9 @@ theorem ownerReturn_actual_diagonal_contracts_but_signed_square_expands :
       (∑ mn ∈ postRootCovarianceFixedParentChildFiber 35 (1, 7),
         postRootCovarianceReciprocalPairAmplitude mn) ^ 2 := by
   rcases ownerReturn_mu_values with ⟨h1,_h2,_h3,_h5,h7,_h14,_h21,_h35⟩
-  rw [ownerReturn_fibre_diagonal_energy, ownerReturn_fibre_signed_amplitude]
+  rw [ownerReturn_fibre_diagonal_energy,ownerReturn_fibre_signed_amplitude]
   norm_num [postRootCovarianceReciprocalPairEnergy,
-    postRootCovarianceReciprocalPairAmplitude, realMoebiusStep,h1,h7]
+    postRootCovarianceReciprocalPairAmplitude,realMoebiusStep,h1,h7]
 
 #print axioms ownerReturnSignedReciprocalOutgoing_eq
 #print axioms ownerReturn_pair_unweight
