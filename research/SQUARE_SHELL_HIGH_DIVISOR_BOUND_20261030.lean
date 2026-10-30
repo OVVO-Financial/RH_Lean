@@ -1,18 +1,14 @@
 import Mathlib
-import «research.SQUARE_SHELL_COMPENSATED_SYNTHESIS_20261030»
+import «research.SQUARE_SHELL_DIVISOR_SYNTHESIS_20261030»
 
 /-!
 # Independent physical high-divisor energy
 
-For the actual shell Mobius divisibility profile F_R(h), prove an explicit
-finite estimate on an entire dyadic divisor band, not a conjectural
-signed-cancellation input. In the range 3<=H and 1<=D<=H:
-
- D * sum_(H<=R<2H) sum_(D<=h<2D) F_R(h)^2 <= 36*H^3.
-
-This is useful for D above sqrt(H); the primitive small-divisor channel
-remains unpaid. The compensated original Euler source obeys the same bound
-by the source-level crosswalk. No packet activation is omitted.
+For the genuine shell profile F_R(h), prove the explicit finite estimate
+D * sum_(H<=R<2H) sum_(D<=h<2D) F_R(h)^2 <= 36*H^3, for 0<D<=H.
+The corrected original Euler source obeys the same bound. All original
+fully and partially admitted factor pairs stay present. The primitive h=1
+source is not paid by restricting this theorem to large D.
 -/
 noncomputable section
 open scoped ArithmeticFunction.Moebius BigOperators
@@ -51,8 +47,7 @@ private lemma synthesisMultiples_card_mul_le
   change S.card*h ≤ b-a+2*h
   nlinarith
 
-/-- A source-exact pointwise divisor budget. This uses scarcity of actual
-multiples, not independence of their Mobius signs. -/
+/-- Actual multiples, not independence of their Mobius signs, pay this bound. -/
 theorem synthesisDivisorMobius_abs_mul_le
     (R h : ℕ) (hh : 0 < h) :
     |synthesisDivisorMobiusWindow R h| * (h : ℤ) ≤
@@ -72,7 +67,9 @@ theorem synthesisDivisorMobius_abs_mul_le
   have hset : Finset.Ico (R*R) ((R+1)*(R+1)) = Finset.Icc (R*R) (R*R+2*R) := by
     ext n
     simp only [Finset.mem_Ico, Finset.mem_Icc]
-    nlinarith
+    have hex : (R+1)*(R+1) = R*R+2*R+1 := by ring
+    rw [hex]
+    omega
   have hcardN := synthesisMultiples_card_mul_le (R*R) (R*R+2*R) h (by omega) hh
   have hcard : S.card*h ≤ 2*R+2*h := by
     simpa only [S, hset, Nat.add_sub_cancel_left] using hcardN
@@ -103,10 +100,10 @@ private lemma synthesisBand_pointwise
     apply mul_nonneg (sub_nonneg.mpr hAD)
     positivity
   have hsq : A^2 = synthesisDivisorMobiusWindow R h ^ 2 := sq_abs _
-  nlinarith
+  have hbase : (A*(D : ℤ))^2 ≤ 36*(H : ℤ)^2 := by nlinarith only [hprod]
+  simpa only [mul_pow, hsq] using hbase
 
-/-- Quantified independent proper-sector energy, valid at every admissible
-integer scale. Dividing by D gives 36 H^3/D, not an assumed RH-scale rate. -/
+/-- Quantified independent proper-sector energy at EVERY admissible scale. -/
 theorem synthesisHighDivisor_energy
     (H D : ℕ) (hD : 0 < D) (hDH : D ≤ H) :
     (∑ R ∈ Finset.Ico H (2*H),
@@ -123,16 +120,18 @@ theorem synthesisHighDivisor_energy
     intro h hh
     exact synthesisBand_pointwise H D R h hD hDH
       (Finset.mem_Ico.mp hr).2 (Finset.mem_Ico.mp hh).1
-  have hcountH : (Finset.Ico H (2*H)).card = H := by simp [Nat.card_Ico]; omega
-  have hcountD : (Finset.Ico D (2*D)).card = D := by simp [Nat.card_Ico]; omega
+  have hcountH : (Finset.Ico H (2*H)).card = H := by
+    simp only [Nat.card_Ico, two_mul, Nat.add_sub_cancel_left]
+  have hcountD : (Finset.Ico D (2*D)).card = D := by
+    simp only [Nat.card_Ico, two_mul, Nat.add_sub_cancel_left]
   simp only [← Finset.sum_mul] at hpoint
   simp only [Finset.sum_const, nsmul_eq_mul, hcountH, hcountD] at hpoint
   have hdZ : (0 : ℤ) < D := by exact_mod_cast hD
   apply (mul_le_mul_right hdZ).mp
-  nlinarith [hpoint]
+  nlinarith only [hpoint]
 
-/-- The same estimate on the corrected ORIGINAL Euler source, including all
-its fully and partially admitted pair families and their exact corners. -/
+/-- Same estimate on the corrected ORIGINAL Euler source, with all actual
+completed/partial pairs and their exact physical corner contribution. -/
 theorem synthesisHighDivisor_correctedEuler_energy
     (H D : ℕ) (hH : 3 ≤ H) (hD : 0 < D) (hDH : D ≤ H) :
     (∑ R ∈ Finset.Ico H (2*H),
