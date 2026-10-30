@@ -247,3 +247,152 @@ Early checkpoint commit `5928e77fe3b0aeabc087a62595d01c6ddb3c099d`,
 read back as blob `93d2994086e7571e94c7dba5515f9e584e77529d`.
 
 Completed synthesis commit `6d33881f1cc4c1b918bb7f896af9359869c40cc6`, read back as blob `7c21433b0ec64b709780bba5d54bfa3563b37303` (10,296 characters; `COMPLETED`, claim ID, equation (10), and no non-whitespace control characters verified). This receipt changes no mathematics.
+
+
+## J. 12:09 America/New_York continuation after live-state change
+
+**Continuation refresh:** 2026-10-30 12:09 America/New_York  
+**Updated live main:** `82d00c18f22bbf284fa4c511880f4ebdd9d0f729` (merged #1054)  
+**New main source:** `research/EULER_ODD_DOUBLING_PACKET_20261030.lean` blob `053e8f08794c85d127de5c687b03decb0d4807cd`  
+**New live drafts inspected:** #1055 head `cb8bdecaf71deba72e2ca88e324aefc2a50b10dc`; stacked #1056 head `3c0b0c4e7fc68b7cd0b5513c45228c4d36d338e0`; stacked #1057 head `d00b15b8d6e8b2d708baeb9d8c91f6c636330c3e`  
+**New claim:** `20261030-wheel-2`  
+**Result classes:** `PAPER_PROOF / GENERAL PRIME-ADJOINING COEFFICIENT TRIPLE`, `PAPER_PROOF / COHERENT ODD-PRIME PACKET FAMILY`, `COUNTEREXAMPLE_TO_ODD-PRIME BINARY CONSERVATION`, `FINITE_EXACT_REGRESSION`, `NO_MOMENT_COUNTEREXAMPLE`, `NO_FIXED_ETA_GAIN`, `NO_RH`
+
+The earlier report was complete against its intake state. After it landed, #1054
+merged and #1055--#1057 opened. This continuation consumes that changed state
+instead of repeating the accepted 2-adic computation. Today's Coordinator,
+Owner, and Analytic reports remain `TODAY=PENDING`; today's Census, Referee,
+and Lean reports are present at blobs `487d03f121186edf4da60c10d0843347e4c050a0`,
+`c76e6a3e1f4c88e5185dac65966e0fe6c8947999`, and
+`0c6b9c81fc35529abea32ce8617372ef8b282ade`.
+
+### Claim `20261030-wheel-2`: exact odd-prime adjoining triple
+
+Let
+[
+  alpha_n=sum_{substack{1le a<b\ab=n}}mu(a)mu(b),
+  qquad c=mu*mu.
+]
+Unique factorization gives the exact identity
+[
+  c(n)=2alpha_n+
+  {f 1}_{n=k^2}mu(k)^2.                                  	ag{11}
+]
+If (ell) is prime and (ell
+mid d), multiplicativity and
+(c(ell)=-2, c(ell^2)=1) therefore give
+[
+egin{aligned}
+ alpha_{ell d}
+   &=-2alpha_d-{f 1}_{d=k^2}mu(k)^2,\
+ alpha_{ell^2d}&=alpha_d.                                	ag{12}
+end{aligned}
+]
+This is the general prime-adjoining version of the uniform 2-adic coefficient
+law in draft #1056. For distinct primes (p,ell),
+[
+ (alpha_p,alpha_{ell p},alpha_{ell^2p})=(-1,2,-1).      	ag{13}
+]
+Thus the genuine completed occurrence packet is
+[
+ 2alpha_p K_{ell,p}(R),qquad
+ K_{ell,p}=f_p-2f_{ell p}+f_{ell^2p}.                    	ag{14}
+]
+
+For an arbitrary integer numerator (X=pq+r, 0le r<p), write
+(t=qmodell^2) and (u=qmodell). Direct Euclidean division yields
+[
+ K_{ell,p}(X)
+ =rac{(ell-1)^2r}{ell^2p}
+   +rac{t-2ell u}{ell^2}.                               	ag{15}
+]
+Unlike the (ell=2) binary packet formalized by #1054, (15) retains both
+the residual coordinate and an (ell^2)-quotient coordinate. In particular
+there is no odd-prime analogue of a pointwise two-value packet with constant
+centered square.
+
+### Coherent genuine square-clock family
+
+Fix an odd prime (ell) and choose distinct primes
+(p_1,ldots,p_Nequiv1pmod{ell^2}), all greater than (ell^2), with
+(Nge2). Put (P=prod_i p_i) and take the genuine root
+[
+ R=P+1,qquad X_R=R^2-1=P(P+2).
+]
+Every product (ell^2p_i<R), so all three original columns in (13) are
+fully admitted. Moreover
+[
+ rac{X_R}{p_i}=(P/p_i)(P+2)equiv3pmod{ell^2}.
+]
+Consequently all (N) distinct prime-adjoining packets have exactly the same
+value:
+[
+ K_{ell,p_i}(R)=
+ egin{cases}
+  1/3,&ell=3,\
+  -3(2ell-1)/ell^2,&ellge5.
+ end{cases}                                                	ag{16}
+]
+Their contributions to the literal twice-off-diagonal source are respectively
+(-2/3) or (6(2ell-1)/ell^2) per prime. Dirichlet's theorem supplies
+arbitrarily large finite choices of the (p_i), so (16) is a coherent family,
+not an isolated residue accident.
+
+This refutes any proposed odd-prime packet argument that asserts pointwise
+sign balance, packet independence, or a uniform constant-energy conservation
+law analogous to #1054. It does **not** refute #1056's paper-level interval
+moment: the construction is one sparse root, and the claimed bound explicitly
+allows incomplete-period mass. It is a mandatory stress family for any
+attempt to improve the (Q^3) completion term or to sum prime-adjoining
+packets before restoring the remaining source.
+
+### Independent audit of draft #1056
+
+I checked the paper steps behind
+[
+ sum_{Rin I}|Z_Q(R)|^2
+ ll_arepsilon H Q^{1+arepsilon}+Q^{3+arepsilon}.
+]
+The even-modulus Gauss estimate follows exactly by differencing (x=y+t);
+the inner sum survives for precisely (gcd(2k,m)) values of (t). The
+product-frequency fibre has size (4gcd(d,e)), and
+(4gcd(d,e)operatorname{lcm}(4d,4e)=16de), giving the stated incomplete
+term. Finally
+[
+ sum_{d,ele Q}rac{gcd(d,e)}{sqrt{de}}ll Qlog Q
+]
+by (d=ga,e=gb), while the one-variable incomplete mass is
+(O_arepsilon(Q^{3/2+arepsilon})).
+
+No contradiction was found. The result remains exactly
+`PAPER_PROOF_NEEDS_INDEPENDENT_REVIEW`, because the all-frequency Fourier
+assembly and epsilon-uniform divisor estimates are not named Lean theorems.
+Draft #1057 is a distinct exact divisor-synthesis lane and does not pay the
+primitive (h=1) source.
+
+### Exact regression and handoff
+
+Exact rational checks used:
+- (ell=3), (p=(19,37,73)), (R=51320):
+  each (K=1/3), total twice-source contribution (-2);
+- (ell=5), (p=(101,151,251)), (R=3828002):
+  each (K=-27/25), total twice-source contribution (162/25).
+
+The local reproducer SHA-256 was
+`770c987a06a154242cbe92c497f936d8cac545e49924cf4509df85c47e4b2fe2`.
+It is finite evidence; equations (11)--(16) are the proof.
+
+**Analytic/Referee handoff:** include (16) as the odd-prime coherent-mode
+falsifier for any proposed (Q^3) improvement. A successful estimate must
+average this progression through complete/incomplete windows rather than
+assert cross-packet cancellation.
+
+**Lean handoff:** after review and after the stacked coefficient definitions
+reach main, (11)--(12) are the smallest nonduplicate formal target. Do not
+formalize the Dirichlet population statement as part of the finite coefficient
+lemma.
+
+**Independent structural progress:** YES.  
+**Independent fixed-(eta) signed progress:** NONE.  
+**Canonical theorem, complete source payment, strict exponent below (7/8),
+and RH:** OPEN.
