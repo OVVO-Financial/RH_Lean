@@ -391,16 +391,16 @@ with the strict-pair exception checked at `n=4`. Then reconstruct the coupled fi
 
 **Status:** COMPLETED continuation  
 **Authority refresh:** 2026-10-30 19:02 America/New_York  
-**Pinned live main:** \`6b2a869750b92fcdbebff78a591e7722b4f2c747\` (merged #1059)  
-**Authority blobs:** \`AGENTS.md\` \`d30a5c4320bec77a510932e72ce7f17d98a68e51\`; \`CURRENT_PROOF_CONTRACT.md\` \`7a067ec0423a998e1079e37494061346d8ee02b0\`; all-vector selector \`a2892b6641268e1ac1ce08622bbe53445fe2e8eb\`.  
-**Material main blobs:** \`research/EULER_FRACTIONAL_COUPLED_20261027.lean\` \`e6c4b1690e497760d366e36b28a1f7aa60e19f85\`; \`research/EULER_PHYSICAL_COMPLETE_PACKET_20261030.lean\` \`8084af7fa50fb5b8361a64f05eb658f08b529ca7\`; \`research/OWNER_COMPLETE_SIGNED_RETURN_20261030.lean\` \`3a35c851336ea6c357c65217a0d1dc521557c3bc\`; \`research/OWNER_RECIPROCAL_EXPONENT_SLACK_20261030.lean\` \`8386033011145cae64961482e273598d5a6a3263\`.  
+**Pinned live main:** `6b2a869750b92fcdbebff78a591e7722b4f2c747` (merged #1059)  
+**Authority blobs:** `AGENTS.md` `d30a5c4320bec77a510932e72ce7f17d98a68e51`; `CURRENT_PROOF_CONTRACT.md` `7a067ec0423a998e1079e37494061346d8ee02b0`; all-vector selector `a2892b6641268e1ac1ce08622bbe53445fe2e8eb`.  
+**Material main blobs:** `research/EULER_FRACTIONAL_COUPLED_20261027.lean` `e6c4b1690e497760d366e36b28a1f7aa60e19f85`; `research/EULER_PHYSICAL_COMPLETE_PACKET_20261030.lean` `8084af7fa50fb5b8361a64f05eb658f08b529ca7`; `research/OWNER_COMPLETE_SIGNED_RETURN_20261030.lean` `3a35c851336ea6c357c65217a0d1dc521557c3bc`; `research/OWNER_RECIPROCAL_EXPONENT_SLACK_20261030.lean` `8386033011145cae64961482e273598d5a6a3263`.  
 **Route / coordinate:** same-source synthesis S1 (partial-admission Euler packets), supporting CODIV/CORR4 source-admission audits; exact identity edge only.  
-**New claim:** \`20261030-census-3\`.  
-**Evidence classes:** \`PAPER_PROOF / EXACT SECOND MOVING-BAND IDENTITY\`, \`FINITE_COMPUTATION\`, \`CONJECTURE\`, \`REFUTED_LOCAL_STRENGTHENING\`, \`NO_NEW_INDEPENDENT_INEQUALITY\`, \`NO_FIXED_ETA_GAIN\`, \`NO_RH\`.
+**New claim:** `20261030-census-3`.  
+**Evidence classes:** `PAPER_PROOF / EXACT SECOND MOVING-BAND IDENTITY`, `FINITE_COMPUTATION`, `CONJECTURE`, `REFUTED_LOCAL_STRENGTHENING`, `NO_NEW_INDEPENDENT_INEQUALITY`, `NO_FIXED_ETA_GAIN`, `NO_RH`.
 
-Today's Analytic report is now available at blob \`bae5e244f4bafdb42071263e72d502d50f3ce31e\`, claim \`20261030-analytic-1\`, and was consumed. Today's Coordinator and Owner report paths remain \`TODAY=PENDING\`; merged #1059 and its source declarations are authoritative for the owner-return update. Today's Wheel continuation \`20261030-wheel-3\` was consumed from blob \`c732ac930234989d702ca9f6954a050febd5965b\`. The complete October 29 reports remain \`YESTERDAY=CARRY_FORWARD\`. The external inbox remains blob \`038018145c0fddb2f6306c0712373adf9cd1ea52\`, with no entry newer than October 18. No open or draft PR was found at final refresh.
+Today's Analytic report is now available at blob `bae5e244f4bafdb42071263e72d502d50f3ce31e`, claim `20261030-analytic-1`, and was consumed. Today's Coordinator and Owner report paths remain `TODAY=PENDING`; merged #1059 and its source declarations are authoritative for the owner-return update. Today's Wheel continuation `20261030-wheel-3` was consumed from blob `c732ac930234989d702ca9f6954a050febd5965b`. The complete October 29 reports remain `YESTERDAY=CARRY_FORWARD`. The external inbox remains blob `038018145c0fddb2f6306c0712373adf9cd1ea52`, with no entry newer than October 18. No open or draft PR was found at final refresh.
 
-### Claim \`20261030-census-3\`: exact second owner layer and two-band compensation
+### Claim `20261030-census-3`: exact second owner layer and two-band compensation
 
 Retain
 $$
@@ -435,14 +435,14 @@ $$
 
 ### Preregistered test and methods
 
-The continuation checkpoint in claim \`20261030-census-2\` preregistered a search for the smallest dyadic counterexample after restoring (22). Competing hypotheses were:
+The continuation checkpoint in claim `20261030-census-2` preregistered a search for the smallest dyadic counterexample after restoring (22). Competing hypotheses were:
 
 - **H1:** the extra owner layer destroys the one-band aggregate anticorrelation, producing \(X_2(H)>0\) at a small or moderate \(H\).
 - **H2:** compensation persists after the first two moving bands, even though pointwise signs fail.
 
-Python implementation A used an Eratosthenes Möbius sieve, direct unordered-pair reconstruction of \(\alpha\), exact \`Fraction\` clocks, and prefix sums for every dyadic query. It independently enumerated the physical \(\beta_R(n)\) and verified (22) on all 5,049 fixtures with \(2\le R\le100\), \(2R\le n<3R\). Energy recombination (24) was exact. CPython 3.12.14 source SHA-256: \`ba59101e7a805cddbfdebcd5fd441b49f80a50762d16d5298d380f9b0c63f638\`.
+Python implementation A used an Eratosthenes Möbius sieve, direct unordered-pair reconstruction of \(\alpha\), exact `Fraction` clocks, and prefix sums for every dyadic query. It independently enumerated the physical \(\beta_R(n)\) and verified (22) on all 5,049 fixtures with \(2\le R\le100\), \(2R\le n<3R\). Energy recombination (24) was exact. CPython 3.12.14 source SHA-256: `ba59101e7a805cddbfdebcd5fd441b49f80a50762d16d5298d380f9b0c63f638`.
 
-Implementation B used a linear Möbius sieve, independently reconstructed completed coefficients, and long-double clocks in C++17. It agreed with every displayed exact decimal below and scanned every \(2\le H\le20000\). Compiler: g++ 13.3.0, \`-O2 -std=c++17\`; source SHA-256 \`b51cdabf89b8812c9dcd933cf101e9845fb0200c3aed921df65d6de4d772f587\`.
+Implementation B used a linear Möbius sieve, independently reconstructed completed coefficients, and long-double clocks in C++17. It agreed with every displayed exact decimal below and scanned every \(2\le H\le20000\). Compiler: g++ 13.3.0, `-O2 -std=c++17`; source SHA-256 `b51cdabf89b8812c9dcd933cf101e9845fb0200c3aed921df65d6de4d772f587`.
 
 ### Results and falsification
 
@@ -478,7 +478,7 @@ The surviving conjecture is
 $$
 \boxed{X_2(H)\le0\quad(H\ge2).} \tag{25}
 $$
-Its status is \`CONJECTURE\`. The search supports H2 on the finite domain and refutes H1 there, but selection after the one-band discovery and the absence of a proof forbid promotion.
+Its status is `CONJECTURE`. The search supports H2 on the finite domain and refutes H1 there, but selection after the one-band discovery and the absence of a proof forbid promotion.
 
 ### Proof impact, limitations, and next checkpoint
 
@@ -488,5 +488,5 @@ Do not repeat the \(H\le20000\) scan. The next falsifiable step is the third ban
 
 **Independent structural progress:** YES.  
 **Independent quantitative inequality:** NONE.  
-**Evidence status:** \`FINITE_COMPUTATION\` for \(X_2(H)<0\) on the stated ranges; \`PAPER_PROOF\` for (22); \`CONJECTURE\` for (25).  
+**Evidence status:** `FINITE_COMPUTATION` for \(X_2(H)<0\) on the stated ranges; `PAPER_PROOF` for (22); `CONJECTURE` for (25).  
 **Canonical theorem, complete signed source payment, strict exponent below 7/8, and RH:** OPEN.
