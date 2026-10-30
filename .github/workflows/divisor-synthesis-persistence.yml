@@ -1,0 +1,88 @@
+name: Divisor-resolved arithmetic synthesis and persistence
+on:
+  pull_request:
+    paths:
+      - 'research/SQUARE_SHELL_*_20261030.lean'
+      - 'research/SQUARE_SHELL_*_20261030.md'
+      - 'scripts/square_shell_synthesis_attack.py'
+      - '.github/workflows/divisor-synthesis-persistence.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: divisor-synthesis-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+jobs:
+  source-kernel:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - name: Pinned Lean and cached dependencies
+        uses: ./.github/actions/lean-setup
+      - uses: actions/cache/restore@v5
+        with:
+          path: .lake/packages/PrimeNumberTheoremAnd/.lake/build
+          key: pntplus-build-v1-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
+      - name: Prebuild PNT+
+        run: lake build PrimeNumberTheoremAnd.StrongPNT
+      - uses: actions/cache/restore@v5
+        with:
+          path: .lake/build
+          key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'RHLean.lean', 'RHLean/**/*.lean') }}
+          restore-keys: |
+            rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-
+      - name: Warning-fatal native source closure
+        uses: ./.github/actions/research-compile
+        with:
+          targets: research/SQUARE_SHELL_DIVISOR_SYNTHESIS_20261030.lean research/SQUARE_SHELL_MASK_ENERGY_20261030.lean research/SQUARE_SHELL_COMPENSATED_SYNTHESIS_20261030.lean research/SQUARE_SHELL_HIGH_DIVISOR_BOUND_20261030.lean research/SQUARE_SHELL_PERSISTENCE_COUNTEREXAMPLES_20261030.lean
+          build-library: 'true'
+      - name: Theorem type and logical axiom verification
+        run: |
+          set -euo pipefail
+          cat > /tmp/divisor_synthesis_audit.lean <<'EOF'
+          import «research.SQUARE_SHELL_DIVISOR_SYNTHESIS_20261030»
+          import «research.SQUARE_SHELL_MASK_ENERGY_20261030»
+          import «research.SQUARE_SHELL_COMPENSATED_SYNTHESIS_20261030»
+          import «research.SQUARE_SHELL_HIGH_DIVISOR_BOUND_20261030»
+          import «research.SQUARE_SHELL_PERSISTENCE_COUNTEREXAMPLES_20261030»
+          #check RHLean.Proof.synthesisEulerCoefficient_eq_neg_moebius_add_corner
+          #check RHLean.Proof.synthesisDivisorEuler_eq_neg_mobius_add_corner
+          #check RHLean.Proof.synthesisSquarefulEuler_energy_le
+          #check RHLean.Proof.synthesisCompensatedIncidence_profile
+          #check RHLean.Proof.synthesisCompensatedIncidence_gram
+          #check RHLean.Proof.synthesisHighDivisor_correctedEuler_energy
+          #check RHLean.Proof.synthesis_not_universal_nonpositive_adjacent
+          #check RHLean.Proof.synthesis_not_universal_nonpositive_coprime
+          #print axioms RHLean.Proof.synthesisEulerCoefficient_eq_neg_moebius_add_corner
+          #print axioms RHLean.Proof.synthesisDivisorEuler_eq_neg_mobius_add_corner
+          #print axioms RHLean.Proof.synthesisSquarefulEuler_energy_le
+          #print axioms RHLean.Proof.synthesisCompensatedIncidence_profile
+          #print axioms RHLean.Proof.synthesisCompensatedIncidence_gram
+          #print axioms RHLean.Proof.synthesisHighDivisor_correctedEuler_energy
+          #print axioms RHLean.Proof.synthesis_not_universal_nonpositive_adjacent
+          #print axioms RHLean.Proof.synthesis_not_universal_nonpositive_coprime
+          EOF
+          lake env lean -DwarningAsError=true /tmp/divisor_synthesis_audit.lean | tee /tmp/divisor_synthesis_axioms.log
+          python3 - <<'PY'
+          import pathlib,re
+          s=pathlib.Path('/tmp/divisor_synthesis_axioms.log').read_text()
+          found=re.findall(r'depends on axioms:\s*\[([^]]*)\]',s,re.S)
+          assert len(found)>=8
+          for ax in found:
+              assert {a.strip() for a in ax.split(',') if a.strip()} <= {'propext','Classical.choice','Quot.sound'}, ax
+          for p in pathlib.Path('research').glob('SQUARE_SHELL_*_20261030.lean'):
+              t=re.sub(r'/-.*?-/', '',p.read_text(),flags=re.S)
+              t=re.sub(r'--.*','',t)
+              assert not re.search(r'\b(sorry|admit|axiom|native_decide)\b',t),p
+          print('PASS: original arithmetic, no project or native-evaluation axioms')
+          PY
+      - name: Exact source and signed-persistence stress tests
+        run: python3 scripts/square_shell_synthesis_attack.py --heights 32 64 127 --output /tmp/synthesis_results.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: divisor-synthesis-audit
+          path: |
+            /tmp/divisor_synthesis_axioms.log
+            /tmp/synthesis_results.json
