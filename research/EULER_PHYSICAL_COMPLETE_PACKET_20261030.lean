@@ -58,7 +58,8 @@ theorem eulerMovingProductCoeff_succ
     (∑ b ∈ Finset.Icc 1 (R - 1), F b) + F R
   have hindex : R + 1 - 1 = (R - 1) + 1 := by omega
   rw [hindex]
-  exact Finset.sum_Icc_succ_top (by omega : 1 ≤ R - 1 + 1) F
+  simpa only [show R - 1 + 1 = R by omega] using
+    (Finset.sum_Icc_succ_top (by omega : 1 ≤ R - 1 + 1) F)
 
 /-- A modulus cannot acquire a new original pair once the larger factor R
 already exceeds the entire product d. -/
@@ -93,7 +94,7 @@ theorem eulerMovingProductCoeff_eq_completed
       rfl
   | succ n hn ih =>
       rw [eulerMovingProductCoeff_succ_eq_of_lt n d (by omega)]
-      exact ih
+      exact ih (by omega)
 
 theorem eulerUnadmittedProductCoeff_eq_zero_of_lt
     (R d : ℕ) (hdR : d < R) :
@@ -138,7 +139,7 @@ theorem eulerOriginalProductRow_eq_moving
   by_cases hab : a * b = d
   · have ha1 : 0 < a := (Finset.mem_Icc.mp ha).1
     have hb1 : 0 < b := (Finset.mem_Icc.mp hb).1
-    simp only [if_pos hab]
+    simp only [ite_eq_left hab]
     rw [eulerFractionQ_eq_mod_div ha1 hb1]
     simp only [eulerPacketRemainder, hab]
     ring
