@@ -78,7 +78,7 @@ private theorem packetSymmetricSquare (N : ℕ) (c : ℕ → ℚ)
 
 private theorem packetAntidiagonal_eq_filter (d : ℕ) (hd : 0 < d) :
     d.divisorsAntidiagonal =
-      ((Finset.Icc 1 d).product (Finset.Icc 1 d)).filter
+      ((Finset.Icc 1 d) ×ˢ (Finset.Icc 1 d)).filter
         (fun p : ℕ × ℕ => p.1 * p.2 = d) := by
   ext p
   simp only [Nat.mem_divisorsAntidiagonal, Finset.mem_filter,
