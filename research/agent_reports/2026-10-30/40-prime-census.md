@@ -384,3 +384,108 @@ with the strict-pair exception checked at `n=4`. Then reconstruct the coupled fi
 **Independent structural progress:** YES.  
 **Independent fixed-eta signed progress:** NONE.  
 **Canonical theorem, complete source payment, strict exponent below 7/8, and RH:** OPEN.
+
+
+## L. 19:03 America/New_York continuation after merged #1059
+
+**Status:** COMPLETED continuation  
+**Authority refresh:** 2026-10-30 19:02 America/New_York  
+**Pinned live main:** `6b2a869750b92fcdbebff78a591e7722b4f2c747` (merged #1059)  
+**Authority blobs:** `AGENTS.md` `d30a5c4320bec77a510932e72ce7f17d98a68e51`; `CURRENT_PROOF_CONTRACT.md` `7a067ec0423a998e1079e37494061346d8ee02b0`; all-vector selector `a2892b6641268e1ac1ce08622bbe53445fe2e8eb`.  
+**Material main blobs:** `research/EULER_FRACTIONAL_COUPLED_20261027.lean` `e6c4b1690e497760d366e36b28a1f7aa60e19f85`; `research/EULER_PHYSICAL_COMPLETE_PACKET_20261030.lean` `8084af7fa50fb5b8361a64f05eb658f08b529ca7`; `research/OWNER_COMPLETE_SIGNED_RETURN_20261030.lean` `3a35c851336ea6c357c65217a0d1dc521557c3bc`; `research/OWNER_RECIPROCAL_EXPONENT_SLACK_20261030.lean` `8386033011145cae64961482e273598d5a6a3263`.  
+**Route / coordinate:** same-source synthesis S1 (partial-admission Euler packets), supporting CODIV/CORR4 source-admission audits; exact identity edge only.  
+**New claim:** `20261030-census-3`.  
+**Evidence classes:** `PAPER_PROOF / EXACT SECOND MOVING-BAND IDENTITY`, `FINITE_COMPUTATION`, `CONJECTURE`, `REFUTED_LOCAL_STRENGTHENING`, `NO_NEW_INDEPENDENT_INEQUALITY`, `NO_FIXED_ETA_GAIN`, `NO_RH`.
+
+Today's Analytic report is now available at blob `bae5e244f4bafdb42071263e72d502d50f3ce31e`, claim `20261030-analytic-1`, and was consumed. Today's Coordinator and Owner report paths remain `TODAY=PENDING`; merged #1059 and its source declarations are authoritative for the owner-return update. Today's Wheel continuation `20261030-wheel-3` was consumed from blob `c732ac930234989d702ca9f6954a050febd5965b`. The complete October 29 reports remain `YESTERDAY=CARRY_FORWARD`. The external inbox remains blob `038018145c0fddb2f6306c0712373adf9cd1ea52`, with no entry newer than October 18. No open or draft PR was found at final refresh.
+
+### Claim `20261030-census-3`: exact second owner layer and two-band compensation
+
+Retain
+[
+\alpha_n=\sum_{1\le a<b,\,ab=n}\mu(a)\mu(b),\qquad
+\beta_R(n)=\sum_{1\le a<b<R,\,ab=n}\mu(a)\mu(b).
+]
+For every (R\ge2) and (2R\le n<3R),
+[
+\boxed{\alpha_n-\beta_R(n)=\mu(n)+
+ {\bf1}_{,2\mid n,,2<n/2}\mu(2)\mu(n/2).} \tag{22}
+]
+Indeed, an unadmitted pair has (b\ge R), whence (n=ab<3R) forces (a=1) or (a=2). These give exactly ((1,n)) and, when strict and integral, ((2,n/2)). At the boundary (R=2,n=4), the second candidate is ((2,2)) and is correctly excluded by (2<n/2); omitting this strict-pair guard gives the wrong coefficient.
+
+For (n=2R+k), the second-band clock has the exact congruence
+[
+4(R^2-1)=(2R+k)(2R-k)+k^2-4, \tag{23}
+]
+so the transported phase is controlled by displacement (k) together with the noninvertible (2)-adic branch of multiplication by four. This is the first new hidden variable beyond the one-band identity (18).
+
+Define the completed and missing-owner rows on the first two product bands by
+[
+C_R^{[2]}=2\sum_{R\le n<3R}\alpha_n f_n(R),\quad
+A_R^{[2]}=-2\sum_{R\le n<3R}(\alpha_n-\beta_R(n))f_n(R),\quad
+P_R^{[2]}=C_R^{[2]}+A_R^{[2]}.
+]
+The complete exact ledger is
+[
+\sum(P_R^{[2]})^2=\sum(C_R^{[2]})^2+\sum(A_R^{[2]})^2+
+2X_2(H),\qquad
+X_2(H)=\sum_{H\le R<2H}C_R^{[2]}A_R^{[2]}. \tag{24}
+]
+
+### Preregistered test and methods
+
+The continuation checkpoint in claim `20261030-census-2` preregistered a search for the smallest dyadic counterexample after restoring (22). Competing hypotheses were:
+
+- **H1:** the extra owner layer destroys the one-band aggregate anticorrelation, producing (X_2(H)>0) at a small or moderate (H).
+- **H2:** compensation persists after the first two moving bands, even though pointwise signs fail.
+
+Python implementation A used an Eratosthenes Möbius sieve, direct unordered-pair reconstruction of (alpha), exact `Fraction` clocks, and prefix sums for every dyadic query. It independently enumerated the physical (eta_R(n)) and verified (22) on all 5,049 fixtures with (2\le R\le100), (2R\le n<3R). Energy recombination (24) was exact. CPython 3.12.14 source SHA-256: `ba59101e7a805cddbfdebcd5fd441b49f80a50762d16d5298d380f9b0c63f638`.
+
+Implementation B used a linear Möbius sieve, independently reconstructed completed coefficients, and long-double clocks in C++17. It agreed with every displayed exact decimal below and scanned every (2\le H\le20000). Compiler: g++ 13.3.0, `-O2 -std=c++17`; source SHA-256 `b51cdabf89b8812c9dcd933cf101e9845fb0200c3aed921df65d6de4d772f587`.
+
+### Results and falsification
+
+No dyadic counterexample was found: (X_2(H)<0) for every exact (2\le H\le512), and for every independently scanned (2\le H\le20000). Representative exact-rational rows rendered as decimals are:
+
+| H | sum C^2 | sum A^2 | X_2(H) | sum P^2 | sum P^2 / (sum C^2 + sum A^2) |
+|---:|---:|---:|---:|---:|---:|
+| 32 | 5738.495 | 1059.927 | -2002.449 | 2793.524 | 0.411 |
+| 64 | 22475.262 | 3507.024 | -7579.120 | 10824.046 | 0.417 |
+| 127 | 137157.106 | 18422.217 | -41491.657 | 72596.010 | 0.467 |
+| 317 | 1062773.456 | 102757.258 | -263839.679 | 637851.355 | 0.547 |
+| 512 | 2904519.265 | 303294.268 | -774468.423 | 1658876.688 | 0.517 |
+
+The independent long-double values are (X_2(1027)=-2.8830758\times10^6), (X_2(2053)=-1.4957471\times10^7), (X_2(10000)=-3.9459505\times10^8), and (X_2(20000)=-1.6841618\times10^9). These margins are far from floating-point uncertainty, but only the range through 512 is claimed as exact rational computation.
+
+The pointwise strengthening still fails. The smallest combined two-band positive root is (R=19), where
+[
+C_{19}^{[2]}={3298287858275814\over12429122226235715},\quad
+A_{19}^{[2]}={8143815858309468\over2485824445247143},
+]
+so their product is
+[
+{26860648965496145137983311606952\over
+30896615862941331233411748312245}>0.
+]
+Thus the dyadic effect remains genuinely nonlocal. Notably the former one-band witness (R=8) changes sign after restoration:
+[
+C_8^{[2]}A_8^{[2]}=
+-{715844139873\over466355846450}<0.
+]
+
+The surviving conjecture is
+[
+\boxed{X_2(H)\le0\quad(H\ge2).} \tag{25}
+]
+Its status is `CONJECTURE`. The search supports H2 on the finite domain and refutes H1 there, but selection after the one-band discovery and the absence of a proof forbid promotion.
+
+### Proof impact, limitations, and next checkpoint
+
+Equation (22) is an exact occurrence-preserving S1 interface: it extends completed packet coefficients to the literal moving source with both missing owner classes visible. If (25) were proved, the first two high-product bands could be restored without an absolute mixed-term loss. This does not bound either energy, the primitive/small-squarefree sector, (n\ge3R), the diagonal, reciprocal square, historical return, or cross-shell coherence. It does not evade #1059's infinite coherent owner-return obstruction, which concerns a different complete physical fibre after inverse-weight restoration. No exponent, canonical VF theorem, or RH claim follows.
+
+Do not repeat the (H\le20000) scan. The next falsifiable step is the third band (3R\le n<4R), where missing cofactors (a=1,2,3) appear and shared divisibility can couple their signs. Derive its exact strict-pair formula first, preserve the (a=2,3) boundary exceptions, then test the three-band (X_3(H)) on a held-out range. In parallel, split (24) by displacement (k), parity, and (gcd(k^2-4,2R+k)) to determine whether the observed sign is carried by the 2-adic branch exposed in (23).
+
+**Independent structural progress:** YES.  
+**Independent quantitative inequality:** NONE.  
+**Evidence status:** `FINITE_COMPUTATION` for (X_2(H)<0) on the stated ranges; `PAPER_PROOF` for (22); `CONJECTURE` for (25).  
+**Canonical theorem, complete signed source payment, strict exponent below 7/8, and RH:** OPEN.
