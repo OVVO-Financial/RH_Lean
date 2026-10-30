@@ -29,7 +29,7 @@ private theorem ownerBaseline_three_multiplicities :
       ownerReturn_parent_one_seven_at_35]
   rw [h 2, h 3, h 5]
   rcases ownerReturn_owner_values with ⟨_h7,h14,h21,h35,h2,h3,h5⟩
-  norm_num [h14,h21,h35,h2,h3,h5]
+  norm_num [Finset.filter_insert,Finset.filter_singleton,h14,h21,h35,h2,h3,h5]
 
 private theorem inverseSevenFourths_fourth_power
     (x : ℝ) (hx : 0 < x) :
@@ -37,11 +37,12 @@ private theorem inverseSevenFourths_fourth_power
   have he : (x ^ (-(7 / 4 : ℝ))) ^ 4 = x ^ (-(7 : ℝ)) := by
     calc
       (x ^ (-(7 / 4 : ℝ))) ^ 4 =
-          (x ^ (-(7 / 4 : ℝ))) ^ (4 : ℝ) := by
-            rw [Real.rpow_natCast]
+          (x ^ (-(7 / 4 : ℝ))) ^ (4 : ℝ) :=
+            (Real.rpow_natCast (x ^ (-(7 / 4 : ℝ))) 4).symm
       _ = x ^ ((-(7 / 4 : ℝ)) * 4) := (Real.rpow_mul hx.le _ _).symm
       _ = x ^ (-(7 : ℝ)) := by norm_num
-  rw [he, Real.rpow_neg hx.le, Real.rpow_natCast]
+  have h7 : x ^ (7 : ℝ) = x ^ (7 : ℕ) := Real.rpow_natCast x 7
+  rw [he, Real.rpow_neg hx.le, h7]
   exact inv_mul_cancel₀ (pow_ne_zero 7 (ne_of_gt hx))
 
 private theorem inverseSevenFourths_gt_of_fourth_certificate
