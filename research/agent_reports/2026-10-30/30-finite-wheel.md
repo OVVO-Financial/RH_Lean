@@ -254,7 +254,7 @@ Completed synthesis commit `6d33881f1cc4c1b918bb7f896af9359869c40cc6`, read back
 **Continuation refresh:** 2026-10-30 12:09 America/New_York  
 **Updated live main:** `82d00c18f22bbf284fa4c511880f4ebdd9d0f729` (merged #1054)  
 **New main source:** `research/EULER_ODD_DOUBLING_PACKET_20261030.lean` blob `053e8f08794c85d127de5c687b03decb0d4807cd`  
-**New live drafts inspected:** #1055 head `cb8bdecaf71deba72e2ca88e324aefc2a50b10dc`; stacked #1056 head `3c0b0c4e7fc68b7cd0b5513c45228c4d36d338e0`; stacked #1057 head `d00b15b8d6e8b2d708baeb9d8c91f6c636330c3e`  
+**New live drafts inspected:** #1055 head `cb8bdecaf71deba72e2ca88e324aefc2a50b10dc`; stacked #1056 head `3c0b0c4e7fc68b7cd0b5513c45228c4d36d338e0`; stacked #1057 intake head `d00b15b8d6e8b2d708baeb9d8c91f6c636330c3e`; final observed head `2035f1f95b133dd8eb74822a9c1ee28a321aeea7`  
 **New claim:** `20261030-wheel-2`  
 **Result classes:** `PAPER_PROOF / GENERAL PRIME-ADJOINING COEFFICIENT TRIPLE`, `PAPER_PROOF / COHERENT ODD-PRIME PACKET FAMILY`, `COUNTEREXAMPLE_TO_ODD-PRIME BINARY CONSERVATION`, `FINITE_EXACT_REGRESSION`, `NO_MOMENT_COUNTEREXAMPLE`, `NO_FIXED_ETA_GAIN`, `NO_RH`
 
