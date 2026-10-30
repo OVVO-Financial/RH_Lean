@@ -39,8 +39,6 @@ private lemma synthesisMultiples_card_mul_le
   have hquot : a/h ≤ b/h := Nat.div_le_div_right hab
   have hcard2 : S.card ≤ b/h+1-a/h := by simpa [Nat.card_Icc] using hcard
   have htimes := Nat.mul_le_mul_right h hcard2
-  have hqa := Nat.mod_add_div a h
-  have hqb := Nat.mod_add_div b h
   have hra := Nat.mod_lt a hh
   have hdiff : b/h+1-a/h+a/h = b/h+1 := Nat.sub_add_cancel (by omega)
   have hdiffMul : (b/h+1-a/h)*h+(a/h)*h = (b/h)*h+h := by
@@ -48,9 +46,21 @@ private lemma synthesisMultiples_card_mul_le
       _ = (b/h+1-a/h+a/h)*h := by ring
       _ = (b/h+1)*h := by rw [hdiff]
       _ = _ := by ring
-  have hdiff2 : b-a+a = b := Nat.sub_add_cancel hab
+  have hqa : a = (a/h)*h+a%h := by
+    simpa only [Nat.mul_comm, Nat.add_comm] using (Nat.mod_add_div a h).symm
+  have hqb : b = (b/h)*h+b%h := by
+    simpa only [Nat.mul_comm, Nat.add_comm] using (Nat.mod_add_div b h).symm
+  have hbalance : (b/h+1-a/h)*h+a+b%h = b+a%h+h := by
+    calc
+      (b/h+1-a/h)*h+a+b%h =
+          (b/h+1-a/h)*h+((a/h)*h+a%h)+b%h :=
+        congrArg (fun q : ℕ => (b/h+1-a/h)*h+q+b%h) hqa
+      _ = ((b/h+1-a/h)*h+(a/h)*h)+a%h+b%h := by ac_rfl
+      _ = ((b/h)*h+h)+a%h+b%h := by rw [hdiffMul]
+      _ = ((b/h)*h+b%h)+a%h+h := by ac_rfl
+      _ = b+a%h+h := by rw [← hqb]
   change S.card*h ≤ b-a+2*h
-  nlinarith only [htimes, hdiffMul, hqa, hqb, hra, hdiff2]
+  omega
 
 /-- Actual multiples, not independence of their Mobius signs, pay this bound. -/
 theorem synthesisDivisorMobius_abs_mul_le
