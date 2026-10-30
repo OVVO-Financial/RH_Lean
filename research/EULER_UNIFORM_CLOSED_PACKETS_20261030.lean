@@ -40,7 +40,7 @@ theorem eulerCompletedProductCoeff_eq_zero_of_square
     · simp [hab, eulerMuQ, hmb]
     have hsa : Squarefree a := ArithmeticFunction.moebius_ne_zero_iff_squarefree.mp hma
     have hsb : Squarefree b := ArithmeticFunction.moebius_ne_zero_iff_squarefree.mp hmb
-    have hsab : IsSquare (a * b) := hab ▸ hs
+    have hsab : IsSquare (a * b) := by rw [hab]; exact hs
     have hsba : IsSquare (b * a) := by simpa only [mul_comm] using hsab
     have heq : a = b := Nat.dvd_antisymm
       (hsa.dvd_of_isSquare_mul hsab) (hsb.dvd_of_isSquare_mul hsba)
