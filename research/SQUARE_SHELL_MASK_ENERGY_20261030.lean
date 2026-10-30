@@ -43,12 +43,11 @@ theorem synthesisDivisorCornerWindow_explicit
     masked_impulse_sum I h (R*(R+1)) _ h1,
     masked_impulse_sum I h (R*(R+2)) _ h2]
 
-private lemma synthesis_mask_abs (P : Prop) [Decidable P] (z B : ℤ)
-    (hB : 0 ≤ B) (hz : |z| ≤ B) :
-    |if P then z else 0| ≤ B := by
-  by_cases h : P
-  · simpa only [ite_eq_left h] using hz
-  · simpa only [ite_eq_right h, abs_zero] using hB
+private lemma synthesis_square_abs (z : ℤ) (hz : |z| ≤ 1) : |z^2| ≤ 1 := by
+  rw [abs_of_nonneg (sq_nonneg z)]
+  have hl := (abs_le.mp hz).1
+  have hu := (abs_le.mp hz).2
+  nlinarith only [hl, hu]
 
 private lemma synthesis_mu_pair_abs (a b : ℕ) :
     |2*(μ a : ℤ)*μ b| ≤ 2 := by
@@ -63,22 +62,23 @@ private lemma synthesis_mu_pair_abs (a b : ℕ) :
       ring
     _ ≤ 2 := by linarith only [hp]
 
+set_option maxHeartbeats 1000000 in
 lemma synthesisDivisorCornerWindow_abs_le_five
     (R h : ℕ) (hR : 3 ≤ R) :
     |synthesisDivisorCornerWindow R h| ≤ 5 := by
   rw [synthesisDivisorCornerWindow_explicit R h hR]
-  have hmu : |(μ R : ℤ)| ≤ 1 := ArithmeticFunction.abs_moebius_le_one
-  have hsquare : |(μ R : ℤ)^2| ≤ 1 := by
-    rw [abs_of_nonneg (sq_nonneg _)]
-    have hl := (abs_le.mp hmu).1
-    have hu := (abs_le.mp hmu).2
-    nlinarith only [hl, hu]
-  have h0 : |if h ∣ R*R then (μ R : ℤ)^2 else 0| ≤ 1 :=
-    synthesis_mask_abs (h ∣ R*R) _ _ (by norm_num) hsquare
-  have h1 : |if h ∣ R*(R+1) then 2*(μ R : ℤ)*μ (R+1) else 0| ≤ 2 :=
-    synthesis_mask_abs (h ∣ R*(R+1)) _ _ (by norm_num) (synthesis_mu_pair_abs R (R+1))
-  have h2 : |if h ∣ R*(R+2) then 2*(μ R : ℤ)*μ (R+2) else 0| ≤ 2 :=
-    synthesis_mask_abs (h ∣ R*(R+2)) _ _ (by norm_num) (synthesis_mu_pair_abs R (R+2))
+  have h0 : |if h ∣ R*R then (μ R : ℤ)^2 else 0| ≤ 1 := by
+    split_ifs
+    · exact synthesis_square_abs (μ R) ArithmeticFunction.abs_moebius_le_one
+    · norm_num
+  have h1 : |if h ∣ R*(R+1) then 2*(μ R : ℤ)*μ (R+1) else 0| ≤ 2 := by
+    split_ifs
+    · exact synthesis_mu_pair_abs R (R+1)
+    · norm_num
+  have h2 : |if h ∣ R*(R+2) then 2*(μ R : ℤ)*μ (R+2) else 0| ≤ 2 := by
+    split_ifs
+    · exact synthesis_mu_pair_abs R (R+2)
+    · norm_num
   calc
     _ ≤ |(if h ∣ R*R then (μ R : ℤ)^2 else 0) +
           (if h ∣ R*(R+1) then 2*(μ R : ℤ)*μ (R+1) else 0)| +
@@ -87,7 +87,8 @@ lemma synthesisDivisorCornerWindow_abs_le_five
         |if h ∣ R*(R+1) then 2*(μ R : ℤ)*μ (R+1) else 0| +
         |if h ∣ R*(R+2) then 2*(μ R : ℤ)*μ (R+2) else 0| :=
       add_le_add_right (abs_add_le _ _) _
-    _ ≤ 5 := by linarith only [h0, h1, h2]
+    _ ≤ (1+2)+2 := add_le_add (add_le_add h0 h1) h2
+    _ = 5 := rfl
 
 /-- Covers all original completed and partially admitted factor pairs. -/
 theorem synthesisSquarefulEuler_abs_le_five
