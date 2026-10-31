@@ -175,4 +175,4 @@ A useful statement must be genuinely stronger than separate fibre bounds and gen
 
 Early checkpoint commit: `d4c2ee76b59d3fb71aaef29fe98201bad88c9c80`; checkpoint blob `d774e34a1dbefe3fccb8858a4b277b031045048c`.
 
-Completed synthesis publication verification follows after write and readback.
+Completed synthesis commit: `bfe1aaa714f4e4723e7608181cf106cfeba6e663`; read back as blob `98b8dee5a70da9f8abc78707525f17abc0cf1244` (13,059 characters; `COMPLETED` and claim `20261031-owner-1` verified).
