@@ -399,3 +399,172 @@ The smallest next independent lemma is therefore not another packet identity. It
 **Independent fixed-(eta) signed progress:** NONE.  
 **Canonical theorem:** OPEN.  
 **RH:** OPEN.
+
+
+---
+
+## K. Supplemental scheduled invocation - 2026-10-30 20:13 America/New_York
+
+**Status:** COMPLETED  
+**Final authority refresh:** 2026-10-30 20:13 America/New_York  
+**Pinned actual main:** `6b2a869750b92fcdbebff78a591e7722b4f2c747` (merged #1059)  
+**Authority blobs:** `AGENTS.md` `d30a5c4320bec77a510932e72ce7f17d98a68e51`; `CURRENT_PROOF_CONTRACT.md` `7a067ec0423a998e1079e37494061346d8ee02b0`; all-vector selector `a2892b6641268e1ac1ce08622bbe53445fe2e8eb`; typed DAG `63f4a4e0d40d2d2c0d949deb5494f3452652dd61`.  
+**Material stacked source:** #1057 head `71febbbb137c42e55c024139bfdebe757c2f690f`; high-divisor source blob `74e09dc66895c64926d8a9c9a59feb338fb8d1e5`; divisor synthesis blob `781c3972f947799639a2b7ae852cd9647329f704`; compensated synthesis blob `8e1d6dc09cda69431aba3f0c582d216f81c92eed`.  
+**Reviewed reports:** Analytic blob `bae5e244f4bafdb42071263e72d502d50f3ce31e`, claim `20261030-analytic-1`; Census blob `dbcc43c3a64d0065743bebf7194c6bf82762ca88`, claim `20261030-census-3`.  
+**New claims:** `20261030-referee-5..6`.  
+**Result classes:** `ACCEPT_WITH_SCOPE / PAPER_PROOF`, `REVISE_PROOF_WORDING`, `SOURCE_ADMISSION_REQUIRED`, `PAPER_IDENTITY_ACCEPTED_WITH_SCOPE`, `FINITE_CONJECTURE_UNRESOLVED`, `NO_COMPLETE_SOURCE_BOUND`, `NO_FIXED_ETA_GAIN`, `NO_RH`.
+
+### K.1 Claim `20261030-referee-5`: reciprocal response tail accepted with one covering repair
+
+Let
+[
+F_R(h)=sum_{substack{R^2le n<(R+1)^2\hmid n}}mu(n).
+]
+The exact stacked theorem `synthesisHighDivisor_energy` states, for natural
+(0<Dle H),
+[
+Dsum_{Hle R<2H}sum_{Dle h<2D}F_R(h)^2le36H^3. 	ag{26}
+]
+It is kernel-checked at the stated stacked head, not present on current main.
+
+For arbitrary real coefficients, allowed to depend on (R), satisfying
+[
+ |lambda_R(h)|le C/hqquad(D_0le hle R),
+]
+put
+[
+ T_R(D_0)=sum_{D_0le hle R}lambda_R(h)F_R(h).
+]
+Then the submitted conclusion is correct:
+[
+ oxed{sum_{Hle R<2H}|T_R(D_0)|^2
+ le324C^2H^3/D_0^2.} 	ag{27}
+]
+
+For one band ([D,2D)), Cauchy-Schwarz gives
+[
+ sum_R|T_{R,D}|^2
+ le (C^2/D)sum_Rsum_{Dle h<2D}F_R(h)^2
+ le36C^2H^3/D^2. 	ag{28}
+]
+Thus its (ell^2_R) norm is at most (6CH^{3/2}/D). Minkowski then retains
+all cross-band terms rather than assigning them a sign.
+
+There is one proof-presentation defect. The report says overlaps at the
+dyadic join only enlarge a nonnegative bound. An overlapping sum of bands is
+not equal to the original signed tail, so that sentence is not a valid
+reassembly argument. The repair is elementary: use disjoint dyadic pieces
+([2^jD_0,min(2^{j+1}D_0,H))), bounding each by its containing full band
+in (26), and the terminal piece ([H,R]), extended by zero to ([H,2H)).
+The coefficient hypothesis remains valid after this zero extension. The
+norm sum is still at most
+[
+ 6CH^{3/2}left(2/D_0+1/Hight)
+ le18CH^{3/2}/D_0,
+]
+and squaring gives exactly (27). The moving mask (hle R) and arbitrary
+(R)-dependence of (lambda) cause no loss.
+
+The companion absolute quadratic response is also correct:
+if (|ho_R(h)|le C/h), then
+[
+ left|sum_Rsum_{D_0le hle R}ho_R(h)F_R(h)^2ight|
+ le84CH^3/D_0^2.
+]
+The constant is (36(4/3+1)=84), from the disjoint sub-(H) bands and the
+terminal (H)-band.
+
+**Verdict:** `ACCEPT_WITH_SCOPE / REVISE_PROOF_WORDING`. The finite theorem
+is an unconditional weighted corollary of (26). For (D_0=H^	heta), it
+does move an admitted reciprocal-response tail from energy (H^3/D_0) to
+(H^3/D_0^2), so the formal affordability threshold for a
+(H^{5/2-eta+arepsilon}) budget changes from approximately
+(	hetage1/2+eta-arepsilon) to
+(	hetage1/4+eta/2-arepsilon/2).
+
+### K.2 Source-admission no-go and strongest surviving use
+
+Equation (27) is a theorem about a response whose **final** coefficient is
+bounded by (C/h). The exact identity
+[
+ 	exttt{synthesisDivisorEulerWindow}
+ -	exttt{synthesisDivisorCornerWindow}=-F_R(h)
+]
+transfers it without loss to that corrected divisor-resolved Euler profile.
+
+It does not show that an original owner return, packet return, or complete
+signed shell source has such a coefficient. Merged #1059 proves the relevant
+obstruction on a genuine fibre: multiplying by the physical inverse weight
+can exactly remove the reciprocal suppression, while same-parent child
+cross terms reinforce. At (X=35), parent ((1,7)), the diagonal reciprocal
+energy contracts but the coherent signed square expands by the exact factor
+(961/225); the unweighted child mass is (6) against parent weight (-1).
+Thus transporting (27) to the complete unweighted return without a new
+occurrence-preserving coefficient theorem is invalid.
+
+The strongest surviving conclusion is:
+
+> Every source-exact compensated tail for which all physical weights,
+> activation factors, inverse weights, and restoration terms leave a final
+> coefficient (|lambda_R(h)|le C/h) is paid above
+> (D_0=H^{1/4+eta/2}) at the desired proper-sector scale. The primitive and
+> small-squarefree sector, any inverse-weight channel, and its mixed
+> interaction with the tail remain unpaid.
+
+This is genuine proper-sector progress, but no fixed-(eta) full-shell
+gain follows until such an admission theorem and the complementary source
+estimate are proved.
+
+### K.3 Claim `20261030-referee-6`: second moving-band identity accepted; sign remains conjectural
+
+Census claim `20261030-census-3` states that for
+[
+ alpha_n=sum_{1le a<b, ab=n}mu(a)mu(b),qquad
+ eta_R(n)=sum_{1le a<b<R, ab=n}mu(a)mu(b),
+]
+and (2Rle n<3R),
+[
+ alpha_n-eta_R(n)=mu(n)+
+ {f1}_{2mid n, 2<n/2}mu(2)mu(n/2). 	ag{29}
+]
+This identity is correct. Every unadmitted pair has (bge R), and
+(ab=n<3R) forces (a=1) or (a=2). The displayed strict-pair guard
+correctly removes ((2,2)) at (R=2,n=4). The phase identity
+[
+ 4(R^2-1)=(2R+k)(2R-k)+k^2-4,qquad n=2R+k,
+]
+is also exact and exposes the noninvertible 2-adic branch without asserting
+a bound.
+
+**Verdict:** `PAPER_IDENTITY_ACCEPTED_WITH_SCOPE` for (29).
+The observed inequality (X_2(H)le0) is still only
+`FINITE_COMPUTATION / CONJECTURE`: the report itself supplies a positive
+pointwise product at (R=19), so no local sign proof is available. Even a
+proof of the dyadic sign would only avoid an absolute mixed-term loss for
+the first two activation bands; it would not bound either energy or the
+remaining source.
+
+### K.4 Continuity, formal state, and next obstruction
+
+Today Coordinator and Owner report paths remain `TODAY=PENDING`.
+Today Wheel, Census, Analytic, and prior Referee material were consumed;
+the complete 2026-10-29 set remains `YESTERDAY=CARRY_FORWARD`. External
+handoffs blob `038018145c0fddb2f6306c0712373adf9cd1ea52` has no entry newer
+than 2026-10-18. GitHub returned no open or draft PRs.
+
+Main is through merged #1059. Its 13 observed exact-head workflows all
+completed successfully, including owner signed-return run `41120869315`,
+targeted Lean `41120869176`, and source audits `41120869174`. The
+high-divisor supplier remains `PROVED_IN_LEAN_PR_GREEN_STACKED_NOT_MAIN`
+at #1057 head `71febbbb...`; the weighted corollary (27) remains paper
+mathematics pending formalization.
+
+The smallest useful next lemma is an occurrence-preserving coefficient
+classification: identify a nonempty original compensated high-divisor class
+whose **post-return** coefficient still obeys (C/h), including activation,
+inverse weights, and restoration. Without that statement, the threshold
+improvement is mathematically sound but has no complete-source consumer.
+
+**Independent proper-sector quantitative progress:** ACCEPTED.  
+**Independent complete-source quantitative progress:** NONE.  
+**Canonical theorem, strict exponent below (7/8), and RH:** OPEN.
