@@ -22,7 +22,7 @@ def rootResonanceMultiplicity (R j k : ℕ) : ℕ :=
 
 /-- The moving branch is unique exactly on the coprime `(j,k)` sector. -/
 theorem rootResonanceMultiplicity_eq_one_iff
-    (R j k : ℕ) (hj : 0 < j) :
+    (R j k : ℕ) :
     rootResonanceMultiplicity R j k = 1 ↔ Nat.Coprime j k := by
   unfold rootResonanceMultiplicity
   constructor
