@@ -327,3 +327,187 @@ The literal BLOCK claim remains refuted at \(R=549\). Claims \`20261031-owner-2\
 1. Ask Referee to audit (7)-(8) and the exact centered-Gram carrier, especially whether \(D_c\) is the correct post-completion diagonal for the proposed analytic operator.
 2. On the next Census allocation, rotate away from Euler: test one preregistered FINITE-AC/CORR4 or NYMAN claim with its original carrier and retained regression suite.
 3. If this Gram is revisited later, increase \(J\) with a declared \(J(H)\), include \(k>j\) and partial periods, and search for the first exact failure of \(D-G\succeq0\); do not merely enlarge \(H\) at fixed \(J\).
+
+
+## Scheduled continuation - 2026-10-31 19:05 America/New_York
+
+**New claim:** \`20261031-census-3\`.  
+**Evidence classes:** \`FINITE_COMPUTATION / EXACT INTEGER-RATIONAL CENSUS\`, \`COUNTEREXAMPLE TO SMALL-OWNER SIGN COMPENSATION\`, \`CONJECTURE / SMALL-OWNER DEFECT CONCENTRATION\`, \`NO_NEW INDEPENDENT INEQUALITY\`, \`NO_FIXED_ETA GAIN\`, \`NO_RH\`.
+
+### A. Route rotation and mathematical question
+
+This continuation follows the prior Census checkpoint and rotates away from a third Euler packet/resonance experiment to the protected CORR4 carrier \`COORD-CORR4-DAUGHTERS\`. It uses the literal main definitions behind \`OPEN-CORR4-MIXED-TAIL-POWER\`:
+
+\[
+X_R=R^2-1,\quad Q_R=\{q\ge3:q\ {\rm prime},\ q^2<R\},\quad
+d_q=M(\lfloor X_R/q^2\rfloor),
+\]
+\[
+C_R=M(R-1)-M(X_R),\quad E_R=\sum_{q\in Q_R}d_q^2,\quad
+s_R=\sum_{q\in Q_R}q^{-2},\quad U_R=\sum_{q\in Q_R}d_q/q,
+\]
+\[
+\Delta_R=s_RE_R-U_R^2
+=\sum_{q<r\in Q_R}(d_r/q-d_q/r)^2.
+\]
+
+For \(S=\{3,5,7,11,13,17\}\), let
+\[
+T_{17}(R)=\sum_{\substack{q<r\\q\in S\ {\rm or}\ r\in S}}
+(d_r/q-d_q/r)^2.
+\]
+The exact record-energy predicate is
+\[
+900E_R\le211C_R^2.
+\]
+
+The prior claim \`20261026-census-1\` suggested that low daughter dispersion is anchored by small owners rather than being a tail-wide collinear mode. Before reading the new range, the falsifiable test was frozen as:
+
+> For every record-energy root in the fresh range with
+> \(\Delta_R/E_R\le1/20\), one has \(T_{17}(R)/\Delta_R\ge1/2\).
+
+A single legal root violating either exact premise and the conclusion would refute it. A competing signed-compensation hypothesis was also tested: low-dispersion record roots should have \(C_Rd_3<0\).
+
+### B. Exact results
+
+The held-out ranges were \(10001\le R\le12000\) and \(12001\le R\le20000\). The earlier control range \(290\le R\le10000\) was rerun only to locate the smallest counterexample to the new sign hypothesis and to preserve continuity with claim \`20261026-census-1\`.
+
+| roots | record-energy roots | \(\Delta/E\le0.05\) | concentration violations |
+|---|---:|---:|---:|
+| 290--10000 | 4109 | 55 | 0 |
+| 10001--12000 | 920 | 0 | 0 |
+| 12001--20000 | 3427 | 2 | 0 |
+| total | 8456 | 57 | 0 |
+
+The two genuinely held-out low-dispersion roots are:
+
+| \(R\) | \(C_R\) | \(E_R\) | \(\Delta_R/E_R\) | \(T_{17}/\Delta_R\) |
+|---:|---:|---:|---:|---:|
+| 13532 | 2540 | 1465781 | 0.04954040321188526996 | 0.99151576600941637718 |
+| 14288 | -1179 | 280616 | 0.04959191927730220717 | 0.98142763852663750246 |
+
+Their exact small-owner daughter vectors are respectively
+\[
+(d_3,d_5,d_7,d_{11},d_{13},d_{17})
+=(-812,-738,-180,-305,242,-13)
+\]
+and
+\[
+(320,237,215,174,-15,151).
+\]
+
+Across all 1174 record-energy roots with \(\Delta/E\le0.1\), the smallest observed touch share was
+\[
+T_{17}/\Delta=0.97684124733264887652
+\quad\text{at }R=3304.
+\]
+Thus the preregistered half-share conjecture survived by a large finite margin. This remains finite evidence: no universal positive lower bound is inferred.
+
+### C. Decisive counterexample to the stronger sign rule
+
+The proposed deterministic sign compensation \(C_Rd_3<0\) is **REFUTED**. The smallest observed counterexample satisfying the stricter \(\Delta/E\le0.05\) predicate is
+\[
+R=2002,\quad C_R=-208,\quad d_3=-52,\quad E_R=8367,
+\]
+so \(C_Rd_3=10816>0\), while the record predicate holds and
+\[
+\frac{\Delta_R}{E_R}
+=\frac{333980624271685170836648439763538}
+ {7306552932969761761929417608576175}
+=0.04570973855053400009\ldots.
+\]
+Its concentration share is nevertheless
+\[
+\frac{T_{17}}{\Delta}
+=\frac{165079891399798136748316610555944}
+ {166990312135842585418324219881769}
+=0.98855969120837161590\ldots.
+\]
+
+This separates the mechanisms: small-owner concentration of the Lagrange defect does not force the endpoint excursion to oppose the \(q=3\) daughter.
+
+### D. Independent reconstruction and numerical control
+
+Implementation 1 was C++17. It used an Eratosthenes prime-multiple Möbius sign flip plus square-multiple zeroing, retained only the required Mertens query points, and used the exact integer record comparison \(900E_R\le211C_R^2\). SHA-256:
+\`1e993cc451eae6b731ecea120f1a35ad616cddca43dc248b42eb1e5f1573e7a5\`.
+
+Implementation 2 was Python 3.12.14. It used a linear least-prime Möbius base table and an independent quotient-grouped recurrence
+\[
+M(n)=1-\sum_{l=2}^{n}(r(l)-l+1)M(\lfloor n/l\rfloor),
+\quad r(l)=\lfloor n/\lfloor n/l\rfloor\rfloor,
+\]
+then reconstructed \(\Delta/E\) and \(T_{17}/\Delta\) with \`fractions.Fraction\`. SHA-256:
+\`75ddd0ef4bcb1f668242735855e73c95d3ffe2271eb7ffd1bb27385f85708a96\`.
+
+The independent implementation agreed at \(R=56,317,1027,2002,3304,13532,14288\) on \(C_R,E_R\), every displayed small daughter, and the exact rational ratios. The third-smallest held-out ratio was \(0.0500885682\ldots\), leaving a margin above the frozen \(0.05\) threshold far larger than long-double rounding. Discrete claims and displayed rational certificates are exact; other decimals are rounded diagnostics.
+
+Environment: \`g++ 13.3.0 -O3 -std=c++17 -Wall -Wextra -pedantic\`; Python 3.12.14. Commands:
+
+\`\`\`text
+./corr4_small_owner_scan 290 10000
+./corr4_small_owner_scan 10001 12000
+./corr4_small_owner_scan 12001 20000
+python corr4_small_owner_verify.py
+\`\`\`
+
+The permanent BLOCK regression was also rerun from main source blob
+\`9e2c26a182743d44b79b94720d719bd5e671d529\`: at \(R=549\),
+\(\pi(R^2)=26112\), \(\pi((R+1)^2)=26193\),
+\(\lfloor F_R\rfloor=26194\), and
+\(\lfloor F_R+\sqrt2\rfloor=26196\). Literal one-block capture remains refuted.
+
+### E. Proof impact and honest scope
+
+The concentration statistic is a restriction on the exact CORR4 daughter vector, but it does not yet bound the signed physical mixed tail
+\`lowOwnerPrefixTailMixedRawCellMass\`. In particular:
+
+1. it supplies no inequality relating \(T_{17}\) to the endpoint gap \(C_R\);
+2. it supplies no sign for the endpoint/daughter cross term;
+3. the proposed simplest sign relation is already false at \(R=2002\);
+4. it does not pay the physical diagonal, returned source, or mixed-tail complement;
+5. it gives no fixed \(\eta>0\) and no strict exponent improvement.
+
+The surviving theorem candidate is deliberately conditional and falsifiable:
+
+> **Small-owner inverse candidate.** There exist absolute \(c_0,c_1>0\) such that every record-energy root with \(\Delta_R/E_R\le c_0\) satisfies \(T_{17}(R)\ge c_1\Delta_R\).
+
+The tested values are \(c_0=1/20,c_1=1/2\) for \(290\le R\le20000\). Status: \`CONJECTURE\`. Even if proved, it advances \`OPEN-CORR4-MIXED-TAIL-POWER\` only after an independent source-faithful lemma connects the fixed small-owner defect to the complete signed mixed-tail bill.
+
+### F. Authority, continuity, and routing check
+
+Final refresh: \`main@05c3fcfc2ad699f09d7d473f17ac63a918a3aad3\`; \`AGENTS.md\` blob
+\`d30a5c4320bec77a510932e72ce7f17d98a68e51\`; proof contract blob
+\`7a067ec0423a998e1079e37494061346d8ee02b0\`; broad-search policy blob
+\`46d27ef877325c391377d7cba6629f69316588b9\`. Original carrier sources:
+\`GLOBAL_RETURNED_CORE_RECIPROCAL_PREFIX_SIGNED_CELL_SPLIT.lean\` blob
+\`29bb263ddd07b12a2dd5ccf6a12aecaf627134d8\`;
+\`CORR4_OAI_POWER_MIXED_TAIL_GATE_20261025.lean\` blob
+\`bb0ee1252e7ba10c44ae5b8d827573d6c581b73a\`;
+\`CORR4_MIXED_TAIL_RECORD_PLATEAU_20261026.lean\` blob
+\`a4abeb13653076bedd8e1173c933ee3324bfea26\`.
+
+Current-day Coordinator, Owner, Analytic, Wheel, Referee, and Lean blobs consumed:
+\`8e901e46877ff28bd8eb7c46cb3a46ade5ef32a6\`,
+\`fdb9413fdd49588e1ad1c2348b4fabf4cff55b9c\`,
+\`574c544048e225475569c57f95ca1e47237ab733\`,
+\`5e62d4c536061564ceca0444a844f51b8886a7fd\`,
+\`2c6b45c346617010d2d8b82eaf27b8bbc8f38465\`,
+\`9786950ba58b9c8c3ddaccc00926417d4b3bb945\`.
+The 2026-10-30 Owner file remains \`YESTERDAY=PENDING\`; the other preceding-day reports were consumed at the blobs already listed above. External inbox blob
+\`038018145c0fddb2f6306c0712373adf9cd1ea52\` has no handoff newer than 2026-10-18.
+
+PR #1062 remains the sole open PR at head
+\`4309335c62ddcf41d7d3a17df2589de007291eff\`; its root-dependent resonance theorem is structural only.
+
+\`eta_gate: SEARCH_BROAD\`  
+\`primary_route_and_original_carrier: CORR4 / genuine q^2 daughters and exact Lagrange defect\`  
+\`actual_new_lemma_or_first_unresolved_inequality: finite small-owner inverse candidate; unresolved deterministic T17-to-complete-mixed-tail bridge\`  
+\`independent_reviewer_and_formal_evidence: PENDING; no Lean theorem claimed\`  
+\`net_endpoint_gain_after_complete_return: UNKNOWN\`  
+\`next_distinct_route_due: FINITE-AC or NYMAN; do not extend this CORR4 scan before an analytic small-owner bridge is proposed\`
+
+### G. Evidence status and continuation checkpoint
+
+**Evidence status:** \`FINITE_COMPUTATION\` on every root \(290\le R\le20000\), with exact rational independent verification of the extrema and counterexample. The sign hypothesis is \`REFUTED\`; the small-owner inverse statement is \`CONJECTURE\`; no open proof node changes status.
+
+**Continuation:** do not rerun \(R\le20000\) or enlarge the CORR4 census merely to collect more supportive roots. The next Census allocation should test a preregistered FINITE-AC or NYMAN claim on its original carrier. Return to CORR4 only if an analyst supplies a precise lemma converting \(T_{17}\) into a bound for the full signed mixed-tail expression with diagonal and return terms retained.
