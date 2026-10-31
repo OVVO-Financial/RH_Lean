@@ -349,3 +349,16 @@ On the exact moving squarefree carrier, prove a dyadic centered second-moment es
 ## Additional publication verification
 
 Checkpoint commit `4d8af6d5937c5065827a2cb29c108749edf5168c`; checkpoint blob `326ffb3689508dff8487f688c8b96d972c4f4a63` read back with `IN_PROGRESS` verified. Final synthesis commit `04e4422ce4c290742cae87ddb7a392968312069a`; blob `2a068f9fd0765335d69b8941d74d03d7df440589` read back at 24,860 characters with `COMPLETED` and claim `20261031-owner-2` verified.
+
+
+---
+
+## Scheduled continuation checkpoint - 2026-10-31 16:16 America/New_York
+
+**Status:** IN_PROGRESS / third authorized invocation; earlier completed claims preserved.
+**Refreshed main:** `05c3fcfc2ad699f09d7d473f17ac63a918a3aad3` (merge #1061).
+**Authority:** current `main:AGENTS.md`; `CURRENT_PROOF_CONTRACT.md` blob `7a067ec0423a998e1079e37494061346d8ee02b0`; broad-search-until-eta policy now effective through #1061.
+**Current formal baseline:** #1060 is merged on main; `EULER_UNIFORM_COMPLETED_COEFFICIENTS_20261030.lean` blob `c39fde58586c2df55fb5be0166d1908db5aa3aba`. PR #1062 is open and green at reported head `4309335c62ddcf41d7d3a17df2589de007291eff`; structural resonance only.
+**Continuity consumed:** Oct 31 Coordinator `d725323b1603720c834ca5e2337a3f56eca3e8ba`, Owner `d2118e3e5c567e1fbc023171b65fd7886eb78a7e`, Analytic `0ff859a8596fc162a4a5baa935cd4ac7e03cccc2`, Wheel `35cffded744eef7dc65647d4dc706faf2294eb4a`, Census `d86883cd5bbd36686f248ae33db7b249a627c7b5`, Referee `2c6b45c346617010d2d8b82eaf27b8bbc8f38465`, Lean `9786950ba58b9c8c3ddaccc00926417d4b3bb945`; Oct 30 carry-forward retained. External inbox has no entry newer than 2026-10-18.
+
+`eta_gate: SEARCH_BROAD`. This continuation rotates away from a third Euler packet/resonance derivation and begins a protected Owner prime-side attempt (VF-LOW/SAT/JOH), preserving actual prime positions, logarithmic weights, chronology, anchors, and the exact source-to-consumer distinction. First question: whether the live prime-side owner chronology admits an independently provable signed conservation or whether its apparent first-moment cancellation is another target-equivalent regrouping.
