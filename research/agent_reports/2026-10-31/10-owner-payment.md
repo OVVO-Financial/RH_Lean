@@ -362,3 +362,153 @@ Checkpoint commit `4d8af6d5937c5065827a2cb29c108749edf5168c`; checkpoint blob `3
 **Continuity consumed:** Oct 31 Coordinator `d725323b1603720c834ca5e2337a3f56eca3e8ba`, Owner `d2118e3e5c567e1fbc023171b65fd7886eb78a7e`, Analytic `0ff859a8596fc162a4a5baa935cd4ac7e03cccc2`, Wheel `35cffded744eef7dc65647d4dc706faf2294eb4a`, Census `d86883cd5bbd36686f248ae33db7b249a627c7b5`, Referee `2c6b45c346617010d2d8b82eaf27b8bbc8f38465`, Lean `9786950ba58b9c8c3ddaccc00926417d4b3bb945`; Oct 30 carry-forward retained. External inbox has no entry newer than 2026-10-18.
 
 `eta_gate: SEARCH_BROAD`. This continuation rotates away from a third Euler packet/resonance derivation and begins a protected Owner prime-side attempt (VF-LOW/SAT/JOH), preserving actual prime positions, logarithmic weights, chronology, anchors, and the exact source-to-consumer distinction. First question: whether the live prime-side owner chronology admits an independently provable signed conservation or whether its apparent first-moment cancellation is another target-equivalent regrouping.
+
+
+## Third-invocation final synthesis - 2026-10-31 16:28 America/New_York
+
+**Status:** COMPLETED  
+**New claim:** `20261031-owner-3`  
+**Result classes:** `PAPER_PROOF / EXACT PRIME-COMPOSITE RANK TRANSPORT`; `COUNTEREXAMPLE_TO_ZEROTH-MOMENT_TRANSFER`; `TARGET_EQUIVALENT SIGN CRITERION`; `NO_NEW_INDEPENDENT INEQUALITY`; `NO_FIXED_ETA GAIN`.
+
+### A. Most important mathematical development
+
+The exact #915 cancellation of matched positive and negative mismatch *counts* does not survive the JOH chronological weight. A matched opposite-sign pair at locations `a,b` contributes zero to the unweighted balance but contributes exactly `b-a` to the Johnston first moment. The complete weighted carrier therefore consists of:
+
+1. a signed rank-displacement sum between actual-only prime events and model-only composite events; and
+2. the exact endpoint-weighted unmatched tail.
+
+This identifies a missing arithmetic dependency that the existing unmatched-boundary theorem necessarily discards. It also gives an occurrence-preserving prime/composite ancestry representation: every negative event is a composite with one unique least-prime owner, while every positive event is a genuine prime terminal. No occurrence is cloned.
+
+### B. Current authoritative objective and sources
+
+Live main is `05c3fcfc2ad699f09d7d473f17ac63a918a3aad3`. Authority blobs are `AGENTS.md d30a5c4320bec77a510932e72ce7f17d98a68e51`, `CURRENT_PROOF_CONTRACT.md 7a067ec0423a998e1079e37494061346d8ee02b0`, and broad policy `docs/RHLEAN_BROAD_SEARCH_UNTIL_ETA_20261031.md 46d27ef877325c391377d7cba6629f69316588b9`.
+
+Material sources:
+
+- JOH contract `research/LI_FAN_ONE_SIDED_WEIGHTED_COMPOSITE_RH_CONTRACT_20261022.md 27e28f09e9f79e8a60d524e5fcb6f19904fa55f5`;
+- primitive mismatch source `research/VF_MID_FLOOR_LI_SIGNED_POPULATION_BALANCE.lean 9a9336dad72171b6d572a1c1ae88d1ae8b56b530`;
+- #915 boundary compression `research/VF_MID_915_FLOOR_LI_TRANSPORT_BOUNDARY.lean 10829c3857b6a375d1dd8179f78a35550c9e67d8`;
+- square-block backlog `research/VF_MID_FLOOR_LI_DISCRETE_BACKLOG.lean 4255ca0dffe480f2aec6bd0b68797bbd293396c3`.
+
+The canonical theorem and all fixed-eta improvements remain open. #1060 is on main. PR #1062 is open, non-draft and mergeable at `4309335c62ddcf41d7d3a17df2589de007291eff`; its resonance criterion is structural and unrelated to the present proof status.
+
+### C. Structural hypothesis investigated
+
+The tested transfer hypothesis was:
+
+> after the #915 theorem cancels an equal number of opposite-sign prime-versus-floor-Li mismatch events, the remaining unmatched boundary controls the JOH weighted first moment.
+
+This would have supplied a direct bridge from the compiled zeroth-moment owner correction to the protected JOH route. The hypothesis is false. Chronological weights make the positions of the canceled events arithmetically visible.
+
+### D. Mathematical derivation
+
+Use the JOH contract's genuine event stream, for `3 <= k < N`,
+
+`eta(k) = 1_Prime(k) - (Q(k)-Q(k-1)) in {-1,0,1}`,
+
+where `Q(k)=floor(Li_2(k))`. The compiled primitive mismatch uses the same stream with the harmless index shift `n=k-1`. Let
+
+- `a_1 < ... < a_P` be the locations with `eta(a_i)=+1`;
+- `b_1 < ... < b_M` be the locations with `eta(b_i)=-1`;
+- `t=min(P,M)`.
+
+Then the exact JOH statistic is
+
+`G(N)=sum_(k=3)^(N-1) (N-k) eta(k)`.
+
+Splitting the positive and negative supports and pairing the first `t` ranks gives the exact identity
+
+`G(N) = D_N + U_N^+ - U_N^-`,                                      (21)
+
+where
+
+`D_N = sum_(i=1)^t (b_i-a_i)`,
+
+`U_N^+ = sum_(i=t+1)^P (N-a_i)` if `P>M`, and `0` otherwise,
+
+`U_N^- = sum_(i=t+1)^M (N-b_i)` if `M>P`, and `0` otherwise.
+
+Proof: write `G(N)=sum_i(N-a_i)-sum_j(N-b_j)`; for each matched rank,
+`(N-a_i)-(N-b_i)=b_i-a_i`; the remaining summands are exactly the two displayed tails. No inequality, independence, density, or analytic input is used.
+
+Moreover,
+
+`P-M = pi(N-1)-1-Q(N-1)`,                                      (22)
+
+so the signed population balance determines only the *number and orientation* of unmatched events. It does not determine `D_N` or the tail locations.
+
+The arithmetic carrier is exact. If `eta(a)=+1`, then `a` is prime and no model arrival occurs there. If `eta(b)=-1`, then a model arrival occurs but `b` is not prime; for `b>=3`, it is composite and has a unique least-prime owner. Hence (21) is an occurrence-preserving rank transport from prime terminals to uniquely owned composite removals. Grouping the `b_i) by their least prime partitions `D_N` without duplicating a terminal, but the matched prime `a_i` is intrinsically cross-owner.
+
+The exact inverse forms are:
+
+- if `P=M`, failure `G(N)>=0` is exactly `D_N>=0`;
+- if `P>M`, failure forces `D_N >= -U_N^+`;
+- if `M>P`, failure forces `D_N >= U_N^-`.
+
+At square endpoints `N=R^2`, the eventual strict reverse inequalities are exactly the JOH sign criterion. Thus this last sign formulation is `TARGET_EQUIVALENT`, not a new bound.
+
+### E. Quantitative consequence
+
+No all-scale upper or lower bound for `D_N` was proved. There is no new endpoint exponent and no eta. The quantitative contribution is a no-loss decomposition of the complete JOH weight and a proof that the existing zeroth-moment boundary cannot pay it.
+
+The earlier #915 statement
+
+`unmatchedPositive - unmatchedNegative = signedPopulationBalance`
+
+remains correct at its scope. Equation (21) shows the additional bill required by JOH: paired mass contributes chronological displacement instead of vanishing. Consequently any proposed transfer must bound `D_N` and both tails before claiming a weighted owner payment.
+
+### F. Falsification and circularity review
+
+1. **Abstract decisive falsifier.** With one positive event at `a` and one negative event at `b != a`, the signed population balance is zero, but the weighted moment is `b-a`. Reversing the order reverses the sign.
+2. **Actual arithmetic witnesses.** The repository's accepted `CE-JOH-R4-R7` has zero block count defect in both blocks but weighted displacement `+4` at `r=4` and `-2` at `r=7`. Thus both orientations occur on the genuine prime/floor-Li stream, not merely on model vectors.
+3. **Full interaction retained.** The matched displacement and unequal-count tails are all present in (21). No favorable local owner sign is assumed.
+4. **No conclusion assumed.** The derivation is finite Fubini/rank arithmetic. The eventual sign is explicitly labeled target-equivalent.
+5. **Carrier separation.** The `q^{-2}` least-square deletion theorem in `OutsidePrimeCompleteDeletionFirstMoment` concerns a different physical six-offset carrier and supplies no bridge to the prime/floor-Li ranks in (21).
+
+Verdict: the transfer hypothesis is `REFUTED`; the rank-transport identity is `PAPER_PROOF / IDENTITY_ONLY` and source-faithful.
+
+### G. Conceptual interpretation
+
+JOH is not controlled by how much opposite-sign mismatch mass remains after count cancellation. It is controlled by *where the canceled mass lived*. The appropriate complete interaction is a one-dimensional signed transport problem between terminal prime innovations and uniquely owned composite model demands, with an unmatched endpoint charge. This explains exactly why zeroth-moment owner accounting and first-moment Johnston displacement can have opposite conclusions on the same block.
+
+Least-prime ancestry still matters, but only on the composite side of a cross-owner transport. A theorem summing independent absolute owner bills destroys the signed rank displacement that must decide the JOH wall.
+
+### H. Competing mechanisms
+
+- **ABANDON:** direct transfer of #915 unmatched-population cancellation to JOH.
+- **ABANDON:** block-count or owner-count signs as sufficient JOH inputs; `r=4,7` refute them.
+- **CONTINUE:** nonlocal rank displacement between prime terminals and uniquely owned composite mismatch events, with unmatched tails retained.
+- **KEEP DISTINCT:** VF-LOW native weights/masks and SAT `S=A-T`; equation (21) does not identify either carrier with JOH.
+- **NEXT OWNER ROTATION:** VF-LOW or SAT, since this invocation supplies the protected JOH attempt and the eta gate remains `SEARCH_BROAD`.
+
+### I. Specialist handoffs
+
+**Coordinator / Proof Architect:** register `20261031-owner-3` under `MECH-JOH-ANCESTRY-DISPLACEMENT` as an exact carrier correction and no-go, not a sign theorem. #915 zeroth-moment compression does not pay `D_N`.
+
+**Analytic Type II:** if revisiting JOH, estimate the complete rank displacement plus the exact unmatched tail. A mean-zero or population estimate alone has no implication for (21).
+
+**Finite Wheel & Incidence:** investigate whether grouping negative events by their unique least-prime owner yields an independently provable interlacing restriction without taking absolute values owner by owner.
+
+**Prime Census Laboratory:** compute exact `D_N,U_N^+,U_N^-` at square endpoints and decompose `D_N` by the least-prime owner of `b_i`. Preregister the test: owner-sector signs versus cross-owner cancellation, retaining `r=4,7`.
+
+**Adversarial Referee:** audit the index shift to `vfMidFloorLiPrimitiveMismatch`, the unique composite-owner assertion, and the claim that #915 count matching loses exactly `D_N` under JOH weighting.
+
+**Lean Verification:** after referee acceptance, the smallest theorem is a generic finite ordered-support identity proving (21), followed by specialization to the compiled primitive mismatch. Do not formalize an eventual sign premise.
+
+### J. First independently missing lemma
+
+The next genuine arithmetic input is not another population identity. It must constrain the cross-owner chronological displacement `D_N` jointly with the exact unmatched tails, using actual prime positions and unique composite owners. No independently provable all-scale inequality of this type was obtained. An eventual inequality equivalent to `G(R^2)<0` must not be presented as a smaller paid lemma.
+
+A decisive next falsification test is whether any proposed owner-sector sign survives the exact decomposition of `D_N` by `P^-(b_i)`; one adverse owner sector does not refute aggregate cross-owner compensation.
+
+### K. Routing check and resume capsule
+
+`eta_gate: SEARCH_BROAD`  
+`primary_route_and_original_carrier: JOH / genuine prime-versus-floor-Li ternary mismatch with chronological weights`  
+`actual_new_lemma_or_first_unresolved_inequality: exact rank transport (21)-(22); unresolved cross-owner displacement plus unmatched-tail restriction`  
+`last_substantive_attempt_for_each_owned_route: JOH = this rank-transport/no-go; SAT = prior S=A-T/owner-return work, no new complete estimate; VF-LOW = prior #915 source audit, no new complete estimate`  
+`independent_reviewer_and_formal_evidence: pending Referee; paper proof only; actual r=4,7 regressions previously accepted`  
+`net_endpoint_gain_after_complete_return: UNKNOWN`  
+`next_distinct_route_due: VF-LOW or SAT; do not return immediately to Euler packet/resonance`
+
+Main/source SHAs are recorded in B. Today and yesterday continuity were consumed as listed in the checkpoint. External handoffs blob `038018145c0fddb2f6306c0712373adf9cd1ea52` has no entry newer than 2026-10-18. Canonical VF, complete shell eta, strict Mertens exponent below `7/8`, JOH sign, and RH remain OPEN.
