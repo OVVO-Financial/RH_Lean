@@ -213,10 +213,10 @@ under \(1\le k\) and \(k^2\le R\). These are source-level structural lemmas; for
 The prior claim `20261031-analytic-1` remains unchanged. This continuation consumes the now-complete October 31 specialist cycle and attacks the first unresolved compensated far-band inequality, retaining the true moving coefficient, reciprocal-square drift, root-dependent resonance multiplicity, principals, diagonals, and partial-prefix requirements. No new bound is claimed at checkpoint.
 
 
-## Additional invocation final synthesis - claim \`20261031-analytic-2\`
+## Additional invocation final synthesis - claim `20261031-analytic-2`
 
 **Status:** COMPLETED (additional invocation finalized 2026-10-31 09:24 America/New_York).  
-**Result classes:** \`PAPER_PROOF_NEEDS_INDEPENDENT_REVIEW / EXACT FULL FIRST-BAND COEFFICIENT TRANSFORM\`; \`PAPER_PROOF_NEEDS_INDEPENDENT_REVIEW / COHERENT SEMIPRIME FLOOR-RETURN LOWER BOUND\`; \`COUNTEREXAMPLE_TO_SECTORWISE RECIPROCAL RESTORATION\`; \`NO_NEW_COMPLETE-SOURCE UPPER BOUND\`; \`NO_FIXED_ETA GAIN\`; \`NO_RH\`.
+**Result classes:** `PAPER_PROOF_NEEDS_INDEPENDENT_REVIEW / EXACT FULL FIRST-BAND COEFFICIENT TRANSFORM`; `PAPER_PROOF_NEEDS_INDEPENDENT_REVIEW / COHERENT SEMIPRIME FLOOR-RETURN LOWER BOUND`; `COUNTEREXAMPLE_TO_SECTORWISE RECIPROCAL RESTORATION`; `NO_NEW_COMPLETE-SOURCE UPPER BOUND`; `NO_FIXED_ETA GAIN`; `NO_RH`.
 
 ### A. Most important analytic development
 
@@ -228,12 +228,12 @@ X_R=R^2-1,\qquad
 \beta^*(n)=\sum_{\substack{2\le a<b\\ab=n}}\mu(a)\mu(b).
 \tag{10}
 \]
-For every \(R\ge2\) and \(R<n<2R\), all strict completed factor pairs except \((1,n)\) are admitted below \(R\). Hence the literal moving coefficient in \`eulerFractionOffQ\` satisfies
+For every \(R\ge2\) and \(R<n<2R\), all strict completed factor pairs except \((1,n)\) are admitted below \(R\). Hence the literal moving coefficient in `eulerFractionOffQ` satisfies
 \[
 \boxed{\beta_R(n)=\beta^*(n).}
 \tag{11}
 \]
-This is the bilinear form hidden in equation (6) of claim \`20261031-analytic-1\`; no coefficient is frozen or averaged.
+This is the bilinear form hidden in equation (6) of claim `20261031-analytic-1`; no coefficient is frozen or averaged.
 
 Let
 \[
@@ -252,7 +252,7 @@ At current main, merged #1060 already kernel-certifies the nonsquare completed c
 \[
 2\alpha(n)=(\mu*\mu)(n)
 \]
-in \`eulerCompletedProductCoeff_twice_eq_convolution\`. Equation (12) adds the moving \((1,n)\) activation subtraction and the square-diagonal correction; it is paper-level in this report.
+in `eulerCompletedProductCoeff_twice_eq_convolution`. Equation (12) adds the moving \((1,n)\) activation subtraction and the square-diagonal correction; it is paper-level in this report.
 
 For \(\Re s>1\), absolute convergence gives
 \[
@@ -286,7 +286,7 @@ This does not make every weighted first-band estimate target-equivalent, but it 
 
 ### C. Coherent semiprime floor-return obstruction
 
-The live exact triad in \`EULER_FRACTIONAL_COUPLED_20261027.lean\` pairs an off-diagonal fractional row with the matching continuous reciprocal row:
+The live exact triad in `EULER_FRACTIONAL_COUPLED_20261027.lean` pairs an off-diagonal fractional row with the matching continuous reciprocal row:
 \[
 2\mu(a)\mu(b)\left(\frac{X_R}{ab}-f_{ab}(R)\right)
 =2\mu(a)\mu(b)\left\lfloor\frac{X_R}{ab}\right\rfloor.
@@ -321,7 +321,7 @@ C_R\ge R\bigl(\pi(R-1)-\pi(\lfloor3R/4\rfloor)\bigr).
 }
 \tag{18}
 \]
-The compiled repository theorem \`nativePrimeNumberTheorem\` gives
+The compiled repository theorem `nativePrimeNumberTheorem` gives
 \(\pi(x)\log x/x\to1\). Hence
 \[
 \pi(R-1)-\pi(3R/4)\sim\frac{R}{4\log R},
@@ -345,7 +345,7 @@ whereas the desired complete shell budget is
 ### D. Falsification and scope
 
 1. The \((2,q)\) family uses the original signs, strict \(2<q<R\) admission, exact \(X_R\), and the far first-band cutoff. It is not a fantasy coefficient sequence.
-2. It does not contradict claim \`20261031-analytic-1\`; that paid wedge has \(k\le\sqrt R\), while every row here has \(k>R/2\).
+2. It does not contradict claim `20261031-analytic-1`; that paid wedge has \(k\le\sqrt R\), while every row here has \(k>R/2\).
 3. It does not refute the full shell estimate. The full source contains negative odd-depth coefficients, squareful terms, other moving bands, diagonal, endpoint and restoration interactions.
 4. It refutes a sectorwise strategy: neither the reciprocal term nor the \((2,q)\) floor-return block may be bounded in absolute value within the target budget.
 5. Equation (15) warns against replacing the phase-weighted problem by an unsupported scalar partial-sum hypothesis.
@@ -356,31 +356,31 @@ Finite arithmetic independently checked (12) for \(1\le n<100\) and (18) at \(R=
 
 - **CODIV / S1-S2:** advanced by an exact coefficient transform and a decisive source-faithful no-go. The smallest surviving theorem must cancel the positive \((2,q)\) floor-return population against odd squarefree depth at least \(3\), squareful restoration, or other bands, while retaining partial-prefix uniformity.
 - **OAI-NNS:** no new ideal-prime exponent gain. The reciprocal-zeta-square transform is an integer square-clock statement and is not silently transferred to split/inert ideal rows, conductors, heights, or detector returns.
-- **NYMAN:** no new all-scale approximation theorem in this continuation. It remains \`OPEN / NO_NEW_INDEPENDENT_INEQUALITY\` and is due for the next substantive Analytic rotation under the three-round anti-starvation rule.
+- **NYMAN:** no new all-scale approximation theorem in this continuation. It remains `OPEN / NO_NEW_INDEPENDENT_INEQUALITY` and is due for the next substantive Analytic rotation under the three-round anti-starvation rule.
 - **Cross-coordinate direction:** original moving Euler rows \(\to\) exact Type-II coefficient (10)-(13) is an equality; reciprocal restoration \(\to\) floor return (16) is an equality; PNT \(\to\) coherent lower bound (19) is a one-way quantitative implication. None is reversed into a complete source estimate.
 
 Old versus new exponent ledger: the desired complete energy exponent remains \(5/2-\eta+\varepsilon\); the new isolated obstruction has energy scale \(5\) up to logarithms. No final exponent improves. Instead, a previously plausible sectorwise mechanism is eliminated.
 
 ### F. Authority, continuity, and repository evidence
 
-Final live main is \`7ec8528649d43ee0d89848ae451ca53387c2a2e4\`, the human merge of #1060. Material blobs:
+Final live main is `7ec8528649d43ee0d89848ae451ca53387c2a2e4`, the human merge of #1060. Material blobs:
 
-- \`research/EULER_FRACTIONAL_COUPLED_20261027.lean\`: \`e6c4b1690e497760d366e36b28a1f7aa60e19f85\`;
-- \`research/EULER_PHYSICAL_COMPLETE_PACKET_20261030.lean\`: \`8084af7fa50fb5b8361a64f05eb658f08b529ca7\`;
-- merged \`research/EULER_UNIFORM_COMPLETED_COEFFICIENTS_20261030.lean\`: \`c39fde58586c2df55fb5be0166d1908db5aa3aba\`;
-- \`RHLean/Analysis/NativePNTTransfer.lean\`: \`8b981fe2bd212b2e21e7cc1961e5b2d7f083a906\`.
+- `research/EULER_FRACTIONAL_COUPLED_20261027.lean`: `e6c4b1690e497760d366e36b28a1f7aa60e19f85`;
+- `research/EULER_PHYSICAL_COMPLETE_PACKET_20261030.lean`: `8084af7fa50fb5b8361a64f05eb658f08b529ca7`;
+- merged `research/EULER_UNIFORM_COMPLETED_COEFFICIENTS_20261030.lean`: `c39fde58586c2df55fb5be0166d1908db5aa3aba`;
+- `RHLean/Analysis/NativePNTTransfer.lean`: `8b981fe2bd212b2e21e7cc1961e5b2d7f083a906`.
 
-The #1060 proof head \`80ee69a861398007046e35b79f7040e923078942\` had all 12 observed workflows successful; merge commit \`7ec8528...\` is now main authority. No open or draft PR remained at the final refresh.
+The #1060 proof head `80ee69a861398007046e35b79f7040e923078942` had all 12 observed workflows successful; merge commit `7ec8528...` is now main authority. No open or draft PR remained at the final refresh.
 
-Consumed October 31 reports: Coordinator \`d725323b1603720c834ca5e2337a3f56eca3e8ba\`; Owner \`d2118e3e5c567e1fbc023171b65fd7886eb78a7e\`; prior Analytic history preserved below this continuation; Wheel \`ab2a2be76ed633d560ef332340796e1ff13fe3ab\`; Census \`018b7b15ba0e4217afb310fc5e8bc418ceb3f39b\`; Referee \`7601484715cdbe531330f3aaeb97e25dd5636cb0\`; Lean \`72de70e0f58f7b16d78e65e5d0ccec5058311fbd\`.
+Consumed October 31 reports: Coordinator `d725323b1603720c834ca5e2337a3f56eca3e8ba`; Owner `d2118e3e5c567e1fbc023171b65fd7886eb78a7e`; prior Analytic history preserved below this continuation; Wheel `ab2a2be76ed633d560ef332340796e1ff13fe3ab`; Census `018b7b15ba0e4217afb310fc5e8bc418ceb3f39b`; Referee `7601484715cdbe531330f3aaeb97e25dd5636cb0`; Lean `72de70e0f58f7b16d78e65e5d0ccec5058311fbd`.
 
-Consumed October 30 carry-forward: Coordinator \`f50176f5b1091a528f73147f9f9e74e69f3a5b82\`; Analytic \`bae5e244f4bafdb42071263e72d502d50f3ce31e\`; Wheel \`c732ac930234989d702ca9f6954a050febd5965b\`; Census \`dbcc43c3a64d0065743bebf7194c6bf82762ca88\`; Referee \`4903fd6e4c4594f301fe9bc88d9b3d3ec152583c\`; Lean \`3bc9f808fb733f45e650978ef1bc8d6799f4b87c\`. No October 30 Owner file exists, so its status remains \`YESTERDAY=PENDING\`; merged #1059 is source authority, not an invented report.
+Consumed October 30 carry-forward: Coordinator `f50176f5b1091a528f73147f9f9e74e69f3a5b82`; Analytic `bae5e244f4bafdb42071263e72d502d50f3ce31e`; Wheel `c732ac930234989d702ca9f6954a050febd5965b`; Census `dbcc43c3a64d0065743bebf7194c6bf82762ca88`; Referee `4903fd6e4c4594f301fe9bc88d9b3d3ec152583c`; Lean `3bc9f808fb733f45e650978ef1bc8d6799f4b87c`. No October 30 Owner file exists, so its status remains `YESTERDAY=PENDING`; merged #1059 is source authority, not an invented report.
 
-External inbox blob \`038018145c0fddb2f6306c0712373adf9cd1ea52\` has no handoff newer than 2026-10-18 and introduces no unconsumed current claim.
+External inbox blob `038018145c0fddb2f6306c0712373adf9cd1ea52` has no handoff newer than 2026-10-18 and introduces no unconsumed current claim.
 
 ### G. Specialist handoff and resume capsule
 
-**Coordinator / Proof Architect:** register \`20261031-analytic-2\` as a no-go against sectorwise reciprocal restoration, not as a new upper bound. The complete source must expose where the positive \((2,q)\) floor-return mass is canceled.
+**Coordinator / Proof Architect:** register `20261031-analytic-2` as a no-go against sectorwise reciprocal restoration, not as a new upper bound. The complete source must expose where the positive \((2,q)\) floor-return mass is canceled.
 
 **Owner / Wheel:** classify the first legal negative-depth partners of the \((2,q)\) family under actual owner chronology and packet activation. A useful statement must cover cross-parent terms and squareful restoration; same-parent conservation is already insufficient.
 
@@ -388,11 +388,11 @@ External inbox blob \`038018145c0fddb2f6306c0712373adf9cd1ea52\` has no handoff 
 
 **Adversarial Referee:** independently check (12), the Dirichlet-series pole argument (15), admission of every row in (17), and the PNT constant in (19). The main possible scope error would be promoting the isolated lower bound to the complete signed source; this report explicitly does not do so.
 
-**Lean Verification:** after referee acceptance, the smallest nonduplicate formal targets are the moving first-band coefficient identity (11)-(12) and the exact finite lower bound (18). The asymptotic step may use the already compiled \`nativePrimeNumberTheorem\`; do not encode the complete cancellation as a hypothesis.
+**Lean Verification:** after referee acceptance, the smallest nonduplicate formal targets are the moving first-band coefficient identity (11)-(12) and the exact finite lower bound (18). The asymptotic step may use the already compiled `nativePrimeNumberTheorem`; do not encode the complete cancellation as a hypothesis.
 
 **Next Analytic rotation:** NYMAN full-basis rate, unless a reviewed same-source cancellation lemma for the \((2,q)\) population arrives first.
 
-- New claim: \`20261031-analytic-2\`.
+- New claim: `20261031-analytic-2`.
 - New complete-source upper inequality: NONE.
 - Fixed positive \(\eta\): OPEN.
 - Strict exponent below \(7/8\): NOT PROVED.
