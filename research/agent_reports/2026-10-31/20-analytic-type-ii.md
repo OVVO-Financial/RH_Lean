@@ -411,3 +411,144 @@ External inbox blob `038018145c0fddb2f6306c0712373adf9cd1ea52` has no handoff ne
 This continuation consumes Coordinator claim `20261031-coordinator-2` (near-root prime-ray Mobius telescope, paper proof awaiting independent review), Owner claims `20261031-owner-1,2` (complete inverse-weight cancellation and exact squarefree owner-to-Euler Fubini), Wheel claim `20261031-wheel-2`, Census claim `20261031-census-2`, and Referee decisions `20261031-referee-4..6`. The preceding-day Owner report is absent and is recorded as `YESTERDAY=PENDING`; verified current-day Owner work supplies continuity.
 
 **Research question under active derivation:** determine whether the prime-ray telescope admits a uniform far-root extension whose triangular boundary is controlled by a genuinely weaker arithmetic input than the full Mertens target. Exact quantifiers, overlap, partial admission, principal, squareful, diagonal, mixed, and endpoint costs will be retained. A failure will be recorded as a precise obstruction and the strongest surviving theorem.
+
+
+## Scheduled continuation final synthesis - claim \`20261031-analytic-3\`
+
+**Status:** COMPLETED at 17:36 America/New_York  
+**Result classes:** \`PAPER_PROOF_NEEDS_INDEPENDENT_REVIEW / EXACT DEPTH-ONE EXTRACTION\`; \`PAPER_PROOF_NEEDS_INDEPENDENT_REVIEW / PNT ASYMPTOTIC\`; \`COUNTEREXAMPLE TO DEPTHWISE ABSOLUTE PAYMENT\`; \`NO_COMPLETE_SOURCE_BOUND\`; \`NO_FIXED_ETA_GAIN\`; \`NO_RH\`.
+
+### A. Most important analytic result
+
+The near-root telescope in \`20261031-coordinator-2\` is genuinely effective because its completion tail has length \(O(U)\). Extending the same proof to every prime \(R/2<q<R\) creates a triangular Möbius tail. Its \(\Omega(m)=1\) component alone is a coherent prime rectangle of order \(R^2/\log^2 R\).
+
+More precisely, for \(R\ge 8\), set
+
+\[
+ X=R^2-1,\qquad L=\lfloor(R-1)/2\rfloor,\qquad
+ A_q=\lfloor X/(2q)\rfloor,
+\]
+and define the auxiliary completion boundary
+
+\[
+ B_R=\sum_{\substack{R/2<q<R\\q\ {\rm prime}}}
+       \sum_{\substack{L<m\le A_q\\m\ {\rm odd}}}\mu(m).       \tag{28}
+\]
+
+The exact Coordinator identity reads
+
+\[
+ \sum_{\substack{R/2<q<R\\q\ {\rm prime}}}T_R(q)
+ =2\sum_q(1+\lfloor\log_2A_q\rfloor)-2B_R.                    \tag{29}
+\]
+
+Let \(B_R^{(1)}\) be the part of (28) with \(m\) prime. Then
+
+\[
+ B_R^{(1)}=-N_R,\qquad
+ N_R=\sum_{\substack{R/2<q<R\\q\ {\rm prime}}}
+       \bigl(\pi(A_q)-\pi(L)\bigr),                            \tag{30}
+\]
+and the prime number theorem gives
+
+\[
+ N_R\sim c_\triangle\,\frac{R^2}{\log^2R},\qquad
+ c_\triangle=\int_{1/2}^{1}\left(\frac1{2x}-\frac12\right)dx
+ =\frac12\log2-\frac14>0.                                    \tag{31}
+\]
+
+Thus the depth-one contribution to the \(-2B_R\) term in (29) is positive and asymptotic to
+\(2c_\triangle R^2/\log^2R\). Any broad-ray argument that applies absolute values by factor depth before summing the entire boundary necessarily loses at least this amount.
+
+### B. Proof and quantitative accounting
+
+Equation (30) is exact: every prime \(m=p>L\) is odd and has \(\mu(p)=-1\); for fixed \(q\), the admissible primes are precisely \(L<p\le A_q\). Ordered pairs are intentional. If \(p\ne q\), the two possible orderings correspond to distinct rows \((2p,q)\) and \((2q,p)\); the diagonal \(p=q\), when admitted, contributes only \(O(R/\log R)\) and is already included in (30).
+
+For (31), write \(q=Rx\). The scaled region is
+
+\[
+ {\cal D}=\{(x,y):1/2<x<1,\ 1/2<y\le 1/(2x)\}.
+\]
+Its boundary has planar measure zero and its area is \(c_\triangle\). Two applications of PNT with partial summation, first on compact rectangles inside \({\cal D}\) and then by inner/outer approximation, yield
+\[
+ \#\{(q,p)\ {\rm prime}: (q/R,p/R)\in{\cal D}+o(1)\}
+ =(c_\triangle+o(1))R^2/\log^2R.
+\]
+The floors in \(L,A_q\), the endpoint \(X=R^2-1\), and the diagonal alter the count by \(o(R^2/\log^2R)\). Constants in the asymptotic are absolute; the assertion is uniform only in the displayed one-parameter limit \(R\to\infty\).
+
+Consequently, for all sufficiently large \(H\),
+
+\[
+ \sum_{H\le R<2H}|B_R^{(1)}|^2
+ \gg \frac{H^5}{\log^4H}.                                    \tag{32}
+\]
+
+This is far above \(H^{5/2-\eta+\varepsilon}\) for every fixed \(\eta>0\) after choosing, for example, \(0<\varepsilon<\eta/2+1\). Therefore no depthwise absolute-value proof of the desired shell budget can pass through (28).
+
+### C. Exact scope and falsification
+
+This result does **not** refute the completed prime-ray telescope, the broad sum in (29), or the genuine Euler shell. The variables \(m>L\) in (28) are auxiliary completion terms: they violate the physical condition \(2m<R\). Equation (29) introduces them only to express the admitted physical rows by full odd-divisor inversion. Higher factor depths of \(m\), squareful exceptions, and the logarithmic completion term can cancel (30) before returning to the physical source.
+
+The correct conclusion is narrower and decisive:
+
+> A far-root extension of the prime-ray mechanism must prove signed cancellation across factor depths inside the complete triangular boundary. It cannot bound the \(\Omega(m)=1\) slice, or finitely many depth slices, separately by absolute value.
+
+The coherent rectangle is analogous to Wheel claim \`20261031-wheel-2\` but lives in a different object: here it is the auxiliary boundary of the exact Euler ray completion, not the genuine \(Q_N(X)\) MU-LIFT kernel. No equivalence between the two carriers is claimed.
+
+Finite exact checks support only the bookkeeping, not the asymptotic theorem. For \(R=100,500,1000,5000,10000,50000\), (30) gives respectively
+\(N_R=44,708,2085,36431,123769,2227484\). The normalized values
+\(N_R\log^2R/R^2\) are \(0.0933,0.1094,0.0995,0.1057,0.1050,0.1043\), consistent with the slowly approached constant \(c_\triangle=0.0965735902\).
+
+### D. Transform interpretation and surviving mechanism
+
+A logarithmically weighted completion over **all** prime-power divisors would use
+
+\[
+ (\mu*\Lambda)(n)=-\mu(n)\log n,
+\]
+since \((1/\zeta)'=-\zeta'/\zeta^2\). This identity explains why completing only the prime variable is not automatically a saving: it transfers the hard oscillation to a one-dimensional Möbius sum plus band complements. It is a structural identity, not a bound.
+
+The strongest surviving analytic programme is therefore a factor-depth Buchstab/renewal cancellation theorem for the exact triangle:
+
+\[
+ \left|
+ \sum_{\substack{R/2<q<R\\q\ {\rm prime}}}
+ \sum_{\substack{L<m\le (R^2-1)/(2q)\\m\ {\rm odd}}}\mu(m)
+ \right|
+ \le R^{3/4-\delta}
+\]
+would be more than sufficient for this auxiliary term, but no such bound is proved and its strength may rehouse a Mertens problem. The next useful step is weaker: identify an exact grouping of consecutive factor depths whose prime rectangle cancels algebraically, then prove a power bound for the residual without assuming a Mertens exponent improvement.
+
+### E. Source, continuity, and live verification
+
+The original carrier remains \`research/EULER_FRACTIONAL_COUPLED_20261027.lean\`, blob \`e6c4b1690e497760d366e36b28a1f7aa60e19f85\`. It defines \`eulerFractionOffQ\` with the actual \(\mu(a)\mu(b)\), strict moving \(a<b<R\), and proves the exact continuous/floor/fractional reassembly. No model coefficient was substituted.
+
+Consumed report blobs include Coordinator \`8e901e46877ff28bd8eb7c46cb3a46ade5ef32a6\`, Owner \`fdb9413fdd49588e1ad1c2348b4fabf4cff55b9c\`, prior Analytic input \`0ff859a8596fc162a4a5baa935cd4ac7e03cccc2\`, Wheel \`35cffded744eef7dc65647d4dc706faf2294eb4a\`, Census \`d86883cd5bbd36686f248ae33db7b249a627c7b5\`, Referee \`2c6b45c346617010d2d8b82eaf27b8bbc8f38465\`, and Lean \`9786950ba58b9c8c3ddaccc00926417d4b3bb945\`. The 2026-10-30 Owner report is absent: \`YESTERDAY=PENDING\`. External handoffs remain at blob \`038018145c0fddb2f6306c0712373adf9cd1ea52\`, with no newer entry than 2026-10-18.
+
+Final authority refresh found unchanged \`main@05c3fcfc2ad699f09d7d473f17ac63a918a3aad3\`. PR #1062 is the sole open PR, non-draft and mergeable at \`4309335c62ddcf41d7d3a17df2589de007291eff\`. Its relevant root-dependent-resonance run \`41224963246\` and all eleven other returned PR-head workflows are successful. Its formal result is structural only: it proves the coprime criterion and root-dependence counterexample, not (28)-(32), a period mean, or a source moment.
+
+### F. Specialist handoffs
+
+**Coordinator / Proof Architect.** Record \`20261031-analytic-3\` as a no-go for depthwise payment of the broad prime-ray boundary, not as a no-go for the telescope. The next same-source question is an exact cross-depth cancellation grouping for (28).
+
+**Finite Wheel & Incidence.** Classify the \(\Omega(m)=2\) and squareful slices of (28) against the prime rectangle, preserving ordered rows. Search for a finite divisor-inversion packet that cancels (30) before inequalities.
+
+**Prime Census Laboratory.** Test partial sums of (28) by \(\Omega(m)\), with columns for cumulative alternating depth and the complete \(B_R\). The discriminating prediction is large individual depth slices but substantially smaller completed sums; failure of cumulative cancellation falsifies this mechanism.
+
+**Adversarial Referee.** Audit (30), the ordered-pair interpretation, PNT constant \(c_\triangle\), and especially the auxiliary-versus-physical scope. Reject any statement that (32) lower-bounds the complete Euler source.
+
+**Lean Verification.** Do not formalize the asymptotic before independent acceptance. The smallest finite theorem is the exact extraction (30); a later analytic theorem may invoke the existing native PNT only after its uniform boundary argument is specified.
+
+### G. Routing and resume capsule
+
+- \`eta_gate: SEARCH_BROAD\`.
+- Primary route/carrier: CODIV/Euler prime-ray completion, exact original strict off-diagonal floor source.
+- New claim: \`20261031-analytic-3\`.
+- New independent content: exact prime-depth extraction and PNT-scale coherent rectangle; counterexample to depthwise absolute payment.
+- First unresolved inequality: cross-depth signed cancellation for the full boundary (28), followed by overlap, squareful, principal, diagonal, reciprocal-square, activation, mixed, and endpoint restoration.
+- Net endpoint gain after complete return: \`UNKNOWN\`.
+- New fixed positive eta: NONE.
+- Strict Mertens exponent below \(7/8\): NOT PROVED.
+- Canonical VF theorem: OPEN.
+- RH: OPEN.
+- Next distinct Analytic route due under the rolling policy: NYMAN full-basis rate, unless this cross-depth grouping receives independent acceptance and a genuinely new cancellation lemma.
