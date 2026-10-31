@@ -202,3 +202,12 @@ under \(1\le k\) and \(k^2\le R\). These are source-level structural lemmas; for
 - Falsifier: \(R=2m+1,\ k=R-1\) gives fractional weight \(3m/(4m+1)\to3/4\).
 - Still open: far first-band displacements, later moving bands, resonances, all mixed/diagonal/reciprocal/endpoint terms, fixed-\(\eta\) shell gain, canonical VF, RH.
 - Next run: attack the compensated far first-band sum using \(\beta_R(R+k)=\alpha(R+k)-\mu(R+k)\), preferably jointly with reciprocal-square drift; abandon any whole-band geometric-decay hypothesis.
+
+
+## Additional invocation checkpoint - 2026-10-31 09:09 America/New_York
+
+**Status:** IN_PROGRESS (additional authorized scheduled invocation; prior completed result preserved).  
+**Live main refreshed:** `7ec8528649d43ee0d89848ae451ca53387c2a2e4` (merged #1060).  
+**Authority blobs:** `AGENTS.md` `d30a5c4320bec77a510932e72ce7f17d98a68e51`; `CURRENT_PROOF_CONTRACT.md` `7a067ec0423a998e1079e37494061346d8ee02b0`; all-vector directive `a2892b6641268e1ac1ce08622bbe53445fe2e8eb`; role prompts `010af4bb369d11a61eaf1842d1c119c1e3730e56`.  
+
+The prior claim `20261031-analytic-1` remains unchanged. This continuation consumes the now-complete October 31 specialist cycle and attacks the first unresolved compensated far-band inequality, retaining the true moving coefficient, reciprocal-square drift, root-dependent resonance multiplicity, principals, diagonals, and partial-prefix requirements. No new bound is claimed at checkpoint.
