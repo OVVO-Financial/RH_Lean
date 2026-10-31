@@ -3,17 +3,17 @@
 **Status:** COMPLETED  
 **Invocation:** scheduled run begun 2026-10-31 01:04 America/New_York  
 **Final authority refresh:** 2026-10-31 01:07 America/New_York  
-**Early checkpoint:** published and verified at commit \`f252e1a6d2a74e02b66658b4c6f243e8ebbd2879\`.  
-**Pinned live main:** \`6b2a869750b92fcdbebff78a591e7722b4f2c747\`  
-**Authority blobs:** \`AGENTS.md\` \`d30a5c4320bec77a510932e72ce7f17d98a68e51\`; \`CURRENT_PROOF_CONTRACT.md\` \`7a067ec0423a998e1079e37494061346d8ee02b0\`; stable selector \`497c59885bf1da401bfc755e6980d1548ce167f0\`; all-vector directive \`a2892b6641268e1ac1ce08622bbe53445fe2e8eb\`; role prompts \`010af4bb369d11a61eaf1842d1c119c1e3730e56\`.  
-**Material source blobs:** \`research/EULER_FRACTIONAL_COUPLED_20261027.lean\` \`e6c4b1690e497760d366e36b28a1f7aa60e19f85\`; \`research/EULER_PHYSICAL_COMPLETE_PACKET_20261030.lean\` \`8084af7fa50fb5b8361a64f05eb658f08b529ca7\`.  
-**Open proof PR:** #1060 head \`80ee69a861398007046e35b79f7040e923078942\`, source blob \`c39fde58586c2df55fb5be0166d1908db5aa3aba\`; all 12 observed exact-head workflows succeeded, including the dedicated uniform completed-coefficient workflow. It is unmerged.  
-**New claim:** \`20261031-analytic-1\`.  
-**Evidence classes:** \`PAPER_PROOF_NEEDS_INDEPENDENT_REVIEW / NEW QUANTITATIVE MOVING-SOURCE WEDGE\`, \`COUNTEREXAMPLE_TO_FULL-BAND GEOMETRIC SUPPRESSION / INFINITE FAMILY\`, \`NO_COMPLETE_SOURCE_BOUND\`, \`NO_FIXED_ETA_GAIN\`, \`NO_RH\`.
+**Early checkpoint:** published and verified at commit `f252e1a6d2a74e02b66658b4c6f243e8ebbd2879`.  
+**Pinned live main:** `6b2a869750b92fcdbebff78a591e7722b4f2c747`  
+**Authority blobs:** `AGENTS.md` `d30a5c4320bec77a510932e72ce7f17d98a68e51`; `CURRENT_PROOF_CONTRACT.md` `7a067ec0423a998e1079e37494061346d8ee02b0`; stable selector `497c59885bf1da401bfc755e6980d1548ce167f0`; all-vector directive `a2892b6641268e1ac1ce08622bbe53445fe2e8eb`; role prompts `010af4bb369d11a61eaf1842d1c119c1e3730e56`.  
+**Material source blobs:** `research/EULER_FRACTIONAL_COUPLED_20261027.lean` `e6c4b1690e497760d366e36b28a1f7aa60e19f85`; `research/EULER_PHYSICAL_COMPLETE_PACKET_20261030.lean` `8084af7fa50fb5b8361a64f05eb658f08b529ca7`.  
+**Open proof PR:** #1060 head `80ee69a861398007046e35b79f7040e923078942`, source blob `c39fde58586c2df55fb5be0166d1908db5aa3aba`; all 12 observed exact-head workflows succeeded, including the dedicated uniform completed-coefficient workflow. It is unmerged.  
+**New claim:** `20261031-analytic-1`.  
+**Evidence classes:** `PAPER_PROOF_NEEDS_INDEPENDENT_REVIEW / NEW QUANTITATIVE MOVING-SOURCE WEDGE`, `COUNTEREXAMPLE_TO_FULL-BAND GEOMETRIC SUPPRESSION / INFINITE FAMILY`, `NO_COMPLETE_SOURCE_BOUND`, `NO_FIXED_ETA_GAIN`, `NO_RH`.
 
 ## A. Most important analytic result
 
-### Claim \`20261031-analytic-1\`: the square-root displacement wedge of the first moving product band has \(O(H^2\log^2 H)\) energy
+### Claim `20261031-analytic-1`: the square-root displacement wedge of the first moving product band has \(O(H^2\log^2 H)\) energy
 
 Retain the exact original numerator
 \[
@@ -24,7 +24,7 @@ and the actual moving unordered coefficient
 \beta_R(d)=
  \sum_{\substack{1\le a<b<R\\ab=d}}\mu(a)\mu(b).
 \]
-For integers \(R\ge2\) and \(1\le K\le\sqrt R\), define the literal first-band wedge of \`2*eulerFractionOffQ\`
+For integers \(R\ge2\) and \(1\le K\le\sqrt R\), define the literal first-band wedge of `2*eulerFractionOffQ`
 \[
 W_R(K)=2\sum_{1\le k\le K}\beta_R(R+k)f_{R+k}(R).
 \]
@@ -154,26 +154,26 @@ The nearer open benchmark remains, for one fixed \(\eta>0\),
 \sum_{H\le R<2H}|\Delta_R|^2
  \ll_{\eta,\varepsilon}H^{5/2-\eta+\varepsilon}.
 \]
-The original carrier is \`2*eulerFractionOffQ R\`, with every moving
+The original carrier is `2*eulerFractionOffQ R`, with every moving
 \(1\le a<b<R\) admission, principal, high-product, mixed, diagonal,
 reciprocal-square and endpoint term retained.
 
-Claim \`20261031-analytic-1\` advances the source ledger by paying a width-\(\sqrt R\) subset of the first genuinely moving high-product band at \(H^{2+o(1)}\) energy. It is not a fixed-\(\eta\) improvement for the complete shell and is not an implication of the target.
+Claim `20261031-analytic-1` advances the source ledger by paying a width-\(\sqrt R\) subset of the first genuinely moving high-product band at \(H^{2+o(1)}\) energy. It is not a fixed-\(\eta\) improvement for the complete shell and is not an implication of the target.
 
 ## F. Research continuity and handoffs consumed
 
-Today's Owner report, blob \`3ebb890e1f1dec6a16cd68a9a4ae391559df700f\`, proves claim \`20261031-owner-1\`: inverse physical weighting removes all positive owner-prime decay on a complete returned fibre. That refutes using yesterday's reciprocal-response theorem as a complete-return estimate.
+Today's Owner report, blob `3ebb890e1f1dec6a16cd68a9a4ae391559df700f`, proves claim `20261031-owner-1`: inverse physical weighting removes all positive owner-prime decay on a complete returned fibre. That refutes using yesterday's reciprocal-response theorem as a complete-return estimate.
 
-Today's Coordinator, Wheel, Census, Referee and Lean reports were unavailable at finalization and are recorded as \`TODAY=PENDING\`. Verified prior-day reports were carried forward:
+Today's Coordinator, Wheel, Census, Referee and Lean reports were unavailable at finalization and are recorded as `TODAY=PENDING`. Verified prior-day reports were carried forward:
 
-- Coordinator \`f50176f5b1091a528f73147f9f9e74e69f3a5b82\`;
-- Analytic \`bae5e244f4bafdb42071263e72d502d50f3ce31e\`;
-- Wheel \`c732ac930234989d702ca9f6954a050febd5965b\`;
-- Census \`dbcc43c3a64d0065743bebf7194c6bf82762ca88\`;
-- Referee \`4903fd6e4c4594f301fe9bc88d9b3d3ec152583c\`;
-- Lean \`3bc9f808fb733f45e650978ef1bc8d6799f4b87c\`.
+- Coordinator `f50176f5b1091a528f73147f9f9e74e69f3a5b82`;
+- Analytic `bae5e244f4bafdb42071263e72d502d50f3ce31e`;
+- Wheel `c732ac930234989d702ca9f6954a050febd5965b`;
+- Census `dbcc43c3a64d0065743bebf7194c6bf82762ca88`;
+- Referee `4903fd6e4c4594f301fe9bc88d9b3d3ec152583c`;
+- Lean `3bc9f808fb733f45e650978ef1bc8d6799f4b87c`.
 
-The external handoff index blob \`038018145c0fddb2f6306c0712373adf9cd1ea52\` contains no newer analytic handoff than 2026-10-18.
+The external handoff index blob `038018145c0fddb2f6306c0712373adf9cd1ea52` contains no newer analytic handoff than 2026-10-18.
 
 ## G. Specialist handoff
 
@@ -196,8 +196,8 @@ under \(1\le k\) and \(k^2\le R\). These are source-level structural lemmas; for
 
 ## H. Resume capsule
 
-- Main: \`6b2a869750b92fcdbebff78a591e7722b4f2c747\`.
-- New result: \`20261031-analytic-1\`, explicit \(8H^2(\log(4H)+6)^2\) energy bound for the exact moving first-band wedge \(1\le k\le\sqrt R\).
+- Main: `6b2a869750b92fcdbebff78a591e7722b4f2c747`.
+- New result: `20261031-analytic-1`, explicit \(8H^2(\log(4H)+6)^2\) energy bound for the exact moving first-band wedge \(1\le k\le\sqrt R\).
 - Mechanism: exact remainder \(k^2-1\), exact single-pair activation correction, short-interval divisor count.
 - Falsifier: \(R=2m+1,\ k=R-1\) gives fractional weight \(3m/(4m+1)\to3/4\).
 - Still open: far first-band displacements, later moving bands, resonances, all mixed/diagonal/reciprocal/endpoint terms, fixed-\(\eta\) shell gain, canonical VF, RH.
