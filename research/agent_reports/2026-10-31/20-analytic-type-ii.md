@@ -413,14 +413,14 @@ This continuation consumes Coordinator claim `20261031-coordinator-2` (near-root
 **Research question under active derivation:** determine whether the prime-ray telescope admits a uniform far-root extension whose triangular boundary is controlled by a genuinely weaker arithmetic input than the full Mertens target. Exact quantifiers, overlap, partial admission, principal, squareful, diagonal, mixed, and endpoint costs will be retained. A failure will be recorded as a precise obstruction and the strongest surviving theorem.
 
 
-## Scheduled continuation final synthesis - claim \`20261031-analytic-3\`
+## Scheduled continuation final synthesis - claim `20261031-analytic-3`
 
 **Status:** COMPLETED at 17:36 America/New_York  
-**Result classes:** \`PAPER_PROOF_NEEDS_INDEPENDENT_REVIEW / EXACT DEPTH-ONE EXTRACTION\`; \`PAPER_PROOF_NEEDS_INDEPENDENT_REVIEW / PNT ASYMPTOTIC\`; \`COUNTEREXAMPLE TO DEPTHWISE ABSOLUTE PAYMENT\`; \`NO_COMPLETE_SOURCE_BOUND\`; \`NO_FIXED_ETA_GAIN\`; \`NO_RH\`.
+**Result classes:** `PAPER_PROOF_NEEDS_INDEPENDENT_REVIEW / EXACT DEPTH-ONE EXTRACTION`; `PAPER_PROOF_NEEDS_INDEPENDENT_REVIEW / PNT ASYMPTOTIC`; `COUNTEREXAMPLE TO DEPTHWISE ABSOLUTE PAYMENT`; `NO_COMPLETE_SOURCE_BOUND`; `NO_FIXED_ETA_GAIN`; `NO_RH`.
 
 ### A. Most important analytic result
 
-The near-root telescope in \`20261031-coordinator-2\` is genuinely effective because its completion tail has length \(O(U)\). Extending the same proof to every prime \(R/2<q<R\) creates a triangular Möbius tail. Its \(\Omega(m)=1\) component alone is a coherent prime rectangle of order \(R^2/\log^2 R\).
+The near-root telescope in `20261031-coordinator-2` is genuinely effective because its completion tail has length \(O(U)\). Extending the same proof to every prime \(R/2<q<R\) creates a triangular Möbius tail. Its \(\Omega(m)=1\) component alone is a coherent prime rectangle of order \(R^2/\log^2 R\).
 
 More precisely, for \(R\ge 8\), set
 
@@ -493,7 +493,7 @@ The correct conclusion is narrower and decisive:
 
 > A far-root extension of the prime-ray mechanism must prove signed cancellation across factor depths inside the complete triangular boundary. It cannot bound the \(\Omega(m)=1\) slice, or finitely many depth slices, separately by absolute value.
 
-The coherent rectangle is analogous to Wheel claim \`20261031-wheel-2\` but lives in a different object: here it is the auxiliary boundary of the exact Euler ray completion, not the genuine \(Q_N(X)\) MU-LIFT kernel. No equivalence between the two carriers is claimed.
+The coherent rectangle is analogous to Wheel claim `20261031-wheel-2` but lives in a different object: here it is the auxiliary boundary of the exact Euler ray completion, not the genuine \(Q_N(X)\) MU-LIFT kernel. No equivalence between the two carriers is claimed.
 
 Finite exact checks support only the bookkeeping, not the asymptotic theorem. For \(R=100,500,1000,5000,10000,50000\), (30) gives respectively
 \(N_R=44,708,2085,36431,123769,2227484\). The normalized values
@@ -521,15 +521,15 @@ would be more than sufficient for this auxiliary term, but no such bound is prov
 
 ### E. Source, continuity, and live verification
 
-The original carrier remains \`research/EULER_FRACTIONAL_COUPLED_20261027.lean\`, blob \`e6c4b1690e497760d366e36b28a1f7aa60e19f85\`. It defines \`eulerFractionOffQ\` with the actual \(\mu(a)\mu(b)\), strict moving \(a<b<R\), and proves the exact continuous/floor/fractional reassembly. No model coefficient was substituted.
+The original carrier remains `research/EULER_FRACTIONAL_COUPLED_20261027.lean`, blob `e6c4b1690e497760d366e36b28a1f7aa60e19f85`. It defines `eulerFractionOffQ` with the actual \(\mu(a)\mu(b)\), strict moving \(a<b<R\), and proves the exact continuous/floor/fractional reassembly. No model coefficient was substituted.
 
-Consumed report blobs include Coordinator \`8e901e46877ff28bd8eb7c46cb3a46ade5ef32a6\`, Owner \`fdb9413fdd49588e1ad1c2348b4fabf4cff55b9c\`, prior Analytic input \`0ff859a8596fc162a4a5baa935cd4ac7e03cccc2\`, Wheel \`35cffded744eef7dc65647d4dc706faf2294eb4a\`, Census \`d86883cd5bbd36686f248ae33db7b249a627c7b5\`, Referee \`2c6b45c346617010d2d8b82eaf27b8bbc8f38465\`, and Lean \`9786950ba58b9c8c3ddaccc00926417d4b3bb945\`. The 2026-10-30 Owner report is absent: \`YESTERDAY=PENDING\`. External handoffs remain at blob \`038018145c0fddb2f6306c0712373adf9cd1ea52\`, with no newer entry than 2026-10-18.
+Consumed report blobs include Coordinator `8e901e46877ff28bd8eb7c46cb3a46ade5ef32a6`, Owner `fdb9413fdd49588e1ad1c2348b4fabf4cff55b9c`, prior Analytic input `0ff859a8596fc162a4a5baa935cd4ac7e03cccc2`, Wheel `35cffded744eef7dc65647d4dc706faf2294eb4a`, Census `d86883cd5bbd36686f248ae33db7b249a627c7b5`, Referee `2c6b45c346617010d2d8b82eaf27b8bbc8f38465`, and Lean `9786950ba58b9c8c3ddaccc00926417d4b3bb945`. The 2026-10-30 Owner report is absent: `YESTERDAY=PENDING`. External handoffs remain at blob `038018145c0fddb2f6306c0712373adf9cd1ea52`, with no newer entry than 2026-10-18.
 
-Final authority refresh found unchanged \`main@05c3fcfc2ad699f09d7d473f17ac63a918a3aad3\`. PR #1062 is the sole open PR, non-draft and mergeable at \`4309335c62ddcf41d7d3a17df2589de007291eff\`. Its relevant root-dependent-resonance run \`41224963246\` and all eleven other returned PR-head workflows are successful. Its formal result is structural only: it proves the coprime criterion and root-dependence counterexample, not (28)-(32), a period mean, or a source moment.
+Final authority refresh found unchanged `main@05c3fcfc2ad699f09d7d473f17ac63a918a3aad3`. PR #1062 is the sole open PR, non-draft and mergeable at `4309335c62ddcf41d7d3a17df2589de007291eff`. Its relevant root-dependent-resonance run `41224963246` and all eleven other returned PR-head workflows are successful. Its formal result is structural only: it proves the coprime criterion and root-dependence counterexample, not (28)-(32), a period mean, or a source moment.
 
 ### F. Specialist handoffs
 
-**Coordinator / Proof Architect.** Record \`20261031-analytic-3\` as a no-go for depthwise payment of the broad prime-ray boundary, not as a no-go for the telescope. The next same-source question is an exact cross-depth cancellation grouping for (28).
+**Coordinator / Proof Architect.** Record `20261031-analytic-3` as a no-go for depthwise payment of the broad prime-ray boundary, not as a no-go for the telescope. The next same-source question is an exact cross-depth cancellation grouping for (28).
 
 **Finite Wheel & Incidence.** Classify the \(\Omega(m)=2\) and squareful slices of (28) against the prime rectangle, preserving ordered rows. Search for a finite divisor-inversion packet that cancels (30) before inequalities.
 
@@ -541,12 +541,12 @@ Final authority refresh found unchanged \`main@05c3fcfc2ad699f09d7d473f17ac63a91
 
 ### G. Routing and resume capsule
 
-- \`eta_gate: SEARCH_BROAD\`.
+- `eta_gate: SEARCH_BROAD`.
 - Primary route/carrier: CODIV/Euler prime-ray completion, exact original strict off-diagonal floor source.
-- New claim: \`20261031-analytic-3\`.
+- New claim: `20261031-analytic-3`.
 - New independent content: exact prime-depth extraction and PNT-scale coherent rectangle; counterexample to depthwise absolute payment.
 - First unresolved inequality: cross-depth signed cancellation for the full boundary (28), followed by overlap, squareful, principal, diagonal, reciprocal-square, activation, mixed, and endpoint restoration.
-- Net endpoint gain after complete return: \`UNKNOWN\`.
+- Net endpoint gain after complete return: `UNKNOWN`.
 - New fixed positive eta: NONE.
 - Strict Mertens exponent below \(7/8\): NOT PROVED.
 - Canonical VF theorem: OPEN.
