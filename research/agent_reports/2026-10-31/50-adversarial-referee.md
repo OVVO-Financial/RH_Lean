@@ -241,3 +241,127 @@ The next useful analytic theorem is not a pointwise branch bound. It is a root-a
 - Formal state: #1060 exact head green and accepted with scope, still unmerged.
 - Today Coordinator: `TODAY=PENDING`; today Lean: `TODAY=PENDING`.
 - Complete shell bound, fixed positive (eta), exponent below (7/8), canonical VF theorem, and RH: OPEN.
+
+## J. Scheduled continuation - 2026-10-31 12:06 America/New_York
+
+**Status:** COMPLETED / CONTINUITY SUPPLEMENT  
+**Live main:** `05c3fcfc2ad699f09d7d473f17ac63a918a3aad3`  
+**Authority blobs:** `AGENTS.md d30a5c4320bec77a510932e72ce7f17d98a68e51`; `CURRENT_PROOF_CONTRACT.md 7a067ec0423a998e1079e37494061346d8ee02b0`; stable selector `bcdfe8df1bb4d7e8ed7696b560f3fc4916af245a`; broad-search policy `46d27ef877325c391377d7cba6629f69316588b9`.  
+**New claims:** `20261031-referee-4..6`.  
+**Evidence classes:** `PAPER_ACCEPTED_WITH_SCOPE`; `EXACT SOURCE-FAITHFUL NO-GO`; `REVISE_WITH_EXACT_REPAIR`; `PROVED_IN_LEAN_ON_MAIN`; `NO_COMPLETE_SOURCE_BOUND`; `NO_FIXED_ETA_GAIN`; `NO_RH`.  
+**eta_gate:** `SEARCH_BROAD`.
+
+This continuation was required because the Owner and Analytic reports acquired material second claims after the first referee completion, PR #1060 merged, and the broad-search-until-eta policy merged through #1061. The earlier findings remain valid unless corrected below.
+
+### J.1 Live repository, reports, and CI
+
+PR #1059 is merged at `6b2a869750b92fcdbebff78a591e7722b4f2c747`. PR #1060 is merged at `7ec8528649d43ee0d89848ae451ca53387c2a2e4`; its proof head is `80ee69a861398007046e35b79f7040e923078942`. All 12 observed pull-request workflow runs on that exact proof head completed successfully, including Uniform completed Euler coefficients Lean, Lean source audits, Targeted Lean iteration, Proof inventory, and Public export verification. The source blob remains `c39fde58586c2df55fb5be0166d1908db5aa3aba`. Its four declarations are now `PROVED_IN_LEAN_ON_MAIN`, still only at their explicit structural scope. PR #1061 is merged at the live head above. No open or draft PR was returned; the combined legacy status list is empty, and neither merge commit returned a pull-request-triggered workflow run.
+
+The completed Oct 31 Coordinator, Owner, Analytic, Wheel, Census, Referee, and Lean reports were consumed at blobs `d725323b1603720c834ca5e2337a3f56eca3e8ba`, `d2118e3e5c567e1fbc023171b65fd7886eb78a7e`, `0ff859a8596fc162a4a5baa935cd4ac7e03cccc2`, `35cffded744eef7dc65647d4dc706faf2294eb4a`, `d86883cd5bbd36686f248ae33db7b249a627c7b5`, the prior report blob, and `72de70e0f58f7b16d78e65e5d0ccec5058311fbd`. The available Oct 30 Coordinator, Analytic, Wheel, Census, Referee, and Lean reports remain the verified carry-forward; no Oct 30 Owner file exists. `EXTERNAL_HANDOFFS.md` remains blob `038018145c0fddb2f6306c0712373adf9cd1ea52`, with no entry newer than Oct 18.
+
+### J.2 Claim `20261031-referee-4`: coefficient-weighted resonance diagonal
+
+Coordinator claim `20261031-coordinator-1` is **ACCEPT_WITH_SCOPE**. For
+[
+delta_R(j,k)=gcd(j^2,jR+k),
+]
+the exact first-period result already proved in `20261031-referee-2` gives
+[
+sum_{0le r<j}delta_r(j,k)le jgcd(j,k)	au(j).
+]
+An interval of (H) roots uses at most (H/j+1) periods, so positivity gives
+[
+sum_{Hle R<2H}delta_R(j,k)
+le (H+j)gcd(j,k)	au(j).
+]
+The literal moving coefficient satisfies (|eta_R(n)|le	au(n)). The standard quantified divisor bound (	au(n)^2le C_arepsilon n^arepsilon), uniformly in (n), therefore proves
+[
+sum_{Hle R<2H}delta_R(j,k)|eta_R(jR+k)|^2
+le C_arepsilon ((2j+1)H)^arepsilon
+(H+j)gcd(j,k)	au(j)
+]
+for (Hge2, jge1, 0le k<H).
+
+The claimed second-period formula also checks prime-power by prime-power:
+[
+rac1jsum_{0le r<j}delta_r(j,k)^2
+=prod_{p^aVert j}B_p(a,v_p(k)),
+]
+where (B_p=p^{2b}) for (b<a), and
+(B_p=p^{2a-1}((p+1)p^a-1)) for (bge a). At (j=k=p), the first and second period averages are respectively (2p-1) and (p^3+p^2-p). Thus averaging the natural Gauss energy before a further Cauchy step is genuinely necessary.
+
+This pays a nonnegative resonance/admission diagonal only. It contains no cross-column cancellation, principal payment, reciprocal-square restoration, or endpoint transfer and is not a fixed-eta gain.
+
+### J.3 Claim `20261031-referee-5`: squarefree owner-to-Euler Fubini
+
+Owner claim `20261031-owner-2` is **ACCEPT_WITH_SCOPE / PAPER_PROOF**. Let (d>1) be squarefree and (p=P^-(d)). Every admitted strict factor pair (ab=d) is coprime, has fresh-prime set equal to the prime divisors of (d), and therefore has the same least chronological owner (p). For composite (d), stripping (p) cannot produce an equal parent: that would force the squarefree integer (d/p>1) to be a square. Each row is therefore recursive with a unique stripped parent. For prime (d=p), the sole possible row ((1,p)) is terminal. Summing recursive parents plus this terminal case reproduces the literal moving coefficient
+[
+eta_R(d)=sum_{substack{1le a<b<R\ab=d}}mu(a)mu(b)
+]
+without freezing activation. Under full admission (R>d),
+[
+eta_R(d)=(-1)^{omega(d)}2^{omega(d)-1}.
+]
+
+The (d=30) collision is decisive: parents ((1,15)) and ((3,5)) contribute two rows each, all of sign (-1), so the cross-parent energy is positive rather than canceling. The result does not extend to squareful (d): (d=12) has surviving row ((2,6)) with fresh owner (3
+e P^-(12)). It also does not identify this least-owner partition with a greatest-owner SAT partition. The theorem is a source-faithful reindexing and a no-go for within-modulus squarefree parent cancellation, not a moment bound.
+
+### J.4 Claim `20261031-referee-6`: analytic first-band transform requires an endpoint repair
+
+Analytic claim `20261031-analytic-2` receives **REVISE_WITH_EXACT_REPAIR**.
+
+For every (Rge2) and (R<n<2R), equation (11) is correct:
+[
+eta_R(n)=eta^*(n):=
+sum_{substack{2le a<b\ab=n}}mu(a)mu(b).
+]
+For every (nge2), its coefficient identity is also correct:
+[
+2eta^*(n)=(mu*mu)(n)-2mu(n)-s_square(n).
+]
+But the advertised all-(n) equation (12) is false at the smallest possible input (n=1):
+[
+2eta^*(1)=0,qquad
+(mu*mu)(1)-2mu(1)-s_square(1)=1-2-1=-2.
+]
+The exact all-(n) repair is
+[
+oxed{2eta^*(n)=(mu*mu)(n)-2mu(n)-s_square(n)
++2mathbf 1_{n=1}.}
+]
+Consequently the corrected Dirichlet series for (Re s>1) is
+[
+oxed{sum_{nge1}rac{eta^*(n)}{n^s}
+=rac1{2zeta(s)^2}-rac1{zeta(s)}
+-rac{zeta(2s)}{2zeta(4s)}+1.}
+]
+An independent exact integer check gives discrepancy (2) at (n=1) and zero discrepancy for every (2le nle12). The report's stated finite check “(1le n<100)” therefore cannot be accepted as written and should be corrected or its code/range disclosed.
+
+The added (+1) is entire. Hence the inverse implication survives unchanged: if (B(x)=sum_{nle x}eta^*(n)=O(x^	heta)), (	heta<1), then the Dirichlet series is analytic on (Re s>	heta); a zeta zero (ho) with (Reho>max(	heta,1/4)) creates an uncancellable order-(2m) pole from (1/zeta^2), while the other singular term has at most order (m) and the square term is regular because (Re(4ho)>1). Thus the stated zero-free consequence is accepted after the endpoint repair.
+
+The semiprime floor-return obstruction is **ACCEPT_WITH_SCOPE**. For primes (3R/4<q<R), the genuine row ((2,q)) is admitted, has positive sign, and lies in the far first band. Exact continuous-minus-fractional reassembly gives
+[
+C_R=2sum_{3R/4<q<R}leftlfloorrac{R^2-1}{2q}ightfloor.
+]
+Since (qle R-1), each doubled floor is at least (R), so
+[
+C_Rge Rigl(pi(R-1)-pi(lfloor3R/4floor)igr).
+]
+PNT gives the prime count asymptotic (R/(4log R)), hence eventually
+(C_Rge R^2/(5log R)) and the isolated block energy is
+(gg H^5/log^2H). This is a genuine original-source counterexample to bounding the far first band plus its matching reciprocal restoration sectorwise inside the shell budget. It is not a lower bound for the complete signed source, whose cross-depth, cross-band, squareful, diagonal, and endpoint terms may cancel it.
+
+### J.5 Verdicts and surviving research obligation
+
+- `20261031-coordinator-1`: **ACCEPT_WITH_SCOPE**.
+- `20261031-owner-2`: **ACCEPT_WITH_SCOPE / PAPER_PROOF**.
+- `20261031-analytic-2` equations (11), (14)-(20): **ACCEPT_WITH_SCOPE** after the stated endpoint repair.
+- `20261031-analytic-2` equations (12)-(13) as written for all (nge1): **REFUTED AT (n=1); REVISE**, with the exact correction above.
+- Any sectorwise absolute payment of the genuine positive ((2,q)) floor-return block: **COUNTEREXAMPLE / INFINITE FAMILY**.
+- Any inference from that block to failure of the complete shell estimate: **REJECT**; omitted signed interactions are essential.
+- Main #1060 declarations: **PROVED_IN_LEAN_ON_MAIN / STRUCTURAL ONLY**.
+
+The smallest surviving same-source problem is now sharper: identify and bound the legal negative partners of the ((2,q)) block across different squarefree depths/moduli and the squareful/restoration sectors, before taking norms, with all cross terms retained. A scalar bound for (B(x)) below exponent one would itself prove a zero-free region and must not be smuggled in as an elementary coefficient estimate.
+
+**Final status:** `NO_NEW_COMPLETE_SOURCE_BOUND`; `NO_FIXED_ETA_GAIN`; canonical VF theorem OPEN; strict exponent below (7/8) OPEN; RH OPEN.
+
