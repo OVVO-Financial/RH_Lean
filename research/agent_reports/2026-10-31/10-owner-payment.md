@@ -1,6 +1,6 @@
 # RH_Lean agent daily report - 2026-10-31 / RH | Owner Payment
 
-**Status:** IN_PROGRESS (additional scheduled invocation at 08:09 America/New_York)
+**Status:** COMPLETED (two scheduled invocations; latest completed 08:13 America/New_York)
 **Invocation:** scheduled run begun 2026-10-31 00:09 America/New_York
 **Final authority refresh:** 2026-10-31 00:18 America/New_York
 **Pinned live main:** `6b2a869750b92fcdbebff78a591e7722b4f2c747`
@@ -180,7 +180,7 @@ Completed synthesis commit: `bfe1aaa714f4e4723e7608181cf106cfeba6e663`; read bac
 
 ---
 
-## Additional invocation checkpoint — 2026-10-31 08:24 America/New_York
+## Additional invocation checkpoint — 2026-10-31 08:11 America/New_York
 
 **Checkpoint status:** `IN_PROGRESS`  
 **Authority reverified:** main `6b2a869750b92fcdbebff78a591e7722b4f2c747`; `AGENTS.md` blob `d30a5c4320bec77a510932e72ce7f17d98a68e51`; contract blob `7a067ec0423a998e1079e37494061346d8ee02b0`.  
@@ -188,3 +188,164 @@ Completed synthesis commit: `bfe1aaa714f4e4723e7608181cf106cfeba6e663`; read bac
 **First research problem:** construct or refute the requested occurrence-preserving Fubini bridge from complete least-owner blocks to one named Euler/SAT/VF carrier, retaining terminal occurrences and cross-parent collisions.
 
 **Candidate claim under derivation:** for a fully admitted squarefree composite modulus d, every strict factor pair ab=d, a<b, belongs to the least-owner block p=P^-(d); summing the original unweighted pair signs across all stripped parents recovers the complete strict Euler coefficient alpha(d). The d=30 collision has parent fibres (1,15) and (3,5), each with two occurrences, and total signed mass -4. Terminal prime moduli, moving activation, and the exact coefficient law remain under audit. No global estimate is claimed at this checkpoint.
+
+
+---
+
+## Additional invocation final synthesis — claim `20261031-owner-2`
+
+**Result classes:** `PAPER_PROOF / EXACT OCCURRENCE-PRESERVING OWNER-TO-EULER FUBINI`; `STRUCTURAL CROSS-PARENT COHERENCE`; `REFUTED` for the squareful extension and for identifying least-owner with greatest-owner SAT fibres; `NO_COMPLETE_SOURCE_BOUND`; `NO_FIXED_ETA_GAIN`; `NO_RH`.
+
+### A. Most important mathematical development
+
+For every squarefree modulus `d>1`, the complete moving strict factor-pair coefficient is one least-owner block, not a mixture of owner primes. Composite `d` is entirely recursive; prime `d` is exactly the equal-parent terminal restoration. Thus the requested owner Fubini bridge exists on the squarefree part of the genuine moving Euler carrier, with activation and cross-parent collisions retained.
+
+At full admission, if `r=omega(d)`,
+
+```text
+eulerCompletedProductCoeff(d) = (-1)^r * 2^(r-1).
+```
+
+Every parent fibre has the same sign. Hence different parents reinforce inside one modulus; they cannot supply the cancellation left open by `20261031-owner-1`.
+
+### B. Current authoritative objective and sources
+
+Final refresh kept `main@6b2a869750b92fcdbebff78a591e7722b4f2c747`. Authority blobs remain `AGENTS.md d30a5c4320bec77a510932e72ce7f17d98a68e51` and contract `7a067ec0423a998e1079e37494061346d8ee02b0`. Material source blobs are:
+
+- `COVARIANCE_REMAINDER_OWNER_FUBINI.lean a1292825681d028ec511059920274e62e1168638`;
+- `EndpointCubeAnalyticClosure.lean dd73df8739c5875b4d5de37e5df690c61fafaba7`;
+- `OWNER_COMPLETE_SIGNED_RETURN_20261030.lean 3a35c851336ea6c357c65217a0d1dc521557c3bc`;
+- `EULER_FRACTIONAL_COUPLED_20261027.lean e6c4b1690e497760d366e36b28a1f7aa60e19f85`;
+- `EULER_PHYSICAL_COMPLETE_PACKET_20261030.lean 8084af7fa50fb5b8361a64f05eb658f08b529ca7`.
+
+PR #1060 remains open, non-draft and unmerged at `80ee69a861398007046e35b79f7040e923078942`; its coefficient source blob is `c39fde58586c2df55fb5be0166d1908db5aa3aba`. The PR-head convolution theorem is supporting formal evidence, not main authority.
+
+The canonical endpoint and complete fixed-eta square-shell moment stated earlier in this report remain open.
+
+### C. Structural hypothesis investigated
+
+**Hypothesis.** After summing all parents and restoring terminal occurrences, a fixed chronological owner `p` might exhibit cancellation that is invisible inside one parent fibre.
+
+**Verdict.** Refuted within each squarefree modulus. All factor-pair occurrences of that modulus have owner `p=P^-(d)` and the same sign. The exact sum across parents is the original moving Euler coefficient. Any saving must occur between different moduli/factor depths, through squareful terms, or through other principal/restoration sectors.
+
+### D. Exact derivation
+
+Write
+
+```text
+beta_R(d) = sum_(1 <= a < b < R, ab=d) mu(a)mu(b).
+```
+
+Let `d>1` be squarefree and `p=P^-(d)`. For every admitted pair `ab=d`, squarefreeness gives `gcd(a,b)=1`; its fresh-prime set is exactly the full prime-divisor set of `d`. Therefore its unique least fresh owner is `p`. The pair survives the post-root common-prime subtraction at `W=R-1`.
+
+If `d` is composite, stripping `p` cannot make the two parent coordinates equal: equality would force the squarefree number `d/p` to be `1`. Hence every admitted pair is recursive. Unique stripped parent and the compiled owner filter give the exact signed Fubini identity
+
+```text
+beta_R(d)
+ = sum_parent sum_{(a,b) in fixedOwnerFiber(W,parent,p), ab=d}
+       mu(a)mu(b),                    W=R-1.              (4)
+```
+
+No completion is used in (4): a child contributes exactly when `a<b<R`, so moving activation is preserved.
+
+If `d=p` is prime, the only possible pair is `(1,p)`. Stripping `p` gives `(1,1)`, so it is terminal, not recursive. Consequently
+
+```text
+beta_R(p) = -1 if p<R, and 0 otherwise,
+```
+
+and the terminal/recursive partition restores precisely this missing prime row.
+
+The same exact source row is
+
+```text
+eulerOriginalProductRow(R,d) = beta_R(d) * ((R^2-1 mod d)/d).   (5)
+```
+
+Thus (4) bridges the complete squarefree least-owner block to the named original moving Euler carrier, including its physical clock.
+
+When `R>d`, all strict factor pairs are admitted. If `r=omega(d)`, there are `2^(r-1)` unordered complementary divisor pairs and each satisfies
+
+```text
+mu(a)mu(b)=mu(d)=(-1)^r.
+```
+
+Hence
+
+```text
+beta_R(d)=alpha(d)=(-1)^r 2^(r-1).                    (6)
+```
+
+For composite `d`, the parents are the `2^(r-2)` unordered factor pairs of `d/p`; each parent has exactly the two prime-insertion children, and both have sign `(-1)^r`.
+
+### E. Quantitative consequence
+
+Equation (6) is an exact coefficient classification, not a global bound. It rules out cross-parent cancellation as a squarefree fixed-modulus mechanism and shows that factor depth produces exponentially weighted coherent mass.
+
+For `d=30`, `p=2`, the full block has two parents:
+
+```text
+(1,15) -> {(1,30),(2,15)}
+(3,5)  -> {(3,10),(5,6)}.
+```
+
+All four weights are `-1`, so the parent masses are `-2,-2` and the total is `-4`. In the squared mass, the cross-parent term is `2*(-2)*(-2)=8`, positive; deleting it would halve the true energy `16` to `8`.
+
+At the moving root `R=16`, `(1,30)` is not admitted but the other three pairs are. Equation (4) gives `beta_16(30)=-3`, exactly the accepted first-band identity `alpha(30)-mu(30)=-4-(-1)`. Thus the bridge retains, rather than freezes, activation.
+
+No fixed `eta`, complete shell estimate, canonical VF estimate, Mertens improvement, or RH follows.
+
+### F. Falsification and circularity review
+
+1. **Squareful boundary:** `d=12` refutes the unrestricted extension. The only nonzero strict completed pair is `(2,6)`, whose fresh set is `{3}` and owner is `3`, whereas `P^-(12)=2`. Squareful rows require a separate shared-prime/mask ledger.
+2. **Least versus greatest owner:** `(1,30)` has least fresh owner `2` but greatest fresh owner `5`. Therefore the SAT greatest-owner Fubini cannot be identified termwise with this chronological least-owner Fubini.
+3. **Terminal restoration:** prime moduli are terminal and would be lost by summing recursive fixed-parent fibres alone.
+4. **Cross-parent collision:** `d=30` proves that different parents can land on the same Euler modulus and that their signs reinforce.
+5. **Moving admission:** the `R=16,d=30` test retains a one-child partial parent fibre; no completed coefficient is substituted.
+6. **Finite regression:** direct exact enumeration verified the owner, two-child parent multiplicity, and formula (6) for every squarefree `2<=d<=200`. This is only a regression; the proof above is all-scale.
+7. **No target assumption:** the derivation uses factorization, squarefreeness, the exact carrier filters, and Möbius multiplicativity only.
+
+### G. Conceptual interpretation
+
+The chronological owner map is triangular across factor depth, but after physical unweighting its squarefree fixed-modulus fibres are simply another indexing of the strict Möbius divisor convolution. Parent splitting creates no cancellation: it partitions a coherent coefficient. The potentially useful arithmetic oscillation lives one level higher, between moduli of different depth/parity and their root-dependent phases.
+
+### H. Competing mechanisms
+
+- **ABANDON:** cross-parent cancellation inside one squarefree modulus.
+- **CONTINUE:** cross-modulus, cross-depth cancellation in the centered root-period operator, with the literal coefficients from (4)-(6).
+- **CONTINUE WITH SEPARATE LEDGER:** squareful moduli; `d=12` shows they cannot inherit the least-prime classification.
+- **REVISE:** any SAT/VF bridge that equates chronological least-owner fibres with greatest-owner fibres.
+- **KEEP:** MU-LIFT as an independent reserve.
+
+### I. Specialist handoffs
+
+**Coordinator / Proof Architect.** Register `20261031-owner-2` as an exact moving-carrier bridge and a no-go for squarefree within-modulus cross-parent cancellation. It advances the root-period/factor-depth mechanisms but supplies no moment bound.
+
+**Analytic Type II.** Use `beta_R(d)` itself after owner Fubini; do not seek cancellation among its squarefree parent summands. The next analytic target is covariance between distinct moduli/depths, with the squareful correction separate.
+
+**Finite Wheel.** Formalize the two-to-one parent map for squarefree composite `d` and audit its interaction with least versus greatest owner. Treat `d=12` as a mandatory squareful regression.
+
+**Prime Census.** Stratify the centered Gram by modulus depth and squareful type, not by parent. Preserve cross-depth terms; the fixed-modulus parent Gram is coherent by theorem.
+
+**Adversarial Referee.** Check the exact equality between the `W=R-1` fixed-owner filter and the strict moving factor-pair carrier, especially the post-root subtraction and prime terminal case.
+
+**Lean Verification.** After #1060 is human-disposed and the claim is independently accepted, the smallest theorem is (4) for squarefree composite `d`, followed by the prime terminal identity and full-admission count (6).
+
+### J. First independently missing lemma
+
+On the exact moving squarefree carrier, prove a dyadic centered second-moment estimate that couples distinct moduli/factor depths after the root-period principal is removed, while retaining every cross-depth term and a separately quantified squareful correction. This is narrower than the complete shell target and is not supplied by the owner Fubini identity.
+
+### K. Next-run resume capsule
+
+- Main `6b2a869750b92fcdbebff78a591e7722b4f2c747`; authority blobs unchanged.
+- New claim `20261031-owner-2`: equations (4)-(6), `PAPER_PROOF / EXACT OWNER-TO-EULER FUBINI`.
+- Squarefree composite rows are recursive; prime rows are exactly terminal.
+- Full squarefree coefficient: `(-1)^omega(d) 2^(omega(d)-1)`.
+- Cross-parent cancellation is impossible within a fixed squarefree modulus; `d=30` is the decisive collision.
+- Squareful extension is false at `d=12`; least-owner/greatest-owner identification is false at `(1,30)`.
+- PR #1060 remains open and unmerged at `80ee69a...`.
+- Next step: distinct-modulus/depth centered covariance with squareful restoration.
+
+## Additional publication verification
+
+Checkpoint commit `4d8af6d5937c5065827a2cb29c108749edf5168c`; checkpoint blob `326ffb3689508dff8487f688c8b96d972c4f4a63` read back with `IN_PROGRESS` verified. Final commit and blob are recorded after exact branch readback.
