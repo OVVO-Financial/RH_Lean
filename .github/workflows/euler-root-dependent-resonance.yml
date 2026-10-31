@@ -1,0 +1,68 @@
+name: Root-dependent moving-band resonance
+
+on:
+  pull_request:
+    paths:
+      - 'research/EULER_ROOT_DEPENDENT_RESONANCE_20261031.lean'
+      - '.github/workflows/euler-root-dependent-resonance.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: euler-root-resonance-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  root-dependent-resonance:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - name: Pinned Lean and Mathlib
+        uses: ./.github/actions/lean-setup
+      - name: Restore PNT+ build cache
+        uses: actions/cache/restore@v5
+        with:
+          path: .lake/packages/PrimeNumberTheoremAnd/.lake/build
+          key: pntplus-build-v1-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
+      - name: Prebuild PNT+ StrongPNT
+        run: lake build PrimeNumberTheoremAnd.StrongPNT
+      - name: Restore native library cache
+        uses: actions/cache/restore@v5
+        with:
+          path: .lake/build
+          key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'RHLean.lean', 'RHLean/**/*.lean') }}
+          restore-keys: |
+            rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-
+      - name: Warning-fatal source-addressed proof closure
+        run: |
+          python3 scripts/compile_research_import_closure.py --build-library \
+            research/EULER_ROOT_DEPENDENT_RESONANCE_20261031.lean
+      - name: Exact signatures and standard logical axioms
+        run: |
+          set -o pipefail
+          cat > /tmp/euler_root_resonance_audit.lean <<'EOF'
+          import «research.EULER_ROOT_DEPENDENT_RESONANCE_20261031»
+          #check RHLean.Proof.rootResonanceMultiplicity_eq_one_iff
+          #check RHLean.Proof.rootResonance_root_independent_formula_false
+          #print axioms RHLean.Proof.rootResonanceMultiplicity_eq_one_iff
+          #print axioms RHLean.Proof.rootResonance_root_independent_formula_false
+          EOF
+          lake env lean -DwarningAsError=true /tmp/euler_root_resonance_audit.lean | tee /tmp/euler_root_resonance_audit.log
+          python3 - <<'PY'
+          import pathlib,re
+          log=pathlib.Path('/tmp/euler_root_resonance_audit.log').read_text()
+          assert 'sorryAx' not in log
+          found=re.findall(r'depends on axioms:\\s*\\[([^]]*)\\]',log,re.S)
+          assert len(found)>=2
+          for item in found:
+              used={a.strip() for a in item.split(',') if a.strip()}
+              assert used <= {'propext','Classical.choice','Quot.sound'},used
+          text=pathlib.Path('research/EULER_ROOT_DEPENDENT_RESONANCE_20261031.lean').read_text()
+          text=re.sub(r'/-.*?-/', '',text,flags=re.S)
+          text=re.sub(r'--.*','',text)
+          assert not re.search(r'\\b(sorry|admit|axiom|native_decide)\\b',text)
+          print('PASS: exact resonance theorem, counterexample, and standard logical axioms only')
+          PY
