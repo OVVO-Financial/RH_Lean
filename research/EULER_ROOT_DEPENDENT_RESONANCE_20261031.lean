@@ -45,10 +45,8 @@ theorem rootResonanceMultiplicity_eq_one_iff
     have hpDvdSum : p ∣ j * R + k :=
       dvd_trans hpDvd (Nat.gcd_dvd_right _ _)
     have hpDvdK : p ∣ k := by
-      have hiff : p ∣ k ↔ p ∣ j * R + k := by
-        symm
-        exact Nat.dvd_add_iff_left hpDvdJR
-      exact hiff.mpr hpDvdSum
+      apply (Nat.dvd_add_iff_left hpDvdJR).mpr
+      simpa [Nat.add_comm] using hpDvdSum
     have hpDvdGcd : p ∣ Nat.gcd j k := Nat.dvd_gcd hpDvdJ hpDvdK
     rw [hcop.gcd_eq_one] at hpDvdGcd
     exact hpPrime.not_dvd_one hpDvdGcd
