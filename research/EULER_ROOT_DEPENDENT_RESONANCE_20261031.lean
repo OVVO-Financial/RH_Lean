@@ -36,11 +36,8 @@ theorem rootResonanceMultiplicity_eq_one_iff
         (dvd_mul_of_dvd_left (Nat.gcd_dvd_left j k) R)
         (Nat.gcd_dvd_right j k)
   · intro hcop
-    have hpos : 0 < Nat.gcd (j ^ 2) (j * R + k) :=
-      Nat.gcd_pos_of_pos_left _ (pow_pos hj 2)
     by_contra hne
-    have hgt : 1 < Nat.gcd (j ^ 2) (j * R + k) := by omega
-    obtain ⟨p, hpPrime, hpDvd⟩ := Nat.exists_prime_and_dvd hgt
+    obtain ⟨p, hpPrime, hpDvd⟩ := Nat.exists_prime_and_dvd hne
     have hpDvdJ2 : p ∣ j ^ 2 :=
       dvd_trans hpDvd (Nat.gcd_dvd_left _ _)
     have hpDvdJ : p ∣ j := hpPrime.dvd_of_dvd_pow hpDvdJ2
