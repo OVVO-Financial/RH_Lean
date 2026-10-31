@@ -348,4 +348,4 @@ On the exact moving squarefree carrier, prove a dyadic centered second-moment es
 
 ## Additional publication verification
 
-Checkpoint commit `4d8af6d5937c5065827a2cb29c108749edf5168c`; checkpoint blob `326ffb3689508dff8487f688c8b96d972c4f4a63` read back with `IN_PROGRESS` verified. Final commit and blob are recorded after exact branch readback.
+Checkpoint commit `4d8af6d5937c5065827a2cb29c108749edf5168c`; checkpoint blob `326ffb3689508dff8487f688c8b96d972c4f4a63` read back with `IN_PROGRESS` verified. Final synthesis commit `04e4422ce4c290742cae87ddb7a392968312069a`; blob `2a068f9fd0765335d69b8941d74d03d7df440589` read back at 24,860 characters with `COMPLETED` and claim `20261031-owner-2` verified.
