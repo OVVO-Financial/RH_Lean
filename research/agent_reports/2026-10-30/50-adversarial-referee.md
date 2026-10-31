@@ -547,7 +547,7 @@ remaining source.
 ### K.4 Continuity, formal state, and next obstruction
 
 Today Coordinator and Owner report paths remain `TODAY=PENDING`.
-Today Wheel, Census, Analytic, and prior Referee material were consumed;
+Today Wheel, Census, Analytic, prior Referee, and Lean blob `0c6b9c81fc35529abea32ce8617372ef8b282ade` were consumed;
 the complete 2026-10-29 set remains `YESTERDAY=CARRY_FORWARD`. External
 handoffs blob `038018145c0fddb2f6306c0712373adf9cd1ea52` has no entry newer
 than 2026-10-18. GitHub returned no open or draft PRs.
