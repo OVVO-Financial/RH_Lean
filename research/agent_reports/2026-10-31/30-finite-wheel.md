@@ -361,3 +361,196 @@ These are finite regressions only; equations (17)-(18) and PNT prove the all-sca
 - Next distinct route due: CORR4 under the next rolling three-invocation cycle.
 - New fixed-eta source saving: NONE.
 - Complete shell bound, exponent below `7/8`, canonical VF estimate and RH: OPEN.
+
+
+## L. 18:06 America/New_York scheduled continuation
+
+**Status:** COMPLETED continuation  
+**New claim:** \`20261031-wheel-3\`  
+**Result classes:** \`PAPER_PROOF_NEEDS_INDEPENDENT_REVIEW / FIXED-DEPTH ASYMPTOTIC\`, \`EXACT SQUAREFUL EXCLUSION\`, \`COUNTEREXAMPLE_TO PRIME-SEMIPRIME DEPTH PAIRING\`, \`NO_NEW_INDEPENDENT UPPER BOUND\`, \`NO_FIXED_ETA_GAIN\`, \`NO_RH\`.
+
+### Claim \`20261031-wheel-3\`: the semiprime completion layer is log-log larger than the prime layer
+
+Consume the exact broad prime-ray boundary from Coordinator claim
+\`20261031-coordinator-2\` and Analytic claim \`20261031-analytic-3\`.  For
+\(R\ge 8\), put
+
+\[
+ X=R^2-1,\qquad L=\lfloor(R-1)/2\rfloor,\qquad
+ A_q=\lfloor X/(2q)\rfloor,
+\]
+
+and for \(r\ge1\) define its squarefree factor-depth slice
+
+\[
+ B_R^{[r]}=
+ \sum_{\substack{R/2<q<R\\q\ {\rm prime}}}
+ \sum_{\substack{L<m\le A_q\\m\ {\rm odd}\\
+                  \mu(m)^2=1,\ \Omega(m)=r}}\mu(m).       \tag{33}
+\]
+
+Let
+
+\[
+ c_\triangle=\int_{1/2}^{1}\left({1\over2x}-{1\over2}\right)\,dx
+ ={\log 2\over2}-{1\over4}>0.
+\]
+
+Then, as \(R\to\infty\),
+
+\[
+ B_R^{[1]}\sim-c_\triangle {R^2\over\log^2R},               \tag{34}
+\]
+\[
+ \boxed{\quad
+ B_R^{[2]}\sim c_\triangle {R^2\log\log R\over\log^2R}.
+ \quad}                                                     \tag{35}
+\]
+
+Consequently
+
+\[
+ {B_R^{[2]}\over |B_R^{[1]}|}\sim\log\log R,\qquad
+ B_R^{[1]}+B_R^{[2]}\sim B_R^{[2]}.                         \tag{36}
+\]
+
+Thus the coherent prime rectangle isolated in \`20261031-analytic-3\`
+cannot be canceled by adjoining only its squarefree semiprime completion
+partners.  The next depth is not a small correction: it is eventually
+larger by an unbounded factor and has the opposite sign.  Any successful
+completion argument must retain still deeper squarefree layers jointly
+before taking absolute values.
+
+### Proof and exact incidence interpretation
+
+Equation (34) is exactly Analytic equation (31).  In (33), every
+squarefree semiprime is uniquely \(m=p_1p_2\) with distinct odd primes
+\(p_1<p_2\), and \(\mu(m)=+1\).  Hence \(B_R^{[2]}\) is the literal number
+of ordered source-completion triples
+
+\[
+ (q,p_1,p_2):\quad R/2<q<R,\quad
+ L<p_1p_2\le {R^2-1\over2q},\quad p_1<p_2,
+\]
+
+with the displayed odd and strict endpoint conventions.  No occurrence
+is assigned twice.
+
+For fixed \(0<a<b\), the elementary Landau semiprime asymptotic, obtained
+by summing the PNT over the smaller prime, gives uniformly on compact
+scaled intervals
+
+\[
+ \#\{aR<p_1p_2\le bR:\ 2<p_1<p_2\}
+ \sim (b-a){R\log\log R\over\log R}.                         \tag{37}
+\]
+
+The omitted repeated-prime products contribute \(O(\sqrt R)\); products
+with \(p_1=2\) contribute \(O(R/\log R)\).  Both are lower order than
+(37).  Partition \(q/R\in(1/2,1)\) into finitely many compact intervals,
+apply (37) to the corresponding \(m/R\) intervals, and then apply the PNT
+to \(q\).  Upper and lower step approximations converge because the
+curved boundary \(y=1/(2x)\) has planar measure zero.  The resulting area
+is exactly \(c_\triangle\), proving (35).  Floors, \(X=R^2-1\), and the
+strict endpoints affect only the lower-order boundary.
+
+Squareful completion terms require no estimate:
+
+\[
+ \sum_{\substack{R/2<q<R\\q\ {\rm prime}}}
+ \sum_{\substack{L<m\le A_q\\m\ {\rm odd}\\\mu(m)^2=0}}
+ \mu(m)=0.                                                   \tag{38}
+\]
+
+This is an exact consequence of the original Möbius coefficient.  It
+does not remove the distinct squareful, diagonal, reciprocal-square, or
+restoration sectors of the complete Euler source.
+
+### Exact finite regression
+
+An exact SPF/Möbius sieve was used only as a bookkeeping regression.
+For each \(k\), prefix arrays
+\(C_k(t)=\sum_{m\le t,\ m\ {\rm odd}}\mu(m)1_{\Omega(m)=k}\)
+evaluate (33) as
+\(\sum_q(C_k(A_q)-C_k(L))\).
+
+| \(R\) | \(B_R^{[1]}\) | \(B_R^{[2]}\) | \(B_R^{[1]}+B_R^{[2]}\) |
+|---:|---:|---:|---:|
+| 1,000 | -2,085 | 2,922 | 837 |
+| 10,000 | -123,769 | 209,888 | 86,119 |
+| 100,000 | -7,865,051 | 15,550,887 | 7,685,836 |
+| 500,000 | -149,686,472 | 321,800,094 | 172,113,622 |
+
+These values are finite evidence only.  The proof of (35) is the
+PNT/Landau argument above.
+
+### Scope, falsification, and proof impact
+
+The variables \(m>L\) are auxiliary completion variables and are not
+admitted physical rows \(2m<R\).  Therefore (35) is not a lower bound for
+the completed prime-ray sum, \`eulerFractionOffQ\`, its shell energy, or
+the canonical endpoint.  Higher squarefree depths can and do cancel the
+first two layers.  The claim refutes only a proposed finite packet
+consisting of the prime and semiprime depth slices.
+
+The result is stronger than another wheel count in one useful sense: it
+proves that a natural sign-reversing depth pairing has the wrong
+asymptotic capacity.  Unique factorization supplies exact occurrence
+counts and signs, but no bounded prime-semiprime allocation can absorb
+the boundary.  The first unresolved same-source problem is now a
+growing-depth Möbius/Buchstab cancellation theorem for the complete
+triangle, with all physical return terms restored afterward.
+
+A standard fixed-\(r\) Landau extension suggests alternating
+\((\log\log R)^{r-1}/(r-1)!\) layers, but no general fixed-\(r\) theorem is
+claimed here.  It should be separately stated and reviewed before use.
+
+### Continuity, authority, and handoff
+
+Live authority at final refresh is
+\`main@05c3fcfc2ad699f09d7d473f17ac63a918a3aad3\`;
+\`AGENTS.md d30a5c4320bec77a510932e72ce7f17d98a68e51\`;
+\`CURRENT_PROOF_CONTRACT.md 7a067ec0423a998e1079e37494061346d8ee02b0\`;
+broad-search policy
+\`46d27ef877325c391377d7cba6629f69316588b9\`.
+The original carrier is
+\`research/EULER_FRACTIONAL_COUPLED_20261027.lean\`,
+blob \`e6c4b1690e497760d366e36b28a1f7aa60e19f85\`.
+
+Consumed current-day report blobs: Coordinator
+\`8e901e46877ff28bd8eb7c46cb3a46ade5ef32a6\`; Owner
+\`fdb9413fdd49588e1ad1c2348b4fabf4cff55b9c\`; Analytic
+\`574c544048e225475569c57f95ca1e47237ab733\`; prior Wheel
+\`35cffded744eef7dc65647d4dc706faf2294eb4a\`; Census
+\`d86883cd5bbd36686f248ae33db7b249a627c7b5\`; Referee
+\`2c6b45c346617010d2d8b82eaf27b8bbc8f38465\`; Lean
+\`9786950ba58b9c8c3ddaccc00926417d4b3bb945\`.
+The available 2026-10-30 Coordinator, Analytic, Wheel, Census, Referee,
+and Lean reports were consumed; no 2026-10-30 Owner file exists, so
+\`YESTERDAY=PENDING\`.  External inbox blob
+\`038018145c0fddb2f6306c0712373adf9cd1ea52\` has no entry newer than
+2026-10-18.
+
+PR #1062 is the sole open PR, at
+\`4309335c62ddcf41d7d3a17df2589de007291eff\`; it proves only the
+root-resonance coprime criterion and counterexample.  It does not prove
+(33)-(38).
+
+**Adversarial Referee:** independently check the local semiprime
+asymptotic (37), uniform step approximation, constant \(c_\triangle\),
+and auxiliary-versus-physical scope.
+
+**Analytic Type II:** do not seek prime-semiprime pair cancellation for
+(28).  Either prove a complete growing-depth triangle bound or rotate to
+NYMAN as already scheduled.
+
+**Prime Census:** if revisiting this carrier, record cumulative depth
+sums through the maximal possible \(\Omega(m)\), rather than fitting the
+first two layers.  The exact table above is a regression target.
+
+\`eta_gate: SEARCH_BROAD\`  
+\`new_fixed_positive_eta: NONE\`  
+\`net_endpoint_gain_after_complete_return: UNKNOWN\`  
+\`strict_Mertens_exponent_below_7_8: NOT_PROVED\`  
+\`canonical_VF_theorem: OPEN\`  
+\`RH: OPEN\`
