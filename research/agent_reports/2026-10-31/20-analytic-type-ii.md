@@ -398,3 +398,16 @@ External inbox blob `038018145c0fddb2f6306c0712373adf9cd1ea52` has no handoff ne
 - Strict exponent below \(7/8\): NOT PROVED.
 - Canonical VF theorem: OPEN.
 - RH: OPEN.
+
+
+## Scheduled continuation checkpoint - 2026-10-31 17:11 America/New_York
+
+**Status:** IN_PROGRESS / authorized continuation  
+**Live main:** `05c3fcfc2ad699f09d7d473f17ac63a918a3aad3`  
+**Authority blobs:** `AGENTS.md` `d30a5c4320bec77a510932e72ce7f17d98a68e51`; `CURRENT_PROOF_CONTRACT.md` `7a067ec0423a998e1079e37494061346d8ee02b0`; broad-search selector `46d27ef877325c391377d7cba6629f69316588b9`.  
+**Report input blob:** `0ff859a8596fc162a4a5baa935cd4ac7e03cccc2`.  
+**Eta gate:** `SEARCH_BROAD`; no complete fixed positive eta, exponent improvement, canonical VF theorem, or RH proof is established.
+
+This continuation consumes Coordinator claim `20261031-coordinator-2` (near-root prime-ray Mobius telescope, paper proof awaiting independent review), Owner claims `20261031-owner-1,2` (complete inverse-weight cancellation and exact squarefree owner-to-Euler Fubini), Wheel claim `20261031-wheel-2`, Census claim `20261031-census-2`, and Referee decisions `20261031-referee-4..6`. The preceding-day Owner report is absent and is recorded as `YESTERDAY=PENDING`; verified current-day Owner work supplies continuity.
+
+**Research question under active derivation:** determine whether the prime-ray telescope admits a uniform far-root extension whose triangular boundary is controlled by a genuinely weaker arithmetic input than the full Mertens target. Exact quantifiers, overlap, partial admission, principal, squareful, diagonal, mixed, and endpoint costs will be retained. A failure will be recorded as a precise obstruction and the strongest surviving theorem.
