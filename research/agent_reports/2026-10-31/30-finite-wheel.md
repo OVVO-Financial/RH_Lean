@@ -219,105 +219,116 @@ PR #1060 remains open and unmerged at the last verified intake; its exact-head c
 
 ## K. 10:18 America/New_York continuation after merged #1060/#1061
 
-**Status:** COMPLETED continuation  
-**Invocation:** scheduled run begun 2026-10-31 10:12 America/New_York  
-**Final authority refresh:** 2026-10-31 10:18 America/New_York  
-**Pinned live main:** `05c3fcfc2ad699f09d7d473f17ac63a918a3aad3` (merged #1061)  
-**Policy:** `SEARCH_BROAD`; broad-search policy blob `46d27ef877325c391377d7cba6629f69316588b9`  
-**Authority blobs:** `AGENTS.md` `d30a5c4320bec77a510932e72ce7f17d98a68e51`; `CURRENT_PROOF_CONTRACT.md` `7a067ec0423a998e1079e37494061346d8ee02b0`  
-**Material source blobs:** `research/MERTENS_HEATH_BROWN_SIGNED.lean` `af69b4811cf9f523eb7c96fb0ca836b2cdbd1180`; `research/MERTENS_SIGNED_HYPERBOLA.lean` `d199571f19346797229a25b0fa53c6e80499999f`; `docs/MERTENS_AMPLIFICATION_BUDGET.md` `62bbe73c4755eaa64772ec2cc2731936c01b49cd`  
-**New claim:** `20261031-wheel-2`  
-**Result classes:** `PAPER_PROOF_NEEDS_INDEPENDENT_REVIEW / EXACT GCD-LAYER INCIDENCE`, `INFINITE COPRIME PRIME-RECTANGLE OBSTRUCTION`, `NO_NEW_INDEPENDENT_INEQUALITY`, `NO_FIXED_ETA_GAIN`, `NO_RH`.
+**Status:** COMPLETED continuation
+**Invocation:** scheduled run begun 2026-10-31 10:12 America/New_York
+**Final authority refresh:** 2026-10-31 10:18 America/New_York
+**Pinned live main:** \`05c3fcfc2ad699f09d7d473f17ac63a918a3aad3\` (merged #1061)
+**Policy:** \`SEARCH_BROAD\`; broad-search policy blob \`46d27ef877325c391377d7cba6629f69316588b9\`
+**Authority blobs:** \`AGENTS.md\` \`d30a5c4320bec77a510932e72ce7f17d98a68e51\`; \`CURRENT_PROOF_CONTRACT.md\` \`7a067ec0423a998e1079e37494061346d8ee02b0\`
+**Material source blobs:** \`research/MERTENS_HEATH_BROWN_SIGNED.lean\` \`af69b4811cf9f523eb7c96fb0ca836b2cdbd1180\`; \`research/MERTENS_SIGNED_HYPERBOLA.lean\` \`d199571f19346797229a25b0fa53c6e80499999f\`; \`docs/MERTENS_AMPLIFICATION_BUDGET.md\` \`62bbe73c4755eaa64772ec2cc2731936c01b49cd\`
+**New claim:** \`20261031-wheel-2\`
+**Result classes:** \`PAPER_PROOF_NEEDS_INDEPENDENT_REVIEW / EXACT GCD-LAYER INCIDENCE\`, \`INFINITE COPRIME PRIME-RECTANGLE OBSTRUCTION\`, \`NO_NEW_INDEPENDENT_INEQUALITY\`, \`NO_FIXED_ETA_GAIN\`, \`NO_RH\`.
 
-### Claim `20261031-wheel-2`: exact GCD layers and a coherent quotient-one rectangle in the genuine MU-LIFT kernel
+### Claim \`20261031-wheel-2\`: exact GCD layers and a coherent quotient-one rectangle in the genuine MU-LIFT kernel
 
-For positive integers (N,X), retain the original signed floor form
-[
- Q_N(X)=sum_{1le i,jle N}mu(i)mu(j)
-              leftlfloor {Xover ij}ightfloor .
-]
+For positive integers \`N,X\`, retain the original signed floor form
+
+\`\`\`text
+Q_N(X) = sum_(1 <= i,j <= N) mu(i)mu(j) floor(X/(ij)).
+\`\`\`
+
 Every nonzero occurrence has a unique representation
-[
- i=ga,qquad j=gb,qquad
- g=gcd(i,j),qquad
- gcd(a,b)=gcd(g,ab)=1.
-]
-Since nonzero Mobius values force (g,a,b) squarefree,
-[
- mu(i)mu(j)=mu(ga)mu(gb)=mu(g)^2mu(a)mu(b)
-             =mu(a)mu(b),
- qquad ij=g^2ab.
-]
-Consequently the complete original carrier has the disjoint exact decomposition
-[
-oxed{
- Q_N(X)=
- sum_{gle N}mu(g)^2
- sum_{substack{a,ble N/g\
-                  gcd(a,b)=1\
-                  gcd(g,ab)=1}}
- mu(a)mu(b)
- leftlfloor {Xover g^2ab}ightfloor .
-}
-	ag{17}
-]
-Zero Mobius terms may be included because they contribute zero. Formula (17) is occurrence-preserving: the inverse map is ((g,a,b)mapsto(ga,gb)), and uniqueness follows from the actual GCD. No atom is duplicated.
 
-Now take (Nge2), (X=N^2), and
-[
- {cal P}_N={ple N:p {m prime}, 2p^2>N^2}.
-]
-For every ordered pair of distinct (p,qin{cal P}_N),
-[
- gcd(p,q)=1,qquad {N^2over2}<pqle N^2,qquad
- mu(p)mu(q)=1,qquad
- leftlfloor {N^2over pq}ightfloor=1.
-]
-Thus the (g=1), quotient-one, off-diagonal prime rectangle contributes exactly
-[
-oxed{|{cal P}_N|(|{cal P}_N|-1)}
-	ag{18}
-]
-with one coherent positive sign to (Q_N(N^2)). In the identity
-[
- M(X)=2M(N)+K_1-K_2+K_3,
-]
+\`\`\`text
+i = g*a,  j = g*b,  g = gcd(i,j),
+gcd(a,b) = gcd(g,a*b) = 1.
+\`\`\`
+
+Nonzero Mobius values force \`g,a,b\` squarefree. Hence
+
+\`\`\`text
+mu(i)mu(j) = mu(g)^2 mu(a)mu(b) = mu(a)mu(b),
+i*j = g^2*a*b.
+\`\`\`
+
+Consequently the complete original carrier has the disjoint exact decomposition
+
+\`\`\`text
+Q_N(X)
+ = sum_(g <= N) mu(g)^2
+     sum_(a,b <= N/g; gcd(a,b)=1; gcd(g,a*b)=1)
+       mu(a)mu(b) floor(X/(g^2*a*b)).                    (17)
+\`\`\`
+
+Zero Mobius terms may be included because they contribute zero. Formula (17) is occurrence-preserving: the inverse map is \`(g,a,b) -> (g*a,g*b)\`, and uniqueness follows from the actual GCD. No atom is duplicated.
+
+Now take \`N >= 2\`, \`X=N^2\`, and
+
+\`\`\`text
+P_N = {p <= N : p prime and 2*p^2 > N^2}.
+\`\`\`
+
+For every ordered pair of distinct \`p,q in P_N\`,
+
+\`\`\`text
+gcd(p,q)=1,  N^2/2 < p*q <= N^2,
+mu(p)mu(q)=1,  floor(N^2/(p*q))=1.
+\`\`\`
+
+Thus the \`g=1\`, quotient-one, off-diagonal prime rectangle contributes exactly
+
+\`\`\`text
+|P_N| * (|P_N|-1)                                         (18)
+\`\`\`
+
+with one coherent positive sign to \`Q_N(N^2)\`. In the identity
+
+\`\`\`text
+M(X) = 2M(N) + K1 - K2 + K3,
+\`\`\`
+
 the same occurrence contributes
-[
- {1over2}-{Xover pq}
- +left(left{{Xover pq}ight}-{1over2}ight)=-1
-]
-to (K_1-K_2+K_3=-Q_N(X)). Hence this is not a diagonal artifact, a shared-GCD loss, or a (K_3)-only phase: it is a literal coprime original-source packet whose three displayed pieces reassemble coherently.
+
+\`\`\`text
+1/2 - X/(p*q) + ({X/(p*q)} - 1/2) = -1
+\`\`\`
+
+to \`K1-K2+K3=-Q_N(X)\). Hence this is not a diagonal artifact, a shared-GCD loss, or a \`K3\`-only phase: it is a literal coprime original-source packet whose three displayed pieces reassemble coherently.
 
 By the prime number theorem,
-[
- |{cal P}_N|
- =pi(N)-pi(N/sqrt2)+O(1)
- sim (1-2^{-1/2}){Noverlog N}.
-]
-Therefore (18) has order (N^2/log^2N).
+
+\`\`\`text
+|P_N| = pi(N)-pi(N/sqrt(2))+O(1)
+      ~ (1-1/sqrt(2))*N/log N.
+\`\`\`
+
+Therefore (18) has order \`N^2/log^2 N\`.
 
 ### Consequence: componentwise subcritical MU-LIFT payment is impossible
 
-Put (B=N+1), so (Ble X=N^2<B^2) for (Bge3), and use the live envelope
-[
- E(B)=max_{1le n<B}{|M(n)|oversqrt n}lesqrt N.
-]
-For any fixed (r<2) and any subpower (G(B)=B^{o(1)}),
-[
- G(B)E(B)^rsqrt X
- le G(N+1)N^{1+r/2}
- =o!left({N^2overlog^2N}ight).
-]
+Put \`B=N+1\`, so \`B <= X=N^2 < B^2\` for \`B >= 3\`, and use the live envelope
+
+\`\`\`text
+E(B) = max_(1 <= n < B) |M(n)|/sqrt(n) <= sqrt(N).
+\`\`\`
+
+For any fixed \`r<2\` and any subpower \`G(B)=B^o(1)\`,
+
+\`\`\`text
+G(B) E(B)^r sqrt(X)
+ <= G(N+1) N^(1+r/2)
+ = o(N^2/log^2 N).
+\`\`\`
+
 Thus no proof can bound the isolated rectangle (18) by the desired subcritical MU-LIFT budget. In particular, decomposing by GCD, quotient layer, or prime depth and paying every piece separately by absolute value cannot prove the recurrence.
 
-This does **not** refute the full genuine-Mobius recurrence. The complete (Q_N) may cancel (18) against other factor-depth and quotient layers, and the exact identity requires that nonlocal compensation. The theorem instead supplies a precise structural requirement: a successful MU-LIFT estimate must retain cross-layer signed interaction of order (N^2/log^2N); cancellation internal to shared-GCD layers is insufficient because the obstruction already lies in (g=1).
+This does **not** refute the full genuine-Mobius recurrence. The complete \`Q_N\` may cancel (18) against other factor-depth and quotient layers, and the exact identity requires that nonlocal compensation. The theorem instead supplies a precise structural requirement: a successful MU-LIFT estimate must retain cross-layer signed interaction of order \`N^2/log^2 N\`; cancellation internal to shared-GCD layers is insufficient because the obstruction already lies in \`g=1\`.
 
 ### Regression and novelty audit
 
 Exact integer sieving gives the following off-diagonal rectangle counts:
 
-| (N) | (|{cal P}_N|) | (|{cal P}_N|(|{cal P}_N|-1)) |
+| N | |P_N| | |P_N|*(|P_N|-1) |
 |---:|---:|---:|
 | 100 | 6 | 30 |
 | 500 | 24 | 552 |
@@ -325,28 +336,28 @@ Exact integer sieving gives the following off-diagonal rectangle counts:
 | 5000 | 175 | 30450 |
 | 10000 | 321 | 102720 |
 
-These are finite regressions only; equations (17)-(18) and PNT prove the all-scale statement. Repository search found the exact hyperbola split, the finite-support artificial-prefix obstruction, and warnings that a (K_3) corner alone is insufficient. It did not find the disjoint GCD-layer formula (17) or the coprime quotient-one prime rectangle (18) as a MU-LIFT obstruction. This is distinct from the Hecke top-half prime injection: it lives in the original two-variable genuine-Mobius Newton floor kernel and has quadratic ordered-pair mass.
+These are finite regressions only; equations (17)-(18) and PNT prove the all-scale statement. Repository search found the exact hyperbola split, the finite-support artificial-prefix obstruction, and warnings that a \`K3\` corner alone is insufficient. It did not find the disjoint GCD-layer formula (17) or the coprime quotient-one prime rectangle (18) as a MU-LIFT obstruction. This is distinct from the Hecke top-half prime injection: it lives in the original two-variable genuine-Mobius Newton floor kernel and has quadratic ordered-pair mass.
 
 ### Same-source synthesis and handoff
 
-- **MU-LIFT:** advanced structurally but still OPEN. The first unresolved inequality is a signed joint estimate coupling the coprime quotient-one prime rectangle to the remaining quotient/factor-depth layers uniformly for every (Ble X<B^2), with final budget power (r<2) and subpower loss.
-- **FINITE-AC:** the same (Q_N(X)) is `COORD-EULER-SELF-DUAL`; (17) is an exact incidence representation, not an all-root finite-A estimate.
+- **MU-LIFT:** advanced structurally but still OPEN. The first unresolved inequality is a signed joint estimate coupling the coprime quotient-one prime rectangle to the remaining quotient/factor-depth layers uniformly for every \`B <= X < B^2\`, with final budget power \`r<2\` and subpower loss.
+- **FINITE-AC:** the same \`Q_N(X)\` is \`COORD-EULER-SELF-DUAL\`; (17) is an exact incidence representation, not an all-root finite-A estimate.
 - **CORR4:** no q-squared daughter return or mixed energy is paid by this claim.
 
-**Adversarial Referee:** verify the bijection in (17), the strict endpoints in (18), and the asymptotic comparison for every fixed (r<2). Audit the scope as a counterexample to componentwise payment, not to the complete recurrence.
+**Adversarial Referee:** verify the bijection in (17), the strict endpoints in (18), and the asymptotic comparison for every fixed \`r<2\`. Audit the scope as a counterexample to componentwise payment, not to the complete recurrence.
 
-**Lean Verification:** after acceptance, the smallest nonduplicate formal target is a finite Fubini theorem reindexing nonzero ((i,j)) by ((gcd(i,j),i/g,j/g)), followed by the finite prime-rectangle evaluation. Do not import PNT into the finite structural lemma.
+**Lean Verification:** after acceptance, the smallest nonduplicate formal target is a finite Fubini theorem reindexing nonzero \`(i,j)\` by \`(gcd(i,j),i/g,j/g)\`, followed by the finite prime-rectangle evaluation. Do not import PNT into the finite structural lemma.
 
 **Prime Census:** preserve quotient layer and GCD layer separately when testing MU-LIFT. The relevant cancellation is the signed covariance of (18) with its complement, not the smallness of the rectangle itself.
 
 ### Routing check and resume capsule
 
-- `eta_gate: SEARCH_BROAD`.
-- `primary_route_and_original_carrier: MU-LIFT / genuine Q_N(X) Mobius floor kernel`.
-- `actual_new_lemma_or_first_unresolved_inequality:` exact (17), obstruction (18); unresolved full cross-layer signed compensation.
+- \`eta_gate: SEARCH_BROAD\`.
+- \`primary_route_and_original_carrier: MU-LIFT / genuine Q_N(X) Mobius floor kernel\`.
+- \`actual_new_lemma_or_first_unresolved_inequality:\` exact (17), obstruction (18); unresolved full cross-layer signed compensation.
 - Last Wheel attempts: CORR4 - 2026-10-30 packet/mixed-resonance classification; FINITE-AC - 2026-10-31 corrected moving resonance and root-period structure; MU-LIFT - this continuation.
 - Independent reviewer/formal evidence: pending Referee; paper proof only.
-- Net endpoint gain after complete return: `UNKNOWN`.
+- Net endpoint gain after complete return: \`UNKNOWN\`.
 - Next distinct route due: CORR4 under the next rolling three-invocation cycle.
 - New fixed-eta source saving: NONE.
-- Complete shell bound, exponent below (7/8), canonical VF estimate and RH: OPEN.
+- Complete shell bound, exponent below \`7/8\`, canonical VF estimate and RH: OPEN.
