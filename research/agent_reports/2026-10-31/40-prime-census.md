@@ -208,3 +208,122 @@ Route impact: this is S1/CODIV source evidence for the first moving high-product
 **Evidence status:** `FINITE_COMPUTATION` for the exact census on all roots in the stated dyadic ranges, plus `PAPER_PROOF` for equations (1)-(2). No all-scale inequality is claimed.
 
 **Next run:** hold the coefficient formula fixed before examining new data. Extend the exact census to at least (H=8192), preregister the statistic (E_{m far}/H^{5/2}), and separately record the squarefree-depth and squareful energies rather than only signed totals. Independently test the proposed depth-weighted (L^2) lemma on a withheld range and on roots satisfying Wheel's maximal later-band resonance congruences. Do not repeat the (Hle2048) table unless the source definition changes.
+
+
+## Additional scheduled continuation - 2026-10-31 11:04 America/New_York
+
+**Status:** COMPLETED  
+**Authority correction:** current live main is \`05c3fcfc2ad699f09d7d473f17ac63a918a3aad3\`, not the earlier pinned \`6b2a869...\`. Main now includes merged #1060 and merged #1061. The current stable selector is blob \`bcdfe8df1bb4d7e8ed7696b560f3fc4916af245a\`; the broad-search policy is \`46d27ef877325c391377d7cba6629f69316588b9\`; all-vector directive \`a2892b6641268e1ac1ce08622bbe53445fe2e8eb\`; Census role prompt \`adbcf73ef6e58fbc477ae6c16675682e08ec03d6\`. The original source remains \`research/EULER_FRACTIONAL_COUPLED_20261027.lean\` blob \`e6c4b1690e497760d366e36b28a1f7aa60e19f85\`; physical moving rows are in \`EULER_PHYSICAL_COMPLETE_PACKET_20261030.lean\` blob \`8084af7fa50fb5b8361a64f05eb658f08b529ca7\`; uniform completed coefficients are now on main at blob \`c39fde58586c2df55fb5be0166d1908db5aa3aba\`.
+
+**New claim:** \`20261031-census-2\`.  
+**Evidence classes:** \`PAPER_PROOF / EXACT CUBEFREE-RESONANCE SUPPORT\`, \`FINITE_COMPUTATION / EXACT RATIONAL GRAM CERTIFICATE\`, \`NO_COMPLETE SOURCE BOUND\`, \`NO_FIXED_ETA GAIN\`, \`NO_RH\`.
+
+### A. Mystery, competing hypotheses, and discriminator
+
+Coordinator claim \`20261031-coordinator-1\` pays the coefficient-weighted resonance diagonal
+\[
+  \sum_{H\le R<2H}\delta(R,j,k)|\beta_R(jR+k)|^2,
+  \qquad \delta(R,j,k)=\gcd(j^2,jR+k),
+\]
+but not cross-column cancellation. Two possibilities were fixed before the experiment:
+
+1. cross-column centered coherence defeats the sum of individual resonance budgets;
+2. the actual moving Mobius support suppresses the worst resonance branches and the finite centered Gram remains below that diagonal budget.
+
+For columns \(c=(j,k)\), \(1\le j\le J\), \(0\le k\le j\), define
+\[
+ n_c(R)=jR+k,\quad
+ \beta_R(n)=\sum_{\substack{1\le a<b<R\\ab=n}}\mu(a)\mu(b),
+\]
+\[
+ m_n={1\over n}\sum_{r=1}^n{(r^2-1)\bmod n\over n},\qquad
+ x_c(R)=2\beta_R(n_c(R))\left({(R^2-1)\bmod n_c(R)\over n_c(R)}-m_{n_c(R)}\right).
+\]
+Thus \(m_n\) is the literal \`eulerPacketRootPrincipal\`, not an empirical block mean. Put
+\[
+ G_{cd}=\sum_{H\le R<2H}x_c(R)x_d(R),\qquad
+ D_c=4\sum_{H\le R<2H}\delta(R,j,k)\beta_R(n_c(R))^2.
+\]
+Since the centered fractional column has absolute value below one and \(\delta\ge1\), \(G_{cc}\le D_c\). The discriminator was whether \(D-G\) stayed positive definite on complete residue periods or the normalized Gram developed an eigenvalue above one.
+
+### B. Exact hidden support law
+
+For every root \(R\) and product \(n\),
+\[
+ \boxed{\beta_R(n)\ne0\Longrightarrow n\text{ is cubefree}.} \tag{7}
+\]
+Indeed, if \(p^3\mid n=ab\), then one of \(a,b\) is divisible by \(p^2\), so its Mobius coefficient is zero. This uses the actual moving subset and needs no completed-coefficient substitution.
+
+For the maximal Wheel family \(k=j\), \(R\equiv-1\pmod j\),
+\[
+ n=j(R+1)=Lj^2,\qquad \delta(R,j,j)=j^2.
+\]
+If \(j\) is not squarefree, then \(p^2\mid j\) for some prime \(p\), hence \(p^4\mid n\), and (7) gives
+\[
+ \boxed{\beta_R(jR+j)=0.} \tag{8}
+\]
+Thus every maximal root-phase spike with nonsquarefree band index is removed exactly by genuine Mobius support. This does not remove maximal spikes for squarefree \(j\), and it does not bound their joint signed contribution.
+
+### C. Exact finite Gram results
+
+The intervals were chosen so their length is divisible by every tested \(j\): \((H,J)=(12,4),(60,6),(420,7)\). Every coefficient was reconstructed in two independent ways inside the reference program:
+
+- direct enumeration of admitted pairs \(1\le a<b<R\);
+- completed enumeration minus the exact owner frontier \(a\le j\).
+
+They agreed for every cell. All phases, principals, Gram entries, and the matrices \(D-G\) used exact Python \`Fraction\` arithmetic. Exact rational LDL decomposition gave strictly positive pivots in every case, certifying \(D-G\) positive definite without floating-point sign decisions.
+
+| H | J | columns | exact Gram SHA-256 | top eigenvalue of \(D^{-1/2}GD^{-1/2}\) | max \(G_{cc}/D_c\) | exact \(D-G\succ0\) |
+|---:|---:|---:|---|---:|---:|:---:|
+| 12 | 4 | 14 | \`9a08be8956efb61ee6b0f4146ea3a3fc8eaed71cdf2f9c845fdb3d3c4a983698\` | 0.3344413728 | 0.2975613508 | yes |
+| 60 | 6 | 27 | \`63f2a9726abe5a74ea4aaa20b836cde0b463869742ea46349985722257a4d556\` | 0.3316774342 | 0.2869813429 | yes |
+| 420 | 7 | 35 | \`945e20dcf52f4c63d527d791e2f87e5206b5e836fe0d6badd2fae1d5830e6a2a\` | 0.2872723077 | 0.2688363956 | yes |
+
+The displayed eigenvalues are diagnostics. NumPy symmetric eigensolvers and an independent 70-digit Decimal power iteration agreed: \(0.33167743420382256\) versus \(0.33167743420382261838\) at \((60,6)\), and \(0.28727230769692735\) versus \(0.28727230769692753451\) at \((420,7)\). The rigorous finite conclusion is the rational LDL certificate, not those decimals.
+
+No earliest cross-column spectral excess was found through \(J=7\). The top mode was dominated by the primitive columns \((1,0)\), \((1,1)\), not by a maximal resonant column. At \(H=420\), maximal-family survival counts were:
+
+| j | maximal roots | nonzero \(\beta_R\) | \(\sum\delta\beta_R^2\) |
+|---:|---:|---:|---:|
+| 2 | 210 | 61 | 512 |
+| 3 | 140 | 53 | 1,035 |
+| 4 | 105 | 0 | 0 |
+| 5 | 84 | 39 | 2,000 |
+| 6 | 70 | 7 | 252 |
+| 7 | 60 | 28 | 3,479 |
+
+The \(j=4\) row is the exact nonsquarefree exclusion (8). The \(j=6\) row shows why no broader claim is valid: squarefree band indices can survive maximal resonance.
+
+### D. Secondary withheld first-band check
+
+Before the Coordinator blob became retrievable by SHA, the prior Census resume capsule was executed on held-out blocks. An optimized C++ pair-sieve and an independently structured trial-factor Python reference reproduced the old exact \(H=64\) energy \(6959.49218545907\). The withheld long-double diagnostics were:
+
+| H | \(E_{\rm far}/H^{5/2}\) | \(E_{\rm sf}/H^{5/2}\) | \(E_{\rm squareful}/H^{5/2}\) | sf-squareful mixed energy |
+|---:|---:|---:|---:|---:|
+| 4096 | 0.1057433 | 0.0693352 | 0.0171169 | +20,713,794.5 |
+| 8192 | 0.0994340 | 0.0705966 | 0.0127794 | +97,536,542.5 |
+
+These are uncertified floating diagnostics, not the primary result and not an exponent fit. Exact rational anchor reconstruction at \(R=4099,8209,16381\) verified total = squarefree + squareful and showed alternating depth contributions far larger than the final total. The positive squarefree-squareful mixed term on both withheld blocks refutes any extrapolation that squareful correction is uniformly favorable.
+
+Reproducer hashes: \`moving_band_centered_gram.py\` \`670da82c518c64b416911ca678c8973ae7c2e98f086fe7546668668ef667710e\`; \`first_band_withheld.cpp\` \`067efd349914b149a5d53e022387a4696bda653bb2a299357b0162e2bff6b297\`; \`first_band_reference.py\` \`674dd4b03ccaa3a3d4aa112618eac92dabce88c7819b69b5b7dd3f488dfc4e7f\`. Environment: Python 3.12.14, NumPy, GCC 13.3.0, \`-O3 -std=c++17\`.
+
+### E. Scope, route impact, and routing check
+
+The exact support law (7)-(8) is a same-source interaction between Wheel resonance and the genuine moving Euler coefficient. It removes an infinite maximal-resonance subclass before any norm. It is not a power saving: squarefree \(j\), primitive columns, \(k>j\), larger \(J\), principal reconstruction, original fractional diagonal, reciprocal square, high products, mixed bands, endpoint restoration, and the complete shell remain unpaid.
+
+The finite positive-definiteness certificates support continued investigation of “average \(\delta\) before Cauchy,” but do not prove a uniform large sieve. The next mathematical lemma is a uniform finite-column/operator inequality with explicit growth in \(J\), followed by the omitted principal and partial-period costs. A fixed-\(J\) Gram cannot pass the eta gate.
+
+\`eta_gate: SEARCH_BROAD\`  
+\`primary_route_and_original_carrier: CODIV/S1 centered moving-band eulerFractionOffQ with actual beta_R and eulerPacketRootPrincipal\`  
+\`actual_new_lemma_or_first_unresolved_inequality: exact cubefree support and nonsquarefree maximal-resonance exclusion; uniform J-growing centered operator bound remains open\`  
+\`independent_reviewer_and_formal_evidence: pending; equations (7)-(8) paper proof, Gram finite rational certificate only\`  
+\`net_endpoint_gain_after_complete_return: UNKNOWN\`  
+\`next_distinct_route_due: FINITE-AC/CORR4 or NYMAN census; do not spend the next allocation on another Euler range extension\`
+
+The literal BLOCK claim remains refuted at \(R=549\). Claims \`20261031-owner-2\`, \`20261031-analytic-2\`, Wheel/Referee/Lean current reports, Coordinator blob \`d725323b...\`, the Oct 30 carry-forward set, and external inbox blob \`038018145...\` were consumed. No proof-obligation status changes. Fixed positive eta, strict exponent below \(7/8\), the canonical VF theorem, and RH remain OPEN.
+
+### F. Continuation checkpoint
+
+1. Ask Referee to audit (7)-(8) and the exact centered-Gram carrier, especially whether \(D_c\) is the correct post-completion diagonal for the proposed analytic operator.
+2. On the next Census allocation, rotate away from Euler: test one preregistered FINITE-AC/CORR4 or NYMAN claim with its original carrier and retained regression suite.
+3. If this Gram is revisited later, increase \(J\) with a declared \(J(H)\), include \(k>j\) and partial periods, and search for the first exact failure of \(D-G\succeq0\); do not merely enlarge \(H\) at fixed \(J\).
