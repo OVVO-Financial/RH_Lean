@@ -437,7 +437,7 @@ Moreover,
 
 so the signed population balance determines only the *number and orientation* of unmatched events. It does not determine `D_N` or the tail locations.
 
-The arithmetic carrier is exact. If `eta(a)=+1`, then `a` is prime and no model arrival occurs there. If `eta(b)=-1`, then a model arrival occurs but `b` is not prime; for `b>=3`, it is composite and has a unique least-prime owner. Hence (21) is an occurrence-preserving rank transport from prime terminals to uniquely owned composite removals. Grouping the `b_i) by their least prime partitions `D_N` without duplicating a terminal, but the matched prime `a_i` is intrinsically cross-owner.
+The arithmetic carrier is exact. If `eta(a)=+1`, then `a` is prime and no model arrival occurs there. If `eta(b)=-1`, then a model arrival occurs but `b` is not prime; for `b>=3`, it is composite and has a unique least-prime owner. Hence (21) is an occurrence-preserving rank transport from prime terminals to uniquely owned composite removals. Grouping the `b_i` by their least prime partitions `D_N` without duplicating a terminal, but the matched prime `a_i` is intrinsically cross-owner.
 
 The exact inverse forms are:
 
