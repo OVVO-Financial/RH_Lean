@@ -235,3 +235,160 @@ The corrected disjoint identity (R7) is also formalizable and useful as a no-dou
 **Authority blobs:** `AGENTS.md` `9fa5e9519e2fb6dde22217aa2a18982dafef373a`; `CURRENT_PROOF_CONTRACT.md` `88cddd9cd98c3b55f0b013998541e9b4e9dc9f2a`; selector `d05c327ae694ea54b599dab0a21032a056b521f1`; research engine `6fce99c61efb5b2a73c0cb1f1464f09b351fcd55`.  
 **Material source blobs:** weighted common-clock coordinate `f0e2e672a1ed369d1dc6dacbe9024c65e986a3c8`; first-owner daughter Gram `b57a3e9030445262ec847ca0e20a60bc35ff127c`; CORR4 record/frame source `a4abeb13653076bedd8e1173c933ee3324bfea26`; physical transport `72d66f61b3eeb000117ecdac393572558bb7c378`; merged odd telescope `fbe472cca89f757c8f6f25e630a49847a2bd6ad0`.  
 **Preliminary verdict:** (C1)-(C2) reconstruct the exact mixed product and its full fresh-prime owner partition, but prove no inequality. The `478/211` boundary is algebraically sharp under exactly the frame and record premises. The final section will record endpoint, diagonal, owner-range, null-fibre, and complete-return scope.
+
+
+## Scheduled continuation final synthesis - claims `20261101-referee-3,4` - 2026-11-01 12:06 EST (-0500)
+
+**Status:** COMPLETED.  
+**Evidence classes:** `PAPER_ACCEPTED_WITH_SCOPE / EXACT IDENTITY`; `EXACT DIAGONAL RECONSTRUCTION`; `EXACT NULL-FIBRE COUNTEREXAMPLE`; `PAPER_ACCEPTED_WITH_SCOPE / SHARP SCALAR NO-GO`; `NO NEW SOURCE BOUND`; `NO COMPLETE ETA`; `NO RH`.
+
+### I. Live authority, continuity, and formal state
+
+The canonical objective remains
+```text
+exists C >= 0, forall R >= 2,
+  |pi(R^2) - VF_can(R^2)| <= C R log R.
+```
+No complete positive gain, strict Mertens exponent below `7/8`, canonical VF theorem, or RH proof is established.
+
+This continuation consumed the current November 1 Coordinator, Owner, Analytic, Wheel, Census, prior Referee, and Lean reports at blobs `c23d71084b9103d22e0ade268535dbcab18fc229`, `d57ca6c383884e0b2b9ef38809d589b60b355a42`, `97ebebec389bdafaa6c8e49afdde1b06f682779e`, `3c9752a5a580bcce27ca0af4b3281c1fbdac4dd8`, `b752c3393c6846b52abd11dd9ac40d9ccf6d1e99`, `01f2f9b84e28e985eef5a168bb86b944cca7924a`, and `a43d35c4534d3c1473e3fe9f910b481ec96e3429`. The October 31 continuity set was rechecked at blobs `6af6829827ecff25bac0dc2728f56a2a3eca049e`, `fdb9413fdd49588e1ad1c2348b4fabf4cff55b9c`, `574c544048e225475569c57f95ca1e47237ab733`, `5e62d4c536061564ceca0444a844f51b8886a7fd`, `46f6923fa188e5ed6036d6097b23360c32088fc0`, `0d923f611ab8cb00f83f0dbd34605f447855c838`, and `f81efcbb4a771e4b9a5b5ea713c0f1c5d4148d32`. External handoffs remain blob `038018145c0fddb2f6306c0712373adf9cd1ea52`, with no entry newer than October 18.
+
+PR #1068 is now **MERGED** by a human. Its exact proof head `75d9cf05071502fad0fd76f7336c16f38b2faa33` has 12/12 returned PR workflows completed successfully, including dedicated run `41298543667`. The merge commit is live main `417cb62ee8ca65c82dd3aad1263c7529e94668eb`; the merge commit itself has no attached PR-triggered workflow runs or combined-status entries. Main source `research/ODD_MOBIUS_FLOOR_TELESCOPE_20261101.lean`, blob `fbe472cca89f757c8f6f25e630a49847a2bd6ad0`, proves the finite odd Möbius floor telescope and no truncated-tail or endpoint estimate. Open/draft PR refresh returned none.
+
+### J. Claim `20261101-referee-3`: mixed common-clock owner decomposition
+
+Set
+```text
+X = R^2 - 1,
+h_R(n) = 1_[R <= n <= X],
+W_R(n) = sum_(q in canonicalRoughLowQ2Owners R)
+           1_[n <= floor(X/q^2)] / q.
+```
+The compiled common-clock theorem gives
+```text
+U_R = sum_(1<=n<=X) W_R(n) mu(n),
+```
+and the exact endpoint gap is
+```text
+G_R = M(X)-M(R-1)
+    = sum_(1<=n<=X) h_R(n) mu(n).
+```
+Finite multiplication, not an estimate, gives
+```text
+G_R U_R
+ = Dmix_R
+ + sum_(1<=m<n<=X) K_R(m,n) mu(m)mu(n),                    (R11)
+
+K_R(m,n)=h_R(m)W_R(n)+h_R(n)W_R(m),
+Dmix_R=sum_(1<=n<=X) h_R(n)W_R(n)mu(n)^2.
+```
+The endpoint convention is correct: both source sums use the inclusive endpoint `X=R^2-1`, while `M(R-1)` removes exactly `n<R`.
+
+The diagonal can be reconstructed more explicitly:
+```text
+Dmix_R
+ = sum_(q in canonicalRoughLowQ2Owners R) (1/q)
+     sum_(R<=n<=floor(X/q^2)) mu(n)^2 >= 0.                 (R12)
+```
+This term is not part of the off-diagonal owner fibres and cannot be dropped. Formula (R12) follows by substituting the literal `W_R` and exchanging finite sums. It is source-faithful but supplies no useful upper bound by itself.
+
+For each prime `p<=X`, define
+```text
+J_R(p)=sum_(1<=m<n<=X, IsSquarefreePairFreshPrimeOwner p m n)
+         K_R(m,n)mu(m)mu(n).
+```
+The compiled theorem `squarefreePairFreshPrimeOwnerExpansion_eq_pairWeight` applies to every `m<n<=X`. For a nonzero Möbius pair, both sites are squarefree and the owner is unique; for a zero pair, the expansion is still exactly zero. Multiplying by the owner-independent scalar `K_R(m,n)` and exchanging finite sums yields
+```text
+sum_(1<=m<n<=X) K_R(m,n)mu(m)mu(n)
+ = sum_(p prime, p<=X) J_R(p).                               (R13)
+```
+Thus Coordinator equations (C1)-(C2) are **ACCEPT_WITH_SCOPE / EXACT IDENTITY**.
+
+The scope is essential:
+
+1. The owner range in (R13) is all fresh-prime owners through `X), not the low q-squared daughter-owner set.
+2. `K_R>=0`, but the fibre sign is still the genuine sign of `mu(m)mu(n)`; no one-sided estimate follows.
+3. The nonnegative diagonal (R12) remains separate.
+4. A bound simply postulated on `sum_p J_R(p)` at the needed size could rehouse the original mixed-correlation problem. Independent incidence information is still required.
+5. Neither (R11) nor (R13) restores owner two, renewal, terminal products, root correction, or the other complete physical populations.
+
+### K. Null-fibre corollary
+
+The main theorem `lowOwnerPhysicalAmplitude_zero_daughter_witness` gives
+```text
+rawQ2ChildCutoff 64 5 = 163,
+lowOwnerRawMertensAmplitude 64 5 = 0,
+farFourQ2OwnerSynthesisAtom 64 5 = -16.
+```
+This is a legal low owner: `5` is an odd prime below `64` and `5^2<64`, hence `5 in canonicalRoughLowQ2Owners 64`. Since raw daughter energy is the squared norm of the raw amplitude, it vanishes while the physical atom has squared norm `256`. Therefore, for every finite real `C`,
+```text
+|physicalAtom(R,q)|^2 <= C * rawQ2ChildEnergy(R,q)
+```
+is false as a universal legal-owner statement. Verdict: **EXACT COUNTEREXAMPLE TO DAUGHTER-ONLY POINTWISE TRANSPORT**. It does not refute aggregate signed compensation with the physical correction retained.
+
+### L. Claim `20261101-referee-4`: sharp `478/211` scalar boundary
+
+Let `b=211/900`. For real `G,U,E` and `lambda>=0), assume exactly
+```text
+U^2 <= bE,    E <= bG^2.                                    (R14)
+```
+Then `U^2<=b^2G^2`. From `(U+bG)^2>=0`,
+```text
+2GU >= -2bG^2.
+```
+Also `-lambda E >= -lambda bG^2`, so
+```text
+G^2+2GU-lambda E
+ >= [1-b(2+lambda)]G^2.                                     (R15)
+```
+Equality is attained under (R14) at
+```text
+G=1, E=b, U=-b.
+```
+Consequently the coefficient of `G^2` is strictly positive exactly for
+```text
+0 <= lambda < 1/b-2 = 478/211.                              (R16)
+```
+This proves sharpness for the information in (R14), not realizability of the scalar extremizer by genuine Möbius data at infinitely many roots.
+
+The specializations are correct:
+```text
+lambda=2:   coefficient 14/225,
+lambda=9/4: coefficient 13/3600,
+lambda=4:   coefficient -61/150.
+```
+Using the compiled mixed identity
+```text
+2M_mix=G^2+2GU-(D-P),
+```
+with `D<=3R^2` and `P>=0`, one obtains
+```text
+2M_mix-lambda E
+ >= [1-b(2+lambda)]G^2-3R^2.                                (R17)
+```
+Thus Wheel claim `20261101-wheel-1` is **ACCEPT_WITH_SCOPE / SHARP SCALAR NO-GO**. Its phrase “complete returned inequality” is valid for the exact mixed bill and its two displayed diagonals only. It is not the complete CORR4 endpoint: the remaining physical owner-two, renewal, terminal, root-correction, and complementary terms are outside (R17).
+
+The reported `R=2002` values are consistent with the adverse orientation and satisfy the record premise, but they are a finite regression rather than part of the proof. The no-go rules out obtaining a positive coefficient-four reserve solely from (R14). It does not rule out a genuine signed incidence theorem for the exact fibres (R13), joint absorption with omitted physical terms, or a Möbius-specific restriction excluding the scalar extremizer.
+
+### M. No-circularity, surviving theorem, and next obstruction
+
+- (R11)-(R13) are exact reindexings with a separately reconstructed diagonal. They do not reduce the quantitative difficulty until a new arithmetic restriction on the actual owner fibres is proved.
+- (R15)-(R17) are sharp consequences of the frame and conditional record predicate. They are inverse restrictions, not forward mixed-tail estimates.
+- The daughter-only pointwise route is refuted exactly at `R=64,q=5`; aggregate compensation survives as an open possibility.
+- The strongest useful next statement must be one-sided and Möbius-specific on the complete expression
+```text
+Dmix_R + sum_(p<=X) J_R(p),
+```
+or on a jointly restored physical bill. A norm concentration statement that omits the diagonal or correction carrier cannot consume the mixed term.
+- No complete-return eta follows. The gate remains `SEARCH_BROAD`.
+
+### N. Routing check and resume capsule
+
+- `eta_gate: SEARCH_BROAD`.
+- `primary_route_and_original_carrier: CORR4 mixed common-clock endpoint/daughter product with all fresh-prime owners`.
+- `actual_new_lemma_or_first_unresolved_inequality:` exact diagonal formula (R12), accepted owner partition (R13), sharp scalar no-go (R15)-(R17); unresolved Möbius-specific one-sided fibre/complete-physical estimate.
+- `independent_reviewer_and_formal_evidence:` this paper audit; common-clock, fresh-owner, frame, diagonal, and null-fibre inputs are compiled on main at the blobs above. The combined mixed-owner identity and parameterized threshold are not Lean declarations.
+- `net_endpoint_gain_after_complete_return: UNKNOWN`.
+- PR #1068 is merged; exact proof-head CI is green, and its theorem remains structural only.
+- Next decisive Referee action: audit a proposed Möbius-specific bound on `Dmix_R+sum_p J_R(p)` with the full owner range and correction carrier, or review Wheel claim `20261101-wheel-2` if no such bound is ready. Do not re-audit (R11)-(R17) absent changed hypotheses.
+- Complete shell bound OPEN; strict Mertens exponent below `7/8` NOT PROVED; canonical VF theorem OPEN; RH OPEN.
