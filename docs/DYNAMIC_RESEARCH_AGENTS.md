@@ -1,5 +1,7 @@
 # RH_Lean dynamic seven-agent research protocol
 
+> **CURRENT MULTIPLE-DAILY CADENCE (2026-10-31; after human merge):** Follow [the user-authorized multiple-daily invocation policy](RHLEAN_MULTIRUN_DAILY_AGENT_POLICY_20261031.md). Earlier one/day instructions in this protocol are superseded for cadence. Each real automatic or manual invocation records its own ID/time/route, refreshes main and committed handoffs, and appends without erasing prior runs. The broad-search-until-eta rule, scoped writes and human merge gate remain unchanged.
+
 
 ## 2026-10-29 NEXT-RUN ROUTING (operative only after HUMAN MERGE)
 
@@ -17,7 +19,7 @@ Read [the full source-faithful square-clock attack](RHLEAN_NATIVE_SQUARE_CLOCK_A
 
 The older OAI/QRH/final-return routing below is historical or complementary, NOT a compulsory task overriding this. Independent CORR4/finite-A, native VF/SAT/JOH, MU-LIFT, Co/Div and NYMAN routes remain available and do not inherit unproved cross-source bounds.
 
-**Operating rules unchanged:** one existing scheduled run per role/day; ordered handoffs, Coordinator's identical 00/90 mirror reports, exact SHA/status and paper-vs-Lean provenance, six own-report-only specialists, scoped Lean draft-PR/Actions-only lane, human-only main merge, no saved Studio or schedule edits. A branch proposal is not live until the PR is merged. Never revise previously completed daily reports.
+**Operating safeguards retained; cadence revised:** multiple scheduled invocations per role per day are allowed when separately configured in Studio; the actual frequency and launch times are not changed by this repository edit. Preserve published-handoff order, Coordinator's byte-identical 00/90 mirror files with a *distinct synthesis per actual invocation*, exact SHA/status and paper-vs-Lean provenance, six own-report-only specialists, scoped Lean draft-PR/Actions-only lane, human-only main merge and historical daily reports. A branch proposal is not live until human merge.
 
 
 
@@ -77,7 +79,7 @@ Every specialist output now attaches to [proof-obligations.json](proof-obligatio
 | Finite Wheel & Incidence | Signed incidence restriction on the complete CORR4 first-owner Gram on endpoint-excursion roots | `MECH-CORR4-SIGNED-FIRST-OWNER-GRAM`, `MECH-SAT-OWNER-REMOVAL` | Another unsigned reciprocal-frame constant |
 | Lean Verification | After referee acceptance, formalize the frame-to-endpoint inverse inequality with the open premise explicit; scope `ClassicalVonKochRHCriterion` construction as formalization only; else `NO_NEW_THEOREM_TO_FORMALIZE` | `NOGO-CORR4-FRAME-ONLY`, `CLASSICAL_VONKOCH_CRITERION_FORMAL_IMPORT_OR_PROOF` | Hypotheses hidden as declarations; stale green heads |
 
-**Status corrections:** #1019 is merged (2026-10-24T21:57:31Z); the Lean row below that says "inspect green/unmerged #1019" is the 2026-10-24 instruction. Permissions, one run per specialist per day, report-only scope for six agents, the scoped Lean draft-PR exception and human-only merge are unchanged.
+**Status corrections:** #1019 is merged (2026-10-24T21:57:31Z); the Lean row below that says "inspect green/unmerged #1019" is the 2026-10-24 instruction. Permissions, report-only scope for six agents, the scoped Lean draft-PR exception and human-only merge are unchanged; the historical one/day limit is superseded by the multiple-daily cadence policy.
 
 
 ## Live 2026-10-24 portfolio orchestration and role boundaries
@@ -217,8 +219,8 @@ Only Lean Verification has the scheduled proof-branch exception. Use actual GitH
 
 ## Daily delivery and continuity
 
-One automatic run per agent/day is the budget; additional direct user-requested manual runs do not create extra automatic schedules. Read current main plus both dates' relevant `agent-reports` files and external inbox. A missing today's file with yesterday's valid report is `TODAY=PENDING; YESTERDAY=CARRY_FORWARD`.
+Multiple automatic runs per agent/day are authorized when genuinely configured in Studio; no fixed repository count is imposed, and user-requested manual continuations remain separately identified. On EVERY run, read current main, all published same-day sections plus yesterday's relevant `agent-reports` files, and the external inbox. Record actual run ID if known, timestamp, trigger type and consumed SHAs. A missing today's file with yesterday's valid report is `TODAY=PENDING; YESTERDAY=CARRY_FORWARD`.
 
-Publish an early honest checkpoint, meaningful findings and a final capsule in the assigned report. Preserve provenance across corrections and manual continuations. Coordinator mirrors one synthesis byte-for-byte under AM/PM filenames. Reports include the independent fact obtained, hypotheses killed or revised, actual scale improvement (or none), complete-source/covariance audit, and a concrete next question. Reuse unchanged verified work; no no-op CI or repeated broad scans.
+Publish an early honest checkpoint, meaningful findings and a final capsule for **each** actual scheduled or manual invocation in its existing dated role file; append and preserve all earlier same-day sections and provenance. On each genuine Coordinator invocation, append one independently time-stamped synthesis to both byte-identical AM/PM compatibility mirrors, not one synthesis for the whole day. Reports include the independent fact obtained, hypotheses killed or revised, actual scale improvement (or none), complete-source/covariance audit, and a concrete next question. Reuse unchanged verified work; no no-op CI or repeated broad scans.
 
 The first six scheduled specialists remain own-report-only; Agent #7's proof-branch exception is unchanged. No central-policy writes, direct-main pushes, merges, auto-merge, schedule edits or tool-permission changes are authorized by this protocol. GitHub Markdown does not rewrite Studio settings.

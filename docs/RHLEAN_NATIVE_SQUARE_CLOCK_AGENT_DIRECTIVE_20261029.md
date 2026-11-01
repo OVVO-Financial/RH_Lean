@@ -2,6 +2,8 @@
 
 ## Current routing: broad RH_Lean mathematics until verified eta > 0
 
+**Live cadence after human merge:** read [multiple daily agent invocations](RHLEAN_MULTIRUN_DAILY_AGENT_POLICY_20261031.md) for the authorized multi-run schedule, independent per-invocation reporting and Coordinator mirrors. Older one-run/day statements in other documentation are superseded for cadence; do not alter the mathematical breadth gate.
+
 **2026-10-31 user-directed update; effective only after human merge into main.** Read [Broad RH_Lean mathematics until a verified positive exponent gain](RHLEAN_BROAD_SEARCH_UNTIL_ETA_20261031.md) FIRST, then the [all-vector attack and same-source synthesis directive](RHLEAN_ALL_VECTOR_SYNTHESIS_AGENT_DIRECTIVE_20261030.md), followed by the [role-specific prompt reference](RHLEAN_ALL_VECTOR_AGENT_PROMPTS_20261030.md).
 
 **Do not narrow the team to square-clock, root-period, Type II, owner-return or any other preferred mechanism before a fixed positive gain, however small, is proved for the complete relevant endpoint and independently/formally verified.** Local tau > 0, a paid wedge, a diagonal or complete-period bound, an identity, a green partial PR or numerical evidence does not pass this gate. Reviewed candidate gains do not suspend broad exploration while verification is pending.
