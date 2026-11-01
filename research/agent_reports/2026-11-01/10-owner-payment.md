@@ -464,3 +464,235 @@ for some fixed `eta>0`, together with the exact consumer connecting this increme
 **eta_gate:** `SEARCH_BROAD`; net endpoint gain after complete return remains `UNKNOWN`.
 
 The active hypothesis is that prime-factor ancestry removes the exact-product part of the daughter-shell off-diagonal. For non-activation roots, daughter increments are indexed by `(q,m)` with odd prime `q`, `mu(m) != 0`, and `R^2 <= q^2 m < (R+1)^2`. If `q^2 m=p^2 n` and both Mobius coefficients are nonzero, squarefreeness forces `q=p` and `m=n`. Thus exact lifted-product collisions are diagonal; every surviving off-diagonal pair is a genuinely distinct near-collision with `0<|q^2m-p^2n|<=2R`. The current task is to prove the exact dyadic energy identity, pay its diagonal and prime-square activation terms, restore the root and outer-shell cross terms, and identify the first independently missing shifted-correlation estimate. No sign or cancellation claim is assumed.
+
+
+## Scheduled continuation final synthesis - claim 20261101-owner-4
+
+**Status:** COMPLETED.  
+**Classification:** PAPER_PROOF / EXACT PRIME-ANCESTRY EXCLUSION; IDENTITY_ONLY / COMPLETE HYBRID COVARIANCE DECOMPOSITION; FINITE_COMPUTATION / BOTH SIGN CONJECTURES REFUTED; NO FIXED ETA GAIN.
+
+### A. Most important mathematical development
+
+The complete adjacent-root VF-LOW law from claim 20261101-owner-3 admits a sharper arithmetic decomposition. Away from the separately retained prime-square activation, combine the outer Möbius shell and every old-owner daughter shell before taking a norm. Every nonzero outer site is squarefree. Every nonzero daughter label (q,m) is lifted to the squareful integer q^2 m, with q an odd prime and m squarefree. Prime-factor ancestry then proves:
+
+~~~
+q^2 m = p^2 n,  mu(m)mu(n) != 0
+       ==> q=p and m=n.                                      (28)
+~~~
+
+Moreover a nonzero outer site can never equal q^2 m. Thus the combined outer/daughter field has no duplicated physical location and no zero-shift off-diagonal. Its diagonal has the unconditional dyadic bound
+
+~~~
+Z_H <= (251/81) H^2.                                        (29)
+~~~
+
+The complete remaining obstruction is a signed covariance of distinct integers in the same square shell, hence at nonzero separation at most 2R. This is a genuine arithmetic restriction and an exact representation of all daughter multiplicities. It does not control the remaining near-collision covariance.
+
+### B. Current authoritative objective
+
+Final authority is main a33987e275f8a431641d3f475b71a24aa2b1437c, the human merge of PR #1069. The canonical target remains a uniform O(R log R) bound for pi(R^2)-VF_can(R^2). The nearer benchmark remains a complete genuine shell energy with one fixed positive gain over exponent 5/2. Both are OPEN; eta_gate remains SEARCH_BROAD.
+
+Authority blobs:
+
+- AGENTS.md: 9fa5e9519e2fb6dde22217aa2a18982dafef373a.
+- CURRENT_PROOF_CONTRACT.md: 88cddd9cd98c3b55f0b013998541e9b4e9dc9f2a.
+- selector: d05c327ae694ea54b599dab0a21032a056b521f1.
+- complete-return contract: 16838f7f3c8724b970f8b8ece0bceaab9418066d.
+- research engine: 6fce99c61efb5b2a73c0cb1f1464f09b351fcd55.
+
+Material source blobs at this head:
+
+- LOW_OWNER_PHYSICAL_AMPLITUDE_TRANSPORT.lean: 72d66f61b3eeb000117ecdac393572558bb7c378.
+- LOW_OWNER_AMPLITUDE_MELLIN_LEDGER_SPLICE.lean: 73447e8c73ea60affec36a25b9f4794862331359.
+- GLOBAL_RETURNED_CORE_FIRST_OWNER_GRAM.lean: 36141a8caec5f99d6c40cb72ae1fdbcf6f462b82.
+- SquareRootCanonicalRoughCovariance.lean: 8c125b69cc0fbee577d063bcfa606843152868f3.
+- ODD_MOBIUS_FLOOR_TELESCOPE_20261101.lean: fbe472cca89f757c8f6f25e630a49847a2bd6ad0.
+- ODD_MOBIUS_TRUNCATED_TAIL_20261101.lean: d38a80efc30cbb503f5d596705be91a0de561fe9.
+
+No open or draft PR was returned. PR #1068 and PR #1069 are merged. Their exact proof heads 75d9cf05071502fad0fd76f7336c16f38b2faa33 and 0bf1622daabc694f91b72b922a3e157f2690e1c2 each returned 12/12 successful workflows. The new result below is a paper derivation; Owner ran no Lean compiler and created no proof branch or PR.
+
+### C. Structural hypothesis investigated
+
+Claim 20261101-owner-3 left four signed pieces in the adjacent-root increment: the root singleton, the new square shell, all old-owner daughter shells, and sparse prime-square activation. The tested hypothesis was that shared square-shell location plus prime ancestry might remove a large part of the quadratic interaction exactly.
+
+The hypothesis survives only at zero shift. It gives injectivity of the lifted carrier, disjoint outer/daughter supports, a subcritical diagonal, and exact removal of the root-activation product. It does not give a sign for distinct near-collisions.
+
+### D. Mathematical derivation
+
+Put X_R=R^2-1 and let mu be the ordinary Möbius function. Define
+
+~~~
+E_R = sum_(R^2 <= a < (R+1)^2) mu(a),
+
+D_R = sum_(q odd prime, q^2<R) (1/q)
+        sum_(R^2 <= q^2 m < (R+1)^2) mu(m),
+
+K_R = 1_(R=q^2 for an odd prime q) M(R+2)/q.
+~~~
+
+Finite Mertens telescoping in the literal reciprocal column gives
+
+~~~
+C_(R+1)-C_R = D_R+K_R.                                      (30)
+~~~
+
+Therefore the already established complete physical identity becomes
+
+~~~
+A_(R+1)-A_R = mu(R)-E_R-D_R-K_R.                            (31)
+~~~
+
+No physical population was removed: A_R is the compiled complete remainder containing the correction, owner two, renewal, terminal, and frozen-root terms.
+
+For fixed R, discard zero coefficients and define label sets
+
+~~~
+S_R = {a : R^2<=a<(R+1)^2, mu(a)!=0},
+
+I_R = {(q,m) : q odd prime, q^2<R,
+                 R^2<=q^2m<(R+1)^2, mu(m)!=0}.
+~~~
+
+Map an outer label a to a and a daughter label (q,m) to q^2m. If a=q^2m then q^2 divides a, contradicting mu(a)!=0. If q^2m=p^2n and q!=p, coprimality gives q^2|n, contradicting mu(n)!=0. This proves (28), including every actual 1/q daughter multiplicity.
+
+Write c_R(a)=mu(a) on S_R and c_R(q,m)=mu(m)/q on I_R. Then
+
+~~~
+W_R=E_R+D_R=sum_labels c_R(label),
+
+W_R^2=Z_R+2N_R,                                             (32)
+
+Z_R=sum_(a in S_R) mu(a)^2
+    +sum_((q,m) in I_R) mu(m)^2/q^2,
+
+N_R=sum_(unordered distinct labels) c_R(label)c_R(label').
+~~~
+
+Every pair in N_R maps to two distinct integers in [R^2,(R+1)^2), so
+
+~~~
+0 < |image(label)-image(label')| <= 2R.                      (33)
+~~~
+
+For H>=56, the outer diagonal over H<=R<2H is at most the 3H^2 integers in [H^2,4H^2). For fixed q, each m enters exactly one square shell and fewer than 4H^2/q^2 values occur. Hence
+
+~~~
+sum_R sum_((q,m) in I_R) 1/q^2
+ <= 4H^2 sum_(q odd prime) 1/q^4
+ <= 4H^2 sum_(n>=3) 1/n^4
+ <= 8H^2/81.
+~~~
+
+This proves (29).
+
+The activation is also independently subcritical. There are at most sqrt(2H) roots R=q^2 in the dyadic interval and
+
+~~~
+|K_R|^2 <= (R+2)^2/R <= 2H+5.
+~~~
+
+Thus
+
+~~~
+sum_(H<=R<2H) |K_R|^2 <= 3H^(3/2).                          (34)
+~~~
+
+Most importantly, mu(R)K_R=0 identically: whenever K_R is nonzero, R is a prime square. Expanding the complete square of (31) therefore gives
+
+~~~
+sum_R |A_(R+1)-A_R|^2
+ = sum_R mu(R)^2 + sum_R Z_R + sum_R K_R^2
+   + 2 sum_R N_R
+   - 2 sum_R mu(R)W_R
+   + 2 sum_R W_R K_R.                                       (35)
+~~~
+
+Equation (35) retains the full outer-outer, outer-daughter, daughter-daughter, root, and activation interactions. Its first three terms are O(H^2). The last three form the exact unpaid hybrid shifted-correlation functional.
+
+### E. Quantitative consequence
+
+The independently established quantitative restriction is only the O(H^2) diagonal plus O(H^(3/2)) activation control. These are below H^(5/2-eta) for every fixed eta<1/2. Therefore no diagonal, duplicated lifted product, or prime-square activation can by itself cause a failure at the benchmark scale.
+
+This does not prove a bound for (35). It gives no endpoint exponent improvement because the signed nonzero-shift covariance
+
+~~~
+Xi_H = 2 sum_R N_R
+       -2 sum_R mu(R)W_R
+       +2 sum_R W_R K_R                                   (36)
+~~~
+
+is uncontrolled. A bound for Xi_H must be proved from arithmetic; inserting the desired bound as a hypothesis would merely relocate the problem. The bridge from increment energy of A_R to the Coordinator's bad-excursion trichotomy also remains to be quantified.
+
+### F. Falsification and circularity review
+
+A literal exact Möbius sieve using (30)-(32) gives:
+
+~~~
+H=64:
+  sum W_R^2 = 3229353157/444675,
+  sum Z_R   = 404372909/53361,
+  2 sum N_R = -421263254/1334025.
+
+H=128:
+  sum W_R^2 = 1248344260909/32207175,
+  sum Z_R   = 105142483727/3468465,
+  2 sum N_R = 634716128036/75150075.
+~~~
+
+Thus both universal sign conjectures for the distinct-pair covariance are false: it is negative on [64,128) and positive on [128,256). The same computation, used only as a regression, found sign changes again across later dyadic blocks. This finite evidence proves no asymptotic bound.
+
+The derivation does not infer source admission from factor eligibility, clone a historical occurrence, or discard cross terms. Equality (28) is only an injectivity theorem. It cannot be upgraded to orthogonality: distinct locations within one shell still interact in the square of the total signed mass. Search found no existing report or declaration stating this lifted-carrier theorem and complete dyadic decomposition.
+
+### G. Conceptual interpretation
+
+The old-owner daughter increment is not an arbitrary sum of overlapping copies. Möbius squarefreeness makes q^2m a canonical physical address: among nonzero daughter coefficients, that address determines q and m uniquely. The outer Möbius shell occupies the complementary squarefree addresses. The complete square therefore has a clean arithmetic geometry:
+
+- zero shift is purely diagonal and paid at O(H^2);
+- root and activation never meet;
+- every hard interaction is a nonzero short shift between distinct addresses in one square shell.
+
+This identifies the missing mechanism more sharply. It must control a hybrid short-shift Möbius covariance, not an ownerwise norm or an exact-product multiplicity.
+
+### H. Competing mechanisms
+
+- VF-LOW exact-product congestion: resolved and removed by (28)-(29).
+- VF-LOW favorable covariance sign: abandon; the exact H=64 and H=128 values refute both orientations.
+- VF-LOW hybrid nonzero-shift covariance: continue. Equation (36) is the honest complete functional.
+- Daughter-only energy: remains insufficient because it omits outer-daughter and activation cross terms and still faces the R=64,q=5 null-daughter physical correction.
+- Restricted odd-Möbius telescope: keep as a distinct reserve route; merged #1069 exposes its moving tail but supplies no estimate for (36).
+- JOH: preserved for the next Owner rotation; this continuation completed the due VF-LOW work and does not reopen the refuted BLOCK route.
+
+### I. Specialist handoffs
+
+**Coordinator / Proof Architect:** add (28)-(36) to the small-owner/physical inverse mechanism. The paid diagonal is useful, but no trichotomy branch is bounded and no eta is established.
+
+**Analytic Type II:** investigate the genuine nonzero-shift functional (36). Any proposed estimate must keep the outer-outer, outer-daughter, daughter-daughter, root, and activation terms together unless a proved inequality justifies separation.
+
+**Finite Wheel & Incidence:** classify collisions satisfying 0<|q^2m-p^2n|<=2R with squarefree m,n. Exact equality is now excluded; seek a uniform incidence restriction for nonzero gaps, not an unsigned recount of all pairs.
+
+**Prime Census:** the smallest decisive experiment is a shift-resolved table for (36), separating outer-outer, outer-daughter, and daughter-daughter contributions on held-out dyadic blocks. The exact H=64 and H=128 totals are regression targets; a larger aggregate-only scan has no new purpose.
+
+**Adversarial Referee:** check the injectivity proof, the strict q^2<R activation boundary, constant 251/81, exact disappearance of mu(R)K_R, and whether (36) has been represented without a missing cross term.
+
+**Lean Verification:** after independent acceptance, the smallest formal package is finite-set injectivity of the lifted labels plus the exact square expansion and diagonal counting bound. Do not formalize a conjectural near-collision estimate.
+
+### J. First independently missing lemma
+
+The next arithmetic lemma should be a genuine signed restriction on nonzero lifted gaps. A precise candidate is: for the literal label coefficients above, prove a uniform power-saving upper bound for a nontrivial part of (36), preferably the daughter-daughter or outer-daughter shift sum after summing all nonzero gaps, with constants uniform in H and without absolute-value separation. It must then be reinserted into the complete Xi_H functional.
+
+The full assertion Xi_H=O(H^(5/2-eta)) is the first unresolved complete inequality, but it is not yet known to be independently easier than the desired increment-energy bound. It should not be advertised as a reduction until one of its arithmetic sectors receives an independent estimate.
+
+### K. Next-run resume capsule
+
+- Main: a33987e275f8a431641d3f475b71a24aa2b1437c.
+- New claim: 20261101-owner-4, equations (28)-(36).
+- Status: PAPER_PROOF / IDENTITY_ONLY with exact finite sign falsifiers; independent review PENDING; no Lean execution.
+- Strongest proved restriction: lifted daughter addresses are unique, outer/daughter supports are disjoint, Z_H<=(251/81)H^2, activation energy <=3H^(3/2), and mu(R)K_R=0.
+- Exact obstruction: the complete nonzero-shift functional Xi_H has no proved sign or power saving.
+- Route coverage: JOH, SAT, and VF-LOW have each received substantive work within the rolling three Owner invocations; next distinct route due is JOH unless newer protected evidence changes rotation.
+- Formal state: #1068 and #1069 are merged with green exact-head CI; they remain structural only.
+- eta_gate: SEARCH_BROAD.
+- Net endpoint gain after complete return: UNKNOWN.
+- Complete shell estimate, strict Mertens exponent below 7/8, canonical VF theorem, and RH remain OPEN.
+
+Publication verification is recorded below after commit/readback.
