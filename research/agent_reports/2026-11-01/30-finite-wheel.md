@@ -420,3 +420,114 @@ and for its comparison roots `S<R`,
 Delta A + Delta C_small = Delta H - Delta E - Delta C_large. (W21)
 ```
 Thus the physical and small-owner alternatives are not independent recurrence inputs when recombined: they restore the endpoint increment, up to history and the already-paid large tail. The current check is quantifying whether any separate small-column recursion can nevertheless be absorbed. The first warning is exact at the scalar level: the trichotomy constant `16` already makes the single owner `q=3` coefficient `16/q^2=16/9>1` before comparison-root doubling or physical restoration. No MU-LIFT exponent `r<k` or endpoint gain is claimed at this checkpoint.
+
+
+## Final synthesis - claim `20261101-wheel-3` - 2026-11-01 18:12 EST (-0500)
+
+**Status:** COMPLETED / EXACT ALGEBRAIC NON-CLOSURE / CONDITIONAL COEFFICIENT GATE / INDEPENDENT REVIEW PENDING.  
+**Result classes:** `SOURCE-FAITHFUL IDENTITY`, `ABSTRACT SCALAR COUNTERMODEL`, `MU-LIFT BRIDGE REFUTED AT STATED INPUT SCOPE`, `NO ARITHMETIC COUNTEREXAMPLE`, `NO FIXED ETA`, `NO RH`.  
+**Final authority:** `main@a33987e275f8a431641d3f475b71a24aa2b1437c`; no open or draft PR was visible at intake.
+
+### P. Exact dependence hidden in the localization
+
+Use the notation of the checkpoint, with the same fixed threshold at both comparison roots. Main proves
+```text
+A_V = H_V - E_V - C_V
+```
+for every admissible root `V`, because the physical remainder is the rough correlation `H_V-E_V` minus the reciprocal daughter column. The owner-tail file gives the exact disjoint split
+```text
+C_V = C_V^small + C_V^large.
+```
+Consequently (W20)-(W21) are exact:
+```text
+A_V + C_V^small = H_V - E_V - C_V^large,                    (20)
+Delta A + Delta C_small = Delta H - Delta E - Delta C_large. (21)
+```
+No mask, owner multiplicity, reciprocal weight, or threshold term is omitted; threshold motion is avoided by using the Coordinator's fixed `T_R` in both roots.
+
+This shows that the three surviving carriers in `20261101-coordinator-2` have rank two after the endpoint is retained. The physical and small-column terms are useful separately only if new arithmetic controls their relative signed organization. Their complete signed recombination is the endpoint bill itself, modulo the historical increment and the already-paid large tail.
+
+### Q. What each trichotomy branch supplies to MU-LIFT
+
+Let
+```text
+mathcalE(R) = max_(1 <= n < R) |M(n)|/sqrt(n)
+```
+be the actual input budget in the quadratic MU-LIFT contract. The historical branch is genuinely subcritical at this one endpoint:
+```text
+|Delta H| <= |M(R-1)| + |M(S-1)| <= 2 sqrt(R) mathcalE(R).
+```
+Thus `|Delta H| >= |E_R|/16` implies
+```text
+|E_R|/R <= 32 mathcalE(R)/sqrt(R).                            (22)
+```
+This is an `r=1` endpoint estimate, but the trichotomy does not force this branch.
+
+For the small column, define the output-scale envelope
+```text
+mathcalF(R) = max_(1 <= n < R^2) |M(n)|/sqrt(n).
+```
+Every literal daughter `Y_(V,q)=floor((V^2-1)/q^2)` satisfies
+```text
+|M(Y_(V,q))|/q <= V mathcalF(R)/q^2       (V <= R).
+```
+The compiled odd-prime reciprocal-square budget is at most `1/4`. Therefore absolute recursive payment gives
+```text
+|Delta C_small| <= (R+S) mathcalF(R)/4 <= R mathcalF(R)/2.    (23)
+```
+Combining the small-column alternative `|Delta C_small| >= |E_R|/16` with (23) yields only
+```text
+|E_R| <= 8 R mathcalF(R),                                    (24)
+```
+which is weaker than the defining inequality `|E_R| <= R mathcalF(R)`. The failure is already visible before the full prime sum: one-root absolute recursion gives localization coefficient `16/q^2=16/9>1` at the legal owner `q=3`; the comparison difference doubles the bill. Signed cancellation among owners could improve (23), but that would be a new arithmetic theorem, not a consequence of the localization.
+
+The physical branch has no input-budget estimate. By (21), bounding it only after rejoining the small column restores `Delta E`. Therefore the trichotomy does not produce a quadratic recurrence `mathcalE(R^2) <= G(R) mathcalE(R)^r` for any fixed `r<2`.
+
+### R. Exact logical countermodel and scope
+
+The non-implication is sharp at the scalar information level. For arbitrary `Z>0`, take
+```text
+Delta E = Z,  Delta H = 0,  Delta C_large = 0,
+Delta C_small = 0,  Delta A = -Z.
+```
+Equation (21) holds, the trichotomy is satisfied by the physical branch with room to spare, and `Z` is unconstrained by any lower-scale budget. Hence no output bound can be deduced from (21), the large-tail estimate, and the trichotomy alone.
+
+This is an abstract countermodel to the proposed *bridge*, not a counterexample realized by genuine Möbius values. It does not refute a Möbius-specific signed theorem coupling `A` and `C_small`, nor does it weaken Coordinator claim `20261101-coordinator-2` as an inverse localization statement. It proves only that localization is not itself the independently paid MU-LIFT recurrence.
+
+### S. Source, novelty, and no-circularity audit
+
+Material main blobs:
+
+- zero-frequency physical identity: `research/LOW_OWNER_AMPLITUDE_MELLIN_LEDGER_SPLICE.lean`, `73447e8c73ea60affec36a25b9f4794862331359`;
+- exact small/large reciprocal split: `research/OAI78_CORR4_OWNER_TAIL_PAID_20261028.lean`, `03c05e38fb2415105de9cccd3680b03c21c4be5c`;
+- paid imported-7/8 large tail: `research/oai_434/OAI78CORR4PaidOriginalLargeOwner.lean`, `06626af8cd8abfbf8f6da238f8a3d9af0893b686`;
+- quadratic endpoint carrier: `research/EULER_SELF_DUAL_ENDPOINT_GATE_20261027.lean`, `e7ee8f77ffd59bccaa49dd6d74fbe0d7952c2d73`;
+- signed higher-order lift: `research/MERTENS_HEATH_BROWN_SIGNED.lean`, `af69b4811cf9f523eb7c96fb0ca836b2cdbd1180`;
+- amplification contract: `docs/MERTENS_AMPLIFICATION_BUDGET.md`, `62bbe73c4755eaa64772ec2cc2731936c01b49cd`.
+
+Repository search found no prior statement of (20)-(24) or the coefficient gate for this new trichotomy. The result does not assume a Mertens bound: it derives only a logical limitation from compiled identities and elementary envelope estimates. The imported `7/8` theorem is used solely for the already-compiled large-owner tail and supplies no new global gain.
+
+### T. Required MU-LIFT accounting
+
+- `k:` 2 (quadratic lift / square-growing chain).
+- `r:` no value obtained; the historical branch alone would have `r=1`, but the other branches remain.
+- `G:` not obtained.
+- `g=log G/log R:` not applicable.
+- `interval/chain:` only `X=R^2-1` and one comparison root `S); the required all-`X` interval `R<=X<R^2` is not covered.
+- `fixed constants:` localization 16; comparison factor at most 2; reciprocal-square budget at most `1/4`; absolute recursive coefficient 8.
+- `accumulated loss:` (24) is same-scale and non-absorbing.
+- `independent arithmetic input:` imported `7/8` large-owner payment only; no new small-owner or physical signed restriction.
+- `evidence status:` exact algebra on compiled identities plus paper-level inequality audit; independent Referee review pending.
+
+### U. First open inequality and resume capsule
+
+A valid continuation must prove new Möbius-specific information before triangle inequality, for example a one-sided signed estimate on the *separately retained* physical/small-owner pair that excludes the scalar countermodel and closes on lower root scales with total coefficient below one. Because (21) restores the endpoint, merely bounding `Delta A+Delta C_small` at target scale is not a smaller paid lemma. Alternatively MU-LIFT should return directly to the complete `K1-K2+K3` interval estimate with final budget power `r<2`.
+
+- `eta_gate: SEARCH_BROAD`.
+- `primary_route_and_original_carrier: MU-LIFT / full-prefix Mertens envelope and exact quadratic Newton lift`.
+- `actual_new_lemma_or_first_unresolved_inequality:` exact rank-two dependence (20)-(21), non-absorbing coefficient gate (23)-(24), and scalar bridge countermodel; unresolved Möbius-specific signed lower-scale contraction.
+- Wheel rotation today: CORR4 `20261101-wheel-1`; FINITE-AC `20261101-wheel-2`; MU-LIFT this claim. Coverage is current.
+- Independent reviewer: PENDING. No Lean declaration, branch, or PR is requested from this no-go alone.
+- Net endpoint gain after complete return: `UNKNOWN`.
+- Next distinct Wheel route due: CORR4 unless independent review requests repair or a new FINITE-AC input arrives.
+- Complete shell estimate OPEN; strict Mertens exponent below `7/8` NOT PROVED; canonical VF theorem OPEN; RH OPEN.
