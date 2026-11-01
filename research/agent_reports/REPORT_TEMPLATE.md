@@ -1,5 +1,7 @@
 # RH_Lean research report — [DATE / ROLE]
 
+> **Multiple-daily reporting, after review/merge of main policy PR #1064 and this branch PR:** For every genuinely configured automatic or owner-requested manual run, append separately identified checkpoint and final sections to the existing dated role file. The old one/day ceiling below is superseded; this Markdown does not create Studio triggers.
+
 
 > **2026-10-29 upcoming mathematical checks (only after current main contains merged routing PR #1053).** Focus RH_Lean original signed square-clock and moving owner sources, not identities already proved. For the Q-conductor Euler fractional attack, record EXACT \(f_d,m_d,F_d,\alpha_d\), \(Q<R\) admission, centered L_Q, uncentered principal P_Q, high-product U^(>Q), all original mixed/diagonal/reciprocal-square and sharp-shell transport. The 20261029-analytic-1 Q-linear centered shared-GCD bound is PAPER_ACCEPTED_WITH_SCOPE; the complete shell H^(5/2-eta+eps) and the consequent 7/8 exponent improvement remain OPEN. See main:docs/RHLEAN_NATIVE_SQUARE_CLOCK_AGENT_DIRECTIVE_20261029.md once merged, and check original paper/Lean source SHAs.
 >
@@ -12,7 +14,7 @@
 
 - **Date / timezone:** [YYYY-MM-DD, America/New_York]
 - **Role / assigned path:** [role; agent-reports:research/agent_reports/YYYY-MM-DD/FILENAME.md]
-- **Invocation:** [automatic scheduled / explicitly user-requested manual; actual run ID and ISO timestamp with offset]
+- **Invocation:** [automatic scheduled / explicitly user-requested manual; actual run ID or RUN_ID_UNAVAILABLE; ISO timestamp with America/New_York offset; same-day sequence when known; current main/policy SHA and earlier same-day invocations consumed]
 - **Actual configured slot, if known:** [verified time or UNKNOWN; do not infer from filenames]
 - **Completion/publication state:** [IN_PROGRESS / PARTIAL / COMPLETED / NOT_PUBLISHED]
 - **Main HEAD:** [actual SHA]
@@ -26,7 +28,7 @@
 - **Reused / invalidated work:** [dependency-specific evidence; no invented cache hits or cost savings]
 - **Actual tools/environment:** [only what was used; Agent #7 Lean runs through GitHub Actions only]
 - **Early durable checkpoint:** [actual time and successful commit/readback, or NOT_PUBLISHED]
-- **Coordinator only:** [one run/synthesis, two identical compatibility mirrors; verify both, not two runs]
+- **Coordinator only:** [one separately identified synthesis for EACH actual invocation, appended to BOTH byte-identical compatibility mirrors, with every prior run retained; verify both; filenames do not establish launches]
 - **Independent-review provenance:** [single-session self-audit / genuinely separate referee run / human review / none; do not conflate acceptance grades]
 - **Unified manual execution, if applicable:** [one owner-authorized AI session and run ID, sequential internal role passes, not seven automatic launches; append without overwriting distinct scheduled runs]
 
@@ -188,4 +190,4 @@ Consult the current main brief and amplification note, not a frozen list. For ea
 - Agent #7 PR/head/run state; Coordinator mirror status.
 - Avoid unchanged scans, completed Mertens-coordinate work, no-op green CI and previously refuted unmodified mechanisms.
 
-One automatic run/agent/day; manual continuations only when explicitly user requested. Preserve prior valid evidence and correction history in the same dated file. Coordinator publishes one synthesis under two identical filenames. GitHub documentation does not change actual Studio triggers or permissions.
+Multiple genuine automatic scheduled runs per role/day are permitted when configured in Studio, plus separately labeled user-authorized manual continuations. Preserve prior valid evidence and correction history in the same dated file. On every real Coordinator run, append a distinct synthesis to both identical mirrors. GitHub documentation does not change actual Studio triggers or permissions.
