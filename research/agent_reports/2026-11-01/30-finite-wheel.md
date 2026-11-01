@@ -236,12 +236,12 @@ If (L_R) is the least backward square-block length whose signed endpoint increme
 The tempting stronger clustering claim (L_R\ge\sqrt R) is already refuted at the first Census high-statistic root (R=53): (M(52^2-1)=-7), (M(53^2-1)=-24), hence (L_{53}=1). Final classification awaits source/novelty audit and exact readback. No endpoint gain is claimed.
 
 
-## Final synthesis - claim \`20261101-wheel-2\` - 2026-11-01 10:28 EST (-0500)
+## Final synthesis - claim `20261101-wheel-2` - 2026-11-01 10:28 EST (-0500)
 
 **Status:** COMPLETED / PAPER_PROOF_NEEDS_INDEPENDENT_REVIEW  
-**Result classes:** \`EXACT FINITE-AC INVERSE THEOREM\`, \`EXACT CUMULATIVE SOURCE/HISTORY DICHOTOMY\`, \`COUNTEREXAMPLE TO SQUARE-ROOT BLOCK SPREADING\`, \`NO FINITE-C BOUND\`, \`NO FIXED ETA GAIN\`, \`NO RH\`.  
-**Final live main:** \`417cb62ee8ca65c82dd3aad1263c7529e94668eb\`; open/draft PR refresh returned 0.  
-**Material source blobs:** \`EULER_SELF_DUAL_ENDPOINT_GATE_20261027.lean\` \`e7ee8f77ffd59bccaa49dd6d74fbe0d7952c2d73\`; \`SquareRootMertensEndpointAmplification.lean\` \`7793d7bfd842348facf62a7ad856bc802ffcd15c\`; FINITE-AC coordinate \`c90419edaad013345dc598b18387173f7dca7ef0\`; earlier square-block audit \`8b72e42817c6c77036a93a2fb78b3c5b4fd0ae59\`.
+**Result classes:** `EXACT FINITE-AC INVERSE THEOREM`, `EXACT CUMULATIVE SOURCE/HISTORY DICHOTOMY`, `COUNTEREXAMPLE TO SQUARE-ROOT BLOCK SPREADING`, `NO FINITE-C BOUND`, `NO FIXED ETA GAIN`, `NO RH`.  
+**Final live main:** `417cb62ee8ca65c82dd3aad1263c7529e94668eb`; open/draft PR refresh returned 0.  
+**Material source blobs:** `EULER_SELF_DUAL_ENDPOINT_GATE_20261027.lean` `e7ee8f77ffd59bccaa49dd6d74fbe0d7952c2d73`; `SquareRootMertensEndpointAmplification.lean` `7793d7bfd842348facf62a7ad856bc802ffcd15c`; FINITE-AC coordinate `c90419edaad013345dc598b18387173f7dca7ef0`; earlier square-block audit `8b72e42817c6c77036a93a2fb78b3c5b4fd0ae59`.
 
 ### K. Literal carrier and exact block recurrence
 
@@ -256,7 +256,7 @@ and
 Q_R=2M(R-1)-E_R.
 \]
 For every integer \(R\ge2\), \(Q_R\) is the literal original Euler self-dual bilinear floor source by the compiled theorem
-\`eulerSelfDualBilinear_eq_two_mertens_sub_endpoint\`. Direct subtraction gives
+`eulerSelfDualBilinear_eq_two_mertens_sub_endpoint`. Direct subtraction gives
 \[
 \boxed{Q_{R+1}-Q_R=2\mu(R)-\Delta_R.} \tag{12}
 \]
@@ -382,12 +382,12 @@ desired endpoint bound.
 
 ### O. Routing check and resume capsule
 
-- \`eta_gate: SEARCH_BROAD\`.
-- \`primary_route_and_original_carrier: FINITE-AC / literal Euler self-dual Q_R and square-endpoint Mertens blocks\`.
-- \`actual_new_lemma_or_first_unresolved_inequality:\` exact inverse restrictions (15)-(17); unresolved signed increment-energy bound (19).
-- Last substantive Wheel attempts: MU-LIFT \`20261031-wheel-2\`; CORR4 \`20261101-wheel-1\`; FINITE-AC \`20261101-wheel-2\`. Rolling rotation satisfied.
+- `eta_gate: SEARCH_BROAD`.
+- `primary_route_and_original_carrier: FINITE-AC / literal Euler self-dual Q_R and square-endpoint Mertens blocks`.
+- `actual_new_lemma_or_first_unresolved_inequality:` exact inverse restrictions (15)-(17); unresolved signed increment-energy bound (19).
+- Last substantive Wheel attempts: MU-LIFT `20261031-wheel-2`; CORR4 `20261101-wheel-1`; FINITE-AC `20261101-wheel-2`. Rolling rotation satisfied.
 - Independent reviewer/formal evidence: PENDING. This is a paper proof; no new Lean declaration or PR is claimed.
-- Net endpoint gain after complete return: \`UNKNOWN\`.
+- Net endpoint gain after complete return: `UNKNOWN`.
 - Next distinct route due: MU-LIFT under the next rotation unless newer protected evidence changes order.
 - External claim intake: no entry newer than 2026-10-18; no old handoff is upgraded.
 - Complete shell bound, strict exponent below \(7/8\), canonical VF theorem and RH remain OPEN.
