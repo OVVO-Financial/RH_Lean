@@ -6,7 +6,7 @@
 
 **Claim `20261101-owner-1` (corrected): `REFUTED_AS_NOVEL / ALREADY_PROVED_ON_MAIN`.** The provisional fixed-depth coefficient
 [
-C_K=sum_{m=1}^Krac{M(m)}{m(m+1)}
+C_K=sum_{m=1}^K\frac{M(m)}{m(m+1)}
 ]
 does change sign between (K=18348) and (K=18349), but this is not a new discovery. Main already contains compiled native-decision certificates
 [
@@ -16,15 +16,15 @@ and the resulting eventual fixed crossing at exactly (18349) in `SquareRootFixed
 
 **Claim `20261101-owner-2`: `PAPER_PROOF_FROM_COMPILED_THEOREMS / TARGET_EQUIVALENT`.** The generic compiled transfer theorem and the sharp negative certificate immediately give
 [
-	exttt{SquareRootPostCrossingCoupledTailBoundedStatement 18349}
+\texttt{SquareRootPostCrossingCoupledTailBoundedStatement 18349}
 iff
-	exttt{MertensEnergyBoundedStatement}.
+\texttt{MertensEnergyBoundedStatement}.
 ]
 Combining this with the compiled canonical-coordinate equivalence also gives
 [
-	exttt{SquareRootCanonicalRoughCovarianceBoundedStatement 18349}
+\texttt{SquareRootCanonicalRoughCovarianceBoundedStatement 18349}
 iff
-	exttt{MertensEnergyBoundedStatement}.
+\texttt{MertensEnergyBoundedStatement}.
 ]
 Thus replacing the older cap (18800) by the exact first crossing (18349) sharpens bookkeeping only. It supplies no independent signed restriction and no positive source exponent.
 
@@ -43,8 +43,8 @@ Authority blobs:
 
 The canonical open objective remains
 [
-exists Cge0 orall Rge2,quad
-|pi(R^2)-VF_{m can}(R^2)|le C Rlog R.
+exists Cge0 \forall Rge2,quad
+|pi(R^2)-VF_{\rm can}(R^2)|le C Rlog R.
 ]
 The optional complete-return benchmark remains a fixed positive gain in square-shell energy. The active campaign preserves all authorized routes until a verified positive exponent exists. This Owner run rotated from the preceding JOH analysis to SAT/VF-LOW, as requested by the latest Coordinator report.
 
@@ -60,14 +60,14 @@ T_{R,le K}
 =
 sum_{m=1}^K M(m)
 left(
-pi(lfloor X/mfloor)-pi(lfloor X/(m+1)floor)
-ight).
+pi(lfloor X/m\rfloor)-pi(lfloor X/(m+1)\rfloor)
+\right).
 ]
 PNT identifies the leading fixed-depth coefficient as (C_K). Finite summation by parts gives
 [
 C_K
 =
-sum_{n=1}^Krac{mu(n)}n-rac{M(K)}{K+1}.
+sum_{n=1}^K\frac{mu(n)}n-\frac{M(K)}{K+1}.
 ]
 
 The sign reversal at (18349) falsifies monotone payment. The stronger question was whether the resulting fixed crossing leaves a smaller genuine global object. Exact source restoration answers no: after smooth mass and all remaining transport layers are restored, the residual is the terminal Mertens value up to a uniformly bounded interpolation term.
@@ -78,7 +78,7 @@ Let
 [
 V_{R,K,j}
 =
-	exttt{squareRootCrossingLayerPartialPacketInt }R,K,j
+\texttt{squareRootCrossingLayerPartialPacketInt }R,K,j
 ]
 and let (U_{R,K,j}) denote `squareRootPostCrossingCoupledTail R K j`. The compiled exact identity is
 [
@@ -90,9 +90,9 @@ At a valid crossing seat below cap (K_0),
 ]
 Therefore adding or subtracting (V) changes critical root-scale energy only by a bounded quantity. Main compiles the general theorem
 [
-	exttt{PostCrossingTailBounded}(K_0)
+\texttt{PostCrossingTailBounded}(K_0)
 iff
-	exttt{MertensEnergyBounded}
+\texttt{MertensEnergyBounded}
 ]
 whenever (K_0ge1) and the reciprocal boundary coefficient at (K_0) is negative.
 
@@ -103,9 +103,9 @@ Instantiate it with:
 
 This proves claim `20261101-owner-2`. The canonical covariance statement is exactly the same coupled tail in a mean-plus-covariance coordinate system; the compiled theorem
 [
-	exttt{SquareRootCanonicalRoughCovarianceBoundedStatement }K_0
+\texttt{SquareRootCanonicalRoughCovarianceBoundedStatement }K_0
 iff
-	exttt{SquareRootPostCrossingCoupledTailBoundedStatement }K_0
+\texttt{SquareRootPostCrossingCoupledTailBoundedStatement }K_0
 ]
 preserves the mean term and all covariance interactions. Chaining at (K_0=18349) gives the second equivalence.
 
@@ -174,9 +174,9 @@ The key structural lesson is negative but useful: **no theorem depending only on
 
 No valid independent lemma remains inside the bounded fixed-depth carrier. The immediate exact formal corollary is
 [
-	exttt{SquareRootPostCrossingCoupledTailBoundedStatement 18349}
+\texttt{SquareRootPostCrossingCoupledTailBoundedStatement 18349}
 iff
-	exttt{MertensEnergyBoundedStatement},
+\texttt{MertensEnergyBoundedStatement},
 ]
 but this is already a one-line specialization of compiled theorems and is target-equivalent.
 
