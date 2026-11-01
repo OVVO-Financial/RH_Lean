@@ -201,3 +201,21 @@ Material source blobs:
 Continuity: at intake no 2026-11-01 upstream specialist reports existed, so `TODAY=PENDING`; 2026-10-31 was used as `YESTERDAY=CARRY_FORWARD`. Consumed Coordinator blob `6af6829827ecff25bac0dc2728f56a2a3eca049e`, Owner `fdb9413fdd49588e1ad1c2348b4fabf4cff55b9c`, Analytic `574c544048e225475569c57f95ca1e47237ab733`, Wheel `5e62d4c536061564ceca0444a844f51b8886a7fd`, Census `46f6923fa188e5ed6036d6097b23360c32088fc0`, Referee `0d923f611ab8cb00f83f0dbd34605f447855c838`, and Lean `f81efcbb4a771e4b9a5b5ea713c0f1c5d4148d32`. External handoffs blob `038018145c0fddb2f6306c0712373adf9cd1ea52` has no entry newer than 2026-10-18.
 
 Publication history: early `IN_PROGRESS` checkpoint commit `b2e274ce2f4a7ed6bc4b31e3e517eed92fa715ca`. This completed synthesis supersedes its provisional novelty language. Next run should not revisit the finite crossing unless source assumptions change; begin from an exact proposed cross-scale carrier and test complete restoration immediately.
+
+
+---
+
+## Manual continuation checkpoint - 2026-11-01 08:09 America/New_York
+
+**Status:** IN_PROGRESS / second Owner invocation today / VF-LOW protected rotation.  
+**Live main:** `417cb62ee8ca65c82dd3aad1263c7529e94668eb` (human merge of #1068).  
+**Authority blobs:** `AGENTS.md 9fa5e9519e2fb6dde22217aa2a18982dafef373a`; `CURRENT_PROOF_CONTRACT.md 88cddd9cd98c3b55f0b013998541e9b4e9dc9f2a`; research engine `6fce99c61efb5b2a73c0cb1f1464f09b351fcd55`.  
+**deployment continuation:** today's earlier Owner run completed SAT and proved the bounded fixed-depth crossing target-equivalent after full restoration. The preceding substantive Owner turn covered JOH. VF-LOW is therefore due in the rolling three-route cycle.
+
+**Selected task:** Coordinator claim `20261101-coordinator-1` assignment: expand `lowOwnerPhysicalAmplitudeRemainder R 0` on literal physical populations and test an adjacent-root or dyadic conservation law before taking norms. The required regression is the compiled `R=64,q=5` witness: raw daughter zero, physical atom `-16`.
+
+**Exact sources:** `LOW_OWNER_PHYSICAL_AMPLITUDE_TRANSPORT.lean 72d66f61b3eeb000117ecdac393572558bb7c378`; `GLOBAL_RETURNED_CORE_WEIGHTED_MOBIUS_COORDINATE.lean f0e2e672a1ed369d1dc6dacbe9024c65e986a3c8`; `GLOBAL_RETURNED_CORE_Q2_DAUGHTER_FIRST_OWNER_GRAM.lean b57a3e9030445262ec847ca0e20a60bc35ff127c`; merged finite telescope `ODD_MOBIUS_FLOOR_TELESCOPE_20261101.lean fbe472cca89f757c8f6f25e630a49847a2bd6ad0`.
+
+**First research question:** whether the complete zero-frequency remainder has a nonlocal root-transition conservation after owner activation, moving daughter cutoffs, near-high/intermediate/go-wall correction, owner two, stable-far renewal, terminal products, and frozen root correction are all restored. A law using only raw daughter amplitudes is already refuted. The first unsupported step is an independently provable bound or sign restriction on the complete adjacent-root increment; no such estimate is assumed.
+
+**eta_gate:** `SEARCH_BROAD`; complete-return gain remains `UNKNOWN`.
