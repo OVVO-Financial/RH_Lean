@@ -466,3 +466,6 @@ PR #1068 merged at main head after exact proof head `75d9cf05071502fad0fd76f7336
 ### Publication history
 
 Early checkpoint commit `0c182831ad6852c19df5352ca6f838d3b9cc62d9`, verified as blob `b15cd68b248a6ab4402a688c88b27b214b8c1564`. This final synthesis preserves the prior NYMAN report and the checkpoint while correcting the provisional claim to the audited statement (11).
+
+
+Final synthesis commit `637d0781843e4fea3d8d18952bcb6f0faac7ff48` was read back as blob `a17674b42be7d6a3899eeac267ca106a14316c5e`; claim `20261101-analytic-2`, the completed status, and the resume capsule were verified.
