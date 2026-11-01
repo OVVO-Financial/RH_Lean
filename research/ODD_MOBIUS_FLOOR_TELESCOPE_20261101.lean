@@ -103,10 +103,20 @@ theorem isMultiplicative_oddMoebius :
   intro m n hmn
   simp only [oddMoebius_apply]
   rw [ArithmeticFunction.isMultiplicative_moebius.map_mul_of_coprime hmn]
-  by_cases hOdd : Odd (m * n)
-  · rw [if_pos hOdd, if_pos hOdd.of_mul_left, if_pos hOdd.of_mul_right]
-  · rw [if_neg hOdd]
-    by_cases hm : Odd m <;> by_cases hn : Odd n <;> simp [hm, hn]
+  by_cases hm : Odd m
+  · by_cases hn : Odd n
+    · have hprod : Odd (m * n) := hm.mul hn
+      simp only [ite_eq_left hprod, ite_eq_left hm, ite_eq_left hn]
+    · have hnEven : Even n := Nat.not_odd_iff_even.mp hn
+      have hprod : ¬ Odd (m * n) := by
+        intro hodd
+        exact (Nat.not_even_iff_odd.mpr hodd) (hnEven.mul_left m)
+      simp only [ite_eq_right hprod, ite_eq_left hm, ite_eq_right hn, mul_zero]
+  · have hmEven : Even m := Nat.not_odd_iff_even.mp hm
+    have hprod : ¬ Odd (m * n) := by
+      intro hodd
+      exact (Nat.not_even_iff_odd.mpr hodd) (hmEven.mul_right n)
+    simp only [ite_eq_right hprod, ite_eq_right hm, zero_mul]
 
 /-- The divisor sum of odd Möbius coefficients. -/
 def oddMoebiusZeta : ArithmeticFunction ℤ :=
@@ -143,7 +153,7 @@ theorem oddMoebiusZeta_prime_pow
       refine ⟨2 ^ i, ?_⟩
       rw [pow_succ]
       omega
-    have hNotOdd : ¬ Odd (2 ^ (i + 1)) := not_odd_iff_even.mpr hEven
+    have hNotOdd : ¬ Odd (2 ^ (i + 1)) := Nat.not_odd_iff_even.mpr hEven
     simp [hNotOdd]
   · have hpOdd : Odd p := hp.odd_of_ne_two hpTwo
     simp [oddMoebius, hpOdd.pow, ArithmeticFunction.moebius_apply_prime_pow,
@@ -168,7 +178,7 @@ theorem oddMoebiusZeta_eq_powerOfTwoIndicator (n : ℕ) :
       simp [oddMoebiusZeta, hzero]
   | one =>
       have hone : ∃ j : ℕ, 1 = 2 ^ j := ⟨0, by simp⟩
-      rw [if_pos hone]
+      rw [ite_eq_left hone]
       unfold oddMoebiusZeta
       rw [ArithmeticFunction.mul_apply_one]
       simp [oddMoebius]
