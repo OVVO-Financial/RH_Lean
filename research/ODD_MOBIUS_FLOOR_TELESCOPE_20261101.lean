@@ -16,7 +16,7 @@ or RH statement is assumed or proved here.
 noncomputable section
 
 open Finset
-open scoped ArithmeticFunction.Moebius BigOperators
+open scoped ArithmeticFunction.Moebius ArithmeticFunction.zeta BigOperators
 
 namespace RHLean.Analysis
 
@@ -87,6 +87,131 @@ theorem oddMoebiusFloorSum_eq_sum_oddDivisorMoebiusSum (A : ℕ) :
       · intro m hm
         rfl
 
+
+/-- Möbius restricted to odd inputs, as an arithmetic function. -/
+def oddMoebius : ArithmeticFunction ℤ where
+  toFun n := if Odd n then ArithmeticFunction.moebius n else 0
+  map_zero' := by simp
+
+@[simp] theorem oddMoebius_apply (n : ℕ) :
+    oddMoebius n = if Odd n then ArithmeticFunction.moebius n else 0 := rfl
+
+/-- The odd restriction of Möbius remains multiplicative. -/
+theorem isMultiplicative_oddMoebius :
+    ArithmeticFunction.IsMultiplicative oddMoebius := by
+  refine ⟨by simp [oddMoebius, ArithmeticFunction.moebius_apply_one], ?_⟩
+  intro m n hmn
+  simp only [oddMoebius_apply]
+  rw [ArithmeticFunction.isMultiplicative_moebius.map_mul_of_coprime hmn]
+  simp [Nat.odd_mul]
+
+/-- The divisor sum of odd Möbius coefficients. -/
+def oddMoebiusZeta : ArithmeticFunction ℤ :=
+  oddMoebius * (ArithmeticFunction.zeta : ArithmeticFunction ℤ)
+
+theorem isMultiplicative_oddMoebiusZeta :
+    ArithmeticFunction.IsMultiplicative oddMoebiusZeta :=
+  isMultiplicative_oddMoebius.mul ArithmeticFunction.isMultiplicative_zeta.natCast
+
+/-- The arithmetic-function convolution is the literal odd-divisor sum. -/
+theorem oddMoebiusZeta_apply (n : ℕ) :
+    oddMoebiusZeta n = oddDivisorMoebiusSum n := by
+  unfold oddMoebiusZeta oddDivisorMoebiusSum
+  rw [ArithmeticFunction.coe_mul_zeta_apply]
+  apply Finset.sum_congr rfl
+  intro d hd
+  rfl
+
+/-- Local Euler factor: the odd Möbius divisor sum is one on powers of two
+and zero on powers of every odd prime. -/
+theorem oddMoebiusZeta_prime_pow
+    (p k : ℕ) (hp : Nat.Prime p) (hk : 0 < k) :
+    oddMoebiusZeta (p ^ k) = if p = 2 then 1 else 0 := by
+  unfold oddMoebiusZeta
+  rw [ArithmeticFunction.coe_mul_zeta_apply, Nat.sum_divisors_prime_pow hp,
+    Finset.sum_range_succ']
+  by_cases hpTwo : p = 2
+  · subst p
+    simp [oddMoebius, ArithmeticFunction.moebius_apply_prime_pow,
+      Nat.prime_two, hk.ne']
+  · have hpOdd : Odd p := hp.odd_of_ne_two hpTwo
+    simp [oddMoebius, hpOdd.pow, ArithmeticFunction.moebius_apply_prime_pow,
+      hp, hp.ne_one, hpTwo, hk.ne']
+
+/-- The odd Möbius divisor sum is exactly the power-of-two indicator. -/
+theorem oddMoebiusZeta_eq_powerOfTwoIndicator (n : ℕ) :
+    oddMoebiusZeta n = if ∃ j : ℕ, n = 2 ^ j then 1 else 0 := by
+  induction n using Nat.recOnPrimePow with
+  | zero =>
+      simp [oddMoebiusZeta]
+  | one =>
+      simp [oddMoebiusZeta, oddMoebius]
+  | prime_pow_mul a p k hp hpa hk ih =>
+      have hcop : Nat.Coprime (p ^ k) a :=
+        (hp.coprime_iff_not_dvd.mpr hpa).pow_left k
+      rw [isMultiplicative_oddMoebiusZeta.map_mul_of_coprime hcop,
+        oddMoebiusZeta_prime_pow p k hp hk, ih]
+      by_cases hpTwo : p = 2
+      · subst p
+        simp only [ite_true, one_mul]
+        have hiff :
+            (∃ j : ℕ, 2 ^ k * a = 2 ^ j) ↔
+              ∃ j : ℕ, a = 2 ^ j := by
+          constructor
+          · rintro ⟨j, hj⟩
+            have haDvd : a ∣ 2 ^ j := by
+              rw [← hj]
+              exact ⟨2 ^ k, by ac_rfl⟩
+            have haOdd : Odd a := by
+              rw [← Nat.not_even_iff_odd, Nat.even_iff_two_dvd]
+              exact hpa
+            have haCoprime : Nat.Coprime a (2 ^ j) :=
+              haOdd.coprime_two_right.pow_right j
+            have haOne : a = 1 :=
+              Nat.eq_one_of_dvd_coprimes haCoprime (dvd_refl a) haDvd
+            exact ⟨0, by simp [haOne]⟩
+          · rintro ⟨j, hj⟩
+            have haOdd : Odd a := by
+              rw [← Nat.not_even_iff_odd, Nat.even_iff_two_dvd]
+              exact hpa
+            have hjZero : j = 0 := by
+              by_contra hj0
+              have htwo : 2 ∣ a := by
+                rw [hj]
+                exact dvd_pow_self 2 hj0
+              exact hpa htwo
+            subst j
+            simp only [pow_zero] at hj
+            subst a
+            exact ⟨k, by simp⟩
+        rw [hiff]
+      · have hnot : ¬ ∃ j : ℕ, p ^ k * a = 2 ^ j := by
+          rintro ⟨j, hj⟩
+          have hpDvdPow : p ∣ p ^ k := dvd_pow_self p hk.ne'
+          have hpDvdTwoPow : p ∣ 2 ^ j := by
+            rw [← hj]
+            exact dvd_mul_of_dvd_left hpDvdPow a
+          have hpDvdTwo : p ∣ 2 := hp.dvd_of_dvd_pow hpDvdTwoPow
+          have hpEq : p = 2 :=
+            (Nat.dvd_prime Nat.prime_two).mp hpDvdTwo |>.resolve_left hp.ne_zero
+          exact hpTwo hpEq
+        simp [hpTwo, hnot]
+
+/-- Finite number of powers of two in the positive prefix, represented as
+an integer-valued indicator sum. -/
+def finitePowerOfTwoCount (A : ℕ) : ℤ :=
+  ∑ n ∈ Finset.Icc 1 A, if ∃ j : ℕ, n = 2 ^ j then 1 else 0
+
+/-- Independently accepted finite odd-divisor telescope:
+the odd Möbius floor sum counts exactly the powers of two up to `A`. -/
+theorem oddMoebiusFloorSum_eq_finitePowerOfTwoCount (A : ℕ) :
+    oddMoebiusFloorSum A = finitePowerOfTwoCount A := by
+  rw [oddMoebiusFloorSum_eq_sum_oddDivisorMoebiusSum]
+  unfold finitePowerOfTwoCount
+  apply Finset.sum_congr rfl
+  intro n hn
+  rw [← oddMoebiusZeta_apply, oddMoebiusZeta_eq_powerOfTwoIndicator]
+
 /-- On a power of two the only odd divisor is one, so the odd-divisor
 Möbius sum is exactly one. -/
 theorem oddDivisorMoebiusSum_two_pow (j : ℕ) :
@@ -107,5 +232,7 @@ theorem oddDivisorMoebiusSum_two_pow (j : ℕ) :
 
 #print axioms oddMoebiusFloorSum_eq_sum_oddDivisorMoebiusSum
 #print axioms oddDivisorMoebiusSum_two_pow
+#print axioms oddMoebiusZeta_eq_powerOfTwoIndicator
+#print axioms oddMoebiusFloorSum_eq_finitePowerOfTwoCount
 
 end RHLean.Analysis
