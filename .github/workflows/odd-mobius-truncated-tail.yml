@@ -57,7 +57,7 @@ jobs:
           import pathlib,re
           log=pathlib.Path('/tmp/odd_mobius_tail_audit.log').read_text()
           assert 'sorryAx' not in log
-          found=re.findall(r'depends on axioms:\\s*\\[([^]]*)\\]',log,re.S)
+          found=re.findall(r'depends on axioms:\s*\[([^]]*)\]',log,re.S)
           assert found
           for item in found:
               used={a.strip() for a in item.split(',') if a.strip()}
@@ -65,6 +65,6 @@ jobs:
           text=pathlib.Path('research/ODD_MOBIUS_TRUNCATED_TAIL_20261101.lean').read_text()
           text=re.sub(r'/-.*?-/', '',text,flags=re.S)
           text=re.sub(r'--.*','',text)
-          assert not re.search(r'\\b(sorry|admit|axiom|native_decide)\\b',text)
+          assert not re.search(r'\b(sorry|admit|axiom|native_decide)\b',text)
           print('PASS: truncated odd Mobius tail identities and standard logical axioms only')
           PY
