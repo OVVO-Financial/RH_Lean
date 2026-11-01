@@ -47,8 +47,12 @@ jobs:
           import «research.ODD_MOBIUS_FLOOR_TELESCOPE_20261101»
           #check RHLean.Analysis.oddMoebiusFloorSum_eq_sum_oddDivisorMoebiusSum
           #check RHLean.Analysis.oddDivisorMoebiusSum_two_pow
+          #check RHLean.Analysis.oddMoebiusZeta_eq_powerOfTwoIndicator
+          #check RHLean.Analysis.oddMoebiusFloorSum_eq_finitePowerOfTwoCount
           #print axioms RHLean.Analysis.oddMoebiusFloorSum_eq_sum_oddDivisorMoebiusSum
           #print axioms RHLean.Analysis.oddDivisorMoebiusSum_two_pow
+          #print axioms RHLean.Analysis.oddMoebiusZeta_eq_powerOfTwoIndicator
+          #print axioms RHLean.Analysis.oddMoebiusFloorSum_eq_finitePowerOfTwoCount
           EOF
           lake env lean -DwarningAsError=true /tmp/odd_mobius_floor_audit.lean | tee /tmp/odd_mobius_floor_audit.log
           python3 - <<'PY'
