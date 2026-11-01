@@ -251,3 +251,17 @@ No Coordinator Lean branch, proof PR, schedule, contract, or main mutation was c
 ## Publication history
 
 The early `IN_PROGRESS` checkpoint was published first at commits `a41fdc5617acc8bacc45d8c9366194a27a9dfc9b` (AM) and `607ae8163d1df75f2b18f0d7c8a102210199da16` (PM). This completed synthesis replaces both mirrors byte-for-byte.
+
+
+## Scheduled continuation checkpoint - 2026-11-01 15:13 EST (-0500)
+
+**Status:** IN_PROGRESS / exact cross-route bridge derived; quantitative scope, current-main formal readback, and final portfolio synthesis pending.  
+**Invocation:** scheduled run invoked 2026-11-01 15:13 America/New_York; RUN_ID_UNAVAILABLE.  
+**Live main at intake:** `a33987e275f8a431641d3f475b71a24aa2b1437c` (human merge of PR #1069).  
+**deployment continuation:** selected `NEXT-COORDINATOR`; resumed the accepted VF-LOW adjacent-root law (`20261101-owner-3`), FINITE-AC half-amplitude inverse (`20261101-wheel-2`), and OAI large-owner tail (`20261101-analytic-2`). Same-day and 2026-10-31 reports for all six specialists, both Coordinator mirrors, and external handoffs blob `038018145c0fddb2f6306c0712373adf9cd1ea52` were consumed.
+
+The checked common carrier is the square endpoint `E_R=M(R^2-1)`. Writing `F_R=2M(R-1)-E_R` for the literal FINITE-AC source, `A_R` for the complete VF-LOW physical remainder, and `C_R` for its reciprocal q-squared daughter column, the source identities give
+```text
+F_R = A_R + M(R-1) + C_R.
+```
+The current investigation asks whether Wheel's half-amplitude inverse plus Analytic's growing-cutoff tail can force a bad endpoint excursion into the complete physical remainder, historical prefix, or genuinely small-owner column. The provisional result is an inverse trichotomy only; it is not an endpoint upper bound or a fixed eta. Final classification and constants remain pending.
