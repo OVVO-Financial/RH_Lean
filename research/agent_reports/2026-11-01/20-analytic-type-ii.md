@@ -469,3 +469,18 @@ Early checkpoint commit `0c182831ad6852c19df5352ca6f838d3b9cc62d9`, verified as 
 
 
 Final synthesis commit `637d0781843e4fea3d8d18952bcb6f0faac7ff48` was read back as blob `a17674b42be7d6a3899eeac267ca106a14316c5e`; claim `20261101-analytic-2`, the completed status, and the resume capsule were verified.
+
+
+## Scheduled continuation checkpoint - 2026-11-01 17:11 EST (-0500)
+
+**Status:** IN_PROGRESS / third actual Analytic invocation today / CODIV protected rotation.  
+**Invocation:** scheduled run; RUN_ID_UNAVAILABLE.  
+**Live main:** `a33987e275f8a431641d3f475b71a24aa2b1437c` (human merge of PR #1069).  
+**deployment continuation:** selected the due CODIV turn after NYMAN claim `20261101-analytic-1` and OAI-NNS claim `20261101-analytic-2`; resumed the exact cross-depth boundary left by `20261031-analytic-3`.  
+**Authority blobs:** `AGENTS.md 9fa5e9519e2fb6dde22217aa2a18982dafef373a`; `CURRENT_PROOF_CONTRACT.md 88cddd9cd98c3b55f0b013998541e9b4e9dc9f2a`; research engine `6fce99c61efb5b2a73c0cb1f1464f09b351fcd55`; dynamic protocol `fe21d2824491fb001726311f736b9825a8f97eca`.  
+**New formal input:** `research/ODD_MOBIUS_TRUNCATED_TAIL_20261101.lean` on main via #1069; exact PR head `0bf1622daabc694f91b72b922a3e157f2690e1c2` has 12/12 completed-success workflows, including dedicated run `41336208699`.  
+**eta_gate:** `SEARCH_BROAD`; no complete fixed positive eta, strict Mertens exponent below `7/8`, canonical VF theorem, or RH proof is claimed.
+
+This continuation tests a specific cross-depth mechanism for the broad prime-ray completion boundary. The candidate is the exact odd Möbius--von Mangoldt convolution obtained only after restoring all prime powers. The active questions are: (i) whether the factor-depth packet collapses to a one-dimensional weighted odd-Möbius sum; (ii) what uniform bound follows from the verified all-integer `7/8+epsilon` theorem; and (iii) whether restricting back to the physical large-prime triangle reintroduces a target-strength complement. Principal, prime-power, range, parity, and endpoint corrections will be displayed rather than absorbed into the claim.
+
+Today's complete specialist reports and both Coordinator mirrors were consumed at their latest blobs; the external inbox remains blob `038018145c0fddb2f6306c0712373adf9cd1ea52` with no handoff newer than 2026-10-18. No new inequality is asserted at this checkpoint.
