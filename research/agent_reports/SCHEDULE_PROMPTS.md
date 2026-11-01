@@ -1,5 +1,7 @@
 # Stable schedule-prompt reference for the seven RH_Lean agents
 
+> **Cadence amended 2026-10-31, after human merges:** The [main multi-run policy](https://github.com/OVVO-Financial/RH_Lean/blob/main/docs/RHLEAN_MULTIRUN_DAILY_AGENT_POLICY_20261031.md) permits multiple distinct automatic daily scheduled runs per role, including Coordinator, when actually configured in Studio. The old one/day limits below are superseded for cadence, without creating triggers, changing roles, weakening source verification or bypassing human merges.
+
 
 ## 2026-10-29 native arithmetic FIRST: seven distinct roles, conditional on main #1053 merge
 
@@ -23,7 +25,7 @@
 - Adversarial Referee (#6): independent paper proof audit, uncentered primorial falsifier, incomplete sqrt(de) conjecture counterexamples, full missing-bill and no-circularity checks.
 - Lean Verification (#7): on refreshed main, formalize referee-accepted exact alpha_d grouping and shared-GCD Fourier/moment inequality, then only valid incomplete-correlation arithmetic with Lean 4.34.1; no speculative new axioms or merges.
 
-**Preserve:** exactly one existing scheduled run/role/day, no new Studio automation/launch/permission, six own-report-only roles, scoped Lean draft-PR/Actions lane, Coordinator's identical 00/90 mirrors, current reporting filenames and handoff order, HUMAN-ONLY main merges. This Markdown does not edit saved/published Studio agents. No extra run is authorized by this update.
+**Preserve:** seven existing roles, multiple owner-configured scheduled invocations per role/day when enabled in Studio, six own-report-only specialists, narrow Lean draft-PR/Actions exception, Coordinator identical 00/90 files with one separately identified appended synthesis PER ACTUAL run, existing filenames, actual published handoff order and HUMAN-ONLY merges. No GitHub Markdown change installs a Studio trigger, permission or extra background run.
 
 
 ## 2026-10-17 covariance-first directive, conditional on main instruction PR #970 merge
@@ -42,9 +44,9 @@ One shared exact quantitative seam, seven independent roles: `M(N)^2=D(N)+2*C(N)
 
 **No new schedules, tools, launches, Studio edits or role permissions are created by this Markdown.** The six report-only, one Lean proof-branch and human-only merge policy remains exactly unchanged.
 
-**Updated 2026-10-16 after merged #961 and the unified manual cycle. One automatic invocation per agent per day** is the user budget, with weekends only as actually configured. Extra explicitly user-requested manual runs are permitted without creating additional automatic triggers. Timezone: `America/New_York`.
+**2026-10-31 cadence amendment:** The former October 16 one-automatic-run/agent/day budget is superseded by the multiple-daily policy after human merge. Additional automatic runs are authorized *when genuinely configured* in Studio; owner-requested manual continuations are also allowed but do not create scheduled triggers. Each actual run records separate America/New_York timestamp, trigger kind, run ID (when exposed), SHAs and appended report section.
 
-This file is a reference for separately authorized Studio configuration. Editing it does **not** update saved/published Agent Studio instructions, schedules, tool access or permissions. Do not hard-code a PR number, claim ID, dated experiment or theorem as a permanent scheduled assignment. Old AM/PM clock-time examples are historical, not launch instructions.
+This file is a reference for separately authorized Studio configuration. Editing it does **not** update saved/published Agent Studio instructions, schedules, tool access or permissions. On EVERY actual invocation read live main, all committed earlier same-day/yesterday own/upstream sections and external handoffs. Avoid duplicate scans; append a new checkpoint and capsule to the existing dated role file. Do not pin an old PR/claim or treat AM/PM examples as launch instructions.
 
 ## Shared durable preamble
 

@@ -1,5 +1,7 @@
 # RH_Lean daily multi-agent research ledger
 
+> **2026-10-31 MULTIPLE-DAILY CADENCE SYNC — effective only after human merge of main policy PR #1064 and this reporting-branch PR.** The [main cadence policy](https://github.com/OVVO-Financial/RH_Lean/blob/main/docs/RHLEAN_MULTIRUN_DAILY_AGENT_POLICY_20261031.md) permits multiple actually configured automatic scheduled runs per agent per America/New_York day, plus separately labeled user-authorized manual continuations. Historical one/day restrictions in this branch are superseded FOR CADENCE ONLY. This Markdown creates no Studio triggers or permissions and changes no mathematical/merge gate.
+
 
 ## 2026-10-29 user-directed next-run mathematics: square-clock signed source (conditional)
 
@@ -7,7 +9,7 @@ After HUMAN MERGE of [draft routing PR #1053](https://github.com/OVVO-Financial/
 
 Main mathematical change: attack the literal original 2*eulerFractionOffQ square-clock \(\mu(a)\mu(b)\) source, not additional offcritical LOW/HIGH/Mellin/realification equivalences. Start from the accepted paper-level centered complete low-product shared-GCD moment (20261029-analytic-1); keep its principal P_Q, high-product ab>Q, mixed, diagonal, reciprocal-square and sharp boundary bills **open**. Pursue genuine incomplete quadratic correlations beyond Q^3<=H and a complete shell moment saving H^(5/2-eta+eps), eta>0. Today's Wheel/Census/Referee show principal compensations and an uncentered primorial obstruction; don't treat centered O(HQ) as full source. #1051 and #1052 merged per live PR refresh, yet no new global exponent.
 
-Existing report paths and run cadence, one invocation/agent/day, Coordinator mirror convention, role permissions and human-only merge remain unchanged. Do NOT edit earlier report files or saved Studio configurations.
+Existing report paths, Coordinator mirror filenames, narrow role permissions and human-only merges remain unchanged. The prior one-invocation/day budget is superseded after human review by the current multi-run policy. Do not rewrite earlier reports or claim saved Studio settings were changed.
 
 
 ## 2026-10-17 next-run topic: complete signed Mobius covariance
@@ -16,11 +18,11 @@ The user has requested a covariance-first attack by all seven specialists. This 
 
 Quantitative baseline: genuine `M(N)^2=D(N)+2C(N)`, `D=sum(mu²)`, `C=sum_{a<b}mu(a)mu(b)`; external assumed OAI ZF78 gives `D+2C=O_eta(N^(7/4+eta))`, and uniform weighted `C_eps(T)` only for eps>3/8. A strict new original-arithmetic saving `N^kappa` beats the 7/8 boundary; RH scale is `D+2C=O_eta(N^(1+eta))`. The sampled root/smooth `rho=2UV/(U²+V²)` near -1 is a DIFFERENT two-population normalization from the full pair covariance and original masked #915 NNS object.
 
-Every role should report its own original-carrier proposed signed inequality, all-N quantifiers, actual gain, first unproved arithmetic step, adverse test, independent review and source/CI status—or honestly record no progress. Reporting Markdown does not edit saved Studio instructions or schedules. Budget remains one scheduled run/agent/day, and only human review can merge central changes.
+Every role must report its own original-carrier proposed signed inequality, all-N quantifiers, actual gain, first unproved arithmetic step, adverse test, independent review and source/CI status—or honestly record no progress. Reporting Markdown does not edit saved Studio instructions or schedules. Multiple genuinely scheduled invocations per role/day are now permitted after main policy activation; only human review can merge central changes.
 
 **Branch: `agent-reports`, not main.** Reports live under `research/agent_reports/YYYY-MM-DD/`; use the actual `America/New_York` calendar date, including weekends when configured.
 
-**Budget:** one automatic scheduled invocation per agent per day. Additional explicitly user-requested manual runs are allowed and use the same dated stage file; they do not authorize more automatic launches. Actual Studio settings determine schedules and access. This README does not create launches, grant permissions or alter saved/published instructions.
+**Cadence:** multiple automatic scheduled invocations per existing agent per America/New_York day are permitted when actually configured in Studio, without a fixed repository count ceiling; explicitly user-requested manual continuations remain permitted and distinct. Every real invocation refreshes main plus all published same-day/yesterday report sections and external handoffs, records its trigger, run ID if available, timestamp and SHAs, and appends a uniquely identified section to its own dated file. This README creates no launches or Studio permission changes.
 
 ## Live authority: always fetch main explicitly
 
@@ -75,7 +77,7 @@ Use the [October 16 Wheel](2026-10-16/30-finite-wheel.md), [Census](2026-10-16/4
 | Adversarial Referee | `50-adversarial-referee.md` |
 | Lean Verification | `60-lean-verification.md` |
 
-There are seven agents and eight compatibility filenames, **not eight launches**. The Coordinator records one run ID and publishes the same verified synthesis bytes under both names. Missing one mirror is a publication defect, not evidence of a missed second run. Old AM/PM clock-time examples are historical and never change actual triggers. No agent launches another agent.
+There are seven agents and eight compatibility filenames, **not a fixed number of daily launches**. For EVERY actual Coordinator invocation, record a distinct run ID/time and append one synthesis to both complete byte-identical `00`/`90` mirror files, preserving all prior same-day sections. A missing mirror is a publication defect, not evidence of a missed scheduled run. Multiple genuine Coordinator runs may be configured daily; AM/PM filenames alone never create a trigger. No agent launches another agent.
 
 The six non-Lean scheduled roles may write only their own dated report(s). Agent #7 additionally has the narrow proof-branch/PR exception in live AGENTS. No scheduled role may change these templates, shared instructions, other agents' reports, permissions or schedules, push to main, merge or enable auto-merge. A direct user-authorized maintenance task uses a separate reviewed change. Broad connector access is not authorization or technically enforced path isolation.
 
@@ -119,6 +121,6 @@ Reuse green checks only at the exact unchanged source head. Do not push no-op ch
 
 ## Final handoff
 
-End with a compact resume capsule: source freshness; two-day/external claims; reusable results and invalidations; the next independent mathematical question; the precise blocker; next decisive test; and Agent #7 PR/head/CI state. Coordinator's one synthesis includes the actual completion matrix, distinct mechanisms, accepted findings, failures/repairs, quantitative progress and proposed next assignments. Proposed policy changes go to human review, not automatic edits.
+End EACH actual invocation with a compact timestamped resume capsule: source freshness; this-day/previous-day/external claims actually read; reusable results and invalidations; next independent mathematical question; precise blocker; decisive test; and Agent #7 PR/head/CI state. Every Coordinator invocation appends its own completion matrix, distinct mechanisms, accepted findings, failures/repairs and next assignments to both identical mirrors. Proposed policy changes require human review.
 
 [Stable schedule-prompt reference](SCHEDULE_PROMPTS.md) gives role specialties without hard-coded theorem queues or invented launch times.
