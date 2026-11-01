@@ -28,3 +28,241 @@ The exact first unsupported step is an all-(N) bound for the infinite tail (mge 
 ### C. Publication state
 
 This checkpoint claims no new inequality yet. Open/draft PR search returned none at intake. Lean execution is neither needed nor authorized for this paper-level analytic run.
+
+
+## Final synthesis - claim 20261101-analytic-1 - 2026-11-01 01:08:51 EDT (-0400)
+
+**Status:** COMPLETED / PAPER_PROOF_NEEDS_INDEPENDENT_REVIEW  
+**Result classes:** EXACT_STRUCTURAL_REPRESENTATION; QUANTITATIVE_NECESSARY_BLOCK_ESTIMATE; ABSOLUTE_TAIL_METHOD_OBSTRUCTION; NO_ALL_SCALE_DECAY_PROVED; NO_FIXED_ETA_GAIN; NO_RH.
+
+### D. Main result: two explicit full-basis constructions expose different root-scale barriers
+
+Write
+\[
+ a_k(m)=(m\bmod k)/k,\qquad
+ F_{N,c}(m)=\sum_{k=2}^N c_k a_k(m),
+\]
+and
+\[
+ {\cal D}_N(c)^2
+ =\sum_{m\ge1}\frac{|1-F_{N,c}(m)|^2}{m(m+1)}.
+\]
+This is exactly the repository's centered integer-modulus Nyman family and exact Hilbert norm. The optimum satisfies \(d_N^2\le{\cal D}_N(c)^2\).
+
+#### Construction I: exact finite interpolation
+
+Put
+\[
+ A_N=\sum_{d\le N}\frac{\mu(d)}d,
+\]
+and define
+\[
+ c_k=-\mu(k)\quad(2\le k<N),\qquad
+ c_N=N A_{N-1}.
+\]
+Then
+\[
+ F_{N,c}(m)=1\qquad(1\le m<N).
+\]
+The infinite tail is not harmless. For every \(N\le m<2N\), exact divisor inversion gives
+\[
+ \boxed{\;
+ 1-F_{N,c}(m)=M(m)-M(N)+N A_N.
+ \;}
+ \tag{1}
+\]
+Consequently
+\[
+ \boxed{\;
+ {\cal D}_N(c)^2\ge
+ \frac1{4N^2}\sum_{m=N}^{2N-1}
+   |M(m)-M(N)+N A_N|^2.
+ \;}
+ \tag{2}
+\]
+Thus a bound \({\cal D}_N(c)^2\le U_N\) for this explicit construction forces
+\[
+ \left(\frac1N\sum_{m=N}^{2N-1}
+ |M(m)-M(N)+N A_N|^2\right)^{1/2}
+ \le 2\sqrt{N U_N}.
+ \tag{3}
+\]
+In particular, convergence of this construction requires an \(o(\sqrt N)\) RMS fitted Mertens increment on every dyadic first-tail block. This is a necessary condition for this construction, not a new equivalence for the optimized distance \(d_N\).
+
+The imported \(M(x)=O_\varepsilon(x^{7/8+\varepsilon})\) estimate gives only the crude first-block contribution
+\[
+ O_\varepsilon(N^{3/4+2\varepsilon}),
+\]
+not decay. Hence the established 7/8 theorem does not certify the interpolation tail.
+
+#### Construction II: centered power-damped Möbius coefficients
+
+For \(\delta>0\), put
+\[
+ c_k=-\mu(k)k^{-\delta}\quad(2\le k\le N),\qquad
+ A_{N,\delta}=\sum_{k\le N}\frac{\mu(k)}{k^{1+\delta}}.
+\]
+Define the positive multiplicative density
+\[
+ g_\delta(n)=\sum_{d\mid n}\frac{\mu(d)}{d^\delta}
+ =\prod_{p\mid n}(1-p^{-\delta}),\qquad
+ G_\delta(m)=\sum_{n\le m}g_\delta(n).
+\]
+For every \(m\le N\), the exact residual is
+\[
+ \boxed{\;
+ 1-F_{N,\delta}(m)=1+mA_{N,\delta}-G_\delta(m).
+ \;}
+ \tag{4}
+\]
+For every \(m>N\), the complete residual is
+\[
+ \boxed{\;
+ 1-F_{N,\delta}(m)
+ =1+mA_{N,\delta}-G_\delta(m)
+ +\sum_{N<k\le m}\mu(k)k^{-\delta}
+   \left\lfloor\frac mk\right\rfloor .
+ \;}
+ \tag{5}
+\]
+Equation (5) displays the genuine missing infinite tail. It cannot be discarded or replaced by a finite optimum.
+
+The first coordinate already gives
+\[
+ {\cal D}_N(c)^2\ge\frac12|A_{N,\delta}|^2.                 \tag{6}
+\]
+For fixed \(\delta>0\),
+\[
+ A_{N,\delta}\longrightarrow\frac1{\zeta(1+\delta)},
+\]
+so no fixed damping exponent makes this explicit construction converge.
+
+For any cutoff \(T\ge N\), there is nevertheless a rigorous finite-to-infinite upper certificate:
+\[
+ {\cal D}_N(c)^2
+ \le\sum_{m\le T}\frac{|1-F_{N,\delta}(m)|^2}{m(m+1)}
+ +\frac{(1+L_{N,\delta})^2}{T+1},
+ \quad
+ L_{N,\delta}=\sum_{k=2}^N|\mu(k)|k^{-\delta}.
+ \tag{7}
+\]
+At \(T=N\) and \(0<\delta<1\),
+\[
+ \sum_{m>N}\frac{|1-F_{N,\delta}(m)|^2}{m(m+1)}
+ \le
+ \frac1{N+1}
+ \left(1+\frac{N^{1-\delta}-1}{1-\delta}\right)^2
+ =O\!\left(\frac{N^{1-2\delta}}{(1-\delta)^2}\right).
+ \tag{8}
+\]
+This is a valid uniform inequality, but it is deliberately too weak in the interesting regime.
+
+Báez-Duarte's primary paper uses the uncentered power schedule
+\(\delta_N=c/\log\log N\) conditionally on RH. For the centered coefficients above,
+\[
+ \left|A_{N,\delta_N}-\frac1{\zeta(1+\delta_N)}\right|
+ \le\frac{N^{-\delta_N}}{\delta_N}=o(1),
+\]
+and \(1/\zeta(1+\delta_N)\sim\delta_N\), so the coordinate obstruction (6) tends to zero. But the absolute tail bill (8) becomes \(N^{1-o(1)}\). Therefore any successful use of this schedule on the centered repository carrier must prove signed cancellation in the exact tail (5); an \(L^1\) coefficient estimate cannot establish density.
+
+The head has its own necessary least-squares condition:
+\[
+ {\cal D}_N(c)^2\ge
+ \frac1{N(N+1)}
+ \sum_{\lceil N/2\rceil\le m\le N}
+ |G_\delta(m)-1-mA_{N,\delta}|^2.                           \tag{9}
+\]
+Thus \({\cal D}_N(c)^2\le U_N\) forces RMS generalized-density discrepancy
+\[
+ \left(\frac1{\lfloor N/2\rfloor}
+ \sum_{\lceil N/2\rceil\le m\le N}
+ |G_\delta(m)-1-mA_{N,\delta}|^2\right)^{1/2}
+ \le \sqrt{2(N+1)U_N}.
+ \tag{10}
+\]
+
+### E. Proof details
+
+For Construction I, use
+\[
+ a_k(m)=m/k-\lfloor m/k\rfloor
+\]
+and the exact identity
+\[
+ \sum_{k\le m}\mu(k)\lfloor m/k\rfloor=1.
+\]
+The chosen coefficient at \(N\) cancels the linear term for \(m<N\). On \(N\le m<2N\), every newly omitted divisor index \(k\in[N,m]\) has floor quotient one; simplifying \(A_{N-1}=A_N-\mu(N)/N\) gives (1). Since \(m(m+1)<4N^2\) on this block, (2) follows.
+
+For Construction II,
+\[
+ \sum_{k\le m}\mu(k)k^{-\delta}\lfloor m/k\rfloor
+ =\sum_{n\le m}\sum_{k\mid n}\mu(k)k^{-\delta}
+ =G_\delta(m),
+\]
+which proves (4). Restoring the omitted \(k>N\) terms proves (5). Inequality (7) uses only \(|a_k(m)|<1\) and
+\[
+ \sum_{m>T}\frac1{m(m+1)}=\frac1{T+1}.
+\]
+No exchange of a conditionally convergent sum is used. The limit in (6) is absolutely convergent because \(1+\delta>1\).
+
+The interpolation identities were independently checked with exact rational arithmetic for every \(2\le N\le40\). The power-damped identities were independently checked with exact rational arithmetic for \(\delta=1,2,3\), every \(2\le N<25\), and every \(m<3N\). These are regressions only; the proofs above are general.
+
+### F. Literature and novelty audit
+
+The original repository source already records the full centered residue basis, Burnol's logarithmic lower obstruction, and finite certificates. The present contribution is the explicit comparison (1)-(10) on that exact centered carrier and the identification of its two distinct unpaid least-squares/tail bills.
+
+Primary sources checked:
+
+- L. Báez-Duarte, “A strengthening of the Nyman-Beurling criterion for the Riemann Hypothesis,” arXiv:math/0202141.
+- L. Báez-Duarte, “A strengthening of the Nyman-Beurling criterion for the Riemann hypothesis, 2,” arXiv:math/0205003. Its advertised power-damped convergence rate is conditional on RH and is stated for the uncentered \(\rho_a\) presentation; it is not imported here as an unconditional centered bound.
+- J.-F. Burnol, “A lower bound in an approximation problem involving the zeros of the Riemann zeta function,” arXiv:math/0103058.
+
+No claim is made that (1)-(10) are absent from the external literature. They were not located as existing repository declarations. This report supplies self-audited paper proofs pending independent review.
+
+### G. Falsification and exact scope
+
+1. Construction I proves nothing about the optimized full basis \(d_N\); another coefficient vector may avoid its Mertens first-tail block.
+2. Construction II does not prove that the power-damped family fails. It proves that fixed \(\delta\) fails and that absolute control of the moving schedule's tail is quantitatively unusable.
+3. The \(N^{1-o(1)}\) quantity in (8) is an upper-bound loss of the method, not a lower bound on the actual tail.
+4. Burnol's result is respected: no eventual square-scale contraction with ratio below \(1/2\) is proposed.
+5. A finite rational optimum or exact finite certificate is not promoted to all-scale density.
+6. Equations (2) and (9) are necessary block restrictions, not independent RH proofs and not a positive endpoint exponent gain.
+
+### H. Consequence for the live proof objective
+
+The NYMAN route remains OPEN. This run establishes a precise first unsupported inequality rather than density:
+
+- interpolation candidate: prove the RMS fitted Mertens-increment condition (3) with a decaying full-tail budget;
+- power-damped candidate: jointly control the generalized-density discrepancy (9) and the signed omitted-divisor tail (5) for a schedule \(\delta_N\to0\).
+
+The second candidate is retained because its head is a positive multiplicative density and its missing cancellation is explicitly localized. The first candidate is parked: it moves the hard arithmetic directly into a dyadic Mertens block and offers no evident gain over the imported 7/8 result.
+
+No source-to-endpoint gain, strict exponent below 7/8, canonical VF bound, or RH proof follows.
+
+### I. Specialist handoff
+
+**Adversarial Referee:** audit equations (1), (4), (5), quantifier order in \(\delta=\delta_N\), and the distinction between the actual tail and the absolute method loss (8). Verdict separately on exact identities and quantitative interpretations.
+
+**Prime Census Laboratory:** only if this changed NYMAN question is selected after its due FINITE-AC work, preregister powers \(N\), the schedule \(\delta_N=c/\log\log N\), and measure the exact head statistic in (9) separately from cumulative tail (5). The falsifier is failure of normalized signed tail improvement; finite decay cannot prove density.
+
+**Lean Verification:** no proof task is requested before independent acceptance. The finite identities are formalizable, but a green structural wrapper would not pay either open estimate.
+
+**Coordinator:** retain NYMAN as an independent Hilbert route. Record the power-damped candidate's exact missing object (5)+(9); do not translate it into CODIV or OAI-NNS without a proved carrier map.
+
+### J. Routing check and resume capsule
+
+- eta_gate: SEARCH_BROAD.
+- primary_route_and_original_carrier: NYMAN / full centered integer-modulus residue basis in the exact Hilbert norm.
+- actual_new_lemma_or_first_unresolved_inequality: claim 20261101-analytic-1, equations (1)-(10); first unsupported bound is joint control of (5) and (9) for \(\delta_N\to0\).
+- last substantive Analytic attempts: CODIV - claims 20261031-analytic-1..3; OAI-NNS - no new gain in those continuations; NYMAN - this invocation.
+- independent reviewer and formal evidence: PENDING; self-audited paper proof plus finite exact regressions only.
+- net endpoint gain after complete return: UNKNOWN.
+- next distinct route due: OAI-NNS under the next rolling three-invocation cycle, unless independent review finds an error requiring repair.
+- main at final refresh: 5b232a4fa633fad5e73a9b7ebfb76572ecb1dbb0.
+- main combined status/workflow lookup returned no status entries or PR-triggered runs for the merge commit; no claim of fresh main CI is made.
+- open/draft PRs at final refresh: none returned.
+- checkpoint publication: commit ebd4a0e7fb03c17e6f1f992d80c90ce44e7ff6c2, verified blob eb6509640630777fde3a93619f20be0ac6e4c0ac.
+- complete shell estimate: OPEN.
+- strict Mertens exponent below 7/8: NOT PROVED.
+- canonical VF theorem: OPEN.
+- RH: OPEN.
