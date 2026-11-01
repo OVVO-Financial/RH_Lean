@@ -234,3 +234,160 @@ If (L_R) is the least backward square-block length whose signed endpoint increme
 \ge |M(R^2-1)|/(2L_R)-2.
 ]
 The tempting stronger clustering claim (L_R\ge\sqrt R) is already refuted at the first Census high-statistic root (R=53): (M(52^2-1)=-7), (M(53^2-1)=-24), hence (L_{53}=1). Final classification awaits source/novelty audit and exact readback. No endpoint gain is claimed.
+
+
+## Final synthesis - claim \`20261101-wheel-2\` - 2026-11-01 10:28 EST (-0500)
+
+**Status:** COMPLETED / PAPER_PROOF_NEEDS_INDEPENDENT_REVIEW  
+**Result classes:** \`EXACT FINITE-AC INVERSE THEOREM\`, \`EXACT CUMULATIVE SOURCE/HISTORY DICHOTOMY\`, \`COUNTEREXAMPLE TO SQUARE-ROOT BLOCK SPREADING\`, \`NO FINITE-C BOUND\`, \`NO FIXED ETA GAIN\`, \`NO RH\`.  
+**Final live main:** \`417cb62ee8ca65c82dd3aad1263c7529e94668eb\`; open/draft PR refresh returned 0.  
+**Material source blobs:** \`EULER_SELF_DUAL_ENDPOINT_GATE_20261027.lean\` \`e7ee8f77ffd59bccaa49dd6d74fbe0d7952c2d73\`; \`SquareRootMertensEndpointAmplification.lean\` \`7793d7bfd842348facf62a7ad856bc802ffcd15c\`; FINITE-AC coordinate \`c90419edaad013345dc598b18387173f7dca7ef0\`; earlier square-block audit \`8b72e42817c6c77036a93a2fb78b3c5b4fd0ae59\`.
+
+### K. Literal carrier and exact block recurrence
+
+Put
+\[
+E_R=M(R^2-1),\qquad
+\Delta_R=E_{R+1}-E_R
+ =\sum_{R^2\le n<(R+1)^2}\mu(n),
+\]
+and
+\[
+Q_R=2M(R-1)-E_R.
+\]
+For every integer \(R\ge2\), \(Q_R\) is the literal original Euler self-dual bilinear floor source by the compiled theorem
+\`eulerSelfDualBilinear_eq_two_mertens_sub_endpoint\`. Direct subtraction gives
+\[
+\boxed{Q_{R+1}-Q_R=2\mu(R)-\Delta_R.} \tag{12}
+\]
+All endpoints are exact: the block is \([R^2,(R+1)^2)\), so it includes
+\(R^2\) and ends at \(R^2+2R\).
+
+### L. Half-amplitude inverse theorem
+
+Assume \(R\ge3\) and \(E_R\ne0\). Let \(L_R\) be the least integer
+\(1\le L\le R-1\) such that
+\[
+2|E_R-E_{R-L}|\ge |E_R|. \tag{13}
+\]
+It exists because \(E_1=M(0)=0\). If \(L_R\le R-2\), every \(Q_t\) below is
+on the compiled literal source range \(t\ge2\).
+
+Telescoping (12) over \(R-L_R\le t<R\) gives the exact reconstruction
+\[
+E_R-E_{R-L_R}
+ =2\bigl(M(R-1)-M(R-L_R-1)\bigr)
+  -(Q_R-Q_{R-L_R}). \tag{14}
+\]
+Consequently at least one of the following must hold:
+\[
+\boxed{
+ |M(R-1)-M(R-L_R-1)|\ge {|E_R|\over8}
+ \quad\text{or}\quad
+ |Q_R-Q_{R-L_R}|\ge {|E_R|\over4}.
+} \tag{15}
+\]
+Indeed, if both inequalities failed, the triangle inequality in (14) would
+make the left side strictly smaller than \(|E_R|/2\), contradicting (13).
+
+There is also a local incidence consequence. Some
+\(t\in[R-L_R,R)\) satisfies
+\[
+|\Delta_t|\ge {|E_R|\over2L_R}.
+\]
+Using (12) and \(|\mu(t)|\le1\),
+\[
+\boxed{
+ \max_{R-L_R\le t<R}|Q_{t+1}-Q_t|
+ \ge {|E_R|\over2L_R}-2.
+} \tag{16}
+\]
+Equivalently, in energy form,
+\[
+\left(\sum_{t=R-L_R}^{R-1}|Q_{t+1}-Q_t|^2\right)^{1/2}
+\ge {|E_R|\over2\sqrt{L_R}}-2\sqrt{L_R}. \tag{17}
+\]
+For (17), Cauchy gives
+\(\|\Delta\|_2\ge |E_R-E_{R-L_R}|/\sqrt{L_R}\), and the vector
+\(2\mu(t)\) has norm at most \(2\sqrt{L_R}\).
+
+Equations (15)-(17) are inverse restrictions, not estimates of their
+right-hand source terms. They prove that a short coherent square-endpoint
+excursion must reappear either in the genuine root-prefix history or in a
+cumulative/individual jump of the original finite-C source. No arbitrary
+graph, independence model, unsigned wheel density, or omitted cross term is
+used.
+
+### M. Exact falsifier for square-root spreading
+
+A natural attempt suggested by the twelve observed high-root clusters was:
+
+\[
+\textsf{HALF-SPREAD:}\quad
+200Q_R^2\ge27R^2\Longrightarrow L_R\ge\sqrt R
+\quad(R\ge31). \tag{18}
+\]
+
+The normalization in the premise is exactly the Census high-statistic
+threshold \(Q_R^2/((3/2)R^2)\ge9/100\) on its verified finite range.
+It is false at the first such Census root \(R=53\). Exact values are
+\[
+M(51)=-2,\quad E_{52}=M(52^2-1)=-7,
+\]
+\[
+M(52)=-2,\quad E_{53}=M(53^2-1)=-24,
+\]
+hence
+\[
+Q_{52}=3,\qquad Q_{53}=20,\qquad \Delta_{52}=-17,\qquad \mu(52)=0.
+\]
+Thus \(L_{53}=1\), because \(17\ge |E_{53}|/2=12\), while
+\(1<\sqrt{53}\). The premise holds with positive exact margin:
+\[
+200Q_{53}^2-27\cdot53^2=80000-75843=4157.
+\]
+Equation (12) also checks exactly:
+\(Q_{53}-Q_{52}=17=2\mu(52)-\Delta_{52}\).
+
+This refutes any universal square-root lower bound for the first
+half-amplitude length, even inside the high FINITE-AC statistic. The observed
+large-root cluster widths cannot be promoted to an all-scale spreading law.
+
+### N. Novelty, circularity, and quantitative impact
+
+Repository search found existing square-block increment decompositions and
+the exact \(Q_R\) endpoint identity, but no least-half-amplitude theorem or
+the source/history inverse restrictions (15)-(17). The recurrence (12) alone
+is elementary; the new result is its quantified inverse use on the literal
+FINITE-AC carrier and the exact \(R=53\) falsifier for the stronger proposed
+law.
+
+The theorem is not circular: it assumes only the definition of \(L_R\) and
+exact Möbius identities. It does not assume finite A, finite C, a Mertens
+growth estimate, or a favorable envelope. But it supplies no upper bound on
+the \(Q\)-increments in (16)-(17). Bounding those jumps at the scale needed
+to force long spreading is another form of the signed square-block problem.
+Therefore no universal finite-C constant, complete endpoint gain, canonical
+VF estimate, or RH conclusion follows.
+
+The first independently missing inequality is a uniform arithmetic upper
+bound for the complete signed increment energy
+\[
+\sum_{H\le t<2H}|\,2\mu(t)-\Delta_t\,|^2
+ =\sum_{H\le t<2H}|Q_{t+1}-Q_t|^2, \tag{19}
+\]
+or a genuinely joint signed estimate with the historical alternative in
+(15), strong enough to limit short coherent excursions without assuming the
+desired endpoint bound.
+
+### O. Routing check and resume capsule
+
+- \`eta_gate: SEARCH_BROAD\`.
+- \`primary_route_and_original_carrier: FINITE-AC / literal Euler self-dual Q_R and square-endpoint Mertens blocks\`.
+- \`actual_new_lemma_or_first_unresolved_inequality:\` exact inverse restrictions (15)-(17); unresolved signed increment-energy bound (19).
+- Last substantive Wheel attempts: MU-LIFT \`20261031-wheel-2\`; CORR4 \`20261101-wheel-1\`; FINITE-AC \`20261101-wheel-2\`. Rolling rotation satisfied.
+- Independent reviewer/formal evidence: PENDING. This is a paper proof; no new Lean declaration or PR is claimed.
+- Net endpoint gain after complete return: \`UNKNOWN\`.
+- Next distinct route due: MU-LIFT under the next rotation unless newer protected evidence changes order.
+- External claim intake: no entry newer than 2026-10-18; no old handoff is upgraded.
+- Complete shell bound, strict exponent below \(7/8\), canonical VF theorem and RH remain OPEN.
