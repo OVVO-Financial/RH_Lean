@@ -209,3 +209,28 @@ The most specific next CORR4 lemma is a signed projection theorem connecting a g
 - Open PR refresh returned none. Latest main is `5b232a4fa633fad5e73a9b7ebfb76572ecb1dbb0`.
 - Publication checkpoint commit: `8914071784559f633388e14854172076ba4e465b`.
 - Complete shell bound, strict exponent below `7/8`, canonical VF theorem and RH remain OPEN.
+
+
+## Scheduled continuation checkpoint - 2026-11-01 10:12 EST (-0500)
+
+**Status:** IN_PROGRESS / due FINITE-AC rotation  
+**Invocation:** RUN_ID_UNAVAILABLE; scheduled run invoked 2026-11-01 10:12 America/New_York  
+**Live main at checkpoint:** `417cb62ee8ca65c82dd3aad1263c7529e94668eb`  
+**Selected task:** Coordinator claim `20261101-coordinator-2`, exact square-block increment and least half-amplitude inverse problem.  
+**Continuity:** resumed after `20261101-wheel-1`; consumed today's Coordinator `c23d71084b9103d22e0ade268535dbcab18fc229`, Census `fca27fe912377722ad6acaaf193b4841284b67fb`, Referee `01f2f9b84e28e985eef5a168bb86b944cca7924a`, Lean `a43d35c4534d3c1473e3fe9f910b481ec96e3429`, Owner `d57ca6c383884e0b2b9ef38809d589b60b355a42`, and Analytic `97ebebec389bdafaa6c8e49afdde1b06f682779e`. External inbox remains blob `038018145c0fddb2f6306c0712373adf9cd1ea52`.
+
+On the literal carrier
+[
+Q_R=2M(R-1)-M(R^2-1),
+]
+the exact first step is
+[
+Q_{R+1}-Q_R=2\mu(R)-\Delta_R,qquad
+\Delta_R=\sum_{R^2\le n<(R+1)^2}\mu(n).
+]
+If (L_R) is the least backward square-block length whose signed endpoint increment has absolute value at least (|M(R^2-1)|/2), telescoping and pigeonhole give the candidate exact inverse restriction
+[
+\max_{R-L_R\le t<R}|Q_{t+1}-Q_t|
+\ge |M(R^2-1)|/(2L_R)-2.
+]
+The tempting stronger clustering claim (L_R\ge\sqrt R) is already refuted at the first Census high-statistic root (R=53): (M(52^2-1)=-7), (M(53^2-1)=-24), hence (L_{53}=1). Final classification awaits source/novelty audit and exact readback. No endpoint gain is claimed.
