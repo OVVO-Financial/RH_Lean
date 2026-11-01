@@ -1,6 +1,8 @@
 # Broad RH_Lean mathematics until a verified positive exponent gain
 
-**User-directed research policy, 2026-10-31. Effective only after human merge to main.** Instruction-only: no theorem, proof-status, permission, schedule, saved Studio configuration, or historical report is changed.
+**User-directed research policy, 2026-10-31. Effective only after human merge to main.** Instruction-only: no theorem, proof-status, permission, actual Studio schedule, saved Studio configuration, or historical report is changed.
+
+**Cadence clarification:** The separately user-authorized [multiple-daily agent invocation policy](RHLEAN_MULTIRUN_DAILY_AGENT_POLICY_20261031.md) supersedes the historical one-run/day ceiling. Broad coverage is measured over three **actual substantive invocations**, which can occur on the same day; neither increased run frequency nor a local positive eta permits team-wide narrowing.
 
 ## 1. Governing rule and precedence
 
