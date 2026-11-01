@@ -671,3 +671,8 @@ PR #1069 is merged. Its repaired exact head `0bf1622daabc694f91b72b922a3e157f269
 - Strict Mertens exponent below \(7/8\): NOT PROVED.
 - Canonical VF theorem: OPEN.
 - RH: OPEN.
+
+
+### Publication verification
+
+Final synthesis commit `0acc662bafe49eaa0698eb1dac70b207974a751d` was read back as blob `1d4acb08496ad854c6978202c0bc7c9021db2fcf`. Claim `20261101-analytic-3`, the completed status, equations (21)-(31), specialist handoffs, and the resume capsule were present. Final authority remained `main@a33987e275f8a431641d3f475b71a24aa2b1437c`; the open-PR refresh remained empty.
