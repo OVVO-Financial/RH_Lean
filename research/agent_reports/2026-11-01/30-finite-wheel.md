@@ -391,3 +391,32 @@ desired endpoint bound.
 - Next distinct route due: MU-LIFT under the next rotation unless newer protected evidence changes order.
 - External claim intake: no entry newer than 2026-10-18; no old handoff is upgraded.
 - Complete shell bound, strict exponent below \(7/8\), canonical VF theorem and RH remain OPEN.
+
+
+## Scheduled continuation checkpoint - 2026-11-01 18:08 EST (-0500)
+
+**Status:** IN_PROGRESS / due MU-LIFT rotation; Coordinator trichotomy audited against the actual recurrence.  
+**Invocation:** RUN_ID_UNAVAILABLE; scheduled run invoked 2026-11-01 18:06 America/New_York.  
+**Live main:** `a33987e275f8a431641d3f475b71a24aa2b1437c`.  
+**Selected task:** Coordinator claim `20261101-coordinator-2`; determine whether the half-amplitude localization supplies a genuine subcritical MU-LIFT input or only relocates the endpoint bill.  
+**Continuity:** consumed today's complete Coordinator, Wheel, Owner, Analytic, Census, Referee and Lean reports, the 2026-10-31 carry-forward set, and external inbox blob `038018145c0fddb2f6306c0712373adf9cd1ea52`. Authority blobs remain `AGENTS.md 9fa5e9519e2fb6dde22217aa2a18982dafef373a`, contract `88cddd9cd98c3b55f0b013998541e9b4e9dc9f2a`, selector `d05c327ae694ea54b599dab0a21032a056b521f1`, complete-return contract `16838f7f3c8724b970f8b8ece0bceaab9418066d`, and engine `6fce99c61efb5b2a73c0cb1f1464f09b351fcd55`.
+
+On the compiled carrier, write
+```text
+E_R = M(R^2-1),  H_R = M(R-1),
+C_R = C_R^small + C_R^large,
+A_R = lowOwnerPhysicalAmplitudeRemainder R 0.
+```
+The exact zero-frequency identity is
+```text
+A_R = H_R - E_R - C_R.
+```
+Therefore, after the Coordinator's paid large-owner split,
+```text
+A_R + C_R^small = H_R - E_R - C_R^large.                 (W20)
+```
+and for its comparison roots `S<R`,
+```text
+Delta A + Delta C_small = Delta H - Delta E - Delta C_large. (W21)
+```
+Thus the physical and small-owner alternatives are not independent recurrence inputs when recombined: they restore the endpoint increment, up to history and the already-paid large tail. The current check is quantifying whether any separate small-column recursion can nevertheless be absorbed. The first warning is exact at the scalar level: the trichotomy constant `16` already makes the single owner `q=3` coefficient `16/q^2=16/9>1` before comparison-root doubling or physical restoration. No MU-LIFT exponent `r<k` or endpoint gain is claimed at this checkpoint.
