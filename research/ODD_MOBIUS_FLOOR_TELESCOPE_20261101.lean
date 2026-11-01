@@ -103,8 +103,10 @@ theorem isMultiplicative_oddMoebius :
   intro m n hmn
   simp only [oddMoebius_apply]
   rw [ArithmeticFunction.isMultiplicative_moebius.map_mul_of_coprime hmn]
-  simp only [odd_mul]
-  by_cases hm : Odd m <;> by_cases hn : Odd n <;> simp [hm, hn, and_comm]
+  by_cases hOdd : Odd (m * n)
+  · rw [if_pos hOdd, if_pos hOdd.of_mul_left, if_pos hOdd.of_mul_right]
+  · rw [if_neg hOdd]
+    by_cases hm : Odd m <;> by_cases hn : Odd n <;> simp [hm, hn]
 
 /-- The divisor sum of odd Möbius coefficients. -/
 def oddMoebiusZeta : ArithmeticFunction ℤ :=
@@ -141,7 +143,7 @@ theorem oddMoebiusZeta_prime_pow
       refine ⟨2 ^ i, ?_⟩
       rw [pow_succ]
       omega
-    have hNotOdd : ¬ Odd (2 ^ (i + 1)) := hEven.not_odd
+    have hNotOdd : ¬ Odd (2 ^ (i + 1)) := not_odd_iff_even.mpr hEven
     simp [hNotOdd]
   · have hpOdd : Odd p := hp.odd_of_ne_two hpTwo
     simp [oddMoebius, hpOdd.pow, ArithmeticFunction.moebius_apply_prime_pow,
@@ -161,12 +163,15 @@ theorem oddMoebiusZeta_eq_powerOfTwoIndicator (n : ℕ) :
   | zero =>
       have hzero : ¬ ∃ j : ℕ, 0 = 2 ^ j := by
         rintro ⟨j, hj⟩
-        have hpos : 0 < 2 ^ j := pow_pos (by decide)
+        have hpos : 0 < 2 ^ j := pow_pos (by norm_num : 0 < (2 : ℕ)) j
         omega
       simp [oddMoebiusZeta, hzero]
   | one =>
       have hone : ∃ j : ℕ, 1 = 2 ^ j := ⟨0, by simp⟩
-      simp [oddMoebiusZeta, oddMoebius, hone]
+      rw [if_pos hone]
+      unfold oddMoebiusZeta
+      rw [ArithmeticFunction.mul_apply_one]
+      simp [oddMoebius]
   | prime_pow_mul a p k hp hpa hk ih =>
       have hcop : Nat.Coprime (p ^ k) a :=
         (hp.coprime_iff_not_dvd.mpr hpa).pow_left k
