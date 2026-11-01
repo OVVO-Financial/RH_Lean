@@ -5,7 +5,7 @@ import RHLean.Analysis.NativePNTMertens
 # Odd Möbius floor telescope
 
 This module begins the kernel proof of the independently accepted finite
-odd-divisor telescope.  It first exposes the exact finite Fubini identity on
+odd-divisor telescope. It first exposes the exact finite Fubini identity on
 the repository's native Möbius carrier, then certifies that the inner
 odd-divisor sum is one on every power of two.
 
@@ -44,7 +44,7 @@ theorem oddMoebiusFloorSum_eq_sum_oddDivisorMoebiusSum (A : ℕ) :
           if Odd m ∧ m ∣ n then ArithmeticFunction.moebius m else 0 := by
     intro m
     by_cases hmOdd : Odd m
-    · simp only [hmOdd, if_true]
+    · simp only [hmOdd, ite_true, true_and]
       rw [Finset.sum_ite, Finset.sum_const_zero, add_zero, Finset.sum_const,
         nsmul_eq_mul, RHLean.Analysis.nativeCardMultiplesIcc]
       ring
@@ -64,18 +64,29 @@ theorem oddMoebiusFloorSum_eq_sum_oddDivisorMoebiusSum (A : ℕ) :
       refine Finset.sum_congr rfl (fun n hn => ?_)
       unfold oddDivisorMoebiusSum
       simp only [Finset.mem_Icc] at hn
-      rw [← Finset.sum_filter]
-      congr 1
-      ext m
-      simp only [Finset.mem_filter, Finset.mem_Icc, Nat.mem_divisors]
-      constructor
-      · rintro ⟨⟨_, _⟩, hmOdd, hmn⟩
-        exact ⟨⟨hmn, by omega⟩, hmOdd⟩
-      · rintro ⟨⟨hmn, _⟩, hmOdd⟩
-        have hnPos : 0 < n := by omega
-        have hmPos : 0 < m := Nat.pos_of_dvd_of_pos hmn hnPos
-        have hmLe : m ≤ n := Nat.le_of_dvd hnPos hmn
-        exact ⟨⟨by omega, by omega⟩, hmOdd, hmn⟩
+      rw [Finset.sum_ite, Finset.sum_const_zero, add_zero, ← Finset.sum_filter]
+      apply Finset.sum_congr
+      · ext m
+        constructor
+        · intro hm
+          change m ∈ Finset.Icc 1 A ∧ Odd m ∧ m ∣ n at hm
+          rcases hm with ⟨⟨hmOne, hmA⟩, hmOdd, hmn⟩
+          change m ∈ n.divisors ∧ Odd m
+          refine ⟨?_, hmOdd⟩
+          rw [Nat.mem_divisors]
+          exact ⟨hmn, by omega⟩
+        · intro hm
+          change m ∈ n.divisors ∧ Odd m at hm
+          rcases hm with ⟨hmDiv, hmOdd⟩
+          rw [Nat.mem_divisors] at hmDiv
+          rcases hmDiv with ⟨hmn, hnNe⟩
+          have hnPos : 0 < n := by omega
+          have hmPos : 0 < m := Nat.pos_of_dvd_of_pos hmn hnPos
+          have hmLe : m ≤ n := Nat.le_of_dvd hnPos hmn
+          change m ∈ Finset.Icc 1 A ∧ Odd m ∧ m ∣ n
+          exact ⟨⟨hmPos, by omega⟩, hmOdd, hmn⟩
+      · intro m hm
+        rfl
 
 /-- On a power of two the only odd divisor is one, so the odd-divisor
 Möbius sum is exactly one. -/
