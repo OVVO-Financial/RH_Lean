@@ -65,3 +65,102 @@ The exact positive rejection margin is `100*800 - 9*8427 = 4157`.
 The stronger finite observation is that the historical maximizer is frozen at `y*=5`, `K_R=3/2`, for every `6<=R<=12000`. Thus every one of the 94 threshold exceedances in `31..6000` and every one of the 62 exceedances in the held-out `6001..12000` range violates the proposed fresh-corner condition. This agrees with, and extends for the present discriminator, earlier repository warnings that the empirical lower envelope is governed by the small-`y` value `3/2`; it is not promoted as a new all-scale fact.
 
 Final methods, cross-checks, exceptional clusters, scope, proof impact and continuation capsule will be appended after this checkpoint's commit/readback.
+
+## Final synthesis - claim `20261101-census-1` - 2026-11-01 03:16 EST (-0500)
+
+**Status:** COMPLETED.  
+**Evidence classes:** `REFUTED / CORNER-LOCK(3/10)`; `FINITE_COMPUTATION / EXACT INTEGER-RATIONAL CENSUS`; `FINITE_COMPUTATION / INDEPENDENT LITERAL FLOOR RECONSTRUCTION`; `CONJECTURE / ENDPOINT-DOMINANCE INVERSE CLASS`; `NO COMPLETE SOURCE BOUND`; `NO FIXED ETA GAIN`; `NO RH`.
+
+### D. Methods and validation
+
+Implementation 1 is a segmented exact Mobius sieve through `12000^2-1=143999999`. It maintains integer Mertens prefixes, records every square endpoint, and compares envelope and threshold ratios by cross multiplication in signed 128-bit integers. No decimal value controls a classification. Command:
+
+```
+g++ -Wall -Wextra -Werror -O3 -std=c++17 finite_ac_corner_census.cpp -o finite_ac_corner_census
+./finite_ac_corner_census 12000 > finite_ac_corner_12000.csv
+```
+
+Implementation 2 uses an independent linear Mobius sieve only below each root and evaluates the literal original source by the nested floor sum over all `a,b<R`. It reconstructed all 163 threshold-exceeding roots in `2..12000`, not only selected favorable cases. Every value agreed with Implementation 1's endpoint expression; mismatches: zero. Command form:
+
+```
+./finite_ac_floor_reconstruct R_1 ... R_163
+```
+
+Small fixtures exposed and corrected a snapshot-order defect at `R=6` before the final run: the strict envelope includes `y=5` when `R=6`. The entire census was rerun after correction. Warning-fatal compilation passed. Runtime for the corrected segmented census was about 4.0 seconds; the 163 direct floor reconstructions took about 5.7 seconds. Environment: `g++ 13.3.0`, Python `3.12.14`, Linux x86_64. No random seed or approximate arithmetic was used.
+
+Artifact hashes:
+
+```
+a2136b27dc18e11b579112ad3f4ebad81dd295cb4450aa4fd251f3092d7ebb23  finite_ac_corner_census.cpp
+0212b0550482d3af675fdcfe6cd6667f2761f32ac853cdccede665cf6c4567c4  finite_ac_floor_reconstruct.cpp
+9934e2a51fd3133690c3d7d47864f2bc5ec49e8708f699bc2e5609c3a5361adc  finite_ac_corner_12000.csv
+1066093d075314554c64d2b5e0fb0ad5bc73de964ac9a004692740fc06359c49  finite_ac_floor_high.txt
+```
+
+These local artifacts are reproducibility evidence for this run; they are not committed mathematical authority.
+
+### E. Exact results and exceptional behavior
+
+The required anchors and principal extrema are:
+
+| `R` | `M(R-1)` | `M(R^2-1)` | `Q_R` | `C_R^2` | `C_R` diagnostic |
+|---:|---:|---:|---:|---:|---:|
+| 53 | -2 | -24 | 20 | `800/8427` | 0.3081119173 |
+| 317 | -3 | -28 | 22 | `968/301467` | 0.0566653779 |
+| 1027 | -4 | 367 | -375 | `93750/1054729` | 0.2981365315 |
+| 5561 | 5 | -2544 | 2554 | `13045832/92774163` | 0.3749923157 |
+| 6074 | -1 | 2256 | -2258 | `2549282/27670107` | 0.3035313269 |
+| 8719 | 19 | -3402 | 3440 | `23667200/228062883` | 0.3221410986 |
+| 10493 | -22 | -4601 | 4557 | `282534/2247001` | 0.3545959134 |
+
+`R=5561` remains the maximum on `31..6000`. The held-out maximum is `R=10493`. The 62 held-out exceedances occur in twelve short clusters:
+
+```
+6074-6080, 6105-6112, 8717-8719, 8722, 8725, 8730,
+10481-10497, 10514, 10516-10531, 10539-10541, 10543-10545, 10547.
+```
+
+At all 62 held-out exceedances, `sign(Q_R)=-sign(M(R^2-1))`; the root-prefix correction has
+
+```
+max |2M(R-1)|/|Q_R| = 56/3879
+```
+
+at `R=10541`, below 1.5 percent. Across all 156 exceedances in `31..12000`, the same sign relation holds; the largest correction ratio is `1/5`, at the smallest counterexample `R=53`. Thus the observed high statistic is a clustered square-endpoint excursion with a small root-prefix correction, while the denominator is the same ancient `y=5` envelope throughout. This supports H2 and rejects H1 on the exact tested domain.
+
+### F. Mathematical scope and conjecture
+
+The finite theorem established by computation is only:
+
+```
+for every integer 6<=R<=12000,
+K_R=3/2 with least maximizer y*=5;
+and for every 31<=R<=12000 with C_R^2>=9/100,
+CORNER-LOCK(3/10) fails.
+```
+
+It does not imply that `K_R=3/2` forever, that `C_R` is uniformly bounded, or that finite A/C holds. The small-`y` `3/2` phenomenon was already visible in repository diagnostics; the new result is the preregistered falsification and held-out inverse classification, not rediscovery of the constant.
+
+Exploratory replacement conjecture, frozen only for future falsification:
+
+`ENDPOINT-DOMINANCE(3/10)`: beyond a specified onset, whenever `K_R=3/2` and `C_R^2>=9/100`, `sign(Q_R)=-sign(M(R^2-1))` and `|2M(R-1)|<=|Q_R|/50`.
+
+This survives `6001..12000` but is only `CONJECTURE`. Its stated `1/50` correction is much stronger than the immediate historical-envelope inequality and may itself require difficult Mertens information. It is not proposed as an accepted proof route without an analytic premise.
+
+### G. Proof impact and cross-route audit
+
+The failed inference is precise: large finite-C normalization cannot be forced to coincide with renewal of the historical envelope, even at the first nontrivial threshold. A proof based on paying `Q_R` only when `K_R` acquires a recent maximizer misses every observed large event after `R=31`. The strict historical normalizer is not a dynamic detector in this range.
+
+This does not alter Wheel claim `20261101-wheel-1`, Owner claims `20261101-owner-1,2`, or Analytic claim `20261101-analytic-1`; none supplies a uniform original-source `Q_R` estimate. It also does not transfer to CORR4 merely because both use `K_R`. The useful restriction for FINITE-AC must address the signed endpoint source or a complete decomposition of its clustered square-block excursions, rather than a fresh-corner condition.
+
+### H. Continuation checkpoint
+
+Do not enlarge this aggregate scan without a new premise. The next discriminating experiment should resolve the clusters by genuine square-block increments. For each high root define the least backward block length `L_R` for which the signed increment
+
+```
+M(R^2-1) - M((R-L_R)^2-1)
+```
+
+has the endpoint sign and magnitude at least `|M(R^2-1)|/2`. Preregister rival mechanisms: a short recent burst (`L_R=o(R)` on exceptional roots) versus inherited cumulative coherence (`L_R` proportional to `R`). Reconstruct the complete block increments exactly and test the fixed rule first on the twelve held-out clusters above, then on a new disjoint range. A theorem-level consequence would require an independent uniform bound on the frequency or total energy of short coherent runs; finite concentration alone is not a source estimate.
+
+**Evidence status:** `REFUTED` for `CORNER-LOCK(3/10)` by the exact smallest admissible witness `R=53`; `FINITE_COMPUTATION` for every root `2..12000` and independent direct-floor reconstruction of every threshold exceedance. Complete finite C/A, a strict Mertens exponent below `7/8`, canonical VF, and RH remain OPEN.
