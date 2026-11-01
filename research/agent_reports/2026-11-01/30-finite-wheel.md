@@ -531,3 +531,8 @@ A valid continuation must prove new Möbius-specific information before triangle
 - Net endpoint gain after complete return: `UNKNOWN`.
 - Next distinct Wheel route due: CORR4 unless independent review requests repair or a new FINITE-AC input arrives.
 - Complete shell estimate OPEN; strict Mertens exponent below `7/8` NOT PROVED; canonical VF theorem OPEN; RH OPEN.
+
+
+### Publication verification
+
+The completed synthesis was committed as `5333f36b785419acbd1db531c87e6845fdca69df` and read back as blob `63e78bc52e6cece8072bdc1a7251ce7b9db3f643`. Claim `20261101-wheel-3`, equations (20)-(24), the scalar countermodel, required MU-LIFT accounting, and the resume capsule were present. Final main remained `a33987e275f8a431641d3f475b71a24aa2b1437c`; the open/draft PR refresh returned none. This receipt changes no mathematical claim.
