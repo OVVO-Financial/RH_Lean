@@ -272,3 +272,12 @@ Classification remains `PROVED_IN_LEAN_ON_PR_HEAD / CI_GREEN / REVIEW_READY / ST
 ## Publication history
 
 The earlier completed synthesis with claim `20261031-coordinator-1` was preserved through this continuation. An `IN_PROGRESS` checkpoint for claim `20261031-coordinator-2` was published first at commits `cec4efa4a662490b3a3d6bbb363458d397f485ea` (PM) and `58d7ec9006bac1756774876849ff168193c1c03d` (AM), both blob `272d0d9cc17ce5a56942294e500d257d3f9aae01`.
+
+
+## Scheduled continuation checkpoint — 2026-10-31 23:09 America/New_York
+
+**Status:** IN_PROGRESS / scheduled continuation; earlier completed claims preserved.  
+**Live authority:** `main@2072393fa0c0389cbe6f77fab773a2c741bade09`; eta gate `SEARCH_BROAD`.  
+**Formal change since the prior synthesis:** human merges #1062 and #1063 place the root-dependent resonance criterion and the near-root prime-ray occurrence/sign theorem on main. These are structural/source-admission theorems only; the odd Möbius telescope, local energy theorem, complete return, strict exponent gain, canonical VF estimate and RH remain open.
+
+This continuation consumes all available October 30–31 reports and the external inbox, then investigates a distinct generalization of the accepted `v_2(a)=1` telescope. The precise question is whether completing a ray with a squarefree seed `s` converts the interior Möbius sum to a genuinely sparse principal, and whether the resulting family can be made disjoint without hiding the complete shell target. No result is promoted before the source, overlap and endpoint audits are complete.
