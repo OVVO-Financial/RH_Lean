@@ -69,21 +69,20 @@ theorem oddMoebiusFloorSum_eq_sum_oddDivisorMoebiusSum (A : ℕ) :
       · ext m
         constructor
         · intro hm
-          simp only [Finset.mem_filter] at hm
-          rcases hm with ⟨⟨hmOne, hmA⟩, hmOdd, hmn⟩
-          simp only [Finset.mem_filter]
-          refine ⟨?_, hmOdd⟩
-          rw [Nat.mem_divisors]
-          exact ⟨hmn, by omega⟩
+          rw [Finset.mem_filter] at hm
+          rcases hm with ⟨hmIcc, hmOdd, hmn⟩
+          rw [Finset.mem_Icc] at hmIcc
+          rw [Finset.mem_filter, Nat.mem_divisors]
+          exact ⟨⟨hmn, by omega⟩, hmOdd⟩
         · intro hm
-          simp only [Finset.mem_filter] at hm
+          rw [Finset.mem_filter] at hm
           rcases hm with ⟨hmDiv, hmOdd⟩
           rw [Nat.mem_divisors] at hmDiv
           rcases hmDiv with ⟨hmn, hnNe⟩
           have hnPos : 0 < n := by omega
           have hmPos : 0 < m := Nat.pos_of_dvd_of_pos hmn hnPos
           have hmLe : m ≤ n := Nat.le_of_dvd hnPos hmn
-          simp only [Finset.mem_filter]
+          rw [Finset.mem_filter, Finset.mem_Icc]
           exact ⟨⟨hmPos, by omega⟩, hmOdd, hmn⟩
       · intro m hm
         rfl
