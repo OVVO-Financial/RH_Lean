@@ -452,3 +452,15 @@ for some fixed `eta>0`, together with the exact consumer connecting this increme
 - Next decisive action: expand the complete dyadic square of (24), identify which cross term can be constrained by genuine ancestry/incidence, and reject any proposal that norms only the daughter component.
 - Route coverage: prior substantive Owner turn JOH; today's first Owner turn SAT; this continuation VF-LOW. The rolling three-route cycle is complete.
 - Continuity: consumed today's Coordinator mirror blob `c23d71084b9103d22e0ade268535dbcab18fc229`, same-day specialist reports available at intake, yesterday's verified carry-forward recorded in the earlier section, and external inbox blob `038018145c0fddb2f6306c0712373adf9cd1ea52` with no entry newer than October 18.
+
+
+## Scheduled continuation checkpoint - 2026-11-01 16:15 EST (-0500)
+
+**Status:** IN_PROGRESS / exact daughter-collision decomposition identified; diagonal, activation, complete cross-term accounting, and final synthesis pending.  
+**Invocation:** scheduled run; RUN_ID_UNAVAILABLE.  
+**Live main:** `a33987e275f8a431641d3f475b71a24aa2b1437c` (human merge of PR #1069).  
+**Authority blobs:** `AGENTS.md 9fa5e9519e2fb6dde22217aa2a18982dafef373a`; `CURRENT_PROOF_CONTRACT.md 88cddd9cd98c3b55f0b013998541e9b4e9dc9f2a`; selector `d05c327ae694ea54b599dab0a21032a056b521f1`; research engine `6fce99c61efb5b2a73c0cb1f1464f09b351fcd55`.  
+**deployment continuation:** selected `NEXT-OWNER: SAT/VF-LOW signed historical return`, with VF-LOW due only as a continuation of claim `20261101-owner-3`; resumed the exact adjacent-root identity (24) and Coordinator claim `20261101-coordinator-2`. Today's complete specialist set, both Coordinator mirrors, the 2026-10-31 continuity set, and external inbox blob `038018145c0fddb2f6306c0712373adf9cd1ea52` were consumed.  
+**eta_gate:** `SEARCH_BROAD`; net endpoint gain after complete return remains `UNKNOWN`.
+
+The active hypothesis is that prime-factor ancestry removes the exact-product part of the daughter-shell off-diagonal. For non-activation roots, daughter increments are indexed by `(q,m)` with odd prime `q`, `mu(m) != 0`, and `R^2 <= q^2 m < (R+1)^2`. If `q^2 m=p^2 n` and both Mobius coefficients are nonzero, squarefreeness forces `q=p` and `m=n`. Thus exact lifted-product collisions are diagonal; every surviving off-diagonal pair is a genuinely distinct near-collision with `0<|q^2m-p^2n|<=2R`. The current task is to prove the exact dyadic energy identity, pay its diagonal and prime-square activation terms, restore the root and outer-shell cross terms, and identify the first independently missing shifted-correlation estimate. No sign or cancellation claim is assumed.
