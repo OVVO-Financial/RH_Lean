@@ -99,11 +99,11 @@ def oddMoebius : ArithmeticFunction ℤ where
 /-- The odd restriction of Möbius remains multiplicative. -/
 theorem isMultiplicative_oddMoebius :
     ArithmeticFunction.IsMultiplicative oddMoebius := by
-  refine ⟨by simp [oddMoebius, ArithmeticFunction.moebius_apply_one], ?_⟩
+  refine ⟨by simp [oddMoebius], ?_⟩
   intro m n hmn
   simp only [oddMoebius_apply]
   rw [ArithmeticFunction.isMultiplicative_moebius.map_mul_of_coprime hmn]
-  simp [Nat.odd_mul]
+  by_cases hm : Odd m <;> by_cases hn : Odd n <;> simp [hm, hn]
 
 /-- The divisor sum of odd Möbius coefficients. -/
 def oddMoebiusZeta : ArithmeticFunction ℤ :=
@@ -133,14 +133,21 @@ theorem oddMoebiusZeta_prime_pow
   by_cases hpTwo : p = 2
   · subst p
     simp [oddMoebius, ArithmeticFunction.moebius_apply_prime_pow,
-      Nat.prime_two, hk.ne']
+      Nat.prime_two, Nat.not_odd_iff_even, hk]
   · have hpOdd : Odd p := hp.odd_of_ne_two hpTwo
     simp [oddMoebius, hpOdd.pow, ArithmeticFunction.moebius_apply_prime_pow,
-      hp, hp.ne_one, hpTwo, hk.ne']
+      hp, hpTwo, hk]
+
+/-- Integer-valued indicator of the powers of two. -/
+noncomputable def powerOfTwoIndicator (n : ℕ) : ℤ := by
+  classical
+  exact if ∃ j : ℕ, n = 2 ^ j then 1 else 0
 
 /-- The odd Möbius divisor sum is exactly the power-of-two indicator. -/
 theorem oddMoebiusZeta_eq_powerOfTwoIndicator (n : ℕ) :
-    oddMoebiusZeta n = if ∃ j : ℕ, n = 2 ^ j then 1 else 0 := by
+    oddMoebiusZeta n = powerOfTwoIndicator n := by
+  classical
+  unfold powerOfTwoIndicator
   induction n using Nat.recOnPrimePow with
   | zero =>
       simp [oddMoebiusZeta]
@@ -193,14 +200,14 @@ theorem oddMoebiusZeta_eq_powerOfTwoIndicator (n : ℕ) :
             exact dvd_mul_of_dvd_left hpDvdPow a
           have hpDvdTwo : p ∣ 2 := hp.dvd_of_dvd_pow hpDvdTwoPow
           have hpEq : p = 2 :=
-            (Nat.dvd_prime Nat.prime_two).mp hpDvdTwo |>.resolve_left hp.ne_zero
+            (Nat.dvd_prime Nat.prime_two).mp hpDvdTwo |>.resolve_left hp.ne_one
           exact hpTwo hpEq
         simp [hpTwo, hnot]
 
 /-- Finite number of powers of two in the positive prefix, represented as
 an integer-valued indicator sum. -/
 def finitePowerOfTwoCount (A : ℕ) : ℤ :=
-  ∑ n ∈ Finset.Icc 1 A, if ∃ j : ℕ, n = 2 ^ j then 1 else 0
+  ∑ n ∈ Finset.Icc 1 A, powerOfTwoIndicator n
 
 /-- Independently accepted finite odd-divisor telescope:
 the odd Möbius floor sum counts exactly the powers of two up to `A`. -/
