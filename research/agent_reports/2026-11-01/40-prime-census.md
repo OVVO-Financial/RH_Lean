@@ -189,29 +189,29 @@ Material main blobs were:
 ### J. Frozen carrier and preregistered hypotheses
 
 Put `X=R^2-1`,
-[
+```text
 G_R=M(X)-M(R-1),qquad
-U_R=sum_{substack{q {m odd prime}\q^2<R}}rac{M(lfloor X/q^2floor)}q.
-]
+U_R=sum_{substack{q {rm odd prime}\q^2<R}}frac{M(lfloor X/q^2rfloor)}q.
+```
 For `1<=n<=X`, put
-[
+```text
 h_R(n)=1_{nge R},qquad
-W_R(n)=sum_{q^2<R}rac{1_{nlelfloor X/q^2floor}}q.
-]
+W_R(n)=sum_{q^2<R}frac{1_{nlelfloor X/q^2rfloor}}q.
+```
 For squarefree `m<n`, the chronological owner `p(m,n)` is the least prime in the symmetric difference of their complete prime-factor sets, exactly the repository predicate `IsSquarefreePairFreshPrimeOwner`. Define
-[
+```text
 J_R(p)=sum_{substack{m<n\p(m,n)=p}}
  [h_R(m)W_R(n)+h_R(n)W_R(m)]mu(m)mu(n).
-]
+```
 The exact reconstruction target was
-[
+```text
 G_RU_R=D_R+sum_pJ_R(p),qquad
-D_R=sum_n h_R(n)W_R(n)mu(n)^2. 	ag{20}
-]
+D_R=sum_n h_R(n)W_R(n)mu(n)^2. tag{20}
+```
 
 Before computing, two exploratory assertions were frozen.
 
-1. `MIXED-OWNER-3/4`: owners `p<=floor(sqrt R)` carry at least three quarters of (sum_p|J_R(p)|), and their signed sum has the sign of the complete off-diagonal.
+1. `MIXED-OWNER-3/4`: owners `p<=floor(sqrt R)` carry at least three quarters of `sum_p |J_R(p)|`, and their signed sum has the sign of the complete off-diagonal.
 2. `MIXED-COMP-SIGN`: `G_R U_R<=0`.
 
 The mechanism hypothesis was that the same small primes indexing the q-squared column organize the mixed compensation. The rival was that first-separation mass is diffuse or concentrated at a larger hidden owner scale. Rejection of (1) required an exact absolute-mass fraction below `3/4`; rejection of (2) required a positive exact product. Roots `317,1027,2002`, excursion root `5561`, and later-cluster holdout `6074` were fixed, with `53,64` as direct-pair fixtures and `3304` as the prior CORR4 exceptional regression.
@@ -219,16 +219,16 @@ The mechanism hypothesis was that the same small primes indexing the q-squared c
 ### K. Exact owner algorithm and independent checks
 
 For each prime `p` in increasing order, squarefree integers were partitioned by their common membership signature at primes below `p`. Within every signature cell, the `p`-divisible and `p`-indivisible halves have aggregates
-[
+```text
 (H_1,V_1),quad(H_0,V_0),
-]
+```
 where `H=sum h_R(n)mu(n)` and `V=sum W_R(n)mu(n)`. The cell contributes exactly
-[
+```text
 H_1V_0+H_0V_1
-]
+```
 to `J_R(p)`; the cell is then split and the scan continues. Each squarefree integer moves only at its actual prime factors. This is an exact finite implementation of the least-symmetric-difference owner, not a random or independent-sign model.
 
-The primary C++ implementation used a linear Möbius sieve and a common denominator (prod_{q^2<R, q {m odd prime}}q). Every owner fibre, diagonal, and recombination is exact signed `__int128` arithmetic through `R=3304`. It also directly enumerated every pair at `R=53,64` and agreed fibre by fibre.
+The primary C++ implementation used a linear Möbius sieve and a common denominator `prod_(q^2<R, q odd prime) q`. Every owner fibre, diagonal, and recombination is exact signed `__int128` arithmetic through `R=3304`. It also directly enumerated every pair at `R=53,64` and agreed fibre by fibre.
 
 The independent Python implementation used an Eratosthenes-style multiplicative Möbius sieve, direct factor sets, and direct pair enumeration at `R=53`. It independently reproduced `G,U,D` at `R=53,317,1027,2002`; every displayed exact value agreed. At `R=53` its complete direct fibre sum is `-1920/105`, exactly matching the partition algorithm.
 
@@ -252,7 +252,7 @@ Environment: `g++ 13.3.0`, Python `3.12.14`, Linux x86_64. No random seed was us
 
 ### L. Results and decisive falsifiers
 
-| `R` | `G_R U_R` sign | (sum_{plesqrt R}|J_p|/sum_p|J_p|) | largest-(|J_p|) owner | arithmetic status |
+| `R` | `G_R U_R` sign | `sum_(p<=sqrt R) |J_p| / sum_p |J_p|` | largest-|J_p| owner | arithmetic status |
 |---:|:---:|---:|---:|:---|
 | 53 | positive | 0.337029 | 5 | exact |
 | 64 | positive | 0.276709 | 7 | exact/direct fixture |
@@ -264,53 +264,53 @@ Environment: `g++ 13.3.0`, Python `3.12.14`, Linux x86_64. No random seed was us
 | 6074 | positive | 0.0301159 | 113 | floating diagnostic/holdout |
 
 Thus `MIXED-OWNER-3/4` is refuted already at `R=53`, with exact fraction
-[
+```text
 795440/2360156<3/4.
-]
+```
 At the mandatory adverse root `R=2002`, with denominator
-[
+```text
 D=6541380665835015,
-]
+```
 the exact values are
-[
+```text
 G=208,quad DU=-233438518043839321,
-]
-[
+```
+```text
 D(GU)=-48555211753118578768,quad
 DD_R=783232374097529448961,
-]
-[
+```
+```text
 Dsum_pJ_p=-831787585850648027729.
-]
+```
 The small-owner absolute fraction is exactly
-[
+```text
 4984273164924969701965498/
 100946205396697419458315471<0.05.
-]
+```
 Hence the negative mixed product at `R=2002` is real, but it is not organized by concentration in the q-squared low-owner sector.
 
 The second assertion is also refuted on the fixed test set. The smallest tested witness is `R=53`, where
-[
+```text
 D(GU)=4488>0.
-]
+```
 It also fails exactly at `R=317,1027` and diagnostically at `R=5561,6074`. Therefore no universal favorable sign may be assigned to the complete mixed product.
 
 The most important exceptional behavior is cancellation scale. At `R=2002`,
-[
+```text
 Dsum_p|J_p|
 =100946205396697419458315471,
-]
-more than (1.2	imes10^5) times the magnitude of the final off-diagonal. At `R=317` the ratio is already above (6.1	imes10^3). A componentwise absolute owner estimate therefore destroys the observed cancellation by several orders of magnitude.
+```
+more than `1.2e5` times the magnitude of the final off-diagonal. At `R=317` the ratio is already above `6.1e3`. A componentwise absolute owner estimate therefore destroys the observed cancellation by several orders of magnitude.
 
 ### M. Mathematical interpretation and new post hoc hypothesis
 
 The hidden variable exposed by this experiment is the **first-separation owner scale**, which is not the q-squared daughter-owner scale. At `R=317,1027,2002,3304,5561,6074`, the largest fibre occurs at
-[
+```text
 p=19,43,73,113,113,113,
-]
-respectively, always between (sqrt R) and (2sqrt R). This suggests the post hoc exploratory statement:
+```
+respectively, always between `sqrt(R)` and `2 sqrt(R)`. This suggests the post hoc exploratory statement:
 
-`OWNER-SHELL`: at exceptional mixed roots beyond a specified onset, the largest chronological fibre lies in (sqrt R<p<2sqrt R).
+`OWNER-SHELL`: at exceptional mixed roots beyond a specified onset, the largest chronological fibre lies in `sqrt(R) < p < 2 sqrt(R)`.
 
 This was discovered after examining the data and is only `CONJECTURE`; `R=53,64` show that it is false without an onset or exception. Its value is as a new discriminator: a fresh held-out census should freeze an onset and test the full band mass, not merely the largest fibre. Even if true, an owner-shell location law alone would not bound the signed sum.
 
@@ -321,9 +321,9 @@ The exact finite conclusion is negative but useful. Claim `20261101-coordinator-
 No complete CORR4 payment, finite A/C estimate, fixed positive eta, strict exponent below `7/8`, canonical VF theorem, or RH follows. The diagonal and every owner fibre in the mixed product were retained, but the remaining physical owner-two, renewal, terminal, root-correction, and other complement terms were not reconstructed in this experiment; no claim about their complete signed sum is made.
 
 **Continuation:** do not enlarge the same aggregate table without a fixed new hypothesis. The next owner experiment should preregister an onset and a band statement for
-[
+```text
 sqrt R<p<2sqrt R,
-]
+```
 then test both its signed and absolute mass on roots not used here. More valuable analytically is an exact cellwise involution or telescoping law pairing medium-owner fibres across adjacent primes while retaining `K_R(m,n)`; an ownerwise norm cannot exploit the cancellations measured above.
 
 **Evidence status:** `REFUTED` for `MIXED-OWNER-3/4` by exact `R=53`; `REFUTED ON TESTED SET` for universal `G_RU_R<=0`; `FINITE_COMPUTATION` for the exact owner decomposition through `R=3304` and two extended diagnostics. The fixed eta gate remains `SEARCH_BROAD`.
