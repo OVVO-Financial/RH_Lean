@@ -125,3 +125,76 @@ Beyond that interface, the unresolved mathematical step is quantitative: bound t
 ### Handoff
 
 PR #1068 is review-ready and should be merged only by the human owner. Downstream agents may cite the exact head and theorem names above, but must preserve the distinction between this finite structural identity and any global signed bound.
+
+
+## Scheduled continuation - 2026-11-01 13:25 EST (-0500)
+
+**Status:** COMPLETE / PROVED_IN_LEAN_ON_PR_HEAD / CI_GREEN / REVIEW_READY  
+**Invocation:** scheduled run begun 13:14 EST; RUN_ID_UNAVAILABLE  
+**Live main:** `417cb62ee8ca65c82dd3aad1263c7529e94668eb`  
+**Authority blobs:** `AGENTS.md 9fa5e9519e2fb6dde22217aa2a18982dafef373a`; `CURRENT_PROOF_CONTRACT.md 88cddd9cd98c3b55f0b013998541e9b4e9dc9f2a`; selector `d05c327ae694ea54b599dab0a21032a056b521f1`; complete-return contract `16838f7f3c8724b970f8b8ece0bceaab9418066d`; research engine `6fce99c61efb5b2a73c0cb1f1464f09b351fcd55`.  
+**Toolchain:** Lean 4.34.1; Mathlib `d13f23b723b8a846827a245b89c10fc7d3f11612`.  
+**eta_gate:** SEARCH_BROAD; net endpoint gain after complete return remains UNKNOWN.
+
+### Continuity and selection
+
+PR #1068 was human-merged before intake, so no active proof PR required repair. Current same-day Coordinator, Owner, Analytic, Wheel, Census, Referee, and prior Lean reports were consumed, together with the complete 2026-10-31 carry-forward set. The external inbox remains blob `038018145c0fddb2f6306c0712373adf9cd1ea52`, with no handoff newer than October 18.
+
+The selected task is the next source-faithful interface named by the merged telescope and current Coordinator/Referee handoffs: expose the admitted odd-cofactor prefix as the complete telescope minus the literal omitted tail. This implements the accepted `s=2` truncation mechanism without opening the unproved general-seed source map or a quantitative tail claim.
+
+### Formal result
+
+PR [#1069](https://github.com/OVVO-Financial/RH_Lean/pull/1069), branch `agent/lean-verification/20261101-odd-mobius-truncated-tail`, is open, non-draft, mergeable, and review-ready at exact head `0bf1622daabc694f91b72b922a3e157f2690e1c2`.
+
+Source: `research/ODD_MOBIUS_TRUNCATED_TAIL_20261101.lean`, blob `d38a80efc30cbb503f5d596705be91a0de561fe9`. Dedicated workflow blob: `683d8ee98495bdcb7d458659c07e16501f6690d0`.
+
+Lean proves:
+
+```lean
+oddMoebiusFloorPrefix_add_tail
+  (A L : Nat) (hLA : L <= A) :
+  oddMoebiusFloorPrefix A L + oddMoebiusFloorTail A L =
+    oddMoebiusFloorSum A
+
+oddMoebiusFloorTail_eq_tail
+  (A L : Nat) (hshort : A < 2 * (L + 1)) :
+  oddMoebiusFloorTail A L = oddMoebiusTail L A
+
+oddMoebiusFloorPrefix_eq_count_sub_tail
+  (A L : Nat) (hLA : L <= A) (hshort : A < 2 * (L + 1)) :
+  oddMoebiusFloorPrefix A L =
+    finitePowerOfTwoCount A - oddMoebiusTail L A
+```
+
+The first theorem is an exact disjoint finite-interval decomposition. The second proves every omitted quotient is one under the accepted short-completion hypothesis. The third transports the merged finite power-of-two telescope through that exact split.
+
+Classification: `PROVED_IN_LEAN_ON_PR_HEAD / STRUCTURAL CONTROL / EXACT TRUNCATED-TAIL INTERFACE`. It assumes no Mertens estimate or target-strength bound and is not target-equivalent.
+
+### Exact-head CI and repair
+
+All 12 PR-triggered workflows on exact head `0bf1622d...` completed successfully. Required evidence includes:
+
+- dedicated warning-fatal proof closure, exact signatures, no-hole scan, and axiom audit: run [41336208699](https://github.com/OVVO-Financial/RH_Lean/actions/runs/41336208699), job `124936465813`;
+- targeted Lean iteration: run [41336208800](https://github.com/OVVO-Financial/RH_Lean/actions/runs/41336208800);
+- Lean source audits/full build/declaration graph: run [41336208693](https://github.com/OVVO-Financial/RH_Lean/actions/runs/41336208693);
+- proof inventory: run [41336208947](https://github.com/OVVO-Financial/RH_Lean/actions/runs/41336208947);
+- public export verification: run [41336208702](https://github.com/OVVO-Financial/RH_Lean/actions/runs/41336208702).
+
+All three endpoints depend only on `[propext, Classical.choice, Quot.sound]`. The audits found no `sorry`, `admit`, new project axiom, `native_decide`, or `sorryAx`.
+
+Initial head `6a294659c7d077438ceec1f5694ef4b96375e154` compiled the source warning-fatal and passed the repository-wide Lean checks, but the dedicated job failed after compilation because its Python audit regex was over-escaped. Final head `0bf1622d...` changes only that workflow escaping. No theorem statement, hypothesis, or proof was weakened.
+
+### Mathematical scope and next gap
+
+This PR proves an exact interface, not an estimate. It does not prove the near-root boundary-length inequality, bound `oddMoebiusTail L A`, establish the local `O(H^(7/3))` energy theorem, control overlaps between other seed families, or restore squareful, diagonal, reciprocal-square, activation, complement, mixed, and endpoint terms.
+
+The first independently missing arithmetic statement is a non-target-equivalent uniform bound for the explicit moving tail after substituting the actual prime-ray cutoffs. The complete shell estimate, fixed positive complete-return eta, strict Mertens exponent below `7/8`, canonical VF theorem, and RH remain OPEN.
+
+### Resume capsule
+
+- Main: `417cb62ee8ca65c82dd3aad1263c7529e94668eb`.
+- PR #1069: review-ready, human-only merge, exact head `0bf1622d...`, 12/12 workflows successful.
+- New source blob: `d38a80efc30cbb503f5d596705be91a0de561fe9`.
+- Formal state: exact prefix/floor-tail split, quotient-one tail collapse, and count-minus-tail identity proved.
+- Quantitative state: explicit tail remains uncontrolled; complete-return gain UNKNOWN.
+- Next Lean action after human disposition: formalize an independently accepted prime-ray cutoff/boundary theorem or the next consequential accepted claim from another portfolio; do not assume the tail bound or duplicate this interface.
