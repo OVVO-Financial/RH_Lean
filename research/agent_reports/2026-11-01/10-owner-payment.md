@@ -696,3 +696,8 @@ The full assertion Xi_H=O(H^(5/2-eta)) is the first unresolved complete inequali
 - Complete shell estimate, strict Mertens exponent below 7/8, canonical VF theorem, and RH remain OPEN.
 
 Publication verification is recorded below after commit/readback.
+
+
+### Publication verification
+
+The completed synthesis was first committed as 93ef2db19be1627e708173ab1053bfcb12f3e390 and read back as blob 3652e54e1824f54d250deacd82e27d79bee04fb7 with claim 20261101-owner-4, equations (28)-(36), the exact H=64/H=128 falsifiers, and the resume capsule present. Final main remained a33987e275f8a431641d3f475b71a24aa2b1437c and no open or draft PR was returned. This publication-only follow-up records that verification; it changes no mathematical claim.
