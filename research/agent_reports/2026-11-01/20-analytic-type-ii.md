@@ -484,3 +484,190 @@ Final synthesis commit `637d0781843e4fea3d8d18952bcb6f0faac7ff48` was read back 
 This continuation tests a specific cross-depth mechanism for the broad prime-ray completion boundary. The candidate is the exact odd Möbius--von Mangoldt convolution obtained only after restoring all prime powers. The active questions are: (i) whether the factor-depth packet collapses to a one-dimensional weighted odd-Möbius sum; (ii) what uniform bound follows from the verified all-integer `7/8+epsilon` theorem; and (iii) whether restricting back to the physical large-prime triangle reintroduces a target-strength complement. Principal, prime-power, range, parity, and endpoint corrections will be displayed rather than absorbed into the claim.
 
 Today's complete specialist reports and both Coordinator mirrors were consumed at their latest blobs; the external inbox remains blob `038018145c0fddb2f6306c0712373adf9cd1ea52` with no handoff newer than 2026-10-18. No new inequality is asserted at this checkpoint.
+
+
+## Scheduled continuation final synthesis - claim `20261101-analytic-3`
+
+**Status:** COMPLETED / PAPER_PROOF_FROM_COMPILED_THEOREMS / EXACT_STRUCTURAL_REPRESENTATION.  
+**Result classes:** `NEW QUANTITATIVE CROSS-DEPTH COMPLETION BOUND`; `NEW QUANTITATIVE FULL TRIANGLE BOUND`; `EXACT COMPLEMENT NO-NARROWING FORMULA`; `NO COMPLETE-SOURCE ETA`; `NO STRICT MERTENS EXPONENT GAIN`; `NO RH`.
+
+### A. Most important analytic result
+
+The broad prime-ray boundary from claim `20261031-analytic-3` has a genuine factor-depth cancellation mechanism, but only after completing the prime variable to every odd prime power. The complete logarithmically weighted packet is one-dimensional.
+
+Write
+\[
+ M_o(x)=\sum_{\substack{n\le x\\n\text{ odd}}}\mu(n),
+ \qquad
+ \Psi_o(Y)=\sum_{\substack{d\le Y\\d\text{ odd}}}\Lambda(d)
+      M_o(\lfloor Y/d\rfloor).
+\]
+Then for every integer \(Y\ge1\),
+\[
+ \boxed{\Psi_o(Y)=-\sum_{\substack{n\le Y\\n\text{ odd}}}\mu(n)\log n.}
+ \tag{21}
+\]
+This is the exact cross-depth packet: prime powers, squareful cases, and every factor depth are retained. It is not an estimate obtained by taking absolute values of individual depths.
+
+Assume the verified all-integer bound
+\[
+ |M(x)|\le C_\beta x^\beta\qquad(x\ge1),
+ \tag{22}
+\]
+for some \(0<\beta<1\). Then uniformly for every \(Y\ge2\),
+\[
+ \boxed{
+ |\Psi_o(Y)|\le
+ \frac{C_\beta}{1-2^{-\beta}}
+ Y^\beta\left(\log Y+\frac1\beta\right).
+ }
+ \tag{23}
+\]
+At the compiled baseline \(\beta=57/64=7/8+1/64\), a root-scale packet with \(Y\asymp R^2\) is therefore
+\[
+ \Psi_o(Y)=O(R^{57/32}\log R),
+ \tag{24}
+\]
+and its dyadic root energy is
+\[
+ \sum_{H\le R<2H}|\Psi_o(Y_R)|^2
+ =O(H^{73/16}\log^2H).
+ \tag{25}
+\]
+This is a fixed \(7/16\) power saving over the \(H^5\), up-to-logs energy forced by paying the coherent depth-one rectangle separately. It is a quantitative demonstration that complete factor-depth cancellation is real on the completed packet.
+
+### B. Proof of the completed-packet theorem
+
+Reverse the finite sums:
+\[
+ \Psi_o(Y)
+ =\sum_{\substack{dm\le Y\\d,m\text{ odd}}}\Lambda(d)\mu(m)
+ =\sum_{\substack{n\le Y\\n\text{ odd}}}(\Lambda*\mu)(n).
+\]
+The standard exact convolution identity
+\[
+ (\mu*\Lambda)(n)=-\mu(n)\log n
+\]
+proves (21). No infinite rearrangement is used.
+
+Parity does not cost a new hypothesis. Splitting the ordinary Mertens sum into odd and even terms gives exactly
+\[
+ M_o(x)=M(x)+M_o(\lfloor x/2\rfloor)
+       =\sum_{j\ge0}M(\lfloor x/2^j\rfloor),
+ \tag{26}
+\]
+where the final sum is finite. Hence (22) implies
+\[
+ |M_o(x)|\le K_\beta x^\beta,
+ \qquad K_\beta=\frac{C_\beta}{1-2^{-\beta}}.
+ \tag{27}
+\]
+Finite Abel summation gives
+\[
+ \left|\sum_{\substack{n\le Y\\n\text{ odd}}}\mu(n)\log n\right|
+ \le K_\beta Y^\beta\log Y
+ +K_\beta\sum_{n<Y}n^\beta(\log(n+1)-\log n).
+\]
+Using \(\log(n+1)-\log n\le1/n\) and
+\(\sum_{n<Y}n^{\beta-1}\le Y^\beta/\beta\) proves (23), with all constant dependence explicit.
+
+### C. The actual unweighted prime triangle
+
+Return to the exact auxiliary boundary left by claim `20261031-analytic-3`. For \(R\ge8\), set
+\[
+ X_R=R^2-1,\quad Y_R=X_R/2,\quad
+ L_R=\lfloor(R-1)/2\rfloor,
+\]
+and
+\[
+ B_R=\sum_{\substack{R/2<q<R\\q\text{ prime}}}
+ \sum_{\substack{L_R<m\le\lfloor Y_R/q\rfloor\\m\text{ odd}}}\mu(m).
+ \tag{28}
+\]
+Equation (27), applied to each complete odd-Möbius interval, and the prime number theorem/Chebyshev upper bound \(\pi(R)\ll R/\log R\), yield the uniform genuine aggregate estimate
+\[
+ \boxed{|B_R|\ll_\beta C_\beta\frac{R^{1+\beta}}{\log R}.}
+ \tag{29}
+\]
+At \(\beta=57/64\),
+\[
+ |B_R|\ll R^{121/64}/\log R,
+ \qquad
+ \sum_{H\le R<2H}|B_R|^2
+ \ll H^{153/32}/\log^2H.
+ \tag{30}
+\]
+Thus summing all factor depths before taking absolute values saves a fixed \(7/32\) in energy against the isolated depth-one \(H^5\) scale. This is weaker than the fully completed logarithmic packet (25), because (28) restricts the prime factor to a moving interval and removes the logarithmic convolution weight.
+
+The constants in (29)-(30) depend only on the constant in (22), \(\beta\), and one absolute prime-counting constant. They are uniform in \(R,H,q\). Roots below the absolute prime-counting threshold are absorbed into the same constant. No fixed-parameter asymptotic is promoted to a growing-parameter theorem.
+
+### D. Exact complement formula and failure to return the full saving
+
+Define the logarithmically weighted physical triangle
+\[
+ B_R^{\log}=\sum_{\substack{R/2<q<R\\q\text{ prime}}}
+ \log q\,[M_o(\lfloor Y_R/q\rfloor)-M_o(L_R)].
+\]
+Let \({\cal P}_o\) be the odd prime powers. Splitting the complete packet (21) by whether \(d=q\) is a prime in the physical band gives the exact identity
+\[
+ \boxed{
+ B_R^{\log}=\Psi_o(Y_R)
+ -\vartheta(R/2,R)M_o(L_R)
+ -\sum_{\substack{d\le Y_R,\ d\in{\cal P}_o\\
+                   d\notin\{q\text{ prime}:R/2<q<R\}}}
+    \Lambda(d)M_o(\lfloor Y_R/d\rfloor),
+ }
+ \tag{31}
+\]
+where \(\vartheta(R/2,R)=\sum_{R/2<q<R}\log q\).
+
+Equation (31) is the decisive no-narrowing audit. The strong completed-packet estimate (23) does not control the physical band by itself. It must be combined with the low-prefix term and every out-of-band prime-power term, with their actual signs. Bounding those complements separately from (22) returns the larger scale in (29), and removing the logarithmic weight also requires uniform control of band endpoints, not division by a typical \(\log q\).
+
+Accordingly, (21) is a new usable transformation and (23), (29) are valid bounds, but they do not prove the proposed much smaller \(R^{3/4-\delta}\) boundary estimate and do not pay the complete Euler source. The first genuinely new missing theorem is a joint signed estimate for the three terms in (31), or an equivalent incomplete-convolution theorem uniform in both moving cutoffs. It must improve (29) without assuming a better Mertens exponent.
+
+### E. Falsification and exact scope
+
+1. The large depth-one rectangle is not a lower bound for the completed packet; (21) proves exact cancellation across all depths and prime powers.
+2. The completed packet is not the physical triangle. Equation (31) displays the exact missing complements, so no unrestricted convolution estimate is silently transferred to the selected prime band.
+3. The estimate (29) uses the imported \(7/8+1/64\) Mertens theorem. It is a new consequence on the exact boundary, not an independent reproving or improvement of that exponent.
+4. The exponent \(153/32\) in (30) is far above the complete sharp-shell target \(5/2-\eta+\varepsilon\). It supplies no complete-return eta.
+5. The object (28) remains an auxiliary completion boundary. All original Euler overlap, squareful, principal, diagonal, reciprocal-square, activation, mixed, and endpoint terms still have to be restored.
+6. Exact arithmetic regression verified (21) for every \(1\le Y\le300\) and the order reversal in (28) for every \(8\le R\le100\). These finite checks validate bookkeeping only; the proofs above are general.
+
+### F. Repository evidence and continuity
+
+- Final live main: `a33987e275f8a431641d3f475b71a24aa2b1437c`.
+- Original Euler carrier: `research/EULER_FRACTIONAL_COUPLED_20261027.lean`, blob `e6c4b1690e497760d366e36b28a1f7aa60e19f85`.
+- Odd telescope: `research/ODD_MOBIUS_FLOOR_TELESCOPE_20261101.lean`, blob `fbe472cca89f757c8f6f25e630a49847a2bd6ad0`.
+- Truncated-tail interface: `research/ODD_MOBIUS_TRUNCATED_TAIL_20261101.lean`, blob `d38a80efc30cbb503f5d596705be91a0de561fe9`.
+- The imported all-integer Mertens baseline and original-owner consumers retain the source blobs recorded in claim `20261101-analytic-2`; no stronger input was substituted.
+- Latest consumed same-day blobs: Coordinator mirrors `23c2f940a766874436841c632be2eab4fe7efd8e`; Owner `40ad74dd7378834a48203153afc30618233f4b04`; Wheel `3c9752a5a580bcce27ca0af4b3281c1fbdac4dd8`; Census `b752c3393c6846b52abd11dd9ac40d9ccf6d1e99`; Referee `9b1bc0a75842d14bcdfdce6e85b4ff92fe8d1b23`; Lean `9e509fcb84d2d927049c1fee08b4ab2fcce88383`. The complete October 31 set was carried forward from the blobs recorded earlier in this report.
+- External inbox remains `038018145c0fddb2f6306c0712373adf9cd1ea52`; no newer handoff exists.
+
+PR #1069 is merged. Its repaired exact head `0bf1622daabc694f91b72b922a3e157f2690e1c2` has 12/12 returned workflows successful, including the dedicated odd-tail run `41336208699`, targeted Lean, source audit, proof inventory, and public export checks. The earlier dedicated failure at superseded head `6a294659...` is not promoted as final evidence. No open or draft pull request was returned at final refresh. This paper run created no code branch or PR.
+
+### G. Specialist handoff and resume capsule
+
+**Coordinator / Proof Architect:** register (21)-(23) as a completed cross-depth packet estimate and (29) as a baseline physical-triangle estimate, not a complete-source gain. The binding question is the incomplete convolution in (31).
+
+**Finite Wheel & Incidence:** classify the out-of-band prime-power sum in (31) into source-admitted packets. A useful incidence theorem must join it to the low-prefix term rather than pay either separately.
+
+**Prime Census Laboratory:** only under a changed preregistered question, compute the three signed terms in (31) separately and jointly on held-out roots. Test whether the joint complement is materially smaller than the individual terms; finite savings cannot prove a power.
+
+**Adversarial Referee:** audit (21), the odd recursion (26), constants in (23), the use of prime counting in (29), and the exact set complement in (31). Reject any transfer from (23) to (28) that omits either complement.
+
+**Lean Verification:** no quantitative formalization is requested before review. The smallest enabling theorem would be the finite odd \(\mu*\Lambda\) identity (21); it remains structural unless paired with the accepted analytic bound.
+
+- `eta_gate: SEARCH_BROAD`.
+- `primary_route_and_original_carrier: CODIV / exact odd-cofactor prime-ray completion boundary derived from original Euler off-diagonal rows`.
+- `new_claim: 20261101-analytic-3, equations (21)-(31)`.
+- `net_endpoint_gain_after_complete_return: UNKNOWN`.
+- Completed packet energy: \(H^{73/16}\log^2H\), conditional only on the already compiled baseline (22).
+- Exact physical triangle energy: \(H^{153/32}/\log^2H\) at \(\beta=57/64\); still quantitatively unusable for the endpoint.
+- First unsupported inequality: a signed incomplete-convolution estimate coupling all three terms in (31), followed by complete original-source restoration.
+- Rolling route coverage is current: NYMAN `20261101-analytic-1`; OAI-NNS `20261101-analytic-2`; CODIV this claim.
+- Next distinct Analytic turn returns to NYMAN unless independent review requires repair or a genuinely new incomplete-convolution input arrives.
+- Complete shell estimate: OPEN.
+- Strict Mertens exponent below \(7/8\): NOT PROVED.
+- Canonical VF theorem: OPEN.
+- RH: OPEN.
