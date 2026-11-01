@@ -266,3 +266,26 @@ No source-to-endpoint gain, strict exponent below 7/8, canonical VF bound, or RH
 - strict Mertens exponent below 7/8: NOT PROVED.
 - canonical VF theorem: OPEN.
 - RH: OPEN.
+
+
+## Scheduled continuation checkpoint - 2026-11-01 09:09 EST (-0500)
+
+**Status:** IN_PROGRESS / second actual Analytic invocation today / OAI-NNS protected rotation.  
+**deployment_ack:** live main `417cb62ee8ca65c82dd3aad1263c7529e94668eb`; selected the due OAI-NNS continuation from Coordinator claim `20261101-coordinator-1`, after today's NYMAN claim `20261101-analytic-1`.  
+**eta_gate:** `SEARCH_BROAD`; net complete-return gain remains `UNKNOWN`.
+
+The literal common-clock carrier is
+```text
+G_R = M(R^2-1)-M(R-1),
+Q_R = sum_(q odd prime, q^2<R) M(floor((R^2-1)/q^2))/q,
+S_R = G_R^2 + 2 G_R Q_R - D_R.
+```
+All principal, diagonal and endpoint terms are retained. The current derivation splits `Q_R=Q_R^{<T^2}+Q_R^{>=T^2}`. Combining the compiled original-owner tail theorem with the imported all-integer `7/8+epsilon` bound appears to give, for `T=floor(R^(1/8))`,
+```text
+|2 G_R Q_R^{>=T^2}| << R^(7/2-1/16).
+```
+The calculation and floor constants are under final audit; no complete-source eta is claimed. The complementary `q=3` mode is being tested against the sharp scalar condition for
+```text
+2 G A/3 <= lambda A^2 + c G^2,
+```
+which requires `c lambda >= 1/9`. Thus a scalar/operator estimate with `lambda<=2` necessarily returns at least `G^2/18`; the first unsupported input is a genuine signed two-scale restriction on the actual pair `(M(R^2-1)-M(R-1), M(floor((R^2-1)/9)))`, not an arbitrary-vector large sieve. The exact `R=2002` adverse orientation remains a mandatory sign falsifier.
