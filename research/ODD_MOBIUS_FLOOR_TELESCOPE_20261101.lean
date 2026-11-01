@@ -103,7 +103,8 @@ theorem isMultiplicative_oddMoebius :
   intro m n hmn
   simp only [oddMoebius_apply]
   rw [ArithmeticFunction.isMultiplicative_moebius.map_mul_of_coprime hmn]
-  by_cases hm : Odd m <;> by_cases hn : Odd n <;> simp [hm, hn]
+  simp only [odd_mul]
+  by_cases hm : Odd m <;> by_cases hn : Odd n <;> simp [hm, hn, and_comm]
 
 /-- The divisor sum of odd Möbius coefficients. -/
 def oddMoebiusZeta : ArithmeticFunction ℤ :=
@@ -133,7 +134,15 @@ theorem oddMoebiusZeta_prime_pow
   by_cases hpTwo : p = 2
   · subst p
     simp [oddMoebius, ArithmeticFunction.moebius_apply_prime_pow,
-      Nat.prime_two, Nat.not_odd_iff_even, hk]
+      Nat.prime_two]
+    apply Finset.sum_eq_zero
+    intro i hi
+    have hEven : Even (2 ^ (i + 1)) := by
+      refine ⟨2 ^ i, ?_⟩
+      rw [pow_succ]
+      omega
+    have hNotOdd : ¬ Odd (2 ^ (i + 1)) := hEven.not_odd
+    simp [hNotOdd]
   · have hpOdd : Odd p := hp.odd_of_ne_two hpTwo
     simp [oddMoebius, hpOdd.pow, ArithmeticFunction.moebius_apply_prime_pow,
       hp, hpTwo, hk]
@@ -150,9 +159,14 @@ theorem oddMoebiusZeta_eq_powerOfTwoIndicator (n : ℕ) :
   unfold powerOfTwoIndicator
   induction n using Nat.recOnPrimePow with
   | zero =>
-      simp [oddMoebiusZeta]
+      have hzero : ¬ ∃ j : ℕ, 0 = 2 ^ j := by
+        rintro ⟨j, hj⟩
+        have hpos : 0 < 2 ^ j := pow_pos (by decide)
+        omega
+      simp [oddMoebiusZeta, hzero]
   | one =>
-      simp [oddMoebiusZeta, oddMoebius]
+      have hone : ∃ j : ℕ, 1 = 2 ^ j := ⟨0, by simp⟩
+      simp [oddMoebiusZeta, oddMoebius, hone]
   | prime_pow_mul a p k hp hpa hk ih =>
       have hcop : Nat.Coprime (p ^ k) a :=
         (hp.coprime_iff_not_dvd.mpr hpa).pow_left k
@@ -170,7 +184,7 @@ theorem oddMoebiusZeta_eq_powerOfTwoIndicator (n : ℕ) :
               rw [← hj]
               exact ⟨2 ^ k, by ac_rfl⟩
             have haOdd : Odd a := by
-              rw [← Nat.not_even_iff_odd, Nat.even_iff_two_dvd]
+              rw [← Nat.not_even_iff_odd, even_iff_two_dvd]
               exact hpa
             have haCoprime : Nat.Coprime a (2 ^ j) :=
               haOdd.coprime_two_right.pow_right j
@@ -179,7 +193,7 @@ theorem oddMoebiusZeta_eq_powerOfTwoIndicator (n : ℕ) :
             exact ⟨0, by simp [haOne]⟩
           · rintro ⟨j, hj⟩
             have haOdd : Odd a := by
-              rw [← Nat.not_even_iff_odd, Nat.even_iff_two_dvd]
+              rw [← Nat.not_even_iff_odd, even_iff_two_dvd]
               exact hpa
             have hjZero : j = 0 := by
               by_contra hj0
