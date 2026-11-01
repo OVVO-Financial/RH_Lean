@@ -219,3 +219,236 @@ Publication history: early `IN_PROGRESS` checkpoint commit `b2e274ce2f4a7ed6bc4b
 **First research question:** whether the complete zero-frequency remainder has a nonlocal root-transition conservation after owner activation, moving daughter cutoffs, near-high/intermediate/go-wall correction, owner two, stable-far renewal, terminal products, and frozen root correction are all restored. A law using only raw daughter amplitudes is already refuted. The first unsupported step is an independently provable bound or sign restriction on the complete adjacent-root increment; no such estimate is assumed.
 
 **eta_gate:** `SEARCH_BROAD`; complete-return gain remains `UNKNOWN`.
+
+
+## Manual continuation final synthesis - 2026-11-01 08:42 America/New_York
+
+**Status:** COMPLETED.
+**New claim:** `20261101-owner-3`.
+**Classification:** `PAPER_PROOF_FROM_COMPILED_IDENTITIES / INDEPENDENT STRUCTURAL LIPSCHITZ BOUND`; `FINITE_COMPUTATION / COUNTEREXAMPLE_TO_MONOTONE_ROOT_TRANSFER`; `NO FIXED ETA GAIN`.
+
+### A. Most important mathematical development
+
+After every physical low-owner population is restored, the zero-frequency VF-LOW remainder has an exact adjacent-root shell law. Put
+```text
+X_R = R^2-1,
+O_R = {odd primes q : q^2<R},
+Y_R(q)=floor(X_R/q^2),
+A_R=lowOwnerPhysicalAmplitudeRemainder R 0.
+```
+Then for every `R>=56`,
+```text
+A_R = M(R-1)-M(X_R)-sum_(q in O_R) M(Y_R(q))/q.           (23)
+```
+Consequently
+```text
+A_(R+1)-A_R
+ = mu(R)
+   - sum_(X_R<n<=X_(R+1)) mu(n)
+   - sum_(q in O_R) (1/q) sum_(Y_R(q)<n<=Y_(R+1)(q)) mu(n)
+   - Act_R,                                                  (24)
+```
+where `Act_R=0` unless `R=q^2` for an odd prime `q`, in which case
+```text
+Act_R=M(R+2)/q.                                               (25)
+```
+This is a complete signed conservation/transfer identity: root singleton, new square shell, every moving daughter shell, and the only possible owner activation are explicit. The compiled physical reassembly used to obtain (23) already includes near-high transport, intermediate towers, Go residuals, owner two, stable-far renewal, terminal products, and the frozen root correction.
+
+The independently provable quantitative consequence is
+```text
+|A_(R+1)-A_R| <= 3R                 for every R>=56.          (26)
+```
+This is genuine all-scale structure on the complete remainder, but it is too weak for the square-shell energy target.
+
+### B. Current authoritative objective
+
+Live main is `417cb62ee8ca65c82dd3aad1263c7529e94668eb`, the human merge of PR #1068. No open or draft PR was returned at final refresh.
+
+The canonical objective remains
+```text
+exists C>=0, forall R>=2,
+  |pi(R^2)-VF_can(R^2)| <= C R log R.
+```
+The nearer benchmark remains a complete signed shell estimate with one fixed positive gain over exponent `5/2`. Neither objective is proved.
+
+Authority blobs are `AGENTS.md 9fa5e9519e2fb6dde22217aa2a18982dafef373a`, `CURRENT_PROOF_CONTRACT.md 88cddd9cd98c3b55f0b013998541e9b4e9dc9f2a`, and research engine `6fce99c61efb5b2a73c0cb1f1464f09b351fcd55`.
+
+Material source blobs:
+
+- `LOW_OWNER_PHYSICAL_AMPLITUDE_TRANSPORT.lean 72d66f61b3eeb000117ecdac393572558bb7c378`;
+- `LOW_OWNER_AMPLITUDE_MELLIN_LEDGER_SPLICE.lean 73447e8c73ea60affec36a25b9f4794862331359`;
+- `LOW_OWNER_PHYSICAL_CENSUS_CORRELATION.lean 85ef434038e54f0c1d0c2899042ace3c46a19a6b`;
+- `GLOBAL_RETURNED_CORE_WEIGHTED_MOBIUS_COORDINATE.lean f0e2e672a1ed369d1dc6dacbe9024c65e986a3c8`;
+- `FinalCompensatedParentReduction.lean 28d9f877287072621fe8bf9cf8073657a8caa47a`;
+- merged `ODD_MOBIUS_FLOOR_TELESCOPE_20261101.lean fbe472cca89f757c8f6f25e630a49847a2bd6ad0`.
+
+### C. Structural hypothesis investigated
+
+The tested hypothesis was that the complete zero-frequency physical remainder might obey a favorable adjacent-root conservation after all moving supports are restored.
+
+Three substantially different possibilities were separated:
+
+1. direct monotonicity or absolute contraction of `A_R`;
+2. a one-sided law for the reciprocal daughter column;
+3. an exact signed shell law followed by a carrier-size bound.
+
+The first two are false. The third survives as (24)-(26). It preserves the actual repeated daughter multiplicity: if one Mobius site lies in several daughter shells, its several `1/q` coefficients remain, because the original reciprocal column really contains them.
+
+### D. Mathematical derivation
+
+Main proves
+```text
+A_R = Corr_R-Q_R,
+Corr_R=M(R-1)-M(X_R),
+Q_R=sum_(q in O_R) M(Y_R(q))/q.
+```
+The first equality is `lowOwnerPhysicalAmplitudeRemainder_zero_eq_correlation_sub_reciprocalColumn`; the second is the compiled canonical rough-correlation identity; the third is the literal zero-frequency reciprocal column. This proves (23) without estimating or separately norming a physical population.
+
+The owner sets are nested. The only way `O_(R+1)\O_R` is nonempty is
+```text
+R=q^2
+```
+for one odd prime `q`. For every old owner, `Y_(R+1)(q)>=Y_R(q)`. Finite Mertens telescoping therefore gives
+```text
+Q_(R+1)-Q_R
+ = sum_(q in O_R) (1/q)
+     sum_(Y_R(q)<n<=Y_(R+1)(q)) mu(n)
+   + Act_R.
+```
+At activation, `q^2=R` and
+```text
+Y_(R+1)(q)=floor((R^2+2R)/R)=R+2,
+```
+which proves (25). Separately,
+```text
+Corr_(R+1)-Corr_R
+ = mu(R)-sum_(X_R<n<=X_(R+1))mu(n).
+```
+Subtracting the two identities proves (24).
+
+For (26), use `|mu(n)|<=1`. The outer square shell has length `2R+1`, so
+```text
+|Delta Corr_R| <= 2R+2.
+```
+For an old owner,
+```text
+Y_(R+1)(q)-Y_R(q) <= (2R+1)/q^2+1.
+```
+Hence
+```text
+|old daughter increment|
+ <= (2R+1) sum_(q in O_R)1/q^3 + sum_(q in O_R)1/q.
+```
+The elementary decreasing-series estimate
+```text
+sum_(n>=3)1/n^3 <= 1/27+integral_3^infinity t^(-3)dt
+                 = 5/54 < 1/8
+```
+bounds the first sum. Since every owner is at least three and there are fewer than `sqrt(R)` owners,
+```text
+sum_(q in O_R)1/q <= sqrt(R)/3 <= R/3.
+```
+If activation occurs with `R>=56`, then in fact `R=q^2>=121`, and
+```text
+|Act_R| <= (R+2)/sqrt(R) <= R/3.
+```
+Combining these bounds gives
+```text
+|Delta A_R|
+ <= 2R+2+(2R+1)/8+R/3+R/3
+ <= 3R
+```
+for `R>=56`.
+
+### E. Quantitative consequence
+
+Claim `20261101-owner-3` is an independent uniform bound on the genuine complete remainder increment, not a target-equivalent assumption. It gives a deterministic adjacent-root Lipschitz constant.
+
+It does not improve the endpoint exponent. On a dyadic root interval `H<=R<2H`, (26) alone yields only
+```text
+sum |A_(R+1)-A_R|^2 = O(H^3),
+```
+which is worse than the required `H^(5/2-eta+eps)` scale. Telescoping amplitudes by triangle inequality similarly loses a full root count. A useful continuation must prove cancellation or orthogonality among the four signed shells in (24), not merely their total support size.
+
+### F. Falsification and circularity review
+
+An exact Mobius sieve, using the literal formulas in (23), gives
+```text
+R    Corr_R    Q_R       A_R
+56   -8        34/105    -874/105
+57   -19      -71/105   -1924/105
+58   -15     -121/105   -1454/105.
+```
+Thus
+```text
+A_57-A_56=-10,
+A_58-A_57=94/21.
+```
+So `A_R` is neither increasing nor decreasing, and `|A_R|` already expands from `R=56` to `57`. The reciprocal column also changes both ways: `Q_57-Q_56=-1`, while `Q_60-Q_59=51/35`. These are `FINITE_COMPUTATION` counterexamples, not all-scale estimates. The same exact sieve checked (26) through `R=700`; the largest observed ratio was `|Delta A_R|/R=411/1225` at `R=70`. That finite check is only a regression for the paper proof.
+
+The required null-daughter regression is restored exactly. Main proves at `R=64,q=5`
+```text
+M(Y_64(5))=0,    farFourQ2OwnerSynthesisAtom 64 5=-16.
+```
+The compiled atom decomposition then gives, for every frequency `tau`,
+```text
+lowOwnerAmplitudeTransportCorrection 64 5 tau=-16.          (27)
+```
+Thus the physical atom survives wholly in the correction when its raw daughter vanishes. In particular no finite universal ownerwise estimate
+```text
+|correction|^2 <= C |raw daughter|^2
+```
+can hold. Equation (24) does not evade this obstruction: it works only because (23) first restores the complete physical correlation.
+
+No independence, random-sign model, cloned occurrence, omitted diagonal, or separate norm of complementary populations enters the proof.
+
+### G. Conceptual interpretation
+
+The complete VF-LOW remainder is a discrete signed flux across four nested boundaries. Owner activation is arithmetically sparse, occurring only at prime-square roots, and the reciprocal site weight is pointwise nondecreasing. Neither fact forces a sign because Mobius values on the newly exposed shells remain signed.
+
+The new restriction is therefore geometric rather than cancellative: only `O(R)` total weighted boundary can change in one root step. The actual missing arithmetic is covariance among the top square shell, the lower daughter shells, and the sparse activation term. The null-fibre witness proves that daughter energy alone cannot see all of that covariance.
+
+### H. Competing mechanisms
+
+- **Bounded fixed-depth SAT crossing:** remains retired as a gain mechanism; exact restoration is target-equivalent.
+- **VF-LOW adjacent-root monotonicity/contraction:** abandon; the exact `56,57,58` counterexample refutes it.
+- **VF-LOW signed shell covariance:** continue. Equation (24) is a source-faithful carrier for a nonlocal estimate and is not itself target-equivalent.
+- **Daughter-only physical transport:** abandon universally; (27) gives a zero-denominator obstruction.
+- **Dyadic cancellation among complete increments:** continue only with an explicit bilinear expansion retaining all four terms and cross terms.
+
+### I. Specialist handoffs
+
+**Coordinator / Proof Architect:** register (24) as the exact VF-LOW adjacent-root carrier and (26) as an independent but quantitatively insufficient restriction. Do not infer an eta from the Lipschitz bound.
+
+**Analytic Type II:** the next analytic question is whether the dyadic energy of the complete bracket in (24) admits a saving after expanding every cross term. A bound on the daughter shells alone is invalid because of (27).
+
+**Finite Wheel & Incidence:** characterize overlaps among the intervals `(Y_R(q),Y_(R+1)(q)]` and the top shell without replacing intentional `1/q` multiplicity by a partition.
+
+**Prime Census:** a decisive follow-up should measure the full four-term increment and its cross-term matrix at adverse roots, not extend the scalar `A_R` table.
+
+**Adversarial Referee:** audit the owner-set transition, activation formula, and the `3R` constant. In particular check that the compiled correlation-minus-column identity legitimately restores every physical population before (24).
+
+**Lean Verification:** after independent acceptance, (24) and the coarse (26) are small exact formal targets. They are lower priority than quantitative estimates and do not justify displacing qualified active work.
+
+### J. First independently missing lemma
+
+The first useful missing theorem is a complete dyadic increment-energy estimate for the literal four-term carrier:
+```text
+sum_(H<=R<2H) |
+  mu(R)-sum_(X_R<n<=X_(R+1))mu(n)
+  -sum_(q in O_R)(1/q)sum_(Y_R(q)<n<=Y_(R+1)(q))mu(n)
+  -Act_R |^2
+  <<_eps H^(5/2-eta+eps)
+```
+for some fixed `eta>0`, together with the exact consumer connecting this increment energy to the required complete endpoint quantity. This statement is OPEN. Merely assuming it would be a new target-strength supplier; the needed advance is an independent covariance restriction on its expanded cross terms.
+
+### K. Next-run resume capsule
+
+- Main: `417cb62ee8ca65c82dd3aad1263c7529e94668eb`.
+- Claim: `20261101-owner-3`, equations (23)-(27).
+- Formal status: paper proof from compiled identities; no Lean execution was performed by Owner.
+- Quantitative status: independent `3R` adjacent increment bound; no eta and no RH consequence.
+- Falsifiers: `A_57-A_56=-10`, `A_58-A_57=94/21`; null daughter `R=64,q=5` restores correction `-16`.
+- Next decisive action: expand the complete dyadic square of (24), identify which cross term can be constrained by genuine ancestry/incidence, and reject any proposal that norms only the daughter component.
+- Route coverage: prior substantive Owner turn JOH; today's first Owner turn SAT; this continuation VF-LOW. The rolling three-route cycle is complete.
+- Continuity: consumed today's Coordinator mirror blob `c23d71084b9103d22e0ade268535dbcab18fc229`, same-day specialist reports available at intake, yesterday's verified carry-forward recorded in the earlier section, and external inbox blob `038018145c0fddb2f6306c0712373adf9cd1ea52` with no entry newer than October 18.
