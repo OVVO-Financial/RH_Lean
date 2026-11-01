@@ -309,3 +309,138 @@ root-independent multiplicity.
 
 **Final status:** complete shell bound OPEN; fixed positive eta OPEN; strict
 Mertens exponent below `7/8` OPEN; canonical VF theorem OPEN; RH OPEN.
+
+
+## K. Scheduled continuation - claim `20261031-lean-3`
+
+**Status:** COMPLETED / PROVED_IN_LEAN_ON_PR_HEAD / CI_GREEN / REVIEW_READY  
+**Invocation:** 2026-10-31 21:08 America/New_York  
+**Live main:** `05c3fcfc2ad699f09d7d473f17ac63a918a3aad3`  
+**Authority blobs:** `AGENTS.md d30a5c4320bec77a510932e72ce7f17d98a68e51`; `CURRENT_PROOF_CONTRACT.md 7a067ec0423a998e1079e37494061346d8ee02b0`  
+**Toolchain:** Lean 4.34.1; Mathlib pinned by main manifest  
+**eta_gate:** `SEARCH_BROAD`; net endpoint gain after complete return: `UNKNOWN`.
+
+### K.1 Candidate selection and independent audit
+
+Priority A was discharged first. PR #1062 remains open, mergeable, and
+review-ready at exact head `4309335c62ddcf41d7d3a17df2589de007291eff`;
+all 12 observed workflows remain successful. No repair or duplicate proof is
+needed.
+
+All available October 31 Coordinator, Owner, Analytic, Wheel, Census,
+Referee, and prior Lean reports were consumed at blobs
+`8e901e46877ff28bd8eb7c46cb3a46ade5ef32a6`,
+`fdb9413fdd49588e1ad1c2348b4fabf4cff55b9c`,
+`574c544048e225475569c57f95ca1e47237ab733`,
+`5e62d4c536061564ceca0444a844f51b8886a7fd`,
+`46f6923fa188e5ed6036d6097b23360c32088fc0`, the latest Referee report,
+and `9786950ba58b9c8c3ddaccc00926417d4b3bb945`. Available October 30
+Coordinator, Analytic, Wheel, Census, Referee, and Lean reports were carried
+forward. The October 30 Owner report is absent, so that lane remains
+`YESTERDAY=PENDING`. External handoffs remain at blob
+`038018145c0fddb2f6306c0712373adf9cd1ea52`, with no entry newer than
+October 18.
+
+Referee claim `20261031-referee-7` accepts Coordinator claim
+`20261031-coordinator-2` with scope: the near-root prime-ray telescope is an
+internally complete, exact `v_2(a)=1` local row family and gives local
+`eta=1/6`, but it is not a complete-source gain. The first formalization
+obligation is its occurrence-level carrier and sign, before the harder odd
+Möbius floor identity and energy estimate.
+
+### K.2 Formal result
+
+PR [#1063](https://github.com/OVVO-Financial/RH_Lean/pull/1063), branch
+`agent/lean-verification/20261031-prime-ray-source-admission`, exact head
+`b2dcf5b44870625b5b3ce65807c3f9ac5112ee69`, is open, non-draft,
+mergeable, and review-ready. It is based on the exact live main SHA above.
+
+Source:
+`research/EULER_PRIME_RAY_SOURCE_ADMISSION_20261031.lean`, blob
+`d164dccf992e24fe1c6378fefa75c03535ad5de8`.
+
+Lean proves:
+
+```text
+eulerPrimeRay_row_admitted_and_weight
+  (R q m : Nat)
+  (hR : 8 <= R)
+  (hq : Nat.Prime q)
+  (hqLow : R / 2 < q)
+  (hqHigh : q < R)
+  (hmPos : 1 <= m)
+  (hmHigh : m <= (R - 1) / 2)
+  (hmOdd : Odd m) :
+  0 < 2*m /\ 2*m < R /\ 0 < q /\ q < R /\
+  2*m != q /\ m < q /\
+  eulerMuQ (2*m) * eulerMuQ q = eulerMuQ m
+```
+
+This is an exact original-carrier theorem. It proves that every selected row
+has two distinct positive indices below the square clock, preserves the
+near-root prime-ray indexing, and carries the literal original Euler sign.
+The proof uses exact Möbius doubling on odd inputs and the prime Möbius value.
+
+Classification:
+`PROVED_IN_LEAN_ON_PR_HEAD / FORMAL INFRASTRUCTURE / EXACT SOURCE ADMISSION AND SIGN`.
+It does not prove the odd Möbius floor telescope, the local moment, a
+complete-source estimate, a verified fixed eta after complete return, the
+canonical VF theorem, or RH.
+
+### K.3 GitHub Actions and axiom evidence
+
+All 12 workflows on the exact final head completed successfully:
+
+- Dedicated warning-fatal proof closure, exact signature, axiom and no-hole
+  audit: [run 41260375468](https://github.com/OVVO-Financial/RH_Lean/actions/runs/41260375468).
+- Targeted Lean iteration:
+  [run 41260375543](https://github.com/OVVO-Financial/RH_Lean/actions/runs/41260375543).
+- Lean source audits:
+  [run 41260375510](https://github.com/OVVO-Financial/RH_Lean/actions/runs/41260375510).
+- Proof inventory:
+  [run 41260375516](https://github.com/OVVO-Financial/RH_Lean/actions/runs/41260375516).
+- Public export verification:
+  [run 41260375422](https://github.com/OVVO-Financial/RH_Lean/actions/runs/41260375422).
+- Coordinate atlas/static search corpus:
+  [run 41260375536](https://github.com/OVVO-Financial/RH_Lean/actions/runs/41260375536).
+
+The exact theorem depends only on
+`[propext, Classical.choice, Quot.sound]`. The audits found no `sorry`,
+`admit`, new project axiom, `native_decide`, or `sorryAx`.
+
+Initial head `c825ebf663d78ab91f400bc44c9a3a1fe97ec48d` compiled the theorem
+warning-fatal and printed the correct axiom set, but the dedicated job failed
+because its Python regular expression was over-escaped. Final head
+`b2dcf5b...` changes only the workflow escaping and is fully green. No
+theorem statement, hypothesis, or proof was weakened during repair.
+
+### K.4 Formal proof-gap map
+
+Compiled inputs now establish:
+
+1. The exact original Euler coefficient carrier on main.
+2. Exact odd Möbius doubling on main.
+3. Exact admission, distinctness, indexing, and sign for each selected
+   near-root prime-ray row on PR #1063.
+
+Still unproved in Lean:
+
+1. The finite identity
+   `sum_(m<=A, m odd) mu(m) floor(A/m) = 1 + floor(log_2 A)`.
+2. The exact truncation/tail identity for `L < m <= A_q`.
+3. The uniform boundary-length estimate and the resulting local
+   `O(H^(7/3))` energy theorem.
+4. Every cross term between this selected row family and the complement of
+   the complete Euler source.
+5. The squareful, diagonal, reciprocal-square, activation, principal, and
+   endpoint restoration bills.
+
+The next formal target is item 1, using
+`RHLean.Analysis.nativeSumMoebiusDivisors` and exact finite reindexing.
+It must not be replaced by an assumed Mertens bound or by a conditional
+restatement of the desired telescope.
+
+**Final status:** PR #1062 and PR #1063 are review-ready and unmerged.
+Complete shell bound OPEN; verified fixed positive eta after complete return
+UNKNOWN; strict Mertens exponent below `7/8` NOT PROVED; canonical VF
+theorem OPEN; RH OPEN.
