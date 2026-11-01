@@ -289,3 +289,180 @@ The calculation and floor constants are under final audit; no complete-source et
 2 G A/3 <= lambda A^2 + c G^2,
 ```
 which requires `c lambda >= 1/9`. Thus a scalar/operator estimate with `lambda<=2` necessarily returns at least `G^2/18`; the first unsupported input is a genuine signed two-scale restriction on the actual pair `(M(R^2-1)-M(R-1), M(floor((R^2-1)/9)))`, not an arbitrary-vector large sieve. The exact `R=2002` adverse orientation remains a mandatory sign falsifier.
+
+
+## Scheduled continuation final synthesis - claim `20261101-analytic-2`
+
+**Status:** COMPLETED / PAPER_PROOF_FROM_COMPILED_THEOREMS / FINITE_EXACT_FALSIFICATION.  
+**Result classes:** `NEW QUANTITATIVE LARGE-OWNER MIXED-TERM ESTIMATE`; `SHARP SCALAR PRINCIPAL-MODE NO-GO`; `FINITE_COMPUTATION / SIGN REVERSAL`; `NO COMPLETE-SOURCE ETA`; `NO STRICT MERTENS EXPONENT GAIN`; `NO RH`.
+
+### A. Most important analytic result
+
+Let
+```text
+X_R = R^2-1,
+G_R = M(X_R)-M(R-1),
+A_q(R) = M(floor(X_R/q^2)),
+Q_R = sum_(q odd prime, q^2<R) A_q(R)/q.
+```
+For an integer `T>=1`, retain the literal compiled split
+```text
+Q_R = Q_small(R,T)+Q_large(R,T),
+Q_large(R,T)=sum_(q odd prime, q^2<R, q>=T^2) A_q(R)/q.
+```
+Claim `20261101-analytic-2` proves the following consequence of the imported unconditional all-integer 7/8 theorem and the already compiled original-owner tail theorem.
+
+**Large-owner mixed theorem.** There is an absolute constant `C_*` such that for every integer `R>=56`, with
+```text
+T_R=floor(R^(1/8)),
+```
+one has
+```text
+|2 G_R Q_large(R,T_R)| <= C_* R^(55/16)
+                         = C_* R^(7/2-1/16).                 (11)
+```
+The constant depends only on the fixed imported `epsilon=1/64` Mertens-growth constant and the finite roots `56<=R<256`; it is independent of `R,q,T`.
+
+This is a genuine fixed power saving on the exact large-owner cross term. It preserves the actual odd-prime owners, sharp cutoff `floor((R^2-1)/q^2)`, reciprocal `1/q` weight, endpoint gap and signs. It does not average the prime labels or replace Möbius coefficients.
+
+### B. Proof and quantitative accounting
+
+Set
+```text
+beta=7/8+1/64=57/64.
+```
+The imported theorem gives a constant `C>=0` such that for every `n>=1`,
+```text
+|M(n)| <= C n^beta.                                          (12)
+```
+Since `X_R<=R^2` and `R-1<=R^2`, for `R>=56`,
+```text
+|G_R| <= |M(X_R)|+|M(R-1)| <= 2 C R^(2 beta).                (13)
+```
+The compiled theorem `openai434_paid_original_corr4_large_owner` gives, for every `T`,
+```text
+T |Q_large(R,T)| <= (C/4) R^(2 beta).                        (14)
+```
+Therefore
+```text
+T |2 G_R Q_large(R,T)| <= C^2 R^(4 beta).                   (15)
+```
+For `R>=256`, `R^(1/8)>=2`, hence
+```text
+T_R=floor(R^(1/8)) >= R^(1/8)/2.
+```
+Because `4 beta=57/16`, (15) gives
+```text
+|2 G_R Q_large(R,T_R)|
+  <= 2 C^2 R^(57/16-1/8)
+  = 2 C^2 R^(55/16).
+```
+The finitely many roots `56<=R<256` are absorbed by increasing the constant. No asymptotic uniformity is hidden.
+
+The exact complete-source return remains
+```text
+2 Gamma_mixed
+ = G_R^2 + 2 G_R Q_small(R,T_R)
+     + 2 G_R Q_large(R,T_R) - (D_R-P_R),                    (16)
+```
+where `D_R` is the physical diagonal and `P_R` the reciprocal-prefix diagonal. Thus (11) pays only the displayed large-owner term. Principal `G_R^2`, small owners, daughter energy, both diagonals and every endpoint term remain present.
+
+### C. Sharp small-owner obstruction
+
+The owner `q=3` is present for every `R>=56`. Write
+```text
+A=A_3(R)=M(floor((R^2-1)/9)).
+```
+For nonnegative real `lambda,c`, the scalar inequality
+```text
+2 G A/3 <= lambda A^2 + c G^2                            (17)
+```
+holds for all real `G,A` if and only if
+```text
+lambda*c >= 1/9.                                           (18)
+```
+Indeed the quadratic form `cG^2-(2/3)GA+lambda A^2` is positive semidefinite exactly when its determinant is nonnegative. Equivalently, for `lambda>0`, minimizing in `A` at `A=G/(3lambda)` forces `c>=1/(9lambda)`; completing the square proves sufficiency. The case `lambda=0` is impossible.
+
+Consequently any arbitrary-vector/Young estimate that spends at most coefficient `lambda=2` of the actual `q=3` daughter energy necessarily returns at least
+```text
+G_R^2/18.                                                   (19)
+```
+The imported 7/8 theorem bounds this at the baseline `R^(7/2+epsilon)`, not at a strict gain. Therefore (11) cannot be globalized by an operator norm or componentwise Cauchy alone. A successful small-owner theorem must use a genuine arithmetic restriction on the simultaneous Möbius values `G_R,A_3(R),A_5(R),...`, or joint compensation with `D_R-P_R` and the remaining physical terms.
+
+This is a no-go only for scalar/arbitrary-vector domination. It does not assert that genuine Möbius values attain the quadratic extremizer at arbitrarily large roots.
+
+### D. Falsification
+
+An exact independent Möbius sieve gives both orientations immediately:
+```text
+R=56: X=3135, floor(X/9)=348,
+      M(X)=6, M(55)=-2, A_3=2, G=8, 2GA_3/3=32/3 > 0.
+
+R=57: X=3248, floor(X/9)=360,
+      M(X)=17, M(56)=-2, A_3=-1, G=19, 2GA_3/3=-38/3 < 0.
+```
+Thus a universal favorable sign for the first principal owner is refuted. At the mandatory `R=2002` regression, the independently reported exact values are `G=208`, `A_3=-52`, and total `Q_R=-35.6864...`; this is consistent with the negative orientation there but cannot support a uniform sign theorem.
+
+The finite calculations establish only the displayed witnesses. They are not evidence for an asymptotic correlation law.
+
+### E. Novelty and relation to existing results
+
+The large-column estimate (14) was already compiled on main. The new result is its source-faithful multiplication with the actual endpoint gap at a fixed growing threshold, including the exact exponent ledger and the complete-return formula (16). Repository search found no declaration or report proving (11), nor the sharp principal-mode condition (18).
+
+The result uses the imported 7/8 theorem only at its verified all-integer scope. It does not recycle that theorem as a new proof of itself. The new output is a strict saving for one actual mixed subsector; the independent arithmetic needed for the small-owner principal modes is still missing.
+
+Today's NYMAN claim `20261101-analytic-1` remains unchanged and independently accepted after the Referee's block-size repair. Main's newly merged odd-Möbius telescope is also unchanged in scope: it is a finite structural identity and does not bound the small-owner two-scale correlation here.
+
+### F. First unsupported inequality and next resume point
+
+After (11), the exact remaining OAI-NNS/CORR4 obligation is the small-prime principal combination
+```text
+G_R^2 + 2 G_R Q_small(R,T_R) - (D_R-P_R) - 2 E_R,          (20)
+```
+with `q<T_R^2 approximately R^(1/4)`. A complete fixed gain requires an independently proved one-sided bound
+```text
+(20) <= C_eta R^(7/2-eta)
+```
+for some fixed `eta>0`, or a stronger joint absorption theorem with the same complete terms. Equation (18) proves that a scalar estimate cannot provide it. The first genuinely arithmetic subproblem is a signed two-scale correlation theorem for the vector
+```text
+(G_R, A_3(R), A_5(R), ..., A_q(R) for q<R^(1/4)),
+```
+uniform in the growing prime range, with both diagonals and endpoint restoration retained.
+
+This remaining complete small-owner statement may be target-strength; no claim is made that merely naming it is a reduction. The independent progress is precisely the paid large-owner term and the sharp proof that scalar treatment of the first principal mode cannot finish the return.
+
+### G. Authority, source and CI evidence
+
+- Live main: `417cb62ee8ca65c82dd3aad1263c7529e94668eb` (human merge of PR #1068).
+- `main:AGENTS.md` blob: `9fa5e9519e2fb6dde22217aa2a18982dafef373a`.
+- `main:CURRENT_PROOF_CONTRACT.md` blob: `88cddd9cd98c3b55f0b013998541e9b4e9dc9f2a`.
+- Mixed-tail gate: `bb0ee1252e7ba10c44ae5b8d827573d6c581b73a`.
+- Original-owner tail theorem: `03c05e38fb2415105de9cccd3680b03c21c4be5c`.
+- Imported OAI application: `06626af8cd8abfbf8f6da238f8a3d9af0893b686`.
+- Imported 7/8 source bridge: `89a689238dba61a93cc4ec8a4d8a206cfb4ef755`.
+- Exact mixed-remainder identity: `d17aeb639bb47d79333cf0d00760c2604feddfdf`.
+- Reciprocal signed-cell split: `29bb263ddd07b12a2dd5ccf6a12aecaf627134d8`.
+- Record/frame source: `a4abeb13653076bedd8e1173c933ee3324bfea26`.
+- Merged odd telescope: `fbe472cca89f757c8f6f25e630a49847a2bd6ad0`.
+- External handoffs: `038018145c0fddb2f6306c0712373adf9cd1ea52`; no entry newer than 2026-10-18.
+
+PR #1068 merged at main head after exact proof head `75d9cf05071502fad0fd76f7336c16f38b2faa33`. All 12 PR-triggered workflows returned completed/success, including dedicated run `41298543667`; the PR audit reports warning-fatal source closure and only `propext`, `Classical.choice`, and `Quot.sound`. No open pull requests were returned at final refresh. This paper run created no code branch or PR.
+
+### H. Routing and resume capsule
+
+- `eta_gate: SEARCH_BROAD`.
+- `primary_route_and_original_carrier: OAI-NNS / exact CORR4 common-clock endpoint-by-reciprocal-owner mixed term`.
+- `actual_new_lemma_or_first_unresolved_inequality: claim 20261101-analytic-2, equations (11)-(20)`.
+- `net_endpoint_gain_after_complete_return: UNKNOWN`.
+- Large owners `q>=floor(R^(1/8))^2`: paid with fixed local `eta=1/16` in the mixed term.
+- Small owners `q<R^(1/4)`: OPEN; scalar domination is sharply insufficient.
+- Last substantive Analytic turns: CODIV `20261031-analytic-1..3`; NYMAN `20261101-analytic-1`; OAI-NNS this invocation. The rolling three-route coverage is current.
+- Next Analytic turn may resume CODIV unless Referee requests a repair of (11) or (18); do not restart the completed NYMAN comparison or re-prove the existing large-column theorem.
+- Complete mixed-tail power bill: OPEN.
+- Strict Mertens exponent below 7/8: NOT PROVED.
+- Canonical VF theorem: OPEN.
+- RH: OPEN.
+
+### Publication history
+
+Early checkpoint commit `0c182831ad6852c19df5352ca6f838d3b9cc62d9`, verified as blob `b15cd68b248a6ab4402a688c88b27b214b8c1564`. This final synthesis preserves the prior NYMAN report and the checkpoint while correcting the provisional claim to the audited statement (11).
