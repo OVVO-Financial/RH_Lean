@@ -190,23 +190,23 @@ Material main blobs were:
 
 Put `X=R^2-1`,
 ```text
-G_R=M(X)-M(R-1),qquad
-U_R=sum_{substack{q {rm odd prime}\q^2<R}}frac{M(lfloor X/q^2rfloor)}q.
+G_R = M(X) - M(R-1),
+U_R = sum_(q odd prime, q^2<R) M(floor(X/q^2)) / q.
 ```
 For `1<=n<=X`, put
 ```text
-h_R(n)=1_{nge R},qquad
-W_R(n)=sum_{q^2<R}frac{1_{nlelfloor X/q^2rfloor}}q.
+h_R(n) = 1 if n>=R, otherwise 0,
+W_R(n) = sum_(q^2<R) 1_(n<=floor(X/q^2)) / q.
 ```
 For squarefree `m<n`, the chronological owner `p(m,n)` is the least prime in the symmetric difference of their complete prime-factor sets, exactly the repository predicate `IsSquarefreePairFreshPrimeOwner`. Define
 ```text
-J_R(p)=sum_{substack{m<n\p(m,n)=p}}
- [h_R(m)W_R(n)+h_R(n)W_R(m)]mu(m)mu(n).
+J_R(p) = sum_(m<n, p(m,n)=p)
+  [h_R(m) W_R(n) + h_R(n) W_R(m)] mu(m) mu(n).
 ```
 The exact reconstruction target was
 ```text
-G_RU_R=D_R+sum_pJ_R(p),qquad
-D_R=sum_n h_R(n)W_R(n)mu(n)^2. tag{20}
+G_R U_R = D_R + sum_p J_R(p),
+D_R = sum_n h_R(n) W_R(n) mu(n)^2.  (20)
 ```
 
 Before computing, two exploratory assertions were frozen.
@@ -220,7 +220,7 @@ The mechanism hypothesis was that the same small primes indexing the q-squared c
 
 For each prime `p` in increasing order, squarefree integers were partitioned by their common membership signature at primes below `p`. Within every signature cell, the `p`-divisible and `p`-indivisible halves have aggregates
 ```text
-(H_1,V_1),quad(H_0,V_0),
+(H_1,V_1), (H_0,V_0),
 ```
 where `H=sum h_R(n)mu(n)` and `V=sum W_R(n)mu(n)`. The cell contributes exactly
 ```text
@@ -280,7 +280,7 @@ D(GU)=-48555211753118578768,quad
 DD_R=783232374097529448961,
 ```
 ```text
-Dsum_pJ_p=-831787585850648027729.
+D * sum_p J_p = -831787585850648027729.
 ```
 The small-owner absolute fraction is exactly
 ```text
@@ -297,7 +297,7 @@ It also fails exactly at `R=317,1027` and diagnostically at `R=5561,6074`. There
 
 The most important exceptional behavior is cancellation scale. At `R=2002`,
 ```text
-Dsum_p|J_p|
+D * sum_p |J_p|
 =100946205396697419458315471,
 ```
 more than `1.2e5` times the magnitude of the final off-diagonal. At `R=317` the ratio is already above `6.1e3`. A componentwise absolute owner estimate therefore destroys the observed cancellation by several orders of magnitude.
@@ -322,7 +322,7 @@ No complete CORR4 payment, finite A/C estimate, fixed positive eta, strict expon
 
 **Continuation:** do not enlarge the same aggregate table without a fixed new hypothesis. The next owner experiment should preregister an onset and a band statement for
 ```text
-sqrt R<p<2sqrt R,
+sqrt(R) < p < 2 sqrt(R),
 ```
 then test both its signed and absolute mass on roots not used here. More valuable analytically is an exact cellwise involution or telescoping law pairing medium-owner fibres across adjacent primes while retaining `K_R(m,n)`; an ownerwise norm cannot exploit the cancellations measured above.
 
