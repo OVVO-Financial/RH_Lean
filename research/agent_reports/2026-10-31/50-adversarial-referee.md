@@ -386,3 +386,118 @@ PNT gives the prime count asymptotic `R/(4log R)`, hence eventually `C_R>=R^2/(5
 The smallest surviving same-source problem is now sharper: identify and bound the legal negative partners of the `(2,q)` block across different squarefree depths/moduli and the squareful/restoration sectors, before taking norms, with all cross terms retained. A scalar bound for `B(x)` below exponent one would itself prove a zero-free region and must not be smuggled in as an elementary coefficient estimate.
 
 **Final status:** `NO_NEW_COMPLETE_SOURCE_BOUND`; `NO_FIXED_ETA_GAIN`; canonical VF theorem OPEN; strict exponent below `7/8` OPEN; RH OPEN.
+
+
+## K. Scheduled continuation - 2026-10-31 20:13 America/New_York
+
+**Status:** COMPLETED / independent review continuation  
+**New claims:** `20261031-referee-7..10`  
+**Result classes:** `ACCEPT_WITH_SCOPE / PAPER_PROOF`, `REVISE_PROOF_WORDING`, `FINITE_COUNTEREXAMPLE_INDEPENDENTLY_REPRODUCED`, `IDENTITY_ONLY`, `NO_COMPLETE_SOURCE_BOUND`, `NO_GLOBAL_FIXED_ETA_GAIN`, `NO_RH`.
+
+### K.1 Live authority and continuity
+
+Final review baseline is `main@05c3fcfc2ad699f09d7d473f17ac63a918a3aad3`. Authority blobs are `AGENTS.md d30a5c4320bec77a510932e72ce7f17d98a68e51` and `CURRENT_PROOF_CONTRACT.md 7a067ec0423a998e1079e37494061346d8ee02b0`. The material original Euler source is `research/EULER_FRACTIONAL_COUPLED_20261027.lean e6c4b1690e497760d366e36b28a1f7aa60e19f85`. The compiled primitive prime/floor-Li mismatch source is `research/VF_MID_FLOOR_LI_SIGNED_POPULATION_BALANCE.lean 9a9336dad72171b6d572a1c1ae88d1ae8b56b530`.
+
+All available October 31 reports were consumed at these final blobs: Coordinator `8e901e46877ff28bd8eb7c46cb3a46ade5ef32a6`, Owner `fdb9413fdd49588e1ad1c2348b4fabf4cff55b9c`, Analytic `574c544048e225475569c57f95ca1e47237ab733`, Wheel `5e62d4c536061564ceca0444a844f51b8886a7fd`, Census `46f6923fa188e5ed6036d6097b23360c32088fc0`, prior Referee `2c6b45c346617010d2d8b82eaf27b8bbc8f38465`, and Lean `9786950ba58b9c8c3ddaccc00926417d4b3bb945`. Available October 30 Coordinator, Analytic, Wheel, Census, Referee, and Lean reports were carried forward; no October 30 Owner file exists, so that lane remains `YESTERDAY=PENDING`. External inbox blob `038018145c0fddb2f6306c0712373adf9cd1ea52` has no entry newer than 2026-10-18.
+
+PR #1062 remains the sole open PR, non-draft and mergeable at `4309335c62ddcf41d7d3a17df2589de007291eff`. All 12 returned exact-head workflow runs are successful. Its theorem is structural only: it proves the coprime resonance criterion and the root-dependence counterexample, not any claim reviewed below.
+
+### K.2 Claim `20261031-referee-7`: near-root prime-ray telescope
+
+Coordinator claim `20261031-coordinator-2`, equations (21)-(27), is **ACCEPT_WITH_SCOPE / REVISE_PROOF_WORDING**.
+
+For `R>=8`, `X=R^2-1`, `L=floor((R-1)/2)`, prime `R/2<q<R), and `A_q=floor(X/(2q))`, the exact restricted floor-return contribution
+
+[
+T_R(q)=2sum_{substack{1le mle L\m {m odd}}}
+mu(m)leftlfloor A_q/mightfloor
+]
+
+is a source-faithful sum of original strict rows. The proof needs two explicit repairs, neither of which changes the formula.
+
+1. It is false that `m<q` implies `2m<q`. The physical row is the sorted unordered pair `{2m,q}`. It is strict because `2m` is even and `q` is odd, and both entries are below `R`.
+2. In passing from (22) to (23), one must state why the omitted floor disappears. Since `q>R/2`, one has `A_q<R`; for every `m>L`, `2m>=R`. Hence `A_q<2m` and `floor(A_q/m)=1`.
+
+The remaining checks hold exactly. Since `m<q`, `q` does not divide `m`, so `mu(2m)mu(q)=mu(m)`, including the zero-Mobius cases. Also `A_q>=L`. Distinct `q` cannot duplicate a row: if `mq=m'q'` with `q,q'>R/2` and `m,m'<R/2`, then a distinct `q` would divide `m'`, impossible.
+
+The odd-divisor identity
+[
+sum_{substack{mle A\m {m odd}}}mu(m)lfloor A/mfloor
+=1+lfloorlog_2Afloor
+]
+is correct. The bound `A_q-L<=U+1` for `R-U<q<R`, followed by the trivial prime count, gives
+[
+|T_R(U)|le2U(2+log_2R+U).
+]
+At `U=floor(R^(1/3))`, this is `O(R^(2/3))`; summing its square over `H<=R<2H` gives `O(H^(7/3))=O(H^(5/2-1/6))`.
+
+An independent exact-integer regression checked equations (21)-(26), row admission, sorting, uniqueness, and the displayed bound for every `8<=R<=300`.
+
+The strongest honest scope is: **an internally complete, exact `v_2(a)=1`, near-root large-prime floor-return row family**. “Completed subsector” is acceptable only with that qualifier. The energy includes every cross term inside this selected row family, but not its cross terms with the complement of the complete Euler source. Therefore this is a genuine local fixed-`eta=1/6` gain and independent cancellation law, not a complete-source gain.
+
+### K.3 Claim `20261031-referee-8`: semiprime completion layer
+
+Wheel claim `20261031-wheel-3`, equations (33)-(38), is **ACCEPT_WITH_SCOPE / PAPER_PROOF**.
+
+For the auxiliary triangle `L<m<=A_q`, the prime slice has asymptotic
+[
+B_R^{[1]}sim-c_	riangle R^2/log^2R,
+qquad c_	riangle=(log2)/2-1/4.
+]
+The standard fixed-scale Landau semiprime asymptotic, after excluding `p_1=p_2` and `p_1=2` as lower-order populations, gives
+[
+B_R^{[2]}sim c_	riangle R^2loglog R/log^2R.
+]
+The constant is the area of
+[
+{(x,y):1/2<x<1, 1/2<yle1/(2x)}.
+]
+A finite compact step approximation supplies the required uniformity; the curved boundary has zero area. Thus `B_R^{[2]}/|B_R^{[1]}|~log log R`, and adjoining only depths one and two cannot cancel the triangle.
+
+This is a counterexample to a two-depth packet mechanism, not a lower bound for the physical prime-ray sum. The variables `m>L` are completion variables, not admitted rows `2m<R`; higher squarefree depths remain essential. Equation (38) only removes zero Möbius coefficients inside this auxiliary triangle and says nothing about the complete source's other squareful, diagonal, reciprocal-square, or restoration sectors.
+
+### K.4 Claim `20261031-referee-9`: CORR4 sign refutation
+
+Census claim `20261031-census-3` is **ACCEPTED AS FINITE EVIDENCE**, and its deterministic sign hypothesis is **REFUTED BY AN INDEPENDENTLY REPRODUCED EXACT COUNTEREXAMPLE**.
+
+A separate linear-sieve Möbius implementation reconstructed the complete Mertens table through `X=2002^2-1` and then recomputed the displayed CORR4 definitions using exact rational arithmetic. It reproduced
+[
+R=2002,quad C_R=-208,quad d_3=-52,quad E_R=8367,
+]
+with `900E_R<=211C_R^2`, and exactly
+[
+Delta_R/E_R=
+333980624271685170836648439763538/
+7306552932969761761929417608576175<1/20,
+]
+while `C_Rd_3=10816>0`. It also reproduced the stated exact `T_{17}/Delta_R` fraction. Hence the proposed universal sign rule `C_Rd_3<0` is false on its genuine carrier.
+
+The surviving small-owner inverse statement remains a conjecture supported only on the reported finite range. Even if true, it requires a separate bridge from `T_{17}` to the complete signed mixed-tail expression.
+
+### K.5 Claim `20261031-referee-10`: JOH rank displacement
+
+Owner claim `20261031-owner-3`, equations (21)-(22), is **ACCEPT_WITH_SCOPE / EXACT IDENTITY ONLY**.
+
+Writing positive mismatch locations as `a_1<...<a_P`, negative locations as `b_1<...<b_M`, and pairing the first `t=min(P,M)` ranks gives exactly
+[
+G(N)=sum_{ile t}(b_i-a_i)+U_N^+-U_N^-.
+]
+This is finite algebra on the actual support. The compiled primitive mismatch is the same stream after the stated one-index shift. Also
+[
+P-M=pi(N-1)-1-Q(N-1)
+]
+because the prime count begins at `3` and `Q(2)=0`.
+
+Thus #915-style zeroth-moment matching does not control the JOH weighted moment: matched opposite signs retain chronological displacement. A negative event is a model arrival at a nonprime location and therefore, for `k>=3`, a composite with a unique least-prime owner. Grouping by that owner partitions negative events but does not make the matched positive terminal owner-local. The eventual sign inequality is correctly classified as `TARGET_EQUIVALENT`; no new bound follows.
+
+### K.6 Verdict and surviving obstruction
+
+- `20261031-coordinator-2`: **ACCEPT_WITH_SCOPE / REVISE_PROOF_WORDING**; local fixed `eta=1/6` only.
+- `20261031-wheel-3`: **ACCEPT_WITH_SCOPE / PAPER_PROOF**; two-depth completion packet refuted.
+- `20261031-census-3`: exact sign counterexample **INDEPENDENTLY REPRODUCED**; small-owner inverse remains conjectural.
+- `20261031-owner-3`: **ACCEPT_WITH_SCOPE / IDENTITY_ONLY**; weighted sign remains target-equivalent.
+- PR #1062: **PROVED_IN_LEAN_ON_PR_HEAD / CI_GREEN / STRUCTURAL_ONLY / UNMERGED**.
+
+The prime-ray telescope is real progress because it proves cancellation on a legal internally completed near-root family. Its obstruction begins when the completion boundary grows: fixed factor depths have large alternating populations, and paying them separately is impossible. The next same-source theorem would need a growing-depth Möbius/Buchstab cancellation estimate for the complete triangular boundary, followed by exact restoration of the physical complement and every quadratic cross term. No such estimate is established.
+
+**Final status:** `eta_gate=SEARCH_BROAD`; complete shell bound OPEN; net fixed positive `eta` after complete return UNKNOWN; canonical VF theorem OPEN; strict Mertens exponent below `7/8` NOT PROVED; RH OPEN.
