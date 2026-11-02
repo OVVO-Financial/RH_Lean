@@ -280,3 +280,8 @@ and then an aggregation theorem restoring all (h,r,q,p) cells plus outer, root, 
 - `eta_gate: SEARCH_BROAD`.
 - `net_endpoint_gain_after_complete_return: UNKNOWN`.
 - Complete shell estimate, strict Mertens exponent below (7/8), canonical VF theorem, and RH remain OPEN.
+
+
+### Publication verification
+
+The completed synthesis was committed as `cf3f40d1dbe61d6808bc8fb09d821f045dc4f6ab` and read back as blob `cb40cc7241097fa03f98ed166ae6416f2fc0434c` (14,786 characters). Claim `20261102-wheel-1`, equations (42)-(49), the fixed cell ((h,r,q,p)=(1,2,3,5)), exact authority/source hashes, classifications, and resume capsule were present. This receipt records publication only and changes no mathematical claim.
