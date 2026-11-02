@@ -1,0 +1,70 @@
+name: Lifted Mobius addresses
+
+on:
+  pull_request:
+    paths:
+      - 'research/LIFTED_MOBIUS_ADDRESS_INJECTIVITY_20261102.lean'
+      - '.github/workflows/lifted-mobius-address.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: lifted-mobius-address-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lifted-mobius-address:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - name: Pinned Lean and Mathlib
+        uses: ./.github/actions/lean-setup
+      - name: Restore PNT+ build cache
+        uses: actions/cache/restore@v5
+        with:
+          path: .lake/packages/PrimeNumberTheoremAnd/.lake/build
+          key: pntplus-build-v1-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
+      - name: Prebuild PNT+ StrongPNT
+        run: lake build PrimeNumberTheoremAnd.StrongPNT
+      - name: Restore native library cache
+        uses: actions/cache/restore@v5
+        with:
+          path: .lake/build
+          key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'RHLean.lean', 'RHLean/**/*.lean') }}
+          restore-keys: |
+            rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-
+      - name: Warning-fatal source-addressed proof closure
+        run: |
+          python3 scripts/compile_research_import_closure.py --build-library \
+            research/LIFTED_MOBIUS_ADDRESS_INJECTIVITY_20261102.lean
+      - name: Exact signatures and standard logical axioms
+        run: |
+          set -o pipefail
+          cat > /tmp/lifted_mobius_address_audit.lean <<'EOF'
+          import «research.LIFTED_MOBIUS_ADDRESS_INJECTIVITY_20261102»
+          #check RHLean.Proof.primeSquare_mul_eq_primeSquare_mul_of_squarefree
+          #check RHLean.Proof.liftedMobiusDaughterAddress_injOn
+          #check RHLean.Proof.liftedMobiusOuter_ne_daughterAddress
+          #print axioms RHLean.Proof.primeSquare_mul_eq_primeSquare_mul_of_squarefree
+          #print axioms RHLean.Proof.liftedMobiusDaughterAddress_injOn
+          #print axioms RHLean.Proof.liftedMobiusOuter_ne_daughterAddress
+          EOF
+          lake env lean -DwarningAsError=true /tmp/lifted_mobius_address_audit.lean | tee /tmp/lifted_mobius_address_audit.log
+          python3 - <<'PY'
+          import pathlib,re
+          log=pathlib.Path('/tmp/lifted_mobius_address_audit.log').read_text()
+          assert 'sorryAx' not in log
+          found=re.findall(r'depends on axioms:\s*\[([^]]*)\]',log,re.S)
+          assert found
+          for item in found:
+              used={a.strip() for a in item.split(',') if a.strip()}
+              assert used <= {'propext','Classical.choice','Quot.sound'},used
+          text=pathlib.Path('research/LIFTED_MOBIUS_ADDRESS_INJECTIVITY_20261102.lean').read_text()
+          text=re.sub(r'/-.*?-/', '',text,flags=re.S)
+          text=re.sub(r'--.*','',text)
+          assert not re.search(r'\b(sorry|admit|axiom|native_decide)\b',text)
+          print('PASS: lifted Mobius address injectivity and standard logical axioms only')
+          PY
