@@ -552,7 +552,6 @@ theorem surviving_low_energy_sum_finite_slot_gap
       intro e he
       apply Real.rpow_le_rpow_of_exponent_le hz'.le
       have hh := hb e he
-      dsimp only at hh
       linarith
     _ = ((branches.card:ℝ)^2)*Z^((Sphys-2*d)+(38/3)*η+π-O₀/2) := by
       simp only [Finset.sum_const,nsmul_eq_mul]
