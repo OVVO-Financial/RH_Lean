@@ -81,29 +81,33 @@ private theorem moebius_four : μ 4 = (0 : ℤ) := by
 /-- The genuine odd-odd sector in the accepted `R = 5` witness. -/
 theorem eulerSelfDualParitySector_five_odd_odd :
     eulerSelfDualParitySector 5 true true = 10 := by
+  simp only [eulerSelfDualParitySector, Nat.reduceSub]
   rw [show Finset.Icc 1 4 = ({1, 2, 3, 4} : Finset ℕ) by decide]
-  norm_num [eulerSelfDualParitySector, eulerSelfDualFloor, squareRootEndpoint,
+  norm_num [eulerSelfDualFloor, squareRootEndpoint,
     moebius_one, moebius_two, moebius_three, moebius_four]
 
 /-- The odd-even orientation in the accepted `R = 5` witness. -/
 theorem eulerSelfDualParitySector_five_odd_even :
     eulerSelfDualParitySector 5 true false = -8 := by
+  simp only [eulerSelfDualParitySector, Nat.reduceSub]
   rw [show Finset.Icc 1 4 = ({1, 2, 3, 4} : Finset ℕ) by decide]
-  norm_num [eulerSelfDualParitySector, eulerSelfDualFloor, squareRootEndpoint,
+  norm_num [eulerSelfDualFloor, squareRootEndpoint,
     moebius_one, moebius_two, moebius_three, moebius_four]
 
 /-- The even-odd orientation in the accepted `R = 5` witness. -/
 theorem eulerSelfDualParitySector_five_even_odd :
     eulerSelfDualParitySector 5 false true = -8 := by
+  simp only [eulerSelfDualParitySector, Nat.reduceSub]
   rw [show Finset.Icc 1 4 = ({1, 2, 3, 4} : Finset ℕ) by decide]
-  norm_num [eulerSelfDualParitySector, eulerSelfDualFloor, squareRootEndpoint,
+  norm_num [eulerSelfDualFloor, squareRootEndpoint,
     moebius_one, moebius_two, moebius_three, moebius_four]
 
 /-- The even-even sector in the accepted `R = 5` witness. -/
 theorem eulerSelfDualParitySector_five_even_even :
     eulerSelfDualParitySector 5 false false = 6 := by
+  simp only [eulerSelfDualParitySector, Nat.reduceSub]
   rw [show Finset.Icc 1 4 = ({1, 2, 3, 4} : Finset ℕ) by decide]
-  norm_num [eulerSelfDualParitySector, eulerSelfDualFloor, squareRootEndpoint,
+  norm_num [eulerSelfDualFloor, squareRootEndpoint,
     moebius_one, moebius_two, moebius_three, moebius_four]
 
 /-- All four genuine sectors cancel exactly at `R = 5`. -/
