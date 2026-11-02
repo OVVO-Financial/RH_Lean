@@ -254,3 +254,154 @@ Q_small(R,T)=sum_(q odd prime, q^2<R, q<T^2) A_q(R)/q,
 inside the exact principal/diagonal return from claim `20261101-analytic-2`. This run tests whether retaining the full reciprocal Gram diagonal yields an exact joint square or one-sided covariance restriction that evades the sharp scalar no-go `lambda*c>=1/9`. Separately, it audits whether the Coordinator's affine-cell dictionary can furnish a power-rate aggregate theorem after the shell mask and growing slopes are restored. Principal, small/large-owner, diagonal, endpoint, root, and activation terms will remain explicit.
 
 No new inequality is claimed at this checkpoint. `eta_gate: SEARCH_BROAD`; complete-return gain `UNKNOWN`; strict Mertens exponent below `7/8`, canonical VF theorem, and RH remain OPEN.
+
+
+## Scheduled continuation final synthesis - claim `20261102-analytic-2` - 2026-11-02 09:38 EST (-0500)
+
+**Status:** COMPLETED / PAPER_PROOF_NEEDS_INDEPENDENT_REVIEW / TARGET_EQUIVALENT OPERATOR NO-GO.  
+**Result classes:** `NEW QUANTITATIVE OPERATOR INVERSE`; `EXACT ORIGINAL-CARRIER COMPARISON`; `AMPLITUDE-ONLY CANCELLATION REFUTED AS AN EASIER SUPPLIER`; `COVARIANCE ROUTE SURVIVES`; `NO FIXED ETA GAIN`; `NO RH`.
+
+### J. Most important analytic result
+
+Let `M(N)=sum_(n<=N) mu(n)`, with `M(0)=0`. For a real sequence `f` with `f(0)=0`, define the complete odd-prime square operator
+```text
+(Tf)(N) = sum_(p odd prime, p^2<=N) f(floor(N/p^2))/p.       (44)
+```
+For every fixed `sigma>=3/4`, set
+```text
+kappa_sigma = sum_(p odd prime) p^(-1-2 sigma).
+```
+Then
+```text
+kappa_sigma <= sum_(m>=3) m^(-5/2)
+            <= 1/(3 sqrt(3)) < 1/4.                         (45)
+```
+Consequently `I+T` is quantitatively invertible on the weighted sup-growth class. Precisely, if
+```text
+C(N)=f(N)+(Tf)(N),
+|C(N)| <= D N^sigma for every N>=1,
+```
+then
+```text
+|f(N)| <= D/(1-kappa_sigma) N^sigma < (4D/3) N^sigma.       (46)
+```
+All constants are absolute apart from the displayed `D,sigma`; the estimate is uniform in `N` and in every finite prime truncation.
+
+For the genuine OAI-NNS/CORR4 carrier, put `X_R=R^2-1` and
+```text
+B_R = M(X_R)-M(R-1)
+      + sum_(p odd prime, p^2<R) M(floor(X_R/p^2))/p.        (47)
+```
+This is exactly `G_R+lowOwnerReciprocalMertensColumnReal R`, with the actual odd-prime owners, reciprocal weights, strict `p^2<R` admission, and literal floor cutoffs. Claim `20261102-analytic-2` proves:
+
+**Root-amplitude equivalence.** For every fixed `sigma>=3/4`, the following are equivalent, with only constant changes:
+```text
+(i)  |M(N)| << N^sigma for every integer N>=1;
+(ii) |B_R| << R^(2 sigma) for every integer R>=2.            (48)
+```
+Thus a strict exponent gain for the principal-plus-reciprocal amplitude cannot arise from cancellation between those two pieces alone. It is quantitatively the same Mertens exponent problem. The independently viable OAI-NNS/CORR4 mechanism must retain the diagonal-subtracted off-diagonal covariance, a one-sided signed cell estimate, or another genuinely new arithmetic restriction.
+
+### K. Proof
+
+For `1<=n<=N`, let
+```text
+E_N = max_(1<=m<=N) |f(m)|/m^sigma.
+```
+Every summand in (44) satisfies
+```text
+|f(floor(n/p^2))|/p
+ <= E_N n^sigma p^(-1-2 sigma).
+```
+Hence `|(Tf)(n)|<=kappa_sigma E_N n^sigma`. The integral test gives
+```text
+sum_(m>=3)m^(-5/2)
+ <= 3^(-5/2)+integral_3^infinity t^(-5/2)dt
+ = 1/(3 sqrt(3)) < 1/4.
+```
+If `|f+Tf|<=D n^sigma`, taking the maximum through `N` yields
+```text
+E_N <= D+kappa_sigma E_N,
+```
+which proves (46). No Dirichlet-series continuation, zero-free assumption, limiting exchange, or prime number theorem is used.
+
+Apply this with `f=M` and write
+```text
+C(N)=M(N)+sum_(p odd prime, p^2<=N) M(floor(N/p^2))/p.       (49)
+```
+At `N=X_R`, the terms omitted from (47) have `p^2>=R`. Since the trivial bound `|M(y)|<=y` is exact enough here, and with `A=ceil(sqrt R)>=2`,
+```text
+sum_(p^2>=R) |M(floor(X_R/p^2))|/p
+ <= X_R sum_(m>=A)m^(-3)
+ <= X_R/A^2 < R.                                           (50)
+```
+Also `|M(R-1)|<=R-1`. Therefore
+```text
+|C(X_R)-B_R| < 2R.                                         (51)
+```
+This restores every high square-prime owner rather than discarding it.
+
+It remains to pass from square endpoints to all integers. Given `X_R<=N<X_(R+1)`, put `L=N-X_R<2R+1`. The one-step bound for Mertens gives
+```text
+|M(N)-M(X_R)|<=L.
+```
+For the operator part,
+```text
+|M(floor(N/p^2))-M(floor(X_R/p^2))|
+ <= L/p^2+1.
+```
+After multiplication by `1/p` and summation,
+```text
+|C(N)-C(X_R)|
+ <= L(1+sum_(m>=3)m^(-3)) + sum_(m<=sqrt N)1/m
+ << R+log N.                                                (52)
+```
+Since `sigma>=3/4`, (51)-(52) are lower order than `N^sigma`. Thus (ii) gives an all-integer `C(N)<<N^sigma` bound, and (46) gives (i). Conversely, (i), (44), and (45) immediately give (ii). Finite small `N,R` are absorbed into the constant.
+
+### L. Falsification and exact scope
+
+1. The contraction is not a heuristic prime-density estimate. It uses the larger integer majorant in (45), so it remains valid for the genuine prime set and for any moving finite prime subset.
+2. The comparison (51) uses the actual moving cutoff `p^2<R`; the complement is restored at explicit cost `<R`.
+3. Square-endpoint interpolation costs `O(R+log N)`, harmless only because `sigma>=3/4`. No favorable subsequence is substituted for the all-integer conclusion.
+4. The result does **not** refute the complete signed remainder
+```text
+G_R^2+2G_R Q_R-(D_R-P_R).
+```
+The diagonal subtraction removes self-pairs before estimation and can expose off-diagonal cancellation unavailable to the amplitude norm. Claim (48) says only that bounding `|G_R+Q_R|` itself is target-equivalent.
+5. The result also does not estimate the affine-cell family C12. The strongest currently identified Chowla/Elliott inputs are logarithmic or averaged in a mismatched window; they do not supply the required fixed-dyadic power rate after growing slopes and shell masks. No transfer theorem is claimed.
+6. The bound is consistent with the compiled frame estimate and with claim `20261101-analytic-2`: paying large owners helps a mixed subsector, but the complete amplitude cannot gain an exponent by principal/reciprocal cancellation alone.
+
+### M. Consequence for the current objective
+
+This is a decisive route restriction, not an endpoint gain. It removes one attractive but circular OAI-NNS strategy: prove a smaller norm for the combined principal and reciprocal column and call the reduction independent. By (48), such a theorem already contains the desired Mertens exponent bound.
+
+The first unsupported OAI-NNS inequality remains a genuinely off-diagonal, diagonal-restored estimate for
+```text
+G_R^2+2G_R Q_small(R,T_R)-(D_R-P_R)-2E_R,
+```
+combined with the already paid large-owner term, or an occurrence-preserving signed cell theorem that yields it. The operator proof identifies why the diagonal and mixed interactions are indispensable: `I+T` has no small or coherent principal mode in the relevant weighted growth space.
+
+No complete shell estimate, strict exponent below `7/8`, canonical VF theorem, or RH follows.
+
+### N. Handoffs
+
+**Adversarial Referee:** independently audit (44)-(52), especially the `1/(3 sqrt(3))` tail constant, the moving high-owner restoration in (50), and the square-endpoint interpolation. Confirm that the verdict is amplitude-only target equivalence and does not overreach to the diagonal-subtracted remainder.
+
+**Lean Verification:** after Referee acceptance, the finite weighted-sup contraction and local maximum inverse (44)-(46) are implementation-sized. The root comparison (50)-(52) is useful only if formalized with the exact repository owner set; no conditional RH wrapper is requested.
+
+**Coordinator / Proof Architect:** record the principal-plus-reciprocal amplitude as a quantitatively invertible Mertens transform. Keep aggregate affine-cell covariance and NYMAN signed residual as distinct active mechanisms.
+
+**Prime Census Laboratory:** no numerical scan is requested; the result is deterministic. A future experiment should test only a newly proposed off-diagonal covariance law, not amplitude cancellation prohibited by (48).
+
+### O. Evidence and resume capsule
+
+- Final live main: `7790fb9f5ddda6eb9823899f2694d691756cd248`.
+- Material source blobs: `OAI78CORR4PaidOriginalLargeOwner.lean 06626af8cd8abfbf8f6da238f8a3d9af0893b686`; `OAI78_CORR4_OWNER_TAIL_PAID_20261028.lean 03c05e38fb2415105de9cccd3680b03c21c4be5c`; `GLOBAL_RETURNED_CORE_PREFIX_TAIL_MIXED_REMAINDER_IDENTITY.lean d17aeb639bb47d79333cf0d00760c2604feddfdf`; `GLOBAL_RETURNED_CORE_RECIPROCAL_PREFIX_SIGNED_CELL_SPLIT.lean 29bb263ddd07b12a2dd5ccf6a12aecaf627134d8`; `CORR4_MIXED_TAIL_RECORD_PLATEAU_20261026.lean a4abeb13653076bedd8e1173c933ee3324bfea26`; `GLOBAL_RETURNED_CORE_ONE_AMPLITUDE.lean b69a36ec4305a9309a5212358569905a968f4d63`.
+- PR #1070 is merged on main. The merge commit has no separate PR-triggered run attached; exact PR-head green evidence remains the earlier recorded 12/12 result. No open/draft PR was returned.
+- New claim: `20261102-analytic-2`, equations (44)-(52).
+- Mathematical status: `PAPER_PROOF_NEEDS_INDEPENDENT_REVIEW / TARGET_EQUIVALENT OPERATOR NO-GO`.
+- `eta_gate: SEARCH_BROAD`.
+- `net_endpoint_gain_after_complete_return: UNKNOWN`.
+- Rolling route coverage: NYMAN `20261102-analytic-1`; OAI-NNS this continuation; CODIV was substantively covered by `20261101-analytic-3`.
+- Next distinct Analytic route due: CODIV, unless Referee requires repair of (44)-(52).
+- First unsupported inequality: a signed off-diagonal small-owner covariance estimate with the physical and reciprocal diagonals, root/activation terms, and complete return retained.
+- Complete shell estimate OPEN; strict exponent below `7/8` NOT PROVED; canonical VF theorem OPEN; RH OPEN.
