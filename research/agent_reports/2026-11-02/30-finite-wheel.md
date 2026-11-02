@@ -297,3 +297,157 @@ The completed synthesis was committed as `cf3f40d1dbe61d6808bc8fb09d821f045dc4f6
 **Selected task:** FINITE-AC on the literal floor kernel `Q_R=2M(R-1)-M(R^2-1)`, resuming the first unsupported signed increment-energy estimate in `20261101-wheel-2`. The candidate new move is an exact parity-sector/binary incidence decomposition using the merged odd-Mobius divisor telescope, followed by a contraction audit. The run will determine whether the odd-odd sector yields a genuine lower-scale restriction or merely reconstructs the original endpoint through dyadic layers.
 
 No contraction, finite-C bound, endpoint gain, strict Mertens exponent improvement, canonical VF theorem, or RH is claimed at this checkpoint. `eta_gate: SEARCH_BROAD`; complete-return gain `UNKNOWN`.
+
+
+## Final synthesis - claim `20261102-wheel-2` - 2026-11-02 10:24 EST (-0500)
+
+**Status:** COMPLETED / PAPER_PROOF_NEEDS_INDEPENDENT_REVIEW  
+**Result classes:** `EXACT BINARY PARITY REASSEMBLY`; `NONNEGATIVE ODD-CORE PACKET WEIGHTS`; `EXACT ODD-ODD HALF-SCALE RESTORATION`; `R=5 SECTORWISE CONTRACTION COUNTEREXAMPLE`; `NO FINITE-C BOUND`; `NO FIXED ETA`; `NO RH`.
+
+### J. Literal source and notation
+
+For `R >= 2`, put
+```text
+X = R^2 - 1,  L = R - 1,  L0 = floor(L/2),
+Q_R = sum_(1 <= a,b <= L) mu(a) mu(b) floor(X/(ab)).
+```
+Main proves `Q_R = 2M(L)-M(X)`; this is the literal finite-C source, not a surrogate.
+
+For odd indices define the asymmetric kernel
+```text
+O(A,B;Y) =
+  sum_(1 <= a <= A, 1 <= b <= B, a,b odd)
+    mu(a) mu(b) floor(Y/(ab)).
+```
+
+Material source blobs at final main `7790fb9f5ddda6eb9823899f2694d691756cd248` are:
+
+- `EULER_HYBRID_ABEL_GRAM_20261027.lean`: `2a94dd8fd56fc03e95f732fb44b778a8d4f83e26`;
+- `EULER_SELF_DUAL_ENDPOINT_GATE_20261027.lean`: `e7ee8f77ffd59bccaa49dd6d74fbe0d7952c2d73`;
+- `ODD_MOBIUS_FLOOR_TELESCOPE_20261101.lean`: `fbe472cca89f757c8f6f25e630a49847a2bd6ad0`;
+- merged lifted-address source: `61f98a8997d86ddbb07404284d12aebd36a67955`.
+
+The last source is formally proved on main but is not used to infer any estimate below.
+
+### K. Exact binary second difference
+
+Every nonzero even Möbius index is uniquely `2u` with `u` odd, and then `mu(2u)=-mu(u)`. Splitting both original indices into odd and once-even parts gives
+```text
+Q_R =
+  O(L,L;X)
+  - 2 O(L,L0; floor(X/2))
+  + O(L0,L0; floor(X/4)).                         (50)
+```
+No occurrence is duplicated: the two mixed terms are the two orientations of exactly one even index. Terms divisible by `4` have Möbius coefficient zero.
+
+Equivalently, group the four parity lifts by their unique odd cores. For odd `a,b <= L`, let
+```text
+N = floor(X/(ab)),
+ea = 1_(a <= L0),  eb = 1_(b <= L0),
+w_R(a,b) = N - (ea+eb) floor(N/2) + ea eb floor(N/4).
+```
+Then the complete source is
+```text
+Q_R = sum_(a,b <= L, a,b odd) mu(a) mu(b) w_R(a,b).          (51)
+```
+The packet weight is always nonnegative. If neither core has an even lift, it is `N`; if exactly one does, it is `N-floor(N/2)`; if both do, it is
+```text
+N - 2 floor(N/2) + floor(N/4) >= 0.
+```
+Thus unique factorization at the prime `2` supplies an exact occurrence-preserving four-corner packet. It does not supply a favorable sign for cross-core products `mu(a)mu(b)`.
+
+### L. Odd telescope and the endpoint carried by one sector
+
+Let
+```text
+S_o(Y) = sum_(n <= Y, n odd) mu(n),
+P_2(Y) = #{j >= 0 : 2^j <= Y}.
+```
+Because `X=(R-1)(R+1)`, every pair with `ab <= X` has `a <= L` or `b <= L`. Inclusion-exclusion and the merged odd-Möbius floor telescope therefore give
+```text
+O(L,L;X) = 2 U_R - F_X,                                    (52)
+U_R = sum_(a <= L, a odd) mu(a) P_2(floor(X/a))
+    = sum_(j >= 0) S_o(min(L, floor(X/2^j))),
+F_X = sum_(j >= 0) S_o(floor(X/2^j)).
+```
+All sums are finite after the quotient becomes zero.
+
+The elementary once-even split is
+```text
+M(Y) = S_o(Y) - S_o(floor(Y/2)).
+```
+Consequently
+```text
+O(L,L;X) = -M(X) + R_o(R),                                  (53)
+R_o(R) =
+  2 sum_(j >= 0) S_o(min(L, floor(X/2^j)))
+  - 2 S_o(floor(X/2))
+  - sum_(j >= 2) S_o(floor(X/2^j)).
+```
+Every prefix in `R_o(R)` is at most `floor(X/2)`, since `L <= floor(X/2)`. This is an exact half-scale restoration, but not a contraction: the odd-odd block itself retains the full endpoint with coefficient `-1`.
+
+### M. Exact counterexample to sectorwise payment
+
+At `R=5`,
+```text
+X=24, L=4, L0=2,
+O(4,4;24)=10,
+O(4,2;12)=8,
+O(2,2;6)=6.
+```
+Hence
+```text
+Q_5 = 10 - 2*8 + 6 = 0.
+```
+The endpoint identity independently gives `M(4)=-1`, `M(24)=-2`, and therefore `2M(4)-M(24)=0`.
+
+Thus the genuine odd-odd sector has value `10` while the genuine mixed/even complement has value `-10`. In particular, no finite homogeneous comparison
+```text
+|O(L,L;X)| <= C |Q_R|
+```
+or its squared version can hold for all roots. The failure is arithmetic, not an arbitrary-vector model.
+
+A deterministic exact regression verified (50)-(53) directly for every `2 <= R <= 100`. On `2 <= R <= 2000`, the first roots with `Q_R=0` but nonzero odd-odd block are
+```text
+R = 5, 9, 14, 33, 77, 133, 134, 330, 363, 467, ...
+```
+and at `R=493`, `Q_R=1` while the odd-odd block is `-144`. These finite checks are regressions; the universal falsifier already follows from the exact `R=5` calculation.
+
+### N. Consequence for FINITE-AC
+
+The binary decomposition exposes a genuine conservation law: parity lifts must be reassembled before taking absolute values. The merged odd-divisor telescope does not turn finite-C into a lower-scale estimate, because its odd-odd completion carries `-M(X)`, and the other parity sectors can cancel it exactly.
+
+This retires the proposed route of bounding the odd-odd completion and truncated odd tail independently. It does not refute a joint signed theorem for the full packet (51). The surviving arithmetic question is a weighted odd-core covariance estimate that keeps all three terms of (50), or equivalently all four parity lifts in (51), intact.
+
+The first unsupported inequality remains a uniform upper bound for that complete signed covariance at the historical-envelope scale:
+```text
+|sum_(a,b odd <= L) mu(a)mu(b)w_R(a,b)|
+  <= C R sqrt(K_R).
+```
+This is exactly the finite-C obligation, so (50)-(53) are a structural representation and a scoped no-go, not an independently paid supplier. A useful next step would need an additional restriction coupling distinct odd cores, not another parity count or power-of-two telescope.
+
+### O. Novelty, falsification, and scope audit
+
+- Repository search found the merged one-variable odd telescope, but no statement of (50), the packet weight (51), the endpoint restoration (53), or the `R=5` sectorwise counterexample.
+- The proof uses the original floor, strict cutoff `a,b<R`, and exact square endpoint `R^2-1`.
+- Unique odd-core ownership preserves all multiplicities and coefficients.
+- Floors are retained exactly; no real approximation or density input is used.
+- The result neither assumes nor proves finite A, finite C, a Mertens exponent, the canonical VF estimate, or RH.
+- Independent Referee review and Lean formalization are PENDING.
+- The finite identities are implementation-sized, but formalization should wait for independent acceptance and a determination that the packet representation aids a quantitative attack.
+
+### P. Routing check and handoff
+
+- `eta_gate: SEARCH_BROAD`.
+- Protected route: FINITE-AC / literal Euler self-dual floor kernel.
+- New mathematics: exact binary second difference (50), nonnegative complete packet (51), half-scale endpoint restoration (53), and genuine `R=5` no-go.
+- Exact unresolved step: signed cross-odd-core control of the complete packet at scale `R sqrt(K_R)`.
+- Complete return: all parity sectors are restored in (50)-(51); no complement is discarded.
+- Independent reviewer/formal evidence: PENDING; main's odd telescope and endpoint identity are compiled inputs only.
+- Net endpoint gain: `UNKNOWN`.
+- Rolling Wheel coverage: CORR4 `20261102-wheel-1`; FINITE-AC this claim; next distinct route due is MU-LIFT unless a review repair takes precedence.
+- Complete shell estimate, strict exponent below `7/8`, canonical VF theorem, and RH remain OPEN.
+
+**Referee request:** independently check the parity reindexing, floor nesting, nonnegativity of `w_R`, the coverage step in (52), the endpoint coefficient in (53), and the exact `R=5` witness. Return a separate verdict on structural correctness and quantitative relevance.
+
+**Lean request:** no proof PR is requested yet. If accepted and judged useful, formalize the finite binary reassembly and `R=5` witness without adding a finite-C hypothesis.
