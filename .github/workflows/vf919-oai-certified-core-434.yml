@@ -8,6 +8,7 @@ on:
       - 'research/oai_434/CORR4OpenAICertifiedRemainderGuidepost.lean'
       - 'research/oai_434/VF919NativeEnergyInduction.lean'
       - 'research/oai_434/VF919FiniteSlotReflectedGain.lean'
+      - 'research/oai_434/VF919TiltedLowReflection.lean'
       - 'research/oai_434/VF919NativeSourceMoments.lean'
       - 'research/oai_434/VF919NativeSevenEighthsReplay.lean'
       - 'research/oai_434/VF919OriginalMarkedSharpenedSignedNNS.lean'
@@ -194,6 +195,7 @@ jobs:
             research/oai_434/VF919NativeSourceMoments.lean
             research/oai_434/VF919NativeSevenEighthsReplay.lean
             research/oai_434/VF919FiniteSlotReflectedGain.lean
+            research/oai_434/VF919TiltedLowReflection.lean
           )
           : > /tmp/vf919-native-seven-eighths-replay-axioms.log
           for source in "${targets[@]}"; do
@@ -236,3 +238,4 @@ jobs:
           path: /tmp/vf919-oai-certified-core-434-axioms.log
           if-no-files-found: warn
           retention-days: 7
+
