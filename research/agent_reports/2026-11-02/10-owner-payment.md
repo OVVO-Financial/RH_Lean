@@ -244,150 +244,150 @@ q^2m-p^2n=h,qquad 0<|h|le 2R,
 with squarefree nonzero-Mobius cofactors, impose an exact divisibility or residue restriction strong enough to reduce the true weighted nonzero-gap population after all outer, daughter, root and activation interactions are restored. The run will derive the strongest uniform restriction, test whether it yields a quantitative saving, and reject any result that only renames (Xi_H).
 
 
-## Scheduled continuation final synthesis - claim \`20261102-owner-2\`
+## Scheduled continuation final synthesis - claim `20261102-owner-2`
 
-**Status:** \`COMPLETED\`.  
-**Classification:** \`PAPER_PROOF / EXACT SPARSE DIVISOR CONSERVATION\`; \`PAPER_PROOF / UNIFORM PREFIX TRANSFER WITH NO EXPONENT GAIN\`; \`FINITE_COMPUTATION / EVERY NATURAL NONZERO-SHIFT SECTOR CHANGES SIGN\`; \`REFUTED\` for sectorwise sign payment; \`NO_FIXED_ETA_GAIN\`; \`NO_RH\`.
+**Status:** `COMPLETED`.  
+**Classification:** `PAPER_PROOF / EXACT SPARSE DIVISOR CONSERVATION`; `PAPER_PROOF / UNIFORM PREFIX TRANSFER WITH NO EXPONENT GAIN`; `FINITE_COMPUTATION / EVERY NATURAL NONZERO-SHIFT SECTOR CHANGES SIGN`; `REFUTED` for sectorwise sign payment; `NO_FIXED_ETA_GAIN`; `NO_RH`.
 
 ### A. Most important mathematical development
 
-The combined literal outer/daughter shell field from \`20261101-owner-4\` is one truncated Mobius convolution, not merely an injectively addressed list. For each root R, define the rational arithmetic kernel
+The combined literal outer/daughter shell field from `20261101-owner-4` is one truncated Mobius convolution, not merely an injectively addressed list. For each root R, define the rational arithmetic kernel
 
-\`\`\`
+```
 kappa_R(1) = 1,
 kappa_R(q^2) = 1/q  for odd primes q with q^2 < R,
 kappa_R(n) = 0      otherwise.
-\`\`\`
+```
 
-Then \`g_R := mu * kappa_R\` has the exact pointwise formula
+Then `g_R := mu * kappa_R` has the exact pointwise formula
 
-\`\`\`
+```
 g_R(n) = mu(n)
        + sum_(q odd prime, q^2<R, q^2|n) mu(n/q^2)/q.       (42)
-\`\`\`
+```
 
 Consequently the physical hybrid shell mass is
 
-\`\`\`
+```
 W_R = E_R + D_R = sum_(R^2 <= n < (R+1)^2) g_R(n).         (43)
-\`\`\`
+```
 
 Mobius inversion gives an exact conservation law:
 
-\`\`\`
+```
 sum_(d|n) g_R(d) = kappa_R(n).                              (44)
-\`\`\`
+```
 
-Thus the full divisor sum vanishes at every integer except 1 and the admitted odd-prime squares. This retains the genuine \`1/q\` weights and strict moving cutoff \`q^2<R\`. It is stronger structural information than address injectivity, but it does not diagonalize the shell square.
+Thus the full divisor sum vanishes at every integer except 1 and the admitted odd-prime squares. This retains the genuine `1/q` weights and strict moving cutoff `q^2<R`. It is stronger structural information than address injectivity, but it does not diagonalize the shell square.
 
 The decisive falsification is sectorwise. Exact rational reconstruction of
 
-\`\`\`
+```
 N_R = N_R^(oo) + N_R^(od) + N_R^(dd,same) + N_R^(dd,cross)
-\`\`\`
+```
 
 shows that outer-outer, outer-daughter, same-owner daughter, and cross-owner daughter covariance each take both signs on legal dyadic blocks. Therefore no natural ancestry sector has a universal favorable payment sign.
 
 ### B. Current authoritative objective
 
-Final live main remains \`a33987e275f8a431641d3f475b71a24aa2b1437c\`. Authority blobs are unchanged from the checkpoint. Material source blobs inspected at this head are:
+Final live main remains `a33987e275f8a431641d3f475b71a24aa2b1437c`. Authority blobs are unchanged from the checkpoint. Material source blobs inspected at this head are:
 
-- \`research/LOW_OWNER_PHYSICAL_AMPLITUDE_TRANSPORT.lean\`: \`72d66f61b3eeb000117ecdac393572558bb7c378\`;
-- \`research/LOW_OWNER_AMPLITUDE_MELLIN_LEDGER_SPLICE.lean\`: \`73447e8c73ea60affec36a25b9f4794862331359\`;
-- \`research/GLOBAL_RETURNED_CORE_FIRST_OWNER_GRAM.lean\`: \`36141a8caec5f99d6c40cb72ae1fdbcf6f462b82\`;
-- merged odd-Mobius tail source: \`d38a80efc30cbb503f5d596705be91a0de561fe9\`.
+- `research/LOW_OWNER_PHYSICAL_AMPLITUDE_TRANSPORT.lean`: `72d66f61b3eeb000117ecdac393572558bb7c378`;
+- `research/LOW_OWNER_AMPLITUDE_MELLIN_LEDGER_SPLICE.lean`: `73447e8c73ea60affec36a25b9f4794862331359`;
+- `research/GLOBAL_RETURNED_CORE_FIRST_OWNER_GRAM.lean`: `36141a8caec5f99d6c40cb72ae1fdbcf6f462b82`;
+- merged odd-Mobius tail source: `d38a80efc30cbb503f5d596705be91a0de561fe9`.
 
-The canonical target remains a uniform \`O(R log R)\` bound for \`|pi(R^2)-VF_can(R^2)|\`. The nearer benchmark is a complete genuine shell-energy bound with one fixed positive gain over \`H^(5/2)\`. Both remain open.
+The canonical target remains a uniform `O(R log R)` bound for `|pi(R^2)-VF_can(R^2)|`. The nearer benchmark is a complete genuine shell-energy bound with one fixed positive gain over `H^(5/2)`. Both remain open.
 
-PR #1070 is the sole open proof PR, at exact head \`d749898c4afd5a7c579fc4c7ddcee742832b08d9\`. It kernel-checks only lifted-address injectivity and outer/daughter disjointness; all 12 reported workflows are green. Equations (42)-(46) and the sector computation below are paper/finite results from this Owner run, not Lean claims.
+PR #1070 is the sole open proof PR, at exact head `d749898c4afd5a7c579fc4c7ddcee742832b08d9`. It kernel-checks only lifted-address injectivity and outer/daughter disjointness; all 12 reported workflows are green. Equations (42)-(46) and the sector computation below are paper/finite results from this Owner run, not Lean claims.
 
 ### C. Structural hypothesis investigated
 
 The tested hypothesis was that admitted prime-square ancestry might turn the hard nonzero-gap covariance into a divisor-conservation error with a fixed sign or a smaller absolute population.
 
-The exact conservation half survives: (44) shows that \`g_R\` is annihilated by the divisor-sum operator away from a sparse prime-square source. The quantitative half fails. Wheel's accepted determinant-one cell remains inside \`g_R(n)g_R(n+1)\`, and the four complete \`N_R\` sectors all reverse sign. Sparse divisor support therefore does not imply shell-covariance orthogonality or one-sided payment.
+The exact conservation half survives: (44) shows that `g_R` is annihilated by the divisor-sum operator away from a sparse prime-square source. The quantitative half fails. Wheel's accepted determinant-one cell remains inside `g_R(n)g_R(n+1)`, and the four complete `N_R` sectors all reverse sign. Sparse divisor support therefore does not imply shell-covariance orthogonality or one-sided payment.
 
 ### D. Mathematical derivation
 
-Let convolution be Dirichlet convolution over the rationals. Expanding \`mu*kappa_R\` gives (42). If two distinct prime-square summands in (42) were simultaneously nonzero, say for \`p != q\`, then \`n/p^2\` would still be divisible by \`q^2\`, contradicting the squarefreeness forced by \`mu(n/p^2) != 0\`. Hence every nonzero daughter occurrence has a unique square owner, consistently with the accepted and now formalized address theorem.
+Let convolution be Dirichlet convolution over the rationals. Expanding `mu*kappa_R` gives (42). If two distinct prime-square summands in (42) were simultaneously nonzero, say for `p != q`, then `n/p^2` would still be divisible by `q^2`, contradicting the squarefreeness forced by `mu(n/p^2) != 0`. Hence every nonzero daughter occurrence has a unique square owner, consistently with the accepted and now formalized address theorem.
 
-Summing (42) over the strict square shell gives (43) with every original outer coefficient \`mu(n)\` and daughter coefficient \`mu(m)/q\` exactly once.
+Summing (42) over the strict square shell gives (43) with every original outer coefficient `mu(n)` and daughter coefficient `mu(m)/q` exactly once.
 
-Since \`one * mu = epsilon\`, associativity gives
+Since `one * mu = epsilon`, associativity gives
 
-\`\`\`
+```
 one * g_R = (one * mu) * kappa_R = kappa_R,
-\`\`\`
+```
 
-which is (44). Equivalently, for \`Re(s)>1\`,
+which is (44). Equivalently, for `Re(s)>1`,
 
-\`\`\`
+```
 sum_(n>=1) g_R(n)/n^s
   = zeta(s)^(-1) * (1 + sum_(q odd prime, q^2<R) q^(-(2s+1))). (45)
-\`\`\`
+```
 
 The exact prefix is
 
-\`\`\`
+```
 G_R(X) := sum_(n<=X) g_R(n)
         = M(X) + sum_(q odd prime, q^2<R) M(floor(X/q^2))/q. (46)
-\`\`\`
+```
 
-Thus any pointwise input \`|M(x)| <= C x^beta\`, \`beta>0\`, transfers uniformly in the moving cutoff:
+Thus any pointwise input `|M(x)| <= C x^beta`, `beta>0`, transfers uniformly in the moving cutoff:
 
-\`\`\`
+```
 |G_R(X)| <= C X^beta * (1 + sum_(q>=3) q^(-(1+2beta))).
-\`\`\`
+```
 
-This is an independently justified transfer, but it preserves \`beta\`; it creates no new saving.
+This is an independently justified transfer, but it preserves `beta`; it creates no new saving.
 
-For falsification, the exact finite computation used the literal strict carrier: \`R^2 <= n < (R+1)^2\`, odd prime \`q\`, \`q^2<R\`, ordinary integer Mobius values, and rational \`1/q\` weights. For each root it evaluated
+For falsification, the exact finite computation used the literal strict carrier: `R^2 <= n < (R+1)^2`, odd prime `q`, `q^2<R`, ordinary integer Mobius values, and rational `1/q` weights. For each root it evaluated
 
-\`\`\`
+```
 N^(oo)       = (E_R^2 - Z_R^o)/2,
 N^(od)       = E_R D_R,
 N^(dd,same)  = (1/2) sum_q (D_(R,q)^2 - Z_(R,q)),
 N^(dd,cross) = (1/2) (D_R^2 - sum_q D_(R,q)^2).             (47)
-\`\`\`
+```
 
-The totals reproduce the accepted regressions \`2 sum N_R = -421263254/1334025\` at \`H=64\` and \`634716128036/75150075\` at \`H=128\`.
+The totals reproduce the accepted regressions `2 sum N_R = -421263254/1334025` at `H=64` and `634716128036/75150075` at `H=128`.
 
 Sector sign reversals are exact:
 
 | sector | negative legal block | positive legal block |
 |---|---:|---:|
-| outer-outer | \`H=64: -167\` | \`H=128: 3870\` |
-| outer-daughter | \`H=512: -3830141495949/1152646495\` | \`H=64: 33239/1155\` |
-| same-owner daughter | \`H=64: -13237507/1334025\` | \`H=256: 27182937123721/3360142360575\` |
-| cross-owner daughter | \`H=64: -11258/1155\` | \`H=128: 22381/1365\` |
+| outer-outer | `H=64: -167` | `H=128: 3870` |
+| outer-daughter | `H=512: -3830141495949/1152646495` | `H=64: 33239/1155` |
+| same-owner daughter | `H=64: -13237507/1334025` | `H=256: 27182937123721/3360142360575` |
+| cross-owner daughter | `H=64: -11258/1155` | `H=128: 22381/1365` |
 
 ### E. Quantitative consequence
 
-Equation (46) gives a uniform same-exponent prefix theorem for the combined actual coefficient. It does not approach the shell-energy benchmark. Using only the repository pointwise exponent \`beta=57/64\`, the direct bound
+Equation (46) gives a uniform same-exponent prefix theorem for the combined actual coefficient. It does not approach the shell-energy benchmark. Using only the repository pointwise exponent `beta=57/64`, the direct bound
 
-\`\`\`
+```
 |W_R| <= |G_R((R+1)^2-1)| + |G_R(R^2-1)|
-\`\`\`
+```
 
 costs
 
-\`\`\`
+```
 sum_(H<=R<2H) |W_R|^2 << H^(1+4beta) = H^(73/16),
-\`\`\`
+```
 
-far above \`H^(5/2)\`. A global prefix estimate cannot be read as a local shell mean square.
+far above `H^(5/2)`. A global prefix estimate cannot be read as a local shell mean square.
 
-The exact divisor conservation therefore supplies structural control but no fixed positive endpoint gain. The root term \`-2 sum mu(R)W_R\` and activation term \`2 sum W_R K_R\` remain outside the short-address covariance and are not discarded.
+The exact divisor conservation therefore supplies structural control but no fixed positive endpoint gain. The root term `-2 sum mu(R)W_R` and activation term `2 sum W_R K_R` remain outside the short-address covariance and are not discarded.
 
 ### F. Falsification and circularity review
 
 - The gap-divisibility law itself was already accepted as Coordinator C9-C11; it was not relabeled as new.
 - The new claim is the complete convolution/divisor-annihilation representation and sector-resolved sign no-go.
-- Wheel's accepted family \`9(14+25t)-25(5+9t)=1\` survives (44) with coefficient \`mu(14+25t)mu(5+9t)/15\`. Sparse divisor-source support does not remove the saturated fixed cell.
-- Every natural \`N_R\` sector changes sign. This refutes universal sectorwise nonpositivity and nonnegativity, but not signed cross-sector compensation.
-- The exact finite table is \`FINITE_COMPUTATION\`; it proves no all-scale rate.
+- Wheel's accepted family `9(14+25t)-25(5+9t)=1` survives (44) with coefficient `mu(14+25t)mu(5+9t)/15`. Sparse divisor-source support does not remove the saturated fixed cell.
+- Every natural `N_R` sector changes sign. This refutes universal sectorwise nonpositivity and nonnegativity, but not signed cross-sector compensation.
+- The exact finite table is `FINITE_COMPUTATION`; it proves no all-scale rate.
 - No independence of Mobius signs, cloned occurrence, omitted diagonal, or omitted cross term is used.
-- The full assertion \`Xi_H << H^(5/2-eta)\` remains unresolved and was not assumed in deriving (42)-(47).
+- The full assertion `Xi_H << H^(5/2-eta)` remains unresolved and was not assumed in deriving (42)-(47).
 
 ### G. Conceptual interpretation
 
@@ -399,7 +399,7 @@ This explains why more owner bookkeeping cannot close the estimate by itself. An
 
 - **Sparse divisor conservation:** retain as a structural basis for hyperbola or bilinear transformations.
 - **Sectorwise favorable sign:** abandon for all four natural nonzero-shift sectors; (47) supplies exact counterexamples.
-- **Fixed-cell absolute incidence:** remains power-sharp by accepted Wheel claim \`20261102-wheel-1\`.
+- **Fixed-cell absolute incidence:** remains power-sharp by accepted Wheel claim `20261102-wheel-1`.
 - **Aggregate signed affine-cell cancellation:** continue as the surviving hybrid mechanism, with root and activation restoration mandatory.
 - **JOH cross-owner chronology, NYMAN residual cancellation, and odd-Mobius moving tail:** remain distinct protected routes; this continuation does not collapse them into the hybrid carrier.
 
@@ -407,30 +407,30 @@ This explains why more owner bookkeeping cannot close the estimate by itself. An
 
 **Coordinator / Proof Architect:** register (42)-(46) as an exact sparse-divisor conservation representation, and the sector table as a no-go for componentwise sign payment. It is not a new eta supplier.
 
-**Analytic Type II:** test whether (44) enables a source-faithful hyperbola decomposition whose aggregate error is genuinely smaller on square shells. The required theorem must address sparse-square sampling and cannot use (46) as a shell \`L2\` bound.
+**Analytic Type II:** test whether (44) enables a source-faithful hyperbola decomposition whose aggregate error is genuinely smaller on square shells. The required theorem must address sparse-square sampling and cannot use (46) as a shell `L2` bound.
 
-**Finite Wheel & Incidence:** retain the determinant-one family as a regression. Seek an aggregate restriction across many \`h,p,q\` cells; no further absolute fixed-cell refinement can provide the missing power.
+**Finite Wheel & Incidence:** retain the determinant-one family as a regression. Seek an aggregate restriction across many `h,p,q` cells; no further absolute fixed-cell refinement can provide the missing power.
 
 **Prime Census:** use the four exact sector pairs above as regression fixtures. A useful next experiment should measure signed cross-sector compensation under the original weights and boundary masks, rather than extend a single-cell table.
 
-**Adversarial Referee:** audit the convolution carrier, strict cutoff, divisor conservation, generic prefix transfer, exponent \`73/16\`, and exact sector formulas/table. Return separate verdicts for the paper identity, quantitative non-gain, and finite no-go.
+**Adversarial Referee:** audit the convolution carrier, strict cutoff, divisor conservation, generic prefix transfer, exponent `73/16`, and exact sector formulas/table. Return separate verdicts for the paper identity, quantitative non-gain, and finite no-go.
 
 **Lean Verification:** keep #1070 as the only proof branch. After review, (44) is a small formal theorem, but it should be added only if it materially supports a later bilinear argument; do not open a second structural PR or formalize a conjectural covariance estimate.
 
 ### J. First independently missing lemma
 
-The first potentially useful new lemma is not another owner partition. It is a power-rate aggregate signed additive-correlation theorem for the actual moving family \`g_R\`, uniform in the prime-square cutoff and same-shell masks, obtained from independent arithmetic rather than from the desired energy bound. It must beat the \`H^3\` absolute aggregate by \`H^(1/2+eta)\` on the relevant \`N_R\` contribution and then be combined with independently controlled root and activation terms.
+The first potentially useful new lemma is not another owner partition. It is a power-rate aggregate signed additive-correlation theorem for the actual moving family `g_R`, uniform in the prime-square cutoff and same-shell masks, obtained from independent arithmetic rather than from the desired energy bound. It must beat the `H^3` absolute aggregate by `H^(1/2+eta)` on the relevant `N_R` contribution and then be combined with independently controlled root and activation terms.
 
 No existing prefix-Mertens, divisor-annihilation, fixed-cell incidence, or logarithmically averaged correlation theorem currently supplies this statement at the required natural dyadic scale.
 
 ### K. Next-run resume capsule
 
-- Main: \`a33987e275f8a431641d3f475b71a24aa2b1437c\`.
-- New claim: \`20261102-owner-2\`, equations (42)-(47).
+- Main: `a33987e275f8a431641d3f475b71a24aa2b1437c`.
+- New claim: `20261102-owner-2`, equations (42)-(47).
 - Status: exact paper conservation theorem; same-exponent quantitative transfer; exact finite sector falsifiers; independent review pending.
-- Strongest structural result: \`one * g_R = kappa_R\`, supported only at 1 and admitted prime squares.
-- Strongest obstruction: all four natural \`N_R\` sectors take both signs; ancestry gives no sectorwise payment.
+- Strongest structural result: `one * g_R = kappa_R`, supported only at 1 and admitted prime squares.
+- Strongest obstruction: all four natural `N_R` sectors take both signs; ancestry gives no sectorwise payment.
 - Formal state: PR #1070 proves the prerequisite address injectivity only; #1070 remains open, CI green, human-only merge.
-- \`eta_gate: SEARCH_BROAD\`.
-- \`net_endpoint_gain_after_complete_return: UNKNOWN\`.
-- Complete shell estimate, strict Mertens exponent below \`7/8\`, canonical VF theorem, and RH remain OPEN.
+- `eta_gate: SEARCH_BROAD`.
+- `net_endpoint_gain_after_complete_return: UNKNOWN`.
+- Complete shell estimate, strict Mertens exponent below `7/8`, canonical VF theorem, and RH remain OPEN.
