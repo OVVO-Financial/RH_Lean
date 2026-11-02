@@ -61,10 +61,10 @@ theorem primeSquare_mul_eq_primeSquare_mul_of_squarefree
       rw [← h]
       exact dvd_mul_right (p ^ 2) m
     have hp2n : p ^ 2 ∣ n := hcop.dvd_of_dvd_mul_left hp2div
-    exact (Nat.squarefree_iff_prime_squarefree.mp hn p hp) hp2n
+    exact (Nat.squarefree_iff_prime_squarefree.mp hn p hp) (by\n      simpa [pow_two] using hp2n)
   subst q
   refine ⟨rfl, ?_⟩
-  exact Nat.eq_of_mul_eq_mul_left (pow_pos hp.pos) h
+  exact Nat.eq_of_mul_eq_mul_left (pow_pos hp.pos 2) h
 
 /-- The physical daughter-address map loses no multiplicity on the literal
 accepted carrier. -/
@@ -74,7 +74,7 @@ theorem liftedMobiusDaughterAddress_injOn (R : ℕ) :
   intro x hx y hy hxy
   rcases x with ⟨p, m⟩
   rcases y with ⟨q, n⟩
-  rw [mem_liftedMobiusDaughterCarrier] at hx hy
+  change (p, m) ∈ liftedMobiusDaughterCarrier R at hx\n  change (q, n) ∈ liftedMobiusDaughterCarrier R at hy\n  rw [mem_liftedMobiusDaughterCarrier] at hx hy\n  change p ^ 2 * m = q ^ 2 * n at hxy
   have hm : Squarefree m :=
     ArithmeticFunction.moebius_ne_zero_iff_squarefree.mp hx.2.2.2.2.2.2.2
   have hn : Squarefree n :=
