@@ -206,3 +206,30 @@ The paid diagonal and infinite-family no-go are independent of RH. Conversely, a
 - Retired mechanism: any power saving based solely on absolute squarefree incidence plus least-owner partition.
 - Surviving mechanism: signed two-linear-form cancellation and complete cross-cell/root/activation restoration.
 - Next independent review due: Analytic `20261102-analytic-1` or Owner `20261102-owner-1`, unless a newer quantitative claim has greater endpoint consequence.
+
+
+---
+
+## Scheduled continuation checkpoint - 2026-11-02 12:27 EST (-0500)
+
+**Status:** `PARTIAL / IN_PROGRESS` - independent audit of the newest quantitative operator inverse and complete-return claims.  
+**Invocation:** scheduled continuation invoked 2026-11-02 12:03 EST; RUN_ID_UNAVAILABLE.  
+**Live main:** `7790fb9f5ddda6eb9823899f2694d691756cd248`, human merge of PR #1070.  
+**eta_gate:** `SEARCH_BROAD`; net endpoint gain remains `UNKNOWN`.
+
+Freshness and continuity: consumed live `AGENTS.md` blob `9fa5e9519e2fb6dde22217aa2a18982dafef373a`, `CURRENT_PROOF_CONTRACT.md` blob `88cddd9cd98c3b55f0b013998541e9b4e9dc9f2a`, selector `d05c327ae694ea54b599dab0a21032a056b521f1`, breadth policy `b5c063c51556ba57c4b25bcc380a606fa8daa207`, complete-return contract `16838f7f3c8724b970f8b8ece0bceaab9418066d`, research engine `6fce99c61efb5b2a73c0cb1f1464f09b351fcd55`, all available 2026-11-02 named reports, the 2026-11-01 carry-forward evidence identified in those reports, and external inbox blob `038018145c0fddb2f6306c0712373adf9cd1ea52`. The earlier restricted-inversion ticket remains resolved by `20261101-referee-7`; this continuation selects the newer consequential claim `20261102-analytic-2`, with Coordinator C12-C15 and Census `20261102-census-2` as linked scope checks.
+
+A precise proof defect has been found in Analytic equation (45): the displayed inequality
+```
+sum_(m>=3) m^(-5/2) <= 1/(3 sqrt 3)
+```
+is false. The contraction theorem appears repairable because the operator sums only over odd primes:
+```
+sum_(p odd prime) p^(-5/2)
+ <= sum_(k>=1) (2k+1)^(-5/2)
+ <= 3^(-5/2) + integral_1^infinity (2x+1)^(-5/2) dx
+ = 2/(9 sqrt 3) < 1/4.
+```
+The audit is checking the downstream inverse constant, moving high-owner restoration, square-endpoint interpolation, and the exact scope of the claimed target equivalence. No verdict is issued at this checkpoint.
+
+Coordinator C12-C15 and the consecutive-shift boundary lemma have been algebraically reconstructed so far: the affine solution lattice and determinant sign are correct; the discriminant-one compression is identity-only; and a nonzero-Mobius cross-lift pair at gap `+/-1` cannot cross a square boundary because the larger address would force its cofactor to be a nontrivial square. These findings remain pending final separated verdicts and complete publication.
