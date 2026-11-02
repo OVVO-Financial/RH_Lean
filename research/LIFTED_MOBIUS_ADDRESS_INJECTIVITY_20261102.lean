@@ -50,7 +50,7 @@ def liftedMobiusDaughterAddress (qm : ℕ × ℕ) : ℕ :=
 prime owner and cofactor agree. -/
 theorem primeSquare_mul_eq_primeSquare_mul_of_squarefree
     {p q m n : ℕ} (hp : p.Prime) (hq : q.Prime)
-    (hm : Squarefree m) (hn : Squarefree n)
+    (hn : Squarefree n)
     (h : p ^ 2 * m = q ^ 2 * n) :
     p = q ∧ m = n := by
   have hpq : p = q := by
@@ -79,13 +79,11 @@ theorem liftedMobiusDaughterAddress_injOn (R : ℕ) :
   have hy' : (q, n) ∈ liftedMobiusDaughterCarrier R := hy
   rw [mem_liftedMobiusDaughterCarrier] at hx' hy'
   change p ^ 2 * m = q ^ 2 * n at hxy
-  have hm : Squarefree m :=
-    ArithmeticFunction.moebius_ne_zero_iff_squarefree.mp hx'.2.2.2.2.2.2.2
   have hn : Squarefree n :=
     ArithmeticFunction.moebius_ne_zero_iff_squarefree.mp hy'.2.2.2.2.2.2.2
   have hdata :=
     primeSquare_mul_eq_primeSquare_mul_of_squarefree
-      hx'.2.2.1 hy'.2.2.1 hm hn hxy
+      hx'.2.2.1 hy'.2.2.1 hn hxy
   exact Prod.ext hdata.1 hdata.2
 
 /-- A nonzero-Möbius outer address cannot equal a prime-square daughter
