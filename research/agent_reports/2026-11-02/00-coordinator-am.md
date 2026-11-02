@@ -23,7 +23,7 @@ This checkpoint claims no new theorem, endpoint gain, independent review, or com
 
 ## Final synthesis - claim `20261102-coordinator-1` - 2026-11-02 07:48 EST (-0500)
 
-**Execution status:** `COMPLETED / PUBLICATION_PENDING`
+**Execution status:** `COMPLETED / PUBLISHED`
 
 **Evidence classes:** `PAPER_PROOF / EXACT AFFINE-CELL DICTIONARY`; `IDENTITY_ONLY` for the discriminant-one compression; `NO-GO` for transfer from a global Mertens prefix bound or present logarithmic Chowla theorems; `CONDITIONAL` for the proposed aggregate shifted-Elliott supplier; `NO FIXED ETA GAIN`; `NO RH`.
 
@@ -258,3 +258,8 @@ Main remains `a33987e2...`; PR #1070 is not on main and human-only merge remains
 - net endpoint gain after complete return: `UNKNOWN`.
 - highest-value next reasoning task: formulate and test a weighted aggregate correlation inequality on C12 with exact shell masks and power bookkeeping before attempting any fixed-cell theorem.
 - complete shell estimate, strict Mertens exponent below (7/8), canonical VF theorem, and RH remain OPEN.
+
+
+### Publication verification
+
+The completed synthesis was first committed to the two Coordinator mirrors as commits `ea8488502079d07bbcc48b31b388d895d8663367` and `03e9070cd6fcaa5129a6b077f03aaea0ef5e67d4`. Readback returned byte-identical content at blob `9fd673d7b9732f413b81a70fe4374a307e24b674` (17,955 characters), containing claim `20261102-coordinator-1`, the affine-cell dictionary C12-C15, portfolio decisions, assignments, PR #1070 status, and resume capsule. This receipt records publication only and changes no mathematical classification.
