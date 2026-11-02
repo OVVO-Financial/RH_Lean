@@ -621,3 +621,8 @@ on one complete power-growing chain or an appropriately stronger all-`B` range, 
 - `eta_gate: SEARCH_BROAD`.
 - `net_endpoint_gain_after_complete_return: UNKNOWN`.
 - Complete shell estimate, strict Mertens exponent below `7/8`, canonical VF theorem, and RH remain OPEN.
+
+
+### Publication verification
+
+The completed MU-LIFT synthesis was committed as `06b03eb642a54f28d42697d8f1f5daf833fd42b4` and read back at blob `e02cb10bf0fbbf0acf77f84a899a9abd3a229c2b` (35,214 characters). Readback contained claim `20261102-wheel-3`, equations (54)-(64), the sharp `s^k` boundary, fresh-prime factorial formula, full MU-LIFT accounting, and resume capsule. Final main remained `8e5d64ae689b39dabd2a4f6eb33efe4d5d192015`; draft PR #1073 remained unmerged and was not used. This receipt records publication only and changes no mathematical classification.
