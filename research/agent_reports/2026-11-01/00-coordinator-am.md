@@ -447,3 +447,136 @@ Freshness checkpoint: read live `AGENTS.md` (blob `9fa5e9519e2fb6dde22217aa2a189
 Resumed derivation: determine whether the newly formalized odd-Mobius truncated-tail interface or a genuine first-owner/near-root restriction supplies an actual coefficient or multiplicity bound in the complete CORR4 mixed expression, with original occurrence weights and all complement terms retained. The first unsupported quantitative implication and exact carrier mismatch, if any, will be stated in the completed continuation rather than inferred from shared terminology.
 
 Publication of this checkpoint does not claim a new theorem, accepted transfer, positive endpoint gain, independent review, or completed synthesis.
+
+
+## Continuation final synthesis - claim 20261101-coordinator-3
+
+**Status:** COMPLETED / PUBLISHED.  
+**Evidence:** PAPER_PROOF_NEEDS_INDEPENDENT_REVIEW / HYBRID SHIFT-OWNER SIEVE; EXACT FINITE REINDEXING; QUANTITATIVE NON-CLOSURE BY ABSOLUTE INCIDENCE; NO COMPLETE ETA; NO RH.
+
+### A. What changed mathematically?
+
+Fresh-prime ownership does transfer to the complete nonzero outer/daughter covariance carrier from Owner claim 20261101-owner-4, but only after distinguishing the squarefree sign carrier from its lifted physical address. The transfer yields an exact arithmetic sieve on every short physical shift:
+
+- an outer-outer pair's first separating prime never divides its physical shift;
+- an outer-daughter pair's first separating prime can divide the shift only when it is the daughter's lifted prime;
+- a daughter-daughter pair's first separating prime can divide the shift only when it is one of the two lifted primes;
+- same-lifted-prime daughter pairs occur exactly on shifts divisible by that prime square, while cross-lifted-prime pairs exclude both prime squares from the shift.
+
+This is a genuine cross-route connection between the compiled first-owner machinery and the literal VF-LOW hybrid covariance. It preserves the coefficients 1/q, square-shell locations, and every daughter occurrence. It is not a power-saving estimate: absolute fixed-shift incidence summed over all shifts returns the full quadratic scale, and the root and activation terms of the complete functional remain outside this short-shift partition.
+
+### B. Current proof objective and authority
+
+Live main is a33987e275f8a431641d3f475b71a24aa2b1437c. Authority blobs are AGENTS.md 9fa5e9519e2fb6dde22217aa2a18982dafef373a, CURRENT_PROOF_CONTRACT.md 88cddd9cd98c3b55f0b013998541e9b4e9dc9f2a, selector d05c327ae694ea54b599dab0a21032a056b521f1, complete-return contract 16838f7f3c8724b970f8b8ece0bceaab9418066d, and research engine 6fce99c61efb5b2a73c0cb1f1464f09b351fcd55.
+
+The canonical objective remains: there exists C >= 0 such that for every R >= 2,
+
+    |pi(R^2)-VF_can(R^2)| <= C R log R.
+
+The nearer complete shell-energy gain and every strict Mertens exponent below 7/8 remain open. The gate is SEARCH_BROAD and the net complete-return gain is UNKNOWN.
+
+### C. Competing mechanism portfolio
+
+1. **Hybrid short-shift owner sieve - CONTINUE, review first.** Independent input: squarefreeness and elementary divisibility, not a target bound. Target implication: organize the nonzero-shift part of Xi_H into arithmetic cells on which an averaged signed estimate might apply. First missing theorem: cancellation in the exact shift/owner cells strong enough to save H^(1/2+eta) over absolute incidence after summing roots and shifts. Support: Owner equations (28)-(36), main first-owner expansion, and the theorem below. Obstruction: the partition is exhaustive and absolute counting remains quadratic; root and activation cross terms remain.
+
+2. **NYMAN power-damped full basis - CONTINUE independently.** Independent input: a true all-scale approximation theorem. First missing theorem: decay of both exact terms from claim 20261101-analytic-1; finite interpolation and a fixed-square contraction do not suffice.
+
+3. **Odd-Mobius incomplete convolution / moving tail - CONTINUE as reserve.** Independent input: a signed estimate for all three terms of Analytic equation (31), or for the literal moving tail in #1069, that improves the imported baseline without assuming a better Mertens exponent. Obstruction: separate payment restores the larger physical-triangle scale. Do not enumerate more fixed seed rays.
+
+The repaired FINITE-AC localization remains a useful inverse diagnostic, not a fourth active proof mechanism. Wheel claim 20261101-wheel-3 proves that its physical/small-column recombination restores the endpoint and does not itself feed a subcritical MU-LIFT recurrence.
+
+### D. Conceptual research performed
+
+Let R >= 56. An outer label is a squarefree integer a with R^2 <= a < (R+1)^2 and mu(a) != 0. A daughter label is (q,m), where q is an odd prime, q^2<R, mu(m)!=0, and R^2 <= q^2 m < (R+1)^2. Its coefficient and physical address are mu(m)/q and q^2m. Outer coefficients and addresses are mu(a) and a.
+
+**Claim C9 (distinct squarefree sign carriers).** Any two distinct outer/daughter labels have distinct squarefree sign carriers whenever a fresh-owner comparison is needed. Outer-outer is immediate. Outer-daughter has a != m because a>=R^2 while m<(R+1)^2/9<R^2 for R>=56. For two daughters, if m=n and q!=p, then, taking p>q,
+
+    (p^2-q^2)m >= 4qm >= 4R > 2R,
+
+contradicting that both physical addresses lie in one shell of integer diameter 2R. If q=p, distinct labels already force m!=n. Nonzero Mobius coefficients make all these sign carriers squarefree. Hence the compiled unique fresh-prime owner applies exactly once to every distinct pair.
+
+Put h=u-v for the signed difference of the two physical addresses. Then 0<|h|<=2R.
+
+**Claim C10 (shift-owner exclusion).** Let r be the unique first separating prime of the two squarefree sign carriers.
+
+1. Outer-outer: r does not divide h=a-b.
+2. Outer-daughter: if r divides h=a-q^2m, then r=q.
+3. Daughter-daughter: if r divides h=q^2m-p^2n, then r is q or p.
+
+Proof: r divides exactly one sign carrier. In each case, if r divides the physical difference and is coprime to every displayed lift prime, reduction modulo r forces it to divide the other sign carrier, a contradiction. Since r is prime, failure of coprimality gives exactly the listed exception.
+
+**Claim C11 (square-divisibility dichotomy).** For two daughter labels,
+
+    q=p  iff  q^2 divides h  iff  p^2 divides h.
+
+The forward direction is immediate. If q^2 divides h and q!=p, then q^2 divides p^2n; coprimality gives q^2 divides n, contradicting squarefreeness. The argument for p is symmetric.
+
+Consequently the daughter-daughter part of Owner's N_R has an exact finite reindexing by nonzero shift h, fresh owner r, and lifted owners q,p, retaining coefficient mu(m)mu(n)/(qp). Same-lifted-owner cells are supported on q^2|h; cross-lifted-owner cells satisfy q^2 not|h and p^2 not|h; a fresh owner dividing h must be one of q,p. The outer-outer and outer-daughter sectors have the corresponding restrictions above. This is an exact restriction on the actual N_R carrier, not the already compiled single-daughter-prefix Gram, and formalization must not identify those two objects.
+
+For fixed q!=p and fixed h, the physical address is one residue class modulo q^2p^2; therefore its shell multiplicity is at most
+
+    1 + floor(2R/(q^2 p^2)).
+
+For q=p, the cell is empty unless q^2|h, and then has at most 1+floor(2R/q^2) occurrences. After restoring the weights 1/(qp), absolute summation over owners is O(R+(sum_(q<sqrt R)1/q)^2) for a fixed shift, hence O(R) here. Summing the 2R possible shifts returns O(R^2) per root and O(H^3) on a dyadic block. Thus the new incidence theorem alone misses the desired complete energy scale by H^(1/2+eta). A signed average over shift/owner cells is the first new quantitative input; taking absolute values is decisively non-closing.
+
+### E. No-circularity and cross-route verdict
+
+- C9-C11 are independent divisibility restrictions. They neither assume nor imply the endpoint estimate.
+- Unique first-owner expansion is an exact partition of coefficient products, not cancellation.
+- The transfer succeeds on every outer/daughter pair in N_R; it does not automatically include -2 sum mu(R)W_R or 2 sum W_R K_R from Xi_H.
+- The root cross term has a different, long physical displacement; the activation term contains an aggregated Mertens value. Both require their own occurrence-level reconstruction before a complete shift theorem.
+- The compiled daughter-prefix first-owner Gram and this hybrid shell Gram are different carriers. No theorem between their norms is claimed.
+- Referee claim 20261101-referee-5 corrects Coordinator claim -2: inverse localization requires comparison root S>=56 or an explicit finite-defect repair, and its energy uses one fixed T_R, not a moving threshold.
+
+Classification: PAPER_PROOF_NEEDS_INDEPENDENT_REVIEW for C9-C11 and the fixed-shift count; IDENTITY_ONLY for the reindexing; NO_NEW_QUANTITATIVE_ENDPOINT_RESULT.
+
+### F. Specialist findings incorporated
+
+- Owner 20261101-owner-4: lifted daughter addresses are injective, outer/daughter supports are disjoint, the diagonal is at most (251/81)H^2, activation energy is at most 3H^(3/2), and both universal covariance signs are refuted. Independent review remains pending.
+- Analytic 20261101-analytic-3: the completed odd mu*Lambda packet is one-dimensional and bounded from the compiled baseline, but exact complement formula (31) prevents transfer to the physical triangle without a new incomplete-convolution theorem.
+- Wheel 20261101-wheel-3: the inverse trichotomy is rank two after retaining the endpoint; absolute small-owner recursion has coefficient at least 16/9 already at q=3, so no MU-LIFT recurrence follows.
+- Census 20261101-census-3: endpoint branch heuristics fail on the frozen sample; pathwise physical/small covariance was negative on eight selected roots but removed only about 3.2-5.7 percent of the two diagonals and remains a finite conjecture.
+- Referee 20261101-referee-5: prior localization revised as above; fixed-threshold repaired theorem accepted with scope.
+- Lean 20261101-lean-3: no qualified new declaration; Owner -4 awaits review and the repaired localization lacks a clean formal interface.
+- External inbox blob 038018145c0fddb2f6306c0712373adf9cd1ea52 has no handoff newer than 2026-10-18.
+
+### G. Strategy decisions and mathematical bottlenecks
+
+1. Promote the shift-owner sieve to the review queue, not the Lean queue. Its current absolute estimate is quantitatively insufficient.
+2. Seek signed cancellation only on the exact hybrid cells, with the complete Xi_H reconstruction explicit. A daughter-daughter theorem alone is partial unless outer-daughter, outer-outer, root, and activation bills are restored or independently absorbed.
+3. Keep NYMAN and the odd-Mobius incomplete-convolution route independent. Do not redirect their due turns into the hybrid covariance campaign.
+4. Retain repaired FINITE-AC localization as an inverse diagnostic; do not advertise it as a recurrence input.
+5. Keep SEARCH_BROAD. No fixed positive gain survives the complete consumer.
+
+### H. Next specialist assignments
+
+**RH | Owner Payment.** Take the due JOH turn. Preserve claim owner-4 unchanged for review. State the exact original JOH carrier and attempt one inverse consequence of a bad endpoint that is not the refuted universal BLOCK capture.
+
+**RH | Analytic Type II.** Take the due NYMAN turn. For one explicit coefficient family, bound the exact head discrepancy and infinite tail simultaneously or identify the first divergent integral/sum. As a secondary handoff only, assess whether an established averaged shifted-Mobius theorem applies to the hybrid cells with sparse square starts and 1/(qp) weights; averaging over all starts is not transferable without a sparse-square sampling bound.
+
+**RH | Finite Wheel & Incidence.** Take the due CORR4 turn. Independently derive C9-C11 on the literal label sets and test whether the fixed-shift congruence count strengthens after squarefreeness and first-owner chronology. Falsifier: exhibit a legal family saturating Omega(R) weighted absolute mass at one shift or prove a saving uniform in h.
+
+**RH | Prime Census Laboratory.** Preregister a shift-resolved held-out test for Xi_H: separate outer-outer, outer-daughter, same-q daughter, cross-q daughter, root, and activation terms; record whether r|h occurs only in the allowed exceptional cells. Freeze the dyadic blocks before computation. The purpose is to falsify bookkeeping or identify dominant signed cells, not fit an exponent.
+
+**RH | Adversarial Referee.** Audit Owner 20261101-owner-4 together with C9-C11. Check strict activation q^2<R, positivity and distinctness of sign carriers, shell-diameter constants, every 1/q weight, and the claim that first-owner expansion partitions the hybrid pairs without identifying it with the compiled daughter-prefix Gram. Return separate verdicts on structure, incidence count, and quantitative consequence.
+
+**RH | Lean Verification.** No branch is authorized from this synthesis. If Referee accepts Owner -4 and C9-C11, prepare one implementation-sized package containing lifted-label injectivity, fresh-owner existence on hybrid pairs, and divisibility exclusions, leaving Xi_H and every signed bound explicit. The repaired localization remains a reserve candidate after its fixed-threshold interface is specified.
+
+### I. Lean, PR, and CI status
+
+No open or draft PR was returned at final refresh. Recent proof PRs #1068 and #1069 are human-merged. Main #1069 source research/ODD_MOBIUS_TRUNCATED_TAIL_20261101.lean has blob d38a80efc30cbb503f5d596705be91a0de561fe9. Fresh workflow readback on exact proof head 0bf1622daabc694f91b72b922a3e157f2690e1c2 returned 12/12 PR-triggered workflows completed successfully, including dedicated run 41336208699, targeted Lean 41336208800, source audits 41336208693, proof inventory 41336208947, and public export 41336208702.
+
+This Coordinator created no Lean branch, proof PR, schedule, contract change, or main mutation.
+
+### J. Next-run resume capsule
+
+- Main: a33987e275f8a431641d3f475b71a24aa2b1437c.
+- New claim: 20261101-coordinator-3, C9-C11, pending independent review.
+- New restriction: first-owner divisibility exclusions and same/cross lifted-owner square-divisibility dichotomy on the complete outer/daughter nonzero-shift carrier.
+- Exact quantitative obstruction: absolute fixed-shift incidence sums back to O(H^3); a signed saving of at least H^(1/2+eta) plus root/activation restoration is missing.
+- Corrected prior claim: coordinator-2 is accepted only with S>=56 or a stated finite-defect repair and a fixed comparison threshold.
+- Active portfolio: hybrid shift-owner sieve; NYMAN full basis; odd-Mobius incomplete convolution/moving tail.
+- Formal queue: none active; Owner -4 plus C9-C11 await Referee.
+- eta_gate: SEARCH_BROAD.
+- net_endpoint_gain_after_complete_return: UNKNOWN.
+- Complete shell estimate, strict Mertens exponent below 7/8, canonical VF theorem, and RH remain OPEN.
