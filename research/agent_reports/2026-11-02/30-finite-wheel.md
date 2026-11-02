@@ -456,3 +456,168 @@ This is exactly the finite-C obligation, so (50)-(53) are a structural represent
 ### Publication verification
 
 The completed FINITE-AC synthesis was committed as `e122f45aa57cf434eca6c1d352b9290c0094a895` and read back as blob `5ef32fc49e05d5907bc9cd30685ee464e4f281f9` (24,764 characters). Claim `20261102-wheel-2`, equations (50)-(53), the nonnegative odd-core packet, exact `R=5` counterexample, scope classifications, and resume capsule were present. Final main remained `7790fb9f5ddda6eb9823899f2694d691756cd248`; the open/draft PR refresh returned none. This receipt records publication only and changes no mathematical claim.
+
+
+---
+
+## Scheduled continuation final synthesis - claim `20261102-wheel-3` - 2026-11-02 18:12 EST (-0500)
+
+**Status:** `COMPLETED / PAPER_PROOF_NEEDS_INDEPENDENT_REVIEW`.  
+**Result classes:** `EXACT FIRST-OMITTED-SUPPORT RADIUS`; `SHARP COEFFICIENT BOUNDARY`; `EXACT FRESH-PRIME FACTORIAL COHERENCE`; `NO SUMMATORY RECURRENCE`; `NO FIXED ETA`; `NO RH`.
+
+### Q. Authority, continuity, and selected route
+
+Live main is `8e5d64ae689b39dabd2a4f6eb33efe4d5d192015`, the human merge of PRs #1071 and #1072. Authority blobs remain `AGENTS.md 9fa5e9519e2fb6dde22217aa2a18982dafef373a`, `CURRENT_PROOF_CONTRACT.md 88cddd9cd98c3b55f0b013998541e9b4e9dc9f2a`, selector `d05c327ae694ea54b599dab0a21032a056b521f1`, broad-search `b5c063c51556ba57c4b25bcc380a606fa8daa207`, complete-return `16838f7f3c8724b970f8b8ece0bceaab9418066d`, and engine `6fce99c61efb5b2a73c0cb1f1464f09b351fcd55`.
+
+This is the due MU-LIFT turn after today's CORR4 claim `20261102-wheel-1` and FINITE-AC claim `20261102-wheel-2`. The latter is independently accepted by Referee claim `20261102-referee-2` and is now kernel-checked on main in `research/FINITE_C_BINARY_PARITY_OBSTRUCTION_20261102.lean`; it is retained as a regression, not reused as a recurrence.
+
+Same-day report blobs consumed at final intake were Coordinator mirrors `1f8b6897897fc6e8d76fdc9a541bebea68ef52fc`, Owner `abfe546d72b151f4cd200fc61de3197efe23a65c`, Analytic `8e48b59611aa1d0bfa3577ed0a4a3bc0d0fcae73`, prior Wheel `4fcbd7ecc5ece2a08ea80b6477008e1c19d1d2c3`, Census `6e8070f78688c63824ed6586dc8bad78f04f1f11`, Referee `73a4e272393964d06a3fced63a1eea546ac9dd8d`, and Lean `f4616a722c6a2b79e253207ab2352a66751f4624`. The complete 2026-11-01 set is `YESTERDAY=CARRY_FORWARD`, including Wheel `707a31ba0fa7b4a04266730236a9e79d4947e91a`. External handoffs remain blob `038018145c0fddb2f6306c0712373adf9cd1ea52`, with no entry newer than 2026-10-18.
+
+Open PR #1073 is a draft at head `6845fdbdcb12261bfaf26b7944ede53064cf80ee`. Its body explicitly leaves the complete perturbed low/high estimates open; it is not on main and is not used below.
+
+Material main sources are:
+
+- `research/MERTENS_FINITE_PREFIX_EXTENSION.lean`, blob `131e9af86207a42d4bf6488e3f64c9ce4f97e5df`;
+- `research/MERTENS_HEATH_BROWN_SIGNED.lean`, blob `af69b4811cf9f523eb7c96fb0ca836b2cdbd1180`;
+- `research/MERTENS_SIGNED_HYPERBOLA.lean`, blob `d199571f19346797229a25b0fa53c6e80499999f`;
+- `docs/MERTENS_AMPLIFICATION_BUDGET.md`, blob `62bbe73c4755eaa64772ec2cc2731936c01b49cd`.
+
+### R. First omitted nonzero support controls the exact radius
+
+Fix `N >= 1`. Let `s > N` satisfy
+
+```text
+mu(s) != 0,
+mu(n) = 0  for every N < n < s.                         (54)
+```
+
+Thus `s` is the first omitted nonzero Mobius coefficient after the stored prefix. Put
+
+```text
+a = mobiusPrefix N,
+D = inverseDefect a = (mu-a) * 1,
+L_k = heathBrownLift a k.
+```
+
+Then the prefix actually agrees with genuine Mobius below `s`, not merely below `N+1`:
+
+```text
+a(n)=mu(n)  for n<s.                                     (55)
+```
+
+The compiled support theorem therefore gives
+
+```text
+D(n)=0 for n<s,
+D^k(n)=0 for n<s^k,
+L_k(n)=mu(n) for n<s^k.                                  (56)
+```
+
+This radius is exact. At the first support point, divisor convolution gives
+
+```text
+D(s)=mu(s).                                               (57)
+```
+
+In a nonzero term of `D^k(s^k)`, all `k` factors are at least `s`. Since their product is `s^k`, every factor must equal `s`. Hence
+
+```text
+D^k(s^k)=mu(s)^k.                                        (58)
+```
+
+Every divisor `d>1` in `(mu*D^k)(s^k)` leaves a quotient strictly below `s^k`, where `D^k` vanishes. Using the compiled exact lift error therefore gives
+
+```text
+mu(s^k)-L_k(s^k) = mu(s)^k,
+L_k(s^k) = mu(s^k)-mu(s)^k.                              (59)
+```
+
+For `k=1`, this says the stored prefix first fails at `s`. For every `k>=2`, `mu(s^k)=0` because `s>1` is squarefree, while `mu(s)^k` is `+/-1`; consequently
+
+```text
+L_k(s^k) = -mu(s)^k != 0 = mu(s^k).                      (60)
+```
+
+Thus the exact reconstruction interval is governed by the first omitted squarefree site and is sharp at its `k`th power. This strengthens the nominal `(N+1)^k` support radius whenever `N+1` and subsequent sites are squareful, but it supplies no norm contraction.
+
+Concrete exact regressions are:
+
+```text
+N=3,  s=5:   L_2(25)=-1,  mu(25)=0;
+N=7,  s=10:  L_2(100)=-1, mu(100)=0;
+N=15, s=17:  L_3(4913)=1, mu(4913)=0.
+```
+
+Direct divisor-convolution evaluation reproduced (55)-(60) for `N in {3,7,8,15,24}` and `k in {1,2,3}`. These checks are regressions; the proof above is exact and general.
+
+### S. Fresh-prime factorial coherence
+
+There is a second sharpness phenomenon beyond the exact radius. Let `p_1,...,p_k` be distinct primes exceeding `N`, and put `P=product_i p_i`. Every nontrivial divisor `d` of `P` has no stored divisor other than `1`, so
+
+```text
+D(1)=0,  D(d)=-1 for every nontrivial d|P.                (61)
+```
+
+A nonzero ordered `k`-fold factorization of the squarefree `P` must give one prime to each factor. There are exactly `k!` such assignments, all with the same sign:
+
+```text
+D^k(P)=(-1)^k k!.                                        (62)
+```
+
+For every divisor `d>1`, `P/d` has fewer than `k` prime factors and cannot support `D^k`. Hence the exact error identity yields
+
+```text
+mu(P)-L_k(P)=(-1)^k k!,
+L_k(P)=(-1)^k(1-k!).                                     (63)
+```
+
+The finite checks `(N,k,P)=(5,2,77),(5,3,1001),(10,4,46189)` gave lifted coefficients `-1,5,-23`, exactly as (63). Thus higher-order lifting has coherent, rather than random, fresh-prime multiplicity at this frontier.
+
+### T. Quantitative and no-circularity audit
+
+Equations (54)-(63) are structural consequences of the actual integer convolution carrier. They do not assume a Mertens bound, a finite-A/C statement, an envelope recurrence, a favorable sign, or any target-equivalent estimate.
+
+The result has two precise uses and two limits:
+
+1. A finite prefix through `N` may legitimately use the larger exact cutoff `s^k` when the intervening genuine Mobius coefficients vanish. The boundary `s^k` cannot be included.
+2. Any coefficientwise absolute method that crosses the distinct-fresh-prime frontier pays at least `k!-1`. For fixed `k`, this is a fixed constant and has normalized loss `g=0`; it does not obstruct the accepted fixed-order MU-LIFT scheme. If `k=k(B)` grows and this loss is paid absolutely, subpower loss requires `log(k!)/log B -> 0`, equivalently `k log k=o(log B)` at this level.
+3. A single boundary coefficient does not lower-bound a signed summatory output. Cancellation across different frontier products remains possible and is not estimated here.
+4. Exact coefficient extension, even at the improved radius, does not bound the complete summatory lift on every `B<=X<B^k`. The required signed hyperbola rows and overlap remain unpaid.
+
+Required MU-LIFT accounting:
+
+- `k:` arbitrary fixed positive integer for (54)-(60); factorial frontier (61)-(63) uses exactly `k` distinct fresh primes.
+- `r:` none obtained.
+- `G:` none obtained; coefficientwise frontier cost is at least `k!-1` only for methods that take absolute values there.
+- `g:` `0` for fixed `k`; variable-order absolute methods require `log(k!)/log B -> 0`.
+- `interval/chain:` exact coefficient agreement on `n<s^k`, sharp failure at `s^k`; no whole-prefix summatory interval estimate.
+- `fixed constants:` boundary error magnitude `1`; distinct-prime frontier magnitude `k!` in the error and `k!-1` in the lifted coefficient.
+- `accumulated loss:` not converted to a recurrence.
+- `independent arithmetic input:` least omitted nonzero Mobius support and unique factorization only.
+- `evidence status:` paper proof plus exact finite divisor-convolution regressions; independent review and Lean formalization pending.
+
+### U. First open inequality and handoff
+
+The surviving MU-LIFT obligation is unchanged in kind: prove a genuine-Mobius whole-prefix estimate
+
+```text
+E(B^k) <= G(B) E(B)^r,
+r<k,  log G(B)/log B -> 0,                               (64)
+```
+
+on one complete power-growing chain or an appropriately stronger all-`B` range, with every signed hyperbola row, overlap, boundary, and interpolation term retained. The new theorem says the coefficient support radius can be sharpened to the first omitted squarefree site and identifies the exact boundary failure; it does not supply (64). A viable next attempt should exploit arithmetic cancellation inside the complete signed hyperbola expansion, not assume coefficientwise contraction beyond the sharp support wall.
+
+**Referee request:** independently audit (55), the equality case in (58), the single surviving divisor in (59), and the ordered-factorization count in (62). Return separate verdicts on the exact-radius theorem, factorial frontier, and quantitative relevance.
+
+**Lean request:** after independent acceptance and utility review, (55)-(60) form a small implementation-sized package using existing `AgreeBelow`, `inverseDefect_zero_below`, `convolution_pow_zero_below`, and `heathBrownLift_error`. Do not formalize (64) as an assumed theorem or open a competing branch while draft #1073 is active.
+
+### V. Resume capsule
+
+- Main: `8e5d64ae689b39dabd2a4f6eb33efe4d5d192015`.
+- New claim: `20261102-wheel-3`, equations (54)-(64).
+- Strongest new theorem: the first omitted nonzero Mobius site `s` gives an exact and sharp lift radius `s^k`.
+- Strongest new obstruction: distinct fresh primes produce factorial coherent defect multiplicity and opposite-sign lifted coefficients for every `k>=2`.
+- Route coverage: today's three Wheel invocations cover CORR4, FINITE-AC, and MU-LIFT without restarting their workspaces.
+- `eta_gate: SEARCH_BROAD`.
+- `net_endpoint_gain_after_complete_return: UNKNOWN`.
+- Complete shell estimate, strict Mertens exponent below `7/8`, canonical VF theorem, and RH remain OPEN.
