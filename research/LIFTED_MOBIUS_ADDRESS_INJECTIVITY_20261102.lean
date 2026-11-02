@@ -76,12 +76,12 @@ theorem liftedMobiusDaughterAddress_injOn (R : ℕ) :
   rcases y with ⟨q, n⟩
   change (p, m) ∈ liftedMobiusDaughterCarrier R at hx\n  change (q, n) ∈ liftedMobiusDaughterCarrier R at hy\n  rw [mem_liftedMobiusDaughterCarrier] at hx hy\n  change p ^ 2 * m = q ^ 2 * n at hxy
   have hm : Squarefree m :=
-    ArithmeticFunction.moebius_ne_zero_iff_squarefree.mp hx.2.2.2.2.2.2.2
+    ArithmeticFunction.moebius_ne_zero_iff_squarefree.mp hx'.2.2.2.2.2.2.2
   have hn : Squarefree n :=
-    ArithmeticFunction.moebius_ne_zero_iff_squarefree.mp hy.2.2.2.2.2.2.2
+    ArithmeticFunction.moebius_ne_zero_iff_squarefree.mp hy'.2.2.2.2.2.2.2
   have hdata :=
     primeSquare_mul_eq_primeSquare_mul_of_squarefree
-      hx.2.2.1 hy.2.2.1 hm hn hxy
+      hx'.2.2.1 hy'.2.2.1 hm hn hxy
   exact Prod.ext hdata.1 hdata.2
 
 /-- A nonzero-Möbius outer address cannot equal a prime-square daughter
@@ -95,8 +95,9 @@ theorem liftedMobiusOuter_ne_daughterAddress
   intro heq
   have hsq : Squarefree a :=
     ArithmeticFunction.moebius_ne_zero_iff_squarefree.mp ha.2.2
-  have hnot : ¬ q ^ 2 ∣ a :=
-    Nat.squarefree_iff_prime_squarefree.mp hsq q hqm.2.2.1
+  have hnot : ¬ q ^ 2 ∣ a := by
+    simpa [pow_two] using
+      (Nat.squarefree_iff_prime_squarefree.mp hsq q hqm.2.2.1)
   apply hnot
   rw [heq]
   exact dvd_mul_right (q ^ 2) m
