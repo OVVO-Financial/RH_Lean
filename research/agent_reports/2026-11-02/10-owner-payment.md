@@ -210,3 +210,8 @@ No non-circular all-scale inequality of that kind was proved here. Requiring the
 Early `IN_PROGRESS` checkpoint commit: `ce4d06ed905262fa6f8842c8fb5e971b4d159ae2`; checkpoint blob `4ec52d0aaa3cb781aa0b0a1e4c1428704af3b957`.
 
 Final commit/readback verification is appended below.
+
+
+### Publication verification
+
+The completed synthesis was committed as `617cff97efd9329c12ea0842ce99fe9a704de4c3` and read back as blob `f2491c53b44e55193166185a6f507cceea058ce6` (12,960 characters). Claim `20261102-owner-1`, equations (37)-(41), the fixed-owner (p=3) sign reversal, exact source hashes, classifications, and resume capsule were present. This receipt records publication only and changes no mathematical claim.
