@@ -262,6 +262,7 @@ local notation "Eis" => ActualEisensteinCubic.O
 universe v
 variable {Nlevel a c₀ : Eis} {mode : Bool}
 
+set_option maxHeartbeats 800000 in
 theorem original_low_sector_full_energy_tilted
     (Sphys : ℝ) (_hSlo : (1/2:ℝ) ≤ Sphys) (_hShi : Sphys ≤ (5/6:ℝ))
     (Adecay : ℕ) (ε : ℝ) (hε : 0<ε) (lo hi : ℝ) (hlo : 0<lo)
@@ -1118,7 +1119,7 @@ theorem low_dyadic_geometry_uniform_tilted
       Real.logb Z ((2*divisorDyadicScale j.val)/2)=0 ∨
         (5/3:ℝ)-2*Sphys≤ell0 := by
     rcases hgate with hempty | hcharge
-    · letI : IsEmpty σ := hempty
+    · let : IsEmpty σ := hempty
       exact Or.inl (empty_active_tuple_dyad_width tuples Hslot Z htupleNorm j hj)
     · exact Or.inr hcharge
   obtain ⟨D,hD⟩ := he g J I F Q₀ hJ hI0 hF hpow.symm hmask.symm A
