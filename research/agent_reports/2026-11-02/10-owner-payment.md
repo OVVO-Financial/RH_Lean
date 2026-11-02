@@ -455,3 +455,200 @@ The continuation checkpoint was committed as `6ccb56b3e5c99b1bc0d90b1e22d77cd0d0
 **eta_gate:** `SEARCH_BROAD`; net endpoint gain after complete return is `UNKNOWN`.
 
 This checkpoint records intake only. The run will recover the literal SAT declarations and current upstream verdicts, derive and stress-test one complete signed potential, then append the mathematical result and exact first unsupported lemma.
+
+
+## Scheduled continuation final synthesis - claim `20261102-owner-3`
+
+**Status:** `COMPLETED`.  
+**Classification:** `PAPER_PROOF / EXACT COLORED-BACKLOG AREA IDENTITY`; `FINITE_COMPUTATION / FIXED TWO-OWNER WEIGHTED SIGN REVERSAL`; `REFUTED` for universal nonnegative owner-potential payment; `NO_FIXED_ETA_GAIN`; `NO_RH`.
+
+### A. Most important mathematical development
+
+The rank-matched JOH displacement has an exact local conservation representation. For any set of least-prime owners, its displacement is the signed area under a colored chronological backlog. This retains the actual prime and floor-Li event locations and makes the lost information in zeroth-moment owner accounting explicit.
+
+The natural two-owner strengthening is false on the genuine carrier. In the count-balanced blocks `r=4` and `r=8`, the fixed owner sectors `{2,3}` are respectively
+
+```text
+r=4: (D_2,D_3)=(2,2),
+r=8: (D_2,D_3)=(-1,-2).
+```
+
+Consequently, for every fixed `lambda_2,lambda_3 >= 0`, not both zero,
+
+```text
+lambda_2 D_2 + lambda_3 D_3 > 0  at r=4,
+lambda_2 D_2 + lambda_3 D_3 < 0  at r=8.
+```
+
+Thus no nonzero nonnegative least-owner potential, even restricted to the two smallest owners and even when the unmatched tail vanishes, has a universal favorable sign. A useful JOH mechanism must couple owner colors through more arithmetic than fixed owner weights.
+
+### B. Current authoritative objective
+
+Final live main is `7790fb9f5ddda6eb9823899f2694d691756cd248`, the human merge of #1070. Authority blobs are:
+
+- `AGENTS.md 9fa5e9519e2fb6dde22217aa2a18982dafef373a`;
+- `CURRENT_PROOF_CONTRACT.md 88cddd9cd98c3b55f0b013998541e9b4e9dc9f2a`;
+- selector `d05c327ae694ea54b599dab0a21032a056b521f1`;
+- broad-search policy `b5c063c51556ba57c4b25bcc380a606fa8daa207`;
+- complete-return contract `16838f7f3c8724b970f8b8ece0bceaab9418066d`;
+- research engine `6fce99c61efb5b2a73c0cb1f1464f09b351fcd55`;
+- compiled primitive event source `research/VF_MID_FLOOR_LI_SIGNED_POPULATION_BALANCE.lean`, blob `9a9336dad72171b6d572a1c1ae88d1ae8b56b530`;
+- JOH weighted-composite contract, blob `27e28f09e9f79e8a60d524e5fcb6f19904fa55f5`;
+- accepted falsifier script, blob `98c83e6dc5521d8c355cf5648dd5625f3a86c7fd`.
+
+The canonical target remains a uniform `O(R log R)` bound for `|pi(R^2)-VF_can(R^2)|`. The eventual JOH square-endpoint sign is RH-equivalent under the stated Johnston input and remains open. The gate is `SEARCH_BROAD`; complete-return gain is `UNKNOWN`.
+
+Open #1071 kernel-checks the finite-C parity obstruction. Draft #1072 replays the already established one-to-seven-eighths contraction through native moment dependencies. Neither is new independent arithmetic or a positive eta.
+
+### C. Structural hypothesis investigated
+
+The newest Coordinator synthesis `20261102-coordinator-2` requested a two-owner chronological invariant surviving the fixed owner-3 reversals. The checkpoint initially selected SAT from the rolling rotation, but this newer committed upstream assignment superseded that intake choice; the run continued JOH without repeating today's earlier sectorwise work.
+
+The tested hypothesis was:
+
+> after chronological rank matching, a fixed nonnegative weighting of the two smallest least-prime owner sectors may have a stable sign even though either owner separately can reverse.
+
+This is materially stronger than a single-owner sign test and is the simplest cross-owner potential. It is refuted by `r=4,8`.
+
+The exact colored-backlog identity survives and identifies the first information an improved theorem must control: the full time-dependent interlacing of selected prime sources and owner-colored composite demands.
+
+### D. Mathematical derivation
+
+In a finite interval `[L,U)`, let
+
+```text
+a_1 < ... < a_P
+b_1 < ... < b_N
+```
+
+be the genuine `eta=+1` and `eta=-1` locations, and put `m=min(P,N)`. Match `a_i` with `b_i` in chronological rank order. Let `p_i=P^-(b_i)`, the unique least prime of the composite negative event.
+
+For any owner set `S`, define
+
+```text
+D_S = sum_(1<=i<=m, p_i in S) (b_i-a_i)
+C_S(t) = # {i<=m : p_i in S, a_i<=t}
+       - # {i<=m : p_i in S, b_i<=t}.
+```
+
+Then the exact cut identity
+
+```text
+b_i-a_i = sum_(L<=t<U) (1_(a_i<=t)-1_(b_i<=t))
+```
+
+gives
+
+```text
+D_S = sum_(L<=t<U) C_S(t).                                 (48)
+```
+
+The backlog starts and ends at zero after all matched events have occurred. Equation (48) is a conservation law: owner displacement is not determined by owner counts or endpoints, but by signed chronological area.
+
+Partitioning by all owners recovers the complete matched displacement `D=sum_p D_p`. The full weighted first moment remains
+
+```text
+J =
+  D + sum_(i=N+1)^P (U-a_i),  if P>=N,
+  D - sum_(i=P+1)^N (U-b_i),  if N>P.                      (49)
+```
+
+Thus the unequal-count tail is retained exactly. It happens to vanish in both decisive fixtures.
+
+For `r=4`, on `16<k<25`,
+
+```text
+a=(17,19,23), b=(18,21,24),
+(a_i,b_i,p_i,b_i-a_i)=
+(17,18,2,1), (19,21,3,2), (23,24,2,1).
+```
+
+Hence `(D_2,D_3)=(2,2)`, `D=J=4`.
+
+For `r=8`, on `64<k<81`,
+
+```text
+a=(67,71,79), b=(65,69,78),
+(a_i,b_i,p_i,b_i-a_i)=
+(67,65,5,-2), (71,69,3,-2), (79,78,2,-1).
+```
+
+Hence `(D_2,D_3,D_5)=(-1,-2,-2)`, `D=J=-5`, while the fixed pair `D_{2,3}=-3`.
+
+The associated `{2,3}` colored backlog has area `4` at `r=4` and `-3` at `r=8`. Therefore every nonzero nonnegative weighting of owners 2 and 3 reverses sign exactly as stated above.
+
+### E. Quantitative consequence
+
+Equation (48) is an exact first-moment representation, not an upper bound. The finite fixtures prove a uniform no-go over the proposed class of fixed nonnegative two-owner potentials.
+
+This rules out all inequalities whose only proposed favorable quantity is
+
+```text
+lambda_2 D_2 + lambda_3 D_3
+```
+
+with fixed nonnegative coefficients and a universal sign. It also shows that count balance `P=N` does not repair the mechanism: both counterexamples have zero unmatched tail.
+
+No bound on `J`, `G(R^2)`, the canonical VF defect, or a shell energy is improved. Signed interaction with other owners or a time-dependent arithmetic weight remains possible.
+
+### F. Falsification and circularity review
+
+- **Original carrier:** the events are the compiled prime-minus-floor-Li primitive mismatch, not a random or Möbius surrogate.
+- **Chronology:** pairs are the canonical global rank pairs.
+- **Complete first moment:** (49) retains both possible unmatched tails.
+- **No cloning:** each negative composite receives its unique least prime once.
+- **Balanced decisive cases:** `P=N=3` at both `r=4` and `r=8`, so no omitted tail explains the reversal.
+- **Numerical exactness class:** `r=4` is an accepted repository fixture. The new `r=8` floor values were recomputed with a 90-digit Decimal Ramanujan evaluation of `Li_2`; the nearest integer margin on `64<=n<=81` is approximately `0.01929275345`, far above the retained precision. The classification remains `FINITE_COMPUTATION`, not Lean proof.
+- **Scope:** the result refutes fixed nonnegative owner weighting. It does not refute time-dependent weights, signed weights, multi-owner cross terms, or an analytic ordering theorem using more than least-prime labels.
+- **Circularity:** no JOH sign, prime error estimate, or RH-equivalent premise is assumed.
+
+Same-day Coordinator, Analytic, Wheel, Census, Referee, and Lean reports were consumed at their available blobs; Nov 1 remains `YESTERDAY=CARRY_FORWARD`. External inbox blob `038018145c0fddb2f6306c0712373adf9cd1ea52` has no entry newer than 2026-10-18.
+
+### G. Conceptual interpretation
+
+Least-prime ancestry colors the negative demand stream, but it does not order that stream relative to the prime innovation stream. The exact object is a colored backlog path, and JOH displacement is its area.
+
+This exposes why endpoint owner counts and fixed owner prices fail. They see the final zero backlog but not whether the path spends more time above or below zero. The arithmetic missing from JOH is a restriction on the entire interlacing path, not a better static partition of its endpoints.
+
+### H. Competing mechanisms
+
+- **Single-owner sign payment:** abandoned by `20261102-owner-1`.
+- **Fixed nonnegative two-owner potential:** abandon by the `r=4,8` weighted sign reversal.
+- **Colored-backlog area representation:** retain as the exact chronological coordinate.
+- **Time-dependent owner potential:** viable only if its variation and boundary terms are included and independently controlled.
+- **Global cross-owner interlacing:** continue; it must use arithmetic beyond least-prime labels.
+- **Sparse-divisor hybrid covariance:** remains distinct and subject to the complete-return obstructions in `20261102-owner-2` and Coordinator C16-C19.
+
+### I. Specialist handoffs
+
+**Coordinator / Proof Architect:** register (48)-(49) and the `r=4,8` two-owner weighted no-go. Do not assign JOH to any fixed nonnegative owner-price argument. The viable state variable is the full colored backlog path plus the exact unmatched tail.
+
+**Analytic Type II:** a possible analytic input is a signed area estimate for `C_S(t)` jointly in owner cutoff and time. It must not be inferred from endpoint count balance.
+
+**Finite Wheel & Incidence:** search for a genuine restriction on transitions or excursions of the colored backlog, not a fixed price for owner colors. The `r=4,8` paths are mandatory regressions.
+
+**Prime Census:** freeze `r=4,8`. A decisive next test should compare candidate transition laws on held-out balanced blocks and record the whole `C_S(t)` path, not only `D_S`.
+
+**Adversarial Referee:** audit (48), tail restoration (49), the exact `r=8` event list, the high-precision floor margin, and the quantifier “every nonzero nonnegative pair of fixed weights.”
+
+**Lean Verification:** only after acceptance, (48) is a small generic finite ordered-support identity. The `r=8` numerical fixture is lower priority than accepted quantitative work. Do not formalize a conjectural interlacing estimate.
+
+### J. First independently missing lemma
+
+The next JOH lemma must constrain the signed area of a genuine colored backlog by an arithmetic feature not contained in fixed least-owner labels. A precise exploratory target is a transition-weighted identity or inequality for two owner classes in which every change of owner color and every unmatched endpoint contributes explicitly.
+
+Before promotion, it must survive the `r=4,8` balanced paths and a held-out counterexample search. Requiring `sum_t C_S(t)` itself to have the eventual target sign is target-equivalent and is not an acceptable independent input.
+
+### K. Next-run resume capsule
+
+- main: `7790fb9f5ddda6eb9823899f2694d691756cd248`;
+- new claim: `20261102-owner-3`, equations (48)-(49);
+- structural result: exact colored-backlog area conservation;
+- finite no-go: every nonzero fixed nonnegative weighting of owner sectors 2 and 3 reverses sign between balanced blocks `r=4` and `r=8`;
+- formal status: paper identity plus finite high-precision computation; independent review pending; no Lean execution;
+- retired mechanism: fixed nonnegative owner-potential payment;
+- surviving mechanism: arithmetic control of the full cross-owner backlog path with tail restoration;
+- route coverage: JOH received this continuation; SAT remains the next distinct protected route unless newer authority changes it;
+- `eta_gate: SEARCH_BROAD`;
+- `net_endpoint_gain_after_complete_return: UNKNOWN`;
+- canonical VF theorem, JOH sign, complete shell eta, strict Mertens exponent below `7/8`, and RH remain OPEN.
