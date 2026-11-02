@@ -198,3 +198,78 @@ The first independently missing arithmetic statement is a non-target-equivalent 
 - Formal state: exact prefix/floor-tail split, quotient-one tail collapse, and count-minus-tail identity proved.
 - Quantitative state: explicit tail remains uncontrolled; complete-return gain UNKNOWN.
 - Next Lean action after human disposition: formalize an independently accepted prime-ray cutoff/boundary theorem or the next consequential accepted claim from another portfolio; do not assume the tail bound or duplicate this interface.
+
+
+---
+
+## Scheduled continuation - claim `20261101-lean-3` - 2026-11-01 21:08 EST (-0500)
+
+**Status:** COMPLETED / FORMALIZATION-READINESS AUDIT / NO QUALIFIED NEW DECLARATION  
+**Invocation:** scheduled run; RUN_ID_UNAVAILABLE  
+**Live main:** `a33987e275f8a431641d3f475b71a24aa2b1437c`  
+**Authority blobs:** `AGENTS.md 9fa5e9519e2fb6dde22217aa2a18982dafef373a`; `CURRENT_PROOF_CONTRACT.md 88cddd9cd98c3b55f0b013998541e9b4e9dc9f2a`  
+**Toolchain:** Lean `4.34.1`; Mathlib `d13f23b723b8a846827a245b89c10fc7d3f11612`; manifest blob `a34d142c3d75a602a8b0f8241a4fb504d5c7c5a4`  
+**Classification:** `NO_FILLER_PR`; `INDEPENDENT_REVIEW_GATE_ACTIVE`; `NO COMPLETE ETA`; `NO RH`.
+
+### Intake and continuity
+
+This invocation fetched the actual latest `main`, both live authority files, the original declarations relevant to the new handoffs, all available 2026-11-01 specialist reports, the 2026-10-31 carry-forward set, and the external inbox. Current same-day blobs were:
+
+- Coordinator `23c2f940a766874436841c632be2eab4fe7efd8e`;
+- Owner `40ad74dd7378834a48203153afc30618233f4b04`;
+- Analytic `b2edb45e5843a5c9358756006b011cc6daf7300a`;
+- Wheel `707a31ba0fa7b4a04266730236a9e79d4947e91a`;
+- Census `8724bbebf07365ffc5364b411caea7c6d804d468`;
+- Referee `fbf6dfc995e7d38b1ec07754e4d368a91112ecec`;
+- prior Lean report `9e509fcb84d2d927049c1fee08b4ab2fcce88383`;
+- external handoffs `038018145c0fddb2f6306c0712373adf9cd1ea52`, with no entry newer than 2026-10-18.
+
+No open or draft PR was returned. Human merge #1069 is the latest main commit. Its exact proof head `0bf1622daabc694f91b72b922a3e157f2690e1c2` had 12/12 PR workflows successful before merge, including dedicated run `41336208699`. The merged source blob remains `d38a80efc30cbb503f5d596705be91a0de561fe9`. No fresh main workflow result is substituted for that exact-head evidence.
+
+### Candidate queue and mathematical audit
+
+**Priority A - repair active proof PRs:** none. There is no authorized active Lean proof PR.
+
+**Priority B - Owner claim `20261101-owner-4`: pending independent review.** The proposed package is finite-set injectivity of lifted labels `q^2 m`, disjointness from the squarefree outer shell, the exact complete square expansion, and the diagonal estimate `Z_H <= (251/81)H^2`. The paper argument uses the exact prime-square ancestry: a nonzero daughter coefficient has squarefree `m` with `q` absent from its support, so the valuation of `q` in `q^2m` is exactly two. Equality `q^2m=p^2n` forces the prime-square labels to agree and then `m=n`; an outer squarefree address cannot equal a daughter squareful address.
+
+This is a plausible independent structural theorem and not target-equivalent. It does not control the nonzero-shift covariance `Xi_H`. However, the latest Referee invocation did not audit claim `20261101-owner-4`; it reviewed Coordinator claim `20261101-coordinator-2` instead. The Owner handoff explicitly requires independent acceptance before formalization. Opening a branch would therefore bypass the live review gate. Status: `PAPER_PROOF / REFEREE_PENDING / NOT_IMPLEMENTED`.
+
+**Priority B - corrected inverse localization `20261101-referee-5`: accepted with scope but not yet a clean implementation unit.** The Referee accepts the theorem only with comparison root `S>=56`, a fixed threshold `T_R` at both endpoints, and the explicit large-column bound. The original source theorem
+`lowOwnerPhysicalAmplitudeRemainder_zero_eq_correlation_sub_reciprocalColumn`
+indeed has hypothesis `56 <= R`; source blob `73447e8c73ea60affec36a25b9f4794862331359`. The physical carrier blob is `72d66f61b3eeb000117ecdac393572558bb7c378`.
+
+The exact algebraic core `A_t=H_t-E_t-C_t` is already compiled. Repository search found no existing least-half-amplitude root declaration or fixed-`T_R) energy interface matching the corrected paper theorem. A useful Lean package therefore first needs exact definitions for the least comparison length, fixed-threshold columns at both roots, and the precise imported Mertens constant theorem. Formalizing only the already compiled reassembly identity would be duplicate algebra; assuming the localization or large-tail conclusion would be circular. Status: `PAPER_ACCEPTED_WITH_SCOPE / FORMAL_INTERFACE_MISSING / NOT_IMPLEMENTED`.
+
+**Priority C - Wheel claim `20261101-wheel-3`: independent review pending.** Its scalar countermodel correctly shows that the rank-two identity and trichotomy alone do not imply a subcritical MU-LIFT recurrence, but the report explicitly leaves independent Referee review pending. No no-go branch was opened.
+
+### Formal proof-gap map
+
+Current compiled inputs establish:
+
+1. the exact odd Möbius floor telescope and the merged truncated-tail interface;
+2. the exact zero-frequency physical reassembly for roots at least 56;
+3. the original reciprocal daughter column and the already paid large-owner theorem;
+4. the exact finite null-daughter witness at `R=64,q=5`.
+
+The first implementation-ready open node is conditional on independent review:
+
+1. accept or revise the lifted-label injectivity hypotheses in `20261101-owner-4`;
+2. identify the existing Mathlib squarefree/prime-valuation lemmas and state the label carrier without weakening its source conditions;
+3. prove injectivity and outer/daughter support disjointness;
+4. derive the complete finite square expansion with every outer-outer, outer-daughter, daughter-daughter, root, and activation term retained;
+5. prove only the accepted diagonal count, leaving the signed nonzero-shift functional explicit;
+6. run warning-fatal GitHub Actions, exact signature, public-export, inventory, no-hole, and axiom audits on the exact PR head.
+
+For the corrected inverse-localization route, the first formal design obligation is an exact fixed-threshold comparison structure. No theorem should use a moving `T_t` energy unless threshold-crossing terms are restored.
+
+### Decision and resume capsule
+
+No branch, commit, PR, workflow rerun, schedule mutation, merge, or main write was made. This is the required no-filler outcome: no independently accepted, nonduplicate theorem was ready for safe implementation at this invocation.
+
+- `eta_gate: SEARCH_BROAD`.
+- Main: `a33987e275f8a431641d3f475b71a24aa2b1437c`.
+- Open proof PRs: none.
+- Highest-value next candidate: `20261101-owner-4` after independent Referee acceptance or correction.
+- Accepted reserve candidate: `20261101-referee-5`, after its least-root and fixed-threshold Lean interfaces are specified.
+- Exact unresolved arithmetic obstruction: a genuine signed bound for the complete nonzero-shift hybrid covariance, or a source-faithful fixed-threshold physical/small-owner estimate that excludes the scalar countermodel.
+- Complete shell estimate OPEN; strict Mertens exponent below `7/8` NOT PROVED; canonical VF theorem OPEN; RH OPEN.
