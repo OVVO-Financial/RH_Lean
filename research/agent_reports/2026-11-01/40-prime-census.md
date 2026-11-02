@@ -327,3 +327,197 @@ sqrt(R) < p < 2 sqrt(R),
 then test both its signed and absolute mass on roots not used here. More valuable analytically is an exact cellwise involution or telescoping law pairing medium-owner fibres across adjacent primes while retaining `K_R(m,n)`; an ownerwise norm cannot exploit the cancellations measured above.
 
 **Evidence status:** `REFUTED` for `MIXED-OWNER-3/4` by exact `R=53`; `REFUTED ON TESTED SET` for universal `G_RU_R<=0`; `FINITE_COMPUTATION` for the exact owner decomposition through `R=3304` and two extended diagnostics. The fixed eta gate remains `SEARCH_BROAD`.
+
+
+## Scheduled continuation - claim \`20261101-census-3\` - 2026-11-01 19:05 EST (-0500)
+
+**Status:** COMPLETED / exact held-out trichotomy census and independent reconstruction.  
+**Live main:** \`a33987e275f8a431641d3f475b71a24aa2b1437c\`.  
+**Evidence classes:** \`FINITE_COMPUTATION / EXACT RATIONAL\`; \`REFUTED ON FROZEN SAMPLE / HISTORICAL-ENDPOINT BRANCH\`; \`REFUTED ON FROZEN SAMPLE / ENDPOINT PHYSICAL-SMALL OPPOSITION\`; \`CONJECTURE / INCREMENT-ENERGY OPPOSITION\`; \`NO COMPLETE SOURCE BOUND\`; \`NO FIXED ETA GAIN\`; \`NO RH\`.
+
+### O. Authority, continuity, and selected task
+
+This continuation selected the newest Coordinator assignment, claim \`20261101-coordinator-2\`: test the exact historical/physical/small-owner inverse localization on held-out square-endpoint excursions. The earlier FINITE-AC bootstrap and mixed-owner tasks were already completed by claims \`20261101-census-1,2\`.
+
+Authority remained \`AGENTS.md\` blob \`9fa5e9519e2fb6dde22217aa2a18982dafef373a\`, proof contract blob \`88cddd9cd98c3b55f0b013998541e9b4e9dc9f2a\`, selector blob \`d05c327ae694ea54b599dab0a21032a056b521f1\`, broad-search blob \`b5c063c51556ba57c4b25bcc380a606fa8daa207\`, complete-return blob \`16838f7f3c8724b970f8b8ece0bceaab9418066d\`, and research-engine blob \`6fce99c61efb5b2a73c0cb1f1464f09b351fcd55\`.
+
+The current November 1 reports were consumed at Coordinator \`23c2f940a766874436841c632be2eab4fe7efd8e\`, Owner \`40ad74dd7378834a48203153afc30618233f4b04\`, Analytic \`b2edb45e5843a5c9358756006b011cc6daf7300a\`, Wheel \`707a31ba0fa7b4a04266730236a9e79d4947e91a\`, prior Census \`b752c3393c6846b52abd11dd9ac40d9ccf6d1e99\`, Referee \`9b1bc0a75842d14bcdfdce6e85b4ff92fe8d1b23\`, and Lean \`9e509fcb84d2d927049c1fee08b4ab2fcce88383\`. The complete October 31 set was carried forward at the blobs recorded above in this report. External handoffs remain blob \`038018145c0fddb2f6306c0712373adf9cd1ea52\`, with no entry newer than October 18. The final open/draft PR query returned none.
+
+Material source blobs were:
+
+- exact physical remainder: \`LOW_OWNER_AMPLITUDE_MELLIN_LEDGER_SPLICE.lean\` \`73447e8c73ea60affec36a25b9f4794862331359\`;
+- exact small/large reciprocal split: \`OAI78_CORR4_OWNER_TAIL_PAID_20261028.lean\` \`03c05e38fb2415105de9cccd3680b03c21c4be5c\`;
+- compiled large-owner payment: \`OAI78CORR4PaidOriginalLargeOwner.lean\` \`06626af8cd8abfbf8f6da238f8a3d9af0893b686\`;
+- literal FINITE-AC endpoint: \`EULER_SELF_DUAL_ENDPOINT_GATE_20261027.lean\` \`e7ee8f77ffd59bccaa49dd6d74fbe0d7952c2d73\`.
+
+### P. Frozen carrier and preregistered discriminator
+
+For every root \(u\), the exact tested carrier was
+
+\[
+E_u=M(u^2-1),\qquad H_u=M(u-1),
+\]
+\[
+C_u=\sum_{\substack{q\ {\rm odd\ prime}\\q^2<u}}
+ {M(\lfloor(u^2-1)/q^2\rfloor)\over q},\qquad
+A_u=H_u-E_u-C_u.
+\]
+
+For a selected endpoint \(R\), put \(T_R=\lfloor R^{1/8}\rfloor\) by exact integer comparison and retain the fixed-threshold column
+
+\[
+C_u^{\rm small}(R)=
+ \sum_{\substack{q^2<u\\q<T_R^2}}
+ {M(\lfloor(u^2-1)/q^2\rfloor)\over q}.
+\]
+
+Let \(L_R\) be Wheel's least integer \(1\le L\le R-1\) with
+\(2|E_R-E_{R-L}|\ge |E_R|\), and set \(S=R-L_R\). The tested endpoint vector was
+
+\[
+(\Delta H,\Delta A,\Delta C_{\rm small})
+=(H_R-H_S,A_R-A_S,C_R^{\rm small}(R)-C_S^{\rm small}(R)).
+\]
+
+The full increment Gram matrix retained every cross term:
+
+\[
+G_{ij}(R)=\sum_{S\le u<R}
+ (X_i(u+1)-X_i(u))(X_j(u+1)-X_j(u)),
+\quad (X_1,X_2,X_3)=(H,A,C_{\rm small}(R)).
+\]
+
+Before inspecting the new values, the holdout was frozen as \(12001\le R\le16000\), disjoint from claim \`20261101-census-1\`'s range. The sample rule was the eight roots with largest \(|E_R|\), ties by smaller \(R\). The endpoint branch threshold was exactly \(|E_R|/16\). Competing assertions were:
+
+1. \`HISTORICAL-ENDPOINT\`: every selected excursion is paid by \(|\Delta H|\ge|E_R|/16\).
+2. \`ENDPOINT-OPPOSITION\`: when physical and small-owner increments are compared, \(\Delta A\Delta C_{\rm small}\le0\).
+3. The distinct pathwise alternative \`INCREMENT-OPPOSITION\`: \(G_{A,C_{\rm small}}<0\).
+
+One exact failure rejects either universal assertion. The third assertion was recorded separately because endpoint sign and pathwise covariance are not interchangeable.
+
+### Q. Exact computation and independent checks
+
+The primary C++ implementation used a linear least-prime sieve through
+\(16000^2-1=255999999\), exact integer Mertens prefixes at every queried endpoint/cutoff, and exact integer selection of the holdout roots and \(L_R\). Python \`Fraction\` arithmetic reconstructed every reciprocal column, endpoint delta, and Gram entry exactly.
+
+A genuinely independent C++ implementation used segmented factorization of each block, with no least-prime table from the primary run. It rebuilt all 867 rows \(S\le u\le R\), including every displayed \(M(u^2-1)\), \(M(u-1)\), and every active q-squared child cutoff. The normalized row files agreed byte-for-byte; mismatches: zero. Telescoping each increment vector reproduced its endpoint delta exactly.
+
+Commands:
+
+\`\`\`text
+g++ -Wall -Wextra -Werror -O3 -std=c++17 trichotomy_census.cpp -o trichotomy_census
+./trichotomy_census 12001 16000 8 > trichotomy_raw.txt
+python trichotomy_exact.py trichotomy_raw.txt > trichotomy_exact.txt
+g++ -Wall -Wextra -Werror -O3 -std=c++17 trichotomy_reference.cpp -o trichotomy_reference
+./trichotomy_reference 13306:13411 13331:13412 13331:13413 13331:13414 \
+  13306:13415 13306:13416 14700:14841 14953:15101 > trichotomy_reference.txt
+diff -u trichotomy_primary_rows.txt trichotomy_reference.txt
+\`\`\`
+
+Primary elapsed time was 4.891 seconds; independent segmented reconstruction was 5.986 seconds. Environment: \`g++ 13.3.0\`, Python \`3.12.14\`, Linux x86_64. No randomness or floating arithmetic controlled a classification.
+
+Artifact hashes:
+
+\`\`\`text
+e9af6bad31963c25dfea584370f696fc764798f2820058feb83b34f578288c96  trichotomy_census.cpp
+cf736261a796a99131de0fa65bb3f58bc0355c4b2c4979bbf21832bc9ac6cb72  trichotomy_reference.cpp
+e44c3386a96ebd0192fb9c70c7242bd4239564ddd788b0506532962eaad928fc  trichotomy_exact.py
+5f916a6e5bd85009ed16fa1f9181a75079220a3f67c018b735f8e28a7ad8cffa  trichotomy_raw.txt
+a46d033ab9cbada6681f09d8a452f69888c04ff05f5d9d4c81db708ca96421ce  trichotomy_exact.txt
+b5ad248eec4eb0ae2074d0dba70a86d2d206dbf177f6e0ad7fcd7bb89f4bee93  trichotomy_reference.txt
+\`\`\`
+
+### R. Results: endpoint localization and energy geometry disagree
+
+Here \(h,a,c\) denote the exact ratios
+\(16|\Delta H|/|E_R|,\ 16|\Delta A|/|E_R|,\ 16|\Delta C_{\rm small}|/|E_R|\).
+The last three columns are the exact Gram diagonal entries normalized by
+\(|E_R|^2/(256L_R)\); decimals are displays of exact rationals.
+
+| \(R\) | \(S\) | \(L_R\) | \(E_R\) | \((h,a,c)\) | normalized \((G_{HH},G_{AA},G_{CC})\) |
+|---:|---:|---:|---:|:---|:---|
+| 13411 | 13306 | 105 | -5927 | (0.0351, 8.4620, 0.1359) | (0.0482, 1166.84, 15.87) |
+| 13412 | 13331 | 81 | -6061 | (0.0238, 8.1840, 0.1424) | (0.0277, 682.28, 9.45) |
+| 13413 | 13331 | 82 | -6077 | (0.0237, 8.2278, 0.1661) | (0.0279, 687.42, 9.56) |
+| 13414 | 13331 | 83 | -6136 | (0.0209, 8.3348, 0.1948) | (0.0282, 685.36, 9.57) |
+| 13415 | 13306 | 109 | -5875 | (0.0272, 8.3994, 0.1555) | (0.0534, 1317.56, 17.29) |
+| 13416 | 13306 | 110 | -5865 | (0.0300, 8.4114, 0.1745) | (0.0548, 1334.19, 17.54) |
+| 14841 | 14700 | 141 | 5890 | (0.0489, 7.9007, 0.6933) | (0.0874, 2548.36, 39.47) |
+| 15101 | 14953 | 148 | 5863 | (0.0628, 8.3249, 0.1803) | (0.1025, 3488.04, 40.34) |
+
+The endpoint verdict is exact and uniform on the frozen sample:
+
+- \(|\Delta A|\ge|E_R|/16\) at all eight roots;
+- \(|\Delta H|<|E_R|/16\) at all eight;
+- \(|\Delta C_{\rm small}|<|E_R|/16\) at all eight.
+
+Thus the complete physical remainder is the unique endpoint branch in every selected case. At the first selected root \(R=13411\),
+
+\[
+16|\Delta H|=208<5927,
+\]
+\[
+16|\Delta C_{\rm small}|=84544/105<5927,
+\]
+while
+\[
+\Delta A=
+{49542948686098023275496403315613535939760158153376
+ \over15805027320208803894072603145771831246637343495}
+\]
+has \(16|\Delta A|>|E_R|\). The minimum physical threshold margin over all eight roots is still \(7.9006\ldots\) times the required threshold, at \(R=14841\).
+
+\`HISTORICAL-ENDPOINT\` is therefore refuted on the frozen sample. The endpoint opposition assertion is also refuted: at \(R=14841\),
+
+\[
+\Delta A=
+-{9193583208645708335187509279561015460964593554122
+ \over3161005464041760778814520629154366249327468699},
+\qquad
+\Delta C_{\rm small}=-5360/21,
+\]
+so their product is positive.
+
+The Gram matrices expose a different phenomenon. At every one of the eight roots,
+
+\[
+G_{A,C_{\rm small}}<0.
+\]
+
+For the endpoint-opposition counterexample \(R=14841\), the exact cross entry is
+
+\[
+G_{A,C_{\rm small}}=
+-{66421001915292822981334865712955910174492898729373366
+ \over1659527868621924408877623330306042280896921066975}<0.
+\]
+
+Hence same-sign endpoint displacement can coexist with negative pathwise physical/small-owner covariance. Moreover, although the small-owner endpoint never reaches the \(1/16\) threshold, its increment energy exceeds the Cauchy scale by factors from \(9.45\) to \(40.34\). The physical increment energy exceeds it by factors from \(682.28\) to \(3488.04\). Historical energy remains below that scale at every root. Large internal small-owner oscillation is therefore hidden by its endpoint cancellation.
+
+### S. Scope, conjecture, and proof impact
+
+This is not a verification of Coordinator premise (C6). The constant \(K\) in the absorbed large-owner estimate is existential and not numerically specified, so the census does not assert that these finite roots satisfy
+\(|E_R|\ge16KR^{53/32}\). The computation instead tests the exact branch geometry that would occur after choosing \(R,S,T_R\). It neither proves nor refutes claims (C3)-(C8).
+
+The new structural observation is that endpoint localization and increment-energy localization can select different carriers. Taking only endpoint deltas hides a large oscillatory small-owner component; taking diagonal energies alone hides its consistently negative cross term with the complete physical remainder. Any proposed joint bound must retain \(G_{A,C_{\rm small}}\), not add the two diagonal energies as independent costs.
+
+Exploratory held-out conjecture:
+
+> \`INCREMENT-OPPOSITION\`: on sufficiently large absolute square-endpoint record/excursion roots, with \(S\) the least half-amplitude comparison root and \(T_R=\lfloor R^{1/8}\rfloor\), one has
+> \[
+> \sum_{S\le u<R}\Delta A_u\,\Delta C_u^{\rm small}(R)<0.
+> \]
+
+Status: \`CONJECTURE\`. It survives eight selected roots but was tested on one finite range and six roots belong to one cluster. Negative covariance alone is not a bound, and its observed cancellation removes only about 3.2 to 5.7 percent of \(G_{AA}+G_{CC}\). No endpoint exponent follows.
+
+**Evidence status:** \`FINITE_COMPUTATION\` on the eight preregistered held-out extrema, with exact rational reconstruction and a fully independent segmented check of every input row. \`HISTORICAL-ENDPOINT\` and universal endpoint physical/small opposition are \`REFUTED ON THE FROZEN SAMPLE\`; pathwise increment opposition is \`CONJECTURE\`. The complete shell bound, strict Mertens exponent below \(7/8\), finite A/C, canonical VF theorem, and RH remain OPEN.
+
+### T. Continuation checkpoint
+
+Do not rescan \(12001\le R\le16000\). Freeze the disjoint range \(16001\le R\le20000\) and test \`INCREMENT-OPPOSITION\` on the same top-eight rule, plus the \(R=64,q=5\) activation regression where applicable. More valuable analytically is an exact decomposition of \(G_{A,C_{\rm small}}\) by q-owner and activation/threshold-change terms. The next theorem candidate must explain the negative cross energy on genuine occurrences and quantify it relative to both diagonals; a sign table alone cannot close the route.
+
+\`eta_gate: SEARCH_BROAD\`  
+\`primary_route_and_original_carrier: FINITE-AC/VF-LOW/OAI bridge on literal Mertens endpoints, complete physical remainder, and q-squared reciprocal column\`  
+\`actual_new_lemma_or_first_unresolved_inequality: finite physical-only endpoint localization plus pathwise negative physical/small covariance; unresolved uniform source-faithful cross-energy inequality\`  
+\`independent_reviewer_and_formal_evidence: PENDING; no Lean theorem claimed\`  
+\`net_endpoint_gain_after_complete_return: UNKNOWN\`
