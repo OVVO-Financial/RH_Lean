@@ -142,7 +142,7 @@ original signal theorem; the conclusion beta <= 7/8 is proved here from
 the native common probe and a zero arbitrarily near the supremum. -/
 theorem native_beta_le_seven_eighths : HeckeZeroSupremum.beta ≤ 7 / 8 := by
   by_contra hn
-  obtain ⟨ω, σ, hω0, hω, hσ, hcontract⟩ :=
+  obtain ⟨omegaMargin, σ, hω0, hω, hσ, hcontract⟩ :=
     native_uniform_common_probe (lt_of_not_ge hn)
   have hmargin := Supremum.continuationMargin_pos hω hσ
   have hboundary :=
@@ -158,7 +158,7 @@ theorem native_beta_le_seven_eighths : HeckeZeroSupremum.beta ≤ 7 / 8 := by
   have hzχ : LFunction χ ρ = 0 := by
     rw [HeckeFiniteDeletion.LFunction_eq_of_mask_nonpole χ η hmask
       (by linarith) hχpole, hz, zero_mul]
-  apply (HeckeSignal.nonzero_of_probe_bounds χ H J HeckeZeroSupremum.beta ω σ
+  apply (HeckeSignal.nonzero_of_probe_bounds χ H J HeckeZeroSupremum.beta omegaMargin σ
     (-11 / 16) HeckeZeroSupremum.beta_le_one hω0 hω hσ hH hb
     ?_ ?_ hnear hχpole) hzχ
   · convert hJ using 1 <;> ring_nf
@@ -175,7 +175,7 @@ theorem native_dirichlet_nonzero (q : ℕ) (hq : q ≠ 0)
     (hs : (7 / 8 : ℝ) < s.re) (hexc : ¬ (χ = 1 ∧ s = 1)) :
     letI : NeZero q := ⟨hq⟩
     DirichletCharacter.LFunction χ s ≠ 0 := by
-  letI : NeZero q := ⟨hq⟩
+  let : NeZero q := ⟨hq⟩
   exact HeckeDirichlet.dirichlet_seven_eighths_of_hecke native_hecke_nonzero χ s hs hexc
 
 theorem native_zeta_nonzero (s : ℂ) (hs : (7 / 8 : ℝ) < s.re) :
