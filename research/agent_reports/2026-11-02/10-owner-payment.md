@@ -32,7 +32,7 @@ Authority and material blobs:
 
 The canonical open objective remains
 [
-exists Cge0 orall Rge2,qquad
+exists Cge0 \orall Rge2,qquad
  |pi(R^2)-VF_{m can}(R^2)|le C Rlog R.
 ]
 For JOH, the external Johnston theorem plus the paper square-endpoint transfer makes eventual (G(R^2)<0) an RH-equivalent open sign condition. The all-route eta gate remains `SEARCH_BROAD`; net endpoint gain after complete return is `UNKNOWN`.
@@ -55,7 +55,7 @@ A weaker structural statement survives: owner sectors obey an exact modular rest
 
 Use the contract's event coordinate
 [
- eta(k)=1_{mathbb P}(k)-igl(Q(k)-Q(k-1)igr),
+ eta(k)=1_{mathbb P}(k)-\bigl(Q(k)-Q(k-1)\bigr),
  qquad Q(k)=lfloor {m Li}_2(k)floor .
 ]
 Above the proved ternary threshold, let
@@ -75,10 +75,10 @@ The complete weighted first moment is
 Finite rank Fubini gives the already established tail-preserving identity
 [
  J=
- egin{cases}
+ \begin{cases}
  D+sum_{i=N+1}^{P}(U-a_i),&Pge N,\
  D-sum_{i=P+1}^{N}(U-b_i),&N>P.
- end{cases}                                                    	ag{37}
+ end{cases}                                                    \tag{37}
 ]
 Thus neither unequal-count tail may be dropped.
 
@@ -88,16 +88,16 @@ For every matched negative event, let (p_i=P^-(b_i)), and define
 ]
 Unique factor ancestry gives the exact partition
 [
- D=sum_p D_p.                                                   	ag{38}
+ D=sum_p D_p.                                                   \tag{38}
 ]
 Because (pmid b_i),
 [
- D_pequiv-sum_{substack{ile m\p_i=p}}a_ipmod p.            	ag{39}
+ D_pequiv-sum_{substack{ile m\p_i=p}}a_ipmod p.            \tag{39}
 ]
 If an owner sector contains exactly one matched pair, then
 [
  D_p=b_i-a_i
-e0,qquad |D_p|ge1.                               	ag{40}
+e0,qquad |D_p|ge1.                               \tag{40}
 ]
 Indeed (a_i) is prime and (b_i) is composite, so the two locations cannot agree. Equations (38)-(40) are independent exact restrictions, but none fixes the sign.
 
@@ -119,7 +119,7 @@ For (r=7), the prime list is ((53,59,61)) and the floor-Li arrival list is ((53,
 ]
 Therefore
 [
- D_3=57-59=-2,qquad J_7=-2.                                    	ag{41}
+ D_3=57-59=-2,qquad J_7=-2.                                    \tag{41}
 ]
 So the same owner (3) has both displacement signs on the actual carrier.
 
