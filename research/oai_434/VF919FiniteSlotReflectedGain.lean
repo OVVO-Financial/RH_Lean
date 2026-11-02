@@ -5,6 +5,9 @@ import OAI.NumberTheory.DirichletL.ParametersHighDataFine
 import OAI.NumberTheory.DirichletL.Detector.GlobalRegion
 import OAI.NumberTheory.DirichletL.Hecke.SignalIdentity
 import OAI.NumberTheory.DirichletL.PrincipalSignalComparison
+import OAI.NumberTheory.DirichletL.Detector.PrincipalRemainderBounds
+import OAI.NumberTheory.DirichletL.Detector.PrincipalPhysical
+import OAI.NumberTheory.DirichletL.Reflection.LowSector
 
 /-!
 # A finite-slot gap in the actual reflected low exponent
@@ -455,6 +458,207 @@ theorem surviving_low_exponent_finite_slot_gap
     linarith
 end SevenEighths.InverseReflectedPhase
 
+namespace SevenEighths.InverseReflectedPhase
+open scoped ContDiff
+open ActualEisensteinCubic CubicEisenstein CompletedGauss CompletedDyadic
+  CanonicalQuadraticSieve InverseTerminalWidths InverseMoment
+local notation "Eis" => ActualEisensteinCubic.O
+universe v
+variable {Nlevel a c₀ : Eis} {mode : Bool}
+
+/-- Sum the actual surviving branch powers with the finite-slot source gate.
+The retained-dyad padding remains separate from the physical exponent. -/
+theorem surviving_low_energy_sum_finite_slot_gap
+    (s : FixedCuspShape (ControlledStratumArithmetic.fixedCusp a c₀ mode)) (hc₀ : c₀≠0)
+    (ρ : ℝ) (hρ : 0<ρ) (kK kP η : ℝ) (hkK : 0<kK) (hkP : 0<kP) (hηpos : 0<η) :
+    ∃ Z₀ C : ℝ, 1<Z₀ ∧ 0<C ∧
+    ∀ (J I F Q Q₀ : Ideal Eis) (_hJ : J≠0) (_hI : I≠0) (_hQ : Q≠0),
+      rowPowerfulPart J=rowPowerfulPart I → rowMaskPart J Q=rowMaskPart I Q →
+    ∀ (A : Finset (FreeReflection.pool J Q Q₀))
+      (column : Ideal Eis→Ideal Eis→ℂ)
+      (Z Sphys Ltot O₀ H za Nstar d ell0 shift retainedDelta π Ck CO CH X QK QP ε Lscale Lrow Lslot : ℝ) (i : ℕ×ℕ×ℕ),
+      Z₀≤Z → 0<Ck → 0<CO → 0<CH → 0<X → 0<QK → 0<QP →
+      (Ideal.absNorm I:ℝ)≤Ck*Z^(Sphys-2*d) →
+      Z^O₀/CO≤(Ideal.absNorm (rowPowerfulPart I):ℝ) →
+      Z^H/CH≤(Ideal.absNorm (rowResidualPart I Q):ℝ) →
+      Real.log (CH*Ck*CO)/Real.log Z≤η →
+      normWidth Z (rowPowerfulPart I)≤O₀+η → normWidth Z Q≤η →
+      Sphys+Ltot≤1 → Ltot≤1/3 → 0≤d → ell0≤Ltot-d+η → 0≤O₀ → za≤ell0+η → |shift|≤η →
+      Nstar=1+ell0+shift → H=Real.logb Z (kK*QK) → za=Real.logb Z (kP*QP) → Nstar=Real.logb Z X →
+      0≤retainedDelta → retainedDelta≤η → 0≤ε → (kK*QK)≤Z^Lrow → (kP*QP)≤Z^Lslot →
+      Real.logb Z 16≤η → ε*(Lrow+Lslot+2*(retainedDelta+Lscale+η))+η/2≤π →
+      let G := (poolPrimeFamily J Q Q₀).restrict A
+      let j := fun b : A => completedLocalExponent J F b.val.val
+      (familyRawScale G s X QK QP)⁻¹≤Z^Lscale →
+      i∈retainedDyads (familyRawScale G s X QK QP) (16*Z^retainedDelta) →
+      (za=0 ∨ 1+4*Ltot-2*Sphys≤ell0) →
+      let branches := survivingFrozenBranches G j column (reflectedNDyad i.2.2) (reflectedBDyad i.2.1)
+      ((branches.card:ℝ)*∑ e∈branches,
+        Z^(InverseTerminalWidths.reflectedExponent 0 H (normWidth Z (frozenExtracted G j e 0))
+          (normWidth Z (frozenExtracted G j e 2)) za
+          (Real.logb Z (((2:ℝ)^i.2.2)/Ideal.absNorm (frozenExtracted G j e 1)))
+          (Real.logb Z (((2:ℝ)^i.2.1)/Ideal.absNorm (frozenExtracted G j e 2)))
+          (ramifiedWidth Z i.1) (terminalDualWidth Z H za Nstar G.ideal j e)+
+          ε*(H+Real.logb Z (((2:ℝ)^i.2.2)/Ideal.absNorm (frozenExtracted G j e 1))+
+            Real.logb Z (((2:ℝ)^i.2.1)/Ideal.absNorm (frozenExtracted G j e 2))+za)+η/2))≤
+        C*(Ideal.absNorm (∏ b,G.ideal b):ℝ)^ρ*Z^((Sphys-2*d)+(38/3)*η+π-O₀/2) := by
+  obtain ⟨Z₀,hZ₀,hsave⟩ := surviving_low_exponent_finite_slot_gap s hc₀ kK kP η hkK hkP hηpos
+  obtain ⟨C,hC,hcount⟩ := surviving_branch_count_small_power ρ hρ
+  refine ⟨Z₀,C,hZ₀,hC,?_⟩
+  intro J I F Q Q₀ hJ hI hQ hpower hmask A column
+    Z Sphys Ltot O₀ H za Nstar d ell0 shift retainedDelta π Ck CO CH X QK QP ε Lscale Lrow Lslot i
+    hZ hCk hCO hCH hX hQK hQP hk hpow hrow hlogH hPowUpper hQwidth hSL hLtot hd hell0 hO hzcap hshift
+    hNs heH heza heN hretainedDelta hretainedDeltaη hε hrowcap hslotcap hconst hbudget
+  dsimp only
+  intro hscap hret hgate
+  let G := (poolPrimeFamily J Q Q₀).restrict A
+  let j := fun b : A => completedLocalExponent J F b.val.val
+  let branches := survivingFrozenBranches G j column (reflectedNDyad i.2.2) (reflectedBDyad i.2.1)
+  have hcbr := hcount G ((poolPrimeFamily J Q Q₀).restrict_pairwise
+    (poolPrimeFamily_pairwise J Q Q₀) A) j column (reflectedNDyad i.2.2) (reflectedBDyad i.2.1)
+  have hz' : 1<Z := lt_of_lt_of_le hZ₀ hZ
+  have hpair := (poolPrimeFamily J Q Q₀).restrict_pairwise
+    (poolPrimeFamily_pairwise J Q Q₀) A
+  have hhybrid (e : A→Fin 3) (he : e∈branches) :
+      hybridSaving (Real.logb Z (((2:ℝ)^i.2.2)/
+        Ideal.absNorm (frozenExtracted G j e 1))) za = za ∨
+        1+4*Ltot-2*Sphys≤ell0 := by
+    rcases hgate with hz0 | hmass
+    · have hnorm := surviving_forced_norms G hpair j column
+        (reflectedNDyad i.2.2) (reflectedBDyad i.2.1)
+        ((2:ℝ)^i.2.2) ((2:ℝ)^i.2.1)
+        (fun n hn => ⟨(reflectedNDyad_bounds _ n hn).1.2,
+          (reflectedNDyad_bounds _ n hn).2.2⟩)
+        (fun b hb => ⟨(reflectedBDyad_bounds _ b hb).1,
+          (reflectedBDyad_bounds _ b hb).2.2⟩) e he
+      have hp : (0:ℝ)<Ideal.absNorm (frozenExtracted G j e 1) := by
+        exact_mod_cast Nat.pos_of_ne_zero
+          (Ideal.absNorm_eq_zero_iff.not.mpr (frozenExtracted_ne_zero G j e 1))
+      have hv : 0 ≤ Real.logb Z (((2:ℝ)^i.2.2)/
+          Ideal.absNorm (frozenExtracted G j e 1)) :=
+        Real.logb_nonneg hz' ((one_le_div hp).mpr hnorm.1)
+      left
+      rw [hz0]
+      exact RHLeanFiniteSlotGap.hybridSaving_zero hv
+    · exact Or.inr hmass
+  have hb (e : A→Fin 3) (he : e∈branches) := hsave J I F Q Q₀ hJ hI hQ hpower hmask A e column
+    Z Sphys Ltot O₀ H za Nstar d ell0 shift retainedDelta π Ck CO CH X QK QP ε Lscale Lrow Lslot i
+    hZ hCk hCO hCH hX hQK hQP hk hpow hrow hlogH hPowUpper hQwidth hSL hLtot hd hell0 hO hzcap hshift
+    hNs heH heza heN hretainedDelta hretainedDeltaη hε hrowcap hslotcap hconst hbudget hscap hret he (hhybrid e he)
+  calc
+    _ ≤ (branches.card:ℝ)*∑ _e∈branches,Z^((Sphys-2*d)+(38/3)*η+π-O₀/2) := by
+      apply mul_le_mul_of_nonneg_left _ (Nat.cast_nonneg _)
+      apply Finset.sum_le_sum
+      intro e he
+      apply Real.rpow_le_rpow_of_exponent_le hz'.le
+      have hh := hb e he
+      dsimp only at hh
+      linarith
+    _ = ((branches.card:ℝ)^2)*Z^((Sphys-2*d)+(38/3)*η+π-O₀/2) := by
+      simp only [Finset.sum_const,nsmul_eq_mul]
+      ring
+    _ ≤ _ := mul_le_mul_of_nonneg_right hcbr (Real.rpow_nonneg (lt_trans zero_lt_one hz').le _)
+
+/-- Transport the sharper branch estimate to the original literal signed
+reflected dyadic row. Constants precede the physical exponents, masks,
+prime pools, retained branches, source weights and Mellin height. -/
+theorem low_sector_literal_energy_finite_slot_gap
+    (ε : ℝ) (hε : 0<ε) (lo hi : ℝ) (hlo : 0<lo)
+    (W : ℝ→ℂ) (hWs : Function.support W⊆Set.Icc lo hi) (hW : ContDiff ℝ ∞ W)
+    (s : FixedCuspShape (ControlledStratumArithmetic.fixedCusp a c₀ mode)) (hc₀ : c₀≠0)
+    (hNlevel : (9:Eis)*c₀∣Nlevel)
+    (hbase : if mode then ConcretePrimeRowBridge.goodLambda^2∣a-1 else ConcretePrimeRowBridge.goodLambda^2∣c₀-1)
+    (hac : IsCoprime a c₀) (ρ : ℝ) (hρ : 0<ρ) (η : ℝ) (hηpos : 0<η) :
+    ∃ (degree : ℕ) (C Z₀ : ℝ), 0<C ∧ 1<Z₀ ∧
+    ∀ {σ : Type v} [Fintype σ], ∀ (J I F Q Q₀ : Ideal Eis) (_hJ : J≠0) (_hI : I≠0) (_hQ : Q≠0),
+      rowPowerfulPart J=rowPowerfulPart I → rowMaskPart J Q=rowMaskPart I Q →
+    ∀ (A : Finset (FreeReflection.pool J Q Q₀))
+      (Z Sphys Ltot O₀ H za Nstar d ell0 shift retainedDelta π Ck CO CH X QK QP Lscale Lrow Lslot : ℝ)
+      (i : ℕ×ℕ×ℕ),
+      Z₀≤Z → 0<Ck → 0<CO → 0<CH → 0<X → 0<QK → 0<QP →
+      (Ideal.absNorm I:ℝ)≤Ck*Z^(Sphys-2*d) →
+      Z^O₀/CO≤(Ideal.absNorm (rowPowerfulPart I):ℝ) →
+      Z^H/CH≤(Ideal.absNorm (rowResidualPart I Q):ℝ) →
+      Real.log (CH*Ck*CO)/Real.log Z≤η →
+      normWidth Z (rowPowerfulPart I)≤O₀+η → normWidth Z Q≤η →
+      Sphys+Ltot≤1 → Ltot≤1/3 → 0≤d → ell0≤Ltot-d+η → 0≤O₀ → za≤ell0+η → |shift|≤η →
+      Nstar=1+ell0+shift → H=Real.logb Z QK → za=Real.logb Z (QP/2) → Nstar=Real.logb Z X →
+      0≤retainedDelta → retainedDelta≤η → QK≤Z^Lrow → (QP/2)≤Z^Lslot →
+      Real.logb Z 16≤η → ε*(Lrow+Lslot+2*(retainedDelta+Lscale+η))+η/2≤π →
+      let G := (poolPrimeFamily J Q Q₀).restrict A
+      let j := fun b : A => completedLocalExponent J F b.val.val
+      (familyRawScale G s X QK QP)⁻¹≤Z^Lscale →
+      i∈retainedDyads (familyRawScale G s X QK QP) (16*Z^retainedDelta) →
+      (za=0 ∨ 1+4*Ltot-2*Sphys≤ell0) →
+    ∀ (rows Pset : Finset (Ideal Eis)) (S : Ideal Eis→PrimeFamily σ)
+      (hrows : ∀ K∈rows,Admissible K)
+      (E : SectorArithmetic (N:=Nlevel) G rows Pset S hrows s hc₀),
+      (∀ f,IsCoprime (Ideal.span {Nlevel}) (G.ideal f)) →
+      (∀ f,ringChar (Eis⧸G.ideal f)≠2) →
+      (∀ K∈rows,(∀ f,IsCoprime (G.ideal f) K) ∧ IsCoprime (Ideal.span {Nlevel}) K) →
+      (∀ P∈Pset,(∏ b,(S P).ideal b)=P) →
+      (∀ P∈Pset,Pairwise (Function.onFun IsCoprime (G.sum (S P)).ideal)) →
+      (∀ P∈Pset,∀ b,IsCoprime (Ideal.span {Nlevel}) ((G.sum (S P)).ideal b)) →
+      (∀ P∈Pset,∀ b,ringChar (Eis⧸(G.sum (S P)).ideal b)≠2) →
+    ∀ (u : Eisˣ) (θ : ℝ) (r aw : Ideal Eis→ℂ),
+      1≤QK → 2≤QP →
+      (∀ K∈rows,QK/2≤(Ideal.absNorm K:ℝ) ∧ (Ideal.absNorm K:ℝ)≤QK) →
+      (∀ P∈Pset,CubicSieve.Admissible P ∧ QP/2≤(Ideal.absNorm P:ℝ) ∧ (Ideal.absNorm P:ℝ)≤QP) →
+      (∀ K∈rows,‖r K‖≤1) → (∀ P∈Pset,‖aw P‖≤1) →
+      (∑ K : rows,‖literalDyadicRow G K.val (hrows K.val K.property) S j Pset
+        (E.completion K) s hc₀ u i W θ X r aw‖^2)≤
+        C*(1+‖θ‖)^degree*(Ideal.absNorm (∏ b,G.ideal b):ℝ)^ρ*Z^((Sphys-2*d)+(38/3)*η+π-O₀/2) := by
+  obtain ⟨degree,C₀,Cs,Zs,hC₀,hCs,hZs,henergy⟩ := sector_normalized_literal_energy
+    (N:=Nlevel) ε hε lo hi hlo W hWs hW s hc₀ η hηpos
+  obtain ⟨Zb,Cb,hZb,hCb,hbranch⟩ := surviving_low_energy_sum_finite_slot_gap s hc₀ ρ hρ 1 (1/2) η
+    (by norm_num) (by norm_num) hηpos
+  let Kc := (Real.exp (Real.log 2/2+Real.log 2))^2*(6*Cs)
+  have hKc : 0<Kc := by dsimp [Kc];positivity
+  refine ⟨degree*2,Kc*Cb*C₀^2+1,max Zs Zb,by positivity,lt_of_lt_of_le hZs (le_max_left _ _),?_⟩
+  intro σ _ J I F Q Q₀ hJ hI hQ hpower hmask A
+    Z Sphys Ltot O₀ H za Nstar d ell0 shift retainedDelta π Ck CO CH X QK QP Lscale Lrow Lslot i
+    hZ hCk hCO hCH hX hQK hQP hk hpow hrow hlogH hPowUpper hQwidth hSL hLtot hd hell0 hO hzcap hshift
+    hNs heH heza heN hretainedDelta hretainedDeltaη hrowcap hslotcap hconst hbudget
+  dsimp only
+  intro hscap hret hgate rows Pset S hrows E hGN hGchar hrowcop hprod hScop hSN hSchar u θ r aw hqk hqp hKr hPr hr haw
+  have hzpos : 0<Z := lt_trans zero_lt_one (lt_of_lt_of_le hZs ((le_max_left _ _).trans hZ))
+  let G := (poolPrimeFamily J Q Q₀).restrict A
+  let j := fun b : A => completedLocalExponent J F b.val.val
+  have hpair := (poolPrimeFamily J Q Q₀).restrict_pairwise (poolPrimeFamily_pairwise J Q Q₀) A
+  have hj : ∀ b : A,j b<6 := by intro b;exact Nat.mod_lt _ (by norm_num)
+  have hs := henergy Z ((le_max_left _ _).trans hZ) G j hNlevel hbase hac hpair hGN hGchar hj
+    rows Pset S hrows E hrowcop hprod hScop hSN hSchar u i X θ QK QP r aw hX hqk hqp hKr hPr hr haw
+  have hb := hbranch J I F Q Q₀ hJ hI hQ hpower hmask A (actualCuspColumn E.referenceArithmetic s hc₀ u i.1)
+    Z Sphys Ltot O₀ H za Nstar d ell0 shift retainedDelta π Ck CO CH X QK QP ε Lscale Lrow Lslot i
+    ((le_max_right _ _).trans hZ) hCk hCO hCH hX hQK hQP hk hpow hrow hlogH hPowUpper hQwidth hSL hLtot hd hell0 hO hzcap hshift hNs
+    (by simpa only [one_mul] using heH) (by simpa only [one_div,mul_comm,mul_inv_rev,div_eq_mul_inv,one_mul] using heza)
+    heN hretainedDelta hretainedDeltaη hε.le
+    (by simpa only [one_mul] using hrowcap) (by simpa only [one_div,mul_comm,mul_inv_rev,div_eq_mul_inv,one_mul] using hslotcap)
+    hconst hbudget hscap hret hgate
+  dsimp only at hs hb
+  rw [←heH,←heza,←heN] at hs
+  simp_rw [←Finset.mul_sum] at hs
+  apply hs.trans
+  calc
+    _ = Kc*((survivingFrozenBranches G j (actualCuspColumn E.referenceArithmetic s hc₀ u i.1)
+        (reflectedNDyad i.2.2) (reflectedBDyad i.2.1)).card*
+      ∑ e∈survivingFrozenBranches G j (actualCuspColumn E.referenceArithmetic s hc₀ u i.1)
+        (reflectedNDyad i.2.2) (reflectedBDyad i.2.1),
+        Z^(InverseTerminalWidths.reflectedExponent 0 H (normWidth Z (frozenExtracted G j e 0))
+          (normWidth Z (frozenExtracted G j e 2)) za
+          (Real.logb Z (((2:ℝ)^i.2.2)/Ideal.absNorm (frozenExtracted G j e 1)))
+          (Real.logb Z (((2:ℝ)^i.2.1)/Ideal.absNorm (frozenExtracted G j e 2)))
+          (ramifiedWidth Z i.1) (terminalDualWidth Z H za Nstar G.ideal j e)+
+          ε*(H+Real.logb Z (((2:ℝ)^i.2.2)/Ideal.absNorm (frozenExtracted G j e 1))+
+            Real.logb Z (((2:ℝ)^i.2.1)/Ideal.absNorm (frozenExtracted G j e 2))+za)+η/2))*(C₀*(1+‖θ‖)^degree)^2 := by dsimp [Kc,G,j];ring
+    _ ≤ Kc*(Cb*(Ideal.absNorm (∏ b,G.ideal b):ℝ)^ρ*Z^((Sphys-2*d)+(38/3)*η+π-O₀/2))*(C₀*(1+‖θ‖)^degree)^2 := by
+      exact mul_le_mul_of_nonneg_right (mul_le_mul_of_nonneg_left hb hKc.le) (sq_nonneg _)
+    _ = (Kc*Cb*C₀^2)*(1+‖θ‖)^(degree*2)*(Ideal.absNorm (∏ b,G.ideal b):ℝ)^ρ*Z^((Sphys-2*d)+(38/3)*η+π-O₀/2) := by rw [mul_pow,←pow_mul];ring
+    _ ≤ _ := by gcongr;linarith
+
+end SevenEighths.InverseReflectedPhase
+
+
 namespace SevenEighths.ProbeEuler
 
 /-- The same local Euler correction bound holds down to real part 21/25.
@@ -670,6 +874,181 @@ theorem normalized_source_double_residue_variable_x (W0 W1 : SchwartzMap ℝ ℂ
 end SevenEighths.PrincipalSignalComparison
 
 
+namespace SevenEighths.ProbePrincipalRemainderBounds
+
+open Complex Set MeasureTheory Filter
+open HeckeFamily ProbePhysical ProbeEuler ProbeLocal CompletedGauss
+open ProbeFiniteProductBounds ProbeFiniteProductX PrincipalMellinResidues
+open PrincipalMellinGrowth ProbeMellinBoundary ProbePrincipalContours
+local notation "Id" => Ideal ActualEisensteinCubic.O
+
+/-- Exact physical scaling for the original remainder integrals, with the
+first and second physical exponents left free. -/
+lemma source_scale_identity_variable_xy {ι : Type*} (J : Finset ι) (ell : ι → ℝ)
+    (hell : ∑ j ∈ J, ell j = 1 / 6) (Z a ξ υ x y : ℝ) (hZ : 0 < Z) :
+    scalePower (Z ^ x) (Z ^ y) Z a ξ υ *
+      (∏ j ∈ J, (Z ^ (ell j)) ^ ξ) =
+    Z ^ (a + (x / 3 - 5 / 6 + 1 / 36) +
+      (7 / 6 - x) * (ξ - 1 / 6) + y * (υ - 1)) := by
+  have hp : (∏ j ∈ J, (Z ^ (ell j)) ^ ξ) = Z ^ ((1 / 6) * ξ) := by
+    simp only [← Real.rpow_mul hZ.le]
+    rw [← Real.rpow_sum_of_pos hZ, ← Finset.sum_mul, hell]
+  rw [hp, scalePower, ← Real.rpow_mul hZ.le, ← Real.rpow_mul hZ.le]
+  rw [← Real.rpow_add hZ, ← Real.rpow_add hZ, ← Real.rpow_add hZ]
+  congr 1
+  ring
+
+lemma source_w_scale_identity_tilted {ι : Type*} (J : Finset ι) (ell : ι → ℝ)
+    (hell : ∑ j ∈ J, ell j = 1 / 6) (Z a e physicalDelta : ℝ) (hZ : 0 < Z) :
+    scalePower (Z ^ (17 / 48 - 24 * physicalDelta))
+      (Z ^ (23 / 48 + 12 * physicalDelta)) Z a (1 / 6 + e) (19 / 20) *
+      (∏ j ∈ J, (Z ^ (ell j)) ^ (1 / 6 + e)) =
+    Z ^ (a - 11 / 16 - 8 * physicalDelta + (13 / 16) * e - 23 / 960 +
+      physicalDelta * (24 * e - 3 / 5)) := by
+  rw [source_scale_identity_variable_xy J ell hell Z a (1 / 6 + e) (19 / 20)
+    (17 / 48 - 24 * physicalDelta) (23 / 48 + 12 * physicalDelta) hZ]
+  congr 1
+  ring
+
+lemma source_z_scale_identity_tilted {ι : Type*} (J : Finset ι) (ell : ι → ℝ)
+    (hell : ∑ j ∈ J, ell j = 1 / 6) (Z a physicalDelta : ℝ) (hZ : 0 < Z) :
+    scalePower (Z ^ (17 / 48 - 24 * physicalDelta))
+      (Z ^ (23 / 48 + 12 * physicalDelta)) Z a (33 / 200) 1 *
+      (∏ j ∈ J, (Z ^ (ell j)) ^ (33 / 200 : ℝ)) =
+    Z ^ (a - 11 / 16 - 8 * physicalDelta - 13 / 9600 - physicalDelta / 25) := by
+  rw [source_scale_identity_variable_xy J ell hell Z a (33 / 200) 1
+    (17 / 48 - 24 * physicalDelta) (23 / 48 + 12 * physicalDelta) hZ]
+  congr 1
+  ring
+
+/-- The two actual principal remainder integrals keep the original strict
+saving under every nonnegative physical tilt, with one constant chosen
+before the tilt, slot exponents, window weights and prime pools. The original
+contours and source multiplier are retained. Division by the outer source
+normalizer is a separate step with its own arbitrary positive allowance. -/
+theorem source_remainders_strict_saving_tilted {ι : Type*}
+    (η : Character) (S : Finset Id) (hS : SourceExclusions S)
+    (J : Finset ι) (c d B : ℝ) (hc : 0 < c) (hd : c ≤ d) (hB : 0 ≤ B)
+    (W0 W1 : SchwartzMap ℝ ℂ) (a0 b0 a1 b1 : ℝ) (ha0 : 0 < a0) (ha1 : 0 < a1)
+    (hW0 : Function.support W0 ⊆ Icc a0 b0) (hW1 : Function.support W1 ⊆ Icc a1 b1)
+    (e : ℝ) (he : 0 < e) (hehi : e ≤ 1 / 1000)
+    (ha : HeckeZeroSupremum.beta + e ∈ Icc (7 / 8 : ℝ) 2) :
+    ∃ C : ℝ, 0 < C ∧ ∀ physicalDelta : ℝ, 0 ≤ physicalDelta →
+    ∀ ell : ι → ℝ, (∑ j ∈ J, ell j = 1 / 6) → ∀ W : ι → ℝ → ℝ,
+    (∀ j ∈ J, ∀ x, 0 ≤ W j x ∧ W j x ≤ B) →
+    (∀ j ∈ J, Function.support (W j) ⊆ Icc c d) → ∀ T : ι → Finset PrimeIdeal,
+    (∀ j ∈ J, ∀ p ∈ T j, p.val ∉ S) → ∀ Z : ℝ, 1 ≤ Z →
+    (∀ j ∈ J, 480 ≤ c * Z ^ (ell j)) →
+    (∀ j ∈ J, (Ideal.absNorm η.modulus : ℝ) < c * Z ^ (ell j)) →
+    let K0 := fun s => sourceMultiplier W0 W1
+      (Z ^ (17 / 48 - 24 * physicalDelta)) (Z ^ (23 / 48 + 12 * physicalDelta)) Z
+      (η.excludePrimes S hS.prime) s (globalClosedCorrection η S s)
+      (windowMultiplier η J T (fun j x => (W j x : ℂ)) (fun j => Z ^ (ell j)) s)
+    let π := fixedSourcePrincipal S hS.prime
+    (‖verticalIntegral (HeckeZeroSupremum.beta + e)
+      (fun s => verticalIntegral (1 / 6 + e) (fun z => verticalIntegral (19 / 20)
+        (fun w => K0 s w z * LFunction π (6 * z) * LFunction π w)))‖ ≤
+      C / e * Z ^ (HeckeZeroSupremum.beta - 11 / 16 - 8 * physicalDelta - 17 / 48000)) ∧
+    (‖HeckeReciprocal.regularizedL π 1 *
+      verticalIntegral (HeckeZeroSupremum.beta + e)
+        (fun s => verticalIntegral (33 / 200) (fun z => K0 s 1 z * LFunction π (6 * z)))‖ ≤
+      C * Z ^ (HeckeZeroSupremum.beta - 11 / 16 - 8 * physicalDelta - 17 / 48000)) := by
+  obtain ⟨C, hC, hbound⟩ := ordered_remainders_scale_bound η S hS J c d B hc hd hB
+    W0 W1 a0 b0 a1 b1 ha0 ha1 hW0 hW1 (HeckeZeroSupremum.beta + e) e ha
+    (by linarith only [he]) he (by linarith only [hehi])
+  refine ⟨C, hC, ?_⟩
+  intro physicalDelta hDelta ell hell W hW hsupp T hT Z hZ hthreshold hmod
+  dsimp only
+  have hZpos : 0 < Z := lt_of_lt_of_le zero_lt_one hZ
+  have hh := hbound W hW hsupp (fun j => Z ^ (ell j))
+    (fun _ _ => Real.rpow_pos_of_pos hZpos _) hthreshold hmod T hT
+    (Z ^ (17 / 48 - 24 * physicalDelta)) (Z ^ (23 / 48 + 12 * physicalDelta)) Z
+    (Real.rpow_pos_of_pos hZpos _) (Real.rpow_pos_of_pos hZpos _) hZpos
+  dsimp only at hh
+  rw [source_w_scale_identity_tilted J ell hell Z (HeckeZeroSupremum.beta + e) e
+      physicalDelta hZpos,
+    source_z_scale_identity_tilted J ell hell Z (HeckeZeroSupremum.beta + e)
+      physicalDelta hZpos] at hh
+  have hwgain : physicalDelta * (24 * e - 3 / 5) ≤ 0 :=
+    mul_nonpos_of_nonneg_of_nonpos hDelta (by linarith only [hehi])
+  have hwbase := source_w_strict_exponent HeckeZeroSupremum.beta e hehi
+  have hzbase := source_z_strict_exponent HeckeZeroSupremum.beta e hehi
+  constructor
+  · exact hh.1.trans (mul_le_mul_of_nonneg_left
+      (Real.rpow_le_rpow_of_exponent_le hZ (by linarith only [hwgain, hwbase]))
+      (div_nonneg hC.le he.le))
+  · exact hh.2.trans (mul_le_mul_of_nonneg_left
+      (Real.rpow_le_rpow_of_exponent_le hZ (by linarith only [hzbase, hDelta])) hC.le)
+
+end SevenEighths.ProbePrincipalRemainderBounds
+
+
+namespace SevenEighths.ProbePrincipalPhysical
+
+open Complex MeasureTheory
+open HeckeFamily ProbePhysical CompletedGauss ProbeFiniteProductBounds
+open PrincipalMellinResidues PrincipalSignalComparison ProbeMellinBoundary ProbePrincipalContours
+local notation "Id" => Ideal HeckeFamily.O
+
+/-- The actual weighted principal-row sum minus its actual source residue
+retains the strict remainder saving, with one constant uniform in every
+nonnegative physical tilt and all admissible slot windows and prime pools. -/
+theorem physical_principal_residue_remainder_tilted {K : ℕ}
+    (η : Character) (S : Finset Id) (hS : SourceExclusions S)
+    (c d B : ℝ) (hc : 0<c) (hd : c≤d) (hB : 0≤B)
+    (W0 W1 : SchwartzMap ℝ ℂ) (a0 b0 a1 b1 : ℝ) (ha0 : 0<a0) (ha1 : 0<a1)
+    (hW0 : Function.support W0⊆Set.Icc a0 b0) (hW1 : Function.support W1⊆Set.Icc a1 b1)
+    (e : ℝ) (he : 0<e) (hehi : e≤1/1000)
+    (ha : 7/8<HeckeZeroSupremum.beta+e) (ha2 : HeckeZeroSupremum.beta+e≤2) :
+    letI : NeZero (∏p∈S,p) := ⟨fixedPrimeProduct_ne_zero S hS.prime⟩
+    ∃C : ℝ,0<C ∧ ∀physicalDelta : ℝ,0≤physicalDelta → ∀ell : Fin K→ℝ,(∑j,ell j)=1/6 → ∀W : Fin K→ℝ→ℝ,
+    (∀j x,0≤W j x ∧ W j x≤B) → (∀j,Function.support (W j)⊆Set.Icc c d) →
+    ∀T : Fin K→Finset PrimeIdeal,(∀j p,p∈T j→p.val∉S) →
+    (∀P:(∀j,T j),Function.Injective (fun j=>(P j).val)) →
+    ∀Z : ℝ,1≤Z → (∀j,480≤c*Z^(ell j)) → (∀j,(Ideal.absNorm η.modulus:ℝ)<c*Z^(ell j)) →
+    ‖(∑P:(∀j,T j),(∏j,(W j ((Ideal.absNorm (P j).val.val:ℝ)/Z^(ell j)):ℂ))*
+        principalRowIntegral η S (fun j=>primaryGenerator (P j).val.val)
+          W0 W1 (Z^(17/48-24*physicalDelta)) (Z^(23/48+12*physicalDelta)) Z)-
+      sourceResidueIntegral W0 W1 (∏p∈S,p) (η.excludePrimes S hS.prime)
+        (HeckeZeroSupremum.beta+e) (Z^(17/48-24*physicalDelta)) (Z^(23/48+12*physicalDelta)) Z
+        (globalClosedCorrection η S)
+        (windowMultiplier η Finset.univ T (fun j x=>(W j x:ℂ)) (fun j=>Z^(ell j)))‖≤
+      C/e*Z^(HeckeZeroSupremum.beta-11/16-8*physicalDelta-17/48000) := by
+  let : NeZero (∏p∈S,p) := ⟨fixedPrimeProduct_ne_zero S hS.prime⟩
+  obtain ⟨C,hC,hbound⟩ := ProbePrincipalRemainderBounds.source_remainders_strict_saving_tilted η S hS
+    (Finset.univ : Finset (Fin K)) c d B hc hd hB W0 W1 a0 b0 a1 b1 ha0 ha1 hW0 hW1 e he hehi ⟨ha.le,ha2⟩
+  refine ⟨2*C,by positivity,?_⟩
+  intro physicalDelta hDelta ell hell W hW hsupp T hT hdis Z hZ hthreshold hmod
+  have hZ0 : 0<Z := by linarith
+  have hb := hbound physicalDelta hDelta ell hell W (fun j _=>hW j) (fun j _=>hsupp j) T (fun j _ p hp=>hT j p hp)
+    Z hZ (fun j _=>hthreshold j) (fun j _=>hmod j)
+  dsimp only at hb
+  have heq := principal_physical_pool_ordered η S hS T hT hdis
+    (fun j p=>(W j ((Ideal.absNorm p.val:ℝ)/Z^(ell j)):ℂ)) W0 W1 a0 b0 a1 b1
+    ha0 ha1 hW0 hW1 (Z^(17/48-24*physicalDelta)) (Z^(23/48+12*physicalDelta)) Z (HeckeZeroSupremum.beta+e) e
+    (Real.rpow_pos_of_pos hZ0 _) (Real.rpow_pos_of_pos hZ0 _) hZ0 ha (by linarith) (by linarith) he (by linarith)
+  dsimp only at heq
+  have hres (F : ℂ→ℂ) :
+      (HeckeReciprocal.regularizedL (fixedSourcePrincipal S hS.prime) 1)^2/6*
+        verticalIntegral (HeckeZeroSupremum.beta+e) F=
+      verticalIntegral (HeckeZeroSupremum.beta+e) (fun s=>fixedPrincipalResidue (∏p∈S,p)^2/6*F s) := by
+    rw [verticalIntegral,verticalIntegral,integral_const_mul]
+    dsimp only [fixedPrincipalResidue,fixedPrincipal,fixedSourcePrincipal]
+    ring
+  rw [heq]
+  unfold sourceResidueIntegral windowMultiplier
+  rw [hres,add_sub_cancel_right]
+  have hn := (norm_add_le _ _).trans (add_le_add hb.1 hb.2)
+  change _≤(2*C)/e*Z^(HeckeZeroSupremum.beta-11/16-8*physicalDelta-17/48000)
+  apply hn.trans
+  have hCe : C≤C/e := (le_div_iff₀ he).mpr (by nlinarith)
+  have hzpow : 0≤Z^(HeckeZeroSupremum.beta-11/16-8*physicalDelta-17/48000) := Real.rpow_nonneg hZ0.le _
+  have htwo : (2*C)/e=2*(C/e) := by ring
+  rw [htwo]
+  nlinarith
+end SevenEighths.ProbePrincipalPhysical
+
+
 namespace SevenEighths.HeckeSignal
 
 open MeasureTheory Set Filter Asymptotics Complex
@@ -694,14 +1073,14 @@ theorem nonzero_of_probe_bounds_variable_boundary
     {rho : ℂ} (hrho : max (theta + omega) (beta - sigma) < rho.re)
     (hpole : rho ≠ 1 ∨ chi.residue ≠ 1) : LFunction chi rho ≠ 0 := by
   let a : ℝ := max (theta + omega) (beta - sigma)
-  have hlow : theta + omega < beta := by linarith
+  have hlow : theta + omega < beta := by linarith only [homega]
   have habeta : a < beta := by
     dsimp [a]
-    exact max_lt hlow (by linarith)
-  have ha2 : a < 2 := by linarith
+    exact max_lt hlow (by linarith only [hsigma])
+  have ha2 : a < 2 := by linarith only [habeta, hbeta]
   have hthetaa : theta < a := by
     have hm : theta + omega ≤ a := le_max_left _ _
-    linarith
+    linarith only [hm, homega0]
   have ha0 : 0 < a := lt_of_le_of_lt htheta0 hthetaa
   have halphaa : alpha < a := lt_of_le_of_lt halphaTheta hthetaa
   change a < rho.re at hrho
@@ -758,6 +1137,9 @@ theorem nonzero_of_probe_bounds_variable_boundary
 end SevenEighths.HeckeSignal
 
 #print axioms SevenEighths.PrincipalSignalComparison.source_power_identity_variable_x
+#print axioms SevenEighths.ProbePrincipalRemainderBounds.source_scale_identity_variable_xy
+#print axioms SevenEighths.ProbePrincipalRemainderBounds.source_remainders_strict_saving_tilted
+#print axioms SevenEighths.ProbePrincipalPhysical.physical_principal_residue_remainder_tilted
 #print axioms SevenEighths.PrincipalSignalComparison.normalized_source_double_residue_variable_x
 #print axioms SevenEighths.PrincipalSignalComparison.sourceCorrection_analytic_wide
 #print axioms SevenEighths.PrincipalSignalComparison.sourceCorrection_bound_wide
@@ -782,6 +1164,8 @@ end SevenEighths.HeckeSignal
 #print axioms SevenEighths.RHLeanFiniteSlotGap.tilted_central_prefactor_margin
 #print axioms SevenEighths.InverseReflectedPhase.empty_active_tuple_dyad_width
 #print axioms SevenEighths.InverseReflectedPhase.surviving_low_exponent_finite_slot_gap
+#print axioms SevenEighths.InverseReflectedPhase.surviving_low_energy_sum_finite_slot_gap
+#print axioms SevenEighths.InverseReflectedPhase.low_sector_literal_energy_finite_slot_gap
 #print axioms SevenEighths.ProbeEuler.unramifiedClosed_open_region_bound_twenty_one_twenty_fifths
 
 end

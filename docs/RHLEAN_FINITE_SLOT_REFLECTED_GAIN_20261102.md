@@ -114,11 +114,28 @@ This proves the claim in every branch.
 The new surviving_low_exponent_finite_slot_gap generalizes the original
 original_surviving_low_exponent with physical power \(S-2d\), slot cap \(L\), and the sufficient gate above. It retains actual ideal labels, optional prime pools, frozen branches, row masks, dyads, raw scales, terminal widths and logarithmic budgets.
 
-The original source gates supply \(v,\lambda\ge0\), ramified width \(e\ge-\eta\), retained slack at most \(\delta+\eta\le2\eta\), and
+The original source gates supply \(v,\lambda\ge0\), ramified width \(e\ge-\eta\), retained slack at most \(\delta_{\rm retained}+\eta\le2\eta\), and
 \[
 H\le S-2d-O+\eta,\qquad 2A\le O+3\eta.
 \]
 The extracted widths are nonnegative and satisfy \(N\le A\).
+
+The retained padding is distinct from the physical perturbation below.
+Its original choice is \(\delta_{\rm retained}=\eta_{\rm low}/2\);
+it decreases with the arbitrary low error while the physical gain stays fixed.
+
+The new surviving_low_energy_sum_finite_slot_gap and
+low_sector_literal_energy_finite_slot_gap carry this estimate through
+branch counting to the actual signed dyadic row energy:
+\[
+\sum_K|\operatorname{literalDyadicRow}(K)|^2
+\le C(1+|\theta|)^J
+N\!\left(\prod_bG_b\right)^\rho
+Z^{S-2d+38\eta/3+\pi-O_0/2}.
+\]
+The original cusp column, sector completion, weights, masks, prime pools
+and surviving branches remain in the statement. This is still one retained
+dyad and unit; the full physical low reconstruction remains below.
 
 The new file also proves the literal empty-tuple dyad identity. Composition through every downstream low-side caller remains unfinished; this local source theorem is not yet the final low probe bound.
 
@@ -273,8 +290,9 @@ original signal and regularized Mellin identity. If
 J=O(Z^{\theta+c+\omega}),\qquad
 J-\operatorname{signal}=O(Z^{\beta+c-\sigma}),
 \]
-with \(0<\omega<\beta-\theta\), \(\sigma>0\), and
-\(21/25\le\theta\), it gives nonvanishing for
+with \(0<\omega<\beta-\theta\), \(\sigma>0\), \(\beta\le1\), and
+\(21/25\le\theta\), it gives nonvanishing, subject to
+\(s\ne1\) or \(\chi.\mathrm{residue}\ne1\), for
 \[
 \Re s>\max(\theta+\omega,\beta-\sigma).
 \]
@@ -290,8 +308,46 @@ c=x/3-5/6+1/36.
 \]
 This is the source of \(c=-11/16-8\delta\) for the tilted choice.
 
-These new declarations are prepared for the same warning-fatal Lean check.
-They still do not supply the two complete physical probe estimates.
+### Actual principal remainder, uniform in the physical tilt
+
+The arbitrary-\(X,Y,Z\) theorem ordered_remainders_scale_bound can be
+specialized to the tilted scales without changing its constant or contours.
+The new source_scale_identity_variable_xy proves the exact exponent
+\[
+a+c(x)+(7/6-x)(\xi-1/6)+y(\upsilon-1).
+\]
+For the two original remainder contours, relative to \(a+c\), this becomes
+\[
+\frac{13}{16}e-\frac{23}{960}+\delta(24e-3/5),
+\qquad
+-\frac{13}{9600}-\frac{\delta}{25}.
+\]
+For \(0<e\le1/1000\) and \(\delta\ge0\), both retain the original strict
+saving. The two actual integral bounds have one constant \(C\) before
+every nonnegative physical tilt, slot exponent list, bounded supported
+window family and excluded prime pool.
+
+The exact physical decomposition then gives
+physical_principal_residue_remainder_tilted:
+\[
+\|\text{weighted principal-row sum}-\text{source residue integral}\|
+\le \frac{C}{e}\,
+Z^{\beta-11/16-8\delta-17/48000}.
+\]
+This uses \(7/8<\beta+e\le2\), the original tuple injectivity and exclusions,
+and the same source multiplier. The constant can depend on the character,
+slot count, fixed Schwartz profiles, support bounds and \(e\).
+Division by the outer normalizer has not occurred in this theorem;
+its existing inverse bound costs an arbitrary additional exponent \(\nu>0\).
+
+The large-tail integrand's row exponent moves by \(24\delta\), while
+its constant term \(1+x/2+y=53/32\) stays fixed. Keeping the original
+row cutoff \(U=Z^{13/16+t}\) leaves the positive contour buffer
+\(t-24\delta=t-e/2>0\). Thus this part of the source audit does not require
+enlarging the central row set or its moment-conductor range.
+
+All these declarations are submitted to the same warning-fatal Lean check.
+They do not supply the two complete physical probe estimates.
 
 ## Remaining complete-consumer work
 
@@ -306,7 +362,8 @@ through both estimates of one identical normalized compensated probe:
    The inverse identity cancels \(S\) exactly, and the Gram exponent becomes
    \(3/16-9\delta\). The final low error must remain arbitrary.
 3. Propagate the tilted physical prefactors through the complete high cube,
-   dyadic, tail and principal-integral reconstruction, using the explicit
+   dyadic and tail reconstruction, and combine the now-proved raw principal
+   remainder with the normalized window comparison, using the explicit
    fixed-data budgets above. The arithmetic moment suppliers are unchanged.
 4. Apply the completed low and high bounds to the variable-boundary
    continuation theorem, then carry out the supremum contradiction and
