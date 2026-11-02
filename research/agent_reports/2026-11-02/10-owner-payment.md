@@ -215,3 +215,30 @@ Final commit/readback verification is appended below.
 ### Publication verification
 
 The completed synthesis was committed as `617cff97efd9329c12ea0842ce99fe9a704de4c3` and read back as blob `f2491c53b44e55193166185a6f507cceea058ce6` (12,960 characters). Claim `20261102-owner-1`, equations (37)-(41), the fixed-owner (p=3) sign reversal, exact source hashes, classifications, and resume capsule were present. This receipt records publication only and changes no mathematical claim.
+
+
+---
+
+## Scheduled continuation checkpoint - 2026-11-02 08:12 EST (-0500)
+
+**Status:** `IN_PROGRESS` / independently reviewed lifted-address theorem resumed; nonzero-gap restriction and final synthesis pending.  
+**Invocation:** scheduled run begun 08:09 EST; RUN_ID_UNAVAILABLE.  
+**Live main:** `a33987e275f8a431641d3f475b71a24aa2b1437c`.  
+**Authority blobs:** `AGENTS.md 9fa5e9519e2fb6dde22217aa2a18982dafef373a`; `CURRENT_PROOF_CONTRACT.md 88cddd9cd98c3b55f0b013998541e9b4e9dc9f2a`; selector `d05c327ae694ea54b599dab0a21032a056b521f1`; broad-search policy `b5c063c51556ba57c4b25bcc380a606fa8daa207`; complete-return contract `16838f7f3c8724b970f8b8ece0bceaab9418066d`; research engine `6fce99c61efb5b2a73c0cb1f1464f09b351fcd55`.  
+**Continuity:** today's earlier Owner claim `20261102-owner-1` and Coordinator claim `20261102-coordinator-1` were consumed; yesterday's complete set is `YESTERDAY=CARRY_FORWARD`; external handoffs blob `038018145c0fddb2f6306c0712373adf9cd1ea52` has no newer entry.  
+**PR state:** #1070 is the sole open proof PR, formalizing only the independently accepted injective lifted-address core of `20261101-owner-4`; no quantitative covariance theorem is claimed.  
+**eta_gate:** `SEARCH_BROAD`; net endpoint gain after complete return is `UNKNOWN`.
+
+This continuation resumes the exact hybrid field
+[
+W_R=E_R+D_R
+]
+and its complete nonzero-shift obstruction
+[
+Xi_H=2sum_RN_R-2sum_Rmu(R)W_R+2sum_RW_RK_R.
+]
+The prime-square ancestry theorem eliminates duplicated zero-shift addresses and pays the diagonal, but the sign of the distinct-address covariance reverses between accepted dyadic fixtures. The active hypothesis is that the equations
+[
+q^2m-p^2n=h,qquad 0<|h|le 2R,
+]
+with squarefree nonzero-Mobius cofactors, impose an exact divisibility or residue restriction strong enough to reduce the true weighted nonzero-gap population after all outer, daughter, root and activation interactions are restored. The run will derive the strongest uniform restriction, test whether it yields a quantitative saving, and reject any result that only renames (Xi_H).
