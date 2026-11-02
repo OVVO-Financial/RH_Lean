@@ -652,3 +652,8 @@ Before promotion, it must survive the `r=4,8` balanced paths and a held-out coun
 - `eta_gate: SEARCH_BROAD`;
 - `net_endpoint_gain_after_complete_return: UNKNOWN`;
 - canonical VF theorem, JOH sign, complete shell eta, strict Mertens exponent below `7/8`, and RH remain OPEN.
+
+
+### Publication verification
+
+The 16:15 checkpoint was committed as `36dcf67b1ce37e28db0b93306350c64bd44044f0`. Claim `20261102-owner-3` was committed as `1d17649ee8493af78d9712f21be0e6db2b2cf6d8` and read back at blob `ae98123f814d9a3fb7e2d9bb7c8818e1584e1dc5` (41,281 characters). Readback contained equations (48)-(49), both exact event lists, the universal nonnegative two-owner weighting no-go, all A-K sections, source hashes, classifications, and the resume capsule. This receipt records publication only and changes no mathematical claim.
