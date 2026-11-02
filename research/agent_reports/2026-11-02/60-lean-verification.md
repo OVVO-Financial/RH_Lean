@@ -117,3 +117,8 @@ The first independently missing arithmetic input remains a uniform signed estima
 ## Publication history
 
 Initial completed report publication is followed by a commit/blob readback receipt below.
+
+
+### Publication verification
+
+The completed report was committed as `da846a44a9a35dc281572c006b30d270bfe0493f` and read back as blob `ad6d0e429ed1683e2433f6f9517214a9bc1bd4d7` (7,426 characters). Claim `20261102-lean-1`, PR #1070, exact proof head `d749898c4afd5a7c579fc4c7ddcee742832b08d9`, theorem declarations, CI evidence, repair history, scope classification, and resume capsule were present. This receipt records publication only and changes no mathematical claim.
