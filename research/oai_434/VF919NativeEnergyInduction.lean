@@ -112,7 +112,7 @@ theorem nnsZeroAt_iff (Q : Ideal O) (a b bΦ Bmask L Mcap ε Z : ℝ)
       ZeroAt Q a b bΦ Bmask L Mcap ε Z degree S C := by
   simp only [NNSZeroAt, ZeroAt, nnsPlainEnergy_eq_plainEnergy]
 
-variable {α : Type*} [Fintype α] [DecidableEq α]
+variable {α : Type*} [DecidableEq α]
 variable (M : Ideal O) [NeZero M]
 local instance : Finite (O ⧸ M) :=
   Ring.HasFiniteQuotients.finiteQuotient (NeZero.ne M)
@@ -143,7 +143,6 @@ def NNSPositiveAt (W : ℝ → ℂ)
       C * diagonalControl s.radial.profile * (p.control S) ^ 2 *
         (1 + |t| + height) ^ degree * Z ^ (s.width + ε)
 
-omit [Fintype α] in
 theorem nnsPositiveAt_iff (W : ℝ → ℂ)
     (bslot a b bΦ Bmask L Lslot lo hi Mcap ε κ Z : ℝ)
     (η₀ : Character) (Q : Ideal O) (degree : ℕ)
@@ -185,7 +184,7 @@ theorem nnsCertifiedBand_iff (W : ℝ → ℂ)
 /-- Every induction level is a native real-energy statement, not only the
 terminal conclusion. The two input theorems are the original proved analytic
 floor and actual low/high/zero successor. -/
-theorem nns_certified_bands
+theorem nns_certified_bands [Fintype α]
     (W : ℝ → ℂ) (aslot bslot a b radial Bmask L lo hi Mcap κ ε : ℝ)
     (haslot : 0 < aslot)
     (hWs : Function.support W ⊆ Set.Icc aslot bslot)
@@ -238,7 +237,7 @@ theorem nns_certified_radial_mono (W : ℝ → ℂ)
 
 /-- Construct the terminal native state from the native induction above.
 No upstream terminal certificate is invoked. -/
-theorem nns_terminal_certificate
+theorem nns_terminal_certificate [Fintype α]
     (W : ℝ → ℂ) (aslot bslot a b radial Bmask L lo hi Mcap κ ε : ℝ)
     (haslot : 0 < aslot)
     (hWs : Function.support W ⊆ Set.Icc aslot bslot)
