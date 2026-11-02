@@ -136,3 +136,79 @@ Selected target: formalize the exact binary parity reassembly of the literal fin
 First open engineering step: identify the live finite-C kernel declaration and formulate the parity split using existing Möbius and floor-sum APIs without changing the original cutoff or discarding either mixed orientation. GitHub Actions on the scoped proof PR will be the sole Lean execution environment.
 
 No fixed endpoint gain, strict Mertens exponent below `7/8`, canonical VF estimate, or RH is claimed. `eta_gate: SEARCH_BROAD`; `net_endpoint_gain_after_complete_return: UNKNOWN`.
+
+
+## Scheduled continuation final synthesis - claim `20261102-lean-2` - 2026-11-02 13:31 EST (-0500)
+
+**Status:** `COMPLETE / PROVED_IN_LEAN_ON_PR_HEAD / CI_GREEN / REVIEW_READY`.  
+**Classification:** `STRUCTURAL CONTROL / EXACT FINITE CANCELLATION / DECISIVE SCOPED OBSTRUCTION`.  
+**Canonical status:** complete finite-C control, strict Mertens exponent below `7/8`, canonical VF, and RH remain OPEN.
+
+### Selection and mathematical review
+
+Live main was `7790fb9f5ddda6eb9823899f2694d691756cd248`, the human merge of PR #1070. No proof PR was open at selection time. Wheel claim `20261102-wheel-2` gives an exact four-parity decomposition of the literal square-endpoint finite-C kernel and an `R=5` witness where the odd-odd sector is nonzero but the complete packet vanishes. Referee claim `20261102-referee-2`, report blob `73a4e272393964d06a3fced63a1eea546ac9dd8d`, independently accepted the parity reassembly and exact witness with scope.
+
+The no-circularity audit is immediate: the result neither assumes nor establishes the open signed finite-C bound. It instead refutes the proposed homogeneous reduction of one sector to the complete packet. Both mixed orientations, the even-even term, the original floor, cutoff, and Möbius coefficients remain present.
+
+### Formal implementation
+
+PR [#1071](https://github.com/OVVO-Financial/RH_Lean/pull/1071), branch `agent/lean-verification/20261102-finite-c-binary-parity`, is open, non-draft, mergeable, and review-ready at exact head `3706efbef1e20b2c54709f8e80ea55d3c1d1cea9`.
+
+Source: `research/FINITE_C_BINARY_PARITY_OBSTRUCTION_20261102.lean`, blob `168e58512054ecd3fd6518331b086b9cca7cf9ed`. Dedicated workflow: `.github/workflows/finite-c-binary-parity.yml`, blob `91f53eec7a88d611770d0fc6c9374bfdc088f785`.
+
+Lean proves:
+
+```lean
+theorem eulerSelfDualBilinear_eq_sum_paritySectors (R : ℕ) :
+  eulerSelfDualBilinear R =
+    eulerSelfDualParitySector R true true +
+    eulerSelfDualParitySector R true false +
+    eulerSelfDualParitySector R false true +
+    eulerSelfDualParitySector R false false
+
+theorem eulerSelfDualParitySector_five_odd_odd :
+  eulerSelfDualParitySector 5 true true = 10
+
+theorem eulerSelfDualBilinear_five :
+  eulerSelfDualBilinear 5 = 0
+
+theorem no_uniform_oddOdd_control_by_eulerSelfDualBilinear :
+  ¬ ∃ C : ℝ, ∀ R : ℕ,
+    ‖eulerSelfDualParitySector R true true‖ ≤
+      C * ‖eulerSelfDualBilinear R‖
+```
+
+The other exact sector evaluations are `-8`, `-8`, and `6`. Thus `10-8-8+6=0`: the original finite-C packet cancels exactly while its odd-odd sector remains nonzero.
+
+### Exact-head verification
+
+All 12 PR-triggered workflows completed successfully on head `3706efb...`.
+
+- dedicated warning-fatal proof closure, exact signatures, no-hole scan, and axiom audit: run [41500748946](https://github.com/OVVO-Financial/RH_Lean/actions/runs/41500748946), job `125467273524`;
+- full Lean source audits/build/declaration graph: run [41500748981](https://github.com/OVVO-Financial/RH_Lean/actions/runs/41500748981);
+- proof inventory: run [41500749015](https://github.com/OVVO-Financial/RH_Lean/actions/runs/41500749015);
+- targeted Lean iteration: run [41500748975](https://github.com/OVVO-Financial/RH_Lean/actions/runs/41500748975);
+- public export verification: run [41500749072](https://github.com/OVVO-Financial/RH_Lean/actions/runs/41500749072).
+
+The audited declarations depend only on `propext`, `Classical.choice`, and `Quot.sound`. No `sorry`, `admit`, project axiom, or `native_decide` occurs in the source.
+
+### Repair record
+
+Initial head `6960658881f3876e8bf3598deef165dd6c7c8465` failed because two rewrites elaborated as nonexistent `Finset.mul_add` and the finite reductions had not explicitly unfolded `Icc 1 4`. Head `65c77fce00766e2ff163c0bf23de866ab7f15d1f` repaired the multiplication rewrite and explicit finite set, leaving only the reduction order incorrect. Final head `3706efb...` unfolds the parity sector before the finite-set rewrite. No theorem statement, carrier, coefficient, or hypothesis changed during repair.
+
+### Mathematical significance and proof gap
+
+The kernel has certified a genuine arithmetic counterexample, not an arbitrary-vector model: the exact original `R=5` odd-odd block is `10), while the full packet is zero. Therefore no finite scalar can uniformly pay the odd-odd sector by the absolute size of the complete finite-C source. Any viable FINITE-AC argument must keep the complete signed parity packet together and introduce a new restriction coupling distinct odd cores.
+
+This does not refute a joint signed estimate for the complete packet. The first unsupported quantitative theorem remains the original complete finite-C covariance bound at the historical-envelope scale; formalizing that bound as a premise would be target-equivalent and was not done.
+
+### Resume capsule
+
+- main baseline: `7790fb9f5ddda6eb9823899f2694d691756cd248`;
+- accepted source claim: `20261102-wheel-2`, Referee verdict `20261102-referee-2`;
+- PR: #1071, review-ready, human-only merge;
+- exact verified head: `3706efbef1e20b2c54709f8e80ea55d3c1d1cea9`;
+- formal result: exact four-sector reassembly plus arithmetic no-go witness;
+- next Lean priority: repair #1071 only if review or CI exposes a diagnosed issue; otherwise wait for an independently accepted quantitative supplier or consequential nonduplicate obstruction;
+- `eta_gate: SEARCH_BROAD`;
+- `net_endpoint_gain_after_complete_return: UNKNOWN`.
