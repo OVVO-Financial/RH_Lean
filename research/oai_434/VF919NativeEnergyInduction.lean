@@ -143,6 +143,7 @@ def NNSPositiveAt (W : ℝ → ℂ)
       C * diagonalControl s.radial.profile * (p.control S) ^ 2 *
         (1 + |t| + height) ^ degree * Z ^ (s.width + ε)
 
+omit [Fintype α] in
 theorem nnsPositiveAt_iff (W : ℝ → ℂ)
     (bslot a b bΦ Bmask L Lslot lo hi Mcap ε κ Z : ℝ)
     (η₀ : Character) (Q : Ideal O) (degree : ℕ)
