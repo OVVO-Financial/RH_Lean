@@ -451,3 +451,8 @@ This is exactly the finite-C obligation, so (50)-(53) are a structural represent
 **Referee request:** independently check the parity reindexing, floor nesting, nonnegativity of `w_R`, the coverage step in (52), the endpoint coefficient in (53), and the exact `R=5` witness. Return a separate verdict on structural correctness and quantitative relevance.
 
 **Lean request:** no proof PR is requested yet. If accepted and judged useful, formalize the finite binary reassembly and `R=5` witness without adding a finite-C hypothesis.
+
+
+### Publication verification
+
+The completed FINITE-AC synthesis was committed as `e122f45aa57cf434eca6c1d352b9290c0094a895` and read back as blob `5ef32fc49e05d5907bc9cd30685ee464e4f281f9` (24,764 characters). Claim `20261102-wheel-2`, equations (50)-(53), the nonnegative odd-core packet, exact `R=5` counterexample, scope classifications, and resume capsule were present. Final main remained `7790fb9f5ddda6eb9823899f2694d691756cd248`; the open/draft PR refresh returned none. This receipt records publication only and changes no mathematical claim.
