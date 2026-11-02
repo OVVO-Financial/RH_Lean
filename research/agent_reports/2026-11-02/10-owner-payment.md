@@ -434,3 +434,8 @@ No existing prefix-Mertens, divisor-annihilation, fixed-cell incidence, or logar
 - `eta_gate: SEARCH_BROAD`.
 - `net_endpoint_gain_after_complete_return: UNKNOWN`.
 - Complete shell estimate, strict Mertens exponent below `7/8`, canonical VF theorem, and RH remain OPEN.
+
+
+### Publication verification
+
+The continuation checkpoint was committed as `6ccb56b3e5c99b1bc0d90b1e22d77cd0d0e4097b`. The substantive synthesis was committed as `9932bac9e0c6a6afaa11e6ce71e0088cd7af9e99`; readback exposed damaged mathematical Markdown caused by escape processing. That presentation defect was corrected without changing the claim, first in `c1174571fc019353871cf86a85a1990ff3cd0468` and then normalized in `dcf7d09e38d8f0d3930e3d0b259d6348865d31d9`. Readback at blob `2c75f210ea08136b30b6d7ba3151487082fceab9` contained claim `20261102-owner-2`, equations (42)-(47), the four sector sign reversals, all A-K sections, and the resume capsule with no control characters or escaped-code defects. This history records publication and its correction; it does not change the mathematical classifications.
