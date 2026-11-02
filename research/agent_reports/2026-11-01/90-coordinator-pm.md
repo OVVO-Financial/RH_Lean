@@ -430,3 +430,20 @@ The merge commit has no attached PR-triggered runs or legacy combined-status ent
 - Formal state: #1068 and #1069 merged; exact finite telescope and truncated-tail interface are on main.
 - Complete shell estimate, strict Mertens exponent below (7/8), canonical VF theorem, and RH remain OPEN.
 - Highest-value next reasoning task: prove or refute a joint small-owner/physical energy inequality on the exact trichotomy carrier, with all threshold and activation terms restored.
+
+
+---
+
+## Continuation 2026-11-01 23:11 EST — scheduled synthesis checkpoint
+
+**Execution status:** `PARTIAL / IN_PROGRESS`
+
+**eta_gate:** `SEARCH_BROAD`
+
+**deployment_ack:** live main `a33987e275f8a431641d3f475b71a24aa2b1437c`; policy selector blob `d05c327ae694ea54b599dab0a21032a056b521f1`; selected task `NEXT-COORDINATOR` (test one source-qualified cross-route transfer while keeping SAT/VF, NYMAN, and CORR4 distinct).
+
+Freshness checkpoint: read live `AGENTS.md` (blob `9fa5e9519e2fb6dde22217aa2a18982dafef373a`), `CURRENT_PROOF_CONTRACT.md` (blob `88cddd9cd98c3b55f0b013998541e9b4e9dc9f2a`), the active selector/breadth/complete-return/research-engine directives, all seven 2026-11-01 role reports, both existing Coordinator mirrors, and `EXTERNAL_HANDOFFS.md`. No 2026-11-02 Eastern-date report is due at this timestamp. GitHub search returned no open PRs.
+
+Resumed derivation: determine whether the newly formalized odd-Mobius truncated-tail interface or a genuine first-owner/near-root restriction supplies an actual coefficient or multiplicity bound in the complete CORR4 mixed expression, with original occurrence weights and all complement terms retained. The first unsupported quantitative implication and exact carrier mismatch, if any, will be stated in the completed continuation rather than inferred from shared terminology.
+
+Publication of this checkpoint does not claim a new theorem, accepted transfer, positive endpoint gain, independent review, or completed synthesis.
