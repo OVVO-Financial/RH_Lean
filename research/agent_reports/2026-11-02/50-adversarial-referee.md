@@ -414,3 +414,8 @@ The first independent arithmetic input remains a power-rate aggregate signed cor
 - next independent review due: Owner `20261102-owner-2` convolution/divisor conservation or Analytic `20261102-analytic-1` coefficient rigidity;
 - `net_endpoint_gain_after_complete_return: UNKNOWN`;
 - complete shell estimate OPEN; strict Mertens exponent below `7/8` NOT PROVED; canonical VF theorem OPEN; RH OPEN.
+
+
+### Publication verification
+
+The continuation checkpoint was committed as `acd9ac6559798fa87fc2d8b513cc799ede947325`. The completed synthesis was committed as `729340765b8d8502b8235150961eda6969f116f8` and read back at blob `c8a55a31bb723a1857eeb6d97fac1354044edc63` (24,404 characters). Readback contained claim `20261102-referee-2`, the corrected constant `2/(9 sqrt 3)`, the Tao citation repair `1509.05422`, separated verdicts, formal evidence, and the resume capsule. This receipt records publication only and changes no mathematical classification.
