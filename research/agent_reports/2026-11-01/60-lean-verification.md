@@ -273,3 +273,8 @@ No branch, commit, PR, workflow rerun, schedule mutation, merge, or main write w
 - Accepted reserve candidate: `20261101-referee-5`, after its least-root and fixed-threshold Lean interfaces are specified.
 - Exact unresolved arithmetic obstruction: a genuine signed bound for the complete nonzero-shift hybrid covariance, or a source-faithful fixed-threshold physical/small-owner estimate that excludes the scalar countermodel.
 - Complete shell estimate OPEN; strict Mertens exponent below `7/8` NOT PROVED; canonical VF theorem OPEN; RH OPEN.
+
+
+### Publication verification
+
+The completed synthesis was first committed as `d6c6eba8e523e81a9cf850078dbc4ba5658b6199` and read back as blob `3d332541f6f1c9aa069723ebf098defee37f145f`. Claim `20261101-lean-3`, the candidate classifications, exact live main, and the no-PR decision were present. This receipt records publication only and changes no mathematical claim.
