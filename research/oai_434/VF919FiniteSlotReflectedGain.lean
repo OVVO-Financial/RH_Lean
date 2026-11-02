@@ -1,8 +1,10 @@
 import OAI.NumberTheory.DirichletL.Reflection.LowExponent
 import OAI.NumberTheory.DirichletL.Reflection.TupleDyads
 import OAI.NumberTheory.DirichletL.Detector.LowNominalGeometry
-import OAI.NumberTheory.DirichletL.ParametersHighData
+import OAI.NumberTheory.DirichletL.ParametersHighDataFine
 import OAI.NumberTheory.DirichletL.Detector.GlobalRegion
+import OAI.NumberTheory.DirichletL.Hecke.SignalIdentity
+import OAI.NumberTheory.DirichletL.PrincipalSignalComparison
 
 /-!
 # A finite-slot gap in the actual reflected low exponent
@@ -14,9 +16,10 @@ that uses this distinction, uniformly over the surviving reflected dyads.
 
 The source-facing theorem keeps the original ideals, optional pools, frozen
 branches, masks and retained-width hypotheses. Its physical exponent is
-generalized from 5/6 to S and its total slot length from 1/6 to L. No endpoint
-below seven eighths is asserted: the complete perturbed low/high consumer and
-analytic continuation chain still have to be reconstructed.
+generalized from 5/6 to S and its total slot length from 1/6 to L. The actual
+correction function, principal normalization and conditional continuation
+theorem are also generalized. No endpoint below seven eighths is asserted:
+the complete perturbed low/high probe estimates remain to be reconstructed.
 -/
 
 namespace OAI
@@ -27,6 +30,166 @@ open scoped Classical BigOperators
 namespace SevenEighths.RHLeanFiniteSlotGap
 
 open InverseTerminalWidths SevenEighths.ProbeLowReflected
+
+
+/-- Small epsilon and e already follow from every HighData record; no extra
+constructor hypothesis is needed. -/
+theorem high_data_small_errors {Delta : ℝ} (D : Parameters.HighData Delta) :
+    D.ε ≤ D.t / 2000 ∧ D.e ≤ D.t / 2000 ∧
+      D.e ≤ ((7 / 8 : ℝ) * D.rmin) / 4 := by
+  have hslot := D.slots_bounds ⟨0, D.slots_pos⟩
+  have hrsmall : D.rmin ≤ (1 / 2000 : ℝ) := by
+    linarith only [hslot.2.1, hslot.2.2, D.t_small]
+  have hp := mul_le_mul_of_nonneg_right hrsmall D.t_pos.le
+  have hepsilon : D.ε ≤ D.t / 2000 := by
+    nlinarith only [D.epsilon_gap, hp]
+  have heepsilon : D.e ≤ D.ε := by
+    linarith only [D.detector_budget, D.e_pos, D.kappa_pos, D.cost_pos]
+  have htell : D.t ≤ (7 / 32 : ℝ) := by linarith only [D.t_small]
+  have hrt := mul_le_mul_of_nonneg_left htell D.rmin_pos.le
+  exact ⟨hepsilon, heepsilon.trans hepsilon, by
+    nlinarith only [heepsilon, D.epsilon_gap, hrt]⟩
+
+/-- Decrease only the two allowances needed for an explicit central reserve.
+The slot list, its positive minimum and its fineness remain unchanged. -/
+def cappedHighData {Delta : ℝ} (D : Parameters.HighData Delta) :
+    Parameters.HighData Delta := by
+  let eps := min D.eps (D.t / ((D.N : ℝ) + 8))
+  let sigma := min D.sigma (((7 / 8 : ℝ) * D.rmin) / 4)
+  have hepspos : 0 < eps :=
+    lt_min D.eps_pos (div_pos D.t_pos (by positivity))
+  have hepsle : eps ≤ D.eps := min_le_left _ _
+  have hspos : 0 < sigma :=
+    lt_min D.sigma_pos (div_pos (mul_pos (by norm_num) D.rmin_pos) (by norm_num))
+  have hsle : sigma ≤ D.sigma := min_le_left _ _
+  have hepsN := mul_le_mul_of_nonneg_left hepsle
+    (show 0 ≤ (D.N : ℝ) + 8 by positivity)
+  exact {
+    D with
+    eps := eps
+    sigma := sigma
+    eps_pos := hepspos
+    eps_small := hepsle.trans D.eps_small
+    sigma_pos := hspos
+    central_budget := by linarith only [D.central_budget, hepsN]
+    geometric_budget := by linarith only [D.geometric_budget, hsle]
+    principal_budget := by linarith only [D.principal_budget, hsle]
+    window_budget := by linarith only [D.window_budget, hsle]
+    floor_budget := by linarith only [D.floor_budget, hepsN, hsle]
+    high_saving := by linarith only [D.high_saving, hsle]
+    height_choice := by
+      intro J hJ
+      obtain ⟨tau, htau, hd, hc, ht, hJcost, hepscost⟩ := D.height_choice J hJ
+      refine ⟨tau, htau, hd, hc, ht, hJcost, ?_⟩
+      exact (mul_le_mul_of_nonneg_left
+        (show 2 + 4 * eps ≤ 2 + 4 * D.eps by linarith only [hepsle])
+        htau.le).trans_lt hepscost
+  }
+
+theorem capped_high_data_geometry {Delta : ℝ} (D : Parameters.HighData Delta) :
+    (cappedHighData D).t = D.t ∧
+      (cappedHighData D).N = D.N ∧
+      (cappedHighData D).ell = D.ell ∧
+      (cappedHighData D).rmin = D.rmin := by
+  exact ⟨rfl, rfl, rfl, rfl⟩
+
+/-- All the additional reserve bounds hold for the capped record. -/
+theorem capped_high_data_bounds {Delta : ℝ} (D : Parameters.HighData Delta) :
+    let E := cappedHighData D
+    E.ε ≤ E.t / 2000 ∧ E.e ≤ E.t / 2000 ∧
+      ((E.N : ℝ) + 8) * E.eps ≤ E.t ∧
+      E.sigma ≤ ((7 / 8 : ℝ) * E.rmin) / 4 ∧
+      E.e ≤ ((7 / 8 : ℝ) * E.rmin) / 4 := by
+  have hs := high_data_small_errors D
+  have hep : min D.eps (D.t / ((D.N : ℝ) + 8)) *
+      ((D.N : ℝ) + 8) ≤ D.t :=
+    (le_div_iff₀ (show 0 < (D.N : ℝ) + 8 by positivity)).mp (min_le_right _ _)
+  change D.ε ≤ D.t / 2000 ∧ D.e ≤ D.t / 2000 ∧
+    ((D.N : ℝ) + 8) * min D.eps (D.t / ((D.N : ℝ) + 8)) ≤ D.t ∧
+    min D.sigma (((7 / 8 : ℝ) * D.rmin) / 4) ≤ ((7 / 8 : ℝ) * D.rmin) / 4 ∧
+    D.e ≤ ((7 / 8 : ℝ) * D.rmin) / 4
+  exact ⟨hs.1, hs.2.1, by simpa only [mul_comm] using hep,
+    min_le_right _ _, hs.2.2⟩
+
+/-- The central reserve depends only on these explicit small-error bounds,
+so it can be consumed from an existential chosen-data witness directly. -/
+theorem high_data_central_cost_of_bounds {Delta : ℝ} (D : Parameters.HighData Delta)
+    (hepsilon : D.ε ≤ D.t / 2000) (he : D.e ≤ D.t / 2000)
+    (heps : ((D.N : ℝ) + 8) * D.eps ≤ D.t) :
+    (13 / 16) * (159 * D.ε + D.t + D.t + 7 * D.t) +
+      2 * D.t + (3 / 2) * (2 * D.t) +
+      (26 * D.e + ((D.N : ℝ) + 8) * D.eps + D.t + D.t / 6) +
+      (D.t + D.t + D.t) ≤ 18 * D.t := by
+  linarith only [hepsilon, he, heps, D.t_pos]
+
+/-- Explicit reserve for the original high central consumer before its saving
+parameter. No unused slack is inferred from the stored central_budget. -/
+theorem capped_high_data_central_cost {Delta : ℝ} (D : Parameters.HighData Delta) :
+    let E := cappedHighData D
+    (13 / 16) * (159 * E.ε + E.t + E.t + 7 * E.t) +
+      2 * E.t + (3 / 2) * (2 * E.t) +
+      (26 * E.e + ((E.N : ℝ) + 8) * E.eps + E.t + E.t / 6) +
+      (E.t + E.t + E.t) ≤ 18 * E.t := by
+  have hs := capped_high_data_bounds D
+  dsimp only at hs ⊢
+  exact high_data_central_cost_of_bounds (cappedHighData D) hs.1 hs.2.1 hs.2.2.1
+
+theorem capped_high_data_central_reserve {Delta : ℝ} (D : Parameters.HighData Delta) :
+    let E := cappedHighData D
+    (13 / 16) * (159 * E.ε + E.t + E.t + 7 * E.t) +
+      2 * E.t + (3 / 2) * (2 * E.t) +
+      (26 * E.e + ((E.N : ℝ) + 8) * E.eps + E.t + E.t / 6) +
+      (E.t + E.t + E.t) + 49 / 881280 ≤ 49 / 440640 := by
+  have hc := capped_high_data_central_cost D
+  dsimp only at hc ⊢
+  linarith only [hc, (cappedHighData D).t_small]
+
+/-- The fixed positive auxiliary Delta can be paid together with the outer
+central costs using the existing high_saving and t_small fields. -/
+theorem fixed_delta_target_payment {Delta : ℝ} (D : Parameters.HighData Delta) :
+    (1 / 1000000 : ℝ) + D.sigma + D.t / 8 + D.t / 8 ≤ 49 / 881280 := by
+  linarith only [D.high_saving, D.t_small]
+
+/-- The same fixed data pays for the wider 21/25 principal window. -/
+theorem capped_high_data_window {Delta : ℝ} (D : Parameters.HighData Delta) :
+    let E := cappedHighData D
+    E.sigma + E.e < (21 / 25) * ((7 / 8 : ℝ) * E.rmin) := by
+  have hs := capped_high_data_bounds D
+  dsimp only at hs ⊢
+  linarith only [hs.2.2.2.1, hs.2.2.2.2, (cappedHighData D).rmin_pos]
+
+
+/-- Existence with any prescribed positive fine mesh and the explicit
+reserve bounds; the old constructor is reused without changing the slots. -/
+theorem exists_fine_high_data_with_reserve (Delta : ℝ) (hDelta : 0 < Delta)
+    (mesh : ℝ → ℝ) (hmesh : ∀ t : ℝ, 0 < t → 0 < mesh t) :
+    ∃ D : Parameters.HighData Delta,
+      (∀ j, D.ell j ≤ mesh D.t / 200) ∧
+      D.ε ≤ D.t / 2000 ∧ D.e ≤ D.t / 2000 ∧
+      ((D.N : ℝ) + 8) * D.eps ≤ D.t ∧
+      D.sigma ≤ ((7 / 8 : ℝ) * D.rmin) / 4 ∧
+      D.e ≤ ((7 / 8 : ℝ) * D.rmin) / 4 := by
+  obtain ⟨D, hfine⟩ := Parameters.exists_high_data_fine Delta hDelta mesh hmesh
+  exact ⟨cappedHighData D, hfine, capped_high_data_bounds D⟩
+
+/-- A positive physical perturbation chosen before the character. Its
+smallness preserves the original principal contour domains in the candidate
+contradiction range as well as the finite-slot, Gram and large-tail gates. -/
+theorem source_gain_budgets {Delta : ℝ} (D : Parameters.HighData Delta) :
+    let delta := D.e / 48
+    0 < delta ∧
+      24 * delta < (7 / 8 : ℝ) * D.rmin ∧
+      delta < 1 / 960 ∧
+      24 * delta < D.t ∧
+      ∀ beta : ℝ, 7 / 8 - delta ≤ beta → 7 / 8 < beta + D.e := by
+  have hs := high_data_small_errors D
+  dsimp only
+  refine ⟨div_pos D.e_pos (by norm_num), ?_, ?_, ?_, ?_⟩
+  · linarith only [hs.2.2, D.rmin_pos]
+  · linarith only [D.e_small]
+  · linarith only [hs.2.1, D.t_pos]
+  · intro beta hbeta
+    linarith only [hbeta, D.e_pos]
 
 /-- Zero actual slot width is a full-hybrid branch, even if the nominal
 selected length contains a small positive padding. -/
@@ -82,7 +245,7 @@ positive selected mass at least 1 + 4 L - 2 S. Thus S may be slightly smaller
 than 5/6 with L = 1/6, provided the fixed finite slot gap is retained. -/
 theorem reflected_exponent_finite_slot_gap
     (S L d ell0 O H A N S0 B z v ell el theta eta : ℝ)
-    (hSL : S + L ≤ 1) (hL : L ≤ 1 / 3) (hd : 0 ≤ d) (heta : 0 ≤ eta)
+    (hSL : S + L ≤ 1) (_hL : L ≤ 1 / 3) (hd : 0 ≤ d) (heta : 0 ≤ eta)
     (hO : 0 ≤ O) (hH : H ≤ (S - 2 * d) - O + eta)
     (hA : 2 * A ≤ O + 3 * eta) (hN : 0 ≤ N) (hNA : N ≤ A)
     (hS0 : 0 ≤ S0) (hB : 0 ≤ B)
@@ -362,6 +525,253 @@ theorem unramifiedClosed_open_region_bound_twenty_one_twenty_fifths (Q : ℝ) (A
 
 end SevenEighths.ProbeEuler
 
+
+namespace SevenEighths.ProbeEuler
+
+lemma open_region_denominators_wide (Q : ℝ) (A eta v x z : ℂ)
+    (hQ : 4≤Q) (hA : ‖A‖≤1) (he : ‖eta‖≤1) (hv : ‖v‖≤1)
+    (hx : 21/25≤x.re) (hz : 4/25≤z.re) :
+    1-coordR Q A x z≠0 ∧ 1-coordV Q z≠0 ∧ 1-coordD Q eta v x≠0 := by
+  have hQ0 : 0<Q := by linarith
+  have hQ1 : 1≤Q := by linarith
+  have hR : ‖coordR Q A x z‖≤1/2 := by
+    apply (coordR_norm_le Q hQ0 A x z hA).trans
+    apply rpow_le_half Q _ hQ
+    linarith
+  have hV : ‖coordV Q z‖≤1/2 := by
+    rw [coordV_norm Q hQ0]
+    apply rpow_le_half Q _ hQ
+    linarith
+  have hD : ‖coordD Q eta v x‖≤1/2 := by
+    apply (coordD_norm_le Q hQ0 eta v x he hv).trans
+    apply rpow_le_half Q _ hQ
+    linarith
+  exact ⟨ProbeLocal.one_sub_ne_zero_of_norm_le_half _ hR,
+    ProbeLocal.one_sub_ne_zero_of_norm_le_half _ hV,ProbeLocal.one_sub_ne_zero_of_norm_le_half _ hD⟩
+
+theorem unramifiedClosed_analytic_x_wide (Q : ℝ) (A eta v w z : ℂ)
+    (hQ : 4≤Q) (hA : ‖A‖≤1) (he : ‖eta‖≤1) (hv : ‖v‖≤1) (hz : 4/25≤z.re) :
+    AnalyticOnNhd ℂ (fun x=>unramifiedClosed Q A eta v x w z) {x : ℂ|21/25<x.re} := by
+  apply DifferentiableOn.analyticOnNhd _ (Complex.isOpen_re_gt _)
+  intro x hx
+  have hd := open_region_denominators_wide Q A eta v x z hQ hA he hv hx.le hz
+  exact (unramifiedClosed_differentiableAt Q (by linarith) A eta v x w z hd.1 hd.2.1 hd.2.2).differentiableWithinAt
+
+
+end SevenEighths.ProbeEuler
+
+namespace SevenEighths.ProbePhysical
+open ActualEisensteinCubic ProbeEuler CompletedGauss
+local notation "O" => ActualEisensteinCubic.O
+local notation "Id" => Ideal O
+
+lemma idealClosedCorrection_bound_wide (η : HeckeFamily.Character) (P : PrimeIdeal)
+    (hP : 4≤Ideal.absNorm P.val) (x w z : ℂ)
+    (hx : 21/25≤x.re) (hw : 9/10≤w.re) (hz : 4/25≤z.re) :
+    ‖idealClosedCorrection η P x w z-1‖≤globalPrimeDefectBound P := by
+  apply unramifiedClosed_open_region_bound_twenty_one_twenty_fifths
+  · exact_mod_cast hP
+  · exact actualAPhase_norm_le_one η _
+  · exact HeckeFamily.idealCoeff_norm_le_one η P.val
+  · simp
+  · exact hx
+  · exact hw
+  · exact hz
+
+theorem globalClosedCorrection_bound_wide (η : HeckeFamily.Character) (S : Finset Id)
+    (hS : CorrectionTail S) (x w z : ℂ)
+    (hx : 21/25≤x.re) (hw : 9/10≤w.re) (hz : 4/25≤z.re) :
+    ‖globalClosedCorrection η S x w z-1‖≤1/2 :=
+  product_defect_le _ _ hS.summable
+    (fun P=>idealClosedCorrection_bound_wide η P.val (hS.norm_four P.val P.property) x w z hx hw hz)
+    hS.half hS.small
+
+
+theorem globalClosedCorrection_analytic_x_wide (η : HeckeFamily.Character) (S : Finset Id)
+    (hS : CorrectionTail S) (w z : ℂ) (hw : 9/10≤w.re) (hz : 4/25≤z.re) :
+    AnalyticOnNhd ℂ (fun x=>globalClosedCorrection η S x w z) {x : ℂ|21/25<x.re} := by
+  apply normalProduct_analytic _ _ _ (Complex.isOpen_re_gt _) hS.summable
+  · intro P
+    apply unramifiedClosed_analytic_x_wide
+    · exact_mod_cast hS.norm_four P.val P.property
+    · exact actualAPhase_norm_le_one η _
+    · exact HeckeFamily.idealCoeff_norm_le_one η _
+    · simp
+    · exact hz
+  · intro P x hx
+    exact idealClosedCorrection_bound_wide η P.val (hS.norm_four P.val P.property) x w z hx.le hw hz
+  · exact hS.half
+
+
+end SevenEighths.ProbePhysical
+
+namespace SevenEighths.PrincipalSignalComparison
+open HeckeFamily ProbePhysical
+
+/-- The actual original correction has the wider analytic domain, with the
+same exclusions and summable prime tail. -/
+theorem sourceCorrection_analytic_wide (eta : Character)
+    (E : Finset (Ideal HeckeFamily.O)) (hE : SourceExclusions E) :
+    AnalyticOnNhd ℂ (sourceCorrection eta E) {s : ℂ | 21 / 25 < s.re} :=
+  globalClosedCorrection_analytic_x_wide eta E hE.tail 1 (1 / 6)
+    (by norm_num) (by norm_num)
+
+theorem sourceCorrection_bound_wide (eta : Character)
+    (E : Finset (Ideal HeckeFamily.O)) (hE : SourceExclusions E)
+    (s : ℂ) (hs : 21 / 25 < s.re) :
+    ‖sourceCorrection eta E s - 1‖ ≤ 1 / 2 :=
+  globalClosedCorrection_bound_wide eta E hE.tail s 1 (1 / 6)
+    hs.le (by norm_num) (by norm_num)
+
+
+open PrincipalMellinResidues
+variable {κ ι : Type*}
+
+/-- Exact normalization for an arbitrary first physical exponent. The new
+signal shift comes from this source identity, not from relabeling an exponent. -/
+theorem source_power_identity_variable_x {Z : ℝ} (hZ : 0 < Z) (x : ℝ) (s : ℂ) :
+    ((Z^x : ℝ) : ℂ)^(1/3 : ℂ) * (Z : ℂ)^(s-5/6) =
+      (Z : ℂ)^(((-(1/6 : ℝ)/6 : ℝ) : ℂ)) * (Z : ℂ)^(s + ((x/3 - 5/6 + 1/36 : ℝ) : ℂ)) := by
+  have hz : (Z : ℂ) ≠ 0 := Complex.ofReal_ne_zero.mpr hZ.ne'
+  rw [← Complex.cpow_mul_ofReal_nonneg hZ.le x (1/3),
+    ← Complex.cpow_add _ _ hz, ← Complex.cpow_add _ _ hz]
+  congr 1
+  push_cast
+  ring_nf
+
+
+theorem normalized_source_double_residue_variable_x (W0 W1 : SchwartzMap ℝ ℂ)
+    (M : Ideal HeckeFamily.O) [NeZero M] (χ : Character)
+    (x Y Z : ℝ) (hZ : 0 < Z) (s : ℂ) (H B : ℂ → ℂ → ℂ)
+    (S : Finset κ) (T : κ → Finset ι) (w Q : κ → ι → ℝ) (A η : κ → ι → ℂ)
+    (hc : sourceResidueConstant W0 W1 M ≠ 0)
+    (hB : B 1 (1/6) = slotProduct S T w Q A η s) :
+    (fixedPrincipalResidue M ^ 2 / 6 *
+      sourceMultiplier W0 W1 (Z^x) Y Z χ s H B 1 (1/6)) /
+        (sourceResidueConstant W0 W1 M * (Probe.principalScalar S Z (1/6) (slotMass T w) : ℂ)) =
+      (Z : ℂ)^(s + ((x/3 - 5/6 + 1/36 : ℝ) : ℂ)) * Complex.exp ((s-5/6)^2) * H 1 (1/6) / LFunction χ s *
+        slotRatio S T w Q A η s := by
+  rw [source_double_residue, source_normalizer_cast S T w hZ, hB]
+  have hp := source_power_identity_variable_x hZ x s
+  have hz : (Z : ℂ)^(((-(1/6 : ℝ)/6 : ℝ) : ℂ)) ≠ 0 :=
+    (Complex.cpow_eq_zero_iff _ _).not.mpr (by simp [hZ.ne'])
+  rw [hp]
+  simp only [slotRatio, div_eq_mul_inv, mul_inv_rev]
+  calc
+    _ = (sourceResidueConstant W0 W1 M * (sourceResidueConstant W0 W1 M)⁻¹) *
+        ((Z : ℂ)^(((-(1/6 : ℝ)/6 : ℝ) : ℂ)) *
+          ((Z : ℂ)^(((-(1/6 : ℝ)/6 : ℝ) : ℂ)))⁻¹) *
+        ((Z : ℂ)^(s + ((x/3 - 5/6 + 1/36 : ℝ) : ℂ)) * Complex.exp ((s-5/6)^2) * H 1 (1/6) *
+          (LFunction χ s)⁻¹ * (slotProduct S T w Q A η s *
+            (PrincipalSlotEstimate.principalScalar S (slotMass T w))⁻¹)) := by ring_nf
+    _ = _ := by rw [mul_inv_cancel₀ hc, mul_inv_cancel₀ hz]; ring_nf
+
+
+end SevenEighths.PrincipalSignalComparison
+
+
+namespace SevenEighths.HeckeSignal
+
+open MeasureTheory Set Filter Asymptotics Complex
+open scoped Topology
+open HeckeFamily Continuation
+
+/-- The original signal and regularized Mellin identity permit a variable
+analytic boundary and low-growth crossing. This theorem keeps the wider
+analytic hypothesis explicit; it does not supply the physical probe bounds. -/
+theorem nonzero_of_probe_bounds_variable_boundary
+    (chi : Character) (H : ℂ → ℂ) (J : ℝ → ℂ)
+    (alpha theta beta omega sigma c : ℝ)
+    (halpha78 : alpha ≤ 7 / 8) (halphaTheta : alpha ≤ theta)
+    (htheta0 : 0 ≤ theta) (hbeta : beta ≤ 1)
+    (homega0 : 0 < omega) (homega : omega < beta - theta)
+    (hsigma : 0 < sigma)
+    (hH : AnalyticOnNhd ℂ H {s : ℂ | alpha < s.re})
+    (hb : ∀ s : ℂ, alpha < s.re → ‖H s - 1‖ ≤ 1 / 2)
+    (hJ : J =O[atTop] (fun x : ℝ => x ^ (theta + c + omega)))
+    (herror : (fun x => J x - signal chi H c x) =O[atTop]
+      (fun x : ℝ => x ^ (beta + c - sigma)))
+    {rho : ℂ} (hrho : max (theta + omega) (beta - sigma) < rho.re)
+    (hpole : rho ≠ 1 ∨ chi.residue ≠ 1) : LFunction chi rho ≠ 0 := by
+  let a : ℝ := max (theta + omega) (beta - sigma)
+  have hlow : theta + omega < beta := by linarith
+  have habeta : a < beta := by
+    dsimp [a]
+    exact max_lt hlow (by linarith)
+  have ha2 : a < 2 := by linarith
+  have hthetaa : theta < a := by
+    have hm : theta + omega ≤ a := le_max_left _ _
+    linarith
+  have ha0 : 0 < a := lt_of_le_of_lt htheta0 hthetaa
+  have halphaa : alpha < a := lt_of_le_of_lt halphaTheta hthetaa
+  change a < rho.re at hrho
+  have hH78 : AnalyticOnNhd ℂ H {s : ℂ | 7 / 8 < s.re} :=
+    hH.mono (fun _ hs => lt_of_le_of_lt halpha78 hs)
+  have hb78 : ∀ s : ℂ, 7 / 8 < s.re → ‖H s - 1‖ ≤ 1 / 2 :=
+    fun s hs => hb s (lt_of_le_of_lt halpha78 hs)
+  have hHa : AnalyticOnNhd ℂ H {s : ℂ | a < s.re} :=
+    hH.mono (fun _ hs => lt_trans halphaa hs)
+  have hexp : max (theta + c + omega) (beta + c - sigma) = a + c := by
+    dsimp [a]
+    rcases le_total (theta + omega) (beta - sigma) with h | h
+    · have h' : theta + c + omega ≤ beta + c - sigma := by linarith
+      rw [max_eq_right h', max_eq_right h]
+      ring
+    · have h' : beta + c - sigma ≤ theta + c + omega := by linarith
+      rw [max_eq_left h', max_eq_left h]
+      ring
+  have htop : signal chi H c =O[atTop] (fun x : ℝ => x ^ (a + c)) := by
+    simpa only [hexp] using
+      common_signal_bound J (signal chi H c)
+        (theta + c + omega) (beta + c - sigma) hJ herror
+  have hL : AnalyticOnNhd ℂ (regularL chi) {s : ℂ | a < s.re} :=
+    (Complex.analyticOnNhd_univ_iff_differentiable.mpr
+      (regularL_entire chi)).mono (Set.subset_univ _)
+  have hR : AnalyticOnNhd ℂ (targetRegularizer chi) {s : ℂ | a < s.re} :=
+    (Complex.analyticOnNhd_univ_iff_differentiable.mpr
+      (targetRegularizer_entire chi)).mono (Set.subset_univ _)
+  have hrho0 : rho ≠ 0 := by
+    intro hz
+    rw [hz] at hrho
+    norm_num at hrho
+    linarith
+  refine nonzero_of_regularized_signal a 1 c
+    (LFunction chi) (regularL chi) (targetRegularizer chi)
+    (gaussianMultiplier H) (signal chi H c)
+    hL hR (gaussianMultiplier_analytic hHa)
+    (signal_locallyIntegrable chi H hH78.differentiableOn hb78 c)
+    htop (signal_rapidDecayAtZero chi H hH78.differentiableOn hb78 c)
+    ?_ hrho (regularL_eq chi hrho0 hpole)
+    (targetRegularizer_ne_zero chi hpole)
+    (gaussianMultiplier_ne_zero (hb rho (lt_trans halphaa hrho)))
+  intro s hs
+  have hs1 : 1 < s.re := (le_max_right a 1).trans_lt hs
+  have h0 : s ≠ 0 := by intro hz; norm_num [hz] at hs1
+  have h1 : s ≠ 1 := by intro hz; norm_num [hz] at hs1
+  rw [regularL_eq chi h0 (Or.inl h1),
+    signalMellin_eq_amplitude chi H hH78.differentiableOn hb78 c a ha2 htop hs]
+  unfold amplitude quotient gaussianMultiplier
+  rw [HeckeReciprocal.reciprocal_eq_inv chi h0 h1]
+  have hn := LFunction_ne_zero_of_one_lt_re chi hs1
+  field_simp
+
+end SevenEighths.HeckeSignal
+
+#print axioms SevenEighths.PrincipalSignalComparison.source_power_identity_variable_x
+#print axioms SevenEighths.PrincipalSignalComparison.normalized_source_double_residue_variable_x
+#print axioms SevenEighths.PrincipalSignalComparison.sourceCorrection_analytic_wide
+#print axioms SevenEighths.PrincipalSignalComparison.sourceCorrection_bound_wide
+#print axioms SevenEighths.HeckeSignal.nonzero_of_probe_bounds_variable_boundary
+#print axioms SevenEighths.RHLeanFiniteSlotGap.exists_fine_high_data_with_reserve
+#print axioms SevenEighths.RHLeanFiniteSlotGap.source_gain_budgets
+#print axioms SevenEighths.RHLeanFiniteSlotGap.high_data_small_errors
+#print axioms SevenEighths.RHLeanFiniteSlotGap.capped_high_data_geometry
+#print axioms SevenEighths.RHLeanFiniteSlotGap.capped_high_data_bounds
+#print axioms SevenEighths.RHLeanFiniteSlotGap.high_data_central_cost_of_bounds
+#print axioms SevenEighths.RHLeanFiniteSlotGap.capped_high_data_central_cost
+#print axioms SevenEighths.RHLeanFiniteSlotGap.capped_high_data_central_reserve
+#print axioms SevenEighths.RHLeanFiniteSlotGap.fixed_delta_target_payment
+#print axioms SevenEighths.RHLeanFiniteSlotGap.capped_high_data_window
 #print axioms SevenEighths.RHLeanFiniteSlotGap.hybridSaving_zero
 #print axioms SevenEighths.RHLeanFiniteSlotGap.finite_selected_mass_gap
 #print axioms SevenEighths.RHLeanFiniteSlotGap.source_selected_mass_gap
@@ -376,3 +786,4 @@ end SevenEighths.ProbeEuler
 
 end
 end OAI
+

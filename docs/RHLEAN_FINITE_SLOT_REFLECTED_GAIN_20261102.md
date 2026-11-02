@@ -218,32 +218,102 @@ At the enlarged boundary,
 \]
 The limiting product is \(KV\), whose exponent is exactly \(-17/10\). All other products in the proof have stronger decay. The constant and summable majorant remain unchanged.
 
-Global holomorphy, principal-slot and contour wrappers still need their hypotheses propagated to this enlarged region.
+The implementation below propagates this estimate through the actual normal product and source correction; the remaining physical contour comparison is tracked separately.
+
+## Explicit chosen data and continuation
+
+The additional source budget is now constructed directly. Every HighData record already implies
+\[
+\epsilon,e\le t/2000,\qquad e\le\ell_{\min}/4.
+\]
+Only the auxiliary values \(\mathrm{eps}\) and \(\sigma\) are decreased:
+\[
+\mathrm{eps}'=\min(\mathrm{eps},t/(N+8)),\qquad
+\sigma'=\min(\sigma,\ell_{\min}/4).
+\]
+Every original budget and height-choice property is preserved. The source
+slot list, \(t\), \(r_{\min}\), \(\epsilon\), and \(e\) remain identical.
+This preserves any prescribed fine mesh.
+
+The implemented bounds give central cost \(B\le18t\), hence
+\[
+B+49/881280\le49/440640.
+\]
+The fixed auxiliary parameter \(\Delta_0=10^{-6}\) also satisfies
+\[
+\Delta_0+\sigma+t/8+t/8\le49/881280.
+\]
+Thus the old continuous-gap parameter need not be sent to zero.
+
+A convenient physical choice is now
+\[
+\boxed{\delta=e/48>0.}
+\]
+It gives
+\[
+24\delta=e/2\le\ell_{\min}/8,\qquad
+\delta\le t/96000.
+\]
+If \(\beta\ge7/8-\delta\), then \(\beta+e>7/8\) and
+\(\beta+8e>7/8\). The existing principal and small-row contour domains can
+therefore be retained. The low-side error remains a separate arbitrary
+positive parameter; it is not forced to equal \(e\), \(t\), or \(\delta\).
+
+The local Euler estimate has also been propagated through the actual
+normal product. The new sourceCorrection_analytic_wide and
+sourceCorrection_bound_wide prove, with the same original character,
+exclusion set and CorrectionTail,
+\[
+H\text{ is analytic on }\Re s>21/25,\qquad |H(s)-1|\le1/2.
+\]
+
+The implemented nonzero_of_probe_bounds_variable_boundary uses the
+original signal and regularized Mellin identity. If
+\[
+J=O(Z^{\theta+c+\omega}),\qquad
+J-\operatorname{signal}=O(Z^{\beta+c-\sigma}),
+\]
+with \(0<\omega<\beta-\theta\), \(\sigma>0\), and
+\(21/25\le\theta\), it gives nonvanishing for
+\[
+\Re s>\max(\theta+\omega,\beta-\sigma).
+\]
+No contour is moved through possible zeros: the regularized product
+identity is analytically continued from \(\Re s>1\).
+
+The variable physical normalization has an exact source theorem as well:
+normalized_source_double_residue_variable_x retains the original
+principal residue, source multiplier, slot weights and normalizer, and
+computes its signal shift as
+\[
+c=x/3-5/6+1/36.
+\]
+This is the source of \(c=-11/16-8\delta\) for the tilted choice.
+
+These new declarations are prepared for the same warning-fatal Lean check.
+They still do not supply the two complete physical probe estimates.
 
 ## Remaining complete-consumer work
 
-Source inspection has identified compatible numerical margins. This PR does not supply the following generalized proofs:
+The remaining substantive task is to propagate the changed physical scales
+through both estimates of one identical normalized compensated probe:
 
-1. Propagate the finite-slot dichotomy and perturbed \(x,y,S\) through the complete low-side source reconstruction, including the inverse normalization and Gram exponent \(g\).
-2. Export a fine HighData witness with the stronger constructor bounds
-   \(\epsilon,e\le t/2000\), \((N+8)\mathrm{eps}\le t\), and
-   \(\sigma\le\ell_{\min}/4\).
-   An arbitrary HighData record can saturate its stored central budget; extra reserve cannot simply be assumed.
-3. Generalize the high source's physical prefactors. Its natural large-row cutoff increases by \(6\delta\), requiring \(t>6\delta\). This follows from \(24\delta<\ell_{\min}\le t/200\).
-4. Carry the enlarged analytic strip through the principal source, finite products, contour comparison and final signal theorem.
-5. Assemble both estimates of one identical compensated normalized probe, then complete the supremum contradiction and native signed-energy consequence.
+1. Carry the finite-slot gate and \(S=5/6-12\delta\) through the complete
+   reflected low reconstruction. At LowDyads, empty active types use the
+   exact zero-width theorem; nonempty outer selections retain their nominal
+   mass through every inner inactive subset.
+2. Generalize inverse normalization and the Gram scale with the same \(S\).
+   The inverse identity cancels \(S\) exactly, and the Gram exponent becomes
+   \(3/16-9\delta\). The final low error must remain arbitrary.
+3. Propagate the tilted physical prefactors through the complete high cube,
+   dyadic, tail and principal-integral reconstruction, using the explicit
+   fixed-data budgets above. The arithmetic moment suppliers are unchanged.
+4. Apply the completed low and high bounds to the variable-boundary
+   continuation theorem, then carry out the supremum contradiction and
+   native signed-energy consequence.
 
-For the stronger constructor witness, the central cost before saving satisfies
-\[
-B\le\frac{1685449}{96000}t<18t,
-\]
-while the original fixed reserve is \(49/440640\).
-The physical perturbation adds at most
-\((126/25+36e)\delta\) to the central exponent. Relative to a signal with
-\(\beta\ge7/8-\delta\), the additional cost is
-\(\Delta_0+(201/25+36e)\delta\), before explicitly retained outer costs.
-
-These calculations motivate the remaining proofs. They do not discharge them.
+The source-level audit found no numerical obstruction in this list.
+It does not replace the missing composed proofs.
 
 ## Review and verification
 
@@ -252,3 +322,4 @@ Root derived and implemented the source estimates. The critical-family agent che
 Lean validation uses only pinned GitHub Actions. The existing workflow adds the new file to its warning-fatal proof compilation and axiom scan. The live dependency audit additionally requires the all-height source theorem and fixed-data certified band theorem in the original complete \(7/8\) replay.
 
 No endpoint statement, source coefficient, central policy, axiom whitelist or existing validation gate is weakened.
+
