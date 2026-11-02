@@ -1,6 +1,6 @@
 # Finite-slot reflected gain and fixed-source uniformity
 
-Date: 2026-11-02. Status: independently reviewed mathematical derivation; Lean source prepared for warning-fatal GitHub Actions. A new endpoint below \(7/8\) is **not** claimed.
+Date: 2026-11-02. Status: complete strict-endpoint proof drafted and reviewed at source level; pinned warning-fatal Lean verification is in progress. A new endpoint below \(7/8\) is **not yet claimed as verified**.
 
 Base RH_Lean main: **8e5d64ae689b39dabd2a4f6eb33efe4d5d192015**.
 Original OpenAI analytic source: **1581d4cbdd69a0faf34b2089614fe2a814316a6a**.
@@ -137,7 +137,7 @@ The original cusp column, sector completion, weights, masks, prime pools
 and surviving branches remain in the statement. This is still one retained
 dyad and unit; the full physical low reconstruction remains below.
 
-The new file also proves the literal empty-tuple dyad identity. Composition through every downstream low-side caller remains unfinished; this local source theorem is not yet the final low probe bound.
+The new file also proves the literal empty-tuple dyad identity. The downstream LOW composition is implemented in VF919TiltedLowReflection.lean and VF919TiltedLowPhysical.lean. Its Lean verification is tracked separately from this previously verified local source theorem.
 
 ## Candidate leading exponent movement
 
@@ -346,37 +346,149 @@ row cutoff \(U=Z^{13/16+t}\) leaves the positive contour buffer
 \(t-24\delta=t-e/2>0\). Thus this part of the source audit does not require
 enlarging the central row set or its moment-conductor range.
 
-All these declarations are submitted to the same warning-fatal Lean check.
-They do not supply the two complete physical probe estimates.
+The previously verified local declarations are now consumed by the complete LOW and HIGH drafts described below. Every new declaration is submitted to the same warning-fatal Lean check.
 
-## Remaining complete-consumer work
+## Complete consumers drafted
 
-The remaining substantive task is to propagate the changed physical scales
-through both estimates of one identical normalized compensated probe:
+The entire source-to-endpoint chain is now written. Compilation, the exact endpoint type check, the standard-axiom whitelist and live proof dependency audit remain the acceptance gates.
 
-1. Carry the finite-slot gate and \(S=5/6-12\delta\) through the complete
-   reflected low reconstruction. At LowDyads, empty active types use the
-   exact zero-width theorem; nonempty outer selections retain their nominal
-   mass through every inner inactive subset.
-2. Generalize inverse normalization and the Gram scale with the same \(S\).
-   The inverse identity cancels \(S\) exactly, and the Gram exponent becomes
-   \(3/16-9\delta\). The final low error must remain arbitrary.
-3. Propagate the tilted physical prefactors through the complete high cube,
-   dyadic and tail reconstruction, and combine the now-proved raw principal
-   remainder with the normalized window comparison, using the explicit
-   fixed-data budgets above. The arithmetic moment suppliers are unchanged.
-4. Apply the completed low and high bounds to the variable-boundary
-   continuation theorem, then carry out the supremum contradiction and
-   native signed-energy consequence.
+| File | Actual conclusion or role |
+|---|---|
+| VF919TiltedLowReflection.lean | Complete reflected row energy with physical exponent S−2d, including the empty selection and every inactive subset |
+| VF919TiltedLowPhysical.lean | Gram reconstruction, physical scale, inverse normalization and arbitrary LOW loss |
+| VF919TiltedProbe.lean | One definition of the actual normalized compensated probe and its fixed-tilt LOW estimate |
+| VF919TiltedHighTails.lean | Small and large physical tails, cube errors, and canonical decomposition |
+| VF919TiltedHighCentral.lean | Floor and nonfloor central integrals from unchanged arithmetic moments |
+| VF919TiltedHighPrincipal.lean | Exact residue and signal scaling; actual normalized weighted principal estimate |
+| VF919TiltedHighTransport.lean | Complete normalized error transport with all four original errors |
+| VF919TiltedHighAssembly.lean | Complete HIGH estimate with independent arithmetic parameter Delta=10^−6 |
+| VF919NativeStrictSevenEighths.lean | Internally supplied native moments, identical-probe estimates, and strict supremum contradiction |
+| VF919NativeStrictMertens.lean | Exact transfer to native Mertens growth and the complete signed-pair bound |
 
-The source-level audit found no numerical obstruction in this list.
-It does not replace the missing composed proofs.
+All files have prefix `research/oai_434/` in the proof PR. They retain the original signed rows, masks, excluded primes, weights, normalizer, character dependencies, bin populations, and height restrictions.
+
+### Full LOW accounting
+
+The reflected estimate is carried through retained and discarded rows, global completion, tuple dyads, inactive subsets, and the actual source punctures. The source slot charge is fixed:
+
+\[
+24\delta<\ell_{\min},\qquad\delta=D.e/48>0.
+\]
+
+For each nonempty outer selection, a whole source slot pays that charge. Empty active selections have actual dyadic width zero. Restricting to an inner inactive subset preserves the outer nominal length and its already paid gate.
+
+The physical row energy has exponent
+
+\[
+S-2d+507\varepsilon.
+\]
+
+The inverse normalization cancels the same S; the Gram scale contributes
+
+\[
+(5x+y)/12=3/16-9\delta.
+\]
+
+The final LOW theorem allows every independent positive loss omega:
+
+\[
+J_{\eta,\delta}(Z)
+=O_{\eta,\omega}\!\left(Z^{3/16-9\delta+\omega}\right).
+\]
+
+The physical tilt does not shrink when omega shrinks.
+
+### Full HIGH accounting
+
+The exact norm ratio of the physical Mellin weights is
+
+\[
+Z^{\delta(24r+12u-24)}.
+\]
+
+On the small contour it is `Z^(−246 delta/25)`. On the central contour the additional exponent is at most `−249 delta/25`. Both dominate the `−8 delta` required by the shifted principal signal. The large contour pays the positive `24 delta r` charge using `zeta−24 delta>0`; its arbitrary-saving parameter is increased explicitly. Cube truncation and finite aggregation retain their original payments.
+
+Every normalized transport error consequently carries the same `−8 delta` shift. The original geometric, principal, window and large-tail budget inequalities remain applicable. The unchanged central arithmetic moments use the fixed positive parameter Delta0=10^−6; the explicit reserve pays
+
+\[
+\Delta_0+\sigma+\nu+\operatorname{dyadCost}
+\le49/881280.
+\]
+
+The source moment degree is selected before the character. The original height-choice theorem selects one height exponent after that degree and before the character. It absorbs the polynomial height factor into the existing `Z^t` moment allowance. No unproved moment or probe certificate is passed into the final endpoint theorem.
+
+The resulting HIGH statement is
+
+\[
+J_{\eta,\delta}(Z)
+-\operatorname{signal}_{\eta,H_\eta,-11/16-8\delta}(Z)
+=O_\eta\!\left(Z^{\beta-11/16-8\delta-\sigma}\right).
+\]
+
+It is the same `SourceData.tiltedProbe` used in LOW.
+
+### Strict endpoint argument
+
+First use the already verified native replay to obtain beta≤7/8. If strictness failed, beta would equal 7/8. Choose the fixed auxiliary data and tilt before any character. Set
+
+\[
+\theta=7/8-\delta,\quad
+c=-11/16-8\delta,\quad
+\omega=\delta/2,\quad
+m=\min(\delta/2,\sigma)>0.
+\]
+
+The LOW exponent is exactly theta+c+omega; the HIGH exponent is exactly beta+c−sigma. The wider correction remains analytic and within 1/2 of one on Re s>21/25, and delta<1/960 implies 21/25≤theta.
+
+The proved variable-boundary continuation theorem therefore excludes a zero above
+
+\[
+\max(\theta+\omega,\beta-\sigma)
+=\beta-m<\beta.
+\]
+
+The primitive-supremum theorem supplies a primitive zero with real part greater than beta−m. The original finite-deletion mask transfers that zero to the exact character used by the probe, including the nonpole condition. This contradicts continuation.
+
+The drafted terminal theorem has no hypotheses:
+
+```lean
+native_beta_lt_seven_eighths : HeckeZeroSupremum.beta < 7/8
+```
+
+Its drafted corollaries assert one positive global gap and a common improved zero-free half-plane for every character. The equality-exclusion argument does not identify that global gap with the physical tilt; no numerical gap or Riemann Hypothesis conclusion is asserted.
+
+### Return to actual rational Moebius sums
+
+The additional native consequence uses the exact Dirichlet-to-Hecke product at the principal character modulo one. An actual nontrivial zeta zero is therefore an actual zero of that Hecke L-function. The already proved native converse then gives
+
+\[
+\lambda_M=\Theta_\zeta\le\beta_{\mathrm{Hecke}}<7/8.
+\]
+
+No equality of rational Moebius signs and ideal-character phases is asserted. The actual transfer is through the L-function product and the independently proved Mertens growth/zero-boundary identification.
+
+The drafted Mertens corollary has the full order
+
+\[
+\exists g>0\quad\forall\varepsilon>0\quad\exists C_\varepsilon\ge0
+\quad\forall x\in\mathbb N,\ x\ge1:
+\quad |M(x)|\le C_\varepsilon x^{7/8-g+\varepsilon}.
+\]
+
+Applying the exact native Green--Kubo identity preserves every pair and the squarefree diagonal:
+
+\[
+K_x+2C_x=|M(x)|^2,
+\qquad
+2C_x\le\bigl(C_\varepsilon x^{7/8-g+\varepsilon}\bigr)^2-K_x.
+\]
+
+The proof also spends half the positive gap to obtain a fixed power bound with exponent strictly below 7/8. This is an all-prefix statement; it does not substitute a sum of shell squares for the square of the complete signed sum.
 
 ## Review and verification
 
-Root derived and implemented the source estimates. The critical-family agent checked the exact slot geometry and downstream exponent costs. The signed-compensation agent separately checked the scalar branches, source argument mapping and finite-slot restriction. These are distinct same-model review sessions, not a claim of statistical independence.
+Root wrote the proof chain. Same-model agents separately reviewed the finite-slot geometry, physical HIGH transport, fixed-data reserve, native height quantifiers and terminal contradiction. Their source reviews found no remaining mathematical defect. This is not a claim of statistical independence and does not replace Lean checking.
 
-Lean validation uses only pinned GitHub Actions. The existing workflow adds the new file to its warning-fatal proof compilation and axiom scan. The live dependency audit additionally requires the all-height source theorem and fixed-data certified band theorem in the original complete \(7/8\) replay.
+Verification runs only in the pinned GitHub Actions environment. Every target uses `-DwarningAsError=true`. The workflow collects independent component diagnostics but fails if any target fails. The final audit checks the entire unconditional endpoint type, allows only `propext`, `Classical.choice`, and `Quot.sound`, and requires actual proof-value dependencies on the native source moments, tilted LOW, tilted HIGH, actual principal comparison, and variable-boundary continuation.
 
-No endpoint statement, source coefficient, central policy, axiom whitelist or existing validation gate is weakened.
-
+The proof remains a draft until all these checks pass at the identified head. No main-branch or merged proof claim is made.

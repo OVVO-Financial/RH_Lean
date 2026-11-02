@@ -14,6 +14,10 @@ on:
       - 'research/oai_434/VF919TiltedHighTails.lean'
       - 'research/oai_434/VF919TiltedHighCentral.lean'
       - 'research/oai_434/VF919TiltedHighPrincipal.lean'
+      - 'research/oai_434/VF919TiltedHighTransport.lean'
+      - 'research/oai_434/VF919TiltedHighAssembly.lean'
+      - 'research/oai_434/VF919NativeStrictSevenEighths.lean'
+      - 'research/oai_434/VF919NativeStrictMertens.lean'
       - 'research/oai_434/VF919NativeSourceMoments.lean'
       - 'research/oai_434/VF919NativeSevenEighthsReplay.lean'
       - 'research/oai_434/VF919OriginalMarkedSharpenedSignedNNS.lean'
@@ -206,18 +210,29 @@ jobs:
             research/oai_434/VF919TiltedHighTails.lean
             research/oai_434/VF919TiltedHighCentral.lean
             research/oai_434/VF919TiltedHighPrincipal.lean
+            research/oai_434/VF919TiltedHighTransport.lean
+            research/oai_434/VF919TiltedHighAssembly.lean
+            research/oai_434/VF919NativeStrictSevenEighths.lean
+            research/oai_434/VF919NativeStrictMertens.lean
           )
           : > /tmp/vf919-native-seven-eighths-replay-axioms.log
+          compile_failed=0
           for source in "${targets[@]}"; do
             if grep -nE '^[[:space:]]*(sorry|admit|axiom)([[:space:]]|$)' "$source"; then
               exit 1
             fi
             module="${source%.lean}"
             module="${module//\//.}"
-            env LEAN_PATH="$RH_PATH:$OAI_PATH" lean -DwarningAsError=true \
+            if ! env LEAN_PATH="$RH_PATH:$OAI_PATH" lean -DwarningAsError=true \
               -o ".lake/build/lib/lean/${module}.olean" "$source" \
-              | tee -a /tmp/vf919-native-seven-eighths-replay-axioms.log
+              | tee -a /tmp/vf919-native-seven-eighths-replay-axioms.log; then
+              compile_failed=1
+            fi
           done
+          if (( compile_failed )); then
+            echo "At least one native contraction target failed Lean verification" >&2
+            exit 1
+          fi
           if grep -E 'sorryAx|admitAx|_private' /tmp/vf919-native-seven-eighths-replay-axioms.log; then
             echo "Nonstandard axiom contamination in native contraction replay" >&2
             exit 1
@@ -225,6 +240,16 @@ jobs:
           env LEAN_PATH="$RH_PATH:$OAI_PATH" lean -DwarningAsError=true \
             --run scripts/lean/NativeSevenEighthsReplayAudit.lean \
             | tee /tmp/vf919-native-seven-eighths-replay-dependencies.log
+          env LEAN_PATH="$RH_PATH:$OAI_PATH" lean -DwarningAsError=true \
+            --run scripts/lean/NativeSevenEighthsReplayAudit.lean \
+            research.oai_434.VF919NativeStrictSevenEighths \
+            OAI.SevenEighths.RHLeanNativeSevenEighthsReplay.native_beta_lt_seven_eighths \
+            | tee /tmp/vf919-native-strict-seven-eighths-dependencies.log
+          env LEAN_PATH="$RH_PATH:$OAI_PATH" lean -DwarningAsError=true \
+            --run scripts/lean/NativeSevenEighthsReplayAudit.lean \
+            research.oai_434.VF919NativeStrictMertens \
+            RHLean.Analysis.native_mertens_growth_exponent_lt_seven_eighths \
+            | tee /tmp/vf919-native-strict-mertens-dependencies.log
       - name: Preserve native contraction proof and dependency evidence
         if: ${{ !cancelled() && steps.native_replay.outcome != 'skipped' && steps.native_replay.outcome != '' }}
         uses: actions/upload-artifact@v4
@@ -233,6 +258,8 @@ jobs:
           path: |
             /tmp/vf919-native-seven-eighths-replay-axioms.log
             /tmp/vf919-native-seven-eighths-replay-dependencies.log
+            /tmp/vf919-native-strict-seven-eighths-dependencies.log
+            /tmp/vf919-native-strict-mertens-dependencies.log
           if-no-files-found: warn
           retention-days: 7
       - name: Accept actual full imported proof and genuine RHLean signed covariance

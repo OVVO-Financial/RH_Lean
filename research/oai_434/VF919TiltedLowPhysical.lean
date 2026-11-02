@@ -88,7 +88,8 @@ lemma source_scale_ratio_tilted (phys : LowPhysicalExponents) (Z : ℝ) (hZ : 0<
 lemma source_scale_square_tilted (phys : LowPhysicalExponents) (Z : ℝ) (hZ : 0<Z) :
     Z^((2*phys.x-phys.y):ℝ)*Z^(phys.y:ℝ)=(Z^(phys.x:ℝ))^2 := by
   rw [←Real.rpow_add hZ,←Real.rpow_natCast,←Real.rpow_mul hZ.le]
-  congr 1 <;> ring
+  congr 1
+  ring
 
 lemma source_compensated_scale_admissible_tilted (phys : LowPhysicalExponents) (q Z L : ℝ) (hq : 1≤q) (hZ : 1≤Z)
     (hL : 1≤L) (hql : q≤Z^((phys.y-phys.x):ℝ)) (hLl : L≤Z^((2*phys.x-phys.y):ℝ)) :
