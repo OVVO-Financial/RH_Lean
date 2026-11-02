@@ -598,3 +598,8 @@ PR #1072 merged from exact head 1c134fcc04f4369499d2ca09f8fc66b25e36968c. All 13
 - eta_gate: SEARCH_BROAD.
 - net_endpoint_gain_after_complete_return: UNKNOWN.
 - Complete shell estimate OPEN; strict exponent below 7/8 NOT PROVED; canonical VF theorem OPEN; RH OPEN.
+
+
+### Publication verification for claim 20261102-analytic-3
+
+The continuation checkpoint was committed as 33bba8070ba5fe4af811b88dab5b72791148ddc2 and read back at blob e53a0421736c2b582690ef027e71413a20012fc7. The completed synthesis was committed as aa2161a58a488d6a005941e7ac2a97624e200589 and read back at blob 94474fa8996ad0b7d10801d40a3eee465fd56dda (36,866 characters), with claim 20261102-analytic-3, equations (53)-(63), the cutoff-boundary audit, complete-return activation bill, source/CI evidence, handoffs, and resume capsule present. This receipt records publication only and does not upgrade the paper-proof classification.
