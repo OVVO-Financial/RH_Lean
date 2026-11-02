@@ -161,8 +161,8 @@ theorem native_beta_le_seven_eighths : HeckeZeroSupremum.beta ≤ 7 / 8 := by
   apply (HeckeSignal.nonzero_of_probe_bounds χ H J HeckeZeroSupremum.beta omegaMargin σ
     (-11 / 16) HeckeZeroSupremum.beta_le_one hω0 hω hσ hH hb
     ?_ ?_ hnear hχpole) hzχ
-  · convert hJ using 1 <;> ring_nf
-  · convert herr using 1 <;> ring_nf
+  · convert hJ using 1; ring_nf
+  · convert herr using 1; ring_nf
 
 theorem native_hecke_nonzero (χ : Character) (s : ℂ)
     (hs : (7 / 8 : ℝ) < s.re) (hpole : s ≠ 1 ∨ χ.residue ≠ 1) :
