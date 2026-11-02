@@ -278,3 +278,159 @@ The new exact finding is a scoped no-go for prime-square shell recursion. For an
 `((R^2-1)/p^2, ((R+1)^2-1)/p^2]` with `ps <= R < p(s+1)` partition the complete lower square shell `[s^2,(s+1)^2)`. Complete shell sums nevertheless do not control the squared fragment sums. On the genuine Mobius carrier, `s=12,p=3` gives complete shell sum zero, while the three exact fragments at `R=36,37,38` are `(0,1,-1)`, of energy `2`. Thus no finite homogeneous bound can pay one prime-square fragment family solely by the corresponding complete lower-shell energy. This does not refute joint signed cancellation across owners, the principal term, roots, activations, or the complete covariance.
 
 Current open PRs are #1071 (finite-C parity obstruction, exact head `3706efb...`, 12/12 workflows successful) and draft #1072 (native replay of the already established 1 to 7/8 contraction, exact head `cc082f4...`; dedicated workflow still in progress at this checkpoint). The final continuation will audit their mathematical scope, integrate the latest specialist findings, and issue nonredundant assignments.
+
+
+## Scheduled continuation final synthesis - claim `20261102-coordinator-2` - 2026-11-02 15:47 EST (-0500)
+
+**Execution status:** `COMPLETED / PUBLISHED`.  
+**Evidence classes:** `PAPER_PROOF / EXACT PRIME-SQUARE FRAGMENTATION`; `PAPER_PROOF / GENUINE MOBIUS COUNTEREXAMPLE`; `REFUTED` for homogeneous payment of fragment energy by complete lower-shell energy; `NO FIXED ETA GAIN`; `NO RH`.
+
+### A. What changed mathematically?
+
+Prime-square lifting is not a scalar recursion on complete square shells. It is an exact fragmentation operator: for each prime owner `p`, one lower shell is split into `p` consecutive quotient fragments before the reciprocal owner weight is applied. The fragments telescope to the lower-shell sum, but their quadratic energy is invisible to that scalar total.
+
+This distinction is already nontrivial on the genuine Mobius sequence. At lower root `s=12`, the complete shell sum on `144 <= n < 169` is zero. For owner `p=3`, the exact three quotient fragments occurring at upper roots `R=36,37,38` are `0,1,-1`. Their unweighted energy is `2`, and their actual reciprocal-weight energy is `2/9`, while the proposed lower-shell bill is zero.
+
+Therefore every finite constant `C` fails in the homogeneous comparison
+
+```text
+sum_(R=ps)^(p(s+1)-1) |F_(R,p)|^2 <= C |Delta_s|^2
+```
+
+even when `F` and `Delta` are formed from the actual Mobius coefficients. This retires scalar lower-shell recursion as a supplier for the sparse-divisor/convolution mechanism. It does not refute a joint signed theorem retaining cross-owner terms, the principal field, root and activation terms, or a genuinely stronger sub-shell variation input.
+
+### B. Current proof objective
+
+Live main is `7790fb9f5ddda6eb9823899f2694d691756cd248`, the human merge of PR #1070. Authority blobs remain `AGENTS.md 9fa5e9519e2fb6dde22217aa2a18982dafef373a` and `CURRENT_PROOF_CONTRACT.md 88cddd9cd98c3b55f0b013998541e9b4e9dc9f2a`. The external inbox is unchanged at `038018145c0fddb2f6306c0712373adf9cd1ea52`, with no new handoff after 2026-10-18.
+
+The canonical unresolved theorem is
+
+```text
+exists C >= 0, forall R >= 2,
+  |pi(R^2) - VF_can(R^2)| <= C R log R.
+```
+
+The nearer fixed-gain shell benchmark, every strict Mertens exponent below `7/8`, finite A/C, CORR4, MU-LIFT, and RH remain open. The gate remains `SEARCH_BROAD`.
+
+### C. Competing mechanism portfolio
+
+1. **Complete aggregate affine/fragment covariance - CONTINUE, NARROWED.**  
+Concept: retain the exact affine-cell dictionary and the full prime-square fragment vectors, summing across owners and physical shifts before absolute values. Independent input: a natural-window power-rate signed correlation theorem uniform in moving owners, shifts, reciprocal weights, and shell masks. Target implication: bound the full nonzero hybrid covariance, then restore the root and activation terms. First missing theorem: a complete aggregate estimate beating the accepted `H^3` absolute scale by `H^(1/2+eta)`. Support: affine dictionary C12-C14, merged lifted-address injectivity, Owner's sparse-divisor identity, Census's finite aggregate cancellation, and the exact consecutive-gap admission lemma. Obstructions: fixed-cell Chowla, growing slopes, parity-sector cancellation, and the new fragment-energy counterexample. Disposition: continue only in complete signed form; reject scalar lower-shell or sectorwise payment.
+
+2. **NYMAN signed residual - CONTINUE INDEPENDENTLY.**  
+Concept: use coefficient rigidity to isolate the complete middle and infinite residual. Independent input: uniform signed mean-square decay for that whole residual. Target implication: full-basis norm decay and the registered zero-free consumer. First missing theorem: an all-scale residual estimate, not another exact coefficient identity. Obstructions: absolute tail minimization is sharp and the imported `57/64` Mertens bound leaves a growing bill. Disposition: continue; independent review of `20261102-analytic-1` remains due.
+
+3. **JOH cross-owner chronology - CONTINUE INDEPENDENTLY.**  
+Concept: control the rank-matched sum across owners together with the unequal-count tail. Independent input: a two-owner or global ordering invariant that survives the fixed `p=3` sign reversal. Target implication: a genuine JOH sign law or one-sided VF wall. First missing theorem: cross-owner chronological compensation with original weights. Obstructions: per-owner sign, singleton vanishing, and ancestry-sector payment are refuted. Disposition: continue only at aggregate owner level.
+
+The complete FINITE-AC parity packet and odd-Mobius moving tail remain reserves. Both now have exact structural interfaces, but neither has its required quantitative estimate.
+
+### D. Conceptual research performed
+
+For any coefficient sequence `a(n)`, put
+
+```text
+A(N) = sum_(1<=n<=N) a(n),
+Delta_s(a) = A((s+1)^2-1) - A(s^2-1).
+```
+
+For integers `p>=2`, `s>=1`, and `R` with `ps <= R < p(s+1)`, define the prime-square quotient fragment
+
+```text
+F_(R,p)(a) =
+  A(floor(((R+1)^2-1)/p^2)) - A(floor((R^2-1)/p^2)).       (C16)
+```
+
+The intervals in (C16) are consecutive and disjoint as `R` increases. Their first lower endpoint and final upper endpoint are exact:
+
+```text
+floor(((ps)^2-1)/p^2) = s^2-1,
+floor((p^2(s+1)^2-1)/p^2) = (s+1)^2-1.
+```
+
+Hence telescoping gives the exact identity
+
+```text
+sum_(R=ps)^(p(s+1)-1) F_(R,p)(a) = Delta_s(a).             (C17)
+```
+
+Equation (C17) is an identity only. Squaring before summing retains internal variation that its right side discards.
+
+For `a=mu`, `s=12`, and `p=3`, the intervals and exact sums are
+
+```text
+R=36: [144,152] -> 0,
+R=37: [153,160] -> 1,
+R=38: [161,168] -> -1.                                    (C18)
+```
+
+Direct factorization verifies (C18). For example the middle interval has nonzero values `mu(154)=-1, mu(155)=1, mu(157)=-1, mu(158)=1, mu(159)=1`, summing to `1`; the final interval sums to `-1`. The full shell sums to `0`. Therefore
+
+```text
+Delta_12(mu)^2 = 0,
+sum_(R=36)^38 F_(R,3)(mu)^2 = 2.                           (C19)
+```
+
+With the original reciprocal owner coefficient, the left side is `2/9`. Thus no universal finite homogeneous scalar comparison exists. This is a genuine arithmetic counterexample, not an arbitrary-vector model.
+
+No-circularity review: C16-C17 are exact identities with no estimate. C18-C19 refute only a proposed reduction. A replacement hypothesis controlling every fragment square separately would be stronger than the desired shell scalar input and may simply rehouse the target; it requires its own arithmetic justification. The viable question is joint signed compensation among the full fields, not an assumed fragment norm.
+
+### E. Specialist findings
+
+- Owner `20261102-owner-2`: `g_R=mu*kappa_R`, `1*g_R=kappa_R`, and the exact prefix transfer preserve the Mertens exponent; all four natural covariance sectors change sign. This is structural, not a gain.
+- Analytic `20261102-analytic-2`: the principal-plus-complete-reciprocal amplitude is quantitatively invertible back to Mertens for fixed `sigma>=3/4`. Referee corrected the submitted tail constant to `2/(9 sqrt 3)<1/4` and accepted the repaired scope. Amplitude-only cancellation is not an easier supplier.
+- Wheel `20261102-wheel-2`: exact four-parity reassembly and the `R=5` values `10,-8,-8,6` show that the complete finite-C packet can vanish while its odd-odd sector is nonzero.
+- Census `20261102-census-2`: finite weighted aggregate tests refute small exceptional-cell dominance; gap `+/-1` has exact shell self-admission, while general shifts require boundary restoration.
+- Referee `20261102-referee-2`: accepted the repaired amplitude inverse, affine identities, consecutive-gap admission, and parity obstruction with scope; corrected the Tao literature reference and rejected overbroad no-go language.
+- Lean `20261102-lean-2`: PR #1071 kernel-checks the parity obstruction on exact head `3706efbef1e20b2c54709f8e80ea55d3c1d1cea9`; all 12 workflows succeeded. It proves no finite-C bound.
+
+### F. Mathematical bottlenecks
+
+- Complete hybrid route: a power-rate aggregate signed theorem for the moving affine/fragment family, followed by exact root and activation restoration.
+- NYMAN: signed decay of the complete residual including the infinite tail.
+- JOH: a cross-owner chronological invariant compatible with all known sign reversals.
+- FINITE-AC: a joint signed bound for the complete parity packet; no sector can be paid homogeneously by the packet norm.
+- Odd-Mobius: a moving-cutoff signed tail estimate, not the already compiled telescope.
+
+### G. Strategy decisions
+
+- Retire homogeneous fragment-energy payment by complete lower-shell energy. C19 is a genuine Mobius counterexample.
+- Retire principal-plus-reciprocal amplitude cancellation as an independent exponent supplier in the Referee-accepted range; the transform is quantitatively invertible.
+- Preserve aggregate signed affine/fragment covariance, but require the complete source and return. Do not replace it with a sum of fragment squares.
+- Keep NYMAN and JOH protected and mathematically independent.
+- Treat draft PR #1072 as a formal integration of the existing `1 -> 7/8` baseline, not new arithmetic and not evidence for `VERIFIED_ETA`.
+
+### H. Next specialist assignments
+
+**RH | Owner Payment:** Continue JOH. State the exact two-owner aggregate and unequal-count tail, then seek an ordering restriction that survives the frozen `p=3` reversals. Falsifier: one legal pair of owner classes violating the proposed order. Do not return to sectorwise signs or scalar fragment payment.
+
+**RH | Analytic Type II:** Next protected route due is CODIV. Separately determine whether a bilinear/hyperbola transformation of `1*g_R=kappa_R` can keep the signed fragment cross terms without introducing a fragment-square norm. A valid result must quantify every boundary and produce a new estimate; C17 alone is not progress. Falsifier: reduction to C19 or to the amplitude-equivalent transform (R29).
+
+**RH | Finite Wheel & Incidence:** Continue FINITE-AC on the complete four-parity packet. Seek a coupling invariant between odd cores that survives the exact `R=5` witness. Any homogeneous odd-odd-to-complete comparison is closed by #1071.
+
+**RH | Prime Census Laboratory:** Freeze C18-C19 as a regression. Test one preregistered joint-owner fragment compensation law on held-out roots, retaining reciprocal weights, principal field, root/activation terms, and shell boundaries. Report cross-owner terms, not only diagonal fragment energy. Falsifier: persistent dominance by the C19-type internal variation after complete reassembly.
+
+**RH | Adversarial Referee:** Audit C16-C19, including endpoints, actual `p^2<R` admission at `R=36,37,38`, Mobius factorizations, and the precise refuted quantifiers. Then review Owner `20261102-owner-2`. Reject any claim that C19 refutes joint signed covariance.
+
+**RH | Lean Verification:** Keep #1071 as the accepted quantitative-obstruction branch and repair only diagnosed CI/review issues. Do not formalize C16-C19 before independent Referee acceptance and a utility decision. Audit draft #1072 at exact head as baseline integration only; do not label it a new eta supplier.
+
+### I. Lean and PR status
+
+PR #1071 is open, non-draft, mergeable, and review-ready at `3706efbef1e20b2c54709f8e80ea55d3c1d1cea9`; 12/12 workflows are successful and the audited declarations use only the standard logical axioms. Human merge remains required.
+
+Draft PR #1072 is open and mergeable at `cc082f4eef0df6dc6972c81b9f44bf7fb28a3f6c`. It replays the already established original `1 -> 7/8` contraction through native moment dependencies and explicitly claims no exponent improvement or moving-window variance theorem. At final refresh, 12 ancillary workflows were successful while the dedicated combined native/OAI workflow run `41516805074` remained in progress. Therefore its exact-head kernel/dependency status is `PENDING`, and its mathematical scope is baseline integration even if CI becomes green.
+
+### J. Next-run resume capsule
+
+- live main: `7790fb9f5ddda6eb9823899f2694d691756cd248`;
+- claim: `20261102-coordinator-2`, equations C16-C19;
+- strongest new result: exact prime-square fragmentation plus genuine Mobius witness `s=12,p=3`;
+- refuted statement: uniform homogeneous fragment-energy payment by complete lower-shell energy;
+- surviving primary mechanism: complete signed aggregate affine/fragment covariance with root and activation restoration;
+- independent mechanisms: NYMAN signed residual and JOH cross-owner chronology;
+- formal queue: #1071 review-ready/CI green; #1072 draft/dedicated CI pending and baseline-only;
+- external handoffs: no new entry after 2026-10-18;
+- `eta_gate: SEARCH_BROAD`;
+- `net_endpoint_gain_after_complete_return: UNKNOWN`;
+- next highest-value reasoning task: derive a source-faithful joint-owner fragment identity that exposes cross-owner cancellation without replacing it by diagonal fragment energy;
+- complete shell estimate, strict Mertens exponent below `7/8`, canonical VF theorem, and RH remain OPEN.
