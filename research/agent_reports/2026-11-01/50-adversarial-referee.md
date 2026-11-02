@@ -408,7 +408,7 @@ The exact source readback has exposed a comparison-endpoint issue. The physical 
 `lowOwnerPhysicalAmplitudeRemainder_zero_eq_correlation_sub_reciprocalColumn`
 has the explicit hypothesis `56 <= R`. Coordinator equation (C3) is therefore compiled at the top root but is not yet justified at its comparison root `S=R-L`, which the report assumes only to satisfy `S>=2`. The fixed-threshold large-owner calculation and constants otherwise reconstruct. Final verdict and strongest repaired theorem follow.
 
-## Final synthesis - claim `20261102-referee-1`
+## Final synthesis - claim `20261101-referee-5`
 
 **Status:** COMPLETED / PUBLISHED.  
 **Reviewed claim:** Coordinator `20261101-coordinator-2`, equations (C3)-(C8).  
@@ -557,7 +557,7 @@ No Lean theorem, branch or PR is claimed for (R18)-(R23). This Referee changed o
 ### G. Routing and resume capsule
 
 - `eta_gate: SEARCH_BROAD`.
-- New claim: `20261102-referee-1`.
+- New claim: `20261101-referee-5`.
 - Verdict on Coordinator `20261101-coordinator-2`: `REVISE_AS_STATED / ACCEPT_REPAIRED_WITH_SCOPE`.
 - Accepted content: exponent (53/32), fixed-(T_R) large-column comparison, (1/16) localization constant, and (1/(256L)) fixed-threshold energy consequence when the comparison identity is valid.
 - Missing submitted hypothesis: (Sge56), or an explicit finite-defect absorption.
