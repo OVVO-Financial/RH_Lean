@@ -426,3 +426,175 @@ The continuation checkpoint was committed as `0055040f2404a437f9761bbc3403943843
 **Selected question:** resume CODIV from Owner claim `20261102-owner-2`, equations (42)-(46). For the genuine hybrid coefficient `g_R=mu*kappa_R`, test whether the moving prime-square admission `q^2<R` can be frozen on every dyadic root block at a quantitatively negligible cost. The candidate theorem keeps the actual `1/q` weights and physical shell `[R^2,(R+1)^2)`; it will be stress-tested against strict boundary activation and complete-return terms.
 
 No new estimate is claimed at this checkpoint. `eta_gate: SEARCH_BROAD`; complete-return gain `UNKNOWN`; strict Mertens exponent below `7/8`, canonical VF, and RH remain OPEN.
+
+
+## Scheduled continuation final synthesis - claim 20261102-analytic-3
+
+**Status:** COMPLETED / PAPER_PROOF_NEEDS_INDEPENDENT_REVIEW.  
+**Result classes:** EXACT DYADIC CUTOFF FREEZING; UNIFORM POINTWISE AND L2 PERTURBATION; FIXED-SEQUENCE REDUCTION FOR CODIV; COMPLETE-RETURN ACTIVATION BILL EXPOSED; NO FIXED ETA GAIN; NO RH.
+
+### P. Most important analytic result
+
+Owner claim 20261102-owner-2 writes the actual outer-plus-prime-square-daughter coefficient as
+
+    g_R = mu * kappa_R,
+    kappa_R(1)=1,
+    kappa_R(q^2)=1/q for odd prime q with q^2<R,
+
+and its physical shell mass as
+
+    W_R = sum_(R^2 <= n < (R+1)^2) g_R(n).
+
+The apparent difficulty that g_R itself changes with R can be removed at negligible power cost.
+
+Fix integers H>=2 and H<=R<2H. Freeze the strict owner admission at the left endpoint:
+
+    kappa_H^fr(1)=1,
+    kappa_H^fr(q^2)=1/q for odd prime q with q^2<H,
+    g_H^fr = mu * kappa_H^fr,
+    W_R^fr = sum_(R^2 <= n < (R+1)^2) g_H^fr(n).
+
+Then claim 20261102-analytic-3 proves the exact error formula
+
+    e_R := W_R-W_R^fr
+         = sum_(q odd prime, H<=q^2<R) (1/q)
+             sum_(R^2 <= q^2 m < (R+1)^2) mu(m),             (53)
+
+and the uniform bounds
+
+    |e_R| <= 4 sqrt(2),                                      (54)
+    sum_(H<=R<2H) |e_R|^2 <= 32 H.                           (55)
+
+Consequently
+
+    | ||(W_R)||_2 - ||(W_R^fr)||_2 | <= 4 sqrt(2H),          (56)
+
+and, in both directions,
+
+    sum_R |W_R|^2 <= 2 sum_R |W_R^fr|^2 + 64H,              (57)
+
+with the same inequality after exchanging W and W^fr.
+
+Thus the existence of any fixed positive eta in a bound of the form
+
+    sum_(H<=R<2H) |W_R|^2 << H^(5/2-eta+epsilon)
+
+is equivalent to the same assertion for the single fixed sequence g_H^fr on that dyadic block. If an asserted eta is at least 3/2, it may first be weakened to any eta_0 in (0,3/2), so the O(H) perturbation is always negligible for the repository benchmark. The reduction is independent of the imported 7/8 prefix estimate.
+
+This is a useful CODIV simplification: future Fourier, dispersion, hyperbola, or additive-correlation work may hold the arithmetic coefficient fixed throughout R in [H,2H). Uniformity is still required in H, and the full old-owner range q^2<H remains present.
+
+### Q. Proof with exact constants
+
+For a newly activated q in (53),
+
+    ((R+1)^2-R^2)/q^2 = (2R+1)/q^2
+      <= (4H-1)/H < 4.
+
+A half-open real interval of length less than 4 contains at most four integers. Since |mu(m)|<=1,
+
+    |sum_(R^2 <= q^2 m < (R+1)^2) mu(m)| <= 4.              (58)
+
+Every q in (53) satisfies sqrt(H)<=q<sqrt(2H). Therefore
+
+    sum_(q odd prime, H<=q^2<R) 1/q
+      <= (# {integers q : q<sqrt(2H)})/sqrt(H)
+      <= sqrt(2).
+
+Combining this with (58) proves (54), without the prime number theorem or any independence assumption. There are exactly H integer roots in [H,2H), giving (55). Equation (56) is the reverse triangle inequality in l2, and (57) follows from |a+b|^2<=2|a|^2+2|b|^2. All constants are absolute.
+
+The proof retains the strict equality case q^2=H correctly: that owner is absent at R=H and appears only for R>H, so it belongs to (53). It also retains the odd-prime qualification, literal 1/q weight, exact integer shell endpoints, and genuine Mobius coefficient.
+
+### R. Diagonal and complete-return accounting
+
+Let Z_R be the zero-shift diagonal of the actual occurrence family and Z_R^fr the frozen diagonal. Merged source LIFTED_MOBIUS_ADDRESS_INJECTIVITY_20261102.lean proves that nonzero outer and daughter addresses do not collide and that a nonzero daughter has a unique square owner. Hence the newly activated diagonal is additive. The same four-integer count gives
+
+    0 <= Z_R-Z_R^fr
+       <= 4 sum_(q odd prime, H<=q^2<R) 1/q^2
+       <= 4 sqrt(2) H^(-1/2),                               (59)
+
+and therefore
+
+    sum_(H<=R<2H) (Z_R-Z_R^fr) <= 4 sqrt(2H).               (60)
+
+If 2N_R=W_R^2-Z_R and 2N_R^fr=(W_R^fr)^2-Z_R^fr denote the corresponding signed distinct-address covariances, then
+
+    2 |sum_R (N_R-N_R^fr)|
+      <= ||e||_2 (||W||_2+||W^fr||_2) + 4 sqrt(2H).         (61)
+
+Under a frozen target bound H^(5/2-eta+epsilon), the first term is at most
+
+    O(H^(7/4-eta/2+epsilon/2)),
+
+which is lower order than H^(5/2-eta+epsilon) after weakening to 0<eta<3/2. Thus cutoff activation is not the source of the missing H^(1/2+eta) covariance saving.
+
+For the complete hybrid return recorded upstream as
+
+    Xi_H = 2 sum_R N_R - 2 sum_R mu(R) W_R
+           + 2 sum_R W_R K_R,
+
+the root-term freezing error is at most
+
+    2 sum_R |e_R| <= 8 sqrt(2) H.                            (62)
+
+The activation interaction leaves the explicit bill
+
+    2 |sum_R e_R K_R|
+      <= 8 sqrt(2H) (sum_R |K_R|^2)^(1/2).                  (63)
+
+No bound for (63) is asserted here. A complete-return theorem must either control that K-vector norm at an affordable scale or retain its signed interaction. This is the precise remaining qualification: (53)-(61) remove moving prime-square admission from the shell/covariance problem, but they do not by themselves pay the inherited activation term.
+
+### S. Falsification and relevance audit
+
+1. **Boundary activation:** q^2=H was included in the error, while q^2=R remains excluded by the original strict cutoff. No endpoint was rounded away.
+2. **Growing parameters:** g_H^fr is fixed only within one dyadic block; it still depends on H and contains every old owner q^2<H. The theorem does not claim one universal fixed sequence.
+3. **Signed carrier:** equation (53) retains mu(m), rather than replacing it by squarefree density. The bound uses absolute values only on the perturbation whose total cost is already O(H).
+4. **Saturated affine cell:** Wheel claim 20261102-wheel-1 uses q=3,5. For H>25 these are old frozen owners, so the determinant-one saturation remains entirely inside g_H^fr. The theorem does not evade that obstruction.
+5. **Prefix versus local energy:** merged nativeReplay_mertens_growth and Owner equation (46) control prefixes with exponent 7/8. Neither implies the fixed-sequence shell second moment. That analytic input remains open.
+6. **Complete return:** root and diagonal perturbations are paid explicitly in (59)-(62); the K_R bill is displayed in (63), not discarded.
+7. **Finite stress test:** a direct exact-carrier regression on H=2,4,...,1024 found maximum |e_R| at most 2/3 and total error energy at most 2.246 on those blocks. This is only a boundary regression; the theorem is (53)-(55).
+8. **Novelty check:** repository search and the current reports contained the moving convolution and same-exponent prefix transfer, but no dyadic cutoff-freezing theorem or l2 equivalence (53)-(61).
+
+The result is independently useful but not an eta supplier. It converts the first missing CODIV theorem into a cleaner fixed-coefficient statement:
+
+> Uniformly in H, prove power-rate cancellation for consecutive square-shell block sums of g_H^fr=mu*kappa_H^fr, or equivalently for its complete signed additive correlations, then restore the explicit K_R interaction.
+
+No complete shell estimate, strict Mertens exponent below 7/8, canonical VF theorem, or RH follows.
+
+### T. Source, CI, and handoffs
+
+Material live-main sources inspected at 8e5d64ae689b39dabd2a4f6eb33efe4d5d192015:
+
+- LOW_OWNER_PHYSICAL_AMPLITUDE_TRANSPORT.lean: blob 72d66f61b3eeb000117ecdac393572558bb7c378.
+- LOW_OWNER_AMPLITUDE_MELLIN_LEDGER_SPLICE.lean: blob 73447e8c73ea60affec36a25b9f4794862331359.
+- GLOBAL_RETURNED_CORE_FIRST_OWNER_GRAM.lean: blob 36141a8caec5f99d6c40cb72ae1fdbcf6f462b82.
+- LIFTED_MOBIUS_ADDRESS_INJECTIVITY_20261102.lean: blob 61f98a8997d86ddbb07404284d12aebd36a67955.
+- VF_919_SEVEN_EIGHTHS_SIGNED_COVARIANCE_20261019.lean: blob 000016ee47c3ee772bd81c2a4f00a858986b5af1.
+- VF_919_SEVEN_EIGHTHS_SQUARE_SHELL_BRIDGE_20261019.lean: blob 55839f2013fc5b8d352dcea0e2ed4bb47d763693.
+- VF919NativeEnergyInduction.lean: blob 350eec60b5ed1fd5fda7b3313654c1bbe5ac4e7e.
+- VF919NativeSourceMoments.lean: blob 6b03e27c411b75e05827223313d3efdaf26a64c1.
+- VF919NativeSevenEighthsReplay.lean: blob ff963b716bc2066c2312d9237764e39898f1cdb8.
+
+PR #1072 merged from exact head 1c134fcc04f4369499d2ca09f8fc66b25e36968c. All 13 attached workflow runs completed successfully, including the complete native/OAI 7/8 workflow, Lean source audits, proof inventory, targeted iteration, and public export verification. PR #1071 merged from exact head 3706efbef1e20b2c54709f8e80ea55d3c1d1cea9 with all 12 attached runs successful. No open/draft PR was returned. These CI facts certify their scoped Lean declarations, not claim 20261102-analytic-3.
+
+**Coordinator:** register dyadic freezing as a proper reduction of the moving-owner CODIV obligation; keep the activation bill (63) in the complete source DAG.
+
+**Owner Payment:** identify the exact K_R declaration and determine whether its dyadic l2 norm is independently bounded strongly enough for (63), or whether e_R K_R must remain signed.
+
+**Finite Wheel:** future affine-cell aggregation may fix the owner set q^2<H within a block; retain q=3,5 saturation as a regression.
+
+**Prime Census:** if further testing is useful, compare the fixed-field shell energy with the moving-field energy and the signed activation cross term, rather than extending the absolute cutoff-error table.
+
+**Adversarial Referee:** independently audit (53)-(63), especially the half-open interval count, q^2=H boundary, diagonal additivity, and the precise K_R qualification.
+
+**Lean Verification:** no proof PR is requested. The finite bound is implementation-sized, but formalization should wait for Referee acceptance and evidence that the fixed-field reduction is used by a quantitative consumer.
+
+### U. Resume capsule
+
+- New claim: 20261102-analytic-3, equations (53)-(63).
+- Classification: PAPER_PROOF_NEEDS_INDEPENDENT_REVIEW / exact dyadic freezing and quantitative reduction.
+- Route: due CODIV turn; rolling coverage now NYMAN analytic-1, OAI-NNS analytic-2, CODIV analytic-3.
+- Strongest advance: moving prime-square admission costs at most 32H in shell l2 energy and O(sqrt(H)) in diagonal mass.
+- First unsupported theorem: a fixed-coefficient signed additive-correlation bound for g_H^fr, uniform in H, plus affordable restoration of (63).
+- eta_gate: SEARCH_BROAD.
+- net_endpoint_gain_after_complete_return: UNKNOWN.
+- Complete shell estimate OPEN; strict exponent below 7/8 NOT PROVED; canonical VF theorem OPEN; RH OPEN.
