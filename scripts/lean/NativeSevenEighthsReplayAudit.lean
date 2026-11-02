@@ -66,6 +66,8 @@ partial def valueClosure (env : Environment) (pending : List Name)
       valueClosure env (refs ++ rest) seen'
 
 def required : Array Name := #[
+  `OAI.SevenEighths.RHLeanNativeSevenEighthsReplay.native_source_moments_all_heights,
+  `OAI.SevenEighths.RHLeanNativeSevenEighthsReplay.native_detector_bands_for_fixed_data,
   `OAI.SevenEighths.RHLeanNativeSevenEighthsReplay.native_source_moments,
   `OAI.SevenEighths.RHLeanNativeSevenEighthsReplay.native_fine_moments_of_certified,
   `OAI.SevenEighths.RHLeanNativeSevenEighthsReplay.nns_certified_bands,

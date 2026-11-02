@@ -1,0 +1,254 @@
+# Finite-slot reflected gain and fixed-source uniformity
+
+Date: 2026-11-02. Status: independently reviewed mathematical derivation; Lean source prepared for warning-fatal GitHub Actions. A new endpoint below \(7/8\) is **not** claimed.
+
+Base RH_Lean main: **8e5d64ae689b39dabd2a4f6eb33efe4d5d192015**.
+Original OpenAI analytic source: **1581d4cbdd69a0faf34b2089614fe2a814316a6a**.
+
+## The new source restriction
+
+The old scalar relaxation admits arbitrarily small positive selected mass. The actual HighData source has a fixed finite slot list with
+\[
+0 < (7/8)r_{\min}\le \ell_i.
+\]
+Every nonempty selected set therefore has total mass at least
+\(\ell_{\min}=(7/8)r_{\min}>0\).
+
+The empty selected set has actual slot product one. On every nonempty tuple dyad,
+\[
+1\le \operatorname{divisorDyadicScale}(j)\le N(P)=1
+\]
+forces its scale to one. The source caller sets \(Q_P=2\operatorname{divisorDyadicScale}(j)\), so its actual reflected width is
+\[
+z=\log_Z(Q_P/2)=0.
+\]
+Nominal padding does not change this identity: LowNominalEnergy uses
+\(\ell_0=s+\eta/2\), and LowInactiveEnergy passes that same \(\ell_0\) into all inner active subsets.
+
+Pinned original sources:
+
+- ParametersHighData.lean: positive fixed slot lengths.
+- Detector/LowNominalGeometry.lean: \(d+s=L\).
+- Detector/LowNominalEnergy.lean: nominal padding.
+- Reflection/LowInactiveEnergy.lean: preservation through inner subsets.
+- Reflection/TupleDyads.lean: dyadic norm bounds.
+- Reflection/LowDyads.lean: actual \(Q_P\).
+- Reflection/LowFixedMember.lean: logarithmic width.
+
+All original paths here have prefix **lean/OAI/NumberTheory/DirichletL/** in openai/math at the pin above.
+
+## Proved scalar extension
+
+Let \(M=S-2d\), \(a=1+4L-2S\), and
+\[
+T=2H+2A+2z-1-\ell_0-\theta-N-3B.
+\]
+Retain the exact original hybrid saving and reflected exponent:
+\[
+h=\min(v,z,(v+z)/3),
+\]
+\[
+E=O/2+\max(H,v+\lambda)-S_0-B+z-h-\lambda-2e/3
+-\tfrac12\max(0,T-v-3\lambda-e).
+\]
+
+Assume
+\[
+S+L\le1,\quad L\le1/3,\quad d,\eta,O,N,S_0,B,v,\lambda\ge0,
+\]
+\[
+H\le M-O+\eta,\quad 2A\le O+3\eta,\quad N\le A,
+\]
+\[
+\ell_0\le L-d+\eta,\quad z\le\ell_0+\eta,\quad e\ge-\eta,\quad |\theta|\le\eta,
+\]
+\[
+v+3\lambda+e\le T+2\eta.
+\]
+Then the sufficient gate
+\[
+h=z\quad\hbox{or}\quad a\le\ell_0
+\]
+implies
+\[
+\boxed{E\le M+\frac{38}{3}\eta.}
+\]
+
+This retains the original reflected terms. It does not assume that a principal coefficient vanishes.
+
+### Proof
+
+The gates give
+\[
+T\le H-3d+8\eta,\qquad v+\lambda\le H+11\eta.
+\]
+If \(h=z\), its two occurrences cancel and
+\[
+E\le O/2+H+11\eta+2\eta/3
+\le M-O/2+38\eta/3.
+\]
+
+Otherwise \(h\ge v/2\). The retained kernel inequality is
+\[
+T/4\le(v+3\lambda+e)/4+
+\tfrac12\max(0,T-v-3\lambda-e).
+\]
+It gives total hybrid/retained charge at least \(T/4-5\eta/12\).
+
+If the row maximum \(H\) is active, substitution and expansion give
+\[
+E\le M/2+(1+3\ell_0)/4+5\eta/3
+\le M+(a-\ell_0)/4+8\eta/3.
+\]
+The last comparison is exactly \(\ell_0\le L-d+\eta\).
+
+If the column maximum is active, the retained gate instead gives
+\[
+E\le M-\tfrac12+\tfrac32L-\tfrac32d+\tfrac{26}{3}\eta
+\le M+\tfrac{26}{3}\eta.
+\]
+This proves the claim in every branch.
+
+### Source-facing proof
+
+The new surviving_low_exponent_finite_slot_gap generalizes the original
+original_surviving_low_exponent with physical power \(S-2d\), slot cap \(L\), and the sufficient gate above. It retains actual ideal labels, optional prime pools, frozen branches, row masks, dyads, raw scales, terminal widths and logarithmic budgets.
+
+The original source gates supply \(v,\lambda\ge0\), ramified width \(e\ge-\eta\), retained slack at most \(\delta+\eta\le2\eta\), and
+\[
+H\le S-2d-O+\eta,\qquad 2A\le O+3\eta.
+\]
+The extracted widths are nonnegative and satisfy \(N\le A\).
+
+The new file also proves the literal empty-tuple dyad identity. Composition through every downstream low-side caller remains unfinished; this local source theorem is not yet the final low probe bound.
+
+## Candidate leading exponent movement
+
+Keep the same slots, \(L=1/6\), and choose
+\[
+x=17/48-6\delta,\qquad y=23/48-6\delta.
+\]
+The exact accounting is
+\[
+S=x+y=5/6-12\delta,\qquad a=24\delta,
+\]
+\[
+g=(5x+y)/12=3/16-3\delta,
+\]
+\[
+c=-5/6+x/3+L/6=-11/16-2\delta,
+\]
+\[
+g-c=7/8-\delta.
+\]
+Thus \(0<24\delta<\ell_{\min}\) pays the new scalar gate for every nonempty selected set. Empty selections use \(z=0\).
+
+This is feasible local exponent movement, not a proved complete contraction.
+
+### Improved choice of physical direction
+
+A stronger audited direction keeps the same total \(S\) and finite-slot charge:
+\[
+x=17/48-24\delta,\qquad y=23/48+12\delta.
+\]
+Then
+\[
+g=3/16-9\delta,\qquad c=-11/16-8\delta,\qquad
+g-c=7/8-\delta,\qquad a=24\delta.
+\]
+The high physical prefactor changes by
+\[
+-(96/25+12a_{\mathrm{det}}+72e)\delta
+\le-(249/25)\delta
+\]
+for \(a_{\mathrm{det}}\ge51/100\), \(e,\delta\ge0\).
+Even after paying the \(9\delta\) movement of the lowest target signal,
+this leaves at least \(24\delta/25\) in the favorable direction.
+
+Its additional geometric requirements are
+\[
+2x-y-L=1/16-60\delta>0,\qquad
+\zeta>24\delta.
+\]
+For example, \(\delta=\ell_{\min}/48\), \(\zeta=t\), and
+\(\ell_{\min}\le t/200\) satisfy them. This direction is preferable for the
+remaining full-source reconstruction. The equal perturbation above remains
+a valid comparison and explains the dependence of the crossing on total
+physical length.
+
+The Lean file proves the tilted scale identities and its central prefactor
+inequality as well. Neither statement asserts the missing full high estimate.
+
+## Stronger native uniformity
+
+The native source assembly now establishes
+\[
+\exists J\ge0\ \forall\chi\ \exists C_\chi>0\ \exists Z_0\
+\forall Z\ge Z_0\ \forall\tau\in\mathbb R\ \forall h\ge0:
+\operatorname{NativeSourceMomentBound}
+(F,\mathrm{counts},\chi,Z,\tau,C_\chi(1+h)^J,h).
+\]
+The threshold precedes both \(\tau\) and \(h\), as well as all moving rows, bins, selected subsets and batches inside the source conclusion. The existing \(h=Z^{2\tau}\) interface specializes this theorem, so the original complete \(7/8\) replay consumes it.
+
+For the three suppliers, one may take
+\[
+J=\max(J_i,J_m,J_u),\qquad C_\chi=\max(C_i,C_m,C_u).
+\]
+The four moment conclusions are separate fields, so their degrees and constants need not be added. Downstream consumers retain their own height constraints.
+
+The generic native certified band theorem requires the actual analytic range
+\[
+51/100\le\beta\le7/8+\Delta_0.
+\]
+These bounds supply the analytic floor condition and
+\(2\beta-1\le3/4+2\Delta_0\).
+The old proof's arithmetic tactics use these dependencies implicitly; the new interface states them explicitly. At \(\beta=7/8\), a positive auxiliary \(\Delta_0\) can therefore be fixed independently of \(\beta-7/8\).
+
+## Analytic region margin
+
+The same local Euler correction estimate extends to \(\Re x\ge21/25\):
+\[
+|\operatorname{unramifiedClosed}-1|\le240Q^{-17/10}.
+\]
+At the enlarged boundary,
+\[
+|R|\le Q^{-2},\quad |V|\le Q^{-24/25},\quad
+|W|\le Q^{-9/10},\quad |D|\le Q^{-21/25},\quad
+|K|\le Q^{-37/50}.
+\]
+The limiting product is \(KV\), whose exponent is exactly \(-17/10\). All other products in the proof have stronger decay. The constant and summable majorant remain unchanged.
+
+Global holomorphy, principal-slot and contour wrappers still need their hypotheses propagated to this enlarged region.
+
+## Remaining complete-consumer work
+
+Source inspection has identified compatible numerical margins. This PR does not supply the following generalized proofs:
+
+1. Propagate the finite-slot dichotomy and perturbed \(x,y,S\) through the complete low-side source reconstruction, including the inverse normalization and Gram exponent \(g\).
+2. Export a fine HighData witness with the stronger constructor bounds
+   \(\epsilon,e\le t/2000\), \((N+8)\mathrm{eps}\le t\), and
+   \(\sigma\le\ell_{\min}/4\).
+   An arbitrary HighData record can saturate its stored central budget; extra reserve cannot simply be assumed.
+3. Generalize the high source's physical prefactors. Its natural large-row cutoff increases by \(6\delta\), requiring \(t>6\delta\). This follows from \(24\delta<\ell_{\min}\le t/200\).
+4. Carry the enlarged analytic strip through the principal source, finite products, contour comparison and final signal theorem.
+5. Assemble both estimates of one identical compensated normalized probe, then complete the supremum contradiction and native signed-energy consequence.
+
+For the stronger constructor witness, the central cost before saving satisfies
+\[
+B\le\frac{1685449}{96000}t<18t,
+\]
+while the original fixed reserve is \(49/440640\).
+The physical perturbation adds at most
+\((126/25+36e)\delta\) to the central exponent. Relative to a signal with
+\(\beta\ge7/8-\delta\), the additional cost is
+\(\Delta_0+(201/25+36e)\delta\), before explicitly retained outer costs.
+
+These calculations motivate the remaining proofs. They do not discharge them.
+
+## Review and verification
+
+Root derived and implemented the source estimates. The critical-family agent checked the exact slot geometry and downstream exponent costs. The signed-compensation agent separately checked the scalar branches, source argument mapping and finite-slot restriction. These are distinct same-model review sessions, not a claim of statistical independence.
+
+Lean validation uses only pinned GitHub Actions. The existing workflow adds the new file to its warning-fatal proof compilation and axiom scan. The live dependency audit additionally requires the all-height source theorem and fixed-data certified band theorem in the original complete \(7/8\) replay.
+
+No endpoint statement, source coefficient, central policy, axiom whitelist or existing validation gate is weakened.

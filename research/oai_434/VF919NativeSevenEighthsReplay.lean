@@ -50,10 +50,18 @@ theorem nnsDetectorCertifiedBands_iff :
     NNSDetectorCertifiedBands ↔ DetectorCertifiedBands := by
   simp only [NNSDetectorCertifiedBands, DetectorCertifiedBands, nnsCertifiedBand_iff]
 
-/-- The native floor and every native successor are live dependencies here.
-All original parameter inequalities are discharged, not supplied by a user. -/
-theorem native_detector_bands : NNSDetectorCertifiedBands := by
-  intro hβ D _hfine F bΦ hbΦ
+/-- The native floor and successors work for fixed HighData under the explicit
+supremum range needed by the analytic suppliers. In particular, the auxiliary
+positive Delta need not equal beta minus 7/8. -/
+theorem native_detector_bands_for_fixed_data {Δ : ℝ}
+    (D : HighData Δ) (F : SourceData D)
+    (hβlo : (51 / 100 : ℝ) ≤ HeckeZeroSupremum.beta)
+    (hβhi : HeckeZeroSupremum.beta ≤ 7 / 8 + Δ)
+    (bΦ : ℝ) (hbΦ : 0 < bΦ) :
+    NNSCertifiedBand (α := Fin D.N) F.modulus ⊤ le_top
+      (fun x => conj (F.W x)) 2 (1 / 4) (9 / 4) bΦ 0 1
+      (33 / 50) (33 / 50) 2 (kappaPlain D) (stageError D)
+      (count 2 (stageError D)) := by
   have hp := fixed_parameters D
   apply nns_terminal_certificate (α := Fin D.N) F.modulus ⊤ le_top
     (fun x => conj (F.W x)) 1 2 (1 / 4) (9 / 4) bΦ 0 1
@@ -70,9 +78,47 @@ theorem native_detector_bands : NNSDetectorCertifiedBands := by
   · norm_num
   · exact hp.2.2.2.2.1.le
   · exact hp.2.2.1
-  · linarith
+  · exact hβlo
   · unfold kappaPlain
-    linarith
+    linarith only [hβhi]
+
+
+/-- The original detector interface now consumes the fixed-data theorem. -/
+theorem native_detector_bands : NNSDetectorCertifiedBands := by
+  intro hβ D _hfine F bΦ hbΦ
+  exact native_detector_bands_for_fixed_data D F (by linarith) (by linarith) bΦ hbΦ
+
+/-- Fully supplied source moments with a threshold independent of height and
+batch exponent. Delta is a fixed auxiliary parameter, not beta minus 7/8.
+The complete final detector still has its own height constraints. -/
+theorem native_uniform_fixed_source_moments {Δ : ℝ}
+    (D : HighData Δ)
+    (hβlo : (51 / 100 : ℝ) ≤ HeckeZeroSupremum.beta)
+    (hβhi : HeckeZeroSupremum.beta ≤ 7 / 8 + Δ)
+    (hfine : ∀ j, D.ell j ≤ detectorMesh Δ D.t / 200)
+    (F : SourceData D) (counts : CountParameters F.modulus ⊤ D.t) :
+    ∃ J : ℝ, 0 ≤ J ∧ ∀ η : Character, ∃ C : ℝ, 0 < C ∧
+      ∃ Z₀ : ℝ, 1 ≤ Z₀ ∧ ∀ Z : ℝ, Z₀ ≤ Z →
+        ∀ τ height : ℝ, 0 ≤ height →
+          NativeSourceMomentBound F counts η Z τ
+            (C * (1 + height) ^ J) height := by
+  have hΔ : 0 < Δ := by linarith [D.t_pos, D.t_delta]
+  have hcert := fun (bΦ : ℝ) (hbΦ : 0 < bΦ) =>
+    (nnsCertifiedBand_iff (α := Fin D.N) F.modulus ⊤ le_top
+      (fun x => conj (F.W x)) 2 (1 / 4) (9 / 4) bΦ 0 1
+      (33 / 50) (33 / 50) 2 (kappaPlain D) (stageError D)
+      (count 2 (stageError D))).mp
+        (native_detector_bands_for_fixed_data D F hβlo hβhi bΦ hbΦ)
+  obtain ⟨hp, hz⟩ := plain_inputs F hcert
+  obtain ⟨J, hJ, hsource⟩ := native_source_moments_all_heights F counts
+    (detectorMesh Δ D.t) (detectorMesh_pos hΔ D.t_pos) hfine hp hz
+  refine ⟨J, hJ, ?_⟩
+  intro η
+  obtain ⟨C, hC, hb⟩ := hsource η
+  obtain ⟨Z₀, hZ₀⟩ := Filter.eventually_atTop.mp hb
+  refine ⟨C, hC, max 1 Z₀, le_max_left _ _, ?_⟩
+  intro Z hZ
+  exact hZ₀ Z ((le_max_right _ _).trans hZ)
 
 /-- Native source moments, with all analytic input discharged by the actual
 induction. The positive and zero slots remain jointly accounted for. -/
@@ -182,6 +228,8 @@ theorem native_zeta_nonzero (s : ℂ) (hs : (7 / 8 : ℝ) < s.re) :
     riemannZeta s ≠ 0 :=
   HeckeDirichlet.zeta_seven_eighths_of_hecke native_hecke_nonzero s hs
 
+#print axioms native_detector_bands_for_fixed_data
+#print axioms native_uniform_fixed_source_moments
 #print axioms native_detector_bands
 #print axioms native_fine_moments
 #print axioms native_uniform_source_moments
