@@ -49,14 +49,14 @@ theorem eulerSelfDualBilinear_eq_sum_paritySectors (R : ℕ) :
   intro b _hb
   by_cases hbo : Odd b
   · simp [hbo]
-    rw [← Finset.mul_add]
+    rw [← mul_add]
     congr 1
     simp_rw [← Finset.sum_add_distrib]
     apply Finset.sum_congr rfl
     intro a _ha
     by_cases hao : Odd a <;> simp [hao]
   · simp [hbo]
-    rw [← Finset.mul_add]
+    rw [← mul_add]
     congr 1
     simp_rw [← Finset.sum_add_distrib]
     apply Finset.sum_congr rfl
@@ -81,24 +81,28 @@ private theorem moebius_four : μ 4 = (0 : ℤ) := by
 /-- The genuine odd-odd sector in the accepted `R = 5` witness. -/
 theorem eulerSelfDualParitySector_five_odd_odd :
     eulerSelfDualParitySector 5 true true = 10 := by
+  rw [show Finset.Icc 1 4 = ({1, 2, 3, 4} : Finset ℕ) by decide]
   norm_num [eulerSelfDualParitySector, eulerSelfDualFloor, squareRootEndpoint,
     moebius_one, moebius_two, moebius_three, moebius_four]
 
 /-- The odd-even orientation in the accepted `R = 5` witness. -/
 theorem eulerSelfDualParitySector_five_odd_even :
     eulerSelfDualParitySector 5 true false = -8 := by
+  rw [show Finset.Icc 1 4 = ({1, 2, 3, 4} : Finset ℕ) by decide]
   norm_num [eulerSelfDualParitySector, eulerSelfDualFloor, squareRootEndpoint,
     moebius_one, moebius_two, moebius_three, moebius_four]
 
 /-- The even-odd orientation in the accepted `R = 5` witness. -/
 theorem eulerSelfDualParitySector_five_even_odd :
     eulerSelfDualParitySector 5 false true = -8 := by
+  rw [show Finset.Icc 1 4 = ({1, 2, 3, 4} : Finset ℕ) by decide]
   norm_num [eulerSelfDualParitySector, eulerSelfDualFloor, squareRootEndpoint,
     moebius_one, moebius_two, moebius_three, moebius_four]
 
 /-- The even-even sector in the accepted `R = 5` witness. -/
 theorem eulerSelfDualParitySector_five_even_even :
     eulerSelfDualParitySector 5 false false = 6 := by
+  rw [show Finset.Icc 1 4 = ({1, 2, 3, 4} : Finset ℕ) by decide]
   norm_num [eulerSelfDualParitySector, eulerSelfDualFloor, squareRootEndpoint,
     moebius_one, moebius_two, moebius_three, moebius_four]
 
