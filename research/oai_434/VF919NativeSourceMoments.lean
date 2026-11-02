@@ -167,7 +167,7 @@ def NativeSourceMomentBound {Δ : ℝ} {D : HighData Δ} (F : SourceData D)
   ∀ rows : Finset FreeRow, ∀ d a : ℝ,
     (1 / 200 : ℝ) ≤ d → d ≤ 7 / 8 → 51 / 100 < a → a ≤ 1 →
     (∀ u ∈ rows, u.val ≠ 1 ∧ Z ^ (1 / 100 : ℝ) ≤ rowNorm u ∧
-      (calibrationForSet F.S F.maximal).residueMonoid u.val ≠ 0 ∧
+      (ProbePhysical.calibrationForSet F.S F.maximal).residueMonoid u.val ≠ 0 ∧
       rowNorm u ≤ Z ^ (d - D.t)) →
     ∀ i : ℕ, ∀ z : ℂ, z.re = 17 / 50 → |z.im| ≤ height →
     NativeSourceMomentsAt F.modulus ⊤ le_top F.S F.exclusions.prime η rows D.ell
