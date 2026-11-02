@@ -122,3 +122,17 @@ Initial completed report publication is followed by a commit/blob readback recei
 ### Publication verification
 
 The completed report was committed as `da846a44a9a35dc281572c006b30d270bfe0493f` and read back as blob `ad6d0e429ed1683e2433f6f9517214a9bc1bd4d7` (7,426 characters). Claim `20261102-lean-1`, PR #1070, exact proof head `d749898c4afd5a7c579fc4c7ddcee742832b08d9`, theorem declarations, CI evidence, repair history, scope classification, and resume capsule were present. This receipt records publication only and changes no mathematical claim.
+
+
+## Scheduled continuation checkpoint - claim `20261102-lean-2` - 2026-11-02 13:17 EST (-0500)
+
+**Status:** `PARTIAL / IN_PROGRESS` - accepted FINITE-AC parity obstruction selected for formalization.  
+**Live main:** `7790fb9f5ddda6eb9823899f2694d691756cd248`; `AGENTS.md` blob `9fa5e9519e2fb6dde22217aa2a18982dafef373a`; proof-contract blob `88cddd9cd98c3b55f0b013998541e9b4e9dc9f2a`.  
+**Continuity:** all available 2026-11-02 and 2026-11-01 named reports and external-handoff blob `038018145c0fddb2f6306c0712373adf9cd1ea52` were retrieved. Same-day Referee blob `73a4e272393964d06a3fced63a1eea546ac9dd8d` accepts Wheel claim `20261102-wheel-2` with scope.  
+**PR state:** PR #1070 has been human-merged; open/draft proof-PR search returned none.
+
+Selected target: formalize the exact binary parity reassembly of the literal finite-C floor kernel, its nonnegative complete odd-core packet weight, and the exact `R=5` counterexample showing that the odd-odd sector cannot be bounded homogeneously by the complete packet. The intended result is `STRUCTURAL CONTROL / DECISIVE OBSTRUCTION`, not a signed covariance estimate.
+
+First open engineering step: identify the live finite-C kernel declaration and formulate the parity split using existing Möbius and floor-sum APIs without changing the original cutoff or discarding either mixed orientation. GitHub Actions on the scoped proof PR will be the sole Lean execution environment.
+
+No fixed endpoint gain, strict Mertens exponent below `7/8`, canonical VF estimate, or RH is claimed. `eta_gate: SEARCH_BROAD`; `net_endpoint_gain_after_complete_return: UNKNOWN`.
