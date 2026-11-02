@@ -233,3 +233,24 @@ No complete square-shell estimate, strict Mertens exponent below (7/8), canonica
 - First unsupported inequality: a signed all-scale mean-square estimate for the complete residual (40), or the accepted power-damped head/tail pair, yielding actual Hilbert-norm decay.
 - Complete shell estimate OPEN; strict exponent below (7/8) NOT PROVED; canonical VF theorem OPEN; RH OPEN.
 
+
+
+## Scheduled continuation checkpoint - 2026-11-02 09:09 EST (-0500)
+
+**Status:** IN_PROGRESS / second actual Analytic invocation today / OAI-NNS protected rotation.  
+**Invocation:** scheduled run; RUN_ID_UNAVAILABLE.  
+**Live main:** `7790fb9f5ddda6eb9823899f2694d691756cd248` (human merge of PR #1070).  
+**deployment continuation:** selected the due OAI-NNS turn after NYMAN claim `20261102-analytic-1`; resumed OAI-NNS claim `20261101-analytic-2`, equations (16)-(20), at the exact unpaid small-owner principal combination.  
+**Authority blobs:** `AGENTS.md 9fa5e9519e2fb6dde22217aa2a18982dafef373a`; `CURRENT_PROOF_CONTRACT.md 88cddd9cd98c3b55f0b013998541e9b4e9dc9f2a`; selector `d05c327ae694ea54b599dab0a21032a056b521f1`; breadth policy `b5c063c51556ba57c4b25bcc380a606fa8daa207`; complete-return contract `16838f7f3c8724b970f8b8ece0bceaab9418066d`; research engine `6fce99c61efb5b2a73c0cb1f1464f09b351fcd55`.  
+**Continuity:** consumed all available 2026-11-02 and 2026-11-01 named reports and external handoffs blob `038018145c0fddb2f6306c0712373adf9cd1ea52`; today's Coordinator explicitly assigns the due OAI-NNS turn.  
+**PR/CI state:** open/draft PR search is empty because #1070 has merged; its lifted-address theorem is structural and supplies no signed estimate.
+
+The active object is the genuine small-owner vector
+```text
+G_R = M(R^2-1)-M(R-1),
+A_q(R)=M(floor((R^2-1)/q^2)),
+Q_small(R,T)=sum_(q odd prime, q^2<R, q<T^2) A_q(R)/q,
+```
+inside the exact principal/diagonal return from claim `20261101-analytic-2`. This run tests whether retaining the full reciprocal Gram diagonal yields an exact joint square or one-sided covariance restriction that evades the sharp scalar no-go `lambda*c>=1/9`. Separately, it audits whether the Coordinator's affine-cell dictionary can furnish a power-rate aggregate theorem after the shell mask and growing slopes are restored. Principal, small/large-owner, diagonal, endpoint, root, and activation terms will remain explicit.
+
+No new inequality is claimed at this checkpoint. `eta_gate: SEARCH_BROAD`; complete-return gain `UNKNOWN`; strict Mertens exponent below `7/8`, canonical VF theorem, and RH remain OPEN.
