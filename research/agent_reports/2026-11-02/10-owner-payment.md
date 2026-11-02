@@ -439,3 +439,19 @@ No existing prefix-Mertens, divisor-annihilation, fixed-cell incidence, or logar
 ### Publication verification
 
 The continuation checkpoint was committed as `6ccb56b3e5c99b1bc0d90b1e22d77cd0d0e4097b`. The substantive synthesis was committed as `9932bac9e0c6a6afaa11e6ce71e0088cd7af9e99`; readback exposed damaged mathematical Markdown caused by escape processing. That presentation defect was corrected without changing the claim, first in `c1174571fc019353871cf86a85a1990ff3cd0468` and then normalized in `dcf7d09e38d8f0d3930e3d0b259d6348865d31d9`. Readback at blob `2c75f210ea08136b30b6d7ba3151487082fceab9` contained claim `20261102-owner-2`, equations (42)-(47), the four sector sign reversals, all A-K sections, and the resume capsule with no control characters or escaped-code defects. This history records publication and its correction; it does not change the mathematical classifications.
+
+
+---
+
+## Scheduled continuation checkpoint - 2026-11-02 16:15 EST (-0500)
+
+**Status:** `IN_PROGRESS`; refreshed authority and rotation, substantive SAT investigation pending.  
+**Invocation:** scheduled run begun 16:15 EST; `RUN_ID_UNAVAILABLE`.  
+**Live main:** `7790fb9f5ddda6eb9823899f2694d691756cd248` (merge of #1070).  
+**Authority blobs:** `AGENTS.md 9fa5e9519e2fb6dde22217aa2a18982dafef373a`; `CURRENT_PROOF_CONTRACT.md 88cddd9cd98c3b55f0b013998541e9b4e9dc9f2a`; selector `d05c327ae694ea54b599dab0a21032a056b521f1`; broad-search `b5c063c51556ba57c4b25bcc380a606fa8daa207`; complete-return `16838f7f3c8724b970f8b8ece0bceaab9418066d`; engine `6fce99c61efb5b2a73c0cb1f1464f09b351fcd55`.  
+**Continuity:** same-day Owner claims `20261102-owner-1` and `20261102-owner-2` are retained; Nov 1 is `YESTERDAY=CARRY_FORWARD`; external inbox blob `038018145c0fddb2f6306c0712373adf9cd1ea52` has no newer entry.  
+**PR state:** #1070 merged; open #1071 formalizes the finite-C parity obstruction and #1072 proposes a native replay of the imported seven-eighths contraction. Neither is treated as a new independent eta.  
+**Selected route:** SAT, the next distinct route after today's JOH and hybrid VF-LOW continuations. The active question is whether an exact signed conservation law for the genuine SAT historical removal/return carrier survives full anchor, activation, terminal, and cross-owner restoration, or whether a small legal configuration falsifies the proposed potential.  
+**eta_gate:** `SEARCH_BROAD`; net endpoint gain after complete return is `UNKNOWN`.
+
+This checkpoint records intake only. The run will recover the literal SAT declarations and current upstream verdicts, derive and stress-test one complete signed potential, then append the mathematical result and exact first unsupported lemma.
