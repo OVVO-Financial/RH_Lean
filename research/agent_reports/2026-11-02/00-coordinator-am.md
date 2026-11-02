@@ -263,3 +263,18 @@ Main remains `a33987e2...`; PR #1070 is not on main and human-only merge remains
 ### Publication verification
 
 The completed synthesis was first committed to the two Coordinator mirrors as commits `ea8488502079d07bbcc48b31b388d895d8663367` and `03e9070cd6fcaa5129a6b077f03aaea0ef5e67d4`. Readback returned byte-identical content at blob `9fd673d7b9732f413b81a70fe4374a307e24b674` (17,955 characters), containing claim `20261102-coordinator-1`, the affine-cell dictionary C12-C15, portfolio decisions, assignments, PR #1070 status, and resume capsule. This receipt records publication only and changes no mathematical classification.
+
+
+---
+
+## Scheduled continuation checkpoint - claim `20261102-coordinator-2` - 2026-11-02 15:34 EST (-0500)
+
+**Status:** IN_PROGRESS / exact shell-fragment obstruction established; current PR and complete-return audit continuing.  
+**Live main:** `7790fb9f5ddda6eb9823899f2694d691756cd248`.  
+**Authority blobs:** `AGENTS.md 9fa5e9519e2fb6dde22217aa2a18982dafef373a`; `CURRENT_PROOF_CONTRACT.md 88cddd9cd98c3b55f0b013998541e9b4e9dc9f2a`.  
+**Gate:** `SEARCH_BROAD`; no verified positive endpoint gain.
+
+The new exact finding is a scoped no-go for prime-square shell recursion. For any sequence, the quotient intervals
+`((R^2-1)/p^2, ((R+1)^2-1)/p^2]` with `ps <= R < p(s+1)` partition the complete lower square shell `[s^2,(s+1)^2)`. Complete shell sums nevertheless do not control the squared fragment sums. On the genuine Mobius carrier, `s=12,p=3` gives complete shell sum zero, while the three exact fragments at `R=36,37,38` are `(0,1,-1)`, of energy `2`. Thus no finite homogeneous bound can pay one prime-square fragment family solely by the corresponding complete lower-shell energy. This does not refute joint signed cancellation across owners, the principal term, roots, activations, or the complete covariance.
+
+Current open PRs are #1071 (finite-C parity obstruction, exact head `3706efb...`, 12/12 workflows successful) and draft #1072 (native replay of the already established 1 to 7/8 contraction, exact head `cc082f4...`; dedicated workflow still in progress at this checkpoint). The final continuation will audit their mathematical scope, integrate the latest specialist findings, and issue nonredundant assignments.
