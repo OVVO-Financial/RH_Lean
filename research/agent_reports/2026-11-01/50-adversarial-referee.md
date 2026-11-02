@@ -392,3 +392,176 @@ or on a jointly restored physical bill. A norm concentration statement that omit
 - PR #1068 is merged; exact proof-head CI is green, and its theorem remains structural only.
 - Next decisive Referee action: audit a proposed Möbius-specific bound on `Dmix_R+sum_p J_R(p)` with the full owner range and correction carrier, or review Wheel claim `20261101-wheel-2` if no such bound is ready. Do not re-audit (R11)-(R17) absent changed hypotheses.
 - Complete shell bound OPEN; strict Mertens exponent below `7/8` NOT PROVED; canonical VF theorem OPEN; RH OPEN.
+
+
+---
+
+## Scheduled continuation checkpoint - 2026-11-01 20:13 EST (-0500)
+
+**Status:** IN_PROGRESS / independent audit of Coordinator claim `20261101-coordinator-2`.  
+**Invocation:** scheduled run; RUN_ID_UNAVAILABLE.  
+**Live main:** `a33987e275f8a431641d3f475b71a24aa2b1437c`.  
+**Authority blobs:** `AGENTS.md 9fa5e9519e2fb6dde22217aa2a18982dafef373a`; `CURRENT_PROOF_CONTRACT.md 88cddd9cd98c3b55f0b013998541e9b4e9dc9f2a`.  
+**Continuity:** all available 2026-11-01 Coordinator, Owner, Analytic, Wheel, Census, Referee and Lean reports were consumed. Because the invocation is still 2026-11-01 in `America/New_York`, the 2026-10-31 set is `YESTERDAY=CARRY_FORWARD`; no 2026-11-02 upstream report is required. External inbox blob `038018145c0fddb2f6306c0712373adf9cd1ea52` has no handoff newer than 2026-10-18.
+
+The exact source readback has exposed a comparison-endpoint issue. The physical reassembly theorem
+`lowOwnerPhysicalAmplitudeRemainder_zero_eq_correlation_sub_reciprocalColumn`
+has the explicit hypothesis `56 <= R`. Coordinator equation (C3) is therefore compiled at the top root but is not yet justified at its comparison root `S=R-L`, which the report assumes only to satisfy `S>=2`. The fixed-threshold large-owner calculation and constants otherwise reconstruct. Final verdict and strongest repaired theorem follow.
+
+## Final synthesis - claim `20261102-referee-1`
+
+**Status:** COMPLETED / PUBLISHED.  
+**Reviewed claim:** Coordinator `20261101-coordinator-2`, equations (C3)-(C8).  
+**Verdict:** `REVISE_AS_STATED / ACCEPT_REPAIRED_WITH_SCOPE`; `MISSING_COMPARISON-ENDPOINT_JUSTIFICATION`; `EXACT INVERSE LOCALIZATION ONLY`; `NO COMPLETE ETA`; `NO RH`.
+
+### A. Exact claim and carrier
+
+For natural (R), put
+[
+ X_R=R^2-1,quad E_R=M(X_R),quad H_R=M(R-1),quad
+ B_R=2H_R-E_R.
+]
+Let
+[
+ A_R=operatorname{lowOwnerPhysicalAmplitudeRemainder}(R,0),
+]
+and, for a fixed integer threshold (T), define the literal reciprocal columns
+[
+ C_t^{<T}=sum_{substack{q {m odd prime}\q^2<t, q<T^2}}
+ {M(lfloor (t^2-1)/q^2floor)over q},
+quad
+ C_t^{ge T}=sum_{substack{q {m odd prime}\q^2<t, qge T^2}}
+ {M(lfloor (t^2-1)/q^2floor)over q}.
+]
+Thus (C_t=C_t^{<T}+C_t^{ge T}), with owner activation (q^2<t), the original floor cutoff, sign and (1/q) weight retained.
+
+At roots (tge56), main supplies the exact identity
+[
+ A_t=H_t-E_t-C_t,qquad B_t=A_t+H_t+C_t. 	ag{R18}
+]
+The relevant declarations are in `LOW_OWNER_PHYSICAL_AMPLITUDE_TRANSPORT.lean`, blob `72d66f61b3eeb000117ecdac393572558bb7c378`, and `LOW_OWNER_AMPLITUDE_MELLIN_LEDGER_SPLICE.lean`, blob `73447e8c73ea60affec36a25b9f4794862331359`. In particular, the latter theorem states `(R : Nat) (hR : 56 <= R)`; this hypothesis cannot be dropped silently.
+
+Assume (E_R
+e0). Let (L) be Wheel's least (1le Lle R-1) satisfying
+[
+ 2|E_R-E_{R-L}|ge |E_R|,
+]
+and set (S=R-L). Wheel's exact algebra yields
+[
+ |H_R-H_S|ge |E_R|/8
+ quadhbox{or}quad
+ |B_R-B_S|ge |E_R|/4. 	ag{R19}
+]
+This is a paper inverse theorem; no upper bound on either alternative is supplied.
+
+### B. Independent reconstruction of the large column
+
+Take (eta=7/8+1/64=57/64) and (T=T_R=lfloor R^{1/8}floor). The imported Mertens input gives a constant (C) with
+[
+ |M(n)|le C n^eta.
+]
+The compiled original-owner theorem gives, for the literal large column,
+[
+ T,|C_t^{ge T}|le (C/4)t^{2eta}.
+]
+For (Rge256), (T_Rge R^{1/8}/2). Therefore, uniformly for (56le Sle R),
+[
+ |C_R^{ge T_R}-C_S^{ge T_R}|
+ le {Cover 2T_R}R^{2eta}
+ le C R^{2eta-1/8}
+ = C R^{53/32}. 	ag{R20}
+]
+The exponent is correct:
+[
+ 2eta-	frac18=	frac{57}{32}-	frac4{32}=	frac{53}{32}.
+]
+A larger constant absorbs the finitely many top roots below 256 and any separately verified finite comparison roots. This is a bound on the amplitude column, distinct from Analytic claim `20261101-analytic-2`'s mixed-product exponent (55/16).
+
+### C. The defect in the submitted proof
+
+The submitted proof says (S=R-Lge2), but the definition of the least half-amplitude length gives only (Sge1). Wheel explicitly noted that (Sge2) is equivalent to the extra condition (Lle R-2); it was not proved universally.
+
+More importantly, even (Sge2) does not permit (R18) at (S). The compiled physical reassembly requires (Sge56). Hence the step
+[
+ B_R-B_S=(A_R-A_S)+(H_R-H_S)+(C_R-C_S)
+]
+is not established from the cited theorem for (2le S<56). This is a **missing justification**, not an exact arithmetic counterexample: I have not shown that the identity is false at those finite roots.
+
+Two valid repairs exist.
+
+1. Add the hypothesis (Sge56). Then the submitted proof is exact.
+2. Define the finite defect
+[
+ d_t=B_t-A_t-H_t-C_t.
+]
+Main proves (d_t=0) for (tge56). The finite number
+[
+ D=max_{1le t<56}|d_t|
+]
+exists. Increase the constant in (R20) so that it also absorbs (D) for the relevant top roots. Then the same argument works for (S<56), but this finite-defect step must be stated and checked; it is not part of the submitted derivation.
+
+Accordingly, the combined claim is not accepted verbatim. Its mathematical mechanism is repairable without a new asymptotic input.
+
+### D. Strongest accepted corrected theorem
+
+There is a constant (K>0) such that the following holds. Let (Rge256), (E_R
+e0), let (L) be the least half-amplitude length, put (S=R-L), and assume (Sge56). Fix (T=T_R) at **both** endpoints. If
+[
+ |E_R|ge16K R^{53/32}, 	ag{R21}
+]
+then
+[
+ maxigl(
+ |H_R-H_S|, |A_R-A_S|, |C_R^{<T}-C_S^{<T}|
+ igr)ge |E_R|/16. 	ag{R22}
+]
+
+Proof: if the first alternative in (R19) holds, (R22) is immediate. Otherwise use (R18) at (R,S). If all three displayed differences were (<|E_R|/16), then (R20)-(R21) and the triangle inequality would give
+[
+ |B_R-B_S|<4|E_R|/16=|E_R|/4,
+]
+contradicting the second alternative in (R19). The strict inequalities make the boundary case valid.
+
+Define the fixed-threshold increment energies
+[
+ {cal E}_F(S,R)=sum_{t=S}^{R-1}|F_{t+1}-F_t|^2
+]
+for (F=H,A), and for (F_t=C_t^{<T_R}) with the same (T_R) throughout. Cauchy's inequality and telescoping then give
+[
+ max({cal E}_H,{cal E}_A,{cal E}_{C,<T_R})
+ ge {|E_R|^2over256L}. 	ag{R23}
+]
+This verifies Coordinator (C8) only with that fixed-threshold convention. Replacing (T_R) by the moving (T_t) inside the energy introduces threshold-crossing terms; no theorem restoring those terms was submitted.
+
+The alternative finite-defect repair extends (R22)-(R23) to small (S) after enlarging (K), subject to an explicit definition of the common scalar embedding and verification of the finitely many (d_t). That extension is `PAPER_PROOF_REPAIR_AVAILABLE`, not compiled.
+
+### E. No-circularity and actual significance
+
+The repaired theorem is not target-equivalent by itself. It is an inverse localization conditional on a large endpoint excursion. It proves that the already paid large (q^2)-owner column cannot alone carry such an excursion; one of history, the complete physical remainder, or the fixed-threshold small column must carry a large increment.
+
+It supplies no upper bound on any of those three energies. Indeed the exact relation
+[
+ Delta A+Delta C_{m small}
+ =Delta H-Delta E-Delta C_{m large}
+]
+shows that recombining the physical and small columns restores the endpoint bill. Thus an assumed upper bound at precisely the needed scale can merely rehouse the original difficulty. New value requires a Möbius-specific joint signed restriction that is independently proved and retains the complete (A) term, the (q=3) column, activation terms, diagonals and all cross terms.
+
+The (X)-coordinate threshold is (R^{53/32}=X^{53/64}). It lies (3/64) below the nominal (X^{7/8}) line, but the imported quantitative proof used (eta=57/64). This bookkeeping distinction does not alter the inverse theorem and does not prove a strict Mertens exponent below (7/8).
+
+### F. Formal and repository status
+
+Final main remains `a33987e275f8a431641d3f475b71a24aa2b1437c`; no open PR was returned. PR #1069 is merged, with source blob `d38a80efc30cbb503f5d596705be91a0de561fe9`. Its exact head `0bf1622daabc694f91b72b922a3e157f2690e1c2` has 12/12 returned PR workflows successful, including dedicated run `41336208699`, targeted Lean `41336208800`, public export `41336208702`, and proof inventory `41336208947`. Those theorems expose an odd-Möbius tail but do not estimate it and are not evidence for (R22).
+
+No Lean theorem, branch or PR is claimed for (R18)-(R23). This Referee changed only its own report.
+
+### G. Routing and resume capsule
+
+- `eta_gate: SEARCH_BROAD`.
+- New claim: `20261102-referee-1`.
+- Verdict on Coordinator `20261101-coordinator-2`: `REVISE_AS_STATED / ACCEPT_REPAIRED_WITH_SCOPE`.
+- Accepted content: exponent (53/32), fixed-(T_R) large-column comparison, (1/16) localization constant, and (1/(256L)) fixed-threshold energy consequence when the comparison identity is valid.
+- Missing submitted hypothesis: (Sge56), or an explicit finite-defect absorption.
+- Forbidden strengthening: moving-threshold energy without restored threshold-crossing terms.
+- Mathematical status: inverse localization only; no upper energy estimate and no complete-return gain.
+- Next decisive action: test a genuinely joint signed inequality for ((Delta A,Delta C_{m small})) on the fixed-threshold carrier, with (q=3), activation and the null-fibre (R=64,q=5) retained.
+- Complete shell bound OPEN; strict Mertens exponent below (7/8) NOT PROVED; canonical VF theorem OPEN; RH OPEN.
