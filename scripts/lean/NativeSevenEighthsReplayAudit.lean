@@ -54,7 +54,9 @@ partial def valueClosure (env : Environment) (pending : List Name)
       let refs := if shouldExpand name then
         match env.find? name with
         | none => []
-        | some info => match info.value? with
+        -- Lean's default omits theorem and opaque bodies; those are exactly
+        -- the proof values this audit must inspect.
+        | some info => match info.value? (allowOpaque := true) with
           | none => []
           | some value =>
             let live := if (`OAI.SevenEighths.RHLeanNativeSevenEighthsReplay).isPrefixOf name
@@ -101,6 +103,7 @@ def main (args : List String) : IO UInt32 := do
   if (env.find? terminalName).isNone then
     throw (IO.userError s!"Missing terminal declaration {terminalName}")
   let reached := valueClosure env [terminalName]
+  IO.println s!"Traversed {reached.size} live value dependencies from {terminalName}"
   for name in required do
     if !reached.contains name then
       throw (IO.userError s!"Required live proof dependency missing: {name}")
