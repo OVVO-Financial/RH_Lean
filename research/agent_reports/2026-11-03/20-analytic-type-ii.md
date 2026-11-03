@@ -997,3 +997,592 @@ The new appendix passed ASCII/control-character, A-L-section and balanced-code-f
 **Source/verification:** the original lifted carrier and shell declarations were read at pinned main. No open/draft PR is currently returned. #1079, #1081, and #1082 are now merged; #1080 is closed unmerged. Exact-head Actions/axiom verification is being refreshed. The inherited strict-below-7/8 result is present in original source; this checkpoint does not independently certify a new gain. Canonical VF, RH, the genuine maximal-fragment estimate, and the positive fullOwnerGamma estimate remain OPEN.
 
 No new theorem or computation is claimed yet. Independent review of this run: PENDING. New net endpoint gain: UNKNOWN. Next protected route after this CODIV continuation: NYMAN.
+
+
+## Scheduled CODIV Continuation Final Synthesis - Claim 20261103-analytic-3
+
+**New result:** the genuine maximal square-shell fragment energy is `O(H^3 / log(2H)^(1/100))`. The same rate holds for the original moving and frozen reciprocal prime-square daughter fields, and for the complete zero-frequency physical return. This is a proved logarithmic improvement on the cubic local-energy bound, NOT a fixed power saving and NOT a new Mertens exponent. The result supplies the previously missing maximal/square-sampling transfer for a classical short-interval theorem at its actual logarithmic strength.
+
+**Evidence:** PAPER_PROOF / SELF_AUDIT for CD1-CD3; IDENTITY_WITH_EXPLICIT_BOUNDARY_BOUND for CD4; CONDITIONAL for CD5's stronger endpoint consequence; FINITE_COMPUTATION for CD6. Independent Referee review and Lean certification of this new bundle are PENDING. No external-literature novelty is claimed. Publication is verified separately below, not inferred from this synthesis.
+
+**Invocation:** scheduled 2026-11-03T17:11:01-05:00, America/New_York; RUN_ID_UNAVAILABLE. This completes the early checkpoint for that invocation, not a new launch. Earlier same-day reports and corrections are preserved.
+
+### A. Most Important Analytic Development
+
+For the actual Mobius function define
+
+```text
+Omega_R(mu) = max_(integer R^2<=u<=v<=(R+1)^2)
+                 |sum_(u<=n<v) mu(n)|,
+E_mu(H) = sum_(H<=R<2H) Omega_R(mu)^2.
+```
+
+There are constants C,H0, independent of H, such that every integer H>=H0 satisfies
+
+```text
+E_mu(H) <= C H^3 / log(2H)^(1/100).                    (CD2)
+```
+
+The constants can be enlarged to cover all H>=2. They are not numerically evaluated here. This is genuinely arithmetic information: Referee `20261103-referee-4` constructs a squarefree-supported comparison sequence with square-root-bounded prefixes but maximal energy at least `9H^3/256`. That sequence cannot satisfy CD2. The new independent ingredient is the Matomaki-Radziwill short-average theorem applied to mu, not an inference from a prefix envelope or squarefree support.
+
+A deterministic smoothing inequality proves the transfer without asserting that square endpoints avoid the exceptional set. It applies to every selected fragment simultaneously and retains its exact boundary cost. An absolutely convergent prime-dilation estimate then returns the result to the NONmultiplicative hybrid source without applying a multiplicative-function theorem to that hybrid.
+
+The remaining quantitative gap is substantial: CD2 is larger than `H^(5/2-eta)` by `H^(1/2+eta)/log(2H)^(1/100)`. PC5's diagonal-sized overshoot repair is not proved. Neither the canonical VF bound nor RH follows.
+
+### B. Current Mathematical Objective And Authority
+
+Pinned main: `69aac0441b4df011cf7df3ba115169c3b66d72f5`, human merge of #1082. The canonical objective remains the literal `VFCanonicalSquareVonKochStatement`:
+
+```text
+exists C>=0, forall integer R>=2,
+  |pi(R^2)-vfCanonical(R^2)| <= C R log R,
+vfCanonical(x)=vfMid(x)+sqrt(2).
+```
+
+The original actual-prime carrier and phase are unchanged. The classical von Koch criterion is still an explicit interface argument on that consumer. The selected CODIV question concerns genuine maximal Mobius fragments and the physical reciprocal-daughter return, not an asserted identification with original ideal-character phases or with the high-prime owner Gamma.
+
+Material source and authority blobs at pinned main:
+
+| File | Blob SHA | Scope used |
+| --- | --- | --- |
+| AGENTS.md | 9fa5e9519e2fb6dde22217aa2a18982dafef373a | Own-report-only permission and persistent portfolios |
+| CURRENT_PROOF_CONTRACT.md | 88cddd9cd98c3b55f0b013998541e9b4e9dc9f2a | Original target and quantitative safeguards |
+| docs/RHLEAN_NATIVE_SQUARE_CLOCK_AGENT_DIRECTIVE_20261029.md | d05c327ae694ea54b599dab0a21032a056b521f1 | Live task selector |
+| docs/RHLEAN_BROAD_SEARCH_UNTIL_ETA_20261031.md | b5c063c51556ba57c4b25bcc380a606fa8daa207 | Scoped gain gate and route coverage |
+| docs/RHLEAN_SOURCE_FAITHFUL_COMPLETE_RETURN_AGENT_CONTRACT_20261031.md | 16838f7f3c8724b970f8b8ece0bceaab9418066d | Complete signed return |
+| docs/RHLEAN_SEVEN_AGENT_RESEARCH_ENGINE_20261101.md | 6fce99c61efb5b2a73c0cb1f1464f09b351fcd55 | Resume rather than restart |
+| research/LOW_OWNER_PHYSICAL_AMPLITUDE_TRANSPORT.lean | 72d66f61b3eeb000117ecdac393572558bb7c378 | Unscaled daughters and full physical remainder |
+| research/LOW_OWNER_AMPLITUDE_MELLIN_LEDGER_SPLICE.lean | 73447e8c73ea60affec36a25b9f4794862331359 | Literal 1/q column and zero-frequency identification |
+| research/GLOBAL_RETURNED_CORE_FIRST_OWNER_GRAM.lean | 36141a8caec5f99d6c40cb72ae1fdbcf6f462b82 | Entire signed Gram, not separate populations |
+| research/LIFTED_MOBIUS_ADDRESS_INJECTIVITY_20261102.lean | 61f98a8997d86ddbb07404284d12aebd36a67955 | Strict q^2<R carrier and unique nonzero addresses |
+| research/VF_919_SEVEN_EIGHTHS_SQUARE_SHELL_BRIDGE_20261019.lean | 55839f2013fc5b8d352dcea0e2ed4bb47d763693 | Original scalar shells and full covariance |
+| research/MERTENS_EXPONENT_ENVELOPES.lean | 655b896e8d5a41c9f8fc3c456eae3944a98bfefe | Exact quantifier order for power envelopes |
+| research/oai_434/VF919NativeSevenEighthsReplay.lean | 111c933a7ca15647105ce6a4d0f3cbfc3cde81f4 | Existing nativeReplay_mertens_growth, used only for the long mean |
+| research/oai_434/VF919NativeStrictMertens.lean | b33a4883e1ddb0551b0f11f062bce46680d87450 | Inherited strict-gap status, not this run's result |
+| research/oai_434/VF919ActualSlotMinRetighten.lean | 138c4726085995b966204406805f70082402bec4 | Existing source-relative endpoint refinement |
+| research/oai_434/VF919NativeOwnerDiagonalThreeQuarter.lean | 798e7a3ee89324feb3eafd8d28b56f18c4f03d3c | Newly merged diagonal; positive Gamma still open |
+| research/VF_CANONICAL_SQRT_TWO_VON_KOCH.lean | 79030d70e8d3e0d08eef9bac53fef95c36eca2fb | Canonical target |
+
+Original declarations are linked in sections E and G. The source files, not report labels, determine their statements. In particular the current replay blob differs from yesterday's `ff963b...`; current bytes were fetched, not presumed unchanged.
+
+**Relevant Actions verification.** No open/draft PR was returned at intake. #1079, #1081 and #1082 are merged; #1080 is closed unmerged. At exact heads `7ff378e3edd971a8d9e2f11fe39db1aef598ba85`, `11402d6ca895d10a3c2805142138226e9394c34a`, and `0b41bfa95bf2dbeb6facf051014d41688dd62e26`, respectively, all returned workflows succeeded: 13, 13, and 12. The dedicated [#1079 job](https://github.com/OVVO-Financial/RH_Lean/actions/runs/41676598704/job/126058888532) and [#1082 job](https://github.com/OVVO-Financial/RH_Lean/actions/runs/41717376409/job/126200831143) were inspected, including successful pinned compilation, exact endpoint checks and standard axiom output. The #1082 logs print only `propext, Classical.choice, Quot.sound` for the three owner-diagonal/negative-Gamma/positive-part declarations and for the inherited strict Mertens statements. Its exact finite R<=3500 regression also passed; that computation was not rerun here. The strict Mertens, replay and owner-diagonal files were separately fetched at that PR head and match main byte-for-byte. The older failed #1082 heads in Coordinator's report are historical, not current failures.
+
+This verifies existing relevant CI, not a new Lean theorem for CD1-CD5. No local Lean or new Actions run was performed. Programme gate: inherited `VERIFIED_ETA / ON_MAIN`, at its previously independently reviewed scope. New gain from this invocation: NONE. No numerical value for the inherited gap is invented.
+
+**Closeout refresh, 22:25-22:26 UTC:** main is unchanged. New draft #1083 is now open at `92defc3ce6f9517ac1a649af9a1ba643bad917e2`; it was not present in the intake listing. Eleven returned workflows succeeded, while dedicated run `41729980802` remains IN_PROGRESS. Its proposed rational-slot seed, variable-exponent diagonal, and explicitly conditional owner bootstrap are not main and are not inputs to this proof. No completion or unconditional RH conclusion is inferred from its body. The inspected #1082 runner `scripts/lean/slot_anchored/run_anchored_in_verified_ci.sh`, blob `afbe1922fd2b122139fac53c5797bdf8e0e9959e`, compiles the actual listed targets with `-DwarningAsError=true`, rejects sorry/admit dependencies, and runs the exact endpoint/slot audits.
+
+### C. Analytic Mechanism Investigated
+
+The exact resumed gap is Coordinator `20261102-coordinator-3` C23: the cited multiplicative short-interval theorem had not been transferred to prescribed maximal square cells, and g itself is not multiplicative. Analytic `20261102-analytic-3` plus accepted Census PC4 already pay the moving-cutoff error. Referee `20261103-referee-3/4` accepts the fragment-preserving dilation transfer and excludes a prefix/support-only repair.
+
+Two moves were compared. Directly estimating maximal selected correlations retains an adaptive endpoint mask that the known averaged theorem does not cover. Smoothing a selected interval by all h adjacent translations instead removes selection before the mean-square estimate, with the deterministic error h-1. The second move is developed below. It does not use an independence assumption, complete a period, or discard an exceptional square sample.
+
+The new transfer is useful even though the resulting saving is logarithmic. It establishes one actual local arithmetic restriction and reduces the stronger problem to common-window triangular correlations with a completely explicit boundary term. It does not rename PC5 as a theorem.
+
+### D. Exact Mathematical Formulation
+
+Let a(n) be a real sequence on positive integers with |a(n)|<=1. For integers H>=2 and h>=1 define
+
+```text
+S_h a(n) = sum_(0<=j<h) a(n+j),
+J_a(H,h) = sum_(H^2<=n<4H^2) |S_h a(n)|^2,
+Omega_R(a) = max_(integer R^2<=u<=v<=(R+1)^2)
+                 |sum_(u<=n<v) a(n)|.
+```
+
+The sequence is retained through `4H^2+h-2`; forward-window values past `4H^2-1` are NOT set to zero. All sums are finite. Empty fragments are permitted. The central deterministic estimate, with absolute explicit constants, is
+
+```text
+sum_(H<=R<2H) Omega_R(a)^2
+ <= (8H/h^2) J_a(H,h) + 2H(h-1)^2.                  (CD1)
+```
+
+For the original physical source, with p always an odd prime, define
+
+```text
+g_infinity(n) = mu(n) + sum_(p^2|n) mu(n/p^2)/p,
+g_R(n)       = mu(n) + sum_(p^2<R, p^2|n) mu(n/p^2)/p,
+g_H^fr(n)    = mu(n) + sum_(p^2<H, p^2|n) mu(n/p^2)/p.
+```
+
+Use these coefficients on exactly the same square-shell fragments. For `g_R` the root R changes the source; for `g_H^fr` the source is fixed within H<=R<2H. Claim CD3 asserts existence of one H-independent constant for each displayed bound:
+
+```text
+sum_(H<=R<2H) Omega_R(g_infinity)^2 << H^3/L^(1/100),
+sum_(H<=R<2H) Omega_R(g_R)^2        << H^3/L^(1/100),
+sum_(H<=R<2H) Omega_R(g_H^fr)^2     << H^3/L^(1/100),
+L=log(2H).                                                (CD3)
+```
+
+The full physical-return statement is given in G. Implied constants depend only on the fixed external theorem and a fixed established long-mean bound, never on H, h in CD1, a selected fragment, or an owner cutoff. No claimed numerical effectiveness or all-scale finite certificate is attached to the asymptotic constants.
+
+### E. Mathematical Derivation
+
+#### E1. CD1: Selection-Free Smoothing With Its Boundary
+
+For I=[u,v) and B_h(n)=S_h a(n)/h, direct telescoping gives
+
+```text
+sum_(n in I) a(n) - sum_(n in I) B_h(n)
+ = (1/h) sum_(0<=j<h)
+     [sum_(u<=n<u+j) a(n) - sum_(v<=n<v+j) a(n)].
+```
+
+This equality remains valid when translated intervals overlap. Its absolute value is at most `h-1`, since `(1/h) sum_j 2j=h-1`. Cauchy-Schwarz is now applied only to the smoothed interval, at its explicitly charged cost:
+
+```text
+|sum_(n in I) B_h(n)|^2
+ <= |I| sum_(n in I) |B_h(n)|^2
+ <= (2R+1) sum_(R^2<=n<(R+1)^2) |B_h(n)|^2.
+```
+
+The right side is independent of I. Taking the maximum and using `(x+y)^2<=2x^2+2y^2`, then summing the H disjoint shells, proves CD1 because `2(2R+1)<=8H`. Thus no union bound over fragments and no hypothesis about exceptional square endpoints is needed. The loss H/h^2 is real and will be included in every exponent calculation.
+
+#### E2. The Independent Short-Average Input And CD2
+
+The external input is Matomaki-Radziwill, *Multiplicative functions in short intervals*, Annals of Mathematics 183 (2016), 1015-1056, [Theorem 1, pp. 1015-1016](https://annals.math.princeton.edu/wp-content/uploads/annals-v183-n3-p06-p.pdf), DOI 10.4007/annals.2016.183.3.6. For real multiplicative f with |f|<=1, uniformly for 2<=h<=X and delta>0, the normalized short mean differs from its [X,2X] mean by at most
+
+```text
+delta + C' loglog(h)/log(h)
+```
+
+outside at most
+
+```text
+C X [(log h)^(1/3)/(delta^2 h^(delta/25))
+                  + 1/(delta^2 (log X)^(1/50))]
+```
+
+integer starts. C,C' are absolute; the paper permits C'=20000. This is an exceptional-set theorem with its parameters retained, not a pointwise or fixed-power short-sum estimate.
+
+Apply it ONLY to f=mu. The existing [nativeReplay_mertens_growth](https://github.com/OVVO-Financial/RH_Lean/blob/69aac0441b4df011cf7df3ba115169c3b66d72f5/research/oai_434/VF919NativeSevenEighthsReplay.lean), with epsilon=1/16, provides a fixed D such that `|M(x)|<=D x^(15/16)`. Hence the normalized long mean is `O_D(X^(-1/16))`. This use of the inherited global theorem controls only the long mean in an independent short-average theorem; it does not infer local variance directly from M.
+
+Set `L=log(2H)`, `h=floor(H/L)` and `delta=L^(-1/200)`, for sufficiently large H. Cover the entire integer start interval [H^2,4H^2) by X=H^2 and X=2H^2. Uniformly on these two blocks, log h is comparable to L, and
+
+```text
+delta^2 = L^(-1/100),
+delta^(-2) (log X)^(-1/50) << L^(-1/100),
+(log h)^(1/3)/(delta^2 h^(delta/25)) = o(L^(-1/100)).
+```
+
+The last assertion follows because `delta log h` has order `L^(199/200)`, which dominates log L. The good-start normalized sums are `O_D(delta)`; the long mean and `loglog h/log h` are smaller. The paper uses inclusive short endpoints; deleting its last term changes the normalized sum by at most 1/h, also smaller. On exceptional starts use the true bound `|S_h mu|<=h`. Thus
+
+```text
+J_mu(H,h) <<_D H^2 h^2 L^(-1/100).
+```
+
+CD1 now yields
+
+```text
+E_mu(H) <<_D H^3 L^(-1/100) + H^3 L^(-2),
+```
+
+which proves CD2. There is no stochastic approximation. All H shells and all their fragments are covered. Enlarging the constant pays the finite initial range where h<2 or the asymptotic comparisons do not yet hold. D is a fixed already-established source constant; its numerical value is not computed here.
+
+#### E3. CD3: Uniform Return Through All Prime-Square Owners
+
+Retain the accepted C20-C21 notation `A(t)=sum_(1<=n<t^2)mu(n)`, A=0 on [0,1], and
+
+```text
+B(t)=A(t)+T A(t),       T A(t)=sum_(p odd prime) A(t/p)/p.
+```
+
+This is exactly the primitive of g_infinity. The sum is locally finite. Let `F_A(X)=sum_(1<=R<X)Omega_R(A)^2` for real X>=0, so F_A(X)=0 when X<=1. CD2 and dyadic summation give, for X>=1,
+
+```text
+F_A(X) << X^3 / log(2X)^(1/100).
+```
+
+For example, use the trivial `F_A(Y)<=9Y^3` below sqrt(X) and sum the dyadic bounds above it, where every logarithm is comparable to log(2X). This justifies the prefix form uniformly, including small scales after increasing the constant.
+
+For each integer R,p the interval [R/p,(R+1)/p] is in the single closed root cell indexed by floor(R/p), including p|(R+1). There are at most p preimage cells for a given lower cell; the cell indexed zero contributes nothing. The accepted multiplicity-sensitive Minkowski bound is
+
+```text
+sqrt(F_TA(X)) <= sum_(p odd prime) p^(-1/2) sqrt(F_A(X/p)).
+```
+
+To preserve the logarithmic rate with GROWING owners, split at p=sqrt(X). For small p, log(2X/p)>=log(2X)/2, so their total is
+
+```text
+<< X^(3/2) log(2X)^(-1/200) sum_p p^(-2).
+```
+
+For p>sqrt(X), the trivial prefix bound gives `O(X^(3/2) sum_(p>sqrt X)p^(-2))=O(X)`. The first series converges absolutely; the second tail estimate uses the integer reciprocal-square series. Hence B has the same maximal logarithmic rate. This is a new weighted-log consequence of the accepted dilation estimate, not a claim that a scalar completed shell can be dilated without fragments.
+
+The already accepted original-source comparison C21 gives
+
+```text
+|Omega_R(g_infinity)-Omega_R(g_R)| <= 4+log(R+1).
+```
+
+It follows by counting at most `(2R+1)/p^2+1` cofactor sites for each omitted p>=ceil(sqrt R), retaining actual mu and weight 1/p. Its dyadic squared error is `O(H log^2 H)`. Accepted PC4 gives
+
+```text
+|Omega_R(g_R)-Omega_R(g_H^fr)| <= 4sqrt(2),
+sum_(H<=R<2H) |Omega_R(g_R)-Omega_R(g_H^fr)|^2 <=32H.
+```
+
+Both errors are lower order than CD3. The triangle inequality pays their mixed interactions in l2; no favorable sign is assumed. In particular q^2=H is absent from the frozen source and added only when R>H, while q^2=R remains excluded. This proves CD3 for the complete, moving and frozen carriers.
+
+#### E4. CD4: A Common-Window Signed Correlation With A Paid Halo
+
+For any real |a|<=1 define
+
+```text
+D_a(H)=sum_(H^2<=n<4H^2)a(n)^2,
+C_a(H,d)=sum_(H^2<=n<4H^2)a(n)a(n+d),
+T_a(H,h)=2 sum_(1<=d<h)(h-d) C_a(H,d).
+```
+
+Expanding J and then moving each start window back by its integer j gives
+
+```text
+J_a(H,h)=h D_a(H)+T_a(H,h)+E_a(H,h),
+|E_a(H,h)|<=h(h-1)(2h-1)/3.                         (CD4)
+```
+
+Here E is exactly the difference of the two displayed sides, and its origin is explicit: the diagonal has shifts j=0,...,h-1, each costing at most 2j; the lag-d terms have j=0,...,h-d-1, each costing at most 2j and carrying the outer factor 2. Their sum is
+
+```text
+sum_(j<h)2j + 4 sum_(1<=d<h) sum_(j<h-d)j
+ = h(h-1)(2h-1)/3.
+```
+
+Thus the original fragment problem has a proved comparison to one ordinary signed triangular correlation on a common integer window. No adaptive fragment mask remains in T. The values n+d outside the main window are genuine forward-halo values, and the error has not been silently zeroed. This is an identity plus a finite boundary estimate, not a bound for T itself.
+
+### F. Quantitative Comparison And Complete Loss Accounting
+
+The new unconditional scale is `H^3/log(2H)^(1/100)` for maximal energy. The desired sharp-shell benchmark is `H^(5/2-eta+epsilon)`. The polynomial gap is unfilled. CD2 alone would give only a logarithmically improved linear Mertens estimate after the usual shell Cauchy argument, weaker than the already inherited global exponent. Its value is new local/maximal information, not endpoint advancement.
+
+CD1 also calibrates an explicit stronger sufficient supplier. Fix `0<eta<1/6`, set `h=floor(H^(2/3))`, and suppose independently that, for every epsilon>0 and all sufficiently large integer H,
+
+```text
+T_mu(H,h) <= C_(eta,epsilon) H^(17/6-eta+epsilon).     (OPEN-CD5)
+```
+
+Only an UPPER bound for the complete signed triangular sum is required, not absolute values of individual shifts. With H>=8, h is between H^(2/3)/2 and H^(2/3). In CD4 the diagonal costs at most `3H^2h=O(H^(8/3))` and the halo costs `O(h^3)=O(H^2)`. Multiplying by the smoothing factor `8H/h^2=O(H^(-1/3))` and restoring its boundary gives
+
+```text
+E_mu(H) << H^(7/3)+H^(5/2-eta+epsilon)+H^(5/3).
+```
+
+Because eta<1/6, the middle exponent dominates. This implies the actual scalar-shell bound, and dyadic Cauchy plus the O(sqrt x) final shell give
+
+```text
+M(x)=O_epsilon(x^(7/8-eta/4+epsilon)).                (CD5, conditional)
+```
+
+The same maximal rate returns to the hybrid fields by accepted C20-C22; physical activation costs O(H^2), still lower order. OPEN-CD5 is NOT proved. It is a stronger sufficient short-interval correlation target, not a proven necessary condition, not claimed equivalent to the canonical target, and not supplied by the logarithmic theorem. To improve on the already inherited strict gap, its final eta/4 must also exceed that existing gap; no such comparison is claimed.
+
+### G. Original-Carrier Bridge And Full Physical Return
+
+The [literal lifted carrier](https://github.com/OVVO-Financial/RH_Lean/blob/69aac0441b4df011cf7df3ba115169c3b66d72f5/research/LIFTED_MOBIUS_ADDRESS_INJECTIVITY_20261102.lean) uses the physical address q^2*m, actual nonzero mu(m), odd prime q, strict q^2<R, and `[R^2,(R+1)^2)`. Its injectivity and disjointness preserve every nonzero occurrence. The [zero-frequency splice](https://github.com/OVVO-Financial/RH_Lean/blob/69aac0441b4df011cf7df3ba115169c3b66d72f5/research/LOW_OWNER_AMPLITUDE_MELLIN_LEDGER_SPLICE.lean) retains coefficient 1/q. The [full Gram module](https://github.com/OVVO-Financial/RH_Lean/blob/69aac0441b4df011cf7df3ba115169c3b66d72f5/research/GLOBAL_RETURNED_CORE_FIRST_OWNER_GRAM.lean) does not discard cross-owner terms.
+
+Reuse the independently accepted C25 physical identification, for R>=56:
+
+```text
+X_R=R^2-1,
+A_R=M(R-1)-M(X_R)-sum_(q odd prime,q^2<R) M(floor(X_R/q^2))/q,
+W_R=sum_(R^2<=n<(R+1)^2)g_R(n),
+K_R=M(R+2)/q when R=q^2 with q odd prime, and 0 otherwise,
+A_(R+1)-A_R=mu(R)-W_R-K_R.
+```
+
+A_R is the actual physical zero-frequency remainder, not the auxiliary primitive A(t) in E3. In the complete square retain
+
+```text
+sum_R |A_(R+1)-A_R|^2
+ = sum_R [mu(R)^2+Z_R+K_R^2]
+   +2 sum_R N_R -2 sum_R mu(R)W_R +2 sum_R W_R K_R,
+W_R^2=Z_R+2N_R,       mu(R)K_R=0.
+```
+
+Accepted C25 proves `sum K_R^2<=3H^(3/2)` and pays all other restoration costs at O(H^2). Alternatively, applying the three-term square inequality directly to the exact root-step identity gives
+
+```text
+sum_R |A_(R+1)-A_R|^2
+ <=3H+3 sum_R Omega_R(g_R)^2+9H^(3/2)
+ << H^3/log(2H)^(1/100).                              (CD3-return)
+```
+
+The inequality pays, rather than removes, all mixed terms. No nonzero-frequency statement, ideal-character intertwiner, original #915 first-bad payment, or positive high-prime fullOwnerGamma bound is asserted. The maximal extension of the scalar [square-shell declaration](https://github.com/OVVO-Financial/RH_Lean/blob/69aac0441b4df011cf7df3ba115169c3b66d72f5/research/VF_919_SEVEN_EIGHTHS_SQUARE_SHELL_BRIDGE_20261019.lean) is paper mathematics here, not an existing compiled declaration.
+
+### H. Falsification, Novelty And Circularity Review
+
+**CD6 finite verification.** Tests were fixed before execution: every ternary word of length 8, with a five-site base window and h=1,...,4; genuine development blocks H=9,16,25; held-out validation H=49,64. No logarithmic asymptotic was fitted or numerically certified. Two independently constructed Mobius arrays, a prime-square sieve and divisor-convolution inversion, agree through n=16448. Exact integer/rational checks verify the smoothing identity, CD1, CD4, forward prime-dilation bound, strict-cutoff freezing, omitted-owner budget, and complete physical root-step identity.
+
+Execution with Python 3.12.14 passed 26,244 word/length cases (551,124 interval telescoping checks), 163 physical root/block cases and 19 genuine short-moment cases. Some exact outputs:
+
+| H | E_mu(H) | Tested h | J_mu(H,h) | CD4 boundary residual |
+| --- | ---: | ---: | ---: | ---: |
+| 9 | 444 | 4 | 702 | 0 |
+| 16 | 992 | 6 | 2433 | -5 |
+| 25 | 2473 | 8 | 8784 | 4 |
+| 49 | 11095 | 13 | 57144 | -17 |
+| 64 | 18300 | 16 | 121611 | -29 |
+
+The last column is the signed boundary residual of CD4, not maximal energy. The appended complete reproducer disambiguates both quantities. Its SHA-256 is `8d82b19784788aad1a7f6083886a58faed86b3779d49ae7fcebfda1a4ab65db2`. The chosen h for the H^(2/3) tests is computed by integer cube comparison, with no floating-point decision. Test verdicts use only exact integers/rationals.
+
+**Boundary necessity.** For the bounded comparison sequence 1,-1,1,-1,... and h=2 every smoothed sum vanishes, but a singleton fragment has magnitude one. Therefore deleting the h-1 boundary from CD1's proof is false. This finite test concerns the general smoothing lemma, not a Mobius counterexample.
+
+**Why the Referee comparison is not a counterexample.** Its energy is at least `9H^3/256`. By CD1, whenever h<=3H/32 it must have `J_a(H,h)>=9H^2h^2/4096`. Consequently it cannot satisfy the short-average decay used in E2. Its nonmultiplicativity, not a hidden change of carrier, is exactly where it fails the independent input. No assertion about PC5 is inferred from this comparison.
+
+**No illicit multiplicativity.** C23's genuine values g(9)=1/3, g(25)=1/5, g(225)=0 are retained. The short-average theorem is applied to mu alone; the hybrid is handled by a separate proven comparison. Growing primes are split explicitly in E3, not treated as fixed. The inherited 7/8 estimate is used solely on the long mean. All squareful daughter addresses and all positive/negative cross terms remain.
+
+**Novelty scope.** Current source search and the retrieved November 2/3 derivations contain the short-average theorem citation, the warning about exceptional square sampling, the fragment-preserving inverse and the support-only obstruction. They do not contain CD1's completed smoothing-to-maximal argument or its logarithmic return CD2-CD3. This is a source-qualified consequence completing that particular missing transfer, not a claim to have invented the classical theorem or to have exhausted all repository history. Repository search also returned an older prime-comb discussion warning that almost-all results do not directly supply its pinned maximal target; CD1 does not claim that different carrier is paid.
+
+### I. Conceptual Interpretation
+
+The genuine arithmetic does rule out macroscopic, consistently aligned maximal fragments on a positive proportion of square shells: for every fixed lambda>0,
+
+```text
+#{H<=R<2H : Omega_R(g_R)>=lambda H}
+ << lambda^(-2) H/log(2H)^(1/100).
+```
+
+This follows immediately from CD3 and includes adaptive fragment locations. It is a true all-scale restriction absent from the squarefree comparison class. It is not the square-root-size, diagonal-sized, or power-saving restriction still needed by the proof architecture.
+
+The useful strategic change is local: stop treating sparse square sampling as an unbridged obstacle at every strength. A logarithmic bridge is now available on paper. The remaining obstacle for this method is the strength of the common-window signed correlation, plus the explicitly paid smoothing loss, not a missing informal identification of carriers. Other protected routes remain active.
+
+### J. Specialist Handoffs And Continuity
+
+**Coordinator:** register CD1-CD3 as PAPER_PROOF / SELF_AUDIT, not a new VERIFIED_ETA. C23's lack of a maximal transfer is resolved at logarithmic strength only. Retain the actual target gap and PC5's open status. Keep NYMAN next for this investigator, resuming C33-C35/NR6 rather than redoing the paid remote tail.
+
+**Adversarial Referee:** independently audit the exact interval telescope, the inclusive-to-half-open MR correction, uniform delta/h choices, the prime preimage factor sqrt(p), the p>sqrt(X) tail, and the O(H^2) physical return. Verify CD4's boundary polynomial and CD5's exponents. Submitted author checks are SELF_AUDIT, not independent acceptance.
+
+**Prime Census:** no wider empirical power fit is requested. If independent testing is useful, check CD1/CD4 on exact input and monitor `T_mu(H,floor(H^(2/3)))`, its squarefree diagonal, signed boundary and full J together. A test of OPEN-CD5 requires a frozen eta, epsilon, constant and range; growth plots alone cannot validate its quantified statement.
+
+**Owner Payment:** the complete zero-frequency return now inherits the weak logarithmic bound, with the exact R=q^2 birth M(R+2)/q included. This does not control your prime-seat JOH/SAT carrier or a first-bad source. No carrier identification by terminology is requested.
+
+**Finite Wheel:** on a future compatible investigation, a weighted signed restriction for the complete common-window lag sum in OPEN-CD5 would have an explicit maximal consumer. Fixed affine-cell absolute savings or completed-wheel positivity are not substitutes. Preserve your own MU-LIFT/CORR4/FINITE-AC rotation.
+
+**Lean Verification:** no immediate proof PR is requested. CD1's finite smoothing inequality and CD4's exact boundary bound are implementation-sized only after independent acceptance and utility selection. CD2 additionally needs the external short-interval theorem, which is not claimed formally available. Do not encode that theorem or OPEN-CD5 as an unexplained project axiom.
+
+Continuity was read at the following actual blobs; retrieval is not a claim of independently re-proving all historical sections:
+
+| Role | November 2 | November 3 intake |
+| --- | --- | --- |
+| Coordinator mirrors | 1e932d4ce0eb0fd2c5f4507f6b111194d633eb32 | 8f22479e602b919c00ad5539a7442371c2ee6076 |
+| Owner | abfe546d72b151f4cd200fc61de3197efe23a65c | d52c74b76c2914c3be694f39cd7afe9b122a4834 |
+| Analytic | 8e48b59611aa1d0bfa3577ed0a4a3bc0d0fcae73 | 79f5f11020d7038028f4ddfe92ff3f95d4bd0798 |
+| Wheel | abf8ac8c22a708886183849552c90dd62787ac8d | 15802d31f6b7abf3ffff97a5a57942baf3bc2d07 |
+| Census | 2cd84c57ab18d923e97368764f29f4ccd2ec3bb3 | 5b564235ba20bf4a53c13dac0cc91d210d665a84 |
+| Referee | 814af1684df66e6ac99b8df1f102cb592b316f89 | dff2382a732be1829ad7583e046ebbc64c61e4c9 |
+| Lean | 02d19d792e26f072004cb5909f149538752626e9 | a9c65a6809323216f8a876845538b6af0fae393e |
+
+All current-day role files exist. Yesterday's last Lean section is explicitly partial; today's C29 attempt is explicitly uncompiled and write-blocked. Neither is upgraded. Latest separate claims consumed include Owner-3's JOH excursion falsifier, Wheel-2's partial {2,3} packet signs, Census-3/4's common-offset obstruction, Referee-5/6/7's Nyman review/defect, and Coordinator-2's C33-C35 head/tail continuation. None supplies the missing CODIV power bound. External inbox blob `038018145c0fddb2f6306c0712373adf9cd1ea52` has no entry after October 18; EXT-20261018-PNT-1/3 and EXT-20261017-XCOORD-1 remain source/boundary safeguards, not current routing. No missing handoff, extra run or independent review was invented.
+
+### K. First Independently Missing Analytic Theorem
+
+For THIS smoothing mechanism the first target-strength unpaid input is OPEN-CD5, a one-sided signed triangular lag estimate on the actual mu values, with fixed eta before H and every epsilon loss. All its other maximal-transfer, diagonal, halo, owner, and physical activation costs have been displayed. The classical theorem proves a logarithmic relative gain only and cannot be substituted for the required `H^(-1/2-eta)` relative gain.
+
+A weaker intermediate improvement to the rate of this same J or T would be genuine local progress even before OPEN-CD5. It should be stated with its own actual range and net exponent, without claiming that the current literature already gives a polynomial saving at vanishing amplitude tolerance. No new estimate for positive fullOwnerGamma, PC5, the canonical VF discrepancy, or the entire ideal-character exceptional Gram is established.
+
+### L. Persistent Workspace And Next-Run Resume Capsule
+
+```text
+INVOCATION: 2026-11-03T17:11:01-05:00 SCHEDULED; RUN_ID_UNAVAILABLE
+ROLE: RH | Analytic Type II
+MAIN: 69aac0441b4df011cf7df3ba115169c3b66d72f5
+ENGINE: 6fce99c61efb5b2a73c0cb1f1464f09b351fcd55
+AGENTS: 9fa5e9519e2fb6dde22217aa2a18982dafef373a
+CONTRACT: 88cddd9cd98c3b55f0b013998541e9b4e9dc9f2a
+TASK: CODIV maximal-fragment transfer at genuine multiplicative scope
+RESUMED: 20261102-analytic-3; Coordinator C20-C25;
+  Referee 20261103-referee-3/4; Census PC4, with PC5 still conjectural.
+DEPLOYMENT_ACK: live policy consumed; actual new proof CD1-CD4,
+  not a repetition of the bootstrap NYMAN task or old freezing census.
+NEW_CLAIM: 20261103-analytic-3, CD1-CD6
+MATHEMATICS: paper-proof logarithmic maximal bound; finite exact tests;
+  independent review PENDING; NOT_FORMALIZED.
+QUANTIFIED_RESULT: E_mu, moving/frozen hybrid maximal energy,
+  and complete physical root-step energy << H^3/log(2H)^(1/100).
+FIRST_OPEN_INPUT: common-window signed triangular correlation OPEN-CD5.
+SOURCE_CI: existing #1079/#1081/#1082 green and human merged;
+  new draft #1083 head 92defc3ce6f9517ac1a649af9a1ba643bad917e2
+  has 11 green runs and dedicated 41729980802 IN_PROGRESS at closeout;
+  it is not an input. No new Lean run or source edit by this agent.
+ETA_GATE: inherited VERIFIED_ETA / ON_MAIN at its reviewed scope.
+NEW_NET_ENDPOINT_GAIN: NONE; stronger conditional gain UNKNOWN.
+ROUTE_COVERAGE: Nov 3 NYMAN analytic-1; OAI-NNS analytic-2;
+  CODIV analytic-3. Next protected route NYMAN.
+NEXT_NYMAN_STEP: resume C33-C35 and NR6 at the actual low-edit/middle
+  residual; do not re-prove the accepted remote tail or fixed-low invariant.
+NEXT_CODIV_STEP: attack T_mu with ordinary common-window shifts;
+  retain explicit smoothing, diagonal and halo costs.
+CANONICAL_VF / RH / SHARP_SHELL / PC5: OPEN.
+EARLY_CHECKPOINT: 414c1d17d034a6a5be8861fec555d7870de3d99f,
+  read back exactly at blob 75571cf8ffe5cb34c0c5189fab42817de4878c2e.
+PUBLICATION: recorded by verified readback receipt below.
+```
+
+Only this role's authorized dated report is changed remotely. Direct clone access failed with a 403 proxy response; authenticated read tools supplied the actual sources, and that technical limitation did not prevent the research. No main/proof/policy/other-report write, agent launch, schedule change, merge, or permission change occurred.
+
+### CD6 Exact Reproducer
+
+The following is the complete executed script. It checks finite algebra and original-source reconstruction only; the logarithmic theorem is the proof above, not an extrapolation from this data.
+
+
+```python
+"""Exact checks for 20261103-analytic-3; not an asymptotic certificate.
+
+Frozen tests: all ternary words of length 8, then genuine Mobius blocks
+H=9,16,25 (development) and H=49,64 (validation). No fitted constants.
+"""
+
+from fractions import Fraction as F
+from itertools import accumulate, product
+from math import isqrt, prod
+import json
+import platform
+
+
+def span(values):
+    prefixes = [0] + list(accumulate(values))
+    return max(prefixes) - min(prefixes)
+
+
+def algebra_checks():
+    count = 0
+    for a in product((-1, 0, 1), repeat=8):
+        n = 5
+        for h in range(1, 5):
+            sums = [sum(a[t:t+h]) for t in range(n)]
+            for u in range(n + 1):
+                for v in range(u, n + 1):
+                    defect = h * sum(a[u:v]) - sum(sums[u:v])
+                    restored = sum(sum(a[u:u+j]) - sum(a[v:v+j])
+                                   for j in range(h))
+                    assert defect == restored
+                    assert abs(defect) <= h * (h - 1)
+            jval = sum(s * s for s in sums)
+            omega = span(a[:n])
+            assert h*h*omega*omega <= 2*n*jval + 2*h*h*(h-1)**2
+            diag = sum(x*x for x in a[:n])
+            corr = sum(2*(h-d)*sum(a[t]*a[t+d] for t in range(n))
+                       for d in range(1, h))
+            boundary = jval - h*diag - corr
+            assert 3*abs(boundary) <= h*(h-1)*(2*h-1)
+            count += 1
+    a = [1, -1] * 4
+    assert span(a[:5]) == 1 and all(a[t]+a[t+1] == 0 for t in range(5))
+    return count
+
+
+def mobius_pair(limit):
+    mu = [1] * (limit + 1)
+    mu[0] = 0
+    primes = []
+    composite = [False] * (limit + 1)
+    for p in range(2, limit + 1):
+        if composite[p]:
+            continue
+        primes.append(p)
+        for n in range(p, limit + 1, p):
+            composite[n] = True
+            mu[n] *= -1
+        for n in range(p*p, limit + 1, p*p):
+            mu[n] = 0
+    inverse = [0] * (limit + 1)
+    inverse[1] = 1
+    for d in range(1, limit + 1):
+        for n in range(2*d, limit + 1, d):
+            inverse[n] -= inverse[d]
+    assert mu == inverse
+    return mu, primes
+
+
+def genuine_checks():
+    blocks = (9, 16, 25, 49, 64)
+    top = 4 * max(blocks)**2 + max(blocks)
+    mu, primes = mobius_pair(top)
+    mertens = list(accumulate(mu))
+    odd = [p for p in primes if 3 <= p <= 2*max(blocks)]
+    den = prod(odd)
+    complete = [den*x for x in mu]
+    for p in odd:
+        for n in range(p*p, top + 1, p*p):
+            if mu[n//(p*p)]:
+                assert complete[n] == 0
+                complete[n] = (den//p)*mu[n//(p*p)]
+
+    def field(r, cutoff):
+        vals = []
+        owners = [p for p in odd if p*p < cutoff]
+        for n in range(r*r, (r+1)**2):
+            value = den*mu[n]
+            for p in owners:
+                if n % (p*p) == 0 and mu[n//(p*p)]:
+                    assert value == 0
+                    value = (den//p)*mu[n//(p*p)]
+            vals.append(value)
+        return vals
+
+    def ledger(r):
+        x = r*r - 1
+        return den*(mertens[r-1] - mertens[x]) - sum(
+            (den//p)*mertens[x//(p*p)] for p in odd if p*p < r)
+
+    omu = {r: span(mu[r*r:(r+1)**2]) for r in range(1, 2*max(blocks))}
+    rows = []
+    root_checks = 0
+    moment_checks = 0
+    for hroot in blocks:
+        emu = sum(omu[r]**2 for r in range(hroot, 2*hroot))
+        emov = 0
+        efr = 0
+        ereturn = 0
+        for r in range(hroot, 2*hroot):
+            moving = field(r, r)
+            frozen = field(r, hroot)
+            om = span(moving)
+            of = span(frozen)
+            oi = span(complete[r*r:(r+1)**2])
+            assert (om-of)**2 <= 32*den*den
+            dilation_bound = den*omu[r] + sum(
+                (den//p)*omu[r//p] for p in odd if p <= r)
+            assert oi <= dilation_bound
+            omitted_bound = sum(
+                F(((r+1)**2-1)//(p*p) - (r*r-1)//(p*p), p)
+                for p in odd if p*p >= r)
+            assert F(abs(oi-om), den) <= omitted_bound
+            q = isqrt(r)
+            activation = (den//q)*mertens[r+2] if q*q == r and q in odd else 0
+            change = ledger(r+1)-ledger(r)
+            assert change == den*mu[r] - sum(moving) - activation
+            emov += om*om
+            efr += of*of
+            ereturn += change*change
+            root_checks += 1
+        witnesses = []
+        length = 1
+        while (length + 1)**3 <= hroot*hroot:
+            length += 1
+        for h in sorted({1, 2, length, hroot//2}):
+            left, right = hroot*hroot, 4*hroot*hroot
+            sums = [mertens[n+h-1]-mertens[n-1] for n in range(left, right)]
+            jval = sum(s*s for s in sums)
+            assert h*h*emu <= 8*hroot*jval + 2*hroot*h*h*(h-1)**2
+            diag = sum(mu[n]**2 for n in range(left, right))
+            corr = sum(2*(h-d)*sum(mu[n]*mu[n+d] for n in range(left, right))
+                       for d in range(1, h))
+            boundary = jval-h*diag-corr
+            assert 3*abs(boundary) <= h*(h-1)*(2*h-1)
+            witnesses.append({'h': h, 'J': jval, 'boundary': boundary})
+            moment_checks += 1
+        rows.append({'H': hroot, 'mu_max_energy': emu,
+                     'moving_max_energy': str(F(emov, den*den)),
+                     'frozen_max_energy': str(F(efr, den*den)),
+                     'full_return_energy': str(F(ereturn, den*den)),
+                     'moments': witnesses})
+    return {'mu_arrays_match_through': top, 'root_checks': root_checks,
+            'moment_checks': moment_checks, 'rows': rows}
+
+
+if __name__ == '__main__':
+    result = {'python': platform.python_version(),
+              'ternary_word_length_pairs': algebra_checks(),
+              'genuine': genuine_checks(),
+              'scope': 'Exact finite identities and inequalities only; no asymptotic test.'}
+    print(json.dumps(result, indent=2))
+```
