@@ -153,7 +153,8 @@ theorem native_owner_energy_le_diagonal_add_positive_gamma
     ‖RHLean.Analysis.mertensSummatory (RHLean.Proof.squareRootEndpoint R)‖ ^ 2 ≤
       ownerDiagonal R + max 0 (fullOwnerGamma R) := by
   rw [mertens_norm_sq_eq_diagonal_add_gamma R hR]
-  exact add_le_add_left (le_max_right _ _) _
+  exact add_le_add_left
+    (le_max_right (0 : ℝ) (fullOwnerGamma R)) (ownerDiagonal R)
 
 #print axioms native_owner_diagonal_seven_eighths_paid
 #print axioms native_owner_gamma_negative_seven_eighths_paid
