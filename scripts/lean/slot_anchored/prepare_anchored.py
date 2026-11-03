@@ -138,6 +138,21 @@ def main() -> None:
                 'generic principal residue, true zero-free premise')
         elif name == 'VF919AnchoredHighTransport':
             text = text.replace('have hbetal :=', 'have _hbetal :=')
+        # Preserve the original complex zero witnesses explicitly. The native
+        # imports introduce graph-subgraph notation `≤s`; without spacing,
+        # `a≤s.re` is parsed as a Graph relation instead of a real inequality.
+        witness_count = {
+            'VF919AnchoredHighTails': 2,
+            'VF919AnchoredHighTransport': 3,
+            'VF919AnchoredHighAssembly': 1,
+        }.get(name, 0)
+        if text.count('∃j s,LFunction') != witness_count:
+            raise ValueError(f'{name}: unexpected complex zero-witness binder count')
+        if text.count('a≤s.re ∧ s.re<a+e ∧ |s.im|') != witness_count:
+            raise ValueError(f'{name}: unexpected zero-real/imag comparison count')
+        text = text.replace('∃j s,LFunction', '∃j, ∃s : ℂ,LFunction')
+        text = text.replace('a≤s.re ∧ s.re<a+e ∧ |s.im|',
+            'a ≤ Complex.re s ∧ Complex.re s<a+e ∧ |Complex.im s|')
         text = pattern.sub(lambda match: mapping[match[0]], text)
         imports = {
             'VF919AnchoredSmallTail': imp('VF919NativeSevenEighthsReplay'),
