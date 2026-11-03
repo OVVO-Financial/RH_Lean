@@ -152,7 +152,7 @@ def main() -> None:
         # notation, which otherwise absorbs `a≤s.re` as a graph comparison.
         # Spacing must be fixed in EVERY generated theorem and its consumers.
         expected_zero_comparisons = {
-            'VF919AnchoredHighTails': 2,
+            'VF919AnchoredHighTails': 0,
             'VF919AnchoredHighTransport': 3,
             'VF919AnchoredHighAssembly': 1,
         }.get(name, 0)
