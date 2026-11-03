@@ -618,3 +618,13 @@ for H in (8, 16, 32, 64, 128):
 print("ALL EXACT ASSERTIONS PASSED")
 ~~~
 
+
+## Verified Publication Receipt - 2026-11-03 04:39 EST (-0500)
+
+**Execution:** COMPLETED. **Publication:** PUBLISHED_VERIFIED.
+
+The substantive synthesis was committed as e3063b2a208910be832ca805385973f5c7eaeb97 at 2026-11-03T09:39:11Z. Immediate readback returned blob a441c5d2486e9bd004aa09610d142e50be10d83c and exactly matched all 48,384 submitted characters. Commit inspection confirmed that ONLY research/agent_reports/2026-11-03/50-adversarial-referee.md changed. The original early checkpoint is preserved.
+
+Validation confirmed all A-O sections, four stable new claim IDs, explicit carrier and scope restrictions, exact source/CI provenance, ASCII/control-character checks and balanced code fences. The embedded independently executed Python source exactly matches SHA256 9c89479f264520750631246ba4dd0b5f2b4dd168ccdb4dc30e33fb4cb9e040d4. The two genuine-root reproductions and five comparison-family regressions passed. No local Lean build, workflow rerun, new proof branch, PR edit, merge, agent launch or schedule action occurred.
+
+This receipt verifies publication, not additional mathematical authority. Referee-2 and referee-4 remain new SELF_AUDIT paper theorems offered for independent review; the accepted PR results remain exact-head, unmerged results. Canonical VF, RH, sharp-shell gain and PC5 remain OPEN.
