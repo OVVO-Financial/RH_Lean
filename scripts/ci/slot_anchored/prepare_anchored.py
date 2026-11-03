@@ -121,6 +121,9 @@ def main() -> None:
             # This former lower-bound premise is now only reflexivity.
             text = text.replace(f'(h{BETA} :', f'(_h{BETA} :')
         elif name == 'VF919AnchoredHighTails':
+            text = replace_once(text, 'open HeckeFamily HeckeInverseAmplification',
+                'open Complex\nopen HeckeFamily HeckeInverseAmplification',
+                'complex projection namespace for anchored HIGH tails')
             text = replace_once(text, "he he' (by linarith) le_rfl\n",
                 f"he he' (by linarith) (by linarith only [he, {UPPER}])\n",
                 'actual physical rows on anchored small contour')
