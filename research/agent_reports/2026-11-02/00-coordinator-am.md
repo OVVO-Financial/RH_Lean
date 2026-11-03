@@ -456,7 +456,7 @@ Draft PR #1072 is open and mergeable at `cc082f4eef0df6dc6972c81b9f44bf7fb28a3f6
 
 **eta_gate: VERIFIED_ETA / PR_HEAD_ONLY.** The independently reviewed and kernel-checked strict gain is PR #1073 at `9cbfce5295343bcb411e6d2cb159b59995cd985b`, not main. Referee `20261102-referee-3`, the unconditional terminal declarations, successful run `41554561404`, and the standard-axiom/live-dependency audit supply the evidence. The new Coordinator results below supply **no additional eta**. Canonical VF and RH remain OPEN.
 
-**Execution state:** `RESEARCH_COMPLETE / PUBLICATION_PENDING_READBACK`. This is the continuation of the early checkpoint in commit `9d34b80d69dab89ae3a4947bc1dd5cd6d88fc1be`, not another invocation. A publication receipt will supersede this state only after successful commit and readback.
+**Execution state:** `COMPLETED / PUBLISHED`. This is the continuation of the early checkpoint in commit `9d34b80d69dab89ae3a4947bc1dd5cd6d88fc1be`, not another invocation. The substantive synthesis was committed and read back successfully before this status was updated; see the publication receipt below.
 
 ### A. What changed mathematically?
 
@@ -859,7 +859,11 @@ LEAN_QUEUE: existing endpoint repair, then accepted dependency-audit hardening;
             no new Coordinator proof branch; latest Lean report final PENDING.
 PR_REFRESH: 1075 latest head fails lint; 1076 latest tactic-only repair run pending.
 CANONICAL_VF: OPEN. SHARP_MOBIUS_SHELL_GAIN: OPEN. RH: OPEN.
-PUBLICATION: pending successful mirrored commit/readback and receipt below.
+PUBLICATION: substantive synthesis committed; both mirrors read back byte-identically.
 ```
 
 Highest-value next Coordinator reasoning task: test whether a genuinely arithmetic restriction on the frozen field can control maximal fragments without requiring an arbitrary-vector bound, or establish a precise inverse configuration forced by failure. Do not re-prove the reciprocal norm comparison, re-run the accepted finite-slot audit unchanged, or replace an unpaid rate by another equivalent norm.
+
+### Publication receipt - 2026-11-02 23:36 EST (-0500)
+
+The substantive synthesis was atomically published in commit `06c02fbe922e2daf6cb0b5d9fc322034550d3ecd`, parent `9d34b80d69dab89ae3a4947bc1dd5cd6d88fc1be`, at `2026-11-03T04:36:08Z`. Readback of both Coordinator paths at that commit returned identical blob `122c193d4dd835153e09c321c26afefffeffc3eb`, 82,551 characters, exactly matching the submitted text. Commit inspection confirmed that only `research/agent_reports/2026-11-02/00-coordinator-am.md` and `research/agent_reports/2026-11-02/90-coordinator-pm.md` changed. Prior report and checkpoint bytes were preserved. The new section has all A-J headings, balanced code fences, ASCII text and no unintended control characters. This receipt updates publication state only; it does not confer independent review or Lean certification on C20-C25 and does not change the timestamped PR observations.
