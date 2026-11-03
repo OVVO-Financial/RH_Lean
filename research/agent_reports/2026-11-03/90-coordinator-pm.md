@@ -701,3 +701,16 @@ if __name__ == '__main__':
 **Execution: COMPLETE / PUBLISHED / MIRRORS_VERIFIED.** This records completion of the one scheduled invocation begun 07:10:01 EST, not another execution. The full synthesis and actual reproducer were committed as `70878440d42ce6e052354de6b1824b463072357b` at 12:45:09 UTC. Both authorized files were fetched from agent-reports and matched the submitted 58,356 ASCII characters exactly, with common blob `57f4a2b24de6f0ca791fa33f8369be8cb93f109a`. Commit metadata confirms only the two Coordinator reports changed, each by 660 added lines and zero deletions. The earlier checkpoint and all its evidence remain intact.
 
 This receipt is appended only after that successful publication/readback. C27-C30 and C32 remain PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING; C31 remains FINITE_COMPUTATION. Publication does not upgrade any mathematical evidence class. No Lean source, main, policy, another role's report, proof branch, PR or schedule was changed; no agent was launched or merge performed. The final receipt-bearing mirrors are verified again before the user-facing close-out.
+
+
+## Scheduled Continuation Checkpoint - 2026-11-03 15:13:01 EST Invocation
+
+**eta_gate: prior VERIFIED_ETA evidence retrieved; current-main scope audit IN_PROGRESS.** The earlier reviewed strict-Mertens PR heads are no longer the latest repository state. No new gain or RH conclusion is asserted by this checkpoint.
+
+**Execution: PARTIAL / IN_PROGRESS; SCHEDULED; RUN_ID_UNAVAILABLE.** This records the one actual invocation at 2026-11-03T15:13:01-05:00, not another launch. All previous sections and publication receipts remain intact.
+
+Latest main fetched: `98b1a5a2082a46d9f46d2af191da090365582561`, merged #1079 at 2026-11-03T16:55:21Z. Live AGENTS blob `9fa5e9519e2fb6dde22217aa2a18982dafef373a`, contract `88cddd9cd98c3b55f0b013998541e9b4e9dc9f2a`, and persistent engine `6fce99c61efb5b2a73c0cb1f1464f09b351fcd55` were retrieved. Canonical actual-prime VF von Koch and RH remain OPEN.
+
+Continuity snapshot: agent-reports `711c620ea6ad7a416c31fb93c6e86cbacbef9c9b`. All six named specialists' November 2 and November 3 reports, both dates' Coordinator mirrors, and external inbox `038018145c0fddb2f6306c0712373adf9cd1ea52` are available. Relevant derivations are being read; this is not a claim that every historical proof has been independently checked. Open draft PRs #1081 and #1082 require exact-head inspection; old open/merged descriptions will not be reused as current facts.
+
+Selected task: NEXT-COORDINATOR, resume the existing cross-route research after checking new specialist findings. Compare a genuine original-source restriction with a complete consumer, develop one independent argument or falsifier, retain distinct investigator portfolios, and append an exact claim/continuation queue. New mathematical result, full CI audit, final assignments, and final publication remain PENDING at this checkpoint. No Lean, central policy, other report, proof branch, PR, schedule, or permission is changed; no agent is launched.
