@@ -1,14 +1,22 @@
 # RH_Lean dynamic seven-agent research protocol
 
-**Current operating protocol, 2026-11-01; effective after human merge.** Use [AGENTS](../AGENTS.md) for permissions, the [proof contract](../CURRENT_PROOF_CONTRACT.md) and live source for mathematics, and the [persistent research engine](RHLEAN_SEVEN_AGENT_RESEARCH_ENGINE_20261101.md) for next-run tickets. This update changes research organization, not agent identities, actual schedules or theorem status.
+**Current operating protocol, updated 2026-11-03; effective after human merge.** Use [AGENTS](../AGENTS.md) for permissions, the [proof contract](../CURRENT_PROOF_CONTRACT.md) and live source for mathematics, and the [persistent research engine](RHLEAN_SEVEN_AGENT_RESEARCH_ENGINE_20261101.md) for next-run tickets. This update changes research organization, not agent identities, actual schedules or theorem status.
 
 ## Authority and compact intake
 
-Follow the stable [task selector](RHLEAN_NATIVE_SQUARE_CLOCK_AGENT_DIRECTIVE_20261029.md): breadth gate, complete-return contract, research engine, then relevant route constraints and [seven-role prompts](RHLEAN_ALL_VECTOR_AGENT_PROMPTS_20261030.md). The [multiple-daily policy](RHLEAN_MULTIRUN_DAILY_AGENT_POLICY_20261031.md) permits genuinely configured repeated runs. Saved Studio templates are in [the seven complete prompt blocks](AGENT_STUDIO_20261024_SEVEN_PROMPTS.md); editing GitHub does not edit saved Studio state.
+Follow the stable [task selector](RHLEAN_NATIVE_SQUARE_CLOCK_AGENT_DIRECTIVE_20261029.md): breadth gate, complete-return contract, [original OAI LOW source-first contract](RHLEAN_OAI_LOW_SOURCE_FIRST_AGENT_CONTRACT_20261103.md), research engine, then relevant route constraints and [seven-role prompts](RHLEAN_ALL_VECTOR_AGENT_PROMPTS_20261030.md). The [multiple-daily policy](RHLEAN_MULTIRUN_DAILY_AGENT_POLICY_20261031.md) permits genuinely configured repeated runs. Saved Studio templates are in [the seven complete prompt blocks](AGENT_STUDIO_20261024_SEVEN_PROMPTS.md); editing GitHub does not edit saved Studio state.
 
 Use [the route portfolio](RH_PROOF_ATTACK_PORTFOLIO_20261024.md), [overlap/7-8 audit](RH_PROOF_OVERLAP_AND_SEVEN_EIGHTHS_AUDIT_20261024.md), [proof DAG](PROOF_DEPENDENCY_DAG.md), [formal milestones](FORMALIZATION_MILESTONES.md) and [coordinate atlas](COORDINATE_ATLAS.md) to locate the selected source and consumer, not to regenerate an inventory every run. Preserve the von Koch milestone and literal R=549 BLOCK falsifier.
 
 Verify main and relevant policy/source hashes on every actual invocation. Read applicable committed same-day and previous-day own/upstream sections and external handoffs. Reuse content only when it is actually available at unchanged verified dependencies; retrieve missing content in a fresh session. A concise briefing has authority, current derivation and relevant history, with exact references to full proofs. No fabricated caches, measured savings, launches or reports.
+
+## Source-first work allocation without loss of route coverage
+
+The [OAI LOW source-first contract](RHLEAN_OAI_LOW_SOURCE_FIRST_AGENT_CONTRACT_20261103.md) is a compulsory cross-source verification task at each role's next eligible actual invocation: isolate the **genuine** OAI 1/8 signal-vs-LOW separation, the original 3/16 LOW scalar cost, and the first cross-unselected-tuple norm_sum_le. Do not treat the native NNS isometry, higher-quality marked HIGH moment, the slot tilt, a canonical cstar local estimate on a different source, or an assumed owner Gamma saving as a new LOW arithmetic restriction.
+
+Use different packets with checkable outputs: source power dependency (Coordinator), occurrence map or mismatch (Owner), independent theorem/CI/missing-compensation review (Referee), preregistered actual-ideal finite probe (Census), source-backed signed LOW or inverse energy gain (Analytic), exact collision-class multiplicities/partial admission (Wheel), and exact-source formalization/axiom audit (Lean). New results must explicitly record total signed Hermitian off-diagonal, complete NORMALIZED LOW, principal/HIGH reserves and any genuinely net gain. #1083 must be examined at its **live** PR head and is not main until human merge.
+
+This changes current attack priorities but no other role's write permissions, existing report names, independently protected route rotation or cadence. If a stronger source step is still unproved, report the exact open inequality and continue a serious derivation; do not report another conditional bootstrap as a breakthrough.
 
 ## Persistent work and protected rotation
 
