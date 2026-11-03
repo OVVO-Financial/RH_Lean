@@ -133,9 +133,52 @@ theorem native_fractional_owner_seeded
     native_fractional_owner_iterated_growth c θ hc0.le hc1 hθ0 hθ1.le
       hcontract hgrowth⟩
 
+/-- A single fixed positive fractional owner contraction, UNIFORMLY
+renewable at the current exponent, implies a genuine RH-strength
+all-integer Mertens bound. The missing source estimate is hcontract. -/
+theorem native_fractional_owner_contraction_implies_mertens_half
+    (c : ℝ) (hc0 : 0 < c) (hc1 : c ≤ 1)
+    (hcontract : NativeUniformFractionalOwnerContraction c) :
+    MertensGrowthAtMost (1 / 2) := by
+  obtain ⟨θ, _hθ0, _hθ1, hall⟩ :=
+    native_fractional_owner_seeded c hc0 hc1 hcontract
+  intro ε hε
+  let q : ℝ := 1 - c / 2
+  have hq0 : 0 ≤ q := by dsimp [q]; linarith only [hc1]
+  have hq1 : q < 1 := by dsimp [q]; linarith only [hc0]
+  have hlim : Filter.Tendsto
+      (fun n : ℕ => (θ - 1 / 2) * q ^ n)
+      Filter.atTop (nhds (0 : ℝ)) := by
+    have hp := tendsto_pow_atTop_nhds_zero_of_lt_one hq0 hq1
+    simpa only [mul_zero] using hp.const_mul (θ - 1 / 2)
+  have hsmall : ∀ᶠ n : ℕ in Filter.atTop,
+      (θ - 1 / 2) * q ^ n < ε / 2 := by
+    exact hlim.eventually (gt_mem_nhds (by linarith : (0 : ℝ) < ε / 2))
+  obtain ⟨n, hn⟩ := hsmall.exists
+  have hε2 : 0 < ε / 2 := by linarith
+  have hp := hall n (ε / 2) hε2
+  rw [fractionalOwnerExponentIterate_closed] at hp
+  have hbound : (1 / 2 : ℝ) +
+      (θ - 1 / 2) * (1 - c / 2) ^ n + ε / 2 ≤ 1 / 2 + ε := by
+    dsimp [q] at hn
+    linarith only [hn]
+  exact powerBound_mono hbound hp
+
+/-- The complete signed owner-contraction theorem would imply RH through
+the existing fully formalized Mertens/zeta-zero equivalence. The new
+arithmetic estimate is a VISIBLE hypothesis, not an axiom or result. -/
+theorem native_fractional_owner_contraction_implies_critical_zeros
+    (c : ℝ) (hc0 : 0 < c) (hc1 : c ≤ 1)
+    (hcontract : NativeUniformFractionalOwnerContraction c) :
+    ∀ ρ : ℂ, NontrivialZetaZero ρ → ρ.re = (1 / 2 : ℝ) := by
+  exact growthAtMost_half_iff_criticalZeros.mp
+    (native_fractional_owner_contraction_implies_mertens_half c hc0 hc1 hcontract)
+
 #print axioms fractionalOwnerExponentIterate_closed
 #print axioms native_fractional_owner_iterated_growth
 #print axioms native_fractional_owner_seeded
+#print axioms native_fractional_owner_contraction_implies_mertens_half
+#print axioms native_fractional_owner_contraction_implies_critical_zeros
 
 end RHLean.Analysis.OwnerPrefix
 end
