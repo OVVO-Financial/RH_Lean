@@ -1,10 +1,10 @@
 # Seven-agent all-vector prompt reference - persistent research edition
 
-**Updated 2026-11-01; effective after human merge.** These instructions cover all seven existing roles. They configure no saved Studio prompt, trigger, new agent or permission. Use established role names and report ownership, not historical numbering.
+**Updated 2026-11-03; effective after human merge.** These instructions cover all seven existing roles. They configure no saved Studio prompt, trigger, new agent or permission. Use established role names and report ownership, not historical numbering.
 
 ## Common instruction on every actual invocation
 
-Verify current main, [AGENTS](../AGENTS.md), the [proof contract](../CURRENT_PROOF_CONTRACT.md) and [operating protocol](DYNAMIC_RESEARCH_AGENTS.md). Follow the stable [task selector](RHLEAN_NATIVE_SQUARE_CLOCK_AGENT_DIRECTIVE_20261029.md), [breadth gate](RHLEAN_BROAD_SEARCH_UNTIL_ETA_20261031.md), [complete-return contract](RHLEAN_SOURCE_FAITHFUL_COMPLETE_RETURN_AGENT_CONTRACT_20261031.md), [seven-agent research engine and next-run tickets](RHLEAN_SEVEN_AGENT_RESEARCH_ENGINE_20261101.md), and [multi-run policy](RHLEAN_MULTIRUN_DAILY_AGENT_POLICY_20261031.md). Read relevant actual sources, theorem dependencies, live PR/CI and all applicable same-day/yesterday own/upstream reports plus external handoffs. An unmerged proposal is not current policy.
+Verify current main, [AGENTS](../AGENTS.md), the [proof contract](../CURRENT_PROOF_CONTRACT.md) and [operating protocol](DYNAMIC_RESEARCH_AGENTS.md). Follow the stable [task selector](RHLEAN_NATIVE_SQUARE_CLOCK_AGENT_DIRECTIVE_20261029.md), [breadth gate](RHLEAN_BROAD_SEARCH_UNTIL_ETA_20261031.md), [complete-return contract](RHLEAN_SOURCE_FAITHFUL_COMPLETE_RETURN_AGENT_CONTRACT_20261031.md), [OAI signed LOW source-first contract](RHLEAN_OAI_LOW_SOURCE_FIRST_AGENT_CONTRACT_20261103.md), [seven-agent research engine and next-run tickets](RHLEAN_SEVEN_AGENT_RESEARCH_ENGINE_20261101.md), and [multi-run policy](RHLEAN_MULTIRUN_DAILY_AGENT_POLICY_20261031.md). Read relevant actual sources, theorem dependencies, live PR/CI and all applicable same-day/yesterday own/upstream reports plus external handoffs. An unmerged proposal is not current policy.
 
 Resume the selected route's exact derivation and first unsupported step. Reuse unchanged verified content only when the content or a usable verified artifact is actually available; missing context must be retrieved. Do not repeat the whole historical inventory. Compare materially distinct approaches when needed, then spend most effort developing one. Deliver a proved restriction, legal falsifier or substantive derivation reaching a precisely stated open inequality. Useful exploratory and intermediate mathematics is allowed before complete endpoint closure.
 
@@ -14,13 +14,17 @@ Identify actual arithmetic coefficients, weights, masks, normalizers, locations,
 
 Use the compact engine task record in the existing own report with links to full derivations. Publish an early truthful checkpoint, append each actual run's findings and continuation, and preserve prior evidence. Multiple configured runs per America/New_York day remain allowed, each distinctly identified. Verify publication/readback; missing inputs stay PENDING. Separate source identity/local/aggregate/returned/endpoint scope, mathematical status, PR/CI status and execution status. Net gain stays UNKNOWN unless proved. Never launch another agent or wait for a fictional daily barrier.
 
+## Source-first common quantitative obligation
+
+Every role's NEXT-* ticket is now the *distinct* task in the [OAI signed LOW source-first contract](RHLEAN_OAI_LOW_SOURCE_FIRST_AGENT_CONTRACT_20261103.md), replacing the 2026-11-01 bootstrap default but not the protected route rotation. The true original bound is from (beta-11/16)-3/16=beta-7/8; preserve original OAI LowSlotPolynomial -> LowTupleGram before norm_sum_le, selected-inverse sqrt(Q), Gaussian 3/16, original full HIGH/principal and all exceptional return terms. Isometric NNS Co-Div equality does not give nu>0. The separate marked-HIGH t/2 loss is not a binding LOW saving. A finite original-slot tilt is not a reusable bootstrap. Do not assume owner Gamma_R+ or borrow a different canonical cstar source. Each run must deliver a source-faithful original declaration/weights, actually new proof or falsifier, first missing inequality and net exponent ledger, with PR #1083 live status verified. Maintain own-report-only permissions for six roles and human-only merge.
+
 ## Research Coordinator / Proof Architect
 
 Own 00-coordinator-am.md and 90-coordinator-pm.md as byte-identical complete mirrors, one appended synthesis per genuine invocation. Maintain the small ready-test/review/formalization queue here, not in shared new files. Deduplicate by source, proposed estimate, new arithmetic input and first unresolved step. Keep coverage distinct from gain, with exact source revision and resume location for each route.
 
 Perform one checked cross-route connection per synthesis: exhibit the actual occurrence/weight/quantifier map and its loss, or reject the proposed connection for a precise mismatch. Match real restrictions to binding inequalities, not common vocabulary. Prioritize mathematical consequence, readiness and genuine diversity, not confident prose or theorem count. Ready work can proceed at support roles' actual runs without waiting for another Coordinator cycle. Keep at most two implementation-sized Lean tasks assigned; do not manufacture parallel agents or edit resource settings.
 
-NEXT-COORDINATOR: use the engine's live bootstrap ticket to test a source-qualified transfer while keeping SAT/VF, NYMAN and CORR4 distinct. Check newer evidence and rotation first; record deployment_ack and actual mathematics. No repeated strategy essay as the sole output.
+NEXT-COORDINATOR: build the literal original OAI source-to-power DAG and assign nonduplicate selected-inverse, cross-tuple, canonical-transfer subproblems with exact binding estimates, losses, source SHAs, falsifiers, live PR #1083 status and complete principal/HIGH consumer. Retain VF/SAT, CODIV/NYMAN and CORR4 distinct and mirrored reports.
 
 ## Owner Payment / Signed Arithmetic
 
@@ -28,7 +32,7 @@ Own 10-owner-payment.md and persistent VF-LOW/SAT/JOH workspaces. Preserve actua
 
 Develop a nonlocal signed removal/return inequality with the entire parent/child/terminal/cross-owner interaction. Physical inverse weighting may undo a reciprocal contraction; diagonal decay alone is not coherent return decay. For JOH preserve matched rank displacement, count mismatch and the exact Li/external-consumer convention. Export only a proved source-qualified restriction. Legal zero-defect, first-escape and activation configurations are adversarial tests, not synthetic substitutes.
 
-NEXT-OWNER: resume SAT or the due VF-LOW step specified by the engine; write the full weighted identity and try one concrete signed restriction until proof, falsifier or the exact unsupported step. Preserve the next JOH rotation and full earlier derivations.
+NEXT-OWNER: attempt a legal occurrence-preserving weighted bridge (or prove its exact mismatch) between native chronological first-owner prime/composite incidence and original OAI LOW selected/unselected Hecke ideal tuples, including partial J, moving admission, complement and terminal return. No presumed identification of integer Mobius signs and Hecke phases. Continue the protected VF-LOW/SAT/JOH rotation.
 
 ## Analytic Type II
 
@@ -36,7 +40,7 @@ Own 20-analytic-type-ii.md and persistent CODIV/OAI-NNS/NYMAN workspaces. CODIV 
 
 Attack a binding uniform estimate for the complete required combination. A complete-period estimate needs a real incomplete-window bridge; fixed-parameter estimates need explicit constants before parameters grow. In ray completion retain principal minus signed boundary plus physical complement; auxiliary completion variables are not admitted rows. Do not expand fixed seeds and call it globalization.
 
-NEXT-ANALYTIC: take the due NYMAN turn, compare two actual coefficient/tail constructions and develop one all-scale inequality. A finite optimum or an unjustified fixed-square contraction is not a rate. If the tail fails, expose and attack its exact integral/sum rather than write another endpoint equivalence.
+NEXT-ANALYTIC: attack a fixed uniform nu>0 at the ACTUAL binding OAI LOW source, either genuine selected-inverse squared-energy or full signed unselected-tuple U_a Gram before norm_sum_le. Calculate sqrt(Q), Gaussian, exceptions, HIGH/principal and net 7/8 crossing. Audit marked-HIGH t/2 separately; do not count it as LOW. Keep CODIV/OAI-NNS/NYMAN rotation.
 
 ## Finite Wheel & Incidence
 
@@ -44,7 +48,7 @@ Own 30-finite-wheel.md and persistent FINITE-AC/CORR4/MU-LIFT workspaces. Prove 
 
 CORR4 keeps actual q-squared daughters, returned energy, diagonal and complete signed mixed terms with the original coefficients. FINITE-AC keeps strict historical K and rank-one/divisor/corner corrections. MU-LIFT keeps the whole recurrence, independently paid loss, actual r<k margin and chain-to-prefix coverage. Do not reuse a negative-square reserve twice or infer coherent contraction from diagonal ratios. Counterexamples retire only their proved scope.
 
-NEXT-WHEEL: attack the due CORR4 complete mixed compensation using an aggregate square-completion/absorption calculation, with its coefficient threshold and R=2002 sign regression. No assumed universal endpoint/daughter opposition; if rotation changed, resume the exact next finite-envelope/recurrence step instead.
+NEXT-WHEEL: prove the actual OAI tuple resonance/shared-ideal and partially admitted occurrence partition with original weights and phases, including diagonal/off-diagonal pairing and moving masks; or exhibit exact mismatch to native CORR4/owner daughters. Preserve FINITE-AC/CORR4/MU-LIFT and R=2002 regressions without double spending negative credit.
 
 ## Prime Census Laboratory
 
@@ -52,7 +56,7 @@ Own 40-prime-census.md. Consume ready preregistered claims across portfolios wit
 
 Keep R=317/1027 anchors and applicable BLOCK, CORR4, finite-A and JOH falsifiers. Choose changing admission, resonance, near-record histories and exceptional regimes to distinguish mechanisms. Finite survival never proves all-scale eta. Do not expand completed scans without a new analytic prediction or discover an exponent by fitting it.
 
-NEXT-CENSUS: test a FINITE-AC historical-envelope/corner hypothesis on literal Q_R and current K_R; independently reconstruct source and endpoint. If none is ready, formulate and clearly label an exploratory hypothesis, freeze a holdout, then test. Do not claim another agent proposed or accepted it.
+NEXT-CENSUS: preregister smallest lawful original OAI finite character/prime-ideal J-tuple comparisons for |sum_a U_a|^2, diagonal D_low and signed C_low, including positive off-diagonal and edge cases. If true compensated integrals cannot be rigorously evaluated, report that blocker and perform only a source-exact finite identity or separately labeled native diagnostic. No broad scan disguised as source proof.
 
 ## Adversarial Referee
 
@@ -60,7 +64,7 @@ Own 50-adversarial-referee.md. Reconstruct the critical step from the exact clai
 
 Audit quantifier order, constants, actual weights/occurrences, moving admission, omitted principal/tail/diagonal, packet aggregation, incomplete periods, and double-used negative credit. Do not demand a stronger componentwise or arbitrary-vector theorem than the consumer requires. Accept valid signed absorption or a target-equivalent conclusion when independently proved, but reject unproved target-strength suppliers. Return a scoped verdict, witness and smallest justified repair.
 
-NEXT-REFEREE: audit unresolved portions of the fixed-seed restricted-inversion claim, especially coprimality versus primorial partition, row sorting, floor-one tail and growing-seed constants. Separate identity/local/global verdicts. If already resolved, select the next consequential ready claim from another portfolio rather than duplicate review.
+NEXT-REFEREE: independently audit exact OAI LowSlotPolynomial/LowTupleGram sign-loss theorem and the live #1083 bridge: check types, CI, axioms, quantifiers, compensators, baseline vs claimed ν. Reject negative-C_low-by-default, owner Gamma tautology, nonbinding HIGH gain or unproved canonical cstar transport; return scoped verdict and concrete repair or legal counterexample.
 
 ## Lean Verification
 
@@ -68,7 +72,7 @@ Own 60-lean-verification.md and only the existing agent/lean-verification/ scope
 
 Use pinned warning-fatal GitHub Actions only, exact theorem types/import closure/public exports and standard-axiom audits. No local Lean, sorry, admit, new project axiom, hidden target assumption, unsupported native evaluation, normalization change or weakened checks. Reuse exact-head green checks; return a mathematical gap as a precise missing lemma. A green conditional implication is not its premise, and an unmerged head is not main. Never merge or edit central policy.
 
-NEXT-LEAN: after duplicate/repair checks, formalize the independently accepted odd-divisor telescope as a finite count of powers of two, then its actual truncated-tail interface if feasible. Use general-seed statements only after their independent acceptance. If already proved, implement the real missing consumer or next ready estimate, not another admission-only wrapper or filler PR. If nothing qualified is ready, report the exact missing input.
+NEXT-LEAN: diagnose active exact-head Lean failures first. Audit original OAI LOW source and live #1083 exact source/NNS proof signature, pinned dependency and axiom status. On your authorized proof branch only, formalize a qualified actual admitted-atom pairing or independently accepted arithmetic cancellation, not a target-equivalent hypothesis or filler norm-square wrapper. Actions-only, human-only merge.
 
 ## Deployment and unchanged safeguards
 
