@@ -114,12 +114,17 @@ def forbiddenPrefixes : Array Name := #[
 
 def checkEndpointType (terminalName : Name) : CoreM Unit := do
   let check : Elab.Term.TermElabM Unit := do
-    let expectedSyntax ← if terminalName == `RHLean.Analysis.native_mertens_growth_exponent_lt_seven_eighths
-      then `(_root_.RHLean.Analysis.MertensExponent.mertensGrowthExponent < (7 / 8 : _root_.Real))
+    -- Parse in the loaded environment: quotations created while this script
+    -- imports only Lean would attach macro scopes to later-loaded names.
+    let expectedSource := if terminalName == `RHLean.Analysis.native_mertens_growth_exponent_lt_seven_eighths
+      then "_root_.RHLean.Analysis.MertensExponent.mertensGrowthExponent < (7 / 8 : _root_.Real)"
       else if terminalName ==
         `OAI.SevenEighths.RHLeanNativeSevenEighthsReplay.native_beta_lt_seven_eighths
-      then `(_root_.OAI.SevenEighths.HeckeZeroSupremum.beta < (7 / 8 : _root_.Real))
-      else `(_root_.OAI.SevenEighths.HeckeZeroSupremum.beta ≤ (7 / 8 : _root_.Real))
+      then "_root_.OAI.SevenEighths.HeckeZeroSupremum.beta < (7 / 8 : _root_.Real)"
+      else "_root_.OAI.SevenEighths.HeckeZeroSupremum.beta ≤ (7 / 8 : _root_.Real)"
+    let expectedSyntax ← match Parser.runParserCategory (← getEnv) `term expectedSource with
+      | .ok stx => pure stx
+      | .error message => throwError "Expected endpoint type did not parse: {message}"
     let expected ← Elab.Term.elabTermAndSynthesize expectedSyntax (some (mkSort .zero))
     let info ← getConstInfo terminalName
     unless ← Meta.isDefEq info.type expected do
