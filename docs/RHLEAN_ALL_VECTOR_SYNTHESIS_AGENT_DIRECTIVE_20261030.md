@@ -20,6 +20,12 @@ The first independent exponent milestone can be, but need not be, the genuine sh
 
 For a small fixed positive eta, verified dyadic summation and between-square interpolation give a Mertens exponent \(7/8-\eta/4+\varepsilon\). This is OPEN, not supplied by an identity or a sector estimate. An independently proved VF, CORR4, finite-A/C, MU-LIFT, OAI, or Nyman input with its own checked consumer is equally eligible: do not force all architectures through the shell criterion. RH-scale global accumulation must also control cross-shell coherence; block energy alone loses information.
 
+## 2026-11-03 synthesis priority: source-specific OAI signed LOW, not an owner bootstrap premise
+
+Follow [the original OAI LOW source-first seven-agent contract](RHLEAN_OAI_LOW_SOURCE_FIRST_AGENT_CONTRACT_20261103.md) when comparing imported 7/8 to native NNS/square-block arithmetic. Verify the original OAI chain from LowSelectedBound and LowPhysicalInverseBound to LowSlotPolynomial, first norm_sum_le in LowTupleGram, Gaussian 3/16 in LowCentralTuple and complete LowNormalized/principal/HIGH. Keep its actual coefficients, Hecke characters, masks, prime ideals, phases, physical slots, selected/unselected multiplicities, sqrt(Q), dyadic support and all returned terms.
+
+The 1/8 historical improvement is **the original signal beta-11/16 against LOW 3/16**, not a guessed recurrence. A new negative signed off-diagonal is not automatic from NNS Co-Div coordinate equality. A bound on owner Gamma_R+ equivalent to an improved Mertens bound is a consumer, not the required independent arithmetic. Separate the marked-HIGH t/2 retained moment and canonical -cstar powers from genuinely binding LOW unless a source-preserving transfer and final budget prove otherwise. Allocate distinct original-source tasks across the seven agents while all nine protected routes and S1-S4 remain live. No fabricated numerical positive eta or narrowed team conclusion.
+
 ## 2. Mandatory route coverage: nine viable routes and one retired conjecture
 
 The route IDs below are the existing registry IDs, not nine new independent mechanisms. Each lead must attempt a precisely quantified, proper arithmetic lemma or an admissible falsifier; merely restating the endpoint is not a proof attempt. Support roles must preserve the SAME source rather than translate unsupported bounds between coordinates.
