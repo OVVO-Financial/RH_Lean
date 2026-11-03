@@ -198,10 +198,12 @@ def NativeFineMomentInput : Prop :=
 theorem nativeFineMomentInput_iff : NativeFineMomentInput ↔ FineMomentInput := by
   simp only [NativeFineMomentInput, FineMomentInput, nativeSourceMomentBound_iff]
 
-/-- Actual three-supplier assembly. The retained-width RHLean marked proof
+/-- Uniform three-supplier assembly. The threshold precedes both the batch exponent
+and every nonnegative height. The polynomial degree and constant are maxima,
+not sums, because the four moment conclusions are separate fields. The retained-width RHLean marked proof
 is consumed here; its conclusion is used in the final NativeMoments field.
 No original final source_moments/fine_moments theorem is invoked. -/
-theorem native_source_moments {Δ : ℝ} {D : HighData Δ} (F : SourceData D)
+theorem native_source_moments_all_heights {Δ : ℝ} {D : HighData Δ} (F : SourceData D)
     (counts : CountParameters F.modulus ⊤ D.t) (mesh : ℝ) (hmesh : 0 < mesh)
     (hfine : ∀ j, D.ell j ≤ mesh / 200)
     (hpositive : PositiveFineSourceInput F mesh)
@@ -210,38 +212,38 @@ theorem native_source_moments {Δ : ℝ} {D : HighData Δ} (F : SourceData D)
       ZeroAt (internalQ (sourceFixedIdeal F) η₀) (1 / 4) (9 / 4)
         radialSupportUpper 0 1 2 (D.t / 4) U degree control A) :
     ∃ J : ℝ, 0 ≤ J ∧ ∀ η : Character, ∃ C : ℝ, 0 < C ∧
-      ∀ τ : ℝ, 0 < τ → τ ≤ 1 → ∀ᶠ Z : ℝ in atTop,
+      ∀ᶠ Z : ℝ in atTop, ∀ τ height : ℝ, 0 ≤ height →
         NativeSourceMomentBound F counts η Z τ
-          (C * (1 + Z ^ (2 * τ)) ^ J) (Z ^ (2 * τ)) := by
+          (C * (1 + height) ^ J) height := by
   obtain ⟨Ji, hi⟩ := ProbeDetectorInverseFields.source_batch_inverse_fields
     F.modulus ⊤ le_top F counts
   obtain ⟨Jm, hm⟩ :=
     source_batch_plain_marked_fine_sharper_signed_NNS F mesh hmesh hfine hpositive
   obtain ⟨Ju, hu⟩ :=
     ProbeDetectorPlainUnmarkedRestrictedField.source_batch_plain_unmarked D F hzero
-  refine ⟨(Ji + Jm + Ju : ℕ), by positivity, ?_⟩
+  refine ⟨(max Ji (max Jm Ju) : ℕ), by positivity, ?_⟩
   intro η
   obtain ⟨Ci, hCi, hi⟩ := hi η
   obtain ⟨Cm, hCm, hm⟩ := hm η
   obtain ⟨Cu, hCu, hu⟩ := hu η
-  refine ⟨Ci + Cm + Cu, by positivity, ?_⟩
-  intro τ hτ hτ1
+  refine ⟨max Ci (max Cm Cu), lt_of_lt_of_le hCi (le_max_left _ _), ?_⟩
   filter_upwards [hi, hm, hu] with Z hi hm hu
+  intro τ height hh
   have hZ : 0 < Z := zero_lt_one.trans hi.1
-  let height : ℝ := Z ^ (2 * τ)
-  have hh : 0 ≤ height := Real.rpow_nonneg hZ.le _
   have hbase : 1 ≤ 1 + height := by linarith
   have hCi' : Ci * (1 + height) ^ Ji ≤
-      (Ci + Cm + Cu) * (1 + height) ^ (Ji + Jm + Ju) := by
-    apply mul_le_mul (by linarith) (pow_le_pow_right₀ hbase (by omega))
-      (by positivity) (by positivity)
+      (max Ci (max Cm Cu)) * (1 + height) ^ (max Ji (max Jm Ju)) := by
+    apply mul_le_mul (le_max_left _ _)
+      (pow_le_pow_right₀ hbase (le_max_left _ _)) (by positivity) (by positivity)
   have hCm' : Cm * (1 + height) ^ Jm ≤
-      (Ci + Cm + Cu) * (1 + height) ^ (Ji + Jm + Ju) := by
-    apply mul_le_mul (by linarith) (pow_le_pow_right₀ hbase (by omega))
+      (max Ci (max Cm Cu)) * (1 + height) ^ (max Ji (max Jm Ju)) := by
+    apply mul_le_mul ((le_max_left Cm Cu).trans (le_max_right Ci (max Cm Cu)))
+      (pow_le_pow_right₀ hbase ((le_max_left Jm Ju).trans (le_max_right Ji (max Jm Ju))))
       (by positivity) (by positivity)
   have hCu' : Cu * (1 + height) ^ Ju ≤
-      (Ci + Cm + Cu) * (1 + height) ^ (Ji + Jm + Ju) := by
-    apply mul_le_mul (by linarith) (pow_le_pow_right₀ hbase (by omega))
+      (max Ci (max Cm Cu)) * (1 + height) ^ (max Ji (max Jm Ju)) := by
+    apply mul_le_mul ((le_max_right Cm Cu).trans (le_max_right Ci (max Cm Cu)))
+      (pow_le_pow_right₀ hbase ((le_max_right Jm Ju).trans (le_max_right Ji (max Jm Ju))))
       (by positivity) (by positivity)
   simp only [Real.rpow_natCast]
   intro rows d a hd hdmax ha hamax hrows i z hz hzim q B
@@ -291,6 +293,30 @@ theorem native_source_moments {Δ : ℝ} {D : HighData Δ} (F : SourceData D)
       (mul_le_mul_of_nonneg_right hCu' (Real.rpow_nonneg hU _))
     simpa only [nativePartialSecond_eq_normSq] using hb
 
+/-- The existing contraction interface is a specialization of the stronger
+uniform-height theorem, so the original complete replay consumes it. -/
+theorem native_source_moments {Δ : ℝ} {D : HighData Δ} (F : SourceData D)
+    (counts : CountParameters F.modulus ⊤ D.t) (mesh : ℝ) (hmesh : 0 < mesh)
+    (hfine : ∀ j, D.ell j ≤ mesh / 200)
+    (hpositive : PositiveFineSourceInput F mesh)
+    (hzero : ∃ degree : ℕ, ∃ control : Finset (ℕ × ℕ),
+      ∀ η₀ : Character, ∃ A : ℝ, 0 < A ∧ ∀ᶠ U : ℝ in atTop,
+      ZeroAt (internalQ (sourceFixedIdeal F) η₀) (1 / 4) (9 / 4)
+        radialSupportUpper 0 1 2 (D.t / 4) U degree control A) :
+    ∃ J : ℝ, 0 ≤ J ∧ ∀ η : Character, ∃ C : ℝ, 0 < C ∧
+      ∀ τ : ℝ, 0 < τ → τ ≤ 1 → ∀ᶠ Z : ℝ in atTop,
+        NativeSourceMomentBound F counts η Z τ
+          (C * (1 + Z ^ (2 * τ)) ^ J) (Z ^ (2 * τ)) := by
+  obtain ⟨J, hJ, hsource⟩ :=
+    native_source_moments_all_heights F counts mesh hmesh hfine hpositive hzero
+  refine ⟨J, hJ, ?_⟩
+  intro η
+  obtain ⟨C, hC, hb⟩ := hsource η
+  refine ⟨C, hC, ?_⟩
+  intro τ _hτ _hτ1
+  filter_upwards [hb, Filter.eventually_ge_atTop (0 : ℝ)] with Z hb hZ
+  exact hb τ (Z ^ (2 * τ)) (Real.rpow_nonneg hZ _)
+
 theorem native_fine_moments_of_certified (h : DetectorCertifiedBands) :
     NativeFineMomentInput := by
   intro hβ
@@ -310,6 +336,7 @@ theorem native_chosen_moments_of_certified (h : DetectorCertifiedBands) :
 #print axioms nativeRawMoment_iff
 #print axioms nativeMoments_iff
 #print axioms nativeSourceMomentBound_iff
+#print axioms native_source_moments_all_heights
 #print axioms native_source_moments
 #print axioms native_fine_moments_of_certified
 
