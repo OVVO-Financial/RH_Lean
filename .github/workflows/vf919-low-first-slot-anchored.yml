@@ -14,6 +14,7 @@ on:
       - 'research/oai_434/VF919OwnerBootstrapIteration.lean'
       - 'research/oai_434/VF919FractionalOwnerContraction.lean'
       - 'research/oai_434/VF919OriginalGainComponentLedger.lean'
+      - 'research/oai_434/VF919OriginalLowTupleSignedGram.lean'
       - 'scripts/native_owner_diagonal_three_quarter_audit.cpp'
       - 'research/oai_434/VF919Anchored*.lean'
       - 'scripts/lean/slot_anchored/**'
@@ -114,6 +115,7 @@ jobs:
             research/oai_434/VF919OwnerBootstrapIteration.lean
             research/oai_434/VF919FractionalOwnerContraction.lean
             research/oai_434/VF919OriginalGainComponentLedger.lean
+            research/oai_434/VF919OriginalLowTupleSignedGram.lean
             research/oai_434/VF919Anchored*.lean
             scripts/lean/slot_anchored/
           if-no-files-found: error
