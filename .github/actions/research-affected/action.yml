@@ -41,6 +41,11 @@ runs:
         awk -v own_workflow="$workflow_path" '
           /^\.github\/workflows\// && $0 != own_workflow { next }
           $0 == ".github/actions/research-affected/action.yml" { next }
+          # The slot-anchored scripts are exclusive to their pinned LOW-first
+          # workflow. They are neither Lean imports nor compiler inputs for
+          # unrelated research closures; do not trigger a cold build there.
+          /^scripts\/lean\/slot_anchored\// &&
+            own_workflow != ".github/workflows/vf919-low-first-slot-anchored.yml" { next }
           { print }
         ' /tmp/rhlean-research-changed.txt > /tmp/rhlean-research-scoped.txt
         python3 scripts/compile_research_import_closure.py --affected-files /tmp/rhlean-research-scoped.txt
