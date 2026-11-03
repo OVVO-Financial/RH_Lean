@@ -78,6 +78,36 @@ theorem physical_slot_tilt_reinvested_gap (beta tilt : ℝ) :
       (3 / 16 - 9 * tilt) = beta - 7 / 8 + tilt := by
   ring
 
+/-- Exact power exchange at the genuine OAI LOW inlet. The arithmetic
+input must improve the FULL admitted signed squared inverse/tuple
+source from baseline-+loss to baseline-saving+loss; the square-root
+normalizer converts this into a saving/2 in LOW amplitude. -/
+theorem original_signed_low_energy_sqrt_exchange
+    (baseline loss saving : ℝ) :
+    (baseline - saving + loss) / 2 =
+      (baseline + loss) / 2 - saving / 2 := by
+  ring
+
+/-- At the original fixed physical geometry a saving nu in the
+COMPLETE source energy, if retained through all compensations, moves
+the exact LOW/principal crossing to 7/8-nu/2. This is an exchange
+rate, NOT a proved saving or a new RH theorem. -/
+theorem original_signed_low_improvement_exchange
+    (beta nu : ℝ) :
+    (beta - 11 / 16) - (3 / 16 - nu / 2) =
+      beta - 7 / 8 + nu / 2 := by
+  ring
+
+/-- The original selected inverse row is bounded in energy at
+5/6-2*d+507*eps. Replacing that source bound by the SAME admitted
+signed-source family with a fixed nu saving would propagate half
+the nu after the actual square-root normalization. -/
+theorem original_inverse_energy_nominal_gain
+    (d eps nu : ℝ) :
+    ((5 / 6 - 2 * d + 507 * eps - nu) / 2) -
+      ((5 / 6 - 2 * d + 507 * eps) / 2) = -nu / 2 := by
+  ring
+
 /-- Literal source moment price: RH_Lean proves the marked bound with
 epsilon_m=t/2 but the common OAI row-count consumer is supplied t. -/
 theorem retained_marked_half_error_is_real (t : ℝ) (ht : 0 < t) :
@@ -164,6 +194,9 @@ theorem marked_discount_pos_iff
 #print axioms true_slot_min_le_sixth
 #print axioms slot_geometry_cannot_cover_RH_gap
 #print axioms original_initial_gap
+#print axioms original_signed_low_energy_sqrt_exchange
+#print axioms original_signed_low_improvement_exchange
+#print axioms original_inverse_energy_nominal_gain
 #print axioms physical_slot_tilt_reinvested_gap
 #print axioms common_count_loss_half_t
 #print axioms one_branch_discount
