@@ -21,7 +21,7 @@ theorem native_slot_tilt_growth_exponent :
 
 theorem native_slot_tilt_fixed_power :
     ∃ D : Parameters.HighData (1/1000000 : ℝ),
-      0 < slotTilt D ∧ MertensPowerBound (7/8 - slotTilt D / 2) := by
+      0 < slotTilt D ∧ MertensExponent.MertensPowerBound (7/8 - slotTilt D / 2) := by
   obtain ⟨D, hD, hgrowth⟩ := native_mertens_constructed_slot_tilt
   refine ⟨D, hD, ?_⟩
   convert hgrowth (slotTilt D / 2) (by positivity) using 1 <;> ring
