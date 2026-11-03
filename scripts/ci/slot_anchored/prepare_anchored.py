@@ -127,6 +127,12 @@ def main() -> None:
             if text.count('∃j s,LFunction') != 2:
                 raise ValueError('Unexpected complex zero-witness inventory')
             text = text.replace('∃j s,LFunction', '∃j, ∃s : ℂ,LFunction')
+            # A bare `≤s` token resolves to mathlib's graph-subgraph notation,
+            # not the ordinary real inequality `≤` followed by the zero `s`.
+            # The native replay imports that notation; space it explicitly.
+            if text.count('a≤s.re ∧') != 2:
+                raise ValueError('Unexpected zero-real-part comparison inventory')
+            text = text.replace('a≤s.re ∧', 'a ≤ s.re ∧')
             if text.count('a≤s.re ∧ s.re<a+e ∧ |s.im|') != 2:
                 raise ValueError('Unexpected complex projection inventory')
             text = text.replace('a≤s.re ∧ s.re<a+e ∧ |s.im|',
