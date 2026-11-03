@@ -103,7 +103,7 @@ def main() -> None:
         assert f"NEXT-{role}" in role_prompts
         assert f"SOURCE-FIRST NEXT-{role}" in prompts, f"saved role {role} not updated"
     assert source_first.index("## 2. Actual OAI LOW") < source_first.index("## 3. Exact signed LOW")
-    assert "six non-Lean" in agent_policy.lower()
+    assert "six non-lean" in agent_policy.lower()
     assert "agent/lean-verification/" in prompts
     assert "an unmerged" in source_first.lower() or "unmerged DRAFT" in source_first
     assert "no mathematical" in read("docs/RH_PROOF_ATTACK_PORTFOLIO_20261024.md").lower()
