@@ -83,6 +83,8 @@ theorem actual_low_tuple_polynomial_eq_sum_atoms
     hW0 hW1 hWs slots hslots J W P X Y T t hX hY hT
   simpa only [actualUnselectedLowAtom] using he
 
+set_option maxHeartbeats 2000000
+
 /-- EXACT signed OAI LOW NNS Gram, before the OAI norm_sum_le step.
 The off-diagonal is literal, not defined as total-minus-diagonal. -/
 theorem actual_low_tuple_polynomial_sq_eq_signed_gram
@@ -122,8 +124,9 @@ theorem actual_low_tuple_polynomial_sq_eq_signed_gram
       slots J W P X Y T t)
   exact hnorm.trans hgram
 
-/-- LITERAL NNS UPM/Co source on a singleton original LOW probe
-row. Original ideal, character and Fourier weights remain in the atom. -/
+/-- LITERAL finite-source NNS UPM/Co on the actual original LOW tuple
+source. This is equal to the weighted singleton-row Co definition, but
+avoids introducing an extraneous synthetic row type in the formal source. -/
 def actualLowNNSCo
     {K : ℕ} (eta : HeckeFamily.Character)
     (S : Finset Id) (hS : ∀ P ∈ S, P.IsMaximal)
@@ -131,20 +134,19 @@ def actualLowNNSCo
     (slots : Fin K → Finset O) (J : Finset (Fin K))
     (W : Fin K → ℝ → ℂ) (P : Fin K → ℝ)
     (X Y T t : ℝ) : ℝ :=
-  vf919WeightedPhiCoMass
-    (Finset.univ : Finset Unit)
-    (Finset.univ : Finset (LowUnselectedTuple slots J))
-    (fun _ => 1)
-    (fun _ a =>
-      (stableFarComplexToRealPair
+  ((zeroTargetCoPartialGram
+      (Finset.univ : Finset (LowUnselectedTuple slots J))
+      (fun a => (stableFarComplexToRealPair
         (actualUnselectedLowAtom eta S hS W0 W1 a0 b0 a1 b1
-          slots J W P X Y T t a)).1)
-    (fun _ a =>
-      (stableFarComplexToRealPair
+          slots J W P X Y T t a)).1)) +
+   (zeroTargetCoPartialGram
+      (Finset.univ : Finset (LowUnselectedTuple slots J))
+      (fun a => (stableFarComplexToRealPair
         (actualUnselectedLowAtom eta S hS W0 W1 a0 b0 a1 b1
-          slots J W P X Y T t a)).2)
+          slots J W P X Y T t a)).2))) / 2
 
-/-- LITERAL NNS LPM/Div source paired with the true Co field above. -/
+/-- LITERAL NNS LPM/Div, retaining every real/imaginary phase
+coordinate of the source atom. -/
 def actualLowNNSDiv
     {K : ℕ} (eta : HeckeFamily.Character)
     (S : Finset Id) (hS : ∀ P ∈ S, P.IsMaximal)
@@ -152,21 +154,20 @@ def actualLowNNSDiv
     (slots : Fin K → Finset O) (J : Finset (Fin K))
     (W : Fin K → ℝ → ℂ) (P : Fin K → ℝ)
     (X Y T t : ℝ) : ℝ :=
-  vf919WeightedPhiDivMass
-    (Finset.univ : Finset Unit)
-    (Finset.univ : Finset (LowUnselectedTuple slots J))
-    (fun _ => 1)
-    (fun _ a =>
-      (stableFarComplexToRealPair
+  ((zeroTargetDivergentGram
+      (Finset.univ : Finset (LowUnselectedTuple slots J))
+      (fun a => (stableFarComplexToRealPair
         (actualUnselectedLowAtom eta S hS W0 W1 a0 b0 a1 b1
-          slots J W P X Y T t a)).1)
-    (fun _ a =>
-      (stableFarComplexToRealPair
+          slots J W P X Y T t a)).1)) +
+   (zeroTargetDivergentGram
+      (Finset.univ : Finset (LowUnselectedTuple slots J))
+      (fun a => (stableFarComplexToRealPair
         (actualUnselectedLowAtom eta S hS W0 W1 a0 b0 a1 b1
-          slots J W P X Y T t a)).2)
+          slots J W P X Y T t a)).2))) / 2
 
-/-- Actual OAI LOW polynomial source is EXACTLY NNS Co minus Div.
-This is a source-level equality, not a new signed estimate. -/
+/-- Exact OAI LOW finite complex source equals its NNS Co minus Div.
+This uses the previously kernel-verified native finite-source identity,
+not an assumed signed covariance power saving. -/
 theorem actual_low_NNS_co_minus_div_eq_normSq
     {K : ℕ} (eta : HeckeFamily.Character)
     (S : Finset Id) (hS : ∀ P ∈ S, P.IsMaximal)
@@ -179,30 +180,13 @@ theorem actual_low_NNS_co_minus_div_eq_normSq
       ‖∑ a : LowUnselectedTuple slots J,
         actualUnselectedLowAtom eta S hS W0 W1 a0 b0 a1 b1
           slots J W P X Y T t a‖ ^ 2 := by
-  let f : Unit → LowUnselectedTuple slots J → ℂ :=
-    fun _ a => actualUnselectedLowAtom eta S hS W0 W1
-      a0 b0 a1 b1 slots J W P X Y T t a
-  have hNNS := resonant_fiber_recombination_NNS_eq
-    (Finset.univ : Finset Unit)
+  have hNNS := vf919FiniteSource_normSq_eq_NNS
     (Finset.univ : Finset (LowUnselectedTuple slots J))
-    (fun a : LowUnselectedTuple slots J => a) f (fun _ => 1)
-  have hGram := resonant_fiber_recombination_eq
-    (Finset.univ : Finset Unit)
-    (Finset.univ : Finset (LowUnselectedTuple slots J))
-    (fun a : LowUnselectedTuple slots J => a) f (fun _ => 1)
-  rw [← hGram] at hNNS
-  change (vf919WeightedPhiCoMass (Finset.univ : Finset Unit)
-        (Finset.univ : Finset (LowUnselectedTuple slots J))
-        (fun _ => 1)
-        (fun _ a => (stableFarComplexToRealPair (f () a)).1)
-        (fun _ a => (stableFarComplexToRealPair (f () a)).2)) -
-      (vf919WeightedPhiDivMass (Finset.univ : Finset Unit)
-        (Finset.univ : Finset (LowUnselectedTuple slots J))
-        (fun _ => 1)
-        (fun _ a => (stableFarComplexToRealPair (f () a)).1)
-        (fun _ a => (stableFarComplexToRealPair (f () a)).2)) =
-      ‖∑ a : LowUnselectedTuple slots J, f () a‖ ^ 2
-  simpa [f] using hNNS
+    (actualUnselectedLowAtom eta S hS W0 W1 a0 b0 a1 b1
+      slots J W P X Y T t)
+  dsimp only [actualLowNNSCo, actualLowNNSDiv]
+  rw [hNNS]
+  ring
 
 #print axioms actual_low_tuple_polynomial_eq_sum_atoms
 #print axioms actual_low_tuple_polynomial_sq_eq_signed_gram
