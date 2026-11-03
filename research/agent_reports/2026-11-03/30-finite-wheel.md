@@ -714,3 +714,20 @@ The completed synthesis was published in commit f66a1a7ebc5e779afac72b2824779e07
 
 The prior checkpoint bytes were preserved. All A-M sections, the exact R=125 and R=2002 fixtures, W1-W10, source inventory, scope qualifications, specialist requests and resume capsule were present. All 20 source-inventory blob SHAs matched the pinned main tree. ASCII/control-character and code-fence checks passed. The embedded executable source exactly matched the tested script and its recorded SHA256. This receipt records verified publication only; it does not confer independent acceptance, formal verification, or a new endpoint gain.
 
+
+
+## Scheduled Continuation Checkpoint - 2026-11-03 10:12 EST Invocation
+
+**Mathematical question:** does jointly grouping the four odd-prime lifts of distinct prime-free odd cores give a useful restriction on the complete signed finite-C packet, once parity and every strict root admission are restored? This resumes `20261102-wheel-2` and Coordinator `20261103-coordinator-1`, section H; it does not repeat the proved parity partition.
+
+**Execution:** PARTIAL / IN_PROGRESS; scheduled trigger 2026-11-03 10:12:01 EST (-0500); RUN_ID_UNAVAILABLE. The earlier completed CORR4 claim `20261103-wheel-1` and all preceding sections are preserved. This is the due FINITE-AC turn; MU-LIFT follows next.
+
+**Authority:** main `3930d884282dd5315f0453e5dd88b356d187a8e0`; AGENTS blob `9fa5e9519e2fb6dde22217aa2a18982dafef373a`; proof contract `88cddd9cd98c3b55f0b013998541e9b4e9dc9f2a`; engine `6fce99c61efb5b2a73c0cb1f1464f09b351fcd55`. Canonical actual-prime VF von Koch remains open. Newer merged strict-Mertens evidence is inherited upstream progress, not a discovery of this run; its source/CI provenance is being refreshed.
+
+**Continuity:** retrieved both November 2 and November 3 reports at reporting snapshot `e4589479667a8622aad1e3a703b4eac2190d7002`; TODAY=AVAILABLE for every named role, with relevant yesterday derivations carried forward. Consumed the accepted/merged parity obstruction, today's CORR4 integer-cap result, latest pair-positivity falsifier at R=376, Coordinator's explicit second-prime continuation, and the external inbox `038018145c0fddb2f6306c0712373adf9cd1ea52` (no entry after October 18). Cross-carrier results are not treated as finite-C estimates.
+
+**Original source:** `eulerSelfDualBilinear`, blob `2a94dd8fd56fc03e95f732fb44b778a8d4f83e26`; endpoint theorem blob `e7ee8f77ffd59bccaa49dd6d74fbe0d7952c2d73`; parity-sector module blob `168e58512054ecd3fd6518331b086b9cca7cf9ed`. Inspection shows #1071 formalizes the four original parity sectors and R=5 obstruction; the odd-core packet-weight formula remains the accepted paper representation, not a new compiled declaration.
+
+**Preregistered tests:** derive the full joint {2,ell} lift kernel before estimating. Check nonnegativity and any proposed sector-to-complete homogeneous comparison on exact small roots, with ell=3,5,7 and strict admission transitions. Reject homogeneous payment upon an actual Q_R=0 with nonzero retained sector. Retain both index orientations, diagonal, all mixed terms, historical K_R and any omitted-lift corner. No new all-scale bound, finite-C theorem, or endpoint gain is claimed at this checkpoint.
+
+**deployment_ack:** current persistent engine consumed; NEXT-WHEEL follows the protected FINITE-AC rotation and the exact latest committed continuation rather than restarting CORR4. No Lean execution, source edit, branch/PR action, merge, schedule change, or agent launch is authorized or performed.
