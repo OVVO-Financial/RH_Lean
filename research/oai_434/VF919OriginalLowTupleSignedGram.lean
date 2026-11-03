@@ -22,20 +22,20 @@ Nothing here assumes that the signed off-diagonal is negative.
 noncomputable section
 open scoped Classical BigOperators
 
-namespace RHLean.Analysis.OAIOriginalLowSigned
+namespace OAI
+namespace SevenEighths.ProbePhysical
 
-open OAI.SevenEighths
-open OAI.SevenEighths.ProbePhysical
+open ActualEisensteinCubic
 open RHLean.Analysis
 
-local notation "O" => OAI.SevenEighths.ActualEisensteinCubic.O
+local notation "O" => ActualEisensteinCubic.O
 local notation "Id" => Ideal O
 
 /-- A single TRUE unselected-tuple term in the original OAI LOW
 polynomial identity. This is the right-hand term of the pinned theorem
 compensation_tuple_low_polynomial, with no model coefficients. -/
 def actualUnselectedLowAtom
-    {K : ℕ} (eta : OAI.SevenEighths.HeckeFamily.Character)
+    {K : ℕ} (eta : HeckeFamily.Character)
     (S : Finset Id) (hS : ∀ P ∈ S, P.IsMaximal)
     (W0 W1 : ℝ → ℂ) (a0 b0 a1 b1 : ℝ)
     (slots : Fin K → Finset O) (J : Finset (Fin K))
@@ -57,9 +57,9 @@ def actualUnselectedLowAtom
 /-- The original physical LOW complex polynomial, after the EXACT
 original source Fubini, with its true signs and rows still inside atoms. -/
 theorem actual_low_tuple_polynomial_eq_sum_atoms
-    {K : ℕ} (eta : OAI.SevenEighths.HeckeFamily.Character)
+    {K : ℕ} (eta : HeckeFamily.Character)
     (S : Finset Id) (hS : ∀ P ∈ S, P.IsMaximal)
-    (hbad : OAI.SevenEighths.ProbePhysical.fixedBadPrimes ⊆ S)
+    (hbad : fixedBadPrimes ⊆ S)
     (W0 W1 : ℝ → ℂ) (a0 b0 a1 b1 : ℝ)
     (ha0 : 0 < a0) (ha1 : 0 < a1)
     (hW0 : Function.support W0 ⊆ Set.Icc a0 b0)
@@ -85,9 +85,9 @@ theorem actual_low_tuple_polynomial_eq_sum_atoms
 /-- EXACT signed OAI LOW NNS Gram, before the OAI norm_sum_le step.
 The off-diagonal is literal, not defined as total-minus-diagonal. -/
 theorem actual_low_tuple_polynomial_sq_eq_signed_gram
-    {K : ℕ} (eta : OAI.SevenEighths.HeckeFamily.Character)
+    {K : ℕ} (eta : HeckeFamily.Character)
     (S : Finset Id) (hS : ∀ P ∈ S, P.IsMaximal)
-    (hbad : OAI.SevenEighths.ProbePhysical.fixedBadPrimes ⊆ S)
+    (hbad : fixedBadPrimes ⊆ S)
     (W0 W1 : ℝ → ℂ) (a0 b0 a1 b1 : ℝ)
     (ha0 : 0 < a0) (ha1 : 0 < a1)
     (hW0 : Function.support W0 ⊆ Set.Icc a0 b0)
@@ -122,5 +122,6 @@ theorem actual_low_tuple_polynomial_sq_eq_signed_gram
 #print axioms actual_low_tuple_polynomial_eq_sum_atoms
 #print axioms actual_low_tuple_polynomial_sq_eq_signed_gram
 
-end RHLean.Analysis.OAIOriginalLowSigned
+end SevenEighths.ProbePhysical
+end OAI
 end
