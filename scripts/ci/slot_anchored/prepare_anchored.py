@@ -85,7 +85,7 @@ def main() -> None:
                             'end SevenEighths.ProbePrincipalPhysical') + '\nend\nend OAI\n')
         elif name == 'VF919AnchoredHighPrincipal':
             text = (imp('VF919TiltedHighPrincipal') +
-                    '\nnamespace OAI\nnoncomputable section\nopen scoped Classical BigOperators Topology ContDiff\n' +
+                    '\nnamespace OAI\nnoncomputable section\nopen scoped Classical BigOperators Topology ContDiff\nopen Complex Filter MeasureTheory\n' +
                     extract(text, 'namespace SevenEighths.ProbePrincipalNormalized',
                             'end SevenEighths.ProbePrincipalNormalized') + '\nend\nend OAI\n')
         loaded.append((relative, sha, name, text))
@@ -108,8 +108,8 @@ def main() -> None:
             if '(D.e/48)' not in text:
                 raise ValueError('Old physical tilt not found')
             text = text.replace('(D.e/48)', 'tilt').replace('htilt.le', 'htilt')
-        # Only this exact real-coordinate reference is changed in NEW lemmas.
-        # beta_le_one and the original supremum declaration remain untouched.
+        # Only the exact real-coordinate reference changes in NEW lemmas.
+        # The actual supremum declaration and beta_le_one remain untouched.
         text = re.sub(r'\bHeckeZeroSupremum\.beta\b', f'(7/8:{R})', text)
         if name == 'VF919AnchoredSmallTail':
             text = replace_once(text, '(by linarith) le_rfl le_rfl S hS hmax hfirst',

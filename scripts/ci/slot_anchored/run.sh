@@ -24,6 +24,7 @@ targets=(
  VF919AnchoredHighTransport
  VF919AnchoredHighAssembly
  VF919SlotAnchoredEndpoint
+ VF919SlotAnchoredConsequences
 )
 for name in "${targets[@]}"; do
   echo "Checking $name" | tee -a "$log"
