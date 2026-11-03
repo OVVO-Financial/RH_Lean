@@ -20,14 +20,14 @@ Nothing here assumes that the signed off-diagonal is negative.
 -/
 
 noncomputable section
-open scoped Classical BigOperators
+open scoped Classical BigOperators ContDiff
 
 namespace OAI
 namespace SevenEighths.ProbePhysical
 
 open ActualEisensteinCubic
 open MeasureTheory CompletedGauss CanonicalQuadraticSieve RayFourExpansion
-open RHLean.Analysis
+open RHLean.Analysis RHLean.Proof
 
 local notation "O" => ActualEisensteinCubic.O
 local notation "Id" => Ideal O
@@ -112,13 +112,18 @@ theorem actual_low_tuple_polynomial_sq_eq_signed_gram
                slots J W P X Y T t a *
              star (actualUnselectedLowAtom eta S hS W0 W1 a0 b0 a1 b1
                slots J W P X Y T t b)).re) := by
-  rw [actual_low_tuple_polynomial_eq_sum_atoms
+  have heq := actual_low_tuple_polynomial_eq_sum_atoms
     eta S hS hbad W0 W1 a0 b0 a1 b1 ha0 ha1
-    hW0 hW1 hWs slots hslots J W P X Y T t hX hY hT]
-  exact resonant_norm_sq_sum_eq_diagonal_plus_off
-    (Finset.univ : Finset (LowUnselectedTuple slots J))
-    (actualUnselectedLowAtom eta S hS W0 W1 a0 b0 a1 b1
-      slots J W P X Y T t)
+    hW0 hW1 hWs slots hslots J W P X Y T t hX hY hT
+  calc
+    _ = ‖∑ a : LowUnselectedTuple slots J,
+        actualUnselectedLowAtom eta S hS W0 W1 a0 b0 a1 b1
+          slots J W P X Y T t a‖ ^ 2 :=
+      congrArg (fun z : ℂ => ‖z‖ ^ 2) heq
+    _ = _ := resonant_norm_sq_sum_eq_diagonal_plus_off
+      (Finset.univ : Finset (LowUnselectedTuple slots J))
+      (actualUnselectedLowAtom eta S hS W0 W1 a0 b0 a1 b1
+        slots J W P X Y T t)
 
 /-- LITERAL NNS UPM/Co source on a singleton original LOW probe
 row. Original ideal, character and Fourier weights remain in the atom. -/
@@ -130,7 +135,7 @@ def actualLowNNSCo
     (W : Fin K → ℝ → ℂ) (P : Fin K → ℝ)
     (X Y T t : ℝ) : ℝ :=
   vf919WeightedPhiCoMass
-    (Finset.univ : Finset PUnit)
+    (Finset.univ : Finset Unit)
     (Finset.univ : Finset (LowUnselectedTuple slots J))
     (fun _ => 1)
     (fun _ a =>
@@ -151,7 +156,7 @@ def actualLowNNSDiv
     (W : Fin K → ℝ → ℂ) (P : Fin K → ℝ)
     (X Y T t : ℝ) : ℝ :=
   vf919WeightedPhiDivMass
-    (Finset.univ : Finset PUnit)
+    (Finset.univ : Finset Unit)
     (Finset.univ : Finset (LowUnselectedTuple slots J))
     (fun _ => 1)
     (fun _ a =>
@@ -177,15 +182,15 @@ theorem actual_low_NNS_co_minus_div_eq_normSq
       ‖∑ a : LowUnselectedTuple slots J,
         actualUnselectedLowAtom eta S hS W0 W1 a0 b0 a1 b1
           slots J W P X Y T t a‖ ^ 2 := by
-  let f : PUnit → LowUnselectedTuple slots J → ℂ :=
+  let f : Unit → LowUnselectedTuple slots J → ℂ :=
     fun _ a => actualUnselectedLowAtom eta S hS W0 W1
       a0 b0 a1 b1 slots J W P X Y T t a
   have hNNS := resonant_fiber_recombination_NNS_eq
-    (Finset.univ : Finset PUnit)
+    (Finset.univ : Finset Unit)
     (Finset.univ : Finset (LowUnselectedTuple slots J))
     (fun a : LowUnselectedTuple slots J => a) f (fun _ => 1)
   have hGram := resonant_fiber_recombination_eq
-    (Finset.univ : Finset PUnit)
+    (Finset.univ : Finset Unit)
     (Finset.univ : Finset (LowUnselectedTuple slots J))
     (fun a : LowUnselectedTuple slots J => a) f (fun _ => 1)
   rw [← hGram] at hNNS
