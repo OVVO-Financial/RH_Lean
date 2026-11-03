@@ -415,3 +415,563 @@ The local report passed ASCII/control-character and balanced-code-fence checks. 
 **Intended output:** a proved source-faithful joint restriction or a precise genuine simultaneous-realization counterexample, plus the first unsupported aggregate inequality. Current new-run endpoint gain UNKNOWN. Independent review PENDING. Next protected turn CODIV; NYMAN resumes later at the complete middle residual and Coordinator C29-C30, not by repeating its paid remote tail.
 
 No local Lean, proof-source edit, other-role write, PR change, agent launch, schedule change or merge is performed. Only this report is authorized for GitHub modification.
+
+---
+
+## Scheduled Continuation Final Synthesis - Claim 20261103-analytic-2
+
+**Most important result:** two genuine, strictly admitted prime-square daughters can BOTH contribute positively after their full overlap diagonals and negative daughter squares are restored. At R=376 the fixed labels q=17 and r=19 contribute 86/17 and 136/19. Their sum 3946/323 also ATTAINS the sharp upper bound conditional on their exact nested Mobius-prefix difference. Universal pairwise nonpositivity is therefore false; merely adjoining the true interval sum to a scalar optimization does not force the pair negative.
+
+**Evidence:** FINITE_COMPUTATION / REFUTED universal pair-exclusion claim; PAPER_PROOF_NEEDS_INDEPENDENT_REVIEW for the sharp joint cap and credit-preserving aggregation; SELF_AUDIT. No new Lean theorem or independently proved global exponent improvement. Net new endpoint gain UNKNOWN. Canonical actual-prime VF, RH and the sharp local square-shell bound remain OPEN.
+
+This is the completion of the scheduled 2026-11-03 09:09:02 EST (-0500) invocation, not an additional run. RUN_ID_UNAVAILABLE. Execution is MATHEMATICS_COMPLETE; publication becomes verified only after commit/readback. Earlier same-day results and corrections are unchanged.
+
+### A. Most Important Analytic Development
+
+The due OAI-NNS continuation was Coordinator 20261103-coordinator-1 section H: investigate the joint dependence of two surviving original q^2 daughters, resuming 20261102-analytic-2 section M. This is the rational Mobius mixed-remainder carrier. It is not the separate ideal-character detector source, hybrid mu*kappa shell, or physical prime-indicator VF carrier.
+
+Three conclusions survive the investigation:
+
+1. The genuine example R=376, q=17, r=19 refutes the universal assertion that at most one corrected daughter can be positive. Both labels also belong to the literal small-label set q<T^2 when T=5. This does NOT refute an asymptotic fixed-(3,5) assertion or any specific smaller moving cutoff.
+2. The exact intervening sum gives a sharp, uniform pair bound J3 below. Compared with optimizing each daughter independently, it subtracts an explicitly nonnegative squared-mismatch credit. At the witness it improves the pair cap from 6210/323 to 3946/323, and the improved cap is attained by the actual arithmetic values.
+3. Such credits may be aggregated with vertex degree at most one, J6, preserving every original -2d_q^2 term exactly once. No all-scale lower bound on the useful aggregate credit has been proved. The aggregation is an interface, not a new quantitative supplier.
+
+The first item is a decisive legal falsifier. The second and third are structural/deterministic paper results. There is **NO_NEW_INDEPENDENT_AGGREGATE_INEQUALITY** and no claim of external-literature novelty.
+
+### B. Current Mathematical Objective And Authority
+
+Pinned and subsequently rechecked main:
+
+    acffafc79df1a3713e77dcd14eb551b7413d00c2
+
+The unchanged canonical target is
+
+    exists C>=0, forall integers R>=2,
+      |pi(R^2)-VF_can(R^2)| <= C R log R.
+
+The original canonical definition, fixed sqrt(2) phase and explicit classical von Koch interface were inspected in [VF_CANONICAL_SQRT_TWO_VON_KOCH.lean](https://github.com/OVVO-Financial/RH_Lean/blob/acffafc79df1a3713e77dcd14eb551b7413d00c2/research/VF_CANONICAL_SQRT_TWO_VON_KOCH.lean). No prime-error estimate is inferred from its O(1) VF/Li comparison.
+
+Material original-source blobs at this main:
+
+| Source | Blob SHA | Use |
+| --- | --- | --- |
+| AGENTS.md | 9fa5e9519e2fb6dde22217aa2a18982dafef373a | Current own-report-only authority |
+| CURRENT_PROOF_CONTRACT.md | 88cddd9cd98c3b55f0b013998541e9b4e9dc9f2a | Canonical objective and source safeguards |
+| docs/RHLEAN_SEVEN_AGENT_RESEARCH_ENGINE_20261101.md | 6fce99c61efb5b2a73c0cb1f1464f09b351fcd55 | Persistent route continuation |
+| research/CANONICAL_ROUGH_Q2_TAIL_REDUCTION.lean | ebca096e83009a7df514d00b6a2696be86a94c55 | Strict owner set and unshifted daughter energy |
+| research/LOW_OWNER_PHYSICAL_AMPLITUDE_TRANSPORT.lean | 72d66f61b3eeb000117ecdac393572558bb7c378 | Literal raw daughter and full correction |
+| research/GLOBAL_RETURNED_CORE_WEIGHTED_MOBIUS_COORDINATE.lean | f0e2e672a1ed369d1dc6dacbe9024c65e986a3c8 | Exact 1/q site weights and Fubini |
+| research/GLOBAL_RETURNED_CORE_WEIGHTED_GRAM.lean | dbaf123113b544d0b19c7c3c6b92a1288a26cfb8 | Literal far-tail indicator |
+| research/GLOBAL_RETURNED_CORE_ONE_AMPLITUDE.lean | b69a36ec4305a9309a5212358569905a968f4d63 | G=M(X)-M(R-1), sign relative to rough correlation |
+| research/GLOBAL_RETURNED_CORE_RECIPROCAL_PREFIX_SIGNED_CELL_SPLIT.lean | 29bb263ddd07b12a2dd5ccf6a12aecaf627134d8 | Complete first-owner mixed carrier |
+| research/GLOBAL_RETURNED_CORE_PREFIX_TAIL_MIXED_REMAINDER_IDENTITY.lean | d17aeb639bb47d79333cf0d00760c2604feddfdf | Prefix diagonal and exact remainder identity |
+| research/CORR4_MIXED_TAIL_RECORD_PLATEAU_20261026.lean | a4abeb13653076bedd8e1173c933ee3324bfea26 | Exact endpoint/mixed theorem; interval Lipschitz bound |
+| research/OAI78_CORR4_OWNER_TAIL_PAID_20261028.lean | 03c05e38fb2415105de9cccd3680b03c21c4be5c | Exact small/large-label partition |
+| research/oai_434/OAI78CORR4PaidOriginalLargeOwner.lean | 06626af8cd8abfbf8f6da238f8a3d9af0893b686 | Existing input-dependent large-owner payment |
+| research/CORR4_OAI_POWER_MIXED_TAIL_GATE_20261025.lean | bb0ee1252e7ba10c44ae5b8d827573d6c581b73a | Actual conditional Mertens consumer |
+| RHLean/Proof/SquareRootLegalAncestryGramReduction.lean | 1270d4d91c53b50b110d10014f223f427fb7a575 | Historical envelope convention |
+| research/VF_CANONICAL_SQRT_TWO_VON_KOCH.lean | 79030d70e8d3e0d08eef9bac53fef95c36eca2fb | Canonical target |
+| research/oai_434/VF919NativeStrictMertens.lean | b33a4883e1ddb0551b0f11f062bce46680d87450 | Newly merged strict prefix theorem |
+
+**Updated formal state, not today's discovery.** #1073 was human-merged at 13:14:29Z. The stacked #1074-#1076 work was integrated through #1077 at 13:52:39Z. No open/draft PR was returned. The strict-Mertens terminal and its existing Lean dependencies are unchanged from tested #1073 head 9cbfce5295343bcb411e6d2cb159b59995cd985b: the complete GitHub comparison to main contains additions and a workflow modification, not modifications to that existing proof source.
+
+All 13 runs attached to that tested head succeed. The actual [job 125650160501](https://github.com/OVVO-Financial/RH_Lean/actions/runs/41554561404/job/125650160501) logs were retrieved: native_mertens_uniform_strict_gap, native_mertens_fixed_strict_power and the strict terminal audit succeed with propext, Classical.choice and Quot.sound; the terminal dependency audit reports PASS. Main's 11 returned push workflows also succeed, but they do not include a new dedicated strict-Mertens rebuild. The exact-head proof evidence is reused at unchanged dependencies, not misdescribed as a fresh cold build at the integration SHA.
+
+The independently accepted #1073 conclusion is therefore now **PROVED_IN_LEAN_ON_MAIN / inherited VERIFIED_ETA**, with its tested-head provenance retained. This run does not freshly re-audit the entire analytic proof and does not automatically extend earlier acceptance to every changed declaration in #1076's later head. The reviewed source-relative refinements are not assigned an invented numerical gap. None supplies the new two-owner aggregate estimate or canonical VF/RH.
+
+### C. Analytic Mechanism Investigated
+
+The first attempted move was a structural exclusion: perhaps the actual nesting of two prefixes prevents both diagonal-corrected daughters from reinforcing G. The exact witness below rejects that universal form. Fixed-label (3,5) non-observation alone is not a substitute proof.
+
+The second move, developed fully, keeps the signed interval difference before optimizing the common prefix level. Independent daughter caps allow the two prefix levels to move independently; the real arithmetic source fixes their difference. Orthogonal sum/difference coordinates therefore reveal a new explicit mismatch penalty. Integer parity restricts the remaining sum to one lattice coset. This is a finite deterministic argument with no imported Mertens bound or independence premise.
+
+The analysis then checks whether the new penalty can be spent globally. Fractional matchings provide a precise no-double-counting rule, but do not provide the missing lower bound on the total penalty. The existing amplitude-inverse no-go, with Referee's corrected 2/(9 sqrt(3)) constant, remains intact and is not rerun here.
+
+### D. Exact Mathematical Formulation
+
+Fix any integer R>=56. Let
+
+    X=R^2-1,
+    S_R={q: q is an odd prime, q^2<R},
+    Y_q=floor(X/q^2),       d_q=M(Y_q),
+    G=M(X)-M(R-1),          A=|G|,
+    V_0=sum_(R<=n<=X) mu(n)^2,
+    V_q=sum_(R<=n<=Y_q) mu(n)^2,
+    U=sum_(q in S_R) d_q/q, E=sum_(q in S_R) d_q^2.
+
+All coefficients are the genuine integer Mobius coefficients. The strict owner condition gives Y_q>=R+1. Define the actual common-clock weights and diagonals
+
+    a(n)=sum_(q in S_R) 1_(n<=Y_q)/q,
+    t(n)=1_(R<=n),
+    D=sum_(1<=n<=X) mu(n)^2(t(n)+a(n))^2,
+    P=sum_(1<=n<=X) mu(n)^2 a(n)^2.
+
+The compiled original mixed identity, followed by finite expansion of its diagonal, gives
+
+    B_R := 2 Mixed_R-2E
+         = G^2+2GU-2E-(D-P)
+         = G^2-V_0+sum_(q in S_R) T_q,                    (J1)
+    T_q := 2Gd_q/q-2d_q^2-2V_q/q,
+    D-P = V_0+2sum_q V_q/q.
+
+J1 is established infrastructure plus the elementary overlap expansion from Wheel W1, reconstructed here. It is not claimed as a new identity. Mixed_R is the original lowOwnerPrefixTailMixedRawCellMass, with all first-owner signatures already assembled. The daughter label q is not silently identified with the fresh first-owner label of that cell decomposition.
+
+For distinct q<r in S_R, keep the exact, signed annular sum
+
+    Delta_qr=d_q-d_r=sum_(Y_r<n<=Y_q) mu(n),
+    s_qr=d_q+d_r,
+    a_qr=(G/2)(1/q-1/r),
+    b_qr=(G/2)(1/q+1/r),
+    rho_qr=dist(b_qr, Delta_qr+2Z).                       (J2)
+
+The distance is to a nonempty arithmetic progression of spacing 2, so its minimum exists and 0<=rho_qr<=1. The exact source satisfies s_qr in Delta_qr+2Z. No growing-parameter restriction or limiting exchange occurs.
+
+**Sharp joint cap.** Uniformly in all such R,q,r,
+
+    T_q+T_r <= L_qr,
+    L_qr = (G^2/2)(q^(-2)+r^(-2))
+           -(Delta_qr-a_qr)^2-rho_qr^2
+           -2(V_q/q+V_r/r).                              (J3)
+
+For fixed integer G, integer Delta, positive q,r and fixed overlap terms, this is the exact maximum over integer pairs (d_q,d_r) satisfying d_q-d_r=Delta. That algebraic sharpness does not assert every optimizer can be realized by Mobius prefixes. Section E supplies one actual realization that DOES attain it.
+
+For comparison define the existing independent integer cap
+
+    C_q(A)=A^2/(2q^2)-2dist(G/(2q),Z)^2,
+    Gamma_qr=(Delta_qr-a_qr)^2+rho_qr^2
+               -2dist(G/(2q),Z)^2-2dist(G/(2r),Z)^2.
+
+Then
+
+    Gamma_qr>=0,
+    L_qr=C_q(A)+C_r(A)-2(V_q/q+V_r/r)-Gamma_qr,
+    |Gamma_qr-(Delta_qr-a_qr)^2|<=1.                     (J4)
+
+J3-J4 are exact, constant-one, uniform statements. There is no RH, input exponent, unspecified error, omitted endpoint, or stochastic hypothesis.
+
+### E. Mathematical Derivation And Genuine Saturation
+
+**Pair identity and cap.** Completing the two original negative squares and using u^2+v^2=((u-v)^2+(u+v)^2)/2 gives
+
+    T_q+T_r = (G^2/2)(q^(-2)+r^(-2))
+              -(Delta_qr-a_qr)^2-(s_qr-b_qr)^2
+              -2(V_q/q+V_r/r).                          (J5)
+
+Since s_qr lies in Delta_qr+2Z, its last square is at least rho_qr^2, proving J3. Conversely choose a nearest point s of that progression and put d_q=(s+Delta)/2, d_r=(s-Delta)/2. Both are integers and attain the cap. Independent optimization over both integers has value C_q+C_r before the overlap subtraction. Optimization under the extra difference constraint cannot increase it, proving Gamma>=0. Each single-lattice squared distance is at most 1/4 and rho^2 is at most 1; these prove the final bound in J4.
+
+The actual interval also satisfies
+
+    |Delta_qr|<=V_q-V_r,
+    Delta_qr == V_q-V_r (mod 2),
+
+because mu(n) is 0 or +/-1 and mu(n)==mu(n)^2 modulo 2. These true support restrictions were retained in the audit. They do not make the witness infeasible. The positivity conditions themselves are exactly Gd_q-q d_q^2>V_q and Gd_r-r d_r^2>V_r, not merely a common sign.
+
+**Exact genuine witness.** Take R=376, X=141375. Then
+
+    M(X)=-100, M(375)=-3, G=-97,
+    q=17, Y_q=489, d_q=-4, V_q=73,
+    r=19, Y_r=391, d_r=-1, V_r=10.
+
+Both squares are strictly below R: 289<376 and 361<376. Direct substitution gives
+
+    Gd_17-17d_17^2-V_17 = 388-272-73=43,
+    Gd_19-19d_19^2-V_19 = 97-19-10=68,
+    T_17=86/17>0, T_19=136/19>0.
+
+The genuinely signed intervening interval is 392<=n<=489:
+
+    Delta_17,19=-3, V_17-V_19=63, s_17,19=-5,
+    a_17,19=-97/323, b_17,19=-1746/323,
+    rho_17,19=131/323.
+
+The nearest odd integer to b is exactly -5. Consequently the pair ATTAINS J3:
+
+    T_17+T_19=L_17,19=3946/323,
+    independent corrected cap=6210/323,
+    Gamma_17,19=2264/323.
+
+This is not an arbitrary sign vector or a synthetic sequence on squarefree support. Two independent arithmetic implementations reproduce the actual Mobius values and overlap counts. The difference and its parity restriction are satisfied exactly.
+
+**Complete source restored.** The full owner set is {3,5,7,11,13,17,19}; the unshifted daughters are (-19,12,-19,-5,-3,-4,-1). Full quantities are
+
+    U=-36959987/4849845, E=917, V_0=85721,
+    D-P=5907946801/62985,
+    B_376=-411004090324/4849845 < 0.
+
+Thus the positive pair does not refute a full signed upper bound. All other daughters and the large parent diagonal remain in the actual source. The counterexample refutes universal pairwise exclusion, not the mixed consumer, Mertens improvement, canonical VF, or RH.
+
+### F. Quantitative Comparison And Aggregation
+
+For any subset L of S_R, choose nonnegative real pair weights lambda_qr, q<r in L, with
+
+    degree(q)=sum_(r!=q) lambda_min(q,r),max(q,r) <= 1.
+
+Every choice is allowed, including a root-dependent choice, provided this capacity condition is maintained. Exact finite reassembly gives
+
+    sum_(q in L) T_q
+      =sum_(q<r in L) lambda_qr(T_q+T_r)
+        +sum_(q in L)(1-degree(q))T_q.
+
+Applying J3 to the pairs and the individual cap to the residual vertices proves
+
+    sum_(q in L) T_q
+      <=sum_(q in L)(C_q(A)-2V_q/q)
+        -sum_(q<r in L)lambda_qr Gamma_qr.                (J6)
+
+This explicitly prevents spending one daughter's -2d_q^2 reserve once per partner. No pair-count loss is hidden. Since sum lambda<=|L|/2, replacing Gamma by its squared-difference term incurs at most |L|/2<=sqrt(R)/2 in total. A fixed number of rounding corrections alone cannot supply the required macroscopic saving. The potentially large arithmetic term is the squared deviation Delta_qr-a_qr, not the bounded lattice correction.
+
+For a full cutoff Q>=2, put L={q in S_R:q<Q} and retain the FULL D-P, including high-label overlaps. J6 yields
+
+    B_R <= G^2-(D-P)+sum_(q<Q)C_q(A)
+            -sum_(q<r<Q)lambda_qr Gamma_qr
+            +sum_(q>=Q)(2Gd_q/q-2d_q^2).                (J7)
+
+The last sum is still the genuine complement. The elementary one-sided bound already used by Wheel is
+
+    sum_(q>=Q)(2Gd_q/q-2d_q^2)
+      <=(G^2/2)sum_(q>=Q)q^(-2)
+      <=G^2/[2(Q-1)].
+
+It spends only the high-label squares; J6 spends only low-label squares. Alternatively retain the compiled input-dependent large-owner bound with its own exact partition; do not combine both estimates while spending the same reserve twice.
+
+For any fixed admissible incoming envelope |M(n)|<=C_in n^beta, beta>1/2, one has |G|<=2C_in R^(2beta). With fixed 0<theta<1/2 and Q=ceil(R^theta), the high contribution is O_(C_in,beta,theta)(R^(4beta-theta)), uniformly for all sufficiently large R, with finite small roots absorbed. A new independent bound of size R^(4beta-eta_low) for the complete first four terms in J7 would give beta_out=beta-min(theta,eta_low)/4, provided beta_out>=1/2. That is the precise conditional exponent calculation, not an achieved gain. One may choose an incoming beta strictly below 7/8 from the newly merged theorem; this run does not improve it.
+
+No uniform lower estimate for sum lambda Gamma, strong enough in the presence of G^2 and the complete diagonal, was obtained. The finite improvement 2264/323 is not an asymptotic power saving.
+
+### G. Original-Carrier Bridge And Consumer
+
+J1 uses the actual compiled [corr4_mixed_tail_eq_actual_endpoint_gap](https://github.com/OVVO-Financial/RH_Lean/blob/acffafc79df1a3713e77dcd14eb551b7413d00c2/research/CORR4_MIXED_TAIL_RECORD_PLATEAU_20261026.lean) and the literal diagonal in [the mixed-remainder identity](https://github.com/OVVO-Financial/RH_Lean/blob/acffafc79df1a3713e77dcd14eb551b7413d00c2/research/GLOBAL_RETURNED_CORE_PREFIX_TAIL_MIXED_REMAINDER_IDENTITY.lean). No source equality between rational Mobius coefficients and sextic ideal phases is asserted.
+
+The exact compiled sufficient consumer is [mertensPowerBound_of_corr4MixedTailBill](https://github.com/OVVO-Financial/RH_Lean/blob/acffafc79df1a3713e77dcd14eb551b7413d00c2/research/CORR4_OAI_POWER_MIXED_TAIL_GATE_20261025.lean): for beta_out>=1/2 and A0>=0, an ALL-R estimate B_R<=A0 R^(4beta_out) implies the actual MertensPowerBound beta_out. The premise is not proved here. At the RH consumer, the live historical envelope is 0<=K and (M(y)-1)^2<=K(y+1) for every integer y<R; it must not be replaced by an endpoint envelope or a maximum over a different range.
+
+The pair result preserves the strict moving q^2<R admission separately at each R. It introduces no differentiation in R, no activation approximation and no change to masks or weights. It does not pay the original sharp-shell maximal-fragment source, which remains a different problem. All prefix-prefix terms assigned to the existing compiled prefix part remain assigned there; no U^2 is accidentally erased from a new full-square expansion.
+
+### H. Falsification, Novelty And Quantitative Audit
+
+**Preregistered scope:** before executing the new test, the C++ source fixed exploratory roots 56..512 and held-out roots 513..2048. The changed question was simultaneous corrected-daughter positivity, not the previously completed individual-cap census. Fixed mandatory roots were 125 and 2002. The largest sieve argument is 4194303. No range extension was performed after the result.
+
+Results: 117 roots in 56..2048 have at least two positive corrected daughters. R=376 is the first such root in that declared range, not a claim about all smaller roots. Neither T_3 nor T_5 was individually positive anywhere in the range, although G,d_3,d_5 have the same nonzero sign at 553 roots. Therefore the absence of a positive (3,5) pair is a FINITE_NON_OBSERVATION explained already by individual inequalities. It supplies no proof of a joint exclusion or an asymptotic claim.
+
+The independent Python trial-factorization reconstruction at R=125 and R=376 uses no sieve values from the C++ run. It recomputes all required prefixes, exact Fraction arithmetic, the actual common-clock D-P by direct site summation, J1, the interval difference, and J3. It verifies the strict positive pair and cap equality. A separate Eratosthenes-style Mobius sieve reproduces R=2002 and is checked against trial factorization through 2000. At that anchor G=208, E=8367 and U=-233438518043839321/6541380665835015; all corrected T_q are nonpositive. Thus the known sign-sensitive regression is preserved, not used to infer a universal sign.
+
+The R=125 regression is T_11=10/11 and B_125=-328672/33. The generic sharp-cap calculation was additionally checked in 3213 exact cases: -25<=G<=25, pair labels (3,5),(3,7),(17,19), and -10<=Delta<=10; maximizing over -25<=d_r<=25 attains J3 in every tested case. The proof in E, not this finite grid, supplies the all-parameter statement.
+
+The previously accepted (3,5) affine saturation is on the HYBRID lifted-address shell with mu(14+25t)mu(5+9t)/15. Our quantities are entire prefixes at Y_3,Y_5. There is no occurrence-preserving bridge equating those sources. Its unsigned-incidence obstruction remains in force but is neither rerun nor presented as a counterexample to this pair cap.
+
+Scoped novelty check compared current filename/search coordinates, the literal source modules, Wheel W1-W9, prior Analytic inverse work, [the existing nested square reserves](https://github.com/OVVO-Financial/RH_Lean/blob/acffafc79df1a3713e77dcd14eb551b7413d00c2/research/OAI78_CORR4_NESTED_SQUARE_RESERVES_20261028.lean), and [the frame-only inverse](https://github.com/OVVO-Financial/RH_Lean/blob/acffafc79df1a3713e77dcd14eb551b7413d00c2/research/CORR4_FRAME_ONLY_INVERSE_20261026.lean). Their source identities and square completions are not new. No identical Delta-conditioned parity-coset cap or the R=376 simultaneous saturation was located in that scoped search. This is not a claim of exhaustive literature novelty. No external analytic theorem was needed for this finite argument, and no unchanged literature search was repeated.
+
+Reproducers are included below because a hash alone is not an available artifact. SHA256 values:
+
+    joint_daughter_test.cpp:
+      6de1c1062d50df75cfd83c306cc3b99d9fe8edecfc2a6d55943b63bcfd6cf336
+    joint_daughter_verify.py:
+      e31b172c7de2bd35cd082aa9c95a98b8df0cf844cc41d6ebb830bab29c4ed2a4
+
+No computation or proof in this report is an independent Referee verdict. No local Lean was executed. Direct git cloning was unavailable (CONNECT tunnel 403); the authenticated read-only GitHub connector supplied the actual pinned files, tree, comparisons and CI logs instead. Publication uses only the authorized own-report path.
+
+### I. Conceptual Interpretation
+
+Nested prefixes DO supply more information than two independent integer variables: their real interval sum forces the mismatch credit Gamma. However, that improvement need not make either daughter or the pair nonpositive, and the strongest cap at fixed difference can be attained by genuine Mobius data. The universal exclusion mechanism is retired at exactly that scope.
+
+The remaining useful possibility is aggregate, quantitative control of the actual nested-prefix mismatch relative to the parent, with disjoint accounting of the square reserve. J6 makes that accounting precise but does not create the missing arithmetic. A new norm name, another completion of squares, or larger supportive scans would not pay it.
+
+### J. Specialist Handoffs
+
+**Coordinator:** record 20261103-analytic-2 as a genuine universal pair-exclusion falsifier and a sharp source-qualified structural cap, not a new exponent supplier. Preserve the newly merged strict theorem at its tested-head scope. The fixed (3,5) question is still unresolved; its finite absence is not joint evidence.
+
+**Adversarial Referee:** audit J2-J6, especially the factor of two, parity coset, cap attainment, Gamma>=0, and vertex-degree accounting. Independently reproduce the R=376 values and distinguish positive pair / negative full bill. No review of unrelated tails is requested by this claim.
+
+**Prime Census:** this run supplies a concrete genuine witness for the current request, with independently reconstructed arithmetic and code. Do not enlarge the unchanged 2048 range merely to seek (3,5). A useful next finite task would be independent verification of R=376 from original mixed cells and a specifically proposed aggregate-credit inequality with a frozen rejection constant.
+
+**Finite Wheel:** W1 and the one-use reserve are preserved. Pairwise positivity exclusion is false even at an attained exact-difference cap. J6 may be used as an interface after review; adding all pair credits without degree normalization is invalid. No redirection from your distinct FINITE-AC/MU-LIFT rotation is requested.
+
+**Owner Payment:** no VF ancestry, original weights or returned-cell admission theorem is inferred. The overlap V_q is a squarefree diagonal in the literal Mobius prefix carrier, not capacity in the prime-indicator VF population.
+
+**Lean Verification:** no immediate new proof branch or speculative endpoint wrapper is requested. After independent acceptance and a demonstrated consumer, J3-J6 are finite algebra/finite-sum candidates; the R=376 falsifier is a separate finite arithmetic certificate. Do not encode an aggregate mismatch bound as an assumption and call its supplier proved.
+
+### K. First Independently Missing Analytic Theorem
+
+For a fixed incoming admissible beta>1/2 and a fixed 0<theta<1/2, Q(R)=ceil(R^theta), a possible sufficient next input is a genuinely proved, uniform all-R estimate
+
+    G_R^2-(D_R-P_R)+sum_(q<Q(R))C_q(|G_R|)
+      -sum_(q<r<Q(R))lambda_qr(R) Gamma_qr(R)
+        <= C R^(4beta-eta_low),                         (J8)
+
+with eta_low>0 fixed before R, C independent of R, and nonnegative weights of degree at most one. All original overlaps are retained. Existence of weights satisfying J8 is NOT proved and is not claimed easier than the target; J8 is a stronger sufficient upper-envelope programme after dropping nonnegative residual squares. Its only new independently justified input here is the exact cap/aggregation, plus the legal falsification of the universal sign shortcut. No current theorem supplies the needed arithmetic lower control of the mismatch term. The same original complete mixed estimate, rather than J8, may still be the better object to attack.
+
+The immediate research decision is to abandon universal pairwise nonpositivity. Do not impose that assertion on q=3,5 merely because a finite scan has no single positive component. Do not assume generic squarefree support or prefix envelopes give local correlation control; the accepted comparison-sequence no-go remains scoped and binding.
+
+### L. Persistent Workspace And Resume Capsule
+
+    ENGINE_VERSION: 2026-11-01; engine blob 6fce99c61efb5b2a73c0cb1f1464f09b351fcd55.
+    MAIN: acffafc79df1a3713e77dcd14eb551b7413d00c2.
+    RUN: scheduled 2026-11-03 09:09:02 EST (-0500); RUN_ID_UNAVAILABLE.
+    TASK: due OAI-NNS / original small-owner mixed remainder.
+    CLAIM: 20261103-analytic-2; J1-J8, with J1 identified as prior infrastructure.
+    NEW_RESULT: exact R=376 simultaneous-positive pair and attained sharp joint cap.
+    BOUND_SCOPE: finite deterministic pair inequality; uniform credit aggregation.
+    FIRST_OPEN: independent complete low-label mismatch/covariance estimate.
+    REVIEW: SELF_AUDIT; independent review PENDING; new Lean formalization NONE.
+    PROGRAMME_GATE: inherited VERIFIED_ETA now on main through unchanged #1073 proof.
+    NEW_RUN_ENDPOINT_GAIN: UNKNOWN; no new global bound.
+    NYMAN_LAST: 20261103-analytic-1; resume full residual, with C29-C30 review pending.
+    OAI_NNS_LAST: this run; pair exclusion retired, exact J6 survives.
+    CODIV_LAST: 20261102-analytic-3; C25/PC4 accepted at their actual scopes.
+    ROLLING_COVERAGE: CODIV, NYMAN, OAI-NNS over latest three actual runs.
+    NEXT_DISTINCT_ROUTE_DUE: CODIV.
+    NEXT_CODIV_STEP: resume the genuine fixed-field signed covariance and
+      maximal-fragment-to-original-shell obligation; use C25, not the already
+      paid moving-cutoff error, and respect Referee's support/prefix no-go.
+    CANONICAL_VF: OPEN. RH: OPEN. SHARP_LOCAL_SHELL_GAIN: OPEN.
+
+Continuity actually retrieved on agent-reports, relevant sections read (not independent acceptance of every claim):
+
+| Role | November 2 blob | November 3 blob consumed |
+| --- | --- | --- |
+| Coordinator 00/90 | 1e932d4ce0eb0fd2c5f4507f6b111194d633eb32 | f9c04a1099048cd0b02fd5264b753e916cbcd521 |
+| Owner | abfe546d72b151f4cd200fc61de3197efe23a65c | 0688ba1d205ac2e846c3c3a55adfc267a6eb6a40 |
+| Analytic | 8e48b59611aa1d0bfa3577ed0a4a3bc0d0fcae73 | 7a167a551ca047c0b5bccf6220f40152d78ea176, then this run's checkpoint |
+| Wheel | abf8ac8c22a708886183849552c90dd62787ac8d | ae0ce9040b145c8b2ee04418e02a363d10b5da38 |
+| Census | 2cd84c57ab18d923e97368764f29f4ccd2ec3bb3 | 09ecf82c4a8d5d36b10ed6d64167d695e096ce03 |
+| Referee | 814af1684df66e6ac99b8df1f102cb592b316f89 | 226a5a6d971f347b45e016a046007bc4ceb368ee |
+| Lean | 02d19d792e26f072004cb5909f149538752626e9 | 579d19654925823b5fa2ef849366da2925d2c1b0 |
+
+TODAY=AVAILABLE for all named roles; YESTERDAY=CARRY_FORWARD where a current derivation depends on it. All same-day own sections are preserved. The latest Owner VF short-run/ancestry-capacity findings, Coordinator C29-C30 Nyman obstruction, Census PC4/PC5, and Referee's squarefree-support/maximal-fragment no-go remain distinct-carrier claims; none was used as an unproved hypothesis here. External inbox blob 038018145c0fddb2f6306c0712373adf9cd1ea52 contains no entry after October 18. Its historical source/mask and normalized-payment warnings are retained; its dated routing/cadence is superseded.
+
+
+### Executed Reproducers
+
+The C++ run used g++ -O2 -std=c++17. The Python verifier used the standard library and exact Fraction arithmetic. Both finished successfully; neither ran Lean.
+
+#### joint_daughter_test.cpp
+
+```cpp
+#include <algorithm>
+#include <cstdint>
+#include <iostream>
+#include <numeric>
+#include <vector>
+
+// Frozen experiment: roots 56..512 exploratory, 513..2048 held out.
+// Test simultaneous positive corrected daughters, especially labels 3 and 5.
+struct Daughter {
+    int q, y, d, v;
+    long long numerator;
+};
+
+int main() {
+    constexpr int max_root = 2048;
+    constexpr int limit = max_root * max_root - 1;
+    std::vector<int> least(limit + 1), primes, mertens(limit + 1), squarefree(limit + 1);
+    std::vector<int8_t> mu(limit + 1);
+    mu[1] = 1;
+    for (int n = 2; n <= limit; ++n) {
+        if (!least[n]) { least[n] = n; primes.push_back(n); mu[n] = -1; }
+        for (int p : primes) {
+            if (p > least[n] || 1LL * n * p > limit) break;
+            least[n * p] = p;
+            mu[n * p] = n % p == 0 ? 0 : -mu[n];
+        }
+    }
+    for (int n = 1; n <= limit; ++n) {
+        mertens[n] = mertens[n - 1] + mu[n];
+        squarefree[n] = squarefree[n - 1] + mu[n] * mu[n];
+    }
+    int first_pair = 0, first_fixed = 0, positive_pairs = 0, fixed_count = 0;
+    int same_sign_35 = 0, positive_3 = 0, positive_5 = 0;
+    for (int R = 56; R <= max_root; ++R) {
+        const int X = R * R - 1;
+        const int G = mertens[X] - mertens[R - 1];
+        std::vector<Daughter> all, positive;
+        for (int q : primes) {
+            if (q * q >= R) break;
+            if (q == 2) continue;
+            int y = X / (q * q), d = mertens[y];
+            int v = squarefree[y] - squarefree[R - 1];
+            long long num = 2LL * G * d - 2LL * q * d * d - 2LL * v;
+            Daughter z{q, y, d, v, num};
+            all.push_back(z);
+            if (num > 0) positive.push_back(z);
+        }
+        if (all.size() >= 2 && 1LL * G * all[0].d > 0 && 1LL * G * all[1].d > 0) ++same_sign_35;
+        if (all.size() >= 2 && all[0].numerator > 0) ++positive_3;
+        if (all.size() >= 2 && all[1].numerator > 0) ++positive_5;
+        if (positive.size() >= 2) {
+            ++positive_pairs;
+            if (!first_pair) {
+                first_pair = R;
+                std::cout << "FIRST_PAIR R=" << R << " G=" << G << '\n';
+                for (const auto& z : positive) std::cout << z.q << ' ' << z.y << ' ' << z.d << ' ' << z.v << " T=" << z.numerator << '/' << z.q << '\n';
+            }
+        }
+        if (all.size() >= 2 && all[0].numerator > 0 && all[1].numerator > 0) {
+            ++fixed_count;
+            if (!first_fixed) first_fixed = R;
+        }
+        if (R == 125 || R == 2002 || (positive.size() >= 2 && R == first_pair)) {
+            std::cout << "ANCHOR R=" << R << " X=" << X << " M_X=" << mertens[X]
+                      << " M_pred=" << mertens[R - 1] << " G=" << G
+                      << " V0=" << squarefree[X] - squarefree[R - 1] << '\n';
+            for (const auto& z : all) std::cout << z.q << ' ' << z.y << ' ' << z.d << ' ' << z.v << " T=" << z.numerator << '/' << z.q << '\n';
+        }
+    }
+    std::cout << "SUMMARY first_pair=" << first_pair << " roots_with_pairs=" << positive_pairs
+              << " first_35=" << first_fixed << " roots_with_35=" << fixed_count
+              << " parent_and_35_same_sign=" << same_sign_35
+              << " positive_3=" << positive_3 << " positive_5=" << positive_5 << '\n';
+}
+```
+
+#### joint_daughter_verify.py
+
+```python
+from fractions import Fraction as F
+from itertools import combinations
+from math import isqrt
+
+
+def trial_mu(n):
+    sign = 1
+    p = 2
+    while p * p <= n:
+        if n % p == 0:
+            n //= p
+            sign = -sign
+            if n % p == 0:
+                return 0
+            while n % p == 0:
+                n //= p
+        p += 1
+    return -sign if n > 1 else sign
+
+
+def prime(n):
+    return n > 1 and all(n % p for p in range(2, isqrt(n) + 1))
+
+
+def pair_cap(G, q, r, vq, vr, difference):
+    target_difference = F(G, 2) * (F(1, q) - F(1, r))
+    target_sum = F(G, 2) * (F(1, q) + F(1, r))
+    center = (target_sum - difference) / 2
+    lo = center.numerator // center.denominator
+    distance_sq = min((F(2 * a + difference) - target_sum) ** 2 for a in (lo, lo + 1))
+    return (
+        F(G * G, 2) * (F(1, q * q) + F(1, r * r))
+        - (difference - target_difference) ** 2
+        - distance_sq
+        - 2 * (F(vq, q) + F(vr, r))
+    )
+
+
+def independent_cap(G, q):
+    k = (abs(G) + q) // (2 * q)
+    return F(2 * k * (abs(G) - q * k), q)
+
+
+def eratosthenes_mu(limit):
+    values = [1] * (limit + 1)
+    is_prime = bytearray(b'\x01') * (limit + 1)
+    values[0] = 0
+    for p in range(2, limit + 1):
+        if is_prime[p]:
+            for n in range(p, limit + 1, p):
+                values[n] = -values[n]
+            for n in range(p * p, limit + 1, p * p):
+                values[n] = 0
+            for n in range(p * p, limit + 1, p):
+                is_prime[n] = 0
+    return values
+
+
+# Independent trial-factorization reconstruction of the small decisive root.
+for R in (125, 376):
+    X = R * R - 1
+    mu = [0] + [trial_mu(n) for n in range(1, X + 1)]
+    M = [0]
+    Q = [0]
+    for u in mu[1:]:
+        M.append(M[-1] + u)
+        Q.append(Q[-1] + u * u)
+    G = M[X] - M[R - 1]
+    V0 = Q[X] - Q[R - 1]
+    daughters = {}
+    for q in range(3, isqrt(R - 1) + 1, 2):
+        if not prime(q):
+            continue
+        y = X // (q * q)
+        d = M[y]
+        v = Q[y] - Q[R - 1]
+        T = F(2 * (G * d - v), q) - 2 * d * d
+        daughters[q] = (y, d, v, T)
+    E = sum(d * d for _, d, _, _ in daughters.values())
+    U = sum((F(d, q) for q, (_, d, _, _) in daughters.items()), F(0))
+    # Original common-clock diagonal, independent of overlap-count expansion.
+    DminusP = F(0)
+    for n in range(R, X + 1):
+        if mu[n]:
+            a = sum((F(1, q) for q, (y, _, _, _) in daughters.items() if n <= y), F(0))
+            DminusP += 1 + 2 * a
+    B = G * G + 2 * G * U - 2 * E - DminusP
+    assert B == G * G - V0 + sum((z[3] for z in daughters.values()), F(0))
+    print('WITNESS', R, 'G', G, 'V0', V0, 'U', U, 'E', E,
+          'DminusP', DminusP, 'B', B, 'B_float', float(B))
+    for q, r in combinations(daughters, 2):
+        yq, dq, vq, tq = daughters[q]
+        yr, dr, vr, tr = daughters[r]
+        difference = sum(mu[yr + 1:yq + 1])
+        assert difference == dq - dr
+        cap = pair_cap(G, q, r, vq, vr, difference)
+        assert tq + tr <= cap
+        assert (dq - dr - (vq - vr)) % 2 == 0
+        if tq > 0 and tr > 0:
+            independent = independent_cap(G, q) + independent_cap(G, r) - 2 * (F(vq, q) + F(vr, r))
+            print('POSITIVE_PAIR', q, r, 'difference', difference, 'sum', dq + dr,
+                  'Tq', tq, 'Tr', tr, 'total', tq + tr, 'joint_cap', cap,
+                  'independent_cap', independent, 'saving', independent - cap,
+                  'attained', tq + tr == cap)
+
+# Exhaustive finite algebra check, independent of the genuine arithmetic test.
+checks = 0
+for G in range(-25, 26):
+    for q, r in ((3, 5), (3, 7), (17, 19)):
+        for difference in range(-10, 11):
+            cap = pair_cap(G, q, r, 0, 0, difference)
+            values = [F(2 * G * (v + difference), q) - 2 * (v + difference) ** 2
+                      + F(2 * G * v, r) - 2 * v * v
+                      for v in range(-25, 26)]
+            assert max(values) == cap
+            assert cap <= independent_cap(G, q) + independent_cap(G, r)
+            checks += 1
+print('EXACT_PAIR_CAP_CHECKS', checks)
+
+# Independent second sieve for the required R=2002 regression only.
+R = 2002
+X = R * R - 1
+mu = eratosthenes_mu(X)
+assert all(mu[n] == trial_mu(n) for n in range(1, 2001))
+cutoffs = {X, R - 1}
+owners = [q for q in range(3, isqrt(R - 1) + 1, 2) if prime(q)]
+cutoffs.update(X // (q * q) for q in owners)
+prefix = {}
+M = Q = 0
+for n in range(1, X + 1):
+    M += mu[n]
+    Q += mu[n] * mu[n]
+    if n in cutoffs:
+        prefix[n] = (M, Q)
+G = prefix[X][0] - prefix[R - 1][0]
+V0 = prefix[X][1] - prefix[R - 1][1]
+U = F(0)
+E = 0
+overlap = F(0)
+for q in owners:
+    d, v = prefix[X // (q * q)]
+    v -= prefix[R - 1][1]
+    U += F(d, q)
+    E += d * d
+    overlap += F(2 * v, q)
+    assert F(2 * (G * d - v), q) - 2 * d * d <= 0
+print('ANCHOR_2002', 'G', G, 'V0', V0, 'U', U, 'E', E,
+      'DminusP', V0 + overlap, 'B', G * G + 2 * G * U - 2 * E - V0 - overlap,
+      'corr_times_U', -G * U)
+```
