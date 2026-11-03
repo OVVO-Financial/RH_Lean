@@ -1294,3 +1294,556 @@ Final disposition: PAPER_PROOF / SELF_AUDIT plus FINITE_COMPUTATION and scoped R
 - Upstream gain: VERIFIED_ETA / ON_MAIN is inherited from committed Referee/Coordinator evidence for the native strict Mertens endpoint, not this run's result and not the canonical actual-prime VF theorem. Current #1082 is an open draft at 0b41bfa95bf2dbeb6facf051014d41688dd62e26; no compilation conclusion is inferred from its title.
 - Planned discriminator: determine whether causal matching or a time-varying owner potential produces a genuinely new one-sided restriction, and test every proposed order premise against the actual event stream. Generic rearrangements may diagnose insufficiency but will never be reported as genuine arithmetic counterexamples.
 - Permissions: own daily report only. Shell clone failed with CONNECT tunnel HTTP 403; GitHub connector retrieval works. No local Lean, branch/PR change, agent launch, or schedule change.
+
+
+---
+
+## Scheduled JOH Continuation Final Synthesis - Claim 20261103-owner-3
+
+**Invocation:** scheduled 2026-11-03 16:15:01 EST (-0500); RUN_ID_UNAVAILABLE. This completes the checkpoint above, not a second execution.
+
+**Classification:** PAPER_PROOF / SELF_AUDIT for the phase-sensitive clock inequalities; FINITE_COMPUTATION with rational interval certificates; REFUTED for the stated adjacent-excursion payment hypothesis; IDENTITY_ONLY for reconstruction. Independent review PENDING; no new Lean theorem. New endpoint gain UNKNOWN.
+
+### A. Most Important Mathematical Development
+
+**Grouping into complete chronological excursions does not establish adjacent payment.** The new tested hypothesis was that a complete negative excursion pays the immediately following complete positive excursion, at least inside a count-balanced genuine square block. It is false.
+
+At root 12, the actual first two excursions are
+```text
+148(-1), 149(+1), 151(+1), 153(-1).
+negative area = -1; following positive area = +2.
+```
+Their union has zero endpoint mass and signed area +1. The entire open square block is also count-balanced and has local area +3. The held-out root 35 has areas -1 and +4, again inside a balanced block. Thus the obstruction survives adaptive grouping by actual return times, not just fixed owner prices.
+
+A corrected independent all-scale restriction survives: the deterministic floor-Li clock limits the speed of downward backlog motion. With the actual fractional phase retained, a positive height h at t that returns to zero must contribute at least
+```text
+(1/2) log(t) * (h - frac(Li_2(t)))^2
+```
+of positive area before its return. There is a corresponding phase-sensitive lower bound on the formation of a negative excursion. These are structural lower bounds on occupied signed area, not the upper bound or sign comparison needed by JOH.
+
+**Full return matters:** at root 12 the historical term is -125, so the actual global JOH increment is -125+3=-122, not +3. The local counterexample does not contradict the canonical theorem, the JOH eventual sign target, or first-bad-conditioned source payment.
+
+### B. Current Authoritative Objective
+
+Intake main: ad763e3f6ef1f13ff2eeac5b7647d6116923bded. During this run #1082 was human-merged; refreshed main: **69aac0441b4df011cf7df3ba115169c3b66d72f5**. Re-fetch of AGENTS.md and CURRENT_PROOF_CONTRACT.md found identical bytes. Recursive tree comparison found all JOH definitions, cited excursion infrastructure, native strict-Mertens terminal source, and policy files unchanged.
+
+The canonical actual-prime target is still
+```text
+exists C>=0, forall integer R>=2,
+  |pi(R^2)-VF_can(R^2)| <= C R log R.
+```
+The square/all-real/legacy von Koch transports are established at their stated scope. The formal VF-to-RH consumer retains its explicit ClassicalVonKochRHCriterion argument; this run does not supply it or the open actual-prime bound.
+
+The due route is JOH, following SAT (20261103-owner-1) and VF-LOW (20261103-owner-2). Resume source: 20261102-owner-3 equations (48)-(49), with its genuine chronology, owner colors and unmatched tail. Latest Coordinator 20261103-coordinator-2 specifically assigns this turn; the obsolete NEXT-OWNER bootstrap is not restarted.
+
+For JOH, put
+```text
+L(x) = Li_2(x) = integral_2^x du/log u,
+Q(n) = floor(L(n)),       theta(n) = L(n)-Q(n),
+B(n) = pi(n)-Q(n)-1,
+eta(k) = 1_Prime(k) - (Q(k)-Q(k-1)),
+G(N) = sum_(2<=n<N) B(n).
+```
+The source's Lean primitive is indexed one step earlier:
+`eta(k)=vfMidFloorLiPrimitiveMismatch(k-1)`.
+No silent identification of k with k-1 is used. All experiments below use k>=5.
+
+[Johnston's original theorem](https://arxiv.org/abs/2201.06184) concerns the integrated error with classical li, not Li_2. Its all-real sign criterion was refreshed from the primary abstract. The repository's paper eventual-square transfer retains li(x)=li(2)+Li_2(x) and an O(N) rounding correction; that transfer is not newly proved or claimed Lean-certified here. The arithmetic target G(R^2)<0 eventually remains open.
+
+Material source blobs, all at the refreshed main unless noted:
+
+| Source | Blob SHA |
+| --- | --- |
+| AGENTS.md | 9fa5e9519e2fb6dde22217aa2a18982dafef373a |
+| CURRENT_PROOF_CONTRACT.md | 88cddd9cd98c3b55f0b013998541e9b4e9dc9f2a |
+| Stable task selector | d05c327ae694ea54b599dab0a21032a056b521f1 |
+| Broad-search policy | b5c063c51556ba57c4b25bcc380a606fa8daa207 |
+| Complete-return contract | 16838f7f3c8724b970f8b8ece0bceaab9418066d |
+| Persistent research engine | 6fce99c61efb5b2a73c0cb1f1464f09b351fcd55 |
+| All-vector source directive | 0b8733cbb3eabeb0954df4a77cfccde25f54c4a0 |
+| Role prompts | 7366bb71e8a97fd11689a64311c7f590edeb1adf |
+| Dynamic protocol | fe21d2824491fb001726311f736b9825a8f97eca |
+| research/VF_CANONICAL_SQRT_TWO_VON_KOCH.lean | 79030d70e8d3e0d08eef9bac53fef95c36eca2fb |
+| research/VF_MID_FLOOR_LI_SIGNED_POPULATION_BALANCE.lean | 9a9336dad72171b6d572a1c1ae88d1ae8b56b530 |
+| research/VF_MID_FLOOR_LI_DISCRETE_BACKLOG.lean | 4255ca0dffe480f2aec6bd0b68797bbd293396c3 |
+| research/VF_MID_FLOOR_LI_TRANSPORT_CANCELLATION.lean | eb84f59055bd31dc117be034d45c92eb9dab8f27 |
+| research/LI_FAN_ONE_SIDED_WEIGHTED_COMPOSITE_RH_CONTRACT_20261022.md | 27e28f09e9f79e8a60d524e5fcb6f19904fa55f5 |
+| RHLean/Analysis/PrimeSieveLipschitzExcursion.lean | 3eec4abf544310871088dae648fbed1f400cf35a |
+| research/VF_MID_OSCILLATION_SCALE.lean | 12bf7f4ddf6e3861d07eb03292eb6aeb4cbedde6 |
+| research/oai_434/VF919NativeStrictMertens.lean | b33a4883e1ddb0551b0f11f062bce46680d87450 |
+| research/oai_434/VF919NativeOwnerDiagonalThreeQuarter.lean | 798e7a3ee89324feb3eafd8d28b56f18c4f03d3c |
+
+**Upstream status, not today's result.** The committed independent reviews and current terminal source establish the inherited VERIFIED_ETA / ON_MAIN strict native Mertens result. Its fixed saving is not evaluated here. It supplies neither the JOH sign nor canonical VF. Preserve broad portfolios.
+
+The initial main had 11/11 returned successful push workflows, including original OAI/NNS run 41716984479. #1082's final head 0b41bfa95bf2dbeb6facf051014d41688dd62e26 had 12/12 returned successful workflows, including dedicated run 41717376409, and then merged. Its literal p>R diagonal bound is O_epsilon(R^(11/4+epsilon)); its positive fullOwnerGamma upper estimate remains unpaid. The file explicitly says this. No transport of that diagonal bound to prime/floor-Li excursion areas has been proved. The final open-PR query returned none. No new local Lean run or independent dependency audit is claimed.
+
+### C. Structural Hypothesis Investigated
+
+Three mathematical moves were compared.
+
+1. Fixed owner-weight or count-only repayment was already refuted. It was retained only as a regression, not attempted again.
+2. **H1: adjacent complete-excursion absorption.** In each count-balanced open square block, every negative excursion immediately followed by a positive excursion satisfies A_positive<=A_negative, where both A's are unsigned physical-time areas. This groups by actual return times and permits arbitrary owner mixtures, so roots 4 and 8 alone do not settle it. This was the principal falsifiable candidate.
+3. One-sided clock control: use the actual fractional floor-Li phase and monotonicity of pi to bound how fast an excursion can descend. This provides an independent quantitative structural lemma even when H1 fails.
+
+H1 was recorded in the scratch reproducer before its scan. Development roots were 2..32; held-out roots were 33..64. Discovery used 75-digit Decimal series evaluation. Promotion of the decisive roots 12 and 35 used a separate integer-only interval implementation below. The unchanged hypotheses were not weakened after failure.
+
+### D. Mathematical Derivation
+
+#### D1. Complete Source And Excursion Reconstruction
+
+For integers 4<=L<U, define the actual reset backlog
+```text
+C(n)=B(n)-B(L),                       L<=n<U,
+J(L,U)=sum_(L<k<U)(U-k)*eta(k).
+```
+Finite Fubini gives the already accepted area identity, now with the global anchor written explicitly:
+```text
+J(L,U) = sum_(L<=n<U) C(n),
+G(U) = G(L) + (U-L)*B(L) + J(L,U).                 (JH1)
+```
+A complete excursion is a maximal consecutive nonzero segment of C between zero returns. It has one sign, since eta is ternary. Separate all complete positive and negative excursions, and retain the terminal, possibly unclosed excursion as T:
+```text
+J=A_plus-A_minus+T,
+Z=G(L)+(U-L)*B(L)+T,
+G(U)=Z+A_plus-A_minus.                             (JH2)
+```
+Every negative event keeps its actual least-prime label, factorization, location and coefficient -1. Positive events keep their actual prime and coefficient +1. Simultaneous prime/model arrivals have eta=0 and are not counted as two independent occurrences. No historical prime is cloned. Complete excursions preserve local rank matching because each has equal positive and negative event counts; the terminal excursion and the original unequal-count rank tail cannot be silently discarded.
+
+If a quadratic consumer is contemplated, its complete expansion is
+```text
+G(U)^2 = Z^2+A_plus^2+A_minus^2
+       +2 Z A_plus-2 Z A_minus-2 A_plus A_minus.     (JH3)
+```
+This is the JOH square only. It is NOT an identification with the original #915 denominator or zero-target NNS source.
+
+For square blocks L=r^2, U=(r+1)^2,
+```text
+G(R^2)=G(4)+sum_(2<=r<R)[(2r+1)B(r^2)+J(r^2,(r+1)^2)].
+                                                               (JH4)
+```
+An odd-square event at the left boundary is contained in B(r^2); it has not disappeared. There is no interpolation or square-boundary omission in this identity.
+
+#### D2. Phase-Sensitive Positive Descent
+
+**Claim JH-POS, PAPER_PROOF.** Fix any integer baseline b and integers 4<=t<v. Set C(n)=B(n)-b. Suppose
+```text
+C(t)=h>=1, C(v)=0, and C(n)>0 for t<=n<v.
+```
+Let a=h-theta(t)>0. Then
+```text
+v-t > a log(t),
+sum_(t<=n<v) C(n) >= (1/2) a^2 log(t).             (JH5)
+```
+The quantifiers are uniform in b,t,v,h. No prime-count estimate, RH hypothesis, source-payment assumption, or probabilistic independence is used.
+
+Proof. For n>=t,
+```text
+C(n)=h+[pi(n)-pi(t)]-[L(n)-L(t)]-theta(t)+theta(n)
+    >= a - integral_t^n du/log(u)
+    >= a - (n-t)/log(t).                           (JH6)
+```
+At v, pi(v)-pi(t)>=0 and theta(v)>=0 imply L(v)-L(t)>=a. Strict decrease of 1/log(u) gives v-t>a log(t). For d=0,...,ceil(a log(t))-1, the lower triangle in (JH6) is nonnegative and lies inside the same excursion. Its left-endpoint sum dominates its integral:
+```text
+sum_d max(0,a-d/log(t))
+ >= integral_0^(a log(t)) (a-x/log(t)) dx
+ = a^2 log(t)/2.
+```
+This proves (JH5). In particular one may replace a by h-1 for a weaker phase-free bound, but the original phase-sensitive statement is retained.
+
+For any finite disjoint family of completed positive excursions, choose one peak (t_e,h_e) per excursion. Their post-peak intervals are disjoint, so
+```text
+A_plus >= (1/2) sum_e log(t_e)*(h_e-theta(t_e))^2.   (JH7)
+```
+No root-average orthogonality or omission of interactions is asserted.
+
+#### D3. Phase-Sensitive Negative Formation
+
+**Claim JH-NEG, PAPER_PROOF.** With the same integer baseline, suppose 4<=u<t, C(u)=0, C(n)<0 for u<n<=t, and C(t)=-h, h>=1. Put a=h-1+theta(t)>=0. Then
+```text
+t-u > a log(u),
+sum_(u<=n<=t) (-C(n)) >= (1/2) a^2 log(u).         (JH8)
+```
+Proof. For u<=n<=t, monotonicity of pi gives
+```text
+C(n)=-h-[pi(t)-pi(n)]+[Q(t)-Q(n)]
+    < -h+integral_n^t du/log(u)+1-theta(t)
+    <= -a+(t-n)/log(u).
+```
+At n=u this gives t-u>a log(u). Sum the same nonnegative triangle backwards from t. The case a=0 is immediate. Both signs thus have a forced physical-time cost on the part of their motion driven by floor-Li demand. Neither lower bound compares different excursions or forces their areas to cancel.
+
+The elementary Li drift estimate itself is already on main as abs_logarithmicIntegralFromTwo_sub_le in PrimeSieveLipschitzExcursion.lean. That module's general moment lemma concerns a differently normalized Abel face. This run does not claim to invent the Lipschitz/triangle method. The selected contribution is the literal floor-phase one-sided application to JOH, its two directions, full anchor restoration, and the falsifier of the proposed cross-excursion inference. The scoped source/report search found no identical JH5/JH8 statement; no exhaustive novelty claim is made.
+
+#### D4. Actual Four-Event Obstruction
+
+If the only nonzero events in a balanced interval are
+```text
+b1(-1), p1(+1), p2(+1), b2(-1), with b1<p1<p2<b2,
+```
+then the first excursion has area -(p1-b1), the second +(b2-p2), and their sum is
+```text
+b1+b2-p1-p2.                                      (JH9)
+```
+Thus a lossless adjacent repayment requires the midpoint of the two prime innovations to lie no earlier than the midpoint of the two composite demands. Actual primality and least-prime labels do not force this order.
+
+At b1=148, p1=149, p2=151, b2=153, both p's are prime;
+148=2^2*37 and 153=3^2*17 have genuine least owners 2 and 3. The required floor values are certified. JH9 equals +1. These are real squareful composite demands, not a nonzero-Mobius carrier.
+
+For completeness the entire root-12 block has
+```text
+primes:          149,151,157,163,167
+floor arrivals:  148,153,158,163,168
+Q(144)=38, Q(168)=43; pi(144)=34; B(144)=-5.
+```
+The coincident event at 163 cancels exactly. Four positive and four negative mismatches remain. The excursion areas are -1,+2,+1,+1, hence J=3. Historical restoration is
+```text
+G(144)=-431,
+G(169)-G(144)=25*(-5)+3=-122,
+G(169)=-553.                                      (JH10)
+```
+
+The held-out root-35 first pair is
+```text
+1228(-1),1229(+1),1231(+1),1235(-1),
+areas -1,+4; 1228=2^2*307, 1235=5*13*19.
+```
+The whole block is balanced; J=-24, B(1225)=-9, G(1225)=-8392, G(1296)=-9055. Its increment is 71*(-9)-24=-663. The local absorption fails even where the complete local area already has the favorable negative sign.
+
+### E. Quantitative Consequence
+
+JH5/JH8 give genuine uniform height-to-area restrictions at the original physical time scale, with explicit constant 1/2 and the original floor phase. They are not a new bound on G or pi-VF_can.
+
+H1 and every proposed adjacent contraction with A_positive<=c*A_negative and c<=1 are refuted by root 12. The certified root-35 ratio 4 also refutes every universal such constant c<4. No assertion is made that every finite c fails, or that these finite roots refute an eventual-only statement.
+
+The new restriction does not close the estimate: separate lower bounds on A_plus and A_minus do not compare their signed difference, and neither controls Z in JH2. A proof of G(R^2)<0 still requires genuinely nonlocal arithmetic cancellation with the historical anchor and terminal terms. Merely assuming that final signed inequality would be TARGET_EQUIVALENT. No new endpoint exponent, canonical VF gain, or RH proof is claimed.
+
+### F. Falsification And Circularity Review
+
+**Certified numerical scope.** All floors Q(n), 2<=n<=1296, were enclosed by integer-only dyadic rational intervals with 200-bit denominator. Logs use range reduction to [1,2], 80 terms of the atanh series, and an explicit geometric remainder. The Ei series uses 180 terms and an explicit ratio-tail bound; Euler's constant cancels between the endpoints. Every floor is unambiguous. For n>=3, the certified distance to the nearest integer exceeds 3/10000; the maximum Li interval width is less than 10^(-50).
+
+The analytic identity underlying the certificate is elementary: for z>0,
+F(z)=log(z)+sum_(k>=1)z^k/(k*k!) satisfies F'(z)=exp(z)/z.
+Therefore L(n)=F(log n)-F(log 2), with no approximate Euler constant.
+After term K, the remaining positive series is bounded by its first omitted
+term divided by 1-z/(K+2), on the tested z<K+2 range. Every interval operation
+rounds outwards by integer division. The separate log remainder is
+2*u^(2m+1)/((2m+1)*(1-u^2)), where u=(y-1)/(y+1) and 1<=y<=2.
+
+The certifier independently sieves primes, reconstructs eta, least factors, B and G, and verifies JH1 at roots 4,8,12,35. It also checks the phase-sensitive area/lifetime inequalities for all 64 complete positive and 66 complete negative excursions in roots 2..35. This is finite regression evidence for the independently supplied paper proof, not its justification or Lean certification.
+
+Discovery roots 36..64 used Decimal arithmetic only and are not promoted as interval-certified results. The two decisive blocks are certified separately. The initial discovery attempt found mpmath absent and stopped before running; it was replaced by the disclosed standard-library Decimal evaluator. No failed command is reported as a completed experiment.
+
+Existing root-4 and root-8 regressions were reused to validate the changed source reconstruction. They are not claimed as new counterexamples. The earlier once-only ancestor-capacity obstruction, BLOCK at R=549, and first-bad hypotheses retain their original scope. Neither new witness is asserted to satisfy a first-escape premise.
+
+The returned formulas keep actual squareful events, all owner colors, prime/model coincidences, boundaries, unmatched terminal area and global mixed terms. No unsigned count replaces a signed area. No inference from a scalar Mertens envelope to a local prime-excursion estimate is used.
+
+**Review status:** author SELF_AUDIT only. No sub-agent was launched; no independent Referee verdict for this claim exists yet.
+
+### G. Conceptual Interpretation
+
+Moving from static owner prices to adaptive chronological excursions does not by itself create payment. A return to zero erases event-count imbalance, but does not erase the time spent away from zero. The actual floor clock enforces a precise cost for descending through h levels; the placement of prime innovations inside those clock intervals decides the signed area.
+
+The two-prime motif makes the missing dependence concrete: it is the location of prime clusters relative to deterministic Li arrival phases, not simply their number, least-owner labels, or completed return count. The historical baseline can still absorb an unfavorable local motif, as JH10 explicitly demonstrates.
+
+### H. Competing Mechanisms
+
+| Mechanism | Established input | Independent missing input / obstruction | Disposition |
+| --- | --- | --- | --- |
+| Fixed nonnegative owner prices | Prior rank/color identities | Refuted at roots 4/8 | Abandon unchanged |
+| Adjacent completed-excursion repayment | Exact return times and rank-preserving balanced groups | Refuted at roots 12/35; even peak-one pairs fail | Abandon H1, not all nonlocal chronology |
+| Phase-sensitive clock persistence | JH5/JH8, uniform paper inequalities | No comparison of positive and negative excursion populations | Retain as a scoped structural tool |
+| Nonlocal history plus chronology | Exact JH1-JH4 | Actual arithmetic relation between phase, prime-cluster location and history | Continue only with a concrete new premise |
+| SAT full moving-band return | 20261103-owner-1 equation (63) | Growing-band signed prime error and terminal restoration | Next protected route |
+| VF-LOW raw short-horizon packets | 20261103-owner-2 O1-O5 | Long-horizon signed complement; divisor-only capacity already fails | Preserve, do not revive refuted capacity |
+
+The clock theorem is more informative than a generic color-balanced rearrangement, but it is not more promising than the previous approach as an endpoint supplier by itself. The substantive strategic advance is rejection of the proposed local return-to-return contraction with a fully restored genuine witness.
+
+### I. Specialist Handoffs
+
+**Coordinator / Proof Architect:** register claim 20261103-owner-3 with JH5/JH8 as PAPER_PROOF / SELF_AUDIT and H1 as REFUTED by the interval-certified roots 12/35. Do not turn a local positive area into a positive global G increment. Preserve SAT as the next Owner route and the separate nine-route programme.
+
+**Adversarial Referee:** audit the one-step index map, both phase signs, the backwards negative-excursion sum, the ceil/triangle endpoint, and JH10. Independently check the rational floor certificate or reproduce the two event windows. Return separate verdicts on JH5/JH8, the exact finite H1 falsifier, and the absence of an endpoint gain. The source-qualified main Li drift theorem is a reusable prerequisite, not a newly discovered lemma.
+
+**Prime Census:** no larger scan requested. Independently certify Q(144..169) and Q(1225..1296), primality/factorization and the full anchor increments. Rival hypotheses: nearest negative excursion absorbs the next positive one versus the certified ratios 2 and 4. One exact witness suffices; test all occurrences, including cancellations at 163 and 1249. Any future scan needs a new nonlocal prediction fixed before testing.
+
+**Finite Wheel & Incidence:** identify an actual arithmetic restriction on prime positions inside Li arrival intervals that is absent from JH9, if one is available. Least-prime ancestry alone has already failed. Keep the p=2/3 and p=2/5 transitions, including their squareful demands, as fixtures. Do not import the rational {2,3} Euler kernel as the same carrier.
+
+**Analytic Type II:** a potentially meaningful new input would control prime-cluster position relative to the fixed Li clock jointly with the historical backlog. No such uniform theorem is supplied here. Existing native Mertens growth, OAI ideal Gram and NYMAN tail results have no established occurrence/weight map to this JOH quantity; their valid quantitative results cannot be silently transferred.
+
+**Lean Verification:** no new implementation request before independent acceptance and utility review. If accepted and useful, JH5 is a small finite inequality using the existing Li drift, floor-fraction bounds and prime-count monotonicity; JH8 has the explicit backward variant. Do not create an RH wrapper assuming the missing signed comparison. Your currently accepted queue and real write-access constraints remain separate.
+
+These are published asynchronous handoffs, not claims that another agent has executed, reviewed or been launched.
+
+### J. First Independently Missing Lemma
+
+The attempted independent supplier was H1, not the whole JOH sign. It is now REFUTED and must not remain on an open-proof queue.
+
+**No qualified replacement quantitative supplier was obtained.** A concrete smaller arithmetic question, for the next JOH turn after rotation, is the following proper-class signed midpoint problem. Let b_j be the successive genuine floor-Li arrival locations. Fix the EVEN j subfamily of slots [b_j,b_(j+1)] whose endpoints are composite and whose interiors contain exactly two primes p_j<q_j. Even j makes these selected closed slots pairwise disjoint, so no boundary demand is spent twice. Determine a rigorously justified signed estimate for
+```text
+W(X)=sum_(selected slots contained in [X,2X])
+       [b_j+b_(j+1)-p_j-q_j].
+```
+Each term is exactly the four-event signed area JH9, with its actual weights and locations. The complement is every unselected event, the unselected slots, their historical anchor and terminal return. An estimate for W alone would not close JOH; its downstream use must first recover that complement. No favorable sign, power saving, infinite motif frequency or endpoint implication for W is asserted.
+
+The smallest decisive next action is to identify an independent phase/order restriction on this explicitly specified proper subfamily, or falsify a precise proposed restriction. Merely renaming Z+A_plus-A_minus<0 as the next lemma would be target-equivalent and is rejected. This is a completed falsification with a scoped structural theorem, not a claim that the remaining research is impossible.
+
+### K. Next-Run Resume Capsule
+
+```text
+ENGINE: 6fce99c61efb5b2a73c0cb1f1464f09b351fcd55.
+RUN: scheduled 2026-11-03 16:15:01 EST; RUN_ID_UNAVAILABLE.
+INTAKE_MAIN: ad763e3f6ef1f13ff2eeac5b7647d6116923bded.
+REFRESHED_MAIN: 69aac0441b4df011cf7df3ba115169c3b66d72f5.
+TASK: NEXT-OWNER adjusted by newer evidence / due JOH.
+CLAIM: 20261103-owner-3, JH1-JH10.
+NEW PAPER INPUT: phase-sensitive height-to-area JH5 and JH8.
+FALSIFIED: lossless adjacent negative-to-positive excursion absorption.
+FIXTURES: root12 areas -1,+2, J=3, anchor=-125, global increment=-122;
+          root35 areas -1,+4, J=-24, anchor=-639, global increment=-663.
+REVIEW: SELF_AUDIT; independent Referee and Lean PENDING.
+NEW COMPLETE-ENDPOINT GAIN: UNKNOWN; none established by this run.
+PROJECT GATE: inherited VERIFIED_ETA / ON_MAIN, not JOH or RH closure.
+LATEST OWNED TURNS: SAT owner-1, VF-LOW owner-2, JOH owner-3.
+NEXT DISTINCT ROUTE: SAT, resume owner-1 equation (63) and terminal return.
+JOH RESUME: retain JH1-JH4; do not retry H1 or fixed owner prices.
+VF-LOW RESUME: retain O1-O5; no unconditional ancestor-capacity revival.
+```
+
+#### Continuity Record
+
+All files below were retrieved at reporting head f0a7bf2655f1df641ab8e8624fc92ec811c967a5; applicable findings, corrections and continuation sections were read. This is not a claim of independent proof review of every report.
+
+| Role | November 2 blob | November 3 intake blob |
+| --- | --- | --- |
+| Coordinator 00/90 | 1e932d4ce0eb0fd2c5f4507f6b111194d633eb32 | 8f22479e602b919c00ad5539a7442371c2ee6076 |
+| Owner | abfe546d72b151f4cd200fc61de3197efe23a65c | 0688ba1d205ac2e846c3c3a55adfc267a6eb6a40 |
+| Analytic | 8e48b59611aa1d0bfa3577ed0a4a3bc0d0fcae73 | 79f5f11020d7038028f4ddfe92ff3f95d4bd0798 |
+| Wheel | abf8ac8c22a708886183849552c90dd62787ac8d | 15802d31f6b7abf3ffff97a5a57942baf3bc2d07 |
+| Census | 2cd84c57ab18d923e97368764f29f4ccd2ec3bb3 | 5b564235ba20bf4a53c13dac0cc91d210d665a84 |
+| Referee | 814af1684df66e6ac99b8df1f102cb592b316f89 | dff2382a732be1829ad7583e046ebbc64c61e4c9 |
+| Lean | 02d19d792e26f072004cb5909f149538752626e9 | a9c65a6809323216f8a876845538b6af0fae393e |
+
+TODAY=AVAILABLE for every role; YESTERDAY=CARRY_FORWARD. Coordinator mirrors have matching blobs. External inbox 038018145c0fddb2f6306c0712373adf9cd1ea52 has no entry after October 18. EXT-20261018-PNT-1..3, EXT-20261014-5 and the source-splice qualifications remain scoped historical evidence, not new routing.
+
+A prepublication directory refresh returned the same upstream blobs; only this role's verified checkpoint differed from intake. No newly committed same-day upstream result was omitted at that refresh.
+
+Important non-transfers preserved: Analyst's inverse amplitude theorem is not a new Mertens gain; the Referee's earlier constant objection was explicitly withdrawn. The squarefree comparison-sequence fragment obstruction is not a genuine-mu counterexample. Wheel's partial {2,3} finite-C kernel and Census's common-mode reserve do not identify JOH events. The latest NYMAN tail/head work pays only its stated ranges. Lean's C29 appendix is still uncompiled under its reported write-access blocker. Earlier stale PR_HEAD_ONLY and OPEN labels were not carried forward after verified merges.
+
+#### Execution And Publication Evidence
+
+The early checkpoint was committed as c4494fdd21d9db4117d213e7ae6d373ce0345eec and re-fetched at blob 9dea351be1ac78f476f175031b2af4b1e924c9f2, matching the submitted bytes exactly. Commit inspection showed only this authorized report changed. The final substantive commit/readback is verified after this update and recorded in the receipt below.
+
+Local scratch source SHA256:
+```text
+discovery: cdf05e7d80a3f2414610a9700a67bbd66a801344f7bf051ade36a225c61d70dd
+certifier: 4aabf4769c079fe14f8d7c81dcbc25adf42412349fab96e2dcabb24c636f9ae1
+```
+The certifier is embedded below so the mathematical witness does not depend on an unavailable local file. Its finite output is not labeled PROVED_IN_LEAN. No local Lean, proof-source edit, other-report edit, issue/PR mutation, branch creation, workflow launch, agent launch, schedule change, permission change or merge was performed. The only remote writes were to this existing daily report. Shell clone failed with CONNECT tunnel HTTP 403; the GitHub connector worked. The missing optional mpmath package was bypassed with standard-library exact/Decimal code.
+
+### Executed Rational Certificate
+
+```python
+"""Rational dyadic interval certificate for the selected genuine JOH events.
+
+All arithmetic deciding a floor or sign uses Python integers. Natural logs
+use range reduction and the atanh series with an explicit geometric tail.
+Li_2 uses the convergent Ei series; Euler's constant cancels exactly.
+"""
+
+import json
+from fractions import Fraction
+from math import isqrt
+
+BITS = 200
+SCALE = 1 << BITS
+LOG_TERMS = 80
+EI_TERMS = 180
+
+
+def ceildiv(a, b):
+    return -((-a) // b)
+
+
+def rational(n, d=1):
+    return n * SCALE // d, ceildiv(n * SCALE, d)
+
+
+def add(a, b):
+    return a[0] + b[0], a[1] + b[1]
+
+
+def sub(a, b):
+    return a[0] - b[1], a[1] - b[0]
+
+
+def mul(a, b):
+    assert a[0] >= 0 and b[0] >= 0
+    return a[0] * b[0] // SCALE, ceildiv(a[1] * b[1], SCALE)
+
+
+def div(a, b):
+    assert a[0] >= 0 and b[0] > 0
+    return a[0] * SCALE // b[1], ceildiv(a[1] * SCALE, b[0])
+
+
+def times(a, n):
+    return (a[0] * n, a[1] * n) if n >= 0 else (a[1] * n, a[0] * n)
+
+
+def small_log(n, d):
+    assert d <= n <= 2 * d
+    u = rational(n - d, n + d)
+    u2 = mul(u, u)
+    power, result = u, rational(0)
+    for j in range(LOG_TERMS):
+        result = add(result, div(times(power, 2), rational(2 * j + 1)))
+        power = mul(power, u2)
+    tail = div(times(power, 2), times(sub(rational(1), u2), 2 * LOG_TERMS + 1))
+    return result[0], result[1] + tail[1]
+
+
+LOG2 = small_log(2, 1)
+
+
+def log_rational(n, d=1):
+    assert n > 0 and d > 0
+    k = n.bit_length() - d.bit_length()
+    if k >= 0:
+        den, num = d << k, n
+    else:
+        den, num = d, n << (-k)
+    if num < den:
+        k -= 1
+        num *= 2
+    assert den <= num < 2 * den
+    return add(small_log(num, den), times(LOG2, k))
+
+
+def ei_without_gamma(z):
+    assert z[0] > 0
+    result = (log_rational(z[0], SCALE)[0], log_rational(z[1], SCALE)[1])
+    term = rational(1)
+    for k in range(1, EI_TERMS + 1):
+        term = div(mul(term, z), rational(k))
+        result = add(result, div(term, rational(k)))
+    first = div(div(mul(term, z), rational(EI_TERMS + 1)), rational(EI_TERMS + 1))
+    ratio = div(z, rational(EI_TERMS + 2))
+    tail = div(first, sub(rational(1), ratio))
+    return result[0], result[1] + tail[1]
+
+
+BASE = ei_without_gamma(LOG2)
+
+
+def li_interval(n):
+    if n == 2:
+        return rational(0)
+    return sub(ei_without_gamma(log_rational(n)), BASE)
+
+
+def sieve(n):
+    p = bytearray(b"\x01") * (n + 1)
+    p[:2] = b"\x00\x00"
+    for k in range(2, isqrt(n) + 1):
+        if p[k]:
+            p[k * k:n + 1:k] = b"\x00" * ((n - k * k) // k + 1)
+    return p
+
+
+def factor(n):
+    result = []
+    for d in range(2, isqrt(n) + 1):
+        while n % d == 0:
+            result.append(d)
+            n //= d
+    if n > 1:
+        result.append(n)
+    return result
+
+
+ROOTS = [4, 8, 12, 35]
+END = (max(ROOTS) + 1) ** 2
+prime = sieve(END)
+q, intervals, margins, widths = {}, {}, [], []
+for n in range(2, END + 1):
+    lo, hi = li_interval(n)
+    assert lo // SCALE == hi // SCALE, (n, lo, hi)
+    q[n] = lo // SCALE
+    intervals[n] = (lo, hi)
+    if n > 2:
+        margins.append(min(lo - q[n] * SCALE, (q[n] + 1) * SCALE - hi))
+    widths.append(hi - lo)
+
+count = 0
+B = {}
+G = {2: 0}
+for n in range(2, END + 1):
+    count += prime[n]
+    B[n] = count - q[n] - 1
+    G[n + 1] = G[n] + B[n]
+
+blocks = []
+for r in ROOTS:
+    left, right = r * r, (r + 1) ** 2
+    events = []
+    q_arrivals, primes = [], []
+    c = area = 0
+    for n in range(left + 1, right):
+        if prime[n]:
+            primes.append(n)
+        if q[n] != q[n - 1]:
+            q_arrivals.append(n)
+        eta = int(prime[n]) - q[n] + q[n - 1]
+        assert eta in (-1, 0, 1)
+        if eta:
+            events.append([n, eta, factor(n) if eta < 0 else []])
+        c += eta
+        area += c
+    assert G[right] - G[left] == (right - left) * B[left] + area
+    blocks.append({"r": r, "Q_left": q[left], "Q_last": q[right - 1],
+                   "primes": primes, "floor_arrivals": q_arrivals,
+                   "events": events, "balanced": c == 0, "J": area,
+                   "B_left": B[left], "G_left": G[left], "G_right": G[right],
+                   "global_increment": G[right] - G[left]})
+
+# This interval has exactly two excursions, both complete and owner-labeled.
+selected = [(n, int(prime[n]) - q[n] + q[n - 1]) for n in range(148, 154)]
+assert selected == [(148, -1), (149, 1), (150, 0), (151, 1), (152, 0), (153, -1)]
+assert all(lo > 0 for lo in margins)
+
+# Source-qualified checks of both phase-sensitive excursion inequalities.
+phase_checks = {"positive": 0, "negative": 0}
+for r in range(2, 36):
+    left, right = r * r, (r + 1) ** 2
+    c = {n: B[n] - B[left] for n in range(left, right)}
+    start = None
+    for n in range(left + 1, right):
+        if c[n - 1] == 0 and c[n] != 0:
+            start = n - 1
+        if start is not None and c[n] == 0:
+            if c[start + 1] > 0:
+                t = max(range(start + 1, n), key=lambda k: c[k])
+                phase = sub(intervals[t], rational(q[t]))
+                a = sub(rational(c[t]), phase)
+                bound = div(mul(log_rational(t), mul(a, a)), rational(2))
+                area = sum(c[k] for k in range(t, n))
+                assert area * SCALE >= bound[1]
+                assert (n - t) * SCALE > mul(log_rational(t), a)[1]
+                phase_checks["positive"] += 1
+            else:
+                t = min(range(start + 1, n), key=lambda k: c[k])
+                phase = sub(intervals[t], rational(q[t]))
+                a = add(rational(-c[t] - 1), phase)
+                bound = div(mul(log_rational(start), mul(a, a)), rational(2))
+                area = sum(-c[k] for k in range(start, t + 1))
+                assert area * SCALE >= bound[1]
+                assert (t - start) * SCALE > mul(log_rational(start), a)[1]
+                phase_checks["negative"] += 1
+            start = None
+print(json.dumps({"bits": BITS, "log_terms": LOG_TERMS, "ei_terms": EI_TERMS,
+                  "certified_floor_range": [2, END],
+                  "phase_inequality_checks": phase_checks,
+                  "minimum_integer_margin_lower": str(Fraction(min(margins), SCALE)),
+                  "maximum_interval_width": str(Fraction(max(widths), SCALE)),
+                  "blocks": blocks}, indent=2))
+```
+
