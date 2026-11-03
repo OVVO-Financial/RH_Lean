@@ -127,12 +127,6 @@ def main() -> None:
             if text.count('∃j s,LFunction') != 2:
                 raise ValueError('Unexpected complex zero-witness inventory')
             text = text.replace('∃j s,LFunction', '∃j, ∃s : ℂ,LFunction')
-            # A bare `≤s` token resolves to mathlib's graph-subgraph notation,
-            # not the ordinary real inequality `≤` followed by the zero `s`.
-            # The native replay imports that notation; space it explicitly.
-            if text.count('a≤s.re ∧') != 2:
-                raise ValueError('Unexpected zero-real-part comparison inventory')
-            text = text.replace('a≤s.re ∧', 'a ≤ s.re ∧')
             if text.count('a≤s.re ∧ s.re<a+e ∧ |s.im|') != 2:
                 raise ValueError('Unexpected complex projection inventory')
             text = text.replace('a≤s.re ∧ s.re<a+e ∧ |s.im|',
@@ -154,6 +148,17 @@ def main() -> None:
                 'generic principal residue, true zero-free premise')
         elif name == 'VF919AnchoredHighTransport':
             text = text.replace('have hbetal :=', 'have _hbetal :=')
+        # The imported native packages also expose mathlib's graph `≤s`
+        # notation, which otherwise absorbs `a≤s.re` as a graph comparison.
+        # Spacing must be fixed in EVERY generated theorem and its consumers.
+        expected_zero_comparisons = {
+            'VF919AnchoredHighTails': 2,
+            'VF919AnchoredHighTransport': 3,
+            'VF919AnchoredHighAssembly': 1,
+        }.get(name, 0)
+        if text.count('a≤s.re ∧') != expected_zero_comparisons:
+            raise ValueError(f'{name}: unexpected real-zero comparison inventory')
+        text = text.replace('a≤s.re ∧', 'a ≤ s.re ∧')
         text = pattern.sub(lambda match: mapping[match[0]], text)
         imports = {
             'VF919AnchoredSmallTail': imp('VF919NativeSevenEighthsReplay'),
