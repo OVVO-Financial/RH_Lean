@@ -1306,3 +1306,12 @@ def main():
 if __name__ == "__main__":
     main()
 ```
+
+
+### Verified Publication Receipt for This Invocation
+
+- Final research synthesis and complete executed reproducer committed at `7bb29444d3c93f9440394fb0625d6e12ac6b19de` on `agent-reports`; GitHub commit timestamp `2026-11-03T15:33:36Z` (`2026-11-03 10:33:36 EST`).
+- Resulting report blob: `5376e5e0d1c85dad0e13416d38eb50b0c3a08ccf`. A fresh readback matched all 89,437 submitted characters exactly.
+- The fetched commit metadata records exactly one changed file, `research/agent_reports/2026-11-03/30-finite-wheel.md`, with 575 additions and zero deletions. All preceding report content was retained.
+- Main was rechecked at closeout and remained `3930d884282dd5315f0453e5dd88b356d187a8e0`. No Lean files, other reports, branches, PRs, issues, policies, or schedules were changed. The branch named above already existed; this invocation only updated the authorized report.
+- This receipt records the already verified synthesis commit, not its own future commit. New claim `20261103-wheel-2` remains `PAPER_PROOF / SELF_AUDIT`, with independent review and any Lean formalization pending. No new global bound or endpoint gain is claimed.
