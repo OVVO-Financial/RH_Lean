@@ -24,6 +24,7 @@ targets=(
  VF919LowFirstPhysicalTiltFullBudget VF919LowFirstSlotCalibratedData VF919AnchoredSmallTail
  VF919AnchoredPrincipalRemainder VF919AnchoredHighPrincipal VF919AnchoredHighTails
  VF919AnchoredHighTransport VF919AnchoredHighAssembly VF919LowFirstSlotAnchoredEndpoint
+ VF919ActualSlotMinRetighten
 )
 for name in "${baseline[@]}" "${targets[@]}"; do
   echo "Checking $name" | tee -a "$log"
@@ -42,4 +43,7 @@ for target in hecke mertens; do
     --run "$bundle_dir/SlotAnchoredAudit.lean" "$target" \
     2>&1 | tee "slot-anchored-audit-$target.log"
 done
+env LEAN_PATH="$RH_PATH:$OAI_PATH" lean -DwarningAsError=true \
+  --run "$bundle_dir/ActualSlotMinAudit.lean" \
+  2>&1 | tee slot-anchored-audit-actual-slot-min.log
 echo 'Compilation and exact endpoint audits passed; independent mathematical review remains separate.'
