@@ -84,10 +84,10 @@ theorem native_beta_le_half_source_e
   change tilt<1/960 at htilt1
   let omega := (HeckeZeroSupremum.beta-(7/8-tilt))/2
   have homega : 0<omega := by dsimp [omega];linarith only [hgt]
-  let margin := min omega D.sigma
-  have hmargin : 0<margin := lt_min homega D.sigma_pos
-  have hmleft : margin≤omega := min_le_left _ _
-  have hmright : margin≤D.sigma := min_le_right _ _
+  let gapMargin : ℝ := min omega D.sigma
+  have hmargin : 0 < gapMargin := lt_min homega D.sigma_pos
+  have hmleft : gapMargin ≤ omega := min_le_left _ _
+  have hmright : gapMargin ≤ D.sigma := min_le_right _ _
   obtain ⟨η,ρ,_hprimitive,hhalf,_hstrip,hpole,hzero,hnear⟩ :=
     HeckePrimitiveSupremum.exists_primitive_zero_near_beta hmargin
       (by linarith only [hgt,htilt1])
