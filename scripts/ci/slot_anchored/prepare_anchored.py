@@ -168,6 +168,9 @@ def main() -> None:
         if text.count('≤saving') != required_saving_comparisons:
             raise ValueError(f'{name}: unexpected saving comparison inventory')
         text = text.replace('≤saving', ' ≤ saving')
+        # Native imports expose several letter-suffixed relation notations.
+        # Separate ordinary comparisons from following identifier tokens.
+        text = re.sub(r'([≤<≥>])(?=[^\\W\\d_])', r'\\1 ', text)
         text = pattern.sub(lambda match: mapping[match[0]], text)
         imports = {
             'VF919AnchoredSmallTail': imp('VF919NativeSevenEighthsReplay'),
