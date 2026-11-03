@@ -1263,3 +1263,15 @@ print({"symbolic_head_checks": head_checks, "projection_and_mean_checks": projec
 print("ALL EXACT ASSERTIONS PASSED; finite tails are not infinite-tail certificates")
 ~~~
 
+
+
+### Verified Publication Receipt - 2026-11-03 12:25 EST Run
+
+- Completion state: `PUBLISHED_VERIFIED` for the substantive research synthesis above.
+- Substantive publication commit: `1f7899aab8f8c830f404bae460b23aa57badf521`, committed `2026-11-03T17:25:27Z`.
+- Verified substantive content blob: `adabbe786b8dc336ebf495c1482ee83b10bf09a6`; fetched content matched all 95,172 submitted characters exactly.
+- Inspected commit file list: only this authorized daily referee report changed, with 621 additions and zero deletions. Earlier reports and this day's earlier entries/checkpoint were preserved.
+- Final prepublication source recheck at `2026-11-03T17:23:26Z`: main remained `98b1a5a2082a46d9f46d2af191da090365582561`; no open/draft PRs; all 11 recorded main-push workflows succeeded. The exact #1079 head had 13 successful workflows; its dedicated endpoint/axiom log was independently inspected as described above, including the prerequisite-warning qualification.
+- Validation completed: complete A-O synthesis headings, balanced 48 fence markers, exact source/hash evidence, append-only integrity, and executable source identical to the embedded reproducer. The executed exact-arithmetic checks all passed; finite partial-tail checks are not proofs of infinite-tail bounds.
+- New claims `20261103-referee-6` and `20261103-referee-7` remain `SELF_AUDIT`, paper-level, awaiting independent review. No local Lean build, new Lean theorem, canonical VF closure, or RH proof is claimed.
+- This receipt certifies the preceding substantive commit, not its own not-yet-created commit. The receipt publication is separately checked by immediate exact readback.
