@@ -1332,3 +1332,803 @@ SOURCE_FIRST_VERSION: 2026-11-03. The new contract explicitly permits a due prot
 **Scope:** canonical actual-prime VF, RH and the full subcritical MU-LIFT recurrence are unresolved. Existing reported strict OAI-derived gain is inherited evidence, not this run's new result or a reusable recurrence. No new global gain, formal theorem or independent review is claimed. No local Lean, proof edit, branch/PR/issue mutation, other-report write, policy change or agent launch is authorized or performed.
 
 This checkpoint is published before substantive research; the final derivation, falsification, exact source/CI scope and next-run capsule will be appended here.
+
+## Scheduled Continuation Final Synthesis - Claim 20261103-wheel-3
+
+Actual invocation: 2026-11-03 18:06:00 EST (-0500), America/New_York. Platform run ID unavailable. This continues the verified early checkpoint, preserves the preceding CORR4 and FINITE-AC work, and supplies the due MU-LIFT turn plus the newly authorized original-LOW comparison.
+
+### A. Most Important Structural Discovery
+
+**Original LOW:** on the actual pairwise-disjoint canonical prime-ideal slots, an unselected tuple's product norm determines its prime-ideal depth and hence its compensation parity. For fixed J, equal norm profiles give exactly equal original complex atoms. At the terminal source's nonnegative slot weights, even different profiles with the same product norm have nonnegative Hermitian pair interaction. Their multiplicity is at most `2^|J|`, uniformly in the scale. Thus same-product-norm collisions are a bounded coherent contribution, not a sign-reversing cancellation mechanism. Every interaction between different norms, subsets J, dyads, and returned branches remains present.
+
+**MU-LIFT:** after summing all alternating Heath-Brown families, the actual top-half-prime packet is exactly `-[pi(X)-pi(floor(X/2))]`. At `X=B^k-1`, it cannot be separately bounded by `G(B) E(B)^r sqrt(X)` for any fixed `1<=r<k` and subpower G. This rejects separate payment of that retained packet, not the complete signed recurrence. Its complement is retained explicitly, with the mixed term.
+
+Classification: `PAPER_PROOF / SELF_AUDIT`, source-specific deductions from established algebra and factorization; exact finite controls below. Independent Referee review and any new Lean formalization are **PENDING**. No new Mertens exponent, LOW power saving, canonical VF bound, or RH proof is claimed. Generic fiber reindexing, the lift identity, prime isolation, and quadratic ideal splitting are not claimed as new mathematics.
+
+### B. Current Authoritative Objective And Continuity
+
+Entry main was `69aac0441b4df011cf7df3ba115169c3b66d72f5`. Human merge #1084 during intake advanced it to `25127ac796a1d2ace7a8b3ddb27a02154cc48ef2`, rechecked unchanged at **2026-11-03 23:25:22 UTC / 18:25:22 EST**. The actual canonical target remains `VFCanonicalSquareVonKochStatement`: a constant C>=0 controlling `|pi(R^2)-VF_can(R^2)| <= C R log R` for every integer R>=2. RH, that actual-prime bound, the sharp local shell benchmark, and the full subcritical MU-LIFT recurrence remain open.
+
+Authority blobs: AGENTS `b878d396c387a57bd0b5165fecf10d15ef3732cd`; proof contract `63f7553bf6e5f2a16e37808116c643dc0dcc50e1`; source-first contract `b6980c30e63bb8c9ddfc8d6fa86a2bb401707fa6`; research engine `495fa9ee2067ccf5db9dc3c48ffaaadcd6485aa4`. The source-first contract expressly permits the due protected route to replace its default packet. This run therefore resumes MU-LIFT from `20261102-wheel-3`, equations (54)-(64), and `20261103-coordinator-2`, while also completing a bounded NEXT-WHEEL source comparison. No routing override was invented.
+
+All November 2 and November 3 named role reports were retrieved at the intake reporting snapshot `621566df959d02c34542bc6c0d73a87654416acd`. Their applicable mathematical sections, claim IDs, counterexamples, and scope corrections were consumed. All seven roles had `TODAY=AVAILABLE`; this does not mean their reviews or formalization stages were complete. The following are intake blob identities, not a claim that their branches cannot subsequently change:
+
+| Role file | November 2 blob | November 3 intake blob |
+| --- | --- | --- |
+| 00-coordinator-am.md | `1e932d4ce0eb0fd2c5f4507f6b111194d633eb32` | `8f22479e602b919c00ad5539a7442371c2ee6076` |
+| 10-owner-payment.md | `abfe546d72b151f4cd200fc61de3197efe23a65c` | `d52c74b76c2914c3be694f39cd7afe9b122a4834` |
+| 20-analytic-type-ii.md | `8e48b59611aa1d0bfa3577ed0a4a3bc0d0fcae73` | `2b9c3dbab6039e3c30a5ece3e473290af5dbbf0b` |
+| 30-finite-wheel.md | `abf8ac8c22a708886183849552c90dd62787ac8d` | `15802d31f6b7abf3ffff97a5a57942baf3bc2d07` |
+| 40-prime-census.md | `2cd84c57ab18d923e97368764f29f4ccd2ec3bb3` | `5b564235ba20bf4a53c13dac0cc91d210d665a84` |
+| 50-adversarial-referee.md | `814af1684df66e6ac99b8df1f102cb592b316f89` | `dff2382a732be1829ad7583e046ebbc64c61e4c9` |
+| 60-lean-verification.md | `02d19d792e26f072004cb5909f149538752626e9` | `a9c65a6809323216f8a876845538b6af0fae393e` |
+
+
+Continuity used, rather than recomputed:
+
+- `20261102-wheel-3`: sharp first-omitted-squarefree radius and fresh-prime factorial coherence, paper/self-audit; not a norm recurrence. Today's question is inside the valid reconstruction interval and after the full alternating sum.
+- `20261103-wheel-1/2`: CORR4 one-use credit and partial-prime FINITE-AC masks. The partial packet's negative and positive examples remain native integer examples, not Hecke-source evidence. The accepted parity partition in #1071 does not formalize every stronger paper formula.
+- `20261103-analytic-2` and `20261103-census-3/4`: simultaneous adverse daughters, PAIR-HALF refutation at R=57, the R=59 reserve, and common-offset correction. These are next CORR4 inputs, not credits available to this LOW source.
+- `20261103-analytic-3` CD1-CD6: source-specific short-average smoothing and its logarithmic, not fixed-power, improvement; the complete triangular correlation remains unpaid.
+- `20261103-owner-3`: phase-sensitive excursion restrictions do not identify a native chronological owner with an ideal-tuple label.
+- `20261103-referee-5`: scoped acceptance of C27-C30 and Nyman N4/N5; NR1-NR7 are its new self-audit claims. Its correction withdraws the alleged error in Analytic's original `1/(3 sqrt(3))` integral. Do not propagate the superseded objection.
+- `20261103-lean-2`: an uncompiled Nyman proof attempt, not a kernel theorem. Publication/access limitations there do not certify its elaboration.
+
+External inbox blob `038018145c0fddb2f6306c0712373adf9cd1ea52` was read; its newest dated entries are October 18, including EXT-20261018-PNT1 through PNT3. They are historical source/payment constraints, not a new November assignment or proof of a new signed bound. Today's upstream review of this claim is PENDING, not inferred from a schedule.
+
+Inherited strict OAI-derived Mertens gain from the merged #1073/#1079 line remains at its previously independently reviewed scope. `VF919ActualSlotMinRetighten.lean` on this main has the unconditional existential true-slot-minimum theorem. This run inspected its type and the original-source interfaces; it did not perform a fresh independent semantic audit of the entire endpoint. No repeated expenditure of the finite slot tilt is credited.
+
+**Live #1083 correction:** still OPEN/DRAFT, head `d8cdb9fa1c90fb1383b7dc79745e466f2b0f4d56`. At the final status check, 13 of 14 check runs succeeded and `low-first-slot-proof` failed. [Run 41736212654, job 126265977582](https://github.com/OVVO-Financial/RH_Lean/actions/runs/41736212654/job/126265977582) failed at 23:15:35 UTC in the new `VF919OriginalLowTupleSignedGram.lean`: smoothness-type mismatch at line 83, heartbeat timeout at line 118, unqualified `stableFarComplexToRealPair` at lines 137/141/158/162, and unresolved PUnit universes near lines 180-190. Error-generated declarations print `sorryAx`; they are not acceptable formal evidence. The earlier gain-ledger declarations in that same log print standard axioms, but the complete required gate failed and the later terminal audit is not established. This supersedes the checkpoint's honest IN_PROGRESS observation. No PR or workflow was changed or rerun.
+
+### C. Structural Mechanism Investigated
+
+Two carriers are deliberately separate.
+
+For MU-LIFT, the intended recurrence must control all coefficients of the fully alternating convolution, not its support radius alone. The proposed smaller move was to pay a structurally isolated, genuinely arithmetic packet after combining its alternating families. The top-half primes decisively reject that move.
+
+For OAI LOW, the source itself makes the unselected dependence much more rigid than an arbitrary complex graph: apart from slot weights, the complete selected inverse integral depends on the unselected tuple only through its product norm. Unique ideal factorization and disjoint slot admission then control norm multiplicity and compensation parity. This provides an exact, bounded resonance class with a sign restriction, without claiming control of the distinct-norm interaction.
+
+### D. Exact Statements And Carriers
+
+#### O1. Literal Unselected Source Normal Form
+
+Use `openai/math@1581d4cbdd69a0faf34b2089614fe2a814316a6a`, `Detector/LowSlotPolynomial.lean::compensation_tuple_low_polynomial`. Fix every parameter of that theorem, including its Hecke character eta, exclusions S, calibration, W0/W1, original cutoff, X,Y,T,t, slot scales P_i, and subset J. **In the code, J indexes unselected slots; its complement is `SelectedSlot J`.** A physical original occurrence is `(J,a,b)`, not just its integer norm. `lowSlotJoin` gives the exact bijection from the full tuple to the unselected tuple a and selected tuple b. U_a is an already-summed selected-b contribution.
+
+Write A_J for the exact Cartesian carrier `LowUnselectedTuple slots J`. For a in A_J put
+
+```text
+nu(a) = (elementNorm(a_i))_(i in J),
+L_a = elementNorm(product_(i in J) a_i) = product_(i in J) nu_i(a),
+w_a = (-1)^|J| L_a^(-3/2) product_(i in J) W_i(nu_i(a)/P_i).
+
+H_J(L) = (sqrt(lowPhysicalScale(C,X/L,Y/L)))^(-1)/(2*pi)
+         * integral_v lowSeparatedIntegrand(C,W0,W1,Omega,X/L,Y/L,R_J,v),
+
+R_J = lowSelectedInverseRow Finset.univ
+        (lowSelectedWeight eta slots J W P t)
+        eta S hS (lowSelectedIdeal slots J) T t.
+
+U_a = w_a H_J(L_a),                 P_J = sum_(a in A_J) U_a.       (O1)
+```
+
+H_J is notation for that literal function, not an arbitrary replacement. All selected Hecke conjugates, selected Fourier phases, ideal divisibility marks, inverse rows, ray sums, W0/W1, cutoff, and physical normalizers remain inside it. For any original complex W_i, `nu(a)=nu(a')` implies `U_a=U_a'`. Equal product norms alone need not imply equality of the slot weights.
+
+#### O2. Arithmetic Depth And Uniform Collision Multiplicity
+
+Now impose the actual physical assumptions of `LowCentralTuple`: `slots i=canonicalSlotSupport(T_i)`, T_i finite sets of supported prime ideals outside S, and the T_i pairwise disjoint. For every J and every a in A_J, the product ideal I_a is squarefree. The map a -> I_a is injective for this fixed J.
+
+For a positive integer L, let v_p(L) be its rational prime exponents. A squarefree Eisenstein ideal of norm L can exist only if
+
+```text
+v_3(L) in {0,1};
+v_p(L) in {0,1,2} for p == 1 mod 3;
+v_p(L) in {0,2}   for p == 2 mod 3.
+```
+
+On these allowed norms define
+
+```text
+d_E(L) = v_3(L) + sum_(p==1 mod 3) v_p(L)
+                   + (1/2) sum_(p==2 mod 3) v_p(L),
+s_1(L) = #{p : p==1 mod 3 and v_p(L)=1}.
+```
+
+There are exactly `2^s_1(L)` squarefree ideals of norm L in the ambient Eisenstein ring. Each has exactly d_E(L) prime-ideal factors. Consequently, for the actual source norm fiber `A_J(L)={a:L_a=L}`,
+
+```text
+A_J(L) nonempty  =>  d_E(L)=|J|,
+m_J(L):=|A_J(L)| <= 2^s_1(L) <= 2^omega(L) <= 2^|J|,
+(-1)^|J| = (-1)^d_E(L).                                      (O2)
+```
+
+The final `2^omega(L)<=2^|J|` is asserted for nonempty source fibers; empty fibers satisfy the direct `m_J(L)<=2^|J|` bound trivially. In particular, changing J while preserving an admitted unselected product norm cannot reverse its compensation parity by changing |J|. This is not an identification of its full complex atom across J.
+
+#### O3. Exact Coherent Energy And Full Return
+
+For an attained norm profile nu define
+
+```text
+m_i(nu_i) = #{x in slots_i : elementNorm(x)=nu_i},
+m_nu = product_(i in J) m_i(nu_i),
+u_nu = U_a for any a with nu(a)=nu.
+```
+
+The exact profile-fiber sum, diagonal, and ordered off-diagonal are respectively
+
+```text
+m_nu u_nu,       m_nu |u_nu|^2,       m_nu(m_nu-1)|u_nu|^2.     (O3a)
+```
+
+For product-norm fibers let `V_L=sum_(a in A_J(L)) U_a`, and let `D_J=sum_a |U_a|^2`. With arbitrary complex W_i,
+
+```text
+sum_L |V_L|^2 <= sum_L m_J(L) sum_(a in A_J(L)) |U_a|^2
+              <= 2^|J| D_J.                                  (O3b)
+```
+
+At the **terminal** `LowNormalized` source, W_i are real nonnegative functions. Put `b_a=product_i W_i(nu_i(a)/P_i)>=0`. Then
+
+```text
+U_a = (-1)^|J| L^(-3/2) b_a H_J(L)               (a in A_J(L)),
+C_same(L) = L^(-3)|H_J(L)|^2
+             * [(sum_(a in A_J(L)) b_a)^2 - sum_(a in A_J(L)) b_a^2]
+          >= 0,
+D_J <= sum_L |V_L|^2 <= 2^|J| D_J,
+|P_J|^2 = sum_L |V_L|^2
+          + sum_(L != M) Re(V_L conjugate(V_M)).               (O3c)
+```
+
+Both double sums are ordered. No lower bound on the **whole** `|P_J|^2` by D_J follows, because the displayed distinct-norm term can have either sign. No assertion that an actual nonzero collision integral has been numerically exhibited is made.
+
+#### O4. Overlap, Masks, And Ownership Accounting
+
+For two tuples in one fixed norm-profile fiber, let H be exactly their set of equal coordinates. The number of ordered pairs with that overlap is
+
+```text
+N_nu(H) = product_(i in H) m_i
+          * product_(i in J\H) m_i(m_i-1).                    (O4a)
+```
+
+H=J is the diagonal; summing over all H gives m_nu^2. In the inherited order on Fin K, pairs with first differing coordinate j have cardinality
+
+```text
+product_(i<j, i in J) m_i * m_j(m_j-1)
+  * product_(i>j, i in J) m_i^2.                              (O4b)
+```
+
+Every ordered off-diagonal has exactly one such first differing coordinate. This is **an address convention, not the native chronological first owner**. Disjoint T_i imply that a shared prime ideal between tuples must appear at the same slot; no selected and unselected slots in a fixed J can share an ideal.
+
+For a pure outer-tuple admission subset Omega_A of A_J, retain the same literal U_a and use actual fiber counts `m_nu(Omega_A)`, not the Cartesian product formula. The fiber equality and upper multiplicity bound survive restriction. For a genuinely coupled additional mask `Omega(a,b)` on selected/unselected pairs, the selected row can depend on a: (O1)'s common H_J(L) is then **not justified** without proving equality of those admitted selected rows. The original theorem itself has the stated full Cartesian outer carrier and its literal internal masks; no added joint mask is silently imposed.
+
+For two scales z,z' and their actual moving outer carriers, using the same ambient tuple labels only on their intersection,
+
+```text
+P(z')-P(z) = sum_(A(z') intersection A(z)) [U_a(z')-U_a(z)]
+             + sum_(A(z')\A(z)) U_a(z') - sum_(A(z)\A(z')) U_a(z). (O4c)
+```
+
+Interior weights change along with entries and exits. If P=P_kept+P_return, always restore `|P_kept|^2+|P_return|^2+2 Re(P_kept conjugate(P_return))`. All J and Gaussian dyad recombinations keep their actual coefficients and cross terms. None is paid by (O2).
+
+#### M1-M3. Due MU-LIFT Packet Test
+
+Fix integers B>=2, k>=2. Let a(n)=mu(n) for `1<=n<B`, zero otherwise; zeta(n)=1 for positive n; and * denote Dirichlet convolution. Use the existing genuine k-lift
+
+```text
+H_(B,k) = sum_(j=1..k) (-1)^(j-1) binom(k,j)
+                         a^{*j} * zeta^{*(j-1)}.
+```
+
+It equals mu at every `1<=n<B^k`, by the existing defect identity, with all original convolution occurrence multiplicities. Let X=B^k-1 and
+
+```text
+P_X = {p prime : X/2 < p <= X},
+A(X) = |P_X| = pi(X)-pi(floor(X/2)),
+E(B) = max_(1<=n<B) |M(n)|/sqrt(n).
+```
+
+Every p in P_X exceeds B-1. For every j>=1,
+
+```text
+(a^{*j}*zeta^{*(j-1)})(p)=j-1,
+sum_(j=1..k) (-1)^(j-1) binom(k,j)(j-1)=-1,
+sum_(p in P_X) H_(B,k)(p)=-A(X).                              (M1)
+```
+
+For every fixed real `1<=r<k` and every positive function G(B)>=1 with `log G(B)/log B -> 0`,
+
+```text
+A(B^k-1) / [G(B) E(B)^r sqrt(B^k-1)] -> infinity.              (M2)
+```
+
+Thus no uniform constant can pay this packet alone at that scale. More generally, if `G(B)=B^(g+o(1))`, such separate payment requires `g>=(k-r)/2` by the unconditional trivial prefix bound. This is a necessary lower constraint, not a sufficient payment or a restriction on the signed recurrence itself.
+
+Define the literal retained complement
+
+```text
+C_(B,k)(X) = sum_(1<=n<=X, n not in P_X) H_(B,k)(n).
+M(X) = C_(B,k)(X)-A(X),
+M(X)^2 = C_(B,k)(X)^2 + A(X)^2 - 2 A(X) C_(B,k)(X).           (M3)
+```
+
+The complement includes composites, prime powers, small primes, units, and every alternating convolution family, not an unsigned replacement. For endpoints elsewhere in `B<=X<B^k`, the same occurrence partition is available but (M2) is the specified top-end asymptotic obstruction. Whole-interval coverage and scale-chain iteration remain unproved.
+
+### E. Proofs
+
+**O1.** Inspect the displayed source definition: `lowUnselectedWeight` contains exactly the compensation parity, product-norm power and norm-only W_i arguments. The remaining integral in `compensation_tuple_low_polynomial` refers to a only through `elementNorm(product a_i)` in X/L, Y/L and Q. `lowSelectedInverseRow` is the same finite selected-b sum for every a. Multiplicativity of `elementNorm` yields (O1). This uses actual source equality, not arbitrary-vector replacement. The character is unrestricted within the original theorem's hypotheses.
+
+**O2.** `canonicalSlotEquiv` identifies each generator with exactly one admitted prime ideal, preserving its norm. Pairwise slot disjointness makes all selected factors in I_a distinct. Unique factorization of ideals then recovers, from I_a, the unique prime factor belonging to each slot T_i. This proves squarefreeness and injectivity; there is no permutation factorial because one ideal cannot belong to two slots.
+
+The ring is the full ring of integers of `CyclotomicField 3 Q`, identified by the original Eisenstein source, with integral basis 1,omega and polynomial `omega^2+omega+1`. Modulo a rational prime p this polynomial has two distinct linear factors when p=1 mod 3, is irreducible when p=2 mod 3, and has a repeated linear factor at p=3. Equivalently, there are two norm-p primes in the split case, one norm-p^2 prime in the inert case, and one norm-3 prime in the ramified case. This follows from the nontrivial cube roots of unity in the finite field for p!=3; at 3 the polynomial is `(x-1)^2`.
+
+A squarefree ideal may choose each of these prime ideals once. At a split prime, exponent 1 permits exactly two choices and exponent 2 forces both primes. An inert prime can contribute exponent 2 only, in exactly one way. At 3 only exponent 1 is possible. Independent unique factorizations across rational primes give the exact ambient count and depth in (O2). Masks only remove ideals from this ambient population. For nonempty A_J(L), omega(L)<=|J| because each of its |J| factors lies above one rational prime. The unit ideal L=1 has depth 0 and exactly one ambient choice. No prime-distribution theorem is used in this argument.
+
+**O3.** Each norm-profile fiber is a Cartesian product of its coordinate fibers, and (O1) makes its atoms identical. Multiplying one common value by m_nu proves (O3a). Apply finite Cauchy-Schwarz separately inside each product-norm fiber, then (O2), to get (O3b). At the terminal nonnegative W_i, two atoms with product norm L have product `L^(-3) b_a b_b |H_J(L)|^2`, a nonnegative real number. Expanding the finite square proves (O3c), including its ordered cross-norm term. Positivity of W0/W1 or of H_J is not needed for this pair argument; H_J may be complex or zero.
+
+**O4.** Choose equal coordinates in m_i ways and unequal ordered coordinates in m_i(m_i-1) ways; multiply independent choices. For the first differing coordinate, earlier coordinates are equal, that coordinate is unequal, and later coordinates are unrestricted. These cases partition rather than duplicate ordered pairs. Restricting the outer carrier requires actual restricted counts. A coupled selected mask changes the selected sum and therefore requires a new source proof. The moving identity is the exact intersection/new/exit decomposition, with changing values retained. The full square formula is ordinary algebra, already available in the repository and not a new estimate.
+
+**M1.** A factorization of a prime p into j a-slots and j-1 zeta-slots has precisely one nonunit coordinate. Since p>=B, placing it in any a-slot contributes zero. There are j-1 unit-weight zeta placements, including zero placements when j=1. For k>=2, the zeroth and first binomial alternating moments vanish; subtracting the missing j=0 term gives the displayed sum -1. Thus internal alternating-family cancellation is completed before the packet is assessed.
+
+**M2.** The already available ordinary PNT yields `A(X)~X/(2 log X)`. Hence at X=B^k-1 it is asymptotic to `B^k/(2k log B)`. Since `|M(n)|<=n`, `1<=E(B)<=sqrt(B-1)`. The ratio in (M2) is therefore bounded below, for all sufficiently large B, by a positive k-dependent constant times
+
+```text
+B^((k-r)/2) / [G(B) log B],
+```
+
+which diverges for subpower G and r<k. The same calculation proves the necessary g threshold. This uses only PNT and the trivial bound, not the sought recurrence, the strict OAI gain, or RH. PNT is inspected in `RHLean/Analysis/NativePNTTransfer.lean::nativePrimeNumberTheorem`; no new PNT proof is claimed.
+
+**M3.** The coefficient identity holds throughout the strict interval. Partition the summation range into the actual top primes and their exact complement, use (M1), and expand the square. No compensating mixed term is discarded.
+
+### F. Structural Consequence
+
+Equal norm profiles cannot provide a nonzero sign-reversing pair in a fixed-J original LOW source: their atoms are equal. Under the terminal weights, all same-product-norm pairs reinforce rather than cancel. Equal norms across different J also force equal compensation parity, although their inverse rows can differ. A proposed cross-J sign reversal must therefore come from the actual selected row or other changing data, not from asserting that the common norm has opposite factor parity.
+
+Norm collisions cost at most `2^|J|` in squared grouped energy. This is a genuine all-scale arithmetic restriction on this outer tuple carrier, stronger than assuming arbitrary fiber cardinalities. It does not bound the number of distinct product norms or their mutual Gram sum, and it does not bound the selected inverse family's internal multiplicities.
+
+The MU-LIFT obstruction shows that even a packet which respects all j-family signs can be too large for separate subcritical payment. A successful full lift proof must exploit its interaction with the arithmetic complement, or use a different invariant that does not require this packet separately small.
+
+### G. Signed And Quantitative Relevance
+
+Original checked source trail: selected squared inverse energy has exponent `5/6-2d+507 epsilon`; actual sqrt(Q) normalization leaves `507 epsilon/2`, not a spare fixed power. `LowSlotPolynomial` is exact. The first explicit cross-unselected sign loss **in this local trail** is `norm_sum_le` in `LowTupleGram::compensation_tuple_actual_gram`. `LowCentralTuple` combines the scalar Gram `3/16+(23/96) epsilon` with normalized inverse mass to give `3/16+254 epsilon`. Gaussian central/remote recombination gives `3/16+256 epsilon`; final normalizer handling yields arbitrary positive loss above 3/16. Source signatures and relevant proofs were inspected; this is not a fresh terminal semantic or axiom audit of every imported dependency.
+
+The terminal `LowNormalized` hypotheses explicitly make W_i real nonnegative, which is why (O3c) is legitimate there but not for every arbitrary complex weight allowed by the broader central-tuple theorem. No existential calibration has been universalized. Constants in the original theorems retain their actual dependence and quantifier order; our algebraic identities add no asymptotic uniformity premise.
+
+For fixed K, the collision payment is a constant, at most `2^K` in energy. If K grows with Z, that is a real growing cost and cannot be suppressed. The standard alternative `2^omega(L)<=C_delta L^delta` is unnecessary for the fixed-K result and is not booked as a saving. All principal, exceptional, nonprincipal, height, ray, cutoff and zero cases are preserved by (O1) because H_J is left intact; they have **not** received a new quantitative estimate.
+
+Power ledger for this run:
+
+| Quantity | Proved contribution | New fixed-power gain |
+| --- | --- | --- |
+| Outer same-norm collision multiplicity | At most 2^|J| | 0 |
+| Within-norm ordered cross term, terminal weights | Nonnegative, exact formula | 0 |
+| Distinct-norm and different-J interactions | Retained, no new bound | UNKNOWN |
+| Fully normalized LOW squared source | No improved bound | No nu established |
+| LOW amplitude / final Mertens exponent | No new gain; HIGH/principal/remote unpaid for any proposed change | 0 credited |
+| MU-LIFT k | Every fixed integer k>=2 in the obstruction | Not a recurrence |
+| MU-LIFT r,G,g | Separate packet fails for 1<=r<k, subpower G; necessary g>=(k-r)/2 for power G | Full recurrence OPEN |
+
+For context only, a proved saving nu in the **fully normalized squared** LOW source would yield at most nu/2 in amplitude before other costs. This run supplies no such nu. The existing true physical slot minimum is a one-time geometric input, not a renewable gain. Marked-HIGH half-t improvements and NNS Co-minus-Div isometry are not new LOW savings.
+
+### H. Falsification, Novelty, And Verification
+
+**Frozen test question:** can separate top-prime payment survive a complete alternating k-lift, and do the proposed norm-fiber counts preserve all finite occurrences? The competing explanation is that the whole source can be small only through complement/cross-fiber interaction. No large wheel or prime scan was requested or run.
+
+The exact standard-library verifier below tests five fixed lift instances, checks every coefficient through each strict upper endpoint against both a sieve and trial factorization, keeps all j-parts, and checks (M3) exactly. The binomial identity was checked for k=2,...,8. These tests validate the implementation and give finite witnesses; they do not prove the asymptotic result.
+
+| B | k | X=B^k-1 | A(X) | Signed j-parts of top packet | C | M(X) | E(B)^2 |
+| ---: | ---: | ---: | ---: | --- | ---: | ---: | ---: |
+| 9 | 2 | 80 | 10 | 0,-10 | 6 | -4 | 1 |
+| 17 | 2 | 288 | 27 | 0,-27 | 20 | -7 | 1 |
+| 6 | 3 | 215 | 19 | 0,-57,38 | 20 | 1 | 1 |
+| 4 | 4 | 255 | 23 | 0,-138,184,-69 | 22 | -1 | 1 |
+| 13 | 3 | 2196 | 143 | 0,-429,286 | 152 | 9 | 1 |
+
+At B=9,k=2,r=1,G=1 the separate packet has squared ratio `100/80=5/4>1`, while the whole source has squared ratio `16/80=1/5`. It is a witness against that separate unit payment, not against the full recurrence. The general no-constant obstruction is the paper PNT argument (M2), not an extrapolated finite fit.
+
+For collision bookkeeping, every J subset in a fixed three-slot split-prime label model was checked: 75 outer tuples, 32 norm profiles, 147 same-profile overlap-mask checks, and maximum product-norm fiber size 8. An ambient model with split pairs plus inert norm 25 and ramified norm 3 checked 4096 squarefree-ideal subsets, including depth, norm collisions and the unit case. The added bad-prime labels are ambient counting controls, not asserted admitted by the original source exclusions. Exact integer complex arithmetic checks arbitrary-complex and nonnegative weight versions, all ordered cross terms, and retained/excluded mixed terms.
+
+**UNSUPPORTED_DIRECT_OAI_NUMERICS:** no actual OAI integral, nontrivial Hecke mode, or physical positive-cross-term witness was evaluated. Formal common H(L) values in the test are only algebra controls. The paper proof, rather than these labels, establishes the original-source correspondence. The false Cartesian-mask shortcut is tested by keeping only `(0,0),(1,1)` from a two-by-two carrier: actual cardinality 2, not 4. Overlapping slots containing the same two ideals make `(P,Q)` and `(Q,P)` share a product, showing why disjointness is essential. These negative controls intentionally violate or change the stated hypotheses and are not advertised as legal-source counterexamples.
+
+**Novelty audit.** Inspected the existing norm-fiber boundary and resonant-NNS Lean modules, `TopPrimeReplacementIsolation`, the truncated prime-wheel kernel, global Mobius reassembly, the finite-prefix lift notes/Lean, Heath-Brown notes/Lean, and earlier Gaussian resonant-collision and high-J notes. Existing generic fiber reindexing and Cauchy inequalities already cover the algebraic framework; existing prime isolation and residual absolute-l1 divergence already obstruct several unsigned approaches. No novelty is claimed for those results. The additional content here is their explicit original-unselected-source specialization, quadratic norm-depth/parity constraint, fixed-slot multiplicity and coherent-sign formula, plus the normalized top-prime budget test after **all** lift-family cancellations. Repository search found no equivalent source-specific declaration in the inspected material; this is a scoped novelty check, not a claim to have proved literature originality.
+
+No desired global estimate is assumed. The OAI result is an independent structural restriction, not an endpoint inequality. The remaining full source norm bound is still target-strength; naming it a cross-fiber bound does not solve it. Similarly (M3) is not an easier estimate just because C and A have names. No complete-LOW or MU-LIFT impossibility is asserted.
+
+**Formal evidence:** no Lean file was created, edited, compiled, or submitted by this role. The new claims remain paper/self-audit. #1083's failed exact-head gate is not used as a theorem. Original pinned source declarations and current main declarations are the formal inputs at their existing scopes. No independent review of this run is claimed.
+
+### I. Conceptual Interpretation
+
+The arithmetic norm map loses ideal labels but, on squarefree Eisenstein products, does not lose factor depth or compensation parity. It also loses only boundedly many actual outer tuple labels at fixed K. This separates two issues: bounded same-norm coherence is explicit, while any useful cancellation must involve genuinely changing norms, selected rows, or returned components. The source cannot be modeled by freely choosing signs for those same-norm collisions.
+
+The top-prime calculation gives a parallel caution on a different carrier: completing internal signed reassembly does not make every meaningful subpopulation independently small. This comparison is structural only. There is no proved occurrence/weight map from rational mu values to Hecke U_a, and none was invented.
+
+### J. Competing Structural Hypotheses
+
+1. Equal-norm compensation-parity reversal: rejected under the precise squarefree/disjoint canonical-slot hypotheses by (O2). Equal-profile atom reversal is also impossible unless both atoms are zero. This does not reject all factor-exchange involutions that change norms or selected rows.
+2. Distinct-norm signed restriction of the actual H_J(L): viable but open. It must derive from the literal common selected inverse row and physical scale dependence, retain the coherent norm blocks, and survive the complete returned source.
+3. Full MU-LIFT joint invariant: viable but open. Paying the top-prime packet separately at subcritical scale is rejected; paying its signed combination with its complement is not. Do not replace this by another coefficient-radius theorem on the next MU-LIFT turn.
+
+### K. Specialist Handoffs
+
+These are published requests for the specialists' next actual configured invocations, not agent launches or claims of completed relay work.
+
+| Recipient | Implementation-Sized Request And First Gate |
+| --- | --- |
+| Adversarial Referee | Reconstruct O2 first from the quadratic factorization and canonical slot injectivity; independently test O1/O3 against arbitrary complex central weights versus real nonnegative terminal weights. Audit M2's r,G quantifiers and strict endpoint. Verdict requested on the paper statements only. |
+| Analytic Type II | Use O1's exact `H_J(L)` and O3's coherent block as retained inputs. Seek a genuine restriction on the distinct-L Hermitian sum or a selected-row estimate; do not assign random phases or a negative within-norm credit. First missing estimate is stated in L. |
+| Prime Census Laboratory | A future direct OAI test should choose truly admitted conjugate/split norm collisions, with original ray/exclusion masks and a rigorous nonzero enclosure for H_J(L); test empty/full/partial J, principal and nontrivial characters. Predicted result: within-L pair products are nonnegative under terminal W. Reject any observed negative value only after validating all source inputs and interval errors. If certification is unavailable, retain UNSUPPORTED_DIRECT_OAI; do not enlarge this algebra scan. |
+| Owner Payment | Any native-to-OAI map must retain occurrence `(J,a,b)`, the selected Hecke phase and row, and the norm-depth sign restriction. A first differing slot is not a chronological owner. Compare the exact moving intersection/new/exit identity with the actual native source; no credit is transferred here. |
+| Lean Verification | First record the diagnosed #1083 errors at the exact head without treating error-generated sorryAx as a theorem or editing another author's branch. Any permitted repair must preserve original `ContDiff` type/notation, qualify the realification namespace and fix finite-row universe inference before a fresh warning-fatal exact-head audit. Only after independent acceptance, consider a narrow O1/O2 interface if it is needed by an active quantitative proof; do not create a generic fiber-sum filler or formalize this claim merely for theorem volume. |
+| Coordinator / Proof Architect | Record MU-LIFT coverage, the scoped separate-payment rejection, and O2/O3 as source-specific pending-review restrictions. Deduplicate generic Fubini/Gram results from #1083 and older main modules. Preserve the next CORR4 turn and the full LOW/Hecke versus native-carrier distinction. No campaign change is proposed. |
+
+### L. First Independently Missing Theorem
+
+**MU-LIFT continuation:** for some fixed k>=2 and 1<=r<k, prove a genuine complete-prefix estimate on the original lift, with subpower G or an independently useful quantified power budget,
+
+```text
+sup_(B<=X<B^k) |sum_(n<=X) H_(B,k)(n)|/sqrt(X)
+    <= G(B) E(B)^r,
+```
+
+and the actual whole-prefix/scale-chain closure. At X=B^k-1 the unpaid expression is the **joint** `C_(B,k)(X)-A(X)`, not either term separately. This is the registered hard estimate, not a new assumed invariant. No recurrence parameters have been supplied by this run.
+
+**OAI continuation:** on the original admitted source, derive an independent arithmetic estimate for
+
+```text
+sum_L |V_L|^2 + sum_(L!=M) Re(V_L conjugate(V_M)),
+```
+
+or for its fully returned multi-J/dyad aggregate, sufficient to improve the normalized LOW bound after every normalizer, HIGH, principal, exceptional and remote term. O2 bounds only collision multiplicity; O3 identifies the unavoidable nonnegative same-norm part. A hypothesis asserting the desired improved full expression would be a conditional restatement, not the missing new arithmetic input. No source-to-endpoint net gain is established.
+
+### M. Source Ledger And Next-Run Resume Capsule
+
+The following blobs were fetched in this invocation. OAI paths are at `1581d4cbdd69a0faf34b2089614fe2a814316a6a`; RH_Lean main paths are at `25127ac796a1d2ace7a8b3ddb27a02154cc48ef2`. The PR-only signed-Gram file is separately labeled. Declaration inspection is not a fresh compiler run.
+
+| Source | Blob SHA |
+| --- | --- |
+| [OAI/Detector/LowSlotPolynomial.lean](https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL/Detector/LowSlotPolynomial.lean) | `b1dcb5a1e51afad1d39ccd91fa58a764e39629ba` |
+| [OAI/Detector/LowSlotSplit.lean](https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL/Detector/LowSlotSplit.lean) | `8c8fe01a1b3fffe3b06839c2befc2ddae39a2c9b` |
+| [OAI/Detector/LowSelectedSum.lean](https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL/Detector/LowSelectedSum.lean) | `a54eb9ec6a5beb0db57ce9baa658718aab808af1` |
+| [OAI/Detector/CanonicalSlots.lean](https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL/Detector/CanonicalSlots.lean) | `0ae88f818a6c8f6b2c8dd4d5254ce34a14b026cf` |
+| [OAI/Detector/PhysicalNorms.lean](https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL/Detector/PhysicalNorms.lean) | `36f6fd2f2b11ec0954bb7cf56c5c1d3484b99897` |
+| [OAI/Detector/LowSlotMarks.lean](https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL/Detector/LowSlotMarks.lean) | `4dbdd321565d5bc171f5766608a367d2ee1da15a` |
+| [OAI/Arithmetic/EisensteinEmbedding.lean](https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL/Arithmetic/EisensteinEmbedding.lean) | `00fc7c168e5aff185607d219e34461c47994284d` |
+| [OAI/Arithmetic/EisensteinIdeals.lean](https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL/Arithmetic/EisensteinIdeals.lean) | `cc49e3d0babdd98b025220c0ce8513e794eba521` |
+| [OAI/Detector/LowSelectedBound.lean](https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL/Detector/LowSelectedBound.lean) | `695d81de46038693b9c701d55e81fe43d18d52d2` |
+| [OAI/Detector/LowNominalEnergy.lean](https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL/Detector/LowNominalEnergy.lean) | `55b1a3abfb7fa07da3f9ac8c393b375d1c86329b` |
+| [OAI/Detector/LowPhysicalInverseBound.lean](https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL/Detector/LowPhysicalInverseBound.lean) | `58bc871a18d9baa43d1684209027b8a2ebed87d6` |
+| [OAI/Detector/LowTupleGram.lean](https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL/Detector/LowTupleGram.lean) | `710598c8bef4d1a1ec98aa7e68b00369962c3d17` |
+| [OAI/Detector/LowCentralTuple.lean](https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL/Detector/LowCentralTuple.lean) | `bb7c4eaf4dc3ec5a1467d76e4a3c576e32a433c9` |
+| [OAI/Detector/LowSlotScales.lean](https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL/Detector/LowSlotScales.lean) | `f8ebfef6a7efe1ecb63a61975f240999afe2f0eb` |
+| [OAI/Detector/LowUnselectedMass.lean](https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL/Detector/LowUnselectedMass.lean) | `4233ef473b8a71d4a331d0eb5ddc0c6cd7dacb4f` |
+| [OAI/Detector/LowGaussianDyad.lean](https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL/Detector/LowGaussianDyad.lean) | `d890d50dcfdb510ef4dda3bcbccf946173e4537e` |
+| [OAI/Detector/LowGaussianCentral.lean](https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL/Detector/LowGaussianCentral.lean) | `46d68f3c6e684984312b3b5603643c826cec5be4` |
+| [OAI/Detector/LowGaussianSum.lean](https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL/Detector/LowGaussianSum.lean) | `1bfd335a4db0973b7b5a9342a03eab82eddfe60d` |
+| [OAI/Detector/LowCommonBound.lean](https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL/Detector/LowCommonBound.lean) | `328f8ae217343c8766a6fead1f7d0d4abdfba3fc` |
+| [OAI/Detector/LowNormalized.lean](https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL/Detector/LowNormalized.lean) | `3a9f0257cdbde8fce7cc026ac62ef672c3e9820c` |
+| [OAI/Detector/FinalAssemblySource.lean](https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL/Detector/FinalAssemblySource.lean) | `93c4852b1fae505afd77a4e6b800613fcf253667` |
+| [research/MERTENS_FINITE_PREFIX_EXTENSION.lean](https://github.com/OVVO-Financial/RH_Lean/blob/25127ac796a1d2ace7a8b3ddb27a02154cc48ef2/research/MERTENS_FINITE_PREFIX_EXTENSION.lean) | `131e9af86207a42d4bf6488e3f64c9ce4f97e5df` |
+| [research/MERTENS_HEATH_BROWN_SIGNED.lean](https://github.com/OVVO-Financial/RH_Lean/blob/25127ac796a1d2ace7a8b3ddb27a02154cc48ef2/research/MERTENS_HEATH_BROWN_SIGNED.lean) | `af69b4811cf9f523eb7c96fb0ca836b2cdbd1180` |
+| [research/MERTENS_SIGNED_HYPERBOLA.lean](https://github.com/OVVO-Financial/RH_Lean/blob/25127ac796a1d2ace7a8b3ddb27a02154cc48ef2/research/MERTENS_SIGNED_HYPERBOLA.lean) | `d199571f19346797229a25b0fa53c6e80499999f` |
+| [RHLean/Arithmetic/TopPrimeReplacementIsolation.lean](https://github.com/OVVO-Financial/RH_Lean/blob/25127ac796a1d2ace7a8b3ddb27a02154cc48ef2/RHLean/Arithmetic/TopPrimeReplacementIsolation.lean) | `950173fc3e5271f3eeed8cc6f7831ca89bb11a90` |
+| [RHLean/Analysis/NativePNTTransfer.lean](https://github.com/OVVO-Financial/RH_Lean/blob/25127ac796a1d2ace7a8b3ddb27a02154cc48ef2/RHLean/Analysis/NativePNTTransfer.lean) | `8b981fe2bd212b2e21e7cc1961e5b2d7f083a906` |
+| [research/PRIME_WHEEL_TRUNCATED_MOBIUS_KERNEL.lean](https://github.com/OVVO-Financial/RH_Lean/blob/25127ac796a1d2ace7a8b3ddb27a02154cc48ef2/research/PRIME_WHEEL_TRUNCATED_MOBIUS_KERNEL.lean) | `58e266fe45cbd7f46c1613f3a5eeda6af22bfe48` |
+| [research/MOBIUS_INVERSION_GLOBAL_CANCELLATION.lean](https://github.com/OVVO-Financial/RH_Lean/blob/25127ac796a1d2ace7a8b3ddb27a02154cc48ef2/research/MOBIUS_INVERSION_GLOBAL_CANCELLATION.lean) | `11bc35cfd07c6dac83785b32bbd9be92def03f95` |
+| [research/VF_919_RESONANT_FIBER_NNS_RECOMBINATION_20261022.lean](https://github.com/OVVO-Financial/RH_Lean/blob/25127ac796a1d2ace7a8b3ddb27a02154cc48ef2/research/VF_919_RESONANT_FIBER_NNS_RECOMBINATION_20261022.lean) | `b96967e2f8f81e37f80b7212662bc363897c63b7` |
+| [research/VF_919_NNS_NORM_FIBER_BOUNDARY_CORRESPONDENCE_20261021.lean](https://github.com/OVVO-Financial/RH_Lean/blob/25127ac796a1d2ace7a8b3ddb27a02154cc48ef2/research/VF_919_NNS_NORM_FIBER_BOUNDARY_CORRESPONDENCE_20261021.lean) | `5b3cdf68b5b00c69cca86d26d8c873a29033e21b` |
+| [research/MERTENS_FINITE_PREFIX_EXTENSION.md](https://github.com/OVVO-Financial/RH_Lean/blob/25127ac796a1d2ace7a8b3ddb27a02154cc48ef2/research/MERTENS_FINITE_PREFIX_EXTENSION.md) | `b0b311e3281a2957ed513d66d59b86e401796ae2` |
+| [research/MERTENS_HEATH_BROWN_SIGNED.md](https://github.com/OVVO-Financial/RH_Lean/blob/25127ac796a1d2ace7a8b3ddb27a02154cc48ef2/research/MERTENS_HEATH_BROWN_SIGNED.md) | `f3a4cc1f73cce00983137328481e3cb41f446180` |
+| [docs/MERTENS_AMPLIFICATION_BUDGET.md](https://github.com/OVVO-Financial/RH_Lean/blob/25127ac796a1d2ace7a8b3ddb27a02154cc48ef2/docs/MERTENS_AMPLIFICATION_BUDGET.md) | `62bbe73c4755eaa64772ec2cc2731936c01b49cd` |
+| [research/OAI_LOW_GAUSSIAN_RESONANT_COLLISION_GLOBAL_A_GATE_20261025.md](https://github.com/OVVO-Financial/RH_Lean/blob/25127ac796a1d2ace7a8b3ddb27a02154cc48ef2/research/OAI_LOW_GAUSSIAN_RESONANT_COLLISION_GLOBAL_A_GATE_20261025.md) | `59ba23f768b78b4917e72d34cee69f2801f6e0a8` |
+| [research/OAI_LOW_GAUSSIAN_COMPENSATED_TOP_J_ATTACK_20261025.md](https://github.com/OVVO-Financial/RH_Lean/blob/25127ac796a1d2ace7a8b3ddb27a02154cc48ef2/research/OAI_LOW_GAUSSIAN_COMPENSATED_TOP_J_ATTACK_20261025.md) | `913e4ac70716882cfe82e11b306f2c997ec408f9` |
+| [research/oai_434/VF919NativeSevenEighthsReplay.lean](https://github.com/OVVO-Financial/RH_Lean/blob/25127ac796a1d2ace7a8b3ddb27a02154cc48ef2/research/oai_434/VF919NativeSevenEighthsReplay.lean) | `111c933a7ca15647105ce6a4d0f3cbfc3cde81f4` |
+| [research/oai_434/VF919NativeEnergyInduction.lean](https://github.com/OVVO-Financial/RH_Lean/blob/25127ac796a1d2ace7a8b3ddb27a02154cc48ef2/research/oai_434/VF919NativeEnergyInduction.lean) | `350eec60b5ed1fd5fda7b3313654c1bbe5ac4e7e` |
+| [research/oai_434/VF919OriginalMarkedSharpenedSignedNNS.lean](https://github.com/OVVO-Financial/RH_Lean/blob/25127ac796a1d2ace7a8b3ddb27a02154cc48ef2/research/oai_434/VF919OriginalMarkedSharpenedSignedNNS.lean) | `1ead3888a1f59cacc71f482f6d4ce9c9ad31903a` |
+| [research/oai_434/VF919NativeSourceMoments.lean](https://github.com/OVVO-Financial/RH_Lean/blob/25127ac796a1d2ace7a8b3ddb27a02154cc48ef2/research/oai_434/VF919NativeSourceMoments.lean) | `4e5326b983f5110f7138d222f7b1be71c5694dfc` |
+| [research/oai_434/VF919TiltedLowReflection.lean](https://github.com/OVVO-Financial/RH_Lean/blob/25127ac796a1d2ace7a8b3ddb27a02154cc48ef2/research/oai_434/VF919TiltedLowReflection.lean) | `88293c915d67eefee2e1e989082248b8a52f2ae7` |
+| [research/oai_434/VF919ActualSlotMinRetighten.lean](https://github.com/OVVO-Financial/RH_Lean/blob/25127ac796a1d2ace7a8b3ddb27a02154cc48ef2/research/oai_434/VF919ActualSlotMinRetighten.lean) | `138c4726085995b966204406805f70082402bec4` |
+| [research/oai_434/VF919OriginalLowTupleSignedGram.lean](https://github.com/OVVO-Financial/RH_Lean/blob/d8cdb9fa1c90fb1383b7dc79745e466f2b0f4d56/research/oai_434/VF919OriginalLowTupleSignedGram.lean) (PR ONLY, FAILED GATE) | `3701d2f1bc9211e6aa63b6215bba3b6f56f8a7d3` |
+
+
+```text
+ENGINE_VERSION: 2026-11-01 with source-first update 2026-11-03
+RUN: actual 2026-11-03 18:06:00 EST scheduled invocation; RUN_ID_UNAVAILABLE
+CLAIM: 20261103-wheel-3, O1-O4 and M1-M3
+TASK: due MU-LIFT; bounded NEXT-WHEEL original physical norm-collision comparison
+MAIN: 25127ac796a1d2ace7a8b3ddb27a02154cc48ef2
+POLICY_BLOB: b6980c30e63bb8c9ddfc8d6fa86a2bb401707fa6
+OAI_PIN: 1581d4cbdd69a0faf34b2089614fe2a814316a6a
+RESUMED: 20261102-wheel-3 equations 54-64; 20261103-coordinator-2
+ACTUAL_RESULT: source-specific finite structural PAPER_PROOF;
+  scoped MU-LIFT separate-payment obstruction; exact finite controls PASS
+REVIEW: SELF_AUDIT; independent review PENDING
+FORMAL_STATE: no new Lean; PR1083 failed required gate at stated exact head
+ETA_GATE: inherited accepted strict main gain only; THIS_RUN_NEW_GAIN=NONE
+LAST_JUSTIFIED: O3 complete norm-fiber Gram; M3 complete prime/complement square
+FIRST_UNSUPPORTED: distinct-norm returned signed estimate;
+  subcritical full lift recurrence and chain, not separate prime payment
+PROTECTED_COVERAGE: CORR4 wheel-1; FINITE-AC wheel-2; MU-LIFT wheel-3
+NEXT_DISTINCT_ROUTE_DUE: CORR4 unless an actual review repair supersedes it
+NEXT_CORR4_RESUME: wheel-1 W10, analytic-2 difference-conditioned credit,
+  census-3/4 common-offset obstruction; preserve R=2002 source regression
+NEXT_MU_LIFT_RESUME: do not repeat support-radius/factorial or top-prime scans;
+  derive an independent joint invariant for the retained complement
+DEPLOYMENT_ACK: consumed new main/source-first policy during this invocation;
+  O1-O4 are actual source-qualified proof steps, not a read-only acknowledgement
+
+SOURCE_FIRST_VERSION: 2026-11-03
+PR1083_LIVE_HEAD_STATE: d8cdb9fa1c90fb1383b7dc79745e466f2b0f4d56,
+  OPEN DRAFT; 13 success, 1 failure; no complete axiom acceptance
+ORIGINAL_DECLARATION: compensation_tuple_low_polynomial
+CHARACTER_J_MASK_ADMISSION: arbitrary original eta; every J including empty,
+  full and partial; actual disjoint canonical prime-ideal pools outside S;
+  all original selected masks and inverse rows retained
+U_A_OCCURRENCE_MAP: full tuple <-> (a,b); U_a already includes full selected sum
+LOW_INVERSE_SQRT_Q_GAUSSIAN_TRIANGLE: 5/6-2d+507eps -> 507eps/2;
+  scalar Gram 3/16+23eps/96; norm_sum_le is the local sign loss
+NNS_CO_DIV_GRAM: exact isometry only; ordered distinct-fiber terms retained
+NEW_RESTRICTION: squarefree norm depth fixes compensation parity;
+  m_J(L)<=2^|J|; terminal same-norm cross interaction nonnegative
+SOURCE_SQUARED_GAIN: NONE; AMPLITUDE_GAIN: NONE; NET_BETA_GAIN: NONE
+PRINCIPAL_HIGH_REMOTE_EXCEPTIONS_TAILS: unchanged and not newly paid
+STRESS_TEST: native exact lift and labeled algebra controls PASS;
+  UNSUPPORTED_DIRECT_OAI_NUMERICS; no source integral sign witness claimed
+NEXT_DECISIVE_ACTION: independent O1-O3 scope review, then an actual
+  distinct-norm/selected-row arithmetic estimate with complete return
+```
+
+**Execution limits and publication:** direct git transport was unavailable through the environment proxy, so authorized GitHub read/write tools were used. No local Lean, proof-branch/PR/issue edit, main/policy write, other-role write, schedule change, merge, or agent launch occurred. Only the existing dated own-role report is the remote write target. Early checkpoint commit `509ce9787993c83cc271c153cb4434627843c638`, blob `5ed23d2c51f2f7fe5b9b35bf19f7f8f77968297c`, was already read back exactly. Final publication is claimed only by the subsequent verified receipt, not by this prepared text.
+
+### Executed Reproducer For 20261103-wheel-3
+
+Python standard library only. Script SHA-256: `59ec13997fd42152560fc4a309e4df9ea4d4621fdae0b57d6236abcd11b84b3b`. Execute with Python 3; no dependency on a Lean runtime or floating-point sign test. This code is part of the own-role report, not a repository proof-module edit.
+
+```python
+"""Exact finite controls, not Lean or a numerical evaluation of OAI integrals."""
+
+from collections import Counter, defaultdict
+from fractions import Fraction
+from itertools import combinations, product
+from math import comb, prod
+import json
+
+
+def primes_and_mu(limit):
+    prime = [True] * (limit + 1)
+    prime[0:2] = [False, False]
+    mu = [1] * (limit + 1)
+    mu[0] = 0
+    for p in range(2, limit + 1):
+        if prime[p]:
+            for n in range(p * 2, limit + 1, p):
+                prime[n] = False
+            for n in range(p, limit + 1, p):
+                mu[n] *= -1
+            for n in range(p * p, limit + 1, p * p):
+                mu[n] = 0
+    return prime, mu
+
+
+def trial_mu(n):
+    value, p = 1, 2
+    while p * p <= n:
+        if n % p == 0:
+            n //= p
+            value = -value
+            if n % p == 0:
+                return 0
+        p += 1
+    return -value if n > 1 else value
+
+
+def convolution(a, b):
+    limit = len(a) - 1
+    out = [0] * (limit + 1)
+    for i in range(1, limit + 1):
+        if a[i]:
+            for j in range(1, limit // i + 1):
+                out[i * j] += a[i] * b[j]
+    return out
+
+
+def lift_case(B, k):
+    X = B**k - 1
+    prime, mu = primes_and_mu(X)
+    assert all(mu[n] == trial_mu(n) for n in range(1, X + 1))
+    a = [mu[n] if n < B else 0 for n in range(X + 1)]
+    unit = [0] * (X + 1)
+    unit[1] = 1
+    zeta = [0] + [1] * X
+    a_power, zeta_power = unit, unit
+    lift = [0] * (X + 1)
+    top = [p for p in range(X // 2 + 1, X + 1) if prime[p]]
+    assert all(p >= B for p in top)
+    packet_parts = []
+    for j in range(1, k + 1):
+        a_power = convolution(a_power, a)
+        if j > 1:
+            zeta_power = convolution(zeta_power, zeta)
+        term = convolution(a_power, zeta_power)
+        assert all(term[p] == j - 1 for p in top)
+        coefficient = (-1) ** (j - 1) * comb(k, j)
+        packet_parts.append(coefficient * sum(term[p] for p in top))
+        for n in range(1, X + 1):
+            lift[n] += coefficient * term[n]
+    assert lift == mu
+    A = len(top)
+    assert sum(packet_parts) == -A
+    prefix, E2 = 0, Fraction(0)
+    for n in range(1, B):
+        prefix += mu[n]
+        E2 = max(E2, Fraction(prefix * prefix, n))
+    total = sum(lift)
+    complement = total + A
+    assert total * total == complement**2 + A**2 - 2 * A * complement
+    return {"B": B, "k": k, "X": X, "top_prime_count": A,
+            "signed_packet_parts": packet_parts, "M_X": total,
+            "complement": complement, "E_squared": str(E2),
+            "packet_squared_over_X_E_squared": str(Fraction(A * A, X) / E2)}
+
+
+def cadd(a, b):
+    return (a[0] + b[0], a[1] + b[1])
+
+
+def cmul(a, b):
+    return (a[0] * b[0] - a[1] * b[1], a[0] * b[1] + a[1] * b[0])
+
+
+def csum(values):
+    out = (0, 0)
+    for value in values:
+        out = cadd(out, value)
+    return out
+
+
+def energy(a):
+    return a[0] ** 2 + a[1] ** 2
+
+
+def real_pair(a, b):
+    return a[0] * b[0] + a[1] * b[1]
+
+
+def subsets(items):
+    for r in range(len(items) + 1):
+        yield from combinations(items, r)
+
+
+def omega(n):
+    count, p = 0, 2
+    while p * p <= n:
+        if n % p == 0:
+            count += 1
+            while n % p == 0:
+                n //= p
+        p += 1
+    return count + (n > 1)
+
+
+def eisenstein_squarefree_depth(n):
+    depth, p = 0, 2
+    while p <= n:
+        exponent = 0
+        while n % p == 0:
+            n //= p
+            exponent += 1
+        if exponent:
+            if p == 3:
+                assert exponent == 1
+                depth += 1
+            elif p % 3 == 1:
+                assert exponent <= 2
+                depth += exponent
+            else:
+                assert exponent == 2
+                depth += 1
+        p += 1
+    return depth
+
+
+def collision_checks():
+    # Distinct labels model the two ideals above each split rational prime.
+    # The common H(L) below is formal algebraic data, not an OAI integral.
+    slots = (((7, 0), (13, 0), (19, 0), (19, 1)),
+             ((7, 1), (13, 1), (31, 0), (31, 1)),
+             ((37, 0), (37, 1)))
+    labels = sum(slots, ())
+    assert len(set(labels)) == len(labels)
+    profile_count = tuple_count = mask_count = 0
+    maximum_norm_fiber = 0
+    for J in subsets(tuple(range(len(slots)))):
+        tuples = list(product(*(slots[i] for i in J)))
+        tuple_count += len(tuples)
+        profiles, norms = defaultdict(list), defaultdict(list)
+        products = set()
+        for a in tuples:
+            nu = tuple(label[0] for label in a)
+            L = prod(nu)
+            assert eisenstein_squarefree_depth(L) == len(J)
+            profiles[nu].append(a)
+            norms[L].append(a)
+            products.add(frozenset(a))
+        assert len(products) == len(tuples)
+        for nu, fiber in profiles.items():
+            profile_count += 1
+            ms = [sum(label[0] == n for label in slots[i]) for i, n in zip(J, nu)]
+            m = prod(ms)
+            assert len(fiber) == m
+            overlaps = Counter(tuple(i for i in range(len(J)) if a[i] == b[i])
+                               for a in fiber for b in fiber)
+            for mask in subsets(tuple(range(len(J)))):
+                predicted = prod(ms[i] if i in mask else ms[i] * (ms[i] - 1)
+                                 for i in range(len(J)))
+                assert overlaps[mask] == predicted
+                mask_count += 1
+            for j in range(len(J)):
+                actual = sum(a[:j] == b[:j] and a[j] != b[j]
+                             for a in fiber for b in fiber)
+                expected = prod(ms[:j]) * ms[j] * (ms[j] - 1) * prod(x*x for x in ms[j+1:])
+                assert actual == expected
+        for L, fiber in norms.items():
+            maximum_norm_fiber = max(maximum_norm_fiber, len(fiber))
+            assert len(fiber) <= 2**omega(L) <= 2**len(J)
+        for positive in (False, True):
+            atoms = {}
+            for a in tuples:
+                nu = tuple(label[0] for label in a)
+                L = prod(nu)
+                weight = (1, 0)
+                for i, n in zip(J, nu):
+                    w = ((i + n) % 3, 0) if positive else ((n + i) % 5 - 2, (n - i) % 3 - 1)
+                    weight = cmul(weight, w)
+                # Absorb the common L^(-3/2) and sign into formal H.
+                H = ((-1)**len(J) * (L % 7 - 3), (-1)**len(J) * (L % 5 - 2))
+                atoms[a] = cmul(weight, H)
+            for fiber in profiles.values():
+                assert len({atoms[a] for a in fiber}) == 1
+                u, m = atoms[fiber[0]], len(fiber)
+                assert energy(csum(atoms[a] for a in fiber)) == m*m*energy(u)
+                assert sum(real_pair(atoms[a], atoms[b]) for a in fiber for b in fiber if a != b) == m*(m-1)*energy(u)
+            grouped = {L: csum(atoms[a] for a in fiber) for L, fiber in norms.items()}
+            D = sum(energy(atoms[a]) for a in tuples)
+            grouped_energy = sum(energy(value) for value in grouped.values())
+            assert grouped_energy <= 2**len(J) * D
+            if positive:
+                assert all(real_pair(atoms[a], atoms[b]) >= 0
+                           for fiber in norms.values() for a in fiber for b in fiber)
+                assert D <= grouped_energy
+            cross = sum(real_pair(grouped[L], grouped[M]) for L in grouped for M in grouped if L != M)
+            assert energy(csum(atoms.values())) == grouped_energy + cross
+            admitted = [a for a in tuples if sum(v[1] for v in a) % 2 == 0]
+            excluded = [a for a in tuples if a not in admitted]
+            U, V = csum(atoms[a] for a in admitted), csum(atoms[a] for a in excluded)
+            assert energy(csum(atoms.values())) == energy(U) + energy(V) + 2*real_pair(U, V)
+    # Ambient squarefree-ideal model also includes inert norm 25 and ramified 3.
+    # These extra labels are not asserted admitted by the physical bad-prime mask.
+    ambient_labels = labels + ((25, 0), (3, 0))
+    ideal_norms = Counter()
+    for subset in subsets(ambient_labels):
+        L = prod(label[0] for label in subset)
+        assert eisenstein_squarefree_depth(L) == len(subset)
+        ideal_norms[L] += 1
+    assert all(count <= 2**omega(L) for L, count in ideal_norms.items())
+    # Negative controls for unjustified Cartesian admission and overlapping slots.
+    square = list(product((0, 1), repeat=2))
+    admitted = [a for a in square if a[0] == a[1]]
+    assert len(admitted) == 2 and len(square) == 4
+    overlap = list(product(((7, 0), (13, 0)), repeat=2))
+    distinct = [a for a in overlap if a[0] != a[1]]
+    assert len(distinct) == 2 and len({frozenset(a) for a in distinct}) == 1
+    assert list(product(*())) == [()]
+    assert list(product(())) == []
+    return {"subsets_J": 8, "unselected_tuples": tuple_count,
+            "norm_profiles": profile_count, "overlap_mask_checks": mask_count,
+            "maximum_product_norm_fiber": maximum_norm_fiber,
+            "squarefree_ideal_model_subsets": 2**len(ambient_labels),
+            "scope": "exact algebra; UNSUPPORTED_DIRECT_OAI_NUMERICS"}
+
+
+def main():
+    for k in range(2, 9):
+        assert sum((-1)**(j-1) * comb(k, j) * (j-1) for j in range(1, k+1)) == -1
+    cases = [lift_case(B, k) for B, k in ((9, 2), (17, 2), (6, 3), (4, 4), (13, 3))]
+    assert Fraction(cases[0]["packet_squared_over_X_E_squared"]) > 1
+    print(json.dumps({"lift": cases, "collision": collision_checks(),
+                      "status": "PASS"}, sort_keys=True, indent=2))
+
+
+if __name__ == "__main__":
+    main()
+```
+
+### Exact Reproducer Output
+
+```json
+{
+  "collision": {
+    "maximum_product_norm_fiber": 8,
+    "norm_profiles": 32,
+    "overlap_mask_checks": 147,
+    "scope": "exact algebra; UNSUPPORTED_DIRECT_OAI_NUMERICS",
+    "squarefree_ideal_model_subsets": 4096,
+    "subsets_J": 8,
+    "unselected_tuples": 75
+  },
+  "lift": [
+    {
+      "B": 9,
+      "E_squared": "1",
+      "M_X": -4,
+      "X": 80,
+      "complement": 6,
+      "k": 2,
+      "packet_squared_over_X_E_squared": "5/4",
+      "signed_packet_parts": [
+        0,
+        -10
+      ],
+      "top_prime_count": 10
+    },
+    {
+      "B": 17,
+      "E_squared": "1",
+      "M_X": -7,
+      "X": 288,
+      "complement": 20,
+      "k": 2,
+      "packet_squared_over_X_E_squared": "81/32",
+      "signed_packet_parts": [
+        0,
+        -27
+      ],
+      "top_prime_count": 27
+    },
+    {
+      "B": 6,
+      "E_squared": "1",
+      "M_X": 1,
+      "X": 215,
+      "complement": 20,
+      "k": 3,
+      "packet_squared_over_X_E_squared": "361/215",
+      "signed_packet_parts": [
+        0,
+        -57,
+        38
+      ],
+      "top_prime_count": 19
+    },
+    {
+      "B": 4,
+      "E_squared": "1",
+      "M_X": -1,
+      "X": 255,
+      "complement": 22,
+      "k": 4,
+      "packet_squared_over_X_E_squared": "529/255",
+      "signed_packet_parts": [
+        0,
+        -138,
+        184,
+        -69
+      ],
+      "top_prime_count": 23
+    },
+    {
+      "B": 13,
+      "E_squared": "1",
+      "M_X": 9,
+      "X": 2196,
+      "complement": 152,
+      "k": 3,
+      "packet_squared_over_X_E_squared": "20449/2196",
+      "signed_packet_parts": [
+        0,
+        -429,
+        286
+      ],
+      "top_prime_count": 143
+    }
+  ],
+  "status": "PASS"
+}
+```
