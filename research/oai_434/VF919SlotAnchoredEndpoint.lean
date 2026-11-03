@@ -107,7 +107,7 @@ theorem native_beta_le_slot_calibrated_boundary
     (sourceCorrection_bound_wide chi F.S F.exclusions)
     ?_ ?_ hboundary hpole') hzero'
   · convert hlow loss hloss using 1; ring_nf
-  · convert hhigh using 1 <;> (try dsimp [chi']) <;> ring_nf
+  · convert hhigh using 1; (try dsimp [chi']); ring_nf
 
 theorem native_beta_le_constructed_slot_tilt :
     ∃ D : HighData (1/1000000 : ℝ),
@@ -146,7 +146,7 @@ theorem native_mertens_slot_fixed_power :
       0 < slotTilt D ∧ MertensExponent.MertensPowerBound (7/8-slotTilt D/2) := by
   obtain ⟨D, hD, hgrowth⟩ := native_mertens_constructed_slot_tilt
   refine ⟨D, hD, ?_⟩
-  convert hgrowth (slotTilt D/2) (by positivity) using 1 <;> ring
+  convert hgrowth (slotTilt D/2) (by positivity) using 1; ring
 
 /-- The actual signed pairs retain their exact squarefree diagonal. -/
 theorem native_signed_pair_constructed_slot_tilt :
