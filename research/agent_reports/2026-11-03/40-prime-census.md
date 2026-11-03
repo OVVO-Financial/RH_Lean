@@ -959,3 +959,815 @@ Execution: PARTIAL / IN_PROGRESS. Trigger: SCHEDULED at 2026-11-03 11:00:01 EST 
 **Continuity.** All seven roles' November 2 and November 3 reports and EXTERNAL_HANDOFFS were retrieved; relevant current derivations and handoffs are being consumed, not presumed independently accepted. TODAY=AVAILABLE for all roles at intake. Older pending statements are preserved at their historical timestamps. The newer Wheel second-prime negative-packet and Owner ancestry-capacity reports are distinct-carrier work; neither is imported into CORR4. External inbox blob 038018145c0fddb2f6306c0712373adf9cd1ea52 has no post-October-18 entry. Current policy overrides its old routing/cadence.
 
 **Authority and scope.** AGENTS blob 9fa5e9519e2fb6dde22217aa2a18982dafef373a; proof contract 88cddd9cd98c3b55f0b013998541e9b4e9dc9f2a; engine 6fce99c61efb5b2a73c0cb1f1464f09b351fcd55. deployment_ack: NEXT-CENSUS continues from newer committed evidence, not the completed FINITE-AC bootstrap. Existing strict Mertens gain is inherited with its reviewed/compiled scope; this experiment claims NO_NEW_RESULT yet, net new endpoint gain UNKNOWN. Canonical VF, RH and sharp local-shell bound remain OPEN. No local Lean or other-agent launch; only this role report may be written remotely.
+
+
+## Scheduled Continuation Final Synthesis - Claims 20261103-census-3 And 20261103-census-4
+
+This completes the scheduled 2026-11-03 11:00:01 EST (-0500) invocation. RUN_ID_UNAVAILABLE. Synthesis and final validation prepared at 2026-11-03 11:20 EST. Earlier same-day claims and their publication history are preserved. The prepublication main refresh returned the same source SHA.
+
+### A. Most Important Discovery
+
+**The best legally degree-limited pair credit can miss almost all of the negative-square reserve already present in genuine CORR4 arithmetic.** The preregistered PAIR-HALF assertion fails at R=57, the first failing root in its legal domain R>=56. At R=59 the optimal recovery is exactly 7/430 of the reserve, about 1.63%. A common integer offset in the daughter residuals explains this failure: every pair difference forgets that offset, although it strongly affects the original signed expression.
+
+This is a falsifier of a specified auxiliary constant-fraction recovery claim, **not** a refutation of the full mixed bound or of all pair methods. The full original bill is negative at both witnesses, and at every root in the frozen experiment. At R=59 the daughters oppose G, so their direct one-sided signs remain useful even though the difference-only recovery is poor.
+
+- `20261103-census-3`: FINITE_COMPUTATION, with PAIR-HALF REFUTED. Independent arithmetic algorithms, exact optimization duals and original first-owner-cell reconstruction agree.
+- `20261103-census-4`: PAPER_PROOF, SELF_AUDIT only, for the common-offset obstruction and its retained-offset refinement of the pair bound. Independent Referee review PENDING; no new Lean theorem.
+- New endpoint gain: UNKNOWN. Canonical actual-prime VF, RH and the sharp local-square-shell improvement remain OPEN.
+
+### B. Authority And Continuity
+
+Source main: `3930d884282dd5315f0453e5dd88b356d187a8e0`, retrieved from the live main branch at this invocation. Reporting intake: `6586a093cbec8d8da724ae7a50bd1e43125c0a7d`. Initial observed clock was 2026-11-03T16:00:46Z; early checkpoint was prepared at 16:07:15Z. The source snapshots, not reporting-branch copies of policy, govern this work.
+
+Canonical declaration: `VFCanonicalSquareVonKochStatement`, in `research/VF_CANONICAL_SQRT_TWO_VON_KOCH.lean`, blob `79030d70e8d3e0d08eef9bac53fef95c36eca2fb`:
+
+```text
+exists C>=0, forall integer R>=2,
+ |pi(R^2)-VF_can(R^2)| <= C R log R.
+```
+
+This experiment instead supports the sufficient CORR4 mixed-source route. It does not identify that route's carrier with actual-prime VF, the hybrid square shell, or ideal-character OAI coefficients.
+
+| Authority | Blob SHA |
+| --- | --- |
+| AGENTS.md | 9fa5e9519e2fb6dde22217aa2a18982dafef373a |
+| CURRENT_PROOF_CONTRACT.md | 88cddd9cd98c3b55f0b013998541e9b4e9dc9f2a |
+| Stable task selector | d05c327ae694ea54b599dab0a21032a056b521f1 |
+| Broad-search policy | b5c063c51556ba57c4b25bcc380a606fa8daa207 |
+| Complete-return contract | 16838f7f3c8724b970f8b8ece0bceaab9418066d |
+| Persistent research engine | 6fce99c61efb5b2a73c0cb1f1464f09b351fcd55 |
+| Current role prompts | 7366bb71e8a97fd11689a64311c7f590edeb1adf |
+| Dynamic protocol | fe21d2824491fb001726311f736b9825a8f97eca |
+| Multi-run policy | 643cfd596116720a8e5b1efc07a6124b55d70946 |
+
+The following actual report bytes were retrieved; relevant findings, current derivations and continuation sections were read. This is continuity, not an independent audit of every upstream theorem.
+
+| Role | November 2 blob | November 3 intake blob |
+| --- | --- | --- |
+| Coordinator | 1e932d4ce0eb0fd2c5f4507f6b111194d633eb32 | f9c04a1099048cd0b02fd5264b753e916cbcd521 |
+| Owner | abfe546d72b151f4cd200fc61de3197efe23a65c | 0688ba1d205ac2e846c3c3a55adfc267a6eb6a40 |
+| Analytic | 8e48b59611aa1d0bfa3577ed0a4a3bc0d0fcae73 | 79f5f11020d7038028f4ddfe92ff3f95d4bd0798 |
+| Wheel | abf8ac8c22a708886183849552c90dd62787ac8d | 15802d31f6b7abf3ffff97a5a57942baf3bc2d07 |
+| Census | 2cd84c57ab18d923e97368764f29f4ccd2ec3bb3 | 09ecf82c4a8d5d36b10ed6d64167d695e096ce03 |
+| Referee | 814af1684df66e6ac99b8df1f102cb592b316f89 | 226a5a6d971f347b45e016a046007bc4ceb368ee |
+| Lean | 02d19d792e26f072004cb5909f149538752626e9 | 579d19654925823b5fa2ef849366da2925d2c1b0 |
+
+TODAY=AVAILABLE for every named role; YESTERDAY=CARRY_FORWARD where the current derivation depends on it. Earlier reports' missing-stage statements remain true at their own observation times. External inbox `038018145c0fddb2f6306c0712373adf9cd1ea52` has no entry later than October 18. EXT-20261014-3/5 and EXT-20261018-PNT-1..3 retain their source/restoration warnings; their old routing and cadence are superseded.
+
+**Nonduplicate selection.** Coordinator `20261103-coordinator-1`, section H, requested R=125 plus simultaneous-positive small daughters. Newer Analytic `20261103-analytic-2`, J1-J8, already supplied R=376 and a 56..2048 scan. Its Census handoff explicitly asked for original-cell verification and a frozen aggregate-credit test. This invocation takes that next step instead of repeating the (3,5) search. Wheel W1-W10 supplies the one-use reserve; Analytic J4/J6 supplies the difference-conditioned cap and degree constraint. Their proof claims are not silently upgraded to independent Referee acceptance here.
+
+The completed earlier Census fragment/burst experiments, fixed (3,5) hybrid affine saturation, Wheel's FINITE-AC partial-lift negatives, and Owner's ancestry-capacity obstruction are retained without rerunning or importing their carriers. In particular, PC5 remains a distinct conjecture; Referee's comparison-sequence obstruction is not a genuine-Mobius counterexample to it.
+
+### C. Frozen Question And Competing Explanations
+
+The exact preregistration was published before execution in commit `784290f8d47a2690fc5a3f290ba14c9f432ad7f8`, blob `092d6dfdc6e406f1990e7feaa6a77ac525efa2f0`, and read back byte-for-byte. Only this report changed.
+
+**PAIR-HALF:** for every integer R>=56, the maximum pair credit W_R with vertex degree at most one is at least half the actual discarded reserve Rsv_R. Definitions follow below. This is a Census exploratory assertion, not a claim attributed to an analyst or an accepted sufficient endpoint estimate.
+
+**Rival:** common offsets of nested daughter residuals can carry most of that reserve while leaving all annular differences unchanged. Rejection rule: any exact root with 2W_R<Rsv_R.
+
+Frozen exploration: 56..256. Frozen validation/holdout: 257..512. Fixed anchors: 125,376,2002. The new aggregate statistic was not inspected before registration. These root ranges overlap earlier studies of different observables, and R=376 was a known arithmetic anchor; no statistical independence or wholly unseen arithmetic sample is claimed. No extension to a larger range was performed. After discovery, roots 57 and 59 were added only to independent certificate reconstruction, not to the scan domain.
+
+### D. Exact Original Carrier
+
+All quantities are exact integers or rationals. Put
+
+```text
+X=R^2-1; S={q odd prime:q^2<R}; Y_q=floor(X/q^2);
+M(y)=sum_(1<=n<=y)mu(n); d_q=M(Y_q); G=M(X)-M(R-1);
+U=sum_q d_q/q; E=sum_q d_q^2;
+a(n)=sum_q 1_(n<=Y_q)/q; t(n)=1_(R<=n);
+D=sum_(1<=n<=X)mu(n)^2(t(n)+a(n))^2;
+P=sum_(1<=n<=X)mu(n)^2 a(n)^2;
+V0=sum_(R<=n<=X)mu(n)^2;
+Vq=sum_(R<=n<=Y_q)mu(n)^2;
+D-P=V0+2 sum_q Vq/q;
+B_R=2 Mixed_R-2E=G^2+2GU-2E-(D-P).
+```
+
+Admission is strict: q^2=R is excluded, and an admitted daughter has Y_q>=R+1. No shifted Mertens daughter, completed owner population, dropped squarefree diagonal or empirical mean-centered covariance is substituted.
+
+Original first-owner cells use squarefree n in 1..X, lower-prime signature `{ell<p:ell divides n}`, p-free base and p-divisible child. Each oriented cell contributes
+
+```text
+A_base*T_child + T_base*A_child + T_base*T_child,
+A_branch=sum_(n in branch)mu(n)a(n),
+T_branch=sum_(n in branch)mu(n)t(n).
+```
+
+This retains both prefix/tail orientations and tail/tail. The first-owner label p is distinct from the daughter label q. Pair multiplicities are counted before aggregation, not deduplicated by equal amplitudes.
+
+| Source path | Blob SHA | Role |
+| --- | --- | --- |
+| RHLean/Proof/SignedTransportAmplificationAudit.lean | 746f35f126f36e024d39e38c92dde30aabca266b | Literal q^2 cutoff, unshifted daughter square |
+| research/CANONICAL_ROUGH_Q2_TAIL_REDUCTION.lean | ebca096e83009a7df514d00b6a2696be86a94c55 | Strict low-owner set and E |
+| research/GLOBAL_RETURNED_CORE_WEIGHTED_MOBIUS_COORDINATE.lean | f0e2e672a1ed369d1dc6dacbe9024c65e986a3c8 | U and actual reciprocal site weights |
+| research/GLOBAL_RETURNED_CORE_WEIGHTED_GRAM.lean | dbaf123113b544d0b19c7c3c6b92a1288a26cfb8 | Actual far-tail coefficient and site |
+| research/GLOBAL_RETURNED_CORE_FIRST_OWNER_GRAM.lean | 36141a8caec5f99d6c40cb72ae1fdbcf6f462b82 | Physical diagonal and first-owner assembly |
+| research/GLOBAL_RETURNED_CORE_FIRST_OWNER_CELLS.lean | 5ca177548e91dd8bc6535e9913b29dc81cdfccea | Signatures, base/child fibers |
+| research/GLOBAL_RETURNED_CORE_RECIPROCAL_PREFIX_SIGNED_CELL_SPLIT.lean | 29bb263ddd07b12a2dd5ccf6a12aecaf627134d8 | Mixed_R with every cross orientation |
+| research/GLOBAL_RETURNED_CORE_PREFIX_TAIL_MIXED_REMAINDER_IDENTITY.lean | d17aeb639bb47d79333cf0d00760c2604feddfdf | P and exact restored source |
+| research/GLOBAL_RETURNED_CORE_POST789_DIAGONAL_SUBTRACTED_CONTROL.lean | ba95beda901719afaabca9011b8dbae6fc69662d | Actual endpoint gap G |
+| research/CORR4_MIXED_TAIL_RECORD_PLATEAU_20261026.lean | a4abeb13653076bedd8e1173c933ee3324bfea26 | corr4_mixed_tail_eq_actual_endpoint_gap |
+| research/CORR4_OAI_POWER_MIXED_TAIL_GATE_20261025.lean | bb0ee1252e7ba10c44ae5b8d827573d6c581b73a | Conditional complete mixed-power consumer |
+
+The displayed definitions and original identity were inspected in these main sources. This run executed no Lean and does not claim a fresh compilation of those older modules.
+
+### E. Exact Pair Optimization
+
+For each q define
+
+```text
+J_q(d)=2Gd/q-2d^2;
+C_q=max_(z in Z) J_q(z);
+r_q=C_q-J_q(d_q)>=0;
+Rsv=sum_q r_q;
+Delta_qr=d_q-d_r;
+Gamma_qr=C_q+C_r-max_(u-v=Delta_qr;u,v in Z)(J_q(u)+J_r(v)).
+```
+
+Gamma is exactly Analytic J4, with no diagonal counted twice. Let
+
+```text
+W=max sum_(q<r)lambda_qr Gamma_qr,
+lambda_qr>=0, sum_(r!=q)lambda_qr<=1 for every q;
+U_pair=G^2-(D-P)+sum_q C_q-W.
+```
+
+Then B_R=U_pair-(Rsv-W), and 0<=W<=Rsv. The full signed source is reconstructed at every tested root, not just the pair statistic.
+
+**Optimization certificate.** With k=|S|, L=product_q q and integer symmetric matrix H_ij=L Gamma_ij, H_ii=0, the optimum is
+
+```text
+W=(1/(2L)) max_(permutations pi) sum_i H_(i,pi(i)).
+```
+
+For completeness: a legal fractional matching gives a symmetric doubly stochastic matrix by filling its diagonal with 1-degree(i). Its assignment objective is twice the matching objective. Conversely a permutation produces legal lambda_ij=(1_(pi(i)=j)+1_(pi(j)=i))/2, with fixed points ignored. The finite doubly stochastic assignment theorem proves equality. More importantly, every computed value also has a direct exact certificate that does not require trusting the optimizer: nonnegative rational y_i with y_i+y_j>=Gamma_ij and sum y_i=W, together with a feasible permutation attaining W.
+
+The primary code uses integer subset dynamic programming. The independent check uses integer Hungarian potentials and verifies every primal/dual constraint exactly. All assignments for k<=5 are additionally enumerated exhaustively. A separate derivation computes Gamma from the sum/difference parity-coset formula instead of the primary quadratic maximization. No floating-point optimization or numerical tolerance is used.
+
+### F. Results And Minimal Certificates
+
+| Range | Roots | PAIR-HALF failures | First failure | Least W/Rsv | Root attaining least ratio |
+| --- | ---: | ---: | ---: | --- | ---: |
+| Exploration 56..256 | 201 | 65 | 57 | 7/430 | 59 |
+| Holdout 257..512 | 256 | 37 | 258 | 1050736/6722409 | 309 |
+| Fixed anchor 2002 | 1 | 1 | 2002 | 1395112628272540205/3007170565684034518 | 2002 |
+
+All 458 full B_R values and all 458 pair envelopes U_pair are negative. This finite fact is not an all-scale sign theorem or exponent estimate. There is no numerical error in the sign decisions.
+
+**Smallest legal failure R=57.**
+
+```text
+X=3248; M(X)=17; M(56)=-2; G=19;
+q=(3,5,7); Y=(360,129,66); d=(-1,-1,-1);
+V=(185,45,7); V0=1943; E=3; U=-71/105;
+D-P=6259/3; B=-61496/35;
+Rsv=6544/105;
+Gamma_35=12/5; Gamma_37=68/21; Gamma_57=4/7;
+W=68/21; W/Rsv=85/1636<1/2.
+```
+
+The matching consisting only of edge (3,7) attains W. Dual y=(266/105,0,74/105) has sum 68/21 and satisfies all three pair constraints. R=56 passes, so 57 is the smallest failure among all admissible roots below or equal to it, not merely the smallest selected example.
+
+**Strongest frozen failure R=59.**
+
+```text
+X=3480; M(X)=9; M(58)=0; G=9;
+q=(3,5,7); Y=(386,139,71); d=(-2,-4,-3);
+V=(198,50,9); V0=2083; E=29; U=-199/105;
+D-P=15663/7; B=-78704/35;
+C=(4,8/5,4/7); J=(-20,-232/5,-180/7);
+Rsv=688/7;
+Gamma_35=8/5; Gamma_37=0; Gamma_57=8/5;
+W=8/5; W/Rsv=7/430.
+```
+
+Dual y=(0,8/5,0) proves no legal weighted collection of pairs can beat 8/5; either nonzero edge attains it. Thus the result is not a poor choice of pairing. Constants greater than 7/430 cannot give an all-R lower fraction for this exact observable. No claim is made that 7/430 itself is valid or optimal at all scales.
+
+**Original-cell independent verification.** Trial factorization, without using either sieve's mu values, reconstructed every physical site and first-owner split. At each split the child has p in its prime signature and the base does not; every lower-prime signature is retained. Aggregated products count exactly the full number of unordered distinct squarefree-site pairs. They do not explicitly loop over billions of pairs.
+
+| R | Squarefree sites | Nonempty splitting cells | Represented unordered pairs | Mixed_R | B_R=2 Mixed_R-2E |
+| ---: | ---: | ---: | ---: | --- | --- |
+| 57 | 1977 | 1976 | 1953276 | -30643/35 | -61496/35 |
+| 59 | 2119 | 2118 | 2244021 | -38337/35 | -78704/35 |
+| 125 | 9501 | 9500 | 45129750 | -161069/33 | -328672/33 |
+| 376 | 85948 | 85947 | 3693486378 | -201054737297/4849845 | -411004090324/4849845 |
+
+At R=125, both-cross cell mass=-10919/33 and tail/tail=-4550. Their sum is Mixed_R. All q=(3,5,7,11) contribute T=(-2054/3,-118,-58,10/11). This independently verifies Wheel's positive q=11 term and negative complete bill.
+
+At R=376, both-cross cell mass=-16004051477/4849845 and tail/tail=-38156. The unshifted daughters are (-19,12,-19,-5,-3,-4,-1) at q=(3,5,7,11,13,17,19), E=917 and D-P=5907946801/62985. The corrected positive pair is T_17=86/17 and T_19=136/19; its sum is 3946/323. The complete bill remains negative. This independently verifies Analytic's witness directly on original mixed cells, not only its endpoint formula.
+
+The R=2002 regression gives G=208, E=8367, U=-233438518043839321/6541380665835015 and B=-17420832319643298618328/6541380665835015; every corrected T_q is nonpositive. Original-cell reconstruction at that large anchor was not run or claimed; two independent arithmetic methods checked its endpoint/diagonal quantities.
+
+### G. Hidden Variable And Exact Retained-Offset Bound
+
+**Claim 20261103-census-4, PAPER_PROOF / SELF_AUDIT.** This is a finite algebraic restriction applicable to the genuine source, not a newly proved distribution theorem for mu.
+
+Fix any nonempty finite set of positive labels q, integer G and integers d_q. Define C,J,Gamma as above, k=|S| and
+
+```text
+e_q=d_q-G/(2q);
+e_bar=(1/k)sum_q e_q;
+Lambda=2k*(e_bar^2-dist(e_bar,Z)^2)>=0.
+```
+
+For EVERY legal nonnegative degree-at-most-one choice of lambda,
+
+```text
+Rsv-sum_(q<r)lambda_qr Gamma_qr >= Lambda.             (PC6)
+```
+
+In particular Rsv-W>=Lambda. The actual complete source therefore has the sharper upper bound
+
+```text
+B_R <= G^2-(D-P)+sum_q C_q
+       -sum_(q<r)lambda_qr Gamma_qr-Lambda.             (PC7)
+```
+
+**Proof.** For an integer h, replace every d_q by d_q+h in this auxiliary integer optimization. Every Delta_qr and hence every Gamma_qr is unchanged. The degree-limited pair inequality holds for every such translated integer vector, so
+
+```text
+sum_q J_q(d_q+h) <= sum_q C_q-sum_(q<r)lambda_qr Gamma_qr.
+```
+
+Completion of squares gives
+
+```text
+sum_q J_q(d_q+h)-sum_q J_q(d_q)
+ =2k*(e_bar^2-(e_bar+h)^2).
+```
+
+Maximizing over integer h yields exactly Lambda, proving PC6. Adding G^2-(D-P) proves PC7. No daughter-square credit is used twice: Lambda is proved to fit inside the residual left AFTER the pair credit, not added on an unsupported orthogonality assertion.
+
+The same calculation shows that fixing every daughter difference while relaxing only the absolute integer anchor has exact optimal complete bill B_R+Lambda. The translated vectors are an explicitly labeled algebraic relaxation; they are **not** asserted to occur as Mobius prefixes or to preserve a physical first-bad predicate. All observed d_q used for counterexamples remain genuine.
+
+**At R=59**, e_bar=-281/70 and the maximizing common shift is h=4. It changes d=(-2,-4,-3) to the auxiliary vector (2,0,1), preserving all differences. Lambda=3384/35, and the exact identity
+
+```text
+Rsv-W=688/7-8/5=3384/35=Lambda
+```
+
+holds. Thus even retaining the full list of mutual daughter differences leaves precisely this large common-offset loss in the sharp integer relaxation. PC7 recovers the actual B at this root. At R=57 the analogous common shift is 3 and Rsv-W=Lambda=2068/35.
+
+**Finite discrimination.** The condition 2 Lambda>Rsv already forces failure of PAIR-HALF without solving for W. It explains 57 of 65 exploratory failures and 28 of 37 held-out failures. It does not explain the isolated R=2002 failure, so the common offset is a substantial mechanism, not a claim to classify every failure. Every computed row satisfies PC6 exactly. These post-discovery checks use the frozen rows; they are not a new independent holdout.
+
+A looser convenient diagnostic follows from e-variance: W<=2 sum_q(e_q-e_bar)^2+k/2. This follows from Gamma_qr<=(e_q-e_r)^2+1, the degree constraint and (u-v)^2<=2u^2+2v^2. It was checked exactly but is weaker than retaining the actual offset in PC6 at the decisive roots.
+
+The newly identified variable is the absolute daughter-prefix anchor, equivalently the common component of e. Merely adding more pair differences cannot detect a simultaneous integer translation. Direct sign information, an actual anchor constraint, or a joint estimate retaining that component can; none is supplied automatically by a global Mertens bound.
+
+### H. Methods, Precision And Reproducibility
+
+Environment actually observed: Python 3.12.14; g++ 13.3.0 (Ubuntu 13.3.0-6ubuntu2~24.04); Linux 6.18.57 x86_64. No random seed, external numerical library, probable-prime test, transcendental weight or floating-point sign decision is used.
+
+Primary arithmetic: linear least-prime-factor Mobius sieve to exactly 4,008,003, integer Mertens and squarefree-count prefixes. Independent C++ arithmetic: divisor-convolution inversion mu(1)=1 and mu(n)=-sum_(d|n,d<n)mu(d), with independently trial-tested owner primes. Every M(X), M(R-1), d_q, V0 and Vq agrees on all 458 roots. Important witnesses additionally use independent trial factorization and literal first-owner grouping. The prefix and mixed reconstructions agree with difference exactly zero.
+
+Complexity: primary sieve O(N), divisor inversion O(N log N), assignment O(k 2^k), with k<=13. The first-owner split uses multiples of actual primes and occupied signature aggregates, rather than quadratic pair enumeration. Sieve storage uses integer arrays. No hardware benchmark or peak-memory measurement is claimed.
+
+Initial primary execution reported 2.0255568500000436 seconds; a final-source reproducibility rerun after removing unused imports reported 1.9766602909999165 seconds. The final verifier reported 0.810653099000092 seconds. These are measured diagnostic timings, not portable performance guarantees. The verifier additionally checks the entire AMP square, including the prefix/prefix cell mass and both original diagonals, with exact zero discrepancy. All mathematical outputs are exact; JSON elapsed-time fields naturally vary on reproduction.
+
+Executed commands, using the complete source appended below:
+
+```bash
+python reserve_census.py
+g++ -O2 -std=c++17 -Wall -Wextra -Werror mobius_reference.cpp -o mobius_reference
+./mobius_reference > reference_rows.txt
+python verify_reserve.py
+python common_mode_audit.py
+```
+
+| Executed source | SHA256 |
+| --- | --- |
+| reserve_census.py | 3ab987d4b53f88b6057c0f14bb0290fe4727594573cd904b6f134244695a2387 |
+| mobius_reference.cpp | f54fa323c9a3e1a3ecab9fba2b3e99f00c74890c56edef98e7404ff617924e70 |
+| verify_reserve.py | 4d7c583a1849c814e80734a2d5148178d6db053047de5588164d3e422167dbb3 |
+| common_mode_audit.py | 174cf5c594c315ad1162e51c0df283e7a097225025c9f804148665dfc6661946 |
+
+Observed artifacts: reserve_results.json SHA256 `ef513422bdf00b4286bf2d22f21a6b85a222ddcdace1e3d93ce19b3a9c677bfb`; reference_rows.txt `45f139060cfc7a4aa2efca94acd385873ea29fce3227b82815490b6145745e60`; verification_results.json `585bd9fe0c46bbeabd1165449c64401aee81f2b284bddd2588a2c8d73d2785d9`; common_mode_results.json `7664708d5effcd4518253c45e15bb1d3e39098517cd4d06a867c47eb34c6dc30`. The sources are embedded because a hash alone is not a retrievable reproducer. No experimental files are committed outside this report.
+
+### I. Proof Impact And First Missing Estimate
+
+PAIR-HALF is REFUTED. Degree normalization remains essential, but correct normalization by itself does not ensure a useful fixed-fraction recovery. PC6/PC7 give an exact repair retaining the common component, with constant one and all original diagonals still present.
+
+The actual sufficient consumer `mertensPowerBound_of_corr4MixedTailBill` takes beta>=1/2, A>=0 and the uniform all-R premise
+
+```text
+B_R <= A R^(4 beta), every integer R>=56.
+```
+
+It does not take PAIR-HALF, a local sign observation, or a favorable finite ratio. To improve an incoming beta_in one still needs an independently proved complete bound at some fixed beta_out<beta_in. PC7 offers a valid upper expression with the common-offset term restored, but **no all-scale arithmetic estimate for it is established here**. Treating that entire upper expression as a small assumed supplier would not close the proof. Neither this result nor the finite negativity provides a power saving.
+
+Source-qualified novelty: the current W1-W10/J1-J8 records and the inspected main CORR4/cell modules were compared. The individual and pair completions are existing infrastructure, not rediscovered theorems. This report adds the exact aggregate-credit falsifiers, original-cell audit, and explicit common-offset loss/refinement. No exhaustive repository or literature-priority claim is made.
+
+### J. GitHub And Formal Status
+
+Live PR discovery found #1079 as the sole open PR, draft at head `bdaf5c642b51c732a3e755b2e799c8c5ec628508`. At inspection 11 attached workflows succeeded and two failed, including dedicated Native LOW-first run 41659485228. No repaired or verified new #1079 theorem is claimed. This invocation changed none of its files, statuses or workflows.
+
+Recent accepted changes were checked from actual PR metadata: #1073 merged to main at 13:14:29Z, merge `0ac2bcccfc18d3f37d220b2758b29010a1b538c8`; stacked #1074/#1075/#1076 reached main through #1077 at 13:52:39Z, merge `acffafc79df1a3713e77dcd14eb551b7413d00c2`; #1078 merged at 14:37:17Z, current main. #1078's complete moving-prime-window note explicitly labels its new signed estimate OPEN; its source is different from this experiment and is not imported as a bound.
+
+Inherited strict Mertens result: `research/oai_434/VF919NativeStrictMertens.lean`, unchanged blob `b33a4883e1ddb0551b0f11f062bce46680d87450`, contains `native_mertens_uniform_strict_gap` and `native_mertens_fixed_strict_power`. Exact tested #1073 head `9cbfce5295343bcb411e6d2cb159b59995cd985b` has 13 successful attached workflows. Dedicated run 41554561404 / job 125650160501 was actually read: terminal checks pass and the displayed axioms for those statements are propext, Classical.choice and Quot.sound. The earlier independent Referee acceptance is carried forward at unchanged scope. This is reuse of tested-head evidence now integrated into main, not a fresh cold rebuild or an independent Census audit of the entire analytic proof.
+
+Programme gate: inherited VERIFIED_ETA on main at that previously accepted scope. This run's new endpoint gain is UNKNOWN; broad portfolio support remains unchanged and no team-wide narrowing is requested. Formal status of new claims 3/4: not compiled. Computational independence here means different algorithms in this invocation, not independent Referee acceptance.
+
+### K. Specialist Handoffs
+
+- Coordinator: retire PAIR-HALF specifically; preserve the full signed route. The common-offset component is an explicit missing variable in a difference-only recovery claim, not a new universal obstruction to CORR4.
+- Analytic: the R=376 witness is verified from original first-owner cells. J6 alone loses almost all available reserve at R=59; PC7 restores a rigorously disjoint common-offset contribution. A useful next attempt must retain an actual prefix anchor or direct one-sided sign information, then reach an independently justified all-scale estimate.
+- Wheel: W1's q=11 example at R=125 is confirmed with the entire D-P and every admitted daughter. Do not enlarge the pair scan; the degree and absolute-anchor qualifications are now explicit. Keep the separate FINITE-AC/MU-LIFT rotation.
+- Owner: no prime-indicator VF capacity or first-escape theorem follows from this Mobius calculation. Your physical squareful ancestry witness remains a separate ready audit candidate.
+- Referee: independently check PC6/PC7 via the common integer shift and the two exact dual certificates. Distinguish the algebraic translated-vector relaxation from genuine arithmetic, and the refuted half-fraction assertion from the unrefuted full source bound.
+- Lean: no immediate new proof branch is requested. After independent review and utility selection, PC6/PC7 are finite algebra candidates with exact source identification; do not formalize the unproved all-scale bound as though its input were paid.
+
+These handoffs are published in this report only. No agent was launched and no other report, issue, PR or comment was changed.
+
+### L. Ranked Hypothesis Portfolio
+
+| Candidate | Evidence / counterevidence | Independent ingredient needed | Disposition |
+| --- | --- | --- | --- |
+| Best degree-limited pair credit always recovers >=1/2 reserve | Exact R=57 and R=59 counterexamples, certified optimal credit | None can rescue this exact assertion | Reject |
+| Retain common offset in addition to pair differences | PC6/PC7 paper proof; exact equalities at 57/59; all 458 checks pass | Source-specific anchored signed estimate, not merely more differences | Continue, independent review pending |
+| Full mixed source obeys a stronger uniform power bound | All frozen roots negative, but no all-scale argument | Genuine complete arithmetic bound with paid parent and overlap terms | Open; do not infer from this sample |
+| Earlier PC5 genuine maximal-fragment diagonal repair | Earlier fixed-block evidence; generic support/prefix inference refuted by Referee | Ordered multiplicative-sign information on actual hybrid source | Retain separately; no new scan |
+
+### M. Next-Run Resume Capsule
+
+```text
+RUN: SCHEDULED 2026-11-03 11:00:01 EST (-0500); RUN_ID_UNAVAILABLE.
+MAIN: 3930d884282dd5315f0453e5dd88b356d187a8e0.
+ENGINE: 6fce99c61efb5b2a73c0cb1f1464f09b351fcd55.
+TASK: CORR4 original-cell audit and preregistered aggregate-credit discriminator.
+CLAIMS: 20261103-census-3 FINITE_COMPUTATION / PAIR-HALF REFUTED;
+        20261103-census-4 PAPER_PROOF, SELF_AUDIT, independent review PENDING.
+COMPLETED: R=56..512 plus 2002; 458 exact primal/dual certificates;
+  independent divisor inversion at every root; trial-factor original cells
+  at 57,59,125,376; full source and every diagonal/cross term restored.
+DISCOVERY: mutual daughter differences forget the common integer offset;
+  Rsv-W>=Lambda; R=59 has optimal W/Rsv=7/430.
+DO_NOT_REPEAT: 56..2048 simultaneous-positive scan; current 458-root scan;
+  earlier CORR4 <=20000 table or fragment fits without a new prediction.
+FIRST_OPEN: a genuinely arithmetic, uniformly bounded complete source,
+  not PAIR-HALF or an assumed target-strength upper envelope.
+NEXT_DECISIVE_ACTION: test a specifically proposed absolute-anchor/sign
+  restriction on the existing counterexample roots BEFORE widening a range.
+  If no such supplier is ready, take a different ready portfolio audit,
+  such as Owner's sparse physical ancestry-capacity witness or Wheel's
+  five-band second-prime classification, after checking their review status.
+PROJECT_GAIN: inherited reviewed strict Mertens result on main;
+  NEW_RUN_GAIN: UNKNOWN; RH/canonical VF/sharp local shell remain OPEN.
+PERMISSIONS: only own report written; no local Lean, no agents launched,
+  no branch/PR/workflow/issue/schedule/permission changes or merge.
+```
+
+### N. Reproducible Source Appendix
+
+The following four complete source files reproduce the exact experiment, independent arithmetic checks, optimization certificates and original-cell audits. Running the post-discovery common-mode audit does not enlarge the preregistered range.
+
+
+#### reserve_census.py
+
+```python
+"""Exact preregistered CORR4 pair-credit discriminator, 2026-11-03."""
+
+from array import array
+from fractions import Fraction as F
+from math import prod
+import json
+import platform
+import time
+
+
+def linear_mobius(limit):
+    least = array('i', [0]) * (limit + 1)
+    mu = array('b', [0]) * (limit + 1)
+    mu[1] = 1
+    primes = []
+    for n in range(2, limit + 1):
+        if least[n] == 0:
+            least[n] = n
+            primes.append(n)
+            mu[n] = -1
+        for p in primes:
+            m = p * n
+            if m > limit:
+                break
+            least[m] = p
+            if n % p == 0:
+                break
+            mu[m] = -mu[n]
+    mertens = array('i', [0]) * (limit + 1)
+    squarefree = array('i', [0]) * (limit + 1)
+    for n in range(1, limit + 1):
+        mertens[n] = mertens[n - 1] + mu[n]
+        squarefree[n] = squarefree[n - 1] + mu[n] * mu[n]
+    return mu, mertens, squarefree, primes
+
+
+def assignment_dp(weights):
+    """Integer maximum assignment; half its value is fractional matching."""
+    k = len(weights)
+    best = [None] * (1 << k)
+    previous = [None] * (1 << k)
+    best[0] = 0
+    for mask in range(1 << k):
+        i = mask.bit_count()
+        if i == k:
+            continue
+        for j in range(k):
+            if not mask & (1 << j):
+                next_mask = mask | (1 << j)
+                candidate = best[mask] + weights[i][j]
+                if best[next_mask] is None or candidate > best[next_mask]:
+                    best[next_mask] = candidate
+                    previous[next_mask] = (mask, j)
+    permutation = []
+    mask = (1 << k) - 1
+    while mask:
+        mask, j = previous[mask]
+        permutation.append(j)
+    return best[-1], list(reversed(permutation))
+
+
+def evaluate(root, mertens, squarefree, primes):
+    x = root * root - 1
+    qs = [p for p in primes if p > 2 and p * p < root]
+    k = len(qs)
+    scale = prod(qs)
+    ys = [x // (q * q) for q in qs]
+    ds = [mertens[y] for y in ys]
+    vs = [squarefree[y] - squarefree[root - 1] for y in ys]
+    g = mertens[x] - mertens[root - 1]
+    v0 = squarefree[x] - squarefree[root - 1]
+    e = sum(d * d for d in ds)
+    ul = sum(d * (scale // q) for q, d in zip(qs, ds))
+    dpl = v0 * scale + 2 * sum(v * (scale // q) for q, v in zip(qs, vs))
+    js = [2 * g * d * (scale // q) - 2 * d * d * scale for q, d in zip(qs, ds)]
+    cs = []
+    for q in qs:
+        nearest = (abs(g) + q) // (2 * q)
+        cs.append(2 * nearest * (abs(g) - q * nearest) * (scale // q))
+    gamma = [[0] * k for _ in range(k)]
+    for i in range(k):
+        for j in range(i + 1, k):
+            q, r = qs[i], qs[j]
+            delta = ds[i] - ds[j]
+            center = F(g * (q + r), 4 * q * r) - F(delta, 2)
+            lo = center.numerator // center.denominator
+            candidates = []
+            for t in (lo, lo + 1):
+                candidates.append(2 * g * ((t + delta) * (scale // q) + t * (scale // r))
+                                  - 2 * ((t + delta) ** 2 + t * t) * scale)
+            gamma[i][j] = gamma[j][i] = cs[i] + cs[j] - max(candidates)
+            assert 0 <= gamma[i][j] <= cs[i] - js[i] + cs[j] - js[j]
+    optimum, permutation = assignment_dp(gamma)
+    reserve = F(sum(cs) - sum(js), scale)
+    credit = F(optimum, 2 * scale)
+    bill = F(g * g * scale + 2 * g * ul - 2 * e * scale - dpl, scale)
+    envelope = F(g * g * scale - dpl + sum(cs), scale) - credit
+    assert envelope - bill == reserve - credit >= 0
+    residuals = [F(d) - F(g, 2 * q) for q, d in zip(qs, ds)]
+    mean = sum(residuals) / k
+    variance = sum((value - mean) ** 2 for value in residuals)
+    upper_credit = 2 * variance + F(k, 2)
+    assert credit <= upper_credit
+    # Fix all daughter differences and optimize only their common integer shift.
+    center = -mean
+    lo = center.numerator // center.denominator
+    shift = min((lo, lo + 1), key=lambda h: sum((value + h) ** 2 for value in residuals))
+    lost_common = 2 * k * (mean * mean - (mean + shift) ** 2)
+    all_difference_envelope = bill + lost_common
+    assert lost_common >= 0
+    return {
+        'R': root, 'X': x, 'Mroot': mertens[root - 1], 'MX': mertens[x],
+        'G': g, 'q': qs, 'Y': ys, 'd': ds, 'V': vs, 'V0': v0, 'E': e,
+        'L': scale, 'U': F(ul, scale), 'DP': F(dpl, scale), 'B': bill,
+        'T': [F(j - 2 * v * (scale // q), scale) for j, v, q in zip(js, vs, qs)],
+        'C_scaled': cs, 'J_scaled': js, 'Gamma_scaled': gamma,
+        'reserve': reserve, 'credit': credit, 'ratio': credit / reserve if reserve else None,
+        'pair_half': 2 * credit >= reserve, 'permutation': permutation,
+        'pair_envelope': envelope, 'residual_mean': mean, 'variance': variance,
+        'credit_upper': upper_credit, 'mean_obstruction': 2 * upper_credit < reserve,
+        'common_shift': shift, 'common_loss': lost_common,
+        'all_difference_envelope': all_difference_envelope,
+    }
+
+
+def serial(value):
+    if isinstance(value, F):
+        return str(value)
+    raise TypeError(type(value).__name__)
+
+
+def summarize(rows):
+    fails = [r for r in rows if not r['pair_half']]
+    nonzero = [r for r in rows if r['ratio'] is not None]
+    worst = min(nonzero, key=lambda r: r['ratio'])
+    return {'count': len(rows), 'failures': len(fails),
+            'first_failure': fails[0]['R'] if fails else None,
+            'minimum_ratio_R': worst['R'], 'minimum_ratio': worst['ratio'],
+            'mean_obstruction_count': sum(r['mean_obstruction'] for r in rows),
+            'max_B_R': max(rows, key=lambda r: r['B'])['R'],
+            'positive_B_count': sum(r['B'] > 0 for r in rows),
+            'positive_pair_envelope_count': sum(r['pair_envelope'] > 0 for r in rows)}
+
+
+def main():
+    start = time.perf_counter()
+    mu, mertens, squarefree, primes = linear_mobius(2002 ** 2 - 1)
+    roots = list(range(56, 513)) + [2002]
+    rows = [evaluate(r, mertens, squarefree, primes[:20]) for r in roots]
+    summary = {'python': platform.python_version(), 'limit': len(mu) - 1,
+               'exploration': summarize(rows[:201]), 'holdout': summarize(rows[201:-1]),
+               'elapsed_seconds': time.perf_counter() - start}
+    result = {'summary': summary, 'rows': rows}
+    with open('reserve_results.json', 'w', encoding='ascii') as handle:
+        json.dump(result, handle, default=serial, sort_keys=True, indent=2)
+    print(json.dumps(summary, default=serial, sort_keys=True))
+    selected = {56, 125, 376, 2002, summary['exploration']['minimum_ratio_R'],
+                summary['holdout']['minimum_ratio_R']}
+    for row in rows:
+        if row['R'] in selected:
+            print(json.dumps(row, default=serial, sort_keys=True))
+
+
+if __name__ == '__main__':
+    main()
+```
+
+
+#### mobius_reference.cpp
+
+```cpp
+#include <iostream>
+#include <vector>
+#include <cmath>
+
+int main() {
+    const int N = 2002 * 2002 - 1;
+    std::vector<int> mu(N + 1), M(N + 1), sf(N + 1);
+    mu[1] = 1;
+    // Divisor convolution inversion, independent of the multiplicative sieve.
+    for (int d = 1; d <= N; ++d)
+        for (int n = 2 * d; n <= N; n += d) mu[n] -= mu[d];
+    for (int n = 1; n <= N; ++n) {
+        if (mu[n] < -1 || mu[n] > 1) return 1;
+        M[n] = M[n - 1] + mu[n];
+        sf[n] = sf[n - 1] + mu[n] * mu[n];
+    }
+    for (int R = 56; R <= 2002; ++R) {
+        if (R > 512 && R != 2002) continue;
+        const int X = R * R - 1;
+        std::cout << R << ' ' << M[X] << ' ' << M[R - 1] << ' '
+                  << sf[X] - sf[R - 1];
+        for (int q = 3; q * q < R; q += 2) {
+            bool prime = true;
+            for (int d = 2; d * d <= q; ++d) if (q % d == 0) prime = false;
+            if (!prime) continue;
+            const int Y = X / (q * q);
+            std::cout << ' ' << q << ' ' << M[Y] << ' ' << sf[Y] - sf[R - 1];
+        }
+        std::cout << '\n';
+    }
+}
+```
+
+
+#### verify_reserve.py
+
+```python
+"""Independent exact assignment dual and literal first-owner-cell checks."""
+
+from array import array
+from fractions import Fraction as F
+from itertools import permutations
+from math import isqrt, prod
+import json
+import time
+
+
+def hungarian_dual(weights):
+    n = len(weights)
+    u, v, p, way = ([0] * (n + 1) for _ in range(4))
+    for i in range(1, n + 1):
+        p[0] = i
+        j0 = 0
+        minimum = [None] * (n + 1)
+        used = [False] * (n + 1)
+        while True:
+            used[j0] = True
+            i0 = p[j0]
+            delta, j1 = None, None
+            for j in range(1, n + 1):
+                if not used[j]:
+                    current = -weights[i0 - 1][j - 1] - u[i0] - v[j]
+                    if minimum[j] is None or current < minimum[j]:
+                        minimum[j], way[j] = current, j0
+                    if delta is None or minimum[j] < delta:
+                        delta, j1 = minimum[j], j
+            for j in range(n + 1):
+                if used[j]:
+                    u[p[j]] += delta
+                    v[j] -= delta
+                elif minimum[j] is not None:
+                    minimum[j] -= delta
+            j0 = j1
+            if p[j0] == 0:
+                break
+        while j0:
+            j1 = way[j0]
+            p[j0] = p[j1]
+            j0 = j1
+    dual_twice = [-u[i] - v[i] for i in range(1, n + 1)]
+    assert all(z >= 0 for z in dual_twice)
+    for i in range(n):
+        for j in range(n):
+            assert dual_twice[i] + dual_twice[j] >= 2 * weights[i][j]
+    return dual_twice
+
+
+def trial_mu(n):
+    value, sign = n, 1
+    p = 2
+    while p * p <= value:
+        if value % p == 0:
+            value //= p
+            sign = -sign
+            if value % p == 0:
+                return 0
+        p = 3 if p == 2 else p + 2
+    return -sign if value > 1 else sign
+
+
+def first_owner_cells(root):
+    """Split lower-prime signatures, summing every literal mixed cell."""
+    x = root * root - 1
+    mu = array('b', [0] + [trial_mu(n) for n in range(1, x + 1)])
+    prime = bytearray(b'\x01') * (x + 1)
+    prime[0] = prime[1] = 0
+    for p in range(2, isqrt(x) + 1):
+        if prime[p]:
+            for n in range(p * p, x + 1, p):
+                prime[n] = 0
+    owners = [q for q in range(3, isqrt(root - 1) + 1) if prime[q]]
+    scale = prod(owners)
+    a = [0] * (x + 1)
+    for q in owners:
+        for n in range(1, x // (q * q) + 1):
+            a[n] += (scale // q) * mu[n]
+    tail = [mu[n] if n >= root else 0 for n in range(x + 1)]
+    total_sites = sum(m != 0 for m in mu)
+    groups = {1: [sum(a), sum(tail), total_sites]}
+    signature = array('i', [1]) * (x + 1)
+    mixed = prefix = tailtail = crosses = 0
+    cell_count = pair_count = 0
+    by_owner = []
+    for p in range(2, x + 1):
+        if not prime[p]:
+            continue
+        children = {}
+        for n in range(p, x + 1, p):
+            if mu[n]:
+                sig = signature[n]
+                item = children.setdefault(sig, [0, 0, 0])
+                item[0] += a[n]
+                item[1] += tail[n]
+                item[2] += 1
+                signature[n] *= p
+        owner_mixed = 0
+        for sig, child in children.items():
+            total = groups[sig]
+            base = [total[i] - child[i] for i in range(3)]
+            assert sig * p not in groups
+            groups[sig], groups[sig * p] = base, child
+            cross = base[0] * child[1] + base[1] * child[0]
+            tt = base[1] * child[1]
+            pp = base[0] * child[0]
+            crosses += cross
+            tailtail += tt
+            prefix += pp
+            cell = cross + scale * tt
+            mixed += cell
+            owner_mixed += cell
+            pair_count += base[2] * child[2]
+            cell_count += bool(base[2] and child[2])
+        if owner_mixed:
+            by_owner.append((p, F(owner_mixed, scale)))
+    assert pair_count == total_sites * (total_sites - 1) // 2
+    assert all(count in (0, 1) for _, _, count in groups.values())
+    dp = sum((tail[n] * scale + a[n]) ** 2 - a[n] ** 2 for n in range(1, x + 1))
+    assert dp % scale == 0
+    prefix_diagonal = sum(value * value for value in a)
+    full_diagonal = prefix_diagonal + dp
+    assert 2 * prefix + prefix_diagonal == sum(a) ** 2
+    assert 2 * (prefix + mixed * scale) + full_diagonal == (sum(a) + scale * sum(tail)) ** 2
+    return {'R': root, 'sites': total_sites, 'cells': cell_count,
+            'unordered_pairs': pair_count, 'Mixed': F(mixed, scale),
+            'prefix_cell_mass': F(prefix, scale * scale),
+            'both_cross_cell_mass': F(crosses, scale), 'tail_tail_cell_mass': tailtail,
+            'DP': F(dp, scale * scale), 'G': sum(tail), 'U': F(sum(a), scale),
+            'positive_owner_mass': sum(v for _, v in by_owner if v > 0),
+            'negative_owner_mass': sum(v for _, v in by_owner if v < 0),
+            'largest_positive_owner': max(by_owner, key=lambda v: v[1]),
+            'largest_negative_owner': min(by_owner, key=lambda v: v[1])}
+
+
+def main():
+    start = time.perf_counter()
+    with open('reserve_results.json', encoding='ascii') as handle:
+        rows = json.load(handle)['rows']
+    with open('reference_rows.txt', encoding='ascii') as handle:
+        reference = {int(line.split()[0]): list(map(int, line.split())) for line in handle}
+    certificates = []
+    for row in rows:
+        ref = reference[row['R']]
+        assert ref[1:4] == [row['MX'], row['Mroot'], row['V0']]
+        assert ref[4::3] == row['q'] and ref[5::3] == row['d'] and ref[6::3] == row['V']
+        k, g = len(row['q']), row['G']
+        # A second cap derivation: complete the squares in sum/difference coordinates.
+        cs, js = [], []
+        weights = [[0] * k for _ in range(k)]
+        for q, d in zip(row['q'], row['d']):
+            z = F(g, 2 * q)
+            near = z.numerator // z.denominator
+            dist = min(abs(z - near), abs(z - near - 1))
+            cs.append(F(g * g, 2 * q * q) - 2 * dist * dist)
+            js.append(2 * F(g * d, q) - 2 * d * d)
+        for i in range(k):
+            for j in range(i + 1, k):
+                q, r = row['q'][i], row['q'][j]
+                delta = row['d'][i] - row['d'][j]
+                aa, bb = F(g * (r - q), 2 * q * r), F(g * (q + r), 2 * q * r)
+                center = (bb - delta) / 2
+                near = center.numerator // center.denominator
+                rho = min(abs(bb - delta - 2 * near), abs(bb - delta - 2 * (near + 1)))
+                joint = F(g * g, 2) * (F(1, q * q) + F(1, r * r)) - (delta - aa) ** 2 - rho ** 2
+                gamma = (cs[i] + cs[j] - joint) * row['L']
+                assert gamma.denominator == 1
+                weights[i][j] = weights[j][i] = gamma.numerator
+        assert weights == row['Gamma_scaled']
+        dual = hungarian_dual(weights)
+        optimum = F(sum(dual), 2 * row['L'])
+        assert optimum == F(row['credit'])
+        permutation = row['permutation']
+        assert sorted(permutation) == list(range(k))
+        assert F(sum(weights[i][permutation[i]] for i in range(k)), 2 * row['L']) == optimum
+        assert sum(cs) - sum(js) == F(row['reserve'])
+        if k <= 5:
+            brute = max(sum(weights[i][p[i]] for i in range(k)) for p in permutations(range(k)))
+            assert F(brute, 2 * row['L']) == optimum
+        certificates.append({'R': row['R'], 'dual_twice_scaled': dual})
+    cells = []
+    for root in (57, 59, 125, 376):
+        result = first_owner_cells(root)
+        row = next(r for r in rows if r['R'] == root)
+        assert result['G'] == row['G'] and result['U'] == F(row['U'])
+        assert result['DP'] == F(row['DP'])
+        assert 2 * result['Mixed'] - 2 * row['E'] == F(row['B'])
+        cells.append(result)
+        print('CELLS', json.dumps(result, default=str, sort_keys=True))
+    result = {'verified_rows': len(rows), 'cells': cells, 'dual_certificates': certificates,
+              'elapsed_seconds': time.perf_counter() - start}
+    with open('verification_results.json', 'w', encoding='ascii') as handle:
+        json.dump(result, handle, default=str, sort_keys=True, indent=2)
+    print('VERIFIED', len(rows), 'elapsed_seconds', result['elapsed_seconds'])
+
+
+if __name__ == '__main__':
+    main()
+```
+
+
+#### common_mode_audit.py
+
+```python
+"""Post-discovery checks of the exact common-offset obstruction; no new scan."""
+
+from fractions import Fraction as F
+import json
+
+
+with open('reserve_results.json', encoding='ascii') as handle:
+    rows = json.load(handle)['rows']
+
+for row in rows:
+    reserve, credit, loss = map(F, (row['reserve'], row['credit'], row['common_loss']))
+    assert reserve - credit >= loss >= 0
+    k, g = len(row['q']), row['G']
+    shifted = [d + row['common_shift'] for d in row['d']]
+    direct = sum(2 * F(g * d, q) - 2 * d * d for q, d in zip(row['q'], shifted))
+    actual = sum(2 * F(g * d, q) - 2 * d * d for q, d in zip(row['q'], row['d']))
+    assert direct - actual == loss
+    # All pair differences and hence all Gamma values survive the optimizing shift.
+    assert all(shifted[i] - shifted[j] == row['d'][i] - row['d'][j]
+               for i in range(k) for j in range(k))
+
+result = {}
+for name, sample in [('exploration', rows[:201]), ('holdout', rows[201:-1]), ('anchor', rows[-1:])]:
+    failures = [r for r in sample if not r['pair_half']]
+    result[name] = {'rows': len(sample), 'pair_half_failures': len(failures),
+                    'forced_by_common_mode': sum(2 * F(r['common_loss']) > F(r['reserve']) for r in sample),
+                    'pair_envelope_equals_all_difference': sum(F(r['pair_envelope']) == F(r['all_difference_envelope']) for r in sample),
+                    'max_lost_ratio_R': max(sample, key=lambda r: F(r['common_loss']) / F(r['reserve']))['R']}
+print(json.dumps(result, sort_keys=True))
+with open('common_mode_results.json', 'w', encoding='ascii') as handle:
+    json.dump(result, handle, sort_keys=True, indent=2)
+```
