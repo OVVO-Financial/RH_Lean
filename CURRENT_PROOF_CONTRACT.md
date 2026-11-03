@@ -1,5 +1,8 @@
 # RH_Lean current proof contract
 
+> **2026-11-03 SOURCE-FIRST RESEARCH PRIORITY (effective after human merge; no new theorem asserted).** Read [the seven-agent original OAI 1-to-7/8 signed LOW contract](docs/RHLEAN_OAI_LOW_SOURCE_FIRST_AGENT_CONTRACT_20261103.md) and the [current task selector](docs/RHLEAN_NATIVE_SQUARE_CLOCK_AGENT_DIRECTIVE_20261029.md). The original improvement corresponds to the true signal beta-11/16 versus fully normalized LOW 3/16, with a 1/8 gap at beta=1. The intended arithmetic attack is on the original admitted Hecke unselected-tuple polynomial before Detector/LowTupleGram.lean's norm_sum_le, preserving NNS signed cross terms and the entire sqrt(Q)/Gaussian/HIGH/principal return. The NNS Co-minus-Div identity and a generic owner Gamma_R+ hypothesis are not a new bound. PR #1083 is an unmerged source-bridge proposal until live exact-head proof checks and human merge. A marked-HIGH t/2 gain does not improve a binding LOW term by itself. This instruction update leaves all proof-obligation statuses, von Koch/canonical VF milestones, broad nine-route rotation, permissions and human-only merge untouched.
+
+
 > **LIVE 2026-10-31 CADENCE UPDATE (after human merge):** [Multiple daily RH_Lean agent invocations](docs/RHLEAN_MULTIRUN_DAILY_AGENT_POLICY_20261031.md) are permitted for all seven existing roles at actually configured Studio times. This overrides older once-daily statements below without altering any mathematical theorem, proof obligation, source contract, role permissions or human-only merge rule. Multiple runs alone are never evidence of an exponent gain.
 
 
