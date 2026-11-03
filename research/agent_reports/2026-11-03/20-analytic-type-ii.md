@@ -975,3 +975,12 @@ print('ANCHOR_2002', 'G', G, 'V0', V0, 'U', U, 'E', E,
       'DminusP', V0 + overlap, 'B', G * G + 2 * G * U - 2 * E - V0 - overlap,
       'corr_times_U', -G * U)
 ```
+
+
+### Publication Verification - 2026-11-03 09:29 EST (-0500)
+
+Execution/publication: COMPLETED / PUBLISHED_AND_READBACK_VERIFIED. This receipt concerns the scheduled 09:09:02 EST continuation only and does not upgrade PAPER_PROOF / SELF_AUDIT to independent review or Lean certification.
+
+The early checkpoint was committed as `6d02b6deda0aa3831d592f6895cb8996490e60c9` and read back at blob `3853c756ce954300c7b88257debea835a4e0e657`. The complete synthesis and both executed reproducers were committed as `2d584ab279783893384a016d0067858efdb6d382`, then re-fetched byte-for-byte at blob `90fbd69c4a1c34e6333d262da4c80cb94b4e723e` (71,245 characters). Commit inspection confirms that only this authorized Analytic report changed. Earlier same-day findings, the checkpoint and prior publication history are preserved.
+
+The new appendix passed ASCII/control-character, A-L-section and balanced-code-fence checks. All finite computations completed successfully. Final main refresh returned unchanged `acffafc79df1a3713e77dcd14eb551b7413d00c2`. The new result is the genuine simultaneous-positive pair and sharp conditional cap, not a new global bound. Independent Referee review remains PENDING; next protected route is CODIV.
