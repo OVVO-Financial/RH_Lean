@@ -1771,3 +1771,10 @@ print(json.dumps(result, sort_keys=True))
 with open('common_mode_results.json', 'w', encoding='ascii') as handle:
     json.dump(result, handle, sort_keys=True, indent=2)
 ```
+
+
+### Verified Publication Receipt - 2026-11-03 11:22 EST
+
+The completed synthesis and all four executable sources were published in commit `12c3aec267e04e364c9ff5ea1d942d777902e65d`, content blob `f4b1e85d89607a1ad2b4a54fa660d60b13b58eb9`. At 2026-11-03T16:22:00Z, pinned readback matched all 104,498 characters exactly. The commit inspection confirmed only `research/agent_reports/2026-11-03/40-prime-census.md` changed, with 812 additions and zero deletions. All earlier same-day content and the preregistration checkpoint were preserved. This receipt is appended only after that verification.
+
+Final mathematical checks: 458 independent arithmetic comparisons and exact primal/dual certificates passed; original first-owner reconstruction and full AMP square restoration passed at R=57,59,125,376; no unresolved discrepancy. A final report-only sign-check command initially had a quoting/parenthesis error, was corrected, and returned true for negativity of every stored B and pair envelope. The arithmetic programs were unaffected. Main remained `3930d884282dd5315f0453e5dd88b356d187a8e0`; #1079 remained open/draft at the inspected unchanged head. No GitHub mutation outside this authorized report occurred.
