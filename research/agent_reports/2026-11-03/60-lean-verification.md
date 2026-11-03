@@ -15,3 +15,13 @@
 **deployment_ack:** current NEXT-LEAN bootstrap is superseded by merged earlier finite identities and the explicit unfinished #1075 repair. Resume its precise source-sized fixed-7/8 HIGH/LOW endpoint, preserve the complete source and all audit checks. Lean execution is GitHub Actions only. No local Lean, policy changes, merges, schedule changes, or additional agents.
 
 **Gate:** latest committed reports describe VERIFIED_ETA_ON_PR_HEAD, never on main; verification and exact scope are being checked. No new numerical gain, sharp-shell estimate, or RH conclusion is claimed here.
+
+## Repair And Review Milestone - 2026-11-03 05:27 EST
+
+PR #1075 received focused commit `c54bce957fa8c49ca944852b3a1b0e143f2d693b`, changing only `research/oai_434/VF919SlotAnchoredConsequences.lean` (new blob `0ef06d7ec94b2dbbc64f30aef3db65255ae59ff4`). The failed rewrite at line 68 is an elaboration/matching failure between explicit `Real.rpow` and power notation, not a false exponent identity. The repair normalizes with `Real.rpow_eq_pow` before applying the pinned `Real.rpow_mul_natCast` with explicit exponent and natural power. Added exact type prints for the signed-pair and signed-energy consequences. No theorem hypothesis, conclusion, carrier, workflow, or audit was weakened.
+
+The new dedicated run [41618470421](https://github.com/OVVO-Financial/RH_Lean/actions/runs/41618470421), job `125857764947`, started on the exact new head and remains CI_PENDING at this checkpoint. The old failed run printed `sorryAx` only for the unresolved energy proof and rejected the batch; that failed elaboration was not accepted as a theorem.
+
+Separately, #1076 at unchanged head `f676c9b13960f8c80b68bdf35a5f04b07370e228` is now marked ready for human review. All 8 workflows, the actual dedicated logs, exact endpoint/axiom/live-dependency audit, and archived generated source were checked. Artifact 13205450942 has matching SHA256 `cbb21d4180886598d3f41bc16096049e8aa0a6e190121fc51cdeb8ab242defb6`; its three tracked proof blobs match current GitHub source. Referee `20261103-referee-1` independently accepts this exact head. No new build was requested for unchanged green source.
+
+Both branches remain stacked on #1073 and overlap in three proof modules. The stronger #1076 tilt is `7*rmin/192`; #1075 uses `7*rmin/384`. This is a same-source comparison, not a numerical lower bound for an existential witness and not an additional exponent improvement produced in this run. Human integration must reconcile the alternatives. Nothing was merged.
