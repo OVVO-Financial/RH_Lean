@@ -708,3 +708,9 @@ if __name__ == "__main__":
     main()
 ```
 
+## Publication Verification - 2026-11-03 02:39 EST (-0500)
+
+The completed synthesis was published in commit f66a1a7ebc5e779afac72b2824779e077736263b at 2026-11-03T07:38:55Z. A pinned-commit readback returned blob c0473e3157c551a666aa3ab2f50409cc41bf142a and exactly matched all 47,620 submitted characters. Commit inspection confirmed that only research/agent_reports/2026-11-03/30-finite-wheel.md changed.
+
+The prior checkpoint bytes were preserved. All A-M sections, the exact R=125 and R=2002 fixtures, W1-W10, source inventory, scope qualifications, specialist requests and resume capsule were present. All 20 source-inventory blob SHAs matched the pinned main tree. ASCII/control-character and code-fence checks passed. The embedded executable source exactly matched the tested script and its recorded SHA256. This receipt records verified publication only; it does not confer independent acceptance, formal verification, or a new endpoint gain.
+
