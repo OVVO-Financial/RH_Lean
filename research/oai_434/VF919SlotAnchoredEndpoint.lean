@@ -107,7 +107,7 @@ theorem native_beta_le_slot_calibrated_boundary
     (sourceCorrection_bound_wide chi F.S F.exclusions)
     ?_ ?_ hboundary hpole') hzero'
   · convert hlow loss hloss using 1; ring_nf
-  · convert hhigh using 1; (try dsimp [chi']); ring_nf
+  · convert hhigh using 1; ring_nf
 
 theorem native_beta_le_constructed_slot_tilt :
     ∃ D : HighData (1/1000000 : ℝ),
