@@ -163,6 +163,15 @@ def main() -> None:
         if text.count('≤saving') != expected_saving_comparisons:
             raise ValueError(f'{name}: unexpected real saving-bound inventory')
         text = text.replace('≤saving', ' ≤ saving')
+        # Matroid notation also captures `<m` in two strictly real
+        # positivity hypotheses. Preserve the exact original predicates.
+        expected_mesh_margin = 1 if name in (
+            'VF919AnchoredHighTransport', 'VF919AnchoredHighAssembly'
+        ) else 0
+        for token, fixed in (('0<mesh', '0 < mesh'), ('0<margin', '0 < margin')):
+            if text.count(token) != expected_mesh_margin:
+                raise ValueError(f'{name}: unexpected real positivity-token count for {token}')
+            text = text.replace(token, fixed)
         text = pattern.sub(lambda match: mapping[match[0]], text)
         imports = {
             'VF919AnchoredSmallTail': imp('VF919NativeSevenEighthsReplay'),
