@@ -1,5 +1,6 @@
 import OAI.NumberTheory.DirichletL.Detector.GramTruncation
 import «research.VF_919_ACTUAL_WEIGHTED_NNS_COVARIANCE_KERNEL_20261021»
+import «research.oai_434.VF919OriginalExceptionalSixthCorridor»
 
 /-!
 # Original OAI exceptional-frequency source: exact signed outer Gram and NNS
@@ -21,6 +22,50 @@ namespace SevenEighths.ProbeGramCommon
 open ProbePhysical CanonicalQuadraticSieve CompletedGauss RayFourExpansion
 open ConcreteTraceCRT RHLean.Analysis RHLean.Proof
 local notation "Id" => Ideal ActualEisensteinCubic.O
+
+/-- At the ACTUAL original low-Gaussian column, the bad fifth-power
+frequency cancels the full sextic local phase of the column. This is not
+an assumed generic NNS alignment: both factors are literal source
+objects, and every original bad-prime and primary/ray admission is kept.
+
+The remaining factor is the original calibration residue character. -/
+theorem original_primary_fifth_seed_clears_column
+    (S : Finset Id) (hS : ∀ p ∈ S, p.IsMaximal)
+    (hbad : fixedBadPrimes ⊆ S)
+    (σ : RayRing) (n : ActualEisensteinCubic.O)
+    (hn : Supported (Ideal.span {n}))
+    (hprimary : ConcretePrimeRowBridge.goodLambda ^ 2 ∣ n - 1)
+    (hray : physicalRay n = σ)
+    (hcop : IsCoprime (calibrationForSet S hS).generator n) :
+    primaryCoefficient S hS σ n *
+        idealRowHom ((calibrationForSet S hS).generator ^ 5)
+          (Ideal.span {n}) =
+      (calibrationForSet S hS).tau⁻¹ *
+        ((calibrationForSet S hS).residueMonoid n)⁻¹ := by
+  let C := calibrationForSet S hS
+  have hbadgenerator := calibration_generator_bad S hS hbad
+  have hrow := gramPeriodicMonoid_primary C C.generator
+    (calibrationLowData S hS) hbadgenerator.1 hbadgenerator.2
+    n hn hprimary hcop
+  have hrestore := original_low_column_fifth_seed_restores_calibration
+    C n hn hcop.symm
+  change (if ConcretePrimeRowBridge.goodLambda ^ 2 ∣ n - 1 then
+      (if physicalRay n = σ then
+        C.tau⁻¹ * gramPeriodicMonoid C C.generator
+          (calibrationLowData S hS) n else 0)
+      else 0) * idealRowHom (C.generator ^ 5) (Ideal.span {n}) =
+      C.tau⁻¹ * (C.residueMonoid n)⁻¹
+  simp only [if_pos hprimary, if_pos hray, hrow]
+  calc
+    C.tau⁻¹ *
+        ((C.residueMonoid n)⁻¹ *
+          idealRowHom C.generator (Ideal.span {n})) *
+        idealRowHom (C.generator ^ 5) (Ideal.span {n}) =
+      C.tau⁻¹ *
+        ((C.residueMonoid n)⁻¹ *
+          idealRowHom C.generator (Ideal.span {n}) *
+          idealRowHom (C.generator ^ 5) (Ideal.span {n})) := by ring
+    _ = _ := by rw [hrestore]
 
 /-- One original common-ideal row, with all ideal divisor coefficients,
 Hecke phases and nonzero frequencies retained. -/
@@ -149,6 +194,7 @@ theorem original_truncation_signed_nns
   exact original_source_signed_nns_codiv S hS σ F
     (fun _ => E) W hW Y Q hY U v
 
+#print axioms original_primary_fifth_seed_clears_column
 #print axioms original_source_signed_hermitian_gram
 #print axioms original_source_signed_nns_codiv
 #print axioms original_exceptional_source_signed_nns
