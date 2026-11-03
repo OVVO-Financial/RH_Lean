@@ -1586,3 +1586,10 @@ if __name__ == '__main__':
               'scope': 'Exact finite identities and inequalities only; no asymptotic test.'}
     print(json.dumps(result, indent=2))
 ```
+
+
+### Verified Publication Receipt - 2026-11-03 17:27 EST (-0500)
+
+**This invocation: COMPLETE / PUBLISHED_AND_VERIFIED.** The CODIV synthesis and complete exact reproducer were committed as `508b0695c275afe67d3e16c8248732d425f8f8b4` on `agent-reports`. Fetching the authorized file at that exact commit returned blob `cd73ce38eed9c19f65c7174ba6bc0e1798623244`, 113910 characters, exactly matching the intended content. The entire pre-invocation report and the early checkpoint were preserved byte-for-byte. The initial checkpoint itself was verified at commit `414c1d17d034a6a5be8861fec555d7870de3d99f`.
+
+The new result remains PAPER_PROOF / SELF_AUDIT with independent review and Lean certification PENDING. The finite exact checks passed; they do not certify the asymptotic rate. No new fixed endpoint gain or RH proof is claimed. Main remained `69aac0441b4df011cf7df3ba115169c3b66d72f5` at the final source refresh; draft #1083's dedicated CI was still pending at the recorded observation. This receipt verifies publication, not completion of that external workflow or another agent's work. Next protected route: NYMAN.
