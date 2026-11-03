@@ -133,7 +133,6 @@ theorem one_branch_discount (a b d : ℝ) (hd : 0 ≤ d) :
   · rw [max_eq_right hab, max_eq_right (by linarith : (0 : ℝ) ≤ b - a)]
     by_cases hmark : b - d ≤ a
     · rw [max_eq_left hmark, min_eq_right (by linarith)]
-      ring
     · have hmark' : a ≤ b - d := le_of_lt (lt_of_not_ge hmark)
       rw [max_eq_right hmark', min_eq_left (by linarith)]
       ring
