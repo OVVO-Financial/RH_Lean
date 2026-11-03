@@ -1261,4 +1261,20 @@ print(json.dumps({"thin_runs": results, "boundary_family": edge_results,
 ~~~
 
 
-Execution closure: COMPLETE at 2026-11-03 08:40 EST (-0500). Final main refresh remained 0ac2bcccfc18d3f37d220b2758b29010a1b538c8. New mathematical results remain PAPER_PROOF / SELF_AUDIT and finite exact certificates; independent review and Lean are PENDING.
+Execution closure: substantive mathematics COMPLETE at 2026-11-03 08:40 EST (-0500). The final refresh found that main had advanced to 0ac2bcccfc18d3f37d220b2758b29010a1b538c8 during this invocation; the verified closure audit below supersedes the intake branch/PR status.
+
+
+### Publication Verification And Latest-Main Closure - 2026-11-03 08:47 EST
+
+This is a status correction and verified publication receipt, not a new mathematical claim. Sections B/K above retain the intake snapshot for chronology. The word "remained" in the earlier closure sentence has been corrected: main advanced during the run.
+
+- Latest actual main, independently returned by the git-ref, branch and main-commit-list reads: **0ac2bcccfc18d3f37d220b2758b29010a1b538c8**, merging #1073 at 2026-11-03 08:14:29 EST. Intake was 8e5d64ae689b39dabd2a4f6eb33efe4d5d192015.
+- Re-fetched at that exact commit: AGENTS.md blob 9fa5e9519e2fb6dde22217aa2a18982dafef373a and CURRENT_PROOF_CONTRACT.md blob 88cddd9cd98c3b55f0b013998541e9b4e9dc9f2a are byte-identical to the instructions read at intake. The recursive tree comparison also confirms that the other authority documents and all original VF arithmetic source files cited in this report are unchanged. Thus O1-O5 retain their original source basis and stated scope.
+- Re-fetched main:research/oai_434/VF919NativeStrictMertens.lean, blob b33a4883e1ddb0551b0f11f062bce46680d87450, byte-identical to the #1073 head previously read. Its terminal strict Mertens exponent, fixed positive power saving, and complete signed-pair statements are now on main, not merely PR-head evidence. This is an upstream promotion, not a result of today's Owner work and not a proof of the canonical VF endpoint.
+- GitHub returned 11 push workflows for this exact main commit, all completed successfully. The relevant Original OAI GaussianSubset to RHLean NNS typecheck run is 41642582431; Lean source audits is 41642582330. No local Lean execution or CI launch was performed. No claim is made that CI alone replaces independent mathematical review.
+- PR #1074 merged at 08:22:23 EST and #1075 at 08:22:43 EST, both into agent/lean-verification/finite-slot-reflected-gain-20261102, NOT into main. Their merge commits are 18de4861b324a5139922879ebce3062d589c58d2 and 902d9cc2001413a6376e0bf1fe2e5ebfdfcc7fd4. Do not infer main inclusion from their closed/merged status.
+- PR #1076 remains open against that proof branch, now at head 9041df50518bd63f250bf701f849903e27d816b2. The earlier source/CI observations above apply only to its then-observed f676c9b13960f8c80b68bdf35a5f04b07370e228 head; the newer head was not independently re-audited in this invocation. No acceptance or green-CI claim is transferred to it.
+- The substantive report was published in commit **f23680751966ab0da5f2831a147b2d399dfadb77**, blob **ba0d7343e202d26c7f779977e9f4fc640744a3ce**. Commit inspection showed exactly one changed file, this authorized daily Owner report. Re-fetch matched the submitted content exactly, including the preserved earlier report/checkpoint and the complete executed reproducer.
+- Before this receipt update, the same current blob was freshly re-fetched and matched exactly. The receipt commit itself is checked after publication; its result is not presupposed here.
+
+Final disposition: PAPER_PROOF / SELF_AUDIT plus FINITE_COMPUTATION and scoped REFUTED mechanisms; independent review and Lean formalization of O1-O5 remain PENDING. Canonical VF endpoint gain remains UNKNOWN. Next protected Owner route remains JOH. No other repository file, proof branch, PR, schedule, workflow or permission was changed by this execution.
