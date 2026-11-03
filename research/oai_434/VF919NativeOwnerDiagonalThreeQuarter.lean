@@ -126,6 +126,25 @@ theorem native_owner_diagonal_seven_eighths_paid
             dsimp [C]
             nlinarith
 
+/-- A genuinely ONE-SIDED automatic signed restriction: the negative
+original owner covariance is already no larger in magnitude than the
+source-paid R^(11/4+epsilon) diagonal. Only the positive gamma tail can
+ever obstruct the proposed R^3 envelope. This uses the exact complete
+signed owner identity, not a statistical assumption or dropped sector. -/
+theorem native_owner_gamma_negative_seven_eighths_paid
+    (ε : ℝ) (hε : 0 < ε) :
+    ∃ C : ℝ, 0 < C ∧ ∀ R : ℕ, 2 ≤ R →
+      -(C * (R : ℝ) ^ ((11 : ℝ) / 4 + ε)) ≤
+        fullOwnerGamma R := by
+  obtain ⟨C, hC, hdiag⟩ := native_owner_diagonal_seven_eighths_paid ε hε
+  refine ⟨C, hC, ?_⟩
+  intro R hR
+  have hnorm := mertens_norm_sq_eq_diagonal_add_gamma R hR
+  have hnonneg :
+      0 ≤ ‖RHLean.Analysis.mertensSummatory
+        (RHLean.Proof.squareRootEndpoint R)‖ ^ 2 := sq_nonneg _
+  linarith [hdiag R hR]
+
 /-- The original exact positive-part decomposition: once the diagonal
 is paid, the only possible R^3 obstruction is the *positive* part
 of the complete signed owner source, never its negative excursions. -/
@@ -137,6 +156,7 @@ theorem native_owner_energy_le_diagonal_add_positive_gamma
   exact add_le_add_left (le_max_right _ _) _
 
 #print axioms native_owner_diagonal_seven_eighths_paid
+#print axioms native_owner_gamma_negative_seven_eighths_paid
 #print axioms native_owner_energy_le_diagonal_add_positive_gamma
 
 end RHLean.Analysis.OwnerPrefix
