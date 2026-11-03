@@ -159,6 +159,15 @@ def main() -> None:
         if text.count('a≤s.re ∧') != expected_zero_comparisons:
             raise ValueError(f'{name}: unexpected real-zero comparison inventory')
         text = text.replace('a≤s.re ∧', 'a ≤ s.re ∧')
+        # The token `≤saving` is parsed as mathlib's graph `≤s`
+        # operator followed by "aving", not a real inequality.
+        required_saving_comparisons = {
+            'VF919AnchoredHighTransport': 2,
+            'VF919AnchoredHighAssembly': 1,
+        }.get(name, 0)
+        if text.count('≤saving') != required_saving_comparisons:
+            raise ValueError(f'{name}: unexpected saving comparison inventory')
+        text = text.replace('≤saving', ' ≤ saving')
         text = pattern.sub(lambda match: mapping[match[0]], text)
         imports = {
             'VF919AnchoredSmallTail': imp('VF919NativeSevenEighthsReplay'),
