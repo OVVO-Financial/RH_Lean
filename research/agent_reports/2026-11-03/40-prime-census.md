@@ -935,3 +935,10 @@ for R in [121, 122, 123]:
     print(json.dumps(dict(R=R, p=p, eligible=eligible, admitted=admitted,
                           admitted_mass=str(Fraction(sum(a for _, a in eligible),p)) if admitted else "0")))
 ```
+
+### Publication Verification - 2026-11-03 03:41 EST (-0500)
+
+The substantive report was published in commit `1af7bfed13dc90007e5e972b4658ddbcf43fcd83` on agent-reports. Re-fetching the exact committed report returned blob `bfe32dfc58f5b7a052f978c5006684f3929e0fa5`, 52,471 characters, identical to the submitted text. Commit inspection confirmed that only `research/agent_reports/2026-11-03/40-prime-census.md` changed. The early checkpoint was preserved.
+
+Local validation checked all exact integer summary values against the executed outputs, all four embedded source files byte-for-byte and by SHA256, A-N report structure, balanced code fences, ASCII and unintended control characters. All checks passed. This receipt changes publication state only; independent review and formal proof statuses remain as stated above.
+
