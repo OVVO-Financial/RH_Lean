@@ -1,4 +1,5 @@
 import «research.oai_434.VF919NativeSourceMoments»
+import «research.oai_434.VF919ActualSlotMinRetighten»
 import «research.oai_434.VF919TiltedProbe»
 import OAI.NumberTheory.DirichletL.Hecke.DetectorBranchBudget
 
@@ -32,6 +33,30 @@ namespace RHLean.Analysis.OAIOriginalGainAudit
 
 open OAI.SevenEighths
 open HeckeDetectorBranchBudget
+
+/-- Fixed OAI physical slot mass is exactly 1/6. The actual least
+positive slot cannot exceed the total available mass. -/
+theorem true_slot_min_le_sixth {Delta : ℝ}
+    (D : OAI.SevenEighths.Parameters.HighData Delta) :
+    OAI.SevenEighths.RHLeanActualSlotMin.actualSlotMinimum D ≤ 1 / 6 := by
+  open OAI.SevenEighths.RHLeanActualSlotMin in
+  have hmin :
+      D.ell (leastSlotIndex D) ≤ ∑ i, D.ell i :=
+    Finset.single_le_sum
+      (fun i _ => (D.slots_bounds i).1.le)
+      (Finset.mem_univ (leastSlotIndex D))
+  rw [D.slots_sum] at hmin
+  exact hmin
+
+/-- The TRUE original 24-to-1 LOW slot-charge gate has a hard limit.
+Repeatedly reusing the same finite physical source cannot accumulate
+a tilt of 3/8: its entire certified tilt is <=1/144. -/
+theorem slot_geometry_cannot_cover_RH_gap {Delta : ℝ}
+    (D : OAI.SevenEighths.Parameters.HighData Delta) :
+    OAI.SevenEighths.RHLeanActualSlotMin.actualSlotMinimum D / 24 ≤
+      (1 / 144 : ℝ) := by
+  have h := true_slot_min_le_sixth D
+  linarith only [h]
 
 /-- Signal minus LOW at the UNTILTED original exponent. At initial
 beta=1 the difference is 1/8. It closes at beta=7/8. -/
@@ -137,6 +162,8 @@ theorem marked_discount_pos_iff
     rw [hz]
     exact lt_min (by linarith) (by linarith)
 
+#print axioms true_slot_min_le_sixth
+#print axioms slot_geometry_cannot_cover_RH_gap
 #print axioms original_initial_gap
 #print axioms physical_slot_tilt_reinvested_gap
 #print axioms common_count_loss_half_t
