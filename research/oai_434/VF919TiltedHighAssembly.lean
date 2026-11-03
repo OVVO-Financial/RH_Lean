@@ -173,7 +173,7 @@ theorem fixed_tilted_high_bound (hβ : (7/8:ℝ)≤HeckeZeroSupremum.beta)
     (heps : ((D.N:ℝ)+8)*D.eps≤D.t) (F : SourceData D)
     (counts : CountParameters F.modulus ⊤ D.t) (τ : ℝ)
     (hτ : 0<τ) (hτd : τ<(1/200:ℝ)/2) (hτcost : 4*τ<(1/200:ℝ)*D.cost)
-    (hτt : τ<D.t) (hτ2 : 2*τ≤D.t) (hτeps : τ*(2+4*D.eps)<D.t) :
+    (_hτt : τ<D.t) (hτ2 : 2*τ≤D.t) (hτeps : τ*(2+4*D.eps)<D.t) :
     ∃C : ℝ,0<C ∧ ∀η : Character,∃Ct : ℝ,0<Ct ∧ ∀ᶠZ : ℝ in atTop,
       ∀C0 : ℝ,0≤C0 → SourceMomentBound F counts η Z τ (C0*Z^D.t) (Z^(2*τ)) →
       ‖F.tiltedProbe (D.e/48) η Z-HeckeSignal.signal (η.excludePrimes F.S F.exclusions.prime)
