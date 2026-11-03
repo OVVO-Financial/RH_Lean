@@ -65,13 +65,18 @@ theorem native_slot_tilt_signed_energy :
       (mul_nonneg hC (Real.rpow_nonneg (Nat.cast_nonneg x) _))).mpr (hbound x hx)
   rw [vf919_mertens_sq_eq_signedPair] at hsquare
   apply hsquare.trans_eq
-  rw [mul_pow, ← Real.rpow_mul_natCast hxpos.le]
+  rw [mul_pow]
+  simp only [Real.rpow_eq_pow]
+  rw [← Real.rpow_mul_natCast hxpos.le (7/8-slotTilt D+eps/2) 2]
   congr 2; ring
 
 #check native_slot_tilt_growth_exponent
 #print axioms native_slot_tilt_growth_exponent
 #check native_slot_tilt_fixed_power
 #print axioms native_slot_tilt_fixed_power
+#check native_slot_tilt_signed_pairs
 #print axioms native_slot_tilt_signed_pairs
+#check native_slot_tilt_signed_energy
 #print axioms native_slot_tilt_signed_energy
 end RHLean.Analysis
+
