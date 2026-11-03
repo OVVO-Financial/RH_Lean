@@ -21,11 +21,11 @@ theorem native_zeta_zero_re_le_hecke_beta {ρ : ℂ} (hρ : NontrivialZetaZero �
   have h0 : ρ≠0 := by
     intro h
     have hh := hρ.2.1
-    simpa only [h,Complex.zero_re,lt_self_iff_false] using hh
+    simp only [h,Complex.zero_re,lt_self_iff_false] at hh
   have h1 : ρ≠1 := by
     intro h
     have hh := hρ.2.2
-    simpa only [h,Complex.one_re,lt_self_iff_false] using hh
+    simp only [h,Complex.one_re,lt_self_iff_false] at hh
   have hproduct := HeckeDirichlet.LFunction_eq_dirichlet_product
     (1 : DirichletCharacter ℂ 1) h0 h1
   have hz : HeckeFamily.LFunction
@@ -63,7 +63,7 @@ theorem native_mertens_uniform_strict_gap :
 
 /-- A fixed improved power envelope, after spending half the positive gap. -/
 theorem native_mertens_fixed_strict_power :
-    ∃gap : ℝ,0<gap ∧ MertensPowerBound (7/8-gap) := by
+    ∃gap : ℝ,0<gap ∧ MertensExponent.MertensPowerBound (7/8-gap) := by
   obtain ⟨gap,hgap,hgrowth⟩ := native_mertens_uniform_strict_gap
   refine ⟨gap/2,by positivity,?_⟩
   convert hgrowth (gap/2) (by positivity) using 1; ring
