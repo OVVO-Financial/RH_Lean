@@ -115,15 +115,12 @@ theorem actual_low_tuple_polynomial_sq_eq_signed_gram
   have heq := actual_low_tuple_polynomial_eq_sum_atoms
     eta S hS hbad W0 W1 a0 b0 a1 b1 ha0 ha1
     hW0 hW1 hWs slots hslots J W P X Y T t hX hY hT
-  calc
-    _ = ‖∑ a : LowUnselectedTuple slots J,
-        actualUnselectedLowAtom eta S hS W0 W1 a0 b0 a1 b1
-          slots J W P X Y T t a‖ ^ 2 :=
-      congrArg (fun z : ℂ => ‖z‖ ^ 2) heq
-    _ = _ := resonant_norm_sq_sum_eq_diagonal_plus_off
-      (Finset.univ : Finset (LowUnselectedTuple slots J))
-      (actualUnselectedLowAtom eta S hS W0 W1 a0 b0 a1 b1
-        slots J W P X Y T t)
+  have hnorm := congrArg (fun z : ℂ => ‖z‖ ^ 2) heq
+  have hgram := resonant_norm_sq_sum_eq_diagonal_plus_off
+    (Finset.univ : Finset (LowUnselectedTuple slots J))
+    (actualUnselectedLowAtom eta S hS W0 W1 a0 b0 a1 b1
+      slots J W P X Y T t)
+  exact hnorm.trans hgram
 
 /-- LITERAL NNS UPM/Co source on a singleton original LOW probe
 row. Original ideal, character and Fourier weights remain in the atom. -/
@@ -194,7 +191,18 @@ theorem actual_low_NNS_co_minus_div_eq_normSq
     (Finset.univ : Finset (LowUnselectedTuple slots J))
     (fun a : LowUnselectedTuple slots J => a) f (fun _ => 1)
   rw [← hGram] at hNNS
-  simpa [actualLowNNSCo, actualLowNNSDiv, f] using hNNS
+  change (vf919WeightedPhiCoMass (Finset.univ : Finset Unit)
+        (Finset.univ : Finset (LowUnselectedTuple slots J))
+        (fun _ => 1)
+        (fun _ a => (stableFarComplexToRealPair (f () a)).1)
+        (fun _ a => (stableFarComplexToRealPair (f () a)).2)) -
+      (vf919WeightedPhiDivMass (Finset.univ : Finset Unit)
+        (Finset.univ : Finset (LowUnselectedTuple slots J))
+        (fun _ => 1)
+        (fun _ a => (stableFarComplexToRealPair (f () a)).1)
+        (fun _ a => (stableFarComplexToRealPair (f () a)).2)) =
+      ‖∑ a : LowUnselectedTuple slots J, f () a‖ ^ 2
+  simpa [f] using hNNS
 
 #print axioms actual_low_tuple_polynomial_eq_sum_atoms
 #print axioms actual_low_tuple_polynomial_sq_eq_signed_gram
