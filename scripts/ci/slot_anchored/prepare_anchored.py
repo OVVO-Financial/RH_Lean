@@ -170,7 +170,9 @@ def main() -> None:
         text = text.replace('≤saving', ' ≤ saving')
         # Native imports expose several letter-suffixed relation notations.
         # Separate ordinary comparisons from following identifier tokens.
-        text = re.sub(r'([≤<≥>])(?=[^\\W\\d_])', r'\\1 ', text)
+        text = re.sub(r'([≤<≥>])(?=[^\W\d_])', r'\1 ', text)
+        if '\\1 ' in text:
+            raise ValueError(f'{name}: corrupted relation replacement in generated source')
         text = pattern.sub(lambda match: mapping[match[0]], text)
         imports = {
             'VF919AnchoredSmallTail': imp('VF919NativeSevenEighthsReplay'),
