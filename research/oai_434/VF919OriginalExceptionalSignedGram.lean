@@ -19,7 +19,7 @@ open scoped Classical BigOperators ComplexConjugate
 
 namespace SevenEighths.ProbeGramCommon
 open ProbePhysical CanonicalQuadraticSieve CompletedGauss RayFourExpansion
-open ConcreteTraceCRT RHLean.Analysis
+open ConcreteTraceCRT RHLean.Analysis RHLean.Proof
 local notation "Id" => Ideal ActualEisensteinCubic.O
 
 /-- One original common-ideal row, with all ideal divisor coefficients,
